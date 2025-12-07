@@ -285,13 +285,13 @@ id __47__HFActionSetItem__subclass_updateWithOptions___block_invoke_2(uint64_t a
     v3 = [HFActionSetBuilder alloc];
     v4 = [*(a1 + 32) actionSet];
     v5 = [*(a1 + 32) actionSet];
-    v6 = [v5 home];
+    v6 = objc_msgSend_home(v5);
     v7 = [(HFActionSetBuilder *)v3 initWithExistingObject:v4 inHome:v6];
 
     v8 = [[HFActionSetValueSource alloc] initWithActionSetBuilder:v7];
     v9 = [HFServiceActionItem alloc];
     v10 = [*(a1 + 32) actionSet];
-    v11 = [v10 home];
+    v11 = objc_msgSend_home(v10);
     v12 = [*(a1 + 32) serviceLikeItem];
     v13 = [v12 copyWithValueSource:v8];
     v14 = [(HFServiceActionItem *)v9 initWithHome:v11 containingItem:v13];
@@ -352,30 +352,30 @@ id __47__HFActionSetItem__subclass_updateWithOptions___block_invoke_4(uint64_t a
 
 - (id)_mostCommonRoomForActionSet:(id)set
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   setCopy = set;
   rooms = [(HFActionSetItem *)self rooms];
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
-  v6 = [rooms countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v6 = [rooms countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v6)
   {
     v7 = v6;
     v8 = 0;
     v9 = 0;
-    v10 = *v19;
+    v10 = *v18;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v19 != v10)
+        if (*v18 != v10)
         {
           objc_enumerationMutation(rooms);
         }
 
-        v12 = *(*(&v18 + 1) + 8 * i);
+        v12 = *(*(&v17 + 1) + 8 * i);
         v13 = [rooms countForObject:v12];
         if (v13 > v8)
         {
@@ -387,7 +387,7 @@ id __47__HFActionSetItem__subclass_updateWithOptions___block_invoke_4(uint64_t a
         }
       }
 
-      v7 = [rooms countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v7 = [rooms countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v7);
@@ -397,8 +397,6 @@ id __47__HFActionSetItem__subclass_updateWithOptions___block_invoke_4(uint64_t a
   {
     v9 = 0;
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return v9;
 }
@@ -557,37 +555,37 @@ id __131__HFActionSetItem__valuesAtTargetStateForCharacteristics_targetValuesKey
 
 id __131__HFActionSetItem__valuesAtTargetStateForCharacteristics_targetValuesKeyedByCharacteristicIdentifier_valueSource_actionSet_logger___block_invoke_2(uint64_t a1, void *a2)
 {
-  v51 = *MEMORY[0x277D85DE8];
+  v50 = *MEMORY[0x277D85DE8];
+  v37 = 0u;
   v38 = 0u;
   v39 = 0u;
   v40 = 0u;
-  v41 = 0u;
-  v35 = a2;
-  obj = [v35 allCharacteristics];
-  v36 = [obj countByEnumeratingWithState:&v38 objects:v50 count:16];
-  if (!v36)
+  v34 = a2;
+  obj = [v34 allCharacteristics];
+  v35 = [obj countByEnumeratingWithState:&v37 objects:v49 count:16];
+  if (!v35)
   {
-    v33 = 0;
+    v32 = 0;
     goto LABEL_25;
   }
 
-  v33 = 0;
-  v34 = *v39;
+  v32 = 0;
+  v33 = *v38;
   *&v3 = 138413058;
-  v31 = v3;
+  v30 = v3;
   do
   {
     v4 = 0;
     do
     {
-      if (*v39 != v34)
+      if (*v38 != v33)
       {
         objc_enumerationMutation(obj);
       }
 
-      v5 = *(*(&v38 + 1) + 8 * v4);
+      v5 = *(*(&v37 + 1) + 8 * v4);
       v6 = [v5 characteristicType];
-      v7 = [v35 responseForCharacteristicType:v6];
+      v7 = [v34 responseForCharacteristicType:v6];
       v8 = [v7 value];
 
       v9 = *(a1 + 32);
@@ -620,7 +618,7 @@ id __131__HFActionSetItem__valuesAtTargetStateForCharacteristics_targetValuesKey
 
       if (v12)
       {
-        ++v33;
+        ++v32;
         goto LABEL_17;
       }
 
@@ -640,14 +638,14 @@ LABEL_12:
           {
             v20 = [*(a1 + 48) name];
             v21 = [v5 hf_prettyDescription];
-            *buf = v31;
-            v43 = v20;
-            v44 = 2112;
-            v45 = v11;
-            v46 = 2112;
-            v47 = v8;
-            v48 = 2112;
-            v49 = v21;
+            *buf = v30;
+            v42 = v20;
+            v43 = 2112;
+            v44 = v11;
+            v45 = 2112;
+            v46 = v8;
+            v47 = 2112;
+            v48 = v21;
             _os_log_impl(&dword_20D9BF000, v19, OS_LOG_TYPE_DEFAULT, "Action set %@ isn't on because targetValue = %@, but readValue = %@ for characteristic %@", buf, 0x2Au);
           }
 
@@ -661,14 +659,14 @@ LABEL_12:
           {
             v23 = [*(a1 + 48) name];
             v24 = [v5 hf_prettyDescription];
-            *buf = v31;
-            v43 = v23;
-            v44 = 2112;
-            v45 = v11;
-            v46 = 2112;
-            v47 = v8;
-            v48 = 2112;
-            v49 = v24;
+            *buf = v30;
+            v42 = v23;
+            v43 = 2112;
+            v44 = v11;
+            v45 = 2112;
+            v46 = v8;
+            v47 = 2112;
+            v48 = v24;
             _os_log_impl(&dword_20D9BF000, v22, OS_LOG_TYPE_DEFAULT, "Action set %@ isn't on because targetValue = %@, but readValue = %@ for characteristic %@", buf, 0x2Au);
           }
         }
@@ -679,19 +677,17 @@ LABEL_17:
       ++v4;
     }
 
-    while (v36 != v4);
-    v25 = [obj countByEnumeratingWithState:&v38 objects:v50 count:16];
-    v36 = v25;
+    while (v35 != v4);
+    v25 = [obj countByEnumeratingWithState:&v37 objects:v49 count:16];
+    v35 = v25;
   }
 
   while (v25);
 LABEL_25:
 
   v26 = MEMORY[0x277D2C900];
-  v27 = [MEMORY[0x277CCABB0] numberWithInteger:v33];
+  v27 = [MEMORY[0x277CCABB0] numberWithInteger:v32];
   v28 = [v26 futureWithResult:v27];
-
-  v29 = *MEMORY[0x277D85DE8];
 
   return v28;
 }
@@ -757,7 +753,7 @@ id __128__HFActionSetItem__valuesAtTargetStateForMediaActions_targetValuesKeyedB
 
 void __128__HFActionSetItem__valuesAtTargetStateForMediaActions_targetValuesKeyedByCharacteristicIdentifier_valueSource_actionSet_logger___block_invoke_3(uint64_t a1, void *a2)
 {
-  v97 = *MEMORY[0x277D85DE8];
+  v95 = *MEMORY[0x277D85DE8];
   v3 = *(a1 + 32);
   v4 = a2;
   v5 = [v3 mediaSession];
@@ -765,7 +761,7 @@ void __128__HFActionSetItem__valuesAtTargetStateForMediaActions_targetValuesKeye
   if (v6)
   {
     v7 = [v6 loggerActivity];
-    os_activity_scope_enter(v7, &v84);
+    os_activity_scope_enter(v7, &v82);
 
     v8 = HFLogForCategory(0x2CuLL);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
@@ -773,31 +769,31 @@ void __128__HFActionSetItem__valuesAtTargetStateForMediaActions_targetValuesKeye
       v9 = [*(a1 + 48) name];
       v10 = [*(a1 + 32) hf_displayName];
       *buf = 138412802;
-      v86 = v9;
+      v84 = v9;
+      v85 = 2112;
+      v86 = v10;
       v87 = 2112;
-      v88 = v10;
-      v89 = 2112;
-      v90 = v5;
+      v88 = v5;
       _os_log_impl(&dword_20D9BF000, v8, OS_LOG_TYPE_DEFAULT, "Action set %@ media profile %@ media session %@", buf, 0x20u);
     }
 
-    os_activity_scope_leave(&v84);
+    os_activity_scope_leave(&v82);
   }
 
   else
   {
-    v66 = HFLogForCategory(0x2CuLL);
-    if (os_log_type_enabled(v66, OS_LOG_TYPE_DEFAULT))
+    v64 = HFLogForCategory(0x2CuLL);
+    if (os_log_type_enabled(v64, OS_LOG_TYPE_DEFAULT))
     {
-      v67 = [*(a1 + 48) name];
-      v68 = [*(a1 + 32) hf_displayName];
+      v65 = [*(a1 + 48) name];
+      v66 = [*(a1 + 32) hf_displayName];
       *buf = 138412802;
-      v86 = v67;
+      v84 = v65;
+      v85 = 2112;
+      v86 = v66;
       v87 = 2112;
-      v88 = v68;
-      v89 = 2112;
-      v90 = v5;
-      _os_log_impl(&dword_20D9BF000, v66, OS_LOG_TYPE_DEFAULT, "Action set %@ media profile %@ media session %@", buf, 0x20u);
+      v88 = v5;
+      _os_log_impl(&dword_20D9BF000, v64, OS_LOG_TYPE_DEFAULT, "Action set %@ media profile %@ media session %@", buf, 0x20u);
     }
   }
 
@@ -810,66 +806,65 @@ void __128__HFActionSetItem__valuesAtTargetStateForMediaActions_targetValuesKeye
     [v13 volume];
     v14 = [v12 numberWithFloat:?];
 
-    v15 = *(a1 + 64);
-    v16 = objc_opt_class();
-    v17 = MEMORY[0x277CCABB0];
-    v18 = [*(a1 + 56) volume];
-    [v18 floatValue];
-    *&v20 = v19 / 100.0;
-    v21 = [v17 numberWithFloat:v20];
-    LOBYTE(v16) = [v16 _value:v21 isApproximatelyEqualToValue:v14 forMinimumValue:&unk_282525930 maximumValue:&unk_282525940];
+    v15 = objc_opt_class();
+    v16 = MEMORY[0x277CCABB0];
+    v17 = [*(a1 + 56) volume];
+    [v17 floatValue];
+    *&v19 = v18 / 100.0;
+    v20 = [v16 numberWithFloat:v19];
+    LOBYTE(v15) = [v15 _value:v20 isApproximatelyEqualToValue:v14 forMinimumValue:&unk_282525930 maximumValue:&unk_282525940];
 
-    if ((v16 & 1) == 0)
+    if ((v15 & 1) == 0)
     {
-      v35 = *(a1 + 40);
-      if (v35)
+      v34 = *(a1 + 40);
+      if (v34)
       {
-        v36 = [v35 loggerActivity];
-        os_activity_scope_enter(v36, &v84);
+        v35 = [v34 loggerActivity];
+        os_activity_scope_enter(v35, &v82);
 
-        v37 = HFLogForCategory(0x2CuLL);
-        if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
+        v36 = HFLogForCategory(0x2CuLL);
+        if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
         {
-          v38 = [*(a1 + 48) name];
-          v39 = [*(a1 + 32) hf_displayName];
-          v40 = [*(a1 + 56) volume];
+          v37 = [*(a1 + 48) name];
+          v38 = [*(a1 + 32) hf_displayName];
+          v39 = [*(a1 + 56) volume];
           *buf = 138413314;
+          v84 = v37;
+          v85 = 2112;
           v86 = v38;
           v87 = 2112;
-          v88 = v39;
+          v88 = v5;
           v89 = 2112;
-          v90 = v5;
+          v90 = v39;
           v91 = 2112;
-          v92 = v40;
-          v93 = 2112;
-          v94 = v14;
-          _os_log_impl(&dword_20D9BF000, v37, OS_LOG_TYPE_DEFAULT, "Action set %@ media profile %@ media session %@ volume doesn't match (%@, %@)", buf, 0x34u);
+          v92 = v14;
+          _os_log_impl(&dword_20D9BF000, v36, OS_LOG_TYPE_DEFAULT, "Action set %@ media profile %@ media session %@ volume doesn't match (%@, %@)", buf, 0x34u);
         }
 
-        os_activity_scope_leave(&v84);
+        os_activity_scope_leave(&v82);
         goto LABEL_24;
       }
 
-      v69 = HFLogForCategory(0x2CuLL);
-      if (!os_log_type_enabled(v69, OS_LOG_TYPE_DEFAULT))
+      v67 = HFLogForCategory(0x2CuLL);
+      if (!os_log_type_enabled(v67, OS_LOG_TYPE_DEFAULT))
       {
         goto LABEL_54;
       }
 
-      v70 = [*(a1 + 48) name];
-      v73 = [*(a1 + 32) hf_displayName];
-      v74 = [*(a1 + 56) volume];
+      v68 = [*(a1 + 48) name];
+      v71 = [*(a1 + 32) hf_displayName];
+      v72 = [*(a1 + 56) volume];
       *buf = 138413314;
-      v86 = v70;
+      v84 = v68;
+      v85 = 2112;
+      v86 = v71;
       v87 = 2112;
-      v88 = v73;
+      v88 = v5;
       v89 = 2112;
-      v90 = v5;
+      v90 = v72;
       v91 = 2112;
-      v92 = v74;
-      v93 = 2112;
-      v94 = v14;
-      _os_log_impl(&dword_20D9BF000, v69, OS_LOG_TYPE_DEFAULT, "Action set %@ media profile %@ media session %@ volume doesn't match (%@, %@)", buf, 0x34u);
+      v92 = v14;
+      _os_log_impl(&dword_20D9BF000, v67, OS_LOG_TYPE_DEFAULT, "Action set %@ media profile %@ media session %@ volume doesn't match (%@, %@)", buf, 0x34u);
 
       goto LABEL_52;
     }
@@ -880,8 +875,8 @@ void __128__HFActionSetItem__valuesAtTargetStateForMediaActions_targetValuesKeye
     goto LABEL_19;
   }
 
-  v22 = [*(a1 + 56) state];
-  if (v22 == 1)
+  v21 = [*(a1 + 56) state];
+  if (v21 == 1)
   {
     if ([v5 playbackState] == 1)
     {
@@ -889,37 +884,37 @@ void __128__HFActionSetItem__valuesAtTargetStateForMediaActions_targetValuesKeye
     }
 
 LABEL_26:
-    v41 = *(a1 + 40);
-    if (v41)
+    v40 = *(a1 + 40);
+    if (v40)
     {
-      v42 = [v41 loggerActivity];
-      os_activity_scope_enter(v42, &v84);
+      v41 = [v40 loggerActivity];
+      os_activity_scope_enter(v41, &v82);
 
-      v43 = HFLogForCategory(0x2CuLL);
-      if (!os_log_type_enabled(v43, OS_LOG_TYPE_DEFAULT))
+      v42 = HFLogForCategory(0x2CuLL);
+      if (!os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
       {
 LABEL_30:
 
 LABEL_31:
-        os_activity_scope_leave(&v84);
+        os_activity_scope_leave(&v82);
         goto LABEL_32;
       }
 
-      v44 = [*(a1 + 48) name];
-      v45 = [*(a1 + 32) hf_displayName];
-      v46 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(*(a1 + 56), "state")}];
-      v47 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(v5, "playbackState")}];
+      v43 = [*(a1 + 48) name];
+      v44 = [*(a1 + 32) hf_displayName];
+      v45 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(*(a1 + 56), "state")}];
+      v46 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(v5, "playbackState")}];
       *buf = 138413314;
+      v84 = v43;
+      v85 = 2112;
       v86 = v44;
       v87 = 2112;
-      v88 = v45;
+      v88 = v5;
       v89 = 2112;
-      v90 = v5;
+      v90 = v45;
       v91 = 2112;
       v92 = v46;
-      v93 = 2112;
-      v94 = v47;
-      _os_log_impl(&dword_20D9BF000, v43, OS_LOG_TYPE_DEFAULT, "Action set %@ media profile %@ media session %@ playback state doesn't match (%@, %@)", buf, 0x34u);
+      _os_log_impl(&dword_20D9BF000, v42, OS_LOG_TYPE_DEFAULT, "Action set %@ media profile %@ media session %@ playback state doesn't match (%@, %@)", buf, 0x34u);
 
 LABEL_29:
       goto LABEL_30;
@@ -928,20 +923,20 @@ LABEL_29:
     v14 = HFLogForCategory(0x2CuLL);
     if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
-      v69 = [*(a1 + 48) name];
-      v70 = [*(a1 + 32) hf_displayName];
-      v71 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(*(a1 + 56), "state")}];
-      v72 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(v5, "playbackState")}];
+      v67 = [*(a1 + 48) name];
+      v68 = [*(a1 + 32) hf_displayName];
+      v69 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(*(a1 + 56), "state")}];
+      v70 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(v5, "playbackState")}];
       *buf = 138413314;
-      v86 = v69;
+      v84 = v67;
+      v85 = 2112;
+      v86 = v68;
       v87 = 2112;
-      v88 = v70;
+      v88 = v5;
       v89 = 2112;
-      v90 = v5;
+      v90 = v69;
       v91 = 2112;
-      v92 = v71;
-      v93 = 2112;
-      v94 = v72;
+      v92 = v70;
       _os_log_impl(&dword_20D9BF000, v14, OS_LOG_TYPE_DEFAULT, "Action set %@ media profile %@ media session %@ playback state doesn't match (%@, %@)", buf, 0x34u);
 
 LABEL_53:
@@ -953,118 +948,118 @@ LABEL_54:
     goto LABEL_24;
   }
 
-  if (v22 != 2 || [v5 playbackState] == 1 || !objc_msgSend(v5, "playbackState"))
+  if (v21 != 2 || [v5 playbackState] == 1 || !objc_msgSend(v5, "playbackState"))
   {
     goto LABEL_26;
   }
 
 LABEL_13:
-  v23 = [*(a1 + 56) playbackArchive];
+  v22 = [*(a1 + 56) playbackArchive];
 
-  if (v23)
+  if (v22)
   {
-    v24 = [*(a1 + 56) playbackArchive];
-    v25 = [v24 playbackSessionIdentifier];
-    v26 = [v5 mediaUniqueIdentifier];
-    v27 = [v25 isEqualToString:v26];
+    v23 = [*(a1 + 56) playbackArchive];
+    v24 = [v23 playbackSessionIdentifier];
+    v25 = [v5 mediaUniqueIdentifier];
+    v26 = [v24 isEqualToString:v25];
 
-    if (v27)
+    if (v26)
     {
-      v28 = [*(a1 + 56) playbackArchive];
-      v29 = [v28 BOOLValueForOption:1];
+      v27 = [*(a1 + 56) playbackArchive];
+      v28 = [v27 BOOLValueForOption:1];
 
-      v30 = [v5 shuffleState];
-      if ([v5 shuffleState] && ((v29 ^ (v30 == 1)) & 1) != 0)
+      v29 = [v5 shuffleState];
+      if ([v5 shuffleState] && ((v28 ^ (v29 == 1)) & 1) != 0)
       {
-        v31 = [*(a1 + 56) playbackArchive];
-        v32 = [v31 BOOLValueForOption:2];
+        v30 = [*(a1 + 56) playbackArchive];
+        v31 = [v30 BOOLValueForOption:2];
 
-        v33 = [v5 repeatState];
-        if ([v5 repeatState] && ((v32 ^ (v33 == 1)) & 1) != 0)
+        v32 = [v5 repeatState];
+        if ([v5 repeatState] && ((v31 ^ (v32 == 1)) & 1) != 0)
         {
           goto LABEL_19;
         }
 
-        v64 = *(a1 + 40);
-        if (v64)
+        v62 = *(a1 + 40);
+        if (v62)
         {
-          v65 = [v64 loggerActivity];
-          os_activity_scope_enter(v65, &v84);
+          v63 = [v62 loggerActivity];
+          os_activity_scope_enter(v63, &v82);
 
-          v58 = HFLogForCategory(0x2CuLL);
-          if (os_log_type_enabled(v58, OS_LOG_TYPE_DEFAULT))
+          v56 = HFLogForCategory(0x2CuLL);
+          if (os_log_type_enabled(v56, OS_LOG_TYPE_DEFAULT))
           {
-            v59 = [*(a1 + 48) name];
-            v60 = [*(a1 + 32) hf_displayName];
-            v61 = [MEMORY[0x277CCABB0] numberWithBool:v32];
-            v62 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(v5, "repeatState")}];
+            v57 = [*(a1 + 48) name];
+            v58 = [*(a1 + 32) hf_displayName];
+            v59 = [MEMORY[0x277CCABB0] numberWithBool:v31];
+            v60 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(v5, "repeatState")}];
             *buf = 138413314;
-            v86 = v59;
+            v84 = v57;
+            v85 = 2112;
+            v86 = v58;
             v87 = 2112;
-            v88 = v60;
+            v88 = v5;
             v89 = 2112;
-            v90 = v5;
+            v90 = v59;
             v91 = 2112;
-            v92 = v61;
-            v93 = 2112;
-            v94 = v62;
-            v63 = "Action set %@ media profile %@ media session %@ repeat doesn't match (%@, %@)";
+            v92 = v60;
+            v61 = "Action set %@ media profile %@ media session %@ repeat doesn't match (%@, %@)";
             goto LABEL_43;
           }
 
           goto LABEL_44;
         }
 
-        v78 = HFLogForCategory(0x2CuLL);
-        if (os_log_type_enabled(v78, OS_LOG_TYPE_DEFAULT))
+        v76 = HFLogForCategory(0x2CuLL);
+        if (os_log_type_enabled(v76, OS_LOG_TYPE_DEFAULT))
         {
-          v79 = [*(a1 + 48) name];
-          v80 = [*(a1 + 32) hf_displayName];
-          v81 = [MEMORY[0x277CCABB0] numberWithBool:v32];
-          v82 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(v5, "repeatState")}];
+          v77 = [*(a1 + 48) name];
+          v78 = [*(a1 + 32) hf_displayName];
+          v79 = [MEMORY[0x277CCABB0] numberWithBool:v31];
+          v80 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(v5, "repeatState")}];
           *buf = 138413314;
-          v86 = v79;
+          v84 = v77;
+          v85 = 2112;
+          v86 = v78;
           v87 = 2112;
-          v88 = v80;
+          v88 = v5;
           v89 = 2112;
-          v90 = v5;
+          v90 = v79;
           v91 = 2112;
-          v92 = v81;
-          v93 = 2112;
-          v94 = v82;
-          v83 = "Action set %@ media profile %@ media session %@ repeat doesn't match (%@, %@)";
+          v92 = v80;
+          v81 = "Action set %@ media profile %@ media session %@ repeat doesn't match (%@, %@)";
           goto LABEL_61;
         }
       }
 
       else
       {
-        v56 = *(a1 + 40);
-        if (v56)
+        v54 = *(a1 + 40);
+        if (v54)
         {
-          v57 = [v56 loggerActivity];
-          os_activity_scope_enter(v57, &v84);
+          v55 = [v54 loggerActivity];
+          os_activity_scope_enter(v55, &v82);
 
-          v58 = HFLogForCategory(0x2CuLL);
-          if (os_log_type_enabled(v58, OS_LOG_TYPE_DEFAULT))
+          v56 = HFLogForCategory(0x2CuLL);
+          if (os_log_type_enabled(v56, OS_LOG_TYPE_DEFAULT))
           {
-            v59 = [*(a1 + 48) name];
-            v60 = [*(a1 + 32) hf_displayName];
-            v61 = [MEMORY[0x277CCABB0] numberWithBool:v29];
-            v62 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(v5, "shuffleState")}];
+            v57 = [*(a1 + 48) name];
+            v58 = [*(a1 + 32) hf_displayName];
+            v59 = [MEMORY[0x277CCABB0] numberWithBool:v28];
+            v60 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(v5, "shuffleState")}];
             *buf = 138413314;
-            v86 = v59;
+            v84 = v57;
+            v85 = 2112;
+            v86 = v58;
             v87 = 2112;
-            v88 = v60;
+            v88 = v5;
             v89 = 2112;
-            v90 = v5;
+            v90 = v59;
             v91 = 2112;
-            v92 = v61;
-            v93 = 2112;
-            v94 = v62;
-            v63 = "Action set %@ media profile %@ media session %@ shuffle doesn't match (%@, %@)";
+            v92 = v60;
+            v61 = "Action set %@ media profile %@ media session %@ shuffle doesn't match (%@, %@)";
 LABEL_43:
-            _os_log_impl(&dword_20D9BF000, v58, OS_LOG_TYPE_DEFAULT, v63, buf, 0x34u);
+            _os_log_impl(&dword_20D9BF000, v56, OS_LOG_TYPE_DEFAULT, v61, buf, 0x34u);
           }
 
 LABEL_44:
@@ -1072,63 +1067,63 @@ LABEL_44:
           goto LABEL_31;
         }
 
-        v78 = HFLogForCategory(0x2CuLL);
-        if (os_log_type_enabled(v78, OS_LOG_TYPE_DEFAULT))
+        v76 = HFLogForCategory(0x2CuLL);
+        if (os_log_type_enabled(v76, OS_LOG_TYPE_DEFAULT))
         {
-          v79 = [*(a1 + 48) name];
-          v80 = [*(a1 + 32) hf_displayName];
-          v81 = [MEMORY[0x277CCABB0] numberWithBool:v29];
-          v82 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(v5, "shuffleState")}];
+          v77 = [*(a1 + 48) name];
+          v78 = [*(a1 + 32) hf_displayName];
+          v79 = [MEMORY[0x277CCABB0] numberWithBool:v28];
+          v80 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(v5, "shuffleState")}];
           *buf = 138413314;
-          v86 = v79;
+          v84 = v77;
+          v85 = 2112;
+          v86 = v78;
           v87 = 2112;
-          v88 = v80;
+          v88 = v5;
           v89 = 2112;
-          v90 = v5;
+          v90 = v79;
           v91 = 2112;
-          v92 = v81;
-          v93 = 2112;
-          v94 = v82;
-          v83 = "Action set %@ media profile %@ media session %@ shuffle doesn't match (%@, %@)";
+          v92 = v80;
+          v81 = "Action set %@ media profile %@ media session %@ shuffle doesn't match (%@, %@)";
 LABEL_61:
-          _os_log_impl(&dword_20D9BF000, v78, OS_LOG_TYPE_DEFAULT, v83, buf, 0x34u);
+          _os_log_impl(&dword_20D9BF000, v76, OS_LOG_TYPE_DEFAULT, v81, buf, 0x34u);
         }
       }
 
       goto LABEL_32;
     }
 
-    v50 = *(a1 + 40);
-    if (v50)
+    v48 = *(a1 + 40);
+    if (v48)
     {
-      v51 = [v50 loggerActivity];
-      os_activity_scope_enter(v51, &v84);
+      v49 = [v48 loggerActivity];
+      os_activity_scope_enter(v49, &v82);
 
-      v43 = HFLogForCategory(0x2CuLL);
-      if (!os_log_type_enabled(v43, OS_LOG_TYPE_DEFAULT))
+      v42 = HFLogForCategory(0x2CuLL);
+      if (!os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
       {
         goto LABEL_30;
       }
 
-      v44 = [*(a1 + 48) name];
-      v45 = [*(a1 + 32) hf_displayName];
-      v52 = [*(a1 + 56) playbackArchive];
-      v53 = [v52 playbackSessionIdentifier];
-      v54 = [v5 mediaUniqueIdentifier];
-      v55 = [*(a1 + 56) playbackArchive];
+      v43 = [*(a1 + 48) name];
+      v44 = [*(a1 + 32) hf_displayName];
+      v50 = [*(a1 + 56) playbackArchive];
+      v51 = [v50 playbackSessionIdentifier];
+      v52 = [v5 mediaUniqueIdentifier];
+      v53 = [*(a1 + 56) playbackArchive];
       *buf = 138413570;
+      v84 = v43;
+      v85 = 2112;
       v86 = v44;
       v87 = 2112;
-      v88 = v45;
+      v88 = v5;
       v89 = 2112;
-      v90 = v5;
+      v90 = v51;
       v91 = 2112;
-      v92 = v53;
+      v92 = v52;
       v93 = 2112;
-      v94 = v54;
-      v95 = 2112;
-      v96 = v55;
-      _os_log_impl(&dword_20D9BF000, v43, OS_LOG_TYPE_DEFAULT, "Action set %@ media profile %@ media session %@ playback archive doesn't match (%@, %@). mediaAction.playbackArchive %@", buf, 0x3Eu);
+      v94 = v53;
+      _os_log_impl(&dword_20D9BF000, v42, OS_LOG_TYPE_DEFAULT, "Action set %@ media profile %@ media session %@ playback archive doesn't match (%@, %@). mediaAction.playbackArchive %@", buf, 0x3Eu);
 
       goto LABEL_29;
     }
@@ -1136,24 +1131,24 @@ LABEL_61:
     v14 = HFLogForCategory(0x2CuLL);
     if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
-      v69 = [*(a1 + 48) name];
-      v70 = [*(a1 + 32) hf_displayName];
-      v73 = [*(a1 + 56) playbackArchive];
-      v75 = [v73 playbackSessionIdentifier];
-      v76 = [v5 mediaUniqueIdentifier];
-      v77 = [*(a1 + 56) playbackArchive];
+      v67 = [*(a1 + 48) name];
+      v68 = [*(a1 + 32) hf_displayName];
+      v71 = [*(a1 + 56) playbackArchive];
+      v73 = [v71 playbackSessionIdentifier];
+      v74 = [v5 mediaUniqueIdentifier];
+      v75 = [*(a1 + 56) playbackArchive];
       *buf = 138413570;
-      v86 = v69;
+      v84 = v67;
+      v85 = 2112;
+      v86 = v68;
       v87 = 2112;
-      v88 = v70;
+      v88 = v5;
       v89 = 2112;
-      v90 = v5;
+      v90 = v73;
       v91 = 2112;
-      v92 = v75;
+      v92 = v74;
       v93 = 2112;
-      v94 = v76;
-      v95 = 2112;
-      v96 = v77;
+      v94 = v75;
       _os_log_impl(&dword_20D9BF000, v14, OS_LOG_TYPE_DEFAULT, "Action set %@ media profile %@ media session %@ playback archive doesn't match (%@, %@). mediaAction.playbackArchive %@", buf, 0x3Eu);
 
 LABEL_52:
@@ -1163,17 +1158,15 @@ LABEL_52:
 LABEL_24:
 
 LABEL_32:
-    v34 = 0;
+    v33 = 0;
     goto LABEL_33;
   }
 
 LABEL_19:
-  v34 = 1;
+  v33 = 1;
 LABEL_33:
-  v48 = [MEMORY[0x277CCABB0] numberWithBool:v34];
-  [v4 finishWithResult:v48];
-
-  v49 = *MEMORY[0x277D85DE8];
+  v47 = [MEMORY[0x277CCABB0] numberWithBool:v33];
+  [v4 finishWithResult:v47];
 }
 
 + (id)_valuesAtTargetStateForNaturalLightActions:(id)actions valueSource:(id)source
@@ -1220,30 +1213,30 @@ id __74__HFActionSetItem__valuesAtTargetStateForNaturalLightActions_valueSource_
 
 id __56__HFActionSetItem__valuesAtTargetStateForMatterActions___block_invoke(uint64_t a1, void *a2)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   v2 = [a2 commands];
-  v3 = [v2 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v14;
+    v5 = *v13;
     LOBYTE(v6) = 1;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v14 != v5)
+        if (*v13 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
         if (v6)
         {
-          v6 = [*(*(&v13 + 1) + 8 * i) expectedValuesMatchCurrentState];
+          v6 = [*(*(&v12 + 1) + 8 * i) expectedValuesMatchCurrentState];
         }
 
         else
@@ -1252,7 +1245,7 @@ id __56__HFActionSetItem__valuesAtTargetStateForMatterActions___block_invoke(uin
         }
       }
 
-      v4 = [v2 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v4);
@@ -1267,15 +1260,13 @@ id __56__HFActionSetItem__valuesAtTargetStateForMatterActions___block_invoke(uin
   v9 = [MEMORY[0x277CCABB0] numberWithBool:v6];
   v10 = [v8 futureWithResult:v9];
 
-  v11 = *MEMORY[0x277D85DE8];
-
   return v10;
 }
 
 + (id)_primaryStateForActionSet:(id)set valueSource:(id)source logger:(id)logger fastInitialUpdate:(BOOL)update
 {
   updateCopy = update;
-  v84 = *MEMORY[0x277D85DE8];
+  v72 = *MEMORY[0x277D85DE8];
   setCopy = set;
   sourceCopy = source;
   loggerCopy = logger;
@@ -1284,7 +1275,7 @@ id __56__HFActionSetItem__valuesAtTargetStateForMatterActions___block_invoke(uin
     v13 = MEMORY[0x277D2C900];
     v14 = &unk_282525158;
 LABEL_41:
-    v56 = [v13 futureWithResult:v14];
+    v45 = [v13 futureWithResult:v14];
     goto LABEL_44;
   }
 
@@ -1299,20 +1290,20 @@ LABEL_41:
   }
 
   selfCopy = self;
-  v69 = loggerCopy;
-  v70 = sourceCopy;
+  v57 = loggerCopy;
+  v58 = sourceCopy;
   dictionary = [MEMORY[0x277CBEB38] dictionary];
   dictionary2 = [MEMORY[0x277CBEB38] dictionary];
   array = [MEMORY[0x277CBEB18] array];
   array2 = [MEMORY[0x277CBEB18] array];
   [MEMORY[0x277CBEB18] array];
-  v72 = v71 = setCopy;
-  v79 = 0u;
-  v80 = 0u;
-  v81 = 0u;
-  v82 = 0u;
+  v60 = v59 = setCopy;
+  v67 = 0u;
+  v68 = 0u;
+  v69 = 0u;
+  v70 = 0u;
   actions2 = [setCopy actions];
-  v18 = [actions2 countByEnumeratingWithState:&v79 objects:v83 count:16];
+  v18 = [actions2 countByEnumeratingWithState:&v67 objects:v71 count:16];
   if (!v18)
   {
     v20 = 0;
@@ -1321,166 +1312,142 @@ LABEL_41:
 
   v19 = v18;
   v20 = 0;
-  v21 = *v80;
-  v22 = 0x277CD1000uLL;
-  v23 = 0x277CD1000uLL;
-  v24 = 0x277CD1000uLL;
-  v25 = 0x277CD1000uLL;
+  v21 = *v68;
   do
   {
     for (i = 0; i != v19; ++i)
     {
-      if (*v80 != v21)
+      if (*v68 != v21)
       {
         objc_enumerationMutation(actions2);
       }
 
-      v27 = *(*(&v79 + 1) + 8 * i);
-      v28 = *(v22 + 2472);
+      v23 = *(*(&v67 + 1) + 8 * i);
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        v29 = v27;
-        characteristic = [v29 characteristic];
-        service = [characteristic service];
-        uniqueIdentifier = [service uniqueIdentifier];
+        v24 = v23;
+        characteristic = [v24 characteristic];
+        v26 = objc_msgSend_service(characteristic);
+        uniqueIdentifier = [v26 uniqueIdentifier];
 
         if (characteristic)
         {
-          v33 = uniqueIdentifier == 0;
+          v28 = uniqueIdentifier == 0;
         }
 
         else
         {
-          v33 = 1;
+          v28 = 1;
         }
 
-        if (!v33)
+        if (!v28)
         {
-          targetValue = [v29 targetValue];
+          targetValue = [v24 targetValue];
 
           if (targetValue)
           {
-            v77 = [dictionary na_objectForKey:uniqueIdentifier withDefaultValue:&__block_literal_global_114_2];
-            [v77 addObject:characteristic];
-            targetValue2 = [v29 targetValue];
+            v65 = [dictionary na_objectForKey:uniqueIdentifier withDefaultValue:&__block_literal_global_114_2];
+            [v65 addObject:characteristic];
+            targetValue2 = [v24 targetValue];
             [characteristic uniqueIdentifier];
-            v36 = v19;
-            v37 = v21;
-            v38 = v20 + 1;
-            v40 = v39 = actions2;
-            [dictionary2 setObject:targetValue2 forKeyedSubscript:v40];
+            v31 = v19;
+            v32 = v21;
+            v33 = v20 + 1;
+            v35 = v34 = actions2;
+            [dictionary2 setObject:targetValue2 forKeyedSubscript:v35];
 
-            actions2 = v39;
-            v20 = v38;
-            v21 = v37;
-            v19 = v36;
-
-            v22 = 0x277CD1000;
+            actions2 = v34;
+            v20 = v33;
+            v21 = v32;
+            v19 = v31;
           }
         }
-
-        v25 = 0x277CD1000;
-
-        v23 = 0x277CD1000;
-        v24 = 0x277CD1000;
       }
 
       else
       {
-        v41 = *(v23 + 3024);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          v42 = *(v23 + 3024);
           objc_opt_class();
-          v43 = v27;
+          v36 = v23;
           if (objc_opt_isKindOfClass())
           {
-            v44 = v43;
+            v37 = v36;
           }
 
           else
           {
-            v44 = 0;
+            v37 = 0;
           }
 
-          v29 = v44;
+          v24 = v37;
 
-          if ([v29 state] || (objc_msgSend(v29, "volume"), v45 = objc_claimAutoreleasedReturnValue(), v45, v45))
+          if ([v24 state] || (objc_msgSend(v24, "volume"), v38 = objc_claimAutoreleasedReturnValue(), v38, v38))
           {
-            mediaProfiles = [v29 mediaProfiles];
+            mediaProfiles = [v24 mediaProfiles];
             v20 += [mediaProfiles count];
           }
 
-          [array addObject:v29];
-          v24 = 0x277CD1000;
-          v25 = 0x277CD1000;
+          [array addObject:v24];
         }
 
         else
         {
-          v47 = *(v24 + 2848);
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            v48 = *(v24 + 2848);
             objc_opt_class();
-            v49 = v27;
-            v24 = 0x277CD1000;
+            v40 = v23;
             if (objc_opt_isKindOfClass())
             {
-              v50 = v49;
+              v41 = v40;
             }
 
             else
             {
-              v50 = 0;
+              v41 = 0;
             }
 
-            v29 = v50;
+            v24 = v41;
 
-            v25 = 0x277CD1000;
             ++v20;
-            v51 = array2;
+            v42 = array2;
           }
 
           else
           {
-            v52 = *(v25 + 2928);
             objc_opt_class();
             if ((objc_opt_isKindOfClass() & 1) == 0)
             {
               continue;
             }
 
-            v53 = *(v25 + 2928);
             objc_opt_class();
-            v54 = v27;
-            v24 = 0x277CD1000;
+            v43 = v23;
             if (objc_opt_isKindOfClass())
             {
-              v55 = v54;
+              v44 = v43;
             }
 
             else
             {
-              v55 = 0;
+              v44 = 0;
             }
 
-            v29 = v55;
+            v24 = v44;
 
-            v25 = 0x277CD1000;
             ++v20;
-            v51 = v72;
+            v42 = v60;
           }
 
-          [v51 addObject:v29];
+          [v42 addObject:v24];
         }
       }
     }
 
-    v19 = [actions2 countByEnumeratingWithState:&v79 objects:v83 count:16];
+    v19 = [actions2 countByEnumeratingWithState:&v67 objects:v71 count:16];
   }
 
   while (v19);
@@ -1488,61 +1455,60 @@ LABEL_43:
 
   array3 = [MEMORY[0x277CBEB18] array];
   allValues = [dictionary allValues];
-  loggerCopy = v69;
-  sourceCopy = v70;
-  setCopy = v71;
-  v59 = [selfCopy _valuesAtTargetStateForCharacteristics:allValues targetValuesKeyedByCharacteristicIdentifier:dictionary2 valueSource:v70 actionSet:v71 logger:v69];
-  [array3 addObjectsFromArray:v59];
+  loggerCopy = v57;
+  sourceCopy = v58;
+  setCopy = v59;
+  v48 = [selfCopy _valuesAtTargetStateForCharacteristics:allValues targetValuesKeyedByCharacteristicIdentifier:dictionary2 valueSource:v58 actionSet:v59 logger:v57];
+  [array3 addObjectsFromArray:v48];
 
-  v60 = [selfCopy _valuesAtTargetStateForMediaActions:array targetValuesKeyedByCharacteristicIdentifier:dictionary2 valueSource:v70 actionSet:v71 logger:v69];
-  [array3 addObjectsFromArray:v60];
+  v49 = [selfCopy _valuesAtTargetStateForMediaActions:array targetValuesKeyedByCharacteristicIdentifier:dictionary2 valueSource:v58 actionSet:v59 logger:v57];
+  [array3 addObjectsFromArray:v49];
 
-  v61 = [selfCopy _valuesAtTargetStateForNaturalLightActions:array2 valueSource:v70];
-  [array3 addObjectsFromArray:v61];
+  v50 = [selfCopy _valuesAtTargetStateForNaturalLightActions:array2 valueSource:v58];
+  [array3 addObjectsFromArray:v50];
 
-  v62 = [selfCopy _valuesAtTargetStateForMatterActions:v72];
-  [array3 addObjectsFromArray:v62];
+  v51 = [selfCopy _valuesAtTargetStateForMatterActions:v60];
+  [array3 addObjectsFromArray:v51];
 
-  v63 = MEMORY[0x277D2C900];
+  v52 = MEMORY[0x277D2C900];
   immediateScheduler = [MEMORY[0x277D2C938] immediateScheduler];
-  v65 = [v63 combineAllFutures:array3 ignoringErrors:1 scheduler:immediateScheduler];
-  v78[0] = MEMORY[0x277D85DD0];
-  v78[1] = 3221225472;
-  v78[2] = __82__HFActionSetItem__primaryStateForActionSet_valueSource_logger_fastInitialUpdate___block_invoke_2;
-  v78[3] = &__block_descriptor_40_e27___NAFuture_16__0__NSArray_8l;
-  v78[4] = v20;
-  v56 = [v65 flatMap:v78];
+  v54 = [v52 combineAllFutures:array3 ignoringErrors:1 scheduler:immediateScheduler];
+  v66[0] = MEMORY[0x277D85DD0];
+  v66[1] = 3221225472;
+  v66[2] = __82__HFActionSetItem__primaryStateForActionSet_valueSource_logger_fastInitialUpdate___block_invoke_2;
+  v66[3] = &__block_descriptor_40_e27___NAFuture_16__0__NSArray_8l;
+  v66[4] = v20;
+  v45 = [v54 flatMap:v66];
 
 LABEL_44:
-  v66 = *MEMORY[0x277D85DE8];
 
-  return v56;
+  return v45;
 }
 
 id __82__HFActionSetItem__primaryStateForActionSet_valueSource_logger_fastInitialUpdate___block_invoke_2(uint64_t a1, void *a2)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v3 = a2;
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
-  v4 = [v3 countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v4)
   {
     v5 = v4;
     v6 = 0;
-    v7 = *v20;
+    v7 = *v19;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v20 != v7)
+        if (*v19 != v7)
         {
           objc_enumerationMutation(v3);
         }
 
-        v9 = *(*(&v19 + 1) + 8 * i);
+        v9 = *(*(&v18 + 1) + 8 * i);
         objc_opt_class();
         v10 = v9;
         if (objc_opt_isKindOfClass())
@@ -1563,7 +1529,7 @@ id __82__HFActionSetItem__primaryStateForActionSet_valueSource_logger_fastInitia
         }
       }
 
-      v5 = [v3 countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v5);
@@ -1588,141 +1554,131 @@ id __82__HFActionSetItem__primaryStateForActionSet_valueSource_logger_fastInitia
   v15 = [MEMORY[0x277CCABB0] numberWithInteger:v13];
   v16 = [v14 futureWithResult:v15];
 
-  v17 = *MEMORY[0x277D85DE8];
-
   return v16;
 }
 
 - (id)rooms
 {
-  v52 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
   v3 = [MEMORY[0x277CCA940] set];
-  v45 = 0u;
-  v46 = 0u;
-  v47 = 0u;
-  v48 = 0u;
+  v40 = 0u;
+  v41 = 0u;
+  v42 = 0u;
+  v43 = 0u;
   actionSet = [(HFActionSetItem *)self actionSet];
   actions = [actionSet actions];
 
   obj = actions;
-  v6 = [actions countByEnumeratingWithState:&v45 objects:v51 count:16];
+  v6 = [actions countByEnumeratingWithState:&v40 objects:v46 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v46;
-    v9 = 0x277CD1000uLL;
-    v10 = 0x277CD1000uLL;
-    v32 = *v46;
+    v8 = *v41;
+    v27 = *v41;
     do
     {
-      v11 = 0;
-      v33 = v7;
+      v9 = 0;
+      v28 = v7;
       do
       {
-        if (*v46 != v8)
+        if (*v41 != v8)
         {
           objc_enumerationMutation(obj);
         }
 
-        v12 = *(*(&v45 + 1) + 8 * v11);
-        v13 = *(v9 + 2472);
+        v10 = *(*(&v40 + 1) + 8 * v9);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          characteristic = [v12 characteristic];
-          service = [characteristic service];
-          accessory = [service accessory];
+          characteristic = [v10 characteristic];
+          mediaProfiles = objc_msgSend_service(characteristic);
+          accessory = [mediaProfiles accessory];
           room = [accessory room];
           [v3 na_safeAddObject:room];
         }
 
         else
         {
-          v18 = *(v10 + 3024);
           objc_opt_class();
           if ((objc_opt_isKindOfClass() & 1) == 0)
           {
             goto LABEL_25;
           }
 
-          characteristic = v12;
-          v41 = 0u;
-          v42 = 0u;
-          v43 = 0u;
-          v44 = 0u;
-          service = [characteristic mediaProfiles];
-          v19 = [service countByEnumeratingWithState:&v41 objects:v50 count:16];
-          if (v19)
+          characteristic = v10;
+          v36 = 0u;
+          v37 = 0u;
+          v38 = 0u;
+          v39 = 0u;
+          mediaProfiles = [characteristic mediaProfiles];
+          v15 = [mediaProfiles countByEnumeratingWithState:&v36 objects:v45 count:16];
+          if (v15)
           {
-            v20 = v19;
-            v34 = characteristic;
-            v35 = v11;
-            v21 = *v42;
+            v16 = v15;
+            v29 = characteristic;
+            v30 = v9;
+            v17 = *v37;
             do
             {
-              for (i = 0; i != v20; ++i)
+              for (i = 0; i != v16; ++i)
               {
-                if (*v42 != v21)
+                if (*v37 != v17)
                 {
-                  objc_enumerationMutation(service);
+                  objc_enumerationMutation(mediaProfiles);
                 }
 
-                v23 = *(*(&v41 + 1) + 8 * i);
-                v37 = 0u;
-                v38 = 0u;
-                v39 = 0u;
-                v40 = 0u;
-                accessories = [v23 accessories];
-                v25 = [accessories countByEnumeratingWithState:&v37 objects:v49 count:16];
-                if (v25)
+                v19 = *(*(&v36 + 1) + 8 * i);
+                v32 = 0u;
+                v33 = 0u;
+                v34 = 0u;
+                v35 = 0u;
+                accessories = [v19 accessories];
+                v21 = [accessories countByEnumeratingWithState:&v32 objects:v44 count:16];
+                if (v21)
                 {
-                  v26 = v25;
-                  v27 = *v38;
+                  v22 = v21;
+                  v23 = *v33;
                   do
                   {
-                    for (j = 0; j != v26; ++j)
+                    for (j = 0; j != v22; ++j)
                     {
-                      if (*v38 != v27)
+                      if (*v33 != v23)
                       {
                         objc_enumerationMutation(accessories);
                       }
 
-                      room2 = [*(*(&v37 + 1) + 8 * j) room];
+                      room2 = [*(*(&v32 + 1) + 8 * j) room];
                       [v3 na_safeAddObject:room2];
                     }
 
-                    v26 = [accessories countByEnumeratingWithState:&v37 objects:v49 count:16];
+                    v22 = [accessories countByEnumeratingWithState:&v32 objects:v44 count:16];
                   }
 
-                  while (v26);
+                  while (v22);
                 }
               }
 
-              v20 = [service countByEnumeratingWithState:&v41 objects:v50 count:16];
+              v16 = [mediaProfiles countByEnumeratingWithState:&v36 objects:v45 count:16];
             }
 
-            while (v20);
-            v8 = v32;
-            v7 = v33;
-            v9 = 0x277CD1000;
-            v10 = 0x277CD1000;
-            characteristic = v34;
-            v11 = v35;
+            while (v16);
+            v8 = v27;
+            v7 = v28;
+            characteristic = v29;
+            v9 = v30;
           }
         }
 
 LABEL_25:
-        ++v11;
+        ++v9;
       }
 
-      while (v11 != v7);
-      v7 = [obj countByEnumeratingWithState:&v45 objects:v51 count:16];
+      while (v9 != v7);
+      v7 = [obj countByEnumeratingWithState:&v40 objects:v46 count:16];
     }
 
     while (v7);
   }
-
-  v30 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
@@ -1781,33 +1737,33 @@ void __35__HFActionSetItem_executeActionSet__block_invoke(uint64_t a1, void *a2)
 
 - (id)turnOffActionSet
 {
-  v42 = *MEMORY[0x277D85DE8];
-  v30 = [MEMORY[0x277CBEB58] set];
+  v41 = *MEMORY[0x277D85DE8];
+  v29 = [MEMORY[0x277CBEB58] set];
   [MEMORY[0x277CBEB58] set];
-  v29 = v28 = self;
+  v28 = v27 = self;
+  v36 = 0u;
   v37 = 0u;
   v38 = 0u;
   v39 = 0u;
-  v40 = 0u;
   actionSet = [(HFActionSetItem *)self actionSet];
   actions = [actionSet actions];
 
   obj = actions;
-  v5 = [actions countByEnumeratingWithState:&v37 objects:v41 count:16];
+  v5 = [actions countByEnumeratingWithState:&v36 objects:v40 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v38;
+    v7 = *v37;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v38 != v7)
+        if (*v37 != v7)
         {
           objc_enumerationMutation(obj);
         }
 
-        v9 = *(*(&v37 + 1) + 8 * i);
+        v9 = *(*(&v36 + 1) + 8 * i);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
@@ -1822,7 +1778,7 @@ void __35__HFActionSetItem_executeActionSet__block_invoke(uint64_t a1, void *a2)
 
             if (v15)
             {
-              [v30 addObject:characteristic];
+              [v29 addObject:characteristic];
             }
           }
 
@@ -1856,36 +1812,34 @@ void __35__HFActionSetItem_executeActionSet__block_invoke(uint64_t a1, void *a2)
         if ([v10 state] == 1)
         {
           characteristic = [v10 mediaProfiles];
-          [v29 unionSet:characteristic];
+          [v28 unionSet:characteristic];
 LABEL_18:
         }
       }
 
-      v6 = [obj countByEnumeratingWithState:&v37 objects:v41 count:16];
+      v6 = [obj countByEnumeratingWithState:&v36 objects:v40 count:16];
     }
 
     while (v6);
   }
 
-  actionSet2 = [(HFActionSetItem *)v28 actionSet];
-  home = [actionSet2 home];
-  hf_characteristicValueManager = [home hf_characteristicValueManager];
+  actionSet2 = [(HFActionSetItem *)v27 actionSet];
+  v19 = objc_msgSend_home(actionSet2);
+  hf_characteristicValueManager = [v19 hf_characteristicValueManager];
 
   v21 = MEMORY[0x277D2C900];
-  v32[0] = MEMORY[0x277D85DD0];
-  v32[1] = 3221225472;
-  v32[2] = __35__HFActionSetItem_turnOffActionSet__block_invoke;
-  v32[3] = &unk_277DFD1F8;
-  v33 = v30;
-  v34 = v29;
-  v35 = hf_characteristicValueManager;
-  v36 = v28;
+  v31[0] = MEMORY[0x277D85DD0];
+  v31[1] = 3221225472;
+  v31[2] = __35__HFActionSetItem_turnOffActionSet__block_invoke;
+  v31[3] = &unk_277DFD1F8;
+  v32 = v29;
+  v33 = v28;
+  v34 = hf_characteristicValueManager;
+  v35 = v27;
   v22 = hf_characteristicValueManager;
-  v23 = v29;
-  v24 = v30;
-  v25 = [v21 futureWithBlock:v32];
-
-  v26 = *MEMORY[0x277D85DE8];
+  v23 = v28;
+  v24 = v29;
+  v25 = [v21 futureWithBlock:v31];
 
   return v25;
 }
@@ -1949,7 +1903,7 @@ void __35__HFActionSetItem_turnOffActionSet__block_invoke_3(uint64_t a1, void *a
 
 - (id)actionSetOperation:(id)operation errorFromError:(id)error
 {
-  v18[1] = *MEMORY[0x277D85DE8];
+  v17[1] = *MEMORY[0x277D85DE8];
   errorCopy = error;
   if (errorCopy)
   {
@@ -1964,9 +1918,9 @@ void __35__HFActionSetItem_turnOffActionSet__block_invoke_3(uint64_t a1, void *a
 
     if (v12)
     {
-      v17 = @"HFErrorHandlerOptionFailedItemName";
-      v18[0] = v12;
-      v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:&v17 count:1];
+      v16 = @"HFErrorHandlerOptionFailedItemName";
+      v17[0] = v12;
+      v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:&v16 count:1];
       [dictionary setObject:v13 forKeyedSubscript:@"HFErrorUserInfoOptionsKey"];
     }
 
@@ -1977,8 +1931,6 @@ void __35__HFActionSetItem_turnOffActionSet__block_invoke_3(uint64_t a1, void *a
   {
     v14 = 0;
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v14;
 }

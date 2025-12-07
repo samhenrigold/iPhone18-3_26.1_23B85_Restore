@@ -36,45 +36,8 @@
 {
   tupleCopy = tuple;
   v5 = tupleCopy;
-  if (!tupleCopy)
+  if (!tupleCopy || (rowid = self->_rowid, rowid != [tupleCopy rowid]) || (v7 = self->_record == 0, objc_msgSend(v5, "record"), v8 = objc_claimAutoreleasedReturnValue(), v9 = v8 != 0, v8, v7 == v9) || (record = self->_record) != 0 && (objc_msgSend(v5, "record"), v11 = objc_claimAutoreleasedReturnValue(), v12 = -[NSObject isEqual:](record, "isEqual:", v11), v11, !v12) || (v13 = self->_dkUUID == 0, objc_msgSend(v5, "dkUUID"), v14 = objc_claimAutoreleasedReturnValue(), v15 = v14 != 0, v14, v13 == v15))
   {
-    goto LABEL_9;
-  }
-
-  rowid = self->_rowid;
-  if (rowid != [tupleCopy rowid])
-  {
-    goto LABEL_9;
-  }
-
-  v7 = self->_record == 0;
-  record = [v5 record];
-  v9 = record != 0;
-
-  if (v7 == v9)
-  {
-    goto LABEL_9;
-  }
-
-  record = self->_record;
-  if (record)
-  {
-    record2 = [v5 record];
-    v12 = [record isEqual:record2];
-
-    if (!v12)
-    {
-      goto LABEL_9;
-    }
-  }
-
-  v13 = self->_dkUUID == 0;
-  dkUUID = [v5 dkUUID];
-  v15 = dkUUID != 0;
-
-  if (v13 == v15)
-  {
-LABEL_9:
     v18 = 0;
   }
 
@@ -83,8 +46,8 @@ LABEL_9:
     dkUUID = self->_dkUUID;
     if (dkUUID)
     {
-      dkUUID2 = [v5 dkUUID];
-      v18 = [(NSUUID *)dkUUID isEqual:dkUUID2];
+      dkUUID = [v5 dkUUID];
+      v18 = [(NSUUID *)dkUUID isEqual:dkUUID];
     }
 
     else

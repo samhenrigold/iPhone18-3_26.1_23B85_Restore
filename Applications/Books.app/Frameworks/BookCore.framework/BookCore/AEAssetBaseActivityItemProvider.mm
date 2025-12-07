@@ -54,7 +54,7 @@
   if ([title length])
   {
     v9 = [author length];
-    v10 = IMCommonCoreBundle();
+    v10 = IMCommonCoreBundle(v9);
     v11 = v10;
     if (v9)
     {

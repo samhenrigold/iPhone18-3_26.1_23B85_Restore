@@ -10,26 +10,24 @@
 
 - (BOOL)validateOperation
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   contentContext = [(FCUserFacingTagSearchOperation *)self contentContext];
 
   if (!contentContext && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v5 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"tag search operation requires a content context"];
-    v6 = 136315906;
-    v7 = "[FCUserFacingTagSearchOperation validateOperation]";
-    v8 = 2080;
-    v9 = "FCUserFacingTagSearchOperation.m";
-    v10 = 1024;
-    v11 = 32;
-    v12 = 2114;
-    v13 = v5;
-    _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v6, 0x26u);
+    v4 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"tag search operation requires a content context"];
+    v5 = 136315906;
+    v6 = "[FCUserFacingTagSearchOperation validateOperation]";
+    v7 = 2080;
+    v8 = "FCUserFacingTagSearchOperation.m";
+    v9 = 1024;
+    v10 = 32;
+    v11 = 2114;
+    v12 = v4;
+    _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v5, 0x26u);
   }
 
-  result = contentContext != 0;
-  v4 = *MEMORY[0x1E69E9840];
-  return result;
+  return contentContext != 0;
 }
 
 - (void)performOperation

@@ -1063,11 +1063,11 @@ void __69__PKAccountInvitationController_familyMembersForceReload_completion___b
         v12 = [v11 inviteEmail];
         if (v12)
         {
-          v13 = getFAProfilePictureStoreClass[0]();
+          FAProfilePictureStoreClass = getFAProfilePictureStoreClass();
           v14 = [v11 contact];
           v15 = [v11 firstName];
           v16 = [v11 lastName];
-          v17 = [(objc_class *)v13 profilePictureForContact:v14 serverImageData:0 firstName:v15 lastName:v16 diameter:80.0];
+          v17 = [(objc_class *)FAProfilePictureStoreClass profilePictureForContact:v14 serverImageData:0 firstName:v15 lastName:v16 diameter:80.0];
 
           if (v17)
           {

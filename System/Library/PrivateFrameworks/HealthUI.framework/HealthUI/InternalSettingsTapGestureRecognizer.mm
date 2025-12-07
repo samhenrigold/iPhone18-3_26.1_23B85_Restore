@@ -47,7 +47,7 @@
   selfCopy = self;
   v10 = _s8HealthUI36InternalSettingsTapGestureRecognizerC07gestureG0_13shouldReceiveSbSo09UIGestureG0C_So7UITouchCtF_0(recognizerCopy, touchCopy);
 
-  return v10;
+  return v10 & 1;
 }
 
 @end

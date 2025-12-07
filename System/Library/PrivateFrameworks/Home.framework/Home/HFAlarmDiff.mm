@@ -8,7 +8,7 @@
 
 + (id)generateAlarmDiffFromSet:(id)set toSet:(id)toSet
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   setCopy = set;
   toSetCopy = toSet;
   if ([MEMORY[0x277D296D0] hf_areAlarms:setCopy equalToAlarms:? includeModificationDate:?])
@@ -20,36 +20,36 @@
   else
   {
     v7 = objc_opt_new();
-    v32 = objc_opt_new();
-    v29 = objc_opt_new();
+    v31 = objc_opt_new();
+    v28 = objc_opt_new();
     v8 = objc_opt_new();
+    v38 = 0u;
     v39 = 0u;
     v40 = 0u;
     v41 = 0u;
-    v42 = 0u;
-    v28 = setCopy;
+    v27 = setCopy;
     v9 = setCopy;
-    v10 = [v9 countByEnumeratingWithState:&v39 objects:v44 count:16];
+    v10 = [v9 countByEnumeratingWithState:&v38 objects:v43 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v40;
+      v12 = *v39;
       do
       {
         for (i = 0; i != v11; ++i)
         {
-          if (*v40 != v12)
+          if (*v39 != v12)
           {
             objc_enumerationMutation(v9);
           }
 
-          v14 = *(*(&v39 + 1) + 8 * i);
-          v38[0] = MEMORY[0x277D85DD0];
-          v38[1] = 3221225472;
-          v38[2] = __46__HFAlarmDiff_generateAlarmDiffFromSet_toSet___block_invoke;
-          v38[3] = &unk_277DFBFA0;
-          v38[4] = v14;
-          v15 = [toSetCopy na_firstObjectPassingTest:{v38, v28}];
+          v14 = *(*(&v38 + 1) + 8 * i);
+          v37[0] = MEMORY[0x277D85DD0];
+          v37[1] = 3221225472;
+          v37[2] = __46__HFAlarmDiff_generateAlarmDiffFromSet_toSet___block_invoke;
+          v37[3] = &unk_277DFBFA0;
+          v37[4] = v14;
+          v15 = [toSetCopy na_firstObjectPassingTest:{v37, v27}];
           v16 = v7;
           if (v15)
           {
@@ -60,39 +60,39 @@
 
             else
             {
-              v16 = v32;
+              v16 = v31;
             }
           }
 
           [v16 addObject:v14];
         }
 
-        v11 = [v9 countByEnumeratingWithState:&v39 objects:v44 count:16];
+        v11 = [v9 countByEnumeratingWithState:&v38 objects:v43 count:16];
       }
 
       while (v11);
     }
 
-    v36 = 0u;
-    v37 = 0u;
-    v34 = 0u;
     v35 = 0u;
+    v36 = 0u;
+    v33 = 0u;
+    v34 = 0u;
     obj = toSetCopy;
-    v17 = [obj countByEnumeratingWithState:&v34 objects:v43 count:16];
+    v17 = [obj countByEnumeratingWithState:&v33 objects:v42 count:16];
     if (v17)
     {
       v18 = v17;
-      v19 = *v35;
+      v19 = *v34;
       do
       {
         for (j = 0; j != v18; ++j)
         {
-          if (*v35 != v19)
+          if (*v34 != v19)
           {
             objc_enumerationMutation(obj);
           }
 
-          v21 = *(*(&v34 + 1) + 8 * j);
+          v21 = *(*(&v33 + 1) + 8 * j);
           aBlock[0] = MEMORY[0x277D85DD0];
           aBlock[1] = 3221225472;
           aBlock[2] = __46__HFAlarmDiff_generateAlarmDiffFromSet_toSet___block_invoke_2;
@@ -100,15 +100,15 @@
           aBlock[4] = v21;
           v22 = _Block_copy(aBlock);
           v23 = [v7 na_any:v22];
-          v24 = [v32 na_any:v22];
+          v24 = [v31 na_any:v22];
           v25 = [v8 na_any:v22];
           if ((v23 & 1) == 0 && (v24 & 1) == 0 && (v25 & 1) == 0)
           {
-            [v29 addObject:v21];
+            [v28 addObject:v21];
           }
         }
 
-        v18 = [obj countByEnumeratingWithState:&v34 objects:v43 count:16];
+        v18 = [obj countByEnumeratingWithState:&v33 objects:v42 count:16];
       }
 
       while (v18);
@@ -116,14 +116,12 @@
 
     v6 = objc_opt_new();
     [v6 setAddedAlarms:v7];
-    [v6 setDeletedAlarms:v29];
-    [v6 setUpdatedAlarms:v32];
+    [v6 setDeletedAlarms:v28];
+    [v6 setUpdatedAlarms:v31];
     [v6 setUnmodifiedAlarms:v8];
 
-    setCopy = v28;
+    setCopy = v27;
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 
   return v6;
 }

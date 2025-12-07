@@ -9,7 +9,7 @@
   requestCopy = request;
   replyCopy = reply;
   v7 = objc_autoreleasePoolPush();
-  v8 = PPSLogReaderService();
+  v8 = PPSLogReaderService(v7);
   v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG);
   if (requestCopy)
   {

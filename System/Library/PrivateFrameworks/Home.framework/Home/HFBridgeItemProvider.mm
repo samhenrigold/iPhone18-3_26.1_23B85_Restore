@@ -25,8 +25,8 @@
 
 - (id)reloadItems
 {
-  home = [(HFBridgeItemProvider *)self home];
-  hf_allBridgeAccessories = [home hf_allBridgeAccessories];
+  v3 = objc_msgSend_home(self, a2);
+  hf_allBridgeAccessories = [v3 hf_allBridgeAccessories];
   v5 = [hf_allBridgeAccessories na_filter:&__block_literal_global_147];
 
   objc_initWeak(&location, self);
@@ -55,7 +55,7 @@ HFAccessoryItem *__35__HFBridgeItemProvider_reloadItems__block_invoke_2(uint64_t
 {
   v3 = a2;
   v4 = [HFAccessoryItem alloc];
-  v5 = [*(a1 + 32) home];
+  v5 = objc_msgSend_home(*(a1 + 32));
   v6 = [v5 hf_characteristicValueManager];
   v7 = [(HFAccessoryItem *)v4 initWithAccessory:v3 valueSource:v6];
 

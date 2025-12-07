@@ -15,7 +15,7 @@
 {
   if ([(NSMutableArray *)self->_connections count])
   {
-    [MEMORY[0x277CBEAD8] raise:*MEMORY[0x277CBE658] format:{@"%@ ContinuityCapture error : capture session has unremoved video connections %@", self, self->_connections}];
+    [MEMORY[0x277CBEAD8] raise:self format:self->_connections];
   }
 
   v3.receiver = self;
@@ -40,74 +40,72 @@
 
   if ([(CMContinuityCaptureAVCaptureBaseSession *)self state]== 1)
   {
-    v65 = 0u;
-    v66 = 0u;
-    v63 = 0u;
-    v64 = 0u;
-    v44 = connectionsCopy;
+    v61 = 0u;
+    v62 = 0u;
+    v59 = 0u;
+    v60 = 0u;
+    v43 = connectionsCopy;
     obj = connectionsCopy;
-    v47 = [obj countByEnumeratingWithState:&v63 objects:v62 count:16];
-    if (!v47)
+    v46 = [obj countByEnumeratingWithState:? objects:? count:?];
+    if (!v46)
     {
       goto LABEL_38;
     }
 
-    v46 = *v64;
-    v50 = *MEMORY[0x277CE5888];
+    v45 = *v60;
     while (1)
     {
-      for (i = 0; i != v47; i = v34 + 1)
+      for (i = 0; i != v46; i = (v33 + 1))
       {
-        if (*v64 != v46)
+        if (*v60 != v45)
         {
           objc_enumerationMutation(obj);
         }
 
-        v48 = *(*(&v63 + 1) + 8 * i);
-        v49 = i;
-        inputPorts = [v48 inputPorts];
+        v47 = *(*(&v59 + 1) + 8 * i);
+        v48 = i;
+        inputPorts = [v47 inputPorts];
+        v55 = 0u;
+        v56 = 0u;
+        v57 = 0u;
         v58 = 0u;
-        v59 = 0u;
-        v60 = 0u;
-        v61 = 0u;
-        v8 = [inputPorts countByEnumeratingWithState:&v58 objects:v57 count:16];
+        v8 = [inputPorts countByEnumeratingWithState:? objects:? count:?];
         if (v8)
         {
           v9 = v8;
-          v10 = *v59;
+          v10 = *v56;
           do
           {
-            for (j = 0; j != v9; ++j)
+            for (j = 0; j != v9; j = (j + 1))
             {
-              if (*v59 != v10)
+              if (*v56 != v10)
               {
                 objc_enumerationMutation(inputPorts);
               }
 
-              v12 = *(*(&v58 + 1) + 8 * j);
+              v12 = *(*(&v55 + 1) + 8 * j);
               captureSession = [(CMContinuityCaptureAVCaptureBaseSession *)self captureSession];
               input = [v12 input];
-              v15 = [captureSession canAddInput:input];
+              v15 = [captureSession canAddInput:?];
 
               if (v15)
               {
                 input2 = [v12 input];
                 captureSession2 = [(CMContinuityCaptureAVCaptureBaseSession *)self captureSession];
-                [captureSession2 addInputWithNoConnections:input2];
+                [captureSession2 addInputWithNoConnections:?];
 
                 objc_opt_class();
                 if (objc_opt_isKindOfClass())
                 {
                   device = [input2 device];
                   deviceType = [device deviceType];
-                  v20 = [deviceType isEqualToString:v50];
+                  v20 = [deviceType isEqualToString:?];
 
                   if ((v20 & 1) == 0)
                   {
                     objc_storeStrong(&self->_videoCameraInput, input2);
-                    v24 = &unk_2854ECBD8;
 LABEL_21:
-                    [(NSMutableArray *)self->_connectionEntities addObject:v24];
+                    [(NSMutableArray *)self->_connectionEntities addObject:?];
                     goto LABEL_22;
                   }
                 }
@@ -117,9 +115,8 @@ LABEL_21:
                 {
                   device2 = [input2 device];
                   deviceType2 = [device2 deviceType];
-                  v23 = [deviceType2 isEqualToString:v50];
+                  v23 = [deviceType2 isEqualToString:?];
 
-                  v24 = &unk_2854ECBF0;
                   if (v23)
                   {
                     goto LABEL_21;
@@ -135,10 +132,10 @@ LABEL_21:
                   input3 = [v12 input];
                   *buf = 138412802;
                   selfCopy4 = self;
-                  v53 = 2112;
-                  *v54 = input3;
-                  *&v54[8] = 2080;
-                  *&v54[10] = "[CMContinuityCaptureAVCaptureVideoSession addConnections:]";
+                  v51 = 2112;
+                  *v52 = input3;
+                  *&v52[8] = 2080;
+                  *&v52[10] = "[CMContinuityCaptureAVCaptureVideoSession addConnections:]";
                   _os_log_impl(&dword_242545000, input2, OS_LOG_TYPE_DEFAULT, "%@ can't add input %@ %s", buf, 0x20u);
                 }
               }
@@ -146,21 +143,21 @@ LABEL_21:
 LABEL_22:
             }
 
-            v9 = [inputPorts countByEnumeratingWithState:&v58 objects:v57 count:16];
+            v9 = [inputPorts countByEnumeratingWithState:? objects:? count:?];
           }
 
           while (v9);
         }
 
         captureSession3 = [(CMContinuityCaptureAVCaptureBaseSession *)self captureSession];
-        output = [v48 output];
-        v28 = [captureSession3 canAddOutput:output];
+        output = [v47 output];
+        v27 = [captureSession3 canAddOutput:?];
 
-        if (v28)
+        if (v27)
         {
           captureSession4 = [(CMContinuityCaptureAVCaptureBaseSession *)self captureSession];
-          output2 = [v48 output];
-          [captureSession4 addOutputWithNoConnections:output2];
+          output2 = [v47 output];
+          [captureSession4 addOutputWithNoConnections:?];
         }
 
         else
@@ -171,92 +168,92 @@ LABEL_22:
             goto LABEL_29;
           }
 
-          output2 = [v48 output];
-          inputPorts2 = [v48 inputPorts];
+          output2 = [v47 output];
+          inputPorts2 = [v47 inputPorts];
           *buf = 138413058;
           selfCopy4 = self;
-          v53 = 2112;
-          *v54 = output2;
-          *&v54[8] = 2112;
-          *&v54[10] = inputPorts2;
-          v55 = 2080;
-          v56 = "[CMContinuityCaptureAVCaptureVideoSession addConnections:]";
+          v51 = 2112;
+          *v52 = output2;
+          *&v52[8] = 2112;
+          *&v52[10] = inputPorts2;
+          v53 = 2080;
+          v54 = "[CMContinuityCaptureAVCaptureVideoSession addConnections:]";
           _os_log_impl(&dword_242545000, captureSession4, OS_LOG_TYPE_DEFAULT, "%@ can't add output %@ for input %@ %s", buf, 0x2Au);
         }
 
 LABEL_29:
         captureSession5 = [(CMContinuityCaptureAVCaptureBaseSession *)self captureSession];
         connections = [captureSession5 connections];
-        if ([connections containsObject:v48])
+        if ([connections containsObject:?])
         {
 
-          v34 = v49;
+          v33 = v48;
         }
 
         else
         {
           captureSession6 = [(CMContinuityCaptureAVCaptureBaseSession *)self captureSession];
-          v36 = [captureSession6 canAddConnection:v48];
+          v35 = [captureSession6 canAddConnection:?];
 
-          v34 = v49;
-          if (v36)
+          v33 = v48;
+          if (v35)
           {
             captureSession7 = [(CMContinuityCaptureAVCaptureBaseSession *)self captureSession];
-            [captureSession7 addConnection:v48];
+            [captureSession7 addConnection:?];
 
-            [(NSMutableArray *)self->_connections addObject:v48];
+            [(NSMutableArray *)self->_connections addObject:?];
             goto LABEL_36;
           }
         }
 
-        v38 = CMContinuityCaptureLog(2);
-        if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
+        v37 = CMContinuityCaptureLog(2);
+        if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
         {
           captureSession8 = [(CMContinuityCaptureAVCaptureBaseSession *)self captureSession];
           connections2 = [captureSession8 connections];
-          v41 = [connections2 containsObject:v48];
+          v40 = [connections2 containsObject:?];
           *buf = 138412802;
           selfCopy4 = self;
-          v53 = 2112;
-          *v54 = v48;
-          *&v54[8] = 1024;
-          *&v54[10] = v41;
-          _os_log_impl(&dword_242545000, v38, OS_LOG_TYPE_DEFAULT, "%@ can't add connection New %@ %d", buf, 0x1Cu);
+          v51 = 2112;
+          *v52 = v47;
+          *&v52[8] = 1024;
+          *&v52[10] = v40;
+          _os_log_impl(&dword_242545000, v37, OS_LOG_TYPE_DEFAULT, "%@ can't add connection New %@ %d", buf, 0x1Cu);
         }
 
 LABEL_36:
       }
 
-      v47 = [obj countByEnumeratingWithState:&v63 objects:v62 count:16];
-      if (!v47)
+      v46 = [obj countByEnumeratingWithState:? objects:? count:?];
+      if (!v46)
       {
 LABEL_38:
 
-        v42 = CMContinuityCaptureLog(2);
-        if (os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
+        v41 = CMContinuityCaptureLog(2);
+        if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
         {
           connections = self->_connections;
           *buf = 138412290;
           selfCopy4 = connections;
-          _os_log_impl(&dword_242545000, v42, OS_LOG_TYPE_DEFAULT, "addConnections done. Current connections: %@", buf, 0xCu);
+          _os_log_impl(&dword_242545000, v41, OS_LOG_TYPE_DEFAULT, "addConnections done. Current connections: %@", buf, 0xCu);
         }
 
-        connectionsCopy = v44;
+        connectionsCopy = v43;
         goto LABEL_43;
       }
     }
   }
 
-  v42 = CMContinuityCaptureLog(2);
-  if (os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
+  v41 = CMContinuityCaptureLog(2);
+  if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412802;
     selfCopy4 = self;
-    v53 = 1024;
-    *v54 = [(CMContinuityCaptureAVCaptureBaseSession *)self state];
-    *&v54[4] = 2080;
-    *&v54[6] = "[CMContinuityCaptureAVCaptureVideoSession addConnections:]";
-    _os_log_impl(&dword_242545000, v42, OS_LOG_TYPE_DEFAULT, "%@ Invalid state %d for %s", buf, 0x1Cu);
+    v51 = 1024;
+    *v52 = [(CMContinuityCaptureAVCaptureBaseSession *)self state];
+    *&v52[4] = 2080;
+    *&v52[6] = "[CMContinuityCaptureAVCaptureVideoSession addConnections:]";
+    _os_log_impl(&dword_242545000, v41, OS_LOG_TYPE_DEFAULT, "%@ Invalid state %d for %s", buf, 0x1Cu);
   }
 
 LABEL_43:
@@ -270,172 +267,132 @@ LABEL_43:
 
   if ([(CMContinuityCaptureAVCaptureBaseSession *)self state]== 1)
   {
-    v168 = 0u;
-    v169 = 0u;
-    v166 = 0u;
-    v167 = 0u;
-    v102 = connectionsCopy;
+    v99 = connectionsCopy;
     obj = connectionsCopy;
     selfCopy = self;
-    v110 = [obj countByEnumeratingWithState:&v166 objects:v165 count:16];
-    if (v110)
+    v107 = [obj countByEnumeratingWithState:? objects:? count:?];
+    if (v107)
     {
-      v108 = *v167;
-      v6 = *MEMORY[0x277CE5888];
+      v105 = MEMORY[0];
       do
       {
-        v7 = 0;
+        v6 = 0;
         do
         {
-          if (*v167 != v108)
+          if (MEMORY[0] != v105)
           {
             objc_enumerationMutation(obj);
           }
 
-          v112 = v7;
-          v8 = *(*(&v166 + 1) + 8 * v7);
+          v109 = v6;
+          v7 = *(8 * v6);
           captureSession = [(CMContinuityCaptureAVCaptureBaseSession *)self captureSession];
           connections = [captureSession connections];
-          v11 = [connections containsObject:v8];
+          v10 = [connections containsObject:?];
 
-          if (v11)
+          if (v10)
           {
-            v12 = CMContinuityCaptureLog(2);
-            if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+            v11 = CMContinuityCaptureLog(2);
+            if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 138412290;
-              *v171 = v8;
-              _os_log_impl(&dword_242545000, v12, OS_LOG_TYPE_DEFAULT, "Removing connection: %@", buf, 0xCu);
+              *v113 = v7;
+              _os_log_impl(&dword_242545000, v11, OS_LOG_TYPE_DEFAULT, "Removing connection: %@", buf, 0xCu);
             }
 
             captureSession2 = [(CMContinuityCaptureAVCaptureBaseSession *)selfCopy captureSession];
-            [captureSession2 removeConnection:v8];
+            [captureSession2 removeConnection:?];
 
-            [(NSMutableArray *)selfCopy->_connections removeObject:v8];
+            [(NSMutableArray *)selfCopy->_connections removeObject:?];
           }
 
-          inputPorts = [v8 inputPorts];
-          v161 = 0u;
-          v162 = 0u;
-          v163 = 0u;
-          v164 = 0u;
-          v15 = [inputPorts countByEnumeratingWithState:&v161 objects:v160 count:16];
-          if (v15)
+          inputPorts = [v7 inputPorts];
+          v14 = [inputPorts countByEnumeratingWithState:? objects:? count:?];
+          if (v14)
           {
-            v16 = v15;
-            v17 = *v162;
+            v15 = v14;
+            v16 = MEMORY[0];
             do
             {
-              for (i = 0; i != v16; ++i)
+              for (i = 0; i != v15; i = (i + 1))
               {
-                if (*v162 != v17)
+                if (MEMORY[0] != v16)
                 {
                   objc_enumerationMutation(inputPorts);
                 }
 
-                input = [*(*(&v161 + 1) + 8 * i) input];
+                input = [*(8 * i) input];
                 objc_opt_class();
-                if (objc_opt_isKindOfClass())
+                if (objc_opt_isKindOfClass() & 1) != 0 && ([input device], v19 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v19, "deviceType"), v20 = objc_claimAutoreleasedReturnValue(), v21 = objc_msgSend(v20, "isEqualToString:"), v20, v19, !v21) || (objc_opt_class(), (objc_opt_isKindOfClass()) && (objc_msgSend(input, "device"), v22 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v22, "deviceType"), v23 = objc_claimAutoreleasedReturnValue(), v24 = objc_msgSend(v23, "isEqualToString:"), v23, v22, v24))
                 {
-                  device = [input device];
-                  deviceType = [device deviceType];
-                  v22 = [deviceType isEqualToString:v6];
-
-                  v23 = &unk_2854ECBD8;
-                  if (!v22)
-                  {
-                    goto LABEL_20;
-                  }
-                }
-
-                objc_opt_class();
-                if (objc_opt_isKindOfClass())
-                {
-                  device2 = [input device];
-                  deviceType2 = [device2 deviceType];
-                  v26 = [deviceType2 isEqualToString:v6];
-
-                  v23 = &unk_2854ECBF0;
-                  if (v26)
-                  {
-LABEL_20:
-                    [(NSMutableArray *)selfCopy->_connectionEntities removeObject:v23];
-                  }
+                  [(NSMutableArray *)selfCopy->_connectionEntities removeObject:?];
                 }
               }
 
-              v16 = [inputPorts countByEnumeratingWithState:&v161 objects:v160 count:16];
+              v15 = [inputPorts countByEnumeratingWithState:? objects:? count:?];
             }
 
-            while (v16);
+            while (v15);
           }
 
           self = selfCopy;
-          v7 = v112 + 1;
+          v6 = v109 + 1;
         }
 
-        while (v112 + 1 != v110);
-        v110 = [obj countByEnumeratingWithState:&v166 objects:v165 count:16];
+        while (v109 + 1 != v107);
+        v107 = [obj countByEnumeratingWithState:? objects:? count:?];
       }
 
-      while (v110);
+      while (v107);
     }
 
-    v159 = 0u;
-    v158 = 0u;
-    v157 = 0u;
-    v156 = 0u;
-    v104 = obj;
-    obja = [v104 countByEnumeratingWithState:&v156 objects:v155 count:16];
+    v101 = obj;
+    obja = [v101 countByEnumeratingWithState:? objects:? count:?];
     if (obja)
     {
-      v105 = *v157;
+      v102 = MEMORY[0];
       do
       {
-        v27 = 0;
+        v25 = 0;
         do
         {
-          if (*v157 != v105)
+          if (MEMORY[0] != v102)
           {
-            objc_enumerationMutation(v104);
+            objc_enumerationMutation(v101);
           }
 
-          v109 = v27;
-          v28 = *(*(&v156 + 1) + 8 * v27);
-          v151 = 0u;
-          v152 = 0u;
-          v153 = 0u;
-          v154 = 0u;
+          v106 = v25;
+          v26 = *(8 * v25);
           captureSession3 = [(CMContinuityCaptureAVCaptureBaseSession *)self captureSession];
           connections2 = [captureSession3 connections];
 
-          v31 = [connections2 countByEnumeratingWithState:&v151 objects:v150 count:16];
-          if (v31)
+          v29 = [connections2 countByEnumeratingWithState:? objects:? count:?];
+          if (v29)
           {
-            v32 = v31;
-            v33 = *v152;
+            v30 = v29;
+            v31 = MEMORY[0];
 LABEL_32:
-            v34 = 0;
+            v32 = 0;
             while (1)
             {
-              if (*v152 != v33)
+              if (MEMORY[0] != v31)
               {
                 objc_enumerationMutation(connections2);
               }
 
-              output = [*(*(&v151 + 1) + 8 * v34) output];
-              output2 = [v28 output];
-              v37 = [output isEqual:output2];
+              output = [*(8 * v32) output];
+              output2 = [v26 output];
+              v35 = [output isEqual:?];
 
-              if (v37)
+              if (v35)
               {
                 break;
               }
 
-              if (v32 == ++v34)
+              if (v30 == ++v32)
               {
-                v32 = [connections2 countByEnumeratingWithState:&v151 objects:v150 count:16];
-                if (v32)
+                v30 = [connections2 countByEnumeratingWithState:? objects:? count:?];
+                if (v30)
                 {
                   goto LABEL_32;
                 }
@@ -449,109 +406,97 @@ LABEL_32:
           {
 LABEL_38:
 
-            v38 = CMContinuityCaptureLog(2);
-            if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
+            v36 = CMContinuityCaptureLog(2);
+            if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
             {
-              output3 = [v28 output];
+              output3 = [v26 output];
               *buf = 138412290;
-              *v171 = output3;
-              _os_log_impl(&dword_242545000, v38, OS_LOG_TYPE_DEFAULT, "Removing output: %@", buf, 0xCu);
+              *v113 = output3;
+              _os_log_impl(&dword_242545000, v36, OS_LOG_TYPE_DEFAULT, "Removing output: %@", buf, 0xCu);
             }
 
             connections2 = [(CMContinuityCaptureAVCaptureBaseSession *)self captureSession];
-            output4 = [v28 output];
-            [connections2 removeOutput:output4];
+            output4 = [v26 output];
+            [connections2 removeOutput:?];
           }
 
           captureSession4 = [(CMContinuityCaptureAVCaptureBaseSession *)self captureSession];
           connections3 = [captureSession4 connections];
           connection = [(AVCaptureVideoPreviewLayer *)self->_videoPreviewLayer connection];
-          v44 = [connections3 containsObject:connection];
+          v42 = [connections3 containsObject:?];
 
-          if (v44)
+          if (v42)
           {
             array = [MEMORY[0x277CBEB18] array];
-            v146 = 0u;
-            v147 = 0u;
-            v148 = 0u;
-            v149 = 0u;
             connection2 = [(AVCaptureVideoPreviewLayer *)self->_videoPreviewLayer connection];
             inputPorts2 = [connection2 inputPorts];
 
-            v48 = [inputPorts2 countByEnumeratingWithState:&v146 objects:v145 count:16];
-            if (v48)
+            v46 = [inputPorts2 countByEnumeratingWithState:? objects:? count:?];
+            if (v46)
             {
-              v49 = v48;
-              v50 = *v147;
+              v47 = v46;
+              v48 = MEMORY[0];
               do
               {
-                for (j = 0; j != v49; ++j)
+                for (j = 0; j != v47; j = (j + 1))
                 {
-                  if (*v147 != v50)
+                  if (MEMORY[0] != v48)
                   {
                     objc_enumerationMutation(inputPorts2);
                   }
 
-                  input2 = [*(*(&v146 + 1) + 8 * j) input];
-                  [array addObject:input2];
+                  input2 = [*(8 * j) input];
+                  [array addObject:?];
                 }
 
-                v49 = [inputPorts2 countByEnumeratingWithState:&v146 objects:v145 count:16];
+                v47 = [inputPorts2 countByEnumeratingWithState:? objects:? count:?];
               }
 
-              while (v49);
+              while (v47);
             }
 
-            v144 = 0u;
-            v143 = 0u;
-            v142 = 0u;
-            v141 = 0u;
             captureSession5 = [(CMContinuityCaptureAVCaptureBaseSession *)self captureSession];
             videoCameraInput = [captureSession5 connections];
 
-            v113 = [videoCameraInput countByEnumeratingWithState:&v141 objects:v140 count:16];
-            if (v113)
+            v110 = [videoCameraInput countByEnumeratingWithState:? objects:? count:?];
+            if (v110)
             {
-              v55 = *v142;
-              v103 = *v142;
+              v53 = MEMORY[0];
+              v100 = MEMORY[0];
               do
               {
-                for (k = 0; k != v113; k = k + 1)
+                for (k = 0; k != v110; k = (k + 1))
                 {
-                  if (*v142 != v55)
+                  if (MEMORY[0] != v53)
                   {
                     objc_enumerationMutation(videoCameraInput);
                   }
 
-                  v57 = *(*(&v141 + 1) + 8 * k);
+                  v55 = *(8 * k);
                   connection3 = [(AVCaptureVideoPreviewLayer *)self->_videoPreviewLayer connection];
-                  v59 = [v57 isEqual:connection3];
+                  v57 = [v55 isEqual:?];
 
-                  if ((v59 & 1) == 0)
+                  if ((v57 & 1) == 0)
                   {
-                    v139 = 0u;
-                    v137 = 0u;
-                    v138 = 0u;
-                    v136 = 0u;
-                    inputPorts3 = [v57 inputPorts];
-                    v61 = [inputPorts3 countByEnumeratingWithState:&v136 objects:v135 count:16];
-                    if (v61)
+                    inputPorts3 = [v55 inputPorts];
+                    v59 = [inputPorts3 countByEnumeratingWithState:? objects:? count:?];
+                    if (v59)
                     {
-                      v62 = v61;
-                      v63 = *v137;
+                      v60 = v59;
+                      v61 = MEMORY[0];
                       while (2)
                       {
-                        for (m = 0; m != v62; ++m)
+                        for (m = 0; m != v60; m = (m + 1))
                         {
-                          if (*v137 != v63)
+                          if (MEMORY[0] != v61)
                           {
                             objc_enumerationMutation(inputPorts3);
                           }
 
-                          input3 = [*(*(&v136 + 1) + 8 * m) input];
-                          v66 = [array containsObject:input3];
+                          input3 = [*(8 * m) input];
+                          v64 = [array containsObject:?];
 
-                          if (v66)
+                          if (v64)
                           {
 
                             self = selfCopy;
@@ -559,9 +504,9 @@ LABEL_38:
                           }
                         }
 
-                        v62 = [inputPorts3 countByEnumeratingWithState:&v136 objects:v135 count:16];
+                        v60 = [inputPorts3 countByEnumeratingWithState:? objects:? count:?];
                         self = selfCopy;
-                        if (v62)
+                        if (v60)
                         {
                           continue;
                         }
@@ -570,28 +515,28 @@ LABEL_38:
                       }
                     }
 
-                    v55 = v103;
+                    v53 = v100;
                   }
                 }
 
-                v113 = [videoCameraInput countByEnumeratingWithState:&v141 objects:v140 count:16];
+                v110 = [videoCameraInput countByEnumeratingWithState:? objects:? count:?];
               }
 
-              while (v113);
+              while (v110);
             }
 
-            v67 = CMContinuityCaptureLog(2);
-            if (os_log_type_enabled(v67, OS_LOG_TYPE_DEFAULT))
+            v65 = CMContinuityCaptureLog(2);
+            if (os_log_type_enabled(v65, OS_LOG_TYPE_DEFAULT))
             {
               connection4 = [(AVCaptureVideoPreviewLayer *)self->_videoPreviewLayer connection];
               *buf = 138412290;
-              *v171 = connection4;
-              _os_log_impl(&dword_242545000, v67, OS_LOG_TYPE_DEFAULT, "Removing preivew layer connection: %@", buf, 0xCu);
+              *v113 = connection4;
+              _os_log_impl(&dword_242545000, v65, OS_LOG_TYPE_DEFAULT, "Removing preivew layer connection: %@", buf, 0xCu);
             }
 
             captureSession6 = [(CMContinuityCaptureAVCaptureBaseSession *)self captureSession];
             connection5 = [(AVCaptureVideoPreviewLayer *)self->_videoPreviewLayer connection];
-            [captureSession6 removeConnection:connection5];
+            [captureSession6 removeConnection:?];
 
             videoCameraInput = self->_videoCameraInput;
             self->_videoCameraInput = 0;
@@ -599,169 +544,152 @@ LABEL_70:
           }
 
           array2 = [MEMORY[0x277CBEB18] array];
-          v131 = 0u;
-          v132 = 0u;
-          v133 = 0u;
-          v134 = 0u;
-          inputPorts4 = [v28 inputPorts];
-          v73 = [inputPorts4 countByEnumeratingWithState:&v131 objects:v130 count:16];
-          if (v73)
+          inputPorts4 = [v26 inputPorts];
+          v71 = [inputPorts4 countByEnumeratingWithState:? objects:? count:?];
+          if (v71)
           {
-            v74 = v73;
-            v75 = *v132;
+            v72 = v71;
+            v73 = MEMORY[0];
             do
             {
-              for (n = 0; n != v74; ++n)
+              for (n = 0; n != v72; n = (n + 1))
               {
-                if (*v132 != v75)
+                if (MEMORY[0] != v73)
                 {
                   objc_enumerationMutation(inputPorts4);
                 }
 
-                input4 = [*(*(&v131 + 1) + 8 * n) input];
-                [array2 addObject:input4];
+                input4 = [*(8 * n) input];
+                [array2 addObject:?];
               }
 
-              v74 = [inputPorts4 countByEnumeratingWithState:&v131 objects:v130 count:16];
+              v72 = [inputPorts4 countByEnumeratingWithState:? objects:? count:?];
             }
 
-            while (v74);
+            while (v72);
           }
 
           array3 = [MEMORY[0x277CBEB18] array];
-          v126 = 0u;
-          v127 = 0u;
-          v128 = 0u;
-          v129 = 0u;
           captureSession7 = [(CMContinuityCaptureAVCaptureBaseSession *)self captureSession];
           connections4 = [captureSession7 connections];
 
-          v114 = connections4;
-          v81 = [connections4 countByEnumeratingWithState:&v126 objects:v125 count:16];
-          if (v81)
+          v111 = connections4;
+          v79 = [connections4 countByEnumeratingWithState:? objects:? count:?];
+          if (v79)
           {
-            v82 = v81;
-            v83 = *v127;
+            v80 = v79;
+            v81 = MEMORY[0];
             do
             {
-              for (ii = 0; ii != v82; ++ii)
+              for (ii = 0; ii != v80; ii = (ii + 1))
               {
-                if (*v127 != v83)
+                if (MEMORY[0] != v81)
                 {
-                  objc_enumerationMutation(v114);
+                  objc_enumerationMutation(v111);
                 }
 
-                v85 = *(*(&v126 + 1) + 8 * ii);
-                v121 = 0u;
-                v122 = 0u;
-                v123 = 0u;
-                v124 = 0u;
-                inputPorts5 = [v85 inputPorts];
-                v87 = [inputPorts5 countByEnumeratingWithState:&v121 objects:v120 count:16];
-                if (v87)
+                inputPorts5 = [*(8 * ii) inputPorts];
+                v84 = [inputPorts5 countByEnumeratingWithState:? objects:? count:?];
+                if (v84)
                 {
-                  v88 = v87;
-                  v89 = *v122;
+                  v85 = v84;
+                  v86 = MEMORY[0];
                   do
                   {
-                    for (jj = 0; jj != v88; ++jj)
+                    for (jj = 0; jj != v85; jj = (jj + 1))
                     {
-                      if (*v122 != v89)
+                      if (MEMORY[0] != v86)
                       {
                         objc_enumerationMutation(inputPorts5);
                       }
 
-                      input5 = [*(*(&v121 + 1) + 8 * jj) input];
-                      [array3 addObject:input5];
+                      input5 = [*(8 * jj) input];
+                      [array3 addObject:?];
                     }
 
-                    v88 = [inputPorts5 countByEnumeratingWithState:&v121 objects:v120 count:16];
+                    v85 = [inputPorts5 countByEnumeratingWithState:? objects:? count:?];
                   }
 
-                  while (v88);
+                  while (v85);
                 }
               }
 
-              v82 = [v114 countByEnumeratingWithState:&v126 objects:v125 count:16];
+              v80 = [v111 countByEnumeratingWithState:? objects:? count:?];
             }
 
-            while (v82);
+            while (v80);
           }
 
-          v118 = 0u;
-          v119 = 0u;
-          v116 = 0u;
-          v117 = 0u;
-          v92 = array2;
-          v93 = [v92 countByEnumeratingWithState:&v116 objects:v115 count:16];
+          v89 = array2;
+          v90 = [v89 countByEnumeratingWithState:? objects:? count:?];
           self = selfCopy;
-          if (v93)
+          if (v90)
           {
-            v94 = v93;
-            v95 = *v117;
+            v91 = v90;
+            v92 = MEMORY[0];
             do
             {
-              for (kk = 0; kk != v94; ++kk)
+              for (kk = 0; kk != v91; kk = (kk + 1))
               {
-                if (*v117 != v95)
+                if (MEMORY[0] != v92)
                 {
-                  objc_enumerationMutation(v92);
+                  objc_enumerationMutation(v89);
                 }
 
-                v97 = *(*(&v116 + 1) + 8 * kk);
-                if (([array3 containsObject:v97] & 1) == 0)
+                v94 = *(8 * kk);
+                if (([array3 containsObject:?] & 1) == 0)
                 {
-                  v98 = CMContinuityCaptureLog(2);
-                  if (os_log_type_enabled(v98, OS_LOG_TYPE_DEFAULT))
+                  v95 = CMContinuityCaptureLog(2);
+                  if (os_log_type_enabled(v95, OS_LOG_TYPE_DEFAULT))
                   {
                     *buf = 138412290;
-                    *v171 = v97;
-                    _os_log_impl(&dword_242545000, v98, OS_LOG_TYPE_DEFAULT, "Removing input: %@", buf, 0xCu);
+                    *v113 = v94;
+                    _os_log_impl(&dword_242545000, v95, OS_LOG_TYPE_DEFAULT, "Removing input: %@", buf, 0xCu);
                   }
 
                   captureSession8 = [(CMContinuityCaptureAVCaptureBaseSession *)selfCopy captureSession];
-                  [captureSession8 removeInput:v97];
+                  [captureSession8 removeInput:?];
                 }
               }
 
-              v94 = [v92 countByEnumeratingWithState:&v116 objects:v115 count:16];
+              v91 = [v89 countByEnumeratingWithState:? objects:? count:?];
             }
 
-            while (v94);
+            while (v91);
           }
 
-          v27 = v109 + 1;
+          v25 = v106 + 1;
         }
 
-        while ((v109 + 1) != obja);
-        obja = [v104 countByEnumeratingWithState:&v156 objects:v155 count:16];
+        while ((v106 + 1) != obja);
+        obja = [v101 countByEnumeratingWithState:? objects:? count:?];
       }
 
       while (obja);
     }
 
-    v100 = CMContinuityCaptureLog(2);
-    if (os_log_type_enabled(v100, OS_LOG_TYPE_DEFAULT))
+    v97 = CMContinuityCaptureLog(2);
+    if (os_log_type_enabled(v97, OS_LOG_TYPE_DEFAULT))
     {
       connections = self->_connections;
       *buf = 138412290;
-      *v171 = connections;
-      _os_log_impl(&dword_242545000, v100, OS_LOG_TYPE_DEFAULT, "State After removal %@", buf, 0xCu);
+      *v113 = connections;
+      _os_log_impl(&dword_242545000, v97, OS_LOG_TYPE_DEFAULT, "State After removal %@", buf, 0xCu);
     }
 
-    connectionsCopy = v102;
+    connectionsCopy = v99;
   }
 
   else
   {
-    v100 = CMContinuityCaptureLog(2);
-    if (os_log_type_enabled(v100, OS_LOG_TYPE_DEFAULT))
+    v97 = CMContinuityCaptureLog(2);
+    if (os_log_type_enabled(v97, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109378;
-      *v171 = [(CMContinuityCaptureAVCaptureBaseSession *)self state];
-      *&v171[4] = 2080;
-      *&v171[6] = "[CMContinuityCaptureAVCaptureVideoSession removeConnections:]";
-      _os_log_impl(&dword_242545000, v100, OS_LOG_TYPE_DEFAULT, "Invalid state %d for %s", buf, 0x12u);
+      *v113 = [(CMContinuityCaptureAVCaptureBaseSession *)self state];
+      *&v113[4] = 2080;
+      *&v113[6] = "[CMContinuityCaptureAVCaptureVideoSession removeConnections:]";
+      _os_log_impl(&dword_242545000, v97, OS_LOG_TYPE_DEFAULT, "Invalid state %d for %s", buf, 0x12u);
     }
   }
 }
@@ -769,8 +697,8 @@ LABEL_70:
 - (BOOL)hasConnectionsForEntity:(int64_t)entity
 {
   connectionEntities = self->_connectionEntities;
-  v4 = [MEMORY[0x277CCABB0] numberWithInteger:entity];
-  LOBYTE(connectionEntities) = [(NSMutableArray *)connectionEntities containsObject:v4];
+  v4 = [MEMORY[0x277CCABB0] numberWithInteger:?];
+  LOBYTE(connectionEntities) = [(NSMutableArray *)connectionEntities containsObject:?];
 
   return connectionEntities;
 }
@@ -860,7 +788,7 @@ void __49__CMContinuityCaptureAVCaptureVideoSession_start__block_invoke(uint64_t
   {
     v3 = WeakRetained;
     v2 = [WeakRetained[6] connection];
-    [v2 setVideoOrientation:3];
+    [v2 setVideoOrientation:?];
 
     WeakRetained = v3;
   }
@@ -882,7 +810,7 @@ void __49__CMContinuityCaptureAVCaptureVideoSession_start__block_invoke(uint64_t
       v10.receiver = self;
       v10.super_class = CMContinuityCaptureAVCaptureVideoSession;
       [(CMContinuityCaptureAVCaptureBaseSession *)&v10 stop];
-      [(AVCaptureVideoPreviewLayer *)self->_videoPreviewLayer setSession:0];
+      [(AVCaptureVideoPreviewLayer *)self->_videoPreviewLayer setSession:?];
       return;
     }
 

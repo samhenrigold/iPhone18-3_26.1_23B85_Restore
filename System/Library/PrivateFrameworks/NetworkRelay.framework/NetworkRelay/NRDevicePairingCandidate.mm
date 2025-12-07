@@ -165,13 +165,13 @@
 
 - (id)initInternalWithUUID:(id)d
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   dCopy = d;
   if (dCopy)
   {
-    v34.receiver = self;
-    v34.super_class = NRDevicePairingCandidate;
-    v6 = [(NRDevicePairingCandidate *)&v34 init];
+    v25.receiver = self;
+    v25.super_class = NRDevicePairingCandidate;
+    v6 = [(NRDevicePairingCandidate *)&v25 init];
     if (v6)
     {
       v7 = v6;
@@ -181,60 +181,59 @@
       goto LABEL_4;
     }
 
-    v12 = nrCopyLogObj_1529();
+    v11 = nrCopyLogObj_1529();
     if (sNRCopyLogToStdErr == 1)
     {
     }
 
     else
     {
-      v21 = v12;
-      v22 = os_log_type_enabled(v12, OS_LOG_TYPE_ERROR);
+      v15 = v11;
+      v16 = os_log_type_enabled(v11, OS_LOG_TYPE_ERROR);
 
-      if (!v22)
+      if (!v16)
       {
         goto LABEL_13;
       }
     }
 
-    v23 = nrCopyLogObj_1529();
-    _NRLogWithArgs(v23, 16, "%s%.30s:%-4d ABORTING: [super init] failed", v24, v25, v26, v27, v28, "");
+    v17 = nrCopyLogObj_1529();
+    _NRLogWithArgs(v17, 16, "%s%.30s:%-4d ABORTING: [super init] failed", ", "[NRDevicePairingCandidate initInternalWithUUID:]"", 116);
 
 LABEL_13:
-    v29 = _os_log_pack_size();
-    MEMORY[0x28223BE20](v29, v30);
-    v31 = *__error();
-    v32 = _os_log_pack_fill();
-    *v32 = 136446210;
-    *(v32 + 4) = "[NRDevicePairingCandidate initInternalWithUUID:]";
-    v33 = nrCopyLogObj_1529();
-    _NRLogAbortWithPack(v33);
+    v18 = _os_log_pack_size();
+    v20 = &v24 - ((MEMORY[0x28223BE20](v18, v19) + 15) & 0xFFFFFFFFFFFFFFF0);
+    v21 = __error();
+    v22 = _os_log_pack_fill(v20, v18, *v21, &dword_25B98C000, "%{public}s [super init] failed");
+    *v22 = 136446210;
+    *(v22 + 4) = "[NRDevicePairingCandidate initInternalWithUUID:]";
+    v23 = nrCopyLogObj_1529();
+    _NRLogAbortWithPack(v23, v20);
   }
 
-  v11 = nrCopyLogObj_1529();
+  v10 = nrCopyLogObj_1529();
   if (sNRCopyLogToStdErr == 1)
   {
   }
 
   else
   {
-    v13 = v11;
-    v14 = os_log_type_enabled(v11, OS_LOG_TYPE_FAULT);
+    v12 = v10;
+    v13 = os_log_type_enabled(v10, OS_LOG_TYPE_FAULT);
 
-    if (!v14)
+    if (!v13)
     {
       selfCopy = 0;
       goto LABEL_4;
     }
   }
 
-  v15 = nrCopyLogObj_1529();
-  _NRLogWithArgs(v15, 17, "%s called with null uuid", v16, v17, v18, v19, v20, "[NRDevicePairingCandidate initInternalWithUUID:]");
+  v14 = nrCopyLogObj_1529();
+  _NRLogWithArgs(v14, 17, "%s called with null uuid", "[NRDevicePairingCandidate initInternalWithUUID:]");
 
   selfCopy = 0;
 LABEL_4:
 
-  v9 = *MEMORY[0x277D85DE8];
   return selfCopy;
 }
 

@@ -74,7 +74,7 @@
   sub_257DB0FF4(sub_257D46F1C, v5);
 
   v7.receiver = selfCopy;
-  v7.super_class = type metadata accessor for AppViewController();
+  v7.super_class = type metadata accessor for AppViewController(0);
   [(AppViewController *)&v7 viewWillDisappear:disappearCopy];
 }
 
@@ -150,26 +150,26 @@
 
 - (void)updateAppearanceForReduceTransparency:(id)transparency
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F8F9E30);
-  MEMORY[0x28223BE20](v5 - 8);
-  v7 = &v11 - v6;
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F8F9E30, &qword_257EEBBA0);
+  MEMORY[0x28223BE20](v5 - 8, v6, v7, v8, v9);
+  v11 = &v15 - v10;
   if (transparency)
   {
     sub_257ECC7E0();
-    v8 = sub_257ECC810();
-    (*(*(v8 - 8) + 56))(v7, 0, 1, v8);
+    v12 = sub_257ECC810();
+    (*(*(v12 - 8) + 56))(v11, 0, 1, v12);
   }
 
   else
   {
-    v9 = sub_257ECC810();
-    (*(*(v9 - 8) + 56))(v7, 1, 1, v9);
+    v13 = sub_257ECC810();
+    (*(*(v13 - 8) + 56))(v11, 1, 1, v13);
   }
 
   selfCopy = self;
   sub_257E1A15C();
 
-  sub_257BE4084(v7, &qword_27F8F9E30);
+  sub_257BE4084(v11, &qword_27F8F9E30, &qword_257EEBBA0);
 }
 
 - (void)deviceOrientationDidChange:(id)change

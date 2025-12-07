@@ -198,126 +198,127 @@ void __40__ATXHomeScreenEventMetadata_setStacks___block_invoke(uint64_t a1, uint
   if (protoCopy)
   {
     objc_opt_class();
-    if (objc_opt_isKindOfClass())
+    isKindOfClass = objc_opt_isKindOfClass();
+    if (isKindOfClass)
     {
-      v5 = protoCopy;
-      widgetIdentifiables = [(ATXPBHomeScreenEventMetadata *)v5 widgetIdentifiables];
-      v7 = [widgetIdentifiables _pas_mappedArrayWithTransform:&__block_literal_global_79];
+      v6 = protoCopy;
+      widgetIdentifiables = [(ATXPBHomeScreenEventMetadata *)v6 widgetIdentifiables];
+      v8 = [widgetIdentifiables _pas_mappedArrayWithTransform:&__block_literal_global_79];
 
-      widgetInStackIdentifiables = [(ATXPBHomeScreenEventMetadata *)v5 widgetInStackIdentifiables];
-      v9 = [widgetInStackIdentifiables _pas_mappedArrayWithTransform:&__block_literal_global_21_1];
+      widgetInStackIdentifiables = [(ATXPBHomeScreenEventMetadata *)v6 widgetInStackIdentifiables];
+      v10 = [widgetInStackIdentifiables _pas_mappedArrayWithTransform:&__block_literal_global_21_1];
 
-      v43.receiver = self;
-      v43.super_class = ATXHomeScreenEventMetadata;
-      v10 = [(ATXHomeScreenEventMetadata *)&v43 init];
-      if (v10)
+      v44.receiver = self;
+      v44.super_class = ATXHomeScreenEventMetadata;
+      v11 = [(ATXHomeScreenEventMetadata *)&v44 init];
+      if (v11)
       {
-        if ([(ATXPBHomeScreenEventMetadata *)v5 hasPageIndex])
+        if ([(ATXPBHomeScreenEventMetadata *)v6 hasPageIndex])
         {
-          v11 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:-[ATXPBHomeScreenEventMetadata pageIndex](v5)];
-          pageIndex = v10->_pageIndex;
-          v10->_pageIndex = v11;
+          v12 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:-[ATXPBHomeScreenEventMetadata pageIndex](v6)];
+          pageIndex = v11->_pageIndex;
+          v11->_pageIndex = v12;
         }
 
-        bundleIds = [(ATXPBHomeScreenEventMetadata *)v5 bundleIds];
-        v14 = [bundleIds copy];
-        bundleIds = v10->_bundleIds;
-        v10->_bundleIds = v14;
+        bundleIds = [(ATXPBHomeScreenEventMetadata *)v6 bundleIds];
+        v15 = [bundleIds copy];
+        bundleIds = v11->_bundleIds;
+        v11->_bundleIds = v15;
 
-        v10->_suggestedPageType = [(ATXPBHomeScreenEventMetadata *)v5 suggestedPageType];
-        stackIds = [(ATXPBHomeScreenEventMetadata *)v5 stackIds];
-        v17 = stackIds;
+        v11->_suggestedPageType = [(ATXPBHomeScreenEventMetadata *)v6 suggestedPageType];
+        stackIds = [(ATXPBHomeScreenEventMetadata *)v6 stackIds];
+        v18 = stackIds;
         if (stackIds)
         {
-          v18 = stackIds;
+          v19 = stackIds;
         }
 
         else
         {
-          v18 = objc_opt_new();
+          v19 = objc_opt_new();
         }
 
-        stackIds = v10->_stackIds;
-        v10->_stackIds = v18;
+        stackIds = v11->_stackIds;
+        v11->_stackIds = v19;
 
-        v21 = [v7 mutableCopy];
-        v22 = v21;
-        if (v21)
+        v22 = [v8 mutableCopy];
+        v23 = v22;
+        if (v22)
         {
-          v23 = v21;
+          v24 = v22;
         }
 
         else
         {
-          v23 = objc_opt_new();
+          v24 = objc_opt_new();
         }
 
-        widgets = v10->_widgets;
-        v10->_widgets = v23;
+        widgets = v11->_widgets;
+        v11->_widgets = v24;
 
-        if (v9)
+        if (v10)
         {
-          v25 = v9;
+          v26 = v10;
         }
 
         else
         {
-          v25 = objc_opt_new();
+          v26 = objc_opt_new();
         }
 
-        widgetsInStack = v10->_widgetsInStack;
-        v10->_widgetsInStack = v25;
+        widgetsInStack = v11->_widgetsInStack;
+        v11->_widgetsInStack = v26;
 
-        if ([(ATXPBHomeScreenEventMetadata *)v5 hasIsSuggestionInAddWidgetSheet])
+        if ([(ATXPBHomeScreenEventMetadata *)v6 hasIsSuggestionInAddWidgetSheet])
         {
-          v27 = [MEMORY[0x1E696AD98] numberWithBool:-[ATXPBHomeScreenEventMetadata isSuggestionInAddWidgetSheet](v5)];
-          isSuggestionInAddWidgetSheet = v10->_isSuggestionInAddWidgetSheet;
-          v10->_isSuggestionInAddWidgetSheet = v27;
+          v28 = [MEMORY[0x1E696AD98] numberWithBool:-[ATXPBHomeScreenEventMetadata isSuggestionInAddWidgetSheet](v6)];
+          isSuggestionInAddWidgetSheet = v11->_isSuggestionInAddWidgetSheet;
+          v11->_isSuggestionInAddWidgetSheet = v28;
         }
 
-        if ([(ATXPBHomeScreenEventMetadata *)v5 hasIsWidgetInTodayView])
+        if ([(ATXPBHomeScreenEventMetadata *)v6 hasIsWidgetInTodayView])
         {
-          v29 = [MEMORY[0x1E696AD98] numberWithBool:-[ATXPBHomeScreenEventMetadata isWidgetInTodayView](v5)];
-          isWidgetInTodayView = v10->_isWidgetInTodayView;
-          v10->_isWidgetInTodayView = v29;
+          v30 = [MEMORY[0x1E696AD98] numberWithBool:-[ATXPBHomeScreenEventMetadata isWidgetInTodayView](v6)];
+          isWidgetInTodayView = v11->_isWidgetInTodayView;
+          v11->_isWidgetInTodayView = v30;
         }
 
-        v31 = [ATXCGRectWrapper alloc];
-        visibleRect = [(ATXPBHomeScreenEventMetadata *)v5 visibleRect];
-        v33 = [(ATXCGRectWrapper *)v31 initWithProto:visibleRect];
-        visibleRect = v10->_visibleRect;
-        v10->_visibleRect = v33;
+        v32 = [ATXCGRectWrapper alloc];
+        visibleRect = [(ATXPBHomeScreenEventMetadata *)v6 visibleRect];
+        v34 = [(ATXCGRectWrapper *)v32 initWithProto:visibleRect];
+        visibleRect = v11->_visibleRect;
+        v11->_visibleRect = v34;
 
-        engagedUrl = [(ATXPBHomeScreenEventMetadata *)v5 engagedUrl];
+        engagedUrl = [(ATXPBHomeScreenEventMetadata *)v6 engagedUrl];
 
         if (engagedUrl)
         {
-          v36 = MEMORY[0x1E695DFF8];
-          engagedUrl2 = [(ATXPBHomeScreenEventMetadata *)v5 engagedUrl];
-          v38 = [v36 URLWithString:engagedUrl2];
-          engagedUrl = v10->_engagedUrl;
-          v10->_engagedUrl = v38;
+          v37 = MEMORY[0x1E695DFF8];
+          engagedUrl2 = [(ATXPBHomeScreenEventMetadata *)v6 engagedUrl];
+          v39 = [v37 URLWithString:engagedUrl2];
+          engagedUrl = v11->_engagedUrl;
+          v11->_engagedUrl = v39;
         }
 
-        if ([(ATXPBHomeScreenEventMetadata *)v5 hasIsStalenessRotation])
+        if ([(ATXPBHomeScreenEventMetadata *)v6 hasIsStalenessRotation])
         {
-          v40 = [MEMORY[0x1E696AD98] numberWithBool:-[ATXPBHomeScreenEventMetadata isStalenessRotation](v5)];
-          isStalenessRotation = v10->_isStalenessRotation;
-          v10->_isStalenessRotation = v40;
+          v41 = [MEMORY[0x1E696AD98] numberWithBool:-[ATXPBHomeScreenEventMetadata isStalenessRotation](v6)];
+          isStalenessRotation = v11->_isStalenessRotation;
+          v11->_isStalenessRotation = v41;
         }
       }
 
-      self = v10;
+      self = v11;
 
       selfCopy = self;
     }
 
     else
     {
-      v5 = __atxlog_handle_default();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
+      v6 = __atxlog_handle_default(isKindOfClass);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
       {
-        [(ATXHomeScreenEventMetadata *)self initWithProto:v5];
+        [(ATXHomeScreenEventMetadata *)self initWithProto:v6];
       }
 
       selfCopy = 0;

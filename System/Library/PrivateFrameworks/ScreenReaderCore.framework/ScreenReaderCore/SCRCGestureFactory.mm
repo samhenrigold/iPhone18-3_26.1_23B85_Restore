@@ -627,7 +627,7 @@ LABEL_18:
         v12 = v11;
 
         [eventCopy removeFingerWithIdentifier:self->_split.fingerIdentifier];
-        [(SCRCGestureFactory *)self->_splitFactory handleGestureEvent:eventCopy];
+        objc_msgSend_handleGestureEvent_(self->_splitFactory);
         gestureState = [(SCRCGestureFactory *)self->_splitFactory gestureState];
         if (gestureState > 7)
         {
@@ -947,7 +947,7 @@ LABEL_79:
   self->_absoluteFingerCount = fingerCount;
   if (self->_requireUp && fingerCount != 0)
   {
-    [(SCRCGestureFactory *)self captureCurrentState];
+    objc_msgSend_captureCurrentState(self);
     goto LABEL_17;
   }
 
@@ -1045,7 +1045,7 @@ LABEL_38:
   }
 
 LABEL_16:
-  [(SCRCGestureFactory *)self captureCurrentState];
+  objc_msgSend_captureCurrentState(self);
 
 LABEL_17:
 
@@ -2042,7 +2042,7 @@ LABEL_20:
       goto LABEL_23;
     }
 
-    [(SCRCGestureFactory *)splitFactory captureCurrentState];
+    objc_msgSend_captureCurrentState(splitFactory, a3);
     average = v64;
     v72 = v66;
     distance = v65;

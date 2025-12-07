@@ -34,69 +34,65 @@
 
 - (void)_init
 {
-  v25 = *MEMORY[0x1E69E9840];
-  if (self)
+  v24 = *MEMORY[0x1E69E9840];
+  if (!self)
   {
-    v12.receiver = self;
-    v12.super_class = BKSHIDEventDeferringSelectionTarget;
-    v1 = objc_msgSendSuper2(&v12, sel_init);
-    if (v1)
+    return 0;
+  }
+
+  v11.receiver = self;
+  v11.super_class = BKSHIDEventDeferringSelectionTarget;
+  v1 = objc_msgSendSuper2(&v11, sel_init);
+  if (v1)
+  {
+    v2 = objc_opt_class();
+    if (v2 != objc_opt_class())
     {
-      v2 = objc_opt_class();
-      if (v2 != objc_opt_class())
+      v3 = objc_opt_class();
+      if (v3 != objc_opt_class())
       {
-        v3 = objc_opt_class();
-        if (v3 != objc_opt_class())
+        v7 = [MEMORY[0x1E696AEC0] stringWithFormat:?];
+        if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
         {
-          v8 = [MEMORY[0x1E696AEC0] stringWithFormat:@"BKSHIDEventDeliverySelectionTarget cannot be subclassed"];
-          if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
-          {
-            v9 = NSStringFromSelector(sel__init);
-            v10 = objc_opt_class();
-            v11 = NSStringFromClass(v10);
-            *buf = 138544642;
-            v14 = v9;
-            v15 = 2114;
-            v16 = v11;
-            v17 = 2048;
-            v18 = v1;
-            v19 = 2114;
-            v20 = @"BKSHIDEventDeferringSelectionTarget.m";
-            v21 = 1024;
-            v22 = 58;
-            v23 = 2114;
-            v24 = v8;
-            _os_log_error_impl(&dword_186345000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
-          }
-
-          [v8 UTF8String];
-          _bs_set_crash_log_message();
-          __break(0);
-          JUMPOUT(0x1863A3F80);
+          v8 = NSStringFromSelector(sel__init);
+          v9 = objc_opt_class();
+          v10 = NSStringFromClass(v9);
+          *buf = 138544642;
+          v13 = v8;
+          v14 = 2114;
+          v15 = v10;
+          v16 = 2048;
+          v17 = v1;
+          v18 = 2114;
+          v19 = @"BKSHIDEventDeferringSelectionTarget.m";
+          v20 = 1024;
+          v21 = 58;
+          v22 = 2114;
+          v23 = v7;
+          _os_log_error_impl(&dword_186345000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
         }
+
+        [v7 UTF8String];
+        _bs_set_crash_log_message();
+        __break(0);
+        JUMPOUT(0x1863A3F80);
       }
-
-      v4 = +[BKSHIDEventDeferringEnvironment keyboardFocusEnvironment];
-      v5 = v1[1];
-      v1[1] = v4;
     }
+
+    v4 = +[BKSHIDEventDeferringEnvironment keyboardFocusEnvironment];
+    v5 = v1[1];
+    v1[1] = v4;
   }
 
-  else
-  {
-    v1 = 0;
-  }
-
-  v6 = *MEMORY[0x1E69E9840];
   return v1;
 }
 
 - (void)appendDescriptionToStream:(id)stream
 {
   streamCopy = stream;
-  v4 = [streamCopy appendObject:self->_environment withName:@"environment"];
-  v5 = [streamCopy appendObject:self->_display withName:@"display"];
-  v6 = [streamCopy appendObject:self->_target withName:@"target"];
+  v3 = [streamCopy appendObject:? withName:?];
+  v4 = [streamCopy appendObject:? withName:?];
+  v5 = [streamCopy appendObject:? withName:?];
 }
 
 - (id)mutableCopyWithZone:(_NSZone *)zone
@@ -112,28 +108,24 @@
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v5 = equalCopy;
-    v6 = v5[1];
-    environment = self->_environment;
-    if (BSEqualObjects() && (v8 = v5[2], display = self->_display, BSEqualObjects()))
+    v4 = equalCopy;
+    if (BSEqualObjects() && BSEqualObjects())
     {
-      v10 = v5[3];
-      target = self->_target;
-      v12 = BSEqualObjects();
+      v5 = BSEqualObjects();
     }
 
     else
     {
-      v12 = 0;
+      v5 = 0;
     }
   }
 
   else
   {
-    v12 = 0;
+    v5 = 0;
   }
 
-  return v12;
+  return v5;
 }
 
 - (unint64_t)hash
@@ -148,26 +140,23 @@
 - (void)encodeWithCoder:(id)coder
 {
   coderCopy = coder;
-  environment = self->_environment;
-  v8 = coderCopy;
-  if (environment)
+  v5 = coderCopy;
+  if (self->_environment)
   {
-    [coderCopy encodeObject:environment forKey:@"environment"];
-    coderCopy = v8;
+    [coderCopy encodeObject:? forKey:?];
+    coderCopy = v5;
   }
 
-  display = self->_display;
-  if (display)
+  if (self->_display)
   {
-    [v8 encodeObject:display forKey:@"display"];
-    coderCopy = v8;
+    [v5 encodeObject:? forKey:?];
+    coderCopy = v5;
   }
 
-  target = self->_target;
-  if (target)
+  if (self->_target)
   {
-    [v8 encodeObject:target forKey:@"target"];
-    coderCopy = v8;
+    [v5 encodeObject:? forKey:?];
+    coderCopy = v5;
   }
 }
 
@@ -177,15 +166,18 @@
   v12.super_class = BKSHIDEventDeferringSelectionTarget;
   coderCopy = coder;
   v4 = [(BKSHIDEventDeferringSelectionTarget *)&v12 init];
-  v5 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:{@"environment", v12.receiver, v12.super_class}];
+  objc_opt_class();
+  v5 = [coderCopy decodeObjectOfClass:v12.receiver forKey:v12.super_class];
   environment = v4->_environment;
   v4->_environment = v5;
 
-  v7 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"display"];
+  objc_opt_class();
+  v7 = [coderCopy decodeObjectOfClass:? forKey:?];
   display = v4->_display;
   v4->_display = v7;
 
-  v9 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"target"];
+  objc_opt_class();
+  v9 = [coderCopy decodeObjectOfClass:? forKey:?];
 
   target = v4->_target;
   v4->_target = v9;
@@ -195,10 +187,10 @@
 
 - (BKSHIDEventDeferringSelectionTarget)init
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"cannot directly allocate BKSHIDEventDeliverySelectionTarget"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:?];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v3 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[BKSHIDEventDeferringSelectionTarget init]"];
+    v3 = [MEMORY[0x1E696AEC0] stringWithUTF8String:?];
     v5 = 138544130;
     v6 = v3;
     v7 = 2114;
@@ -218,10 +210,10 @@
 
 + (BKSHIDEventDeferringSelectionTarget)new
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"cannot directly allocate BKSHIDEventDeliverySelectionTarget"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:?];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v3 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"+[BKSHIDEventDeferringSelectionTarget new]"];
+    v3 = [MEMORY[0x1E696AEC0] stringWithUTF8String:?];
     v5 = 138544130;
     v6 = v3;
     v7 = 2114;

@@ -119,7 +119,7 @@
   v7 = type metadata accessor for IndexPath();
   v8 = *(v7 - 8);
   __chkstk_darwin(v7);
-  v10 = &v15[-((v9 + 15) & 0xFFFFFFFFFFFFFFF0) - 8];
+  v10 = &v15[-1] - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
   static IndexPath._unconditionallyBridgeFromObjectiveC(_:)();
   cellCopy = cell;
   selfCopy = self;
@@ -127,7 +127,7 @@
   if (imageView)
   {
     v14 = imageView;
-    sub_100005744(0, &qword_100973120);
+    sub_100005744(0, &qword_100973120, UIImageView_ptr);
     sub_10055F664();
     AnyHashable.init<A>(_:)();
     ArtworkLoader.forgetFetch(forHandlerKey:deprioritizingFetch:)();

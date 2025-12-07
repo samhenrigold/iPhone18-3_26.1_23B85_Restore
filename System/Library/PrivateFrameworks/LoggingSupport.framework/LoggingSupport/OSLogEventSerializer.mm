@@ -5,6 +5,7 @@
 - (OS_dispatch_queue)target;
 - (id)_arrayForDecomposedMessage:(id)message indicesToRedact:(id)redact;
 - (id)_dictForArg:(id)arg shouldRedactValue:(BOOL)value;
+- (id)_dictForDecomposedMessage:(id)message index:(unint64_t)index shouldRedact:(BOOL)redact;
 - (id)_dictForDecomposedMessage:(id)message indicesToRedact:(id)redact;
 - (id)_dictForPlaceholder:(id)placeholder;
 - (id)_dictionaryForProxy:(id)proxy;
@@ -25,18 +26,18 @@
 
 - (void)_completeBatch:(id)batch
 {
-  v16[2] = *MEMORY[0x277D85DE8];
+  v15[2] = *MEMORY[0x277D85DE8];
   batchCopy = batch;
-  v15[0] = @"Version";
-  v15[1] = @"Events";
-  v16[0] = &unk_2841B9228;
+  v14[0] = @"Version";
+  v14[1] = @"Events";
+  v15[0] = &unk_2841B9228;
   curBatchDictionaries = [(OSLogEventSerializer *)self curBatchDictionaries];
-  v16[1] = curBatchDictionaries;
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:2];
+  v15[1] = curBatchDictionaries;
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:2];
 
-  v14 = 0;
-  v8 = [MEMORY[0x277CCAC58] dataWithPropertyList:v7 format:200 options:0 error:&v14];
-  v9 = v14;
+  v13 = 0;
+  v8 = [MEMORY[0x277CCAC58] dataWithPropertyList:v7 format:200 options:0 error:&v13];
+  v9 = v13;
   if (!v8)
   {
     currentHandler = [MEMORY[0x277CCA890] currentHandler];
@@ -48,8 +49,6 @@
   array = [MEMORY[0x277CBEB18] array];
   curBatchDictionaries = self->_curBatchDictionaries;
   self->_curBatchDictionaries = array;
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_dictionaryForProxy:(id)proxy
@@ -544,34 +543,34 @@ LABEL_123:
 
 - (id)_dictForDecomposedMessage:(id)message indicesToRedact:(id)redact
 {
-  v17[3] = *MEMORY[0x277D85DE8];
+  v16[3] = *MEMORY[0x277D85DE8];
   messageCopy = message;
   redactCopy = redact;
   if (messageCopy)
   {
     if ([messageCopy placeholderCount])
     {
-      v16[0] = @"pc";
+      v15[0] = @"pc";
       v8 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(messageCopy, "placeholderCount")}];
-      v17[0] = v8;
-      v16[1] = @"s";
+      v16[0] = v8;
+      v15[1] = @"s";
       v9 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(messageCopy, "state")}];
-      v17[1] = v9;
-      v16[2] = @"seg";
+      v16[1] = v9;
+      v15[2] = @"seg";
       v10 = [(OSLogEventSerializer *)self _arrayForDecomposedMessage:messageCopy indicesToRedact:redactCopy];
-      v17[2] = v10;
-      v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:3];
+      v16[2] = v10;
+      v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:3];
     }
 
     else
     {
-      v14[0] = @"pc";
+      v13[0] = @"pc";
       v8 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(messageCopy, "placeholderCount")}];
-      v14[1] = @"s";
-      v15[0] = v8;
+      v13[1] = @"s";
+      v14[0] = v8;
       v9 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(messageCopy, "state")}];
-      v15[1] = v9;
-      v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:2];
+      v14[1] = v9;
+      v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:2];
     }
   }
 
@@ -579,8 +578,6 @@ LABEL_123:
   {
     v11 = 0;
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v11;
 }
@@ -609,6 +606,45 @@ LABEL_123:
   while (v9 <= [messageCopy placeholderCount]);
 
   return array;
+}
+
+- (id)_dictForDecomposedMessage:(id)message index:(unint64_t)index shouldRedact:(BOOL)redact
+{
+  redactCopy = redact;
+  messageCopy = message;
+  v9 = [messageCopy literalPrefixAtIndex:index];
+  v10 = [messageCopy placeholderAtIndex:index];
+  v11 = [messageCopy argumentAtIndex:index];
+
+  if (v9 || v10 || v11)
+  {
+    dictionary = [MEMORY[0x277CBEB38] dictionary];
+    if (v9)
+    {
+      metadata = [(OSLogEventSerializer *)self metadata];
+      v14 = [metadata indexForString:v9];
+      [dictionary setObject:v14 forKeyedSubscript:@"lp"];
+    }
+
+    if (v10)
+    {
+      v15 = [(OSLogEventSerializer *)self _dictForPlaceholder:v10];
+      [dictionary setObject:v15 forKeyedSubscript:@"p"];
+    }
+
+    if (v11)
+    {
+      v16 = [(OSLogEventSerializer *)self _dictForArg:v11 shouldRedactValue:redactCopy];
+      [dictionary setObject:v16 forKeyedSubscript:@"a"];
+    }
+  }
+
+  else
+  {
+    dictionary = 0;
+  }
+
+  return dictionary;
 }
 
 - (id)_dictForArg:(id)arg shouldRedactValue:(BOOL)value
@@ -679,7 +715,7 @@ LABEL_123:
 
 - (id)_dictForPlaceholder:(id)placeholder
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   placeholderCopy = placeholder;
   dictionary = [MEMORY[0x277CBEB38] dictionary];
   rawString = [placeholderCopy rawString];
@@ -694,43 +730,43 @@ LABEL_123:
   v10 = tokens;
   if (tokens && [tokens count])
   {
-    v31 = rawString;
+    v30 = rawString;
     array = [MEMORY[0x277CBEB18] array];
+    v31 = 0u;
     v32 = 0u;
     v33 = 0u;
     v34 = 0u;
-    v35 = 0u;
-    v30 = v10;
+    v29 = v10;
     v12 = v10;
-    v13 = [v12 countByEnumeratingWithState:&v32 objects:v36 count:16];
+    v13 = [v12 countByEnumeratingWithState:&v31 objects:v35 count:16];
     if (v13)
     {
       v14 = v13;
-      v15 = *v33;
+      v15 = *v32;
       do
       {
         for (i = 0; i != v14; ++i)
         {
-          if (*v33 != v15)
+          if (*v32 != v15)
           {
             objc_enumerationMutation(v12);
           }
 
-          v17 = *(*(&v32 + 1) + 8 * i);
+          v17 = *(*(&v31 + 1) + 8 * i);
           metadata2 = [(OSLogEventSerializer *)self metadata];
           v19 = [metadata2 indexForString:v17];
           [array addObject:v19];
         }
 
-        v14 = [v12 countByEnumeratingWithState:&v32 objects:v36 count:16];
+        v14 = [v12 countByEnumeratingWithState:&v31 objects:v35 count:16];
       }
 
       while (v14);
     }
 
     [dictionary setObject:array forKeyedSubscript:@"t"];
-    v10 = v30;
-    rawString = v31;
+    v10 = v29;
+    rawString = v30;
   }
 
   typeNamespace = [placeholderCopy typeNamespace];
@@ -754,8 +790,6 @@ LABEL_123:
 
   v27 = [MEMORY[0x277CCABB0] numberWithInt:{objc_msgSend(placeholderCopy, "precision")}];
   [dictionary setObject:v27 forKeyedSubscript:@"p"];
-
-  v28 = *MEMORY[0x277D85DE8];
 
   return dictionary;
 }

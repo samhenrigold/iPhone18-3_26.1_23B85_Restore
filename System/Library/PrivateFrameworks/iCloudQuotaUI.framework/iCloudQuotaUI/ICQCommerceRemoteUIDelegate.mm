@@ -825,8 +825,7 @@ void __81__ICQCommerceRemoteUIDelegate_errorWithTitle_andExplanation_dismissedCo
 
 - (BOOL)_hasUnfinishedOperations
 {
-  operations = [(NSOperationQueue *)self->_queue operations];
-  v6 = ([operations count] != 1 || (objc_msgSend(operations, "firstObject"), v4 = objc_claimAutoreleasedReturnValue(), finishingOperation = self->_finishingOperation, v4, v4 != finishingOperation)) && objc_msgSend(operations, "count") != 0;
+  v6 = ([operations count] != 1 || (objc_msgSend(operations, "firstObject"), v4 = operations = [(NSOperationQueue *)self->_queue operations];
 
   return v6;
 }
@@ -1063,7 +1062,7 @@ void __42__ICQCommerceRemoteUIDelegate_pushSpinner__block_invoke(uint64_t a1)
   dispatch_async(MEMORY[0x277D85CD0], block);
 }
 
-uint64_t __56__ICQCommerceRemoteUIDelegate_retryPurchaseWithoutToken__block_invoke(uint64_t a1)
+void *__56__ICQCommerceRemoteUIDelegate_retryPurchaseWithoutToken__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) skipRetryWithoutToken];
   if ((result & 1) == 0)

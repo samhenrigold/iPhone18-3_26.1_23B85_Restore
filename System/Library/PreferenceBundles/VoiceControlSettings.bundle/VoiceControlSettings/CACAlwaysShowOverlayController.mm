@@ -12,6 +12,7 @@
 - (void)dealloc;
 - (void)setGridOverlayPressOnFirstLevel:(id)level specifier:(id)specifier;
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)path;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation CACAlwaysShowOverlayController
@@ -152,6 +153,14 @@
   }
 
   return v4;
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = CACAlwaysShowOverlayController;
+  [(CACAlwaysShowOverlayController *)&v4 viewWillAppear:appear];
+  [(CACAlwaysShowOverlayController *)self reloadSpecifiers];
 }
 
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)path

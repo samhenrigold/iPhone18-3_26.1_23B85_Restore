@@ -42,7 +42,7 @@
 {
   tileCopy = tile;
   [(PXWidgetCompositionViewElement *)self setIsCheckingInTile:1];
-  +[PXWidgetCompositionViewElementLayout viewTileIdentifier];
+  objc_msgSend_viewTileIdentifier(PXWidgetCompositionViewElementLayout);
   v8 = *&identifier->index[5];
   v19[2] = *&identifier->index[3];
   v19[3] = v8;
@@ -97,7 +97,7 @@
 - (void)checkOutTileForIdentifier:(PXTileIdentifier *)identifier layout:(id)layout
 {
   layoutCopy = layout;
-  +[PXWidgetCompositionViewElementLayout viewTileIdentifier];
+  objc_msgSend_viewTileIdentifier(PXWidgetCompositionViewElementLayout);
   v8 = *&identifier->index[5];
   v21[2] = *&identifier->index[3];
   v21[3] = v8;

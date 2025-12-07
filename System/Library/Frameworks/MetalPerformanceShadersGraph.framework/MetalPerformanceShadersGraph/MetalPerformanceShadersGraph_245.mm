@@ -1,3 +1,3083 @@
+char *GPU::PadOpHandler::getJITStaticOperandRepr(GPU::BaseOpHandler *this, GPU::EncodeDescriptor *a2, mlir::UnknownLoc **a3, unsigned int a4)
+{
+  if (a4 == 1)
+  {
+    return GPU::BaseOpHandler::_getJITStaticOperandReprConstant(this, a2, a3, 1u);
+  }
+
+  else
+  {
+    return GPU::BaseOpHandler::_getJITStaticOperandReprPlaceholder(this, a2, a3, a4);
+  }
+}
+
+uint64_t GPU::PadGradientOpHandler::_createKernel(GPU::PadGradientOpHandler *this, GPU::EncodeDescriptor *a2)
+{
+  v69 = *(this + 3);
+  StorageType = mlir::mps::MaterializeSparseTensorOp::getStorageType(&v69);
+  if (StorageType >= 4)
+  {
+    v5 = 0;
+    if (MTLReportFailureTypeEnabled())
+    {
+      MTLReportFailure();
+      v5 = 0;
+    }
+  }
+
+  else
+  {
+    v5 = qword_1E09A95E8[StorageType];
+  }
+
+  v6 = *(this + 2);
+  v7 = v69;
+  v53 = 0u;
+  v54 = 0u;
+  v55 = 0u;
+  v56 = 0u;
+  v57 = 0u;
+  v58 = 0u;
+  v59 = 0u;
+  v60 = 0u;
+  v61 = 0u;
+  v62 = 0u;
+  v63 = 0u;
+  v64 = 0u;
+  v65 = 0u;
+  v66 = 0u;
+  v67 = 0u;
+  v68 = 0u;
+  StaticType = GPURegionRuntime::getStaticType(v6, *(*(v69 + 72) + 88));
+  v9 = StaticType;
+  if (StaticType)
+  {
+    StaticType = mlir::detail::InterfaceMap::lookup<mlir::ShapedType>(*StaticType + 8);
+  }
+
+  v70[0] = v9;
+  v70[1] = StaticType;
+  v10 = *mlir::CallableOpInterface::getArgAttrsAttr(v70);
+  GPURegionRuntime::waitAndReadIntTensorData(v6, a2, *(*(v7 + 72) + 88), __p);
+  v11 = __p[0];
+  if (v10 < 1)
+  {
+    if (!__p[0])
+    {
+      goto LABEL_31;
+    }
+
+    goto LABEL_30;
+  }
+
+  if (v10 == 1)
+  {
+    v12 = 0;
+    v13 = 0;
+LABEL_10:
+    v14 = v13 + 1;
+    v15 = 2 * v13;
+    do
+    {
+      *(&v53 + 2 * v10 + 2 * ~v12) = v11[v15];
+      v12 = v14++;
+      v15 += 2;
+    }
+
+    while (v10 > v12);
+    goto LABEL_12;
+  }
+
+  v13 = 0;
+  v12 = 0;
+  if (!v10)
+  {
+    goto LABEL_10;
+  }
+
+  v20 = (v10 - 1) >> 32;
+  if (v20)
+  {
+    goto LABEL_10;
+  }
+
+  v21 = 0;
+  v12 = v10 & 0x1FFFFFFFELL;
+  v13 = v10 & 0xFFFFFFFE;
+  v22 = &v53 + v10 - 1;
+  do
+  {
+    v23 = &v11[v20 & 0xFFFFFFFC];
+    v24 = *v23;
+    v25 = v23[2];
+    *v22 = v24;
+    v22 -= 2;
+    *(&v53 + 2 * v10 + 2 * (v21 ^ 0xFFFFFFFFFFFFFFELL)) = v25;
+    v21 += 2;
+    v20 += 4;
+  }
+
+  while (v12 != v21);
+  if (v10 != v12)
+  {
+    goto LABEL_10;
+  }
+
+LABEL_12:
+  if (v10 == 1)
+  {
+    v16 = 0;
+    v17 = 0;
+  }
+
+  else
+  {
+    v17 = 0;
+    v16 = 0;
+    if (v10)
+    {
+      v26 = (v10 - 1) >> 32;
+      if (!v26)
+      {
+        v27 = 0;
+        v16 = v10 & 0x7FFFFFFFFFFFFFFELL;
+        v17 = v10 & 0xFFFFFFFE;
+        v28 = &v53 + 2 * v10 - 1;
+        do
+        {
+          v29 = &v11[v26 & 0xFFFFFFFC];
+          v30 = *(v29 + 1);
+          v31 = *(v29 + 3);
+          *v28 = v30;
+          v28 -= 4;
+          *(&v53 + 2 * v10 + 2 * (v27 ^ 0xFFFFFFFFFFFFFFELL) + 1) = v31;
+          v27 += 2;
+          v26 += 4;
+        }
+
+        while (v16 != v27);
+        if (v10 == v16)
+        {
+          goto LABEL_30;
+        }
+      }
+    }
+  }
+
+  v18 = v17 + 1;
+  v19 = (2 * v17) | 1;
+  do
+  {
+    *(&v53 + 2 * v10 + 2 * ~v16 + 1) = v11[v19];
+    v16 = v18++;
+    v19 += 2;
+  }
+
+  while (v10 > v16);
+LABEL_30:
+  __p[1] = v11;
+  operator delete(v11);
+LABEL_31:
+  v32 = objc_alloc(MEMORY[0x1E69747D0]);
+  v33 = [*(*(this + 2) + 48) metalDevice];
+  v49 = v65;
+  v50 = v66;
+  v51 = v67;
+  v52 = v68;
+  v45 = v61;
+  v46 = v62;
+  v47 = v63;
+  v48 = v64;
+  v41 = v57;
+  v42 = v58;
+  v43 = v59;
+  v44 = v60;
+  *__p = v53;
+  v38 = v54;
+  v39 = v55;
+  v40 = v56;
+  v34 = [v32 initWithDevice:v33 edgeMode:v5 paddingSize:__p];
+  v35 = *(this + 1);
+  *(this + 1) = v34;
+
+  return [*(this + 1) setOptions:{objc_msgSend(*(this + 1), "options") | 1}];
+}
+
+void GPU::PadGradientOpHandler::encodeNDArrayOp(GPU::PadGradientOpHandler *this, void **a2, NSArray *a3)
+{
+  v134[2] = *MEMORY[0x1E69E9840];
+  v96 = a3;
+  if ((*(this + 40) & 1) == 0)
+  {
+    GPU::PadGradientOpHandler::_createKernel(this, a2);
+  }
+
+  v108 = this;
+  v5 = *(this + 3);
+  v6 = *(v5 + 72);
+  v7 = *(v6 + 24);
+  v8 = *(v6 + 56);
+  LODWORD(v6) = *(v5 + 36);
+  v9 = v5 - 16;
+  if (v6)
+  {
+    v10 = v9;
+  }
+
+  else
+  {
+    v10 = 0;
+  }
+
+  NextResultAtOffset = mlir::detail::OpResultImpl::getNextResultAtOffset(v10, 0);
+  v94 = [(NSArray *)v96 objectAtIndexedSubscript:0];
+  v97 = [v94 mpsndarray];
+  v12 = (*(**(v108 + 2) + 48))(*(v108 + 2), v7, 0);
+  v98 = [v12 mpsndarray];
+
+  v13 = (*(**(v108 + 2) + 48))(*(v108 + 2), v8, 0);
+  v14 = [v13 mpsndarray];
+
+  v95 = v14;
+  if (v98)
+  {
+    v15 = v14 == 0;
+  }
+
+  else
+  {
+    v15 = 1;
+  }
+
+  v16 = v15 || v97 == 0;
+  if (v16 && MTLReportFailureTypeEnabled())
+  {
+    MTLReportFailure();
+  }
+
+  v101 = *(v108 + 1);
+  v17 = [v98 descriptor];
+  v100 = v17;
+  v18 = [v17 numberOfDimensions];
+  v89 = NextResultAtOffset;
+  v134[0] = 0;
+  v134[1] = 0;
+  memset(v115, 0, sizeof(v115));
+  v19 = v101;
+  if (v101)
+  {
+    v19 = objc_msgSend_paddingSize(v101);
+  }
+
+  v92 = &v86;
+  v20 = MEMORY[0x1EEE9AC00](v19);
+  v22 = (&v86 - ((v21 + 15) & 0xFFFFFFFFFFFFFFF0));
+  MEMORY[0x1EEE9AC00](v20);
+  v24 = &v86 - v23;
+  if (!v18)
+  {
+    goto LABEL_21;
+  }
+
+  v111 = 0;
+  v25 = 0;
+  v93 = &v131 + 8;
+  v90 = &v132 + 8;
+  v91 = &v132;
+  v26 = &v115[0].i64[1];
+  do
+  {
+    [v17 sliceRangeForDimension:v25];
+    v22[v25] = v27;
+    *&v24[8 * v25] = v27;
+    v28 = *(v26 - 1);
+    v29 = *v26;
+    if (*(v26 - 1) != 0)
+    {
+      *(v134 + v25) = 1;
+      ++v111;
+      *&v24[8 * v25] = v27 - (v28 + v29);
+    }
+
+    ++v25;
+    v26 += 2;
+  }
+
+  while (v18 != v25);
+  if (v18 < 5)
+  {
+LABEL_21:
+    v30 = GPU::EncodeDescriptor::getcomputeEncoder(a2);
+    v31 = a2[1];
+    v133 = v95;
+    v32 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v133 count:1];
+    [v101 encodeToMPSCommandEncoder:v30 commandBuffer:v31 sourceArrays:v32 sourceGradient:v98 gradientState:0 destinationArray:v97 kernelDAGObject:0];
+
+    v99 = 0;
+    goto LABEL_75;
+  }
+
+  v33 = v98;
+  if (v111)
+  {
+    v106 = v33;
+    v107 = a2;
+    v99 = 0;
+    v87 = v22 + 2;
+    v88 = v18 - 1;
+    v112 = v24 - 8;
+    while (1)
+    {
+      v131 = 0u;
+      v132 = 0u;
+      v129 = 0u;
+      v130 = 0u;
+      v127 = 0u;
+      v128 = 0u;
+      v125 = 0u;
+      v126 = 0u;
+      v123 = 0u;
+      v124 = 0u;
+      v121 = 0u;
+      v122 = 0u;
+      v119 = 0u;
+      v120 = 0u;
+      v117 = 0u;
+      v118 = 0u;
+      v34 = *v22;
+      if (v134[0])
+      {
+        *&v131 = *v22;
+        v104 = v115[0];
+        *&v129 = v34 - vaddvq_s64(v115[0]);
+        *v22 = v129;
+        LOBYTE(v134[0]) = 0;
+        --v111;
+        v35 = 1;
+      }
+
+      else
+      {
+        v35 = 1;
+        while ((*(v134 + v35) & 1) == 0)
+        {
+          v34 *= v22[v35++];
+          if (v18 == v35)
+          {
+            v35 = v18;
+            break;
+          }
+        }
+
+        *&v131 = v34;
+        *&v129 = v34;
+        v104 = 0u;
+        if (v35 >= v18)
+        {
+          v105 = 0u;
+          v36 = 0;
+          v37 = 0;
+          v38 = 0;
+          v39 = &v131;
+          v102 = 0u;
+          v103 = 0u;
+          v40 = 1;
+          goto LABEL_62;
+        }
+      }
+
+      if (*(v134 + v35))
+      {
+        v105 = 0u;
+        *(&v131 + 1) = v22[v35];
+        v103 = v115[v35];
+        *(&v129 + 1) = *(&v131 + 1) - vaddvq_s64(v103);
+        v22[v35] = *(&v129 + 1);
+        *(v134 + v35) = 0;
+        v41 = v35 + 1;
+        --v111;
+        if (v35 + 1 >= v18)
+        {
+          goto LABEL_34;
+        }
+      }
+
+      else
+      {
+        v42 = v22[v35];
+        v41 = v35 + 1;
+        if (v35 + 1 < v18)
+        {
+          while ((*(v134 + v41) & 1) == 0)
+          {
+            v42 *= v22[v41++];
+            if (v18 == v41)
+            {
+              v105 = 0u;
+              *(&v131 + 1) = v42;
+              *(&v129 + 1) = v42;
+              v103 = 0u;
+              goto LABEL_34;
+            }
+          }
+        }
+
+        v105 = 0u;
+        *(&v131 + 1) = v42;
+        *(&v129 + 1) = v42;
+        v103 = 0u;
+        if (v41 >= v18)
+        {
+LABEL_34:
+          v37 = 0;
+          v36 = 1;
+          v102 = 0u;
+          v40 = 2;
+          v39 = v93;
+          v38 = 1;
+          goto LABEL_62;
+        }
+      }
+
+      if (*(v134 + v41))
+      {
+        *&v132 = v22[v41];
+        v102 = v115[v41];
+        *&v130 = v132 - vaddvq_s64(v102);
+        v22[v41] = v130;
+        *(v134 + v41) = 0;
+        v43 = v41 + 1;
+        --v111;
+        if (v41 + 1 < v18)
+        {
+          goto LABEL_48;
+        }
+      }
+
+      else
+      {
+        v44 = v22[v41];
+        v43 = v41 + 1;
+        if (v41 + 1 < v18)
+        {
+          while ((*(v134 + v43) & 1) == 0)
+          {
+            v44 *= v22[v43++];
+            if (v18 == v43)
+            {
+              v43 = v18;
+              break;
+            }
+          }
+        }
+
+        *&v132 = v44;
+        *&v130 = v44;
+        v102 = 0u;
+        if (v43 < v18)
+        {
+LABEL_48:
+          if (*(v134 + v43) == 1 && v43 == v88)
+          {
+            v36 = 0;
+            v37 = 0;
+            v55 = v22[v43];
+            v105 = v115[v43];
+            v56 = v55 - vaddvq_s64(v105);
+            v22[v43] = v56;
+            *(v134 + v43) = 0;
+            *(&v132 + 1) = v55;
+            *(&v130 + 1) = v56;
+            --v111;
+          }
+
+          else
+          {
+            v46 = v22[v43];
+            v47 = v43 + 1;
+            if (v43 + 1 < v18)
+            {
+              v48 = v18 + ~v43;
+              if (v48 < 2)
+              {
+                goto LABEL_57;
+              }
+
+              v47 += v48 & 0xFFFFFFFFFFFFFFFELL;
+              v49 = &v87[v43];
+              v50 = v48 & 0xFFFFFFFFFFFFFFFELL;
+              v51 = 1;
+              do
+              {
+                v46 *= *(v49 - 1);
+                v51 *= *v49;
+                v49 += 2;
+                v50 -= 2;
+              }
+
+              while (v50);
+              v46 *= v51;
+              if (v48 != (v48 & 0xFFFFFFFFFFFFFFFELL))
+              {
+LABEL_57:
+                v52 = v18 - v47;
+                v53 = &v22[v47];
+                do
+                {
+                  v54 = *v53++;
+                  v46 *= v54;
+                  --v52;
+                }
+
+                while (v52);
+              }
+            }
+
+            v36 = 0;
+            v37 = 0;
+            *(&v132 + 1) = v46;
+            *(&v130 + 1) = v46;
+          }
+
+          v40 = 4;
+          v39 = v90;
+          v38 = 3;
+          goto LABEL_62;
+        }
+      }
+
+      v36 = 0;
+      v37 = 1;
+      v40 = 3;
+      v39 = v91;
+      v38 = 2;
+LABEL_62:
+      v110 = *(*(v108 + 2) + 416);
+      v114 = 0;
+      v57 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:v40];
+      v58 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:*v39];
+      [v57 addObject:v58];
+
+      if (v35 < v18)
+      {
+        v59 = &v131 + 8 * v38;
+        v60 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:*(v59 - 1)];
+        [v57 addObject:v60];
+
+        if ((v36 & 1) == 0)
+        {
+          v61 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:*(v59 - 2)];
+          [v57 addObject:v61];
+
+          if ((v37 & 1) == 0)
+          {
+            v62 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:*(v59 - 3)];
+            [v57 addObject:v62];
+          }
+        }
+      }
+
+      v63 = v107;
+      v64 = GPU::EncodeDescriptor::getcomputeEncoder(v107);
+      v109 = GPU::doReshapeWithFallBack(v106, v57, v110, v64, *(v63 + 1), &v114, 1);
+
+      v65 = objc_alloc(MEMORY[0x1E69747D0]);
+      v66 = [*(*(v108 + 2) + 48) metalDevice];
+      v67 = [v101 edgeMode];
+      v113[0] = v104;
+      v113[1] = v103;
+      v113[2] = v102;
+      v113[3] = v105;
+      v113[12] = v125;
+      v113[13] = v126;
+      v113[14] = v127;
+      v113[15] = v128;
+      v113[8] = v121;
+      v113[9] = v122;
+      v113[10] = v123;
+      v113[11] = v124;
+      v113[4] = v117;
+      v113[5] = v118;
+      v113[6] = v119;
+      v113[7] = v120;
+      v68 = [v65 initWithDevice:v66 edgeMode:v67 paddingSize:v113];
+
+      v69 = [MEMORY[0x1E6974490] descriptorWithDataType:objc_msgSend(v100 dimensionCount:"dataType") dimensionSizes:{v40, &v129}];
+      v70 = v107;
+      v71 = [MEMORY[0x1E69744A8] temporaryNDArrayWithCommandBuffer:*(v107 + 1) descriptor:v69];
+      [v71 setReadCount:2];
+      v72 = GPU::EncodeDescriptor::getcomputeEncoder(v70);
+      v73 = *(v70 + 1);
+      v116 = v71;
+      v74 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v116 count:1];
+      [v68 encodeToMPSCommandEncoder:v72 commandBuffer:v73 sourceArrays:v74 sourceGradient:v109 gradientState:0 destinationArray:v71 kernelDAGObject:0];
+
+      if (v111)
+      {
+        v75 = v71;
+        v76 = v106;
+        v106 = v75;
+      }
+
+      else
+      {
+        v77 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:v18];
+
+        v57 = v77;
+        v78 = v18;
+        do
+        {
+          v79 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:*&v112[8 * v78]];
+          [v57 addObject:v79];
+
+          --v78;
+        }
+
+        while (v78);
+        v80 = v107;
+        v76 = GPU::EncodeDescriptor::getcomputeEncoder(v107);
+        v81 = GPU::doReshapeWithFallBack(v71, v57, v110, v76, *(v80 + 1), &v114, 1);
+
+        v99 = v81;
+      }
+
+      v82 = v111 == 0;
+
+      if (v82)
+      {
+
+        a2 = v107;
+        goto LABEL_74;
+      }
+    }
+  }
+
+  v99 = v33;
+LABEL_74:
+  v83 = v108;
+  v84 = *(v108 + 2);
+  v85 = v99;
+  v30 = GPU::EncodeDescriptor::getcomputeEncoder(a2);
+  GPURegionRuntime::copyNDArrayToTarget(v84, v30, a2[1], v83 + 15, v85, v94, v89, 0);
+LABEL_75:
+}
+
+char *GPU::PadGradientOpHandler::getJITStaticOperandRepr(GPU::BaseOpHandler *this, GPU::EncodeDescriptor *a2, mlir::UnknownLoc **a3, unsigned int a4)
+{
+  if (a4 == 2)
+  {
+    return GPU::BaseOpHandler::_getJITStaticOperandReprConstant(this, a2, a3, 2u);
+  }
+
+  else
+  {
+    return GPU::BaseOpHandler::_getJITStaticOperandReprPlaceholder(this, a2, a3, a4);
+  }
+}
+
+void GPU::PadOpHandler::~PadOpHandler(id *this)
+{
+
+  GPU::BaseOpHandler::~BaseOpHandler(this);
+}
+
+{
+
+  GPU::BaseOpHandler::~BaseOpHandler(this);
+
+  JUMPOUT(0x1E12E5B90);
+}
+
+void GPU::PadGradientOpHandler::~PadGradientOpHandler(id *this)
+{
+
+  GPU::BaseOpHandler::~BaseOpHandler(this);
+}
+
+{
+
+  GPU::BaseOpHandler::~BaseOpHandler(this);
+
+  JUMPOUT(0x1E12E5B90);
+}
+
+void *std::unique_ptr<std::vector<long> const,std::default_delete<std::vector<long> const>>::~unique_ptr[abi:ne200100](void *result)
+{
+  v1 = *result;
+  *result = 0;
+  if (v1)
+  {
+    v2 = result;
+    v3 = *v1;
+    if (*v1)
+    {
+      *(v1 + 8) = v3;
+      operator delete(v3);
+    }
+
+    MEMORY[0x1E12E5B90](v1, 0x10C402FEFCB83);
+    return v2;
+  }
+
+  return result;
+}
+
+uint64_t GPU::AddOpHandler::kernelDAGOp(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+{
+  v6 = *(a1 + 24);
+  GPU::MPSGraphKernelDAG::getBaseTensorFromDataMap(a2, *(*(v6 + 72) + 24), 0);
+  GPU::MPSGraphKernelDAG::getBaseTensorFromDataMap(a2, *(*(v6 + 72) + 56), 0);
+
+  return MPSKernelDAG::additionOp();
+}
+
+void GPU::AddOpHandler::~AddOpHandler(GPU::AddOpHandler *this)
+{
+  *this = &unk_1F5B4D918;
+  v2 = *(this + 15);
+  *(this + 15) = 0;
+  if (v2)
+  {
+    v3 = this;
+    (*(*v2 + 8))(v2);
+    this = v3;
+    v1 = vars8;
+  }
+
+  GPU::BaseOpHandler::~BaseOpHandler(this);
+}
+
+{
+  *this = &unk_1F5B4D918;
+  v2 = *(this + 15);
+  *(this + 15) = 0;
+  if (v2)
+  {
+    (*(*v2 + 8))(v2);
+  }
+
+  GPU::BaseOpHandler::~BaseOpHandler(this);
+
+  JUMPOUT(0x1E12E5B90);
+}
+
+uint64_t GPU::SubtractOpHandler::kernelDAGOp(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+{
+  v6 = *(a1 + 24);
+  GPU::MPSGraphKernelDAG::getBaseTensorFromDataMap(a2, *(*(v6 + 72) + 24), 0);
+  GPU::MPSGraphKernelDAG::getBaseTensorFromDataMap(a2, *(*(v6 + 72) + 56), 0);
+
+  return MPSKernelDAG::subtractionOp();
+}
+
+void GPU::SubtractOpHandler::~SubtractOpHandler(GPU::SubtractOpHandler *this)
+{
+  *this = &unk_1F5B4D918;
+  v2 = *(this + 15);
+  *(this + 15) = 0;
+  if (v2)
+  {
+    v3 = this;
+    (*(*v2 + 8))(v2);
+    this = v3;
+    v1 = vars8;
+  }
+
+  GPU::BaseOpHandler::~BaseOpHandler(this);
+}
+
+{
+  *this = &unk_1F5B4D918;
+  v2 = *(this + 15);
+  *(this + 15) = 0;
+  if (v2)
+  {
+    (*(*v2 + 8))(v2);
+  }
+
+  GPU::BaseOpHandler::~BaseOpHandler(this);
+
+  JUMPOUT(0x1E12E5B90);
+}
+
+uint64_t GPU::MultiplyOpHandler::kernelDAGOp(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+{
+  v6 = *(a1 + 24);
+  GPU::MPSGraphKernelDAG::getBaseTensorFromDataMap(a2, *(*(v6 + 72) + 24), 0);
+  GPU::MPSGraphKernelDAG::getBaseTensorFromDataMap(a2, *(*(v6 + 72) + 56), 0);
+
+  return MPSKernelDAG::multiplicationOp();
+}
+
+void GPU::MultiplyOpHandler::~MultiplyOpHandler(GPU::MultiplyOpHandler *this)
+{
+  *this = &unk_1F5B4D918;
+  v2 = *(this + 15);
+  *(this + 15) = 0;
+  if (v2)
+  {
+    v3 = this;
+    (*(*v2 + 8))(v2);
+    this = v3;
+    v1 = vars8;
+  }
+
+  GPU::BaseOpHandler::~BaseOpHandler(this);
+}
+
+{
+  *this = &unk_1F5B4D918;
+  v2 = *(this + 15);
+  *(this + 15) = 0;
+  if (v2)
+  {
+    (*(*v2 + 8))(v2);
+  }
+
+  GPU::BaseOpHandler::~BaseOpHandler(this);
+
+  JUMPOUT(0x1E12E5B90);
+}
+
+uint64_t GPU::DivideOpHandler::kernelDAGOp(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+{
+  v9 = *(a1 + 24);
+  BaseTensorFromDataMap = GPU::MPSGraphKernelDAG::getBaseTensorFromDataMap(a2, *(*(v9 + 72) + 24), 0);
+  v11 = GPU::MPSGraphKernelDAG::getBaseTensorFromDataMap(a2, *(*(v9 + 72) + 56), 0);
+  v12 = *(a2 + 80);
+
+  return MEMORY[0x1EEDCDD80](v12, BaseTensorFromDataMap, v11, a3, a4, a5);
+}
+
+void GPU::DivideOpHandler::~DivideOpHandler(GPU::DivideOpHandler *this)
+{
+  *this = &unk_1F5B4D918;
+  v2 = *(this + 15);
+  *(this + 15) = 0;
+  if (v2)
+  {
+    v3 = this;
+    (*(*v2 + 8))(v2);
+    this = v3;
+    v1 = vars8;
+  }
+
+  GPU::BaseOpHandler::~BaseOpHandler(this);
+}
+
+{
+  *this = &unk_1F5B4D918;
+  v2 = *(this + 15);
+  *(this + 15) = 0;
+  if (v2)
+  {
+    (*(*v2 + 8))(v2);
+  }
+
+  GPU::BaseOpHandler::~BaseOpHandler(this);
+
+  JUMPOUT(0x1E12E5B90);
+}
+
+uint64_t GPU::ModuloOpHandler::kernelDAGOp(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+{
+  v9 = *(a1 + 24);
+  BaseTensorFromDataMap = GPU::MPSGraphKernelDAG::getBaseTensorFromDataMap(a2, *(*(v9 + 72) + 24), 0);
+  v11 = GPU::MPSGraphKernelDAG::getBaseTensorFromDataMap(a2, *(*(v9 + 72) + 56), 0);
+  v12 = *(a2 + 80);
+
+  return MEMORY[0x1EEDCE010](v12, BaseTensorFromDataMap, v11, a3, a4, a5);
+}
+
+void GPU::ModuloOpHandler::~ModuloOpHandler(GPU::ModuloOpHandler *this)
+{
+  *this = &unk_1F5B4D918;
+  v2 = *(this + 15);
+  *(this + 15) = 0;
+  if (v2)
+  {
+    v3 = this;
+    (*(*v2 + 8))(v2);
+    this = v3;
+    v1 = vars8;
+  }
+
+  GPU::BaseOpHandler::~BaseOpHandler(this);
+}
+
+{
+  *this = &unk_1F5B4D918;
+  v2 = *(this + 15);
+  *(this + 15) = 0;
+  if (v2)
+  {
+    (*(*v2 + 8))(v2);
+  }
+
+  GPU::BaseOpHandler::~BaseOpHandler(this);
+
+  JUMPOUT(0x1E12E5B90);
+}
+
+uint64_t GPU::PowerOpHandler::kernelDAGOp(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+{
+  v9 = *(a1 + 24);
+  BaseTensorFromDataMap = GPU::MPSGraphKernelDAG::getBaseTensorFromDataMap(a2, *(*(v9 + 72) + 24), 0);
+  v11 = GPU::MPSGraphKernelDAG::getBaseTensorFromDataMap(a2, *(*(v9 + 72) + 56), 0);
+  v12 = *(a2 + 80);
+
+  return MEMORY[0x1EEDCDFF8](v12, BaseTensorFromDataMap, v11, a3, a4, a5);
+}
+
+void GPU::PowerOpHandler::~PowerOpHandler(GPU::PowerOpHandler *this)
+{
+  *this = &unk_1F5B4D918;
+  v2 = *(this + 15);
+  *(this + 15) = 0;
+  if (v2)
+  {
+    v3 = this;
+    (*(*v2 + 8))(v2);
+    this = v3;
+    v1 = vars8;
+  }
+
+  GPU::BaseOpHandler::~BaseOpHandler(this);
+}
+
+{
+  *this = &unk_1F5B4D918;
+  v2 = *(this + 15);
+  *(this + 15) = 0;
+  if (v2)
+  {
+    (*(*v2 + 8))(v2);
+  }
+
+  GPU::BaseOpHandler::~BaseOpHandler(this);
+
+  JUMPOUT(0x1E12E5B90);
+}
+
+uint64_t GPU::MinimumOpHandler::kernelDAGOp(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+{
+  v9 = *(a1 + 24);
+  BaseTensorFromDataMap = GPU::MPSGraphKernelDAG::getBaseTensorFromDataMap(a2, *(*(v9 + 72) + 24), 0);
+  v11 = GPU::MPSGraphKernelDAG::getBaseTensorFromDataMap(a2, *(*(v9 + 72) + 56), 0);
+  v12 = *(a2 + 80);
+
+  return MEMORY[0x1EEDCE040](v12, BaseTensorFromDataMap, v11, a3, a4, a5);
+}
+
+void GPU::MinimumOpHandler::~MinimumOpHandler(GPU::MinimumOpHandler *this)
+{
+  *this = &unk_1F5B4D918;
+  v2 = *(this + 15);
+  *(this + 15) = 0;
+  if (v2)
+  {
+    v3 = this;
+    (*(*v2 + 8))(v2);
+    this = v3;
+    v1 = vars8;
+  }
+
+  GPU::BaseOpHandler::~BaseOpHandler(this);
+}
+
+{
+  *this = &unk_1F5B4D918;
+  v2 = *(this + 15);
+  *(this + 15) = 0;
+  if (v2)
+  {
+    (*(*v2 + 8))(v2);
+  }
+
+  GPU::BaseOpHandler::~BaseOpHandler(this);
+
+  JUMPOUT(0x1E12E5B90);
+}
+
+uint64_t GPU::MaximumOpHandler::kernelDAGOp(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+{
+  v6 = *(a1 + 24);
+  GPU::MPSGraphKernelDAG::getBaseTensorFromDataMap(a2, *(*(v6 + 72) + 24), 0);
+  GPU::MPSGraphKernelDAG::getBaseTensorFromDataMap(a2, *(*(v6 + 72) + 56), 0);
+
+  return MPSKernelDAG::maximumOp();
+}
+
+void GPU::MaximumOpHandler::~MaximumOpHandler(GPU::MaximumOpHandler *this)
+{
+  *this = &unk_1F5B4D918;
+  v2 = *(this + 15);
+  *(this + 15) = 0;
+  if (v2)
+  {
+    v3 = this;
+    (*(*v2 + 8))(v2);
+    this = v3;
+    v1 = vars8;
+  }
+
+  GPU::BaseOpHandler::~BaseOpHandler(this);
+}
+
+{
+  *this = &unk_1F5B4D918;
+  v2 = *(this + 15);
+  *(this + 15) = 0;
+  if (v2)
+  {
+    (*(*v2 + 8))(v2);
+  }
+
+  GPU::BaseOpHandler::~BaseOpHandler(this);
+
+  JUMPOUT(0x1E12E5B90);
+}
+
+uint64_t GPU::EqualToOpHandler::kernelDAGOp(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+{
+  v6 = *(a1 + 24);
+  GPU::MPSGraphKernelDAG::getBaseTensorFromDataMap(a2, *(*(v6 + 72) + 24), 0);
+  GPU::MPSGraphKernelDAG::getBaseTensorFromDataMap(a2, *(*(v6 + 72) + 56), 0);
+
+  return MPSKernelDAG::isEqualOp();
+}
+
+void GPU::EqualToOpHandler::~EqualToOpHandler(GPU::EqualToOpHandler *this)
+{
+  *this = &unk_1F5B4D918;
+  v2 = *(this + 15);
+  *(this + 15) = 0;
+  if (v2)
+  {
+    v3 = this;
+    (*(*v2 + 8))(v2);
+    this = v3;
+    v1 = vars8;
+  }
+
+  GPU::BaseOpHandler::~BaseOpHandler(this);
+}
+
+{
+  *this = &unk_1F5B4D918;
+  v2 = *(this + 15);
+  *(this + 15) = 0;
+  if (v2)
+  {
+    (*(*v2 + 8))(v2);
+  }
+
+  GPU::BaseOpHandler::~BaseOpHandler(this);
+
+  JUMPOUT(0x1E12E5B90);
+}
+
+uint64_t GPU::NotEqualToOpHandler::kernelDAGOp(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+{
+  v6 = *(a1 + 24);
+  GPU::MPSGraphKernelDAG::getBaseTensorFromDataMap(a2, *(*(v6 + 72) + 24), 0);
+  GPU::MPSGraphKernelDAG::getBaseTensorFromDataMap(a2, *(*(v6 + 72) + 56), 0);
+
+  return MPSKernelDAG::isNotEqualOp();
+}
+
+void GPU::NotEqualToOpHandler::~NotEqualToOpHandler(GPU::NotEqualToOpHandler *this)
+{
+  *this = &unk_1F5B4D918;
+  v2 = *(this + 15);
+  *(this + 15) = 0;
+  if (v2)
+  {
+    v3 = this;
+    (*(*v2 + 8))(v2);
+    this = v3;
+    v1 = vars8;
+  }
+
+  GPU::BaseOpHandler::~BaseOpHandler(this);
+}
+
+{
+  *this = &unk_1F5B4D918;
+  v2 = *(this + 15);
+  *(this + 15) = 0;
+  if (v2)
+  {
+    (*(*v2 + 8))(v2);
+  }
+
+  GPU::BaseOpHandler::~BaseOpHandler(this);
+
+  JUMPOUT(0x1E12E5B90);
+}
+
+uint64_t GPU::LessThanOpHandler::kernelDAGOp(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+{
+  v6 = *(a1 + 24);
+  GPU::MPSGraphKernelDAG::getBaseTensorFromDataMap(a2, *(*(v6 + 72) + 24), 0);
+  GPU::MPSGraphKernelDAG::getBaseTensorFromDataMap(a2, *(*(v6 + 72) + 56), 0);
+
+  return MPSKernelDAG::lessThanOp();
+}
+
+void GPU::LessThanOpHandler::~LessThanOpHandler(GPU::LessThanOpHandler *this)
+{
+  *this = &unk_1F5B4D918;
+  v2 = *(this + 15);
+  *(this + 15) = 0;
+  if (v2)
+  {
+    v3 = this;
+    (*(*v2 + 8))(v2);
+    this = v3;
+    v1 = vars8;
+  }
+
+  GPU::BaseOpHandler::~BaseOpHandler(this);
+}
+
+{
+  *this = &unk_1F5B4D918;
+  v2 = *(this + 15);
+  *(this + 15) = 0;
+  if (v2)
+  {
+    (*(*v2 + 8))(v2);
+  }
+
+  GPU::BaseOpHandler::~BaseOpHandler(this);
+
+  JUMPOUT(0x1E12E5B90);
+}
+
+uint64_t GPU::LessThanOrEqualToOpHandler::kernelDAGOp(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+{
+  v9 = *(a1 + 24);
+  BaseTensorFromDataMap = GPU::MPSGraphKernelDAG::getBaseTensorFromDataMap(a2, *(*(v9 + 72) + 24), 0);
+  v11 = GPU::MPSGraphKernelDAG::getBaseTensorFromDataMap(a2, *(*(v9 + 72) + 56), 0);
+  v12 = *(a2 + 80);
+
+  return MEMORY[0x1EEDCDED0](v12, BaseTensorFromDataMap, v11, a3, a4, a5);
+}
+
+void GPU::LessThanOrEqualToOpHandler::~LessThanOrEqualToOpHandler(GPU::LessThanOrEqualToOpHandler *this)
+{
+  *this = &unk_1F5B4D918;
+  v2 = *(this + 15);
+  *(this + 15) = 0;
+  if (v2)
+  {
+    v3 = this;
+    (*(*v2 + 8))(v2);
+    this = v3;
+    v1 = vars8;
+  }
+
+  GPU::BaseOpHandler::~BaseOpHandler(this);
+}
+
+{
+  *this = &unk_1F5B4D918;
+  v2 = *(this + 15);
+  *(this + 15) = 0;
+  if (v2)
+  {
+    (*(*v2 + 8))(v2);
+  }
+
+  GPU::BaseOpHandler::~BaseOpHandler(this);
+
+  JUMPOUT(0x1E12E5B90);
+}
+
+uint64_t GPU::GreaterThanOpHandler::kernelDAGOp(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+{
+  v6 = *(a1 + 24);
+  GPU::MPSGraphKernelDAG::getBaseTensorFromDataMap(a2, *(*(v6 + 72) + 24), 0);
+  GPU::MPSGraphKernelDAG::getBaseTensorFromDataMap(a2, *(*(v6 + 72) + 56), 0);
+
+  return MPSKernelDAG::greaterThanOp();
+}
+
+void GPU::GreaterThanOpHandler::~GreaterThanOpHandler(GPU::GreaterThanOpHandler *this)
+{
+  *this = &unk_1F5B4D918;
+  v2 = *(this + 15);
+  *(this + 15) = 0;
+  if (v2)
+  {
+    v3 = this;
+    (*(*v2 + 8))(v2);
+    this = v3;
+    v1 = vars8;
+  }
+
+  GPU::BaseOpHandler::~BaseOpHandler(this);
+}
+
+{
+  *this = &unk_1F5B4D918;
+  v2 = *(this + 15);
+  *(this + 15) = 0;
+  if (v2)
+  {
+    (*(*v2 + 8))(v2);
+  }
+
+  GPU::BaseOpHandler::~BaseOpHandler(this);
+
+  JUMPOUT(0x1E12E5B90);
+}
+
+uint64_t GPU::GreaterThanOrEqualToOpHandler::kernelDAGOp(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+{
+  v9 = *(a1 + 24);
+  BaseTensorFromDataMap = GPU::MPSGraphKernelDAG::getBaseTensorFromDataMap(a2, *(*(v9 + 72) + 24), 0);
+  v11 = GPU::MPSGraphKernelDAG::getBaseTensorFromDataMap(a2, *(*(v9 + 72) + 56), 0);
+  v12 = *(a2 + 80);
+
+  return MEMORY[0x1EEDCDEF8](v12, BaseTensorFromDataMap, v11, a3, a4, a5);
+}
+
+void GPU::GreaterThanOrEqualToOpHandler::~GreaterThanOrEqualToOpHandler(GPU::GreaterThanOrEqualToOpHandler *this)
+{
+  *this = &unk_1F5B4D918;
+  v2 = *(this + 15);
+  *(this + 15) = 0;
+  if (v2)
+  {
+    v3 = this;
+    (*(*v2 + 8))(v2);
+    this = v3;
+    v1 = vars8;
+  }
+
+  GPU::BaseOpHandler::~BaseOpHandler(this);
+}
+
+{
+  *this = &unk_1F5B4D918;
+  v2 = *(this + 15);
+  *(this + 15) = 0;
+  if (v2)
+  {
+    (*(*v2 + 8))(v2);
+  }
+
+  GPU::BaseOpHandler::~BaseOpHandler(this);
+
+  JUMPOUT(0x1E12E5B90);
+}
+
+uint64_t GPU::AndOpHandler::kernelDAGOp(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+{
+  v9 = *(a1 + 24);
+  BaseTensorFromDataMap = GPU::MPSGraphKernelDAG::getBaseTensorFromDataMap(a2, *(*(v9 + 72) + 24), 0);
+  v11 = GPU::MPSGraphKernelDAG::getBaseTensorFromDataMap(a2, *(*(v9 + 72) + 56), 0);
+  v12 = *(a2 + 80);
+
+  return MEMORY[0x1EEDCDF08](v12, BaseTensorFromDataMap, v11, a3, a4, a5);
+}
+
+void GPU::AndOpHandler::~AndOpHandler(GPU::AndOpHandler *this)
+{
+  *this = &unk_1F5B4D918;
+  v2 = *(this + 15);
+  *(this + 15) = 0;
+  if (v2)
+  {
+    v3 = this;
+    (*(*v2 + 8))(v2);
+    this = v3;
+    v1 = vars8;
+  }
+
+  GPU::BaseOpHandler::~BaseOpHandler(this);
+}
+
+{
+  *this = &unk_1F5B4D918;
+  v2 = *(this + 15);
+  *(this + 15) = 0;
+  if (v2)
+  {
+    (*(*v2 + 8))(v2);
+  }
+
+  GPU::BaseOpHandler::~BaseOpHandler(this);
+
+  JUMPOUT(0x1E12E5B90);
+}
+
+uint64_t GPU::OrOpHandler::kernelDAGOp(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+{
+  v9 = *(a1 + 24);
+  BaseTensorFromDataMap = GPU::MPSGraphKernelDAG::getBaseTensorFromDataMap(a2, *(*(v9 + 72) + 24), 0);
+  v11 = GPU::MPSGraphKernelDAG::getBaseTensorFromDataMap(a2, *(*(v9 + 72) + 56), 0);
+  v12 = *(a2 + 80);
+
+  return MEMORY[0x1EEDCDF00](v12, BaseTensorFromDataMap, v11, a3, a4, a5);
+}
+
+void GPU::OrOpHandler::~OrOpHandler(GPU::OrOpHandler *this)
+{
+  *this = &unk_1F5B4D918;
+  v2 = *(this + 15);
+  *(this + 15) = 0;
+  if (v2)
+  {
+    v3 = this;
+    (*(*v2 + 8))(v2);
+    this = v3;
+    v1 = vars8;
+  }
+
+  GPU::BaseOpHandler::~BaseOpHandler(this);
+}
+
+{
+  *this = &unk_1F5B4D918;
+  v2 = *(this + 15);
+  *(this + 15) = 0;
+  if (v2)
+  {
+    (*(*v2 + 8))(v2);
+  }
+
+  GPU::BaseOpHandler::~BaseOpHandler(this);
+
+  JUMPOUT(0x1E12E5B90);
+}
+
+uint64_t GPU::NandOpHandler::kernelDAGOp(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+{
+  v9 = *(a1 + 24);
+  BaseTensorFromDataMap = GPU::MPSGraphKernelDAG::getBaseTensorFromDataMap(a2, *(*(v9 + 72) + 24), 0);
+  v11 = GPU::MPSGraphKernelDAG::getBaseTensorFromDataMap(a2, *(*(v9 + 72) + 56), 0);
+  v12 = *(a2 + 80);
+
+  return MEMORY[0x1EEDCDF88](v12, BaseTensorFromDataMap, v11, a3, a4, a5);
+}
+
+void GPU::NandOpHandler::~NandOpHandler(GPU::NandOpHandler *this)
+{
+  *this = &unk_1F5B4D918;
+  v2 = *(this + 15);
+  *(this + 15) = 0;
+  if (v2)
+  {
+    v3 = this;
+    (*(*v2 + 8))(v2);
+    this = v3;
+    v1 = vars8;
+  }
+
+  GPU::BaseOpHandler::~BaseOpHandler(this);
+}
+
+{
+  *this = &unk_1F5B4D918;
+  v2 = *(this + 15);
+  *(this + 15) = 0;
+  if (v2)
+  {
+    (*(*v2 + 8))(v2);
+  }
+
+  GPU::BaseOpHandler::~BaseOpHandler(this);
+
+  JUMPOUT(0x1E12E5B90);
+}
+
+uint64_t GPU::NorOpHandler::kernelDAGOp(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+{
+  v9 = *(a1 + 24);
+  BaseTensorFromDataMap = GPU::MPSGraphKernelDAG::getBaseTensorFromDataMap(a2, *(*(v9 + 72) + 24), 0);
+  v11 = GPU::MPSGraphKernelDAG::getBaseTensorFromDataMap(a2, *(*(v9 + 72) + 56), 0);
+  v12 = *(a2 + 80);
+
+  return MEMORY[0x1EEDCDF20](v12, BaseTensorFromDataMap, v11, a3, a4, a5);
+}
+
+void GPU::NorOpHandler::~NorOpHandler(GPU::NorOpHandler *this)
+{
+  *this = &unk_1F5B4D918;
+  v2 = *(this + 15);
+  *(this + 15) = 0;
+  if (v2)
+  {
+    v3 = this;
+    (*(*v2 + 8))(v2);
+    this = v3;
+    v1 = vars8;
+  }
+
+  GPU::BaseOpHandler::~BaseOpHandler(this);
+}
+
+{
+  *this = &unk_1F5B4D918;
+  v2 = *(this + 15);
+  *(this + 15) = 0;
+  if (v2)
+  {
+    (*(*v2 + 8))(v2);
+  }
+
+  GPU::BaseOpHandler::~BaseOpHandler(this);
+
+  JUMPOUT(0x1E12E5B90);
+}
+
+uint64_t GPU::XorOpHandler::kernelDAGOp(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+{
+  v9 = *(a1 + 24);
+  BaseTensorFromDataMap = GPU::MPSGraphKernelDAG::getBaseTensorFromDataMap(a2, *(*(v9 + 72) + 24), 0);
+  v11 = GPU::MPSGraphKernelDAG::getBaseTensorFromDataMap(a2, *(*(v9 + 72) + 56), 0);
+  v12 = *(a2 + 80);
+
+  return MEMORY[0x1EEDCDF50](v12, BaseTensorFromDataMap, v11, a3, a4, a5);
+}
+
+void GPU::XorOpHandler::~XorOpHandler(GPU::XorOpHandler *this)
+{
+  *this = &unk_1F5B4D918;
+  v2 = *(this + 15);
+  *(this + 15) = 0;
+  if (v2)
+  {
+    v3 = this;
+    (*(*v2 + 8))(v2);
+    this = v3;
+    v1 = vars8;
+  }
+
+  GPU::BaseOpHandler::~BaseOpHandler(this);
+}
+
+{
+  *this = &unk_1F5B4D918;
+  v2 = *(this + 15);
+  *(this + 15) = 0;
+  if (v2)
+  {
+    (*(*v2 + 8))(v2);
+  }
+
+  GPU::BaseOpHandler::~BaseOpHandler(this);
+
+  JUMPOUT(0x1E12E5B90);
+}
+
+uint64_t GPU::XnorOpHandler::kernelDAGOp(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+{
+  v9 = *(a1 + 24);
+  BaseTensorFromDataMap = GPU::MPSGraphKernelDAG::getBaseTensorFromDataMap(a2, *(*(v9 + 72) + 24), 0);
+  v11 = GPU::MPSGraphKernelDAG::getBaseTensorFromDataMap(a2, *(*(v9 + 72) + 56), 0);
+  v12 = *(a2 + 80);
+
+  return MEMORY[0x1EEDCDFB8](v12, BaseTensorFromDataMap, v11, a3, a4, a5);
+}
+
+void GPU::XnorOpHandler::~XnorOpHandler(GPU::XnorOpHandler *this)
+{
+  *this = &unk_1F5B4D918;
+  v2 = *(this + 15);
+  *(this + 15) = 0;
+  if (v2)
+  {
+    v3 = this;
+    (*(*v2 + 8))(v2);
+    this = v3;
+    v1 = vars8;
+  }
+
+  GPU::BaseOpHandler::~BaseOpHandler(this);
+}
+
+{
+  *this = &unk_1F5B4D918;
+  v2 = *(this + 15);
+  *(this + 15) = 0;
+  if (v2)
+  {
+    (*(*v2 + 8))(v2);
+  }
+
+  GPU::BaseOpHandler::~BaseOpHandler(this);
+
+  JUMPOUT(0x1E12E5B90);
+}
+
+uint64_t GPU::ATan2OpHandler::kernelDAGOp(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+{
+  v9 = *(a1 + 24);
+  BaseTensorFromDataMap = GPU::MPSGraphKernelDAG::getBaseTensorFromDataMap(a2, *(*(v9 + 72) + 24), 0);
+  v11 = GPU::MPSGraphKernelDAG::getBaseTensorFromDataMap(a2, *(*(v9 + 72) + 56), 0);
+  v12 = *(a2 + 80);
+
+  return MEMORY[0x1EEDCDFD0](v12, BaseTensorFromDataMap, v11, a3, a4, a5);
+}
+
+void GPU::ATan2OpHandler::~ATan2OpHandler(GPU::ATan2OpHandler *this)
+{
+  *this = &unk_1F5B4D918;
+  v2 = *(this + 15);
+  *(this + 15) = 0;
+  if (v2)
+  {
+    v3 = this;
+    (*(*v2 + 8))(v2);
+    this = v3;
+    v1 = vars8;
+  }
+
+  GPU::BaseOpHandler::~BaseOpHandler(this);
+}
+
+{
+  *this = &unk_1F5B4D918;
+  v2 = *(this + 15);
+  *(this + 15) = 0;
+  if (v2)
+  {
+    (*(*v2 + 8))(v2);
+  }
+
+  GPU::BaseOpHandler::~BaseOpHandler(this);
+
+  JUMPOUT(0x1E12E5B90);
+}
+
+uint64_t GPU::BitwiseAndOpHandler::kernelDAGOp(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+{
+  v9 = *(a1 + 24);
+  BaseTensorFromDataMap = GPU::MPSGraphKernelDAG::getBaseTensorFromDataMap(a2, *(*(v9 + 72) + 24), 0);
+  v11 = GPU::MPSGraphKernelDAG::getBaseTensorFromDataMap(a2, *(*(v9 + 72) + 56), 0);
+  v12 = *(a2 + 80);
+
+  return MEMORY[0x1EEDCDDF8](v12, BaseTensorFromDataMap, v11, a3, a4, a5);
+}
+
+void GPU::BitwiseAndOpHandler::~BitwiseAndOpHandler(GPU::BitwiseAndOpHandler *this)
+{
+  *this = &unk_1F5B4D918;
+  v2 = *(this + 15);
+  *(this + 15) = 0;
+  if (v2)
+  {
+    v3 = this;
+    (*(*v2 + 8))(v2);
+    this = v3;
+    v1 = vars8;
+  }
+
+  GPU::BaseOpHandler::~BaseOpHandler(this);
+}
+
+{
+  *this = &unk_1F5B4D918;
+  v2 = *(this + 15);
+  *(this + 15) = 0;
+  if (v2)
+  {
+    (*(*v2 + 8))(v2);
+  }
+
+  GPU::BaseOpHandler::~BaseOpHandler(this);
+
+  JUMPOUT(0x1E12E5B90);
+}
+
+uint64_t GPU::BitwiseOrOpHandler::kernelDAGOp(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+{
+  v9 = *(a1 + 24);
+  BaseTensorFromDataMap = GPU::MPSGraphKernelDAG::getBaseTensorFromDataMap(a2, *(*(v9 + 72) + 24), 0);
+  v11 = GPU::MPSGraphKernelDAG::getBaseTensorFromDataMap(a2, *(*(v9 + 72) + 56), 0);
+  v12 = *(a2 + 80);
+
+  return MEMORY[0x1EEDCDDC0](v12, BaseTensorFromDataMap, v11, a3, a4, a5);
+}
+
+void GPU::BitwiseOrOpHandler::~BitwiseOrOpHandler(GPU::BitwiseOrOpHandler *this)
+{
+  *this = &unk_1F5B4D918;
+  v2 = *(this + 15);
+  *(this + 15) = 0;
+  if (v2)
+  {
+    v3 = this;
+    (*(*v2 + 8))(v2);
+    this = v3;
+    v1 = vars8;
+  }
+
+  GPU::BaseOpHandler::~BaseOpHandler(this);
+}
+
+{
+  *this = &unk_1F5B4D918;
+  v2 = *(this + 15);
+  *(this + 15) = 0;
+  if (v2)
+  {
+    (*(*v2 + 8))(v2);
+  }
+
+  GPU::BaseOpHandler::~BaseOpHandler(this);
+
+  JUMPOUT(0x1E12E5B90);
+}
+
+uint64_t GPU::BitwiseXorOpHandler::kernelDAGOp(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+{
+  v9 = *(a1 + 24);
+  BaseTensorFromDataMap = GPU::MPSGraphKernelDAG::getBaseTensorFromDataMap(a2, *(*(v9 + 72) + 24), 0);
+  v11 = GPU::MPSGraphKernelDAG::getBaseTensorFromDataMap(a2, *(*(v9 + 72) + 56), 0);
+  v12 = *(a2 + 80);
+
+  return MEMORY[0x1EEDCDE08](v12, BaseTensorFromDataMap, v11, a3, a4, a5);
+}
+
+void GPU::BitwiseXorOpHandler::~BitwiseXorOpHandler(GPU::BitwiseXorOpHandler *this)
+{
+  *this = &unk_1F5B4D918;
+  v2 = *(this + 15);
+  *(this + 15) = 0;
+  if (v2)
+  {
+    v3 = this;
+    (*(*v2 + 8))(v2);
+    this = v3;
+    v1 = vars8;
+  }
+
+  GPU::BaseOpHandler::~BaseOpHandler(this);
+}
+
+{
+  *this = &unk_1F5B4D918;
+  v2 = *(this + 15);
+  *(this + 15) = 0;
+  if (v2)
+  {
+    (*(*v2 + 8))(v2);
+  }
+
+  GPU::BaseOpHandler::~BaseOpHandler(this);
+
+  JUMPOUT(0x1E12E5B90);
+}
+
+uint64_t GPU::BitwiseLeftShiftOpHandler::kernelDAGOp(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+{
+  v9 = *(a1 + 24);
+  BaseTensorFromDataMap = GPU::MPSGraphKernelDAG::getBaseTensorFromDataMap(a2, *(*(v9 + 72) + 24), 0);
+  v11 = GPU::MPSGraphKernelDAG::getBaseTensorFromDataMap(a2, *(*(v9 + 72) + 56), 0);
+  v12 = *(a2 + 80);
+
+  return MEMORY[0x1EEDCDEE0](v12, BaseTensorFromDataMap, v11, a3, a4, a5);
+}
+
+void GPU::BitwiseLeftShiftOpHandler::~BitwiseLeftShiftOpHandler(GPU::BitwiseLeftShiftOpHandler *this)
+{
+  *this = &unk_1F5B4D918;
+  v2 = *(this + 15);
+  *(this + 15) = 0;
+  if (v2)
+  {
+    v3 = this;
+    (*(*v2 + 8))(v2);
+    this = v3;
+    v1 = vars8;
+  }
+
+  GPU::BaseOpHandler::~BaseOpHandler(this);
+}
+
+{
+  *this = &unk_1F5B4D918;
+  v2 = *(this + 15);
+  *(this + 15) = 0;
+  if (v2)
+  {
+    (*(*v2 + 8))(v2);
+  }
+
+  GPU::BaseOpHandler::~BaseOpHandler(this);
+
+  JUMPOUT(0x1E12E5B90);
+}
+
+uint64_t GPU::BitwiseRightShiftOpHandler::kernelDAGOp(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+{
+  v9 = *(a1 + 24);
+  BaseTensorFromDataMap = GPU::MPSGraphKernelDAG::getBaseTensorFromDataMap(a2, *(*(v9 + 72) + 24), 0);
+  v11 = GPU::MPSGraphKernelDAG::getBaseTensorFromDataMap(a2, *(*(v9 + 72) + 56), 0);
+  v12 = *(a2 + 80);
+
+  return MEMORY[0x1EEDCDEE8](v12, BaseTensorFromDataMap, v11, a3, a4, a5);
+}
+
+void GPU::BitwiseRightShiftOpHandler::~BitwiseRightShiftOpHandler(GPU::BitwiseRightShiftOpHandler *this)
+{
+  *this = &unk_1F5B4D918;
+  v2 = *(this + 15);
+  *(this + 15) = 0;
+  if (v2)
+  {
+    v3 = this;
+    (*(*v2 + 8))(v2);
+    this = v3;
+    v1 = vars8;
+  }
+
+  GPU::BaseOpHandler::~BaseOpHandler(this);
+}
+
+{
+  *this = &unk_1F5B4D918;
+  v2 = *(this + 15);
+  *(this + 15) = 0;
+  if (v2)
+  {
+    (*(*v2 + 8))(v2);
+  }
+
+  GPU::BaseOpHandler::~BaseOpHandler(this);
+
+  JUMPOUT(0x1E12E5B90);
+}
+
+uint64_t GPU::AbsoluteOpHandler::kernelDAGOp(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+{
+  GPU::MPSGraphKernelDAG::getBaseTensorFromDataMap(a2, *(*(*(a1 + 24) + 72) + 24), 0);
+
+  return MPSKernelDAG::absoluteOp();
+}
+
+void GPU::AbsoluteOpHandler::~AbsoluteOpHandler(GPU::AbsoluteOpHandler *this)
+{
+  *this = &unk_1F5B4D918;
+  v2 = *(this + 15);
+  *(this + 15) = 0;
+  if (v2)
+  {
+    v3 = this;
+    (*(*v2 + 8))(v2);
+    this = v3;
+    v1 = vars8;
+  }
+
+  GPU::BaseOpHandler::~BaseOpHandler(this);
+}
+
+{
+  *this = &unk_1F5B4D918;
+  v2 = *(this + 15);
+  *(this + 15) = 0;
+  if (v2)
+  {
+    (*(*v2 + 8))(v2);
+  }
+
+  GPU::BaseOpHandler::~BaseOpHandler(this);
+
+  JUMPOUT(0x1E12E5B90);
+}
+
+uint64_t GPU::AbsoluteSquareOpHandler::kernelDAGOp(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+{
+  BaseTensorFromDataMap = GPU::MPSGraphKernelDAG::getBaseTensorFromDataMap(a2, *(*(*(a1 + 24) + 72) + 24), 0);
+  v10 = *(a2 + 80);
+
+  return MEMORY[0x1EEDCDDB8](v10, BaseTensorFromDataMap, a3, a4, a5);
+}
+
+void GPU::AbsoluteSquareOpHandler::~AbsoluteSquareOpHandler(GPU::AbsoluteSquareOpHandler *this)
+{
+  *this = &unk_1F5B4D918;
+  v2 = *(this + 15);
+  *(this + 15) = 0;
+  if (v2)
+  {
+    v3 = this;
+    (*(*v2 + 8))(v2);
+    this = v3;
+    v1 = vars8;
+  }
+
+  GPU::BaseOpHandler::~BaseOpHandler(this);
+}
+
+{
+  *this = &unk_1F5B4D918;
+  v2 = *(this + 15);
+  *(this + 15) = 0;
+  if (v2)
+  {
+    (*(*v2 + 8))(v2);
+  }
+
+  GPU::BaseOpHandler::~BaseOpHandler(this);
+
+  JUMPOUT(0x1E12E5B90);
+}
+
+uint64_t GPU::ACosOpHandler::kernelDAGOp(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+{
+  BaseTensorFromDataMap = GPU::MPSGraphKernelDAG::getBaseTensorFromDataMap(a2, *(*(*(a1 + 24) + 72) + 24), 0);
+  v10 = *(a2 + 80);
+
+  return MEMORY[0x1EEDCDF58](v10, BaseTensorFromDataMap, a3, a4, a5);
+}
+
+void GPU::ACosOpHandler::~ACosOpHandler(GPU::ACosOpHandler *this)
+{
+  *this = &unk_1F5B4D918;
+  v2 = *(this + 15);
+  *(this + 15) = 0;
+  if (v2)
+  {
+    v3 = this;
+    (*(*v2 + 8))(v2);
+    this = v3;
+    v1 = vars8;
+  }
+
+  GPU::BaseOpHandler::~BaseOpHandler(this);
+}
+
+{
+  *this = &unk_1F5B4D918;
+  v2 = *(this + 15);
+  *(this + 15) = 0;
+  if (v2)
+  {
+    (*(*v2 + 8))(v2);
+  }
+
+  GPU::BaseOpHandler::~BaseOpHandler(this);
+
+  JUMPOUT(0x1E12E5B90);
+}
+
+uint64_t GPU::ACoshOpHandler::kernelDAGOp(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+{
+  BaseTensorFromDataMap = GPU::MPSGraphKernelDAG::getBaseTensorFromDataMap(a2, *(*(*(a1 + 24) + 72) + 24), 0);
+  v10 = *(a2 + 80);
+
+  return MEMORY[0x1EEDCDFC0](v10, BaseTensorFromDataMap, a3, a4, a5);
+}
+
+void GPU::ACoshOpHandler::~ACoshOpHandler(GPU::ACoshOpHandler *this)
+{
+  *this = &unk_1F5B4D918;
+  v2 = *(this + 15);
+  *(this + 15) = 0;
+  if (v2)
+  {
+    v3 = this;
+    (*(*v2 + 8))(v2);
+    this = v3;
+    v1 = vars8;
+  }
+
+  GPU::BaseOpHandler::~BaseOpHandler(this);
+}
+
+{
+  *this = &unk_1F5B4D918;
+  v2 = *(this + 15);
+  *(this + 15) = 0;
+  if (v2)
+  {
+    (*(*v2 + 8))(v2);
+  }
+
+  GPU::BaseOpHandler::~BaseOpHandler(this);
+
+  JUMPOUT(0x1E12E5B90);
+}
+
+uint64_t GPU::ASinOpHandler::kernelDAGOp(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+{
+  BaseTensorFromDataMap = GPU::MPSGraphKernelDAG::getBaseTensorFromDataMap(a2, *(*(*(a1 + 24) + 72) + 24), 0);
+  v10 = *(a2 + 80);
+
+  return MEMORY[0x1EEDCDF60](v10, BaseTensorFromDataMap, a3, a4, a5);
+}
+
+void GPU::ASinOpHandler::~ASinOpHandler(GPU::ASinOpHandler *this)
+{
+  *this = &unk_1F5B4D918;
+  v2 = *(this + 15);
+  *(this + 15) = 0;
+  if (v2)
+  {
+    v3 = this;
+    (*(*v2 + 8))(v2);
+    this = v3;
+    v1 = vars8;
+  }
+
+  GPU::BaseOpHandler::~BaseOpHandler(this);
+}
+
+{
+  *this = &unk_1F5B4D918;
+  v2 = *(this + 15);
+  *(this + 15) = 0;
+  if (v2)
+  {
+    (*(*v2 + 8))(v2);
+  }
+
+  GPU::BaseOpHandler::~BaseOpHandler(this);
+
+  JUMPOUT(0x1E12E5B90);
+}
+
+uint64_t GPU::ASinhOpHandler::kernelDAGOp(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+{
+  BaseTensorFromDataMap = GPU::MPSGraphKernelDAG::getBaseTensorFromDataMap(a2, *(*(*(a1 + 24) + 72) + 24), 0);
+  v10 = *(a2 + 80);
+
+  return MEMORY[0x1EEDCDFC8](v10, BaseTensorFromDataMap, a3, a4, a5);
+}
+
+void GPU::ASinhOpHandler::~ASinhOpHandler(GPU::ASinhOpHandler *this)
+{
+  *this = &unk_1F5B4D918;
+  v2 = *(this + 15);
+  *(this + 15) = 0;
+  if (v2)
+  {
+    v3 = this;
+    (*(*v2 + 8))(v2);
+    this = v3;
+    v1 = vars8;
+  }
+
+  GPU::BaseOpHandler::~BaseOpHandler(this);
+}
+
+{
+  *this = &unk_1F5B4D918;
+  v2 = *(this + 15);
+  *(this + 15) = 0;
+  if (v2)
+  {
+    (*(*v2 + 8))(v2);
+  }
+
+  GPU::BaseOpHandler::~BaseOpHandler(this);
+
+  JUMPOUT(0x1E12E5B90);
+}
+
+uint64_t GPU::ATanOpHandler::kernelDAGOp(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+{
+  BaseTensorFromDataMap = GPU::MPSGraphKernelDAG::getBaseTensorFromDataMap(a2, *(*(*(a1 + 24) + 72) + 24), 0);
+  v10 = *(a2 + 80);
+
+  return MEMORY[0x1EEDCDF68](v10, BaseTensorFromDataMap, a3, a4, a5);
+}
+
+void GPU::ATanOpHandler::~ATanOpHandler(GPU::ATanOpHandler *this)
+{
+  *this = &unk_1F5B4D918;
+  v2 = *(this + 15);
+  *(this + 15) = 0;
+  if (v2)
+  {
+    v3 = this;
+    (*(*v2 + 8))(v2);
+    this = v3;
+    v1 = vars8;
+  }
+
+  GPU::BaseOpHandler::~BaseOpHandler(this);
+}
+
+{
+  *this = &unk_1F5B4D918;
+  v2 = *(this + 15);
+  *(this + 15) = 0;
+  if (v2)
+  {
+    (*(*v2 + 8))(v2);
+  }
+
+  GPU::BaseOpHandler::~BaseOpHandler(this);
+
+  JUMPOUT(0x1E12E5B90);
+}
+
+uint64_t GPU::ATanhOpHandler::kernelDAGOp(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+{
+  BaseTensorFromDataMap = GPU::MPSGraphKernelDAG::getBaseTensorFromDataMap(a2, *(*(*(a1 + 24) + 72) + 24), 0);
+  v10 = *(a2 + 80);
+
+  return MEMORY[0x1EEDCDFD8](v10, BaseTensorFromDataMap, a3, a4, a5);
+}
+
+void GPU::ATanhOpHandler::~ATanhOpHandler(GPU::ATanhOpHandler *this)
+{
+  *this = &unk_1F5B4D918;
+  v2 = *(this + 15);
+  *(this + 15) = 0;
+  if (v2)
+  {
+    v3 = this;
+    (*(*v2 + 8))(v2);
+    this = v3;
+    v1 = vars8;
+  }
+
+  GPU::BaseOpHandler::~BaseOpHandler(this);
+}
+
+{
+  *this = &unk_1F5B4D918;
+  v2 = *(this + 15);
+  *(this + 15) = 0;
+  if (v2)
+  {
+    (*(*v2 + 8))(v2);
+  }
+
+  GPU::BaseOpHandler::~BaseOpHandler(this);
+
+  JUMPOUT(0x1E12E5B90);
+}
+
+uint64_t GPU::BitwiseNotOpHandler::kernelDAGOp(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+{
+  BaseTensorFromDataMap = GPU::MPSGraphKernelDAG::getBaseTensorFromDataMap(a2, *(*(*(a1 + 24) + 72) + 24), 0);
+  v10 = *(a2 + 80);
+
+  return MEMORY[0x1EEDCDE00](v10, BaseTensorFromDataMap, a3, a4, a5);
+}
+
+void GPU::BitwiseNotOpHandler::~BitwiseNotOpHandler(GPU::BitwiseNotOpHandler *this)
+{
+  *this = &unk_1F5B4D918;
+  v2 = *(this + 15);
+  *(this + 15) = 0;
+  if (v2)
+  {
+    v3 = this;
+    (*(*v2 + 8))(v2);
+    this = v3;
+    v1 = vars8;
+  }
+
+  GPU::BaseOpHandler::~BaseOpHandler(this);
+}
+
+{
+  *this = &unk_1F5B4D918;
+  v2 = *(this + 15);
+  *(this + 15) = 0;
+  if (v2)
+  {
+    (*(*v2 + 8))(v2);
+  }
+
+  GPU::BaseOpHandler::~BaseOpHandler(this);
+
+  JUMPOUT(0x1E12E5B90);
+}
+
+uint64_t GPU::BitwisePopcountOpHandler::kernelDAGOp(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+{
+  BaseTensorFromDataMap = GPU::MPSGraphKernelDAG::getBaseTensorFromDataMap(a2, *(*(*(a1 + 24) + 72) + 24), 0);
+  v10 = *(a2 + 80);
+
+  return MEMORY[0x1EEDCDEC8](v10, BaseTensorFromDataMap, a3, a4, a5);
+}
+
+void GPU::BitwisePopcountOpHandler::~BitwisePopcountOpHandler(GPU::BitwisePopcountOpHandler *this)
+{
+  *this = &unk_1F5B4D918;
+  v2 = *(this + 15);
+  *(this + 15) = 0;
+  if (v2)
+  {
+    v3 = this;
+    (*(*v2 + 8))(v2);
+    this = v3;
+    v1 = vars8;
+  }
+
+  GPU::BaseOpHandler::~BaseOpHandler(this);
+}
+
+{
+  *this = &unk_1F5B4D918;
+  v2 = *(this + 15);
+  *(this + 15) = 0;
+  if (v2)
+  {
+    (*(*v2 + 8))(v2);
+  }
+
+  GPU::BaseOpHandler::~BaseOpHandler(this);
+
+  JUMPOUT(0x1E12E5B90);
+}
+
+uint64_t GPU::ConjugateOpHandler::kernelDAGOp(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+{
+  GPU::MPSGraphKernelDAG::getBaseTensorFromDataMap(a2, *(*(*(a1 + 24) + 72) + 24), 0);
+
+  return MPSKernelDAG::conjugateOp();
+}
+
+void GPU::ConjugateOpHandler::~ConjugateOpHandler(GPU::ConjugateOpHandler *this)
+{
+  *this = &unk_1F5B4D918;
+  v2 = *(this + 15);
+  *(this + 15) = 0;
+  if (v2)
+  {
+    v3 = this;
+    (*(*v2 + 8))(v2);
+    this = v3;
+    v1 = vars8;
+  }
+
+  GPU::BaseOpHandler::~BaseOpHandler(this);
+}
+
+{
+  *this = &unk_1F5B4D918;
+  v2 = *(this + 15);
+  *(this + 15) = 0;
+  if (v2)
+  {
+    (*(*v2 + 8))(v2);
+  }
+
+  GPU::BaseOpHandler::~BaseOpHandler(this);
+
+  JUMPOUT(0x1E12E5B90);
+}
+
+uint64_t GPU::CosOpHandler::kernelDAGOp(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+{
+  BaseTensorFromDataMap = GPU::MPSGraphKernelDAG::getBaseTensorFromDataMap(a2, *(*(*(a1 + 24) + 72) + 24), 0);
+  v10 = *(a2 + 80);
+
+  return MEMORY[0x1EEDCDF10](v10, BaseTensorFromDataMap, a3, a4, a5);
+}
+
+void GPU::CosOpHandler::~CosOpHandler(GPU::CosOpHandler *this)
+{
+  *this = &unk_1F5B4D918;
+  v2 = *(this + 15);
+  *(this + 15) = 0;
+  if (v2)
+  {
+    v3 = this;
+    (*(*v2 + 8))(v2);
+    this = v3;
+    v1 = vars8;
+  }
+
+  GPU::BaseOpHandler::~BaseOpHandler(this);
+}
+
+{
+  *this = &unk_1F5B4D918;
+  v2 = *(this + 15);
+  *(this + 15) = 0;
+  if (v2)
+  {
+    (*(*v2 + 8))(v2);
+  }
+
+  GPU::BaseOpHandler::~BaseOpHandler(this);
+
+  JUMPOUT(0x1E12E5B90);
+}
+
+uint64_t GPU::CoshOpHandler::kernelDAGOp(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+{
+  BaseTensorFromDataMap = GPU::MPSGraphKernelDAG::getBaseTensorFromDataMap(a2, *(*(*(a1 + 24) + 72) + 24), 0);
+  v10 = *(a2 + 80);
+
+  return MEMORY[0x1EEDCDF80](v10, BaseTensorFromDataMap, a3, a4, a5);
+}
+
+void GPU::CoshOpHandler::~CoshOpHandler(GPU::CoshOpHandler *this)
+{
+  *this = &unk_1F5B4D918;
+  v2 = *(this + 15);
+  *(this + 15) = 0;
+  if (v2)
+  {
+    v3 = this;
+    (*(*v2 + 8))(v2);
+    this = v3;
+    v1 = vars8;
+  }
+
+  GPU::BaseOpHandler::~BaseOpHandler(this);
+}
+
+{
+  *this = &unk_1F5B4D918;
+  v2 = *(this + 15);
+  *(this + 15) = 0;
+  if (v2)
+  {
+    (*(*v2 + 8))(v2);
+  }
+
+  GPU::BaseOpHandler::~BaseOpHandler(this);
+
+  JUMPOUT(0x1E12E5B90);
+}
+
+uint64_t GPU::CeilOpHandler::kernelDAGOp(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+{
+  BaseTensorFromDataMap = GPU::MPSGraphKernelDAG::getBaseTensorFromDataMap(a2, *(*(*(a1 + 24) + 72) + 24), 0);
+  v10 = *(a2 + 80);
+
+  return MEMORY[0x1EEDCDF78](v10, BaseTensorFromDataMap, a3, a4, a5);
+}
+
+void GPU::CeilOpHandler::~CeilOpHandler(GPU::CeilOpHandler *this)
+{
+  *this = &unk_1F5B4D918;
+  v2 = *(this + 15);
+  *(this + 15) = 0;
+  if (v2)
+  {
+    v3 = this;
+    (*(*v2 + 8))(v2);
+    this = v3;
+    v1 = vars8;
+  }
+
+  GPU::BaseOpHandler::~BaseOpHandler(this);
+}
+
+{
+  *this = &unk_1F5B4D918;
+  v2 = *(this + 15);
+  *(this + 15) = 0;
+  if (v2)
+  {
+    (*(*v2 + 8))(v2);
+  }
+
+  GPU::BaseOpHandler::~BaseOpHandler(this);
+
+  JUMPOUT(0x1E12E5B90);
+}
+
+uint64_t GPU::ErfOpHandler::kernelDAGOp(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+{
+  BaseTensorFromDataMap = GPU::MPSGraphKernelDAG::getBaseTensorFromDataMap(a2, *(*(*(a1 + 24) + 72) + 24), 0);
+  v10 = *(a2 + 80);
+
+  return MEMORY[0x1EEDCDF18](v10, BaseTensorFromDataMap, a3, a4, a5);
+}
+
+void GPU::ErfOpHandler::~ErfOpHandler(GPU::ErfOpHandler *this)
+{
+  *this = &unk_1F5B4D918;
+  v2 = *(this + 15);
+  *(this + 15) = 0;
+  if (v2)
+  {
+    v3 = this;
+    (*(*v2 + 8))(v2);
+    this = v3;
+    v1 = vars8;
+  }
+
+  GPU::BaseOpHandler::~BaseOpHandler(this);
+}
+
+{
+  *this = &unk_1F5B4D918;
+  v2 = *(this + 15);
+  *(this + 15) = 0;
+  if (v2)
+  {
+    (*(*v2 + 8))(v2);
+  }
+
+  GPU::BaseOpHandler::~BaseOpHandler(this);
+
+  JUMPOUT(0x1E12E5B90);
+}
+
+uint64_t GPU::ExponentOpHandler::kernelDAGOp(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+{
+  GPU::MPSGraphKernelDAG::getBaseTensorFromDataMap(a2, *(*(*(a1 + 24) + 72) + 24), 0);
+
+  return MPSKernelDAG::exponentOp();
+}
+
+void GPU::ExponentOpHandler::~ExponentOpHandler(GPU::ExponentOpHandler *this)
+{
+  *this = &unk_1F5B4D918;
+  v2 = *(this + 15);
+  *(this + 15) = 0;
+  if (v2)
+  {
+    v3 = this;
+    (*(*v2 + 8))(v2);
+    this = v3;
+    v1 = vars8;
+  }
+
+  GPU::BaseOpHandler::~BaseOpHandler(this);
+}
+
+{
+  *this = &unk_1F5B4D918;
+  v2 = *(this + 15);
+  *(this + 15) = 0;
+  if (v2)
+  {
+    (*(*v2 + 8))(v2);
+  }
+
+  GPU::BaseOpHandler::~BaseOpHandler(this);
+
+  JUMPOUT(0x1E12E5B90);
+}
+
+uint64_t GPU::ExponentBase2OpHandler::kernelDAGOp(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+{
+  BaseTensorFromDataMap = GPU::MPSGraphKernelDAG::getBaseTensorFromDataMap(a2, *(*(*(a1 + 24) + 72) + 24), 0);
+  v10 = *(a2 + 80);
+
+  return MEMORY[0x1EEDCDE90](v10, BaseTensorFromDataMap, a3, a4, a5);
+}
+
+void GPU::ExponentBase2OpHandler::~ExponentBase2OpHandler(GPU::ExponentBase2OpHandler *this)
+{
+  *this = &unk_1F5B4D918;
+  v2 = *(this + 15);
+  *(this + 15) = 0;
+  if (v2)
+  {
+    v3 = this;
+    (*(*v2 + 8))(v2);
+    this = v3;
+    v1 = vars8;
+  }
+
+  GPU::BaseOpHandler::~BaseOpHandler(this);
+}
+
+{
+  *this = &unk_1F5B4D918;
+  v2 = *(this + 15);
+  *(this + 15) = 0;
+  if (v2)
+  {
+    (*(*v2 + 8))(v2);
+  }
+
+  GPU::BaseOpHandler::~BaseOpHandler(this);
+
+  JUMPOUT(0x1E12E5B90);
+}
+
+uint64_t GPU::ExponentBase10OpHandler::kernelDAGOp(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+{
+  BaseTensorFromDataMap = GPU::MPSGraphKernelDAG::getBaseTensorFromDataMap(a2, *(*(*(a1 + 24) + 72) + 24), 0);
+  v10 = *(a2 + 80);
+
+  return MEMORY[0x1EEDCDEA0](v10, BaseTensorFromDataMap, a3, a4, a5);
+}
+
+void GPU::ExponentBase10OpHandler::~ExponentBase10OpHandler(GPU::ExponentBase10OpHandler *this)
+{
+  *this = &unk_1F5B4D918;
+  v2 = *(this + 15);
+  *(this + 15) = 0;
+  if (v2)
+  {
+    v3 = this;
+    (*(*v2 + 8))(v2);
+    this = v3;
+    v1 = vars8;
+  }
+
+  GPU::BaseOpHandler::~BaseOpHandler(this);
+}
+
+{
+  *this = &unk_1F5B4D918;
+  v2 = *(this + 15);
+  *(this + 15) = 0;
+  if (v2)
+  {
+    (*(*v2 + 8))(v2);
+  }
+
+  GPU::BaseOpHandler::~BaseOpHandler(this);
+
+  JUMPOUT(0x1E12E5B90);
+}
+
+uint64_t GPU::FloorOpHandler::kernelDAGOp(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+{
+  BaseTensorFromDataMap = GPU::MPSGraphKernelDAG::getBaseTensorFromDataMap(a2, *(*(*(a1 + 24) + 72) + 24), 0);
+  v10 = *(a2 + 80);
+
+  return MEMORY[0x1EEDCDFE8](v10, BaseTensorFromDataMap, a3, a4, a5);
+}
+
+void GPU::FloorOpHandler::~FloorOpHandler(GPU::FloorOpHandler *this)
+{
+  *this = &unk_1F5B4D918;
+  v2 = *(this + 15);
+  *(this + 15) = 0;
+  if (v2)
+  {
+    v3 = this;
+    (*(*v2 + 8))(v2);
+    this = v3;
+    v1 = vars8;
+  }
+
+  GPU::BaseOpHandler::~BaseOpHandler(this);
+}
+
+{
+  *this = &unk_1F5B4D918;
+  v2 = *(this + 15);
+  *(this + 15) = 0;
+  if (v2)
+  {
+    (*(*v2 + 8))(v2);
+  }
+
+  GPU::BaseOpHandler::~BaseOpHandler(this);
+
+  JUMPOUT(0x1E12E5B90);
+}
+
+uint64_t GPU::ImaginaryPartOpHandler::kernelDAGOp(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+{
+  BaseTensorFromDataMap = GPU::MPSGraphKernelDAG::getBaseTensorFromDataMap(a2, *(*(*(a1 + 24) + 72) + 24), 0);
+  v10 = *(a2 + 80);
+
+  return MEMORY[0x1EEDCDD90](v10, BaseTensorFromDataMap, a3, a4, a5);
+}
+
+void GPU::ImaginaryPartOpHandler::~ImaginaryPartOpHandler(GPU::ImaginaryPartOpHandler *this)
+{
+  *this = &unk_1F5B4D918;
+  v2 = *(this + 15);
+  *(this + 15) = 0;
+  if (v2)
+  {
+    v3 = this;
+    (*(*v2 + 8))(v2);
+    this = v3;
+    v1 = vars8;
+  }
+
+  GPU::BaseOpHandler::~BaseOpHandler(this);
+}
+
+{
+  *this = &unk_1F5B4D918;
+  v2 = *(this + 15);
+  *(this + 15) = 0;
+  if (v2)
+  {
+    (*(*v2 + 8))(v2);
+  }
+
+  GPU::BaseOpHandler::~BaseOpHandler(this);
+
+  JUMPOUT(0x1E12E5B90);
+}
+
+uint64_t GPU::IsFiniteOpHandler::kernelDAGOp(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+{
+  BaseTensorFromDataMap = GPU::MPSGraphKernelDAG::getBaseTensorFromDataMap(a2, *(*(*(a1 + 24) + 72) + 24), 0);
+  v10 = *(a2 + 80);
+
+  return MEMORY[0x1EEDCDD98](v10, BaseTensorFromDataMap, a3, a4, a5);
+}
+
+void GPU::IsFiniteOpHandler::~IsFiniteOpHandler(GPU::IsFiniteOpHandler *this)
+{
+  *this = &unk_1F5B4D918;
+  v2 = *(this + 15);
+  *(this + 15) = 0;
+  if (v2)
+  {
+    v3 = this;
+    (*(*v2 + 8))(v2);
+    this = v3;
+    v1 = vars8;
+  }
+
+  GPU::BaseOpHandler::~BaseOpHandler(this);
+}
+
+{
+  *this = &unk_1F5B4D918;
+  v2 = *(this + 15);
+  *(this + 15) = 0;
+  if (v2)
+  {
+    (*(*v2 + 8))(v2);
+  }
+
+  GPU::BaseOpHandler::~BaseOpHandler(this);
+
+  JUMPOUT(0x1E12E5B90);
+}
+
+uint64_t GPU::IsInfiniteOpHandler::kernelDAGOp(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+{
+  BaseTensorFromDataMap = GPU::MPSGraphKernelDAG::getBaseTensorFromDataMap(a2, *(*(*(a1 + 24) + 72) + 24), 0);
+  v10 = *(a2 + 80);
+
+  return MEMORY[0x1EEDCDE20](v10, BaseTensorFromDataMap, a3, a4, a5);
+}
+
+void GPU::IsInfiniteOpHandler::~IsInfiniteOpHandler(GPU::IsInfiniteOpHandler *this)
+{
+  *this = &unk_1F5B4D918;
+  v2 = *(this + 15);
+  *(this + 15) = 0;
+  if (v2)
+  {
+    v3 = this;
+    (*(*v2 + 8))(v2);
+    this = v3;
+    v1 = vars8;
+  }
+
+  GPU::BaseOpHandler::~BaseOpHandler(this);
+}
+
+{
+  *this = &unk_1F5B4D918;
+  v2 = *(this + 15);
+  *(this + 15) = 0;
+  if (v2)
+  {
+    (*(*v2 + 8))(v2);
+  }
+
+  GPU::BaseOpHandler::~BaseOpHandler(this);
+
+  JUMPOUT(0x1E12E5B90);
+}
+
+uint64_t GPU::IsNaNOpHandler::kernelDAGOp(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+{
+  BaseTensorFromDataMap = GPU::MPSGraphKernelDAG::getBaseTensorFromDataMap(a2, *(*(*(a1 + 24) + 72) + 24), 0);
+  v10 = *(a2 + 80);
+
+  return MEMORY[0x1EEDCDFF0](v10, BaseTensorFromDataMap, a3, a4, a5);
+}
+
+void GPU::IsNaNOpHandler::~IsNaNOpHandler(GPU::IsNaNOpHandler *this)
+{
+  *this = &unk_1F5B4D918;
+  v2 = *(this + 15);
+  *(this + 15) = 0;
+  if (v2)
+  {
+    v3 = this;
+    (*(*v2 + 8))(v2);
+    this = v3;
+    v1 = vars8;
+  }
+
+  GPU::BaseOpHandler::~BaseOpHandler(this);
+}
+
+{
+  *this = &unk_1F5B4D918;
+  v2 = *(this + 15);
+  *(this + 15) = 0;
+  if (v2)
+  {
+    (*(*v2 + 8))(v2);
+  }
+
+  GPU::BaseOpHandler::~BaseOpHandler(this);
+
+  JUMPOUT(0x1E12E5B90);
+}
+
+uint64_t GPU::LogarithmOpHandler::kernelDAGOp(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+{
+  BaseTensorFromDataMap = GPU::MPSGraphKernelDAG::getBaseTensorFromDataMap(a2, *(*(*(a1 + 24) + 72) + 24), 0);
+  v10 = *(a2 + 80);
+
+  return MEMORY[0x1EEDCDDE0](v10, BaseTensorFromDataMap, a3, a4, a5);
+}
+
+void GPU::LogarithmOpHandler::~LogarithmOpHandler(GPU::LogarithmOpHandler *this)
+{
+  *this = &unk_1F5B4D918;
+  v2 = *(this + 15);
+  *(this + 15) = 0;
+  if (v2)
+  {
+    v3 = this;
+    (*(*v2 + 8))(v2);
+    this = v3;
+    v1 = vars8;
+  }
+
+  GPU::BaseOpHandler::~BaseOpHandler(this);
+}
+
+{
+  *this = &unk_1F5B4D918;
+  v2 = *(this + 15);
+  *(this + 15) = 0;
+  if (v2)
+  {
+    (*(*v2 + 8))(v2);
+  }
+
+  GPU::BaseOpHandler::~BaseOpHandler(this);
+
+  JUMPOUT(0x1E12E5B90);
+}
+
+uint64_t GPU::LogarithmBase2OpHandler::kernelDAGOp(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+{
+  BaseTensorFromDataMap = GPU::MPSGraphKernelDAG::getBaseTensorFromDataMap(a2, *(*(*(a1 + 24) + 72) + 24), 0);
+  v10 = *(a2 + 80);
+
+  return MEMORY[0x1EEDCDEA8](v10, BaseTensorFromDataMap, a3, a4, a5);
+}
+
+void GPU::LogarithmBase2OpHandler::~LogarithmBase2OpHandler(GPU::LogarithmBase2OpHandler *this)
+{
+  *this = &unk_1F5B4D918;
+  v2 = *(this + 15);
+  *(this + 15) = 0;
+  if (v2)
+  {
+    v3 = this;
+    (*(*v2 + 8))(v2);
+    this = v3;
+    v1 = vars8;
+  }
+
+  GPU::BaseOpHandler::~BaseOpHandler(this);
+}
+
+{
+  *this = &unk_1F5B4D918;
+  v2 = *(this + 15);
+  *(this + 15) = 0;
+  if (v2)
+  {
+    (*(*v2 + 8))(v2);
+  }
+
+  GPU::BaseOpHandler::~BaseOpHandler(this);
+
+  JUMPOUT(0x1E12E5B90);
+}
+
+uint64_t GPU::LogarithmBase10OpHandler::kernelDAGOp(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+{
+  BaseTensorFromDataMap = GPU::MPSGraphKernelDAG::getBaseTensorFromDataMap(a2, *(*(*(a1 + 24) + 72) + 24), 0);
+  v10 = *(a2 + 80);
+
+  return MEMORY[0x1EEDCDED8](v10, BaseTensorFromDataMap, a3, a4, a5);
+}
+
+void GPU::LogarithmBase10OpHandler::~LogarithmBase10OpHandler(GPU::LogarithmBase10OpHandler *this)
+{
+  *this = &unk_1F5B4D918;
+  v2 = *(this + 15);
+  *(this + 15) = 0;
+  if (v2)
+  {
+    v3 = this;
+    (*(*v2 + 8))(v2);
+    this = v3;
+    v1 = vars8;
+  }
+
+  GPU::BaseOpHandler::~BaseOpHandler(this);
+}
+
+{
+  *this = &unk_1F5B4D918;
+  v2 = *(this + 15);
+  *(this + 15) = 0;
+  if (v2)
+  {
+    (*(*v2 + 8))(v2);
+  }
+
+  GPU::BaseOpHandler::~BaseOpHandler(this);
+
+  JUMPOUT(0x1E12E5B90);
+}
+
+uint64_t GPU::NegativeOpHandler::kernelDAGOp(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+{
+  GPU::MPSGraphKernelDAG::getBaseTensorFromDataMap(a2, *(*(*(a1 + 24) + 72) + 24), 0);
+
+  return MPSKernelDAG::negativeOp();
+}
+
+void GPU::NegativeOpHandler::~NegativeOpHandler(GPU::NegativeOpHandler *this)
+{
+  *this = &unk_1F5B4D918;
+  v2 = *(this + 15);
+  *(this + 15) = 0;
+  if (v2)
+  {
+    v3 = this;
+    (*(*v2 + 8))(v2);
+    this = v3;
+    v1 = vars8;
+  }
+
+  GPU::BaseOpHandler::~BaseOpHandler(this);
+}
+
+{
+  *this = &unk_1F5B4D918;
+  v2 = *(this + 15);
+  *(this + 15) = 0;
+  if (v2)
+  {
+    (*(*v2 + 8))(v2);
+  }
+
+  GPU::BaseOpHandler::~BaseOpHandler(this);
+
+  JUMPOUT(0x1E12E5B90);
+}
+
+uint64_t GPU::NotOpHandler::kernelDAGOp(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+{
+  BaseTensorFromDataMap = GPU::MPSGraphKernelDAG::getBaseTensorFromDataMap(a2, *(*(*(a1 + 24) + 72) + 24), 0);
+  v10 = *(a2 + 80);
+
+  return MEMORY[0x1EEDCDF28](v10, BaseTensorFromDataMap, a3, a4, a5);
+}
+
+void GPU::NotOpHandler::~NotOpHandler(GPU::NotOpHandler *this)
+{
+  *this = &unk_1F5B4D918;
+  v2 = *(this + 15);
+  *(this + 15) = 0;
+  if (v2)
+  {
+    v3 = this;
+    (*(*v2 + 8))(v2);
+    this = v3;
+    v1 = vars8;
+  }
+
+  GPU::BaseOpHandler::~BaseOpHandler(this);
+}
+
+{
+  *this = &unk_1F5B4D918;
+  v2 = *(this + 15);
+  *(this + 15) = 0;
+  if (v2)
+  {
+    (*(*v2 + 8))(v2);
+  }
+
+  GPU::BaseOpHandler::~BaseOpHandler(this);
+
+  JUMPOUT(0x1E12E5B90);
+}
+
+uint64_t GPU::RealPartOpHandler::kernelDAGOp(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+{
+  GPU::MPSGraphKernelDAG::getBaseTensorFromDataMap(a2, *(*(*(a1 + 24) + 72) + 24), 0);
+
+  return MPSKernelDAG::realPartOp();
+}
+
+void GPU::RealPartOpHandler::~RealPartOpHandler(GPU::RealPartOpHandler *this)
+{
+  *this = &unk_1F5B4D918;
+  v2 = *(this + 15);
+  *(this + 15) = 0;
+  if (v2)
+  {
+    v3 = this;
+    (*(*v2 + 8))(v2);
+    this = v3;
+    v1 = vars8;
+  }
+
+  GPU::BaseOpHandler::~BaseOpHandler(this);
+}
+
+{
+  *this = &unk_1F5B4D918;
+  v2 = *(this + 15);
+  *(this + 15) = 0;
+  if (v2)
+  {
+    (*(*v2 + 8))(v2);
+  }
+
+  GPU::BaseOpHandler::~BaseOpHandler(this);
+
+  JUMPOUT(0x1E12E5B90);
+}
+
+uint64_t GPU::ReciprocalOpHandler::kernelDAGOp(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+{
+  GPU::MPSGraphKernelDAG::getBaseTensorFromDataMap(a2, *(*(*(a1 + 24) + 72) + 24), 0);
+
+  return MPSKernelDAG::reciprocalOp();
+}
+
+void GPU::ReciprocalOpHandler::~ReciprocalOpHandler(GPU::ReciprocalOpHandler *this)
+{
+  *this = &unk_1F5B4D918;
+  v2 = *(this + 15);
+  *(this + 15) = 0;
+  if (v2)
+  {
+    v3 = this;
+    (*(*v2 + 8))(v2);
+    this = v3;
+    v1 = vars8;
+  }
+
+  GPU::BaseOpHandler::~BaseOpHandler(this);
+}
+
+{
+  *this = &unk_1F5B4D918;
+  v2 = *(this + 15);
+  *(this + 15) = 0;
+  if (v2)
+  {
+    (*(*v2 + 8))(v2);
+  }
+
+  GPU::BaseOpHandler::~BaseOpHandler(this);
+
+  JUMPOUT(0x1E12E5B90);
+}
+
+uint64_t GPU::ReciprocalSquareRootOpHandler::kernelDAGOp(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+{
+  BaseTensorFromDataMap = GPU::MPSGraphKernelDAG::getBaseTensorFromDataMap(a2, *(*(*(a1 + 24) + 72) + 24), 0);
+  v10 = *(a2 + 80);
+
+  return MEMORY[0x1EEDCDEF0](v10, BaseTensorFromDataMap, a3, a4, a5);
+}
+
+void GPU::ReciprocalSquareRootOpHandler::~ReciprocalSquareRootOpHandler(GPU::ReciprocalSquareRootOpHandler *this)
+{
+  *this = &unk_1F5B4D918;
+  v2 = *(this + 15);
+  *(this + 15) = 0;
+  if (v2)
+  {
+    v3 = this;
+    (*(*v2 + 8))(v2);
+    this = v3;
+    v1 = vars8;
+  }
+
+  GPU::BaseOpHandler::~BaseOpHandler(this);
+}
+
+{
+  *this = &unk_1F5B4D918;
+  v2 = *(this + 15);
+  *(this + 15) = 0;
+  if (v2)
+  {
+    (*(*v2 + 8))(v2);
+  }
+
+  GPU::BaseOpHandler::~BaseOpHandler(this);
+
+  JUMPOUT(0x1E12E5B90);
+}
+
+uint64_t GPU::RintOpHandler::kernelDAGOp(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+{
+  BaseTensorFromDataMap = GPU::MPSGraphKernelDAG::getBaseTensorFromDataMap(a2, *(*(*(a1 + 24) + 72) + 24), 0);
+  v10 = *(a2 + 80);
+
+  return MEMORY[0x1EEDCDF90](v10, BaseTensorFromDataMap, a3, a4, a5);
+}
+
+void GPU::RintOpHandler::~RintOpHandler(GPU::RintOpHandler *this)
+{
+  *this = &unk_1F5B4D918;
+  v2 = *(this + 15);
+  *(this + 15) = 0;
+  if (v2)
+  {
+    v3 = this;
+    (*(*v2 + 8))(v2);
+    this = v3;
+    v1 = vars8;
+  }
+
+  GPU::BaseOpHandler::~BaseOpHandler(this);
+}
+
+{
+  *this = &unk_1F5B4D918;
+  v2 = *(this + 15);
+  *(this + 15) = 0;
+  if (v2)
+  {
+    (*(*v2 + 8))(v2);
+  }
+
+  GPU::BaseOpHandler::~BaseOpHandler(this);
+
+  JUMPOUT(0x1E12E5B90);
+}
+
+uint64_t GPU::RoundOpHandler::kernelDAGOp(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+{
+  BaseTensorFromDataMap = GPU::MPSGraphKernelDAG::getBaseTensorFromDataMap(a2, *(*(*(a1 + 24) + 72) + 24), 0);
+  v10 = *(a2 + 80);
+
+  return MEMORY[0x1EEDCE000](v10, BaseTensorFromDataMap, a3, a4, a5);
+}
+
+void GPU::RoundOpHandler::~RoundOpHandler(GPU::RoundOpHandler *this)
+{
+  *this = &unk_1F5B4D918;
+  v2 = *(this + 15);
+  *(this + 15) = 0;
+  if (v2)
+  {
+    v3 = this;
+    (*(*v2 + 8))(v2);
+    this = v3;
+    v1 = vars8;
+  }
+
+  GPU::BaseOpHandler::~BaseOpHandler(this);
+}
+
+{
+  *this = &unk_1F5B4D918;
+  v2 = *(this + 15);
+  *(this + 15) = 0;
+  if (v2)
+  {
+    (*(*v2 + 8))(v2);
+  }
+
+  GPU::BaseOpHandler::~BaseOpHandler(this);
+
+  JUMPOUT(0x1E12E5B90);
+}
+
+uint64_t GPU::SignOpHandler::kernelDAGOp(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+{
+  BaseTensorFromDataMap = GPU::MPSGraphKernelDAG::getBaseTensorFromDataMap(a2, *(*(*(a1 + 24) + 72) + 24), 0);
+  v10 = *(a2 + 80);
+
+  return MEMORY[0x1EEDCDF98](v10, BaseTensorFromDataMap, a3, a4, a5);
+}
+
+void GPU::SignOpHandler::~SignOpHandler(GPU::SignOpHandler *this)
+{
+  *this = &unk_1F5B4D918;
+  v2 = *(this + 15);
+  *(this + 15) = 0;
+  if (v2)
+  {
+    v3 = this;
+    (*(*v2 + 8))(v2);
+    this = v3;
+    v1 = vars8;
+  }
+
+  GPU::BaseOpHandler::~BaseOpHandler(this);
+}
+
+{
+  *this = &unk_1F5B4D918;
+  v2 = *(this + 15);
+  *(this + 15) = 0;
+  if (v2)
+  {
+    (*(*v2 + 8))(v2);
+  }
+
+  GPU::BaseOpHandler::~BaseOpHandler(this);
+
+  JUMPOUT(0x1E12E5B90);
+}
+
+uint64_t GPU::SignbitOpHandler::kernelDAGOp(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+{
+  BaseTensorFromDataMap = GPU::MPSGraphKernelDAG::getBaseTensorFromDataMap(a2, *(*(*(a1 + 24) + 72) + 24), 0);
+  v10 = *(a2 + 80);
+
+  return MEMORY[0x1EEDCE048](v10, BaseTensorFromDataMap, a3, a4, a5);
+}
+
+void GPU::SignbitOpHandler::~SignbitOpHandler(GPU::SignbitOpHandler *this)
+{
+  *this = &unk_1F5B4D918;
+  v2 = *(this + 15);
+  *(this + 15) = 0;
+  if (v2)
+  {
+    v3 = this;
+    (*(*v2 + 8))(v2);
+    this = v3;
+    v1 = vars8;
+  }
+
+  GPU::BaseOpHandler::~BaseOpHandler(this);
+}
+
+{
+  *this = &unk_1F5B4D918;
+  v2 = *(this + 15);
+  *(this + 15) = 0;
+  if (v2)
+  {
+    (*(*v2 + 8))(v2);
+  }
+
+  GPU::BaseOpHandler::~BaseOpHandler(this);
+
+  JUMPOUT(0x1E12E5B90);
+}
+
 uint64_t GPU::SinOpHandler::kernelDAGOp(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   BaseTensorFromDataMap = GPU::MPSGraphKernelDAG::getBaseTensorFromDataMap(a2, *(*(*(a1 + 24) + 72) + 24), 0);
@@ -74,7 +3154,7 @@ void GPU::SinhOpHandler::~SinhOpHandler(GPU::SinhOpHandler *this)
   JUMPOUT(0x1E12E5B90);
 }
 
-uint64_t GPU::SquareOpHandler::kernelDAGOp(uint64_t a1, uint64_t a2)
+uint64_t GPU::SquareOpHandler::kernelDAGOp(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   GPU::MPSGraphKernelDAG::getBaseTensorFromDataMap(a2, *(*(*(a1 + 24) + 72) + 24), 0);
 
@@ -187,7 +3267,7 @@ void GPU::TanOpHandler::~TanOpHandler(GPU::TanOpHandler *this)
   JUMPOUT(0x1E12E5B90);
 }
 
-uint64_t GPU::TanhOpHandler::kernelDAGOp(uint64_t a1, uint64_t a2)
+uint64_t GPU::TanhOpHandler::kernelDAGOp(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   GPU::MPSGraphKernelDAG::getBaseTensorFromDataMap(a2, *(*(*(a1 + 24) + 72) + 24), 0);
 
@@ -224,12 +3304,12 @@ void GPU::TanhOpHandler::~TanhOpHandler(GPU::TanhOpHandler *this)
   JUMPOUT(0x1E12E5B90);
 }
 
-uint64_t GPU::SelectOpHandler::kernelDAGOp(uint64_t a1, uint64_t a2)
+uint64_t GPU::SelectOpHandler::kernelDAGOp(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v3 = *(a1 + 24);
-  GPU::MPSGraphKernelDAG::getBaseTensorFromDataMap(a2, *(*(v3 + 72) + 88), 0);
-  GPU::MPSGraphKernelDAG::getBaseTensorFromDataMap(a2, *(*(v3 + 72) + 56), 0);
-  GPU::MPSGraphKernelDAG::getBaseTensorFromDataMap(a2, *(*(v3 + 72) + 24), 0);
+  v6 = *(a1 + 24);
+  GPU::MPSGraphKernelDAG::getBaseTensorFromDataMap(a2, *(*(v6 + 72) + 88), 0);
+  GPU::MPSGraphKernelDAG::getBaseTensorFromDataMap(a2, *(*(v6 + 72) + 56), 0);
+  GPU::MPSGraphKernelDAG::getBaseTensorFromDataMap(a2, *(*(v6 + 72) + 24), 0);
 
   return MPSKernelDAG::selectOp();
 }
@@ -264,12 +3344,12 @@ void GPU::SelectOpHandler::~SelectOpHandler(GPU::SelectOpHandler *this)
   JUMPOUT(0x1E12E5B90);
 }
 
-uint64_t GPU::ClampOpHandler::kernelDAGOp(uint64_t a1, uint64_t a2)
+uint64_t GPU::ClampOpHandler::kernelDAGOp(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v3 = *(a1 + 24);
-  GPU::MPSGraphKernelDAG::getBaseTensorFromDataMap(a2, *(*(v3 + 72) + 24), 0);
-  GPU::MPSGraphKernelDAG::getBaseTensorFromDataMap(a2, *(*(v3 + 72) + 56), 0);
-  GPU::MPSGraphKernelDAG::getBaseTensorFromDataMap(a2, *(*(v3 + 72) + 88), 0);
+  v6 = *(a1 + 24);
+  GPU::MPSGraphKernelDAG::getBaseTensorFromDataMap(a2, *(*(v6 + 72) + 24), 0);
+  GPU::MPSGraphKernelDAG::getBaseTensorFromDataMap(a2, *(*(v6 + 72) + 56), 0);
+  GPU::MPSGraphKernelDAG::getBaseTensorFromDataMap(a2, *(*(v6 + 72) + 88), 0);
 
   return MPSKernelDAG::clampOp();
 }
@@ -304,17 +3384,17 @@ void GPU::ClampOpHandler::~ClampOpHandler(GPU::ClampOpHandler *this)
   JUMPOUT(0x1E12E5B90);
 }
 
-uint64_t GPU::CreateComplexOpHandler::kernelDAGOp(uint64_t a1, uint64_t a2, uint64_t a3)
+uint64_t GPU::CreateComplexOpHandler::kernelDAGOp(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v5 = *(a1 + 24);
-  BaseTensorFromDataMap = GPU::MPSGraphKernelDAG::getBaseTensorFromDataMap(a2, *(*(v5 + 72) + 24), 0);
-  v7 = GPU::MPSGraphKernelDAG::getBaseTensorFromDataMap(a2, *(*(v5 + 72) + 56), 0);
-  v8 = BaseTensorFromDataMap[2];
-  v10 = *v8;
-  v9 = v8[1];
-  if (v9 != v10)
+  v7 = *(a1 + 24);
+  BaseTensorFromDataMap = GPU::MPSGraphKernelDAG::getBaseTensorFromDataMap(a2, *(*(v7 + 72) + 24), 0);
+  v9 = GPU::MPSGraphKernelDAG::getBaseTensorFromDataMap(a2, *(*(v7 + 72) + 56), 0);
+  v10 = BaseTensorFromDataMap[2];
+  v12 = *v10;
+  v11 = v10[1];
+  if (v11 != v12)
   {
-    if (((v9 - v10) & 0x8000000000000000) == 0)
+    if (((v11 - v12) & 0x8000000000000000) == 0)
     {
       operator new();
     }
@@ -327,12 +3407,12 @@ uint64_t GPU::CreateComplexOpHandler::kernelDAGOp(uint64_t a1, uint64_t a2, uint
     MPSKernelDAG::broadcastOp();
   }
 
-  v12 = v7[2];
-  v14 = *v12;
-  v13 = v12[1];
-  if (v13 != v14)
+  v14 = v9[2];
+  v16 = *v14;
+  v15 = v14[1];
+  if (v15 != v16)
   {
-    if (((v13 - v14) & 0x8000000000000000) == 0)
+    if (((v15 - v16) & 0x8000000000000000) == 0)
     {
       operator new();
     }
@@ -379,51 +3459,51 @@ void GPU::CreateComplexOpHandler::~CreateComplexOpHandler(GPU::CreateComplexOpHa
   JUMPOUT(0x1E12E5B90);
 }
 
-uint64_t GPU::CastOpHandler::kernelDAGOp(uint64_t a1, uint64_t a2)
+uint64_t GPU::CastOpHandler::kernelDAGOp(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v3 = *(a1 + 24);
-  BaseTensorFromDataMap = GPU::MPSGraphKernelDAG::getBaseTensorFromDataMap(a2, *(*(v3 + 72) + 24), 0);
-  v5 = (*(*(*(v3 + 72) + 24) + 8) & 0xFFFFFFFFFFFFFFF8);
-  v6 = *(*v5 + 136);
-  if (v6 != &mlir::detail::TypeIDResolver<mlir::UnrankedTensorType,void>::id && v6 != &mlir::detail::TypeIDResolver<mlir::RankedTensorType,void>::id)
+  v6 = *(a1 + 24);
+  BaseTensorFromDataMap = GPU::MPSGraphKernelDAG::getBaseTensorFromDataMap(a2, *(*(v6 + 72) + 24), 0);
+  v8 = (*(*(*(v6 + 72) + 24) + 8) & 0xFFFFFFFFFFFFFFF8);
+  v9 = *(*v8 + 136);
+  if (v9 != &mlir::detail::TypeIDResolver<mlir::UnrankedTensorType,void>::id && v9 != &mlir::detail::TypeIDResolver<mlir::RankedTensorType,void>::id)
   {
-    v5 = 0;
+    v8 = 0;
   }
 
-  __p = v5;
+  __p = v8;
   ElementType = mlir::TensorType::getElementType(&__p);
-  if (*(v3 + 36))
+  if (*(v6 + 36))
   {
-    v9 = v3 - 16;
+    v12 = v6 - 16;
   }
 
   else
   {
-    v9 = 0;
+    v12 = 0;
   }
 
-  v10 = (*(mlir::detail::OpResultImpl::getNextResultAtOffset(v9, 0) + 8) & 0xFFFFFFFFFFFFFFF8);
-  v11 = *(*v10 + 136);
-  if (v11 != &mlir::detail::TypeIDResolver<mlir::UnrankedTensorType,void>::id && v11 != &mlir::detail::TypeIDResolver<mlir::RankedTensorType,void>::id)
+  v13 = (*(mlir::detail::OpResultImpl::getNextResultAtOffset(v12, 0) + 8) & 0xFFFFFFFFFFFFFFF8);
+  v14 = *(*v13 + 136);
+  if (v14 != &mlir::detail::TypeIDResolver<mlir::UnrankedTensorType,void>::id && v14 != &mlir::detail::TypeIDResolver<mlir::RankedTensorType,void>::id)
   {
-    v10 = 0;
+    v13 = 0;
   }
 
-  __p = v10;
-  v22 = mlir::TensorType::getElementType(&__p);
-  v13 = *(*ElementType + 136);
-  v14 = *(*v22 + 136);
-  if (mlir::Type::isInteger(&v22, 1))
+  __p = v13;
+  v25 = mlir::TensorType::getElementType(&__p);
+  v16 = *(*ElementType + 136);
+  v17 = *(*v25 + 136);
+  if (mlir::Type::isInteger(&v25, 1))
   {
-    v15 = *(BaseTensorFromDataMap + 16);
-    v20 = 0;
-    v21 = 0;
+    v18 = *(BaseTensorFromDataMap + 16);
+    v23 = 0;
+    v24 = 0;
     __p = 0;
-    v17 = *v15;
-    v16 = v15[1];
-    if (v16 != v17)
+    v20 = *v18;
+    v19 = v18[1];
+    if (v19 != v20)
     {
-      if (((v16 - v17) & 0x8000000000000000) == 0)
+      if (((v19 - v20) & 0x8000000000000000) == 0)
       {
         operator new();
       }
@@ -435,12 +3515,12 @@ uint64_t GPU::CastOpHandler::kernelDAGOp(uint64_t a1, uint64_t a2)
     BaseTensorFromDataMap = MPSKernelDAG::isNotEqualOp();
     if (__p)
     {
-      v20 = __p;
+      v23 = __p;
       operator delete(__p);
     }
   }
 
-  else if (*(a1 + 32) || v13 == &mlir::detail::TypeIDResolver<mlir::ComplexType,void>::id || v14 == &mlir::detail::TypeIDResolver<mlir::ComplexType,void>::id)
+  else if (*(a1 + 32) || v16 == &mlir::detail::TypeIDResolver<mlir::ComplexType,void>::id || v17 == &mlir::detail::TypeIDResolver<mlir::ComplexType,void>::id)
   {
     return MPSKernelDAG::castOp();
   }
@@ -550,23 +3630,23 @@ id *GPU::CropResizeOpHandler::CropResizeOpHandler(id *this, id *a2, mlir::Operat
 
 void GPU::CropResizeOpHandler::encodeNDArrayOp(GPU::CropResizeOpHandler *this, GPU::EncodeDescriptor *a2, NSArray *a3)
 {
-  v104[3] = *MEMORY[0x1E69E9840];
-  v81 = a3;
+  v107[3] = *MEMORY[0x1E69E9840];
+  v84 = a3;
   v5 = *(this + 2);
-  v97 = *(this + 3);
-  v6 = *(v97 + 72);
+  v100 = *(this + 3);
+  v6 = *(v100 + 72);
   v7 = *(v6 + 56);
   v8 = (*(*v5 + 48))(v5, *(v6 + 24), 0);
-  v88 = [v8 mpsndarray];
+  v91 = [v8 mpsndarray];
 
   v9 = (*(**(this + 2) + 48))(*(this + 2), v7, 0);
-  v89 = [v9 mpsndarray];
+  v92 = [v9 mpsndarray];
 
-  v78 = [(NSArray *)v81 objectAtIndexedSubscript:0];
-  v10 = [v78 mpsndarray];
-  if (v88)
+  v81 = [(NSArray *)v84 objectAtIndexedSubscript:0];
+  v10 = [v81 mpsndarray];
+  if (v91)
   {
-    v11 = v89 == 0;
+    v11 = v92 == 0;
   }
 
   else
@@ -575,181 +3655,217 @@ void GPU::CropResizeOpHandler::encodeNDArrayOp(GPU::CropResizeOpHandler *this, G
   }
 
   v12 = v11 || v10 == 0;
-  v85 = v10;
+  v88 = v10;
   if (v12 && MTLReportFailureTypeEnabled())
   {
     MTLReportFailure();
   }
 
-  v91 = *(this + 1);
-  [v91 setResizeHeight:mlir::mps::CropResizeOp::getResizeHeight(&v97)];
-  [v91 setResizeWidth:mlir::mps::CostVolumeOp::getWindowHeight(&v97)];
-  [v91 setNormalizeCoordinates:mlir::mps::GRUOp::getResetAfter(&v97)];
-  mlir::mps::CropResizeOp::getSpatialScale(&v97, &v103);
-  *&v13 = llvm::APFloat::convertToFloat(&v103);
-  [v91 setSpatialScale:v13];
-  llvm::APFloat::Storage::~Storage(v104);
-  [v91 setResampleMode:mlir::mps::LSTMOp::getGateLayout(&v97)];
-  [v91 setSamplingMode:mlir::mps::MaterializeSparseTensorOp::getStorageType(&v97)];
-  [v91 setCoordinateMode:mlir::mps::SampleGridOp::getLayout(&v97)];
-  v80 = [v88 descriptor];
-  v84 = [v89 descriptor];
-  v79 = [v80 getShape];
-  v86 = [v84 getShape];
-  v14 = [v86 objectAtIndexedSubscript:1];
-  v87 = this;
-  v15 = [v14 intValue] == 4;
+  v94 = *(this + 1);
+  [v94 setResizeHeight:mlir::mps::CropResizeOp::getResizeHeight(&v100)];
+  [v94 setResizeWidth:mlir::mps::CostVolumeOp::getWindowHeight(&v100)];
+  [v94 setNormalizeCoordinates:mlir::mps::GRUOp::getResetAfter(&v100)];
+  mlir::mps::CropResizeOp::getSpatialScale(&v106, &v100);
+  *&v16 = llvm::APFloat::convertToFloat(&v106, v13, v14, v15);
+  [v94 setSpatialScale:v16];
+  llvm::APFloat::Storage::~Storage(v107);
+  [v94 setResampleMode:mlir::mps::LSTMOp::getGateLayout(&v100)];
+  [v94 setSamplingMode:mlir::mps::MaterializeSparseTensorOp::getStorageType(&v100)];
+  [v94 setCoordinateMode:mlir::mps::SampleGridOp::getLayout(&v100)];
+  v83 = [v91 descriptor];
+  v87 = [v92 descriptor];
+  v82 = [v83 getShape];
+  v89 = [v87 getShape];
+  v17 = [v89 objectAtIndexedSubscript:1];
+  v90 = this;
+  v18 = [v17 intValue] == 4;
 
-  if (v15)
+  if (v18)
   {
-    v83 = [v85 descriptor];
-    [v83 transposeDimension:3 withDimension:4];
-    v16 = MEMORY[0x1E69744E8];
-    if (*(v85 + *MEMORY[0x1E69744E8]) == 1)
+    v86 = [v88 descriptor];
+    [v86 transposeDimension:3 withDimension:4];
+    v19 = MEMORY[0x1E69744E8];
+    if (*(v88 + *MEMORY[0x1E69744E8]) == 1)
     {
-      [v85 setReadCount:{objc_msgSend(v85, "readCount") + 1}];
+      [v88 setReadCount:{objc_msgSend(v88, "readCount") + 1}];
     }
 
-    v17 = *(a2 + 1);
-    v18 = GPU::EncodeDescriptor::getcomputeEncoder(a2);
-    v92 = [v85 safeArrayViewWithCommandBuffer:v17 computeEncoder:v18 descriptor:v83 aliasing:2];
+    v20 = *(a2 + 1);
+    v21 = GPU::EncodeDescriptor::getcomputeEncoder(a2);
+    v95 = [v88 safeArrayViewWithCommandBuffer:v20 computeEncoder:v21 descriptor:v86 aliasing:2];
 
-    v19 = [v85 descriptor];
-    v20 = [v19 getShape];
-    v82 = [v20 mutableCopy];
+    v22 = [v88 descriptor];
+    v23 = [v22 getShape];
+    v85 = [v23 mutableCopy];
 
-    [v82 removeObjectAtIndex:1];
-    v103 = 0;
-    v21 = [v79 objectAtIndexedSubscript:0];
-    v22 = [v21 intValue];
+    [v85 removeObjectAtIndex:1];
+    v106 = 0;
+    v24 = [v82 objectAtIndexedSubscript:0];
+    v25 = [v24 intValue];
 
-    v23 = *v16;
-    if (v22 >= 2)
+    v26 = *v19;
+    if (v25 >= 2)
     {
-      v24 = v23;
-      if (*(v88 + v23) == 1)
+      v27 = v26;
+      if (*(v91 + v26) == 1)
       {
-        [v88 setReadCount:{v22 + objc_msgSend(v88, "readCount") - 1}];
-        v23 = *v16;
-        v24 = *v16;
+        [v91 setReadCount:{v25 + objc_msgSend(v91, "readCount") - 1}];
+        v26 = *v19;
+        v27 = *v19;
       }
 
-      if (*(v89 + v24) == 1)
+      if (*(v92 + v27) == 1)
       {
-        [v89 setReadCount:{v22 + objc_msgSend(v89, "readCount") - 1}];
-        v23 = *v16;
+        [v92 setReadCount:{v25 + objc_msgSend(v92, "readCount") - 1}];
+        v26 = *v19;
       }
     }
 
-    if (*(v92 + v23) == 1)
+    if (*(v95 + v26) == 1)
     {
-      [v92 setReadCount:{objc_msgSend(v92, "readCount") + v22}];
+      [v95 setReadCount:{objc_msgSend(v95, "readCount") + v25}];
     }
 
-    LODWORD(v98) = 0;
-    if (v22)
+    LODWORD(v101) = 0;
+    if (v25)
     {
       do
       {
-        v25 = MEMORY[0x1E6974490];
-        v26 = [v86 objectAtIndexedSubscript:0];
-        v102 = v26;
-        v27 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v102 count:1];
-        v28 = [v25 descriptorWithDataType:536870944 shape:v27];
+        v28 = MEMORY[0x1E6974490];
+        v29 = [v89 objectAtIndexedSubscript:0];
+        v105 = v29;
+        v30 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v105 count:1];
+        v31 = [v28 descriptorWithDataType:536870944 shape:v30];
 
-        v29 = objc_alloc(MEMORY[0x1E6974488]);
-        v30 = [*(*(v87 + 2) + 48) metalDevice];
-        v31 = [v29 initWithDevice:v30 descriptor:v28];
+        v32 = objc_alloc(MEMORY[0x1E6974488]);
+        v33 = [*(*(v90 + 2) + 48) metalDevice];
+        v34 = [v32 initWithDevice:v33 descriptor:v31];
 
-        [v31 writeBytes:&v98 strideBytes:&v103];
-        v32 = [v92 descriptor];
-        [v32 sliceDimension:4 withSubrange:{v98, 1}];
-        v33 = *(a2 + 1);
-        v34 = GPU::EncodeDescriptor::getcomputeEncoder(a2);
-        v35 = [v92 safeArrayViewWithCommandBuffer:v33 computeEncoder:v34 descriptor:v32 aliasing:1];
+        [v34 writeBytes:&v101 strideBytes:&v106];
+        v35 = [v95 descriptor];
+        [v35 sliceDimension:4 withSubrange:{v101, 1}];
+        v36 = *(a2 + 1);
+        v37 = GPU::EncodeDescriptor::getcomputeEncoder(a2);
+        v38 = [v95 safeArrayViewWithCommandBuffer:v36 computeEncoder:v37 descriptor:v35 aliasing:1];
 
-        v36 = GPU::EncodeDescriptor::getcomputeEncoder(a2);
-        v37 = *(a2 + 1);
-        v101[0] = v88;
-        v101[1] = v89;
-        v101[2] = v31;
-        v38 = [MEMORY[0x1E695DEC8] arrayWithObjects:v101 count:3];
-        [v91 encodeToMPSCommandEncoder:v36 commandBuffer:v37 sourceArrays:v38 destinationArray:v35];
+        v39 = GPU::EncodeDescriptor::getcomputeEncoder(a2);
+        v40 = *(a2 + 1);
+        v104[0] = v91;
+        v104[1] = v92;
+        v104[2] = v34;
+        v41 = [MEMORY[0x1E695DEC8] arrayWithObjects:v104 count:3];
+        [v94 encodeToMPSCommandEncoder:v39 commandBuffer:v40 sourceArrays:v41 destinationArray:v38];
 
-        LODWORD(v98) = v98 + 1;
+        LODWORD(v101) = v101 + 1;
       }
 
-      while (v98 < v22);
+      while (v101 < v25);
     }
 
-    v39 = [v92 descriptor];
-    [v39 transposeDimension:3 withDimension:4];
-    v40 = *(a2 + 1);
-    v41 = GPU::EncodeDescriptor::getcomputeEncoder(a2);
-    v42 = [v92 safeArrayViewWithCommandBuffer:v40 computeEncoder:v41 descriptor:v39 aliasing:1];
-
-    v43 = *(v87 + 2);
+    v42 = [v95 descriptor];
+    [v42 transposeDimension:3 withDimension:4];
+    v43 = *(a2 + 1);
     v44 = GPU::EncodeDescriptor::getcomputeEncoder(a2);
-    v45 = *(a2 + 1);
-    if (*(v97 + 36))
+    v45 = [v95 safeArrayViewWithCommandBuffer:v43 computeEncoder:v44 descriptor:v42 aliasing:1];
+
+    v46 = *(v90 + 2);
+    v47 = GPU::EncodeDescriptor::getcomputeEncoder(a2);
+    v48 = *(a2 + 1);
+    if (*(v100 + 36))
     {
-      v46 = v97 - 16;
+      v49 = v100 - 16;
     }
 
     else
     {
-      v46 = 0;
+      v49 = 0;
     }
 
-    NextResultAtOffset = mlir::detail::OpResultImpl::getNextResultAtOffset(v46, 0);
-    GPURegionRuntime::copyNDArrayToTarget(v43, v44, v45, v87 + 15, v42, v78, NextResultAtOffset, 0);
+    NextResultAtOffset = mlir::detail::OpResultImpl::getNextResultAtOffset(v49, 0);
+    GPURegionRuntime::copyNDArrayToTarget(v46, v47, v48, v90 + 15, v45, v81, NextResultAtOffset, 0);
   }
 
   else
   {
-    v83 = [v89 descriptor];
-    [v83 sliceDimension:0 withSubrange:{0, 1}];
-    v48 = [v86 objectAtIndexedSubscript:0];
-    v100 = v48;
-    v49 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v100 count:1];
-    [v83 reshapeWithShape:v49];
+    v86 = [v92 descriptor];
+    [v86 sliceDimension:0 withSubrange:{0, 1}];
+    v51 = [v89 objectAtIndexedSubscript:0];
+    v103 = v51;
+    v52 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v103 count:1];
+    [v86 reshapeWithShape:v52];
 
-    [v84 sliceDimension:0 withSubrange:{1, 4}];
-    v50 = MEMORY[0x1E69744E8];
-    if (*(v89 + *MEMORY[0x1E69744E8]) == 1)
+    [v87 sliceDimension:0 withSubrange:{1, 4}];
+    v53 = MEMORY[0x1E69744E8];
+    if (*(v92 + *MEMORY[0x1E69744E8]) == 1)
     {
-      [v89 setReadCount:{objc_msgSend(v89, "readCount") + 2}];
+      [v92 setReadCount:{objc_msgSend(v92, "readCount") + 2}];
     }
 
-    v51 = *(a2 + 1);
-    v52 = GPU::EncodeDescriptor::getcomputeEncoder(a2);
-    v92 = [v89 safeArrayViewWithCommandBuffer:v51 computeEncoder:v52 descriptor:v83 aliasing:0];
+    v54 = *(a2 + 1);
+    v55 = GPU::EncodeDescriptor::getcomputeEncoder(a2);
+    v95 = [v92 safeArrayViewWithCommandBuffer:v54 computeEncoder:v55 descriptor:v86 aliasing:0];
 
-    v53 = *(a2 + 1);
-    v54 = GPU::EncodeDescriptor::getcomputeEncoder(a2);
-    v77 = [v89 safeArrayViewWithCommandBuffer:v53 computeEncoder:v54 descriptor:v84 aliasing:0];
+    v56 = *(a2 + 1);
+    v57 = GPU::EncodeDescriptor::getcomputeEncoder(a2);
+    v80 = [v92 safeArrayViewWithCommandBuffer:v56 computeEncoder:v57 descriptor:v87 aliasing:0];
 
-    v82 = [v85 descriptor];
-    v55 = [v85 descriptor];
-    v56 = [v55 getShape];
-    v90 = [v56 mutableCopy];
+    v85 = [v88 descriptor];
+    v58 = [v88 descriptor];
+    v59 = [v58 getShape];
+    v93 = [v59 mutableCopy];
 
-    [v90 removeObjectAtIndex:1];
-    [v82 reshapeWithShape:v90];
-    if (*(v85 + *v50) == 1)
+    [v93 removeObjectAtIndex:1];
+    [v85 reshapeWithShape:v93];
+    if (*(v88 + *v53) == 1)
     {
-      [v85 setReadCount:{objc_msgSend(v85, "readCount") + 1}];
+      [v88 setReadCount:{objc_msgSend(v88, "readCount") + 1}];
     }
 
-    v57 = *(a2 + 1);
-    v58 = GPU::EncodeDescriptor::getcomputeEncoder(a2);
-    v76 = [v85 safeArrayViewWithCommandBuffer:v57 computeEncoder:v58 descriptor:v82 aliasing:1];
+    v60 = *(a2 + 1);
+    v61 = GPU::EncodeDescriptor::getcomputeEncoder(a2);
+    v79 = [v88 safeArrayViewWithCommandBuffer:v60 computeEncoder:v61 descriptor:v85 aliasing:1];
 
-    v59 = [v88 descriptor];
-    v75 = v59;
-    if (v59)
+    v62 = [v91 descriptor];
+    v78 = v62;
+    if (v62)
     {
-      [v59 getShapeVector];
+      objc_msgSend_getShapeVector(v62);
+    }
+
+    else
+    {
+      v99 = 0;
+    }
+
+    v63 = [v80 descriptor];
+    v77 = v63;
+    if (v63)
+    {
+      objc_msgSend_getShapeVector(v63);
+    }
+
+    else
+    {
+      v98 = 0;
+    }
+
+    v64 = [v95 descriptor];
+    v76 = v64;
+    if (v64)
+    {
+      objc_msgSend_getShapeVector(v64);
+    }
+
+    else
+    {
+      v97 = 0;
+    }
+
+    v65 = [v79 descriptor];
+    v75 = v65;
+    if (v65)
+    {
+      objc_msgSend_getShapeVector(v65);
     }
 
     else
@@ -757,91 +3873,19 @@ void GPU::CropResizeOpHandler::encodeNDArrayOp(GPU::CropResizeOpHandler *this, G
       v96 = 0;
     }
 
-    v60 = [v77 descriptor];
-    v74 = v60;
-    if (v60)
-    {
-      [v60 getShapeVector];
-    }
-
-    else
-    {
-      v95 = 0;
-    }
-
-    v61 = [v92 descriptor];
-    v73 = v61;
-    if (v61)
-    {
-      [v61 getShapeVector];
-    }
-
-    else
-    {
-      v94 = 0;
-    }
-
-    v62 = [v76 descriptor];
-    v72 = v62;
-    if (v62)
-    {
-      [v62 getShapeVector];
-    }
-
-    else
-    {
-      v93 = 0;
-    }
-
-    v63 = [v88 descriptor];
-    [v63 dataType];
-    if (!*(v87 + 16))
+    v66 = [v91 descriptor];
+    [v66 dataType];
+    if (!*(v90 + 16))
     {
       operator new();
     }
 
-    if ((*(v87 + 40) & 1) == 0 && MTLReportFailureTypeEnabled())
+    if ((*(v90 + 40) & 1) == 0 && MTLReportFailureTypeEnabled())
     {
       MTLReportFailure();
     }
 
-    v64 = *(v87 + 16);
-
-    if (v93)
-    {
-      v65 = *v93;
-      if (*v93)
-      {
-        *(v93 + 8) = v65;
-        operator delete(v65);
-      }
-
-      MEMORY[0x1E12E5B90](v93, 0x10C402FEFCB83);
-    }
-
-    if (v94)
-    {
-      v66 = *v94;
-      if (*v94)
-      {
-        *(v94 + 8) = v66;
-        operator delete(v66);
-      }
-
-      MEMORY[0x1E12E5B90](v94, 0x10C402FEFCB83);
-    }
-
-    if (v95)
-    {
-      v67 = *v95;
-      if (*v95)
-      {
-        *(v95 + 8) = v67;
-        operator delete(v67);
-      }
-
-      MEMORY[0x1E12E5B90](v95, 0x10C402FEFCB83);
-    }
+    v67 = *(v90 + 16);
 
     if (v96)
     {
@@ -855,15 +3899,51 @@ void GPU::CropResizeOpHandler::encodeNDArrayOp(GPU::CropResizeOpHandler *this, G
       MEMORY[0x1E12E5B90](v96, 0x10C402FEFCB83);
     }
 
-    v69 = GPU::EncodeDescriptor::getcomputeEncoder(a2);
-    v70 = *(a2 + 1);
-    v99[0] = v88;
-    v99[1] = v77;
-    v99[2] = v92;
-    v71 = [MEMORY[0x1E695DEC8] arrayWithObjects:v99 count:3];
-    [v91 encodeToMPSCommandEncoder:v69 commandBuffer:v70 sourceArrays:v71 resultState:0 destinationArray:v76 kernelDAGObject:v64];
+    if (v97)
+    {
+      v69 = *v97;
+      if (*v97)
+      {
+        *(v97 + 8) = v69;
+        operator delete(v69);
+      }
 
-    v89 = v77;
+      MEMORY[0x1E12E5B90](v97, 0x10C402FEFCB83);
+    }
+
+    if (v98)
+    {
+      v70 = *v98;
+      if (*v98)
+      {
+        *(v98 + 8) = v70;
+        operator delete(v70);
+      }
+
+      MEMORY[0x1E12E5B90](v98, 0x10C402FEFCB83);
+    }
+
+    if (v99)
+    {
+      v71 = *v99;
+      if (*v99)
+      {
+        *(v99 + 8) = v71;
+        operator delete(v71);
+      }
+
+      MEMORY[0x1E12E5B90](v99, 0x10C402FEFCB83);
+    }
+
+    v72 = GPU::EncodeDescriptor::getcomputeEncoder(a2);
+    v73 = *(a2 + 1);
+    v102[0] = v91;
+    v102[1] = v80;
+    v102[2] = v95;
+    v74 = [MEMORY[0x1E695DEC8] arrayWithObjects:v102 count:3];
+    [v94 encodeToMPSCommandEncoder:v72 commandBuffer:v73 sourceArrays:v74 resultState:0 destinationArray:v79 kernelDAGObject:v67];
+
+    v92 = v80;
   }
 }
 
@@ -991,82 +4071,82 @@ void sub_1E07D7CA0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-GPU::StitchedOpHandler *GPU::StitchedOpHandler::StitchedOpHandler(GPU::StitchedOpHandler *this, GPURegionRuntime *a2, mlir::Operation *a3, GPU::MPSGraphKernelDAG *a4)
+GPURegionRuntime **GPU::StitchedOpHandler::StitchedOpHandler(GPURegionRuntime **this, GPURegionRuntime *a2, mlir::Operation *a3, GPU::MPSGraphKernelDAG *a4)
 {
   v5 = GPU::BaseOpHandler::BaseOpHandler(this, a2, a3, a4);
   *v5 = &unk_1F5B4FEB0;
   *(v5 + 120) = 0u;
   *(v5 + 136) = 0u;
-  v7 = ((*(v5 + 3) + 16 * ((*(*(v5 + 3) + 44) >> 23) & 1) + ((*(*(v5 + 3) + 44) >> 21) & 0x7F8) + 71) & 0xFFFFFFFFFFFFFFF8) + 32 * *(*(v5 + 3) + 40);
+  v6 = ((*(v5 + 3) + 16 * ((*(*(v5 + 3) + 44) >> 23) & 1) + ((*(*(v5 + 3) + 44) >> 21) & 0x7F8) + 71) & 0xFFFFFFFFFFFFFFF8) + 32 * *(*(v5 + 3) + 40);
   if (*(v5 + 40) == 1)
   {
-    v21 = this;
-    v8 = *(v7 + 8);
-    if (v8 == v7)
+    v20 = this;
+    v7 = *(v6 + 8);
+    if (v7 == v6)
     {
       goto LABEL_11;
     }
 
     do
     {
-      v9 = v8 - 8;
-      if (!v8)
+      v8 = v7 - 8;
+      if (!v7)
       {
-        v9 = 0;
+        v8 = 0;
       }
 
-      v10 = *(v9 + 40);
-      v11 = v9 + 32;
-      if (v10 != v9 + 32)
+      v9 = *(v8 + 40);
+      v10 = v8 + 32;
+      if (v9 != v8 + 32)
       {
         do
         {
-          v12 = *(v10 + 8);
-          v13 = MPSGraphDelegateCompiler.precompilationDescriptor.modify(v10, v6);
-          mlir::detail::walk<mlir::ForwardIterator>(v13, llvm::function_ref<void ()(mlir::Operation *)>::callback_fn<GPU::StitchedOpHandler::StitchedOpHandler(GPURegionRuntime *,mlir::Operation *,GPU::MPSGraphKernelDAG *)::$_0>, &v21, 1);
-          v10 = v12;
+          v11 = *(v9 + 8);
+          MPSGraphDelegateCompiler.precompilationDescriptor.modify();
+          mlir::detail::walk<mlir::ForwardIterator>(v12, llvm::function_ref<void ()(mlir::Operation *)>::callback_fn<GPU::StitchedOpHandler::StitchedOpHandler(GPURegionRuntime *,mlir::Operation *,GPU::MPSGraphKernelDAG *)::$_0>, &v20, 1);
+          v9 = v11;
         }
 
-        while (v12 != v11);
+        while (v11 != v10);
       }
 
-      v8 = *(v8 + 8);
+      v7 = *(v7 + 8);
     }
 
-    while (v8 != v7);
-    if (*(this + 40))
+    while (v7 != v6);
+    if (this[5])
     {
 LABEL_11:
       operator new();
     }
   }
 
-  v21 = this;
-  for (i = *(v7 + 8); i != v7; i = *(i + 8))
+  v20 = this;
+  for (i = *(v6 + 8); i != v6; i = *(i + 8))
   {
-    v15 = i - 8;
+    v14 = i - 8;
     if (!i)
     {
-      v15 = 0;
+      v14 = 0;
     }
 
-    v16 = *(v15 + 40);
-    v17 = v15 + 32;
-    if (v16 != v15 + 32)
+    v15 = *(v14 + 40);
+    v16 = v14 + 32;
+    if (v15 != v14 + 32)
     {
       do
       {
-        v18 = *(v16 + 8);
-        v19 = MPSGraphDelegateCompiler.precompilationDescriptor.modify(v16, v6);
-        mlir::detail::walk<mlir::ForwardIterator>(v19, llvm::function_ref<void ()(mlir::Operation *)>::callback_fn<GPU::StitchedOpHandler::StitchedOpHandler(GPURegionRuntime *,mlir::Operation *,GPU::MPSGraphKernelDAG *)::$_1>, &v21, 1);
-        v16 = v18;
+        v17 = *(v15 + 8);
+        MPSGraphDelegateCompiler.precompilationDescriptor.modify();
+        mlir::detail::walk<mlir::ForwardIterator>(v18, llvm::function_ref<void ()(mlir::Operation *)>::callback_fn<GPU::StitchedOpHandler::StitchedOpHandler(GPURegionRuntime *,mlir::Operation *,GPU::MPSGraphKernelDAG *)::$_1>, &v20, 1);
+        v15 = v17;
       }
 
-      while (v18 != v17);
+      while (v17 != v16);
     }
   }
 
-  if (*(this + 40) == 1 && !*(*(this + 4) + 104) && MTLReportFailureTypeEnabled())
+  if (*(this + 40) == 1 && !*(this[4] + 13) && MTLReportFailureTypeEnabled())
   {
     MTLReportFailure();
   }
@@ -1093,7 +4173,7 @@ void GPU::StitchedOpHandler::encodeOp(GPU::StitchedOpHandler *this, GPU::EncodeD
 {
   v2 = a2;
   v40[1] = *MEMORY[0x1E69E9840];
-  v37 = a2;
+  v36 = a2;
   v4 = *(this + 3);
   if (*(v4 + 9))
   {
@@ -1108,20 +4188,20 @@ void GPU::StitchedOpHandler::encodeOp(GPU::StitchedOpHandler *this, GPU::EncodeD
   NextResultAtOffset = mlir::detail::OpResultImpl::getNextResultAtOffset(v5, 0);
   if ((*(this + 40) & 1) == 0)
   {
-    *&v36[1] = 0;
-    v8 = *(this + 15);
-    *v36 = v8 == 0;
-    v9 = ((v4 + 16 * ((*(v4 + 11) >> 23) & 1) + ((*(v4 + 11) >> 21) & 0x7F8) + 71) & 0xFFFFFFFFFFFFFFF8) + 32 * *(v4 + 10);
-    v30 = this;
-    v31 = &v36[1];
-    v32 = &v37;
-    v33 = v36;
-    v34 = &v35;
-    v35 = 0;
-    v10 = *(v9 + 8);
-    if (v10 == v9)
+    *&v35[1] = 0;
+    v7 = *(this + 15);
+    *v35 = v7 == 0;
+    v8 = ((v4 + 16 * ((*(v4 + 11) >> 23) & 1) + ((*(v4 + 11) >> 21) & 0x7F8) + 71) & 0xFFFFFFFFFFFFFFF8) + 32 * *(v4 + 10);
+    v29 = this;
+    v30 = &v35[1];
+    v31 = &v36;
+    v32 = v35;
+    v33 = &v34;
+    v34 = 0;
+    v9 = *(v8 + 8);
+    if (v9 == v8)
     {
-      if (!v8)
+      if (!v7)
       {
         goto LABEL_17;
       }
@@ -1131,37 +4211,37 @@ void GPU::StitchedOpHandler::encodeOp(GPU::StitchedOpHandler *this, GPU::EncodeD
     {
       do
       {
-        v11 = v10 - 8;
-        if (!v10)
+        v10 = v9 - 8;
+        if (!v9)
         {
-          v11 = 0;
+          v10 = 0;
         }
 
-        v12 = *(v11 + 40);
-        v13 = v11 + 32;
-        if (v12 != v11 + 32)
+        v11 = *(v10 + 40);
+        v12 = v10 + 32;
+        if (v11 != v10 + 32)
         {
           do
           {
-            v14 = *(v12 + 8);
-            v15 = MPSGraphDelegateCompiler.precompilationDescriptor.modify(v12, v6);
-            mlir::detail::walk<mlir::ForwardIterator>(v15, llvm::function_ref<void ()(mlir::Operation *)>::callback_fn<GPU::StitchedOpHandler::encodeOp(GPU::EncodeDescriptor *)::$_0>, &v30, 1);
-            v12 = v14;
+            v13 = *(v11 + 8);
+            MPSGraphDelegateCompiler.precompilationDescriptor.modify();
+            mlir::detail::walk<mlir::ForwardIterator>(v14, llvm::function_ref<void ()(mlir::Operation *)>::callback_fn<GPU::StitchedOpHandler::encodeOp(GPU::EncodeDescriptor *)::$_0>, &v29, 1);
+            v11 = v13;
           }
 
-          while (v14 != v13);
+          while (v13 != v12);
         }
 
-        v10 = *(v10 + 8);
+        v9 = *(v9 + 8);
       }
 
-      while (v10 != v9);
-      if (v36[0])
+      while (v9 != v8);
+      if (v35[0])
       {
-        v16 = *(this + 15);
-        if (v16)
+        v15 = *(this + 15);
+        if (v15)
         {
-          (*(*v16 + 8))(v16);
+          (*(*v15 + 8))(v15);
         }
 
 LABEL_17:
@@ -1169,81 +4249,81 @@ LABEL_17:
       }
     }
 
-    v17 = *(*(*(this + 2) + 592) + 32);
-    if ((*(*v17 + 24))(v17, NextResultAtOffset))
+    v16 = *(*(*(this + 2) + 592) + 32);
+    if ((*(*v16 + 24))(v16, NextResultAtOffset))
     {
       goto LABEL_30;
     }
 
-    v18 = (*(NextResultAtOffset + 8) & 0xFFFFFFFFFFFFFFF8);
-    if (mlir::detail::InterfaceMap::lookup<mlir::ShapedType>(*v18 + 8))
+    v17 = (NextResultAtOffset[1] & 0xFFFFFFFFFFFFFFF8);
+    if (mlir::detail::InterfaceMap::lookup<mlir::ShapedType>(*v17 + 8))
     {
-      v19 = mlir::detail::InterfaceMap::lookup<mlir::ShapedType>(*v18 + 8);
+      v18 = mlir::detail::InterfaceMap::lookup<mlir::ShapedType>(*v17 + 8);
+      v29 = v17;
       v30 = v18;
-      v31 = v19;
-      if (!v18)
+      if (!v17)
       {
         goto LABEL_30;
       }
 
-      if (!mlir::CallOpInterface::getArgOperands(&v30))
+      if (!mlir::CallOpInterface::getArgOperands(&v29))
       {
         goto LABEL_29;
       }
 
-      ArgAttrsAttr = mlir::CallableOpInterface::getArgAttrsAttr(&v30);
-      if (v21)
+      ArgAttrsAttr = mlir::CallableOpInterface::getArgAttrsAttr(&v29);
+      if (v20)
       {
-        v22 = 8 * v21;
+        v21 = 8 * v20;
         while (*ArgAttrsAttr != 0x8000000000000000)
         {
           ++ArgAttrsAttr;
-          v22 -= 8;
-          if (!v22)
+          v21 -= 8;
+          if (!v21)
           {
             goto LABEL_30;
           }
         }
 
 LABEL_29:
-        v23 = *(this + 2);
-        v38[1] = *&v36[1];
+        v22 = *(this + 2);
+        v38 = *&v35[1];
         v39 = NextResultAtOffset;
-        v38[0] = *(mlir::Value::getParentRegion(&v39) + 2);
-        v30 = v38;
-        v24 = std::__hash_table<std::__hash_value_type<mlir::Operation *,std::unordered_map<void *,mlir::Type>>,std::__unordered_map_hasher<mlir::Operation *,std::__hash_value_type<mlir::Operation *,std::unordered_map<void *,mlir::Type>>,std::hash<mlir::Operation *>,std::equal_to<mlir::Operation *>,true>,std::__unordered_map_equal<mlir::Operation *,std::__hash_value_type<mlir::Operation *,std::unordered_map<void *,mlir::Type>>,std::equal_to<mlir::Operation *>,std::hash<mlir::Operation *>,true>,std::allocator<std::__hash_value_type<mlir::Operation *,std::unordered_map<void *,mlir::Type>>>>::__emplace_unique_key_args<mlir::Operation *,std::piecewise_construct_t const&,std::tuple<mlir::Operation * const&>,std::tuple<>>((v23 + 288), v38);
-        v30 = v39;
-        std::__hash_table<std::__hash_value_type<void *,mlir::Type>,std::__unordered_map_hasher<void *,std::__hash_value_type<void *,mlir::Type>,std::hash<void *>,std::equal_to<void *>,true>,std::__unordered_map_equal<void *,std::__hash_value_type<void *,mlir::Type>,std::equal_to<void *>,std::hash<void *>,true>,std::allocator<std::__hash_value_type<void *,mlir::Type>>>::__emplace_unique_key_args<void *,void *,mlir::Type&>(v24 + 3, &v30);
+        v37 = *(mlir::Value::getParentRegion(&v39) + 2);
+        v29 = &v37;
+        v23 = std::__hash_table<std::__hash_value_type<mlir::Operation *,std::unordered_map<void *,mlir::Type>>,std::__unordered_map_hasher<mlir::Operation *,std::__hash_value_type<mlir::Operation *,std::unordered_map<void *,mlir::Type>>,std::hash<mlir::Operation *>,std::equal_to<mlir::Operation *>,true>,std::__unordered_map_equal<mlir::Operation *,std::__hash_value_type<mlir::Operation *,std::unordered_map<void *,mlir::Type>>,std::equal_to<mlir::Operation *>,std::hash<mlir::Operation *>,true>,std::allocator<std::__hash_value_type<mlir::Operation *,std::unordered_map<void *,mlir::Type>>>>::__emplace_unique_key_args<mlir::Operation *,std::piecewise_construct_t const&,std::tuple<mlir::Operation * const&>,std::tuple<>>((v22 + 288), &v37, &std::piecewise_construct, &v29);
+        v29 = v39;
+        std::__hash_table<std::__hash_value_type<void *,mlir::Type>,std::__unordered_map_hasher<void *,std::__hash_value_type<void *,mlir::Type>,std::hash<void *>,std::equal_to<void *>,true>,std::__unordered_map_equal<void *,std::__hash_value_type<void *,mlir::Type>,std::equal_to<void *>,std::hash<void *>,true>,std::allocator<std::__hash_value_type<void *,mlir::Type>>>::__emplace_unique_key_args<void *,void *,mlir::Type&>(v23 + 3, &v29, &v29, &v38);
       }
     }
 
     else
     {
+      v29 = 0;
       v30 = 0;
-      v31 = 0;
     }
 
 LABEL_30:
-    v2 = v37;
+    v2 = v36;
   }
 
-  v25 = (*(**(this + 2) + 80))(*(this + 2), NextResultAtOffset, *(v2 + 1), 0, 0, 1);
+  v24 = (*(**(this + 2) + 80))(*(this + 2), NextResultAtOffset, *(v2 + 1), 0, 0, 1);
   if (!*(*(this + 4) + 104) && MTLReportFailureTypeEnabled())
   {
     MTLReportFailure();
   }
 
-  v26 = std::__hash_table<std::__hash_value_type<mlir::Operation *,std::unordered_map<void *,MPSGraphTensorData * {__strong}>>,std::__unordered_map_hasher<mlir::Operation *,std::__hash_value_type<mlir::Operation *,std::unordered_map<void *,MPSGraphTensorData * {__strong}>>,std::hash<mlir::Operation *>,std::equal_to<mlir::Operation *>,true>,std::__unordered_map_equal<mlir::Operation *,std::__hash_value_type<mlir::Operation *,std::unordered_map<void *,MPSGraphTensorData * {__strong}>>,std::equal_to<mlir::Operation *>,std::hash<mlir::Operation *>,true>,std::allocator<std::__hash_value_type<mlir::Operation *,std::unordered_map<void *,MPSGraphTensorData * {__strong}>>>>::find<mlir::Operation *>((*(this + 2) + 248), (*(this + 4) + 104));
-  if (!v26)
+  v25 = std::__hash_table<std::__hash_value_type<mlir::Operation *,std::unordered_map<void *,MPSGraphTensorData * {__strong}>>,std::__unordered_map_hasher<mlir::Operation *,std::__hash_value_type<mlir::Operation *,std::unordered_map<void *,MPSGraphTensorData * {__strong}>>,std::hash<mlir::Operation *>,std::equal_to<mlir::Operation *>,true>,std::__unordered_map_equal<mlir::Operation *,std::__hash_value_type<mlir::Operation *,std::unordered_map<void *,MPSGraphTensorData * {__strong}>>,std::equal_to<mlir::Operation *>,std::hash<mlir::Operation *>,true>,std::allocator<std::__hash_value_type<mlir::Operation *,std::unordered_map<void *,MPSGraphTensorData * {__strong}>>>>::find<mlir::Operation *>((*(this + 2) + 248), (*(this + 4) + 104));
+  if (!v25)
   {
     std::__throw_out_of_range[abi:ne200100]("unordered_map::at: key not found");
   }
 
-  v27 = v26[3];
-  v28 = v37;
-  v40[0] = v25;
-  v29 = [MEMORY[0x1E695DEC8] arrayWithObjects:v40 count:1];
-  (*(*v27 + 16))(v27, v28, v29);
+  v26 = v25[3];
+  v27 = v36;
+  v40[0] = v24;
+  v28 = [MEMORY[0x1E695DEC8] arrayWithObjects:v40 count:1];
+  (*(*v26 + 16))(v26, v27, v28);
 
   GPURegionRuntime::clearScopeFromJITTypesMap(*(this + 2), v4);
 }
@@ -1322,7 +4402,7 @@ void GPURegionRuntime::clearScopeFromJITTypesMap(GPURegionRuntime *this, mlir::O
   }
 }
 
-uint64_t GPU::StitchedOpHandler::_finalizeDAG(uint64_t a1, uint64_t a2)
+void *GPU::StitchedOpHandler::_finalizeDAG(uint64_t a1, uint64_t a2)
 {
   v4 = *(a1 + 32);
   v5 = *(*(a2 + 72) + 24);
@@ -1478,11 +4558,11 @@ LABEL_5:
   return result;
 }
 
-uint64_t llvm::function_ref<void ()(mlir::Operation *)>::callback_fn<GPU::StitchedOpHandler::StitchedOpHandler(GPURegionRuntime *,mlir::Operation *,GPU::MPSGraphKernelDAG *)::$_1>(uint64_t *a1, uint64_t a2)
+GPU::BaseOpHandler *llvm::function_ref<void ()(mlir::Operation *)>::callback_fn<GPU::StitchedOpHandler::StitchedOpHandler(GPURegionRuntime *,mlir::Operation *,GPU::MPSGraphKernelDAG *)::$_1>(uint64_t *a1, uint64_t a2)
 {
   v3 = *a1;
   result = mlir::Block::getParentOp(*(a2 + 16));
-  if (*(*(result + 48) + 16) == &mlir::detail::TypeIDResolver<mlir::mpsx::StitchedOp,void>::id)
+  if (*(*(result + 6) + 16) == &mlir::detail::TypeIDResolver<mlir::mpsx::StitchedOp,void>::id)
   {
     result = (*(**(v3 + 16) + 72))(*(v3 + 16), a2, *(v3 + 32));
     if (*(v3 + 40) == 1)
@@ -1722,7 +4802,7 @@ void GPU::RandomUniformOpHandler::_createNDArrayMultiaryKernel(GPU::RandomUnifor
   *(this + 1) = v4;
 }
 
-unint64_t GPU::RandomUniformOpHandler::getJITStaticOperandRepr(GPU::BaseOpHandler *this, GPU::EncodeDescriptor *a2, mlir::UnknownLoc **a3, unsigned int a4)
+char *GPU::RandomUniformOpHandler::getJITStaticOperandRepr(GPU::BaseOpHandler *this, GPU::EncodeDescriptor *a2, mlir::UnknownLoc **a3, unsigned int a4)
 {
   if (a4 == 1)
   {
@@ -1737,22 +4817,22 @@ unint64_t GPU::RandomUniformOpHandler::getJITStaticOperandRepr(GPU::BaseOpHandle
 
 void GPU::RandomTruncatedNormalOpHandler::_createNDArrayMultiaryKernel(GPU::RandomTruncatedNormalOpHandler *this)
 {
-  v17[3] = *MEMORY[0x1E69E9840];
-  v13 = *(this + 3);
+  v29[3] = *MEMORY[0x1E69E9840];
+  v25 = *(this + 3);
   v2 = objc_alloc(MEMORY[0x1E6974830]);
   v3 = [*(*(this + 2) + 48) metalDevice];
-  mlir::mps::RandomTruncatedNormalOp::getMean(&v13, &v16);
-  v4 = llvm::APFloat::convertToFloat(&v16);
-  mlir::mps::RandomTruncatedNormalOp::getStdDev(&v13, &v14);
-  LODWORD(v5) = llvm::APFloat::convertToFloat(&v14);
-  *&v6 = v4;
-  v7 = [v2 initWithDevice:v3 mean:v6 standardDeviation:v5];
-  v8 = v15[0];
-  v9 = llvm::APFloatBase::PPCDoubleDouble(v7);
-  if (v9 == v8)
+  mlir::mps::RandomTruncatedNormalOp::getMean(&v25, &v28);
+  v7 = llvm::APFloat::convertToFloat(&v28, v4, v5, v6);
+  mlir::mps::RandomTruncatedNormalOp::getStdDev(&v25, &v26);
+  LODWORD(v11) = llvm::APFloat::convertToFloat(&v26, v8, v9, v10);
+  *&v12 = v7;
+  v13 = [v2 initWithDevice:v3 mean:v12 standardDeviation:v11];
+  v14 = v27[0];
+  v15 = llvm::APFloatBase::PPCDoubleDouble(v13);
+  if (v15 == v14)
   {
-    llvm::detail::DoubleAPFloat::~DoubleAPFloat(v15);
-    if (v9 != v17[0])
+    llvm::detail::DoubleAPFloat::~DoubleAPFloat(v27);
+    if (v15 != v29[0])
     {
       goto LABEL_3;
     }
@@ -1760,50 +4840,50 @@ void GPU::RandomTruncatedNormalOpHandler::_createNDArrayMultiaryKernel(GPU::Rand
 
   else
   {
-    llvm::detail::IEEEFloat::~IEEEFloat(v15);
-    if (v9 != v17[0])
+    llvm::detail::IEEEFloat::~IEEEFloat(v27);
+    if (v15 != v29[0])
     {
 LABEL_3:
-      llvm::detail::IEEEFloat::~IEEEFloat(v17);
+      llvm::detail::IEEEFloat::~IEEEFloat(v29);
       goto LABEL_6;
     }
   }
 
-  llvm::detail::DoubleAPFloat::~DoubleAPFloat(v17);
+  llvm::detail::DoubleAPFloat::~DoubleAPFloat(v29);
 LABEL_6:
 
-  [(llvm::APFloatBase *)v7 setSamplingMethod:mlir::mps::Conv3DOp::getPaddingStyle(&v13)];
-  mlir::mps::PruningOp::getSparsity(&v13, &v16);
-  *&v10 = llvm::APFloat::convertToFloat(&v16);
-  [(llvm::APFloatBase *)v7 setMinimum:v10];
-  if (v9 == v17[0])
+  [(llvm::APFloatBase *)v13 setSamplingMethod:mlir::mps::Conv3DOp::getPaddingStyle(&v25)];
+  mlir::mps::PruningOp::getSparsity(&v25, &v28);
+  *&v19 = llvm::APFloat::convertToFloat(&v28, v16, v17, v18);
+  [(llvm::APFloatBase *)v13 setMinimum:v19];
+  if (v15 == v29[0])
   {
-    llvm::detail::DoubleAPFloat::~DoubleAPFloat(v17);
+    llvm::detail::DoubleAPFloat::~DoubleAPFloat(v29);
   }
 
   else
   {
-    llvm::detail::IEEEFloat::~IEEEFloat(v17);
+    llvm::detail::IEEEFloat::~IEEEFloat(v29);
   }
 
-  mlir::mps::InstanceNormOp::getEpsilon(&v13, &v16);
-  *&v11 = llvm::APFloat::convertToFloat(&v16);
-  [(llvm::APFloatBase *)v7 setMaximum:v11];
-  if (v9 == v17[0])
+  mlir::mps::InstanceNormOp::getEpsilon(&v28, &v25);
+  *&v23 = llvm::APFloat::convertToFloat(&v28, v20, v21, v22);
+  [(llvm::APFloatBase *)v13 setMaximum:v23];
+  if (v15 == v29[0])
   {
-    llvm::detail::DoubleAPFloat::~DoubleAPFloat(v17);
+    llvm::detail::DoubleAPFloat::~DoubleAPFloat(v29);
   }
 
   else
   {
-    llvm::detail::IEEEFloat::~IEEEFloat(v17);
+    llvm::detail::IEEEFloat::~IEEEFloat(v29);
   }
 
-  v12 = *(this + 1);
-  *(this + 1) = v7;
+  v24 = *(this + 1);
+  *(this + 1) = v13;
 }
 
-unint64_t GPU::RandomTruncatedNormalOpHandler::getJITStaticOperandRepr(GPU::BaseOpHandler *this, GPU::EncodeDescriptor *a2, mlir::UnknownLoc **a3, unsigned int a4)
+char *GPU::RandomTruncatedNormalOpHandler::getJITStaticOperandRepr(GPU::BaseOpHandler *this, GPU::EncodeDescriptor *a2, mlir::UnknownLoc **a3, unsigned int a4)
 {
   if (a4 == 1)
   {
@@ -1818,55 +4898,55 @@ unint64_t GPU::RandomTruncatedNormalOpHandler::getJITStaticOperandRepr(GPU::Base
 
 void GPU::RandomNormalOpHandler::_createNDArrayMultiaryKernel(GPU::RandomNormalOpHandler *this)
 {
-  v15[3] = *MEMORY[0x1E69E9840];
-  v11 = *(this + 3);
+  v21[3] = *MEMORY[0x1E69E9840];
+  v17 = *(this + 3);
   v2 = objc_alloc(MEMORY[0x1E6974818]);
   v3 = [*(*(this + 2) + 48) metalDevice];
-  mlir::mps::InstanceNormOp::getEpsilon(&v11, &v14);
-  v4 = llvm::APFloat::convertToFloat(&v14);
-  mlir::mps::RandomNormalOp::getStdDev(&v11, &v12);
-  LODWORD(v5) = llvm::APFloat::convertToFloat(&v12);
-  *&v6 = v4;
-  v7 = [v2 initWithDevice:v3 mean:v6 standardDeviation:v5];
-  v8 = v13[0];
-  v9 = llvm::APFloatBase::PPCDoubleDouble(v7);
-  if (v9 == v8)
+  mlir::mps::InstanceNormOp::getEpsilon(&v20, &v17);
+  v7 = llvm::APFloat::convertToFloat(&v20, v4, v5, v6);
+  mlir::mps::RandomNormalOp::getStdDev(&v17, &v18);
+  LODWORD(v11) = llvm::APFloat::convertToFloat(&v18, v8, v9, v10);
+  *&v12 = v7;
+  v13 = [v2 initWithDevice:v3 mean:v12 standardDeviation:v11];
+  v14 = v19[0];
+  v15 = llvm::APFloatBase::PPCDoubleDouble(v13);
+  if (v15 == v14)
   {
-    llvm::detail::DoubleAPFloat::~DoubleAPFloat(v13);
-    if (v9 != v15[0])
+    llvm::detail::DoubleAPFloat::~DoubleAPFloat(v19);
+    if (v15 != v21[0])
     {
       goto LABEL_3;
     }
 
 LABEL_5:
-    llvm::detail::DoubleAPFloat::~DoubleAPFloat(v15);
+    llvm::detail::DoubleAPFloat::~DoubleAPFloat(v21);
     goto LABEL_6;
   }
 
-  llvm::detail::IEEEFloat::~IEEEFloat(v13);
-  if (v9 == v15[0])
+  llvm::detail::IEEEFloat::~IEEEFloat(v19);
+  if (v15 == v21[0])
   {
     goto LABEL_5;
   }
 
 LABEL_3:
-  llvm::detail::IEEEFloat::~IEEEFloat(v15);
+  llvm::detail::IEEEFloat::~IEEEFloat(v21);
 LABEL_6:
 
-  [(llvm::APFloatBase *)v7 setSamplingMethod:mlir::mps::LSTMOp::getGateLayout(&v11)];
-  v10 = *(this + 1);
-  *(this + 1) = v7;
+  [(llvm::APFloatBase *)v13 setSamplingMethod:mlir::mps::LSTMOp::getGateLayout(&v17)];
+  v16 = *(this + 1);
+  *(this + 1) = v13;
 }
 
-void sub_1E07D91D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_1E07D91D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   llvm::APFloat::~APFloat(va);
 
   _Unwind_Resume(a1);
 }
 
-unint64_t GPU::RandomNormalOpHandler::getJITStaticOperandRepr(GPU::BaseOpHandler *this, GPU::EncodeDescriptor *a2, mlir::UnknownLoc **a3, unsigned int a4)
+char *GPU::RandomNormalOpHandler::getJITStaticOperandRepr(GPU::BaseOpHandler *this, GPU::EncodeDescriptor *a2, mlir::UnknownLoc **a3, unsigned int a4)
 {
   if (a4 == 1)
   {
@@ -2311,7 +5391,7 @@ void GPU::TileOpHandler::encodeNDArrayOp(GPU::TileOpHandler *this, GPU::EncodeDe
     v66 = 0u;
     if (v63)
     {
-      [v63 multiples];
+      objc_msgSend_multiples(v63);
     }
 
     if ([v8 numberOfDimensions])
@@ -2405,7 +5485,7 @@ void GPU::TileOpHandler::encodeNDArrayOp(GPU::TileOpHandler *this, GPU::EncodeDe
     v36 = v35;
     if (v35)
     {
-      [v35 getShapeVector];
+      objc_msgSend_getShapeVector(v35);
     }
 
     else
@@ -2531,7 +5611,7 @@ void GPU::TileOpHandler::encodeNDArrayOp(GPU::TileOpHandler *this, GPU::EncodeDe
 LABEL_55:
 }
 
-unint64_t GPU::TileOpHandler::getJITStaticOperandRepr(GPU::BaseOpHandler *this, GPU::EncodeDescriptor *a2, mlir::UnknownLoc **a3, unsigned int a4)
+char *GPU::TileOpHandler::getJITStaticOperandRepr(GPU::BaseOpHandler *this, GPU::EncodeDescriptor *a2, mlir::UnknownLoc **a3, unsigned int a4)
 {
   if (a4 == 1)
   {
@@ -2696,7 +5776,7 @@ void GPU::TileGradientOpHandler::encodeNDArrayOp(id *this, GPU::EncodeDescriptor
   [v14 encodeToMPSCommandEncoder:v17 commandBuffer:v18 sourceArrays:v19 sourceGradient:v10 gradientState:v16 destinationArray:v9 kernelDAGObject:0];
 }
 
-unint64_t GPU::TileGradientOpHandler::getJITStaticOperandRepr(GPU::BaseOpHandler *this, GPU::EncodeDescriptor *a2, mlir::UnknownLoc **a3, unsigned int a4)
+char *GPU::TileGradientOpHandler::getJITStaticOperandRepr(GPU::BaseOpHandler *this, GPU::EncodeDescriptor *a2, mlir::UnknownLoc **a3, unsigned int a4)
 {
   if (a4 == 2)
   {
@@ -2709,7 +5789,7 @@ unint64_t GPU::TileGradientOpHandler::getJITStaticOperandRepr(GPU::BaseOpHandler
   }
 }
 
-uint64_t GPU::TileOpHandler::kernelDAGOp(uint64_t a1, uint64_t a2)
+uint64_t GPU::TileOpHandler::kernelDAGOp(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   GPU::MPSGraphKernelDAG::getBaseTensorFromDataMap(a2, *(*(*(a1 + 24) + 72) + 24), 0);
   result = MPSKernelDAG::unaryCoreOp();
@@ -2744,34 +5824,34 @@ void sub_1E07DBA24(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t BaseRuntime::initializeOps(BaseRuntime *this, uint64_t a2)
+uint64_t BaseRuntime::initializeOps(BaseRuntime *this)
 {
-  v2 = *(((*(this + 8) + 16 * ((*(*(this + 8) + 44) >> 23) & 1) + ((*(*(this + 8) + 44) >> 21) & 0x7F8) + 71) & 0xFFFFFFFFFFFFFFF8) + 32 * *(*(this + 8) + 40) + 8);
-  if (v2)
+  v1 = *(((*(this + 8) + 16 * ((*(*(this + 8) + 44) >> 23) & 1) + ((*(*(this + 8) + 44) >> 21) & 0x7F8) + 71) & 0xFFFFFFFFFFFFFFF8) + 32 * *(*(this + 8) + 40) + 8);
+  if (v1)
   {
-    v3 = v2 - 8;
+    v2 = v1 - 8;
   }
 
   else
   {
-    v3 = 0;
+    v2 = 0;
   }
 
-  v8 = this;
-  result = *(v3 + 40);
-  v5 = v3 + 32;
-  if (result != v3 + 32)
+  v7 = this;
+  result = *(v2 + 40);
+  v4 = v2 + 32;
+  if (result != v2 + 32)
   {
     do
     {
-      v6 = *(result + 8);
-      v7 = MPSGraphDelegateCompiler.precompilationDescriptor.modify(result, a2);
-      v9 = &v8;
-      mlir::detail::walk<mlir::ForwardIterator>(v7, _ZN4llvm12function_refIFvPN4mlir9OperationEEE11callback_fnIZNS1_6detail4walkILNS1_9WalkOrderE1ENS1_15ForwardIteratorERZN11BaseRuntime13initializeOpsEvE3__0NS1_4func6FuncOpEvEENSt3__19enable_ifIXaantsr4llvm9is_one_ofIT2_S3_PNS1_6RegionEPNS1_5BlockEEE5valuesr3std7is_sameIT3_vEE5valueESN_E4typeES3_OT1_EUlS3_E_EEvlS3_, &v9, 1);
-      result = v6;
+      v5 = *(result + 8);
+      MPSGraphDelegateCompiler.precompilationDescriptor.modify();
+      v8 = &v7;
+      mlir::detail::walk<mlir::ForwardIterator>(v6, _ZN4llvm12function_refIFvPN4mlir9OperationEEE11callback_fnIZNS1_6detail4walkILNS1_9WalkOrderE1ENS1_15ForwardIteratorERZN11BaseRuntime13initializeOpsEvE3__0NS1_4func6FuncOpEvEENSt3__19enable_ifIXaantsr4llvm9is_one_ofIT2_S3_PNS1_6RegionEPNS1_5BlockEEE5valuesr3std7is_sameIT3_vEE5valueESN_E4typeES3_OT1_EUlS3_E_EEvlS3_, &v8, 1);
+      result = v5;
     }
 
-    while (v6 != v5);
+    while (v5 != v4);
   }
 
   return result;
@@ -2781,33 +5861,33 @@ void BaseRuntime::evaluateOps(uint64_t a1, void *a2, void *a3, void *a4)
 {
   v7 = a2;
   v8 = a3;
-  v10 = a4;
-  v11 = *(((*(a1 + 64) + 16 * ((*(*(a1 + 64) + 44) >> 23) & 1) + ((*(*(a1 + 64) + 44) >> 21) & 0x7F8) + 71) & 0xFFFFFFFFFFFFFFF8) + 32 * *(*(a1 + 64) + 40) + 8);
-  if (v11)
+  v9 = a4;
+  v10 = *(((*(a1 + 64) + 16 * ((*(*(a1 + 64) + 44) >> 23) & 1) + ((*(*(a1 + 64) + 44) >> 21) & 0x7F8) + 71) & 0xFFFFFFFFFFFFFFF8) + 32 * *(*(a1 + 64) + 40) + 8);
+  if (v10)
   {
-    v12 = v11 - 8;
+    v11 = v10 - 8;
   }
 
   else
   {
-    v12 = 0;
+    v11 = 0;
   }
 
-  v17 = a1;
-  v13 = *(v12 + 40);
-  v14 = v12 + 32;
-  if (v13 != v12 + 32)
+  v16 = a1;
+  v12 = *(v11 + 40);
+  v13 = v11 + 32;
+  if (v12 != v11 + 32)
   {
     do
     {
-      v15 = *(v13 + 8);
-      v16 = MPSGraphDelegateCompiler.precompilationDescriptor.modify(v13, v9);
-      v18 = &v17;
-      mlir::detail::walk<mlir::ForwardIterator>(v16, _ZN4llvm12function_refIFvPN4mlir9OperationEEE11callback_fnIZNS1_6detail4walkILNS1_9WalkOrderE1ENS1_15ForwardIteratorERZN11BaseRuntime11evaluateOpsEP7NSArrayIP18MPSGraphTensorDataESG_P37MPSGraphExecutableExecutionDescriptorE3__0NS1_4func6FuncOpEvEENSt3__19enable_ifIXaantsr4llvm9is_one_ofIT2_S3_PNS1_6RegionEPNS1_5BlockEEE5valuesr3std7is_sameIT3_vEE5valueESU_E4typeES3_OT1_EUlS3_E_EEvlS3_, &v18, 1);
-      v13 = v15;
+      v14 = *(v12 + 8);
+      MPSGraphDelegateCompiler.precompilationDescriptor.modify();
+      v17 = &v16;
+      mlir::detail::walk<mlir::ForwardIterator>(v15, _ZN4llvm12function_refIFvPN4mlir9OperationEEE11callback_fnIZNS1_6detail4walkILNS1_9WalkOrderE1ENS1_15ForwardIteratorERZN11BaseRuntime11evaluateOpsEP7NSArrayIP18MPSGraphTensorDataESG_P37MPSGraphExecutableExecutionDescriptorE3__0NS1_4func6FuncOpEvEENSt3__19enable_ifIXaantsr4llvm9is_one_ofIT2_S3_PNS1_6RegionEPNS1_5BlockEEE5valuesr3std7is_sameIT3_vEE5valueESU_E4typeES3_OT1_EUlS3_E_EEvlS3_, &v17, 1);
+      v12 = v14;
     }
 
-    while (v15 != v14);
+    while (v14 != v13);
   }
 }
 
@@ -2836,7 +5916,7 @@ uint64_t _ZN4llvm12function_refIFvPN4mlir9OperationEEE11callback_fnIZNS1_6detail
           do
           {
             v8 = *(result + 8);
-            v9 = MPSGraphDelegateCompiler.precompilationDescriptor.modify(result, a2);
+            MPSGraphDelegateCompiler.precompilationDescriptor.modify();
             mlir::detail::walk<mlir::ForwardIterator>(v9, llvm::function_ref<void ()(mlir::Operation *)>::callback_fn<BaseRuntime::initializeOps(void)::$_0::operator() const(mlir::func::FuncOp)::{lambda(mlir::Operation *)#1}>, v10, 1);
             result = v8;
           }
@@ -2899,7 +5979,7 @@ uint64_t _ZN4llvm12function_refIFvPN4mlir9OperationEEE11callback_fnIZNS1_6detail
           do
           {
             v8 = *(result + 8);
-            v9 = MPSGraphDelegateCompiler.precompilationDescriptor.modify(result, a2);
+            MPSGraphDelegateCompiler.precompilationDescriptor.modify();
             mlir::detail::walk<mlir::ForwardIterator>(v9, llvm::function_ref<void ()(mlir::Operation *)>::callback_fn<BaseRuntime::evaluateOps(NSArray<MPSGraphTensorData *> *,NSArray<MPSGraphTensorData *> *,MPSGraphExecutableExecutionDescriptor *)::$_0::operator() const(mlir::func::FuncOp)::{lambda(mlir::Operation *)#1}>, v10, 1);
             result = v8;
           }
@@ -4625,7 +7705,7 @@ void GPU::Conv2DDataGradientOpHandler::encodeNDArrayOp(id *this, GPU::EncodeDesc
   [v18 encodeToMPSCommandEncoder:v21 commandBuffer:v22 sourceArrays:v23 sourceGradient:v15 gradientState:v20 destinationArray:v11 kernelDAGObject:0];
 }
 
-unint64_t GPU::Conv2DDataGradientOpHandler::getJITStaticOperandRepr(GPU::BaseOpHandler *this, GPU::EncodeDescriptor *a2, mlir::UnknownLoc **a3, unsigned int a4)
+char *GPU::Conv2DDataGradientOpHandler::getJITStaticOperandRepr(GPU::BaseOpHandler *this, GPU::EncodeDescriptor *a2, mlir::UnknownLoc **a3, unsigned int a4)
 {
   if (a4 == 2)
   {
@@ -5423,7 +8503,7 @@ void GPU::Conv2DWeightsGradientOpHandler::encodeNDArrayOp(id *this, GPU::EncodeD
   [v17 encodeToMPSCommandEncoder:v20 commandBuffer:v21 sourceArrays:v22 sourceGradient:v14 gradientState:v19 destinationArray:v10 kernelDAGObject:0];
 }
 
-unint64_t GPU::Conv2DWeightsGradientOpHandler::getJITStaticOperandRepr(GPU::BaseOpHandler *this, GPU::EncodeDescriptor *a2, mlir::UnknownLoc **a3, unsigned int a4)
+char *GPU::Conv2DWeightsGradientOpHandler::getJITStaticOperandRepr(GPU::BaseOpHandler *this, GPU::EncodeDescriptor *a2, mlir::UnknownLoc **a3, unsigned int a4)
 {
   if (a4 == 2)
   {
@@ -5669,7 +8749,7 @@ void GPU::Conv3DDataGradientOpHandler::encodeNDArrayOp(id *this, GPU::EncodeDesc
   [v18 encodeToMPSCommandEncoder:v21 commandBuffer:v22 sourceArrays:v23 sourceGradient:v15 gradientState:v20 destinationArray:v11 kernelDAGObject:0];
 }
 
-unint64_t GPU::Conv3DDataGradientOpHandler::getJITStaticOperandRepr(GPU::BaseOpHandler *this, GPU::EncodeDescriptor *a2, mlir::UnknownLoc **a3, unsigned int a4)
+char *GPU::Conv3DDataGradientOpHandler::getJITStaticOperandRepr(GPU::BaseOpHandler *this, GPU::EncodeDescriptor *a2, mlir::UnknownLoc **a3, unsigned int a4)
 {
   if (a4 == 2)
   {
@@ -5828,7 +8908,7 @@ void GPU::Conv3DWeightsGradientOpHandler::encodeNDArrayOp(id *this, GPU::EncodeD
   [v17 encodeToMPSCommandEncoder:v20 commandBuffer:v21 sourceArrays:v22 sourceGradient:v14 gradientState:v19 destinationArray:v10 kernelDAGObject:0];
 }
 
-unint64_t GPU::Conv3DWeightsGradientOpHandler::getJITStaticOperandRepr(GPU::BaseOpHandler *this, GPU::EncodeDescriptor *a2, mlir::UnknownLoc **a3, unsigned int a4)
+char *GPU::Conv3DWeightsGradientOpHandler::getJITStaticOperandRepr(GPU::BaseOpHandler *this, GPU::EncodeDescriptor *a2, mlir::UnknownLoc **a3, unsigned int a4)
 {
   if (a4 == 2)
   {
@@ -5841,23 +8921,23 @@ unint64_t GPU::Conv3DWeightsGradientOpHandler::getJITStaticOperandRepr(GPU::Base
   }
 }
 
-uint64_t GPU::Conv2DOpHandler::kernelDAGOp(uint64_t a1, uint64_t a2)
+uint64_t GPU::Conv2DOpHandler::kernelDAGOp(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v4 = *(a1 + 24);
-  v9 = 0;
-  v7 = 0;
-  if (GPU::Conv2DOpHandler::getQuantizationParameters(v4, &v9, v8, &v7, &v6))
+  v7 = *(a1 + 24);
+  v12 = 0;
+  v10 = 0;
+  if (GPU::Conv2DOpHandler::getQuantizationParameters(v7, &v12, v11, &v10, &v9))
   {
-    GPU::MPSGraphKernelDAG::getBaseTensorFromDataMap(a2, v9, 0);
-    GPU::MPSGraphKernelDAG::getBaseTensorFromDataMap(a2, v7, 0);
+    GPU::MPSGraphKernelDAG::getBaseTensorFromDataMap(a2, v12, 0);
+    GPU::MPSGraphKernelDAG::getBaseTensorFromDataMap(a2, v10, 0);
     MPSKernelDAG::binaryCoreOp();
     result = MPSKernelDAG::castOp();
   }
 
   else
   {
-    GPU::MPSGraphKernelDAG::getBaseTensorFromDataMap(a2, *(*(v4 + 9) + 24), 0);
-    GPU::MPSGraphKernelDAG::getBaseTensorFromDataMap(a2, *(*(v4 + 9) + 56), 0);
+    GPU::MPSGraphKernelDAG::getBaseTensorFromDataMap(a2, *(*(v7 + 9) + 24), 0);
+    GPU::MPSGraphKernelDAG::getBaseTensorFromDataMap(a2, *(*(v7 + 9) + 56), 0);
     result = MPSKernelDAG::binaryCoreOp();
   }
 
@@ -5984,11 +9064,11 @@ void GPU::MultiaryKernelOpHandler<GPU::Conv3DOpHandler,mlir::mps::Conv3DOp,MPSND
   [v15 encodeToMPSCommandEncoder:v16 commandBuffer:*(a2 + 1) sourceArrays:v9 resultState:0 destinationArray:v7 kernelDAGObject:v10];
 }
 
-uint64_t GPU::Conv3DOpHandler::kernelDAGOp(uint64_t a1, uint64_t a2)
+uint64_t GPU::Conv3DOpHandler::kernelDAGOp(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v4 = *(a1 + 24);
-  GPU::MPSGraphKernelDAG::getBaseTensorFromDataMap(a2, *(*(v4 + 72) + 24), 0);
-  GPU::MPSGraphKernelDAG::getBaseTensorFromDataMap(a2, *(*(v4 + 72) + 56), 0);
+  v7 = *(a1 + 24);
+  GPU::MPSGraphKernelDAG::getBaseTensorFromDataMap(a2, *(*(v7 + 72) + 24), 0);
+  GPU::MPSGraphKernelDAG::getBaseTensorFromDataMap(a2, *(*(v7 + 72) + 56), 0);
   result = MPSKernelDAG::binaryCoreOp();
   *(a2 + 104) = *(a1 + 24);
   return result;
@@ -6063,9 +9143,9 @@ void sub_1E07E3BB4(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void GPU::anonymous namespace::getPaddingOffsets(void *a1, void *a2, uint64_t a3, uint64_t a4, void *a5, void *a6, void *a7, int a8)
+void GPU::anonymous namespace::getPaddingOffsets(void *a1, void *a2, _BYTE *a3, _BYTE *a4, void *a5, void *a6, void *a7, int a8, char a9, char a10)
 {
-  v19[4] = *MEMORY[0x1E69E9840];
+  v21[4] = *MEMORY[0x1E69E9840];
   if (a4 != a3)
   {
     if (((a4 - a3) & 0x8000000000000000) == 0)
@@ -6076,10 +9156,10 @@ void GPU::anonymous namespace::getPaddingOffsets(void *a1, void *a2, uint64_t a3
     std::vector<long>::__throw_length_error[abi:ne200100]();
   }
 
-  v8 = a5[1];
-  if (v8 != *a5)
+  v10 = a5[1];
+  if (v10 != *a5)
   {
-    if (((v8 - *a5) & 0x8000000000000000) == 0)
+    if (((v10 - *a5) & 0x8000000000000000) == 0)
     {
       operator new();
     }
@@ -6087,10 +9167,10 @@ void GPU::anonymous namespace::getPaddingOffsets(void *a1, void *a2, uint64_t a3
     std::vector<long>::__throw_length_error[abi:ne200100]();
   }
 
-  v9 = a2[1];
-  if (v9 != *a2)
+  v11 = a2[1];
+  if (v11 != *a2)
   {
-    if (((v9 - *a2) & 0x8000000000000000) == 0)
+    if (((v11 - *a2) & 0x8000000000000000) == 0)
     {
       operator new();
     }
@@ -6098,11 +9178,11 @@ void GPU::anonymous namespace::getPaddingOffsets(void *a1, void *a2, uint64_t a3
     std::vector<long>::__throw_length_error[abi:ne200100]();
   }
 
-  v10 = a6[1];
-  if (v10 == *a6)
+  v12 = a6[1];
+  if (v12 == *a6)
   {
-    v11 = a7[1];
-    if (v11 == *a7)
+    v13 = a7[1];
+    if (v13 == *a7)
     {
       memset(__src, 0, sizeof(__src));
       if (!a8)
@@ -6110,17 +9190,17 @@ void GPU::anonymous namespace::getPaddingOffsets(void *a1, void *a2, uint64_t a3
         std::vector<long>::__assign_with_size[abi:ne200100]<long *,long *>(__src, 0, 0, 0);
       }
 
-      v18 = v15;
-      v19[0] = v16;
-      *&v19[1] = v13;
-      v19[3] = v14;
+      v20 = v17;
+      v21[0] = v18;
+      *&v21[1] = v15;
+      v21[3] = v16;
       a1[1] = 0;
       a1[2] = 0;
       *a1 = 0;
       operator new();
     }
 
-    if (((v11 - *a7) & 0x8000000000000000) == 0)
+    if (((v13 - *a7) & 0x8000000000000000) == 0)
     {
       operator new();
     }
@@ -6128,7 +9208,7 @@ void GPU::anonymous namespace::getPaddingOffsets(void *a1, void *a2, uint64_t a3
     std::vector<long>::__throw_length_error[abi:ne200100]();
   }
 
-  if (((v10 - *a6) & 0x8000000000000000) == 0)
+  if (((v12 - *a6) & 0x8000000000000000) == 0)
   {
     operator new();
   }
@@ -6276,10 +9356,10 @@ void std::vector<long>::__insert_with_size[abi:ne200100]<long const*,long const*
   v8 = *(a1 + 8);
   v7 = *(a1 + 16);
   v9 = v8;
-  if (v7 - v8 < 9)
+  if ((v7 - v8) < 9)
   {
     v10 = *a1;
-    v11 = (&v8[-*a1] >> 3) + 2;
+    v11 = ((v8 - *a1) >> 3) + 2;
     if (v11 >> 61)
     {
       std::vector<long>::__throw_length_error[abi:ne200100]();
@@ -6331,12 +9411,12 @@ void std::vector<long>::__insert_with_size[abi:ne200100]<long const*,long const*
   }
 
   v15 = v8 - __src;
-  if (v8 - __src > 8)
+  if ((v8 - __src) > 8)
   {
     v29 = __src + 16;
     if (v8 >= 0x10)
     {
-      *v8 = *(v8 - 2);
+      *v8 = *(v8 - 16);
       if (v8 - 8 >= v8)
       {
         *(a1 + 8) = v8 + 8;
@@ -6348,8 +9428,8 @@ void std::vector<long>::__insert_with_size[abi:ne200100]<long const*,long const*
         goto LABEL_30;
       }
 
-      *(v8 + 1) = *(v8 - 1);
-      v9 = v8 + 16;
+      *(v8 + 8) = *(v8 - 8);
+      v9 = (v8 + 16);
     }
 
     *(a1 + 8) = v9;
@@ -6382,8 +9462,8 @@ LABEL_30:
     v18 = (v17 >> 3) + 1;
     v19 = 8 * (v18 & 0x3FFFFFFFFFFFFFFCLL);
     v16 += v19;
-    v9 = &v8[v19];
-    v20 = v8 + 16;
+    v9 = (v8 + v19);
+    v20 = (v8 + 16);
     v21 = &a3[v8 + 16 - __src];
     v22 = v18 & 0x3FFFFFFFFFFFFFFCLL;
     do
@@ -6794,2710 +9874,6 @@ LABEL_79:
       }
 
       continue;
-    }
-  }
-}
-
-void GPU::GPURegionCallOpHandler::GPURegionCallOpHandler(GPU::GPURegionCallOpHandler *this, GPU::BaseOpHandler *a2)
-{
-  v20[2] = *MEMORY[0x1E69E9840];
-  *(this + 1) = a2;
-  *(this + 1) = *(a2 + 1);
-  *(this + 4) = 0;
-  *this = &unk_1F5B50680;
-  *(this + 6) = this + 64;
-  *(this + 5) = 0;
-  *(this + 12) = this + 112;
-  *(this + 7) = 0x400000000;
-  *(this + 13) = 0x400000000;
-  *(this + 16) = this + 144;
-  *(this + 17) = 0x400000000;
-  *(this + 22) = 0;
-  *(this + 184) = 0;
-  *(this + 47) = 1;
-  *(this + 24) = 0;
-  llvm::sys::RWMutexImpl::RWMutexImpl((this + 200));
-  *(this + 27) = this + 232;
-  *(this + 26) = 0;
-  *(this + 28) = 0x400000000;
-  v3 = *(this + 2);
-  v15 = *(this + 3);
-  Callee = mlir::placement::RegionCall::getCallee(&v15);
-  v6 = v5;
-  v7 = *(v3 + 64);
-  Context = mlir::Attribute::getContext((v7 + 6));
-  v17 = 261;
-  __src[0] = Callee;
-  __src[1] = v6;
-  v9 = mlir::StringAttr::get(Context, __src);
-  v10 = mlir::SymbolTable::lookupSymbolIn(v7, v9);
-  if (v10 && *(*(v10 + 6) + 16) == &mlir::detail::TypeIDResolver<mlir::mpsx::GPUOp,void>::id)
-  {
-    *(this + 5) = v10;
-  }
-
-  else
-  {
-    *(this + 5) = 0;
-    if (MTLReportFailureTypeEnabled())
-    {
-      MTLReportFailure();
-    }
-  }
-
-  v18 = v20;
-  v19 = 0x100000000;
-  v11 = *(this + 5);
-  if (v11)
-  {
-    InterfaceFor = mlir::OpInterface<mlir::FunctionOpInterface,mlir::detail::FunctionOpInterfaceInterfaceTraits>::getInterfaceFor(*(this + 5));
-    v13 = v19;
-    if (v19 >= HIDWORD(v19))
-    {
-      llvm::SmallVectorBase<unsigned int>::grow_pod(&v18, v20, v19 + 1, 16);
-      v13 = v19;
-    }
-  }
-
-  else
-  {
-    InterfaceFor = 0;
-    v13 = 0;
-  }
-
-  v14 = &v18[2 * v13];
-  *v14 = v11;
-  v14[1] = InterfaceFor;
-  LODWORD(v19) = v19 + 1;
-  operator new();
-}
-
-void sub_1E07E68F4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, id *a13, void *a14, void *a15, void **a16, void *a17, void *a18, void **a19, uint64_t a20, uint64_t a21, void *a22)
-{
-  v27 = *(v25 - 144);
-  if (v27 != a18)
-  {
-    free(v27);
-  }
-
-  llvm::SmallVector<GPU::GPURegionCallOpHandler::ScheduleStep,4u>::~SmallVector(v24);
-  llvm::sys::RWMutexImpl::~RWMutexImpl((v22 + 200));
-  v28 = *(v22 + 192);
-  *(v22 + 192) = 0;
-  if (v28)
-  {
-    (*(*v28 + 16))(v28);
-    v29 = *(v22 + 176);
-    *(v22 + 176) = 0;
-    if (!v29)
-    {
-LABEL_5:
-      v30 = *v23;
-      if (*v23 == a14)
-      {
-        goto LABEL_6;
-      }
-
-      goto LABEL_12;
-    }
-  }
-
-  else
-  {
-    v29 = *(v22 + 176);
-    *(v22 + 176) = 0;
-    if (!v29)
-    {
-      goto LABEL_5;
-    }
-  }
-
-  (*(*v29 + 64))(v29);
-  v30 = *v23;
-  if (*v23 == a14)
-  {
-LABEL_6:
-    v31 = *a16;
-    if (*a16 == a17)
-    {
-      goto LABEL_7;
-    }
-
-    goto LABEL_13;
-  }
-
-LABEL_12:
-  free(v30);
-  v31 = *a16;
-  if (*a16 == a17)
-  {
-LABEL_7:
-    v32 = *a19;
-    if (*a19 == a15)
-    {
-      goto LABEL_9;
-    }
-
-    goto LABEL_8;
-  }
-
-LABEL_13:
-  free(v31);
-  v32 = *a19;
-  if (*a19 == a15)
-  {
-LABEL_9:
-
-    _Unwind_Resume(a1);
-  }
-
-LABEL_8:
-  free(v32);
-  goto LABEL_9;
-}
-
-void GPU::GPURegionCallOpHandler::~GPURegionCallOpHandler(GPU::GPURegionCallOpHandler *this)
-{
-  *this = &unk_1F5B50680;
-  v2 = *(this + 27);
-  v3 = *(this + 56);
-  if (v3)
-  {
-    v4 = &v2[88 * v3 - 88];
-    v5 = -88 * v3;
-    do
-    {
-      if (v4 + 2 != *v4)
-      {
-        free(*v4);
-      }
-
-      v4 -= 11;
-      v5 += 88;
-    }
-
-    while (v5);
-    v2 = *(this + 27);
-  }
-
-  if (v2 != this + 232)
-  {
-    free(v2);
-  }
-
-  llvm::sys::RWMutexImpl::~RWMutexImpl(this + 25);
-  v6 = *(this + 24);
-  *(this + 24) = 0;
-  if (v6)
-  {
-    (*(*v6 + 16))(v6);
-  }
-
-  v7 = *(this + 22);
-  *(this + 22) = 0;
-  if (v7)
-  {
-    (*(*v7 + 64))(v7);
-  }
-
-  v8 = *(this + 16);
-  if (v8 != this + 144)
-  {
-    free(v8);
-  }
-
-  v9 = *(this + 12);
-  if (v9 != this + 112)
-  {
-    free(v9);
-  }
-
-  v10 = *(this + 6);
-  if (v10 != this + 64)
-  {
-    free(v10);
-  }
-}
-
-{
-  GPU::GPURegionCallOpHandler::~GPURegionCallOpHandler(this);
-
-  JUMPOUT(0x1E12E5B90);
-}
-
-void GPU::GPURegionCallOpHandler::encodeOp(GPU::GPURegionCallOpHandler *this, GPU::EncodeDescriptor *a2)
-{
-  v4 = *(this + 2);
-  v5 = *(this + 6);
-  v6 = *(this + 14);
-  v7 = *(this + 12);
-  v20 = [MEMORY[0x1E695DF70] arrayWithCapacity:v6];
-  if (v6)
-  {
-    v8 = 0;
-    v9 = MEMORY[0x1E69744E8];
-    do
-    {
-      v10 = (*(*v4 + 48))(v4, *(v5 + 8 * v8), 0);
-      [v20 addObject:v10];
-
-      v11 = [v20 objectAtIndexedSubscript:v8];
-      v12 = [v11 mpsndarray];
-
-      if (*(v12 + *v9) == 1)
-      {
-        [v12 setReadCount:{*(v7 + 4 * v8) + objc_msgSend(v12, "readCount") - 1}];
-      }
-
-      ++v8;
-    }
-
-    while (v6 != v8);
-  }
-
-  v13 = *(this + 2);
-  v14 = *(this + 16);
-  v15 = *(this + 34);
-  v16 = [MEMORY[0x1E695DF70] arrayWithCapacity:v15];
-  if (v15)
-  {
-    do
-    {
-      while (1)
-      {
-        v17 = (*(*v13 + 48))(v13, *v14, 0);
-        if (!v17)
-        {
-          break;
-        }
-
-        [v16 addObject:v17];
-
-        ++v14;
-        if (!--v15)
-        {
-          goto LABEL_11;
-        }
-      }
-
-      v18 = [MEMORY[0x1E695DFB0] null];
-      [v16 addObject:v18];
-
-      ++v14;
-      --v15;
-    }
-
-    while (v15);
-  }
-
-LABEL_11:
-  v19 = GPU::GPURegionCallOpHandler::evaluate(this, a2, v20, v16);
-}
-
-id GPU::GPURegionCallOpHandler::evaluate(uint64_t a1, uint64_t a2, void *a3, void *a4)
-{
-  v164[4] = *MEMORY[0x1E69E9840];
-  v7 = a3;
-  v8 = a4;
-  v144 = a2;
-  v9 = *(a2 + 72);
-  v141 = v7;
-  if (v9)
-  {
-    [v9 endEncoding];
-    v10 = *(a2 + 72);
-    *(a2 + 72) = 0;
-  }
-
-  if (*(a1 + 184) != 1 || (*(a2 + 24) & 1) == 0)
-  {
-    v16 = GPURegionRuntime::evaluateOps(*(a1 + 176), a2, v7, v8);
-    goto LABEL_160;
-  }
-
-  v11 = *(a1 + 188);
-  if (atomic_load_explicit(&qword_1EE17DDE8, memory_order_acquire) != -1)
-  {
-    v161 = &v158;
-    v152 = &v161;
-  }
-
-  v12 = _MergedGlobals_67;
-  if (!_MergedGlobals_67)
-  {
-    if ([v144[2] maximumNumberOfEncodingThreads])
-    {
-      v17 = [v144[2] maximumNumberOfEncodingThreads];
-      v12 = v17;
-      v13 = v17 - 1;
-      if (v17 <= 1)
-      {
-        v18 = 1;
-      }
-
-      else
-      {
-        v18 = v17;
-      }
-
-      v147 = v18;
-      v15 = *(a1 + 192);
-      if (v15)
-      {
-        goto LABEL_12;
-      }
-    }
-
-    else
-    {
-      v19 = (v11 - (v11 != 0)) >> 1;
-      if (v11)
-      {
-        ++v19;
-      }
-
-      if (v19 >= 4)
-      {
-        v19 = 4;
-      }
-
-      if (v19 <= 2)
-      {
-        v12 = 2;
-      }
-
-      else
-      {
-        v12 = v19;
-      }
-
-      v13 = v12 - 1;
-      v147 = v12;
-      v15 = *(a1 + 192);
-      if (v15)
-      {
-        goto LABEL_12;
-      }
-    }
-
-LABEL_29:
-    operator new();
-  }
-
-  v13 = _MergedGlobals_67 - 1;
-  if (_MergedGlobals_67 <= 1)
-  {
-    v14 = 1;
-  }
-
-  else
-  {
-    v14 = _MergedGlobals_67;
-  }
-
-  v147 = v14;
-  v15 = *(a1 + 192);
-  if (!v15)
-  {
-    goto LABEL_29;
-  }
-
-LABEL_12:
-  if (*(v15 + 300) != v147)
-  {
-    goto LABEL_29;
-  }
-
-  v20 = qos_class_self();
-  v140 = _os_activity_create(&dword_1DF9BF000, "GPURegionCallOpHandler", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
-  llvm::StdThreadPool::raiseQOSIfNeeded(*(a1 + 192), v20);
-  llvm::StdThreadPool::setActivity(*(a1 + 192), v140, 0);
-  GPURegionRuntime::setupFeedsAndTargets(*(a1 + 176), v144, v7, v8, &__p);
-  v21 = __p;
-  if (__p)
-  {
-    v22 = v151;
-    v23 = __p;
-    if (v151 != __p)
-    {
-      do
-      {
-
-        v24 = *(v22 - 2);
-        v22 -= 2;
-      }
-
-      while (v22 != v21);
-      v23 = __p;
-    }
-
-    v151 = v21;
-    operator delete(v23);
-  }
-
-  context = objc_autoreleasePoolPush();
-  v25 = [MEMORY[0x1E695DF70] arrayWithCapacity:v147];
-  [v25 addObject:v144[1]];
-  if (v12 >= 2)
-  {
-    do
-    {
-      v26 = MEMORY[0x1E6974450];
-      v27 = [v144[1] commandQueue];
-      v28 = [v26 commandBufferFromCommandQueue:v27];
-      [v25 addObject:v28];
-
-      --v13;
-    }
-
-    while (v13);
-  }
-
-  v29 = *(a1 + 224);
-  if (v29)
-  {
-    v30 = *(a1 + 216);
-    v142 = &v30[11 * v29];
-    while (1)
-    {
-      v161 = v163;
-      v162 = 0x400000000;
-      v31 = v30;
-      v32 = *(v30 + 2);
-      v143 = v31;
-      if (&v161 != v31 && v32 != 0)
-      {
-        break;
-      }
-
-LABEL_49:
-      v36 = v143;
-      v163[64] = *(v143 + 80);
-      (**v144)(v144);
-      v37 = v162;
-      if (v162 != 1)
-      {
-        v158 = v160;
-        v159 = 0x400000000;
-        v155 = v157;
-        v156 = 0x400000000;
-        v152 = v154;
-        v153 = 0x600000000;
-        if (v162 < 5)
-        {
-          goto LABEL_72;
-        }
-
-        v164[0] = 0;
-        llvm::SmallVectorBase<unsigned int>::mallocForGrow(&v158, v160, v162, 8, v164);
-        v39 = v38;
-        v40 = v158;
-        v41 = v159;
-        if (v159)
-        {
-          v42 = (v159 - 1) & 0x1FFFFFFFFFFFFFFFLL;
-          v43 = 8 * v159;
-          if (v42 < 5)
-          {
-            v44 = v39;
-            v45 = v158;
-            goto LABEL_64;
-          }
-
-          if (v39 < v158 + v43)
-          {
-            v44 = v39;
-            v45 = v158;
-            if (v158 < &v39[v43])
-            {
-              goto LABEL_64;
-            }
-          }
-
-          v54 = v42 + 1;
-          v55 = 8 * (v54 & 0x3FFFFFFFFFFFFFFCLL);
-          v44 = &v39[v55];
-          v45 = v158 + v55;
-          v56 = (v158 + 16);
-          v57 = v39 + 16;
-          v58 = v54 & 0x3FFFFFFFFFFFFFFCLL;
-          do
-          {
-            v59 = *v56;
-            *(v57 - 1) = *(v56 - 1);
-            *v57 = v59;
-            *(v56 - 1) = 0uLL;
-            *v56 = 0uLL;
-            v56 += 2;
-            v57 += 2;
-            v58 -= 4;
-          }
-
-          while (v58);
-          if (v54 != (v54 & 0x3FFFFFFFFFFFFFFCLL))
-          {
-LABEL_64:
-            v60 = &v40[8 * v41];
-            do
-            {
-              *v44 = *v45;
-              v44 += 8;
-              *v45 = 0;
-              v45 += 8;
-            }
-
-            while (v45 != v60);
-          }
-
-          v61 = -v43;
-          v62 = &v40[v43 - 8];
-          do
-          {
-            v62 = MEMORY[0x1E12E5A60](v62) - 8;
-            v61 += 8;
-          }
-
-          while (v61);
-          v40 = v158;
-        }
-
-        v63 = v164[0];
-        if (v40 != v160)
-        {
-          free(v40);
-        }
-
-        v158 = v39;
-        HIDWORD(v159) = v63;
-        if (HIDWORD(v156) >= v37)
-        {
-LABEL_72:
-          if (HIDWORD(v153) < v37)
-          {
-            goto LABEL_73;
-          }
-
-          goto LABEL_87;
-        }
-
-        v164[0] = 0;
-        llvm::SmallVectorBase<unsigned int>::mallocForGrow(&v155, v157, v37, 8, v164);
-        v47 = v46;
-        v48 = v155;
-        v49 = v156;
-        if (v156)
-        {
-          v50 = (v156 - 1) & 0x1FFFFFFFFFFFFFFFLL;
-          v51 = 8 * v156;
-          if (v50 < 5)
-          {
-            v52 = v47;
-            v53 = v155;
-            goto LABEL_79;
-          }
-
-          if (v47 < v155 + v51)
-          {
-            v52 = v47;
-            v53 = v155;
-            if (v155 < &v47[v51])
-            {
-              goto LABEL_79;
-            }
-          }
-
-          v64 = v50 + 1;
-          v65 = 8 * (v64 & 0x3FFFFFFFFFFFFFFCLL);
-          v52 = &v47[v65];
-          v53 = v155 + v65;
-          v66 = (v155 + 16);
-          v67 = v47 + 16;
-          v68 = v64 & 0x3FFFFFFFFFFFFFFCLL;
-          do
-          {
-            v69 = *v66;
-            *(v67 - 1) = *(v66 - 1);
-            *v67 = v69;
-            *(v66 - 1) = 0uLL;
-            *v66 = 0uLL;
-            v66 += 2;
-            v67 += 2;
-            v68 -= 4;
-          }
-
-          while (v68);
-          if (v64 != (v64 & 0x3FFFFFFFFFFFFFFCLL))
-          {
-LABEL_79:
-            v70 = &v48[8 * v49];
-            do
-            {
-              *v52 = *v53;
-              v52 += 8;
-              *v53 = 0;
-              v53 += 8;
-            }
-
-            while (v53 != v70);
-          }
-
-          v71 = -v51;
-          v72 = &v48[v51 - 8];
-          do
-          {
-            std::shared_future<void>::~shared_future(v72);
-            v72 = (v73 - 8);
-            v71 += 8;
-          }
-
-          while (v71);
-          v48 = v155;
-        }
-
-        v74 = v164[0];
-        if (v48 != v157)
-        {
-          free(v48);
-        }
-
-        v155 = v47;
-        HIDWORD(v156) = v74;
-        if (HIDWORD(v153) < v37)
-        {
-LABEL_73:
-LABEL_88:
-          std::promise<void>::promise(&v149);
-          v75 = v158;
-          if (v159 < HIDWORD(v159))
-          {
-LABEL_89:
-            v76 = &v149;
-            goto LABEL_90;
-          }
-
-          if (v158 > &v149 || v158 + 8 * v159 <= &v149)
-          {
-            v164[0] = 0;
-            llvm::SmallVectorBase<unsigned int>::mallocForGrow(&v158, v160, v159 + 1, 8, v164);
-            v75 = v84;
-            v85 = v158;
-            v86 = v159;
-            if (v159)
-            {
-              v87 = (v159 - 1) & 0x1FFFFFFFFFFFFFFFLL;
-              v88 = 8 * v159;
-              if (v87 < 5)
-              {
-                v89 = v75;
-                v90 = v158;
-                goto LABEL_108;
-              }
-
-              if (v75 < v158 + v88)
-              {
-                v89 = v75;
-                v90 = v158;
-                if (v158 < &v75[v88])
-                {
-                  goto LABEL_108;
-                }
-              }
-
-              v98 = v87 + 1;
-              v99 = 8 * (v98 & 0x3FFFFFFFFFFFFFFCLL);
-              v89 = &v75[v99];
-              v90 = v158 + v99;
-              v100 = (v158 + 16);
-              v101 = v75 + 16;
-              v102 = v98 & 0x3FFFFFFFFFFFFFFCLL;
-              do
-              {
-                v103 = *v100;
-                *(v101 - 1) = *(v100 - 1);
-                *v101 = v103;
-                *(v100 - 1) = 0uLL;
-                *v100 = 0uLL;
-                v100 += 2;
-                v101 += 2;
-                v102 -= 4;
-              }
-
-              while (v102);
-              if (v98 != (v98 & 0x3FFFFFFFFFFFFFFCLL))
-              {
-LABEL_108:
-                v104 = &v85[8 * v86];
-                do
-                {
-                  *v89 = *v90;
-                  v89 += 8;
-                  *v90 = 0;
-                  v90 += 8;
-                }
-
-                while (v90 != v104);
-              }
-
-              v105 = -v88;
-              v106 = &v85[v88 - 8];
-              do
-              {
-                v106 = MEMORY[0x1E12E5A60](v106) - 8;
-                v105 += 8;
-              }
-
-              while (v105);
-              v85 = v158;
-            }
-
-            v107 = v164[0];
-            if (v85 != v160)
-            {
-              free(v85);
-            }
-
-            v158 = v75;
-            HIDWORD(v159) = v107;
-            goto LABEL_89;
-          }
-
-          llvm::SmallVectorTemplateBase<std::promise<void>,false>::grow(&v158, v159 + 1);
-          v119 = (&v149 - v75);
-          v75 = v158;
-          v76 = &v119[v158];
-LABEL_90:
-          v77 = v159;
-          *&v75[8 * v159] = v76->__state_;
-          v76->__state_ = 0;
-          LODWORD(v159) = v77 + 1;
-          MEMORY[0x1E12E5A60](&v149);
-          std::promise<void>::get_future(v158 + v159 - 1);
-          state = v148.__state_;
-          v148.__state_ = 0;
-          v149.__state_ = state;
-          v79 = v155;
-          if (v156 < HIDWORD(v156))
-          {
-LABEL_91:
-            v80 = &v149;
-            goto LABEL_92;
-          }
-
-          if (v155 <= &v149 && v155 + 8 * v156 > &v149)
-          {
-            llvm::SmallVectorTemplateBase<std::shared_future<void>,false>::grow(&v155, v156 + 1);
-            v120 = (&v149 - v79);
-            v79 = v155;
-            v80 = &v120[v155];
-LABEL_92:
-            v81 = v156;
-            *&v79[8 * v156] = v80->__state_;
-            v80->__state_ = 0;
-            LODWORD(v156) = v81 + 1;
-            std::shared_future<void>::~shared_future(&v149);
-            std::future<void>::~future(&v148);
-            v82 = v161[1];
-            v146 = [v25 objectAtIndexedSubscript:0 % v147];
-            v145 = v82;
-            v149.__state_ = 0;
-            v83 = v144[11];
-            operator new();
-          }
-
-          v164[0] = 0;
-          llvm::SmallVectorBase<unsigned int>::mallocForGrow(&v155, v157, v156 + 1, 8, v164);
-          v79 = v91;
-          v92 = v155;
-          v93 = v156;
-          if (v156)
-          {
-            v94 = (v156 - 1) & 0x1FFFFFFFFFFFFFFFLL;
-            v95 = 8 * v156;
-            if (v94 < 5)
-            {
-              v96 = v79;
-              v97 = v155;
-              goto LABEL_121;
-            }
-
-            if (v79 < v155 + v95)
-            {
-              v96 = v79;
-              v97 = v155;
-              if (v155 < &v79[v95])
-              {
-                goto LABEL_121;
-              }
-            }
-
-            v108 = v94 + 1;
-            v109 = 8 * (v108 & 0x3FFFFFFFFFFFFFFCLL);
-            v96 = &v79[v109];
-            v97 = v155 + v109;
-            v110 = (v155 + 16);
-            v111 = v79 + 16;
-            v112 = v108 & 0x3FFFFFFFFFFFFFFCLL;
-            do
-            {
-              v113 = *v110;
-              *(v111 - 1) = *(v110 - 1);
-              *v111 = v113;
-              *(v110 - 1) = 0uLL;
-              *v110 = 0uLL;
-              v110 += 2;
-              v111 += 2;
-              v112 -= 4;
-            }
-
-            while (v112);
-            if (v108 != (v108 & 0x3FFFFFFFFFFFFFFCLL))
-            {
-LABEL_121:
-              v114 = &v92[8 * v93];
-              do
-              {
-                *v96 = *v97;
-                v96 += 8;
-                *v97 = 0;
-                v97 += 8;
-              }
-
-              while (v97 != v114);
-            }
-
-            v115 = -v95;
-            v116 = &v92[v95 - 8];
-            do
-            {
-              std::shared_future<void>::~shared_future(v116);
-              v116 = (v117 - 8);
-              v115 += 8;
-            }
-
-            while (v115);
-            v92 = v155;
-          }
-
-          v118 = v164[0];
-          if (v92 != v157)
-          {
-            free(v92);
-          }
-
-          v155 = v79;
-          HIDWORD(v156) = v118;
-          goto LABEL_91;
-        }
-
-LABEL_87:
-        if (v37)
-        {
-          goto LABEL_88;
-        }
-
-        std::__assoc_sub_state::wait(*(v155 + v156 - 1));
-        v121 = v152;
-        if (v153)
-        {
-          v122 = 8 * v153;
-          v123 = v152 - 8;
-          do
-          {
-            v124 = *&v123[v122];
-            *&v123[v122] = 0;
-            if (v124)
-            {
-              v124->__state_ = &unk_1F5B50780;
-              std::shared_future<void>::~shared_future(v124 + 13);
-              GPU::EncodeDescriptor::~EncodeDescriptor(v124);
-              MEMORY[0x1E12E5B90]();
-            }
-
-            v122 -= 8;
-          }
-
-          while (v122);
-          v121 = v152;
-          v36 = v143;
-          if (v152 != v154)
-          {
-LABEL_137:
-            free(v121);
-          }
-        }
-
-        else
-        {
-          v36 = v143;
-          if (v152 != v154)
-          {
-            goto LABEL_137;
-          }
-        }
-
-        v125 = v155;
-        if (v156)
-        {
-          v126 = -8 * v156;
-          v127 = (v155 + 8 * v156 - 8);
-          do
-          {
-            std::shared_future<void>::~shared_future(v127);
-            v127 = (v128 - 8);
-            v126 += 8;
-          }
-
-          while (v126);
-          v125 = v155;
-          v36 = v143;
-        }
-
-        if (v125 != v157)
-        {
-          free(v125);
-        }
-
-        v129 = v158;
-        if (v159)
-        {
-          v130 = -8 * v159;
-          v131 = v158 + 8 * v159 - 8;
-          do
-          {
-            v131 = (MEMORY[0x1E12E5A60](v131) - 8);
-            v130 += 8;
-          }
-
-          while (v130);
-          v129 = v158;
-          v36 = v143;
-        }
-
-        if (v129 != v160)
-        {
-          free(v129);
-        }
-
-        goto LABEL_150;
-      }
-
-      (*(*v161[1] + 16))(v161[1], v144);
-LABEL_150:
-      if (v161 != v163)
-      {
-        free(v161);
-      }
-
-      v30 = v36 + 11;
-      if (v30 == v142)
-      {
-        goto LABEL_154;
-      }
-    }
-
-    v34 = v163;
-    v35 = v32;
-    if (v32 >= 5)
-    {
-      llvm::SmallVectorBase<unsigned int>::grow_pod(&v161, v163, v32, 16);
-      v35 = *(v143 + 2);
-      if (!v35)
-      {
-LABEL_48:
-        LODWORD(v162) = v32;
-        goto LABEL_49;
-      }
-
-      v34 = v161;
-    }
-
-    memcpy(v34, *v143, 16 * v35);
-    goto LABEL_48;
-  }
-
-LABEL_154:
-  llvm::StdThreadPool::clearActivity(*(a1 + 192));
-  GPURegionRuntime::encodeOp(*(a1 + 176), *(*(*(a1 + 176) + 592) + 16), v144);
-  v132 = [MEMORY[0x1E695DF70] arrayWithCapacity:*(a1 + 136)];
-  v133 = *(a1 + 176);
-  v134 = *(v133[74] + 16);
-  if ((*(v134 + 46) & 0x80) != 0)
-  {
-    v135 = *(v134 + 68);
-    if (v135)
-    {
-      v136 = (*(v134 + 72) + 24);
-      do
-      {
-        v137 = (*(**(a1 + 176) + 48))(*(a1 + 176), *v136, 0);
-        [v132 addObject:v137];
-
-        v136 += 4;
-        --v135;
-      }
-
-      while (v135);
-      v133 = *(a1 + 176);
-    }
-  }
-
-  (*(*v133 + 88))(v133);
-  v16 = v132;
-
-  objc_autoreleasePoolPop(context);
-LABEL_160:
-
-  return v16;
-}
-
-void sub_1E07E8380(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *a11, void *a12, void *a13, void *a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, void *a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, void *a25, uint64_t a26, uint64_t a27, std::future<void> a28, std::future<void> a29, std::shared_future<void> a30, uint64_t a31, uint64_t a32, uint64_t a33, char *a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, char *a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, char a48)
-{
-  std::shared_future<void>::~shared_future(&a30);
-
-  llvm::SmallVector<std::shared_future<void>,4u>::~SmallVector(&a42);
-  llvm::SmallVector<std::promise<void>,4u>::~SmallVector(&a48);
-  v50 = *(v48 - 232);
-  if (v50 != a14)
-  {
-    free(v50);
-  }
-
-  _Unwind_Resume(a1);
-}
-
-void GPU::anonymous namespace::storeResults(void *a1, uint64_t a2, uint64_t a3, GPU::EncodeDescriptor *a4, void *a5, void *a6, void *a7, char a8)
-{
-  v13 = a5;
-  v41 = a6;
-  v14 = a7;
-  v45 = v14;
-  v38 = a3;
-  if (a3)
-  {
-    v15 = 0;
-    while (1)
-    {
-      v16 = *(a2 + 8 * v15);
-      v17 = [v41 objectAtIndexedSubscript:v15];
-      if ((*(**(a1[74] + 32) + 24))(*(a1[74] + 32), v16))
-      {
-        goto LABEL_21;
-      }
-
-      v18 = (v16[1] & 0xFFFFFFFFFFFFFFF8);
-      if (!mlir::detail::InterfaceMap::lookup<mlir::ShapedType>(*v18 + 8))
-      {
-        v46 = 0uLL;
-        goto LABEL_21;
-      }
-
-      v19 = mlir::detail::InterfaceMap::lookup<mlir::ShapedType>(*v18 + 8);
-      *&v46 = v18;
-      *(&v46 + 1) = v19;
-      if (v18)
-      {
-        if (mlir::CallOpInterface::getArgOperands(&v46))
-        {
-          ArgAttrsAttr = mlir::CallableOpInterface::getArgAttrsAttr(&v46);
-          if (!v21)
-          {
-            goto LABEL_21;
-          }
-
-          v22 = 8 * v21;
-          while (*ArgAttrsAttr != 0x8000000000000000)
-          {
-            ++ArgAttrsAttr;
-            v22 -= 8;
-            if (!v22)
-            {
-              goto LABEL_21;
-            }
-          }
-        }
-
-        v23 = (v16[1] & 0xFFFFFFFFFFFFFFF8);
-        if (v23)
-        {
-          v24 = mlir::detail::InterfaceMap::lookup<mlir::ShapedType>(*v23 + 8);
-          if (v24)
-          {
-            v24 = mlir::detail::InterfaceMap::lookup<mlir::ShapedType>(*v23 + 8);
-          }
-
-          else
-          {
-            v23 = 0;
-          }
-        }
-
-        else
-        {
-          v24 = 0;
-        }
-
-        v44[0] = v23;
-        v44[1] = v24;
-        v25 = [v17 shape];
-        MPSShapeToVector<unsigned long long>(v25, &__p);
-
-        *&v46 = __p;
-        *(&v46 + 1) = (v43 - __p) >> 3;
-        v47 = 1;
-        isSplat = mlir::ElementsAttr::isSplat(v44);
-        v48[1] = mlir::ShapedType::cloneWith(v44, &v46, isSplat);
-        v49 = v16;
-        v48[0] = *(mlir::Value::getParentRegion(&v49) + 2);
-        *&v46 = v48;
-        v27 = std::__hash_table<std::__hash_value_type<mlir::Operation *,std::unordered_map<void *,mlir::Type>>,std::__unordered_map_hasher<mlir::Operation *,std::__hash_value_type<mlir::Operation *,std::unordered_map<void *,mlir::Type>>,std::hash<mlir::Operation *>,std::equal_to<mlir::Operation *>,true>,std::__unordered_map_equal<mlir::Operation *,std::__hash_value_type<mlir::Operation *,std::unordered_map<void *,mlir::Type>>,std::equal_to<mlir::Operation *>,std::hash<mlir::Operation *>,true>,std::allocator<std::__hash_value_type<mlir::Operation *,std::unordered_map<void *,mlir::Type>>>>::__emplace_unique_key_args<mlir::Operation *,std::piecewise_construct_t const&,std::tuple<mlir::Operation * const&>,std::tuple<>>(a1 + 36, v48);
-        *&v46 = v49;
-        std::__hash_table<std::__hash_value_type<void *,mlir::Type>,std::__unordered_map_hasher<void *,std::__hash_value_type<void *,mlir::Type>,std::hash<void *>,std::equal_to<void *>,true>,std::__unordered_map_equal<void *,std::__hash_value_type<void *,mlir::Type>,std::equal_to<void *>,std::hash<void *>,true>,std::allocator<std::__hash_value_type<void *,mlir::Type>>>::__emplace_unique_key_args<void *,void *,mlir::Type&>(v27 + 3, &v46);
-        if (__p)
-        {
-          v43 = __p;
-          operator delete(__p);
-        }
-      }
-
-LABEL_21:
-      v28 = [v13 objectAtIndexedSubscript:v15];
-      v29 = [MEMORY[0x1E695DFB0] null];
-      v30 = v29;
-      if (v28 != v29)
-      {
-        v31 = [v13 objectAtIndexedSubscript:v15];
-
-        if ((a8 & 1) == 0)
-        {
-          goto LABEL_28;
-        }
-
-        if (v31)
-        {
-          v32 = [v31 mpsndarray];
-          v33 = v32[*MEMORY[0x1E69744E8]];
-
-          if (v33 != 1)
-          {
-            goto LABEL_28;
-          }
-        }
-
-LABEL_27:
-        BaseRuntime::unsetTensorDataFromDataMap(a1, v16);
-        v34 = (*(*a1 + 80))(a1, v16, 0, 1, 0, 1);
-
-        v31 = v34;
-        goto LABEL_28;
-      }
-
-      v31 = 0;
-      if (a8)
-      {
-        goto LABEL_27;
-      }
-
-LABEL_28:
-      v35 = GPU::EncodeDescriptor::getcomputeEncoder(a4);
-      v36 = *(a4 + 1);
-      v37 = [v17 mpsndarray];
-      GPURegionRuntime::copyNDArrayToTarget(a1, v35, v36, &v45, v37, v31, v16, 0);
-
-      if (++v15 == v38)
-      {
-        v14 = v45;
-        break;
-      }
-    }
-  }
-}
-
-std::shared_future<void> **std::unique_ptr<GPU::anonymous namespace::BlockingEncodeDescriptor>::~unique_ptr[abi:ne200100](std::shared_future<void> **result)
-{
-  v1 = *result;
-  *result = 0;
-  if (v1)
-  {
-    v1->__state_ = &unk_1F5B50780;
-    v2 = result;
-    std::shared_future<void>::~shared_future(v1 + 13);
-    GPU::EncodeDescriptor::~EncodeDescriptor(v1);
-    MEMORY[0x1E12E5B90]();
-    return v2;
-  }
-
-  return result;
-}
-
-void GPU::anonymous namespace::encodeRegion(int a1, uint64_t a2, void *a3, uint64_t a4, uint64_t a5, GPU::EncodeDescriptor *a6, std::promise<void> *a7, std::promise<void> *a8)
-{
-  v31 = a5;
-  v32 = a3;
-  v30 = a6;
-  v13 = objc_autoreleasePoolPush();
-  v29[0] = &v32;
-  v29[1] = &v30;
-  v29[2] = &v31;
-  v14 = [MEMORY[0x1E695DF70] arrayWithCapacity:*(a5 + 56)];
-  v15 = [MEMORY[0x1E695DF70] arrayWithCapacity:*(v31 + 136)];
-  llvm::sys::RWMutexImpl::lock((a4 + 200));
-  v16 = v31;
-  v17 = *(v31 + 56);
-  v27 = a8;
-  v28 = v13;
-  if (v17)
-  {
-    v18 = *(v31 + 48);
-    v19 = 8 * v17;
-    do
-      v20 = {;
-      [v14 addObject:v20];
-
-      ++v18;
-      v19 -= 8;
-    }
-
-    while (v19);
-    v16 = v31;
-  }
-
-  v21 = *(v16 + 136);
-  if (v21)
-  {
-    v22 = *(v16 + 128);
-    v23 = 8 * v21;
-    do
-    {
-      while (1)
-        v24 = {;
-        if (!v24)
-        {
-          break;
-        }
-
-        [v15 addObject:v24];
-
-        ++v22;
-        v23 -= 8;
-        if (!v23)
-        {
-          goto LABEL_10;
-        }
-      }
-
-      v25 = [MEMORY[0x1E695DFB0] null];
-      [v15 addObject:v25];
-
-      ++v22;
-      v23 -= 8;
-    }
-
-    while (v23);
-  }
-
-LABEL_10:
-  llvm::sys::RWMutexImpl::unlock_shared((a4 + 200));
-  std::promise<void>::set_value(a7);
-  v26 = GPU::GPURegionCallOpHandler::evaluate(v31, v30, v14, v15);
-  llvm::sys::RWMutexImpl::lock((a4 + 200));
-  llvm::sys::RWMutexImpl::unlock_shared((a4 + 200));
-  (**v30)(v30);
-  std::promise<void>::set_value(v27);
-
-  objc_autoreleasePoolPop(v28);
-}
-
-void sub_1E07E8C34(_Unwind_Exception *a1)
-{
-  llvm::sys::RWMutexImpl::unlock_shared((v3 + 200));
-
-  _Unwind_Resume(a1);
-}
-
-void sub_1E07E8CB4(_Unwind_Exception *a1)
-{
-  llvm::sys::RWMutexImpl::unlock_shared((v3 + 200));
-
-  _Unwind_Resume(a1);
-}
-
-char **llvm::SmallVector<std::unique_ptr<GPU::anonymous namespace::BlockingEncodeDescriptor>,6u>::~SmallVector(char **a1)
-{
-  v2 = *a1;
-  v3 = *(a1 + 2);
-  if (v3)
-  {
-    v4 = 8 * v3;
-    v5 = v2 - 8;
-    do
-    {
-      v6 = *&v5[v4];
-      *&v5[v4] = 0;
-      if (v6)
-      {
-        v6->__state_ = &unk_1F5B50780;
-        std::shared_future<void>::~shared_future(v6 + 13);
-        GPU::EncodeDescriptor::~EncodeDescriptor(v6);
-        MEMORY[0x1E12E5B90]();
-      }
-
-      v4 -= 8;
-    }
-
-    while (v4);
-    v2 = *a1;
-  }
-
-  if (v2 != (a1 + 2))
-  {
-    free(v2);
-  }
-
-  return a1;
-}
-
-uint64_t GPU::GPURegionCallOpHandler::propagateResultIsGraphOutput(GPU::GPURegionCallOpHandler *this, unsigned int a2)
-{
-  v2 = *(this + 22);
-  v10 = *(*(*(*(v2 + 592) + 16) + 72) + 32 * a2 + 24);
-  result = mlir::Value::getDefiningOp(&v10);
-  v9 = result;
-  if (result)
-  {
-    v4 = *(result + 36);
-    if (v4)
-    {
-      v5 = result - 16;
-    }
-
-    else
-    {
-      v5 = 0;
-    }
-
-    if (v4)
-    {
-      v6 = 0;
-      while (1)
-      {
-        NextResultAtOffset = mlir::detail::OpResultImpl::getNextResultAtOffset(v5, v6);
-        if (NextResultAtOffset == v10)
-        {
-          break;
-        }
-
-        if (v4 == ++v6)
-        {
-          v6 = v4;
-          break;
-        }
-      }
-    }
-
-    else
-    {
-      v6 = 0;
-    }
-
-    v8 = std::__hash_table<std::__hash_value_type<mlir::Operation *,std::unordered_map<void *,MPSGraphTensorData * {__strong}>>,std::__unordered_map_hasher<mlir::Operation *,std::__hash_value_type<mlir::Operation *,std::unordered_map<void *,MPSGraphTensorData * {__strong}>>,std::hash<mlir::Operation *>,std::equal_to<mlir::Operation *>,true>,std::__unordered_map_equal<mlir::Operation *,std::__hash_value_type<mlir::Operation *,std::unordered_map<void *,MPSGraphTensorData * {__strong}>>,std::equal_to<mlir::Operation *>,std::hash<mlir::Operation *>,true>,std::allocator<std::__hash_value_type<mlir::Operation *,std::unordered_map<void *,MPSGraphTensorData * {__strong}>>>>::find<mlir::Operation *>((v2 + 248), &v9);
-    if (!v8)
-    {
-      std::__throw_out_of_range[abi:ne200100]("unordered_map::at: key not found");
-    }
-
-    return (*(*v8[3] + 56))(v8[3], v6);
-  }
-
-  return result;
-}
-
-void std::__call_once_proxy[abi:ne200100]<std::tuple<GPU::anonymous namespace::getThreadPoolSize(GPU::EncodeDescriptor *,unsigned int)::{lambda(void)#1} &&>>()
-{
-  v0 = getenv("MPSGRAPH_MAX_NUM_ENCODING_THREADS");
-  if (v0)
-  {
-    v1 = atoi(v0);
-    _MergedGlobals_67 = v1;
-    NSLog(&cfstr_MpsgraphMaxNum_0.isa, v1);
-  }
-}
-
-__n128 std::__function::__func<std::__bind<void (&)(BOOL,unsigned long long,GPURegionRuntime *,GPU::GPURegionCallOpHandler *,GPU::GPURegionCallOpHandler *,GPU::anonymous namespace::BlockingEncodeDescriptor *,std::promise<void> *,std::promise<void> *),BOOL &,unsigned long long &,GPURegionRuntime *,GPU::GPURegionCallOpHandler *,GPU::GPURegionCallOpHandler *&,GPU::anonymous namespace::BlockingEncodeDescriptor *,std::promise<void> *,std::promise<void> *>,std::allocator<std::__bind<void (&)(BOOL,unsigned long long,GPURegionRuntime *,GPU::GPURegionCallOpHandler *,GPU::GPURegionCallOpHandler *,GPU::anonymous namespace::BlockingEncodeDescriptor *,std::promise<void> *,std::promise<void> *),BOOL &,unsigned long long &,GPURegionRuntime *,GPU::GPURegionCallOpHandler *,GPU::GPURegionCallOpHandler *&,GPU::anonymous namespace::BlockingEncodeDescriptor *,std::promise<void> *,std::promise<void> *>>,void ()(void)>::__clone(uint64_t a1, uint64_t a2)
-{
-  *a2 = &unk_1F5B506C8;
-  *(a2 + 8) = *(a1 + 8);
-  result = *(a1 + 24);
-  v3 = *(a1 + 40);
-  v4 = *(a1 + 56);
-  *(a2 + 72) = *(a1 + 72);
-  *(a2 + 56) = v4;
-  *(a2 + 40) = v3;
-  *(a2 + 24) = result;
-  return result;
-}
-
-uint64_t std::__function::__func<std::__bind<void (&)(BOOL,unsigned long long,GPURegionRuntime *,GPU::GPURegionCallOpHandler *,GPU::GPURegionCallOpHandler *,GPU::anonymous namespace::BlockingEncodeDescriptor *,std::promise<void> *,std::promise<void> *),BOOL &,unsigned long long &,GPURegionRuntime *,GPU::GPURegionCallOpHandler *,GPU::GPURegionCallOpHandler *&,GPU::anonymous namespace::BlockingEncodeDescriptor *,std::promise<void> *,std::promise<void> *>,std::allocator<std::__bind<void (&)(BOOL,unsigned long long,GPURegionRuntime *,GPU::GPURegionCallOpHandler *,GPU::GPURegionCallOpHandler *,GPU::anonymous namespace::BlockingEncodeDescriptor *,std::promise<void> *,std::promise<void> *),BOOL &,unsigned long long &,GPURegionRuntime *,GPU::GPURegionCallOpHandler *,GPU::GPURegionCallOpHandler *&,GPU::anonymous namespace::BlockingEncodeDescriptor *,std::promise<void> *,std::promise<void> *>>,void ()(void)>::target(uint64_t a1, uint64_t a2)
-{
-  v2 = *(a2 + 8);
-  if (v2 == "NSt3__16__bindIRFvbyP16GPURegionRuntimePN3GPU22GPURegionCallOpHandlerES5_PNS3_12_GLOBAL__N_124BlockingEncodeDescriptorEPNS_7promiseIvEESB_EJRbRyS2_S5_RS5_S8_SB_SB_EEE")
-  {
-    return a1 + 8;
-  }
-
-  if (((v2 & "NSt3__16__bindIRFvbyP16GPURegionRuntimePN3GPU22GPURegionCallOpHandlerES5_PNS3_12_GLOBAL__N_124BlockingEncodeDescriptorEPNS_7promiseIvEESB_EJRbRyS2_S5_RS5_S8_SB_SB_EEE" & 0x8000000000000000) != 0) == __OFSUB__(v2, "NSt3__16__bindIRFvbyP16GPURegionRuntimePN3GPU22GPURegionCallOpHandlerES5_PNS3_12_GLOBAL__N_124BlockingEncodeDescriptorEPNS_7promiseIvEESB_EJRbRyS2_S5_RS5_S8_SB_SB_EEE"))
-  {
-    return 0;
-  }
-
-  v4 = a1;
-  v5 = strcmp((v2 & 0x7FFFFFFFFFFFFFFFLL), ("NSt3__16__bindIRFvbyP16GPURegionRuntimePN3GPU22GPURegionCallOpHandlerES5_PNS3_12_GLOBAL__N_124BlockingEncodeDescriptorEPNS_7promiseIvEESB_EJRbRyS2_S5_RS5_S8_SB_SB_EEE" & 0x7FFFFFFFFFFFFFFFLL));
-  a1 = v4;
-  if (!v5)
-  {
-    return a1 + 8;
-  }
-
-  return 0;
-}
-
-id GPU::anonymous namespace::encodeRegion(BOOL,unsigned long long,GPURegionRuntime *,GPU::GPURegionCallOpHandler *,GPU::GPURegionCallOpHandler *,GPU::anonymous namespace::BlockingEncodeDescriptor *,std::promise<void> *,std::promise<void> *)::$_0::operator()(uint64_t **a1, void *a2, int a3, int a4)
-{
-  v8 = (*(***a1 + 48))(**a1, a2, 0);
-  v9 = v8;
-  v10 = v8;
-  if (a3)
-  {
-    if (v8)
-    {
-      v11 = [v8 mpsndarray];
-      v12 = v11[*MEMORY[0x1E69744E8]];
-
-      v10 = v9;
-      if (v12 != 1)
-      {
-        goto LABEL_16;
-      }
-
-      BaseRuntime::unsetTensorDataFromDataMap(**a1, a2);
-    }
-
-    v10 = (*(***a1 + 80))(**a1, a2, 0, 1, 0, 1);
-
-    if (v9)
-    {
-      v13 = a4 == 0;
-    }
-
-    else
-    {
-      v13 = 1;
-    }
-
-    if (!v13)
-    {
-      v14 = **a1;
-      v15 = GPU::EncodeDescriptor::getcomputeEncoder(*a1[1]);
-      v16 = *(*a1[1] + 8);
-      v17 = *a1[2];
-      v18 = [v9 mpsndarray];
-      GPURegionRuntime::copyNDArrayToTarget(v14, v15, v16, (v17 + 32), v18, v10, a2, 0);
-    }
-
-    if (a4)
-    {
-      if (v9 && v9 != v10)
-      {
-        v20 = [v10 mpsndarray];
-        v21 = objc_alloc(MEMORY[0x1E6974488]);
-        v22 = [v20 buffer];
-        v23 = [v20 offset];
-        v24 = [v20 descriptor];
-        v25 = [v21 initWithBuffer:v22 offset:v23 descriptor:v24];
-
-        v26 = [[MPSGraphTensorData alloc] initWithMPSNDArray:v25];
-        v10 = v26;
-      }
-    }
-  }
-
-LABEL_16:
-
-  return v10;
-}
-
-char **llvm::SmallVector<GPU::GPURegionCallOpHandler::ScheduleStep,4u>::~SmallVector(char **a1)
-{
-  v2 = *a1;
-  v3 = *(a1 + 2);
-  if (v3)
-  {
-    v4 = &v2[88 * v3 - 88];
-    v5 = -88 * v3;
-    do
-    {
-      if (v4 + 2 != *v4)
-      {
-        free(*v4);
-      }
-
-      v4 -= 11;
-      v5 += 88;
-    }
-
-    while (v5);
-    v2 = *a1;
-  }
-
-  if (v2 != (a1 + 2))
-  {
-    free(v2);
-  }
-
-  return a1;
-}
-
-void GPURegionRuntime::GPURegionRuntime(uint64_t a1, void *a2, void *a3, void *a4, void *a5)
-{
-  v9 = a2;
-  a3;
-  v10 = a4;
-  a5;
-  BaseRuntime::BaseRuntime(a1);
-}
-
-void sub_1E07E9800(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
-{
-  std::unique_ptr<GPU::MemrefBufferizer>::~unique_ptr[abi:ne200100](v11);
-  std::unordered_set<mlir::Operation *>::~unordered_set[abi:ne200100](v10 + 608);
-  llvm::DenseMap<mlir::FunctionOpInterface,std::unique_ptr<GPURegionRuntime::MPSRuntimeEntryInfo>,llvm::DenseMapInfo<mlir::FunctionOpInterface,void>,llvm::detail::DenseMapPair<mlir::FunctionOpInterface,std::unique_ptr<GPURegionRuntime::MPSRuntimeEntryInfo>>>::~DenseMap(a10);
-}
-
-void sub_1E07E9880(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void *a11)
-{
-  v15 = *(v11 + 424);
-  if (v15 != a11)
-  {
-    free(v15);
-  }
-
-  v16 = *(v11 + 408);
-  *(v11 + 408) = 0;
-  if (v16)
-  {
-    std::default_delete<GPU::RuntimeExecutionReport>::operator()[abi:ne200100](v14, v16);
-  }
-
-  std::unordered_map<unsigned long,objc_object  {objcproto9MTLBuffer}* {__strong}>::~unordered_map[abi:ne200100](v11 + 368);
-  std::unordered_map<mlir::Operation *,std::unordered_map<void *,mlir::ElementsAttr>>::~unordered_map[abi:ne200100](v13);
-  std::unordered_map<mlir::Operation *,std::unordered_map<void *,mlir::ElementsAttr>>::~unordered_map[abi:ne200100](v11 + 288);
-  std::unordered_map<mlir::Operation *,std::unique_ptr<GPU::BaseOpHandler>>::~unordered_map[abi:ne200100](v12);
-  BaseRuntime::~BaseRuntime(v11);
-  JUMPOUT(0x1E07E98D8);
-}
-
-void BaseRuntime::BaseRuntime(uint64_t a1)
-{
-  v1 = MEMORY[0x1EEE9AC00](a1);
-  v3 = v2;
-  v5 = v4;
-  v7 = v6;
-  v9 = v8;
-  v10 = v1;
-  v62 = *MEMORY[0x1E69E9840];
-  v12 = v11;
-  v13 = v7;
-  v14 = v5;
-  *v10 = &unk_1F5B50340;
-  *(v10 + 8) = 0u;
-  *(v10 + 24) = 0u;
-  *(v10 + 40) = 1065353216;
-  *(v10 + 48) = v12;
-  objc_initWeak((v10 + 56), v9);
-  *(v10 + 64) = v3;
-  objc_initWeak((v10 + 72), v13);
-  v15 = v14;
-  *(v10 + 144) = 850045863;
-  *(v10 + 80) = v15;
-  *(v10 + 88) = 0u;
-  *(v10 + 104) = 0u;
-  *(v10 + 120) = 1065353216;
-  *(v10 + 128) = 0;
-  *(v10 + 136) = 0;
-  *(v10 + 152) = 0u;
-  *(v10 + 168) = 0u;
-  *(v10 + 184) = 0u;
-  *(v10 + 200) = 0u;
-  *(v10 + 216) = 1;
-  v16 = objc_alloc_init(MEMORY[0x1E695DF90]);
-  v17 = *(v10 + 128);
-  *(v10 + 128) = v16;
-
-  v18 = objc_alloc_init(MEMORY[0x1E695DF70]);
-  v19 = *(v10 + 136);
-  *(v10 + 136) = v18;
-
-  v20[23] = 12;
-  strcpy(v20, "mps.absolute");
-  v21 = 1;
-  v22[23] = 19;
-  strcpy(v22, "mps.absolute_square");
-  v23 = 2;
-  v24[23] = 8;
-  strcpy(v24, "mps.acos");
-  v25 = 3;
-  v26[23] = 9;
-  strcpy(v26, "mps.acosh");
-  v28[23] = 7;
-  v27 = 4;
-  strcpy(v28, "mps.add");
-  v29 = 5;
-  v30[23] = 12;
-  strcpy(v30, "memref.alloc");
-  v32[23] = 7;
-  v31 = 6;
-  strcpy(v32, "mps.and");
-  v33 = 7;
-  v34[23] = 8;
-  strcpy(v34, "mps.asin");
-  v35 = 8;
-  strcpy(v37, "\t\t");
-  strcpy(v36, "mps.asinh");
-  *&v37[3] = 0;
-  v38[23] = 8;
-  strcpy(v38, "mps.atan");
-  v39 = 10;
-  v40[23] = 9;
-  strcpy(v40, "mps.atan2");
-  v41 = 11;
-  v42[23] = 9;
-  strcpy(v42, "mps.atanh");
-  v43 = 12;
-  v44[23] = 19;
-  strcpy(v44, "mps.assign_variable");
-  v45 = 13;
-  v46[23] = 13;
-  strcpy(v46, "mps.band_part");
-  v47 = 14;
-  v48[23] = 18;
-  strcpy(v48, "mps.batch_to_space");
-  v49 = 15;
-  v50[23] = 12;
-  strcpy(v50, "mps.bias_add");
-  v51 = 16;
-  v52[23] = 15;
-  strcpy(v52, "mps.bitwise_and");
-  v53 = 17;
-  v54[23] = 22;
-  strcpy(v54, "mps.bitwise_left_shift");
-  v55 = 18;
-  v56[23] = 15;
-  strcpy(v56, "mps.bitwise_not");
-  v57 = 19;
-  v58[23] = 14;
-  strcpy(v58, "mps.bitwise_or");
-  v59 = 20;
-  v60[23] = 20;
-  strcpy(v60, "mps.bitwise_popcount");
-  v61 = 21;
-  operator new();
-}
-
-void sub_1E07EC9FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void *a11, void *a12, void *a13, uint64_t a14, id *a15)
-{
-  v18 = (v16 + 3383);
-  v19 = -7488;
-  v20 = (v16 + 3383);
-  while (1)
-  {
-    v21 = *v20;
-    v20 -= 32;
-    if (v21 < 0)
-    {
-      operator delete(*(v18 - 23));
-    }
-
-    v18 = v20;
-    v19 += 32;
-    if (!v19)
-    {
-
-      std::mutex::~mutex(v15);
-      std::unordered_map<mlir::Operation *,std::unordered_map<void *,MPSGraphTensorData * {__strong}>>::~unordered_map[abi:ne200100](a10);
-
-      objc_destroyWeak(a15 + 9);
-      objc_destroyWeak(a15 + 7);
-
-      std::unordered_map<std::string,MPSMLIROps>::~unordered_map[abi:ne200100](a14);
-      _Unwind_Resume(a1);
-    }
-  }
-}
-
-const char *___ZN16GPURegionRuntimeC2EP14MPSGraphDeviceP8MPSGraphP18MPSGraphExecutableP12NSDictionaryIP8NSStringS5_EN4mlir8ModuleOpEPN3GPU9ANEHelperEN4llvm8ArrayRefINSB_19FunctionOpInterfaceEEEjPS__block_invoke()
-{
-  result = getenv("MPSGRAPH_INTERMEDIATES_ARE_TEMPORARY");
-  if (result)
-  {
-    result = atol(result);
-    if (!result)
-    {
-      GPURegionRuntime::GPURegionRuntime(MPSGraphDevice *,MPSGraph *,MPSGraphExecutable *,NSDictionary<NSString *,MPSGraphExecutable *> *,mlir::ModuleOp,GPU::ANEHelper *,llvm::ArrayRef<mlir::FunctionOpInterface>,unsigned int,GPURegionRuntime*)::_intermediatesAreTemporaryEV = 0;
-    }
-  }
-
-  return result;
-}
-
-void std::__hash_table<std::__hash_value_type<std::string,MPSMLIROps>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,MPSMLIROps>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,MPSMLIROps>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,MPSMLIROps>>>::__assign_unique<std::pair<std::string const,MPSMLIROps> const*>(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  v6 = *(a1 + 8);
-  if (!v6)
-  {
-    goto LABEL_19;
-  }
-
-  bzero(*a1, 8 * v6);
-  v7 = *(a1 + 16);
-  *(a1 + 16) = 0;
-  *(a1 + 24) = 0;
-  if (a2 == a3)
-  {
-    v8 = v7;
-    if (!v7)
-    {
-      goto LABEL_19;
-    }
-  }
-
-  else
-  {
-    if (v7)
-    {
-      do
-      {
-        std::string::operator=((v7 + 16), a2);
-        *(v7 + 40) = *(a2 + 24);
-        v8 = *v7;
-        std::__hash_table<std::__hash_value_type<std::string,MPSMLIROps>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,MPSMLIROps>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,MPSMLIROps>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,MPSMLIROps>>>::__node_insert_unique(a1, v7);
-        a2 += 32;
-        if (v8)
-        {
-          v9 = a2 == a3;
-        }
-
-        else
-        {
-          v9 = 1;
-        }
-
-        v7 = v8;
-      }
-
-      while (!v9);
-    }
-
-    else
-    {
-      v8 = 0;
-    }
-
-    if (!v8)
-    {
-      goto LABEL_19;
-    }
-  }
-
-  do
-  {
-    v10 = *v8;
-    if (*(v8 + 39) < 0)
-    {
-      operator delete(v8[2]);
-    }
-
-    operator delete(v8);
-    v8 = v10;
-  }
-
-  while (v10);
-LABEL_19:
-  while (a2 != a3)
-  {
-    std::__hash_table<std::__hash_value_type<std::string,MPSMLIROps>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,MPSMLIROps>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,MPSMLIROps>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,MPSMLIROps>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,MPSMLIROps> const&>(a1, a2);
-    a2 += 32;
-  }
-}
-
-void sub_1E07ECC98(void *a1)
-{
-  __cxa_begin_catch(a1);
-  std::__hash_table<std::__hash_value_type<std::string,MPSMLIROps>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,MPSMLIROps>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,MPSMLIROps>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,MPSMLIROps>>>::__deallocate_node(v1, v2);
-  __cxa_rethrow();
-}
-
-uint64_t **std::__hash_table<std::__hash_value_type<std::string,MPSMLIROps>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,MPSMLIROps>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,MPSMLIROps>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,MPSMLIROps>>>::__node_insert_unique(uint64_t *a1, uint64_t a2)
-{
-  v4 = (a2 + 16);
-  v5 = *(a2 + 39);
-  v6 = *(a2 + 24);
-  if ((v5 & 0x80u) == 0)
-  {
-    v7 = (a2 + 16);
-  }
-
-  else
-  {
-    v7 = *(a2 + 16);
-  }
-
-  if ((v5 & 0x80u) == 0)
-  {
-    v8 = v5;
-  }
-
-  else
-  {
-    v8 = v6;
-  }
-
-  v9 = std::__murmur2_or_cityhash<unsigned long,64ul>::operator()[abi:ne200100](&v17, v7, v8);
-  *(a2 + 8) = v9;
-  result = std::__hash_table<std::__hash_value_type<std::string,MPSMLIROps>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,MPSMLIROps>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,MPSMLIROps>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,MPSMLIROps>>>::__node_insert_unique_prepare[abi:ne200100](a1, v9, v4);
-  if (!result)
-  {
-    v11 = a1[1];
-    v12 = *(a2 + 8);
-    v13 = vcnt_s8(v11);
-    v13.i16[0] = vaddlv_u8(v13);
-    if (v13.u32[0] > 1uLL)
-    {
-      if (v12 >= *&v11)
-      {
-        v12 %= *&v11;
-      }
-    }
-
-    else
-    {
-      v12 &= *&v11 - 1;
-    }
-
-    v14 = *a1;
-    v15 = *(*a1 + 8 * v12);
-    if (v15)
-    {
-      *a2 = *v15;
-    }
-
-    else
-    {
-      *a2 = a1[2];
-      a1[2] = a2;
-      *(v14 + 8 * v12) = a1 + 2;
-      if (!*a2)
-      {
-        goto LABEL_15;
-      }
-
-      v16 = *(*a2 + 8);
-      if (v13.u32[0] > 1uLL)
-      {
-        if (v16 >= *&v11)
-        {
-          v16 %= *&v11;
-        }
-
-        v15 = (v14 + 8 * v16);
-      }
-
-      else
-      {
-        v15 = (v14 + 8 * (v16 & (*&v11 - 1)));
-      }
-    }
-
-    *v15 = a2;
-LABEL_15:
-    ++a1[3];
-    return a2;
-  }
-
-  return result;
-}
-
-void std::__hash_table<std::__hash_value_type<std::string,MPSMLIROps>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,MPSMLIROps>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,MPSMLIROps>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,MPSMLIROps>>>::__deallocate_node(int a1, void **__p)
-{
-  if (__p)
-  {
-    v2 = __p;
-    do
-    {
-      v3 = *v2;
-      if (*(v2 + 39) < 0)
-      {
-        operator delete(v2[2]);
-      }
-
-      operator delete(v2);
-      v2 = v3;
-    }
-
-    while (v3);
-  }
-}
-
-uint64_t **std::__hash_table<std::__hash_value_type<std::string,MPSMLIROps>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,MPSMLIROps>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,MPSMLIROps>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,MPSMLIROps>>>::__node_insert_unique_prepare[abi:ne200100](uint64_t a1, unint64_t a2, const void **a3)
-{
-  v4 = *(a1 + 8);
-  if (!v4)
-  {
-    goto LABEL_42;
-  }
-
-  v6 = vcnt_s8(v4);
-  v6.i16[0] = vaddlv_u8(v6);
-  if (v6.u32[0] > 1uLL)
-  {
-    if (v4 <= a2)
-    {
-      v7 = a2 % v4;
-    }
-
-    else
-    {
-      v7 = a2;
-    }
-
-    v8 = *(*a1 + 8 * v7);
-    if (!v8)
-    {
-      goto LABEL_42;
-    }
-  }
-
-  else
-  {
-    v7 = (v4 - 1) & a2;
-    v8 = *(*a1 + 8 * v7);
-    if (!v8)
-    {
-      goto LABEL_42;
-    }
-  }
-
-  v9 = *v8;
-  if (*v8)
-  {
-    v10 = *(a3 + 23);
-    if (v10 >= 0)
-    {
-      v11 = *(a3 + 23);
-    }
-
-    else
-    {
-      v11 = a3[1];
-    }
-
-    if (v10 >= 0)
-    {
-      v12 = a3;
-    }
-
-    else
-    {
-      v12 = *a3;
-    }
-
-    if (v6.u32[0] < 2uLL)
-    {
-      while (1)
-      {
-        v13 = v9[1];
-        if (v13 == a2)
-        {
-          v14 = *(v9 + 39);
-          v15 = v14;
-          if (v14 < 0)
-          {
-            v14 = v9[3];
-          }
-
-          if (v14 == v11)
-          {
-            v16 = v15 >= 0 ? (v9 + 2) : v9[2];
-            if (!memcmp(v16, v12, v11))
-            {
-              return v9;
-            }
-          }
-        }
-
-        else if ((v13 & (v4 - 1)) != v7)
-        {
-          goto LABEL_42;
-        }
-
-        v9 = *v9;
-        if (!v9)
-        {
-          goto LABEL_42;
-        }
-      }
-    }
-
-    do
-    {
-      v17 = v9[1];
-      if (v17 == a2)
-      {
-        v18 = *(v9 + 39);
-        v19 = v18;
-        if (v18 < 0)
-        {
-          v18 = v9[3];
-        }
-
-        if (v18 == v11)
-        {
-          v20 = v19 >= 0 ? (v9 + 2) : v9[2];
-          if (!memcmp(v20, v12, v11))
-          {
-            return v9;
-          }
-        }
-      }
-
-      else
-      {
-        if (v17 >= v4)
-        {
-          v17 %= v4;
-        }
-
-        if (v17 != v7)
-        {
-          break;
-        }
-      }
-
-      v9 = *v9;
-    }
-
-    while (v9);
-  }
-
-LABEL_42:
-  v21 = (*(a1 + 24) + 1);
-  v22 = *(a1 + 32);
-  if (v4 && (v22 * v4) >= v21)
-  {
-    return 0;
-  }
-
-  v23 = 1;
-  if (v4 >= 3)
-  {
-    v23 = (v4 & (v4 - 1)) != 0;
-  }
-
-  v24 = v23 | (2 * v4);
-  v25 = vcvtps_u32_f32(v21 / v22);
-  if (v24 <= v25)
-  {
-    prime = v25;
-  }
-
-  else
-  {
-    prime = v24;
-  }
-
-  if (prime == 1)
-  {
-    prime = 2;
-  }
-
-  else if ((prime & (prime - 1)) != 0)
-  {
-    prime = std::__next_prime(prime);
-    v4 = *(a1 + 8);
-  }
-
-  if (prime <= v4)
-  {
-    if (prime >= v4)
-    {
-      return 0;
-    }
-
-    v27 = vcvtps_u32_f32(*(a1 + 24) / *(a1 + 32));
-    if (v4 < 3 || (v28 = vcnt_s8(v4), v28.i16[0] = vaddlv_u8(v28), v28.u32[0] > 1uLL))
-    {
-      v30 = prime;
-      v31 = std::__next_prime(v27);
-      if (v30 <= v31)
-      {
-        prime = v31;
-      }
-
-      else
-      {
-        prime = v30;
-      }
-
-      if (prime >= v4)
-      {
-        return 0;
-      }
-    }
-
-    else
-    {
-      v29 = 1 << -__clz(v27 - 1);
-      if (v27 >= 2)
-      {
-        v27 = v29;
-      }
-
-      if (prime <= v27)
-      {
-        prime = v27;
-      }
-
-      if (prime >= v4)
-      {
-        return 0;
-      }
-    }
-  }
-
-  std::__hash_table<std::__hash_value_type<mlir::Operation *,std::unordered_map<void *,MPSGraphTensorData * {__strong}>>,std::__unordered_map_hasher<mlir::Operation *,std::__hash_value_type<mlir::Operation *,std::unordered_map<void *,MPSGraphTensorData * {__strong}>>,std::hash<mlir::Operation *>,std::equal_to<mlir::Operation *>,true>,std::__unordered_map_equal<mlir::Operation *,std::__hash_value_type<mlir::Operation *,std::unordered_map<void *,MPSGraphTensorData * {__strong}>>,std::equal_to<mlir::Operation *>,std::hash<mlir::Operation *>,true>,std::allocator<std::__hash_value_type<mlir::Operation *,std::unordered_map<void *,MPSGraphTensorData * {__strong}>>>>::__do_rehash<true>(a1, prime);
-  return 0;
-}
-
-uint64_t **std::__hash_table<std::__hash_value_type<std::string,MPSMLIROps>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,MPSMLIROps>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,MPSMLIROps>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,MPSMLIROps>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,MPSMLIROps> const&>(void *a1, uint64_t a2)
-{
-  v2 = a2;
-  v4 = *(a2 + 8);
-  if (*(a2 + 23) >= 0)
-  {
-    v5 = *(a2 + 23);
-  }
-
-  else
-  {
-    a2 = *a2;
-    v5 = v4;
-  }
-
-  v6 = std::__murmur2_or_cityhash<unsigned long,64ul>::operator()[abi:ne200100](&v24, a2, v5);
-  v7 = v6;
-  v8 = a1[1];
-  if (!*&v8)
-  {
-    goto LABEL_43;
-  }
-
-  v9 = vcnt_s8(v8);
-  v9.i16[0] = vaddlv_u8(v9);
-  if (v9.u32[0] > 1uLL)
-  {
-    v10 = v6;
-    if (v6 >= *&v8)
-    {
-      v10 = v6 % *&v8;
-    }
-  }
-
-  else
-  {
-    v10 = (*&v8 - 1) & v6;
-  }
-
-  v11 = *(*a1 + 8 * v10);
-  if (!v11 || (v12 = *v11) == 0)
-  {
-LABEL_43:
-    operator new();
-  }
-
-  v13 = v2[23];
-  if (v13 >= 0)
-  {
-    v14 = v2[23];
-  }
-
-  else
-  {
-    v14 = *(v2 + 1);
-  }
-
-  if (v13 < 0)
-  {
-    v2 = *v2;
-  }
-
-  if (v9.u32[0] < 2uLL)
-  {
-    while (1)
-    {
-      v19 = v12[1];
-      if (v19 == v7)
-      {
-        v20 = *(v12 + 39);
-        v21 = v20;
-        if (v20 < 0)
-        {
-          v20 = v12[3];
-        }
-
-        if (v20 == v14)
-        {
-          v22 = v21 >= 0 ? (v12 + 2) : v12[2];
-          if (!memcmp(v22, v2, v14))
-          {
-            return v12;
-          }
-        }
-      }
-
-      else if ((v19 & (*&v8 - 1)) != v10)
-      {
-        goto LABEL_43;
-      }
-
-      v12 = *v12;
-      if (!v12)
-      {
-        goto LABEL_43;
-      }
-    }
-  }
-
-  while (1)
-  {
-    v15 = v12[1];
-    if (v15 == v7)
-    {
-      break;
-    }
-
-    if (v15 >= *&v8)
-    {
-      v15 %= *&v8;
-    }
-
-    if (v15 != v10)
-    {
-      goto LABEL_43;
-    }
-
-LABEL_20:
-    v12 = *v12;
-    if (!v12)
-    {
-      goto LABEL_43;
-    }
-  }
-
-  v16 = *(v12 + 39);
-  v17 = v16;
-  if (v16 < 0)
-  {
-    v16 = v12[3];
-  }
-
-  if (v16 != v14)
-  {
-    goto LABEL_20;
-  }
-
-  v18 = v17 >= 0 ? (v12 + 2) : v12[2];
-  if (memcmp(v18, v2, v14))
-  {
-    goto LABEL_20;
-  }
-
-  return v12;
-}
-
-void sub_1E07ED510(_Unwind_Exception *a1, uint64_t a2, ...)
-{
-  va_start(va, a2);
-  std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,MPSMLIRViewerSPIOps>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::string,MPSMLIRViewerSPIOps>,void *>>>>::~unique_ptr[abi:ne200100](va);
-  _Unwind_Resume(a1);
-}
-
-void sub_1E07ED524(_Unwind_Exception *a1, uint64_t a2, ...)
-{
-  va_start(va, a2);
-  std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,MPSMLIRViewerSPIOps>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::string,MPSMLIRViewerSPIOps>,void *>>>>::~unique_ptr[abi:ne200100](va);
-  _Unwind_Resume(a1);
-}
-
-uint64_t std::unordered_map<mlir::Operation *,std::unordered_map<void *,MPSGraphTensorData * {__strong}>>::~unordered_map[abi:ne200100](uint64_t a1)
-{
-  v2 = *(a1 + 16);
-  if (v2)
-  {
-    do
-    {
-      v5 = *v2;
-      v6 = v2[5];
-      if (v6)
-      {
-        do
-        {
-          v7 = *v6;
-
-          operator delete(v6);
-          v6 = v7;
-        }
-
-        while (v7);
-      }
-
-      v8 = v2[3];
-      v2[3] = 0;
-      if (v8)
-      {
-        operator delete(v8);
-      }
-
-      operator delete(v2);
-      v2 = v5;
-    }
-
-    while (v5);
-  }
-
-  v3 = *a1;
-  *a1 = 0;
-  if (v3)
-  {
-    operator delete(v3);
-  }
-
-  return a1;
-}
-
-uint64_t std::unordered_map<std::string,MPSMLIROps>::~unordered_map[abi:ne200100](uint64_t a1)
-{
-  v2 = *(a1 + 16);
-  if (v2)
-  {
-    do
-    {
-      v5 = *v2;
-      if (*(v2 + 39) < 0)
-      {
-        operator delete(v2[2]);
-      }
-
-      operator delete(v2);
-      v2 = v5;
-    }
-
-    while (v5);
-  }
-
-  v3 = *a1;
-  *a1 = 0;
-  if (v3)
-  {
-    operator delete(v3);
-  }
-
-  return a1;
-}
-
-GPU::MemrefBufferizer **std::unique_ptr<GPU::MemrefBufferizer>::~unique_ptr[abi:ne200100](GPU::MemrefBufferizer **a1)
-{
-  v2 = *a1;
-  *a1 = 0;
-  if (v2)
-  {
-    GPU::MemrefBufferizer::~MemrefBufferizer(v2);
-  }
-
-  return a1;
-}
-
-void llvm::DenseMap<mlir::FunctionOpInterface,std::unique_ptr<GPURegionRuntime::MPSRuntimeEntryInfo>,llvm::DenseMapInfo<mlir::FunctionOpInterface,void>,llvm::detail::DenseMapPair<mlir::FunctionOpInterface,std::unique_ptr<GPURegionRuntime::MPSRuntimeEntryInfo>>>::~DenseMap(uint64_t a1)
-{
-  v2 = *(a1 + 16);
-  v3 = *a1;
-  if (v2)
-  {
-    v4 = 24 * v2;
-    v5 = (v3 + 16);
-    do
-    {
-      if ((*(v5 - 2) | 0x1000) != 0xFFFFFFFFFFFFF000)
-      {
-        v6 = *v5;
-        *v5 = 0;
-        if (v6)
-        {
-          GPURegionRuntime::MPSRuntimeEntryInfo::~MPSRuntimeEntryInfo(v6);
-          MEMORY[0x1E12E5B90]();
-        }
-      }
-
-      v5 += 3;
-      v4 -= 24;
-    }
-
-    while (v4);
-    v3 = *a1;
-    v7 = 24 * *(a1 + 16);
-  }
-
-  else
-  {
-    v7 = 0;
-  }
-
-  llvm::deallocate_buffer(v3, v7);
-}
-
-void GPURegionRuntime::MPSRuntimeEntryInfo::~MPSRuntimeEntryInfo(GPURegionRuntime::MPSRuntimeEntryInfo *this)
-{
-  v2 = *(this + 6);
-  *(this + 6) = 0;
-  if (v2)
-  {
-    v3 = *(v2 + 192);
-    if (v3 != (v2 + 208))
-    {
-      free(v3);
-    }
-
-    v4 = *(v2 + 128);
-    if (v4 != (v2 + 144))
-    {
-      free(v4);
-    }
-
-    v5 = *(v2 + 64);
-    if (v5 != (v2 + 80))
-    {
-      free(v5);
-    }
-
-    if (*v2 != v2 + 16)
-    {
-      free(*v2);
-    }
-
-    MEMORY[0x1E12E5B90](v2, 0x10A0C404A37C4BFLL);
-  }
-
-  v6 = *(this + 4);
-  *(this + 4) = 0;
-  if (v6)
-  {
-    (*(*v6 + 8))(v6);
-  }
-
-  v7 = *(this + 3);
-  *(this + 3) = 0;
-  if (v7)
-  {
-    llvm::deallocate_buffer(*(v7 + 208), (16 * *(v7 + 224)));
-  }
-}
-
-uint64_t std::unordered_map<unsigned long,objc_object  {objcproto9MTLBuffer}* {__strong}>::~unordered_map[abi:ne200100](uint64_t a1)
-{
-  v2 = *(a1 + 16);
-  if (v2)
-  {
-    do
-    {
-      v3 = *v2;
-
-      operator delete(v2);
-      v2 = v3;
-    }
-
-    while (v3);
-  }
-
-  v4 = *a1;
-  *a1 = 0;
-  if (v4)
-  {
-    operator delete(v4);
-  }
-
-  return a1;
-}
-
-uint64_t std::unordered_map<mlir::Operation *,std::unordered_map<void *,mlir::ElementsAttr>>::~unordered_map[abi:ne200100](uint64_t a1)
-{
-  v2 = *(a1 + 16);
-  if (v2)
-  {
-    do
-    {
-      v5 = *v2;
-      v6 = v2[5];
-      if (v6)
-      {
-        do
-        {
-          v7 = *v6;
-          operator delete(v6);
-          v6 = v7;
-        }
-
-        while (v7);
-      }
-
-      v8 = v2[3];
-      v2[3] = 0;
-      if (v8)
-      {
-        operator delete(v8);
-      }
-
-      operator delete(v2);
-      v2 = v5;
-    }
-
-    while (v5);
-  }
-
-  v3 = *a1;
-  *a1 = 0;
-  if (v3)
-  {
-    operator delete(v3);
-  }
-
-  return a1;
-}
-
-uint64_t std::unordered_map<mlir::Operation *,std::unique_ptr<GPU::BaseOpHandler>>::~unordered_map[abi:ne200100](uint64_t a1)
-{
-  v2 = *(a1 + 16);
-  if (v2)
-  {
-    do
-    {
-      v5 = *v2;
-      v6 = v2[3];
-      v2[3] = 0;
-      if (v6)
-      {
-        (*(*v6 + 40))(v6);
-      }
-
-      operator delete(v2);
-      v2 = v5;
-    }
-
-    while (v5);
-  }
-
-  v3 = *a1;
-  *a1 = 0;
-  if (v3)
-  {
-    operator delete(v3);
-  }
-
-  return a1;
-}
-
-void llvm::function_ref<void ()(mlir::Operation *)>::callback_fn<GPU::GPURegionCallOpHandler::GPURegionCallOpHandler(GPU::BaseOpHandler *)::$_1>(uint64_t *a1, uint64_t a2)
-{
-  v20 = *MEMORY[0x1E69E9840];
-  v4 = *a1;
-  ParentOp = *(a2 + 16);
-  if (ParentOp)
-  {
-    ParentOp = mlir::Block::getParentOp(ParentOp);
-  }
-
-  if (ParentOp == *(v4 + 40))
-  {
-    v6 = *(v4 + 176);
-    if (*(*(v6 + 592) + 16) != a2)
-    {
-      v16 = a2;
-      v7 = std::__hash_table<std::__hash_value_type<mlir::Operation *,std::unordered_map<void *,MPSGraphTensorData * {__strong}>>,std::__unordered_map_hasher<mlir::Operation *,std::__hash_value_type<mlir::Operation *,std::unordered_map<void *,MPSGraphTensorData * {__strong}>>,std::hash<mlir::Operation *>,std::equal_to<mlir::Operation *>,true>,std::__unordered_map_equal<mlir::Operation *,std::__hash_value_type<mlir::Operation *,std::unordered_map<void *,MPSGraphTensorData * {__strong}>>,std::equal_to<mlir::Operation *>,std::hash<mlir::Operation *>,true>,std::allocator<std::__hash_value_type<mlir::Operation *,std::unordered_map<void *,MPSGraphTensorData * {__strong}>>>>::find<mlir::Operation *>((v6 + 248), &v16);
-      if (!v7)
-      {
-        std::__throw_out_of_range[abi:ne200100]("unordered_map::at: key not found");
-      }
-
-      v8 = *(v7[3] + 120);
-      if (!*(a2 + 47) || (v21.var0 = "mpsx.parallelGPURegion", v21.var1 = 22, InherentAttr = mlir::Operation::getInherentAttr(a2, v21), (v10 & 1) == 0))
-      {
-        v22.var0 = "mpsx.parallelGPURegion";
-        v22.var1 = 22;
-        InherentAttr = mlir::DictionaryAttr::get((a2 + 56), v22);
-      }
-
-      if (InherentAttr)
-      {
-        v11 = *(*InherentAttr + 136) == &mlir::detail::TypeIDResolver<mlir::UnitAttr,void>::id;
-        v12 = *(v4 + 224);
-        if (v12)
-        {
-          goto LABEL_11;
-        }
-      }
-
-      else
-      {
-        v11 = 0;
-        v12 = *(v4 + 224);
-        if (v12)
-        {
-LABEL_11:
-          if (*a1[1] == 1 && v11)
-          {
-LABEL_18:
-            v13 = *(v4 + 216) + 88 * *(v4 + 224);
-            v14 = *(v13 - 80);
-            if (v14 >= *(v13 - 76))
-            {
-              llvm::SmallVectorBase<unsigned int>::grow_pod(v13 - 88, v13 - 72, v14 + 1, 16);
-              LODWORD(v14) = *(v13 - 80);
-            }
-
-            v15 = (*(v13 - 88) + 16 * v14);
-            *v15 = a2;
-            v15[1] = v8;
-            ++*(v13 - 80);
-            *a1[1] = v11;
-            return;
-          }
-
-          GPU::GPURegionCallOpHandler::ScheduleStep::finalize((*(v4 + 216) + 88 * v12 - 88));
-          v16 = v18;
-          v17 = 0x400000000;
-          v19 = 1;
-          llvm::SmallVectorTemplateBase<GPU::GPURegionCallOpHandler::ScheduleStep,false>::push_back(v4 + 216, &v16);
-LABEL_16:
-          if (v16 != v18)
-          {
-            free(v16);
-          }
-
-          goto LABEL_18;
-        }
-      }
-
-      v16 = v18;
-      v17 = 0x400000000;
-      v19 = 1;
-      llvm::SmallVectorTemplateBase<GPU::GPURegionCallOpHandler::ScheduleStep,false>::push_back(v4 + 216, &v16);
-      goto LABEL_16;
     }
   }
 }

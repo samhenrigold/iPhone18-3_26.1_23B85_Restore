@@ -92,9 +92,9 @@
   y = change.origin.y;
   x = change.origin.x;
   selfCopy = self;
-  v8 = sub_1002599BC(x, y, width, height);
+  v9 = sub_1002599BC(selfCopy, v8, x, y, width, height);
 
-  return v8 & 1;
+  return v9 & 1;
 }
 
 - (id)invalidationContextForBoundsChange:(CGRect)change
@@ -104,16 +104,16 @@
   y = change.origin.y;
   x = change.origin.x;
   selfCopy = self;
-  v8 = sub_100259B54(x, y, width, height);
+  v9 = sub_100259B54(selfCopy, v8, x, y, width, height);
 
-  return v8;
+  return v9;
 }
 
 - (void)invalidateLayoutWithContext:(id)context
 {
   contextCopy = context;
   selfCopy = self;
-  sub_100259DF8(contextCopy);
+  sub_100259DF8(contextCopy, selfCopy);
 }
 
 @end

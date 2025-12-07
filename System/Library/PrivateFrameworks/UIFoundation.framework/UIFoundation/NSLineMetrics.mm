@@ -39,7 +39,7 @@ void __29___NSLineMetrics__hasShaping__block_invoke()
   _hasShaping_cjShapingLanguages = v1;
 }
 
-uint64_t __29___NSLineMetrics__hasShaping__block_invoke_2(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, _BYTE *a5)
+char *__29___NSLineMetrics__hasShaping__block_invoke_2(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, _BYTE *a5)
 {
   result = [a2 compositionLanguage];
   if ((result - 2) <= 2)
@@ -53,16 +53,20 @@ uint64_t __29___NSLineMetrics__hasShaping__block_invoke_2(uint64_t a1, void *a2,
 
 uint64_t __59___NSLineMetrics__initialAdvanceForCharacterAtIndex_range___block_invoke()
 {
-  _initialAdvanceForCharacterAtIndex_range__openingMarkCharacterSet = [MEMORY[0x1E696AB08] characterSetWithCharactersInString:@"「『（〔【〖〈《｛‘“"];
+  v0 = [MEMORY[0x1E696AB08] characterSetWithCharactersInString:@"「『（〔【〖〈《｛‘“"];
+  v1 = _initialAdvanceForCharacterAtIndex_range__openingMarkCharacterSet;
+  _initialAdvanceForCharacterAtIndex_range__openingMarkCharacterSet = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 uint64_t __57___NSLineMetrics__finalAdvanceForCharacterAtIndex_range___block_invoke()
 {
-  _finalAdvanceForCharacterAtIndex_range__closingMarkCharacterSet = [MEMORY[0x1E696AB08] characterSetWithCharactersInString:@"」』）〕】〗〉》｝’”。、\ff0c：；？！．"];
+  v0 = [MEMORY[0x1E696AB08] characterSetWithCharactersInString:@"」』）〕】〗〉》｝’”。、\ff0c：；？！．"];
+  v1 = _finalAdvanceForCharacterAtIndex_range__closingMarkCharacterSet;
+  _finalAdvanceForCharacterAtIndex_range__closingMarkCharacterSet = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 @end

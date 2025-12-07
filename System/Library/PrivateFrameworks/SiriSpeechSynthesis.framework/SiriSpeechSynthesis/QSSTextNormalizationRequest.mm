@@ -255,55 +255,7 @@ flatbuffers::DetachedBuffer *__43__QSSTextNormalizationRequest_flatbuffData__blo
       v19 = v10->_root;
       if (v19)
       {
-        if (!flatbuffers::Verifier::VerifyTableStart(&v38, v11->_root->var0) || !flatbuffers::Table::VerifyOffset(v19, &v38, 4u))
-        {
-          goto LABEL_44;
-        }
-
-        v20 = (v19 - *v19);
-        if (*v20 >= 5u && (v21 = v20[2]) != 0)
-        {
-          v22 = v19 + v21 + *(v19 + v21);
-        }
-
-        else
-        {
-          v22 = 0;
-        }
-
-        if (!flatbuffers::Verifier::VerifyString(&v38, v22) || !flatbuffers::Table::VerifyOffset(v19, &v38, 6u))
-        {
-          goto LABEL_44;
-        }
-
-        v23 = (v19 - *v19);
-        if (*v23 >= 7u && (v24 = v23[3]) != 0)
-        {
-          v25 = v19 + v24 + *(v19 + v24);
-        }
-
-        else
-        {
-          v25 = 0;
-        }
-
-        if (!flatbuffers::Verifier::VerifyString(&v38, v25) || !flatbuffers::Table::VerifyOffset(v19, &v38, 8u))
-        {
-          goto LABEL_44;
-        }
-
-        v26 = (v19 - *v19);
-        if (*v26 >= 9u && (v27 = v26[4]) != 0)
-        {
-          v28 = v19 + v27 + *(v19 + v27);
-        }
-
-        else
-        {
-          v28 = 0;
-        }
-
-        if (!flatbuffers::Verifier::VerifyString(&v38, v28) || !flatbuffers::Table::VerifyOffset(v19, &v38, 0xAu) || ((v29 = (v19 - *v19), *v29 < 0xBu) || (v30 = v29[5]) == 0 ? (v31 = 0) : (v31 = v19 + v30 + *(v19 + v30)), !flatbuffers::Verifier::VerifyString(&v38, v31) || (v32 = (v19 - *v19), *v32 >= 0xDu) && (v33 = v32[6]) != 0 && (v39 < 5 || v39 - 4 < v19 + v33 - v38)))
+        if (!flatbuffers::Verifier::VerifyTableStart(&v38, v11->_root->var0) || !flatbuffers::Table::VerifyOffset(v19, &v38, 4u) || ((v20 = (v19 - *v19), *v20 < 5u) || (v21 = v20[2]) == 0 ? (v22 = 0) : (v22 = v19 + v21 + *(v19 + v21)), !flatbuffers::Verifier::VerifyString(&v38, v22) || !flatbuffers::Table::VerifyOffset(v19, &v38, 6u) || ((v23 = (v19 - *v19), *v23 < 7u) || (v24 = v23[3]) == 0 ? (v25 = 0) : (v25 = v19 + v24 + *(v19 + v24)), !flatbuffers::Verifier::VerifyString(&v38, v25) || !flatbuffers::Table::VerifyOffset(v19, &v38, 8u) || ((v26 = (v19 - *v19), *v26 < 9u) || (v27 = v26[4]) == 0 ? (v28 = 0) : (v28 = v19 + v27 + *(v19 + v27)), !flatbuffers::Verifier::VerifyString(&v38, v28) || !flatbuffers::Table::VerifyOffset(v19, &v38, 0xAu) || ((v29 = (v19 - *v19), *v29 < 0xBu) || (v30 = v29[5]) == 0 ? (v31 = 0) : (v31 = v19 + v30 + *(v19 + v30)), !flatbuffers::Verifier::VerifyString(&v38, v31) || (v32 = (v19 - *v19), *v32 >= 0xDu) && (v33 = v32[6]) != 0 && (v39 < 5 || v39 - 4 < v19 + v33 - v38))))))
         {
 LABEL_44:
           v36 = 0;

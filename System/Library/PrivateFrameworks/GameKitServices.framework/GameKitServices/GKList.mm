@@ -16,10 +16,10 @@
 
 - (GKList)initWithSize:(unint64_t)size
 {
-  v11 = *MEMORY[0x277D85DE8];
-  v9.receiver = self;
-  v9.super_class = GKList;
-  v4 = [(GKList *)&v9 init];
+  v10 = *MEMORY[0x277D85DE8];
+  v8.receiver = self;
+  v8.super_class = GKList;
+  v4 = [(GKList *)&v8 init];
   if (v4)
   {
     if (size)
@@ -38,12 +38,12 @@
     v4->_items = v6;
     if (v6)
     {
-      v10.__sig = 0xAAAAAAAAAAAAAAAALL;
-      *v10.__opaque = 0xAAAAAAAAAAAAAAAALL;
-      pthread_mutexattr_init(&v10);
-      pthread_mutexattr_settype(&v10, 2);
-      pthread_mutex_init(&v4->_lock, &v10);
-      pthread_mutexattr_destroy(&v10);
+      v9.__sig = 0xAAAAAAAAAAAAAAAALL;
+      *v9.__opaque = 0xAAAAAAAAAAAAAAAALL;
+      pthread_mutexattr_init(&v9);
+      pthread_mutexattr_settype(&v9, 2);
+      pthread_mutex_init(&v4->_lock, &v9);
+      pthread_mutexattr_destroy(&v9);
     }
 
     else
@@ -57,11 +57,10 @@
         }
       }
 
-      v4 = 0;
+      return 0;
     }
   }
 
-  v7 = *MEMORY[0x277D85DE8];
   return v4;
 }
 
@@ -116,7 +115,7 @@
 
 - (void)addID:(unsigned int)d
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   [(GKList *)self lock];
   count = self->_count;
   if (count)
@@ -152,7 +151,6 @@ LABEL_9:
     self->_count = count + 1;
     v10[count] = d;
 LABEL_10:
-    v11 = *MEMORY[0x277D85DE8];
 
     [(GKList *)self unlock];
     return;
@@ -160,29 +158,28 @@ LABEL_10:
 
   if (VRTraceGetErrorLogLevelForModule() >= 3)
   {
-    v12 = VRTraceErrorLogLevelToCSTR();
-    v13 = *MEMORY[0x277CE5818];
+    v11 = VRTraceErrorLogLevelToCSTR();
+    v12 = *MEMORY[0x277CE5818];
     if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_ERROR))
     {
-      v15 = *__error();
-      v16 = 136316418;
-      v17 = v12;
-      v18 = 2080;
-      v19 = "[GKList addID:]";
-      v20 = 1024;
-      v21 = 281;
-      v22 = 2048;
+      v13 = *__error();
+      v14 = 136316418;
+      v15 = v11;
+      v16 = 2080;
+      v17 = "[GKList addID:]";
+      v18 = 1024;
+      v19 = 281;
+      v20 = 2048;
       selfCopy = self;
-      v24 = 1024;
+      v22 = 1024;
       dCopy = d;
-      v26 = 1024;
-      v27 = v15;
-      _os_log_error_impl(&dword_24E50C000, v13, OS_LOG_TYPE_ERROR, " [%s] %s:%d GKList[%p] addID:[%d] realloc error %d", &v16, 0x32u);
+      v24 = 1024;
+      v25 = v13;
+      _os_log_error_impl(&dword_24E50C000, v12, OS_LOG_TYPE_ERROR, " [%s] %s:%d GKList[%p] addID:[%d] realloc error %d", &v14, 0x32u);
     }
   }
 
   [(GKList *)self unlock];
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)copyItemsInto:(id)into
@@ -264,27 +261,23 @@ LABEL_10:
 - (void)lock
 {
   OUTLINED_FUNCTION_6_2();
-  v7 = *MEMORY[0x277D85DE8];
-  v0 = *__error();
+  __error();
   OUTLINED_FUNCTION_3_0();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_1_2();
   OUTLINED_FUNCTION_4_0();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x2Cu);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x2Cu);
 }
 
 - (void)unlock
 {
   OUTLINED_FUNCTION_6_2();
-  v7 = *MEMORY[0x277D85DE8];
-  v0 = *__error();
+  __error();
   OUTLINED_FUNCTION_3_0();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_1_2();
   OUTLINED_FUNCTION_4_0();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x2Cu);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x2Cu);
 }
 
 - (void)print
@@ -310,13 +303,11 @@ LABEL_10:
 
 - (void)initWithSize:.cold.1()
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v0 = *__error();
+  __error();
   OUTLINED_FUNCTION_2_2();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_4_0();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x22u);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x22u);
 }
 
 @end

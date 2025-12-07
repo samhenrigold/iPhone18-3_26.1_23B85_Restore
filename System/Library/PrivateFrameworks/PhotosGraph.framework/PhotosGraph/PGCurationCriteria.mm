@@ -13,7 +13,7 @@
 
 - (id)peopleTraitStringWithGraph:(id)graph
 {
-  v68 = *MEMORY[0x277D85DE8];
+  v67 = *MEMORY[0x277D85DE8];
   graphCopy = graph;
   v5 = objc_alloc(MEMORY[0x277CBEB18]);
   items = [(PGCurationSetTrait *)self->_peopleTrait items];
@@ -24,71 +24,71 @@
   allObjects2 = [negativeItems allObjects];
   [v8 addObjectsFromArray:allObjects2];
 
-  v49 = v8;
-  v50 = graphCopy;
+  v48 = v8;
+  v49 = graphCopy;
   v11 = [graphCopy personNodesForPersonLocalIdentifiers:v8];
   v12 = [objc_alloc(MEMORY[0x277CBEB38]) initWithCapacity:{objc_msgSend(v11, "count")}];
+  v59 = 0u;
   v60 = 0u;
   v61 = 0u;
   v62 = 0u;
-  v63 = 0u;
   v13 = v11;
-  v14 = [v13 countByEnumeratingWithState:&v60 objects:v67 count:16];
+  v14 = [v13 countByEnumeratingWithState:&v59 objects:v66 count:16];
   if (v14)
   {
     v15 = v14;
-    v16 = *v61;
+    v16 = *v60;
     do
     {
       for (i = 0; i != v15; ++i)
       {
-        if (*v61 != v16)
+        if (*v60 != v16)
         {
           objc_enumerationMutation(v13);
         }
 
-        v18 = *(*(&v60 + 1) + 8 * i);
+        v18 = *(*(&v59 + 1) + 8 * i);
         localIdentifier = [v18 localIdentifier];
         [v12 setObject:v18 forKeyedSubscript:localIdentifier];
       }
 
-      v15 = [v13 countByEnumeratingWithState:&v60 objects:v67 count:16];
+      v15 = [v13 countByEnumeratingWithState:&v59 objects:v66 count:16];
     }
 
     while (v15);
   }
 
-  v48 = v13;
+  v47 = v13;
 
   v20 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"self" ascending:1];
-  v66 = v20;
-  v21 = [MEMORY[0x277CBEA60] arrayWithObjects:&v66 count:1];
+  v65 = v20;
+  v21 = [MEMORY[0x277CBEA60] arrayWithObjects:&v65 count:1];
 
   v22 = objc_alloc_init(MEMORY[0x277CCAB68]);
+  v55 = 0u;
   v56 = 0u;
   v57 = 0u;
   v58 = 0u;
-  v59 = 0u;
   selfCopy = self;
   items2 = [(PGCurationSetTrait *)self->_peopleTrait items];
-  v51 = v21;
+  v50 = v21;
   v24 = [items2 sortedArrayUsingDescriptors:v21];
 
-  v25 = [v24 countByEnumeratingWithState:&v56 objects:v65 count:16];
+  v25 = [v24 countByEnumeratingWithState:&v55 objects:v64 count:16];
   if (v25)
   {
     v26 = v25;
-    v27 = *v57;
+    v27 = *v56;
     do
     {
       for (j = 0; j != v26; ++j)
       {
-        if (*v57 != v27)
+        if (*v56 != v27)
         {
           objc_enumerationMutation(v24);
         }
 
-        v29 = *(*(&v56 + 1) + 8 * j);
+        v29 = *(*(&v55 + 1) + 8 * j);
         v30 = [v12 objectForKeyedSubscript:v29];
         name = [v30 name];
         v32 = name;
@@ -105,34 +105,34 @@
         [v22 appendFormat:@"+ %@", v33];
       }
 
-      v26 = [v24 countByEnumeratingWithState:&v56 objects:v65 count:16];
+      v26 = [v24 countByEnumeratingWithState:&v55 objects:v64 count:16];
     }
 
     while (v26);
   }
 
-  v54 = 0u;
-  v55 = 0u;
-  v52 = 0u;
   v53 = 0u;
+  v54 = 0u;
+  v51 = 0u;
+  v52 = 0u;
   negativeItems2 = [(PGCurationSetTrait *)selfCopy->_peopleTrait negativeItems];
-  v35 = [negativeItems2 sortedArrayUsingDescriptors:v51];
+  v35 = [negativeItems2 sortedArrayUsingDescriptors:v50];
 
-  v36 = [v35 countByEnumeratingWithState:&v52 objects:v64 count:16];
+  v36 = [v35 countByEnumeratingWithState:&v51 objects:v63 count:16];
   if (v36)
   {
     v37 = v36;
-    v38 = *v53;
+    v38 = *v52;
     do
     {
       for (k = 0; k != v37; ++k)
       {
-        if (*v53 != v38)
+        if (*v52 != v38)
         {
           objc_enumerationMutation(v35);
         }
 
-        v40 = *(*(&v52 + 1) + 8 * k);
+        v40 = *(*(&v51 + 1) + 8 * k);
         v41 = [v12 objectForKeyedSubscript:v40];
         name2 = [v41 name];
         v43 = name2;
@@ -149,13 +149,11 @@
         [v22 appendFormat:@"- %@", v44];
       }
 
-      v37 = [v35 countByEnumeratingWithState:&v52 objects:v64 count:16];
+      v37 = [v35 countByEnumeratingWithState:&v51 objects:v63 count:16];
     }
 
     while (v37);
   }
-
-  v45 = *MEMORY[0x277D85DE8];
 
   return v22;
 }
@@ -234,31 +232,31 @@
 
 - (double)_scoreForSceneClassifications:(id)classifications withSDFoodTrait:(id)trait curationModel:(id)model traitFailed:(BOOL *)failed
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   classificationsCopy = classifications;
   modelCopy = model;
   *failed = 1;
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
   v10 = classificationsCopy;
-  v11 = [v10 countByEnumeratingWithState:&v22 objects:v26 count:16];
+  v11 = [v10 countByEnumeratingWithState:&v21 objects:v25 count:16];
   v12 = 0.0;
   if (v11)
   {
     v13 = v11;
-    v14 = *v23;
+    v14 = *v22;
     while (2)
     {
       for (i = 0; i != v13; ++i)
       {
-        if (*v23 != v14)
+        if (*v22 != v14)
         {
           objc_enumerationMutation(v10);
         }
 
-        v16 = *(*(&v22 + 1) + 8 * i);
+        v16 = *(*(&v21 + 1) + 8 * i);
         if ([v16 extendedSceneIdentifier] == 2147482622)
         {
           sdModel = [modelCopy sdModel];
@@ -276,7 +274,7 @@
         }
       }
 
-      v13 = [v10 countByEnumeratingWithState:&v22 objects:v26 count:16];
+      v13 = [v10 countByEnumeratingWithState:&v21 objects:v25 count:16];
       if (v13)
       {
         continue;
@@ -288,13 +286,12 @@
 
 LABEL_12:
 
-  v20 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
 - (double)_scoreForSceneClassifications:(id)classifications withScenesTrait:(id)trait curationModel:(id)model traitFailed:(BOOL *)failed
 {
-  v52 = *MEMORY[0x277D85DE8];
+  v51 = *MEMORY[0x277D85DE8];
   classificationsCopy = classifications;
   traitCopy = trait;
   modelCopy = model;
@@ -303,33 +300,33 @@ LABEL_12:
   if (v13)
   {
     v14 = v13;
-    v42 = sceneNames;
-    v43 = modelCopy;
+    v41 = sceneNames;
+    v42 = modelCopy;
     failedCopy = failed;
-    v45 = traitCopy;
+    v44 = traitCopy;
     v15 = [traitCopy confidenceThresholdBySceneIdentifierWithCurationModel:modelCopy];
+    v46 = 0u;
     v47 = 0u;
     v48 = 0u;
     v49 = 0u;
-    v50 = 0u;
-    v46 = classificationsCopy;
+    v45 = classificationsCopy;
     v16 = classificationsCopy;
-    v17 = [v16 countByEnumeratingWithState:&v47 objects:v51 count:16];
+    v17 = [v16 countByEnumeratingWithState:&v46 objects:v50 count:16];
     if (v17)
     {
       v18 = v17;
       v19 = 0;
-      v20 = *v48;
+      v20 = *v47;
       while (2)
       {
         for (i = 0; i != v18; ++i)
         {
-          if (*v48 != v20)
+          if (*v47 != v20)
           {
             objc_enumerationMutation(v16);
           }
 
-          v22 = *(*(&v47 + 1) + 8 * i);
+          v22 = *(*(&v46 + 1) + 8 * i);
           extendedSceneIdentifier = [v22 extendedSceneIdentifier];
           v24 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:extendedSceneIdentifier];
           v25 = [v15 objectForKeyedSubscript:v24];
@@ -352,7 +349,7 @@ LABEL_12:
           }
         }
 
-        v18 = [v16 countByEnumeratingWithState:&v47 objects:v51 count:16];
+        v18 = [v16 countByEnumeratingWithState:&v46 objects:v50 count:16];
         if (v18)
         {
           continue;
@@ -369,8 +366,8 @@ LABEL_12:
 
 LABEL_17:
 
-    traitCopy = v45;
-    targetNumberOfMatches = [v45 targetNumberOfMatches];
+    traitCopy = v44;
+    targetNumberOfMatches = [v44 targetNumberOfMatches];
     if (targetNumberOfMatches)
     {
       v31 = targetNumberOfMatches;
@@ -382,9 +379,9 @@ LABEL_17:
     }
 
     v32 = v31;
-    [v45 minimumScore];
+    [v44 minimumScore];
     v34 = v33;
-    isMatchingRequired = [v45 isMatchingRequired];
+    isMatchingRequired = [v44 isMatchingRequired];
     v36 = v19 / v32;
     if (isMatchingRequired)
     {
@@ -413,9 +410,9 @@ LABEL_17:
       *failedCopy &= v39;
     }
 
-    classificationsCopy = v46;
-    sceneNames = v42;
-    modelCopy = v43;
+    classificationsCopy = v45;
+    sceneNames = v41;
+    modelCopy = v42;
   }
 
   else
@@ -423,7 +420,6 @@ LABEL_17:
     v29 = 0.0;
   }
 
-  v40 = *MEMORY[0x277D85DE8];
   return v29;
 }
 
@@ -781,42 +777,40 @@ LABEL_64:
 
 - (id)passingAssetsInAssets:(id)assets
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   assetsCopy = assets;
   v5 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v6 = assetsCopy;
-  v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v15;
+    v9 = *v14;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v15 != v9)
+        if (*v14 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v14 + 1) + 8 * i);
-        if ([(PGCurationCriteria *)self passesForItem:v11 score:0, v14])
+        v11 = *(*(&v13 + 1) + 8 * i);
+        if ([(PGCurationCriteria *)self passesForItem:v11 score:0, v13])
         {
           [v5 addObject:v11];
         }
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v8);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v5;
 }

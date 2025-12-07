@@ -33,7 +33,7 @@
     v11.receiver = self;
     v11.super_class = RWIProtocolDOMMediaStats;
     v5 = [(RWIProtocolJSONObject *)&v11 objectForKey:@"audio"];
-    [v5 toJSONObject];
+    objc_msgSend_toJSONObject(v5);
     v6 = v12;
     ++*v12;
     v13 = v6;
@@ -95,7 +95,7 @@
     v11.receiver = self;
     v11.super_class = RWIProtocolDOMMediaStats;
     v5 = [(RWIProtocolJSONObject *)&v11 objectForKey:@"video"];
-    [v5 toJSONObject];
+    objc_msgSend_toJSONObject(v5);
     v6 = v12;
     ++*v12;
     v13 = v6;
@@ -172,7 +172,7 @@
     v11.receiver = self;
     v11.super_class = RWIProtocolDOMMediaStats;
     v5 = [(RWIProtocolJSONObject *)&v11 objectForKey:@"viewport"];
-    [v5 toJSONObject];
+    objc_msgSend_toJSONObject(v5);
     v6 = v12;
     ++*v12;
     v13 = v6;
@@ -234,7 +234,7 @@
     v11.receiver = self;
     v11.super_class = RWIProtocolDOMMediaStats;
     v5 = [(RWIProtocolJSONObject *)&v11 objectForKey:@"quality"];
-    [v5 toJSONObject];
+    objc_msgSend_toJSONObject(v5);
     v6 = v12;
     ++*v12;
     v13 = v6;

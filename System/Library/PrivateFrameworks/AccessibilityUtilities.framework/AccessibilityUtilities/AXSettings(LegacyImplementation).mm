@@ -1,4 +1,5 @@
 @interface AXSettings(LegacyImplementation)
+- (void)fullKeyboardAccessCommandMapData;
 - (void)guidedAccessDefaultToneIdentifierForTimeRestrictionEvents;
 - (void)payWithSwitchControl;
 - (void)reachabilityEnabled;
@@ -49,6 +50,13 @@
   [currentHandler handleFailureInFunction:v1 file:@"AXSettings.m" lineNumber:82 description:{@"%s", dlerror()}];
 
   __break(1u);
+}
+
+- (void)fullKeyboardAccessCommandMapData
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = @"CommandMapData";
+  OUTLINED_FUNCTION_0_3(&dword_18B15E000, self, a3, "Unexpected object type for preference key: %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)reachabilityEnabled

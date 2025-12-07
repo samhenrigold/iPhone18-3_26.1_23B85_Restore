@@ -55,23 +55,21 @@
 
 - (void)reset
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v1 = *self;
+  v6 = 136315394;
   OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_2_0(&dword_2557E2000, v2, v3, "%s  Failed to delete %@", v4, v5, v6, v7, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2_0(&dword_2557E2000, v0, v1, "%s  Failed to delete %@", v2, v3, v4, v5, v6);
 }
 
 - (void)setContents:(id)contents
 {
   contentsCopy = contents;
   v5 = open([(NSURL *)self->_url fileSystemRepresentation], 1573, 384);
-  if (v5 < 0)
+  if ((v5 & 0x80000000) != 0)
   {
-    v10 = KSCategory();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v11 = KSCategory(v5);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      [_KSControlFileController setContents:?];
+      [_KSControlFileController setContents:];
     }
   }
 
@@ -86,15 +84,16 @@
     close(v6);
     url = self->_url;
     v8 = *MEMORY[0x277CBE878];
-    v12 = 0;
-    v9 = [(NSURL *)url setResourceValue:MEMORY[0x277CBEC38] forKey:v8 error:&v12];
-    v10 = v12;
+    v13 = 0;
+    v9 = [(NSURL *)url setResourceValue:MEMORY[0x277CBEC38] forKey:v8 error:&v13];
+    v10 = v13;
+    v11 = v10;
     if (!v9)
     {
-      v11 = KSCategory();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      v12 = KSCategory(v10);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
-        [_KSControlFileController setContents:?];
+        [_KSControlFileController setContents:];
       }
 
       [(_KSControlFileController *)self reset];
@@ -155,25 +154,21 @@ LABEL_12:
   return v11;
 }
 
-- (void)setContents:(uint64_t *)a1 .cold.1(uint64_t *a1)
+- (void)setContents:.cold.1()
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v1 = *a1;
-  v6[0] = 136315650;
+  v6 = *MEMORY[0x277D85DE8];
+  v3[0] = 136315650;
   OUTLINED_FUNCTION_0_0();
-  v7 = v2;
-  v8 = v3;
-  _os_log_error_impl(&dword_2557E2000, v4, OS_LOG_TYPE_ERROR, "%s  Failed to mark %@ as non-backup: %@", v6, 0x20u);
-  v5 = *MEMORY[0x277D85DE8];
+  v4 = v0;
+  v5 = v1;
+  _os_log_error_impl(&dword_2557E2000, v2, OS_LOG_TYPE_ERROR, "%s  Failed to mark %@ as non-backup: %@", v3, 0x20u);
 }
 
-- (void)setContents:(uint64_t *)a1 .cold.2(uint64_t *a1)
+- (void)setContents:.cold.2()
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v1 = *a1;
+  v6 = 136315394;
   OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_2_0(&dword_2557E2000, v2, v3, "%s  Failed to create %@", v4, v5, v6, v7, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2_0(&dword_2557E2000, v0, v1, "%s  Failed to create %@", v2, v3, v4, v5, v6);
 }
 
 @end

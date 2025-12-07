@@ -415,9 +415,9 @@ LABEL_60:
     {
       v12 = [(SUUIViewModification *)self addReusableViewWithReuseIdentifier:0x286AF99A0];
       sizeVariant = [elementCopy sizeVariant];
-      v28 = [sizeVariant isEqualToString:@"large"];
+      isEqualToString = objc_msgSend_isEqualToString_(sizeVariant);
 
-      [v12 setStyle:v28];
+      [v12 setStyle:isEqualToString];
       playItemIdentifier = [elementCopy playItemIdentifier];
       if ([v12 isIndeterminate])
       {
@@ -865,7 +865,7 @@ uint64_t __80__SUUIViewModification_SUUIViewElementView__addButtonWithElement_wi
     v11 = [(SUUIViewModification *)self _addImageViewWithReuseIdentifier:0x286AF99C0 viewElement:elementCopy context:contextCopy];
     if (style)
     {
-      [style transform];
+      objc_msgSend_transform(style);
       [v11 setTransform:v27];
     }
 
@@ -937,7 +937,7 @@ uint64_t __80__SUUIViewModification_SUUIViewElementView__addButtonWithElement_wi
 
     if (style)
     {
-      [style transform];
+      objc_msgSend_transform(style);
       [v11 setTransform:v27];
     }
 
@@ -961,7 +961,7 @@ uint64_t __80__SUUIViewModification_SUUIViewElementView__addButtonWithElement_wi
     v11 = [(SUUIViewModification *)self _addImageViewWithReuseIdentifier:0x286AEECE0 viewElement:thumbnailImage context:contextCopy];
     if (style)
     {
-      [style transform];
+      objc_msgSend_transform(style);
       [v11 setTransform:&v13];
     }
   }
@@ -1331,7 +1331,7 @@ uint64_t __80__SUUIViewModification_SUUIViewElementView__addButtonWithElement_wi
   [buttonCopy setEnabled:{objc_msgSend(v12, "isEnabled")}];
   [buttonCopy setDisabledButSelectable:{objc_msgSend(v12, "isDisabledButSelectable")}];
   badgeResourceName = [v12 badgeResourceName];
-  [buttonCopy setUniversal:{objc_msgSend(badgeResourceName, "isEqualToString:", @"plus"}];
+  [buttonCopy setUniversal:objc_msgSend_isEqualToString_(badgeResourceName)];
 }
 
 - (id)_attributedStringViewForLayout:(id)layout

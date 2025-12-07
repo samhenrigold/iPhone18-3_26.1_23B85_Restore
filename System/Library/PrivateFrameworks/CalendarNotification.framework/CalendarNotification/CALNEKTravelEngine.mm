@@ -324,22 +324,6 @@ void __48__CALNEKTravelEngine__authorizationChangedBlock__block_invoke(uint64_t 
   return WeakRetained;
 }
 
-- (void)receivedNotificationNamed:.cold.1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_5();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)receivedAlarmNamed:.cold.1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_5();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
 void __42__CALNEKTravelEngine__adviceReceivedBlock__block_invoke_cold_1()
 {
   OUTLINED_FUNCTION_1_6();

@@ -287,7 +287,7 @@
     v52 = [strokeCopy ink];
     if (strokeCopy)
     {
-      [strokeCopy transform];
+      objc_msgSend_transform(strokeCopy);
     }
 
     else
@@ -318,7 +318,7 @@
     path6 = [strokeCopy path];
     if (strokeCopy)
     {
-      [strokeCopy transform];
+      objc_msgSend_transform(strokeCopy);
     }
 
     else
@@ -357,7 +357,7 @@ LABEL_53:
   v64 = [CRLBezierPath bezierPathWithCGPath:_newPathRepresentation];
   if (strokeCopy)
   {
-    [strokeCopy transform];
+    objc_msgSend_transform(strokeCopy);
   }
 
   else

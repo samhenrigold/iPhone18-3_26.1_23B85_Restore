@@ -179,14 +179,12 @@ LABEL_15:
   return v14;
 }
 
-void __72__VNEspressoModelImageprint_computeDistance_withDistanceFunction_error___block_invoke()
+void __72__VNEspressoModelImageprint_computeDistance_withDistanceFunction_error___block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v3 = 1;
-  v1 = 0;
-  v2 = 0;
-  __p = 0;
-  std::vector<long long>::__init_with_size[abi:ne200100]<long long const*,long long const*>();
+  v3[2] = *MEMORY[0x1E69E9840];
+  v2 = 1;
+  memset(__p, 0, 24);
+  std::vector<long long>::__init_with_size[abi:ne200100]<long long const*,long long const*>(__p, &v2, v3);
 }
 
 - (BOOL)hasEquivalentDescriptorToImageprint:(id)imageprint
@@ -1286,7 +1284,7 @@ LABEL_20:
   return v19;
 }
 
-void __137__VNEspressoModelImageprint_VNCoreMLTransformer___VNEspressoModelImageprintMLMultiArrayWithDataType_shape_strides_fromFloat32Data_error___block_invoke(uint64_t a1, uint64_t a2)
+void __137__VNEspressoModelImageprint_VNCoreMLTransformer___VNEspressoModelImageprintMLMultiArrayWithDataType_shape_strides_fromFloat32Data_error___block_invoke(uint64_t a1, void *a2)
 {
   if ([*(*(*(a1 + 32) + 8) + 40) bytes] == a2)
   {
@@ -1296,7 +1294,7 @@ void __137__VNEspressoModelImageprint_VNCoreMLTransformer___VNEspressoModelImage
   }
 }
 
-void __137__VNEspressoModelImageprint_VNCoreMLTransformer___VNEspressoModelImageprintMLMultiArrayWithDataType_shape_strides_fromFloat32Data_error___block_invoke_2(uint64_t a1, uint64_t a2)
+void __137__VNEspressoModelImageprint_VNCoreMLTransformer___VNEspressoModelImageprintMLMultiArrayWithDataType_shape_strides_fromFloat32Data_error___block_invoke_2(uint64_t a1, void *a2)
 {
   if ([*(*(*(a1 + 32) + 8) + 40) bytes] == a2)
   {

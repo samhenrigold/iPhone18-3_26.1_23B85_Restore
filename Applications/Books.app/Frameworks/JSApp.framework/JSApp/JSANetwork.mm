@@ -36,7 +36,7 @@
 - (void)registerOnNetworkChange:(id)change
 {
   changeCopy = change;
-  v5 = JSALog();
+  v5 = JSALog(changeCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     LODWORD(v9.version) = 136446210;

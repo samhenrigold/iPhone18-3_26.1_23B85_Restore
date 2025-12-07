@@ -338,7 +338,7 @@ void __87__MPStoreModelMovieMediaClipBuilder_mediaClipWithStoreItemMetadata_stor
   v3 = *(*(a1 + 32) + 28);
   if ((v3 & 2) != 0)
   {
-    [*(a1 + 40) duration];
+    objc_msgSend_duration(*(a1 + 40));
     [v7 setDuration:?];
     v3 = *(*(a1 + 32) + 28);
     if ((v3 & 8) == 0)

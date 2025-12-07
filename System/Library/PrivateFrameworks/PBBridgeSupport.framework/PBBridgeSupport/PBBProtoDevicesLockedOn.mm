@@ -39,7 +39,6 @@
 {
   if (*&self->_has)
   {
-    intendedFireDate = self->_intendedFireDate;
     PBDataWriterWriteDoubleField();
   }
 }

@@ -20,13 +20,13 @@
 
 - (void)delegateUpdatedRouteGuidance
 {
-  v14 = *MEMORY[0x277D85DE8];
-  v3 = CarNavLogging();
+  v13 = *MEMORY[0x277D85DE8];
+  v3 = CarNavLogging(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v12 = 138543362;
+    v11 = 138543362;
     selfCopy = self;
-    _os_log_impl(&dword_224A23000, v3, OS_LOG_TYPE_DEFAULT, "%{public}@ delegate updated routeguidance", &v12, 0xCu);
+    _os_log_impl(&dword_224A23000, v3, OS_LOG_TYPE_DEFAULT, "%{public}@ delegate updated routeguidance", &v11, 0xCu);
   }
 
   delegate = [(CRAccNavController *)self delegate];
@@ -41,8 +41,6 @@
   routeGuidance = [(CRAccNavController *)self routeGuidance];
   uuid = [(CRAccNavController *)self uuid];
   [delegate2 sendInfo:routeGuidance toComponentUID:uuid];
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (id)description
@@ -66,29 +64,23 @@
 - (void)sendManeuvers
 {
   OUTLINED_FUNCTION_3();
-  v12 = *MEMORY[0x277D85DE8];
   delegate = [v0 delegate];
   maneuversProvidingIndexed = [delegate maneuversProvidingIndexed];
   [maneuversProvidingIndexed count];
   sentManeuvers = [OUTLINED_FUNCTION_2() sentManeuvers];
   OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1_0(&dword_224A23000, v4, v5, "%{public}@ sendManeuvers done source.count=%lu cache=%{public}@", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_0(&dword_224A23000, v4, v5, "%{public}@ sendManeuvers done source.count=%lu cache=%{public}@", v6, v7, v8, v9);
 }
 
 - (void)sendLaneGuidances
 {
   OUTLINED_FUNCTION_3();
-  v12 = *MEMORY[0x277D85DE8];
   delegate = [v0 delegate];
   laneGuidanceProvidingIndexed = [delegate laneGuidanceProvidingIndexed];
   [laneGuidanceProvidingIndexed count];
   sentLaneGuidances = [OUTLINED_FUNCTION_2() sentLaneGuidances];
   OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1_0(&dword_224A23000, v4, v5, "%{public}@ sendLaneGuidances done source.count=%lu cache=%{public}@", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_0(&dword_224A23000, v4, v5, "%{public}@ sendLaneGuidances done source.count=%lu cache=%{public}@", v6, v7, v8, v9);
 }
 
 - (NSUUID)uuid
@@ -107,53 +99,53 @@
   v22.receiver = self;
   v22.super_class = CRAccNavController;
   v9 = [(CRAccNavController *)&v22 init];
+  v10 = v9;
   if (v9)
   {
-    v10 = CarNavLogging();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v11 = CarNavLogging(v9);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       configDescription = [componentCopy configDescription];
       *buf = 138544130;
-      v24 = v9;
+      v24 = v10;
       v25 = 2114;
       v26 = delegateCopy;
       v27 = 2114;
       v28 = componentCopy;
       v29 = 2114;
       v30 = configDescription;
-      _os_log_impl(&dword_224A23000, v10, OS_LOG_TYPE_DEFAULT, "%{public}@ init! delegate=%{public}@ component=%{public}@ config=%{public}@", buf, 0x2Au);
+      _os_log_impl(&dword_224A23000, v11, OS_LOG_TYPE_DEFAULT, "%{public}@ init! delegate=%{public}@ component=%{public}@ config=%{public}@", buf, 0x2Au);
     }
 
-    objc_storeStrong(&v9->_component, component);
-    objc_storeWeak(&v9->_delegate, delegateCopy);
-    v12 = [CRAccNavInfoCache alloc];
+    objc_storeStrong(&v10->_component, component);
+    objc_storeWeak(&v10->_delegate, delegateCopy);
+    v13 = [CRAccNavInfoCache alloc];
     component = [componentCopy component];
-    v14 = -[CRAccNavInfoCache initWithCountLimit:](v12, "initWithCountLimit:", [component maxCapacity_GuidanceManeuver]);
-    sentManeuvers = v9->_sentManeuvers;
-    v9->_sentManeuvers = v14;
+    v15 = -[CRAccNavInfoCache initWithCountLimit:](v13, "initWithCountLimit:", [component maxCapacity_GuidanceManeuver]);
+    sentManeuvers = v10->_sentManeuvers;
+    v10->_sentManeuvers = v15;
 
-    v16 = [CRAccNavInfoCache alloc];
+    v17 = [CRAccNavInfoCache alloc];
     component2 = [componentCopy component];
-    v18 = -[CRAccNavInfoCache initWithCountLimit:](v16, "initWithCountLimit:", [component2 maxCapacity_LaneGuidance]);
-    sentLaneGuidances = v9->_sentLaneGuidances;
-    v9->_sentLaneGuidances = v18;
+    v19 = -[CRAccNavInfoCache initWithCountLimit:](v17, "initWithCountLimit:", [component2 maxCapacity_LaneGuidance]);
+    sentLaneGuidances = v10->_sentLaneGuidances;
+    v10->_sentLaneGuidances = v19;
 
-    [(CRAccNavController *)v9 reset];
+    [(CRAccNavController *)v10 reset];
   }
 
-  v20 = *MEMORY[0x277D85DE8];
-  return v9;
+  return v10;
 }
 
 - (void)sendInfo
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v3 = CarNavLogging();
+  v9 = *MEMORY[0x277D85DE8];
+  v3 = CarNavLogging(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 138543362;
+    v7 = 138543362;
     selfCopy = self;
-    _os_log_impl(&dword_224A23000, v3, OS_LOG_TYPE_DEFAULT, "%{public}@ sendInfo", &v8, 0xCu);
+    _os_log_impl(&dword_224A23000, v3, OS_LOG_TYPE_DEFAULT, "%{public}@ sendInfo", &v7, 0xCu);
   }
 
   [(CRAccNavController *)self sendManeuvers];
@@ -162,14 +154,12 @@
   routeGuidance = [(CRAccNavController *)self routeGuidance];
   uuid = [(CRAccNavController *)self uuid];
   [delegate sendInfo:routeGuidance toComponentUID:uuid];
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)resendInfo
 {
-  v62 = *MEMORY[0x277D85DE8];
-  v3 = CarNavLogging();
+  v61 = *MEMORY[0x277D85DE8];
+  v3 = CarNavLogging(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     sentManeuvers = [(CRAccNavController *)self sentManeuvers];
@@ -185,12 +175,12 @@
       v9 = @"NO";
     }
 
-    v56 = 2048;
-    v57 = v5;
-    v58 = 2048;
-    v59 = v7;
-    v60 = 2114;
-    v61 = v9;
+    v55 = 2048;
+    v56 = v5;
+    v57 = 2048;
+    v58 = v7;
+    v59 = 2114;
+    v60 = v9;
     _os_log_impl(&dword_224A23000, v3, OS_LOG_TYPE_DEFAULT, "%{public}@ resendInfo sentManeuvers.count=%ld sentLaneGuidances.count=%ld routeGuidance=%{public}@", buf, 0x2Au);
   }
 
@@ -223,63 +213,63 @@
   uuid2 = [(CRAccNavController *)self uuid];
   [delegate3 sendInfo:v22 toComponentUID:uuid2];
 
-  v50 = 0u;
-  v51 = 0u;
-  v48 = 0u;
   v49 = 0u;
+  v50 = 0u;
+  v47 = 0u;
+  v48 = 0u;
   sentManeuvers2 = [(CRAccNavController *)self sentManeuvers];
-  v25 = [sentManeuvers2 countByEnumeratingWithState:&v48 objects:v53 count:16];
+  v25 = [sentManeuvers2 countByEnumeratingWithState:&v47 objects:v52 count:16];
   if (v25)
   {
     v26 = v25;
-    v27 = *v49;
+    v27 = *v48;
     do
     {
       for (i = 0; i != v26; ++i)
       {
-        if (*v49 != v27)
+        if (*v48 != v27)
         {
           objc_enumerationMutation(sentManeuvers2);
         }
 
-        v29 = *(*(&v48 + 1) + 8 * i);
+        v29 = *(*(&v47 + 1) + 8 * i);
         delegate6 = [(CRAccNavController *)self delegate];
         uuid3 = [(CRAccNavController *)self uuid];
         [delegate6 sendInfo:v29 toComponentUID:uuid3];
       }
 
-      v26 = [sentManeuvers2 countByEnumeratingWithState:&v48 objects:v53 count:16];
+      v26 = [sentManeuvers2 countByEnumeratingWithState:&v47 objects:v52 count:16];
     }
 
     while (v26);
   }
 
-  v46 = 0u;
-  v47 = 0u;
-  v44 = 0u;
   v45 = 0u;
+  v46 = 0u;
+  v43 = 0u;
+  v44 = 0u;
   sentLaneGuidances2 = [(CRAccNavController *)self sentLaneGuidances];
-  v33 = [sentLaneGuidances2 countByEnumeratingWithState:&v44 objects:v52 count:16];
+  v33 = [sentLaneGuidances2 countByEnumeratingWithState:&v43 objects:v51 count:16];
   if (v33)
   {
     v34 = v33;
-    v35 = *v45;
+    v35 = *v44;
     do
     {
       for (j = 0; j != v34; ++j)
       {
-        if (*v45 != v35)
+        if (*v44 != v35)
         {
           objc_enumerationMutation(sentLaneGuidances2);
         }
 
-        v37 = *(*(&v44 + 1) + 8 * j);
+        v37 = *(*(&v43 + 1) + 8 * j);
         delegate7 = [(CRAccNavController *)self delegate];
         uuid4 = [(CRAccNavController *)self uuid];
         [delegate7 sendInfo:v37 toComponentUID:uuid4];
       }
 
-      v34 = [sentLaneGuidances2 countByEnumeratingWithState:&v44 objects:v52 count:16];
+      v34 = [sentLaneGuidances2 countByEnumeratingWithState:&v43 objects:v51 count:16];
     }
 
     while (v34);
@@ -289,19 +279,17 @@
   routeGuidance2 = [(CRAccNavController *)self routeGuidance];
   uuid5 = [(CRAccNavController *)self uuid];
   [delegate8 sendInfo:routeGuidance2 toComponentUID:uuid5];
-
-  v43 = *MEMORY[0x277D85DE8];
 }
 
 - (void)reset
 {
-  v13 = *MEMORY[0x277D85DE8];
-  v3 = CarNavLogging();
+  v12 = *MEMORY[0x277D85DE8];
+  v3 = CarNavLogging(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = 138543362;
+    v10 = 138543362;
     selfCopy = self;
-    _os_log_impl(&dword_224A23000, v3, OS_LOG_TYPE_DEFAULT, "%{public}@ reset", &v11, 0xCu);
+    _os_log_impl(&dword_224A23000, v3, OS_LOG_TYPE_DEFAULT, "%{public}@ reset", &v10, 0xCu);
   }
 
   [(CRAccNavController *)self setRouteGuidance:0];
@@ -316,27 +304,25 @@
   v8 = [CRAccNavRouteGuidance resetForComponent:component];
   uuid = [(CRAccNavController *)self uuid];
   [delegate sendInfo:v8 toComponentUID:uuid];
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)delegateUpdatedManeuvers
 {
-  v28 = *MEMORY[0x277D85DE8];
-  v3 = CarNavLogging();
+  v27 = *MEMORY[0x277D85DE8];
+  v3 = CarNavLogging(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     delegate = [(CRAccNavController *)self delegate];
     maneuversProvidingIndexed = [delegate maneuversProvidingIndexed];
     v6 = [maneuversProvidingIndexed count];
     routeGuidance = [(CRAccNavController *)self routeGuidance];
-    v22 = 138543874;
+    v21 = 138543874;
     selfCopy = self;
-    v24 = 2048;
-    v25 = v6;
-    v26 = 1024;
+    v23 = 2048;
+    v24 = v6;
+    v25 = 1024;
     guidanceState = [routeGuidance guidanceState];
-    _os_log_impl(&dword_224A23000, v3, OS_LOG_TYPE_DEFAULT, "%{public}@ delegate updated maneuvers count=%lu guidanceState=%hhu", &v22, 0x1Cu);
+    _os_log_impl(&dword_224A23000, v3, OS_LOG_TYPE_DEFAULT, "%{public}@ delegate updated maneuvers count=%lu guidanceState=%hhu", &v21, 0x1Cu);
   }
 
   routeGuidance2 = [(CRAccNavController *)self routeGuidance];
@@ -372,7 +358,6 @@
   }
 
   [(CRAccNavController *)self sendManeuvers];
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)delegateUpdatedManeuver:(id)maneuver
@@ -385,48 +370,46 @@
 
   if (v7)
   {
-    v8 = CarNavLogging();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = CarNavLogging(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       v16 = 138543618;
       selfCopy = self;
       v18 = 1024;
       index = [maneuverCopy index];
-      _os_log_impl(&dword_224A23000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@ delegate updated maneuver %d", &v16, 0x12u);
+      _os_log_impl(&dword_224A23000, v9, OS_LOG_TYPE_DEFAULT, "%{public}@ delegate updated maneuver %d", &v16, 0x12u);
     }
 
     component = [(CRAccNavController *)self component];
-    v10 = [maneuverCopy navInfoWithComponent:component];
+    v11 = [maneuverCopy navInfoWithComponent:component];
 
     sentManeuvers2 = [(CRAccNavController *)self sentManeuvers];
-    v12 = [MEMORY[0x277CCABB0] numberWithUnsignedShort:{objc_msgSend(maneuverCopy, "index")}];
-    [sentManeuvers2 setObject:v10 forKeyedSubscript:v12];
+    v13 = [MEMORY[0x277CCABB0] numberWithUnsignedShort:{objc_msgSend(maneuverCopy, "index")}];
+    [sentManeuvers2 setObject:v11 forKeyedSubscript:v13];
 
     delegate = [(CRAccNavController *)self delegate];
     uuid = [(CRAccNavController *)self uuid];
-    [delegate sendInfo:v10 toComponentUID:uuid];
+    [delegate sendInfo:v11 toComponentUID:uuid];
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)delegateUpdatedLaneGuidances
 {
-  v28 = *MEMORY[0x277D85DE8];
-  v3 = CarNavLogging();
+  v27 = *MEMORY[0x277D85DE8];
+  v3 = CarNavLogging(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     delegate = [(CRAccNavController *)self delegate];
     laneGuidanceProvidingIndexed = [delegate laneGuidanceProvidingIndexed];
     v6 = [laneGuidanceProvidingIndexed count];
     routeGuidance = [(CRAccNavController *)self routeGuidance];
-    v22 = 138543874;
+    v21 = 138543874;
     selfCopy = self;
-    v24 = 2048;
-    v25 = v6;
-    v26 = 1024;
+    v23 = 2048;
+    v24 = v6;
+    v25 = 1024;
     guidanceState = [routeGuidance guidanceState];
-    _os_log_impl(&dword_224A23000, v3, OS_LOG_TYPE_DEFAULT, "%{public}@ delegate updated laneGuidances count=%lu guidanceState=%hhu", &v22, 0x1Cu);
+    _os_log_impl(&dword_224A23000, v3, OS_LOG_TYPE_DEFAULT, "%{public}@ delegate updated laneGuidances count=%lu guidanceState=%hhu", &v21, 0x1Cu);
   }
 
   routeGuidance2 = [(CRAccNavController *)self routeGuidance];
@@ -462,7 +445,6 @@
   }
 
   [(CRAccNavController *)self sendLaneGuidances];
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)delegateUpdatedLaneGuidance:(id)guidance
@@ -475,29 +457,27 @@
 
   if (v7)
   {
-    v8 = CarNavLogging();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = CarNavLogging(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       v16 = 138543618;
       selfCopy = self;
       v18 = 1024;
       index = [guidanceCopy index];
-      _os_log_impl(&dword_224A23000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@ delegate updated laneGuidance %d", &v16, 0x12u);
+      _os_log_impl(&dword_224A23000, v9, OS_LOG_TYPE_DEFAULT, "%{public}@ delegate updated laneGuidance %d", &v16, 0x12u);
     }
 
     component = [(CRAccNavController *)self component];
-    v10 = [guidanceCopy navInfoWithComponent:component];
+    v11 = [guidanceCopy navInfoWithComponent:component];
 
     sentLaneGuidances2 = [(CRAccNavController *)self sentLaneGuidances];
-    v12 = [MEMORY[0x277CCABB0] numberWithUnsignedShort:{objc_msgSend(guidanceCopy, "index")}];
-    [sentLaneGuidances2 setObject:v10 forKeyedSubscript:v12];
+    v13 = [MEMORY[0x277CCABB0] numberWithUnsignedShort:{objc_msgSend(guidanceCopy, "index")}];
+    [sentLaneGuidances2 setObject:v11 forKeyedSubscript:v13];
 
     delegate = [(CRAccNavController *)self delegate];
     uuid = [(CRAccNavController *)self uuid];
-    [delegate sendInfo:v10 toComponentUID:uuid];
+    [delegate sendInfo:v11 toComponentUID:uuid];
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_sendNavInfoFromIndex:(id)index fromSource:(id)source cache:(id)cache
@@ -509,89 +489,89 @@
   v25 = indexCopy;
   if (indexCopy)
   {
-    firstKey = indexCopy;
+    v10 = indexCopy;
 LABEL_4:
-    v11 = 0;
     v12 = 0;
+    v13 = 0;
     while (1)
     {
-      if (v12 >= [cacheCopy countLimit])
+      countLimit = [cacheCopy countLimit];
+      if (v13 >= countLimit)
       {
         goto LABEL_14;
       }
 
-      v13 = [cacheCopy objectForKeyedSubscript:firstKey];
-      if (v13)
+      v14 = [cacheCopy objectForKeyedSubscript:v10];
+      if (v14)
       {
         break;
       }
 
-      v15 = [sourceCopy objectForKeyedSubscript:firstKey];
+      v16 = [sourceCopy objectForKeyedSubscript:v10];
 
-      if (v15)
+      if (v16)
       {
-        v14 = [sourceCopy objectForKeyedSubscript:firstKey];
+        v15 = [sourceCopy objectForKeyedSubscript:v10];
         component = [(CRAccNavController *)self component];
-        v17 = [v14 navInfoWithComponent:component];
+        v18 = [v15 navInfoWithComponent:component];
 
-        [cacheCopy setObject:v17 forKeyedSubscript:firstKey];
+        [cacheCopy setObject:v18 forKeyedSubscript:v10];
         delegate = [(CRAccNavController *)self delegate];
         [(CRAccNavController *)self component];
-        v20 = v19 = v11;
-        uuid = [v20 uuid];
-        [delegate sendInfo:v17 toComponentUID:uuid];
+        v21 = v20 = v12;
+        uuid = [v21 uuid];
+        [delegate sendInfo:v18 toComponentUID:uuid];
 
-        v11 = v19 + 1;
+        v12 = v20 + 1;
         goto LABEL_10;
       }
 
 LABEL_11:
-      ++v12;
-      v22 = [sourceCopy keyAfter:firstKey];
+      ++v13;
+      v23 = [sourceCopy keyAfter:v10];
 
-      firstKey = v22;
-      if (!v22)
+      v10 = v23;
+      if (!v23)
       {
         goto LABEL_14;
       }
     }
 
-    v14 = v13;
+    v15 = v14;
 LABEL_10:
 
     goto LABEL_11;
   }
 
-  firstKey = [sourceCopy firstKey];
-  if (firstKey)
+  countLimit = [sourceCopy firstKey];
+  v10 = countLimit;
+  if (countLimit)
   {
     goto LABEL_4;
   }
 
+  v13 = 0;
   v12 = 0;
-  v11 = 0;
 LABEL_14:
-  v23 = CarNavLogging();
-  if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
+  v24 = CarNavLogging(countLimit);
+  if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
   {
     *buf = 138544898;
     selfCopy = self;
     v29 = 2114;
     v30 = v25;
     v31 = 2048;
-    v32 = v11;
+    v32 = v12;
     v33 = 2048;
     v34 = [sourceCopy count];
     v35 = 2048;
     v36 = cacheCopy;
     v37 = 2048;
-    v38 = v12;
+    v38 = v13;
     v39 = 2048;
     v40 = [cacheCopy count];
-    _os_log_debug_impl(&dword_224A23000, v23, OS_LOG_TYPE_DEBUG, "%{public}@ sendNavInfo fromIndex=%{public}@ sentIndexes=%lu source=%lu cache=(%p)%lu/%lu", buf, 0x48u);
+    _os_log_debug_impl(&dword_224A23000, v24, OS_LOG_TYPE_DEBUG, "%{public}@ sendNavInfo fromIndex=%{public}@ sentIndexes=%lu source=%lu cache=(%p)%lu/%lu", buf, 0x48u);
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -73,19 +73,18 @@ uint64_t __31__WLLogController_sharedLogger__block_invoke()
   formatCopy = format;
   if (self->_loggingEnabled)
   {
-    v10 = formatCopy;
+    v8 = formatCopy;
     if (logMessageFromAddress_withLevel_format_args__onceToken != -1)
     {
       [WLLogController logMessageFromAddress:withLevel:format:args:];
     }
 
-    v9 = logMessageFromAddress_withLevel_format_args___WLLog_os_trace_type_map[level];
     os_log_shim_with_CFString();
-    formatCopy = v10;
+    formatCopy = v8;
   }
 }
 
-void __63__WLLogController_logMessageFromAddress_withLevel_format_args___block_invoke()
+void __63__WLLogController_logMessageFromAddress_withLevel_format_args___block_invoke(uint64_t result, uint64_t a2)
 {
   if (_block_invoke_onceToken != -1)
   {

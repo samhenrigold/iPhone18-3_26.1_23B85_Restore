@@ -71,7 +71,7 @@
 {
   if (MTLReportFailureTypeEnabled())
   {
-    MTLReportFailure();
+    MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Graph/MPSNNArithmeticNodes.mm", 0x76, @"You must call -gradientFiltersWithSources:gradientImages: for this filter", v3, v4, v5, v6);
   }
 
   return 0;
@@ -79,24 +79,24 @@
 
 - (NSArray)gradientFiltersWithSources:(NSArray *)gradientImages
 {
-  v135[2] = *MEMORY[0x277D85DE8];
+  v143[2] = *MEMORY[0x277D85DE8];
   objc_msgSend_count(gradientImages, a2, gradientImages, v3, v4, v5, v6, v7);
   if (objc_msgSend_count(gradientImages, v10, v11, v12, v13, v14, v15, v16) != 1 && MTLReportFailureTypeEnabled())
   {
     v131 = objc_opt_class();
-    v133 = NSStringFromClass(v131);
-    MTLReportFailure();
+    v141 = NSStringFromClass(v131);
+    MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Graph/MPSNNArithmeticNodes.mm", 0x82, @"[%@ gradientFiltersWithSources:] This method requires one gradient image as input\n", v132, v133, v134, v135);
   }
 
-  objc_msgSend_objectAtIndexedSubscript_(gradientImages, v17, 0, v18, v19, v20, v21, v22, v133);
+  objc_msgSend_objectAtIndexedSubscript_(gradientImages, v17, 0, v18, v19, v20, v21, v22, v141);
   if (!objc_msgSend_objectAtIndexedSubscript_(gradientImages, v23, 0, v24, v25, v26, v27, v28) && MTLReportFailureTypeEnabled())
   {
-    v132 = objc_opt_class();
-    v134 = NSStringFromClass(v132);
-    MTLReportFailure();
+    v136 = objc_opt_class();
+    v142 = NSStringFromClass(v136);
+    MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Graph/MPSNNArithmeticNodes.mm", 0x86, @"[%@ gradientFiltersWithSources:] gradientImages[0] must be valid and contain the source gradient\n", v137, v138, v139, v140);
   }
 
-  v36 = objc_msgSend_resultState(self, v29, v30, v31, v32, v33, v34, v35, v134);
+  v36 = objc_msgSend_resultState(self, v29, v30, v31, v32, v33, v34, v35, v142);
   v44 = objc_msgSend_gradientClass(self, v37, v38, v39, v40, v41, v42, v43);
   v51 = objc_msgSend_objectAtIndexedSubscript_(gradientImages, v45, 0, v46, v47, v48, v49, v50);
   v58 = objc_msgSend_objectAtIndexedSubscript_(self->super._sourceImages, v52, 0, v53, v54, v55, v56, v57);
@@ -111,9 +111,9 @@
   objc_msgSend_setSecondaryStrideInPixelsX_(v106, v107, self->_secondaryStrideInPixelsX, v108, v109, v110, v111, v112);
   objc_msgSend_setSecondaryStrideInPixelsY_(v106, v113, self->_secondaryStrideInPixelsY, v114, v115, v116, v117, v118);
   objc_msgSend_setSecondaryStrideInFeatureChannels_(v106, v119, self->_secondaryStrideInFeatureChannels, v120, v121, v122, v123, v124);
-  v135[0] = isSecondarySourceFilter;
-  v135[1] = v106;
-  return objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v125, v135, 2, v126, v127, v128, v129);
+  v143[0] = isSecondarySourceFilter;
+  v143[1] = v106;
+  return objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v125, v143, 2, v126, v127, v128, v129);
 }
 
 @end

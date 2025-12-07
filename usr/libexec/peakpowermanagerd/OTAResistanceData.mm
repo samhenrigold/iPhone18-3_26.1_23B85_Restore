@@ -76,15 +76,14 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v10 = toCopy;
+  v8 = toCopy;
   if (self->_resistance25Cs.count)
   {
     v5 = 0;
     do
     {
-      v6 = self->_resistance25Cs.list[v5];
       PBDataWriterWriteFloatField();
-      toCopy = v10;
+      toCopy = v8;
       ++v5;
     }
 
@@ -94,16 +93,15 @@
   p_temperatureCoeffs = &self->_temperatureCoeffs;
   if (p_temperatureCoeffs->count)
   {
-    v8 = 0;
+    v7 = 0;
     do
     {
-      v9 = p_temperatureCoeffs->list[v8];
       PBDataWriterWriteFloatField();
-      toCopy = v10;
-      ++v8;
+      toCopy = v8;
+      ++v7;
     }
 
-    while (v8 < p_temperatureCoeffs->count);
+    while (v7 < p_temperatureCoeffs->count);
   }
 }
 

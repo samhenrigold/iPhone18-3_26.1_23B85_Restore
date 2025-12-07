@@ -57,10 +57,7 @@
 
 uint64_t __53__UNCPushRegistrationRepository_allBundleIdentifiers__block_invoke(uint64_t a1)
 {
-  v2 = [*(*(a1 + 32) + 8) allKeys];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(*(a1 + 32) + 8) allKeys];
 
   return MEMORY[0x1EEE66BB8]();
 }
@@ -93,10 +90,7 @@ uint64_t __53__UNCPushRegistrationRepository_allBundleIdentifiers__block_invoke(
 
 uint64_t __65__UNCPushRegistrationRepository_registrationForBundleIdentifier___block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 32) _queue_registrationForBundleIdentifier:*(a1 + 40)];
-  v3 = *(*(a1 + 48) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 48) + 8) + 40) = [*(a1 + 32) _queue_registrationForBundleIdentifier:*(a1 + 40)];
 
   return MEMORY[0x1EEE66BB8]();
 }
@@ -148,42 +142,40 @@ uint64_t __65__UNCPushRegistrationRepository_registrationForBundleIdentifier___b
 
 void __65__UNCPushRegistrationRepository_notificationSourcesDidUninstall___block_invoke(uint64_t a1)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   v2 = *(a1 + 32);
-  v3 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v11;
+    v5 = *v10;
     do
     {
       v6 = 0;
       do
       {
-        if (*v11 != v5)
+        if (*v10 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
         v7 = *(a1 + 40);
-        v8 = [*(*(&v10 + 1) + 8 * v6) bundleIdentifier];
+        v8 = [*(*(&v9 + 1) + 8 * v6) bundleIdentifier];
         [v7 _queue_removeRegistrationForBundleIdentifier:v8];
 
         ++v6;
       }
 
       while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v4);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_queue_registrationForBundleIdentifier:(id)identifier

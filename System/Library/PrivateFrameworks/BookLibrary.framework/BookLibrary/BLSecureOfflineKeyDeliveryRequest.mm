@@ -16,33 +16,33 @@
 - (BLSecureOfflineKeyDeliveryRequest)initWithRequestContext:(id)context
 {
   contextCopy = context;
-  v9 = objc_msgSend_init(self, v6, v7, v8);
-  v10 = v9;
-  if (v9)
+  v8 = objc_msgSend_init(self, v6, v7);
+  v9 = v8;
+  if (v8)
   {
-    objc_storeStrong((v9 + 320), context);
+    objc_storeStrong((v8 + 320), context);
   }
 
-  return v10;
+  return v9;
 }
 
 - (BLSecureOfflineKeyDeliveryRequest)init
 {
-  v12.receiver = self;
-  v12.super_class = BLSecureOfflineKeyDeliveryRequest;
-  v2 = [(ICRequestOperation *)&v12 init];
+  v11.receiver = self;
+  v11.super_class = BLSecureOfflineKeyDeliveryRequest;
+  v2 = [(ICRequestOperation *)&v11 init];
   if (v2)
   {
     v3 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
     v4 = dispatch_queue_create("com.apple.iBooks.HLSKeySession", v3);
-    v5 = *(v2 + 39);
-    *(v2 + 39) = v4;
+    keySessionQueue = v2->_keySessionQueue;
+    v2->_keySessionQueue = v4;
 
-    v8 = objc_msgSend_contentKeySessionWithKeySystem_(MEMORY[0x277CE64D8], v6, *MEMORY[0x277CE5D20], v7);
-    v9 = *(v2 + 38);
-    *(v2 + 38) = v8;
+    v7 = objc_msgSend_contentKeySessionWithKeySystem_(MEMORY[0x277CE64D8], v6, *MEMORY[0x277CE5D20]);
+    keySession = v2->_keySession;
+    v2->_keySession = v7;
 
-    objc_msgSend_setDelegate_queue_(*(v2 + 38), v10, v2, *(v2 + 39));
+    objc_msgSend_setDelegate_queue_(v2->_keySession, v9, v2, v2->_keySessionQueue);
   }
 
   return v2;
@@ -51,66 +51,64 @@
 - (void)performRequestWithResponseHandler:(id)handler
 {
   handlerCopy = handler;
-  v8 = objc_msgSend_bl_sharedHLSKeyRequestOperationQueue(MEMORY[0x277CCABD8], v5, v6, v7);
-  v11[0] = MEMORY[0x277D85DD0];
-  v11[1] = 3221225472;
-  v11[2] = sub_241D13498;
-  v11[3] = &unk_278D158A0;
-  v11[4] = self;
-  v12 = handlerCopy;
-  v9 = handlerCopy;
-  objc_msgSend_performRequestOnOperationQueue_withCompletionHandler_(self, v10, v8, v11);
+  v7 = objc_msgSend_bl_sharedHLSKeyRequestOperationQueue(MEMORY[0x277CCABD8], v5, v6);
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = sub_241D13498;
+  v10[3] = &unk_278D158A0;
+  v10[4] = self;
+  v11 = handlerCopy;
+  v8 = handlerCopy;
+  objc_msgSend_performRequestOnOperationQueue_withCompletionHandler_(self, v9, v7, v10);
 }
 
 - (void)execute
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   if (self->_keyCertificateURL && self->_keyServerURL)
   {
     v3 = BLHLSKeyFetchingLog();
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = objc_msgSend_title(self->_mediaItem, v4, v5, v6);
+      v6 = objc_msgSend_title(self->_mediaItem, v4, v5);
       *buf = 138412290;
-      selfCopy = v7;
+      selfCopy = v6;
       _os_log_impl(&dword_241D0D000, v3, OS_LOG_TYPE_DEFAULT, "Fetching key request certificate for '%@'", buf, 0xCu);
     }
 
-    v11 = objc_msgSend_highPrioritySession(MEMORY[0x277D7FC90], v8, v9, v10);
-    v12 = objc_alloc(MEMORY[0x277CCAB70]);
-    v15 = objc_msgSend_initWithURL_(v12, v13, self->_keyCertificateURL, v14);
-    objc_msgSend_setHTTPMethod_(v15, v16, @"GET", v17);
-    v18 = objc_alloc(MEMORY[0x277D7FC38]);
-    v20 = objc_msgSend_initWithURLRequest_requestContext_(v18, v19, v15, self->_requestContext);
-    v29[0] = MEMORY[0x277D85DD0];
-    v29[1] = 3221225472;
-    v29[2] = sub_241D137E0;
-    v29[3] = &unk_278D15A38;
-    v29[4] = self;
-    objc_msgSend_enqueueDataRequest_withCompletionHandler_(v11, v21, v20, v29);
+    v9 = objc_msgSend_highPrioritySession(MEMORY[0x277D7FC90], v7, v8);
+    v10 = objc_alloc(MEMORY[0x277CCAB70]);
+    v12 = objc_msgSend_initWithURL_(v10, v11, self->_keyCertificateURL);
+    objc_msgSend_setHTTPMethod_(v12, v13, @"GET");
+    v14 = objc_alloc(MEMORY[0x277D7FC38]);
+    v16 = objc_msgSend_initWithURLRequest_requestContext_(v14, v15, v12, self->_requestContext);
+    v23[0] = MEMORY[0x277D85DD0];
+    v23[1] = 3221225472;
+    v23[2] = sub_241D137E0;
+    v23[3] = &unk_278D15A38;
+    v23[4] = self;
+    objc_msgSend_enqueueDataRequest_withCompletionHandler_(v9, v17, v16, v23);
   }
 
   else
   {
-    v22 = BLHLSKeyFetchingLog();
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+    v18 = BLHLSKeyFetchingLog();
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
       keyCertificateURL = self->_keyCertificateURL;
       keyServerURL = self->_keyServerURL;
       *buf = 138543874;
       selfCopy = self;
-      v32 = 2114;
-      v33 = keyCertificateURL;
-      v34 = 2114;
-      v35 = keyServerURL;
-      _os_log_impl(&dword_241D0D000, v22, OS_LOG_TYPE_ERROR, "[%{public}@]: Missing certificate URL: %{public}@, key server URL: %{public}@", buf, 0x20u);
+      v26 = 2114;
+      v27 = keyCertificateURL;
+      v28 = 2114;
+      v29 = keyServerURL;
+      _os_log_impl(&dword_241D0D000, v18, OS_LOG_TYPE_ERROR, "[%{public}@]: Missing certificate URL: %{public}@, key server URL: %{public}@", buf, 0x20u);
     }
 
-    v11 = objc_msgSend_errorWithDomain_code_userInfo_(MEMORY[0x277CCA9B8], v25, *MEMORY[0x277D7F900], -7101, 0);
-    objc_msgSend_finishWithError_(self, v26, v11, v27);
+    v9 = objc_msgSend_errorWithDomain_code_userInfo_(MEMORY[0x277CCA9B8], v21, *MEMORY[0x277D7F900], -7101, 0);
+    objc_msgSend_finishWithError_(self, v22, v9);
   }
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_deviceGUID
@@ -127,172 +125,169 @@
 
 - (void)_createSPCData
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = BLHLSKeyFetchingLog();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = objc_msgSend_title(self->_mediaItem, v4, v5, v6);
-    v10 = 138412290;
-    v11 = v7;
-    _os_log_impl(&dword_241D0D000, v3, OS_LOG_TYPE_DEFAULT, "Creating SPC data for '%@'", &v10, 0xCu);
+    v6 = objc_msgSend_title(self->_mediaItem, v4, v5);
+    v8 = 138412290;
+    v9 = v6;
+    _os_log_impl(&dword_241D0D000, v3, OS_LOG_TYPE_DEFAULT, "Creating SPC data for '%@'", &v8, 0xCu);
   }
 
-  objc_msgSend_processContentKeyRequestWithIdentifier_initializationData_options_(self->_keySession, v8, self->_identity, 0, 0);
-  v9 = *MEMORY[0x277D85DE8];
+  objc_msgSend_processContentKeyRequestWithIdentifier_initializationData_options_(self->_keySession, v7, self->_identity, 0, 0);
 }
 
 - (void)_ksq_fetchCKCDataUsingSPC:(id)c forKeyRequest:(id)request
 {
-  v109[1] = *MEMORY[0x277D85DE8];
+  v90[1] = *MEMORY[0x277D85DE8];
   cCopy = c;
   requestCopy = request;
   dispatch_assert_queue_V2(self->_keySessionQueue);
   if (cCopy)
   {
     v8 = objc_alloc(MEMORY[0x277CBEB38]);
-    v11 = objc_msgSend_initWithObjectsAndKeys_(v8, v9, &unk_2853E1F60, v10, @"id", 0);
-    v18 = objc_msgSend_identity(self, v12, v13, v14);
-    if (v18)
+    v10 = objc_msgSend_initWithObjectsAndKeys_(v8, v9, &unk_2853E1F60, @"id", 0);
+    v15 = objc_msgSend_identity(self, v11, v12);
+    if (v15)
     {
-      objc_msgSend_setObject_forKey_(v11, v15, v18, @"uri");
+      objc_msgSend_setObject_forKey_(v10, v13, v15, @"uri");
     }
 
-    v95 = v18;
-    if (objc_msgSend_length(cCopy, v15, v16, v17))
+    v76 = v15;
+    if (objc_msgSend_length(cCopy, v13, v14))
     {
-      v21 = objc_msgSend_base64EncodedStringWithOptions_(cCopy, v19, 0, v20);
-      if (objc_msgSend_length(v21, v22, v23, v24))
+      v17 = objc_msgSend_base64EncodedStringWithOptions_(cCopy, v16, 0);
+      if (objc_msgSend_length(v17, v18, v19))
       {
-        objc_msgSend_setObject_forKey_(v11, v25, v21, @"spc");
+        objc_msgSend_setObject_forKey_(v10, v20, v17, @"spc");
       }
     }
 
-    objc_msgSend_setObject_forKey_(v11, v19, MEMORY[0x277CBEC38], @"offline");
-    v32 = objc_msgSend__deviceGUID(self, v26, v27, v28);
-    if (v32)
+    objc_msgSend_setObject_forKey_(v10, v16, MEMORY[0x277CBEC38], @"offline");
+    v25 = objc_msgSend__deviceGUID(self, v21, v22);
+    if (v25)
     {
-      objc_msgSend_setObject_forKey_(v11, v29, v32, @"guid");
+      objc_msgSend_setObject_forKey_(v10, v23, v25, @"guid");
     }
 
-    v94 = v32;
-    v33 = objc_msgSend_deviceInfo(self->_requestContext, v29, v30, v31);
-    isWatch = objc_msgSend_isWatch(v33, v34, v35, v36);
+    v75 = v25;
+    v26 = objc_msgSend_deviceInfo(self->_requestContext, v23, v24);
+    isWatch = objc_msgSend_isWatch(v26, v27, v28);
 
     if (isWatch)
     {
-      v41 = objc_msgSend_sharedMonitor(MEMORY[0x277D7FBA8], v38, v39, v40);
-      v45 = objc_msgSend_pairedDeviceMediaGUID(v41, v42, v43, v44);
+      v32 = objc_msgSend_sharedMonitor(MEMORY[0x277D7FBA8], v30, v31);
+      v35 = objc_msgSend_pairedDeviceMediaGUID(v32, v33, v34);
 
-      if (objc_msgSend_length(v45, v46, v47, v48))
+      if (objc_msgSend_length(v35, v36, v37))
       {
-        objc_msgSend_setObject_forKey_(v11, v49, v45, @"companion-guid");
+        objc_msgSend_setObject_forKey_(v10, v38, v35, @"companion-guid");
       }
 
       else
       {
-        v54 = BLHLSKeyFetchingLog();
-        if (os_log_type_enabled(v54, OS_LOG_TYPE_ERROR))
+        v42 = BLHLSKeyFetchingLog();
+        if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
         {
           *buf = 138543362;
           selfCopy3 = self;
-          _os_log_impl(&dword_241D0D000, v54, OS_LOG_TYPE_ERROR, "[%{public}@]: Failed to obtain companion guid.", buf, 0xCu);
+          _os_log_impl(&dword_241D0D000, v42, OS_LOG_TYPE_ERROR, "[%{public}@]: Failed to obtain companion guid.", buf, 0xCu);
         }
       }
     }
 
-    v108 = @"fairplay-streaming-request";
-    v107[0] = &unk_2853E1F78;
-    v106[0] = @"version";
-    v106[1] = @"streaming-keys";
-    v105 = v11;
-    v55 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v38, &v105, 1);
-    v107[1] = v55;
-    v57 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v56, v107, v106, 2);
-    v109[0] = v57;
-    v59 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v58, v109, &v108, 1);
+    v89 = @"fairplay-streaming-request";
+    v88[0] = &unk_2853E1F78;
+    v87[0] = @"version";
+    v87[1] = @"streaming-keys";
+    v86 = v10;
+    v43 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v30, &v86, 1);
+    v88[1] = v43;
+    v45 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v44, v88, v87, 2);
+    v90[0] = v45;
+    v47 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v46, v90, &v89, 1);
 
-    v98 = 0;
-    v61 = objc_msgSend_dataWithJSONObject_options_error_(MEMORY[0x277CCAAA0], v60, v59, 0, &v98);
-    v62 = v98;
-    v63 = BLHLSKeyFetchingLog();
-    v64 = v63;
-    if (!v61 || v62)
+    v79 = 0;
+    v49 = objc_msgSend_dataWithJSONObject_options_error_(MEMORY[0x277CCAAA0], v48, v47, 0, &v79);
+    v50 = v79;
+    v51 = BLHLSKeyFetchingLog();
+    v52 = v51;
+    if (!v49 || v50)
     {
-      if (os_log_type_enabled(v63, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v51, OS_LOG_TYPE_ERROR))
       {
         *buf = 138543618;
         selfCopy3 = self;
-        v103 = 2112;
-        v104 = v62;
-        _os_log_impl(&dword_241D0D000, v64, OS_LOG_TYPE_ERROR, "[%{public}@]: Failed to serialize key server request data with error:  %@", buf, 0x16u);
+        v84 = 2112;
+        v85 = v50;
+        _os_log_impl(&dword_241D0D000, v52, OS_LOG_TYPE_ERROR, "[%{public}@]: Failed to serialize key server request data with error:  %@", buf, 0x16u);
       }
 
-      v87 = MEMORY[0x277CCA9B8];
-      v88 = *MEMORY[0x277CF32E0];
-      if (v62)
+      v70 = MEMORY[0x277CCA9B8];
+      v71 = *MEMORY[0x277CF32E0];
+      if (v50)
       {
-        v99 = *MEMORY[0x277CCA7E8];
-        v100 = v62;
-        v89 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v86, &v100, &v99, 1);
-        v72 = objc_msgSend_errorWithDomain_code_userInfo_(v87, v90, v88, 2, v89);
+        v80 = *MEMORY[0x277CCA7E8];
+        v81 = v50;
+        v72 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v69, &v81, &v80, 1);
+        v58 = objc_msgSend_errorWithDomain_code_userInfo_(v70, v73, v71, 2, v72);
       }
 
       else
       {
-        v72 = objc_msgSend_errorWithDomain_code_userInfo_(MEMORY[0x277CCA9B8], v86, *MEMORY[0x277CF32E0], 2, 0);
+        v58 = objc_msgSend_errorWithDomain_code_userInfo_(MEMORY[0x277CCA9B8], v69, *MEMORY[0x277CF32E0], 2, 0);
       }
 
-      objc_msgSend_finishWithError_(self, v91, v72, v92);
+      objc_msgSend_finishWithError_(self, v74, v58);
     }
 
     else
     {
-      if (os_log_type_enabled(v63, OS_LOG_TYPE_DEFAULT))
+      if (os_log_type_enabled(v51, OS_LOG_TYPE_DEFAULT))
       {
-        v68 = objc_msgSend_title(self->_mediaItem, v65, v66, v67);
+        v55 = objc_msgSend_title(self->_mediaItem, v53, v54);
         *buf = 138412290;
-        selfCopy3 = v68;
-        _os_log_impl(&dword_241D0D000, v64, OS_LOG_TYPE_DEFAULT, "Performing offline key request for '%@'", buf, 0xCu);
+        selfCopy3 = v55;
+        _os_log_impl(&dword_241D0D000, v52, OS_LOG_TYPE_DEFAULT, "Performing offline key request for '%@'", buf, 0xCu);
       }
 
-      v69 = objc_alloc(MEMORY[0x277CCAB70]);
-      v72 = objc_msgSend_initWithURL_(v69, v70, self->_keyServerURL, v71);
-      objc_msgSend_setHTTPBody_(v72, v73, v61, v74);
-      objc_msgSend_setHTTPMethod_(v72, v75, @"POST", v76);
-      objc_msgSend_setValue_forHTTPHeaderField_(v72, v77, *MEMORY[0x277D7F908], *MEMORY[0x277D7F918]);
-      v78 = objc_alloc(MEMORY[0x277D7FC38]);
-      v80 = objc_msgSend_initWithURLRequest_requestContext_(v78, v79, v72, self->_requestContext);
-      v84 = objc_msgSend_highPrioritySession(MEMORY[0x277D7FC90], v81, v82, v83);
-      v96[0] = MEMORY[0x277D85DD0];
-      v96[1] = 3221225472;
-      v96[2] = sub_241D14114;
-      v96[3] = &unk_278D15A88;
-      v96[4] = self;
-      v97 = requestCopy;
-      objc_msgSend_enqueueDataRequest_withCompletionHandler_(v84, v85, v80, v96);
+      v56 = objc_alloc(MEMORY[0x277CCAB70]);
+      v58 = objc_msgSend_initWithURL_(v56, v57, self->_keyServerURL);
+      objc_msgSend_setHTTPBody_(v58, v59, v49);
+      objc_msgSend_setHTTPMethod_(v58, v60, @"POST");
+      objc_msgSend_setValue_forHTTPHeaderField_(v58, v61, *MEMORY[0x277D7F908], *MEMORY[0x277D7F918]);
+      v62 = objc_alloc(MEMORY[0x277D7FC38]);
+      v64 = objc_msgSend_initWithURLRequest_requestContext_(v62, v63, v58, self->_requestContext);
+      v67 = objc_msgSend_highPrioritySession(MEMORY[0x277D7FC90], v65, v66);
+      v77[0] = MEMORY[0x277D85DD0];
+      v77[1] = 3221225472;
+      v77[2] = sub_241D14114;
+      v77[3] = &unk_278D15A88;
+      v77[4] = self;
+      v78 = requestCopy;
+      objc_msgSend_enqueueDataRequest_withCompletionHandler_(v67, v68, v64, v77);
     }
   }
 
   else
   {
-    v50 = BLHLSKeyFetchingLog();
-    if (os_log_type_enabled(v50, OS_LOG_TYPE_ERROR))
+    v39 = BLHLSKeyFetchingLog();
+    if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
       selfCopy3 = self;
-      _os_log_impl(&dword_241D0D000, v50, OS_LOG_TYPE_ERROR, "[%{public}@]: Failed to generate server playback context data", buf, 0xCu);
+      _os_log_impl(&dword_241D0D000, v39, OS_LOG_TYPE_ERROR, "[%{public}@]: Failed to generate server playback context data", buf, 0xCu);
     }
 
-    v11 = objc_msgSend_errorWithDomain_code_userInfo_(MEMORY[0x277CCA9B8], v51, *MEMORY[0x277CF32E0], 2, 0);
-    objc_msgSend_finishWithError_(self, v52, v11, v53);
+    v10 = objc_msgSend_errorWithDomain_code_userInfo_(MEMORY[0x277CCA9B8], v40, *MEMORY[0x277CF32E0], 2, 0);
+    objc_msgSend_finishWithError_(self, v41, v10);
   }
-
-  v93 = *MEMORY[0x277D85DE8];
 }
 
 - (void)contentKeySession:(id)session didProvideContentKeyRequest:(id)request
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   requestCopy = request;
   dispatch_assert_queue_V2(self->_keySessionQueue);
   v7 = BLHLSKeyFetchingLog();
@@ -315,24 +310,22 @@
   else
   {
     objc_storeStrong(&self->_activeKeyRequest, request);
-    v16 = 0;
-    v11 = objc_msgSend_respondByRequestingPersistableContentKeyRequestAndReturnError_(requestCopy, v9, &v16, v10);
-    v8 = v16;
-    if ((v11 & 1) == 0)
+    v13 = 0;
+    v10 = objc_msgSend_respondByRequestingPersistableContentKeyRequestAndReturnError_(requestCopy, v9, &v13);
+    v8 = v13;
+    if ((v10 & 1) == 0)
     {
-      v12 = BLHLSKeyFetchingLog();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      v11 = BLHLSKeyFetchingLog();
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v18 = v8;
-        _os_log_impl(&dword_241D0D000, v12, OS_LOG_TYPE_ERROR, "Request for persistable content key request failed with error:  %@", buf, 0xCu);
+        v15 = v8;
+        _os_log_impl(&dword_241D0D000, v11, OS_LOG_TYPE_ERROR, "Request for persistable content key request failed with error:  %@", buf, 0xCu);
       }
 
-      objc_msgSend_finishWithError_(self, v13, v8, v14);
+      objc_msgSend_finishWithError_(self, v12, v8);
     }
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)contentKeySession:(id)session didProvidePersistableContentKeyRequest:(id)request
@@ -359,21 +352,21 @@
   else
   {
     objc_storeStrong(&self->_activePersistableKeyRequest, request);
-    v8 = objc_msgSend_dataUsingEncoding_(self->_identity, v9, 4, v10);
+    v8 = objc_msgSend_dataUsingEncoding_(self->_identity, v9, 4);
     certificateData = self->_certificateData;
-    v13[0] = MEMORY[0x277D85DD0];
-    v13[1] = 3221225472;
-    v13[2] = sub_241D14C7C;
-    v13[3] = &unk_278D15AB0;
-    v13[4] = self;
-    v14 = requestCopy;
-    objc_msgSend_makeStreamingContentKeyRequestDataForApp_contentIdentifier_options_completionHandler_(v14, v12, certificateData, v8, 0, v13);
+    v12[0] = MEMORY[0x277D85DD0];
+    v12[1] = 3221225472;
+    v12[2] = sub_241D14C7C;
+    v12[3] = &unk_278D15AB0;
+    v12[4] = self;
+    v13 = requestCopy;
+    objc_msgSend_makeStreamingContentKeyRequestDataForApp_contentIdentifier_options_completionHandler_(v13, v11, certificateData, v8, 0, v12);
   }
 }
 
 - (void)contentKeySession:(id)session contentKeyRequest:(id)request didFailWithError:(id)error
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   requestCopy = request;
   errorCopy = error;
   dispatch_assert_queue_V2(self->_keySessionQueue);
@@ -382,18 +375,16 @@
     v9 = BLHLSKeyFetchingLog();
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      v13 = objc_msgSend_title(self->_mediaItem, v10, v11, v12);
-      v17 = 138412546;
-      v18 = v13;
-      v19 = 2112;
-      v20 = errorCopy;
-      _os_log_impl(&dword_241D0D000, v9, OS_LOG_TYPE_ERROR, "Content key request failed for '%@' with error:  %@", &v17, 0x16u);
+      v12 = objc_msgSend_title(self->_mediaItem, v10, v11);
+      v14 = 138412546;
+      v15 = v12;
+      v16 = 2112;
+      v17 = errorCopy;
+      _os_log_impl(&dword_241D0D000, v9, OS_LOG_TYPE_ERROR, "Content key request failed for '%@' with error:  %@", &v14, 0x16u);
     }
 
-    objc_msgSend_finishWithError_(self, v14, errorCopy, v15);
+    objc_msgSend_finishWithError_(self, v13, errorCopy);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 @end

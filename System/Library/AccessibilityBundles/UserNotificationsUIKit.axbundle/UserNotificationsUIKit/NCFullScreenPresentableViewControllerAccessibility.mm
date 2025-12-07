@@ -2,6 +2,7 @@
 + (void)_accessibilityPerformValidations:(id)validations;
 - (void)_animateTransitionToDetailStateForTrigger:(int64_t)trigger;
 - (void)_axHandleStandByAnnouncementFinished;
+- (void)viewIsAppearing:(BOOL)appearing;
 @end
 
 @implementation NCFullScreenPresentableViewControllerAccessibility
@@ -20,6 +21,16 @@
   [validationsCopy validateClass:@"NCFullScreenStagingBannerView" hasInstanceVariable:@"_detailSecondaryLabel" withType:"UILabel"];
   [validationsCopy validateClass:@"NCFullScreenPresentableViewController" hasInstanceMethod:@"_animateTransitionToDetailStateForTrigger:" withFullSignature:{"v", "q", 0}];
   [validationsCopy validateClass:@"NCFullScreenPresentableViewController" hasInstanceMethod:@"requestTransitionBlockingAssertionWithReason:" withFullSignature:{"@", "@", 0}];
+}
+
+- (void)viewIsAppearing:(BOOL)appearing
+{
+  v6.receiver = self;
+  v6.super_class = NCFullScreenPresentableViewControllerAccessibility;
+  [(NCFullScreenPresentableViewControllerAccessibility *)&v6 viewIsAppearing:appearing];
+  v5 = [(NCFullScreenPresentableViewControllerAccessibility *)self requestTransitionBlockingAssertionWithReason:@"brief banner load"];
+  v4 = v5;
+  AXPerformBlockOnMainThreadAfterDelay();
 }
 
 - (void)_axHandleStandByAnnouncementFinished

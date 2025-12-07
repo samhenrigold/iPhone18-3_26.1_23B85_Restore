@@ -11,16 +11,15 @@
 {
   v3 = sub_243517B0C();
   v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
-  MEMORY[0x28223BE20]();
-  v7 = &v12 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v8 = sub_243517C7C();
-  static CLBAppIcons.url(for:)(v8, v9, v7);
+  MEMORY[0x28223BE20](v3);
+  v6 = &v11 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = sub_243517C7C();
+  static CLBAppIcons.url(for:)(v7, v8, v6);
 
-  v10 = sub_243517ABC();
-  (*(v4 + 8))(v7, v3);
+  v9 = sub_243517ABC();
+  (*(v4 + 8))(v6, v3);
 
-  return v10;
+  return v9;
 }
 
 + (CGSize)size

@@ -442,8 +442,7 @@ uint64_t __51__PRRenderingServiceServer_acknowledgeMotionEvents__block_invoke(ui
   v13[3] = &unk_1E7843970;
   v13[4] = self;
   [connectionCopy configureConnection:v13];
-  [connectionCopy activate];
-  v10 = PRLogRenderingService();
+  v10 = PRLogRenderingService([connectionCopy activate]);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     remoteProcess = [connectionCopy remoteProcess];
@@ -482,31 +481,32 @@ void __70__PRRenderingServiceServer_listener_didReceiveConnection_withContext___
 
 void __70__PRRenderingServiceServer_listener_didReceiveConnection_withContext___block_invoke_2(uint64_t a1, void *a2)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
+  v5 = WeakRetained;
   if (WeakRetained)
   {
-    v5 = PRLogRenderingService();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = PRLogRenderingService(WeakRetained);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = [v3 remoteProcess];
+      v7 = [v3 remoteProcess];
       *buf = 134218240;
-      v12 = v3;
-      v13 = 1024;
-      v14 = [v6 pid];
-      _os_log_impl(&dword_1A8AA7000, v5, OS_LOG_TYPE_DEFAULT, "PRRenderingService: connection <%p> pid: %i was invalidated", buf, 0x12u);
+      v13 = v3;
+      v14 = 1024;
+      v15 = [v7 pid];
+      _os_log_impl(&dword_1A8AA7000, v6, OS_LOG_TYPE_DEFAULT, "PRRenderingService: connection <%p> pid: %i was invalidated", buf, 0x12u);
     }
 
-    v7 = [WeakRetained[1] copy];
-    v9[0] = MEMORY[0x1E69E9820];
-    v9[1] = 3221225472;
-    v9[2] = __70__PRRenderingServiceServer_listener_didReceiveConnection_withContext___block_invoke_80;
-    v9[3] = &unk_1E7844580;
-    v10 = v3;
-    v8 = [v7 bs_firstObjectPassingTest:v9];
-    [WeakRetained[1] removeObject:v8];
-    [WeakRetained _notifyObserversDidInvalidateRenderingServiceConnection:v8];
+    v8 = [v5[1] copy];
+    v10[0] = MEMORY[0x1E69E9820];
+    v10[1] = 3221225472;
+    v10[2] = __70__PRRenderingServiceServer_listener_didReceiveConnection_withContext___block_invoke_80;
+    v10[3] = &unk_1E7844580;
+    v11 = v3;
+    v9 = [v8 bs_firstObjectPassingTest:v10];
+    [v5[1] removeObject:v9];
+    [v5 _notifyObserversDidInvalidateRenderingServiceConnection:v9];
   }
 }
 

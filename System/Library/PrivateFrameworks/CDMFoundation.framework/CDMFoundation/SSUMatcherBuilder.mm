@@ -28,41 +28,41 @@
 
 - (unint64_t)numMatchers
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   selfCopy = self;
   objc_sync_enter(selfCopy);
   v3 = CDMOSLoggerForCategory(0);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
-    v15 = [(NSMutableDictionary *)selfCopy->__matchers count];
+    v14 = [(NSMutableDictionary *)selfCopy->__matchers count];
     *buf = 136315394;
-    v22 = "[SSUMatcherBuilder numMatchers]";
-    v23 = 2048;
-    v24 = v15;
+    v21 = "[SSUMatcherBuilder numMatchers]";
+    v22 = 2048;
+    v23 = v14;
     _os_log_debug_impl(&dword_1DC287000, v3, OS_LOG_TYPE_DEBUG, "%s Total number of weak ref wrapper objects in __matchers: %lu", buf, 0x16u);
   }
 
-  v18 = 0u;
-  v19 = 0u;
-  v16 = 0u;
   v17 = 0u;
+  v18 = 0u;
+  v15 = 0u;
+  v16 = 0u;
   v4 = selfCopy->__matchers;
   v5 = 0;
-  v6 = [(NSMutableDictionary *)v4 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v6 = [(NSMutableDictionary *)v4 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v6)
   {
-    v7 = *v17;
+    v7 = *v16;
     do
     {
       v8 = 0;
       do
       {
-        if (*v17 != v7)
+        if (*v16 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = [(NSMutableDictionary *)selfCopy->__matchers objectForKeyedSubscript:*(*(&v16 + 1) + 8 * v8), v16];
+        v9 = [(NSMutableDictionary *)selfCopy->__matchers objectForKeyedSubscript:*(*(&v15 + 1) + 8 * v8), v15];
         matcher = [v9 matcher];
         v11 = matcher != 0;
 
@@ -71,7 +71,7 @@
       }
 
       while (v6 != v8);
-      v6 = [(NSMutableDictionary *)v4 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v6 = [(NSMutableDictionary *)v4 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v6);
@@ -81,14 +81,13 @@
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315394;
-    v22 = "[SSUMatcherBuilder numMatchers]";
-    v23 = 2048;
-    v24 = v5;
+    v21 = "[SSUMatcherBuilder numMatchers]";
+    v22 = 2048;
+    v23 = v5;
     _os_log_debug_impl(&dword_1DC287000, v12, OS_LOG_TYPE_DEBUG, "%s Total number of weak ref wrapper objects that contain a live matcher in __matchers: %lu", buf, 0x16u);
   }
 
   objc_sync_exit(selfCopy);
-  v13 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
@@ -106,7 +105,7 @@
 
 - (id)getMatcherForBuildParams:(id)params error:(id *)error
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   paramsCopy = params;
   selfCopy = self;
   objc_sync_enter(selfCopy);
@@ -120,10 +119,10 @@
       goto LABEL_6;
     }
 
-    v18 = 136315394;
-    v19 = "[SSUMatcherBuilder getMatcherForBuildParams:error:]";
-    v20 = 2048;
-    v21 = matcher;
+    v17 = 136315394;
+    v18 = "[SSUMatcherBuilder getMatcherForBuildParams:error:]";
+    v19 = 2048;
+    v20 = matcher;
     v11 = "%s Returning existing SSUMatcher instance with address: %p";
     goto LABEL_19;
   }
@@ -140,24 +139,24 @@
       goto LABEL_6;
     }
 
-    v18 = 136315394;
-    v19 = "[SSUMatcherBuilder getMatcherForBuildParams:error:]";
-    v20 = 2048;
-    v21 = matcher;
+    v17 = 136315394;
+    v18 = "[SSUMatcherBuilder getMatcherForBuildParams:error:]";
+    v19 = 2048;
+    v20 = matcher;
     v11 = "%s Returning newly-built SSUMatcher instance with address: %p";
 LABEL_19:
-    _os_log_debug_impl(&dword_1DC287000, v10, OS_LOG_TYPE_DEBUG, v11, &v18, 0x16u);
+    _os_log_debug_impl(&dword_1DC287000, v10, OS_LOG_TYPE_DEBUG, v11, &v17, 0x16u);
 LABEL_6:
 
     v13 = CDMOSLoggerForCategory(0);
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
     {
       numMatchers = [(SSUMatcherBuilder *)selfCopy numMatchers];
-      v18 = 136315394;
-      v19 = "[SSUMatcherBuilder getMatcherForBuildParams:error:]";
-      v20 = 2048;
-      v21 = numMatchers;
-      _os_log_debug_impl(&dword_1DC287000, v13, OS_LOG_TYPE_DEBUG, "%s Total number of matchers alive: %lu", &v18, 0x16u);
+      v17 = 136315394;
+      v18 = "[SSUMatcherBuilder getMatcherForBuildParams:error:]";
+      v19 = 2048;
+      v20 = numMatchers;
+      _os_log_debug_impl(&dword_1DC287000, v13, OS_LOG_TYPE_DEBUG, "%s Total number of matchers alive: %lu", &v17, 0x16u);
     }
 
     goto LABEL_8;
@@ -176,11 +175,11 @@ LABEL_6:
       localizedDescription = @"nil";
     }
 
-    v18 = 136315394;
-    v19 = "[SSUMatcherBuilder getMatcherForBuildParams:error:]";
-    v20 = 2112;
-    v21 = localizedDescription;
-    _os_log_impl(&dword_1DC287000, v13, OS_LOG_TYPE_INFO, "%s [WARN]: SSUMatcher building failed with error: %@", &v18, 0x16u);
+    v17 = 136315394;
+    v18 = "[SSUMatcherBuilder getMatcherForBuildParams:error:]";
+    v19 = 2112;
+    v20 = localizedDescription;
+    _os_log_impl(&dword_1DC287000, v13, OS_LOG_TYPE_INFO, "%s [WARN]: SSUMatcher building failed with error: %@", &v17, 0x16u);
     if (error)
     {
     }
@@ -190,7 +189,6 @@ LABEL_6:
 LABEL_8:
 
   objc_sync_exit(selfCopy);
-  v14 = *MEMORY[0x1E69E9840];
 
   return matcher;
 }
@@ -219,13 +217,13 @@ LABEL_8:
 
 + (id)buildMatcher:(id)matcher error:(id *)error
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   matcherCopy = matcher;
   v6 = CDMOSLoggerForCategory(0);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315138;
-    v25 = "+[SSUMatcherBuilder buildMatcher:error:]";
+    v24 = "+[SSUMatcherBuilder buildMatcher:error:]";
     _os_log_debug_impl(&dword_1DC287000, v6, OS_LOG_TYPE_DEBUG, "%s Building new SSUMatcher instance...", buf, 0xCu);
   }
 
@@ -234,15 +232,15 @@ LABEL_8:
   modelAssetsDirectoryURL = [matcherCopy modelAssetsDirectoryURL];
   datasetAssetsDirectoryURL = [matcherCopy datasetAssetsDirectoryURL];
 
-  v23 = 0;
-  v11 = [v7 directoriesWithCacheDirectoryURL:cacheDirectoryURL modelAssetsDirectoryURL:modelAssetsDirectoryURL datasetAssetsDirectoryURL:datasetAssetsDirectoryURL error:&v23];
-  v12 = v23;
+  v22 = 0;
+  v11 = [v7 directoriesWithCacheDirectoryURL:cacheDirectoryURL modelAssetsDirectoryURL:modelAssetsDirectoryURL datasetAssetsDirectoryURL:datasetAssetsDirectoryURL error:&v22];
+  v12 = v22;
 
   if (v11)
   {
-    v22 = 0;
-    v13 = [MEMORY[0x1E69D1488] matcherWithDirectories:v11 initializeModelsPreemptively:1 error:&v22];
-    v14 = v22;
+    v21 = 0;
+    v13 = [MEMORY[0x1E69D1488] matcherWithDirectories:v11 initializeModelsPreemptively:1 error:&v21];
+    v14 = v21;
     if (v13)
     {
       v15 = v13;
@@ -254,9 +252,9 @@ LABEL_8:
       if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
       {
         *buf = 136315394;
-        v25 = "+[SSUMatcherBuilder buildMatcher:error:]";
-        v26 = 2112;
-        v27 = v14;
+        v24 = "+[SSUMatcherBuilder buildMatcher:error:]";
+        v25 = 2112;
+        v26 = v14;
         _os_log_debug_impl(&dword_1DC287000, v18, OS_LOG_TYPE_DEBUG, "%s Error building SSUMatcher instance: %@", buf, 0x16u);
       }
 
@@ -274,9 +272,9 @@ LABEL_8:
     if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
     {
       *buf = 136315394;
-      v25 = "+[SSUMatcherBuilder buildMatcher:error:]";
-      v26 = 2112;
-      v27 = v12;
+      v24 = "+[SSUMatcherBuilder buildMatcher:error:]";
+      v25 = 2112;
+      v26 = v12;
       _os_log_debug_impl(&dword_1DC287000, v16, OS_LOG_TYPE_DEBUG, "%s Error building SNLPSSUMatcherDirectories instance: %@", buf, 0x16u);
     }
 
@@ -292,8 +290,6 @@ LABEL_8:
       v13 = 0;
     }
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 
   return v13;
 }

@@ -59,7 +59,7 @@ uint64_t __41__CCSetStoreUpdateService_initWithQueue___block_invoke()
 
 - (BOOL)listener:(id)listener shouldAcceptNewConnection:(id)connection
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   listenerCopy = listener;
   connectionCopy = connection;
   v8 = objc_autoreleasePoolPush();
@@ -69,9 +69,9 @@ uint64_t __41__CCSetStoreUpdateService_initWithQueue___block_invoke()
   {
     executableName = [v9 executableName];
     *buf = 138543618;
-    v29 = executableName;
-    v30 = 1024;
-    v31 = [v9 pid];
+    v28 = executableName;
+    v29 = 1024;
+    v30 = [v9 pid];
     _os_log_impl(&dword_1DA444000, v10, OS_LOG_TYPE_DEFAULT, "Incoming connection from %{public}@(%d)", buf, 0x12u);
   }
 
@@ -87,9 +87,9 @@ uint64_t __41__CCSetStoreUpdateService_initWithQueue___block_invoke()
         executableName2 = [v9 executableName];
         v16 = [v9 pid];
         *buf = 138543618;
-        v29 = executableName2;
-        v30 = 1024;
-        v31 = v16;
+        v28 = executableName2;
+        v29 = 1024;
+        v30 = v16;
         _os_log_impl(&dword_1DA444000, v14, OS_LOG_TYPE_DEFAULT, "Resetting eager-exit timer for incoming connection from %{public}@(%d)", buf, 0x12u);
       }
 
@@ -104,13 +104,13 @@ uint64_t __41__CCSetStoreUpdateService_initWithQueue___block_invoke()
     v19 = [MEMORY[0x1E696B0D0] interfaceWithProtocol:&unk_1F5600938];
     [connectionCopy setRemoteObjectInterface:v19];
 
-    v22 = MEMORY[0x1E69E9820];
-    v23 = 3221225472;
-    v24 = __62__CCSetStoreUpdateService_listener_shouldAcceptNewConnection___block_invoke;
-    v25 = &unk_1E85C2F40;
+    v21 = MEMORY[0x1E69E9820];
+    v22 = 3221225472;
+    v23 = __62__CCSetStoreUpdateService_listener_shouldAcceptNewConnection___block_invoke;
+    v24 = &unk_1E85C2F40;
     selfCopy = self;
-    v27 = v9;
-    [connectionCopy setInvalidationHandler:&v22];
+    v26 = v9;
+    [connectionCopy setInvalidationHandler:&v21];
     [connectionCopy resume];
   }
 
@@ -124,46 +124,41 @@ uint64_t __41__CCSetStoreUpdateService_initWithQueue___block_invoke()
   }
 
   objc_autoreleasePoolPop(v8);
-  v20 = *MEMORY[0x1E69E9840];
   return allowsConnectionToSetStoreUpdateService;
 }
 
-uint64_t __62__CCSetStoreUpdateService_listener_shouldAcceptNewConnection___block_invoke(uint64_t result)
+void *__62__CCSetStoreUpdateService_listener_shouldAcceptNewConnection___block_invoke(void *result)
 {
-  v12 = *MEMORY[0x1E69E9840];
-  if (*(*(result + 32) + 32))
+  v11 = *MEMORY[0x1E69E9840];
+  if (*(result[4] + 32))
   {
     v1 = result;
     v2 = __biome_log_for_category();
     if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
     {
-      v3 = [*(v1 + 40) executableName];
-      v4 = [*(v1 + 40) pid];
-      v6 = 138543874;
-      v7 = v3;
-      v8 = 1024;
-      v9 = v4;
-      v10 = 2048;
-      v11 = 10;
-      _os_log_impl(&dword_1DA444000, v2, OS_LOG_TYPE_DEFAULT, "Connection from %{public}@(%d) was invalidated, will attempt to eager exit in %lu seconds if there are no more connections", &v6, 0x1Cu);
+      v3 = [v1[5] executableName];
+      v4 = [v1[5] pid];
+      v5 = 138543874;
+      v6 = v3;
+      v7 = 1024;
+      v8 = v4;
+      v9 = 2048;
+      v10 = 10;
+      _os_log_impl(&dword_1DA444000, v2, OS_LOG_TYPE_DEFAULT, "Connection from %{public}@(%d) was invalidated, will attempt to eager exit in %lu seconds if there are no more connections", &v5, 0x1Cu);
     }
 
-    result = [*(*(v1 + 32) + 32) runAfterDelaySeconds:1 coalescingBehavior:10.0];
+    return [*(v1[4] + 32) runAfterDelaySeconds:1 coalescingBehavior:10.0];
   }
 
-  v5 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 - (void)listener:(void *)a1 shouldAcceptNewConnection:.cold.1(void *a1)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  v8 = [a1 executableName];
+  v7 = [a1 executableName];
   [a1 pid];
   OUTLINED_FUNCTION_0_0();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0x12u);
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 @end

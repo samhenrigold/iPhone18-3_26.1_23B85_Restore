@@ -122,7 +122,6 @@
   self->_metricsReportTimer = v6;
 
   dispatch_source_set_event_handler(self->_metricsReportTimer, &stru_1001AC650);
-  v8 = self->_metricsReportTimer;
   CUDispatchTimerSet();
   dispatch_resume(self->_metricsReportTimer);
 }
@@ -130,42 +129,41 @@
 - (id)descriptionWithLevel:(int)level
 {
   levelCopy = level;
-  v63 = sub_100009D00();
+  v61 = sub_100009D00(self, a2);
+  v95 = 0u;
+  v96 = 0u;
   v97 = 0u;
   v98 = 0u;
-  v99 = 0u;
-  v100 = 0u;
   selfCopy = self;
   v5 = self->_subDaemons;
-  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v97 objects:v105 count:16];
+  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v95 objects:v103 count:16];
   if (v6)
   {
     v7 = v6;
     v8 = 0;
-    v9 = *v98;
+    v9 = *v96;
     do
     {
-      for (i = 0; i != v7; i = i + 1)
+      for (i = 0; i != v7; ++i)
       {
-        if (*v98 != v9)
+        if (*v96 != v9)
         {
           objc_enumerationMutation(v5);
         }
 
-        v11 = *(*(&v97 + 1) + 8 * i);
         objc_opt_class();
         if ((objc_opt_isKindOfClass() & 1) == 0)
         {
-          v96 = v8;
-          v52 = CUDescriptionWithLevel();
-          NSAppendPrintF();
-          v12 = v8;
+          v94 = v8;
+          v11 = CUDescriptionWithLevel();
+          NSAppendPrintF(&v94, "%@\n", v11);
+          v12 = v94;
 
           v8 = v12;
         }
       }
 
-      v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v97 objects:v105 count:16];
+      v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v95 objects:v103 count:16];
     }
 
     while (v7);
@@ -177,637 +175,635 @@
   }
 
   v13 = +[RPMetrics sharedMetricsNoCreate];
-  v61 = v13;
+  v59 = v13;
   if (levelCopy <= 0x13 && v13)
   {
-    v95 = v8;
-    v52 = CUDescriptionWithLevel();
-    NSAppendPrintF();
-    v14 = v8;
-
-    v8 = v14;
-  }
-
-  v60 = +[RPAssertionTracker sharedTrackerNoCreate];
-  if (v60)
-  {
-    v94 = v8;
-    v53 = CUDescriptionWithLevel();
-    NSAppendPrintF();
-    v15 = v8;
+    v93 = v8;
+    v14 = CUDescriptionWithLevel();
+    NSAppendPrintF(&v93, "%@\n", v14);
+    v15 = v93;
 
     v8 = v15;
   }
 
-  v93 = v8;
-  v54 = [(NSMutableSet *)self->_xpcConnections count];
-  NSAppendPrintF();
-  v16 = v8;
+  v58 = +[RPAssertionTracker sharedTrackerNoCreate];
+  if (v58)
+  {
+    v92 = v8;
+    v16 = CUDescriptionWithLevel();
+    NSAppendPrintF(&v92, "%@\n", v16);
+    v17 = v92;
 
-  v91 = 0u;
-  v92 = 0u;
+    v8 = v17;
+  }
+
+  v91 = v8;
+  NSAppendPrintF(&v91, "-- Daemon XPC Cnx: %d --\n", [(NSMutableSet *)selfCopy->_xpcConnections count]);
+  v18 = v91;
+
   v89 = 0u;
   v90 = 0u;
-  obj = self->_xpcConnections;
-  v66 = [(NSMutableSet *)obj countByEnumeratingWithState:&v89 objects:v104 count:16, v54];
-  if (v66)
+  v87 = 0u;
+  v88 = 0u;
+  obj = selfCopy->_xpcConnections;
+  v64 = [(NSMutableSet *)obj countByEnumeratingWithState:&v87 objects:v102 count:16];
+  if (v64)
   {
-    v65 = *v90;
+    v63 = *v88;
     do
     {
-      for (j = 0; j != v66; j = j + 1)
+      for (j = 0; j != v64; j = j + 1)
       {
-        if (*v90 != v65)
+        if (*v88 != v63)
         {
           objc_enumerationMutation(obj);
         }
 
-        v18 = *(*(&v89 + 1) + 8 * j);
-        v88 = v16;
-        xpcCnx = [v18 xpcCnx];
-        processIdentifier = [xpcCnx processIdentifier];
-        NSAppendPrintF();
-        v20 = v88;
+        v20 = *(*(&v87 + 1) + 8 * j);
+        v86 = v18;
+        xpcCnx = [v20 xpcCnx];
+        NSAppendPrintF(&v86, "%#{pid}", [xpcCnx processIdentifier]);
+        v22 = v86;
 
-        assertions = [v18 assertions];
+        assertions = [v20 assertions];
         if ([assertions count])
         {
-          v87 = v20;
-          NSAppendPrintF();
-          v22 = v87;
+          v85 = v22;
+          NSAppendPrintF(&v85, ", assertions <");
+          v24 = v85;
 
-          v85 = 0u;
-          v86 = 0u;
           v83 = 0u;
           v84 = 0u;
-          v67 = assertions;
-          v23 = assertions;
-          v24 = [v23 countByEnumeratingWithState:&v83 objects:v103 count:16];
-          if (v24)
+          v81 = 0u;
+          v82 = 0u;
+          v65 = assertions;
+          v25 = assertions;
+          v26 = [v25 countByEnumeratingWithState:&v81 objects:v101 count:16];
+          if (v26)
           {
-            v25 = v24;
-            v26 = *v84;
-            v27 = "";
+            v27 = v26;
+            v28 = *v82;
+            v29 = "";
             do
             {
-              v28 = 0;
-              v29 = v22;
+              v30 = 0;
+              v31 = v24;
               do
               {
-                if (*v84 != v26)
+                if (*v82 != v28)
                 {
-                  objc_enumerationMutation(v23);
+                  objc_enumerationMutation(v25);
                 }
 
-                v30 = *(*(&v83 + 1) + 8 * v28);
-                v82 = v29;
-                v57 = v27;
-                v59 = v30;
-                NSAppendPrintF();
-                v22 = v29;
+                v32 = *(*(&v81 + 1) + 8 * v30);
+                v80 = v31;
+                NSAppendPrintF(&v80, "%s%@", v29, v32, v58, v59);
+                v24 = v80;
 
-                v28 = v28 + 1;
-                v27 = " ";
-                v29 = v22;
+                v30 = v30 + 1;
+                v29 = " ";
+                v31 = v24;
               }
 
-              while (v25 != v28);
-              v25 = [v23 countByEnumeratingWithState:&v83 objects:v103 count:{16, v57, v59, v60, v61}];
-              v27 = " ";
+              while (v27 != v30);
+              v27 = [v25 countByEnumeratingWithState:&v81 objects:v101 count:16];
+              v29 = " ";
             }
 
-            while (v25);
+            while (v27);
           }
 
-          v81 = v22;
-          NSAppendPrintF();
-          v20 = v22;
+          v79 = v24;
+          NSAppendPrintF(&v79, ">");
+          v22 = v79;
 
-          assertions = v67;
+          assertions = v65;
         }
 
-        v80 = v20;
-        NSAppendPrintF();
-        v16 = v20;
+        v78 = v22;
+        NSAppendPrintF(&v78, "\n");
+        v18 = v78;
       }
 
-      v66 = [(NSMutableSet *)obj countByEnumeratingWithState:&v89 objects:v104 count:16];
+      v64 = [(NSMutableSet *)obj countByEnumeratingWithState:&v87 objects:v102 count:16];
     }
 
-    while (v66);
+    while (v64);
   }
 
   errorFlags = selfCopy->_errorFlags;
   if (errorFlags)
   {
-    v79 = v16;
-    v55 = errorFlags;
-    v58 = &unk_100148360;
-    NSAppendPrintF();
-    v32 = v16;
+    v77 = v18;
+    NSAppendPrintF(&v77, "\nError Flags: %#ll{flags}\n", errorFlags, &unk_100148360, v58, v59);
+    v34 = v77;
 
-    v16 = v32;
+    v18 = v34;
   }
 
-  v33 = [NSSet alloc];
-  v34 = CFPrefs_CopyKeys();
-  v35 = [v33 initWithArray:v34];
+  v35 = [NSSet alloc];
+  v36 = CFPrefs_CopyKeys();
+  v37 = [v35 initWithArray:v36];
 
-  v36 = [[NSMutableSet alloc] initWithSet:v35];
-  v102[0] = @"btPipeEnabled";
-  v102[1] = @"cloudDiscovery";
-  v102[2] = @"clBLEClient";
-  v102[3] = @"clMeDeviceIsMeOverride";
-  v102[4] = @"clClientEnabled";
-  v102[5] = @"clHomeKit";
-  v102[6] = @"clMaxConnectionCount";
-  v102[7] = @"clServerBonjourAlways";
-  v102[8] = @"clServerEnabled";
-  v102[9] = @"familySyncedName";
-  v102[10] = @"ftCompress";
-  v102[11] = @"ftLargeFileBufferBytes";
-  v102[12] = @"ftLargeFileMaxOutstanding";
-  v102[13] = @"ftLargeFileMaxTasks";
-  v102[14] = @"ftSmallFilesMaxBytes";
-  v102[15] = @"ftSmallFilesMaxTasks";
-  v102[16] = @"frPruneAccountSecs";
-  v102[17] = @"frPruneLastSecs";
-  v102[18] = @"frRefreshMax";
-  v102[19] = @"frRefreshMin";
-  v102[20] = @"frMaxReachedLastSecs";
-  v102[21] = @"frSuggestMax";
-  v102[22] = @"frSuggestPollSecs";
-  v102[23] = @"frSyncDelaySecs";
-  v102[24] = @"hasAppleTVForce";
-  v102[25] = @"hasHomePodForce";
-  v102[26] = @"hasMacForce";
-  v102[27] = @"hidEnabled";
-  v102[28] = @"idFamilyResolve";
-  v102[29] = @"idFriendResolve";
-  v102[30] = @"idOwnerResolve";
-  v102[31] = @"idPairedResolve";
-  v102[32] = @"idSharedHomeResolve";
-  v102[33] = @"idsEnabled";
-  v102[34] = @"ignoreCompanionLinkChecks";
-  v102[35] = @"ignoreRemoteDisplayChecks";
-  v102[36] = @"ipEnabled";
-  v102[37] = @"isSignedInForce";
-  v102[38] = @"liveAudioEnabled";
-  v102[39] = @"mcEnabled";
-  v102[40] = @"metricsEnabled";
-  v102[41] = @"applyNoiWiFiToUSB";
-  v102[42] = @"pdFamily";
-  v102[43] = @"pdFriends";
-  v102[44] = @"pdFriendSyncStart";
-  v102[45] = @"pdPrivacyCoalesceMin";
-  v102[46] = @"pdPrivacyCoalesceMax";
-  v102[47] = @"pdPTSBurstActionScanSecs";
-  v102[48] = @"pdPTSBurstInfoScanSecs";
-  v102[49] = @"pdRanging";
-  v102[50] = @"pdStrangers";
-  v102[51] = @"pdTrackWhileAsleep";
-  v102[52] = @"rdBLEClient";
-  v102[53] = @"rdBLEServer";
-  v102[54] = @"rdClientEnabled";
-  v102[55] = @"rdHomeKit";
-  v102[56] = @"rdNoInfra";
-  v102[57] = @"rdServerBonjourInfra";
-  v102[58] = @"rdServerEnabled";
-  v102[59] = @"siriEnabled";
-  v102[60] = @"textInputEnabled";
-  v102[61] = @"touchEnabled";
-  v102[62] = @"uiNotes";
-  v102[63] = @"useTargetAuthTag";
-  v102[64] = @"xpcMatchingTestMode";
-  v102[65] = @"nearFieldSeverDiscoveryEnabled";
-  v102[66] = @"sendActivityLevelOverInfra";
-  v102[67] = @"oneTimeDateRequestedResetCompleted";
-  v37 = [NSArray arrayWithObjects:v102 count:68];
-  [v36 addObjectsFromArray:v37];
+  v38 = [[NSMutableSet alloc] initWithSet:v37];
+  v100[0] = @"btPipeEnabled";
+  v100[1] = @"cloudDiscovery";
+  v100[2] = @"clBLEClient";
+  v100[3] = @"clMeDeviceIsMeOverride";
+  v100[4] = @"clClientEnabled";
+  v100[5] = @"clHomeKit";
+  v100[6] = @"clMaxConnectionCount";
+  v100[7] = @"clServerBonjourAlways";
+  v100[8] = @"clServerEnabled";
+  v100[9] = @"familySyncedName";
+  v100[10] = @"ftCompress";
+  v100[11] = @"ftLargeFileBufferBytes";
+  v100[12] = @"ftLargeFileMaxOutstanding";
+  v100[13] = @"ftLargeFileMaxTasks";
+  v100[14] = @"ftSmallFilesMaxBytes";
+  v100[15] = @"ftSmallFilesMaxTasks";
+  v100[16] = @"frPruneAccountSecs";
+  v100[17] = @"frPruneLastSecs";
+  v100[18] = @"frRefreshMax";
+  v100[19] = @"frRefreshMin";
+  v100[20] = @"frMaxReachedLastSecs";
+  v100[21] = @"frSuggestMax";
+  v100[22] = @"frSuggestPollSecs";
+  v100[23] = @"frSyncDelaySecs";
+  v100[24] = @"hasAppleTVForce";
+  v100[25] = @"hasHomePodForce";
+  v100[26] = @"hasMacForce";
+  v100[27] = @"hidEnabled";
+  v100[28] = @"idFamilyResolve";
+  v100[29] = @"idFriendResolve";
+  v100[30] = @"idOwnerResolve";
+  v100[31] = @"idPairedResolve";
+  v100[32] = @"idSharedHomeResolve";
+  v100[33] = @"idsEnabled";
+  v100[34] = @"ignoreCompanionLinkChecks";
+  v100[35] = @"ignoreRemoteDisplayChecks";
+  v100[36] = @"ipEnabled";
+  v100[37] = @"isSignedInForce";
+  v100[38] = @"liveAudioEnabled";
+  v100[39] = @"mcEnabled";
+  v100[40] = @"metricsEnabled";
+  v100[41] = @"applyNoiWiFiToUSB";
+  v100[42] = @"pdFamily";
+  v100[43] = @"pdFriends";
+  v100[44] = @"pdFriendSyncStart";
+  v100[45] = @"pdPrivacyCoalesceMin";
+  v100[46] = @"pdPrivacyCoalesceMax";
+  v100[47] = @"pdPTSBurstActionScanSecs";
+  v100[48] = @"pdPTSBurstInfoScanSecs";
+  v100[49] = @"pdRanging";
+  v100[50] = @"pdStrangers";
+  v100[51] = @"pdTrackWhileAsleep";
+  v100[52] = @"rdBLEClient";
+  v100[53] = @"rdBLEServer";
+  v100[54] = @"rdClientEnabled";
+  v100[55] = @"rdHomeKit";
+  v100[56] = @"rdNoInfra";
+  v100[57] = @"rdServerBonjourInfra";
+  v100[58] = @"rdServerEnabled";
+  v100[59] = @"siriEnabled";
+  v100[60] = @"textInputEnabled";
+  v100[61] = @"touchEnabled";
+  v100[62] = @"uiNotes";
+  v100[63] = @"useTargetAuthTag";
+  v100[64] = @"xpcMatchingTestMode";
+  v100[65] = @"nearFieldSeverDiscoveryEnabled";
+  v100[66] = @"sendActivityLevelOverInfra";
+  v100[67] = @"oneTimeDateRequestedResetCompleted";
+  v39 = [NSArray arrayWithObjects:v100 count:68];
+  [v38 addObjectsFromArray:v39];
 
-  v77 = 0u;
-  v78 = 0u;
   v75 = 0u;
   v76 = 0u;
-  v68 = v36;
-  v38 = [v68 countByEnumeratingWithState:&v75 objects:v101 count:16];
-  if (v38)
+  v73 = 0u;
+  v74 = 0u;
+  v66 = v38;
+  v40 = [v66 countByEnumeratingWithState:&v73 objects:v99 count:16];
+  if (v40)
   {
-    v39 = v38;
-    v40 = 0;
-    v41 = *v76;
+    v41 = v40;
+    v42 = 0;
+    v43 = *v74;
     do
     {
-      for (k = 0; k != v39; k = k + 1)
+      for (k = 0; k != v41; k = k + 1)
       {
-        if (*v76 != v41)
+        if (*v74 != v43)
         {
-          objc_enumerationMutation(v68);
+          objc_enumerationMutation(v66);
         }
 
-        v43 = *(*(&v75 + 1) + 8 * k);
-        v44 = [v35 containsObject:{v43, v55, v58}];
-        if (!v40)
+        v45 = *(*(&v73 + 1) + 8 * k);
+        v46 = [v37 containsObject:v45];
+        if (!v42)
         {
-          v74 = v16;
-          NSAppendPrintF();
-          v45 = v74;
+          v72 = v18;
+          NSAppendPrintF(&v72, "\n");
+          v47 = v72;
 
-          v16 = v45;
+          v18 = v47;
         }
 
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          v73 = 0;
-          v46 = CFPrefs_CopyTypedValue();
-          v47 = v46;
-          if (v44)
+          v71 = 0;
+          v48 = CFPrefs_CopyTypedValue();
+          v49 = v48;
+          if (v46)
           {
-            if (v63)
+            if (v61)
             {
-              v70 = v16;
-              v55 = v43;
-              v58 = v46;
-              v48 = &v70;
+              v68 = v18;
+              v54 = v45;
+              v50 = &v68;
+              NSAppendPrintF(&v68, "Pref: '%@' = '%@'\n", v54, v48);
             }
 
             else
             {
-              v69 = v16;
-              v55 = v43;
-              v58 = v46;
-              v48 = &v69;
+              v67 = v18;
+              v56 = v45;
+              v50 = &v67;
+              NSAppendPrintF(&v67, "Pref: '%@' = '%~@'\n", v56, v48);
             }
 
             goto LABEL_51;
           }
 
-          if (v73 != -6727)
+          if (v71 != -6727)
           {
-            if (v63)
+            if (v61)
             {
-              v72 = v16;
-              v55 = v43;
-              v58 = v46;
-              v48 = &v72;
+              v70 = v18;
+              v55 = v45;
+              v50 = &v70;
+              NSAppendPrintF(&v70, "Pref (profile): '%@' = '%@'\n", v55, v48);
             }
 
             else
             {
-              v71 = v16;
-              v55 = v43;
-              v58 = v46;
-              v48 = &v71;
+              v69 = v18;
+              v57 = v45;
+              v50 = &v69;
+              NSAppendPrintF(&v69, "Pref (profile): '%@' = '%~@'\n", v57, v48);
             }
 
 LABEL_51:
-            NSAppendPrintF();
-            v49 = *v48;
+            v51 = *v50;
 
-            v16 = v49;
+            v18 = v51;
           }
 
-          ++v40;
+          ++v42;
 
           continue;
         }
       }
 
-      v39 = [v68 countByEnumeratingWithState:&v75 objects:v101 count:16];
+      v41 = [v66 countByEnumeratingWithState:&v73 objects:v99 count:16];
     }
 
-    while (v39);
+    while (v41);
   }
 
-  v50 = v16;
-  return v16;
+  v52 = v18;
+  return v18;
 }
 
 - (void)activate
 {
-  if (dword_1001D3730 <= 30 && (dword_1001D3730 != -1 || _LogCategory_Initialize()))
+  selfCopy = self;
+  if (dword_1001D3730 <= 30)
   {
-    sub_10011705C();
-  }
-
-  v3 = CFPrefs_GetInt64() != 0;
-  if (self->_prefXPCMatchingTestMode != v3)
-  {
-    if (dword_1001D3730 <= 40 && (dword_1001D3730 != -1 || _LogCategory_Initialize()))
+    if (dword_1001D3730 != -1 || (self = _LogCategory_Initialize(), self))
     {
-      sub_100117078();
+      sub_10011705C(self, a2, v2);
     }
-
-    self->_prefXPCMatchingTestMode = v3;
   }
 
-  v49 = 0u;
-  v50 = 0u;
-  v47 = 0u;
-  v48 = 0u;
-  v4 = self->_subDaemons;
-  v5 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v47 objects:v52 count:16];
-  if (v5)
+  Int64 = CFPrefs_GetInt64();
+  v5 = Int64 != 0;
+  if (selfCopy->_prefXPCMatchingTestMode != v5)
   {
-    v6 = v5;
-    v7 = *v48;
-    do
+    if (dword_1001D3730 <= 40)
     {
-      for (i = 0; i != v6; i = i + 1)
+      v6 = Int64;
+      if (dword_1001D3730 != -1 || _LogCategory_Initialize())
       {
-        if (*v48 != v7)
-        {
-          objc_enumerationMutation(v4);
-        }
-
-        [*(*(&v47 + 1) + 8 * i) setDispatchQueue:self->_dispatchQueue];
+        sub_100117078(v6 != 0);
       }
-
-      v6 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v47 objects:v52 count:16];
     }
 
-    while (v6);
+    selfCopy->_prefXPCMatchingTestMode = v5;
   }
 
-  v45 = 0u;
-  v46 = 0u;
-  v43 = 0u;
   v44 = 0u;
-  v9 = self->_subDaemons;
-  v10 = [(NSMutableArray *)v9 countByEnumeratingWithState:&v43 objects:v51 count:16];
-  if (v10)
+  v45 = 0u;
+  v42 = 0u;
+  v43 = 0u;
+  v7 = selfCopy->_subDaemons;
+  v8 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v42 objects:v47 count:16];
+  if (v8)
   {
-    v11 = v10;
-    v12 = *v44;
+    v9 = v8;
+    v10 = *v43;
     do
     {
-      for (j = 0; j != v11; j = j + 1)
+      for (i = 0; i != v9; i = i + 1)
       {
-        if (*v44 != v12)
+        if (*v43 != v10)
         {
-          objc_enumerationMutation(v9);
+          objc_enumerationMutation(v7);
         }
 
-        [*(*(&v43 + 1) + 8 * j) activate];
+        [*(*(&v42 + 1) + 8 * i) setDispatchQueue:selfCopy->_dispatchQueue];
       }
 
-      v11 = [(NSMutableArray *)v9 countByEnumeratingWithState:&v43 objects:v51 count:16];
+      v9 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v42 objects:v47 count:16];
     }
 
-    while (v11);
+    while (v9);
   }
 
-  dispatchQueue = self->_dispatchQueue;
+  v40 = 0u;
+  v41 = 0u;
+  v38 = 0u;
+  v39 = 0u;
+  v12 = selfCopy->_subDaemons;
+  v13 = [(NSMutableArray *)v12 countByEnumeratingWithState:&v38 objects:v46 count:16];
+  if (v13)
+  {
+    v14 = v13;
+    v15 = *v39;
+    do
+    {
+      for (j = 0; j != v14; j = j + 1)
+      {
+        if (*v39 != v15)
+        {
+          objc_enumerationMutation(v12);
+        }
+
+        [*(*(&v38 + 1) + 8 * j) activate];
+      }
+
+      v14 = [(NSMutableArray *)v12 countByEnumeratingWithState:&v38 objects:v46 count:16];
+    }
+
+    while (v14);
+  }
+
+  dispatchQueue = selfCopy->_dispatchQueue;
   block[0] = _NSConcreteStackBlock;
   block[1] = 3221225472;
   block[2] = sub_10004FCE0;
   block[3] = &unk_1001AA970;
-  block[4] = self;
+  block[4] = selfCopy;
   dispatch_async(dispatchQueue, block);
-  if (self->_languageChangedNotifier == -1)
+  if (selfCopy->_languageChangedNotifier == -1)
   {
-    v15 = self->_dispatchQueue;
+    v18 = selfCopy->_dispatchQueue;
     handler[0] = _NSConcreteStackBlock;
     handler[1] = 3221225472;
     handler[2] = sub_10004FCE8;
     handler[3] = &unk_1001AAFE8;
-    handler[4] = self;
-    notify_register_dispatch("com.apple.language.changed", &self->_languageChangedNotifier, v15, handler);
+    handler[4] = selfCopy;
+    notify_register_dispatch("com.apple.language.changed", &selfCopy->_languageChangedNotifier, v18, handler);
   }
 
-  if (!self->_sigTermSource)
+  if (!selfCopy->_sigTermSource)
   {
-    v16 = dispatch_source_create(&_dispatch_source_type_signal, 0xFuLL, 0, self->_dispatchQueue);
-    sigTermSource = self->_sigTermSource;
-    self->_sigTermSource = v16;
+    v19 = dispatch_source_create(&_dispatch_source_type_signal, 0xFuLL, 0, selfCopy->_dispatchQueue);
+    sigTermSource = selfCopy->_sigTermSource;
+    selfCopy->_sigTermSource = v19;
 
-    v18 = self->_sigTermSource;
-    v40[0] = _NSConcreteStackBlock;
-    v40[1] = 3221225472;
-    v40[2] = sub_10004FD6C;
-    v40[3] = &unk_1001AA970;
-    v40[4] = self;
-    dispatch_source_set_event_handler(v18, v40);
-    dispatch_resume(self->_sigTermSource);
-  }
-
-  if (!self->_systemMonitor)
-  {
-    v19 = objc_alloc_init(CUSystemMonitor);
-    systemMonitor = self->_systemMonitor;
-    self->_systemMonitor = v19;
-
-    [(CUSystemMonitor *)self->_systemMonitor setDispatchQueue:self->_dispatchQueue];
-    v39[0] = _NSConcreteStackBlock;
-    v39[1] = 3221225472;
-    v39[2] = sub_10004FDE8;
-    v39[3] = &unk_1001AA970;
-    v39[4] = self;
-    [(CUSystemMonitor *)self->_systemMonitor setManateeChangedHandler:v39];
-    v38[0] = _NSConcreteStackBlock;
-    v38[1] = 3221225472;
-    v38[2] = sub_10004FE50;
-    v38[3] = &unk_1001AA970;
-    v38[4] = self;
-    [(CUSystemMonitor *)self->_systemMonitor setPrimaryAppleIDChangedHandler:v38];
-    v37[0] = _NSConcreteStackBlock;
-    v37[1] = 3221225472;
-    v37[2] = sub_10004FEB8;
-    v37[3] = &unk_1001AA970;
-    v37[4] = self;
-    [(CUSystemMonitor *)self->_systemMonitor setWifiStateChangedHandler:v37];
-    v21 = self->_systemMonitor;
-    v36[0] = _NSConcreteStackBlock;
-    v36[1] = 3221225472;
-    v36[2] = sub_10004FF20;
-    v36[3] = &unk_1001AA970;
-    v36[4] = self;
-    [(CUSystemMonitor *)v21 activateWithCompletion:v36];
-  }
-
-  if (!self->_xpcEventsRegistered)
-  {
-    v22 = self->_dispatchQueue;
+    v21 = selfCopy->_sigTermSource;
     v35[0] = _NSConcreteStackBlock;
     v35[1] = 3221225472;
-    v35[2] = sub_10004FF28;
-    v35[3] = &unk_1001AC678;
-    v35[4] = self;
-    xpc_set_event_stream_handler("com.apple.notifyd.matching", v22, v35);
-    self->_xpcEventsRegistered = 1;
+    v35[2] = sub_10004FD6C;
+    v35[3] = &unk_1001AA970;
+    v35[4] = selfCopy;
+    dispatch_source_set_event_handler(v21, v35);
+    dispatch_resume(selfCopy->_sigTermSource);
   }
 
-  if (!self->_xpcListener)
+  if (!selfCopy->_systemMonitor)
   {
-    v23 = [[NSXPCListener alloc] initWithMachServiceName:@"com.apple.rapport"];
-    xpcListener = self->_xpcListener;
-    self->_xpcListener = v23;
+    v22 = objc_alloc_init(CUSystemMonitor);
+    systemMonitor = selfCopy->_systemMonitor;
+    selfCopy->_systemMonitor = v22;
 
-    [(NSXPCListener *)self->_xpcListener setDelegate:self];
-    [(NSXPCListener *)self->_xpcListener _setQueue:self->_dispatchQueue];
-    [(NSXPCListener *)self->_xpcListener resume];
+    [(CUSystemMonitor *)selfCopy->_systemMonitor setDispatchQueue:selfCopy->_dispatchQueue];
+    v34[0] = _NSConcreteStackBlock;
+    v34[1] = 3221225472;
+    v34[2] = sub_10004FDE8;
+    v34[3] = &unk_1001AA970;
+    v34[4] = selfCopy;
+    [(CUSystemMonitor *)selfCopy->_systemMonitor setManateeChangedHandler:v34];
+    v33[0] = _NSConcreteStackBlock;
+    v33[1] = 3221225472;
+    v33[2] = sub_10004FE50;
+    v33[3] = &unk_1001AA970;
+    v33[4] = selfCopy;
+    [(CUSystemMonitor *)selfCopy->_systemMonitor setPrimaryAppleIDChangedHandler:v33];
+    v32[0] = _NSConcreteStackBlock;
+    v32[1] = 3221225472;
+    v32[2] = sub_10004FEB8;
+    v32[3] = &unk_1001AA970;
+    v32[4] = selfCopy;
+    [(CUSystemMonitor *)selfCopy->_systemMonitor setWifiStateChangedHandler:v32];
+    v24 = selfCopy->_systemMonitor;
+    v31[0] = _NSConcreteStackBlock;
+    v31[1] = 3221225472;
+    v31[2] = sub_10004FF20;
+    v31[3] = &unk_1001AA970;
+    v31[4] = selfCopy;
+    [(CUSystemMonitor *)v24 activateWithCompletion:v31];
   }
 
-  if (!self->_xpcPublisher)
+  if (!selfCopy->_xpcEventsRegistered)
   {
-    v25 = self->_dispatchQueue;
-    v26 = xpc_event_publisher_create();
-    xpcPublisher = self->_xpcPublisher;
-    self->_xpcPublisher = v26;
+    v25 = selfCopy->_dispatchQueue;
+    v30[0] = _NSConcreteStackBlock;
+    v30[1] = 3221225472;
+    v30[2] = sub_10004FF28;
+    v30[3] = &unk_1001AC678;
+    v30[4] = selfCopy;
+    xpc_set_event_stream_handler("com.apple.notifyd.matching", v25, v30);
+    selfCopy->_xpcEventsRegistered = 1;
+  }
 
-    v28 = self->_xpcPublisher;
+  if (!selfCopy->_xpcListener)
+  {
+    v26 = [[NSXPCListener alloc] initWithMachServiceName:@"com.apple.rapport"];
+    xpcListener = selfCopy->_xpcListener;
+    selfCopy->_xpcListener = v26;
+
+    [(NSXPCListener *)selfCopy->_xpcListener setDelegate:selfCopy];
+    [(NSXPCListener *)selfCopy->_xpcListener _setQueue:selfCopy->_dispatchQueue];
+    [(NSXPCListener *)selfCopy->_xpcListener resume];
+  }
+
+  if (!selfCopy->_xpcPublisher)
+  {
+    v28 = xpc_event_publisher_create();
+    xpcPublisher = selfCopy->_xpcPublisher;
+    selfCopy->_xpcPublisher = v28;
+
     xpc_event_publisher_set_handler();
-    v29 = self->_xpcPublisher;
     xpc_event_publisher_set_error_handler();
-    v30 = self->_xpcPublisher;
     xpc_event_publisher_activate();
   }
 
-  if (!self->_stateHandleGeneral)
+  if (!selfCopy->_stateHandleGeneral)
   {
-    v31 = self->_dispatchQueue;
-    self->_stateHandleGeneral = os_state_add_handler();
+    selfCopy->_stateHandleGeneral = os_state_add_handler();
   }
 
-  if (!self->_stateHandleIdentities)
+  if (!selfCopy->_stateHandleIdentities)
   {
-    v32 = self->_dispatchQueue;
-    self->_stateHandleIdentities = os_state_add_handler();
+    selfCopy->_stateHandleIdentities = os_state_add_handler();
   }
 
-  if (!self->_stateHandleKeychain)
+  if (!selfCopy->_stateHandleKeychain)
   {
-    v33 = self->_dispatchQueue;
-    self->_stateHandleKeychain = os_state_add_handler();
+    selfCopy->_stateHandleKeychain = os_state_add_handler();
   }
 
-  if (!self->_stateHandlePrivateDiscovery)
+  if (!selfCopy->_stateHandlePrivateDiscovery)
   {
-    v34 = self->_dispatchQueue;
-    self->_stateHandlePrivateDiscovery = os_state_add_handler();
+    selfCopy->_stateHandlePrivateDiscovery = os_state_add_handler();
   }
 }
 
 - (void)invalidate
 {
-  if (dword_1001D3730 <= 30 && (dword_1001D3730 != -1 || _LogCategory_Initialize()))
+  selfCopy = self;
+  if (dword_1001D3730 <= 30)
   {
-    sub_1001171E0();
+    if (dword_1001D3730 != -1 || (self = _LogCategory_Initialize(), self))
+    {
+      sub_1001171E0(self, a2, v2);
+    }
   }
 
-  v28 = 0u;
   v29 = 0u;
-  v26 = 0u;
+  v30 = 0u;
   v27 = 0u;
-  v3 = self->_subDaemons;
-  v4 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v26 objects:v31 count:16];
-  if (v4)
+  v28 = 0u;
+  v4 = selfCopy->_subDaemons;
+  v5 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v27 objects:v32 count:16];
+  if (v5)
   {
-    v5 = v4;
-    v6 = *v27;
+    v6 = v5;
+    v7 = *v28;
     do
     {
-      for (i = 0; i != v5; i = i + 1)
+      for (i = 0; i != v6; i = i + 1)
       {
-        if (*v27 != v6)
+        if (*v28 != v7)
         {
-          objc_enumerationMutation(v3);
+          objc_enumerationMutation(v4);
         }
 
-        [*(*(&v26 + 1) + 8 * i) invalidate];
+        [*(*(&v27 + 1) + 8 * i) invalidate];
       }
 
-      v5 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v26 objects:v31 count:16];
+      v6 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v27 objects:v32 count:16];
     }
 
-    while (v5);
+    while (v6);
   }
 
-  [(NSMutableArray *)self->_subDaemons removeAllObjects];
-  xpcPublisher = self->_xpcPublisher;
-  self->_xpcPublisher = 0;
+  [(NSMutableArray *)selfCopy->_subDaemons removeAllObjects];
+  xpcPublisher = selfCopy->_xpcPublisher;
+  selfCopy->_xpcPublisher = 0;
 
-  if (self->_stateHandleGeneral)
+  if (selfCopy->_stateHandleGeneral)
   {
     os_state_remove_handler();
-    self->_stateHandleGeneral = 0;
+    selfCopy->_stateHandleGeneral = 0;
   }
 
-  if (self->_stateHandleIdentities)
+  if (selfCopy->_stateHandleIdentities)
   {
     os_state_remove_handler();
-    self->_stateHandleIdentities = 0;
+    selfCopy->_stateHandleIdentities = 0;
   }
 
-  if (self->_stateHandleKeychain)
+  if (selfCopy->_stateHandleKeychain)
   {
     os_state_remove_handler();
-    self->_stateHandleKeychain = 0;
+    selfCopy->_stateHandleKeychain = 0;
   }
 
-  if (self->_stateHandlePrivateDiscovery)
+  if (selfCopy->_stateHandlePrivateDiscovery)
   {
     os_state_remove_handler();
-    self->_stateHandlePrivateDiscovery = 0;
+    selfCopy->_stateHandlePrivateDiscovery = 0;
   }
 
-  languageChangedNotifier = self->_languageChangedNotifier;
+  languageChangedNotifier = selfCopy->_languageChangedNotifier;
   if (languageChangedNotifier != -1)
   {
     notify_cancel(languageChangedNotifier);
-    self->_languageChangedNotifier = -1;
+    selfCopy->_languageChangedNotifier = -1;
   }
 
-  sigTermSource = self->_sigTermSource;
+  sigTermSource = selfCopy->_sigTermSource;
   if (sigTermSource)
   {
-    v11 = sigTermSource;
-    dispatch_source_cancel(v11);
-    v12 = self->_sigTermSource;
-    self->_sigTermSource = 0;
+    v12 = sigTermSource;
+    dispatch_source_cancel(v12);
+    v13 = selfCopy->_sigTermSource;
+    selfCopy->_sigTermSource = 0;
   }
 
-  [(CUSystemMonitor *)self->_systemMonitor invalidate];
-  systemMonitor = self->_systemMonitor;
-  self->_systemMonitor = 0;
+  [(CUSystemMonitor *)selfCopy->_systemMonitor invalidate];
+  systemMonitor = selfCopy->_systemMonitor;
+  selfCopy->_systemMonitor = 0;
 
-  [(NSXPCListener *)self->_xpcListener invalidate];
-  xpcListener = self->_xpcListener;
-  self->_xpcListener = 0;
+  [(NSXPCListener *)selfCopy->_xpcListener invalidate];
+  xpcListener = selfCopy->_xpcListener;
+  selfCopy->_xpcListener = 0;
 
-  v24 = 0u;
   v25 = 0u;
-  v22 = 0u;
+  v26 = 0u;
   v23 = 0u;
-  v15 = self->_xpcConnections;
-  v16 = [(NSMutableSet *)v15 countByEnumeratingWithState:&v22 objects:v30 count:16];
-  if (v16)
+  v24 = 0u;
+  v16 = selfCopy->_xpcConnections;
+  v17 = [(NSMutableSet *)v16 countByEnumeratingWithState:&v23 objects:v31 count:16];
+  if (v17)
   {
-    v17 = v16;
-    v18 = *v23;
+    v18 = v17;
+    v19 = *v24;
     do
     {
-      for (j = 0; j != v17; j = j + 1)
+      for (j = 0; j != v18; j = j + 1)
       {
-        if (*v23 != v18)
+        if (*v24 != v19)
         {
-          objc_enumerationMutation(v15);
+          objc_enumerationMutation(v16);
         }
 
-        xpcCnx = [*(*(&v22 + 1) + 8 * j) xpcCnx];
+        xpcCnx = [*(*(&v23 + 1) + 8 * j) xpcCnx];
         [xpcCnx invalidate];
       }
 
-      v17 = [(NSMutableSet *)v15 countByEnumeratingWithState:&v22 objects:v30 count:16];
+      v18 = [(NSMutableSet *)v16 countByEnumeratingWithState:&v23 objects:v31 count:16];
     }
 
-    while (v17);
+    while (v18);
   }
 
-  [(NSMutableSet *)self->_xpcConnections removeAllObjects];
-  xpcConnections = self->_xpcConnections;
-  self->_xpcConnections = 0;
+  [(NSMutableSet *)selfCopy->_xpcConnections removeAllObjects];
+  xpcConnections = selfCopy->_xpcConnections;
+  selfCopy->_xpcConnections = 0;
 
   if (dword_1001D3730 <= 30 && (dword_1001D3730 != -1 || _LogCategory_Initialize()))
   {
@@ -830,27 +826,22 @@ LABEL_51:
     self->_errorFlagsForceClear = Int64;
     if (dword_1001D3730 <= 30)
     {
-      if (dword_1001D3730 != -1)
+      if (dword_1001D3730 == -1)
       {
-LABEL_4:
-        v16 = Int64;
-        errorFlagsForceSet = self->_errorFlagsForceSet;
-        LogPrintF();
-        [(RPDaemon *)self _updateErrorFlags:errorFlagsForceSet];
-        goto LABEL_7;
+        if (!_LogCategory_Initialize())
+        {
+          goto LABEL_6;
+        }
+
+        Int64 = self->_errorFlagsForceClear;
       }
 
-      if (_LogCategory_Initialize())
-      {
-        Int64 = self->_errorFlagsForceClear;
-        goto LABEL_4;
-      }
+      LogPrintF(&dword_1001D3730, "[RPDaemon diagnosticCommand:params:]", 30, "Diag: ErrorFlags: Set %#ll{flags}, Clear %#ll{flags}\n", self->_errorFlagsForceSet, &unk_100148360, Int64, &unk_100148360);
     }
 
-    [(RPDaemon *)self _updateErrorFlags:v12];
+LABEL_6:
+    [(RPDaemon *)self _updateErrorFlags];
   }
-
-LABEL_7:
 
   return v9;
 }
@@ -903,50 +894,48 @@ LABEL_7:
   [v3 setAccessGroup:@"com.apple.rapport"];
   [v3 setSyncType:3];
   v4 = objc_alloc_init(CUKeychainManager);
-  v23 = 0;
-  v5 = [v4 copyItemsMatchingItem:v3 flags:0 error:&v23];
-  v6 = v23;
-  v22 = v2;
-  v17 = [v5 count];
-  NSAppendPrintF();
-  v7 = v2;
+  v21 = 0;
+  v5 = [v4 copyItemsMatchingItem:v3 flags:0 error:&v21];
+  v6 = v21;
+  v20 = v2;
+  NSAppendPrintF(&v20, "-- RPKeychain: %d items, %{error} --\n", [v5 count], v6);
+  v7 = v20;
 
-  v20 = 0u;
-  v21 = 0u;
   v18 = 0u;
   v19 = 0u;
+  v16 = 0u;
+  v17 = 0u;
   v8 = v5;
-  v9 = [v8 countByEnumeratingWithState:&v18 objects:v24 count:{16, v17, v6}];
+  v9 = [v8 countByEnumeratingWithState:&v16 objects:v22 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v19;
+    v11 = *v17;
     do
     {
       v12 = 0;
       do
       {
-        if (*v19 != v11)
+        if (*v17 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = *(*(&v18 + 1) + 8 * v12);
-        v14 = CUDescriptionWithLevel();
-        [v7 appendString:v14];
+        v13 = CUDescriptionWithLevel();
+        [v7 appendString:v13];
 
         [v7 appendString:@"\n"];
-        v12 = v12 + 1;
+        ++v12;
       }
 
       while (v10 != v12);
-      v10 = [v8 countByEnumeratingWithState:&v18 objects:v24 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v16 objects:v22 count:16];
     }
 
     while (v10);
   }
 
-  v15 = v7;
+  v14 = v7;
   return v7;
 }
 
@@ -1030,15 +1019,11 @@ LABEL_7:
     self->_errorFlags = v7;
     if (dword_1001D3730 <= 30 && (dword_1001D3730 != -1 || _LogCategory_Initialize()))
     {
-      v11 = v7;
-      v12 = &unk_100148360;
-      v9 = errorFlags;
-      v10 = &unk_100148360;
-      LogPrintF();
+      LogPrintF(&dword_1001D3730, "[RPDaemon _updateErrorFlags]", 30, "Error flags changed: %#ll{flags} -> %#ll{flags}\n", errorFlags, &unk_100148360, v7, &unk_100148360);
     }
 
-    v13 = [RPDaemon sharedDaemon:v9];
-    [v13 postDaemonInfoChanges:32];
+    v9 = +[RPDaemon sharedDaemon];
+    [v9 postDaemonInfoChanges:32];
   }
 }
 
@@ -1057,7 +1042,7 @@ LABEL_7:
     {
       if (dword_1001D3730 <= 30 && (dword_1001D3730 != -1 || _LogCategory_Initialize()))
       {
-        sub_1001172C0();
+        sub_1001172C0(action);
       }
     }
 
@@ -1078,47 +1063,45 @@ LABEL_7:
     {
       if (dword_1001D3730 <= 30 && (dword_1001D3730 != -1 || _LogCategory_Initialize()))
       {
-        tokenCopy = token;
-        v14 = v6;
-        LogPrintF();
+        LogPrintF(&dword_1001D3730, "[RPDaemon _xpcPublisherAddToken:event:]", 30, "XPC publisher add token %llu, %##@\n", token, v6);
       }
 
       if (self->_prefXPCMatchingTestMode || !CFDictionaryGetInt64())
       {
-        v18 = 0u;
-        v19 = 0u;
         v16 = 0u;
         v17 = 0u;
+        v14 = 0u;
+        v15 = 0u;
         v7 = self->_subDaemons;
-        v8 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
+        v8 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
         if (v8)
         {
           v9 = v8;
-          v10 = *v17;
+          v10 = *v15;
           while (2)
           {
             for (i = 0; i != v9; i = i + 1)
             {
-              if (*v17 != v10)
+              if (*v15 != v10)
               {
                 objc_enumerationMutation(v7);
               }
 
-              v12 = *(*(&v16 + 1) + 8 * i);
-              v15[0] = _NSConcreteStackBlock;
-              v15[1] = 3221225472;
-              v15[2] = sub_100051128;
-              v15[3] = &unk_1001AC778;
-              v15[4] = self;
-              v15[5] = token;
-              if ([v12 addXPCMatchingToken:token event:v6 handler:{v15, tokenCopy, v14}])
+              v12 = *(*(&v14 + 1) + 8 * i);
+              v13[0] = _NSConcreteStackBlock;
+              v13[1] = 3221225472;
+              v13[2] = sub_100051128;
+              v13[3] = &unk_1001AC778;
+              v13[4] = self;
+              v13[5] = token;
+              if ([v12 addXPCMatchingToken:token event:v6 handler:v13])
               {
 
-                goto LABEL_32;
+                goto LABEL_33;
               }
             }
 
-            v9 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
+            v9 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
             if (v9)
             {
               continue;
@@ -1130,29 +1113,28 @@ LABEL_7:
 
         if (dword_1001D3730 <= 60 && (dword_1001D3730 != -1 || _LogCategory_Initialize()))
         {
-          goto LABEL_30;
+          LogPrintF(&dword_1001D3730, "[RPDaemon _xpcPublisherAddToken:event:]", 60, "### Add XPC matching not handled: token %llu, event %##@\n", token, v6);
         }
       }
 
       else if (dword_1001D3730 <= 30 && (dword_1001D3730 != -1 || _LogCategory_Initialize()))
       {
-LABEL_30:
-        LogPrintF();
+        LogPrintF(&dword_1001D3730, "[RPDaemon _xpcPublisherAddToken:event:]", 30, "Ignoring TestMode XPC matching when not enabled: token %llu, event %##@\n", token, v6);
       }
     }
 
     else if (dword_1001D3730 <= 90 && (dword_1001D3730 != -1 || _LogCategory_Initialize()))
     {
-      sub_100117300();
+      sub_100117300(token);
     }
   }
 
   else if (dword_1001D3730 <= 90 && (dword_1001D3730 != -1 || _LogCategory_Initialize()))
   {
-    sub_100117340();
+    sub_100117340(token);
   }
 
-LABEL_32:
+LABEL_33:
 }
 
 - (void)_xpcPublisherRemoveToken:(unint64_t)token
@@ -1195,7 +1177,7 @@ LABEL_32:
 
   if (dword_1001D3730 <= 30 && (dword_1001D3730 != -1 || _LogCategory_Initialize()))
   {
-    sub_100117380();
+    sub_100117380(token);
   }
 }
 
@@ -1203,26 +1185,26 @@ LABEL_32:
 {
   payloadCopy = payload;
   handlerCopy = handler;
-  v9 = objc_retainBlock(handlerCopy);
-  v10 = self->_xpcPublisher;
-  if (!v10)
+  v10 = objc_retainBlock(handlerCopy);
+  v17 = self->_xpcPublisher;
+  if (!v17)
   {
     if (dword_1001D3730 <= 90 && (dword_1001D3730 != -1 || _LogCategory_Initialize()))
     {
-      sub_100117420();
-      if (!v9)
+      sub_100117420(token);
+      if (!v10)
       {
         goto LABEL_26;
       }
     }
 
-    else if (!v9)
+    else if (!v10)
     {
       goto LABEL_26;
     }
 
-    v14 = RPErrorF();
-    v9[2](v9, 0, v14);
+    v20 = RPErrorF(4294960596, "No XPC publisher", v11, v12, v13, v14, v15, v16, v21);
+    v10[2](v10, 0, v20);
 
     goto LABEL_26;
   }
@@ -1230,19 +1212,19 @@ LABEL_32:
   if (!payloadCopy)
   {
 LABEL_14:
-    v11 = 0;
-    if (v9)
+    v18 = 0;
+    if (v10)
     {
       goto LABEL_5;
     }
 
 LABEL_15:
-    v13 = xpc_event_publisher_fire();
+    v19 = xpc_event_publisher_fire();
     goto LABEL_16;
   }
 
-  v11 = _CFXPCCreateXPCObjectFromCFObject();
-  if (!v11)
+  v18 = _CFXPCCreateXPCObjectFromCFObject();
+  if (!v18)
   {
     if (dword_1001D3730 <= 90 && (dword_1001D3730 != -1 || _LogCategory_Initialize()))
     {
@@ -1252,28 +1234,27 @@ LABEL_15:
     goto LABEL_14;
   }
 
-  if (!v9)
+  if (!v10)
   {
     goto LABEL_15;
   }
 
 LABEL_5:
-  dispatchQueue = self->_dispatchQueue;
-  v15 = handlerCopy;
-  v13 = xpc_event_publisher_fire_with_reply();
+  v22 = handlerCopy;
+  v19 = xpc_event_publisher_fire_with_reply();
 
 LABEL_16:
-  if (v13)
+  if (v19)
   {
     if (dword_1001D3730 <= 90 && (dword_1001D3730 != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      LogPrintF(&dword_1001D3730, "[RPDaemon _xpcPublisherTriggeredToken:payload:responseHandler:]", 90, "### XPC publisher trigger failed: token %llu, %#m\n", token);
     }
   }
 
   else if (dword_1001D3730 <= 30 && (dword_1001D3730 != -1 || _LogCategory_Initialize()))
   {
-    sub_1001173E0();
+    sub_1001173E0(token);
   }
 
 LABEL_26:
@@ -1282,130 +1263,142 @@ LABEL_26:
 - (void)_xpcPublisherTriggeredReply:(id)reply token:(unint64_t)token responseHandler:(id)handler
 {
   replyCopy = reply;
-  v18 = 0;
-  v19 = &v18;
-  v20 = 0x3032000000;
-  v21 = sub_1000029DC;
-  v22 = sub_100003184;
-  v23 = 0;
-  v14[0] = _NSConcreteStackBlock;
-  v14[1] = 3221225472;
-  v14[2] = sub_1000518A4;
-  v14[3] = &unk_1001AC7C8;
-  v16 = &v18;
+  v35 = 0;
+  v36 = &v35;
+  v37 = 0x3032000000;
+  v38 = sub_1000029DC;
+  v39 = sub_100003184;
+  v40 = 0;
+  v31[0] = _NSConcreteStackBlock;
+  v31[1] = 3221225472;
+  v31[2] = sub_1000518A4;
+  v31[3] = &unk_1001AC7C8;
+  v33 = &v35;
   tokenCopy = token;
   handlerCopy = handler;
-  v15 = handlerCopy;
-  v9 = objc_retainBlock(v14);
-  if (xpc_get_type(replyCopy) == &_xpc_type_error)
+  v32 = handlerCopy;
+  v9 = objc_retainBlock(v31);
+  if (xpc_get_type(replyCopy) != &_xpc_type_error)
   {
-    xpc_dictionary_get_string(replyCopy, _xpc_error_key_description);
-    v11 = RPErrorF();
-    v10 = v19[5];
-    v19[5] = v11;
-  }
-
-  else
-  {
-    v10 = _CFXPCCreateCFObjectFromXPCObject();
-    if (v10 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
+    v16 = _CFXPCCreateCFObjectFromXPCObject();
+    if (v16)
     {
-      if (dword_1001D3730 <= 30 && (dword_1001D3730 != -1 || _LogCategory_Initialize()))
+      objc_opt_class();
+      if (objc_opt_isKindOfClass())
       {
-        LogPrintF();
+        if (dword_1001D3730 <= 30 && (dword_1001D3730 != -1 || _LogCategory_Initialize()))
+        {
+          LogPrintF(&dword_1001D3730, "[RPDaemon _xpcPublisherTriggeredReply:token:responseHandler:]", 30, "XPC publisher reply: token %llu, %##@\n", token, v16);
+        }
+
+        (*(handlerCopy + 2))(handlerCopy, v16, 0);
+        goto LABEL_12;
       }
 
-      (*(handlerCopy + 2))(handlerCopy, v10, 0);
+      v26 = "XPC reply bad type";
+      v27 = 4294960540;
     }
 
     else
     {
-      v12 = RPErrorF();
-      v13 = v19[5];
-      v19[5] = v12;
+      v26 = "XPC reply convert failed";
+      v27 = 4294960584;
     }
+
+    v28 = RPErrorF(v27, v26, v10, v11, v12, v13, v14, v15, v30);
+    v29 = v36[5];
+    v36[5] = v28;
+
+    goto LABEL_12;
   }
 
+  string = xpc_dictionary_get_string(replyCopy, _xpc_error_key_description);
+  v24 = "?";
+  if (string)
+  {
+    v24 = string;
+  }
+
+  v25 = RPErrorF(4294960584, "XPC reply error: %s", v18, v19, v20, v21, v22, v23, v24);
+  v16 = v36[5];
+  v36[5] = v25;
+LABEL_12:
+
   (v9[2])(v9);
-  _Block_object_dispose(&v18, 8);
+  _Block_object_dispose(&v35, 8);
 }
 
 - (void)_xpcPublisherStateChangedForToken:(unint64_t)token state:(BOOL)state
 {
   stateCopy = state;
-  v5 = self->_xpcPublisher;
-  v6 = v5;
-  if (v5)
+  v6 = self->_xpcPublisher;
+  v7 = v6;
+  if (v6)
   {
-    v10 = v5;
+    v11 = v6;
     if (xpc_event_publisher_set_subscriber_keepalive())
     {
-      if (dword_1001D3730 > 90 || dword_1001D3730 == -1 && !_LogCategory_Initialize())
+      if (dword_1001D3730 <= 90 && (dword_1001D3730 != -1 || _LogCategory_Initialize()))
       {
-        goto LABEL_17;
+        LogPrintF(&dword_1001D3730, "[RPDaemon _xpcPublisherStateChangedForToken:state:]", 90, "### XPC publisher state change failed: token %llu, state %d, %#m\n");
       }
     }
 
-    else if (dword_1001D3730 > 30 || dword_1001D3730 == -1 && !_LogCategory_Initialize())
+    else if (dword_1001D3730 <= 30 && (dword_1001D3730 != -1 || _LogCategory_Initialize()))
     {
-      goto LABEL_17;
+      LogPrintF(&dword_1001D3730, "[RPDaemon _xpcPublisherStateChangedForToken:state:]", 30, "XPC publisher state changed: token %llu, state %d\n");
     }
 
-    LogPrintF();
-LABEL_17:
-    v6 = v10;
-    if (!stateCopy)
+    v7 = v11;
+    if (stateCopy)
     {
-      goto LABEL_28;
-    }
-
-    if (xpc_event_publisher_fire())
-    {
-      v6 = v10;
-      if (dword_1001D3730 > 90)
+      if (xpc_event_publisher_fire())
       {
-        goto LABEL_28;
-      }
-
-      if (dword_1001D3730 == -1)
-      {
-        v9 = _LogCategory_Initialize();
-        v6 = v10;
-        if (!v9)
+        v7 = v11;
+        if (dword_1001D3730 > 90)
         {
-          goto LABEL_28;
+          goto LABEL_29;
+        }
+
+        if (dword_1001D3730 == -1)
+        {
+          v10 = _LogCategory_Initialize();
+          v7 = v11;
+          if (!v10)
+          {
+            goto LABEL_29;
+          }
+        }
+
+        LogPrintF(&dword_1001D3730, "[RPDaemon _xpcPublisherStateChangedForToken:state:]", 90, "### XPC publisher state  trigger failed: token %llu, %#m\n");
+LABEL_23:
+        v7 = v11;
+        goto LABEL_29;
+      }
+
+      v7 = v11;
+      if (dword_1001D3730 <= 30)
+      {
+        if (dword_1001D3730 != -1 || (v9 = _LogCategory_Initialize(), v7 = v11, v9))
+        {
+          sub_100117460(token);
+          goto LABEL_23;
         }
       }
-
-      goto LABEL_21;
     }
-
-    v6 = v10;
-    if (dword_1001D3730 <= 30)
-    {
-      if (dword_1001D3730 != -1 || (v8 = _LogCategory_Initialize(), v6 = v10, v8))
-      {
-        sub_100117460();
-        goto LABEL_22;
-      }
-    }
-
-    goto LABEL_28;
   }
 
-  if (dword_1001D3730 <= 90)
+  else if (dword_1001D3730 <= 90)
   {
-    v10 = 0;
-    if (dword_1001D3730 != -1 || (v7 = _LogCategory_Initialize(), v6 = 0, v7))
+    v11 = 0;
+    if (dword_1001D3730 != -1 || (v8 = _LogCategory_Initialize(), v7 = 0, v8))
     {
-LABEL_21:
-      LogPrintF();
-LABEL_22:
-      v6 = v10;
+      LogPrintF(&dword_1001D3730, "[RPDaemon _xpcPublisherStateChangedForToken:state:]", 90, "### XPC publisher state changed without publisher, token %llu, state %d\n");
+      goto LABEL_23;
     }
   }
 
-LABEL_28:
+LABEL_29:
 }
 
 @end

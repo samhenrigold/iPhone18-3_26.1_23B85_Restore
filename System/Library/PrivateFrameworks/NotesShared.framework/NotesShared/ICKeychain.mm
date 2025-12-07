@@ -993,35 +993,35 @@ void __46__ICKeychain_fetchItemsWithCompletionHandler___block_invoke(uint64_t a1
 {
   v1 = [a1 ic_loggingIdentifier];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_0(&dword_214D51000, v2, v3, "iCloud keychain sync is not available for non-primary, non-local account: %@", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_0_0(&dword_214D51000, v2, v3, "iCloud keychain sync is not available for non-primary, non-local account: %@", v4, v5, v6, v7);
 }
 
 + (void)isSyncAvailableForAccount:(void *)a1 .cold.2(void *a1)
 {
   v1 = [a1 ic_loggingIdentifier];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_3_1(&dword_214D51000, v2, v3, "Failed to fetch keychain clique status for account (%@): %@", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_3_1(&dword_214D51000, v2, v3, "Failed to fetch keychain clique status for account (%@): %@", v4, v5, v6, v7);
 }
 
 + (void)isSyncAvailableForAccount:(void *)a1 .cold.3(void *a1)
 {
   v1 = [a1 ic_loggingIdentifier];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_3_1(&dword_214D51000, v2, v3, "Failed to fetch keychain sync status for account (%@): %@", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_3_1(&dword_214D51000, v2, v3, "Failed to fetch keychain sync status for account (%@): %@", v4, v5, v6, v7);
 }
 
 + (void)isSyncAvailableForAccount:(void *)a1 .cold.4(void *a1)
 {
   v1 = [a1 ic_loggingIdentifier];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_0(&dword_214D51000, v2, v3, "Keychain syncing is not enabled for account: %@", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_0_0(&dword_214D51000, v2, v3, "Keychain syncing is not enabled for account: %@", v4, v5, v6, v7);
 }
 
 + (void)isSyncAvailableForAccount:(void *)a1 .cold.5(void *a1)
 {
   v1 = [a1 ic_loggingIdentifier];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_3_1(&dword_214D51000, v2, v3, "Unexpected keychain clique status for account (%@): %lu", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_3_1(&dword_214D51000, v2, v3, "Unexpected keychain clique status for account (%@): %lu", v4, v5, v6, v7);
 }
 
 + (void)fetchItemsWithCompletionHandler:.cold.2()

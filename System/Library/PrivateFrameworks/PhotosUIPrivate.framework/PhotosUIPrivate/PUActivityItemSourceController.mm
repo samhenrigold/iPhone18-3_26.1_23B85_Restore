@@ -1333,7 +1333,7 @@ void __75__PUActivityItemSourceController__prepareIndividualItemSourcesForActivi
 
     if (!v12 || linkCopy)
     {
-      [(PUActivityItemSourceController *)self _prepareMomentShareLinkFromIndividualItemSourcesForActivity:neededCopy, *v13, *&v13[16], v14, v15];
+      [(PUActivityItemSourceController *)self _prepareMomentShareLinkFromIndividualItemSourcesForActivity:neededCopy, *v13, *&v13[8], v14, v15];
     }
 
     else
@@ -1609,16 +1609,16 @@ LABEL_17:
   dispatch_sync(externalIsolation, v4);
 }
 
-uint64_t __43__PUActivityItemSourceController_setState___block_invoke(uint64_t result)
+void *__43__PUActivityItemSourceController_setState___block_invoke(void *result)
 {
   v11 = *MEMORY[0x1E69E9840];
-  if (*(*(result + 32) + 192) != *(result + 40))
+  if (*(result[4] + 192) != result[5])
   {
     v1 = result;
     v2 = PLShareSheetGetLog();
     if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
     {
-      v3 = *(*(v1 + 32) + 192);
+      v3 = *(v1[4] + 192);
       if (v3 > 2)
       {
         v4 = @"unknown";
@@ -1629,7 +1629,7 @@ uint64_t __43__PUActivityItemSourceController_setState___block_invoke(uint64_t r
         v4 = off_1E7B74640[v3];
       }
 
-      v5 = *(v1 + 40);
+      v5 = v1[5];
       if (v5 > 2)
       {
         v6 = @"unknown";
@@ -1647,8 +1647,8 @@ uint64_t __43__PUActivityItemSourceController_setState___block_invoke(uint64_t r
       _os_log_impl(&dword_1B36F3000, v2, OS_LOG_TYPE_DEFAULT, "PUActivityItemSourceController changing state from %{public}@ to %{public}@", &v7, 0x16u);
     }
 
-    *(*(v1 + 32) + 192) = *(v1 + 40);
-    return [*(v1 + 32) signalChange:1];
+    *(v1[4] + 192) = v1[5];
+    return [v1[4] signalChange:1];
   }
 
   return result;

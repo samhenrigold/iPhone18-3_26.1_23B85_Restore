@@ -785,7 +785,7 @@ LABEL_17:
             }
 
             v31 = *(*(&v107 + 1) + 8 * j);
-            if (([elements containsObject:v31] & 1) == 0)
+            if ((objc_msgSend_containsObject_(elements) & 1) == 0)
             {
               v24 = v31;
               goto LABEL_31;

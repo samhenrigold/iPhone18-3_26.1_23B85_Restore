@@ -65,7 +65,7 @@ id __40___UIEditMenuListView__createDataSource__block_invoke_2(uint64_t a1, void
   v8 = a3;
   v9 = a4;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
-  if ([v8 isEqualToString:0x1EFB8A5F0])
+  if (objc_msgSend_isEqualToString_(v8))
   {
     v11 = [v7 dequeueReusableSupplementaryViewOfKind:v8 withReuseIdentifier:0x1EFB8A5F0 forIndexPath:v9];
   }

@@ -439,7 +439,7 @@ uint64_t __68__DOCTabbedBrowserViewController__beginSystemTabBarAlwaysDisallowed
   [(DOCTabbedBrowserViewController *)self _performWhilePreventingHierarchyControllerLoading:v4];
 }
 
-uint64_t __59__DOCTabbedBrowserViewController__beginSystemTabBarAllowed__block_invoke(uint64_t a1)
+void *__59__DOCTabbedBrowserViewController__beginSystemTabBarAllowed__block_invoke(uint64_t a1)
 {
   v2 = *(a1 + 32);
   v3 = v2[1212];
@@ -2317,39 +2317,39 @@ void __127__DOCTabbedBrowserViewController_revealDocumentAtURL_importIfNeeded_op
   DOCRunInMainThread();
 }
 
-void __127__DOCTabbedBrowserViewController_revealDocumentAtURL_importIfNeeded_openDocument_revealContents_updateLastUsedDate_completion___block_invoke_3(uint64_t a1)
+void __127__DOCTabbedBrowserViewController_revealDocumentAtURL_importIfNeeded_openDocument_revealContents_updateLastUsedDate_completion___block_invoke_3(void *a1)
 {
   v31 = *MEMORY[0x277D85DE8];
-  if (!*(a1 + 32))
+  if (!a1[4])
   {
-    v8 = *(a1 + 40);
+    v8 = a1[5];
     if (v8)
     {
       v9 = [v8 node];
       if (v9)
       {
-        v10 = *(a1 + 48);
+        v10 = a1[6];
 
         if (v10)
         {
           v11 = objc_alloc(MEMORY[0x277D05EA8]);
-          v12 = [*(a1 + 48) providerDomainID];
-          v13 = [v11 initWithSourceIdentifier:v12 node:*(a1 + 48)];
+          v12 = [a1[6] providerDomainID];
+          v13 = [v11 initWithSourceIdentifier:v12 node:a1[6]];
 
-          v14 = *(a1 + 64);
+          v14 = a1[8];
           if (v14)
           {
             if (([v14 isTrashed] & 1) == 0)
             {
 LABEL_15:
-              v16 = [*(a1 + 72) fullDocumentManagerViewController];
+              v16 = [a1[9] fullDocumentManagerViewController];
               v20[0] = MEMORY[0x277D85DD0];
               v20[1] = 3221225472;
               v20[2] = __127__DOCTabbedBrowserViewController_revealDocumentAtURL_importIfNeeded_openDocument_revealContents_updateLastUsedDate_completion___block_invoke_124;
               v20[3] = &unk_278FA2258;
-              v24 = *(a1 + 80);
-              v21 = *(a1 + 64);
-              v22 = *(a1 + 56);
+              v24 = a1[10];
+              v21 = a1[8];
+              v22 = a1[7];
               v23 = v16;
               v17 = v16;
               [v17 revealLocation:v13 animated:0 completion:v20];
@@ -2360,7 +2360,7 @@ LABEL_15:
 
           else
           {
-            v18 = [*(a1 + 48) itemIdentifier];
+            v18 = [a1[6] itemIdentifier];
             v19 = [v18 isEqualToString:*MEMORY[0x277CC6358]];
 
             if (!v19)
@@ -2388,9 +2388,9 @@ LABEL_15:
 
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v4 = *(a1 + 56);
+    v4 = a1[7];
     v5 = *(a1 + 88);
-    v6 = *(a1 + 32);
+    v6 = a1[4];
     *buf = 138412802;
     v26 = v4;
     v27 = 1024;
@@ -2400,10 +2400,10 @@ LABEL_15:
     _os_log_impl(&dword_2493AC000, v3, OS_LOG_TYPE_DEFAULT, "Error fetching the item for the revealed URL: %@ importIfNeeded: %d error: %@", buf, 0x1Cu);
   }
 
-  v7 = *(a1 + 80);
+  v7 = a1[10];
   if (v7)
   {
-    (*(v7 + 16))(v7, 0, *(a1 + 32));
+    (*(v7 + 16))(v7, 0, a1[4]);
   }
 }
 
@@ -3499,7 +3499,7 @@ LABEL_14:
 
   v8 = DOCTabbedBrowserViewController.canPerformAction(_:withSender:)(action, v10);
 
-  outlined destroy of CharacterSet?(v10, &_sypSgMd);
+  outlined destroy of CharacterSet?(v10, &_sypSgMd, &_sypSgMR);
   return v8 & 1;
 }
 
@@ -3521,7 +3521,7 @@ LABEL_14:
 
   DOCTabbedBrowserViewController.target(forAction:withSender:)(action, v16, v17);
 
-  outlined destroy of CharacterSet?(v16, &_sypSgMd);
+  outlined destroy of CharacterSet?(v16, &_sypSgMd, &_sypSgMR);
   v8 = v18;
   if (v18)
   {
@@ -3571,7 +3571,7 @@ LABEL_14:
 
 - (void)presentConnectToServer:(id)server
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation3URLVSgMd);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
   MEMORY[0x28223BE20](v5 - 8, v6);
   v8 = &v12 - v7;
   if (server)
@@ -3590,7 +3590,7 @@ LABEL_14:
   selfCopy = self;
   DOCTabbedBrowserViewController.presentConnectToServer(_:)(v8);
 
-  outlined destroy of CharacterSet?(v8, &_s10Foundation3URLVSgMd);
+  outlined destroy of CharacterSet?(v8, &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
 }
 
 - (void)presentGoToLocation
@@ -3677,7 +3677,7 @@ LABEL_14:
   {
     ObjectType = swift_getObjectType();
     children = [groupCopy children];
-    type metadata accessor for NSMutableAttributedString(0, &lazy cache variable for type metadata for UITab);
+    type metadata accessor for NSMutableAttributedString(0, &lazy cache variable for type metadata for UITab, 0x277D75B08);
     v12 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
 
     (*(v9 + 72))(v12, ObjectType, v9);
@@ -3728,7 +3728,7 @@ LABEL_14:
 
 - (void)tabBarController:(id)controller visibilityDidChangeForTabs:(id)tabs
 {
-  type metadata accessor for NSMutableAttributedString(0, &lazy cache variable for type metadata for UITab);
+  type metadata accessor for NSMutableAttributedString(0, &lazy cache variable for type metadata for UITab, 0x277D75B08);
   v6 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
   controllerCopy = controller;
   selfCopy = self;
@@ -3763,7 +3763,7 @@ LABEL_14:
 
 - (void)dataSource:(id)source wantsToPresentConnectToServer:(id)server
 {
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation3URLVSgMd);
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
   MEMORY[0x28223BE20](v6 - 8, v7);
   v9 = &v21 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x28223BE20](v10, v11);
@@ -3796,7 +3796,7 @@ LABEL_14:
 
   [(DOCTabbedBrowserViewController *)selfCopy presentConnectToServer:v19];
 
-  outlined destroy of CharacterSet?(v13, &_s10Foundation3URLVSgMd);
+  outlined destroy of CharacterSet?(v13, &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
 }
 
 - (void)dataSource:(id)source didUpdateTabs:(id)tabs
@@ -3822,7 +3822,7 @@ LABEL_14:
   selfCopy = self;
   DOCTabbedBrowserViewController.newViewControllersSharing(_:tabBarItems:)(sharingCopy, v6);
 
-  type metadata accessor for NSMutableAttributedString(0, lazy cache variable for type metadata for UIViewController);
+  type metadata accessor for NSMutableAttributedString(0, lazy cache variable for type metadata for UIViewController, 0x277D75D28);
   isa = Array._bridgeToObjectiveC()().super.isa;
 
   return isa;
@@ -3849,7 +3849,7 @@ LABEL_14:
   fullDocumentManagerViewController = [(DOCSplitBrowserViewController *)v6 fullDocumentManagerViewController];
 
   DOCFullDocumentManagerViewController.performSelectAll(_:enteringEditMode:)(&v8, 0);
-  outlined destroy of CharacterSet?(&v8, &_sypSgMd);
+  outlined destroy of CharacterSet?(&v8, &_sypSgMd, &_sypSgMR);
 }
 
 - (void)performDeselectAll:(id)all
@@ -3870,7 +3870,7 @@ LABEL_14:
 
   DOCTabbedBrowserViewController.performDeselectAll(_:)();
 
-  outlined destroy of CharacterSet?(v6, &_sypSgMd);
+  outlined destroy of CharacterSet?(v6, &_sypSgMd, &_sypSgMR);
 }
 
 - (void)performGoToEnclosingFolder:(id)folder

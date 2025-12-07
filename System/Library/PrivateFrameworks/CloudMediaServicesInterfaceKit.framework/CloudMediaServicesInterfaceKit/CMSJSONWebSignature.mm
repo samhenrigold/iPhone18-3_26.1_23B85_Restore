@@ -251,7 +251,7 @@ LABEL_8:
 
 - (__SecKey)_createPublicKeyFromPEM:(id)m
 {
-  v48 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
   mCopy = m;
   v4 = mCopy;
   if (mCopy)
@@ -287,66 +287,66 @@ LABEL_20:
     v13 = [objc_alloc(MEMORY[0x277CBEA90]) initWithBase64EncodedString:v8 options:0];
     if (v13)
     {
+      v27 = 0u;
       v28 = 0u;
-      v29 = 0u;
       dest = 0u;
+      v41 = 0u;
       v42 = 0u;
-      v43 = 0u;
-      v46 = 0u;
-      v47 = 0u;
-      v44 = 0u;
       v45 = 0u;
-      LODWORD(v42) = 16;
-      LODWORD(v43) = 32;
-      DWORD2(v43) = 6;
-      *&v45 = 0x1000000500;
+      v46 = 0u;
+      v43 = 0u;
+      v44 = 0u;
+      LODWORD(v41) = 16;
+      LODWORD(v42) = 32;
+      DWORD2(v42) = 6;
+      *&v44 = 0x1000000500;
       *&templates.kind = 16;
       templates.sub = 0;
       templates.size = 48;
-      v33 = 2048;
-      v34 = &v42;
-      v35 = 0;
-      v36 = 0x2000000003;
+      v32 = 2048;
+      v33 = &v41;
+      v34 = 0;
+      v35 = 0x2000000003;
+      v36 = 0;
       v37 = 0;
-      v38 = 0;
-      v40 = 0;
-      v41 = 0;
       v39 = 0;
+      v40 = 0;
+      v38 = 0;
       coder = 0;
       if (!SecAsn1CoderCreate(&coder))
       {
-        if (!SecAsn1Decode(coder, [v13 bytes], objc_msgSend(v13, "length"), &templates, &dest) && (dest == 7 && !memcmp(*(&dest + 1), &_oidEcPubKey, 7uLL) ? (v14 = 0) : (v14 = 1), (v15 = v28 - 2, v28 == 10) && **(&v28 + 1) == 6 && v15 == *(*(&v28 + 1) + 1) && ((memcmp((*(&v28 + 1) + 2), &_oidEcPrime256v1, v15) == 0) & ~v14) != 0))
+        if (!SecAsn1Decode(coder, [v13 bytes], objc_msgSend(v13, "length"), &templates, &dest) && (dest == 7 && !memcmp(*(&dest + 1), &_oidEcPubKey, 7uLL) ? (v14 = 0) : (v14 = 1), (v15 = v27 - 2, v27 == 10) && **(&v27 + 1) == 6 && v15 == *(*(&v27 + 1) + 1) && ((memcmp((*(&v27 + 1) + 2), &_oidEcPrime256v1, v15) == 0) & ~v14) != 0))
         {
-          if ((v29 & 7) != 0)
+          if ((v28 & 7) != 0)
           {
-            v18 = (v29 >> 3) + 1;
+            v17 = (v28 >> 3) + 1;
           }
 
           else
           {
-            v18 = v29 >> 3;
+            v17 = v28 >> 3;
           }
 
-          v19 = [MEMORY[0x277CBEA90] dataWithBytes:*(&v29 + 1) length:v18];
+          v18 = [MEMORY[0x277CBEA90] dataWithBytes:*(&v28 + 1) length:v17];
           SecAsn1CoderRelease(coder);
-          if (v19)
+          if (v18)
           {
-            v20 = *MEMORY[0x277CDC040];
-            v21 = *MEMORY[0x277CDBFE0];
-            v30[0] = *MEMORY[0x277CDC028];
+            v19 = *MEMORY[0x277CDC040];
+            v20 = *MEMORY[0x277CDBFE0];
+            v29[0] = *MEMORY[0x277CDC028];
+            v29[1] = v20;
+            v21 = *MEMORY[0x277CDC000];
+            v30[0] = v19;
             v30[1] = v21;
-            v22 = *MEMORY[0x277CDC000];
-            v31[0] = v20;
-            v31[1] = v22;
-            v30[2] = *MEMORY[0x277CDC018];
-            v31[2] = &unk_2856B0B20;
-            v23 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v31 forKeys:v30 count:3];
-            v25 = 0;
-            v24 = SecKeyCreateWithData(v19, v23, &v25);
-            v7 = v24;
-            if (v25 && v24)
+            v29[2] = *MEMORY[0x277CDC018];
+            v30[2] = &unk_2856B0B20;
+            v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v30 forKeys:v29 count:3];
+            v24 = 0;
+            v23 = SecKeyCreateWithData(v18, v22, &v24);
+            v7 = v23;
+            if (v24 && v23)
             {
-              CFRelease(v24);
+              CFRelease(v23);
               v7 = 0;
             }
 
@@ -370,13 +370,12 @@ LABEL_19:
   v7 = 0;
 LABEL_22:
 
-  v16 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
 - (id)_createASN1SignatureFromJWSSignature:(id)signature
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   signatureCopy = signature;
   if ([signatureCopy length] == 64)
   {
@@ -393,13 +392,13 @@ LABEL_22:
         src[2] = [v6 length];
         src[3] = [v6 bytes];
         memset(templates, 0, sizeof(templates));
+        v15 = 0u;
         v16 = 0u;
-        v17 = 0u;
-        v14 = 0u;
+        v13 = 0u;
         *templates = 16;
         *&templates[16] = 32;
         *&templates[24] = 2;
-        v15 = 0x1000000002uLL;
+        v14 = 0x1000000002uLL;
         dest.Data = 0;
         coder = 0;
         dest.Length = 0;
@@ -422,8 +421,6 @@ LABEL_22:
   {
     v7 = 0;
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 
   return v7;
 }

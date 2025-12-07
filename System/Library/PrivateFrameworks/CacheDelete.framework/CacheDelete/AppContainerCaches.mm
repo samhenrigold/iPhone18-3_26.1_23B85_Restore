@@ -8,11 +8,13 @@
 - (id)cdVolumeForPath:(id)path;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)initReadOnlyCopy;
+- (unint64_t)processContainerCachesForVolume:(id)volume bytesNeeded:(unint64_t)needed urgency:(int)urgency calculate:(BOOL)calculate verbose:(BOOL)verbose telemetry:(id)telemetry;
 - (void)_serviceCallback:(id)callback replyBlock:(id)block;
 - (void)_serviceCancelPurge:(id)purge;
 - (void)_serviceNotify:(id)notify replyBlock:(id)block;
 - (void)_servicePeriodic:(int)periodic info:(id)info replyBlock:(id)block;
 - (void)_servicePurge:(int)purge info:(id)info replyBlock:(id)block;
+- (void)_servicePurgeable:(int)purgeable info:(id)info replyBlock:(id)block;
 - (void)encodeWithCoder:(id)coder;
 @end
 
@@ -22,38 +24,38 @@
 {
   cachesCopy = caches;
   telemetryCopy = telemetry;
-  v60 = objc_opt_new();
+  v59 = objc_opt_new();
+  v61 = objc_opt_new();
   v62 = objc_opt_new();
-  v63 = objc_opt_new();
+  v82 = 0u;
   v83 = 0u;
   v84 = 0u;
   v85 = 0u;
-  v86 = 0u;
   obj = cachesCopy;
-  v6 = [obj countByEnumeratingWithState:&v83 objects:v96 count:16];
+  v6 = [obj countByEnumeratingWithState:&v82 objects:v95 count:16];
   if (v6)
   {
     v7 = v6;
     v8 = &DiagnosticLogSubmissionEnabled_ptr;
-    v9 = *v84;
-    v55 = *v84;
+    v9 = *v83;
+    v54 = *v83;
     do
     {
       v10 = 0;
-      v56 = v7;
+      v55 = v7;
       do
       {
-        if (*v84 != v9)
+        if (*v83 != v9)
         {
           objc_enumerationMutation(obj);
         }
 
-        v11 = *(*(&v83 + 1) + 8 * v10);
+        v11 = *(*(&v82 + 1) + 8 * v10);
         v12 = v8[302];
-        v82 = 0;
-        v61 = v11;
+        v81 = 0;
+        v60 = v11;
         v13 = [v12 bundleRecordWithBundleIdentifier:? allowPlaceholder:? error:?];
-        v14 = v82;
+        v14 = v81;
         v15 = CDGetLogHandle();
         v16 = v15;
         if (v13)
@@ -72,18 +74,18 @@
           {
             v18 = objc_opt_class();
             *buf = 138412802;
-            v91 = v61;
-            v92 = 2112;
-            v93 = v18;
-            v94 = 2112;
-            v95 = v13;
+            v90 = v60;
+            v91 = 2112;
+            v92 = v18;
+            v93 = 2112;
+            v94 = v13;
             v19 = v18;
             _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "LSBundleRecord for %@ : (class: %@) %@", buf, 0x20u);
           }
 
           objc_opt_class();
-          v58 = v14;
-          v59 = v10;
+          v57 = v14;
+          v58 = v10;
           if (objc_opt_isKindOfClass())
           {
             isPlaceholder = [v13 isPlaceholder];
@@ -100,27 +102,27 @@
           [v13 platform];
           v22 = dataContainerURLs();
 
-          v80 = 0u;
-          v81 = 0u;
-          v78 = 0u;
           v79 = 0u;
+          v80 = 0u;
+          v77 = 0u;
+          v78 = 0u;
           v16 = v22;
-          v69 = [v16 countByEnumeratingWithState:&v78 objects:v89 count:16];
-          if (v69)
+          v68 = [v16 countByEnumeratingWithState:&v77 objects:v88 count:16];
+          if (v68)
           {
-            v65 = *v79;
-            v66 = v13;
-            v64 = isKindOfClass & 1;
+            v64 = *v78;
+            v65 = v13;
+            v63 = isKindOfClass & 1;
             do
             {
-              for (i = 0; i != v69; i = i + 1)
+              for (i = 0; i != v68; i = i + 1)
               {
-                if (*v79 != v65)
+                if (*v78 != v64)
                 {
                   objc_enumerationMutation(v16);
                 }
 
-                v24 = *(*(&v78 + 1) + 8 * i);
+                v24 = *(*(&v77 + 1) + 8 * i);
                 if ([v24 isEqualToString:@"NO_PERSONA_AVAILABLE"])
                 {
                   v25 = 0;
@@ -137,16 +139,16 @@
                 groupContainerIdentifiers = [v13 groupContainerIdentifiers];
                 v30 = v16;
                 v31 = [v16 objectForKeyedSubscript:v24];
-                BYTE2(v54) = v64;
-                BYTE1(v54) = isPlaceholder;
-                LOBYTE(v54) = 0;
-                v32 = [AppCache appCacheWithRecords:"appCacheWithRecords:identifier:groupIdentifiers:dataContainerURL:userManagedAssetsURL:personaUniqueString:isDataseparated:isPlaceholder:isPlugin:telemetry:" identifier:v27 groupIdentifiers:bundleIdentifier3 dataContainerURL:groupContainerIdentifiers userManagedAssetsURL:v31 personaUniqueString:0 isDataseparated:v25 isPlaceholder:v54 isPlugin:telemetryCopy telemetry:?];
+                BYTE2(v53) = v63;
+                BYTE1(v53) = isPlaceholder;
+                LOBYTE(v53) = 0;
+                v32 = [AppCache appCacheWithRecords:"appCacheWithRecords:identifier:groupIdentifiers:dataContainerURL:userManagedAssetsURL:personaUniqueString:isDataseparated:isPlaceholder:isPlugin:telemetry:" identifier:v27 groupIdentifiers:bundleIdentifier3 dataContainerURL:groupContainerIdentifiers userManagedAssetsURL:v31 personaUniqueString:0 isDataseparated:v25 isPlaceholder:v53 isPlugin:telemetryCopy telemetry:?];
 
                 if (v32)
                 {
-                  [v62 addObject:v32];
+                  [v61 addObject:v32];
                   cdVol = [v32 cdVol];
-                  [v63 addObject:cdVol];
+                  [v62 addObject:cdVol];
 
                   v34 = CDGetLogHandle();
                   if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
@@ -154,11 +156,11 @@
                     [v32 caches:1 purge:0];
                     v35 = humanReadableNumber();
                     *buf = 138412802;
-                    v91 = v61;
-                    v92 = 2112;
-                    v93 = v35;
-                    v94 = 2112;
-                    v95 = v32;
+                    v90 = v60;
+                    v91 = 2112;
+                    v92 = v35;
+                    v93 = 2112;
+                    v94 = v32;
                     _os_log_impl(&_mh_execute_header, v34, OS_LOG_TYPE_DEFAULT, "AppCache for %@ : (%@) %@", buf, 0x20u);
                   }
                 }
@@ -169,35 +171,35 @@
                   if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
                   {
                     *buf = 138412290;
-                    v91 = v61;
+                    v90 = v60;
                     _os_log_error_impl(&_mh_execute_header, v34, OS_LOG_TYPE_ERROR, "Unable to create AppCache for %@", buf, 0xCu);
                   }
                 }
 
                 v16 = v30;
 
-                v13 = v66;
+                v13 = v65;
               }
 
-              v69 = [v16 countByEnumeratingWithState:&v78 objects:v89 count:16];
+              v68 = [v16 countByEnumeratingWithState:&v77 objects:v88 count:16];
             }
 
-            while (v69);
+            while (v68);
           }
 
           v8 = &DiagnosticLogSubmissionEnabled_ptr;
-          v9 = v55;
-          v7 = v56;
-          v14 = v58;
-          v10 = v59;
+          v9 = v54;
+          v7 = v55;
+          v14 = v57;
+          v10 = v58;
         }
 
         else if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
         {
           *buf = 138412546;
-          v91 = v61;
-          v92 = 2112;
-          v93 = v14;
+          v90 = v60;
+          v91 = 2112;
+          v92 = v14;
           _os_log_error_impl(&_mh_execute_header, v16, OS_LOG_TYPE_ERROR, "Unable to create an LSBundleRecord for %@ : %@", buf, 0x16u);
         }
 
@@ -205,41 +207,41 @@
       }
 
       while (v10 != v7);
-      v7 = [obj countByEnumeratingWithState:&v83 objects:v96 count:16];
+      v7 = [obj countByEnumeratingWithState:&v82 objects:v95 count:16];
     }
 
     while (v7);
   }
 
-  v76 = 0u;
-  v77 = 0u;
-  v74 = 0u;
   v75 = 0u;
-  v36 = v62;
-  v37 = [v36 countByEnumeratingWithState:&v74 objects:v88 count:16];
+  v76 = 0u;
+  v73 = 0u;
+  v74 = 0u;
+  v36 = v61;
+  v37 = [v36 countByEnumeratingWithState:&v73 objects:v87 count:16];
   if (v37)
   {
     v38 = v37;
     v39 = 0;
-    v40 = *v75;
+    v40 = *v74;
     do
     {
       for (j = 0; j != v38; j = j + 1)
       {
-        if (*v75 != v40)
+        if (*v74 != v40)
         {
           objc_enumerationMutation(v36);
         }
 
-        v42 = *(*(&v74 + 1) + 8 * j);
+        v42 = *(*(&v73 + 1) + 8 * j);
         v43 = [v42 clearCaches:1];
         v39 += v43;
         v44 = [NSNumber numberWithUnsignedLongLong:v43];
         identifier = [v42 identifier];
-        [v60 setObject:v44 forKeyedSubscript:identifier];
+        [v59 setObject:v44 forKeyedSubscript:identifier];
       }
 
-      v38 = [v36 countByEnumeratingWithState:&v74 objects:v88 count:16];
+      v38 = [v36 countByEnumeratingWithState:&v73 objects:v87 count:16];
     }
 
     while (v38);
@@ -250,39 +252,38 @@
     v39 = 0;
   }
 
-  v72 = 0u;
-  v73 = 0u;
-  v70 = 0u;
   v71 = 0u;
-  v46 = v63;
-  v47 = [v46 countByEnumeratingWithState:&v70 objects:v87 count:16];
+  v72 = 0u;
+  v69 = 0u;
+  v70 = 0u;
+  v46 = v62;
+  v47 = [v46 countByEnumeratingWithState:&v69 objects:v86 count:16];
   if (v47)
   {
     v48 = v47;
-    v49 = *v71;
+    v49 = *v70;
     do
     {
-      for (k = 0; k != v48; k = k + 1)
+      for (k = 0; k != v48; ++k)
       {
-        if (*v71 != v49)
+        if (*v70 != v49)
         {
           objc_enumerationMutation(v46);
         }
 
-        v51 = *(*(&v70 + 1) + 8 * k);
         clearDiscardedCaches();
       }
 
-      v48 = [v46 countByEnumeratingWithState:&v70 objects:v87 count:16];
+      v48 = [v46 countByEnumeratingWithState:&v69 objects:v86 count:16];
     }
 
     while (v48);
   }
 
-  v52 = [NSNumber numberWithUnsignedLongLong:v39];
-  [v60 setObject:v52 forKeyedSubscript:@"CACHE_DELETE_AMOUNT"];
+  v51 = [NSNumber numberWithUnsignedLongLong:v39];
+  [v59 setObject:v51 forKeyedSubscript:@"CACHE_DELETE_AMOUNT"];
 
-  return v60;
+  return v59;
 }
 
 - (AppContainerCaches)initWithInfo:(id)info
@@ -804,17 +805,8 @@ LABEL_8:
   }
 
   v16 = [v6 lastUsed];
-  if (!v16)
+  if (!v16 || (v17 = v16, [v7 lastUsed], v18 = objc_claimAutoreleasedReturnValue(), v18, v17, !v18) || (objc_msgSend(v6, "lastUsed"), v19 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v7, "lastUsed"), v20 = objc_claimAutoreleasedReturnValue(), v9 = objc_msgSend(v19, "compare:", v20), v20, v19, !v9))
   {
-    goto LABEL_17;
-  }
-
-  v17 = v16;
-  v18 = [v7 lastUsed];
-
-  if (!v18 || ([v6 lastUsed], v19 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v7, "lastUsed"), v20 = objc_claimAutoreleasedReturnValue(), v9 = objc_msgSend(v19, "compare:", v20), v20, v19, !v9))
-  {
-LABEL_17:
     v21 = [v6 lastKnownCacheSize];
     v22 = [v21 unsignedLongLongValue];
     v23 = [v7 lastKnownCacheSize];
@@ -836,6 +828,195 @@ LABEL_17:
 LABEL_9:
 
   return v9;
+}
+
+- (unint64_t)processContainerCachesForVolume:(id)volume bytesNeeded:(unint64_t)needed urgency:(int)urgency calculate:(BOOL)calculate verbose:(BOOL)verbose telemetry:(id)telemetry
+{
+  verboseCopy = verbose;
+  calculateCopy = calculate;
+  v10 = *&urgency;
+  volumeCopy = volume;
+  telemetryCopy = telemetry;
+  neededCopy = needed;
+  v16 = telemetryCopy;
+  v44 = neededCopy;
+  if (neededCopy && v10 == 4)
+  {
+    v17 = dispatch_get_global_queue(2, 0);
+    dispatch_async(v17, &__block_literal_global_50);
+
+    neededCopy = v44;
+  }
+
+  v18 = [(AppContainerCaches *)self cachesForInstalledApps:calculateCopy bytesNeeded:neededCopy volume:volumeCopy sortForUrgency:v10 telemetry:v16];
+  if ([v18 count])
+  {
+    v41 = volumeCopy;
+    v42 = v18;
+    if (verboseCopy)
+    {
+      v39 = verboseCopy;
+      v40 = v10;
+      v19 = CDGetLogHandle();
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 0;
+        _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "sorted caches:", buf, 2u);
+      }
+
+      v51 = 0u;
+      v52 = 0u;
+      v49 = 0u;
+      v50 = 0u;
+      v20 = v18;
+      v21 = [v20 countByEnumeratingWithState:&v49 objects:v58 count:16];
+      if (v21)
+      {
+        v22 = v21;
+        v23 = *v50;
+        do
+        {
+          for (i = 0; i != v22; i = i + 1)
+          {
+            if (*v50 != v23)
+            {
+              objc_enumerationMutation(v20);
+            }
+
+            v25 = *(*(&v49 + 1) + 8 * i);
+            v26 = CDGetLogHandle();
+            if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+            {
+              *buf = 138412290;
+              v54 = v25;
+              _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_DEFAULT, "  %@", buf, 0xCu);
+            }
+          }
+
+          v22 = [v20 countByEnumeratingWithState:&v49 objects:v58 count:16];
+        }
+
+        while (v22);
+      }
+
+      verboseCopy = v39;
+      LODWORD(v10) = v40;
+      v18 = v42;
+    }
+
+    v47 = 0u;
+    v48 = 0u;
+    v45 = 0u;
+    v46 = 0u;
+    v27 = v18;
+    v28 = [v27 countByEnumeratingWithState:&v45 objects:v57 count:16];
+    if (v28)
+    {
+      v29 = v28;
+      v30 = 0;
+      v31 = *v46;
+      v32 = v44;
+      do
+      {
+        for (j = 0; j != v29; j = j + 1)
+        {
+          if (*v46 != v31)
+          {
+            objc_enumerationMutation(v27);
+            v32 = v44;
+          }
+
+          v34 = *(*(&v45 + 1) + 8 * j);
+          if (v32)
+          {
+            v30 += [v34 clearCaches:v10 == 4];
+            if (v30 >= v32)
+            {
+              goto LABEL_29;
+            }
+          }
+
+          else
+          {
+            v30 += [v34 caches:calculateCopy purge:0];
+          }
+        }
+
+        v32 = v44;
+        v29 = [v27 countByEnumeratingWithState:&v45 objects:v57 count:16];
+      }
+
+      while (v29);
+LABEL_29:
+
+      if (v32)
+      {
+        volumeCopy = v41;
+        if (v30)
+        {
+          clearDiscardedCaches();
+        }
+
+        v18 = v42;
+        if (!verboseCopy)
+        {
+          goto LABEL_44;
+        }
+      }
+
+      else
+      {
+        volumeCopy = v41;
+        v18 = v42;
+        if (!verboseCopy)
+        {
+          goto LABEL_44;
+        }
+      }
+    }
+
+    else
+    {
+
+      v30 = 0;
+      volumeCopy = v41;
+      if (!verboseCopy)
+      {
+        goto LABEL_44;
+      }
+    }
+
+LABEL_41:
+    v36 = CDGetLogHandle();
+    if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
+    {
+      deletes = [v16 deletes];
+      *buf = 134218240;
+      v54 = deletes;
+      v55 = 1024;
+      v56 = v10;
+      _os_log_impl(&_mh_execute_header, v36, OS_LOG_TYPE_DEFAULT, "Deleted %llu files at urgency %d", buf, 0x12u);
+    }
+
+    goto LABEL_44;
+  }
+
+  v35 = CDGetLogHandle();
+  if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
+  {
+    *buf = 0;
+    _os_log_error_impl(&_mh_execute_header, v35, OS_LOG_TYPE_ERROR, "No application cache space to reap", buf, 2u);
+  }
+
+  v30 = 0;
+  if (verboseCopy)
+  {
+    goto LABEL_41;
+  }
+
+LABEL_44:
+
+  return v30;
 }
 
 void __102__AppContainerCaches_processContainerCachesForVolume_bytesNeeded_urgency_calculate_verbose_telemetry___block_invoke(id a1)
@@ -1019,6 +1200,72 @@ LABEL_6:
   return [(AppContainerCaches *)v3 initReadOnlyCopy];
 }
 
+- (void)_servicePurgeable:(int)purgeable info:(id)info replyBlock:(id)block
+{
+  v6 = *&purgeable;
+  infoCopy = info;
+  blockCopy = block;
+  v10 = [infoCopy objectForKeyedSubscript:@"CACHE_DELETE_VOLUME"];
+  v11 = evaluateStringProperty();
+  v12 = [CacheDeleteVolume volumeWithPath:v11];
+
+  v13 = CDGetLogHandle();
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 136446722;
+    v30 = "com.apple.mobile.cache_delete_app_container_caches";
+    v31 = 2114;
+    v32 = infoCopy;
+    v33 = 2114;
+    v34 = v12;
+    _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "%{public}s: PURGEABLE callback, info: %{public}@, cdVol: %{public}@", buf, 0x20u);
+  }
+
+  if (v12 && ([v12 mountPoint], v14 = objc_claimAutoreleasedReturnValue(), getRootVolume(), v15 = objc_claimAutoreleasedReturnValue(), v16 = objc_msgSend(v14, "isEqualToString:", v15), v15, v14, v16))
+  {
+    v17 = [TestTelemetry testTelemetryWithInfo:infoCopy];
+    v18 = [infoCopy objectForKeyedSubscript:@"CACHE_DELETE_NO_CACHE"];
+    v19 = evaluateBoolProperty();
+
+    v20 = [infoCopy objectForKeyedSubscript:@"CACHE_DELETE_DIAGNOSTIC_INFO"];
+    v21 = evaluateBoolProperty();
+
+    if (v6 <= 1 && self->_multi_user)
+    {
+      v22 = 0;
+    }
+
+    else
+    {
+      v22 = [(AppContainerCaches *)self processContainerCachesForVolume:v12 bytesNeeded:0 urgency:v6 calculate:v19 verbose:v21 telemetry:v17];
+    }
+
+    mountPoint = [v12 mountPoint];
+    v27[1] = @"CACHE_DELETE_AMOUNT";
+    v28[0] = mountPoint;
+    v25 = [NSNumber numberWithUnsignedLongLong:v22];
+    v28[1] = v25;
+    v23 = [NSDictionary dictionaryWithObjects:v28 forKeys:v27 count:2];
+
+    v26 = CDGetLogHandle();
+    if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 136446466;
+      v30 = "com.apple.mobile.cache_delete_app_container_caches";
+      v31 = 2114;
+      v32 = v23;
+      _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_DEFAULT, "%{public}s PURGEABLE Result: %{public}@", buf, 0x16u);
+    }
+  }
+
+  else
+  {
+    v23 = 0;
+  }
+
+  blockCopy[2](blockCopy, v23);
+}
+
 - (void)_servicePurge:(int)purge info:(id)info replyBlock:(id)block
 {
   infoCopy = info;
@@ -1186,8 +1433,8 @@ uint64_t __52__AppContainerCaches__servicePurge_info_replyBlock___block_invoke(u
     v4 = CDGetLogHandle();
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v11) = 0;
-      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Purging Container Caches", &v11, 2u);
+      LOWORD(v9) = 0;
+      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Purging Container Caches", &v9, 2u);
     }
 
     *(*(*(a1 + 56) + 8) + 24) = [*(a1 + 32) processContainerCachesForVolume:*(a1 + 40) bytesNeeded:*(a1 + 64) urgency:*(a1 + 72) calculate:0 verbose:*(a1 + 76) telemetry:*(a1 + 48)];
@@ -1200,15 +1447,13 @@ uint64_t __52__AppContainerCaches__servicePurge_info_replyBlock___block_invoke(u
       if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
       {
         v7 = *(a1 + 48);
-        v11 = 138543362;
-        v12 = v7;
-        _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "testTelemetry: %{public}@", &v11, 0xCu);
+        v9 = 138543362;
+        v10 = v7;
+        _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "testTelemetry: %{public}@", &v9, 0xCu);
       }
     }
   }
 
-  v9 = *(a1 + 40);
-  v8 = *(a1 + 48);
   return clearDiscardedCaches();
 }
 
@@ -1263,16 +1508,14 @@ uint64_t __52__AppContainerCaches__servicePurge_info_replyBlock___block_invoke(u
 
 uint64_t __55__AppContainerCaches__servicePeriodic_info_replyBlock___block_invoke(uint64_t a1, void *a2)
 {
-  v3 = a2;
-  v4 = [v3 cachePath];
-  [v4 UTF8String];
-  v5 = *(a1 + 32);
+  v2 = a2;
+  v3 = [v2 cachePath];
+  [v3 UTF8String];
   enableDirStats();
 
-  v6 = [v3 tmpPath];
+  v4 = [v2 tmpPath];
 
-  [v6 UTF8String];
-  v7 = *(a1 + 32);
+  [v4 UTF8String];
   enableDirStats();
 
   return 1;
@@ -1280,12 +1523,11 @@ uint64_t __55__AppContainerCaches__servicePeriodic_info_replyBlock___block_invok
 
 uint64_t __55__AppContainerCaches__servicePeriodic_info_replyBlock___block_invoke_2(uint64_t a1, int a2, id a3)
 {
-  v5 = a3;
-  v6 = +[NSString stringWithUTF8String:](NSString, "stringWithUTF8String:", [a3 fileSystemRepresentation]);
-  v7 = [v6 stringByAppendingPathComponent:@"Library/Caches"];
+  v4 = a3;
+  v5 = +[NSString stringWithUTF8String:](NSString, "stringWithUTF8String:", [a3 fileSystemRepresentation]);
+  v6 = [v5 stringByAppendingPathComponent:@"Library/Caches"];
 
-  [v7 UTF8String];
-  v8 = *(a1 + 32);
+  [v6 UTF8String];
   enableDirStats();
 
   return 1;

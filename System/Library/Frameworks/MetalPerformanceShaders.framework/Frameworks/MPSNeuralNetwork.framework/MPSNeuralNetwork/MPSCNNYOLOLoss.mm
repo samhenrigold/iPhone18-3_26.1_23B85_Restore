@@ -20,7 +20,7 @@
 {
   if (MTLReportFailureTypeEnabled())
   {
-    MTLReportFailure();
+    MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSCNNYOLOLoss.mm", 0x137, @"Cannot directly initialize MPSCNNLoss. Use initWithDevice:lossDescriptor: instead.\n", v3, v4, v5, v6);
   }
 
   return 0;
@@ -42,7 +42,7 @@
   v56 = objc_msgSend_XYLossDescriptor(descriptor, v49, v50, v51, v52, v53, v54, v55);
   if (v27 != objc_msgSend_reductionType(v56, v57, v58, v59, v60, v61, v62, v63) && MTLReportFailureTypeEnabled())
   {
-    MTLReportFailure();
+    MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSCNNYOLOLoss.mm", 0x14C, @"_reductionType == lossDescriptor.XYLossDescriptor.reductionType, all losses in YOLOLoss must have the same reductionType", v67, v68, v69, v70);
   }
 
   v71 = objc_msgSend_WHLossDescriptor(descriptor, v64, v65, v66, v67, v68, v69, v70);
@@ -51,7 +51,7 @@
   v87 = objc_msgSend_WHLossDescriptor(descriptor, v80, v81, v82, v83, v84, v85, v86);
   if (reductionType != objc_msgSend_reductionType(v87, v88, v89, v90, v91, v92, v93, v94) && MTLReportFailureTypeEnabled())
   {
-    MTLReportFailure();
+    MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSCNNYOLOLoss.mm", 0x14F, @"_reductionType == lossDescriptor.WHLossDescriptor.reductionType, all losses in YOLOLoss must have the same reductionType", v98, v99, v100, v101);
   }
 
   v102 = objc_msgSend_confidenceLossDescriptor(descriptor, v95, v96, v97, v98, v99, v100, v101);
@@ -60,7 +60,7 @@
   v118 = objc_msgSend_confidenceLossDescriptor(descriptor, v111, v112, v113, v114, v115, v116, v117);
   if (v110 != objc_msgSend_reductionType(v118, v119, v120, v121, v122, v123, v124, v125) && MTLReportFailureTypeEnabled())
   {
-    MTLReportFailure();
+    MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSCNNYOLOLoss.mm", 0x152, @"_reductionType == lossDescriptor.confidenceLossDescriptor.reductionType, all losses in YOLOLoss must have the same reductionType", v129, v130, v131, v132);
   }
 
   v133 = objc_msgSend_classesLossDescriptor(descriptor, v126, v127, v128, v129, v130, v131, v132);
@@ -69,7 +69,7 @@
   v149 = objc_msgSend_classesLossDescriptor(descriptor, v142, v143, v144, v145, v146, v147, v148);
   if (v141 != objc_msgSend_reductionType(v149, v150, v151, v152, v153, v154, v155, v156) && MTLReportFailureTypeEnabled())
   {
-    MTLReportFailure();
+    MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSCNNYOLOLoss.mm", 0x155, @"_reductionType == lossDescriptor.classesLossDescriptor.reductionType, all losses in YOLOLoss must have the same reductionType", v297, v298, v299, v300);
   }
 
   v157 = [MPSCNNLoss alloc];
@@ -125,8 +125,8 @@
 
 - (MPSCNNYOLOLoss)initWithCoder:(NSCoder *)aDecoder device:(id)device
 {
-  v186.receiver = self;
-  v186.super_class = MPSCNNYOLOLoss;
+  v190.receiver = self;
+  v190.super_class = MPSCNNYOLOLoss;
   v6 = [MPSCNNKernel initWithCoder:sel_initWithCoder_device_ device:?];
   if (v6)
   {
@@ -151,27 +151,27 @@
       objc_msgSend_decodeFloatForKey_(aDecoder, v67, @"kMPSCNNYOLOLoss_maxIOUForObjectAbsence_Key", v68, v69, v70, v71, v72);
       v6->_maxIOUForObjectAbsence = v73;
       v6->_rescore = objc_msgSend_decodeBoolForKey_(aDecoder, v74, @"kMPSCNNYOLOLoss_rescore_Key", v75, v76, v77, v78, v79);
-      v185 = objc_opt_class();
+      v189 = objc_opt_class();
       v86 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v80, @"%@.className", v81, v82, v83, v84, v85, @"MPSCNNYOLOLossLossXY");
-      v6->_lossXY = sub_239BFCF40(aDecoder, v86, @"MPSCNNYOLOLossLossXY", &v185, v87, v88, v89, v90);
+      v6->_lossXY = sub_239BFCF40(aDecoder, v86, @"MPSCNNYOLOLossLossXY", &v189, v87, v88, v89, v90);
       v97 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v91, @"%@.className", v92, v93, v94, v95, v96, @"MPSCNNYOLOLossLossWH");
-      v6->_lossWH = sub_239BFCF40(aDecoder, v97, @"MPSCNNYOLOLossLossWH", &v185, v98, v99, v100, v101);
+      v6->_lossWH = sub_239BFCF40(aDecoder, v97, @"MPSCNNYOLOLossLossWH", &v189, v98, v99, v100, v101);
       v108 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v102, @"%@.className", v103, v104, v105, v106, v107, @"MPSCNNYOLOLossLossConfidence");
-      v6->_lossConfidence = sub_239BFCF40(aDecoder, v108, @"MPSCNNYOLOLossLossConfidence", &v185, v109, v110, v111, v112);
+      v6->_lossConfidence = sub_239BFCF40(aDecoder, v108, @"MPSCNNYOLOLossLossConfidence", &v189, v109, v110, v111, v112);
       v119 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v113, @"%@.className", v114, v115, v116, v117, v118, @"MPSCNNYOLOLossLossClasses");
-      v6->_lossClasses = sub_239BFCF40(aDecoder, v119, @"MPSCNNYOLOLossLossClasses", &v185, v120, v121, v122, v123);
+      v6->_lossClasses = sub_239BFCF40(aDecoder, v119, @"MPSCNNYOLOLossLossClasses", &v189, v120, v121, v122, v123);
       v6->_anchorBoxes = 0;
       if (objc_msgSend_decodeBoolForKey_(aDecoder, v124, @"MPSCNNYOLOLossAnchorBoxes", v125, v126, v127, v128, v129))
       {
-        v187 = 0;
+        v191 = 0;
         v130 = objc_alloc(MEMORY[0x277CCACA8]);
         v137 = objc_msgSend_initWithFormat_(v130, v131, @"%@%@", v132, v133, v134, v135, v136, @"MPSCNNYOLOLossAnchorBoxes", @".length");
         v138 = objc_alloc(MEMORY[0x277CCACA8]);
         v145 = objc_msgSend_initWithFormat_(v138, v139, @"%@%@", v140, v141, v142, v143, v144, @"MPSCNNYOLOLossAnchorBoxes", @".data");
         v152 = objc_msgSend_decodeInt64ForKey_(aDecoder, v146, v137, v147, v148, v149, v150, v151);
-        v158 = objc_msgSend_decodeBytesForKey_returnedLength_(aDecoder, v153, v145, &v187, v154, v155, v156, v157);
+        v158 = objc_msgSend_decodeBytesForKey_returnedLength_(aDecoder, v153, v145, &v191, v154, v155, v156, v157);
 
-        if (!v158 || 4 * v152 != v187 || (v159 = malloc_type_malloc(4 * v152, 0x100004052888210uLL)) == 0)
+        if (!v158 || 4 * v152 != v191 || (v159 = malloc_type_malloc(4 * v152, 0x100004052888210uLL)) == 0)
         {
           v160 = 0;
 LABEL_15:
@@ -180,10 +180,10 @@ LABEL_15:
           v6->super._encode = sub_239D58060;
           v6->super._batchEncode = sub_239D582EC;
           v6->super._encodeData = v6;
-          v173 = objc_msgSend_rowBytesForColumns_dataType_(MEMORY[0x277CD7258], v168, 16, 268435488, v169, v170, v171, v172);
-          v177 = objc_msgSend_matrixDescriptorWithRows_columns_rowBytes_dataType_(MEMORY[0x277CD7258], v174, 2, 16, v173, 268435488, v175, v176);
-          v178 = objc_alloc(MEMORY[0x277CD7250]);
-          v6->_reductionBuffer = objc_msgSend_initWithDevice_descriptor_(v178, v179, device, v177, v180, v181, v182, v183);
+          v177 = objc_msgSend_rowBytesForColumns_dataType_(MEMORY[0x277CD7258], v172, 16, 268435488, v173, v174, v175, v176);
+          v181 = objc_msgSend_matrixDescriptorWithRows_columns_rowBytes_dataType_(MEMORY[0x277CD7258], v178, 2, 16, v177, 268435488, v179, v180);
+          v182 = objc_alloc(MEMORY[0x277CD7250]);
+          v6->_reductionBuffer = objc_msgSend_initWithDevice_descriptor_(v182, v183, device, v181, v184, v185, v186, v187);
           v6->_firstLossTexture = 0;
           return v6;
         }
@@ -200,8 +200,8 @@ LABEL_15:
 
       if (v152 == 2 * v6->_numberOfAnchorBoxes)
       {
-        v162 = objc_alloc(MEMORY[0x277CBEA90]);
-        v6->_anchorBoxes = objc_msgSend_initWithBytes_length_(v162, v163, v160, 4 * v152, v164, v165, v166, v167);
+        v166 = objc_alloc(MEMORY[0x277CBEA90]);
+        v6->_anchorBoxes = objc_msgSend_initWithBytes_length_(v166, v167, v160, 4 * v152, v168, v169, v170, v171);
       }
 
       goto LABEL_15;
@@ -211,7 +211,7 @@ LABEL_15:
     {
       v161 = objc_opt_class();
       NSStringFromClass(v161);
-      MTLReportFailure();
+      MTLReportFailure(1, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSCNNYOLOLoss.mm", 0x1F5, @"[%@ initWithCoder:device:] Failed: unsupported file version.", v162, v163, v164, v165);
     }
 
     return 0;

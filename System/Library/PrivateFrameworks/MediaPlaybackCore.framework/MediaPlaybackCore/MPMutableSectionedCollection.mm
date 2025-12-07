@@ -7,7 +7,7 @@ void __81__MPMutableSectionedCollection_MPCAccumulatorAdditions__mpc_indexPathFo
 {
   if (*(a1 + 32) == a2)
   {
-    v6 = [MEMORY[0x1E696AC88] indexPathWithIndex:?];
+    v6 = [MEMORY[0x1E696AC88] indexPathWithIndex:a3];
     v7 = *(*(a1 + 40) + 8);
     v8 = *(v7 + 40);
     *(v7 + 40) = v6;

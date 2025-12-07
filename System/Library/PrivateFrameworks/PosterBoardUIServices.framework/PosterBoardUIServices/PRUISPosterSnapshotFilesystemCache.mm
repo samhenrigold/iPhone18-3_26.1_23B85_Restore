@@ -222,27 +222,27 @@ void __80__PRUISPosterSnapshotFilesystemCache_cacheSnapshotBundle_forRequest_com
   _defaultCacheLocationURL = [self _defaultCacheLocationURL];
   defaultManager = [MEMORY[0x1E696AC08] defaultManager];
   v4 = PFFileProtectionNoneAttributes();
-  v10 = 0;
-  v5 = [defaultManager createDirectoryAtURL:_defaultCacheLocationURL withIntermediateDirectories:1 attributes:v4 error:&v10];
-  v6 = v10;
+  v11 = 0;
+  v5 = [defaultManager createDirectoryAtURL:_defaultCacheLocationURL withIntermediateDirectories:1 attributes:v4 error:&v11];
+  v6 = v11;
 
   if (v5)
   {
-    v7 = [[PRUISPosterSnapshotFilesystemCache alloc] initWithURL:_defaultCacheLocationURL];
+    v8 = [[PRUISPosterSnapshotFilesystemCache alloc] initWithURL:_defaultCacheLocationURL];
   }
 
   else
   {
-    v8 = PRUISLogSnapshotting();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = PRUISLogSnapshotting(v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       +[(PRUISPosterSnapshotFilesystemCache(IncomingCallAdditions) *)_defaultCacheLocationURL];
     }
 
-    v7 = 0;
+    v8 = 0;
   }
 
-  return v7;
+  return v8;
 }
 
 @end

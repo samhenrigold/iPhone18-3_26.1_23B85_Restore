@@ -24,30 +24,29 @@
 
 - (id)_mutableDataRepresentation
 {
-  v7[2] = *MEMORY[0x277D85DE8];
+  v6[2] = *MEMORY[0x277D85DE8];
   v3 = objc_alloc_init(MEMORY[0x277CBEB28]);
-  v7[0] = 0xAAAAAAAAAAAAAAAALL;
-  v7[1] = 0xAAAAAAAAAAAAAAAALL;
+  v6[0] = 0xAAAAAAAAAAAAAAAALL;
+  v6[1] = 0xAAAAAAAAAAAAAAAALL;
   uuid = [(ENStableGroupID *)self uuid];
-  [uuid getUUIDBytes:v7];
+  [uuid getUUIDBytes:v6];
 
-  [v3 appendBytes:v7 length:16];
-  v5 = *MEMORY[0x277D85DE8];
+  [v3 appendBytes:v6 length:16];
 
   return v3;
 }
 
 - (ENStableGroupID)initWithDataRepresentation:(id)representation
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   representationCopy = representation;
   v5 = [representationCopy length];
   if (v5 == [objc_opt_class() stableGroupIDLength])
   {
-    *&v11 = 0xAAAAAAAAAAAAAAAALL;
-    *(&v11 + 1) = 0xAAAAAAAAAAAAAAAALL;
-    [representationCopy getBytes:&v11 length:16];
-    v6 = [objc_alloc(MEMORY[0x277CCAD78]) initWithUUIDBytes:&v11];
+    *&v10 = 0xAAAAAAAAAAAAAAAALL;
+    *(&v10 + 1) = 0xAAAAAAAAAAAAAAAALL;
+    [representationCopy getBytes:&v10 length:16];
+    v6 = [objc_alloc(MEMORY[0x277CCAD78]) initWithUUIDBytes:&v10];
     self = [(ENStableGroupID *)self initWithUUID:v6];
 
     selfCopy = self;
@@ -58,15 +57,14 @@
     v8 = +[ENLog groupID];
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      LODWORD(v11) = 138543362;
-      *(&v11 + 4) = representationCopy;
-      _os_log_impl(&dword_24A04B000, v8, OS_LOG_TYPE_DEFAULT, "ENStableGroupID initWithDataRepresentation - Wrong data length -- Failed {data: %{public}@}", &v11, 0xCu);
+      LODWORD(v10) = 138543362;
+      *(&v10 + 4) = representationCopy;
+      _os_log_impl(&dword_24A04B000, v8, OS_LOG_TYPE_DEFAULT, "ENStableGroupID initWithDataRepresentation - Wrong data length -- Failed {data: %{public}@}", &v10, 0xCu);
     }
 
     selfCopy = 0;
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return selfCopy;
 }
 
@@ -130,28 +128,25 @@
 
 - (int64_t)compare:(id)compare
 {
-  v10[4] = *MEMORY[0x277D85DE8];
-  memset(v10, 170, 32);
+  v9[4] = *MEMORY[0x277D85DE8];
+  memset(v9, 170, 32);
   compareCopy = compare;
   uuid = [(ENStableGroupID *)self uuid];
-  [uuid getUUIDBytes:&v10[2]];
+  [uuid getUUIDBytes:&v9[2]];
 
   uuid2 = [compareCopy uuid];
 
-  [uuid2 getUUIDBytes:v10];
-  v7 = [(ENStableGroupID *)self customUUIDCompare:&v10[2] u2:v10];
+  [uuid2 getUUIDBytes:v9];
+  v7 = [(ENStableGroupID *)self customUUIDCompare:&v9[2] u2:v9];
   if (v7 < 0)
   {
-    result = -1;
+    return -1;
   }
 
   else
   {
-    result = v7 > 0;
+    return v7 > 0;
   }
-
-  v9 = *MEMORY[0x277D85DE8];
-  return result;
 }
 
 - (int)customUUIDCompare:(unsigned __int8)compare[16] u2:(unsigned __int8)u2[16]

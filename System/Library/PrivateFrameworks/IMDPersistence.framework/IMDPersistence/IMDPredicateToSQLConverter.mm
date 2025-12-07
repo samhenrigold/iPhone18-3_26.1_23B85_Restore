@@ -8,20 +8,20 @@
 
 - (NSArray)parameters
 {
-  v3 = objc_msgSend_copy(self->_foundParameters, a2, v2);
+  v4 = objc_msgSend_copy(self->_foundParameters, a2, v2, v3);
 
-  return v3;
+  return v4;
 }
 
 - (IMDPredicateToSQLConverter)initWithPredicate:(id)predicate keyPathsToColumns:(id)columns columnPrefix:(id)prefix
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   predicateCopy = predicate;
   columnsCopy = columns;
   prefixCopy = prefix;
-  v19.receiver = self;
-  v19.super_class = IMDPredicateToSQLConverter;
-  v11 = [(IMDPredicateToSQLConverter *)&v19 init];
+  v18.receiver = self;
+  v18.super_class = IMDPredicateToSQLConverter;
+  v11 = [(IMDPredicateToSQLConverter *)&v18 init];
   if (v11)
   {
     v12 = objc_alloc_init(MEMORY[0x1E695DF70]);
@@ -37,34 +37,33 @@
 
   v16 = v11;
 
-  v17 = *MEMORY[0x1E69E9840];
   return v16;
 }
 
 - (void)bindParametersToSqliteWithStatement:(CSDBSqliteStatement *)statement
 {
-  v20 = *MEMORY[0x1E69E9840];
-  v15 = 0u;
-  v16 = 0u;
+  v22 = *MEMORY[0x1E69E9840];
   v17 = 0u;
   v18 = 0u;
-  v3 = objc_msgSend_parameters(self, a2, statement, 0);
-  v5 = objc_msgSend_countByEnumeratingWithState_objects_count_(v3, v4, &v15, v19, 16);
-  if (v5)
+  v19 = 0u;
+  v20 = 0u;
+  v4 = objc_msgSend_parameters(self, a2, statement, v3, 0);
+  v6 = objc_msgSend_countByEnumeratingWithState_objects_count_(v4, v5, &v17, v21, 16);
+  if (v6)
   {
-    v6 = v5;
-    v7 = *v16;
+    v7 = v6;
+    v8 = *v18;
     do
     {
-      v8 = 0;
+      v9 = 0;
       do
       {
-        if (*v16 != v7)
+        if (*v18 != v8)
         {
-          objc_enumerationMutation(v3);
+          objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v15 + 1) + 8 * v8);
+        v10 = *(*(&v17 + 1) + 8 * v9);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
@@ -75,7 +74,7 @@
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          objc_msgSend_integerValue(v9, v11, v12);
+          objc_msgSend_integerValue(v10, v12, v13, v14);
         }
 
         else
@@ -86,22 +85,20 @@
             goto LABEL_13;
           }
 
-          objc_msgSend___im_nanosecondTimeInterval(v9, v10, v13);
+          objc_msgSend___im_nanosecondTimeInterval(v10, v11, v15, v16);
         }
 
         CSDBSqliteBindInt64();
 LABEL_13:
-        ++v8;
+        ++v9;
       }
 
-      while (v6 != v8);
-      v6 = objc_msgSend_countByEnumeratingWithState_objects_count_(v3, v10, &v15, v19, 16);
+      while (v7 != v9);
+      v7 = objc_msgSend_countByEnumeratingWithState_objects_count_(v4, v11, &v17, v21, 16);
     }
 
-    while (v6);
+    while (v7);
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 @end

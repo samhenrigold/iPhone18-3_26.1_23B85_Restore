@@ -8,28 +8,28 @@
 
 - (id)_mf_bestMimeCharset:()MimeCharsetSupport
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v4 = a3;
-  v5 = [v4 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v5)
   {
     CanBeConvertedLosslessly = 0;
     v7 = 0;
-    v8 = *v16;
+    v8 = *v15;
 LABEL_3:
     v9 = 0;
     while (1)
     {
-      if (*v16 != v8)
+      if (*v15 != v8)
       {
         objc_enumerationMutation(v4);
       }
 
-      v10 = *(*(&v15 + 1) + 8 * v9);
+      v10 = *(*(&v14 + 1) + 8 * v9);
       if (![v10 coversLargeUnicodeSubset])
       {
         goto LABEL_12;
@@ -50,7 +50,7 @@ LABEL_3:
 LABEL_15:
       if (v5 == ++v9)
       {
-        v5 = [v4 countByEnumeratingWithState:&v15 objects:v19 count:16];
+        v5 = [v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
         if (v5)
         {
           goto LABEL_3;
@@ -79,99 +79,95 @@ LABEL_17:
   v12 = 0;
 LABEL_19:
 
-  v13 = *MEMORY[0x1E69E9840];
-
   return v12;
 }
 
 - (id)mf_bestMimeCharsetUsingHint:()MimeCharsetSupport
 {
-  v35 = *MEMORY[0x1E69E9840];
-  v29 = +[MFMimeCharset allMimeCharsets];
-  v5 = [self _mf_bestMimeCharset:v29];
+  v34 = *MEMORY[0x1E69E9840];
+  v28 = +[MFMimeCharset allMimeCharsets];
+  v5 = [self _mf_bestMimeCharset:v28];
   v6 = v5;
   if (v5)
   {
     v7 = [v5 encoding] != 134217984 || a3 == -1;
     if (!v7 && a3 != 134217984)
     {
-      v11 = _indexOfEncodingInCharsets(0x8000100u, v29);
-      v12 = _indexOfEncodingInCharsets(a3, v29);
-      if (v12 > v11 && v11 != 0x7FFFFFFFFFFFFFFFLL && v12 != 0x7FFFFFFFFFFFFFFFLL)
+      v10 = _indexOfEncodingInCharsets(0x8000100u, v28);
+      v11 = _indexOfEncodingInCharsets(a3, v28);
+      if (v11 > v10 && v10 != 0x7FFFFFFFFFFFFFFFLL && v11 != 0x7FFFFFFFFFFFFFFFLL)
       {
-        v28 = [MFMimeCharset charsetForEncoding:a3];
-        primaryLanguage = [v28 primaryLanguage];
-        v27 = primaryLanguage;
+        v27 = [MFMimeCharset charsetForEncoding:a3];
+        primaryLanguage = [v27 primaryLanguage];
+        v26 = primaryLanguage;
         if (primaryLanguage)
         {
-          v26 = v29;
-          v14 = primaryLanguage;
-          if ([v14 length])
+          v25 = v28;
+          v13 = primaryLanguage;
+          if ([v13 length])
           {
-            v32 = 0u;
-            v33 = 0u;
-            v30 = 0u;
             v31 = 0u;
-            v15 = v26;
+            v32 = 0u;
+            v29 = 0u;
+            v30 = 0u;
+            v14 = v25;
             array = 0;
-            v17 = [v15 countByEnumeratingWithState:&v30 objects:v34 count:16];
-            if (v17)
+            v16 = [v14 countByEnumeratingWithState:&v29 objects:v33 count:16];
+            if (v16)
             {
-              v18 = *v31;
+              v17 = *v30;
               do
               {
-                for (i = 0; i != v17; ++i)
+                for (i = 0; i != v16; ++i)
                 {
-                  if (*v31 != v18)
+                  if (*v30 != v17)
                   {
-                    objc_enumerationMutation(v15);
+                    objc_enumerationMutation(v14);
                   }
 
-                  v20 = *(*(&v30 + 1) + 8 * i);
-                  primaryLanguage2 = [v20 primaryLanguage];
-                  v22 = primaryLanguage2;
-                  if (primaryLanguage2 && [primaryLanguage2 isEqualToString:v14])
+                  v19 = *(*(&v29 + 1) + 8 * i);
+                  primaryLanguage2 = [v19 primaryLanguage];
+                  v21 = primaryLanguage2;
+                  if (primaryLanguage2 && [primaryLanguage2 isEqualToString:v13])
                   {
                     if (!array)
                     {
                       array = [MEMORY[0x1E695DF70] array];
                     }
 
-                    [array addObject:v20];
+                    [array addObject:v19];
                   }
 
                   else
                   {
-                    [0 addObject:v20];
+                    [0 addObject:v19];
                   }
                 }
 
-                v17 = [v15 countByEnumeratingWithState:&v30 objects:v34 count:16];
+                v16 = [v14 countByEnumeratingWithState:&v29 objects:v33 count:16];
               }
 
-              while (v17);
+              while (v16);
             }
           }
 
           else
           {
-            array = v26;
+            array = v25;
           }
 
-          v23 = [self _mf_bestMimeCharset:array];
-          v24 = v23;
-          if (v23)
+          v22 = [self _mf_bestMimeCharset:array];
+          v23 = v22;
+          if (v22)
           {
-            v25 = v23;
+            v24 = v22;
 
-            v6 = v25;
+            v6 = v24;
           }
         }
       }
     }
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 
   return v6;
 }

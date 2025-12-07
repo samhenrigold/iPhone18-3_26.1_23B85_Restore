@@ -54,7 +54,7 @@
   contextCopy = context;
   selfCopy = self;
   sub_1000037EC(context, v6, v7);
-  sub_100005220(v6);
+  sub_100005220(v6, v7);
 }
 
 - (void)prepareForActivationWithContext:(id)context completion:(id)completion
@@ -75,7 +75,7 @@
   contextCopy = context;
   selfCopy = self;
   sub_100004D68(v6, v7);
-  sub_100005220(v6);
+  sub_100005220(v6, v7);
 }
 
 - (void)handleButtonActions:(id)actions

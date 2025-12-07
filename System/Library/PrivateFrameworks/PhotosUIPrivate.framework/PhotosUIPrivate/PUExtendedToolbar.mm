@@ -148,7 +148,7 @@
   [(PUExtendedToolbar *)self _performChanges:v7];
 }
 
-uint64_t __41__PUExtendedToolbar_viewModel_didChange___block_invoke(uint64_t a1)
+void *__41__PUExtendedToolbar_viewModel_didChange___block_invoke(uint64_t a1)
 {
   if ([*(a1 + 32) toolbarItemsChanged])
   {

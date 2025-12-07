@@ -1,5 +1,7 @@
 @interface CKKSOperationDependencies
 - (BOOL)considerSelfTrusted:(id)trusted error:(id *)error;
+- (BOOL)intransactionCKRecordChanged:(id)changed resync:(BOOL)resync;
+- (BOOL)intransactionCKRecordDeleted:(id)deleted recordType:(id)type resync:(BOOL)resync;
 - (BOOL)intransactionCKWriteFailed:(id)failed attemptedRecordsChanged:(id)changed;
 - (CKKSOperationDependencies)initWithViewStates:(id)states contextID:(id)d activeAccount:(id)account ckdatabase:(id)ckdatabase cloudKitClassDependencies:(id)dependencies ckoperationGroup:(id)group flagHandler:(id)handler overallLaunch:(id)self0 accountStateTracker:(id)self1 lockStateTracker:(id)self2 reachabilityTracker:(id)self3 peerProviders:(id)self4 databaseProvider:(id)self5 savedTLKNotifier:(id)self6 personaAdapter:(id)self7 sendMetric:(BOOL)self8;
 - (NSSet)activeManagedViews;
@@ -548,6 +550,334 @@ LABEL_79:
 LABEL_24:
 
   return v19;
+}
+
+- (BOOL)intransactionCKRecordDeleted:(id)deleted recordType:(id)type resync:(BOOL)resync
+{
+  resyncCopy = resync;
+  deletedCopy = deleted;
+  typeCopy = type;
+  zoneID = [deletedCopy zoneID];
+  zoneName = [zoneID zoneName];
+  v12 = sub_100019104(@"ckksfetch", zoneName);
+
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+  {
+    recordName = [deletedCopy recordName];
+    *buf = 138412546;
+    v31 = typeCopy;
+    v32 = 2112;
+    v33 = recordName;
+    _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Processing record deletion(%@): %@", buf, 0x16u);
+  }
+
+  if ([typeCopy isEqual:@"item"])
+  {
+    v14 = CKKSItem;
+    contextID = [(CKKSOperationDependencies *)self contextID];
+    v29 = 0;
+    v16 = &v29;
+    v17 = &v29;
+  }
+
+  else if ([typeCopy isEqual:@"currentitem"])
+  {
+    v14 = CKKSCurrentItemPointer;
+    contextID = [(CKKSOperationDependencies *)self contextID];
+    v28 = 0;
+    v16 = &v28;
+    v17 = &v28;
+  }
+
+  else
+  {
+    if (([typeCopy isEqual:@"synckey"]& 1) != 0)
+    {
+      goto LABEL_13;
+    }
+
+    if ([typeCopy isEqual:@"tlkshare"])
+    {
+      v14 = CKKSTLKShareRecord;
+      contextID = [(CKKSOperationDependencies *)self contextID];
+      v27 = 0;
+      v16 = &v27;
+      v17 = &v27;
+    }
+
+    else
+    {
+      if (([typeCopy isEqualToString:@"currentkey"]& 1) != 0)
+      {
+        goto LABEL_13;
+      }
+
+      if (![typeCopy isEqual:@"devicestate"])
+      {
+        if (([typeCopy isEqualToString:@"manifest"]& 1) == 0)
+        {
+          zoneID2 = [deletedCopy zoneID];
+          zoneName2 = [zoneID2 zoneName];
+          v18 = sub_100019104(@"ckksfetch", zoneName2);
+
+          if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+          {
+            *buf = 138412546;
+            v31 = typeCopy;
+            v32 = 2112;
+            v33 = deletedCopy;
+            _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_ERROR, "unknown record type: %@ %@", buf, 0x16u);
+          }
+
+          goto LABEL_11;
+        }
+
+LABEL_13:
+        v22 = 1;
+        goto LABEL_14;
+      }
+
+      v14 = CKKSDeviceStateEntry;
+      contextID = [(CKKSOperationDependencies *)self contextID];
+      v26 = 0;
+      v16 = &v26;
+      v17 = &v26;
+    }
+  }
+
+  [(__objc2_class *)v14 intransactionRecordDeleted:deletedCopy contextID:contextID resync:resyncCopy error:v17, v26, v27, v28, v29];
+  v18 = *v16;
+
+  if (!v18)
+  {
+    goto LABEL_13;
+  }
+
+  zoneID3 = [deletedCopy zoneID];
+  zoneName3 = [zoneID3 zoneName];
+  v21 = sub_100019104(@"ckksfetch", zoneName3);
+
+  if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 138412546;
+    v31 = deletedCopy;
+    v32 = 2112;
+    v33 = v18;
+    _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "Record deletion(%@) failed:: %@", buf, 0x16u);
+  }
+
+LABEL_11:
+  v22 = 0;
+LABEL_14:
+
+  return v22;
+}
+
+- (BOOL)intransactionCKRecordChanged:(id)changed resync:(BOOL)resync
+{
+  resyncCopy = resync;
+  changedCopy = changed;
+  v7 = objc_autoreleasePoolPush();
+  v8 = [changedCopy objectForKeyedSubscript:@"parentkeyref"];
+  recordID = [changedCopy recordID];
+  zoneID = [recordID zoneID];
+  zoneName = [zoneID zoneName];
+  v12 = sub_100019104(@"ckksfetch", zoneName);
+
+  v13 = os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT);
+  if (v8)
+  {
+    if (!v13)
+    {
+      goto LABEL_7;
+    }
+
+    recordType = [changedCopy recordType];
+    recordID2 = [changedCopy recordID];
+    recordChangeTag = [changedCopy recordChangeTag];
+    *buf = 138413058;
+    v59 = recordType;
+    v60 = 2112;
+    v61 = recordID2;
+    v62 = 2112;
+    v63 = recordChangeTag;
+    v64 = 2112;
+    v65 = v8;
+    v17 = "Processing record modification(%@): %@ changeTag: %@ parentKeyRef: %@";
+    v18 = v12;
+    v19 = 42;
+  }
+
+  else
+  {
+    if (!v13)
+    {
+      goto LABEL_7;
+    }
+
+    recordType = [changedCopy recordType];
+    recordID2 = [changedCopy recordID];
+    recordChangeTag = [changedCopy recordChangeTag];
+    *buf = 138412802;
+    v59 = recordType;
+    v60 = 2112;
+    v61 = recordID2;
+    v62 = 2112;
+    v63 = recordChangeTag;
+    v17 = "Processing record modification(%@): %@ changeTag: %@";
+    v18 = v12;
+    v19 = 32;
+  }
+
+  _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, v17, buf, v19);
+
+LABEL_7:
+  recordType2 = [changedCopy recordType];
+  v21 = [recordType2 isEqual:@"item"];
+
+  if (v21)
+  {
+    contextID = [(CKKSOperationDependencies *)self contextID];
+    v57 = 0;
+    [CKKSItem intransactionRecordChanged:changedCopy contextID:contextID resync:resyncCopy error:&v57];
+    v23 = v57;
+LABEL_11:
+    v26 = v23;
+    goto LABEL_12;
+  }
+
+  recordType3 = [changedCopy recordType];
+  v25 = [recordType3 isEqual:@"currentitem"];
+
+  if (v25)
+  {
+    contextID = [(CKKSOperationDependencies *)self contextID];
+    v56 = 0;
+    [CKKSCurrentItemPointer intransactionRecordChanged:changedCopy contextID:contextID resync:resyncCopy error:&v56];
+    v23 = v56;
+    goto LABEL_11;
+  }
+
+  recordType4 = [changedCopy recordType];
+  v34 = [recordType4 isEqual:@"synckey"];
+
+  if (v34)
+  {
+    contextID = [(CKKSOperationDependencies *)self contextID];
+    flagHandler = [(CKKSOperationDependencies *)self flagHandler];
+    v55 = 0;
+    [CKKSKey intransactionRecordChanged:changedCopy contextID:contextID resync:resyncCopy flagHandler:flagHandler error:&v55];
+    v36 = v55;
+LABEL_19:
+    v26 = v36;
+
+    goto LABEL_12;
+  }
+
+  recordType5 = [changedCopy recordType];
+  v38 = [recordType5 isEqual:@"tlkshare"];
+
+  if (v38)
+  {
+    contextID2 = [(CKKSOperationDependencies *)self contextID];
+    v54 = 0;
+    [CKKSTLKShareRecord intransactionRecordChanged:changedCopy contextID:contextID2 resync:resyncCopy error:&v54];
+    v26 = v54;
+
+    contextID = [(CKKSOperationDependencies *)self flagHandler];
+    [contextID _onqueueHandleFlag:@"key_process_requested"];
+LABEL_12:
+
+    if (v26)
+    {
+      recordID3 = [changedCopy recordID];
+      zoneID2 = [recordID3 zoneID];
+      zoneName2 = [zoneID2 zoneName];
+      recordType11 = sub_100019104(@"ckksfetch", zoneName2);
+
+      if (os_log_type_enabled(recordType11, OS_LOG_TYPE_DEFAULT))
+      {
+        recordType6 = [changedCopy recordType];
+        *buf = 138412546;
+        v59 = recordType6;
+        v60 = 2112;
+        v61 = v26;
+        _os_log_impl(&_mh_execute_header, recordType11, OS_LOG_TYPE_DEFAULT, "Record modification(%@) failed:: %@", buf, 0x16u);
+      }
+
+      goto LABEL_15;
+    }
+
+LABEL_26:
+    v32 = 1;
+    goto LABEL_27;
+  }
+
+  recordType7 = [changedCopy recordType];
+  v41 = [recordType7 isEqualToString:@"currentkey"];
+
+  if (v41)
+  {
+    contextID = [(CKKSOperationDependencies *)self contextID];
+    flagHandler = [(CKKSOperationDependencies *)self flagHandler];
+    v53 = 0;
+    [CKKSCurrentKeyPointer intransactionRecordChanged:changedCopy contextID:contextID resync:resyncCopy flagHandler:flagHandler error:&v53];
+    v36 = v53;
+    goto LABEL_19;
+  }
+
+  recordType8 = [changedCopy recordType];
+  v43 = [recordType8 isEqualToString:@"manifest"];
+
+  if (v43)
+  {
+    goto LABEL_26;
+  }
+
+  recordType9 = [changedCopy recordType];
+  v45 = [recordType9 isEqualToString:@"manifest_leaf"];
+
+  if (v45)
+  {
+    goto LABEL_26;
+  }
+
+  recordType10 = [changedCopy recordType];
+  v48 = [recordType10 isEqualToString:@"devicestate"];
+
+  if (v48)
+  {
+    contextID = [(CKKSOperationDependencies *)self contextID];
+    v52 = 0;
+    [CKKSDeviceStateEntry intransactionRecordChanged:changedCopy contextID:contextID resync:resyncCopy error:&v52];
+    v23 = v52;
+    goto LABEL_11;
+  }
+
+  recordID4 = [changedCopy recordID];
+  zoneID3 = [recordID4 zoneID];
+  zoneName3 = [zoneID3 zoneName];
+  v26 = sub_100019104(@"ckksfetch", zoneName3);
+
+  if (!os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+  {
+    goto LABEL_16;
+  }
+
+  recordType11 = [changedCopy recordType];
+  *buf = 138412546;
+  v59 = recordType11;
+  v60 = 2112;
+  v61 = changedCopy;
+  _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_ERROR, "unknown record type: %@ %@", buf, 0x16u);
+LABEL_15:
+
+LABEL_16:
+  v32 = 0;
+LABEL_27:
+
+  objc_autoreleasePoolPop(v7);
+  return v32;
 }
 
 - (void)provideKeySets:(id)sets

@@ -26,13 +26,13 @@
 - (void)prepareForReuse
 {
   selfCopy = self;
-  sub_1004FCFE4();
+  sub_1004FCFE4(selfCopy);
 }
 
 - (NSArray)accessibilityUserInputLabels
 {
   selfCopy = self;
-  v3 = sub_1004FDB88();
+  v3 = sub_1004FDB88(selfCopy);
 
   if (v3)
   {

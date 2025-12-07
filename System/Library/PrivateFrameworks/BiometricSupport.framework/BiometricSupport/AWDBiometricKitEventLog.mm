@@ -67,27 +67,25 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v9 = toCopy;
+  v7 = toCopy;
   if (*&self->_has)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
-    toCopy = v9;
+    toCopy = v7;
   }
 
   p_events = &self->_events;
   if (p_events->count)
   {
-    v7 = 0;
+    v6 = 0;
     do
     {
-      v8 = p_events->list[v7];
       PBDataWriterWriteUint32Field();
-      toCopy = v9;
-      ++v7;
+      toCopy = v7;
+      ++v6;
     }
 
-    while (v7 < p_events->count);
+    while (v6 < p_events->count);
   }
 }
 
@@ -138,7 +136,6 @@
     goto LABEL_8;
   }
 
-  v5 = *(equalCopy + 40);
   if (*&self->_has)
   {
     if ((*(equalCopy + 40) & 1) == 0 || self->_timestamp != *(equalCopy + 4))

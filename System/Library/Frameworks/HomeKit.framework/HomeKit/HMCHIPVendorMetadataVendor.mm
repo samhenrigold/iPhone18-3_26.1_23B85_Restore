@@ -100,7 +100,7 @@
 
 + (id)vendorFromDictionaryRepresentation:(id)representation
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   representationCopy = representation;
   v5 = [representationCopy hmf_numberForKey:@"VendorID"];
   v6 = [representationCopy hmf_stringForKey:@"Name"];
@@ -117,18 +117,16 @@
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       v11 = HMFGetLogIdentifier();
-      v14 = 138543618;
-      v15 = v11;
-      v16 = 2112;
-      v17 = representationCopy;
-      _os_log_impl(&dword_19BB39000, v10, OS_LOG_TYPE_ERROR, "%{public}@vendorFromDictionaryRepresentation cannot build object from dictionary: %@", &v14, 0x16u);
+      v13 = 138543618;
+      v14 = v11;
+      v15 = 2112;
+      v16 = representationCopy;
+      _os_log_impl(&dword_19BB39000, v10, OS_LOG_TYPE_ERROR, "%{public}@vendorFromDictionaryRepresentation cannot build object from dictionary: %@", &v13, 0x16u);
     }
 
     objc_autoreleasePoolPop(v8);
     v7 = 0;
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 
   return v7;
 }

@@ -71,7 +71,7 @@
 
 id __46__HFMultipleTransformItemProvider_reloadItems__block_invoke(uint64_t a1, void *a2)
 {
-  v52 = *MEMORY[0x277D85DE8];
+  v51 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 addedItems];
   v5 = [v4 count];
@@ -83,14 +83,14 @@ id __46__HFMultipleTransformItemProvider_reloadItems__block_invoke(uint64_t a1, 
     v8 = [v6 setWithCapacity:{objc_msgSend(v7, "count")}];
 
     v9 = [v3 addedItems];
-    v49[0] = MEMORY[0x277D85DD0];
-    v49[1] = 3221225472;
-    v49[2] = __46__HFMultipleTransformItemProvider_reloadItems__block_invoke_2;
-    v49[3] = &unk_277DFB148;
-    v49[4] = *(a1 + 32);
-    v50 = v8;
+    v48[0] = MEMORY[0x277D85DD0];
+    v48[1] = 3221225472;
+    v48[2] = __46__HFMultipleTransformItemProvider_reloadItems__block_invoke_2;
+    v48[3] = &unk_277DFB148;
+    v48[4] = *(a1 + 32);
+    v49 = v8;
     v10 = v8;
-    [v9 na_each:v49];
+    [v9 na_each:v48];
 
     [v3 setAddedItems:v10];
   }
@@ -105,15 +105,15 @@ id __46__HFMultipleTransformItemProvider_reloadItems__block_invoke(uint64_t a1, 
     v15 = [v13 setWithCapacity:{objc_msgSend(v14, "count")}];
 
     v16 = [v3 existingItems];
-    v46[0] = MEMORY[0x277D85DD0];
-    v46[1] = 3221225472;
-    v46[2] = __46__HFMultipleTransformItemProvider_reloadItems__block_invoke_3;
-    v46[3] = &unk_277DFB148;
+    v45[0] = MEMORY[0x277D85DD0];
+    v45[1] = 3221225472;
+    v45[2] = __46__HFMultipleTransformItemProvider_reloadItems__block_invoke_3;
+    v45[3] = &unk_277DFB148;
     v17 = *(a1 + 32);
-    v47 = v15;
-    v48 = v17;
+    v46 = v15;
+    v47 = v17;
     v18 = v15;
-    [v16 na_each:v46];
+    [v16 na_each:v45];
 
     [v3 setExistingItems:v18];
   }
@@ -128,15 +128,15 @@ id __46__HFMultipleTransformItemProvider_reloadItems__block_invoke(uint64_t a1, 
     v23 = [v21 setWithCapacity:{objc_msgSend(v22, "count")}];
 
     v24 = [v3 removedItems];
-    v43[0] = MEMORY[0x277D85DD0];
-    v43[1] = 3221225472;
-    v43[2] = __46__HFMultipleTransformItemProvider_reloadItems__block_invoke_4;
-    v43[3] = &unk_277DFB148;
+    v42[0] = MEMORY[0x277D85DD0];
+    v42[1] = 3221225472;
+    v42[2] = __46__HFMultipleTransformItemProvider_reloadItems__block_invoke_4;
+    v42[3] = &unk_277DFB148;
     v25 = *(a1 + 32);
-    v44 = v23;
-    v45 = v25;
+    v43 = v23;
+    v44 = v25;
     v26 = v23;
-    [v24 na_each:v43];
+    [v24 na_each:v42];
 
     [v3 setRemovedItems:v26];
   }
@@ -144,41 +144,39 @@ id __46__HFMultipleTransformItemProvider_reloadItems__block_invoke(uint64_t a1, 
   v27 = [*(a1 + 32) allItems];
   [v27 removeAllObjects];
 
-  v41 = 0u;
-  v42 = 0u;
-  v39 = 0u;
   v40 = 0u;
+  v41 = 0u;
+  v38 = 0u;
+  v39 = 0u;
   v28 = [*(a1 + 32) transformedItems];
   v29 = [v28 objectEnumerator];
 
-  v30 = [v29 countByEnumeratingWithState:&v39 objects:v51 count:16];
+  v30 = [v29 countByEnumeratingWithState:&v38 objects:v50 count:16];
   if (v30)
   {
     v31 = v30;
-    v32 = *v40;
+    v32 = *v39;
     do
     {
       for (i = 0; i != v31; ++i)
       {
-        if (*v40 != v32)
+        if (*v39 != v32)
         {
           objc_enumerationMutation(v29);
         }
 
-        v34 = *(*(&v39 + 1) + 8 * i);
+        v34 = *(*(&v38 + 1) + 8 * i);
         v35 = [*(a1 + 32) allItems];
         [v35 unionSet:v34];
       }
 
-      v31 = [v29 countByEnumeratingWithState:&v39 objects:v51 count:16];
+      v31 = [v29 countByEnumeratingWithState:&v38 objects:v50 count:16];
     }
 
     while (v31);
   }
 
   v36 = [MEMORY[0x277D2C900] futureWithResult:v3];
-
-  v37 = *MEMORY[0x277D85DE8];
 
   return v36;
 }

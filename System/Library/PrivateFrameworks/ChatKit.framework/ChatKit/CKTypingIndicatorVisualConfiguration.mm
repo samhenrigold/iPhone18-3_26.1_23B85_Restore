@@ -139,7 +139,7 @@
 {
   bubbleOpacityCopy = bubbleOpacity;
   frameCopy = frame;
-  return sub_1908258E0(bubbleOpacityCopy, frameCopy, self, a2, size, outset, color, squareFrame, space, dotsOffset, v45, v46, v47, v48, v49, v50, diameter, dotSpace, a22, a23, a24, a25, a26, a27, a28, a29, a30, a31, a32, a33, a34, a35, a36, a37, a38, a39, a40, a41, a42, a43, a44, a45);
+  return sub_1908258E0(bubbleOpacityCopy, frameCopy, self, a2, size, outset, color, squareFrame, space, dotsOffset, v48, v49, v50, v51, v52, v53, diameter, dotSpace, a22, a23, a24, a25, a26, a27, a28, a29, a30, a31, a32, a33, a34, a35, a36, a37, a38, a39, a40, a41, a42, a43, a44, a45);
 }
 
 - (_TtC7ChatKit36CKTypingIndicatorVisualConfiguration)init

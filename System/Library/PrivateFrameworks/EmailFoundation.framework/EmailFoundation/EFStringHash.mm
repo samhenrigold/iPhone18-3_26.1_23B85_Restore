@@ -47,7 +47,7 @@ void __35__EFStringHash_redactedStringValue__block_invoke()
 
 - (id)redactedStringValue
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   if (redactedStringValue_onceToken != -1)
   {
     [EFStringHash redactedStringValue];
@@ -56,33 +56,31 @@ void __35__EFStringHash_redactedStringValue__block_invoke()
   data = [(EFStringHash *)self primitiveHash];
   *&v3 = 0xAAAAAAAAAAAAAAAALL;
   *(&v3 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  *&v9.wbuf[12] = v3;
-  *&v9.wbuf[14] = v3;
-  *&v9.wbuf[8] = v3;
-  *&v9.wbuf[10] = v3;
-  *&v9.wbuf[4] = v3;
-  *&v9.wbuf[6] = v3;
-  *v9.wbuf = v3;
-  *&v9.wbuf[2] = v3;
-  *&v9.hash[4] = v3;
-  *&v9.hash[6] = v3;
-  *v9.hash = v3;
-  *&v9.hash[2] = v3;
-  *v9.count = v3;
-  CC_SHA512_Init(&v9);
-  CC_SHA512_Update(&v9, &redactedStringValue_deviceSalt, 0x10u);
-  CC_SHA512_Update(&v9, &data, 8u);
+  *&v8.wbuf[12] = v3;
+  *&v8.wbuf[14] = v3;
+  *&v8.wbuf[8] = v3;
+  *&v8.wbuf[10] = v3;
+  *&v8.wbuf[4] = v3;
+  *&v8.wbuf[6] = v3;
+  *v8.wbuf = v3;
+  *&v8.wbuf[2] = v3;
+  *&v8.hash[4] = v3;
+  *&v8.hash[6] = v3;
+  *v8.hash = v3;
+  *&v8.hash[2] = v3;
+  *v8.count = v3;
+  CC_SHA512_Init(&v8);
+  CC_SHA512_Update(&v8, &redactedStringValue_deviceSalt, 0x10u);
+  CC_SHA512_Update(&v8, &data, 8u);
   *&v4 = 0xAAAAAAAAAAAAAAAALL;
   *(&v4 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  v13 = v4;
-  v14 = v4;
-  *md = v4;
   v12 = v4;
-  CC_SHA512_Final(md, &v9);
+  v13 = v4;
+  *md = v4;
+  v11 = v4;
+  CC_SHA512_Final(md, &v8);
   v5 = [(EFStringHash *)self _hexStringFromHash:*md];
   v6 = [v5 substringWithRange:{2, 4}];
-
-  v7 = *MEMORY[0x1E69E9840];
 
   return v6;
 }

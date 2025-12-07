@@ -9,6 +9,7 @@
 - (NSString)displayName;
 - (REMListStorage)initWithCoder:(id)coder;
 - (REMListStorage)initWithObjectID:(id)d accountID:(id)iD name:(id)name;
+- (REMListStorage)initWithObjectID:(id)d accountID:(id)iD name:(id)name isGroup:(BOOL)group reminderIDsMergeableOrdering:(id)ordering;
 - (REMListStorage)initWithObjectID:(id)d accountID:(id)iD name:(id)name isGroup:(BOOL)group reminderIDsMergeableOrderingData:(id)data;
 - (REMResolutionTokenMap)resolutionTokenMap;
 - (id)cdKeyToStorageKeyMap;
@@ -44,6 +45,45 @@
   v13 = [(REMListStorage *)self initWithObjectID:dCopy accountID:iDCopy name:nameCopy isGroup:0 reminderIDsMergeableOrdering:orderedSet];
 
   return v13;
+}
+
+- (REMListStorage)initWithObjectID:(id)d accountID:(id)iD name:(id)name isGroup:(BOOL)group reminderIDsMergeableOrdering:(id)ordering
+{
+  groupCopy = group;
+  v25 = *MEMORY[0x1E69E9840];
+  dCopy = d;
+  orderingCopy = ordering;
+  nameCopy = name;
+  iDCopy = iD;
+  v22 = 0;
+  data = [objc_opt_class() reminderIDUUIDStringsJSONDataFromReminderIDsMergeableOrdering:orderingCopy error:&v22];
+
+  v17 = v22;
+  v18 = +[REMLogStore read];
+  v19 = v18;
+  if (data)
+  {
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
+    {
+      *buf = 138412290;
+      v24 = dCopy;
+      _os_log_impl(&dword_19A0DB000, v19, OS_LOG_TYPE_INFO, "Serialized input reminderIDsMergeableOrdering into data when init REMListStorage. {objectID: %@}", buf, 0xCu);
+    }
+  }
+
+  else
+  {
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_FAULT))
+    {
+      [REMListStorage initWithObjectID:accountID:name:isGroup:reminderIDsMergeableOrdering:];
+    }
+
+    data = [MEMORY[0x1E695DEF0] data];
+  }
+
+  v20 = [(REMListStorage *)self initWithObjectID:dCopy accountID:iDCopy name:nameCopy isGroup:groupCopy reminderIDsMergeableOrderingData:data];
+
+  return v20;
 }
 
 - (REMListStorage)initWithObjectID:(id)d accountID:(id)iD name:(id)name isGroup:(BOOL)group reminderIDsMergeableOrderingData:(id)data
@@ -737,7 +777,7 @@
 
 - (BOOL)isEqual:(id)equal
 {
-  v246 = *MEMORY[0x1E69E9840];
+  v245 = *MEMORY[0x1E69E9840];
   equalCopy = equal;
   v5 = equalCopy;
   if (equalCopy != self)
@@ -1128,13 +1168,13 @@
             v162 = NSStringFromClass(v161);
             reminderIDsMergeableOrdering = self->_reminderIDsMergeableOrdering;
             v164 = v6->_reminderIDsMergeableOrdering;
-            v240 = 138543874;
-            v241 = v162;
-            v242 = 2112;
-            v243 = reminderIDsMergeableOrdering;
-            v244 = 2112;
-            v245 = v164;
-            _os_log_error_impl(&dword_19A0DB000, v116, OS_LOG_TYPE_ERROR, "You are about to trigger decoding the reminderIDsMergeableordering. This is probably not what you want for performance to trigger it from -isEqual:, unless you are running Tests then it's fine {class: %{public}@, self-idsOrdering: %@, other-idsOrdering: %@}", &v240, 0x20u);
+            v239 = 138543874;
+            v240 = v162;
+            v241 = 2112;
+            v242 = reminderIDsMergeableOrdering;
+            v243 = 2112;
+            v244 = v164;
+            _os_log_error_impl(&dword_19A0DB000, v116, OS_LOG_TYPE_ERROR, "You are about to trigger decoding the reminderIDsMergeableordering. This is probably not what you want for performance to trigger it from -isEqual:, unless you are running Tests then it's fine {class: %{public}@, self-idsOrdering: %@, other-idsOrdering: %@}", &v239, 0x20u);
           }
         }
 
@@ -1166,13 +1206,13 @@
             v166 = NSStringFromClass(v165);
             resolutionTokenMap = self->_resolutionTokenMap;
             v168 = v6->_resolutionTokenMap;
-            v240 = 138543874;
-            v241 = v166;
-            v242 = 2112;
-            v243 = resolutionTokenMap;
-            v244 = 2112;
-            v245 = v168;
-            _os_log_error_impl(&dword_19A0DB000, v123, OS_LOG_TYPE_ERROR, "You are about to trigger decoding the resolution token map from JSON data. This is probably not what you want for performance to trigger it from -isEqual:, unless you are running Tests then it's fine {class: %{public}@, self-map: %@, other-map: %@}", &v240, 0x20u);
+            v239 = 138543874;
+            v240 = v166;
+            v241 = 2112;
+            v242 = resolutionTokenMap;
+            v243 = 2112;
+            v244 = v168;
+            _os_log_error_impl(&dword_19A0DB000, v123, OS_LOG_TYPE_ERROR, "You are about to trigger decoding the resolution token map from JSON data. This is probably not what you want for performance to trigger it from -isEqual:, unless you are running Tests then it's fine {class: %{public}@, self-map: %@, other-map: %@}", &v239, 0x20u);
           }
         }
 
@@ -1538,7 +1578,6 @@ LABEL_163:
   v13 = 1;
 LABEL_164:
 
-  v234 = *MEMORY[0x1E69E9840];
   return v13 & 1;
 }
 
@@ -1592,7 +1631,7 @@ LABEL_164:
 
 - (NSOrderedSet)reminderIDsMergeableOrdering
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   p_reminderIDsMergeableOrdering = &self->_reminderIDsMergeableOrdering;
   v4 = self->_reminderIDsMergeableOrdering;
   if (v4)
@@ -1614,20 +1653,20 @@ LABEL_164:
     goto LABEL_11;
   }
 
-  v17 = 0;
-  v7 = [objc_opt_class() reminderIDsMergeableOrderingFromReminderIDUUIDStringsJSONData:reminderIDsMergeableOrderingData error:&v17];
-  v8 = v17;
+  v16 = 0;
+  v7 = [objc_opt_class() reminderIDsMergeableOrderingFromReminderIDUUIDStringsJSONData:reminderIDsMergeableOrderingData error:&v16];
+  v8 = v16;
   v9 = +[REMLogStore read];
   if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
   {
     objectID = [(REMListStorage *)self objectID];
     v11 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(v7, "count")}];
     *buf = 138543874;
-    v19 = objectID;
-    v20 = 2048;
+    v18 = objectID;
+    v19 = 2048;
     selfCopy = self;
-    v22 = 2112;
-    v23 = v11;
+    v21 = 2112;
+    v22 = v11;
     _os_log_impl(&dword_19A0DB000, v9, OS_LOG_TYPE_INFO, "REMListStorage reminderIDsMergeableOrdering deserialized {objectID: %{public}@, self: %p, orderedSet.count: %@}", buf, 0x20u);
   }
 
@@ -1652,7 +1691,6 @@ LABEL_14:
   v5 = v7;
 
 LABEL_15:
-  v15 = *MEMORY[0x1E69E9840];
 
   return v5;
 }
@@ -1737,29 +1775,29 @@ LABEL_15:
 
 + (id)reminderIDUUIDStringsJSONDataFromReminderIDsMergeableOrdering:(id)ordering error:(id *)error
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   orderingCopy = ordering;
   v6 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(orderingCopy, "count")}];
+  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
   v7 = orderingCopy;
-  v8 = [v7 countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v22;
+    v10 = *v21;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v22 != v10)
+        if (*v21 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        uuid = [*(*(&v21 + 1) + 8 * i) uuid];
+        uuid = [*(*(&v20 + 1) + 8 * i) uuid];
         uUIDString = [uuid UUIDString];
 
         if (uUIDString)
@@ -1768,15 +1806,15 @@ LABEL_15:
         }
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v20 objects:v24 count:16];
     }
 
     while (v9);
   }
 
-  v20 = 0;
-  v14 = [MEMORY[0x1E696ACB0] dataWithJSONObject:v6 options:0 error:&v20];
-  v15 = v20;
+  v19 = 0;
+  v14 = [MEMORY[0x1E696ACB0] dataWithJSONObject:v6 options:0 error:&v19];
+  v15 = v19;
   if (!v14)
   {
     v16 = +[REMLogStore read];
@@ -1792,14 +1830,12 @@ LABEL_15:
     *error = v15;
   }
 
-  v18 = *MEMORY[0x1E69E9840];
-
   return v14;
 }
 
 + (id)reminderIDsMergeableOrderingFromReminderIDUUIDStringsJSONData:(id)data error:(id *)error
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   dataCopy = data;
   v6 = dataCopy;
   if (dataCopy)
@@ -1811,40 +1847,40 @@ LABEL_15:
     }
 
     v7 = objc_autoreleasePoolPush();
-    v33 = 0;
-    v8 = [MEMORY[0x1E696ACB0] JSONObjectWithData:v6 options:0 error:&v33];
-    v9 = v33;
+    v32 = 0;
+    v8 = [MEMORY[0x1E696ACB0] JSONObjectWithData:v6 options:0 error:&v32];
+    v9 = v32;
     if (v8)
     {
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        v26 = v9;
-        v27 = v7;
+        v25 = v9;
+        v26 = v7;
         errorCopy = error;
-        v25 = v8;
+        v24 = v8;
         v10 = v8;
         v11 = [objc_alloc(MEMORY[0x1E695DFA0]) initWithCapacity:{objc_msgSend(v10, "count")}];
+        v28 = 0u;
         v29 = 0u;
         v30 = 0u;
         v31 = 0u;
-        v32 = 0u;
         v12 = v10;
-        v13 = [v12 countByEnumeratingWithState:&v29 objects:v36 count:16];
+        v13 = [v12 countByEnumeratingWithState:&v28 objects:v35 count:16];
         if (v13)
         {
           v14 = v13;
-          v15 = *v30;
+          v15 = *v29;
           do
           {
             for (i = 0; i != v14; ++i)
             {
-              if (*v30 != v15)
+              if (*v29 != v15)
               {
                 objc_enumerationMutation(v12);
               }
 
-              v17 = *(*(&v29 + 1) + 8 * i);
+              v17 = *(*(&v28 + 1) + 8 * i);
               v18 = [objc_alloc(MEMORY[0x1E696AFB0]) initWithUUIDString:v17];
               if (v18)
               {
@@ -1858,29 +1894,29 @@ LABEL_15:
                 if (os_log_type_enabled(v19, OS_LOG_TYPE_FAULT))
                 {
                   *buf = 138412290;
-                  v35 = v17;
+                  v34 = v17;
                   _os_log_fault_impl(&dword_19A0DB000, v19, OS_LOG_TYPE_FAULT, "Failed to create uuid from string. Skipping objectID from list {uuidString: %@}", buf, 0xCu);
                 }
               }
             }
 
-            v14 = [v12 countByEnumeratingWithState:&v29 objects:v36 count:16];
+            v14 = [v12 countByEnumeratingWithState:&v28 objects:v35 count:16];
           }
 
           while (v14);
         }
 
         error = errorCopy;
-        v9 = v26;
-        v7 = v27;
-        v8 = v25;
+        v9 = v25;
+        v7 = v26;
+        v8 = v24;
         goto LABEL_26;
       }
 
       v12 = +[REMLogStore read];
       if (os_log_type_enabled(v12, OS_LOG_TYPE_FAULT))
       {
-        +[REMListStorage reminderIDsMergeableOrderingFromReminderIDUUIDStringsJSONData:error:];
+        [REMListStorage reminderIDsMergeableOrderingFromReminderIDUUIDStringsJSONData:v8 error:v12];
       }
     }
 
@@ -1917,113 +1953,52 @@ LABEL_26:
   orderedSet = 0;
 LABEL_29:
 
-  v23 = *MEMORY[0x1E69E9840];
-
   return orderedSet;
-}
-
-- (void)initWithObjectID:accountID:name:isGroup:reminderIDsMergeableOrdering:.cold.1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_3_3(&dword_19A0DB000, v0, v1, "Failed to serialize provided reminderIDsMergeableOrdering. Using emptyArray {error: %@}", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-- (void)initWithCoder:.cold.1()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1_4(&dword_19A0DB000, v0, v1, "Attempted to decode REMListStorage missing objectID, name, reminderIDs {objectID: %{public}@, name: %{sensitive}@}");
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 - (void)initWithCoder:.cold.2()
 {
-  v7 = *MEMORY[0x1E69E9840];
   v0 = +[REMLogStore read];
   if (os_log_type_enabled(v0, OS_LOG_TYPE_FAULT))
   {
     OUTLINED_FUNCTION_0_2();
-    _os_log_fault_impl(v2, v3, v4, v5, v6, 0x16u);
+    _os_log_fault_impl(v1, v2, v3, v4, v5, 0x16u);
   }
-
-  v1 = *MEMORY[0x1E69E9840];
-}
-
-- (void)initWithCoder:.cold.3()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_3_3(&dword_19A0DB000, v0, v1, "Unknown REMListSharingStatus %ld", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)encodeWithCoder:(void *)a1 .cold.1(void *a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
   v2 = +[REMLogStore read];
   if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
   {
-    v4 = [a1 objectID];
+    v3 = [a1 objectID];
     OUTLINED_FUNCTION_2();
     OUTLINED_FUNCTION_0_2();
-    _os_log_fault_impl(v5, v6, v7, v8, v9, 0xCu);
+    _os_log_fault_impl(v4, v5, v6, v7, v8, 0xCu);
   }
-
-  v3 = *MEMORY[0x1E69E9840];
 }
 
 - (void)reminderIDsMergeableOrdering
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_2();
-  _os_log_error_impl(&dword_19A0DB000, v0, OS_LOG_TYPE_ERROR, "Failed to read reminderIDsMergeableOrdering from data. Returning empty set {error: %@}", v2, 0xCu);
-  v1 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(&dword_19A0DB000, v0, OS_LOG_TYPE_ERROR, "Failed to read reminderIDsMergeableOrdering from data. Returning empty set {error: %@}", v1, 0xCu);
 }
 
 - (void)resolutionTokenMap
 {
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  _os_log_error_impl(&dword_19A0DB000, v0, OS_LOG_TYPE_ERROR, "Nil resolutionTokenMapData when reading resolutionTokenMap from list storage. Initialize an empty map {list: %@}", v2, 0xCu);
-  v1 = *MEMORY[0x1E69E9840];
-}
-
-+ (void)reminderIDUUIDStringsJSONDataFromReminderIDsMergeableOrdering:error:.cold.1()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1_4(&dword_19A0DB000, v0, v1, "Failed to serialize uuidStrings {error: %@, uuidStrings: %@}");
   v2 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_2();
+  _os_log_error_impl(&dword_19A0DB000, v0, OS_LOG_TYPE_ERROR, "Nil resolutionTokenMapData when reading resolutionTokenMap from list storage. Initialize an empty map {list: %@}", v1, 0xCu);
 }
 
-+ (void)reminderIDsMergeableOrderingFromReminderIDUUIDStringsJSONData:error:.cold.1()
++ (void)reminderIDsMergeableOrderingFromReminderIDUUIDStringsJSONData:(uint64_t)a1 error:(uint64_t)a2 .cold.1(uint64_t a1, uint64_t a2)
 {
-  v8 = *MEMORY[0x1E69E9840];
   objc_opt_class();
   OUTLINED_FUNCTION_2();
-  v1 = v0;
+  v3 = v2;
   OUTLINED_FUNCTION_0_2();
-  _os_log_fault_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x1E69E9840];
-}
-
-+ (void)reminderIDsMergeableOrderingFromReminderIDUUIDStringsJSONData:error:.cold.2()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1_4(&dword_19A0DB000, v0, v1, "Failed to deserialize reminderIDsMergeableOrdering data. Returning nil {error: %@, list: %@}");
-  v2 = *MEMORY[0x1E69E9840];
-}
-
-+ (void)reminderIDsMergeableOrderingFromReminderIDUUIDStringsJSONData:error:.cold.3()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_3_3(&dword_19A0DB000, v0, v1, "Missing reminderIDsMergeableOrderingData. Returning nil {list: %@}", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_fault_impl(v4, v5, v6, v7, v8, 0xCu);
 }
 
 @end

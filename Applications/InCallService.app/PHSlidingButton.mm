@@ -26,12 +26,12 @@
 
 - (PHSlidingButton)initWithSlidingButtonType:(int)type appearanceType:(int)appearanceType callState:(int64_t)state
 {
-  v64.receiver = self;
-  v64.super_class = PHSlidingButton;
+  v65.receiver = self;
+  v65.super_class = PHSlidingButton;
   y = CGRectZero.origin.y;
   width = CGRectZero.size.width;
   height = CGRectZero.size.height;
-  height = [(PHSlidingButton *)&v64 initWithFrame:CGRectZero.origin.x, y, width, height];
+  height = [(PHSlidingButton *)&v65 initWithFrame:CGRectZero.origin.x, y, width, height];
   v12 = height;
   if (!height)
   {
@@ -53,76 +53,86 @@
   objc_storeStrong(&height->_endDialImageName, v13);
   if ((type - 7) >= 3)
   {
-    v14 = +[PHUIConfiguration inCallSlideToAnswerSize]== 3 || [(PHSlidingButton *)v12 isButtonLayoutEnabled];
+    isButtonLayoutEnabled = +[PHUIConfiguration inCallSlideToAnswerSize];
+    if (isButtonLayoutEnabled == 3)
+    {
+      v15 = 1;
+    }
+
+    else
+    {
+      isButtonLayoutEnabled = [(PHSlidingButton *)v12 isButtonLayoutEnabled];
+      v15 = isButtonLayoutEnabled;
+    }
   }
 
   else
   {
-    v14 = 0;
+    v15 = 0;
   }
 
-  v15 = sub_100004F84();
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+  v16 = sub_100004F84(isButtonLayoutEnabled);
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109632;
     typeCopy = type;
-    v67 = 1024;
+    v68 = 1024;
     appearanceTypeCopy = appearanceType;
-    v69 = 1024;
-    v70 = v14;
-    _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "Making slider with type: %d, appearance: %d, large: %d", buf, 0x14u);
+    v70 = 1024;
+    v71 = v15;
+    _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "Making slider with type: %d, appearance: %d, large: %d", buf, 0x14u);
   }
 
   switch(appearanceType)
   {
     case 0:
-      height2 = [[PHActionSlider alloc] initWithFrame:0 vibrantSettings:v14 large:v12->_usesLargeFormatUI usesLargeFormatUI:CGRectZero.origin.x, y, width, height];
+      height2 = [[PHActionSlider alloc] initWithFrame:0 vibrantSettings:v15 large:v12->_usesLargeFormatUI usesLargeFormatUI:CGRectZero.origin.x, y, width, height];
       acceptButton = v12->_acceptButton;
       v12->_acceptButton = height2;
 
       [(PHActionSlider *)v12->_acceptButton setStyle:3];
 LABEL_25:
-      v27 = [UIColor colorWithWhite:1.0 alpha:0.200000003];
-      [(PHActionSlider *)v12->_acceptButton setBackgroundColor:v27];
+      v28 = [UIColor colorWithWhite:1.0 alpha:0.200000003];
+      [(PHActionSlider *)v12->_acceptButton setBackgroundColor:v28];
 
       break;
     case 1:
-      v16 = +[UIColor blueColor];
-      v17 = [_UILegibilitySettings sharedInstanceForStyle:1];
-      v18 = [_UIVibrantSettings vibrantSettingsWithReferenceColor:v16 referenceContrast:v17 legibilitySettings:0.3];
+      v17 = +[UIColor blueColor];
+      v18 = [_UILegibilitySettings sharedInstanceForStyle:1];
+      v19 = [_UIVibrantSettings vibrantSettingsWithReferenceColor:v17 referenceContrast:v18 legibilitySettings:0.3];
 
-      height3 = [[PHActionSlider alloc] initWithFrame:v18 vibrantSettings:v14 large:v12->_usesLargeFormatUI usesLargeFormatUI:CGRectZero.origin.x, y, width, height];
-      v20 = v12->_acceptButton;
+      height3 = [[PHActionSlider alloc] initWithFrame:v19 vibrantSettings:v15 large:v12->_usesLargeFormatUI usesLargeFormatUI:CGRectZero.origin.x, y, width, height];
+      v21 = v12->_acceptButton;
       v12->_acceptButton = height3;
 
       if (type <= 6 && ((1 << type) & 0x46) != 0)
       {
-        v21 = 2;
+        v22 = 2;
       }
 
       else if (type == 3)
       {
-        v21 = 2;
+        v22 = 2;
       }
 
       else
       {
-        v21 = 1;
+        v22 = 1;
       }
 
-      [(PHActionSlider *)v12->_acceptButton setStyle:v21];
+      [(PHActionSlider *)v12->_acceptButton setStyle:v22];
 
       goto LABEL_24;
     case 2:
 LABEL_24:
-      height4 = [[PHActionSlider alloc] initWithFrame:0 vibrantSettings:v14 large:v12->_usesLargeFormatUI usesLargeFormatUI:CGRectZero.origin.x, y, width, height];
-      v25 = v12->_acceptButton;
+      height4 = [[PHActionSlider alloc] initWithFrame:0 vibrantSettings:v15 large:v12->_usesLargeFormatUI usesLargeFormatUI:CGRectZero.origin.x, y, width, height];
+      v26 = v12->_acceptButton;
       v12->_acceptButton = height4;
 
       [(PHActionSlider *)v12->_acceptButton setStyle:4];
       [(PHActionSlider *)v12->_acceptButton setTextStyle:4];
-      v26 = +[UIColor whiteColor];
-      [(PHActionSlider *)v12->_acceptButton setKnobColor:v26];
+      v27 = +[UIColor whiteColor];
+      [(PHActionSlider *)v12->_acceptButton setKnobColor:v27];
 
       goto LABEL_25;
   }
@@ -144,26 +154,26 @@ LABEL_24:
   {
     +[PHBottomBarButtonConfiguration systemTintColor];
   }
-  v28 = ;
+  v29 = ;
   if (v12->_callState == 1)
   {
-    v29 = [UIImage imageNamed:@"phone_slide_voip"];
-    v30 = [v29 imageWithRenderingMode:2];
+    v30 = [UIImage imageNamed:@"phone_slide_voip"];
+    v31 = [v30 imageWithRenderingMode:2];
   }
 
   else
   {
-    v30 = [UIImage tpImageForSymbolType:1 textStyle:UIFontTextStyleLargeTitle scale:2 isStaticSize:1];
+    v31 = [UIImage tpImageForSymbolType:1 textStyle:UIFontTextStyleLargeTitle scale:2 isStaticSize:1];
   }
 
   if (type == 9)
   {
-    v38 = [UIImage imageNamed:@"medicalid-slider-button"];
-    v39 = [v38 imageWithRenderingMode:2];
-    [(PHActionSlider *)v12->_acceptButton setKnobImage:v39];
+    v39 = [UIImage imageNamed:@"medicalid-slider-button"];
+    v40 = [v39 imageWithRenderingMode:2];
+    [(PHActionSlider *)v12->_acceptButton setKnobImage:v40];
 
-    v40 = +[UIColor systemRedColor];
-    [(PHActionSlider *)v12->_acceptButton setTintColor:v40];
+    v41 = +[UIColor systemRedColor];
+    [(PHActionSlider *)v12->_acceptButton setTintColor:v41];
 
     [(PHActionSlider *)v12->_acceptButton setTextStyle:2];
   }
@@ -174,15 +184,15 @@ LABEL_24:
     {
       if (type == 7)
       {
-        v31 = [UIImage imageNamed:@"sos-slider-button"];
-        v32 = [v31 imageWithRenderingMode:2];
-        [(PHActionSlider *)v12->_acceptButton setKnobImage:v32];
+        v32 = [UIImage imageNamed:@"sos-slider-button"];
+        v33 = [v32 imageWithRenderingMode:2];
+        [(PHActionSlider *)v12->_acceptButton setKnobImage:v33];
 
-        v33 = +[UIColor whiteColor];
-        [(PHActionSlider *)v12->_acceptButton setTintColor:v33];
+        v34 = +[UIColor whiteColor];
+        [(PHActionSlider *)v12->_acceptButton setTintColor:v34];
 
-        v34 = +[UIColor systemRedColor];
-        [(PHActionSlider *)v12->_acceptButton setKnobColor:v34];
+        v35 = +[UIColor systemRedColor];
+        [(PHActionSlider *)v12->_acceptButton setKnobColor:v35];
 
         [(PHActionSlider *)v12->_acceptButton setTextStyle:2];
         [(PHActionSlider *)v12->_acceptButton setDragStyle:2];
@@ -190,44 +200,44 @@ LABEL_24:
 
       else
       {
-        [(PHActionSlider *)v12->_acceptButton setKnobImage:v30];
+        [(PHActionSlider *)v12->_acceptButton setKnobImage:v31];
         if (v12->_callState != 1)
         {
           [(PHActionSlider *)v12->_acceptButton knobImageOffset];
-          v43 = v42;
+          v44 = v43;
           [(PHActionSlider *)v12->_acceptButton knobImageOffset];
-          [(PHActionSlider *)v12->_acceptButton setKnobImageOffset:v43, v44 + 2.0];
+          [(PHActionSlider *)v12->_acceptButton setKnobImageOffset:v44, v45 + 2.0];
         }
 
-        [(PHActionSlider *)v12->_acceptButton setTintColor:v28];
+        [(PHActionSlider *)v12->_acceptButton setTintColor:v29];
       }
 
       goto LABEL_44;
     }
 
-    v35 = [UIImage imageNamed:@"powerdown-slider-button"];
-    v36 = [v35 imageWithRenderingMode:2];
-    [(PHActionSlider *)v12->_acceptButton setKnobImage:v36];
+    v36 = [UIImage imageNamed:@"powerdown-slider-button"];
+    v37 = [v36 imageWithRenderingMode:2];
+    [(PHActionSlider *)v12->_acceptButton setKnobImage:v37];
 
-    v37 = +[UIColor redColor];
-    [(PHActionSlider *)v12->_acceptButton setTintColor:v37];
+    v38 = +[UIColor redColor];
+    [(PHActionSlider *)v12->_acceptButton setTintColor:v38];
   }
 
-  v41 = +[UIColor whiteColor];
-  [(PHActionSlider *)v12->_acceptButton setKnobColor:v41];
+  v42 = +[UIColor whiteColor];
+  [(PHActionSlider *)v12->_acceptButton setKnobColor:v42];
 
 LABEL_44:
   [(PHActionSlider *)v12->_acceptButton setDelegate:v12];
   if (!v12->_usesLargeFormatUI)
   {
-    v45 = +[UIScreen mainScreen];
-    currentMode = [v45 currentMode];
+    v46 = +[UIScreen mainScreen];
+    currentMode = [v46 currentMode];
     [currentMode size];
-    if (v47 >= 2208.0)
+    if (v48 >= 2208.0)
     {
-      isButtonLayoutEnabled = [(PHSlidingButton *)v12 isButtonLayoutEnabled];
+      isButtonLayoutEnabled2 = [(PHSlidingButton *)v12 isButtonLayoutEnabled];
 
-      if ((isButtonLayoutEnabled & 1) == 0)
+      if ((isButtonLayoutEnabled2 & 1) == 0)
       {
         [(PHActionSlider *)v12->_acceptButton trackSize];
         [(PHActionSlider *)v12->_acceptButton setTrackSize:300.0];
@@ -239,52 +249,52 @@ LABEL_44:
     }
   }
 
-  v49 = [NSBundle bundleForClass:objc_opt_class()];
-  v50 = v49;
-  v51 = @"SLIDE_TO_SOS";
+  v50 = [NSBundle bundleForClass:objc_opt_class()];
+  v51 = v50;
+  v52 = @"SLIDE_TO_SOS";
   if ((type - 5) < 2)
   {
-    v51 = @"SLIDE_TO_UNLOCK";
+    v52 = @"SLIDE_TO_UNLOCK";
   }
 
-  v52 = @"SLIDE_TO_ANSWER";
+  v53 = @"SLIDE_TO_ANSWER";
   if (type == 9)
   {
-    v52 = @"MEDICAL_ID";
+    v53 = @"MEDICAL_ID";
   }
 
   if (type == 8)
   {
-    v52 = @"POWER_OFF";
+    v53 = @"POWER_OFF";
   }
 
   if ((type - 5) >= 3)
   {
-    v53 = v52;
+    v54 = v53;
   }
 
   else
   {
-    v53 = v51;
+    v54 = v52;
   }
 
-  v54 = [v49 localizedStringForKey:v53 value:&stru_100361FD0 table:@"BottomBar"];
+  v55 = [v50 localizedStringForKey:v54 value:&stru_100361FD0 table:@"BottomBar"];
 
-  [(PHActionSlider *)v12->_acceptButton setTrackText:v54];
-  v55 = [[UIImageView alloc] initWithImage:v30];
+  [(PHActionSlider *)v12->_acceptButton setTrackText:v55];
+  v56 = [[UIImageView alloc] initWithImage:v31];
   dialImageView = v12->_dialImageView;
-  v12->_dialImageView = v55;
+  v12->_dialImageView = v56;
 
-  v57 = +[UIColor whiteColor];
-  [(UIImageView *)v12->_dialImageView setTintColor:v57];
+  v58 = +[UIColor whiteColor];
+  [(UIImageView *)v12->_dialImageView setTintColor:v58];
 
-  v58 = [UIButton buttonWithType:0];
+  v59 = [UIButton buttonWithType:0];
   sideButtonRight = v12->_sideButtonRight;
-  v12->_sideButtonRight = v58;
+  v12->_sideButtonRight = v59;
 
-  v60 = v12->_sideButtonRight;
-  v61 = +[UIColor whiteColor];
-  [(UIButton *)v60 setBackgroundColor:v61];
+  v61 = v12->_sideButtonRight;
+  v62 = +[UIColor whiteColor];
+  [(UIButton *)v61 setBackgroundColor:v62];
 
   layer = [(UIButton *)v12->_sideButtonRight layer];
   [layer setCornerRadius:33.0];

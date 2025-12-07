@@ -251,9 +251,9 @@
   result = TSWPDefaultInstructionalText;
   if (!TSWPDefaultInstructionalText)
   {
-    v4 = TSWPBundle();
+    v5 = TSWPBundle(0, v3);
 
-    return [v4 localizedStringForKey:@"Text" value:&stru_287D36338 table:@"TSText"];
+    return [v5 localizedStringForKey:@"Text" value:&stru_287D36338 table:@"TSText"];
   }
 
   return result;
@@ -435,7 +435,7 @@ LABEL_9:
   v11 = *(MEMORY[0x277CBF348] + 8);
   widthValid = [size widthValid];
   heightValid = [size heightValid];
-  memset(&v19[1], 0, sizeof(CGAffineTransform));
+  memset(&v18[1], 0, sizeof(CGAffineTransform));
   if (size)
   {
     if (heightValid)
@@ -450,23 +450,21 @@ LABEL_9:
 
     if (widthValid)
     {
-      v15 = width;
+      objc_msgSend_transformBasedOnRect_(size, v10, v11, width, v14);
     }
 
     else
     {
-      v15 = 0.0;
+      objc_msgSend_transformBasedOnRect_(size, v10, v11, 0.0, v14);
     }
-
-    [size transformBasedOnRect:{v10, v11, v15, v14}];
   }
 
   [(TSWPShapeInfo *)self autosizePositionOffsetForGeometry:size size:width, height];
   *&retstr->a = 0u;
   *&retstr->c = 0u;
   *&retstr->tx = 0u;
-  v19[0] = v19[1];
-  return CGAffineTransformTranslate(retstr, v19, -v16, -v17);
+  v18[0] = v18[1];
+  return CGAffineTransformTranslate(retstr, v18, -v15, -v16);
 }
 
 - (CGPoint)autosizePositionOffset
@@ -478,7 +476,7 @@ LABEL_9:
   [(TSDInfoGeometry *)geometry size];
   if (self)
   {
-    [(TSWPShapeInfo *)self autosizedTransformForInfoGeometry:geometry size:?];
+    objc_msgSend_autosizedTransformForInfoGeometry_size_(self);
   }
 
   else
@@ -497,7 +495,7 @@ LABEL_9:
   [v4 size];
   if (self)
   {
-    [(TSWPShapeInfo *)self autosizedTransformForInfoGeometry:v4 size:?];
+    objc_msgSend_autosizedTransformForInfoGeometry_size_(self);
   }
 
   else
@@ -645,17 +643,17 @@ LABEL_9:
 - (id)textureDeliveryStylesLocalized:(BOOL)localized animationFilter:(id)filter
 {
   localizedCopy = localized;
-  v19.receiver = self;
-  v19.super_class = TSWPShapeInfo;
-  v6 = [MEMORY[0x277CBEB18] arrayWithArray:{-[TSDDrawableInfo textureDeliveryStylesLocalized:animationFilter:](&v19, sel_textureDeliveryStylesLocalized_animationFilter_, localized, filter)}];
+  v25.receiver = self;
+  v25.super_class = TSWPShapeInfo;
+  v6 = [MEMORY[0x277CBEB18] arrayWithArray:{-[TSDDrawableInfo textureDeliveryStylesLocalized:animationFilter:](&v25, sel_textureDeliveryStylesLocalized_animationFilter_, localized, filter)}];
   v7 = v6;
   if (localizedCopy)
   {
-    v18 = xmmword_26CA639B0;
+    v24 = xmmword_26CA639B0;
     containedStorage = self->_containedStorage;
     if (containedStorage)
     {
-      v9 = [(TSWPStorage *)containedStorage listStyleAtCharIndex:0 effectiveRange:&v18];
+      v9 = [(TSWPStorage *)containedStorage listStyleAtCharIndex:0 effectiveRange:&v24];
       containedStorage = self->_containedStorage;
     }
 
@@ -664,42 +662,43 @@ LABEL_9:
       v9 = 0;
     }
 
-    v11 = [v9 effectiveTypeForLevel:{-[TSWPStorage paragraphLevelAtParIndex:](containedStorage, "paragraphLevelAtParIndex:", 0, v18)}];
-    v12 = TSWPBundle();
-    v13 = v11 == 0;
-    if (v11)
+    v11 = [v9 effectiveTypeForLevel:{-[TSWPStorage paragraphLevelAtParIndex:](containedStorage, "paragraphLevelAtParIndex:", 0, v24)}];
+    v12 = v11;
+    v14 = TSWPBundle(v11, v13);
+    v15 = v12 == 0;
+    if (v12)
     {
-      v14 = @"By Bullet";
+      v16 = @"By Bullet";
     }
 
     else
     {
-      v14 = @"By Paragraph";
+      v16 = @"By Paragraph";
     }
 
-    if (v11)
+    if (v12)
     {
-      v15 = @"By Bullet Group";
+      v17 = @"By Bullet Group";
     }
 
     else
     {
-      v15 = @"By Paragraph Group";
+      v17 = @"By Paragraph Group";
     }
 
-    if (v13)
+    if (v15)
     {
-      v16 = @"By Highlighted Paragraph";
+      v18 = @"By Highlighted Paragraph";
     }
 
     else
     {
-      v16 = @"By Highlighted Bullet";
+      v18 = @"By Highlighted Bullet";
     }
 
-    [v7 addObject:{objc_msgSend(v12, "localizedStringForKey:value:table:", v14, &stru_287D36338, @"TSText"}];
-    [v7 addObject:{objc_msgSend(TSWPBundle(), "localizedStringForKey:value:table:", v15, &stru_287D36338, @"TSText"}];
-    v10 = [TSWPBundle() localizedStringForKey:v16 value:&stru_287D36338 table:@"TSText"];
+    v19 = [v7 addObject:{objc_msgSend(v14, "localizedStringForKey:value:table:", v16, &stru_287D36338, @"TSText"}];
+    v21 = [v7 addObject:{objc_msgSend(TSWPBundle(v19, v20), "localizedStringForKey:value:table:", v17, &stru_287D36338, @"TSText"}];
+    v10 = [TSWPBundle(v21 v22)];
   }
 
   else

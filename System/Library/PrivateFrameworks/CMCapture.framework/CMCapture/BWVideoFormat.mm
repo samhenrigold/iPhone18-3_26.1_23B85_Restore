@@ -12,7 +12,6 @@
 - (id)debugDescription;
 - (id)description;
 - (opaqueCMFormatDescription)formatDescription;
-- (uint64_t)formatDescription;
 - (void)_initWithResolvedRequirements:(void *)requirements;
 - (void)dealloc;
 @end
@@ -510,67 +509,57 @@ LABEL_26:
   v5 = [attachments objectForKeyedSubscript:*MEMORY[0x1E6965F30]];
   v6 = [attachments objectForKeyedSubscript:*MEMORY[0x1E6965ED0]];
   v7 = [attachments objectForKeyedSubscript:*MEMORY[0x1E6965F98]];
-  v8 = *MEMORY[0x1E6965DD0];
-  if ([v4 isEqualToString:*MEMORY[0x1E6965DD0]] && objc_msgSend(v7, "isEqualToString:", *MEMORY[0x1E6965FC8]) && (objc_msgSend(v5, "isEqualToString:", *MEMORY[0x1E6965F50]) & 1) != 0)
+  if (objc_msgSend_isEqualToString_(v4) && objc_msgSend_isEqualToString_(v7) && (objc_msgSend_isEqualToString_(v5) & 1) != 0)
   {
     return 3;
   }
 
-  if ([v4 isEqualToString:v8])
+  if (objc_msgSend_isEqualToString_(v4) && objc_msgSend_isEqualToString_(v7) && (objc_msgSend_isEqualToString_(v5) & 1) != 0)
   {
-    v10 = *MEMORY[0x1E6965F50];
-    if ([v7 isEqualToString:*MEMORY[0x1E6965F50]])
-    {
-      if ([v5 isEqualToString:v10])
-      {
-        return 4;
-      }
-    }
+    return 4;
   }
 
-  v11 = *MEMORY[0x1E6965DB8];
-  if ([v4 isEqualToString:*MEMORY[0x1E6965DB8]] && objc_msgSend(v7, "isEqualToString:", *MEMORY[0x1E6965FC8]) && (objc_msgSend(v5, "isEqualToString:", *MEMORY[0x1E6965F50]) & 1) != 0)
+  if (objc_msgSend_isEqualToString_(v4) && objc_msgSend_isEqualToString_(v7) && (objc_msgSend_isEqualToString_(v5) & 1) != 0)
   {
     return 1;
   }
 
-  if ([v4 isEqualToString:v11] && objc_msgSend(v7, "isEqualToString:", *MEMORY[0x1E6965FD0]) && (objc_msgSend(v5, "isEqualToString:", *MEMORY[0x1E6965F50]) & 1) != 0)
+  if (objc_msgSend_isEqualToString_(v4) && objc_msgSend_isEqualToString_(v7) && (objc_msgSend_isEqualToString_(v5) & 1) != 0)
   {
     return 2;
   }
 
-  if ([v4 isEqualToString:v8] && objc_msgSend(v7, "isEqualToString:", *MEMORY[0x1E6965FD0]) && (objc_msgSend(v5, "isEqualToString:", *MEMORY[0x1E6965F48]) & 1) != 0)
+  if (objc_msgSend_isEqualToString_(v4) && objc_msgSend_isEqualToString_(v7) && (objc_msgSend_isEqualToString_(v5) & 1) != 0)
   {
     return 5;
   }
 
-  if ([v4 isEqualToString:v8] && objc_msgSend(v7, "isEqualToString:", *MEMORY[0x1E6965FC8]) && (objc_msgSend(v5, "isEqualToString:", *MEMORY[0x1E6965F48]) & 1) != 0)
+  if (objc_msgSend_isEqualToString_(v4) && objc_msgSend_isEqualToString_(v7) && (objc_msgSend_isEqualToString_(v5) & 1) != 0)
   {
     return 7;
   }
 
-  v12 = *MEMORY[0x1E6965DB0];
-  if ([v4 isEqualToString:*MEMORY[0x1E6965DB0]] && objc_msgSend(v7, "isEqualToString:", *MEMORY[0x1E6965FB0]) && (objc_msgSend(v5, "isEqualToString:", *MEMORY[0x1E6965F48]) & 1) != 0)
+  if (objc_msgSend_isEqualToString_(v4) && objc_msgSend_isEqualToString_(v7) && (objc_msgSend_isEqualToString_(v5) & 1) != 0)
   {
     return 6;
   }
 
-  if ([v4 isEqualToString:v8] && objc_msgSend(v7, "isEqualToString:", *MEMORY[0x1E6965FD0]) && (objc_msgSend(v5, "isEqualToString:", *MEMORY[0x1E6965F60]) & 1) != 0)
+  if (objc_msgSend_isEqualToString_(v4) && objc_msgSend_isEqualToString_(v7) && (objc_msgSend_isEqualToString_(v5) & 1) != 0)
   {
     return 8;
   }
 
-  if ([v4 isEqualToString:v8] && objc_msgSend(v7, "isEqualToString:", *MEMORY[0x1E6965FC8]) && (objc_msgSend(v5, "isEqualToString:", *MEMORY[0x1E6965F60]) & 1) != 0)
+  if (objc_msgSend_isEqualToString_(v4) && objc_msgSend_isEqualToString_(v7) && (objc_msgSend_isEqualToString_(v5) & 1) != 0)
   {
     return 9;
   }
 
-  if ([v4 isEqualToString:v12] && objc_msgSend(v7, "isEqualToString:", *MEMORY[0x1E6965FB0]) && !v5 && (objc_msgSend(v6, "isEqualToString:", *MEMORY[0x1E6965ED8]) & 1) != 0)
+  if (objc_msgSend_isEqualToString_(v4) && objc_msgSend_isEqualToString_(v7) && !v5 && (objc_msgSend_isEqualToString_(v6) & 1) != 0)
   {
     return 10;
   }
 
-  if ([v4 isEqualToString:v8] && objc_msgSend(v7, "isEqualToString:", *MEMORY[0x1E6965FC8]) && !v5 && (objc_msgSend(v6, "isEqualToString:", *MEMORY[0x1E6965ED8]) & 1) != 0)
+  if (objc_msgSend_isEqualToString_(v4) && objc_msgSend_isEqualToString_(v7) && !v5 && (objc_msgSend_isEqualToString_(v6) & 1) != 0)
   {
     return 11;
   }
@@ -580,11 +569,11 @@ LABEL_26:
     return 0;
   }
 
-  v13 = [v7 isEqualToString:*MEMORY[0x1E6965FB0]];
+  isEqualToString = objc_msgSend_isEqualToString_(v7);
   result = 0;
-  if (v13 && !v5)
+  if (isEqualToString && !v5)
   {
-    if ([v6 isEqualToString:*MEMORY[0x1E6965EE0]])
+    if (objc_msgSend_isEqualToString_(v6))
     {
       return 12;
     }
@@ -853,20 +842,6 @@ LABEL_26:
   result = [[BWVideoFormat alloc] _initWithResolvedRequirements:a1];
   *a4 = result;
   return result;
-}
-
-+ (uint64_t)formatByResolvingRequirements:printErrors:.cold.2()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_6();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)formatDescription
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_6();
-  return FigDebugAssert3();
 }
 
 @end

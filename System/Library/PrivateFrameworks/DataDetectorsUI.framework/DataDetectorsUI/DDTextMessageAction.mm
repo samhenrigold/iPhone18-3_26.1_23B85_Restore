@@ -31,47 +31,35 @@
 
 + (BOOL)isShowMessageURL:(id)l
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   lCopy = l;
   scheme = [lCopy scheme];
   lowercaseString = [scheme lowercaseString];
 
-  if (([lowercaseString isEqualToString:@"sms"] & 1) == 0 && !objc_msgSend(lowercaseString, "isEqualToString:", @"messages"))
+  if ((([lowercaseString isEqualToString:@"sms"] & 1) != 0 || objc_msgSend(lowercaseString, "isEqualToString:", @"messages")) && (objc_msgSend(lCopy, "resourceSpecifier"), v6 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v6, "componentsSeparatedByString:", @"?"), v7 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v7, "firstObject"), v8 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v8, "componentsSeparatedByString:", @"/"), v9 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v9, "lastObject"), v10 = objc_claimAutoreleasedReturnValue(), v11 = objc_msgSend(v10, "isEqualToString:", @"open"), v10, v9, v8, v7, v6, v11))
   {
-    goto LABEL_13;
-  }
-
-  resourceSpecifier = [lCopy resourceSpecifier];
-  v7 = [resourceSpecifier componentsSeparatedByString:@"?"];
-  firstObject = [v7 firstObject];
-  v9 = [firstObject componentsSeparatedByString:@"/"];
-  lastObject = [v9 lastObject];
-  v11 = [lastObject isEqualToString:@"open"];
-
-  if (v11)
-  {
-    v25 = 0u;
-    v26 = 0u;
-    v23 = 0u;
     v24 = 0u;
+    v25 = 0u;
+    v22 = 0u;
+    v23 = 0u;
     v12 = [MEMORY[0x277CCACE0] componentsWithURL:lCopy resolvingAgainstBaseURL:{0, 0}];
     queryItems = [v12 queryItems];
 
-    v14 = [queryItems countByEnumeratingWithState:&v23 objects:v27 count:16];
+    v14 = [queryItems countByEnumeratingWithState:&v22 objects:v26 count:16];
     if (v14)
     {
       v15 = v14;
-      v16 = *v24;
+      v16 = *v23;
       while (2)
       {
         for (i = 0; i != v15; ++i)
         {
-          if (*v24 != v16)
+          if (*v23 != v16)
           {
             objc_enumerationMutation(queryItems);
           }
 
-          name = [*(*(&v23 + 1) + 8 * i) name];
+          name = [*(*(&v22 + 1) + 8 * i) name];
           v19 = [name isEqualToString:@"recipient"];
 
           if (v19)
@@ -81,7 +69,7 @@
           }
         }
 
-        v15 = [queryItems countByEnumeratingWithState:&v23 objects:v27 count:16];
+        v15 = [queryItems countByEnumeratingWithState:&v22 objects:v26 count:16];
         if (v15)
         {
           continue;
@@ -97,11 +85,9 @@ LABEL_15:
 
   else
   {
-LABEL_13:
     v20 = 0;
   }
 
-  v21 = *MEMORY[0x277D85DE8];
   return v20;
 }
 
@@ -149,9 +135,9 @@ LABEL_8:
 - (DDTextMessageAction)initWithURL:(id)l result:(__DDResult *)result context:(id)context
 {
   lCopy = l;
-  v24.receiver = self;
-  v24.super_class = DDTextMessageAction;
-  v9 = [(DDTelephoneNumberAction *)&v24 initWithURL:lCopy result:result context:context];
+  v25.receiver = self;
+  v25.super_class = DDTextMessageAction;
+  v9 = [(DDTelephoneNumberAction *)&v25 initWithURL:lCopy result:result context:context];
   v10 = v9;
   if (v9)
   {
@@ -163,7 +149,7 @@ LABEL_8:
 
     else
     {
-      v12 = _DDURLFromResult(result);
+      v12 = _DDURLFromResult(result, 1u);
     }
 
     v13 = v12;
@@ -173,12 +159,12 @@ LABEL_8:
 
     if ([lowercaseString isEqualToString:@"mailto"] && dd_handleIsChatBot(v10->super._phoneNumber))
     {
-      v16 = dd_encodedEmail(v10->super._phoneNumber);
+      v17 = dd_encodedEmail(v10->super._phoneNumber);
       serviceID = v10->super._serviceID;
-      v10->super._serviceID = v16;
+      v10->super._serviceID = v17;
 
-      v18 = [(NSString *)v10->super._serviceID componentsSeparatedByString:@"@"];
-      firstObject = [v18 firstObject];
+      v19 = [(NSString *)v10->super._serviceID componentsSeparatedByString:@"@"];
+      firstObject = [v19 firstObject];
       phoneNumber = v10->super._phoneNumber;
       v10->super._phoneNumber = firstObject;
     }
@@ -226,42 +212,43 @@ LABEL_8:
 
 void __50__DDTextMessageAction_supportsAlternateSMSHandler__block_invoke()
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   domain_answer = os_eligibility_get_domain_answer();
   if (domain_answer)
   {
     v1 = domain_answer;
-    if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
+    if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
-      *buf = 67109120;
-      v7 = v1;
-      v2 = MEMORY[0x277D86220];
-      v3 = "OS eligibility: Unable to determine eligibility of SMS_MMS_RCS_API due to error %d. Defaulting to ineligible";
-      v4 = 8;
-LABEL_6:
-      _os_log_impl(&dword_21AB70000, v2, OS_LOG_TYPE_DEFAULT, v3, buf, v4);
+      return;
     }
+
+    *buf = 67109120;
+    v6 = v1;
+    v2 = MEMORY[0x277D86220];
+    v3 = "OS eligibility: Unable to determine eligibility of SMS_MMS_RCS_API due to error %d. Defaulting to ineligible";
+    v4 = 8;
   }
 
   else
   {
     _MergedGlobals_11 = 0;
-    if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
+    if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
-      *buf = 67109632;
-      v7 = _MergedGlobals_11;
-      v8 = 1024;
-      v9 = 0;
-      v10 = 1024;
-      v11 = 0;
-      v2 = MEMORY[0x277D86220];
-      v3 = "OS eligibility: SMS_MMS_RCS_API Eligible %d, Computed: %d, Forced: %d";
-      v4 = 20;
-      goto LABEL_6;
+      return;
     }
+
+    *buf = 67109632;
+    v6 = _MergedGlobals_11;
+    v7 = 1024;
+    v8 = 0;
+    v9 = 1024;
+    v10 = 0;
+    v2 = MEMORY[0x277D86220];
+    v3 = "OS eligibility: SMS_MMS_RCS_API Eligible %d, Computed: %d, Forced: %d";
+    v4 = 20;
   }
 
-  v5 = *MEMORY[0x277D85DE8];
+  _os_log_impl(&dword_21AB70000, v2, OS_LOG_TYPE_DEFAULT, v3, buf, v4);
 }
 
 - (id)handleString
@@ -351,7 +338,7 @@ LABEL_6:
   mainBundle = [MEMORY[0x277CCA8D8] mainBundle];
   bundleIdentifier = [mainBundle bundleIdentifier];
 
-  if (([bundleIdentifier isEqualToString:@"com.apple.MobileSMS.MessagesNotificationExtension"] & 1) != 0 || !-[DDTextMessageAction canUseSheet](self) || self && -[NSString isEqualToString:](self->super._phoneNumber, "isEqualToString:", @"open"))
+  if (([bundleIdentifier isEqualToString:@"com.apple.MobileSMS.MessagesNotificationExtension"] & 1) != 0 || !-[DDTextMessageAction canUseSheet](self, v5) || self && -[NSString isEqualToString:](self->super._phoneNumber, "isEqualToString:", @"open"))
   {
 
     return 0;
@@ -359,18 +346,18 @@ LABEL_6:
 
   else
   {
-    Helper_x8__OBJC_CLASS___MFMessageComposeViewController = gotLoadHelper_x8__OBJC_CLASS___MFMessageComposeViewController(v6);
-    if ([*(v8 + 2184) canSendText])
+    Helper_x8__OBJC_CLASS___MFMessageComposeViewController = gotLoadHelper_x8__OBJC_CLASS___MFMessageComposeViewController(v7);
+    if ([*(v9 + 2184) canSendText])
     {
-      v9 = 2;
+      v10 = 2;
     }
 
     else
     {
-      v9 = 0;
+      v10 = 0;
     }
 
-    return v9;
+    return v10;
   }
 }
 
@@ -555,26 +542,25 @@ LABEL_19:
     {
       if ([lowercaseString isEqualToString:@"sip"])
       {
-        v17 = self->super._phoneNumber;
-        v18 = [MEMORY[0x277CCACA8] stringWithFormat:@"sms:%@?service_id=%@", v17, self->super._serviceID];
+        v17 = [MEMORY[0x277CCACA8] stringWithFormat:@"sms:%@?service_id=%@", self->super._phoneNumber, self->super._serviceID];
         body = self->super._body;
         if (body)
         {
           uRLQueryAllowedCharacterSet = [MEMORY[0x277CCA900] URLQueryAllowedCharacterSet];
-          v21 = [(NSString *)body stringByAddingPercentEncodingWithAllowedCharacters:uRLQueryAllowedCharacterSet];
-          v22 = [v18 stringByAppendingFormat:@"&body=%@", v21];
+          v20 = [(NSString *)body stringByAddingPercentEncodingWithAllowedCharacters:uRLQueryAllowedCharacterSet];
+          v21 = [v17 stringByAppendingFormat:@"&body=%@", v20];
 
-          v18 = v22;
+          v17 = v21;
         }
 
         if (self->super._suggestions)
         {
-          v23 = [v18 stringByAppendingFormat:@"&suggestions=%@", self->super._suggestions];
+          v22 = [v17 stringByAppendingFormat:@"&suggestions=%@", self->super._suggestions];
 
-          v18 = v23;
+          v17 = v22;
         }
 
-        v24 = [MEMORY[0x277CBEBC0] URLWithString:v18];
+        v23 = [MEMORY[0x277CBEBC0] URLWithString:v17];
         goto LABEL_35;
       }
 
@@ -584,11 +570,11 @@ LABEL_19:
         url = self->super.super._url;
         if ((v26 & 1) == 0)
         {
-          v18 = [MEMORY[0x277CCACE0] componentsWithURL:url resolvingAgainstBaseURL:0];
-          [v18 setScheme:@"sms"];
-          v24 = [v18 URL];
+          v17 = [MEMORY[0x277CCACE0] componentsWithURL:url resolvingAgainstBaseURL:0];
+          [v17 setScheme:@"sms"];
+          v23 = [v17 URL];
 LABEL_35:
-          v28 = v24;
+          v28 = v23;
 
           goto LABEL_39;
         }
@@ -640,47 +626,47 @@ LABEL_38:
         webSafeTelephoneURL = [(NSURL *)v32 webSafeTelephoneURL];
         if (webSafeTelephoneURL)
         {
-          v34 = MEMORY[0x277CBEBC0];
-          v35 = MEMORY[0x277CCACA8];
-          v36 = @"im";
+          v35 = MEMORY[0x277CBEBC0];
+          v36 = MEMORY[0x277CCACA8];
+          v37 = @"im";
           if (!self->_notificationURLHandler && [(DDTextMessageAction *)&self->super.super.super.isa defaultMessagingAppIsMessages])
           {
-            v36 = @"sms";
+            v37 = @"sms";
           }
 
           resourceSpecifier = [webSafeTelephoneURL resourceSpecifier];
-          v38 = [v35 stringWithFormat:@"%@:%@", v36, resourceSpecifier];
-          v28 = [v34 URLWithString:v38];
+          v39 = [v36 stringWithFormat:@"%@:%@", v37, resourceSpecifier];
+          v28 = [v35 URLWithString:v39];
         }
 
         else
         {
-          v39 = self->super._phoneNumber;
-          if (!v39)
+          v40 = self->super._phoneNumber;
+          if (!v40)
           {
             v28 = 0;
 
             goto LABEL_39;
           }
 
-          v40 = MEMORY[0x277CBEBC0];
-          v41 = MEMORY[0x277CCACA8];
-          v42 = @"im";
+          v41 = MEMORY[0x277CBEBC0];
+          v42 = MEMORY[0x277CCACA8];
+          v43 = @"im";
           if (!self->_notificationURLHandler)
           {
-            v43 = MEMORY[0x277CCACA8];
+            v44 = MEMORY[0x277CCACA8];
             defaultMessagingAppIsMessages = [(DDTextMessageAction *)&self->super.super.super.isa defaultMessagingAppIsMessages];
-            v41 = v43;
+            v42 = v44;
             if (defaultMessagingAppIsMessages)
             {
-              v42 = @"sms";
+              v43 = @"sms";
             }
 
-            v39 = self->super._phoneNumber;
+            v40 = self->super._phoneNumber;
           }
 
-          resourceSpecifier = [v41 stringWithFormat:@"%@:%@", v42, v39];
-          v28 = [v40 URLWithString:resourceSpecifier];
+          resourceSpecifier = [v42 stringWithFormat:@"%@:%@", v43, v40];
+          v28 = [v41 URLWithString:resourceSpecifier];
         }
 
 LABEL_39:
@@ -719,16 +705,15 @@ LABEL_41:
 
 - (id)viewController
 {
-  v6[1] = *MEMORY[0x277D85DE8];
+  v5[1] = *MEMORY[0x277D85DE8];
   if (!self->super.super._viewController && self->super._phoneNumber)
   {
     selfCopy = self;
-    [(DDTextMessageAction *)self viewController:v6];
+    [(DDTextMessageAction *)self viewController:v5];
     self = selfCopy;
   }
 
   viewController = self->super.super._viewController;
-  v3 = *MEMORY[0x277D85DE8];
 
   return viewController;
 }
@@ -753,7 +738,7 @@ LABEL_41:
 
 + (id)actionsWithURL:(id)l result:(__DDResult *)result context:(id)context
 {
-  v56[1] = *MEMORY[0x277D85DE8];
+  v57[1] = *MEMORY[0x277D85DE8];
   lCopy = l;
   contextCopy = context;
   selfCopy = self;
@@ -763,7 +748,7 @@ LABEL_41:
 
   if (!handleString)
   {
-    v19 = MEMORY[0x277CBEBF8];
+    v20 = MEMORY[0x277CBEBF8];
     goto LABEL_8;
   }
 
@@ -772,13 +757,13 @@ LABEL_41:
 
   if (!v13)
   {
-    v15 = 0;
+    v16 = 0;
     goto LABEL_12;
   }
 
-  v14 = [MEMORY[0x277CCACE0] componentsWithURL:lCopy resolvingAgainstBaseURL:0];
-  [v14 setScheme:@"im"];
-  v15 = [v14 URL];
+  v15 = [MEMORY[0x277CCACE0] componentsWithURL:lCopy resolvingAgainstBaseURL:0];
+  [v15 setScheme:@"im"];
+  v16 = [v15 URL];
   defaultMessagingApp = v10[28];
 
   if (!defaultMessagingApp)
@@ -788,12 +773,12 @@ LABEL_12:
   }
 
   bundleIdentifier2 = [defaultMessagingApp bundleIdentifier];
-  v18 = [contextCopy objectForKeyedSubscript:@"defaultActionOnly"];
+  v19 = [contextCopy objectForKeyedSubscript:@"defaultActionOnly"];
 
-  if (v18)
+  if (v19)
   {
-    v56[0] = v10;
-    v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v56 count:1];
+    v57[0] = v10;
+    v20 = [MEMORY[0x277CBEA60] arrayWithObjects:v57 count:1];
   }
 
   else
@@ -801,105 +786,104 @@ LABEL_12:
     v22 = [objc_alloc(MEMORY[0x277CBEB18]) initWithObjects:{v10, 0}];
     if ([(DDTextMessageAction *)v10 shouldAddDefaultApps])
     {
-      v43 = v22;
+      v44 = v22;
       obj = defaultMessagingApp;
-      v41 = v15;
-      v42 = lCopy;
-      v49 = objc_alloc_init(MEMORY[0x277CBEB58]);
-      v50 = 0u;
+      v42 = v16;
+      v43 = lCopy;
+      v50 = objc_alloc_init(MEMORY[0x277CBEB58]);
       v51 = 0u;
       v52 = 0u;
       v53 = 0u;
-      v23 = [MEMORY[0x277CC1E70] enumeratorForViableDefaultAppsForCategory:3 options:0];
-      v24 = [v23 countByEnumeratingWithState:&v50 objects:v55 count:16];
-      if (v24)
+      v54 = 0u;
+      v24 = [MEMORY[0x277CC1E70] enumeratorForViableDefaultAppsForCategory:3 options:0];
+      v25 = [v24 countByEnumeratingWithState:&v51 objects:v56 count:16];
+      if (v25)
       {
-        v25 = v24;
-        v26 = *v51;
-        v27 = v42;
-        if (v15)
+        v26 = v25;
+        v27 = *v52;
+        v28 = v43;
+        if (v16)
         {
-          v27 = v15;
+          v28 = v16;
         }
 
-        v45 = v27;
-        v46 = v23;
+        v46 = v28;
+        v47 = v24;
         do
         {
-          for (i = 0; i != v25; ++i)
+          for (i = 0; i != v26; ++i)
           {
-            if (*v51 != v26)
+            if (*v52 != v27)
             {
-              objc_enumerationMutation(v23);
+              objc_enumerationMutation(v24);
             }
 
-            v29 = *(*(&v50 + 1) + 8 * i);
-            bundleIdentifier3 = [v29 bundleIdentifier];
-            v31 = bundleIdentifier3;
-            if (bundleIdentifier3 && ([bundleIdentifier3 isEqualToString:bundleIdentifier2] & 1) == 0 && (objc_msgSend(v49, "containsObject:", v31) & 1) == 0)
+            v30 = *(*(&v51 + 1) + 8 * i);
+            bundleIdentifier3 = [v30 bundleIdentifier];
+            v32 = bundleIdentifier3;
+            if (bundleIdentifier3 && ([bundleIdentifier3 isEqualToString:bundleIdentifier2] & 1) == 0 && (objc_msgSend(v50, "containsObject:", v32) & 1) == 0)
             {
-              v32 = bundleIdentifier2;
-              v33 = contextCopy;
-              v34 = [[selfCopy alloc] initWithURL:v45 result:resultCopy context:contextCopy];
+              v33 = bundleIdentifier2;
+              v34 = contextCopy;
+              v35 = [[selfCopy alloc] initWithURL:v46 result:resultCopy context:contextCopy];
               [v10 handleString];
-              v36 = v35 = v10;
+              v37 = v36 = v10;
 
-              if (v36)
+              if (v37)
               {
-                objc_storeStrong(v34 + 28, v29);
-                objc_storeStrong(v35 + 28, obj);
-                v37 = v35[21];
-                v35[21] = 0;
+                objc_storeStrong(v35 + 28, v30);
+                objc_storeStrong(v36 + 28, obj);
+                v38 = v36[21];
+                v36[21] = 0;
 
-                [v43 addObject:v34];
-                [v49 addObject:v31];
+                [v44 addObject:v35];
+                [v50 addObject:v32];
               }
 
-              contextCopy = v33;
-              v10 = v35;
-              bundleIdentifier2 = v32;
-              v23 = v46;
+              contextCopy = v34;
+              v10 = v36;
+              bundleIdentifier2 = v33;
+              v24 = v47;
             }
           }
 
-          v25 = [v23 countByEnumeratingWithState:&v50 objects:v55 count:16];
+          v26 = [v24 countByEnumeratingWithState:&v51 objects:v56 count:16];
         }
 
-        while (v25);
+        while (v26);
       }
 
-      v15 = v41;
-      lCopy = v42;
-      v22 = v43;
+      v16 = v42;
+      lCopy = v43;
+      v22 = v44;
       defaultMessagingApp = obj;
     }
 
-    v38 = [contextCopy objectForKeyedSubscript:@"HeyBarcodeSheet"];
-    bOOLValue = [v38 BOOLValue];
+    v39 = [contextCopy objectForKeyedSubscript:@"HeyBarcodeSheet"];
+    bOOLValue = [v39 BOOLValue];
 
     if (bOOLValue)
     {
-      v54 = v10;
-      v40 = [MEMORY[0x277CBEA60] arrayWithObjects:&v54 count:1];
+      v55 = v10;
+      v41 = [MEMORY[0x277CBEA60] arrayWithObjects:&v55 count:1];
     }
 
     else
     {
-      v40 = v22;
+      v41 = v22;
     }
 
-    v19 = v40;
+    v20 = v41;
   }
 
 LABEL_8:
-  v20 = *MEMORY[0x277D85DE8];
 
-  return v19;
+  return v20;
 }
 
 - (id)defaultSMSApp
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v16[4] = *MEMORY[0x277D85DE8];
   if (self)
   {
     selfCopy = self;
@@ -912,33 +896,33 @@ LABEL_8:
 
       if (_MergedGlobals_11 == 1)
       {
-        isLSTrusted = dd_isLSTrusted();
+        isLSTrusted = dd_isLSTrusted(self, a2);
         if (isLSTrusted)
         {
           defaultWorkspace = [MEMORY[0x277CC1E80] defaultWorkspace];
-          v16 = 0;
-          v4 = [defaultWorkspace defaultApplicationForCategory:10 error:&v16];
-          v5 = v16;
+          v16[0] = 0;
+          v5 = [defaultWorkspace defaultApplicationForCategory:10 error:v16];
+          v6 = v16[0];
         }
 
         else
         {
+          v6 = 0;
           v5 = 0;
-          v4 = 0;
         }
 
-        objc_storeStrong(selfCopy + 24, v4);
+        objc_storeStrong(selfCopy + 24, v5);
         if (isLSTrusted)
         {
         }
 
-        if (v5 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
+        if (v6 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
         {
           mainBundle = [MEMORY[0x277CCA8D8] mainBundle];
           bundleIdentifier = [mainBundle bundleIdentifier];
           OUTLINED_FUNCTION_0_6();
-          v18 = v5;
-          OUTLINED_FUNCTION_1_4(&dword_21AB70000, MEMORY[0x277D86220], v8, "Couldn't get default messaging app from %@. Error: %@", v9, v10, v11, v12, v15, v16, v17);
+          *(&v16[2] + 6) = v6;
+          OUTLINED_FUNCTION_1_4(&dword_21AB70000, MEMORY[0x277D86220], v9, "Couldn't get default messaging app from %@. Error: %@", v10, v11, v12, v13, v15, v16[0]);
         }
 
         *(selfCopy + 200) = 1;
@@ -947,8 +931,6 @@ LABEL_8:
 
     self = selfCopy[24];
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return self;
 }
@@ -987,39 +969,39 @@ LABEL_8:
 
 - (id)defaultMessagingApp
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v16[4] = *MEMORY[0x277D85DE8];
   if (self)
   {
     selfCopy = self;
     if ((self[23] & 1) == 0)
     {
-      isLSTrusted = dd_isLSTrusted();
+      isLSTrusted = dd_isLSTrusted(self, a2);
       if (isLSTrusted)
       {
         defaultWorkspace = [MEMORY[0x277CC1E80] defaultWorkspace];
-        v16 = 0;
-        v4 = [defaultWorkspace defaultApplicationForCategory:3 error:&v16];
-        v5 = v16;
+        v16[0] = 0;
+        v5 = [defaultWorkspace defaultApplicationForCategory:3 error:v16];
+        v6 = v16[0];
       }
 
       else
       {
+        v6 = 0;
         v5 = 0;
-        v4 = 0;
       }
 
-      objc_storeStrong(selfCopy + 22, v4);
+      objc_storeStrong(selfCopy + 22, v5);
       if (isLSTrusted)
       {
       }
 
-      if (v5 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
+      if (v6 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
       {
         mainBundle = [MEMORY[0x277CCA8D8] mainBundle];
         bundleIdentifier = [mainBundle bundleIdentifier];
         OUTLINED_FUNCTION_0_6();
-        v18 = v5;
-        OUTLINED_FUNCTION_1_4(&dword_21AB70000, MEMORY[0x277D86220], v8, "Couldn't get default messaging app from %@. Error: %@", v9, v10, v11, v12, v15, v16, v17);
+        *(&v16[2] + 6) = v6;
+        OUTLINED_FUNCTION_1_4(&dword_21AB70000, MEMORY[0x277D86220], v9, "Couldn't get default messaging app from %@. Error: %@", v10, v11, v12, v13, v15, v16[0]);
       }
 
       *(selfCopy + 184) = 1;
@@ -1027,8 +1009,6 @@ LABEL_8:
 
     self = selfCopy[22];
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return self;
 }
@@ -1039,9 +1019,9 @@ LABEL_8:
   {
     defaultMessagingApp = [(DDTextMessageAction *)result defaultMessagingApp];
     bundleIdentifier = [defaultMessagingApp bundleIdentifier];
-    v3 = [bundleIdentifier isEqualToString:@"com.apple.MobileSMS"];
+    v4 = [bundleIdentifier isEqualToString:@"com.apple.MobileSMS"];
 
-    return v3;
+    return v4;
   }
 
   return result;
@@ -1057,7 +1037,7 @@ LABEL_8:
   if (*(self + 224))
   {
     bundleIdentifier = [*(self + 224) bundleIdentifier];
-    v2 = [bundleIdentifier isEqualToString:@"com.apple.MobileSMS"];
+    v3 = [bundleIdentifier isEqualToString:@"com.apple.MobileSMS"];
   }
 
   else
@@ -1072,11 +1052,11 @@ LABEL_8:
       [(DDTextMessageAction *)self defaultMessagingApp];
     }
     bundleIdentifier = ;
-    v1BundleIdentifier = [bundleIdentifier bundleIdentifier];
-    v2 = [v1BundleIdentifier isEqualToString:@"com.apple.MobileSMS"];
+    v2BundleIdentifier = [bundleIdentifier bundleIdentifier];
+    v3 = [v2BundleIdentifier isEqualToString:@"com.apple.MobileSMS"];
   }
 
-  return v2;
+  return v3;
 }
 
 - (uint64_t)shouldAddDefaultApps
@@ -1084,7 +1064,16 @@ LABEL_8:
   selfCopy = self;
   if (self)
   {
-    if (*(self + 64) && [DDTextMessageAction isShowMessageURL:?]|| !dd_isLSTrusted())
+    if (*(self + 64))
+    {
+      self = [DDTextMessageAction isShowMessageURL:?];
+      if (self)
+      {
+        return 0;
+      }
+    }
+
+    if (!dd_isLSTrusted(self, a2))
     {
       return 0;
     }
@@ -1098,13 +1087,13 @@ LABEL_8:
         bundleIdentifier = [defaultMessagingApp bundleIdentifier];
         if (bundleIdentifier)
         {
-          v6 = [*(selfCopy + 56) objectForKeyedSubscript:@"HeyBarcodeSheet"];
-          bOOLValue = [v6 BOOLValue];
+          v8 = [*(selfCopy + 56) objectForKeyedSubscript:@"HeyBarcodeSheet"];
+          bOOLValue = [v8 BOOLValue];
 
           if (bOOLValue)
           {
-            v8 = [*(selfCopy + 56) objectForKeyedSubscript:@"135842921"];
-            selfCopy = [v8 BOOLValue];
+            v10 = [*(selfCopy + 56) objectForKeyedSubscript:@"135842921"];
+            selfCopy = [v10 BOOLValue];
           }
 
           else

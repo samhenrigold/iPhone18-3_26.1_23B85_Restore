@@ -55,21 +55,9 @@
 
 - (void)dealloc
 {
-  v13 = 0;
-  v3 = [(CACUserAttentionController *)self stopIfNeeded:&v13];
-  v4 = v13;
-  if (!v3)
-  {
-    v5 = CACLogAttentionAware();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
-    {
-      [(CACUserAttentionController *)v4 dealloc:v5];
-    }
-  }
-
-  v12.receiver = self;
-  v12.super_class = CACUserAttentionController;
-  [(CACUserAttentionController *)&v12 dealloc];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = self;
+  OUTLINED_FUNCTION_0_4(&dword_26B354000, a2, a3, "Failed to stop user attention controller: %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (BOOL)startIfNeededForTypes:(unint64_t)types error:(id *)error
@@ -448,24 +436,24 @@ void __70__CACUserAttentionController_wakeGestureManager_didUpdateWakeGesture___
     WeakRetained = objc_loadWeakRetained((a1 + 32));
     [WeakRetained _setDeviceLowered:0];
 
-    v15 = objc_loadWeakRetained((a1 + 32));
-    v26 = 0;
-    v16 = [v15 stopIfNeededForTypes:1 error:&v26];
-    v6 = v26;
+    v16 = objc_loadWeakRetained((a1 + 32));
+    v28 = 0;
+    v17 = [v16 stopIfNeededForTypes:1 error:&v28];
+    v6 = v28;
 
-    if ((v16 & 1) == 0)
+    if ((v17 & 1) == 0)
     {
-      v17 = CACLogAttentionAware();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+      v19 = CACLogAttentionAware(v18);
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
       {
-        __70__CACUserAttentionController_wakeGestureManager_didUpdateWakeGesture___block_invoke_cold_1(v6, v17, v18, v19, v20, v21, v22, v23);
+        __70__CACUserAttentionController_wakeGestureManager_didUpdateWakeGesture___block_invoke_cold_1(v6, v19, v20, v21, v22, v23, v24, v25);
       }
     }
 
-    v7 = objc_loadWeakRetained((a1 + 32));
-    v24 = [v7 delegate];
-    v25 = objc_loadWeakRetained((a1 + 32));
-    [v24 userAttentionController:v25 didGainAttentionWithEvent:2];
+    v8 = objc_loadWeakRetained((a1 + 32));
+    v26 = [v8 delegate];
+    v27 = objc_loadWeakRetained((a1 + 32));
+    [v26 userAttentionController:v27 didGainAttentionWithEvent:2];
 
     goto LABEL_11;
   }
@@ -474,16 +462,16 @@ void __70__CACUserAttentionController_wakeGestureManager_didUpdateWakeGesture___
   [v3 _setDeviceLowered:1];
 
   v4 = objc_loadWeakRetained((a1 + 32));
-  v27 = 0;
-  v5 = [v4 _restartFaceAttentionAwarenessClient:&v27];
-  v6 = v27;
+  v29 = 0;
+  v5 = [v4 _restartFaceAttentionAwarenessClient:&v29];
+  v6 = v29;
 
   if ((v5 & 1) == 0)
   {
-    v7 = CACLogAttentionAware();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = CACLogAttentionAware(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      __70__CACUserAttentionController_wakeGestureManager_didUpdateWakeGesture___block_invoke_cold_2(v6, v7, v8, v9, v10, v11, v12, v13);
+      __70__CACUserAttentionController_wakeGestureManager_didUpdateWakeGesture___block_invoke_cold_2(v6, v8, v9, v10, v11, v12, v13, v14);
     }
 
 LABEL_11:
@@ -581,6 +569,20 @@ void __100__CACUserAttentionController_AsynchronousMethods__startIfNeededForType
   v10 = v6;
   v7 = v4;
   dispatch_async(v5, block);
+}
+
+void __70__CACUserAttentionController_wakeGestureManager_didUpdateWakeGesture___block_invoke_cold_1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0_4(&dword_26B354000, a2, a3, "Failed to stop attention awareness client: %@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void __70__CACUserAttentionController_wakeGestureManager_didUpdateWakeGesture___block_invoke_cold_2(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0_4(&dword_26B354000, a2, a3, "Failed to restart attention awareness client: %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

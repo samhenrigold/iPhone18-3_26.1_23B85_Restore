@@ -29,7 +29,7 @@
 LABEL_4:
       if (removed)
       {
-        sub_1A3C52C70(0, &qword_1EB1265C0);
+        sub_1A3C52C70(0, &qword_1EB1265C0, 0x1E6978980);
         removed = sub_1A524CA34();
       }
 
@@ -37,7 +37,7 @@ LABEL_4:
     }
   }
 
-  sub_1A3C52C70(0, &qword_1EB1265C0);
+  sub_1A3C52C70(0, &qword_1EB1265C0, 0x1E6978980);
   addedCopy = sub_1A524CA34();
   goto LABEL_4;
 }

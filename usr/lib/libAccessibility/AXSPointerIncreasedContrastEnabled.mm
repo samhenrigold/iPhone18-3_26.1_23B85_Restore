@@ -3,7 +3,7 @@
 
 @implementation AXSPointerIncreasedContrastEnabled
 
-uint64_t ___AXSPointerIncreasedContrastEnabled_block_invoke()
+void *___AXSPointerIncreasedContrastEnabled_block_invoke()
 {
   if (!_processIsResponsibleForPreferenceObserving())
   {

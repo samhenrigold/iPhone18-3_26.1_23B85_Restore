@@ -48,10 +48,11 @@
 - (void)addInput:(id)input
 {
   inputCopy = input;
+  v6 = inputCopy;
   if (self->_isFinished)
   {
-    v5 = _LTOSLogSpeech();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v7 = _LTOSLogSpeech(inputCopy, v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       [_LTStreamingUtteranceTranslator addInput:];
     }
@@ -65,11 +66,11 @@
     block[1] = 3221225472;
     block[2] = __44___LTStreamingUtteranceTranslator_addInput___block_invoke;
     block[3] = &unk_278B6CD08;
-    objc_copyWeak(&v9, &location);
-    v8 = inputCopy;
+    objc_copyWeak(&v11, &location);
+    v10 = v6;
     dispatch_async(queue, block);
 
-    objc_destroyWeak(&v9);
+    objc_destroyWeak(&v11);
     objc_destroyWeak(&location);
   }
 }
@@ -101,15 +102,15 @@
 
 - (void)_checkSpeakableSegmentsForResult:(id)result expectedGeneration:(int64_t)generation
 {
-  v47 = *MEMORY[0x277D85DE8];
+  v55 = *MEMORY[0x277D85DE8];
   resultCopy = result;
   dispatch_assert_queue_V2(self->_queue);
   v7 = self->_spokenSegments;
   stableSegments = [resultCopy stableSegments];
-  v9 = _LTOSLogStabilization();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+  v10 = _LTOSLogStabilization(stableSegments, v9);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
   {
-    [(_LTStreamingUtteranceTranslator *)v9 _checkSpeakableSegmentsForResult:stableSegments expectedGeneration:v7];
+    [(_LTStreamingUtteranceTranslator *)v10 _checkSpeakableSegmentsForResult:stableSegments expectedGeneration:v7];
   }
 
   output = [resultCopy output];
@@ -120,8 +121,9 @@
     spokenSegments = self->_spokenSegments;
     self->_spokenSegments = 0;
 
-    v13 = _LTOSLogStabilization();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+    v18 = _LTOSLogStabilization(v16, v17);
+    v13 = os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG);
+    if (v13)
     {
       [_LTStreamingUtteranceTranslator _checkSpeakableSegmentsForResult:expectedGeneration:];
     }
@@ -131,78 +133,79 @@
   {
     if (![(NSArray *)v7 isEqualToArray:stableSegments])
     {
-      v16 = [(NSArray *)v7 count];
-      if (v16 <= [stableSegments count])
+      v21 = [(NSArray *)v7 count];
+      v22 = [stableSegments count];
+      if (v21 <= v22)
       {
-        v34 = isFinal;
+        v42 = isFinal;
         WeakRetained = objc_loadWeakRetained(&self->_delegate);
-        v36 = resultCopy;
+        v44 = resultCopy;
         output2 = [resultCopy output];
         locale = [output2 locale];
 
-        v35 = stableSegments;
-        v21 = [stableSegments subarrayWithRange:{-[NSArray count](v7, "count"), objc_msgSend(stableSegments, "count") - -[NSArray count](v7, "count")}];
-        v38 = 0u;
-        v39 = 0u;
-        v40 = 0u;
-        v41 = 0u;
-        v22 = [v21 countByEnumeratingWithState:&v38 objects:v42 count:16];
-        v37 = v21;
-        if (v22)
+        v43 = stableSegments;
+        v28 = [stableSegments subarrayWithRange:{-[NSArray count](v7, "count"), objc_msgSend(stableSegments, "count") - -[NSArray count](v7, "count")}];
+        v46 = 0u;
+        v47 = 0u;
+        v48 = 0u;
+        v49 = 0u;
+        v29 = [v28 countByEnumeratingWithState:&v46 objects:v50 count:16];
+        v45 = v28;
+        if (v29)
         {
-          v23 = v22;
-          v24 = *v39;
+          v30 = v29;
+          v31 = *v47;
           do
           {
-            for (i = 0; i != v23; ++i)
+            for (i = 0; i != v30; ++i)
             {
-              if (*v39 != v24)
+              if (*v47 != v31)
               {
-                objc_enumerationMutation(v21);
+                objc_enumerationMutation(v28);
               }
 
-              v26 = [[_LTStreamingSpeakableOutput alloc] initWithText:*(*(&v38 + 1) + 8 * i) locale:locale];
+              v33 = [[_LTStreamingSpeakableOutput alloc] initWithText:*(*(&v46 + 1) + 8 * i) locale:locale];
               if (objc_opt_respondsToSelector())
               {
-                [WeakRetained translator:self didProduceSpeakableOutput:v26];
-                v27 = _LTOSLogStabilization();
-                if (os_log_type_enabled(v27, OS_LOG_TYPE_INFO))
+                v34 = [WeakRetained translator:self didProduceSpeakableOutput:v33];
+                v36 = _LTOSLogStabilization(v34, v35);
+                if (os_log_type_enabled(v36, OS_LOG_TYPE_INFO))
                 {
-                  v28 = v27;
-                  [(_LTStreamingSpeakableOutput *)v26 translatedText];
-                  v30 = v29 = self;
+                  v37 = v36;
+                  [(_LTStreamingSpeakableOutput *)v33 translatedText];
+                  v39 = v38 = self;
                   *buf = 138739971;
-                  generationCopy = v30;
-                  _os_log_impl(&dword_23AAF5000, v28, OS_LOG_TYPE_INFO, "Producing spoken output: %{sensitive}@", buf, 0xCu);
+                  generationCopy = v39;
+                  _os_log_impl(&dword_23AAF5000, v37, OS_LOG_TYPE_INFO, "Producing spoken output: %{sensitive}@", buf, 0xCu);
 
-                  self = v29;
-                  v21 = v37;
+                  self = v38;
+                  v28 = v45;
                 }
               }
             }
 
-            v23 = [v21 countByEnumeratingWithState:&v38 objects:v42 count:16];
+            v30 = [v28 countByEnumeratingWithState:&v46 objects:v50 count:16];
           }
 
-          while (v23);
+          while (v30);
         }
 
-        stableSegments = v35;
-        if ((v34 & 1) == 0)
+        stableSegments = v43;
+        if ((v42 & 1) == 0)
         {
-          v31 = [v35 copy];
-          v32 = self->_spokenSegments;
-          self->_spokenSegments = v31;
+          v40 = [v43 copy];
+          v41 = self->_spokenSegments;
+          self->_spokenSegments = v40;
         }
 
-        resultCopy = v36;
-        self->_lastSpokenGeneration = [v36 generation];
+        resultCopy = v44;
+        self->_lastSpokenGeneration = [v44 generation];
       }
 
       else
       {
-        v17 = _LTOSLogStabilization();
-        if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+        v24 = _LTOSLogStabilization(v22, v23);
+        if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
         {
           [_LTStreamingUtteranceTranslator _checkSpeakableSegmentsForResult:expectedGeneration:];
         }
@@ -212,19 +215,17 @@
 
   else
   {
-    v14 = _LTOSLogStabilization();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    v19 = _LTOSLogStabilization(v13, v14);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
     {
       currentGeneration = self->_currentGeneration;
       *buf = 134218240;
       generationCopy = generation;
-      v45 = 2048;
-      v46 = currentGeneration;
-      _os_log_impl(&dword_23AAF5000, v14, OS_LOG_TYPE_DEFAULT, "Processing older result from generation %zd instead of current generation %zd; ignoring any potential stableSegments since they should have already been spoken", buf, 0x16u);
+      v53 = 2048;
+      v54 = currentGeneration;
+      _os_log_impl(&dword_23AAF5000, v19, OS_LOG_TYPE_DEFAULT, "Processing older result from generation %zd instead of current generation %zd; ignoring any potential stableSegments since they should have already been spoken", buf, 0x16u);
     }
   }
-
-  v33 = *MEMORY[0x277D85DE8];
 }
 
 - (void)translateInput:(id)input withGeneration:(int64_t)generation completion:(id)completion
@@ -261,18 +262,16 @@
 
 - (void)_checkSpeakableSegmentsForResult:(uint64_t)a3 expectedGeneration:.cold.1(void *a1, uint64_t a2, uint64_t a3)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v5 = MEMORY[0x277CBEA60];
   v6 = a1;
   v7 = [v5 lt_stringArrayDebugDescription:a2];
   v8 = [MEMORY[0x277CBEA60] lt_stringArrayDebugDescription:a3];
-  v10 = 138740227;
-  v11 = v7;
-  v12 = 2117;
-  v13 = v8;
-  _os_log_debug_impl(&dword_23AAF5000, v6, OS_LOG_TYPE_DEBUG, "New stableSegments: %{sensitive}@; old stable segments: %{sensitive}@", &v10, 0x16u);
-
-  v9 = *MEMORY[0x277D85DE8];
+  v9 = 138740227;
+  v10 = v7;
+  v11 = 2117;
+  v12 = v8;
+  _os_log_debug_impl(&dword_23AAF5000, v6, OS_LOG_TYPE_DEBUG, "New stableSegments: %{sensitive}@; old stable segments: %{sensitive}@", &v9, 0x16u);
 }
 
 @end

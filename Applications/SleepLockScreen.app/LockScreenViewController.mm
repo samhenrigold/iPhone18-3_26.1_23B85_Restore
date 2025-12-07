@@ -67,7 +67,7 @@
   swift_unknownObjectRetain();
   swift_unknownObjectRetain();
   selfCopy = self;
-  sub_100007E00(sub_10000F25C, v11);
+  sub_100007E00(sub_10000F25C, v11, "SleepLockScreen/LockScreenViewController.swift", 46, 2u, 226);
   swift_unknownObjectRelease();
   swift_unknownObjectRelease();
 }
@@ -90,33 +90,32 @@
   v7[5] = 0;
   v7[6] = 0;
   selfCopy = self;
-  sub_100007E00(sub_10000F238, v7);
+  sub_100007E00(sub_10000F238, v7, "SleepLockScreen/LockScreenViewController.swift", 46, 2u, 259);
 }
 
 - (void)getContentPreferencesWithReplyBlock:(id)block
 {
   sub_10000FC54(0, &qword_10001D430, &type metadata accessor for TaskPriority, &type metadata accessor for Optional);
-  v6 = *(*(v5 - 8) + 64);
   __chkstk_darwin(v5 - 8);
-  v8 = &v15 - v7;
-  v9 = _Block_copy(block);
-  v10 = swift_allocObject();
-  *(v10 + 16) = v9;
-  v11 = type metadata accessor for TaskPriority();
-  (*(*(v11 - 8) + 56))(v8, 1, 1, v11);
+  v7 = &v14 - v6;
+  v8 = _Block_copy(block);
+  v9 = swift_allocObject();
+  *(v9 + 16) = v8;
+  v10 = type metadata accessor for TaskPriority();
+  (*(*(v10 - 8) + 56))(v7, 1, 1, v10);
   type metadata accessor for MainActor();
   selfCopy = self;
 
-  v13 = static MainActor.shared.getter();
-  v14 = swift_allocObject();
-  v14[2] = v13;
-  v14[3] = &protocol witness table for MainActor;
-  v14[4] = 0;
-  v14[5] = 0;
-  v14[6] = sub_10000EE4C;
-  v14[7] = v10;
-  v14[8] = selfCopy;
-  sub_100008C3C(0, 0, v8, &unk_1000112E0, v14);
+  v12 = static MainActor.shared.getter();
+  v13 = swift_allocObject();
+  v13[2] = v12;
+  v13[3] = &protocol witness table for MainActor;
+  v13[4] = 0;
+  v13[5] = 0;
+  v13[6] = sub_10000EE4C;
+  v13[7] = v9;
+  v13[8] = selfCopy;
+  sub_100008C3C(0, 0, v7, &unk_1000112E0, v13);
 }
 
 - (void)didDismissForDismissType:(int64_t)type
@@ -125,7 +124,7 @@
   v6[2] = self;
   v6[3] = type;
   selfCopy = self;
-  sub_100007E00(sub_10000EDC0, v6);
+  sub_100007E00(sub_10000EDC0, v6, "SleepLockScreen/LockScreenViewController.swift", 46, 2u, 314);
 }
 
 - (_TtC15SleepLockScreen24LockScreenViewController)initWithNibName:(id)name bundle:(id)bundle

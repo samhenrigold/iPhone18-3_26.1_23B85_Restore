@@ -56,30 +56,30 @@
 - (void)scheduleOperation:(id)operation route:(int64_t)route
 {
   operationCopy = operation;
-  v7 = _LTOSLogTranslationEngine();
-  v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG);
+  v8 = _LTOSLogTranslationEngine(operationCopy, v7);
+  v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG);
   if (route == 2)
   {
-    if (v8)
+    if (v9)
     {
-      [_LTDTranslationOperationScheduler scheduleOperation:operationCopy route:v7];
+      [_LTDTranslationOperationScheduler scheduleOperation:operationCopy route:v8];
     }
 
-    v9 = 16;
+    v10 = 16;
   }
 
   else
   {
-    if (v8)
+    if (v9)
     {
-      [_LTDTranslationOperationScheduler scheduleOperation:operationCopy route:v7];
+      [_LTDTranslationOperationScheduler scheduleOperation:operationCopy route:v8];
     }
 
     [operationCopy setOperationTimeout:self->_offlineOperationTimeout];
-    v9 = 8;
+    v10 = 8;
   }
 
-  [*(&self->super.isa + v9) addOperation:operationCopy];
+  [*(&self->super.isa + v10) addOperation:operationCopy];
 }
 
 - (id)scheduleOperationWithGroupID:(id)d route:(int64_t)route block:(id)block
@@ -92,22 +92,21 @@
 
 - (void)cancelOperationsWithGroupID:(id)d
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   dCopy = d;
+  v6 = dCopy;
   if (dCopy)
   {
-    v5 = _LTOSLogTranslationEngine();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+    v7 = _LTOSLogTranslationEngine(dCopy, v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
-      v7 = 138543362;
-      v8 = dCopy;
-      _os_log_impl(&dword_232E53000, v5, OS_LOG_TYPE_INFO, "Client requested cancelling operations with groupID %{public}@", &v7, 0xCu);
+      v8 = 138543362;
+      v9 = v6;
+      _os_log_impl(&dword_232E53000, v7, OS_LOG_TYPE_INFO, "Client requested cancelling operations with groupID %{public}@", &v8, 0xCu);
     }
 
-    [(NSCache *)self->_cancellationCache setObject:MEMORY[0x277CBEC38] forKey:dCopy];
+    [(NSCache *)self->_cancellationCache setObject:MEMORY[0x277CBEC38] forKey:v6];
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)shouldStartOperation:(id)operation
@@ -129,24 +128,18 @@
 
 - (void)scheduleOperation:(void *)a1 route:(void *)a2 .cold.1(void *a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [a1 groupID];
   OUTLINED_FUNCTION_0_10();
-  OUTLINED_FUNCTION_1_5(&dword_232E53000, v5, v6, "Translation operation scheduled as serial: %p; groupID: %{public}@", v7, v8, v9, v10, v12);
-
-  v11 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_5(&dword_232E53000, v5, v6, "Translation operation scheduled as serial: %p; groupID: %{public}@", v7, v8, v9, v10);
 }
 
 - (void)scheduleOperation:(void *)a1 route:(void *)a2 .cold.2(void *a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [a1 groupID];
   OUTLINED_FUNCTION_0_10();
-  OUTLINED_FUNCTION_1_5(&dword_232E53000, v5, v6, "Translation operation scheduled as concurrent: %p; groupID: %{public}@", v7, v8, v9, v10, v12);
-
-  v11 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_5(&dword_232E53000, v5, v6, "Translation operation scheduled as concurrent: %p; groupID: %{public}@", v7, v8, v9, v10);
 }
 
 @end

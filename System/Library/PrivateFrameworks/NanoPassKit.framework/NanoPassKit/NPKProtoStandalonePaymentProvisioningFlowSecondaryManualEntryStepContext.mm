@@ -64,7 +64,7 @@
     [NPKProtoStandalonePaymentProvisioningFlowSecondaryManualEntryStepContext writeTo:];
   }
 
-  v7 = toCopy;
+  v6 = toCopy;
   PBDataWriterWriteSubmessage();
   if (self->_remoteCredential)
   {
@@ -76,12 +76,11 @@
     PBDataWriterWriteSubmessage();
   }
 
-  v5 = v7;
+  v5 = v6;
   if (*&self->_has)
   {
-    allowsAddingDifferentCard = self->_allowsAddingDifferentCard;
     PBDataWriterWriteBOOLField();
-    v5 = v7;
+    v5 = v6;
   }
 }
 

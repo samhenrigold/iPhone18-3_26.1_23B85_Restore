@@ -121,7 +121,7 @@
 {
   sub_1A3EE53E0(0);
   MEMORY[0x1EEE9AC00](v7 - 8);
-  v9 = &v19 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = (&v19 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0));
   providerCopy = provider;
   objectCopy = object;
   selfCopy = self;

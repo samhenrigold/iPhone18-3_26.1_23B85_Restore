@@ -94,10 +94,10 @@
 
 - (id)messageBody
 {
-  v23 = *MEMORY[0x1E69E9840];
-  v21.receiver = self;
-  v21.super_class = IDSWebTunnelRequestMessage;
-  messageBody = [(IDSBaseMessage *)&v21 messageBody];
+  v22 = *MEMORY[0x1E69E9840];
+  v20.receiver = self;
+  v20.super_class = IDSWebTunnelRequestMessage;
+  messageBody = [(IDSBaseMessage *)&v20 messageBody];
   v4 = [messageBody mutableCopy];
 
   messageRequestUUID = [(IDSWebTunnelRequestMessage *)self messageRequestUUID];
@@ -175,8 +175,6 @@
     CFDictionarySetValue(v4, @"x-test-opts", v18);
   }
 
-  v19 = *MEMORY[0x1E69E9840];
-
   return v4;
 }
 
@@ -220,13 +218,13 @@ LABEL_6:
 
 - (void)handleResponseHeaders:(id)headers
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   headersCopy = headers;
   v4 = OSLogHandleForIDSCategory();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v7 = headersCopy;
+    v6 = headersCopy;
     _os_log_impl(&dword_195925000, v4, OS_LOG_TYPE_DEFAULT, "Web Tunnel Message Completed With Respone Headers %@", buf, 0xCu);
   }
 
@@ -234,8 +232,6 @@ LABEL_6:
   {
     _IDSLogV();
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 @end

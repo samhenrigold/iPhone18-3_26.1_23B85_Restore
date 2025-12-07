@@ -6,11 +6,11 @@
 
 - (IFunScores)initWithSFEngagementSignal:(id)signal
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   signalCopy = signal;
-  v31.receiver = self;
-  v31.super_class = IFunScores;
-  v5 = [(IFunScores *)&v31 init];
+  v30.receiver = self;
+  v30.super_class = IFunScores;
+  v5 = [(IFunScores *)&v30 init];
   if (signalCopy)
   {
     serverScore = [signalCopy serverScore];
@@ -22,32 +22,32 @@
     v5->_localScore = localScore;
 
     domainEngagementScores = [signalCopy domainEngagementScores];
-    v11 = [domainEngagementScores count];
+    v11 = objc_msgSend_count(domainEngagementScores);
 
     if (v11)
     {
       v12 = objc_opt_new();
+      v26 = 0u;
       v27 = 0u;
       v28 = 0u;
       v29 = 0u;
-      v30 = 0u;
-      v26 = signalCopy;
+      v25 = signalCopy;
       domainEngagementScores2 = [signalCopy domainEngagementScores];
-      v14 = [domainEngagementScores2 countByEnumeratingWithState:&v27 objects:v32 count:16];
+      v14 = [domainEngagementScores2 countByEnumeratingWithState:&v26 objects:v31 count:16];
       if (v14)
       {
         v15 = v14;
-        v16 = *v28;
+        v16 = *v27;
         do
         {
           for (i = 0; i != v15; ++i)
           {
-            if (*v28 != v16)
+            if (*v27 != v16)
             {
               objc_enumerationMutation(domainEngagementScores2);
             }
 
-            v18 = *(*(&v27 + 1) + 8 * i);
+            v18 = *(*(&v26 + 1) + 8 * i);
             if ([v18 domain])
             {
               score = [v18 score];
@@ -61,7 +61,7 @@
             }
           }
 
-          v15 = [domainEngagementScores2 countByEnumeratingWithState:&v27 objects:v32 count:16];
+          v15 = [domainEngagementScores2 countByEnumeratingWithState:&v26 objects:v31 count:16];
         }
 
         while (v15);
@@ -71,11 +71,10 @@
       domainScores = v5->_domainScores;
       v5->_domainScores = v22;
 
-      signalCopy = v26;
+      signalCopy = v25;
     }
   }
 
-  v24 = *MEMORY[0x1E69E9840];
   return v5;
 }
 

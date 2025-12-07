@@ -6,6 +6,7 @@
 - (id)_deviceWithIdentifier:(id)identifier;
 - (id)_ensureXPCStarted;
 - (id)description;
+- (void)_activate:(BOOL)_activate;
 - (void)_activateDirect:(id)direct;
 - (void)_activateXPC:(id)c reactivate:(BOOL)reactivate;
 - (void)_connectedDeviceDiscoveryEnsureStarted;
@@ -16,6 +17,7 @@
 - (void)_invalidateDirect;
 - (void)_invalidated;
 - (void)_reportError:(id)error;
+- (void)aaDeviceConnectionChanged:(BOOL)changed withAADevice:(id)device;
 - (void)aaDeviceRouteChanged:(BOOL)changed withAADevice:(id)device;
 - (void)activateWithCompletion:(id)completion;
 - (void)activeHRMDeviceChanged:(id)changed withSREnabled:(BOOL)enabled;
@@ -57,9 +59,11 @@
 - (id)description
 {
   clientID = self->_clientID;
-  NSAppendPrintF();
+  v5 = 0;
+  NSAppendPrintF(&v5, "AASystemStateMonitor, CID 0x%X", clientID);
+  v2 = v5;
 
-  return 0;
+  return v2;
 }
 
 - (BOOL)direct
@@ -163,8 +167,7 @@ void __47__AASystemStateMonitor_activateWithCompletion___block_invoke(uint64_t a
   v2 = *(a1 + 32);
   if (*(v2 + 8) == 1)
   {
-    v3 = *MEMORY[0x277CCA590];
-    v8 = NSErrorF();
+    v7 = NSErrorF(*MEMORY[0x277CCA590], 4294960575, "Activate already called");
     if (gLogCategory_AASystemStateMonitor <= 90 && (gLogCategory_AASystemStateMonitor != -1 || _LogCategory_Initialize()))
     {
       __47__AASystemStateMonitor_activateWithCompletion___block_invoke_cold_1();
@@ -176,14 +179,71 @@ void __47__AASystemStateMonitor_activateWithCompletion___block_invoke(uint64_t a
   else
   {
     *(v2 + 8) = 1;
-    v4 = MEMORY[0x245CE9060](*(a1 + 40));
-    v5 = *(a1 + 32);
-    v6 = *(v5 + 16);
-    *(v5 + 16) = v4;
+    v3 = MEMORY[0x245CE9060](*(a1 + 40));
+    v4 = *(a1 + 32);
+    v5 = *(v4 + 16);
+    *(v4 + 16) = v3;
 
-    v7 = *(a1 + 32);
+    v6 = *(a1 + 32);
 
-    [v7 _activate:0];
+    [v6 _activate:0];
+  }
+}
+
+- (void)_activate:(BOOL)_activate
+{
+  if (!self->_invalidateCalled)
+  {
+    _activateCopy = _activate;
+    v9[0] = MEMORY[0x277D85DD0];
+    v9[1] = 3221225472;
+    v9[2] = __34__AASystemStateMonitor__activate___block_invoke;
+    v9[3] = &unk_278CDD660;
+    v9[4] = self;
+    _activateCopy2 = _activate;
+    v5 = MEMORY[0x245CE9060](v9, a2);
+    if (_activateCopy)
+    {
+      if (gLogCategory_AASystemStateMonitor <= 30 && (gLogCategory_AASystemStateMonitor != -1 || _LogCategory_Initialize()))
+      {
+LABEL_23:
+        [AASystemStateMonitor _activate:];
+      }
+    }
+
+    else if (gLogCategory_AASystemStateMonitor <= 30 && (gLogCategory_AASystemStateMonitor != -1 || _LogCategory_Initialize()))
+    {
+      goto LABEL_23;
+    }
+
+    if ([(AASystemStateMonitor *)self direct])
+    {
+      [(AASystemStateMonitor *)self _activateDirect:v5];
+    }
+
+    else
+    {
+      [(AASystemStateMonitor *)self _activateXPC:v5 reactivate:_activateCopy];
+    }
+
+    [(AASystemStateMonitor *)self _connectedDeviceDiscoveryEnsureStarted];
+
+    return;
+  }
+
+  v8 = NSErrorF(*MEMORY[0x277CCA590], 4294896148, "Activate after invalidate");
+  if (gLogCategory_AASystemStateMonitor <= 90 && (gLogCategory_AASystemStateMonitor != -1 || _LogCategory_Initialize()))
+  {
+    LogPrintF();
+  }
+
+  v6 = MEMORY[0x245CE9060](self->_activateCompletion);
+  activateCompletion = self->_activateCompletion;
+  self->_activateCompletion = 0;
+
+  if (v6)
+  {
+    (v6)[2](v6, v8);
   }
 }
 
@@ -220,7 +280,7 @@ void __34__AASystemStateMonitor__activate___block_invoke(uint64_t a1, void *a2)
     goto LABEL_14;
   }
 
-  __34__AASystemStateMonitor__activate___block_invoke_cold_2(a1);
+  __34__AASystemStateMonitor__activate___block_invoke_cold_2();
 LABEL_14:
   v6 = MEMORY[0x245CE9060](*(*(a1 + 32) + 16));
   v7 = *(a1 + 32);
@@ -240,7 +300,7 @@ LABEL_17:
   directCopy = direct;
   if (gLogCategory_AASystemStateMonitor <= 30 && (gLogCategory_AASystemStateMonitor != -1 || _LogCategory_Initialize()))
   {
-    [AASystemStateMonitor _activateDirect:?];
+    [AASystemStateMonitor _activateDirect:];
   }
 
   internalServicesDaemon = [(AASystemStateMonitor *)self internalServicesDaemon];
@@ -252,7 +312,7 @@ LABEL_17:
   cCopy = c;
   if (gLogCategory_AASystemStateMonitor <= 30 && (gLogCategory_AASystemStateMonitor != -1 || _LogCategory_Initialize()))
   {
-    [AASystemStateMonitor _activateXPC:? reactivate:?];
+    [AASystemStateMonitor _activateXPC:reactivate:];
   }
 
   _ensureXPCStarted = [(AASystemStateMonitor *)self _ensureXPCStarted];
@@ -319,8 +379,8 @@ uint64_t __41__AASystemStateMonitor__ensureXPCStarted__block_invoke_2(uint64_t a
     [AASystemStateMonitor _interrupted];
   }
 
-  v3 = BTErrorF();
-  [(AASystemStateMonitor *)self _reportError:v3];
+  v9 = BTErrorF(4294960596, "XPC interrupted", v3, v4, v5, v6, v7, v8, v13);
+  [(AASystemStateMonitor *)self _reportError:v9];
 
   activateCompletion = self->_activateCompletion;
   self->_activateCompletion = 0;
@@ -328,9 +388,9 @@ uint64_t __41__AASystemStateMonitor__ensureXPCStarted__block_invoke_2(uint64_t a
   interruptionHandler = self->_interruptionHandler;
   if (interruptionHandler)
   {
-    v6 = *(interruptionHandler + 2);
+    v12 = *(interruptionHandler + 2);
 
-    v6();
+    v12();
   }
 }
 
@@ -358,15 +418,15 @@ void __34__AASystemStateMonitor_invalidate__block_invoke(uint64_t a1)
     }
 
     [v4 _connectedDeviceDiscoveryEnsureStopped];
-    v8 = MEMORY[0x245CE9060](*(*(a1 + 32) + 16));
+    v15 = MEMORY[0x245CE9060](*(*(a1 + 32) + 16));
     v5 = *(a1 + 32);
     v6 = *(v5 + 16);
     *(v5 + 16) = 0;
 
-    if (v8)
+    if (v15)
     {
-      v7 = BTErrorF();
-      v8[2](v8, v7);
+      v13 = BTErrorF(4294896148, "Invalidate called", v7, v8, v9, v10, v11, v12, v14);
+      v15[2](v15, v13);
     }
 
     [*(a1 + 32) _invalidated];
@@ -390,23 +450,23 @@ void __34__AASystemStateMonitor_invalidate__block_invoke(uint64_t a1)
 
     if (!self->_xpcCnx)
     {
-      v9 = MEMORY[0x245CE9060](self->_activateCompletion, a2);
+      v16 = MEMORY[0x245CE9060](self->_activateCompletion, a2);
       activateCompletion = self->_activateCompletion;
       self->_activateCompletion = 0;
 
-      if (v9)
+      if (v16)
       {
-        v4 = BTErrorF();
-        v9[2](v9, v4);
+        v10 = BTErrorF(4294896148, "Unexpectedly invalidated", v4, v5, v6, v7, v8, v9, v15);
+        v16[2](v16, v10);
       }
 
-      v5 = MEMORY[0x245CE9060](self->_invalidationHandler);
+      v11 = MEMORY[0x245CE9060](self->_invalidationHandler);
       invalidationHandler = self->_invalidationHandler;
       self->_invalidationHandler = 0;
 
-      if (v5)
+      if (v11)
       {
-        v5[2](v5);
+        v11[2](v11);
       }
 
       interruptionHandler = self->_interruptionHandler;
@@ -495,36 +555,35 @@ void __34__AASystemStateMonitor_invalidate__block_invoke(uint64_t a1)
 
 uint64_t __64__AASystemStateMonitor_fetchHealthKitDataWriteAllowedForDevice___block_invoke(uint64_t a1, void *a2)
 {
-  v3 = a2;
-  v4 = v3;
+  v2 = a2;
+  v3 = v2;
   if (gLogCategory_AASystemStateMonitor <= 90)
   {
-    v6 = v3;
-    if (gLogCategory_AASystemStateMonitor != -1 || (v3 = _LogCategory_Initialize(), v4 = v6, v3))
+    v5 = v2;
+    if (gLogCategory_AASystemStateMonitor != -1 || (v2 = _LogCategory_Initialize(), v3 = v5, v2))
     {
-      v3 = __64__AASystemStateMonitor_fetchHealthKitDataWriteAllowedForDevice___block_invoke_cold_1(a1);
-      v4 = v6;
+      v2 = __64__AASystemStateMonitor_fetchHealthKitDataWriteAllowedForDevice___block_invoke_cold_1();
+      v3 = v5;
     }
   }
 
-  return MEMORY[0x2821F96F8](v3, v4);
+  return MEMORY[0x2821F96F8](v2, v3);
 }
 
 uint64_t __64__AASystemStateMonitor_fetchHealthKitDataWriteAllowedForDevice___block_invoke_2(uint64_t result, char a2)
 {
-  v2 = result + 32;
   *(*(*(result + 32) + 8) + 24) = a2;
   if (gLogCategory_AASystemStateMonitor <= 30)
   {
     if (gLogCategory_AASystemStateMonitor != -1)
     {
-      return __64__AASystemStateMonitor_fetchHealthKitDataWriteAllowedForDevice___block_invoke_2_cold_1(v2);
+      return __64__AASystemStateMonitor_fetchHealthKitDataWriteAllowedForDevice___block_invoke_2_cold_1();
     }
 
     result = _LogCategory_Initialize();
     if (result)
     {
-      return __64__AASystemStateMonitor_fetchHealthKitDataWriteAllowedForDevice___block_invoke_2_cold_1(v2);
+      return __64__AASystemStateMonitor_fetchHealthKitDataWriteAllowedForDevice___block_invoke_2_cold_1();
     }
   }
 
@@ -544,9 +603,8 @@ uint64_t __64__AASystemStateMonitor_fetchHealthKitDataWriteAllowedForDevice___bl
         [AASystemStateMonitor fetchPairedHRMDevices:];
       }
 
-      v6 = *MEMORY[0x277CCA590];
-      v7 = NSErrorF();
-      devicesCopy[2](devicesCopy, 0, v7);
+      v6 = NSErrorF(*MEMORY[0x277CCA590], 4294960561, "XPC error %{error}", _ensureXPCStarted);
+      devicesCopy[2](devicesCopy, 0, v6);
     }
 
     else
@@ -557,29 +615,28 @@ uint64_t __64__AASystemStateMonitor_fetchHealthKitDataWriteAllowedForDevice___bl
       }
 
       xpcCnx = self->_xpcCnx;
-      v14[0] = MEMORY[0x277D85DD0];
-      v14[1] = 3221225472;
-      v14[2] = __46__AASystemStateMonitor_fetchPairedHRMDevices___block_invoke;
-      v14[3] = &unk_278CDD700;
-      v10 = devicesCopy;
-      v15 = v10;
-      v11 = [(NSXPCConnection *)xpcCnx remoteObjectProxyWithErrorHandler:v14];
       v12[0] = MEMORY[0x277D85DD0];
       v12[1] = 3221225472;
-      v12[2] = __46__AASystemStateMonitor_fetchPairedHRMDevices___block_invoke_2;
-      v12[3] = &unk_278CDD858;
-      v13 = v10;
-      [v11 systemStateMonitorFetchPairedHRMDevices:v12];
+      v12[2] = __46__AASystemStateMonitor_fetchPairedHRMDevices___block_invoke;
+      v12[3] = &unk_278CDD700;
+      v8 = devicesCopy;
+      v13 = v8;
+      v9 = [(NSXPCConnection *)xpcCnx remoteObjectProxyWithErrorHandler:v12];
+      v10[0] = MEMORY[0x277D85DD0];
+      v10[1] = 3221225472;
+      v10[2] = __46__AASystemStateMonitor_fetchPairedHRMDevices___block_invoke_2;
+      v10[3] = &unk_278CDD858;
+      v11 = v8;
+      [v9 systemStateMonitorFetchPairedHRMDevices:v10];
 
-      v7 = 0;
+      v6 = 0;
     }
   }
 
   else
   {
-    v8 = *MEMORY[0x277CCA590];
-    v7 = NSErrorF();
-    devicesCopy[2](devicesCopy, 0, v7);
+    v6 = NSErrorF(*MEMORY[0x277CCA590], 4294960561, "Activate not called");
+    devicesCopy[2](devicesCopy, 0, v6);
   }
 }
 
@@ -648,7 +705,7 @@ void __46__AASystemStateMonitor_fetchPairedHRMDevices___block_invoke_2(uint64_t 
   }
 }
 
-void __62__AASystemStateMonitor__connectedDeviceDiscoveryEnsureStarted__block_invoke()
+void __62__AASystemStateMonitor__connectedDeviceDiscoveryEnsureStarted__block_invoke(uint64_t result, uint64_t a2)
 {
   if (gLogCategory_AASystemStateMonitor <= 30 && (gLogCategory_AASystemStateMonitor != -1 || _LogCategory_Initialize()))
   {
@@ -656,7 +713,7 @@ void __62__AASystemStateMonitor__connectedDeviceDiscoveryEnsureStarted__block_in
   }
 }
 
-void __62__AASystemStateMonitor__connectedDeviceDiscoveryEnsureStarted__block_invoke_2()
+void __62__AASystemStateMonitor__connectedDeviceDiscoveryEnsureStarted__block_invoke_2(uint64_t result, uint64_t a2)
 {
   if (gLogCategory_AASystemStateMonitor <= 30 && (gLogCategory_AASystemStateMonitor != -1 || _LogCategory_Initialize()))
   {
@@ -682,7 +739,7 @@ void __62__AASystemStateMonitor__connectedDeviceDiscoveryEnsureStarted__block_in
 
   if (gLogCategory_AASystemStateMonitor <= 30 && (gLogCategory_AASystemStateMonitor != -1 || _LogCategory_Initialize()))
   {
-    __62__AASystemStateMonitor__connectedDeviceDiscoveryEnsureStarted__block_invoke_5_cold_2(a1);
+    __62__AASystemStateMonitor__connectedDeviceDiscoveryEnsureStarted__block_invoke_5_cold_2();
   }
 }
 
@@ -759,6 +816,27 @@ LABEL_7:
 
     devicesMap2 = [(AASystemStateMonitor *)self devicesMap];
     [devicesMap2 removeObjectForKey:identifier];
+  }
+}
+
+- (void)aaDeviceConnectionChanged:(BOOL)changed withAADevice:(id)device
+{
+  changedCopy = changed;
+  deviceCopy = device;
+  dispatch_assert_queue_V2(self->_dispatchQueue);
+  if (self->_aaDeviceConnectionChangedHandler)
+  {
+    if (gLogCategory_AASystemStateMonitor <= 30 && (gLogCategory_AASystemStateMonitor != -1 || _LogCategory_Initialize()))
+    {
+      LogPrintF();
+    }
+
+    (*(self->_aaDeviceConnectionChangedHandler + 2))(self->_aaDeviceConnectionChangedHandler, changedCopy);
+  }
+
+  else if (gLogCategory_AASystemStateMonitor <= 90 && (gLogCategory_AASystemStateMonitor != -1 || _LogCategory_Initialize()))
+  {
+    [AASystemStateMonitor aaDeviceConnectionChanged:withAADevice:];
   }
 }
 
@@ -943,7 +1021,7 @@ uint64_t __62__AASystemStateMonitor_showFitEducationNotificationForDevice___bloc
 
   else
   {
-    [AASystemStateMonitor siriHijackEligibilityUpdated:?];
+    [AASystemStateMonitor siriHijackEligibilityUpdated:];
   }
 }
 
@@ -963,17 +1041,6 @@ uint64_t __62__AASystemStateMonitor_showFitEducationNotificationForDevice___bloc
   return v5;
 }
 
-uint64_t __64__AASystemStateMonitor_fetchHealthKitDataWriteAllowedForDevice___block_invoke_2_cold_1(uint64_t a1)
-{
-  v1 = *(*(*a1 + 8) + 24);
-  if (v1 <= 2)
-  {
-    v2 = off_278CDD8E8[v1];
-  }
-
-  return LogPrintF();
-}
-
 - (void)activeHRMDeviceChanged:(void *)a1 withSREnabled:.cold.1(void *a1)
 {
   v1 = [a1 bluetoothAddress];
@@ -984,7 +1051,7 @@ uint64_t __64__AASystemStateMonitor_fetchHealthKitDataWriteAllowedForDevice___bl
 {
   if (gLogCategory_AASystemStateMonitor <= 30 && (gLogCategory_AASystemStateMonitor != -1 || _LogCategory_Initialize()))
   {
-    OUTLINED_FUNCTION_0_0();
+    OUTLINED_FUNCTION_0_0(&gLogCategory_AASystemStateMonitor, "[AASystemStateMonitor activeHRMDeviceChanged:withSREnabled:]");
   }
 }
 
@@ -997,14 +1064,18 @@ uint64_t __64__AASystemStateMonitor_fetchHealthKitDataWriteAllowedForDevice___bl
   }
 }
 
-- (uint64_t)siriHijackEligibilityUpdated:(uint64_t)result .cold.1(uint64_t result)
+- (uint64_t)siriHijackEligibilityUpdated:.cold.1()
 {
   if (gLogCategory_AASystemStateMonitor <= 90)
   {
-    v1 = result;
-    if (gLogCategory_AASystemStateMonitor != -1 || (result = _LogCategory_Initialize(), result))
+    if (gLogCategory_AASystemStateMonitor != -1)
     {
-      v2 = *(v1 + 44);
+      return LogPrintF();
+    }
+
+    result = _LogCategory_Initialize();
+    if (result)
+    {
       return LogPrintF();
     }
   }

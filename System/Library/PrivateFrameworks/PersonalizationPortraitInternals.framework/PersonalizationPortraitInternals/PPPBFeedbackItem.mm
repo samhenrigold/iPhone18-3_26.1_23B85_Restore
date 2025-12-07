@@ -85,7 +85,6 @@ LABEL_7:
 {
   if (*&self->_has)
   {
-    feedbackType = self->_feedbackType;
     PBDataWriterWriteInt32Field();
   }
 }

@@ -16,10 +16,10 @@
 
 - (id)mf_makeUniqueFileInDirectory:()NSFileManagerAdditions
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v4 = a3;
-  v14 = -86;
-  if (![self fileExistsAtPath:v4 isDirectory:&v14] || (v14 & 1) == 0)
+  v13 = -86;
+  if (![self fileExistsAtPath:v4 isDirectory:&v13] || (v13 & 1) == 0)
   {
     v10 = 0;
     goto LABEL_12;
@@ -37,7 +37,7 @@
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v16 = v8;
+      v15 = v8;
       _os_log_impl(&dword_1D36B2000, v11, OS_LOG_TYPE_DEFAULT, "#Warning *** Warning: invalid path %@", buf, 0xCu);
     }
 
@@ -56,7 +56,6 @@ LABEL_10:
 LABEL_11:
 
 LABEL_12:
-  v12 = *MEMORY[0x1E69E9840];
 
   return v10;
 }
@@ -185,7 +184,7 @@ LABEL_12:
 
 - (uint64_t)mf_sizeForDirectoryAtPath:()NSFileManagerAdditions error:
 {
-  v6 = [MEMORY[0x1E695DFF8] fileURLWithPath:?];
+  v6 = [MEMORY[0x1E695DFF8] fileURLWithPath:a3];
   v7 = [self mf_sizeForDirectoryAtURL:v6 error:a4];
 
   return v7;
@@ -193,21 +192,21 @@ LABEL_12:
 
 - (uint64_t)mf_sizeForDirectoryAtURL:()NSFileManagerAdditions error:
 {
-  v14[2] = *MEMORY[0x1E69E9840];
+  v13[2] = *MEMORY[0x1E69E9840];
   v5 = a3;
   [v5 fileSystemRepresentation];
   if ((dirstat_np() & 0x80000000) != 0)
   {
     if (a4)
     {
-      v13[0] = *MEMORY[0x1E696A578];
+      v12[0] = *MEMORY[0x1E696A578];
       v7 = MEMORY[0x1E696AEC0];
       v8 = __error();
       v9 = [v7 stringWithUTF8String:strerror(*v8)];
-      v13[1] = *MEMORY[0x1E696A998];
-      v14[0] = v9;
-      v14[1] = v5;
-      v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:v13 count:2];
+      v12[1] = *MEMORY[0x1E696A998];
+      v13[0] = v9;
+      v13[1] = v5;
+      v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:v12 count:2];
 
       *a4 = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E696A798] code:*__error() userInfo:v10];
     }
@@ -220,101 +219,96 @@ LABEL_12:
     v6 = 0;
   }
 
-  v11 = *MEMORY[0x1E69E9840];
   return v6;
 }
 
 - (id)mf_pathsAtDirectory:()NSFileManagerAdditions beginningWithString:
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v6 = a3;
   v7 = a4;
   v8 = [self contentsOfDirectoryAtPath:v6 error:0];
   array = [MEMORY[0x1E695DF70] array];
-  v20 = 0u;
-  v21 = 0u;
-  v18 = 0u;
   v19 = 0u;
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
   v10 = v8;
-  v11 = [v10 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v11 = [v10 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v11)
   {
-    v12 = *v19;
+    v12 = *v18;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v19 != v12)
+        if (*v18 != v12)
         {
           objc_enumerationMutation(v10);
         }
 
-        v14 = *(*(&v18 + 1) + 8 * i);
-        if ([v14 hasPrefix:{v7, v18}])
+        v14 = *(*(&v17 + 1) + 8 * i);
+        if ([v14 hasPrefix:{v7, v17}])
         {
           v15 = [v6 stringByAppendingPathComponent:v14];
           [array addObject:v15];
         }
       }
 
-      v11 = [v10 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v11 = [v10 countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v11);
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 
   return array;
 }
 
 - (uint64_t)mf_protectFileAtPath:()NSFileManagerAdditions withClass:error:
 {
-  v22[1] = *MEMORY[0x1E69E9840];
+  v20[1] = *MEMORY[0x1E69E9840];
   v8 = a3;
   if (v8)
   {
-    v9 = *MEMORY[0x1E696A3A0];
     switch(a4)
     {
       case 3:
-        v17 = *MEMORY[0x1E696A3A0];
-        v18 = *MEMORY[0x1E696A388];
-        v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v18 forKeys:&v17 count:1];
+        v15 = *MEMORY[0x1E696A3A0];
+        v16 = *MEMORY[0x1E696A388];
+        v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v16 forKeys:&v15 count:1];
         break;
       case 2:
-        v19 = *MEMORY[0x1E696A3A0];
-        v20 = *MEMORY[0x1E696A380];
-        v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v20 forKeys:&v19 count:1];
+        v17 = *MEMORY[0x1E696A3A0];
+        v18 = *MEMORY[0x1E696A380];
+        v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v18 forKeys:&v17 count:1];
         break;
       case 1:
-        v21 = *MEMORY[0x1E696A3A0];
-        v22[0] = *MEMORY[0x1E696A378];
-        v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v22 forKeys:&v21 count:1];
+        v19 = *MEMORY[0x1E696A3A0];
+        v20[0] = *MEMORY[0x1E696A378];
+        v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v20 forKeys:&v19 count:1];
         break;
       default:
-        v15 = *MEMORY[0x1E696A3A0];
-        v16 = *MEMORY[0x1E696A3A8];
-        v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v16 forKeys:&v15 count:1];
+        v13 = *MEMORY[0x1E696A3A0];
+        v14 = *MEMORY[0x1E696A3A8];
+        v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v14 forKeys:&v13 count:1];
         break;
     }
 
-    v12 = v10;
-    v11 = [self setAttributes:v10 ofItemAtPath:v8 error:a5];
+    v11 = v9;
+    v10 = [self setAttributes:v9 ofItemAtPath:v8 error:a5];
   }
 
   else
   {
-    v11 = 0;
+    v10 = 0;
   }
 
-  v13 = *MEMORY[0x1E69E9840];
-  return v11;
+  return v10;
 }
 
 - (BOOL)mf_setValue:()NSFileManagerAdditions forExtendedAttribute:ofItemAtPath:error:
 {
-  v22[1] = *MEMORY[0x1E69E9840];
+  v21[1] = *MEMORY[0x1E69E9840];
   v9 = a3;
   v10 = a4;
   v11 = a5;
@@ -344,19 +338,18 @@ LABEL_12:
       v17 = &stru_1F4F33820;
     }
 
-    v21 = *MEMORY[0x1E696A368];
-    v22[0] = v17;
-    v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v22 forKeys:&v21 count:1];
+    v20 = *MEMORY[0x1E696A368];
+    v21[0] = v17;
+    v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v21 forKeys:&v20 count:1];
     *a6 = [v15 errorWithDomain:*MEMORY[0x1E696A798] code:v16 userInfo:v18];
   }
 
-  v19 = *MEMORY[0x1E69E9840];
   return v14 == 0;
 }
 
 - (id)mf_valueForExtendedAttribute:()NSFileManagerAdditions ofItemAtPath:error:
 {
-  v26[1] = *MEMORY[0x1E69E9840];
+  v25[1] = *MEMORY[0x1E69E9840];
   v7 = a3;
   v8 = a4;
   fileSystemRepresentation = [(__CFString *)v8 fileSystemRepresentation];
@@ -378,9 +371,9 @@ LABEL_12:
         v20 = &stru_1F4F33820;
       }
 
-      v23 = *MEMORY[0x1E696A368];
-      v24 = v20;
-      v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v24 forKeys:&v23 count:1];
+      v22 = *MEMORY[0x1E696A368];
+      v23 = v20;
+      v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v23 forKeys:&v22 count:1];
       v17 = [v18 errorWithDomain:*MEMORY[0x1E696A798] code:v19 userInfo:v16];
       v12 = 0;
       goto LABEL_13;
@@ -406,65 +399,63 @@ LABEL_12:
         v15 = &stru_1F4F33820;
       }
 
-      v25 = *MEMORY[0x1E696A368];
-      v26[0] = v15;
-      v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v26 forKeys:&v25 count:1];
+      v24 = *MEMORY[0x1E696A368];
+      v25[0] = v15;
+      v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v25 forKeys:&v24 count:1];
       v17 = [v14 errorWithDomain:*MEMORY[0x1E696A798] code:5 userInfo:v16];
 LABEL_13:
       *a5 = v17;
     }
   }
 
-  v21 = *MEMORY[0x1E69E9840];
-
   return v12;
 }
 
 - (id)mf_verifyProtectionClassesForFilesInDirectory:()NSFileManagerAdditions usingBlock:
 {
-  v33[1] = *MEMORY[0x1E69E9840];
-  v22 = a3;
-  v26 = a4;
-  v23 = objc_alloc_init(MEMORY[0x1E695DF90]);
-  v25 = *MEMORY[0x1E695DAF0];
-  v33[0] = *MEMORY[0x1E695DAF0];
-  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v33 count:1];
-  v7 = [self enumeratorAtURL:v22 includingPropertiesForKeys:v6 options:0 errorHandler:&__block_literal_global_10];
+  v32[1] = *MEMORY[0x1E69E9840];
+  v21 = a3;
+  v25 = a4;
+  v22 = objc_alloc_init(MEMORY[0x1E695DF90]);
+  v24 = *MEMORY[0x1E695DAF0];
+  v32[0] = *MEMORY[0x1E695DAF0];
+  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v32 count:1];
+  v7 = [self enumeratorAtURL:v21 includingPropertiesForKeys:v6 options:0 errorHandler:&__block_literal_global_10];
 
-  v30 = 0u;
-  v31 = 0u;
-  v28 = 0u;
   v29 = 0u;
+  v30 = 0u;
+  v27 = 0u;
+  v28 = 0u;
   obj = v7;
-  v8 = [obj countByEnumeratingWithState:&v28 objects:v32 count:16];
+  v8 = [obj countByEnumeratingWithState:&v27 objects:v31 count:16];
   if (v8)
   {
-    v9 = *v29;
+    v9 = *v28;
     v10 = *MEMORY[0x1E695DAF8];
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v29 != v9)
+        if (*v28 != v9)
         {
           objc_enumerationMutation(obj);
         }
 
-        v12 = *(*(&v28 + 1) + 8 * i);
-        v13 = v26[2](v26, v12);
+        v12 = *(*(&v27 + 1) + 8 * i);
+        v13 = v25[2](v25, v12);
         v14 = v10;
         v15 = v14;
         if (v13)
         {
-          v27 = 0;
-          v16 = [v12 getResourceValue:&v27 forKey:v25 error:0];
-          v17 = v27;
+          v26 = 0;
+          v16 = [v12 getResourceValue:&v26 forKey:v24 error:0];
+          v17 = v26;
 
           if (v16 && ([v17 isEqualToString:v13] & 1) == 0)
           {
             uRLByStandardizingPath = [v12 URLByStandardizingPath];
             standardizedURL = [uRLByStandardizingPath standardizedURL];
-            [v23 setObject:v13 forKeyedSubscript:standardizedURL];
+            [v22 setObject:v13 forKeyedSubscript:standardizedURL];
           }
         }
 
@@ -474,15 +465,13 @@ LABEL_13:
         }
       }
 
-      v8 = [obj countByEnumeratingWithState:&v28 objects:v32 count:16];
+      v8 = [obj countByEnumeratingWithState:&v27 objects:v31 count:16];
     }
 
     while (v8);
   }
 
-  v20 = *MEMORY[0x1E69E9840];
-
-  return v23;
+  return v22;
 }
 
 @end

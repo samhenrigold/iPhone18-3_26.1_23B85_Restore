@@ -192,7 +192,7 @@ void __14__SSBag_cache__block_invoke()
 
 - (BOOL)URLIsTrusted:(id)trusted
 {
-  v44 = *MEMORY[0x1E69E9840];
+  v43 = *MEMORY[0x1E69E9840];
   trustedCopy = trusted;
   scheme = [trustedCopy scheme];
   v6 = [scheme isEqualToString:@"data"];
@@ -208,9 +208,9 @@ void __14__SSBag_cache__block_invoke()
   completionHandlerAdapter = [(SSPromise *)v9 completionHandlerAdapter];
   [(SSBag *)self arrayForKey:@"trustedDomains" withCompletion:completionHandlerAdapter];
 
-  v38 = 0;
-  v11 = [(SSPromise *)v9 resultWithError:&v38];
-  v12 = v38;
+  v37 = 0;
+  v11 = [(SSPromise *)v9 resultWithError:&v37];
+  v12 = v37;
   if (v12)
   {
     v13 = +[SSLogConfig sharedBagCacheConfig];
@@ -246,22 +246,21 @@ void __14__SSBag_cache__block_invoke()
       goto LABEL_15;
     }
 
-    v33 = v11;
+    v32 = v11;
     v18 = objc_opt_class();
-    v40 = 138543618;
-    v41 = v18;
-    v42 = 2114;
-    v43 = v12;
+    v39 = 138543618;
+    v40 = v18;
+    v41 = 2114;
+    v42 = v12;
     v19 = v18;
-    LODWORD(v32) = 22;
-    v7 = _os_log_send_and_compose_impl();
+    v7 = _os_log_send_and_compose_impl(v17, 0, 0, 0, &dword_1D48BA000, oSLogObject, 16, "%{public}@: Error checking if URL trusted: %{public}@", &v39, 22);
 
     if (v7)
     {
-      oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v7 encoding:{4, &v40, v32}];
+      oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v7 encoding:4];
       free(v7);
       SSFileLog(v13, @"%@", v20, v21, v22, v23, v24, v25, oSLogObject);
-      v11 = v33;
+      v11 = v32;
 LABEL_15:
 
 LABEL_30:
@@ -272,30 +271,30 @@ LABEL_30:
 
   else
   {
-    v36 = 0u;
-    v37 = 0u;
-    v34 = 0u;
     v35 = 0u;
+    v36 = 0u;
+    v33 = 0u;
+    v34 = 0u;
     v13 = v11;
-    v26 = [v13 countByEnumeratingWithState:&v34 objects:v39 count:16];
+    v26 = [v13 countByEnumeratingWithState:&v33 objects:v38 count:16];
     if (!v26)
     {
       goto LABEL_30;
     }
 
     v27 = v26;
-    v33 = v11;
-    v28 = *v35;
+    v32 = v11;
+    v28 = *v34;
     while (2)
     {
       for (i = 0; i != v27; ++i)
       {
-        if (*v35 != v28)
+        if (*v34 != v28)
         {
           objc_enumerationMutation(v13);
         }
 
-        v30 = *(*(&v34 + 1) + 8 * i);
+        v30 = *(*(&v33 + 1) + 8 * i);
         objc_opt_class();
         if ((objc_opt_isKindOfClass() & 1) != 0 && [v30 length])
         {
@@ -316,7 +315,7 @@ LABEL_31:
         }
       }
 
-      v27 = [v13 countByEnumeratingWithState:&v34 objects:v39 count:16];
+      v27 = [v13 countByEnumeratingWithState:&v33 objects:v38 count:16];
       if (v27)
       {
         continue;
@@ -329,7 +328,7 @@ LABEL_31:
   }
 
 LABEL_32:
-  v11 = v33;
+  v11 = v32;
 LABEL_33:
 
   if (v12)

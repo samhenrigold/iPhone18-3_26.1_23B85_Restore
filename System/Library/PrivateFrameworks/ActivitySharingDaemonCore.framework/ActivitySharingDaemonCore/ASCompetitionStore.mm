@@ -66,7 +66,7 @@
 
 void __44__ASCompetitionStore_loadCachedCompetitions__block_invoke(uint64_t a1)
 {
-  v77 = *MEMORY[0x277D85DE8];
+  v76 = *MEMORY[0x277D85DE8];
   ASLoggingInitialize();
   v2 = *MEMORY[0x277CE8FE0];
   if (os_log_type_enabled(*MEMORY[0x277CE8FE0], OS_LOG_TYPE_DEFAULT))
@@ -76,73 +76,73 @@ void __44__ASCompetitionStore_loadCachedCompetitions__block_invoke(uint64_t a1)
   }
 
   v3 = *(*(a1 + 32) + 8);
-  v70 = 0;
-  v4 = [v3 allCodableDatabaseCompetitionsWithError:&v70];
-  v5 = v70;
-  v57 = v4;
+  v69 = 0;
+  v4 = [v3 allCodableDatabaseCompetitionsWithError:&v69];
+  v5 = v69;
+  v56 = v4;
   if (v4)
   {
+    v52 = objc_alloc_init(MEMORY[0x277CBEB18]);
     v53 = objc_alloc_init(MEMORY[0x277CBEB18]);
-    v54 = objc_alloc_init(MEMORY[0x277CBEB18]);
     v6 = *(*(a1 + 32) + 8);
-    v69 = v5;
-    v7 = [v6 allCodableDatabaseCompetitionListEntriesWithError:&v69];
-    v51 = v69;
+    v68 = v5;
+    v7 = [v6 allCodableDatabaseCompetitionListEntriesWithError:&v68];
+    v50 = v68;
 
-    v50 = v7;
+    v49 = v7;
     if (v7)
     {
-      v52 = a1;
-      v67 = 0u;
-      v68 = 0u;
-      v65 = 0u;
+      v51 = a1;
       v66 = 0u;
+      v67 = 0u;
+      v64 = 0u;
+      v65 = 0u;
       obj = v7;
-      v58 = [obj countByEnumeratingWithState:&v65 objects:v76 count:16];
-      if (v58)
+      v57 = [obj countByEnumeratingWithState:&v64 objects:v75 count:16];
+      if (v57)
       {
-        v56 = *v66;
+        v55 = *v65;
         do
         {
           v8 = 0;
           do
           {
-            if (*v66 != v56)
+            if (*v65 != v55)
             {
               objc_enumerationMutation(obj);
             }
 
-            v59 = v8;
-            v9 = *(*(&v65 + 1) + 8 * v8);
+            v58 = v8;
+            v9 = *(*(&v64 + 1) + 8 * v8);
             v10 = [v9 type];
             ASLoggingInitialize();
             v11 = *MEMORY[0x277CE8FE0];
             if (os_log_type_enabled(*MEMORY[0x277CE8FE0], OS_LOG_TYPE_DEBUG))
             {
-              __44__ASCompetitionStore_loadCachedCompetitions__block_invoke_cold_1(buf, v11, v9, &v75);
+              __44__ASCompetitionStore_loadCachedCompetitions__block_invoke_cold_1(buf, v11, v9, &v74);
             }
 
-            v60 = objc_alloc_init(MEMORY[0x277CBEB18]);
+            v59 = objc_alloc_init(MEMORY[0x277CBEB18]);
+            v60 = 0u;
             v61 = 0u;
             v62 = 0u;
             v63 = 0u;
-            v64 = 0u;
-            v12 = v57;
-            v13 = [v12 countByEnumeratingWithState:&v61 objects:v73 count:16];
+            v12 = v56;
+            v13 = [v12 countByEnumeratingWithState:&v60 objects:v72 count:16];
             if (v13)
             {
               v14 = v13;
-              v15 = *v62;
+              v15 = *v61;
               do
               {
                 for (i = 0; i != v14; ++i)
                 {
-                  if (*v62 != v15)
+                  if (*v61 != v15)
                   {
                     objc_enumerationMutation(v12);
                   }
 
-                  v17 = *(*(&v61 + 1) + 8 * i);
+                  v17 = *(*(&v60 + 1) + 8 * i);
                   if ([v17 type] == v10)
                   {
                     v18 = [v17 friendUUID];
@@ -151,74 +151,74 @@ void __44__ASCompetitionStore_loadCachedCompetitions__block_invoke(uint64_t a1)
 
                     if (v20)
                     {
-                      [v60 addObject:v17];
+                      [v59 addObject:v17];
                     }
                   }
                 }
 
-                v14 = [v12 countByEnumeratingWithState:&v61 objects:v73 count:16];
+                v14 = [v12 countByEnumeratingWithState:&v60 objects:v72 count:16];
               }
 
               while (v14);
             }
 
-            v21 = [MEMORY[0x277CE90E0] competitionListFromCodableDatabaseCompetitionList:v9 codableCompetitions:v60 withType:v10];
+            v21 = [MEMORY[0x277CE90E0] competitionListFromCodableDatabaseCompetitionList:v9 codableCompetitions:v59 withType:v10];
             if (![v9 owner])
             {
-              [v53 addObject:v21];
+              [v52 addObject:v21];
             }
 
             if ([v9 owner] == 1)
             {
-              [v54 addObject:v21];
+              [v53 addObject:v21];
             }
 
-            v8 = v59 + 1;
+            v8 = v58 + 1;
           }
 
-          while (v59 + 1 != v58);
-          v58 = [obj countByEnumeratingWithState:&v65 objects:v76 count:16];
+          while (v58 + 1 != v57);
+          v57 = [obj countByEnumeratingWithState:&v64 objects:v75 count:16];
         }
 
-        while (v58);
+        while (v57);
       }
 
-      [*(v52 + 32) _queue_saveCompetitionListsToCache:v53 owner:0];
-      [*(v52 + 32) _queue_saveCompetitionListsToCache:v54 owner:1];
+      [*(v51 + 32) _queue_saveCompetitionListsToCache:v52 owner:0];
+      [*(v51 + 32) _queue_saveCompetitionListsToCache:v53 owner:1];
       ASLoggingInitialize();
       v22 = *MEMORY[0x277CE8FE0];
       if (os_log_type_enabled(*MEMORY[0x277CE8FE0], OS_LOG_TYPE_DEFAULT))
       {
-        v23 = *(*(v52 + 32) + 24);
+        v23 = *(*(v51 + 32) + 24);
         v24 = v22;
         v25 = [v23 count];
-        *v71 = 134217984;
-        v72 = v25;
-        _os_log_impl(&dword_23E5E3000, v24, OS_LOG_TYPE_DEFAULT, "Loaded %lu cached current competition lists", v71, 0xCu);
+        *v70 = 134217984;
+        v71 = v25;
+        _os_log_impl(&dword_23E5E3000, v24, OS_LOG_TYPE_DEFAULT, "Loaded %lu cached current competition lists", v70, 0xCu);
       }
 
       ASLoggingInitialize();
       v26 = *MEMORY[0x277CE8FE0];
       if (os_log_type_enabled(*MEMORY[0x277CE8FE0], OS_LOG_TYPE_DEFAULT))
       {
-        v27 = *(*(v52 + 32) + 32);
+        v27 = *(*(v51 + 32) + 32);
         v28 = v26;
         v29 = [v27 count];
-        *v71 = 134217984;
-        v72 = v29;
-        _os_log_impl(&dword_23E5E3000, v28, OS_LOG_TYPE_DEFAULT, "Loaded %lu cached archived competition lists", v71, 0xCu);
+        *v70 = 134217984;
+        v71 = v29;
+        _os_log_impl(&dword_23E5E3000, v28, OS_LOG_TYPE_DEFAULT, "Loaded %lu cached archived competition lists", v70, 0xCu);
       }
 
       ASLoggingInitialize();
       v30 = *MEMORY[0x277CE8FE0];
       if (os_log_type_enabled(*MEMORY[0x277CE8FE0], OS_LOG_TYPE_DEFAULT))
       {
-        v31 = *(*(v52 + 32) + 40);
+        v31 = *(*(v51 + 32) + 40);
         v32 = v30;
         v33 = [v31 count];
-        *v71 = 134217984;
-        v72 = v33;
-        _os_log_impl(&dword_23E5E3000, v32, OS_LOG_TYPE_DEFAULT, "Loaded %lu cached remote competitions", v71, 0xCu);
+        *v70 = 134217984;
+        v71 = v33;
+        _os_log_impl(&dword_23E5E3000, v32, OS_LOG_TYPE_DEFAULT, "Loaded %lu cached remote competitions", v70, 0xCu);
       }
     }
 
@@ -228,13 +228,13 @@ void __44__ASCompetitionStore_loadCachedCompetitions__block_invoke(uint64_t a1)
       v42 = *MEMORY[0x277CE8FE0];
       if (os_log_type_enabled(*MEMORY[0x277CE8FE0], OS_LOG_TYPE_ERROR))
       {
-        __44__ASCompetitionStore_loadCachedCompetitions__block_invoke_cold_2(v51, v42, v43, v44, v45, v46, v47, v48);
+        __44__ASCompetitionStore_loadCachedCompetitions__block_invoke_cold_2(v50, v42, v43, v44, v45, v46, v47, v48);
       }
 
       *(*(*(a1 + 40) + 8) + 24) = 0;
     }
 
-    v5 = v51;
+    v5 = v50;
   }
 
   else
@@ -249,23 +249,21 @@ void __44__ASCompetitionStore_loadCachedCompetitions__block_invoke(uint64_t a1)
 
     *(*(*(v34 + 40) + 8) + 24) = 0;
   }
-
-  v49 = *MEMORY[0x277D85DE8];
 }
 
 - (void)deleteCachedCompetitions
 {
-  v15 = *MEMORY[0x277D85DE8];
-  v12[0] = MEMORY[0x277D85DD0];
-  v12[1] = 3221225472;
-  v12[2] = __46__ASCompetitionStore_deleteCachedCompetitions__block_invoke;
-  v12[3] = &unk_278C4CC38;
-  v12[4] = self;
-  v3 = MEMORY[0x23EF0EB00](v12, a2);
+  v14 = *MEMORY[0x277D85DE8];
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = __46__ASCompetitionStore_deleteCachedCompetitions__block_invoke;
+  v11[3] = &unk_278C4CC38;
+  v11[4] = self;
+  v3 = MEMORY[0x23EF0EB00](v11, a2);
   databaseClient = self->_databaseClient;
-  v11 = 0;
-  v5 = [(ASDatabaseClient *)databaseClient performDatabaseCompetitionWriteTransactionBlock:v3 error:&v11];
-  v6 = v11;
+  v10 = 0;
+  v5 = [(ASDatabaseClient *)databaseClient performDatabaseCompetitionWriteTransactionBlock:v3 error:&v10];
+  v6 = v10;
   v7 = v6;
   if (!v5 || v6 != 0)
   {
@@ -274,12 +272,10 @@ void __44__ASCompetitionStore_loadCachedCompetitions__block_invoke(uint64_t a1)
     if (os_log_type_enabled(*MEMORY[0x277CE8FD8], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v14 = v7;
+      v13 = v7;
       _os_log_impl(&dword_23E5E3000, v9, OS_LOG_TYPE_DEFAULT, "Error deleting all cached competitions: %{public}@", buf, 0xCu);
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __46__ASCompetitionStore_deleteCachedCompetitions__block_invoke(uint64_t a1, void *a2)
@@ -334,14 +330,13 @@ uint64_t __46__ASCompetitionStore_deleteCachedCompetitions__block_invoke(uint64_
 
 - (BOOL)saveRemoteCompetitionList:(id)list
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   listCopy = list;
   v4 = MEMORY[0x277CBEA60];
   listCopy2 = list;
   v6 = [v4 arrayWithObjects:&listCopy count:1];
 
-  LOBYTE(self) = [(ASCompetitionStore *)self _saveCompetitionLists:v6 owner:1, listCopy, v10];
-  v7 = *MEMORY[0x277D85DE8];
+  LOBYTE(self) = [(ASCompetitionStore *)self _saveCompetitionLists:v6 owner:1, listCopy, v9];
   return self;
 }
 
@@ -390,49 +385,49 @@ uint64_t __46__ASCompetitionStore_deleteCachedCompetitions__block_invoke(uint64_
 uint64_t __50__ASCompetitionStore__saveCompetitionLists_owner___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a1;
-  v57 = *MEMORY[0x277D85DE8];
+  v56 = *MEMORY[0x277D85DE8];
+  v47 = 0u;
   v48 = 0u;
   v49 = 0u;
   v50 = 0u;
-  v51 = 0u;
   obj = *(a1 + 32);
-  v42 = [obj countByEnumeratingWithState:&v48 objects:v56 count:16];
-  if (v42)
+  v41 = [obj countByEnumeratingWithState:&v47 objects:v55 count:16];
+  if (v41)
   {
-    v40 = *v49;
+    v39 = *v48;
     LODWORD(v5) = 1;
     v6 = MEMORY[0x277CE8FE0];
     *&v4 = 138412290;
-    v38 = v4;
-    v41 = a2;
+    v37 = v4;
+    v40 = a2;
     do
     {
-      for (i = 0; i != v42; ++i)
+      for (i = 0; i != v41; ++i)
       {
-        if (*v49 != v40)
+        if (*v48 != v39)
         {
           objc_enumerationMutation(obj);
         }
 
-        v44 = v5;
-        v8 = *(*(&v48 + 1) + 8 * i);
+        v43 = v5;
+        v8 = *(*(&v47 + 1) + 8 * i);
         ASLoggingInitialize();
         v9 = *v6;
         if (os_log_type_enabled(*v6, OS_LOG_TYPE_DEFAULT))
         {
           v10 = *(v3 + 48);
           *buf = 134218242;
-          v53 = v10;
-          v54 = 2112;
-          v55 = v8;
+          v52 = v10;
+          v53 = 2112;
+          v54 = v8;
           _os_log_impl(&dword_23E5E3000, v9, OS_LOG_TYPE_DEFAULT, "CompetitionStore persisting competition list to database for owner: %lu, competitionList: %@", buf, 0x16u);
         }
 
         v11 = *(v3 + 40);
         v12 = *(v3 + 48);
-        v47 = 0;
-        v43 = [v11 _saveCompetitionListToDatabase:v8 owner:v12 error:{&v47, v38}];
-        v13 = v47;
+        v46 = 0;
+        v42 = [v11 _saveCompetitionListToDatabase:v8 owner:v12 error:{&v46, v37}];
+        v13 = v46;
         ASLoggingInitialize();
         v14 = *v6;
         if (os_log_type_enabled(*v6, OS_LOG_TYPE_DEFAULT))
@@ -441,18 +436,18 @@ uint64_t __50__ASCompetitionStore__saveCompetitionLists_owner___block_invoke(uin
           v16 = [v8 type];
           v17 = [v8 friendUUID];
           *buf = 134218242;
-          v53 = v16;
-          v54 = 2112;
-          v55 = v17;
+          v52 = v16;
+          v53 = 2112;
+          v54 = v17;
           _os_log_impl(&dword_23E5E3000, v15, OS_LOG_TYPE_DEFAULT, "CompetitionStore removing competitions of type %lu with friend %@", buf, 0x16u);
         }
 
         v18 = *(v3 + 40);
         v19 = [v8 friendUUID];
         v20 = [v8 type];
-        v46 = 0;
-        v21 = [v18 _removeCompetitionsWithFriendFromDatabase:v19 type:v20 error:&v46];
-        v22 = v46;
+        v45 = 0;
+        v21 = [v18 _removeCompetitionsWithFriendFromDatabase:v19 type:v20 error:&v45];
+        v22 = v45;
 
         ASLoggingInitialize();
         v23 = *v6;
@@ -460,8 +455,8 @@ uint64_t __50__ASCompetitionStore__saveCompetitionLists_owner___block_invoke(uin
         {
           v24 = v23;
           v25 = [v8 competitions];
-          *buf = v38;
-          v53 = v25;
+          *buf = v37;
+          v52 = v25;
           _os_log_impl(&dword_23E5E3000, v24, OS_LOG_TYPE_DEFAULT, "CompetitionStore saving competitions [%@]", buf, 0xCu);
         }
 
@@ -470,9 +465,9 @@ uint64_t __50__ASCompetitionStore__saveCompetitionLists_owner___block_invoke(uin
         v28 = [v8 competitions];
         v29 = [v8 friendUUID];
         v30 = [v8 type];
-        v45 = 0;
-        v31 = [v27 _saveCompetitionsToDatabase:v28 friendUUID:v29 type:v30 error:&v45];
-        v32 = v45;
+        v44 = 0;
+        v31 = [v27 _saveCompetitionsToDatabase:v28 friendUUID:v29 type:v30 error:&v44];
+        v32 = v44;
 
         if (v22)
         {
@@ -492,10 +487,10 @@ uint64_t __50__ASCompetitionStore__saveCompetitionLists_owner___block_invoke(uin
         v34 = v33;
         if (v34)
         {
-          if (v41)
+          if (v40)
           {
             v35 = v34;
-            *v41 = v34;
+            *v40 = v34;
           }
 
           else
@@ -504,16 +499,16 @@ uint64_t __50__ASCompetitionStore__saveCompetitionLists_owner___block_invoke(uin
           }
         }
 
-        v5 = v44 & v43 & v21 & v31;
+        v5 = v43 & v42 & v21 & v31;
 
         v3 = v26;
         v6 = MEMORY[0x277CE8FE0];
       }
 
-      v42 = [obj countByEnumeratingWithState:&v48 objects:v56 count:16];
+      v41 = [obj countByEnumeratingWithState:&v47 objects:v55 count:16];
     }
 
-    while (v42);
+    while (v41);
   }
 
   else
@@ -521,7 +516,6 @@ uint64_t __50__ASCompetitionStore__saveCompetitionLists_owner___block_invoke(uin
     v5 = 1;
   }
 
-  v36 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -534,7 +528,7 @@ void __50__ASCompetitionStore__saveCompetitionLists_owner___block_invoke_303(uin
 
 - (BOOL)_saveCompetitionListToDatabase:(id)database owner:(int64_t)owner error:(id *)error
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   databaseCopy = database;
   v9 = [databaseCopy codableDatabaseCompetitionListEntryForOwner:owner];
   v10 = [(ASDatabaseClient *)self->_databaseClient saveCodableDatabaseCompetitionListEntry:v9 error:error];
@@ -545,21 +539,20 @@ void __50__ASCompetitionStore__saveCompetitionLists_owner___block_invoke_303(uin
     if (os_log_type_enabled(*MEMORY[0x277CE8FE0], OS_LOG_TYPE_DEFAULT))
     {
       v12 = *error;
-      v15 = 138412546;
-      v16 = databaseCopy;
-      v17 = 2112;
-      v18 = v12;
-      _os_log_impl(&dword_23E5E3000, v11, OS_LOG_TYPE_DEFAULT, "CompetitionStore: Persisting competition list [%@] failed with error [%@]", &v15, 0x16u);
+      v14 = 138412546;
+      v15 = databaseCopy;
+      v16 = 2112;
+      v17 = v12;
+      _os_log_impl(&dword_23E5E3000, v11, OS_LOG_TYPE_DEFAULT, "CompetitionStore: Persisting competition list [%@] failed with error [%@]", &v14, 0x16u);
     }
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
 - (BOOL)_removeCompetitionsWithFriendFromDatabase:(id)database type:(int64_t)type error:(id *)error
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   databaseCopy = database;
   v9 = [(ASDatabaseClient *)self->_databaseClient removeCodableDatabaseCompetitionsWithFriendUUID:databaseCopy type:type error:error];
   if (!v9)
@@ -569,23 +562,22 @@ void __50__ASCompetitionStore__saveCompetitionLists_owner___block_invoke_303(uin
     if (os_log_type_enabled(*MEMORY[0x277CE8FE0], OS_LOG_TYPE_DEFAULT))
     {
       v11 = *error;
-      v14 = 134218498;
+      v13 = 134218498;
       typeCopy = type;
-      v16 = 2112;
-      v17 = databaseCopy;
-      v18 = 2112;
-      v19 = v11;
-      _os_log_impl(&dword_23E5E3000, v10, OS_LOG_TYPE_DEFAULT, "CompetitionStore: Removing competitions of type %lu for friend with UUID [%@] failed with error [%@]", &v14, 0x20u);
+      v15 = 2112;
+      v16 = databaseCopy;
+      v17 = 2112;
+      v18 = v11;
+      _os_log_impl(&dword_23E5E3000, v10, OS_LOG_TYPE_DEFAULT, "CompetitionStore: Removing competitions of type %lu for friend with UUID [%@] failed with error [%@]", &v13, 0x20u);
     }
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
 - (BOOL)_saveCompetitionsToDatabase:(id)database friendUUID:(id)d type:(int64_t)type error:(id *)error
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   databaseCopy = database;
   v11 = [MEMORY[0x277CE90D8] codableDatabaseCompetitionsFromCompetitions:databaseCopy withFriendWithUUID:d withType:type];
   v12 = [(ASDatabaseClient *)self->_databaseClient saveCodableDatabaseCompetitions:v11 error:error];
@@ -596,46 +588,45 @@ void __50__ASCompetitionStore__saveCompetitionLists_owner___block_invoke_303(uin
     if (os_log_type_enabled(*MEMORY[0x277CE8FE0], OS_LOG_TYPE_DEFAULT))
     {
       v14 = *error;
-      v17 = 138412546;
-      v18 = databaseCopy;
-      v19 = 2112;
-      v20 = v14;
-      _os_log_impl(&dword_23E5E3000, v13, OS_LOG_TYPE_DEFAULT, "CompetitionStore: Persisting competitions to database [%@] failed with error [%@]", &v17, 0x16u);
+      v16 = 138412546;
+      v17 = databaseCopy;
+      v18 = 2112;
+      v19 = v14;
+      _os_log_impl(&dword_23E5E3000, v13, OS_LOG_TYPE_DEFAULT, "CompetitionStore: Persisting competitions to database [%@] failed with error [%@]", &v16, 0x16u);
     }
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
 - (void)_queue_saveCompetitionListsToCache:(id)cache owner:(int64_t)owner
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   cacheCopy = cache;
   dispatch_assert_queue_V2(self->_serialQueue);
-  v23 = 0u;
-  v24 = 0u;
-  v21 = 0u;
   v22 = 0u;
+  v23 = 0u;
+  v20 = 0u;
+  v21 = 0u;
   v7 = cacheCopy;
-  v8 = [v7 countByEnumeratingWithState:&v21 objects:v27 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v20 objects:v26 count:16];
   if (v8)
   {
     v10 = v8;
-    v11 = *v22;
+    v11 = *v21;
     v12 = MEMORY[0x277CE8FE0];
     *&v9 = 138412290;
-    v20 = v9;
+    v19 = v9;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v22 != v11)
+        if (*v21 != v11)
         {
           objc_enumerationMutation(v7);
         }
 
-        v14 = *(*(&v21 + 1) + 8 * i);
+        v14 = *(*(&v20 + 1) + 8 * i);
         friendUUID = [v14 friendUUID];
 
         if (friendUUID)
@@ -651,20 +642,18 @@ void __50__ASCompetitionStore__saveCompetitionLists_owner___block_invoke_303(uin
           v18 = *v12;
           if (os_log_type_enabled(*v12, OS_LOG_TYPE_ERROR))
           {
-            *buf = v20;
-            v26 = v14;
+            *buf = v19;
+            v25 = v14;
             _os_log_error_impl(&dword_23E5E3000, v18, OS_LOG_TYPE_ERROR, "Unable to cache competition list with no friend UUID: %@", buf, 0xCu);
           }
         }
       }
 
-      v10 = [v7 countByEnumeratingWithState:&v21 objects:v27 count:16];
+      v10 = [v7 countByEnumeratingWithState:&v20 objects:v26 count:16];
     }
 
     while (v10);
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_cachedCompetitionListForFriendWithUUID:(id)d type:(int64_t)type owner:(int64_t)owner
@@ -770,23 +759,23 @@ void __44__ASCompetitionStore_loadCachedCompetitions__block_invoke_cold_1(uint8_
 
 void __44__ASCompetitionStore_loadCachedCompetitions__block_invoke_cold_2(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0(&dword_23E5E3000, a2, a3, "Unable to load cached competition lists: %@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0_0(&dword_23E5E3000, a2, a3, "Unable to load cached competition lists: %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void __44__ASCompetitionStore_loadCachedCompetitions__block_invoke_cold_3(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0(&dword_23E5E3000, a2, a3, "Unable to load cached competitions: %@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0_0(&dword_23E5E3000, a2, a3, "Unable to load cached competitions: %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)_saveCompetitionLists:(uint64_t)a3 owner:(uint64_t)a4 .cold.1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0(&dword_23E5E3000, a2, a3, "Error saving competition lists: %@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0_0(&dword_23E5E3000, a2, a3, "Error saving competition lists: %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

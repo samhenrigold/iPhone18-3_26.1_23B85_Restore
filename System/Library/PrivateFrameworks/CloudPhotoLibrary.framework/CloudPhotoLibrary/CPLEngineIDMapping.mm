@@ -1,5 +1,6 @@
 @interface CPLEngineIDMapping
 - (BOOL)addAddEventForRecordWithLocalScopedIdentifier:(id)identifier direction:(unint64_t)direction error:(id *)error;
+- (BOOL)addCloudScopedIdentifier:(id)identifier forLocalScopedIdentifier:(id)scopedIdentifier isFinal:(BOOL)final direction:(unint64_t)direction error:(id *)error;
 - (BOOL)addDeleteEventForRecordWithLocalScopedIdentifier:(id)identifier direction:(unint64_t)direction error:(id *)error;
 - (BOOL)deleteRecordsForScopeIndex:(int64_t)index maxCount:(int64_t)count deletedCount:(int64_t *)deletedCount error:(id *)error;
 - (BOOL)hasPendingIdentifiers;
@@ -11,6 +12,7 @@
 - (id)firstAvailableCloudScopedIdentifierForProposedCloudScopedIdentifier:(id)identifier;
 - (id)localScopedIdentifierForCloudScopedIdentifier:(id)identifier isFinal:(BOOL *)final;
 - (id)localScopedIdentifierForCloudScopedIdentifierIncludeRemappedRecords:(id)records;
+- (id)setupCloudScopedIdentifier:(id)identifier forLocalScopedIdentifier:(id)scopedIdentifier isFinal:(BOOL)final direction:(unint64_t)direction error:(id *)error;
 @end
 
 @implementation CPLEngineIDMapping
@@ -80,7 +82,7 @@
 
 - (BOOL)setFinalCloudScopedIdentifier:(id)identifier forPendingCloudScopedIdentifier:(id)scopedIdentifier error:(id *)error
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   scopedIdentifierCopy = scopedIdentifier;
   if ((_CPLSilentLogging & 1) == 0)
@@ -88,18 +90,17 @@
     v10 = __CPLStorageOSLogDomain_6249();
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
     {
-      v15 = 138412546;
-      v16 = scopedIdentifierCopy;
-      v17 = 2112;
-      v18 = identifierCopy;
-      _os_log_impl(&dword_1DC05A000, v10, OS_LOG_TYPE_DEBUG, "Remapping cloud identifier %@ to %@", &v15, 0x16u);
+      v14 = 138412546;
+      v15 = scopedIdentifierCopy;
+      v16 = 2112;
+      v17 = identifierCopy;
+      _os_log_impl(&dword_1DC05A000, v10, OS_LOG_TYPE_DEBUG, "Remapping cloud identifier %@ to %@", &v14, 0x16u);
     }
   }
 
   platformObject = [(CPLEngineStorage *)self platformObject];
   v12 = [platformObject setFinalCloudScopedIdentifier:identifierCopy forPendingCloudScopedIdentifier:scopedIdentifierCopy error:error];
 
-  v13 = *MEMORY[0x1E69E9840];
   return v12;
 }
 
@@ -135,6 +136,127 @@
   }
 
   return v8;
+}
+
+- (id)setupCloudScopedIdentifier:(id)identifier forLocalScopedIdentifier:(id)scopedIdentifier isFinal:(BOOL)final direction:(unint64_t)direction error:(id *)error
+{
+  finalCopy = final;
+  v29 = *MEMORY[0x1E69E9840];
+  identifierCopy = identifier;
+  scopedIdentifierCopy = scopedIdentifier;
+  v14 = [(CPLEngineIDMapping *)self firstAvailableCloudScopedIdentifierForProposedCloudScopedIdentifier:identifierCopy];
+  if ([v14 isEqual:identifierCopy])
+  {
+    if (_CPLSilentLogging)
+    {
+      goto LABEL_14;
+    }
+
+    v15 = __CPLStorageOSLogDomain_6249();
+    if (!os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+    {
+      goto LABEL_13;
+    }
+
+    v16 = " temporarily";
+    *v26 = 138412802;
+    *&v26[4] = scopedIdentifierCopy;
+    if (finalCopy)
+    {
+      v16 = "";
+    }
+
+    *&v26[12] = 2112;
+    *&v26[14] = v14;
+    *&v26[22] = 2080;
+    v27 = v16;
+    v17 = "Mapping local identifier %@ to cloud identifier %@%s";
+    v18 = v15;
+    v19 = OS_LOG_TYPE_DEBUG;
+    v20 = 32;
+    goto LABEL_12;
+  }
+
+  if (_CPLSilentLogging)
+  {
+    goto LABEL_14;
+  }
+
+  v15 = __CPLStorageOSLogDomain_6249();
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+  {
+    v21 = " temporarily";
+    *v26 = 138413058;
+    *&v26[4] = scopedIdentifierCopy;
+    *&v26[12] = 2112;
+    if (finalCopy)
+    {
+      v21 = "";
+    }
+
+    *&v26[14] = v14;
+    *&v26[22] = 2080;
+    v27 = v21;
+    LOWORD(v28) = 2112;
+    *(&v28 + 2) = identifierCopy;
+    v17 = "Mapping local identifier %@ to cloud identifier %@%s [%@ was already taken]";
+    v18 = v15;
+    v19 = OS_LOG_TYPE_DEFAULT;
+    v20 = 42;
+LABEL_12:
+    _os_log_impl(&dword_1DC05A000, v18, v19, v17, v26, v20);
+  }
+
+LABEL_13:
+
+LABEL_14:
+  v22 = [(CPLEngineStorage *)self platformObject:*v26];
+  v23 = [v22 addCloudScopedIdentifier:v14 forLocalScopedIdentifier:scopedIdentifierCopy isFinal:finalCopy direction:direction error:error];
+
+  if (v23)
+  {
+    v24 = v14;
+  }
+
+  else
+  {
+    v24 = 0;
+  }
+
+  return v24;
+}
+
+- (BOOL)addCloudScopedIdentifier:(id)identifier forLocalScopedIdentifier:(id)scopedIdentifier isFinal:(BOOL)final direction:(unint64_t)direction error:(id *)error
+{
+  finalCopy = final;
+  v22 = *MEMORY[0x1E69E9840];
+  identifierCopy = identifier;
+  scopedIdentifierCopy = scopedIdentifier;
+  if ((_CPLSilentLogging & 1) == 0)
+  {
+    v14 = __CPLStorageOSLogDomain_6249();
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+    {
+      v15 = " temporarily";
+      *v19 = 138412802;
+      *&v19[4] = scopedIdentifierCopy;
+      if (finalCopy)
+      {
+        v15 = "";
+      }
+
+      *&v19[12] = 2112;
+      *&v19[14] = identifierCopy;
+      v20 = 2080;
+      v21 = v15;
+      _os_log_impl(&dword_1DC05A000, v14, OS_LOG_TYPE_DEBUG, "Mapping local identifier %@ to cloud identifier %@%s", v19, 0x20u);
+    }
+  }
+
+  v16 = [(CPLEngineStorage *)self platformObject:*v19];
+  v17 = [v16 addCloudScopedIdentifier:identifierCopy forLocalScopedIdentifier:scopedIdentifierCopy isFinal:finalCopy direction:direction error:error];
+
+  return v17;
 }
 
 - (id)localScopedIdentifierForCloudScopedIdentifierIncludeRemappedRecords:(id)records
@@ -176,7 +298,7 @@
 
 - (id)cloudScopedIdentifierForLocalScopedIdentifier:(id)identifier isFinal:(BOOL *)final
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   platformObject = [(CPLEngineStorage *)self platformObject];
   v9 = [platformObject cloudScopedIdentifierForLocalScopedIdentifier:identifierCopy isFinal:final];
@@ -185,23 +307,21 @@
   {
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v12 = __CPLStorageOSLogDomain_6249();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      v11 = __CPLStorageOSLogDomain_6249();
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v16 = identifierCopy;
-        _os_log_impl(&dword_1DC05A000, v12, OS_LOG_TYPE_ERROR, "No cloud identifier for %@ means the cloud identifier should not be final", buf, 0xCu);
+        v15 = identifierCopy;
+        _os_log_impl(&dword_1DC05A000, v11, OS_LOG_TYPE_ERROR, "No cloud identifier for %@ means the cloud identifier should not be final", buf, 0xCu);
       }
     }
 
     currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
-    v14 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Engine/Storage/CPLEngineIDMapping.m"];
-    [currentHandler handleFailureInMethod:a2 object:self file:v14 lineNumber:33 description:{@"No cloud identifier for %@ means the cloud identifier should not be final", identifierCopy}];
+    v13 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Engine/Storage/CPLEngineIDMapping.m"];
+    [currentHandler handleFailureInMethod:a2 object:self file:v13 lineNumber:33 description:{@"No cloud identifier for %@ means the cloud identifier should not be final", identifierCopy}];
 
     abort();
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return v9;
 }

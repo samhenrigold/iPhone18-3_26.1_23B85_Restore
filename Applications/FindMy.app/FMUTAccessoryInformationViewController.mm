@@ -19,7 +19,7 @@
   v4 = *(v3 - 8);
   __chkstk_darwin(v3);
   v6 = &v10 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v7 = type metadata accessor for FMUTAccessoryInformationViewController();
+  v7 = type metadata accessor for FMUTAccessoryInformationViewController(0);
   v11.receiver = self;
   v11.super_class = v7;
   selfCopy = self;
@@ -36,7 +36,7 @@
 {
   appearCopy = appear;
   v7.receiver = self;
-  v7.super_class = type metadata accessor for FMUTAccessoryInformationViewController();
+  v7.super_class = type metadata accessor for FMUTAccessoryInformationViewController(0);
   v4 = v7.receiver;
   [(FMUTAccessoryInformationViewController *)&v7 viewDidAppear:appearCopy];
   v5 = *(*&v4[OBJC_IVAR____TtC6FindMy38FMUTAccessoryInformationViewController_mediator] + 24);
@@ -56,7 +56,7 @@
 {
   appearCopy = appear;
   v4.receiver = self;
-  v4.super_class = type metadata accessor for FMUTAccessoryInformationViewController();
+  v4.super_class = type metadata accessor for FMUTAccessoryInformationViewController(0);
   [(FMUTAccessoryInformationViewController *)&v4 viewWillAppear:appearCopy];
 }
 
@@ -65,12 +65,13 @@
   v3 = *(&self->super.super.super.isa + OBJC_IVAR____TtC6FindMy38FMUTAccessoryInformationViewController_scrollHandler);
   if (v3)
   {
+    v5 = *&self->scrollHandler[OBJC_IVAR____TtC6FindMy38FMUTAccessoryInformationViewController_scrollHandler];
     scrollCopy = scroll;
     selfCopy = self;
-    sub_100062900(v3);
-    v3(scrollCopy);
+    v8 = sub_100062900(v3, v5);
+    v3(scrollCopy, v8);
 
-    sub_10001835C(v3);
+    sub_10001835C(v3, v5);
   }
 }
 

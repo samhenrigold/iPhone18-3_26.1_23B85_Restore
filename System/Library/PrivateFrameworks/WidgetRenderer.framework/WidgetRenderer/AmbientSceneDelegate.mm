@@ -39,7 +39,7 @@
   *(&self->super.super.super.super.isa + OBJC_IVAR____TtC14WidgetRenderer20AmbientSceneDelegate__viewController) = 0;
   *(&self->super.super.super.super.isa + OBJC_IVAR____TtC14WidgetRenderer20AmbientSceneDelegate__viewModel) = 0;
   v3.receiver = self;
-  v3.super_class = type metadata accessor for AmbientSceneDelegate();
+  v3.super_class = type metadata accessor for AmbientSceneDelegate(0);
   return [(SingleActivitySceneDelegate *)&v3 init];
 }
 

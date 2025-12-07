@@ -24,7 +24,7 @@
 
     if (byte_1002C5640 == 1)
     {
-      sub_1001AE9FC();
+      sub_1001AE9FC(v3);
     }
   }
 }
@@ -86,17 +86,18 @@
       sub_1001AEBE8(self, completeCopy);
     }
 
-    if (([(CKEventMetric *)self->_ckEventMetric associateWithCompletedOperation:completeCopy]& 1) == 0 && (_CPLSilentLogging & 1) == 0)
+    v5 = [(CKEventMetric *)self->_ckEventMetric associateWithCompletedOperation:completeCopy];
+    if ((v5 & 1) == 0 && (_CPLSilentLogging & 1) == 0)
     {
-      v5 = sub_1000ABB78();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+      v6 = sub_1000ABB78(v5);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
       {
         cplOperationClassDescription = [completeCopy cplOperationClassDescription];
-        v7 = 138412546;
+        v8 = 138412546;
         selfCopy = self;
-        v9 = 2112;
-        v10 = cplOperationClassDescription;
-        _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_ERROR, "%@: failed to associate with completed %@", &v7, 0x16u);
+        v10 = 2112;
+        v11 = cplOperationClassDescription;
+        _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_ERROR, "%@: failed to associate with completed %@", &v8, 0x16u);
       }
     }
 
@@ -204,9 +205,9 @@
 - (CPLCloudKitMetric)initWithName:(id)name
 {
   nameCopy = name;
-  v16.receiver = self;
-  v16.super_class = CPLCloudKitMetric;
-  v5 = [(CPLCloudKitMetric *)&v16 init];
+  v17.receiver = self;
+  v17.super_class = CPLCloudKitMetric;
+  v5 = [(CPLCloudKitMetric *)&v17 init];
   if (v5)
   {
     v6 = [nameCopy copy];
@@ -225,12 +226,12 @@
 
     if (byte_1002C5640 == 1 && (_CPLSilentLogging & 1) == 0)
     {
-      v15 = sub_1000ABB78();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+      v16 = sub_1000ABB78(v14);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v18 = v5;
-        _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "%@: starting", buf, 0xCu);
+        v19 = v5;
+        _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "%@: starting", buf, 0xCu);
       }
     }
   }
@@ -245,7 +246,7 @@
     ++self->_outstandingBeginCount;
     if (byte_1002C5640 == 1 && (_CPLSilentLogging & 1) == 0)
     {
-      v3 = sub_1000ABB78();
+      v3 = sub_1000ABB78(self);
       if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
       {
         outstandingBeginCount = self->_outstandingBeginCount;

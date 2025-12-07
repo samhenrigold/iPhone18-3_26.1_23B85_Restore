@@ -35,19 +35,8 @@
         {
           owner = [v15 owner];
 LABEL_16:
-          if (a5)
+          if (a5 || ([owner uniqueIdentifier], v24 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v15, "owner"), v25 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v25, "uniqueIdentifier"), v26 = objc_claimAutoreleasedReturnValue(), v27 = objc_msgSend(v24, "isEqual:", v26), v26, v25, v24, (v27 & 1) != 0))
           {
-            goto LABEL_18;
-          }
-
-          uniqueIdentifier = [owner uniqueIdentifier];
-          owner2 = [v15 owner];
-          uniqueIdentifier2 = [owner2 uniqueIdentifier];
-          v27 = [uniqueIdentifier isEqual:uniqueIdentifier2];
-
-          if (v27)
-          {
-LABEL_18:
             v21 = 1;
 LABEL_30:
 

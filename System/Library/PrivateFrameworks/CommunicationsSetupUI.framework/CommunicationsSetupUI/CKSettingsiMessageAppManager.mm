@@ -87,38 +87,38 @@
 
 - (NSArray)deletableiMessageOnlyApps
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   deletableiMessageOnlyApps = self->_deletableiMessageOnlyApps;
   if (!deletableiMessageOnlyApps)
   {
     v4 = objc_alloc_init(MEMORY[0x277CBEB18]);
     alliMessageApps = [(CKSettingsiMessageAppManager *)self alliMessageApps];
+    v14 = 0u;
     v15 = 0u;
     v16 = 0u;
     v17 = 0u;
-    v18 = 0u;
-    v6 = [alliMessageApps countByEnumeratingWithState:&v15 objects:v19 count:16];
+    v6 = [alliMessageApps countByEnumeratingWithState:&v14 objects:v18 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v16;
+      v8 = *v15;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v16 != v8)
+          if (*v15 != v8)
           {
             objc_enumerationMutation(alliMessageApps);
           }
 
-          v10 = *(*(&v15 + 1) + 8 * i);
+          v10 = *(*(&v14 + 1) + 8 * i);
           if ([v10 isDeletable] && objc_msgSend(v10, "isiMessageAppOnly"))
           {
             [v4 addObject:v10];
           }
         }
 
-        v7 = [alliMessageApps countByEnumeratingWithState:&v15 objects:v19 count:16];
+        v7 = [alliMessageApps countByEnumeratingWithState:&v14 objects:v18 count:16];
       }
 
       while (v7);
@@ -130,8 +130,6 @@
 
     deletableiMessageOnlyApps = self->_deletableiMessageOnlyApps;
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return deletableiMessageOnlyApps;
 }
@@ -148,38 +146,38 @@ uint64_t __57__CKSettingsiMessageAppManager_deletableiMessageOnlyApps__block_inv
 
 - (NSArray)deletableAppsWithiMessageApp
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   deletableAppsWithiMessageApp = self->_deletableAppsWithiMessageApp;
   if (!deletableAppsWithiMessageApp)
   {
     v4 = objc_alloc_init(MEMORY[0x277CBEB18]);
     alliMessageApps = [(CKSettingsiMessageAppManager *)self alliMessageApps];
+    v14 = 0u;
     v15 = 0u;
     v16 = 0u;
     v17 = 0u;
-    v18 = 0u;
-    v6 = [alliMessageApps countByEnumeratingWithState:&v15 objects:v19 count:16];
+    v6 = [alliMessageApps countByEnumeratingWithState:&v14 objects:v18 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v16;
+      v8 = *v15;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v16 != v8)
+          if (*v15 != v8)
           {
             objc_enumerationMutation(alliMessageApps);
           }
 
-          v10 = *(*(&v15 + 1) + 8 * i);
+          v10 = *(*(&v14 + 1) + 8 * i);
           if ([v10 isDeletable] && (objc_msgSend(v10, "isiMessageAppOnly") & 1) == 0)
           {
             [v4 addObject:v10];
           }
         }
 
-        v7 = [alliMessageApps countByEnumeratingWithState:&v15 objects:v19 count:16];
+        v7 = [alliMessageApps countByEnumeratingWithState:&v14 objects:v18 count:16];
       }
 
       while (v7);
@@ -191,8 +189,6 @@ uint64_t __57__CKSettingsiMessageAppManager_deletableiMessageOnlyApps__block_inv
 
     deletableAppsWithiMessageApp = self->_deletableAppsWithiMessageApp;
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return deletableAppsWithiMessageApp;
 }
@@ -209,14 +205,14 @@ uint64_t __60__CKSettingsiMessageAppManager_deletableAppsWithiMessageApp__block_
 
 - (id)appWithBundleID:(id)d
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   dCopy = d;
   [(CKSettingsiMessageAppManager *)self alliMessageApps];
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
-  v5 = v20 = 0u;
-  v6 = [v5 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v5 = v19 = 0u;
+  v6 = [v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (!v6)
   {
     v10 = 0;
@@ -224,17 +220,17 @@ uint64_t __60__CKSettingsiMessageAppManager_deletableAppsWithiMessageApp__block_
   }
 
   v7 = v6;
-  v8 = *v18;
+  v8 = *v17;
   while (2)
   {
     for (i = 0; i != v7; ++i)
     {
-      if (*v18 != v8)
+      if (*v17 != v8)
       {
         objc_enumerationMutation(v5);
       }
 
-      v10 = *(*(&v17 + 1) + 8 * i);
+      v10 = *(*(&v16 + 1) + 8 * i);
       extensionBundleID = [v10 extensionBundleID];
       if ([dCopy isEqualToString:extensionBundleID])
       {
@@ -253,7 +249,7 @@ LABEL_14:
       }
     }
 
-    v7 = [v5 countByEnumeratingWithState:&v17 objects:v21 count:16];
+    v7 = [v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
     v10 = 0;
     if (v7)
     {
@@ -264,8 +260,6 @@ LABEL_14:
   }
 
 LABEL_15:
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -301,80 +295,77 @@ LABEL_15:
 
 - (id)extensionAttributesForExtensionPoint:(id)point
 {
-  v9[1] = *MEMORY[0x277D85DE8];
-  v8 = *MEMORY[0x277CCA0F8];
-  v9[0] = point;
+  v8[1] = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277CCA0F8];
+  v8[0] = point;
   v3 = MEMORY[0x277CBEAC0];
   pointCopy = point;
-  v5 = [v3 dictionaryWithObjects:v9 forKeys:&v8 count:1];
-
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = [v3 dictionaryWithObjects:v8 forKeys:&v7 count:1];
 
   return v5;
 }
 
 - (id)_loadiMessageAppsSyncronouslyForExtensionPoint:(id)point
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   pointCopy = point;
   v5 = [(CKSettingsiMessageAppManager *)self extensionAttributesForExtensionPoint:pointCopy];
-  v23 = 0;
-  v6 = [MEMORY[0x277CCA9C8] extensionsWithMatchingAttributes:v5 error:&v23];
-  v7 = v23;
+  v24 = 0;
+  v6 = [MEMORY[0x277CCA9C8] extensionsWithMatchingAttributes:v5 error:&v24];
+  v7 = v24;
+  v9 = v7;
   if (v7)
   {
-    v8 = csui_log();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v10 = csui_log(v7, v8);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      [(CKSettingsiMessageAppManager *)pointCopy _loadiMessageAppsSyncronouslyForExtensionPoint:v8];
+      [(CKSettingsiMessageAppManager *)pointCopy _loadiMessageAppsSyncronouslyForExtensionPoint:v10];
     }
 
-    v9 = MEMORY[0x277CBEBF8];
+    v11 = MEMORY[0x277CBEBF8];
   }
 
   else
   {
-    v8 = objc_alloc_init(MEMORY[0x277CBEB18]);
-    v19 = 0u;
+    v10 = objc_alloc_init(MEMORY[0x277CBEB18]);
     v20 = 0u;
     v21 = 0u;
     v22 = 0u;
-    v18 = v6;
-    v10 = v6;
-    v11 = [v10 countByEnumeratingWithState:&v19 objects:v24 count:16];
-    if (v11)
+    v23 = 0u;
+    v19 = v6;
+    v12 = v6;
+    v13 = [v12 countByEnumeratingWithState:&v20 objects:v25 count:16];
+    if (v13)
     {
-      v12 = v11;
-      v13 = *v20;
+      v14 = v13;
+      v15 = *v21;
       do
       {
-        for (i = 0; i != v12; ++i)
+        for (i = 0; i != v14; ++i)
         {
-          if (*v20 != v13)
+          if (*v21 != v15)
           {
-            objc_enumerationMutation(v10);
+            objc_enumerationMutation(v12);
           }
 
-          v15 = [[CKSettingsiMessageApp alloc] initWithExtension:*(*(&v19 + 1) + 8 * i)];
-          if (v15)
+          v17 = [[CKSettingsiMessageApp alloc] initWithExtension:*(*(&v20 + 1) + 8 * i)];
+          if (v17)
           {
-            [v8 addObject:v15];
+            [v10 addObject:v17];
           }
         }
 
-        v12 = [v10 countByEnumeratingWithState:&v19 objects:v24 count:16];
+        v14 = [v12 countByEnumeratingWithState:&v20 objects:v25 count:16];
       }
 
-      while (v12);
+      while (v14);
     }
 
-    v9 = [v8 copy];
-    v6 = v18;
+    v11 = [v10 copy];
+    v6 = v19;
   }
 
-  v16 = *MEMORY[0x277D85DE8];
-
-  return v9;
+  return v11;
 }
 
 - (id)_beginMonitoringExtensionPoint:(id)point
@@ -403,13 +394,13 @@ void __63__CKSettingsiMessageAppManager__beginMonitoringExtensionPoint___block_i
   v14 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
-  v5 = csui_log();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v6 = csui_log(WeakRetained, v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = *(a1 + 32);
+    v7 = *(a1 + 32);
     *buf = 138412290;
-    v13 = v6;
-    _os_log_impl(&dword_243BE5000, v5, OS_LOG_TYPE_DEFAULT, "Received updated extension list for extension point: %@", buf, 0xCu);
+    v13 = v7;
+    _os_log_impl(&dword_243BE5000, v6, OS_LOG_TYPE_DEFAULT, "Received updated extension list for extension point: %@", buf, 0xCu);
   }
 
   if (WeakRetained)
@@ -423,37 +414,35 @@ void __63__CKSettingsiMessageAppManager__beginMonitoringExtensionPoint___block_i
     v11 = WeakRetained;
     dispatch_async(MEMORY[0x277D85CD0], block);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __63__CKSettingsiMessageAppManager__beginMonitoringExtensionPoint___block_invoke_109(id *a1)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v2 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   v3 = a1[4];
-  v4 = [v3 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v17;
+    v6 = *v16;
     do
     {
       v7 = 0;
       do
       {
-        if (*v17 != v6)
+        if (*v16 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = *(*(&v16 + 1) + 8 * v7);
+        v8 = *(*(&v15 + 1) + 8 * v7);
         v9 = [CKSettingsiMessageApp alloc];
-        v10 = [(CKSettingsiMessageApp *)v9 initWithExtension:v8, v16];
+        v10 = [(CKSettingsiMessageApp *)v9 initWithExtension:v8, v15];
         if (v10)
         {
           [v2 addObject:v10];
@@ -463,7 +452,7 @@ void __63__CKSettingsiMessageAppManager__beginMonitoringExtensionPoint___block_i
       }
 
       while (v5 != v7);
-      v5 = [v3 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v5);
@@ -490,8 +479,6 @@ LABEL_14:
 LABEL_15:
   [a1[6] _clearCacheForDerivableiMessageAppLists];
   [a1[6] _notifyForInstalledAppChange];
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_notifyForInstalledAppChange
@@ -527,11 +514,10 @@ LABEL_15:
 
 - (void)_loadiMessageAppsSyncronouslyForExtensionPoint:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_243BE5000, a2, OS_LOG_TYPE_ERROR, "Error loading extensions for extension point: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_243BE5000, a2, OS_LOG_TYPE_ERROR, "Error loading extensions for extension point: %@", &v2, 0xCu);
 }
 
 @end

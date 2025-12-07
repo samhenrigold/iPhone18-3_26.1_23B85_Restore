@@ -150,7 +150,7 @@ id __29__CRSet_initWithCRCoder_set___block_invoke(uint64_t a1, uint64_t a2, void
       v9 = *(CRDT::Dictionary_Element::default_instance(v6) + 48);
     }
 
-    v8 = [(CRDT::Dictionary_Element *)v7 decodeObjectForProtobufObjectID:v9];
+    v8 = [v7 decodeObjectForProtobufObjectID:v9];
   }
 
   else
@@ -223,36 +223,34 @@ id __49__CRSet_initWithCRCoder_set_elementValueDecoder___block_invoke(uint64_t a
 
 - (NSArray)allObjects
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v3 = [MEMORY[0x1E695DF70] arrayWithCapacity:{-[CRSet count](self, "count")}];
-  v12 = 0u;
-  v13 = 0u;
-  v10 = 0u;
   v11 = 0u;
+  v12 = 0u;
+  v9 = 0u;
+  v10 = 0u;
   dictionary = [(CRSet *)self dictionary];
-  v5 = [dictionary countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v5 = [dictionary countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v5)
   {
-    v6 = *v11;
+    v6 = *v10;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v11 != v6)
+        if (*v10 != v6)
         {
           objc_enumerationMutation(dictionary);
         }
 
-        [v3 addObject:*(*(&v10 + 1) + 8 * i)];
+        [v3 addObject:*(*(&v9 + 1) + 8 * i)];
       }
 
-      v5 = [dictionary countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v5 = [dictionary countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v5);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 
   return v3;
 }
@@ -290,41 +288,39 @@ id __49__CRSet_initWithCRCoder_set_elementValueDecoder___block_invoke(uint64_t a
 
 - (void)addObject:(id)object
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   objectCopy = object;
   dictionary = [(CRSet *)self dictionary];
   [dictionary setObject:objectCopy forKey:objectCopy];
 
-  v13 = 0u;
-  v14 = 0u;
-  v11 = 0u;
   v12 = 0u;
+  v13 = 0u;
+  v10 = 0u;
+  v11 = 0u;
   observers = [(CRSet *)self observers];
-  v7 = [observers countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v7 = [observers countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v7)
   {
-    v8 = *v12;
+    v8 = *v11;
     do
     {
       v9 = 0;
       do
       {
-        if (*v12 != v8)
+        if (*v11 != v8)
         {
           objc_enumerationMutation(observers);
         }
 
-        [*(*(&v11 + 1) + 8 * v9++) setUpdated:self];
+        [*(*(&v10 + 1) + 8 * v9++) setUpdated:self];
       }
 
       while (v7 != v9);
-      v7 = [observers countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v7 = [observers countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v7);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)removeObject:(id)object

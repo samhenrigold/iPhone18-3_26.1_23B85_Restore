@@ -1,4 +1,5 @@
 @interface ASAControl
+- (id)diagnosticDescriptionWithIndent:(id)indent walkTree:(BOOL)tree;
 - (unsigned)controlElement;
 - (unsigned)controlScope;
 @end
@@ -29,6 +30,63 @@
   }
 
   return v4;
+}
+
+- (id)diagnosticDescriptionWithIndent:(id)indent walkTree:(BOOL)tree
+{
+  treeCopy = tree;
+  v14.receiver = self;
+  v14.super_class = ASAControl;
+  indentCopy = indent;
+  v7 = [(ASAObject *)&v14 diagnosticDescriptionWithIndent:indentCopy walkTree:treeCopy];
+  controlScope = [(ASAControl *)self controlScope];
+  LODWORD(v9) = controlScope >> 24;
+  if (((controlScope >> 24) - 32) >= 0x5F)
+  {
+    v9 = 32;
+  }
+
+  else
+  {
+    v9 = v9;
+  }
+
+  LODWORD(v10) = controlScope << 8 >> 24;
+  if ((v10 - 32) >= 0x5F)
+  {
+    v10 = 32;
+  }
+
+  else
+  {
+    v10 = v10;
+  }
+
+  LODWORD(v11) = controlScope >> 8;
+  if ((v11 - 32) >= 0x5F)
+  {
+    v11 = 32;
+  }
+
+  else
+  {
+    v11 = v11;
+  }
+
+  if ((controlScope - 32) >= 0x5F)
+  {
+    v12 = 32;
+  }
+
+  else
+  {
+    v12 = controlScope;
+  }
+
+  [v7 appendFormat:@"%@|    Control Scope: %c%c%c%c\n", indentCopy, v9, v10, v11, v12];
+  [v7 appendFormat:@"%@|    Control Element: %d\n", indentCopy, -[ASAControl controlElement](self, "controlElement")];
+
+  return v7;
 }
 
 @end

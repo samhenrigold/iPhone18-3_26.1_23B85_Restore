@@ -18,7 +18,7 @@
 {
   if (*(self + OBJC_IVAR____UIViewControllerTransitionOptions_dimmingVisualEffects))
   {
-    sub_188A34624(0, &unk_1EA931120);
+    sub_188A34624(0, &unk_1EA931120, off_1E70EADD8);
 
     v2 = sub_18A4A7518();
   }
@@ -35,7 +35,7 @@
 {
   if (effects)
   {
-    sub_188A34624(0, &unk_1EA931120);
+    sub_188A34624(0, &unk_1EA931120, off_1E70EADD8);
     v4 = sub_18A4A7548();
   }
 

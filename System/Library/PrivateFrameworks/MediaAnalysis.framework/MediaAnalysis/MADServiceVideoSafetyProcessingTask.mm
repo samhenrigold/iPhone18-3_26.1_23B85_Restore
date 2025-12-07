@@ -1102,18 +1102,18 @@ LABEL_34:
 
 - (BOOL)run:(id *)run
 {
-  v187[1] = *MEMORY[0x1E69E9840];
+  v191[1] = *MEMORY[0x1E69E9840];
   if (MediaAnalysisLogLevel() >= 6 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO))
   {
     *buf = 138412290;
-    v177 = objc_opt_class();
-    v5 = v177;
+    v181 = objc_opt_class();
+    v5 = v181;
     _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO, "[%@] running...", buf, 0xCu);
   }
 
-  v173 = 0;
-  v6 = [(MADServiceVideoSafetyProcessingTask *)self validateProcessingSettingsWithError:&v173];
-  v7 = v173;
+  v177 = 0;
+  v6 = [(MADServiceVideoSafetyProcessingTask *)self validateProcessingSettingsWithError:&v177];
+  v7 = v177;
   v8 = v7;
   if (v6)
   {
@@ -1143,8 +1143,8 @@ LABEL_7:
             v44 = [classificationResults objectForKeyedSubscript:*MEMORY[0x1E69AE2E0]];
             v45 = [classificationResults objectForKeyedSubscript:*MEMORY[0x1E69AE2D8]];
             v46 = [v43 initWithIsSensitiveNudity:v44 isSensitiveGoreViolence:v45 scoresForLabels:0];
-            v185 = v46;
-            v47 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v185 count:1];
+            v189 = v46;
+            v47 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v189 count:1];
             [v41 setResults:v47];
 
             (*(self->_completionHandler + 2))();
@@ -1152,7 +1152,7 @@ LABEL_7:
             {
               v48 = objc_opt_class();
               *buf = 138412290;
-              v177 = v48;
+              v181 = v48;
               v49 = v48;
               _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO, "[%@] complete", buf, 0xCu);
             }
@@ -1173,7 +1173,7 @@ LABEL_7:
           goto LABEL_23;
         }
 
-        v168 = v8;
+        v172 = v8;
         if ([(MADServiceVideoSafetyProcessingTask *)self fetchCachedAnalysisResults])
         {
           v34 = objc_alloc_init(MEMORY[0x1E69AE4E8]);
@@ -1191,10 +1191,10 @@ LABEL_7:
             scoresForLabels = 0;
           }
 
-          v73 = [v36 initWithIsSensitiveNudity:v37 isSensitiveGoreViolence:v38 scoresForLabels:scoresForLabels];
-          v184 = v73;
-          v74 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v184 count:1];
-          [v34 setResults:v74];
+          v76 = [v36 initWithIsSensitiveNudity:v37 isSensitiveGoreViolence:v38 scoresForLabels:scoresForLabels];
+          v188 = v76;
+          v77 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v188 count:1];
+          [v34 setResults:v77];
 
           (*(self->_completionHandler + 2))();
           if (self->_enablePowerLog)
@@ -1203,13 +1203,13 @@ LABEL_7:
             MADPLLogIVSProcessing(clientBundleID, 1, [(MADServiceVideoAsset *)self->_asset assetType], v11);
           }
 
-          v8 = v168;
+          v8 = v172;
           if (MediaAnalysisLogLevel() >= 6 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO))
           {
-            v76 = objc_opt_class();
+            v79 = objc_opt_class();
             *buf = 138412290;
-            v177 = v76;
-            v77 = v76;
+            v181 = v79;
+            v80 = v79;
             _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO, "[%@] complete", buf, 0xCu);
           }
 
@@ -1241,90 +1241,95 @@ LABEL_7:
           v56 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:v55];
           [v54 setObject:v56 forKeyedSubscript:*MEMORY[0x1E69CA830]];
 
-          if (MediaAnalysisLogLevel() >= 5 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
+          v57 = MediaAnalysisLogLevel();
+          if (v57 >= 5)
           {
-            v57 = objc_opt_class();
-            *buf = 138412546;
-            v177 = v57;
-            v178 = 1024;
-            LODWORD(v179) = v55;
-            v58 = v57;
-            _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "[%@] The safetyModel = %u", buf, 0x12u);
+            v57 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT);
+            if (v57)
+            {
+              v58 = objc_opt_class();
+              *buf = 138412546;
+              v181 = v58;
+              v182 = 1024;
+              LODWORD(v183) = v55;
+              v59 = v58;
+              _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "[%@] The safetyModel = %u", buf, 0x12u);
+            }
           }
 
-          v59 = VCPSignPostLog();
-          v60 = os_signpost_id_generate(v59);
+          v60 = VCPSignPostLog(v57);
+          v61 = os_signpost_id_generate(v60);
 
-          v61 = VCPSignPostLog();
-          v62 = v61;
-          if (v60 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v61))
+          v63 = VCPSignPostLog(v62);
+          v64 = v63;
+          if (v61 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v63))
           {
             *buf = 0;
-            _os_signpost_emit_with_name_impl(&dword_1C9B70000, v62, OS_SIGNPOST_INTERVAL_BEGIN, v60, "CommSafetyHandler_Init", "", buf, 2u);
+            _os_signpost_emit_with_name_impl(&dword_1C9B70000, v64, OS_SIGNPOST_INTERVAL_BEGIN, v61, "CommSafetyHandler_Init", "", buf, 2u);
           }
 
-          v172 = 0;
-          v166 = v54;
-          v63 = [objc_alloc(MEMORY[0x1E69CA710]) initWithOptions:v54 error:&v172];
-          v167 = v172;
+          v176 = 0;
+          v170 = v54;
+          v65 = [objc_alloc(MEMORY[0x1E69CA710]) initWithOptions:v54 error:&v176];
+          v171 = v176;
           handler = self->_handler;
-          self->_handler = v63;
+          self->_handler = v65;
 
-          v65 = VCPSignPostLog();
-          v66 = v65;
-          if (v60 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v65))
+          v68 = VCPSignPostLog(v67);
+          v69 = v68;
+          if (v61 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v68))
           {
             *buf = 0;
-            _os_signpost_emit_with_name_impl(&dword_1C9B70000, v66, OS_SIGNPOST_INTERVAL_END, v60, "CommSafetyHandler_Init", "", buf, 2u);
+            _os_signpost_emit_with_name_impl(&dword_1C9B70000, v69, OS_SIGNPOST_INTERVAL_END, v61, "CommSafetyHandler_Init", "", buf, 2u);
           }
 
-          if (!self->_handler || v167)
+          if (!self->_handler || v171)
           {
             if (MediaAnalysisLogLevel() >= 3 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
             {
-              v89 = objc_opt_class();
-              v90 = v89;
-              v91 = objc_opt_class();
-              v92 = v91;
-              v93 = [v167 description];
+              v92 = objc_opt_class();
+              v93 = v92;
+              v94 = objc_opt_class();
+              v95 = v94;
+              v96 = [v171 description];
               *buf = 138412802;
-              v177 = v89;
-              v178 = 2112;
-              v179 = v91;
-              v180 = 2112;
-              v181 = v93;
+              v181 = v92;
+              v182 = 2112;
+              v183 = v94;
+              v184 = 2112;
+              v185 = v96;
               _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "[%@] Failed to create %@ (%@)", buf, 0x20u);
             }
 
             if (run)
             {
-              v94 = [v167 copy];
+              v97 = [v171 copy];
               v22 = 0;
-              v70 = *run;
-              *run = v94;
+              v73 = *run;
+              *run = v97;
 LABEL_74:
-              v8 = v168;
+              v8 = v172;
 LABEL_141:
 
               goto LABEL_142;
             }
 
             v22 = 0;
-            v8 = v168;
+            v8 = v172;
           }
 
           else
           {
-            v67 = [objc_alloc(MEMORY[0x1E69CA790]) initWithMLHandler:self->_handler];
+            v70 = [objc_alloc(MEMORY[0x1E69CA790]) initWithMLHandler:self->_handler];
             videoAnalyzer = self->_videoAnalyzer;
-            self->_videoAnalyzer = v67;
+            self->_videoAnalyzer = v70;
 
             if (self->_videoAnalyzer)
             {
-              v171 = 0;
-              v69 = [(MADServiceVideoSafetyProcessingTask *)self configureVideoProcessorWithError:&v171];
-              v70 = v171;
-              if (v69)
+              v175 = 0;
+              v72 = [(MADServiceVideoSafetyProcessingTask *)self configureVideoProcessorWithError:&v175];
+              v73 = v175;
+              if (v72)
               {
                 sensitiveFrameCountThreshold = [(MADVideoSafetyClassificationRequest *)self->_request sensitiveFrameCountThreshold];
                 if (sensitiveFrameCountThreshold)
@@ -1340,92 +1345,91 @@ LABEL_141:
 
                 if (MediaAnalysisLogLevel() >= 6 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO))
                 {
-                  v114 = objc_opt_class();
+                  v117 = objc_opt_class();
                   *buf = 138412546;
-                  v177 = v114;
-                  v178 = 1024;
-                  LODWORD(v179) = unsignedIntegerValue;
-                  v115 = v114;
+                  v181 = v117;
+                  v182 = 1024;
+                  LODWORD(v183) = unsignedIntegerValue;
+                  v118 = v117;
                   _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO, "[%@] Configuring sensitiveFrameCountThreshold: %u", buf, 0x12u);
                 }
 
-                v159 = objc_alloc(MEMORY[0x1E69CA788]);
+                v163 = objc_alloc(MEMORY[0x1E69CA788]);
                 sampling = [(MADVideoSafetyClassificationRequest *)self->_request sampling];
                 framesPerSync = [sampling framesPerSync];
                 sampling2 = [(MADVideoSafetyClassificationRequest *)self->_request sampling];
                 frameLimit = [sampling2 frameLimit];
-                v162 = v70;
+                v166 = v73;
                 if (frameLimit)
                 {
-                  v117 = MEMORY[0x1E696AD98];
+                  v120 = MEMORY[0x1E696AD98];
                   sampling3 = [(MADVideoSafetyClassificationRequest *)self->_request sampling];
-                  v118 = [v117 numberWithUnsignedInteger:{objc_msgSend(sampling3, "frameLimit")}];
+                  v121 = [v120 numberWithUnsignedInteger:{objc_msgSend(sampling3, "frameLimit")}];
                 }
 
                 else
                 {
-                  v118 = 0;
+                  v121 = 0;
                 }
 
                 sampling4 = [(MADVideoSafetyClassificationRequest *)self->_request sampling];
-                v165 = [v159 initWithOptions:0 framesPerSync:framesPerSync frameLimit:v118 sensitiveFrameCountThreshold:unsignedIntegerValue useUniformSampling:{objc_msgSend(sampling4, "uniformSampling")}];
+                v169 = [v163 initWithOptions:0 framesPerSync:framesPerSync frameLimit:v121 sensitiveFrameCountThreshold:unsignedIntegerValue useUniformSampling:{objc_msgSend(sampling4, "uniformSampling")}];
 
                 if (frameLimit)
                 {
                 }
 
-                [(SCMLVideoAnalyzer *)self->_videoAnalyzer startAnalysisWithConfig:v165];
-                v120 = VCPSignPostLog();
-                v121 = os_signpost_id_generate(v120);
+                v123 = VCPSignPostLog([(SCMLVideoAnalyzer *)self->_videoAnalyzer startAnalysisWithConfig:v169]);
+                v124 = os_signpost_id_generate(v123);
 
-                v122 = VCPSignPostLog();
-                v123 = v122;
-                if (v121 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v122))
+                v126 = VCPSignPostLog(v125);
+                v127 = v126;
+                if (v124 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v126))
                 {
                   signpostPayload = [(MADServiceVideoProcessingSubtask *)self signpostPayload];
                   *buf = 138412290;
-                  v177 = signpostPayload;
-                  _os_signpost_emit_with_name_impl(&dword_1C9B70000, v123, OS_SIGNPOST_INTERVAL_BEGIN, v121, "VCPVideoProcessor_Analyze", "%@", buf, 0xCu);
+                  v181 = signpostPayload;
+                  _os_signpost_emit_with_name_impl(&dword_1C9B70000, v127, OS_SIGNPOST_INTERVAL_BEGIN, v124, "VCPVideoProcessor_Analyze", "%@", buf, 0xCu);
                 }
 
-                v125 = self->_videoProcessor;
-                v170 = 0;
-                v126 = [(VCPBlockBasedVideoProcessorProtocol *)v125 analyzeWithError:&v170];
-                v127 = v170;
-                v128 = v127;
-                if (v126)
+                v129 = self->_videoProcessor;
+                v174 = 0;
+                v130 = [(VCPBlockBasedVideoProcessorProtocol *)v129 analyzeWithError:&v174];
+                v131 = v174;
+                v132 = v131;
+                if (v130)
                 {
-                  v164 = v127;
-                  v129 = VCPSignPostLog();
-                  v130 = v129;
-                  if (v121 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v129))
+                  v168 = v131;
+                  v133 = VCPSignPostLog(v131);
+                  v134 = v133;
+                  if (v124 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v133))
                   {
                     signpostPayload2 = [(MADServiceVideoProcessingSubtask *)self signpostPayload];
                     *buf = 138412290;
-                    v177 = signpostPayload2;
-                    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v130, OS_SIGNPOST_INTERVAL_END, v121, "VCPVideoProcessor_Analyze", "%@", buf, 0xCu);
+                    v181 = signpostPayload2;
+                    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v134, OS_SIGNPOST_INTERVAL_END, v124, "VCPVideoProcessor_Analyze", "%@", buf, 0xCu);
                   }
 
-                  v70 = v162;
+                  v73 = v166;
                   if (!self->_processError)
                   {
-                    v169 = 0;
-                    v143 = [(MADServiceVideoSafetyProcessingTask *)self finalizeSafetyResultsWithError:&v169];
-                    v144 = v169;
-                    v142 = v144;
-                    if (v143)
+                    v173 = 0;
+                    v147 = [(MADServiceVideoSafetyProcessingTask *)self finalizeSafetyResultsWithError:&v173];
+                    v148 = v173;
+                    v146 = v148;
+                    if (v147)
                     {
-                      v145 = v144 == 0;
+                      v149 = v148 == 0;
                     }
 
                     else
                     {
-                      v145 = 0;
+                      v149 = 0;
                     }
 
-                    v22 = v145;
-                    v128 = v164;
-                    if (v145)
+                    v22 = v149;
+                    v132 = v168;
+                    if (v149)
                     {
                       (*(self->_completionHandler + 2))();
                       if (self->_enablePowerLog)
@@ -1436,106 +1440,106 @@ LABEL_141:
 
                       if (MediaAnalysisLogLevel() >= 6 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO))
                       {
-                        v147 = objc_opt_class();
+                        v151 = objc_opt_class();
                         *buf = 138412290;
-                        v177 = v147;
-                        v148 = v147;
+                        v181 = v151;
+                        v152 = v151;
                         _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO, "[%@] complete", buf, 0xCu);
                       }
                     }
 
                     else
                     {
-                      v149 = MediaAnalysisLogLevel();
-                      if (v149 >= 3 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+                      v153 = MediaAnalysisLogLevel();
+                      if (v153 >= 3 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
                       {
-                        v150 = objc_opt_class();
-                        v151 = v150;
-                        [v142 description];
-                        v153 = v152 = v143;
+                        v154 = objc_opt_class();
+                        v155 = v154;
+                        [v146 description];
+                        v157 = v156 = v147;
                         *buf = 138412546;
-                        v177 = v150;
-                        v178 = 2112;
-                        v179 = v153;
+                        v181 = v154;
+                        v182 = 2112;
+                        v183 = v157;
                         _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "[%@] Failed to finalize results (%@)", buf, 0x16u);
 
-                        v143 = v152;
-                        v128 = v164;
+                        v147 = v156;
+                        v132 = v168;
                       }
 
                       if (run)
                       {
-                        v154 = [v142 copy];
-                        v155 = *run;
-                        *run = v154;
+                        v158 = [v146 copy];
+                        v159 = *run;
+                        *run = v158;
                       }
                     }
 
                     goto LABEL_137;
                   }
 
-                  v128 = v164;
+                  v132 = v168;
                   if (MediaAnalysisLogLevel() >= 3 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
                   {
-                    v132 = objc_opt_class();
+                    v136 = objc_opt_class();
                     processError = self->_processError;
-                    v134 = v132;
-                    v135 = [(NSError *)processError description];
+                    v138 = v136;
+                    v139 = [(NSError *)processError description];
                     *buf = 138412546;
-                    v177 = v132;
-                    v128 = v164;
-                    v178 = 2112;
-                    v179 = v135;
+                    v181 = v136;
+                    v132 = v168;
+                    v182 = 2112;
+                    v183 = v139;
                     _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "[%@] Failed to process frame buffer (%@)", buf, 0x16u);
 
-                    v70 = v162;
+                    v73 = v166;
                   }
 
                   if (!run)
                   {
                     v22 = 0;
 LABEL_138:
-                    v8 = v168;
+                    v8 = v172;
                     goto LABEL_139;
                   }
 
-                  v136 = self->_processError;
+                  v140 = self->_processError;
                 }
 
                 else
                 {
                   if (MediaAnalysisLogLevel() >= 3 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
                   {
-                    v137 = objc_opt_class();
-                    v138 = v128;
-                    v139 = v137;
-                    v140 = [(NSError *)v138 description];
+                    v141 = objc_opt_class();
+                    v142 = v132;
+                    v143 = v141;
+                    v144 = [(NSError *)v142 description];
                     *buf = 138412546;
-                    v177 = v137;
-                    v178 = 2112;
-                    v179 = v140;
+                    v181 = v141;
+                    v182 = 2112;
+                    v183 = v144;
                     _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "[%@] Failed to process video (%@)", buf, 0x16u);
 
-                    v128 = v138;
+                    v132 = v142;
                   }
 
-                  v70 = v162;
+                  v73 = v166;
                   if (!run)
                   {
                     v22 = 0;
 LABEL_139:
 
-                    v113 = v165;
+                    v116 = v169;
                     goto LABEL_140;
                   }
 
-                  v136 = v128;
+                  v140 = v132;
                 }
 
-                v141 = [(NSError *)v136 copy];
+                v145 = [(NSError *)v140 copy];
                 v22 = 0;
-                v142 = *run;
-                *run = v141;
+                v146 = *run;
+                *run = v145;
 LABEL_137:
 
                 goto LABEL_138;
@@ -1543,30 +1547,30 @@ LABEL_137:
 
               if (MediaAnalysisLogLevel() >= 3 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
               {
-                v106 = objc_opt_class();
-                v107 = v106;
-                v108 = objc_opt_class();
-                v109 = v70;
-                v110 = v108;
-                v111 = [v109 description];
+                v109 = objc_opt_class();
+                v110 = v109;
+                v111 = objc_opt_class();
+                v112 = v73;
+                v113 = v111;
+                v114 = [v112 description];
                 *buf = 138412802;
-                v177 = v106;
-                v178 = 2112;
-                v179 = v108;
-                v180 = 2112;
-                v181 = v111;
+                v181 = v109;
+                v182 = 2112;
+                v183 = v111;
+                v184 = 2112;
+                v185 = v114;
                 _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "[%@] Failed to configure %@ (%@)", buf, 0x20u);
 
-                v70 = v109;
+                v73 = v112;
               }
 
               if (run)
               {
-                v112 = [v70 copy];
+                v115 = [v73 copy];
                 v22 = 0;
-                v113 = *run;
-                *run = v112;
-                v8 = v168;
+                v116 = *run;
+                *run = v115;
+                v8 = v172;
 LABEL_140:
 
                 goto LABEL_141;
@@ -1578,30 +1582,30 @@ LABEL_140:
 
             if (MediaAnalysisLogLevel() >= 3 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
             {
-              v95 = objc_opt_class();
-              v96 = v95;
-              v97 = objc_opt_class();
+              v98 = objc_opt_class();
+              v99 = v98;
+              v100 = objc_opt_class();
               *buf = 138412546;
-              v177 = v95;
-              v178 = 2112;
-              v179 = v97;
-              v98 = v97;
+              v181 = v98;
+              v182 = 2112;
+              v183 = v100;
+              v101 = v100;
               _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "[%@] Failed to create %@", buf, 0x16u);
             }
 
             if (run)
             {
-              v99 = MEMORY[0x1E696ABC0];
-              v100 = *MEMORY[0x1E696A768];
-              v174 = *MEMORY[0x1E696A578];
-              v101 = MEMORY[0x1E696AEC0];
-              v102 = objc_opt_class();
-              v70 = [v101 stringWithFormat:@"[%@] Failed to create %@", v102, objc_opt_class()];
-              v175 = v70;
-              v103 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v175 forKeys:&v174 count:1];
-              v104 = [v99 errorWithDomain:v100 code:-50 userInfo:v103];
-              v105 = *run;
-              *run = v104;
+              v102 = MEMORY[0x1E696ABC0];
+              v103 = *MEMORY[0x1E696A768];
+              v178 = *MEMORY[0x1E696A578];
+              v104 = MEMORY[0x1E696AEC0];
+              v105 = objc_opt_class();
+              v73 = [v104 stringWithFormat:@"[%@] Failed to create %@", v105, objc_opt_class()];
+              v179 = v73;
+              v106 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v179 forKeys:&v178 count:1];
+              v107 = [v102 errorWithDomain:v103 code:-50 userInfo:v106];
+              v108 = *run;
+              *run = v107;
 
               v22 = 0;
               goto LABEL_141;
@@ -1617,20 +1621,20 @@ LABEL_142:
 
         if (MediaAnalysisLogLevel() >= 3 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
         {
-          v78 = objc_opt_class();
+          v81 = objc_opt_class();
           request = self->_request;
-          v80 = v78;
+          v83 = v81;
           requiresBlastdoor2 = [(MADVideoSafetyClassificationRequest *)request requiresBlastdoor];
-          v82 = @"NO";
+          v85 = @"NO";
           if (requiresBlastdoor2)
           {
-            v82 = @"YES";
+            v85 = @"YES";
           }
 
           *buf = 138412546;
-          v177 = v78;
-          v178 = 2112;
-          v179 = v82;
+          v181 = v81;
+          v182 = 2112;
+          v183 = v85;
           _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "[%@] Failed to create video processor (requiresBlastdoor: %@)", buf, 0x16u);
         }
 
@@ -1641,23 +1645,23 @@ LABEL_23:
           goto LABEL_143;
         }
 
-        v83 = MEMORY[0x1E696ABC0];
-        v84 = *MEMORY[0x1E696A768];
-        v182 = *MEMORY[0x1E696A578];
-        v85 = MEMORY[0x1E696AEC0];
-        v86 = objc_opt_class();
+        v86 = MEMORY[0x1E696ABC0];
+        v87 = *MEMORY[0x1E696A768];
+        v186 = *MEMORY[0x1E696A578];
+        v88 = MEMORY[0x1E696AEC0];
+        v89 = objc_opt_class();
         requiresBlastdoor3 = [(MADVideoSafetyClassificationRequest *)self->_request requiresBlastdoor];
-        v88 = @"NO";
+        v91 = @"NO";
         if (requiresBlastdoor3)
         {
-          v88 = @"YES";
+          v91 = @"YES";
         }
 
-        v27 = [v85 stringWithFormat:@"[%@] Failed to create video processor (requiresBlastdoor: %@)", v86, v88];
-        v183 = v27;
-        v28 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v183 forKeys:&v182 count:1];
-        v29 = v83;
-        v30 = v84;
+        v27 = [v88 stringWithFormat:@"[%@] Failed to create video processor (requiresBlastdoor: %@)", v89, v91];
+        v187 = v27;
+        v28 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v187 forKeys:&v186 count:1];
+        v29 = v86;
+        v30 = v87;
         v31 = -50;
 LABEL_22:
         v32 = [v29 errorWithDomain:v30 code:v31 userInfo:v28];
@@ -1681,7 +1685,7 @@ LABEL_22:
     {
       v23 = objc_opt_class();
       *buf = 138412290;
-      v177 = v23;
+      v181 = v23;
       v24 = v23;
       _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "[%@] Failed to obtain video resource", buf, 0xCu);
     }
@@ -1693,10 +1697,10 @@ LABEL_22:
 
     v25 = MEMORY[0x1E696ABC0];
     v26 = *MEMORY[0x1E696A768];
-    v186 = *MEMORY[0x1E696A578];
+    v190 = *MEMORY[0x1E696A578];
     v27 = [MEMORY[0x1E696AEC0] stringWithFormat:@"[%@] Failed to obtain video resource", objc_opt_class()];
-    v187[0] = v27;
-    v28 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v187 forKeys:&v186 count:1];
+    v191[0] = v27;
+    v28 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v191 forKeys:&v190 count:1];
     v29 = v25;
     v30 = v26;
     v31 = -18;

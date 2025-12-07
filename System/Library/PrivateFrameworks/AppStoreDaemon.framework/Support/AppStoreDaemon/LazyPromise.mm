@@ -52,7 +52,7 @@
   promiseCopy = promise;
   v3 = promiseCopy;
   v4 = objc_retainBlock(v8);
-  v5 = sub_10020B714();
+  v5 = sub_10020B714(SyncTaskScheduler);
   v6 = sub_1001CE32C(LazyPromise, v5, v4);
 
   return v6;

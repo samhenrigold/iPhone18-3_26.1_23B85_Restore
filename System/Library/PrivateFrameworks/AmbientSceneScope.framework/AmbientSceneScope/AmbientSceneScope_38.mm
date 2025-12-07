@@ -1,694 +1,694 @@
-void sub_23F225408(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23F225408(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
-  (*(*v2 + 8))(v2);
-  v5 = *(v3 - 112);
-  *(v3 - 112) = 0;
-  if (v5)
+  va_start(va, a3);
+  (*(*v3 + 8))(v3, a2);
+  v6 = *(v4 - 112);
+  *(v4 - 112) = 0;
+  if (v6)
   {
-    (*(*v5 + 8))(v5);
+    (*(*v6 + 8))(v6);
   }
 
   sub_23EF3AE8C(va);
   _Unwind_Resume(a1);
 }
 
-void sub_23F2258C0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23F2258C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
-  sub_23EF3AE8C(v3 - 96);
-  sub_23EF3AE8C(v3 - 80);
-  sub_23EF3AE8C(v2 + 8);
+  va_start(va, a3);
+  sub_23EF3AE8C(v4 - 96);
+  sub_23EF3AE8C(v4 - 80);
+  sub_23EF3AE8C(v3 + 8);
   sub_23EF3AE8C(va);
   _Unwind_Resume(a1);
 }
 
-void sub_23F2258EC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23F2258EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
-  sub_23EF3AE8C(v3 - 96);
-  sub_23EF3AE8C(v3 - 80);
-  sub_23EF3AE8C(v2 + 8);
+  va_start(va, a3);
+  sub_23EF3AE8C(v4 - 96);
+  sub_23EF3AE8C(v4 - 80);
+  sub_23EF3AE8C(v3 + 8);
   sub_23EF3AE8C(va);
   _Unwind_Resume(a1);
 }
 
-void sub_23F225918(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23F225918(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
-  sub_23EF3AE8C(v3 - 96);
-  sub_23EF3AE8C(v3 - 80);
-  sub_23EF3AE8C(v2 + 8);
+  va_start(va, a3);
+  sub_23EF3AE8C(v4 - 96);
+  sub_23EF3AE8C(v4 - 80);
+  sub_23EF3AE8C(v3 + 8);
   sub_23EF3AE8C(va);
   _Unwind_Resume(a1);
 }
 
-void sub_23F225944(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23F225944(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
-  sub_23EF3AE8C(v3 - 96);
-  sub_23EF3AE8C(v3 - 80);
-  sub_23EF3AE8C(v2 + 8);
+  va_start(va, a3);
+  sub_23EF3AE8C(v4 - 96);
+  sub_23EF3AE8C(v4 - 80);
+  sub_23EF3AE8C(v3 + 8);
   sub_23EF3AE8C(va);
   _Unwind_Resume(a1);
 }
 
-void sub_23F225970(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23F225970(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
-  sub_23EF3AE8C(v3 - 96);
-  sub_23EF3AE8C(v3 - 80);
-  sub_23EF3AE8C(v2 + 8);
+  va_start(va, a3);
+  sub_23EF3AE8C(v4 - 96);
+  sub_23EF3AE8C(v4 - 80);
+  sub_23EF3AE8C(v3 + 8);
   sub_23EF3AE8C(va);
   _Unwind_Resume(a1);
 }
 
-void sub_23F22599C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23F22599C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
-  sub_23EF3AE8C(v3 - 96);
-  sub_23EF3AE8C(v3 - 80);
-  sub_23EF3AE8C(v2 + 8);
+  va_start(va, a3);
+  sub_23EF3AE8C(v4 - 96);
+  sub_23EF3AE8C(v4 - 80);
+  sub_23EF3AE8C(v3 + 8);
   sub_23EF3AE8C(va);
   _Unwind_Resume(a1);
 }
 
-void sub_23F2259C8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23F2259C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
-  sub_23EF3AE8C(v3 - 96);
-  sub_23EF3AE8C(v3 - 80);
-  sub_23EF3AE8C(v2 + 8);
+  va_start(va, a3);
+  sub_23EF3AE8C(v4 - 96);
+  sub_23EF3AE8C(v4 - 80);
+  sub_23EF3AE8C(v3 + 8);
   sub_23EF3AE8C(va);
   _Unwind_Resume(a1);
 }
 
-void sub_23F2259F4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23F2259F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
-  sub_23EF3AE8C(v3 - 96);
-  sub_23EF3AE8C(v3 - 80);
-  sub_23EF3AE8C(v2 + 8);
+  va_start(va, a3);
+  sub_23EF3AE8C(v4 - 96);
+  sub_23EF3AE8C(v4 - 80);
+  sub_23EF3AE8C(v3 + 8);
   sub_23EF3AE8C(va);
   _Unwind_Resume(a1);
 }
 
-void sub_23F225A20(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23F225A20(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
-  sub_23EF3AE8C(v3 - 96);
-  sub_23EF3AE8C(v3 - 80);
-  sub_23EF3AE8C(v2 + 8);
+  va_start(va, a3);
+  sub_23EF3AE8C(v4 - 96);
+  sub_23EF3AE8C(v4 - 80);
+  sub_23EF3AE8C(v3 + 8);
   sub_23EF3AE8C(va);
   _Unwind_Resume(a1);
 }
 
-void sub_23F225A4C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23F225A4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
-  sub_23EF3AE8C(v3 - 96);
-  sub_23EF3AE8C(v3 - 80);
-  sub_23EF3AE8C(v2 + 8);
+  va_start(va, a3);
+  sub_23EF3AE8C(v4 - 96);
+  sub_23EF3AE8C(v4 - 80);
+  sub_23EF3AE8C(v3 + 8);
   sub_23EF3AE8C(va);
   _Unwind_Resume(a1);
 }
 
-void sub_23F225A78(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23F225A78(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
-  sub_23EF3AE8C(v3 - 96);
-  sub_23EF3AE8C(v3 - 80);
-  sub_23EF3AE8C(v2 + 8);
+  va_start(va, a3);
+  sub_23EF3AE8C(v4 - 96);
+  sub_23EF3AE8C(v4 - 80);
+  sub_23EF3AE8C(v3 + 8);
   sub_23EF3AE8C(va);
   _Unwind_Resume(a1);
 }
 
-void sub_23F225AA4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23F225AA4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
-  sub_23EF3AE8C(v3 - 96);
-  sub_23EF3AE8C(v3 - 80);
-  sub_23EF3AE8C(v2 + 8);
+  va_start(va, a3);
+  sub_23EF3AE8C(v4 - 96);
+  sub_23EF3AE8C(v4 - 80);
+  sub_23EF3AE8C(v3 + 8);
   sub_23EF3AE8C(va);
   _Unwind_Resume(a1);
 }
 
-void sub_23F225AD0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23F225AD0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
-  sub_23EF3AE8C(v3 - 96);
-  sub_23EF3AE8C(v3 - 80);
-  sub_23EF3AE8C(v2 + 8);
+  va_start(va, a3);
+  sub_23EF3AE8C(v4 - 96);
+  sub_23EF3AE8C(v4 - 80);
+  sub_23EF3AE8C(v3 + 8);
   sub_23EF3AE8C(va);
   _Unwind_Resume(a1);
 }
 
-void sub_23F225AFC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23F225AFC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
-  sub_23EF3AE8C(v3 - 96);
-  sub_23EF3AE8C(v3 - 80);
-  sub_23EF3AE8C(v2 + 8);
+  va_start(va, a3);
+  sub_23EF3AE8C(v4 - 96);
+  sub_23EF3AE8C(v4 - 80);
+  sub_23EF3AE8C(v3 + 8);
   sub_23EF3AE8C(va);
   _Unwind_Resume(a1);
 }
 
-void sub_23F225B28(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23F225B28(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
-  sub_23EF3AE8C(v3 - 96);
-  sub_23EF3AE8C(v3 - 80);
-  sub_23EF3AE8C(v2 + 8);
+  va_start(va, a3);
+  sub_23EF3AE8C(v4 - 96);
+  sub_23EF3AE8C(v4 - 80);
+  sub_23EF3AE8C(v3 + 8);
   sub_23EF3AE8C(va);
   _Unwind_Resume(a1);
 }
 
-void sub_23F225B54(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23F225B54(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
-  sub_23EF3AE8C(v3 - 96);
-  sub_23EF3AE8C(v3 - 80);
-  sub_23EF3AE8C(v2 + 8);
+  va_start(va, a3);
+  sub_23EF3AE8C(v4 - 96);
+  sub_23EF3AE8C(v4 - 80);
+  sub_23EF3AE8C(v3 + 8);
   sub_23EF3AE8C(va);
   _Unwind_Resume(a1);
 }
 
-void sub_23F225B80(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23F225B80(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
-  sub_23EF3AE8C(v3 - 96);
-  sub_23EF3AE8C(v3 - 80);
-  sub_23EF3AE8C(v2 + 8);
+  va_start(va, a3);
+  sub_23EF3AE8C(v4 - 96);
+  sub_23EF3AE8C(v4 - 80);
+  sub_23EF3AE8C(v3 + 8);
   sub_23EF3AE8C(va);
   _Unwind_Resume(a1);
 }
 
-void sub_23F225BAC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23F225BAC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
-  sub_23EF3AE8C(v3 - 96);
-  sub_23EF3AE8C(v3 - 80);
-  sub_23EF3AE8C(v2 + 8);
+  va_start(va, a3);
+  sub_23EF3AE8C(v4 - 96);
+  sub_23EF3AE8C(v4 - 80);
+  sub_23EF3AE8C(v3 + 8);
   sub_23EF3AE8C(va);
   _Unwind_Resume(a1);
 }
 
-void sub_23F225BD8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23F225BD8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
-  sub_23EF3AE8C(v3 - 96);
-  sub_23EF3AE8C(v3 - 80);
-  sub_23EF3AE8C(v2 + 8);
+  va_start(va, a3);
+  sub_23EF3AE8C(v4 - 96);
+  sub_23EF3AE8C(v4 - 80);
+  sub_23EF3AE8C(v3 + 8);
   sub_23EF3AE8C(va);
   _Unwind_Resume(a1);
 }
 
-void sub_23F225C04(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23F225C04(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
-  sub_23EF3AE8C(v3 - 96);
-  sub_23EF3AE8C(v3 - 80);
-  sub_23EF3AE8C(v2 + 8);
+  va_start(va, a3);
+  sub_23EF3AE8C(v4 - 96);
+  sub_23EF3AE8C(v4 - 80);
+  sub_23EF3AE8C(v3 + 8);
   sub_23EF3AE8C(va);
   _Unwind_Resume(a1);
 }
 
-void sub_23F225C30(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23F225C30(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
-  sub_23EF3AE8C(v3 - 96);
-  sub_23EF3AE8C(v3 - 80);
-  sub_23EF3AE8C(v2 + 8);
+  va_start(va, a3);
+  sub_23EF3AE8C(v4 - 96);
+  sub_23EF3AE8C(v4 - 80);
+  sub_23EF3AE8C(v3 + 8);
   sub_23EF3AE8C(va);
   _Unwind_Resume(a1);
 }
 
-void sub_23F225C5C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23F225C5C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
-  sub_23EF3AE8C(v3 - 96);
-  sub_23EF3AE8C(v3 - 80);
-  sub_23EF3AE8C(v2 + 8);
+  va_start(va, a3);
+  sub_23EF3AE8C(v4 - 96);
+  sub_23EF3AE8C(v4 - 80);
+  sub_23EF3AE8C(v3 + 8);
   sub_23EF3AE8C(va);
   _Unwind_Resume(a1);
 }
 
-void sub_23F225C88(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23F225C88(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
-  sub_23EF3AE8C(v3 - 96);
-  sub_23EF3AE8C(v3 - 80);
-  sub_23EF3AE8C(v2 + 8);
+  va_start(va, a3);
+  sub_23EF3AE8C(v4 - 96);
+  sub_23EF3AE8C(v4 - 80);
+  sub_23EF3AE8C(v3 + 8);
   sub_23EF3AE8C(va);
   _Unwind_Resume(a1);
 }
 
-void sub_23F225CB4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23F225CB4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
-  sub_23EF3AE8C(v3 - 96);
-  sub_23EF3AE8C(v3 - 80);
-  sub_23EF3AE8C(v2 + 8);
+  va_start(va, a3);
+  sub_23EF3AE8C(v4 - 96);
+  sub_23EF3AE8C(v4 - 80);
+  sub_23EF3AE8C(v3 + 8);
   sub_23EF3AE8C(va);
   _Unwind_Resume(a1);
 }
 
-void sub_23F225CE0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23F225CE0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
-  sub_23EF3AE8C(v3 - 96);
-  sub_23EF3AE8C(v3 - 80);
-  sub_23EF3AE8C(v2 + 8);
+  va_start(va, a3);
+  sub_23EF3AE8C(v4 - 96);
+  sub_23EF3AE8C(v4 - 80);
+  sub_23EF3AE8C(v3 + 8);
   sub_23EF3AE8C(va);
   _Unwind_Resume(a1);
 }
 
-void sub_23F225D0C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23F225D0C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
-  sub_23EF3AE8C(v3 - 96);
-  sub_23EF3AE8C(v3 - 80);
-  sub_23EF3AE8C(v2 + 8);
+  va_start(va, a3);
+  sub_23EF3AE8C(v4 - 96);
+  sub_23EF3AE8C(v4 - 80);
+  sub_23EF3AE8C(v3 + 8);
   sub_23EF3AE8C(va);
   _Unwind_Resume(a1);
 }
 
-void sub_23F225D38(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23F225D38(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
-  sub_23EF3AE8C(v3 - 96);
-  sub_23EF3AE8C(v3 - 80);
-  sub_23EF3AE8C(v2 + 8);
+  va_start(va, a3);
+  sub_23EF3AE8C(v4 - 96);
+  sub_23EF3AE8C(v4 - 80);
+  sub_23EF3AE8C(v3 + 8);
   sub_23EF3AE8C(va);
   _Unwind_Resume(a1);
 }
 
-void sub_23F225D64(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23F225D64(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
-  sub_23EF3AE8C(v3 - 96);
-  sub_23EF3AE8C(v3 - 80);
-  sub_23EF3AE8C(v2 + 8);
+  va_start(va, a3);
+  sub_23EF3AE8C(v4 - 96);
+  sub_23EF3AE8C(v4 - 80);
+  sub_23EF3AE8C(v3 + 8);
   sub_23EF3AE8C(va);
   _Unwind_Resume(a1);
 }
 
-void sub_23F225D90(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23F225D90(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
-  sub_23EF3AE8C(v3 - 96);
-  sub_23EF3AE8C(v3 - 80);
-  sub_23EF3AE8C(v2 + 8);
+  va_start(va, a3);
+  sub_23EF3AE8C(v4 - 96);
+  sub_23EF3AE8C(v4 - 80);
+  sub_23EF3AE8C(v3 + 8);
   sub_23EF3AE8C(va);
   _Unwind_Resume(a1);
 }
 
-void sub_23F225DBC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23F225DBC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
-  sub_23EF3AE8C(v3 - 96);
-  sub_23EF3AE8C(v3 - 80);
-  sub_23EF3AE8C(v2 + 8);
+  va_start(va, a3);
+  sub_23EF3AE8C(v4 - 96);
+  sub_23EF3AE8C(v4 - 80);
+  sub_23EF3AE8C(v3 + 8);
   sub_23EF3AE8C(va);
   _Unwind_Resume(a1);
 }
 
-void sub_23F225DE8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23F225DE8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
-  sub_23EF3AE8C(v3 - 96);
-  sub_23EF3AE8C(v3 - 80);
-  sub_23EF3AE8C(v2 + 8);
+  va_start(va, a3);
+  sub_23EF3AE8C(v4 - 96);
+  sub_23EF3AE8C(v4 - 80);
+  sub_23EF3AE8C(v3 + 8);
   sub_23EF3AE8C(va);
   _Unwind_Resume(a1);
 }
 
-void sub_23F225E14(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23F225E14(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
-  sub_23EF3AE8C(v3 - 96);
-  sub_23EF3AE8C(v3 - 80);
-  sub_23EF3AE8C(v2 + 8);
+  va_start(va, a3);
+  sub_23EF3AE8C(v4 - 96);
+  sub_23EF3AE8C(v4 - 80);
+  sub_23EF3AE8C(v3 + 8);
   sub_23EF3AE8C(va);
   _Unwind_Resume(a1);
 }
 
-void sub_23F225E40(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23F225E40(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
-  sub_23EF3AE8C(v3 - 96);
-  sub_23EF3AE8C(v3 - 80);
-  sub_23EF3AE8C(v2 + 8);
+  va_start(va, a3);
+  sub_23EF3AE8C(v4 - 96);
+  sub_23EF3AE8C(v4 - 80);
+  sub_23EF3AE8C(v3 + 8);
   sub_23EF3AE8C(va);
   _Unwind_Resume(a1);
 }
 
-void sub_23F225E6C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23F225E6C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
-  sub_23EF3AE8C(v3 - 96);
-  sub_23EF3AE8C(v3 - 80);
-  sub_23EF3AE8C(v2 + 8);
+  va_start(va, a3);
+  sub_23EF3AE8C(v4 - 96);
+  sub_23EF3AE8C(v4 - 80);
+  sub_23EF3AE8C(v3 + 8);
   sub_23EF3AE8C(va);
   _Unwind_Resume(a1);
 }
 
-void sub_23F225E98(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23F225E98(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
-  sub_23EF3AE8C(v3 - 96);
-  sub_23EF3AE8C(v3 - 80);
-  sub_23EF3AE8C(v2 + 8);
+  va_start(va, a3);
+  sub_23EF3AE8C(v4 - 96);
+  sub_23EF3AE8C(v4 - 80);
+  sub_23EF3AE8C(v3 + 8);
   sub_23EF3AE8C(va);
   _Unwind_Resume(a1);
 }
 
-void sub_23F225EC4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23F225EC4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
-  sub_23EF3AE8C(v3 - 96);
-  sub_23EF3AE8C(v3 - 80);
-  sub_23EF3AE8C(v2 + 8);
+  va_start(va, a3);
+  sub_23EF3AE8C(v4 - 96);
+  sub_23EF3AE8C(v4 - 80);
+  sub_23EF3AE8C(v3 + 8);
   sub_23EF3AE8C(va);
   _Unwind_Resume(a1);
 }
 
-void sub_23F225EF0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23F225EF0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
-  sub_23EF3AE8C(v3 - 96);
-  sub_23EF3AE8C(v3 - 80);
-  sub_23EF3AE8C(v2 + 8);
+  va_start(va, a3);
+  sub_23EF3AE8C(v4 - 96);
+  sub_23EF3AE8C(v4 - 80);
+  sub_23EF3AE8C(v3 + 8);
   sub_23EF3AE8C(va);
   _Unwind_Resume(a1);
 }
 
-void sub_23F225F1C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23F225F1C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
-  sub_23EF3AE8C(v3 - 96);
-  sub_23EF3AE8C(v3 - 80);
-  sub_23EF3AE8C(v2 + 8);
+  va_start(va, a3);
+  sub_23EF3AE8C(v4 - 96);
+  sub_23EF3AE8C(v4 - 80);
+  sub_23EF3AE8C(v3 + 8);
   sub_23EF3AE8C(va);
   _Unwind_Resume(a1);
 }
 
-void sub_23F225F48(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23F225F48(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
-  sub_23EF3AE8C(v3 - 96);
-  sub_23EF3AE8C(v3 - 80);
-  sub_23EF3AE8C(v2 + 8);
+  va_start(va, a3);
+  sub_23EF3AE8C(v4 - 96);
+  sub_23EF3AE8C(v4 - 80);
+  sub_23EF3AE8C(v3 + 8);
   sub_23EF3AE8C(va);
   _Unwind_Resume(a1);
 }
 
-void sub_23F225F74(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23F225F74(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
-  sub_23EF3AE8C(v3 - 96);
-  sub_23EF3AE8C(v3 - 80);
-  sub_23EF3AE8C(v2 + 8);
+  va_start(va, a3);
+  sub_23EF3AE8C(v4 - 96);
+  sub_23EF3AE8C(v4 - 80);
+  sub_23EF3AE8C(v3 + 8);
   sub_23EF3AE8C(va);
   _Unwind_Resume(a1);
 }
 
-void sub_23F225FA0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23F225FA0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_23EF3AE8C(va);
   _Unwind_Resume(a1);
 }
 
-void sub_23F225FB4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23F225FB4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_23EF3AE8C(va);
   _Unwind_Resume(a1);
 }
 
-void sub_23F225FC8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23F225FC8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_23EF3AE8C(va);
   _Unwind_Resume(a1);
 }
 
-void sub_23F225FDC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23F225FDC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_23EF3AE8C(va);
   _Unwind_Resume(a1);
 }
 
-void sub_23F225FF0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23F225FF0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_23EF3AE8C(va);
   _Unwind_Resume(a1);
 }
 
-void sub_23F226004(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23F226004(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_23EF3AE8C(va);
   _Unwind_Resume(a1);
 }
 
-void sub_23F226018(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23F226018(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_23EF3AE8C(va);
   _Unwind_Resume(a1);
 }
 
-void sub_23F22602C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23F22602C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_23EF3AE8C(va);
   _Unwind_Resume(a1);
 }
 
-void sub_23F226040(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23F226040(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_23EF3AE8C(va);
   _Unwind_Resume(a1);
 }
 
-void sub_23F226054(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23F226054(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_23EF3AE8C(va);
   _Unwind_Resume(a1);
 }
 
-void sub_23F226068(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23F226068(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_23EF3AE8C(va);
   _Unwind_Resume(a1);
 }
 
-void sub_23F22607C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23F22607C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_23EF3AE8C(va);
   _Unwind_Resume(a1);
 }
 
-void sub_23F226090(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23F226090(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_23EF3AE8C(va);
   _Unwind_Resume(a1);
 }
 
-void sub_23F2260A4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23F2260A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_23EF3AE8C(va);
   _Unwind_Resume(a1);
 }
 
-void sub_23F2260B8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23F2260B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_23EF3AE8C(va);
   _Unwind_Resume(a1);
 }
 
-void sub_23F2260CC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23F2260CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_23EF3AE8C(va);
   _Unwind_Resume(a1);
 }
 
-void sub_23F2260E0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23F2260E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_23EF3AE8C(va);
   _Unwind_Resume(a1);
 }
 
-void sub_23F2260F4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23F2260F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_23EF3AE8C(va);
   _Unwind_Resume(a1);
 }
 
-void sub_23F226108(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23F226108(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_23EF3AE8C(va);
   _Unwind_Resume(a1);
 }
 
-void sub_23F22611C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23F22611C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_23EF3AE8C(va);
   _Unwind_Resume(a1);
 }
 
-void sub_23F226130(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23F226130(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_23EF3AE8C(va);
   _Unwind_Resume(a1);
 }
 
-void sub_23F226144(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23F226144(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_23EF3AE8C(va);
   _Unwind_Resume(a1);
 }
 
-void sub_23F226158(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23F226158(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_23EF3AE8C(va);
   _Unwind_Resume(a1);
 }
 
-void sub_23F22616C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23F22616C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_23EF3AE8C(va);
   _Unwind_Resume(a1);
 }
 
-void sub_23F226180(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23F226180(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_23EF3AE8C(va);
   _Unwind_Resume(a1);
 }
 
-void sub_23F226194(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23F226194(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_23EF3AE8C(va);
   _Unwind_Resume(a1);
 }
 
-void sub_23F2261A8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23F2261A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_23EF3AE8C(va);
   _Unwind_Resume(a1);
 }
 
-void sub_23F2261BC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23F2261BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_23EF3AE8C(va);
   _Unwind_Resume(a1);
 }
 
-void sub_23F2261D0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23F2261D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_23EF3AE8C(va);
   _Unwind_Resume(a1);
 }
 
-void sub_23F2261E4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23F2261E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_23EF3AE8C(va);
   _Unwind_Resume(a1);
 }
 
-void sub_23F2261F8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23F2261F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_23EF3AE8C(va);
   _Unwind_Resume(a1);
 }
 
-void sub_23F22620C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23F22620C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_23EF3AE8C(va);
   _Unwind_Resume(a1);
 }
 
-void sub_23F226220(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23F226220(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_23EF3AE8C(va);
   _Unwind_Resume(a1);
 }
 
-void sub_23F226234(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23F226234(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_23EF3AE8C(va);
   _Unwind_Resume(a1);
 }
 
-void sub_23F226248(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23F226248(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_23EF3AE8C(va);
   _Unwind_Resume(a1);
 }
 
-void sub_23F22625C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23F22625C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_23EF3AE8C(va);
   _Unwind_Resume(a1);
 }
 
-void sub_23F226270(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23F226270(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_23EF3AE8C(va);
   _Unwind_Resume(a1);
 }
 
-void sub_23F226284(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23F226284(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_23EF3AE8C(va);
   _Unwind_Resume(a1);
 }
 
-void sub_23F226298(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23F226298(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_23EF3AE8C(va);
   _Unwind_Resume(a1);
 }
 
-void sub_23F2262AC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23F2262AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_23EF3AE8C(va);
   _Unwind_Resume(a1);
 }
@@ -700,10 +700,11 @@ void sub_23F226364(uint64_t a1, _DWORD *a2)
   operator new();
 }
 
-void sub_23F2265AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, char a10)
+void sub_23F2265AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  sub_23EF3AE8C(v10);
-  sub_23EF3AE8C(&a10);
+  va_start(va, a9);
+  sub_23EF3AE8C(v9);
+  sub_23EF3AE8C(va);
   sub_23F086620(&a9);
   _Unwind_Resume(a1);
 }
@@ -734,20 +735,20 @@ void sub_23F22660C(uint64_t a1, _DWORD *a2)
   operator new();
 }
 
-void sub_23F2268BC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23F2268BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va1, a2);
-  va_start(va, a2);
-  v4 = va_arg(va1, void);
-  sub_23EF3AE8C(v2);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v5 = va_arg(va1, void);
+  sub_23EF3AE8C(v3);
   sub_23EF3AE8C(va1);
   sub_23F086620(va);
   _Unwind_Resume(a1);
 }
 
-void sub_23F2268F0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23F2268F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_23F086620(va);
   _Unwind_Resume(a1);
 }
@@ -769,17 +770,18 @@ void sub_23F22691C(uint64_t a1, _DWORD *a2)
   operator new();
 }
 
-void sub_23F226B60(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, char a10)
+void sub_23F226B60(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  sub_23EF3AE8C(v10);
-  sub_23EF3AE8C(&a10);
+  va_start(va, a9);
+  sub_23EF3AE8C(v9);
+  sub_23EF3AE8C(va);
   sub_23F21712C(&a9);
   _Unwind_Resume(a1);
 }
 
-void sub_23F226BA8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_23F226BA8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   sub_23F231BB0(va);
   _Unwind_Resume(a1);
 }
@@ -800,20 +802,20 @@ void sub_23F226BBC(uint64_t a1, _DWORD *a2)
   operator new();
 }
 
-void sub_23F226E6C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23F226E6C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va1, a2);
-  va_start(va, a2);
-  v4 = va_arg(va1, void);
-  sub_23EF3AE8C(v2);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v5 = va_arg(va1, void);
+  sub_23EF3AE8C(v3);
   sub_23EF3AE8C(va1);
   sub_23F086620(va);
   _Unwind_Resume(a1);
 }
 
-void sub_23F226EA0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23F226EA0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_23F086620(va);
   _Unwind_Resume(a1);
 }
@@ -835,10 +837,11 @@ void sub_23F226ECC(uint64_t a1, _DWORD *a2)
   operator new();
 }
 
-void sub_23F227114(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, char a10)
+void sub_23F227114(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  sub_23EF3AE8C(v10);
-  sub_23EF3AE8C(&a10);
+  va_start(va, a9);
+  sub_23EF3AE8C(v9);
+  sub_23EF3AE8C(va);
   sub_23F086620(&a9);
   _Unwind_Resume(a1);
 }
@@ -869,20 +872,20 @@ void sub_23F227174(uint64_t a1, _DWORD *a2)
   operator new();
 }
 
-void sub_23F227424(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23F227424(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va1, a2);
-  va_start(va, a2);
-  v4 = va_arg(va1, void);
-  sub_23EF3AE8C(v2);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v5 = va_arg(va1, void);
+  sub_23EF3AE8C(v3);
   sub_23EF3AE8C(va1);
   sub_23F086620(va);
   _Unwind_Resume(a1);
 }
 
-void sub_23F227458(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23F227458(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_23F086620(va);
   _Unwind_Resume(a1);
 }
@@ -904,17 +907,18 @@ void sub_23F227484(uint64_t a1, _DWORD *a2)
   operator new();
 }
 
-void sub_23F2276C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, char a10)
+void sub_23F2276C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  sub_23EF3AE8C(v10);
-  sub_23EF3AE8C(&a10);
+  va_start(va, a9);
+  sub_23EF3AE8C(v9);
+  sub_23EF3AE8C(va);
   sub_23F218578(&a9);
   _Unwind_Resume(a1);
 }
 
-void sub_23F227710(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_23F227710(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   sub_23F23577C(va);
   _Unwind_Resume(a1);
 }
@@ -935,20 +939,20 @@ void sub_23F227724(uint64_t a1, _DWORD *a2)
   operator new();
 }
 
-void sub_23F2279D4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23F2279D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va1, a2);
-  va_start(va, a2);
-  v4 = va_arg(va1, void);
-  sub_23EF3AE8C(v2);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v5 = va_arg(va1, void);
+  sub_23EF3AE8C(v3);
   sub_23EF3AE8C(va1);
   sub_23F086620(va);
   _Unwind_Resume(a1);
 }
 
-void sub_23F227A08(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23F227A08(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_23F086620(va);
   _Unwind_Resume(a1);
 }
@@ -970,10 +974,11 @@ void sub_23F227A34(uint64_t a1, _DWORD *a2)
   operator new();
 }
 
-void sub_23F227C7C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, char a10)
+void sub_23F227C7C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  sub_23EF3AE8C(v10);
-  sub_23EF3AE8C(&a10);
+  va_start(va, a9);
+  sub_23EF3AE8C(v9);
+  sub_23EF3AE8C(va);
   sub_23F086620(&a9);
   _Unwind_Resume(a1);
 }
@@ -1004,20 +1009,20 @@ void sub_23F227CDC(uint64_t a1, _DWORD *a2)
   operator new();
 }
 
-void sub_23F227F8C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23F227F8C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va1, a2);
-  va_start(va, a2);
-  v4 = va_arg(va1, void);
-  sub_23EF3AE8C(v2);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v5 = va_arg(va1, void);
+  sub_23EF3AE8C(v3);
   sub_23EF3AE8C(va1);
   sub_23F086620(va);
   _Unwind_Resume(a1);
 }
 
-void sub_23F227FC0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23F227FC0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_23F086620(va);
   _Unwind_Resume(a1);
 }
@@ -1039,17 +1044,18 @@ void sub_23F227FEC(uint64_t a1, _DWORD *a2)
   operator new();
 }
 
-void sub_23F228230(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, char a10)
+void sub_23F228230(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  sub_23EF3AE8C(v10);
-  sub_23EF3AE8C(&a10);
+  va_start(va, a9);
+  sub_23EF3AE8C(v9);
+  sub_23EF3AE8C(va);
   sub_23F219BFC(&a9);
   _Unwind_Resume(a1);
 }
 
-void sub_23F228278(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_23F228278(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   sub_23F238420(va);
   _Unwind_Resume(a1);
 }
@@ -1070,20 +1076,20 @@ void sub_23F22828C(uint64_t a1, _DWORD *a2)
   operator new();
 }
 
-void sub_23F22853C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23F22853C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va1, a2);
-  va_start(va, a2);
-  v4 = va_arg(va1, void);
-  sub_23EF3AE8C(v2);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v5 = va_arg(va1, void);
+  sub_23EF3AE8C(v3);
   sub_23EF3AE8C(va1);
   sub_23F086620(va);
   _Unwind_Resume(a1);
 }
 
-void sub_23F228570(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23F228570(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_23F086620(va);
   _Unwind_Resume(a1);
 }
@@ -1105,10 +1111,11 @@ void sub_23F22859C(uint64_t a1, _DWORD *a2)
   operator new();
 }
 
-void sub_23F2287E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, char a10)
+void sub_23F2287E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  sub_23EF3AE8C(v10);
-  sub_23EF3AE8C(&a10);
+  va_start(va, a9);
+  sub_23EF3AE8C(v9);
+  sub_23EF3AE8C(va);
   sub_23F086620(&a9);
   _Unwind_Resume(a1);
 }
@@ -1139,20 +1146,20 @@ void sub_23F228844(uint64_t a1, _DWORD *a2)
   operator new();
 }
 
-void sub_23F228AF4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23F228AF4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va1, a2);
-  va_start(va, a2);
-  v4 = va_arg(va1, void);
-  sub_23EF3AE8C(v2);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v5 = va_arg(va1, void);
+  sub_23EF3AE8C(v3);
   sub_23EF3AE8C(va1);
   sub_23F086620(va);
   _Unwind_Resume(a1);
 }
 
-void sub_23F228B28(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23F228B28(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_23F086620(va);
   _Unwind_Resume(a1);
 }
@@ -1174,17 +1181,18 @@ void sub_23F228B54(uint64_t a1, _DWORD *a2)
   operator new();
 }
 
-void sub_23F228D98(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, char a10)
+void sub_23F228D98(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  sub_23EF3AE8C(v10);
-  sub_23EF3AE8C(&a10);
+  va_start(va, a9);
+  sub_23EF3AE8C(v9);
+  sub_23EF3AE8C(va);
   sub_23F21B164(&a9);
   _Unwind_Resume(a1);
 }
 
-void sub_23F228DE0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_23F228DE0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   sub_23F23AF64(va);
   _Unwind_Resume(a1);
 }
@@ -1205,20 +1213,20 @@ void sub_23F228DF4(uint64_t a1, _DWORD *a2)
   operator new();
 }
 
-void sub_23F2290A4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23F2290A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va1, a2);
-  va_start(va, a2);
-  v4 = va_arg(va1, void);
-  sub_23EF3AE8C(v2);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v5 = va_arg(va1, void);
+  sub_23EF3AE8C(v3);
   sub_23EF3AE8C(va1);
   sub_23F086620(va);
   _Unwind_Resume(a1);
 }
 
-void sub_23F2290D8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23F2290D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_23F086620(va);
   _Unwind_Resume(a1);
 }
@@ -1249,20 +1257,20 @@ void sub_23F229104(uint64_t a1, _DWORD *a2)
   operator new();
 }
 
-void sub_23F2293B4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23F2293B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va1, a2);
-  va_start(va, a2);
-  v4 = va_arg(va1, void);
-  sub_23EF3AE8C(v2);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v5 = va_arg(va1, void);
+  sub_23EF3AE8C(v3);
   sub_23EF3AE8C(va1);
   sub_23F086620(va);
   _Unwind_Resume(a1);
 }
 
-void sub_23F2293E8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23F2293E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_23F086620(va);
   _Unwind_Resume(a1);
 }
@@ -1284,17 +1292,18 @@ void sub_23F229414(uint64_t a1, _DWORD *a2)
   operator new();
 }
 
-void sub_23F229658(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, char a10)
+void sub_23F229658(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  sub_23EF3AE8C(v10);
-  sub_23EF3AE8C(&a10);
+  va_start(va, a9);
+  sub_23EF3AE8C(v9);
+  sub_23EF3AE8C(va);
   sub_23F21C254(&a9);
   _Unwind_Resume(a1);
 }
 
-void sub_23F2296A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_23F2296A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   sub_23F2405DC(va);
   _Unwind_Resume(a1);
 }
@@ -1315,20 +1324,20 @@ void sub_23F2296B4(uint64_t a1, _DWORD *a2)
   operator new();
 }
 
-void sub_23F229964(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23F229964(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va1, a2);
-  va_start(va, a2);
-  v4 = va_arg(va1, void);
-  sub_23EF3AE8C(v2);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v5 = va_arg(va1, void);
+  sub_23EF3AE8C(v3);
   sub_23EF3AE8C(va1);
   sub_23F086620(va);
   _Unwind_Resume(a1);
 }
 
-void sub_23F229998(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23F229998(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_23F086620(va);
   _Unwind_Resume(a1);
 }
@@ -1359,20 +1368,20 @@ void sub_23F2299C4(uint64_t a1, _DWORD *a2)
   operator new();
 }
 
-void sub_23F229C74(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23F229C74(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va1, a2);
-  va_start(va, a2);
-  v4 = va_arg(va1, void);
-  sub_23EF3AE8C(v2);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v5 = va_arg(va1, void);
+  sub_23EF3AE8C(v3);
   sub_23EF3AE8C(va1);
   sub_23F086620(va);
   _Unwind_Resume(a1);
 }
 
-void sub_23F229CA8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23F229CA8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_23F086620(va);
   _Unwind_Resume(a1);
 }
@@ -1394,17 +1403,18 @@ void sub_23F229CD4(uint64_t a1, _DWORD *a2)
   operator new();
 }
 
-void sub_23F229F18(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, char a10)
+void sub_23F229F18(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  sub_23EF3AE8C(v10);
-  sub_23EF3AE8C(&a10);
+  va_start(va, a9);
+  sub_23EF3AE8C(v9);
+  sub_23EF3AE8C(va);
   sub_23F21D344(&a9);
   _Unwind_Resume(a1);
 }
 
-void sub_23F229F60(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_23F229F60(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   sub_23F245C64(va);
   _Unwind_Resume(a1);
 }
@@ -1425,20 +1435,20 @@ void sub_23F229F74(uint64_t a1, _DWORD *a2)
   operator new();
 }
 
-void sub_23F22A224(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23F22A224(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va1, a2);
-  va_start(va, a2);
-  v4 = va_arg(va1, void);
-  sub_23EF3AE8C(v2);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v5 = va_arg(va1, void);
+  sub_23EF3AE8C(v3);
   sub_23EF3AE8C(va1);
   sub_23F086620(va);
   _Unwind_Resume(a1);
 }
 
-void sub_23F22A258(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23F22A258(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_23F086620(va);
   _Unwind_Resume(a1);
 }
@@ -1453,7 +1463,7 @@ void sub_23F22A26C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_23F22A284(int a1, _DWORD **a2)
+void sub_23F22A284(int a1, uint64_t *a2)
 {
   switch(a1)
   {
@@ -1466,37 +1476,37 @@ void sub_23F22A284(int a1, _DWORD **a2)
     case 4:
       sub_23F1C609C(*a2);
     case 5:
-      sub_23F226364(&v2, *a2);
+      sub_23F226364(&v3, *a2);
     case 6:
-      sub_23F22660C(&v2, *a2);
+      sub_23F22660C(&v3, *a2);
     case 7:
-      sub_23F22691C(&v2, *a2);
+      sub_23F22691C(&v3, *a2);
     case 8:
-      sub_23F226BBC(&v2, *a2);
+      sub_23F226BBC(&v3, *a2);
     case 9:
-      sub_23F226ECC(&v2, *a2);
+      sub_23F226ECC(&v3, *a2);
     case 10:
-      sub_23F227174(&v2, *a2);
+      sub_23F227174(&v3, *a2);
     case 11:
-      sub_23F227484(&v2, *a2);
+      sub_23F227484(&v3, *a2);
     case 12:
-      sub_23F227724(&v2, *a2);
+      sub_23F227724(&v3, *a2);
     case 13:
-      sub_23F227A34(&v2, *a2);
+      sub_23F227A34(&v3, *a2);
     case 14:
-      sub_23F227CDC(&v2, *a2);
+      sub_23F227CDC(&v3, *a2);
     case 15:
-      sub_23F227FEC(&v2, *a2);
+      sub_23F227FEC(&v3, *a2);
     case 16:
-      sub_23F22828C(&v2, *a2);
+      sub_23F22828C(&v3, *a2);
     case 17:
-      sub_23F22859C(&v2, *a2);
+      sub_23F22859C(&v3, *a2);
     case 18:
-      sub_23F228844(&v2, *a2);
+      sub_23F228844(&v3, *a2);
     case 19:
-      sub_23F228B54(&v2, *a2);
+      sub_23F228B54(&v3, *a2);
     case 20:
-      sub_23F228DF4(&v2, *a2);
+      sub_23F228DF4(&v3, *a2);
     case 21:
       sub_23F085E58(*a2);
     case 22:
@@ -1508,11 +1518,11 @@ void sub_23F22A284(int a1, _DWORD **a2)
     case 25:
       sub_23F1C8274(*a2);
     case 26:
-      sub_23F229104(&v2, *a2);
+      sub_23F229104(&v3, *a2);
     case 27:
-      sub_23F229414(&v2, *a2);
+      sub_23F229414(&v3, *a2);
     case 28:
-      sub_23F2296B4(&v2, *a2);
+      sub_23F2296B4(&v3, *a2);
     case 29:
       sub_23F1C8AB4(*a2);
     case 30:
@@ -1524,11 +1534,11 @@ void sub_23F22A284(int a1, _DWORD **a2)
     case 33:
       sub_23F1CACB0(*a2);
     case 34:
-      sub_23F2299C4(&v2, *a2);
+      sub_23F2299C4(&v3, *a2);
     case 35:
-      sub_23F229CD4(&v2, *a2);
+      sub_23F229CD4(&v3, *a2);
     case 36:
-      sub_23F229F74(&v2, *a2);
+      sub_23F229F74(&v3, *a2);
     case 37:
       sub_23F1CB4F0(*a2);
     case 38:
@@ -1906,42 +1916,41 @@ void sub_23F22C99C(uint64_t a1)
   JUMPOUT(0x245CACD00);
 }
 
-void sub_23F22CAA0(uint64_t a1, char **lpsrc)
+void sub_23F22CAA0(uint64_t a1, uint64_t *lpsrc)
 {
   v4 = *lpsrc;
-  v5 = **lpsrc;
-  v6 = __dynamic_cast(lpsrc, &unk_28518B5C0, &unk_285179398, 0);
-  if (!v6)
+  v5 = __dynamic_cast(lpsrc, &unk_28518B5C0, &unk_285179398, 0);
+  if (!v5)
   {
-    (*(v4 + 9))(v35, lpsrc, 1);
-    v18 = *(v35[0] + 2);
-    *v36 = *v35[0];
-    *&v36[16] = v18;
-    v35[0] = 0;
+    (*(v4 + 72))(v34, lpsrc, 1);
+    v17 = *(v34[0] + 2);
+    *v35 = *v34[0];
+    *&v35[16] = v17;
+    v34[0] = 0;
     MEMORY[0x245CACD00]();
-    v19 = *(a1 + 48);
+    v18 = *(a1 + 48);
     if (*(a1 + 12))
     {
-      v20 = *(a1 + 8) == 0;
+      v19 = *(a1 + 8) == 0;
     }
 
     else
     {
-      v20 = 1;
+      v19 = 1;
     }
 
-    v21 = *(a1 + 16);
-    if (v20)
+    v20 = *(a1 + 16);
+    if (v19)
     {
-      v22 = 0;
+      v21 = 0;
     }
 
     else
     {
-      v22 = *(a1 + 8);
+      v21 = *(a1 + 8);
     }
 
-    if (HIDWORD(v22) * HIDWORD(v21) != -1)
+    if (HIDWORD(v21) * HIDWORD(v20) != -1)
     {
       goto LABEL_29;
     }
@@ -1949,23 +1958,23 @@ void sub_23F22CAA0(uint64_t a1, char **lpsrc)
     sub_23F3034A8("/Library/Caches/com.apple.xbs/Sources/AmbientSceneScope/library/Essentials/Array/include/Essentials/Array/ArrayView.h", 983, "total_size < std::numeric_limits<uint32_t>::max()", 0x31uLL, "Given data block is too big to be represented by uint32_t indexed ArrayView", 0x4BuLL, sub_23F303DA4);
     if (byte_27E3961A0 == 1)
     {
-      if (byte_27E3961A8 != 1 || (v23 = qword_27E396178, v24 = unk_27E396180, qword_27E396178 == unk_27E396180))
+      if (byte_27E3961A8 != 1 || (v22 = qword_27E396178, v23 = unk_27E396180, qword_27E396178 == unk_27E396180))
       {
 LABEL_28:
         qword_27E396190(*algn_27E396198, "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
 LABEL_29:
-        v35[0] = v19;
-        v35[1] = v22;
-        v35[2] = v21;
-        sub_23F1F2C80(v36, v35);
+        v34[0] = v18;
+        v34[1] = v21;
+        v34[2] = v20;
+        sub_23F1F2C80(v35, v34);
         return;
       }
     }
 
     else
     {
-      v23 = qword_27E396178;
-      v24 = unk_27E396180;
+      v22 = qword_27E396178;
+      v23 = unk_27E396180;
       if (qword_27E396178 == unk_27E396180)
       {
         goto LABEL_52;
@@ -1974,13 +1983,13 @@ LABEL_29:
 
     do
     {
-      v26 = *v23;
-      v25 = *(v23 + 8);
-      v23 += 16;
-      v26(v25, "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
+      v25 = *v22;
+      v24 = *(v22 + 8);
+      v22 += 16;
+      v25(v24, "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
     }
 
-    while (v23 != v24);
+    while (v22 != v23);
     if (byte_27E3961A0)
     {
       goto LABEL_28;
@@ -1990,58 +1999,58 @@ LABEL_52:
     abort();
   }
 
-  v7 = *(a1 + 48);
-  if (!v7 || (v8 = *(v6 + 2), v8 != *(a1 + 8)) || (v9 = *(v6 + 3), v9 != *(a1 + 12)) || (v10 = *(v6 + 4), v10 != *(a1 + 16)) || (v11 = *(v6 + 5), v11 != *(a1 + 20)))
+  v6 = *(a1 + 48);
+  if (!v6 || (v7 = *(v5 + 2), v7 != *(a1 + 8)) || (v8 = *(v5 + 3), v8 != *(a1 + 12)) || (v9 = *(v5 + 4), v9 != *(a1 + 16)) || (v10 = *(v5 + 5), v10 != *(a1 + 20)))
   {
-    v15 = *(v6 + 8);
-    *&v36[12] = *(v6 + 20);
-    *v36 = v15;
-    sub_23F24C998(v37, (v6 + 40));
-    *(a1 + 8) = *v36;
-    *(a1 + 20) = *&v36[12];
-    *(a1 + 64) = v38;
-    *(a1 + 40) = v37[0];
-    v16 = *(a1 + 48);
-    if (v16)
+    v14 = *(v5 + 8);
+    *&v35[12] = *(v5 + 20);
+    *v35 = v14;
+    sub_23F24C998(v36, (v5 + 40));
+    *(a1 + 8) = *v35;
+    *(a1 + 20) = *&v35[12];
+    *(a1 + 64) = v37;
+    *(a1 + 40) = v36[0];
+    v15 = *(a1 + 48);
+    if (v15)
     {
-      free(v16);
+      free(v15);
     }
 
-    v17 = v37[2];
-    *(a1 + 48) = v37[1];
-    *(a1 + 56) = v17;
+    v16 = v36[2];
+    *(a1 + 48) = v36[1];
+    *(a1 + 56) = v16;
     return;
   }
 
-  if (v10 != 1)
+  if (v9 != 1)
   {
-    if (!v8 || !v9)
+    if (!v7 || !v8)
     {
       return;
     }
 
-    v27 = v8 - 1;
-    v28 = *(v6 + 6);
-    v29 = v9 - 1;
-    if (v29)
+    v26 = v7 - 1;
+    v27 = *(v5 + 6);
+    v28 = v8 - 1;
+    if (v28)
     {
-      if (v8 != 1)
+      if (v7 != 1)
       {
-        for (i = 0; i != v29; ++i)
+        for (i = 0; i != v28; ++i)
         {
-          v31 = 0;
-          v32 = v8 - 1;
+          v30 = 0;
+          v31 = v7 - 1;
           do
           {
-            v7[v31] = v28[v31];
-            v31 += v10;
-            --v32;
+            v6[v30] = v27[v30];
+            v30 += v9;
+            --v31;
           }
 
-          while (v32);
-          v7[v31] = v28[v31];
-          v28 += v11;
-          v7 += v11;
+          while (v31);
+          v6[v30] = v27[v30];
+          v27 += v10;
+          v6 += v10;
         }
 
         goto LABEL_42;
@@ -2049,75 +2058,75 @@ LABEL_52:
 
       do
       {
-        *v7 = *v28;
-        v28 += v11;
-        v7 += v11;
-        --v29;
+        *v6 = *v27;
+        v27 += v10;
+        v6 += v10;
+        --v28;
       }
 
-      while (v29);
+      while (v28);
     }
 
-    if (v8 == 1)
+    if (v7 == 1)
     {
 LABEL_43:
-      *v7 = *v28;
+      *v6 = *v27;
       return;
     }
 
     do
     {
 LABEL_42:
-      *v7 = *v28;
-      v28 += v10;
-      v7 += v10;
-      --v27;
+      *v6 = *v27;
+      v27 += v9;
+      v6 += v9;
+      --v26;
     }
 
-    while (v27);
+    while (v26);
     goto LABEL_43;
   }
 
-  if (v11 == v8)
+  if (v10 == v7)
   {
-    v12 = (v9 * v8);
-    if (!v12)
+    v11 = (v8 * v7);
+    if (!v11)
     {
       return;
     }
 
-    v13 = *(v6 + 6);
-    v14 = *(a1 + 48);
+    v12 = *(v5 + 6);
+    v13 = *(a1 + 48);
   }
 
   else
   {
-    if (!v8 || !v9)
+    if (!v7 || !v8)
     {
       return;
     }
 
-    v33 = *(v6 + 6);
-    v34 = v9 - 1;
-    if (v9 != 1)
+    v32 = *(v5 + 6);
+    v33 = v8 - 1;
+    if (v8 != 1)
     {
       do
       {
-        memmove(v7, v33, v8);
-        v33 += v11;
-        v7 += v11;
-        --v34;
+        memmove(v6, v32, v7);
+        v32 += v10;
+        v6 += v10;
+        --v33;
       }
 
-      while (v34);
+      while (v33);
     }
 
-    v14 = v7;
-    v13 = v33;
-    v12 = v8;
+    v13 = v6;
+    v12 = v32;
+    v11 = v7;
   }
 
-  memmove(v14, v13, v12);
+  memmove(v13, v12, v11);
 }
 
 void sub_23F22CE74(uint64_t a1, int a2)
@@ -2125,7 +2134,6 @@ void sub_23F22CE74(uint64_t a1, int a2)
   if (a2 == 1)
   {
 LABEL_10:
-    v7 = *(a1 + 48);
     if (*(a1 + 12))
     {
       v8 = *(a1 + 8) == 0;
@@ -2194,7 +2202,7 @@ LABEL_26:
   sub_23F3034A8("/Library/Caches/com.apple.xbs/Sources/AmbientSceneScope/library/Kit/Image/src/ImageStorage.cpp", 78, "F == format", 0xBuLL, &unk_23F3091D6, 0, sub_23F303DA4);
   if (byte_27E3961A0 == 1)
   {
-    if (byte_27E3961A8 != 1 || (v3 = qword_27E396178, v4 = unk_27E396180, qword_27E396178 == unk_27E396180))
+    if (byte_27E3961A8 != 1 || (v4 = qword_27E396178, v5 = unk_27E396180, qword_27E396178 == unk_27E396180))
     {
 LABEL_9:
       qword_27E396190(*algn_27E396198, "F == format", 11, &unk_23F3091D6, 0);
@@ -2204,8 +2212,8 @@ LABEL_9:
 
   else
   {
-    v3 = qword_27E396178;
-    v4 = unk_27E396180;
+    v4 = qword_27E396178;
+    v5 = unk_27E396180;
     if (qword_27E396178 == unk_27E396180)
     {
       goto LABEL_26;
@@ -2214,13 +2222,13 @@ LABEL_9:
 
   do
   {
-    v6 = *v3;
-    v5 = *(v3 + 8);
-    v3 += 16;
-    v6(v5, "F == format", 11, &unk_23F3091D6, 0);
+    v7 = *v4;
+    v6 = *(v4 + 8);
+    v4 += 16;
+    v7(v6, "F == format", 11, &unk_23F3091D6, 0);
   }
 
-  while (v3 != v4);
+  while (v4 != v5);
   if ((byte_27E3961A0 & 1) == 0)
   {
     goto LABEL_26;
@@ -2234,7 +2242,6 @@ void sub_23F22D0DC(uint64_t a1, int a2)
   if (a2 == 1)
   {
 LABEL_10:
-    v7 = *(a1 + 48);
     if (*(a1 + 12))
     {
       v8 = *(a1 + 8) == 0;
@@ -2303,7 +2310,7 @@ LABEL_26:
   sub_23F3034A8("/Library/Caches/com.apple.xbs/Sources/AmbientSceneScope/library/Kit/Image/src/ImageStorage.cpp", 84, "F == format", 0xBuLL, &unk_23F3091D6, 0, sub_23F303DA4);
   if (byte_27E3961A0 == 1)
   {
-    if (byte_27E3961A8 != 1 || (v3 = qword_27E396178, v4 = unk_27E396180, qword_27E396178 == unk_27E396180))
+    if (byte_27E3961A8 != 1 || (v4 = qword_27E396178, v5 = unk_27E396180, qword_27E396178 == unk_27E396180))
     {
 LABEL_9:
       qword_27E396190(*algn_27E396198, "F == format", 11, &unk_23F3091D6, 0);
@@ -2313,8 +2320,8 @@ LABEL_9:
 
   else
   {
-    v3 = qword_27E396178;
-    v4 = unk_27E396180;
+    v4 = qword_27E396178;
+    v5 = unk_27E396180;
     if (qword_27E396178 == unk_27E396180)
     {
       goto LABEL_26;
@@ -2323,13 +2330,13 @@ LABEL_9:
 
   do
   {
-    v6 = *v3;
-    v5 = *(v3 + 8);
-    v3 += 16;
-    v6(v5, "F == format", 11, &unk_23F3091D6, 0);
+    v7 = *v4;
+    v6 = *(v4 + 8);
+    v4 += 16;
+    v7(v6, "F == format", 11, &unk_23F3091D6, 0);
   }
 
-  while (v3 != v4);
+  while (v4 != v5);
   if ((byte_27E3961A0 & 1) == 0)
   {
     goto LABEL_26;
@@ -2366,42 +2373,41 @@ void sub_23F22D380(uint64_t a1)
   JUMPOUT(0x245CACD00);
 }
 
-void sub_23F22D484(uint64_t a1, char **lpsrc)
+void sub_23F22D484(uint64_t a1, uint64_t *lpsrc)
 {
   v4 = *lpsrc;
-  v5 = **lpsrc;
-  v6 = __dynamic_cast(lpsrc, &unk_28518B5C0, &unk_28517DD00, 0);
-  if (!v6)
+  v5 = __dynamic_cast(lpsrc, &unk_28518B5C0, &unk_28517DD00, 0);
+  if (!v5)
   {
-    (*(v4 + 9))(v41, lpsrc, 2);
-    v19 = *(v41[0] + 2);
-    *v42 = *v41[0];
-    *&v42[16] = v19;
-    v41[0] = 0;
+    (*(v4 + 72))(v40, lpsrc, 2);
+    v18 = *(v40[0] + 2);
+    *v41 = *v40[0];
+    *&v41[16] = v18;
+    v40[0] = 0;
     MEMORY[0x245CACD00]();
-    v20 = *(a1 + 48);
+    v19 = *(a1 + 48);
     if (*(a1 + 12))
     {
-      v21 = *(a1 + 8) == 0;
+      v20 = *(a1 + 8) == 0;
     }
 
     else
     {
-      v21 = 1;
+      v20 = 1;
     }
 
-    v22 = *(a1 + 16);
-    if (v21)
+    v21 = *(a1 + 16);
+    if (v20)
     {
-      v23 = 0;
+      v22 = 0;
     }
 
     else
     {
-      v23 = *(a1 + 8);
+      v22 = *(a1 + 8);
     }
 
-    if (HIDWORD(v23) * HIDWORD(v22) != -1)
+    if (HIDWORD(v22) * HIDWORD(v21) != -1)
     {
       goto LABEL_29;
     }
@@ -2409,23 +2415,23 @@ void sub_23F22D484(uint64_t a1, char **lpsrc)
     sub_23F3034A8("/Library/Caches/com.apple.xbs/Sources/AmbientSceneScope/library/Essentials/Array/include/Essentials/Array/ArrayView.h", 983, "total_size < std::numeric_limits<uint32_t>::max()", 0x31uLL, "Given data block is too big to be represented by uint32_t indexed ArrayView", 0x4BuLL, sub_23F303DA4);
     if (byte_27E3961A0 == 1)
     {
-      if (byte_27E3961A8 != 1 || (v24 = qword_27E396178, v25 = unk_27E396180, qword_27E396178 == unk_27E396180))
+      if (byte_27E3961A8 != 1 || (v23 = qword_27E396178, v24 = unk_27E396180, qword_27E396178 == unk_27E396180))
       {
 LABEL_28:
         qword_27E396190(*algn_27E396198, "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
 LABEL_29:
-        v41[0] = v20;
-        v41[1] = v23;
-        v41[2] = v22;
-        sub_23F1F41BC(v42, v41);
+        v40[0] = v19;
+        v40[1] = v22;
+        v40[2] = v21;
+        sub_23F1F41BC(v41, v40);
         return;
       }
     }
 
     else
     {
-      v24 = qword_27E396178;
-      v25 = unk_27E396180;
+      v23 = qword_27E396178;
+      v24 = unk_27E396180;
       if (qword_27E396178 == unk_27E396180)
       {
         goto LABEL_55;
@@ -2434,13 +2440,13 @@ LABEL_29:
 
     do
     {
-      v27 = *v24;
-      v26 = *(v24 + 8);
-      v24 += 16;
-      v27(v26, "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
+      v26 = *v23;
+      v25 = *(v23 + 8);
+      v23 += 16;
+      v26(v25, "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
     }
 
-    while (v24 != v25);
+    while (v23 != v24);
     if (byte_27E3961A0)
     {
       goto LABEL_28;
@@ -2450,142 +2456,142 @@ LABEL_55:
     abort();
   }
 
-  v7 = *(a1 + 48);
-  if (!v7 || (v8 = *(v6 + 2), v8 != *(a1 + 8)) || (v9 = *(v6 + 3), v9 != *(a1 + 12)) || (v10 = *(v6 + 4), v10 != *(a1 + 16)) || (v11 = *(v6 + 5), v11 != *(a1 + 20)))
+  v6 = *(a1 + 48);
+  if (!v6 || (v7 = *(v5 + 2), v7 != *(a1 + 8)) || (v8 = *(v5 + 3), v8 != *(a1 + 12)) || (v9 = *(v5 + 4), v9 != *(a1 + 16)) || (v10 = *(v5 + 5), v10 != *(a1 + 20)))
   {
-    v16 = *(v6 + 8);
-    *&v42[12] = *(v6 + 20);
-    *v42 = v16;
-    sub_23F24CDCC(v43, (v6 + 40));
-    *(a1 + 8) = *v42;
-    *(a1 + 20) = *&v42[12];
-    *(a1 + 64) = v44;
-    *(a1 + 40) = v43[0];
-    v17 = *(a1 + 48);
-    if (v17)
+    v15 = *(v5 + 8);
+    *&v41[12] = *(v5 + 20);
+    *v41 = v15;
+    sub_23F24CDCC(v42, (v5 + 40));
+    *(a1 + 8) = *v41;
+    *(a1 + 20) = *&v41[12];
+    *(a1 + 64) = v43;
+    *(a1 + 40) = v42[0];
+    v16 = *(a1 + 48);
+    if (v16)
     {
-      free(v17);
+      free(v16);
     }
 
-    v18 = v43[2];
-    *(a1 + 48) = v43[1];
-    *(a1 + 56) = v18;
+    v17 = v42[2];
+    *(a1 + 48) = v42[1];
+    *(a1 + 56) = v17;
     return;
   }
 
-  if (v10 != 1)
+  if (v9 != 1)
   {
-    if (!v8 || !v9)
+    if (!v7 || !v8)
     {
       return;
     }
 
-    v28 = v8 - 1;
-    v29 = *(v6 + 6);
-    v30 = 2 * v10;
-    v31 = v9 - 1;
-    if (v31)
+    v27 = v7 - 1;
+    v28 = *(v5 + 6);
+    v29 = 2 * v9;
+    v30 = v8 - 1;
+    if (v30)
     {
-      if (!v28)
+      if (!v27)
       {
-        v40 = 2 * v11;
+        v39 = 2 * v10;
         do
         {
-          *v7 = *v29;
-          v29 = (v29 + v40);
-          v7 = (v7 + v40);
-          --v31;
+          *v6 = *v28;
+          v28 = (v28 + v39);
+          v6 = (v6 + v39);
+          --v30;
         }
 
-        while (v31);
+        while (v30);
         goto LABEL_54;
       }
 
-      v32 = 0;
-      v33 = 2 * v11;
+      v31 = 0;
+      v32 = 2 * v10;
       do
       {
-        v34 = 0;
-        v35 = v28;
+        v33 = 0;
+        v34 = v27;
         do
         {
-          *(v7 + v34) = *(v29 + v34);
-          v34 += v30;
-          --v35;
+          *(v6 + v33) = *(v28 + v33);
+          v33 += v29;
+          --v34;
         }
 
-        while (v35);
-        *(v7 + v34) = *(v29 + v34);
-        v29 = (v29 + v33);
-        v7 = (v7 + v33);
-        ++v32;
+        while (v34);
+        *(v6 + v33) = *(v28 + v33);
+        v28 = (v28 + v32);
+        v6 = (v6 + v32);
+        ++v31;
       }
 
-      while (v32 != v31);
+      while (v31 != v30);
     }
 
-    else if (!v28)
+    else if (!v27)
     {
 LABEL_54:
-      *v7 = *v29;
+      *v6 = *v28;
       return;
     }
 
     do
     {
-      *v7 = *v29;
-      v29 = (v29 + v30);
-      v7 = (v7 + v30);
-      --v28;
+      *v6 = *v28;
+      v28 = (v28 + v29);
+      v6 = (v6 + v29);
+      --v27;
     }
 
-    while (v28);
+    while (v27);
     goto LABEL_54;
   }
 
-  if (v11 == v8)
+  if (v10 == v7)
   {
-    v12 = v9 * v8;
-    if (!v12)
+    v11 = v8 * v7;
+    if (!v11)
     {
       return;
     }
 
-    v13 = 2 * v12;
-    v14 = *(v6 + 6);
-    v15 = *(a1 + 48);
+    v12 = 2 * v11;
+    v13 = *(v5 + 6);
+    v14 = *(a1 + 48);
   }
 
   else
   {
-    if (!v8 || !v9)
+    if (!v7 || !v8)
     {
       return;
     }
 
-    v36 = *(v6 + 6);
-    v37 = 2 * v8;
-    v38 = v9 - 1;
-    if (v9 != 1)
+    v35 = *(v5 + 6);
+    v36 = 2 * v7;
+    v37 = v8 - 1;
+    if (v8 != 1)
     {
-      v39 = 2 * v11;
+      v38 = 2 * v10;
       do
       {
-        memmove(v7, v36, v37);
-        v36 += v39;
-        v7 = (v7 + v39);
-        --v38;
+        memmove(v6, v35, v36);
+        v35 += v38;
+        v6 = (v6 + v38);
+        --v37;
       }
 
-      while (v38);
+      while (v37);
     }
 
-    v15 = v7;
-    v14 = v36;
-    v13 = v37;
+    v14 = v6;
+    v13 = v35;
+    v12 = v36;
   }
 
-  memmove(v15, v14, v13);
+  memmove(v14, v13, v12);
 }
 
 void sub_23F22D874(uint64_t a1, int a2)
@@ -2593,7 +2599,6 @@ void sub_23F22D874(uint64_t a1, int a2)
   if (a2 == 2)
   {
 LABEL_10:
-    v7 = *(a1 + 48);
     if (*(a1 + 12))
     {
       v8 = *(a1 + 8) == 0;
@@ -2662,7 +2667,7 @@ LABEL_26:
   sub_23F3034A8("/Library/Caches/com.apple.xbs/Sources/AmbientSceneScope/library/Kit/Image/src/ImageStorage.cpp", 78, "F == format", 0xBuLL, &unk_23F3091D6, 0, sub_23F303DA4);
   if (byte_27E3961A0 == 1)
   {
-    if (byte_27E3961A8 != 1 || (v3 = qword_27E396178, v4 = unk_27E396180, qword_27E396178 == unk_27E396180))
+    if (byte_27E3961A8 != 1 || (v4 = qword_27E396178, v5 = unk_27E396180, qword_27E396178 == unk_27E396180))
     {
 LABEL_9:
       qword_27E396190(*algn_27E396198, "F == format", 11, &unk_23F3091D6, 0);
@@ -2672,8 +2677,8 @@ LABEL_9:
 
   else
   {
-    v3 = qword_27E396178;
-    v4 = unk_27E396180;
+    v4 = qword_27E396178;
+    v5 = unk_27E396180;
     if (qword_27E396178 == unk_27E396180)
     {
       goto LABEL_26;
@@ -2682,13 +2687,13 @@ LABEL_9:
 
   do
   {
-    v6 = *v3;
-    v5 = *(v3 + 8);
-    v3 += 16;
-    v6(v5, "F == format", 11, &unk_23F3091D6, 0);
+    v7 = *v4;
+    v6 = *(v4 + 8);
+    v4 += 16;
+    v7(v6, "F == format", 11, &unk_23F3091D6, 0);
   }
 
-  while (v3 != v4);
+  while (v4 != v5);
   if ((byte_27E3961A0 & 1) == 0)
   {
     goto LABEL_26;
@@ -2702,7 +2707,6 @@ void sub_23F22DADC(uint64_t a1, int a2)
   if (a2 == 2)
   {
 LABEL_10:
-    v7 = *(a1 + 48);
     if (*(a1 + 12))
     {
       v8 = *(a1 + 8) == 0;
@@ -2771,7 +2775,7 @@ LABEL_26:
   sub_23F3034A8("/Library/Caches/com.apple.xbs/Sources/AmbientSceneScope/library/Kit/Image/src/ImageStorage.cpp", 84, "F == format", 0xBuLL, &unk_23F3091D6, 0, sub_23F303DA4);
   if (byte_27E3961A0 == 1)
   {
-    if (byte_27E3961A8 != 1 || (v3 = qword_27E396178, v4 = unk_27E396180, qword_27E396178 == unk_27E396180))
+    if (byte_27E3961A8 != 1 || (v4 = qword_27E396178, v5 = unk_27E396180, qword_27E396178 == unk_27E396180))
     {
 LABEL_9:
       qword_27E396190(*algn_27E396198, "F == format", 11, &unk_23F3091D6, 0);
@@ -2781,8 +2785,8 @@ LABEL_9:
 
   else
   {
-    v3 = qword_27E396178;
-    v4 = unk_27E396180;
+    v4 = qword_27E396178;
+    v5 = unk_27E396180;
     if (qword_27E396178 == unk_27E396180)
     {
       goto LABEL_26;
@@ -2791,13 +2795,13 @@ LABEL_9:
 
   do
   {
-    v6 = *v3;
-    v5 = *(v3 + 8);
-    v3 += 16;
-    v6(v5, "F == format", 11, &unk_23F3091D6, 0);
+    v7 = *v4;
+    v6 = *(v4 + 8);
+    v4 += 16;
+    v7(v6, "F == format", 11, &unk_23F3091D6, 0);
   }
 
-  while (v3 != v4);
+  while (v4 != v5);
   if ((byte_27E3961A0 & 1) == 0)
   {
     goto LABEL_26;
@@ -3066,48 +3070,47 @@ LABEL_21:
   abort();
 }
 
-__int16 sub_23F22E23C@<H0>(uint64_t a1@<X0>, char **lpsrc@<X1>)
+__int16 sub_23F22E23C@<H0>(uint64_t a1@<X0>, uint64_t *lpsrc@<X1>)
 {
   v4 = *lpsrc;
-  v5 = **lpsrc;
-  v6 = __dynamic_cast(lpsrc, &unk_28518B5C0, &unk_285185688, 0);
-  if (!v6)
+  v5 = __dynamic_cast(lpsrc, &unk_28518B5C0, &unk_285185688, 0);
+  if (!v5)
   {
-    (*(v4 + 9))(v162, lpsrc, 3);
-    v23 = **&v162[0];
-    v24 = *(*&v162[0] + 8);
-    v25 = *(*&v162[0] + 12);
-    v27 = *(*&v162[0] + 16);
-    v26 = *(*&v162[0] + 20);
-    *&v162[0] = 0;
+    (*(v4 + 72))(v161, lpsrc, 3);
+    v22 = **&v161[0];
+    v23 = *(*&v161[0] + 8);
+    v24 = *(*&v161[0] + 12);
+    v26 = *(*&v161[0] + 16);
+    v25 = *(*&v161[0] + 20);
+    *&v161[0] = 0;
     MEMORY[0x245CACD00]();
-    v28 = *(a1 + 48);
+    v27 = *(a1 + 48);
     if (*(a1 + 12))
     {
-      v29 = *(a1 + 8) == 0;
+      v28 = *(a1 + 8) == 0;
     }
 
     else
     {
-      v29 = 1;
+      v28 = 1;
     }
 
-    v30 = *(a1 + 16);
-    if (v29)
+    v29 = *(a1 + 16);
+    if (v28)
     {
-      v31 = 0;
+      v30 = 0;
     }
 
     else
     {
-      v31 = *(a1 + 12);
+      v30 = *(a1 + 12);
     }
 
-    v32 = HIDWORD(v30);
-    if (v31 * HIDWORD(v30) != -1)
+    v31 = HIDWORD(v29);
+    if (v30 * HIDWORD(v29) != -1)
     {
-      v33 = v30;
-      if (v27 != 1 || v30 != 1)
+      v32 = v29;
+      if (v26 != 1 || v29 != 1)
       {
         goto LABEL_34;
       }
@@ -3115,7 +3118,7 @@ __int16 sub_23F22E23C@<H0>(uint64_t a1@<X0>, char **lpsrc@<X1>)
       goto LABEL_70;
     }
 
-    v161 = v26;
+    v160 = v25;
     sub_23F3034A8("/Library/Caches/com.apple.xbs/Sources/AmbientSceneScope/library/Essentials/Array/include/Essentials/Array/ArrayView.h", 983, "total_size < std::numeric_limits<uint32_t>::max()", 0x31uLL, "Given data block is too big to be represented by uint32_t indexed ArrayView", 0x4BuLL, sub_23F303DA4);
     if (byte_27E3961A0 == 1)
     {
@@ -3124,8 +3127,8 @@ __int16 sub_23F22E23C@<H0>(uint64_t a1@<X0>, char **lpsrc@<X1>)
         goto LABEL_65;
       }
 
-      v46 = qword_27E396178;
-      v47 = unk_27E396180;
+      v45 = qword_27E396178;
+      v46 = unk_27E396180;
       if (qword_27E396178 == unk_27E396180)
       {
         goto LABEL_65;
@@ -3134,235 +3137,235 @@ __int16 sub_23F22E23C@<H0>(uint64_t a1@<X0>, char **lpsrc@<X1>)
 
     else
     {
-      v46 = qword_27E396178;
-      v47 = unk_27E396180;
+      v45 = qword_27E396178;
+      v46 = unk_27E396180;
       if (qword_27E396178 == unk_27E396180)
       {
         goto LABEL_204;
       }
     }
 
-    v160 = v24;
+    v159 = v23;
     do
     {
-      v50 = *v46;
-      v49 = *(v46 + 8);
-      v46 += 16;
-      v50(v49, "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
+      v49 = *v45;
+      v48 = *(v45 + 8);
+      v45 += 16;
+      v49(v48, "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
     }
 
-    while (v46 != v47);
+    while (v45 != v46);
     if ((byte_27E3961A0 & 1) == 0)
     {
       goto LABEL_204;
     }
 
 LABEL_65:
-    qword_27E396190(*algn_27E396198, "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75, v160);
-    v26 = v161;
-    v33 = v30;
-    if (v27 != 1 || v30 != 1)
+    qword_27E396190(*algn_27E396198, "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75, v159);
+    v25 = v160;
+    v32 = v29;
+    if (v26 != 1 || v29 != 1)
     {
 LABEL_34:
-      if (v24)
+      if (v23)
       {
-        v35 = v25 == 0;
+        v34 = v24 == 0;
       }
 
       else
       {
-        v35 = 1;
+        v34 = 1;
       }
 
-      if (v35)
+      if (v34)
       {
-        return v7;
+        return v6;
       }
 
-      v36 = v24 - 1;
-      v37 = 2 * v27;
-      v38 = 2 * v33;
-      v39 = v25 - 1;
-      if (v25 != 1)
+      v35 = v23 - 1;
+      v36 = 2 * v26;
+      v37 = 2 * v32;
+      v38 = v24 - 1;
+      if (v24 != 1)
       {
-        if (v24 != 1)
+        if (v23 != 1)
         {
-          v40 = 0;
+          v39 = 0;
           do
           {
-            v41 = v28;
-            v42 = v23;
-            v43 = v24 - 1;
+            v40 = v27;
+            v41 = v22;
+            v42 = v23 - 1;
             do
             {
-              *v41 = *v42;
-              v42 = (v42 + v37);
-              v41 = (v41 + v38);
-              --v43;
+              *v40 = *v41;
+              v41 = (v41 + v36);
+              v40 = (v40 + v37);
+              --v42;
             }
 
-            while (v43);
-            *v41 = *v42;
-            v23 += v26;
-            v28 += v32;
-            ++v40;
+            while (v42);
+            *v40 = *v41;
+            v22 += v25;
+            v27 += v31;
+            ++v39;
           }
 
-          while (v40 != v39);
+          while (v39 != v38);
           goto LABEL_110;
         }
 
         do
         {
-          *v28 = *v23;
-          v23 += v26;
-          v28 += v32;
-          --v39;
+          *v27 = *v22;
+          v22 += v25;
+          v27 += v31;
+          --v38;
         }
 
-        while (v39);
+        while (v38);
       }
 
-      if (v24 == 1)
+      if (v23 == 1)
       {
 LABEL_111:
-        LOWORD(v7) = *v23;
-        *v28 = *v23;
-        return v7;
+        LOWORD(v6) = *v22;
+        *v27 = *v22;
+        return v6;
       }
 
       do
       {
 LABEL_110:
-        *v28 = *v23;
-        v23 = (v23 + v37);
-        v28 = (v28 + v38);
-        --v36;
+        *v27 = *v22;
+        v22 = (v22 + v36);
+        v27 = (v27 + v37);
+        --v35;
       }
 
-      while (v36);
+      while (v35);
       goto LABEL_111;
     }
 
 LABEL_70:
-    if (v26 != HIDWORD(v30) || v26 != v24)
+    if (v25 != HIDWORD(v29) || v25 != v23)
     {
-      if (!v24 || !v25)
+      if (!v23 || !v24)
       {
-        return v7;
+        return v6;
       }
 
-      if (v25 == 1)
+      if (v24 == 1)
       {
 LABEL_77:
-        v53 = (v24 - 1) & 0x7FFFFFFFFFFFFFFFLL;
-        if (v53 < 3 || (v28 - v23) < 0x20)
+        v52 = (v23 - 1) & 0x7FFFFFFFFFFFFFFFLL;
+        if (v52 < 3 || (v27 - v22) < 0x20)
         {
-          v61 = v28;
-          v62 = v23;
+          v60 = v27;
+          v61 = v22;
           goto LABEL_150;
         }
 
-        v54 = v53 + 1;
-        if (v53 >= 0xF)
+        v53 = v52 + 1;
+        if (v52 >= 0xF)
         {
-          v55 = v54 & 0xFFFFFFFFFFFFFFF0;
-          v99 = (v23 + 8);
-          v100 = v28 + 8;
-          v101 = v54 & 0xFFFFFFFFFFFFFFF0;
+          v54 = v53 & 0xFFFFFFFFFFFFFFF0;
+          v98 = (v22 + 8);
+          v99 = v27 + 8;
+          v100 = v53 & 0xFFFFFFFFFFFFFFF0;
           do
           {
-            v7 = *(v99 - 1);
-            v102 = *v99;
-            *(v100 - 1) = v7;
-            *v100 = v102;
+            v6 = *(v98 - 1);
+            v101 = *v98;
+            *(v99 - 1) = v6;
+            *v99 = v101;
+            v98 += 2;
             v99 += 2;
-            v100 += 2;
-            v101 -= 16;
+            v100 -= 16;
           }
 
-          while (v101);
-          if (v54 == v55)
+          while (v100);
+          if (v53 == v54)
           {
-            return v7;
+            return v6;
           }
 
-          if ((v54 & 0xC) == 0)
+          if ((v53 & 0xC) == 0)
           {
-            v62 = &v23[v55];
-            v61 = &v28[v55];
+            v61 = &v22[v54];
+            v60 = &v27[v54];
             goto LABEL_150;
           }
         }
 
         else
         {
-          v55 = 0;
+          v54 = 0;
         }
 
-        v103 = v54 & 0xFFFFFFFFFFFFFFFCLL;
-        v61 = &v28[v103];
-        v62 = &v23[v103];
-        v104 = &v23[v55];
-        v105 = &v28[v55];
-        v106 = v55 - (v54 & 0xFFFFFFFFFFFFFFFCLL);
+        v102 = v53 & 0xFFFFFFFFFFFFFFFCLL;
+        v60 = &v27[v102];
+        v61 = &v22[v102];
+        v103 = &v22[v54];
+        v104 = &v27[v54];
+        v105 = v54 - (v53 & 0xFFFFFFFFFFFFFFFCLL);
         do
         {
-          v107 = *v104++;
-          LOWORD(v7) = v107;
-          *v105++ = v107;
-          v106 += 4;
+          v106 = *v103++;
+          LOWORD(v6) = v106;
+          *v104++ = v106;
+          v105 += 4;
         }
 
-        while (v106);
-        if (v54 == (v54 & 0xFFFFFFFFFFFFFFFCLL))
+        while (v105);
+        if (v53 == (v53 & 0xFFFFFFFFFFFFFFFCLL))
         {
-          return v7;
+          return v6;
         }
 
         do
         {
 LABEL_150:
-          v114 = *v62++;
-          LOWORD(v7) = v114;
-          *v61++ = v114;
+          v113 = *v61++;
+          LOWORD(v6) = v113;
+          *v60++ = v113;
         }
 
-        while (v62 != &v23[v24]);
-        return v7;
+        while (v61 != &v22[v23]);
+        return v6;
       }
 
-      v63 = 0;
-      v64 = (v24 - 1) & 0x7FFFFFFFFFFFFFFFLL;
-      v65 = v64 + 1;
-      v66 = v28 >= &v23[v24 + v26 * (v25 - 2)] || v23 >= &v28[v24 + HIDWORD(v30) * (v25 - 2)];
-      v67 = v65 & 0xFFFFFFFFFFFFFFF0;
-      v68 = v65 & 0xFFFFFFFFFFFFFFFCLL;
-      v69 = v65 & 0xFFFFFFFFFFFFFFFCLL;
-      v70 = !v66;
+      v62 = 0;
+      v63 = (v23 - 1) & 0x7FFFFFFFFFFFFFFFLL;
+      v64 = v63 + 1;
+      v65 = v27 >= &v22[v23 + v25 * (v24 - 2)] || v22 >= &v27[v23 + HIDWORD(v29) * (v24 - 2)];
+      v66 = v64 & 0xFFFFFFFFFFFFFFF0;
+      v67 = v64 & 0xFFFFFFFFFFFFFFFCLL;
+      v68 = v64 & 0xFFFFFFFFFFFFFFFCLL;
+      v69 = !v65;
       while (1)
       {
-        v71 = v28;
-        v72 = v23;
-        if (!((v64 < 3) | v70 & 1))
+        v70 = v27;
+        v71 = v22;
+        if (!((v63 < 3) | v69 & 1))
         {
-          if (v64 < 0xF)
+          if (v63 < 0xF)
           {
-            v73 = 0;
+            v72 = 0;
 LABEL_101:
-            v71 = &v28[v69];
-            v72 = &v23[v69];
-            v78 = v73;
-            v79 = v73 - v68;
+            v70 = &v27[v68];
+            v71 = &v22[v68];
+            v77 = v72;
+            v78 = v72 - v67;
             do
             {
-              *&v28[v78] = *&v23[v78];
+              *&v27[v77] = *&v22[v77];
+              v77 += 4;
               v78 += 4;
-              v79 += 4;
             }
 
-            while (v79);
-            if (v65 == v68)
+            while (v78);
+            if (v64 == v67)
             {
               goto LABEL_93;
             }
@@ -3370,186 +3373,186 @@ LABEL_101:
             goto LABEL_106;
           }
 
-          v74 = 0;
-          v75 = v65 & 0xFFFFFFFFFFFFFFF0;
+          v73 = 0;
+          v74 = v64 & 0xFFFFFFFFFFFFFFF0;
           do
           {
-            v76 = &v28[v74];
-            v77 = *&v23[v74 + 8];
-            *v76 = *&v23[v74];
-            v76[1] = v77;
-            v74 += 16;
-            v75 -= 16;
+            v75 = &v27[v73];
+            v76 = *&v22[v73 + 8];
+            *v75 = *&v22[v73];
+            v75[1] = v76;
+            v73 += 16;
+            v74 -= 16;
           }
 
-          while (v75);
-          if (v65 == (v65 & 0xFFFFFFFFFFFFFFF0))
+          while (v74);
+          if (v64 == (v64 & 0xFFFFFFFFFFFFFFF0))
           {
             goto LABEL_93;
           }
 
-          v73 = v65 & 0xFFFFFFFFFFFFFFF0;
-          if ((v65 & 0xC) != 0)
+          v72 = v64 & 0xFFFFFFFFFFFFFFF0;
+          if ((v64 & 0xC) != 0)
           {
             goto LABEL_101;
           }
 
-          v72 = &v23[v67];
-          v71 = &v28[v67];
+          v71 = &v22[v66];
+          v70 = &v27[v66];
         }
 
         do
         {
 LABEL_106:
-          v80 = *v72++;
-          *v71++ = v80;
+          v79 = *v71++;
+          *v70++ = v79;
         }
 
-        while (v72 != &v23[v24]);
+        while (v71 != &v22[v23]);
 LABEL_93:
-        v23 += v26;
-        v28 += v32;
-        v21 = v63++ == v25 - 2;
-        if (v21)
+        v22 += v25;
+        v27 += v31;
+        v20 = v62++ == v24 - 2;
+        if (v20)
         {
           goto LABEL_77;
         }
       }
     }
 
-    v56 = (v25 * v24);
-    if (!v56)
+    v55 = (v24 * v23);
+    if (!v55)
     {
-      return v7;
+      return v6;
     }
 
-    v57 = (v56 - 1) & 0x7FFFFFFFFFFFFFFFLL;
-    if (v57 < 3)
+    v56 = (v55 - 1) & 0x7FFFFFFFFFFFFFFFLL;
+    if (v56 < 3)
     {
-      v58 = v23;
+      v57 = v22;
       goto LABEL_146;
     }
 
-    v58 = v23;
-    if ((v28 - v23) < 0x20)
+    v57 = v22;
+    if ((v27 - v22) < 0x20)
     {
       goto LABEL_146;
     }
 
-    v59 = v57 + 1;
-    if (v57 >= 0xF)
+    v58 = v56 + 1;
+    if (v56 >= 0xF)
     {
-      v60 = v59 & 0xFFFFFFFFFFFFFFF0;
-      v81 = (v23 + 8);
-      v82 = v28 + 8;
-      v83 = v59 & 0xFFFFFFFFFFFFFFF0;
+      v59 = v58 & 0xFFFFFFFFFFFFFFF0;
+      v80 = (v22 + 8);
+      v81 = v27 + 8;
+      v82 = v58 & 0xFFFFFFFFFFFFFFF0;
       do
       {
-        v7 = *(v81 - 1);
-        v84 = *v81;
-        *(v82 - 1) = v7;
-        *v82 = v84;
+        v6 = *(v80 - 1);
+        v83 = *v80;
+        *(v81 - 1) = v6;
+        *v81 = v83;
+        v80 += 2;
         v81 += 2;
-        v82 += 2;
-        v83 -= 16;
+        v82 -= 16;
       }
 
-      while (v83);
-      if (v59 == v60)
+      while (v82);
+      if (v58 == v59)
       {
-        return v7;
+        return v6;
       }
 
-      if ((v59 & 0xC) == 0)
+      if ((v58 & 0xC) == 0)
       {
-        v58 = &v23[v60];
-        v28 += v60;
+        v57 = &v22[v59];
+        v27 += v59;
         goto LABEL_146;
       }
     }
 
     else
     {
-      v60 = 0;
+      v59 = 0;
     }
 
-    v85 = v59 & 0xFFFFFFFFFFFFFFFCLL;
-    v86 = &v28[v85];
-    v58 = &v23[v85];
-    v87 = &v23[v60];
-    v88 = &v28[v60];
-    v89 = v60 - (v59 & 0xFFFFFFFFFFFFFFFCLL);
+    v84 = v58 & 0xFFFFFFFFFFFFFFFCLL;
+    v85 = &v27[v84];
+    v57 = &v22[v84];
+    v86 = &v22[v59];
+    v87 = &v27[v59];
+    v88 = v59 - (v58 & 0xFFFFFFFFFFFFFFFCLL);
     do
     {
-      v90 = *v87++;
-      LOWORD(v7) = v90;
-      *v88++ = v90;
-      v89 += 4;
+      v89 = *v86++;
+      LOWORD(v6) = v89;
+      *v87++ = v89;
+      v88 += 4;
     }
 
-    while (v89);
-    v28 = v86;
-    if (v59 == (v59 & 0xFFFFFFFFFFFFFFFCLL))
+    while (v88);
+    v27 = v85;
+    if (v58 == (v58 & 0xFFFFFFFFFFFFFFFCLL))
     {
-      return v7;
+      return v6;
     }
 
 LABEL_146:
-    v112 = &v23[v56];
+    v111 = &v22[v55];
     do
     {
-      v113 = *v58++;
-      LOWORD(v7) = v113;
-      *v28++ = v113;
+      v112 = *v57++;
+      LOWORD(v6) = v112;
+      *v27++ = v112;
     }
 
-    while (v58 != v112);
-    return v7;
+    while (v57 != v111);
+    return v6;
   }
 
-  v8 = *(a1 + 48);
-  if (!v8 || (v9 = *(v6 + 2), v9 != *(a1 + 8)) || (v10 = *(v6 + 3), v10 != *(a1 + 12)) || (v11 = *(v6 + 4), v11 != *(a1 + 16)) || (v12 = *(v6 + 5), v12 != *(a1 + 20)))
+  v7 = *(a1 + 48);
+  if (!v7 || (v8 = *(v5 + 2), v8 != *(a1 + 8)) || (v9 = *(v5 + 3), v9 != *(a1 + 12)) || (v10 = *(v5 + 4), v10 != *(a1 + 16)) || (v11 = *(v5 + 5), v11 != *(a1 + 20)))
   {
-    v19 = *(v6 + 8);
-    *(v162 + 12) = *(v6 + 20);
-    v162[0] = v19;
-    sub_23F24D3C0(v163, (v6 + 40));
-    *(a1 + 8) = v162[0];
-    *(a1 + 20) = *(v162 + 12);
-    LOWORD(v7) = v164;
-    *(a1 + 64) = v164;
-    v20 = *(a1 + 48);
-    if (!v20)
+    v18 = *(v5 + 8);
+    *(v161 + 12) = *(v5 + 20);
+    v161[0] = v18;
+    sub_23F24D3C0(v162, (v5 + 40));
+    *(a1 + 8) = v161[0];
+    *(a1 + 20) = *(v161 + 12);
+    LOWORD(v6) = v163;
+    *(a1 + 64) = v163;
+    v19 = *(a1 + 48);
+    if (!v19)
     {
-      *(a1 + 40) = v163[0];
+      *(a1 + 40) = v162[0];
       goto LABEL_59;
     }
 
     if (*(a1 + 68))
     {
-      v21 = *(a1 + 64) == 0;
+      v20 = *(a1 + 64) == 0;
     }
 
     else
     {
-      v21 = 1;
+      v20 = 1;
     }
 
-    if (v21)
+    if (v20)
     {
-      v22 = 0;
+      v21 = 0;
     }
 
     else
     {
-      v22 = *(a1 + 68);
+      v21 = *(a1 + 68);
     }
 
-    if (v22 * (*(a1 + 72) >> 33) != -1)
+    if (v21 * (*(a1 + 72) >> 33) != -1)
     {
-      *(a1 + 40) = v163[0];
+      *(a1 + 40) = v162[0];
 LABEL_58:
-      free(v20);
+      free(v19);
       goto LABEL_59;
     }
 
@@ -3561,8 +3564,8 @@ LABEL_58:
         goto LABEL_57;
       }
 
-      v44 = qword_27E396178;
-      v45 = unk_27E396180;
+      v43 = qword_27E396178;
+      v44 = unk_27E396180;
       if (qword_27E396178 == unk_27E396180)
       {
         goto LABEL_57;
@@ -3571,8 +3574,8 @@ LABEL_58:
 
     else
     {
-      v44 = qword_27E396178;
-      v45 = unk_27E396180;
+      v43 = qword_27E396178;
+      v44 = unk_27E396180;
       if (qword_27E396178 == unk_27E396180)
       {
         goto LABEL_204;
@@ -3581,224 +3584,224 @@ LABEL_58:
 
     do
     {
-      (*v44)(*(v44 + 8), "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
-      v44 += 16;
+      (*v43)(*(v43 + 8), "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
+      v43 += 16;
     }
 
-    while (v44 != v45);
+    while (v43 != v44);
     if (byte_27E3961A0)
     {
 LABEL_57:
       qword_27E396190(*algn_27E396198, "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
-      v20 = *(a1 + 48);
-      *(a1 + 40) = v163[0];
-      if (v20)
+      v19 = *(a1 + 48);
+      *(a1 + 40) = v162[0];
+      if (v19)
       {
         goto LABEL_58;
       }
 
 LABEL_59:
-      v48 = v163[2];
-      *(a1 + 48) = v163[1];
-      *(a1 + 56) = v48;
-      return v7;
+      v47 = v162[2];
+      *(a1 + 48) = v162[1];
+      *(a1 + 56) = v47;
+      return v6;
     }
 
 LABEL_204:
     abort();
   }
 
-  if (v11 != 1)
+  if (v10 != 1)
   {
-    if (!v9 || !v10)
+    if (!v8 || !v9)
     {
-      return v7;
+      return v6;
     }
 
-    v91 = v9 - 1;
-    v92 = *(v6 + 6);
-    v93 = 2 * v11;
-    v94 = v10 - 1;
-    if (v94)
+    v90 = v8 - 1;
+    v91 = *(v5 + 6);
+    v92 = 2 * v10;
+    v93 = v9 - 1;
+    if (v93)
     {
-      if (v91)
+      if (v90)
       {
-        v95 = 0;
-        v96 = 2 * v12;
+        v94 = 0;
+        v95 = 2 * v11;
         do
         {
-          v97 = 0;
-          v98 = v91;
+          v96 = 0;
+          v97 = v90;
           do
           {
-            *(v8 + v97) = *(v92 + v97);
-            v97 += v93;
-            --v98;
+            *(v7 + v96) = *(v91 + v96);
+            v96 += v92;
+            --v97;
           }
 
-          while (v98);
-          *(v8 + v97) = *(v92 + v97);
-          v92 = (v92 + v96);
-          v8 = (v8 + v96);
-          ++v95;
+          while (v97);
+          *(v7 + v96) = *(v91 + v96);
+          v91 = (v91 + v95);
+          v7 = (v7 + v95);
+          ++v94;
         }
 
-        while (v95 != v94);
+        while (v94 != v93);
         goto LABEL_178;
       }
 
-      v136 = 2 * v12;
+      v135 = 2 * v11;
       do
       {
-        *v8 = *v92;
-        v92 = (v92 + v136);
-        v8 = (v8 + v136);
-        --v94;
+        *v7 = *v91;
+        v91 = (v91 + v135);
+        v7 = (v7 + v135);
+        --v93;
       }
 
-      while (v94);
+      while (v93);
     }
 
-    if (!v91)
+    if (!v90)
     {
 LABEL_179:
-      LOWORD(v7) = *v92;
-      *v8 = *v92;
-      return v7;
+      LOWORD(v6) = *v91;
+      *v7 = *v91;
+      return v6;
     }
 
     do
     {
 LABEL_178:
-      *v8 = *v92;
-      v92 = (v92 + v93);
-      v8 = (v8 + v93);
-      --v91;
+      *v7 = *v91;
+      v91 = (v91 + v92);
+      v7 = (v7 + v92);
+      --v90;
     }
 
-    while (v91);
+    while (v90);
     goto LABEL_179;
   }
 
-  if (v12 != v9)
+  if (v11 != v8)
   {
-    if (!v9 || !v10)
+    if (!v8 || !v9)
     {
-      return v7;
+      return v6;
     }
 
-    v108 = *(v6 + 6);
-    if (v10 == 1)
+    v107 = *(v5 + 6);
+    if (v9 == 1)
     {
 LABEL_141:
-      v109 = (v9 - 1) & 0x7FFFFFFFFFFFFFFFLL;
-      if (v109 < 3 || v8 - v108 < 0x20)
+      v108 = (v8 - 1) & 0x7FFFFFFFFFFFFFFFLL;
+      if (v108 < 3 || v7 - v107 < 0x20)
       {
-        v115 = v8;
-        v116 = v108;
+        v114 = v7;
+        v115 = v107;
         goto LABEL_202;
       }
 
-      v110 = v109 + 1;
-      if (v109 >= 0xF)
+      v109 = v108 + 1;
+      if (v108 >= 0xF)
       {
-        v111 = v110 & 0xFFFFFFFFFFFFFFF0;
-        v147 = (v108 + 16);
-        v148 = v8 + 8;
-        v149 = v110 & 0xFFFFFFFFFFFFFFF0;
+        v110 = v109 & 0xFFFFFFFFFFFFFFF0;
+        v146 = (v107 + 16);
+        v147 = v7 + 8;
+        v148 = v109 & 0xFFFFFFFFFFFFFFF0;
         do
         {
-          v7 = *(v147 - 1);
-          v150 = *v147;
-          *(v148 - 1) = v7;
-          *v148 = v150;
+          v6 = *(v146 - 1);
+          v149 = *v146;
+          *(v147 - 1) = v6;
+          *v147 = v149;
+          v146 += 2;
           v147 += 2;
-          v148 += 2;
-          v149 -= 16;
+          v148 -= 16;
         }
 
-        while (v149);
-        if (v110 == v111)
+        while (v148);
+        if (v109 == v110)
         {
-          return v7;
+          return v6;
         }
 
-        if ((v110 & 0xC) == 0)
+        if ((v109 & 0xC) == 0)
         {
-          v116 = (v108 + 2 * v111);
-          v115 = &v8[v111];
+          v115 = (v107 + 2 * v110);
+          v114 = &v7[v110];
           goto LABEL_202;
         }
       }
 
       else
       {
-        v111 = 0;
+        v110 = 0;
       }
 
-      v151 = v110 & 0xFFFFFFFFFFFFFFFCLL;
-      v115 = &v8[v151];
-      v116 = (v108 + v151 * 2);
-      v152 = (v108 + 2 * v111);
-      v153 = &v8[v111];
-      v154 = v111 - (v110 & 0xFFFFFFFFFFFFFFFCLL);
+      v150 = v109 & 0xFFFFFFFFFFFFFFFCLL;
+      v114 = &v7[v150];
+      v115 = (v107 + v150 * 2);
+      v151 = (v107 + 2 * v110);
+      v152 = &v7[v110];
+      v153 = v110 - (v109 & 0xFFFFFFFFFFFFFFFCLL);
       do
       {
-        v155 = *v152++;
-        LOWORD(v7) = v155;
-        *v153++ = v155;
-        v154 += 4;
+        v154 = *v151++;
+        LOWORD(v6) = v154;
+        *v152++ = v154;
+        v153 += 4;
       }
 
-      while (v154);
-      if (v110 == (v110 & 0xFFFFFFFFFFFFFFFCLL))
+      while (v153);
+      if (v109 == (v109 & 0xFFFFFFFFFFFFFFFCLL))
       {
-        return v7;
+        return v6;
       }
 
       do
       {
 LABEL_202:
-        v158 = *v116++;
-        LOWORD(v7) = v158;
-        *v115++ = v158;
+        v157 = *v115++;
+        LOWORD(v6) = v157;
+        *v114++ = v157;
       }
 
-      while (v116 != (v108 + 2 * v9));
-      return v7;
+      while (v115 != (v107 + 2 * v8));
+      return v6;
     }
 
-    v117 = 0;
-    v118 = v10 - 2;
-    v119 = (v9 - 1) & 0x7FFFFFFFFFFFFFFFLL;
-    v120 = v119 + 1;
-    v122 = v119 < 3 || v8 - v108 < 0x20;
-    v123 = v120 & 0xFFFFFFFFFFFFFFF0;
-    v124 = v120 & 0xFFFFFFFFFFFFFFFCLL;
-    v125 = 2 * v12;
+    v116 = 0;
+    v117 = v9 - 2;
+    v118 = (v8 - 1) & 0x7FFFFFFFFFFFFFFFLL;
+    v119 = v118 + 1;
+    v121 = v118 < 3 || v7 - v107 < 0x20;
+    v122 = v119 & 0xFFFFFFFFFFFFFFF0;
+    v123 = v119 & 0xFFFFFFFFFFFFFFFCLL;
+    v124 = 2 * v11;
     while (1)
     {
-      v126 = v8;
-      v127 = v108;
-      if (!v122)
+      v125 = v7;
+      v126 = v107;
+      if (!v121)
       {
-        if (v119 < 0xF)
+        if (v118 < 0xF)
         {
-          v128 = 0;
+          v127 = 0;
 LABEL_168:
-          v126 = &v8[v124];
-          v127 = (v108 + v124 * 2);
-          v133 = v128;
-          v134 = v128 - (v120 & 0xFFFFFFFFFFFFFFFCLL);
+          v125 = &v7[v123];
+          v126 = (v107 + v123 * 2);
+          v132 = v127;
+          v133 = v127 - (v119 & 0xFFFFFFFFFFFFFFFCLL);
           do
           {
-            *&v8[v133] = *(v108 + v133 * 2);
+            *&v7[v132] = *(v107 + v132 * 2);
+            v132 += 4;
             v133 += 4;
-            v134 += 4;
           }
 
-          while (v134);
-          if (v120 == (v120 & 0xFFFFFFFFFFFFFFFCLL))
+          while (v133);
+          if (v119 == (v119 & 0xFFFFFFFFFFFFFFFCLL))
           {
             goto LABEL_160;
           }
@@ -3806,153 +3809,153 @@ LABEL_168:
           goto LABEL_173;
         }
 
-        v129 = 0;
-        v130 = v120 & 0xFFFFFFFFFFFFFFF0;
+        v128 = 0;
+        v129 = v119 & 0xFFFFFFFFFFFFFFF0;
         do
         {
-          v131 = &v8[v129];
-          v132 = *(v108 + v129 * 2 + 16);
-          *v131 = *(v108 + v129 * 2);
-          v131[1] = v132;
-          v129 += 16;
-          v130 -= 16;
+          v130 = &v7[v128];
+          v131 = *(v107 + v128 * 2 + 16);
+          *v130 = *(v107 + v128 * 2);
+          v130[1] = v131;
+          v128 += 16;
+          v129 -= 16;
         }
 
-        while (v130);
-        if (v120 == (v120 & 0xFFFFFFFFFFFFFFF0))
+        while (v129);
+        if (v119 == (v119 & 0xFFFFFFFFFFFFFFF0))
         {
           goto LABEL_160;
         }
 
-        v128 = v120 & 0xFFFFFFFFFFFFFFF0;
-        if ((v120 & 0xC) != 0)
+        v127 = v119 & 0xFFFFFFFFFFFFFFF0;
+        if ((v119 & 0xC) != 0)
         {
           goto LABEL_168;
         }
 
-        v127 = (v108 + v123 * 2);
-        v126 = &v8[v123];
+        v126 = (v107 + v122 * 2);
+        v125 = &v7[v122];
       }
 
       do
       {
 LABEL_173:
-        v135 = *v127++;
-        *v126++ = v135;
+        v134 = *v126++;
+        *v125++ = v134;
       }
 
-      while (v127 != (v108 + 2 * v9));
+      while (v126 != (v107 + 2 * v8));
 LABEL_160:
-      v108 += v125;
-      v8 = (v8 + v125);
-      v21 = v117++ == v118;
-      if (v21)
+      v107 += v124;
+      v7 = (v7 + v124);
+      v20 = v116++ == v117;
+      if (v20)
       {
         goto LABEL_141;
       }
     }
   }
 
-  v13 = (v10 * v9);
-  if (!v13)
+  v12 = (v9 * v8);
+  if (!v12)
   {
-    return v7;
+    return v6;
   }
 
-  v14 = *(v6 + 6);
-  v15 = (v13 - 1) & 0x7FFFFFFFFFFFFFFFLL;
-  if (v15 < 3)
+  v13 = *(v5 + 6);
+  v14 = (v12 - 1) & 0x7FFFFFFFFFFFFFFFLL;
+  if (v14 < 3)
   {
-    v16 = *(v6 + 6);
+    v15 = *(v5 + 6);
     goto LABEL_198;
   }
 
-  v16 = *(v6 + 6);
-  if (v8 - v14 < 0x20)
+  v15 = *(v5 + 6);
+  if (v7 - v13 < 0x20)
   {
     goto LABEL_198;
   }
 
-  v17 = v15 + 1;
-  if (v15 >= 0xF)
+  v16 = v14 + 1;
+  if (v14 >= 0xF)
   {
-    v18 = v17 & 0xFFFFFFFFFFFFFFF0;
-    v137 = (v14 + 16);
-    v138 = v8 + 8;
-    v139 = v17 & 0xFFFFFFFFFFFFFFF0;
+    v17 = v16 & 0xFFFFFFFFFFFFFFF0;
+    v136 = (v13 + 16);
+    v137 = v7 + 8;
+    v138 = v16 & 0xFFFFFFFFFFFFFFF0;
     do
     {
-      v7 = *(v137 - 1);
-      v140 = *v137;
-      *(v138 - 1) = v7;
-      *v138 = v140;
+      v6 = *(v136 - 1);
+      v139 = *v136;
+      *(v137 - 1) = v6;
+      *v137 = v139;
+      v136 += 2;
       v137 += 2;
-      v138 += 2;
-      v139 -= 16;
+      v138 -= 16;
     }
 
-    while (v139);
-    if (v17 == v18)
+    while (v138);
+    if (v16 == v17)
     {
-      return v7;
+      return v6;
     }
 
-    if ((v17 & 0xC) != 0)
+    if ((v16 & 0xC) != 0)
     {
       goto LABEL_185;
     }
 
-    v16 = (v14 + 2 * v18);
-    v8 += v18;
+    v15 = (v13 + 2 * v17);
+    v7 += v17;
 LABEL_198:
-    v156 = (v14 + 2 * v13);
+    v155 = (v13 + 2 * v12);
     do
     {
-      v157 = *v16++;
-      LOWORD(v7) = v157;
-      *v8++ = v157;
+      v156 = *v15++;
+      LOWORD(v6) = v156;
+      *v7++ = v156;
     }
 
-    while (v16 != v156);
-    return v7;
+    while (v15 != v155);
+    return v6;
   }
 
-  v18 = 0;
+  v17 = 0;
 LABEL_185:
-  v141 = v17 & 0xFFFFFFFFFFFFFFFCLL;
-  v142 = &v8[v141];
-  v16 = (v14 + v141 * 2);
-  v143 = (v14 + 2 * v18);
-  v144 = &v8[v18];
-  v145 = v18 - (v17 & 0xFFFFFFFFFFFFFFFCLL);
+  v140 = v16 & 0xFFFFFFFFFFFFFFFCLL;
+  v141 = &v7[v140];
+  v15 = (v13 + v140 * 2);
+  v142 = (v13 + 2 * v17);
+  v143 = &v7[v17];
+  v144 = v17 - (v16 & 0xFFFFFFFFFFFFFFFCLL);
   do
   {
-    v146 = *v143++;
-    LOWORD(v7) = v146;
-    *v144++ = v146;
-    v145 += 4;
+    v145 = *v142++;
+    LOWORD(v6) = v145;
+    *v143++ = v145;
+    v144 += 4;
   }
 
-  while (v145);
-  v8 = v142;
-  if (v17 != (v17 & 0xFFFFFFFFFFFFFFFCLL))
+  while (v144);
+  v7 = v141;
+  if (v16 != (v16 & 0xFFFFFFFFFFFFFFFCLL))
   {
     goto LABEL_198;
   }
 
-  return v7;
+  return v6;
 }
 
-void sub_23F22ED4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_23F22ED4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   sub_23F22DD44(va);
   _Unwind_Resume(a1);
 }
 
-void sub_23F22ED60(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_23F22ED60(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   sub_23F22DD44(va);
   _Unwind_Resume(a1);
 }
@@ -3962,7 +3965,6 @@ void sub_23F22ED7C(uint64_t a1, int a2)
   if (a2 == 3)
   {
 LABEL_10:
-    v7 = *(a1 + 48);
     if (*(a1 + 12))
     {
       v8 = *(a1 + 8) == 0;
@@ -4031,7 +4033,7 @@ LABEL_26:
   sub_23F3034A8("/Library/Caches/com.apple.xbs/Sources/AmbientSceneScope/library/Kit/Image/src/ImageStorage.cpp", 78, "F == format", 0xBuLL, &unk_23F3091D6, 0, sub_23F303DA4);
   if (byte_27E3961A0 == 1)
   {
-    if (byte_27E3961A8 != 1 || (v3 = qword_27E396178, v4 = unk_27E396180, qword_27E396178 == unk_27E396180))
+    if (byte_27E3961A8 != 1 || (v4 = qword_27E396178, v5 = unk_27E396180, qword_27E396178 == unk_27E396180))
     {
 LABEL_9:
       qword_27E396190(*algn_27E396198, "F == format", 11, &unk_23F3091D6, 0);
@@ -4041,8 +4043,8 @@ LABEL_9:
 
   else
   {
-    v3 = qword_27E396178;
-    v4 = unk_27E396180;
+    v4 = qword_27E396178;
+    v5 = unk_27E396180;
     if (qword_27E396178 == unk_27E396180)
     {
       goto LABEL_26;
@@ -4051,13 +4053,13 @@ LABEL_9:
 
   do
   {
-    v6 = *v3;
-    v5 = *(v3 + 8);
-    v3 += 16;
-    v6(v5, "F == format", 11, &unk_23F3091D6, 0);
+    v7 = *v4;
+    v6 = *(v4 + 8);
+    v4 += 16;
+    v7(v6, "F == format", 11, &unk_23F3091D6, 0);
   }
 
-  while (v3 != v4);
+  while (v4 != v5);
   if ((byte_27E3961A0 & 1) == 0)
   {
     goto LABEL_26;
@@ -4071,7 +4073,6 @@ void sub_23F22EFE4(uint64_t a1, int a2)
   if (a2 == 3)
   {
 LABEL_10:
-    v7 = *(a1 + 48);
     if (*(a1 + 12))
     {
       v8 = *(a1 + 8) == 0;
@@ -4140,7 +4141,7 @@ LABEL_26:
   sub_23F3034A8("/Library/Caches/com.apple.xbs/Sources/AmbientSceneScope/library/Kit/Image/src/ImageStorage.cpp", 84, "F == format", 0xBuLL, &unk_23F3091D6, 0, sub_23F303DA4);
   if (byte_27E3961A0 == 1)
   {
-    if (byte_27E3961A8 != 1 || (v3 = qword_27E396178, v4 = unk_27E396180, qword_27E396178 == unk_27E396180))
+    if (byte_27E3961A8 != 1 || (v4 = qword_27E396178, v5 = unk_27E396180, qword_27E396178 == unk_27E396180))
     {
 LABEL_9:
       qword_27E396190(*algn_27E396198, "F == format", 11, &unk_23F3091D6, 0);
@@ -4150,8 +4151,8 @@ LABEL_9:
 
   else
   {
-    v3 = qword_27E396178;
-    v4 = unk_27E396180;
+    v4 = qword_27E396178;
+    v5 = unk_27E396180;
     if (qword_27E396178 == unk_27E396180)
     {
       goto LABEL_26;
@@ -4160,13 +4161,13 @@ LABEL_9:
 
   do
   {
-    v6 = *v3;
-    v5 = *(v3 + 8);
-    v3 += 16;
-    v6(v5, "F == format", 11, &unk_23F3091D6, 0);
+    v7 = *v4;
+    v6 = *(v4 + 8);
+    v4 += 16;
+    v7(v6, "F == format", 11, &unk_23F3091D6, 0);
   }
 
-  while (v3 != v4);
+  while (v4 != v5);
   if ((byte_27E3961A0 & 1) == 0)
   {
     goto LABEL_26;
@@ -4203,42 +4204,41 @@ void sub_23F22F288(uint64_t a1)
   JUMPOUT(0x245CACD00);
 }
 
-void sub_23F22F38C(uint64_t a1, char **lpsrc)
+void sub_23F22F38C(uint64_t a1, uint64_t *lpsrc)
 {
   v4 = *lpsrc;
-  v5 = **lpsrc;
-  v6 = __dynamic_cast(lpsrc, &unk_28518B5C0, &unk_2851856A0, 0);
-  if (!v6)
+  v5 = __dynamic_cast(lpsrc, &unk_28518B5C0, &unk_2851856A0, 0);
+  if (!v5)
   {
-    (*(v4 + 9))(v41, lpsrc, 4);
-    v19 = *(v41[0] + 2);
-    *v42 = *v41[0];
-    *&v42[16] = v19;
-    v41[0] = 0;
+    (*(v4 + 72))(v40, lpsrc, 4);
+    v18 = *(v40[0] + 2);
+    *v41 = *v40[0];
+    *&v41[16] = v18;
+    v40[0] = 0;
     MEMORY[0x245CACD00]();
-    v20 = *(a1 + 48);
+    v19 = *(a1 + 48);
     if (*(a1 + 12))
     {
-      v21 = *(a1 + 8) == 0;
+      v20 = *(a1 + 8) == 0;
     }
 
     else
     {
-      v21 = 1;
+      v20 = 1;
     }
 
-    v22 = *(a1 + 16);
-    if (v21)
+    v21 = *(a1 + 16);
+    if (v20)
     {
-      v23 = 0;
+      v22 = 0;
     }
 
     else
     {
-      v23 = *(a1 + 8);
+      v22 = *(a1 + 8);
     }
 
-    if (HIDWORD(v23) * HIDWORD(v22) != -1)
+    if (HIDWORD(v22) * HIDWORD(v21) != -1)
     {
       goto LABEL_29;
     }
@@ -4246,23 +4246,23 @@ void sub_23F22F38C(uint64_t a1, char **lpsrc)
     sub_23F3034A8("/Library/Caches/com.apple.xbs/Sources/AmbientSceneScope/library/Essentials/Array/include/Essentials/Array/ArrayView.h", 983, "total_size < std::numeric_limits<uint32_t>::max()", 0x31uLL, "Given data block is too big to be represented by uint32_t indexed ArrayView", 0x4BuLL, sub_23F303DA4);
     if (byte_27E3961A0 == 1)
     {
-      if (byte_27E3961A8 != 1 || (v24 = qword_27E396178, v25 = unk_27E396180, qword_27E396178 == unk_27E396180))
+      if (byte_27E3961A8 != 1 || (v23 = qword_27E396178, v24 = unk_27E396180, qword_27E396178 == unk_27E396180))
       {
 LABEL_28:
         qword_27E396190(*algn_27E396198, "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
 LABEL_29:
-        v41[0] = v20;
-        v41[1] = v23;
-        v41[2] = v22;
-        sub_23F1F7DE8(v42, v41);
+        v40[0] = v19;
+        v40[1] = v22;
+        v40[2] = v21;
+        sub_23F1F7DE8(v41, v40);
         return;
       }
     }
 
     else
     {
-      v24 = qword_27E396178;
-      v25 = unk_27E396180;
+      v23 = qword_27E396178;
+      v24 = unk_27E396180;
       if (qword_27E396178 == unk_27E396180)
       {
         goto LABEL_55;
@@ -4271,13 +4271,13 @@ LABEL_29:
 
     do
     {
-      v27 = *v24;
-      v26 = *(v24 + 8);
-      v24 += 16;
-      v27(v26, "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
+      v26 = *v23;
+      v25 = *(v23 + 8);
+      v23 += 16;
+      v26(v25, "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
     }
 
-    while (v24 != v25);
+    while (v23 != v24);
     if (byte_27E3961A0)
     {
       goto LABEL_28;
@@ -4287,142 +4287,142 @@ LABEL_55:
     abort();
   }
 
-  v7 = *(a1 + 48);
-  if (!v7 || (v8 = *(v6 + 2), v8 != *(a1 + 8)) || (v9 = *(v6 + 3), v9 != *(a1 + 12)) || (v10 = *(v6 + 4), v10 != *(a1 + 16)) || (v11 = *(v6 + 5), v11 != *(a1 + 20)))
+  v6 = *(a1 + 48);
+  if (!v6 || (v7 = *(v5 + 2), v7 != *(a1 + 8)) || (v8 = *(v5 + 3), v8 != *(a1 + 12)) || (v9 = *(v5 + 4), v9 != *(a1 + 16)) || (v10 = *(v5 + 5), v10 != *(a1 + 20)))
   {
-    v16 = *(v6 + 8);
-    *&v42[12] = *(v6 + 20);
-    *v42 = v16;
-    sub_23F24D788(v43, (v6 + 40));
-    *(a1 + 8) = *v42;
-    *(a1 + 20) = *&v42[12];
-    *(a1 + 64) = v44;
-    *(a1 + 40) = v43[0];
-    v17 = *(a1 + 48);
-    if (v17)
+    v15 = *(v5 + 8);
+    *&v41[12] = *(v5 + 20);
+    *v41 = v15;
+    sub_23F24D788(v42, (v5 + 40));
+    *(a1 + 8) = *v41;
+    *(a1 + 20) = *&v41[12];
+    *(a1 + 64) = v43;
+    *(a1 + 40) = v42[0];
+    v16 = *(a1 + 48);
+    if (v16)
     {
-      free(v17);
+      free(v16);
     }
 
-    v18 = v43[2];
-    *(a1 + 48) = v43[1];
-    *(a1 + 56) = v18;
+    v17 = v42[2];
+    *(a1 + 48) = v42[1];
+    *(a1 + 56) = v17;
     return;
   }
 
-  if (v10 != 1)
+  if (v9 != 1)
   {
-    if (!v8 || !v9)
+    if (!v7 || !v8)
     {
       return;
     }
 
-    v28 = v8 - 1;
-    v29 = *(v6 + 6);
-    v30 = 4 * v10;
-    v31 = v9 - 1;
-    if (v31)
+    v27 = v7 - 1;
+    v28 = *(v5 + 6);
+    v29 = 4 * v9;
+    v30 = v8 - 1;
+    if (v30)
     {
-      if (!v28)
+      if (!v27)
       {
-        v40 = 4 * v11;
+        v39 = 4 * v10;
         do
         {
-          *v7 = *v29;
-          v29 = (v29 + v40);
-          v7 = (v7 + v40);
-          --v31;
+          *v6 = *v28;
+          v28 = (v28 + v39);
+          v6 = (v6 + v39);
+          --v30;
         }
 
-        while (v31);
+        while (v30);
         goto LABEL_54;
       }
 
-      v32 = 0;
-      v33 = 4 * v11;
+      v31 = 0;
+      v32 = 4 * v10;
       do
       {
-        v34 = 0;
-        v35 = v28;
+        v33 = 0;
+        v34 = v27;
         do
         {
-          *(v7 + v34) = *(v29 + v34);
-          v34 += v30;
-          --v35;
+          *(v6 + v33) = *(v28 + v33);
+          v33 += v29;
+          --v34;
         }
 
-        while (v35);
-        *(v7 + v34) = *(v29 + v34);
-        v29 = (v29 + v33);
-        v7 = (v7 + v33);
-        ++v32;
+        while (v34);
+        *(v6 + v33) = *(v28 + v33);
+        v28 = (v28 + v32);
+        v6 = (v6 + v32);
+        ++v31;
       }
 
-      while (v32 != v31);
+      while (v31 != v30);
     }
 
-    else if (!v28)
+    else if (!v27)
     {
 LABEL_54:
-      *v7 = *v29;
+      *v6 = *v28;
       return;
     }
 
     do
     {
-      *v7 = *v29;
-      v29 = (v29 + v30);
-      v7 = (v7 + v30);
-      --v28;
+      *v6 = *v28;
+      v28 = (v28 + v29);
+      v6 = (v6 + v29);
+      --v27;
     }
 
-    while (v28);
+    while (v27);
     goto LABEL_54;
   }
 
-  if (v11 == v8)
+  if (v10 == v7)
   {
-    v12 = v9 * v8;
-    if (!v12)
+    v11 = v8 * v7;
+    if (!v11)
     {
       return;
     }
 
-    v13 = 4 * v12;
-    v14 = *(v6 + 6);
-    v15 = *(a1 + 48);
+    v12 = 4 * v11;
+    v13 = *(v5 + 6);
+    v14 = *(a1 + 48);
   }
 
   else
   {
-    if (!v8 || !v9)
+    if (!v7 || !v8)
     {
       return;
     }
 
-    v36 = *(v6 + 6);
-    v37 = 4 * v8;
-    v38 = v9 - 1;
-    if (v9 != 1)
+    v35 = *(v5 + 6);
+    v36 = 4 * v7;
+    v37 = v8 - 1;
+    if (v8 != 1)
     {
-      v39 = 4 * v11;
+      v38 = 4 * v10;
       do
       {
-        memmove(v7, v36, v37);
-        v36 += v39;
-        v7 = (v7 + v39);
-        --v38;
+        memmove(v6, v35, v36);
+        v35 += v38;
+        v6 = (v6 + v38);
+        --v37;
       }
 
-      while (v38);
+      while (v37);
     }
 
-    v15 = v7;
-    v14 = v36;
-    v13 = v37;
+    v14 = v6;
+    v13 = v35;
+    v12 = v36;
   }
 
-  memmove(v15, v14, v13);
+  memmove(v14, v13, v12);
 }
 
 void sub_23F22F77C(uint64_t a1, int a2)
@@ -4430,7 +4430,6 @@ void sub_23F22F77C(uint64_t a1, int a2)
   if (a2 == 4)
   {
 LABEL_10:
-    v7 = *(a1 + 48);
     if (*(a1 + 12))
     {
       v8 = *(a1 + 8) == 0;
@@ -4499,7 +4498,7 @@ LABEL_26:
   sub_23F3034A8("/Library/Caches/com.apple.xbs/Sources/AmbientSceneScope/library/Kit/Image/src/ImageStorage.cpp", 78, "F == format", 0xBuLL, &unk_23F3091D6, 0, sub_23F303DA4);
   if (byte_27E3961A0 == 1)
   {
-    if (byte_27E3961A8 != 1 || (v3 = qword_27E396178, v4 = unk_27E396180, qword_27E396178 == unk_27E396180))
+    if (byte_27E3961A8 != 1 || (v4 = qword_27E396178, v5 = unk_27E396180, qword_27E396178 == unk_27E396180))
     {
 LABEL_9:
       qword_27E396190(*algn_27E396198, "F == format", 11, &unk_23F3091D6, 0);
@@ -4509,8 +4508,8 @@ LABEL_9:
 
   else
   {
-    v3 = qword_27E396178;
-    v4 = unk_27E396180;
+    v4 = qword_27E396178;
+    v5 = unk_27E396180;
     if (qword_27E396178 == unk_27E396180)
     {
       goto LABEL_26;
@@ -4519,13 +4518,13 @@ LABEL_9:
 
   do
   {
-    v6 = *v3;
-    v5 = *(v3 + 8);
-    v3 += 16;
-    v6(v5, "F == format", 11, &unk_23F3091D6, 0);
+    v7 = *v4;
+    v6 = *(v4 + 8);
+    v4 += 16;
+    v7(v6, "F == format", 11, &unk_23F3091D6, 0);
   }
 
-  while (v3 != v4);
+  while (v4 != v5);
   if ((byte_27E3961A0 & 1) == 0)
   {
     goto LABEL_26;
@@ -4539,7 +4538,6 @@ void sub_23F22F9E4(uint64_t a1, int a2)
   if (a2 == 4)
   {
 LABEL_10:
-    v7 = *(a1 + 48);
     if (*(a1 + 12))
     {
       v8 = *(a1 + 8) == 0;
@@ -4608,7 +4606,7 @@ LABEL_26:
   sub_23F3034A8("/Library/Caches/com.apple.xbs/Sources/AmbientSceneScope/library/Kit/Image/src/ImageStorage.cpp", 84, "F == format", 0xBuLL, &unk_23F3091D6, 0, sub_23F303DA4);
   if (byte_27E3961A0 == 1)
   {
-    if (byte_27E3961A8 != 1 || (v3 = qword_27E396178, v4 = unk_27E396180, qword_27E396178 == unk_27E396180))
+    if (byte_27E3961A8 != 1 || (v4 = qword_27E396178, v5 = unk_27E396180, qword_27E396178 == unk_27E396180))
     {
 LABEL_9:
       qword_27E396190(*algn_27E396198, "F == format", 11, &unk_23F3091D6, 0);
@@ -4618,8 +4616,8 @@ LABEL_9:
 
   else
   {
-    v3 = qword_27E396178;
-    v4 = unk_27E396180;
+    v4 = qword_27E396178;
+    v5 = unk_27E396180;
     if (qword_27E396178 == unk_27E396180)
     {
       goto LABEL_26;
@@ -4628,13 +4626,13 @@ LABEL_9:
 
   do
   {
-    v6 = *v3;
-    v5 = *(v3 + 8);
-    v3 += 16;
-    v6(v5, "F == format", 11, &unk_23F3091D6, 0);
+    v7 = *v4;
+    v6 = *(v4 + 8);
+    v4 += 16;
+    v7(v6, "F == format", 11, &unk_23F3091D6, 0);
   }
 
-  while (v3 != v4);
+  while (v4 != v5);
   if ((byte_27E3961A0 & 1) == 0)
   {
     goto LABEL_26;
@@ -4671,81 +4669,78 @@ void sub_23F22FC88(uint64_t a1)
   JUMPOUT(0x245CACD00);
 }
 
-void sub_23F22FD9C(uint64_t a1, char **lpsrc)
+void sub_23F22FD9C(uint64_t a1, uint64_t *lpsrc)
 {
-  v92 = *MEMORY[0x277D85DE8];
+  v87 = *MEMORY[0x277D85DE8];
   v4 = *lpsrc;
-  v5 = **lpsrc;
-  v6 = __dynamic_cast(lpsrc, &unk_28518B5C0, &unk_285189130, 0);
-  if (!v6)
+  v5 = __dynamic_cast(lpsrc, &unk_28518B5C0, &unk_285189130, 0);
+  if (!v5)
   {
-    (*(v4 + 9))(&v86, lpsrc, 5);
-    v17 = *(v86 + 16);
-    v16 = *(v86 + 32);
-    v79 = *v86;
-    v80 = v17;
-    v81 = v16;
-    *&v86 = 0;
+    (*(v4 + 72))(&v81, lpsrc, 5);
+    v16 = *(v81 + 16);
+    v15 = *(v81 + 32);
+    v74 = *v81;
+    v75 = v16;
+    v76 = v15;
+    *&v81 = 0;
     MEMORY[0x245CACD00]();
-    v18 = *(a1 + 72);
+    v17 = *(a1 + 72);
     if (*(a1 + 36))
     {
-      v19 = *(a1 + 32) == 0;
+      v18 = *(a1 + 32) == 0;
     }
 
     else
     {
-      v19 = 1;
+      v18 = 1;
     }
 
-    v20 = *(a1 + 32);
-    v21 = *(a1 + 40);
-    if (v19)
+    v19 = *(a1 + 32);
+    v20 = *(a1 + 40);
+    if (v18)
     {
-      v20 = 0;
+      v19 = 0;
     }
 
-    LODWORD(v86) = 2;
-    *(&v86 + 4) = v20;
-    v22 = v20;
-    v23 = v86;
-    v24 = HIDWORD(v20);
-    LODWORD(v86) = 1;
-    *(&v86 + 4) = v21;
-    v25 = v86;
-    if (HIDWORD(v21) * HIDWORD(v20) != -1)
+    LODWORD(v81) = 2;
+    *(&v81 + 4) = v19;
+    v21 = v19;
+    v22 = v81;
+    v23 = HIDWORD(v19);
+    LODWORD(v81) = 1;
+    *(&v81 + 4) = v20;
+    v24 = v81;
+    if (HIDWORD(v20) * HIDWORD(v19) != -1)
     {
       goto LABEL_22;
     }
 
-    v77 = v18;
+    v72 = v17;
     sub_23F3034A8("/Library/Caches/com.apple.xbs/Sources/AmbientSceneScope/library/Essentials/Array/include/Essentials/Array/ArrayView.h", 983, "total_size < std::numeric_limits<uint32_t>::max()", 0x31uLL, "Given data block is too big to be represented by uint32_t indexed ArrayView", 0x4BuLL, sub_23F303DA4);
     if (byte_27E3961A0 == 1)
     {
-      if (byte_27E3961A8 != 1 || (v27 = qword_27E396178, v26 = unk_27E396180, qword_27E396178 == unk_27E396180))
+      if (byte_27E3961A8 != 1 || (v26 = qword_27E396178, v25 = unk_27E396180, qword_27E396178 == unk_27E396180))
       {
 LABEL_21:
         qword_27E396190(*algn_27E396198, "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
-        v18 = v77;
+        v17 = v72;
 LABEL_22:
-        *&v86 = v18;
-        *(&v86 + 1) = v23;
-        v87 = v24;
-        v88 = v25;
-        v89 = HIDWORD(v21);
-        v90 = v22;
-        v91 = v21;
-        sub_23F1F2FFC(&v79, &v86);
-LABEL_23:
-        v28 = *MEMORY[0x277D85DE8];
+        *&v81 = v17;
+        *(&v81 + 1) = v22;
+        v82 = v23;
+        v83 = v24;
+        v84 = HIDWORD(v20);
+        v85 = v21;
+        v86 = v20;
+        sub_23F1F2FFC(&v74, &v81);
         return;
       }
     }
 
     else
     {
-      v27 = qword_27E396178;
-      v26 = unk_27E396180;
+      v26 = qword_27E396178;
+      v25 = unk_27E396180;
       if (qword_27E396178 == unk_27E396180)
       {
         goto LABEL_79;
@@ -4754,11 +4749,11 @@ LABEL_23:
 
     do
     {
-      (*v27)(*(v27 + 8), "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
-      v27 += 16;
+      (*v26)(*(v26 + 8), "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
+      v26 += 16;
     }
 
-    while (v27 != v26);
+    while (v26 != v25);
     if (byte_27E3961A0)
     {
       goto LABEL_21;
@@ -4768,324 +4763,308 @@ LABEL_79:
     abort();
   }
 
-  v7 = *(a1 + 72);
-  if (!v7 || *(v6 + 12) != *(a1 + 12) || *(v6 + 3) != *(a1 + 24))
+  v6 = *(a1 + 72);
+  if (!v6 || *(v5 + 12) != *(a1 + 12) || *(v5 + 3) != *(a1 + 24))
   {
-    v8 = *(v6 + 8);
-    v9 = *(v6 + 24);
-    v10 = *(v6 + 40);
-    v82 = *(v6 + 7);
-    v80 = v9;
-    v81 = v10;
-    v79 = v8;
-    sub_23F24DC18(v83, (v6 + 64));
-    v11 = v80;
-    *(a1 + 8) = v79;
-    *(a1 + 24) = v11;
-    *(a1 + 40) = v81;
-    *(a1 + 104) = v85;
-    v12 = v82;
-    *(a1 + 88) = v84;
-    v13 = v83[0];
-    *(a1 + 56) = v12;
-    *(a1 + 64) = v13;
-    v14 = *(a1 + 72);
-    if (v14)
+    v7 = *(v5 + 8);
+    v8 = *(v5 + 24);
+    v9 = *(v5 + 40);
+    v77 = *(v5 + 7);
+    v75 = v8;
+    v76 = v9;
+    v74 = v7;
+    sub_23F24DC18(v78, (v5 + 64));
+    v10 = v75;
+    *(a1 + 8) = v74;
+    *(a1 + 24) = v10;
+    *(a1 + 40) = v76;
+    *(a1 + 104) = v80;
+    v11 = v77;
+    *(a1 + 88) = v79;
+    v12 = v78[0];
+    *(a1 + 56) = v11;
+    *(a1 + 64) = v12;
+    v13 = *(a1 + 72);
+    if (v13)
     {
-      free(v14);
+      free(v13);
     }
 
-    v15 = v83[2];
-    *(a1 + 72) = v83[1];
-    *(a1 + 80) = v15;
-    goto LABEL_23;
+    v14 = v78[2];
+    *(a1 + 72) = v78[1];
+    *(a1 + 80) = v14;
+    return;
   }
 
-  if (*(v6 + 5) != 1 || *(a1 + 20) != 1)
+  if (*(v5 + 5) != 1 || *(a1 + 20) != 1)
   {
-    if (!*(v6 + 2))
+    if (!*(v5 + 2))
     {
-      goto LABEL_23;
+      return;
     }
 
-    v30 = *(v6 + 3);
-    if (!v30)
+    v28 = *(v5 + 3);
+    if (!v28)
     {
-      goto LABEL_23;
+      return;
     }
 
-    v31 = *(v6 + 4);
-    if (!v31)
+    v29 = *(v5 + 4);
+    if (!v29)
     {
-      goto LABEL_23;
+      return;
     }
 
-    v32 = v30 - 1;
-    v33 = *(v6 + 6);
-    v34 = *(a1 + 24);
-    v35 = *(v6 + 9);
-    v36 = v31 - 1;
-    if (v36)
+    v30 = v28 - 1;
+    v31 = *(v5 + 6);
+    v32 = *(a1 + 24);
+    v33 = *(v5 + 9);
+    v34 = v29 - 1;
+    if (v34)
     {
-      v37 = *(a1 + 28);
-      v38 = *(v6 + 7);
-      if (v32)
+      v35 = *(a1 + 28);
+      v36 = *(v5 + 7);
+      if (v30)
       {
-        v39 = 0;
-        v40 = v35 + 1;
-        v41 = v7 + 1;
+        v37 = 0;
+        v38 = v33 + 1;
+        v39 = v6 + 1;
         do
         {
-          v42 = v41;
-          v43 = v40;
-          v44 = v32;
+          v40 = v39;
+          v41 = v38;
+          v42 = v30;
           do
           {
-            *(v42 - 1) = *(v43 - 1);
-            *v42 = *v43;
-            v43 += v33;
-            v42 += v34;
-            --v44;
+            *(v40 - 1) = *(v41 - 1);
+            *v40 = *v41;
+            v41 += v31;
+            v40 += v32;
+            --v42;
           }
 
-          while (v44);
-          *(v42 - 1) = *(v43 - 1);
-          *v42 = *v43;
-          v35 += v38;
-          v7 += v37;
-          ++v39;
-          v40 += v38;
-          v41 += v37;
+          while (v42);
+          *(v40 - 1) = *(v41 - 1);
+          *v40 = *v41;
+          v33 += v36;
+          v6 += v35;
+          ++v37;
+          v38 += v36;
+          v39 += v35;
         }
 
-        while (v39 != v36);
+        while (v37 != v34);
         goto LABEL_40;
       }
 
       do
       {
-        *v7 = *v35;
-        v7[1] = v35[1];
-        v35 += v38;
-        v7 += v37;
-        --v36;
+        *v6 = *v33;
+        v6[1] = v33[1];
+        v33 += v36;
+        v6 += v35;
+        --v34;
       }
 
-      while (v36);
+      while (v34);
     }
 
-    if (!v32)
+    if (!v30)
     {
 LABEL_41:
-      *v7 = *v35;
-      v7[1] = v35[1];
-      goto LABEL_23;
+      *v6 = *v33;
+      v6[1] = v33[1];
+      return;
     }
 
     do
     {
 LABEL_40:
-      *v7 = *v35;
-      v7[1] = v35[1];
-      v35 += v33;
-      v7 += v34;
-      --v32;
+      *v6 = *v33;
+      v6[1] = v33[1];
+      v33 += v31;
+      v6 += v32;
+      --v30;
     }
 
-    while (v32);
+    while (v30);
     goto LABEL_41;
   }
 
-  v45 = *(v6 + 6);
-  v46 = *(a1 + 24);
-  v47 = *(v6 + 2);
-  if (v45 == v46 && v45 == v47)
+  v43 = *(v5 + 6);
+  v44 = *(a1 + 24);
+  v45 = *(v5 + 2);
+  if (v43 != v44 || v43 != v45)
   {
-    v66 = *(v6 + 7);
-    v67 = *(a1 + 28);
-    v68 = *(v6 + 3);
-    v69 = (v68 * v45);
-    if (v66 == v67 && v66 == v69)
+    v48 = *(v5 + 3);
+    v47 = *(v5 + 4);
+    if (v45)
     {
-      v65 = (*(v6 + 4) * v66);
-      if (!v65)
-      {
-        goto LABEL_23;
-      }
-
-      v64 = *(v6 + 9);
-      v70 = *MEMORY[0x277D85DE8];
-      v63 = v7;
+      v49 = v48 == 0;
     }
 
     else
     {
-      if (!v45)
-      {
-        goto LABEL_23;
-      }
-
-      if (!v68)
-      {
-        goto LABEL_23;
-      }
-
-      v71 = *(v6 + 4);
-      if (!v71)
-      {
-        goto LABEL_23;
-      }
-
-      v72 = *(v6 + 9);
-      v73 = v71 - 1;
-      if (v71 != 1)
-      {
-        if (!v69)
-        {
-          goto LABEL_23;
-        }
-
-        do
-        {
-          memmove(v7, v72, v69);
-          v72 += v66;
-          v7 += v67;
-          --v73;
-        }
-
-        while (v73);
-      }
-
-      if (!v69)
-      {
-        goto LABEL_23;
-      }
-
-      v74 = *MEMORY[0x277D85DE8];
-      v63 = v7;
-      v64 = v72;
-      v65 = v69;
-    }
-  }
-
-  else
-  {
-    v50 = *(v6 + 3);
-    v49 = *(v6 + 4);
-    if (v47)
-    {
-      v51 = v50 == 0;
+      v49 = 1;
     }
 
-    else
+    if (v49 || v47 == 0)
     {
-      v51 = 1;
+      return;
     }
 
-    if (v51 || v49 == 0)
+    v51 = v48 - 1;
+    v52 = *(v5 + 9);
+    v53 = v47 - 1;
+    if (v47 != 1)
     {
-      goto LABEL_23;
-    }
-
-    v53 = v50 - 1;
-    v54 = *(v6 + 9);
-    v55 = v49 - 1;
-    if (v49 != 1)
-    {
-      v56 = *(a1 + 28);
-      v57 = *(v6 + 7);
-      if (v50 == 1)
+      v54 = *(a1 + 28);
+      v55 = *(v5 + 7);
+      if (v48 == 1)
       {
         do
         {
-          memmove(v7, v54, v47);
-          v54 += v57;
-          v7 += v56;
-          --v55;
+          memmove(v6, v52, v45);
+          v52 += v55;
+          v6 += v54;
+          --v53;
         }
 
-        while (v55);
+        while (v53);
       }
 
       else
       {
-        v58 = 0;
-        v78 = v49 - 1;
-        v75 = *(v6 + 7);
-        v76 = v56;
+        v56 = 0;
+        v73 = v47 - 1;
+        v70 = *(v5 + 7);
+        v71 = v54;
         do
         {
-          v59 = v53;
-          v60 = v54;
-          v61 = v7;
+          v57 = v51;
+          v58 = v52;
+          v59 = v6;
           do
           {
-            memmove(v61, v60, v47);
-            v60 += v45;
-            v61 += v46;
-            --v59;
+            memmove(v59, v58, v45);
+            v58 += v43;
+            v59 += v44;
+            --v57;
           }
 
-          while (v59);
-          memmove(v61, v60, v47);
-          v54 += v75;
-          v7 += v76;
-          ++v58;
+          while (v57);
+          memmove(v59, v58, v45);
+          v52 += v70;
+          v6 += v71;
+          ++v56;
         }
 
-        while (v58 != v78);
+        while (v56 != v73);
       }
     }
 
-    for (; v53; --v53)
+    for (; v51; --v51)
     {
-      memmove(v7, v54, v47);
-      v54 += v45;
-      v7 += v46;
+      memmove(v6, v52, v45);
+      v52 += v43;
+      v6 += v44;
     }
 
-    v62 = *MEMORY[0x277D85DE8];
-    v63 = v7;
-    v64 = v54;
-    v65 = v47;
+    v60 = v6;
+    v61 = v52;
+    v62 = v45;
+    goto LABEL_76;
   }
 
-  memmove(v63, v64, v65);
+  v63 = *(v5 + 7);
+  v64 = *(a1 + 28);
+  v65 = *(v5 + 3);
+  v66 = (v65 * v43);
+  if (v63 == v64 && v63 == v66)
+  {
+    v62 = (*(v5 + 4) * v63);
+    if (!v62)
+    {
+      return;
+    }
+
+    v61 = *(v5 + 9);
+    v60 = v6;
+    goto LABEL_76;
+  }
+
+  if (v43)
+  {
+    if (v65)
+    {
+      v67 = *(v5 + 4);
+      if (v67)
+      {
+        v68 = *(v5 + 9);
+        v69 = v67 - 1;
+        if (v67 != 1)
+        {
+          if (!v66)
+          {
+            return;
+          }
+
+          do
+          {
+            memmove(v6, v68, v66);
+            v68 += v63;
+            v6 += v64;
+            --v69;
+          }
+
+          while (v69);
+        }
+
+        if (v66)
+        {
+          v60 = v6;
+          v61 = v68;
+          v62 = v66;
+LABEL_76:
+
+          memmove(v60, v61, v62);
+        }
+      }
+    }
+  }
 }
 
 void sub_23F2303E4(uint64_t a1, int a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
   if (a2 == 5)
   {
 LABEL_10:
     if (*(a1 + 36))
     {
-      v7 = *(a1 + 32) == 0;
+      v8 = *(a1 + 32) == 0;
     }
 
     else
     {
-      v7 = 1;
+      v8 = 1;
     }
 
-    v8 = *(a1 + 32);
-    if (v7)
+    v9 = *(a1 + 32);
+    if (v8)
     {
-      HIDWORD(v8) = 0;
+      HIDWORD(v9) = 0;
     }
 
-    if (HIDWORD(*(a1 + 40)) * HIDWORD(v8) != -1)
+    if (HIDWORD(*(a1 + 40)) * HIDWORD(v9) != -1)
     {
 LABEL_24:
       operator new();
     }
 
-    v13 = *(a1 + 72);
     sub_23F3034A8("/Library/Caches/com.apple.xbs/Sources/AmbientSceneScope/library/Essentials/Array/include/Essentials/Array/ArrayView.h", 983, "total_size < std::numeric_limits<uint32_t>::max()", 0x31uLL, "Given data block is too big to be represented by uint32_t indexed ArrayView", 0x4BuLL, sub_23F303DA4);
     if (byte_27E3961A0 == 1)
     {
-      if (byte_27E3961A8 != 1 || (v9 = qword_27E396178, v10 = unk_27E396180, qword_27E396178 == unk_27E396180))
+      if (byte_27E3961A8 != 1 || (v10 = qword_27E396178, v11 = unk_27E396180, qword_27E396178 == unk_27E396180))
       {
 LABEL_23:
         qword_27E396190(*algn_27E396198, "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
@@ -5095,8 +5074,8 @@ LABEL_23:
 
     else
     {
-      v9 = qword_27E396178;
-      v10 = unk_27E396180;
+      v10 = qword_27E396178;
+      v11 = unk_27E396180;
       if (qword_27E396178 == unk_27E396180)
       {
         goto LABEL_25;
@@ -5105,13 +5084,13 @@ LABEL_23:
 
     do
     {
-      v12 = *v9;
-      v11 = *(v9 + 8);
-      v9 += 16;
-      v12(v11, "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
+      v13 = *v10;
+      v12 = *(v10 + 8);
+      v10 += 16;
+      v13(v12, "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
     }
 
-    while (v9 != v10);
+    while (v10 != v11);
     if (byte_27E3961A0)
     {
       goto LABEL_23;
@@ -5124,7 +5103,7 @@ LABEL_25:
   sub_23F3034A8("/Library/Caches/com.apple.xbs/Sources/AmbientSceneScope/library/Kit/Image/src/ImageStorage.cpp", 78, "F == format", 0xBuLL, &unk_23F3091D6, 0, sub_23F303DA4);
   if (byte_27E3961A0 == 1)
   {
-    if (byte_27E3961A8 != 1 || (v3 = qword_27E396178, v4 = unk_27E396180, qword_27E396178 == unk_27E396180))
+    if (byte_27E3961A8 != 1 || (v4 = qword_27E396178, v5 = unk_27E396180, qword_27E396178 == unk_27E396180))
     {
 LABEL_9:
       qword_27E396190(*algn_27E396198, "F == format", 11, &unk_23F3091D6, 0);
@@ -5134,8 +5113,8 @@ LABEL_9:
 
   else
   {
-    v3 = qword_27E396178;
-    v4 = unk_27E396180;
+    v4 = qword_27E396178;
+    v5 = unk_27E396180;
     if (qword_27E396178 == unk_27E396180)
     {
       goto LABEL_25;
@@ -5144,13 +5123,13 @@ LABEL_9:
 
   do
   {
-    v6 = *v3;
-    v5 = *(v3 + 8);
-    v3 += 16;
-    v6(v5, "F == format", 11, &unk_23F3091D6, 0);
+    v7 = *v4;
+    v6 = *(v4 + 8);
+    v4 += 16;
+    v7(v6, "F == format", 11, &unk_23F3091D6, 0);
   }
 
-  while (v3 != v4);
+  while (v4 != v5);
   if ((byte_27E3961A0 & 1) == 0)
   {
     goto LABEL_25;
@@ -5161,37 +5140,35 @@ LABEL_9:
 
 void sub_23F2306E4(uint64_t a1, int a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
   if (a2 == 5)
   {
 LABEL_10:
     if (*(a1 + 36))
     {
-      v7 = *(a1 + 32) == 0;
+      v8 = *(a1 + 32) == 0;
     }
 
     else
     {
-      v7 = 1;
+      v8 = 1;
     }
 
-    v8 = *(a1 + 32);
-    if (v7)
+    v9 = *(a1 + 32);
+    if (v8)
     {
-      HIDWORD(v8) = 0;
+      HIDWORD(v9) = 0;
     }
 
-    if (HIDWORD(*(a1 + 40)) * HIDWORD(v8) != -1)
+    if (HIDWORD(*(a1 + 40)) * HIDWORD(v9) != -1)
     {
 LABEL_24:
       operator new();
     }
 
-    v13 = *(a1 + 72);
     sub_23F3034A8("/Library/Caches/com.apple.xbs/Sources/AmbientSceneScope/library/Essentials/Array/include/Essentials/Array/ArrayView.h", 983, "total_size < std::numeric_limits<uint32_t>::max()", 0x31uLL, "Given data block is too big to be represented by uint32_t indexed ArrayView", 0x4BuLL, sub_23F303DA4);
     if (byte_27E3961A0 == 1)
     {
-      if (byte_27E3961A8 != 1 || (v9 = qword_27E396178, v10 = unk_27E396180, qword_27E396178 == unk_27E396180))
+      if (byte_27E3961A8 != 1 || (v10 = qword_27E396178, v11 = unk_27E396180, qword_27E396178 == unk_27E396180))
       {
 LABEL_23:
         qword_27E396190(*algn_27E396198, "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
@@ -5201,8 +5178,8 @@ LABEL_23:
 
     else
     {
-      v9 = qword_27E396178;
-      v10 = unk_27E396180;
+      v10 = qword_27E396178;
+      v11 = unk_27E396180;
       if (qword_27E396178 == unk_27E396180)
       {
         goto LABEL_25;
@@ -5211,13 +5188,13 @@ LABEL_23:
 
     do
     {
-      v12 = *v9;
-      v11 = *(v9 + 8);
-      v9 += 16;
-      v12(v11, "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
+      v13 = *v10;
+      v12 = *(v10 + 8);
+      v10 += 16;
+      v13(v12, "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
     }
 
-    while (v9 != v10);
+    while (v10 != v11);
     if (byte_27E3961A0)
     {
       goto LABEL_23;
@@ -5230,7 +5207,7 @@ LABEL_25:
   sub_23F3034A8("/Library/Caches/com.apple.xbs/Sources/AmbientSceneScope/library/Kit/Image/src/ImageStorage.cpp", 84, "F == format", 0xBuLL, &unk_23F3091D6, 0, sub_23F303DA4);
   if (byte_27E3961A0 == 1)
   {
-    if (byte_27E3961A8 != 1 || (v3 = qword_27E396178, v4 = unk_27E396180, qword_27E396178 == unk_27E396180))
+    if (byte_27E3961A8 != 1 || (v4 = qword_27E396178, v5 = unk_27E396180, qword_27E396178 == unk_27E396180))
     {
 LABEL_9:
       qword_27E396190(*algn_27E396198, "F == format", 11, &unk_23F3091D6, 0);
@@ -5240,8 +5217,8 @@ LABEL_9:
 
   else
   {
-    v3 = qword_27E396178;
-    v4 = unk_27E396180;
+    v4 = qword_27E396178;
+    v5 = unk_27E396180;
     if (qword_27E396178 == unk_27E396180)
     {
       goto LABEL_25;
@@ -5250,13 +5227,13 @@ LABEL_9:
 
   do
   {
-    v6 = *v3;
-    v5 = *(v3 + 8);
-    v3 += 16;
-    v6(v5, "F == format", 11, &unk_23F3091D6, 0);
+    v7 = *v4;
+    v6 = *(v4 + 8);
+    v4 += 16;
+    v7(v6, "F == format", 11, &unk_23F3091D6, 0);
   }
 
-  while (v3 != v4);
+  while (v4 != v5);
   if ((byte_27E3961A0 & 1) == 0)
   {
     goto LABEL_25;
@@ -5293,257 +5270,256 @@ void sub_23F230A20(uint64_t a1)
   JUMPOUT(0x245CACD00);
 }
 
-void sub_23F230B34(uint64_t a1, char **lpsrc)
+void sub_23F230B34(uint64_t a1, uint64_t *lpsrc)
 {
-  v127 = *MEMORY[0x277D85DE8];
+  v121 = *MEMORY[0x277D85DE8];
   v4 = *lpsrc;
-  v5 = **lpsrc;
-  v6 = __dynamic_cast(lpsrc, &unk_28518B5C0, &unk_285189148, 0);
-  if (!v6)
+  v5 = __dynamic_cast(lpsrc, &unk_28518B5C0, &unk_285189148, 0);
+  if (!v5)
   {
-    (*(v4 + 9))(&v120, lpsrc, 6);
-    v17 = *v120;
-    v18 = *(v120 + 8);
-    v117 = *(v120 + 12);
-    v19 = *(v120 + 16);
-    v20 = *(v120 + 20);
-    v21 = *(v120 + 24);
-    v22 = *(v120 + 28);
-    *&v120 = 0;
+    (*(v4 + 72))(&v114, lpsrc, 6);
+    v15 = *v114;
+    v16 = *(v114 + 8);
+    v111 = *(v114 + 12);
+    v17 = *(v114 + 16);
+    v18 = *(v114 + 20);
+    v19 = *(v114 + 24);
+    v20 = *(v114 + 28);
+    *&v114 = 0;
     MEMORY[0x245CACD00]();
-    v23 = *(a1 + 72);
+    v21 = *(a1 + 72);
     if (*(a1 + 36))
     {
-      v24 = *(a1 + 32) == 0;
+      v22 = *(a1 + 32) == 0;
     }
 
     else
     {
-      v24 = 1;
+      v22 = 1;
     }
 
-    v25 = *(a1 + 32);
-    if (v24)
+    v23 = *(a1 + 32);
+    if (v22)
     {
-      HIDWORD(v25) = 0;
+      HIDWORD(v23) = 0;
     }
 
-    LODWORD(v120) = 1;
-    *(&v120 + 4) = *(a1 + 40);
-    v26 = v120;
-    v27 = HIDWORD(*(&v120 + 4));
-    if (DWORD2(v120) * HIDWORD(v25) != -1)
+    LODWORD(v114) = 1;
+    *(&v114 + 4) = *(a1 + 40);
+    v24 = v114;
+    v25 = HIDWORD(*(&v114 + 4));
+    if (DWORD2(v114) * HIDWORD(v23) != -1)
     {
-      if (v20 != 1)
+      if (v18 != 1)
       {
         goto LABEL_32;
       }
 
 LABEL_25:
-      if (v26 == 1)
+      if (v24 == 1)
       {
-        if (v21 != HIDWORD(v26) || v21 != v18)
+        if (v19 != HIDWORD(v24) || v19 != v16)
         {
-          if (v18 && v117 && v19)
+          if (v16 && v111 && v17)
           {
-            v41 = v22;
-            v42 = 2 * v18;
-            v43 = v117 - 1;
-            v44 = 2 * v21;
-            v45 = 2 * HIDWORD(v26);
-            v46 = v19 - 1;
-            if (v19 != 1)
+            v39 = v20;
+            v40 = 2 * v16;
+            v41 = v111 - 1;
+            v42 = 2 * v19;
+            v43 = 2 * HIDWORD(v24);
+            v44 = v17 - 1;
+            if (v17 != 1)
             {
-              if (v117 == 1)
+              if (v111 == 1)
               {
-                v98 = 2 * v41;
-                v99 = 2 * v27;
+                v95 = 2 * v39;
+                v96 = 2 * v25;
                 do
                 {
-                  memmove(v23, v17, v42);
-                  v17 = (v17 + v98);
-                  v23 = (v23 + v99);
-                  --v46;
+                  memmove(v21, v15, v40);
+                  v15 = (v15 + v95);
+                  v21 = (v21 + v96);
+                  --v44;
                 }
 
-                while (v46);
+                while (v44);
               }
 
               else
               {
-                v47 = 0;
-                v112 = 2 * v27;
-                v115 = 2 * v41;
-                v118 = v46;
+                v45 = 0;
+                v106 = 2 * v25;
+                v109 = 2 * v39;
+                v112 = v44;
                 do
                 {
-                  v48 = v23;
-                  v49 = v17;
-                  v50 = v43;
+                  v46 = v21;
+                  v47 = v15;
+                  v48 = v41;
                   do
                   {
-                    memmove(v48, v49, v42);
-                    v49 += v44;
-                    v48 += v45;
-                    --v50;
+                    memmove(v46, v47, v40);
+                    v47 += v42;
+                    v46 += v43;
+                    --v48;
                   }
 
-                  while (v50);
-                  memmove(v48, v49, v42);
-                  v17 = (v17 + v115);
-                  v23 = (v23 + v112);
-                  ++v47;
+                  while (v48);
+                  memmove(v46, v47, v40);
+                  v15 = (v15 + v109);
+                  v21 = (v21 + v106);
+                  ++v45;
                 }
 
-                while (v47 != v118);
+                while (v45 != v112);
               }
             }
 
-            for (; v43; --v43)
+            for (; v41; --v41)
             {
-              memmove(v23, v17, v42);
-              v17 = (v17 + v44);
-              v23 = (v23 + v45);
+              memmove(v21, v15, v40);
+              v15 = (v15 + v42);
+              v21 = (v21 + v43);
             }
 
-            memmove(v23, v17, v42);
+            memmove(v21, v15, v40);
           }
 
-          goto LABEL_8;
+          return;
         }
 
-        v30 = (v117 * v18);
-        if (v22 == v27 && v22 == v30)
+        v28 = (v111 * v16);
+        if (v20 == v25 && v20 == v28)
         {
-          if (!(v22 * v19))
+          if (!(v20 * v17))
           {
-            goto LABEL_8;
+            return;
           }
 
-          v31 = 2 * (v22 * v19);
+          v29 = 2 * (v20 * v17);
         }
 
         else
         {
-          if (!v18 || !v117 || !v19)
+          if (!v16 || !v111 || !v17)
           {
-            goto LABEL_8;
+            return;
           }
 
-          v67 = v19 - 1;
-          if (v67)
+          v65 = v17 - 1;
+          if (v65)
           {
-            if (!v30)
+            if (!v28)
             {
-              goto LABEL_8;
+              return;
             }
 
-            v68 = 2 * v27;
+            v66 = 2 * v25;
             do
             {
-              memmove(v23, v17, 2 * v30);
-              v17 += v22;
-              v23 = (v23 + v68);
-              --v67;
+              memmove(v21, v15, 2 * v28);
+              v15 += v20;
+              v21 = (v21 + v66);
+              --v65;
             }
 
-            while (v67);
+            while (v65);
           }
 
-          if (!v30)
+          if (!v28)
           {
-            goto LABEL_8;
+            return;
           }
 
-          v31 = 2 * v30;
+          v29 = 2 * v28;
         }
 
-        memmove(v23, v17, v31);
-        goto LABEL_8;
+        memmove(v21, v15, v29);
+        return;
       }
 
 LABEL_32:
-      if (!v18 || !v117 || !v19)
+      if (!v16 || !v111 || !v17)
       {
-        goto LABEL_8;
+        return;
       }
 
-      v32 = v117 - 1;
-      v33 = 2 * HIDWORD(v26);
-      v34 = v19 - 1;
-      if (v19 == 1)
+      v30 = v111 - 1;
+      v31 = 2 * HIDWORD(v24);
+      v32 = v17 - 1;
+      if (v17 == 1)
       {
-        if (v117 == 1)
+        if (v111 == 1)
         {
 LABEL_98:
-          *v23 = *v17;
-          v23[1] = v17[1];
-          goto LABEL_8;
+          *v21 = *v15;
+          v21[1] = v15[1];
+          return;
         }
       }
 
       else
       {
-        if (v117 == 1)
+        if (v111 == 1)
         {
           do
           {
-            *v23 = *v17;
-            v23[1] = v17[1];
-            v17 += v22;
-            v23 += v27;
-            --v34;
+            *v21 = *v15;
+            v21[1] = v15[1];
+            v15 += v20;
+            v21 += v25;
+            --v32;
           }
 
-          while (v34);
+          while (v32);
           goto LABEL_98;
         }
 
-        v35 = 0;
-        v36 = v17 + 1;
-        v37 = v23 + 1;
+        v33 = 0;
+        v34 = v15 + 1;
+        v35 = v21 + 1;
         do
         {
-          v38 = v37;
-          v39 = v36;
-          v40 = v117 - 1;
+          v36 = v35;
+          v37 = v34;
+          v38 = v111 - 1;
           do
           {
-            *(v38 - 1) = *(v39 - 1);
-            *v38 = *v39;
-            v39 += v21;
-            v38 = (v38 + v33);
-            --v40;
+            *(v36 - 1) = *(v37 - 1);
+            *v36 = *v37;
+            v37 += v19;
+            v36 = (v36 + v31);
+            --v38;
           }
 
-          while (v40);
-          *(v38 - 1) = *(v39 - 1);
-          *v38 = *v39;
-          v17 += v22;
-          v23 += v27;
-          ++v35;
-          v36 += v22;
-          v37 += v27;
+          while (v38);
+          *(v36 - 1) = *(v37 - 1);
+          *v36 = *v37;
+          v15 += v20;
+          v21 += v25;
+          ++v33;
+          v34 += v20;
+          v35 += v25;
         }
 
-        while (v35 != v34);
+        while (v33 != v32);
       }
 
       do
       {
-        *v23 = *v17;
-        v23[1] = v17[1];
-        v17 += v21;
-        v23 = (v23 + v33);
-        --v32;
+        *v21 = *v15;
+        v21[1] = v15[1];
+        v15 += v19;
+        v21 = (v21 + v31);
+        --v30;
       }
 
-      while (v32);
+      while (v30);
       goto LABEL_98;
     }
 
-    v109 = v19;
-    v114 = v22;
+    v104 = v17;
+    v108 = v20;
     sub_23F3034A8("/Library/Caches/com.apple.xbs/Sources/AmbientSceneScope/library/Essentials/Array/include/Essentials/Array/ArrayView.h", 983, "total_size < std::numeric_limits<uint32_t>::max()", 0x31uLL, "Given data block is too big to be represented by uint32_t indexed ArrayView", 0x4BuLL, sub_23F303DA4);
     if (byte_27E3961A0 == 1)
     {
@@ -5552,8 +5528,8 @@ LABEL_98:
         goto LABEL_24;
       }
 
-      v28 = qword_27E396178;
-      v29 = unk_27E396180;
+      v26 = qword_27E396178;
+      v27 = unk_27E396180;
       if (qword_27E396178 == unk_27E396180)
       {
         goto LABEL_24;
@@ -5562,8 +5538,8 @@ LABEL_98:
 
     else
     {
-      v28 = qword_27E396178;
-      v29 = unk_27E396180;
+      v26 = qword_27E396178;
+      v27 = unk_27E396180;
       if (qword_27E396178 == unk_27E396180)
       {
         goto LABEL_130;
@@ -5572,18 +5548,18 @@ LABEL_98:
 
     do
     {
-      (*v28)(*(v28 + 8), "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
-      v28 += 16;
+      (*v26)(*(v26 + 8), "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
+      v26 += 16;
     }
 
-    while (v28 != v29);
+    while (v26 != v27);
     if (byte_27E3961A0)
     {
 LABEL_24:
-      qword_27E396190(*algn_27E396198, "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75, v109);
-      v22 = v114;
-      v19 = v110;
-      if (v20 != 1)
+      qword_27E396190(*algn_27E396198, "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
+      v20 = v108;
+      v17 = v104;
+      if (v18 != 1)
       {
         goto LABEL_32;
       }
@@ -5595,332 +5571,316 @@ LABEL_130:
     abort();
   }
 
-  v7 = *(a1 + 72);
-  if (!v7 || *(v6 + 12) != *(a1 + 12) || *(v6 + 3) != *(a1 + 24))
+  v6 = *(a1 + 72);
+  if (!v6 || *(v5 + 12) != *(a1 + 12) || *(v5 + 3) != *(a1 + 24))
   {
-    v8 = *(v6 + 8);
-    v9 = *(v6 + 24);
-    v10 = *(v6 + 40);
-    v123 = *(v6 + 7);
-    v121 = v9;
-    v122 = v10;
-    v120 = v8;
-    sub_23F24E2E0(v124, (v6 + 64));
-    v11 = v121;
-    *(a1 + 8) = v120;
-    *(a1 + 24) = v11;
-    *(a1 + 40) = v122;
-    *(a1 + 104) = v126;
-    v12 = v123;
-    *(a1 + 88) = v125;
-    v13 = v124[0];
-    *(a1 + 56) = v12;
-    *(a1 + 64) = v13;
-    v14 = *(a1 + 72);
-    if (v14)
+    v7 = *(v5 + 8);
+    v8 = *(v5 + 24);
+    v9 = *(v5 + 40);
+    v117 = *(v5 + 7);
+    v115 = v8;
+    v116 = v9;
+    v114 = v7;
+    sub_23F24E2E0(v118, (v5 + 64));
+    v10 = v115;
+    *(a1 + 8) = v114;
+    *(a1 + 24) = v10;
+    *(a1 + 40) = v116;
+    *(a1 + 104) = v120;
+    v11 = v117;
+    *(a1 + 88) = v119;
+    v12 = v118[0];
+    *(a1 + 56) = v11;
+    *(a1 + 64) = v12;
+    v13 = *(a1 + 72);
+    if (v13)
     {
-      free(v14);
+      free(v13);
     }
 
-    v15 = v124[2];
-    *(a1 + 72) = v124[1];
-    *(a1 + 80) = v15;
-    goto LABEL_8;
+    v14 = v118[2];
+    *(a1 + 72) = v118[1];
+    *(a1 + 80) = v14;
+    return;
   }
 
-  if (*(v6 + 5) != 1 || *(a1 + 20) != 1)
+  if (*(v5 + 5) != 1 || *(a1 + 20) != 1)
   {
-    if (!*(v6 + 2))
+    if (!*(v5 + 2))
     {
-      goto LABEL_8;
+      return;
     }
 
-    v52 = *(v6 + 3);
-    if (!v52)
+    v50 = *(v5 + 3);
+    if (!v50)
     {
-      goto LABEL_8;
+      return;
     }
 
-    v53 = *(v6 + 4);
-    if (!v53)
+    v51 = *(v5 + 4);
+    if (!v51)
     {
-      goto LABEL_8;
+      return;
     }
 
-    v54 = v52 - 1;
-    v55 = *(v6 + 9);
-    v56 = 2 * *(v6 + 6);
-    v57 = 2 * *(a1 + 24);
-    v58 = v53 - 1;
-    if (v58)
+    v52 = v50 - 1;
+    v53 = *(v5 + 9);
+    v54 = 2 * *(v5 + 6);
+    v55 = 2 * *(a1 + 24);
+    v56 = v51 - 1;
+    if (v56)
     {
-      v59 = *(a1 + 28);
-      v60 = *(v6 + 7);
-      if (!v54)
+      v57 = *(a1 + 28);
+      v58 = *(v5 + 7);
+      if (!v52)
       {
         do
         {
-          *v7 = *v55;
-          v7[1] = v55[1];
-          v55 += v60;
-          v7 += v59;
-          --v58;
+          *v6 = *v53;
+          v6[1] = v53[1];
+          v53 += v58;
+          v6 += v57;
+          --v56;
         }
 
-        while (v58);
+        while (v56);
         goto LABEL_121;
       }
 
-      v61 = 0;
-      v62 = v55 + 1;
-      v63 = v7 + 1;
+      v59 = 0;
+      v60 = v53 + 1;
+      v61 = v6 + 1;
       do
       {
-        v64 = v63;
-        v65 = v62;
-        v66 = v54;
+        v62 = v61;
+        v63 = v60;
+        v64 = v52;
         do
         {
-          *(v64 - 1) = *(v65 - 1);
-          *v64 = *v65;
-          v65 = (v65 + v56);
-          v64 = (v64 + v57);
-          --v66;
+          *(v62 - 1) = *(v63 - 1);
+          *v62 = *v63;
+          v63 = (v63 + v54);
+          v62 = (v62 + v55);
+          --v64;
         }
 
-        while (v66);
-        *(v64 - 1) = *(v65 - 1);
-        *v64 = *v65;
-        v55 += v60;
-        v7 += v59;
-        ++v61;
-        v62 += v60;
-        v63 += v59;
+        while (v64);
+        *(v62 - 1) = *(v63 - 1);
+        *v62 = *v63;
+        v53 += v58;
+        v6 += v57;
+        ++v59;
+        v60 += v58;
+        v61 += v57;
       }
 
-      while (v61 != v58);
+      while (v59 != v56);
     }
 
-    else if (!v54)
+    else if (!v52)
     {
 LABEL_121:
-      *v7 = *v55;
-      v7[1] = v55[1];
-      goto LABEL_8;
+      *v6 = *v53;
+      v6[1] = v53[1];
+      return;
     }
 
     do
     {
-      *v7 = *v55;
-      v7[1] = v55[1];
-      v55 = (v55 + v56);
-      v7 = (v7 + v57);
-      --v54;
+      *v6 = *v53;
+      v6[1] = v53[1];
+      v53 = (v53 + v54);
+      v6 = (v6 + v55);
+      --v52;
     }
 
-    while (v54);
+    while (v52);
     goto LABEL_121;
   }
 
-  v69 = *(v6 + 6);
-  v70 = *(a1 + 24);
-  v71 = *(v6 + 2);
-  if (v69 == v70 && v69 == v71)
+  v67 = *(v5 + 6);
+  v68 = *(a1 + 24);
+  v69 = *(v5 + 2);
+  if (v67 != v68 || v67 != v69)
   {
-    v89 = *(v6 + 7);
-    v90 = *(a1 + 28);
-    v91 = *(v6 + 3);
-    v92 = (v91 * v69);
-    if (v89 == v90 && v89 == v92)
+    v72 = *(v5 + 3);
+    v71 = *(v5 + 4);
+    if (v69)
     {
-      v93 = *(v6 + 4) * v89;
-      if (v93)
-      {
-        v94 = *(v6 + 9);
-        v95 = *MEMORY[0x277D85DE8];
-        v96 = 2 * v93;
-        v97 = *(a1 + 72);
-        goto LABEL_127;
-      }
+      v73 = v72 == 0;
     }
 
     else
     {
-      if (!v69)
-      {
-        goto LABEL_8;
-      }
+      v73 = 1;
+    }
 
-      if (!v91)
-      {
-        goto LABEL_8;
-      }
+    if (v73 || v71 == 0)
+    {
+      return;
+    }
 
-      v100 = *(v6 + 4);
-      if (!v100)
+    v75 = v72 - 1;
+    v76 = *(v5 + 9);
+    v77 = 2 * v69;
+    v78 = 2 * v68;
+    v79 = v71 - 1;
+    v105 = *(v5 + 6);
+    if (v71 != 1)
+    {
+      v80 = *(a1 + 28);
+      v81 = *(v5 + 7);
+      if (v72 == 1)
       {
-        goto LABEL_8;
-      }
-
-      v101 = *(v6 + 9);
-      v102 = v100 - 1;
-      if (v100 != 1)
-      {
-        if (!v92)
-        {
-          goto LABEL_8;
-        }
-
-        v103 = 2 * v89;
-        v104 = 2 * v90;
+        v102 = 2 * v81;
+        v103 = 2 * v80;
         do
         {
-          memmove(v7, v101, 2 * v92);
-          v101 += v103;
-          v7 = (v7 + v104);
-          --v102;
+          memmove(v6, v76, v77);
+          v76 += v102;
+          v6 = (v6 + v103);
+          --v79;
         }
 
-        while (v102);
+        while (v79);
       }
 
-      if (v92)
+      else
       {
-        v105 = *MEMORY[0x277D85DE8];
-        v96 = 2 * v92;
-        v97 = v7;
-        v94 = v101;
-        goto LABEL_127;
-      }
-    }
-
-LABEL_8:
-    v16 = *MEMORY[0x277D85DE8];
-    return;
-  }
-
-  v74 = *(v6 + 3);
-  v73 = *(v6 + 4);
-  if (v71)
-  {
-    v75 = v74 == 0;
-  }
-
-  else
-  {
-    v75 = 1;
-  }
-
-  if (v75 || v73 == 0)
-  {
-    goto LABEL_8;
-  }
-
-  v77 = v74 - 1;
-  v78 = *(v6 + 9);
-  v79 = 2 * v71;
-  v80 = 2 * v70;
-  v81 = v73 - 1;
-  v111 = *(v6 + 6);
-  if (v73 != 1)
-  {
-    v82 = *(a1 + 28);
-    v83 = *(v6 + 7);
-    if (v74 == 1)
-    {
-      v106 = 2 * v83;
-      v107 = 2 * v82;
-      do
-      {
-        memmove(v7, v78, v79);
-        v78 += v106;
-        v7 = (v7 + v107);
-        --v81;
-      }
-
-      while (v81);
-    }
-
-    else
-    {
-      v84 = 0;
-      v85 = 2 * v69;
-      v113 = 2 * v82;
-      v116 = 2 * v83;
-      v119 = v73 - 1;
-      do
-      {
-        v86 = v7;
-        v87 = v78;
-        v88 = v77;
+        v82 = 0;
+        v83 = 2 * v67;
+        v107 = 2 * v80;
+        v110 = 2 * v81;
+        v113 = v71 - 1;
         do
         {
-          memmove(v86, v87, v79);
-          v87 += v85;
-          v86 += v80;
-          --v88;
+          v84 = v6;
+          v85 = v76;
+          v86 = v75;
+          do
+          {
+            memmove(v84, v85, v77);
+            v85 += v83;
+            v84 += v78;
+            --v86;
+          }
+
+          while (v86);
+          memmove(v84, v85, v77);
+          v76 += v110;
+          v6 = (v6 + v107);
+          ++v82;
         }
 
-        while (v88);
-        memmove(v86, v87, v79);
-        v78 += v116;
-        v7 = (v7 + v113);
-        ++v84;
+        while (v82 != v113);
       }
-
-      while (v84 != v119);
     }
+
+    for (; v75; --v75)
+    {
+      memmove(v6, v76, v77);
+      v76 += 2 * v105;
+      v6 = (v6 + v78);
+    }
+
+    v94 = v6;
+    v92 = v76;
+    v93 = v77;
+    goto LABEL_127;
   }
 
-  for (; v77; --v77)
+  v87 = *(v5 + 7);
+  v88 = *(a1 + 28);
+  v89 = *(v5 + 3);
+  v90 = (v89 * v67);
+  if (v87 == v88 && v87 == v90)
   {
-    memmove(v7, v78, v79);
-    v78 += 2 * v111;
-    v7 = (v7 + v80);
+    v91 = *(v5 + 4) * v87;
+    if (!v91)
+    {
+      return;
+    }
+
+    v92 = *(v5 + 9);
+    v93 = 2 * v91;
+    v94 = *(a1 + 72);
+    goto LABEL_127;
   }
 
-  v108 = *MEMORY[0x277D85DE8];
-  v97 = v7;
-  v94 = v78;
-  v96 = v79;
+  if (v67)
+  {
+    if (v89)
+    {
+      v97 = *(v5 + 4);
+      if (v97)
+      {
+        v98 = *(v5 + 9);
+        v99 = v97 - 1;
+        if (v97 != 1)
+        {
+          if (!v90)
+          {
+            return;
+          }
+
+          v100 = 2 * v87;
+          v101 = 2 * v88;
+          do
+          {
+            memmove(v6, v98, 2 * v90);
+            v98 += v100;
+            v6 = (v6 + v101);
+            --v99;
+          }
+
+          while (v99);
+        }
+
+        if (v90)
+        {
+          v93 = 2 * v90;
+          v94 = v6;
+          v92 = v98;
 LABEL_127:
 
-  memmove(v97, v94, v96);
+          memmove(v94, v92, v93);
+        }
+      }
+    }
+  }
 }
 
 void sub_23F231448(uint64_t a1, int a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
   if (a2 == 6)
   {
 LABEL_10:
     if (*(a1 + 36))
     {
-      v7 = *(a1 + 32) == 0;
+      v8 = *(a1 + 32) == 0;
     }
 
     else
     {
-      v7 = 1;
+      v8 = 1;
     }
 
-    v8 = *(a1 + 32);
-    if (v7)
+    v9 = *(a1 + 32);
+    if (v8)
     {
-      HIDWORD(v8) = 0;
+      HIDWORD(v9) = 0;
     }
 
-    if (HIDWORD(*(a1 + 40)) * HIDWORD(v8) != -1)
+    if (HIDWORD(*(a1 + 40)) * HIDWORD(v9) != -1)
     {
 LABEL_24:
       operator new();
     }
 
-    v13 = *(a1 + 72);
     sub_23F3034A8("/Library/Caches/com.apple.xbs/Sources/AmbientSceneScope/library/Essentials/Array/include/Essentials/Array/ArrayView.h", 983, "total_size < std::numeric_limits<uint32_t>::max()", 0x31uLL, "Given data block is too big to be represented by uint32_t indexed ArrayView", 0x4BuLL, sub_23F303DA4);
     if (byte_27E3961A0 == 1)
     {
-      if (byte_27E3961A8 != 1 || (v9 = qword_27E396178, v10 = unk_27E396180, qword_27E396178 == unk_27E396180))
+      if (byte_27E3961A8 != 1 || (v10 = qword_27E396178, v11 = unk_27E396180, qword_27E396178 == unk_27E396180))
       {
 LABEL_23:
         qword_27E396190(*algn_27E396198, "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
@@ -5930,8 +5890,8 @@ LABEL_23:
 
     else
     {
-      v9 = qword_27E396178;
-      v10 = unk_27E396180;
+      v10 = qword_27E396178;
+      v11 = unk_27E396180;
       if (qword_27E396178 == unk_27E396180)
       {
         goto LABEL_25;
@@ -5940,13 +5900,13 @@ LABEL_23:
 
     do
     {
-      v12 = *v9;
-      v11 = *(v9 + 8);
-      v9 += 16;
-      v12(v11, "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
+      v13 = *v10;
+      v12 = *(v10 + 8);
+      v10 += 16;
+      v13(v12, "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
     }
 
-    while (v9 != v10);
+    while (v10 != v11);
     if (byte_27E3961A0)
     {
       goto LABEL_23;
@@ -5959,7 +5919,7 @@ LABEL_25:
   sub_23F3034A8("/Library/Caches/com.apple.xbs/Sources/AmbientSceneScope/library/Kit/Image/src/ImageStorage.cpp", 78, "F == format", 0xBuLL, &unk_23F3091D6, 0, sub_23F303DA4);
   if (byte_27E3961A0 == 1)
   {
-    if (byte_27E3961A8 != 1 || (v3 = qword_27E396178, v4 = unk_27E396180, qword_27E396178 == unk_27E396180))
+    if (byte_27E3961A8 != 1 || (v4 = qword_27E396178, v5 = unk_27E396180, qword_27E396178 == unk_27E396180))
     {
 LABEL_9:
       qword_27E396190(*algn_27E396198, "F == format", 11, &unk_23F3091D6, 0);
@@ -5969,8 +5929,8 @@ LABEL_9:
 
   else
   {
-    v3 = qword_27E396178;
-    v4 = unk_27E396180;
+    v4 = qword_27E396178;
+    v5 = unk_27E396180;
     if (qword_27E396178 == unk_27E396180)
     {
       goto LABEL_25;
@@ -5979,13 +5939,13 @@ LABEL_9:
 
   do
   {
-    v6 = *v3;
-    v5 = *(v3 + 8);
-    v3 += 16;
-    v6(v5, "F == format", 11, &unk_23F3091D6, 0);
+    v7 = *v4;
+    v6 = *(v4 + 8);
+    v4 += 16;
+    v7(v6, "F == format", 11, &unk_23F3091D6, 0);
   }
 
-  while (v3 != v4);
+  while (v4 != v5);
   if ((byte_27E3961A0 & 1) == 0)
   {
     goto LABEL_25;
@@ -5996,37 +5956,35 @@ LABEL_9:
 
 void sub_23F231748(uint64_t a1, int a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
   if (a2 == 6)
   {
 LABEL_10:
     if (*(a1 + 36))
     {
-      v7 = *(a1 + 32) == 0;
+      v8 = *(a1 + 32) == 0;
     }
 
     else
     {
-      v7 = 1;
+      v8 = 1;
     }
 
-    v8 = *(a1 + 32);
-    if (v7)
+    v9 = *(a1 + 32);
+    if (v8)
     {
-      HIDWORD(v8) = 0;
+      HIDWORD(v9) = 0;
     }
 
-    if (HIDWORD(*(a1 + 40)) * HIDWORD(v8) != -1)
+    if (HIDWORD(*(a1 + 40)) * HIDWORD(v9) != -1)
     {
 LABEL_24:
       operator new();
     }
 
-    v13 = *(a1 + 72);
     sub_23F3034A8("/Library/Caches/com.apple.xbs/Sources/AmbientSceneScope/library/Essentials/Array/include/Essentials/Array/ArrayView.h", 983, "total_size < std::numeric_limits<uint32_t>::max()", 0x31uLL, "Given data block is too big to be represented by uint32_t indexed ArrayView", 0x4BuLL, sub_23F303DA4);
     if (byte_27E3961A0 == 1)
     {
-      if (byte_27E3961A8 != 1 || (v9 = qword_27E396178, v10 = unk_27E396180, qword_27E396178 == unk_27E396180))
+      if (byte_27E3961A8 != 1 || (v10 = qword_27E396178, v11 = unk_27E396180, qword_27E396178 == unk_27E396180))
       {
 LABEL_23:
         qword_27E396190(*algn_27E396198, "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
@@ -6036,8 +5994,8 @@ LABEL_23:
 
     else
     {
-      v9 = qword_27E396178;
-      v10 = unk_27E396180;
+      v10 = qword_27E396178;
+      v11 = unk_27E396180;
       if (qword_27E396178 == unk_27E396180)
       {
         goto LABEL_25;
@@ -6046,13 +6004,13 @@ LABEL_23:
 
     do
     {
-      v12 = *v9;
-      v11 = *(v9 + 8);
-      v9 += 16;
-      v12(v11, "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
+      v13 = *v10;
+      v12 = *(v10 + 8);
+      v10 += 16;
+      v13(v12, "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
     }
 
-    while (v9 != v10);
+    while (v10 != v11);
     if (byte_27E3961A0)
     {
       goto LABEL_23;
@@ -6065,7 +6023,7 @@ LABEL_25:
   sub_23F3034A8("/Library/Caches/com.apple.xbs/Sources/AmbientSceneScope/library/Kit/Image/src/ImageStorage.cpp", 84, "F == format", 0xBuLL, &unk_23F3091D6, 0, sub_23F303DA4);
   if (byte_27E3961A0 == 1)
   {
-    if (byte_27E3961A8 != 1 || (v3 = qword_27E396178, v4 = unk_27E396180, qword_27E396178 == unk_27E396180))
+    if (byte_27E3961A8 != 1 || (v4 = qword_27E396178, v5 = unk_27E396180, qword_27E396178 == unk_27E396180))
     {
 LABEL_9:
       qword_27E396190(*algn_27E396198, "F == format", 11, &unk_23F3091D6, 0);
@@ -6075,8 +6033,8 @@ LABEL_9:
 
   else
   {
-    v3 = qword_27E396178;
-    v4 = unk_27E396180;
+    v4 = qword_27E396178;
+    v5 = unk_27E396180;
     if (qword_27E396178 == unk_27E396180)
     {
       goto LABEL_25;
@@ -6085,13 +6043,13 @@ LABEL_9:
 
   do
   {
-    v6 = *v3;
-    v5 = *(v3 + 8);
-    v3 += 16;
-    v6(v5, "F == format", 11, &unk_23F3091D6, 0);
+    v7 = *v4;
+    v6 = *(v4 + 8);
+    v4 += 16;
+    v7(v6, "F == format", 11, &unk_23F3091D6, 0);
   }
 
-  while (v3 != v4);
+  while (v4 != v5);
   if ((byte_27E3961A0 & 1) == 0)
   {
     goto LABEL_25;
@@ -6348,15 +6306,14 @@ LABEL_20:
   abort();
 }
 
-void sub_23F231F5C(uint64_t a1, char **lpsrc)
+__int16 sub_23F231F5C@<H0>(uint64_t a1@<X0>, uint64_t *lpsrc@<X1>)
 {
   v240 = *MEMORY[0x277D85DE8];
   v4 = *lpsrc;
-  v5 = **lpsrc;
-  v6 = __dynamic_cast(lpsrc, &unk_28518B5C0, &unk_285189160, 0);
-  if (!v6)
+  v5 = __dynamic_cast(lpsrc, &unk_28518B5C0, &unk_285189160, 0);
+  if (!v5)
   {
-    (*(v4 + 9))(&v234, lpsrc, 7);
+    (*(v4 + 72))(&v234, lpsrc, 7);
     v16 = *(v234 + 16);
     v15 = *(v234 + 32);
     v227 = *v234;
@@ -6414,8 +6371,8 @@ LABEL_32:
         v239 = v20;
         v226[0] = &v227;
         v226[1] = &v234;
-        sub_23F1F61A4(v226);
-        goto LABEL_39;
+        LOWORD(v6) = sub_23F1F61A4(v226);
+        return v6;
       }
     }
 
@@ -6445,21 +6402,22 @@ LABEL_32:
   }
 
   v7 = *(a1 + 72);
-  if (!v7 || *(v6 + 12) != *(a1 + 12) || *(v6 + 3) != *(a1 + 24))
+  if (!v7 || *(v5 + 12) != *(a1 + 12) || *(v5 + 3) != *(a1 + 24))
   {
-    v8 = *(v6 + 8);
-    v9 = *(v6 + 24);
-    v10 = *(v6 + 40);
-    v230 = *(v6 + 7);
+    v8 = *(v5 + 8);
+    v9 = *(v5 + 24);
+    v10 = *(v5 + 40);
+    v230 = *(v5 + 7);
     v228 = v9;
     v229 = v10;
     v227 = v8;
-    sub_23F24EBE4(v231, (v6 + 64));
+    sub_23F24EBE4(v231, (v5 + 64));
     v11 = v228;
     *(a1 + 8) = v227;
     *(a1 + 24) = v11;
     *(a1 + 40) = v229;
     *(a1 + 56) = v230;
+    LOWORD(v6) = v232;
     *(a1 + 88) = v232;
     *(a1 + 104) = v233;
     v12 = *(a1 + 72);
@@ -6541,177 +6499,177 @@ LABEL_38:
       v29 = v231[2];
       *(a1 + 72) = v231[1];
       *(a1 + 80) = v29;
-      goto LABEL_39;
+      return v6;
     }
 
 LABEL_236:
     abort();
   }
 
-  if (*(v6 + 5) == 1 && *(a1 + 20) == 1)
+  if (*(v5 + 5) == 1 && *(a1 + 20) == 1)
   {
-    v47 = *(v6 + 6);
-    v48 = *(a1 + 24);
-    v49 = *(v6 + 2);
-    if (v47 != v48 || v47 != v49)
+    v46 = *(v5 + 6);
+    v47 = *(a1 + 24);
+    v48 = *(v5 + 2);
+    if (v46 != v47 || v46 != v48)
     {
-      v51 = *(v6 + 3);
-      v52 = *(v6 + 4);
-      if (v49)
+      v50 = *(v5 + 3);
+      v51 = *(v5 + 4);
+      if (v48)
       {
-        v53 = v51 == 0;
+        v52 = v50 == 0;
       }
 
       else
       {
-        v53 = 1;
+        v52 = 1;
       }
 
-      if (v53 || v52 == 0)
+      if (v52 || v51 == 0)
       {
-        goto LABEL_39;
+        return v6;
       }
 
-      v55 = v51 - 1;
-      v56 = *(v6 + 9);
-      v57 = 2 * v48;
-      v58 = v52 - 1;
+      v54 = v50 - 1;
+      v55 = *(v5 + 9);
+      v56 = 2 * v47;
+      v57 = v51 - 1;
       v220 = *(a1 + 24);
-      v221 = *(v6 + 6);
-      v219 = *(v6 + 3);
-      if (v52 != 1)
+      v221 = *(v5 + 6);
+      v219 = *(v5 + 3);
+      if (v51 != 1)
       {
-        v59 = *(a1 + 28);
-        v60 = *(v6 + 7);
-        if (v51 != 1)
+        v58 = *(a1 + 28);
+        v59 = *(v5 + 7);
+        if (v50 != 1)
         {
-          v61 = 0;
-          v62 = 2 * v47;
-          v225 = &v7[v57 / 2] - v56 + -2 * v47;
-          v223 = 2 * (v59 - v60);
-          v222 = v57 - 2 * v47;
-          v63 = (v49 - 1) & 0x7FFFFFFFFFFFFFFFLL;
-          v64 = v63 + 1;
+          v60 = 0;
+          v61 = 2 * v46;
+          v225 = &v7[v56 / 2] - v55 + -2 * v46;
+          v223 = 2 * (v58 - v59);
+          v222 = v56 - 2 * v46;
+          v62 = (v48 - 1) & 0x7FFFFFFFFFFFFFFFLL;
+          v63 = v62 + 1;
+          v64 = 2 * v58;
           v65 = 2 * v59;
-          v66 = 2 * v60;
-          v67 = &v7[v49 + v48 * (v51 - 2)];
-          v68 = (v63 + 1) & 0xFFFFFFFFFFFFFFF0;
-          v69 = v68;
-          v70 = (v63 + 1) & 0xC;
-          v71 = (v63 + 1) & 0xFFFFFFFFFFFFFFFCLL;
-          v72 = v71;
-          v73 = v56 + 2 * (v49 + v47 * (v51 - 2));
+          v66 = &v7[v48 + v47 * (v50 - 2)];
+          v67 = (v62 + 1) & 0xFFFFFFFFFFFFFFF0;
+          v68 = v67;
+          v69 = (v62 + 1) & 0xC;
+          v70 = (v62 + 1) & 0xFFFFFFFFFFFFFFFCLL;
+          v71 = v70;
+          v72 = v55 + 2 * (v48 + v46 * (v50 - 2));
           while (1)
           {
-            v74 = 0;
-            v76 = v7 < v73 + v66 * v61 && v56 < v67 + v65 * v61;
-            v77 = v7;
-            v78 = v56;
+            v73 = 0;
+            v75 = v7 < v72 + v65 * v60 && v55 < v66 + v64 * v60;
+            v76 = v7;
+            v77 = v55;
             do
             {
-              v79 = v74;
+              v78 = v73;
+              v79 = v76;
               v80 = v77;
-              v81 = v78;
-              if (v63 < 3 || v76)
+              if (v62 < 3 || v75)
               {
                 goto LABEL_89;
               }
 
-              if (v63 >= 0xF)
+              if (v62 >= 0xF)
               {
-                v83 = 0;
-                v84 = (v63 + 1) & 0xFFFFFFFFFFFFFFF0;
+                v82 = 0;
+                v83 = (v62 + 1) & 0xFFFFFFFFFFFFFFF0;
                 do
                 {
-                  v85 = &v77[v83];
-                  v86 = *&v78[v83 + 8];
-                  *v85 = *&v78[v83];
-                  v85[1] = v86;
-                  v83 += 16;
-                  v84 -= 16;
+                  v84 = &v76[v82];
+                  v85 = *&v77[v82 + 8];
+                  *v84 = *&v77[v82];
+                  v84[1] = v85;
+                  v82 += 16;
+                  v83 -= 16;
                 }
 
-                while (v84);
-                if (v64 == v68)
+                while (v83);
+                if (v63 == v67)
                 {
                   goto LABEL_76;
                 }
 
-                v82 = (v63 + 1) & 0xFFFFFFFFFFFFFFF0;
-                if (!v70)
+                v81 = (v62 + 1) & 0xFFFFFFFFFFFFFFF0;
+                if (!v69)
                 {
-                  v81 = &v78[v69];
-                  v80 = &v77[v69];
+                  v80 = &v77[v68];
+                  v79 = &v76[v68];
                   do
                   {
 LABEL_89:
-                    v89 = *v81++;
-                    *v80++ = v89;
+                    v88 = *v80++;
+                    *v79++ = v88;
                   }
 
-                  while (v81 != &v78[v49]);
+                  while (v80 != &v77[v48]);
                   goto LABEL_76;
                 }
               }
 
               else
               {
-                v82 = 0;
+                v81 = 0;
               }
 
-              v80 = &v77[v72];
-              v81 = &v78[v72];
-              v87 = v82;
-              v88 = v82 - v71;
+              v79 = &v76[v71];
+              v80 = &v77[v71];
+              v86 = v81;
+              v87 = v81 - v70;
               do
               {
-                *&v77[v87] = *&v78[v87];
+                *&v76[v86] = *&v77[v86];
+                v86 += 4;
                 v87 += 4;
-                v88 += 4;
               }
 
-              while (v88);
-              if (v64 != v71)
+              while (v87);
+              if (v63 != v70)
               {
                 goto LABEL_89;
               }
 
 LABEL_76:
-              v78 = (v78 + v62);
-              v77 = (v77 + v57);
-              v74 = v79 + 1;
+              v77 = (v77 + v61);
+              v76 = (v76 + v56);
+              v73 = v78 + 1;
             }
 
-            while (v79 + 1 != v55);
-            if (v63 < 3 || (v225 + v223 * v61 + v222 * v79) < 0x20)
+            while (v78 + 1 != v54);
+            if (v62 < 3 || (v225 + v223 * v60 + v222 * v78) < 0x20)
             {
+              v89 = v76;
               v90 = v77;
-              v91 = v78;
               goto LABEL_94;
             }
 
-            if (v63 >= 0xF)
+            if (v62 >= 0xF)
             {
-              v94 = 0;
-              v95 = (v63 + 1) & 0xFFFFFFFFFFFFFFF0;
+              v93 = 0;
+              v94 = (v62 + 1) & 0xFFFFFFFFFFFFFFF0;
               do
               {
-                v96 = &v77[v94];
-                v97 = *&v78[v94 + 8];
-                *v96 = *&v78[v94];
-                v96[1] = v97;
-                v94 += 16;
-                v95 -= 16;
+                v95 = &v76[v93];
+                v96 = *&v77[v93 + 8];
+                *v95 = *&v77[v93];
+                v95[1] = v96;
+                v93 += 16;
+                v94 -= 16;
               }
 
-              while (v95);
-              if (v64 != v68)
+              while (v94);
+              if (v63 != v67)
               {
-                v93 = (v63 + 1) & 0xFFFFFFFFFFFFFFF0;
-                if (!v70)
+                v92 = (v62 + 1) & 0xFFFFFFFFFFFFFFF0;
+                if (!v69)
                 {
-                  v91 = &v78[v69];
-                  v90 = &v77[v69];
+                  v90 = &v77[v68];
+                  v89 = &v76[v68];
                   goto LABEL_94;
                 }
 
@@ -6721,78 +6679,78 @@ LABEL_76:
 
             else
             {
-              v93 = 0;
+              v92 = 0;
 LABEL_102:
-              v90 = &v77[v72];
-              v91 = &v78[v72];
-              v98 = v93;
-              v99 = v93 - v71;
+              v89 = &v76[v71];
+              v90 = &v77[v71];
+              v97 = v92;
+              v98 = v92 - v70;
               do
               {
-                *&v77[v98] = *&v78[v98];
+                *&v76[v97] = *&v77[v97];
+                v97 += 4;
                 v98 += 4;
-                v99 += 4;
               }
 
-              while (v99);
-              if (v64 != v71)
+              while (v98);
+              if (v63 != v70)
               {
                 do
                 {
 LABEL_94:
-                  v92 = *v91++;
-                  *v90++ = v92;
+                  v91 = *v90++;
+                  *v89++ = v91;
                 }
 
-                while (v91 != &v78[v49]);
+                while (v90 != &v77[v48]);
               }
             }
 
-            v56 += v66;
-            v7 = (v7 + v65);
-            if (++v61 == v58)
+            v55 += v65;
+            v7 = (v7 + v64);
+            if (++v60 == v57)
             {
               goto LABEL_173;
             }
           }
         }
 
-        v138 = 0;
-        v139 = v52 - 2;
-        v140 = &v7[v49 + v59 * v139];
-        v141 = v56 + 2 * (v49 + v60 * v139);
-        v142 = (v49 - 1) & 0x7FFFFFFFFFFFFFFFLL;
-        v143 = v142 + 1;
-        v144 = v7 >= v141 || v56 >= v140;
-        v145 = v143 & 0xFFFFFFFFFFFFFFF0;
-        v146 = v143 & 0xFFFFFFFFFFFFFFFCLL;
-        v147 = v143 & 0xFFFFFFFFFFFFFFFCLL;
-        v148 = !v144;
-        v149 = 2 * v60;
-        v150 = 2 * v59;
+        v137 = 0;
+        v138 = v51 - 2;
+        v139 = &v7[v48 + v58 * v138];
+        v140 = v55 + 2 * (v48 + v59 * v138);
+        v141 = (v48 - 1) & 0x7FFFFFFFFFFFFFFFLL;
+        v142 = v141 + 1;
+        v143 = v7 >= v140 || v55 >= v139;
+        v144 = v142 & 0xFFFFFFFFFFFFFFF0;
+        v145 = v142 & 0xFFFFFFFFFFFFFFFCLL;
+        v146 = v142 & 0xFFFFFFFFFFFFFFFCLL;
+        v147 = !v143;
+        v148 = 2 * v59;
+        v149 = 2 * v58;
         do
         {
-          v151 = v7;
-          v152 = v56;
-          if (!((v142 < 3) | v148 & 1))
+          v150 = v7;
+          v151 = v55;
+          if (!((v141 < 3) | v147 & 1))
           {
-            if (v142 < 0xF)
+            if (v141 < 0xF)
             {
-              v153 = 0;
+              v152 = 0;
 LABEL_166:
-              v151 = &v7[v147];
-              v152 = (v56 + v147 * 2);
-              v158 = v153;
-              v159 = v153 - v146;
+              v150 = &v7[v146];
+              v151 = (v55 + v146 * 2);
+              v157 = v152;
+              v158 = v152 - v145;
               do
               {
-                *&v7[v158] = *(v56 + v158 * 2);
+                *&v7[v157] = *(v55 + v157 * 2);
+                v157 += 4;
                 v158 += 4;
-                v159 += 4;
               }
 
-              while (v159);
-              if (v143 == v146)
+              while (v158);
+              if (v142 == v145)
               {
                 goto LABEL_158;
               }
@@ -6800,83 +6758,83 @@ LABEL_166:
               goto LABEL_171;
             }
 
-            v154 = 0;
-            v155 = v143 & 0xFFFFFFFFFFFFFFF0;
+            v153 = 0;
+            v154 = v142 & 0xFFFFFFFFFFFFFFF0;
             do
             {
-              v156 = &v7[v154];
-              v157 = *(v56 + v154 * 2 + 16);
-              *v156 = *(v56 + v154 * 2);
-              v156[1] = v157;
-              v154 += 16;
-              v155 -= 16;
+              v155 = &v7[v153];
+              v156 = *(v55 + v153 * 2 + 16);
+              *v155 = *(v55 + v153 * 2);
+              v155[1] = v156;
+              v153 += 16;
+              v154 -= 16;
             }
 
-            while (v155);
-            if (v143 == (v143 & 0xFFFFFFFFFFFFFFF0))
+            while (v154);
+            if (v142 == (v142 & 0xFFFFFFFFFFFFFFF0))
             {
               goto LABEL_158;
             }
 
-            v153 = v143 & 0xFFFFFFFFFFFFFFF0;
-            if ((v143 & 0xC) != 0)
+            v152 = v142 & 0xFFFFFFFFFFFFFFF0;
+            if ((v142 & 0xC) != 0)
             {
               goto LABEL_166;
             }
 
-            v152 = (v56 + v145 * 2);
-            v151 = &v7[v145];
+            v151 = (v55 + v144 * 2);
+            v150 = &v7[v144];
           }
 
           do
           {
 LABEL_171:
-            v160 = *v152++;
-            *v151++ = v160;
+            v159 = *v151++;
+            *v150++ = v159;
           }
 
-          while (v152 != (v56 + 2 * v49));
+          while (v151 != (v55 + 2 * v48));
 LABEL_158:
-          v56 += v149;
-          v7 = (v7 + v150);
-          ++v138;
+          v55 += v148;
+          v7 = (v7 + v149);
+          ++v137;
         }
 
-        while (v138 != v58);
+        while (v137 != v57);
       }
 
 LABEL_173:
-      if (v55)
+      if (v54)
       {
-        v161 = 0;
-        v162 = (v49 - 1) & 0x7FFFFFFFFFFFFFFFLL;
-        v163 = v162 + 1;
-        v165 = v7 < v56 + 2 * (v49 + v221 * (v219 - 2)) && v56 < &v7[v49 + v220 * (v219 - 2)];
-        v166 = v163 & 0xFFFFFFFFFFFFFFF0;
-        v167 = v163 & 0xFFFFFFFFFFFFFFFCLL;
+        v160 = 0;
+        v161 = (v48 - 1) & 0x7FFFFFFFFFFFFFFFLL;
+        v162 = v161 + 1;
+        v164 = v7 < v55 + 2 * (v48 + v221 * (v219 - 2)) && v55 < &v7[v48 + v220 * (v219 - 2)];
+        v165 = v162 & 0xFFFFFFFFFFFFFFF0;
+        v166 = v162 & 0xFFFFFFFFFFFFFFFCLL;
         do
         {
-          v168 = v7;
-          v169 = v56;
-          if (v162 >= 3 && !v165)
+          v167 = v7;
+          v168 = v55;
+          if (v161 >= 3 && !v164)
           {
-            if (v162 < 0xF)
+            if (v161 < 0xF)
             {
-              v170 = 0;
+              v169 = 0;
 LABEL_189:
-              v168 = &v7[v167];
-              v169 = (v56 + v167 * 2);
-              v175 = v170;
-              v176 = v170 - (v163 & 0xFFFFFFFFFFFFFFFCLL);
+              v167 = &v7[v166];
+              v168 = (v55 + v166 * 2);
+              v174 = v169;
+              v175 = v169 - (v162 & 0xFFFFFFFFFFFFFFFCLL);
               do
               {
-                *&v7[v175] = *(v56 + v175 * 2);
+                *&v7[v174] = *(v55 + v174 * 2);
+                v174 += 4;
                 v175 += 4;
-                v176 += 4;
               }
 
-              while (v176);
-              if (v163 == (v163 & 0xFFFFFFFFFFFFFFFCLL))
+              while (v175);
+              if (v162 == (v162 & 0xFFFFFFFFFFFFFFFCLL))
               {
                 goto LABEL_181;
               }
@@ -6884,360 +6842,370 @@ LABEL_189:
               goto LABEL_194;
             }
 
-            v171 = 0;
-            v172 = v163 & 0xFFFFFFFFFFFFFFF0;
+            v170 = 0;
+            v171 = v162 & 0xFFFFFFFFFFFFFFF0;
             do
             {
-              v173 = &v7[v171];
-              v174 = *(v56 + v171 * 2 + 16);
-              *v173 = *(v56 + v171 * 2);
-              v173[1] = v174;
-              v171 += 16;
-              v172 -= 16;
+              v172 = &v7[v170];
+              v173 = *(v55 + v170 * 2 + 16);
+              *v172 = *(v55 + v170 * 2);
+              v172[1] = v173;
+              v170 += 16;
+              v171 -= 16;
             }
 
-            while (v172);
-            if (v163 == (v163 & 0xFFFFFFFFFFFFFFF0))
+            while (v171);
+            if (v162 == (v162 & 0xFFFFFFFFFFFFFFF0))
             {
               goto LABEL_181;
             }
 
-            v170 = v163 & 0xFFFFFFFFFFFFFFF0;
-            if ((v163 & 0xC) != 0)
+            v169 = v162 & 0xFFFFFFFFFFFFFFF0;
+            if ((v162 & 0xC) != 0)
             {
               goto LABEL_189;
             }
 
-            v169 = (v56 + v166 * 2);
-            v168 = &v7[v166];
+            v168 = (v55 + v165 * 2);
+            v167 = &v7[v165];
           }
 
           do
           {
 LABEL_194:
-            v177 = *v169++;
-            *v168++ = v177;
+            v176 = *v168++;
+            *v167++ = v176;
           }
 
-          while (v169 != (v56 + 2 * v49));
+          while (v168 != (v55 + 2 * v48));
 LABEL_181:
-          v56 += 2 * v221;
-          v7 = (v7 + v57);
-          ++v161;
+          v55 += 2 * v221;
+          v7 = (v7 + v56);
+          ++v160;
         }
 
-        while (v161 != v55);
+        while (v160 != v54);
       }
 
-      v178 = (v49 - 1) & 0x7FFFFFFFFFFFFFFFLL;
-      if (v178 < 3 || v7 - v56 < 0x20)
+      v177 = (v48 - 1) & 0x7FFFFFFFFFFFFFFFLL;
+      if (v177 < 3 || v7 - v55 < 0x20)
       {
-        v181 = v7;
-        v182 = v56;
+        v180 = v7;
+        v181 = v55;
         goto LABEL_228;
       }
 
-      v179 = v178 + 1;
-      if (v178 >= 0xF)
+      v178 = v177 + 1;
+      if (v177 >= 0xF)
       {
-        v180 = v179 & 0xFFFFFFFFFFFFFFF0;
-        v183 = (v56 + 16);
-        v184 = v7 + 8;
-        v185 = v179 & 0xFFFFFFFFFFFFFFF0;
+        v179 = v178 & 0xFFFFFFFFFFFFFFF0;
+        v182 = (v55 + 16);
+        v183 = v7 + 8;
+        v184 = v178 & 0xFFFFFFFFFFFFFFF0;
         do
         {
-          v186 = *v183;
-          *(v184 - 1) = *(v183 - 1);
-          *v184 = v186;
+          v6 = *(v182 - 1);
+          v185 = *v182;
+          *(v183 - 1) = v6;
+          *v183 = v185;
+          v182 += 2;
           v183 += 2;
-          v184 += 2;
-          v185 -= 16;
+          v184 -= 16;
         }
 
-        while (v185);
-        if (v179 == v180)
+        while (v184);
+        if (v178 == v179)
         {
-          goto LABEL_39;
+          return v6;
         }
 
-        if ((v179 & 0xC) == 0)
+        if ((v178 & 0xC) == 0)
         {
-          v213 = v180;
-          v182 = (v56 + v213 * 2);
-          v181 = &v7[v213];
+          v212 = v179;
+          v181 = (v55 + v212 * 2);
+          v180 = &v7[v212];
           goto LABEL_228;
         }
       }
 
       else
       {
-        v180 = 0;
+        v179 = 0;
       }
 
-      v187 = v179 & 0xFFFFFFFFFFFFFFFCLL;
-      v181 = &v7[v187];
-      v182 = (v56 + v187 * 2);
-      v188 = (v56 + 2 * v180);
-      v189 = &v7[v180];
-      v190 = v180 - (v179 & 0xFFFFFFFFFFFFFFFCLL);
+      v186 = v178 & 0xFFFFFFFFFFFFFFFCLL;
+      v180 = &v7[v186];
+      v181 = (v55 + v186 * 2);
+      v187 = (v55 + 2 * v179);
+      v188 = &v7[v179];
+      v189 = v179 - (v178 & 0xFFFFFFFFFFFFFFFCLL);
       do
       {
-        v191 = *v188++;
-        *v189++ = v191;
-        v190 += 4;
+        v190 = *v187++;
+        LOWORD(v6) = v190;
+        *v188++ = v190;
+        v189 += 4;
       }
 
-      while (v190);
-      if (v179 == (v179 & 0xFFFFFFFFFFFFFFFCLL))
+      while (v189);
+      if (v178 == (v178 & 0xFFFFFFFFFFFFFFFCLL))
       {
-        goto LABEL_39;
+        return v6;
       }
 
       do
       {
 LABEL_228:
-        v214 = *v182++;
-        *v181++ = v214;
+        v213 = *v181++;
+        LOWORD(v6) = v213;
+        *v180++ = v213;
       }
 
-      while (v182 != (v56 + 2 * v49));
-      goto LABEL_39;
+      while (v181 != (v55 + 2 * v48));
+      return v6;
     }
 
-    v100 = *(v6 + 7);
-    v101 = *(a1 + 28);
-    v102 = *(v6 + 3);
-    v103 = (v102 * v47);
-    if (v100 == v101 && v100 == v103)
+    v99 = *(v5 + 7);
+    v100 = *(a1 + 28);
+    v101 = *(v5 + 3);
+    v102 = (v101 * v46);
+    if (v99 == v100 && v99 == v102)
     {
-      v104 = (*(v6 + 4) * v100);
-      if (!v104)
+      v103 = (*(v5 + 4) * v99);
+      if (!v103)
       {
-        goto LABEL_39;
+        return v6;
       }
 
-      v105 = *(v6 + 9);
-      v106 = (v104 - 1) & 0x7FFFFFFFFFFFFFFFLL;
-      if (v106 < 3)
+      v104 = *(v5 + 9);
+      v105 = (v103 - 1) & 0x7FFFFFFFFFFFFFFFLL;
+      if (v105 < 3)
       {
-        v107 = *(v6 + 9);
+        v106 = *(v5 + 9);
         goto LABEL_231;
       }
 
-      v107 = *(v6 + 9);
-      if (v7 - v105 < 0x20)
+      v106 = *(v5 + 9);
+      if (v7 - v104 < 0x20)
       {
         goto LABEL_231;
       }
 
-      v108 = v106 + 1;
-      if (v106 >= 0xF)
+      v107 = v105 + 1;
+      if (v105 >= 0xF)
       {
-        v109 = v108 & 0xFFFFFFFFFFFFFFF0;
-        v192 = (v105 + 16);
-        v193 = v7 + 8;
-        v194 = v108 & 0xFFFFFFFFFFFFFFF0;
+        v108 = v107 & 0xFFFFFFFFFFFFFFF0;
+        v191 = (v104 + 16);
+        v192 = v7 + 8;
+        v193 = v107 & 0xFFFFFFFFFFFFFFF0;
         do
         {
-          v195 = *v192;
-          *(v193 - 1) = *(v192 - 1);
-          *v193 = v195;
+          v6 = *(v191 - 1);
+          v194 = *v191;
+          *(v192 - 1) = v6;
+          *v192 = v194;
+          v191 += 2;
           v192 += 2;
-          v193 += 2;
-          v194 -= 16;
+          v193 -= 16;
         }
 
-        while (v194);
-        if (v108 == v109)
+        while (v193);
+        if (v107 == v108)
         {
-          goto LABEL_39;
+          return v6;
         }
 
-        if ((v108 & 0xC) == 0)
+        if ((v107 & 0xC) == 0)
         {
-          v215 = 2 * v109;
-          v107 = (v105 + v215);
-          v7 = (v7 + v215);
+          v214 = 2 * v108;
+          v106 = (v104 + v214);
+          v7 = (v7 + v214);
           goto LABEL_231;
         }
       }
 
       else
       {
-        v109 = 0;
+        v108 = 0;
       }
 
-      v196 = v108 & 0xFFFFFFFFFFFFFFFCLL;
-      v197 = &v7[v196];
-      v107 = (v105 + v196 * 2);
-      v198 = (v105 + 2 * v109);
-      v199 = &v7[v109];
-      v200 = v109 - (v108 & 0xFFFFFFFFFFFFFFFCLL);
+      v195 = v107 & 0xFFFFFFFFFFFFFFFCLL;
+      v196 = &v7[v195];
+      v106 = (v104 + v195 * 2);
+      v197 = (v104 + 2 * v108);
+      v198 = &v7[v108];
+      v199 = v108 - (v107 & 0xFFFFFFFFFFFFFFFCLL);
       do
       {
-        v201 = *v198++;
-        *v199++ = v201;
-        v200 += 4;
+        v200 = *v197++;
+        LOWORD(v6) = v200;
+        *v198++ = v200;
+        v199 += 4;
       }
 
-      while (v200);
-      v7 = v197;
-      if (v108 == (v108 & 0xFFFFFFFFFFFFFFFCLL))
+      while (v199);
+      v7 = v196;
+      if (v107 == (v107 & 0xFFFFFFFFFFFFFFFCLL))
       {
-        goto LABEL_39;
+        return v6;
       }
 
       do
       {
 LABEL_231:
-        v216 = *v107++;
-        *v7++ = v216;
+        v215 = *v106++;
+        LOWORD(v6) = v215;
+        *v7++ = v215;
       }
 
-      while (v107 != (v105 + 2 * v104));
-      goto LABEL_39;
+      while (v106 != (v104 + 2 * v103));
+      return v6;
     }
 
-    if (!v47)
+    if (!v46)
     {
-      goto LABEL_39;
+      return v6;
     }
 
-    if (!v102)
+    if (!v101)
     {
-      goto LABEL_39;
+      return v6;
     }
 
-    v110 = *(v6 + 4);
-    if (!v110)
+    v109 = *(v5 + 4);
+    if (!v109)
     {
-      goto LABEL_39;
+      return v6;
     }
 
-    v111 = *(v6 + 9);
-    if (v110 == 1)
+    v110 = *(v5 + 9);
+    if (v109 == 1)
     {
 LABEL_118:
-      if (!v103)
+      if (!v102)
       {
-        goto LABEL_39;
+        return v6;
       }
 
-      v112 = (v103 - 1) & 0x7FFFFFFFFFFFFFFFLL;
-      if (v112 < 3 || v7 - v111 < 0x20)
+      v111 = (v102 - 1) & 0x7FFFFFFFFFFFFFFFLL;
+      if (v111 < 3 || v7 - v110 < 0x20)
       {
-        v202 = v7;
-        v203 = v111;
+        v201 = v7;
+        v202 = v110;
         goto LABEL_234;
       }
 
-      v113 = v112 + 1;
-      if (v112 >= 0xF)
+      v112 = v111 + 1;
+      if (v111 >= 0xF)
       {
-        v114 = v113 & 0xFFFFFFFFFFFFFFF0;
-        v204 = (v111 + 16);
-        v205 = v7 + 8;
-        v206 = v113 & 0xFFFFFFFFFFFFFFF0;
+        v113 = v112 & 0xFFFFFFFFFFFFFFF0;
+        v203 = (v110 + 16);
+        v204 = v7 + 8;
+        v205 = v112 & 0xFFFFFFFFFFFFFFF0;
         do
         {
-          v207 = *v204;
-          *(v205 - 1) = *(v204 - 1);
-          *v205 = v207;
+          v6 = *(v203 - 1);
+          v206 = *v203;
+          *(v204 - 1) = v6;
+          *v204 = v206;
+          v203 += 2;
           v204 += 2;
-          v205 += 2;
-          v206 -= 16;
+          v205 -= 16;
         }
 
-        while (v206);
-        if (v113 == v114)
+        while (v205);
+        if (v112 == v113)
         {
-          goto LABEL_39;
+          return v6;
         }
 
-        if ((v113 & 0xC) == 0)
+        if ((v112 & 0xC) == 0)
         {
-          v217 = v114;
-          v203 = (v111 + v217 * 2);
-          v202 = &v7[v217];
+          v216 = v113;
+          v202 = (v110 + v216 * 2);
+          v201 = &v7[v216];
           goto LABEL_234;
         }
       }
 
       else
       {
-        v114 = 0;
+        v113 = 0;
       }
 
-      v208 = v113 & 0xFFFFFFFFFFFFFFFCLL;
-      v202 = &v7[v208];
-      v203 = (v111 + v208 * 2);
-      v209 = (v111 + 2 * v114);
-      v210 = &v7[v114];
-      v211 = v114 - (v113 & 0xFFFFFFFFFFFFFFFCLL);
+      v207 = v112 & 0xFFFFFFFFFFFFFFFCLL;
+      v201 = &v7[v207];
+      v202 = (v110 + v207 * 2);
+      v208 = (v110 + 2 * v113);
+      v209 = &v7[v113];
+      v210 = v113 - (v112 & 0xFFFFFFFFFFFFFFFCLL);
       do
       {
-        v212 = *v209++;
-        *v210++ = v212;
-        v211 += 4;
+        v211 = *v208++;
+        LOWORD(v6) = v211;
+        *v209++ = v211;
+        v210 += 4;
       }
 
-      while (v211);
-      if (v113 == (v113 & 0xFFFFFFFFFFFFFFFCLL))
+      while (v210);
+      if (v112 == (v112 & 0xFFFFFFFFFFFFFFFCLL))
       {
-        goto LABEL_39;
+        return v6;
       }
 
       do
       {
 LABEL_234:
-        v218 = *v203++;
-        *v202++ = v218;
+        v217 = *v202++;
+        LOWORD(v6) = v217;
+        *v201++ = v217;
       }
 
-      while (v203 != (v111 + 2 * v103));
-      goto LABEL_39;
+      while (v202 != (v110 + 2 * v102));
+      return v6;
     }
 
-    if (!v103)
+    if (!v102)
     {
-      goto LABEL_39;
+      return v6;
     }
 
-    v116 = 0;
-    v117 = v110 - 2;
-    v118 = &v7[v103 + v101 * (v110 - 2)];
-    v119 = (v103 - 1) & 0x7FFFFFFFFFFFFFFFLL;
-    v120 = v119 + 1;
-    v121 = v7 >= v111 + 2 * (v103 + v100 * v117) || v111 >= v118;
-    v122 = v120 & 0xFFFFFFFFFFFFFFF0;
-    v123 = v120 & 0xFFFFFFFFFFFFFFFCLL;
-    v124 = v120 & 0xFFFFFFFFFFFFFFFCLL;
-    v125 = !v121;
+    v115 = 0;
+    v116 = v109 - 2;
+    v117 = &v7[v102 + v100 * (v109 - 2)];
+    v118 = (v102 - 1) & 0x7FFFFFFFFFFFFFFFLL;
+    v119 = v118 + 1;
+    v120 = v7 >= v110 + 2 * (v102 + v99 * v116) || v110 >= v117;
+    v121 = v119 & 0xFFFFFFFFFFFFFFF0;
+    v122 = v119 & 0xFFFFFFFFFFFFFFFCLL;
+    v123 = v119 & 0xFFFFFFFFFFFFFFFCLL;
+    v124 = !v120;
+    v125 = 2 * v99;
     v126 = 2 * v100;
-    v127 = 2 * v101;
     while (1)
     {
-      v128 = v7;
-      v129 = v111;
-      if (!((v119 < 3) | v125 & 1))
+      v127 = v7;
+      v128 = v110;
+      if (!((v118 < 3) | v124 & 1))
       {
-        if (v119 < 0xF)
+        if (v118 < 0xF)
         {
-          v130 = 0;
+          v129 = 0;
 LABEL_144:
-          v128 = &v7[v124];
-          v129 = (v111 + v124 * 2);
-          v135 = v130;
-          v136 = v130 - v123;
+          v127 = &v7[v123];
+          v128 = (v110 + v123 * 2);
+          v134 = v129;
+          v135 = v129 - v122;
           do
           {
-            *&v7[v135] = *(v111 + v135 * 2);
+            *&v6 = *(v110 + v134 * 2);
+            *&v7[v134] = v6;
+            v134 += 4;
             v135 += 4;
-            v136 += 4;
           }
 
-          while (v136);
-          if (v120 == v123)
+          while (v135);
+          if (v119 == v122)
           {
             goto LABEL_136;
           }
@@ -7245,46 +7213,48 @@ LABEL_144:
           goto LABEL_149;
         }
 
-        v131 = 0;
-        v132 = v120 & 0xFFFFFFFFFFFFFFF0;
+        v130 = 0;
+        v131 = v119 & 0xFFFFFFFFFFFFFFF0;
         do
         {
-          v133 = &v7[v131];
-          v134 = *(v111 + v131 * 2 + 16);
-          *v133 = *(v111 + v131 * 2);
-          v133[1] = v134;
-          v131 += 16;
-          v132 -= 16;
+          v132 = &v7[v130];
+          v6 = *(v110 + v130 * 2);
+          v133 = *(v110 + v130 * 2 + 16);
+          *v132 = v6;
+          v132[1] = v133;
+          v130 += 16;
+          v131 -= 16;
         }
 
-        while (v132);
-        if (v120 == (v120 & 0xFFFFFFFFFFFFFFF0))
+        while (v131);
+        if (v119 == (v119 & 0xFFFFFFFFFFFFFFF0))
         {
           goto LABEL_136;
         }
 
-        v130 = v120 & 0xFFFFFFFFFFFFFFF0;
-        if ((v120 & 0xC) != 0)
+        v129 = v119 & 0xFFFFFFFFFFFFFFF0;
+        if ((v119 & 0xC) != 0)
         {
           goto LABEL_144;
         }
 
-        v129 = (v111 + v122 * 2);
-        v128 = &v7[v122];
+        v128 = (v110 + v121 * 2);
+        v127 = &v7[v121];
       }
 
       do
       {
 LABEL_149:
-        v137 = *v129++;
-        *v128++ = v137;
+        v136 = *v128++;
+        LOWORD(v6) = v136;
+        *v127++ = v136;
       }
 
-      while (v129 != (v111 + 2 * v103));
+      while (v128 != (v110 + 2 * v102));
 LABEL_136:
-      v111 += v126;
-      v7 = (v7 + v127);
-      v13 = v116++ == v117;
+      v110 += v125;
+      v7 = (v7 + v126);
+      v13 = v115++ == v116;
       if (v13)
       {
         goto LABEL_118;
@@ -7292,144 +7262,142 @@ LABEL_136:
     }
   }
 
-  if (*(v6 + 2))
+  if (*(v5 + 2))
   {
-    v32 = *(v6 + 3);
-    if (v32)
+    v31 = *(v5 + 3);
+    if (v31)
     {
-      v33 = *(v6 + 4);
-      if (v33)
+      v32 = *(v5 + 4);
+      if (v32)
       {
-        v34 = v32 - 1;
-        v35 = *(v6 + 9);
-        v36 = 2 * *(v6 + 6);
-        v37 = 2 * *(a1 + 24);
-        v38 = v33 - 1;
-        if (v33 != 1)
+        v33 = v31 - 1;
+        v34 = *(v5 + 9);
+        v35 = 2 * *(v5 + 6);
+        v36 = 2 * *(a1 + 24);
+        v37 = v32 - 1;
+        if (v32 != 1)
         {
-          v39 = *(a1 + 28);
-          v40 = *(v6 + 7);
-          if (v34)
+          v38 = *(a1 + 28);
+          v39 = *(v5 + 7);
+          if (v33)
           {
-            v41 = 0;
-            v42 = v35 + 1;
-            v43 = v7 + 1;
+            v40 = 0;
+            v41 = v34 + 1;
+            v42 = v7 + 1;
             do
             {
-              v44 = v43;
-              v45 = v42;
-              v46 = v34;
+              v43 = v42;
+              v44 = v41;
+              v45 = v33;
               do
               {
-                *(v44 - 1) = *(v45 - 1);
-                *v44 = *v45;
-                v45 = (v45 + v36);
-                v44 = (v44 + v37);
-                --v46;
+                *(v43 - 1) = *(v44 - 1);
+                *v43 = *v44;
+                v44 = (v44 + v35);
+                v43 = (v43 + v36);
+                --v45;
               }
 
-              while (v46);
-              *(v44 - 1) = *(v45 - 1);
-              *v44 = *v45;
-              v35 += v40;
-              v7 += v39;
-              ++v41;
-              v42 += v40;
-              v43 += v39;
+              while (v45);
+              *(v43 - 1) = *(v44 - 1);
+              *v43 = *v44;
+              v34 += v39;
+              v7 += v38;
+              ++v40;
+              v41 += v39;
+              v42 += v38;
             }
 
-            while (v41 != v38);
+            while (v40 != v37);
             goto LABEL_126;
           }
 
-          v115 = 2 * v39;
+          v114 = 2 * v38;
           do
           {
-            *v7 = *v35;
-            v7[1] = v35[1];
-            v35 += v40;
-            v7 = (v7 + v115);
-            --v38;
+            *v7 = *v34;
+            v7[1] = v34[1];
+            v34 += v39;
+            v7 = (v7 + v114);
+            --v37;
           }
 
-          while (v38);
+          while (v37);
         }
 
-        if (!v34)
+        if (!v33)
         {
 LABEL_127:
-          *v7 = *v35;
-          v7[1] = v35[1];
-          goto LABEL_39;
+          *v7 = *v34;
+          LOWORD(v6) = v34[1];
+          v7[1] = v6;
+          return v6;
         }
 
         do
         {
 LABEL_126:
-          *v7 = *v35;
-          v7[1] = v35[1];
-          v35 = (v35 + v36);
-          v7 = (v7 + v37);
-          --v34;
+          *v7 = *v34;
+          v7[1] = v34[1];
+          v34 = (v34 + v35);
+          v7 = (v7 + v36);
+          --v33;
         }
 
-        while (v34);
+        while (v33);
         goto LABEL_127;
       }
     }
   }
 
-LABEL_39:
-  v30 = *MEMORY[0x277D85DE8];
+  return v6;
 }
 
-void sub_23F232D84(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_23F232D84(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   sub_23F231A48(va);
   _Unwind_Resume(a1);
 }
 
-void sub_23F232D98(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_23F232D98(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   sub_23F231A48(va);
   _Unwind_Resume(a1);
 }
 
 void sub_23F232DB8(uint64_t a1, int a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
   if (a2 == 7)
   {
 LABEL_10:
     if (*(a1 + 36))
     {
-      v7 = *(a1 + 32) == 0;
+      v8 = *(a1 + 32) == 0;
     }
 
     else
     {
-      v7 = 1;
+      v8 = 1;
     }
 
-    v8 = *(a1 + 32);
-    if (v7)
+    v9 = *(a1 + 32);
+    if (v8)
     {
-      HIDWORD(v8) = 0;
+      HIDWORD(v9) = 0;
     }
 
-    if (HIDWORD(*(a1 + 40)) * HIDWORD(v8) != -1)
+    if (HIDWORD(*(a1 + 40)) * HIDWORD(v9) != -1)
     {
 LABEL_24:
       operator new();
     }
 
-    v13 = *(a1 + 72);
     sub_23F3034A8("/Library/Caches/com.apple.xbs/Sources/AmbientSceneScope/library/Essentials/Array/include/Essentials/Array/ArrayView.h", 983, "total_size < std::numeric_limits<uint32_t>::max()", 0x31uLL, "Given data block is too big to be represented by uint32_t indexed ArrayView", 0x4BuLL, sub_23F303DA4);
     if (byte_27E3961A0 == 1)
     {
-      if (byte_27E3961A8 != 1 || (v9 = qword_27E396178, v10 = unk_27E396180, qword_27E396178 == unk_27E396180))
+      if (byte_27E3961A8 != 1 || (v10 = qword_27E396178, v11 = unk_27E396180, qword_27E396178 == unk_27E396180))
       {
 LABEL_23:
         qword_27E396190(*algn_27E396198, "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
@@ -7439,8 +7407,8 @@ LABEL_23:
 
     else
     {
-      v9 = qword_27E396178;
-      v10 = unk_27E396180;
+      v10 = qword_27E396178;
+      v11 = unk_27E396180;
       if (qword_27E396178 == unk_27E396180)
       {
         goto LABEL_25;
@@ -7449,13 +7417,13 @@ LABEL_23:
 
     do
     {
-      v12 = *v9;
-      v11 = *(v9 + 8);
-      v9 += 16;
-      v12(v11, "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
+      v13 = *v10;
+      v12 = *(v10 + 8);
+      v10 += 16;
+      v13(v12, "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
     }
 
-    while (v9 != v10);
+    while (v10 != v11);
     if (byte_27E3961A0)
     {
       goto LABEL_23;
@@ -7468,7 +7436,7 @@ LABEL_25:
   sub_23F3034A8("/Library/Caches/com.apple.xbs/Sources/AmbientSceneScope/library/Kit/Image/src/ImageStorage.cpp", 78, "F == format", 0xBuLL, &unk_23F3091D6, 0, sub_23F303DA4);
   if (byte_27E3961A0 == 1)
   {
-    if (byte_27E3961A8 != 1 || (v3 = qword_27E396178, v4 = unk_27E396180, qword_27E396178 == unk_27E396180))
+    if (byte_27E3961A8 != 1 || (v4 = qword_27E396178, v5 = unk_27E396180, qword_27E396178 == unk_27E396180))
     {
 LABEL_9:
       qword_27E396190(*algn_27E396198, "F == format", 11, &unk_23F3091D6, 0);
@@ -7478,8 +7446,8 @@ LABEL_9:
 
   else
   {
-    v3 = qword_27E396178;
-    v4 = unk_27E396180;
+    v4 = qword_27E396178;
+    v5 = unk_27E396180;
     if (qword_27E396178 == unk_27E396180)
     {
       goto LABEL_25;
@@ -7488,13 +7456,13 @@ LABEL_9:
 
   do
   {
-    v6 = *v3;
-    v5 = *(v3 + 8);
-    v3 += 16;
-    v6(v5, "F == format", 11, &unk_23F3091D6, 0);
+    v7 = *v4;
+    v6 = *(v4 + 8);
+    v4 += 16;
+    v7(v6, "F == format", 11, &unk_23F3091D6, 0);
   }
 
-  while (v3 != v4);
+  while (v4 != v5);
   if ((byte_27E3961A0 & 1) == 0)
   {
     goto LABEL_25;
@@ -7505,37 +7473,35 @@ LABEL_9:
 
 void sub_23F2330B8(uint64_t a1, int a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
   if (a2 == 7)
   {
 LABEL_10:
     if (*(a1 + 36))
     {
-      v7 = *(a1 + 32) == 0;
+      v8 = *(a1 + 32) == 0;
     }
 
     else
     {
-      v7 = 1;
+      v8 = 1;
     }
 
-    v8 = *(a1 + 32);
-    if (v7)
+    v9 = *(a1 + 32);
+    if (v8)
     {
-      HIDWORD(v8) = 0;
+      HIDWORD(v9) = 0;
     }
 
-    if (HIDWORD(*(a1 + 40)) * HIDWORD(v8) != -1)
+    if (HIDWORD(*(a1 + 40)) * HIDWORD(v9) != -1)
     {
 LABEL_24:
       operator new();
     }
 
-    v13 = *(a1 + 72);
     sub_23F3034A8("/Library/Caches/com.apple.xbs/Sources/AmbientSceneScope/library/Essentials/Array/include/Essentials/Array/ArrayView.h", 983, "total_size < std::numeric_limits<uint32_t>::max()", 0x31uLL, "Given data block is too big to be represented by uint32_t indexed ArrayView", 0x4BuLL, sub_23F303DA4);
     if (byte_27E3961A0 == 1)
     {
-      if (byte_27E3961A8 != 1 || (v9 = qword_27E396178, v10 = unk_27E396180, qword_27E396178 == unk_27E396180))
+      if (byte_27E3961A8 != 1 || (v10 = qword_27E396178, v11 = unk_27E396180, qword_27E396178 == unk_27E396180))
       {
 LABEL_23:
         qword_27E396190(*algn_27E396198, "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
@@ -7545,8 +7511,8 @@ LABEL_23:
 
     else
     {
-      v9 = qword_27E396178;
-      v10 = unk_27E396180;
+      v10 = qword_27E396178;
+      v11 = unk_27E396180;
       if (qword_27E396178 == unk_27E396180)
       {
         goto LABEL_25;
@@ -7555,13 +7521,13 @@ LABEL_23:
 
     do
     {
-      v12 = *v9;
-      v11 = *(v9 + 8);
-      v9 += 16;
-      v12(v11, "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
+      v13 = *v10;
+      v12 = *(v10 + 8);
+      v10 += 16;
+      v13(v12, "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
     }
 
-    while (v9 != v10);
+    while (v10 != v11);
     if (byte_27E3961A0)
     {
       goto LABEL_23;
@@ -7574,7 +7540,7 @@ LABEL_25:
   sub_23F3034A8("/Library/Caches/com.apple.xbs/Sources/AmbientSceneScope/library/Kit/Image/src/ImageStorage.cpp", 84, "F == format", 0xBuLL, &unk_23F3091D6, 0, sub_23F303DA4);
   if (byte_27E3961A0 == 1)
   {
-    if (byte_27E3961A8 != 1 || (v3 = qword_27E396178, v4 = unk_27E396180, qword_27E396178 == unk_27E396180))
+    if (byte_27E3961A8 != 1 || (v4 = qword_27E396178, v5 = unk_27E396180, qword_27E396178 == unk_27E396180))
     {
 LABEL_9:
       qword_27E396190(*algn_27E396198, "F == format", 11, &unk_23F3091D6, 0);
@@ -7584,8 +7550,8 @@ LABEL_9:
 
   else
   {
-    v3 = qword_27E396178;
-    v4 = unk_27E396180;
+    v4 = qword_27E396178;
+    v5 = unk_27E396180;
     if (qword_27E396178 == unk_27E396180)
     {
       goto LABEL_25;
@@ -7594,13 +7560,13 @@ LABEL_9:
 
   do
   {
-    v6 = *v3;
-    v5 = *(v3 + 8);
-    v3 += 16;
-    v6(v5, "F == format", 11, &unk_23F3091D6, 0);
+    v7 = *v4;
+    v6 = *(v4 + 8);
+    v4 += 16;
+    v7(v6, "F == format", 11, &unk_23F3091D6, 0);
   }
 
-  while (v3 != v4);
+  while (v4 != v5);
   if ((byte_27E3961A0 & 1) == 0)
   {
     goto LABEL_25;
@@ -7637,79 +7603,78 @@ void sub_23F2333F4(uint64_t a1)
   JUMPOUT(0x245CACD00);
 }
 
-void sub_23F233508(uint64_t a1, char **lpsrc)
+void sub_23F233508(uint64_t a1, uint64_t *lpsrc)
 {
-  v101 = *MEMORY[0x277D85DE8];
+  v96 = *MEMORY[0x277D85DE8];
   v4 = *lpsrc;
-  v5 = **lpsrc;
-  v6 = __dynamic_cast(lpsrc, &unk_28518B5C0, &unk_285189178, 0);
-  if (!v6)
+  v5 = __dynamic_cast(lpsrc, &unk_28518B5C0, &unk_285189178, 0);
+  if (!v5)
   {
-    (*(v4 + 9))(&v95, lpsrc, 8);
-    v17 = *(v95 + 16);
-    v16 = *(v95 + 32);
-    v88 = *v95;
-    v89 = v17;
-    v90 = v16;
-    *&v95 = 0;
+    (*(v4 + 72))(&v90, lpsrc, 8);
+    v16 = *(v90 + 16);
+    v15 = *(v90 + 32);
+    v83 = *v90;
+    v84 = v16;
+    v85 = v15;
+    *&v90 = 0;
     MEMORY[0x245CACD00]();
-    v18 = *(a1 + 72);
+    v17 = *(a1 + 72);
     if (*(a1 + 36))
     {
-      v19 = *(a1 + 32) == 0;
+      v18 = *(a1 + 32) == 0;
     }
 
     else
     {
-      v19 = 1;
+      v18 = 1;
     }
 
-    v20 = *(a1 + 32);
-    v21 = *(a1 + 40);
-    if (v19)
+    v19 = *(a1 + 32);
+    v20 = *(a1 + 40);
+    if (v18)
     {
-      v20 = 0;
+      v19 = 0;
     }
 
-    LODWORD(v95) = 2;
-    *(&v95 + 4) = v20;
-    v22 = v20;
-    v23 = v95;
-    v24 = HIDWORD(v20);
-    LODWORD(v95) = 1;
-    *(&v95 + 4) = v21;
-    v25 = v95;
-    if (HIDWORD(v21) * HIDWORD(v20) != -1)
+    LODWORD(v90) = 2;
+    *(&v90 + 4) = v19;
+    v21 = v19;
+    v22 = v90;
+    v23 = HIDWORD(v19);
+    LODWORD(v90) = 1;
+    *(&v90 + 4) = v20;
+    v24 = v90;
+    if (HIDWORD(v20) * HIDWORD(v19) != -1)
     {
       goto LABEL_22;
     }
 
-    v86 = v18;
+    v81 = v17;
     sub_23F3034A8("/Library/Caches/com.apple.xbs/Sources/AmbientSceneScope/library/Essentials/Array/include/Essentials/Array/ArrayView.h", 983, "total_size < std::numeric_limits<uint32_t>::max()", 0x31uLL, "Given data block is too big to be represented by uint32_t indexed ArrayView", 0x4BuLL, sub_23F303DA4);
     if (byte_27E3961A0 == 1)
     {
-      if (byte_27E3961A8 != 1 || (v27 = qword_27E396178, v26 = unk_27E396180, qword_27E396178 == unk_27E396180))
+      if (byte_27E3961A8 != 1 || (v26 = qword_27E396178, v25 = unk_27E396180, qword_27E396178 == unk_27E396180))
       {
 LABEL_21:
         qword_27E396190(*algn_27E396198, "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
-        v18 = v86;
+        v17 = v81;
 LABEL_22:
-        *&v95 = v18;
-        *(&v95 + 1) = v23;
-        v96 = v24;
-        v97 = v25;
-        v98 = HIDWORD(v21);
-        v99 = v22;
-        v100 = v21;
-        sub_23F1F8548(&v88, &v95);
-        goto LABEL_23;
+        *&v90 = v17;
+        *(&v90 + 1) = v22;
+        v91 = v23;
+        v92 = v24;
+        v93 = HIDWORD(v20);
+        v94 = v21;
+        v95 = v20;
+        sub_23F1F8548(&v83, &v90);
+        return;
       }
     }
 
     else
     {
-      v27 = qword_27E396178;
-      v26 = unk_27E396180;
+      v26 = qword_27E396178;
+      v25 = unk_27E396180;
       if (qword_27E396178 == unk_27E396180)
       {
         goto LABEL_82;
@@ -7718,11 +7683,11 @@ LABEL_22:
 
     do
     {
-      (*v27)(*(v27 + 8), "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
-      v27 += 16;
+      (*v26)(*(v26 + 8), "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
+      v26 += 16;
     }
 
-    while (v27 != v26);
+    while (v26 != v25);
     if (byte_27E3961A0)
     {
       goto LABEL_21;
@@ -7732,332 +7697,316 @@ LABEL_82:
     abort();
   }
 
-  v7 = *(a1 + 72);
-  if (!v7 || *(v6 + 12) != *(a1 + 12) || *(v6 + 3) != *(a1 + 24))
+  v6 = *(a1 + 72);
+  if (!v6 || *(v5 + 12) != *(a1 + 12) || *(v5 + 3) != *(a1 + 24))
   {
-    v8 = *(v6 + 8);
-    v9 = *(v6 + 24);
-    v10 = *(v6 + 40);
-    v91 = *(v6 + 7);
-    v89 = v9;
-    v90 = v10;
-    v88 = v8;
-    sub_23F24F178(v92, (v6 + 64));
-    v11 = v89;
-    *(a1 + 8) = v88;
-    *(a1 + 24) = v11;
-    *(a1 + 40) = v90;
-    *(a1 + 104) = v94;
-    v12 = v91;
-    *(a1 + 88) = v93;
-    v13 = v92[0];
-    *(a1 + 56) = v12;
-    *(a1 + 64) = v13;
-    v14 = *(a1 + 72);
-    if (v14)
+    v7 = *(v5 + 8);
+    v8 = *(v5 + 24);
+    v9 = *(v5 + 40);
+    v86 = *(v5 + 7);
+    v84 = v8;
+    v85 = v9;
+    v83 = v7;
+    sub_23F24F178(v87, (v5 + 64));
+    v10 = v84;
+    *(a1 + 8) = v83;
+    *(a1 + 24) = v10;
+    *(a1 + 40) = v85;
+    *(a1 + 104) = v89;
+    v11 = v86;
+    *(a1 + 88) = v88;
+    v12 = v87[0];
+    *(a1 + 56) = v11;
+    *(a1 + 64) = v12;
+    v13 = *(a1 + 72);
+    if (v13)
     {
-      free(v14);
+      free(v13);
     }
 
-    v15 = v92[2];
-    *(a1 + 72) = v92[1];
-    *(a1 + 80) = v15;
-    goto LABEL_23;
+    v14 = v87[2];
+    *(a1 + 72) = v87[1];
+    *(a1 + 80) = v14;
+    return;
   }
 
-  if (*(v6 + 5) != 1 || *(a1 + 20) != 1)
+  if (*(v5 + 5) != 1 || *(a1 + 20) != 1)
   {
-    if (!*(v6 + 2))
+    if (!*(v5 + 2))
     {
-      goto LABEL_23;
+      return;
     }
 
-    v30 = *(v6 + 3);
-    if (!v30)
+    v28 = *(v5 + 3);
+    if (!v28)
     {
-      goto LABEL_23;
+      return;
     }
 
-    v31 = *(v6 + 4);
-    if (!v31)
+    v29 = *(v5 + 4);
+    if (!v29)
     {
-      goto LABEL_23;
+      return;
     }
 
-    v32 = v30 - 1;
-    v33 = *(v6 + 9);
-    v34 = 4 * *(v6 + 6);
-    v35 = 4 * *(a1 + 24);
-    v36 = v31 - 1;
-    if (v36)
+    v30 = v28 - 1;
+    v31 = *(v5 + 9);
+    v32 = 4 * *(v5 + 6);
+    v33 = 4 * *(a1 + 24);
+    v34 = v29 - 1;
+    if (v34)
     {
-      v37 = *(a1 + 28);
-      v38 = *(v6 + 7);
-      if (!v32)
+      v35 = *(a1 + 28);
+      v36 = *(v5 + 7);
+      if (!v30)
       {
         do
         {
-          *v7 = *v33;
-          v7[1] = v33[1];
-          v33 += v38;
-          v7 += v37;
-          --v36;
+          *v6 = *v31;
+          v6[1] = v31[1];
+          v31 += v36;
+          v6 += v35;
+          --v34;
         }
 
-        while (v36);
+        while (v34);
         goto LABEL_73;
       }
 
-      v39 = 0;
-      v40 = v33 + 1;
-      v41 = v7 + 1;
+      v37 = 0;
+      v38 = v31 + 1;
+      v39 = v6 + 1;
       do
       {
-        v42 = v41;
-        v43 = v40;
-        v44 = v32;
+        v40 = v39;
+        v41 = v38;
+        v42 = v30;
         do
         {
-          *(v42 - 1) = *(v43 - 1);
-          *v42 = *v43;
-          v43 = (v43 + v34);
-          v42 = (v42 + v35);
-          --v44;
+          *(v40 - 1) = *(v41 - 1);
+          *v40 = *v41;
+          v41 = (v41 + v32);
+          v40 = (v40 + v33);
+          --v42;
         }
 
-        while (v44);
-        *(v42 - 1) = *(v43 - 1);
-        *v42 = *v43;
-        v33 += v38;
-        v7 += v37;
-        ++v39;
-        v40 += v38;
-        v41 += v37;
+        while (v42);
+        *(v40 - 1) = *(v41 - 1);
+        *v40 = *v41;
+        v31 += v36;
+        v6 += v35;
+        ++v37;
+        v38 += v36;
+        v39 += v35;
       }
 
-      while (v39 != v36);
+      while (v37 != v34);
     }
 
-    else if (!v32)
+    else if (!v30)
     {
 LABEL_73:
-      *v7 = *v33;
-      v7[1] = v33[1];
-      goto LABEL_23;
+      *v6 = *v31;
+      v6[1] = v31[1];
+      return;
     }
 
     do
     {
-      *v7 = *v33;
-      v7[1] = v33[1];
-      v33 = (v33 + v34);
-      v7 = (v7 + v35);
-      --v32;
+      *v6 = *v31;
+      v6[1] = v31[1];
+      v31 = (v31 + v32);
+      v6 = (v6 + v33);
+      --v30;
     }
 
-    while (v32);
+    while (v30);
     goto LABEL_73;
   }
 
-  v45 = *(v6 + 6);
-  v46 = *(a1 + 24);
-  v47 = *(v6 + 2);
-  if (v45 == v46 && v45 == v47)
+  v43 = *(v5 + 6);
+  v44 = *(a1 + 24);
+  v45 = *(v5 + 2);
+  if (v43 != v44 || v43 != v45)
   {
-    v65 = *(v6 + 7);
-    v66 = *(a1 + 28);
-    v67 = *(v6 + 3);
-    v68 = (v67 * v45);
-    if (v65 == v66 && v65 == v68)
+    v48 = *(v5 + 3);
+    v47 = *(v5 + 4);
+    if (v45)
     {
-      v69 = *(v6 + 4) * v65;
-      if (v69)
-      {
-        v70 = *(v6 + 9);
-        v71 = *MEMORY[0x277D85DE8];
-        v72 = 4 * v69;
-        v73 = *(a1 + 72);
-        goto LABEL_79;
-      }
+      v49 = v48 == 0;
     }
 
     else
     {
-      if (!v45)
-      {
-        goto LABEL_23;
-      }
+      v49 = 1;
+    }
 
-      if (!v67)
-      {
-        goto LABEL_23;
-      }
+    if (v49 || v47 == 0)
+    {
+      return;
+    }
 
-      v74 = *(v6 + 4);
-      if (!v74)
+    v51 = v48 - 1;
+    v52 = *(v5 + 9);
+    v53 = 4 * v45;
+    v54 = 4 * v44;
+    v55 = v47 - 1;
+    v78 = *(v5 + 6);
+    if (v47 != 1)
+    {
+      v56 = *(a1 + 28);
+      v57 = *(v5 + 7);
+      if (v48 == 1)
       {
-        goto LABEL_23;
-      }
-
-      v75 = *(v6 + 9);
-      v76 = v74 - 1;
-      if (v74 != 1)
-      {
-        if (!v68)
-        {
-          goto LABEL_23;
-        }
-
-        v77 = 4 * v65;
-        v78 = 4 * v66;
+        v76 = 4 * v57;
+        v77 = 4 * v56;
         do
         {
-          memmove(v7, v75, 4 * v68);
-          v75 += v77;
-          v7 = (v7 + v78);
-          --v76;
+          memmove(v6, v52, v53);
+          v52 += v76;
+          v6 = (v6 + v77);
+          --v55;
         }
 
-        while (v76);
+        while (v55);
       }
 
-      if (v68)
+      else
       {
-        v79 = *MEMORY[0x277D85DE8];
-        v72 = 4 * v68;
-        v73 = v7;
-        v70 = v75;
-        goto LABEL_79;
-      }
-    }
-
-LABEL_23:
-    v28 = *MEMORY[0x277D85DE8];
-    return;
-  }
-
-  v50 = *(v6 + 3);
-  v49 = *(v6 + 4);
-  if (v47)
-  {
-    v51 = v50 == 0;
-  }
-
-  else
-  {
-    v51 = 1;
-  }
-
-  if (v51 || v49 == 0)
-  {
-    goto LABEL_23;
-  }
-
-  v53 = v50 - 1;
-  v54 = *(v6 + 9);
-  v55 = 4 * v47;
-  v56 = 4 * v46;
-  v57 = v49 - 1;
-  v83 = *(v6 + 6);
-  if (v49 != 1)
-  {
-    v58 = *(a1 + 28);
-    v59 = *(v6 + 7);
-    if (v50 == 1)
-    {
-      v80 = 4 * v59;
-      v81 = 4 * v58;
-      do
-      {
-        memmove(v7, v54, v55);
-        v54 += v80;
-        v7 = (v7 + v81);
-        --v57;
-      }
-
-      while (v57);
-    }
-
-    else
-    {
-      v60 = 0;
-      v61 = 4 * v45;
-      v84 = 4 * v58;
-      v85 = 4 * v59;
-      v87 = v49 - 1;
-      do
-      {
-        v62 = v7;
-        v63 = v54;
-        v64 = v53;
+        v58 = 0;
+        v59 = 4 * v43;
+        v79 = 4 * v56;
+        v80 = 4 * v57;
+        v82 = v47 - 1;
         do
         {
-          memmove(v62, v63, v55);
-          v63 += v61;
-          v62 += v56;
-          --v64;
+          v60 = v6;
+          v61 = v52;
+          v62 = v51;
+          do
+          {
+            memmove(v60, v61, v53);
+            v61 += v59;
+            v60 += v54;
+            --v62;
+          }
+
+          while (v62);
+          memmove(v60, v61, v53);
+          v52 += v80;
+          v6 = (v6 + v79);
+          ++v58;
         }
 
-        while (v64);
-        memmove(v62, v63, v55);
-        v54 += v85;
-        v7 = (v7 + v84);
-        ++v60;
+        while (v58 != v82);
       }
-
-      while (v60 != v87);
     }
+
+    for (; v51; --v51)
+    {
+      memmove(v6, v52, v53);
+      v52 += 4 * v78;
+      v6 = (v6 + v54);
+    }
+
+    v70 = v6;
+    v68 = v52;
+    v69 = v53;
+    goto LABEL_79;
   }
 
-  for (; v53; --v53)
+  v63 = *(v5 + 7);
+  v64 = *(a1 + 28);
+  v65 = *(v5 + 3);
+  v66 = (v65 * v43);
+  if (v63 == v64 && v63 == v66)
   {
-    memmove(v7, v54, v55);
-    v54 += 4 * v83;
-    v7 = (v7 + v56);
+    v67 = *(v5 + 4) * v63;
+    if (!v67)
+    {
+      return;
+    }
+
+    v68 = *(v5 + 9);
+    v69 = 4 * v67;
+    v70 = *(a1 + 72);
+    goto LABEL_79;
   }
 
-  v82 = *MEMORY[0x277D85DE8];
-  v73 = v7;
-  v70 = v54;
-  v72 = v55;
+  if (v43)
+  {
+    if (v65)
+    {
+      v71 = *(v5 + 4);
+      if (v71)
+      {
+        v72 = *(v5 + 9);
+        v73 = v71 - 1;
+        if (v71 != 1)
+        {
+          if (!v66)
+          {
+            return;
+          }
+
+          v74 = 4 * v63;
+          v75 = 4 * v64;
+          do
+          {
+            memmove(v6, v72, 4 * v66);
+            v72 += v74;
+            v6 = (v6 + v75);
+            --v73;
+          }
+
+          while (v73);
+        }
+
+        if (v66)
+        {
+          v69 = 4 * v66;
+          v70 = v6;
+          v68 = v72;
 LABEL_79:
 
-  memmove(v73, v70, v72);
+          memmove(v70, v68, v69);
+        }
+      }
+    }
+  }
 }
 
 void sub_23F233BA4(uint64_t a1, int a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
   if (a2 == 8)
   {
 LABEL_10:
     if (*(a1 + 36))
     {
-      v7 = *(a1 + 32) == 0;
+      v8 = *(a1 + 32) == 0;
     }
 
     else
     {
-      v7 = 1;
+      v8 = 1;
     }
 
-    v8 = *(a1 + 32);
-    if (v7)
+    v9 = *(a1 + 32);
+    if (v8)
     {
-      HIDWORD(v8) = 0;
+      HIDWORD(v9) = 0;
     }
 
-    if (HIDWORD(*(a1 + 40)) * HIDWORD(v8) != -1)
+    if (HIDWORD(*(a1 + 40)) * HIDWORD(v9) != -1)
     {
 LABEL_24:
       operator new();
     }
 
-    v13 = *(a1 + 72);
     sub_23F3034A8("/Library/Caches/com.apple.xbs/Sources/AmbientSceneScope/library/Essentials/Array/include/Essentials/Array/ArrayView.h", 983, "total_size < std::numeric_limits<uint32_t>::max()", 0x31uLL, "Given data block is too big to be represented by uint32_t indexed ArrayView", 0x4BuLL, sub_23F303DA4);
     if (byte_27E3961A0 == 1)
     {
-      if (byte_27E3961A8 != 1 || (v9 = qword_27E396178, v10 = unk_27E396180, qword_27E396178 == unk_27E396180))
+      if (byte_27E3961A8 != 1 || (v10 = qword_27E396178, v11 = unk_27E396180, qword_27E396178 == unk_27E396180))
       {
 LABEL_23:
         qword_27E396190(*algn_27E396198, "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
@@ -8067,8 +8016,8 @@ LABEL_23:
 
     else
     {
-      v9 = qword_27E396178;
-      v10 = unk_27E396180;
+      v10 = qword_27E396178;
+      v11 = unk_27E396180;
       if (qword_27E396178 == unk_27E396180)
       {
         goto LABEL_25;
@@ -8077,13 +8026,13 @@ LABEL_23:
 
     do
     {
-      v12 = *v9;
-      v11 = *(v9 + 8);
-      v9 += 16;
-      v12(v11, "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
+      v13 = *v10;
+      v12 = *(v10 + 8);
+      v10 += 16;
+      v13(v12, "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
     }
 
-    while (v9 != v10);
+    while (v10 != v11);
     if (byte_27E3961A0)
     {
       goto LABEL_23;
@@ -8096,7 +8045,7 @@ LABEL_25:
   sub_23F3034A8("/Library/Caches/com.apple.xbs/Sources/AmbientSceneScope/library/Kit/Image/src/ImageStorage.cpp", 78, "F == format", 0xBuLL, &unk_23F3091D6, 0, sub_23F303DA4);
   if (byte_27E3961A0 == 1)
   {
-    if (byte_27E3961A8 != 1 || (v3 = qword_27E396178, v4 = unk_27E396180, qword_27E396178 == unk_27E396180))
+    if (byte_27E3961A8 != 1 || (v4 = qword_27E396178, v5 = unk_27E396180, qword_27E396178 == unk_27E396180))
     {
 LABEL_9:
       qword_27E396190(*algn_27E396198, "F == format", 11, &unk_23F3091D6, 0);
@@ -8106,8 +8055,8 @@ LABEL_9:
 
   else
   {
-    v3 = qword_27E396178;
-    v4 = unk_27E396180;
+    v4 = qword_27E396178;
+    v5 = unk_27E396180;
     if (qword_27E396178 == unk_27E396180)
     {
       goto LABEL_25;
@@ -8116,13 +8065,13 @@ LABEL_9:
 
   do
   {
-    v6 = *v3;
-    v5 = *(v3 + 8);
-    v3 += 16;
-    v6(v5, "F == format", 11, &unk_23F3091D6, 0);
+    v7 = *v4;
+    v6 = *(v4 + 8);
+    v4 += 16;
+    v7(v6, "F == format", 11, &unk_23F3091D6, 0);
   }
 
-  while (v3 != v4);
+  while (v4 != v5);
   if ((byte_27E3961A0 & 1) == 0)
   {
     goto LABEL_25;
@@ -8133,37 +8082,35 @@ LABEL_9:
 
 void sub_23F233EA4(uint64_t a1, int a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
   if (a2 == 8)
   {
 LABEL_10:
     if (*(a1 + 36))
     {
-      v7 = *(a1 + 32) == 0;
+      v8 = *(a1 + 32) == 0;
     }
 
     else
     {
-      v7 = 1;
+      v8 = 1;
     }
 
-    v8 = *(a1 + 32);
-    if (v7)
+    v9 = *(a1 + 32);
+    if (v8)
     {
-      HIDWORD(v8) = 0;
+      HIDWORD(v9) = 0;
     }
 
-    if (HIDWORD(*(a1 + 40)) * HIDWORD(v8) != -1)
+    if (HIDWORD(*(a1 + 40)) * HIDWORD(v9) != -1)
     {
 LABEL_24:
       operator new();
     }
 
-    v13 = *(a1 + 72);
     sub_23F3034A8("/Library/Caches/com.apple.xbs/Sources/AmbientSceneScope/library/Essentials/Array/include/Essentials/Array/ArrayView.h", 983, "total_size < std::numeric_limits<uint32_t>::max()", 0x31uLL, "Given data block is too big to be represented by uint32_t indexed ArrayView", 0x4BuLL, sub_23F303DA4);
     if (byte_27E3961A0 == 1)
     {
-      if (byte_27E3961A8 != 1 || (v9 = qword_27E396178, v10 = unk_27E396180, qword_27E396178 == unk_27E396180))
+      if (byte_27E3961A8 != 1 || (v10 = qword_27E396178, v11 = unk_27E396180, qword_27E396178 == unk_27E396180))
       {
 LABEL_23:
         qword_27E396190(*algn_27E396198, "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
@@ -8173,8 +8120,8 @@ LABEL_23:
 
     else
     {
-      v9 = qword_27E396178;
-      v10 = unk_27E396180;
+      v10 = qword_27E396178;
+      v11 = unk_27E396180;
       if (qword_27E396178 == unk_27E396180)
       {
         goto LABEL_25;
@@ -8183,13 +8130,13 @@ LABEL_23:
 
     do
     {
-      v12 = *v9;
-      v11 = *(v9 + 8);
-      v9 += 16;
-      v12(v11, "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
+      v13 = *v10;
+      v12 = *(v10 + 8);
+      v10 += 16;
+      v13(v12, "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
     }
 
-    while (v9 != v10);
+    while (v10 != v11);
     if (byte_27E3961A0)
     {
       goto LABEL_23;
@@ -8202,7 +8149,7 @@ LABEL_25:
   sub_23F3034A8("/Library/Caches/com.apple.xbs/Sources/AmbientSceneScope/library/Kit/Image/src/ImageStorage.cpp", 84, "F == format", 0xBuLL, &unk_23F3091D6, 0, sub_23F303DA4);
   if (byte_27E3961A0 == 1)
   {
-    if (byte_27E3961A8 != 1 || (v3 = qword_27E396178, v4 = unk_27E396180, qword_27E396178 == unk_27E396180))
+    if (byte_27E3961A8 != 1 || (v4 = qword_27E396178, v5 = unk_27E396180, qword_27E396178 == unk_27E396180))
     {
 LABEL_9:
       qword_27E396190(*algn_27E396198, "F == format", 11, &unk_23F3091D6, 0);
@@ -8212,8 +8159,8 @@ LABEL_9:
 
   else
   {
-    v3 = qword_27E396178;
-    v4 = unk_27E396180;
+    v4 = qword_27E396178;
+    v5 = unk_27E396180;
     if (qword_27E396178 == unk_27E396180)
     {
       goto LABEL_25;
@@ -8222,13 +8169,13 @@ LABEL_9:
 
   do
   {
-    v6 = *v3;
-    v5 = *(v3 + 8);
-    v3 += 16;
-    v6(v5, "F == format", 11, &unk_23F3091D6, 0);
+    v7 = *v4;
+    v6 = *(v4 + 8);
+    v4 += 16;
+    v7(v6, "F == format", 11, &unk_23F3091D6, 0);
   }
 
-  while (v3 != v4);
+  while (v4 != v5);
   if ((byte_27E3961A0 & 1) == 0)
   {
     goto LABEL_25;
@@ -8265,80 +8212,78 @@ void sub_23F2341E0(uint64_t a1)
   JUMPOUT(0x245CACD00);
 }
 
-void sub_23F2342F4(uint64_t a1, char **lpsrc)
+void sub_23F2342F4(uint64_t a1, uint64_t *lpsrc)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v4 = *lpsrc;
-  v5 = **lpsrc;
-  v6 = __dynamic_cast(lpsrc, &unk_28518B5C0, &unk_285189190, 0);
-  if (!v6)
+  v5 = __dynamic_cast(lpsrc, &unk_28518B5C0, &unk_285189190, 0);
+  if (!v5)
   {
-    (*(v4 + 9))(&v23, lpsrc, 9);
-    v9 = *(v23 + 16);
-    v8 = *(v23 + 32);
-    v22[0] = *v23;
-    v22[1] = v9;
-    v22[2] = v8;
-    *&v23 = 0;
+    (*(v4 + 72))(&v20, lpsrc, 9);
+    v7 = *(v20 + 16);
+    v6 = *(v20 + 32);
+    v19[0] = *v20;
+    v19[1] = v7;
+    v19[2] = v6;
+    *&v20 = 0;
     MEMORY[0x245CACD00]();
-    v10 = *(a1 + 72);
+    v8 = *(a1 + 72);
     if (*(a1 + 36))
     {
-      v11 = *(a1 + 32) == 0;
+      v9 = *(a1 + 32) == 0;
     }
 
     else
     {
-      v11 = 1;
+      v9 = 1;
     }
 
-    v12 = *(a1 + 32);
-    v13 = *(a1 + 40);
-    if (v11)
+    v10 = *(a1 + 32);
+    v11 = *(a1 + 40);
+    if (v9)
     {
-      v12 = 0;
+      v10 = 0;
     }
 
-    LODWORD(v23) = 3;
-    *(&v23 + 4) = v12;
-    v14 = v12;
-    v15 = v23;
-    v16 = HIDWORD(v12);
-    LODWORD(v23) = 1;
-    *(&v23 + 4) = v13;
-    v17 = v23;
-    if (HIDWORD(v13) * HIDWORD(v12) != -1)
+    LODWORD(v20) = 3;
+    *(&v20 + 4) = v10;
+    v12 = v10;
+    v13 = v20;
+    v14 = HIDWORD(v10);
+    LODWORD(v20) = 1;
+    *(&v20 + 4) = v11;
+    v15 = v20;
+    if (HIDWORD(v11) * HIDWORD(v10) != -1)
     {
       goto LABEL_19;
     }
 
-    v21 = v10;
+    v18 = v8;
     sub_23F3034A8("/Library/Caches/com.apple.xbs/Sources/AmbientSceneScope/library/Essentials/Array/include/Essentials/Array/ArrayView.h", 983, "total_size < std::numeric_limits<uint32_t>::max()", 0x31uLL, "Given data block is too big to be represented by uint32_t indexed ArrayView", 0x4BuLL, sub_23F303DA4);
     if (byte_27E3961A0 == 1)
     {
-      if (byte_27E3961A8 != 1 || (v19 = qword_27E396178, v18 = unk_27E396180, qword_27E396178 == unk_27E396180))
+      if (byte_27E3961A8 != 1 || (v17 = qword_27E396178, v16 = unk_27E396180, qword_27E396178 == unk_27E396180))
       {
 LABEL_18:
         qword_27E396190(*algn_27E396198, "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
-        v10 = v21;
+        v8 = v18;
 LABEL_19:
-        *&v23 = v10;
-        *(&v23 + 1) = v15;
-        v24 = v16;
-        v25 = v17;
-        v26 = HIDWORD(v13);
-        v27 = v14;
-        v28 = v13;
-        sub_23F1F3548(v22, &v23);
-        v20 = *MEMORY[0x277D85DE8];
+        *&v20 = v8;
+        *(&v20 + 1) = v13;
+        v21 = v14;
+        v22 = v15;
+        v23 = HIDWORD(v11);
+        v24 = v12;
+        v25 = v11;
+        sub_23F1F3548(v19, &v20);
         return;
       }
     }
 
     else
     {
-      v19 = qword_27E396178;
-      v18 = unk_27E396180;
+      v17 = qword_27E396178;
+      v16 = unk_27E396180;
       if (qword_27E396178 == unk_27E396180)
       {
         goto LABEL_20;
@@ -8347,11 +8292,11 @@ LABEL_19:
 
     do
     {
-      (*v19)(*(v19 + 8), "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
-      v19 += 16;
+      (*v17)(*(v17 + 8), "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
+      v17 += 16;
     }
 
-    while (v19 != v18);
+    while (v17 != v16);
     if (byte_27E3961A0)
     {
       goto LABEL_18;
@@ -8361,44 +8306,40 @@ LABEL_20:
     abort();
   }
 
-  v7 = *MEMORY[0x277D85DE8];
-
-  sub_23F26E174(a1 + 8, v6 + 2);
+  sub_23F26E174(a1 + 8, v5 + 2);
 }
 
 void sub_23F2345DC(uint64_t a1, int a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
   if (a2 == 9)
   {
 LABEL_10:
     if (*(a1 + 36))
     {
-      v7 = *(a1 + 32) == 0;
+      v8 = *(a1 + 32) == 0;
     }
 
     else
     {
-      v7 = 1;
+      v8 = 1;
     }
 
-    v8 = *(a1 + 32);
-    if (v7)
+    v9 = *(a1 + 32);
+    if (v8)
     {
-      HIDWORD(v8) = 0;
+      HIDWORD(v9) = 0;
     }
 
-    if (HIDWORD(*(a1 + 40)) * HIDWORD(v8) != -1)
+    if (HIDWORD(*(a1 + 40)) * HIDWORD(v9) != -1)
     {
 LABEL_24:
       operator new();
     }
 
-    v13 = *(a1 + 72);
     sub_23F3034A8("/Library/Caches/com.apple.xbs/Sources/AmbientSceneScope/library/Essentials/Array/include/Essentials/Array/ArrayView.h", 983, "total_size < std::numeric_limits<uint32_t>::max()", 0x31uLL, "Given data block is too big to be represented by uint32_t indexed ArrayView", 0x4BuLL, sub_23F303DA4);
     if (byte_27E3961A0 == 1)
     {
-      if (byte_27E3961A8 != 1 || (v9 = qword_27E396178, v10 = unk_27E396180, qword_27E396178 == unk_27E396180))
+      if (byte_27E3961A8 != 1 || (v10 = qword_27E396178, v11 = unk_27E396180, qword_27E396178 == unk_27E396180))
       {
 LABEL_23:
         qword_27E396190(*algn_27E396198, "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
@@ -8408,8 +8349,8 @@ LABEL_23:
 
     else
     {
-      v9 = qword_27E396178;
-      v10 = unk_27E396180;
+      v10 = qword_27E396178;
+      v11 = unk_27E396180;
       if (qword_27E396178 == unk_27E396180)
       {
         goto LABEL_25;
@@ -8418,13 +8359,13 @@ LABEL_23:
 
     do
     {
-      v12 = *v9;
-      v11 = *(v9 + 8);
-      v9 += 16;
-      v12(v11, "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
+      v13 = *v10;
+      v12 = *(v10 + 8);
+      v10 += 16;
+      v13(v12, "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
     }
 
-    while (v9 != v10);
+    while (v10 != v11);
     if (byte_27E3961A0)
     {
       goto LABEL_23;
@@ -8437,7 +8378,7 @@ LABEL_25:
   sub_23F3034A8("/Library/Caches/com.apple.xbs/Sources/AmbientSceneScope/library/Kit/Image/src/ImageStorage.cpp", 78, "F == format", 0xBuLL, &unk_23F3091D6, 0, sub_23F303DA4);
   if (byte_27E3961A0 == 1)
   {
-    if (byte_27E3961A8 != 1 || (v3 = qword_27E396178, v4 = unk_27E396180, qword_27E396178 == unk_27E396180))
+    if (byte_27E3961A8 != 1 || (v4 = qword_27E396178, v5 = unk_27E396180, qword_27E396178 == unk_27E396180))
     {
 LABEL_9:
       qword_27E396190(*algn_27E396198, "F == format", 11, &unk_23F3091D6, 0);
@@ -8447,8 +8388,8 @@ LABEL_9:
 
   else
   {
-    v3 = qword_27E396178;
-    v4 = unk_27E396180;
+    v4 = qword_27E396178;
+    v5 = unk_27E396180;
     if (qword_27E396178 == unk_27E396180)
     {
       goto LABEL_25;
@@ -8457,13 +8398,13 @@ LABEL_9:
 
   do
   {
-    v6 = *v3;
-    v5 = *(v3 + 8);
-    v3 += 16;
-    v6(v5, "F == format", 11, &unk_23F3091D6, 0);
+    v7 = *v4;
+    v6 = *(v4 + 8);
+    v4 += 16;
+    v7(v6, "F == format", 11, &unk_23F3091D6, 0);
   }
 
-  while (v3 != v4);
+  while (v4 != v5);
   if ((byte_27E3961A0 & 1) == 0)
   {
     goto LABEL_25;
@@ -8474,37 +8415,35 @@ LABEL_9:
 
 void sub_23F2348DC(uint64_t a1, int a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
   if (a2 == 9)
   {
 LABEL_10:
     if (*(a1 + 36))
     {
-      v7 = *(a1 + 32) == 0;
+      v8 = *(a1 + 32) == 0;
     }
 
     else
     {
-      v7 = 1;
+      v8 = 1;
     }
 
-    v8 = *(a1 + 32);
-    if (v7)
+    v9 = *(a1 + 32);
+    if (v8)
     {
-      HIDWORD(v8) = 0;
+      HIDWORD(v9) = 0;
     }
 
-    if (HIDWORD(*(a1 + 40)) * HIDWORD(v8) != -1)
+    if (HIDWORD(*(a1 + 40)) * HIDWORD(v9) != -1)
     {
 LABEL_24:
       operator new();
     }
 
-    v13 = *(a1 + 72);
     sub_23F3034A8("/Library/Caches/com.apple.xbs/Sources/AmbientSceneScope/library/Essentials/Array/include/Essentials/Array/ArrayView.h", 983, "total_size < std::numeric_limits<uint32_t>::max()", 0x31uLL, "Given data block is too big to be represented by uint32_t indexed ArrayView", 0x4BuLL, sub_23F303DA4);
     if (byte_27E3961A0 == 1)
     {
-      if (byte_27E3961A8 != 1 || (v9 = qword_27E396178, v10 = unk_27E396180, qword_27E396178 == unk_27E396180))
+      if (byte_27E3961A8 != 1 || (v10 = qword_27E396178, v11 = unk_27E396180, qword_27E396178 == unk_27E396180))
       {
 LABEL_23:
         qword_27E396190(*algn_27E396198, "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
@@ -8514,8 +8453,8 @@ LABEL_23:
 
     else
     {
-      v9 = qword_27E396178;
-      v10 = unk_27E396180;
+      v10 = qword_27E396178;
+      v11 = unk_27E396180;
       if (qword_27E396178 == unk_27E396180)
       {
         goto LABEL_25;
@@ -8524,13 +8463,13 @@ LABEL_23:
 
     do
     {
-      v12 = *v9;
-      v11 = *(v9 + 8);
-      v9 += 16;
-      v12(v11, "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
+      v13 = *v10;
+      v12 = *(v10 + 8);
+      v10 += 16;
+      v13(v12, "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
     }
 
-    while (v9 != v10);
+    while (v10 != v11);
     if (byte_27E3961A0)
     {
       goto LABEL_23;
@@ -8543,7 +8482,7 @@ LABEL_25:
   sub_23F3034A8("/Library/Caches/com.apple.xbs/Sources/AmbientSceneScope/library/Kit/Image/src/ImageStorage.cpp", 84, "F == format", 0xBuLL, &unk_23F3091D6, 0, sub_23F303DA4);
   if (byte_27E3961A0 == 1)
   {
-    if (byte_27E3961A8 != 1 || (v3 = qword_27E396178, v4 = unk_27E396180, qword_27E396178 == unk_27E396180))
+    if (byte_27E3961A8 != 1 || (v4 = qword_27E396178, v5 = unk_27E396180, qword_27E396178 == unk_27E396180))
     {
 LABEL_9:
       qword_27E396190(*algn_27E396198, "F == format", 11, &unk_23F3091D6, 0);
@@ -8553,8 +8492,8 @@ LABEL_9:
 
   else
   {
-    v3 = qword_27E396178;
-    v4 = unk_27E396180;
+    v4 = qword_27E396178;
+    v5 = unk_27E396180;
     if (qword_27E396178 == unk_27E396180)
     {
       goto LABEL_25;
@@ -8563,13 +8502,13 @@ LABEL_9:
 
   do
   {
-    v6 = *v3;
-    v5 = *(v3 + 8);
-    v3 += 16;
-    v6(v5, "F == format", 11, &unk_23F3091D6, 0);
+    v7 = *v4;
+    v6 = *(v4 + 8);
+    v4 += 16;
+    v7(v6, "F == format", 11, &unk_23F3091D6, 0);
   }
 
-  while (v3 != v4);
+  while (v4 != v5);
   if ((byte_27E3961A0 & 1) == 0)
   {
     goto LABEL_25;
@@ -8606,80 +8545,78 @@ void sub_23F234C18(uint64_t a1)
   JUMPOUT(0x245CACD00);
 }
 
-void sub_23F234D2C(uint64_t a1, char **lpsrc)
+void sub_23F234D2C(uint64_t a1, uint64_t *lpsrc)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v4 = *lpsrc;
-  v5 = **lpsrc;
-  v6 = __dynamic_cast(lpsrc, &unk_28518B5C0, &unk_2851891A8, 0);
-  if (!v6)
+  v5 = __dynamic_cast(lpsrc, &unk_28518B5C0, &unk_2851891A8, 0);
+  if (!v5)
   {
-    (*(v4 + 9))(&v23, lpsrc, 10);
-    v9 = *(v23 + 16);
-    v8 = *(v23 + 32);
-    v22[0] = *v23;
-    v22[1] = v9;
-    v22[2] = v8;
-    *&v23 = 0;
+    (*(v4 + 72))(&v20, lpsrc, 10);
+    v7 = *(v20 + 16);
+    v6 = *(v20 + 32);
+    v19[0] = *v20;
+    v19[1] = v7;
+    v19[2] = v6;
+    *&v20 = 0;
     MEMORY[0x245CACD00]();
-    v10 = *(a1 + 72);
+    v8 = *(a1 + 72);
     if (*(a1 + 36))
     {
-      v11 = *(a1 + 32) == 0;
+      v9 = *(a1 + 32) == 0;
     }
 
     else
     {
-      v11 = 1;
+      v9 = 1;
     }
 
-    v12 = *(a1 + 32);
-    v13 = *(a1 + 40);
-    if (v11)
+    v10 = *(a1 + 32);
+    v11 = *(a1 + 40);
+    if (v9)
     {
-      v12 = 0;
+      v10 = 0;
     }
 
-    LODWORD(v23) = 3;
-    *(&v23 + 4) = v12;
-    v14 = v12;
-    v15 = v23;
-    v16 = HIDWORD(v12);
-    LODWORD(v23) = 1;
-    *(&v23 + 4) = v13;
-    v17 = v23;
-    if (HIDWORD(v13) * HIDWORD(v12) != -1)
+    LODWORD(v20) = 3;
+    *(&v20 + 4) = v10;
+    v12 = v10;
+    v13 = v20;
+    v14 = HIDWORD(v10);
+    LODWORD(v20) = 1;
+    *(&v20 + 4) = v11;
+    v15 = v20;
+    if (HIDWORD(v11) * HIDWORD(v10) != -1)
     {
       goto LABEL_19;
     }
 
-    v21 = v10;
+    v18 = v8;
     sub_23F3034A8("/Library/Caches/com.apple.xbs/Sources/AmbientSceneScope/library/Essentials/Array/include/Essentials/Array/ArrayView.h", 983, "total_size < std::numeric_limits<uint32_t>::max()", 0x31uLL, "Given data block is too big to be represented by uint32_t indexed ArrayView", 0x4BuLL, sub_23F303DA4);
     if (byte_27E3961A0 == 1)
     {
-      if (byte_27E3961A8 != 1 || (v19 = qword_27E396178, v18 = unk_27E396180, qword_27E396178 == unk_27E396180))
+      if (byte_27E3961A8 != 1 || (v17 = qword_27E396178, v16 = unk_27E396180, qword_27E396178 == unk_27E396180))
       {
 LABEL_18:
         qword_27E396190(*algn_27E396198, "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
-        v10 = v21;
+        v8 = v18;
 LABEL_19:
-        *&v23 = v10;
-        *(&v23 + 1) = v15;
-        v24 = v16;
-        v25 = v17;
-        v26 = HIDWORD(v13);
-        v27 = v14;
-        v28 = v13;
-        sub_23F1F4BE0(v22, &v23);
-        v20 = *MEMORY[0x277D85DE8];
+        *&v20 = v8;
+        *(&v20 + 1) = v13;
+        v21 = v14;
+        v22 = v15;
+        v23 = HIDWORD(v11);
+        v24 = v12;
+        v25 = v11;
+        sub_23F1F4BE0(v19, &v20);
         return;
       }
     }
 
     else
     {
-      v19 = qword_27E396178;
-      v18 = unk_27E396180;
+      v17 = qword_27E396178;
+      v16 = unk_27E396180;
       if (qword_27E396178 == unk_27E396180)
       {
         goto LABEL_20;
@@ -8688,11 +8625,11 @@ LABEL_19:
 
     do
     {
-      (*v19)(*(v19 + 8), "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
-      v19 += 16;
+      (*v17)(*(v17 + 8), "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
+      v17 += 16;
     }
 
-    while (v19 != v18);
+    while (v17 != v16);
     if (byte_27E3961A0)
     {
       goto LABEL_18;
@@ -8702,44 +8639,40 @@ LABEL_20:
     abort();
   }
 
-  v7 = *MEMORY[0x277D85DE8];
-
-  sub_23F26E51C(a1 + 8, v6 + 2);
+  sub_23F26E51C(a1 + 8, v5 + 2);
 }
 
 void sub_23F235014(uint64_t a1, int a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
   if (a2 == 10)
   {
 LABEL_10:
     if (*(a1 + 36))
     {
-      v7 = *(a1 + 32) == 0;
+      v8 = *(a1 + 32) == 0;
     }
 
     else
     {
-      v7 = 1;
+      v8 = 1;
     }
 
-    v8 = *(a1 + 32);
-    if (v7)
+    v9 = *(a1 + 32);
+    if (v8)
     {
-      HIDWORD(v8) = 0;
+      HIDWORD(v9) = 0;
     }
 
-    if (HIDWORD(*(a1 + 40)) * HIDWORD(v8) != -1)
+    if (HIDWORD(*(a1 + 40)) * HIDWORD(v9) != -1)
     {
 LABEL_24:
       operator new();
     }
 
-    v13 = *(a1 + 72);
     sub_23F3034A8("/Library/Caches/com.apple.xbs/Sources/AmbientSceneScope/library/Essentials/Array/include/Essentials/Array/ArrayView.h", 983, "total_size < std::numeric_limits<uint32_t>::max()", 0x31uLL, "Given data block is too big to be represented by uint32_t indexed ArrayView", 0x4BuLL, sub_23F303DA4);
     if (byte_27E3961A0 == 1)
     {
-      if (byte_27E3961A8 != 1 || (v9 = qword_27E396178, v10 = unk_27E396180, qword_27E396178 == unk_27E396180))
+      if (byte_27E3961A8 != 1 || (v10 = qword_27E396178, v11 = unk_27E396180, qword_27E396178 == unk_27E396180))
       {
 LABEL_23:
         qword_27E396190(*algn_27E396198, "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
@@ -8749,8 +8682,8 @@ LABEL_23:
 
     else
     {
-      v9 = qword_27E396178;
-      v10 = unk_27E396180;
+      v10 = qword_27E396178;
+      v11 = unk_27E396180;
       if (qword_27E396178 == unk_27E396180)
       {
         goto LABEL_25;
@@ -8759,13 +8692,13 @@ LABEL_23:
 
     do
     {
-      v12 = *v9;
-      v11 = *(v9 + 8);
-      v9 += 16;
-      v12(v11, "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
+      v13 = *v10;
+      v12 = *(v10 + 8);
+      v10 += 16;
+      v13(v12, "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
     }
 
-    while (v9 != v10);
+    while (v10 != v11);
     if (byte_27E3961A0)
     {
       goto LABEL_23;
@@ -8778,7 +8711,7 @@ LABEL_25:
   sub_23F3034A8("/Library/Caches/com.apple.xbs/Sources/AmbientSceneScope/library/Kit/Image/src/ImageStorage.cpp", 78, "F == format", 0xBuLL, &unk_23F3091D6, 0, sub_23F303DA4);
   if (byte_27E3961A0 == 1)
   {
-    if (byte_27E3961A8 != 1 || (v3 = qword_27E396178, v4 = unk_27E396180, qword_27E396178 == unk_27E396180))
+    if (byte_27E3961A8 != 1 || (v4 = qword_27E396178, v5 = unk_27E396180, qword_27E396178 == unk_27E396180))
     {
 LABEL_9:
       qword_27E396190(*algn_27E396198, "F == format", 11, &unk_23F3091D6, 0);
@@ -8788,8 +8721,8 @@ LABEL_9:
 
   else
   {
-    v3 = qword_27E396178;
-    v4 = unk_27E396180;
+    v4 = qword_27E396178;
+    v5 = unk_27E396180;
     if (qword_27E396178 == unk_27E396180)
     {
       goto LABEL_25;
@@ -8798,13 +8731,13 @@ LABEL_9:
 
   do
   {
-    v6 = *v3;
-    v5 = *(v3 + 8);
-    v3 += 16;
-    v6(v5, "F == format", 11, &unk_23F3091D6, 0);
+    v7 = *v4;
+    v6 = *(v4 + 8);
+    v4 += 16;
+    v7(v6, "F == format", 11, &unk_23F3091D6, 0);
   }
 
-  while (v3 != v4);
+  while (v4 != v5);
   if ((byte_27E3961A0 & 1) == 0)
   {
     goto LABEL_25;
@@ -8815,37 +8748,35 @@ LABEL_9:
 
 void sub_23F235314(uint64_t a1, int a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
   if (a2 == 10)
   {
 LABEL_10:
     if (*(a1 + 36))
     {
-      v7 = *(a1 + 32) == 0;
+      v8 = *(a1 + 32) == 0;
     }
 
     else
     {
-      v7 = 1;
+      v8 = 1;
     }
 
-    v8 = *(a1 + 32);
-    if (v7)
+    v9 = *(a1 + 32);
+    if (v8)
     {
-      HIDWORD(v8) = 0;
+      HIDWORD(v9) = 0;
     }
 
-    if (HIDWORD(*(a1 + 40)) * HIDWORD(v8) != -1)
+    if (HIDWORD(*(a1 + 40)) * HIDWORD(v9) != -1)
     {
 LABEL_24:
       operator new();
     }
 
-    v13 = *(a1 + 72);
     sub_23F3034A8("/Library/Caches/com.apple.xbs/Sources/AmbientSceneScope/library/Essentials/Array/include/Essentials/Array/ArrayView.h", 983, "total_size < std::numeric_limits<uint32_t>::max()", 0x31uLL, "Given data block is too big to be represented by uint32_t indexed ArrayView", 0x4BuLL, sub_23F303DA4);
     if (byte_27E3961A0 == 1)
     {
-      if (byte_27E3961A8 != 1 || (v9 = qword_27E396178, v10 = unk_27E396180, qword_27E396178 == unk_27E396180))
+      if (byte_27E3961A8 != 1 || (v10 = qword_27E396178, v11 = unk_27E396180, qword_27E396178 == unk_27E396180))
       {
 LABEL_23:
         qword_27E396190(*algn_27E396198, "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
@@ -8855,8 +8786,8 @@ LABEL_23:
 
     else
     {
-      v9 = qword_27E396178;
-      v10 = unk_27E396180;
+      v10 = qword_27E396178;
+      v11 = unk_27E396180;
       if (qword_27E396178 == unk_27E396180)
       {
         goto LABEL_25;
@@ -8865,13 +8796,13 @@ LABEL_23:
 
     do
     {
-      v12 = *v9;
-      v11 = *(v9 + 8);
-      v9 += 16;
-      v12(v11, "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
+      v13 = *v10;
+      v12 = *(v10 + 8);
+      v10 += 16;
+      v13(v12, "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
     }
 
-    while (v9 != v10);
+    while (v10 != v11);
     if (byte_27E3961A0)
     {
       goto LABEL_23;
@@ -8884,7 +8815,7 @@ LABEL_25:
   sub_23F3034A8("/Library/Caches/com.apple.xbs/Sources/AmbientSceneScope/library/Kit/Image/src/ImageStorage.cpp", 84, "F == format", 0xBuLL, &unk_23F3091D6, 0, sub_23F303DA4);
   if (byte_27E3961A0 == 1)
   {
-    if (byte_27E3961A8 != 1 || (v3 = qword_27E396178, v4 = unk_27E396180, qword_27E396178 == unk_27E396180))
+    if (byte_27E3961A8 != 1 || (v4 = qword_27E396178, v5 = unk_27E396180, qword_27E396178 == unk_27E396180))
     {
 LABEL_9:
       qword_27E396190(*algn_27E396198, "F == format", 11, &unk_23F3091D6, 0);
@@ -8894,8 +8825,8 @@ LABEL_9:
 
   else
   {
-    v3 = qword_27E396178;
-    v4 = unk_27E396180;
+    v4 = qword_27E396178;
+    v5 = unk_27E396180;
     if (qword_27E396178 == unk_27E396180)
     {
       goto LABEL_25;
@@ -8904,13 +8835,13 @@ LABEL_9:
 
   do
   {
-    v6 = *v3;
-    v5 = *(v3 + 8);
-    v3 += 16;
-    v6(v5, "F == format", 11, &unk_23F3091D6, 0);
+    v7 = *v4;
+    v6 = *(v4 + 8);
+    v4 += 16;
+    v7(v6, "F == format", 11, &unk_23F3091D6, 0);
   }
 
-  while (v3 != v4);
+  while (v4 != v5);
   if ((byte_27E3961A0 & 1) == 0)
   {
     goto LABEL_25;
@@ -9167,79 +9098,77 @@ LABEL_20:
   abort();
 }
 
-void sub_23F235B28(uint64_t a1, char **lpsrc)
+double sub_23F235B28(uint64_t a1, uint64_t *lpsrc)
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v4 = *lpsrc;
-  v5 = **lpsrc;
-  v6 = __dynamic_cast(lpsrc, &unk_28518B5C0, &unk_2851891C0, 0);
-  if (!v6)
+  v5 = __dynamic_cast(lpsrc, &unk_28518B5C0, &unk_2851891C0, 0);
+  if (!v5)
   {
-    (*(v4 + 9))(&v22, lpsrc, 11);
-    v8 = *(v22 + 16);
-    v21[0] = *v22;
-    v21[1] = v8;
-    v21[2] = *(v22 + 32);
-    *&v22 = 0;
+    (*(v4 + 72))(&v20, lpsrc, 11);
+    v7 = *(v20 + 16);
+    v19[0] = *v20;
+    v19[1] = v7;
+    v19[2] = *(v20 + 32);
+    *&v20 = 0;
     MEMORY[0x245CACD00]();
-    v9 = *(a1 + 72);
+    v8 = *(a1 + 72);
     if (*(a1 + 36))
     {
-      v10 = *(a1 + 32) == 0;
+      v9 = *(a1 + 32) == 0;
     }
 
     else
     {
-      v10 = 1;
+      v9 = 1;
     }
 
-    v11 = *(a1 + 32);
-    v12 = *(a1 + 40);
-    if (v10)
+    v10 = *(a1 + 32);
+    v11 = *(a1 + 40);
+    if (v9)
     {
-      v11 = 0;
+      v10 = 0;
     }
 
-    LODWORD(v22) = 3;
-    *(&v22 + 4) = v11;
-    v13 = v11;
-    v14 = v22;
-    v15 = HIDWORD(v11);
-    LODWORD(v22) = 1;
-    *(&v22 + 4) = v12;
-    v16 = v22;
-    if (HIDWORD(v12) * HIDWORD(v11) != -1)
+    LODWORD(v20) = 3;
+    *(&v20 + 4) = v10;
+    v12 = v10;
+    v13 = v20;
+    v14 = HIDWORD(v10);
+    LODWORD(v20) = 1;
+    *(&v20 + 4) = v11;
+    v15 = v20;
+    if (HIDWORD(v11) * HIDWORD(v10) != -1)
     {
       goto LABEL_19;
     }
 
-    v20 = v9;
+    v18 = v8;
     sub_23F3034A8("/Library/Caches/com.apple.xbs/Sources/AmbientSceneScope/library/Essentials/Array/include/Essentials/Array/ArrayView.h", 983, "total_size < std::numeric_limits<uint32_t>::max()", 0x31uLL, "Given data block is too big to be represented by uint32_t indexed ArrayView", 0x4BuLL, sub_23F303DA4);
     if (byte_27E3961A0 == 1)
     {
-      if (byte_27E3961A8 != 1 || (v18 = qword_27E396178, v17 = unk_27E396180, qword_27E396178 == unk_27E396180))
+      if (byte_27E3961A8 != 1 || (v17 = qword_27E396178, v16 = unk_27E396180, qword_27E396178 == unk_27E396180))
       {
 LABEL_18:
         qword_27E396190(*algn_27E396198, "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
-        v9 = v20;
+        v8 = v18;
 LABEL_19:
-        *&v22 = v9;
-        *(&v22 + 1) = v14;
-        v23 = v15;
-        v24 = v16;
-        v25 = HIDWORD(v12);
-        v26 = v13;
-        v27 = v12;
-        sub_23F26F554(v21, &v22);
-        v19 = *MEMORY[0x277D85DE8];
-        return;
+        *&v20 = v8;
+        *(&v20 + 1) = v13;
+        v21 = v14;
+        v22 = v15;
+        v23 = HIDWORD(v11);
+        v24 = v12;
+        v25 = v11;
+        *&result = sub_23F26F554(v19, &v20);
+        return result;
       }
     }
 
     else
     {
-      v18 = qword_27E396178;
-      v17 = unk_27E396180;
+      v17 = qword_27E396178;
+      v16 = unk_27E396180;
       if (qword_27E396178 == unk_27E396180)
       {
         goto LABEL_20;
@@ -9248,11 +9177,11 @@ LABEL_19:
 
     do
     {
-      (*v18)(*(v18 + 8), "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
-      v18 += 16;
+      (*v17)(*(v17 + 8), "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
+      v17 += 16;
     }
 
-    while (v18 != v17);
+    while (v17 != v16);
     if (byte_27E3961A0)
     {
       goto LABEL_18;
@@ -9262,44 +9191,41 @@ LABEL_20:
     abort();
   }
 
-  v7 = *MEMORY[0x277D85DE8];
-
-  sub_23F26E920(a1 + 8, v6 + 2);
+  sub_23F26E920(a1 + 8, v5 + 2);
+  return result;
 }
 
 void sub_23F235E10(uint64_t a1, int a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
   if (a2 == 11)
   {
 LABEL_10:
     if (*(a1 + 36))
     {
-      v7 = *(a1 + 32) == 0;
+      v8 = *(a1 + 32) == 0;
     }
 
     else
     {
-      v7 = 1;
+      v8 = 1;
     }
 
-    v8 = *(a1 + 32);
-    if (v7)
+    v9 = *(a1 + 32);
+    if (v8)
     {
-      HIDWORD(v8) = 0;
+      HIDWORD(v9) = 0;
     }
 
-    if (HIDWORD(*(a1 + 40)) * HIDWORD(v8) != -1)
+    if (HIDWORD(*(a1 + 40)) * HIDWORD(v9) != -1)
     {
 LABEL_24:
       operator new();
     }
 
-    v13 = *(a1 + 72);
     sub_23F3034A8("/Library/Caches/com.apple.xbs/Sources/AmbientSceneScope/library/Essentials/Array/include/Essentials/Array/ArrayView.h", 983, "total_size < std::numeric_limits<uint32_t>::max()", 0x31uLL, "Given data block is too big to be represented by uint32_t indexed ArrayView", 0x4BuLL, sub_23F303DA4);
     if (byte_27E3961A0 == 1)
     {
-      if (byte_27E3961A8 != 1 || (v9 = qword_27E396178, v10 = unk_27E396180, qword_27E396178 == unk_27E396180))
+      if (byte_27E3961A8 != 1 || (v10 = qword_27E396178, v11 = unk_27E396180, qword_27E396178 == unk_27E396180))
       {
 LABEL_23:
         qword_27E396190(*algn_27E396198, "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
@@ -9309,8 +9235,8 @@ LABEL_23:
 
     else
     {
-      v9 = qword_27E396178;
-      v10 = unk_27E396180;
+      v10 = qword_27E396178;
+      v11 = unk_27E396180;
       if (qword_27E396178 == unk_27E396180)
       {
         goto LABEL_25;
@@ -9319,13 +9245,13 @@ LABEL_23:
 
     do
     {
-      v12 = *v9;
-      v11 = *(v9 + 8);
-      v9 += 16;
-      v12(v11, "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
+      v13 = *v10;
+      v12 = *(v10 + 8);
+      v10 += 16;
+      v13(v12, "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
     }
 
-    while (v9 != v10);
+    while (v10 != v11);
     if (byte_27E3961A0)
     {
       goto LABEL_23;
@@ -9338,7 +9264,7 @@ LABEL_25:
   sub_23F3034A8("/Library/Caches/com.apple.xbs/Sources/AmbientSceneScope/library/Kit/Image/src/ImageStorage.cpp", 78, "F == format", 0xBuLL, &unk_23F3091D6, 0, sub_23F303DA4);
   if (byte_27E3961A0 == 1)
   {
-    if (byte_27E3961A8 != 1 || (v3 = qword_27E396178, v4 = unk_27E396180, qword_27E396178 == unk_27E396180))
+    if (byte_27E3961A8 != 1 || (v4 = qword_27E396178, v5 = unk_27E396180, qword_27E396178 == unk_27E396180))
     {
 LABEL_9:
       qword_27E396190(*algn_27E396198, "F == format", 11, &unk_23F3091D6, 0);
@@ -9348,8 +9274,8 @@ LABEL_9:
 
   else
   {
-    v3 = qword_27E396178;
-    v4 = unk_27E396180;
+    v4 = qword_27E396178;
+    v5 = unk_27E396180;
     if (qword_27E396178 == unk_27E396180)
     {
       goto LABEL_25;
@@ -9358,13 +9284,13 @@ LABEL_9:
 
   do
   {
-    v6 = *v3;
-    v5 = *(v3 + 8);
-    v3 += 16;
-    v6(v5, "F == format", 11, &unk_23F3091D6, 0);
+    v7 = *v4;
+    v6 = *(v4 + 8);
+    v4 += 16;
+    v7(v6, "F == format", 11, &unk_23F3091D6, 0);
   }
 
-  while (v3 != v4);
+  while (v4 != v5);
   if ((byte_27E3961A0 & 1) == 0)
   {
     goto LABEL_25;
@@ -9375,37 +9301,35 @@ LABEL_9:
 
 void sub_23F236110(uint64_t a1, int a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
   if (a2 == 11)
   {
 LABEL_10:
     if (*(a1 + 36))
     {
-      v7 = *(a1 + 32) == 0;
+      v8 = *(a1 + 32) == 0;
     }
 
     else
     {
-      v7 = 1;
+      v8 = 1;
     }
 
-    v8 = *(a1 + 32);
-    if (v7)
+    v9 = *(a1 + 32);
+    if (v8)
     {
-      HIDWORD(v8) = 0;
+      HIDWORD(v9) = 0;
     }
 
-    if (HIDWORD(*(a1 + 40)) * HIDWORD(v8) != -1)
+    if (HIDWORD(*(a1 + 40)) * HIDWORD(v9) != -1)
     {
 LABEL_24:
       operator new();
     }
 
-    v13 = *(a1 + 72);
     sub_23F3034A8("/Library/Caches/com.apple.xbs/Sources/AmbientSceneScope/library/Essentials/Array/include/Essentials/Array/ArrayView.h", 983, "total_size < std::numeric_limits<uint32_t>::max()", 0x31uLL, "Given data block is too big to be represented by uint32_t indexed ArrayView", 0x4BuLL, sub_23F303DA4);
     if (byte_27E3961A0 == 1)
     {
-      if (byte_27E3961A8 != 1 || (v9 = qword_27E396178, v10 = unk_27E396180, qword_27E396178 == unk_27E396180))
+      if (byte_27E3961A8 != 1 || (v10 = qword_27E396178, v11 = unk_27E396180, qword_27E396178 == unk_27E396180))
       {
 LABEL_23:
         qword_27E396190(*algn_27E396198, "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
@@ -9415,8 +9339,8 @@ LABEL_23:
 
     else
     {
-      v9 = qword_27E396178;
-      v10 = unk_27E396180;
+      v10 = qword_27E396178;
+      v11 = unk_27E396180;
       if (qword_27E396178 == unk_27E396180)
       {
         goto LABEL_25;
@@ -9425,13 +9349,13 @@ LABEL_23:
 
     do
     {
-      v12 = *v9;
-      v11 = *(v9 + 8);
-      v9 += 16;
-      v12(v11, "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
+      v13 = *v10;
+      v12 = *(v10 + 8);
+      v10 += 16;
+      v13(v12, "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
     }
 
-    while (v9 != v10);
+    while (v10 != v11);
     if (byte_27E3961A0)
     {
       goto LABEL_23;
@@ -9444,7 +9368,7 @@ LABEL_25:
   sub_23F3034A8("/Library/Caches/com.apple.xbs/Sources/AmbientSceneScope/library/Kit/Image/src/ImageStorage.cpp", 84, "F == format", 0xBuLL, &unk_23F3091D6, 0, sub_23F303DA4);
   if (byte_27E3961A0 == 1)
   {
-    if (byte_27E3961A8 != 1 || (v3 = qword_27E396178, v4 = unk_27E396180, qword_27E396178 == unk_27E396180))
+    if (byte_27E3961A8 != 1 || (v4 = qword_27E396178, v5 = unk_27E396180, qword_27E396178 == unk_27E396180))
     {
 LABEL_9:
       qword_27E396190(*algn_27E396198, "F == format", 11, &unk_23F3091D6, 0);
@@ -9454,8 +9378,8 @@ LABEL_9:
 
   else
   {
-    v3 = qword_27E396178;
-    v4 = unk_27E396180;
+    v4 = qword_27E396178;
+    v5 = unk_27E396180;
     if (qword_27E396178 == unk_27E396180)
     {
       goto LABEL_25;
@@ -9464,13 +9388,13 @@ LABEL_9:
 
   do
   {
-    v6 = *v3;
-    v5 = *(v3 + 8);
-    v3 += 16;
-    v6(v5, "F == format", 11, &unk_23F3091D6, 0);
+    v7 = *v4;
+    v6 = *(v4 + 8);
+    v4 += 16;
+    v7(v6, "F == format", 11, &unk_23F3091D6, 0);
   }
 
-  while (v3 != v4);
+  while (v4 != v5);
   if ((byte_27E3961A0 & 1) == 0)
   {
     goto LABEL_25;
@@ -9507,79 +9431,76 @@ void sub_23F23644C(uint64_t a1)
   JUMPOUT(0x245CACD00);
 }
 
-uint64_t sub_23F236560(uint64_t a1, char **lpsrc)
+char **sub_23F236560(uint64_t a1, uint64_t *lpsrc)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v4 = *lpsrc;
-  v5 = **lpsrc;
-  v6 = __dynamic_cast(lpsrc, &unk_28518B5C0, &unk_2851891D8, 0);
-  if (!v6)
+  v5 = __dynamic_cast(lpsrc, &unk_28518B5C0, &unk_2851891D8, 0);
+  if (!v5)
   {
-    (*(v4 + 9))(&v23, lpsrc, 12);
-    v9 = *(v23 + 16);
-    v22[0] = *v23;
-    v22[1] = v9;
-    v22[2] = *(v23 + 32);
-    *&v23 = 0;
+    (*(v4 + 72))(&v20, lpsrc, 12);
+    v7 = *(v20 + 16);
+    v19[0] = *v20;
+    v19[1] = v7;
+    v19[2] = *(v20 + 32);
+    *&v20 = 0;
     MEMORY[0x245CACD00]();
-    v10 = *(a1 + 72);
+    v8 = *(a1 + 72);
     if (*(a1 + 36))
     {
-      v11 = *(a1 + 32) == 0;
+      v9 = *(a1 + 32) == 0;
     }
 
     else
     {
-      v11 = 1;
+      v9 = 1;
     }
 
-    v12 = *(a1 + 32);
-    v13 = *(a1 + 40);
-    if (v11)
+    v10 = *(a1 + 32);
+    v11 = *(a1 + 40);
+    if (v9)
     {
-      v12 = 0;
+      v10 = 0;
     }
 
-    LODWORD(v23) = 3;
-    *(&v23 + 4) = v12;
-    v14 = v12;
-    v15 = v23;
-    v16 = HIDWORD(v12);
-    LODWORD(v23) = 1;
-    *(&v23 + 4) = v13;
-    v17 = v23;
-    if (HIDWORD(v13) * HIDWORD(v12) != -1)
+    LODWORD(v20) = 3;
+    *(&v20 + 4) = v10;
+    v12 = v10;
+    v13 = v20;
+    v14 = HIDWORD(v10);
+    LODWORD(v20) = 1;
+    *(&v20 + 4) = v11;
+    v15 = v20;
+    if (HIDWORD(v11) * HIDWORD(v10) != -1)
     {
       goto LABEL_19;
     }
 
-    v21 = v10;
+    v18 = v8;
     sub_23F3034A8("/Library/Caches/com.apple.xbs/Sources/AmbientSceneScope/library/Essentials/Array/include/Essentials/Array/ArrayView.h", 983, "total_size < std::numeric_limits<uint32_t>::max()", 0x31uLL, "Given data block is too big to be represented by uint32_t indexed ArrayView", 0x4BuLL, sub_23F303DA4);
     if (byte_27E3961A0 == 1)
     {
-      if (byte_27E3961A8 != 1 || (v19 = qword_27E396178, v18 = unk_27E396180, qword_27E396178 == unk_27E396180))
+      if (byte_27E3961A8 != 1 || (v17 = qword_27E396178, v16 = unk_27E396180, qword_27E396178 == unk_27E396180))
       {
 LABEL_18:
         qword_27E396190(*algn_27E396198, "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
-        v10 = v21;
+        v8 = v18;
 LABEL_19:
-        *&v23 = v10;
-        *(&v23 + 1) = v15;
-        v24 = v16;
-        v25 = v17;
-        v26 = HIDWORD(v13);
-        v27 = v14;
-        v28 = v13;
-        result = sub_23F270394(v22, &v23);
-        v20 = *MEMORY[0x277D85DE8];
-        return result;
+        *&v20 = v8;
+        *(&v20 + 1) = v13;
+        v21 = v14;
+        v22 = v15;
+        v23 = HIDWORD(v11);
+        v24 = v12;
+        v25 = v11;
+        return sub_23F270394(v19, &v20);
       }
     }
 
     else
     {
-      v19 = qword_27E396178;
-      v18 = unk_27E396180;
+      v17 = qword_27E396178;
+      v16 = unk_27E396180;
       if (qword_27E396178 == unk_27E396180)
       {
         goto LABEL_20;
@@ -9588,11 +9509,11 @@ LABEL_19:
 
     do
     {
-      (*v19)(*(v19 + 8), "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
-      v19 += 16;
+      (*v17)(*(v17 + 8), "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
+      v17 += 16;
     }
 
-    while (v19 != v18);
+    while (v17 != v16);
     if (byte_27E3961A0)
     {
       goto LABEL_18;
@@ -9602,44 +9523,40 @@ LABEL_20:
     abort();
   }
 
-  v7 = *MEMORY[0x277D85DE8];
-
-  return sub_23F26FF90(a1 + 8, v6 + 2);
+  return sub_23F26FF90(a1 + 8, v5 + 2);
 }
 
 void sub_23F236848(uint64_t a1, int a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
   if (a2 == 12)
   {
 LABEL_10:
     if (*(a1 + 36))
     {
-      v7 = *(a1 + 32) == 0;
+      v8 = *(a1 + 32) == 0;
     }
 
     else
     {
-      v7 = 1;
+      v8 = 1;
     }
 
-    v8 = *(a1 + 32);
-    if (v7)
+    v9 = *(a1 + 32);
+    if (v8)
     {
-      HIDWORD(v8) = 0;
+      HIDWORD(v9) = 0;
     }
 
-    if (HIDWORD(*(a1 + 40)) * HIDWORD(v8) != -1)
+    if (HIDWORD(*(a1 + 40)) * HIDWORD(v9) != -1)
     {
 LABEL_24:
       operator new();
     }
 
-    v13 = *(a1 + 72);
     sub_23F3034A8("/Library/Caches/com.apple.xbs/Sources/AmbientSceneScope/library/Essentials/Array/include/Essentials/Array/ArrayView.h", 983, "total_size < std::numeric_limits<uint32_t>::max()", 0x31uLL, "Given data block is too big to be represented by uint32_t indexed ArrayView", 0x4BuLL, sub_23F303DA4);
     if (byte_27E3961A0 == 1)
     {
-      if (byte_27E3961A8 != 1 || (v9 = qword_27E396178, v10 = unk_27E396180, qword_27E396178 == unk_27E396180))
+      if (byte_27E3961A8 != 1 || (v10 = qword_27E396178, v11 = unk_27E396180, qword_27E396178 == unk_27E396180))
       {
 LABEL_23:
         qword_27E396190(*algn_27E396198, "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
@@ -9649,8 +9566,8 @@ LABEL_23:
 
     else
     {
-      v9 = qword_27E396178;
-      v10 = unk_27E396180;
+      v10 = qword_27E396178;
+      v11 = unk_27E396180;
       if (qword_27E396178 == unk_27E396180)
       {
         goto LABEL_25;
@@ -9659,13 +9576,13 @@ LABEL_23:
 
     do
     {
-      v12 = *v9;
-      v11 = *(v9 + 8);
-      v9 += 16;
-      v12(v11, "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
+      v13 = *v10;
+      v12 = *(v10 + 8);
+      v10 += 16;
+      v13(v12, "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
     }
 
-    while (v9 != v10);
+    while (v10 != v11);
     if (byte_27E3961A0)
     {
       goto LABEL_23;
@@ -9678,7 +9595,7 @@ LABEL_25:
   sub_23F3034A8("/Library/Caches/com.apple.xbs/Sources/AmbientSceneScope/library/Kit/Image/src/ImageStorage.cpp", 78, "F == format", 0xBuLL, &unk_23F3091D6, 0, sub_23F303DA4);
   if (byte_27E3961A0 == 1)
   {
-    if (byte_27E3961A8 != 1 || (v3 = qword_27E396178, v4 = unk_27E396180, qword_27E396178 == unk_27E396180))
+    if (byte_27E3961A8 != 1 || (v4 = qword_27E396178, v5 = unk_27E396180, qword_27E396178 == unk_27E396180))
     {
 LABEL_9:
       qword_27E396190(*algn_27E396198, "F == format", 11, &unk_23F3091D6, 0);
@@ -9688,8 +9605,8 @@ LABEL_9:
 
   else
   {
-    v3 = qword_27E396178;
-    v4 = unk_27E396180;
+    v4 = qword_27E396178;
+    v5 = unk_27E396180;
     if (qword_27E396178 == unk_27E396180)
     {
       goto LABEL_25;
@@ -9698,13 +9615,13 @@ LABEL_9:
 
   do
   {
-    v6 = *v3;
-    v5 = *(v3 + 8);
-    v3 += 16;
-    v6(v5, "F == format", 11, &unk_23F3091D6, 0);
+    v7 = *v4;
+    v6 = *(v4 + 8);
+    v4 += 16;
+    v7(v6, "F == format", 11, &unk_23F3091D6, 0);
   }
 
-  while (v3 != v4);
+  while (v4 != v5);
   if ((byte_27E3961A0 & 1) == 0)
   {
     goto LABEL_25;
@@ -9715,37 +9632,35 @@ LABEL_9:
 
 void sub_23F236B48(uint64_t a1, int a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
   if (a2 == 12)
   {
 LABEL_10:
     if (*(a1 + 36))
     {
-      v7 = *(a1 + 32) == 0;
+      v8 = *(a1 + 32) == 0;
     }
 
     else
     {
-      v7 = 1;
+      v8 = 1;
     }
 
-    v8 = *(a1 + 32);
-    if (v7)
+    v9 = *(a1 + 32);
+    if (v8)
     {
-      HIDWORD(v8) = 0;
+      HIDWORD(v9) = 0;
     }
 
-    if (HIDWORD(*(a1 + 40)) * HIDWORD(v8) != -1)
+    if (HIDWORD(*(a1 + 40)) * HIDWORD(v9) != -1)
     {
 LABEL_24:
       operator new();
     }
 
-    v13 = *(a1 + 72);
     sub_23F3034A8("/Library/Caches/com.apple.xbs/Sources/AmbientSceneScope/library/Essentials/Array/include/Essentials/Array/ArrayView.h", 983, "total_size < std::numeric_limits<uint32_t>::max()", 0x31uLL, "Given data block is too big to be represented by uint32_t indexed ArrayView", 0x4BuLL, sub_23F303DA4);
     if (byte_27E3961A0 == 1)
     {
-      if (byte_27E3961A8 != 1 || (v9 = qword_27E396178, v10 = unk_27E396180, qword_27E396178 == unk_27E396180))
+      if (byte_27E3961A8 != 1 || (v10 = qword_27E396178, v11 = unk_27E396180, qword_27E396178 == unk_27E396180))
       {
 LABEL_23:
         qword_27E396190(*algn_27E396198, "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
@@ -9755,8 +9670,8 @@ LABEL_23:
 
     else
     {
-      v9 = qword_27E396178;
-      v10 = unk_27E396180;
+      v10 = qword_27E396178;
+      v11 = unk_27E396180;
       if (qword_27E396178 == unk_27E396180)
       {
         goto LABEL_25;
@@ -9765,13 +9680,13 @@ LABEL_23:
 
     do
     {
-      v12 = *v9;
-      v11 = *(v9 + 8);
-      v9 += 16;
-      v12(v11, "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
+      v13 = *v10;
+      v12 = *(v10 + 8);
+      v10 += 16;
+      v13(v12, "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
     }
 
-    while (v9 != v10);
+    while (v10 != v11);
     if (byte_27E3961A0)
     {
       goto LABEL_23;
@@ -9784,7 +9699,7 @@ LABEL_25:
   sub_23F3034A8("/Library/Caches/com.apple.xbs/Sources/AmbientSceneScope/library/Kit/Image/src/ImageStorage.cpp", 84, "F == format", 0xBuLL, &unk_23F3091D6, 0, sub_23F303DA4);
   if (byte_27E3961A0 == 1)
   {
-    if (byte_27E3961A8 != 1 || (v3 = qword_27E396178, v4 = unk_27E396180, qword_27E396178 == unk_27E396180))
+    if (byte_27E3961A8 != 1 || (v4 = qword_27E396178, v5 = unk_27E396180, qword_27E396178 == unk_27E396180))
     {
 LABEL_9:
       qword_27E396190(*algn_27E396198, "F == format", 11, &unk_23F3091D6, 0);
@@ -9794,8 +9709,8 @@ LABEL_9:
 
   else
   {
-    v3 = qword_27E396178;
-    v4 = unk_27E396180;
+    v4 = qword_27E396178;
+    v5 = unk_27E396180;
     if (qword_27E396178 == unk_27E396180)
     {
       goto LABEL_25;
@@ -9804,13 +9719,13 @@ LABEL_9:
 
   do
   {
-    v6 = *v3;
-    v5 = *(v3 + 8);
-    v3 += 16;
-    v6(v5, "F == format", 11, &unk_23F3091D6, 0);
+    v7 = *v4;
+    v6 = *(v4 + 8);
+    v4 += 16;
+    v7(v6, "F == format", 11, &unk_23F3091D6, 0);
   }
 
-  while (v3 != v4);
+  while (v4 != v5);
   if ((byte_27E3961A0 & 1) == 0)
   {
     goto LABEL_25;
@@ -9830,4 +9745,116 @@ uint64_t sub_23F236E48(uint64_t result)
 
   *(result + 72) = 0;
   return result;
+}
+
+void sub_23F236E84(uint64_t a1)
+{
+  if (*(a1 + 72))
+  {
+    v2 = a1;
+    free(*(a1 + 72));
+    a1 = v2;
+    v1 = vars8;
+  }
+
+  *(a1 + 72) = 0;
+
+  JUMPOUT(0x245CACD00);
+}
+
+void sub_23F236F98(uint64_t a1, uint64_t *lpsrc)
+{
+  v26 = *MEMORY[0x277D85DE8];
+  v4 = *lpsrc;
+  v5 = __dynamic_cast(lpsrc, &unk_28518B5C0, &unk_2851891F0, 0);
+  if (!v5)
+  {
+    (*(v4 + 72))(&v20, lpsrc, 13);
+    v7 = *(v20 + 16);
+    v6 = *(v20 + 32);
+    v19[0] = *v20;
+    v19[1] = v7;
+    v19[2] = v6;
+    *&v20 = 0;
+    MEMORY[0x245CACD00]();
+    v8 = *(a1 + 72);
+    if (*(a1 + 36))
+    {
+      v9 = *(a1 + 32) == 0;
+    }
+
+    else
+    {
+      v9 = 1;
+    }
+
+    v10 = *(a1 + 32);
+    v11 = *(a1 + 40);
+    if (v9)
+    {
+      v10 = 0;
+    }
+
+    LODWORD(v20) = 4;
+    *(&v20 + 4) = v10;
+    v12 = v10;
+    v13 = v20;
+    v14 = HIDWORD(v10);
+    LODWORD(v20) = 1;
+    *(&v20 + 4) = v11;
+    v15 = v20;
+    if (HIDWORD(v11) * HIDWORD(v10) != -1)
+    {
+      goto LABEL_19;
+    }
+
+    v18 = v8;
+    sub_23F3034A8("/Library/Caches/com.apple.xbs/Sources/AmbientSceneScope/library/Essentials/Array/include/Essentials/Array/ArrayView.h", 983, "total_size < std::numeric_limits<uint32_t>::max()", 0x31uLL, "Given data block is too big to be represented by uint32_t indexed ArrayView", 0x4BuLL, sub_23F303DA4);
+    if (byte_27E3961A0 == 1)
+    {
+      if (byte_27E3961A8 != 1 || (v17 = qword_27E396178, v16 = unk_27E396180, qword_27E396178 == unk_27E396180))
+      {
+LABEL_18:
+        qword_27E396190(*algn_27E396198, "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
+        v8 = v18;
+LABEL_19:
+        *&v20 = v8;
+        *(&v20 + 1) = v13;
+        v21 = v14;
+        v22 = v15;
+        v23 = HIDWORD(v11);
+        v24 = v12;
+        v25 = v11;
+        sub_23F1F3B98(v19, &v20);
+        return;
+      }
+    }
+
+    else
+    {
+      v17 = qword_27E396178;
+      v16 = unk_27E396180;
+      if (qword_27E396178 == unk_27E396180)
+      {
+        goto LABEL_20;
+      }
+    }
+
+    do
+    {
+      (*v17)(*(v17 + 8), "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
+      v17 += 16;
+    }
+
+    while (v17 != v16);
+    if (byte_27E3961A0)
+    {
+      goto LABEL_18;
+    }
+
+LABEL_20:
+    abort();
+  }
+
+  sub_23F270724(a1 + 8, v5 + 2);
 }

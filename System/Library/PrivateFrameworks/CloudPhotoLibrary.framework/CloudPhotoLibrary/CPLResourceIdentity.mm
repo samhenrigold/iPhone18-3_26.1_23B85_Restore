@@ -2,6 +2,7 @@
 + (id)extensionForFileUTI:(id)i;
 + (id)fileUTIForExtension:(id)extension;
 + (id)fingerPrintForData:(id)data error:(id *)error;
++ (id)fingerPrintForFD:(int)d error:(id *)error;
 + (id)fingerPrintForFileAtURL:(id)l error:(id *)error;
 + (id)identityForStorageName:(id)name;
 + (id)identityFromStoredIdentity:(id)identity;
@@ -51,24 +52,24 @@
 
 - (id)identityForStorage
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   fingerPrint = [(CPLResourceIdentity *)self fingerPrint];
   if (!fingerPrint)
   {
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v12 = __CPLGenericOSLogDomain();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      v11 = __CPLGenericOSLogDomain();
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
         selfCopy = self;
-        _os_log_impl(&dword_1DC05A000, v12, OS_LOG_TYPE_ERROR, "Can't create identity for storage for an identity without finger print: %@", buf, 0xCu);
+        _os_log_impl(&dword_1DC05A000, v11, OS_LOG_TYPE_ERROR, "Can't create identity for storage for an identity without finger print: %@", buf, 0xCu);
       }
     }
 
     currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
-    v14 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Framework/Sources/CPLResourceIdentity.m"];
-    [currentHandler handleFailureInMethod:a2 object:self file:v14 lineNumber:100 description:{@"Can't create identity for storage for an identity without finger print: %@", self}];
+    v13 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Framework/Sources/CPLResourceIdentity.m"];
+    [currentHandler handleFailureInMethod:a2 object:self file:v13 lineNumber:100 description:{@"Can't create identity for storage for an identity without finger print: %@", self}];
 
     abort();
   }
@@ -87,8 +88,6 @@
   }
 
   v9 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@.%@", v5, v8];
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return v9;
 }
@@ -150,7 +149,7 @@
 
 + (id)identityForStorageName:(id)name
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   nameCopy = name;
   if ([nameCopy hasPrefix:@"cpl"])
   {
@@ -189,36 +188,36 @@
 
       if ((_CPLSilentLogging & 1) == 0)
       {
-        v18 = __CPLGenericOSLogDomain();
-        if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+        v17 = __CPLGenericOSLogDomain();
+        if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
         {
           *buf = 138412290;
-          v20 = v6;
-          _os_log_impl(&dword_1DC05A000, v18, OS_LOG_TYPE_ERROR, "Storage name should always have a finger print (%@)", buf, 0xCu);
+          v19 = v6;
+          _os_log_impl(&dword_1DC05A000, v17, OS_LOG_TYPE_ERROR, "Storage name should always have a finger print (%@)", buf, 0xCu);
         }
       }
 
       currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
-      v17 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Framework/Sources/CPLResourceIdentity.m"];
-      [currentHandler handleFailureInMethod:a2 object:self file:v17 lineNumber:190 description:{@"Storage name should always have a finger print (%@)", v6}];
+      v16 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Framework/Sources/CPLResourceIdentity.m"];
+      [currentHandler handleFailureInMethod:a2 object:self file:v16 lineNumber:190 description:{@"Storage name should always have a finger print (%@)", v6}];
     }
 
     else
     {
       if ((_CPLSilentLogging & 1) == 0)
       {
-        v15 = __CPLGenericOSLogDomain();
-        if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+        v14 = __CPLGenericOSLogDomain();
+        if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
         {
           *buf = 138412290;
-          v20 = v6;
-          _os_log_impl(&dword_1DC05A000, v15, OS_LOG_TYPE_ERROR, "Storage name should always have an extension (%@)", buf, 0xCu);
+          v19 = v6;
+          _os_log_impl(&dword_1DC05A000, v14, OS_LOG_TYPE_ERROR, "Storage name should always have an extension (%@)", buf, 0xCu);
         }
       }
 
       currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
-      v17 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Framework/Sources/CPLResourceIdentity.m"];
-      [currentHandler handleFailureInMethod:a2 object:self file:v17 lineNumber:189 description:{@"Storage name should always have an extension (%@)", v6}];
+      v16 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Framework/Sources/CPLResourceIdentity.m"];
+      [currentHandler handleFailureInMethod:a2 object:self file:v16 lineNumber:189 description:{@"Storage name should always have an extension (%@)", v6}];
     }
 
     abort();
@@ -228,32 +227,30 @@
   v6 = nameCopy;
 LABEL_11:
 
-  v13 = *MEMORY[0x1E69E9840];
-
   return v11;
 }
 
 + (id)storageNameForFingerPrint:(id)print fileUTI:(id)i bucket:(id *)bucket
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   printCopy = print;
   iCopy = i;
   if ([printCopy hasPrefix:@"."])
   {
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v18 = __CPLGenericOSLogDomain();
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+      v17 = __CPLGenericOSLogDomain();
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v22 = printCopy;
-        _os_log_impl(&dword_1DC05A000, v18, OS_LOG_TYPE_ERROR, "%@ is not a valid finger print", buf, 0xCu);
+        v21 = printCopy;
+        _os_log_impl(&dword_1DC05A000, v17, OS_LOG_TYPE_ERROR, "%@ is not a valid finger print", buf, 0xCu);
       }
     }
 
     currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
-    v20 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Framework/Sources/CPLResourceIdentity.m"];
-    [currentHandler handleFailureInMethod:a2 object:self file:v20 lineNumber:158 description:{@"%@ is not a valid finger print", printCopy}];
+    v19 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Framework/Sources/CPLResourceIdentity.m"];
+    [currentHandler handleFailureInMethod:a2 object:self file:v19 lineNumber:158 description:{@"%@ is not a valid finger print", printCopy}];
 
     abort();
   }
@@ -283,8 +280,6 @@ LABEL_11:
   v13 = [self extensionForFileUTI:iCopy];
   v14 = [@"cpl" stringByAppendingString:printCopy];
   v15 = [v14 cplStringByAppendingPathExtension:v13 fallbackExtension:@"cplunknown"];
-
-  v16 = *MEMORY[0x1E69E9840];
 
   return v15;
 }
@@ -365,6 +360,15 @@ LABEL_7:
   [v11 setFileUTI:v10];
 
   return v11;
+}
+
++ (id)fingerPrintForFD:(int)d error:(id *)error
+{
+  v5 = *&d;
+  v6 = +[CPLFingerprintScheme fingerprintSchemeForStableHash];
+  v7 = [v6 fingerPrintForFD:v5 error:error];
+
+  return v7;
 }
 
 + (id)fingerPrintForData:(id)data error:(id *)error

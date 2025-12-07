@@ -1,6 +1,7 @@
 @interface JavaUtilRandom
 - (JavaUtilRandom)init;
 - (double)nextGaussian;
+- (int)nextIntWithInt:(int)int;
 - (int)nextWithInt:(int)int;
 - (void)nextBytesWithByteArray:(id)array;
 - (void)setSeedWithLong:(int64_t)long;
@@ -89,25 +90,54 @@
       {
         [(JavaUtilRandom *)self nextDouble];
         v5 = v4;
-        [(JavaUtilRandom *)self nextDouble];
-        v6 = v5 * 2.0 + -1.0;
-        v8 = v7 * 2.0 + -1.0;
-        v9 = v8 * v8 + v6 * v6;
+        nextDouble = [(JavaUtilRandom *)self nextDouble];
+        v8 = v5 * 2.0 + -1.0;
+        v10 = v9 * 2.0 + -1.0;
+        v11 = v10 * v10 + v8 * v8;
       }
 
-      while (v9 >= 1.0);
+      while (v11 >= 1.0);
     }
 
-    while (v9 == 0.0);
-    JavaLangStrictMath_logWithDouble_(v8 * v8 + v6 * v6);
-    v11 = JavaLangStrictMath_sqrtWithDouble_(v10 * -2.0 / v9);
-    self->nextNextGaussian_ = v8 * v11;
+    while (v11 == 0.0);
+    JavaLangStrictMath_logWithDouble_(nextDouble, v7, v10 * v10 + v8 * v8);
+    v15 = JavaLangStrictMath_sqrtWithDouble_(v13, v14, v12 * -2.0 / v11);
+    self->nextNextGaussian_ = v10 * v15;
     self->haveNextNextGaussian_ = 1;
-    nextNextGaussian = v6 * v11;
+    nextNextGaussian = v8 * v15;
   }
 
   objc_sync_exit(self);
   return nextNextGaussian;
+}
+
+- (int)nextIntWithInt:(int)int
+{
+  if (int <= 0)
+  {
+    v13 = JreStrcat("$I", a2, *&int, v3, v4, v5, v6, v7, @"n <= 0: ");
+    v14 = new_JavaLangIllegalArgumentException_initWithNSString_(v13);
+    objc_exception_throw(v14);
+  }
+
+  if (((int + 0x7FFFFFFF) & int) != 0)
+  {
+    v10 = int - 1;
+    do
+    {
+      v11 = [(JavaUtilRandom *)self nextWithInt:31];
+      LODWORD(v12) = v11 % int;
+    }
+
+    while (v10 + v11 - v11 % int < 0);
+  }
+
+  else
+  {
+    return ([(JavaUtilRandom *)self nextWithInt:31]* int) >> 31;
+  }
+
+  return v12;
 }
 
 - (void)setSeedWithLong:(int64_t)long

@@ -48,7 +48,7 @@
 
 - (id)intervalSetForTimeSeries:(id)series withIntervalStartCheckBlock:(id)block intervalEndCheckBlock:(id)checkBlock payloadBlock:(id)payloadBlock coalescePolicy:(id)policy
 {
-  v96[1] = *MEMORY[0x277D85DE8];
+  v95[1] = *MEMORY[0x277D85DE8];
   seriesCopy = series;
   blockCopy = block;
   checkBlockCopy = checkBlock;
@@ -57,9 +57,9 @@
   v12 = +[PPSPerformanceProfiler sharedInstance];
   [v12 startProfilingForPhase:@"IntervalSetGeneration"];
 
-  v93 = [seriesCopy copy];
+  v92 = [seriesCopy copy];
   settings = self->_settings;
-  v90 = objc_opt_new();
+  v89 = objc_opt_new();
   if (self->_directionality == 3)
   {
     goto LABEL_13;
@@ -70,7 +70,7 @@
     systemSleepTimeSeries = [(PPSTimeIntervalSetGenerator *)self systemSleepTimeSeries];
     if (systemSleepTimeSeries)
     {
-      [v93 mergeWithTimeSeries:systemSleepTimeSeries];
+      [v92 mergeWithTimeSeries:systemSleepTimeSeries];
     }
 
     if ([systemSleepTimeSeries count])
@@ -79,7 +79,7 @@
       groupId = [firstObject groupId];
 
       v16 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:groupId];
-      [v90 addObject:v16];
+      [v89 addObject:v16];
     }
   }
 
@@ -94,7 +94,7 @@ LABEL_13:
     systemHaltTimeSeries = [(PPSTimeIntervalSetGenerator *)self systemHaltTimeSeries];
     if (systemHaltTimeSeries)
     {
-      [v93 mergeWithTimeSeries:systemHaltTimeSeries];
+      [v92 mergeWithTimeSeries:systemHaltTimeSeries];
     }
 
     if ([systemHaltTimeSeries count])
@@ -103,7 +103,7 @@ LABEL_13:
       groupId2 = [firstObject2 groupId];
 
       v20 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:groupId2];
-      [v90 addObject:v20];
+      [v89 addObject:v20];
     }
 
     else
@@ -112,11 +112,11 @@ LABEL_13:
     }
   }
 
-  firstObject3 = [v93 firstObject];
+  firstObject3 = [v92 firstObject];
   [firstObject3 monotonicTimestamp];
   v23 = v22;
 
-  lastObject = [v93 lastObject];
+  lastObject = [v92 lastObject];
   [lastObject monotonicTimestamp];
   v26 = v25;
 
@@ -134,11 +134,11 @@ LABEL_13:
     v26 = v23 + v32;
   }
 
-  objectEnumerator = [v93 objectEnumerator];
+  objectEnumerator = [v92 objectEnumerator];
   directionality = self->_directionality;
   if (directionality == 1)
   {
-    reverseObjectEnumerator = [v93 reverseObjectEnumerator];
+    reverseObjectEnumerator = [v92 reverseObjectEnumerator];
 
     objectEnumerator = reverseObjectEnumerator;
   }
@@ -148,12 +148,12 @@ LABEL_13:
     v23 = v26;
   }
 
-  v92 = [[PPSTimeIntervalSet alloc] initWithCoalescePolicy:policyCopy];
-  v83 = groupId2;
-  v95 = @"__directionality";
+  v91 = [[PPSTimeIntervalSet alloc] initWithCoalescePolicy:policyCopy];
+  v82 = groupId2;
+  v94 = @"__directionality";
   v35 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:self->_directionality];
-  v96[0] = v35;
-  v36 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v96 forKeys:&v95 count:1];
+  v95[0] = v35;
+  v36 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v95 forKeys:&v94 count:1];
   v37 = [v36 mutableCopy];
 
   v38 = 0;
@@ -192,7 +192,7 @@ LABEL_22:
 
         [nextObject monotonicTimestamp];
         v38 = v46;
-        PPSAddInterval(v92, v58, v45, v46);
+        PPSAddInterval(v91, v58, v45, v46);
         goto LABEL_22;
       }
     }
@@ -204,14 +204,14 @@ LABEL_22:
       {
         groupId3 = [nextObject groupId];
         v48 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:groupId3];
-        v49 = [v90 containsObject:v48];
+        v49 = [v89 containsObject:v48];
 
         if (v49)
         {
           if (v39)
           {
             v50 = 0;
-            if ([v39 groupId] != groupId3 && ((groupId3 == v83) & (settings >> 2)) == 0)
+            if ([v39 groupId] != groupId3 && ((groupId3 == v82) & (settings >> 2)) == 0)
             {
               if (payloadBlockCopy)
               {
@@ -246,7 +246,7 @@ LABEL_22:
                 v71 = v69;
               }
 
-              PPSAddInterval(v92, v70, v71, v51);
+              PPSAddInterval(v91, v70, v71, v51);
               v50 = 0;
               v38 = v51;
             }
@@ -262,19 +262,19 @@ LABEL_22:
 
         if (v39)
         {
-          v82 = v38;
+          v81 = v38;
           v52 = checkBlockCopy;
           v53 = nextObject;
           v54 = v37;
           v55 = v54;
-          v84 = v53;
+          v83 = v53;
           if (checkBlockCopy)
           {
             v56 = (*(checkBlockCopy + 2))(v52, v53, v54);
 
-            v38 = v82;
-            v57 = v84;
-            if ((v56 & 1) == 0 && !PPSValidateIntervalStart(blockCopy, v84, v55))
+            v38 = v81;
+            v57 = v83;
+            if ((v56 & 1) == 0 && !PPSValidateIntervalStart(blockCopy, v83, v55))
             {
               goto LABEL_55;
             }
@@ -283,8 +283,8 @@ LABEL_22:
           else
           {
 
-            v38 = v82;
-            v57 = v84;
+            v38 = v81;
+            v57 = v83;
           }
 
           [v39 monotonicTimestamp];
@@ -322,7 +322,7 @@ LABEL_22:
           }
 
           v38 = v63;
-          PPSAddInterval(v92, v64, v65, v63);
+          PPSAddInterval(v91, v64, v65, v63);
         }
 
 LABEL_55:
@@ -384,20 +384,19 @@ LABEL_67:
       v77 = v23;
     }
 
-    PPSAddInterval(v92, v76, v77, v73);
+    PPSAddInterval(v91, v76, v77, v73);
   }
 
   v78 = +[PPSPerformanceProfiler sharedInstance];
   [v78 endProfilingForPhase:@"IntervalSetGeneration"];
 
-  v79 = v92;
-  v80 = *MEMORY[0x277D85DE8];
-  return v92;
+  v79 = v91;
+  return v91;
 }
 
 - (id)intervalSetMapForTimeSeries:(id)series withGroupingDimensions:(id)dimensions withIntervalStartCheckBlock:(id)block intervalEndCheckBlock:(id)checkBlock payloadBlock:(id)payloadBlock coalescePolicy:(id)policy
 {
-  v59 = *MEMORY[0x277D85DE8];
+  v58 = *MEMORY[0x277D85DE8];
   seriesCopy = series;
   dimensionsCopy = dimensions;
   blockCopy = block;
@@ -405,25 +404,25 @@ LABEL_67:
   payloadBlockCopy = payloadBlock;
   policyCopy = policy;
   dictionary = [MEMORY[0x277CBEB38] dictionary];
-  v55 = 0u;
-  v56 = 0u;
-  v53 = 0u;
   v54 = 0u;
+  v55 = 0u;
+  v52 = 0u;
+  v53 = 0u;
   obj = seriesCopy;
-  v43 = [obj countByEnumeratingWithState:&v53 objects:v58 count:16];
-  if (v43)
+  v42 = [obj countByEnumeratingWithState:&v52 objects:v57 count:16];
+  if (v42)
   {
-    v42 = *v54;
+    v41 = *v53;
     do
     {
-      for (i = 0; i != v43; ++i)
+      for (i = 0; i != v42; ++i)
       {
-        if (*v54 != v42)
+        if (*v53 != v41)
         {
           objc_enumerationMutation(obj);
         }
 
-        v14 = *(*(&v53 + 1) + 8 * i);
+        v14 = *(*(&v52 + 1) + 8 * i);
         if (v14)
         {
           if (![dimensionsCopy count])
@@ -431,26 +430,26 @@ LABEL_67:
             goto LABEL_22;
           }
 
-          v46 = objc_opt_new();
-          v51 = 0u;
-          v52 = 0u;
-          v49 = 0u;
+          v45 = objc_opt_new();
           v50 = 0u;
+          v51 = 0u;
+          v48 = 0u;
+          v49 = 0u;
           v15 = dimensionsCopy;
-          v16 = [v15 countByEnumeratingWithState:&v49 objects:v57 count:16];
+          v16 = [v15 countByEnumeratingWithState:&v48 objects:v56 count:16];
           if (v16)
           {
-            v17 = *v50;
+            v17 = *v49;
             do
             {
               for (j = 0; j != v16; ++j)
               {
-                if (*v50 != v17)
+                if (*v49 != v17)
                 {
                   objc_enumerationMutation(v15);
                 }
 
-                v19 = *(*(&v49 + 1) + 8 * j);
+                v19 = *(*(&v48 + 1) + 8 * j);
                 v20 = MEMORY[0x277CCACA8];
                 metricKeysAndValues = [v14 metricKeysAndValues];
                 groupBy = [v19 groupBy];
@@ -460,29 +459,29 @@ LABEL_67:
                 if (v24)
                 {
                   groupBy2 = [v19 groupBy];
-                  [v46 setObject:v24 forKeyedSubscript:groupBy2];
+                  [v45 setObject:v24 forKeyedSubscript:groupBy2];
                 }
               }
 
-              v16 = [v15 countByEnumeratingWithState:&v49 objects:v57 count:16];
+              v16 = [v15 countByEnumeratingWithState:&v48 objects:v56 count:16];
             }
 
             while (v16);
           }
 
-          v26 = [dictionary objectForKeyedSubscript:v46];
+          v26 = [dictionary objectForKeyedSubscript:v45];
           v27 = v26 == 0;
 
           if (v27)
           {
             v28 = MEMORY[0x277CCAC30];
-            v47[0] = MEMORY[0x277D85DD0];
-            v47[1] = 3221225472;
-            v47[2] = __160__PPSTimeIntervalSetGenerator_intervalSetMapForTimeSeries_withGroupingDimensions_withIntervalStartCheckBlock_intervalEndCheckBlock_payloadBlock_coalescePolicy___block_invoke;
-            v47[3] = &unk_279A114F8;
-            v29 = v46;
-            v48 = v29;
-            v30 = [v28 predicateWithBlock:v47];
+            v46[0] = MEMORY[0x277D85DD0];
+            v46[1] = 3221225472;
+            v46[2] = __160__PPSTimeIntervalSetGenerator_intervalSetMapForTimeSeries_withGroupingDimensions_withIntervalStartCheckBlock_intervalEndCheckBlock_payloadBlock_coalescePolicy___block_invoke;
+            v46[3] = &unk_279A114F8;
+            v29 = v45;
+            v47 = v29;
+            v30 = [v28 predicateWithBlock:v46];
             v31 = [obj filteredTimeSeriesUsingPredicate:v30];
             v32 = [(PPSTimeIntervalSetGenerator *)self intervalSetForTimeSeries:v31 withIntervalStartCheckBlock:blockCopy intervalEndCheckBlock:checkBlockCopy payloadBlock:payloadBlockCopy coalescePolicy:policyCopy];
             [dictionary setObject:v32 forKeyedSubscript:v29];
@@ -490,43 +489,41 @@ LABEL_67:
         }
       }
 
-      v43 = [obj countByEnumeratingWithState:&v53 objects:v58 count:16];
+      v42 = [obj countByEnumeratingWithState:&v52 objects:v57 count:16];
     }
 
-    while (v43);
+    while (v42);
   }
 
 LABEL_22:
-
-  v33 = *MEMORY[0x277D85DE8];
 
   return dictionary;
 }
 
 uint64_t __160__PPSTimeIntervalSetGenerator_intervalSetMapForTimeSeries_withGroupingDimensions_withIntervalStartCheckBlock_intervalEndCheckBlock_payloadBlock_coalescePolicy___block_invoke(uint64_t a1, void *a2)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v3 = a2;
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v4 = *(a1 + 32);
-  v5 = [v4 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v5)
   {
-    v6 = *v16;
+    v6 = *v15;
     while (2)
     {
       v7 = 0;
       do
       {
-        if (*v16 != v6)
+        if (*v15 != v6)
         {
           objc_enumerationMutation(v4);
         }
 
-        v8 = *(*(&v15 + 1) + 8 * v7);
+        v8 = *(*(&v14 + 1) + 8 * v7);
         v9 = [v3 metricKeysAndValues];
         v10 = [v9 objectForKeyedSubscript:v8];
         v11 = [*(a1 + 32) objectForKeyedSubscript:v8];
@@ -542,7 +539,7 @@ uint64_t __160__PPSTimeIntervalSetGenerator_intervalSetMapForTimeSeries_withGrou
       }
 
       while (v5 != v7);
-      v5 = [v4 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v5 = [v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
       if (v5)
       {
         continue;
@@ -555,7 +552,6 @@ uint64_t __160__PPSTimeIntervalSetGenerator_intervalSetMapForTimeSeries_withGrou
   v12 = 1;
 LABEL_11:
 
-  v13 = *MEMORY[0x277D85DE8];
   return v12;
 }
 

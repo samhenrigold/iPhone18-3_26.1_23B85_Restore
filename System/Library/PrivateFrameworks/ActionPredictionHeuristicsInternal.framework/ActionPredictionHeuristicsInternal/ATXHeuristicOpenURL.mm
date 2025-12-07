@@ -18,7 +18,7 @@
 
 - (id)heuristicResultWithEnvironment:(id)environment
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   environmentCopy = environment;
   v5 = [ATXHeuristicClipboardUtilities alloc];
   heuristicDevice = [environmentCopy heuristicDevice];
@@ -27,86 +27,85 @@
   [(ATXHeuristicClipboardUtilities *)v7 fetchContents];
   dataDetectors = [(ATXHeuristicClipboardUtilities *)v7 dataDetectors];
   v9 = [(ATXHeuristicOpenURL *)self urlsFromDataDetectorResults:dataDetectors];
-  v10 = __atxlog_handle_context_heuristic();
+  v10 = __atxlog_handle_context_heuristic(v9);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138739971;
-    v35 = v9;
+    v37 = v9;
     _os_log_impl(&dword_23E3EA000, v10, OS_LOG_TYPE_DEFAULT, "heuristicResultWithEnvironment: urls:%{sensitive}@", buf, 0xCu);
   }
 
-  if ([v9 count] == 1)
+  v11 = [v9 count];
+  if (v11 == 1)
   {
     firstObject = [v9 firstObject];
-    v12 = [objc_alloc(MEMORY[0x277CBEBC0]) initWithString:firstObject];
-    host = [v12 host];
+    v13 = [objc_alloc(MEMORY[0x277CBEBC0]) initWithString:firstObject];
+    host = [v13 host];
 
-    v14 = [MEMORY[0x277CBEB98] setWithArray:&unk_2850BA260];
-    v15 = v14;
-    if (host && [v14 containsObject:host])
+    v15 = [MEMORY[0x277CBEB98] setWithArray:&unk_2850BA260];
+    v16 = v15;
+    if (host && (v17 = [v15 containsObject:host], v17))
     {
-      v16 = __atxlog_handle_context_heuristic();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+      v18 = __atxlog_handle_context_heuristic(v17);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v35 = firstObject;
-        _os_log_impl(&dword_23E3EA000, v16, OS_LOG_TYPE_DEFAULT, "heuristicResultWithEnvironment: Suppressing action prediction for URL that will not actually open in Safari but punch out to an app immediately: %@", buf, 0xCu);
+        v37 = firstObject;
+        _os_log_impl(&dword_23E3EA000, v18, OS_LOG_TYPE_DEFAULT, "heuristicResultWithEnvironment: Suppressing action prediction for URL that will not actually open in Safari but punch out to an app immediately: %@", buf, 0xCu);
       }
 
-      v17 = objc_opt_new();
+      v19 = objc_opt_new();
     }
 
     else
     {
-      v32 = v15;
-      v19 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-      v20 = MEMORY[0x277CCACA8];
-      v21 = [v19 localizedStringForKey:@"OPEN_CLIPBOARD_LINK_TITLE" value:&stru_2850AD368 table:0];
+      v34 = v16;
+      v21 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+      v22 = MEMORY[0x277CCACA8];
+      v23 = [v21 localizedStringForKey:@"OPEN_CLIPBOARD_LINK_TITLE" value:&stru_2850AD368 table:0];
       appName = [(ATXHeuristicClipboardUtilities *)v7 appName];
-      v23 = [v20 localizedStringWithFormat:v21, appName];
+      v25 = [v22 localizedStringWithFormat:v23, appName];
 
-      v24 = MEMORY[0x277CEB2C8];
-      v25 = *MEMORY[0x277CCA850];
-      v26 = objc_opt_new();
-      v27 = [v24 atx_userActivityActionWithTitle:v23 subtitle:0 bundleID:@"com.apple.mobilesafari" activityType:v25 urlString:firstObject userInfo:v26 heuristicName:@"openUrl"];
+      v26 = MEMORY[0x277CEB2C8];
+      v27 = *MEMORY[0x277CCA850];
+      v28 = objc_opt_new();
+      v29 = [v26 atx_userActivityActionWithTitle:v25 subtitle:0 bundleID:@"com.apple.mobilesafari" activityType:v27 urlString:firstObject userInfo:v28 heuristicName:@"openUrl"];
 
-      if (v27)
+      if (v29)
       {
-        v33 = v27;
-        v28 = [MEMORY[0x277CBEA60] arrayWithObjects:&v33 count:1];
-        v17 = [(ATXHeuristicClipboardUtilities *)v7 resultWithActions:v28 predictionReasons:0x8000000];
+        v35 = v29;
+        v31 = [MEMORY[0x277CBEA60] arrayWithObjects:&v35 count:1];
+        v19 = [(ATXHeuristicClipboardUtilities *)v7 resultWithActions:v31 predictionReasons:0x8000000];
       }
 
       else
       {
-        v29 = __atxlog_handle_context_heuristic();
-        if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+        v32 = __atxlog_handle_context_heuristic(v30);
+        if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
         {
-          [(ATXHeuristicOpenURL *)firstObject heuristicResultWithEnvironment:v29];
+          [(ATXHeuristicOpenURL *)firstObject heuristicResultWithEnvironment:v32];
         }
 
-        v17 = objc_opt_new();
+        v19 = objc_opt_new();
       }
 
-      v15 = v32;
+      v16 = v34;
     }
   }
 
   else
   {
-    v18 = __atxlog_handle_context_heuristic();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+    v20 = __atxlog_handle_context_heuristic(v11);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_23E3EA000, v18, OS_LOG_TYPE_DEFAULT, "heuristicResultWithEnvironment: action prediction for URL because did not detect exactly 1 URL.", buf, 2u);
+      _os_log_impl(&dword_23E3EA000, v20, OS_LOG_TYPE_DEFAULT, "heuristicResultWithEnvironment: action prediction for URL because did not detect exactly 1 URL.", buf, 2u);
     }
 
-    v17 = objc_opt_new();
+    v19 = objc_opt_new();
   }
 
-  v30 = *MEMORY[0x277D85DE8];
-
-  return v17;
+  return v19;
 }
 
 - (id)urlsFromDataDetectorResults:(id)results
@@ -138,38 +137,38 @@
 
         if (v11)
         {
-          v12 = [v10 objectForKeyedSubscript:@"type"];
-          v13 = [v12 isEqualToString:@"HttpURL"];
+          v13 = [v10 objectForKeyedSubscript:@"type"];
+          v14 = [v13 isEqualToString:@"HttpURL"];
 
-          if (v13)
+          if (v14)
           {
-            v14 = [v10 objectForKeyedSubscript:@"value"];
-            [v4 addObject:v14];
+            v15 = [v10 objectForKeyedSubscript:@"value"];
+            [v4 addObject:v15];
           }
 
           else
           {
-            v15 = [v10 objectForKeyedSubscript:@"type"];
-            v16 = [v15 isEqualToString:@"WebURL"];
+            v16 = [v10 objectForKeyedSubscript:@"type"];
+            v17 = [v16 isEqualToString:@"WebURL"];
 
-            if (!v16)
+            if (!v17)
             {
               continue;
             }
 
-            v17 = MEMORY[0x277CCACA8];
-            v14 = [v10 objectForKeyedSubscript:@"value"];
-            v18 = [v17 stringWithFormat:@"http://%@", v14];
-            [v4 addObject:v18];
+            v18 = MEMORY[0x277CCACA8];
+            v15 = [v10 objectForKeyedSubscript:@"value"];
+            v19 = [v18 stringWithFormat:@"http://%@", v15];
+            [v4 addObject:v19];
           }
         }
 
         else
         {
-          v14 = __atxlog_handle_context_heuristic();
-          if (os_log_type_enabled(v14, OS_LOG_TYPE_FAULT))
+          v15 = __atxlog_handle_context_heuristic(v12);
+          if (os_log_type_enabled(v15, OS_LOG_TYPE_FAULT))
           {
-            [(ATXHeuristicOpenURL *)&buf urlsFromDataDetectorResults:v22, v14];
+            [(ATXHeuristicOpenURL *)&buf urlsFromDataDetectorResults:v22, v15];
           }
         }
       }
@@ -180,18 +179,15 @@
     while (v7);
   }
 
-  v19 = *MEMORY[0x277D85DE8];
-
   return v4;
 }
 
 - (void)heuristicResultWithEnvironment:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_23E3EA000, a2, OS_LOG_TYPE_ERROR, "ATXHeuristicOpenURL heuristicResultWithEnvironment: Action created from URL %@ is nil. No results returned", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_23E3EA000, a2, OS_LOG_TYPE_ERROR, "ATXHeuristicOpenURL heuristicResultWithEnvironment: Action created from URL %@ is nil. No results returned", &v2, 0xCu);
 }
 
 - (void)urlsFromDataDetectorResults:(os_log_t)log .cold.1(uint8_t *buf, _BYTE *a2, os_log_t log)

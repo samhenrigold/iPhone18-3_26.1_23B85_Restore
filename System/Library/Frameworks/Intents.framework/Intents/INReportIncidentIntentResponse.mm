@@ -23,8 +23,8 @@
 
 - (id)_dictionaryRepresentation
 {
-  v17[4] = *MEMORY[0x1E69E9840];
-  v16[0] = @"code";
+  v16[4] = *MEMORY[0x1E69E9840];
+  v15[0] = @"code";
   code = [(INReportIncidentIntentResponse *)self code];
   v4 = code;
   if (code < 0xE)
@@ -39,8 +39,8 @@
     v6 = 0;
   }
 
-  v17[0] = null;
-  v16[1] = @"transportTypes";
+  v16[0] = null;
+  v15[1] = @"transportTypes";
   v7 = INMapsTransportTypeOptionsGetNames([(INReportIncidentIntentResponse *)self transportTypes]);
   null2 = v7;
   if (!v7)
@@ -48,8 +48,8 @@
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v17[1] = null2;
-  v16[2] = @"location";
+  v16[1] = null2;
+  v15[2] = @"location";
   location = [(INReportIncidentIntentResponse *)self location];
   null3 = location;
   if (!location)
@@ -57,8 +57,8 @@
     null3 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v17[2] = null3;
-  v16[3] = @"supportedTypes";
+  v16[2] = null3;
+  v15[3] = @"supportedTypes";
   supportedTypes = [(INReportIncidentIntentResponse *)self supportedTypes];
   null4 = supportedTypes;
   if (!supportedTypes)
@@ -66,8 +66,8 @@
     null4 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v17[3] = null4;
-  v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:v16 count:4];
+  v16[3] = null4;
+  v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:v15 count:4];
   if (!supportedTypes)
   {
   }
@@ -83,8 +83,6 @@
   if (v4 >= 0xE)
   {
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 
   return v13;
 }
@@ -302,7 +300,7 @@ void __52__INReportIncidentIntentResponse_setTransportTypes___block_invoke(uint6
 
 - (INReportIncidentIntentResponse)initWithCode:(int64_t)code userActivity:(id)activity
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   activityCopy = activity;
   v7 = INSiriLogContextIntents;
   if (os_log_type_enabled(INSiriLogContextIntents, OS_LOG_TYPE_INFO))
@@ -320,21 +318,20 @@ void __52__INReportIncidentIntentResponse_setTransportTypes___block_invoke(uint6
 
     v10 = v9;
     *buf = 136315906;
-    v16 = "[INReportIncidentIntentResponse initWithCode:userActivity:]";
-    v17 = 2048;
+    v15 = "[INReportIncidentIntentResponse initWithCode:userActivity:]";
+    v16 = 2048;
     codeCopy = code;
-    v19 = 2112;
-    v20 = v10;
-    v21 = 2112;
-    v22 = activityCopy;
+    v18 = 2112;
+    v19 = v10;
+    v20 = 2112;
+    v21 = activityCopy;
     _os_log_impl(&dword_18E991000, v8, OS_LOG_TYPE_INFO, "%s code = %zd (%@), userActivity = %@", buf, 0x2Au);
   }
 
-  v14.receiver = self;
-  v14.super_class = INReportIncidentIntentResponse;
-  v11 = [(INIntentResponse *)&v14 _initWithCode:code userActivity:activityCopy];
+  v13.receiver = self;
+  v13.super_class = INReportIncidentIntentResponse;
+  v11 = [(INIntentResponse *)&v13 _initWithCode:code userActivity:activityCopy];
 
-  v12 = *MEMORY[0x1E69E9840];
   return v11;
 }
 

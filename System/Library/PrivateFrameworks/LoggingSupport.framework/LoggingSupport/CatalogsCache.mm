@@ -1,9 +1,42 @@
 @interface CatalogsCache
+- (catalog_s)catalogForCDHash:(unsigned __int16)hash identifier:(int64_t)identifier generator:(id)generator;
 - (id)init:(unsigned int)init evictionHandler:(id)handler;
 - (void)flush;
 @end
 
 @implementation CatalogsCache
+
+- (catalog_s)catalogForCDHash:(unsigned __int16)hash identifier:(int64_t)identifier generator:(id)generator
+{
+  hashCopy = hash;
+  generatorCopy = generator;
+  v9 = [[CacheIndex alloc] initWithCDHash:hashCopy identifier:identifier];
+  cache = [(CatalogsCache *)self cache];
+  v11 = [cache objectForKey:v9];
+
+  if (!v11)
+  {
+    v14 = generatorCopy[2](generatorCopy);
+    if (v14)
+    {
+      v11 = [MEMORY[0x277CCAE60] valueWithPointer:v14];
+      if (v11)
+      {
+        cache2 = [(CatalogsCache *)self cache];
+        [cache2 setObject:v11 forKey:v9];
+      }
+    }
+
+    else
+    {
+      v11 = 0;
+    }
+  }
+
+  pointerValue = [v11 pointerValue];
+
+  return pointerValue;
+}
 
 - (void)flush
 {

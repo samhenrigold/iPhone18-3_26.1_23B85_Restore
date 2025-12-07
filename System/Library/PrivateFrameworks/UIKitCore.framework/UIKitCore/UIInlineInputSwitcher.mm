@@ -213,9 +213,9 @@ LABEL_11:
     currentLinguisticInputMode = [v8 currentLinguisticInputMode];
 
     identifier = [currentLinguisticInputMode identifier];
-    v11 = [identifier isEqualToString:modesCopy];
+    isEqualToString = objc_msgSend_isEqualToString_(identifier);
 
-    if (v11)
+    if (isEqualToString)
     {
       v12 = +[UIKeyboardInputModeController sharedInputModeController];
       v13 = [v12 inputModeForASCIIToggleWithTraits:0];

@@ -57,16 +57,15 @@ void sub_E00(uint64_t a1, uint64_t a2, void *a3)
         _os_log_impl(&dword_0, v7, OS_LOG_TYPE_DEFAULT, "Registering for notifications and initializing nehelper", buf, 2u);
       }
 
-      sub_F74(val);
+      sub_F74(val, 0, "com.apple.system.config.network_change.dns");
     }
   }
 }
 
-void sub_F74(id val)
+void sub_F74(id val, int a2, void *a3)
 {
   out_token = -1;
   objc_initWeak(&location, val);
-  v2 = *(val + 2);
   xpc_event_provider_get_queue();
 }
 
@@ -77,13 +76,14 @@ void sub_1118(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int
   _Unwind_Resume(a1);
 }
 
-void sub_1158(uint64_t a1, int a2)
+void sub_1158(uint64_t a1, uint64_t a2)
 {
   if (!a1)
   {
     return;
   }
 
+  v2 = a2;
   if (a2 <= 1)
   {
     if (a2)
@@ -102,12 +102,12 @@ void sub_1158(uint64_t a1, int a2)
       {
         if ((*(a1 + 8) & 1) == 0)
         {
-          v10 = ne_log_obj();
-          if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+          v9 = ne_log_obj();
+          if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 136315138;
-            v18 = inputNotification2String();
-            _os_log_impl(&dword_0, v10, OS_LOG_TYPE_DEFAULT, "Not generating a %s event because no configurations are present that need active sessions", buf, 0xCu);
+            v15 = inputNotification2String();
+            _os_log_impl(&dword_0, v9, OS_LOG_TYPE_DEFAULT, "Not generating a %s event because no configurations are present that need active sessions", buf, 0xCu);
           }
 
           goto LABEL_50;
@@ -123,7 +123,6 @@ void sub_1158(uint64_t a1, int a2)
       {
         if (!v8)
         {
-          v9 = *(a1 + 16);
           xpc_event_provider_get_queue();
         }
       }
@@ -131,7 +130,7 @@ void sub_1158(uint64_t a1, int a2)
       else if (v8)
       {
         dispatch_source_cancel(v8);
-        v11 = *(a1 + 48);
+        v10 = *(a1 + 48);
         *(a1 + 48) = 0;
       }
 
@@ -143,12 +142,12 @@ void sub_1158(uint64_t a1, int a2)
       goto LABEL_42;
     }
 
-    v10 = ne_log_obj();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v9 = ne_log_obj();
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v18 = inputNotification2String();
-      _os_log_impl(&dword_0, v10, OS_LOG_TYPE_DEFAULT, "Not generating a %s event because no configurations are present that need to react to network changes", buf, 0xCu);
+      v15 = inputNotification2String();
+      _os_log_impl(&dword_0, v9, OS_LOG_TYPE_DEFAULT, "Not generating a %s event because no configurations are present that need to react to network changes", buf, 0xCu);
     }
 
 LABEL_50:
@@ -163,12 +162,12 @@ LABEL_50:
       goto LABEL_42;
     }
 
-    v10 = ne_log_obj();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v9 = ne_log_obj();
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v18 = inputNotification2String();
-      _os_log_impl(&dword_0, v10, OS_LOG_TYPE_DEFAULT, "Not generating a %s event because no configurations are present that need to react to changes in the installed captive network plugins", buf, 0xCu);
+      v15 = inputNotification2String();
+      _os_log_impl(&dword_0, v9, OS_LOG_TYPE_DEFAULT, "Not generating a %s event because no configurations are present that need to react to changes in the installed captive network plugins", buf, 0xCu);
     }
 
     goto LABEL_50;
@@ -182,18 +181,16 @@ LABEL_50:
     }
 
 LABEL_42:
-    v12 = ne_log_obj();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v11 = ne_log_obj();
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v18 = inputNotification2String();
-      _os_log_impl(&dword_0, v12, OS_LOG_TYPE_DEFAULT, "Generating a %s event", buf, 0xCu);
+      v15 = inputNotification2String();
+      _os_log_impl(&dword_0, v11, OS_LOG_TYPE_DEFAULT, "Generating a %s event", buf, 0xCu);
     }
 
-    v13 = xpc_dictionary_create(0, 0, 0);
-    xpc_dictionary_set_int64(v13, "network-origin-notification", a2);
-    v14 = *(a1 + 16);
-    v15 = *(a1 + 24);
+    v12 = xpc_dictionary_create(0, 0, 0);
+    xpc_dictionary_set_int64(v12, "network-origin-notification", v2);
     xpc_event_provider_token_fire();
   }
 
@@ -202,10 +199,10 @@ LABEL_42:
     goto LABEL_42;
   }
 
-  v16 = sub_234C();
-  if (v16)
+  v13 = sub_234C(NEUserEventAgentFileHandleMaintainer);
+  if (v13)
   {
-    v4 = v16;
+    v4 = v13;
     objc_sync_enter(v4);
     v5 = ne_log_obj();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
@@ -406,92 +403,92 @@ void sub_1BF4(id a1, BOOL a2)
   }
 }
 
-void init_networkextension()
+void init_networkextension(uint64_t a1)
 {
-  v0 = ne_log_obj();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
+  v1 = ne_log_obj();
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_0, v0, OS_LOG_TYPE_DEFAULT, "Initializing NetworkExtension event agent plugin", buf, 2u);
+    _os_log_impl(&dword_0, v1, OS_LOG_TYPE_DEFAULT, "Initializing NetworkExtension event agent plugin", buf, 2u);
   }
 
   out_token = -1;
-  v1 = notify_register_check("com.apple.networkextension.disable-restrictions", &out_token);
-  if (v1)
+  v2 = notify_register_check("com.apple.networkextension.disable-restrictions", &out_token);
+  if (v2)
   {
-    v2 = v1;
-    v3 = ne_log_obj();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v3 = v2;
+    v4 = ne_log_obj();
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v18 = "com.apple.networkextension.disable-restrictions";
-      v19 = 1024;
-      v20 = v2;
-      _os_log_error_impl(&dword_0, v3, OS_LOG_TYPE_ERROR, "Failed to register for the %s notification: %u", buf, 0x12u);
+      v19 = "com.apple.networkextension.disable-restrictions";
+      v20 = 1024;
+      v21 = v3;
+      _os_log_error_impl(&dword_0, v4, OS_LOG_TYPE_ERROR, "Failed to register for the %s notification: %u", buf, 0x12u);
     }
   }
 
   out_token = -1;
-  v4 = notify_register_check("com.apple.networkextension.fallback-default", &out_token);
-  if (v4)
+  v5 = notify_register_check("com.apple.networkextension.fallback-default", &out_token);
+  if (v5)
   {
-    v5 = v4;
-    v6 = ne_log_obj();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v6 = v5;
+    v7 = ne_log_obj();
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v18 = "com.apple.networkextension.fallback-default";
-      v19 = 1024;
-      v20 = v5;
-      _os_log_error_impl(&dword_0, v6, OS_LOG_TYPE_ERROR, "Failed to register for the %s notification: %u", buf, 0x12u);
+      v19 = "com.apple.networkextension.fallback-default";
+      v20 = 1024;
+      v21 = v6;
+      _os_log_error_impl(&dword_0, v7, OS_LOG_TYPE_ERROR, "Failed to register for the %s notification: %u", buf, 0x12u);
     }
   }
 
   out_token = -1;
-  v7 = notify_register_check("com.apple.networkextension.disable-nexus", &out_token);
-  if (v7)
+  v8 = notify_register_check("com.apple.networkextension.disable-nexus", &out_token);
+  if (v8)
   {
-    v8 = v7;
-    v9 = ne_log_obj();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v9 = v8;
+    v10 = ne_log_obj();
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v18 = "com.apple.networkextension.disable-nexus";
-      v19 = 1024;
-      v20 = v8;
-      _os_log_error_impl(&dword_0, v9, OS_LOG_TYPE_ERROR, "Failed to register for the %s notification: %u", buf, 0x12u);
+      v19 = "com.apple.networkextension.disable-nexus";
+      v20 = 1024;
+      v21 = v9;
+      _os_log_error_impl(&dword_0, v10, OS_LOG_TYPE_ERROR, "Failed to register for the %s notification: %u", buf, 0x12u);
     }
   }
 
   out_token = -1;
-  v10 = notify_register_check("com.apple.networkextension.uuidcache", &out_token);
-  if (v10)
+  v11 = notify_register_check("com.apple.networkextension.uuidcache", &out_token);
+  if (v11)
   {
-    v11 = v10;
-    v12 = ne_log_obj();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v12 = v11;
+    v13 = ne_log_obj();
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v18 = "com.apple.networkextension.uuidcache";
-      v19 = 1024;
-      v20 = v11;
-      _os_log_error_impl(&dword_0, v12, OS_LOG_TYPE_ERROR, "Failed to register for the %s notification: %u", buf, 0x12u);
+      v19 = "com.apple.networkextension.uuidcache";
+      v20 = 1024;
+      v21 = v12;
+      _os_log_error_impl(&dword_0, v13, OS_LOG_TYPE_ERROR, "Failed to register for the %s notification: %u", buf, 0x12u);
     }
   }
 
   out_token = -1;
-  v13 = notify_register_check("com.apple.networkextension.apps-have-local-network-entitlements", &out_token);
-  if (v13)
+  v14 = notify_register_check("com.apple.networkextension.apps-have-local-network-entitlements", &out_token);
+  if (v14)
   {
-    v14 = v13;
-    v15 = ne_log_obj();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v15 = v14;
+    v16 = ne_log_obj();
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v18 = "com.apple.networkextension.apps-have-local-network-entitlements";
-      v19 = 1024;
-      v20 = v14;
-      _os_log_error_impl(&dword_0, v15, OS_LOG_TYPE_ERROR, "Failed to register for the %s notification: %u", buf, 0x12u);
+      v19 = "com.apple.networkextension.apps-have-local-network-entitlements";
+      v20 = 1024;
+      v21 = v15;
+      _os_log_error_impl(&dword_0, v16, OS_LOG_TYPE_ERROR, "Failed to register for the %s notification: %u", buf, 0x12u);
     }
   }
 
@@ -503,7 +500,7 @@ void init_networkextension()
 
 void NEFileHandleMaintainerStart()
 {
-  sub_234C();
+  sub_234C(NEUserEventAgentFileHandleMaintainer);
   if (objc_claimAutoreleasedReturnValue())
   {
     v0 = @"com.apple.networkextension.file-descriptor-maintainer";
@@ -546,7 +543,7 @@ void NEUserEventAgentNetworkBlockedObserverStart()
   }
 }
 
-id sub_234C()
+id sub_234C(uint64_t a1)
 {
   objc_opt_self();
   if (qword_8AB8 != -1)
@@ -554,9 +551,9 @@ id sub_234C()
     dispatch_once(&qword_8AB8, &stru_8430);
   }
 
-  v0 = qword_8AB0;
+  v1 = qword_8AB0;
 
-  return v0;
+  return v1;
 }
 
 void sub_23A4(id a1)
@@ -569,7 +566,7 @@ void sub_23A4(id a1)
 void sub_23E0(uint64_t a1, uint64_t a2, void *a3)
 {
   v5 = a3;
-  v11 = sub_234C();
+  v11 = sub_234C(NEUserEventAgentFileHandleMaintainer);
   v6 = v5;
   if (v11)
   {
@@ -612,7 +609,7 @@ void sub_23E0(uint64_t a1, uint64_t a2, void *a3)
   }
 }
 
-void sub_25E8(uint64_t a1, int a2)
+void sub_25E8(uint64_t a1, unsigned int a2)
 {
   if (a1)
   {
@@ -635,7 +632,7 @@ void sub_25E8(uint64_t a1, int a2)
         if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
         {
           *buf = 136315138;
-          v20 = "com.apple.nesessionmanager";
+          v19 = "com.apple.nesessionmanager";
           _os_log_error_impl(&dword_0, v8, OS_LOG_TYPE_ERROR, "Failed to register for the %s notification", buf, 0xCu);
         }
 
@@ -653,9 +650,9 @@ void sub_25E8(uint64_t a1, int a2)
           if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
           {
             *buf = 136315394;
-            v20 = "com.apple.nesessionmanager";
-            v21 = 1024;
-            v22 = v11;
+            v19 = "com.apple.nesessionmanager";
+            v20 = 1024;
+            v21 = v11;
             _os_log_error_impl(&dword_0, v12, OS_LOG_TYPE_ERROR, "Failed to set the %s notification state: %u", buf, 0x12u);
           }
 
@@ -672,9 +669,9 @@ void sub_25E8(uint64_t a1, int a2)
         if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
         {
           *buf = 136315394;
-          v20 = "com.apple.nesessionmanager";
-          v21 = 1024;
-          v22 = v14;
+          v19 = "com.apple.nesessionmanager";
+          v20 = 1024;
+          v21 = v14;
           _os_log_error_impl(&dword_0, v15, OS_LOG_TYPE_ERROR, "Failed to post the %s notification: %u", buf, 0x12u);
         }
       }
@@ -689,7 +686,6 @@ void sub_25E8(uint64_t a1, int a2)
 
       if (a2 >= 1)
       {
-        v18 = *(a1 + 16);
         xpc_event_provider_get_queue();
       }
     }
@@ -702,19 +698,17 @@ void sub_294C(void *a1)
   {
     v1 = a1;
     objc_sync_enter(v1);
-    if (*(v1 + 8))
+    if (v1[8])
     {
       v2 = ne_log_obj();
       if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
       {
-        *v5 = 0;
-        _os_log_impl(&dword_0, v2, OS_LOG_TYPE_DEFAULT, "Sending file handles to nesessionmanager", v5, 2u);
+        *v3 = 0;
+        _os_log_impl(&dword_0, v2, OS_LOG_TYPE_DEFAULT, "Sending file handles to nesessionmanager", v3, 2u);
       }
 
       [v1 createEvent];
       objc_claimAutoreleasedReturnValue();
-      v3 = *(v1 + 2);
-      v4 = *(v1 + 3);
       xpc_event_provider_token_fire();
     }
 
@@ -774,18 +768,12 @@ void sub_2C0C(uint64_t a1, void *a2)
   {
     v5 = *(a1 + 32);
     *buf = 138412290;
-    v9 = v5;
+    v7 = v5;
     _os_log_impl(&dword_0, v4, OS_LOG_TYPE_DEFAULT, "File Handle Maintainer got a readable event on %@, launching owner", buf, 0xCu);
   }
 
   [v3 setReadabilityHandler:0];
   dispatch_time(0, 1000000000);
-  v6 = *(a1 + 40);
-  if (v6)
-  {
-    v7 = *(v6 + 16);
-  }
-
   xpc_event_provider_get_queue();
 }
 
@@ -795,9 +783,9 @@ void sub_2D80(uint64_t a1)
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 40);
-    v8[0] = 67109120;
-    v8[1] = v3;
-    _os_log_impl(&dword_0, v2, OS_LOG_TYPE_DEFAULT, "nesessionmanager(%d) exited", v8, 8u);
+    v6[0] = 67109120;
+    v6[1] = v3;
+    _os_log_impl(&dword_0, v2, OS_LOG_TYPE_DEFAULT, "nesessionmanager(%d) exited", v6, 8u);
   }
 
   v4 = *(a1 + 32);
@@ -808,15 +796,14 @@ void sub_2D80(uint64_t a1)
     v5 = ne_log_obj();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v8[0]) = 0;
-      _os_log_impl(&dword_0, v5, OS_LOG_TYPE_DEFAULT, "nesessionmanager exited with active sessions, re-launching nesessionmanager to clear agent status", v8, 2u);
+      LOWORD(v6[0]) = 0;
+      _os_log_impl(&dword_0, v5, OS_LOG_TYPE_DEFAULT, "nesessionmanager exited with active sessions, re-launching nesessionmanager to clear agent status", v6, 2u);
     }
 
     sub_294C(*(a1 + 32));
-    v6 = sub_D6C();
-    if (v6)
+    sub_D6C();
+    if (objc_claimAutoreleasedReturnValue())
     {
-      v7 = *(v6 + 16);
       xpc_event_provider_get_queue();
     }
   }

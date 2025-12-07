@@ -20,6 +20,7 @@
 - (void)invalidate;
 - (void)noteSignificantUserInteraction;
 - (void)resume;
+- (void)setActive:(BOOL)active options:(unint64_t)options completion:(id)completion;
 - (void)triggerRemoteSync;
 @end
 
@@ -27,12 +28,12 @@
 
 - (SCLSchoolModeXPCClient)initWithDelegate:(id)delegate configuration:(id)configuration
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   delegateCopy = delegate;
   configurationCopy = configuration;
-  v31.receiver = self;
-  v31.super_class = SCLSchoolModeXPCClient;
-  v8 = [(SCLSchoolModeXPCClient *)&v31 init];
+  v32.receiver = self;
+  v32.super_class = SCLSchoolModeXPCClient;
+  v8 = [(SCLSchoolModeXPCClient *)&v32 init];
   v9 = v8;
   if (v8)
   {
@@ -43,26 +44,27 @@
     v9->_connectionState = 0;
     v9->_clientState = 0;
     v10 = mach_timebase_info(&v9->_timebase);
+    v11 = v10;
     if (v10)
     {
-      v11 = scl_framework_log();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      v12 = scl_framework_log(v10);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
-        [(SCLSchoolModeXPCClient *)configurationCopy initWithDelegate:v10 configuration:v11];
+        [(SCLSchoolModeXPCClient *)configurationCopy initWithDelegate:v11 configuration:v12];
       }
     }
 
-    v12 = objc_alloc_init(SCLSchoolModeServerSettings);
+    v13 = objc_alloc_init(SCLSchoolModeServerSettings);
     serverSettings = v9->_serverSettings;
-    v9->_serverSettings = v12;
+    v9->_serverSettings = v13;
 
-    v14 = objc_alloc_init(SCLMutableScheduleSettings);
-    v15 = objc_alloc_init(SCLSchedule);
-    [(SCLMutableScheduleSettings *)v14 setSchedule:v15];
+    v15 = objc_alloc_init(SCLMutableScheduleSettings);
+    v16 = objc_alloc_init(SCLSchedule);
+    [(SCLMutableScheduleSettings *)v15 setSchedule:v16];
 
-    [(SCLSchoolModeServerSettings *)v9->_serverSettings setScheduleSettings:v14];
-    v16 = [[SCLState alloc] initWithActiveState:0 scheduleEnabled:0 inSchedule:0];
-    [(SCLSchoolModeServerSettings *)v9->_serverSettings setState:v16];
+    [(SCLSchoolModeServerSettings *)v9->_serverSettings setScheduleSettings:v15];
+    v17 = [[SCLState alloc] initWithActiveState:0 scheduleEnabled:0 inSchedule:0];
+    [(SCLSchoolModeServerSettings *)v9->_serverSettings setState:v17];
     [(SCLSchoolModeXPCClient *)v9 _makeConnection:configurationCopy];
     identifier = [configurationCopy identifier];
     objc_initWeak(&location, v9);
@@ -73,47 +75,44 @@
     handler[1] = 3221225472;
     handler[2] = __57__SCLSchoolModeXPCClient_initWithDelegate_configuration___block_invoke;
     handler[3] = &unk_279B6C0B0;
-    v21 = identifier;
-    v28 = v21;
-    objc_copyWeak(&v29, &location);
-    v22 = notify_register_dispatch(uTF8String, &v9->_restartNotificationToken, targetQueue, handler);
+    v22 = identifier;
+    v29 = v22;
+    objc_copyWeak(&v30, &location);
+    v23 = notify_register_dispatch(uTF8String, &v9->_restartNotificationToken, targetQueue, handler);
 
-    if (v22)
+    if (v23)
     {
-      v23 = scl_framework_log();
-      if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+      v25 = scl_framework_log(v24);
+      if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
       {
-        v24 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:v22];
-        [(SCLSchoolModeXPCClient *)v21 initWithDelegate:v24 configuration:buf, v23];
+        v26 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:v23];
+        [(SCLSchoolModeXPCClient *)v22 initWithDelegate:v26 configuration:buf, v25];
       }
     }
 
-    objc_destroyWeak(&v29);
+    objc_destroyWeak(&v30);
 
     objc_destroyWeak(&location);
   }
 
-  v25 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
 void __57__SCLSchoolModeXPCClient_initWithDelegate_configuration___block_invoke(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v2 = scl_framework_log();
+  v7 = *MEMORY[0x277D85DE8];
+  v2 = scl_framework_log(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
-    v6 = 138543362;
-    v7 = v3;
-    _os_log_impl(&dword_264829000, v2, OS_LOG_TYPE_DEFAULT, "[%{public}@] received server restart notification", &v6, 0xCu);
+    v5 = 138543362;
+    v6 = v3;
+    _os_log_impl(&dword_264829000, v2, OS_LOG_TYPE_DEFAULT, "[%{public}@] received server restart notification", &v5, 0xCu);
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   [WeakRetained setLastServerRestartTime:mach_continuous_time()];
   [WeakRetained _reconnectToServer];
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dealloc
@@ -236,25 +235,24 @@ void __57__SCLSchoolModeXPCClient_initWithDelegate_configuration___block_invoke(
 
 void __42__SCLSchoolModeXPCClient__makeConnection___block_invoke(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
-  v3 = scl_framework_log();
+  v3 = scl_framework_log(WeakRetained);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = *(a1 + 32);
-    v6 = 138543362;
-    v7 = v4;
-    _os_log_impl(&dword_264829000, v3, OS_LOG_TYPE_DEFAULT, "[%{public}@] Connection was interrupted.", &v6, 0xCu);
+    v5 = 138543362;
+    v6 = v4;
+    _os_log_impl(&dword_264829000, v3, OS_LOG_TYPE_DEFAULT, "[%{public}@] Connection was interrupted.", &v5, 0xCu);
   }
 
   [WeakRetained _connectionDidInterrupt];
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __42__SCLSchoolModeXPCClient__makeConnection___block_invoke_10(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 40));
-  v3 = scl_framework_log();
+  v3 = scl_framework_log(WeakRetained);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __42__SCLSchoolModeXPCClient__makeConnection___block_invoke_10_cold_1(a1, v3);
@@ -280,11 +278,11 @@ void __32__SCLSchoolModeXPCClient_resume__block_invoke(uint64_t a1, void *a2)
   v6 = [v5 identifier];
 
   v7 = *(a1 + 40);
-  v8 = scl_framework_log();
-  v9 = os_log_type_enabled(v8, OS_LOG_TYPE_ERROR);
+  v9 = scl_framework_log(v8);
+  v10 = os_log_type_enabled(v9, OS_LOG_TYPE_ERROR);
   if (v7)
   {
-    if (v9)
+    if (v10)
     {
       __32__SCLSchoolModeXPCClient_resume__block_invoke_cold_1();
     }
@@ -292,13 +290,13 @@ void __32__SCLSchoolModeXPCClient_resume__block_invoke(uint64_t a1, void *a2)
 
   else
   {
-    if (v9)
+    if (v10)
     {
       __32__SCLSchoolModeXPCClient_resume__block_invoke_cold_2();
     }
 
-    v10 = [[SCLState alloc] initWithActiveState:0 scheduleEnabled:0 inSchedule:0];
-    [v4 setState:v10];
+    v11 = [[SCLState alloc] initWithActiveState:0 scheduleEnabled:0 inSchedule:0];
+    [v4 setState:v11];
 
     [*(a1 + 32) applyServerSettings:v4];
   }
@@ -307,33 +305,34 @@ void __32__SCLSchoolModeXPCClient_resume__block_invoke(uint64_t a1, void *a2)
 void __32__SCLSchoolModeXPCClient_resume__block_invoke_12(uint64_t a1, void *a2)
 {
   v3 = a2;
+  v4 = v3;
   if (*(a1 + 40) == 1)
   {
-    v4 = scl_framework_log();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+    v5 = scl_framework_log(v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
-      *v7 = 0;
-      _os_log_impl(&dword_264829000, v4, OS_LOG_TYPE_INFO, "synchronous, updating server settings before applying", v7, 2u);
+      *v8 = 0;
+      _os_log_impl(&dword_264829000, v5, OS_LOG_TYPE_INFO, "synchronous, updating server settings before applying", v8, 2u);
     }
 
     os_unfair_lock_lock((*(a1 + 32) + 8));
-    v5 = *(*(a1 + 32) + 16);
-    v6 = [v3 state];
-    [v5 setState:v6];
+    v6 = *(*(a1 + 32) + 16);
+    v7 = [v4 state];
+    [v6 setState:v7];
 
     os_unfair_lock_unlock((*(a1 + 32) + 8));
   }
 
-  [*(a1 + 32) applyServerSettings:v3];
+  [*(a1 + 32) applyServerSettings:v4];
 }
 
 - (void)_reconnectToServer
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v3 = _os_activity_create(&dword_264829000, "Reconnect SCLSchoolMode", MEMORY[0x277D86210], OS_ACTIVITY_FLAG_DEFAULT);
-  v13.opaque[0] = 0;
-  v13.opaque[1] = 0;
-  os_activity_scope_enter(v3, &v13);
+  v14.opaque[0] = 0;
+  v14.opaque[1] = 0;
+  os_activity_scope_enter(v3, &v14);
   identifier = [(SCLSchoolModeConfiguration *)self->_configuration identifier];
   configuration = [(SCLSchoolModeXPCClient *)self configuration];
   v6 = [(SCLSchoolModeXPCClient *)self _makeConnection:configuration];
@@ -341,43 +340,42 @@ void __32__SCLSchoolModeXPCClient_resume__block_invoke_12(uint64_t a1, void *a2)
   os_unfair_lock_lock(&self->_connectionLock);
   clientState = [(SCLSchoolModeXPCClient *)self clientState];
   os_unfair_lock_unlock(&self->_connectionLock);
-  v8 = scl_framework_log();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  v9 = scl_framework_log(v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     if (clientState > 2)
     {
-      v9 = &stru_287622948;
+      v10 = &stru_287622948;
     }
 
     else
     {
-      v9 = off_279B6C1E0[clientState];
+      v10 = off_279B6C1E0[clientState];
     }
 
     *buf = 138543874;
-    v15 = identifier;
-    v16 = 1024;
-    v17 = v6;
-    v18 = 2112;
-    v19 = v9;
-    _os_log_impl(&dword_264829000, v8, OS_LOG_TYPE_DEFAULT, "[%{public}@] made new connection for reconnect: %{BOOL}d; clientState: %@", buf, 0x1Cu);
+    v16 = identifier;
+    v17 = 1024;
+    v18 = v6;
+    v19 = 2112;
+    v20 = v10;
+    _os_log_impl(&dword_264829000, v9, OS_LOG_TYPE_DEFAULT, "[%{public}@] made new connection for reconnect: %{BOOL}d; clientState: %@", buf, 0x1Cu);
   }
 
   if (clientState == 1 && v6)
   {
-    v11 = scl_framework_log();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v13 = scl_framework_log(v11);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v15 = identifier;
-      _os_log_impl(&dword_264829000, v11, OS_LOG_TYPE_DEFAULT, "[%{public}@] new connection and previously running, resuming", buf, 0xCu);
+      v16 = identifier;
+      _os_log_impl(&dword_264829000, v13, OS_LOG_TYPE_DEFAULT, "[%{public}@] new connection and previously running, resuming", buf, 0xCu);
     }
 
     [(SCLSchoolModeXPCClient *)self resume];
   }
 
-  os_activity_scope_leave(&v13);
-  v12 = *MEMORY[0x277D85DE8];
+  os_activity_scope_leave(&v14);
 }
 
 - (SCLState)state
@@ -435,52 +433,74 @@ void __32__SCLSchoolModeXPCClient_resume__block_invoke_12(uint64_t a1, void *a2)
   [v9 applySchedule:v10 completion:v7];
 }
 
+- (void)setActive:(BOOL)active options:(unint64_t)options completion:(id)completion
+{
+  activeCopy = active;
+  completionCopy = completion;
+  v15[0] = MEMORY[0x277D85DD0];
+  v15[1] = 3221225472;
+  v15[2] = __55__SCLSchoolModeXPCClient_setActive_options_completion___block_invoke;
+  v15[3] = &unk_279B6C178;
+  v15[4] = self;
+  v17 = activeCopy;
+  v9 = completionCopy;
+  v16 = v9;
+  v10 = [(SCLSchoolModeXPCClient *)self serverWithErrorHandler:v15];
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __55__SCLSchoolModeXPCClient_setActive_options_completion___block_invoke_14;
+  v12[3] = &unk_279B6C1A0;
+  v14 = activeCopy;
+  v12[4] = self;
+  v13 = v9;
+  v11 = v9;
+  [v10 setActive:activeCopy options:options completion:v12];
+}
+
 void __55__SCLSchoolModeXPCClient_setActive_options_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v4 = scl_framework_log();
+  v4 = scl_framework_log(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     v5 = [*(a1 + 32) configuration];
     v6 = [v5 identifier];
     v7 = *(a1 + 48);
-    v9 = 138412802;
-    v10 = v6;
-    v11 = 1024;
-    v12 = v7;
-    v13 = 2112;
-    v14 = v3;
-    _os_log_impl(&dword_264829000, v4, OS_LOG_TYPE_INFO, "[%@] setActive %{BOOL}u error %@", &v9, 0x1Cu);
+    v8 = 138412802;
+    v9 = v6;
+    v10 = 1024;
+    v11 = v7;
+    v12 = 2112;
+    v13 = v3;
+    _os_log_impl(&dword_264829000, v4, OS_LOG_TYPE_INFO, "[%@] setActive %{BOOL}u error %@", &v8, 0x1Cu);
   }
 
   (*(*(a1 + 40) + 16))();
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __55__SCLSchoolModeXPCClient_setActive_options_completion___block_invoke_14(uint64_t a1, int a2, void *a3)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v5 = a3;
-  v6 = scl_framework_log();
+  v6 = scl_framework_log(v5);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     v7 = [*(a1 + 32) configuration];
     v8 = [v7 identifier];
     v9 = *(a1 + 48);
-    v11 = 138413058;
-    v12 = v8;
-    v13 = 1024;
-    v14 = v9;
-    v15 = 1024;
-    v16 = a2;
-    v17 = 2112;
-    v18 = v5;
-    _os_log_impl(&dword_264829000, v6, OS_LOG_TYPE_INFO, "[%@] setActive %{BOOL}u success %{BOOL}u error %@", &v11, 0x22u);
+    v10 = 138413058;
+    v11 = v8;
+    v12 = 1024;
+    v13 = v9;
+    v14 = 1024;
+    v15 = a2;
+    v16 = 2112;
+    v17 = v5;
+    _os_log_impl(&dword_264829000, v6, OS_LOG_TYPE_INFO, "[%@] setActive %{BOOL}u success %{BOOL}u error %@", &v10, 0x22u);
   }
 
   (*(*(a1 + 40) + 16))();
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)fetchRecentUnlockHistoryItemsWithCompletion:(id)completion
@@ -560,25 +580,24 @@ void __55__SCLSchoolModeXPCClient_setActive_options_completion___block_invoke_14
 
 - (void)_connectionDidInvalidate
 {
-  v13 = *MEMORY[0x277D85DE8];
-  v3 = scl_framework_log();
+  v12 = *MEMORY[0x277D85DE8];
+  v3 = scl_framework_log(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     configuration = [(SCLSchoolModeXPCClient *)self configuration];
     identifier = [configuration identifier];
     configuration2 = [(SCLSchoolModeXPCClient *)self configuration];
     pairingID = [configuration2 pairingID];
-    v9 = 138412546;
-    v10 = identifier;
-    v11 = 2112;
-    v12 = pairingID;
-    _os_log_impl(&dword_264829000, v3, OS_LOG_TYPE_DEFAULT, "Marking connection as interrupted and NOT reconnecting %@ - %@", &v9, 0x16u);
+    v8 = 138412546;
+    v9 = identifier;
+    v10 = 2112;
+    v11 = pairingID;
+    _os_log_impl(&dword_264829000, v3, OS_LOG_TYPE_DEFAULT, "Marking connection as interrupted and NOT reconnecting %@ - %@", &v8, 0x16u);
   }
 
   os_unfair_lock_lock(&self->_connectionLock);
   self->_connectionState = 4;
   os_unfair_lock_unlock(&self->_connectionLock);
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_connectionDidInterrupt
@@ -588,10 +607,11 @@ void __55__SCLSchoolModeXPCClient_setActive_options_completion___block_invoke_14
   targetQueue = [configuration targetQueue];
   dispatch_assert_queue_V2(targetQueue);
 
-  if ([(SCLSchoolModeXPCClient *)self lastServerRestartTime]&& (v5 = mach_continuous_time(), (v5 - [(SCLSchoolModeXPCClient *)self lastServerRestartTime]) * self->_timebase.numer / self->_timebase.denom <= 0x773593FF))
+  lastServerRestartTime = [(SCLSchoolModeXPCClient *)self lastServerRestartTime];
+  if (lastServerRestartTime && (v6 = mach_continuous_time(), lastServerRestartTime = [(SCLSchoolModeXPCClient *)self lastServerRestartTime], (v6 - lastServerRestartTime) * self->_timebase.numer / self->_timebase.denom <= 0x773593FF))
   {
-    v6 = scl_framework_log();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = scl_framework_log(lastServerRestartTime);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       configuration2 = [(SCLSchoolModeXPCClient *)self configuration];
       identifier = [configuration2 identifier];
@@ -601,7 +621,7 @@ void __55__SCLSchoolModeXPCClient_setActive_options_completion___block_invoke_14
       v18 = identifier;
       v19 = 2112;
       v20 = pairingID;
-      _os_log_impl(&dword_264829000, v6, OS_LOG_TYPE_DEFAULT, "Marking connection as interrupted and reconnecting %@ - %@ because server recently restarted", &v17, 0x16u);
+      _os_log_impl(&dword_264829000, v7, OS_LOG_TYPE_DEFAULT, "Marking connection as interrupted and reconnecting %@ - %@ because server recently restarted", &v17, 0x16u);
     }
 
     os_unfair_lock_lock(&self->_connectionLock);
@@ -612,8 +632,8 @@ void __55__SCLSchoolModeXPCClient_setActive_options_completion___block_invoke_14
 
   else
   {
-    v11 = scl_framework_log();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v12 = scl_framework_log(lastServerRestartTime);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       configuration4 = [(SCLSchoolModeXPCClient *)self configuration];
       identifier2 = [configuration4 identifier];
@@ -623,20 +643,18 @@ void __55__SCLSchoolModeXPCClient_setActive_options_completion___block_invoke_14
       v18 = identifier2;
       v19 = 2112;
       v20 = pairingID2;
-      _os_log_impl(&dword_264829000, v11, OS_LOG_TYPE_DEFAULT, "Marking connection as interrupted and NOT reconnecting %@ - %@", &v17, 0x16u);
+      _os_log_impl(&dword_264829000, v12, OS_LOG_TYPE_DEFAULT, "Marking connection as interrupted and NOT reconnecting %@ - %@", &v17, 0x16u);
     }
 
     os_unfair_lock_lock(&self->_connectionLock);
     self->_connectionState = 3;
     os_unfair_lock_unlock(&self->_connectionLock);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)applyServerSettings:(id)settings
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   settingsCopy = settings;
   os_unfair_lock_lock(&self->_lock);
   v5 = self->_serverSettings;
@@ -647,18 +665,18 @@ void __55__SCLSchoolModeXPCClient_setActive_options_completion___block_invoke_14
   os_unfair_lock_unlock(&self->_lock);
   state = [(SCLSchoolModeServerSettings *)v5 state];
   state2 = [settingsCopy state];
-  v10 = scl_framework_log();
+  v10 = scl_framework_log(state2);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
   {
     configuration = [(SCLSchoolModeXPCClient *)self configuration];
     identifier = [configuration identifier];
-    v19 = 138543874;
-    v20 = identifier;
-    v21 = 2112;
-    v22 = state;
-    v23 = 2112;
-    v24 = state2;
-    _os_log_impl(&dword_264829000, v10, OS_LOG_TYPE_INFO, "[%{public}@] Applying server settings, oldState %@, newState %@", &v19, 0x20u);
+    v18 = 138543874;
+    v19 = identifier;
+    v20 = 2112;
+    v21 = state;
+    v22 = 2112;
+    v23 = state2;
+    _os_log_impl(&dword_264829000, v10, OS_LOG_TYPE_INFO, "[%{public}@] Applying server settings, oldState %@, newState %@", &v18, 0x20u);
   }
 
   if (state != state2 && ([state isEqual:state2] & 1) == 0)
@@ -680,8 +698,6 @@ void __55__SCLSchoolModeXPCClient_setActive_options_completion___block_invoke_14
     delegate3 = [(SCLSchoolModeXPCClient *)self delegate];
     [delegate3 client:self didUpdateScheduleSettings:scheduleSettings2];
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)didChangeUnlockHistory
@@ -699,15 +715,13 @@ void __55__SCLSchoolModeXPCClient_setActive_options_completion___block_invoke_14
 
 - (void)initWithDelegate:(NSObject *)a3 configuration:.cold.1(void *a1, int a2, NSObject *a3)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v5 = [a1 identifier];
-  v7 = 138543618;
-  v8 = v5;
-  v9 = 1024;
-  v10 = a2;
-  _os_log_error_impl(&dword_264829000, a3, OS_LOG_TYPE_ERROR, "[%{public}@] Error getting timebase info: %{errno}d", &v7, 0x12u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  v6 = 138543618;
+  v7 = v5;
+  v8 = 1024;
+  v9 = a2;
+  _os_log_error_impl(&dword_264829000, a3, OS_LOG_TYPE_ERROR, "[%{public}@] Error getting timebase info: %{errno}d", &v6, 0x12u);
 }
 
 - (void)initWithDelegate:(uint8_t *)buf configuration:(os_log_t)log .cold.2(uint64_t a1, void *a2, uint8_t *buf, os_log_t log)
@@ -721,28 +735,11 @@ void __55__SCLSchoolModeXPCClient_setActive_options_completion___block_invoke_14
 
 void __42__SCLSchoolModeXPCClient__makeConnection___block_invoke_10_cold_1(uint64_t a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
-  v4 = 138543362;
-  v5 = v2;
-  _os_log_error_impl(&dword_264829000, a2, OS_LOG_TYPE_ERROR, "[%{public}@] Connection was invalidated remotely.", &v4, 0xCu);
-  v3 = *MEMORY[0x277D85DE8];
-}
-
-void __32__SCLSchoolModeXPCClient_resume__block_invoke_cold_1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_264829000, v0, v1, "[%{public}@] Failed to get settings for reconnecting to school mode: %@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-void __32__SCLSchoolModeXPCClient_resume__block_invoke_cold_2()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_264829000, v0, v1, "[%{public}@] Failed to get initial settings for school mode: %@");
-  v2 = *MEMORY[0x277D85DE8];
+  v3 = 138543362;
+  v4 = v2;
+  _os_log_error_impl(&dword_264829000, a2, OS_LOG_TYPE_ERROR, "[%{public}@] Connection was invalidated remotely.", &v3, 0xCu);
 }
 
 @end

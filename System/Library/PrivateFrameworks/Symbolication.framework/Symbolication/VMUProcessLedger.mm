@@ -300,41 +300,41 @@ LABEL_8:
 
 + (id)_getProcessLedgerDictFromKernelLedger:(int)ledger
 {
-  v50 = *MEMORY[0x1E69E9840];
-  v48 = 0u;
-  v49 = 0u;
-  v46 = 0u;
+  v49 = *MEMORY[0x1E69E9840];
   v47 = 0u;
-  v44 = 0u;
+  v48 = 0u;
   v45 = 0u;
-  v42 = 0u;
+  v46 = 0u;
   v43 = 0u;
-  v40 = 0u;
+  v44 = 0u;
   v41 = 0u;
-  v38 = 0u;
+  v42 = 0u;
   v39 = 0u;
-  v36 = 0u;
+  v40 = 0u;
   v37 = 0u;
-  v34 = 0u;
+  v38 = 0u;
   v35 = 0u;
-  v32 = 0u;
+  v36 = 0u;
   v33 = 0u;
-  v30 = 0u;
+  v34 = 0u;
   v31 = 0u;
-  v28 = 0u;
+  v32 = 0u;
   v29 = 0u;
-  v26 = 0u;
+  v30 = 0u;
   v27 = 0u;
-  v24 = 0u;
+  v28 = 0u;
   v25 = 0u;
-  v22 = 0u;
+  v26 = 0u;
   v23 = 0u;
+  v24 = 0u;
+  v21 = 0u;
+  v22 = 0u;
   *buffer = 0u;
-  v19 = objc_alloc_init(MEMORY[0x1E695DF90]);
+  v18 = objc_alloc_init(MEMORY[0x1E695DF90]);
   if (!proc_pid_rusage(ledger, 6, buffer))
   {
-    v4 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:v36];
-    [v19 setObject:v4 forKeyedSubscript:@"phys_footprint_lifetime_max"];
+    v4 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:v35];
+    [v18 setObject:v4 forKeyedSubscript:@"phys_footprint_lifetime_max"];
   }
 
   v5 = 0;
@@ -342,7 +342,7 @@ LABEL_8:
   do
   {
     v7 = 2 * v6;
-    v20 = 2 * v6;
+    v19 = 2 * v6;
     v5 = malloc_type_realloc(v5, 192 * v6, 0x1000040565EDBD2uLL);
     if ((ledger() & 0x80000000) != 0)
     {
@@ -356,8 +356,8 @@ LABEL_20:
     v6 = v7;
   }
 
-  while (v7 == v20);
-  v8 = malloc_type_malloc(48 * v20, 0x1000040EED21634uLL);
+  while (v7 == v19);
+  v8 = malloc_type_malloc(48 * v19, 0x1000040EED21634uLL);
   if ((ledger() & 0x80000000) != 0)
   {
     free(v8);
@@ -366,10 +366,10 @@ LABEL_20:
     goto LABEL_20;
   }
 
-  if (v20 >= 1)
+  if (v19 >= 1)
   {
     v9 = 0;
-    v18 = v8;
+    v17 = v8;
     do
     {
       v10 = 0;
@@ -388,9 +388,9 @@ LABEL_20:
             v12 = &v5[96 * v9];
           }
 
-          v13 = [MEMORY[0x1E696AD98] numberWithLongLong:{*v11, v18}];
+          v13 = [MEMORY[0x1E696AD98] numberWithLongLong:{*v11, v17}];
           v14 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v12];
-          [v19 setObject:v13 forKeyedSubscript:v14];
+          [v18 setObject:v13 forKeyedSubscript:v14];
         }
 
         ++v10;
@@ -398,18 +398,16 @@ LABEL_20:
 
       while (v10 != 22);
       ++v9;
-      v8 = v18;
+      v8 = v17;
     }
 
-    while (v9 < v20);
+    while (v9 < v19);
   }
 
   free(v5);
   free(v8);
-  v15 = [v19 copy];
+  v15 = [v18 copy];
 LABEL_21:
-
-  v16 = *MEMORY[0x1E69E9840];
 
   return v15;
 }

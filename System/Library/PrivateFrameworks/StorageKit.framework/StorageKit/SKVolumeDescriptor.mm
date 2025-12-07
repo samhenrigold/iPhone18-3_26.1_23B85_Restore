@@ -74,7 +74,7 @@ LABEL_8:
 
 - (BOOL)validateForErase
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   name = [(SKVolumeDescriptor *)self name];
   v4 = [name length];
 
@@ -86,13 +86,13 @@ LABEL_8:
       goto LABEL_18;
     }
 
-    v20 = 136315394;
-    v21 = "[SKVolumeDescriptor validateForErase]";
-    v22 = 2112;
+    v19 = 136315394;
+    v20 = "[SKVolumeDescriptor validateForErase]";
+    v21 = 2112;
     selfCopy4 = self;
     v15 = "%s: Empty name on descriptor %@";
 LABEL_17:
-    _os_log_impl(&dword_26BBB8000, v14, OS_LOG_TYPE_ERROR, v15, &v20, 0x16u);
+    _os_log_impl(&dword_26BBB8000, v14, OS_LOG_TYPE_ERROR, v15, &v19, 0x16u);
     goto LABEL_18;
   }
 
@@ -111,9 +111,9 @@ LABEL_17:
         goto LABEL_18;
       }
 
-      v20 = 136315394;
-      v21 = "[SKVolumeDescriptor validateForErase]";
-      v22 = 2112;
+      v19 = 136315394;
+      v20 = "[SKVolumeDescriptor validateForErase]";
+      v21 = 2112;
       selfCopy4 = self;
       v15 = "%s: Empty password on descriptor %@";
       goto LABEL_17;
@@ -135,9 +135,9 @@ LABEL_17:
         goto LABEL_18;
       }
 
-      v20 = 136315394;
-      v21 = "[SKVolumeDescriptor validateForErase]";
-      v22 = 2112;
+      v19 = 136315394;
+      v20 = "[SKVolumeDescriptor validateForErase]";
+      v21 = 2112;
       selfCopy4 = self;
       v15 = "%s: Non encrypted filesystem provided with password %@";
       goto LABEL_17;
@@ -145,39 +145,33 @@ LABEL_17:
   }
 
   password4 = [(SKVolumeDescriptor *)self password];
-  if (password4)
+  if (!password4)
   {
+    filesystem2 = [(SKVolumeDescriptor *)self filesystem];
+    isEncrypted2 = [filesystem2 isEncrypted];
 
-LABEL_19:
-    result = 1;
-    goto LABEL_20;
-  }
+    if (!isEncrypted2)
+    {
+      return 1;
+    }
 
-  filesystem2 = [(SKVolumeDescriptor *)self filesystem];
-  isEncrypted2 = [filesystem2 isEncrypted];
-
-  if (!isEncrypted2)
-  {
-    goto LABEL_19;
-  }
-
-  v14 = SKGetOSLog();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
-  {
-    v20 = 136315394;
-    v21 = "[SKVolumeDescriptor validateForErase]";
-    v22 = 2112;
-    selfCopy4 = self;
-    v15 = "%s: Encrypted filesystem provided without password %@";
-    goto LABEL_17;
-  }
+    v14 = SKGetOSLog();
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    {
+      v19 = 136315394;
+      v20 = "[SKVolumeDescriptor validateForErase]";
+      v21 = 2112;
+      selfCopy4 = self;
+      v15 = "%s: Encrypted filesystem provided without password %@";
+      goto LABEL_17;
+    }
 
 LABEL_18:
 
-  result = 0;
-LABEL_20:
-  v19 = *MEMORY[0x277D85DE8];
-  return result;
+    return 0;
+  }
+
+  return 1;
 }
 
 - (void)encodeWithCoder:(id)coder

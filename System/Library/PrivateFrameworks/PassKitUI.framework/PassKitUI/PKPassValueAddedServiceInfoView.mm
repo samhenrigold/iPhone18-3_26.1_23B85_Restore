@@ -371,11 +371,13 @@ uint64_t __63__PKPassValueAddedServiceInfoView_setPass_animated_completion___blo
 {
   [(PKPass *)self->_pass style];
   PKPassViewFrontSize();
+  v3 = v2;
+  v5 = v4 * 0.15;
   PKPassHeightAdjustmentForStyle();
 
-  PKSizeRoundToPixel();
-  result.height = v3;
-  result.width = v2;
+  PKSizeRoundToPixel(v5, (v3 - v6) * 0.15);
+  result.height = v8;
+  result.width = v7;
   return result;
 }
 
@@ -468,10 +470,10 @@ LABEL_9:
 {
   _labelFont = [(PKPassValueAddedServiceInfoView *)self _labelFont];
   [_labelFont _bodyLeading];
-  PKFloatRoundToPixel();
-  v4 = v3;
+  PKFloatRoundToPixel(v3, v4);
+  v6 = v5;
 
-  return v4;
+  return v6;
 }
 
 @end

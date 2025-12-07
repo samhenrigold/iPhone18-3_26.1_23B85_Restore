@@ -164,8 +164,8 @@ LABEL_7:
     v7 = *(impl + 237);
     *(impl + 6954) = index;
     *(impl + 6955) = endIndex;
-    v8 = AGX::CounterSamplingContextGen1::validateSampleIndex(buffer, impl + 6954);
-    v9 = AGX::CounterSamplingContextGen1::validateSampleIndex(buffer, impl + 6955);
+    v8 = AGX::CounterSamplingContextGen1::validateSampleIndex(buffer, impl + 27816);
+    v9 = AGX::CounterSamplingContextGen1::validateSampleIndex(buffer, impl + 27820);
     if ((v8 & 1) != 0 || v9)
     {
       v9 = AGX::CounterSamplingContextGen1::setCounterSampleBuffer((impl + 27808), buffer);
@@ -387,7 +387,7 @@ LABEL_7:
 
     while (v10 != countCopy3);
     countCopy = countCopy2;
-    AGX::ContextCommon<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::DataBufferAllocator>::useResourcesCommon(impl, resources, countCopy2, v5, v9, v9);
+    AGX::ContextCommon<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::DataBufferAllocator>::useResourcesCommon(impl, resources, countCopy2, v9, v9, v5);
     selfCopy = selfCopy2;
   }
 
@@ -452,7 +452,7 @@ LABEL_7:
       }
     }
 
-    AGX::ContextCommon<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::DataBufferAllocator>::useResourceCommon(impl, resource, v4, v8, v8);
+    AGX::ContextCommon<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::DataBufferAllocator>::useResourceCommon(impl, resource, v8, v8, v4);
   }
 
   if ([(AGXG18PFamilyComputeContext *)self dispatchType]== 1)
@@ -1558,7 +1558,7 @@ LABEL_54:
     v7 = *threads;
     v6 = *threadgroup;
     impl[515] |= 1u;
-    AGX::ComputeContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding,AGX::HAL300::EncoderComputeServiceClasses>::executeKernelThreadsInternal(impl, 0x16u, &v7, &v6);
+    AGX::ComputeContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding,AGX::HAL300::EncoderComputeServiceClasses>::executeKernelThreadsInternal(impl, 22, &v7, &v6);
     *(self->_impl + 487) = *(self->_impl + 485);
   }
 }
@@ -1608,7 +1608,7 @@ LABEL_54:
   v5 = v4 + 47;
   if ((v4 + 47) > impl[10].i64[0])
   {
-    v9 = AGX::DataBufferAllocator<44ul>::growNoInline(&impl[1].u64[1], 3, 0);
+    v9 = AGX::DataBufferAllocator<44ul>::growNoInline(&impl[1].i64[1], 3, 0);
     v4 = impl[10].i64[1];
     if (!v9)
     {

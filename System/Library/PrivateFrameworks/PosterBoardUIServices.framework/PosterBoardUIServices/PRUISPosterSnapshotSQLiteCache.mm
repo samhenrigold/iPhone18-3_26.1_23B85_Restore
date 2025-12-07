@@ -281,152 +281,153 @@ void __76__PRUISPosterSnapshotSQLiteCache_cacheSnapshotBundle_forRequest_complet
 
 - (void)discardSnapshotsForPostersMatchingPredicate:(id)predicate
 {
-  v60 = *MEMORY[0x1E69E9840];
+  v62 = *MEMORY[0x1E69E9840];
   predicateCopy = predicate;
   v5 = [(PRUISPosterSnapshotSQLiteCache *)self _accessCacheWithError:0];
   if (v5)
   {
     truePredicate = [MEMORY[0x1E69C55C8] truePredicate];
-    v49 = 0;
-    v7 = [v5 snapshotBundlesMatchingPredicate:truePredicate outError:&v49];
-    v8 = v49;
+    v51 = 0;
+    v7 = [v5 snapshotBundlesMatchingPredicate:truePredicate outError:&v51];
+    v8 = v51;
 
     if (v7)
     {
-      v9 = v8 == 0;
+      v10 = v8 == 0;
     }
 
     else
     {
-      v9 = 0;
+      v10 = 0;
     }
 
-    if (v9)
+    if (v10)
     {
       selfCopy = self;
-      v37 = v8;
-      v39 = v5;
-      v10 = objc_opt_new();
-      v45 = 0u;
-      v46 = 0u;
+      v39 = v8;
+      v41 = v5;
+      v11 = objc_opt_new();
       v47 = 0u;
       v48 = 0u;
-      v38 = v7;
-      v11 = v7;
-      v12 = [v11 countByEnumeratingWithState:&v45 objects:v59 count:16];
-      if (v12)
+      v49 = 0u;
+      v50 = 0u;
+      v40 = v7;
+      v12 = v7;
+      v13 = [v12 countByEnumeratingWithState:&v47 objects:v61 count:16];
+      if (v13)
       {
-        v13 = v12;
-        v14 = *v46;
+        v14 = v13;
+        v15 = *v48;
         do
         {
-          for (i = 0; i != v13; ++i)
+          for (i = 0; i != v14; ++i)
           {
-            if (*v46 != v14)
+            if (*v48 != v15)
             {
-              objc_enumerationMutation(v11);
+              objc_enumerationMutation(v12);
             }
 
-            v16 = *(*(&v45 + 1) + 8 * i);
-            bundleURL = [v16 bundleURL];
-            v18 = [predicateCopy evaluateWithObject:bundleURL];
+            v17 = *(*(&v47 + 1) + 8 * i);
+            bundleURL = [v17 bundleURL];
+            v19 = [predicateCopy evaluateWithObject:bundleURL];
 
-            if (v18)
+            if (v19)
             {
-              [v10 addObject:v16];
+              [v11 addObject:v17];
             }
           }
 
-          v13 = [v11 countByEnumeratingWithState:&v45 objects:v59 count:16];
+          v14 = [v12 countByEnumeratingWithState:&v47 objects:v61 count:16];
         }
 
-        while (v13);
+        while (v14);
       }
 
-      if ([v10 count])
+      if ([v11 count])
       {
-        v19 = MEMORY[0x1E69C55C8];
-        firstObject = [v10 firstObject];
-        v21 = [v19 predicateMatchingContext:firstObject];
-        sQLitePredicate = [v21 SQLitePredicate];
+        v20 = MEMORY[0x1E69C55C8];
+        firstObject = [v11 firstObject];
+        v22 = [v20 predicateMatchingContext:firstObject];
+        sQLitePredicate = [v22 SQLitePredicate];
 
-        [v10 removeObjectAtIndex:0];
+        [v11 removeObjectAtIndex:0];
+        v45 = 0u;
+        v46 = 0u;
         v43 = 0u;
         v44 = 0u;
-        v41 = 0u;
-        v42 = 0u;
-        v10 = v10;
-        v23 = [v10 countByEnumeratingWithState:&v41 objects:v58 count:16];
-        if (v23)
+        v11 = v11;
+        v24 = [v11 countByEnumeratingWithState:&v43 objects:v60 count:16];
+        if (v24)
         {
-          v24 = v23;
-          v25 = *v42;
+          v25 = v24;
+          v26 = *v44;
           do
           {
-            v26 = 0;
-            v27 = sQLitePredicate;
+            v27 = 0;
+            v28 = sQLitePredicate;
             do
             {
-              if (*v42 != v25)
+              if (*v44 != v26)
               {
-                objc_enumerationMutation(v10);
+                objc_enumerationMutation(v11);
               }
 
-              v28 = [MEMORY[0x1E69C55C8] predicateMatchingContext:*(*(&v41 + 1) + 8 * v26)];
-              sQLitePredicate2 = [v28 SQLitePredicate];
-              sQLitePredicate = [v27 orPredicate:sQLitePredicate2];
+              v29 = [MEMORY[0x1E69C55C8] predicateMatchingContext:*(*(&v43 + 1) + 8 * v27)];
+              sQLitePredicate2 = [v29 SQLitePredicate];
+              sQLitePredicate = [v28 orPredicate:sQLitePredicate2];
 
-              ++v26;
-              v27 = sQLitePredicate;
+              ++v27;
+              v28 = sQLitePredicate;
             }
 
-            while (v24 != v26);
-            v24 = [v10 countByEnumeratingWithState:&v41 objects:v58 count:16];
+            while (v25 != v27);
+            v25 = [v11 countByEnumeratingWithState:&v43 objects:v60 count:16];
           }
 
-          while (v24);
+          while (v25);
         }
 
-        v40 = 0;
-        v5 = v39;
-        v30 = [v39 discardSnapshotBundlesMatchingSQLPredicate:sQLitePredicate outError:&v40];
-        v31 = v40;
-        if (v31)
+        v42 = 0;
+        v5 = v41;
+        v31 = [v41 discardSnapshotBundlesMatchingSQLPredicate:sQLitePredicate outError:&v42];
+        v32 = v42;
+        v33 = v32;
+        if (v32)
         {
-          v32 = PRUISLogSnapshotting();
-          if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
+          v34 = PRUISLogSnapshotting(v32);
+          if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
           {
-            v33 = objc_opt_class();
-            v34 = NSStringFromClass(v33);
-            pf_description = [v31 pf_description];
+            v35 = objc_opt_class();
+            v36 = NSStringFromClass(v35);
+            pf_description = [v33 pf_description];
             *buf = 138544130;
-            v51 = v34;
-            v52 = 2050;
-            v53 = selfCopy;
-            v54 = 2114;
-            v55 = sQLitePredicate;
+            v53 = v36;
+            v54 = 2050;
+            v55 = selfCopy;
             v56 = 2114;
-            v57 = pf_description;
-            _os_log_error_impl(&dword_1CAE63000, v32, OS_LOG_TYPE_ERROR, "<%{public}@:%{public}p> error discarding snapshot bundles using predicate: %{public}@, error: %{public}@", buf, 0x2Au);
+            v57 = sQLitePredicate;
+            v58 = 2114;
+            v59 = pf_description;
+            _os_log_error_impl(&dword_1CAE63000, v34, OS_LOG_TYPE_ERROR, "<%{public}@:%{public}p> error discarding snapshot bundles using predicate: %{public}@, error: %{public}@", buf, 0x2Au);
           }
         }
       }
 
       else
       {
-        v5 = v39;
+        v5 = v41;
       }
 
-      v8 = v37;
-      v7 = v38;
+      v8 = v39;
+      v7 = v40;
     }
 
     else
     {
-      v10 = PRUISLogSnapshotting();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      v11 = PRUISLogSnapshotting(v9);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
-        [(PRUISPosterSnapshotSQLiteCache *)self discardSnapshotsForPostersMatchingPredicate:v8, v10];
+        [(PRUISPosterSnapshotSQLiteCache *)self discardSnapshotsForPostersMatchingPredicate:v8, v11];
       }
     }
   }

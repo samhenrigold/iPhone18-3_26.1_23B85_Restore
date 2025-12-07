@@ -49,17 +49,15 @@ void __16__EDLexicon_log__block_invoke(uint64_t a1)
 
 void __20__EDLexicon_english__block_invoke()
 {
-  v5[2] = *MEMORY[0x1E69E9840];
+  v4[2] = *MEMORY[0x1E69E9840];
   v0 = *MEMORY[0x1E69ABFE0];
-  v4[0] = *MEMORY[0x1E69ABFE8];
-  v4[1] = v0;
-  v5[0] = @"en";
-  v5[1] = MEMORY[0x1E695E118];
-  v1 = -[EDLexicon initWithLocale:options:]([EDLexicon alloc], "initWithLocale:options:", @"en", [MEMORY[0x1E695DF20] dictionaryWithObjects:v5 forKeys:v4 count:2]);
+  v3[0] = *MEMORY[0x1E69ABFE8];
+  v3[1] = v0;
+  v4[0] = @"en";
+  v4[1] = MEMORY[0x1E695E118];
+  v1 = -[EDLexicon initWithLocale:options:]([EDLexicon alloc], "initWithLocale:options:", @"en", [MEMORY[0x1E695DF20] dictionaryWithObjects:v4 forKeys:v3 count:2]);
   v2 = english_english;
   english_english = v1;
-
-  v3 = *MEMORY[0x1E69E9840];
 }
 
 + (id)current
@@ -76,26 +74,24 @@ void __20__EDLexicon_english__block_invoke()
 
 void __20__EDLexicon_current__block_invoke()
 {
-  v6[1] = *MEMORY[0x1E69E9840];
+  v5[1] = *MEMORY[0x1E69E9840];
   v0 = [MEMORY[0x1E695DF58] currentLocale];
   v1 = [v0 localeIdentifier];
 
-  v5 = *MEMORY[0x1E69ABFE8];
-  v6[0] = v1;
-  v2 = -[EDLexicon initWithLocale:options:]([EDLexicon alloc], "initWithLocale:options:", v1, [MEMORY[0x1E695DF20] dictionaryWithObjects:v6 forKeys:&v5 count:1]);
+  v4 = *MEMORY[0x1E69ABFE8];
+  v5[0] = v1;
+  v2 = -[EDLexicon initWithLocale:options:]([EDLexicon alloc], "initWithLocale:options:", v1, [MEMORY[0x1E695DF20] dictionaryWithObjects:v5 forKeys:&v4 count:1]);
   v3 = current_current;
   current_current = v2;
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (EDLexicon)initWithLocale:(id)locale options:(__CFDictionary *)options
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   localeCopy = locale;
-  v12.receiver = self;
-  v12.super_class = EDLexicon;
-  v6 = [(EDLexicon *)&v12 init];
+  v11.receiver = self;
+  v11.super_class = EDLexicon;
+  v6 = [(EDLexicon *)&v11 init];
   if (v6)
   {
     v7 = LXLexiconCreate();
@@ -111,7 +107,6 @@ void __20__EDLexicon_current__block_invoke()
     }
   }
 
-  v10 = *MEMORY[0x1E69E9840];
   return v6;
 }
 
@@ -122,11 +117,11 @@ void __20__EDLexicon_current__block_invoke()
   LXLexiconEnumerateEntriesForString();
 }
 
-void __66__EDLexicon__lexiconEnumerateEntries_forString_completionHandler___block_invoke(uint64_t a1)
+void __66__EDLexicon__lexiconEnumerateEntries_forString_completionHandler___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v1 = *(a1 + 32);
-  v2 = LXEntryCopyString();
-  (*(v1 + 16))(v1);
+  v2 = *(a1 + 32);
+  v3 = LXEntryCopyString();
+  (*(v2 + 16))(v2);
 }
 
 - (BOOL)isRealWord:(id)word
@@ -156,7 +151,7 @@ void __66__EDLexicon__lexiconEnumerateEntries_forString_completionHandler___bloc
   return v8;
 }
 
-uint64_t __24__EDLexicon_isRealWord___block_invoke(uint64_t a1, uint64_t a2, _BYTE *a3)
+void *__24__EDLexicon_isRealWord___block_invoke(uint64_t a1, uint64_t a2, _BYTE *a3)
 {
   result = [*(a1 + 32) caseInsensitiveCompare:a2];
   if (!result)

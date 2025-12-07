@@ -13,7 +13,7 @@
 
 - (id)eligibleAssetsBetweenStartDate:(id)date andEndDate:(id)endDate matchingAssetUUID:(id)d progress:(id)progress
 {
-  v71 = *MEMORY[0x277D85DE8];
+  v70 = *MEMORY[0x277D85DE8];
   dateCopy = date;
   endDateCopy = endDate;
   dCopy = d;
@@ -32,26 +32,26 @@ LABEL_53:
       goto LABEL_54;
     }
 
-    v65 = session;
+    v64 = session;
     loggingConnection = [session loggingConnection];
     if (os_log_type_enabled(loggingConnection, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412546;
-      *v70 = dateCopy;
-      *&v70[8] = 2112;
-      *&v70[10] = endDateCopy;
+      *v69 = dateCopy;
+      *&v69[8] = 2112;
+      *&v69[10] = endDateCopy;
       _os_log_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_DEFAULT, "Recent Syndicated Asset: Computing eligible assets between %@ and %@", buf, 0x16u);
     }
 
-    v64 = loggingConnection;
+    v63 = loggingConnection;
     0x3FE0000000000000 = [MEMORY[0x277CCAC30] predicateWithFormat:@"overallAestheticScore >= %f", 0x3FE0000000000000];
     v21 = [MEMORY[0x277CCAC30] predicateWithFormat:@"curationScore >= %f", *MEMORY[0x277D3C768]];
     noVideoPredicate = [objc_opt_class() noVideoPredicate];
-    v57 = [MEMORY[0x277D3B248] predicateForIncludeMask:objc_msgSend(MEMORY[0x277D3B248] useIndex:{"maskForGuestAsset"), 0}];
-    v58 = noVideoPredicate;
-    v59 = v21;
-    v60 = 0x3FE0000000000000;
-    v23 = [objc_alloc(MEMORY[0x277CBEB18]) initWithObjects:{0x3FE0000000000000, v21, noVideoPredicate, v57, 0}];
+    v56 = [MEMORY[0x277D3B248] predicateForIncludeMask:objc_msgSend(MEMORY[0x277D3B248] useIndex:{"maskForGuestAsset"), 0}];
+    v57 = noVideoPredicate;
+    v58 = v21;
+    v59 = 0x3FE0000000000000;
+    v23 = [objc_alloc(MEMORY[0x277CBEB18]) initWithObjects:{0x3FE0000000000000, v21, noVideoPredicate, v56, 0}];
     if (dateCopy)
     {
       dateCopy = [MEMORY[0x277CCAC30] predicateWithFormat:@"dateCreated >= %@", dateCopy];
@@ -64,48 +64,48 @@ LABEL_53:
       [v23 addObject:endDateCopy];
     }
 
-    v62 = endDateCopy;
-    v63 = dateCopy;
-    v18 = v65;
+    v61 = endDateCopy;
+    v62 = dateCopy;
+    v18 = v64;
     if (dCopy)
     {
       dCopy = [MEMORY[0x277CCAC30] predicateWithFormat:@"uuid == %@", dCopy];
       [v23 addObject:dCopy];
     }
 
-    v61 = dCopy;
+    v60 = dCopy;
     v27 = [MEMORY[0x277CCA920] andPredicateWithSubpredicates:v23];
-    photoLibrary = [v65 photoLibrary];
+    photoLibrary = [v64 photoLibrary];
     librarySpecificFetchOptions = [photoLibrary librarySpecificFetchOptions];
 
-    v56 = v27;
+    v55 = v27;
     [librarySpecificFetchOptions setInternalPredicate:v27];
     v30 = +[PGCurationManager assetPropertySetsForCuration];
     [librarySpecificFetchOptions setFetchPropertySets:v30];
 
     [librarySpecificFetchOptions setIncludeGuestAssets:1];
     v31 = [MEMORY[0x277CD97A8] fetchAssetsWithOptions:librarySpecificFetchOptions];
-    v55 = v31;
+    v54 = v31;
     if (v13)
     {
       Current = CFAbsoluteTimeGetCurrent();
       if (Current - v14 >= 0.01)
       {
-        v67 = 0;
-        v13[2](v13, &v67, 0.4);
-        if (v67)
+        v66 = 0;
+        v13[2](v13, &v66, 0.4);
+        if (v66)
         {
           if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
           {
             *buf = 67109378;
-            *v70 = 205;
-            *&v70[4] = 2080;
-            *&v70[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Suggestions/Suggesters/Single Asset Suggester/PGRecentSyndicatedAssetSuggester.m";
+            *v69 = 205;
+            *&v69[4] = 2080;
+            *&v69[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Suggestions/Suggesters/Single Asset Suggester/PGRecentSyndicatedAssetSuggester.m";
             _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
           }
 
           v16 = MEMORY[0x277CBEBF8];
-          v33 = v64;
+          v33 = v63;
           goto LABEL_52;
         }
 
@@ -115,7 +115,7 @@ LABEL_53:
 
     clsPrefetchOptionsForKeyAsset = [MEMORY[0x277CD97A8] clsPrefetchOptionsForKeyAsset];
     v35 = MEMORY[0x277CD97A8];
-    curationContext = [v65 curationContext];
+    curationContext = [v64 curationContext];
     v37 = [v35 clsAllAssetsFromFetchResult:v31 prefetchOptions:clsPrefetchOptionsForKeyAsset curationContext:curationContext];
 
     if (v13)
@@ -124,22 +124,22 @@ LABEL_53:
       v39 = 0x277CCA000uLL;
       if (v38 - v14 >= 0.01)
       {
-        v67 = 0;
-        v13[2](v13, &v67, 0.8);
-        if (v67)
+        v66 = 0;
+        v13[2](v13, &v66, 0.8);
+        if (v66)
         {
           if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
           {
             *buf = 67109378;
-            *v70 = 210;
-            *&v70[4] = 2080;
-            *&v70[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Suggestions/Suggesters/Single Asset Suggester/PGRecentSyndicatedAssetSuggester.m";
+            *v69 = 210;
+            *&v69[4] = 2080;
+            *&v69[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Suggestions/Suggesters/Single Asset Suggester/PGRecentSyndicatedAssetSuggester.m";
             _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
           }
 
           v16 = MEMORY[0x277CBEBF8];
-          v33 = v64;
-          v18 = v65;
+          v33 = v63;
+          v18 = v64;
           goto LABEL_51;
         }
 
@@ -154,40 +154,40 @@ LABEL_53:
     }
 
     v40 = *(v39 + 3120);
-    v66[0] = MEMORY[0x277D85DD0];
-    v66[1] = 3221225472;
-    v66[2] = __105__PGRecentSyndicatedAssetSuggester_eligibleAssetsBetweenStartDate_andEndDate_matchingAssetUUID_progress___block_invoke;
-    v66[3] = &unk_2788894C0;
-    v66[4] = self;
-    v41 = [v40 predicateWithBlock:v66];
+    v65[0] = MEMORY[0x277D85DD0];
+    v65[1] = 3221225472;
+    v65[2] = __105__PGRecentSyndicatedAssetSuggester_eligibleAssetsBetweenStartDate_andEndDate_matchingAssetUUID_progress___block_invoke;
+    v65[3] = &unk_2788894C0;
+    v65[4] = self;
+    v41 = [v40 predicateWithBlock:v65];
     v42 = [v37 filteredArrayUsingPredicate:v41];
 
-    v33 = v64;
-    v43 = v64;
+    v33 = v63;
+    v43 = v63;
     if (os_log_type_enabled(v43, OS_LOG_TYPE_DEFAULT))
     {
       v44 = [v42 count];
       *buf = 134217984;
-      *v70 = v44;
+      *v69 = v44;
       _os_log_impl(&dword_22F0FC000, v43, OS_LOG_TYPE_DEFAULT, "Recent Syndicated Asset: found %lu eligible assets", buf, 0xCu);
     }
 
-    v18 = v65;
+    v18 = v64;
     if (v13)
     {
       v45 = CFAbsoluteTimeGetCurrent();
       if (v45 - v14 >= 0.01)
       {
-        v67 = 0;
-        v13[2](v13, &v67, 0.9);
-        if (v67)
+        v66 = 0;
+        v13[2](v13, &v66, 0.9);
+        if (v66)
         {
           if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
           {
             *buf = 67109378;
-            *v70 = 230;
-            *&v70[4] = 2080;
-            *&v70[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Suggestions/Suggesters/Single Asset Suggester/PGRecentSyndicatedAssetSuggester.m";
+            *v69 = 230;
+            *&v69[4] = 2080;
+            *&v69[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Suggestions/Suggesters/Single Asset Suggester/PGRecentSyndicatedAssetSuggester.m";
             _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
           }
 
@@ -197,9 +197,9 @@ LABEL_50:
 LABEL_51:
 LABEL_52:
 
-          endDateCopy = v62;
-          dateCopy = v63;
-          dCopy = v61;
+          endDateCopy = v61;
+          dateCopy = v62;
+          dCopy = v60;
           goto LABEL_53;
         }
 
@@ -207,27 +207,27 @@ LABEL_52:
       }
     }
 
-    v54 = v37;
+    v53 = v37;
     v46 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"overallAestheticScore" ascending:0];
-    v68[0] = v46;
+    v67[0] = v46;
     v47 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"curationScore" ascending:0];
-    v68[1] = v47;
+    v67[1] = v47;
     v48 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"creationDate" ascending:1];
-    v68[2] = v48;
+    v67[2] = v48;
     v49 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"uuid" ascending:1];
-    v68[3] = v49;
-    v50 = [MEMORY[0x277CBEA60] arrayWithObjects:v68 count:4];
+    v67[3] = v49;
+    v50 = [MEMORY[0x277CBEA60] arrayWithObjects:v67 count:4];
 
     v51 = [v42 sortedArrayUsingDescriptors:v50];
 
-    if (v13 && CFAbsoluteTimeGetCurrent() - v14 >= 0.01 && (v67 = 0, v13[2](v13, &v67, 1.0), v67))
+    if (v13 && CFAbsoluteTimeGetCurrent() - v14 >= 0.01 && (v66 = 0, v13[2](v13, &v66, 1.0), v66))
     {
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
       {
         *buf = 67109378;
-        *v70 = 241;
-        *&v70[4] = 2080;
-        *&v70[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Suggestions/Suggesters/Single Asset Suggester/PGRecentSyndicatedAssetSuggester.m";
+        *v69 = 241;
+        *&v69[4] = 2080;
+        *&v69[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Suggestions/Suggesters/Single Asset Suggester/PGRecentSyndicatedAssetSuggester.m";
         _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
       }
 
@@ -239,16 +239,16 @@ LABEL_52:
       v16 = v51;
     }
 
-    v33 = v64;
-    v37 = v54;
+    v33 = v63;
+    v37 = v53;
 
     v42 = v51;
     goto LABEL_50;
   }
 
-  v67 = 0;
-  v13[2](v13, &v67, 0.0);
-  if (v67 != 1)
+  v66 = 0;
+  v13[2](v13, &v66, 0.0);
+  if (v66 != 1)
   {
     v14 = v15;
     goto LABEL_8;
@@ -257,16 +257,14 @@ LABEL_52:
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
   {
     *buf = 67109378;
-    *v70 = 164;
-    *&v70[4] = 2080;
-    *&v70[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Suggestions/Suggesters/Single Asset Suggester/PGRecentSyndicatedAssetSuggester.m";
+    *v69 = 164;
+    *&v69[4] = 2080;
+    *&v69[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Suggestions/Suggesters/Single Asset Suggester/PGRecentSyndicatedAssetSuggester.m";
     _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
   }
 
   v16 = MEMORY[0x277CBEBF8];
 LABEL_54:
-
-  v52 = *MEMORY[0x277D85DE8];
 
   return v16;
 }
@@ -297,7 +295,7 @@ uint64_t __105__PGRecentSyndicatedAssetSuggester_eligibleAssetsBetweenStartDate_
 
 - (id)reasonsForSuggestion:(id)suggestion
 {
-  v14[2] = *MEMORY[0x277D85DE8];
+  v13[2] = *MEMORY[0x277D85DE8];
   keyAssets = [suggestion keyAssets];
   firstObject = [keyAssets firstObject];
 
@@ -307,11 +305,9 @@ uint64_t __105__PGRecentSyndicatedAssetSuggester_eligibleAssetsBetweenStartDate_
   v8 = MEMORY[0x277CCACA8];
   [firstObject curationScore];
   v10 = [v8 stringWithFormat:@"curation = %.3f", v9];
-  v14[0] = v7;
-  v14[1] = v10;
-  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:2];
-
-  v12 = *MEMORY[0x277D85DE8];
+  v13[0] = v7;
+  v13[1] = v10;
+  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:2];
 
   return v11;
 }
@@ -347,15 +343,15 @@ uint64_t __105__PGRecentSyndicatedAssetSuggester_eligibleAssetsBetweenStartDate_
 
 - (id)nextSuggestionWithProgress:(id)progress
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   progressCopy = progress;
   session = [(PGAbstractSuggester *)self session];
   loggingConnection = [session loggingConnection];
 
   if (os_log_type_enabled(loggingConnection, OS_LOG_TYPE_DEFAULT))
   {
-    LOWORD(v19) = 0;
-    _os_log_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_DEFAULT, "Recent Syndicated Asset: nextSuggestion", &v19, 2u);
+    LOWORD(v18) = 0;
+    _os_log_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_DEFAULT, "Recent Syndicated Asset: nextSuggestion", &v18, 2u);
   }
 
   suggestedAssetEnumerator = self->_suggestedAssetEnumerator;
@@ -386,9 +382,9 @@ uint64_t __105__PGRecentSyndicatedAssetSuggester_eligibleAssetsBetweenStartDate_
     v16 = [(PGRecentSyndicatedAssetSuggester *)self createSuggestionWithAsset:nextObject];
     if (os_log_type_enabled(loggingConnection, OS_LOG_TYPE_DEFAULT))
     {
-      v19 = 138477827;
-      v20 = v16;
-      _os_log_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_DEFAULT, "Recent Syndicated Asset: Suggesting %{private}@", &v19, 0xCu);
+      v18 = 138477827;
+      v19 = v16;
+      _os_log_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_DEFAULT, "Recent Syndicated Asset: Suggesting %{private}@", &v18, 0xCu);
     }
   }
 
@@ -396,14 +392,12 @@ uint64_t __105__PGRecentSyndicatedAssetSuggester_eligibleAssetsBetweenStartDate_
   {
     if (os_log_type_enabled(loggingConnection, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v19) = 0;
-      _os_log_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_DEFAULT, "Recent Syndicated Asset: Nothing to suggest", &v19, 2u);
+      LOWORD(v18) = 0;
+      _os_log_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_DEFAULT, "Recent Syndicated Asset: Nothing to suggest", &v18, 2u);
     }
 
     v16 = 0;
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return v16;
 }
@@ -454,44 +448,44 @@ uint64_t __105__PGRecentSyndicatedAssetSuggester_eligibleAssetsBetweenStartDate_
 
 - (id)suggestionsWithOptions:(id)options progress:(id)progress
 {
-  v68 = *MEMORY[0x277D85DE8];
+  v67 = *MEMORY[0x277D85DE8];
   optionsCopy = options;
   aBlock = progress;
   objc_storeStrong(&self->_options, options);
   v7 = _Block_copy(aBlock);
-  v59 = 0;
-  v60 = &v59;
-  v61 = 0x2020000000;
-  v62 = 0;
-  v55 = 0;
-  v56 = &v55;
-  v57 = 0x2020000000;
   v58 = 0;
-  if (!v7 || (v8 = CFAbsoluteTimeGetCurrent(), v8 - v56[3] < 0.01) || (v56[3] = v8, v54 = 0, (*(v7 + 2))(v7, &v54, 0.0), v9 = *(v60 + 24) | v54, *(v60 + 24) = v9, (v9 & 1) == 0))
+  v59 = &v58;
+  v60 = 0x2020000000;
+  v61 = 0;
+  v54 = 0;
+  v55 = &v54;
+  v56 = 0x2020000000;
+  v57 = 0;
+  if (!v7 || (v8 = CFAbsoluteTimeGetCurrent(), v8 - v55[3] < 0.01) || (v55[3] = v8, v53 = 0, (*(v7 + 2))(v7, &v53, 0.0), v9 = *(v59 + 24) | v53, *(v59 + 24) = v9, (v9 & 1) == 0))
   {
     v11 = objc_alloc_init(MEMORY[0x277CBEB18]);
     universalStartDate = [optionsCopy universalStartDate];
     universalEndDate = [optionsCopy universalEndDate];
-    v49[0] = MEMORY[0x277D85DD0];
-    v49[1] = 3221225472;
-    v49[2] = __68__PGRecentSyndicatedAssetSuggester_suggestionsWithOptions_progress___block_invoke;
-    v49[3] = &unk_27888A188;
-    v41 = v7;
-    v50 = v41;
-    v51 = &v55;
-    v52 = &v59;
-    v53 = 0x3F847AE147AE147BLL;
-    v14 = [(PGRecentSyndicatedAssetSuggester *)self eligibleAssetsBetweenStartDate:universalStartDate andEndDate:universalEndDate matchingAssetUUID:0 progress:v49];
-    v39 = universalStartDate;
-    v40 = universalEndDate;
-    if (*(v60 + 24) == 1)
+    v48[0] = MEMORY[0x277D85DD0];
+    v48[1] = 3221225472;
+    v48[2] = __68__PGRecentSyndicatedAssetSuggester_suggestionsWithOptions_progress___block_invoke;
+    v48[3] = &unk_27888A188;
+    v40 = v7;
+    v49 = v40;
+    v50 = &v54;
+    v51 = &v58;
+    v52 = 0x3F847AE147AE147BLL;
+    v14 = [(PGRecentSyndicatedAssetSuggester *)self eligibleAssetsBetweenStartDate:universalStartDate andEndDate:universalEndDate matchingAssetUUID:0 progress:v48];
+    v38 = universalStartDate;
+    v39 = universalEndDate;
+    if (*(v59 + 24) == 1)
     {
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
       {
         *buf = 67109378;
-        v65 = 64;
-        v66 = 2080;
-        v67 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Suggestions/Suggesters/Single Asset Suggester/PGRecentSyndicatedAssetSuggester.m";
+        v64 = 64;
+        v65 = 2080;
+        v66 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Suggestions/Suggesters/Single Asset Suggester/PGRecentSyndicatedAssetSuggester.m";
         v15 = MEMORY[0x277D86220];
 LABEL_10:
         _os_log_impl(&dword_22F0FC000, v15, OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
@@ -503,13 +497,13 @@ LABEL_10:
       if (v7)
       {
         Current = CFAbsoluteTimeGetCurrent();
-        if (Current - v56[3] >= 0.01)
+        if (Current - v55[3] >= 0.01)
         {
-          v56[3] = Current;
-          v54 = 0;
-          (*(v41 + 2))(v41, &v54, 0.5);
-          v17 = *(v60 + 24) | v54;
-          *(v60 + 24) = v17;
+          v55[3] = Current;
+          v53 = 0;
+          (*(v40 + 2))(v40, &v53, 0.5);
+          v17 = *(v59 + 24) | v53;
+          *(v59 + 24) = v17;
           if (v17)
           {
             if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
@@ -518,9 +512,9 @@ LABEL_10:
             }
 
             *buf = 67109378;
-            v65 = 66;
-            v66 = 2080;
-            v67 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Suggestions/Suggesters/Single Asset Suggester/PGRecentSyndicatedAssetSuggester.m";
+            v64 = 66;
+            v65 = 2080;
+            v66 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Suggestions/Suggesters/Single Asset Suggester/PGRecentSyndicatedAssetSuggester.m";
             v15 = MEMORY[0x277D86220];
             goto LABEL_10;
           }
@@ -551,43 +545,37 @@ LABEL_10:
           v21 = v20;
         }
 
-        v47 = 0u;
-        v48 = 0u;
-        v45 = 0u;
         v46 = 0u;
-        v38 = v14;
+        v47 = 0u;
+        v44 = 0u;
+        v45 = 0u;
+        v37 = v14;
         obj = v14;
-        v22 = [obj countByEnumeratingWithState:&v45 objects:v63 count:16];
+        v22 = [obj countByEnumeratingWithState:&v44 objects:v62 count:16];
         if (v22)
         {
           v23 = 1.0 / v21;
-          v24 = *v46;
+          v24 = *v45;
           v25 = 0.0;
 LABEL_25:
           v26 = 0;
           while (1)
           {
-            if (*v46 != v24)
+            if (*v45 != v24)
             {
               objc_enumerationMutation(obj);
             }
 
-            v27 = *(*(&v45 + 1) + 8 * v26);
+            v27 = *(*(&v44 + 1) + 8 * v26);
             v28 = objc_autoreleasePoolPush();
-            if (!v7)
-            {
-              goto LABEL_34;
-            }
-
-            v29 = CFAbsoluteTimeGetCurrent();
-            if (v29 - v56[3] >= 0.01 && (v56[3] = v29, v54 = 0, (*(v41 + 2))(v41, &v54, v25 * 0.5 + 0.5), v30 = *(v60 + 24) | v54, *(v60 + 24) = v30, (v30 & 1) != 0))
+            if (v7 && (v29 = CFAbsoluteTimeGetCurrent(), v29 - v55[3] >= 0.01) && (v55[3] = v29, v53 = 0, (*(v40 + 2))(v40, &v53, v25 * 0.5 + 0.5), v30 = *(v59 + 24) | v53, *(v59 + 24) = v30, (v30 & 1) != 0))
             {
               if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
               {
                 *buf = 67109378;
-                v65 = 74;
-                v66 = 2080;
-                v67 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Suggestions/Suggesters/Single Asset Suggester/PGRecentSyndicatedAssetSuggester.m";
+                v64 = 74;
+                v65 = 2080;
+                v66 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Suggestions/Suggesters/Single Asset Suggester/PGRecentSyndicatedAssetSuggester.m";
                 _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
               }
 
@@ -596,7 +584,6 @@ LABEL_25:
 
             else
             {
-LABEL_34:
               v32 = [(PGRecentSyndicatedAssetSuggester *)self createSuggestionWithAsset:v27];
               [v11 addObject:v32];
               v33 = [v11 count] >= v19;
@@ -613,7 +600,7 @@ LABEL_34:
 
             if (v22 == ++v26)
             {
-              v22 = [obj countByEnumeratingWithState:&v45 objects:v63 count:16];
+              v22 = [obj countByEnumeratingWithState:&v44 objects:v62 count:16];
               if (v22)
               {
                 goto LABEL_25;
@@ -623,7 +610,7 @@ LABEL_34:
             }
           }
 
-          v14 = v38;
+          v14 = v37;
           if (v31 != 2)
           {
             goto LABEL_45;
@@ -634,11 +621,11 @@ LABEL_34:
         {
 LABEL_38:
 
-          v14 = v38;
+          v14 = v37;
         }
       }
 
-      if (!v7 || (v34 = CFAbsoluteTimeGetCurrent(), v34 - v56[3] < 0.01) || (v56[3] = v34, v54 = 0, (*(v41 + 2))(v41, &v54, 1.0), v35 = *(v60 + 24) | v54, *(v60 + 24) = v35, (v35 & 1) == 0))
+      if (!v7 || (v34 = CFAbsoluteTimeGetCurrent(), v34 - v55[3] < 0.01) || (v55[3] = v34, v53 = 0, (*(v40 + 2))(v40, &v53, 1.0), v35 = *(v59 + 24) | v53, *(v59 + 24) = v35, (v35 & 1) == 0))
       {
         v10 = v11;
         goto LABEL_47;
@@ -647,9 +634,9 @@ LABEL_38:
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
       {
         *buf = 67109378;
-        v65 = 85;
-        v66 = 2080;
-        v67 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Suggestions/Suggesters/Single Asset Suggester/PGRecentSyndicatedAssetSuggester.m";
+        v64 = 85;
+        v65 = 2080;
+        v66 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Suggestions/Suggesters/Single Asset Suggester/PGRecentSyndicatedAssetSuggester.m";
         v15 = MEMORY[0x277D86220];
         goto LABEL_10;
       }
@@ -665,18 +652,16 @@ LABEL_47:
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
   {
     *buf = 67109378;
-    v65 = 55;
-    v66 = 2080;
-    v67 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Suggestions/Suggesters/Single Asset Suggester/PGRecentSyndicatedAssetSuggester.m";
+    v64 = 55;
+    v65 = 2080;
+    v66 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Suggestions/Suggesters/Single Asset Suggester/PGRecentSyndicatedAssetSuggester.m";
     _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
   }
 
   v10 = MEMORY[0x277CBEBF8];
 LABEL_48:
-  _Block_object_dispose(&v55, 8);
-  _Block_object_dispose(&v59, 8);
-
-  v36 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v54, 8);
+  _Block_object_dispose(&v58, 8);
 
   return v10;
 }

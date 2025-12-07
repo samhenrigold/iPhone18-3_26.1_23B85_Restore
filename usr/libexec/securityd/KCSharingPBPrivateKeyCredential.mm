@@ -1640,50 +1640,48 @@ LABEL_29:
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v32 = toCopy;
+  v7 = toCopy;
   if (self->_accessGroup)
   {
     PBDataWriterWriteStringField();
-    toCopy = v32;
+    toCopy = v7;
   }
 
   if ((*&self->_has & 0x10) != 0)
   {
-    keyType = self->_keyType;
     PBDataWriterWriteInt64Field();
-    toCopy = v32;
+    toCopy = v7;
   }
 
   if (self->_applicationTag)
   {
     PBDataWriterWriteDataField();
-    toCopy = v32;
+    toCopy = v7;
   }
 
   if (self->_label)
   {
     PBDataWriterWriteStringField();
-    toCopy = v32;
+    toCopy = v7;
   }
 
   if (self->_applicationLabel)
   {
     PBDataWriterWriteDataField();
-    toCopy = v32;
+    toCopy = v7;
   }
 
   if (self->_keyMaterial)
   {
     PBDataWriterWriteDataField();
-    toCopy = v32;
+    toCopy = v7;
   }
 
   has = self->_has;
   if ((*&has & 8) != 0)
   {
-    keySizeInBits = self->_keySizeInBits;
     PBDataWriterWriteInt64Field();
-    toCopy = v32;
+    toCopy = v7;
     has = self->_has;
     if ((*&has & 2) == 0)
     {
@@ -1702,9 +1700,8 @@ LABEL_15:
     goto LABEL_15;
   }
 
-  effectiveKeySize = self->_effectiveKeySize;
   PBDataWriterWriteInt64Field();
-  toCopy = v32;
+  toCopy = v7;
   has = self->_has;
   if ((*&has & 1) == 0)
   {
@@ -1718,9 +1715,8 @@ LABEL_16:
   }
 
 LABEL_48:
-  creationDate = self->_creationDate;
   PBDataWriterWriteDoubleField();
-  toCopy = v32;
+  toCopy = v7;
   has = self->_has;
   if ((*&has & 0x20) == 0)
   {
@@ -1734,9 +1730,8 @@ LABEL_17:
   }
 
 LABEL_49:
-  modificationDate = self->_modificationDate;
   PBDataWriterWriteDoubleField();
-  toCopy = v32;
+  toCopy = v7;
   has = self->_has;
   if ((*&has & 0x10000) == 0)
   {
@@ -1750,9 +1745,8 @@ LABEL_18:
   }
 
 LABEL_50:
-  creator = self->_creator;
   PBDataWriterWriteInt32Field();
-  toCopy = v32;
+  toCopy = v7;
   has = self->_has;
   if ((*&has & 0x40) == 0)
   {
@@ -1766,35 +1760,32 @@ LABEL_19:
   }
 
 LABEL_51:
-  startDate = self->_startDate;
   PBDataWriterWriteDoubleField();
-  toCopy = v32;
+  toCopy = v7;
   if ((*&self->_has & 4) != 0)
   {
 LABEL_20:
-    endDate = self->_endDate;
     PBDataWriterWriteDoubleField();
-    toCopy = v32;
+    toCopy = v7;
   }
 
 LABEL_21:
   if (self->_viewHint)
   {
     PBDataWriterWriteStringField();
-    toCopy = v32;
+    toCopy = v7;
   }
 
-  v8 = self->_has;
-  if ((*&v8 & 0x400000) != 0)
+  v6 = self->_has;
+  if ((*&v6 & 0x400000) != 0)
   {
-    keyClass = self->_keyClass;
     PBDataWriterWriteInt32Field();
-    toCopy = v32;
-    v8 = self->_has;
-    if ((*&v8 & 0x80000) == 0)
+    toCopy = v7;
+    v6 = self->_has;
+    if ((*&v6 & 0x80000) == 0)
     {
 LABEL_25:
-      if ((*&v8 & 0x100000) == 0)
+      if ((*&v6 & 0x100000) == 0)
       {
         goto LABEL_26;
       }
@@ -1803,19 +1794,18 @@ LABEL_25:
     }
   }
 
-  else if ((*&v8 & 0x80000) == 0)
+  else if ((*&v6 & 0x80000) == 0)
   {
     goto LABEL_25;
   }
 
-  isPermanent = self->_isPermanent;
   PBDataWriterWriteInt32Field();
-  toCopy = v32;
-  v8 = self->_has;
-  if ((*&v8 & 0x100000) == 0)
+  toCopy = v7;
+  v6 = self->_has;
+  if ((*&v6 & 0x100000) == 0)
   {
 LABEL_26:
-    if ((*&v8 & 0x40000) == 0)
+    if ((*&v6 & 0x40000) == 0)
     {
       goto LABEL_27;
     }
@@ -1824,14 +1814,13 @@ LABEL_26:
   }
 
 LABEL_55:
-  isPrivate = self->_isPrivate;
   PBDataWriterWriteInt32Field();
-  toCopy = v32;
-  v8 = self->_has;
-  if ((*&v8 & 0x40000) == 0)
+  toCopy = v7;
+  v6 = self->_has;
+  if ((*&v6 & 0x40000) == 0)
   {
 LABEL_27:
-    if ((*&v8 & 0x200000) == 0)
+    if ((*&v6 & 0x200000) == 0)
     {
       goto LABEL_28;
     }
@@ -1840,14 +1829,13 @@ LABEL_27:
   }
 
 LABEL_56:
-  isModifiable = self->_isModifiable;
   PBDataWriterWriteInt32Field();
-  toCopy = v32;
-  v8 = self->_has;
-  if ((*&v8 & 0x200000) == 0)
+  toCopy = v7;
+  v6 = self->_has;
+  if ((*&v6 & 0x200000) == 0)
   {
 LABEL_28:
-    if ((*&v8 & 0x800000) == 0)
+    if ((*&v6 & 0x800000) == 0)
     {
       goto LABEL_29;
     }
@@ -1856,14 +1844,13 @@ LABEL_28:
   }
 
 LABEL_57:
-  isSensitive = self->_isSensitive;
   PBDataWriterWriteInt32Field();
-  toCopy = v32;
-  v8 = self->_has;
-  if ((*&v8 & 0x800000) == 0)
+  toCopy = v7;
+  v6 = self->_has;
+  if ((*&v6 & 0x800000) == 0)
   {
 LABEL_29:
-    if ((*&v8 & 0x20000) == 0)
+    if ((*&v6 & 0x20000) == 0)
     {
       goto LABEL_30;
     }
@@ -1872,14 +1859,13 @@ LABEL_29:
   }
 
 LABEL_58:
-  wasAlwaysSensitive = self->_wasAlwaysSensitive;
   PBDataWriterWriteInt32Field();
-  toCopy = v32;
-  v8 = self->_has;
-  if ((*&v8 & 0x20000) == 0)
+  toCopy = v7;
+  v6 = self->_has;
+  if ((*&v6 & 0x20000) == 0)
   {
 LABEL_30:
-    if ((*&v8 & 0x1000000) == 0)
+    if ((*&v6 & 0x1000000) == 0)
     {
       goto LABEL_31;
     }
@@ -1888,14 +1874,13 @@ LABEL_30:
   }
 
 LABEL_59:
-  isExtractable = self->_isExtractable;
   PBDataWriterWriteInt32Field();
-  toCopy = v32;
-  v8 = self->_has;
-  if ((*&v8 & 0x1000000) == 0)
+  toCopy = v7;
+  v6 = self->_has;
+  if ((*&v6 & 0x1000000) == 0)
   {
 LABEL_31:
-    if ((*&v8 & 0x200) == 0)
+    if ((*&v6 & 0x200) == 0)
     {
       goto LABEL_32;
     }
@@ -1904,14 +1889,13 @@ LABEL_31:
   }
 
 LABEL_60:
-  wasNeverExtractable = self->_wasNeverExtractable;
   PBDataWriterWriteInt32Field();
-  toCopy = v32;
-  v8 = self->_has;
-  if ((*&v8 & 0x200) == 0)
+  toCopy = v7;
+  v6 = self->_has;
+  if ((*&v6 & 0x200) == 0)
   {
 LABEL_32:
-    if ((*&v8 & 0x80) == 0)
+    if ((*&v6 & 0x80) == 0)
     {
       goto LABEL_33;
     }
@@ -1920,14 +1904,13 @@ LABEL_32:
   }
 
 LABEL_61:
-  canEncrypt = self->_canEncrypt;
   PBDataWriterWriteInt32Field();
-  toCopy = v32;
-  v8 = self->_has;
-  if ((*&v8 & 0x80) == 0)
+  toCopy = v7;
+  v6 = self->_has;
+  if ((*&v6 & 0x80) == 0)
   {
 LABEL_33:
-    if ((*&v8 & 0x100) == 0)
+    if ((*&v6 & 0x100) == 0)
     {
       goto LABEL_34;
     }
@@ -1936,14 +1919,13 @@ LABEL_33:
   }
 
 LABEL_62:
-  canDecrypt = self->_canDecrypt;
   PBDataWriterWriteInt32Field();
-  toCopy = v32;
-  v8 = self->_has;
-  if ((*&v8 & 0x100) == 0)
+  toCopy = v7;
+  v6 = self->_has;
+  if ((*&v6 & 0x100) == 0)
   {
 LABEL_34:
-    if ((*&v8 & 0x400) == 0)
+    if ((*&v6 & 0x400) == 0)
     {
       goto LABEL_35;
     }
@@ -1952,14 +1934,13 @@ LABEL_34:
   }
 
 LABEL_63:
-  canDerive = self->_canDerive;
   PBDataWriterWriteInt32Field();
-  toCopy = v32;
-  v8 = self->_has;
-  if ((*&v8 & 0x400) == 0)
+  toCopy = v7;
+  v6 = self->_has;
+  if ((*&v6 & 0x400) == 0)
   {
 LABEL_35:
-    if ((*&v8 & 0x2000) == 0)
+    if ((*&v6 & 0x2000) == 0)
     {
       goto LABEL_36;
     }
@@ -1968,14 +1949,13 @@ LABEL_35:
   }
 
 LABEL_64:
-  canSign = self->_canSign;
   PBDataWriterWriteInt32Field();
-  toCopy = v32;
-  v8 = self->_has;
-  if ((*&v8 & 0x2000) == 0)
+  toCopy = v7;
+  v6 = self->_has;
+  if ((*&v6 & 0x2000) == 0)
   {
 LABEL_36:
-    if ((*&v8 & 0x800) == 0)
+    if ((*&v6 & 0x800) == 0)
     {
       goto LABEL_37;
     }
@@ -1984,14 +1964,13 @@ LABEL_36:
   }
 
 LABEL_65:
-  canVerify = self->_canVerify;
   PBDataWriterWriteInt32Field();
-  toCopy = v32;
-  v8 = self->_has;
-  if ((*&v8 & 0x800) == 0)
+  toCopy = v7;
+  v6 = self->_has;
+  if ((*&v6 & 0x800) == 0)
   {
 LABEL_37:
-    if ((*&v8 & 0x4000) == 0)
+    if ((*&v6 & 0x4000) == 0)
     {
       goto LABEL_38;
     }
@@ -2000,14 +1979,13 @@ LABEL_37:
   }
 
 LABEL_66:
-  canSignRecover = self->_canSignRecover;
   PBDataWriterWriteInt32Field();
-  toCopy = v32;
-  v8 = self->_has;
-  if ((*&v8 & 0x4000) == 0)
+  toCopy = v7;
+  v6 = self->_has;
+  if ((*&v6 & 0x4000) == 0)
   {
 LABEL_38:
-    if ((*&v8 & 0x8000) == 0)
+    if ((*&v6 & 0x8000) == 0)
     {
       goto LABEL_39;
     }
@@ -2016,14 +1994,13 @@ LABEL_38:
   }
 
 LABEL_67:
-  canVerifyRecover = self->_canVerifyRecover;
   PBDataWriterWriteInt32Field();
-  toCopy = v32;
-  v8 = self->_has;
-  if ((*&v8 & 0x8000) == 0)
+  toCopy = v7;
+  v6 = self->_has;
+  if ((*&v6 & 0x8000) == 0)
   {
 LABEL_39:
-    if ((*&v8 & 0x1000) == 0)
+    if ((*&v6 & 0x1000) == 0)
     {
       goto LABEL_41;
     }
@@ -2032,22 +2009,20 @@ LABEL_39:
   }
 
 LABEL_68:
-  canWrap = self->_canWrap;
   PBDataWriterWriteInt32Field();
-  toCopy = v32;
+  toCopy = v7;
   if ((*&self->_has & 0x1000) != 0)
   {
 LABEL_40:
-    canUnwrap = self->_canUnwrap;
     PBDataWriterWriteInt32Field();
-    toCopy = v32;
+    toCopy = v7;
   }
 
 LABEL_41:
   if (self->_alias)
   {
     PBDataWriterWriteDataField();
-    toCopy = v32;
+    toCopy = v7;
   }
 
   [(PBUnknownFields *)self->_unknownFields writeTo:toCopy];

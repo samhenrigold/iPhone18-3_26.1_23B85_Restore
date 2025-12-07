@@ -46,7 +46,7 @@
 
 void __88__WFACEUtilities_wf_handleCommand_onRemoteDevice_usingClient_commandHandler_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = objc_opt_class();
   v5 = v3;
@@ -55,16 +55,16 @@ void __88__WFACEUtilities_wf_handleCommand_onRemoteDevice_usingClient_commandHan
     v7 = getWFGeneralLogObject();
     if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
     {
-      v12 = 136315906;
-      v13 = "WFEnforceClass";
-      v14 = 2114;
-      v15 = v5;
-      v16 = 2114;
-      v17 = objc_opt_class();
-      v18 = 2114;
-      v19 = v4;
-      v8 = v17;
-      _os_log_impl(&dword_1CA256000, v7, OS_LOG_TYPE_FAULT, "%s Warning: %{public}@ is of type %{public}@, not %{public}@! Falling back to nil.", &v12, 0x2Au);
+      v11 = 136315906;
+      v12 = "WFEnforceClass";
+      v13 = 2114;
+      v14 = v5;
+      v15 = 2114;
+      v16 = objc_opt_class();
+      v17 = 2114;
+      v18 = v4;
+      v8 = v16;
+      _os_log_impl(&dword_1CA256000, v7, OS_LOG_TYPE_FAULT, "%s Warning: %{public}@ is of type %{public}@, not %{public}@! Falling back to nil.", &v11, 0x2Au);
     }
 
     v6 = 0;
@@ -81,8 +81,6 @@ void __88__WFACEUtilities_wf_handleCommand_onRemoteDevice_usingClient_commandHan
     v10 = [v6 result];
     (*(v9 + 16))(v9, v10);
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __88__WFACEUtilities_wf_handleCommand_onRemoteDevice_usingClient_commandHandler_completion___block_invoke_2(uint64_t a1)

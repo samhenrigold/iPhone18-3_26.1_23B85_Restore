@@ -867,23 +867,23 @@ LABEL_20:
 
     if (v9 > v7)
     {
-      v10 = MEMORY[0x1E696AEC0];
-      v11 = PRBundle();
-      v12 = [v11 localizedStringForKey:@"CANNOT_CHANGE_LAYOUT_EXPLANATION" value:&stru_1F1C13D90 table:@"PosterKit"];
-      v13 = [v10 stringWithFormat:v12, v7];
+      v11 = MEMORY[0x1E696AEC0];
+      v12 = PRBundle(v10);
+      v13 = [v12 localizedStringForKey:@"CANNOT_CHANGE_LAYOUT_EXPLANATION" value:&stru_1F1C13D90 table:@"PosterKit"];
+      v14 = [v11 stringWithFormat:v13, v7];
 
-      v14 = MEMORY[0x1E69DC650];
-      v15 = PRBundle();
-      v16 = [v15 localizedStringForKey:@"CANNOT_CHANGE_LAYOUT" value:&stru_1F1C13D90 table:@"PosterKit"];
-      v17 = [v14 alertControllerWithTitle:v16 message:v13 preferredStyle:1];
+      v15 = MEMORY[0x1E69DC650];
+      v17 = PRBundle(v16);
+      v18 = [v17 localizedStringForKey:@"CANNOT_CHANGE_LAYOUT" value:&stru_1F1C13D90 table:@"PosterKit"];
+      v19 = [v15 alertControllerWithTitle:v18 message:v14 preferredStyle:1];
 
-      v18 = MEMORY[0x1E69DC648];
-      v19 = PRBundle();
-      v20 = [v19 localizedStringForKey:@"CANNOT_CHANGE_LAYOUT_DISMISS_ACTION" value:&stru_1F1C13D90 table:@"PosterKit"];
-      v21 = [v18 actionWithTitle:v20 style:0 handler:0];
+      v20 = MEMORY[0x1E69DC648];
+      v22 = PRBundle(v21);
+      v23 = [v22 localizedStringForKey:@"CANNOT_CHANGE_LAYOUT_DISMISS_ACTION" value:&stru_1F1C13D90 table:@"PosterKit"];
+      v24 = [v20 actionWithTitle:v23 style:0 handler:0];
 
-      [v17 addAction:v21];
-      [(PREditingFontAndColorPickerViewController *)self presentViewController:v17 animated:1 completion:0];
+      [v19 addAction:v24];
+      [(PREditingFontAndColorPickerViewController *)self presentViewController:v19 animated:1 completion:0];
 
       layoutCopy = 0;
     }
@@ -900,11 +900,11 @@ LABEL_20:
   changeHandler = [(PREditingFontAndColorPickerViewController *)self changeHandler];
   if (changeHandler)
   {
-    v26 = changeHandler;
-    v25 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:layoutCopy];
-    (*(v26 + 2))(v26, 0, 0, v25, 0, 0, 0, 0, 0);
+    v29 = changeHandler;
+    v28 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:layoutCopy];
+    (*(v29 + 2))(v29, 0, 0, v28, 0, 0, 0, 0, 0);
 
-    changeHandler = v26;
+    changeHandler = v29;
   }
 }
 

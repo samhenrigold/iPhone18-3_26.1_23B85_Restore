@@ -2342,9 +2342,9 @@ LABEL_53:
 LABEL_45:
         carSessionStatus = [(CarDisplayController *)self carSessionStatus];
         currentSession = [carSessionStatus currentSession];
-        configuration = [currentSession configuration];
+        v36 = objc_msgSend_configuration(currentSession);
 
-        _maps_primaryScreen = [configuration _maps_primaryScreen];
+        _maps_primaryScreen = [v36 _maps_primaryScreen];
         [_maps_primaryScreen pixelSize];
         self->_screenSize.width = v38;
         self->_screenSize.height = v39;
@@ -2888,8 +2888,8 @@ LABEL_14:
     carSessionStatus = [(CarDisplayController *)self carSessionStatus];
     carSessionStatus2 = [(CarDisplayController *)self carSessionStatus];
     currentSession = [carSessionStatus2 currentSession];
-    configuration = [currentSession configuration];
-    _maps_primaryScreen = [configuration _maps_primaryScreen];
+    v6 = objc_msgSend_configuration(currentSession);
+    _maps_primaryScreen = [v6 _maps_primaryScreen];
     v8 = [carSessionStatus carInfoForScreen:_maps_primaryScreen];
   }
 

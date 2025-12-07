@@ -27,13 +27,19 @@
   v4 = _Block_copy(then);
   if (v4)
   {
-    *(swift_allocObject() + 16) = v4;
+    v5 = swift_allocObject();
+    *(v5 + 16) = v4;
     v4 = sub_1B1A95AD0;
+  }
+
+  else
+  {
+    v5 = 0;
   }
 
   selfCopy = self;
   sub_1B1B4FFC4(v4);
-  sub_1B1A949B4(v4);
+  sub_1B1A949B4(v4, v5);
 }
 
 @end

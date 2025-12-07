@@ -24,9 +24,10 @@
 - (double)bottomMarginWithBaselineMargin:(double)margin
 {
   selfCopy = self;
-  v5 = sub_1E3DA6ACC(margin);
+  v5.n128_f64[0] = margin;
+  v6 = sub_1E3DA6ACC(v5);
 
-  return v5;
+  return v6;
 }
 
 @end

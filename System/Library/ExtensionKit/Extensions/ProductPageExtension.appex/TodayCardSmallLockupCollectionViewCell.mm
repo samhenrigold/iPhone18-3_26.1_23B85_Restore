@@ -32,7 +32,7 @@
   [(TodayCardSmallLockupCollectionViewCell *)&v13 layoutSubviews];
   v3 = *&v2[OBJC_IVAR____TtC20ProductPageExtension38TodayCardSmallLockupCollectionViewCell_lockupView];
   contentView = [v2 contentView];
-  sub_100016F40(0, &qword_1009441F0);
+  sub_100016F40(0, &qword_1009441F0, UIView_ptr);
   sub_10076422C();
   v6 = v5;
   v8 = v7;

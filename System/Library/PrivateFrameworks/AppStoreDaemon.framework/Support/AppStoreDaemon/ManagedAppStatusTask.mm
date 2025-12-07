@@ -12,7 +12,7 @@
   v2 = [(Task *)&v6 init];
   if (v2)
   {
-    v3 = sub_1003C27BC();
+    v3 = sub_1003C27BC(AppInstallsDatabaseStore);
     databaseStore = v2->_databaseStore;
     v2->_databaseStore = v3;
   }

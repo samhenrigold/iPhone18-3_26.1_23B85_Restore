@@ -8,7 +8,7 @@
 {
   notificationCopy = notification;
 
-  sub_23106A3C8(notificationCopy);
+  sub_23106A3C8();
 }
 
 @end

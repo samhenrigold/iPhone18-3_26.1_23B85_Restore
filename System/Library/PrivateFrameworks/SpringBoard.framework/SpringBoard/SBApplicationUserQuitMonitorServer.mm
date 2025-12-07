@@ -125,8 +125,8 @@ void __83__SBApplicationUserQuitMonitorServer_userClosedLastSceneOfApplicationWi
   [connectionCopy configureConnection:v15];
   clientAuthenticator = self->_clientAuthenticator;
   remoteProcess = [connectionCopy remoteProcess];
-  auditToken = [remoteProcess auditToken];
-  LODWORD(clientAuthenticator) = [(FBServiceClientAuthenticator *)clientAuthenticator authenticateAuditToken:auditToken];
+  v10 = objc_msgSend_auditToken(remoteProcess);
+  LODWORD(clientAuthenticator) = [(FBServiceClientAuthenticator *)clientAuthenticator authenticateAuditToken:v10];
 
   if (clientAuthenticator)
   {

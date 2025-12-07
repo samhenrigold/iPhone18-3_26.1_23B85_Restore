@@ -48,11 +48,11 @@ LABEL_6:
 
   v18 = objc_alloc(objc_opt_class());
   v23 = objc_msgSend_type(v17, v19, v20, v21, v22);
-  v28 = objc_msgSend_index(v17, v24, v25, v26, v27);
-  v33 = objc_msgSend_chartInfo(ownerCopy, v29, v30, v31, v32);
+  v27 = objc_msgSend_index(v17, v24, v25, v26);
+  v32 = objc_msgSend_chartInfo(ownerCopy, v28, v29, v30, v31);
 
-  v38 = objc_msgSend_initWithStyleOwnerType_index_inChart_mutations_(v18, v34, v35, v36, v37, v23, v28, v33, mutationsCopy);
-  return v38;
+  v37 = objc_msgSend_initWithStyleOwnerType_index_inChart_mutations_(v18, v33, v34, v35, v36, v23, v27, v32, mutationsCopy);
+  return v37;
 }
 
 - (id)styleOwner

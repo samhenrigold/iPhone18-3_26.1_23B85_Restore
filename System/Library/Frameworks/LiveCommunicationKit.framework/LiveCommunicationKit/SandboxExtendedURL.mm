@@ -17,14 +17,13 @@
 
   else
   {
-    v5 = *(&self->super.isa + OBJC_IVAR____TtC20LiveCommunicationKit18SandboxExtendedURL_sandboxExtensionHandle);
     selfCopy2 = self;
     sandbox_extension_release();
   }
 
-  v7.receiver = self;
-  v7.super_class = ObjectType;
-  [(SandboxExtendedURL *)&v7 dealloc];
+  v6.receiver = self;
+  v6.super_class = ObjectType;
+  [(SandboxExtendedURL *)&v6 dealloc];
 }
 
 - (void)encodeWithCoder:(id)coder

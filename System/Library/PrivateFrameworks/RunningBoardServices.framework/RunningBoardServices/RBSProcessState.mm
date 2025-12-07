@@ -11,10 +11,10 @@
 - (RBSProcessState)initWithRBSXPCCoder:(id)coder;
 - (id)_lock_encodedStateForDescriptor:(uint64_t)descriptor;
 - (id)copyWithZone:(_NSZone *)zone;
+- (id)initWithProcess:(id *)process;
 - (void)_lock_finalizeCodingForValues:(uint64_t)values;
 - (void)encodeWithPreviousState:(id)state;
 - (void)encodeWithRBSXPCCoder:(id)coder;
-- (void)initWithProcess:(void *)process;
 @end
 
 @implementation RBSProcessState
@@ -822,7 +822,7 @@ LABEL_40:
 
   else
   {
-    v28 = rbs_general_log();
+    v28 = rbs_general_log(0);
     if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
     {
       [RBSProcessState initWithRBSXPCCoder:v28];
@@ -834,7 +834,7 @@ LABEL_40:
   return selfCopy;
 }
 
-- (void)initWithProcess:(void *)process
+- (id)initWithProcess:(id *)process
 {
   v4 = a2;
   if (process)
@@ -843,7 +843,7 @@ LABEL_40:
     process = v5;
     if (v5)
     {
-      objc_storeStrong((v5 + 48), a2);
+      objc_storeStrong(v5 + 6, a2);
     }
   }
 

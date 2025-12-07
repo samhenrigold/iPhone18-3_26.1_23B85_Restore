@@ -18,66 +18,67 @@
 
 - (ARPersonOcclusionParentTechnique)initWithTechniques:(id)techniques delegate:(id)delegate
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v40 = *MEMORY[0x1E69E9840];
   techniquesCopy = techniques;
   delegateCopy = delegate;
-  if ([techniquesCopy indexOfObjectPassingTest:&__block_literal_global_31] == 0x7FFFFFFFFFFFFFFFLL)
+  v8 = [techniquesCopy indexOfObjectPassingTest:&__block_literal_global_31];
+  if (v8 == 0x7FFFFFFFFFFFFFFFLL)
   {
     if (ARShouldUseLogTypeError_onceToken_13 != -1)
     {
       [ARPersonOcclusionParentTechnique initWithTechniques:delegate:];
     }
 
-    v8 = ARShouldUseLogTypeError_internalOSVersion_13;
-    v9 = _ARLogTechnique_9();
-    v10 = v9;
-    if (v8 == 1)
+    v9 = ARShouldUseLogTypeError_internalOSVersion_13;
+    v10 = _ARLogTechnique_9(v8);
+    v11 = v10;
+    if (v9 == 1)
     {
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
-        v11 = objc_opt_class();
-        v12 = NSStringFromClass(v11);
-        v13 = objc_opt_class();
-        v14 = NSStringFromClass(v13);
-        v32[0] = v14;
-        v15 = objc_opt_class();
-        v16 = NSStringFromClass(v15);
-        v32[1] = v16;
-        v17 = [MEMORY[0x1E695DEC8] arrayWithObjects:v32 count:2];
+        v12 = objc_opt_class();
+        v13 = NSStringFromClass(v12);
+        v14 = objc_opt_class();
+        v15 = NSStringFromClass(v14);
+        v33[0] = v15;
+        v16 = objc_opt_class();
+        v17 = NSStringFromClass(v16);
+        v33[1] = v17;
+        v18 = [MEMORY[0x1E695DEC8] arrayWithObjects:v33 count:2];
         *buf = 138543874;
-        v34 = v12;
-        v35 = 2048;
+        v35 = v13;
+        v36 = 2048;
         selfCopy2 = self;
-        v37 = 2112;
-        v38 = v17;
-        v18 = "%{public}@ <%p>: This parent technique is designed to contain one of the following person detection techniques: %@";
-        v19 = v10;
-        v20 = OS_LOG_TYPE_ERROR;
+        v38 = 2112;
+        v39 = v18;
+        v19 = "%{public}@ <%p>: This parent technique is designed to contain one of the following person detection techniques: %@";
+        v20 = v11;
+        v21 = OS_LOG_TYPE_ERROR;
 LABEL_12:
-        _os_log_impl(&dword_1C241C000, v19, v20, v18, buf, 0x20u);
+        _os_log_impl(&dword_1C241C000, v20, v21, v19, buf, 0x20u);
       }
     }
 
-    else if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+    else if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
     {
-      v26 = objc_opt_class();
-      v12 = NSStringFromClass(v26);
       v27 = objc_opt_class();
-      v14 = NSStringFromClass(v27);
-      v31[0] = v14;
+      v13 = NSStringFromClass(v27);
       v28 = objc_opt_class();
-      v16 = NSStringFromClass(v28);
-      v31[1] = v16;
-      v17 = [MEMORY[0x1E695DEC8] arrayWithObjects:v31 count:2];
+      v15 = NSStringFromClass(v28);
+      v32[0] = v15;
+      v29 = objc_opt_class();
+      v17 = NSStringFromClass(v29);
+      v32[1] = v17;
+      v18 = [MEMORY[0x1E695DEC8] arrayWithObjects:v32 count:2];
       *buf = 138543874;
-      v34 = v12;
-      v35 = 2048;
+      v35 = v13;
+      v36 = 2048;
       selfCopy2 = self;
-      v37 = 2112;
-      v38 = v17;
-      v18 = "Error: %{public}@ <%p>: This parent technique is designed to contain one of the following person detection techniques: %@";
-      v19 = v10;
-      v20 = OS_LOG_TYPE_INFO;
+      v38 = 2112;
+      v39 = v18;
+      v19 = "Error: %{public}@ <%p>: This parent technique is designed to contain one of the following person detection techniques: %@";
+      v20 = v11;
+      v21 = OS_LOG_TYPE_INFO;
       goto LABEL_12;
     }
 
@@ -85,25 +86,25 @@ LABEL_12:
     goto LABEL_14;
   }
 
-  v30.receiver = self;
-  v30.super_class = ARPersonOcclusionParentTechnique;
-  v21 = [(ARParentTechnique *)&v30 initWithTechniques:techniquesCopy delegate:delegateCopy];
-  if (v21)
+  v31.receiver = self;
+  v31.super_class = ARPersonOcclusionParentTechnique;
+  v22 = [(ARParentTechnique *)&v31 initWithTechniques:techniquesCopy delegate:delegateCopy];
+  if (v22)
   {
-    v21->_shouldSkipFramesWhenBusy = [ARKitUserDefaults BOOLForKey:@"com.apple.arkit.personocclusion.skipFrameWhenBusy"];
-    depthTechniqueProcessingStrategy = v21->_depthTechniqueProcessingStrategy;
-    v21->_depthTechniqueProcessingStrategy = 0;
+    v22->_shouldSkipFramesWhenBusy = [ARKitUserDefaults BOOLForKey:@"com.apple.arkit.personocclusion.skipFrameWhenBusy"];
+    depthTechniqueProcessingStrategy = v22->_depthTechniqueProcessingStrategy;
+    v22->_depthTechniqueProcessingStrategy = 0;
 
-    v21->_detectedPerson = 1;
-    v21->_lastDetectedPersonTimeStamp = 0.0;
-    v23 = [objc_alloc(MEMORY[0x1E696AC70]) initWithOptions:512 capacity:5];
-    personDetectionTechniques = v21->_personDetectionTechniques;
-    v21->_personDetectionTechniques = v23;
+    v22->_detectedPerson = 1;
+    v22->_lastDetectedPersonTimeStamp = 0.0;
+    v24 = [objc_alloc(MEMORY[0x1E696AC70]) initWithOptions:512 capacity:5];
+    personDetectionTechniques = v22->_personDetectionTechniques;
+    v22->_personDetectionTechniques = v24;
 
-    [(ARPersonOcclusionParentTechnique *)v21 updatePersonDetectionTechniques];
+    [(ARPersonOcclusionParentTechnique *)v22 updatePersonDetectionTechniques];
   }
 
-  self = v21;
+  self = v22;
   selfCopy3 = self;
 LABEL_14:
 
@@ -141,7 +142,7 @@ uint64_t __64__ARPersonOcclusionParentTechnique_initWithTechniques_delegate___bl
 {
   v14 = *MEMORY[0x1E69E9840];
   self->_optimizationStrategy = strategy;
-  v4 = _ARLogGeneral_4();
+  v4 = _ARLogGeneral_4(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     v5 = objc_opt_class();
@@ -273,28 +274,28 @@ uint64_t __50__ARPersonOcclusionParentTechnique_setTechniques___block_invoke(uin
 
 - (id)processData:(id)data
 {
-  v59 = *MEMORY[0x1E69E9840];
+  v60 = *MEMORY[0x1E69E9840];
   dataCopy = data;
-  v46 = 0u;
   v47 = 0u;
   v48 = 0u;
   v49 = 0u;
+  v50 = 0u;
   techniques = [(ARParentTechnique *)self techniques];
-  v6 = [techniques countByEnumeratingWithState:&v46 objects:v58 count:16];
+  v6 = [techniques countByEnumeratingWithState:&v47 objects:v59 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v47;
+    v8 = *v48;
     while (2)
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v47 != v8)
+        if (*v48 != v8)
         {
           objc_enumerationMutation(techniques);
         }
 
-        v10 = *(*(&v46 + 1) + 8 * i);
+        v10 = *(*(&v47 + 1) + 8 * i);
         if (objc_opt_respondsToSelector() & 1) != 0 && ([v10 isBusy])
         {
           v11 = 0;
@@ -302,7 +303,7 @@ uint64_t __50__ARPersonOcclusionParentTechnique_setTechniques___block_invoke(uin
         }
       }
 
-      v7 = [techniques countByEnumeratingWithState:&v46 objects:v58 count:16];
+      v7 = [techniques countByEnumeratingWithState:&v47 objects:v59 count:16];
       if (v7)
       {
         continue;
@@ -336,58 +337,58 @@ LABEL_12:
     if (objc_opt_isKindOfClass())
     {
       v17 = dataCopy;
-      [v17 timestamp];
+      objc_msgSend_timestamp(v17);
       kdebug_trace();
-      v42 = 0u;
       v43 = 0u;
       v44 = 0u;
       v45 = 0u;
+      v46 = 0u;
       v18 = v16;
-      v19 = [v18 countByEnumeratingWithState:&v42 objects:v57 count:16];
+      v19 = [v18 countByEnumeratingWithState:&v43 objects:v58 count:16];
       if (v19)
       {
         v20 = v19;
-        v21 = *v43;
+        v21 = *v44;
         do
         {
           for (j = 0; j != v20; ++j)
           {
-            if (*v43 != v21)
+            if (*v44 != v21)
             {
               objc_enumerationMutation(v18);
             }
 
-            v23 = *(*(&v42 + 1) + 8 * j);
+            v23 = *(*(&v43 + 1) + 8 * j);
             if ([v23 conformsToProtocol:&unk_1F425EC70])
             {
               v24 = v23;
-              [v17 timestamp];
+              objc_msgSend_timestamp(v17);
               [v24 pushEmptyResultOnAsynchronousQueueForTimestamp:?];
             }
           }
 
-          v20 = [v18 countByEnumeratingWithState:&v42 objects:v57 count:16];
+          v20 = [v18 countByEnumeratingWithState:&v43 objects:v58 count:16];
         }
 
         while (v20);
       }
 
-      v25 = _ARLogGeneral_4();
-      if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
+      v26 = _ARLogGeneral_4(v25);
+      if (os_log_type_enabled(v26, OS_LOG_TYPE_INFO))
       {
-        v26 = objc_opt_class();
-        v27 = NSStringFromClass(v26);
+        v27 = objc_opt_class();
+        v28 = NSStringFromClass(v27);
         *buf = 138543874;
-        v52 = v27;
-        v53 = 2048;
+        v53 = v28;
+        v54 = 2048;
         selfCopy = self;
-        v55 = 2112;
-        v56 = v18;
-        _os_log_impl(&dword_1C241C000, v25, OS_LOG_TYPE_INFO, "%{public}@ <%p>: Dropped frame. Techniques that did not get the image: %@", buf, 0x20u);
+        v56 = 2112;
+        v57 = v18;
+        _os_log_impl(&dword_1C241C000, v26, OS_LOG_TYPE_INFO, "%{public}@ <%p>: Dropped frame. Techniques that did not get the image: %@", buf, 0x20u);
       }
     }
 
-    v28 = dataCopy;
+    v29 = dataCopy;
     goto LABEL_45;
   }
 
@@ -395,56 +396,56 @@ LABEL_12:
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
 LABEL_44:
-    v28 = [(ARParentTechnique *)self processData:dataCopy onTechniques:v16];
+    v29 = [(ARParentTechnique *)self processData:dataCopy onTechniques:v16];
 LABEL_45:
-    v29 = v28;
+    v30 = v29;
     goto LABEL_46;
   }
 
-  v29 = dataCopy;
-  if (![v29 isDroppedData])
+  v30 = dataCopy;
+  if (![v30 isDroppedData])
   {
 
     goto LABEL_44;
   }
 
-  v40 = 0u;
   v41 = 0u;
-  v38 = 0u;
+  v42 = 0u;
   v39 = 0u;
+  v40 = 0u;
   techniques2 = [(ARParentTechnique *)self techniques];
-  v31 = [techniques2 countByEnumeratingWithState:&v38 objects:v50 count:16];
-  if (v31)
+  v32 = [techniques2 countByEnumeratingWithState:&v39 objects:v51 count:16];
+  if (v32)
   {
-    v32 = v31;
-    v33 = *v39;
+    v33 = v32;
+    v34 = *v40;
     do
     {
-      for (k = 0; k != v32; ++k)
+      for (k = 0; k != v33; ++k)
       {
-        if (*v39 != v33)
+        if (*v40 != v34)
         {
           objc_enumerationMutation(techniques2);
         }
 
-        v35 = *(*(&v38 + 1) + 8 * k);
-        if ([v35 conformsToProtocol:&unk_1F425EC70])
+        v36 = *(*(&v39 + 1) + 8 * k);
+        if ([v36 conformsToProtocol:&unk_1F425EC70])
         {
-          v36 = v35;
-          [v29 timestamp];
-          [v36 pushEmptyResultOnAsynchronousQueueForTimestamp:?];
+          v37 = v36;
+          objc_msgSend_timestamp(v30);
+          [v37 pushEmptyResultOnAsynchronousQueueForTimestamp:?];
         }
       }
 
-      v32 = [techniques2 countByEnumeratingWithState:&v38 objects:v50 count:16];
+      v33 = [techniques2 countByEnumeratingWithState:&v39 objects:v51 count:16];
     }
 
-    while (v32);
+    while (v33);
   }
 
 LABEL_46:
 
-  return v29;
+  return v30;
 }
 
 - (void)requestResultDataAtTimestamp:(double)timestamp context:(id)context
@@ -521,36 +522,36 @@ LABEL_46:
 
 - (void)submitResultsForTimestamp:(double)timestamp context:(id)context
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   contextCopy = context;
   gatheredData = [contextCopy gatheredData];
-  v27 = 0u;
   v28 = 0u;
   v29 = 0u;
   v30 = 0u;
-  v8 = [gatheredData countByEnumeratingWithState:&v27 objects:buf count:16];
+  v31 = 0u;
+  v8 = [gatheredData countByEnumeratingWithState:&v28 objects:buf count:16];
   v9 = 0.0;
   if (!v8)
   {
     goto LABEL_22;
   }
 
-  v10 = *v28;
+  v10 = *v29;
   while (2)
   {
     for (i = 0; i != v8; i = i + 1)
     {
-      if (*v28 != v10)
+      if (*v29 != v10)
       {
         objc_enumerationMutation(gatheredData);
       }
 
-      v12 = *(*(&v27 + 1) + 8 * i);
+      v12 = *(*(&v28 + 1) + 8 * i);
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
         v8 = v12;
-        [v8 timestamp];
+        objc_msgSend_timestamp(v8);
         v9 = v13;
         detectedObjects = [v8 detectedObjects];
         LODWORD(v8) = [detectedObjects count] != 0;
@@ -563,7 +564,7 @@ LABEL_20:
       if (objc_opt_isKindOfClass())
       {
         v8 = v12;
-        [v8 timestamp];
+        objc_msgSend_timestamp(v8);
         v9 = v15;
         LODWORD(v8) = [v8 hasSegmentedPeople];
 LABEL_21:
@@ -575,7 +576,7 @@ LABEL_21:
       if (objc_opt_isKindOfClass())
       {
         v8 = v12;
-        [v8 timestamp];
+        objc_msgSend_timestamp(v8);
         v9 = v16;
         detectedObjects = [v8 rawDetectionResult];
         if (detectedObjects)
@@ -602,7 +603,7 @@ LABEL_21:
       }
     }
 
-    v8 = [gatheredData countByEnumeratingWithState:&v27 objects:buf count:16];
+    v8 = [gatheredData countByEnumeratingWithState:&v28 objects:buf count:16];
     if (v8)
     {
       continue;
@@ -624,16 +625,16 @@ LABEL_22:
   {
     if (!self->_detectedPerson)
     {
-      v20 = _ARLogGeneral_4();
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
+      v21 = _ARLogGeneral_4(v19);
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
       {
-        v21 = objc_opt_class();
-        v22 = NSStringFromClass(v21);
+        v22 = objc_opt_class();
+        v23 = NSStringFromClass(v22);
         *buf = 138543618;
-        v32 = v22;
-        v33 = 2048;
+        v33 = v23;
+        v34 = 2048;
         selfCopy2 = self;
-        _os_log_impl(&dword_1C241C000, v20, OS_LOG_TYPE_INFO, "%{public}@ <%p>: detected a person when there were none", buf, 0x16u);
+        _os_log_impl(&dword_1C241C000, v21, OS_LOG_TYPE_INFO, "%{public}@ <%p>: detected a person when there were none", buf, 0x16u);
       }
     }
 
@@ -645,27 +646,27 @@ LABEL_22:
   {
     if (self->_detectedPerson)
     {
-      v23 = _ARLogGeneral_4();
-      if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
+      v24 = _ARLogGeneral_4(v19);
+      if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
       {
-        v24 = objc_opt_class();
-        v25 = NSStringFromClass(v24);
+        v25 = objc_opt_class();
+        v26 = NSStringFromClass(v25);
         *buf = 138543874;
-        v32 = v25;
-        v33 = 2048;
+        v33 = v26;
+        v34 = 2048;
         selfCopy2 = self;
-        v35 = 2048;
-        v36 = 0x3FE0000000000000;
-        _os_log_impl(&dword_1C241C000, v23, OS_LOG_TYPE_INFO, "%{public}@ <%p>: detected no person for %f seconds", buf, 0x20u);
+        v36 = 2048;
+        v37 = 0x3FE0000000000000;
+        _os_log_impl(&dword_1C241C000, v24, OS_LOG_TYPE_INFO, "%{public}@ <%p>: detected no person for %f seconds", buf, 0x20u);
       }
     }
 
     self->_detectedPerson = 0;
   }
 
-  v26.receiver = self;
-  v26.super_class = ARPersonOcclusionParentTechnique;
-  [(ARParentTechnique *)&v26 submitResultsForTimestamp:contextCopy context:timestamp];
+  v27.receiver = self;
+  v27.super_class = ARPersonOcclusionParentTechnique;
+  [(ARParentTechnique *)&v27 submitResultsForTimestamp:contextCopy context:timestamp];
 }
 
 - (void)updatePersonDetectionTechniques

@@ -71,14 +71,14 @@ LABEL_3:
   p_sourceNode = &self->_sourceNode;
   sourceNode = self->_sourceNode;
   sourceNode = [node sourceNode];
-  if (([(UIGestureGraphNode *)sourceNode isEqual:sourceNode]& 1) != 0)
+  if (objc_msgSend_isEqual_(sourceNode))
   {
     goto LABEL_2;
   }
 
   v8 = *p_sourceNode;
   targetNode = [node targetNode];
-  LOBYTE(v8) = [v8 isEqual:targetNode];
+  LOBYTE(v8) = objc_msgSend_isEqual_(v8);
 
   if (v8)
   {
@@ -88,7 +88,7 @@ LABEL_3:
   p_sourceNode = &self->_targetNode;
   targetNode = self->_targetNode;
   sourceNode = [node sourceNode];
-  if (([(UIGestureGraphNode *)targetNode isEqual:sourceNode]& 1) != 0)
+  if (objc_msgSend_isEqual_(targetNode))
   {
 LABEL_2:
 
@@ -99,7 +99,7 @@ LABEL_4:
 
   v13 = *p_sourceNode;
   targetNode2 = [node targetNode];
-  LOBYTE(v13) = [v13 isEqual:targetNode2];
+  LOBYTE(v13) = objc_msgSend_isEqual_(v13);
 
   if (v13)
   {

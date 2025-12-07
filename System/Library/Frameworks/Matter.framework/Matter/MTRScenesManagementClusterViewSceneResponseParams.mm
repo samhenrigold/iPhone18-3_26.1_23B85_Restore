@@ -85,11 +85,11 @@
     goto LABEL_10;
   }
 
-  [MTRBaseDevice _responseDataForCommand:valueCopy clusterID:98 commandID:1 error:error];
+  objc_msgSend__responseDataForCommand_clusterID_commandID_error_(MTRBaseDevice);
   if (v19)
   {
     sub_2393C5AAC(v18);
-    sub_2393C5ADC(v18, *(v19 + 1), *(v19 + 3));
+    sub_2393C5ADC(v18, *(v19 + 8), *(v19 + 24));
     v8 = sub_2393C6FD0(v18, 256);
     if (!v8)
     {
@@ -159,8 +159,8 @@ LABEL_6:
 
   if (*(struct + 8) == 1)
   {
-    v8 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:*sub_238DE3698(struct + 8)];
-    [(MTRScenesManagementClusterViewSceneResponseParams *)self setTransitionTime:v8];
+    v9 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:{*sub_238DE3698(struct + 8, v8)}];
+    [(MTRScenesManagementClusterViewSceneResponseParams *)self setTransitionTime:v9];
   }
 
   else
@@ -170,17 +170,17 @@ LABEL_6:
 
   if (*(struct + 16) == 1)
   {
-    v9 = sub_238DE36B8(struct + 16);
-    v10 = [objc_alloc(MEMORY[0x277CCACA8]) initWithBytes:*v9 length:v9[1] encoding:4];
-    [(MTRScenesManagementClusterViewSceneResponseParams *)self setSceneName:v10];
+    v11 = sub_238DE36B8(struct + 16, v10);
+    v12 = [objc_alloc(MEMORY[0x277CCACA8]) initWithBytes:*v11 length:v11[1] encoding:4];
+    [(MTRScenesManagementClusterViewSceneResponseParams *)self setSceneName:v12];
 
     sceneName = [(MTRScenesManagementClusterViewSceneResponseParams *)self sceneName];
 
     if (!sceneName)
     {
-      v12 = 0x386700000000;
-      v13 = "/Library/Caches/com.apple.xbs/Sources/CHIPFramework/connectedhomeip/src/darwin/Framework/CHIP/zap-generated/MTRCommandPayloadsObjc.mm";
-      v14 = 47;
+      v14 = 0x386700000000;
+      v15 = "/Library/Caches/com.apple.xbs/Sources/CHIPFramework/connectedhomeip/src/darwin/Framework/CHIP/zap-generated/MTRCommandPayloadsObjc.mm";
+      v16 = 47;
       goto LABEL_51;
     }
   }
@@ -190,162 +190,162 @@ LABEL_6:
     [(MTRScenesManagementClusterViewSceneResponseParams *)self setSceneName:0];
   }
 
-  v16 = *(struct + 40);
-  v15 = struct + 40;
-  if (v16 == 1)
+  v18 = *(struct + 40);
+  v17 = struct + 40;
+  if (v18 == 1)
   {
-    v17 = objc_opt_new();
-    v18 = sub_238DE36B8(v15);
-    sub_238EA2538(v45, v18);
-    while (sub_238EA1A80(v45) && sub_238EA2594(v45))
+    v19 = objc_opt_new();
+    v21 = sub_238DE36B8(v17, v20);
+    sub_238EA2538(v56, v21);
+    while (sub_238EA1A80(v56) && sub_238EA2594(v56))
     {
-      v19 = objc_opt_new();
-      v20 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:v46];
-      [v19 setClusterID:v20];
+      v22 = objc_opt_new();
+      v23 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:v57];
+      [v22 setClusterID:v23];
 
-      v21 = objc_opt_new();
-      sub_238EA2634(v35, &v47);
-      while (sub_238EA1A80(v35) && sub_238EA2698(v35))
+      v24 = objc_opt_new();
+      sub_238EA2634(v46, &v58);
+      while (sub_238EA1A80(v46) && sub_238EA2698(v46))
       {
-        v22 = objc_opt_new();
-        v23 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:v36];
-        [v22 setAttributeID:v23];
+        v25 = objc_opt_new();
+        v26 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:v47];
+        [v25 setAttributeID:v26];
 
-        if (v37[0] == 1)
+        if (v48[0] == 1)
         {
-          v24 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:*sub_238DE36D8(v37)];
-          [v22 setValueUnsigned8:v24];
+          v28 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:{LOBYTE(sub_238DE36D8(v48, v27)->super.isa)}];
+          [v25 setValueUnsigned8:v28];
         }
 
         else
         {
-          [v22 setValueUnsigned8:0];
+          [v25 setValueUnsigned8:0];
         }
 
-        if (v38[0] == 1)
+        if (v49[0] == 1)
         {
-          v25 = [MEMORY[0x277CCABB0] numberWithChar:*sub_238DE36D8(v38)];
-          [v22 setValueSigned8:v25];
+          v30 = [MEMORY[0x277CCABB0] numberWithChar:{SLOBYTE(sub_238DE36D8(v49, v29)->super.isa)}];
+          [v25 setValueSigned8:v30];
         }
 
         else
         {
-          [v22 setValueSigned8:0];
+          [v25 setValueSigned8:0];
         }
 
-        if (v39[0] == 1)
+        if (v50[0] == 1)
         {
-          v26 = [MEMORY[0x277CCABB0] numberWithUnsignedShort:*sub_238E0A934(v39)];
-          [v22 setValueUnsigned16:v26];
+          v32 = [MEMORY[0x277CCABB0] numberWithUnsignedShort:{LOWORD(sub_238E0A934(v50, v31)->super.isa)}];
+          [v25 setValueUnsigned16:v32];
         }
 
         else
         {
-          [v22 setValueUnsigned16:0];
+          [v25 setValueUnsigned16:0];
         }
 
-        if (v40[0] == 1)
+        if (v51[0] == 1)
         {
-          v27 = [MEMORY[0x277CCABB0] numberWithShort:*sub_238E0A934(v40)];
-          [v22 setValueSigned16:v27];
+          v34 = [MEMORY[0x277CCABB0] numberWithShort:{SLOWORD(sub_238E0A934(v51, v33)->super.isa)}];
+          [v25 setValueSigned16:v34];
         }
 
         else
         {
-          [v22 setValueSigned16:0];
+          [v25 setValueSigned16:0];
         }
 
-        if (v41[0] == 1)
+        if (v52[0] == 1)
         {
-          v28 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:*sub_238DE3698(v41)];
-          [v22 setValueUnsigned32:v28];
+          v36 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:{*sub_238DE3698(v52, v35)}];
+          [v25 setValueUnsigned32:v36];
         }
 
         else
         {
-          [v22 setValueUnsigned32:0];
+          [v25 setValueUnsigned32:0];
         }
 
-        if (v42[0] == 1)
+        if (v53[0] == 1)
         {
-          v29 = [MEMORY[0x277CCABB0] numberWithInt:*sub_238DE3698(v42)];
-          [v22 setValueSigned32:v29];
+          v38 = [MEMORY[0x277CCABB0] numberWithInt:{*sub_238DE3698(v53, v37)}];
+          [v25 setValueSigned32:v38];
         }
 
         else
         {
-          [v22 setValueSigned32:0];
+          [v25 setValueSigned32:0];
         }
 
-        if (v43[0] == 1)
+        if (v54[0] == 1)
         {
-          v30 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:*sub_238DE36B8(v43)];
-          [v22 setValueUnsigned64:v30];
+          v40 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:{*sub_238DE36B8(v54, v39)}];
+          [v25 setValueUnsigned64:v40];
         }
 
         else
         {
-          [v22 setValueUnsigned64:0];
+          [v25 setValueUnsigned64:0];
         }
 
-        if (v44[0] == 1)
+        if (v55[0] == 1)
         {
-          v31 = [MEMORY[0x277CCABB0] numberWithLongLong:*sub_238DE36B8(v44)];
-          [v22 setValueSigned64:v31];
+          v42 = [MEMORY[0x277CCABB0] numberWithLongLong:{*sub_238DE36B8(v55, v41)}];
+          [v25 setValueSigned64:v42];
         }
 
         else
         {
-          [v22 setValueSigned64:0];
+          [v25 setValueSigned64:0];
         }
 
-        [v21 addObject:v22];
+        [v24 addObject:v25];
       }
 
-      if (LODWORD(v35[0]) != 33)
+      if (LODWORD(v46[0]) != 33)
       {
-        v32 = v35[0];
-        v14 = LODWORD(v35[0]);
-        if (LODWORD(v35[0]))
+        v43 = v46[0];
+        v16 = LODWORD(v46[0]);
+        if (LODWORD(v46[0]))
         {
-          v13 = v35[1];
+          v15 = v46[1];
 
           goto LABEL_50;
         }
       }
 
-      [v19 setAttributeValueList:v21];
+      [v22 setAttributeValueList:v24];
 
-      [v17 addObject:v19];
+      [v19 addObject:v22];
     }
 
-    if (LODWORD(v45[0]) == 33 || (v32 = v45[0], v14 = LODWORD(v45[0]), !LODWORD(v45[0])))
+    if (LODWORD(v56[0]) == 33 || (v43 = v56[0], v16 = LODWORD(v56[0]), !LODWORD(v56[0])))
     {
-      [(MTRScenesManagementClusterViewSceneResponseParams *)self setExtensionFieldSetStructs:v17];
+      [(MTRScenesManagementClusterViewSceneResponseParams *)self setExtensionFieldSetStructs:v19];
 
       goto LABEL_48;
     }
 
-    v13 = v45[1];
+    v15 = v56[1];
 LABEL_50:
-    v12 = v32 & 0xFFFFFFFF00000000;
+    v14 = v43 & 0xFFFFFFFF00000000;
   }
 
   else
   {
     [(MTRScenesManagementClusterViewSceneResponseParams *)self setExtensionFieldSetStructs:0];
 LABEL_48:
-    v13 = 0;
-    v12 = 0;
+    v15 = 0;
     v14 = 0;
+    v16 = 0;
   }
 
 LABEL_51:
-  v33 = v14 | v12;
-  v34 = v13;
-  result.mFile = v34;
-  result.mError = v33;
-  result.mLine = HIDWORD(v33);
+  v44 = v16 | v14;
+  v45 = v15;
+  result.mFile = v45;
+  result.mError = v44;
+  result.mLine = HIDWORD(v44);
   return result;
 }
 

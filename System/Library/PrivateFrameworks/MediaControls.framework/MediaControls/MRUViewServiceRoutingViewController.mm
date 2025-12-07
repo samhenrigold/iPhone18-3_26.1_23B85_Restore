@@ -657,7 +657,7 @@ void __86__MRUViewServiceRoutingViewController_routingViewController_didSelectRo
   v16 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
-  v7 = MCLogCategoryDefault();
+  v7 = MCLogCategoryDefault(v6);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v8 = objc_opt_class();
@@ -678,7 +678,7 @@ void __86__MRUViewServiceRoutingViewController_routingViewController_didSelectRo
 {
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
   view = [(MRUViewServiceRoutingViewController *)self view];
-  if ([view state])
+  if (objc_msgSend_state(view))
   {
   }
 
@@ -758,7 +758,7 @@ void __86__MRUViewServiceRoutingViewController_routingViewController_didSelectRo
 
         else
         {
-          v20 = MCLogCategoryDefault();
+          v20 = MCLogCategoryDefault(0);
           if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
           {
             v23 = objc_opt_class();
@@ -794,7 +794,7 @@ LABEL_14:
 
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
   view = [(MRUViewServiceRoutingViewController *)self view];
-  if ([view state] == 1)
+  if (objc_msgSend_state(view) == 1)
   {
     v30 = objc_opt_respondsToSelector();
 
@@ -814,7 +814,7 @@ LABEL_14:
   v18 = *MEMORY[0x1E69E9840];
   if ([(MRUViewServiceRoutingViewController *)self isViewLoaded])
   {
-    if (self->_onScreen && (-[MRUViewServiceRoutingViewController view](self, "view"), v3 = objc_claimAutoreleasedReturnValue(), v4 = [v3 state], v3, v4 == 1))
+    if (self->_onScreen && ([(MRUViewServiceRoutingViewController *)self view], v3 = objc_claimAutoreleasedReturnValue(), v4 = objc_msgSend_state(v3), v3, v4 == 1))
     {
       v11[0] = MEMORY[0x1E69E9820];
       v11[1] = 3221225472;
@@ -831,8 +831,7 @@ LABEL_14:
       [view setFooterVisible:canShowMoreButton];
     }
 
-    [(MRUViewServiceRoutingViewController *)self updateRoutingViewControllerScrollIndicatorInsets];
-    v7 = MCLogCategoryDefault();
+    v7 = MCLogCategoryDefault([(MRUViewServiceRoutingViewController *)self updateRoutingViewControllerScrollIndicatorInsets]);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       v8 = objc_opt_class();
@@ -958,8 +957,7 @@ void __65__MRUViewServiceRoutingViewController_updateMoreButtonVisibility__block
   [(MRURoutingViewController *)self->_routingViewController setDelegate:self];
   [(MRURoutingViewController *)self->_routingViewController setSortByIsVideoRoute:[(MPMediaControlsConfiguration *)self->_configuration sortByIsVideoRoute]];
   [(MRURoutingViewController *)self->_routingViewController setShowMetadataForEndpointRoute:1];
-  [(MRURoutingViewController *)self->_routingViewController setContentEdgeInsets:0.0, 24.0, 0.0, 24.0];
-  v29 = MCLogCategoryDeviceAccess();
+  v29 = MCLogCategoryDeviceAccess([(MRURoutingViewController *)self->_routingViewController setContentEdgeInsets:0.0, 24.0, 0.0, 24.0]);
   if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
   {
     customRows = [(MPMediaControlsConfiguration *)self->_configuration customRows];

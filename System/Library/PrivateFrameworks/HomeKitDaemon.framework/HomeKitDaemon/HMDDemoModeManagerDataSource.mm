@@ -86,15 +86,13 @@
 
 - (HMDHH2FrameworkSwitchDataSource)frameworkSwitchDataSource
 {
-  v2 = *(&self->super.isa + OBJC_IVAR___HMDDemoModeManagerDataSource_frameworkSwitchDataSource);
-  v3 = swift_unknownObjectRetain();
+  v2 = swift_unknownObjectRetain();
 
-  return v3;
+  return v2;
 }
 
 - (void)setFrameworkSwitchDataSource:(id)source
 {
-  v3 = *(&self->super.isa + OBJC_IVAR___HMDDemoModeManagerDataSource_frameworkSwitchDataSource);
   *(&self->super.isa + OBJC_IVAR___HMDDemoModeManagerDataSource_frameworkSwitchDataSource) = source;
   swift_unknownObjectRetain();
 

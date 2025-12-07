@@ -53,7 +53,7 @@
 
 - (id)firstViewController
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   dispatch_assert_queue_V2(MEMORY[0x277D85CD0]);
   v3 = +[TSCellularPlanManagerCache sharedInstance];
   [v3 setDelegate:self];
@@ -61,19 +61,17 @@
   self->_isPreinstallingViewControllerActive = 1;
   v4 = [[TSCellularPlanUserConsentViewController alloc] initWithName:self->_installName consentType:1 requireAdditionalConsent:0];
   [(TSCellularPlanUserConsentViewController *)v4 setDelegate:self];
-  [(TSSIMSetupPublicApiInstallFlow *)self _maybeShowPreinstallConsentOnViewController:v4];
-  v5 = _TSLogDomain();
+  v5 = _TSLogDomain([(TSSIMSetupPublicApiInstallFlow *)self _maybeShowPreinstallConsentOnViewController:v4]);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 138412546;
-    v9 = objc_opt_class();
-    v10 = 2080;
-    v11 = "[TSSIMSetupPublicApiInstallFlow firstViewController]";
-    _os_log_impl(&dword_262AA8000, v5, OS_LOG_TYPE_DEFAULT, "first view: %@ @%s", &v8, 0x16u);
+    v7 = 138412546;
+    v8 = objc_opt_class();
+    v9 = 2080;
+    v10 = "[TSSIMSetupPublicApiInstallFlow firstViewController]";
+    _os_log_impl(&dword_262AA8000, v5, OS_LOG_TYPE_DEFAULT, "first view: %@ @%s", &v7, 0x16u);
   }
 
   [(TSSIMSetupFlow *)self setTopViewController:v4];
-  v6 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
@@ -120,26 +118,26 @@ void __54__TSSIMSetupPublicApiInstallFlow_firstViewController___block_invoke(uin
 
 - (id)nextViewControllerFrom:(id)from
 {
-  v30[2] = *MEMORY[0x277D85DE8];
+  v29[2] = *MEMORY[0x277D85DE8];
   fromCopy = from;
   if ([TSUtilities isRegulatoryRestrictionActive:self->_planInstallError])
   {
     self->_isPreinstallingViewControllerActive = 0;
     v5 = [TSSubFlowViewController alloc];
-    v29[0] = @"FlowTypeKey";
-    v29[1] = @"SkipActivatingPane";
-    v30[0] = &unk_287583B68;
-    v30[1] = MEMORY[0x277CBEC38];
-    v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v30 forKeys:v29 count:2];
+    v28[0] = @"FlowTypeKey";
+    v28[1] = @"SkipActivatingPane";
+    v29[0] = &unk_287583B68;
+    v29[1] = MEMORY[0x277CBEC38];
+    v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v29 forKeys:v28 count:2];
     navigationController = [(TSSIMSetupFlow *)self navigationController];
     v8 = [(TSSubFlowViewController *)v5 initWithOptions:v6 navigationController:navigationController delegate:self];
 
-    v22[0] = MEMORY[0x277D85DD0];
-    v22[1] = 3221225472;
-    v22[2] = __57__TSSIMSetupPublicApiInstallFlow_nextViewControllerFrom___block_invoke;
-    v22[3] = &unk_279B44578;
-    v22[4] = self;
-    dispatch_async(MEMORY[0x277D85CD0], v22);
+    v21[0] = MEMORY[0x277D85DD0];
+    v21[1] = 3221225472;
+    v21[2] = __57__TSSIMSetupPublicApiInstallFlow_nextViewControllerFrom___block_invoke;
+    v21[3] = &unk_279B44578;
+    v21[4] = self;
+    dispatch_async(MEMORY[0x277D85CD0], v21);
     goto LABEL_30;
   }
 
@@ -177,15 +175,15 @@ LABEL_27:
       }
 
       v18 = [TSSubFlowViewController alloc];
-      v25[0] = @"FlowTypeKey";
-      v25[1] = @"SkipActivatingPane";
-      v26[0] = &unk_287583B68;
-      v26[1] = MEMORY[0x277CBEC38];
-      v25[2] = @"PlanSetupTypeKey";
-      v25[3] = @"CarrierNameKey";
-      v26[2] = &unk_287583B80;
-      v26[3] = null;
-      navigationController3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v26 forKeys:v25 count:4];
+      v24[0] = @"FlowTypeKey";
+      v24[1] = @"SkipActivatingPane";
+      v25[0] = &unk_287583B68;
+      v25[1] = MEMORY[0x277CBEC38];
+      v24[2] = @"PlanSetupTypeKey";
+      v24[3] = @"CarrierNameKey";
+      v25[2] = &unk_287583B80;
+      v25[3] = null;
+      navigationController3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:v24 count:4];
       navigationController2 = [(TSSIMSetupFlow *)self navigationController];
       v8 = [(TSSubFlowViewController *)v18 initWithOptions:navigationController3 navigationController:navigationController2 delegate:self];
     }
@@ -215,9 +213,9 @@ LABEL_27:
       }
 
       v13 = [TSSubFlowViewController alloc];
-      v23 = @"FlowTypeKey";
-      v24 = &unk_287583B80;
-      null = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v24 forKeys:&v23 count:1];
+      v22 = @"FlowTypeKey";
+      v23 = &unk_287583B80;
+      null = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v23 forKeys:&v22 count:1];
       navigationController3 = [(TSSIMSetupFlow *)self navigationController];
       v8 = [(TSSubFlowViewController *)v13 initWithOptions:null navigationController:navigationController3 delegate:self];
     }
@@ -235,13 +233,13 @@ LABEL_27:
   {
     self->_isPreinstallingViewControllerActive = 0;
     v10 = [TSSubFlowViewController alloc];
-    v27[0] = @"FlowTypeKey";
-    v27[1] = @"SkipActivatingPane";
-    v28[0] = &unk_287583B68;
-    v28[1] = MEMORY[0x277CBEC38];
-    v27[2] = @"PlanSetupTypeKey";
-    v28[2] = &unk_287583B80;
-    v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v28 forKeys:v27 count:3];
+    v26[0] = @"FlowTypeKey";
+    v26[1] = @"SkipActivatingPane";
+    v27[0] = &unk_287583B68;
+    v27[1] = MEMORY[0x277CBEC38];
+    v26[2] = @"PlanSetupTypeKey";
+    v27[2] = &unk_287583B80;
+    v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v27 forKeys:v26 count:3];
     navigationController4 = [(TSSIMSetupFlow *)self navigationController];
     v8 = [(TSSubFlowViewController *)v10 initWithOptions:v11 navigationController:navigationController4 delegate:self];
   }
@@ -252,8 +250,6 @@ LABEL_27:
   }
 
 LABEL_30:
-
-  v20 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
@@ -286,13 +282,13 @@ void __57__TSSIMSetupPublicApiInstallFlow_nextViewControllerFrom___block_invoke(
 
 - (void)planItemsUpdated:(id)updated planListError:(id)error
 {
-  v59 = *MEMORY[0x277D85DE8];
+  v60 = *MEMORY[0x277D85DE8];
   updatedCopy = updated;
   errorCopy = error;
   v8 = errorCopy;
   if (self->_planInstallError)
   {
-    v9 = _TSLogDomain();
+    v9 = _TSLogDomain(errorCopy);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       [TSSIMSetupPublicApiInstallFlow planItemsUpdated:v9 planListError:?];
@@ -303,7 +299,7 @@ void __57__TSSIMSetupPublicApiInstallFlow_nextViewControllerFrom___block_invoke(
 
   if (errorCopy)
   {
-    v10 = _TSLogDomain();
+    v10 = _TSLogDomain(errorCopy);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       [TSSIMSetupPublicApiInstallFlow planItemsUpdated:v8 planListError:v10];
@@ -329,9 +325,9 @@ LABEL_43:
       v12 = v8;
     }
 
-    v33 = [TSUtilities isRegulatoryRestrictionActive:v12];
+    v35 = [TSUtilities isRegulatoryRestrictionActive:v12];
     objc_storeStrong(&self->_planInstallError, error);
-    if (v33)
+    if (v35)
     {
       topViewController = [(TSSIMSetupFlow *)self topViewController];
       [(TSSIMSetupFlow *)self viewControllerDidComplete:topViewController];
@@ -340,29 +336,29 @@ LABEL_43:
     else
     {
       topViewController = [TSUtilities getErrorTitleDetail:v12 forCarrier:self->_carrierName];
-      v35 = MEMORY[0x277D75110];
-      v36 = [topViewController objectForKeyedSubscript:@"ErrorHeader"];
-      v37 = [topViewController objectForKeyedSubscript:@"ErrorDetail"];
-      v38 = [v35 alertControllerWithTitle:v36 message:v37 preferredStyle:1];
+      v37 = MEMORY[0x277D75110];
+      v38 = [topViewController objectForKeyedSubscript:@"ErrorHeader"];
+      v39 = [topViewController objectForKeyedSubscript:@"ErrorDetail"];
+      v40 = [v37 alertControllerWithTitle:v38 message:v39 preferredStyle:1];
 
-      v39 = MEMORY[0x277D750F8];
-      v40 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-      v41 = [v40 localizedStringForKey:@"ERROR_OK" value:&stru_28753DF48 table:@"Localizable"];
-      v53[0] = MEMORY[0x277D85DD0];
-      v53[1] = 3221225472;
-      v53[2] = __65__TSSIMSetupPublicApiInstallFlow_planItemsUpdated_planListError___block_invoke;
-      v53[3] = &unk_279B44B38;
-      v53[4] = self;
-      v42 = [v39 actionWithTitle:v41 style:1 handler:v53];
-      [v38 addAction:v42];
+      v41 = MEMORY[0x277D750F8];
+      v42 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+      v43 = [v42 localizedStringForKey:@"ERROR_OK" value:&stru_28753DF48 table:@"Localizable"];
+      v54[0] = MEMORY[0x277D85DD0];
+      v54[1] = 3221225472;
+      v54[2] = __65__TSSIMSetupPublicApiInstallFlow_planItemsUpdated_planListError___block_invoke;
+      v54[3] = &unk_279B44B38;
+      v54[4] = self;
+      v44 = [v41 actionWithTitle:v43 style:1 handler:v54];
+      [v40 addAction:v44];
 
       block[0] = MEMORY[0x277D85DD0];
       block[1] = 3221225472;
       block[2] = __65__TSSIMSetupPublicApiInstallFlow_planItemsUpdated_planListError___block_invoke_2;
       block[3] = &unk_279B44490;
       block[4] = self;
-      v52 = v38;
-      v43 = v38;
+      v53 = v40;
+      v45 = v40;
       dispatch_async(MEMORY[0x277D85CD0], block);
     }
 
@@ -373,28 +369,28 @@ LABEL_43:
   {
     if (self->_isPreinstallingViewControllerActive)
     {
-      v49 = 0u;
       v50 = 0u;
-      v47 = 0u;
+      v51 = 0u;
       v48 = 0u;
-      v14 = [updatedCopy countByEnumeratingWithState:&v47 objects:v58 count:16];
+      v49 = 0u;
+      v14 = [updatedCopy countByEnumeratingWithState:&v48 objects:v59 count:16];
       if (v14)
       {
         v15 = v14;
-        v46 = 0;
+        v47 = 0;
         v16 = 0;
         v17 = 0;
-        v18 = *v48;
+        v18 = *v49;
         do
         {
           for (i = 0; i != v15; ++i)
           {
-            if (*v48 != v18)
+            if (*v49 != v18)
             {
               objc_enumerationMutation(updatedCopy);
             }
 
-            v20 = *(*(&v47 + 1) + 8 * i);
+            v20 = *(*(&v48 + 1) + 8 * i);
             if ([v20 isInstalling])
             {
               plan = [v20 plan];
@@ -410,15 +406,15 @@ LABEL_43:
                 iccid = [v20 iccid];
                 v17 = [iccid length] != 0;
 
-                v27 = _TSLogDomain();
-                if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
+                v28 = _TSLogDomain(v27);
+                if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
                 {
-                  v28 = self->_carrierName;
+                  v29 = self->_carrierName;
                   *buf = 138412546;
-                  v55 = v28;
-                  v56 = 2080;
-                  v57 = "[TSSIMSetupPublicApiInstallFlow planItemsUpdated:planListError:]";
-                  _os_log_impl(&dword_262AA8000, v27, OS_LOG_TYPE_DEFAULT, "installing [%@] @%s", buf, 0x16u);
+                  v56 = v29;
+                  v57 = 2080;
+                  v58 = "[TSSIMSetupPublicApiInstallFlow planItemsUpdated:planListError:]";
+                  _os_log_impl(&dword_262AA8000, v28, OS_LOG_TYPE_DEFAULT, "installing [%@] @%s", buf, 0x16u);
                 }
               }
             }
@@ -429,7 +425,7 @@ LABEL_43:
             }
           }
 
-          v15 = [updatedCopy countByEnumeratingWithState:&v47 objects:v58 count:16];
+          v15 = [updatedCopy countByEnumeratingWithState:&v48 objects:v59 count:16];
         }
 
         while (v15);
@@ -438,68 +434,68 @@ LABEL_43:
           self->_requireSetup = 1;
         }
 
-        v8 = v46;
+        v8 = v47;
         if (v17)
         {
-          v29 = +[TSCellularPlanManagerCache sharedInstance];
-          v30 = [v29 calculateInstallConsentTextTypeFor:updatedCopy];
+          v30 = +[TSCellularPlanManagerCache sharedInstance];
+          v31 = [v30 calculateInstallConsentTextTypeFor:updatedCopy];
 
-          if (v30 > 2)
+          if (v31 > 2)
           {
-            if ((v30 - 3) >= 3)
+            if ((v31 - 3) >= 3)
             {
               goto LABEL_50;
             }
           }
 
-          else if (v30)
+          else if (v31)
           {
-            if (v30 == 1)
+            if (v31 == 1)
             {
-              v31 = _TSLogDomain();
-              if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
+              v33 = _TSLogDomain(v32);
+              if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
               {
                 *buf = 136315138;
-                v55 = "[TSSIMSetupPublicApiInstallFlow planItemsUpdated:planListError:]";
-                _os_log_impl(&dword_262AA8000, v31, OS_LOG_TYPE_DEFAULT, "disable not allowed @%s", buf, 0xCu);
+                v56 = "[TSSIMSetupPublicApiInstallFlow planItemsUpdated:planListError:]";
+                _os_log_impl(&dword_262AA8000, v33, OS_LOG_TYPE_DEFAULT, "disable not allowed @%s", buf, 0xCu);
               }
 
-              v32 = 3;
+              v34 = 3;
             }
 
             else
             {
-              if (v30 != 2)
+              if (v31 != 2)
               {
                 goto LABEL_50;
               }
 
-              v31 = _TSLogDomain();
-              if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
+              v33 = _TSLogDomain(v32);
+              if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
               {
                 *buf = 136315138;
-                v55 = "[TSSIMSetupPublicApiInstallFlow planItemsUpdated:planListError:]";
-                _os_log_impl(&dword_262AA8000, v31, OS_LOG_TYPE_DEFAULT, "delete not allowed @%s", buf, 0xCu);
+                v56 = "[TSSIMSetupPublicApiInstallFlow planItemsUpdated:planListError:]";
+                _os_log_impl(&dword_262AA8000, v33, OS_LOG_TYPE_DEFAULT, "delete not allowed @%s", buf, 0xCu);
               }
 
-              v32 = 2;
+              v34 = 2;
             }
 
             goto LABEL_49;
           }
 
-          v31 = _TSLogDomain();
-          if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
+          v33 = _TSLogDomain(v32);
+          if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 136315138;
-            v55 = "[TSSIMSetupPublicApiInstallFlow planItemsUpdated:planListError:]";
-            _os_log_impl(&dword_262AA8000, v31, OS_LOG_TYPE_DEFAULT, "Invalid consent @%s", buf, 0xCu);
+            v56 = "[TSSIMSetupPublicApiInstallFlow planItemsUpdated:planListError:]";
+            _os_log_impl(&dword_262AA8000, v33, OS_LOG_TYPE_DEFAULT, "Invalid consent @%s", buf, 0xCu);
           }
 
-          v32 = 0;
+          v34 = 0;
 LABEL_49:
 
-          self->_userConsentType = v32;
+          self->_userConsentType = v34;
 LABEL_50:
           if (self->_isPreinstallingViewControllerActive)
           {
@@ -513,8 +509,6 @@ LABEL_50:
   }
 
 LABEL_44:
-
-  v44 = *MEMORY[0x277D85DE8];
 }
 
 void __65__TSSIMSetupPublicApiInstallFlow_planItemsUpdated_planListError___block_invoke_2(uint64_t a1)
@@ -548,13 +542,13 @@ void __65__TSSIMSetupPublicApiInstallFlow_planItemsUpdated_planListError___block
   }
 }
 
-uint64_t __78__TSSIMSetupPublicApiInstallFlow__maybeShowPreinstallConsentOnViewController___block_invoke(uint64_t result, uint64_t a2)
+void *__78__TSSIMSetupPublicApiInstallFlow__maybeShowPreinstallConsentOnViewController___block_invoke(void *result, uint64_t a2)
 {
   if (a2 > 1)
   {
     if (a2 == 2)
     {
-      v2 = *(result + 32);
+      v2 = *(result + 4);
       v3 = 2;
     }
 
@@ -565,7 +559,7 @@ uint64_t __78__TSSIMSetupPublicApiInstallFlow__maybeShowPreinstallConsentOnViewC
         return result;
       }
 
-      v2 = *(result + 32);
+      v2 = *(result + 4);
       v3 = 1;
     }
 
@@ -576,13 +570,13 @@ uint64_t __78__TSSIMSetupPublicApiInstallFlow__maybeShowPreinstallConsentOnViewC
   {
     if (a2 == 1)
     {
-      return [*(result + 32) userDidTapCancel];
+      return [*(result + 4) userDidTapCancel];
     }
   }
 
   else
   {
-    *(*(result + 32) + 160) = 0;
+    *(*(result + 4) + 160) = 0;
   }
 
   return result;
@@ -635,45 +629,40 @@ void __62__TSSIMSetupPublicApiInstallFlow__alertConsentWithCompletion___block_in
   dispatch_async(MEMORY[0x277D85CD0], block);
 }
 
-uint64_t __62__TSSIMSetupPublicApiInstallFlow__alertConsentWithCompletion___block_invoke_2(uint64_t a1)
+uint64_t __62__TSSIMSetupPublicApiInstallFlow__alertConsentWithCompletion___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v15 = *MEMORY[0x277D85DE8];
-  v2 = (a1 + 48);
+  v13 = *MEMORY[0x277D85DE8];
+  v3 = (a1 + 48);
   if (*(a1 + 48))
   {
-    v3 = _TSLogDomain();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v4 = _TSLogDomain(a1);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      __62__TSSIMSetupPublicApiInstallFlow__alertConsentWithCompletion___block_invoke_2_cold_1(v2, v3);
+      __62__TSSIMSetupPublicApiInstallFlow__alertConsentWithCompletion___block_invoke_2_cold_1(v3, v4);
     }
 
-LABEL_9:
-    result = (*(*(a1 + 32) + 16))();
-    v7 = *MEMORY[0x277D85DE8];
-    return result;
+    return (*(*(a1 + 32) + 16))();
   }
 
   if (*(a1 + 40))
   {
-    v4 = _TSLogDomain();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = _TSLogDomain(a1);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v5 = *(a1 + 40);
-      v11 = 134218242;
-      v12 = v5;
-      v13 = 2080;
-      v14 = "[TSSIMSetupPublicApiInstallFlow _alertConsentWithCompletion:]_block_invoke";
-      _os_log_impl(&dword_262AA8000, v4, OS_LOG_TYPE_DEFAULT, "response flags = %lu @%s", &v11, 0x16u);
+      v6 = *(a1 + 40);
+      v9 = 134218242;
+      v10 = v6;
+      v11 = 2080;
+      v12 = "[TSSIMSetupPublicApiInstallFlow _alertConsentWithCompletion:]_block_invoke";
+      _os_log_impl(&dword_262AA8000, v5, OS_LOG_TYPE_DEFAULT, "response flags = %lu @%s", &v9, 0x16u);
     }
 
-    goto LABEL_9;
+    return (*(*(a1 + 32) + 16))();
   }
 
-  v8 = *(a1 + 32);
-  v9 = *(*(a1 + 32) + 16);
-  v10 = *MEMORY[0x277D85DE8];
+  v8 = *(*(a1 + 32) + 16);
 
-  return v9();
+  return v8();
 }
 
 - (void)_displayUserConsentAlert:(id)alert
@@ -697,26 +686,24 @@ LABEL_9:
 
 - (id)_firstViewController
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v3 = +[TSCellularPlanManagerCache sharedInstance];
   [v3 setDelegate:self];
 
   self->_isPreinstallingViewControllerActive = 1;
   v4 = objc_alloc_init(SSUserConsentViewController);
   [(SSUserConsentViewController *)v4 setDelegate:self];
-  [(TSSIMSetupPublicApiInstallFlow *)self _maybeShowPreinstallConsentOnViewController:v4];
-  v5 = _TSLogDomain();
+  v5 = _TSLogDomain([(TSSIMSetupPublicApiInstallFlow *)self _maybeShowPreinstallConsentOnViewController:v4]);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 138412546;
-    v9 = objc_opt_class();
-    v10 = 2080;
-    v11 = "[TSSIMSetupPublicApiInstallFlow _firstViewController]";
-    _os_log_impl(&dword_262AA8000, v5, OS_LOG_TYPE_DEFAULT, "first view: %@ @%s", &v8, 0x16u);
+    v7 = 138412546;
+    v8 = objc_opt_class();
+    v9 = 2080;
+    v10 = "[TSSIMSetupPublicApiInstallFlow _firstViewController]";
+    _os_log_impl(&dword_262AA8000, v5, OS_LOG_TYPE_DEFAULT, "first view: %@ @%s", &v7, 0x16u);
   }
 
   [(TSSIMSetupFlow *)self setTopViewController:v4];
-  v6 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
@@ -737,34 +724,31 @@ LABEL_9:
 
 - (void)planItemsUpdated:(os_log_t)log planListError:.cold.1(os_log_t log)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v2 = 136315138;
-  v3 = "[TSSIMSetupPublicApiInstallFlow planItemsUpdated:planListError:]";
-  _os_log_error_impl(&dword_262AA8000, log, OS_LOG_TYPE_ERROR, "[E]received error already @%s", &v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v1 = 136315138;
+  v2 = "[TSSIMSetupPublicApiInstallFlow planItemsUpdated:planListError:]";
+  _os_log_error_impl(&dword_262AA8000, log, OS_LOG_TYPE_ERROR, "[E]received error already @%s", &v1, 0xCu);
 }
 
 - (void)planItemsUpdated:(uint64_t)a1 planListError:(NSObject *)a2 .cold.2(uint64_t a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v3 = 138412546;
-  v4 = a1;
-  v5 = 2080;
-  v6 = "[TSSIMSetupPublicApiInstallFlow planItemsUpdated:planListError:]";
-  _os_log_error_impl(&dword_262AA8000, a2, OS_LOG_TYPE_ERROR, "[E]error: %@ @%s", &v3, 0x16u);
-  v2 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
+  v2 = 138412546;
+  v3 = a1;
+  v4 = 2080;
+  v5 = "[TSSIMSetupPublicApiInstallFlow planItemsUpdated:planListError:]";
+  _os_log_error_impl(&dword_262AA8000, a2, OS_LOG_TYPE_ERROR, "[E]error: %@ @%s", &v2, 0x16u);
 }
 
 void __62__TSSIMSetupPublicApiInstallFlow__alertConsentWithCompletion___block_invoke_2_cold_1(int *a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v2 = *a1;
-  v4[0] = 67109378;
-  v4[1] = v2;
-  v5 = 2080;
-  v6 = "[TSSIMSetupPublicApiInstallFlow _alertConsentWithCompletion:]_block_invoke_2";
-  _os_log_error_impl(&dword_262AA8000, a2, OS_LOG_TYPE_ERROR, "[E]present notification failed:%d @%s", v4, 0x12u);
-  v3 = *MEMORY[0x277D85DE8];
+  v3[0] = 67109378;
+  v3[1] = v2;
+  v4 = 2080;
+  v5 = "[TSSIMSetupPublicApiInstallFlow _alertConsentWithCompletion:]_block_invoke_2";
+  _os_log_error_impl(&dword_262AA8000, a2, OS_LOG_TYPE_ERROR, "[E]present notification failed:%d @%s", v3, 0x12u);
 }
 
 @end

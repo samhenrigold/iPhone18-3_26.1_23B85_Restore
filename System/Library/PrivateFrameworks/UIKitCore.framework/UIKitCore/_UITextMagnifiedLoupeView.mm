@@ -79,7 +79,7 @@
     glowView = v10->_glowView;
     v10->_glowView = v23;
 
-    v25 = +[UIColor blackColor];
+    v25 = objc_msgSend_blackColor(UIColor);
     cGColor = [v25 CGColor];
     layer4 = [(UIView *)v10->_glowView layer];
     [layer4 setShadowColor:cGColor];
@@ -465,20 +465,20 @@ LABEL_14:
   v80 = 0u;
   if (_animatableSelectionWidget)
   {
-    [_animatableSelectionWidget originShape];
+    objc_msgSend_originShape(_animatableSelectionWidget);
     v78 = 0.0;
     v76 = 0u;
     v77 = 0u;
-    [v4 originShadow];
+    objc_msgSend_originShadow(v4);
   }
 
   else
   {
-    [(_UITextMagnifiedLoupeView *)self _defaultOriginShape];
+    objc_msgSend__defaultOriginShape(self);
     v78 = 0.0;
     v76 = 0u;
     v77 = 0u;
-    [(_UITextMagnifiedLoupeView *)self _defaultOriginShadow];
+    objc_msgSend__defaultOriginShadow(self);
   }
 
   _isVertical = [(_UITextMagnifiedLoupeView *)self _isVertical];
@@ -610,7 +610,7 @@ LABEL_13:
   [containerView setAlpha:v35];
   if (floatingAbove)
   {
-    v39 = +[UIColor blackColor];
+    v39 = objc_msgSend_blackColor(UIColor);
     v40 = 0.0;
     v41 = 4.0;
   }

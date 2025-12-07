@@ -164,59 +164,57 @@ void __49__SBUIBackgroundView__setContinuousCornerRadius___block_invoke(uint64_t
 
 - (void)modifyAllViewsWithChanges:(id)changes
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   changesCopy = changes;
   reduceTransparencyTintingView = self->_reduceTransparencyTintingView;
   luminanceView = self->_luminanceView;
   backdropView = self->_backdropView;
-  v22[0] = self->_reduceTransparencyView;
-  v22[1] = reduceTransparencyTintingView;
+  v21[0] = self->_reduceTransparencyView;
+  v21[1] = reduceTransparencyTintingView;
   sourceOverView = self->_sourceOverView;
-  v22[2] = luminanceView;
-  v22[3] = backdropView;
+  v21[2] = luminanceView;
+  v21[3] = backdropView;
   darkenSourceOverView = self->_darkenSourceOverView;
-  v22[4] = sourceOverView;
-  v22[5] = darkenSourceOverView;
+  v21[4] = sourceOverView;
+  v21[5] = darkenSourceOverView;
   tintView = self->_tintView;
   lightenSourceOverView = self->_lightenSourceOverView;
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
-  v22[6] = tintView;
-  v22[7] = lightenSourceOverView;
-  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:{8, 0}];
-  v13 = [v12 countByEnumeratingWithState:&v18 objects:v23 count:16];
+  v21[6] = tintView;
+  v21[7] = lightenSourceOverView;
+  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:{8, 0}];
+  v13 = [v12 countByEnumeratingWithState:&v17 objects:v22 count:16];
   if (v13)
   {
     v14 = v13;
-    v15 = *v19;
+    v15 = *v18;
     do
     {
       v16 = 0;
       do
       {
-        if (*v19 != v15)
+        if (*v18 != v15)
         {
           objc_enumerationMutation(v12);
         }
 
         if (changesCopy)
         {
-          changesCopy[2](changesCopy, *(*(&v18 + 1) + 8 * v16));
+          changesCopy[2](changesCopy, *(*(&v17 + 1) + 8 * v16));
         }
 
         ++v16;
       }
 
       while (v14 != v16);
-      v14 = [v12 countByEnumeratingWithState:&v18 objects:v23 count:16];
+      v14 = [v12 countByEnumeratingWithState:&v17 objects:v22 count:16];
     }
 
     while (v14);
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setBackgroundStyle:(int64_t)style

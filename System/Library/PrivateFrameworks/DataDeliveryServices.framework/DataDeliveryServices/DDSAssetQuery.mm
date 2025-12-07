@@ -130,7 +130,7 @@
 
 - (id)dumpDescription
 {
-  if (DDS_IS_INTERNAL_INSTALL())
+  if (DDS_IS_INTERNAL_INSTALL(self, a2))
   {
     v3 = MEMORY[0x1E696AEC0];
     filter = [(DDSAssetQuery *)self filter];

@@ -34,13 +34,13 @@
     if ([document isLocked])
     {
       book3 = [(BKBookParser *)self book];
-      v15 = AEBundle();
+      v15 = AEBundle(book3);
       v16 = [v15 localizedStringForKey:@"Untitled" value:&stru_1E7188 table:0];
       [(BKPdfTocParser *)book3 setBookTitle:v16];
 
-      book5 = AEBundle();
-      v18 = [book5 localizedStringForKey:@"Untitled" value:&stru_1E7188 table:0];
-      [(BKPdfTocParser *)book3 setSortTitle:v18];
+      book5 = AEBundle(v17);
+      v19 = [book5 localizedStringForKey:@"Untitled" value:&stru_1E7188 table:0];
+      [(BKPdfTocParser *)book3 setSortTitle:v19];
     }
 
     else
@@ -76,18 +76,18 @@ LABEL_11:
 
   if (!longLongValue)
   {
-    v23 = +[NSFileManager defaultManager];
+    v24 = +[NSFileManager defaultManager];
     book7 = [(BKBookParser *)self book];
-    v25 = [book7 url];
-    path = [v25 path];
-    v27 = [v23 attributesOfItemAtPath:path error:0];
+    v26 = [book7 url];
+    path = [v26 path];
+    v28 = [v24 attributesOfItemAtPath:path error:0];
 
-    fileSize2 = [v27 fileSize];
+    fileSize2 = [v28 fileSize];
     if (fileSize2)
     {
       book8 = [(BKBookParser *)self book];
-      v30 = [NSNumber numberWithLongLong:fileSize2];
-      [book8 setFileSize:v30];
+      v31 = [NSNumber numberWithLongLong:fileSize2];
+      [book8 setFileSize:v31];
     }
   }
 

@@ -1,55 +1,3 @@
-double sparse_ddot(unsigned int *a1, unsigned int *a2, double *a3, double *a4)
-{
-  result = 0.0;
-  while (a1 < a2)
-  {
-    v5 = *a3++;
-    v6 = v5;
-    LODWORD(v5) = *a1++;
-    result = result + v6 * a4[LODWORD(v5)];
-  }
-
-  return result;
-}
-
-void LSMSVDSDImpl::stpone(LSMSVDSDImpl *this)
-{
-  LSMSVDSDImpl::startv(this);
-  *(this + 52) = v2;
-  if (v2 != 0.0 && !*(this + 110))
-  {
-    v3 = 1.0 / v2;
-    v4 = *(this + 3);
-    if (v3 != 0.0 && v4 != 0)
-    {
-      v6 = *(this + 87);
-      v7 = *(this + 63);
-      v8 = *(this + 3);
-      do
-      {
-        v9 = *v7++;
-        *v6++ = v3 * v9;
-        --v8;
-      }
-
-      while (v8);
-    }
-
-    cblas_dscal(v4, v3, *(this + 95), 1);
-    LSMSVDSDImpl::opb(this, *(this + 95), *(this + 63));
-    v10 = cblas_ddot(*(this + 3), *(this + 63), 1, *(this + 95), 1);
-    **(this + 107) = v10;
-    cblas_daxpy(*(this + 3), -v10, *(this + 87), 1, *(this + 63), 1);
-    v11 = cblas_ddot(*(this + 3), *(this + 63), 1, *(this + 95), 1);
-    cblas_daxpy(*(this + 3), -v11, *(this + 87), 1, *(this + 63), 1);
-    **(this + 107) = v11 + **(this + 107);
-    cblas_dcopy(*(this + 3), *(this + 63), 1, *(this + 99), 1);
-    v12 = sqrt(cblas_ddot(*(this + 3), *(this + 63), 1, *(this + 99), 1));
-    *(this + 52) = v12;
-    *(this + 53) = *(this + 47) * (v12 + fabs(**(this + 107)));
-  }
-}
-
 void LSMSVDSDImpl::lanczos_step(LSMSVDSDImpl *this, int a2, int a3, int *a4, BOOL *a5)
 {
   *(this + 109) = a2;
@@ -562,7 +510,6 @@ void LSMSVDSDImpl::startv(LSMSVDSDImpl *this)
     cblas_daxpy(*(this + 3), -v10, *(this + 91), 1, *(this + 63), 1);
     cblas_dcopy(*(this + 3), *(this + 63), 1, *(this + 95), 1);
     cblas_ddot(*(this + 3), *(this + 95), 1, *(this + 63), 1);
-    *(this + 45);
   }
 }
 
@@ -862,8 +809,8 @@ unsigned int *LSMSVDSFImpl::StartColumns(unsigned int *this)
   else
   {
     this = LSMVectorBase::Allocate(this + 37, v2, 1);
-    v3 = *(v1 + 320);
-    v4 = *(v1 + 12);
+    v3 = *(v1 + 40);
+    v4 = v1[3];
   }
 
   if (v3 >= v2)
@@ -871,19 +818,19 @@ unsigned int *LSMSVDSFImpl::StartColumns(unsigned int *this)
     v3 = v2;
   }
 
-  *(v1 + 312) = v3;
+  *(v1 + 39) = v3;
   if (v4)
   {
     v5 = 0;
     v6 = 0;
     do
     {
-      this = std::pair<LSMVector<unsigned int>,LSMVector<float>>::pair[abi:ne200100]((*(v1 + 296) + v5));
+      this = std::pair<LSMVector<unsigned int>,LSMVector<float>>::pair[abi:ne200100]((*(v1 + 37) + v5));
       ++v6;
       v5 += 64;
     }
 
-    while (v6 < *(v1 + 12));
+    while (v6 < v1[3]);
   }
 
   return this;
@@ -902,8 +849,8 @@ unsigned int *LSMSVDSFTImpl::StartColumns(unsigned int *this)
   else
   {
     this = LSMVectorBase::Allocate(this + 37, v2, 1);
-    v3 = *(v1 + 320);
-    v4 = *(v1 + 8);
+    v3 = *(v1 + 40);
+    v4 = v1[2];
   }
 
   if (v3 >= v2)
@@ -911,19 +858,19 @@ unsigned int *LSMSVDSFTImpl::StartColumns(unsigned int *this)
     v3 = v2;
   }
 
-  *(v1 + 312) = v3;
+  *(v1 + 39) = v3;
   if (v4)
   {
     v5 = 0;
     v6 = 0;
     do
     {
-      this = std::pair<LSMVector<unsigned int>,LSMVector<float>>::pair[abi:ne200100]((*(v1 + 296) + v5));
+      this = std::pair<LSMVector<unsigned int>,LSMVector<float>>::pair[abi:ne200100]((*(v1 + 37) + v5));
       ++v6;
       v5 += 64;
     }
 
-    while (v6 < *(v1 + 8));
+    while (v6 < v1[2]);
   }
 
   return this;
@@ -951,9 +898,9 @@ const void **LSMSVDSFImpl::ColumnDimension(LSMSVDSFImpl *this, uint64_t a2, unin
 
 float LSMSVDSFImpl::ProcessElement(LSMSVDSFImpl *this, int a2, uint64_t a3, double a4)
 {
-  v8 = (*(this + 37) + (a3 << 6));
+  v8 = *(this + 37) + (a3 << 6);
   LSMVectorBase::Append(v8);
-  *(*v8 + 4 * v8[2] - 4) = a2;
+  *(*v8 + 4 * *(v8 + 16) - 4) = a2;
   v9 = *(this + 37) + (a3 << 6);
   LSMVectorBase::Append((v9 + 32));
   *&a4 = a4;
@@ -963,9 +910,9 @@ float LSMSVDSFImpl::ProcessElement(LSMSVDSFImpl *this, int a2, uint64_t a3, doub
 
 float LSMSVDSFTImpl::ProcessElement(LSMSVDSFTImpl *this, uint64_t a2, int a3, double a4)
 {
-  v8 = (*(this + 37) + (a2 << 6));
+  v8 = *(this + 37) + (a2 << 6);
   LSMVectorBase::Append(v8);
-  *(*v8 + 4 * v8[2] - 4) = a3;
+  *(*v8 + 4 * *(v8 + 16) - 4) = a3;
   v9 = *(this + 37) + (a2 << 6);
   LSMVectorBase::Append((v9 + 32));
   *&a4 = a4;
@@ -975,10 +922,10 @@ float LSMSVDSFTImpl::ProcessElement(LSMSVDSFTImpl *this, uint64_t a2, int a3, do
 
 uint64_t LSMSVDSFImpl::Dump(LSMSVDSFImpl *this)
 {
-  v26 = *MEMORY[0x277D85DE8];
-  v22 = 0;
-  time(&v22);
-  v2 = localtime(&v22);
+  v25 = *MEMORY[0x277D85DE8];
+  v21 = 0;
+  time(&v21);
+  v2 = localtime(&v21);
   strftime(__filename, 0x50uLL, "matrix_%d%b%C_%H%M%S", v2);
   v3 = fopen(__filename, "w");
   v4 = v3;
@@ -1005,8 +952,8 @@ uint64_t LSMSVDSFImpl::Dump(LSMSVDSFImpl *this)
   }
 
   fprintf(v3, "%-72s%-8s\n#\nRRA%14lu%14lu%14lu%14lu\n%-16s%-16s%-20s%-20s\n", __filename, "LSM", *(this + 2), v5, v6, 0, "(16I5)", "(16I5)", "(1P,5D16.9f)", "(1P,5D16.9)");
-  v23 = v4;
-  v24[10] = v24;
+  v22 = v4;
+  v23[10] = v23;
   if (*(this + 3))
   {
     v10 = 0;
@@ -1014,7 +961,7 @@ uint64_t LSMSVDSFImpl::Dump(LSMSVDSFImpl *this)
     v12 = 16;
     do
     {
-      LSMCardPunch::Punch(&v23, " %lu", v11);
+      LSMCardPunch::Punch(&v22, " %lu", v11);
       v11 += *(*(this + 37) + v12);
       ++v10;
       v12 += 64;
@@ -1028,8 +975,8 @@ uint64_t LSMSVDSFImpl::Dump(LSMSVDSFImpl *this)
     v11 = 1;
   }
 
-  LSMCardPunch::Punch(&v23, " %lu", v11);
-  LSMCardPunch::Flush(&v23);
+  LSMCardPunch::Punch(&v22, " %lu", v11);
+  LSMCardPunch::Flush(&v22);
   if (*(this + 3))
   {
     v13 = 0;
@@ -1040,11 +987,11 @@ uint64_t LSMSVDSFImpl::Dump(LSMSVDSFImpl *this)
       {
         for (i = 0; i != v14; ++i)
         {
-          LSMCardPunch::Punch(&v23, " %lu", (*(*(*(this + 37) + (v13 << 6)) + 4 * i) + 1));
+          LSMCardPunch::Punch(&v22, " %lu", (*(*(*(this + 37) + (v13 << 6)) + 4 * i) + 1));
         }
       }
 
-      LSMCardPunch::Flush(&v23);
+      LSMCardPunch::Flush(&v22);
       ++v13;
       v16 = *(this + 3);
     }
@@ -1060,11 +1007,11 @@ uint64_t LSMSVDSFImpl::Dump(LSMSVDSFImpl *this)
         {
           for (j = 0; j != v18; ++j)
           {
-            LSMCardPunch::Punch(&v23, " %14g", *(*(*(this + 37) + (v17 << 6) + 32) + 4 * j));
+            LSMCardPunch::Punch(&v22, " %14g", *(*(*(this + 37) + (v17 << 6) + 32) + 4 * j));
           }
         }
 
-        LSMCardPunch::Flush(&v23);
+        LSMCardPunch::Flush(&v22);
         ++v17;
       }
 
@@ -1072,9 +1019,7 @@ uint64_t LSMSVDSFImpl::Dump(LSMSVDSFImpl *this)
     }
   }
 
-  result = fclose(v4);
-  v21 = *MEMORY[0x277D85DE8];
-  return result;
+  return fclose(v4);
 }
 
 int32x2_t LSMSVDSFTImpl::Dump(int32x2_t *this)
@@ -1344,9 +1289,9 @@ void LSMSVDSFImpl::Compute(LSMSVDSFImpl *this)
   LSMVectorBase::~LSMVectorBase(__Y);
 }
 
-void sub_255A681D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_255A681D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   LSMVectorBase::~LSMVectorBase(va);
   _Unwind_Resume(a1);
 }
@@ -2091,9 +2036,9 @@ void LSMSVDSFImpl::ritvec(LSMSVDSFImpl *this)
   LSMVectorBase::~LSMVectorBase(v33);
 }
 
-void sub_255A68F58(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_255A68F58(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   LSMVectorBase::~LSMVectorBase(va);
   _Unwind_Resume(a1);
 }
@@ -2922,7 +2867,6 @@ void LSMSVDSFImpl::startv(LSMSVDSFImpl *this)
     cblas_saxpy(*(this + 3), -v10, *(this + 85), 1, *(this + 57), 1);
     cblas_scopy(*(this + 3), *(this + 57), 1, *(this + 89), 1);
     cblas_sdot(*(this + 3), *(this + 89), 1, *(this + 57), 1);
-    *(this + 90);
   }
 }
 
@@ -3269,7 +3213,7 @@ uint64_t LSMFileDesc::Align(LSMFileDesc *this, unint64_t a2)
 void LSMFileDesc::LSMFileDesc(LSMFileDesc *this, const __CFURL *a2, const char *a3)
 {
   v3 = MEMORY[0x28223BE20](this);
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v3[1] = 0;
   v3[2] = 0;
   *v3 = &unk_2867C1EE8;
@@ -3278,8 +3222,6 @@ void LSMFileDesc::LSMFileDesc(LSMFileDesc *this, const __CFURL *a2, const char *
     strlen(buffer);
     operator new[]();
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void LSMReadFileDesc::LSMReadFileDesc(LSMReadFileDesc *this, const __CFURL *a2, char a3)
@@ -3364,14 +3306,13 @@ uint64_t LSMReadFileDesc::Tell(LSMReadFileDesc *this)
 {
   if (!*(this + 3))
   {
-    v2 = *(this + 1);
     JUMPOUT(0x259C486A0);
   }
 
   return *(this + 5);
 }
 
-BOOL LSMReadFileDesc::Read(LSMReadFileDesc *this, unsigned int *__dst, size_t __nitems, size_t __size)
+uint64_t LSMReadFileDesc::Read(LSMReadFileDesc *this, unsigned int *__dst, size_t __nitems, size_t __size)
 {
   v6 = __dst;
   v8 = *(this + 3);
@@ -3419,9 +3360,9 @@ BOOL LSMReadFileDesc::Read(LSMReadFileDesc *this, unsigned int *__dst, size_t __
   return v12;
 }
 
-BOOL LSMReadFileDesc::ReadVec(LSMReadFileDesc *this, void **a2, size_t __nitems)
+uint64_t LSMReadFileDesc::ReadVec(LSMReadFileDesc *this, void **a2, size_t __nitems)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v6 = *(this + 3);
   if (v6)
   {
@@ -3437,7 +3378,7 @@ LABEL_2:
     }
 
     *(this + 5) = v8;
-    goto LABEL_5;
+    return v10;
   }
 
   if (*(this + 49) == 1)
@@ -3449,22 +3390,22 @@ LABEL_2:
 
     else
     {
-      v13 = fileno(*(this + 1));
-      if ((fstatfs(v13, &v22) & 0x80000000) == 0 && !strstr(v22.f_fstypename, "afp") && !strstr(v22.f_fstypename, "nfs"))
+      v12 = fileno(*(this + 1));
+      if ((fstatfs(v12, &v21) & 0x80000000) == 0 && !strstr(v21.f_fstypename, "afp") && !strstr(v21.f_fstypename, "nfs"))
       {
-        v14 = fileno(*(this + 1));
-        fstat(v14, &v21);
-        stat("/", &v20);
-        if (v21.st_dev == v20.st_dev)
+        v13 = fileno(*(this + 1));
+        fstat(v13, &v20);
+        stat("/", &v19);
+        if (v20.st_dev == v19.st_dev)
         {
-          *(this + 4) = v21.st_size;
+          *(this + 4) = v20.st_size;
           *(this + 5) = MEMORY[0x259C486A0](*(this + 1));
           fseek(*(this + 1), 0, 0);
-          v15 = *(this + 4);
-          v16 = fileno(*(this + 1));
-          v17 = mmap(0, v15, 1, 1, v16, 0);
-          *(this + 3) = v17;
-          if (v17)
+          v14 = *(this + 4);
+          v15 = fileno(*(this + 1));
+          v16 = mmap(0, v14, 1, 1, v15, 0);
+          *(this + 3) = v16;
+          if (v16)
           {
             (*(*this + 16))(this);
           }
@@ -3480,24 +3421,29 @@ LABEL_2:
     }
   }
 
-  v18 = a2[3];
-  if (v18 < __nitems)
+  v17 = a2[3];
+  if (v17 < __nitems)
   {
     LSMVectorBase::Allocate(a2, __nitems, 1);
-    v18 = a2[3];
+    v17 = a2[3];
   }
 
-  v19 = v18 >= __nitems;
-  if (v18 >= __nitems)
+  v18 = v17 >= __nitems;
+  if (v17 >= __nitems)
   {
-    v18 = __nitems;
+    v17 = __nitems;
   }
 
-  a2[2] = v18;
-  v10 = v19 && LSMReadFileDesc::Read(this, *a2, __nitems, *(a2 + 4));
-LABEL_5:
-  v11 = *MEMORY[0x277D85DE8];
-  return v10;
+  a2[2] = v17;
+  if (v18)
+  {
+    return LSMReadFileDesc::Read(this, *a2, __nitems, *(a2 + 4));
+  }
+
+  else
+  {
+    return 0;
+  }
 }
 
 uint64_t LSMReadFileDesc::Decode(LSMReadFileDesc *this, unsigned int *a2)
@@ -4316,12 +4262,12 @@ void LSMICUParser::~LSMICUParser(LSMICUParser *this)
   JUMPOUT(0x259C48400);
 }
 
-LSMICUParser *LSMICUParser::ParseUnicodeSegment(LSMICUParser *this, LSMICUParser *a2, int a3)
+LSMICUParser *LSMICUParser::ParseUnicodeSegment(LSMICUParser *this, LSMICUParser *a2, uint64_t a3)
 {
+  v3 = a3;
   if (*(this + 261))
   {
     ubrk_setText();
-    v6 = *(this + 261);
   }
 
   else
@@ -4329,44 +4275,42 @@ LSMICUParser *LSMICUParser::ParseUnicodeSegment(LSMICUParser *this, LSMICUParser
     *(this + 261) = ubrk_open();
   }
 
-  v7 = ubrk_first();
-  v8 = *(this + 261);
-  v9 = ubrk_next();
-  if (((this - a2 + 1568) >> 1) < a3)
+  v6 = ubrk_first();
+  v7 = ubrk_next();
+  if (((this - a2 + 1568) >> 1) < v3)
   {
-    a3 = (this - a2 + 1568) >> 1;
+    v3 = (this - a2 + 1568) >> 1;
   }
 
-  if (v7 != -1)
+  if (v6 != -1)
   {
-    if (v9 != -1 && v9 < a3)
+    if (v7 != -1 && v7 < v3)
     {
       while (1)
       {
-        v11 = v9;
-        if (v7)
+        v9 = v7;
+        if (v6)
         {
-          if (LSMICUParser::PossibleWord(this, a2 + v7, v9 - v7))
+          if (LSMICUParser::PossibleWord(this, a2 + v6, v7 - v6))
           {
             return 0;
           }
         }
 
-        v12 = *(this + 261);
-        v9 = ubrk_next();
-        v13 = v9 != -1 && v9 < a3;
-        v7 = v11;
-        if (!v13)
+        v7 = ubrk_next();
+        v10 = v7 != -1 && v7 < v3;
+        v6 = v9;
+        if (!v10)
         {
-          return (a2 + 2 * v11);
+          return (a2 + 2 * v9);
         }
       }
     }
 
     else
     {
-      v11 = v7;
-      return (a2 + 2 * v11);
+      v9 = v6;
+      return (a2 + 2 * v9);
     }
   }
 
@@ -4742,11 +4686,11 @@ void LSMSVDDenseFloat::Compute(LSMSVDDenseFloat *this, char a2)
   LSMVectorBase::~LSMVectorBase(__work);
 }
 
-void sub_255A6CB50(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+void sub_255A6CB50(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, ...)
 {
-  va_start(va, a16);
+  va_start(va, a23);
   LSMVectorBase::~LSMVectorBase(va);
-  LSMVectorBase::~LSMVectorBase((v16 - 136));
+  LSMVectorBase::~LSMVectorBase((v23 - 136));
   _Unwind_Resume(a1);
 }
 
@@ -5151,7 +5095,7 @@ void sub_255A6D760(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-const void **LSMClusterer::InitCategories(const void **this, unint64_t a2)
+const void **LSMClusterer::InitCategories(const void **this, const void *a2)
 {
   v3 = this;
   v4 = this[4];
@@ -5226,15 +5170,6 @@ void LSMClusterer::~LSMClusterer(LSMClusterer *this)
   LSMVectorBase::~LSMVectorBase(this + 11);
   LSMVectorBase::~LSMVectorBase(this + 5);
   LSMVectorBase::~LSMVectorBase(this + 1);
-}
-
-uint64_t LSMClusterer::operator[](uint64_t a1, unsigned int a2)
-{
-  v2 = *(a1 + 8);
-  v3 = *(a1 + 88);
-  result = v2 + 4 * *(v3 + 4 * a2);
-  v5 = v2 + 4 * *(v3 + 4 * (a2 + 1));
-  return result;
 }
 
 void LSMClusterer::Subset(uint64_t a1, const LSMVectorBase *a2)
@@ -5893,8 +5828,8 @@ void LSMClusterer::ComputeKMeans(void *a1, uint64_t *a2)
       }
     }
 
-    bzero(v63[0], 4 * *(v17 + 120));
-    bzero(v60[0], 4 * v57 * *(v17 + 120));
+    bzero(v63[0], 4 * v17[15]);
+    bzero(v60[0], 4 * v57 * v17[15]);
     if (!v56)
     {
       break;
@@ -5919,7 +5854,7 @@ void LSMClusterer::ComputeKMeans(void *a1, uint64_t *a2)
         v29 = 1;
       }
 
-      if (v11 >= *(v58 + 120) || !v29)
+      if (v11 >= v58[15] || !v29)
       {
         v31 = v11;
         v11 = v28;
@@ -5995,14 +5930,14 @@ void LSMClusterer::ComputeKMeans(void *a1, uint64_t *a2)
   }
 
   while (v54 != 100);
-  *(v17 + 120) = v11;
+  v17[15] = v11;
   v35 = v11 + 1;
-  v36 = *(v17 + 112);
+  v36 = v17[14];
   if (v36 < v11 + 1)
   {
-    LSMVectorBase::Allocate((v17 + 88), v11 + 1, 1);
-    v36 = *(v17 + 112);
-    v11 = *(v17 + 120);
+    LSMVectorBase::Allocate(v17 + 11, v11 + 1, 1);
+    v36 = v17[14];
+    v11 = v17[15];
   }
 
   if (v36 >= v35)
@@ -6010,14 +5945,14 @@ void LSMClusterer::ComputeKMeans(void *a1, uint64_t *a2)
     v36 = v35;
   }
 
-  *(v17 + 104) = v36;
-  v37 = *(v17 + 88);
+  v17[13] = v36;
+  v37 = v17[11];
   v38 = v56;
   if (v11)
   {
     v39 = 0;
     v40 = v63[0];
-    v41 = *(v17 + 88);
+    v41 = v17[11];
     v42 = v11;
     do
     {
@@ -6037,13 +5972,13 @@ void LSMClusterer::ComputeKMeans(void *a1, uint64_t *a2)
 
   *(v37 + 4 * v11) = v39;
   LSMVectorBase::LSMVectorBase(v59, 4, v56);
-  bzero(v63[0], 4 * *(v17 + 120));
+  bzero(v63[0], 4 * v17[15]);
   if (v56)
   {
     v44 = __b[0];
-    v45 = *(v17 + 8);
+    v45 = v17[1];
     v46 = v59[0];
-    v47 = *(v17 + 88);
+    v47 = v17[11];
     v48 = v63[0];
     do
     {
@@ -6060,7 +5995,7 @@ void LSMClusterer::ComputeKMeans(void *a1, uint64_t *a2)
     while (v38);
   }
 
-  LSMVectorBase::Swap((v17 + 8), v59);
+  LSMVectorBase::Swap(v17 + 1, v59);
   LSMVectorBase::~LSMVectorBase(v59);
   LSMVectorBase::~LSMVectorBase(v60);
   LSMVectorBase::~LSMVectorBase(v61);
@@ -6212,7 +6147,7 @@ void LSMClusterParser::~LSMClusterParser(LSMClusterParser *this)
   LSMVectorBase::~LSMVectorBase(this + 3);
 }
 
-uint64_t LSMClusterParser::AddCFValues(uint64_t a1, const __CFArray *a2, void *a3)
+uint64_t LSMClusterParser::AddCFValues(uint64_t a1, const __CFArray *a2, const void **a3)
 {
   TypeID = CFArrayGetTypeID();
   v30 = CFStringGetTypeID();
@@ -6279,7 +6214,7 @@ LABEL_40:
                   if (a3)
                   {
                     result = LSMVectorBase::Append(a3);
-                    *(*a3 + 4 * a3[2] - 4) = v17;
+                    *(*a3 + a3[2] - 1) = v17;
                   }
                 }
               }

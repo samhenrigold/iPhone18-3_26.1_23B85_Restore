@@ -13,30 +13,31 @@
 - (CAFNowPlayingManager)initWithObserver:(id)observer
 {
   observerCopy = observer;
-  v13.receiver = self;
-  v13.super_class = CAFNowPlayingManager;
-  v5 = [(CAFNowPlayingManager *)&v13 init];
+  v14.receiver = self;
+  v14.super_class = CAFNowPlayingManager;
+  v5 = [(CAFNowPlayingManager *)&v14 init];
+  v6 = v5;
   if (v5)
   {
-    v6 = CAFNowPlayingLogging();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+    v7 = CAFNowPlayingLogging(v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
       [CAFNowPlayingManager initWithObserver:];
     }
 
     serial = [MEMORY[0x277CF0C18] serial];
-    v8 = BSDispatchQueueCreate();
-    workQueue = v5->_workQueue;
-    v5->_workQueue = v8;
+    v9 = BSDispatchQueueCreate();
+    workQueue = v6->_workQueue;
+    v6->_workQueue = v9;
 
-    v10 = MEMORY[0x231933C60](observerCopy);
-    snapshotObserver = v5->_snapshotObserver;
-    v5->_snapshotObserver = v10;
+    v11 = MEMORY[0x231933C60](observerCopy);
+    snapshotObserver = v6->_snapshotObserver;
+    v6->_snapshotObserver = v11;
 
-    [(CAFNowPlayingManager *)v5 _setupConnection];
+    [(CAFNowPlayingManager *)v6 _setupConnection];
   }
 
-  return v5;
+  return v6;
 }
 
 - (void)_setupConnection
@@ -53,33 +54,32 @@
 
   if (v8)
   {
-    v9 = [MEMORY[0x277CF3280] connectionWithEndpoint:v8];
-    if (v9)
+    v10 = [MEMORY[0x277CF3280] connectionWithEndpoint:v8];
+    if (v10)
     {
       objc_initWeak(&location, self);
-      v12[0] = MEMORY[0x277D85DD0];
-      v12[1] = 3221225472;
-      v12[2] = __40__CAFNowPlayingManager__setupConnection__block_invoke;
-      v12[3] = &unk_27890F348;
-      v12[4] = self;
-      objc_copyWeak(&v13, &location);
-      [v9 configureConnection:v12];
-      v10 = CAFNowPlayingLogging();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+      v13[0] = MEMORY[0x277D85DD0];
+      v13[1] = 3221225472;
+      v13[2] = __40__CAFNowPlayingManager__setupConnection__block_invoke;
+      v13[3] = &unk_27890F348;
+      v13[4] = self;
+      objc_copyWeak(&v14, &location);
+      v11 = CAFNowPlayingLogging([v10 configureConnection:v13]);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
       {
         [CAFNowPlayingManager _setupConnection];
       }
 
-      objc_storeStrong(p_connection, v9);
-      [v9 activate];
-      objc_destroyWeak(&v13);
+      objc_storeStrong(p_connection, v10);
+      [v10 activate];
+      objc_destroyWeak(&v14);
       objc_destroyWeak(&location);
     }
 
     else
     {
-      v11 = CAFNowPlayingLogging();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      v12 = CAFNowPlayingLogging(0);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
         [CAFNowPlayingManager _setupConnection];
       }
@@ -88,8 +88,8 @@
 
   else
   {
-    v9 = CAFNowPlayingLogging();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v10 = CAFNowPlayingLogging(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       [CAFNowPlayingManager _setupConnection];
     }
@@ -148,10 +148,10 @@ void __40__CAFNowPlayingManager__setupConnection__block_invoke_3(uint64_t a1)
   }
 }
 
-void __40__CAFNowPlayingManager__setupConnection__block_invoke_4()
+void __40__CAFNowPlayingManager__setupConnection__block_invoke_4(uint64_t a1)
 {
-  v0 = CAFNowPlayingLogging();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEBUG))
+  v1 = CAFNowPlayingLogging(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_DEBUG))
   {
     __40__CAFNowPlayingManager__setupConnection__block_invoke_4_cold_1();
   }
@@ -159,7 +159,7 @@ void __40__CAFNowPlayingManager__setupConnection__block_invoke_4()
 
 - (void)_connectionActivated
 {
-  v3 = CAFNowPlayingLogging();
+  v3 = CAFNowPlayingLogging(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     [CAFNowPlayingManager _connectionActivated];
@@ -170,7 +170,7 @@ void __40__CAFNowPlayingManager__setupConnection__block_invoke_4()
 
 - (void)_connectionInterrupted
 {
-  v3 = CAFNowPlayingLogging();
+  v3 = CAFNowPlayingLogging(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     [CAFNowPlayingManager _connectionInterrupted];
@@ -184,7 +184,7 @@ void __40__CAFNowPlayingManager__setupConnection__block_invoke_4()
 
 - (void)_fetchSnapshot
 {
-  v3 = CAFNowPlayingLogging();
+  v3 = CAFNowPlayingLogging(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     [CAFNowPlayingManager _fetchSnapshot];
@@ -203,7 +203,7 @@ void __38__CAFNowPlayingManager__fetchSnapshot__block_invoke(uint64_t a1, void *
 {
   v5 = a2;
   v6 = a3;
-  v7 = CAFNowPlayingLogging();
+  v7 = CAFNowPlayingLogging(v6);
   v8 = v7;
   if (v6)
   {
@@ -235,35 +235,36 @@ void __38__CAFNowPlayingManager__fetchSnapshot__block_invoke(uint64_t a1, void *
 
 void __38__CAFNowPlayingManager__fetchSnapshot__block_invoke_28(uint64_t a1)
 {
-  if ([*(a1 + 32) isValid])
+  v2 = [*(a1 + 32) isValid];
+  if (v2)
   {
     objc_storeStrong((*(a1 + 40) + 8), *(a1 + 32));
-    v2 = [*(a1 + 40) snapshotObserver];
+    v3 = [*(a1 + 40) snapshotObserver];
 
-    if (v2)
+    if (v3)
     {
-      v6 = [*(a1 + 40) snapshotObserver];
-      v6[2](v6, *(a1 + 32));
+      v7 = [*(a1 + 40) snapshotObserver];
+      v7[2](v7, *(a1 + 32));
     }
   }
 
   else
   {
-    v3 = CAFNowPlayingLogging();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v4 = CAFNowPlayingLogging(v2);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       __38__CAFNowPlayingManager__fetchSnapshot__block_invoke_28_cold_1();
     }
 
-    v4 = *(a1 + 40);
-    v5 = *(v4 + 8);
-    *(v4 + 8) = 0;
+    v5 = *(a1 + 40);
+    v6 = *(v5 + 8);
+    *(v5 + 8) = 0;
   }
 }
 
 - (void)refreshNowPlayingSnapshot
 {
-  v3 = CAFNowPlayingLogging();
+  v3 = CAFNowPlayingLogging(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     [CAFNowPlayingManager refreshNowPlayingSnapshot];
@@ -274,7 +275,7 @@ void __38__CAFNowPlayingManager__fetchSnapshot__block_invoke_28(uint64_t a1)
 
 - (void)invalidate
 {
-  v3 = CAFNowPlayingLogging();
+  v3 = CAFNowPlayingLogging(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     [CAFNowPlayingManager invalidate];
@@ -290,20 +291,18 @@ void __38__CAFNowPlayingManager__fetchSnapshot__block_invoke_28(uint64_t a1)
 
 void __38__CAFNowPlayingManager__fetchSnapshot__block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_231618000, a2, OS_LOG_TYPE_ERROR, "Last snapshot update error: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_231618000, a2, OS_LOG_TYPE_ERROR, "Last snapshot update error: %@", &v2, 0xCu);
 }
 
 void __38__CAFNowPlayingManager__fetchSnapshot__block_invoke_cold_2(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_debug_impl(&dword_231618000, a2, OS_LOG_TYPE_DEBUG, "Received updated now playing snapshot %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_debug_impl(&dword_231618000, a2, OS_LOG_TYPE_DEBUG, "Received updated now playing snapshot %@", &v2, 0xCu);
 }
 
 @end

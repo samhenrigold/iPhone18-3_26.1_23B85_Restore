@@ -3,7 +3,7 @@
 
 @implementation PHUIConfiguration
 
-uint64_t __50__PHUIConfiguration_DialerView__dialerLCDFontSize__block_invoke()
+void *__50__PHUIConfiguration_DialerView__dialerLCDFontSize__block_invoke()
 {
   result = [MEMORY[0x277D3A7E0] screenSize];
   v1 = dbl_2429ED2A0[result == 1];
@@ -16,7 +16,7 @@ uint64_t __50__PHUIConfiguration_DialerView__dialerLCDFontSize__block_invoke()
   return result;
 }
 
-uint64_t __55__PHUIConfiguration_DialerView__dialerLCDLabelFontSize__block_invoke()
+void *__55__PHUIConfiguration_DialerView__dialerLCDLabelFontSize__block_invoke()
 {
   result = [MEMORY[0x277D3A7E0] screenSize];
   v1 = result == 6 || result == 9;
@@ -30,7 +30,7 @@ uint64_t __55__PHUIConfiguration_DialerView__dialerLCDLabelFontSize__block_invok
   return result;
 }
 
-uint64_t __61__PHUIConfiguration_DialerView__dialerLCDSourceLabelFontSize__block_invoke()
+void *__61__PHUIConfiguration_DialerView__dialerLCDSourceLabelFontSize__block_invoke()
 {
   result = [MEMORY[0x277D3A7E0] screenSize];
   v1 = result == 6 || result == 9;

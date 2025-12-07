@@ -8,6 +8,7 @@
 - (id)dictionaryRepresentation;
 - (id)storageName;
 - (void)_handleStorageReady:(id)ready;
+- (void)_replicateAllContentFromStore:(id)store toStore:(id)toStore synchronize:(BOOL)synchronize;
 - (void)_saveChanges:(id)changes fromStorage:(id)storage toStorage:(id)toStorage synchronize:(BOOL)synchronize;
 - (void)conversationRemoteStorage:(id)storage didChangeEntries:(id)entries reason:(int64_t)reason;
 - (void)conversationRemoteStorageDidInitialize:(id)initialize;
@@ -71,18 +72,17 @@ void __42__EDConversationMultipleRemoteStorage_log__block_invoke(uint64_t a1)
 
 void __56__EDConversationMultipleRemoteStorage_initWithDelegate___block_invoke(uint64_t a1)
 {
-  v6 = [[EDConversationRemoteKVSStorage alloc] initWithDelegate:*(a1 + 32)];
+  v5 = [[EDConversationRemoteKVSStorage alloc] initWithDelegate:*(a1 + 32)];
   [*(a1 + 32) setKvsStorage:?];
 
-  v7 = [[EDConversationRemoteCloudKitStorage alloc] initWithDelegate:*(a1 + 32)];
+  v6 = [[EDConversationRemoteCloudKitStorage alloc] initWithDelegate:*(a1 + 32)];
   [*(a1 + 32) setCloudKitStorage:?];
 
   v2 = [EDTransactionService alloc];
-  v3 = *(a1 + 32);
-  v4 = objc_opt_class();
-  v8 = NSStringFromClass(v4);
-  v5 = [(EDTransactionService *)v2 initWithServiceName:?];
-  [*(a1 + 32) setDataReplicationTransaction:v5];
+  v3 = objc_opt_class();
+  v7 = NSStringFromClass(v3);
+  v4 = [(EDTransactionService *)v2 initWithServiceName:?];
+  [*(a1 + 32) setDataReplicationTransaction:v4];
 }
 
 - (id)dictionaryForKey:(id)key
@@ -394,26 +394,24 @@ uint64_t __78__EDConversationMultipleRemoteStorage_conversationRemoteStorageDidI
 
   if (v3)
   {
-    v4 = *(a1 + 32);
-    v5 = [objc_opt_class() log];
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v4 = [objc_opt_class() log];
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      __78__EDConversationMultipleRemoteStorage_conversationRemoteStorageDidInitialize___block_invoke_cold_1(v5);
+      __78__EDConversationMultipleRemoteStorage_conversationRemoteStorageDidInitialize___block_invoke_cold_1(v4);
     }
 
-    v6 = [*(a1 + 32) dataReplicationTransaction];
-    [v6 resetPendingTransactions];
+    v5 = [*(a1 + 32) dataReplicationTransaction];
+    [v5 resetPendingTransactions];
 
-    v7 = *(a1 + 32);
-    v8 = [v7 cloudKitStorage];
-    v9 = [*(a1 + 32) kvsStorage];
-    [v7 _replicateAllContentFromStore:v8 toStore:v9 synchronize:1];
+    v6 = *(a1 + 32);
+    v7 = [v6 cloudKitStorage];
+    v8 = [*(a1 + 32) kvsStorage];
+    [v6 _replicateAllContentFromStore:v7 toStore:v8 synchronize:1];
 
-    v10 = *(a1 + 32);
-    v11 = [objc_opt_class() log];
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v9 = [objc_opt_class() log];
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      __78__EDConversationMultipleRemoteStorage_conversationRemoteStorageDidInitialize___block_invoke_cold_2(v11);
+      __78__EDConversationMultipleRemoteStorage_conversationRemoteStorageDidInitialize___block_invoke_cold_2(v9);
     }
   }
 
@@ -423,7 +421,7 @@ uint64_t __78__EDConversationMultipleRemoteStorage_conversationRemoteStorageDidI
 - (void)_saveChanges:(id)changes fromStorage:(id)storage toStorage:(id)toStorage synchronize:(BOOL)synchronize
 {
   synchronizeCopy = synchronize;
-  v42 = *MEMORY[0x1E69E9840];
+  v41 = *MEMORY[0x1E69E9840];
   changesCopy = changes;
   storageCopy = storage;
   toStorageCopy = toStorage;
@@ -431,36 +429,36 @@ uint64_t __78__EDConversationMultipleRemoteStorage_conversationRemoteStorageDidI
   if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
   {
     *buf = 134218498;
-    v34 = [changesCopy count];
-    v35 = 2114;
-    v36 = storageCopy;
-    v37 = 2114;
-    v38 = toStorageCopy;
+    v33 = [changesCopy count];
+    v34 = 2114;
+    v35 = storageCopy;
+    v36 = 2114;
+    v37 = toStorageCopy;
     _os_log_impl(&dword_1C61EF000, v10, OS_LOG_TYPE_INFO, "Replicating %lu changes from %{public}@ to %{public}@", buf, 0x20u);
   }
 
-  v25 = synchronizeCopy;
+  v24 = synchronizeCopy;
 
-  v31 = 0u;
-  v32 = 0u;
-  v29 = 0u;
   v30 = 0u;
+  v31 = 0u;
+  v28 = 0u;
+  v29 = 0u;
   obj = [changesCopy allKeys];
-  v11 = [obj countByEnumeratingWithState:&v29 objects:v41 count:16];
+  v11 = [obj countByEnumeratingWithState:&v28 objects:v40 count:16];
   if (v11)
   {
     v12 = 0;
-    v13 = *v30;
+    v13 = *v29;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v30 != v13)
+        if (*v29 != v13)
         {
           objc_enumerationMutation(obj);
         }
 
-        v15 = *(*(&v29 + 1) + 8 * i);
+        v15 = *(*(&v28 + 1) + 8 * i);
         v16 = [changesCopy objectForKeyedSubscript:v15];
         v17 = [toStorageCopy dictionaryForKey:v15];
         objc_opt_class();
@@ -485,13 +483,13 @@ uint64_t __78__EDConversationMultipleRemoteStorage_conversationRemoteStorageDidI
             if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
             {
               *buf = 138544130;
-              v34 = v15;
-              v35 = 2114;
-              v36 = storageCopy;
-              v37 = 2114;
-              v38 = toStorageCopy;
-              v39 = 2114;
-              v40 = toStorageCopy;
+              v33 = v15;
+              v34 = 2114;
+              v35 = storageCopy;
+              v36 = 2114;
+              v37 = toStorageCopy;
+              v38 = 2114;
+              v39 = toStorageCopy;
               _os_log_debug_impl(&dword_1C61EF000, v22, OS_LOG_TYPE_DEBUG, "Change %{public}@ replicated from %{public}@ to %{public}@, because %{public}@ entry is more recent.", buf, 0x2Au);
             }
 
@@ -504,25 +502,25 @@ uint64_t __78__EDConversationMultipleRemoteStorage_conversationRemoteStorageDidI
             if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
             {
               *buf = 138544130;
-              v34 = v15;
-              v35 = 2114;
-              v36 = storageCopy;
-              v37 = 2114;
-              v38 = toStorageCopy;
-              v39 = 2114;
-              v40 = toStorageCopy;
+              v33 = v15;
+              v34 = 2114;
+              v35 = storageCopy;
+              v36 = 2114;
+              v37 = toStorageCopy;
+              v38 = 2114;
+              v39 = toStorageCopy;
               _os_log_debug_impl(&dword_1C61EF000, v22, OS_LOG_TYPE_DEBUG, "Ignoring change with Key %{public}@ from %{public}@ to %{public}@, because %{public}@ entry is more recent.", buf, 0x2Au);
             }
           }
         }
       }
 
-      v11 = [obj countByEnumeratingWithState:&v29 objects:v41 count:16];
+      v11 = [obj countByEnumeratingWithState:&v28 objects:v40 count:16];
     }
 
     while (v11);
 
-    if ((v12 & v25) == 1)
+    if ((v12 & v24) == 1)
     {
       [toStorageCopy synchronize];
     }
@@ -536,13 +534,11 @@ uint64_t __78__EDConversationMultipleRemoteStorage_conversationRemoteStorageDidI
   if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
   {
     *buf = 138543618;
-    v34 = storageCopy;
-    v35 = 2114;
-    v36 = toStorageCopy;
+    v33 = storageCopy;
+    v34 = 2114;
+    v35 = toStorageCopy;
     _os_log_impl(&dword_1C61EF000, v23, OS_LOG_TYPE_INFO, "Finished replicating changes from %{public}@ to %{public}@", buf, 0x16u);
   }
-
-  v24 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_handleStorageReady:(id)ready
@@ -583,6 +579,15 @@ uint64_t __78__EDConversationMultipleRemoteStorage_conversationRemoteStorageDidI
       }
     }
   }
+}
+
+- (void)_replicateAllContentFromStore:(id)store toStore:(id)toStore synchronize:(BOOL)synchronize
+{
+  synchronizeCopy = synchronize;
+  storeCopy = store;
+  toStoreCopy = toStore;
+  dictionaryRepresentation = [storeCopy dictionaryRepresentation];
+  [(EDConversationMultipleRemoteStorage *)self _saveChanges:dictionaryRepresentation fromStorage:storeCopy toStorage:toStoreCopy synchronize:synchronizeCopy];
 }
 
 - (EDConversationRemoteStorageDelegate)delegate

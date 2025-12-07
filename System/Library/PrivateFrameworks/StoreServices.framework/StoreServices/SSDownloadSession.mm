@@ -121,7 +121,7 @@
 - (id)_copySessionPropertyWithKey:(const char *)key
 {
   v30 = *MEMORY[0x1E69E9840];
-  if (SSIsInternalBuild() && _os_feature_enabled_impl())
+  if (SSIsInternalBuild(self, a2) && _os_feature_enabled_impl())
   {
     v5 = +[SSLogConfig sharedStoreServicesConfig];
     if (!v5)
@@ -140,28 +140,27 @@
       v7 = shouldLog;
     }
 
-    if (os_log_type_enabled([v5 OSLogObject], OS_LOG_TYPE_FAULT))
+    oSLogObject = [v5 OSLogObject];
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_FAULT))
     {
-      v8 = v7;
+      v9 = v7;
     }
 
     else
     {
-      v8 = v7 & 2;
+      v9 = v7 & 2;
     }
 
-    if (v8)
+    if (v9)
     {
       LODWORD(v25) = 136446210;
       *(&v25 + 4) = "[SSDownloadSession _copySessionPropertyWithKey:]";
-      LODWORD(v23) = 12;
-      v9 = _os_log_send_and_compose_impl();
-      if (v9)
+      if (v10)
       {
-        v10 = v9;
-        v11 = [MEMORY[0x1E696AEC0] stringWithCString:v9 encoding:{4, &v25, v23}];
-        free(v10);
-        SSFileLog(v5, @"%@", v12, v13, v14, v15, v16, v17, v11);
+        v11 = v10;
+        v12 = [MEMORY[0x1E696AEC0] stringWithCString:v10 encoding:4];
+        free(v11);
+        SSFileLog(v5, @"%@", v13, v14, v15, v16, v17, v18, v12);
       }
     }
   }
@@ -172,10 +171,10 @@
   v27 = __Block_byref_object_copy__35;
   v28 = __Block_byref_object_dispose__35;
   v29 = 0;
-  v18 = xpc_dictionary_create(0, 0, 0);
-  xpc_dictionary_set_int64(v18, "0", 12);
-  xpc_dictionary_set_int64(v18, "1", self->_sessionID);
-  v19 = dispatch_semaphore_create(0);
+  v19 = xpc_dictionary_create(0, 0, 0);
+  xpc_dictionary_set_int64(v19, "0", 12);
+  xpc_dictionary_set_int64(v19, "1", self->_sessionID);
+  v20 = dispatch_semaphore_create(0);
   controlConnection = self->_controlConnection;
   v24[0] = MEMORY[0x1E69E9820];
   v24[1] = 3221225472;
@@ -183,14 +182,14 @@
   v24[3] = &unk_1E84B0AB8;
   v24[5] = &v25;
   v24[6] = key;
-  v24[4] = v19;
-  [(SSXPCConnection *)controlConnection sendMessage:v18 withReply:v24];
-  dispatch_semaphore_wait(v19, 0xFFFFFFFFFFFFFFFFLL);
-  dispatch_release(v19);
-  xpc_release(v18);
-  v21 = *(*(&v25 + 1) + 40);
+  v24[4] = v20;
+  [(SSXPCConnection *)controlConnection sendMessage:v19 withReply:v24];
+  dispatch_semaphore_wait(v20, 0xFFFFFFFFFFFFFFFFLL);
+  dispatch_release(v20);
+  xpc_release(v19);
+  v22 = *(*(&v25 + 1) + 40);
   _Block_object_dispose(&v25, 8);
-  return v21;
+  return v22;
 }
 
 intptr_t __49__SSDownloadSession__copySessionPropertyWithKey___block_invoke(uint64_t a1, void *a2)

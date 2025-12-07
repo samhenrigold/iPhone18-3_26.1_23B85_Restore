@@ -349,6 +349,20 @@ LABEL_12:
   return v8;
 }
 
+- (void)downloadWithCompletionBlock:(uint64_t)a3 .cold.1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = *(a1 + 8);
+  OUTLINED_FUNCTION_0_1(&dword_22D9C5000, a2, a3, "No valid remote url for: %@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void __55__NTKGreenfieldDownloader_downloadWithCompletionBlock___block_invoke_2_cold_1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = *(a1 + 40);
+  OUTLINED_FUNCTION_0_1(&dword_22D9C5000, a2, a3, "Download failed for: %@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
 void __55__NTKGreenfieldDownloader_downloadWithCompletionBlock___block_invoke_2_cold_2(uint64_t a1, id *a2)
 {
   [*a2 statusCode];

@@ -41,7 +41,7 @@ LABEL_12:
 
 - (id)currentState
 {
-  v30[6] = *MEMORY[0x277D85DE8];
+  v29[6] = *MEMORY[0x277D85DE8];
   v3 = [(AGXConsistentStateDevice *)self->_agxDevice getConsistentPerfStateInfoAndReset:1];
   if (v3)
   {
@@ -49,43 +49,43 @@ LABEL_12:
     v5 = getConsistentPerfStateMappingTable;
     if (getConsistentPerfStateMappingTable)
     {
-      v28 = [getConsistentPerfStateMappingTable objectForKeyedSubscript:@"min_pstate"];
-      v27 = [v5 objectForKeyedSubscript:@"mid_pstate"];
+      v27 = [getConsistentPerfStateMappingTable objectForKeyedSubscript:@"min_pstate"];
+      v26 = [v5 objectForKeyedSubscript:@"mid_pstate"];
       v6 = [v5 objectForKeyedSubscript:@"max_pstate"];
       v7 = v6;
       v8 = &unk_285A36FC0;
-      if (v28 && v27 && v6)
+      if (v27 && v26 && v6)
       {
-        v26 = v6;
-        unsignedIntValue = [v28 unsignedIntValue];
-        unsignedIntValue2 = [v27 unsignedIntValue];
-        unsignedIntValue3 = [v26 unsignedIntValue];
+        v25 = v6;
+        unsignedIntValue = [v27 unsignedIntValue];
+        unsignedIntValue2 = [v26 unsignedIntValue];
+        unsignedIntValue3 = [v25 unsignedIntValue];
         v8 = objc_opt_new();
-        v29[0] = @"accelerator-id";
-        v24 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:self->_acceleratorId];
-        v30[0] = v24;
-        v30[1] = MEMORY[0x277CBEC38];
-        v29[1] = @"available";
-        v29[2] = @"enabled";
+        v28[0] = @"accelerator-id";
+        v23 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:self->_acceleratorId];
+        v29[0] = v23;
+        v29[1] = MEMORY[0x277CBEC38];
+        v28[1] = @"available";
+        v28[2] = @"enabled";
         v12 = MEMORY[0x277CCABB0];
-        v25 = [v3 objectForKeyedSubscript:@"is_enabled"];
-        v22 = [v12 numberWithBool:{objc_msgSend(v25, "BOOLValue")}];
-        v30[2] = v22;
-        v29[3] = @"sustained";
+        v24 = [v3 objectForKeyedSubscript:@"is_enabled"];
+        v21 = [v12 numberWithBool:{objc_msgSend(v24, "BOOLValue")}];
+        v29[2] = v21;
+        v28[3] = @"sustained";
         v13 = MEMORY[0x277CCABB0];
-        v23 = [v3 objectForKeyedSubscript:@"was_consistent"];
-        v14 = [v13 numberWithBool:{objc_msgSend(v23, "BOOLValue")}];
-        v30[3] = v14;
-        v29[4] = @"level";
+        v22 = [v3 objectForKeyedSubscript:@"was_consistent"];
+        v14 = [v13 numberWithBool:{objc_msgSend(v22, "BOOLValue")}];
+        v29[3] = v14;
+        v28[4] = @"level";
         v15 = MEMORY[0x277CCABB0];
         v16 = [v3 objectForKeyedSubscript:?];
         v17 = [v15 numberWithUnsignedInt:{objc_msgSend(v16, "unsignedIntValue")}];
-        v30[4] = v17;
-        v29[5] = @"mapping";
+        v29[4] = v17;
+        v28[5] = @"mapping";
         v18 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:(unsignedIntValue2 << 16) | (unsignedIntValue << 24) | (unsignedIntValue3 << 8)];
-        v30[5] = v18;
-        v7 = v26;
-        v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v30 forKeys:v29 count:6];
+        v29[5] = v18;
+        v7 = v25;
+        v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v29 forKeys:v28 count:6];
         [v8 addEntriesFromDictionary:v19];
       }
     }
@@ -100,8 +100,6 @@ LABEL_12:
   {
     v8 = &unk_285A36F70;
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 
   return v8;
 }

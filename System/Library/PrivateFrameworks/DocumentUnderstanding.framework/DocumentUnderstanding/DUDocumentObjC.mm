@@ -49,30 +49,30 @@
 
 - (void)setDocumentUIElements:(id)elements
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   elementsCopy = elements;
   v5 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v22 = 0u;
   v23 = 0u;
   v24 = 0u;
   v25 = 0u;
-  v26 = 0u;
   v6 = elementsCopy;
-  v8 = objc_msgSend_countByEnumeratingWithState_objects_count_(v6, v7, &v23, v27, 16);
+  v8 = objc_msgSend_countByEnumeratingWithState_objects_count_(v6, v7, &v22, v26, 16);
   if (v8)
   {
     v12 = v8;
-    v13 = *v24;
+    v13 = *v23;
     do
     {
       v14 = 0;
       do
       {
-        if (*v24 != v13)
+        if (*v23 != v13)
         {
           objc_enumerationMutation(v6);
         }
 
-        v18 = objc_msgSend_uiElementForObjCUIElement_(DUObjCCompatibilityUtils, v9, *(*(&v23 + 1) + 8 * v14), v10, v11, v23);
+        v18 = objc_msgSend_uiElementForObjCUIElement_(DUObjCCompatibilityUtils, v9, *(*(&v22 + 1) + 8 * v14), v10, v11, v22);
         if (v18)
         {
           objc_msgSend_addObject_(v5, v15, v18, v16, v17);
@@ -82,50 +82,49 @@
       }
 
       while (v12 != v14);
-      v12 = objc_msgSend_countByEnumeratingWithState_objects_count_(v6, v9, &v23, v27, 16);
+      v12 = objc_msgSend_countByEnumeratingWithState_objects_count_(v6, v9, &v22, v26, 16);
     }
 
     while (v12);
   }
 
   objc_msgSend_setDocumentUIElements_(self->_underlyingDocument, v19, v5, v20, v21);
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (NSArray)documentUIElements
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   v5 = objc_msgSend_documentUIElements(self->_underlyingDocument, a2, v2, v3, v4);
   if (objc_msgSend_count(v5, v6, v7, v8, v9))
   {
     v10 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v25 = 0u;
     v26 = 0u;
     v27 = 0u;
     v28 = 0u;
-    v29 = 0u;
     v11 = v5;
-    v13 = objc_msgSend_countByEnumeratingWithState_objects_count_(v11, v12, &v26, v30, 16);
+    v13 = objc_msgSend_countByEnumeratingWithState_objects_count_(v11, v12, &v25, v29, 16);
     if (v13)
     {
       v17 = v13;
-      v18 = *v27;
+      v18 = *v26;
       do
       {
         for (i = 0; i != v17; ++i)
         {
-          if (*v27 != v18)
+          if (*v26 != v18)
           {
             objc_enumerationMutation(v11);
           }
 
-          v23 = objc_msgSend_objCUIElementForUIElement_(DUObjCCompatibilityUtils, v14, *(*(&v26 + 1) + 8 * i), v15, v16, v26);
+          v23 = objc_msgSend_objCUIElementForUIElement_(DUObjCCompatibilityUtils, v14, *(*(&v25 + 1) + 8 * i), v15, v16, v25);
           if (v23)
           {
             objc_msgSend_addObject_(v10, v20, v23, v21, v22);
           }
         }
 
-        v17 = objc_msgSend_countByEnumeratingWithState_objects_count_(v11, v14, &v26, v30, 16);
+        v17 = objc_msgSend_countByEnumeratingWithState_objects_count_(v11, v14, &v25, v29, 16);
       }
 
       while (v17);
@@ -136,8 +135,6 @@
   {
     v10 = 0;
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 
   return v10;
 }

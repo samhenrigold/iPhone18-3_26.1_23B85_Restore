@@ -13,6 +13,7 @@
 - (NSNumber)hardwareVersion;
 - (NSString)description;
 - (UARPMagSafeCable)init;
+- (UARPMagSafeCable)initWithHPM:(id)m service:(unsigned int)service location:(int64_t)location;
 - (id)activeFwVersion;
 - (id)expectedTag;
 - (id)modelName;
@@ -20,6 +21,7 @@
 - (id)queryHardwareVersion;
 - (id)querySerialNumber:(id *)number;
 - (id)serialNumber;
+- (void)updateWithService:(unsigned int)service;
 @end
 
 @implementation UARPMagSafeCable
@@ -31,21 +33,79 @@
   return 0;
 }
 
+- (UARPMagSafeCable)initWithHPM:(id)m service:(unsigned int)service location:(int64_t)location
+{
+  v6 = *&service;
+  mCopy = m;
+  v15.receiver = self;
+  v15.super_class = UARPMagSafeCable;
+  v10 = [(UARPMagSafeCable *)&v15 init];
+  if (!v10)
+  {
+    goto LABEL_5;
+  }
+
+  v11 = os_log_create("com.apple.accessoryupdater.uarp", "magSafeCable");
+  log = v10->_log;
+  v10->_log = v11;
+
+  objc_storeStrong(&v10->_hpm, m);
+  v10->_location = location;
+  v10->_tagAlreadyQueried = 0;
+  if (location != 2)
+  {
+    [(UARPMagSafeCable *)v10 updateWithService:v6];
+LABEL_5:
+    v13 = v10;
+    goto LABEL_6;
+  }
+
+  v13 = 0;
+LABEL_6:
+
+  return v13;
+}
+
+- (void)updateWithService:(unsigned int)service
+{
+  v3 = *&service;
+  self->_isActive = [UARPMagSafeCable isActive:?];
+  self->_routerID = [UARPMagSafeCable rid:v3];
+  location = self->_location;
+  if (location == 1)
+  {
+    self->_vendorID = [UARPMagSafeCable sopPrimeVID:v3];
+    v6 = [UARPMagSafeCable sopPrimePID:v3];
+    goto LABEL_5;
+  }
+
+  if (!location)
+  {
+    self->_vendorID = [UARPMagSafeCable sopVID:v3];
+    v6 = [UARPMagSafeCable sopPID:v3];
+LABEL_5:
+    self->_productID = v6;
+  }
+
+  self->_requiresAuthentication = [UARPMagSafeCable needsAuthentication:v3];
+  self->_isAuthenticated = [UARPMagSafeCable isAuthenticated:v3];
+  self->_authenticationStatus = [UARPMagSafeCable authenticationStatus:v3];
+}
+
 - (NSString)description
 {
   v3 = objc_alloc_init(NSMutableString);
   [v3 appendFormat:@"isActive = <%d>", self->_isActive];
   [v3 appendFormat:@", Router ID = <%lu>", self->_routerID];
-  location = self->_location;
   [v3 appendFormat:@", Location = <%s>", UARPAccessoryUSBPDLocationTypeToString()];
   [v3 appendFormat:@", Vendor ID = <0x%lx>", self->_vendorID];
   [v3 appendFormat:@", Product ID = <0x%lx>", self->_productID];
   [v3 appendFormat:@", Needs Auth = <%d>", self->_requiresAuthentication];
   [v3 appendFormat:@", Is Auth'd = <%d>", self->_isAuthenticated];
   [v3 appendFormat:@", Auth Status = <%s>", +[UARPMagSafeCable authenticationStatusToString:](UARPMagSafeCable, "authenticationStatusToString:", self->_authenticationStatus)];
-  v5 = [NSString stringWithString:v3];
+  v4 = [NSString stringWithString:v3];
 
-  return v5;
+  return v4;
 }
 
 - (id)activeFwVersion

@@ -4,6 +4,7 @@
 + (id)edgeHintWithCanvasSize:(CGSize)size hintSize:(double)hintSize edge:(unint64_t)edge centerAlongEdge:(double)alongEdge progress:(double)progress dropletRadius:(double)radius;
 + (id)rightEdgeContentPresentedWithCanvasSize:(CGSize)size contentSize:(CGSize)contentSize centerY:(double)y dropletRadius:(double)radius isOffscreen:(BOOL)offscreen inflationProgress:(double)progress;
 + (id)rightEdgeHintWithCanvasSize:(CGSize)size centerY:(double)y progress:(double)progress;
++ (id)trailingContentPresentedWithCanvasSize:(CGSize)size contentSize:(CGSize)contentSize centerY:(double)y dropletRadius:(double)radius isOffscreen:(BOOL)offscreen inflationProgress:(double)progress;
 + (id)trailingHintWithCanvasSize:(CGSize)size centerY:(double)y progress:(double)progress;
 - (BOOL)disableDropletEffectFilters;
 - (BOOL)isEqual:(id)equal;
@@ -30,6 +31,7 @@
 - (void)addAlongsideAnimationBlockForKeyPath:(id)path animationBlock:(id)block;
 - (void)addAnimationCompletionBlockForKeyPath:(id)path animationCompletionBlock:(id)block;
 - (void)addAnyAnimationCompletionBlock:(id)block;
+- (void)changeToIntelligentLightStyle:(unint64_t)style preferAudioReactivity:(BOOL)reactivity canvasSize:(CGSize)size;
 - (void)defaultResetKeylineForCanvasSize:(CGSize)size;
 - (void)removeAnyAnimationCompletionBlocks;
 - (void)setBehaviorSettingsForKeyPath:(id)path behaviorSettings:(id)settings;
@@ -249,19 +251,16 @@
 
 - (DRPDropletContextKeylineStyle)keylineStyle
 {
-  v3 = OBJC_IVAR___DRPDropletViewConfiguration_keylineStyle;
   swift_beginAccess();
-  v4 = *(&self->super.isa + v3);
-  v5 = swift_unknownObjectRetain();
+  v2 = swift_unknownObjectRetain();
 
-  return v5;
+  return v2;
 }
 
 - (void)setKeylineStyle:(id)style
 {
   v5 = OBJC_IVAR___DRPDropletViewConfiguration_keylineStyle;
   swift_beginAccess();
-  v6 = *(&self->super.isa + v5);
   *(&self->super.isa + v5) = style;
   swift_unknownObjectRetain();
   swift_unknownObjectRelease();
@@ -297,7 +296,7 @@
   *v2 = 0;
   v2[1] = 0;
   selfCopy = self;
-  sub_249E9F570(v3);
+  sub_249E9F570(v3, v4);
 }
 
 - (void)addAnyAnimationCompletionBlock:(id)block
@@ -350,7 +349,7 @@
 
   selfCopy = self;
   DRPDropletViewConfiguration.addAlongsideAnimationBlock(forKeyPath:animationBlock:)(v6, v8, v5, v9);
-  sub_249E9F570(v5);
+  sub_249E9F570(v5, v9);
 }
 
 - (id)behaviorSettingsForKeyPath:(id)path
@@ -416,7 +415,7 @@
 
   selfCopy = self;
   DRPDropletViewConfiguration.addAnimationCompletionBlock(forKeyPath:animationCompletionBlock:)(v6, v8, v5, v9);
-  sub_249E9F570(v5);
+  sub_249E9F570(v5, v9);
 }
 
 - (DRPDropletViewConfiguration)initWithCenterX:(double)x centerY:(double)y boundaryEdges:(unint64_t)edges containerCornerRadius:(double)radius containerHeight:(double)height containerWidth:(double)width containerTransform:(CATransform3D *)transform dropletColor:(id)self0 dropletRadius:(double)self1 disableDropletEffectFilters:(BOOL)self2 boundaryOutsets:(UIEdgeInsets)self3 keylineStyle:(id)self4
@@ -453,7 +452,7 @@
   selfCopy = self;
   sub_249EAC358(0);
   __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EF29548, &qword_249ED8EA0);
-  sub_249EAFF14(&qword_27EF29550, &qword_27EF29548, &qword_249ED8EA0);
+  sub_249EAFF14(&qword_27EF29550, &qword_27EF29548, &qword_249ED8EA0, MEMORY[0x277D83958]);
   sub_249ED6C50();
 
   v3 = sub_249ED6C60();
@@ -500,6 +499,19 @@
   return result;
 }
 
+- (void)changeToIntelligentLightStyle:(unint64_t)style preferAudioReactivity:(BOOL)reactivity canvasSize:(CGSize)size
+{
+  height = size.height;
+  width = size.width;
+  reactivityCopy = reactivity;
+  v10 = objc_allocWithZone(DRPDropletContextIntelligentEdgeLightKeylineStyle);
+  selfCopy = self;
+  v11 = [v10 initWithPreferringAudioReactivity:reactivityCopy style:style];
+  [(DRPDropletViewConfiguration *)selfCopy setKeylineStyle:v11];
+
+  [(DRPDropletViewConfiguration *)selfCopy defaultResetKeylineForCanvasSize:width, height];
+}
+
 - (void)defaultResetKeylineForCanvasSize:(CGSize)size
 {
   height = size.height;
@@ -531,6 +543,13 @@
 + (id)edgeHintWithCanvasSize:(CGSize)size hintSize:(double)hintSize edge:(unint64_t)edge centerAlongEdge:(double)alongEdge progress:(double)progress dropletRadius:(double)radius
 {
   v8 = sub_249EB0328(edge, size.width, size.height, hintSize, alongEdge, progress, radius);
+
+  return v8;
+}
+
++ (id)trailingContentPresentedWithCanvasSize:(CGSize)size contentSize:(CGSize)contentSize centerY:(double)y dropletRadius:(double)radius isOffscreen:(BOOL)offscreen inflationProgress:(double)progress
+{
+  v8 = [self rightEdgeContentPresentedWithCanvasSize:offscreen contentSize:size.width centerY:size.height dropletRadius:contentSize.width isOffscreen:contentSize.height inflationProgress:{y, radius, progress}];
 
   return v8;
 }

@@ -9,13 +9,13 @@
 - (void)prepareForReuse
 {
   selfCopy = self;
-  sub_87BB0();
+  sub_87BB0(selfCopy);
 }
 
 - (void)layoutSubviews
 {
   selfCopy = self;
-  sub_87C88();
+  sub_87C88(selfCopy);
 }
 
 - (CGSize)systemLayoutSizeFittingSize:(CGSize)size withHorizontalFittingPriority:(float)priority verticalFittingPriority:(float)fittingPriority

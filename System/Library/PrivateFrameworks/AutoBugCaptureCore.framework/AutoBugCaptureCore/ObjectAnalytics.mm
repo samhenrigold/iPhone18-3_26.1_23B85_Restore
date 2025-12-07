@@ -62,25 +62,23 @@
 
   if (v11)
   {
-    v12 = objectanalyticsHandle();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v13 = objectanalyticsHandle(v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
       v18 = v11;
-      _os_log_impl(&dword_241804000, v12, OS_LOG_TYPE_ERROR, "Failure to fetch object IDs %@", buf, 0xCu);
+      _os_log_impl(&dword_241804000, v13, OS_LOG_TYPE_ERROR, "Failure to fetch object IDs %@", buf, 0xCu);
     }
 
-    v13 = 0;
+    v14 = 0;
   }
 
   else
   {
-    v13 = v10;
+    v14 = v10;
   }
 
-  v14 = *MEMORY[0x277D85DE8];
-
-  return v13;
+  return v14;
 }
 
 - (id)fetchEntityDictionariesWithProperties:(id)properties predicate:(id)predicate sortDescriptors:(id)descriptors limit:(unint64_t)limit
@@ -127,25 +125,23 @@
 
   if (v19)
   {
-    v20 = objectanalyticsHandle();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+    v21 = objectanalyticsHandle(v20);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
       v26 = v19;
-      _os_log_impl(&dword_241804000, v20, OS_LOG_TYPE_ERROR, "Failure to fetch object IDs %@", buf, 0xCu);
+      _os_log_impl(&dword_241804000, v21, OS_LOG_TYPE_ERROR, "Failure to fetch object IDs %@", buf, 0xCu);
     }
 
-    v21 = 0;
+    v22 = 0;
   }
 
   else
   {
-    v21 = v18;
+    v22 = v18;
   }
 
-  v22 = *MEMORY[0x277D85DE8];
-
-  return v21;
+  return v22;
 }
 
 - (id)_firstLastHappened:(BOOL)happened
@@ -222,26 +218,25 @@
 - (void)moveTemporaryEntityToMainContext:(id)context
 {
   v10 = *MEMORY[0x277D85DE8];
-  contextCopy = context;
-  if (contextCopy && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
+  isKindOfClass = context;
+  v5 = isKindOfClass;
+  if (isKindOfClass && (objc_opt_class(), isKindOfClass = objc_opt_isKindOfClass(), (isKindOfClass & 1) != 0))
   {
     mainObjectContext = [(AnalyticsWorkspace *)self->wspace mainObjectContext];
-    [mainObjectContext insertObject:contextCopy];
+    [mainObjectContext insertObject:v5];
   }
 
   else
   {
-    mainObjectContext = objectanalyticsHandle();
+    mainObjectContext = objectanalyticsHandle(isKindOfClass);
     if (os_log_type_enabled(mainObjectContext, OS_LOG_TYPE_ERROR))
     {
-      v6 = [contextCopy description];
+      v7 = [v5 description];
       v8 = 136315138;
-      uTF8String = [v6 UTF8String];
+      uTF8String = [v7 UTF8String];
       _os_log_impl(&dword_241804000, mainObjectContext, OS_LOG_TYPE_ERROR, "Invalid object %s", &v8, 0xCu);
     }
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (id)getDescriptionForName:(id)name
@@ -270,7 +265,7 @@
 
   else
   {
-    v7 = objectanalyticsHandle();
+    v7 = objectanalyticsHandle(0);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       *v8 = 0;
@@ -281,34 +276,34 @@
 
 - (void)removeEntities:(id)entities
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   entitiesCopy = entities;
   mainObjectContext = [(AnalyticsWorkspace *)self->wspace mainObjectContext];
   if (mainObjectContext)
   {
-    v15 = 0u;
-    v16 = 0u;
-    v13 = 0u;
     v14 = 0u;
+    v15 = 0u;
+    v12 = 0u;
+    v13 = 0u;
     v6 = entitiesCopy;
-    v7 = [v6 countByEnumeratingWithState:&v13 objects:v18 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v12 objects:v17 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v14;
+      v9 = *v13;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v14 != v9)
+          if (*v13 != v9)
           {
             objc_enumerationMutation(v6);
           }
 
-          [mainObjectContext deleteObject:{*(*(&v13 + 1) + 8 * i), v13}];
+          [mainObjectContext deleteObject:{*(*(&v12 + 1) + 8 * i), v12}];
         }
 
-        v8 = [v6 countByEnumeratingWithState:&v13 objects:v18 count:16];
+        v8 = [v6 countByEnumeratingWithState:&v12 objects:v17 count:16];
       }
 
       while (v8);
@@ -319,132 +314,133 @@
 
   else
   {
-    v11 = objectanalyticsHandle();
+    v11 = objectanalyticsHandle(0);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
       _os_log_impl(&dword_241804000, v11, OS_LOG_TYPE_ERROR, "moc is nil", buf, 2u);
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (unint64_t)countEntitiesMatching:(id)matching
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   matchingCopy = matching;
+  v5 = matchingCopy;
   if (self->entityName)
   {
     mainObjectContext = [(AnalyticsWorkspace *)self->wspace mainObjectContext];
     if (!mainObjectContext)
     {
-      v9 = objectanalyticsHandle();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      v11 = objectanalyticsHandle(0);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
         *buf = 0;
-        _os_log_impl(&dword_241804000, v9, OS_LOG_TYPE_ERROR, "moc is nil", buf, 2u);
+        _os_log_impl(&dword_241804000, v11, OS_LOG_TYPE_ERROR, "moc is nil", buf, 2u);
       }
 
-      v8 = 0;
+      v9 = 0;
       goto LABEL_17;
     }
 
-    v6 = objc_alloc_init(MEMORY[0x277CBE428]);
-    v7 = [MEMORY[0x277CBE408] entityForName:self->entityName inManagedObjectContext:mainObjectContext];
-    [v6 setEntity:v7];
+    v7 = objc_alloc_init(MEMORY[0x277CBE428]);
+    v8 = [MEMORY[0x277CBE408] entityForName:self->entityName inManagedObjectContext:mainObjectContext];
+    [v7 setEntity:v8];
 
-    [v6 setPredicate:matchingCopy];
-    v16 = 0;
-    v8 = [mainObjectContext countForFetchRequest:v6 error:&v16];
-    v9 = v16;
-    if (v9)
+    [v7 setPredicate:v5];
+    v17 = 0;
+    v9 = [mainObjectContext countForFetchRequest:v7 error:&v17];
+    v10 = v17;
+    v11 = v10;
+    if (v10)
     {
-      v10 = objectanalyticsHandle();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      v12 = objectanalyticsHandle(v10);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
-        v11 = [v9 description];
-        uTF8String = [v11 UTF8String];
+        v13 = [v11 description];
+        uTF8String = [v13 UTF8String];
         *buf = 136315138;
-        v18 = uTF8String;
-        _os_log_impl(&dword_241804000, v10, OS_LOG_TYPE_ERROR, "error counting entities: %s", buf, 0xCu);
+        v19 = uTF8String;
+        _os_log_impl(&dword_241804000, v12, OS_LOG_TYPE_ERROR, "error counting entities: %s", buf, 0xCu);
       }
     }
 
     else
     {
-      v13 = objectanalyticsHandle();
-      v10 = v13;
-      if (v8 != 0x7FFFFFFFFFFFFFFFLL)
+      v15 = objectanalyticsHandle(0);
+      v12 = v15;
+      if (v9 != 0x7FFFFFFFFFFFFFFFLL)
       {
-        if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+        if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 134217984;
-          v18 = v8;
-          _os_log_impl(&dword_241804000, v10, OS_LOG_TYPE_DEFAULT, "counted %ld entities", buf, 0xCu);
+          v19 = v9;
+          _os_log_impl(&dword_241804000, v12, OS_LOG_TYPE_DEFAULT, "counted %ld entities", buf, 0xCu);
         }
 
         goto LABEL_16;
       }
 
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v18 = matchingCopy;
-        _os_log_impl(&dword_241804000, v10, OS_LOG_TYPE_ERROR, "an error occrred counting entities matching: %@", buf, 0xCu);
+        v19 = v5;
+        _os_log_impl(&dword_241804000, v12, OS_LOG_TYPE_ERROR, "an error occrred counting entities matching: %@", buf, 0xCu);
       }
     }
 
-    v8 = 0;
+    v9 = 0;
 LABEL_16:
 
 LABEL_17:
     goto LABEL_18;
   }
 
-  mainObjectContext = objectanalyticsHandle();
+  mainObjectContext = objectanalyticsHandle(matchingCopy);
   if (os_log_type_enabled(mainObjectContext, OS_LOG_TYPE_ERROR))
   {
     *buf = 0;
     _os_log_impl(&dword_241804000, mainObjectContext, OS_LOG_TYPE_ERROR, "entityName is nil", buf, 2u);
   }
 
-  v8 = 0;
+  v9 = 0;
 LABEL_18:
 
-  v14 = *MEMORY[0x277D85DE8];
-  return v8;
+  return v9;
 }
 
 - (int64_t)removeEntitiesMatching:(id)matching
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   matchingCopy = matching;
+  v5 = matchingCopy;
   if (self->entityName)
   {
     mainObjectContext = [(AnalyticsWorkspace *)self->wspace mainObjectContext];
     if (mainObjectContext)
     {
-      v6 = objc_alloc_init(MEMORY[0x277CBE428]);
-      v7 = [MEMORY[0x277CBE408] entityForName:self->entityName inManagedObjectContext:mainObjectContext];
-      [v6 setEntity:v7];
+      v7 = objc_alloc_init(MEMORY[0x277CBE428]);
+      v8 = [MEMORY[0x277CBE408] entityForName:self->entityName inManagedObjectContext:mainObjectContext];
+      [v7 setEntity:v8];
 
-      [v6 setPredicate:matchingCopy];
-      v8 = [objc_alloc(MEMORY[0x277CBE360]) initWithFetchRequest:v6];
-      [v8 setResultType:2];
-      v19 = 0;
-      v9 = [mainObjectContext executeRequest:v8 error:&v19];
-      v10 = v19;
-      if (v10)
+      [v7 setPredicate:v5];
+      v9 = [objc_alloc(MEMORY[0x277CBE360]) initWithFetchRequest:v7];
+      [v9 setResultType:2];
+      v21 = 0;
+      v10 = [mainObjectContext executeRequest:v9 error:&v21];
+      v11 = v21;
+      v12 = v11;
+      if (v11)
       {
-        v11 = objectanalyticsHandle();
-        if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+        v13 = objectanalyticsHandle(v11);
+        if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
         {
-          v12 = [v10 description];
-          uTF8String = [v12 UTF8String];
+          v14 = [v12 description];
+          uTF8String = [v14 UTF8String];
           *buf = 136315138;
-          v21 = uTF8String;
-          _os_log_impl(&dword_241804000, v11, OS_LOG_TYPE_ERROR, "error batch deleting: %s", buf, 0xCu);
+          v23 = uTF8String;
+          _os_log_impl(&dword_241804000, v13, OS_LOG_TYPE_ERROR, "error batch deleting: %s", buf, 0xCu);
         }
 
         integerValue = 0;
@@ -452,15 +448,15 @@ LABEL_18:
 
       else
       {
-        result = [v9 result];
+        result = [v10 result];
         integerValue = [result integerValue];
 
-        v16 = objectanalyticsHandle();
-        if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+        v19 = objectanalyticsHandle(v18);
+        if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 134217984;
-          v21 = integerValue;
-          _os_log_impl(&dword_241804000, v16, OS_LOG_TYPE_DEFAULT, "batch deleted %ld entities", buf, 0xCu);
+          v23 = integerValue;
+          _os_log_impl(&dword_241804000, v19, OS_LOG_TYPE_DEFAULT, "batch deleted %ld entities", buf, 0xCu);
         }
 
         [(AnalyticsWorkspace *)self->wspace save];
@@ -469,11 +465,11 @@ LABEL_18:
 
     else
     {
-      v10 = objectanalyticsHandle();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      v12 = objectanalyticsHandle(0);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
         *buf = 0;
-        _os_log_impl(&dword_241804000, v10, OS_LOG_TYPE_ERROR, "moc is nil", buf, 2u);
+        _os_log_impl(&dword_241804000, v12, OS_LOG_TYPE_ERROR, "moc is nil", buf, 2u);
       }
 
       integerValue = 0;
@@ -482,7 +478,7 @@ LABEL_18:
 
   else
   {
-    mainObjectContext = objectanalyticsHandle();
+    mainObjectContext = objectanalyticsHandle(matchingCopy);
     if (os_log_type_enabled(mainObjectContext, OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
@@ -492,69 +488,70 @@ LABEL_18:
     integerValue = 0;
   }
 
-  v17 = *MEMORY[0x277D85DE8];
   return integerValue;
 }
 
 - (unint64_t)updateEntitiesMatching:(id)matching properties:(id)properties
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   matchingCopy = matching;
   propertiesCopy = properties;
+  v8 = propertiesCopy;
   if (self->entityName)
   {
     mainObjectContext = [(AnalyticsWorkspace *)self->wspace mainObjectContext];
     if (!mainObjectContext)
     {
-      v9 = objectanalyticsHandle();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      v10 = objectanalyticsHandle(0);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
         *buf = 0;
-        _os_log_impl(&dword_241804000, v9, OS_LOG_TYPE_ERROR, "moc is nil", buf, 2u);
+        _os_log_impl(&dword_241804000, v10, OS_LOG_TYPE_ERROR, "moc is nil", buf, 2u);
       }
 
       unsignedIntegerValue = 0;
       goto LABEL_18;
     }
 
-    v9 = [MEMORY[0x277CBE380] batchUpdateRequestWithEntityName:self->entityName];
-    [v9 setPropertiesToUpdate:propertiesCopy];
-    [v9 setPredicate:matchingCopy];
-    [v9 setResultType:2];
-    v21 = 0;
-    v10 = [mainObjectContext executeRequest:v9 error:&v21];
-    v11 = v21;
-    if (v11)
+    v10 = [MEMORY[0x277CBE380] batchUpdateRequestWithEntityName:self->entityName];
+    [v10 setPropertiesToUpdate:v8];
+    [v10 setPredicate:matchingCopy];
+    [v10 setResultType:2];
+    v22 = 0;
+    v11 = [mainObjectContext executeRequest:v10 error:&v22];
+    v12 = v22;
+    v13 = v12;
+    if (v12)
     {
-      result = objectanalyticsHandle();
+      result = objectanalyticsHandle(v12);
       if (os_log_type_enabled(result, OS_LOG_TYPE_ERROR))
       {
-        v13 = [v11 description];
-        uTF8String = [v13 UTF8String];
+        v15 = [v13 description];
+        uTF8String = [v15 UTF8String];
         *buf = 136315138;
-        v23 = uTF8String;
+        v24 = uTF8String;
         _os_log_impl(&dword_241804000, result, OS_LOG_TYPE_ERROR, "batch update return error: %s", buf, 0xCu);
       }
     }
 
     else
     {
-      result = [v10 result];
+      result = [v11 result];
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        result2 = [v10 result];
-        v17 = [result2 count];
+        result2 = [v11 result];
+        v19 = [result2 count];
 
-        if (v17 != 1)
+        if (v19 != 1)
         {
           unsignedIntegerValue = 0;
           goto LABEL_17;
         }
 
-        result = [v10 result];
-        v18 = [result objectAtIndex:0];
-        unsignedIntegerValue = [v18 unsignedIntegerValue];
+        result = [v11 result];
+        v20 = [result objectAtIndex:0];
+        unsignedIntegerValue = [v20 unsignedIntegerValue];
 
 LABEL_16:
 LABEL_17:
@@ -568,7 +565,7 @@ LABEL_18:
     goto LABEL_16;
   }
 
-  mainObjectContext = objectanalyticsHandle();
+  mainObjectContext = objectanalyticsHandle(propertiesCopy);
   if (os_log_type_enabled(mainObjectContext, OS_LOG_TYPE_ERROR))
   {
     *buf = 0;
@@ -578,7 +575,6 @@ LABEL_18:
   unsignedIntegerValue = 0;
 LABEL_19:
 
-  v19 = *MEMORY[0x277D85DE8];
   return unsignedIntegerValue;
 }
 
@@ -588,73 +584,74 @@ LABEL_19:
   _fetchCopy = _fetch;
   descCopy = desc;
   mainObjectContext = [(AnalyticsWorkspace *)self->wspace mainObjectContext];
+  v11 = mainObjectContext;
   if (!mainObjectContext)
   {
-    v12 = 0;
+    v13 = 0;
     goto LABEL_17;
   }
 
   if (!descCopy)
   {
-    descCopy = [objc_alloc(MEMORY[0x277CCAC98]) initWithKey:@"timeStamp" ascending:1];
+    mainObjectContext = [objc_alloc(MEMORY[0x277CCAC98]) initWithKey:@"timeStamp" ascending:1];
+    descCopy = mainObjectContext;
   }
 
   if (self->managedCache)
   {
-    v11 = 0;
+    v12 = 0;
   }
 
   else
   {
-    v13 = [MEMORY[0x277CBE408] entityForName:self->entityName inManagedObjectContext:mainObjectContext];
-    v14 = objc_alloc_init(MEMORY[0x277CBE428]);
-    [v14 setEntity:v13];
+    v14 = [MEMORY[0x277CBE408] entityForName:self->entityName inManagedObjectContext:v11];
+    v15 = objc_alloc_init(MEMORY[0x277CBE428]);
+    [v15 setEntity:v14];
     if (_fetchCopy)
     {
-      [v14 setPredicate:_fetchCopy];
+      [v15 setPredicate:_fetchCopy];
     }
 
     else
     {
-      [v14 setReturnsObjectsAsFaults:0];
+      [v15 setReturnsObjectsAsFaults:0];
     }
 
     v24[0] = descCopy;
-    v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:1];
-    [v14 setSortDescriptors:v15];
+    v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:1];
+    [v15 setSortDescriptors:v16];
 
     if (limit)
     {
-      [v14 setFetchLimit:limit];
+      [v15 setFetchLimit:limit];
     }
 
     v21 = 0;
-    v12 = [mainObjectContext executeFetchRequest:v14 error:&v21];
-    v11 = v21;
+    v13 = [v11 executeFetchRequest:v15 error:&v21];
+    v12 = v21;
 
-    if (v12)
+    if (v13)
     {
       goto LABEL_16;
     }
   }
 
-  v16 = objectanalyticsHandle();
-  if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+  v17 = objectanalyticsHandle(mainObjectContext);
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
   {
-    v17 = [v11 description];
-    uTF8String = [v17 UTF8String];
+    v18 = [v12 description];
+    uTF8String = [v18 UTF8String];
     *buf = 136315138;
     v23 = uTF8String;
-    _os_log_impl(&dword_241804000, v16, OS_LOG_TYPE_ERROR, "fetch failed, err %s", buf, 0xCu);
+    _os_log_impl(&dword_241804000, v17, OS_LOG_TYPE_ERROR, "fetch failed, err %s", buf, 0xCu);
   }
 
-  v12 = 0;
+  v13 = 0;
 LABEL_16:
 
 LABEL_17:
-  v19 = *MEMORY[0x277D85DE8];
 
-  return v12;
+  return v13;
 }
 
 @end

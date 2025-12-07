@@ -1,8 +1,10 @@
 @interface ICQUIRootViewController
 - (void)_dismissAndExit;
+- (void)_dismissFlowWithSuccess:(BOOL)success;
 - (void)_fetchDefaultOfferAndLaunchUpgradeFlow;
 - (void)_handleFallback;
 - (void)_launchUpgradeFlowWithOffer:(id)offer icqLink:(id)link;
+- (void)_notifyFlowCompletionToDaemonWithSuccess:(BOOL)success;
 - (void)loadView;
 - (void)upgradeFlowManager:(id)manager didPresentViewController:(id)controller;
 - (void)upgradeFlowManagerDidCancel:(id)cancel;
@@ -328,6 +330,74 @@ LABEL_16:
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     sub_1000052A4();
+  }
+}
+
+- (void)_dismissFlowWithSuccess:(BOOL)success
+{
+  successCopy = success;
+  v5 = _ICQGetLogSystem();
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  {
+    v6[0] = 67109120;
+    v6[1] = successCopy;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Dismissing upgrade flow with success: %d", v6, 8u);
+  }
+
+  [(ICQUIRootViewController *)self _notifyFlowCompletionToDaemonWithSuccess:successCopy];
+  [(ICQUIRootViewController *)self _dismissAndExit];
+}
+
+- (void)_notifyFlowCompletionToDaemonWithSuccess:(BOOL)success
+{
+  successCopy = success;
+  v4 = [[NSXPCConnection alloc] initWithMachServiceName:@"com.apple.ind.xpc" options:0];
+  v5 = _ICQGetLogSystem();
+  v6 = v5;
+  if (v4)
+  {
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    {
+      LOWORD(v11[0]) = 0;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Connection to ind initiated successfully.", v11, 2u);
+    }
+
+    v12 = 0;
+    v13 = &v12;
+    v14 = 0x2050000000;
+    v7 = qword_100011BC8;
+    v15 = qword_100011BC8;
+    if (!qword_100011BC8)
+    {
+      v11[0] = _NSConcreteStackBlock;
+      v11[1] = 3221225472;
+      v11[2] = sub_100004DAC;
+      v11[3] = &unk_10000C428;
+      v11[4] = &v12;
+      sub_100004DAC(v11);
+      v7 = v13[3];
+    }
+
+    v8 = v7;
+    _Block_object_dispose(&v12, 8);
+    xPCInterface = [v7 XPCInterface];
+    [v4 setRemoteObjectInterface:xPCInterface];
+
+    [v4 resume];
+    v6 = [v4 remoteObjectProxyWithErrorHandler:&stru_10000C4E8];
+    v10 = _ICQGetLogSystem();
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    {
+      LOWORD(v11[0]) = 0;
+      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Let the daemon know about flow completion.", v11, 2u);
+    }
+
+    [v6 remoteFreshmintFlowCompletedWithSuccess:successCopy error:0];
+  }
+
+  else if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+  {
+    sub_1000052D8();
   }
 }
 

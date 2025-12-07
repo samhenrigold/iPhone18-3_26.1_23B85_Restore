@@ -1,11 +1,42 @@
 @interface _DPOBHSequenceRecord
++ (id)recordWithKey:(id)key sequence:(id)sequence bitPosition:(int64_t)position bitValue:(BOOL)value creationDate:(double)date submitted:(BOOL)submitted objectId:(id)id;
 - (BOOL)copyFromManagedObject:(id)object;
 - (BOOL)copyToManagedObject:(id)object;
+- (_DPOBHSequenceRecord)initWithKey:(id)key sequence:(id)sequence bitPosition:(int64_t)position bitValue:(BOOL)value creationDate:(double)date submitted:(BOOL)submitted objectId:(id)id;
 - (id)description;
 - (id)jsonString;
 @end
 
 @implementation _DPOBHSequenceRecord
+
+- (_DPOBHSequenceRecord)initWithKey:(id)key sequence:(id)sequence bitPosition:(int64_t)position bitValue:(BOOL)value creationDate:(double)date submitted:(BOOL)submitted objectId:(id)id
+{
+  v15.receiver = self;
+  v15.super_class = _DPOBHSequenceRecord;
+  v11 = [(_DPOBHRecord *)&v15 initWithKey:key creationDate:submitted submitted:id objectId:date];
+  v12 = v11;
+  if (v11)
+  {
+    v11->_sequenceBitPosition = position;
+    v11->_sequenceBitValue = value;
+    plainSequence = v11->_plainSequence;
+    v11->_plainSequence = 0;
+  }
+
+  return v12;
+}
+
++ (id)recordWithKey:(id)key sequence:(id)sequence bitPosition:(int64_t)position bitValue:(BOOL)value creationDate:(double)date submitted:(BOOL)submitted objectId:(id)id
+{
+  submittedCopy = submitted;
+  valueCopy = value;
+  idCopy = id;
+  sequenceCopy = sequence;
+  keyCopy = key;
+  v19 = [[self alloc] initWithKey:keyCopy sequence:sequenceCopy bitPosition:position bitValue:valueCopy creationDate:submittedCopy submitted:idCopy objectId:date];
+
+  return v19;
+}
 
 - (id)description
 {
@@ -15,27 +46,26 @@
   v6 = NSStringFromClass(v5);
   [v4 appendFormat:@"%@: { ", v6];
 
-  sequenceBitPosition = self->_sequenceBitPosition;
   if (self->_sequenceBitValue)
   {
-    v8 = @"+1";
+    v7 = @"+1";
   }
 
   else
   {
-    v8 = @"-1";
+    v7 = @"-1";
   }
 
-  [v4 appendFormat:@"sequenceBitPosition=%lld ; sequenceBitValue=%@ ; ", self->_sequenceBitPosition, v8];
-  v12.receiver = self;
-  v12.super_class = _DPOBHSequenceRecord;
-  v9 = [(_DPOBHRecord *)&v12 description];
-  [v4 appendFormat:@"%@ }", v9];
+  [v4 appendFormat:@"sequenceBitPosition=%lld ; sequenceBitValue=%@ ; ", self->_sequenceBitPosition, v7];
+  v11.receiver = self;
+  v11.super_class = _DPOBHSequenceRecord;
+  v8 = [(_DPOBHRecord *)&v11 description];
+  [v4 appendFormat:@"%@ }", v8];
 
-  v10 = [v4 copy];
+  v9 = [v4 copy];
   objc_autoreleasePoolPop(v3);
 
-  return v10;
+  return v9;
 }
 
 - (BOOL)copyToManagedObject:(id)object

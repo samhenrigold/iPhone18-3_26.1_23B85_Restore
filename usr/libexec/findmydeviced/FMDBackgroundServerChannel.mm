@@ -69,7 +69,7 @@
 
 - (void)cancelRequestWithId:(id)id
 {
-  v3 = sub_100002880();
+  v3 = sub_100002880(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     sub_10022FE10(v3);

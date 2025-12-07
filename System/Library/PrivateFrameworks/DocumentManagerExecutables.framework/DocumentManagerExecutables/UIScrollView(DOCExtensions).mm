@@ -1,7 +1,7 @@
 @interface UIScrollView(DOCExtensions)
 - (double)doc_verticalOverlapIntoSafeAreaForView:()DOCExtensions usingKeyboardInfo:;
-- (uint64_t)doc_adjustForAutomaticKeyboardInfo:()DOCExtensions animated:lastAdjustment:;
 - (uint64_t)doc_automaticContentOffsetAdjustmentDisabledCount;
+- (void)doc_adjustForAutomaticKeyboardInfo:()DOCExtensions animated:lastAdjustment:;
 - (void)doc_setAutomaticContentOffsetAdjustmentDisabledCount:()DOCExtensions;
 @end
 
@@ -34,7 +34,7 @@
   return integerValue;
 }
 
-- (uint64_t)doc_adjustForAutomaticKeyboardInfo:()DOCExtensions animated:lastAdjustment:
+- (void)doc_adjustForAutomaticKeyboardInfo:()DOCExtensions animated:lastAdjustment:
 {
   v7 = *a5;
   result = [self doc_verticalOverlapIntoSafeAreaForView:self usingKeyboardInfo:a3];

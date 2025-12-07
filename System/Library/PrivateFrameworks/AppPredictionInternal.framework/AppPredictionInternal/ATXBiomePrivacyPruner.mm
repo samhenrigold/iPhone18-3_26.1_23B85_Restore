@@ -115,31 +115,31 @@
 
 - (void)pruneBlendingStreamsWithActivity:(id)activity
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   activityCopy = activity;
+  v27 = 0u;
   v28 = 0u;
   v29 = 0u;
   v30 = 0u;
-  v31 = 0u;
   v5 = objc_opt_new();
   streamIdentifiers = [v5 streamIdentifiers];
 
-  v7 = [streamIdentifiers countByEnumeratingWithState:&v28 objects:v33 count:16];
+  v7 = [streamIdentifiers countByEnumeratingWithState:&v27 objects:v32 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v29;
+    v9 = *v28;
     do
     {
       v10 = 0;
       do
       {
-        if (*v29 != v9)
+        if (*v28 != v9)
         {
           objc_enumerationMutation(streamIdentifiers);
         }
 
-        v11 = *(*(&v28 + 1) + 8 * v10);
+        v11 = *(*(&v27 + 1) + 8 * v10);
         v12 = objc_autoreleasePoolPush();
         atx_storeConfig = [MEMORY[0x277CF17F8] atx_storeConfig];
         [(ATXBiomePrivacyPruner *)self pruneWithStreamIdentifier:v11 activity:activityCopy config:atx_storeConfig endTime:CFAbsoluteTimeGetCurrent() + -2419200.0];
@@ -149,7 +149,7 @@
       }
 
       while (v8 != v10);
-      v8 = [streamIdentifiers countByEnumeratingWithState:&v28 objects:v33 count:16];
+      v8 = [streamIdentifiers countByEnumeratingWithState:&v27 objects:v32 count:16];
     }
 
     while (v8);
@@ -158,29 +158,29 @@
   atx_storeConfig2 = [MEMORY[0x277CF17F8] atx_storeConfig];
   [(ATXBiomePrivacyPruner *)self pruneWithStreamIdentifier:@"homeScreen" activity:activityCopy config:atx_storeConfig2 endTime:CFAbsoluteTimeGetCurrent() + -2419200.0];
 
-  v26 = 0u;
-  v27 = 0u;
-  v24 = 0u;
   v25 = 0u;
+  v26 = 0u;
+  v23 = 0u;
+  v24 = 0u;
   v15 = objc_opt_new();
   streamIdentifiers2 = [v15 streamIdentifiers];
 
-  v17 = [streamIdentifiers2 countByEnumeratingWithState:&v24 objects:v32 count:16];
+  v17 = [streamIdentifiers2 countByEnumeratingWithState:&v23 objects:v31 count:16];
   if (v17)
   {
     v18 = v17;
-    v19 = *v25;
+    v19 = *v24;
     do
     {
       v20 = 0;
       do
       {
-        if (*v25 != v19)
+        if (*v24 != v19)
         {
           objc_enumerationMutation(streamIdentifiers2);
         }
 
-        v21 = *(*(&v24 + 1) + 8 * v20);
+        v21 = *(*(&v23 + 1) + 8 * v20);
         v22 = objc_autoreleasePoolPush();
         [(ATXBiomePrivacyPruner *)self prunePrivateStreamWithStreamIdentifier:v21 activity:activityCopy];
         objc_autoreleasePoolPop(v22);
@@ -188,7 +188,7 @@
       }
 
       while (v18 != v20);
-      v18 = [streamIdentifiers2 countByEnumeratingWithState:&v24 objects:v32 count:16];
+      v18 = [streamIdentifiers2 countByEnumeratingWithState:&v23 objects:v31 count:16];
     }
 
     while (v18);
@@ -196,8 +196,6 @@
 
   [(ATXBiomePrivacyPruner *)self prunePrivateStreamWithStreamIdentifier:@"blending" activity:activityCopy];
   [(ATXBiomePrivacyPruner *)self prunePrivateStreamWithStreamIdentifier:@"clientModel" activity:activityCopy];
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (void)prunePredictionContextStreamWithActivity:(id)activity
@@ -371,11 +369,11 @@
 
 - (void)pruneWithStreamIdentifier:(id)identifier activity:(id)activity config:(id)config endTime:(double)time
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   activityCopy = activity;
   configCopy = config;
-  v12 = __atxlog_handle_default();
+  v12 = __atxlog_handle_default(configCopy);
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
@@ -384,8 +382,7 @@
   }
 
   v13 = [objc_alloc(MEMORY[0x277CF1808]) initWithStream:identifierCopy permission:2 config:configCopy];
-  [v13 pruneStreamToMaxStreamSizeInBytes:*MEMORY[0x277CEBDA0]];
-  v14 = __atxlog_handle_default();
+  v14 = __atxlog_handle_default([v13 pruneStreamToMaxStreamSizeInBytes:*MEMORY[0x277CEBDA0]]);
   if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
@@ -398,69 +395,68 @@
   *buf = 0;
   *&buf[8] = buf;
   *&buf[16] = 0x2020000000;
-  v35 = 0;
+  v36 = 0;
   v15 = [objc_alloc(MEMORY[0x277CF1810]) initWithStream:identifierCopy config:configCopy];
   v16 = objc_autoreleasePoolPush();
-  v29[0] = MEMORY[0x277D85DD0];
-  v29[1] = 3221225472;
-  v29[2] = __75__ATXBiomePrivacyPruner_pruneWithStreamIdentifier_activity_config_endTime___block_invoke;
-  v29[3] = &unk_278599B48;
-  v31 = buf;
+  v30[0] = MEMORY[0x277D85DD0];
+  v30[1] = 3221225472;
+  v30[2] = __75__ATXBiomePrivacyPruner_pruneWithStreamIdentifier_activity_config_endTime___block_invoke;
+  v30[3] = &unk_278599B48;
+  v32 = buf;
   v17 = activityCopy;
-  v30 = v17;
-  [v15 removeEventsFrom:1 to:v29 reason:0.0 usingBlock:time];
+  v31 = v17;
+  [v15 removeEventsFrom:1 to:v30 reason:0.0 usingBlock:time];
 
   objc_autoreleasePoolPop(v16);
   *(*&buf[8] + 24) = 0;
-  v18 = __atxlog_handle_default();
-  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+  v19 = __atxlog_handle_default(v18);
+  if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
   {
-    *v32 = 138412546;
-    *v33 = identifierCopy;
-    *&v33[8] = 2048;
-    *&v33[10] = time;
-    _os_log_impl(&dword_2263AA000, v18, OS_LOG_TYPE_DEFAULT, "Pruning tombstones for stream identifier: %@ based on endTime: %f", v32, 0x16u);
+    *v33 = 138412546;
+    *v34 = identifierCopy;
+    *&v34[8] = 2048;
+    *&v34[10] = time;
+    _os_log_impl(&dword_2263AA000, v19, OS_LOG_TYPE_DEFAULT, "Pruning tombstones for stream identifier: %@ based on endTime: %f", v33, 0x16u);
   }
 
-  v19 = [configCopy copy];
-  [v19 setStoreLocationOption:2];
-  v20 = [objc_alloc(MEMORY[0x277CF1810]) initWithStream:identifierCopy config:v19];
-  v21 = objc_autoreleasePoolPush();
-  v26[0] = MEMORY[0x277D85DD0];
-  v26[1] = 3221225472;
-  v26[2] = __75__ATXBiomePrivacyPruner_pruneWithStreamIdentifier_activity_config_endTime___block_invoke_90;
-  v26[3] = &unk_278599B48;
-  v28 = buf;
-  v22 = v17;
-  v27 = v22;
-  [v20 removeEventsFrom:1 to:v26 reason:0.0 usingBlock:time];
+  v20 = [configCopy copy];
+  [v20 setStoreLocationOption:2];
+  v21 = [objc_alloc(MEMORY[0x277CF1810]) initWithStream:identifierCopy config:v20];
+  v22 = objc_autoreleasePoolPush();
+  v27[0] = MEMORY[0x277D85DD0];
+  v27[1] = 3221225472;
+  v27[2] = __75__ATXBiomePrivacyPruner_pruneWithStreamIdentifier_activity_config_endTime___block_invoke_90;
+  v27[3] = &unk_278599B48;
+  v29 = buf;
+  v23 = v17;
+  v28 = v23;
+  [v21 removeEventsFrom:1 to:v27 reason:0.0 usingBlock:time];
 
-  objc_autoreleasePoolPop(v21);
-  v23 = __atxlog_handle_default();
-  if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+  objc_autoreleasePoolPop(v22);
+  v25 = __atxlog_handle_default(v24);
+  if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
   {
-    v24 = *(*&buf[8] + 24);
-    *v32 = 67109378;
-    *v33 = v24;
-    *&v33[4] = 2112;
-    *&v33[6] = identifierCopy;
-    _os_log_impl(&dword_2263AA000, v23, OS_LOG_TYPE_DEFAULT, "Removed %d tombstone events for stream identifier: %@", v32, 0x12u);
+    v26 = *(*&buf[8] + 24);
+    *v33 = 67109378;
+    *v34 = v26;
+    *&v34[4] = 2112;
+    *&v34[6] = identifierCopy;
+    _os_log_impl(&dword_2263AA000, v25, OS_LOG_TYPE_DEFAULT, "Removed %d tombstone events for stream identifier: %@", v33, 0x12u);
   }
 
   _Block_object_dispose(buf, 8);
-  v25 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __75__ATXBiomePrivacyPruner_pruneWithStreamIdentifier_activity_config_endTime___block_invoke(uint64_t result, _BYTE *a2)
+void *__75__ATXBiomePrivacyPruner_pruneWithStreamIdentifier_activity_config_endTime___block_invoke(void *result, _BYTE *a2)
 {
-  v2 = *(*(result + 40) + 8);
+  v2 = *(*(result + 5) + 8);
   v3 = *(v2 + 24) + 1;
   *(v2 + 24) = v3;
   HIDWORD(v4) = -1030792151 * v3;
   LODWORD(v4) = -1030792151 * v3;
   if ((v4 >> 2) <= 0x28F5C28)
   {
-    result = [*(result + 32) didDefer];
+    result = [*(result + 4) didDefer];
     if (result)
     {
       *a2 = 1;
@@ -470,16 +466,16 @@ uint64_t __75__ATXBiomePrivacyPruner_pruneWithStreamIdentifier_activity_config_e
   return result;
 }
 
-uint64_t __75__ATXBiomePrivacyPruner_pruneWithStreamIdentifier_activity_config_endTime___block_invoke_90(uint64_t result, _BYTE *a2)
+void *__75__ATXBiomePrivacyPruner_pruneWithStreamIdentifier_activity_config_endTime___block_invoke_90(void *result, _BYTE *a2)
 {
-  v2 = *(*(result + 40) + 8);
+  v2 = *(*(result + 5) + 8);
   v3 = *(v2 + 24) + 1;
   *(v2 + 24) = v3;
   HIDWORD(v4) = -1030792151 * v3;
   LODWORD(v4) = -1030792151 * v3;
   if ((v4 >> 2) <= 0x28F5C28)
   {
-    result = [*(result + 32) didDefer];
+    result = [*(result + 4) didDefer];
     if (result)
     {
       *a2 = 1;

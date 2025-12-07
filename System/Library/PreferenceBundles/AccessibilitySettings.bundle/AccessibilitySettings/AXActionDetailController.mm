@@ -93,7 +93,7 @@
 
 - (int64_t)actionForSpecifier:(id)specifier
 {
-  OUTLINED_FUNCTION_1_1();
+  OUTLINED_FUNCTION_1_1(self);
   OUTLINED_FUNCTION_0_1();
   NSRequestConcreteImplementation();
   return -1;
@@ -101,7 +101,7 @@
 
 - (BOOL)isActionAvailable:(int64_t)available
 {
-  OUTLINED_FUNCTION_1_1();
+  OUTLINED_FUNCTION_1_1(self);
   OUTLINED_FUNCTION_0_1();
   NSRequestConcreteImplementation();
   return 0;
@@ -109,7 +109,7 @@
 
 - (int64_t)currentAction
 {
-  OUTLINED_FUNCTION_1_1();
+  OUTLINED_FUNCTION_1_1(self);
   OUTLINED_FUNCTION_0_1();
   NSRequestConcreteImplementation();
   return -1;
@@ -117,7 +117,7 @@
 
 - (void)updateCurrentAction:(int64_t)action
 {
-  OUTLINED_FUNCTION_1_1();
+  OUTLINED_FUNCTION_1_1(self);
   OUTLINED_FUNCTION_0_1();
 
   NSRequestConcreteImplementation();

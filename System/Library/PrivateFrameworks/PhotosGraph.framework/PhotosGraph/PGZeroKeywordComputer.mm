@@ -138,28 +138,28 @@ void __82__PGZeroKeywordComputer_Contextual___zeroKeywordDisplayMeaningNodeForMe
 
 - (id)contextualMeaningAndTripZeroKeywordsWithGraph:(id)graph curationContext:(id)context options:(id)options progressBlock:(id)block
 {
-  v71 = *MEMORY[0x277D85DE8];
+  v70 = *MEMORY[0x277D85DE8];
   graphCopy = graph;
   contextCopy = context;
   optionsCopy = options;
   blockCopy = block;
   v10 = 0.0;
-  v48 = _Block_copy(blockCopy);
-  v37 = optionsCopy;
-  if (v48)
+  v47 = _Block_copy(blockCopy);
+  v36 = optionsCopy;
+  if (v47)
   {
     Current = CFAbsoluteTimeGetCurrent();
     if (Current >= 0.01)
     {
-      LOBYTE(v52) = 0;
-      v48[2](v48, &v52, 0.0);
-      if (v52 == 1)
+      LOBYTE(v51) = 0;
+      v47[2](v47, &v51, 0.0);
+      if (v51 == 1)
       {
         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
         {
           buf = 0x1CE04000202;
-          LOWORD(v66) = 2080;
-          *(&v66 + 2) = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Search/PGZeroKeywordComputer+Contextual.m";
+          LOWORD(v65) = 2080;
+          *(&v65 + 2) = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Search/PGZeroKeywordComputer+Contextual.m";
           _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", &buf, 0x12u);
         }
 
@@ -184,49 +184,49 @@ void __82__PGZeroKeywordComputer_Contextual___zeroKeywordDisplayMeaningNodeForMe
   }
 
   array = [MEMORY[0x277CBEB18] array];
-  v47 = [MEMORY[0x277CBEB58] set];
-  v41 = [MEMORY[0x277D27690] dateByAddingWeeksOfYear:-2 toDate:currentLocalDate];
-  v40 = [objc_alloc(MEMORY[0x277CCA970]) initWithStartDate:v41 endDate:currentLocalDate];
-  v39 = [(PGZeroKeywordComputer *)self momentNodesOverlappingLocalDateInterval:v40 inGraph:graphCopy];
-  v15 = [v39 set];
+  v46 = [MEMORY[0x277CBEB58] set];
+  v40 = [MEMORY[0x277D27690] dateByAddingWeeksOfYear:-2 toDate:currentLocalDate];
+  v39 = [objc_alloc(MEMORY[0x277CCA970]) initWithStartDate:v40 endDate:currentLocalDate];
+  v38 = [(PGZeroKeywordComputer *)self momentNodesOverlappingLocalDateInterval:v39 inGraph:graphCopy];
+  v15 = [v38 set];
   v16 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"universalStartDate" ascending:1];
   buf = v16;
   v17 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"universalEndDate" ascending:1];
-  *&v66 = v17;
+  *&v65 = v17;
   v18 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"UUID" ascending:1];
-  *(&v66 + 1) = v18;
+  *(&v65 + 1) = v18;
   v19 = [MEMORY[0x277CBEA60] arrayWithObjects:&buf count:3];
 
-  v38 = [v15 sortedArrayUsingDescriptors:v19];
+  v37 = [v15 sortedArrayUsingDescriptors:v19];
 
-  v60 = 0u;
-  v61 = 0u;
-  v58 = 0u;
   v59 = 0u;
-  reverseObjectEnumerator = [v38 reverseObjectEnumerator];
-  v21 = [reverseObjectEnumerator countByEnumeratingWithState:&v58 objects:v70 count:16];
+  v60 = 0u;
+  v57 = 0u;
+  v58 = 0u;
+  reverseObjectEnumerator = [v37 reverseObjectEnumerator];
+  v21 = [reverseObjectEnumerator countByEnumeratingWithState:&v57 objects:v69 count:16];
   if (!v21)
   {
-    v45 = 0;
+    v44 = 0;
     goto LABEL_46;
   }
 
   v23 = 0;
-  v45 = 0;
-  v24 = *v59;
+  v44 = 0;
+  v24 = *v58;
   *&v22 = 67109378;
-  v35 = v22;
+  v34 = v22;
   while (2)
   {
     v25 = 0;
     do
     {
-      if (*v59 != v24)
+      if (*v58 != v24)
       {
         objc_enumerationMutation(reverseObjectEnumerator);
       }
 
-      v26 = *(*(&v58 + 1) + 8 * v25);
+      v26 = *(*(&v57 + 1) + 8 * v25);
       if (![v26 isInteresting])
       {
         goto LABEL_34;
@@ -250,26 +250,26 @@ void __82__PGZeroKeywordComputer_Contextual___zeroKeywordDisplayMeaningNodeForMe
       v23 = 1;
 LABEL_24:
       buf = 0;
-      *&v66 = &buf;
-      *(&v66 + 1) = 0x3032000000;
-      v67 = __Block_byref_object_copy__32890;
-      v68 = __Block_byref_object_dispose__32891;
-      v69 = 0;
-      v52 = 0;
-      v53 = &v52;
-      v54 = 0x3032000000;
-      v55 = __Block_byref_object_copy__32890;
-      v56 = __Block_byref_object_dispose__32891;
-      v57 = 0;
-      v51[0] = MEMORY[0x277D85DD0];
-      v51[1] = 3221225472;
-      v51[2] = __121__PGZeroKeywordComputer_Contextual__contextualMeaningAndTripZeroKeywordsWithGraph_curationContext_options_progressBlock___block_invoke;
-      v51[3] = &unk_278883340;
-      v51[4] = self;
-      v51[5] = &buf;
-      v51[6] = &v52;
-      [v26 enumerateMeaningEdgesAndNodesUsingBlock:v51];
-      if (*(v66 + 40) && ([v47 containsObject:v53[5]] & 1) == 0 && (-[PGZeroKeywordComputer meaningNodeZeroKeywordForDisplayMeaningNode:collectionUUIDsToAvoid:curationContext:](self, "meaningNodeZeroKeywordForDisplayMeaningNode:collectionUUIDsToAvoid:curationContext:", v53[5], 0, contextCopy), (v28 = objc_claimAutoreleasedReturnValue()) != 0))
+      *&v65 = &buf;
+      *(&v65 + 1) = 0x3032000000;
+      v66 = __Block_byref_object_copy__32890;
+      v67 = __Block_byref_object_dispose__32891;
+      v68 = 0;
+      v51 = 0;
+      v52 = &v51;
+      v53 = 0x3032000000;
+      v54 = __Block_byref_object_copy__32890;
+      v55 = __Block_byref_object_dispose__32891;
+      v56 = 0;
+      v50[0] = MEMORY[0x277D85DD0];
+      v50[1] = 3221225472;
+      v50[2] = __121__PGZeroKeywordComputer_Contextual__contextualMeaningAndTripZeroKeywordsWithGraph_curationContext_options_progressBlock___block_invoke;
+      v50[3] = &unk_278883340;
+      v50[4] = self;
+      v50[5] = &buf;
+      v50[6] = &v51;
+      [v26 enumerateMeaningEdgesAndNodesUsingBlock:v50];
+      if (*(v65 + 40) && ([v46 containsObject:v52[5]] & 1) == 0 && (-[PGZeroKeywordComputer meaningNodeZeroKeywordForDisplayMeaningNode:collectionUUIDsToAvoid:curationContext:](self, "meaningNodeZeroKeywordForDisplayMeaningNode:collectionUUIDsToAvoid:curationContext:", v52[5], 0, contextCopy), (v28 = objc_claimAutoreleasedReturnValue()) != 0))
       {
         [array addObject:v28];
 
@@ -279,33 +279,33 @@ LABEL_24:
 
       else
       {
-        if (v48)
+        if (v47)
         {
           v31 = CFAbsoluteTimeGetCurrent();
           if (v31 - v10 >= 0.01)
           {
-            v50 = 0;
-            (v48)[2](v48, &v50, 0.5);
-            if (v50 | v45 & 1)
+            v49 = 0;
+            (v47)[2](v47, &v49, 0.5);
+            if (v49 | v44 & 1)
             {
               if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
               {
-                v62[0] = v35;
-                v62[1] = 527;
-                v63 = 2080;
-                v64 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Search/PGZeroKeywordComputer+Contextual.m";
-                _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", v62, 0x12u);
+                v61[0] = v34;
+                v61[1] = 527;
+                v62 = 2080;
+                v63 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Search/PGZeroKeywordComputer+Contextual.m";
+                _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", v61, 0x12u);
               }
 
               v29 = 0;
               v30 = 0;
-              v45 = 1;
+              v44 = 1;
             }
 
             else
             {
               v30 = 0;
-              v45 = 0;
+              v44 = 0;
               v29 = 1;
             }
 
@@ -319,7 +319,7 @@ LABEL_24:
 
       v31 = v10;
 LABEL_32:
-      _Block_object_dispose(&v52, 8);
+      _Block_object_dispose(&v51, 8);
 
       _Block_object_dispose(&buf, 8);
       if (!v29)
@@ -339,7 +339,7 @@ LABEL_34:
     }
 
     while (v21 != v25);
-    v32 = [reverseObjectEnumerator countByEnumeratingWithState:&v58 objects:v70 count:16];
+    v32 = [reverseObjectEnumerator countByEnumeratingWithState:&v57 objects:v69 count:16];
     v21 = v32;
     if (v32)
     {
@@ -353,13 +353,13 @@ LABEL_46:
 
   v31 = v10;
 LABEL_47:
-  if (v48 && CFAbsoluteTimeGetCurrent() - v31 >= 0.01 && (LOBYTE(v52) = 0, v48[2](v48, &v52, 1.0), v52 | v45 & 1))
+  if (v47 && CFAbsoluteTimeGetCurrent() - v31 >= 0.01 && (LOBYTE(v51) = 0, v47[2](v47, &v51, 1.0), v51 | v44 & 1))
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
     {
       buf = 0x21204000202;
-      LOWORD(v66) = 2080;
-      *(&v66 + 2) = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Search/PGZeroKeywordComputer+Contextual.m";
+      LOWORD(v65) = 2080;
+      *(&v65 + 2) = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Search/PGZeroKeywordComputer+Contextual.m";
       _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", &buf, 0x12u);
     }
 
@@ -373,7 +373,6 @@ LABEL_44:
   }
 
 LABEL_54:
-  v33 = *MEMORY[0x277D85DE8];
 
   return v12;
 }
@@ -404,26 +403,26 @@ void __121__PGZeroKeywordComputer_Contextual__contextualMeaningAndTripZeroKeywor
 
 - (id)contextualSceneZeroKeywordsWithGraph:(id)graph options:(id)options progressBlock:(id)block
 {
-  v68 = *MEMORY[0x277D85DE8];
+  v67 = *MEMORY[0x277D85DE8];
   graphCopy = graph;
   optionsCopy = options;
   blockCopy = block;
   v8 = 0.0;
-  v47 = _Block_copy(blockCopy);
-  if (v47)
+  v46 = _Block_copy(blockCopy);
+  if (v46)
   {
     Current = CFAbsoluteTimeGetCurrent();
     if (Current >= 0.01)
     {
-      LOBYTE(v54[0]) = 0;
-      v47[2](v47, v54, 0.0);
-      if (LOBYTE(v54[0]) == 1)
+      LOBYTE(v53[0]) = 0;
+      v46[2](v46, v53, 0.0);
+      if (LOBYTE(v53[0]) == 1)
       {
         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
         {
           buf = 0x19204000202;
-          LOWORD(v63) = 2080;
-          *(&v63 + 2) = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Search/PGZeroKeywordComputer+Contextual.m";
+          LOWORD(v62) = 2080;
+          *(&v62 + 2) = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Search/PGZeroKeywordComputer+Contextual.m";
           _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", &buf, 0x12u);
         }
 
@@ -448,88 +447,74 @@ void __121__PGZeroKeywordComputer_Contextual__contextualMeaningAndTripZeroKeywor
     currentLocalDate = [MEMORY[0x277D27690] currentLocalDate];
   }
 
-  v41 = [MEMORY[0x277D27690] dateByAddingWeeksOfYear:-2 toDate:currentLocalDate];
-  v40 = [objc_alloc(MEMORY[0x277CCA970]) initWithStartDate:v41 endDate:currentLocalDate];
-  v46 = [MEMORY[0x277CBEB58] set];
-  v39 = [(PGZeroKeywordComputer *)self momentNodesOverlappingLocalDateInterval:v40 inGraph:graphCopy];
-  v13 = [v39 set];
+  v40 = [MEMORY[0x277D27690] dateByAddingWeeksOfYear:-2 toDate:currentLocalDate];
+  v39 = [objc_alloc(MEMORY[0x277CCA970]) initWithStartDate:v40 endDate:currentLocalDate];
+  v45 = [MEMORY[0x277CBEB58] set];
+  v38 = [(PGZeroKeywordComputer *)self momentNodesOverlappingLocalDateInterval:v39 inGraph:graphCopy];
+  v13 = [v38 set];
   v14 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"universalStartDate" ascending:1];
   buf = v14;
   v15 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"universalEndDate" ascending:1];
-  *&v63 = v15;
+  *&v62 = v15;
   v16 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"UUID" ascending:1];
-  *(&v63 + 1) = v16;
+  *(&v62 + 1) = v16;
   v17 = [MEMORY[0x277CBEA60] arrayWithObjects:&buf count:3];
 
-  v38 = [v13 sortedArrayUsingDescriptors:v17];
+  v37 = [v13 sortedArrayUsingDescriptors:v17];
 
-  v58 = 0u;
-  v56 = 0u;
   v57 = 0u;
   v55 = 0u;
-  reverseObjectEnumerator = [v38 reverseObjectEnumerator];
-  v19 = [reverseObjectEnumerator countByEnumeratingWithState:&v55 objects:v67 count:16];
+  v56 = 0u;
+  v54 = 0u;
+  reverseObjectEnumerator = [v37 reverseObjectEnumerator];
+  v19 = [reverseObjectEnumerator countByEnumeratingWithState:&v54 objects:v66 count:16];
   if (!v19)
   {
-    v45 = 0;
+    v44 = 0;
     goto LABEL_38;
   }
 
-  v45 = 0;
-  v21 = *v56;
+  v44 = 0;
+  v21 = *v55;
   *&v20 = 67109378;
-  v36 = v20;
+  v35 = v20;
   while (2)
   {
     v22 = 0;
     do
     {
-      if (*v56 != v21)
+      if (*v55 != v21)
       {
         objc_enumerationMutation(reverseObjectEnumerator);
       }
 
-      v23 = *(*(&v55 + 1) + 8 * v22);
+      v23 = *(*(&v54 + 1) + 8 * v22);
       if (![v23 isInteresting])
       {
         goto LABEL_26;
       }
 
       buf = 0;
-      *&v63 = &buf;
-      *(&v63 + 1) = 0x3032000000;
-      v64 = __Block_byref_object_copy__32890;
-      v65 = __Block_byref_object_dispose__32891;
-      v66 = 0;
-      v54[0] = 0;
-      v54[1] = v54;
-      v54[2] = 0x2020000000;
-      v54[3] = 0;
-      v50[0] = MEMORY[0x277D85DD0];
-      v50[1] = 3221225472;
-      v50[2] = __96__PGZeroKeywordComputer_Contextual__contextualSceneZeroKeywordsWithGraph_options_progressBlock___block_invoke;
-      v50[3] = &unk_278883318;
-      v24 = v46;
-      v51 = v24;
-      v52 = v54;
+      *&v62 = &buf;
+      *(&v62 + 1) = 0x3032000000;
+      v63 = __Block_byref_object_copy__32890;
+      v64 = __Block_byref_object_dispose__32891;
+      v65 = 0;
+      v53[0] = 0;
+      v53[1] = v53;
+      v53[2] = 0x2020000000;
+      v53[3] = 0;
+      v49[0] = MEMORY[0x277D85DD0];
+      v49[1] = 3221225472;
+      v49[2] = __96__PGZeroKeywordComputer_Contextual__contextualSceneZeroKeywordsWithGraph_options_progressBlock___block_invoke;
+      v49[3] = &unk_278883318;
+      v24 = v45;
+      v50 = v24;
+      v51 = v53;
       p_buf = &buf;
-      [v23 enumerateSceneEdgesAndNodesUsingBlock:v50];
-      v25 = *(v63 + 40);
-      if (!v25)
-      {
-        goto LABEL_51;
-      }
-
-      targetNode = [v25 targetNode];
-      localizedName = [targetNode localizedName];
-      v28 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:{objc_msgSend(targetNode, "sceneIdentifier")}];
-      v29 = zeroKeywordWithAttributes(3, 13, localizedName, 0, 0, v28);
-
-      [array addObject:v29];
-      [v24 addObject:targetNode];
-      LOBYTE(v28) = [array count] < 2;
-
-      if ((v28 & 1) == 0)
+      [v23 enumerateSceneEdgesAndNodesUsingBlock:v49];
+      v25 = *(v62 + 40);
+      if (v25 && ([v25 targetNode], v26 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v26, "localizedName"), v27 = objc_claimAutoreleasedReturnValue(), objc_msgSend(MEMORY[0x277CCABB0], "numberWithUnsignedLongLong:", objc_msgSend(v26, "sceneIdentifier")), v28 = objc_claimAutoreleasedReturnValue(), zeroKeywordWithAttributes(3, 13, v27, 0, 0, v28), v29 = objc_claimAutoreleasedReturnValue(), v28, objc_msgSend(array, "addObject:", v29), objc_msgSend(v24, "addObject:", v26), LOBYTE(v28) = objc_msgSend(array, "count") < 2, v29, v27, v26, (v28 & 1) == 0))
       {
         v32 = 0;
         v31 = 1;
@@ -537,34 +522,33 @@ void __121__PGZeroKeywordComputer_Contextual__contextualMeaningAndTripZeroKeywor
 
       else
       {
-LABEL_51:
-        if (v47)
+        if (v46)
         {
           v30 = CFAbsoluteTimeGetCurrent();
           if (v30 - v8 >= 0.01)
           {
-            v49 = 0;
-            (v47)[2](v47, &v49, 0.5);
-            if (v49 | v45 & 1)
+            v48 = 0;
+            (v46)[2](v46, &v48, 0.5);
+            if (v48 | v44 & 1)
             {
               if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
               {
-                v59[0] = v36;
-                v59[1] = 451;
-                v60 = 2080;
-                v61 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Search/PGZeroKeywordComputer+Contextual.m";
-                _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", v59, 0x12u);
+                v58[0] = v35;
+                v58[1] = 451;
+                v59 = 2080;
+                v60 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Search/PGZeroKeywordComputer+Contextual.m";
+                _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", v58, 0x12u);
               }
 
               v32 = 0;
               v31 = 0;
-              v45 = 1;
+              v44 = 1;
             }
 
             else
             {
               v31 = 0;
-              v45 = 0;
+              v44 = 0;
               v32 = 1;
             }
 
@@ -579,7 +563,7 @@ LABEL_51:
       v30 = v8;
 LABEL_24:
 
-      _Block_object_dispose(v54, 8);
+      _Block_object_dispose(v53, 8);
       _Block_object_dispose(&buf, 8);
 
       if (!v32)
@@ -599,7 +583,7 @@ LABEL_26:
     }
 
     while (v19 != v22);
-    v33 = [reverseObjectEnumerator countByEnumeratingWithState:&v55 objects:v67 count:16];
+    v33 = [reverseObjectEnumerator countByEnumeratingWithState:&v54 objects:v66 count:16];
     v19 = v33;
     if (v33)
     {
@@ -613,13 +597,13 @@ LABEL_38:
 
   v30 = v8;
 LABEL_39:
-  if (v47 && CFAbsoluteTimeGetCurrent() - v30 >= 0.01 && (LOBYTE(v54[0]) = 0, v47[2](v47, v54, 1.0), LOBYTE(v54[0]) | v45 & 1))
+  if (v46 && CFAbsoluteTimeGetCurrent() - v30 >= 0.01 && (LOBYTE(v53[0]) = 0, v46[2](v46, v53, 1.0), LOBYTE(v53[0]) | v44 & 1))
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
     {
       buf = 0x1C604000202;
-      LOWORD(v63) = 2080;
-      *(&v63 + 2) = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Search/PGZeroKeywordComputer+Contextual.m";
+      LOWORD(v62) = 2080;
+      *(&v62 + 2) = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Search/PGZeroKeywordComputer+Contextual.m";
       _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", &buf, 0x12u);
     }
 
@@ -633,7 +617,6 @@ LABEL_36:
   }
 
 LABEL_46:
-  v34 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -668,7 +651,7 @@ void __96__PGZeroKeywordComputer_Contextual__contextualSceneZeroKeywordsWithGrap
 
 - (id)contextualSeasonZeroKeywordsWithGraph:(id)graph curationContext:(id)context options:(id)options
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   graphCopy = graph;
   contextCopy = context;
   v10 = MEMORY[0x277CBEB18];
@@ -698,11 +681,11 @@ void __96__PGZeroKeywordComputer_Contextual__contextualSceneZeroKeywordsWithGrap
     if (os_log_type_enabled(loggingConnection, OS_LOG_TYPE_INFO))
     {
       name = [v17 name];
-      v29 = 138412290;
-      v30 = name;
+      v28 = 138412290;
+      v29 = name;
       v21 = "Contextual Season ZK : previous season %@";
 LABEL_9:
-      _os_log_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_INFO, v21, &v29, 0xCu);
+      _os_log_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_INFO, v21, &v28, 0xCu);
     }
   }
 
@@ -715,8 +698,8 @@ LABEL_9:
     if (os_log_type_enabled(loggingConnection, OS_LOG_TYPE_INFO))
     {
       name = [v17 name];
-      v29 = 138412290;
-      v30 = name;
+      v28 = 138412290;
+      v29 = name;
       v21 = "Contextual Season ZK : current season %@";
       goto LABEL_9;
     }
@@ -735,20 +718,18 @@ LABEL_9:
     }
   }
 
-  v27 = *MEMORY[0x277D85DE8];
-
   return array;
 }
 
 - (id)contextualSocialGroupZeroKeywordsWithGraph:(id)graph options:(id)options progressBlock:(id)block
 {
-  v101 = *MEMORY[0x277D85DE8];
+  v100 = *MEMORY[0x277D85DE8];
   graphCopy = graph;
   optionsCopy = options;
   blockCopy = block;
   v11 = 0.0;
-  v72 = _Block_copy(blockCopy);
-  if (!v72)
+  v71 = _Block_copy(blockCopy);
+  if (!v71)
   {
     goto LABEL_8;
   }
@@ -759,16 +740,16 @@ LABEL_9:
     goto LABEL_8;
   }
 
-  v94 = 0;
-  v72[2](v72, &v94, 0.0);
-  if (v94 != 1)
+  v93 = 0;
+  v71[2](v71, &v93, 0.0);
+  if (v93 != 1)
   {
     v11 = Current;
 LABEL_8:
-    v63 = blockCopy;
+    v62 = blockCopy;
     array = [MEMORY[0x277CBEB18] array];
     v15 = [optionsCopy objectForKeyedSubscript:@"PHMemoryOptionPeopleNamesKey"];
-    v64 = optionsCopy;
+    v63 = optionsCopy;
     v16 = [optionsCopy objectForKeyedSubscript:@"PHMemoryOptionDateKey"];
     v17 = v16;
     if (v16)
@@ -781,86 +762,86 @@ LABEL_8:
       currentLocalDate = [MEMORY[0x277D27690] currentLocalDate];
     }
 
-    v68 = currentLocalDate;
+    v67 = currentLocalDate;
 
     v19 = [MEMORY[0x277CBEB58] set];
-    v74 = [MEMORY[0x277CBEB58] set];
+    v73 = [MEMORY[0x277CBEB58] set];
     selfCopy = self;
     v20 = self->_photoLibrary;
     aBlock[0] = MEMORY[0x277D85DD0];
     aBlock[1] = 3221225472;
     aBlock[2] = __102__PGZeroKeywordComputer_Contextual__contextualSocialGroupZeroKeywordsWithGraph_options_progressBlock___block_invoke;
     aBlock[3] = &unk_278883250;
-    v65 = graphCopy;
+    v64 = graphCopy;
     v21 = graphCopy;
-    v90 = v21;
-    v61 = v20;
+    v89 = v21;
+    v60 = v20;
+    v90 = v60;
+    v61 = v19;
     v91 = v61;
-    v62 = v19;
-    v92 = v62;
-    v67 = array;
-    v93 = v67;
-    v71 = _Block_copy(aBlock);
+    v66 = array;
+    v92 = v66;
+    v70 = _Block_copy(aBlock);
+    v84 = 0u;
     v85 = 0u;
     v86 = 0u;
     v87 = 0u;
-    v88 = 0u;
     obj = v15;
-    v22 = [obj countByEnumeratingWithState:&v85 objects:v98 count:16];
+    v22 = [obj countByEnumeratingWithState:&v84 objects:v97 count:16];
     if (v22)
     {
       v23 = v22;
-      v24 = *v86;
+      v24 = *v85;
       do
       {
         for (i = 0; i != v23; ++i)
         {
-          if (*v86 != v24)
+          if (*v85 != v24)
           {
             objc_enumerationMutation(obj);
           }
 
-          v26 = *(*(&v85 + 1) + 8 * i);
-          v96 = @"name";
-          v97 = v26;
-          v27 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v97 forKeys:&v96 count:1];
-          v83[0] = MEMORY[0x277D85DD0];
-          v83[1] = 3221225472;
-          v83[2] = __102__PGZeroKeywordComputer_Contextual__contextualSocialGroupZeroKeywordsWithGraph_options_progressBlock___block_invoke_2;
-          v83[3] = &unk_278889240;
-          v84 = v74;
-          [v21 enumerateNodesWithLabel:@"People" domain:300 properties:v27 usingBlock:v83];
+          v26 = *(*(&v84 + 1) + 8 * i);
+          v95 = @"name";
+          v96 = v26;
+          v27 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v96 forKeys:&v95 count:1];
+          v82[0] = MEMORY[0x277D85DD0];
+          v82[1] = 3221225472;
+          v82[2] = __102__PGZeroKeywordComputer_Contextual__contextualSocialGroupZeroKeywordsWithGraph_options_progressBlock___block_invoke_2;
+          v82[3] = &unk_278889240;
+          v83 = v73;
+          [v21 enumerateNodesWithLabel:@"People" domain:300 properties:v27 usingBlock:v82];
         }
 
-        v23 = [obj countByEnumeratingWithState:&v85 objects:v98 count:16];
+        v23 = [obj countByEnumeratingWithState:&v84 objects:v97 count:16];
       }
 
       while (v23);
     }
 
-    v71[2](v71, v74);
-    if (v72)
+    v70[2](v70, v73);
+    if (v71)
     {
       v28 = CFAbsoluteTimeGetCurrent();
-      v30 = v67;
-      v29 = v68;
+      v30 = v66;
+      v29 = v67;
       if (v28 - v11 >= 0.01)
       {
-        v94 = 0;
-        v72[2](v72, &v94, 0.5);
-        if (v94)
+        v93 = 0;
+        v71[2](v71, &v93, 0.5);
+        if (v93)
         {
           if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
           {
             *buf = 67109378;
             *&buf[4] = 205;
-            LOWORD(v100) = 2080;
-            *(&v100 + 2) = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Search/PGZeroKeywordComputer+Contextual.m";
+            LOWORD(v99) = 2080;
+            *(&v99 + 2) = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Search/PGZeroKeywordComputer+Contextual.m";
             _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
           }
 
           v13 = MEMORY[0x277CBEBF8];
-          blockCopy = v63;
+          blockCopy = v62;
 LABEL_64:
 
           goto LABEL_65;
@@ -872,82 +853,82 @@ LABEL_64:
 
     else
     {
-      v30 = v67;
-      v29 = v68;
+      v30 = v66;
+      v29 = v67;
     }
 
-    v66 = [v30 count];
-    v59 = [MEMORY[0x277D27690] dateByAddingWeeksOfYear:-1 toDate:v29];
-    v69 = v29;
-    v58 = [objc_alloc(MEMORY[0x277CCA970]) initWithStartDate:v59 endDate:v29];
-    v57 = [PGZeroKeywordComputer momentNodesOverlappingLocalDateInterval:selfCopy inGraph:"momentNodesOverlappingLocalDateInterval:inGraph:"];
-    v31 = [v57 set];
+    v65 = [v30 count];
+    v58 = [MEMORY[0x277D27690] dateByAddingWeeksOfYear:-1 toDate:v29];
+    v68 = v29;
+    v57 = [objc_alloc(MEMORY[0x277CCA970]) initWithStartDate:v58 endDate:v29];
+    v56 = [PGZeroKeywordComputer momentNodesOverlappingLocalDateInterval:selfCopy inGraph:"momentNodesOverlappingLocalDateInterval:inGraph:"];
+    v31 = [v56 set];
     v32 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"universalStartDate" ascending:1];
     *buf = v32;
     v33 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"universalEndDate" ascending:1];
-    *&v100 = v33;
+    *&v99 = v33;
     v34 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"UUID" ascending:1];
-    *(&v100 + 1) = v34;
+    *(&v99 + 1) = v34;
     v35 = [MEMORY[0x277CBEA60] arrayWithObjects:buf count:3];
 
     v36 = [v31 sortedArrayUsingDescriptors:v35];
 
-    v81 = 0u;
-    v82 = 0u;
-    v79 = 0u;
     v80 = 0u;
-    v60 = v36;
+    v81 = 0u;
+    v78 = 0u;
+    v79 = 0u;
+    v59 = v36;
     reverseObjectEnumerator = [v36 reverseObjectEnumerator];
-    v38 = [reverseObjectEnumerator countByEnumeratingWithState:&v79 objects:v95 count:16];
+    v38 = [reverseObjectEnumerator countByEnumeratingWithState:&v78 objects:v94 count:16];
     if (v38)
     {
       v39 = v38;
-      v40 = *v80;
+      v40 = *v79;
       while (2)
       {
         for (j = 0; j != v39; ++j)
         {
-          if (*v80 != v40)
+          if (*v79 != v40)
           {
             objc_enumerationMutation(reverseObjectEnumerator);
           }
 
-          v42 = *(*(&v79 + 1) + 8 * j);
+          v42 = *(*(&v78 + 1) + 8 * j);
           v43 = objc_autoreleasePoolPush();
-          [v74 removeAllObjects];
-          v77[0] = MEMORY[0x277D85DD0];
-          v77[1] = 3221225472;
-          v77[2] = __102__PGZeroKeywordComputer_Contextual__contextualSocialGroupZeroKeywordsWithGraph_options_progressBlock___block_invoke_243;
-          v77[3] = &unk_278889240;
-          v44 = v74;
-          v78 = v44;
-          [v42 enumeratePersonNodesUsingBlock:v77];
-          v71[2](v71, v44);
-          if (v72)
+          [v73 removeAllObjects];
+          v76[0] = MEMORY[0x277D85DD0];
+          v76[1] = 3221225472;
+          v76[2] = __102__PGZeroKeywordComputer_Contextual__contextualSocialGroupZeroKeywordsWithGraph_options_progressBlock___block_invoke_243;
+          v76[3] = &unk_278889240;
+          v44 = v73;
+          v77 = v44;
+          [v42 enumeratePersonNodesUsingBlock:v76];
+          v70[2](v70, v44);
+          if (v71)
           {
             v45 = CFAbsoluteTimeGetCurrent();
             if (v45 - v11 >= 0.01)
             {
-              v94 = 0;
-              v72[2](v72, &v94, 0.5);
-              if (v94)
+              v93 = 0;
+              v71[2](v71, &v93, 0.5);
+              if (v93)
               {
                 if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
                 {
                   *buf = 67109378;
                   *&buf[4] = 225;
-                  LOWORD(v100) = 2080;
-                  *(&v100 + 2) = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Search/PGZeroKeywordComputer+Contextual.m";
+                  LOWORD(v99) = 2080;
+                  *(&v99 + 2) = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Search/PGZeroKeywordComputer+Contextual.m";
                   _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
                 }
 
                 objc_autoreleasePoolPop(v43);
                 v13 = MEMORY[0x277CBEBF8];
-                optionsCopy = v64;
-                graphCopy = v65;
-                blockCopy = v63;
-                v30 = v67;
-                v29 = v69;
+                optionsCopy = v63;
+                graphCopy = v64;
+                blockCopy = v62;
+                v30 = v66;
+                v29 = v68;
                 goto LABEL_63;
               }
 
@@ -958,7 +939,7 @@ LABEL_64:
           objc_autoreleasePoolPop(v43);
         }
 
-        v39 = [reverseObjectEnumerator countByEnumeratingWithState:&v79 objects:v95 count:16];
+        v39 = [reverseObjectEnumerator countByEnumeratingWithState:&v78 objects:v94 count:16];
         if (v39)
         {
           continue;
@@ -968,16 +949,16 @@ LABEL_64:
       }
     }
 
-    v30 = v67;
-    if ([v67 count] == v66)
+    v30 = v66;
+    if ([v66 count] == v65)
     {
-      v46 = [MEMORY[0x277D27690] dateByAddingWeeksOfYear:-2 toDate:v69];
-      firstObject = [v60 firstObject];
+      v46 = [MEMORY[0x277D27690] dateByAddingWeeksOfYear:-2 toDate:v68];
+      firstObject = [v59 firstObject];
       previousMomentNode = [firstObject previousMomentNode];
 
-      graphCopy = v65;
-      blockCopy = v63;
-      if ([v67 count] == v66 && previousMomentNode)
+      graphCopy = v64;
+      blockCopy = v62;
+      if ([v66 count] == v65 && previousMomentNode)
       {
         while (1)
         {
@@ -992,37 +973,37 @@ LABEL_64:
           v51 = objc_autoreleasePoolPush();
           if ([previousMomentNode isInteresting])
           {
-            [v74 removeAllObjects];
-            v75[0] = MEMORY[0x277D85DD0];
-            v75[1] = 3221225472;
-            v75[2] = __102__PGZeroKeywordComputer_Contextual__contextualSocialGroupZeroKeywordsWithGraph_options_progressBlock___block_invoke_244;
-            v75[3] = &unk_278889240;
-            v52 = v74;
-            v76 = v52;
-            [previousMomentNode enumeratePersonNodesUsingBlock:v75];
-            v71[2](v71, v52);
-            if (v72)
+            [v73 removeAllObjects];
+            v74[0] = MEMORY[0x277D85DD0];
+            v74[1] = 3221225472;
+            v74[2] = __102__PGZeroKeywordComputer_Contextual__contextualSocialGroupZeroKeywordsWithGraph_options_progressBlock___block_invoke_244;
+            v74[3] = &unk_278889240;
+            v52 = v73;
+            v75 = v52;
+            [previousMomentNode enumeratePersonNodesUsingBlock:v74];
+            v70[2](v70, v52);
+            if (v71)
             {
               v53 = CFAbsoluteTimeGetCurrent();
               if (v53 - v11 >= 0.01)
               {
-                v94 = 0;
-                v72[2](v72, &v94, 0.5);
-                if (v94)
+                v93 = 0;
+                v71[2](v71, &v93, 0.5);
+                if (v93)
                 {
                   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
                   {
                     *buf = 67109378;
                     *&buf[4] = 244;
-                    LOWORD(v100) = 2080;
-                    *(&v100 + 2) = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Search/PGZeroKeywordComputer+Contextual.m";
+                    LOWORD(v99) = 2080;
+                    *(&v99 + 2) = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Search/PGZeroKeywordComputer+Contextual.m";
                     _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
                   }
 
                   objc_autoreleasePoolPop(v51);
                   v13 = MEMORY[0x277CBEBF8];
-                  optionsCopy = v64;
-                  v29 = v69;
+                  optionsCopy = v63;
+                  v29 = v68;
                   goto LABEL_63;
                 }
 
@@ -1034,7 +1015,7 @@ LABEL_64:
           v48PreviousMomentNode = [previousMomentNode previousMomentNode];
 
           objc_autoreleasePoolPop(v51);
-          if ([v67 count] == v66)
+          if ([v66 count] == v65)
           {
             previousMomentNode = v48PreviousMomentNode;
             if (v48PreviousMomentNode)
@@ -1053,20 +1034,20 @@ LABEL_55:
 
     else
     {
-      graphCopy = v65;
-      blockCopy = v63;
+      graphCopy = v64;
+      blockCopy = v62;
     }
 
-    v29 = v69;
-    optionsCopy = v64;
-    if (v72 && CFAbsoluteTimeGetCurrent() - v11 >= 0.01 && (v94 = 0, v72[2](v72, &v94, 1.0), v94))
+    v29 = v68;
+    optionsCopy = v63;
+    if (v71 && CFAbsoluteTimeGetCurrent() - v11 >= 0.01 && (v93 = 0, v71[2](v71, &v93, 1.0), v93))
     {
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
       {
         *buf = 67109378;
         *&buf[4] = 251;
-        LOWORD(v100) = 2080;
-        *(&v100 + 2) = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Search/PGZeroKeywordComputer+Contextual.m";
+        LOWORD(v99) = 2080;
+        *(&v99 + 2) = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Search/PGZeroKeywordComputer+Contextual.m";
         _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
       }
 
@@ -1075,7 +1056,7 @@ LABEL_55:
 
     else
     {
-      v13 = v67;
+      v13 = v66;
     }
 
 LABEL_63:
@@ -1087,15 +1068,13 @@ LABEL_63:
   {
     *buf = 67109378;
     *&buf[4] = 167;
-    LOWORD(v100) = 2080;
-    *(&v100 + 2) = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Search/PGZeroKeywordComputer+Contextual.m";
+    LOWORD(v99) = 2080;
+    *(&v99 + 2) = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Search/PGZeroKeywordComputer+Contextual.m";
     _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
   }
 
   v13 = MEMORY[0x277CBEBF8];
 LABEL_65:
-
-  v55 = *MEMORY[0x277D85DE8];
 
   return v13;
 }
@@ -1147,28 +1126,28 @@ void __102__PGZeroKeywordComputer_Contextual__contextualSocialGroupZeroKeywordsW
 
 - (id)contextualPersonZeroKeywordsWithGraph:(id)graph options:(id)options progressBlock:(id)block
 {
-  v121 = *MEMORY[0x277D85DE8];
+  v120 = *MEMORY[0x277D85DE8];
   graphCopy = graph;
   optionsCopy = options;
   blockCopy = block;
-  v111 = 0;
-  v112 = &v111;
-  v113 = 0x2020000000;
-  v114 = 0;
-  v107 = 0;
-  v108 = &v107;
-  v109 = 0x2020000000;
   v110 = 0;
-  v66 = _Block_copy(blockCopy);
-  v56 = optionsCopy;
-  if (v66 && (v8 = CFAbsoluteTimeGetCurrent(), v8 - v108[3] >= 0.01) && (v108[3] = v8, v106 = 0, (*(v66 + 2))(v66, &v106, 0.0), v9 = *(v112 + 24) | v106, *(v112 + 24) = v9, (v9 & 1) != 0))
+  v111 = &v110;
+  v112 = 0x2020000000;
+  v113 = 0;
+  v106 = 0;
+  v107 = &v106;
+  v108 = 0x2020000000;
+  v109 = 0;
+  v65 = _Block_copy(blockCopy);
+  v55 = optionsCopy;
+  if (v65 && (v8 = CFAbsoluteTimeGetCurrent(), v8 - v107[3] >= 0.01) && (v107[3] = v8, v105 = 0, (*(v65 + 2))(v65, &v105, 0.0), v9 = *(v111 + 24) | v105, *(v111 + 24) = v9, (v9 & 1) != 0))
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
     {
       *buf = 67109378;
       *&buf[4] = 48;
-      LOWORD(v120) = 2080;
-      *(&v120 + 2) = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Search/PGZeroKeywordComputer+Contextual.m";
+      LOWORD(v119) = 2080;
+      *(&v119 + 2) = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Search/PGZeroKeywordComputer+Contextual.m";
       _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
     }
 
@@ -1197,63 +1176,63 @@ void __102__PGZeroKeywordComputer_Contextual__contextualSocialGroupZeroKeywordsW
     aBlock[1] = 3221225472;
     aBlock[2] = __97__PGZeroKeywordComputer_Contextual__contextualPersonZeroKeywordsWithGraph_options_progressBlock___block_invoke;
     aBlock[3] = &unk_2788831D8;
-    v54 = v14;
-    v104 = v54;
-    v60 = array2;
-    v105 = v60;
-    v64 = _Block_copy(aBlock);
-    v101 = 0u;
-    v102 = 0u;
-    v99 = 0u;
+    v53 = v14;
+    v103 = v53;
+    v59 = array2;
+    v104 = v59;
+    v63 = _Block_copy(aBlock);
     v100 = 0u;
+    v101 = 0u;
+    v98 = 0u;
+    v99 = 0u;
     obj = v11;
-    v16 = [obj countByEnumeratingWithState:&v99 objects:v118 count:16];
+    v16 = [obj countByEnumeratingWithState:&v98 objects:v117 count:16];
     if (v16)
     {
-      v17 = *v100;
+      v17 = *v99;
       while (2)
       {
         for (i = 0; i != v16; ++i)
         {
-          if (*v100 != v17)
+          if (*v99 != v17)
           {
             objc_enumerationMutation(obj);
           }
 
-          v19 = *(*(&v99 + 1) + 8 * i);
-          v116 = @"name";
-          v117 = v19;
-          v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v117 forKeys:&v116 count:1];
-          v93[0] = MEMORY[0x277D85DD0];
-          v93[1] = 3221225472;
-          v93[2] = __97__PGZeroKeywordComputer_Contextual__contextualPersonZeroKeywordsWithGraph_options_progressBlock___block_invoke_2;
-          v93[3] = &unk_278883200;
-          v94 = v64;
-          v95 = v66;
-          v96 = &v107;
-          v98 = 0x3F847AE147AE147BLL;
-          v97 = &v111;
-          [graphCopy enumerateNodesWithLabel:@"People" domain:300 properties:v20 usingBlock:v93];
+          v19 = *(*(&v98 + 1) + 8 * i);
+          v115 = @"name";
+          v116 = v19;
+          v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v116 forKeys:&v115 count:1];
+          v92[0] = MEMORY[0x277D85DD0];
+          v92[1] = 3221225472;
+          v92[2] = __97__PGZeroKeywordComputer_Contextual__contextualPersonZeroKeywordsWithGraph_options_progressBlock___block_invoke_2;
+          v92[3] = &unk_278883200;
+          v93 = v63;
+          v94 = v65;
+          v95 = &v106;
+          v97 = 0x3F847AE147AE147BLL;
+          v96 = &v110;
+          [graphCopy enumerateNodesWithLabel:@"People" domain:300 properties:v20 usingBlock:v92];
 
-          if (*(v112 + 24) == 1)
+          if (*(v111 + 24) == 1)
           {
             if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
             {
               *buf = 67109378;
               *&buf[4] = 81;
-              LOWORD(v120) = 2080;
-              *(&v120 + 2) = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Search/PGZeroKeywordComputer+Contextual.m";
+              LOWORD(v119) = 2080;
+              *(&v119 + 2) = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Search/PGZeroKeywordComputer+Contextual.m";
               _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
             }
 
             v10 = MEMORY[0x277CBEBF8];
-            v27 = v94;
-            v55 = obj;
+            v27 = v93;
+            v54 = obj;
             goto LABEL_55;
           }
         }
 
-        v16 = [obj countByEnumeratingWithState:&v99 objects:v118 count:16];
+        v16 = [obj countByEnumeratingWithState:&v98 objects:v117 count:16];
         if (v16)
         {
           continue;
@@ -1263,41 +1242,41 @@ void __102__PGZeroKeywordComputer_Contextual__contextualSocialGroupZeroKeywordsW
       }
     }
 
-    v21 = filteredKeywords(v60, 0xFFFFFFFFFFFFFFFFLL, 0xFFFFFFFFFFFFFFFFLL, 0.0);
+    v21 = filteredKeywords(v59, 0xFFFFFFFFFFFFFFFFLL, 0xFFFFFFFFFFFFFFFFLL, 0.0);
     [array addObjectsFromArray:v21];
 
-    [v60 removeAllObjects];
+    [v59 removeAllObjects];
     v22 = [MEMORY[0x277D27690] dateByAddingWeeksOfYear:-1 toDate:currentLocalDate];
     v23 = [MEMORY[0x277D27690] dateByAddingWeeksOfYear:1 toDate:currentLocalDate];
     v24 = [objc_alloc(MEMORY[0x277CCA970]) initWithStartDate:v22 endDate:v23];
     v25 = [MEMORY[0x277D27690] yearFromDate:v22];
-    v55 = v22;
+    v54 = v22;
     v26 = [MEMORY[0x277D27690] yearFromDate:v23];
-    v83[0] = MEMORY[0x277D85DD0];
-    v83[1] = 3221225472;
-    v83[2] = __97__PGZeroKeywordComputer_Contextual__contextualPersonZeroKeywordsWithGraph_options_progressBlock___block_invoke_238;
-    v83[3] = &unk_278883228;
-    v89 = v25;
-    v51 = v24;
-    v84 = v51;
-    v92 = v25 != v26;
-    v61 = v64;
+    v82[0] = MEMORY[0x277D85DD0];
+    v82[1] = 3221225472;
+    v82[2] = __97__PGZeroKeywordComputer_Contextual__contextualPersonZeroKeywordsWithGraph_options_progressBlock___block_invoke_238;
+    v82[3] = &unk_278883228;
+    v88 = v25;
+    v50 = v24;
+    v83 = v50;
+    v91 = v25 != v26;
+    v60 = v63;
+    v84 = v60;
+    v89 = v26;
+    v61 = v65;
     v85 = v61;
-    v90 = v26;
-    v62 = v66;
-    v86 = v62;
-    v87 = &v107;
-    v91 = 0x3F847AE147AE147BLL;
-    v88 = &v111;
-    [graphCopy enumerateNodesWithLabel:0 domain:300 usingBlock:v83];
-    if (*(v112 + 24) == 1)
+    v86 = &v106;
+    v90 = 0x3F847AE147AE147BLL;
+    v87 = &v110;
+    [graphCopy enumerateNodesWithLabel:0 domain:300 usingBlock:v82];
+    if (*(v111 + 24) == 1)
     {
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
       {
         *buf = 67109378;
         *&buf[4] = 119;
-        LOWORD(v120) = 2080;
-        *(&v120 + 2) = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Search/PGZeroKeywordComputer+Contextual.m";
+        LOWORD(v119) = 2080;
+        *(&v119 + 2) = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Search/PGZeroKeywordComputer+Contextual.m";
         _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
       }
 
@@ -1306,60 +1285,60 @@ void __102__PGZeroKeywordComputer_Contextual__contextualSocialGroupZeroKeywordsW
 
     else
     {
-      v28 = filteredKeywords(v60, 0xFFFFFFFFFFFFFFFFLL, 0xFFFFFFFFFFFFFFFFLL, 0.0);
+      v28 = filteredKeywords(v59, 0xFFFFFFFFFFFFFFFFLL, 0xFFFFFFFFFFFFFFFFLL, 0.0);
       [array addObjectsFromArray:v28];
 
-      [v60 removeAllObjects];
-      v50 = [objc_alloc(MEMORY[0x277CCA970]) initWithStartDate:v55 endDate:currentLocalDate];
-      v49 = [PGZeroKeywordComputer momentNodesOverlappingLocalDateInterval:"momentNodesOverlappingLocalDateInterval:inGraph:" inGraph:?];
-      v29 = [v49 set];
+      [v59 removeAllObjects];
+      v49 = [objc_alloc(MEMORY[0x277CCA970]) initWithStartDate:v54 endDate:currentLocalDate];
+      v48 = [PGZeroKeywordComputer momentNodesOverlappingLocalDateInterval:"momentNodesOverlappingLocalDateInterval:inGraph:" inGraph:?];
+      v29 = [v48 set];
       v30 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"universalStartDate" ascending:1];
       *buf = v30;
       v31 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"universalEndDate" ascending:1];
-      *&v120 = v31;
+      *&v119 = v31;
       v32 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"UUID" ascending:1];
-      *(&v120 + 1) = v32;
+      *(&v119 + 1) = v32;
       v33 = [MEMORY[0x277CBEA60] arrayWithObjects:buf count:3];
 
-      v53 = [v29 sortedArrayUsingDescriptors:v33];
+      v52 = [v29 sortedArrayUsingDescriptors:v33];
 
-      v81 = 0u;
-      v82 = 0u;
-      v79 = 0u;
       v80 = 0u;
-      reverseObjectEnumerator = [v53 reverseObjectEnumerator];
-      v35 = [reverseObjectEnumerator countByEnumeratingWithState:&v79 objects:v115 count:16];
+      v81 = 0u;
+      v78 = 0u;
+      v79 = 0u;
+      reverseObjectEnumerator = [v52 reverseObjectEnumerator];
+      v35 = [reverseObjectEnumerator countByEnumeratingWithState:&v78 objects:v114 count:16];
       if (v35)
       {
-        v36 = *v80;
+        v36 = *v79;
         while (2)
         {
           for (j = 0; j != v35; ++j)
           {
-            if (*v80 != v36)
+            if (*v79 != v36)
             {
               objc_enumerationMutation(reverseObjectEnumerator);
             }
 
-            v38 = *(*(&v79 + 1) + 8 * j);
-            v73[0] = MEMORY[0x277D85DD0];
-            v73[1] = 3221225472;
-            v73[2] = __97__PGZeroKeywordComputer_Contextual__contextualPersonZeroKeywordsWithGraph_options_progressBlock___block_invoke_239;
-            v73[3] = &unk_278883200;
+            v38 = *(*(&v78 + 1) + 8 * j);
+            v72[0] = MEMORY[0x277D85DD0];
+            v72[1] = 3221225472;
+            v72[2] = __97__PGZeroKeywordComputer_Contextual__contextualPersonZeroKeywordsWithGraph_options_progressBlock___block_invoke_239;
+            v72[3] = &unk_278883200;
+            v73 = v60;
             v74 = v61;
-            v75 = v62;
-            v76 = &v107;
-            v77 = &v111;
-            v78 = 0x3F847AE147AE147BLL;
-            [v38 enumeratePersonNodesUsingBlock:v73];
-            if (*(v112 + 24) == 1)
+            v75 = &v106;
+            v76 = &v110;
+            v77 = 0x3F847AE147AE147BLL;
+            [v38 enumeratePersonNodesUsingBlock:v72];
+            if (*(v111 + 24) == 1)
             {
               if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
               {
                 *buf = 67109378;
                 *&buf[4] = 138;
-                LOWORD(v120) = 2080;
-                *(&v120 + 2) = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Search/PGZeroKeywordComputer+Contextual.m";
+                LOWORD(v119) = 2080;
+                *(&v119 + 2) = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Search/PGZeroKeywordComputer+Contextual.m";
                 _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
               }
 
@@ -1367,7 +1346,7 @@ void __102__PGZeroKeywordComputer_Contextual__contextualSocialGroupZeroKeywordsW
             }
           }
 
-          v35 = [reverseObjectEnumerator countByEnumeratingWithState:&v79 objects:v115 count:16];
+          v35 = [reverseObjectEnumerator countByEnumeratingWithState:&v78 objects:v114 count:16];
           if (v35)
           {
             continue;
@@ -1377,15 +1356,15 @@ void __102__PGZeroKeywordComputer_Contextual__contextualSocialGroupZeroKeywordsW
         }
       }
 
-      if (![v60 count])
+      if (![v59 count])
       {
         v39 = [MEMORY[0x277D27690] dateByAddingWeeksOfYear:-2 toDate:currentLocalDate];
-        firstObject = [v53 firstObject];
+        firstObject = [v52 firstObject];
         previousMomentNode = [firstObject previousMomentNode];
 
         while (1)
         {
-          if ([v60 count] || !previousMomentNode || (objc_msgSend(previousMomentNode, "localEndDate"), v42 = objc_claimAutoreleasedReturnValue(), v43 = objc_msgSend(v42, "compare:", v39) == -1, v42, v43))
+          if ([v59 count] || !previousMomentNode || (objc_msgSend(previousMomentNode, "localEndDate"), v42 = objc_claimAutoreleasedReturnValue(), v43 = objc_msgSend(v42, "compare:", v39) == -1, v42, v43))
           {
 
             break;
@@ -1393,24 +1372,24 @@ void __102__PGZeroKeywordComputer_Contextual__contextualSocialGroupZeroKeywordsW
 
           if ([previousMomentNode isInteresting])
           {
-            v67[0] = MEMORY[0x277D85DD0];
-            v67[1] = 3221225472;
-            v67[2] = __97__PGZeroKeywordComputer_Contextual__contextualPersonZeroKeywordsWithGraph_options_progressBlock___block_invoke_240;
-            v67[3] = &unk_278883200;
+            v66[0] = MEMORY[0x277D85DD0];
+            v66[1] = 3221225472;
+            v66[2] = __97__PGZeroKeywordComputer_Contextual__contextualPersonZeroKeywordsWithGraph_options_progressBlock___block_invoke_240;
+            v66[3] = &unk_278883200;
+            v67 = v60;
             v68 = v61;
-            v69 = v62;
-            v70 = &v107;
-            v71 = &v111;
-            v72 = 0x3F847AE147AE147BLL;
-            [previousMomentNode enumeratePersonNodesUsingBlock:v67];
-            if (*(v112 + 24) == 1)
+            v69 = &v106;
+            v70 = &v110;
+            v71 = 0x3F847AE147AE147BLL;
+            [previousMomentNode enumeratePersonNodesUsingBlock:v66];
+            if (*(v111 + 24) == 1)
             {
               if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
               {
                 *buf = 67109378;
                 *&buf[4] = 153;
-                LOWORD(v120) = 2080;
-                *(&v120 + 2) = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Search/PGZeroKeywordComputer+Contextual.m";
+                LOWORD(v119) = 2080;
+                *(&v119 + 2) = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Search/PGZeroKeywordComputer+Contextual.m";
                 _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
               }
 
@@ -1424,14 +1403,14 @@ void __102__PGZeroKeywordComputer_Contextual__contextualSocialGroupZeroKeywordsW
         }
       }
 
-      if (v66 && (Current = CFAbsoluteTimeGetCurrent(), Current - v108[3] >= 0.01) && (v108[3] = Current, v106 = 0, (*(v62 + 2))(v62, &v106, 1.0), v46 = *(v112 + 24) | v106, *(v112 + 24) = v46, (v46 & 1) != 0))
+      if (v65 && (Current = CFAbsoluteTimeGetCurrent(), Current - v107[3] >= 0.01) && (v107[3] = Current, v105 = 0, (*(v61 + 2))(v61, &v105, 1.0), v46 = *(v111 + 24) | v105, *(v111 + 24) = v46, (v46 & 1) != 0))
       {
         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
         {
           *buf = 67109378;
           *&buf[4] = 159;
-          LOWORD(v120) = 2080;
-          *(&v120 + 2) = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Search/PGZeroKeywordComputer+Contextual.m";
+          LOWORD(v119) = 2080;
+          *(&v119 + 2) = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Search/PGZeroKeywordComputer+Contextual.m";
           _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
         }
 
@@ -1449,10 +1428,8 @@ LABEL_45:
 LABEL_55:
   }
 
-  _Block_object_dispose(&v107, 8);
-  _Block_object_dispose(&v111, 8);
-
-  v47 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v106, 8);
+  _Block_object_dispose(&v110, 8);
 
   return v10;
 }
@@ -1570,21 +1547,21 @@ void __97__PGZeroKeywordComputer_Contextual__contextualPersonZeroKeywordsWithGra
 
 + (id)contextualHolidayZeroKeywordsWithGraph:(id)graph options:(id)options progressBlock:(id)block
 {
-  v85 = *MEMORY[0x277D85DE8];
+  v84 = *MEMORY[0x277D85DE8];
   graphCopy = graph;
   optionsCopy = options;
   blockCopy = block;
-  v74 = 0;
-  v75 = &v74;
-  v76 = 0x2020000000;
-  v77 = 0;
-  v70 = 0;
-  v71 = &v70;
-  v72 = 0x2020000000;
   v73 = 0;
-  v48 = _Block_copy(blockCopy);
-  v39 = optionsCopy;
-  if (!v48 || (v8 = CFAbsoluteTimeGetCurrent(), v8 - v71[3] < 0.01) || (v71[3] = v8, LOBYTE(v78) = 0, (*(v48 + 2))(v48, &v78, 0.0), v9 = *(v75 + 24) | v78, *(v75 + 24) = v9, (v9 & 1) == 0))
+  v74 = &v73;
+  v75 = 0x2020000000;
+  v76 = 0;
+  v69 = 0;
+  v70 = &v69;
+  v71 = 0x2020000000;
+  v72 = 0;
+  v47 = _Block_copy(blockCopy);
+  v38 = optionsCopy;
+  if (!v47 || (v8 = CFAbsoluteTimeGetCurrent(), v8 - v70[3] < 0.01) || (v70[3] = v8, LOBYTE(v77) = 0, (*(v47 + 2))(v47, &v77, 0.0), v9 = *(v74 + 24) | v77, *(v74 + 24) = v9, (v9 & 1) == 0))
   {
     array = [MEMORY[0x277CBEB18] array];
     currentLocale = [MEMORY[0x277CBEAF8] currentLocale];
@@ -1602,59 +1579,59 @@ void __97__PGZeroKeywordComputer_Contextual__contextualPersonZeroKeywordsWithGra
 
     v15 = currentLocalDate;
 
-    v44 = [MEMORY[0x277D27690] dateByAddingWeeksOfYear:-1 toDate:v15];
-    v43 = [MEMORY[0x277D27690] endOfDayForDate:v15];
+    v43 = [MEMORY[0x277D27690] dateByAddingWeeksOfYear:-1 toDate:v15];
+    v42 = [MEMORY[0x277D27690] endOfDayForDate:v15];
     v16 = MEMORY[0x277D27690];
     v17 = [MEMORY[0x277D27690] dateByAddingDays:1 toDate:v15];
-    v42 = [v16 startOfDayForDate:v17];
+    v41 = [v16 startOfDayForDate:v17];
 
-    v41 = [MEMORY[0x277D27690] dateByAddingWeeksOfYear:1 toDate:v15];
-    v49 = [objc_alloc(MEMORY[0x277D276D8]) initWithLocale:currentLocale];
-    v45 = [(PGGraphNodeCollection *)PGGraphHolidayNodeCollection nodesInGraph:graphCopy];
+    v40 = [MEMORY[0x277D27690] dateByAddingWeeksOfYear:1 toDate:v15];
+    v48 = [objc_alloc(MEMORY[0x277D276D8]) initWithLocale:currentLocale];
+    v44 = [(PGGraphNodeCollection *)PGGraphHolidayNodeCollection nodesInGraph:graphCopy];
     v18 = MEMORY[0x277D22BF8];
     v19 = +[PGGraphHolidayNode datesOfCelebration];
-    v20 = [v18 adjacencyWithSources:v45 relation:v19 targetsClass:objc_opt_class()];
+    v20 = [v18 adjacencyWithSources:v44 relation:v19 targetsClass:objc_opt_class()];
 
     sources = [v20 sources];
     v22 = objc_alloc_init(MEMORY[0x277CBEB38]);
-    v68[0] = MEMORY[0x277D85DD0];
-    v68[1] = 3221225472;
-    v68[2] = __98__PGZeroKeywordComputer_Contextual__contextualHolidayZeroKeywordsWithGraph_options_progressBlock___block_invoke;
-    v68[3] = &unk_278888D00;
+    v67[0] = MEMORY[0x277D85DD0];
+    v67[1] = 3221225472;
+    v67[2] = __98__PGZeroKeywordComputer_Contextual__contextualHolidayZeroKeywordsWithGraph_options_progressBlock___block_invoke;
+    v67[3] = &unk_278888D00;
     v23 = v22;
-    v69 = v23;
-    [sources enumerateNodesUsingBlock:v68];
+    v68 = v23;
+    [sources enumerateNodesUsingBlock:v67];
     v24 = objc_alloc_init(MEMORY[0x277CBEB38]);
     targets = [v20 targets];
-    v66[0] = MEMORY[0x277D85DD0];
-    v66[1] = 3221225472;
-    v66[2] = __98__PGZeroKeywordComputer_Contextual__contextualHolidayZeroKeywordsWithGraph_options_progressBlock___block_invoke_2;
-    v66[3] = &unk_2788875A8;
+    v65[0] = MEMORY[0x277D85DD0];
+    v65[1] = 3221225472;
+    v65[2] = __98__PGZeroKeywordComputer_Contextual__contextualHolidayZeroKeywordsWithGraph_options_progressBlock___block_invoke_2;
+    v65[3] = &unk_2788875A8;
     v26 = v24;
-    v67 = v26;
-    [targets enumerateNodesUsingBlock:v66];
+    v66 = v26;
+    [targets enumerateNodesUsingBlock:v65];
 
     holidayNames = [sources holidayNames];
-    v61[0] = MEMORY[0x277D85DD0];
-    v61[1] = 3221225472;
-    v61[2] = __98__PGZeroKeywordComputer_Contextual__contextualHolidayZeroKeywordsWithGraph_options_progressBlock___block_invoke_3;
-    v61[3] = &unk_2788832A0;
+    v60[0] = MEMORY[0x277D85DD0];
+    v60[1] = 3221225472;
+    v60[2] = __98__PGZeroKeywordComputer_Contextual__contextualHolidayZeroKeywordsWithGraph_options_progressBlock___block_invoke_3;
+    v60[3] = &unk_2788832A0;
     v28 = v20;
-    v62 = v28;
+    v61 = v28;
     v29 = v23;
-    v63 = v29;
+    v62 = v29;
     v30 = v26;
-    v64 = v30;
+    v63 = v30;
     v31 = array;
-    v65 = v31;
-    [v49 enumerateEventRulesWithNames:holidayNames betweenLocalDate:v44 andLocalDate:v43 usingBlock:v61];
-    if (*(v75 + 24) == 1)
+    v64 = v31;
+    [v48 enumerateEventRulesWithNames:holidayNames betweenLocalDate:v43 andLocalDate:v42 usingBlock:v60];
+    if (*(v74 + 24) == 1)
     {
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
       {
         buf = 0x13604000202;
-        LOWORD(v83) = 2080;
-        *(&v83 + 2) = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Search/PGZeroKeywordComputer+Contextual.m";
+        LOWORD(v82) = 2080;
+        *(&v82 + 2) = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Search/PGZeroKeywordComputer+Contextual.m";
         _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", &buf, 0x12u);
       }
 
@@ -1668,42 +1645,42 @@ void __97__PGZeroKeywordComputer_Contextual__contextualPersonZeroKeywordsWithGra
     }
 
     buf = 0;
-    *&v83 = &buf;
-    *(&v83 + 1) = 0x2020000000;
-    v84 = 2;
-    v51[0] = MEMORY[0x277D85DD0];
-    v51[1] = 3221225472;
-    v51[2] = __98__PGZeroKeywordComputer_Contextual__contextualHolidayZeroKeywordsWithGraph_options_progressBlock___block_invoke_257;
-    v51[3] = &unk_2788832F0;
-    v52 = v28;
-    v53 = v29;
-    v54 = v30;
+    *&v82 = &buf;
+    *(&v82 + 1) = 0x2020000000;
+    v83 = 2;
+    v50[0] = MEMORY[0x277D85DD0];
+    v50[1] = 3221225472;
+    v50[2] = __98__PGZeroKeywordComputer_Contextual__contextualHolidayZeroKeywordsWithGraph_options_progressBlock___block_invoke_257;
+    v50[3] = &unk_2788832F0;
+    v51 = v28;
+    v52 = v29;
+    v53 = v30;
     v32 = v31;
-    v55 = v32;
+    v54 = v32;
     p_buf = &buf;
-    v33 = v48;
-    v56 = v33;
-    v58 = &v70;
-    v59 = &v74;
-    v60 = 0x3F847AE147AE147BLL;
-    [v49 enumerateEventRulesWithNames:holidayNames betweenLocalDate:v42 andLocalDate:v41 usingBlock:v51];
-    if (*(v75 + 24) == 1)
+    v33 = v47;
+    v55 = v33;
+    v57 = &v69;
+    v58 = &v73;
+    v59 = 0x3F847AE147AE147BLL;
+    [v48 enumerateEventRulesWithNames:holidayNames betweenLocalDate:v41 andLocalDate:v40 usingBlock:v50];
+    if (*(v74 + 24) == 1)
     {
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
       {
-        v78 = 67109378;
-        v79 = 362;
-        v80 = 2080;
-        v81 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Search/PGZeroKeywordComputer+Contextual.m";
+        v77 = 67109378;
+        v78 = 362;
+        v79 = 2080;
+        v80 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Search/PGZeroKeywordComputer+Contextual.m";
         v34 = MEMORY[0x277D86220];
 LABEL_19:
-        _os_log_impl(&dword_22F0FC000, v34, OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", &v78, 0x12u);
+        _os_log_impl(&dword_22F0FC000, v34, OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", &v77, 0x12u);
       }
     }
 
     else
     {
-      if (!v48 || (Current = CFAbsoluteTimeGetCurrent(), Current - v71[3] < 0.01) || (v71[3] = Current, v50 = 0, (*(v33 + 2))(v33, &v50, 1.0), v36 = *(v75 + 24) | v50, *(v75 + 24) = v36, (v36 & 1) == 0))
+      if (!v47 || (Current = CFAbsoluteTimeGetCurrent(), Current - v70[3] < 0.01) || (v70[3] = Current, v49 = 0, (*(v33 + 2))(v33, &v49, 1.0), v36 = *(v74 + 24) | v49, *(v74 + 24) = v36, (v36 & 1) == 0))
       {
         v10 = v32;
         goto LABEL_27;
@@ -1711,10 +1688,10 @@ LABEL_19:
 
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
       {
-        v78 = 67109378;
-        v79 = 364;
-        v80 = 2080;
-        v81 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Search/PGZeroKeywordComputer+Contextual.m";
+        v77 = 67109378;
+        v78 = 364;
+        v79 = 2080;
+        v80 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Search/PGZeroKeywordComputer+Contextual.m";
         v34 = MEMORY[0x277D86220];
         goto LABEL_19;
       }
@@ -1732,17 +1709,15 @@ LABEL_28:
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
   {
     buf = 0x10304000202;
-    LOWORD(v83) = 2080;
-    *(&v83 + 2) = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Search/PGZeroKeywordComputer+Contextual.m";
+    LOWORD(v82) = 2080;
+    *(&v82 + 2) = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Search/PGZeroKeywordComputer+Contextual.m";
     _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", &buf, 0x12u);
   }
 
   v10 = MEMORY[0x277CBEBF8];
 LABEL_29:
-  _Block_object_dispose(&v70, 8);
-  _Block_object_dispose(&v74, 8);
-
-  v37 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v69, 8);
+  _Block_object_dispose(&v73, 8);
 
   return v10;
 }
@@ -1824,7 +1799,7 @@ void __98__PGZeroKeywordComputer_Contextual__contextualHolidayZeroKeywordsWithGr
 
 void __98__PGZeroKeywordComputer_Contextual__contextualHolidayZeroKeywordsWithGraph_options_progressBlock___block_invoke_2_258(uint64_t a1, void *a2, void *a3)
 {
-  v58 = *MEMORY[0x277D85DE8];
+  v57 = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = [a2 elementIdentifiers];
   v7 = [v6 firstElement];
@@ -1833,72 +1808,72 @@ void __98__PGZeroKeywordComputer_Contextual__contextualHolidayZeroKeywordsWithGr
   v9 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v7];
   v10 = [v8 objectForKeyedSubscript:v9];
 
-  v42 = v10;
+  v41 = v10;
   v11 = [v10 name];
   v12 = [*(a1 + 40) name];
   v13 = [v11 isEqualToString:v12];
 
   if (v13)
   {
-    v54 = 0u;
-    v55 = 0u;
-    v52 = 0u;
     v53 = 0u;
-    v38 = v5;
+    v54 = 0u;
+    v51 = 0u;
+    v52 = 0u;
+    v37 = v5;
     v14 = [v5 elementIdentifiers];
     v15 = [v14 indexArray];
 
     obj = v15;
-    v16 = [v15 countByEnumeratingWithState:&v52 objects:v57 count:16];
+    v16 = [v15 countByEnumeratingWithState:&v51 objects:v56 count:16];
     if (v16)
     {
       v17 = v16;
-      v18 = *v53;
+      v18 = *v52;
       v19 = *MEMORY[0x277D3B1D8];
       v20 = *MEMORY[0x277D3B180];
-      v39 = *v53;
-      v40 = a1;
+      v38 = *v52;
+      v39 = a1;
       do
       {
         v21 = 0;
-        v41 = v17;
+        v40 = v17;
         do
         {
-          if (*v53 != v18)
+          if (*v52 != v18)
           {
             objc_enumerationMutation(obj);
           }
 
-          v22 = [*(a1 + 48) objectForKeyedSubscript:*(*(&v52 + 1) + 8 * v21)];
+          v22 = [*(a1 + 48) objectForKeyedSubscript:*(*(&v51 + 1) + 8 * v21)];
           v23 = [v22 localDate];
           if ([*(a1 + 56) containsObject:v23])
           {
-            v24 = holidayNodeZeroKeyword(v42);
+            v24 = holidayNodeZeroKeyword(v41);
             if (v24)
             {
-              v46 = v21;
-              v50 = 0u;
-              v51 = 0u;
-              v48 = 0u;
+              v45 = v21;
               v49 = 0u;
-              v47 = *(a1 + 64);
-              v25 = [v47 countByEnumeratingWithState:&v48 objects:v56 count:16];
+              v50 = 0u;
+              v47 = 0u;
+              v48 = 0u;
+              v46 = *(a1 + 64);
+              v25 = [v46 countByEnumeratingWithState:&v47 objects:v55 count:16];
               if (v25)
               {
                 v26 = v25;
-                v27 = *v49;
-                v44 = v23;
-                v45 = v22;
+                v27 = *v48;
+                v43 = v23;
+                v44 = v22;
                 do
                 {
                   for (i = 0; i != v26; ++i)
                   {
-                    if (*v49 != v27)
+                    if (*v48 != v27)
                     {
-                      objc_enumerationMutation(v47);
+                      objc_enumerationMutation(v46);
                     }
 
-                    v29 = *(*(&v48 + 1) + 8 * i);
+                    v29 = *(*(&v47 + 1) + 8 * i);
                     v30 = [v24 objectForKeyedSubscript:v19];
                     v31 = [v29 objectForKeyedSubscript:v19];
                     v32 = [v30 isEqualToString:v31];
@@ -1920,33 +1895,33 @@ void __98__PGZeroKeywordComputer_Contextual__contextualHolidayZeroKeywordsWithGr
                     if (!v36)
                     {
 
-                      v18 = v39;
-                      a1 = v40;
-                      v17 = v41;
-                      v22 = v45;
-                      v21 = v46;
-                      v23 = v44;
+                      v18 = v38;
+                      a1 = v39;
+                      v17 = v40;
+                      v22 = v44;
+                      v21 = v45;
+                      v23 = v43;
                       goto LABEL_23;
                     }
                   }
 
-                  v26 = [v47 countByEnumeratingWithState:&v48 objects:v56 count:16];
-                  v23 = v44;
-                  v22 = v45;
+                  v26 = [v46 countByEnumeratingWithState:&v47 objects:v55 count:16];
+                  v23 = v43;
+                  v22 = v44;
                 }
 
                 while (v26);
               }
 
-              a1 = v40;
-              [*(v40 + 64) addObject:v24];
-              --*(*(*(v40 + 72) + 8) + 24);
-              v18 = v39;
-              v17 = v41;
-              v21 = v46;
-              if (!*(*(*(v40 + 72) + 8) + 24))
+              a1 = v39;
+              [*(v39 + 64) addObject:v24];
+              --*(*(*(v39 + 72) + 8) + 24);
+              v18 = v38;
+              v17 = v40;
+              v21 = v45;
+              if (!*(*(*(v39 + 72) + 8) + 24))
               {
-                **(v40 + 80) = 1;
+                **(v39 + 80) = 1;
               }
             }
 
@@ -1957,21 +1932,19 @@ LABEL_23:
         }
 
         while (v21 != v17);
-        v17 = [obj countByEnumeratingWithState:&v52 objects:v57 count:16];
+        v17 = [obj countByEnumeratingWithState:&v51 objects:v56 count:16];
       }
 
       while (v17);
     }
 
-    v5 = v38;
+    v5 = v37;
   }
-
-  v37 = *MEMORY[0x277D85DE8];
 }
 
 void __98__PGZeroKeywordComputer_Contextual__contextualHolidayZeroKeywordsWithGraph_options_progressBlock___block_invoke_4(uint64_t a1, void *a2, void *a3)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = [a2 elementIdentifiers];
   v7 = [v6 firstElement];
@@ -1986,29 +1959,29 @@ void __98__PGZeroKeywordComputer_Contextual__contextualHolidayZeroKeywordsWithGr
 
   if (v13)
   {
-    v26 = 0u;
-    v27 = 0u;
-    v24 = 0u;
     v25 = 0u;
+    v26 = 0u;
+    v23 = 0u;
+    v24 = 0u;
     v14 = [v5 elementIdentifiers];
     v15 = [v14 indexArray];
 
-    v16 = [v15 countByEnumeratingWithState:&v24 objects:v28 count:16];
+    v16 = [v15 countByEnumeratingWithState:&v23 objects:v27 count:16];
     if (v16)
     {
       v17 = v16;
-      v18 = *v25;
+      v18 = *v24;
       do
       {
         v19 = 0;
         do
         {
-          if (*v25 != v18)
+          if (*v24 != v18)
           {
             objc_enumerationMutation(v15);
           }
 
-          v20 = [*(a1 + 48) objectForKeyedSubscript:*(*(&v24 + 1) + 8 * v19)];
+          v20 = [*(a1 + 48) objectForKeyedSubscript:*(*(&v23 + 1) + 8 * v19)];
           v21 = [v20 localDate];
           if ([*(a1 + 56) containsObject:v21])
           {
@@ -2023,19 +1996,17 @@ void __98__PGZeroKeywordComputer_Contextual__contextualHolidayZeroKeywordsWithGr
         }
 
         while (v17 != v19);
-        v17 = [v15 countByEnumeratingWithState:&v24 objects:v28 count:16];
+        v17 = [v15 countByEnumeratingWithState:&v23 objects:v27 count:16];
       }
 
       while (v17);
     }
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (id)meaningNodeZeroKeywordForDisplayMeaningNode:(id)node collectionUUIDsToAvoid:(id)avoid curationContext:(id)context
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   nodeCopy = node;
   avoidCopy = avoid;
   contextCopy = context;
@@ -2052,14 +2023,14 @@ void __98__PGZeroKeywordComputer_Contextual__contextualHolidayZeroKeywordsWithGr
       goto LABEL_12;
     }
 
-    v35 = zeroKeywordMappingByMeaningLabel;
+    v34 = zeroKeywordMappingByMeaningLabel;
     photoLibrary = self->_photoLibrary;
     curationManager = self->_curationManager;
     searchComputationCache = [(PGZeroKeywordComputer *)self searchComputationCache];
     v19 = avoidCopy;
     v20 = searchComputationCache;
-    v33 = contextCopy;
-    v34 = v19;
+    v32 = contextCopy;
+    v33 = v19;
     v21 = bestAssetIdentifiersForMeaningNodes(mappedMeaningNodes, v19, photoLibrary, curationManager, searchComputationCache, graph, contextCopy);
 
     v22 = zeroKeywordLocalizationKeyForMeaningLabel(label);
@@ -2077,13 +2048,13 @@ void __98__PGZeroKeywordComputer_Contextual__contextualHolidayZeroKeywordsWithGr
       v26 = 0;
     }
 
-    contextCopy = v33;
-    avoidCopy = v34;
+    contextCopy = v32;
+    avoidCopy = v33;
   }
 
   else
   {
-    v35 = zeroKeywordMappingByMeaningLabel;
+    v34 = zeroKeywordMappingByMeaningLabel;
     v27 = contextCopy;
     v28 = +[PGLogging sharedLogging];
     loggingConnection = [v28 loggingConnection];
@@ -2092,7 +2063,7 @@ void __98__PGZeroKeywordComputer_Contextual__contextualHolidayZeroKeywordsWithGr
     {
       label2 = [nodeCopy label];
       *buf = 138412290;
-      v37 = label2;
+      v36 = label2;
       _os_log_error_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_ERROR, "Cannot find root applicable meaning nodes for display meaning %@", buf, 0xCu);
     }
 
@@ -2100,17 +2071,15 @@ void __98__PGZeroKeywordComputer_Contextual__contextualHolidayZeroKeywordsWithGr
     contextCopy = v27;
   }
 
-  zeroKeywordMappingByMeaningLabel = v35;
+  zeroKeywordMappingByMeaningLabel = v34;
 LABEL_12:
-
-  v30 = *MEMORY[0x277D85DE8];
 
   return v26;
 }
 
 - (id)_tripZeroKeywordWithGraph:(id)graph curationContext:(id)context score:(double *)score
 {
-  v68 = *MEMORY[0x277D85DE8];
+  v67 = *MEMORY[0x277D85DE8];
   graphCopy = graph;
   contextCopy = context;
   longTripNodes = [graphCopy longTripNodes];
@@ -2123,29 +2092,29 @@ LABEL_12:
 
   if ([(PGZeroKeywordComputer *)self shouldFilterMomentNodesWithPresence])
   {
-    v51 = graphCopy;
-    v53 = contextCopy;
+    v50 = graphCopy;
+    v52 = contextCopy;
     v10 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(longTripNodes, "count")}];
+    v60 = 0u;
     v61 = 0u;
     v62 = 0u;
     v63 = 0u;
-    v64 = 0u;
     v11 = longTripNodes;
-    v12 = [v11 countByEnumeratingWithState:&v61 objects:v67 count:16];
+    v12 = [v11 countByEnumeratingWithState:&v60 objects:v66 count:16];
     if (v12)
     {
       v13 = v12;
-      v14 = *v62;
+      v14 = *v61;
       do
       {
         for (i = 0; i != v13; ++i)
         {
-          if (*v62 != v14)
+          if (*v61 != v14)
           {
             objc_enumerationMutation(v11);
           }
 
-          v16 = *(*(&v61 + 1) + 8 * i);
+          v16 = *(*(&v60 + 1) + 8 * i);
           collection = [v16 collection];
           momentNodes = [collection momentNodes];
           momentNodesWhereMeIsPresent = [(PGZeroKeywordComputer *)self momentNodesWhereMeIsPresent];
@@ -2157,14 +2126,14 @@ LABEL_12:
           }
         }
 
-        v13 = [v11 countByEnumeratingWithState:&v61 objects:v67 count:16];
+        v13 = [v11 countByEnumeratingWithState:&v60 objects:v66 count:16];
       }
 
       while (v13);
     }
 
-    graphCopy = v51;
-    contextCopy = v53;
+    graphCopy = v50;
+    contextCopy = v52;
     longTripNodes = v10;
   }
 
@@ -2174,12 +2143,12 @@ LABEL_12:
     goto LABEL_37;
   }
 
-  v59 = 0u;
-  v60 = 0u;
-  v57 = 0u;
   v58 = 0u;
+  v59 = 0u;
+  v56 = 0u;
+  v57 = 0u;
   v21 = longTripNodes;
-  v22 = [v21 countByEnumeratingWithState:&v57 objects:v66 count:16];
+  v22 = [v21 countByEnumeratingWithState:&v56 objects:v65 count:16];
   if (!v22)
   {
     v46 = 0;
@@ -2191,22 +2160,22 @@ LABEL_36:
     goto LABEL_37;
   }
 
-  v49 = longTripNodes;
-  v52 = graphCopy;
-  v54 = contextCopy;
+  v48 = longTripNodes;
+  v51 = graphCopy;
+  v53 = contextCopy;
   v23 = 0;
   v24 = 0;
-  v25 = *v58;
+  v25 = *v57;
   do
   {
     for (j = 0; j != v22; ++j)
     {
-      if (*v58 != v25)
+      if (*v57 != v25)
       {
         objc_enumerationMutation(v21);
       }
 
-      v27 = *(*(&v57 + 1) + 8 * j);
+      v27 = *(*(&v56 + 1) + 8 * j);
       localStartDate = [v27 localStartDate];
       if (!v23 || [MEMORY[0x277D27690] compareDate:localStartDate toDate:v23 toUnitGranularity:16] == 1)
       {
@@ -2218,7 +2187,7 @@ LABEL_36:
       }
     }
 
-    v22 = [v21 countByEnumeratingWithState:&v57 objects:v66 count:16];
+    v22 = [v21 countByEnumeratingWithState:&v56 objects:v65 count:16];
   }
 
   while (v22);
@@ -2226,9 +2195,9 @@ LABEL_36:
   if (!v24)
   {
     v46 = 0;
-    graphCopy = v52;
-    contextCopy = v54;
-    longTripNodes = v49;
+    graphCopy = v51;
+    contextCopy = v53;
+    longTripNodes = v48;
     goto LABEL_36;
   }
 
@@ -2242,9 +2211,9 @@ LABEL_36:
   if (!v22)
   {
     temporaryArray = [eventEnrichmentMomentNodes temporaryArray];
-    v56 = 0;
-    v22 = bestAssetIdentifierForMomentNodes(temporaryArray, &v56, v54);
-    v37 = v56;
+    v55 = 0;
+    v22 = bestAssetIdentifierForMomentNodes(temporaryArray, &v55, v53);
+    v37 = v55;
 
     searchComputationCache2 = [(PGZeroKeywordComputer *)self searchComputationCache];
     uUID2 = [v24 UUID];
@@ -2253,11 +2222,11 @@ LABEL_36:
 
   if (v22)
   {
-    graphCopy = v52;
-    longTripNodes = v49;
+    graphCopy = v51;
+    longTripNodes = v48;
     if (score)
     {
-      allTripNodes = [v52 allTripNodes];
+      allTripNodes = [v51 allTripNodes];
       v41 = [allTripNodes count];
 
       *score = v41;
@@ -2269,21 +2238,19 @@ LABEL_36:
     v43 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
     v44 = [v43 localizedStringForKey:@"PGHighlightTripSearchableText" value:@"PGHighlightTripSearchableText" table:@"Localizable"];
 
-    v65 = v22;
-    v45 = [MEMORY[0x277CBEA60] arrayWithObjects:&v65 count:1];
+    v64 = v22;
+    v45 = [MEMORY[0x277CBEA60] arrayWithObjects:&v64 count:1];
     v46 = zeroKeywordWithAttributes(5, 13, v21, v44, 0, v45);
 
-    contextCopy = v54;
+    contextCopy = v53;
     goto LABEL_34;
   }
 
   v46 = 0;
-  graphCopy = v52;
-  contextCopy = v54;
-  longTripNodes = v49;
+  graphCopy = v51;
+  contextCopy = v53;
+  longTripNodes = v48;
 LABEL_37:
-
-  v47 = *MEMORY[0x277D85DE8];
 
   return v46;
 }
@@ -2300,36 +2267,36 @@ LABEL_37:
 
 - (id)sceneZeroKeywordsWithGraph:(id)graph options:(id)options progressBlock:(id)block
 {
-  v107 = *MEMORY[0x277D85DE8];
+  v106 = *MEMORY[0x277D85DE8];
   graphCopy = graph;
   optionsCopy = options;
   blockCopy = block;
   v8 = _Block_copy(blockCopy);
-  v94 = 0;
-  v95 = &v94;
-  v96 = 0x2020000000;
-  v97 = 0;
-  v90 = 0;
-  v91 = &v90;
-  v92 = 0x2020000000;
   v93 = 0;
-  v49 = blockCopy;
-  v52 = v8;
-  if (!v8 || (v9 = CFAbsoluteTimeGetCurrent(), v9 - v91[3] < 0.01) || (v91[3] = v9, v99[0] = 0, (*(v8 + 2))(v8, v99, 0.0), v10 = *(v95 + 24) | v99[0], *(v95 + 24) = v10, (v10 & 1) == 0))
+  v94 = &v93;
+  v95 = 0x2020000000;
+  v96 = 0;
+  v89 = 0;
+  v90 = &v89;
+  v91 = 0x2020000000;
+  v92 = 0;
+  v48 = blockCopy;
+  v51 = v8;
+  if (!v8 || (v9 = CFAbsoluteTimeGetCurrent(), v9 - v90[3] < 0.01) || (v90[3] = v9, v98[0] = 0, (*(v8 + 2))(v8, v98, 0.0), v10 = *(v94 + 24) | v98[0], *(v94 + 24) = v10, (v10 & 1) == 0))
   {
     array = [MEMORY[0x277CBEB18] array];
-    v54 = [MEMORY[0x277CBEB58] set];
-    v85[0] = MEMORY[0x277D85DD0];
-    v85[1] = 3221225472;
-    v85[2] = __74__PGZeroKeywordComputer_sceneZeroKeywordsWithGraph_options_progressBlock___block_invoke;
-    v85[3] = &unk_27888A188;
+    v53 = [MEMORY[0x277CBEB58] set];
+    v84[0] = MEMORY[0x277D85DD0];
+    v84[1] = 3221225472;
+    v84[2] = __74__PGZeroKeywordComputer_sceneZeroKeywordsWithGraph_options_progressBlock___block_invoke;
+    v84[3] = &unk_27888A188;
     v12 = v8;
-    v86 = v12;
-    v87 = &v90;
-    v88 = &v94;
-    v89 = 0x3F847AE147AE147BLL;
-    v50 = [(PGZeroKeywordComputer *)self contextualSceneZeroKeywordsWithGraph:graphCopy options:optionsCopy progressBlock:v85];
-    if (*(v95 + 24) == 1)
+    v85 = v12;
+    v86 = &v89;
+    v87 = &v93;
+    v88 = 0x3F847AE147AE147BLL;
+    v49 = [(PGZeroKeywordComputer *)self contextualSceneZeroKeywordsWithGraph:graphCopy options:optionsCopy progressBlock:v84];
+    if (*(v94 + 24) == 1)
     {
       if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
       {
@@ -2342,37 +2309,37 @@ LABEL_56:
 
       *buf = 67109378;
       *&buf[4] = 696;
-      LOWORD(v104) = 2080;
-      *(&v104 + 2) = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Search/PGZeroKeywordComputer.m";
+      LOWORD(v103) = 2080;
+      *(&v103 + 2) = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Search/PGZeroKeywordComputer.m";
       v13 = MEMORY[0x277D86220];
 LABEL_10:
       _os_log_impl(&dword_22F0FC000, v13, OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
       goto LABEL_11;
     }
 
-    v83 = 0u;
-    v84 = 0u;
-    v81 = 0u;
     v82 = 0u;
-    v14 = v50;
-    v15 = [v14 countByEnumeratingWithState:&v81 objects:v106 count:16];
+    v83 = 0u;
+    v80 = 0u;
+    v81 = 0u;
+    v14 = v49;
+    v15 = [v14 countByEnumeratingWithState:&v80 objects:v105 count:16];
     if (v15)
     {
-      v16 = *v82;
+      v16 = *v81;
       v17 = *MEMORY[0x277D3B180];
 LABEL_14:
       v18 = 0;
       while (1)
       {
-        if (*v82 != v16)
+        if (*v81 != v16)
         {
           objc_enumerationMutation(v14);
         }
 
-        v19 = *(*(&v81 + 1) + 8 * v18);
+        v19 = *(*(&v80 + 1) + 8 * v18);
         [array addObject:v19];
         v20 = [v19 objectForKeyedSubscript:v17];
-        [v54 addObject:v20];
+        [v53 addObject:v20];
 
         if ([v19 count] > 2)
         {
@@ -2381,7 +2348,7 @@ LABEL_14:
 
         if (v15 == ++v18)
         {
-          v15 = [v14 countByEnumeratingWithState:&v81 objects:v106 count:16];
+          v15 = [v14 countByEnumeratingWithState:&v80 objects:v105 count:16];
           if (v15)
           {
             goto LABEL_14;
@@ -2392,16 +2359,16 @@ LABEL_14:
       }
     }
 
-    if (v52)
+    if (v51)
     {
       Current = CFAbsoluteTimeGetCurrent();
-      if (Current - v91[3] >= 0.01)
+      if (Current - v90[3] >= 0.01)
       {
-        v91[3] = Current;
-        v99[0] = 0;
-        (*(v12 + 2))(v12, v99, 0.1);
-        v22 = *(v95 + 24) | v99[0];
-        *(v95 + 24) = v22;
+        v90[3] = Current;
+        v98[0] = 0;
+        (*(v12 + 2))(v12, v98, 0.1);
+        v22 = *(v94 + 24) | v98[0];
+        *(v94 + 24) = v22;
         if (v22)
         {
           if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
@@ -2411,8 +2378,8 @@ LABEL_14:
 
           *buf = 67109378;
           *&buf[4] = 707;
-          LOWORD(v104) = 2080;
-          *(&v104 + 2) = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Search/PGZeroKeywordComputer.m";
+          LOWORD(v103) = 2080;
+          *(&v103 + 2) = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Search/PGZeroKeywordComputer.m";
           v13 = MEMORY[0x277D86220];
           goto LABEL_10;
         }
@@ -2423,56 +2390,56 @@ LABEL_14:
     v24 = objc_alloc_init(MEMORY[0x277CBEB38]);
     dictionary = [MEMORY[0x277CBEB38] dictionary];
     *buf = 0;
-    *&v104 = buf;
-    *(&v104 + 1) = 0x2020000000;
-    v105 = 0x3FB999999999999ALL;
+    *&v103 = buf;
+    *(&v103 + 1) = 0x2020000000;
+    v104 = 0x3FB999999999999ALL;
     v26 = [(PGGraphNodeCollection *)PGGraphSceneNodeCollection nodesInGraph:graphCopy];
-    v70[0] = MEMORY[0x277D85DD0];
-    v70[1] = 3221225472;
-    v70[2] = __74__PGZeroKeywordComputer_sceneZeroKeywordsWithGraph_options_progressBlock___block_invoke_346;
-    v70[3] = &unk_278888230;
-    v47 = v12;
-    v76 = v47;
-    v77 = &v90;
-    v78 = buf;
-    v79 = &v94;
-    v80 = 0x3F847AE147AE147BLL;
-    v56 = dictionary;
-    v71 = v56;
-    v72 = v54;
-    v57 = v23;
-    v73 = v57;
-    v48 = v24;
-    v74 = v48;
+    v69[0] = MEMORY[0x277D85DD0];
+    v69[1] = 3221225472;
+    v69[2] = __74__PGZeroKeywordComputer_sceneZeroKeywordsWithGraph_options_progressBlock___block_invoke_346;
+    v69[3] = &unk_278888230;
+    v46 = v12;
+    v75 = v46;
+    v76 = &v89;
+    v77 = buf;
+    v78 = &v93;
+    v79 = 0x3F847AE147AE147BLL;
+    v55 = dictionary;
+    v70 = v55;
+    v71 = v53;
+    v56 = v23;
+    v72 = v56;
+    v47 = v24;
+    v73 = v47;
     selfCopy = self;
-    [v26 enumerateNodesUsingBlock:v70];
+    [v26 enumerateNodesUsingBlock:v69];
 
-    if (*(v95 + 24) == 1)
+    if (*(v94 + 24) == 1)
     {
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
       {
-        *v99 = 67109378;
-        v100 = 763;
-        v101 = 2080;
-        v102 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Search/PGZeroKeywordComputer.m";
+        *v98 = 67109378;
+        v99 = 763;
+        v100 = 2080;
+        v101 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Search/PGZeroKeywordComputer.m";
         v27 = MEMORY[0x277D86220];
 LABEL_28:
-        _os_log_impl(&dword_22F0FC000, v27, OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", v99, 0x12u);
+        _os_log_impl(&dword_22F0FC000, v27, OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", v98, 0x12u);
       }
     }
 
     else
     {
-      if (v52)
+      if (v51)
       {
         v28 = CFAbsoluteTimeGetCurrent();
-        if (v28 - v91[3] >= 0.01)
+        if (v28 - v90[3] >= 0.01)
         {
-          v91[3] = v28;
-          v69 = 0;
-          (*(v47 + 2))(v47, &v69, 0.8);
-          v29 = *(v95 + 24) | v69;
-          *(v95 + 24) = v29;
+          v90[3] = v28;
+          v68 = 0;
+          (*(v46 + 2))(v46, &v68, 0.8);
+          v29 = *(v94 + 24) | v68;
+          *(v94 + 24) = v29;
           if (v29)
           {
             if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
@@ -2480,69 +2447,69 @@ LABEL_28:
               goto LABEL_29;
             }
 
-            *v99 = 67109378;
-            v100 = 765;
-            v101 = 2080;
-            v102 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Search/PGZeroKeywordComputer.m";
+            *v98 = 67109378;
+            v99 = 765;
+            v100 = 2080;
+            v101 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Search/PGZeroKeywordComputer.m";
             v27 = MEMORY[0x277D86220];
             goto LABEL_28;
           }
         }
       }
 
-      v67 = 0u;
-      v68 = 0u;
-      v65 = 0u;
       v66 = 0u;
-      v30 = v48;
-      v31 = [v30 countByEnumeratingWithState:&v65 objects:v98 count:16];
+      v67 = 0u;
+      v64 = 0u;
+      v65 = 0u;
+      v30 = v47;
+      v31 = [v30 countByEnumeratingWithState:&v64 objects:v97 count:16];
       if (v31)
       {
-        v32 = *v66;
+        v32 = *v65;
         do
         {
           for (i = 0; i != v31; ++i)
           {
-            if (*v66 != v32)
+            if (*v65 != v32)
             {
               objc_enumerationMutation(v30);
             }
 
-            v34 = *(*(&v65 + 1) + 8 * i);
+            v34 = *(*(&v64 + 1) + 8 * i);
             v35 = objc_autoreleasePoolPush();
             v36 = -[CLSSceneTaxonomyHierarchy nodeForIdentifier:](self->_sceneTaxonomy, "nodeForIdentifier:", [v34 unsignedLongLongValue]);
-            v59[0] = MEMORY[0x277D85DD0];
-            v59[1] = 3221225472;
-            v59[2] = __74__PGZeroKeywordComputer_sceneZeroKeywordsWithGraph_options_progressBlock___block_invoke_355;
-            v59[3] = &unk_278888258;
+            v58[0] = MEMORY[0x277D85DD0];
+            v58[1] = 3221225472;
+            v58[2] = __74__PGZeroKeywordComputer_sceneZeroKeywordsWithGraph_options_progressBlock___block_invoke_355;
+            v58[3] = &unk_278888258;
             v37 = v30;
-            v60 = v37;
-            v61 = v56;
-            v62 = v34;
+            v59 = v37;
+            v60 = v55;
+            v61 = v34;
             v38 = v36;
-            v63 = v38;
-            v64 = v57;
-            [v38 visitParentsUsingNameBlock:v59];
+            v62 = v38;
+            v63 = v56;
+            [v38 visitParentsUsingNameBlock:v58];
 
             objc_autoreleasePoolPop(v35);
           }
 
-          v31 = [v37 countByEnumeratingWithState:&v65 objects:v98 count:16];
+          v31 = [v37 countByEnumeratingWithState:&v64 objects:v97 count:16];
         }
 
         while (v31);
       }
 
-      if (v52)
+      if (v51)
       {
         v39 = CFAbsoluteTimeGetCurrent();
-        if (v39 - v91[3] >= 0.01)
+        if (v39 - v90[3] >= 0.01)
         {
-          v91[3] = v39;
-          v69 = 0;
-          (*(v47 + 2))(v47, &v69, 0.9);
-          v40 = *(v95 + 24) | v69;
-          *(v95 + 24) = v40;
+          v90[3] = v39;
+          v68 = 0;
+          (*(v46 + 2))(v46, &v68, 0.9);
+          v40 = *(v94 + 24) | v68;
+          *(v94 + 24) = v40;
           if (v40)
           {
             if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
@@ -2550,17 +2517,17 @@ LABEL_28:
               goto LABEL_29;
             }
 
-            *v99 = 67109378;
-            v100 = 792;
-            v101 = 2080;
-            v102 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Search/PGZeroKeywordComputer.m";
+            *v98 = 67109378;
+            v99 = 792;
+            v100 = 2080;
+            v101 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Search/PGZeroKeywordComputer.m";
             v27 = MEMORY[0x277D86220];
             goto LABEL_28;
           }
         }
       }
 
-      allObjects = [v57 allObjects];
+      allObjects = [v56 allObjects];
       v42 = filteredKeywords(allObjects, 0xAuLL, 0xFuLL, 0.9);
       [array addObjectsFromArray:v42];
 
@@ -2569,7 +2536,7 @@ LABEL_28:
         [array removeObjectsInRange:{15, objc_msgSend(array, "count") - 15}];
       }
 
-      if (!v52 || (v43 = CFAbsoluteTimeGetCurrent(), v43 - v91[3] < 0.01) || (v91[3] = v43, v69 = 0, (*(v47 + 2))(v47, &v69, 1.0), v44 = *(v95 + 24) | v69, *(v95 + 24) = v44, (v44 & 1) == 0))
+      if (!v51 || (v43 = CFAbsoluteTimeGetCurrent(), v43 - v90[3] < 0.01) || (v90[3] = v43, v68 = 0, (*(v46 + 2))(v46, &v68, 1.0), v44 = *(v94 + 24) | v68, *(v94 + 24) = v44, (v44 & 1) == 0))
       {
         v11 = array;
         goto LABEL_55;
@@ -2577,10 +2544,10 @@ LABEL_28:
 
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
       {
-        *v99 = 67109378;
-        v100 = 803;
-        v101 = 2080;
-        v102 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Search/PGZeroKeywordComputer.m";
+        *v98 = 67109378;
+        v99 = 803;
+        v100 = 2080;
+        v101 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Search/PGZeroKeywordComputer.m";
         v27 = MEMORY[0x277D86220];
         goto LABEL_28;
       }
@@ -2598,17 +2565,15 @@ LABEL_55:
   {
     *buf = 67109378;
     *&buf[4] = 687;
-    LOWORD(v104) = 2080;
-    *(&v104 + 2) = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Search/PGZeroKeywordComputer.m";
+    LOWORD(v103) = 2080;
+    *(&v103 + 2) = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Search/PGZeroKeywordComputer.m";
     _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
   }
 
   v11 = MEMORY[0x277CBEBF8];
 LABEL_57:
-  _Block_object_dispose(&v90, 8);
-  _Block_object_dispose(&v94, 8);
-
-  v45 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v89, 8);
+  _Block_object_dispose(&v93, 8);
 
   return v11;
 }
@@ -2634,10 +2599,10 @@ void __74__PGZeroKeywordComputer_sceneZeroKeywordsWithGraph_options_progressBloc
 
 void __74__PGZeroKeywordComputer_sceneZeroKeywordsWithGraph_options_progressBlock___block_invoke_346(uint64_t a1, void *a2, _BYTE *a3)
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = objc_autoreleasePoolPush();
-  if (*(a1 + 72) && (Current = CFAbsoluteTimeGetCurrent(), v8 = *(*(a1 + 80) + 8), Current - *(v8 + 24) >= *(a1 + 104)) && (*(v8 + 24) = Current, LOBYTE(v29) = 0, (*(*(a1 + 72) + 16))(*(*(*(a1 + 88) + 8) + 24)), *(*(*(a1 + 96) + 8) + 24) = *(*(*(a1 + 96) + 8) + 24), *(*(*(a1 + 96) + 8) + 24) == 1))
+  if (*(a1 + 72) && (Current = CFAbsoluteTimeGetCurrent(), v8 = *(*(a1 + 80) + 8), Current - *(v8 + 24) >= *(a1 + 104)) && (*(v8 + 24) = Current, LOBYTE(v27) = 0, (*(*(a1 + 72) + 16))(*(*(*(a1 + 88) + 8) + 24)), *(*(*(a1 + 96) + 8) + 24) = *(*(*(a1 + 96) + 8) + 24), *(*(*(a1 + 96) + 8) + 24) == 1))
   {
     *a3 = 1;
   }
@@ -2645,16 +2610,16 @@ void __74__PGZeroKeywordComputer_sceneZeroKeywordsWithGraph_options_progressBloc
   else
   {
     *(*(*(a1 + 88) + 8) + 24) = (*(*(*(a1 + 88) + 8) + 24) + 0.8) * 0.5;
-    v29 = 0;
-    v30 = &v29;
-    v31 = 0x2020000000;
-    v32 = 0;
-    v28[0] = MEMORY[0x277D85DD0];
-    v28[1] = 3221225472;
-    v28[2] = __74__PGZeroKeywordComputer_sceneZeroKeywordsWithGraph_options_progressBlock___block_invoke_2;
-    v28[3] = &unk_278888208;
-    v28[4] = &v29;
-    [v5 enumerateMomentEdgesAndNodesUsingBlock:v28];
+    v27 = 0;
+    v28 = &v27;
+    v29 = 0x2020000000;
+    v30 = 0;
+    v26[0] = MEMORY[0x277D85DD0];
+    v26[1] = 3221225472;
+    v26[2] = __74__PGZeroKeywordComputer_sceneZeroKeywordsWithGraph_options_progressBlock___block_invoke_2;
+    v26[3] = &unk_278888208;
+    v26[4] = &v27;
+    [v5 enumerateMomentEdgesAndNodesUsingBlock:v26];
     v9 = [v5 level];
     v10 = (v9 - 1);
     if (!v9)
@@ -2662,8 +2627,8 @@ void __74__PGZeroKeywordComputer_sceneZeroKeywordsWithGraph_options_progressBloc
       v10 = 0.0;
     }
 
-    v11 = (v10 * 0.1 + 1.0) * v30[3];
-    v30[3] = v11;
+    v11 = (v10 * 0.1 + 1.0) * v28[3];
+    v28[3] = v11;
     if (v11 != 0.0 && [v5 isSuitableForSuggestions] && objc_msgSend(v5, "isIndexed"))
     {
       v12 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:{objc_msgSend(v5, "sceneIdentifier")}];
@@ -2671,7 +2636,7 @@ void __74__PGZeroKeywordComputer_sceneZeroKeywordsWithGraph_options_progressBloc
       if ([*(a1 + 40) containsObject:v12])
       {
         v13 = [PGRankedZeroKeyword alloc];
-        v14 = [(PGRankedZeroKeyword *)v13 initWithKeyword:0 score:v30[3]];
+        v14 = [(PGRankedZeroKeyword *)v13 initWithKeyword:0 score:v28[3]];
         [*(a1 + 48) addObject:v14];
         [*(a1 + 56) setObject:v14 forKeyedSubscript:v12];
       }
@@ -2681,48 +2646,45 @@ void __74__PGZeroKeywordComputer_sceneZeroKeywordsWithGraph_options_progressBloc
         v15 = [v5 label];
         v14 = [MEMORY[0x277CCACA8] stringWithFormat:@"PGScene%@ZeroKeywordText", v15];
 
-        v16 = *(a1 + 64);
-        v17 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-        v18 = [v17 localizedStringForKey:v14 value:v14 table:@"Localizable"];
+        v16 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+        v17 = [v16 localizedStringForKey:v14 value:v14 table:@"Localizable"];
 
-        if (v18 == v14)
+        if (v17 == v14)
         {
-          v19 = +[PGLogging sharedLogging];
-          v20 = [v19 loggingConnection];
+          v18 = +[PGLogging sharedLogging];
+          v19 = [v18 loggingConnection];
 
-          if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
+          if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
           {
-            v21 = [v5 label];
+            v20 = [v5 label];
             *buf = 138412290;
-            v34 = v21;
-            _os_log_impl(&dword_22F0FC000, v20, OS_LOG_TYPE_INFO, "No ZK title key for scene with label %@", buf, 0xCu);
+            v32 = v20;
+            _os_log_impl(&dword_22F0FC000, v19, OS_LOG_TYPE_INFO, "No ZK title key for scene with label %@", buf, 0xCu);
           }
 
-          v22 = [v5 localizedName];
+          v21 = [v5 localizedName];
 
-          v18 = v22;
+          v17 = v21;
         }
 
-        v23 = [v5 localizedName];
-        v24 = zeroKeywordWithAttributes(3, 13, v18, v23, 0, v12);
-        v25 = [PGRankedZeroKeyword alloc];
-        v26 = [(PGRankedZeroKeyword *)v25 initWithKeyword:v24 score:v30[3]];
-        [*(a1 + 48) addObject:v26];
-        [*(a1 + 56) setObject:v26 forKeyedSubscript:v12];
+        v22 = [v5 localizedName];
+        v23 = zeroKeywordWithAttributes(3, 13, v17, v22, 0, v12);
+        v24 = [PGRankedZeroKeyword alloc];
+        v25 = [(PGRankedZeroKeyword *)v24 initWithKeyword:v23 score:v28[3]];
+        [*(a1 + 48) addObject:v25];
+        [*(a1 + 56) setObject:v25 forKeyedSubscript:v12];
       }
     }
 
-    _Block_object_dispose(&v29, 8);
+    _Block_object_dispose(&v27, 8);
   }
 
   objc_autoreleasePoolPop(v6);
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __74__PGZeroKeywordComputer_sceneZeroKeywordsWithGraph_options_progressBlock___block_invoke_355(uint64_t a1, void *a2, uint64_t a3)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:a3];
   v7 = [*(a1 + 32) objectForKeyedSubscript:v6];
@@ -2740,20 +2702,19 @@ uint64_t __74__PGZeroKeywordComputer_sceneZeroKeywordsWithGraph_options_progress
       if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
       {
         v14 = [*(a1 + 56) name];
-        v17 = 138412802;
-        v18 = v5;
-        v19 = 2112;
-        v20 = v14;
-        v21 = 2048;
-        v22 = v11;
-        _os_log_impl(&dword_22F0FC000, v13, OS_LOG_TYPE_INFO, "Filtering out scene ZK %@ because child scene %@ covers %f of the assets", &v17, 0x20u);
+        v16 = 138412802;
+        v17 = v5;
+        v18 = 2112;
+        v19 = v14;
+        v20 = 2048;
+        v21 = v11;
+        _os_log_impl(&dword_22F0FC000, v13, OS_LOG_TYPE_INFO, "Filtering out scene ZK %@ because child scene %@ covers %f of the assets", &v16, 0x20u);
       }
 
       [*(a1 + 64) removeObject:v7];
     }
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
@@ -2772,38 +2733,38 @@ void __74__PGZeroKeywordComputer_sceneZeroKeywordsWithGraph_options_progressBloc
 
 - (id)eventZeroKeywordsWithGraph:(id)graph curationContext:(id)context options:(id)options progressBlock:(id)block
 {
-  v137 = *MEMORY[0x277D85DE8];
+  v136 = *MEMORY[0x277D85DE8];
   graphCopy = graph;
   contextCopy = context;
   optionsCopy = options;
   blockCopy = block;
-  v122 = 0;
-  v123 = &v122;
-  v124 = 0x2020000000;
-  v125 = 0;
-  v118 = 0;
-  v119 = &v118;
-  v120 = 0x2020000000;
   v121 = 0;
-  v83 = _Block_copy(blockCopy);
-  if (!v83 || (v9 = CFAbsoluteTimeGetCurrent(), v9 - v119[3] < 0.01) || (v119[3] = v9, v128[0] = 0, (*(v83 + 2))(v83, v128, 0.0), v10 = *(v123 + 24) | v128[0], *(v123 + 24) = v10, (v10 & 1) == 0))
+  v122 = &v121;
+  v123 = 0x2020000000;
+  v124 = 0;
+  v117 = 0;
+  v118 = &v117;
+  v119 = 0x2020000000;
+  v120 = 0;
+  v82 = _Block_copy(blockCopy);
+  if (!v82 || (v9 = CFAbsoluteTimeGetCurrent(), v9 - v118[3] < 0.01) || (v118[3] = v9, v127[0] = 0, (*(v82 + 2))(v82, v127, 0.0), v10 = *(v122 + 24) | v127[0], *(v122 + 24) = v10, (v10 & 1) == 0))
   {
     array = [MEMORY[0x277CBEB18] array];
-    v79 = [MEMORY[0x277CBEB58] set];
+    v78 = [MEMORY[0x277CBEB58] set];
     librarySpecificFetchOptions = [(PHPhotoLibrary *)self->_photoLibrary librarySpecificFetchOptions];
     v13 = objc_opt_class();
-    v113[0] = MEMORY[0x277D85DD0];
-    v113[1] = 3221225472;
-    v113[2] = __90__PGZeroKeywordComputer_eventZeroKeywordsWithGraph_curationContext_options_progressBlock___block_invoke;
-    v113[3] = &unk_27888A188;
-    v14 = v83;
-    v114 = v14;
-    v115 = &v118;
-    v117 = 0x3F847AE147AE147BLL;
-    v116 = &v122;
-    v69 = [v13 contextualHolidayZeroKeywordsWithGraph:graphCopy options:optionsCopy progressBlock:v113];
-    v81 = array;
-    if (*(v123 + 24) == 1)
+    v112[0] = MEMORY[0x277D85DD0];
+    v112[1] = 3221225472;
+    v112[2] = __90__PGZeroKeywordComputer_eventZeroKeywordsWithGraph_curationContext_options_progressBlock___block_invoke;
+    v112[3] = &unk_27888A188;
+    v14 = v82;
+    v113 = v14;
+    v114 = &v117;
+    v116 = 0x3F847AE147AE147BLL;
+    v115 = &v121;
+    v68 = [v13 contextualHolidayZeroKeywordsWithGraph:graphCopy options:optionsCopy progressBlock:v112];
+    v80 = array;
+    if (*(v122 + 24) == 1)
     {
       if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
       {
@@ -2816,33 +2777,33 @@ LABEL_89:
 
       *buf = 67109378;
       *&buf[4] = 545;
-      LOWORD(v134) = 2080;
-      *(&v134 + 2) = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Search/PGZeroKeywordComputer.m";
+      LOWORD(v133) = 2080;
+      *(&v133 + 2) = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Search/PGZeroKeywordComputer.m";
       v15 = MEMORY[0x277D86220];
 LABEL_10:
       _os_log_impl(&dword_22F0FC000, v15, OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
       goto LABEL_11;
     }
 
-    v111 = 0u;
-    v112 = 0u;
-    v109 = 0u;
     v110 = 0u;
-    v16 = v69;
-    v17 = [v16 countByEnumeratingWithState:&v109 objects:v136 count:16];
+    v111 = 0u;
+    v108 = 0u;
+    v109 = 0u;
+    v16 = v68;
+    v17 = [v16 countByEnumeratingWithState:&v108 objects:v135 count:16];
     if (v17)
     {
-      v18 = *v110;
+      v18 = *v109;
 LABEL_14:
       v19 = 0;
       while (1)
       {
-        if (*v110 != v18)
+        if (*v109 != v18)
         {
           objc_enumerationMutation(v16);
         }
 
-        [array addObject:*(*(&v109 + 1) + 8 * v19)];
+        [array addObject:*(*(&v108 + 1) + 8 * v19)];
         if ([array count] > 2)
         {
           break;
@@ -2850,7 +2811,7 @@ LABEL_14:
 
         if (v17 == ++v19)
         {
-          v17 = [v16 countByEnumeratingWithState:&v109 objects:v136 count:16];
+          v17 = [v16 countByEnumeratingWithState:&v108 objects:v135 count:16];
           if (v17)
           {
             goto LABEL_14;
@@ -2861,16 +2822,16 @@ LABEL_14:
       }
     }
 
-    if (v83)
+    if (v82)
     {
       Current = CFAbsoluteTimeGetCurrent();
-      if (Current - v119[3] >= 0.01)
+      if (Current - v118[3] >= 0.01)
       {
-        v119[3] = Current;
-        v128[0] = 0;
-        (*(v14 + 2))(v14, v128, 0.3);
-        v21 = *(v123 + 24) | v128[0];
-        *(v123 + 24) = v21;
+        v118[3] = Current;
+        v127[0] = 0;
+        (*(v14 + 2))(v14, v127, 0.3);
+        v21 = *(v122 + 24) | v127[0];
+        *(v122 + 24) = v21;
         if (v21)
         {
           if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
@@ -2880,8 +2841,8 @@ LABEL_14:
 
           *buf = 67109378;
           *&buf[4] = 554;
-          LOWORD(v134) = 2080;
-          *(&v134 + 2) = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Search/PGZeroKeywordComputer.m";
+          LOWORD(v133) = 2080;
+          *(&v133 + 2) = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Search/PGZeroKeywordComputer.m";
           v15 = MEMORY[0x277D86220];
           goto LABEL_10;
         }
@@ -2895,25 +2856,25 @@ LABEL_14:
     [array addObjectsFromArray:v23];
 
     v24 = [MEMORY[0x277CBEB58] set];
-    v104[0] = MEMORY[0x277D85DD0];
-    v104[1] = 3221225472;
-    v104[2] = __90__PGZeroKeywordComputer_eventZeroKeywordsWithGraph_curationContext_options_progressBlock___block_invoke_340;
-    v104[3] = &unk_27888A188;
-    v67 = v14;
-    v105 = v67;
-    v106 = &v118;
-    v107 = &v122;
-    v108 = 0x3F847AE147AE147BLL;
-    v25 = [(PGZeroKeywordComputer *)self contextualMeaningAndTripZeroKeywordsWithGraph:graphCopy curationContext:contextCopy options:optionsCopy progressBlock:v104];
-    v66 = v25;
-    if (*(v123 + 24) == 1)
+    v103[0] = MEMORY[0x277D85DD0];
+    v103[1] = 3221225472;
+    v103[2] = __90__PGZeroKeywordComputer_eventZeroKeywordsWithGraph_curationContext_options_progressBlock___block_invoke_340;
+    v103[3] = &unk_27888A188;
+    v66 = v14;
+    v104 = v66;
+    v105 = &v117;
+    v106 = &v121;
+    v107 = 0x3F847AE147AE147BLL;
+    v25 = [(PGZeroKeywordComputer *)self contextualMeaningAndTripZeroKeywordsWithGraph:graphCopy curationContext:contextCopy options:optionsCopy progressBlock:v103];
+    v65 = v25;
+    if (*(v122 + 24) == 1)
     {
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
       {
         *buf = 67109378;
         *&buf[4] = 572;
-        LOWORD(v134) = 2080;
-        *(&v134 + 2) = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Search/PGZeroKeywordComputer.m";
+        LOWORD(v133) = 2080;
+        *(&v133 + 2) = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Search/PGZeroKeywordComputer.m";
         _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
       }
 
@@ -2922,54 +2883,54 @@ LABEL_14:
     }
 
     *buf = 0;
-    *&v134 = buf;
-    *(&v134 + 1) = 0x2020000000;
-    v135 = 0x3FE0000000000000;
+    *&v133 = buf;
+    *(&v133 + 1) = 0x2020000000;
+    v134 = 0x3FE0000000000000;
     v26 = v25;
     v27 = [v25 count];
-    v102 = 0u;
-    v103 = 0u;
-    v100 = 0u;
     v101 = 0u;
+    v102 = 0u;
+    v99 = 0u;
+    v100 = 0u;
     obj = v26;
-    v28 = [obj countByEnumeratingWithState:&v100 objects:v132 count:16];
+    v28 = [obj countByEnumeratingWithState:&v99 objects:v131 count:16];
     if (v28)
     {
-      v82 = 0;
+      v81 = 0;
       v29 = 0.1 / v27;
-      v76 = *v101;
-      v74 = *MEMORY[0x277D3B1D8];
-      v73 = *MEMORY[0x277D3B180];
+      v75 = *v100;
+      v73 = *MEMORY[0x277D3B1D8];
+      v72 = *MEMORY[0x277D3B180];
       while (2)
       {
-        v75 = v28;
-        for (i = 0; i != v75; ++i)
+        v74 = v28;
+        for (i = 0; i != v74; ++i)
         {
-          if (*v101 != v76)
+          if (*v100 != v75)
           {
             objc_enumerationMutation(obj);
           }
 
-          v31 = *(*(&v100 + 1) + 8 * i);
-          if (v83)
+          v31 = *(*(&v99 + 1) + 8 * i);
+          if (v82)
           {
             v32 = CFAbsoluteTimeGetCurrent();
-            if (v32 - v119[3] >= 0.01)
+            if (v32 - v118[3] >= 0.01)
             {
-              v119[3] = v32;
-              v99 = 0;
-              (*(v67 + 2))(v67, &v99, *(v134 + 24));
-              v33 = *(v123 + 24) | v99;
-              *(v123 + 24) = v33;
+              v118[3] = v32;
+              v98 = 0;
+              (*(v66 + 2))(v66, &v98, *(v133 + 24));
+              v33 = *(v122 + 24) | v98;
+              *(v122 + 24) = v33;
               if (v33)
               {
                 if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
                 {
-                  *v128 = 67109378;
-                  v129 = 578;
-                  v130 = 2080;
-                  v131 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Search/PGZeroKeywordComputer.m";
-                  _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", v128, 0x12u);
+                  *v127 = 67109378;
+                  v128 = 578;
+                  v129 = 2080;
+                  v130 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Search/PGZeroKeywordComputer.m";
+                  _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", v127, 0x12u);
                 }
 
                 goto LABEL_86;
@@ -2977,63 +2938,63 @@ LABEL_14:
             }
           }
 
-          *(v134 + 24) = v29 + *(v134 + 24);
-          [v81 addObject:v31];
-          v34 = [v31 objectForKeyedSubscript:v74];
-          [v79 addObject:v34];
+          *(v133 + 24) = v29 + *(v133 + 24);
+          [v80 addObject:v31];
+          v34 = [v31 objectForKeyedSubscript:v73];
+          [v78 addObject:v34];
 
-          v35 = [v31 objectForKeyedSubscript:v73];
+          v35 = [v31 objectForKeyedSubscript:v72];
           if ([v35 count])
           {
             firstObject = [v35 firstObject];
             v37 = MEMORY[0x277CD97A8];
-            v127 = firstObject;
-            v38 = [MEMORY[0x277CBEA60] arrayWithObjects:&v127 count:1];
+            v126 = firstObject;
+            v38 = [MEMORY[0x277CBEA60] arrayWithObjects:&v126 count:1];
             v39 = [v37 fetchAssetsWithLocalIdentifiers:v38 options:librarySpecificFetchOptions];
 
             if ([v39 count])
             {
               v40 = [MEMORY[0x277CD97B8] fetchAssetCollectionsContainingAssets:v39 withType:3 options:librarySpecificFetchOptions];
-              v97 = 0u;
-              v98 = 0u;
               v96 = 0u;
+              v97 = 0u;
               v95 = 0u;
+              v94 = 0u;
               v41 = v40;
-              v42 = [v41 countByEnumeratingWithState:&v95 objects:v126 count:16];
+              v42 = [v41 countByEnumeratingWithState:&v94 objects:v125 count:16];
               if (v42)
               {
-                v43 = *v96;
+                v43 = *v95;
                 do
                 {
                   for (j = 0; j != v42; ++j)
                   {
-                    if (*v96 != v43)
+                    if (*v95 != v43)
                     {
                       objc_enumerationMutation(v41);
                     }
 
-                    uuid = [*(*(&v95 + 1) + 8 * j) uuid];
+                    uuid = [*(*(&v94 + 1) + 8 * j) uuid];
                     [v24 addObject:uuid];
                   }
 
-                  v42 = [v41 countByEnumeratingWithState:&v95 objects:v126 count:16];
+                  v42 = [v41 countByEnumeratingWithState:&v94 objects:v125 count:16];
                 }
 
                 while (v42);
               }
             }
 
-            if (v82 >= 2)
+            if (v81 >= 2)
             {
 
               goto LABEL_53;
             }
 
-            ++v82;
+            ++v81;
           }
         }
 
-        v28 = [obj countByEnumeratingWithState:&v100 objects:v132 count:16];
+        v28 = [obj countByEnumeratingWithState:&v99 objects:v131 count:16];
         if (v28)
         {
           continue;
@@ -3045,25 +3006,25 @@ LABEL_14:
 
 LABEL_53:
 
-    if (v83)
+    if (v82)
     {
       v46 = CFAbsoluteTimeGetCurrent();
-      if (v46 - v119[3] >= 0.01)
+      if (v46 - v118[3] >= 0.01)
       {
-        v119[3] = v46;
-        v99 = 0;
-        (*(v67 + 2))(v67, &v99, 0.6);
-        v47 = *(v123 + 24) | v99;
-        *(v123 + 24) = v47;
+        v118[3] = v46;
+        v98 = 0;
+        (*(v66 + 2))(v66, &v98, 0.6);
+        v47 = *(v122 + 24) | v98;
+        *(v122 + 24) = v47;
         if (v47)
         {
           if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
           {
-            *v128 = 67109378;
-            v129 = 604;
-            v130 = 2080;
-            v131 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Search/PGZeroKeywordComputer.m";
-            _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", v128, 0x12u);
+            *v127 = 67109378;
+            v128 = 604;
+            v129 = 2080;
+            v130 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Search/PGZeroKeywordComputer.m";
+            _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", v127, 0x12u);
           }
 
 LABEL_86:
@@ -3075,44 +3036,44 @@ LABEL_86:
 
     zeroKeywordMappingByMeaningLabel = [graphCopy zeroKeywordMappingByMeaningLabel];
     array2 = [MEMORY[0x277CBEB18] array];
-    *(v134 + 24) = 0x3FE3333333333333;
-    v84[0] = MEMORY[0x277D85DD0];
-    v84[1] = 3221225472;
-    v84[2] = __90__PGZeroKeywordComputer_eventZeroKeywordsWithGraph_curationContext_options_progressBlock___block_invoke_341;
-    v84[3] = &unk_2788881E0;
-    v91 = buf;
-    v50 = v67;
-    v94 = 0x3F847AE147AE147BLL;
-    v92 = &v118;
-    v93 = &v122;
-    v90 = v50;
-    v84[4] = self;
-    v85 = v24;
+    *(v133 + 24) = 0x3FE3333333333333;
+    v83[0] = MEMORY[0x277D85DD0];
+    v83[1] = 3221225472;
+    v83[2] = __90__PGZeroKeywordComputer_eventZeroKeywordsWithGraph_curationContext_options_progressBlock___block_invoke_341;
+    v83[3] = &unk_2788881E0;
+    v90 = buf;
+    v50 = v66;
+    v93 = 0x3F847AE147AE147BLL;
+    v91 = &v117;
+    v92 = &v121;
+    v89 = v50;
+    v83[4] = self;
+    v84 = v24;
     v51 = contextCopy;
-    v86 = v51;
-    v87 = librarySpecificFetchOptions;
-    v52 = v79;
-    v88 = v52;
+    v85 = v51;
+    v86 = librarySpecificFetchOptions;
+    v52 = v78;
+    v87 = v52;
     v53 = array2;
-    v89 = v53;
-    [zeroKeywordMappingByMeaningLabel enumerateKeysAndObjectsUsingBlock:v84];
-    if (*(v123 + 24) == 1)
+    v88 = v53;
+    [zeroKeywordMappingByMeaningLabel enumerateKeysAndObjectsUsingBlock:v83];
+    if (*(v122 + 24) == 1)
     {
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
       {
-        *v128 = 67109378;
-        v129 = 656;
-        v130 = 2080;
-        v131 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Search/PGZeroKeywordComputer.m";
+        *v127 = 67109378;
+        v128 = 656;
+        v129 = 2080;
+        v130 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Search/PGZeroKeywordComputer.m";
         v54 = MEMORY[0x277D86220];
 LABEL_61:
-        _os_log_impl(&dword_22F0FC000, v54, OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", v128, 0x12u);
+        _os_log_impl(&dword_22F0FC000, v54, OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", v127, 0x12u);
       }
     }
 
     else
     {
-      if (!v83 || (v55 = CFAbsoluteTimeGetCurrent(), v55 - v119[3] < 0.01) || (v119[3] = v55, v99 = 0, (*(v50 + 2))(v50, &v99, 0.9), v56 = *(v123 + 24) | v99, *(v123 + 24) = v56, (v56 & 1) == 0))
+      if (!v82 || (v55 = CFAbsoluteTimeGetCurrent(), v55 - v118[3] < 0.01) || (v118[3] = v55, v98 = 0, (*(v50 + 2))(v50, &v98, 0.9), v56 = *(v122 + 24) | v98, *(v122 + 24) = v56, (v56 & 1) == 0))
       {
         v57 = [(PGZeroKeywordComputer *)self tripRankedKeywordWithGraph:graphCopy curationContext:v51];
         v58 = v57;
@@ -3128,22 +3089,22 @@ LABEL_61:
         }
 
         v61 = filteredKeywords(v53, 7uLL, 0xFuLL, 0.35);
-        [v81 addObjectsFromArray:v61];
+        [v80 addObjectsFromArray:v61];
 
-        if ([v81 count] >= 0x10)
+        if ([v80 count] >= 0x10)
         {
-          [v81 removeObjectsInRange:{15, objc_msgSend(v81, "count") - 15}];
+          [v80 removeObjectsInRange:{15, objc_msgSend(v80, "count") - 15}];
         }
 
-        if (v83 && (v62 = CFAbsoluteTimeGetCurrent(), v62 - v119[3] >= 0.01) && (v119[3] = v62, v99 = 0, (*(v50 + 2))(v50, &v99, 1.0), v63 = *(v123 + 24) | v99, *(v123 + 24) = v63, (v63 & 1) != 0))
+        if (v82 && (v62 = CFAbsoluteTimeGetCurrent(), v62 - v118[3] >= 0.01) && (v118[3] = v62, v98 = 0, (*(v50 + 2))(v50, &v98, 1.0), v63 = *(v122 + 24) | v98, *(v122 + 24) = v63, (v63 & 1) != 0))
         {
           if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
           {
-            *v128 = 67109378;
-            v129 = 679;
-            v130 = 2080;
-            v131 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Search/PGZeroKeywordComputer.m";
-            _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", v128, 0x12u);
+            *v127 = 67109378;
+            v128 = 679;
+            v129 = 2080;
+            v130 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Search/PGZeroKeywordComputer.m";
+            _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", v127, 0x12u);
           }
 
           v11 = MEMORY[0x277CBEBF8];
@@ -3151,7 +3112,7 @@ LABEL_61:
 
         else
         {
-          v11 = v81;
+          v11 = v80;
         }
 
         goto LABEL_82;
@@ -3159,10 +3120,10 @@ LABEL_61:
 
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
       {
-        *v128 = 67109378;
-        v129 = 658;
-        v130 = 2080;
-        v131 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Search/PGZeroKeywordComputer.m";
+        *v127 = 67109378;
+        v128 = 658;
+        v129 = 2080;
+        v130 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Search/PGZeroKeywordComputer.m";
         v54 = MEMORY[0x277D86220];
         goto LABEL_61;
       }
@@ -3182,17 +3143,15 @@ LABEL_88:
   {
     *buf = 67109378;
     *&buf[4] = 531;
-    LOWORD(v134) = 2080;
-    *(&v134 + 2) = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Search/PGZeroKeywordComputer.m";
+    LOWORD(v133) = 2080;
+    *(&v133 + 2) = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Search/PGZeroKeywordComputer.m";
     _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
   }
 
   v11 = MEMORY[0x277CBEBF8];
 LABEL_90:
-  _Block_object_dispose(&v118, 8);
-  _Block_object_dispose(&v122, 8);
-
-  v64 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v117, 8);
+  _Block_object_dispose(&v121, 8);
 
   return v11;
 }
@@ -3237,57 +3196,57 @@ void __90__PGZeroKeywordComputer_eventZeroKeywordsWithGraph_curationContext_opti
 
 void __90__PGZeroKeywordComputer_eventZeroKeywordsWithGraph_curationContext_options_progressBlock___block_invoke_341(uint64_t a1, void *a2, void *a3, _BYTE *a4)
 {
-  v56[1] = *MEMORY[0x277D85DE8];
-  v32 = a2;
+  v55[1] = *MEMORY[0x277D85DE8];
+  v31 = a2;
   v7 = a3;
   context = objc_autoreleasePoolPush();
   *(*(*(a1 + 88) + 8) + 24) = (*(*(*(a1 + 88) + 8) + 24) + 0.9) * 0.5;
-  v38 = a1;
-  v34 = v7;
-  if (*(a1 + 80) && (Current = CFAbsoluteTimeGetCurrent(), v9 = *(*(a1 + 96) + 8), Current - *(v9 + 24) >= *(a1 + 112)) && (*(v9 + 24) = Current, LOBYTE(v46) = 0, (*(*(a1 + 80) + 16))(*(*(*(a1 + 88) + 8) + 24)), *(*(*(a1 + 104) + 8) + 24) = *(*(*(a1 + 104) + 8) + 24), *(*(*(a1 + 104) + 8) + 24) == 1))
+  v37 = a1;
+  v33 = v7;
+  if (*(a1 + 80) && (Current = CFAbsoluteTimeGetCurrent(), v9 = *(*(a1 + 96) + 8), Current - *(v9 + 24) >= *(a1 + 112)) && (*(v9 + 24) = Current, LOBYTE(v45) = 0, (*(*(a1 + 80) + 16))(*(*(*(a1 + 88) + 8) + 24)), *(*(*(a1 + 104) + 8) + 24) = *(*(*(a1 + 104) + 8) + 24), *(*(*(a1 + 104) + 8) + 24) == 1))
   {
     *a4 = 1;
   }
 
   else
   {
-    v35 = [v7 displayNode];
-    v37 = [*(a1 + 32) meaningNodeZeroKeywordForDisplayMeaningNode:v35 collectionUUIDsToAvoid:*(a1 + 40) curationContext:*(a1 + 48)];
-    v36 = [v37 objectForKeyedSubscript:*MEMORY[0x277D3B180]];
-    if ([v36 count])
+    v34 = [v7 displayNode];
+    v36 = [*(a1 + 32) meaningNodeZeroKeywordForDisplayMeaningNode:v34 collectionUUIDsToAvoid:*(a1 + 40) curationContext:*(a1 + 48)];
+    v35 = [v36 objectForKeyedSubscript:*MEMORY[0x277D3B180]];
+    if ([v35 count])
     {
-      v10 = [v36 firstObject];
+      v10 = [v35 firstObject];
       v11 = MEMORY[0x277CD97A8];
-      v56[0] = v10;
-      v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v56 count:1];
+      v55[0] = v10;
+      v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v55 count:1];
       v13 = [v11 fetchAssetsWithLocalIdentifiers:v12 options:*(a1 + 56)];
 
       if ([v13 count])
       {
         v14 = [MEMORY[0x277CD97B8] fetchAssetCollectionsContainingAssets:v13 withType:3 options:*(a1 + 56)];
-        v52 = 0u;
-        v53 = 0u;
-        v50 = 0u;
         v51 = 0u;
-        v15 = [v14 countByEnumeratingWithState:&v50 objects:v55 count:16];
+        v52 = 0u;
+        v49 = 0u;
+        v50 = 0u;
+        v15 = [v14 countByEnumeratingWithState:&v49 objects:v54 count:16];
         if (v15)
         {
-          v16 = *v51;
+          v16 = *v50;
           do
           {
             for (i = 0; i != v15; ++i)
             {
-              if (*v51 != v16)
+              if (*v50 != v16)
               {
                 objc_enumerationMutation(v14);
               }
 
-              v18 = v38[5];
-              v19 = [*(*(&v50 + 1) + 8 * i) uuid];
+              v18 = v37[5];
+              v19 = [*(*(&v49 + 1) + 8 * i) uuid];
               [v18 addObject:v19];
             }
 
-            v15 = [v14 countByEnumeratingWithState:&v50 objects:v55 count:16];
+            v15 = [v14 countByEnumeratingWithState:&v49 objects:v54 count:16];
           }
 
           while (v15);
@@ -3295,66 +3254,64 @@ void __90__PGZeroKeywordComputer_eventZeroKeywordsWithGraph_curationContext_opti
       }
     }
 
-    if (v37)
+    if (v36)
     {
-      v20 = v38[8];
-      v21 = [v37 objectForKeyedSubscript:*MEMORY[0x277D3B1D8]];
+      v20 = v37[8];
+      v21 = [v36 objectForKeyedSubscript:*MEMORY[0x277D3B1D8]];
       LOBYTE(v20) = [v20 containsObject:v21];
 
       if ((v20 & 1) == 0)
       {
-        v46 = 0;
-        v47 = &v46;
-        v48 = 0x2020000000;
-        v49 = 0;
+        v45 = 0;
+        v46 = &v45;
+        v47 = 0x2020000000;
+        v48 = 0;
         v22 = [MEMORY[0x277CBEB58] set];
-        v44 = 0u;
-        v45 = 0u;
-        v42 = 0u;
         v43 = 0u;
-        v23 = [v34 mappedMeaningNodes];
-        v24 = [v23 countByEnumeratingWithState:&v42 objects:v54 count:16];
+        v44 = 0u;
+        v41 = 0u;
+        v42 = 0u;
+        v23 = [v33 mappedMeaningNodes];
+        v24 = [v23 countByEnumeratingWithState:&v41 objects:v53 count:16];
         if (v24)
         {
-          v25 = *v43;
+          v25 = *v42;
           do
           {
             for (j = 0; j != v24; ++j)
             {
-              if (*v43 != v25)
+              if (*v42 != v25)
               {
                 objc_enumerationMutation(v23);
               }
 
-              v27 = *(*(&v42 + 1) + 8 * j);
-              v39[0] = MEMORY[0x277D85DD0];
-              v39[1] = 3221225472;
-              v39[2] = __90__PGZeroKeywordComputer_eventZeroKeywordsWithGraph_curationContext_options_progressBlock___block_invoke_2;
-              v39[3] = &unk_2788881B8;
-              v40 = v22;
-              v41 = &v46;
-              [v27 enumerateMeaningfulEventsUsingBlock:v39];
+              v27 = *(*(&v41 + 1) + 8 * j);
+              v38[0] = MEMORY[0x277D85DD0];
+              v38[1] = 3221225472;
+              v38[2] = __90__PGZeroKeywordComputer_eventZeroKeywordsWithGraph_curationContext_options_progressBlock___block_invoke_2;
+              v38[3] = &unk_2788881B8;
+              v39 = v22;
+              v40 = &v45;
+              [v27 enumerateMeaningfulEventsUsingBlock:v38];
             }
 
-            v24 = [v23 countByEnumeratingWithState:&v42 objects:v54 count:16];
+            v24 = [v23 countByEnumeratingWithState:&v41 objects:v53 count:16];
           }
 
           while (v24);
         }
 
         v28 = [v22 count];
-        v29 = v38[9];
-        v30 = [[PGRankedZeroKeyword alloc] initWithKeyword:v37 score:v28 + v47[3] * 2.22044605e-16];
+        v29 = v37[9];
+        v30 = [[PGRankedZeroKeyword alloc] initWithKeyword:v36 score:v28 + v46[3] * 2.22044605e-16];
         [v29 addObject:v30];
 
-        _Block_object_dispose(&v46, 8);
+        _Block_object_dispose(&v45, 8);
       }
     }
   }
 
   objc_autoreleasePoolPop(context);
-
-  v31 = *MEMORY[0x277D85DE8];
 }
 
 void __90__PGZeroKeywordComputer_eventZeroKeywordsWithGraph_curationContext_options_progressBlock___block_invoke_2(uint64_t a1, void *a2)
@@ -3371,18 +3328,18 @@ void __90__PGZeroKeywordComputer_eventZeroKeywordsWithGraph_curationContext_opti
 
 - (id)placeZeroKeywordsWithGraph:(id)graph options:(id)options progressBlock:(id)block
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   graphCopy = graph;
   optionsCopy = options;
   v10 = _Block_copy(block);
-  if (v10 && CFAbsoluteTimeGetCurrent() >= 0.01 && (v26 = 0, v10[2](v10, &v26, 0.0), v26 == 1))
+  if (v10 && CFAbsoluteTimeGetCurrent() >= 0.01 && (v25 = 0, v10[2](v10, &v25, 0.0), v25 == 1))
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
     {
       *buf = 67109378;
-      v29 = 516;
-      v30 = 2080;
-      v31 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Search/PGZeroKeywordComputer.m";
+      v28 = 516;
+      v29 = 2080;
+      v30 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Search/PGZeroKeywordComputer.m";
       _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
     }
 
@@ -3394,53 +3351,51 @@ void __90__PGZeroKeywordComputer_eventZeroKeywordsWithGraph_curationContext_opti
     v12 = [[PGPlaceZeroKeywordGenerator alloc] initWithGraph:graphCopy photoLibrary:self->_photoLibrary searchComputationCache:self->_searchComputationCache options:optionsCopy];
     generatePlaceZeroKeywords = [(PGPlaceZeroKeywordGenerator *)v12 generatePlaceZeroKeywords];
     array = [MEMORY[0x277CBEB18] array];
+    v21 = 0u;
     v22 = 0u;
     v23 = 0u;
     v24 = 0u;
-    v25 = 0u;
     v14 = generatePlaceZeroKeywords;
-    v15 = [v14 countByEnumeratingWithState:&v22 objects:v27 count:16];
+    v15 = [v14 countByEnumeratingWithState:&v21 objects:v26 count:16];
     if (v15)
     {
       v16 = v15;
-      v17 = *v23;
+      v17 = *v22;
       do
       {
         for (i = 0; i != v16; ++i)
         {
-          if (*v23 != v17)
+          if (*v22 != v17)
           {
             objc_enumerationMutation(v14);
           }
 
-          getZeroKeywordDict = [*(*(&v22 + 1) + 8 * i) getZeroKeywordDict];
+          getZeroKeywordDict = [*(*(&v21 + 1) + 8 * i) getZeroKeywordDict];
           [array addObject:getZeroKeywordDict];
         }
 
-        v16 = [v14 countByEnumeratingWithState:&v22 objects:v27 count:16];
+        v16 = [v14 countByEnumeratingWithState:&v21 objects:v26 count:16];
       }
 
       while (v16);
     }
   }
 
-  v20 = *MEMORY[0x277D85DE8];
-
   return array;
 }
 
 - (id)socialGroupKeyAssetLocalIdentifierWithPersonLocalIdentifiers:(id)identifiers
 {
-  v29[3] = *MEMORY[0x277D85DE8];
+  v28[3] = *MEMORY[0x277D85DE8];
   identifiersCopy = identifiers;
   librarySpecificFetchOptions = [(PHPhotoLibrary *)self->_photoLibrary librarySpecificFetchOptions];
   v6 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"type" ascending:1];
-  v29[0] = v6;
+  v28[0] = v6;
   v7 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"manualOrder" ascending:0];
-  v29[1] = v7;
+  v28[1] = v7;
   v8 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"uuid" ascending:1];
-  v29[2] = v8;
-  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v29 count:3];
+  v28[2] = v8;
+  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v28 count:3];
   [librarySpecificFetchOptions setSortDescriptors:v9];
 
   v10 = [MEMORY[0x277CD9938] fetchPersonsWithLocalIdentifiers:identifiersCopy options:librarySpecificFetchOptions];
@@ -3451,8 +3406,8 @@ void __90__PGZeroKeywordComputer_eventZeroKeywordsWithGraph_curationContext_opti
   librarySpecificFetchOptions2 = [(PHPhotoLibrary *)self->_photoLibrary librarySpecificFetchOptions];
   v15 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"creationDate" ascending:0];
   v16 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"uuid" ascending:{1, v15}];
-  v28[1] = v16;
-  v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v28 count:2];
+  v27[1] = v16;
+  v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v27 count:2];
   [librarySpecificFetchOptions2 setSortDescriptors:v17];
 
   [librarySpecificFetchOptions2 setFetchLimit:100];
@@ -3482,51 +3437,49 @@ void __90__PGZeroKeywordComputer_eventZeroKeywordsWithGraph_curationContext_opti
   v24 = [(PGCurationManager *)self->_curationManager curatedKeyAssetForAssetCollection:v21 curatedAssetCollection:0 options:v22 criteria:0 curationContext:self->_curationContext];
   localIdentifier = [v24 localIdentifier];
 
-  v26 = *MEMORY[0x277D85DE8];
-
   return localIdentifier;
 }
 
 - (id)socialGroupKeywordsWithGraph:(id)graph curationContext:(id)context options:(id)options progressBlock:(id)block
 {
-  v145 = *MEMORY[0x277D85DE8];
+  v144 = *MEMORY[0x277D85DE8];
   graphCopy = graph;
   contextCopy = context;
   optionsCopy = options;
   blockCopy = block;
-  v131 = 0;
-  v132 = &v131;
-  v133 = 0x2020000000;
-  v134 = 0;
-  v127 = 0;
-  v128 = &v127;
-  v129 = 0x2020000000;
   v130 = 0;
-  v96 = _Block_copy(blockCopy);
-  v83 = blockCopy;
-  if (!v96 || (v10 = CFAbsoluteTimeGetCurrent(), v10 - v128[3] < 0.01) || (v128[3] = v10, v126 = 0, (*(v96 + 2))(v96, &v126, 0.0), v11 = *(v132 + 24) | v126, *(v132 + 24) = v11, (v11 & 1) == 0))
+  v131 = &v130;
+  v132 = 0x2020000000;
+  v133 = 0;
+  v126 = 0;
+  v127 = &v126;
+  v128 = 0x2020000000;
+  v129 = 0;
+  v95 = _Block_copy(blockCopy);
+  v82 = blockCopy;
+  if (!v95 || (v10 = CFAbsoluteTimeGetCurrent(), v10 - v127[3] < 0.01) || (v127[3] = v10, v125 = 0, (*(v95 + 2))(v95, &v125, 0.0), v11 = *(v131 + 24) | v125, *(v131 + 24) = v11, (v11 & 1) == 0))
   {
     array = [MEMORY[0x277CBEB18] array];
-    v95 = [MEMORY[0x277CBEB58] set];
-    v121[0] = MEMORY[0x277D85DD0];
-    v121[1] = 3221225472;
-    v121[2] = __92__PGZeroKeywordComputer_socialGroupKeywordsWithGraph_curationContext_options_progressBlock___block_invoke;
-    v121[3] = &unk_27888A188;
-    v88 = v96;
-    v122 = v88;
-    v123 = &v127;
-    v125 = 0x3F847AE147AE147BLL;
-    v124 = &v131;
-    v13 = [(PGZeroKeywordComputer *)self contextualSocialGroupZeroKeywordsWithGraph:graphCopy options:optionsCopy progressBlock:v121];
-    v81 = v13;
-    if (*(v132 + 24) == 1)
+    v94 = [MEMORY[0x277CBEB58] set];
+    v120[0] = MEMORY[0x277D85DD0];
+    v120[1] = 3221225472;
+    v120[2] = __92__PGZeroKeywordComputer_socialGroupKeywordsWithGraph_curationContext_options_progressBlock___block_invoke;
+    v120[3] = &unk_27888A188;
+    v87 = v95;
+    v121 = v87;
+    v122 = &v126;
+    v124 = 0x3F847AE147AE147BLL;
+    v123 = &v130;
+    v13 = [(PGZeroKeywordComputer *)self contextualSocialGroupZeroKeywordsWithGraph:graphCopy options:optionsCopy progressBlock:v120];
+    v80 = v13;
+    if (*(v131 + 24) == 1)
     {
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
       {
         *buf = 67109378;
-        v142 = 334;
-        v143 = 2080;
-        v144 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Search/PGZeroKeywordComputer.m";
+        v141 = 334;
+        v142 = 2080;
+        v143 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Search/PGZeroKeywordComputer.m";
         v14 = MEMORY[0x277D86220];
 LABEL_10:
         _os_log_impl(&dword_22F0FC000, v14, OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
@@ -3535,29 +3488,29 @@ LABEL_10:
 
     else
     {
-      v119 = 0u;
-      v120 = 0u;
-      v117 = 0u;
       v118 = 0u;
+      v119 = 0u;
+      v116 = 0u;
+      v117 = 0u;
       v15 = v13;
-      v16 = [v15 countByEnumeratingWithState:&v117 objects:v140 count:16];
+      v16 = [v15 countByEnumeratingWithState:&v116 objects:v139 count:16];
       if (v16)
       {
-        v17 = *v118;
+        v17 = *v117;
         v18 = *MEMORY[0x277D3B180];
 LABEL_14:
         v19 = 0;
         while (1)
         {
-          if (*v118 != v17)
+          if (*v117 != v17)
           {
             objc_enumerationMutation(v15);
           }
 
-          v20 = *(*(&v117 + 1) + 8 * v19);
+          v20 = *(*(&v116 + 1) + 8 * v19);
           [array addObject:v20];
           v21 = [v20 objectForKeyedSubscript:v18];
-          [v95 addObject:v21];
+          [v94 addObject:v21];
 
           if ([array count] > 2)
           {
@@ -3566,7 +3519,7 @@ LABEL_14:
 
           if (v16 == ++v19)
           {
-            v16 = [v15 countByEnumeratingWithState:&v117 objects:v140 count:16];
+            v16 = [v15 countByEnumeratingWithState:&v116 objects:v139 count:16];
             if (v16)
             {
               goto LABEL_14;
@@ -3577,18 +3530,18 @@ LABEL_14:
         }
       }
 
-      if (!v96 || (v22 = CFAbsoluteTimeGetCurrent(), v22 - v128[3] < 0.01) || (v128[3] = v22, v126 = 0, (*(v88 + 2))(v88, &v126, 0.3), v23 = *(v132 + 24) | v126, *(v132 + 24) = v23, (v23 & 1) == 0))
+      if (!v95 || (v22 = CFAbsoluteTimeGetCurrent(), v22 - v127[3] < 0.01) || (v127[3] = v22, v125 = 0, (*(v87 + 2))(v87, &v125, 0.3), v23 = *(v131 + 24) | v125, *(v131 + 24) = v23, (v23 & 1) == 0))
       {
         socialGroupNodesSortedByImportance = [graphCopy socialGroupNodesSortedByImportance];
-        v80 = [socialGroupNodesSortedByImportance sortedArrayWithOptions:16 usingComparator:&__block_literal_global_62226];
-        if (v96 && (v24 = CFAbsoluteTimeGetCurrent(), v24 - v128[3] >= 0.01) && (v128[3] = v24, v126 = 0, (*(v88 + 2))(v88, &v126, 0.5), v25 = *(v132 + 24) | v126, *(v132 + 24) = v25, (v25 & 1) != 0))
+        v79 = [socialGroupNodesSortedByImportance sortedArrayWithOptions:16 usingComparator:&__block_literal_global_62226];
+        if (v95 && (v24 = CFAbsoluteTimeGetCurrent(), v24 - v127[3] >= 0.01) && (v127[3] = v24, v125 = 0, (*(v87 + 2))(v87, &v125, 0.5), v25 = *(v131 + 24) | v125, *(v131 + 24) = v25, (v25 & 1) != 0))
         {
           if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
           {
             *buf = 67109378;
-            v142 = 366;
-            v143 = 2080;
-            v144 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Search/PGZeroKeywordComputer.m";
+            v141 = 366;
+            v142 = 2080;
+            v143 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Search/PGZeroKeywordComputer.m";
             _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
           }
 
@@ -3597,43 +3550,43 @@ LABEL_14:
 
         else
         {
-          v100 = objc_opt_new();
-          v90 = [v80 mutableCopy];
-          v26 = [v80 count];
-          v115 = 0u;
-          v116 = 0u;
-          v113 = 0u;
+          v99 = objc_opt_new();
+          v89 = [v79 mutableCopy];
+          v26 = [v79 count];
           v114 = 0u;
-          obj = v80;
-          v27 = [obj countByEnumeratingWithState:&v113 objects:v139 count:16];
+          v115 = 0u;
+          v112 = 0u;
+          v113 = 0u;
+          obj = v79;
+          v27 = [obj countByEnumeratingWithState:&v112 objects:v138 count:16];
           if (v27)
           {
             v29 = 0;
             v30 = 0.3 / v26;
-            v93 = *v114;
+            v92 = *v113;
             v31 = 0.5;
             *&v28 = 67109378;
-            v78 = v28;
+            v77 = v28;
             while (2)
             {
-              v91 = v27;
-              for (i = 0; i != v91; i = i + 1)
+              v90 = v27;
+              for (i = 0; i != v90; i = i + 1)
               {
-                if (*v114 != v93)
+                if (*v113 != v92)
                 {
                   objc_enumerationMutation(obj);
                 }
 
-                v33 = *(*(&v113 + 1) + 8 * i);
+                v33 = *(*(&v112 + 1) + 8 * i);
                 context = objc_autoreleasePoolPush();
-                if (v96 && (Current = CFAbsoluteTimeGetCurrent(), Current - v128[3] >= 0.01) && (v128[3] = Current, v126 = 0, (*(v88 + 2))(v88, &v126, v31), v35 = *(v132 + 24) | v126, *(v132 + 24) = v35, (v35 & 1) != 0))
+                if (v95 && (Current = CFAbsoluteTimeGetCurrent(), Current - v127[3] >= 0.01) && (v127[3] = Current, v125 = 0, (*(v87 + 2))(v87, &v125, v31), v35 = *(v131 + 24) | v125, *(v131 + 24) = v35, (v35 & 1) != 0))
                 {
                   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
                   {
-                    *buf = v78;
-                    v142 = 377;
-                    v143 = 2080;
-                    v144 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Search/PGZeroKeywordComputer.m";
+                    *buf = v77;
+                    v141 = 377;
+                    v142 = 2080;
+                    v143 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Search/PGZeroKeywordComputer.m";
                     _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
                   }
 
@@ -3649,26 +3602,26 @@ LABEL_14:
                     ++v29;
                   }
 
-                  [v90 removeObject:v33];
-                  v111 = 0u;
-                  v112 = 0u;
-                  v109 = 0u;
+                  [v89 removeObject:v33];
                   v110 = 0u;
-                  v39 = v90;
-                  v40 = [v39 countByEnumeratingWithState:&v109 objects:v138 count:16];
+                  v111 = 0u;
+                  v108 = 0u;
+                  v109 = 0u;
+                  v39 = v89;
+                  v40 = [v39 countByEnumeratingWithState:&v108 objects:v137 count:16];
                   if (v40)
                   {
-                    v41 = *v110;
+                    v41 = *v109;
                     while (2)
                     {
                       for (j = 0; j != v40; ++j)
                       {
-                        if (*v110 != v41)
+                        if (*v109 != v41)
                         {
                           objc_enumerationMutation(v39);
                         }
 
-                        v43 = *(*(&v109 + 1) + 8 * j);
+                        v43 = *(*(&v108 + 1) + 8 * j);
                         personNodes2 = [v43 personNodes];
                         v45 = [personNodes2 count];
                         if ((v38 - v45) >= 2)
@@ -3679,11 +3632,11 @@ LABEL_14:
 
                         if (v38 == 1 && v45 == 1 && v29 >= 5)
                         {
-                          [v100 addObject:v43];
+                          [v99 addObject:v43];
                         }
                       }
 
-                      v40 = [v39 countByEnumeratingWithState:&v109 objects:v138 count:16];
+                      v40 = [v39 countByEnumeratingWithState:&v108 objects:v137 count:16];
                       if (v40)
                       {
                         continue;
@@ -3707,7 +3660,7 @@ LABEL_61:
                 }
               }
 
-              v27 = [obj countByEnumeratingWithState:&v113 objects:v139 count:16];
+              v27 = [obj countByEnumeratingWithState:&v112 objects:v138 count:16];
               if (v27)
               {
                 continue;
@@ -3717,14 +3670,14 @@ LABEL_61:
             }
           }
 
-          if (v96 && (v47 = CFAbsoluteTimeGetCurrent(), v47 - v128[3] >= 0.01) && (v128[3] = v47, v126 = 0, (*(v88 + 2))(v88, &v126, 0.8), v48 = *(v132 + 24) | v126, *(v132 + 24) = v48, (v48 & 1) != 0))
+          if (v95 && (v47 = CFAbsoluteTimeGetCurrent(), v47 - v127[3] >= 0.01) && (v127[3] = v47, v125 = 0, (*(v87 + 2))(v87, &v125, 0.8), v48 = *(v131 + 24) | v125, *(v131 + 24) = v48, (v48 & 1) != 0))
           {
             if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
             {
               *buf = 67109378;
-              v142 = 408;
-              v143 = 2080;
-              v144 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Search/PGZeroKeywordComputer.m";
+              v141 = 408;
+              v142 = 2080;
+              v143 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Search/PGZeroKeywordComputer.m";
               _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
             }
 
@@ -3734,50 +3687,50 @@ LABEL_71:
 
           else
           {
-            v84 = [graphCopy fetchMemberNodesBySocialGroupNodeForSocialGroupNodes:{socialGroupNodesSortedByImportance, v78}];
+            v83 = [graphCopy fetchMemberNodesBySocialGroupNodeForSocialGroupNodes:{socialGroupNodesSortedByImportance, v77}];
             v49 = [graphCopy memberLocalIdentifiersBySocialGroupUUIDWithMemberNodesBySocialGroupNode:? shouldIncludeMeNode:? simulateMeNodeNotSet:?];
-            v94 = [PGPeopleUtilities validateKeyedSocialGroups:v49 withPhotoLibrary:self->_photoLibrary graph:graphCopy];
+            v93 = [PGPeopleUtilities validateKeyedSocialGroups:v49 withPhotoLibrary:self->_photoLibrary graph:graphCopy];
 
             v50 = [socialGroupNodesSortedByImportance count];
-            v107 = 0u;
-            v108 = 0u;
-            v105 = 0u;
             v106 = 0u;
-            v92 = socialGroupNodesSortedByImportance;
-            v51 = [v92 countByEnumeratingWithState:&v105 objects:v137 count:16];
+            v107 = 0u;
+            v104 = 0u;
+            v105 = 0u;
+            v91 = socialGroupNodesSortedByImportance;
+            v51 = [v91 countByEnumeratingWithState:&v104 objects:v136 count:16];
             if (v51)
             {
               v52 = 0.2 / v50;
-              contexta = *v106;
+              contexta = *v105;
               v53 = 0.8;
               while (2)
               {
                 for (k = 0; k != v51; ++k)
                 {
-                  if (*v106 != contexta)
+                  if (*v105 != contexta)
                   {
-                    objc_enumerationMutation(v92);
+                    objc_enumerationMutation(v91);
                   }
 
-                  v55 = *(*(&v105 + 1) + 8 * k);
-                  if (v96)
+                  v55 = *(*(&v104 + 1) + 8 * k);
+                  if (v95)
                   {
                     v56 = CFAbsoluteTimeGetCurrent();
-                    if (v56 - v128[3] >= 0.01)
+                    if (v56 - v127[3] >= 0.01)
                     {
-                      v128[3] = v56;
-                      v126 = 0;
-                      (*(v88 + 2))(v88, &v126, v53);
-                      v57 = *(v132 + 24) | v126;
-                      *(v132 + 24) = v57;
+                      v127[3] = v56;
+                      v125 = 0;
+                      (*(v87 + 2))(v87, &v125, v53);
+                      v57 = *(v131 + 24) | v125;
+                      *(v131 + 24) = v57;
                       if (v57)
                       {
                         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
                         {
                           *buf = 67109378;
-                          v142 = 418;
-                          v143 = 2080;
-                          v144 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Search/PGZeroKeywordComputer.m";
+                          v141 = 418;
+                          v142 = 2080;
+                          v143 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Search/PGZeroKeywordComputer.m";
                           _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
                         }
 
@@ -3791,37 +3744,37 @@ LABEL_71:
                     goto LABEL_105;
                   }
 
-                  if (([v100 containsObject:v55] & 1) == 0)
+                  if (([v99 containsObject:v55] & 1) == 0)
                   {
                     uUID = [v55 UUID];
-                    v59 = [v94 objectForKey:uUID];
+                    v59 = [v93 objectForKey:uUID];
 
                     if (v59)
                     {
                       uUID2 = [v55 UUID];
-                      v61 = [v94 objectForKeyedSubscript:uUID2];
+                      v61 = [v93 objectForKeyedSubscript:uUID2];
 
-                      if ([v61 count] >= 2 && (objc_msgSend(v95, "containsObject:", v61) & 1) == 0)
+                      if ([v61 count] >= 2 && (objc_msgSend(v94, "containsObject:", v61) & 1) == 0)
                       {
-                        v103 = 0u;
-                        v104 = 0u;
-                        v101 = 0u;
                         v102 = 0u;
+                        v103 = 0u;
+                        v100 = 0u;
+                        v101 = 0u;
                         v62 = v61;
-                        v63 = [v62 countByEnumeratingWithState:&v101 objects:v136 count:16];
+                        v63 = [v62 countByEnumeratingWithState:&v100 objects:v135 count:16];
                         if (v63)
                         {
-                          v64 = *v102;
+                          v64 = *v101;
                           while (2)
                           {
                             for (m = 0; m != v63; ++m)
                             {
-                              if (*v102 != v64)
+                              if (*v101 != v64)
                               {
                                 objc_enumerationMutation(v62);
                               }
 
-                              v66 = [MEMORY[0x277CD9938] uuidFromLocalIdentifier:*(*(&v101 + 1) + 8 * m)];
+                              v66 = [MEMORY[0x277CD9938] uuidFromLocalIdentifier:*(*(&v100 + 1) + 8 * m)];
                               userFeedbackCalculator = [contextCopy userFeedbackCalculator];
                               v68 = [userFeedbackCalculator userFeedbackTypeForPersonUUID:v66];
 
@@ -3841,7 +3794,7 @@ LABEL_98:
                               }
                             }
 
-                            v63 = [v62 countByEnumeratingWithState:&v101 objects:v136 count:16];
+                            v63 = [v62 countByEnumeratingWithState:&v100 objects:v135 count:16];
                             if (v63)
                             {
                               continue;
@@ -3851,7 +3804,7 @@ LABEL_98:
                           }
                         }
 
-                        [v95 addObject:v62];
+                        [v94 addObject:v62];
                         v69 = personUUIDsFromPersonLocalIdentifiers(v62);
                         v70 = PLSearchSocialGroupLookupIdentifier();
 
@@ -3859,8 +3812,8 @@ LABEL_98:
                         v72 = v71;
                         if (v71)
                         {
-                          v135 = v71;
-                          v66 = [MEMORY[0x277CBEA60] arrayWithObjects:&v135 count:1];
+                          v134 = v71;
+                          v66 = [MEMORY[0x277CBEA60] arrayWithObjects:&v134 count:1];
                         }
 
                         else
@@ -3879,7 +3832,7 @@ LABEL_101:
                   v53 = v52 + v53;
                 }
 
-                v51 = [v92 countByEnumeratingWithState:&v105 objects:v137 count:16];
+                v51 = [v91 countByEnumeratingWithState:&v104 objects:v136 count:16];
                 if (v51)
                 {
                   continue;
@@ -3896,14 +3849,14 @@ LABEL_105:
               [array removeObjectsInRange:{15, objc_msgSend(array, "count") - 15}];
             }
 
-            if (v96 && (v74 = CFAbsoluteTimeGetCurrent(), v74 - v128[3] >= 0.01) && (v128[3] = v74, v126 = 0, (*(v88 + 2))(v88, &v126, 1.0), v75 = *(v132 + 24) | v126, *(v132 + 24) = v75, (v75 & 1) != 0))
+            if (v95 && (v74 = CFAbsoluteTimeGetCurrent(), v74 - v127[3] >= 0.01) && (v127[3] = v74, v125 = 0, (*(v87 + 2))(v87, &v125, 1.0), v75 = *(v131 + 24) | v125, *(v131 + 24) = v75, (v75 & 1) != 0))
             {
               if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
               {
                 *buf = 67109378;
-                v142 = 470;
-                v143 = 2080;
-                v144 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Search/PGZeroKeywordComputer.m";
+                v141 = 470;
+                v142 = 2080;
+                v143 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Search/PGZeroKeywordComputer.m";
                 _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
               }
 
@@ -3924,9 +3877,9 @@ LABEL_116:
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
       {
         *buf = 67109378;
-        v142 = 345;
-        v143 = 2080;
-        v144 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Search/PGZeroKeywordComputer.m";
+        v141 = 345;
+        v142 = 2080;
+        v143 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Search/PGZeroKeywordComputer.m";
         v14 = MEMORY[0x277D86220];
         goto LABEL_10;
       }
@@ -3941,18 +3894,16 @@ LABEL_120:
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
   {
     *buf = 67109378;
-    v142 = 324;
-    v143 = 2080;
-    v144 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Search/PGZeroKeywordComputer.m";
+    v141 = 324;
+    v142 = 2080;
+    v143 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Search/PGZeroKeywordComputer.m";
     _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
   }
 
   v12 = MEMORY[0x277CBEBF8];
 LABEL_121:
-  _Block_object_dispose(&v127, 8);
-  _Block_object_dispose(&v131, 8);
-
-  v76 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v126, 8);
+  _Block_object_dispose(&v130, 8);
 
   return v12;
 }
@@ -4008,39 +3959,39 @@ uint64_t __92__PGZeroKeywordComputer_socialGroupKeywordsWithGraph_curationContex
 
 - (id)peopleZeroKeywordsWithGraph:(id)graph curationContext:(id)context options:(id)options progressBlock:(id)block
 {
-  v158 = *MEMORY[0x277D85DE8];
+  v157 = *MEMORY[0x277D85DE8];
   graphCopy = graph;
   contextCopy = context;
   optionsCopy = options;
   blockCopy = block;
-  v144 = 0;
-  v145 = &v144;
-  v146 = 0x2020000000;
-  v147 = 0;
-  v140 = 0;
-  v141 = &v140;
-  v142 = 0x2020000000;
   v143 = 0;
-  v110 = _Block_copy(blockCopy);
-  v96 = optionsCopy;
-  if (v110)
+  v144 = &v143;
+  v145 = 0x2020000000;
+  v146 = 0;
+  v139 = 0;
+  v140 = &v139;
+  v141 = 0x2020000000;
+  v142 = 0;
+  v109 = _Block_copy(blockCopy);
+  v95 = optionsCopy;
+  if (v109)
   {
     Current = CFAbsoluteTimeGetCurrent();
-    if (Current - v141[3] >= 0.01)
+    if (Current - v140[3] >= 0.01)
     {
-      v141[3] = Current;
-      v139 = 0;
-      v110[2](v110, &v139, 0.0);
-      v11 = *(v145 + 24) | v139;
-      *(v145 + 24) = v11;
+      v140[3] = Current;
+      v138 = 0;
+      v109[2](v109, &v138, 0.0);
+      v11 = *(v144 + 24) | v138;
+      *(v144 + 24) = v11;
       if (v11)
       {
         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
         {
           *buf = 67109378;
-          v155 = 158;
-          v156 = 2080;
-          v157 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Search/PGZeroKeywordComputer.m";
+          v154 = 158;
+          v155 = 2080;
+          v156 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Search/PGZeroKeywordComputer.m";
           _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
         }
 
@@ -4052,17 +4003,17 @@ uint64_t __92__PGZeroKeywordComputer_socialGroupKeywordsWithGraph_curationContex
 
   array = [MEMORY[0x277CBEB18] array];
   v13 = [MEMORY[0x277CBEB58] set];
-  v134[0] = MEMORY[0x277D85DD0];
-  v134[1] = 3221225472;
-  v134[2] = __91__PGZeroKeywordComputer_peopleZeroKeywordsWithGraph_curationContext_options_progressBlock___block_invoke;
-  v134[3] = &unk_27888A188;
-  v108 = v110;
-  v135 = v108;
-  v136 = &v140;
-  v138 = 0x3F847AE147AE147BLL;
-  v137 = &v144;
-  v98 = [(PGZeroKeywordComputer *)self contextualPersonZeroKeywordsWithGraph:graphCopy options:optionsCopy progressBlock:v134];
-  if (*(v145 + 24) == 1)
+  v133[0] = MEMORY[0x277D85DD0];
+  v133[1] = 3221225472;
+  v133[2] = __91__PGZeroKeywordComputer_peopleZeroKeywordsWithGraph_curationContext_options_progressBlock___block_invoke;
+  v133[3] = &unk_27888A188;
+  v107 = v109;
+  v134 = v107;
+  v135 = &v139;
+  v137 = 0x3F847AE147AE147BLL;
+  v136 = &v143;
+  v97 = [(PGZeroKeywordComputer *)self contextualPersonZeroKeywordsWithGraph:graphCopy options:optionsCopy progressBlock:v133];
+  if (*(v144 + 24) == 1)
   {
     if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
     {
@@ -4072,35 +4023,35 @@ LABEL_11:
     }
 
     *buf = 67109378;
-    v155 = 168;
-    v156 = 2080;
-    v157 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Search/PGZeroKeywordComputer.m";
+    v154 = 168;
+    v155 = 2080;
+    v156 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Search/PGZeroKeywordComputer.m";
     v14 = MEMORY[0x277D86220];
 LABEL_10:
     _os_log_impl(&dword_22F0FC000, v14, OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
     goto LABEL_11;
   }
 
-  v132 = 0u;
-  v133 = 0u;
-  v130 = 0u;
   v131 = 0u;
-  v15 = v98;
-  v16 = [v15 countByEnumeratingWithState:&v130 objects:v153 count:16];
+  v132 = 0u;
+  v129 = 0u;
+  v130 = 0u;
+  v15 = v97;
+  v16 = [v15 countByEnumeratingWithState:&v129 objects:v152 count:16];
   if (v16)
   {
-    v17 = *v131;
+    v17 = *v130;
     v18 = *MEMORY[0x277D3B180];
 LABEL_14:
     v19 = 0;
     while (1)
     {
-      if (*v131 != v17)
+      if (*v130 != v17)
       {
         objc_enumerationMutation(v15);
       }
 
-      v20 = *(*(&v130 + 1) + 8 * v19);
+      v20 = *(*(&v129 + 1) + 8 * v19);
       [array addObject:v20];
       v21 = [v20 objectForKeyedSubscript:v18];
       [v13 addObject:v21];
@@ -4112,7 +4063,7 @@ LABEL_14:
 
       if (v16 == ++v19)
       {
-        v16 = [v15 countByEnumeratingWithState:&v130 objects:v153 count:16];
+        v16 = [v15 countByEnumeratingWithState:&v129 objects:v152 count:16];
         if (v16)
         {
           goto LABEL_14;
@@ -4123,16 +4074,16 @@ LABEL_14:
     }
   }
 
-  if (v110)
+  if (v109)
   {
     v22 = CFAbsoluteTimeGetCurrent();
-    if (v22 - v141[3] >= 0.01)
+    if (v22 - v140[3] >= 0.01)
     {
-      v141[3] = v22;
-      v139 = 0;
-      v108[2](v108, &v139, 0.4);
-      v23 = *(v145 + 24) | v139;
-      *(v145 + 24) = v23;
+      v140[3] = v22;
+      v138 = 0;
+      v107[2](v107, &v138, 0.4);
+      v23 = *(v144 + 24) | v138;
+      *(v144 + 24) = v23;
       if (v23)
       {
         if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
@@ -4141,9 +4092,9 @@ LABEL_14:
         }
 
         *buf = 67109378;
-        v155 = 179;
-        v156 = 2080;
-        v157 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Search/PGZeroKeywordComputer.m";
+        v154 = 179;
+        v155 = 2080;
+        v156 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Search/PGZeroKeywordComputer.m";
         v14 = MEMORY[0x277D86220];
         goto LABEL_10;
       }
@@ -4154,60 +4105,60 @@ LABEL_14:
   [librarySpecificFetchOptions setPersonContext:1];
   [librarySpecificFetchOptions setIncludedDetectionTypes:&unk_284486420];
   v24 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"type" ascending:0];
-  v152[0] = v24;
+  v151[0] = v24;
   v25 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"manualOrder" ascending:1];
-  v152[1] = v25;
+  v151[1] = v25;
   v26 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"detectionType" ascending:1];
-  v152[2] = v26;
+  v151[2] = v26;
   v27 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"uuid" ascending:0];
-  v152[3] = v27;
-  v28 = [MEMORY[0x277CBEA60] arrayWithObjects:v152 count:4];
+  v151[3] = v27;
+  v28 = [MEMORY[0x277CBEA60] arrayWithObjects:v151 count:4];
   [librarySpecificFetchOptions setSortDescriptors:v28];
 
   v29 = [MEMORY[0x277CD9938] fetchPersonsWithOptions:librarySpecificFetchOptions];
   v30 = [v29 count];
-  v128 = 0u;
-  v129 = 0u;
-  v126 = 0u;
   v127 = 0u;
+  v128 = 0u;
+  v125 = 0u;
+  v126 = 0u;
   obj = v29;
-  v31 = [obj countByEnumeratingWithState:&v126 objects:v151 count:16];
+  v31 = [obj countByEnumeratingWithState:&v125 objects:v150 count:16];
   if (!v31)
   {
     goto LABEL_45;
   }
 
   v32 = 0.3 / v30;
-  v33 = *v127;
+  v33 = *v126;
   v34 = 0.4;
   while (2)
   {
     for (i = 0; i != v31; ++i)
     {
-      if (*v127 != v33)
+      if (*v126 != v33)
       {
         objc_enumerationMutation(obj);
       }
 
-      v36 = *(*(&v126 + 1) + 8 * i);
-      if (v110)
+      v36 = *(*(&v125 + 1) + 8 * i);
+      if (v109)
       {
         v37 = CFAbsoluteTimeGetCurrent();
-        if (v37 - v141[3] >= 0.01)
+        if (v37 - v140[3] >= 0.01)
         {
-          v141[3] = v37;
-          v139 = 0;
-          v108[2](v108, &v139, v34);
-          v38 = *(v145 + 24) | v139;
-          *(v145 + 24) = v38;
+          v140[3] = v37;
+          v138 = 0;
+          v107[2](v107, &v138, v34);
+          v38 = *(v144 + 24) | v138;
+          *(v144 + 24) = v38;
           if (v38)
           {
             if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
             {
               *buf = 67109378;
-              v155 = 196;
-              v156 = 2080;
-              v157 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Search/PGZeroKeywordComputer.m";
+              v154 = 196;
+              v155 = 2080;
+              v156 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Search/PGZeroKeywordComputer.m";
               _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
             }
 
@@ -4263,7 +4214,7 @@ LABEL_43:
       v34 = v32 + v34;
     }
 
-    v31 = [obj countByEnumeratingWithState:&v126 objects:v151 count:16];
+    v31 = [obj countByEnumeratingWithState:&v125 objects:v150 count:16];
     if (v31)
     {
       continue;
@@ -4279,14 +4230,14 @@ LABEL_45:
     [array removeObjectsInRange:{15, objc_msgSend(array, "count") - 15}];
   }
 
-  if (v110 && (v48 = CFAbsoluteTimeGetCurrent(), v48 - v141[3] >= 0.01) && (v141[3] = v48, v139 = 0, v108[2](v108, &v139, 0.7), v49 = *(v145 + 24) | v139, *(v145 + 24) = v49, (v49 & 1) != 0))
+  if (v109 && (v48 = CFAbsoluteTimeGetCurrent(), v48 - v140[3] >= 0.01) && (v140[3] = v48, v138 = 0, v107[2](v107, &v138, 0.7), v49 = *(v144 + 24) | v138, *(v144 + 24) = v49, (v49 & 1) != 0))
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
     {
       *buf = 67109378;
-      v155 = 247;
-      v156 = 2080;
-      v157 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Search/PGZeroKeywordComputer.m";
+      v154 = 247;
+      v155 = 2080;
+      v156 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Search/PGZeroKeywordComputer.m";
       _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
     }
 
@@ -4297,119 +4248,119 @@ LABEL_105:
   else
   {
     bestSocialGroupNodes = [graphCopy bestSocialGroupNodes];
-    v124[0] = MEMORY[0x277D85DD0];
-    v124[1] = 3221225472;
-    v124[2] = __91__PGZeroKeywordComputer_peopleZeroKeywordsWithGraph_curationContext_options_progressBlock___block_invoke_326;
-    v124[3] = &unk_278888170;
+    v123[0] = MEMORY[0x277D85DD0];
+    v123[1] = 3221225472;
+    v123[2] = __91__PGZeroKeywordComputer_peopleZeroKeywordsWithGraph_curationContext_options_progressBlock___block_invoke_326;
+    v123[3] = &unk_278888170;
     v51 = graphCopy;
-    v125 = v51;
-    v52 = [bestSocialGroupNodes indexesOfObjectsPassingTest:v124];
+    v124 = v51;
+    v52 = [bestSocialGroupNodes indexesOfObjectsPassingTest:v123];
     v53 = [bestSocialGroupNodes objectsAtIndexes:v52];
-    v95 = bestSocialGroupNodes;
+    v94 = bestSocialGroupNodes;
 
-    v94 = [v51 fetchMemberNodesBySocialGroupNodeForSocialGroupNodes:v53];
+    v93 = [v51 fetchMemberNodesBySocialGroupNodeForSocialGroupNodes:v53];
     v54 = [v51 memberLocalIdentifiersBySocialGroupUUIDWithMemberNodesBySocialGroupNode:? shouldIncludeMeNode:? simulateMeNodeNotSet:?];
-    v107 = [PGPeopleUtilities validateKeyedSocialGroups:v54 withPhotoLibrary:self->_photoLibrary graph:v51];
+    v106 = [PGPeopleUtilities validateKeyedSocialGroups:v54 withPhotoLibrary:self->_photoLibrary graph:v51];
 
     v55 = objc_alloc_init(MEMORY[0x277CBEB58]);
-    v122 = 0u;
-    v123 = 0u;
-    v120 = 0u;
     v121 = 0u;
-    objectEnumerator = [v107 objectEnumerator];
-    v57 = [objectEnumerator countByEnumeratingWithState:&v120 objects:v150 count:16];
+    v122 = 0u;
+    v119 = 0u;
+    v120 = 0u;
+    objectEnumerator = [v106 objectEnumerator];
+    v57 = [objectEnumerator countByEnumeratingWithState:&v119 objects:v149 count:16];
     if (v57)
     {
-      v58 = *v121;
+      v58 = *v120;
       do
       {
         for (j = 0; j != v57; ++j)
         {
-          if (*v121 != v58)
+          if (*v120 != v58)
           {
             objc_enumerationMutation(objectEnumerator);
           }
 
-          [v55 addObjectsFromArray:*(*(&v120 + 1) + 8 * j)];
+          [v55 addObjectsFromArray:*(*(&v119 + 1) + 8 * j)];
         }
 
-        v57 = [objectEnumerator countByEnumeratingWithState:&v120 objects:v150 count:16];
+        v57 = [objectEnumerator countByEnumeratingWithState:&v119 objects:v149 count:16];
       }
 
       while (v57);
     }
 
-    v93 = [PGGraphPersonNodeCollection personNodesForLocalIdentifiers:v55 inGraph:v51];
-    personNodeByLocalIdentifier = [v93 personNodeByLocalIdentifier];
-    v60 = [v95 count];
-    v118 = 0u;
-    v119 = 0u;
-    v116 = 0u;
+    v92 = [PGGraphPersonNodeCollection personNodesForLocalIdentifiers:v55 inGraph:v51];
+    personNodeByLocalIdentifier = [v92 personNodeByLocalIdentifier];
+    v60 = [v94 count];
     v117 = 0u;
-    v102 = v53;
-    v61 = [v102 countByEnumeratingWithState:&v116 objects:v149 count:16];
+    v118 = 0u;
+    v115 = 0u;
+    v116 = 0u;
+    v101 = v53;
+    v61 = [v101 countByEnumeratingWithState:&v115 objects:v148 count:16];
     if (v61)
     {
       v62 = 0.3 / v60;
-      v63 = *v117;
+      v63 = *v116;
       v64 = 0.7;
       while (2)
       {
         for (k = 0; k != v61; ++k)
         {
-          if (*v117 != v63)
+          if (*v116 != v63)
           {
-            objc_enumerationMutation(v102);
+            objc_enumerationMutation(v101);
           }
 
-          v66 = *(*(&v116 + 1) + 8 * k);
+          v66 = *(*(&v115 + 1) + 8 * k);
           uUID = [v66 UUID];
-          v68 = [v107 objectForKey:uUID];
+          v68 = [v106 objectForKey:uUID];
 
           v64 = v62 + v64;
           if (v68)
           {
             uUID2 = [v66 UUID];
-            v70 = [v107 objectForKeyedSubscript:uUID2];
+            v70 = [v106 objectForKeyedSubscript:uUID2];
 
-            v101 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(v70, "count")}];
-            v114 = 0u;
-            v115 = 0u;
-            v112 = 0u;
+            v100 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(v70, "count")}];
             v113 = 0u;
-            v105 = v70;
-            v71 = [v105 countByEnumeratingWithState:&v112 objects:v148 count:16];
+            v114 = 0u;
+            v111 = 0u;
+            v112 = 0u;
+            v104 = v70;
+            v71 = [v104 countByEnumeratingWithState:&v111 objects:v147 count:16];
             if (v71)
             {
-              v72 = *v113;
+              v72 = *v112;
               while (2)
               {
                 for (m = 0; m != v71; ++m)
                 {
-                  if (*v113 != v72)
+                  if (*v112 != v72)
                   {
-                    objc_enumerationMutation(v105);
+                    objc_enumerationMutation(v104);
                   }
 
-                  v74 = *(*(&v112 + 1) + 8 * m);
-                  if (v110)
+                  v74 = *(*(&v111 + 1) + 8 * m);
+                  if (v109)
                   {
                     v75 = CFAbsoluteTimeGetCurrent();
-                    if (v75 - v141[3] >= 0.01)
+                    if (v75 - v140[3] >= 0.01)
                     {
-                      v141[3] = v75;
-                      v139 = 0;
-                      v108[2](v108, &v139, v64);
-                      v76 = *(v145 + 24) | v139;
-                      *(v145 + 24) = v76;
+                      v140[3] = v75;
+                      v138 = 0;
+                      v107[2](v107, &v138, v64);
+                      v76 = *(v144 + 24) | v138;
+                      *(v144 + 24) = v76;
                       if (v76)
                       {
                         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
                         {
                           *buf = 67109378;
-                          v155 = 280;
-                          v156 = 2080;
-                          v157 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Search/PGZeroKeywordComputer.m";
+                          v154 = 280;
+                          v155 = 2080;
+                          v156 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Search/PGZeroKeywordComputer.m";
                           _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
                         }
 
@@ -4430,12 +4381,12 @@ LABEL_105:
                       name2 = [v77 name];
                       v82 = zeroKeywordWithAttributes(0, 1, name2, 0, v78, v74);
 
-                      [v101 addObject:v82];
+                      [v100 addObject:v82];
                     }
                   }
                 }
 
-                v71 = [v105 countByEnumeratingWithState:&v112 objects:v148 count:16];
+                v71 = [v104 countByEnumeratingWithState:&v111 objects:v147 count:16];
                 if (v71)
                 {
                   continue;
@@ -4445,10 +4396,10 @@ LABEL_105:
               }
             }
 
-            if ([v101 count] && objc_msgSend(array, "count"))
+            if ([v100 count] && objc_msgSend(array, "count"))
             {
               v83 = [array count];
-              v84 = [v101 count];
+              v84 = [v100 count];
               v85 = v84 + [array count] - 15;
               if (v85 >= 1)
               {
@@ -4456,7 +4407,7 @@ LABEL_105:
                 do
                 {
                   v87 = [array objectAtIndexedSubscript:v86];
-                  v88 = [v101 containsObject:v87];
+                  v88 = [v100 containsObject:v87];
 
                   if ((v88 & 1) == 0)
                   {
@@ -4470,14 +4421,14 @@ LABEL_105:
                 while (v85 > 0);
               }
 
-              [array addObjectsFromArray:v101];
+              [array addObjectsFromArray:v100];
             }
 
             goto LABEL_91;
           }
         }
 
-        v61 = [v102 countByEnumeratingWithState:&v116 objects:v149 count:16];
+        v61 = [v101 countByEnumeratingWithState:&v115 objects:v148 count:16];
         if (v61)
         {
           continue;
@@ -4489,14 +4440,14 @@ LABEL_105:
 
 LABEL_91:
 
-    if (v110 && (v89 = CFAbsoluteTimeGetCurrent(), v89 - v141[3] >= 0.01) && (v141[3] = v89, v139 = 0, v108[2](v108, &v139, 1.0), v90 = *(v145 + 24) | v139, *(v145 + 24) = v90, (v90 & 1) != 0))
+    if (v109 && (v89 = CFAbsoluteTimeGetCurrent(), v89 - v140[3] >= 0.01) && (v140[3] = v89, v138 = 0, v107[2](v107, &v138, 1.0), v90 = *(v144 + 24) | v138, *(v144 + 24) = v90, (v90 & 1) != 0))
     {
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
       {
         *buf = 67109378;
-        v155 = 316;
-        v156 = 2080;
-        v157 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Search/PGZeroKeywordComputer.m";
+        v154 = 316;
+        v155 = 2080;
+        v156 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Search/PGZeroKeywordComputer.m";
         _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
       }
 
@@ -4512,10 +4463,8 @@ LABEL_100:
 
 LABEL_107:
 LABEL_108:
-  _Block_object_dispose(&v140, 8);
-  _Block_object_dispose(&v144, 8);
-
-  v91 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v139, 8);
+  _Block_object_dispose(&v143, 8);
 
   return v12;
 }
@@ -4541,21 +4490,21 @@ void __91__PGZeroKeywordComputer_peopleZeroKeywordsWithGraph_curationContext_opt
 
 - (id)_zeroKeywordsWithGraph:(id)graph curationContext:(id)context options:(id)options progressBlock:(id)block
 {
-  v107 = *MEMORY[0x277D85DE8];
+  v106 = *MEMORY[0x277D85DE8];
   graphCopy = graph;
   contextCopy = context;
   optionsCopy = options;
   blockCopy = block;
   v14 = _Block_copy(blockCopy);
-  v101 = 0;
-  v102 = &v101;
-  v103 = 0x2020000000;
-  v104 = 0;
-  v97 = 0;
-  v98 = &v97;
-  v99 = 0x2020000000;
   v100 = 0;
-  if (!v14 || (v15 = CFAbsoluteTimeGetCurrent(), v15 - v98[3] < 0.01) || (v98[3] = v15, LOBYTE(info.numer) = 0, (*(v14 + 2))(v14, &info, 0.0), v16 = *(v102 + 24) | LOBYTE(info.numer), *(v102 + 24) = v16, (v16 & 1) == 0))
+  v101 = &v100;
+  v102 = 0x2020000000;
+  v103 = 0;
+  v96 = 0;
+  v97 = &v96;
+  v98 = 0x2020000000;
+  v99 = 0;
+  if (!v14 || (v15 = CFAbsoluteTimeGetCurrent(), v15 - v97[3] < 0.01) || (v97[3] = v15, LOBYTE(info.numer) = 0, (*(v14 + 2))(v14, &info, 0.0), v16 = *(v101 + 24) | LOBYTE(info.numer), *(v101 + 24) = v16, (v16 & 1) == 0))
   {
     meNodeCollection = [graphCopy meNodeCollection];
     if ([graphCopy isSharedLibraryEnabled])
@@ -4577,25 +4526,25 @@ void __91__PGZeroKeywordComputer_peopleZeroKeywordsWithGraph_curationContext_opt
 
     dictionary = [MEMORY[0x277CBEB38] dictionary];
     v22 = objc_autoreleasePoolPush();
-    v92[0] = MEMORY[0x277D85DD0];
-    v92[1] = 3221225472;
-    v92[2] = __86__PGZeroKeywordComputer__zeroKeywordsWithGraph_curationContext_options_progressBlock___block_invoke;
-    v92[3] = &unk_27888A188;
+    v91[0] = MEMORY[0x277D85DD0];
+    v91[1] = 3221225472;
+    v91[2] = __86__PGZeroKeywordComputer__zeroKeywordsWithGraph_curationContext_options_progressBlock___block_invoke;
+    v91[3] = &unk_27888A188;
     v23 = v14;
-    v93 = v23;
-    v94 = &v97;
-    v95 = &v101;
-    v96 = 0x3F847AE147AE147BLL;
-    v24 = [(PGZeroKeywordComputer *)self peopleZeroKeywordsWithGraph:graphCopy curationContext:contextCopy options:optionsCopy progressBlock:v92];
+    v92 = v23;
+    v93 = &v96;
+    v94 = &v100;
+    v95 = 0x3F847AE147AE147BLL;
+    v24 = [(PGZeroKeywordComputer *)self peopleZeroKeywordsWithGraph:graphCopy curationContext:contextCopy options:optionsCopy progressBlock:v91];
     [dictionary setObject:v24 forKeyedSubscript:&unk_284484638];
 
-    v25 = *(v102 + 24);
+    v25 = *(v101 + 24);
     if (v25 == 1 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
     {
       *buf = 67109378;
-      *v106 = 103;
-      *&v106[4] = 2080;
-      *&v106[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Search/PGZeroKeywordComputer.m";
+      *v105 = 103;
+      *&v105[4] = 2080;
+      *&v105[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Search/PGZeroKeywordComputer.m";
       _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
     }
 
@@ -4608,21 +4557,21 @@ void __91__PGZeroKeywordComputer_peopleZeroKeywordsWithGraph_curationContext_opt
     if (v14)
     {
       Current = CFAbsoluteTimeGetCurrent();
-      if (Current - v98[3] >= 0.01)
+      if (Current - v97[3] >= 0.01)
       {
-        v98[3] = Current;
+        v97[3] = Current;
         LOBYTE(info.numer) = 0;
         (*(v23 + 2))(v23, &info, 0.2);
-        v27 = *(v102 + 24) | LOBYTE(info.numer);
-        *(v102 + 24) = v27;
+        v27 = *(v101 + 24) | LOBYTE(info.numer);
+        *(v101 + 24) = v27;
         if (v27)
         {
           if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
           {
             *buf = 67109378;
-            *v106 = 106;
-            *&v106[4] = 2080;
-            *&v106[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Search/PGZeroKeywordComputer.m";
+            *v105 = 106;
+            *&v105[4] = 2080;
+            *&v105[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Search/PGZeroKeywordComputer.m";
             v28 = MEMORY[0x277D86220];
 LABEL_29:
             _os_log_impl(&dword_22F0FC000, v28, OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
@@ -4635,25 +4584,25 @@ LABEL_29:
     }
 
     v29 = objc_autoreleasePoolPush();
-    v87[0] = MEMORY[0x277D85DD0];
-    v87[1] = 3221225472;
-    v87[2] = __86__PGZeroKeywordComputer__zeroKeywordsWithGraph_curationContext_options_progressBlock___block_invoke_294;
-    v87[3] = &unk_27888A188;
+    v86[0] = MEMORY[0x277D85DD0];
+    v86[1] = 3221225472;
+    v86[2] = __86__PGZeroKeywordComputer__zeroKeywordsWithGraph_curationContext_options_progressBlock___block_invoke_294;
+    v86[3] = &unk_27888A188;
     v30 = v23;
-    v88 = v30;
-    v89 = &v97;
-    v90 = &v101;
-    v91 = 0x3F847AE147AE147BLL;
-    v31 = [(PGZeroKeywordComputer *)self socialGroupKeywordsWithGraph:graphCopy curationContext:contextCopy options:optionsCopy progressBlock:v87];
+    v87 = v30;
+    v88 = &v96;
+    v89 = &v100;
+    v90 = 0x3F847AE147AE147BLL;
+    v31 = [(PGZeroKeywordComputer *)self socialGroupKeywordsWithGraph:graphCopy curationContext:contextCopy options:optionsCopy progressBlock:v86];
     [dictionary setObject:v31 forKeyedSubscript:&unk_284484650];
 
-    v32 = *(v102 + 24);
+    v32 = *(v101 + 24);
     if (v32 == 1 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
     {
       *buf = 67109378;
-      *v106 = 113;
-      *&v106[4] = 2080;
-      *&v106[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Search/PGZeroKeywordComputer.m";
+      *v105 = 113;
+      *&v105[4] = 2080;
+      *&v105[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Search/PGZeroKeywordComputer.m";
       _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
     }
 
@@ -4666,21 +4615,21 @@ LABEL_29:
     if (v14)
     {
       v33 = CFAbsoluteTimeGetCurrent();
-      if (v33 - v98[3] >= 0.01)
+      if (v33 - v97[3] >= 0.01)
       {
-        v98[3] = v33;
+        v97[3] = v33;
         LOBYTE(info.numer) = 0;
         (*(v30 + 2))(v30, &info, 0.4);
-        v34 = *(v102 + 24) | LOBYTE(info.numer);
-        *(v102 + 24) = v34;
+        v34 = *(v101 + 24) | LOBYTE(info.numer);
+        *(v101 + 24) = v34;
         if (v34)
         {
           if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
           {
             *buf = 67109378;
-            *v106 = 116;
-            *&v106[4] = 2080;
-            *&v106[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Search/PGZeroKeywordComputer.m";
+            *v105 = 116;
+            *&v105[4] = 2080;
+            *&v105[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Search/PGZeroKeywordComputer.m";
             v28 = MEMORY[0x277D86220];
             goto LABEL_29;
           }
@@ -4695,158 +4644,158 @@ LABEL_31:
     }
 
     zeroKeywordLog = [objc_opt_class() zeroKeywordLog];
-    v38 = os_signpost_id_generate(zeroKeywordLog);
-    v39 = zeroKeywordLog;
-    v40 = v39;
-    spid = v38;
-    v67 = v38 - 1;
-    if (v38 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v39))
+    v37 = os_signpost_id_generate(zeroKeywordLog);
+    v38 = zeroKeywordLog;
+    v39 = v38;
+    spid = v37;
+    v66 = v37 - 1;
+    if (v37 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v38))
     {
       *buf = 0;
-      _os_signpost_emit_with_name_impl(&dword_22F0FC000, v40, OS_SIGNPOST_INTERVAL_BEGIN, v38, "ZeroKeywordComputerPlaceZKW", "", buf, 2u);
+      _os_signpost_emit_with_name_impl(&dword_22F0FC000, v39, OS_SIGNPOST_INTERVAL_BEGIN, v37, "ZeroKeywordComputerPlaceZKW", "", buf, 2u);
     }
 
-    v68 = v40;
+    v67 = v39;
 
     info = 0;
     mach_timebase_info(&info);
-    v65 = mach_absolute_time();
-    v41 = objc_autoreleasePoolPush();
-    v81[0] = MEMORY[0x277D85DD0];
-    v81[1] = 3221225472;
-    v81[2] = __86__PGZeroKeywordComputer__zeroKeywordsWithGraph_curationContext_options_progressBlock___block_invoke_297;
-    v81[3] = &unk_27888A188;
-    v42 = v30;
-    v82 = v42;
-    v83 = &v97;
-    v84 = &v101;
-    v85 = 0x3F847AE147AE147BLL;
-    v43 = [(PGZeroKeywordComputer *)self placeZeroKeywordsWithGraph:graphCopy options:optionsCopy progressBlock:v81];
-    [dictionary setObject:v43 forKeyedSubscript:&unk_284484668];
+    v64 = mach_absolute_time();
+    v40 = objc_autoreleasePoolPush();
+    v80[0] = MEMORY[0x277D85DD0];
+    v80[1] = 3221225472;
+    v80[2] = __86__PGZeroKeywordComputer__zeroKeywordsWithGraph_curationContext_options_progressBlock___block_invoke_297;
+    v80[3] = &unk_27888A188;
+    v41 = v30;
+    v81 = v41;
+    v82 = &v96;
+    v83 = &v100;
+    v84 = 0x3F847AE147AE147BLL;
+    v42 = [(PGZeroKeywordComputer *)self placeZeroKeywordsWithGraph:graphCopy options:optionsCopy progressBlock:v80];
+    [dictionary setObject:v42 forKeyedSubscript:&unk_284484668];
 
-    v44 = *(v102 + 24);
-    if (v44 == 1 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
+    v43 = *(v101 + 24);
+    if (v43 == 1 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
     {
       *buf = 67109378;
-      *v106 = 125;
-      *&v106[4] = 2080;
-      *&v106[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Search/PGZeroKeywordComputer.m";
+      *v105 = 125;
+      *&v105[4] = 2080;
+      *&v105[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Search/PGZeroKeywordComputer.m";
       _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
     }
 
-    objc_autoreleasePoolPop(v41);
-    if (v44)
+    objc_autoreleasePoolPop(v40);
+    if (v43)
     {
       goto LABEL_71;
     }
 
-    v45 = mach_absolute_time();
+    v44 = mach_absolute_time();
     numer = info.numer;
     denom = info.denom;
-    v48 = v68;
-    v49 = v48;
-    if (v67 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v48))
+    v47 = v67;
+    v48 = v47;
+    if (v66 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v47))
     {
       *buf = 0;
-      _os_signpost_emit_with_name_impl(&dword_22F0FC000, v49, OS_SIGNPOST_INTERVAL_END, spid, "ZeroKeywordComputerPlaceZKW", "", buf, 2u);
+      _os_signpost_emit_with_name_impl(&dword_22F0FC000, v48, OS_SIGNPOST_INTERVAL_END, spid, "ZeroKeywordComputerPlaceZKW", "", buf, 2u);
     }
 
-    if (os_log_type_enabled(v49, OS_LOG_TYPE_INFO))
+    if (os_log_type_enabled(v48, OS_LOG_TYPE_INFO))
     {
       *buf = 136315394;
-      *v106 = "ZeroKeywordComputerPlaceZKW";
-      *&v106[8] = 2048;
-      *&v106[10] = ((((v45 - v65) * numer) / denom) / 1000000.0);
-      _os_log_impl(&dword_22F0FC000, v49, OS_LOG_TYPE_INFO, "[Performance] %s: %f ms", buf, 0x16u);
+      *v105 = "ZeroKeywordComputerPlaceZKW";
+      *&v105[8] = 2048;
+      *&v105[10] = ((((v44 - v64) * numer) / denom) / 1000000.0);
+      _os_log_impl(&dword_22F0FC000, v48, OS_LOG_TYPE_INFO, "[Performance] %s: %f ms", buf, 0x16u);
     }
 
-    if (v14 && (v50 = CFAbsoluteTimeGetCurrent(), v50 - v98[3] >= 0.01) && (v98[3] = v50, v80 = 0, (*(v42 + 2))(v42, &v80, 0.6), v51 = *(v102 + 24) | v80, *(v102 + 24) = v51, (v51 & 1) != 0))
+    if (v14 && (v49 = CFAbsoluteTimeGetCurrent(), v49 - v97[3] >= 0.01) && (v97[3] = v49, v79 = 0, (*(v41 + 2))(v41, &v79, 0.6), v50 = *(v101 + 24) | v79, *(v101 + 24) = v50, (v50 & 1) != 0))
     {
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
       {
         *buf = 67109378;
-        *v106 = 130;
-        *&v106[4] = 2080;
-        *&v106[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Search/PGZeroKeywordComputer.m";
-        v52 = MEMORY[0x277D86220];
+        *v105 = 130;
+        *&v105[4] = 2080;
+        *&v105[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Search/PGZeroKeywordComputer.m";
+        v51 = MEMORY[0x277D86220];
 LABEL_70:
-        _os_log_impl(&dword_22F0FC000, v52, OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
+        _os_log_impl(&dword_22F0FC000, v51, OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
       }
     }
 
     else
     {
-      v53 = objc_autoreleasePoolPush();
-      v75[0] = MEMORY[0x277D85DD0];
-      v75[1] = 3221225472;
-      v75[2] = __86__PGZeroKeywordComputer__zeroKeywordsWithGraph_curationContext_options_progressBlock___block_invoke_301;
-      v75[3] = &unk_27888A188;
-      v54 = v42;
-      v76 = v54;
-      v77 = &v97;
-      v78 = &v101;
-      v79 = 0x3F847AE147AE147BLL;
-      v55 = [(PGZeroKeywordComputer *)self eventZeroKeywordsWithGraph:graphCopy curationContext:contextCopy options:optionsCopy progressBlock:v75];
-      [dictionary setObject:v55 forKeyedSubscript:&unk_284484680];
+      v52 = objc_autoreleasePoolPush();
+      v74[0] = MEMORY[0x277D85DD0];
+      v74[1] = 3221225472;
+      v74[2] = __86__PGZeroKeywordComputer__zeroKeywordsWithGraph_curationContext_options_progressBlock___block_invoke_301;
+      v74[3] = &unk_27888A188;
+      v53 = v41;
+      v75 = v53;
+      v76 = &v96;
+      v77 = &v100;
+      v78 = 0x3F847AE147AE147BLL;
+      v54 = [(PGZeroKeywordComputer *)self eventZeroKeywordsWithGraph:graphCopy curationContext:contextCopy options:optionsCopy progressBlock:v74];
+      [dictionary setObject:v54 forKeyedSubscript:&unk_284484680];
 
-      v56 = *(v102 + 24);
-      if (v56 == 1 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
+      v55 = *(v101 + 24);
+      if (v55 == 1 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
       {
         *buf = 67109378;
-        *v106 = 137;
-        *&v106[4] = 2080;
-        *&v106[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Search/PGZeroKeywordComputer.m";
+        *v105 = 137;
+        *&v105[4] = 2080;
+        *&v105[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Search/PGZeroKeywordComputer.m";
         _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
       }
 
-      objc_autoreleasePoolPop(v53);
-      if (v56)
+      objc_autoreleasePoolPop(v52);
+      if (v55)
       {
         goto LABEL_71;
       }
 
-      if (v14 && (v57 = CFAbsoluteTimeGetCurrent(), v57 - v98[3] >= 0.01) && (v98[3] = v57, v80 = 0, (*(v54 + 2))(v54, &v80, 0.8), v58 = *(v102 + 24) | v80, *(v102 + 24) = v58, (v58 & 1) != 0))
+      if (v14 && (v56 = CFAbsoluteTimeGetCurrent(), v56 - v97[3] >= 0.01) && (v97[3] = v56, v79 = 0, (*(v53 + 2))(v53, &v79, 0.8), v57 = *(v101 + 24) | v79, *(v101 + 24) = v57, (v57 & 1) != 0))
       {
         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
         {
           *buf = 67109378;
-          *v106 = 140;
-          *&v106[4] = 2080;
-          *&v106[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Search/PGZeroKeywordComputer.m";
-          v52 = MEMORY[0x277D86220];
+          *v105 = 140;
+          *&v105[4] = 2080;
+          *&v105[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Search/PGZeroKeywordComputer.m";
+          v51 = MEMORY[0x277D86220];
           goto LABEL_70;
         }
       }
 
       else
       {
-        v59 = objc_autoreleasePoolPush();
-        v70[0] = MEMORY[0x277D85DD0];
-        v70[1] = 3221225472;
-        v70[2] = __86__PGZeroKeywordComputer__zeroKeywordsWithGraph_curationContext_options_progressBlock___block_invoke_304;
-        v70[3] = &unk_27888A188;
-        v60 = v54;
-        v71 = v60;
-        v72 = &v97;
-        v73 = &v101;
-        v74 = 0x3F847AE147AE147BLL;
-        v61 = [(PGZeroKeywordComputer *)self sceneZeroKeywordsWithGraph:graphCopy options:optionsCopy progressBlock:v70];
-        [dictionary setObject:v61 forKeyedSubscript:&unk_284484698];
+        v58 = objc_autoreleasePoolPush();
+        v69[0] = MEMORY[0x277D85DD0];
+        v69[1] = 3221225472;
+        v69[2] = __86__PGZeroKeywordComputer__zeroKeywordsWithGraph_curationContext_options_progressBlock___block_invoke_304;
+        v69[3] = &unk_27888A188;
+        v59 = v53;
+        v70 = v59;
+        v71 = &v96;
+        v72 = &v100;
+        v73 = 0x3F847AE147AE147BLL;
+        v60 = [(PGZeroKeywordComputer *)self sceneZeroKeywordsWithGraph:graphCopy options:optionsCopy progressBlock:v69];
+        [dictionary setObject:v60 forKeyedSubscript:&unk_284484698];
 
-        v62 = *(v102 + 24);
-        if (v62 == 1 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
+        v61 = *(v101 + 24);
+        if (v61 == 1 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
         {
           *buf = 67109378;
-          *v106 = 147;
-          *&v106[4] = 2080;
-          *&v106[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Search/PGZeroKeywordComputer.m";
+          *v105 = 147;
+          *&v105[4] = 2080;
+          *&v105[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Search/PGZeroKeywordComputer.m";
           _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
         }
 
-        objc_autoreleasePoolPop(v59);
-        if ((v62 & 1) == 0)
+        objc_autoreleasePoolPop(v58);
+        if ((v61 & 1) == 0)
         {
-          if (!v14 || (v63 = CFAbsoluteTimeGetCurrent(), v63 - v98[3] < 0.01) || (v98[3] = v63, v80 = 0, (*(v60 + 2))(v60, &v80, 1.0), v64 = *(v102 + 24) | v80, *(v102 + 24) = v64, (v64 & 1) == 0))
+          if (!v14 || (v62 = CFAbsoluteTimeGetCurrent(), v62 - v97[3] < 0.01) || (v97[3] = v62, v79 = 0, (*(v59 + 2))(v59, &v79, 1.0), v63 = *(v101 + 24) | v79, *(v101 + 24) = v63, (v63 & 1) == 0))
           {
             v17 = dictionary;
             goto LABEL_72;
@@ -4855,10 +4804,10 @@ LABEL_70:
           if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
           {
             *buf = 67109378;
-            *v106 = 150;
-            *&v106[4] = 2080;
-            *&v106[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Search/PGZeroKeywordComputer.m";
-            v52 = MEMORY[0x277D86220];
+            *v105 = 150;
+            *&v105[4] = 2080;
+            *&v105[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Search/PGZeroKeywordComputer.m";
+            v51 = MEMORY[0x277D86220];
             goto LABEL_70;
           }
         }
@@ -4875,18 +4824,16 @@ LABEL_72:
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
   {
     *buf = 67109378;
-    *v106 = 88;
-    *&v106[4] = 2080;
-    *&v106[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Search/PGZeroKeywordComputer.m";
+    *v105 = 88;
+    *&v105[4] = 2080;
+    *&v105[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Search/PGZeroKeywordComputer.m";
     _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
   }
 
   v17 = MEMORY[0x277CBEC10];
 LABEL_32:
-  _Block_object_dispose(&v97, 8);
-  _Block_object_dispose(&v101, 8);
-
-  v35 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v96, 8);
+  _Block_object_dispose(&v100, 8);
 
   return v17;
 }

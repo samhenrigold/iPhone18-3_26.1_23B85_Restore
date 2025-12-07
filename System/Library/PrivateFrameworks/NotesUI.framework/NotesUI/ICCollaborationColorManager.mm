@@ -155,12 +155,12 @@ LABEL_7:
 {
   dCopy = d;
   userIDToColorsDict = [(ICCollaborationColorManager *)self userIDToColorsDict];
-  v6 = [userIDToColorsDict objectForKeyedSubscript:dCopy];
+  v6 = objc_msgSend_objectForKeyedSubscript_(userIDToColorsDict);
 
   if (v6)
   {
     userIDToColorsDict2 = [(ICCollaborationColorManager *)self userIDToColorsDict];
-    v8 = [userIDToColorsDict2 objectForKeyedSubscript:dCopy];
+    v8 = objc_msgSend_objectForKeyedSubscript_(userIDToColorsDict2);
   }
 
   else
@@ -224,7 +224,7 @@ LABEL_12:
   if ([identifier length])
   {
     os_unfair_lock_lock(&containerScopedUserRecordNameForAccount__accountIDToRecordNameLock);
-    v5 = [containerScopedUserRecordNameForAccount__accountIDToRecordName objectForKeyedSubscript:identifier];
+    v5 = objc_msgSend_objectForKeyedSubscript_(containerScopedUserRecordNameForAccount__accountIDToRecordName);
     os_unfair_lock_unlock(&containerScopedUserRecordNameForAccount__accountIDToRecordNameLock);
     if (v5)
     {

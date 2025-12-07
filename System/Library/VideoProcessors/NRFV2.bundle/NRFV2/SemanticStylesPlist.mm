@@ -373,24 +373,24 @@
 - (int)readPlist:(id)plist
 {
   plistCopy = plist;
-  v9 = objc_msgSend_objectForKeyedSubscript_(plistCopy, v5, @"ToneBiasRemap", v6);
-  if (v9)
+  v10 = objc_msgSend_objectForKeyedSubscript_(plistCopy, v6, @"ToneBiasRemap", v7);
+  if (v10)
   {
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      objc_msgSend_readToneBiasRemap_(self, v7, v9, v8);
+      objc_msgSend_readToneBiasRemap_(self, v8, v10, v9);
     }
   }
 
-  v10 = objc_msgSend_objectForKeyedSubscript_(plistCopy, v7, @"Background", v8);
+  v11 = objc_msgSend_objectForKeyedSubscript_(plistCopy, v8, @"Background", v9);
 
-  if (v10 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
+  if (v11 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
   {
-    v12 = 0;
+    v13 = 0;
     do
     {
-      BackgroundTuning_forSceneType = objc_msgSend_readBackgroundTuning_forSceneType_(self, v11, v10, v12);
+      BackgroundTuning_forSceneType = objc_msgSend_readBackgroundTuning_forSceneType_(self, v12, v11, v13);
       if (BackgroundTuning_forSceneType)
       {
         ForegroundTuning = BackgroundTuning_forSceneType;
@@ -398,18 +398,18 @@
         goto LABEL_16;
       }
 
-      v12 = (v12 + 1);
+      v13 = (v13 + 1);
     }
 
-    while (v12 != 4);
-    v15 = objc_msgSend_objectForKeyedSubscript_(plistCopy, v11, @"Foreground", v14);
+    while (v13 != 4);
+    v16 = objc_msgSend_objectForKeyedSubscript_(plistCopy, v12, @"Foreground", v15);
 
-    if (v15)
+    if (v16)
     {
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        ForegroundTuning = objc_msgSend_readForegroundTuning_(self, v16, v15, v17);
+        ForegroundTuning = objc_msgSend_readForegroundTuning_(self, v17, v16, v18);
       }
 
       else
@@ -417,12 +417,12 @@
         ForegroundTuning = 25;
       }
 
-      v10 = v15;
+      v11 = v16;
     }
 
     else
     {
-      v10 = 0;
+      v11 = 0;
       ForegroundTuning = 25;
     }
   }
@@ -430,7 +430,7 @@
   else
   {
     ForegroundTuning = 25;
-    FigDebugAssert3();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", 25, v3, v21, v22, v23, v24, v25, v26);
   }
 
 LABEL_16:

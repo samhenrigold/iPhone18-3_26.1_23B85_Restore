@@ -213,7 +213,7 @@
   _Block_object_dispose(&v16, 8);
 }
 
-uint64_t __41__SCKDatabaseJSONStore_readWithAccessor___block_invoke(uint64_t a1)
+void *__41__SCKDatabaseJSONStore_readWithAccessor___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) loadedFromDisk];
   if (result)
@@ -285,7 +285,7 @@ void __42__SCKDatabaseJSONStore_writeWithAccessor___block_invoke(uint64_t a1, vo
   dispatch_sync(v4, block);
 }
 
-uint64_t __42__SCKDatabaseJSONStore_writeWithAccessor___block_invoke_2(uint64_t a1)
+void *__42__SCKDatabaseJSONStore_writeWithAccessor___block_invoke_2(uint64_t a1)
 {
   [*(a1 + 32) _reloadIfNeededFromFileURL:*(a1 + 40)];
   (*(*(a1 + 48) + 16))();
@@ -691,7 +691,7 @@ void __47__SCKDatabaseJSONStore__saveIfNeededToFileURL___block_invoke(uint64_t a
   dispatch_sync(v4, v6);
 }
 
-uint64_t __47__SCKDatabaseJSONStore__saveIfNeededToFileURL___block_invoke_2(uint64_t a1)
+void *__47__SCKDatabaseJSONStore__saveIfNeededToFileURL___block_invoke_2(uint64_t a1)
 {
   result = [*(a1 + 32) havePendingChanges];
   if (result)
@@ -1071,7 +1071,7 @@ void __51__SCKDatabaseJSONStore__listenForChangesToFileURL___block_invoke(uint64
   _Block_object_dispose(&v18, 8);
 }
 
-uint64_t __51__SCKDatabaseJSONStore__listenForChangesToFileURL___block_invoke_2(uint64_t a1)
+void *__51__SCKDatabaseJSONStore__listenForChangesToFileURL___block_invoke_2(uint64_t a1)
 {
   value = 0;
   getxattr([*(a1 + 32) fileSystemRepresentation], "com.apple.stocks.jsonStoreChangeTag", &value, 4uLL, 0, 0);

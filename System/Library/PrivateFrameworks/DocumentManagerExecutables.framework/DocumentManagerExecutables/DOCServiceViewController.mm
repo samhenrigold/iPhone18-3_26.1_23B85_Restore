@@ -186,7 +186,7 @@
   selfCopy = self;
   v8(appearanceCopy, 0, v6, v7);
 
-  outlined consume of (@escaping @callee_guaranteed () -> (@owned DOCCopyableBarButtonItem))?(v6);
+  outlined consume of (@escaping @callee_guaranteed () -> (@owned DOCCopyableBarButtonItem))?(v6, v7);
 }
 
 - (void)updateAppearance:(id)appearance shouldFlushCA:(BOOL)a completionBlock:(id)block
@@ -213,10 +213,10 @@
   appearanceCopy = appearance;
   selfCopy = self;
   v13 = appearanceCopy;
-  outlined copy of (@escaping @callee_guaranteed () -> (@owned DOCCopyableBarButtonItem))?(v8);
+  outlined copy of (@escaping @callee_guaranteed () -> (@owned DOCCopyableBarButtonItem))?(v8, v9);
   DOCRunInMainThread(_:)();
 
-  outlined consume of (@escaping @callee_guaranteed () -> (@owned DOCCopyableBarButtonItem))?(v8);
+  outlined consume of (@escaping @callee_guaranteed () -> (@owned DOCCopyableBarButtonItem))?(v8, v9);
 }
 
 - (void)updateEditingTo:(BOOL)to animated:(BOOL)animated
@@ -237,7 +237,7 @@
   if (v4)
   {
     v5 = v4;
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyyXlGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyyXlGMd, &_ss23_ContiguousArrayStorageCyyXlGMR);
     v6 = swift_allocObject();
     *(v6 + 16) = xmmword_249BA0290;
     *(v6 + 32) = v5;
@@ -248,11 +248,11 @@
     v10.receiver = selfCopy;
     v10.super_class = type metadata accessor for DOCServiceViewController();
     preferredFocusEnvironments = [(DOCServiceViewController *)&v10 preferredFocusEnvironments];
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo18UIFocusEnvironment_pMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo18UIFocusEnvironment_pMd, &_sSo18UIFocusEnvironment_pMR);
     static Array._unconditionallyBridgeFromObjectiveC(_:)();
   }
 
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo18UIFocusEnvironment_pMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo18UIFocusEnvironment_pMd, &_sSo18UIFocusEnvironment_pMR);
   v8.super.isa = Array._bridgeToObjectiveC()().super.isa;
 
   return v8.super.isa;

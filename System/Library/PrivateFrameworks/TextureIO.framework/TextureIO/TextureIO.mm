@@ -1,9 +1,9 @@
-uint64_t pixelBytes(uint64_t a1)
+uint64_t pixelBytes(uint64_t result)
 {
-  if (a1 <= 551)
+  if (result <= 551)
   {
-    v1 = a1 - 1;
-    result = 1;
+    v1 = result - 1;
+    v2 = 1;
     switch(v1)
     {
       case 0:
@@ -12,7 +12,7 @@ uint64_t pixelBytes(uint64_t a1)
       case 11:
       case 12:
       case 13:
-        return result;
+        return v2;
       case 19:
       case 21:
       case 22:
@@ -66,17 +66,17 @@ uint64_t pixelBytes(uint64_t a1)
     }
   }
 
-  if ((a1 - 552) < 2)
+  if ((result - 552) < 2)
   {
     return 8;
   }
 
-  if ((a1 - 554) < 2)
+  if ((result - 554) < 2)
   {
     return 4;
   }
 
-  if ((a1 - 2147483649) >= 2)
+  if ((result - 2147483649) >= 2)
   {
 LABEL_11:
     pixelBytes_cold_1();
@@ -85,7 +85,7 @@ LABEL_11:
   return 3;
 }
 
-TXRImageIndependent *newScaledImageWithLancosFilter(void *a1, void *a2, uint64_t a3, void *a4, __n128 a5)
+TXRImageIndependent *newScaledImageWithLancosFilter(void *a1, void *a2, uint64_t a3, void *a4, double a5)
 {
   v8 = a1;
   v9 = a2;
@@ -134,7 +134,7 @@ LABEL_8:
     flags = 0;
   }
 
-  v14 = +[TXRPixelFormatInfo packedMemoryLayoutForFormat:dimensions:](TXRPixelFormatInfo, "packedMemoryLayoutForFormat:dimensions:", [v8 pixelFormat], a5.n128_f64[0]);
+  v14 = +[TXRPixelFormatInfo packedMemoryLayoutForFormat:dimensions:](TXRPixelFormatInfo, "packedMemoryLayoutForFormat:dimensions:", [v8 pixelFormat], a5);
   v16 = v15;
   v17 = [v9 newBufferWithLength:v15];
   v33 = [v17 map];
@@ -144,8 +144,8 @@ LABEL_8:
 
   v21 = [v20 bytes];
   dest.data = v18;
-  v22.i64[0] = a5.n128_u32[0];
-  v22.i64[1] = a5.n128_u32[1];
+  v22.i64[0] = LODWORD(a5);
+  v22.i64[1] = HIDWORD(a5);
   *&dest.height = vextq_s8(v22, v22, 8uLL);
   dest.rowBytes = v14;
   src.data = (v21 + [v8 offset]);
@@ -164,7 +164,7 @@ LABEL_16:
       newScaledImageWithLancosFilter_cold_1();
     }
 
-    v13 = -[TXRImageIndependent initWithDimensions:pixelFormat:alphaInfo:bytesPerRow:bytesPerImage:buffer:offset:]([TXRImageIndependent alloc], "initWithDimensions:pixelFormat:alphaInfo:bytesPerRow:bytesPerImage:buffer:offset:", [v8 pixelFormat], objc_msgSend(v8, "alphaInfo"), v14, v16, v17, 0, a5.n128_f64[0]);
+    v13 = -[TXRImageIndependent initWithDimensions:pixelFormat:alphaInfo:bytesPerRow:bytesPerImage:buffer:offset:]([TXRImageIndependent alloc], "initWithDimensions:pixelFormat:alphaInfo:bytesPerRow:bytesPerImage:buffer:offset:", [v8 pixelFormat], objc_msgSend(v8, "alphaInfo"), v14, v16, v17, 0, a5);
     goto LABEL_18;
   }
 
@@ -591,12 +591,12 @@ BOOL writeContentsJsonAtPath(void *a1, void *a2, uint64_t a3)
   return v10 != 0;
 }
 
-uint64_t componentsPerPixel(uint64_t a1)
+uint64_t componentsPerPixel(uint64_t result)
 {
-  if (a1 <= 551)
+  if (result <= 551)
   {
-    v1 = a1 - 1;
-    result = 1;
+    v1 = result - 1;
+    v2 = 1;
     switch(v1)
     {
       case 0:
@@ -613,7 +613,7 @@ uint64_t componentsPerPixel(uint64_t a1)
       case 52:
       case 53:
       case 54:
-        return result;
+        return v2;
       case 29:
       case 30:
       case 31:
@@ -658,12 +658,12 @@ uint64_t componentsPerPixel(uint64_t a1)
     }
   }
 
-  if ((a1 - 552) < 2)
+  if ((result - 552) < 2)
   {
     return 4;
   }
 
-  if ((a1 - 554) >= 2 && (a1 - 2147483649) >= 2)
+  if ((result - 554) >= 2 && (result - 2147483649) >= 2)
   {
 LABEL_9:
     componentsPerPixel_cold_1();
@@ -731,13 +731,13 @@ uint64_t isGammaEncoded(uint64_t a1)
   return result;
 }
 
-unint64_t getMemoryLayout(uint64_t a1, float a2)
+unint64_t getMemoryLayout(uint64_t a1, uint64_t a2, float a3)
 {
-  v2 = (a1 - 130) > 0xD || ((1 << (a1 + 126)) & 0x3C3F) == 0;
-  if (!v2 || (a1 - 150) < 4 || (a1 & 0xFFFFFFFFFFFFFFF8) == 0xA0)
+  v3 = (a1 - 130) > 0xD || ((1 << (a1 + 126)) & 0x3C3F) == 0;
+  if (!v3 || (a1 - 150) < 4 || (a1 & 0xFFFFFFFFFFFFFFF8) == 0xA0)
   {
 LABEL_5:
-    v3 = 17040392;
+    v4 = 17040392;
     switch(a1)
     {
       case 130:
@@ -754,7 +754,7 @@ LABEL_5:
       case 181:
       case 182:
       case 183:
-        return (LODWORD(a2) + ((v3 >> 8) & 0xF) - 1) / ((v3 >> 8) & 0xF) * (v3 & 0x18);
+        return (LODWORD(a3) + ((v4 >> 8) & 0xF) - 1) / ((v4 >> 8) & 0xF) * (v4 & 0x18);
       case 132:
       case 133:
       case 134:
@@ -771,80 +771,80 @@ LABEL_5:
       case 179:
       case 186:
       case 204:
-        v3 = 17040400;
-        return (LODWORD(a2) + ((v3 >> 8) & 0xF) - 1) / ((v3 >> 8) & 0xF) * (v3 & 0x18);
+        v4 = 17040400;
+        return (LODWORD(a3) + ((v4 >> 8) & 0xF) - 1) / ((v4 >> 8) & 0xF) * (v4 & 0x18);
       case 160:
       case 161:
       case 164:
       case 165:
-        v3 = 17041416;
-        return (LODWORD(a2) + ((v3 >> 8) & 0xF) - 1) / ((v3 >> 8) & 0xF) * (v3 & 0x18);
+        v4 = 17041416;
+        return (LODWORD(a3) + ((v4 >> 8) & 0xF) - 1) / ((v4 >> 8) & 0xF) * (v4 & 0x18);
       case 187:
       case 205:
-        v3 = 17040656;
-        return (LODWORD(a2) + ((v3 >> 8) & 0xF) - 1) / ((v3 >> 8) & 0xF) * (v3 & 0x18);
+        v4 = 17040656;
+        return (LODWORD(a3) + ((v4 >> 8) & 0xF) - 1) / ((v4 >> 8) & 0xF) * (v4 & 0x18);
       case 188:
       case 206:
-        v3 = 17106192;
-        return (LODWORD(a2) + ((v3 >> 8) & 0xF) - 1) / ((v3 >> 8) & 0xF) * (v3 & 0x18);
+        v4 = 17106192;
+        return (LODWORD(a3) + ((v4 >> 8) & 0xF) - 1) / ((v4 >> 8) & 0xF) * (v4 & 0x18);
       case 189:
       case 207:
-        v3 = 17106448;
-        return (LODWORD(a2) + ((v3 >> 8) & 0xF) - 1) / ((v3 >> 8) & 0xF) * (v3 & 0x18);
+        v4 = 17106448;
+        return (LODWORD(a3) + ((v4 >> 8) & 0xF) - 1) / ((v4 >> 8) & 0xF) * (v4 & 0x18);
       case 190:
       case 208:
-        v3 = 17171984;
-        return (LODWORD(a2) + ((v3 >> 8) & 0xF) - 1) / ((v3 >> 8) & 0xF) * (v3 & 0x18);
+        v4 = 17171984;
+        return (LODWORD(a3) + ((v4 >> 8) & 0xF) - 1) / ((v4 >> 8) & 0xF) * (v4 & 0x18);
       case 192:
       case 210:
-        v3 = 17106960;
-        return (LODWORD(a2) + ((v3 >> 8) & 0xF) - 1) / ((v3 >> 8) & 0xF) * (v3 & 0x18);
+        v4 = 17106960;
+        return (LODWORD(a3) + ((v4 >> 8) & 0xF) - 1) / ((v4 >> 8) & 0xF) * (v4 & 0x18);
       case 193:
       case 211:
-        v5 = 17171984;
+        v6 = 17171984;
         goto LABEL_16;
       case 194:
       case 212:
-        v3 = 17303568;
-        return (LODWORD(a2) + ((v3 >> 8) & 0xF) - 1) / ((v3 >> 8) & 0xF) * (v3 & 0x18);
+        v4 = 17303568;
+        return (LODWORD(a3) + ((v4 >> 8) & 0xF) - 1) / ((v4 >> 8) & 0xF) * (v4 & 0x18);
       case 195:
       case 213:
-        v3 = 17104912;
-        return (LODWORD(a2) + ((v3 >> 8) & 0xF) - 1) / ((v3 >> 8) & 0xF) * (v3 & 0x18);
+        v4 = 17104912;
+        return (LODWORD(a3) + ((v4 >> 8) & 0xF) - 1) / ((v4 >> 8) & 0xF) * (v4 & 0x18);
       case 196:
       case 214:
-        v3 = 17173008;
-        return (LODWORD(a2) + ((v3 >> 8) & 0xF) - 1) / ((v3 >> 8) & 0xF) * (v3 & 0x18);
+        v4 = 17173008;
+        return (LODWORD(a3) + ((v4 >> 8) & 0xF) - 1) / ((v4 >> 8) & 0xF) * (v4 & 0x18);
       case 197:
       case 215:
-        v3 = 17304080;
-        return (LODWORD(a2) + ((v3 >> 8) & 0xF) - 1) / ((v3 >> 8) & 0xF) * (v3 & 0x18);
+        v4 = 17304080;
+        return (LODWORD(a3) + ((v4 >> 8) & 0xF) - 1) / ((v4 >> 8) & 0xF) * (v4 & 0x18);
       case 198:
       case 216:
-        v3 = 17435152;
-        return (LODWORD(a2) + ((v3 >> 8) & 0xF) - 1) / ((v3 >> 8) & 0xF) * (v3 & 0x18);
+        v4 = 17435152;
+        return (LODWORD(a3) + ((v4 >> 8) & 0xF) - 1) / ((v4 >> 8) & 0xF) * (v4 & 0x18);
       case 199:
       case 217:
-        v5 = 17435152;
+        v6 = 17435152;
 LABEL_16:
-        v3 = v5 + 512;
+        v4 = v6 + 512;
         break;
       case 200:
       case 218:
-        v3 = 17566736;
+        v4 = 17566736;
         break;
       default:
         +[TXRPixelFormatInfo packedMemoryLayoutForFormat:dimensions:];
     }
 
-    return (LODWORD(a2) + ((v3 >> 8) & 0xF) - 1) / ((v3 >> 8) & 0xF) * (v3 & 0x18);
+    return (LODWORD(a3) + ((v4 >> 8) & 0xF) - 1) / ((v4 >> 8) & 0xF) * (v4 & 0x18);
   }
 
   else
   {
     if (a1 <= 551)
     {
-      v4 = 1;
+      v5 = 1;
       switch(a1)
       {
         case 1:
@@ -853,7 +853,7 @@ LABEL_16:
         case 12:
         case 13:
         case 14:
-          return v4 * LODWORD(a2);
+          return v5 * LODWORD(a3);
         case 20:
         case 22:
         case 23:
@@ -868,8 +868,8 @@ LABEL_16:
         case 41:
         case 42:
         case 43:
-          v4 = 2;
-          return v4 * LODWORD(a2);
+          v5 = 2;
+          return v5 * LODWORD(a3);
         case 53:
         case 54:
         case 55:
@@ -902,8 +902,8 @@ LABEL_16:
         case 123:
         case 124:
         case 125:
-          v4 = 16;
-          return v4 * LODWORD(a2);
+          v5 = 16;
+          return v5 * LODWORD(a3);
         case 170:
         case 172:
         case 174:
@@ -951,13 +951,13 @@ LABEL_16:
     if ((a1 - 552) < 2)
     {
 LABEL_34:
-      v4 = 8;
+      v5 = 8;
     }
 
     else if ((a1 - 554) < 2)
     {
 LABEL_11:
-      v4 = 4;
+      v5 = 4;
     }
 
     else
@@ -968,14 +968,14 @@ LABEL_38:
         pixelBytes_cold_1();
       }
 
-      v4 = 3;
+      v5 = 3;
     }
 
-    return v4 * LODWORD(a2);
+    return v5 * LODWORD(a3);
   }
 }
 
-void slowConvert(int a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, __n128 a9, int32x4_t _Q1, int8x16_t _Q2, __n128 a12, uint64_t a13, float16x4_t *a14)
+void slowConvert(int a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, __n128 a9, int32x4_t _Q1, int32x4_t _Q2, __n128 a12, uint64_t a13, float16x4_t *a14)
 {
   v281 = a9.n128_u32[2];
   if (a9.n128_u32[2])
@@ -1094,7 +1094,7 @@ LABEL_16:
               v45.i32[1] = HIWORD(v26->i32[0]);
               *_Q6.f32 = vdiv_f32(vcvt_f32_s32(vadd_s32(vand_s8(v45, 0x300000003), vdup_n_s32(0xFFFFFE80))), vdup_n_s32(0x43FF0000u));
               _Q6.f32[2] = ((v26->i32[0] & 0x3FF) - 384) / 510.0;
-              v46 = ((HIWORD(v45.i32[0]) & 0x3FF) - 384);
+              v46 = ((v45.i16[1] & 0x3FF) - 384);
 LABEL_192:
               v124 = v46 / 510.0;
               v125 = 0.0;

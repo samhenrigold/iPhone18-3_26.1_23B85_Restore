@@ -1,45 +1,45 @@
-void *std::__hash_table<std::__hash_value_type<std::string,void (*)(CAShapeLayer *,CA::Render::ShapeLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAShapeLayer *,CA::Render::ShapeLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAShapeLayer *,CA::Render::ShapeLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAShapeLayer *,CA::Render::ShapeLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(uint64_t a1)
+void *std::__hash_table<std::__hash_value_type<std::string,void (*)(CAShapeLayer *,CA::Render::ShapeLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAShapeLayer *,CA::Render::ShapeLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAShapeLayer *,CA::Render::ShapeLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAShapeLayer *,CA::Render::ShapeLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(uint64_t a1, __int128 **a2)
 {
-  v1 = a1;
-  v2 = *(a1 + 8);
+  v2 = a1;
+  v3 = *(a1 + 8);
   if (*(a1 + 23) >= 0)
   {
-    v3 = *(a1 + 23);
+    v4 = *(a1 + 23);
   }
 
   else
   {
     a1 = *a1;
-    v3 = v2;
+    v4 = v3;
   }
 
-  v4 = std::__murmur2_or_cityhash<unsigned long,64ul>::operator()[abi:nn200100](a1, v3);
-  v5 = v4;
-  v6 = *(&_ZZ20get_setters_for_typeIN2CA6Render10ShapeLayerEERKDavE3map_1 + 1);
+  v5 = std::__murmur2_or_cityhash<unsigned long,64ul>::operator()[abi:nn200100](a1, v4);
+  v6 = v5;
+  v7 = *(&_ZZ20get_setters_for_typeIN2CA6Render10ShapeLayerEERKDavE3map_1 + 1);
   if (!*(&_ZZ20get_setters_for_typeIN2CA6Render10ShapeLayerEERKDavE3map_1 + 1))
   {
     goto LABEL_21;
   }
 
-  v7 = vcnt_s8(*(&_ZZ20get_setters_for_typeIN2CA6Render10ShapeLayerEERKDavE3map_1 + 8));
-  v7.i16[0] = vaddlv_u8(v7);
-  v8 = v7.u32[0];
-  if (v7.u32[0] > 1uLL)
+  v8 = vcnt_s8(*(&_ZZ20get_setters_for_typeIN2CA6Render10ShapeLayerEERKDavE3map_1 + 8));
+  v8.i16[0] = vaddlv_u8(v8);
+  v9 = v8.u32[0];
+  if (v8.u32[0] > 1uLL)
   {
-    v9 = v4;
-    if (v4 >= *(&_ZZ20get_setters_for_typeIN2CA6Render10ShapeLayerEERKDavE3map_1 + 1))
+    v10 = v5;
+    if (v5 >= *(&_ZZ20get_setters_for_typeIN2CA6Render10ShapeLayerEERKDavE3map_1 + 1))
     {
-      v9 = v4 % *(&_ZZ20get_setters_for_typeIN2CA6Render10ShapeLayerEERKDavE3map_1 + 1);
+      v10 = v5 % *(&_ZZ20get_setters_for_typeIN2CA6Render10ShapeLayerEERKDavE3map_1 + 1);
     }
   }
 
   else
   {
-    v9 = (*(&_ZZ20get_setters_for_typeIN2CA6Render10ShapeLayerEERKDavE3map_1 + 1) - 1) & v4;
+    v10 = (*(&_ZZ20get_setters_for_typeIN2CA6Render10ShapeLayerEERKDavE3map_1 + 1) - 1) & v5;
   }
 
-  v10 = *(_ZZ20get_setters_for_typeIN2CA6Render10ShapeLayerEERKDavE3map_1 + 8 * v9);
-  if (!v10 || (v11 = *v10) == 0)
+  v11 = *(_ZZ20get_setters_for_typeIN2CA6Render10ShapeLayerEERKDavE3map_1 + 8 * v10);
+  if (!v11 || (v12 = *v11) == 0)
   {
 LABEL_21:
     operator new();
@@ -47,75 +47,75 @@ LABEL_21:
 
   while (1)
   {
-    v12 = v11[1];
-    if (v12 == v5)
+    v13 = v12[1];
+    if (v13 == v6)
     {
       break;
     }
 
-    if (v8 > 1)
+    if (v9 > 1)
     {
-      if (v12 >= v6)
+      if (v13 >= v7)
       {
-        v12 %= v6;
+        v13 %= v7;
       }
     }
 
     else
     {
-      v12 &= v6 - 1;
+      v13 &= v7 - 1;
     }
 
-    if (v12 != v9)
+    if (v13 != v10)
     {
       goto LABEL_21;
     }
 
 LABEL_20:
-    v11 = *v11;
-    if (!v11)
+    v12 = *v12;
+    if (!v12)
     {
       goto LABEL_21;
     }
   }
 
-  if (!std::equal_to<std::string>::operator()[abi:nn200100](v11 + 2, v1))
+  if (!std::equal_to<std::string>::operator()[abi:nn200100](v12 + 2, v2))
   {
     goto LABEL_20;
   }
 
-  return v11;
+  return v12;
 }
 
-void *_ZZZ20get_setters_for_typeIN2CA6Render10ShapeLayerEERKDavEUb_ENUlP12CAShapeLayerPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSD_11char_traitsIcEENSD_9allocatorIcEEEERK25ReverseSerializationStateE10_8__invokeES7_S9_SC_SL_SO_(void *a1, const char *a2)
+void *_ZZZ20get_setters_for_typeIN2CA6Render10ShapeLayerEERKDavEUb_ENUlP12CAShapeLayerPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSD_11char_traitsIcEENSD_9allocatorIcEEEERK25ReverseSerializationStateE10_8__invokeES7_S9_SC_SL_SO_(void *result, const char *a2)
 {
   v2 = *(a2 + 34);
   if (BYTE2(v2) <= 2u)
   {
-    return [a1 setLineCap:*off_1E6DED118[(v2 >> 16) & 3]];
+    return [result setLineCap:*off_1E6DED118[(v2 >> 16) & 3]];
   }
 
-  return a1;
+  return result;
 }
 
-void *_ZZZ20get_setters_for_typeIN2CA6Render10ShapeLayerEERKDavEUb_ENUlP12CAShapeLayerPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSD_11char_traitsIcEENSD_9allocatorIcEEEERK25ReverseSerializationStateE9_8__invokeES7_S9_SC_SL_SO_(void *a1, const char *a2)
+void *_ZZZ20get_setters_for_typeIN2CA6Render10ShapeLayerEERKDavEUb_ENUlP12CAShapeLayerPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSD_11char_traitsIcEENSD_9allocatorIcEEEERK25ReverseSerializationStateE9_8__invokeES7_S9_SC_SL_SO_(void *result, const char *a2)
 {
   v2 = *(a2 + 34);
   if (BYTE1(v2) <= 2u)
   {
-    return [a1 setLineJoin:*off_1E6DED100[(v2 >> 8) & 3]];
+    return [result setLineJoin:*off_1E6DED100[(v2 >> 8) & 3]];
   }
 
-  return a1;
+  return result;
 }
 
-void *_ZZZ20get_setters_for_typeIN2CA6Render10ShapeLayerEERKDavEUb_ENUlP12CAShapeLayerPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSD_11char_traitsIcEENSD_9allocatorIcEEEERK25ReverseSerializationStateE8_8__invokeES7_S9_SC_SL_SO_(void *a1, const char *a2)
+void *_ZZZ20get_setters_for_typeIN2CA6Render10ShapeLayerEERKDavEUb_ENUlP12CAShapeLayerPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSD_11char_traitsIcEENSD_9allocatorIcEEEERK25ReverseSerializationStateE8_8__invokeES7_S9_SC_SL_SO_(void *result, const char *a2)
 {
   if (a2[136])
   {
     if (a2[136] != 1)
     {
-      return a1;
+      return result;
     }
 
     v2 = &kCAFillRuleEvenOdd;
@@ -126,19 +126,19 @@ void *_ZZZ20get_setters_for_typeIN2CA6Render10ShapeLayerEERKDavEUb_ENUlP12CAShap
     v2 = &kCAFillRuleNonZero;
   }
 
-  return [a1 setFillRule:*v2];
+  return [result setFillRule:*v2];
 }
 
-uint64_t _ZZZ20get_setters_for_typeIN2CA6Render10ShapeLayerEERKDavEUb_ENUlP12CAShapeLayerPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSD_11char_traitsIcEENSD_9allocatorIcEEEERK25ReverseSerializationStateE7_8__invokeES7_S9_SC_SL_SO_(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, CGColorSpace **a5)
+uint64_t _ZZZ20get_setters_for_typeIN2CA6Render10ShapeLayerEERKDavEUb_ENUlP12CAShapeLayerPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSD_11char_traitsIcEENSD_9allocatorIcEEEERK25ReverseSerializationStateE7_8__invokeES7_S9_SC_SL_SO_(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t *a5)
 {
-  v6 = cg_color_from_pattern_or_color(a5, *(a2 + 80), *(a2 + 56));
+  v6 = cg_color_from_pattern_or_color(a5, *(a2 + 80), *(a2 + 56), *(a2 + 72));
 
   return [a1 setValue:v6 forKey:@"strokeColor"];
 }
 
-uint64_t _ZZZ20get_setters_for_typeIN2CA6Render10ShapeLayerEERKDavEUb_ENUlP12CAShapeLayerPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSD_11char_traitsIcEENSD_9allocatorIcEEEERK25ReverseSerializationStateE6_8__invokeES7_S9_SC_SL_SO_(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, CGColorSpace **a5)
+uint64_t _ZZZ20get_setters_for_typeIN2CA6Render10ShapeLayerEERKDavEUb_ENUlP12CAShapeLayerPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSD_11char_traitsIcEENSD_9allocatorIcEEEERK25ReverseSerializationStateE6_8__invokeES7_S9_SC_SL_SO_(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t *a5)
 {
-  v6 = cg_color_from_pattern_or_color(a5, *(a2 + 48), *(a2 + 24));
+  v6 = cg_color_from_pattern_or_color(a5, *(a2 + 48), *(a2 + 24), *(a2 + 40));
 
   return [a1 setValue:v6 forKey:@"fillColor"];
 }
@@ -157,7 +157,7 @@ void *_ZZZ20get_setters_for_typeIN2CA6Render10ShapeLayerEERKDavEUb_ENUlP12CAShap
   return result;
 }
 
-uint64_t _ZZZ20get_setters_for_typeIN2CA6Render10ShapeLayerEERKDavEUb_ENUlP12CAShapeLayerPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSD_11char_traitsIcEENSD_9allocatorIcEEEERK25ReverseSerializationStateE4_8__invokeES7_S9_SC_SL_SO_(void *a1, uint64_t a2)
+void *_ZZZ20get_setters_for_typeIN2CA6Render10ShapeLayerEERKDavEUb_ENUlP12CAShapeLayerPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSD_11char_traitsIcEENSD_9allocatorIcEEEERK25ReverseSerializationStateE4_8__invokeES7_S9_SC_SL_SO_(void *a1, uint64_t a2)
 {
   result = [MEMORY[0x1E696AD98] numberWithDouble:*(a2 + 120)];
   if (result)
@@ -197,9 +197,9 @@ CGPath *_ZZZ20get_setters_for_typeIN2CA6Render10ShapeLayerEERKDavEUb_ENUlP12CASh
   return result;
 }
 
-uint64_t _ZZZ20get_setters_for_typeIN2CA6Render10ShapeLayerEERKDavEUb_ENUlP12CAShapeLayerPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSD_11char_traitsIcEENSD_9allocatorIcEEEERK25ReverseSerializationStateE2_8__invokeES7_S9_SC_SL_SO_(void *a1, uint64_t a2, uint64_t a3, uint64_t *a4)
+void *_ZZZ20get_setters_for_typeIN2CA6Render10ShapeLayerEERKDavEUb_ENUlP12CAShapeLayerPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSD_11char_traitsIcEENSD_9allocatorIcEEEERK25ReverseSerializationStateE2_8__invokeES7_S9_SC_SL_SO_(void *a1, uint64_t a2, uint64_t a3, uint64_t *a4)
 {
-  result = [MEMORY[0x1E696AD98] numberWithDouble:*(a2 + 112)];
+  result = [MEMORY[0x1E696AD98] numberWithDouble:{a3, *(a2 + 112)}];
   if (result)
   {
     v7 = result;
@@ -221,9 +221,9 @@ uint64_t _ZZZ20get_setters_for_typeIN2CA6Render10ShapeLayerEERKDavEUb_ENUlP12CAS
   return result;
 }
 
-uint64_t _ZZZ20get_setters_for_typeIN2CA6Render10ShapeLayerEERKDavEUb_ENUlP12CAShapeLayerPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSD_11char_traitsIcEENSD_9allocatorIcEEEERK25ReverseSerializationStateE1_8__invokeES7_S9_SC_SL_SO_(void *a1, uint64_t a2, uint64_t a3, uint64_t *a4)
+void *_ZZZ20get_setters_for_typeIN2CA6Render10ShapeLayerEERKDavEUb_ENUlP12CAShapeLayerPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSD_11char_traitsIcEENSD_9allocatorIcEEEERK25ReverseSerializationStateE1_8__invokeES7_S9_SC_SL_SO_(void *a1, uint64_t a2, uint64_t a3, uint64_t *a4)
 {
-  result = [MEMORY[0x1E696AD98] numberWithDouble:*(a2 + 104)];
+  result = [MEMORY[0x1E696AD98] numberWithDouble:{a3, *(a2 + 104)}];
   if (result)
   {
     v7 = result;
@@ -245,9 +245,9 @@ uint64_t _ZZZ20get_setters_for_typeIN2CA6Render10ShapeLayerEERKDavEUb_ENUlP12CAS
   return result;
 }
 
-uint64_t _ZZZ20get_setters_for_typeIN2CA6Render10ShapeLayerEERKDavEUb_ENUlP12CAShapeLayerPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSD_11char_traitsIcEENSD_9allocatorIcEEEERK25ReverseSerializationStateE0_8__invokeES7_S9_SC_SL_SO_(void *a1, uint64_t a2, uint64_t a3, uint64_t *a4)
+void *_ZZZ20get_setters_for_typeIN2CA6Render10ShapeLayerEERKDavEUb_ENUlP12CAShapeLayerPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSD_11char_traitsIcEENSD_9allocatorIcEEEERK25ReverseSerializationStateE0_8__invokeES7_S9_SC_SL_SO_(void *a1, uint64_t a2, uint64_t a3, uint64_t *a4)
 {
-  result = [MEMORY[0x1E696AD98] numberWithDouble:*(a2 + 96)];
+  result = [MEMORY[0x1E696AD98] numberWithDouble:{a3, *(a2 + 96)}];
   if (result)
   {
     v7 = result;
@@ -269,9 +269,9 @@ uint64_t _ZZZ20get_setters_for_typeIN2CA6Render10ShapeLayerEERKDavEUb_ENUlP12CAS
   return result;
 }
 
-uint64_t _ZZZ20get_setters_for_typeIN2CA6Render10ShapeLayerEERKDavEUb_ENUlP12CAShapeLayerPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSD_11char_traitsIcEENSD_9allocatorIcEEEERK25ReverseSerializationStateE_8__invokeES7_S9_SC_SL_SO_(void *a1, uint64_t a2, uint64_t a3, uint64_t *a4)
+void *_ZZZ20get_setters_for_typeIN2CA6Render10ShapeLayerEERKDavEUb_ENUlP12CAShapeLayerPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSD_11char_traitsIcEENSD_9allocatorIcEEEERK25ReverseSerializationStateE_8__invokeES7_S9_SC_SL_SO_(void *a1, uint64_t a2, uint64_t a3, uint64_t *a4)
 {
-  result = [MEMORY[0x1E696AD98] numberWithDouble:*(a2 + 88)];
+  result = [MEMORY[0x1E696AD98] numberWithDouble:{a3, *(a2 + 88)}];
   if (result)
   {
     v7 = result;
@@ -311,7 +311,7 @@ void ___Z20get_setters_for_typeIN2CA6Render13GradientLayerEERKDav_block_invoke()
 
   std::string::basic_string[abi:nn200100]<0>(__p, v3);
   v2 = __p;
-  std::__hash_table<std::__hash_value_type<std::string,void (*)(CAGradientLayer *,CA::Render::GradientLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAGradientLayer *,CA::Render::GradientLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAGradientLayer *,CA::Render::GradientLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAGradientLayer *,CA::Render::GradientLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(__p)[5] = _ZZZ20get_setters_for_typeIN2CA6Render13GradientLayerEERKDavEUb_ENUlP15CAGradientLayerPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSD_11char_traitsIcEENSD_9allocatorIcEEEERK25ReverseSerializationStateE_8__invokeES7_S9_SC_SL_SO_;
+  std::__hash_table<std::__hash_value_type<std::string,void (*)(CAGradientLayer *,CA::Render::GradientLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAGradientLayer *,CA::Render::GradientLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAGradientLayer *,CA::Render::GradientLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAGradientLayer *,CA::Render::GradientLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(__p, &v2)[5] = _ZZZ20get_setters_for_typeIN2CA6Render13GradientLayerEERKDavEUb_ENUlP15CAGradientLayerPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSD_11char_traitsIcEENSD_9allocatorIcEEEERK25ReverseSerializationStateE_8__invokeES7_S9_SC_SL_SO_;
   if (v1 < 0)
   {
     operator delete(__p[0]);
@@ -331,7 +331,7 @@ void ___Z20get_setters_for_typeIN2CA6Render13GradientLayerEERKDav_block_invoke()
 
   std::string::basic_string[abi:nn200100]<0>(__p, v3);
   v2 = __p;
-  std::__hash_table<std::__hash_value_type<std::string,void (*)(CAGradientLayer *,CA::Render::GradientLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAGradientLayer *,CA::Render::GradientLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAGradientLayer *,CA::Render::GradientLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAGradientLayer *,CA::Render::GradientLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(__p)[5] = _ZZZ20get_setters_for_typeIN2CA6Render13GradientLayerEERKDavEUb_ENUlP15CAGradientLayerPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSD_11char_traitsIcEENSD_9allocatorIcEEEERK25ReverseSerializationStateE0_8__invokeES7_S9_SC_SL_SO_;
+  std::__hash_table<std::__hash_value_type<std::string,void (*)(CAGradientLayer *,CA::Render::GradientLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAGradientLayer *,CA::Render::GradientLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAGradientLayer *,CA::Render::GradientLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAGradientLayer *,CA::Render::GradientLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(__p, &v2)[5] = _ZZZ20get_setters_for_typeIN2CA6Render13GradientLayerEERKDavEUb_ENUlP15CAGradientLayerPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSD_11char_traitsIcEENSD_9allocatorIcEEEERK25ReverseSerializationStateE0_8__invokeES7_S9_SC_SL_SO_;
   if (v1 < 0)
   {
     operator delete(__p[0]);
@@ -351,7 +351,7 @@ void ___Z20get_setters_for_typeIN2CA6Render13GradientLayerEERKDav_block_invoke()
 
   std::string::basic_string[abi:nn200100]<0>(__p, v3);
   v2 = __p;
-  std::__hash_table<std::__hash_value_type<std::string,void (*)(CAGradientLayer *,CA::Render::GradientLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAGradientLayer *,CA::Render::GradientLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAGradientLayer *,CA::Render::GradientLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAGradientLayer *,CA::Render::GradientLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(__p)[5] = _ZZZ20get_setters_for_typeIN2CA6Render13GradientLayerEERKDavEUb_ENUlP15CAGradientLayerPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSD_11char_traitsIcEENSD_9allocatorIcEEEERK25ReverseSerializationStateE1_8__invokeES7_S9_SC_SL_SO_;
+  std::__hash_table<std::__hash_value_type<std::string,void (*)(CAGradientLayer *,CA::Render::GradientLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAGradientLayer *,CA::Render::GradientLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAGradientLayer *,CA::Render::GradientLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAGradientLayer *,CA::Render::GradientLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(__p, &v2)[5] = _ZZZ20get_setters_for_typeIN2CA6Render13GradientLayerEERKDavEUb_ENUlP15CAGradientLayerPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSD_11char_traitsIcEENSD_9allocatorIcEEEERK25ReverseSerializationStateE1_8__invokeES7_S9_SC_SL_SO_;
   if (v1 < 0)
   {
     operator delete(__p[0]);
@@ -371,7 +371,7 @@ void ___Z20get_setters_for_typeIN2CA6Render13GradientLayerEERKDav_block_invoke()
 
   std::string::basic_string[abi:nn200100]<0>(__p, v3);
   v2 = __p;
-  std::__hash_table<std::__hash_value_type<std::string,void (*)(CAGradientLayer *,CA::Render::GradientLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAGradientLayer *,CA::Render::GradientLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAGradientLayer *,CA::Render::GradientLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAGradientLayer *,CA::Render::GradientLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(__p)[5] = _ZZZ20get_setters_for_typeIN2CA6Render13GradientLayerEERKDavEUb_ENUlP15CAGradientLayerPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSD_11char_traitsIcEENSD_9allocatorIcEEEERK25ReverseSerializationStateE2_8__invokeES7_S9_SC_SL_SO_;
+  std::__hash_table<std::__hash_value_type<std::string,void (*)(CAGradientLayer *,CA::Render::GradientLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAGradientLayer *,CA::Render::GradientLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAGradientLayer *,CA::Render::GradientLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAGradientLayer *,CA::Render::GradientLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(__p, &v2)[5] = _ZZZ20get_setters_for_typeIN2CA6Render13GradientLayerEERKDavEUb_ENUlP15CAGradientLayerPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSD_11char_traitsIcEENSD_9allocatorIcEEEERK25ReverseSerializationStateE2_8__invokeES7_S9_SC_SL_SO_;
   if (v1 < 0)
   {
     operator delete(__p[0]);
@@ -390,7 +390,7 @@ void ___Z20get_setters_for_typeIN2CA6Render13GradientLayerEERKDav_block_invoke()
 
   std::string::basic_string[abi:nn200100]<0>(v3, "premultiplied");
   __p[0] = v3;
-  std::__hash_table<std::__hash_value_type<std::string,void (*)(CAGradientLayer *,CA::Render::GradientLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAGradientLayer *,CA::Render::GradientLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAGradientLayer *,CA::Render::GradientLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAGradientLayer *,CA::Render::GradientLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v3)[5] = _ZZZ20get_setters_for_typeIN2CA6Render13GradientLayerEERKDavEUb_ENUlP15CAGradientLayerPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSD_11char_traitsIcEENSD_9allocatorIcEEEERK25ReverseSerializationStateE3_8__invokeES7_S9_SC_SL_SO_;
+  std::__hash_table<std::__hash_value_type<std::string,void (*)(CAGradientLayer *,CA::Render::GradientLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAGradientLayer *,CA::Render::GradientLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAGradientLayer *,CA::Render::GradientLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAGradientLayer *,CA::Render::GradientLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v3, __p)[5] = _ZZZ20get_setters_for_typeIN2CA6Render13GradientLayerEERKDavEUb_ENUlP15CAGradientLayerPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSD_11char_traitsIcEENSD_9allocatorIcEEEERK25ReverseSerializationStateE3_8__invokeES7_S9_SC_SL_SO_;
   if (v4 < 0)
   {
     operator delete(v3[0]);
@@ -410,7 +410,7 @@ void ___Z20get_setters_for_typeIN2CA6Render13GradientLayerEERKDav_block_invoke()
 
   std::string::basic_string[abi:nn200100]<0>(__p, v3);
   v2 = __p;
-  std::__hash_table<std::__hash_value_type<std::string,void (*)(CAGradientLayer *,CA::Render::GradientLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAGradientLayer *,CA::Render::GradientLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAGradientLayer *,CA::Render::GradientLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAGradientLayer *,CA::Render::GradientLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(__p)[5] = _ZZZ20get_setters_for_typeIN2CA6Render13GradientLayerEERKDavEUb_ENUlP15CAGradientLayerPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSD_11char_traitsIcEENSD_9allocatorIcEEEERK25ReverseSerializationStateE4_8__invokeES7_S9_SC_SL_SO_;
+  std::__hash_table<std::__hash_value_type<std::string,void (*)(CAGradientLayer *,CA::Render::GradientLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAGradientLayer *,CA::Render::GradientLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAGradientLayer *,CA::Render::GradientLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAGradientLayer *,CA::Render::GradientLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(__p, &v2)[5] = _ZZZ20get_setters_for_typeIN2CA6Render13GradientLayerEERKDavEUb_ENUlP15CAGradientLayerPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSD_11char_traitsIcEENSD_9allocatorIcEEEERK25ReverseSerializationStateE4_8__invokeES7_S9_SC_SL_SO_;
   if (v1 < 0)
   {
     operator delete(__p[0]);
@@ -430,7 +430,7 @@ void ___Z20get_setters_for_typeIN2CA6Render13GradientLayerEERKDav_block_invoke()
 
   std::string::basic_string[abi:nn200100]<0>(__p, v3);
   v2 = __p;
-  std::__hash_table<std::__hash_value_type<std::string,void (*)(CAGradientLayer *,CA::Render::GradientLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAGradientLayer *,CA::Render::GradientLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAGradientLayer *,CA::Render::GradientLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAGradientLayer *,CA::Render::GradientLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(__p)[5] = _ZZZ20get_setters_for_typeIN2CA6Render13GradientLayerEERKDavEUb_ENUlP15CAGradientLayerPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSD_11char_traitsIcEENSD_9allocatorIcEEEERK25ReverseSerializationStateE5_8__invokeES7_S9_SC_SL_SO_;
+  std::__hash_table<std::__hash_value_type<std::string,void (*)(CAGradientLayer *,CA::Render::GradientLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAGradientLayer *,CA::Render::GradientLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAGradientLayer *,CA::Render::GradientLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAGradientLayer *,CA::Render::GradientLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(__p, &v2)[5] = _ZZZ20get_setters_for_typeIN2CA6Render13GradientLayerEERKDavEUb_ENUlP15CAGradientLayerPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSD_11char_traitsIcEENSD_9allocatorIcEEEERK25ReverseSerializationStateE5_8__invokeES7_S9_SC_SL_SO_;
   if (v1 < 0)
   {
     operator delete(__p[0]);
@@ -450,7 +450,7 @@ void ___Z20get_setters_for_typeIN2CA6Render13GradientLayerEERKDav_block_invoke()
 
   std::string::basic_string[abi:nn200100]<0>(__p, v3);
   v2 = __p;
-  std::__hash_table<std::__hash_value_type<std::string,void (*)(CAGradientLayer *,CA::Render::GradientLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAGradientLayer *,CA::Render::GradientLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAGradientLayer *,CA::Render::GradientLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAGradientLayer *,CA::Render::GradientLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(__p)[5] = _ZZZ20get_setters_for_typeIN2CA6Render13GradientLayerEERKDavEUb_ENUlP15CAGradientLayerPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSD_11char_traitsIcEENSD_9allocatorIcEEEERK25ReverseSerializationStateE6_8__invokeES7_S9_SC_SL_SO_;
+  std::__hash_table<std::__hash_value_type<std::string,void (*)(CAGradientLayer *,CA::Render::GradientLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAGradientLayer *,CA::Render::GradientLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAGradientLayer *,CA::Render::GradientLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAGradientLayer *,CA::Render::GradientLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(__p, &v2)[5] = _ZZZ20get_setters_for_typeIN2CA6Render13GradientLayerEERKDavEUb_ENUlP15CAGradientLayerPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSD_11char_traitsIcEENSD_9allocatorIcEEEERK25ReverseSerializationStateE6_8__invokeES7_S9_SC_SL_SO_;
   if (v1 < 0)
   {
     operator delete(__p[0]);
@@ -470,7 +470,7 @@ void ___Z20get_setters_for_typeIN2CA6Render13GradientLayerEERKDav_block_invoke()
 
   std::string::basic_string[abi:nn200100]<0>(__p, v3);
   v2 = __p;
-  std::__hash_table<std::__hash_value_type<std::string,void (*)(CAGradientLayer *,CA::Render::GradientLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAGradientLayer *,CA::Render::GradientLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAGradientLayer *,CA::Render::GradientLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAGradientLayer *,CA::Render::GradientLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(__p)[5] = _ZZZ20get_setters_for_typeIN2CA6Render13GradientLayerEERKDavEUb_ENUlP15CAGradientLayerPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSD_11char_traitsIcEENSD_9allocatorIcEEEERK25ReverseSerializationStateE7_8__invokeES7_S9_SC_SL_SO_;
+  std::__hash_table<std::__hash_value_type<std::string,void (*)(CAGradientLayer *,CA::Render::GradientLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAGradientLayer *,CA::Render::GradientLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAGradientLayer *,CA::Render::GradientLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAGradientLayer *,CA::Render::GradientLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(__p, &v2)[5] = _ZZZ20get_setters_for_typeIN2CA6Render13GradientLayerEERKDavEUb_ENUlP15CAGradientLayerPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSD_11char_traitsIcEENSD_9allocatorIcEEEERK25ReverseSerializationStateE7_8__invokeES7_S9_SC_SL_SO_;
   if (v1 < 0)
   {
     operator delete(__p[0]);
@@ -490,7 +490,7 @@ void ___Z20get_setters_for_typeIN2CA6Render13GradientLayerEERKDav_block_invoke()
 
   std::string::basic_string[abi:nn200100]<0>(__p, v3);
   v2 = __p;
-  std::__hash_table<std::__hash_value_type<std::string,void (*)(CAGradientLayer *,CA::Render::GradientLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAGradientLayer *,CA::Render::GradientLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAGradientLayer *,CA::Render::GradientLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAGradientLayer *,CA::Render::GradientLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(__p)[5] = _ZZZ20get_setters_for_typeIN2CA6Render13GradientLayerEERKDavEUb_ENUlP15CAGradientLayerPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSD_11char_traitsIcEENSD_9allocatorIcEEEERK25ReverseSerializationStateE8_8__invokeES7_S9_SC_SL_SO_;
+  std::__hash_table<std::__hash_value_type<std::string,void (*)(CAGradientLayer *,CA::Render::GradientLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAGradientLayer *,CA::Render::GradientLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAGradientLayer *,CA::Render::GradientLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAGradientLayer *,CA::Render::GradientLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(__p, &v2)[5] = _ZZZ20get_setters_for_typeIN2CA6Render13GradientLayerEERKDavEUb_ENUlP15CAGradientLayerPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSD_11char_traitsIcEENSD_9allocatorIcEEEERK25ReverseSerializationStateE8_8__invokeES7_S9_SC_SL_SO_;
   if (v1 < 0)
   {
     operator delete(__p[0]);
@@ -666,48 +666,48 @@ void *std::__hash_table<std::__hash_value_type<std::string,void (*)(CAGradientLa
   return v11;
 }
 
-void *std::__hash_table<std::__hash_value_type<std::string,void (*)(CAGradientLayer *,CA::Render::GradientLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAGradientLayer *,CA::Render::GradientLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAGradientLayer *,CA::Render::GradientLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAGradientLayer *,CA::Render::GradientLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(uint64_t a1)
+void *std::__hash_table<std::__hash_value_type<std::string,void (*)(CAGradientLayer *,CA::Render::GradientLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAGradientLayer *,CA::Render::GradientLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAGradientLayer *,CA::Render::GradientLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAGradientLayer *,CA::Render::GradientLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(uint64_t a1, __int128 **a2)
 {
-  v1 = a1;
-  v2 = *(a1 + 8);
+  v2 = a1;
+  v3 = *(a1 + 8);
   if (*(a1 + 23) >= 0)
   {
-    v3 = *(a1 + 23);
+    v4 = *(a1 + 23);
   }
 
   else
   {
     a1 = *a1;
-    v3 = v2;
+    v4 = v3;
   }
 
-  v4 = std::__murmur2_or_cityhash<unsigned long,64ul>::operator()[abi:nn200100](a1, v3);
-  v5 = v4;
-  v6 = *(&_ZZ20get_setters_for_typeIN2CA6Render13GradientLayerEERKDavE3map_0 + 1);
+  v5 = std::__murmur2_or_cityhash<unsigned long,64ul>::operator()[abi:nn200100](a1, v4);
+  v6 = v5;
+  v7 = *(&_ZZ20get_setters_for_typeIN2CA6Render13GradientLayerEERKDavE3map_0 + 1);
   if (!*(&_ZZ20get_setters_for_typeIN2CA6Render13GradientLayerEERKDavE3map_0 + 1))
   {
     goto LABEL_21;
   }
 
-  v7 = vcnt_s8(*(&_ZZ20get_setters_for_typeIN2CA6Render13GradientLayerEERKDavE3map_0 + 8));
-  v7.i16[0] = vaddlv_u8(v7);
-  v8 = v7.u32[0];
-  if (v7.u32[0] > 1uLL)
+  v8 = vcnt_s8(*(&_ZZ20get_setters_for_typeIN2CA6Render13GradientLayerEERKDavE3map_0 + 8));
+  v8.i16[0] = vaddlv_u8(v8);
+  v9 = v8.u32[0];
+  if (v8.u32[0] > 1uLL)
   {
-    v9 = v4;
-    if (v4 >= *(&_ZZ20get_setters_for_typeIN2CA6Render13GradientLayerEERKDavE3map_0 + 1))
+    v10 = v5;
+    if (v5 >= *(&_ZZ20get_setters_for_typeIN2CA6Render13GradientLayerEERKDavE3map_0 + 1))
     {
-      v9 = v4 % *(&_ZZ20get_setters_for_typeIN2CA6Render13GradientLayerEERKDavE3map_0 + 1);
+      v10 = v5 % *(&_ZZ20get_setters_for_typeIN2CA6Render13GradientLayerEERKDavE3map_0 + 1);
     }
   }
 
   else
   {
-    v9 = (*(&_ZZ20get_setters_for_typeIN2CA6Render13GradientLayerEERKDavE3map_0 + 1) - 1) & v4;
+    v10 = (*(&_ZZ20get_setters_for_typeIN2CA6Render13GradientLayerEERKDavE3map_0 + 1) - 1) & v5;
   }
 
-  v10 = *(_ZZ20get_setters_for_typeIN2CA6Render13GradientLayerEERKDavE3map_0 + 8 * v9);
-  if (!v10 || (v11 = *v10) == 0)
+  v11 = *(_ZZ20get_setters_for_typeIN2CA6Render13GradientLayerEERKDavE3map_0 + 8 * v10);
+  if (!v11 || (v12 = *v11) == 0)
   {
 LABEL_21:
     operator new();
@@ -715,47 +715,47 @@ LABEL_21:
 
   while (1)
   {
-    v12 = v11[1];
-    if (v12 == v5)
+    v13 = v12[1];
+    if (v13 == v6)
     {
       break;
     }
 
-    if (v8 > 1)
+    if (v9 > 1)
     {
-      if (v12 >= v6)
+      if (v13 >= v7)
       {
-        v12 %= v6;
+        v13 %= v7;
       }
     }
 
     else
     {
-      v12 &= v6 - 1;
+      v13 &= v7 - 1;
     }
 
-    if (v12 != v9)
+    if (v13 != v10)
     {
       goto LABEL_21;
     }
 
 LABEL_20:
-    v11 = *v11;
-    if (!v11)
+    v12 = *v12;
+    if (!v12)
     {
       goto LABEL_21;
     }
   }
 
-  if (!std::equal_to<std::string>::operator()[abi:nn200100](v11 + 2, v1))
+  if (!std::equal_to<std::string>::operator()[abi:nn200100](v12 + 2, v2))
   {
     goto LABEL_20;
   }
 
-  return v11;
+  return v12;
 }
 
-uint64_t _ZZZ20get_setters_for_typeIN2CA6Render13GradientLayerEERKDavEUb_ENUlP15CAGradientLayerPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSD_11char_traitsIcEENSD_9allocatorIcEEEERK25ReverseSerializationStateE8_8__invokeES7_S9_SC_SL_SO_(uint64_t result, uint64_t a2)
+void *_ZZZ20get_setters_for_typeIN2CA6Render13GradientLayerEERKDavEUb_ENUlP15CAGradientLayerPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSD_11char_traitsIcEENSD_9allocatorIcEEEERK25ReverseSerializationStateE8_8__invokeES7_S9_SC_SL_SO_(void *result, uint64_t a2)
 {
   v2 = *(a2 + 56);
   if (v2)
@@ -774,7 +774,7 @@ uint64_t _ZZZ20get_setters_for_typeIN2CA6Render13GradientLayerEERKDavEUb_ENUlP15
   return result;
 }
 
-uint64_t _ZZZ20get_setters_for_typeIN2CA6Render13GradientLayerEERKDavEUb_ENUlP15CAGradientLayerPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSD_11char_traitsIcEENSD_9allocatorIcEEEERK25ReverseSerializationStateE7_8__invokeES7_S9_SC_SL_SO_(uint64_t result, uint64_t a2)
+void *_ZZZ20get_setters_for_typeIN2CA6Render13GradientLayerEERKDavEUb_ENUlP15CAGradientLayerPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSD_11char_traitsIcEENSD_9allocatorIcEEEERK25ReverseSerializationStateE7_8__invokeES7_S9_SC_SL_SO_(void *result, uint64_t a2)
 {
   v23 = *MEMORY[0x1E69E9840];
   if (*(a2 + 32))
@@ -887,7 +887,7 @@ uint64_t _ZZZ20get_setters_for_typeIN2CA6Render13GradientLayerEERKDavEUb_ENUlP15
   return [a1 setType:v4];
 }
 
-uint64_t _ZZZ20get_setters_for_typeIN2CA6Render13GradientLayerEERKDavEUb_ENUlP15CAGradientLayerPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSD_11char_traitsIcEENSD_9allocatorIcEEEERK25ReverseSerializationStateE5_8__invokeES7_S9_SC_SL_SO_(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, CGColorSpace **a5)
+void *_ZZZ20get_setters_for_typeIN2CA6Render13GradientLayerEERKDavEUb_ENUlP15CAGradientLayerPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSD_11char_traitsIcEENSD_9allocatorIcEEEERK25ReverseSerializationStateE5_8__invokeES7_S9_SC_SL_SO_(void *result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t *a5)
 {
   v8[1] = *MEMORY[0x1E69E9840];
   if ((*(a2 + 13) & 8) != 0)
@@ -921,7 +921,7 @@ void sub_183C83C4C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t _ZZZ20get_setters_for_typeIN2CA6Render13GradientLayerEERKDavEUb_ENUlP15CAGradientLayerPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSD_11char_traitsIcEENSD_9allocatorIcEEEERK25ReverseSerializationStateE4_8__invokeES7_S9_SC_SL_SO_(uint64_t result, uint64_t a2, const double *a3)
+void *_ZZZ20get_setters_for_typeIN2CA6Render13GradientLayerEERKDavEUb_ENUlP15CAGradientLayerPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSD_11char_traitsIcEENSD_9allocatorIcEEEERK25ReverseSerializationStateE4_8__invokeES7_S9_SC_SL_SO_(void *result, uint64_t a2, const double *a3)
 {
   v4 = *(a2 + 64);
   if (v4)
@@ -962,7 +962,7 @@ uint64_t _ZZZ20get_setters_for_typeIN2CA6Render13GradientLayerEERKDavEUb_ENUlP15
   return result;
 }
 
-uint64_t _ZZZ20get_setters_for_typeIN2CA6Render13GradientLayerEERKDavEUb_ENUlP15CAGradientLayerPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSD_11char_traitsIcEENSD_9allocatorIcEEEERK25ReverseSerializationStateE3_8__invokeES7_S9_SC_SL_SO_(void *a1, uint64_t a2)
+void *_ZZZ20get_setters_for_typeIN2CA6Render13GradientLayerEERKDavEUb_ENUlP15CAGradientLayerPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSD_11char_traitsIcEENSD_9allocatorIcEEEERK25ReverseSerializationStateE3_8__invokeES7_S9_SC_SL_SO_(void *a1, uint64_t a2)
 {
   result = [MEMORY[0x1E696AD98] numberWithLongLong:(*(a2 + 28) >> 12) & 1];
   if (result)
@@ -1002,9 +1002,9 @@ uint64_t _ZZZ20get_setters_for_typeIN2CA6Render13GradientLayerEERKDavEUb_ENUlP15
   return result;
 }
 
-uint64_t _ZZZ20get_setters_for_typeIN2CA6Render13GradientLayerEERKDavEUb_ENUlP15CAGradientLayerPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSD_11char_traitsIcEENSD_9allocatorIcEEEERK25ReverseSerializationStateE1_8__invokeES7_S9_SC_SL_SO_(void *a1, uint64_t a2, uint64_t a3, uint64_t *a4)
+void *_ZZZ20get_setters_for_typeIN2CA6Render13GradientLayerEERKDavEUb_ENUlP15CAGradientLayerPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSD_11char_traitsIcEENSD_9allocatorIcEEEERK25ReverseSerializationStateE1_8__invokeES7_S9_SC_SL_SO_(void *a1, uint64_t a2, uint64_t a3, uint64_t *a4)
 {
-  result = [MEMORY[0x1E696AD98] numberWithDouble:*(a2 + 108)];
+  result = [MEMORY[0x1E696AD98] numberWithDouble:{a3, *(a2 + 108)}];
   if (result)
   {
     v7 = result;
@@ -1026,7 +1026,7 @@ uint64_t _ZZZ20get_setters_for_typeIN2CA6Render13GradientLayerEERKDavEUb_ENUlP15
   return result;
 }
 
-uint64_t _ZZZ20get_setters_for_typeIN2CA6Render13GradientLayerEERKDavEUb_ENUlP15CAGradientLayerPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSD_11char_traitsIcEENSD_9allocatorIcEEEERK25ReverseSerializationStateE0_8__invokeES7_S9_SC_SL_SO_(void *a1, uint64_t a2, uint64_t a3, uint64_t *a4)
+void *_ZZZ20get_setters_for_typeIN2CA6Render13GradientLayerEERKDavEUb_ENUlP15CAGradientLayerPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSD_11char_traitsIcEENSD_9allocatorIcEEEERK25ReverseSerializationStateE0_8__invokeES7_S9_SC_SL_SO_(void *a1, uint64_t a2, uint64_t a3, uint64_t *a4)
 {
   v9 = *MEMORY[0x1E69E9840];
   v8 = *(a2 + 88);
@@ -1049,7 +1049,7 @@ uint64_t _ZZZ20get_setters_for_typeIN2CA6Render13GradientLayerEERKDavEUb_ENUlP15
   return result;
 }
 
-uint64_t _ZZZ20get_setters_for_typeIN2CA6Render13GradientLayerEERKDavEUb_ENUlP15CAGradientLayerPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSD_11char_traitsIcEENSD_9allocatorIcEEEERK25ReverseSerializationStateE_8__invokeES7_S9_SC_SL_SO_(void *a1, uint64_t a2, uint64_t a3, uint64_t *a4)
+void *_ZZZ20get_setters_for_typeIN2CA6Render13GradientLayerEERKDavEUb_ENUlP15CAGradientLayerPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSD_11char_traitsIcEENSD_9allocatorIcEEEERK25ReverseSerializationStateE_8__invokeES7_S9_SC_SL_SO_(void *a1, uint64_t a2, uint64_t a3, uint64_t *a4)
 {
   v9 = *MEMORY[0x1E69E9840];
   v8 = *(a2 + 72);
@@ -1090,11 +1090,11 @@ void std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_val
   operator delete(__p);
 }
 
-void CATiledLayerDestroy(CATiledLayer *a1)
+void CATiledLayerDestroy(void *result)
 {
-  if ((*(a1->super._attr.layer + 1) & 0x60000) == 0)
+  if ((*(result[2] + 4) & 0x60000) == 0)
   {
-    v2 = [(CALayer *)a1 contents];
+    v2 = [result contents];
     if (v2)
     {
       v3 = v2;
@@ -1110,7 +1110,7 @@ void CATiledLayerDestroy(CATiledLayer *a1)
       {
         CAImageProviderSetCallback(v3, 0, 0);
 
-        CAImageProviderRemoveLayer(v3, a1);
+        CAImageProviderRemoveLayer(v3, result);
       }
     }
   }
@@ -1406,7 +1406,7 @@ LABEL_110:
 
     v67 = CA::Render::format_rowbytes(v64[3], v66);
     v68 = CAGetCachedCGBitmapContext_(v64 + v65, v26, v27, v48, v67, space);
-    if (!v68 || (v61 = *(v68 + 2)) == 0)
+    if (!v68 || (v61 = v68[2]) == 0)
     {
       if (atomic_fetch_add(v85 + 2, 0xFFFFFFFF) == 1)
       {
@@ -1640,7 +1640,7 @@ uint64_t convertRectToImageCoordinates(void *a1, unsigned int a2, unsigned int a
   return result;
 }
 
-uint64_t CA::ScanConverter::Path::quadto(CA::ScanConverter::Path *this, double a2, double a3, double a4, double a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12)
+CA::ScanConverter::Path *CA::ScanConverter::Path::quadto(CA::ScanConverter::Path *this, double a2, double a3, double a4, double a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12)
 {
   if (*(this + 10) != 1.0)
   {
@@ -1654,7 +1654,7 @@ uint64_t CA::ScanConverter::Path::quadto(CA::ScanConverter::Path *this, double a
   return CA::ScanConverter::Path::add_cube(this, v12, v13, (v12 + a2 + a2) * 0.333333333, (v13 + a3 + a3) * 0.333333333, (a2 + a2 + a4) * 0.333333333, (a3 + a3 + a5) * 0.333333333, a4, a5);
 }
 
-uint64_t CA::ScanConverter::Path::add_cube_clip(uint64_t this, float64_t a2, float64_t a3, double a4, float64_t a5, float64_t a6, double a7, float64_t a8, float64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, double a17, float64x2_t a18, double a19)
+CA::ScanConverter::Path *CA::ScanConverter::Path::add_cube_clip(CA::ScanConverter::Path *this, float64_t a2, float64_t a3, double a4, float64_t a5, float64_t a6, double a7, float64_t a8, float64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, double a17, float64x2_t a18, double a19)
 {
   v19 = this;
   v20 = a4 + -0.0001;
@@ -1801,7 +1801,7 @@ LABEL_26:
       v83 = *&v66;
       v85 = v65;
       this = CA::ScanConverter::Path::add_cube(this, 1.0 / a4 * a2, 1.0 / a4 * a3, 1.0 / (a4 + _D19 * v33) * (a2 + _D19 * _Q22.f64[0]), 1.0 / (a4 + _D19 * v33) * _D7, 1.0 / v76 * (a2 + (_Q22.f64[0] + _Q22.f64[0] + _D19 * v62.f64[0]) * _D19), 1.0 / v76 * (a3 + vaddvq_f64(vmulq_f64(_Q4, vzip2q_s64(v62, _Q22))) * _D19), 1.0 / v66 * v65.f64[0], vmuld_lane_f64(1.0 / v66, v65, 1));
-      *(v19 + 96) = vdivq_f64(v85, vdupq_lane_s64(v83, 0));
+      *(v19 + 6) = vdivq_f64(v85, vdupq_lane_s64(v83, 0));
       *(v19 + 88) = 1;
       return this;
     }
@@ -1818,7 +1818,7 @@ LABEL_26:
     {
       v82 = v66;
       v84 = v65.f64[0];
-      CA::ScanConverter::Path::add_line(this, *(this + 96), *(this + 104), v65.f64[0] / v66, v74);
+      CA::ScanConverter::Path::add_line(this, *(this + 12), *(this + 13), v65.f64[0] / v66, v74);
       v66 = v82;
       v65.f64[0] = v84;
       *(v19 + 88) = 0;
@@ -1827,8 +1827,8 @@ LABEL_26:
     else
     {
       *(this + 89) = 1;
-      *(this + 112) = v65.f64[0] / v66;
-      *(this + 120) = v74;
+      *(this + 14) = v65.f64[0] / v66;
+      *(this + 15) = v74;
     }
 
     v24 = 1.0 / v66 * v65.f64[0];
@@ -1863,18 +1863,18 @@ uint64_t CA::ScanConverter::path_rect_containment(uint64_t a1)
   MEMORY[0x1EEE9AC00](a1);
   v2 = v1;
   v4 = v3;
-  v123[1020] = *MEMORY[0x1E69E9840];
+  v121[1020] = *MEMORY[0x1E69E9840];
   v6 = *v5;
   v7 = v5[1];
   v8 = v5[2];
   v9 = v5[3];
   v10 = *(v3 + 24);
   v11 = 32 * v10;
-  v112 = 32 * v10;
+  v110 = 32 * v10;
   if ((32 * v10) > 0x1000)
   {
-    v113 = malloc_type_malloc(v11, 0x25DB91DBuLL);
-    if (!v113)
+    v111 = malloc_type_malloc(v11, 0x25DB91DBuLL);
+    if (!v111)
     {
       return 1;
     }
@@ -1883,14 +1883,14 @@ uint64_t CA::ScanConverter::path_rect_containment(uint64_t a1)
   else
   {
     MEMORY[0x1EEE9AC00](v11);
-    v113 = &v111 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-    bzero(v113, v13);
+    v111 = &v109 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+    bzero(v111, v13);
   }
 
   v14 = v8 + v6;
   v15 = v9 + v7;
   v16 = *(v4 + 8);
-  v17 = v113;
+  v17 = v111;
   if (v16)
   {
     v18 = 0;
@@ -1923,7 +1923,7 @@ uint64_t CA::ScanConverter::path_rect_containment(uint64_t a1)
     while (v16);
   }
 
-  v111 = &v111;
+  v109 = &v109;
   v24 = &v17[16 * v10];
   CA::radix_sort(v10);
   if (v6 <= -16777216)
@@ -1936,7 +1936,7 @@ uint64_t CA::ScanConverter::path_rect_containment(uint64_t a1)
     v27 = v6;
   }
 
-  v115 = v27;
+  v113 = v27;
   if (v14 >= 0x1000000)
   {
     v28 = 0x1000000;
@@ -1957,183 +1957,184 @@ uint64_t CA::ScanConverter::path_rect_containment(uint64_t a1)
     v29 = v7;
   }
 
-  v121[0] = 0;
-  v121[1] = v123;
+  v119[0] = 0;
+  v119[1] = v121;
+  v30 = xmmword_183E210D0;
   if (v15 >= 0x1000000)
   {
-    v30 = 0x1000000;
+    v31 = 0x1000000;
   }
 
   else
   {
-    v30 = v15;
+    v31 = v15;
   }
 
-  v122 = xmmword_183E210D0;
-  v119 = 0;
-  v120 = v121;
-  if (v29 >= v30)
+  v120 = xmmword_183E210D0;
+  v117 = 0;
+  v118 = v119;
+  if (v29 >= v31)
   {
-    LOBYTE(v33) = 1;
-    LOBYTE(v35) = 1;
+    LOBYTE(v34) = 1;
+    LOBYTE(v36) = 1;
     goto LABEL_170;
   }
 
-  v31 = 0;
   v32 = 0;
-  v33 = 1;
-  v34 = v17;
-  v35 = 1;
-  v36 = v115;
-  v114 = v30;
+  v33 = 0;
+  v34 = 1;
+  v35 = v17;
+  v36 = 1;
+  v37 = v113;
+  v112 = v31;
   while (1)
   {
-    if (v31)
+    if (v32)
     {
-      v37 = v29;
-      v38 = v29 + 1;
-      v39 = (v29 + 1);
-      v40 = &v119;
+      v38 = v29;
+      v39 = v29 + 1;
+      v40 = (v29 + 1);
+      v41 = &v117;
       do
       {
-        v41 = *(v31 + 16);
-        v42 = v41[1];
-        if (v42 <= v37)
+        v42 = *(v32 + 16);
+        v43 = v42[1];
+        if (v43 <= v38)
         {
-          *v40 = *v31;
-          *v31 = v32;
-          v32 = v31;
+          *v41 = *v32;
+          *v32 = v33;
+          v33 = v32;
         }
 
         else
         {
-          v43 = *v41;
-          if (*v41 >= v37)
+          v44 = *v42;
+          if (*v42 >= v38)
           {
-            v44 = *v41;
+            v45 = *v42;
           }
 
           else
           {
-            v44 = v29;
+            v45 = v29;
           }
 
-          v45 = v41[2];
-          v46 = v41[3];
-          v47 = v41[4];
-          v48 = v47 + ((v46 + ((v44 - v43) * v45)) * (v44 - v43));
-          if (v42 > v39)
+          v46 = v42[2];
+          v47 = v42[3];
+          v48 = v42[4];
+          v49 = v48 + ((v47 + ((v45 - v44) * v46)) * (v45 - v44));
+          if (v43 > v40)
           {
-            v42 = v38;
+            v43 = v39;
           }
 
-          v49 = v47 + ((v46 + ((v42 - v43) * v45)) * (v42 - v43));
-          if (v48 >= v49)
+          v50 = v48 + ((v47 + ((v43 - v44) * v46)) * (v43 - v44));
+          if (v49 >= v50)
+          {
+            v51 = v50;
+          }
+
+          else
+          {
+            v51 = v49;
+          }
+
+          if (v49 > v50)
           {
             v50 = v49;
           }
 
-          else
-          {
-            v50 = v48;
-          }
-
-          if (v48 > v49)
-          {
-            v49 = v48;
-          }
-
-          v26.f32[0] = fmaxf(v49 - v50, 0.000001);
+          *v26.i32 = fmaxf(v50 - v51, 0.000001);
           v26 = vdup_lane_s32(v26, 0);
-          *(v31 + 24) = v41[5] * (v42 - v44);
-          *(v31 + 28) = v50;
-          *(v31 + 32) = v49;
-          *(v31 + 36) = vrecpe_f32(v26).u32[0];
-          v40 = v31;
+          *(v32 + 24) = v42[5] * (v43 - v45);
+          *(v32 + 28) = v51;
+          *(v32 + 32) = v50;
+          *(v32 + 36) = vrecpe_f32(v26).u32[0];
+          v41 = v32;
         }
 
-        v31 = *v40;
+        v32 = *v41;
       }
 
-      while (*v40);
-      v51 = v119;
-      if (v119)
+      while (*v41);
+      v52 = v117;
+      if (v117)
       {
-        v52 = 0;
-        v53 = &v119;
+        v53 = 0;
+        v54 = &v117;
         do
         {
           while (1)
           {
-            v54 = v53;
-            v53 = v51;
-            v51 = *v51;
-            if (!v51)
+            v55 = v54;
+            v54 = v52;
+            v52 = *v52;
+            if (!v52)
             {
               break;
             }
 
-            if (*(v53 + 7) > *(v51 + 7))
+            if (*(v54 + 7) > *(v52 + 7))
             {
-              *v54 = v51;
-              *v53 = *v51;
-              *v51 = v53;
-              v52 = 1;
+              *v55 = v52;
+              *v54 = *v52;
+              *v52 = v54;
+              v53 = 1;
             }
           }
 
-          v51 = v119;
-          v55 = v52 & (v119 != 0);
-          v53 = &v119;
-          v52 = 0;
+          v52 = v117;
+          v56 = v53 & (v117 != 0);
+          v54 = &v117;
+          v53 = 0;
         }
 
-        while ((v55 & 1) != 0);
+        while ((v56 & 1) != 0);
       }
     }
 
     else
     {
-      v38 = v29 + 1;
-      v39 = (v29 + 1);
+      v39 = v29 + 1;
+      v40 = (v29 + 1);
     }
 
-    if (v34 < v24)
+    if (v35 < v24)
     {
-      v116 = v38;
-      v117 = v33;
-      v56 = 0;
+      v114 = v39;
+      v115 = v34;
       v57 = 0;
-      v58 = v29;
+      v58 = 0;
+      v59 = v29;
       do
       {
-        v59 = *(v34 + 1);
-        v60 = *v59;
-        if (*v59 >= v39)
+        v60 = *(v35 + 1);
+        v30.n128_u32[0] = *v60;
+        if (*v60 >= v40)
         {
           break;
         }
 
-        v61 = v59[1];
-        if (v61 > v58)
+        v61 = *(v60 + 4);
+        if (v61 > v59)
         {
-          if (v32)
+          if (v33)
           {
-            v62 = *v32;
+            v62 = *v33;
           }
 
           else
           {
-            v32 = x_heap_malloc_small_(v120, 0x28uLL);
+            v33 = x_heap_malloc_small_(v118, 0x28uLL);
             v62 = 0;
-            v59 = *(v34 + 1);
-            v60 = *v59;
-            v61 = v59[1];
+            v60 = *(v35 + 1);
+            v30.n128_u32[0] = *v60;
+            v61 = *(v60 + 4);
           }
 
-          if (v60 >= v58)
+          if (v30.n128_f32[0] >= v59)
           {
-            v63 = v60;
+            v63 = v30.n128_f32[0];
           }
 
           else
@@ -2141,74 +2142,74 @@ uint64_t CA::ScanConverter::path_rect_containment(uint64_t a1)
             v63 = v29;
           }
 
-          v64 = v59[2];
-          v65 = v59[3];
-          v66 = v59[4];
-          v67 = v59[5];
-          v68 = v66 + ((v65 + ((v63 - v60) * v64)) * (v63 - v60));
-          if (v61 > v39)
+          v64 = *(v60 + 8);
+          v65 = *(v60 + 12);
+          v66 = *(v60 + 16);
+          v67 = *(v60 + 20);
+          v68 = v66 + ((v65 + ((v63 - v30.n128_f32[0]) * v64)) * (v63 - v30.n128_f32[0]));
+          if (v61 > v40)
           {
-            v61 = v39;
+            v61 = v40;
           }
 
-          v69 = v66 + ((v65 + ((v61 - v60) * v64)) * (v61 - v60));
-          if (v68 >= v69)
+          v30.n128_f32[0] = v66 + ((v65 + ((v61 - v30.n128_f32[0]) * v64)) * (v61 - v30.n128_f32[0]));
+          if (v68 >= v30.n128_f32[0])
           {
-            v70 = v69;
+            v69 = v30.n128_f32[0];
           }
 
           else
           {
-            v70 = v68;
-          }
-
-          if (v68 > v69)
-          {
             v69 = v68;
           }
 
-          *v25.i32 = fmaxf(v69 - v70, 0.000001);
-          *(v32 + 16) = v59;
+          if (v68 > v30.n128_f32[0])
+          {
+            v30.n128_f32[0] = v68;
+          }
+
+          *v25.i32 = fmaxf(v30.n128_f32[0] - v69, 0.000001);
+          *(v33 + 16) = v60;
           v25 = vrecpe_f32(vdup_lane_s32(v25, 0));
-          *(v32 + 24) = v67 * (v61 - v63);
-          *(v32 + 28) = v70;
-          *(v32 + 32) = v69;
-          *(v32 + 36) = v25.i32[0];
-          *v32 = v57;
-          ++v56;
-          v57 = v32;
-          v32 = v62;
+          *(v33 + 24) = v67 * (v61 - v63);
+          *(v33 + 28) = v69;
+          *(v33 + 32) = v30.n128_u32[0];
+          *(v33 + 36) = v25.i32[0];
+          *v33 = v58;
+          ++v57;
+          v58 = v33;
+          v33 = v62;
         }
 
-        v34 += 16;
+        v35 += 16;
       }
 
-      while (v34 < v24);
-      if (v56)
+      while (v35 < v24);
+      if (v57)
       {
-        if (v56 != 1)
+        if (v57 != 1)
         {
-          v57 = CA::ScanConverter::RendererImpl::Edge::sort_xmin(v57, v56);
+          v58 = CA::ScanConverter::RendererImpl::Edge::sort_xmin(v58, v57, v30);
         }
 
-        v30 = v114;
-        v36 = v115;
-        v38 = v116;
-        v71 = &v119;
-        if (v57)
+        v31 = v112;
+        v37 = v113;
+        v39 = v114;
+        v70 = &v117;
+        if (v58)
         {
           while (1)
           {
-            v72 = *v71;
-            if (!*v71)
+            v71 = *v70;
+            if (!*v70)
             {
               break;
             }
 
-            if (*(v57 + 28) >= *(v72 + 7))
+            if (*(v58 + 28) >= *(v71 + 7))
             {
-              v71 = *v71;
-              if (!v57)
+              v70 = *v70;
+              if (!v58)
               {
                 goto LABEL_76;
               }
@@ -2216,11 +2217,11 @@ uint64_t CA::ScanConverter::path_rect_containment(uint64_t a1)
 
             else
             {
-              v73 = *v57;
-              *v71 = v57;
-              *v57 = v72;
-              v57 = v73;
-              if (!v73)
+              v72 = *v58;
+              *v70 = v58;
+              *v58 = v71;
+              v58 = v72;
+              if (!v72)
               {
                 goto LABEL_76;
               }
@@ -2228,60 +2229,60 @@ uint64_t CA::ScanConverter::path_rect_containment(uint64_t a1)
           }
 
 LABEL_78:
-          *v71 = v57;
+          *v70 = v58;
         }
 
         else
         {
 LABEL_76:
-          if (!*v71)
+          if (!*v70)
           {
-            v57 = 0;
+            v58 = 0;
             goto LABEL_78;
           }
         }
 
-        v33 = v117;
+        v34 = v115;
         goto LABEL_81;
       }
 
-      v38 = v116;
-      v33 = v117;
-      v30 = v114;
-      v36 = v115;
+      v39 = v114;
+      v34 = v115;
+      v31 = v112;
+      v37 = v113;
     }
 
 LABEL_81:
-    v31 = v119;
-    if (!v119)
+    v32 = v117;
+    if (!v117)
     {
       break;
     }
 
-    if (v36 >= v28)
+    if (v37 >= v28)
     {
       goto LABEL_159;
     }
 
-    v74 = 0;
-    v75 = 0.0;
-    v76 = v36;
-    v77 = v119;
+    v73 = 0;
+    v30.n128_u64[0] = 0;
+    v74 = v37;
+    v75 = v117;
     do
     {
-      for (i = v76; v74; v74 = *(v74 + 8))
+      for (i = v74; v73; v73 = *(v73 + 8))
       {
-        if (*(v74 + 32) > i)
+        if (*(v73 + 32) > i)
         {
           break;
         }
 
-        v75 = *(v74 + 24) + v75;
+        v30.n128_f32[0] = *(v73 + 24) + v30.n128_f32[0];
       }
 
-      v79 = i + 1.0;
-      v118 = v74;
-      if (!v77)
+      v77 = i + 1.0;
+      v116 = v73;
+      if (!v75)
       {
         goto LABEL_105;
       }
@@ -2289,44 +2290,44 @@ LABEL_81:
       while (1)
       {
 LABEL_88:
-        v80 = v77;
-        v81 = v77[7];
-        if (v79 <= v81)
+        v78 = v75;
+        v79 = v75[7];
+        if (v77 <= v79)
         {
-          v74 = v118;
-          if (!v118)
+          v73 = v116;
+          if (!v116)
           {
-            v98 = floorf(v81);
-            v99 = v98;
-            if (v98 < -16777000.0)
+            v96 = floorf(v79);
+            v97 = v96;
+            if (v96 < -16777000.0)
             {
-              v99 = -16777216;
+              v97 = -16777216;
             }
 
-            v100 = 16777000.0;
-            if (v81 < 16777000.0)
+            v98 = 16777000.0;
+            if (v79 < 16777000.0)
             {
-              v100 = v77[7];
+              v98 = v75[7];
             }
 
-            if (v81 >= 0.0)
+            if (v79 >= 0.0)
             {
-              v99 = v100;
+              v97 = v98;
             }
 
-            if (v99 >= v28)
+            if (v97 >= v28)
             {
-              v99 = v28;
+              v97 = v28;
             }
 
-            if ((LODWORD(v81) & 0x7FFFFFFFu) >= 0x7F800000)
+            if ((LODWORD(v79) & 0x7FFFFFFFu) >= 0x7F800000)
             {
-              v86 = v28;
+              v84 = v28;
             }
 
             else
             {
-              v86 = v99;
+              v84 = v97;
             }
 
             goto LABEL_140;
@@ -2335,34 +2336,34 @@ LABEL_88:
           goto LABEL_108;
         }
 
-        v77 = *v77;
-        v82 = v80[8];
-        if (v82 <= i)
+        v75 = *v75;
+        v80 = v78[8];
+        if (v80 <= i)
         {
           break;
         }
 
-        v83 = v118;
-        if (v118)
+        v81 = v116;
+        if (v116)
         {
-          v84 = &v118;
+          v82 = &v116;
           while (1)
           {
-            v85 = *(v83 + 32);
-            if (SLODWORD(v82) == SLODWORD(v85))
+            v83 = *(v81 + 32);
+            if (SLODWORD(v80) == SLODWORD(v83))
             {
-              if (v81 < *(v83 + 28))
+              if (v79 < *(v81 + 28))
               {
                 goto LABEL_103;
               }
             }
 
-            else if (v82 < v85)
+            else if (v80 < v83)
             {
 LABEL_103:
-              *(v80 + 1) = v83;
-              *v84 = v80;
-              if (!v77)
+              *(v78 + 1) = v81;
+              *v82 = v78;
+              if (!v75)
               {
                 goto LABEL_104;
               }
@@ -2370,64 +2371,64 @@ LABEL_103:
               goto LABEL_88;
             }
 
-            v84 = (v83 + 8);
-            v83 = *(v83 + 8);
-            if (!v83)
+            v82 = (v81 + 8);
+            v81 = *(v81 + 8);
+            if (!v81)
             {
               goto LABEL_101;
             }
           }
         }
 
-        v84 = &v118;
+        v82 = &v116;
 LABEL_101:
-        *v84 = v80;
-        *(v80 + 1) = 0;
-        if (!v77)
+        *v82 = v78;
+        *(v78 + 1) = 0;
+        if (!v75)
         {
           goto LABEL_104;
         }
       }
 
-      v75 = v80[6] + v75;
-      if (v77)
+      v30.n128_f32[0] = v78[6] + v30.n128_f32[0];
+      if (v75)
       {
         goto LABEL_88;
       }
 
 LABEL_104:
-      v74 = v118;
+      v73 = v116;
 LABEL_105:
-      v80 = 0;
-      v86 = v28;
-      if (!v74)
+      v78 = 0;
+      v84 = v28;
+      if (!v73)
       {
 LABEL_140:
-        v96 = fabsf(v75);
+        v94 = fabsf(v30.n128_f32[0]);
         if (v2)
         {
-          v101 = v96;
-          v96 = v96 - truncf(v96);
-          if (v101)
+          v99 = v94;
+          v94 = v94 - truncf(v94);
+          if (v99)
           {
-            v96 = 1.0 - v96;
+            v94 = 1.0 - v94;
           }
 
 LABEL_145:
-          v102 = v96;
-          if (v96 != 0.0)
+          v100 = v94;
+          if (v94 != 0.0)
           {
 LABEL_146:
-            v33 = 0;
-            v96 = v102;
+            v34 = 0;
+            v94 = v100;
           }
 
-          v74 = 0;
+          v73 = 0;
           goto LABEL_148;
         }
 
-        v102 = 1.0;
-        if (v96 < 1.0)
+        v100 = 1.0;
+        if (v94 < 1.0)
         {
           goto LABEL_145;
         }
@@ -2436,95 +2437,95 @@ LABEL_146:
       }
 
 LABEL_108:
-      v87 = 1.0;
-      v88 = v74;
-      v89 = v75;
+      v85 = 1.0;
+      v86 = v73;
+      v87 = v30.n128_f32[0];
       do
       {
-        v90 = v88;
-        v91 = *(v88 + 28);
-        if (v91 >= i)
+        v88 = v86;
+        v89 = *(v86 + 28);
+        if (v89 >= i)
         {
-          v92 = *(v88 + 28);
+          v90 = *(v86 + 28);
         }
 
         else
         {
-          v92 = v76;
+          v90 = v74;
         }
 
-        v93 = *(v88 + 32);
-        if (v93 > v79)
+        v91 = *(v86 + 32);
+        if (v91 > v77)
         {
-          v93 = i + 1.0;
+          v91 = i + 1.0;
         }
 
-        v89 = v89 + ((*(v88 + 24) * v87) * ((v79 - v93) + (((v92 - v93) * *(v88 + 36)) * (v91 + ((v93 + v92) * -0.5)))));
-        v88 = *(v88 + 8);
+        v87 = v87 + ((*(v86 + 24) * v85) * ((v77 - v91) + (((v90 - v91) * *(v86 + 36)) * (v89 + ((v91 + v90) * -0.5)))));
+        v86 = *(v86 + 8);
         if (v2 == 1)
         {
-          if (!v88)
+          if (!v86)
           {
-            v96 = fabsf(v89);
+            v94 = fabsf(v87);
 LABEL_125:
-            v97 = v96;
-            v96 = v96 - truncf(v96);
-            if (v97)
+            v95 = v94;
+            v94 = v94 - truncf(v94);
+            if (v95)
             {
-              v96 = 1.0 - v96;
+              v94 = 1.0 - v94;
             }
 
             goto LABEL_127;
           }
 
-          v94 = *(v90 + 16);
-          v95 = *(v88 + 16);
-          if (v94[5] == v95[5] && *v94 != v95[1] && v94[1] != *v95)
+          v92 = *(v88 + 16);
+          v93 = *(v86 + 16);
+          if (v92[5] == v93[5] && *v92 != v93[1] && v92[1] != *v93)
           {
-            v87 = -v87;
+            v85 = -v85;
           }
         }
       }
 
-      while (v88);
-      v96 = fabsf(v89);
+      while (v86);
+      v94 = fabsf(v87);
       if (v2)
       {
         goto LABEL_125;
       }
 
-      if (v96 >= 1.0)
+      if (v94 >= 1.0)
       {
-        v86 = v76 + 1;
-        v96 = 1.0;
+        v84 = v74 + 1;
+        v94 = 1.0;
         goto LABEL_128;
       }
 
 LABEL_127:
-      v86 = v76 + 1;
-      if (v96 == 0.0)
+      v84 = v74 + 1;
+      if (v94 == 0.0)
       {
         goto LABEL_148;
       }
 
 LABEL_128:
-      v33 = 0;
+      v34 = 0;
 LABEL_148:
-      if (v96 != 1.0)
+      if (v94 != 1.0)
       {
-        v35 = 0;
+        v36 = 0;
       }
 
-      v76 = v86;
-      v77 = v80;
+      v74 = v84;
+      v75 = v78;
     }
 
-    while (v86 < v28);
+    while (v84 < v28);
 LABEL_159:
-    if (v38 < v30)
+    if (v39 < v31)
     {
-      v29 = v38;
-      if ((v33 | v35))
+      v29 = v39;
+      if ((v34 | v36))
       {
         continue;
       }
@@ -2533,77 +2534,77 @@ LABEL_159:
     goto LABEL_170;
   }
 
-  if (v34 != v24)
+  if (v35 != v24)
   {
-    v103 = vcvtms_s32_f32(**(v34 + 1));
-    if (v29 <= v103)
+    v101 = vcvtms_s32_f32(**(v35 + 1));
+    if (v29 <= v101)
     {
-      v38 = v103;
+      v39 = v101;
     }
 
     else
     {
-      v38 = v29;
+      v39 = v29;
     }
 
-    v104 = v38 - v29 + 1;
+    v102 = v39 - v29 + 1;
     do
     {
-      v105 = v35;
-      v35 = 0;
-      --v104;
+      v103 = v36;
+      v36 = 0;
+      --v102;
     }
 
-    while (v104);
-    v35 = v105;
+    while (v102);
+    v36 = v103;
     goto LABEL_159;
   }
 
-  if (v29 <= v30)
+  if (v29 <= v31)
   {
-    v107 = v30;
+    v105 = v31;
   }
 
   else
   {
-    v107 = v29;
+    v105 = v29;
   }
 
-  v108 = v107 - v29 + 1;
+  v106 = v105 - v29 + 1;
   do
   {
-    v109 = v35;
-    LOBYTE(v35) = 0;
-    --v108;
+    v107 = v36;
+    LOBYTE(v36) = 0;
+    --v106;
   }
 
-  while (v108);
-  LOBYTE(v35) = v109;
+  while (v106);
+  LOBYTE(v36) = v107;
 LABEL_170:
-  if (v112 > 0x1000)
+  if (v110 > 0x1000)
   {
-    free(v113);
+    free(v111);
   }
 
-  x_heap_free(v120);
-  if (v35)
+  x_heap_free(v118);
+  if (v36)
   {
-    v110 = 0;
+    v108 = 0;
   }
 
   else
   {
-    v110 = 2;
+    v108 = 2;
   }
 
-  if (v33)
+  if (v34)
   {
     return 1;
   }
 
   else
   {
-    return v110;
+    return v108;
   }
 }
 
@@ -2804,7 +2805,7 @@ void CA::CG::FillRectsShadow::draw_shadow(CA::CG::FillRectsShadow *this, CA::CG:
           v80 = v65.f64[1] + *&v43;
           v81 = v65.f64[0];
           v82 = v65.f64[1] + *&v43;
-          v60 = CA::Render::Path::new_path(0, 5u, &v68, 4u, v76.f64, 0);
+          v60 = CA::Render::Path::new_path(0, 5, &v68, 4u, v76.f64, 0);
           v72 = 0.0;
           v71[0] = v25;
           CA::Transform::set_affine(v67, *v11, v11[1], v11[2], v11[3], v11[4], v11[5]);
@@ -3478,16 +3479,16 @@ void CA::OGL::update_perf_hud_memory(CA::OGL *this, CA::OGL::PerformanceHUD *a2)
   }
 }
 
-void ___ZN2CA3OGLL22update_perf_hud_memoryEPNS0_14PerformanceHUDEj_block_invoke()
+void ___ZN2CA3OGLL22update_perf_hud_memoryEPNS0_14PerformanceHUDEj_block_invoke(uint64_t a1)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 0u;
+  v6 = *MEMORY[0x1E69E9840];
   v4 = 0u;
-  v2 = 0u;
+  v5 = 0u;
+  v3 = 0u;
   if ((ledger() & 0x80000000) == 0)
   {
-    CA::OGL::update_perf_hud_memory(CA::OGL::PerformanceHUD *,unsigned int)::ledger_count = *(&v4 + 1);
-    is_mul_ok(*(&v4 + 1), 0x60uLL);
+    CA::OGL::update_perf_hud_memory(CA::OGL::PerformanceHUD *,unsigned int)::ledger_count = *(&v5 + 1);
+    is_mul_ok(*(&v5 + 1), 0x60uLL);
     operator new[]();
   }
 
@@ -3496,11 +3497,11 @@ void ___ZN2CA3OGLL22update_perf_hud_memoryEPNS0_14PerformanceHUDEj_block_invoke(
     dispatch_once(&x_log_get_ogl(void)::once, &__block_literal_global_20462);
   }
 
-  v0 = x_log_get_ogl(void)::log;
+  v1 = x_log_get_ogl(void)::log;
   if (os_log_type_enabled(x_log_get_ogl(void)::log, OS_LOG_TYPE_ERROR))
   {
-    *v1 = 0;
-    _os_log_error_impl(&dword_183AA6000, v0, OS_LOG_TYPE_ERROR, "Unable to query ledger info", v1, 2u);
+    *v2 = 0;
+    _os_log_error_impl(&dword_183AA6000, v1, OS_LOG_TYPE_ERROR, "Unable to query ledger info", v2, 2u);
   }
 }
 
@@ -3973,7 +3974,7 @@ LABEL_55:
   return result;
 }
 
-uint64_t CA::OGL::GLESContext::update_texture_plane(CA::OGL::GLContext *this, uint64_t a2, int a3, unsigned int a4)
+uint64_t CA::OGL::GLESContext::update_texture_plane(CA::OGL::GLContext *this, uint64_t a2, int a3, signed int a4)
 {
   v8 = *(a2 + 72);
   if (v8 <= a4)
@@ -4017,7 +4018,7 @@ uint64_t CA::OGL::GLESContext::update_texture_plane(CA::OGL::GLContext *this, ui
   return v11;
 }
 
-__n128 CA::OGL::GLESContext::bind_destination_with_filters(__n128 *a1, int a2)
+__n128 CA::OGL::GLESContext::bind_destination_with_filters(__n128 *a1, unsigned int a2)
 {
   v2 = a1[173].n128_u32[3];
   if (v2)
@@ -4134,89 +4135,89 @@ uint64_t CA::OGL::GLESContext::destination_rotated_or_flipped(CA::OGL::GLESConte
   return v1 & 1;
 }
 
-uint64_t CA::OGL::GLESContext::make_buffer_current(CA::OGL::GLESContext *this, void (**a2)(CA::OGL::GLESContext *this, CA::WindowServer::Surface *ptr, void *a3))
+uint64_t CA::OGL::GLESContext::make_buffer_current(CA::OGL::GLESContext *this, uint64_t (***a2)(uint64_t (**)(CA::OGL::GLESContext *__hidden this, CA::WindowServer::Surface *ptr, void *)), uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   if (a2)
   {
-    result = (*(*a2 + 21))(a2);
+    result = (*a2)[21](a2);
     if (!result)
     {
       return result;
     }
 
-    v5 = result;
-    if (a2[10] != CA::OGL::GLESContext::release_display_surface || (v6 = a2[9]) == 0)
+    v11 = result;
+    if (a2[10] != CA::OGL::GLESContext::release_display_surface || (v12 = a2[9]) == 0)
     {
       if (x_malloc_get_zone::once != -1)
       {
         dispatch_once_f(&x_malloc_get_zone::once, 0, malloc_zone_init);
       }
 
-      v6 = malloc_type_zone_calloc(malloc_zone, 1uLL, 0xC0uLL, 0x1020040DA1BEC6FuLL);
-      *v6 = 1;
-      v6[23] = 15;
-      v6[36] |= 0x10000001u;
-      *(v6 + 185) = 1;
-      *(v6 + 19) = a2;
-      *(v6 + 20) = this;
-      v6[42] = 3553;
-      v6[45] = 35450;
-      v7 = *(this + 337);
-      (v7[99])(*v7, 1, v6 + 43);
-      (v7[6])(*v7, v6[42], v6[43]);
-      (v7[305])(*v7, v6[42], 10241, 9728);
-      (v7[305])(*v7, v6[42], 10240, 9728);
-      (v7[305])(*v7, v6[42], 10242, 33071);
-      (v7[305])(*v7, v6[42], 10243, 33071);
-      [*(this + 74) attachImage:v6[42] toCoreSurface:v5 invertedRender:0];
-      (v7[675])(*v7, 1, v6 + 44);
-      (v7[673])(*v7, 36160, v6[44]);
-      (v7[678])(*v7, 36160, 36064, v6[42], v6[43], 0);
-      (v7[673])(*v7, 36160, 0);
-      if (a2[9] != v6)
+      v12 = malloc_type_zone_calloc(malloc_zone, 1uLL, 0xC0uLL, 0x1020040DA1BEC6FuLL);
+      *v12 = 1;
+      *(v12 + 23) = 15;
+      *(v12 + 36) |= 0x10000001u;
+      *(v12 + 185) = 1;
+      *(v12 + 19) = a2;
+      *(v12 + 20) = this;
+      *(v12 + 42) = 3553;
+      *(v12 + 45) = 35450;
+      v13 = *(this + 337);
+      (v13[99])(*v13, 1, v12 + 172);
+      (v13[6])(*v13, *(v12 + 42), *(v12 + 43));
+      (v13[305])(*v13, *(v12 + 42), 10241, 9728);
+      (v13[305])(*v13, *(v12 + 42), 10240, 9728);
+      (v13[305])(*v13, *(v12 + 42), 10242, 33071);
+      (v13[305])(*v13, *(v12 + 42), 10243, 33071);
+      [*(this + 74) attachImage:*(v12 + 42) toCoreSurface:v11 invertedRender:0];
+      (v13[675])(*v13, 1, v12 + 176);
+      (v13[673])(*v13, 36160, *(v12 + 44));
+      (v13[678])(*v13, 36160, 36064, *(v12 + 42), *(v12 + 43), 0);
+      (v13[673])(*v13, 36160, 0);
+      if (a2[9] != v12)
       {
-        v8 = a2[10];
-        if (v8)
+        v14 = a2[10];
+        if (v14)
         {
-          if (v8 != CA::OGL::GLESContext::release_display_surface)
+          if (v14 != CA::OGL::GLESContext::release_display_surface)
           {
-            (v8)(a2);
+            (v14)(a2);
           }
         }
       }
 
-      a2[9] = v6;
+      a2[9] = v12;
       a2[10] = CA::OGL::GLESContext::release_display_surface;
-      *(this + 350) = x_list_prepend(*(this + 350), v6);
+      *(this + 350) = x_list_prepend(*(this + 350), v12);
     }
 
-    *&v11 = a2[7];
-    *(&v11 + 1) = *(this + 76);
-    *(v6 + 10) = v11;
-    *(v6 + 7) = *(this + 77);
-    *(v6 + 186) &= ~1u;
-    v12 = *(this + 75);
-    if (v12)
+    *&v17 = a2[7];
+    *(&v17 + 1) = *(this + 76);
+    *(v12 + 40) = v17;
+    *(v12 + 7) = *(this + 77);
+    *(v12 + 186) &= ~1u;
+    v18 = *(this + 75);
+    if (v18)
     {
-      v13 = (*(*v12 + 16))(v12);
-      if (v13)
+      v19 = (*(*v18 + 16))(v18);
+      if (v19)
       {
-        if ((*(this + 2740) & 0x40) != 0 && (*(v13 + 672) & 0xFD) == 1 && (v6[10] & 0x1F) == 0 && (v6[11] & 0x1F) == 0)
+        if ((*(this + 2740) & 0x40) != 0 && (*(v19 + 672) & 0xFD) == 1 && (*(v12 + 40) & 0x1F) == 0 && (*(v12 + 44) & 0x1F) == 0)
         {
-          *(v6 + 186) |= 1u;
+          *(v12 + 186) |= 1u;
         }
       }
     }
 
-    CA::OGL::Context::push_surface(this, v6, 0, 0, 0);
+    CA::OGL::Context::push_surface(this, v12, 0, 0, 0);
   }
 
   else
   {
-    CA::OGL::Context::pop_surface(this);
-    v9 = *(this + 85);
-    v10 = *(this + 84);
-    if (v9 != v10 || (!v9 ? (v14 = 0) : (v14 = (*(v10 + 144) >> 1) & 0x1F), *(this + 167) != v14))
+    CA::OGL::Context::pop_surface(this, 0, a3, a4, a5, a6, a7, a8);
+    v15 = *(this + 85);
+    v16 = *(this + 84);
+    if (v15 != v16 || (!v15 ? (v20 = 0) : (v20 = (*(v16 + 144) >> 1) & 0x1F), *(this + 167) != v20))
     {
       CA::OGL::Context::prepare_destination_(this);
     }
@@ -4232,7 +4233,7 @@ void CA::OGL::GLESContext::release_display_surface(CA::OGL::GLESContext *this, C
   if (v5)
   {
     x_list_remove(v5, ptr);
-    *(v4 + 2800) = v5;
+    *(v4 + 2800) = v6;
   }
 
   *(ptr + 19) = 0;
@@ -4245,12 +4246,12 @@ void CA::OGL::GLESContext::finalize_surface(uint64_t a1, _DWORD *ptr)
   v3 = *(a1 + 2696);
   if (ptr[43])
   {
-    (v3[60])(*v3, 1, ptr + 172);
+    (v3[60])(*v3, 1, ptr + 43);
   }
 
   if (ptr[44])
   {
-    (v3[674])(*v3, 1, ptr + 176);
+    (v3[674])(*v3, 1, ptr + 44);
   }
 
   v4 = *(ptr + 19);
@@ -4372,7 +4373,7 @@ uint64_t CA::OGL::GLESContext::set_surface(uint64_t a1, uint64_t a2)
   else
   {
     (v3[673])(*v3, 36160, *(a1 + 2772));
-    if (*(a1 + 2664) != *(a1 + 2512) || *(a1 + 2668) != *(a1 + 2516) || *(a1 + 2672) != *(a1 + 2520) || *(a1 + 2676) != *(a1 + 2524))
+    if (*(a1 + 2664) != *(a1 + 2512) || *(a1 + 2672) != *(a1 + 2520) || *(a1 + 2676) != *(a1 + 2524))
     {
       (*(*(a1 + 2696) + 2688))(**(a1 + 2696));
       *(a1 + 2664) = *(a1 + 2512);
@@ -4391,7 +4392,7 @@ uint64_t CA::OGL::GLESContext::set_surface(uint64_t a1, uint64_t a2)
   return 1;
 }
 
-uint64_t CA::OGL::GLESContext::bind_surface_impl(uint64_t this, uint64_t a2, int a3, unsigned int a4, unsigned int a5, unsigned int a6)
+CA::OGL::GLContext *CA::OGL::GLESContext::bind_surface_impl(CA::OGL::GLContext *this, uint64_t a2, int a3, unsigned int a4, unsigned int a5, unsigned int a6)
 {
   v6 = *(a2 + 168);
   if (!v6)
@@ -4400,9 +4401,9 @@ uint64_t CA::OGL::GLESContext::bind_surface_impl(uint64_t this, uint64_t a2, int
   }
 
   v10 = this;
-  v11 = *(this + 2696);
+  v11 = *(this + 337);
   v12 = *(a2 + 172);
-  v13 = *(this + 16);
+  v13 = *(this + 2);
   *(v13 + 2 * a4 + 144) = v6;
   *(v13 + 8 * a4 + 176) = v12;
   if (a5 == 2)
@@ -4515,7 +4516,7 @@ _OWORD *CA::OGL::GLESContext::create_null_surface(CA::OGL::GLESContext *this)
 
 void CA::OGL::GLESContext::copy_destination(CA::OGL::Context *this, uint64_t a2, uint64_t a3, uint64_t a4, int32x2_t *a5, uint64_t a6, _BYTE *a7)
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v41 = *MEMORY[0x1E69E9840];
   v13 = *(this + 85);
   v14 = *(this + 84);
   if (v13 != v14 || (!v13 ? (v15 = 0) : (v15 = (*(v14 + 144) >> 1) & 0x1F), *(this + 167) != v15))
@@ -4533,43 +4534,44 @@ void CA::OGL::GLESContext::copy_destination(CA::OGL::Context *this, uint64_t a2,
   {
     CA::OGL::Context::push_surface(this, a3, 0, 0x8000, 0);
     CA::OGL::emit_copy_surface(this, v16, a4, a5, a6);
-    CA::OGL::Context::pop_surface(this);
-    v17 = 0;
+    CA::OGL::Context::pop_surface(this, v17, v18, v19, v20, v21, v22, v23);
+    v24 = 0;
   }
 
   else
   {
-    v18 = *(this + 337);
-    v19 = *(a3 + 172);
-    v20 = *(this + 2);
-    *(v20 + 144) = *(a3 + 168);
-    *(v20 + 176) = v19;
+    v25 = *(this + 337);
+    v26 = *(a3 + 172);
+    v27 = *(this + 2);
+    *(v27 + 144) = *(a3 + 168);
+    *(v27 + 176) = v26;
     CA::OGL::GLContext::update_texture(this, 0);
     if (a4)
     {
-      v21 = (a6 + 4);
+      v34 = (a6 + 4);
       do
       {
-        v22 = *a5->i8;
+        v35 = *a5->i8;
         a5 += 2;
-        v24 = v22;
-        CA::OGL::GLESContext::window_bounds(this, &v24);
-        (*(v18 + 456))(*v18, *(a3 + 168), 0, *(v21 - 1), *v21, v24, DWORD1(v24), DWORD2(v24), HIDWORD(v24));
-        v21 += 2;
+        v39 = v35;
+        CA::OGL::GLESContext::window_bounds(this, &v39);
+        LODWORD(v37) = HIDWORD(v39);
+        (*(v25 + 456))(*v25, *(a3 + 168), 0, *(v34 - 1), *v34, v39, DWORD1(v39), DWORD2(v39));
+        v34 += 2;
         --a4;
       }
 
       while (a4);
     }
 
-    v23 = *(this + 2);
-    *(v23 + 144) = 0;
-    *(v23 + 176) = 0;
-    CA::OGL::Context::marked_surface(this, a3);
-    v17 = *(this + 872) & 1;
+    v36 = *(this + 2);
+    *(v36 + 144) = 0;
+    *(v36 + 176) = 0;
+    CA::OGL::Context::marked_surface(this, a3, v28, v29, v30, v31, v32, v33, v37, v38, v39, *(&v39 + 1), v40, v41, v42, v43, v44, v45, v46);
+    v24 = *(this + 872) & 1;
   }
 
-  *a7 = v17;
+  *a7 = v24;
 }
 
 void CA::OGL::Context::copy_surface_clear_flags(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -5108,8 +5110,9 @@ void *CA::OGL::GLESContext::create_mutable_image(CA::OGL::GLESContext *this, CA:
   return CA::Render::Image::new_image(a2, a3, a4, 1u, a5, 0, v7, 0, 0, v6);
 }
 
-uint64_t CA::OGL::GLESContext::bind_image_impl(uint64_t a1, unsigned int a2, CA::Render::Texture *a3, __int16 a4, unsigned int a5, unsigned int a6, int a7, uint64_t a8, const char *a9)
+uint64_t CA::OGL::GLESContext::bind_image_impl(uint64_t a1, uint64_t a2, CA::Render::Texture *a3, __int16 a4, unsigned int a5, unsigned int a6, int a7, uint64_t a8, const char *a9)
 {
+  v15 = a2;
   v73 = *MEMORY[0x1E69E9840];
   v17 = CA::OGL::Context::lookup_image(a1, a3, 1);
   v18 = v17;
@@ -5334,7 +5337,7 @@ LABEL_125:
   *(v18 + 52) |= 0x100000000000DE1uLL;
   if (v27)
   {
-    CA::OGL::GLESContext::attach_surface_texture(a1, v18, v26, a2, a9);
+    CA::OGL::GLESContext::attach_surface_texture(a1, v18, v26, v15, a9);
     goto LABEL_66;
   }
 
@@ -5343,7 +5346,7 @@ LABEL_125:
   {
     if (v42 == 9 && v48)
     {
-      CA::OGL::GLESContext::update_compressed_image(a1, v18, v26, a2);
+      CA::OGL::GLESContext::update_compressed_image(a1, v18, v26, v15);
     }
 
     goto LABEL_66;
@@ -5353,7 +5356,7 @@ LABEL_125:
   v39 = v18;
   v37 = v26;
 LABEL_65:
-  CA::OGL::GLESContext::update_image(v38, v39, v37, a2);
+  CA::OGL::GLESContext::update_image(v38, v39, v37, v15);
 LABEL_66:
   if (*v29)
   {
@@ -5378,7 +5381,7 @@ LABEL_66:
     v52 = *(a1 + 16);
     v53 = v52 + 144;
     v54 = v52 + 176;
-    v55 = a2;
+    v55 = v15;
     do
     {
       v56 = *v51++;
@@ -5446,7 +5449,7 @@ LABEL_88:
         goto LABEL_99;
       }
 
-      CA::OGL::GLContext::update_texture(a1, a2);
+      CA::OGL::GLContext::update_texture(a1, v15);
       (v36[682])(*v36, *(v18 + 52));
       *(v18 + 73) |= 1u;
       v58 = *(v18 + 52);
@@ -5504,7 +5507,7 @@ LABEL_99:
 
   if ((WORD1(v58) & 0xF) != v61 || ((v58 >> 20) & 0xF) != v63)
   {
-    CA::OGL::GLContext::update_texture(a1, a2);
+    CA::OGL::GLContext::update_texture(a1, v15);
     (v36[305])(*v36, *(v18 + 52), 10241, dword_183E27F50[v61]);
     (v36[305])(*v36, *(v18 + 52), 10240, dword_183E27F50[v63]);
     v58 = *(v18 + 52) & 0xFFFFFFFFFF00FFFFLL | ((v61 & 0xF) << 16) | (v63 << 20);
@@ -5518,7 +5521,7 @@ LABEL_99:
 
   if (((v58 >> 51) & 3) != a7)
   {
-    CA::OGL::GLContext::update_texture(a1, a2);
+    CA::OGL::GLContext::update_texture(a1, v15);
     if (a7)
     {
       v64 = 10497;
@@ -6463,7 +6466,7 @@ LABEL_11:
   return *(this + 2808) & 1;
 }
 
-unint64_t CA::OGL::GLESContext::subimage_max_rowbytes(CA::OGL::GLESContext *this, unsigned int a2, unsigned int a3, unsigned int a4)
+uint64_t CA::OGL::GLESContext::subimage_max_rowbytes(CA::OGL::GLESContext *this, unsigned int a2, unsigned int a3, unsigned int a4)
 {
   if (a2 == -1)
   {
@@ -6896,7 +6899,7 @@ id *CA::OGL::GLESContext::GLESContext(id *this, void *a2)
     *(this + 685) = v49 | 3;
   }
 
-  (v5[105])(*v5, 34930, this + 2712);
+  (v5[105])(*v5, 34930, this + 339);
   (v5[105])(*v5, 3379, this + 2716);
   if (CA::OGL::GLESContext::update_limits(void)::max_texture_units >= 1 && CA::OGL::GLESContext::update_limits(void)::max_texture_units < *v14)
   {
@@ -6934,7 +6937,7 @@ id *CA::OGL::GLESContext::GLESContext(id *this, void *a2)
     *v45 = CA::OGL::GLESContext::update_limits(void)::max_texture_size;
   }
 
-  (v5[105])(*v5, 3386, this + 2728);
+  (v5[105])(*v5, 3386, this + 341);
   v61 = 0;
   (v5[105])(*v5, 3408, &v61);
   v52 = 0.5;
@@ -7070,111 +7073,111 @@ void CA::OGL::Context::copy_surface_region(uint64_t a1)
   v10 = v9;
   v12 = v11;
   v14 = v13;
-  v41[126] = *MEMORY[0x1E69E9840];
-  v15 = *(v13 + 656);
-  bzero(v41, 0x3F0uLL);
+  v48[126] = *MEMORY[0x1E69E9840];
+  v15 = v13[82];
+  bzero(v48, 0x3F0uLL);
   if (CA::Shape::rect_count(v6) && CA::Shape::rect_count(v8))
   {
-    v39[4] = 0x3C003C003C003C00;
-    memset(&v39[5], 0, 24);
-    v39[9] = 0;
-    v39[8] = 1065353216;
-    v39[10] = 1025;
-    v39[2] = 0;
-    v39[3] = &CA::identity_transform;
-    v39[0] = 0;
-    v39[1] = &CA::Shape::_infinite_shape;
+    v46[4] = 0x3C003C003C003C00;
+    memset(&v46[5], 0, 24);
+    v46[9] = 0;
+    v46[8] = 1065353216;
+    v46[10] = 1025;
+    v46[2] = 0;
+    v46[3] = &CA::identity_transform;
+    v46[0] = 0;
+    v46[1] = &CA::Shape::_infinite_shape;
     CA::OGL::Context::push_surface(v14, v12, v4, 0, 0);
-    v32 = v15;
+    v39 = v15;
     if (v15)
     {
-      v16 = *(v14 + 16);
-      memcpy(v41, v16, 0x1F8uLL);
-      v41[0] = v16;
-      *(v14 + 16) = v41;
-      v39[0] = CA::OGL::Context::set_gstate(v14, v39);
+      v16 = v14[2];
+      memcpy(v48, v16, 0x1F8uLL);
+      v48[0] = v16;
+      v14[2] = v48;
+      v46[0] = CA::OGL::Context::set_gstate(v14, v46);
     }
 
     else
     {
-      CA::OGL::Context::prepare_context(v14, v41);
-      *(v14 + 136) = &v40;
-      *(v14 + 152) = 128;
-      (*(*v14 + 1088))(v14, v39);
+      CA::OGL::Context::prepare_context(v14, v48);
+      v14[17] = &v47;
+      v14[19] = 128;
+      (*(*v14 + 1088))(v14, v46);
     }
 
-    *(*(v14 + 16) + 497) &= ~1u;
-    *(*(v14 + 16) + 16) = 1;
+    *(v14[2] + 497) &= ~1u;
+    *(v14[2] + 16) = 1;
     CA::OGL::Context::bind_surface(v14, v10, 0, (v2 & 0x200) == 0, (v2 & 0x200) == 0, 0.0);
     v17 = 0;
-    *(v14 + 144) = 0;
-    *(v14 + 112) = v14 + 1386;
-    *(v14 + 120) = xmmword_183E20E50;
-    v35 = 0;
-    v36 = 0;
-    v34 = 0uLL;
-    v38[1] = 0;
-    v38[2] = 0;
-    v37[2] = 0;
-    v38[0] = v6;
-    v33 = 0u;
-    v37[0] = v8;
-    v37[1] = 0;
+    v14[18] = 0;
+    v14[14] = v14 + 1386;
+    *(v14 + 15) = xmmword_183E20E50;
+    v42 = 0;
+    v43 = 0;
+    v41 = 0uLL;
+    v45[1] = 0;
+    v45[2] = 0;
+    v44[2] = 0;
+    v45[0] = v6;
+    v40 = 0u;
+    v44[0] = v8;
+    v44[1] = 0;
     while (1)
     {
-      if (!CA::ShapeIterator::iterate(v37, &v35))
+      if (!CA::ShapeIterator::iterate(v44, &v42))
       {
         CA::OGL::Context::array_flush(v14);
         CA::OGL::Context::unbind_surface(v14, v10, 0);
-        if (v32)
+        if (v39)
         {
-          CA::OGL::Context::set_gstate(v14, **(v14 + 656));
-          *(v14 + 16) = v41[0];
-          v41[0] = 0;
+          CA::OGL::Context::set_gstate(v14, *v14[82]);
+          v14[2] = v48[0];
+          v48[0] = 0;
         }
 
         else
         {
-          (*(*v14 + 1096))(v14, v39);
-          *(v14 + 136) = 0;
-          *(v14 + 152) = 0;
-          *(v14 + 16) = 0;
-          *(v14 + 24) = 0;
+          (*(*v14 + 1096))(v14, v46);
+          v14[17] = 0;
+          v14[19] = 0;
+          v14[2] = 0;
+          v14[3] = 0;
         }
 
-        CA::OGL::Context::pop_surface(v14);
+        CA::OGL::Context::pop_surface(v14, v31, v32, v33, v34, v35, v36, v37);
         goto LABEL_49;
       }
 
-      if (CA::ShapeIterator::iterate(v38, &v34))
+      if (CA::ShapeIterator::iterate(v45, &v41))
       {
-        v33 = v34;
+        v40 = v41;
       }
 
       else
       {
-        v34 = v33;
+        v41 = v40;
       }
 
       v18 = 6;
-      if (!*(v14 + 108))
+      if (!*(v14 + 27))
       {
         v18 = 4;
       }
 
-      if ((v17 + 4) > *(v14 + 152) || (v19 = *(v14 + 128)) != 0 && *(v14 + 120) + v18 > v19)
+      if ((v17 + 4) > v14[19] || (v19 = v14[16]) != 0 && v14[15] + v18 > v19)
       {
-        *(v14 + 1384) |= 0x20u;
+        *(v14 + 692) |= 0x20u;
         CA::OGL::Context::array_flush(v14);
-        *(v14 + 144) = 0;
-        *(v14 + 112) = v14 + 1386;
-        *(v14 + 120) = xmmword_183E20E50;
+        v14[18] = 0;
+        v14[14] = v14 + 1386;
+        *(v14 + 15) = xmmword_183E20E50;
       }
 
-      CA::OGL::Context::array_rect(v14, v35, SHIDWORD(v35), (v36 + v35), (HIDWORD(v36) + HIDWORD(v35)));
-      v20 = SDWORD1(v33);
-      v21 = (DWORD2(v33) + v33);
-      v22 = HIDWORD(v33) + DWORD1(v33);
+      CA::OGL::Context::array_rect(v14, v42, SHIDWORD(v42), (v43 + v42), (HIDWORD(v43) + HIDWORD(v42)));
+      v20 = SDWORD1(v40);
+      v21 = (DWORD2(v40) + v40);
+      v22 = HIDWORD(v40) + DWORD1(v40);
       if ((v2 & 1) == 0)
       {
         break;
@@ -7182,7 +7185,7 @@ void CA::OGL::Context::copy_surface_region(uint64_t a1)
 
       if ((v2 & 4) == 0)
       {
-        v23 = SDWORD1(v33);
+        v23 = SDWORD1(v40);
         v25 = v22;
         if ((v2 & 2) == 0)
         {
@@ -7190,14 +7193,14 @@ void CA::OGL::Context::copy_surface_region(uint64_t a1)
         }
 
 LABEL_25:
-        v24 = v33;
+        v24 = v40;
         v20 = v25;
         goto LABEL_32;
       }
 
       if ((v2 & 2) != 0)
       {
-        v23 = SDWORD1(v33);
+        v23 = SDWORD1(v40);
       }
 
       else
@@ -7210,7 +7213,7 @@ LABEL_25:
         v20 = v22;
       }
 
-      v24 = v33;
+      v24 = v40;
 LABEL_32:
       if ((v2 & 4) != 0)
       {
@@ -7252,8 +7255,8 @@ LABEL_32:
         v29 = v21;
       }
 
-      v17 = *(v14 + 144);
-      v30 = *(v14 + 136) + 48 * v17;
+      v17 = v14[18];
+      v30 = v14[17] + 48 * v17;
       *(v30 - 176) = v21;
       *(v30 - 172) = v26;
       *(v30 - 128) = v27;
@@ -7267,19 +7270,19 @@ LABEL_32:
     if ((v2 & 2) == 0)
     {
       v23 = v22;
-      v24 = (DWORD2(v33) + v33);
+      v24 = (DWORD2(v40) + v40);
 LABEL_23:
-      v21 = v33;
+      v21 = v40;
       goto LABEL_32;
     }
 
     v23 = v22;
-    v25 = SDWORD1(v33);
+    v25 = SDWORD1(v40);
     if ((v2 & 4) != 0)
     {
 LABEL_22:
-      v23 = SDWORD1(v33);
-      v24 = (DWORD2(v33) + v33);
+      v23 = SDWORD1(v40);
+      v24 = (DWORD2(v40) + v40);
       v20 = v22;
       goto LABEL_23;
     }
@@ -7290,7 +7293,7 @@ LABEL_22:
 LABEL_49:
   for (i = 63; i != -63; i -= 63)
   {
-    if (v41[i])
+    if (v48[i])
     {
       __assert_rtn("~ContextState", "ogl-context.h", 613, "!next && Imbalanced ContextState push/pop");
     }
@@ -7425,7 +7428,7 @@ _DWORD *CA::OGL::Context::modify_subimage_impl(_DWORD *result, uint64_t a2, uint
     {
       if (result[160] < a10)
       {
-        (*(*result + 680))(result, a2, 1);
+        (*(*result + 680))(result, a2, 1, a4, a5, a6, a7, a8);
       }
     }
 
@@ -7648,9 +7651,9 @@ uint64_t std::unique_ptr<std::__tree_node<std::__value_type<int,CA::OGL::Context
   return a1;
 }
 
-uint64_t *std::map<int,CA::OGL::Context::show_image_cache(x_stream_struct *)::CachedImagesWithSize,std::less<int>,std::allocator<std::pair<int const,CA::OGL::Context::show_image_cache(x_stream_struct *)::CachedImagesWithSize>>>::operator[](uint64_t a1, int *a2)
+uint64_t *std::map<int,CA::OGL::Context::show_image_cache(x_stream_struct *)::CachedImagesWithSize,std::less<int>,std::allocator<std::pair<int const,CA::OGL::Context::show_image_cache(x_stream_struct *)::CachedImagesWithSize>>>::operator[](uint64_t **a1, int *a2)
 {
-  v2 = *(a1 + 8);
+  v2 = a1[1];
   if (!v2)
   {
 LABEL_8:
@@ -7663,7 +7666,7 @@ LABEL_8:
     while (1)
     {
       v4 = v2;
-      v5 = *(v2 + 32);
+      v5 = *(v2 + 8);
       if (v3 >= v5)
       {
         break;
@@ -8213,7 +8216,7 @@ LABEL_38:
     }
 
     v33 = CA::OGL::Context::color_program_cache(this);
-    v34 = CA::ColorProgram::Cache::push_whippet_cache(v33, v10, a5, a6, 0, 0);
+    v34 = CA::ColorProgram::Cache::push_whippet_cache(v33, v10, 0, 0, a5, a6);
     v35 = CA::OGL::Context::color_program_cache(this);
     if (CA::ColorProgram::Cache::convert_color(v35, v10, a2, v36))
     {
@@ -8479,9 +8482,9 @@ LABEL_28:
   return result;
 }
 
-uint64_t CA::OGL::Context::record_sdf_debug_update(uint64_t result, unsigned int a2, int a3, int a4)
+void CA::OGL::Context::record_sdf_debug_update(uint64_t a1, unsigned int a2, int a3, int a4)
 {
-  v4 = *(result + 2424);
+  v4 = *(a1 + 2424);
   if (!v4)
   {
     goto LABEL_18;
@@ -8503,7 +8506,7 @@ uint64_t CA::OGL::Context::record_sdf_debug_update(uint64_t result, unsigned int
     v6 = (v4 - 1) & a2;
   }
 
-  v7 = *(*(result + 2416) + 8 * v6);
+  v7 = *(*(a1 + 2416) + 8 * v6);
   if (!v7 || (v8 = *v7) == 0)
   {
 LABEL_18:
@@ -8551,7 +8554,6 @@ LABEL_17:
 
   *(v8 + 5) = a3;
   *(v8 + 6) = a4;
-  return result;
 }
 
 uint64_t CA::OGL::Context::sdf_debug_color(CA::OGL::Context *this, unsigned int a2, int a3)
@@ -8646,7 +8648,7 @@ LABEL_16:
   }
 }
 
-uint64_t *CA::OGL::wait_image(os_unfair_lock_s *this, CA::Render::Texture *a2, CA::Render::Image *a3)
+uint64_t **CA::OGL::wait_image(os_unfair_lock_s *this, CA::Render::Texture *a2, CA::Render::Image *a3)
 {
   result = CA::OGL::Context::lookup_image(this, a2, 0);
   if (result && *(result + 5) > this[160]._os_unfair_lock_opaque)
@@ -8827,7 +8829,7 @@ LABEL_10:
   *(v6 + 8) = v10;
 }
 
-CA::Render::Image *CA::OGL::Context::tile_cache_load(double *a1, uint64_t a2, CA::Render::Image *a3, char *a4)
+CA::Render::Image *CA::OGL::Context::tile_cache_load(CA::OGL::Context *a1, uint64_t a2, CA::Render::Image *a3, char *a4)
 {
   v4 = a3;
   if (*a4 == 11 && a3 && (*(a2 + 308) & 0x12) != 0 && *(a3 + 12) == 23)
@@ -8885,7 +8887,7 @@ LABEL_24:
     LODWORD(v20) = *(v4 + 5);
     v24 = v18 * v22;
     v25 = v19 * *&v20;
-    image = CA::Render::TileCache::get_image(v9, v4, v21, v23, v24, v25, a1[81]);
+    image = CA::Render::TileCache::get_image(v9, v4, v21, v23, v24, v25, *(a1 + 81));
     if (image)
     {
       v28 = image;
@@ -9292,11 +9294,11 @@ NSObject *CA::CG::AccelDataProvider::wait_data(NSObject *this)
 
       else
       {
-        v6 = isa[9];
+        v6 = *(isa + 9);
         if (!v6)
         {
           v6 = (*(*isa + 80))(isa);
-          isa[9] = v6;
+          *(isa + 9) = v6;
           isa_high = HIDWORD(v2[7].isa);
         }
 
@@ -9442,7 +9444,7 @@ uint64_t CA::CAWorkInterval::release_work_interval(CA::CAWorkInterval *this)
   return result;
 }
 
-uint64_t CA::Render::ShapeLayer::hit_test(uint64_t a1, uint64_t a2, CGFloat *a3)
+BOOL CA::Render::ShapeLayer::hit_test(uint64_t a1, uint64_t a2, CGFloat *a3)
 {
   v16[1] = *MEMORY[0x1E69E9840];
   v4 = *(a1 + 16);
@@ -9603,10 +9605,10 @@ LABEL_18:
         a5[2].f64[0] = v9;
         return 5;
       case 481:
-        v12 = *&this[15];
+        v12 = this[15];
         break;
       case 483:
-        v12 = *&this[13];
+        v12 = this[13];
         break;
       default:
         return result;
@@ -9617,7 +9619,7 @@ LABEL_18:
   {
     if (v8 == 690)
     {
-      v12 = *&this[12];
+      v12 = this[12];
     }
 
     else
@@ -9627,7 +9629,7 @@ LABEL_18:
         return result;
       }
 
-      v12 = *&this[11];
+      v12 = this[11];
     }
   }
 
@@ -9646,10 +9648,10 @@ LABEL_18:
       goto LABEL_18;
     }
 
-    v12 = *&this[14];
+    v12 = this[14];
   }
 
-  a5->f64[0] = v12;
+  *&a5->f64[0] = v12;
   return 1;
 }
 

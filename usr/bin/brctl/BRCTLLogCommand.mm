@@ -5,6 +5,7 @@
 - (BRCTLLogCommand)init;
 - (id)_parseMessage:(const char *)message;
 - (int)dumpOrStreamLogArchiveToFd:(int)fd;
+- (int)dumpToFd:(int)fd;
 - (void)_dumpLevel:(int)level;
 - (void)buildPredicateFromString;
 - (void)buildPredicateString:(id)string;
@@ -12,6 +13,7 @@
 - (void)getDepth:(int *)depth current:(id *)current previous:(id *)previous forThread:(id)thread;
 - (void)outputEvent:(id)event;
 - (void)parseOption:(int)option arg:(const char *)arg;
+- (void)printLogWithFacility:(id)facility subsystem:(id)subsystem message:(const char *)message threadID:(unint64_t)d kind:(int)kind sender:(id)sender sendPID:(int)iD depth:(int)self0 level:(int)self1 timestamp:(id)self2 timezone:(id)self3 sectionID:(id)self4 isOversize:(BOOL)self5 previousSectionID:(id)self6;
 - (void)pushSection:(id)section forThread:(id)thread;
 @end
 
@@ -235,6 +237,353 @@
   }
 
   return messageCopy;
+}
+
+- (void)printLogWithFacility:(id)facility subsystem:(id)subsystem message:(const char *)message threadID:(unint64_t)d kind:(int)kind sender:(id)sender sendPID:(int)iD depth:(int)self0 level:(int)self1 timestamp:(id)self2 timezone:(id)self3 sectionID:(id)self4 isOversize:(BOOL)self5 previousSectionID:(id)self6
+{
+  v17 = *&kind;
+  facilityCopy = facility;
+  subsystemCopy = subsystem;
+  senderCopy = sender;
+  timestampCopy = timestamp;
+  timezoneCopy = timezone;
+  sectionIDCopy = sectionID;
+  previousSectionIDCopy = previousSectionID;
+  if (self->_timezoneAware)
+  {
+    [(NSDateFormatter *)self->_timestampFormatter setTimeZone:timezoneCopy];
+  }
+
+  v66 = [(NSDateFormatter *)self->_timestampFormatter stringFromDate:timestampCopy];
+  v26 = subsystemCopy;
+  if ([(NSNumber *)self->_level intValue]< 1 || [(NSNumber *)self->_level intValue]>= level)
+  {
+    if (v17 == 1)
+    {
+      [(BRCTermDumper *)self->_dumper startFgColor:7 attr:18];
+      [(BRCTermDumper *)self->_dumper write:"\n%s\n\n", message];
+      [(BRCTermDumper *)self->_dumper reset];
+      goto LABEL_61;
+    }
+
+    if (self->_digest)
+    {
+      if (level > 5)
+      {
+        goto LABEL_61;
+      }
+
+      use_multiline = self->_use_multiline;
+      self->_use_multiline = &__kCFBooleanFalse;
+    }
+
+    else
+    {
+      if (v17 == 3 && sectionIDCopy)
+      {
+        v63 = [(NSMutableDictionary *)self->_uuidToSection objectForKeyedSubscript:sectionIDCopy];
+        [(NSMutableDictionary *)self->_uuidToSection removeObjectForKey:sectionIDCopy];
+LABEL_20:
+        v29 = 0;
+        goto LABEL_21;
+      }
+
+      if (sectionIDCopy)
+      {
+        v28 = [(NSMutableDictionary *)self->_uuidToSection objectForKeyedSubscript:sectionIDCopy];
+        v29 = v28;
+        if (!v28 || v17 == 4 || v17 == 2)
+        {
+          v60 = senderCopy;
+          v61 = v26;
+          v30 = v28;
+          if (previousSectionIDCopy)
+          {
+            v31 = [(NSMutableDictionary *)self->_uuidToSection objectForKeyedSubscript:?];
+          }
+
+          else
+          {
+            v31 = 0;
+          }
+
+          v45 = [[Section alloc] initWithUUID:sectionIDCopy kind:v17 depth:depth parent:v31];
+
+          [(NSMutableDictionary *)self->_uuidToSection setObject:v45 forKeyedSubscript:sectionIDCopy];
+          v63 = 0;
+          v29 = v45;
+          senderCopy = v60;
+          v26 = v61;
+        }
+
+        else
+        {
+          v63 = 0;
+        }
+
+LABEL_21:
+        [(BRCTermDumper *)self->_dumper startFgColor:0 attr:2];
+        [(BRCTermDumper *)self->_dumper puts:"[" len:1];
+        [(BRCTLLogCommand *)self _dumpLevel:level];
+        [(BRCTermDumper *)self->_dumper startFgColor:0 attr:2];
+        [(BRCTermDumper *)self->_dumper put:v66];
+        [(BRCTermDumper *)self->_dumper puts:"] " len:2];
+        if (senderCopy)
+        {
+          [(BRCTermDumper *)self->_dumper startFgColor:2 attr:2];
+          [(BRCTermDumper *)self->_dumper put:senderCopy];
+          [(BRCTermDumper *)self->_dumper write:"[%d] ", iD];
+        }
+
+        v32 = [v26 isEqualToString:@"com.apple.FileProvider"];
+        v33 = v63;
+        if (!facilityCopy || !v32)
+        {
+          if (!facilityCopy)
+          {
+            goto LABEL_38;
+          }
+
+          goto LABEL_36;
+        }
+
+        if ([facilityCopy isEqualToString:@"default personal"] & 1) != 0 || (objc_msgSend(facilityCopy, "isEqualToString:", @"default enterprise") & 1) != 0 || (objc_msgSend(facilityCopy, "isEqualToString:", @"fpfs"))
+        {
+LABEL_36:
+          [(BRCTermDumper *)self->_dumper startFgColor:5 attr:2];
+          if ([facilityCopy containsString:@"enterprise"])
+          {
+            [(BRCTermDumper *)self->_dumper write:"enterprise "];
+          }
+
+LABEL_38:
+          if (oversize)
+          {
+            [(BRCTermDumper *)self->_dumper startFgColor:3 attr:2];
+            [(BRCTermDumper *)self->_dumper puts:"oversize! "];
+          }
+
+          [(BRCTermDumper *)self->_dumper startFgColor:0 attr:2];
+          if (!self->_digest)
+          {
+            [(BRCTermDumper *)self->_dumper startFgColor:3];
+          }
+
+          [(BRCTermDumper *)self->_dumper reset];
+          if (self->_shorten)
+          {
+            v37 = v26;
+            v38 = v29;
+            v39 = senderCopy;
+            v40 = [(BRCTLLogCommand *)self _parseMessage:message];
+            v41 = v40;
+            if (v40)
+            {
+              message = [v40 UTF8String];
+            }
+
+            senderCopy = v39;
+            v29 = v38;
+            v26 = v37;
+            v33 = v63;
+          }
+
+          if ([(NSNumber *)self->_use_multiline BOOLValue])
+          {
+            if (!v33)
+            {
+              v64 = timestampCopy;
+              if (message && *message)
+              {
+                do
+                {
+                  v44 = strcspn(message, "\n");
+                  [(BRCTermDumper *)self->_dumper puts:"\n\t" len:2];
+                  [v29 dumpPrefixWithKind:v17 depth:depth to:self->_dumper];
+                  [(BRCTermDumper *)self->_dumper puts:message len:v44];
+                  v17 = 0;
+                  if (message[v44] == 10)
+                  {
+                    message += v44 + 1;
+                  }
+
+                  else
+                  {
+                    message += v44;
+                  }
+                }
+
+                while (*message);
+              }
+
+              [(BRCTermDumper *)self->_dumper puts:"\n" len:1];
+              timestampCopy = v64;
+              v33 = v63;
+              goto LABEL_60;
+            }
+
+            [(BRCTermDumper *)self->_dumper puts:"\n\t" len:2];
+            dumper = self->_dumper;
+            v43 = v33;
+          }
+
+          else
+          {
+            [(BRCTermDumper *)self->_dumper puts:" " len:1];
+            if (!v33)
+            {
+              [v29 dumpPrefixWithKind:v17 depth:depth to:self->_dumper];
+              [(BRCTermDumper *)self->_dumper puts:message];
+              [(BRCTermDumper *)self->_dumper puts:"\n" len:1];
+              goto LABEL_60;
+            }
+
+            v43 = v33;
+            dumper = self->_dumper;
+          }
+
+          [v43 dumpEndSectionTo:dumper];
+LABEL_60:
+
+          goto LABEL_61;
+        }
+
+        uTF8String = [facilityCopy UTF8String];
+        [(BRCTermDumper *)self->_dumper startFgColor:6 attr:2];
+        if (!strcmp(uTF8String, "com.apple.FileProvider.LocalStorage"))
+        {
+          v46 = self->_dumper;
+          v47 = "local";
+          v48 = 5;
+        }
+
+        else if (!strncmp(uTF8String, "com.apple.CloudDocs.MobileDocumentsFileProvider", 0x2FuLL))
+        {
+          v46 = self->_dumper;
+          v47 = "clouddocs";
+          v48 = 9;
+        }
+
+        else
+        {
+          if (!strncmp(uTF8String, "com.apple.CloudDocs.FileProvider", 0x20uLL))
+          {
+            v49 = [facilityCopy hasSuffix:@".data"];
+            v50 = "docs";
+            if (v49)
+            {
+              v50 = "data";
+            }
+
+            [(BRCTermDumper *)self->_dumper write:"icloud.%s", v50];
+            goto LABEL_91;
+          }
+
+          if (!strncmp(uTF8String, "com.apple.icloud.drive.fileprovider", 0x23uLL))
+          {
+            v62 = v26;
+            v51 = v29;
+            v52 = senderCopy;
+            v53 = strlen(uTF8String);
+            if (v53 == 35)
+            {
+              [(BRCTermDumper *)self->_dumper puts:"icloud.default"];
+            }
+
+            else
+            {
+              v56 = v53;
+              if ([facilityCopy hasSuffix:@".data"])
+              {
+                [(BRCTermDumper *)self->_dumper write:"icloud.data[%c%c]", (uTF8String[35] + 1), (uTF8String[35] + 2)];
+              }
+
+              else
+              {
+                v58 = [facilityCopy hasSuffix:@".documents"];
+                v59 = self->_dumper;
+                if (v58)
+                {
+                  [(BRCTermDumper *)v59 write:"icloud.docs[%c%c]", (uTF8String[35] + 1), (uTF8String[35] + 2)];
+                }
+
+                else
+                {
+                  [(BRCTermDumper *)v59 puts:uTF8String len:v56];
+                }
+              }
+            }
+
+            senderCopy = v52;
+            v29 = v51;
+            v26 = v62;
+            goto LABEL_91;
+          }
+
+          if (!strncmp(uTF8String, "com.example.FruitBasket.Provider", 0x20uLL))
+          {
+            v54 = strlen(uTF8String);
+            if (v54 == 32)
+            {
+              goto LABEL_81;
+            }
+
+            v48 = v54;
+            v46 = self->_dumper;
+            if (v48 >= 0x2A)
+            {
+              v55 = (uTF8String + 33);
+LABEL_87:
+              [(BRCTermDumper *)v46 write:"FruitBasket.%.8s", v55];
+              goto LABEL_91;
+            }
+          }
+
+          else
+          {
+            if (strncmp(uTF8String, "com.apple.FruitBasket.Provider", 0x1EuLL))
+            {
+              v35 = self->_dumper;
+              v36 = uTF8String;
+LABEL_82:
+              [(BRCTermDumper *)v35 puts:v36];
+              goto LABEL_91;
+            }
+
+            v57 = strlen(uTF8String);
+            if (v57 == 30)
+            {
+LABEL_81:
+              v35 = self->_dumper;
+              v36 = "FruitBasket.default";
+              goto LABEL_82;
+            }
+
+            v48 = v57;
+            v46 = self->_dumper;
+            if (v48 >= 0x28)
+            {
+              v55 = (uTF8String + 31);
+              goto LABEL_87;
+            }
+          }
+
+          v47 = uTF8String;
+        }
+
+        [(BRCTermDumper *)v46 puts:v47 len:v48];
+LABEL_91:
+        [(BRCTermDumper *)self->_dumper puts:" " len:1];
+        v33 = v63;
+        goto LABEL_36;
+      }
+    }
+
+    v63 = 0;
+    goto LABEL_20;
+  }
+
+LABEL_61:
 }
 
 - (void)pushSection:(id)section forThread:(id)thread
@@ -902,6 +1251,19 @@ LABEL_48:
   return v16;
 }
 
+- (int)dumpToFd:(int)fd
+{
+  v3 = *&fd;
+  v5 = [NSNumber numberWithInt:?];
+  [(BRCTLLogCommand *)self computeRealOptionsForFd:v5];
+
+  v6 = [[BRCTermDumper alloc] initWithFd:v3 forceColor:-[NSNumber BOOLValue](self->_use_color darkMode:{"BOOLValue"), self->_darkMode}];
+  dumper = self->_dumper;
+  self->_dumper = v6;
+
+  return [(BRCTLLogCommand *)self dumpOrStreamLogArchiveToFd:v3];
+}
+
 + (id)dateFromUTF8String:(const char *)string
 {
   v3 = [NSString stringWithUTF8String:string];
@@ -1017,7 +1379,7 @@ LABEL_48:
       goto LABEL_38;
     case 'E':
       endDate = [objc_opt_class() dateFromUTF8String:arg];
-      v24 = endDate;
+      v10 = endDate;
       if (!endDate)
       {
         endDate = self->_endDate;
@@ -1029,16 +1391,14 @@ LABEL_48:
       v5 = @"subsystem == com.apple.FileProvider || subsystem == com.apple.FruitBasket || subsystem == com.example.FruitBasket";
       goto LABEL_38;
     case 'H':
-      v9 = [NSString stringWithUTF8String:arg];
-      home_path = self->_home_path;
-      self->_home_path = v9;
+      self->_home_path = [NSString stringWithUTF8String:arg];
       goto LABEL_42;
     case 'N':
       v5 = CFSTR("(process == Provider && (subsystem == com.apple.network || sender == CFNetwork)");
       goto LABEL_38;
     case 'S':
       endDate = [objc_opt_class() dateFromUTF8String:arg];
-      v24 = endDate;
+      v10 = endDate;
       if (!endDate)
       {
         endDate = self->_startDate;
@@ -1047,22 +1407,16 @@ LABEL_48:
       p_endDate = &self->_startDate;
       goto LABEL_26;
     case 'a':
-      v12 = [NSPredicate predicateWithValue:1];
-      predicate = self->_predicate;
-      self->_predicate = v12;
+      self->_predicate = [NSPredicate predicateWithValue:1];
       goto LABEL_42;
     case 'b':
       v5 = @"subsystem == com.apple.clouddocs";
       goto LABEL_38;
     case 'c':
-      v20 = sub_1000083B4(99, arg, &off_100027F08);
-      use_color = self->_use_color;
-      self->_use_color = v20;
+      self->_use_color = sub_1000083B4(99, arg, &off_100027F08);
       goto LABEL_42;
     case 'd':
-      v18 = [NSString stringWithUTF8String:arg];
-      log_path = self->_log_path;
-      self->_log_path = v18;
+      self->_log_path = [NSString stringWithUTF8String:arg];
       goto LABEL_42;
     case 'f':
       v5 = @"subsystem == com.apple.FileProvider || (subsystem == com.apple.clouddocs && senderImagePath ENDSWITH com.apple.CloudDocs.MobileDocumentsFileProvider)";
@@ -1077,19 +1431,13 @@ LABEL_48:
       self->_darkMode = 1;
       return;
     case 'l':
-      v14 = [NSNumber numberWithLongLong:strtoll(arg, 0, 10)];
-      level = self->_level;
-      self->_level = v14;
+      self->_level = [NSNumber numberWithLongLong:strtoll(arg, 0, 10)];
       goto LABEL_42;
     case 'm':
-      v16 = sub_1000083B4(109, arg, &off_100027F08);
-      use_multiline = self->_use_multiline;
-      self->_use_multiline = v16;
+      self->_use_multiline = sub_1000083B4(109, arg, &off_100027F08);
       goto LABEL_42;
     case 'n':
-      v22 = [NSNumber numberWithLongLong:strtoll(arg, 0, 10)];
-      initial_count = self->_initial_count;
-      self->_initial_count = v22;
+      self->_initial_count = [NSNumber numberWithLongLong:strtoll(arg, 0, 10)];
 LABEL_42:
 
       _objc_release_x1();
@@ -1101,8 +1449,8 @@ LABEL_38:
       [(BRCTLLogCommand *)self buildPredicateString:v5];
       return;
     case 'p':
-      v24 = [NSString stringWithUTF8String:optarg];
-      [(BRCTLLogCommand *)self buildPredicateString:v24];
+      v10 = [NSString stringWithUTF8String:optarg];
+      [(BRCTLLogCommand *)self buildPredicateString:v10];
       goto LABEL_28;
     case 'q':
       self->_quickMode = 1;
@@ -1115,7 +1463,7 @@ LABEL_38:
       return;
     case 'u':
       endDate = [objc_opt_class() dateComponentsFromUTF8String:arg];
-      v24 = endDate;
+      v10 = endDate;
       if (!endDate)
       {
         endDate = self->_lastDateComponent;
@@ -1129,9 +1477,9 @@ LABEL_26:
       self->_waitForMoreMessages = 1;
       return;
     case 'x':
-      v24 = [NSString stringWithUTF8String:optarg];
-      v11 = [NSString stringWithFormat:@"senderImagePath CONTAINS %@", v24];
-      [(BRCTLLogCommand *)self buildPredicateString:v11];
+      v10 = [NSString stringWithUTF8String:optarg];
+      v9 = [NSString stringWithFormat:@"senderImagePath CONTAINS %@", v10];
+      [(BRCTLLogCommand *)self buildPredicateString:v9];
 
 LABEL_28:
 

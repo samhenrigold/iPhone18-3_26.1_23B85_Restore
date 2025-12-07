@@ -3,7 +3,7 @@
 
 @implementation SFFluidProgressViewAccessibility
 
-uint64_t __95___SFFluidProgressViewAccessibility_fluidProgressController_updateFluidProgressBar_completion___block_invoke(uint64_t a1)
+void *__95___SFFluidProgressViewAccessibility_fluidProgressController_updateFluidProgressBar_completion___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _accessibilityBoolValueForKey:@"StartedFluidProgress"];
   if (result)

@@ -29,7 +29,7 @@
   if (result)
   {
 
-    return [($F99D9A4FB75BC57F3386B8DC8EE08D7A *)result screenSize];
+    return objc_msgSend_screenSize(result);
   }
 
   else

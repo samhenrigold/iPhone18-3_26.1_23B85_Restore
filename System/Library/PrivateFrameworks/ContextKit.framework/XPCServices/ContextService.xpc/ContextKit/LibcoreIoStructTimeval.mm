@@ -1,7 +1,6 @@
 @interface LibcoreIoStructTimeval
 + (id)fromMillisWithLong:(int64_t)long;
 - (LibcoreIoStructTimeval)initWithLong:(int64_t)long withLong:(int64_t)withLong;
-- (id)description;
 @end
 
 @implementation LibcoreIoStructTimeval
@@ -22,13 +21,6 @@
   v5->tv_usec_ = v4;
 
   return v5;
-}
-
-- (id)description
-{
-  tv_usec = self->tv_usec_;
-  tv_sec = self->tv_sec_;
-  return JreStrcat("$J$JC", a2, v2, v3, v4, v5, v6, v7, @"StructTimeval[tv_sec=");
 }
 
 @end

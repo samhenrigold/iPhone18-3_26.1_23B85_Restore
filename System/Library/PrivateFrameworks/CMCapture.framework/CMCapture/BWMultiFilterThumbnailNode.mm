@@ -217,7 +217,7 @@ LABEL_9:
   v46 = 0u;
   v47 = 0u;
   filters = self->_filters;
-  v12 = OUTLINED_FUNCTION_17_0(v3, v5, v6, v7, v8, v9, v10, v11, v27.receiver, v27.super_class, v28, v29, v30, v31, v32, v33, v34, v35, v36, v37, v38, v39, v40, v41, v42, v43, 0);
+  v12 = OUTLINED_FUNCTION_17_0(v3, v5, v6, v7, v8, v9, v10, v11, v27.receiver, v27.super_class, v28, v29, v30, v31, v32, v33, v34, v35, v36, v37, v38, v39, v40, v41, v42, v43);
   if (v12)
   {
     v13 = v12;
@@ -246,7 +246,7 @@ LABEL_3:
       v18 = [OUTLINED_FUNCTION_4() addObject:?];
       if (v13 == ++v15)
       {
-        v13 = OUTLINED_FUNCTION_17_0(v18, v19, v20, v21, v22, v23, v24, v25, v27.receiver, v27.super_class, v28, v29, v30, v31, v32, v33, v34, v35, v36, v37, v38, v39, v40, v41, v42, v43, v44);
+        v13 = OUTLINED_FUNCTION_17_0(v18, v19, v20, v21, v22, v23, v24, v25, v27.receiver, v27.super_class, v28, v29, v30, v31, v32, v33, v34, v35, v36, v37, v38, v39, v40, v41, v42, v43);
         if (v13)
         {
           goto LABEL_3;
@@ -279,33 +279,35 @@ LABEL_10:
 {
   if (result)
   {
-    v1 = result;
-    v5 = 0;
-    v2 = [MEMORY[0x1E696AAE8] bundleWithPath:@"/System/Library/VideoProcessors/MetalFilter.bundle"];
-    if (!v2)
+    v2 = result;
+    v14 = 0;
+    v3 = [MEMORY[0x1E696AAE8] bundleWithPath:@"/System/Library/VideoProcessors/MetalFilter.bundle"];
+    if (!v3)
     {
       OUTLINED_FUNCTION_2();
       OUTLINED_FUNCTION_0_2();
-      FigDebugAssert3();
-      OUTLINED_FUNCTION_2();
-      return FigSignalErrorAtGM();
+      FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v10, v12, v13, v14, v15, v16, v17, v18);
+      v6 = OUTLINED_FUNCTION_2();
+      v9 = 289;
+      return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v6, 0xFFFFCE0ELL, "<<<< BWMultiFilterThumbnailNode >>>>", v9, v1, v7, v8, v11);
     }
 
-    v3 = v2;
-    if ([v2 loadAndReturnError:&v5])
+    v4 = v3;
+    if ([v3 loadAndReturnError:&v14])
     {
-      v4 = [objc_alloc(objc_msgSend(v3 classNamed:{@"FigColorCubeMetalFilter", "initWithCommandQueue:", 0}];
-      *(v1 + 168) = v4;
-      if (v4)
+      v5 = [objc_alloc(objc_msgSend(v4 classNamed:{@"FigColorCubeMetalFilter", "initWithCommandQueue:", 0}];
+      *(v2 + 168) = v5;
+      if (v5)
       {
         return 0;
       }
 
       OUTLINED_FUNCTION_2();
       OUTLINED_FUNCTION_0_2();
-      FigDebugAssert3();
-      OUTLINED_FUNCTION_2();
-      return FigSignalErrorAtGM();
+      FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v10, v12, v13, v14, v15, v16, v17, v18);
+      v6 = OUTLINED_FUNCTION_2();
+      v9 = 301;
+      return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v6, 0xFFFFCE0ELL, "<<<< BWMultiFilterThumbnailNode >>>>", v9, v1, v7, v8, v11);
     }
 
     return 4294954510;
@@ -320,27 +322,6 @@ LABEL_10:
   v5.receiver = self;
   v5.super_class = BWMultiFilterThumbnailNode;
   [(BWNode *)&v5 didReachEndOfDataForInput:input];
-}
-
-- (uint64_t)renderSampleBuffer:forInput:.cold.1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)renderSampleBuffer:forInput:.cold.2()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)renderSampleBuffer:forInput:.cold.3()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
 }
 
 @end

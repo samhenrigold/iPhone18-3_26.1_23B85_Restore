@@ -24,7 +24,7 @@
 
 - (_TtP18FTLivePhotoService24FTIDSServiceDependencies_)idsService
 {
-  v2 = sub_100023FCC();
+  v2 = sub_100023FCC(self, a2);
 
   return v2;
 }
@@ -69,22 +69,21 @@
 - (BOOL)sendResourceAtURL:(id)l metadata:(id)metadata toDestinations:(id)destinations priority:(int64_t)priority options:(id)options identifier:(id *)identifier error:(id *)error
 {
   identifierCopy = identifier;
-  v22 = sub_1000395CC();
-  v12 = *(v22 - 8);
-  v13 = *(v12 + 64);
-  __chkstk_darwin(v22);
-  v15 = &v20 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v21 = sub_1000395CC();
+  v12 = *(v21 - 8);
+  __chkstk_darwin(v21);
+  v14 = &v19 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_10003958C();
-  v16 = sub_10003980C();
-  v17 = sub_10003995C();
+  v15 = sub_10003980C();
+  v16 = sub_10003995C();
   if (options)
   {
     options = sub_10003980C();
   }
 
   selfCopy = self;
-  sub_100024070(v15, v16, v17, priority, options, identifierCopy);
-  (*(v12 + 8))(v15, v22);
+  sub_100024070(v14, v15, v16, priority, options, identifierCopy);
+  (*(v12 + 8))(v14, v21);
 
   return 1;
 }

@@ -588,14 +588,15 @@ LABEL_18:
   [(PKPaymentAuthorizationCoordinator *)v8 presentWithCompletion:&__block_literal_global_127];
 }
 
-void __63__PKAccountAutomaticPaymentsController__performPaymentRequest___block_invoke(uint64_t a1, int a2)
+void __63__PKAccountAutomaticPaymentsController__performPaymentRequest___block_invoke(uint64_t a1, uint64_t a2)
 {
+  v2 = a2;
   v5 = *MEMORY[0x1E69E9840];
   v3 = PKLogFacilityTypeGetObject();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4[0] = 67109120;
-    v4[1] = a2;
+    v4[1] = v2;
     _os_log_impl(&dword_1BD026000, v3, OS_LOG_TYPE_DEFAULT, "_paymentAuthorizationCoordinator presentWithCompletion: completed with success:%d", v4, 8u);
   }
 }

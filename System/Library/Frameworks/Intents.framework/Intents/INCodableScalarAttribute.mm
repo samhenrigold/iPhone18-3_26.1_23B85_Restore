@@ -99,12 +99,12 @@
 
 - (id)dictionaryRepresentationWithLocalizer:(id)localizer
 {
-  v16[1] = *MEMORY[0x1E69E9840];
-  v14.receiver = self;
-  v14.super_class = INCodableScalarAttribute;
-  v4 = [(INCodableAttribute *)&v14 dictionaryRepresentationWithLocalizer:localizer];
+  v15[1] = *MEMORY[0x1E69E9840];
+  v13.receiver = self;
+  v13.super_class = INCodableScalarAttribute;
+  v4 = [(INCodableAttribute *)&v13 dictionaryRepresentationWithLocalizer:localizer];
   __INCodableDescriptionTypeKey = [(INCodableScalarAttribute *)self __INCodableDescriptionTypeKey];
-  v15 = __INCodableDescriptionTypeKey;
+  v14 = __INCodableDescriptionTypeKey;
   type = [(INCodableScalarAttribute *)self type];
   if (type <= 8 && ((0x1CDu >> type) & 1) != 0)
   {
@@ -118,8 +118,8 @@
     v7 = 1;
   }
 
-  v16[0] = null;
-  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:&v15 count:1];
+  v15[0] = null;
+  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:&v14 count:1];
   v10 = [v4 if_dictionaryByAddingEntriesFromDictionary:v9];
 
   if (v7)
@@ -127,8 +127,6 @@
   }
 
   if_dictionaryWithNonEmptyValues = [v10 if_dictionaryWithNonEmptyValues];
-
-  v12 = *MEMORY[0x1E69E9840];
 
   return if_dictionaryWithNonEmptyValues;
 }
@@ -188,36 +186,32 @@
 
 - (Class)resolutionResultClass
 {
-  type = [(INCodableScalarAttribute *)self type];
-  if (type > 8)
+  if ([(INCodableScalarAttribute *)self type]> 8)
   {
-    v4 = 0;
+    v2 = 0;
   }
 
   else
   {
-    v3 = *off_1E7280C20[type];
-    v4 = objc_opt_class();
+    v2 = objc_opt_class();
   }
 
-  return v4;
+  return v2;
 }
 
 - (Class)objectClass
 {
-  type = [(INCodableScalarAttribute *)self type];
-  if (type > 8)
+  if ([(INCodableScalarAttribute *)self type]> 8)
   {
-    v4 = 0;
+    v2 = 0;
   }
 
   else
   {
-    v3 = **(&unk_1E7280BD8 + type);
-    v4 = objc_opt_class();
+    v2 = objc_opt_class();
   }
 
-  return v4;
+  return v2;
 }
 
 - (int64_t)valueType

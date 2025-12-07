@@ -36,40 +36,38 @@
 
 - (void)enumerateEntriesForString:(id)string withBlock:(id)block
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   stringCopy = string;
   blockCopy = block;
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   allValues = [(NSMutableDictionary *)self->_wordListsByIdentifiers allValues];
-  v9 = [allValues countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v9 = [allValues countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v15;
+    v11 = *v14;
     do
     {
       v12 = 0;
       do
       {
-        if (*v15 != v11)
+        if (*v14 != v11)
         {
           objc_enumerationMutation(allValues);
         }
 
-        [*(*(&v14 + 1) + 8 * v12++) enumerateEntriesForString:stringCopy withBlock:blockCopy];
+        [*(*(&v13 + 1) + 8 * v12++) enumerateEntriesForString:stringCopy withBlock:blockCopy];
       }
 
       while (v10 != v12);
-      v10 = [allValues countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v10 = [allValues countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v10);
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (id)entriesForString:(id)string

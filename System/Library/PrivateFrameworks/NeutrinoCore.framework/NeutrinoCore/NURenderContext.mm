@@ -100,9 +100,12 @@
 
 uint64_t __40__NURenderContext_dequeueRateLimitedJob__block_invoke(uint64_t a1)
 {
-  *(*(*(a1 + 40) + 8) + 40) = [*(a1 + 32) _dequeueRateLimitedJob];
+  v2 = [*(a1 + 32) _dequeueRateLimitedJob];
+  v3 = *(*(a1 + 40) + 8);
+  v4 = *(v3 + 40);
+  *(v3 + 40) = v2;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v2, v4);
 }
 
 - (void)_enqueueRateLimitedJob:(id)job
@@ -286,7 +289,7 @@ LABEL_7:
   return v3;
 }
 
-uint64_t __27__NURenderContext_jobCount__block_invoke(uint64_t a1)
+void *__27__NURenderContext_jobCount__block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 8) count];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -317,9 +320,12 @@ uint64_t __27__NURenderContext_jobCount__block_invoke(uint64_t a1)
 
 uint64_t __23__NURenderContext_jobs__block_invoke(uint64_t a1)
 {
-  *(*(*(a1 + 40) + 8) + 40) = [*(*(a1 + 32) + 8) allObjects];
+  v2 = [*(*(a1 + 32) + 8) allObjects];
+  v3 = *(*(a1 + 40) + 8);
+  v4 = *(v3 + 40);
+  *(v3 + 40) = v2;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v2, v4);
 }
 
 - (NURenderContext)initWithPurpose:(int64_t)purpose

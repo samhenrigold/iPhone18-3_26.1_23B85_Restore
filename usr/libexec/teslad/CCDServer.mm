@@ -17,6 +17,7 @@
 - (void)retrieveDeviceUploadRequestTypesWithCredentials:(id)credentials completionBlock:(id)block;
 - (void)retrieveDeviceUploadSoldToIdsForOrganization:(id)organization credentials:(id)credentials completionBlock:(id)block;
 - (void)submitDeviceUploadRequest:(id)request credentials:(id)credentials completionBlock:(id)block;
+- (void)syncDEPPushToken:(id)token pushTopic:(id)topic eligibleForMigration:(BOOL)migration eligibilityDescription:(id)description completionBlock:(id)block;
 - (void)unenrollWithCompletionBlock:(id)block;
 @end
 
@@ -167,6 +168,23 @@
   [(CCDServer *)self _startProcessForEnrollmentRequest:v5 completionBlock:blockCopy];
 }
 
+- (void)syncDEPPushToken:(id)token pushTopic:(id)topic eligibleForMigration:(BOOL)migration eligibilityDescription:(id)description completionBlock:(id)block
+{
+  migrationCopy = migration;
+  blockCopy = block;
+  descriptionCopy = description;
+  topicCopy = topic;
+  tokenCopy = token;
+  v16 = objc_opt_new();
+  [v16 setPushToken:tokenCopy];
+
+  [v16 setPushTopic:topicCopy];
+  [v16 setEligibleForMigration:migrationCopy];
+  [v16 setEligibilityDescription:descriptionCopy];
+
+  [(CCDServer *)self _startProcessForEnrollmentRequest:v16 certificateClientNameSuffix:@"push-registration" completionBlock:blockCopy];
+}
+
 - (void)makeStartMDMMigrationRequestWithCompletionBlock:(id)block
 {
   blockCopy = block;
@@ -239,38 +257,35 @@
   credentialsCopy = credentials;
   if (type > 3)
   {
-    v7 = 0;
-  }
-
-  else
-  {
-    v6 = *off_10001CBA0[type];
-    v7 = objc_opt_new();
-  }
-
-  [v7 setUserCredentials:credentialsCopy];
-
-  return v7;
-}
-
-- (id)_operationForDeviceUploadRequest:(id)request
-{
-  requestCopy = request;
-  requestType = [requestCopy requestType];
-  if (requestType > 3)
-  {
     v6 = 0;
   }
 
   else
   {
-    v5 = *off_10001CBC0[requestType];
     v6 = objc_opt_new();
   }
 
-  [v6 setTeslaRequest:requestCopy];
+  [v6 setUserCredentials:credentialsCopy];
 
   return v6;
+}
+
+- (id)_operationForDeviceUploadRequest:(id)request
+{
+  requestCopy = request;
+  if ([requestCopy requestType] > 3)
+  {
+    v4 = 0;
+  }
+
+  else
+  {
+    v4 = objc_opt_new();
+  }
+
+  [v4 setTeslaRequest:requestCopy];
+
+  return v4;
 }
 
 - (void)_startProcessForEnrollmentRequest:(id)request certificateClientNameSuffix:(id)suffix completionBlock:(id)block
@@ -312,21 +327,19 @@
 - (id)_operationForEnrollmentRequest:(id)request
 {
   requestCopy = request;
-  requestType = [requestCopy requestType];
-  if (requestType > 6)
+  if ([requestCopy requestType] > 6)
   {
-    v6 = 0;
+    v4 = 0;
   }
 
   else
   {
-    v5 = *off_10001CBE0[requestType];
-    v6 = objc_opt_new();
+    v4 = objc_opt_new();
   }
 
-  [v6 setTeslaRequest:requestCopy];
+  [v4 setTeslaRequest:requestCopy];
 
-  return v6;
+  return v4;
 }
 
 @end

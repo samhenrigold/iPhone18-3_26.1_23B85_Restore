@@ -74,7 +74,7 @@
   v6 = v5;
   if (v5)
   {
-    [v5 frameTime];
+    objc_msgSend_frameTime(v5);
   }
 
   else
@@ -200,13 +200,13 @@ LABEL_36:
   if (v10)
   {
     objc_opt_class();
-    if ((objc_opt_isKindOfClass() & 1) == 0 || ([v10 CMTimeValue], (v36 & 1) == 0))
+    if ((objc_opt_isKindOfClass() & 1) == 0 || (objc_msgSend_CMTimeValue(v10), (v36 & 1) == 0))
     {
       v11 = [NUError invalidError:@"invalid time in settings" object:v10];
       goto LABEL_34;
     }
 
-    [v10 CMTimeValue];
+    objc_msgSend_CMTimeValue(v10);
     *buf = v34;
     *&buf[16] = v35;
     [(NURenderPipelineState *)self setTime:buf];
@@ -216,17 +216,17 @@ LABEL_36:
 
   if (v9)
   {
-    [(NURenderPipelineState *)self time];
+    objc_msgSend_time(self);
     if ((v33 & 1) == 0)
     {
       objc_opt_class();
-      if ((objc_opt_isKindOfClass() & 1) == 0 || ([v9 CMTimeValue], (v32 & 1) == 0))
+      if ((objc_opt_isKindOfClass() & 1) == 0 || (objc_msgSend_CMTimeValue(v9), (v32 & 1) == 0))
       {
         v12 = [NUError invalidError:@"invalid time in settings" object:v9];
         goto LABEL_14;
       }
 
-      [v9 CMTimeValue];
+      objc_msgSend_CMTimeValue(v9);
       *buf = v30;
       *&buf[16] = v31;
       [(NURenderPipelineState *)self setTime:buf];
@@ -585,7 +585,7 @@ LABEL_37:
   [initForCopy setEvaluationMode:{-[NURenderPipelineState evaluationMode](self, "evaluationMode")}];
   [initForCopy setMediaComponentType:{-[NURenderPipelineState mediaComponentType](self, "mediaComponentType")}];
   [initForCopy setAuxiliaryImageType:{-[NURenderPipelineState auxiliaryImageType](self, "auxiliaryImageType")}];
-  [(NURenderPipelineState *)self time];
+  objc_msgSend_time(self);
   v12 = v14;
   v13 = v15;
   [initForCopy setTime:&v12];
@@ -634,9 +634,11 @@ LABEL_37:
 
   self->_groupCount = 1;
   objc_storeStrong(&self->_currentGroup, self->_rootGroup);
-  self->_groupStack = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v5 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  groupStack = self->_groupStack;
+  self->_groupStack = v5;
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](v5, groupStack);
 }
 
 - (NURenderPipelineState)init

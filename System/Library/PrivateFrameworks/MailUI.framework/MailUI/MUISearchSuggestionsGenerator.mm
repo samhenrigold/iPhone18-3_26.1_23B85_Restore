@@ -1,11 +1,11 @@
 @interface MUISearchSuggestionsGenerator
 + (OS_os_log)log;
 - (MUISearchSuggestionsGenerator)initWithSuggesters:(id)suggesters delegate:(id)delegate;
+- (dispatch_queue_t)_cancel;
 - (id)startGeneratingSuggestionsUsingPhraseManager:(id)manager;
-- (uint64_t)_cancel;
 - (uint64_t)_hasActiveOperationsWithRequestID:(uint64_t)d;
 - (void)_appendOperation:(uint64_t)operation;
-- (void)_didProduceResult:(uint64_t)result;
+- (void)_didProduceResult:(dispatch_queue_t *)result;
 - (void)_operationDidComplete:(uint64_t)complete;
 - (void)_stopGeneratingSuggestionsWithIdentifier:(uint64_t)identifier;
 - (void)cancel;
@@ -138,30 +138,31 @@ void __73__MUISearchSuggestionsGenerator_stopGeneratingSuggestionsWithIdentifier
   v5 = objc_alloc_init(MUISearchRequestID);
   v6 = managerCopy;
   v7 = v5;
-  v8 = signpostLog();
+  v8 = signpostLog(v7);
   v9 = os_signpost_enabled(v8);
 
   if (v9)
   {
     phraseKind = [v6 phraseKind];
-    v11 = signpostLog();
+    v11 = phraseKind;
+    v12 = signpostLog(phraseKind);
     [v6 signpostID];
     OUTLINED_FUNCTION_5_0();
-    if (phraseKind)
+    if (v11)
     {
-      if (!(!v13 & v12) && os_signpost_enabled(v11))
+      if (!(!v14 & v13) && os_signpost_enabled(v12))
       {
         phrase = [v6 phrase];
         OUTLINED_FUNCTION_4_1();
-        OUTLINED_FUNCTION_7(&dword_214A5E000, v15, v16, v17, "com.apple.mail.search.suggestion.zkw.queue", "id=%{signpost.description:attribute}u text=%{sensitive}@", v18, v19, v33, block, v35, v36, v37, v38, v39, v40, location[0]);
+        OUTLINED_FUNCTION_7(&dword_214A5E000, v16, v17, v18, "com.apple.mail.search.suggestion.zkw.queue", "id=%{signpost.description:attribute}u text=%{sensitive}@", v19, v20, v34, block, v36, v37, v38, v39, v40, v41);
       }
     }
 
-    else if (!(!v13 & v12) && os_signpost_enabled(v11))
+    else if (!(!v14 & v13) && os_signpost_enabled(v12))
     {
       phrase2 = [v6 phrase];
       OUTLINED_FUNCTION_4_1();
-      OUTLINED_FUNCTION_7(&dword_214A5E000, v21, v22, v23, "com.apple.mail.search.suggestion.ayt.queue", "id=%{signpost.description:attribute}u text=%{sensitive}@", v24, v25, v33, block, v35, v36, v37, v38, v39, v40, location[0]);
+      OUTLINED_FUNCTION_7(&dword_214A5E000, v22, v23, v24, "com.apple.mail.search.suggestion.ayt.queue", "id=%{signpost.description:attribute}u text=%{sensitive}@", v25, v26, v34, block, v36, v37, v38, v39, v40, v41);
     }
   }
 
@@ -177,24 +178,24 @@ void __73__MUISearchSuggestionsGenerator_stopGeneratingSuggestionsWithIdentifier
   }
 
   block = MEMORY[0x277D85DD0];
-  v35 = 3221225472;
-  v36 = __78__MUISearchSuggestionsGenerator_startGeneratingSuggestionsUsingPhraseManager___block_invoke;
-  v37 = &unk_27818B0E8;
-  v27 = queue;
-  objc_copyWeak(&v40, location);
-  v28 = v7;
-  v38 = v28;
-  v39 = v6;
-  v29 = v6;
-  dispatch_async(v27, &block);
+  v36 = 3221225472;
+  v37 = __78__MUISearchSuggestionsGenerator_startGeneratingSuggestionsUsingPhraseManager___block_invoke;
+  v38 = &unk_27818B0E8;
+  v28 = queue;
+  objc_copyWeak(&v41, location);
+  v29 = v7;
+  v39 = v29;
+  v40 = v6;
+  v30 = v6;
+  dispatch_async(v28, &block);
 
-  v30 = v39;
-  v31 = v28;
+  v31 = v40;
+  v32 = v29;
 
-  objc_destroyWeak(&v40);
+  objc_destroyWeak(&v41);
   objc_destroyWeak(location);
 
-  return v31;
+  return v32;
 }
 
 - (void)_appendOperation:(uint64_t)operation
@@ -678,22 +679,22 @@ LABEL_4:
   }
 }
 
-- (uint64_t)_cancel
+- (dispatch_queue_t)_cancel
 {
   v30 = *MEMORY[0x277D85DE8];
   if (result)
   {
     v1 = result;
-    dispatch_assert_queue_V2(*(result + 48));
-    v2 = *(v1 + 24);
-    *(v1 + 24) = 0;
+    dispatch_assert_queue_V2(result[6]);
+    v2 = v1[3];
+    v1[3] = 0;
 
     v23 = 0u;
     v24 = 0u;
     v21 = 0u;
     v22 = 0u;
     v20 = v1;
-    v3 = *(v1 + 40);
+    v3 = v1[5];
     v4 = [v3 countByEnumeratingWithState:&v21 objects:v29 count:16];
     if (v4)
     {
@@ -761,23 +762,23 @@ LABEL_4:
       while (v17);
     }
 
-    v18 = *(v20 + 40);
-    v19 = *(v20 + 32);
+    v18 = v20[5];
+    v19 = v20[4];
     [v19 addObjectsFromArray:v18];
 
-    return [*(v20 + 40) removeAllObjects];
+    return [v20[5] removeAllObjects];
   }
 
   return result;
 }
 
-- (void)_didProduceResult:(uint64_t)result
+- (void)_didProduceResult:(dispatch_queue_t *)result
 {
   v15 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (result)
   {
-    dispatch_assert_queue_V2(*(result + 48));
+    dispatch_assert_queue_V2(result[6]);
     requestID = [v3 requestID];
     v5 = [(MUISearchSuggestionsGenerator *)result _hasActiveOperationsWithRequestID:requestID];
 

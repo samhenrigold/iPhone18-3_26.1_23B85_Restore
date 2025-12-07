@@ -41,25 +41,26 @@ void __64__CNRenderingSessionAttributes_loadFromAsset_completionHandler___block_
 {
   v5 = a2;
   v6 = a3;
+  v7 = v6;
   if (v6)
   {
-    v7 = _CNLogSystem();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = _CNLogSystem(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      __64__CNRenderingSessionAttributes_loadFromAsset_completionHandler___block_invoke_cold_1(v6, a1, v7);
+      __64__CNRenderingSessionAttributes_loadFromAsset_completionHandler___block_invoke_cold_1(v7, a1, v8);
     }
 
-    v8 = _CNCinematicError(2, v6);
-    v9 = *(*(a1 + 40) + 16);
+    v9 = _CNCinematicError(2, v7);
+    v10 = *(*(a1 + 40) + 16);
   }
 
   else
   {
-    v8 = [[CNRenderingSessionAttributes alloc] initWithPTGlobalRenderingMetadata:v5];
-    v9 = *(*(a1 + 40) + 16);
+    v9 = [[CNRenderingSessionAttributes alloc] initWithPTGlobalRenderingMetadata:v5];
+    v10 = *(*(a1 + 40) + 16);
   }
 
-  v9();
+  v10();
 }
 
 + (void)_loadPTGlobalRenderingMetadataFromAsset:(id)asset completionHandler:(id)handler
@@ -79,56 +80,55 @@ void __90__CNRenderingSessionAttributes__loadPTGlobalRenderingMetadataFromAsset_
 {
   if (a3)
   {
-    v4 = *(a1 + 32);
-    v5 = *(*(a1 + 32) + 16);
+    v4 = *(*(a1 + 32) + 16);
 
-    v5();
+    v4();
   }
 
   else
   {
-    v6 = [*(a1 + 40) _PTGlobalRenderingMetadataFromItems:a2];
+    v5 = [*(a1 + 40) _PTGlobalRenderingMetadataFromItems:a2];
     (*(*(a1 + 32) + 16))();
   }
 }
 
 + (id)_PTGlobalRenderingMetadataFromItems:(id)items
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   itemsCopy = items;
-  v4 = [itemsCopy countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v4 = [itemsCopy countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v17;
+    v6 = *v16;
     while (2)
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v17 != v6)
+        if (*v16 != v6)
         {
           objc_enumerationMutation(itemsCopy);
         }
 
-        v8 = *(*(&v16 + 1) + 8 * i);
+        v8 = *(*(&v15 + 1) + 8 * i);
         v9 = [v8 key];
         v10 = [v9 isEqualToString:0x284A052E0];
 
         if (v10)
         {
           value = [v8 value];
-          v15 = 0;
-          v11 = [MEMORY[0x277D3E890] deserializeMetadataWithType:2 fromGlobalMetadata:value error:&v15];
+          v14 = 0;
+          v11 = [MEMORY[0x277D3E890] deserializeMetadataWithType:2 fromGlobalMetadata:value error:&v14];
 
           goto LABEL_11;
         }
       }
 
-      v5 = [itemsCopy countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v5 = [itemsCopy countByEnumeratingWithState:&v15 objects:v19 count:16];
       if (v5)
       {
         continue;
@@ -141,21 +141,18 @@ void __90__CNRenderingSessionAttributes__loadPTGlobalRenderingMetadataFromAsset_
   v11 = 0;
 LABEL_11:
 
-  v13 = *MEMORY[0x277D85DE8];
-
   return v11;
 }
 
 void __64__CNRenderingSessionAttributes_loadFromAsset_completionHandler___block_invoke_cold_1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = *(a2 + 32);
-  v5 = 138412546;
-  v6 = a1;
-  v7 = 2112;
-  v8 = v3;
-  _os_log_error_impl(&dword_236F52000, log, OS_LOG_TYPE_ERROR, "Error: (%@) Unable to load cinematic global rendering metadata from asset %@", &v5, 0x16u);
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 138412546;
+  v5 = a1;
+  v6 = 2112;
+  v7 = v3;
+  _os_log_error_impl(&dword_236F52000, log, OS_LOG_TYPE_ERROR, "Error: (%@) Unable to load cinematic global rendering metadata from asset %@", &v4, 0x16u);
 }
 
 @end

@@ -44,17 +44,8 @@
   v11 = v10;
   v33 = v11;
   v12 = _Block_copy(&v29);
-  if (v9 != 3)
+  if (v9 != 3 || ([v8 typeInfo], v13 = objc_claimAutoreleasedReturnValue(), v14 = objc_msgSend(v13, "isCurrency"), v13, !v14) || (v15 = 2, (*(v11 + 2))(v11, v8, 2, 0), v16 = objc_claimAutoreleasedReturnValue(), v17 = objc_msgSend(v16, "compare:options:", stringCopy, 1), v16, v17))
   {
-    goto LABEL_6;
-  }
-
-  typeInfo = [v8 typeInfo];
-  isCurrency = [typeInfo isCurrency];
-
-  if (!isCurrency || (v15 = 2, (*(v11 + 2))(v11, v8, 2, 0), v16 = objc_claimAutoreleasedReturnValue(), v17 = [v16 compare:stringCopy options:1], v16, v17))
-  {
-LABEL_6:
     lengths = self->_lengths;
     var1 = lengths[dCopy].var1;
     if (!var1)

@@ -113,7 +113,7 @@ void __42__PSAccessoriesListController_viewDidLoad__block_invoke(uint64_t a1, vo
 
 - (id)specifiers
 {
-  v12[1] = *MEMORY[0x277D85DE8];
+  v11[1] = *MEMORY[0x277D85DE8];
   v3 = *MEMORY[0x277D3FC48];
   v4 = *(&self->super.super.super.super.super.isa + v3);
   if (!v4)
@@ -123,15 +123,13 @@ void __42__PSAccessoriesListController_viewDidLoad__block_invoke(uint64_t a1, vo
     v7 = [v6 localizedStringForKey:@"The accessories listed are paired with apps on your device." value:&stru_282D7C630 table:0];
     [v5 setObject:v7 forKeyedSubscript:*MEMORY[0x277D3FF88]];
 
-    v12[0] = v5;
-    v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
+    v11[0] = v5;
+    v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:1];
     v9 = *(&self->super.super.super.super.super.isa + v3);
     *(&self->super.super.super.super.super.isa + v3) = v8;
 
     v4 = *(&self->super.super.super.super.super.isa + v3);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
@@ -173,18 +171,18 @@ void __47__PSAccessoriesListController_refreshDADevices__block_invoke(uint64_t a
   dispatch_async(MEMORY[0x277D85CD0], block);
 }
 
-void __47__PSAccessoriesListController_refreshDADevices__block_invoke_2(uint64_t a1)
+void __47__PSAccessoriesListController_refreshDADevices__block_invoke_2(uint64_t a1, uint64_t a2)
 {
   v26 = *MEMORY[0x277D85DE8];
   if (*(a1 + 32))
   {
-    v2 = _AULoggingFacility();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+    v3 = _AULoggingFacility(a1);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
-      v3 = *(a1 + 32);
+      v4 = *(a1 + 32);
       *buf = 138412290;
-      v25 = v3;
-      _os_log_impl(&dword_21BAF4000, v2, OS_LOG_TYPE_DEFAULT, "Error while trying to fetch accessories: %@", buf, 0xCu);
+      v25 = v4;
+      _os_log_impl(&dword_21BAF4000, v3, OS_LOG_TYPE_DEFAULT, "Error while trying to fetch accessories: %@", buf, 0xCu);
     }
   }
 
@@ -193,48 +191,47 @@ void __47__PSAccessoriesListController_refreshDADevices__block_invoke_2(uint64_t
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v4 = *(a1 + 40);
-  v5 = [v4 countByEnumeratingWithState:&v19 objects:v23 count:16];
-  if (v5)
+  v5 = *(a1 + 40);
+  v6 = [v5 countByEnumeratingWithState:&v19 objects:v23 count:16];
+  if (v6)
   {
-    v6 = v5;
-    v7 = *v20;
+    v7 = v6;
+    v8 = *v20;
     do
     {
-      for (i = 0; i != v6; ++i)
+      for (i = 0; i != v7; ++i)
       {
-        if (*v20 != v7)
+        if (*v20 != v8)
         {
-          objc_enumerationMutation(v4);
+          objc_enumerationMutation(v5);
         }
 
-        v9 = *(*(&v19 + 1) + 8 * i);
-        v10 = [v9 appAccessInfoMap];
-        v11 = [v10 allKeys];
-        v12 = [v11 containsObject:*(*(a1 + 48) + 1456)];
+        v10 = *(*(&v19 + 1) + 8 * i);
+        v11 = [v10 appAccessInfoMap];
+        v12 = [v11 allKeys];
+        v13 = [v12 containsObject:*(*(a1 + 48) + 1456)];
 
-        if (v12)
+        if (v13)
         {
-          v13 = [*(a1 + 48) specifierForDevice:v9];
-          [v18 addObject:v13];
+          v14 = [*(a1 + 48) specifierForDevice:v10];
+          [v18 addObject:v14];
         }
       }
 
-      v6 = [v4 countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
-    while (v6);
+    while (v7);
   }
 
   [v18 sortUsingComparator:&__block_literal_global_0];
   [*(a1 + 48) removeContiguousSpecifiers:*(*(a1 + 48) + 1472)];
-  v14 = [v18 copy];
-  v15 = *(a1 + 48);
-  v16 = *(v15 + 1472);
-  *(v15 + 1472) = v14;
+  v15 = [v18 copy];
+  v16 = *(a1 + 48);
+  v17 = *(v16 + 1472);
+  *(v16 + 1472) = v15;
 
   [*(a1 + 48) insertContiguousSpecifiers:*(*(a1 + 48) + 1472) afterSpecifierID:@"ACCESSORIES_GROUP"];
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __47__PSAccessoriesListController_refreshDADevices__block_invoke_67(uint64_t a1, void *a2, void *a3)

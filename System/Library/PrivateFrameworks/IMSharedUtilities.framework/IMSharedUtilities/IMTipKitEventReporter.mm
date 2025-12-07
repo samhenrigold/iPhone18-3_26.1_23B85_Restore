@@ -111,7 +111,7 @@
 - (void)sendBiomeSignal:(id)signal
 {
   v3 = [signal copy];
-  v4 = IMBiomeQueue();
+  v4 = IMBiomeQueue(v3);
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 3221225472;
   block[2] = sub_1A86AD5F0;

@@ -34,10 +34,10 @@
 
 - (id)runAction
 {
-  v29 = *MEMORY[0x1E69E9840];
-  v22.receiver = self;
-  v22.super_class = AMSUIWebLoadPluginAction;
-  runAction = [(AMSUIWebAction *)&v22 runAction];
+  v28 = *MEMORY[0x1E69E9840];
+  v21.receiver = self;
+  v21.super_class = AMSUIWebLoadPluginAction;
+  runAction = [(AMSUIWebAction *)&v21 runAction];
   mEMORY[0x1E698C968] = [MEMORY[0x1E698C968] sharedWebUIConfig];
   if (!mEMORY[0x1E698C968])
   {
@@ -51,11 +51,11 @@
     v7 = AMSLogKey();
     bundleIdentifier = [(AMSUIWebLoadPluginAction *)self bundleIdentifier];
     *buf = 138543874;
-    v24 = v6;
-    v25 = 2114;
-    v26 = v7;
-    v27 = 2114;
-    v28 = bundleIdentifier;
+    v23 = v6;
+    v24 = 2114;
+    v25 = v7;
+    v26 = 2114;
+    v27 = bundleIdentifier;
     _os_log_impl(&dword_1BB036000, oSLogObject, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Running plugin action. Bundle identifier: %{public}@", buf, 0x20u);
   }
 
@@ -90,8 +90,6 @@
     v13 = AMSError();
     promiseAdapter = [v18 promiseWithError:v13];
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 
   return promiseAdapter;
 }

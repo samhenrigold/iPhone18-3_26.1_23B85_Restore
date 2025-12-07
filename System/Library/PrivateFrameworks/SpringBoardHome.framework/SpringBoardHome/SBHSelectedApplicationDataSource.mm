@@ -63,14 +63,16 @@
   return v2;
 }
 
-uint64_t __53__SBHSelectedApplicationDataSource_homeScreenService__block_invoke(uint64_t a1)
+uint64_t __53__SBHSelectedApplicationDataSource_homeScreenService__block_invoke()
 {
-  result = SBHIsRunningInSpringBoard(a1);
+  result = SBHIsRunningInSpringBoard();
   if ((result & 1) == 0)
   {
-    homeScreenService__homeScreenService_0 = objc_alloc_init(MEMORY[0x1E69D4240]);
+    v1 = objc_alloc_init(MEMORY[0x1E69D4240]);
+    v2 = homeScreenService__homeScreenService_0;
+    homeScreenService__homeScreenService_0 = v1;
 
-    return MEMORY[0x1EEE66BB8]();
+    return MEMORY[0x1EEE66BB8](v1, v2);
   }
 
   return result;

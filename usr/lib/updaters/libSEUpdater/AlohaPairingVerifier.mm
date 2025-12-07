@@ -119,8 +119,8 @@ LABEL_18:
     v5 = v18;
     if (!v18 && v16 && v17)
     {
-      [APDUUtil getCXXApduWithCla:128 ins:202 p1:0 p2:214 payload:0];
-      SERestoreInfo::Apdu::Apdu(&v21);
+      objc_msgSend_getCXXApduWithCla_ins_p1_p2_payload_(APDUUtil);
+      SERestoreInfo::Apdu::Apdu(&v21, 0x2037uLL);
     }
 
     v19 = _ObjCLogNSError(v18, 14, "[AlohaPairingVerifier performAlohaVerification]", &cfstr_Performauthkey.isa);
@@ -151,15 +151,15 @@ LABEL_22:
 
 - (BOOL)injectSEPKtoSSE_Debug:(id *)debug
 {
-  v42 = *MEMORY[0x29EDCA608];
+  v41 = *MEMORY[0x29EDCA608];
   transceiver = self->_transceiver;
-  v37 = 0;
-  v38 = 0;
   v36 = 0;
-  v5 = [(SETransceiveHelper *)transceiver getSEPK:&v38 andSEID:&v37 deleteExisting:0 error:&v36];
-  v6 = v38;
-  v7 = v37;
-  v8 = v36;
+  v37 = 0;
+  v35 = 0;
+  v5 = [(SETransceiveHelper *)transceiver getSEPK:&v37 andSEID:&v36 deleteExisting:0 error:&v35];
+  v6 = v37;
+  v7 = v36;
+  v8 = v35;
   v13 = v8;
   if (!v5 || v8 != 0 || v6 == 0 || v7 == 0)
   {
@@ -168,10 +168,10 @@ LABEL_22:
 
   else
   {
-    memset(v41, 0, sizeof(v41));
+    memset(v40, 0, sizeof(v40));
     inputStruct = 1397966179;
-    v40 = 246;
-    *&v41[2] = 258;
+    v39 = 246;
+    *&v40[2] = 258;
     SSEIOConnect = getSSEIOConnect();
     v18 = IOConnectCallStructMethod(SSEIOConnect, 0, &inputStruct, 0x62uLL, 0, 0);
     if (v18)
@@ -181,22 +181,22 @@ LABEL_22:
 
     else
     {
-      v41[2] = 3;
+      v40[2] = 3;
       v24 = v7;
       bytes = [v7 bytes];
       v26 = *bytes;
-      *&v41[19] = *(bytes + 16);
-      *&v41[3] = v26;
+      *&v40[19] = *(bytes + 16);
+      *&v40[3] = v26;
       v27 = v6;
       bytes2 = [v6 bytes];
-      *&v41[27] = *bytes2;
+      *&v40[27] = *bytes2;
       v29 = *(bytes2 + 16);
       v30 = *(bytes2 + 32);
       v31 = *(bytes2 + 48);
-      v41[91] = *(bytes2 + 64);
-      *&v41[75] = v31;
-      *&v41[59] = v30;
-      *&v41[43] = v29;
+      v40[91] = *(bytes2 + 64);
+      *&v40[75] = v31;
+      *&v40[59] = v30;
+      *&v40[43] = v29;
       v32 = getSSEIOConnect();
       v18 = IOConnectCallStructMethod(v32, 0, &inputStruct, 0x62uLL, 0, 0);
       if (!v18)
@@ -215,30 +215,29 @@ LABEL_22:
   v33 = 0;
 LABEL_19:
 
-  v34 = *MEMORY[0x29EDCA608];
   return v33;
 }
 
 - (BOOL)injectSEPKtoSSE_FDR:(id *)r
 {
-  v38[3] = *MEMORY[0x29EDCA608];
-  v36 = 0;
-  v37[0] = @"VerifyData";
+  v37[3] = *MEMORY[0x29EDCA608];
+  v35 = 0;
+  v36[0] = @"VerifyData";
   v5 = [MEMORY[0x29EDBA070] numberWithBool:0];
-  v38[0] = v5;
-  v37[1] = @"StripImg4";
+  v37[0] = v5;
+  v36[1] = @"StripImg4";
   v6 = [MEMORY[0x29EDBA070] numberWithBool:0];
-  v38[1] = v6;
-  v37[2] = @"GetCombined";
+  v37[1] = v6;
+  v36[2] = @"GetCombined";
   v7 = [MEMORY[0x29EDBA070] numberWithBool:1];
-  v38[2] = v7;
-  v8 = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v38 forKeys:v37 count:3];
+  v37[2] = v7;
+  v8 = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v37 forKeys:v36 count:3];
   v9 = [v8 mutableCopy];
 
   transceiver = self->_transceiver;
-  v35 = 0;
-  v11 = [(SETransceiveHelper *)transceiver copySeid:&v35];
-  v12 = v35;
+  v34 = 0;
+  v11 = [(SETransceiveHelper *)transceiver copySeid:&v34];
+  v12 = v34;
   v16 = v12;
   if (v11 && !v12)
   {
@@ -246,14 +245,14 @@ LABEL_19:
     asHexString = [v11 asHexString];
     uppercaseString = [asHexString uppercaseString];
 
-    v33 = 0;
-    v34 = &v36;
+    v32 = 0;
+    v33 = &v35;
     v19 = AMFDRSealingMapCopyLocalData();
-    ctu::cf::detail::TakeOwnershipProxy<__CFError>::~TakeOwnershipProxy(&v33);
-    if (!v19 || v36)
+    ctu::cf::detail::TakeOwnershipProxy<__CFError>::~TakeOwnershipProxy(&v32);
+    if (!v19 || v35)
     {
-      _ObjCLog(0, "[AlohaPairingVerifier injectSEPKtoSSE_FDR:]", &cfstr_ErrorFromAmfdr.isa, v36, v33, v34);
-      _ObjCLogWrapOutError(r, v36, 0, "[AlohaPairingVerifier injectSEPKtoSSE_FDR:]", @"AMFDRSealingMapCopyLocalData", v26, v27, v28, v32);
+      _ObjCLog(0, "[AlohaPairingVerifier injectSEPKtoSSE_FDR:]", &cfstr_ErrorFromAmfdr.isa, v35, v32, v33);
+      _ObjCLogWrapOutError(r, v35, 0, "[AlohaPairingVerifier injectSEPKtoSSE_FDR:]", @"AMFDRSealingMapCopyLocalData", v26, v27, v28, v31);
     }
 
     else
@@ -261,7 +260,7 @@ LABEL_19:
       v20 = SSESetSEPubKey(self->_seid, v19);
       if (!v20)
       {
-        _ObjCLog(2, "[AlohaPairingVerifier injectSEPKtoSSE_FDR:]", &cfstr_SuccessfullyFd.isa, self->_seid, v33, v34);
+        _ObjCLog(2, "[AlohaPairingVerifier injectSEPKtoSSE_FDR:]", &cfstr_SuccessfullyFd.isa, self->_seid, v32, v33);
         v25 = 1;
         goto LABEL_10;
       }
@@ -275,12 +274,11 @@ LABEL_10:
     goto LABEL_11;
   }
 
-  _ObjCLogWrapOutError(r, v12, 0, "[AlohaPairingVerifier injectSEPKtoSSE_FDR:]", @"Failed to copy SEID", v13, v14, v15, v31);
+  _ObjCLogWrapOutError(r, v12, 0, "[AlohaPairingVerifier injectSEPKtoSSE_FDR:]", @"Failed to copy SEID", v13, v14, v15, v30);
   v25 = 0;
 LABEL_11:
 
-  ctu::SharedRef<__CFError,ctu::cf::cfretain_functor,ctu::cf::cfrelease_functor,__CFError>::~SharedRef(&v36);
-  v29 = *MEMORY[0x29EDCA608];
+  ctu::SharedRef<__CFError,ctu::cf::cfretain_functor,ctu::cf::cfrelease_functor,__CFError>::~SharedRef(&v35);
   return v25;
 }
 
@@ -328,11 +326,11 @@ LABEL_10:
   eCopy = e;
   requestCopy = request;
   signatureCopy = signature;
+  v23 = 0;
   v24 = 0;
-  v25 = 0;
-  v14 = SSEPerformAuthKeySharing(eCopy, requestCopy, signatureCopy, &v25, &v24);
-  v15 = v25;
-  v16 = v24;
+  v14 = SSEPerformAuthKeySharing(eCopy, requestCopy, signatureCopy, &v24, &v23);
+  v15 = v24;
+  v16 = v23;
   *resultSignature = v16;
   if (!v14 && v15 && v16)
   {
@@ -344,7 +342,6 @@ LABEL_10:
     _ObjCLog(0, "[AlohaPairingVerifier performAuthKeySharingWithAppleSSE:sharingRequest:requestSignature:resultSignature:withError:]", &cfstr_PerformedShari.isa, eCopy);
     _ObjCLog(0, "[AlohaPairingVerifier performAuthKeySharingWithAppleSSE:sharingRequest:requestSignature:resultSignature:withError:]", &cfstr_Request.isa, requestCopy);
     _ObjCLog(0, "[AlohaPairingVerifier performAuthKeySharingWithAppleSSE:sharingRequest:requestSignature:resultSignature:withError:]", &cfstr_Requestsig.isa, signatureCopy);
-    v23 = *resultSignature == 0;
     _ObjCLogOutError(error, 0, "[AlohaPairingVerifier performAuthKeySharingWithAppleSSE:sharingRequest:requestSignature:resultSignature:withError:]", @"Bad status received when sharing auth key %d or nil for sharing result %d or nil for sharing result signature %d\n", v18, v19, v20, v21, v14);
     v17 = 0;
   }

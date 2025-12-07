@@ -3,11 +3,11 @@
 
 @implementation CMSMAP
 
-NSObject *__CMSMAP_StartDisconnectAirPlayScreenTimer_block_invoke(uint64_t a1)
+NSObject *__CMSMAP_StartDisconnectAirPlayScreenTimer_block_invoke(uint64_t a1, uint64_t a2)
 {
-  v1 = *(a1 + 32);
-  v2 = MXGetSerialQueue();
-  result = MXDispatchUtilityCreateOneShotTimer(v1, "CMSMAP_StartDisconnectAirPlayScreenTimer_block_invoke", "CMSessionManager_AirPlay.m", 221, 0, 0, v2, &__block_literal_global_27, 0, 0);
+  v2 = *(a1 + 32);
+  v3 = MXGetSerialQueue(a1, a2);
+  result = MXDispatchUtilityCreateOneShotTimer("CMSMAP_StartDisconnectAirPlayScreenTimer_block_invoke", "CMSessionManager_AirPlay.m", 221, 0, 0, v3, &__block_literal_global_27, 0, v2, 0);
   qword_1EB75E158 = result;
   return result;
 }
@@ -25,16 +25,16 @@ void __CMSMAP_StopDisconnectAirPlayScreenTimer_block_invoke()
   }
 }
 
-NSObject *__CMSMAP_StartRouteAwayFromAirPlayHandoffTimer_block_invoke(uint64_t a1)
+NSObject *__CMSMAP_StartRouteAwayFromAirPlayHandoffTimer_block_invoke(uint64_t a1, uint64_t a2)
 {
-  v4[0] = MEMORY[0x1E69E9820];
-  v4[1] = 3221225472;
-  v4[2] = __CMSMAP_StartRouteAwayFromAirPlayHandoffTimer_block_invoke_2;
-  v4[3] = &__block_descriptor_40_e5_v8__0l;
-  v4[4] = *(a1 + 32);
-  v1 = *(a1 + 40);
-  v2 = MXGetSerialQueue();
-  result = MXDispatchUtilityCreateOneShotTimer(v1, "CMSMAP_StartRouteAwayFromAirPlayHandoffTimer_block_invoke", "CMSessionManager_AirPlay.m", 255, 0, 0, v2, v4, 0, 0);
+  v5[0] = MEMORY[0x1E69E9820];
+  v5[1] = 3221225472;
+  v5[2] = __CMSMAP_StartRouteAwayFromAirPlayHandoffTimer_block_invoke_2;
+  v5[3] = &__block_descriptor_40_e5_v8__0l;
+  v5[4] = *(a1 + 32);
+  v2 = *(a1 + 40);
+  v3 = MXGetSerialQueue(a1, a2);
+  result = MXDispatchUtilityCreateOneShotTimer("CMSMAP_StartRouteAwayFromAirPlayHandoffTimer_block_invoke", "CMSessionManager_AirPlay.m", 255, 0, 0, v3, v5, 0, v2, 0);
   qword_1EB75E160 = result;
   return result;
 }

@@ -24,28 +24,28 @@
 
 - (FCSingleTagFeedDescriptor)initWithContext:(id)context tag:(id)tag sortMethod:(int64_t)method filterOptions:(unint64_t)options personalizationConfigurationSet:(int64_t)set feedConfiguration:(unint64_t)configuration referringFeedItemIdentifier:(id)identifier
 {
-  v49 = *MEMORY[0x1E69E9840];
+  v48 = *MEMORY[0x1E69E9840];
   contextCopy = context;
   tagCopy = tag;
   identifierCopy = identifier;
   if (!tagCopy && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v36 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "tag != nil"];
+    v35 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "tag != nil"];
     *buf = 136315906;
-    v42 = "[FCSingleTagFeedDescriptor initWithContext:tag:sortMethod:filterOptions:personalizationConfigurationSet:feedConfiguration:referringFeedItemIdentifier:]";
-    v43 = 2080;
-    v44 = "FCSingleTagFeedDescriptor.m";
-    v45 = 1024;
-    v46 = 69;
-    v47 = 2114;
-    v48 = v36;
+    v41 = "[FCSingleTagFeedDescriptor initWithContext:tag:sortMethod:filterOptions:personalizationConfigurationSet:feedConfiguration:referringFeedItemIdentifier:]";
+    v42 = 2080;
+    v43 = "FCSingleTagFeedDescriptor.m";
+    v44 = 1024;
+    v45 = 69;
+    v46 = 2114;
+    v47 = v35;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
   identifier = [tagCopy identifier];
-  v40.receiver = self;
-  v40.super_class = FCSingleTagFeedDescriptor;
-  v19 = [(FCFeedDescriptor *)&v40 initWithIdentifier:identifier];
+  v39.receiver = self;
+  v39.super_class = FCSingleTagFeedDescriptor;
+  v19 = [(FCFeedDescriptor *)&v39 initWithIdentifier:identifier];
 
   if (v19)
   {
@@ -65,7 +65,7 @@
       if (asSection)
       {
         [contextCopy tagController];
-        v38 = identifierCopy;
+        v37 = identifierCopy;
         v25 = contextCopy;
         optionsCopy = options;
         setCopy = set;
@@ -79,18 +79,18 @@
         set = setCopy;
         options = optionsCopy;
         contextCopy = v25;
-        identifierCopy = v38;
+        identifierCopy = v37;
         if (!v19->_masterTag && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
         {
-          v37 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"failed to lookup parent channel in cache"];
+          v36 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"failed to lookup parent channel in cache"];
           *buf = 136315906;
-          v42 = "[FCSingleTagFeedDescriptor initWithContext:tag:sortMethod:filterOptions:personalizationConfigurationSet:feedConfiguration:referringFeedItemIdentifier:]";
-          v43 = 2080;
-          v44 = "FCSingleTagFeedDescriptor.m";
-          v45 = 1024;
-          v46 = 85;
-          v47 = 2114;
-          v48 = v37;
+          v41 = "[FCSingleTagFeedDescriptor initWithContext:tag:sortMethod:filterOptions:personalizationConfigurationSet:feedConfiguration:referringFeedItemIdentifier:]";
+          v42 = 2080;
+          v43 = "FCSingleTagFeedDescriptor.m";
+          v44 = 1024;
+          v45 = 85;
+          v46 = 2114;
+          v47 = v36;
           _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
         }
       }
@@ -113,7 +113,6 @@
     }
   }
 
-  v34 = *MEMORY[0x1E69E9840];
   return v19;
 }
 
@@ -328,19 +327,19 @@
 
 - (BOOL)isSubscribedToWithSubscriptionController:(id)controller
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   controllerCopy = controller;
   if (!controllerCopy && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v10 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "subscriptionController"];
+    v9 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "subscriptionController"];
     *buf = 136315906;
-    v12 = "[FCSingleTagFeedDescriptor isSubscribedToWithSubscriptionController:]";
-    v13 = 2080;
-    v14 = "FCSingleTagFeedDescriptor.m";
-    v15 = 1024;
-    v16 = 250;
-    v17 = 2114;
-    v18 = v10;
+    v11 = "[FCSingleTagFeedDescriptor isSubscribedToWithSubscriptionController:]";
+    v12 = 2080;
+    v13 = "FCSingleTagFeedDescriptor.m";
+    v14 = 1024;
+    v15 = 250;
+    v16 = 2114;
+    v17 = v9;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
@@ -356,25 +355,24 @@
     v6 = [controllerCopy hasSubscriptionToTag:v7];
   }
 
-  v8 = *MEMORY[0x1E69E9840];
   return v6;
 }
 
 - (BOOL)hasNotificationsEnabledWithSubscriptionController:(id)controller
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   controllerCopy = controller;
   if (!controllerCopy && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v10 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "subscriptionController"];
+    v9 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "subscriptionController"];
     *buf = 136315906;
-    v12 = "[FCSingleTagFeedDescriptor hasNotificationsEnabledWithSubscriptionController:]";
-    v13 = 2080;
-    v14 = "FCSingleTagFeedDescriptor.m";
-    v15 = 1024;
-    v16 = 258;
-    v17 = 2114;
-    v18 = v10;
+    v11 = "[FCSingleTagFeedDescriptor hasNotificationsEnabledWithSubscriptionController:]";
+    v12 = 2080;
+    v13 = "FCSingleTagFeedDescriptor.m";
+    v14 = 1024;
+    v15 = 258;
+    v16 = 2114;
+    v17 = v9;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
@@ -390,7 +388,6 @@
     v6 = [controllerCopy hasNotificationsEnabledForTag:v7];
   }
 
-  v8 = *MEMORY[0x1E69E9840];
   return v6;
 }
 

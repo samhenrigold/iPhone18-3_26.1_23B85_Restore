@@ -7,37 +7,48 @@
 
 - (MAAIRBMobileAssetAssetSelector)initWithAssetType:(id)type assetSpecifier:(id)specifier assetVersion:(id)version
 {
+  specifierCopy = specifier;
   if (type)
   {
-    sub_303948();
-    if (specifier)
+    v7 = sub_303948();
+    v9 = v8;
+    if (specifierCopy)
     {
       goto LABEL_3;
     }
 
 LABEL_6:
-    if (!version)
+    v11 = 0;
+    if (version)
     {
-      return sub_250E2C();
+      goto LABEL_4;
     }
 
-    goto LABEL_4;
+LABEL_7:
+    v12 = 0;
+    v14 = 0;
+    return sub_250E2C(v7, v9, specifierCopy, v11, v12, v14);
   }
 
+  v7 = 0;
+  v9 = 0;
   if (!specifier)
   {
     goto LABEL_6;
   }
 
 LABEL_3:
-  sub_303948();
-  if (version)
+  specifierCopy = sub_303948();
+  v11 = v10;
+  if (!version)
   {
-LABEL_4:
-    sub_303948();
+    goto LABEL_7;
   }
 
-  return sub_250E2C();
+LABEL_4:
+  v12 = sub_303948();
+  v14 = v13;
+  return sub_250E2C(v7, v9, specifierCopy, v11, v12, v14);
 }
 
 - (MAAIRBMobileAssetAssetSelector)init

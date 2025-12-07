@@ -229,26 +229,24 @@ void __31__SPRecommendationQuery_begin___block_invoke_89(uint64_t a1)
 
 void __31__SPRecommendationQuery_begin___block_invoke_2(uint64_t a1)
 {
-  v6[1] = *MEMORY[0x277D85DE8];
+  v5[1] = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 48));
   v3 = *(a1 + 32);
-  v6[0] = *(a1 + 40);
-  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:1];
+  v5[0] = *(a1 + 40);
+  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:1];
   [WeakRetained storeCompletedSearch:v3 withSections:v4];
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (id)buildSearchResultWithRecommendations:(id)recommendations query:(id)query
 {
-  v66[1] = *MEMORY[0x277D85DE8];
+  v65[1] = *MEMORY[0x277D85DE8];
   recommendationsCopy = recommendations;
   queryCopy = query;
-  v56 = [MEMORY[0x277CBEB18] arrayWithCapacity:3];
+  v55 = [MEMORY[0x277CBEB18] arrayWithCapacity:3];
   string = [MEMORY[0x277CCAB68] string];
   v6 = 0;
-  v55 = *MEMORY[0x277D65B68];
-  v59 = recommendationsCopy;
+  v54 = *MEMORY[0x277D65B68];
+  v58 = recommendationsCopy;
   do
   {
     if (v6 >= [recommendationsCopy count])
@@ -257,7 +255,7 @@ void __31__SPRecommendationQuery_begin___block_invoke_2(uint64_t a1)
     }
 
     v7 = [recommendationsCopy objectAtIndexedSubscript:v6];
-    v61 = [MEMORY[0x277CCACA8] stringWithFormat:@"%ld", objc_msgSend(v7, "trackId")];
+    v60 = [MEMORY[0x277CCACA8] stringWithFormat:@"%ld", objc_msgSend(v7, "trackId")];
     [string appendString:?];
     [string appendString:@" "];
     v8 = objc_opt_new();
@@ -278,7 +276,7 @@ void __31__SPRecommendationQuery_begin___block_invoke_2(uint64_t a1)
     [v8 setUrl:v16];
 
     [v8 setStoreIdentifier:@"278911476"];
-    [v8 setSectionBundleIdentifier:v55];
+    [v8 setSectionBundleIdentifier:v54];
     [v8 setSectionHeader:@"Apple Music"];
     [v8 setDomainName:@"media"];
     [v8 setMinimumRankOfTopHitToSuppressResult:15];
@@ -290,9 +288,9 @@ void __31__SPRecommendationQuery_begin___block_invoke_2(uint64_t a1)
 
     v18 = objc_alloc_init(MEMORY[0x277D4C230]);
     v19 = objc_alloc_init(MEMORY[0x277D4C328]);
-    v66[0] = v19;
-    v20 = [MEMORY[0x277CBEA60] arrayWithObjects:v66 count:1];
-    v60 = v18;
+    v65[0] = v19;
+    v20 = [MEMORY[0x277CBEA60] arrayWithObjects:v65 count:1];
+    v59 = v18;
     [v18 setCardSections:v20];
 
     v21 = objc_alloc_init(MEMORY[0x277D4C4E8]);
@@ -305,8 +303,8 @@ void __31__SPRecommendationQuery_begin___block_invoke_2(uint64_t a1)
     [punchout setBundleIdentifier:@"com.apple.Music"];
 
     v24 = [v8 url];
-    v65 = v24;
-    v25 = [MEMORY[0x277CBEA60] arrayWithObjects:&v65 count:1];
+    v64 = v24;
+    v25 = [MEMORY[0x277CBEA60] arrayWithObjects:&v64 count:1];
     punchout2 = [v21 punchout];
     [punchout2 setUrls:v25];
 
@@ -347,7 +345,7 @@ void __31__SPRecommendationQuery_begin___block_invoke_2(uint64_t a1)
     }
 
     trackTimeMillis = [v7 trackTimeMillis];
-    recommendationsCopy = v59;
+    recommendationsCopy = v58;
     if (trackTimeMillis >= 1000)
     {
       v43 = trackTimeMillis / 1000;
@@ -360,7 +358,7 @@ void __31__SPRecommendationQuery_begin___block_invoke_2(uint64_t a1)
 
         else
         {
-          [MEMORY[0x277CCACA8] stringWithFormat:@"%lu:%02lu", v43 % 0xE10 / 0x3C, v43 % 0x3C, v54];
+          [MEMORY[0x277CCACA8] stringWithFormat:@"%lu:%02lu", v43 % 0xE10 / 0x3C, v43 % 0x3C, v53];
         }
         v44 = ;
         v45 = objc_alloc_init(MEMORY[0x277D4C598]);
@@ -372,18 +370,18 @@ void __31__SPRecommendationQuery_begin___block_invoke_2(uint64_t a1)
         footnote2 = [v19 footnote];
         [footnote2 setMaxLines:1];
 
-        recommendationsCopy = v59;
+        recommendationsCopy = v58;
       }
     }
 
-    v64[0] = v37;
-    v64[1] = v39;
-    v64[2] = v41;
-    v48 = [MEMORY[0x277CBEA60] arrayWithObjects:v64 count:3];
+    v63[0] = v37;
+    v63[1] = v39;
+    v63[2] = v41;
+    v48 = [MEMORY[0x277CBEA60] arrayWithObjects:v63 count:3];
     [v19 setDescriptions:v48];
 
-    [v8 setInlineCard:v60];
-    [v56 addObject:v8];
+    [v8 setInlineCard:v59];
+    [v55 addObject:v8];
 
     ++v6;
   }
@@ -396,13 +394,11 @@ void __31__SPRecommendationQuery_begin___block_invoke_2(uint64_t a1)
   if (queryIdent - 1 < 0xFFFFFFFFFFFFFFFELL && os_signpost_enabled(v49))
   {
     *buf = 138412290;
-    v63 = string;
+    v62 = string;
     _os_signpost_emit_with_name_impl(&dword_26B71B000, v49, OS_SIGNPOST_EVENT, queryIdent, "SRERenderingResults", "AdamIDs: %@", buf, 0xCu);
   }
 
-  v52 = *MEMORY[0x277D85DE8];
-
-  return v56;
+  return v55;
 }
 
 - (void)start

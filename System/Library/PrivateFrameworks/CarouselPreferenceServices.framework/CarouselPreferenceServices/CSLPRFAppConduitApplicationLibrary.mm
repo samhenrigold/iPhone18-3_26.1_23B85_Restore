@@ -18,7 +18,7 @@
 
 - (void)applicationsUninstalled:(id)uninstalled onDeviceWithPairingID:(id)d
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   uninstalledCopy = uninstalled;
   dCopy = d;
   pairingID = [(PDRDevice *)self->_pairedWatch pairingID];
@@ -27,31 +27,31 @@
   if (v9)
   {
     os_unfair_lock_lock(&self->_lock);
-    v21 = 0u;
-    v22 = 0u;
-    v19 = 0u;
     v20 = 0u;
+    v21 = 0u;
+    v18 = 0u;
+    v19 = 0u;
     v10 = uninstalledCopy;
-    v11 = [v10 countByEnumeratingWithState:&v19 objects:v23 count:16];
+    v11 = [v10 countByEnumeratingWithState:&v18 objects:v22 count:16];
     if (v11)
     {
       v12 = v11;
-      v13 = *v20;
+      v13 = *v19;
       do
       {
         v14 = 0;
         do
         {
-          if (*v20 != v13)
+          if (*v19 != v13)
           {
             objc_enumerationMutation(v10);
           }
 
-          [(NSMutableDictionary *)self->_lock_cachedApplications removeObjectForKey:*(*(&v19 + 1) + 8 * v14++)];
+          [(NSMutableDictionary *)self->_lock_cachedApplications removeObjectForKey:*(*(&v18 + 1) + 8 * v14++)];
         }
 
         while (v12 != v14);
-        v12 = [v10 countByEnumeratingWithState:&v19 objects:v23 count:16];
+        v12 = [v10 countByEnumeratingWithState:&v18 objects:v22 count:16];
       }
 
       while (v12);
@@ -59,21 +59,19 @@
 
     os_unfair_lock_unlock(&self->_lock);
     observationHelper = self->_observationHelper;
-    v17[0] = MEMORY[0x277D85DD0];
-    v17[1] = 3221225472;
-    v17[2] = __84__CSLPRFAppConduitApplicationLibrary_applicationsUninstalled_onDeviceWithPairingID___block_invoke;
-    v17[3] = &unk_278744DC0;
-    v17[4] = self;
-    v18 = v10;
-    [(CSLPRFObservationHelper *)observationHelper notifyObserversWithBlock:v17];
+    v16[0] = MEMORY[0x277D85DD0];
+    v16[1] = 3221225472;
+    v16[2] = __84__CSLPRFAppConduitApplicationLibrary_applicationsUninstalled_onDeviceWithPairingID___block_invoke;
+    v16[3] = &unk_278744DC0;
+    v16[4] = self;
+    v17 = v10;
+    [(CSLPRFObservationHelper *)observationHelper notifyObserversWithBlock:v16];
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)applicationsUpdated:(id)updated onDeviceWithPairingID:(id)d
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   updatedCopy = updated;
   dCopy = d;
   pairingID = [(PDRDevice *)self->_pairedWatch pairingID];
@@ -83,32 +81,32 @@
   {
     v10 = [updatedCopy bs_mapNoNulls:&__block_literal_global_24];
     os_unfair_lock_lock(&self->_lock);
-    v26 = 0u;
-    v27 = 0u;
-    v24 = 0u;
     v25 = 0u;
+    v26 = 0u;
+    v23 = 0u;
+    v24 = 0u;
     v11 = v10;
-    v12 = [v11 countByEnumeratingWithState:&v24 objects:v28 count:16];
+    v12 = [v11 countByEnumeratingWithState:&v23 objects:v27 count:16];
     if (v12)
     {
       v13 = v12;
-      v14 = *v25;
+      v14 = *v24;
       do
       {
         for (i = 0; i != v13; ++i)
         {
-          if (*v25 != v14)
+          if (*v24 != v14)
           {
             objc_enumerationMutation(v11);
           }
 
-          v16 = *(*(&v24 + 1) + 8 * i);
+          v16 = *(*(&v23 + 1) + 8 * i);
           lock_cachedApplications = self->_lock_cachedApplications;
           bundleIdentifier = [v16 bundleIdentifier];
           [(NSMutableDictionary *)lock_cachedApplications setObject:v16 forKey:bundleIdentifier];
         }
 
-        v13 = [v11 countByEnumeratingWithState:&v24 objects:v28 count:16];
+        v13 = [v11 countByEnumeratingWithState:&v23 objects:v27 count:16];
       }
 
       while (v13);
@@ -116,22 +114,20 @@
 
     os_unfair_lock_unlock(&self->_lock);
     observationHelper = self->_observationHelper;
-    v22[0] = MEMORY[0x277D85DD0];
-    v22[1] = 3221225472;
-    v22[2] = __80__CSLPRFAppConduitApplicationLibrary_applicationsUpdated_onDeviceWithPairingID___block_invoke_2;
-    v22[3] = &unk_278744DC0;
-    v22[4] = self;
-    v23 = v11;
+    v21[0] = MEMORY[0x277D85DD0];
+    v21[1] = 3221225472;
+    v21[2] = __80__CSLPRFAppConduitApplicationLibrary_applicationsUpdated_onDeviceWithPairingID___block_invoke_2;
+    v21[3] = &unk_278744DC0;
+    v21[4] = self;
+    v22 = v11;
     v20 = v11;
-    [(CSLPRFObservationHelper *)observationHelper notifyObserversWithBlock:v22];
+    [(CSLPRFObservationHelper *)observationHelper notifyObserversWithBlock:v21];
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)applicationsInstalled:(id)installed onDeviceWithPairingID:(id)d
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   installedCopy = installed;
   dCopy = d;
   pairingID = [(PDRDevice *)self->_pairedWatch pairingID];
@@ -141,32 +137,32 @@
   {
     v10 = [installedCopy bs_mapNoNulls:&__block_literal_global_554];
     os_unfair_lock_lock(&self->_lock);
-    v26 = 0u;
-    v27 = 0u;
-    v24 = 0u;
     v25 = 0u;
+    v26 = 0u;
+    v23 = 0u;
+    v24 = 0u;
     v11 = v10;
-    v12 = [v11 countByEnumeratingWithState:&v24 objects:v28 count:16];
+    v12 = [v11 countByEnumeratingWithState:&v23 objects:v27 count:16];
     if (v12)
     {
       v13 = v12;
-      v14 = *v25;
+      v14 = *v24;
       do
       {
         for (i = 0; i != v13; ++i)
         {
-          if (*v25 != v14)
+          if (*v24 != v14)
           {
             objc_enumerationMutation(v11);
           }
 
-          v16 = *(*(&v24 + 1) + 8 * i);
+          v16 = *(*(&v23 + 1) + 8 * i);
           lock_cachedApplications = self->_lock_cachedApplications;
           bundleIdentifier = [v16 bundleIdentifier];
           [(NSMutableDictionary *)lock_cachedApplications setObject:v16 forKey:bundleIdentifier];
         }
 
-        v13 = [v11 countByEnumeratingWithState:&v24 objects:v28 count:16];
+        v13 = [v11 countByEnumeratingWithState:&v23 objects:v27 count:16];
       }
 
       while (v13);
@@ -174,17 +170,15 @@
 
     os_unfair_lock_unlock(&self->_lock);
     observationHelper = self->_observationHelper;
-    v22[0] = MEMORY[0x277D85DD0];
-    v22[1] = 3221225472;
-    v22[2] = __82__CSLPRFAppConduitApplicationLibrary_applicationsInstalled_onDeviceWithPairingID___block_invoke_2;
-    v22[3] = &unk_278744DC0;
-    v22[4] = self;
-    v23 = v11;
+    v21[0] = MEMORY[0x277D85DD0];
+    v21[1] = 3221225472;
+    v21[2] = __82__CSLPRFAppConduitApplicationLibrary_applicationsInstalled_onDeviceWithPairingID___block_invoke_2;
+    v21[3] = &unk_278744DC0;
+    v21[4] = self;
+    v22 = v11;
     v20 = v11;
-    [(CSLPRFObservationHelper *)observationHelper notifyObserversWithBlock:v22];
+    [(CSLPRFObservationHelper *)observationHelper notifyObserversWithBlock:v21];
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addObserver:(id)observer
@@ -256,7 +250,7 @@ void __70__CSLPRFAppConduitApplicationLibrary__loadApplicationsWithCompletion___
 
 uint64_t __70__CSLPRFAppConduitApplicationLibrary__loadApplicationsWithCompletion___block_invoke_3(uint64_t a1, void *a2, void *a3)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (v6)
@@ -264,13 +258,13 @@ uint64_t __70__CSLPRFAppConduitApplicationLibrary__loadApplicationsWithCompletio
     v7 = cslprf_app_library_log();
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      v20 = *(a1 + 32);
-      v21 = [v6 localizedDescription];
-      v23 = 138412546;
-      v24 = v20;
-      v25 = 2112;
-      v26 = v21;
-      _os_log_error_impl(&dword_22CE92000, v7, OS_LOG_TYPE_ERROR, "%@ loadApplications error: %@", &v23, 0x16u);
+      v19 = *(a1 + 32);
+      v20 = [v6 localizedDescription];
+      v22 = 138412546;
+      v23 = v19;
+      v24 = 2112;
+      v25 = v20;
+      _os_log_error_impl(&dword_22CE92000, v7, OS_LOG_TYPE_ERROR, "%@ loadApplications error: %@", &v22, 0x16u);
     }
 
 LABEL_4:
@@ -288,11 +282,11 @@ LABEL_4:
     {
       v15 = *(a1 + 32);
       v16 = [*(a1 + 40) count];
-      v23 = 138412546;
-      v24 = v15;
-      v25 = 1024;
-      LODWORD(v26) = v16;
-      _os_log_impl(&dword_22CE92000, v7, OS_LOG_TYPE_INFO, "%@ loadApplications found %d apps", &v23, 0x12u);
+      v22 = 138412546;
+      v23 = v15;
+      v24 = 1024;
+      LODWORD(v25) = v16;
+      _os_log_impl(&dword_22CE92000, v7, OS_LOG_TYPE_INFO, "%@ loadApplications found %d apps", &v22, 0x12u);
     }
 
     goto LABEL_4;
@@ -300,12 +294,12 @@ LABEL_4:
 
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
   {
-    v22 = *(a1 + 32);
-    v23 = 138412546;
-    v24 = v22;
-    v25 = 2112;
-    v26 = v5;
-    _os_log_debug_impl(&dword_22CE92000, v7, OS_LOG_TYPE_DEBUG, "%@ loadApplications app %@", &v23, 0x16u);
+    v21 = *(a1 + 32);
+    v22 = 138412546;
+    v23 = v21;
+    v24 = 2112;
+    v25 = v5;
+    _os_log_debug_impl(&dword_22CE92000, v7, OS_LOG_TYPE_DEBUG, "%@ loadApplications app %@", &v22, 0x16u);
   }
 
   v10 = [CSLPRFApp appWithACXRemoteApplication:v5];
@@ -318,11 +312,11 @@ LABEL_4:
     v17 = cslprf_app_library_log();
     if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
     {
-      v23 = 138412546;
-      v24 = v12;
-      v25 = 2112;
-      v26 = v14;
-      _os_log_debug_impl(&dword_22CE92000, v17, OS_LOG_TYPE_DEBUG, "%@ app %@ hidden by policy", &v23, 0x16u);
+      v22 = 138412546;
+      v23 = v12;
+      v24 = 2112;
+      v25 = v14;
+      _os_log_debug_impl(&dword_22CE92000, v17, OS_LOG_TYPE_DEBUG, "%@ app %@ hidden by policy", &v22, 0x16u);
     }
   }
 
@@ -335,7 +329,6 @@ LABEL_4:
   v8 = 1;
 LABEL_18:
 
-  v18 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
@@ -393,7 +386,7 @@ void __81__CSLPRFAppConduitApplicationLibrary_applicationWithBundleIdentifier_co
 
 - (void)_ensureApplicationsCachedSync
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   if (self)
   {
     os_unfair_lock_lock((self + 32));
@@ -410,18 +403,16 @@ void __81__CSLPRFAppConduitApplicationLibrary_applicationWithBundleIdentifier_co
         _os_log_impl(&dword_22CE92000, v4, OS_LOG_TYPE_DEFAULT, "%@ will block while fetching applications asynchronously", buf, 0xCu);
       }
 
-      v7[0] = MEMORY[0x277D85DD0];
-      v7[1] = 3221225472;
-      v7[2] = __67__CSLPRFAppConduitApplicationLibrary__ensureApplicationsCachedSync__block_invoke;
-      v7[3] = &unk_278744B88;
-      v8 = v3;
+      v6[0] = MEMORY[0x277D85DD0];
+      v6[1] = 3221225472;
+      v6[2] = __67__CSLPRFAppConduitApplicationLibrary__ensureApplicationsCachedSync__block_invoke;
+      v6[3] = &unk_278744B88;
+      v7 = v3;
       v5 = v3;
-      [self allApplicationsWithCompletion:v7];
+      [self allApplicationsWithCompletion:v6];
       dispatch_semaphore_wait(v5, 0xFFFFFFFFFFFFFFFFLL);
     }
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (NSArray)allApplications

@@ -104,20 +104,4 @@ uint64_t __39__RMManagedDevice_currentManagedDevice__block_invoke()
   return v7;
 }
 
-- (void)setProperty:forKey:scope:.cold.1()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_3();
-  OUTLINED_FUNCTION_1_1(&dword_1E1168000, v0, v1, "Failed to set property for key %{public}@ with error %{public}@");
-  v2 = *MEMORY[0x1E69E9840];
-}
-
-- (void)getPropertyForKey:scope:.cold.1()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_3();
-  OUTLINED_FUNCTION_1_1(&dword_1E1168000, v0, v1, "Failed to get property for key %{public}@ with error %{public}@");
-  v2 = *MEMORY[0x1E69E9840];
-}
-
 @end

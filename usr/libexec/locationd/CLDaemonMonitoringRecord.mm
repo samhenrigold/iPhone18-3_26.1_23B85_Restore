@@ -181,7 +181,7 @@ LABEL_14:
           _os_log_impl(dword_100000000, v21, OS_LOG_TYPE_INFO, "{msg%{public}.0s:#monitor unknown variant of condition is received, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
         }
 
-        abort_report_np();
+        abort_report_np("%s:%d: assertion failure in %s", "/Library/Caches/com.apple.xbs/Sources/CoreLocation/Daemon/Core/ClientManagement/DaemonIdentifiableClients/CLDaemonMonitoringRecord.mm", 156, "[CLDaemonMonitoringRecord setupDaemonPartOfConditionWithAuthContext:clientKeyPath:universe:identifier:stopMonitoring:callbackHandler:]");
 LABEL_29:
         sub_101948CAC();
       }

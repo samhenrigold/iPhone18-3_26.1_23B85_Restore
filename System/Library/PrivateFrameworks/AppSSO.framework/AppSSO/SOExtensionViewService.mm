@@ -11,7 +11,7 @@
 
 - (void)loadView
 {
-  v3 = SO_LOG_SOExtensionViewService();
+  v3 = SO_LOG_SOExtensionViewService(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v5 = 0;
@@ -48,10 +48,10 @@
   extensionContext = [(SOExtensionViewService *)self extensionContext];
   [extensionContext setViewService:self];
 
-  v12 = SO_LOG_SOExtensionViewService();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+  v13 = SO_LOG_SOExtensionViewService(v12);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
   {
-    [SOExtensionViewService connectToContextWithSessionID:v12 completion:?];
+    [SOExtensionViewService connectToContextWithSessionID:v13 completion:?];
   }
 
   [(SOExtensionViewService *)self _connectChildView];
@@ -63,13 +63,11 @@
 
 - (void)_connectChildView
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   extensionContext = [self extensionContext];
-  v5 = 138543362;
-  v6 = extensionContext;
-  _os_log_error_impl(&dword_1C1317000, a2, OS_LOG_TYPE_ERROR, "Couldn't find child view controller for context (%{public}@)", &v5, 0xCu);
-
-  v4 = *MEMORY[0x1E69E9840];
+  v4 = 138543362;
+  v5 = extensionContext;
+  _os_log_error_impl(&dword_1C1317000, a2, OS_LOG_TYPE_ERROR, "Couldn't find child view controller for context (%{public}@)", &v4, 0xCu);
 }
 
 - (SORemoteExtensionContext)extensionContext
@@ -81,13 +79,11 @@
 
 - (void)connectToContextWithSessionID:(void *)a1 completion:(NSObject *)a2 .cold.1(void *a1, NSObject *a2)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v3 = [a1 extensionContext];
   OUTLINED_FUNCTION_0_5();
-  v7 = v4;
-  _os_log_debug_impl(&dword_1C1317000, a2, OS_LOG_TYPE_DEBUG, "Connecting view service (%{public}@) to context (%{public}@)", v6, 0x16u);
-
-  v5 = *MEMORY[0x1E69E9840];
+  v6 = v4;
+  _os_log_debug_impl(&dword_1C1317000, a2, OS_LOG_TYPE_DEBUG, "Connecting view service (%{public}@) to context (%{public}@)", v5, 0x16u);
 }
 
 @end

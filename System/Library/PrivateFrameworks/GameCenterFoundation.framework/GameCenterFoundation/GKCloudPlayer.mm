@@ -114,11 +114,10 @@
 
 + (void)getCurrentSignedInPlayerForContainer:(os_log_t)log completionHandler:.cold.1(os_log_t log)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v2 = 138543362;
-  v3 = @"GKCloudPlayer";
-  _os_log_error_impl(&dword_227904000, log, OS_LOG_TYPE_ERROR, "WARNING: %{public}@ is obsoleted and does nothing.", &v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v1 = 138543362;
+  v2 = @"GKCloudPlayer";
+  _os_log_error_impl(&dword_227904000, log, OS_LOG_TYPE_ERROR, "WARNING: %{public}@ is obsoleted and does nothing.", &v1, 0xCu);
 }
 
 @end

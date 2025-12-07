@@ -27,19 +27,18 @@
 
 - (RBSXPCMessageReply)reply
 {
-  xpc_message = self->_xpc_message;
   if (xpc_dictionary_expects_reply() && (reply = xpc_dictionary_create_reply(self->_xpc_message)) != 0)
   {
-    v7 = reply;
-    v5 = [[RBSXPCMessageReply alloc] _initWithMessage:?];
+    v6 = reply;
+    v4 = [[RBSXPCMessageReply alloc] _initWithMessage:?];
   }
 
   else
   {
-    v5 = 0;
+    v4 = 0;
   }
 
-  return v5;
+  return v4;
 }
 
 - (id)error
@@ -223,20 +222,21 @@ LABEL_6:
         goto LABEL_21;
       }
 
-      v19 = [v13 decodeObjectOfClass:objc_opt_class() forKey:@"__RBSXPCError__"];
+      v20 = [v13 decodeObjectOfClass:objc_opt_class() forKey:@"__RBSXPCError__"];
       goto LABEL_20;
     }
 
 LABEL_12:
-    if (MEMORY[0x193AD5A20](v17) != MEMORY[0x1E69E9E98])
+    v18 = MEMORY[0x193AD5A20](v17);
+    if (v18 != MEMORY[0x1E69E9E98])
     {
       goto LABEL_13;
     }
 
-    v18 = rbs_connection_log();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+    v19 = rbs_connection_log(v18);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
-      [RBSXPCMessage sendToConnection:v18 error:?];
+      [RBSXPCMessage sendToConnection:v19 error:?];
     }
 
     if (!error)
@@ -244,10 +244,10 @@ LABEL_12:
       goto LABEL_13;
     }
 
-    v19 = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E696A250] code:4101 userInfo:0];
+    v20 = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E696A250] code:4101 userInfo:0];
     v13 = 0;
 LABEL_20:
-    *error = v19;
+    *error = v20;
     goto LABEL_21;
   }
 
@@ -256,7 +256,6 @@ LABEL_13:
 LABEL_21:
 
 LABEL_22:
-  v20 = *MEMORY[0x1E69E9840];
 
   return v13;
 }
@@ -337,17 +336,15 @@ LABEL_13:
 
 void __56__RBSXPCMessage_sendToConnection_replyQueue_completion___block_invoke(uint64_t a1)
 {
-  v8[1] = *MEMORY[0x1E69E9840];
+  v7[1] = *MEMORY[0x1E69E9840];
   v1 = *(a1 + 32);
   v2 = MEMORY[0x1E696ABC0];
   v3 = *MEMORY[0x1E696A250];
-  v7 = *MEMORY[0x1E696A588];
-  v8[0] = @"The connection does not exist";
-  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:&v7 count:1];
+  v6 = *MEMORY[0x1E696A588];
+  v7[0] = @"The connection does not exist";
+  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v7 forKeys:&v6 count:1];
   v5 = [v2 errorWithDomain:v3 code:4099 userInfo:v4];
   (*(v1 + 16))(v1, v5);
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void __56__RBSXPCMessage_sendToConnection_replyQueue_completion___block_invoke_2(uint64_t a1, void *a2)
@@ -382,22 +379,22 @@ LABEL_6:
 
 - (id)decodeArgumentCollection:(Class)collection withClass:(Class)class atIndex:(unint64_t)index allowNil:(BOOL)nil error:(id *)error
 {
-  v27[3] = *MEMORY[0x1E69E9840];
+  v26[3] = *MEMORY[0x1E69E9840];
   if (index)
   {
     if (index != 1)
     {
       v13 = MEMORY[0x1E696ABC0];
       v14 = *MEMORY[0x1E696A588];
-      v27[0] = @"requested argument index not supported";
-      v26[0] = v14;
-      v26[1] = @"method-name";
+      v26[0] = @"requested argument index not supported";
+      v25[0] = v14;
+      v25[1] = @"method-name";
       v15 = NSStringFromSelector(self->_method);
-      v27[1] = v15;
-      v26[2] = @"argument-index";
+      v26[1] = v15;
+      v25[2] = @"argument-index";
       v16 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:index];
-      v27[2] = v16;
-      v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v27 forKeys:v26 count:3];
+      v26[2] = v16;
+      v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v26 forKeys:v25 count:3];
       v18 = [v13 errorWithDomain:@"RBSXPCCodingErrorDomain" code:1 userInfo:v17];
       v19 = 0;
       goto LABEL_12;
@@ -429,19 +426,18 @@ LABEL_6:
 
   v20 = MEMORY[0x1E696ABC0];
   v21 = *MEMORY[0x1E696A588];
-  v25[0] = @"nil argument when nonnil expected";
-  v24[0] = v21;
-  v24[1] = @"method-name";
+  v24[0] = @"nil argument when nonnil expected";
+  v23[0] = v21;
+  v23[1] = @"method-name";
   v15 = NSStringFromSelector(self->_method);
-  v16 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{index, v24[0], @"method-name", @"argument-index", @"nil argument when nonnil expected", v15}];
-  v25[2] = v16;
-  v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v25 forKeys:v24 count:3];
+  v16 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{index, v23[0], @"method-name", @"argument-index", @"nil argument when nonnil expected", v15}];
+  v24[2] = v16;
+  v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v24 forKeys:v23 count:3];
   v18 = [v20 errorWithDomain:@"RBSXPCCodingErrorDomain" code:1 userInfo:v17];
 LABEL_12:
   *error = v18;
 
 LABEL_13:
-  v22 = *MEMORY[0x1E69E9840];
 
   return v19;
 }

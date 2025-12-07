@@ -157,7 +157,7 @@
   }
 
   v8 = [MEMORY[0x277CD9E10] animationWithKeyPath:key];
-  [v7 duration];
+  objc_msgSend_duration(v7);
   [v8 setDuration:?];
   [v8 setTimingFunction:{objc_msgSend(v7, "timingFunction")}];
   [v8 setFillMode:*MEMORY[0x277CDA230]];

@@ -136,29 +136,29 @@
   {
     v5 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"PlaneCount"];
     integerValue = [v5 integerValue];
-    v84[0] = objc_opt_class();
-    v84[1] = objc_opt_class();
-    v7 = [NSArray arrayWithObjects:v84 count:2];
+    v87[0] = objc_opt_class();
+    v87[1] = objc_opt_class();
+    v7 = [NSArray arrayWithObjects:v87 count:2];
     v8 = [NSSet setWithArray:v7];
 
     v9 = integerValue;
-    v83[0] = objc_opt_class();
-    v83[1] = objc_opt_class();
-    v10 = [NSArray arrayWithObjects:v83 count:2];
+    v86[0] = objc_opt_class();
+    v86[1] = objc_opt_class();
+    v10 = [NSArray arrayWithObjects:v86 count:2];
     v11 = [NSSet setWithArray:v10];
 
-    v73 = v11;
-    v74 = v8;
+    v76 = v11;
+    v77 = v8;
     if (integerValue)
     {
       selfCopy = self;
-      v72 = v5;
+      v75 = v5;
       v12 = [coderCopy decodeObjectOfClasses:v8 forKey:@"Width"];
       v13 = [coderCopy decodeObjectOfClasses:v8 forKey:@"Height"];
       v14 = v8;
       v15 = v13;
       v16 = [coderCopy decodeObjectOfClasses:v14 forKey:@"BytesPerRow"];
-      v67 = coderCopy;
+      v70 = coderCopy;
       v17 = [coderCopy decodeObjectOfClasses:v11 forKey:@"PixelData"];
       v18 = [(size_t *)v12 objectAtIndexedSubscript:0];
       integerValue2 = [v18 integerValue];
@@ -166,91 +166,91 @@
       v19 = [v15 objectAtIndexedSubscript:0];
       integerValue3 = [v19 integerValue];
 
-      v70 = &v67;
-      (__chkstk_darwin)();
-      v20 = (8 * v9 + 15) & 0xFFFFFFFFFFFFFFF0;
-      v21 = (&v67 - v20);
+      v73 = &v70;
+      __chkstk_darwin(v20);
+      v21 = (8 * v9 + 15) & 0xFFFFFFFFFFFFFFF0;
+      v22 = (&v70 - v21);
       if ((8 * v9) >= 0x200)
       {
-        v22 = 512;
+        v23 = 512;
       }
 
       else
       {
-        v22 = 8 * v9;
+        v23 = 8 * v9;
       }
 
-      bzero(&v67 - v20, v22);
-      v23 = (__chkstk_darwin)();
-      planeWidth = (&v67 - v20);
-      v25 = __chkstk_darwin(v23);
-      v77 = (&v67 - v20);
-      __chkstk_darwin(v25);
-      planeBytesPerRow = (&v67 - v20);
+      bzero(&v70 - v21, v23);
+      v25 = __chkstk_darwin(v24);
+      planeWidth = (&v70 - v21);
+      v27 = __chkstk_darwin(v25);
+      v80 = (&v70 - v21);
+      __chkstk_darwin(v27);
+      planeBytesPerRow = (&v70 - v21);
       if (v9 >= 1)
       {
-        v26 = 0;
-        v75 = v9;
+        v28 = 0;
+        v78 = v9;
         do
         {
-          v27 = [v17 objectAtIndexedSubscript:v26];
-          v28 = malloc_type_malloc([v27 length], 0xBD302F31uLL);
-          v21[v26] = v28;
+          v29 = [v17 objectAtIndexedSubscript:v28];
+          v30 = malloc_type_malloc([v29 length], 0xBD302F31uLL);
+          v22[v28] = v30;
 
-          v29 = [v17 objectAtIndexedSubscript:v26];
-          [v17 objectAtIndexedSubscript:v26];
-          v30 = planeWidth;
-          v31 = v21;
-          v32 = v17;
-          v33 = v16;
-          v34 = v15;
-          v36 = v35 = v12;
-          [v29 getBytes:v28 length:{objc_msgSend(v36, "length")}];
+          v31 = [v17 objectAtIndexedSubscript:v28];
+          [v17 objectAtIndexedSubscript:v28];
+          v32 = planeWidth;
+          v33 = v22;
+          v34 = v17;
+          v35 = v16;
+          v36 = v15;
+          v38 = v37 = v12;
+          [v31 getBytes:v30 length:{objc_msgSend(v38, "length")}];
 
-          v12 = v35;
-          v15 = v34;
-          v16 = v33;
-          v17 = v32;
-          v21 = v31;
-          planeWidth = v30;
+          v12 = v37;
+          v15 = v36;
+          v16 = v35;
+          v17 = v34;
+          v22 = v33;
+          planeWidth = v32;
 
-          v37 = [(size_t *)v12 objectAtIndexedSubscript:v26 + 1];
-          v30[v26] = [v37 integerValue];
+          v39 = [(size_t *)v12 objectAtIndexedSubscript:v28 + 1];
+          v32[v28] = [v39 integerValue];
 
-          v38 = [v15 objectAtIndexedSubscript:v26 + 1];
-          integerValue4 = [v38 integerValue];
-          v77[v26] = integerValue4;
+          v40 = [v15 objectAtIndexedSubscript:v28 + 1];
+          integerValue4 = [v40 integerValue];
+          v80[v28] = integerValue4;
 
-          v40 = [v16 objectAtIndexedSubscript:v26];
-          integerValue5 = [v40 integerValue];
-          planeBytesPerRow[v26] = integerValue5;
+          v42 = [v16 objectAtIndexedSubscript:v28];
+          integerValue5 = [v42 integerValue];
+          planeBytesPerRow[v28] = integerValue5;
 
-          v9 = v75;
-          v26 = v26 + 1;
+          v9 = v78;
+          v28 = v28 + 1;
         }
 
-        while (v26 != v75);
+        while (v28 != v78);
       }
 
       pixelBufferOut = 0;
-      v42 = objc_opt_class();
-      coderCopy = v67;
-      v43 = [v67 decodeObjectOfClass:v42 forKey:@"PixelFormat"];
+      v44 = objc_opt_class();
+      coderCopy = v70;
+      v45 = [v70 decodeObjectOfClass:v44 forKey:@"PixelFormat"];
 
-      integerValue6 = [(size_t *)v43 integerValue];
-      v45 = CVPixelBufferCreateWithPlanarBytes(kCFAllocatorDefault, integerValue2, integerValue3, integerValue6, 0, 0, v9, v21, planeWidth, v77, planeBytesPerRow, sub_100003694, 0, 0, &pixelBufferOut);
-      if (v45)
+      integerValue6 = [(size_t *)v45 integerValue];
+      v47 = CVPixelBufferCreateWithPlanarBytes(kCFAllocatorDefault, integerValue2, integerValue3, integerValue6, 0, 0, v9, v22, planeWidth, v80, planeBytesPerRow, sub_100003694, 0, 0, &pixelBufferOut);
+      if (v47)
       {
-        v46 = v45;
-        v47 = sub_100003650();
-        v48 = os_log_type_enabled(v47, OS_LOG_TYPE_ERROR);
-        v49 = v74;
+        v48 = v47;
+        v49 = sub_100003650(v47);
+        v50 = os_log_type_enabled(v49, OS_LOG_TYPE_ERROR);
+        v51 = v77;
         self = selfCopy;
-        if (v48)
+        if (v50)
         {
           *buf = 67109120;
-          v82 = v46;
-          _os_log_impl(&_mh_execute_header, v47, OS_LOG_TYPE_ERROR, "failed to create planar CVPixelBuffer: %d", buf, 8u);
+          v85 = v48;
+          _os_log_impl(&_mh_execute_header, v49, OS_LOG_TYPE_ERROR, "failed to create planar CVPixelBuffer: %d", buf, 8u);
         }
 
         selfCopy3 = 0;
@@ -258,54 +258,54 @@
 
       else
       {
-        v78.receiver = selfCopy;
-        v78.super_class = _SerializableCVPixelBuffer;
-        v65 = [(_SerializableCVPixelBuffer *)&v78 init];
-        v49 = v74;
-        if (v65)
+        v81.receiver = selfCopy;
+        v81.super_class = _SerializableCVPixelBuffer;
+        v68 = [(_SerializableCVPixelBuffer *)&v81 init];
+        v51 = v77;
+        if (v68)
         {
-          v65->_pixelBuffer = pixelBufferOut;
+          v68->_pixelBuffer = pixelBufferOut;
         }
 
-        self = v65;
+        self = v68;
         selfCopy3 = self;
       }
     }
 
     else
     {
-      v52 = [coderCopy decodeObjectOfClasses:v11 forKey:@"PixelData"];
-      v53 = [v52 objectAtIndexedSubscript:0];
+      v54 = [coderCopy decodeObjectOfClasses:v11 forKey:@"PixelData"];
+      v55 = [v54 objectAtIndexedSubscript:0];
 
-      v70 = malloc_type_malloc([v53 length], 0x74067141uLL);
-      v77 = v53;
-      memcpy(v70, [v53 bytes], objc_msgSend(v53, "length"));
+      v73 = malloc_type_malloc([v55 length], 0x74067141uLL);
+      v80 = v55;
+      memcpy(v73, [v55 bytes], objc_msgSend(v55, "length"));
       pixelBufferOut = 0;
-      v54 = [coderCopy decodeObjectOfClasses:v8 forKey:@"Width"];
-      v55 = [coderCopy decodeObjectOfClasses:v8 forKey:@"Height"];
-      v56 = [coderCopy decodeObjectOfClasses:v8 forKey:@"BytesPerRow"];
-      v57 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"PixelFormat"];
+      v56 = [coderCopy decodeObjectOfClasses:v8 forKey:@"Width"];
+      v57 = [coderCopy decodeObjectOfClasses:v8 forKey:@"Height"];
+      v58 = [coderCopy decodeObjectOfClasses:v8 forKey:@"BytesPerRow"];
+      v59 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"PixelFormat"];
 
-      planeBytesPerRow = v57;
-      integerValue2 = [(size_t *)v57 integerValue];
-      v75 = v54;
-      v58 = [v54 objectAtIndexedSubscript:0];
-      integerValue7 = [v58 integerValue];
-      v72 = v55;
-      v60 = [v55 objectAtIndexedSubscript:0];
-      integerValue8 = [v60 integerValue];
-      selfCopy = v56;
-      v62 = [(_SerializableCVPixelBuffer *)v56 objectAtIndexedSubscript:0];
-      v63 = CVPixelBufferCreateWithBytes(kCFAllocatorDefault, integerValue7, integerValue8, integerValue2, v70, [v62 integerValue], sub_100003648, 0, 0, &pixelBufferOut);
+      planeBytesPerRow = v59;
+      integerValue2 = [(size_t *)v59 integerValue];
+      v78 = v56;
+      v60 = [v56 objectAtIndexedSubscript:0];
+      integerValue7 = [v60 integerValue];
+      v75 = v57;
+      v62 = [v57 objectAtIndexedSubscript:0];
+      integerValue8 = [v62 integerValue];
+      selfCopy = v58;
+      v64 = [(_SerializableCVPixelBuffer *)v58 objectAtIndexedSubscript:0];
+      v65 = CVPixelBufferCreateWithBytes(kCFAllocatorDefault, integerValue7, integerValue8, integerValue2, v73, [v64 integerValue], sub_100003648, 0, 0, &pixelBufferOut);
 
-      if (v63)
+      if (v65)
       {
-        v64 = sub_100003650();
-        if (os_log_type_enabled(v64, OS_LOG_TYPE_ERROR))
+        v67 = sub_100003650(v66);
+        if (os_log_type_enabled(v67, OS_LOG_TYPE_ERROR))
         {
           *buf = 67109120;
-          v82 = v63;
-          _os_log_impl(&_mh_execute_header, v64, OS_LOG_TYPE_ERROR, "failed to create CVPixelBuffer: %d", buf, 8u);
+          v85 = v65;
+          _os_log_impl(&_mh_execute_header, v67, OS_LOG_TYPE_ERROR, "failed to create CVPixelBuffer: %d", buf, 8u);
         }
 
         selfCopy3 = 0;
@@ -313,21 +313,21 @@
 
       else
       {
-        v79.receiver = self;
-        v79.super_class = _SerializableCVPixelBuffer;
-        v66 = [(_SerializableCVPixelBuffer *)&v79 init];
-        if (v66)
+        v82.receiver = self;
+        v82.super_class = _SerializableCVPixelBuffer;
+        v69 = [(_SerializableCVPixelBuffer *)&v82 init];
+        if (v69)
         {
-          v66->_pixelBuffer = pixelBufferOut;
+          v69->_pixelBuffer = pixelBufferOut;
         }
 
-        self = v66;
+        self = v69;
         selfCopy3 = self;
       }
 
-      v49 = v74;
-      v43 = planeBytesPerRow;
-      v12 = v77;
+      v51 = v77;
+      v45 = planeBytesPerRow;
+      v12 = v80;
     }
   }
 

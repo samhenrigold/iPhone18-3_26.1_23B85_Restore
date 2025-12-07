@@ -30,8 +30,8 @@
   getCount = [(MTRSampleMEIClusterPingCountEventEvent *)self getCount];
   [(MTRSampleMEIClusterPingCountEventEvent *)v4 setCount:getCount];
 
-  fabricIndex = [(MTRSampleMEIClusterPingCountEventEvent *)self fabricIndex];
-  [(MTRSampleMEIClusterPingCountEventEvent *)v4 setFabricIndex:fabricIndex];
+  v6 = objc_msgSend_fabricIndex(self);
+  [(MTRSampleMEIClusterPingCountEventEvent *)v4 setFabricIndex:v6];
 
   return v4;
 }

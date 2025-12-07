@@ -332,7 +332,7 @@
 
 + (id)unitFromString:(id)string unitType:(id)type caseSensitive:(BOOL)sensitive
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   stringCopy = string;
   typeCopy = type;
   if ([stringCopy length])
@@ -346,9 +346,9 @@
     aBlock[3] = &unk_1E7B009D0;
     selfCopy = self;
     v12 = v11;
-    v30 = v12;
+    v29 = v12;
     stringCopy = v10;
-    v31 = stringCopy;
+    v30 = stringCopy;
     sensitiveCopy = sensitive;
     v13 = _Block_copy(aBlock);
     v14 = v13;
@@ -359,28 +359,28 @@
 
     else
     {
-      v27 = 0u;
-      v28 = 0u;
-      v25 = 0u;
       v26 = 0u;
+      v27 = 0u;
+      v24 = 0u;
+      v25 = 0u;
       unitTypeMap = [self unitTypeMap];
       allKeys = [unitTypeMap allKeys];
 
-      v18 = [allKeys countByEnumeratingWithState:&v25 objects:v34 count:16];
+      v18 = [allKeys countByEnumeratingWithState:&v24 objects:v33 count:16];
       if (v18)
       {
         v19 = v18;
-        v20 = *v26;
+        v20 = *v25;
         while (2)
         {
           for (i = 0; i != v19; ++i)
           {
-            if (*v26 != v20)
+            if (*v25 != v20)
             {
               objc_enumerationMutation(allKeys);
             }
 
-            v22 = v14[2](v14, *(*(&v25 + 1) + 8 * i));
+            v22 = v14[2](v14, *(*(&v24 + 1) + 8 * i));
             if (v22)
             {
               v15 = v22;
@@ -388,7 +388,7 @@
             }
           }
 
-          v19 = [allKeys countByEnumeratingWithState:&v25 objects:v34 count:16];
+          v19 = [allKeys countByEnumeratingWithState:&v24 objects:v33 count:16];
           if (v19)
           {
             continue;
@@ -408,35 +408,33 @@ LABEL_15:
     v15 = 0;
   }
 
-  v23 = *MEMORY[0x1E69E9840];
-
   return v15;
 }
 
 id __59__WFMeasurementUnit_unitFromString_unitType_caseSensitive___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   [*(a1 + 48) availableUnitsForUnitType:a2];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
-  v3 = v18 = 0u;
-  v4 = [v3 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v3 = v17 = 0u;
+  v4 = [v3 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v16;
+    v6 = *v15;
     while (2)
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v16 != v6)
+        if (*v15 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = *(*(&v15 + 1) + 8 * i);
-        v9 = [*(a1 + 32) stringFromUnit:{v8, v15}];
+        v8 = *(*(&v14 + 1) + 8 * i);
+        v9 = [*(a1 + 32) stringFromUnit:{v8, v14}];
         if (![*(a1 + 40) compare:v9 options:*(a1 + 56) ^ 1] || (v10 = *(a1 + 40), objc_msgSend(v8, "symbol"), v11 = objc_claimAutoreleasedReturnValue(), LOBYTE(v10) = objc_msgSend(v10, "isEqualToString:", v11), v11, (v10 & 1) != 0))
         {
           v12 = v8;
@@ -445,7 +443,7 @@ id __59__WFMeasurementUnit_unitFromString_unitType_caseSensitive___block_invoke(
         }
       }
 
-      v5 = [v3 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v14 objects:v18 count:16];
       v12 = 0;
       if (v5)
       {
@@ -463,20 +461,18 @@ id __59__WFMeasurementUnit_unitFromString_unitType_caseSensitive___block_invoke(
 
 LABEL_13:
 
-  v13 = *MEMORY[0x1E69E9840];
-
   return v12;
 }
 
 + (id)defaultUnitForUnitType:(id)type
 {
-  v75 = *MEMORY[0x1E69E9840];
+  v74 = *MEMORY[0x1E69E9840];
   typeCopy = type;
   v5 = defaultUnitForUnitType__unitDefaultsMap;
   if (!defaultUnitForUnitType__unitDefaultsMap)
   {
     v6 = [self usesMetricSystemForUnitType:typeCopy];
-    v34[0] = @"Acceleration";
+    v33[0] = @"Acceleration";
     if (v6)
     {
       [MEMORY[0x1E696AFD8] metersPerSecondSquared];
@@ -486,54 +482,54 @@ LABEL_13:
     {
       [MEMORY[0x1E696AFD8] gravity];
     }
-    v33 = ;
-    v54[0] = v33;
-    v34[1] = @"Angle";
+    v32 = ;
+    v53[0] = v32;
+    v33[1] = @"Angle";
     degrees = [MEMORY[0x1E696AFE0] degrees];
-    v54[1] = degrees;
-    v34[2] = @"Area";
+    v53[1] = degrees;
+    v33[2] = @"Area";
     if (v6)
     {
       squareMeters = [MEMORY[0x1E696AFE8] squareMeters];
-      v55 = squareMeters;
-      v35 = @"Concentration Mass";
+      v54 = squareMeters;
+      v34 = @"Concentration Mass";
       [MEMORY[0x1E696AFF0] milligramsPerDeciliter];
     }
 
     else
     {
       squareMeters = [MEMORY[0x1E696AFE8] squareFeet];
-      v55 = squareMeters;
-      v35 = @"Concentration Mass";
+      v54 = squareMeters;
+      v34 = @"Concentration Mass";
       [MEMORY[0x1E696AFF0] gramsPerLiter];
     }
-    v30 = ;
-    v56 = v30;
-    v36 = @"Dispersion";
+    v29 = ;
+    v55 = v29;
+    v35 = @"Dispersion";
     partsPerMillion = [MEMORY[0x1E696B000] partsPerMillion];
-    v57 = partsPerMillion;
-    v37 = @"Duration";
+    v56 = partsPerMillion;
+    v36 = @"Duration";
     minutes = [MEMORY[0x1E696B008] minutes];
-    v58 = minutes;
-    v38 = @"Electric Charge";
+    v57 = minutes;
+    v37 = @"Electric Charge";
     ampereHours = [MEMORY[0x1E696B010] ampereHours];
-    v59 = ampereHours;
-    v39 = @"Electric Current";
+    v58 = ampereHours;
+    v38 = @"Electric Current";
     amperes = [MEMORY[0x1E696B018] amperes];
-    v60 = amperes;
-    v40 = @"Electric Potential Difference";
+    v59 = amperes;
+    v39 = @"Electric Potential Difference";
     volts = [MEMORY[0x1E696B020] volts];
-    v61 = volts;
-    v41 = @"Electric Resistance";
+    v60 = volts;
+    v40 = @"Electric Resistance";
     ohms = [MEMORY[0x1E696B028] ohms];
-    v62 = ohms;
-    v42 = @"Energy";
+    v61 = ohms;
+    v41 = @"Energy";
     joules = [MEMORY[0x1E696B030] joules];
-    v63 = joules;
-    v43 = @"Frequency";
+    v62 = joules;
+    v42 = @"Frequency";
     hertz = [MEMORY[0x1E696B038] hertz];
-    v64 = hertz;
-    v44 = @"Fuel Efficiency";
+    v63 = hertz;
+    v43 = @"Fuel Efficiency";
     if (v6)
     {
       [MEMORY[0x1E696B040] litersPer100Kilometers];
@@ -543,66 +539,66 @@ LABEL_13:
     {
       [MEMORY[0x1E696B040] milesPerGallon];
     }
-    v21 = ;
-    v65 = v21;
-    v45 = @"Illuminance";
-    v20 = [MEMORY[0x1E696B048] lux];
-    v66 = v20;
-    v46 = @"Information Storage";
+    v20 = ;
+    v64 = v20;
+    v44 = @"Illuminance";
+    v19 = [MEMORY[0x1E696B048] lux];
+    v65 = v19;
+    v45 = @"Information Storage";
     megabytes = [MEMORY[0x1E696B050] megabytes];
-    v67 = megabytes;
-    v47 = @"Length";
+    v66 = megabytes;
+    v46 = @"Length";
     if (v6)
     {
       meters = [MEMORY[0x1E696B058] meters];
-      v68 = meters;
-      v48 = @"Mass";
+      v67 = meters;
+      v47 = @"Mass";
       [MEMORY[0x1E696B060] grams];
     }
 
     else
     {
       meters = [MEMORY[0x1E696B058] feet];
-      v68 = meters;
-      v48 = @"Mass";
+      v67 = meters;
+      v47 = @"Mass";
       [MEMORY[0x1E696B060] poundsMass];
     }
     v9 = ;
-    v69 = v9;
-    v49 = @"Power";
+    v68 = v9;
+    v48 = @"Power";
     watts = [MEMORY[0x1E696B068] watts];
-    v70 = watts;
-    v50 = @"Pressure";
+    v69 = watts;
+    v49 = @"Pressure";
     if (v6)
     {
       millibars = [MEMORY[0x1E696B070] millibars];
-      v71 = millibars;
-      v51 = @"Speed";
+      v70 = millibars;
+      v50 = @"Speed";
       kilometersPerHour = [MEMORY[0x1E696B078] kilometersPerHour];
-      v72 = kilometersPerHour;
-      v52 = @"Temperature";
+      v71 = kilometersPerHour;
+      v51 = @"Temperature";
       celsius = [MEMORY[0x1E696B080] celsius];
-      v73 = celsius;
-      v53 = @"Volume";
+      v72 = celsius;
+      v52 = @"Volume";
       [MEMORY[0x1E696B088] liters];
     }
 
     else
     {
       millibars = [MEMORY[0x1E696B070] inchesOfMercury];
-      v71 = millibars;
-      v51 = @"Speed";
+      v70 = millibars;
+      v50 = @"Speed";
       kilometersPerHour = [MEMORY[0x1E696B078] milesPerHour];
-      v72 = kilometersPerHour;
-      v52 = @"Temperature";
+      v71 = kilometersPerHour;
+      v51 = @"Temperature";
       celsius = [MEMORY[0x1E696B080] fahrenheit];
-      v73 = celsius;
-      v53 = @"Volume";
+      v72 = celsius;
+      v52 = @"Volume";
       [MEMORY[0x1E696B088] cups];
     }
     v14 = ;
-    v74 = v14;
-    v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v54 forKeys:v34 count:22];
+    v73 = v14;
+    v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v53 forKeys:v33 count:22];
     v16 = defaultUnitForUnitType__unitDefaultsMap;
     defaultUnitForUnitType__unitDefaultsMap = v15;
 
@@ -610,8 +606,6 @@ LABEL_13:
   }
 
   v17 = [v5 objectForKey:typeCopy];
-
-  v18 = *MEMORY[0x1E69E9840];
 
   return v17;
 }
@@ -637,15 +631,15 @@ LABEL_13:
 
 + (id)availableUnitsForUnitType:(id)type
 {
-  v155[2] = *MEMORY[0x1E69E9840];
+  v154[2] = *MEMORY[0x1E69E9840];
   typeCopy = type;
   if ([typeCopy isEqualToString:@"Acceleration"])
   {
     metersPerSecondSquared = [MEMORY[0x1E696AFD8] metersPerSecondSquared];
-    v155[0] = metersPerSecondSquared;
+    v154[0] = metersPerSecondSquared;
     gravity = [MEMORY[0x1E696AFD8] gravity];
-    v155[1] = gravity;
-    v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v155 count:2];
+    v154[1] = gravity;
+    v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v154 count:2];
 LABEL_12:
 
     goto LABEL_13;
@@ -654,18 +648,18 @@ LABEL_12:
   if ([typeCopy isEqualToString:@"Angle"])
   {
     metersPerSecondSquared = [MEMORY[0x1E696AFE0] degrees];
-    v154[0] = metersPerSecondSquared;
+    v153[0] = metersPerSecondSquared;
     gravity = [MEMORY[0x1E696AFE0] arcMinutes];
-    v154[1] = gravity;
+    v153[1] = gravity;
     arcSeconds = [MEMORY[0x1E696AFE0] arcSeconds];
-    v154[2] = arcSeconds;
+    v153[2] = arcSeconds;
     radians = [MEMORY[0x1E696AFE0] radians];
-    v154[3] = radians;
+    v153[3] = radians;
     gradians = [MEMORY[0x1E696AFE0] gradians];
-    v154[4] = gradians;
+    v153[4] = gradians;
     revolutions = [MEMORY[0x1E696AFE0] revolutions];
-    v154[5] = revolutions;
-    v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v154 count:6];
+    v153[5] = revolutions;
+    v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v153 count:6];
 
 LABEL_11:
     goto LABEL_12;
@@ -674,38 +668,38 @@ LABEL_11:
   if ([typeCopy isEqualToString:@"Area"])
   {
     squareMegameters = [MEMORY[0x1E696AFE8] squareMegameters];
-    v153[0] = squareMegameters;
+    v152[0] = squareMegameters;
     squareKilometers = [MEMORY[0x1E696AFE8] squareKilometers];
-    v153[1] = squareKilometers;
+    v152[1] = squareKilometers;
     squareMeters = [MEMORY[0x1E696AFE8] squareMeters];
-    v153[2] = squareMeters;
+    v152[2] = squareMeters;
     squareCentimeters = [MEMORY[0x1E696AFE8] squareCentimeters];
-    v153[3] = squareCentimeters;
+    v152[3] = squareCentimeters;
     squareMillimeters = [MEMORY[0x1E696AFE8] squareMillimeters];
-    v153[4] = squareMillimeters;
+    v152[4] = squareMillimeters;
     squareMicrometers = [MEMORY[0x1E696AFE8] squareMicrometers];
-    v153[5] = squareMicrometers;
+    v152[5] = squareMicrometers;
     [MEMORY[0x1E696AFE8] squareNanometers];
-    v12 = v131 = typeCopy;
-    v153[6] = v12;
+    v12 = v130 = typeCopy;
+    v152[6] = v12;
     squareInches = [MEMORY[0x1E696AFE8] squareInches];
-    v153[7] = squareInches;
+    v152[7] = squareInches;
     squareFeet = [MEMORY[0x1E696AFE8] squareFeet];
-    v153[8] = squareFeet;
+    v152[8] = squareFeet;
     squareYards = [MEMORY[0x1E696AFE8] squareYards];
-    v153[9] = squareYards;
+    v152[9] = squareYards;
     squareMiles = [MEMORY[0x1E696AFE8] squareMiles];
-    v153[10] = squareMiles;
+    v152[10] = squareMiles;
     acres = [MEMORY[0x1E696AFE8] acres];
-    v153[11] = acres;
+    v152[11] = acres;
     ares = [MEMORY[0x1E696AFE8] ares];
-    v153[12] = ares;
+    v152[12] = ares;
     hectares = [MEMORY[0x1E696AFE8] hectares];
-    v153[13] = hectares;
-    v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v153 count:14];
+    v152[13] = hectares;
+    v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v152 count:14];
 
     metersPerSecondSquared = squareMegameters;
-    typeCopy = v131;
+    typeCopy = v130;
 
     v20 = squareKilometers;
 LABEL_7:
@@ -717,13 +711,13 @@ LABEL_13:
   if ([typeCopy isEqualToString:@"Concentration Mass"])
   {
     metersPerSecondSquared = [MEMORY[0x1E696AFF0] gramsPerLiter];
-    v152[0] = metersPerSecondSquared;
+    v151[0] = metersPerSecondSquared;
     gravity = [MEMORY[0x1E696AFF0] milligramsPerDeciliter];
-    v152[1] = gravity;
+    v151[1] = gravity;
     arcSeconds = [MEMORY[0x1E696AFF0] wf_microgramsPerCubicMeter];
-    v152[2] = arcSeconds;
+    v151[2] = arcSeconds;
     v21 = MEMORY[0x1E695DEC8];
-    v22 = v152;
+    v22 = v151;
 LABEL_10:
     v6 = [v21 arrayWithObjects:v22 count:3];
     goto LABEL_11;
@@ -732,31 +726,31 @@ LABEL_10:
   if ([typeCopy isEqualToString:@"Dispersion"])
   {
     metersPerSecondSquared = [MEMORY[0x1E696B000] partsPerMillion];
-    v151 = metersPerSecondSquared;
-    v25 = MEMORY[0x1E695DEC8];
-    v26 = &v151;
+    v150 = metersPerSecondSquared;
+    v24 = MEMORY[0x1E695DEC8];
+    v25 = &v150;
 LABEL_19:
-    v6 = [v25 arrayWithObjects:v26 count:1];
+    v6 = [v24 arrayWithObjects:v25 count:1];
     goto LABEL_13;
   }
 
   if ([typeCopy isEqualToString:@"Duration"])
   {
     metersPerSecondSquared = [MEMORY[0x1E696B008] milliseconds];
-    v150[0] = metersPerSecondSquared;
+    v149[0] = metersPerSecondSquared;
     microseconds = [MEMORY[0x1E696B008] microseconds];
-    v150[1] = microseconds;
+    v149[1] = microseconds;
     nanoseconds = [MEMORY[0x1E696B008] nanoseconds];
-    v150[2] = nanoseconds;
+    v149[2] = nanoseconds;
     picoseconds = [MEMORY[0x1E696B008] picoseconds];
-    v150[3] = picoseconds;
+    v149[3] = picoseconds;
     seconds = [MEMORY[0x1E696B008] seconds];
-    v150[4] = seconds;
+    v149[4] = seconds;
     minutes = [MEMORY[0x1E696B008] minutes];
-    v150[5] = minutes;
+    v149[5] = minutes;
     hours = [MEMORY[0x1E696B008] hours];
-    v150[6] = hours;
-    v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v150 count:7];
+    v149[6] = hours;
+    v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v149 count:7];
 
     goto LABEL_13;
   }
@@ -764,18 +758,18 @@ LABEL_19:
   if ([typeCopy isEqualToString:@"Electric Charge"])
   {
     metersPerSecondSquared = [MEMORY[0x1E696B010] coulombs];
-    v149[0] = metersPerSecondSquared;
+    v148[0] = metersPerSecondSquared;
     megaampereHours = [MEMORY[0x1E696B010] megaampereHours];
-    v149[1] = megaampereHours;
+    v148[1] = megaampereHours;
     kiloampereHours = [MEMORY[0x1E696B010] kiloampereHours];
-    v149[2] = kiloampereHours;
+    v148[2] = kiloampereHours;
     ampereHours = [MEMORY[0x1E696B010] ampereHours];
-    v149[3] = ampereHours;
+    v148[3] = ampereHours;
     milliampereHours = [MEMORY[0x1E696B010] milliampereHours];
-    v149[4] = milliampereHours;
+    v148[4] = milliampereHours;
     microampereHours = [MEMORY[0x1E696B010] microampereHours];
-    v149[5] = microampereHours;
-    v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v149 count:6];
+    v148[5] = microampereHours;
+    v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v148 count:6];
 
     goto LABEL_13;
   }
@@ -783,19 +777,19 @@ LABEL_19:
   if ([typeCopy isEqualToString:@"Electric Current"])
   {
     metersPerSecondSquared = [MEMORY[0x1E696B018] megaamperes];
-    v148[0] = metersPerSecondSquared;
+    v147[0] = metersPerSecondSquared;
     gravity = [MEMORY[0x1E696B018] kiloamperes];
-    v148[1] = gravity;
+    v147[1] = gravity;
     arcSeconds = [MEMORY[0x1E696B018] amperes];
-    v148[2] = arcSeconds;
+    v147[2] = arcSeconds;
     milliamperes = [MEMORY[0x1E696B018] milliamperes];
-    v148[3] = milliamperes;
+    v147[3] = milliamperes;
     microamperes = [MEMORY[0x1E696B018] microamperes];
-    v148[4] = microamperes;
-    v40 = MEMORY[0x1E695DEC8];
-    v41 = v148;
+    v147[4] = microamperes;
+    v39 = MEMORY[0x1E695DEC8];
+    v40 = v147;
 LABEL_32:
-    v6 = [v40 arrayWithObjects:v41 count:5];
+    v6 = [v39 arrayWithObjects:v40 count:5];
 
     goto LABEL_11;
   }
@@ -803,78 +797,78 @@ LABEL_32:
   if ([typeCopy isEqualToString:@"Electric Potential Difference"])
   {
     metersPerSecondSquared = [MEMORY[0x1E696B020] megavolts];
-    v147[0] = metersPerSecondSquared;
+    v146[0] = metersPerSecondSquared;
     gravity = [MEMORY[0x1E696B020] kilovolts];
-    v147[1] = gravity;
+    v146[1] = gravity;
     arcSeconds = [MEMORY[0x1E696B020] volts];
-    v147[2] = arcSeconds;
+    v146[2] = arcSeconds;
     milliamperes = [MEMORY[0x1E696B020] millivolts];
-    v147[3] = milliamperes;
+    v146[3] = milliamperes;
     microamperes = [MEMORY[0x1E696B020] microvolts];
-    v147[4] = microamperes;
-    v40 = MEMORY[0x1E695DEC8];
-    v41 = v147;
+    v146[4] = microamperes;
+    v39 = MEMORY[0x1E695DEC8];
+    v40 = v146;
     goto LABEL_32;
   }
 
   if ([typeCopy isEqualToString:@"Electric Resistance"])
   {
     metersPerSecondSquared = [MEMORY[0x1E696B028] megaohms];
-    v146[0] = metersPerSecondSquared;
+    v145[0] = metersPerSecondSquared;
     gravity = [MEMORY[0x1E696B028] kiloohms];
-    v146[1] = gravity;
+    v145[1] = gravity;
     arcSeconds = [MEMORY[0x1E696B028] ohms];
-    v146[2] = arcSeconds;
+    v145[2] = arcSeconds;
     milliamperes = [MEMORY[0x1E696B028] milliohms];
-    v146[3] = milliamperes;
+    v145[3] = milliamperes;
     microamperes = [MEMORY[0x1E696B028] microohms];
-    v146[4] = microamperes;
-    v40 = MEMORY[0x1E695DEC8];
-    v41 = v146;
+    v145[4] = microamperes;
+    v39 = MEMORY[0x1E695DEC8];
+    v40 = v145;
     goto LABEL_32;
   }
 
   if ([typeCopy isEqualToString:@"Energy"])
   {
     metersPerSecondSquared = [MEMORY[0x1E696B030] kilojoules];
-    v145[0] = metersPerSecondSquared;
+    v144[0] = metersPerSecondSquared;
     gravity = [MEMORY[0x1E696B030] joules];
-    v145[1] = gravity;
+    v144[1] = gravity;
     arcSeconds = [MEMORY[0x1E696B030] kilocalories];
-    v145[2] = arcSeconds;
+    v144[2] = arcSeconds;
     milliamperes = [MEMORY[0x1E696B030] calories];
-    v145[3] = milliamperes;
+    v144[3] = milliamperes;
     microamperes = [MEMORY[0x1E696B030] kilowattHours];
-    v145[4] = microamperes;
-    v40 = MEMORY[0x1E695DEC8];
-    v41 = v145;
+    v144[4] = microamperes;
+    v39 = MEMORY[0x1E695DEC8];
+    v40 = v144;
     goto LABEL_32;
   }
 
   if ([typeCopy isEqualToString:@"Frequency"])
   {
     metersPerSecondSquared = [MEMORY[0x1E696B038] terahertz];
-    v144[0] = metersPerSecondSquared;
+    v143[0] = metersPerSecondSquared;
     gigahertz = [MEMORY[0x1E696B038] gigahertz];
-    v144[1] = gigahertz;
+    v143[1] = gigahertz;
     megahertz = [MEMORY[0x1E696B038] megahertz];
-    v144[2] = megahertz;
+    v143[2] = megahertz;
     kilohertz = [MEMORY[0x1E696B038] kilohertz];
-    v144[3] = kilohertz;
+    v143[3] = kilohertz;
     hertz = [MEMORY[0x1E696B038] hertz];
-    v144[4] = hertz;
+    v143[4] = hertz;
     millihertz = [MEMORY[0x1E696B038] millihertz];
-    v144[5] = millihertz;
+    v143[5] = millihertz;
     microhertz = [MEMORY[0x1E696B038] microhertz];
-    v144[6] = microhertz;
+    v143[6] = microhertz;
     nanohertz = [MEMORY[0x1E696B038] nanohertz];
-    v144[7] = nanohertz;
+    v143[7] = nanohertz;
     framesPerSecond = [MEMORY[0x1E696B038] framesPerSecond];
-    v144[8] = framesPerSecond;
-    v49 = MEMORY[0x1E695DEC8];
-    v50 = v144;
+    v143[8] = framesPerSecond;
+    v48 = MEMORY[0x1E695DEC8];
+    v49 = v143;
 LABEL_35:
-    v6 = [v49 arrayWithObjects:v50 count:9];
+    v6 = [v48 arrayWithObjects:v49 count:9];
 
     v20 = gigahertz;
     goto LABEL_7;
@@ -883,148 +877,148 @@ LABEL_35:
   if ([typeCopy isEqualToString:@"Fuel Efficiency"])
   {
     metersPerSecondSquared = [MEMORY[0x1E696B040] litersPer100Kilometers];
-    v143[0] = metersPerSecondSquared;
+    v142[0] = metersPerSecondSquared;
     gravity = [MEMORY[0x1E696B040] milesPerImperialGallon];
-    v143[1] = gravity;
+    v142[1] = gravity;
     arcSeconds = [MEMORY[0x1E696B040] milesPerGallon];
-    v143[2] = arcSeconds;
+    v142[2] = arcSeconds;
     v21 = MEMORY[0x1E695DEC8];
-    v22 = v143;
+    v22 = v142;
     goto LABEL_10;
   }
 
   if ([typeCopy isEqualToString:@"Illuminance"])
   {
     metersPerSecondSquared = [MEMORY[0x1E696B048] lux];
-    v142 = metersPerSecondSquared;
-    v25 = MEMORY[0x1E695DEC8];
-    v26 = &v142;
+    v141 = metersPerSecondSquared;
+    v24 = MEMORY[0x1E695DEC8];
+    v25 = &v141;
     goto LABEL_19;
   }
 
   if ([typeCopy isEqualToString:@"Information Storage"])
   {
     metersPerSecondSquared = [MEMORY[0x1E696B050] bytes];
-    v141[0] = metersPerSecondSquared;
+    v140[0] = metersPerSecondSquared;
     gigahertz = [MEMORY[0x1E696B050] kilobytes];
-    v141[1] = gigahertz;
+    v140[1] = gigahertz;
     megahertz = [MEMORY[0x1E696B050] megabytes];
-    v141[2] = megahertz;
+    v140[2] = megahertz;
     kilohertz = [MEMORY[0x1E696B050] gigabytes];
-    v141[3] = kilohertz;
+    v140[3] = kilohertz;
     hertz = [MEMORY[0x1E696B050] terabytes];
-    v141[4] = hertz;
+    v140[4] = hertz;
     millihertz = [MEMORY[0x1E696B050] petabytes];
-    v141[5] = millihertz;
+    v140[5] = millihertz;
     microhertz = [MEMORY[0x1E696B050] exabytes];
-    v141[6] = microhertz;
+    v140[6] = microhertz;
     nanohertz = [MEMORY[0x1E696B050] zettabytes];
-    v141[7] = nanohertz;
+    v140[7] = nanohertz;
     framesPerSecond = [MEMORY[0x1E696B050] yottabytes];
-    v141[8] = framesPerSecond;
-    v49 = MEMORY[0x1E695DEC8];
-    v50 = v141;
+    v140[8] = framesPerSecond;
+    v48 = MEMORY[0x1E695DEC8];
+    v49 = v140;
     goto LABEL_35;
   }
 
-  v133 = typeCopy;
+  v132 = typeCopy;
   if ([typeCopy isEqualToString:@"Length"])
   {
     megameters = [MEMORY[0x1E696B058] megameters];
-    v140[0] = megameters;
+    v139[0] = megameters;
     kilometers = [MEMORY[0x1E696B058] kilometers];
-    v140[1] = kilometers;
+    v139[1] = kilometers;
     hectometers = [MEMORY[0x1E696B058] hectometers];
-    v140[2] = hectometers;
+    v139[2] = hectometers;
     decameters = [MEMORY[0x1E696B058] decameters];
-    v140[3] = decameters;
+    v139[3] = decameters;
     meters = [MEMORY[0x1E696B058] meters];
-    v140[4] = meters;
+    v139[4] = meters;
     decimeters = [MEMORY[0x1E696B058] decimeters];
-    v140[5] = decimeters;
+    v139[5] = decimeters;
     centimeters = [MEMORY[0x1E696B058] centimeters];
-    v140[6] = centimeters;
+    v139[6] = centimeters;
     millimeters = [MEMORY[0x1E696B058] millimeters];
-    v140[7] = millimeters;
+    v139[7] = millimeters;
     micrometers = [MEMORY[0x1E696B058] micrometers];
-    v140[8] = micrometers;
+    v139[8] = micrometers;
     nanometers = [MEMORY[0x1E696B058] nanometers];
-    v140[9] = nanometers;
+    v139[9] = nanometers;
     picometers = [MEMORY[0x1E696B058] picometers];
-    v140[10] = picometers;
+    v139[10] = picometers;
     inches = [MEMORY[0x1E696B058] inches];
-    v140[11] = inches;
+    v139[11] = inches;
     feet = [MEMORY[0x1E696B058] feet];
-    v140[12] = feet;
+    v139[12] = feet;
     yards = [MEMORY[0x1E696B058] yards];
-    v140[13] = yards;
+    v139[13] = yards;
     miles = [MEMORY[0x1E696B058] miles];
-    v140[14] = miles;
+    v139[14] = miles;
     scandinavianMiles = [MEMORY[0x1E696B058] scandinavianMiles];
-    v140[15] = scandinavianMiles;
+    v139[15] = scandinavianMiles;
     lightyears = [MEMORY[0x1E696B058] lightyears];
-    v140[16] = lightyears;
+    v139[16] = lightyears;
     nauticalMiles = [MEMORY[0x1E696B058] nauticalMiles];
-    v140[17] = nauticalMiles;
+    v139[17] = nauticalMiles;
     fathoms = [MEMORY[0x1E696B058] fathoms];
-    v140[18] = fathoms;
+    v139[18] = fathoms;
     furlongs = [MEMORY[0x1E696B058] furlongs];
-    v140[19] = furlongs;
+    v139[19] = furlongs;
     astronomicalUnits = [MEMORY[0x1E696B058] astronomicalUnits];
-    v140[20] = astronomicalUnits;
+    v139[20] = astronomicalUnits;
     parsecs = [MEMORY[0x1E696B058] parsecs];
-    v140[21] = parsecs;
-    v60 = [MEMORY[0x1E695DEC8] arrayWithObjects:v140 count:22];
+    v139[21] = parsecs;
+    v59 = [MEMORY[0x1E695DEC8] arrayWithObjects:v139 count:22];
 
-    v6 = v60;
+    v6 = v59;
     metersPerSecondSquared = megameters;
 
 LABEL_44:
 LABEL_47:
 
-    v70 = kilometers;
+    v69 = kilometers;
 LABEL_48:
 
 LABEL_49:
-    typeCopy = v133;
+    typeCopy = v132;
     goto LABEL_13;
   }
 
   if ([typeCopy isEqualToString:@"Mass"])
   {
     kilograms = [MEMORY[0x1E696B060] kilograms];
-    v139[0] = kilograms;
+    v138[0] = kilograms;
     kilometers = [MEMORY[0x1E696B060] grams];
-    v139[1] = kilometers;
+    v138[1] = kilometers;
     hectometers = [MEMORY[0x1E696B060] decigrams];
-    v139[2] = hectometers;
+    v138[2] = hectometers;
     decameters = [MEMORY[0x1E696B060] centigrams];
-    v139[3] = decameters;
+    v138[3] = decameters;
     meters = [MEMORY[0x1E696B060] milligrams];
-    v139[4] = meters;
+    v138[4] = meters;
     decimeters = [MEMORY[0x1E696B060] micrograms];
-    v139[5] = decimeters;
+    v138[5] = decimeters;
     centimeters = [MEMORY[0x1E696B060] nanograms];
-    v139[6] = centimeters;
+    v138[6] = centimeters;
     picograms = [MEMORY[0x1E696B060] picograms];
-    v139[7] = picograms;
+    v138[7] = picograms;
     ounces = [MEMORY[0x1E696B060] ounces];
-    v139[8] = ounces;
+    v138[8] = ounces;
     poundsMass = [MEMORY[0x1E696B060] poundsMass];
-    v139[9] = poundsMass;
+    v138[9] = poundsMass;
     stones = [MEMORY[0x1E696B060] stones];
-    v139[10] = stones;
+    v138[10] = stones;
     metricTons = [MEMORY[0x1E696B060] metricTons];
-    v139[11] = metricTons;
+    v138[11] = metricTons;
     shortTons = [MEMORY[0x1E696B060] shortTons];
-    v139[12] = shortTons;
+    v138[12] = shortTons;
     carats = [MEMORY[0x1E696B060] carats];
-    v139[13] = carats;
+    v138[13] = carats;
     ouncesTroy = [MEMORY[0x1E696B060] ouncesTroy];
-    v139[14] = ouncesTroy;
+    v138[14] = ouncesTroy;
     slugs = [MEMORY[0x1E696B060] slugs];
-    v139[15] = slugs;
-    v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v139 count:16];
+    v138[15] = slugs;
+    v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v138 count:16];
 
     metersPerSecondSquared = kilograms;
     goto LABEL_47;
@@ -1033,58 +1027,58 @@ LABEL_49:
   if ([typeCopy isEqualToString:@"Power"])
   {
     terawatts = [MEMORY[0x1E696B068] terawatts];
-    v138[0] = terawatts;
+    v137[0] = terawatts;
     gigawatts = [MEMORY[0x1E696B068] gigawatts];
-    v138[1] = gigawatts;
+    v137[1] = gigawatts;
     megawatts = [MEMORY[0x1E696B068] megawatts];
-    v138[2] = megawatts;
+    v137[2] = megawatts;
     kilowatts = [MEMORY[0x1E696B068] kilowatts];
-    v138[3] = kilowatts;
+    v137[3] = kilowatts;
     watts = [MEMORY[0x1E696B068] watts];
-    v138[4] = watts;
+    v137[4] = watts;
     milliwatts = [MEMORY[0x1E696B068] milliwatts];
-    v138[5] = milliwatts;
+    v137[5] = milliwatts;
     microwatts = [MEMORY[0x1E696B068] microwatts];
-    v138[6] = microwatts;
+    v137[6] = microwatts;
     nanowatts = [MEMORY[0x1E696B068] nanowatts];
-    v138[7] = nanowatts;
+    v137[7] = nanowatts;
     picowatts = [MEMORY[0x1E696B068] picowatts];
-    v138[8] = picowatts;
+    v137[8] = picowatts;
     femtowatts = [MEMORY[0x1E696B068] femtowatts];
-    v138[9] = femtowatts;
+    v137[9] = femtowatts;
     horsepower = [MEMORY[0x1E696B068] horsepower];
-    v138[10] = horsepower;
-    v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v138 count:11];
+    v137[10] = horsepower;
+    v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v137 count:11];
 
     metersPerSecondSquared = terawatts;
 LABEL_54:
-    v70 = gigawatts;
+    v69 = gigawatts;
     goto LABEL_48;
   }
 
   if ([typeCopy isEqualToString:@"Pressure"])
   {
     metersPerSecondSquared = [MEMORY[0x1E696B070] newtonsPerMetersSquared];
-    v137[0] = metersPerSecondSquared;
+    v136[0] = metersPerSecondSquared;
     gigawatts = [MEMORY[0x1E696B070] gigapascals];
-    v137[1] = gigawatts;
+    v136[1] = gigawatts;
     megapascals = [MEMORY[0x1E696B070] megapascals];
-    v137[2] = megapascals;
+    v136[2] = megapascals;
     kilopascals = [MEMORY[0x1E696B070] kilopascals];
-    v137[3] = kilopascals;
+    v136[3] = kilopascals;
     hectopascals = [MEMORY[0x1E696B070] hectopascals];
-    v137[4] = hectopascals;
+    v136[4] = hectopascals;
     inchesOfMercury = [MEMORY[0x1E696B070] inchesOfMercury];
-    v137[5] = inchesOfMercury;
+    v136[5] = inchesOfMercury;
     bars = [MEMORY[0x1E696B070] bars];
-    v137[6] = bars;
+    v136[6] = bars;
     millibars = [MEMORY[0x1E696B070] millibars];
-    v137[7] = millibars;
+    v136[7] = millibars;
     millimetersOfMercury = [MEMORY[0x1E696B070] millimetersOfMercury];
-    v137[8] = millimetersOfMercury;
+    v136[8] = millimetersOfMercury;
     poundsForcePerSquareInch = [MEMORY[0x1E696B070] poundsForcePerSquareInch];
-    v137[9] = poundsForcePerSquareInch;
-    v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v137 count:10];
+    v136[9] = poundsForcePerSquareInch;
+    v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v136 count:10];
 
     goto LABEL_54;
   }
@@ -1092,14 +1086,14 @@ LABEL_54:
   if ([typeCopy isEqualToString:@"Speed"])
   {
     metersPerSecondSquared = [MEMORY[0x1E696B078] metersPerSecond];
-    v136[0] = metersPerSecondSquared;
+    v135[0] = metersPerSecondSquared;
     kilometersPerHour = [MEMORY[0x1E696B078] kilometersPerHour];
-    v136[1] = kilometersPerHour;
+    v135[1] = kilometersPerHour;
     milesPerHour = [MEMORY[0x1E696B078] milesPerHour];
-    v136[2] = milesPerHour;
+    v135[2] = milesPerHour;
     knots = [MEMORY[0x1E696B078] knots];
-    v136[3] = knots;
-    v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v136 count:4];
+    v135[3] = knots;
+    v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v135 count:4];
 
 LABEL_59:
     goto LABEL_49;
@@ -1108,80 +1102,80 @@ LABEL_59:
   if ([typeCopy isEqualToString:@"Temperature"])
   {
     metersPerSecondSquared = [MEMORY[0x1E696B080] kelvin];
-    v135[0] = metersPerSecondSquared;
+    v134[0] = metersPerSecondSquared;
     kilometersPerHour = [MEMORY[0x1E696B080] celsius];
-    v135[1] = kilometersPerHour;
+    v134[1] = kilometersPerHour;
     milesPerHour = [MEMORY[0x1E696B080] fahrenheit];
-    v135[2] = milesPerHour;
-    v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v135 count:3];
+    v134[2] = milesPerHour;
+    v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v134 count:3];
     goto LABEL_59;
   }
 
   if ([typeCopy isEqualToString:@"Volume"])
   {
     megaliters = [MEMORY[0x1E696B088] megaliters];
-    v134[0] = megaliters;
+    v133[0] = megaliters;
     kilometers = [MEMORY[0x1E696B088] kiloliters];
-    v134[1] = kilometers;
+    v133[1] = kilometers;
     hectometers = [MEMORY[0x1E696B088] liters];
-    v134[2] = hectometers;
+    v133[2] = hectometers;
     decameters = [MEMORY[0x1E696B088] deciliters];
-    v134[3] = decameters;
+    v133[3] = decameters;
     meters = [MEMORY[0x1E696B088] centiliters];
-    v134[4] = meters;
+    v133[4] = meters;
     decimeters = [MEMORY[0x1E696B088] milliliters];
-    v134[5] = decimeters;
+    v133[5] = decimeters;
     centimeters = [MEMORY[0x1E696B088] cubicKilometers];
-    v134[6] = centimeters;
+    v133[6] = centimeters;
     millimeters = [MEMORY[0x1E696B088] cubicMeters];
-    v134[7] = millimeters;
+    v133[7] = millimeters;
     micrometers = [MEMORY[0x1E696B088] cubicDecimeters];
-    v134[8] = micrometers;
+    v133[8] = micrometers;
     nanometers = [MEMORY[0x1E696B088] cubicCentimeters];
-    v134[9] = nanometers;
+    v133[9] = nanometers;
     picometers = [MEMORY[0x1E696B088] cubicMillimeters];
-    v134[10] = picometers;
+    v133[10] = picometers;
     inches = [MEMORY[0x1E696B088] cubicInches];
-    v134[11] = inches;
+    v133[11] = inches;
     feet = [MEMORY[0x1E696B088] cubicFeet];
-    v134[12] = feet;
+    v133[12] = feet;
     cubicYards = [MEMORY[0x1E696B088] cubicYards];
-    v134[13] = cubicYards;
+    v133[13] = cubicYards;
     cubicMiles = [MEMORY[0x1E696B088] cubicMiles];
-    v134[14] = cubicMiles;
+    v133[14] = cubicMiles;
     acreFeet = [MEMORY[0x1E696B088] acreFeet];
-    v134[15] = acreFeet;
+    v133[15] = acreFeet;
     bushels = [MEMORY[0x1E696B088] bushels];
-    v134[16] = bushels;
+    v133[16] = bushels;
     teaspoons = [MEMORY[0x1E696B088] teaspoons];
-    v134[17] = teaspoons;
+    v133[17] = teaspoons;
     tablespoons = [MEMORY[0x1E696B088] tablespoons];
-    v134[18] = tablespoons;
+    v133[18] = tablespoons;
     fluidOunces = [MEMORY[0x1E696B088] fluidOunces];
-    v134[19] = fluidOunces;
+    v133[19] = fluidOunces;
     cups = [MEMORY[0x1E696B088] cups];
-    v134[20] = cups;
+    v133[20] = cups;
     pints = [MEMORY[0x1E696B088] pints];
-    v134[21] = pints;
+    v133[21] = pints;
     quarts = [MEMORY[0x1E696B088] quarts];
-    v134[22] = quarts;
+    v133[22] = quarts;
     gallons = [MEMORY[0x1E696B088] gallons];
-    v134[23] = gallons;
+    v133[23] = gallons;
     imperialTeaspoons = [MEMORY[0x1E696B088] imperialTeaspoons];
-    v134[24] = imperialTeaspoons;
+    v133[24] = imperialTeaspoons;
     imperialTablespoons = [MEMORY[0x1E696B088] imperialTablespoons];
-    v134[25] = imperialTablespoons;
+    v133[25] = imperialTablespoons;
     imperialFluidOunces = [MEMORY[0x1E696B088] imperialFluidOunces];
-    v134[26] = imperialFluidOunces;
+    v133[26] = imperialFluidOunces;
     imperialPints = [MEMORY[0x1E696B088] imperialPints];
-    v134[27] = imperialPints;
+    v133[27] = imperialPints;
     imperialQuarts = [MEMORY[0x1E696B088] imperialQuarts];
-    v134[28] = imperialQuarts;
+    v133[28] = imperialQuarts;
     imperialGallons = [MEMORY[0x1E696B088] imperialGallons];
-    v134[29] = imperialGallons;
+    v133[29] = imperialGallons;
     metricCups = [MEMORY[0x1E696B088] metricCups];
-    v134[30] = metricCups;
-    v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v134 count:31];
+    v133[30] = metricCups;
+    v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v133 count:31];
 
     metersPerSecondSquared = megaliters;
     goto LABEL_44;
@@ -1189,8 +1183,6 @@ LABEL_59:
 
   v6 = MEMORY[0x1E695E0F0];
 LABEL_14:
-
-  v23 = *MEMORY[0x1E69E9840];
 
   return v6;
 }
@@ -1209,56 +1201,54 @@ LABEL_14:
 
 void __32__WFMeasurementUnit_unitTypeMap__block_invoke()
 {
-  v4[22] = *MEMORY[0x1E69E9840];
-  v3[0] = @"Acceleration";
-  v4[0] = objc_opt_class();
-  v3[1] = @"Angle";
-  v4[1] = objc_opt_class();
-  v3[2] = @"Area";
-  v4[2] = objc_opt_class();
-  v3[3] = @"Concentration Mass";
-  v4[3] = objc_opt_class();
-  v3[4] = @"Dispersion";
-  v4[4] = objc_opt_class();
-  v3[5] = @"Duration";
-  v4[5] = objc_opt_class();
-  v3[6] = @"Electric Charge";
-  v4[6] = objc_opt_class();
-  v3[7] = @"Electric Current";
-  v4[7] = objc_opt_class();
-  v3[8] = @"Electric Potential Difference";
-  v4[8] = objc_opt_class();
-  v3[9] = @"Electric Resistance";
-  v4[9] = objc_opt_class();
-  v3[10] = @"Energy";
-  v4[10] = objc_opt_class();
-  v3[11] = @"Frequency";
-  v4[11] = objc_opt_class();
-  v3[12] = @"Fuel Efficiency";
-  v4[12] = objc_opt_class();
-  v3[13] = @"Illuminance";
-  v4[13] = objc_opt_class();
-  v3[14] = @"Information Storage";
-  v4[14] = objc_opt_class();
-  v3[15] = @"Length";
-  v4[15] = objc_opt_class();
-  v3[16] = @"Mass";
-  v4[16] = objc_opt_class();
-  v3[17] = @"Power";
-  v4[17] = objc_opt_class();
-  v3[18] = @"Pressure";
-  v4[18] = objc_opt_class();
-  v3[19] = @"Speed";
-  v4[19] = objc_opt_class();
-  v3[20] = @"Temperature";
-  v4[20] = objc_opt_class();
-  v3[21] = @"Volume";
-  v4[21] = objc_opt_class();
-  v0 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v4 forKeys:v3 count:22];
+  v3[22] = *MEMORY[0x1E69E9840];
+  v2[0] = @"Acceleration";
+  v3[0] = objc_opt_class();
+  v2[1] = @"Angle";
+  v3[1] = objc_opt_class();
+  v2[2] = @"Area";
+  v3[2] = objc_opt_class();
+  v2[3] = @"Concentration Mass";
+  v3[3] = objc_opt_class();
+  v2[4] = @"Dispersion";
+  v3[4] = objc_opt_class();
+  v2[5] = @"Duration";
+  v3[5] = objc_opt_class();
+  v2[6] = @"Electric Charge";
+  v3[6] = objc_opt_class();
+  v2[7] = @"Electric Current";
+  v3[7] = objc_opt_class();
+  v2[8] = @"Electric Potential Difference";
+  v3[8] = objc_opt_class();
+  v2[9] = @"Electric Resistance";
+  v3[9] = objc_opt_class();
+  v2[10] = @"Energy";
+  v3[10] = objc_opt_class();
+  v2[11] = @"Frequency";
+  v3[11] = objc_opt_class();
+  v2[12] = @"Fuel Efficiency";
+  v3[12] = objc_opt_class();
+  v2[13] = @"Illuminance";
+  v3[13] = objc_opt_class();
+  v2[14] = @"Information Storage";
+  v3[14] = objc_opt_class();
+  v2[15] = @"Length";
+  v3[15] = objc_opt_class();
+  v2[16] = @"Mass";
+  v3[16] = objc_opt_class();
+  v2[17] = @"Power";
+  v3[17] = objc_opt_class();
+  v2[18] = @"Pressure";
+  v3[18] = objc_opt_class();
+  v2[19] = @"Speed";
+  v3[19] = objc_opt_class();
+  v2[20] = @"Temperature";
+  v3[20] = objc_opt_class();
+  v2[21] = @"Volume";
+  v3[21] = objc_opt_class();
+  v0 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v3 forKeys:v2 count:22];
   v1 = unitTypeMap_unitTypeMap;
   unitTypeMap_unitTypeMap = v0;
-
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 + (id)unitTypeForUnitClass:(Class)class
@@ -1298,93 +1288,8 @@ void __42__WFMeasurementUnit_unitTypeForUnitClass___block_invoke(uint64_t a1, vo
 {
   typeCopy = type;
   v4 = @"Acceleration";
-  if ([typeCopy isEqualToString:@"Acceleration"])
+  if ([typeCopy isEqualToString:@"Acceleration"] & 1) != 0 || (v4 = @"Angle", (objc_msgSend(typeCopy, "isEqualToString:", @"Angle")) || (v4 = @"Area", (objc_msgSend(typeCopy, "isEqualToString:", @"Area")) || (v4 = @"Concentration Mass", (objc_msgSend(typeCopy, "isEqualToString:", @"Concentration Mass")) || (v4 = @"Dispersion", (objc_msgSend(typeCopy, "isEqualToString:", @"Dispersion")) || (v4 = @"Duration", (objc_msgSend(typeCopy, "isEqualToString:", @"Duration")) || (v4 = @"Electric Charge", (objc_msgSend(typeCopy, "isEqualToString:", @"Electric Charge")) || (v4 = @"Electric Current", (objc_msgSend(typeCopy, "isEqualToString:", @"Electric Current")) || (v4 = @"Electric Potential Difference", (objc_msgSend(typeCopy, "isEqualToString:", @"Electric Potential Difference")) || (v4 = @"Electric Resistance", (objc_msgSend(typeCopy, "isEqualToString:", @"Electric Resistance")) || (v4 = @"Energy", (objc_msgSend(typeCopy, "isEqualToString:", @"Energy")) || (v4 = @"Frequency", (objc_msgSend(typeCopy, "isEqualToString:", @"Frequency")) || (v4 = @"Fuel Efficiency", (objc_msgSend(typeCopy, "isEqualToString:", @"Fuel Efficiency")) || (v4 = @"Illuminance", (objc_msgSend(typeCopy, "isEqualToString:", @"Illuminance")) || (v4 = @"Information Storage", (objc_msgSend(typeCopy, "isEqualToString:", @"Information Storage")) || (v4 = @"Length", (objc_msgSend(typeCopy, "isEqualToString:", @"Length")) || (v4 = @"Mass", (objc_msgSend(typeCopy, "isEqualToString:", @"Mass")) || (v4 = @"Power", (objc_msgSend(typeCopy, "isEqualToString:", @"Power")) || (v4 = @"Pressure", (objc_msgSend(typeCopy, "isEqualToString:", @"Pressure")) || (v4 = @"Speed", (objc_msgSend(typeCopy, "isEqualToString:", @"Speed")) || (v4 = @"Temperature", (objc_msgSend(typeCopy, "isEqualToString:", @"Temperature")) || (v4 = @"Volume", objc_msgSend(typeCopy, "isEqualToString:", @"Volume")))
   {
-    goto LABEL_23;
-  }
-
-  v4 = @"Angle";
-  if ([typeCopy isEqualToString:@"Angle"])
-  {
-    goto LABEL_23;
-  }
-
-  v4 = @"Area";
-  if ([typeCopy isEqualToString:@"Area"])
-  {
-    goto LABEL_23;
-  }
-
-  v4 = @"Concentration Mass";
-  if ([typeCopy isEqualToString:@"Concentration Mass"])
-  {
-    goto LABEL_23;
-  }
-
-  v4 = @"Dispersion";
-  if ([typeCopy isEqualToString:@"Dispersion"])
-  {
-    goto LABEL_23;
-  }
-
-  v4 = @"Duration";
-  if ([typeCopy isEqualToString:@"Duration"])
-  {
-    goto LABEL_23;
-  }
-
-  v4 = @"Electric Charge";
-  if ([typeCopy isEqualToString:@"Electric Charge"])
-  {
-    goto LABEL_23;
-  }
-
-  v4 = @"Electric Current";
-  if ([typeCopy isEqualToString:@"Electric Current"])
-  {
-    goto LABEL_23;
-  }
-
-  v4 = @"Electric Potential Difference";
-  if ([typeCopy isEqualToString:@"Electric Potential Difference"])
-  {
-    goto LABEL_23;
-  }
-
-  v4 = @"Electric Resistance";
-  if ([typeCopy isEqualToString:@"Electric Resistance"])
-  {
-    goto LABEL_23;
-  }
-
-  v4 = @"Energy";
-  if ([typeCopy isEqualToString:@"Energy"])
-  {
-    goto LABEL_23;
-  }
-
-  v4 = @"Frequency";
-  if ([typeCopy isEqualToString:@"Frequency"])
-  {
-    goto LABEL_23;
-  }
-
-  v4 = @"Fuel Efficiency";
-  if ([typeCopy isEqualToString:@"Fuel Efficiency"])
-  {
-    goto LABEL_23;
-  }
-
-  v4 = @"Illuminance";
-  if ([typeCopy isEqualToString:@"Illuminance"])
-  {
-    goto LABEL_23;
-  }
-
-  v4 = @"Information Storage";
-  if ([typeCopy isEqualToString:@"Information Storage"] & 1) != 0 || (v4 = @"Length", (objc_msgSend(typeCopy, "isEqualToString:", @"Length")) || (v4 = @"Mass", (objc_msgSend(typeCopy, "isEqualToString:", @"Mass")) || (v4 = @"Power", (objc_msgSend(typeCopy, "isEqualToString:", @"Power")) || (v4 = @"Pressure", (objc_msgSend(typeCopy, "isEqualToString:", @"Pressure")) || (v4 = @"Speed", (objc_msgSend(typeCopy, "isEqualToString:", @"Speed")) || (v4 = @"Temperature", (objc_msgSend(typeCopy, "isEqualToString:", @"Temperature")) || (v4 = @"Volume", objc_msgSend(typeCopy, "isEqualToString:", @"Volume")))
-  {
-LABEL_23:
     v5 = WFLocalizedString(v4);
   }
 

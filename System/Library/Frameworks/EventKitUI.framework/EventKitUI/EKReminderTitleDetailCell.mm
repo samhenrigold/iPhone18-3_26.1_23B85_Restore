@@ -64,8 +64,8 @@
     v206 = [v19 initWithString:v22 attributes:v217];
 
     [(UILabel *)v12->_title setAttributedText:v206];
-    contentView = [(EKReminderTitleDetailCell *)v12 contentView];
-    [contentView addSubview:v12->_title];
+    v23 = objc_msgSend_contentView(v12);
+    [v23 addSubview:v12->_title];
 
     LODWORD(v24) = 1148846080;
     [(UILabel *)v12->_title setContentCompressionResistancePriority:1 forAxis:v24];
@@ -129,8 +129,8 @@
     _dateFont = [objc_opt_class() _dateFont];
     [(UILabel *)v12->_dateLabelLine1 setFont:_dateFont];
 
-    contentView2 = [(EKReminderTitleDetailCell *)v12 contentView];
-    [contentView2 addSubview:v12->_dateLabelLine1];
+    v33 = objc_msgSend_contentView(v12);
+    [v33 addSubview:v12->_dateLabelLine1];
 
     if (v214)
     {
@@ -146,8 +146,8 @@
 
       LODWORD(v37) = 1148846080;
       [(UILabel *)v12->_dateLabelLine2 setContentCompressionResistancePriority:1 forAxis:v37];
-      contentView3 = [(EKReminderTitleDetailCell *)v12 contentView];
-      [contentView3 addSubview:v12->_dateLabelLine2];
+      v38 = objc_msgSend_contentView(v12);
+      [v38 addSubview:v12->_dateLabelLine2];
     }
 
     if (v213)
@@ -164,8 +164,8 @@
 
       LODWORD(v42) = 1148846080;
       [(UILabel *)v12->_dateLabelLine3 setContentCompressionResistancePriority:1 forAxis:v42];
-      contentView4 = [(EKReminderTitleDetailCell *)v12 contentView];
-      [contentView4 addSubview:v12->_dateLabelLine3];
+      v43 = objc_msgSend_contentView(v12);
+      [v43 addSubview:v12->_dateLabelLine3];
     }
 
     if (v212)
@@ -182,8 +182,8 @@
 
       LODWORD(v47) = 1148846080;
       [(UILabel *)v12->_dateLabelLine4 setContentCompressionResistancePriority:1 forAxis:v47];
-      contentView5 = [(EKReminderTitleDetailCell *)v12 contentView];
-      [contentView5 addSubview:v12->_dateLabelLine4];
+      v48 = objc_msgSend_contentView(v12);
+      [v48 addSubview:v12->_dateLabelLine4];
     }
 
     if ([(EKEvent *)v12->super.super._event hasRecurrenceRules])
@@ -243,16 +243,16 @@
       [(UILabel *)v12->_recurrenceLabel setAttributedText:v67];
       LODWORD(v70) = 1148846080;
       [(UILabel *)v12->_recurrenceLabel setContentCompressionResistancePriority:1 forAxis:v70];
-      contentView6 = [(EKReminderTitleDetailCell *)v12 contentView];
-      [contentView6 addSubview:v12->_recurrenceLabel];
+      v71 = objc_msgSend_contentView(v12);
+      [v71 addSubview:v12->_recurrenceLabel];
     }
 
     _editButton = [(EKReminderTitleDetailCell *)v12 _editButton];
     editButton = v12->_editButton;
     v12->_editButton = _editButton;
 
-    contentView7 = [(EKReminderTitleDetailCell *)v12 contentView];
-    [contentView7 addSubview:v12->_editButton];
+    v74 = objc_msgSend_contentView(v12);
+    [v74 addSubview:v12->_editButton];
 
     objc_initWeak(&buf, v12);
     v75 = MEMORY[0x1E69DC628];
@@ -273,8 +273,8 @@
     LODWORD(v81) = 1144750080;
     [(UIButton *)v12->_circle setContentHuggingPriority:0 forAxis:v81];
     [(UIButton *)v12->_circle setTranslatesAutoresizingMaskIntoConstraints:0];
-    contentView8 = [(EKReminderTitleDetailCell *)v12 contentView];
-    [contentView8 addSubview:v12->_circle];
+    v82 = objc_msgSend_contentView(v12);
+    [v82 addSubview:v12->_circle];
 
     event = [(EKEventDetailCell *)v12 event];
     -[UIButton setUserInteractionEnabled:](v12->_circle, "setUserInteractionEnabled:", [event CUIK_reminderShouldBeEditable]);
@@ -311,8 +311,8 @@
 
     v222 = MEMORY[0x1E695DF70];
     leadingAnchor = [(UIButton *)v12->_circle leadingAnchor];
-    contentView9 = [(EKReminderTitleDetailCell *)v12 contentView];
-    layoutMarginsGuide = [contentView9 layoutMarginsGuide];
+    v199 = objc_msgSend_contentView(v12);
+    layoutMarginsGuide = [v199 layoutMarginsGuide];
     leadingAnchor2 = [layoutMarginsGuide leadingAnchor];
     v187 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
     v250[0] = v187;
@@ -321,8 +321,8 @@
     v184 = [firstBaselineAnchor constraintEqualToAnchor:firstBaselineAnchor2];
     v250[1] = v184;
     topAnchor = [(UILabel *)v12->_title topAnchor];
-    contentView10 = [(EKReminderTitleDetailCell *)v12 contentView];
-    topAnchor2 = [contentView10 topAnchor];
+    v183 = objc_msgSend_contentView(v12);
+    topAnchor2 = [v183 topAnchor];
     v180 = [topAnchor constraintEqualToAnchor:topAnchor2 constant:8.0];
     v250[2] = v180;
     leadingAnchor3 = [(UILabel *)v12->_title leadingAnchor];
@@ -330,8 +330,8 @@
     v177 = [leadingAnchor3 constraintEqualToAnchor:trailingAnchor constant:11.0];
     v250[3] = v177;
     trailingAnchor2 = [(UILabel *)v12->_title trailingAnchor];
-    contentView11 = [(EKReminderTitleDetailCell *)v12 contentView];
-    layoutMarginsGuide2 = [contentView11 layoutMarginsGuide];
+    v176 = objc_msgSend_contentView(v12);
+    layoutMarginsGuide2 = [v176 layoutMarginsGuide];
     trailingAnchor3 = [layoutMarginsGuide2 trailingAnchor];
     v172 = [trailingAnchor2 constraintEqualToAnchor:trailingAnchor3 constant:-(v88 + v94)];
     v250[4] = v172;
@@ -340,8 +340,8 @@
     v169 = [bottomAnchor constraintEqualToAnchor:topAnchor3 constant:-21.0];
     v250[5] = v169;
     leadingAnchor4 = [(UILabel *)v12->_dateLabelLine1 leadingAnchor];
-    contentView12 = [(EKReminderTitleDetailCell *)v12 contentView];
-    layoutMarginsGuide3 = [contentView12 layoutMarginsGuide];
+    v96 = objc_msgSend_contentView(v12);
+    layoutMarginsGuide3 = [v96 layoutMarginsGuide];
     leadingAnchor5 = [layoutMarginsGuide3 leadingAnchor];
     v99 = [leadingAnchor4 constraintEqualToAnchor:leadingAnchor5];
     v250[6] = v99;
@@ -378,8 +378,8 @@
       }
 
       trailingAnchor6 = [(UIButton *)v12->_editButton trailingAnchor];
-      contentView13 = [(EKReminderTitleDetailCell *)v12 contentView];
-      trailingAnchor7 = [contentView13 trailingAnchor];
+      v115 = objc_msgSend_contentView(v12);
+      trailingAnchor7 = [v115 trailingAnchor];
       v117 = [trailingAnchor6 constraintEqualToAnchor:trailingAnchor7 constant:-8.0];
       v248[0] = v117;
       firstBaselineAnchor3 = [(UIButton *)v12->_editButton firstBaselineAnchor];
@@ -404,14 +404,14 @@
       v208 = [topAnchor4 constraintEqualToAnchor:bottomAnchor2 constant:4.0];
       v247[0] = v208;
       leadingAnchor6 = [(UILabel *)v12->_dateLabelLine2 leadingAnchor];
-      contentView14 = [(EKReminderTitleDetailCell *)v12 contentView];
-      layoutMarginsGuide4 = [contentView14 layoutMarginsGuide];
+      v200 = objc_msgSend_contentView(v12);
+      layoutMarginsGuide4 = [v200 layoutMarginsGuide];
       leadingAnchor7 = [layoutMarginsGuide4 leadingAnchor];
       v124 = [leadingAnchor6 constraintEqualToAnchor:leadingAnchor7];
       v247[1] = v124;
       trailingAnchor8 = [(UILabel *)v12->_dateLabelLine2 trailingAnchor];
-      contentView15 = [(EKReminderTitleDetailCell *)v12 contentView];
-      layoutMarginsGuide5 = [contentView15 layoutMarginsGuide];
+      v126 = objc_msgSend_contentView(v12);
+      layoutMarginsGuide5 = [v126 layoutMarginsGuide];
       trailingAnchor9 = [layoutMarginsGuide5 trailingAnchor];
       v129 = [trailingAnchor8 constraintEqualToAnchor:trailingAnchor9];
       v247[2] = v129;
@@ -430,14 +430,14 @@
       v209 = [topAnchor5 constraintEqualToAnchor:bottomAnchor3 constant:4.0];
       v246[0] = v209;
       leadingAnchor8 = [(UILabel *)v12->_dateLabelLine3 leadingAnchor];
-      contentView16 = [(EKReminderTitleDetailCell *)v12 contentView];
-      layoutMarginsGuide6 = [contentView16 layoutMarginsGuide];
+      v201 = objc_msgSend_contentView(v12);
+      layoutMarginsGuide6 = [v201 layoutMarginsGuide];
       leadingAnchor9 = [layoutMarginsGuide6 leadingAnchor];
       v134 = [leadingAnchor8 constraintEqualToAnchor:leadingAnchor9];
       v246[1] = v134;
       trailingAnchor10 = [(UILabel *)v12->_dateLabelLine3 trailingAnchor];
-      contentView17 = [(EKReminderTitleDetailCell *)v12 contentView];
-      layoutMarginsGuide7 = [contentView17 layoutMarginsGuide];
+      v136 = objc_msgSend_contentView(v12);
+      layoutMarginsGuide7 = [v136 layoutMarginsGuide];
       trailingAnchor11 = [layoutMarginsGuide7 trailingAnchor];
       v139 = [trailingAnchor10 constraintEqualToAnchor:trailingAnchor11];
       v246[2] = v139;
@@ -456,14 +456,14 @@
       v210 = [topAnchor6 constraintEqualToAnchor:bottomAnchor4 constant:4.0];
       v245[0] = v210;
       leadingAnchor10 = [(UILabel *)v12->_dateLabelLine4 leadingAnchor];
-      contentView18 = [(EKReminderTitleDetailCell *)v12 contentView];
-      layoutMarginsGuide8 = [contentView18 layoutMarginsGuide];
+      v202 = objc_msgSend_contentView(v12);
+      layoutMarginsGuide8 = [v202 layoutMarginsGuide];
       leadingAnchor11 = [layoutMarginsGuide8 leadingAnchor];
       v144 = [leadingAnchor10 constraintEqualToAnchor:leadingAnchor11];
       v245[1] = v144;
       trailingAnchor12 = [(UILabel *)v12->_dateLabelLine4 trailingAnchor];
-      contentView19 = [(EKReminderTitleDetailCell *)v12 contentView];
-      layoutMarginsGuide9 = [contentView19 layoutMarginsGuide];
+      v146 = objc_msgSend_contentView(v12);
+      layoutMarginsGuide9 = [v146 layoutMarginsGuide];
       trailingAnchor13 = [layoutMarginsGuide9 trailingAnchor];
       v149 = [trailingAnchor12 constraintEqualToAnchor:trailingAnchor13];
       v245[2] = v149;
@@ -482,14 +482,14 @@
       v211 = [topAnchor7 constraintEqualToAnchor:bottomAnchor5 constant:4.0];
       v244[0] = v211;
       leadingAnchor12 = [(UILabel *)v12->_recurrenceLabel leadingAnchor];
-      contentView20 = [(EKReminderTitleDetailCell *)v12 contentView];
-      layoutMarginsGuide10 = [contentView20 layoutMarginsGuide];
+      v203 = objc_msgSend_contentView(v12);
+      layoutMarginsGuide10 = [v203 layoutMarginsGuide];
       leadingAnchor13 = [layoutMarginsGuide10 leadingAnchor];
       v154 = [leadingAnchor12 constraintEqualToAnchor:leadingAnchor13];
       v244[1] = v154;
       trailingAnchor14 = [(UILabel *)v12->_recurrenceLabel trailingAnchor];
-      contentView21 = [(EKReminderTitleDetailCell *)v12 contentView];
-      layoutMarginsGuide11 = [contentView21 layoutMarginsGuide];
+      v156 = objc_msgSend_contentView(v12);
+      layoutMarginsGuide11 = [v156 layoutMarginsGuide];
       trailingAnchor15 = [layoutMarginsGuide11 trailingAnchor];
       v159 = [trailingAnchor14 constraintEqualToAnchor:trailingAnchor15];
       v244[2] = v159;
@@ -655,8 +655,8 @@ void __53__EKReminderTitleDetailCell__registerForInvalidation__block_invoke(uint
   }
 
   bottomAnchor = [(UIView *)self->_bottomView bottomAnchor];
-  contentView = [(EKReminderTitleDetailCell *)self contentView];
-  bottomAnchor2 = [contentView bottomAnchor];
+  v8 = objc_msgSend_contentView(self);
+  bottomAnchor2 = [v8 bottomAnchor];
   if (spaceCopy)
   {
     [bottomAnchor constraintEqualToAnchor:bottomAnchor2 constant:-15.0];

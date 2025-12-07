@@ -3,7 +3,7 @@
 
 @implementation AFErrorSetUnderlyingErrorRecursively
 
-void ___AFErrorSetUnderlyingErrorRecursively_block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
+void ___AFErrorSetUnderlyingErrorRecursively_block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
   v11 = 0;
   v5 = _AFErrorSetUnderlyingErrorRecursively(a2, &v11, *(a1 + 40), *(a1 + 48));

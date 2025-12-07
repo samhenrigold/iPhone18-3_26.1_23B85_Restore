@@ -35,9 +35,12 @@ uint64_t __55__NSString_TIExtras___indexByTrimmingWordsBeforeIndex___block_invok
 
 uint64_t __58__NSString_TIExtras__normalizeSmartQuotedStringForLocale___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  *(*(*(a1 + 32) + 8) + 40) = [*(*(*(a1 + 32) + 8) + 40) stringByReplacingOccurrencesOfString:a2 withString:a3];
+  v4 = [*(*(*(a1 + 32) + 8) + 40) stringByReplacingOccurrencesOfString:a2 withString:a3];
+  v5 = *(*(a1 + 32) + 8);
+  v6 = *(v5 + 40);
+  *(v5 + 40) = v4;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v4, v6);
 }
 
 void *__91__NSString_TIExtras___indexFromStartingIndex_byIncrementingComposedCharacterSequenceCount___block_invoke(void *result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, _BYTE *a7)
@@ -84,35 +87,35 @@ void __81__NSString_TIExtras___stringByComposingDiacriticsLogicalOrder_allowedCh
   *(*(*(a1 + 48) + 8) + 24) = v6;
 }
 
-uint64_t __56__NSString_TIExtras___containsSymbolsAndPunctuationOnly__block_invoke()
+void *__56__NSString_TIExtras___containsSymbolsAndPunctuationOnly__block_invoke(uint64_t a1)
 {
   result = [objc_opt_class() _characterSetWithPattern:@"[:Punctuation:]"];
   _containsSymbolsAndPunctuationOnly___SymbolsSet = result;
   return result;
 }
 
-uint64_t __55__NSString_TIExtras___containsCJKSymbolsAndPunctuation__block_invoke()
+void *__55__NSString_TIExtras___containsCJKSymbolsAndPunctuation__block_invoke(uint64_t a1)
 {
   result = [objc_opt_class() _characterSetWithPattern:@"[^[ [ [:East_Asian_Width=Wide:][:East_Asian_Width=Fullwidth:] ] & [:Punctuation:] ]]"];
   _containsCJKSymbolsAndPunctuation___nonCJKSymbolsSet = result;
   return result;
 }
 
-uint64_t __45__NSString_TIExtras___containsCJKScriptsOnly__block_invoke()
+void *__45__NSString_TIExtras___containsCJKScriptsOnly__block_invoke(uint64_t a1)
 {
   result = [objc_opt_class() _characterSetWithPattern:@"[[:Hani:][:Hiragana:][:Katakana:][:Katakana_Or_Hiragana:][:Bopomofo:][:Hangul:][ˉˊˇˋ˙]]"];
   _containsCJKScriptsOnly___CJKSet = result;
   return result;
 }
 
-uint64_t __44__NSString_TIExtras___containsCJScriptsOnly__block_invoke()
+void *__44__NSString_TIExtras___containsCJScriptsOnly__block_invoke(uint64_t a1)
 {
   result = [objc_opt_class() _characterSetWithPattern:@"[[:Hani:][:Hiragana:][:Katakana:][:Katakana_Or_Hiragana:][:Bopomofo:][ˉˊˇˋ˙]]"];
   _containsCJScriptsOnly___CJSet = result;
   return result;
 }
 
-uint64_t __55__NSString_TIExtras___containsIdeographsOrBopomofoOnly__block_invoke()
+void *__55__NSString_TIExtras___containsIdeographsOrBopomofoOnly__block_invoke(uint64_t a1)
 {
   result = [objc_opt_class() _characterSetWithPattern:@"[[:Hani:][:Bopomofo:][ˉˊˇˋ˙]]"];
   _containsIdeographsOrBopomofoOnly___KanijChineseBopomofoSet = result;
@@ -202,104 +205,104 @@ BOOL __56__NSString_TIExtras___ti_supplementalPrefixOfLastToken___block_invoke(U
   return result;
 }
 
-uint64_t __52__NSString_TIExtras___fullwidthLettersAndSymbolsSet__block_invoke()
+void *__52__NSString_TIExtras___fullwidthLettersAndSymbolsSet__block_invoke(uint64_t a1)
 {
   result = [objc_opt_class() _characterSetWithPattern:@"[ [[:East_Asian_Width=Wide:][:East_Asian_Width=Fullwidth:]] - [:Hani:] - [:Kana:] - [:Hiragana:] ]"];
   _fullwidthLettersAndSymbolsSet___fullwidthLettersAndSymbolsSet = result;
   return result;
 }
 
-void __55__NSString_TIExtras___nonFullwidthLettersAndNumbersSet__block_invoke()
+void __55__NSString_TIExtras___nonFullwidthLettersAndNumbersSet__block_invoke(uint64_t a1)
 {
-  v0 = [MEMORY[0x1E696AEC0] stringWithFormat:@"[^%@]", @"[ [ [[:East_Asian_Width=Wide:][:East_Asian_Width=Fullwidth:]] & [[:Letter:][:Number:]] ] - [:Hani:] ]"];
-  _nonFullwidthLettersAndNumbersSet___nonFullwidthLettersAndNumbersSet = [objc_opt_class() _characterSetWithPattern:v0];
+  v1 = [MEMORY[0x1E696AEC0] stringWithFormat:@"[^%@]", @"[ [ [[:East_Asian_Width=Wide:][:East_Asian_Width=Fullwidth:]] & [[:Letter:][:Number:]] ] - [:Hani:] ]"];
+  _nonFullwidthLettersAndNumbersSet___nonFullwidthLettersAndNumbersSet = [objc_opt_class() _characterSetWithPattern:v1];
 }
 
-uint64_t __52__NSString_TIExtras___fullwidthLettersAndNumbersSet__block_invoke()
+void *__52__NSString_TIExtras___fullwidthLettersAndNumbersSet__block_invoke(uint64_t a1)
 {
   result = [objc_opt_class() _characterSetWithPattern:@"[ [ [[:East_Asian_Width=Wide:][:East_Asian_Width=Fullwidth:]] & [[:Letter:][:Number:]] ] - [:Hani:] ]"];
   _fullwidthLettersAndNumbersSet___fullwidthLettersAndNumbersSet = result;
   return result;
 }
 
-uint64_t __45__NSString_TIExtras___bopomofoWithoutToneSet__block_invoke(uint64_t a1)
+void *__45__NSString_TIExtras___bopomofoWithoutToneSet__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _characterSetWithPattern:@"[:Bopomofo:]"];
   _bopomofoWithoutToneSet___bopomofoWithoutToneSet = result;
   return result;
 }
 
-uint64_t __38__NSString_TIExtras___bopomofoToneSet__block_invoke(uint64_t a1)
+void *__38__NSString_TIExtras___bopomofoToneSet__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _characterSetWithPattern:@"[ˉˊˇˋ˙]"];
   _bopomofoToneSet___bopomofoToneSet = result;
   return result;
 }
 
-uint64_t __34__NSString_TIExtras___bopomofoSet__block_invoke(uint64_t a1)
+void *__34__NSString_TIExtras___bopomofoSet__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _characterSetWithPattern:@"[[:Bopomofo:][ˉˊˇˋ˙]]"];
   _bopomofoSet___bopomofoSet = result;
   return result;
 }
 
-uint64_t __35__NSString_TIExtras___ideographSet__block_invoke(uint64_t a1)
+void *__35__NSString_TIExtras___ideographSet__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _characterSetWithPattern:@"[:Hani:]"];
   _ideographSet___ideographSet = result;
   return result;
 }
 
-uint64_t __43__NSString_TIExtras___nonJapaneseLetterSet__block_invoke(uint64_t a1)
+void *__43__NSString_TIExtras___nonJapaneseLetterSet__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _characterSetWithPattern:@"[^[[:Hiragana:][:Katakana:][:Katakana_Or_Hiragana:][:Hani:][ー]]]"];
   _nonJapaneseLetterSet___set = result;
   return result;
 }
 
-uint64_t __40__NSString_TIExtras___japaneseLetterSet__block_invoke(uint64_t a1)
+void *__40__NSString_TIExtras___japaneseLetterSet__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _characterSetWithPattern:@"[[:Hiragana:][:Katakana:][:Katakana_Or_Hiragana:][:Hani:][ー]]"];
   _japaneseLetterSet___japaneseLetterSet = result;
   return result;
 }
 
-uint64_t __34__NSString_TIExtras___hiraganaSet__block_invoke(uint64_t a1)
+void *__34__NSString_TIExtras___hiraganaSet__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _characterSetWithPattern:@"[[:Hiragana:][ー]]"];
   _hiraganaSet___hiraganaSet = result;
   return result;
 }
 
-uint64_t __55__NSString_TIExtras___nonHiraganaKatakanaOrBopomofoSet__block_invoke(uint64_t a1)
+void *__55__NSString_TIExtras___nonHiraganaKatakanaOrBopomofoSet__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _characterSetWithPattern:@"[^[:Hiragana:][:Katakana:][:Katakana_Or_Hiragana:][:Bopomofo:][ー]]"];
   _nonHiraganaKatakanaOrBopomofoSet___nonHiraganaKatakanaOrBopomofoSet = result;
   return result;
 }
 
-uint64_t __44__NSString_TIExtras___nonKatakanaOrKanjiSet__block_invoke(uint64_t a1)
+void *__44__NSString_TIExtras___nonKatakanaOrKanjiSet__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _characterSetWithPattern:@"[^[:Katakana:][:Katakana_Or_Hiragana:][:Hani:][ー]]"];
   _nonKatakanaOrKanjiSet___nonKatakanaSet = result;
   return result;
 }
 
-uint64_t __47__NSString_TIExtras___nonHiraganaOrKatakanaSet__block_invoke(uint64_t a1)
+void *__47__NSString_TIExtras___nonHiraganaOrKatakanaSet__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _characterSetWithPattern:@"[^[:Hiragana:][:Katakana:][:Katakana_Or_Hiragana:][ー]]"];
   _nonHiraganaOrKatakanaSet___nonHiraganaOrKatakanaSet = result;
   return result;
 }
 
-uint64_t __44__NSString_TIExtras___nonKoreanCharacterSet__block_invoke(uint64_t a1)
+void *__44__NSString_TIExtras___nonKoreanCharacterSet__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _characterSetWithPattern:@"[:^Hangul:]"];
   _nonKoreanCharacterSet___nonKoreanCharacterSet = result;
   return result;
 }
 
-uint64_t __49__NSString_TIExtras___nonIdeographicCharacterSet__block_invoke(uint64_t a1)
+void *__49__NSString_TIExtras___nonIdeographicCharacterSet__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _characterSetWithPattern:@"[:^Ideographic:]"];
   _nonIdeographicCharacterSet___nonIdeographicCharacterSet = result;

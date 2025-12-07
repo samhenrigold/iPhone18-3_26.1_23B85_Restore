@@ -12,18 +12,20 @@
 
 - (void)captionsClient:(id)client didEnableCaptions:(BOOL)captions error:(id)error
 {
+  captionsCopy = captions;
   clientCopy = client;
   selfCopy = self;
   errorCopy = error;
-  CaptionsClientParticipantCaptionsProvider.captionsClient(_:didEnableCaptions:error:)();
+  CaptionsClientParticipantCaptionsProvider.captionsClient(_:didEnableCaptions:error:)(errorCopy, captionsCopy, error);
 }
 
 - (void)captionsClient:(id)client didDisableCaptions:(BOOL)captions error:(id)error
 {
+  captionsCopy = captions;
   clientCopy = client;
   selfCopy = self;
   errorCopy = error;
-  CaptionsClientParticipantCaptionsProvider.captionsClient(_:didDisableCaptions:error:)();
+  CaptionsClientParticipantCaptionsProvider.captionsClient(_:didDisableCaptions:error:)(errorCopy, captionsCopy, error);
 }
 
 - (void)captionsClient:(id)client didStartCaptioningWithReason:(unsigned __int8)reason
@@ -31,7 +33,7 @@
   reasonCopy = reason;
   clientCopy = client;
   selfCopy = self;
-  CaptionsClientParticipantCaptionsProvider.captionsClient(_:didStartCaptioningWith:)(selfCopy, reasonCopy);
+  CaptionsClientParticipantCaptionsProvider.captionsClient(_:didStartCaptioningWith:)(selfCopy, reasonCopy, v7, v8, v9, v10, v11, v12, v13);
 }
 
 - (void)captionsClient:(id)client didStopCaptioningWithReason:(unsigned __int8)reason

@@ -156,12 +156,11 @@ void __69__WLWiFiController_enableSoftAPWithSSID_password_channel_completion___b
   [v2 _enableSoftAPWithSSID:v3 password:v4 channel:v5 completion:v8];
 }
 
-void __69__WLWiFiController_enableSoftAPWithSSID_password_channel_completion___block_invoke_3(void *a1)
+void __69__WLWiFiController_enableSoftAPWithSSID_password_channel_completion___block_invoke_3(uint64_t a1)
 {
-  (*(a1[5] + 16))();
-  v3 = a1[6];
+  (*(*(a1 + 40) + 16))();
   _WLLog();
-  v2 = *(a1[4] + 8);
+  v2 = *(*(a1 + 32) + 8);
 
   dispatch_resume(v2);
 }
@@ -207,22 +206,21 @@ void __70__WLWiFiController__enableSoftAPWithSSID_password_channel_completion___
   if (a2)
   {
     _WLLog();
-    v3 = *(a1 + 48);
-    v4 = *(*(a1 + 40) + 16);
+    v3 = *(*(a1 + 40) + 16);
 
-    v4();
+    v3();
   }
 
   else
   {
     _WLLog();
-    v6[0] = MEMORY[0x277D85DD0];
-    v6[1] = 3221225472;
-    v6[2] = __70__WLWiFiController__enableSoftAPWithSSID_password_channel_completion___block_invoke_3;
-    v6[3] = &unk_279EB53B8;
-    v5 = *(a1 + 32);
-    v7 = *(a1 + 40);
-    [v5 _stopWiFiWithCompletion:v6];
+    v5[0] = MEMORY[0x277D85DD0];
+    v5[1] = 3221225472;
+    v5[2] = __70__WLWiFiController__enableSoftAPWithSSID_password_channel_completion___block_invoke_3;
+    v5[3] = &unk_279EB53B8;
+    v4 = *(a1 + 32);
+    v6 = *(a1 + 40);
+    [v4 _stopWiFiWithCompletion:v5];
   }
 }
 
@@ -262,12 +260,11 @@ void __48__WLWiFiController_disableSoftAPWithCompletion___block_invoke(uint64_t 
   [v2 _disableSoftAPWithCompletion:v6];
 }
 
-void __48__WLWiFiController_disableSoftAPWithCompletion___block_invoke_2(void *a1)
+void __48__WLWiFiController_disableSoftAPWithCompletion___block_invoke_2(uint64_t a1)
 {
-  (*(a1[5] + 16))();
-  v3 = a1[6];
+  (*(*(a1 + 40) + 16))();
   _WLLog();
-  v2 = *(a1[4] + 8);
+  v2 = *(*(a1 + 32) + 8);
 
   dispatch_resume(v2);
 }
@@ -315,8 +312,7 @@ void __49__WLWiFiController__disableSoftAPWithCompletion___block_invoke(uint64_t
 
 void __49__WLWiFiController__disableSoftAPWithCompletion___block_invoke_2(uint64_t a1, uint64_t a2, void *a3)
 {
-  v5 = *(a1 + 40);
-  v6 = a3;
+  v5 = a3;
   _WLLog();
   (*(*(a1 + 32) + 16))(*(a1 + 32), a2);
 }

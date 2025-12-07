@@ -574,7 +574,7 @@ void __57__SBHWidgetStyleManager_makeBackgroundViewForType_frame___block_invoke(
   widgetHostViewController = [(SBHWidgetStyleManager *)self widgetHostViewController];
   view = [widgetHostViewController view];
 
-  [view bounds];
+  objc_msgSend_bounds(view);
   v8 = [(SBHWidgetStyleManager *)self makeBackgroundViewForType:type frame:?];
   if (v8 && (objc_opt_respondsToSelector() & 1) != 0)
   {
@@ -621,7 +621,7 @@ void __51__SBHWidgetStyleManager_appendDescriptionToStream___block_invoke(uint64
   v10 = [v8 appendObject:v9 withName:@"gridSizeClass"];
 
   v11 = *(a1 + 32);
-  [*(a1 + 40) iconImageInfo];
+  objc_msgSend_iconImageInfo(*(a1 + 40));
   v16 = SBHStringForIconImageInfo(v12, v13, v14, v15);
   v17 = [v11 appendObject:v16 withName:@"iconImageInfo"];
 

@@ -1926,7 +1926,7 @@ void kpep_config_free(void **a1)
   }
 }
 
-uint64_t kpep_config_add_event(uint64_t a1, uint64_t *a2, int a3, _DWORD *a4)
+uint64_t kpep_config_add_event(uint64_t *a1, uint64_t *a2, uint64_t a3, _DWORD *a4)
 {
   v8 = 0;
   v7 = 0;
@@ -1949,7 +1949,7 @@ uint64_t kpep_config_add_event(uint64_t a1, uint64_t *a2, int a3, _DWORD *a4)
   return result;
 }
 
-uint64_t add_event_internal(uint64_t a1, uint64_t *a2, int a3, unint64_t *a4, _DWORD *a5, char a6)
+uint64_t add_event_internal(uint64_t *a1, uint64_t *a2, int a3, unint64_t *a4, _DWORD *a5, char a6)
 {
   v11 = *a2;
   if ((*(*a2 + 48) & 1) == 0)
@@ -1959,19 +1959,19 @@ LABEL_2:
     if (!result)
     {
       v13 = *a4;
-      v14 = *(a1 + 68);
+      v14 = *(a1 + 17);
       v11 = *a2;
 LABEL_4:
       result = 0;
-      *(a1 + 68) = (1 << v13) | v14;
-      *(*(a1 + 32) + 4 * v13) = a3;
-      v15 = *(a1 + 48);
-      *(*(a1 + 8) + 8 * v15) = v11;
-      v16 = *(a1 + 24);
-      *(*(a1 + 16) + 8 * v15) = v13;
-      v17 = *(a1 + 48);
+      *(a1 + 17) = (1 << v13) | v14;
+      *(a1[4] + 4 * v13) = a3;
+      v15 = a1[6];
+      *(a1[1] + 8 * v15) = v11;
+      v16 = a1[3];
+      *(a1[2] + 8 * v15) = v13;
+      v17 = a1[6];
       *(v16 + 8 * *a4) = v17;
-      *(a1 + 48) = v17 + 1;
+      a1[6] = v17 + 1;
       return result;
     }
 
@@ -1995,28 +1995,28 @@ LABEL_4:
 
   else
   {
-    v14 = *(a1 + 68);
+    v14 = *(a1 + 17);
     v20 = *(v11 + 40);
     if ((v20 & v14) != 0)
     {
-      *a5 |= 1 << *(*(a1 + 24) + 8 * __clz(__rbit32(v20)));
+      *a5 |= 1 << *(a1[3] + 8 * __clz(__rbit32(v20)));
       return 12;
     }
 
     else
     {
-      if (*(a1 + 72))
+      if (a1[9])
       {
-        v21 = *(a1 + 64);
+        v21 = *(a1 + 16);
         if ((v21 & 1) == 0)
         {
-          *(a1 + 64) = v21 | 1;
-          v22 = v18[13];
+          *(a1 + 16) = v21 | 1;
+          v22 = *(v18 + 104);
           if (v22)
           {
-            if (*(a1 + 56) == v22)
+            if (a1[7] == v22)
             {
-              v23 = *(a1 + 24);
+              v23 = a1[3];
               v23[v22] = *v23;
               *v23 = -1;
             }
@@ -2035,7 +2035,7 @@ LABEL_4:
   return result;
 }
 
-uint64_t kpep_config_remove_event(uint64_t *a1, unint64_t a2)
+uint64_t kpep_config_remove_event(uint64_t *a1, int64_t a2)
 {
   if (!a1)
   {
@@ -2130,7 +2130,7 @@ uint64_t kpep_config_force_counters(uint64_t a1)
   return result;
 }
 
-uint64_t kpep_config_add_event_trigger(uint64_t a1, uint64_t *a2, int a3, uint64_t a4, _DWORD *a5)
+uint64_t kpep_config_add_event_trigger(uint64_t *a1, uint64_t *a2, int a3, uint64_t a4, _DWORD *a5)
 {
   v10 = 0;
   v9 = 0;
@@ -2151,7 +2151,7 @@ uint64_t kpep_config_add_event_trigger(uint64_t a1, uint64_t *a2, int a3, uint64
 
     else
     {
-      *(*(a1 + 40) + 8 * v9) = a4;
+      *(a1[5] + 8 * v9) = a4;
     }
   }
 
@@ -2245,7 +2245,7 @@ uint64_t kpep_config_events(uint64_t a1, uint64_t a2, unint64_t a3)
   return v3;
 }
 
-uint64_t kpep_config_kpc(void **a1, uint64_t *a2, unint64_t a3)
+uint64_t kpep_config_kpc(void *a1, uint64_t *a2, unint64_t a3)
 {
   result = 1;
   if (a1)
@@ -2253,7 +2253,7 @@ uint64_t kpep_config_kpc(void **a1, uint64_t *a2, unint64_t a3)
     v5 = a2;
     if (a2)
     {
-      if (*(*a1 + 32) == 3)
+      if (*(*a1 + 128) == 3)
       {
         v7 = a1[8] & 0xFE;
       }
@@ -2304,7 +2304,7 @@ uint64_t kpep_config_kpc(void **a1, uint64_t *a2, unint64_t a3)
       v12 = a1[3];
       do
       {
-        v13 = v12[v11];
+        v13 = *(v12 + 8 * v11);
         if (v13 == -1)
         {
           v15 = 0;
@@ -2312,7 +2312,7 @@ uint64_t kpep_config_kpc(void **a1, uint64_t *a2, unint64_t a3)
 
         else
         {
-          v14 = a1[1][v13];
+          v14 = *(a1[1] + 8 * v13);
           if (*(v14 + 48))
           {
             v15 = 0;
@@ -2323,8 +2323,8 @@ uint64_t kpep_config_kpc(void **a1, uint64_t *a2, unint64_t a3)
             v15 = *(v14 + 44);
           }
 
-          v16 = *(a1[4] + v11);
-          v17 = *(*a1 + 32);
+          v16 = *(a1[4] + 4 * v11);
+          v17 = *(*a1 + 128);
           v18 = v15 | 0x20000;
           if (v17 != 3)
           {
@@ -2381,12 +2381,12 @@ uint64_t kpep_config_kpc_classes(uint64_t a1, unsigned int *a2)
   return result;
 }
 
-uint64_t kpep_config_kpc_periods(uint64_t a1, void *a2, unint64_t a3)
+uint64_t kpep_config_kpc_periods(uint64_t *a1, void *a2, unint64_t a3)
 {
   result = 1;
   if (a1 && a2)
   {
-    v7 = *(a1 + 64);
+    v7 = *(a1 + 16);
     v8 = *a1;
     if (*(*a1 + 128) == 3)
     {
@@ -2411,7 +2411,7 @@ uint64_t kpep_config_kpc_periods(uint64_t a1, void *a2, unint64_t a3)
       v11 = 8 * v10;
       if (v10)
       {
-        v12 = (*(a1 + 40) + 8 * v9);
+        v12 = (a1[5] + 8 * v9);
         v13 = v10;
         v14 = a2;
         do
@@ -2441,16 +2441,16 @@ uint64_t kpep_config_kpc_periods(uint64_t a1, void *a2, unint64_t a3)
   return result;
 }
 
-uint64_t kpep_config_apply(uint64_t a1)
+uint64_t kpep_config_apply(uint64_t *a1)
 {
   if (!a1)
   {
     return 1;
   }
 
-  v2 = *(a1 + 64);
+  v2 = *(a1 + 16);
   v3 = *a1;
-  if (*(v3 + 32) == 3)
+  if (*(v3 + 128) == 3)
   {
     v4 = v2 & 0xFE;
   }
@@ -2468,30 +2468,29 @@ uint64_t kpep_config_apply(uint64_t a1)
   }
 
   v7 = v6;
-  v8 = *(a1 + 64);
-  v9 = kpep_config_kpc(a1, v6, v5);
-  if (!v9)
+  v8 = kpep_config_kpc(a1, v6, v5);
+  if (!v8)
   {
-    v9 = 15;
+    v8 = 15;
     if (!kpc_force_all_ctrs_set())
     {
       if (kpc_set_config())
       {
-        v9 = 15;
+        v8 = 15;
       }
 
       else
       {
-        v9 = 0;
+        v8 = 0;
       }
     }
   }
 
   free(v7);
-  return v9;
+  return v8;
 }
 
-uint64_t add_config_event_internal(void **a1, uint64_t *a2, _DWORD *a3, unint64_t *a4)
+uint64_t add_config_event_internal(void *a1, uint64_t *a2, _DWORD *a3, unint64_t *a4)
 {
   v8 = *a2;
   if (a1[9])
@@ -2506,7 +2505,7 @@ uint64_t add_config_event_internal(void **a1, uint64_t *a2, _DWORD *a3, unint64_
   else
   {
     v9 = *(v8 + 40);
-    if ((v9 & ~*(*a1 + 35)) == 0)
+    if ((v9 & ~*(*a1 + 140)) == 0)
     {
       return 13;
     }
@@ -2533,7 +2532,7 @@ uint64_t add_config_event_internal(void **a1, uint64_t *a2, _DWORD *a3, unint64_
   if (v13 <= v10)
   {
 LABEL_17:
-    if ((a1[9] & 1) != 0 || (*(*a1 + 35) & *(*a2 + 40)) == 0)
+    if ((a1[9] & 1) != 0 || (*(*a1 + 140) & *(*a2 + 40)) == 0)
     {
       return 12;
     }
@@ -2553,7 +2552,7 @@ LABEL_16:
 
   if ((*(a1 + 17) & (1 << v10)) != 0)
   {
-    *a3 |= 1 << LODWORD(a1[3][v10]);
+    *a3 |= 1 << *(a1[3] + 8 * v10);
     goto LABEL_16;
   }
 
@@ -2570,7 +2569,7 @@ LABEL_16:
   return result;
 }
 
-uint64_t kpep_db_createx(const char *a1, int a2, void *a3)
+uint64_t kpep_db_createx(const char *a1, uint64_t a2, __int128 **a3)
 {
   v15 = 0;
   v14 = 0;
@@ -2582,6 +2581,7 @@ uint64_t kpep_db_createx(const char *a1, int a2, void *a3)
     goto LABEL_19;
   }
 
+  v7 = a2;
   v8 = a1;
   if (!a1)
   {
@@ -2615,7 +2615,7 @@ uint64_t kpep_db_createx(const char *a1, int a2, void *a3)
     v8 = &kpep_db_get_cpu_string_cpu_str;
   }
 
-  v9 = create_db_dict(v8, a2, &v15, &v14);
+  v9 = create_db_dict(v8, v7, &v15, &v14);
   if (v9)
   {
     v6 = v9;
@@ -2641,7 +2641,7 @@ LABEL_18:
     goto LABEL_19;
   }
 
-  v4[1] = v10;
+  *(v4 + 1) = v10;
   v11 = v15;
   inited = init_db_from_plist(v4, v15);
   if (inited)
@@ -2650,7 +2650,7 @@ LABEL_18:
     goto LABEL_20;
   }
 
-  *(v4 + 36) = a2;
+  *(v4 + 36) = v7;
   v6 = 0;
   if ((*(v4 + 149) & 1) == 0)
   {
@@ -2794,25 +2794,25 @@ LABEL_25:
   return v14;
 }
 
-uint64_t init_db_from_plist(uint64_t a1, const __CFDictionary *a2)
+uint64_t init_db_from_plist(__int128 *a1, const __CFDictionary *a2)
 {
-  v50 = *(a1 + 96);
-  v51 = *(a1 + 112);
-  v52 = *(a1 + 128);
-  v53 = *(a1 + 144);
-  v46 = *(a1 + 32);
-  v47 = *(a1 + 48);
-  v48 = *(a1 + 64);
-  v49 = *(a1 + 80);
+  v50 = a1[6];
+  v51 = a1[7];
+  v52 = a1[8];
+  v53 = *(a1 + 18);
+  v46 = a1[2];
+  v47 = a1[3];
+  v48 = a1[4];
+  v49 = a1[5];
   v44 = *a1;
-  v45 = *(a1 + 16);
+  v45 = a1[1];
   cstr_val = get_cstr_val(a2, @"name", a1, 0);
   if (cstr_val)
   {
     goto LABEL_15;
   }
 
-  if (!get_BOOL_val(a2, @"internal", (a1 + 148)))
+  if (!get_BOOL_val(a2, @"internal", a1 + 148))
   {
     *(a1 + 149) = 1;
   }
@@ -2879,15 +2879,15 @@ uint64_t init_db_from_plist(uint64_t a1, const __CFDictionary *a2)
           v16 = v15;
           CFRetain(v15);
           v54 = 0;
-          get_uint_val(v16, @"fixed_counters", (a1 + 132));
-          v17 = *(a1 + 132);
+          get_uint_val(v16, @"fixed_counters", a1 + 33);
+          v17 = *(a1 + 33);
           v18 = vcnt_s8(v17);
           v18.i16[0] = vaddlv_u8(v18);
-          *(a1 + 104) = v18.u32[0];
+          *(a1 + 13) = v18.u32[0];
           if (v17)
           {
             v19 = malloc_type_calloc(v18.u32[0], 8uLL, 0x2004093837F09uLL);
-            *(a1 + 48) = v19;
+            *(a1 + 6) = v19;
             if (!v19)
             {
               cstr_val = 2;
@@ -2895,14 +2895,14 @@ uint64_t init_db_from_plist(uint64_t a1, const __CFDictionary *a2)
             }
           }
 
-          get_uint_val(v16, @"config_counters", (a1 + 136));
-          v20 = vcnt_s8(*(a1 + 136));
+          get_uint_val(v16, @"config_counters", a1 + 34);
+          v20 = vcnt_s8(*(a1 + 34));
           v20.i16[0] = vaddlv_u8(v20);
-          *(a1 + 112) = v20.u32[0];
-          get_uint_val(v16, @"power_counters", (a1 + 140));
-          v21 = vcnt_s8(*(a1 + 140));
+          *(a1 + 14) = v20.u32[0];
+          get_uint_val(v16, @"power_counters", a1 + 35);
+          v21 = vcnt_s8(*(a1 + 35));
           v21.i16[0] = vaddlv_u8(v21);
-          *(a1 + 120) = v21.u32[0];
+          *(a1 + 15) = v21.u32[0];
           v22 = get_cstr_val(v16, @"architecture", &v54, 0);
           if (!v22)
           {
@@ -2933,8 +2933,8 @@ uint64_t init_db_from_plist(uint64_t a1, const __CFDictionary *a2)
               v24 = 3;
             }
 
-            *(a1 + 128) = v24;
-            v22 = get_cstr_val(v16, @"marketing_name", (a1 + 16), 0);
+            *(a1 + 32) = v24;
+            v22 = get_cstr_val(v16, @"marketing_name", a1 + 2, 0);
             if (!v22)
             {
               v26 = CFDictionaryGetValue(v16, @"events");
@@ -2944,7 +2944,7 @@ uint64_t init_db_from_plist(uint64_t a1, const __CFDictionary *a2)
                 CFRetain(v26);
                 v55 = 0;
                 valuePtr = 0;
-                v28 = dict_copy_items(v27, (a1 + 88), &v55, &valuePtr);
+                v28 = dict_copy_items(v27, a1 + 11, &v55, &valuePtr);
                 if (v28)
                 {
                   cstr_val = v28;
@@ -2952,31 +2952,31 @@ uint64_t init_db_from_plist(uint64_t a1, const __CFDictionary *a2)
                   goto LABEL_62;
                 }
 
-                v30 = malloc_type_calloc(*(a1 + 88), 0x38uLL, 0x101004029F4E078uLL);
-                *(a1 + 40) = v30;
+                v30 = malloc_type_calloc(*(a1 + 11), 0x38uLL, 0x101004029F4E078uLL);
+                *(a1 + 5) = v30;
                 if (v30)
                 {
-                  v29 = malloc_type_calloc(*(a1 + 88), 8uLL, 0x2004093837F09uLL);
+                  v29 = malloc_type_calloc(*(a1 + 11), 8uLL, 0x2004093837F09uLL);
                   if (v29)
                   {
-                    if (*(a1 + 88))
+                    if (*(a1 + 11))
                     {
                       v31 = 0;
                       v32 = 0;
                       while (1)
                       {
-                        v33 = event_init(a1, valuePtr[v32], v55[v32], *(a1 + 40) + v31);
+                        v33 = event_init(a1, valuePtr[v32], v55[v32], *(a1 + 5) + v31);
                         if (v33)
                         {
                           cstr_val = v33;
                           goto LABEL_62;
                         }
 
-                        v34 = *(a1 + 40);
+                        v34 = *(a1 + 5);
                         v29[v32] = v34 + v31;
                         if (*(v34 + v31 + 48))
                         {
-                          if (!*(a1 + 132))
+                          if (!*(a1 + 33))
                           {
                             cstr_val = 10;
 LABEL_62:
@@ -2985,14 +2985,14 @@ LABEL_62:
                             free(v29);
                             if (cstr_val)
                             {
-                              v36 = *(a1 + 32);
+                              v36 = *(a1 + 4);
                               if (v36)
                               {
                                 CFRelease(v36);
                               }
 
-                              free(*(a1 + 40));
-                              *(a1 + 40) = 0;
+                              free(*(a1 + 5));
+                              *(a1 + 5) = 0;
                             }
 
                             else
@@ -3029,22 +3029,22 @@ LABEL_44:
                             }
 
 LABEL_41:
-                            v25 = *(a1 + 32);
+                            v25 = *(a1 + 4);
                             if (v25)
                             {
                               CFRelease(v25);
                             }
 
-                            free(*(a1 + 40));
-                            *(a1 + 40) = 0;
+                            free(*(a1 + 5));
+                            *(a1 + 5) = 0;
                             goto LABEL_44;
                           }
 
-                          *(*(a1 + 48) + 8 * __clz(__rbit32(*(v34 + v31 + 40)))) = v34 + v31;
+                          *(*(a1 + 6) + 8 * __clz(__rbit32(*(v34 + v31 + 40)))) = v34 + v31;
                         }
 
                         ++v32;
-                        v35 = *(a1 + 88);
+                        v35 = *(a1 + 11);
                         v31 += 56;
                         if (v35 <= v32)
                         {
@@ -3055,32 +3055,32 @@ LABEL_41:
 
                     v35 = 0;
 LABEL_72:
-                    v39 = *(a1 + 104);
+                    v39 = *(a1 + 13);
                     if (v39)
                     {
                       v40 = 0;
                       for (i = 0; i < v39; ++i)
                       {
-                        if (!*(*(a1 + 48) + 8 * i))
+                        if (!*(*(a1 + 6) + 8 * i))
                         {
-                          v42 = *(a1 + 40) + 56 * *(a1 + 88) + v40;
+                          v42 = *(a1 + 5) + 56 * *(a1 + 11) + v40;
                           *(v42 + 48) |= 1u;
                           *(v42 + 40) = 1 << i;
-                          *(*(a1 + 48) + 8 * i) = v42;
-                          v39 = *(a1 + 104);
+                          *(*(a1 + 6) + 8 * i) = v42;
+                          v39 = *(a1 + 13);
                         }
 
                         v40 += 56;
                       }
 
-                      v35 = *(a1 + 88);
+                      v35 = *(a1 + 11);
                     }
 
                     v43 = CFDictionaryCreate(*MEMORY[0x277CBECE8], v55, v29, v35, MEMORY[0x277CBED60], 0);
                     if (v43)
                     {
                       cstr_val = 0;
-                      *(a1 + 32) = v43;
+                      *(a1 + 4) = v43;
                       goto LABEL_62;
                     }
                   }
@@ -3122,16 +3122,16 @@ LABEL_14:
   cstr_val = 10;
 LABEL_15:
   free(*a1);
-  *(a1 + 96) = v50;
-  *(a1 + 112) = v51;
-  *(a1 + 128) = v52;
-  *(a1 + 144) = v53;
-  *(a1 + 32) = v46;
-  *(a1 + 48) = v47;
-  *(a1 + 64) = v48;
-  *(a1 + 80) = v49;
+  a1[6] = v50;
+  a1[7] = v51;
+  a1[8] = v52;
+  *(a1 + 18) = v53;
+  a1[2] = v46;
+  a1[3] = v47;
+  a1[4] = v48;
+  a1[5] = v49;
   *a1 = v44;
-  *(a1 + 16) = v45;
+  a1[1] = v45;
   return cstr_val;
 }
 
@@ -3231,7 +3231,7 @@ LABEL_19:
   return v5;
 }
 
-uint64_t kpep_db_deserialize(const UInt8 *a1, CFIndex a2, void *a3)
+uint64_t kpep_db_deserialize(const UInt8 *a1, CFIndex a2, __int128 **a3)
 {
   v6 = malloc_type_calloc(1uLL, 0x98uLL, 0x10F0040E9D8B980uLL);
   v7 = CFDataCreateWithBytesNoCopy(0, a1, a2, *MEMORY[0x277CBED00]);
@@ -3254,7 +3254,7 @@ uint64_t kpep_db_deserialize(const UInt8 *a1, CFIndex a2, void *a3)
         else
         {
           v16 = CFDataCreate(0, a1, a2);
-          v6[3] = v16;
+          *(v6 + 3) = v16;
           v13 = 2 * (v16 == 0);
         }
       }
@@ -3285,7 +3285,7 @@ uint64_t kpep_db_deserialize(const UInt8 *a1, CFIndex a2, void *a3)
     v13 = 2;
   }
 
-  v14 = v6[3];
+  v14 = *(v6 + 3);
   if (v14)
   {
     CFRelease(v14);
@@ -3426,7 +3426,7 @@ LABEL_14:
   return v4;
 }
 
-uint64_t kpep_db_counters_count(void *a1, char a2, uint64_t *a3)
+uint64_t kpep_db_counters_count(void *a1, uint64_t a2, uint64_t *a3)
 {
   result = 1;
   if (a1)
@@ -4032,7 +4032,7 @@ uint64_t dict_set_string(__CFDictionary *a1, const char *a2)
   return 0;
 }
 
-uint64_t kperf_log()
+uint64_t kperf_log(uint64_t a1, uint64_t a2)
 {
   if (kperf_log_init_once != -1)
   {
@@ -4512,9 +4512,9 @@ void **chunkbuf_advance(void **result, uint64_t a2)
     else if (*(result + 9) == 1)
     {
       result = lseek(*result, result[5] + v4, 0);
-      *(v2 + 48) = 0;
-      *(v2 + 32) = 0;
-      *(v2 + 40) = result;
+      *(v2 + 12) = 0;
+      v2[4] = 0;
+      v2[5] = result;
     }
 
     else
@@ -4523,7 +4523,7 @@ void **chunkbuf_advance(void **result, uint64_t a2)
       *(result + 12) = v5;
       trunc_prefix(result);
       chunkbuf_read(v2, 1uLL, v6 + v3);
-      *(v2 + 48) = *(v2 + 32);
+      *(v2 + 12) = v2[4];
 
       return trunc_prefix(v2);
     }
@@ -4606,96 +4606,92 @@ uint64_t kpfile_close(uint64_t a1)
 uint64_t get_to_stage_body(uint64_t result)
 {
   v1 = result;
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v2 = *(result + 1076);
-  if (v2 == 1)
+  if (v2 != 1)
   {
-LABEL_4:
-    v3 = *(v1 + 72);
-    if (v3 == 3)
+    if (v2)
     {
-      *__src = 1437204737;
-      v5 = *(v1 + 32);
-      if ((v5 + 4) <= *(v1 + 24))
-      {
-        *(*(v1 + 16) + v5) = *__src;
-        v6 = *(v1 + 32) + 4;
-        *(v1 + 32) = v6;
-      }
-
-      else
-      {
-        chunkbuf_write_internal(v1, __src, 4uLL);
-        v6 = *(v1 + 32);
-      }
-
-      *__src = *(v1 + 120);
-      if ((v6 + 4) <= *(v1 + 24))
-      {
-        *(*(v1 + 16) + v6) = *__src;
-        v7 = *(v1 + 32) + 4;
-        *(v1 + 32) = v7;
-      }
-
-      else
-      {
-        chunkbuf_write_internal(v1, __src, 4uLL);
-        v7 = *(v1 + 32);
-      }
-
-      v8 = *(v1 + 128);
-      v9 = 16 * *(v1 + 120);
-      if ((v7 + v9) <= *(v1 + 24))
-      {
-        memcpy((*(v1 + 16) + v7), v8, 16 * *(v1 + 120));
-        *(v1 + 32) += v9;
-      }
-
-      else
-      {
-        chunkbuf_write_internal(v1, v8, 16 * *(v1 + 120));
-      }
+      return result;
     }
 
-    else if (v3 == 5)
-    {
-      if (*(v1 + 140) == 1)
-      {
-        v11 = 256;
-        if (!sysctlbyname("hw.model", __src, &v11, 0, 0))
-        {
-          v4 = v11;
-          if (v11)
-          {
-            if (!__src[v11 - 1])
-            {
-              --v11;
-              --v4;
-            }
+    get_to_stage_header(result);
+  }
 
-            kpfile_add_header(v1, 0x1A00u, 0, __src, v4);
+  v3 = *(v1 + 72);
+  if (v3 == 3)
+  {
+    *__src = 1437204737;
+    v5 = *(v1 + 32);
+    if ((v5 + 4) <= *(v1 + 24))
+    {
+      *(*(v1 + 16) + v5) = *__src;
+      v6 = *(v1 + 32) + 4;
+      *(v1 + 32) = v6;
+    }
+
+    else
+    {
+      chunkbuf_write_internal(v1, __src, 4uLL);
+      v6 = *(v1 + 32);
+    }
+
+    *__src = *(v1 + 120);
+    if ((v6 + 4) <= *(v1 + 24))
+    {
+      *(*(v1 + 16) + v6) = *__src;
+      v7 = *(v1 + 32) + 4;
+      *(v1 + 32) = v7;
+    }
+
+    else
+    {
+      chunkbuf_write_internal(v1, __src, 4uLL);
+      v7 = *(v1 + 32);
+    }
+
+    v8 = *(v1 + 128);
+    v9 = 16 * *(v1 + 120);
+    if ((v7 + v9) <= *(v1 + 24))
+    {
+      memcpy((*(v1 + 16) + v7), v8, 16 * *(v1 + 120));
+      *(v1 + 32) += v9;
+    }
+
+    else
+    {
+      chunkbuf_write_internal(v1, v8, 16 * *(v1 + 120));
+    }
+  }
+
+  else if (v3 == 5)
+  {
+    if (*(v1 + 140) == 1)
+    {
+      v10 = 256;
+      if (!sysctlbyname("hw.model", __src, &v10, 0, 0))
+      {
+        v4 = v10;
+        if (v10)
+        {
+          if (!__src[v10 - 1])
+          {
+            --v10;
+            --v4;
           }
+
+          kpfile_add_header(v1, 0x1A00u, 0, __src, v4);
         }
       }
-
-      result = chunkbuf_chunk_end(v1);
-      goto LABEL_23;
     }
 
-    result = chunkbuf_align(v1, 4096);
+    result = chunkbuf_chunk_end(v1);
+    goto LABEL_23;
+  }
+
+  result = chunkbuf_align(v1, 4096);
 LABEL_23:
-    *(v1 + 1076) = 2;
-    goto LABEL_24;
-  }
-
-  if (!v2)
-  {
-    get_to_stage_header(result);
-    goto LABEL_4;
-  }
-
-LABEL_24:
-  v10 = *MEMORY[0x277D85DE8];
+  *(v1 + 1076) = 2;
   return result;
 }
 
@@ -5193,8 +5189,10 @@ LABEL_30:
   return 12;
 }
 
-uint64_t kpfile_openout(void *a1, char *a2, int a3, int a4)
+uint64_t kpfile_openout(void *a1, char *a2, uint64_t a3, uint64_t a4)
 {
+  v4 = a4;
+  v5 = a3;
   *a1 = 0;
   v8 = open(a2, 513, 438);
   if (v8 == -1)
@@ -5202,7 +5200,7 @@ uint64_t kpfile_openout(void *a1, char *a2, int a3, int a4)
     return *__error();
   }
 
-  v9 = kpfile_fdopenout_internal(a1, v8, a3, a4);
+  v9 = kpfile_fdopenout_internal(a1, v8, v5, v4);
   if (v9)
   {
     unlink(a2);
@@ -5213,104 +5211,56 @@ uint64_t kpfile_openout(void *a1, char *a2, int a3, int a4)
 
 uint64_t kpfile_fdopenout_internal(void *a1, int a2, int a3, int a4)
 {
-  v47 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   *a1 = 0;
   if (a2 < 0)
   {
-    result = 9;
+    return 9;
   }
 
-  else
+  v4 = a4;
+  if ((a4 || ((v45 = xmmword_277199160, v43 = 0u, v44 = 0u, v41 = 0u, v42 = 0u, v39 = 0u, v40 = 0u, v37 = 0u, v38 = 0u, v35 = 0u, v36 = 0u, v33 = 0u, v34 = 0u, v31 = 0u, v32 = 0u, v29 = 0u, v30 = 0u, v27 = 0u, v28 = 0u, v25 = 0u, v26 = 0u, v23 = 0u, v24 = 0u, v21 = 0u, v22 = 0u, v19 = 0u, v20 = 0u, v17 = 0u, v18 = 0u, v15 = 0u, v16 = 0u, memset(v14, 0, sizeof(v14)), v13 = 648, v8 = sysctl(&v45, 4u, v14, &v13, 0, 0), (v15 & 4) != 0) ? (v4 = 64) : (v4 = 32), v8 != -1)) && (v4 == 32 || v4 == 64))
   {
-    v4 = a4;
-    if (!a4)
+    v9 = malloc_type_calloc(1uLL, 0x438uLL, 0x1030040D2FD2135uLL);
+    if (v9)
     {
-      v46 = xmmword_277199160;
-      v44 = 0u;
-      v45 = 0u;
-      v42 = 0u;
-      v43 = 0u;
-      v40 = 0u;
-      v41 = 0u;
-      v38 = 0u;
-      v39 = 0u;
-      v36 = 0u;
-      v37 = 0u;
-      v34 = 0u;
-      v35 = 0u;
-      v32 = 0u;
-      v33 = 0u;
-      v30 = 0u;
-      v31 = 0u;
-      v28 = 0u;
-      v29 = 0u;
-      v26 = 0u;
-      v27 = 0u;
-      v24 = 0u;
-      v25 = 0u;
-      v22 = 0u;
-      v23 = 0u;
-      v20 = 0u;
-      v21 = 0u;
-      v18 = 0u;
-      v19 = 0u;
-      v16 = 0u;
-      v17 = 0u;
-      memset(v15, 0, sizeof(v15));
-      v14 = 648;
-      v8 = sysctl(&v46, 4u, v15, &v14, 0, 0);
-      v4 = (v16 & 4) != 0 ? 64 : 32;
-      if (v8 == -1)
+      v10 = v9;
+      if (!a3)
       {
-        goto LABEL_17;
+        a3 = 5;
       }
-    }
 
-    if (v4 == 32 || v4 == 64)
-    {
-      v9 = malloc_type_calloc(1uLL, 0x438uLL, 0x1030040D2FD2135uLL);
-      if (v9)
+      chunkbuf_init(v9, a2, 1);
+      result = 0;
+      v10[18] = a3;
+      v10[19] = v4;
+      if (a3 == 5)
       {
-        v10 = v9;
-        if (!a3)
-        {
-          a3 = 5;
-        }
-
-        chunkbuf_init(v9, a2, 1);
-        result = 0;
-        v10[18] = a3;
-        v10[19] = v4;
-        if (a3 == 5)
-        {
-          v12 = 3;
-        }
-
-        else
-        {
-          v12 = 0;
-        }
-
-        v10[268] = v12;
-        *a1 = v10;
+        v12 = 3;
       }
 
       else
       {
-        close(a2);
-        result = 12;
+        v12 = 0;
       }
+
+      v10[268] = v12;
+      *a1 = v10;
     }
 
     else
     {
-LABEL_17:
       close(a2);
-      result = 22;
+      return 12;
     }
   }
 
-  v13 = *MEMORY[0x277D85DE8];
+  else
+  {
+    close(a2);
+    return 22;
+  }
+
   return result;
 }
 
@@ -5440,74 +5390,74 @@ LABEL_19:
   return v9;
 }
 
-void kpfile_read_next(uint64_t a1)
+void kpfile_read_next(uint64_t result)
 {
-  if (!a1 || *(a1 + 4))
+  if (!result || *(result + 4))
   {
     return;
   }
 
-  marker = chunkbuf_get_marker(a1, 0);
+  marker = chunkbuf_get_marker(result, 0);
   if ((marker & 0x8000000000000000) == 0)
   {
     v3 = marker;
     while (1)
     {
-      v4 = *(a1 + 72);
-      chunkbuf_advance(a1, v3);
+      v4 = *(result + 72);
+      chunkbuf_advance(result, v3);
       if (v4 != 5)
       {
-        chunkbuf_set_marker(a1, 0, -1);
-        *(a1 + 1076) = 2;
-        *(a1 + 144) = 7680;
-        *(a1 + 152) = -1;
+        chunkbuf_set_marker(result, 0, -1);
+        *(result + 1076) = 2;
+        *(result + 144) = 7680;
+        *(result + 152) = -1;
         return;
       }
 
-      v5 = parse_chunk_header(a1);
+      v5 = parse_chunk_header(result);
       if (v5)
       {
-        *(a1 + 4) = v5;
+        *(result + 4) = v5;
         return;
       }
 
-      v6 = *(a1 + 1076);
+      v6 = *(result + 1076);
       if (v6 != 1)
       {
         goto LABEL_12;
       }
 
-      if ((chunkbuf_get_marker(a1, 1u) & 0x8000000000000000) == 0)
+      if ((chunkbuf_get_marker(result, 1u) & 0x8000000000000000) == 0)
       {
         break;
       }
 
-      *(a1 + 1076) = 2;
+      *(result + 1076) = 2;
 LABEL_15:
-      if (*(a1 + 4))
+      if (*(result + 4))
       {
         return;
       }
 
-      *(a1 + 136) = 0;
-      v7 = *(a1 + 144);
+      *(result + 136) = 0;
+      v7 = *(result + 144);
       if (v7 == 7680)
       {
-        if (*(a1 + 152) < 8uLL || chunkbuf_read(a1, 8uLL, 1uLL) != 8)
+        if (*(result + 152) < 8uLL || chunkbuf_read(result, 8uLL, 1uLL) != 8)
         {
 LABEL_31:
           v10 = 110;
           goto LABEL_32;
         }
 
-        *(a1 + 160) = *(*(a1 + 16) + *(a1 + 48));
-        v9 = *(a1 + 152);
+        *(result + 160) = *(*(result + 16) + *(result + 48));
+        v9 = *(result + 152);
         if (v9 != -1)
         {
-          *(a1 + 152) = v9 - 8;
+          *(result + 152) = v9 - 8;
         }
 
-        chunkbuf_advance(a1, 8);
+        chunkbuf_advance(result, 8);
       }
 
       else
@@ -5517,50 +5467,50 @@ LABEL_31:
           if (v7 == 7424)
           {
             v11 = 28;
-            if (*(a1 + 76) == 64)
+            if (*(result + 76) == 64)
             {
               v11 = 32;
             }
 
-            *(a1 + 136) = *(a1 + 152) / v11;
+            *(result + 136) = *(result + 152) / v11;
           }
 
           return;
         }
 
-        if (*(a1 + 152) < 0xCuLL || chunkbuf_read(a1, 0xCuLL, 1uLL) != 12)
+        if (*(result + 152) < 0xCuLL || chunkbuf_read(result, 0xCuLL, 1uLL) != 12)
         {
           goto LABEL_31;
         }
 
-        *(a1 + 160) = *(*(a1 + 16) + *(a1 + 48));
-        v8 = *(a1 + 152);
+        *(result + 160) = *(*(result + 16) + *(result + 48));
+        v8 = *(result + 152);
         if (v8 != -1)
         {
-          *(a1 + 152) = v8 - 12;
+          *(result + 152) = v8 - 12;
         }
 
-        chunkbuf_advance(a1, 12);
-        kdbg_comp_reset((a1 + 168));
+        chunkbuf_advance(result, 12);
+        kdbg_comp_reset((result + 168));
       }
 
-      if (*(a1 + 152))
+      if (*(result + 152))
       {
         return;
       }
 
 LABEL_29:
-      v3 = chunkbuf_get_marker(a1, 0);
+      v3 = chunkbuf_get_marker(result, 0);
       if (v3 < 0)
       {
         goto LABEL_30;
       }
     }
 
-    v6 = *(a1 + 1076);
+    v6 = *(result + 1076);
     if (v6 == 1)
     {
-      if (*(a1 + 144) != 7168)
+      if (*(result + 144) != 7168)
       {
         return;
       }
@@ -5580,7 +5530,7 @@ LABEL_12:
 LABEL_30:
   v10 = -1;
 LABEL_32:
-  *(a1 + 4) = v10;
+  *(result + 4) = v10;
 }
 
 uint64_t kpfile_write_threadmap(uint64_t a1, char *a2, uint64_t a3, char a4)
@@ -6384,196 +6334,187 @@ LABEL_74:
 
 uint64_t kpfile_write_events(uint64_t a1, uint64_t a2, _BYTE *a3, uint64_t a4, char a5)
 {
-  v43[32] = *MEMORY[0x277D85DE8];
-  if (a1 && *(a1 + 8) == 1)
+  v42[32] = *MEMORY[0x277D85DE8];
+  if (!a1 || *(a1 + 8) != 1)
   {
-    v10 = a5 & 0x60;
-    if ((v10 == 64 || v10 == 32) && v10 >= *(a1 + 76))
+    return 9;
+  }
+
+  v10 = a5 & 0x60;
+  if (v10 != 64 && v10 != 32 || v10 < *(a1 + 76))
+  {
+    return 22;
+  }
+
+  get_to_stage_body(a1);
+  if (*(a1 + 1072))
+  {
+    chunkbuf_chunk_begin(a1, 0x1F00u, 0);
+    v42[0] = a2;
+    v12 = *(a1 + 32);
+    if ((v12 + 8) <= *(a1 + 24))
     {
-      get_to_stage_body(a1);
-      if (*(a1 + 1072))
+      *(*(a1 + 16) + v12) = v42[0];
+      v13 = *(a1 + 32) + 8;
+      *(a1 + 32) = v13;
+    }
+
+    else
+    {
+      chunkbuf_write_internal(a1, v42, 8uLL);
+      v13 = *(a1 + 32);
+    }
+
+    LODWORD(v42[0]) = a4;
+    if ((v13 + 4) <= *(a1 + 24))
+    {
+      *(*(a1 + 16) + v13) = v42[0];
+      *(a1 + 32) += 4;
+    }
+
+    else
+    {
+      chunkbuf_write_internal(a1, v42, 4uLL);
+    }
+
+    v15 = *(a1 + 1072);
+    if (v15 == 1)
+    {
+      v16 = 1;
+    }
+
+    else
+    {
+      v16 = 2 * (v15 != 2);
+    }
+
+    kdbg_comp_init((a1 + 168), v16);
+    if (a4)
+    {
+      v17 = a1 + 192;
+      v18 = 1;
+      v19 = a3;
+      v20 = a3;
+      do
       {
-        chunkbuf_chunk_begin(a1, 0x1F00u, 0);
-        v43[0] = a2;
-        v13 = *(a1 + 32);
-        if ((v13 + 8) <= *(a1 + 24))
+        v21 = *v20;
+        if (v10 == 32)
         {
-          *(*(a1 + 16) + v13) = v43[0];
-          v14 = *(a1 + 32) + 8;
-          *(a1 + 32) = v14;
+          v22 = *(v20 + 6);
+          v23 = *(v20 + 7);
+          v24 = *(a1 + 168);
+          v25 = v17 + 48 * v24;
+          v26 = *(v20 + 1);
+          v27 = *(v20 + 2);
+          *&v28 = v26;
+          *(&v28 + 1) = HIDWORD(v26);
+          v29 = v28;
+          *&v28 = v27;
+          *(&v28 + 1) = HIDWORD(v27);
+          *(a1 + 184) = v21 & 0xFFFFFFFFFFFFFFLL;
+          *v25 = v29;
+          *(v25 + 16) = v28;
+          *(v25 + 32) = v22;
+          v30 = v23 | (HIBYTE(v21) << 32);
+          v31 = 32;
         }
 
         else
         {
-          chunkbuf_write_internal(a1, v43, 8uLL);
-          v14 = *(a1 + 32);
+          v32 = *(v20 + 5);
+          v30 = *(v20 + 6);
+          v24 = *(a1 + 168);
+          v33 = v17 + 48 * v24;
+          v34 = *(v20 + 8);
+          v35 = *(v20 + 24);
+          *(a1 + 184) = v21;
+          *v33 = v34;
+          *(v33 + 16) = v35;
+          *(v33 + 32) = v32;
+          v31 = 64;
         }
 
-        LODWORD(v43[0]) = a4;
-        if ((v14 + 4) <= *(a1 + 24))
+        *(v17 + 48 * v24 + 40) = v30;
+        v20 += v31;
+        if ((a5 & 1) == 0 || v20 - v19 < 1 || (v36 = kdbg_comp_encode((a1 + 168), v19, v20 - v19), (v19 += v36) == 0))
         {
-          *(*(a1 + 16) + v14) = v43[0];
-          *(a1 + 32) += 4;
-        }
-
-        else
-        {
-          chunkbuf_write_internal(a1, v43, 4uLL);
-        }
-
-        v16 = *(a1 + 1072);
-        if (v16 == 1)
-        {
-          v17 = 1;
-        }
-
-        else
-        {
-          v17 = 2 * (v16 != 2);
-        }
-
-        kdbg_comp_init((a1 + 168), v17);
-        if (a4)
-        {
-          v18 = a1 + 192;
-          v19 = 1;
-          v20 = a3;
-          v21 = a3;
-          do
+          v37 = v19 - a3;
+          if (v37)
           {
-            v22 = *v21;
-            if (v10 == 32)
+            v38 = *(a1 + 32);
+            if (v38 + v37 <= *(a1 + 24))
             {
-              v23 = v21[6];
-              v24 = v21[7];
-              v25 = *(a1 + 168);
-              v26 = v18 + 48 * v25;
-              v27 = *(v21 + 1);
-              v28 = *(v21 + 2);
-              *&v29 = v27;
-              *(&v29 + 1) = HIDWORD(v27);
-              v30 = v29;
-              *&v29 = v28;
-              *(&v29 + 1) = HIDWORD(v28);
-              *(a1 + 184) = v22 & 0xFFFFFFFFFFFFFFLL;
-              *v26 = v30;
-              *(v26 + 16) = v29;
-              *(v26 + 32) = v23;
-              v31 = v24 | (HIBYTE(v22) << 32);
-              v32 = 32;
+              memcpy((*(a1 + 16) + v38), a3, v37);
+              *(a1 + 32) += v37;
             }
 
             else
             {
-              v33 = *(v21 + 5);
-              v31 = *(v21 + 6);
-              v25 = *(a1 + 168);
-              v34 = v18 + 48 * v25;
-              v35 = *(v21 + 2);
-              v36 = *(v21 + 6);
-              *(a1 + 184) = v22;
-              *v34 = v35;
-              *(v34 + 16) = v36;
-              *(v34 + 32) = v33;
-              v32 = 64;
+              chunkbuf_write_internal(a1, a3, v37);
             }
-
-            *(v18 + 48 * v25 + 40) = v31;
-            v21 = (v21 + v32);
-            if ((a5 & 1) == 0 || v21 - v20 < 1 || (v37 = kdbg_comp_encode((a1 + 168), v20, v21 - v20), (v20 += v37) == 0))
-            {
-              v38 = v20 - a3;
-              if (v38)
-              {
-                v39 = *(a1 + 32);
-                if (v39 + v38 <= *(a1 + 24))
-                {
-                  memcpy((*(a1 + 16) + v39), a3, v38);
-                  *(a1 + 32) += v38;
-                }
-
-                else
-                {
-                  chunkbuf_write_internal(a1, a3, v38);
-                }
-              }
-
-              v40 = kdbg_comp_encode((a1 + 168), v43, 0x100uLL);
-              v41 = *(a1 + 32);
-              if (v41 + v40 <= *(a1 + 24))
-              {
-                memcpy((*(a1 + 16) + v41), v43, v40);
-                *(a1 + 32) += v40;
-              }
-
-              else
-              {
-                chunkbuf_write_internal(a1, v43, v40);
-              }
-
-              v20 = a3;
-            }
-
-            v42 = v19++;
           }
 
-          while (v42 != a4);
-        }
-
-        else
-        {
-          v20 = a3;
-        }
-
-        chunkbuf_write_chunk_end(a1, a3, v20 - a3);
-      }
-
-      else
-      {
-        v15 = *(a1 + 76);
-        if (*(a1 + 72) == 5)
-        {
-          chunkbuf_chunk_begin(a1, 0x1E00u, 0);
-          v43[0] = a2;
-          chunkbuf_write(a1, v43, 8uLL);
-          if (v10 == v15)
+          v39 = kdbg_comp_encode((a1 + 168), v42, 0x100uLL);
+          v40 = *(a1 + 32);
+          if (v40 + v39 <= *(a1 + 24))
           {
-            result = chunkbuf_write_chunk_end(a1, a3, v10 * a4);
-            goto LABEL_8;
+            memcpy((*(a1 + 16) + v40), v42, v39);
+            *(a1 + 32) += v39;
           }
+
+          else
+          {
+            chunkbuf_write_internal(a1, v42, v39);
+          }
+
+          v19 = a3;
         }
 
-        if (v10 == v15)
-        {
-          chunkbuf_write(a1, a3, v10 * a4);
-        }
-
-        else
-        {
-          write_32bit_from_64bit(a1, a3, a4);
-        }
-
-        if (*(a1 + 72) == 5)
-        {
-          chunkbuf_chunk_end(a1);
-        }
+        v41 = v18++;
       }
 
-      result = *(a1 + 4);
-      goto LABEL_8;
+      while (v41 != a4);
     }
 
-    result = 22;
+    else
+    {
+      v19 = a3;
+    }
+
+    chunkbuf_write_chunk_end(a1, a3, v19 - a3);
   }
 
   else
   {
-    result = 9;
+    v14 = *(a1 + 76);
+    if (*(a1 + 72) == 5)
+    {
+      chunkbuf_chunk_begin(a1, 0x1E00u, 0);
+      v42[0] = a2;
+      chunkbuf_write(a1, v42, 8uLL);
+      if (v10 == v14)
+      {
+        return chunkbuf_write_chunk_end(a1, a3, v10 * a4);
+      }
+    }
+
+    if (v10 == v14)
+    {
+      chunkbuf_write(a1, a3, v10 * a4);
+    }
+
+    else
+    {
+      write_32bit_from_64bit(a1, a3, a4);
+    }
+
+    if (*(a1 + 72) == 5)
+    {
+      chunkbuf_chunk_end(a1);
+    }
   }
 
-LABEL_8:
-  v12 = *MEMORY[0x277D85DE8];
-  return result;
+  return *(a1 + 4);
 }
 
 void *write_32bit_from_64bit(void *result, uint64_t a2, uint64_t a3)
@@ -7089,12 +7030,12 @@ uint64_t kpdecode_cursor_set_option(uint64_t a1, int a2, uint64_t a3)
   return result;
 }
 
-const void *kpdecode_record_id_string_get_content(void *a1, uint64_t *a2)
+char *kpdecode_record_id_string_get_content(void *a1, uint64_t *a2)
 {
   v4 = a1[917];
   if (!v4)
   {
-    v5 = a1 + 844;
+    v5 = (a1 + 844);
     v7 = a1[876];
     goto LABEL_30;
   }
@@ -7120,7 +7061,7 @@ const void *kpdecode_record_id_string_get_content(void *a1, uint64_t *a2)
       }
 
       v13 = 2 * v12;
-      v14 = 1 << -__clz(v12 + v10 - 1);
+      v14 = 1 << -__clz(&v12[v10 - 1]);
       if (v13 <= v14)
       {
         v15 = v14;
@@ -7154,20 +7095,20 @@ const void *kpdecode_record_id_string_get_content(void *a1, uint64_t *a2)
 
     v9[2] = v15;
 LABEL_16:
-    memcpy(v9[1] + v11, a1 + 844, v10);
+    memcpy(&v9[1][v11], a1 + 844, v10);
     v17 = *v9;
-    v18 = v9[1] + v10;
+    v18 = &v9[1][v10];
     v9[1] = v18;
     if (v17)
     {
       v19 = v9[2];
-      if (v19 - v18 >= v6)
+      if (&v19[-v18] >= v6)
       {
         goto LABEL_27;
       }
 
       v20 = 2 * v19;
-      v21 = 1 << -__clz(v19 + v6 - 1);
+      v21 = 1 << -__clz(&v19[v6 - 1]);
       if (v20 <= v21)
       {
         v22 = v21;
@@ -7189,12 +7130,12 @@ LABEL_25:
 
       v9[2] = v22;
 LABEL_27:
-      memcpy(v9[1] + v17, v5, v6);
+      memcpy(&v9[1][v17], v5, v6);
       v5 = *v9;
-      v9[1] = v9[1] + v6;
+      v9[1] += v6;
 LABEL_29:
       a1[917] = v9;
-      v7 = v9[1] - 1;
+      v7 = (v9[1] - 1);
       goto LABEL_30;
     }
 
@@ -7327,22 +7268,20 @@ void kdbg_comp_reset(_DWORD *a1)
 
 unint64_t kdbg_comp_encode(int *a1, void *a2, unint64_t a3)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   if (a3 < 0x41)
   {
-    v6 = safe_encode(a1, __src, a3);
-    if (v6)
+    v5 = safe_encode(a1, __src, a3);
+    if (v5)
     {
-      memcpy(a2, __src, v6);
+      memcpy(a2, __src, v5);
     }
 
-    v7 = *MEMORY[0x277D85DE8];
-    return v6;
+    return v5;
   }
 
   else
   {
-    v4 = *MEMORY[0x277D85DE8];
 
     return safe_encode(a1, a2, a3);
   }
@@ -7368,11 +7307,11 @@ unint64_t safe_encode(int *a1, uint64_t a2, unint64_t a3)
   v10 = a1[1];
   switch(v10)
   {
-    case 0u:
-      v37 = (a1 + 6);
+    case 0:
+      v37 = a1 + 6;
       v38 = *a1;
       v39 = &a1[12 * *a1 + 6];
-      v40 = 3999999939 * ((*(v39 + 32) << 30) | (*(v39 + 40) >> 2));
+      v40 = 3999999939 * ((*(v39 + 4) << 30) | (*(v39 + 5) >> 2));
       v41 = a1 + ((BYTE5(v40) ^ BYTE3(v40)) & 0x3F);
       v42 = v41[840];
       v41[840] = *a1;
@@ -7387,7 +7326,7 @@ unint64_t safe_encode(int *a1, uint64_t a2, unint64_t a3)
         v44 = v43 + 17;
       }
 
-      if (v44 > 0xF || (v45 = &v37[12 * v42], *(v45 + 32) != *(v39 + 32)))
+      if (v44 > 0xF || (v45 = &v37[12 * v42], *(v45 + 32) != *(v39 + 4)))
       {
         LOWORD(v44) = 0;
         if ((v38 + 1) <= 0x10)
@@ -7408,10 +7347,10 @@ unint64_t safe_encode(int *a1, uint64_t a2, unint64_t a3)
       v12 = 0;
       while (1)
       {
-        v49 = *(v39 + v48);
+        v49 = *&v39[v48];
         if (v49)
         {
-          v50 = *(v45 + v48);
+          v50 = *(v45 + v48 * 4);
           if ((v50 ^ v49) == 3)
           {
             v51 = 2 << v47;
@@ -7421,7 +7360,7 @@ unint64_t safe_encode(int *a1, uint64_t a2, unint64_t a3)
           {
             if (v49 != v50)
             {
-              v12 |= ((9 - ((9 * __cls(v49 - v50)) >> 6)) << (v48 + 16)) | (3 << v47);
+              v12 |= ((9 - ((9 * __cls(v49 - v50)) >> 6)) << ((v48 * 4) + 16)) | (3 << v47);
               goto LABEL_55;
             }
 
@@ -7432,7 +7371,7 @@ unint64_t safe_encode(int *a1, uint64_t a2, unint64_t a3)
         }
 
 LABEL_55:
-        v48 += 8;
+        v48 += 2;
         v47 += 2;
         if (v47 == 12)
         {
@@ -7442,7 +7381,7 @@ LABEL_55:
         }
       }
 
-    case 2u:
+    case 2:
       v23 = 0;
       v24 = 0;
       v12 = 0;
@@ -7512,7 +7451,7 @@ LABEL_33:
         }
       }
 
-    case 1u:
+    case 1:
       v11 = 0;
       LOWORD(v12) = 0;
       v13 = &a1[12 * *a1 + 6];
@@ -7597,18 +7536,18 @@ LABEL_58:
   return result;
 }
 
-unint64_t kdbg_comp_decode(int *a1, char *a2, unint64_t a3)
+unint64_t kdbg_comp_decode(unsigned int *a1, char *a2, unint64_t a3)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   if (a3 <= 0x40)
   {
     __memcpy_chk();
-    a2 = &v25;
+    a2 = &v24;
   }
 
   v5 = a2[1];
   v6 = *a2 | (v5 << 8);
-  v8 = a1 + 6;
+  v8 = (a1 + 6);
   v7 = *a1;
   v9 = *a1 + (v5 >> 4);
   if (v9 > 0x10)
@@ -7685,20 +7624,15 @@ unint64_t kdbg_comp_decode(int *a1, char *a2, unint64_t a3)
   }
 
   while (v15 != 12);
-  if (result <= a3)
+  if (result > a3)
   {
-    *a1 = v16;
-    v23 = *(a1 + 2);
-    *(a1 + 1) = v23;
-    *(a1 + 2) = v23 + v13;
+    return 0;
   }
 
-  else
-  {
-    result = 0;
-  }
-
-  v24 = *MEMORY[0x277D85DE8];
+  *a1 = v16;
+  v23 = *(a1 + 2);
+  *(a1 + 1) = v23;
+  *(a1 + 2) = v23 + v13;
   return result;
 }
 

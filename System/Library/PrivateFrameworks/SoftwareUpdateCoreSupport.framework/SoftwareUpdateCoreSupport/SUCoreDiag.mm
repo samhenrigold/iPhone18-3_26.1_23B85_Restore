@@ -50,12 +50,12 @@ uint64_t __24__SUCoreDiag_sharedDiag__block_invoke()
 
 - (SUCoreDiag)initWithAppendedDomain:(id)domain appendingDumpFilename:(id)filename
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   domainCopy = domain;
   filenameCopy = filename;
-  v35.receiver = self;
-  v35.super_class = SUCoreDiag;
-  v9 = [(SUCoreDiag *)&v35 init];
+  v34.receiver = self;
+  v34.super_class = SUCoreDiag;
+  v9 = [(SUCoreDiag *)&v34 init];
   v10 = v9;
   if (v9)
   {
@@ -80,7 +80,7 @@ uint64_t __24__SUCoreDiag_sharedDiag__block_invoke()
       if (os_log_type_enabled(oslog, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138543362;
-        v37 = domainCopy;
+        v36 = domainCopy;
         _os_log_impl(&dword_1E0F71000, oslog, OS_LOG_TYPE_DEFAULT, "[DIAG] DISPATCH: created dispatch queue domain(%{public}@)", buf, 0xCu);
       }
     }
@@ -105,7 +105,6 @@ uint64_t __24__SUCoreDiag_sharedDiag__block_invoke()
     v10->_isSharedDiag = 0;
   }
 
-  v33 = *MEMORY[0x1E69E9840];
   return v10;
 }
 
@@ -135,7 +134,7 @@ uint64_t __24__SUCoreDiag_sharedDiag__block_invoke()
 
 void __58__SUCoreDiag_trackBegin_atLevel_forModule_withIdentifier___block_invoke(uint64_t a1)
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   v2 = [[SUCoreDiagPoint alloc] initOfType:1 fromLocation:*(a1 + 32) forReason:*(a1 + 40) withCode:0 withError:0];
   [*(a1 + 48) _appendToHistory:v2];
   v3 = [*(a1 + 48) trackStats];
@@ -159,8 +158,8 @@ void __58__SUCoreDiag_trackBegin_atLevel_forModule_withIdentifier___block_invoke
       if (v8)
       {
         v19 = *(a1 + 32);
-        *v25 = 138543362;
-        *&v25[4] = v19;
+        *v24 = 138543362;
+        *&v24[4] = v19;
         v12 = "%{public}@...";
         v13 = v7;
         v14 = 12;
@@ -177,10 +176,10 @@ void __58__SUCoreDiag_trackBegin_atLevel_forModule_withIdentifier___block_invoke
 
     v15 = *(a1 + 32);
     v16 = *(a1 + 40);
-    *v25 = 138543618;
-    *&v25[4] = v15;
-    *&v25[12] = 2114;
-    *&v25[14] = v16;
+    *v24 = 138543618;
+    *&v24[4] = v15;
+    *&v24[12] = 2114;
+    *&v24[14] = v16;
     v12 = "%{public}@... (%{public}@)";
 LABEL_11:
     v13 = v7;
@@ -197,10 +196,10 @@ LABEL_11:
 
     v17 = *(a1 + 56);
     v18 = *(a1 + 32);
-    *v25 = 138543618;
-    *&v25[4] = v17;
-    *&v25[12] = 2114;
-    *&v25[14] = v18;
+    *v24 = 138543618;
+    *&v24[4] = v17;
+    *&v24[12] = 2114;
+    *&v24[14] = v18;
     v12 = "[%{public}@]%{public}@...";
     goto LABEL_11;
   }
@@ -210,23 +209,23 @@ LABEL_11:
     v9 = *(a1 + 56);
     v10 = *(a1 + 32);
     v11 = *(a1 + 40);
-    *v25 = 138543874;
-    *&v25[4] = v9;
-    *&v25[12] = 2114;
-    *&v25[14] = v10;
-    *&v25[22] = 2114;
-    v26 = v11;
+    *v24 = 138543874;
+    *&v24[4] = v9;
+    *&v24[12] = 2114;
+    *&v24[14] = v10;
+    *&v24[22] = 2114;
+    v25 = v11;
     v12 = "[%{public}@]%{public}@... (%{public}@)";
     v13 = v7;
     v14 = 32;
 LABEL_14:
-    _os_log_impl(&dword_1E0F71000, v13, OS_LOG_TYPE_DEFAULT, v12, v25, v14);
+    _os_log_impl(&dword_1E0F71000, v13, OS_LOG_TYPE_DEFAULT, v12, v24, v14);
   }
 
 LABEL_15:
 
 LABEL_16:
-  v20 = [SUCoreSimulate sharedSimulator:*v25];
+  v20 = [SUCoreSimulate sharedSimulator:*v24];
   v21 = v20;
   if (*(a1 + 56))
   {
@@ -239,8 +238,6 @@ LABEL_16:
   }
 
   v23 = [v20 begin:v22 atFunction:*(a1 + 32)];
-
-  v24 = *MEMORY[0x1E69E9840];
 }
 
 - (void)trackEnd:(id)end atLevel:(int)level forModule:(id)module withIdentifier:(id)identifier withResult:(int64_t)result withError:(id)error
@@ -273,7 +270,7 @@ LABEL_16:
 
 void __77__SUCoreDiag_trackEnd_atLevel_forModule_withIdentifier_withResult_withError___block_invoke(uint64_t a1)
 {
-  v51 = *MEMORY[0x1E69E9840];
+  v50 = *MEMORY[0x1E69E9840];
   v2 = [[SUCoreDiagPoint alloc] initOfType:2 fromLocation:*(a1 + 32) forReason:*(a1 + 40) withCode:*(a1 + 72) withError:*(a1 + 48)];
   [*(a1 + 56) _appendToHistory:v2];
   if (!*(a1 + 72) && !*(a1 + 48))
@@ -304,17 +301,17 @@ void __77__SUCoreDiag_trackEnd_atLevel_forModule_withIdentifier_withResult_withE
         v27 = *(a1 + 64);
         v28 = *(a1 + 32);
         v29 = *(a1 + 40);
-        *v48 = 138543874;
-        *&v48[4] = v27;
-        *&v48[12] = 2114;
-        *&v48[14] = v28;
-        *&v48[22] = 2114;
-        v49 = v29;
+        *v47 = 138543874;
+        *&v47[4] = v27;
+        *&v47[12] = 2114;
+        *&v47[14] = v28;
+        *&v47[22] = 2114;
+        v48 = v29;
         v30 = "...[%{public}@]%{public}@ (%{public}@) | SUCCESS";
         v31 = v9;
         v32 = 32;
 LABEL_32:
-        _os_log_impl(&dword_1E0F71000, v31, OS_LOG_TYPE_DEFAULT, v30, v48, v32);
+        _os_log_impl(&dword_1E0F71000, v31, OS_LOG_TYPE_DEFAULT, v30, v47, v32);
         goto LABEL_33;
       }
 
@@ -325,10 +322,10 @@ LABEL_32:
 
       v40 = *(a1 + 64);
       v41 = *(a1 + 32);
-      *v48 = 138543618;
-      *&v48[4] = v40;
-      *&v48[12] = 2114;
-      *&v48[14] = v41;
+      *v47 = 138543618;
+      *&v47[4] = v40;
+      *&v47[12] = 2114;
+      *&v47[14] = v41;
       v30 = "...[%{public}@]%{public}@ | SUCCESS";
     }
 
@@ -342,8 +339,8 @@ LABEL_32:
         }
 
         v42 = *(a1 + 32);
-        *v48 = 138543362;
-        *&v48[4] = v42;
+        *v47 = 138543362;
+        *&v47[4] = v42;
         v30 = "...%{public}@ | SUCCESS";
         v31 = v9;
         v32 = 12;
@@ -357,10 +354,10 @@ LABEL_32:
 
       v38 = *(a1 + 32);
       v39 = *(a1 + 40);
-      *v48 = 138543618;
-      *&v48[4] = v38;
-      *&v48[12] = 2114;
-      *&v48[14] = v39;
+      *v47 = 138543618;
+      *&v47[4] = v38;
+      *&v47[12] = 2114;
+      *&v47[14] = v39;
       v30 = "...%{public}@ (%{public}@) | SUCCESS";
     }
 
@@ -400,21 +397,21 @@ LABEL_32:
           v13 = *(a1 + 64);
           v14 = *(a1 + 72);
           v15 = [*(a1 + 48) checkedDescription];
-          *v48 = 138544386;
-          *&v48[4] = v13;
-          *&v48[12] = 2114;
-          *&v48[14] = v11;
-          *&v48[22] = 2114;
-          v49 = v12;
-          *v50 = 2048;
-          *&v50[2] = v14;
-          *&v50[10] = 2114;
-          *&v50[12] = v15;
+          *v47 = 138544386;
+          *&v47[4] = v13;
+          *&v47[12] = 2114;
+          *&v47[14] = v11;
+          *&v47[22] = 2114;
+          v48 = v12;
+          *v49 = 2048;
+          *&v49[2] = v14;
+          *&v49[10] = 2114;
+          *&v49[12] = v15;
           v16 = "[DIAG_END] ...[%{public}@]%{public}@ (%{public}@) | result=%ld error:%{public}@";
           v17 = v9;
           v18 = 52;
 LABEL_23:
-          _os_log_error_impl(&dword_1E0F71000, v17, OS_LOG_TYPE_ERROR, v16, v48, v18);
+          _os_log_error_impl(&dword_1E0F71000, v17, OS_LOG_TYPE_ERROR, v16, v47, v18);
         }
 
 LABEL_33:
@@ -431,14 +428,14 @@ LABEL_33:
       v34 = *(a1 + 64);
       v35 = *(a1 + 72);
       v15 = [*(a1 + 48) checkedDescription];
-      *v48 = 138544130;
-      *&v48[4] = v34;
-      *&v48[12] = 2114;
-      *&v48[14] = v33;
-      *&v48[22] = 2048;
-      v49 = v35;
-      *v50 = 2114;
-      *&v50[2] = v15;
+      *v47 = 138544130;
+      *&v47[4] = v34;
+      *&v47[12] = 2114;
+      *&v47[14] = v33;
+      *&v47[22] = 2048;
+      v48 = v35;
+      *v49 = 2114;
+      *&v49[2] = v15;
       v16 = "[DIAG_END] ...[%{public}@]%{public}@ | result=%ld error:%{public}@";
     }
 
@@ -451,12 +448,12 @@ LABEL_33:
           v36 = *(a1 + 32);
           v37 = *(a1 + 72);
           v15 = [*(a1 + 48) checkedDescription];
-          *v48 = 138543874;
-          *&v48[4] = v36;
-          *&v48[12] = 2048;
-          *&v48[14] = v37;
-          *&v48[22] = 2114;
-          v49 = v15;
+          *v47 = 138543874;
+          *&v47[4] = v36;
+          *&v47[12] = 2048;
+          *&v47[14] = v37;
+          *&v47[22] = 2114;
+          v48 = v15;
           v16 = "[DIAG_END] ...%{public}@ | result=%ld error:%{public}@";
           v17 = v9;
           v18 = 32;
@@ -475,14 +472,14 @@ LABEL_33:
       v20 = *(a1 + 40);
       v21 = *(a1 + 72);
       v15 = [*(a1 + 48) checkedDescription];
-      *v48 = 138544130;
-      *&v48[4] = v19;
-      *&v48[12] = 2114;
-      *&v48[14] = v20;
-      *&v48[22] = 2048;
-      v49 = v21;
-      *v50 = 2114;
-      *&v50[2] = v15;
+      *v47 = 138544130;
+      *&v47[4] = v19;
+      *&v47[12] = 2114;
+      *&v47[14] = v20;
+      *&v47[22] = 2048;
+      v48 = v21;
+      *v49 = 2114;
+      *&v49[2] = v15;
       v16 = "[DIAG_END] ...%{public}@ (%{public}@) | result=%ld error:%{public}@";
     }
 
@@ -492,7 +489,7 @@ LABEL_33:
   }
 
 LABEL_34:
-  v43 = [SUCoreSimulate sharedSimulator:*v48];
+  v43 = [SUCoreSimulate sharedSimulator:*v47];
   v44 = v43;
   if (*(a1 + 64))
   {
@@ -505,8 +502,6 @@ LABEL_34:
   }
 
   v46 = [v43 end:v45 atFunction:*(a1 + 32)];
-
-  v47 = *MEMORY[0x1E69E9840];
 }
 
 - (void)trackError:(id)error forReason:(id)reason withResult:(int64_t)result withError:(id)withError
@@ -680,7 +675,7 @@ void __58__SUCoreDiag_trackFailure_forReason_withResult_withError___block_invoke
 
 void __56__SUCoreDiag_trackFault_forReason_withResult_withError___block_invoke(uint64_t a1)
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   v2 = [[SUCoreDiagPoint alloc] initOfType:32 fromLocation:*(a1 + 32) forReason:*(a1 + 40) withCode:*(a1 + 64) withError:*(a1 + 48)];
   [*(a1 + 56) _appendToHistory:v2];
   v3 = [*(a1 + 56) trackStats];
@@ -714,34 +709,34 @@ void __56__SUCoreDiag_trackFault_forReason_withResult_withError___block_invoke(u
           v12 = *(a1 + 40);
           v13 = *(a1 + 64);
           v14 = [*(a1 + 48) checkedDescription];
-          v24 = 138544130;
-          v25 = v11;
-          v26 = 2114;
-          v27 = v12;
-          v28 = 2048;
-          v29 = v13;
-          v30 = 2114;
-          v31 = v14;
+          v23 = 138544130;
+          v24 = v11;
+          v25 = 2114;
+          v26 = v12;
+          v27 = 2048;
+          v28 = v13;
+          v29 = 2114;
+          v30 = v14;
           v15 = "[DIAG_FAULT] FAULT:%{public}@, reason=%{public}@ result=%ld error:%{public}@";
           v16 = v9;
           v17 = 42;
 LABEL_13:
-          _os_log_fault_impl(&dword_1E0F71000, v16, OS_LOG_TYPE_FAULT, v15, &v24, v17);
+          _os_log_fault_impl(&dword_1E0F71000, v16, OS_LOG_TYPE_FAULT, v15, &v23, v17);
         }
       }
 
       else if (v10)
       {
-        v21 = *(a1 + 32);
-        v22 = *(a1 + 40);
-        v23 = *(a1 + 64);
-        v24 = 138543874;
-        v25 = v21;
-        v26 = 2114;
-        v27 = v22;
-        v28 = 2048;
-        v29 = v23;
-        _os_log_fault_impl(&dword_1E0F71000, v9, OS_LOG_TYPE_FAULT, "[DIAG_FAULT] FAULT:%{public}@, reason=%{public}@ result=%ld", &v24, 0x20u);
+        v20 = *(a1 + 32);
+        v21 = *(a1 + 40);
+        v22 = *(a1 + 64);
+        v23 = 138543874;
+        v24 = v20;
+        v25 = 2114;
+        v26 = v21;
+        v27 = 2048;
+        v28 = v22;
+        _os_log_fault_impl(&dword_1E0F71000, v9, OS_LOG_TYPE_FAULT, "[DIAG_FAULT] FAULT:%{public}@, reason=%{public}@ result=%ld", &v23, 0x20u);
       }
     }
 
@@ -749,15 +744,15 @@ LABEL_13:
     {
       if (v10)
       {
-        v19 = *(a1 + 32);
-        v20 = *(a1 + 64);
+        v18 = *(a1 + 32);
+        v19 = *(a1 + 64);
         v14 = [*(a1 + 48) checkedDescription];
-        v24 = 138543874;
-        v25 = v19;
-        v26 = 2048;
-        v27 = v20;
-        v28 = 2114;
-        v29 = v14;
+        v23 = 138543874;
+        v24 = v18;
+        v25 = 2048;
+        v26 = v19;
+        v27 = 2114;
+        v28 = v14;
         v15 = "[DIAG_FAULT] FAULT:%{public}@, result=%ld error:%{public}@";
         v16 = v9;
         v17 = 32;
@@ -776,8 +771,6 @@ LABEL_13:
     v9 = +[SUCoreDiag sharedDiag];
     [v9 trackFault:*(a1 + 32) forReason:*(a1 + 40) withResult:*(a1 + 64) withError:*(a1 + 48)];
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 - (void)trackStateEvent:(id)event previousState:(id)state handlingEvent:(id)handlingEvent nextState:(id)nextState performingAction:(id)action withInfo:(id)info
@@ -811,47 +804,44 @@ LABEL_13:
 
 void __94__SUCoreDiag_trackStateEvent_previousState_handlingEvent_nextState_performingAction_withInfo___block_invoke(uint64_t a1)
 {
-  v15 = *MEMORY[0x1E69E9840];
-  v2 = *(a1 + 32);
+  v13 = *MEMORY[0x1E69E9840];
   objc_opt_class();
   isKindOfClass = objc_opt_isKindOfClass();
-  v4 = *(a1 + 32);
+  v3 = *(a1 + 32);
   if (isKindOfClass)
   {
-    v5 = v4;
+    v4 = v3;
   }
 
   else
   {
-    v5 = [v4 description];
+    v4 = [v3 description];
   }
 
-  v6 = v5;
-  v7 = [[SUCoreDiagPoint alloc] initStateEventForFSM:*(a1 + 40) previousState:*(a1 + 48) fsmEvent:*(a1 + 56) nextState:*(a1 + 64) fsmAction:*(a1 + 72) eventInfo:v5];
-  [*(a1 + 80) _appendToHistory:v7];
-  v8 = [*(a1 + 80) trackStats];
-  [v8 setStateEventCount:{objc_msgSend(v8, "stateEventCount") + 1}];
+  v5 = v4;
+  v6 = [[SUCoreDiagPoint alloc] initStateEventForFSM:*(a1 + 40) previousState:*(a1 + 48) fsmEvent:*(a1 + 56) nextState:*(a1 + 64) fsmAction:*(a1 + 72) eventInfo:v4];
+  [*(a1 + 80) _appendToHistory:v6];
+  v7 = [*(a1 + 80) trackStats];
+  [v7 setStateEventCount:{objc_msgSend(v7, "stateEventCount") + 1}];
 
   if ([*(a1 + 80) isSharedDiag])
   {
-    v9 = +[SUCoreLog sharedLogger];
-    v10 = [v9 oslog];
+    v8 = +[SUCoreLog sharedLogger];
+    v9 = [v8 oslog];
 
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v13 = 138543362;
-      v14 = v7;
-      _os_log_impl(&dword_1E0F71000, v10, OS_LOG_TYPE_DEFAULT, "%{public}@", &v13, 0xCu);
+      v11 = 138543362;
+      v12 = v6;
+      _os_log_impl(&dword_1E0F71000, v9, OS_LOG_TYPE_DEFAULT, "%{public}@", &v11, 0xCu);
     }
   }
 
   else
   {
-    v11 = +[SUCoreDiag sharedDiag];
-    [v11 trackStateEvent:*(a1 + 40) previousState:*(a1 + 48) handlingEvent:*(a1 + 56) nextState:*(a1 + 64) performingAction:*(a1 + 72) withInfo:*(a1 + 32)];
+    v10 = +[SUCoreDiag sharedDiag];
+    [v10 trackStateEvent:*(a1 + 40) previousState:*(a1 + 48) handlingEvent:*(a1 + 56) nextState:*(a1 + 64) performingAction:*(a1 + 72) withInfo:*(a1 + 32)];
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)trackLastReportedUUID:(id)d
@@ -916,10 +906,7 @@ void __36__SUCoreDiag_trackLastReportedUUID___block_invoke(uint64_t a1)
 
 uint64_t __71__SUCoreDiag_copyTrackedStatsClearingAfter_droppingMatchedIndications___block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 32) _copyTrackedStatsClearingAfter:*(a1 + 56) droppingMatchedIndications:*(a1 + 48)];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(a1 + 32) _copyTrackedStatsClearingAfter:*(a1 + 56) droppingMatchedIndications:*(a1 + 48)];
 
   return MEMORY[0x1EEE66BB8]();
 }
@@ -1070,7 +1057,7 @@ LABEL_11:
 
 - (void)_logTrackedError:(id)error fromLocation:(id)location forReason:(id)reason withResult:(int64_t)result withError:(id)withError
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   errorCopy = error;
   locationCopy = location;
   reasonCopy = reason;
@@ -1090,13 +1077,13 @@ LABEL_11:
           goto LABEL_13;
         }
 
-        v26 = 138544130;
-        v27 = errorCopy;
-        v28 = 2114;
-        v29 = locationCopy;
-        v30 = 2114;
+        v25 = 138544130;
+        v26 = errorCopy;
+        v27 = 2114;
+        v28 = locationCopy;
+        v29 = 2114;
         resultCopy4 = reasonCopy;
-        v32 = 2048;
+        v31 = 2048;
         resultCopy2 = result;
         v18 = "[DIAG_ERROR] %{public}@: %{public}@, reason=%{public}@ result=%ld";
         v19 = oslog;
@@ -1110,16 +1097,16 @@ LABEL_11:
       }
 
       checkedDescription = [withErrorCopy checkedDescription];
-      v26 = 138544386;
-      v27 = errorCopy;
-      v28 = 2114;
-      v29 = locationCopy;
-      v30 = 2114;
+      v25 = 138544386;
+      v26 = errorCopy;
+      v27 = 2114;
+      v28 = locationCopy;
+      v29 = 2114;
       resultCopy4 = reasonCopy;
-      v32 = 2048;
+      v31 = 2048;
       resultCopy2 = result;
-      v34 = 2114;
-      v35 = checkedDescription;
+      v33 = 2114;
+      v34 = checkedDescription;
       v22 = "[DIAG_ERROR] %{public}@: %{public}@, reason=%{public}@ result=%ld error:%{public}@";
       v23 = oslog;
       v24 = 52;
@@ -1133,42 +1120,40 @@ LABEL_11:
       }
 
       checkedDescription = [withErrorCopy checkedDescription];
-      v26 = 138544130;
-      v27 = errorCopy;
-      v28 = 2114;
-      v29 = locationCopy;
-      v30 = 2048;
+      v25 = 138544130;
+      v26 = errorCopy;
+      v27 = 2114;
+      v28 = locationCopy;
+      v29 = 2048;
       resultCopy4 = result;
-      v32 = 2114;
+      v31 = 2114;
       resultCopy2 = checkedDescription;
       v22 = "[DIAG_ERROR] %{public}@: %{public}@, result=%ld error:%{public}@";
       v23 = oslog;
       v24 = 42;
     }
 
-    _os_log_error_impl(&dword_1E0F71000, v23, OS_LOG_TYPE_ERROR, v22, &v26, v24);
+    _os_log_error_impl(&dword_1E0F71000, v23, OS_LOG_TYPE_ERROR, v22, &v25, v24);
 
     goto LABEL_13;
   }
 
   if (v17)
   {
-    v26 = 138543874;
-    v27 = errorCopy;
-    v28 = 2114;
-    v29 = locationCopy;
-    v30 = 2048;
+    v25 = 138543874;
+    v26 = errorCopy;
+    v27 = 2114;
+    v28 = locationCopy;
+    v29 = 2048;
     resultCopy4 = result;
     v18 = "[DIAG_ERROR] %{public}@: %{public}@, result=%ld";
     v19 = oslog;
     v20 = 32;
 LABEL_4:
-    _os_log_error_impl(&dword_1E0F71000, v19, OS_LOG_TYPE_ERROR, v18, &v26, v20);
+    _os_log_error_impl(&dword_1E0F71000, v19, OS_LOG_TYPE_ERROR, v18, &v25, v20);
   }
 
 LABEL_13:
-
-  v25 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_dumpMaskToString:(int64_t)string
@@ -1241,7 +1226,7 @@ LABEL_8:
 {
   historyCopy = history;
   statisticsCopy = statistics;
-  v78 = *MEMORY[0x1E69E9840];
+  v77 = *MEMORY[0x1E69E9840];
   trackedCopy = tracked;
   filenameCopy = filename;
   trackingQueue = [(SUCoreDiag *)self trackingQueue];
@@ -1255,7 +1240,7 @@ LABEL_8:
   {
     v18 = @"NO";
     *buf = 138544386;
-    v69 = trackedCopy;
+    v68 = trackedCopy;
     if (statisticsCopy)
     {
       v19 = @"YES";
@@ -1271,14 +1256,14 @@ LABEL_8:
       v18 = @"YES";
     }
 
-    v70 = 2114;
-    v71 = v15;
-    v72 = 2114;
-    v73 = filenameCopy;
-    v74 = 2114;
-    v75 = v19;
-    v76 = 2114;
-    v77 = v18;
+    v69 = 2114;
+    v70 = v15;
+    v71 = 2114;
+    v72 = filenameCopy;
+    v73 = 2114;
+    v74 = v19;
+    v75 = 2114;
+    v76 = v18;
     _os_log_impl(&dword_1E0F71000, oslog, OS_LOG_TYPE_DEFAULT, "[DIAG] dump tracked with reason=%{public}@ dumpToMask=%{public}@ filename=%{public}@ clearStatistics=%{public}@ clearHistory=%{public}@", buf, 0x34u);
   }
 
@@ -1336,8 +1321,8 @@ LABEL_20:
     [v23 setSafeObject:trackedCopy forKey:@"reportReason"];
   }
 
-  v66 = historyCopy;
-  v67 = v23;
+  v65 = historyCopy;
+  v66 = v23;
   lastReportedUUID = [(SUCoreDiag *)self lastReportedUUID];
 
   if (lastReportedUUID)
@@ -1357,7 +1342,7 @@ LABEL_20:
       {
         lastReportedUUID4 = [(SUCoreDiag *)self lastReportedUUID];
         *buf = 138543362;
-        v69 = lastReportedUUID4;
+        v68 = lastReportedUUID4;
         _os_log_impl(&dword_1E0F71000, oslog2, OS_LOG_TYPE_DEFAULT, "[DIAG] DUMP_UUID: %{public}@", buf, 0xCu);
       }
     }
@@ -1379,7 +1364,7 @@ LABEL_20:
 
     trackStats3 = [(SUCoreDiag *)self trackStats];
     summary = [trackStats3 summary];
-    [v67 setSafeObject:summary forKey:@"reportStats"];
+    [v66 setSafeObject:summary forKey:@"reportStats"];
 
     if (to)
     {
@@ -1390,7 +1375,7 @@ LABEL_20:
       {
         trackStats4 = [(SUCoreDiag *)self trackStats];
         *buf = 138543362;
-        v69 = trackStats4;
+        v68 = trackStats4;
         _os_log_impl(&dword_1E0F71000, oslog3, OS_LOG_TYPE_DEFAULT, "[DIAG] DUMP_STATS:\n%{public}@", buf, 0xCu);
       }
     }
@@ -1403,11 +1388,11 @@ LABEL_20:
     }
   }
 
-  v65 = statisticsCopy;
+  v64 = statisticsCopy;
   trackingHistory = [(SUCoreDiag *)self trackingHistory];
   v41 = [trackingHistory count];
 
-  historyCopy = v66;
+  historyCopy = v65;
   if (v41)
   {
     trackingHistory2 = [(SUCoreDiag *)self trackingHistory];
@@ -1418,10 +1403,10 @@ LABEL_20:
 
     if (v44)
     {
-      v61 = v22;
-      v62 = v15;
-      v63 = filenameCopy;
-      v64 = trackedCopy;
+      v60 = v22;
+      v61 = v15;
+      v62 = filenameCopy;
+      v63 = trackedCopy;
       v45 = 0;
       v46 = 0;
       do
@@ -1455,9 +1440,9 @@ LABEL_20:
           if (os_log_type_enabled(oslog4, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 134218242;
-            v69 = v46;
-            v70 = 2114;
-            v71 = v48;
+            v68 = v46;
+            v69 = 2114;
+            v70 = v48;
             _os_log_impl(&dword_1E0F71000, oslog4, OS_LOG_TYPE_DEFAULT, "[DIAG] DUMP_HISTORY[%04lu]: %{public}@", buf, 0x16u);
           }
         }
@@ -1473,14 +1458,14 @@ LABEL_20:
       }
 
       while (v46 < v57);
-      filenameCopy = v63;
-      trackedCopy = v64;
-      historyCopy = v66;
-      v22 = v61;
-      v15 = v62;
+      filenameCopy = v62;
+      trackedCopy = v63;
+      historyCopy = v65;
+      v22 = v60;
+      v15 = v61;
       if (v45)
       {
-        [v67 setSafeObject:v45 forKey:@"reportHistory"];
+        [v66 setSafeObject:v45 forKey:@"reportHistory"];
       }
     }
   }
@@ -1490,11 +1475,11 @@ LABEL_20:
     [(SUCoreDiag *)self _dumpToFile:filenameCopy dumpingDict:v22 forReason:trackedCopy];
   }
 
-  statisticsCopy = v65;
-  v23 = v67;
+  statisticsCopy = v64;
+  v23 = v66;
   if ((to & 8) != 0)
   {
-    [(SUCoreDiag *)self _dumpEvent:v67];
+    [(SUCoreDiag *)self _dumpEvent:v66];
   }
 
 LABEL_55:
@@ -1509,23 +1494,21 @@ LABEL_55:
     trackingHistory6 = [(SUCoreDiag *)self trackingHistory];
     [trackingHistory6 removeAllObjects];
   }
-
-  v60 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_dumpToFile:(id)file dumpingDict:(id)dict forReason:(id)reason
 {
-  v53 = *MEMORY[0x1E69E9840];
+  v52 = *MEMORY[0x1E69E9840];
   fileCopy = file;
   reasonCopy = reason;
   dictCopy = dict;
   trackingQueue = [(SUCoreDiag *)self trackingQueue];
   dispatch_assert_queue_V2(trackingQueue);
 
-  v44 = 0;
-  v12 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:dictCopy requiringSecureCoding:1 error:&v44];
+  v43 = 0;
+  v12 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:dictCopy requiringSecureCoding:1 error:&v43];
 
-  v13 = v44;
+  v13 = v43;
   v14 = v13;
   if (!v12 || v13)
   {
@@ -1561,9 +1544,9 @@ LABEL_55:
     defaultManager = [MEMORY[0x1E696AC08] defaultManager];
     if ([defaultManager fileExistsAtPath:fileCopy])
     {
-      v43 = 0;
-      v29 = [defaultManager removeItemAtPath:fileCopy error:&v43];
-      v30 = v43;
+      v42 = 0;
+      v29 = [defaultManager removeItemAtPath:fileCopy error:&v42];
+      v30 = v42;
       if ((v29 & 1) == 0)
       {
         v31 = +[SUCoreLog sharedLogger];
@@ -1572,11 +1555,11 @@ LABEL_55:
         if (os_log_type_enabled(oslog2, OS_LOG_TYPE_ERROR))
         {
           *buf = 138412802;
-          v48 = reasonCopy;
-          v49 = 2114;
-          v50 = fileCopy;
-          v51 = 2114;
-          v52 = v30;
+          v47 = reasonCopy;
+          v48 = 2114;
+          v49 = fileCopy;
+          v50 = 2114;
+          v51 = v30;
           _os_log_error_impl(&dword_1E0F71000, oslog2, OS_LOG_TYPE_ERROR, "[DIAG_ERROR] ANOMALY: [%@] could not remove pre-existing dump file: %{public}@, error: %{public}@", buf, 0x20u);
         }
       }
@@ -1590,9 +1573,9 @@ LABEL_55:
     stringByDeletingLastPathComponent = [fileCopy stringByDeletingLastPathComponent];
     if (stringByDeletingLastPathComponent)
     {
-      v42 = v30;
-      v34 = [defaultManager createDirectoryAtPath:stringByDeletingLastPathComponent withIntermediateDirectories:1 attributes:0 error:&v42];
-      oslog = v42;
+      v41 = v30;
+      v34 = [defaultManager createDirectoryAtPath:stringByDeletingLastPathComponent withIntermediateDirectories:1 attributes:0 error:&v41];
+      oslog = v41;
 
       if ((v34 & 1) == 0 && (!oslog || [oslog code]!= 17))
       {
@@ -1611,9 +1594,9 @@ LABEL_55:
       oslog = v30;
     }
 
-    v45 = *MEMORY[0x1E696A3A0];
-    v46 = *MEMORY[0x1E696A3A8];
-    v37 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v46 forKeys:&v45 count:1];
+    v44 = *MEMORY[0x1E696A3A0];
+    v45 = *MEMORY[0x1E696A3A8];
+    v37 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v45 forKeys:&v44 count:1];
     v38 = [defaultManager createFileAtPath:fileCopy contents:v12 attributes:v37];
 
     if ((v38 & 1) == 0)
@@ -1627,8 +1610,6 @@ LABEL_55:
       }
     }
   }
-
-  v41 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_dumpEvent:(id)event
@@ -1657,7 +1638,7 @@ LABEL_55:
 - (id)_copyTrackedStatsClearingAfter:(BOOL)after droppingMatchedIndications:(int64_t)indications
 {
   afterCopy = after;
-  v65 = *MEMORY[0x1E69E9840];
+  v64 = *MEMORY[0x1E69E9840];
   trackingQueue = [(SUCoreDiag *)self trackingQueue];
   dispatch_assert_queue_V2(trackingQueue);
 
@@ -1701,16 +1682,16 @@ LABEL_55:
         endFailIndicationsCount3 = [(SUCoreDiagStats *)v9 endFailIndicationsCount];
         v22 = @"endFails";
         *buf = 134218498;
-        v58 = endFailIndicationsCount2;
-        v59 = 2114;
+        v57 = endFailIndicationsCount2;
+        v58 = 2114;
         if (endFailIndicationsCount3 == 1)
         {
           v22 = @"endFail";
         }
 
-        v60 = v22;
-        v61 = 2114;
-        v62 = v15;
+        v59 = v22;
+        v60 = 2114;
+        v61 = v15;
         _os_log_impl(&dword_1E0F71000, oslog, OS_LOG_TYPE_DEFAULT, "[DIAG_STATS] DROPPED: dropping tracked statistics [%lld %{public}@ matched %{public}@]", buf, 0x20u);
       }
 
@@ -1730,18 +1711,18 @@ LABEL_55:
         errorIndicationsCount3 = [(SUCoreDiagStats *)v9 errorIndicationsCount];
         v27 = @"errors";
         *buf = 134218754;
-        v58 = errorIndicationsCount2;
-        v59 = 2114;
+        v57 = errorIndicationsCount2;
+        v58 = 2114;
         if (errorIndicationsCount3 == 1)
         {
           v27 = @"error";
         }
 
-        v60 = v15;
-        v61 = 2114;
-        v62 = v27;
-        v63 = 2114;
-        v64 = v15;
+        v59 = v15;
+        v60 = 2114;
+        v61 = v27;
+        v62 = 2114;
+        v63 = v15;
         _os_log_impl(&dword_1E0F71000, oslog2, OS_LOG_TYPE_DEFAULT, "[DIAG_STATS] DROPPED: dropping tracked statistics [%lld %{public}@ %{public}@ matched %{public}@]", buf, 0x2Au);
       }
 
@@ -1762,18 +1743,18 @@ LABEL_55:
         anomalyIndicationsCount3 = [(SUCoreDiagStats *)v9 anomalyIndicationsCount];
         v32 = @"anomalies";
         *buf = 134218754;
-        v58 = anomalyIndicationsCount2;
-        v59 = 2114;
+        v57 = anomalyIndicationsCount2;
+        v58 = 2114;
         if (anomalyIndicationsCount3 == 1)
         {
           v32 = @"anomaly";
         }
 
-        v60 = v15;
-        v61 = 2114;
-        v62 = v32;
-        v63 = 2114;
-        v64 = v15;
+        v59 = v15;
+        v60 = 2114;
+        v61 = v32;
+        v62 = 2114;
+        v63 = v15;
         _os_log_impl(&dword_1E0F71000, oslog3, OS_LOG_TYPE_DEFAULT, "[DIAG_STATS] DROPPED: dropping tracked statistics [%lld %{public}@ %{public}@ matched %{public}@]", buf, 0x2Au);
       }
 
@@ -1794,18 +1775,18 @@ LABEL_55:
         failureIndicationsCount3 = [(SUCoreDiagStats *)v9 failureIndicationsCount];
         v37 = @"failures";
         *buf = 134218754;
-        v58 = failureIndicationsCount2;
-        v59 = 2114;
+        v57 = failureIndicationsCount2;
+        v58 = 2114;
         if (failureIndicationsCount3 == 1)
         {
           v37 = @"failure";
         }
 
-        v60 = v15;
-        v61 = 2114;
-        v62 = v37;
-        v63 = 2114;
-        v64 = v15;
+        v59 = v15;
+        v60 = 2114;
+        v61 = v37;
+        v62 = 2114;
+        v63 = v15;
         _os_log_impl(&dword_1E0F71000, oslog4, OS_LOG_TYPE_DEFAULT, "[DIAG_STATS] DROPPED: dropping tracked statistics [%lld %{public}@ %{public}@ matched %{public}@]", buf, 0x2Au);
       }
 
@@ -1837,18 +1818,18 @@ LABEL_55:
       faultIndicationsCount3 = [(SUCoreDiagStats *)v9 faultIndicationsCount];
       v42 = @"faults";
       *buf = 134218754;
-      v58 = faultIndicationsCount2;
-      v59 = 2114;
+      v57 = faultIndicationsCount2;
+      v58 = 2114;
       if (faultIndicationsCount3 == 1)
       {
         v42 = @"fault";
       }
 
-      v60 = v15;
-      v61 = 2114;
-      v62 = v42;
-      v63 = 2114;
-      v64 = v15;
+      v59 = v15;
+      v60 = 2114;
+      v61 = v42;
+      v62 = 2114;
+      v63 = v15;
       _os_log_impl(&dword_1E0F71000, oslog5, OS_LOG_TYPE_DEFAULT, "[DIAG_STATS] DROPPED: dropping tracked statistics [%lld %{public}@ %{public}@ matched %{public}@]", buf, 0x2Au);
     }
 
@@ -1862,66 +1843,40 @@ LABEL_35:
 LABEL_36:
   }
 
-  v44 = *MEMORY[0x1E69E9840];
   return v9;
 }
 
 - (void)initWithAppendedDomain:(uint64_t)a3 appendingDumpFilename:(uint64_t)a4 .cold.1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2_1(&dword_1E0F71000, a2, a3, "[DIAG_ERROR] ERROR: unable to create dispatch queue domain(%{public}@)", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_2_1(&dword_1E0F71000, a2, a3, "[DIAG_ERROR] ERROR: unable to create dispatch queue domain(%{public}@)", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void __56__SUCoreDiag_trackFault_forReason_withResult_withError___block_invoke_cold_1(uint64_t *a1, uint64_t *a2, os_log_t log)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v3 = *a1;
   v4 = *a2;
-  v6 = 138543618;
-  v7 = v3;
-  v8 = 2048;
-  v9 = v4;
-  _os_log_fault_impl(&dword_1E0F71000, log, OS_LOG_TYPE_FAULT, "[DIAG_FAULT] FAULT:%{public}@, result=%ld", &v6, 0x16u);
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-- (void)loadDump:.cold.1()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_6(&dword_1E0F71000, v0, v1, "[DIAG_ERROR] ERROR: failed to unarchive encoded data from dump file: %{public}@, error: %{public}@");
-  v2 = *MEMORY[0x1E69E9840];
+  v5 = 138543618;
+  v6 = v3;
+  v7 = 2048;
+  v8 = v4;
+  _os_log_fault_impl(&dword_1E0F71000, log, OS_LOG_TYPE_FAULT, "[DIAG_FAULT] FAULT:%{public}@, result=%ld", &v5, 0x16u);
 }
 
 - (void)loadDump:(uint64_t)a3 .cold.2(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2_1(&dword_1E0F71000, a2, a3, "[DIAG_ERROR] ERROR: unable to load encoded data from dump file: %{public}@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_2_1(&dword_1E0F71000, a2, a3, "[DIAG_ERROR] ERROR: unable to load encoded data from dump file: %{public}@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)_dumpToFile:(uint64_t)a3 dumpingDict:(uint64_t)a4 forReason:(uint64_t)a5 .cold.1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2_1(&dword_1E0F71000, a2, a3, "[DIAG_ERROR] DUMP_LOSS: unable to encode data for dump to file, error: %@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
-}
-
-- (void)_dumpToFile:dumpingDict:forReason:.cold.2()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_6(&dword_1E0F71000, v0, v1, "[DIAG_ERROR] ANOMALY: failed to create directory: %{public}@, error: %{public}@");
-  v2 = *MEMORY[0x1E69E9840];
-}
-
-- (void)_dumpToFile:dumpingDict:forReason:.cold.3()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_6(&dword_1E0F71000, v0, v1, "[DIAG_ERROR] ANOMALY: [%{public}@] could not create dump file: %{public}@");
-  v2 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_2_1(&dword_1E0F71000, a2, a3, "[DIAG_ERROR] DUMP_LOSS: unable to encode data for dump to file, error: %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

@@ -51,7 +51,7 @@
 
 - (unint64_t)_backupOnCellularSupportWithError:(id *)error
 {
-  v127 = *MEMORY[0x1E69E9840];
+  v59 = *MEMORY[0x1E69E9840];
   if (!error)
   {
     [MBCellularDataSubscriptionMonitor _backupOnCellularSupportWithError:];
@@ -65,23 +65,23 @@
   v7 = telephonyClient;
   if (telephonyClient)
   {
-    v120 = 0;
-    v8 = [telephonyClient getCurrentDataSubscriptionContextSync:&v120];
-    v9 = v120;
-    v10 = MBGetDefaultLog();
+    v52 = 0;
+    v8 = [telephonyClient getCurrentDataSubscriptionContextSync:&v52];
+    v9 = v52;
+    v10 = MBGetDefaultLog(v9);
     v11 = v10;
     if (!v8)
     {
       if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v122 = v9;
+        v54 = v9;
         _os_log_impl(&dword_1DEB5D000, v11, OS_LOG_TYPE_ERROR, "Failed to fetch the data subscription context: %@", buf, 0xCu);
-        _MBLog(@"E ", "Failed to fetch the data subscription context: %@", v42, v43, v44, v45, v46, v47, v9);
+        _MBLog(@"E ", "Failed to fetch the data subscription context: %@", v9);
       }
 
-      v48 = v9;
-      v41 = 0;
+      v25 = v9;
+      v24 = 0;
       *error = v9;
       goto LABEL_66;
     }
@@ -89,92 +89,91 @@
     if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v122 = v8;
+      v54 = v8;
       _os_log_impl(&dword_1DEB5D000, v11, OS_LOG_TYPE_INFO, "Fetched the data subscription context: %@", buf, 0xCu);
-      _MBLog(@"I ", "Fetched the data subscription context: %@", v12, v13, v14, v15, v16, v17, v8);
+      _MBLog(@"I ", "Fetched the data subscription context: %@", v8);
     }
 
-    v119 = v9;
-    v18 = [v7 getSupports5G:v8 error:&v119];
-    v19 = v119;
+    v51 = v9;
+    v12 = [v7 getSupports5G:v8 error:&v51];
+    v13 = v51;
 
-    if (v18)
+    if (v12)
     {
-      v20 = MBGetDefaultLog();
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
+      v15 = MBGetDefaultLog(v14);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138543362;
-        v122 = v18;
-        _os_log_impl(&dword_1DEB5D000, v20, OS_LOG_TYPE_DEBUG, "Fetched device&carrier 5G support: %{public}@", buf, 0xCu);
-        _MBLog(@"Db", "Fetched device&carrier 5G support: %{public}@", v21, v22, v23, v24, v25, v26, v18);
+        v54 = v12;
+        _os_log_impl(&dword_1DEB5D000, v15, OS_LOG_TYPE_DEBUG, "Fetched device&carrier 5G support: %{public}@", buf, 0xCu);
+        _MBLog(@"Db", "Fetched device&carrier 5G support: %{public}@", v12);
       }
 
-      if (![(__CFString *)v18 BOOLValue])
+      if (![(__CFString *)v12 BOOLValue])
       {
-        v41 = 0;
+        v24 = 0;
         goto LABEL_54;
       }
 
-      v27 = [objc_alloc(MEMORY[0x1E6964F68]) initWithBundleType:1];
+      v16 = [objc_alloc(MEMORY[0x1E6964F68]) initWithBundleType:1];
 
-      v118 = 0;
-      v28 = [v7 copyCarrierBundleValueWithDefault:v8 key:@"EnableBackupOnCellular" bundleType:v27 error:&v118];
-      v29 = v118;
-      v30 = v29;
-      v31 = 0x1E696A000uLL;
-      if (v28)
+      v50 = 0;
+      v17 = [v7 copyCarrierBundleValueWithDefault:v8 key:@"EnableBackupOnCellular" bundleType:v16 error:&v50];
+      v18 = v50;
+      v19 = v18;
+      if (v17)
       {
         objc_opt_class();
         isKindOfClass = objc_opt_isKindOfClass();
-        v33 = MBGetDefaultLog();
-        v34 = v33;
-        if (isKindOfClass)
+        v21 = isKindOfClass;
+        v22 = MBGetDefaultLog(isKindOfClass);
+        v23 = v22;
+        if (v21)
         {
-          if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
+          if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138543618;
-            v122 = @"EnableBackupOnCellular";
-            v123 = 2114;
-            *v124 = v28;
-            _os_log_impl(&dword_1DEB5D000, v34, OS_LOG_TYPE_DEFAULT, "Fetched %{public}@ carrier bundle key: %{public}@", buf, 0x16u);
-            _MBLog(@"Df", "Fetched %{public}@ carrier bundle key: %{public}@", v35, v36, v37, v38, v39, v40, @"EnableBackupOnCellular");
+            v54 = @"EnableBackupOnCellular";
+            v55 = 2114;
+            *v56 = v17;
+            _os_log_impl(&dword_1DEB5D000, v23, OS_LOG_TYPE_DEFAULT, "Fetched %{public}@ carrier bundle key: %{public}@", buf, 0x16u);
+            _MBLog(@"Df", "Fetched %{public}@ carrier bundle key: %{public}@", @"EnableBackupOnCellular", v17);
           }
 
-          v31 = 0x1E696A000;
-          if (([v28 BOOLValue]& 1) == 0)
+          if (([v17 BOOLValue]& 1) == 0)
           {
-            v41 = 0;
+            v24 = 0;
             goto LABEL_38;
           }
 
 LABEL_37:
-          v41 = 2;
+          v24 = 2;
 LABEL_38:
 
-          v117 = 0;
-          v72 = [v7 copyCarrierBundleValueWithDefault:v8 key:@"EnableRestoreOnCellular" bundleType:v27 error:&v117];
-          v19 = v117;
+          v49 = 0;
+          v32 = [v7 copyCarrierBundleValueWithDefault:v8 key:@"EnableRestoreOnCellular" bundleType:v16 error:&v49];
+          v13 = v49;
 
-          if (v72)
+          if (v32)
           {
-            v73 = *(v31 + 3480);
             objc_opt_class();
-            v74 = objc_opt_isKindOfClass();
-            v75 = MBGetDefaultLog();
-            v76 = v75;
-            if (v74)
+            v34 = objc_opt_isKindOfClass();
+            v35 = v34;
+            v36 = MBGetDefaultLog(v34);
+            v37 = v36;
+            if (v35)
             {
-              if (os_log_type_enabled(v75, OS_LOG_TYPE_DEFAULT))
+              if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
               {
                 *buf = 138543618;
-                v122 = @"EnableRestoreOnCellular";
-                v123 = 2114;
-                *v124 = v72;
-                _os_log_impl(&dword_1DEB5D000, v76, OS_LOG_TYPE_DEFAULT, "Fetched %{public}@ carrier bundle key: %{public}@", buf, 0x16u);
-                _MBLog(@"Df", "Fetched %{public}@ carrier bundle key: %{public}@", v77, v78, v79, v80, v81, v82, @"EnableRestoreOnCellular");
+                v54 = @"EnableRestoreOnCellular";
+                v55 = 2114;
+                *v56 = v32;
+                _os_log_impl(&dword_1DEB5D000, v37, OS_LOG_TYPE_DEFAULT, "Fetched %{public}@ carrier bundle key: %{public}@", buf, 0x16u);
+                _MBLog(@"Df", "Fetched %{public}@ carrier bundle key: %{public}@", @"EnableRestoreOnCellular", v32);
               }
 
-              if (([v72 BOOLValue]& 1) == 0)
+              if (([v32 BOOLValue]& 1) == 0)
               {
                 goto LABEL_53;
               }
@@ -182,53 +181,53 @@ LABEL_38:
               goto LABEL_52;
             }
 
-            if (os_log_type_enabled(v75, OS_LOG_TYPE_ERROR))
+            if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
             {
               *buf = 138543618;
-              v122 = @"EnableRestoreOnCellular";
-              v123 = 2114;
-              *v124 = v72;
-              _os_log_impl(&dword_1DEB5D000, v76, OS_LOG_TYPE_ERROR, "Invalid value for %{public}@ carrier bundle key: %{public}@", buf, 0x16u);
-              _MBLog(@"E ", "Invalid value for %{public}@ carrier bundle key: %{public}@", v89, v90, v91, v92, v93, v94, @"EnableRestoreOnCellular");
+              v54 = @"EnableRestoreOnCellular";
+              v55 = 2114;
+              *v56 = v32;
+              _os_log_impl(&dword_1DEB5D000, v37, OS_LOG_TYPE_ERROR, "Invalid value for %{public}@ carrier bundle key: %{public}@", buf, 0x16u);
+              _MBLog(@"E ", "Invalid value for %{public}@ carrier bundle key: %{public}@", @"EnableRestoreOnCellular", v32);
             }
           }
 
           else
           {
-            if (!v19)
+            if (!v13)
             {
 LABEL_51:
-              v72 = 0;
+              v32 = 0;
 LABEL_52:
-              v41 |= 4uLL;
+              v24 |= 4uLL;
 LABEL_53:
 
 LABEL_54:
-              v95 = v19;
-              v116 = v19;
-              v96 = [v7 getDataStatus:v8 error:&v116];
-              v19 = v116;
+              v38 = v13;
+              v48 = v13;
+              v39 = [v7 getDataStatus:v8 error:&v48];
+              v13 = v48;
 
-              if (!v96)
+              if (!v39)
               {
-                v101 = MBGetDefaultLog();
-                if (os_log_type_enabled(v101, OS_LOG_TYPE_ERROR))
+                v45 = MBGetDefaultLog(v40);
+                if (os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
                 {
                   *buf = 138412290;
-                  v122 = v19;
-                  _os_log_impl(&dword_1DEB5D000, v101, OS_LOG_TYPE_ERROR, "Failed to fetch data status: %@", buf, 0xCu);
-                  _MBLog(@"E ", "Failed to fetch data status: %@", v102, v103, v104, v105, v106, v107, v19);
+                  v54 = v13;
+                  _os_log_impl(&dword_1DEB5D000, v45, OS_LOG_TYPE_ERROR, "Failed to fetch data status: %@", buf, 0xCu);
+                  _MBLog(@"E ", "Failed to fetch data status: %@", v13, v47);
                 }
 
                 goto LABEL_64;
               }
 
-              newRadioCoverage = [v96 newRadioCoverage];
-              radioTechnology = [v96 radioTechnology];
-              v99 = radioTechnology;
+              newRadioCoverage = [v39 newRadioCoverage];
+              radioTechnology = [v39 radioTechnology];
+              v43 = radioTechnology;
               if (newRadioCoverage)
               {
-                v100 = 2;
+                v44 = 2;
               }
 
               else
@@ -238,25 +237,25 @@ LABEL_54:
                   goto LABEL_62;
                 }
 
-                v100 = 1;
+                v44 = 1;
               }
 
-              [(MBCellularDataSubscriptionMonitor *)self setCellularRadioType:v100];
-              v41 |= 1uLL;
+              radioTechnology = [(MBCellularDataSubscriptionMonitor *)self setCellularRadioType:v44];
+              v24 |= 1uLL;
 LABEL_62:
-              v101 = MBGetDefaultLog();
-              if (os_log_type_enabled(v101, OS_LOG_TYPE_INFO))
+              v45 = MBGetDefaultLog(radioTechnology);
+              if (os_log_type_enabled(v45, OS_LOG_TYPE_INFO))
               {
                 *buf = 138544130;
-                v122 = v18;
-                v123 = 1024;
-                *v124 = newRadioCoverage;
-                *&v124[4] = 1024;
-                *&v124[6] = v99;
-                v125 = 2048;
-                v126 = v41;
-                _os_log_impl(&dword_1DEB5D000, v101, OS_LOG_TYPE_INFO, "Fetched data status, supports5G:%{public}@, newRadioCoverage:%d, radioTechnology:%d, result:0x%lx", buf, 0x22u);
-                _MBLog(@"I ", "Fetched data status, supports5G:%{public}@, newRadioCoverage:%d, radioTechnology:%d, result:0x%lx", v108, v109, v110, v111, v112, v113, v18);
+                v54 = v12;
+                v55 = 1024;
+                *v56 = newRadioCoverage;
+                *&v56[4] = 1024;
+                *&v56[6] = v43;
+                v57 = 2048;
+                v58 = v24;
+                _os_log_impl(&dword_1DEB5D000, v45, OS_LOG_TYPE_INFO, "Fetched data status, supports5G:%{public}@, newRadioCoverage:%d, radioTechnology:%d, result:0x%lx", buf, 0x22u);
+                _MBLog(@"I ", "Fetched data status, supports5G:%{public}@, newRadioCoverage:%d, radioTechnology:%d, result:0x%lx", v12, newRadioCoverage, v43, v24);
               }
 
 LABEL_64:
@@ -264,107 +263,105 @@ LABEL_64:
               goto LABEL_65;
             }
 
-            v72 = MBGetDefaultLog();
-            if (os_log_type_enabled(v72, OS_LOG_TYPE_ERROR))
+            v32 = MBGetDefaultLog(v33);
+            if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
             {
               *buf = 138543618;
-              v122 = @"EnableRestoreOnCellular";
-              v123 = 2112;
-              *v124 = v19;
-              _os_log_impl(&dword_1DEB5D000, v72, OS_LOG_TYPE_ERROR, "Failed to fetch %{public}@ carrier bundle key: %@", buf, 0x16u);
-              _MBLog(@"E ", "Failed to fetch %{public}@ carrier bundle key: %@", v83, v84, v85, v86, v87, v88, @"EnableRestoreOnCellular");
+              v54 = @"EnableRestoreOnCellular";
+              v55 = 2112;
+              *v56 = v13;
+              _os_log_impl(&dword_1DEB5D000, v32, OS_LOG_TYPE_ERROR, "Failed to fetch %{public}@ carrier bundle key: %@", buf, 0x16u);
+              _MBLog(@"E ", "Failed to fetch %{public}@ carrier bundle key: %@", @"EnableRestoreOnCellular", v13);
             }
           }
 
           goto LABEL_51;
         }
 
-        if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
+        if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
         {
           *buf = 138543618;
-          v122 = @"EnableBackupOnCellular";
-          v123 = 2114;
-          *v124 = v28;
-          _os_log_impl(&dword_1DEB5D000, v34, OS_LOG_TYPE_ERROR, "Invalid value for %{public}@ carrier bundle key: %{public}@", buf, 0x16u);
-          _MBLog(@"E ", "Invalid value for %{public}@ carrier bundle key: %{public}@", v66, v67, v68, v69, v70, v71, @"EnableBackupOnCellular");
+          v54 = @"EnableBackupOnCellular";
+          v55 = 2114;
+          *v56 = v17;
+          _os_log_impl(&dword_1DEB5D000, v23, OS_LOG_TYPE_ERROR, "Invalid value for %{public}@ carrier bundle key: %{public}@", buf, 0x16u);
+          _MBLog(@"E ", "Invalid value for %{public}@ carrier bundle key: %{public}@", @"EnableBackupOnCellular", v17);
         }
-
-        v31 = 0x1E696A000uLL;
       }
 
       else
       {
-        if (!v29)
+        if (!v18)
         {
 LABEL_36:
-          v28 = 0;
+          v17 = 0;
           goto LABEL_37;
         }
 
-        v28 = MBGetDefaultLog();
-        if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+        v17 = MBGetDefaultLog(v18);
+        if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
         {
           *buf = 138543618;
-          v122 = @"EnableBackupOnCellular";
-          v123 = 2112;
-          *v124 = v30;
-          _os_log_impl(&dword_1DEB5D000, v28, OS_LOG_TYPE_ERROR, "Failed to fetch %{public}@ carrier bundle key: %@", buf, 0x16u);
-          _MBLog(@"E ", "Failed to fetch %{public}@ carrier bundle key: %@", v60, v61, v62, v63, v64, v65, @"EnableBackupOnCellular");
+          v54 = @"EnableBackupOnCellular";
+          v55 = 2112;
+          *v56 = v19;
+          _os_log_impl(&dword_1DEB5D000, v17, OS_LOG_TYPE_ERROR, "Failed to fetch %{public}@ carrier bundle key: %@", buf, 0x16u);
+          _MBLog(@"E ", "Failed to fetch %{public}@ carrier bundle key: %@", @"EnableBackupOnCellular", v19);
         }
       }
 
       goto LABEL_36;
     }
 
-    if (-[__CFString code](v19, "code") == 45 && (-[__CFString domain](v19, "domain"), v49 = objc_claimAutoreleasedReturnValue(), v50 = [v49 isEqualToString:*MEMORY[0x1E696A798]], v49, v50))
+    code = [(__CFString *)v13 code];
+    if (code == 45 && (-[__CFString domain](v13, "domain"), v27 = objc_claimAutoreleasedReturnValue(), v28 = [v27 isEqualToString:*MEMORY[0x1E696A798]], v27, v28))
     {
-      v51 = MBGetDefaultLog();
-      if (os_log_type_enabled(v51, OS_LOG_TYPE_INFO))
+      v29 = MBGetDefaultLog(code);
+      if (os_log_type_enabled(v29, OS_LOG_TYPE_INFO))
       {
         *buf = 138412290;
-        v122 = v19;
-        _os_log_impl(&dword_1DEB5D000, v51, OS_LOG_TYPE_INFO, "Failed to check for device&carrier 5G support: %@", buf, 0xCu);
-        v58 = @"I ";
+        v54 = v13;
+        _os_log_impl(&dword_1DEB5D000, v29, OS_LOG_TYPE_INFO, "Failed to check for device&carrier 5G support: %@", buf, 0xCu);
+        v30 = @"I ";
 LABEL_27:
-        _MBLog(v58, "Failed to check for device&carrier 5G support: %@", v52, v53, v54, v55, v56, v57, v19);
+        _MBLog(v30, "Failed to check for device&carrier 5G support: %@", v13);
       }
     }
 
     else
     {
-      v51 = MBGetDefaultLog();
-      if (os_log_type_enabled(v51, OS_LOG_TYPE_ERROR))
+      v29 = MBGetDefaultLog(code);
+      if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v122 = v19;
-        _os_log_impl(&dword_1DEB5D000, v51, OS_LOG_TYPE_ERROR, "Failed to check for device&carrier 5G support: %@", buf, 0xCu);
-        v58 = @"E ";
+        v54 = v13;
+        _os_log_impl(&dword_1DEB5D000, v29, OS_LOG_TYPE_ERROR, "Failed to check for device&carrier 5G support: %@", buf, 0xCu);
+        v30 = @"E ";
         goto LABEL_27;
       }
     }
 
-    v59 = v19;
-    v41 = 0;
-    *error = v19;
+    v31 = v13;
+    v24 = 0;
+    *error = v13;
 LABEL_65:
 
-    v9 = v19;
+    v9 = v13;
 LABEL_66:
 
     goto LABEL_67;
   }
 
   [MBError errorWithCode:1 format:@"nil CoreTelephonyClient"];
-  *error = v41 = 0;
+  *error = v24 = 0;
 LABEL_67:
 
-  v114 = *MEMORY[0x1E69E9840];
-  return v41;
+  return v24;
 }
 
 - (BOOL)_startDelegateTimerWithTimeout:(unint64_t)timeout
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   queue = [(MBCellularDataSubscriptionMonitor *)self queue];
   dispatch_assert_queue_V2(queue);
 
@@ -381,89 +378,83 @@ LABEL_67:
     handler[1] = 3221225472;
     handler[2] = __68__MBCellularDataSubscriptionMonitor__startDelegateTimerWithTimeout___block_invoke;
     handler[3] = &unk_1E86844D0;
-    objc_copyWeak(&v19, &location);
+    objc_copyWeak(&v12, &location);
     dispatch_source_set_event_handler(v7, handler);
-    [(MBCellularDataSubscriptionMonitor *)self setDelegateTimer:v7];
-    v9 = MBGetDefaultLog();
+    v9 = MBGetDefaultLog([(MBCellularDataSubscriptionMonitor *)self setDelegateTimer:v7]);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
     {
       *buf = 134218240;
       timeoutCopy = timeout;
-      v23 = 2048;
-      v24 = v7;
+      v16 = 2048;
+      v17 = v7;
       _os_log_impl(&dword_1DEB5D000, v9, OS_LOG_TYPE_DEBUG, "Starting CoreTelephonyClientDataDelegate timer (%llds): %p", buf, 0x16u);
-      _MBLog(@"Db", "Starting CoreTelephonyClientDataDelegate timer (%llds): %p", v10, v11, v12, v13, v14, v15, timeout);
+      _MBLog(@"Db", "Starting CoreTelephonyClientDataDelegate timer (%llds): %p", timeout, v7);
     }
 
     dispatch_resume(v7);
-    objc_destroyWeak(&v19);
+    objc_destroyWeak(&v12);
 
     objc_destroyWeak(&location);
   }
 
-  result = timeout != 0;
-  v17 = *MEMORY[0x1E69E9840];
-  return result;
+  return timeout != 0;
 }
 
 void __68__MBCellularDataSubscriptionMonitor__startDelegateTimerWithTimeout___block_invoke(uint64_t a1)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
+  v2 = WeakRetained;
   if (WeakRetained)
   {
-    v2 = MBGetDefaultLog();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+    v3 = MBGetDefaultLog(WeakRetained);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v12 = objc_opt_class();
-      _os_log_impl(&dword_1DEB5D000, v2, OS_LOG_TYPE_DEFAULT, "%{public}@ timer fired", buf, 0xCu);
-      v3 = objc_opt_class();
-      _MBLog(@"Df", "%{public}@ timer fired", v4, v5, v6, v7, v8, v9, v3);
+      v6 = objc_opt_class();
+      _os_log_impl(&dword_1DEB5D000, v3, OS_LOG_TYPE_DEFAULT, "%{public}@ timer fired", buf, 0xCu);
+      v4 = objc_opt_class();
+      _MBLog(@"Df", "%{public}@ timer fired", v4);
     }
 
-    [WeakRetained _cancelDelegateTimer];
-    [WeakRetained _refreshBackupOnCellularSupportWithTimeout:0];
+    [v2 _cancelDelegateTimer];
+    [v2 _refreshBackupOnCellularSupportWithTimeout:0];
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_cancelDelegateTimer
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   queue = [(MBCellularDataSubscriptionMonitor *)self queue];
   dispatch_assert_queue_V2(queue);
 
   delegateTimer = [(MBCellularDataSubscriptionMonitor *)self delegateTimer];
   if (delegateTimer)
   {
-    [(MBCellularDataSubscriptionMonitor *)self setDelegateTimer:0];
-    v5 = MBGetDefaultLog();
+    v5 = MBGetDefaultLog([(MBCellularDataSubscriptionMonitor *)self setDelegateTimer:0]);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
     {
       *buf = 134217984;
-      v14 = delegateTimer;
+      v7 = delegateTimer;
       _os_log_impl(&dword_1DEB5D000, v5, OS_LOG_TYPE_DEBUG, "Canceling CoreTelephonyClientDataDelegate timer: %p", buf, 0xCu);
-      _MBLog(@"Db", "Canceling CoreTelephonyClientDataDelegate timer: %p", v6, v7, v8, v9, v10, v11, delegateTimer);
+      _MBLog(@"Db", "Canceling CoreTelephonyClientDataDelegate timer: %p", delegateTimer);
     }
 
     dispatch_source_cancel(delegateTimer);
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_refreshBackupOnCellularSupportWithTimeout:(unint64_t)timeout
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   queue = [(MBCellularDataSubscriptionMonitor *)self queue];
   dispatch_assert_queue_V2(queue);
 
-  v23 = 0;
-  v6 = [(MBCellularDataSubscriptionMonitor *)self _backupOnCellularSupportWithError:&v23];
-  v7 = v23;
-  if ([v7 code] == 35 && (objc_msgSend(v7, "domain"), v8 = objc_claimAutoreleasedReturnValue(), v9 = objc_msgSend(v8, "isEqualToString:", *MEMORY[0x1E696A798]), v8, v9))
+  v17 = 0;
+  v6 = [(MBCellularDataSubscriptionMonitor *)self _backupOnCellularSupportWithError:&v17];
+  v7 = v17;
+  code = [v7 code];
+  if (code == 35 && ([v7 domain], v9 = objc_claimAutoreleasedReturnValue(), v10 = objc_msgSend(v9, "isEqualToString:", *MEMORY[0x1E696A798]), v9, v10))
   {
     if (![(MBCellularDataSubscriptionMonitor *)self _startDelegateTimerWithTimeout:timeout])
     {
@@ -473,27 +464,26 @@ void __68__MBCellularDataSubscriptionMonitor__startDelegateTimerWithTimeout___bl
       if (backupOnCellularSupportHandler)
       {
         backupOnCellularSupportHandler2 = [(MBCellularDataSubscriptionMonitor *)self backupOnCellularSupportHandler];
-        v12 = [MBError errorWithCode:17 format:@"Failed to fetch backupOnCellularSupport"];
-        (backupOnCellularSupportHandler2)[2](backupOnCellularSupportHandler2, v6, v12);
+        v13 = [MBError errorWithCode:17 format:@"Failed to fetch backupOnCellularSupport"];
+        (backupOnCellularSupportHandler2)[2](backupOnCellularSupportHandler2, v6, v13);
 
 LABEL_12:
       }
     }
   }
 
-  else if (!self->_backupOnCellularSupportChanged || v6 != [(MBCellularDataSubscriptionMonitor *)self backupOnCellularSupport])
+  else if (!self->_backupOnCellularSupportChanged || (code = [(MBCellularDataSubscriptionMonitor *)self backupOnCellularSupport], v6 != code))
   {
-    v13 = MBGetDefaultLog();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    v14 = MBGetDefaultLog(code);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
       backupOnCellularSupport = [(MBCellularDataSubscriptionMonitor *)self backupOnCellularSupport];
       *buf = 134218240;
-      v25 = v6;
-      v26 = 2048;
-      v27 = backupOnCellularSupport;
-      _os_log_impl(&dword_1DEB5D000, v13, OS_LOG_TYPE_DEFAULT, "backupOnCellularSupport changed: %ld(%ld)", buf, 0x16u);
-      [(MBCellularDataSubscriptionMonitor *)self backupOnCellularSupport];
-      _MBLog(@"Df", "backupOnCellularSupport changed: %ld(%ld)", v15, v16, v17, v18, v19, v20, v6);
+      v19 = v6;
+      v20 = 2048;
+      v21 = backupOnCellularSupport;
+      _os_log_impl(&dword_1DEB5D000, v14, OS_LOG_TYPE_DEFAULT, "backupOnCellularSupport changed: %ld(%ld)", buf, 0x16u);
+      _MBLog(@"Df", "backupOnCellularSupport changed: %ld(%ld)", v6, [(MBCellularDataSubscriptionMonitor *)self backupOnCellularSupport]);
     }
 
     self->_backupOnCellularSupportChanged = 1;
@@ -507,8 +497,6 @@ LABEL_12:
       goto LABEL_12;
     }
   }
-
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 - (void)start
@@ -581,58 +569,54 @@ void __43__MBCellularDataSubscriptionMonitor_cancel__block_invoke(uint64_t a1)
 
 - (void)currentDataSimChanged:(id)changed
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   changedCopy = changed;
   queue = [(MBCellularDataSubscriptionMonitor *)self queue];
   dispatch_assert_queue_V2(queue);
 
-  v6 = MBGetDefaultLog();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v7 = MBGetDefaultLog(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v15 = changedCopy;
-    _os_log_impl(&dword_1DEB5D000, v6, OS_LOG_TYPE_DEFAULT, "currentDataSimChanged: %@", buf, 0xCu);
-    _MBLog(@"Df", "currentDataSimChanged: %@", v7, v8, v9, v10, v11, v12, changedCopy);
+    v9 = changedCopy;
+    _os_log_impl(&dword_1DEB5D000, v7, OS_LOG_TYPE_DEFAULT, "currentDataSimChanged: %@", buf, 0xCu);
+    _MBLog(@"Df", "currentDataSimChanged: %@", changedCopy);
   }
 
   [(MBCellularDataSubscriptionMonitor *)self _refreshBackupOnCellularSupportWithTimeout:0];
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)dataSettingsChanged:(id)changed
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   changedCopy = changed;
-  v4 = MBGetDefaultLog();
+  v4 = MBGetDefaultLog(changedCopy);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v13 = changedCopy;
+    v6 = changedCopy;
     _os_log_impl(&dword_1DEB5D000, v4, OS_LOG_TYPE_DEFAULT, "dataSettingsChanged: %@", buf, 0xCu);
-    _MBLog(@"Df", "dataSettingsChanged: %@", v5, v6, v7, v8, v9, v10, changedCopy);
+    _MBLog(@"Df", "dataSettingsChanged: %@", changedCopy);
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)internetDataStatus:(id)status
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   statusCopy = status;
   queue = [(MBCellularDataSubscriptionMonitor *)self queue];
   dispatch_assert_queue_V2(queue);
 
-  v6 = MBGetDefaultLog();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v7 = MBGetDefaultLog(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v15 = statusCopy;
-    _os_log_impl(&dword_1DEB5D000, v6, OS_LOG_TYPE_DEFAULT, "internetDataStatus: %@", buf, 0xCu);
-    _MBLog(@"Df", "internetDataStatus: %@", v7, v8, v9, v10, v11, v12, statusCopy);
+    v9 = statusCopy;
+    _os_log_impl(&dword_1DEB5D000, v7, OS_LOG_TYPE_DEFAULT, "internetDataStatus: %@", buf, 0xCu);
+    _MBLog(@"Df", "internetDataStatus: %@", statusCopy);
   }
 
   [(MBCellularDataSubscriptionMonitor *)self _refreshBackupOnCellularSupportWithTimeout:0];
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 @end

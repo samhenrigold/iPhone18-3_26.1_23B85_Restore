@@ -117,17 +117,17 @@
   return v6;
 }
 
-void __75__SBSceneLayoutFrameCoordinateSpace_descriptionBuilderWithMultilinePrefix___block_invoke(uint64_t a1)
+void __75__SBSceneLayoutFrameCoordinateSpace_descriptionBuilderWithMultilinePrefix___block_invoke(uint64_t a1, const char *a2)
 {
-  v2 = *(a1 + 32);
-  [*(*(a1 + 40) + 24) frame];
-  v3 = NSStringFromCGRect(v9);
-  v4 = [v2 appendObject:v3 withName:@"contentFrame"];
+  v3 = *(a1 + 32);
+  objc_msgSend_frame(*(*(a1 + 40) + 24), a2);
+  v4 = NSStringFromCGRect(v10);
+  v5 = [v3 appendObject:v4 withName:@"contentFrame"];
 
-  v5 = *(a1 + 32);
+  v6 = *(a1 + 32);
   [*(*(a1 + 40) + 16) bounds];
-  v7 = NSStringFromCGRect(v10);
-  v6 = [v5 appendObject:v7 withName:@"containerBounds"];
+  v8 = NSStringFromCGRect(v11);
+  v7 = [v6 appendObject:v8 withName:@"containerBounds"];
 }
 
 @end

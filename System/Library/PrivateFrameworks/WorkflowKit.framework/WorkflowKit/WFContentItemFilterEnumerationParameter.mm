@@ -8,9 +8,9 @@
 {
   stateCopy = state;
   value = [stateCopy value];
-  v6 = [value isEqualToString:@"Library"];
+  isEqualToString = objc_msgSend_isEqualToString_(value);
 
-  if (v6)
+  if (isEqualToString)
   {
     localizedPluralFilterDescription = [(objc_class *)[(WFContentItemFilterEnumerationParameter *)self contentItemClass] localizedPluralFilterDescription];
   }

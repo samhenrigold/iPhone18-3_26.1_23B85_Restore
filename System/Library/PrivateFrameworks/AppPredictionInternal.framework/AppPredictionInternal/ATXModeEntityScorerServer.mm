@@ -60,11 +60,11 @@ void __43__ATXModeEntityScorerServer_sharedInstance__block_invoke()
   objc_autoreleasePoolPop(v0);
 }
 
-id __43__ATXModeEntityScorerServer_sharedInstance__block_invoke_2()
+id __43__ATXModeEntityScorerServer_sharedInstance__block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_new();
+  v2 = objc_opt_new();
 
-  return v0;
+  return v2;
 }
 
 - (ATXModeEntityScorerServer)initWithContactStoreProvider:(id)provider
@@ -117,184 +117,185 @@ ATXStableContactRepresentationDatastore *__58__ATXModeEntityScorerServer_initWit
   v105[2] = *MEMORY[0x277D85DE8];
   connectionCopy = connection;
   v6 = [connectionCopy valueForEntitlement:@"com.apple.ModeEntityScorer"];
-  if (v6 && (objc_opt_respondsToSelector() & 1) != 0 && ([v6 BOOLValue] & 1) != 0)
+  v7 = v6;
+  if (v6 && (v6 = objc_opt_respondsToSelector(), (v6 & 1) != 0) && (v6 = [v7 BOOLValue], (v6 & 1) != 0))
   {
     selfCopy = self;
-    v7 = __atxlog_handle_notification_management();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+    v8 = __atxlog_handle_notification_management(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      _os_log_impl(&dword_2263AA000, v7, OS_LOG_TYPE_INFO, "ATXModeEntityScorerServer Established connection", buf, 2u);
+      _os_log_impl(&dword_2263AA000, v8, OS_LOG_TYPE_INFO, "ATXModeEntityScorerServer Established connection", buf, 2u);
     }
 
-    v8 = [MEMORY[0x277CCAE90] interfaceWithProtocol:&unk_283ABFE00];
-    v9 = MEMORY[0x277CBEB98];
+    v9 = [MEMORY[0x277CCAE90] interfaceWithProtocol:&unk_283ABFE00];
+    v10 = MEMORY[0x277CBEB98];
     v105[0] = objc_opt_class();
     v105[1] = objc_opt_class();
-    v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v105 count:2];
-    v11 = [v9 setWithArray:v10];
-    [v8 setClasses:v11 forSelector:sel_scoreContacts_mode_reply_ argumentIndex:0 ofReply:1];
+    v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v105 count:2];
+    v12 = [v10 setWithArray:v11];
+    [v9 setClasses:v12 forSelector:sel_scoreContacts_mode_reply_ argumentIndex:0 ofReply:1];
 
-    v12 = MEMORY[0x277CBEB98];
+    v13 = MEMORY[0x277CBEB98];
     v104[0] = objc_opt_class();
     v104[1] = objc_opt_class();
-    v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v104 count:2];
-    v14 = [v12 setWithArray:v13];
-    [v8 setClasses:v14 forSelector:sel_rankedContactsForMode_reply_ argumentIndex:0 ofReply:1];
+    v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v104 count:2];
+    v15 = [v13 setWithArray:v14];
+    [v9 setClasses:v15 forSelector:sel_rankedContactsForMode_reply_ argumentIndex:0 ofReply:1];
 
-    v15 = MEMORY[0x277CBEB98];
+    v16 = MEMORY[0x277CBEB98];
     v103[0] = objc_opt_class();
     v103[1] = objc_opt_class();
-    v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v103 count:2];
-    v17 = [v15 setWithArray:v16];
-    [v8 setClasses:v17 forSelector:sel_rankedContactsForMode_options_reply_ argumentIndex:0 ofReply:1];
+    v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v103 count:2];
+    v18 = [v16 setWithArray:v17];
+    [v9 setClasses:v18 forSelector:sel_rankedContactsForMode_options_reply_ argumentIndex:0 ofReply:1];
 
-    v18 = MEMORY[0x277CBEB98];
+    v19 = MEMORY[0x277CBEB98];
     v102[0] = objc_opt_class();
     v102[1] = objc_opt_class();
-    v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v102 count:2];
-    v20 = [v18 setWithArray:v19];
-    [v8 setClasses:v20 forSelector:sel_scoreContacts_mode_reply_ argumentIndex:0 ofReply:0];
+    v20 = [MEMORY[0x277CBEA60] arrayWithObjects:v102 count:2];
+    v21 = [v19 setWithArray:v20];
+    [v9 setClasses:v21 forSelector:sel_scoreContacts_mode_reply_ argumentIndex:0 ofReply:0];
 
-    v21 = MEMORY[0x277CBEB98];
+    v22 = MEMORY[0x277CBEB98];
     v101[0] = objc_opt_class();
     v101[1] = objc_opt_class();
-    v22 = [MEMORY[0x277CBEA60] arrayWithObjects:v101 count:2];
-    v23 = [v21 setWithArray:v22];
-    [v8 setClasses:v23 forSelector:sel_scoreApps_mode_reply_ argumentIndex:0 ofReply:1];
+    v23 = [MEMORY[0x277CBEA60] arrayWithObjects:v101 count:2];
+    v24 = [v22 setWithArray:v23];
+    [v9 setClasses:v24 forSelector:sel_scoreApps_mode_reply_ argumentIndex:0 ofReply:1];
 
-    v24 = MEMORY[0x277CBEB98];
+    v25 = MEMORY[0x277CBEB98];
     v100[0] = objc_opt_class();
     v100[1] = objc_opt_class();
-    v25 = [MEMORY[0x277CBEA60] arrayWithObjects:v100 count:2];
-    v26 = [v24 setWithArray:v25];
-    [v8 setClasses:v26 forSelector:sel_rankedAppsForMode_reply_ argumentIndex:0 ofReply:1];
+    v26 = [MEMORY[0x277CBEA60] arrayWithObjects:v100 count:2];
+    v27 = [v25 setWithArray:v26];
+    [v9 setClasses:v27 forSelector:sel_rankedAppsForMode_reply_ argumentIndex:0 ofReply:1];
 
-    v27 = MEMORY[0x277CBEB98];
+    v28 = MEMORY[0x277CBEB98];
     v99[0] = objc_opt_class();
     v99[1] = objc_opt_class();
-    v28 = [MEMORY[0x277CBEA60] arrayWithObjects:v99 count:2];
-    v29 = [v27 setWithArray:v28];
-    [v8 setClasses:v29 forSelector:sel_rankedAppsForMode_options_reply_ argumentIndex:0 ofReply:1];
+    v29 = [MEMORY[0x277CBEA60] arrayWithObjects:v99 count:2];
+    v30 = [v28 setWithArray:v29];
+    [v9 setClasses:v30 forSelector:sel_rankedAppsForMode_options_reply_ argumentIndex:0 ofReply:1];
 
-    v30 = MEMORY[0x277CBEB98];
+    v31 = MEMORY[0x277CBEB98];
     v98[0] = objc_opt_class();
     v98[1] = objc_opt_class();
-    v31 = [MEMORY[0x277CBEA60] arrayWithObjects:v98 count:2];
-    v32 = [v30 setWithArray:v31];
-    [v8 setClasses:v32 forSelector:sel_scoreApps_mode_reply_ argumentIndex:0 ofReply:0];
+    v32 = [MEMORY[0x277CBEA60] arrayWithObjects:v98 count:2];
+    v33 = [v31 setWithArray:v32];
+    [v9 setClasses:v33 forSelector:sel_scoreApps_mode_reply_ argumentIndex:0 ofReply:0];
 
-    v33 = MEMORY[0x277CBEB98];
+    v34 = MEMORY[0x277CBEB98];
     v97[0] = objc_opt_class();
     v97[1] = objc_opt_class();
-    v34 = [MEMORY[0x277CBEA60] arrayWithObjects:v97 count:2];
-    v35 = [v33 setWithArray:v34];
-    [v8 setClasses:v35 forSelector:sel_scoreAppsForDenyList_mode_reply_ argumentIndex:0 ofReply:1];
+    v35 = [MEMORY[0x277CBEA60] arrayWithObjects:v97 count:2];
+    v36 = [v34 setWithArray:v35];
+    [v9 setClasses:v36 forSelector:sel_scoreAppsForDenyList_mode_reply_ argumentIndex:0 ofReply:1];
 
-    v36 = MEMORY[0x277CBEB98];
+    v37 = MEMORY[0x277CBEB98];
     v96[0] = objc_opt_class();
     v96[1] = objc_opt_class();
-    v37 = [MEMORY[0x277CBEA60] arrayWithObjects:v96 count:2];
-    v38 = [v36 setWithArray:v37];
-    [v8 setClasses:v38 forSelector:sel_rankedAppsForDenyListForMode_reply_ argumentIndex:0 ofReply:1];
+    v38 = [MEMORY[0x277CBEA60] arrayWithObjects:v96 count:2];
+    v39 = [v37 setWithArray:v38];
+    [v9 setClasses:v39 forSelector:sel_rankedAppsForDenyListForMode_reply_ argumentIndex:0 ofReply:1];
 
-    v39 = MEMORY[0x277CBEB98];
+    v40 = MEMORY[0x277CBEB98];
     v95[0] = objc_opt_class();
     v95[1] = objc_opt_class();
-    v40 = [MEMORY[0x277CBEA60] arrayWithObjects:v95 count:2];
-    v41 = [v39 setWithArray:v40];
-    [v8 setClasses:v41 forSelector:sel_scoreAppsForDenyList_mode_reply_ argumentIndex:0 ofReply:0];
+    v41 = [MEMORY[0x277CBEA60] arrayWithObjects:v95 count:2];
+    v42 = [v40 setWithArray:v41];
+    [v9 setClasses:v42 forSelector:sel_scoreAppsForDenyList_mode_reply_ argumentIndex:0 ofReply:0];
 
-    v42 = MEMORY[0x277CBEB98];
+    v43 = MEMORY[0x277CBEB98];
     v94[0] = objc_opt_class();
     v94[1] = objc_opt_class();
-    v43 = [MEMORY[0x277CBEA60] arrayWithObjects:v94 count:2];
-    v44 = [v42 setWithArray:v43];
-    [v8 setClasses:v44 forSelector:sel_scoreContactsForDenyList_mode_reply_ argumentIndex:0 ofReply:1];
+    v44 = [MEMORY[0x277CBEA60] arrayWithObjects:v94 count:2];
+    v45 = [v43 setWithArray:v44];
+    [v9 setClasses:v45 forSelector:sel_scoreContactsForDenyList_mode_reply_ argumentIndex:0 ofReply:1];
 
-    v45 = MEMORY[0x277CBEB98];
+    v46 = MEMORY[0x277CBEB98];
     v93[0] = objc_opt_class();
     v93[1] = objc_opt_class();
-    v46 = [MEMORY[0x277CBEA60] arrayWithObjects:v93 count:2];
-    v47 = [v45 setWithArray:v46];
-    [v8 setClasses:v47 forSelector:sel_rankedContactsForDenyListForMode_reply_ argumentIndex:0 ofReply:1];
+    v47 = [MEMORY[0x277CBEA60] arrayWithObjects:v93 count:2];
+    v48 = [v46 setWithArray:v47];
+    [v9 setClasses:v48 forSelector:sel_rankedContactsForDenyListForMode_reply_ argumentIndex:0 ofReply:1];
 
-    v48 = MEMORY[0x277CBEB98];
+    v49 = MEMORY[0x277CBEB98];
     v92[0] = objc_opt_class();
     v92[1] = objc_opt_class();
-    v49 = [MEMORY[0x277CBEA60] arrayWithObjects:v92 count:2];
-    v50 = [v48 setWithArray:v49];
-    [v8 setClasses:v50 forSelector:sel_rankedContactsForDenyListForMode_options_reply_ argumentIndex:0 ofReply:1];
+    v50 = [MEMORY[0x277CBEA60] arrayWithObjects:v92 count:2];
+    v51 = [v49 setWithArray:v50];
+    [v9 setClasses:v51 forSelector:sel_rankedContactsForDenyListForMode_options_reply_ argumentIndex:0 ofReply:1];
 
-    v51 = MEMORY[0x277CBEB98];
+    v52 = MEMORY[0x277CBEB98];
     v91[0] = objc_opt_class();
     v91[1] = objc_opt_class();
-    v52 = [MEMORY[0x277CBEA60] arrayWithObjects:v91 count:2];
-    v53 = [v51 setWithArray:v52];
-    [v8 setClasses:v53 forSelector:sel_scoreContactsForDenyList_mode_reply_ argumentIndex:0 ofReply:0];
+    v53 = [MEMORY[0x277CBEA60] arrayWithObjects:v91 count:2];
+    v54 = [v52 setWithArray:v53];
+    [v9 setClasses:v54 forSelector:sel_scoreContactsForDenyList_mode_reply_ argumentIndex:0 ofReply:0];
 
-    v54 = MEMORY[0x277CBEB98];
+    v55 = MEMORY[0x277CBEB98];
     v90[0] = objc_opt_class();
     v90[1] = objc_opt_class();
-    v55 = [MEMORY[0x277CBEA60] arrayWithObjects:v90 count:2];
-    v56 = [v54 setWithArray:v55];
-    [v8 setClasses:v56 forSelector:sel_rankedWidgetsForMode_reply_ argumentIndex:0 ofReply:1];
+    v56 = [MEMORY[0x277CBEA60] arrayWithObjects:v90 count:2];
+    v57 = [v55 setWithArray:v56];
+    [v9 setClasses:v57 forSelector:sel_rankedWidgetsForMode_reply_ argumentIndex:0 ofReply:1];
 
-    v57 = MEMORY[0x277CBEB98];
+    v58 = MEMORY[0x277CBEB98];
     v89[0] = objc_opt_class();
     v89[1] = objc_opt_class();
-    v58 = [MEMORY[0x277CBEA60] arrayWithObjects:v89 count:2];
-    v59 = [v57 setWithArray:v58];
-    [v8 setClasses:v59 forSelector:sel_scoreNotifications_mode_reply_ argumentIndex:0 ofReply:1];
+    v59 = [MEMORY[0x277CBEA60] arrayWithObjects:v89 count:2];
+    v60 = [v58 setWithArray:v59];
+    [v9 setClasses:v60 forSelector:sel_scoreNotifications_mode_reply_ argumentIndex:0 ofReply:1];
 
-    v60 = MEMORY[0x277CBEB98];
+    v61 = MEMORY[0x277CBEB98];
     v88[0] = objc_opt_class();
     v88[1] = objc_opt_class();
-    v61 = [MEMORY[0x277CBEA60] arrayWithObjects:v88 count:2];
-    v62 = [v60 setWithArray:v61];
-    [v8 setClasses:v62 forSelector:sel_scoreNotifications_mode_reply_ argumentIndex:0 ofReply:0];
+    v62 = [MEMORY[0x277CBEA60] arrayWithObjects:v88 count:2];
+    v63 = [v61 setWithArray:v62];
+    [v9 setClasses:v63 forSelector:sel_scoreNotifications_mode_reply_ argumentIndex:0 ofReply:0];
 
-    v63 = MEMORY[0x277CBEB98];
+    v64 = MEMORY[0x277CBEB98];
     v87[0] = objc_opt_class();
     v87[1] = objc_opt_class();
-    v64 = [MEMORY[0x277CBEA60] arrayWithObjects:v87 count:2];
-    v65 = [v63 setWithArray:v64];
-    [v8 setClasses:v65 forSelector:sel_rankedNotificationsForMode_reply_ argumentIndex:0 ofReply:1];
+    v65 = [MEMORY[0x277CBEA60] arrayWithObjects:v87 count:2];
+    v66 = [v64 setWithArray:v65];
+    [v9 setClasses:v66 forSelector:sel_rankedNotificationsForMode_reply_ argumentIndex:0 ofReply:1];
 
-    v66 = MEMORY[0x277CBEB98];
+    v67 = MEMORY[0x277CBEB98];
     v86[0] = objc_opt_class();
     v86[1] = objc_opt_class();
-    v67 = [MEMORY[0x277CBEA60] arrayWithObjects:v86 count:2];
-    v68 = [v66 setWithArray:v67];
-    [v8 setClasses:v68 forSelector:sel_rankedNotificationsForMode_options_reply_ argumentIndex:0 ofReply:1];
+    v68 = [MEMORY[0x277CBEA60] arrayWithObjects:v86 count:2];
+    v69 = [v67 setWithArray:v68];
+    [v9 setClasses:v69 forSelector:sel_rankedNotificationsForMode_options_reply_ argumentIndex:0 ofReply:1];
 
-    v69 = MEMORY[0x277CBEB98];
+    v70 = MEMORY[0x277CBEB98];
     v85[0] = objc_opt_class();
     v85[1] = objc_opt_class();
-    v70 = [MEMORY[0x277CBEA60] arrayWithObjects:v85 count:2];
-    v71 = [v69 setWithArray:v70];
-    [v8 setClasses:v71 forSelector:sel_rankedAppsForNotificationsForMode_reply_ argumentIndex:0 ofReply:1];
+    v71 = [MEMORY[0x277CBEA60] arrayWithObjects:v85 count:2];
+    v72 = [v70 setWithArray:v71];
+    [v9 setClasses:v72 forSelector:sel_rankedAppsForNotificationsForMode_reply_ argumentIndex:0 ofReply:1];
 
-    v72 = MEMORY[0x277CBEB98];
+    v73 = MEMORY[0x277CBEB98];
     v84[0] = objc_opt_class();
     v84[1] = objc_opt_class();
-    v73 = [MEMORY[0x277CBEA60] arrayWithObjects:v84 count:2];
-    v74 = [v72 setWithArray:v73];
-    [v8 setClasses:v74 forSelector:sel_rankedContactsForNotificationsForMode_reply_ argumentIndex:0 ofReply:1];
+    v74 = [MEMORY[0x277CBEA60] arrayWithObjects:v84 count:2];
+    v75 = [v73 setWithArray:v74];
+    [v9 setClasses:v75 forSelector:sel_rankedContactsForNotificationsForMode_reply_ argumentIndex:0 ofReply:1];
 
-    v75 = MEMORY[0x277CBEB98];
+    v76 = MEMORY[0x277CBEB98];
     v83[0] = objc_opt_class();
     v83[1] = objc_opt_class();
     v83[2] = objc_opt_class();
-    v76 = 1;
+    v77 = 1;
     v83[3] = objc_opt_class();
     v83[4] = objc_opt_class();
     v83[5] = objc_opt_class();
-    v77 = [MEMORY[0x277CBEA60] arrayWithObjects:v83 count:6];
-    v78 = [v75 setWithArray:v77];
-    [v8 setClasses:v78 forSelector:sel_modeEntityScoresFromCacheForModeEntityTypeIdentifier_modeIdentifier_modeConfigurationType_reply_ argumentIndex:0 ofReply:1];
+    v78 = [MEMORY[0x277CBEA60] arrayWithObjects:v83 count:6];
+    v79 = [v76 setWithArray:v78];
+    [v9 setClasses:v79 forSelector:sel_modeEntityScoresFromCacheForModeEntityTypeIdentifier_modeIdentifier_modeConfigurationType_reply_ argumentIndex:0 ofReply:1];
 
-    [connectionCopy setExportedInterface:v8];
+    [connectionCopy setExportedInterface:v9];
     [connectionCopy setExportedObject:selfCopy];
     [connectionCopy setInterruptionHandler:&__block_literal_global_88_0];
     [connectionCopy setInvalidationHandler:&__block_literal_global_91_1];
@@ -303,75 +304,79 @@ ATXStableContactRepresentationDatastore *__58__ATXModeEntityScorerServer_initWit
 
   else
   {
-    v8 = __atxlog_handle_notification_management();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = __atxlog_handle_notification_management(v6);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       [ATXModeEntityScorerServer listener:shouldAcceptNewConnection:];
     }
 
-    v76 = 0;
+    v77 = 0;
   }
 
-  v79 = *MEMORY[0x277D85DE8];
-  return v76;
+  return v77;
 }
 
-void __64__ATXModeEntityScorerServer_listener_shouldAcceptNewConnection___block_invoke()
+void __64__ATXModeEntityScorerServer_listener_shouldAcceptNewConnection___block_invoke(uint64_t a1)
 {
-  v0 = __atxlog_handle_notification_management();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEBUG))
+  v1 = __atxlog_handle_notification_management(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_DEBUG))
   {
-    __64__ATXModeEntityScorerServer_listener_shouldAcceptNewConnection___block_invoke_cold_1(v0);
+    __64__ATXModeEntityScorerServer_listener_shouldAcceptNewConnection___block_invoke_cold_1(v1);
   }
 }
 
-void __64__ATXModeEntityScorerServer_listener_shouldAcceptNewConnection___block_invoke_89()
+void __64__ATXModeEntityScorerServer_listener_shouldAcceptNewConnection___block_invoke_89(uint64_t a1)
 {
-  v0 = __atxlog_handle_notification_management();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEBUG))
+  v1 = __atxlog_handle_notification_management(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_DEBUG))
   {
-    __64__ATXModeEntityScorerServer_listener_shouldAcceptNewConnection___block_invoke_89_cold_1(v0);
+    __64__ATXModeEntityScorerServer_listener_shouldAcceptNewConnection___block_invoke_89_cold_1(v1);
   }
 }
 
 - (void)scoreContacts:(id)contacts mode:(unint64_t)mode reply:(id)reply
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   contactsCopy = contacts;
   replyCopy = reply;
+  v28 = 0u;
   v29 = 0u;
   v30 = 0u;
   v31 = 0u;
-  v32 = 0u;
-  v7 = [contactsCopy countByEnumeratingWithState:&v29 objects:v33 count:16];
+  v7 = [contactsCopy countByEnumeratingWithState:&v28 objects:v32 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v30;
+    v9 = *v29;
     do
     {
       v10 = contactsCopy;
-      for (i = 0; i != v8; ++i)
+      v11 = 0;
+      do
       {
-        if (*v30 != v9)
+        if (*v29 != v9)
         {
           objc_enumerationMutation(v10);
         }
 
-        v12 = *(*(&v29 + 1) + 8 * i);
+        v12 = *(*(&v28 + 1) + 8 * v11);
         result = [(_PASLazyPurgeableResult *)self->_lazyStableContactRepresentationDataStore result];
         cnContactId = [v12 cnContactId];
         rawIdentifier = [v12 rawIdentifier];
         v16 = [result stableContactRepresentationForCnContactId:cnContactId rawIdentifier:rawIdentifier];
         stableContactIdentifier = [v16 stableContactIdentifier];
         [v12 setStableContactIdentifier:stableContactIdentifier];
+
+        ++v11;
       }
 
+      while (v8 != v11);
       contactsCopy = v10;
-      v8 = [v10 countByEnumeratingWithState:&v29 objects:v33 count:16];
+      v7 = [v10 countByEnumeratingWithState:&v28 objects:v32 count:16];
+      v8 = v7;
     }
 
-    while (v8);
+    while (v7);
   }
 
   if (replyCopy)
@@ -382,7 +387,7 @@ void __64__ATXModeEntityScorerServer_listener_shouldAcceptNewConnection___block_
 
   else
   {
-    v18 = __atxlog_handle_notification_management();
+    v18 = __atxlog_handle_notification_management(v7);
     if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
       [ATXModeEntityScorerServer scoreContacts:mode:reply:];
@@ -395,8 +400,6 @@ void __64__ATXModeEntityScorerServer_listener_shouldAcceptNewConnection___block_
     v23 = NSStringFromClass(v22);
     [v19 raise:v20 format:{@"No reply handler provided for %@ in %@", v21, v23}];
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (void)rankedContactsForMode:(unint64_t)mode reply:(id)reply
@@ -410,7 +413,7 @@ void __64__ATXModeEntityScorerServer_listener_shouldAcceptNewConnection___block_
 
   else
   {
-    v9 = __atxlog_handle_notification_management();
+    v9 = __atxlog_handle_notification_management(0);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       [ATXModeEntityScorerServer scoreContacts:mode:reply:];
@@ -436,7 +439,7 @@ void __64__ATXModeEntityScorerServer_listener_shouldAcceptNewConnection___block_
 
   else
   {
-    v11 = __atxlog_handle_notification_management();
+    v11 = __atxlog_handle_notification_management(0);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       [ATXModeEntityScorerServer scoreContacts:mode:reply:];
@@ -463,7 +466,7 @@ void __64__ATXModeEntityScorerServer_listener_shouldAcceptNewConnection___block_
 
   else
   {
-    v11 = __atxlog_handle_notification_management();
+    v11 = __atxlog_handle_notification_management(0);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       [ATXModeEntityScorerServer scoreContacts:mode:reply:];
@@ -489,7 +492,7 @@ void __64__ATXModeEntityScorerServer_listener_shouldAcceptNewConnection___block_
 
   else
   {
-    v9 = __atxlog_handle_notification_management();
+    v9 = __atxlog_handle_notification_management(0);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       [ATXModeEntityScorerServer scoreContacts:mode:reply:];
@@ -616,7 +619,7 @@ uint64_t __47__ATXModeEntityScorerServer_rankedAppsForMode___block_invoke(uint64
 
   else
   {
-    v9 = __atxlog_handle_notification_management();
+    v9 = __atxlog_handle_notification_management(0);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       [ATXModeEntityScorerServer scoreContacts:mode:reply:];
@@ -660,7 +663,7 @@ uint64_t __50__ATXModeEntityScorerServer_rankedWidgetsForMode___block_invoke(uin
 
 - (void)scoreNotifications:(id)notifications mode:(unint64_t)mode reply:(id)reply
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   notificationsCopy = notifications;
   replyCopy = reply;
   if (replyCopy)
@@ -669,29 +672,29 @@ uint64_t __50__ATXModeEntityScorerServer_rankedWidgetsForMode___block_invoke(uin
     v11 = ATXModeToString();
     v12 = [(ATXModeEntityScorerServer *)self modeEntityScoresFromCacheForModeEntityTypeIdentifier:v10 modeIdentifier:v11 modeConfigurationType:0];
 
-    v26 = 0u;
-    v27 = 0u;
-    v24 = 0u;
     v25 = 0u;
+    v26 = 0u;
+    v23 = 0u;
+    v24 = 0u;
     v13 = notificationsCopy;
-    v14 = [v13 countByEnumeratingWithState:&v24 objects:v28 count:16];
+    v14 = [v13 countByEnumeratingWithState:&v23 objects:v27 count:16];
     if (v14)
     {
       v15 = v14;
-      v16 = *v25;
+      v16 = *v24;
       do
       {
         for (i = 0; i != v15; ++i)
         {
-          if (*v25 != v16)
+          if (*v24 != v16)
           {
             objc_enumerationMutation(v13);
           }
 
-          [(ATXModeEntityScorerServer *)self scoreNotificationModeEntity:*(*(&v24 + 1) + 8 * i) modeEntityScores:v12];
+          [(ATXModeEntityScorerServer *)self scoreNotificationModeEntity:*(*(&v23 + 1) + 8 * i) modeEntityScores:v12];
         }
 
-        v15 = [v13 countByEnumeratingWithState:&v24 objects:v28 count:16];
+        v15 = [v13 countByEnumeratingWithState:&v23 objects:v27 count:16];
       }
 
       while (v15);
@@ -702,7 +705,7 @@ uint64_t __50__ATXModeEntityScorerServer_rankedWidgetsForMode___block_invoke(uin
 
   else
   {
-    v18 = __atxlog_handle_notification_management();
+    v18 = __atxlog_handle_notification_management(0);
     if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
       [ATXModeEntityScorerServer scoreContacts:mode:reply:];
@@ -715,8 +718,6 @@ uint64_t __50__ATXModeEntityScorerServer_rankedWidgetsForMode___block_invoke(uin
     v22 = NSStringFromClass(v21);
     [v19 raise:v20 format:{@"No reply handler provided for %@ in %@", v12, v22}];
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (void)scoreNotificationModeEntity:(id)entity modeEntityScores:(id)scores
@@ -749,36 +750,22 @@ LABEL_11:
   v13 = [(ATXModeEntityScorerServer *)self scoredNotificationEntityForContactFromNotificationEntity:entityCopy notificationScores:scoresCopy];
   if (v12 | v13)
   {
-    if (!v12)
+    if (!v12 || ([v12 scoreMetadata], v14 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v14, "score"), v16 = v15, objc_msgSend(v13, "scoreMetadata"), v17 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v17, "score"), v19 = v18, v17, v14, v20 = v12, v16 < v19))
     {
-      goto LABEL_8;
-    }
-
-    scoreMetadata2 = [v12 scoreMetadata];
-    [scoreMetadata2 score];
-    v16 = v15;
-    scoreMetadata3 = [v13 scoreMetadata];
-    [scoreMetadata3 score];
-    v19 = v18;
-
-    v20 = v12;
-    if (v16 < v19)
-    {
-LABEL_8:
       v20 = v13;
     }
 
     v21 = v20;
-    scoreMetadata4 = [v21 scoreMetadata];
+    scoreMetadata2 = [v21 scoreMetadata];
   }
 
   else
   {
-    scoreMetadata4 = [(ATXModeEntityScorerServer *)self emptyModeEntityScore];
+    scoreMetadata2 = [(ATXModeEntityScorerServer *)self emptyModeEntityScore];
     v21 = 0;
   }
 
-  [entityCopy setScoreMetadata:scoreMetadata4];
+  [entityCopy setScoreMetadata:scoreMetadata2];
 
 LABEL_12:
 }
@@ -825,7 +812,7 @@ LABEL_12:
 
   else
   {
-    v9 = __atxlog_handle_notification_management();
+    v9 = __atxlog_handle_notification_management(0);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       [ATXModeEntityScorerServer scoreContacts:mode:reply:];
@@ -851,7 +838,7 @@ LABEL_12:
 
   else
   {
-    v11 = __atxlog_handle_notification_management();
+    v11 = __atxlog_handle_notification_management(0);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       [ATXModeEntityScorerServer scoreContacts:mode:reply:];
@@ -887,7 +874,7 @@ LABEL_12:
 
   else
   {
-    v12 = __atxlog_handle_notification_management();
+    v12 = __atxlog_handle_notification_management(0);
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       [ATXModeEntityScorerServer scoreContacts:mode:reply:];
@@ -940,7 +927,7 @@ void __69__ATXModeEntityScorerServer_rankedAppsForNotificationsForMode_reply___b
 
   else
   {
-    v14 = __atxlog_handle_notification_management();
+    v14 = __atxlog_handle_notification_management(0);
     if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       [ATXModeEntityScorerServer scoreContacts:mode:reply:];
@@ -984,7 +971,7 @@ void __81__ATXModeEntityScorerServer_rankedContactsForNotificationsForMode_optio
 
   else
   {
-    v11 = __atxlog_handle_notification_management();
+    v11 = __atxlog_handle_notification_management(0);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       [ATXModeEntityScorerServer scoreContacts:mode:reply:];
@@ -1010,7 +997,7 @@ void __81__ATXModeEntityScorerServer_rankedContactsForNotificationsForMode_optio
 
   else
   {
-    v9 = __atxlog_handle_notification_management();
+    v9 = __atxlog_handle_notification_management(0);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       [ATXModeEntityScorerServer scoreContacts:mode:reply:];
@@ -1087,7 +1074,7 @@ uint64_t __58__ATXModeEntityScorerServer_rankedAppsForDenyListForMode___block_in
 
   else
   {
-    v11 = __atxlog_handle_notification_management();
+    v11 = __atxlog_handle_notification_management(0);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       [ATXModeEntityScorerServer scoreContacts:mode:reply:];
@@ -1113,7 +1100,7 @@ uint64_t __58__ATXModeEntityScorerServer_rankedAppsForDenyListForMode___block_in
 
   else
   {
-    v11 = __atxlog_handle_notification_management();
+    v11 = __atxlog_handle_notification_management(0);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       [ATXModeEntityScorerServer scoreContacts:mode:reply:];
@@ -1130,32 +1117,32 @@ uint64_t __58__ATXModeEntityScorerServer_rankedAppsForDenyListForMode___block_in
 
 - (void)scoreEntities:(id)entities entityTypeIdentifier:(id)identifier mode:(unint64_t)mode modeConfigurationType:(int64_t)type
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   entitiesCopy = entities;
   identifierCopy = identifier;
   v11 = ATXModeToString();
   v12 = [(ATXModeEntityScorerServer *)self modeEntityScoresFromCacheForModeEntityTypeIdentifier:identifierCopy modeIdentifier:v11 modeConfigurationType:type];
 
-  v27 = 0u;
-  v28 = 0u;
-  v25 = 0u;
   v26 = 0u;
+  v27 = 0u;
+  v24 = 0u;
+  v25 = 0u;
   v13 = entitiesCopy;
-  v14 = [v13 countByEnumeratingWithState:&v25 objects:v29 count:16];
+  v14 = [v13 countByEnumeratingWithState:&v24 objects:v28 count:16];
   if (v14)
   {
     v15 = v14;
-    v16 = *v26;
+    v16 = *v25;
     do
     {
       for (i = 0; i != v15; ++i)
       {
-        if (*v26 != v16)
+        if (*v25 != v16)
         {
           objc_enumerationMutation(v13);
         }
 
-        v18 = *(*(&v25 + 1) + 8 * i);
+        v18 = *(*(&v24 + 1) + 8 * i);
         identifier = [v18 identifier];
         v20 = [v12 objectForKeyedSubscript:identifier];
 
@@ -1174,56 +1161,56 @@ uint64_t __58__ATXModeEntityScorerServer_rankedAppsForDenyListForMode___block_in
         [v18 setScoreMetadata:scoreMetadata];
       }
 
-      v15 = [v13 countByEnumeratingWithState:&v25 objects:v29 count:16];
+      v15 = [v13 countByEnumeratingWithState:&v24 objects:v28 count:16];
     }
 
     while (v15);
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (id)rankedEntitiesForMode:(unint64_t)mode entityTypeIdentifier:(id)identifier modeConfigurationType:(int64_t)type options:(unint64_t)options
 {
   optionsCopy = options;
-  v53 = *MEMORY[0x277D85DE8];
+  v54 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   v10 = ATXModeToString();
   selfCopy = self;
   v11 = [(ATXModeEntityScorerServer *)self modeEntityScoresFromCacheForModeEntityTypeIdentifier:identifierCopy modeIdentifier:v10 modeConfigurationType:type];
 
-  if ([identifierCopy isEqualToString:*MEMORY[0x277D41C90]])
+  v12 = [identifierCopy isEqualToString:*MEMORY[0x277D41C90]];
+  if (v12)
   {
     if ((optionsCopy & 1) == 0)
     {
       lazyStableContactRepresentationDataStore = self->_lazyStableContactRepresentationDataStore;
-      v13 = v11;
+      v14 = v11;
       result = [(_PASLazyPurgeableResult *)lazyStableContactRepresentationDataStore result];
-      v11 = [result refreshCnContactIdsGivenContactEntities:v13];
+      v11 = [result refreshCnContactIdsGivenContactEntities:v14];
 
       goto LABEL_22;
     }
 
-    v29 = __atxlog_handle_notification_management();
-    if (!os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
+    v31 = __atxlog_handle_notification_management(v12);
+    if (!os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
     {
       goto LABEL_21;
     }
 
     *buf = 0;
-    v30 = "Skipping contact id refresh because option was specified for ranked contact entities.";
+    v32 = "Skipping contact id refresh because option was specified for ranked contact entities.";
     goto LABEL_20;
   }
 
-  if (![identifierCopy isEqualToString:*MEMORY[0x277D41CD8]])
+  v16 = [identifierCopy isEqualToString:*MEMORY[0x277D41CD8]];
+  if (!v16)
   {
     goto LABEL_22;
   }
 
   if (optionsCopy)
   {
-    v29 = __atxlog_handle_notification_management();
-    if (!os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
+    v31 = __atxlog_handle_notification_management(v16);
+    if (!os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
     {
 LABEL_21:
 
@@ -1231,85 +1218,83 @@ LABEL_21:
     }
 
     *buf = 0;
-    v30 = "Skipping contact id refresh because option was specified for ranked notification entities.";
+    v32 = "Skipping contact id refresh because option was specified for ranked notification entities.";
 LABEL_20:
-    _os_log_impl(&dword_2263AA000, v29, OS_LOG_TYPE_DEFAULT, v30, buf, 2u);
+    _os_log_impl(&dword_2263AA000, v31, OS_LOG_TYPE_DEFAULT, v32, buf, 2u);
     goto LABEL_21;
   }
 
-  v41 = identifierCopy;
-  v44 = 0u;
+  v42 = identifierCopy;
   v45 = 0u;
   v46 = 0u;
   v47 = 0u;
-  v40 = v11;
-  obj = [v40 allValues];
-  v15 = [obj countByEnumeratingWithState:&v44 objects:v52 count:16];
-  if (v15)
+  v48 = 0u;
+  v41 = v11;
+  obj = [v41 allValues];
+  v17 = [obj countByEnumeratingWithState:&v45 objects:v53 count:16];
+  if (v17)
   {
-    v16 = v15;
-    v17 = *v45;
+    v18 = v17;
+    v19 = *v46;
     do
     {
-      for (i = 0; i != v16; ++i)
+      for (i = 0; i != v18; ++i)
       {
-        if (*v45 != v17)
+        if (*v46 != v19)
         {
           objc_enumerationMutation(obj);
         }
 
-        v19 = *(*(&v44 + 1) + 8 * i);
-        contactEntity = [v19 contactEntity];
+        v21 = *(*(&v45 + 1) + 8 * i);
+        contactEntity = [v21 contactEntity];
 
         if (contactEntity)
         {
           result2 = [(_PASLazyPurgeableResult *)selfCopy->_lazyStableContactRepresentationDataStore result];
-          contactEntity2 = [v19 contactEntity];
+          contactEntity2 = [v21 contactEntity];
           identifier = [contactEntity2 identifier];
-          v50 = identifier;
-          contactEntity3 = [v19 contactEntity];
-          v51 = contactEntity3;
-          v25 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v51 forKeys:&v50 count:1];
-          v26 = [result2 refreshCnContactIdsGivenContactEntities:v25];
+          v51 = identifier;
+          contactEntity3 = [v21 contactEntity];
+          v52 = contactEntity3;
+          v27 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v52 forKeys:&v51 count:1];
+          v28 = [result2 refreshCnContactIdsGivenContactEntities:v27];
 
-          allValues = [v26 allValues];
+          allValues = [v28 allValues];
           firstObject = [allValues firstObject];
-          [v19 setContactEntity:firstObject];
+          [v21 setContactEntity:firstObject];
         }
       }
 
-      v16 = [obj countByEnumeratingWithState:&v44 objects:v52 count:16];
+      v18 = [obj countByEnumeratingWithState:&v45 objects:v53 count:16];
     }
 
-    while (v16);
+    while (v18);
   }
 
-  v11 = v40;
-  identifierCopy = v41;
+  v11 = v41;
+  identifierCopy = v42;
 LABEL_22:
   allValues2 = [v11 allValues];
-  v32 = [allValues2 mutableCopy];
-  v33 = v32;
-  if (v32)
+  v34 = [allValues2 mutableCopy];
+  v35 = v34;
+  if (v34)
   {
-    v34 = v32;
+    v36 = v34;
   }
 
   else
   {
-    v34 = objc_opt_new();
+    v36 = objc_opt_new();
   }
 
-  v35 = v34;
+  v37 = v36;
 
-  v36 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"scoreMetadata.score" ascending:0];
-  v49 = v36;
-  v37 = [MEMORY[0x277CBEA60] arrayWithObjects:&v49 count:1];
-  [v35 sortUsingDescriptors:v37];
+  v38 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"scoreMetadata.score" ascending:0];
+  v50 = v38;
+  v39 = [MEMORY[0x277CBEA60] arrayWithObjects:&v50 count:1];
+  [v37 sortUsingDescriptors:v39];
 
-  v38 = *MEMORY[0x277D85DE8];
-
-  return v35;
+  return v37;
 }
 
 - (id)pathForModeEntityTypeIdentifier:(id)identifier modeIdentifier:(id)modeIdentifier modeConfigurationType:(int64_t)type
@@ -1345,7 +1330,7 @@ LABEL_22:
 
   else
   {
-    v13 = __atxlog_handle_notification_management();
+    v13 = __atxlog_handle_notification_management(0);
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       [ATXModeEntityScorerServer scoreContacts:mode:reply:];
@@ -1409,10 +1394,10 @@ LABEL_22:
     objc_autoreleasePoolPop(v35);
     if (!v28 || v16)
     {
-      v29 = __atxlog_handle_notification_management();
+      v30 = __atxlog_handle_notification_management(v29);
       modeIdentifierCopy = v38;
       identifierCopy = v39;
-      if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412802;
         v43 = v39;
@@ -1420,7 +1405,7 @@ LABEL_22:
         v45 = v38;
         v46 = 2112;
         v47 = v16;
-        _os_log_error_impl(&dword_2263AA000, v29, OS_LOG_TYPE_ERROR, "Couldn't deserialized cached model results for EntityType: %@, Mode: %@. Error: %@", buf, 0x20u);
+        _os_log_error_impl(&dword_2263AA000, v30, OS_LOG_TYPE_ERROR, "Couldn't deserialized cached model results for EntityType: %@, Mode: %@. Error: %@", buf, 0x20u);
       }
 
       v17 = 0;
@@ -1439,7 +1424,7 @@ LABEL_22:
 
   else
   {
-    v16 = __atxlog_handle_notification_management();
+    v16 = __atxlog_handle_notification_management(v13);
     if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412802;
@@ -1455,7 +1440,6 @@ LABEL_22:
   }
 
   objc_autoreleasePoolPop(v10);
-  v30 = *MEMORY[0x277D85DE8];
 
   return v17;
 }
@@ -1470,7 +1454,7 @@ LABEL_22:
     v5 = v4;
     if (!v3 || v4)
     {
-      v7 = __atxlog_handle_notification_management();
+      v7 = __atxlog_handle_notification_management(v4);
       if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
         [ATXModeEntityScorerServer dataFromFileHandle:];
@@ -1495,7 +1479,7 @@ LABEL_22:
 
 - (void)assignModeEntityScores:(unint64_t)scores entityTypeIdentifier:(id)identifier entityIdentifier:(id)entityIdentifier score:(double)score modeConfigurationType:(int64_t)type reply:(id)reply
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   entityIdentifierCopy = entityIdentifier;
   replyCopy = reply;
@@ -1521,34 +1505,35 @@ LABEL_22:
 
     if (v28)
     {
-      v29 = [v25 objectForKeyedSubscript:entityIdentifierCopy];
-      scoreMetadata = [v29 scoreMetadata];
+      v30 = [v25 objectForKeyedSubscript:entityIdentifierCopy];
+      scoreMetadata = [v30 scoreMetadata];
       [scoreMetadata setScore:score];
     }
 
     else
     {
-      v31 = __atxlog_handle_notification_management();
-      if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
+      v32 = __atxlog_handle_notification_management(v29);
+      if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315395;
-        v41 = "[ATXModeEntityScorerServer assignModeEntityScores:entityTypeIdentifier:entityIdentifier:score:modeConfigurationType:reply:]";
-        v42 = 2117;
-        v43 = entityIdentifierCopy;
-        _os_log_impl(&dword_2263AA000, v31, OS_LOG_TYPE_DEFAULT, "%s: Entity with identifier: '%{sensitive}@' was not in the cache. Creating a new entry.", buf, 0x16u);
+        v42 = "[ATXModeEntityScorerServer assignModeEntityScores:entityTypeIdentifier:entityIdentifier:score:modeConfigurationType:reply:]";
+        v43 = 2117;
+        v44 = entityIdentifierCopy;
+        _os_log_impl(&dword_2263AA000, v32, OS_LOG_TYPE_DEFAULT, "%s: Entity with identifier: '%{sensitive}@' was not in the cache. Creating a new entry.", buf, 0x16u);
       }
 
       if ([identifierCopy isEqual:@"apps"])
       {
-        v32 = [objc_alloc(MEMORY[0x277CEB390]) initWithBundleId:entityIdentifierCopy];
+        v33 = [objc_alloc(MEMORY[0x277CEB390]) initWithBundleId:entityIdentifierCopy];
       }
 
       else
       {
-        if (![identifierCopy isEqual:@"contacts"])
+        v34 = [identifierCopy isEqual:@"contacts"];
+        if (!v34)
         {
-          v39 = __atxlog_handle_notification_management();
-          if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
+          v40 = __atxlog_handle_notification_management(v34);
+          if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
           {
             [ATXModeEntityScorerServer assignModeEntityScores:entityTypeIdentifier:entityIdentifier:score:modeConfigurationType:reply:];
           }
@@ -1557,27 +1542,27 @@ LABEL_22:
           goto LABEL_18;
         }
 
-        v32 = [objc_alloc(MEMORY[0x277CEB420]) initWithDisplayName:entityIdentifierCopy rawIdentifier:entityIdentifierCopy cnContactId:entityIdentifierCopy];
+        v33 = [objc_alloc(MEMORY[0x277CEB420]) initWithDisplayName:entityIdentifierCopy rawIdentifier:entityIdentifierCopy cnContactId:entityIdentifierCopy];
       }
 
-      v29 = v32;
-      v33 = objc_alloc(MEMORY[0x277CEB698]);
+      v30 = v33;
+      v35 = objc_alloc(MEMORY[0x277CEB698]);
       uUID = [MEMORY[0x277CCAD78] UUID];
-      v35 = [v33 initWithScore:0 featureVector:uUID uuid:score];
-      [v29 setScoreMetadata:v35];
+      v37 = [v35 initWithScore:0 featureVector:uUID uuid:score];
+      [v30 setScoreMetadata:v37];
 
-      [v25 setObject:v29 forKeyedSubscript:entityIdentifierCopy];
+      [v25 setObject:v30 forKeyedSubscript:entityIdentifierCopy];
     }
 
 LABEL_18:
-    v36 = ATXModeToString();
-    v37 = [(ATXModeEntityScorerServer *)self saveScoredEntitiesToDisk:v25 mode:v36 modeEntityTypeIdentifier:identifierCopy modeConfigurationType:type];
+    v38 = ATXModeToString();
+    v39 = [(ATXModeEntityScorerServer *)self saveScoredEntitiesToDisk:v25 mode:v38 modeEntityTypeIdentifier:identifierCopy modeConfigurationType:type];
 
-    replyCopy[2](replyCopy, v37, 0);
+    replyCopy[2](replyCopy, v39, 0);
     goto LABEL_19;
   }
 
-  v22 = __atxlog_handle_notification_management();
+  v22 = __atxlog_handle_notification_management(0);
   if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
   {
     [ATXModeEntityScorerServer scoreContacts:mode:reply:];
@@ -1591,7 +1576,6 @@ LABEL_18:
   [v23 raise:v24 format:{@"No reply handler provided for %@ in %@", v25, v27}];
 
 LABEL_19:
-  v38 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)saveScoredEntitiesToDisk:(id)disk mode:(id)mode modeEntityTypeIdentifier:(id)identifier modeConfigurationType:(int64_t)type
@@ -1609,25 +1593,25 @@ LABEL_19:
   objc_autoreleasePoolPop(v15);
   if (v17)
   {
-    v18 = __atxlog_handle_notification_management();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+    v19 = __atxlog_handle_notification_management(v18);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
       [ATXModeEntityScorerServer saveScoredEntitiesToDisk:mode:modeEntityTypeIdentifier:modeConfigurationType:];
     }
 
 LABEL_10:
-    v21 = 0;
+    v22 = 0;
     goto LABEL_11;
   }
 
   v24 = 0;
-  v19 = [v16 writeToFile:v14 options:1073741825 error:&v24];
+  v20 = [v16 writeToFile:v14 options:1073741825 error:&v24];
   v17 = v24;
-  v20 = __atxlog_handle_notification_management();
-  v18 = v20;
-  if ((v19 & 1) == 0)
+  v21 = __atxlog_handle_notification_management(v17);
+  v19 = v21;
+  if ((v20 & 1) == 0)
   {
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_FAULT))
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_FAULT))
     {
       *buf = 138412802;
       v27 = identifierCopy;
@@ -1635,73 +1619,37 @@ LABEL_10:
       v29 = v14;
       v30 = 2112;
       v31 = v17;
-      _os_log_fault_impl(&dword_2263AA000, v18, OS_LOG_TYPE_FAULT, "FAILURE: Unable to write mode entity scores for mode entity type: %@ to path: %@. Error: %@", buf, 0x20u);
+      _os_log_fault_impl(&dword_2263AA000, v19, OS_LOG_TYPE_FAULT, "FAILURE: Unable to write mode entity scores for mode entity type: %@ to path: %@. Error: %@", buf, 0x20u);
     }
 
     goto LABEL_10;
   }
 
-  if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+  if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
     v27 = identifierCopy;
     v28 = 2112;
     v29 = v14;
-    _os_log_impl(&dword_2263AA000, v18, OS_LOG_TYPE_DEFAULT, "SUCCESS: Finished writing mode entity scores for mode entity type: %@ to path: %@.", buf, 0x16u);
+    _os_log_impl(&dword_2263AA000, v19, OS_LOG_TYPE_DEFAULT, "SUCCESS: Finished writing mode entity scores for mode entity type: %@ to path: %@.", buf, 0x16u);
   }
 
-  v21 = 1;
+  v22 = 1;
 LABEL_11:
 
   objc_autoreleasePoolPop(v13);
-  v22 = *MEMORY[0x277D85DE8];
-  return v21;
-}
-
-- (void)listener:shouldAcceptNewConnection:.cold.1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_2();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
+  return v22;
 }
 
 - (void)scoreContacts:mode:reply:.cold.1()
 {
   OUTLINED_FUNCTION_2_1();
-  v12 = *MEMORY[0x277D85DE8];
   NSStringFromSelector(v1);
   objc_claimAutoreleasedReturnValue();
   v2 = OUTLINED_FUNCTION_3_9();
   v3 = NSStringFromClass(v2);
   OUTLINED_FUNCTION_0_5();
-  OUTLINED_FUNCTION_1_0(&dword_2263AA000, v4, v5, "No reply handler provided for %@ in %@", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x277D85DE8];
-}
-
-- (void)dataFromFileHandle:.cold.1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_2();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)assignModeEntityScores:entityTypeIdentifier:entityIdentifier:score:modeConfigurationType:reply:.cold.1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_2();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)saveScoredEntitiesToDisk:mode:modeEntityTypeIdentifier:modeConfigurationType:.cold.1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_2();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_0(&dword_2263AA000, v4, v5, "No reply handler provided for %@ in %@", v6, v7, v8, v9);
 }
 
 @end

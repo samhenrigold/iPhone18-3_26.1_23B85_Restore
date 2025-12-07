@@ -124,7 +124,7 @@
 
 - (id)accessibilityCustomActions
 {
-  v12[2] = *MEMORY[0x29EDCA608];
+  v11[2] = *MEMORY[0x29EDCA608];
   v3 = objc_alloc(MEMORY[0x29EDC78E0]);
   v4 = accessibilityLocalizedString(@"alarm.delete");
   v5 = [v3 initWithName:v4 target:self selector:sel__axDeleteAlarm];
@@ -134,11 +134,9 @@
   v7 = accessibilityLocalizedString(@"alarm.toggle");
   v8 = [v6 initWithName:v7 target:self selector:sel__axToggleSwitch];
 
-  v12[0] = v5;
-  v12[1] = v8;
-  v9 = [MEMORY[0x29EDB8D80] arrayWithObjects:v12 count:2];
-
-  v10 = *MEMORY[0x29EDCA608];
+  v11[0] = v5;
+  v11[1] = v8;
+  v9 = [MEMORY[0x29EDB8D80] arrayWithObjects:v11 count:2];
 
   return v9;
 }
@@ -161,7 +159,7 @@
   return v2;
 }
 
-uint64_t __57__MTAAlarmCollectionViewCellAccessibility__axDeleteAlarm__block_invoke(uint64_t a1)
+void *__57__MTAAlarmCollectionViewCellAccessibility__axDeleteAlarm__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) deleteTapped:0];
   *(*(*(a1 + 40) + 8) + 24) = 1;
@@ -184,14 +182,14 @@ uint64_t __57__MTAAlarmCollectionViewCellAccessibility__axDeleteAlarm__block_inv
   return v2;
 }
 
-void __58__MTAAlarmCollectionViewCellAccessibility__axToggleSwitch__block_invoke(uint64_t a1)
+void __58__MTAAlarmCollectionViewCellAccessibility__axToggleSwitch__block_invoke(uint64_t a1, uint64_t a2)
 {
   objc_opt_class();
   WeakRetained = objc_loadWeakRetained((a1 + 40));
-  v3 = [WeakRetained safeValueForKey:@"enableSwitch"];
-  v4 = __UIAccessibilityCastAsClass();
+  v4 = [WeakRetained safeValueForKey:@"enableSwitch"];
+  v5 = __UIAccessibilityCastAsClass();
 
-  [v4 setOn:objc_msgSend(v4 animated:{"isOn") ^ 1, 1}];
+  [v5 setOn:objc_msgSend(v5 animated:{"isOn") ^ 1, 1}];
   *(*(*(a1 + 32) + 8) + 24) = 1;
 }
 

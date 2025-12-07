@@ -44,13 +44,13 @@ _BYTE *__30__BWMetadataSourceNode_start___block_invoke(uint64_t a1)
   return 1;
 }
 
-uint64_t __29__BWMetadataSourceNode_stop___block_invoke(uint64_t result)
+void *__29__BWMetadataSourceNode_stop___block_invoke(void *result)
 {
-  v1 = *(result + 32);
+  v1 = result[4];
   if (*(v1 + 128) == 1)
   {
     *(v1 + 128) = 0;
-    return [*(*(result + 32) + 16) markEndOfLiveOutput];
+    return [*(result[4] + 16) markEndOfLiveOutput];
   }
 
   return result;

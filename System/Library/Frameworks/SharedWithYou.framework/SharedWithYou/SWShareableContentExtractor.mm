@@ -108,56 +108,53 @@ void __85__SWShareableContentExtractor_retrieveShareableContentForSceneIdentifie
 
 - (void)retrieveAsynchronousLPMetadataForBundleIdentifier:(id)identifier sceneIdentifier:(id)sceneIdentifier completion:(id)completion
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   sceneIdentifierCopy = sceneIdentifier;
   completionCopy = completion;
   v11 = SWShareableContentLogHandle();
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
-    v13 = 138412546;
-    v14 = identifierCopy;
-    v15 = 2112;
-    v16 = sceneIdentifierCopy;
-    _os_log_impl(&dword_1BBC06000, v11, OS_LOG_TYPE_DEFAULT, "SWY Retrieving LPmetadata for bundle identifier and scene identifier %@, %@.", &v13, 0x16u);
+    v12 = 138412546;
+    v13 = identifierCopy;
+    v14 = 2112;
+    v15 = sceneIdentifierCopy;
+    _os_log_impl(&dword_1BBC06000, v11, OS_LOG_TYPE_DEFAULT, "SWY Retrieving LPmetadata for bundle identifier and scene identifier %@, %@.", &v12, 0x16u);
   }
 
   [(SWShareableContentExtractor *)self retrieveAsynchronousLPMetadataMatchingBundleIdentifier:identifierCopy sceneIdentifier:sceneIdentifierCopy completion:completionCopy];
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)retrieveAsynchronousLPMetadataForSceneIdentifier:(id)identifier completion:(id)completion
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   completionCopy = completion;
   v8 = SWShareableContentLogHandle();
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = 138412290;
-    v11 = identifierCopy;
-    _os_log_impl(&dword_1BBC06000, v8, OS_LOG_TYPE_DEFAULT, "SWY Retrieving LPmetadata for scene identifier %@.", &v10, 0xCu);
+    v9 = 138412290;
+    v10 = identifierCopy;
+    _os_log_impl(&dword_1BBC06000, v8, OS_LOG_TYPE_DEFAULT, "SWY Retrieving LPmetadata for scene identifier %@.", &v9, 0xCu);
   }
 
   [(SWShareableContentExtractor *)self retrieveAsynchronousLPMetadataMatchingBundleIdentifier:0 sceneIdentifier:identifierCopy completion:completionCopy];
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)retrieveAsynchronousLPMetadataForBundleIdentifier:(id)identifier completion:(id)completion
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   completionCopy = completion;
   v8 = SWShareableContentLogHandle();
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = 138412290;
-    v11 = identifierCopy;
-    _os_log_impl(&dword_1BBC06000, v8, OS_LOG_TYPE_DEFAULT, "SWY Retrieving LPmetadata for bundle identifier %@.", &v10, 0xCu);
+    v9 = 138412290;
+    v10 = identifierCopy;
+    _os_log_impl(&dword_1BBC06000, v8, OS_LOG_TYPE_DEFAULT, "SWY Retrieving LPmetadata for bundle identifier %@.", &v9, 0xCu);
   }
 
   [(SWShareableContentExtractor *)self retrieveAsynchronousLPMetadataMatchingBundleIdentifier:identifierCopy sceneIdentifier:0 completion:completionCopy];
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)retrieveAsynchronousLPMetadataWithCompletion:(id)completion
@@ -216,30 +213,30 @@ void __107__SWShareableContentExtractor_retrieveShareableContentMatchingBundleId
 
 void __107__SWShareableContentExtractor_retrieveShareableContentMatchingBundleIdentifier_sceneIdentifier_completion___block_invoke_67(uint64_t a1, void *a2)
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   v2 = a2;
-  v21 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(v2, "count")}];
+  v20 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(v2, "count")}];
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
   obj = v2;
-  v3 = [obj countByEnumeratingWithState:&v22 objects:v28 count:16];
+  v3 = [obj countByEnumeratingWithState:&v21 objects:v27 count:16];
   if (v3)
   {
     v4 = v3;
-    v19 = *v23;
+    v18 = *v22;
     do
     {
       v5 = 0;
       do
       {
-        if (*v23 != v19)
+        if (*v22 != v18)
         {
           objc_enumerationMutation(obj);
         }
 
-        v6 = *(*(&v22 + 1) + 8 * v5);
+        v6 = *(*(&v21 + 1) + 8 * v5);
         v7 = [SWShareableContent alloc];
         v8 = [v6 sceneIdentifier];
         v9 = [v6 bundleIdentifier];
@@ -251,13 +248,13 @@ void __107__SWShareableContentExtractor_retrieveShareableContentMatchingBundleId
         v15 = [(SWShareableContent *)v7 initWithSourceSceneIdentifier:v8 sourceBundleIdentifier:v9 metadata:v10 representations:v11 highlightURL:v12 initiatorHandle:v13 initiatorNameComponents:v14];
 
         [(SWShareableContent *)v15 setRepresentationProvider:*(a1 + 32)];
-        [v21 addObject:v15];
+        [v20 addObject:v15];
 
         ++v5;
       }
 
       while (v4 != v5);
-      v4 = [obj countByEnumeratingWithState:&v22 objects:v28 count:16];
+      v4 = [obj countByEnumeratingWithState:&v21 objects:v27 count:16];
     }
 
     while (v4);
@@ -267,12 +264,11 @@ void __107__SWShareableContentExtractor_retrieveShareableContentMatchingBundleId
   if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v27 = v21;
+    v26 = v20;
     _os_log_impl(&dword_1BBC06000, v16, OS_LOG_TYPE_DEFAULT, "Retrieved shareable content metadata: %@", buf, 0xCu);
   }
 
   (*(*(a1 + 40) + 16))();
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (void)retrieveAsynchronousLPMetadataMatchingBundleIdentifier:(id)identifier sceneIdentifier:(id)sceneIdentifier completion:(id)completion
@@ -317,18 +313,17 @@ void __113__SWShareableContentExtractor_retrieveAsynchronousLPMetadataMatchingBu
 
 void __113__SWShareableContentExtractor_retrieveAsynchronousLPMetadataMatchingBundleIdentifier_sceneIdentifier_completion___block_invoke_69(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = SWShareableContentLogHandle();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 138412290;
-    v7 = v3;
-    _os_log_impl(&dword_1BBC06000, v4, OS_LOG_TYPE_DEFAULT, "Retrieved asynchronous LP metadata: %@", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = v3;
+    _os_log_impl(&dword_1BBC06000, v4, OS_LOG_TYPE_DEFAULT, "Retrieved asynchronous LP metadata: %@", &v5, 0xCu);
   }
 
   (*(*(a1 + 32) + 16))();
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)presentMessageComposeSheetForContent:(id)content completion:(id)completion
@@ -350,49 +345,47 @@ void __113__SWShareableContentExtractor_retrieveAsynchronousLPMetadataMatchingBu
 
 void __79__SWShareableContentExtractor_presentMessageComposeSheetForContent_completion___block_invoke(uint64_t a1)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v2 = SWShareableContentLogHandle();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = [*(a1 + 32) sourceSceneIdentifier];
-    v7 = 138412290;
-    v8 = v3;
-    _os_log_impl(&dword_1BBC06000, v2, OS_LOG_TYPE_DEFAULT, "Presenting message compose sheet to share on screen content from source identifier: %@", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = v3;
+    _os_log_impl(&dword_1BBC06000, v2, OS_LOG_TYPE_DEFAULT, "Presenting message compose sheet to share on screen content from source identifier: %@", &v6, 0xCu);
   }
 
   v4 = [*(a1 + 40) remoteService];
   v5 = [*(a1 + 32) sourceSceneIdentifier];
   [v4 presentMessageComposeSheetForSceneIdentifier:v5 completion:*(a1 + 48)];
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)initiateBackgroundCollaborationForContent:(id)content faceTimeConversation:(id)conversation
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   contentCopy = content;
   conversationCopy = conversation;
   array = [MEMORY[0x1E695DF70] array];
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   remoteMembers = [conversationCopy remoteMembers];
-  v9 = [remoteMembers countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v9 = [remoteMembers countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v20;
+    v11 = *v19;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v20 != v11)
+        if (*v19 != v11)
         {
           objc_enumerationMutation(remoteMembers);
         }
 
-        handle = [*(*(&v19 + 1) + 8 * i) handle];
+        handle = [*(*(&v18 + 1) + 8 * i) handle];
         normalizedValue = [handle normalizedValue];
         if (normalizedValue)
         {
@@ -406,7 +399,7 @@ void __79__SWShareableContentExtractor_presentMessageComposeSheetForContent_comp
         }
       }
 
-      v10 = [remoteMembers countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v10 = [remoteMembers countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v10);
@@ -414,13 +407,11 @@ void __79__SWShareableContentExtractor_presentMessageComposeSheetForContent_comp
 
   uUID = [conversationCopy UUID];
   [(SWShareableContentExtractor *)self initiateBackgroundCollaborationForContent:contentCopy shareOptions:0 recipients:array faceTimeConversationUUID:uUID];
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (void)initiateBackgroundCollaborationForContent:(id)content shareOptions:(id)options recipients:(id)recipients faceTimeConversationUUID:(id)d
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   contentCopy = content;
   optionsCopy = options;
   recipientsCopy = recipients;
@@ -435,33 +426,33 @@ void __79__SWShareableContentExtractor_presentMessageComposeSheetForContent_comp
     if (v16)
     {
       v17 = *MEMORY[0x1E699F8E8];
-      v32[0] = *MEMORY[0x1E699F960];
-      v32[1] = v17;
-      v33[0] = v16;
-      v33[1] = MEMORY[0x1E695E118];
-      v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v33 forKeys:v32 count:2];
+      v31[0] = *MEMORY[0x1E699F960];
+      v31[1] = v17;
+      v32[0] = v16;
+      v32[1] = MEMORY[0x1E695E118];
+      v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v32 forKeys:v31 count:2];
       serviceWithDefaultShellEndpoint = [MEMORY[0x1E699FB78] serviceWithDefaultShellEndpoint];
       v20 = [MEMORY[0x1E699FB70] optionsWithDictionary:v18];
-      v29 = v13;
+      v28 = v13;
       v21 = recipientsCopy;
       v22 = contentCopy;
       v23 = v14;
       v24 = dCopy;
       v25 = optionsCopy;
       v26 = *MEMORY[0x1E697B760];
-      v30[0] = MEMORY[0x1E69E9820];
-      v30[1] = 3221225472;
-      v30[2] = __122__SWShareableContentExtractor_initiateBackgroundCollaborationForContent_shareOptions_recipients_faceTimeConversationUUID___block_invoke;
-      v30[3] = &unk_1E7FDDD68;
-      v31 = v16;
+      v29[0] = MEMORY[0x1E69E9820];
+      v29[1] = 3221225472;
+      v29[2] = __122__SWShareableContentExtractor_initiateBackgroundCollaborationForContent_shareOptions_recipients_faceTimeConversationUUID___block_invoke;
+      v29[3] = &unk_1E7FDDD68;
+      v30 = v16;
       v27 = v26;
       optionsCopy = v25;
       dCopy = v24;
       v14 = v23;
       contentCopy = v22;
       recipientsCopy = v21;
-      v13 = v29;
-      [serviceWithDefaultShellEndpoint openApplication:v27 withOptions:v20 completion:v30];
+      v13 = v28;
+      [serviceWithDefaultShellEndpoint openApplication:v27 withOptions:v20 completion:v29];
     }
 
     else
@@ -470,7 +461,7 @@ void __79__SWShareableContentExtractor_presentMessageComposeSheetForContent_comp
       if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v35 = contentCopy;
+        v34 = contentCopy;
         _os_log_impl(&dword_1BBC06000, v18, OS_LOG_TYPE_DEFAULT, "Start collaboration URL could not be constructed when trying to start collaboration for shareable content: %@", buf, 0xCu);
       }
     }
@@ -482,17 +473,15 @@ void __79__SWShareableContentExtractor_presentMessageComposeSheetForContent_comp
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v35 = contentCopy;
+      v34 = contentCopy;
       _os_log_impl(&dword_1BBC06000, v13, OS_LOG_TYPE_DEFAULT, "No recipients were specified when trying to start collaboration for shareable content: %@", buf, 0xCu);
     }
   }
-
-  v28 = *MEMORY[0x1E69E9840];
 }
 
 void __122__SWShareableContentExtractor_initiateBackgroundCollaborationForContent_shareOptions_recipients_faceTimeConversationUUID___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v5 = a3;
   v6 = SWShareableContentLogHandle();
   v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
@@ -501,10 +490,10 @@ void __122__SWShareableContentExtractor_initiateBackgroundCollaborationForConten
     if (v7)
     {
       v12 = *(a1 + 32);
-      v14 = 138412546;
-      v15 = v12;
-      v16 = 2112;
-      v17 = v5;
+      v13 = 138412546;
+      v14 = v12;
+      v15 = 2112;
+      v16 = v5;
       v9 = "Failed to background launch mobile SMS for startCollaborationURL %@ with error %@";
       v10 = v6;
       v11 = 22;
@@ -515,34 +504,32 @@ void __122__SWShareableContentExtractor_initiateBackgroundCollaborationForConten
   else if (v7)
   {
     v8 = *(a1 + 32);
-    v14 = 138412290;
-    v15 = v8;
+    v13 = 138412290;
+    v14 = v8;
     v9 = "Successfully background launched application MobileSMS for startCollaborationURL %@";
     v10 = v6;
     v11 = 12;
 LABEL_7:
-    _os_log_impl(&dword_1BBC06000, v10, OS_LOG_TYPE_DEFAULT, v9, &v14, v11);
+    _os_log_impl(&dword_1BBC06000, v10, OS_LOG_TYPE_DEFAULT, v9, &v13, v11);
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 + (id)_buildStartCollaborationURLForContentSceneIdentifier:(id)identifier shareOptions:(id)options recipients:(id)recipients faceTimeConversationUUID:(id)d
 {
-  v33[6] = *MEMORY[0x1E69E9840];
+  v32[6] = *MEMORY[0x1E69E9840];
   dCopy = d;
   v9 = MEMORY[0x1E696AF20];
   recipientsCopy = recipients;
   optionsCopy = options;
   identifierCopy = identifier;
-  v32 = [v9 componentsWithString:@"messages://open"];
-  v30 = MEMORY[0x1E695DF70];
+  v31 = [v9 componentsWithString:@"messages://open"];
+  v29 = MEMORY[0x1E695DF70];
   v13 = [MEMORY[0x1E696AF60] queryItemWithName:@"service" value:@"iMessage"];
-  v33[0] = v13;
+  v32[0] = v13;
   v14 = [MEMORY[0x1E696AF60] queryItemWithName:@"compose" value:@"false"];
-  v33[1] = v14;
+  v32[1] = v14;
   v15 = [MEMORY[0x1E696AF60] queryItemWithName:@"collaboration-initiate-send" value:@"true"];
-  v33[2] = v15;
+  v32[2] = v15;
   v16 = MEMORY[0x1E696AF60];
   if ([recipientsCopy count] == 1)
   {
@@ -557,15 +544,15 @@ LABEL_7:
   v18 = [recipientsCopy componentsJoinedByString:{@", "}];
 
   v19 = [v16 queryItemWithName:v17 value:v18];
-  v33[3] = v19;
+  v32[3] = v19;
   v20 = [MEMORY[0x1E696AF60] queryItemWithName:@"collaboration-scene-identifier" value:identifierCopy];
 
-  v33[4] = v20;
+  v32[4] = v20;
   v21 = [MEMORY[0x1E696AF60] queryItemWithName:@"collaboration-share-options" value:optionsCopy];
 
-  v33[5] = v21;
-  v22 = [MEMORY[0x1E695DEC8] arrayWithObjects:v33 count:6];
-  v23 = [v30 arrayWithArray:v22];
+  v32[5] = v21;
+  v22 = [MEMORY[0x1E695DEC8] arrayWithObjects:v32 count:6];
+  v23 = [v29 arrayWithArray:v22];
 
   if (dCopy)
   {
@@ -575,10 +562,8 @@ LABEL_7:
     [v23 addObject:v26];
   }
 
-  [v32 setQueryItems:v23];
-  v27 = [v32 URL];
-
-  v28 = *MEMORY[0x1E69E9840];
+  [v31 setQueryItems:v23];
+  v27 = [v31 URL];
 
   return v27;
 }
@@ -640,32 +625,32 @@ void __60__SWShareableContentExtractor__addContentExtractionRequest___block_invo
 
 void __71__SWShareableContentExtractor__processPendingContentExtractionRequests__block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
   v2 = [*(a1 + 32) pendingContentExtractionRequests];
-  v3 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v10;
+    v5 = *v9;
     do
     {
       v6 = 0;
       do
       {
-        if (*v10 != v5)
+        if (*v9 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        (*(*(*(&v9 + 1) + 8 * v6++) + 16))();
+        (*(*(*(&v8 + 1) + 8 * v6++) + 16))();
       }
 
       while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
     }
 
     while (v4);
@@ -673,8 +658,6 @@ void __71__SWShareableContentExtractor__processPendingContentExtractionRequests_
 
   v7 = [*(a1 + 32) pendingContentExtractionRequests];
   [v7 removeAllObjects];
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)loadRepresentationForContent:(id)content typeIdentifier:(id)identifier itemProviderIndex:(int64_t)index completionHandler:(id)handler
@@ -700,25 +683,23 @@ void __71__SWShareableContentExtractor__processPendingContentExtractionRequests_
 
 void __111__SWShareableContentExtractor_loadRepresentationForContent_typeIdentifier_itemProviderIndex_completionHandler___block_invoke(uint64_t a1)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v2 = SWShareableContentLogHandle();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
     v4 = [*(a1 + 40) sourceSceneIdentifier];
-    v9 = 138412546;
-    v10 = v3;
-    v11 = 2112;
-    v12 = v4;
-    _os_log_impl(&dword_1BBC06000, v2, OS_LOG_TYPE_DEFAULT, "Retrieving representation with type identifier: %@ from on screen content with source identifier: %@", &v9, 0x16u);
+    v8 = 138412546;
+    v9 = v3;
+    v10 = 2112;
+    v11 = v4;
+    _os_log_impl(&dword_1BBC06000, v2, OS_LOG_TYPE_DEFAULT, "Retrieving representation with type identifier: %@ from on screen content with source identifier: %@", &v8, 0x16u);
   }
 
   v5 = [*(a1 + 48) remoteService];
   v6 = [*(a1 + 40) sourceBundleIdentifier];
   v7 = [*(a1 + 40) sourceSceneIdentifier];
   [v5 loadRepresentationFromBundleIdentifier:v6 sceneIdentifier:v7 requestedTypeIdentifier:*(a1 + 32) requestedItemProviderIndex:*(a1 + 64) completionHandler:*(a1 + 56)];
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (SLDServiceProxy)serviceProxy
@@ -749,34 +730,31 @@ void __111__SWShareableContentExtractor_loadRepresentationForContent_typeIdentif
 
 - (void)serviceProxyDidConnect:(id)connect
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v4 = SWShareableContentLogHandle();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     pendingContentExtractionRequests = [(SWShareableContentExtractor *)self pendingContentExtractionRequests];
-    v7 = 138412546;
+    v6 = 138412546;
     selfCopy = self;
-    v9 = 2048;
-    v10 = [pendingContentExtractionRequests count];
-    _os_log_impl(&dword_1BBC06000, v4, OS_LOG_TYPE_INFO, "Service proxy connected for shareable content extractor: %@. Servicing pending extraction requests: %tu", &v7, 0x16u);
+    v8 = 2048;
+    v9 = [pendingContentExtractionRequests count];
+    _os_log_impl(&dword_1BBC06000, v4, OS_LOG_TYPE_INFO, "Service proxy connected for shareable content extractor: %@. Servicing pending extraction requests: %tu", &v6, 0x16u);
   }
 
   [(SWShareableContentExtractor *)self _processPendingContentExtractionRequests];
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)serviceProxyDidDisconnect:(id)disconnect
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v4 = SWShareableContentLogHandle();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
-    v6 = 138412290;
+    v5 = 138412290;
     selfCopy = self;
-    _os_log_impl(&dword_1BBC06000, v4, OS_LOG_TYPE_INFO, "Service proxy disconnected for shareable content extractor: %@", &v6, 0xCu);
+    _os_log_impl(&dword_1BBC06000, v4, OS_LOG_TYPE_INFO, "Service proxy disconnected for shareable content extractor: %@", &v5, 0xCu);
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 @end

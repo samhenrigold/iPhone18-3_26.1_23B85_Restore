@@ -13,7 +13,6 @@
 - (_SYSharedServiceDB)initWithServiceName:(id)name;
 - (int64_t)_LOCKED_getClientVersion:(id)version;
 - (int64_t)schemaVersionForClient:(id)client;
-- (void)_LOCKED_ensureDBExists;
 - (void)_LOCKED_ensureSchemaVersionsTableInDB:(sqlite3 *)b;
 - (void)_LOCKED_runSchemaUpdate:(id)update forClientNamed:(id)named;
 - (void)_LOCKED_setVersion:(int64_t)version forClient:(id)client;
@@ -35,18 +34,18 @@
 
   p_name = &self->_name;
   name = self->_name;
-  v10 = 0;
-  v2 = [(_SYSharedServiceDB *)self _LOCKED_createOrOpenDBForServiceName:name error:&v10];
-  v6 = v10;
+  v11 = 0;
+  v2 = [(_SYSharedServiceDB *)self _LOCKED_createOrOpenDBForServiceName:name error:&v11];
+  v6 = v11;
   if (v2)
   {
     schemaSetupCallbacks = self->_schemaSetupCallbacks;
-    v9[0] = MEMORY[0x1E69E9820];
-    v9[1] = 3221225472;
-    v9[2] = __44___SYSharedServiceDB__LOCKED_ensureDBExists__block_invoke;
-    v9[3] = &unk_1E86C9F00;
-    v9[4] = self;
-    [(NSMutableDictionary *)schemaSetupCallbacks enumerateKeysAndObjectsUsingBlock:v9];
+    v10[0] = MEMORY[0x1E69E9820];
+    v10[1] = 3221225472;
+    v10[2] = __44___SYSharedServiceDB__LOCKED_ensureDBExists__block_invoke;
+    v10[3] = &unk_1E86C9F00;
+    v10[4] = self;
+    [(NSMutableDictionary *)schemaSetupCallbacks enumerateKeysAndObjectsUsingBlock:v10];
   }
 
   else
@@ -56,6 +55,7 @@
       [SYIncomingSyncAllObjectsSession _continueProcessing];
     }
 
+    v8 = qword_1EDE73430;
     if (os_log_type_enabled(qword_1EDE73430, OS_LOG_TYPE_ERROR))
     {
       [(_SYSharedServiceDB *)p_name _LOCKED_ensureDBExists];
@@ -63,15 +63,6 @@
   }
 
   return v2;
-}
-
-- (void)_LOCKED_ensureDBExists
-{
-  v8 = *MEMORY[0x1E69E9840];
-  v7 = *self;
-  OUTLINED_FUNCTION_2_0();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 + (void)initialize
@@ -85,7 +76,7 @@
 
 + (void)pairingStorePathWasReset
 {
-  v3 = GetServiceInstanceTable();
+  v3 = GetServiceInstanceTable(self);
   os_unfair_lock_lock(&__tableLock);
   v2 = objc_autoreleasePoolPush();
   [v3 removeAllObjects];
@@ -96,7 +87,7 @@
 + (id)sharedInstanceForServiceName:(id)name
 {
   nameCopy = name;
-  v4 = GetServiceInstanceTable();
+  v4 = GetServiceInstanceTable(nameCopy);
   os_unfair_lock_lock(&__tableLock);
   v5 = [v4 objectForKey:nameCopy];
   if (!v5)
@@ -159,16 +150,16 @@
 
 - (BOOL)_ensureParentExists:(id)exists error:(id *)error
 {
-  v24[3] = *MEMORY[0x1E69E9840];
+  v23[3] = *MEMORY[0x1E69E9840];
   existsCopy = exists;
   v7 = *MEMORY[0x1E696A328];
-  v23[0] = *MEMORY[0x1E696A360];
-  v23[1] = v7;
-  v24[0] = @"mobile";
-  v24[1] = @"mobile";
-  v23[2] = *MEMORY[0x1E696A370];
-  v24[2] = &unk_1F5AE2650;
-  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v24 forKeys:v23 count:3];
+  v22[0] = *MEMORY[0x1E696A360];
+  v22[1] = v7;
+  v23[0] = @"mobile";
+  v23[1] = @"mobile";
+  v22[2] = *MEMORY[0x1E696A370];
+  v23[2] = &unk_1F5AE2650;
+  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v23 forKeys:v22 count:3];
   v9 = 0;
   v10 = *MEMORY[0x1E696A250];
   while (1)
@@ -176,9 +167,9 @@
 
     defaultManager = [MEMORY[0x1E696AC08] defaultManager];
     stringByDeletingLastPathComponent = [existsCopy stringByDeletingLastPathComponent];
-    v22 = 0;
-    v13 = [defaultManager createDirectoryAtPath:stringByDeletingLastPathComponent withIntermediateDirectories:1 attributes:v8 error:&v22];
-    v9 = v22;
+    v21 = 0;
+    v13 = [defaultManager createDirectoryAtPath:stringByDeletingLastPathComponent withIntermediateDirectories:1 attributes:v8 error:&v21];
+    v9 = v21;
 
     if (v13)
     {
@@ -237,7 +228,6 @@ LABEL_9:
 
 LABEL_14:
 
-  v20 = *MEMORY[0x1E69E9840];
   return v9 == 0;
 }
 
@@ -360,19 +350,17 @@ LABEL_14:
   versionCopy = version;
   clientCopy = client;
   ppStmt = 0;
-  v7 = [(_SYSharedServiceDB *)self _LOCKED_hasSchemaVersionForClient:clientCopy];
-  db = self->_db;
-  if (v7)
+  if ([(_SYSharedServiceDB *)self _LOCKED_hasSchemaVersionForClient:clientCopy])
   {
-    v9 = "UPDATE _clients SET schema_version=?, tstamp=datetime('now') WHERE name=?";
+    v7 = "UPDATE _clients SET schema_version=?, tstamp=datetime('now') WHERE name=?";
   }
 
   else
   {
-    v9 = "INSERT INTO _clients (schema_version, name, tstamp) VALUES (?, ?, datetime('now'))";
+    v7 = "INSERT INTO _clients (schema_version, name, tstamp) VALUES (?, ?, datetime('now'))";
   }
 
-  if (sqlite3_prepare_v2(self->_db, v9, -1, &ppStmt, 0))
+  if (sqlite3_prepare_v2(self->_db, v7, -1, &ppStmt, 0))
   {
     if (_sync_log_facilities_pred != -1)
     {
@@ -389,8 +377,8 @@ LABEL_14:
   {
     sqlite3_bind_int(ppStmt, 1, versionCopy);
     sqlite3_bind_text(ppStmt, 2, [clientCopy UTF8String], -1, 0);
-    v10 = sqlite3_step(ppStmt);
-    if (v10 && v10 != 101)
+    v8 = sqlite3_step(ppStmt);
+    if (v8 && v8 != 101)
     {
       if (_sync_log_facilities_pred != -1)
       {
@@ -609,9 +597,10 @@ LABEL_14:
       [SYIncomingSyncAllObjectsSession _continueProcessing];
     }
 
+    v11 = qword_1EDE73430;
     if (os_log_type_enabled(qword_1EDE73430, OS_LOG_TYPE_ERROR))
     {
-      [_SYSharedServiceDB _runTransactionBlock:? exclusive:?];
+      [(_SYSharedServiceDB *)&errmsg _runTransactionBlock:v9 exclusive:v11];
     }
 
     if (errmsg)
@@ -730,14 +719,13 @@ LABEL_12:
   os_unfair_lock_unlock(&self->_lock);
 
 LABEL_15:
-  v11 = *MEMORY[0x1E69E9840];
   return v10;
 }
 
 + (void)_releaseSharedInstanceForServiceName:(id)name
 {
   nameCopy = name;
-  v3 = GetServiceInstanceTable();
+  v3 = GetServiceInstanceTable(nameCopy);
   os_unfair_lock_lock(&__tableLock);
   v4 = objc_autoreleasePoolPush();
   [v3 removeObjectForKey:nameCopy];
@@ -767,60 +755,42 @@ LABEL_15:
 
 - (void)_ensureParentExists:(void *)a1 error:(void *)a2 .cold.2(void **a1, void *a2)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v2 = *a1;
   v3 = a2;
   v4 = _SYObfuscate(v2);
-  v6 = 138543362;
-  v7 = v4;
-  _os_log_error_impl(&dword_1DF835000, v3, OS_LOG_TYPE_ERROR, "Failed to set do-not-backup property on persistent data folder: %{public}@", &v6, 0xCu);
-
-  v5 = *MEMORY[0x1E69E9840];
+  v5 = 138543362;
+  v6 = v4;
+  _os_log_error_impl(&dword_1DF835000, v3, OS_LOG_TYPE_ERROR, "Failed to set do-not-backup property on persistent data folder: %{public}@", &v5, 0xCu);
 }
 
 - (void)_LOCKED_hasSchemaVersionForClient:.cold.2()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1_2();
-  OUTLINED_FUNCTION_2_0();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_2_0(&dword_1DF835000, v0, v1, "Error checking inclusion of client %{public}@: %{companionsync:sqlite3err}d");
+  _os_log_error_impl(v2, v3, v4, v5, v6, 0x12u);
 }
 
 - (void)_LOCKED_getClientVersion:.cold.2()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1_2();
-  OUTLINED_FUNCTION_2_0();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_2_0(&dword_1DF835000, v0, v1, "Error fetching schema version for %{public}@: %{companionsync:sqlite3err}d");
+  _os_log_error_impl(v2, v3, v4, v5, v6, 0x12u);
 }
 
 - (void)_LOCKED_setVersion:forClient:.cold.2()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1_2();
-  OUTLINED_FUNCTION_2_0();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_2_0(&dword_1DF835000, v0, v1, "Error setting schema version for %{public}@: %{companionsync:sqlite3err}d");
+  _os_log_error_impl(v2, v3, v4, v5, v6, 0x12u);
 }
 
 - (void)_LOCKED_createOrOpenDBForServiceName:(int)a1 error:(NSObject *)a2 .cold.2(int a1, NSObject *a2)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v3[0] = 67109120;
-  v3[1] = a1;
-  _os_log_error_impl(&dword_1DF835000, a2, OS_LOG_TYPE_ERROR, "Failed to open SQLite DB: %{companionsync:sqlite3err}d", v3, 8u);
-  v2 = *MEMORY[0x1E69E9840];
-}
-
-- (void)_runTransactionBlock:(void *)a1 exclusive:.cold.2(void *a1)
-{
-  v7 = *MEMORY[0x1E69E9840];
-  *a1;
-  OUTLINED_FUNCTION_2_0();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x12u);
-  v6 = *MEMORY[0x1E69E9840];
+  v3 = *MEMORY[0x1E69E9840];
+  v2[0] = 67109120;
+  v2[1] = a1;
+  _os_log_error_impl(&dword_1DF835000, a2, OS_LOG_TYPE_ERROR, "Failed to open SQLite DB: %{companionsync:sqlite3err}d", v2, 8u);
 }
 
 @end

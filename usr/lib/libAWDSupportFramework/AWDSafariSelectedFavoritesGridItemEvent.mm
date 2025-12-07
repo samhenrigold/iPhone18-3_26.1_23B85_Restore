@@ -3,6 +3,9 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)displayContextAsString:(int)string;
+- (id)sectionAsString:(int)string;
+- (id)typeAsString:(int)string;
 - (int)StringAsDisplayContext:(id)context;
 - (int)StringAsSection:(id)section;
 - (int)StringAsType:(id)type;
@@ -96,6 +99,19 @@
   *&self->_has = *&self->_has & 0xBF | v3;
 }
 
+- (id)typeAsString:(int)string
+{
+  if (string >= 4)
+  {
+    return [MEMORY[0x29EDBA0F8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    return off_29EE32DC0[string];
+  }
+}
+
 - (int)StringAsType:(id)type
 {
   if ([type isEqualToString:@"UNKNOWN_TYPE"])
@@ -149,6 +165,21 @@
   *&self->_has = *&self->_has & 0xEF | v3;
 }
 
+- (id)displayContextAsString:(int)string
+{
+  if (!string)
+  {
+    return @"NEW_TAB_PAGE";
+  }
+
+  if (string == 1)
+  {
+    return @"FOCUSED_URL_FIELD";
+  }
+
+  return [MEMORY[0x29EDBA0F8] stringWithFormat:@"(unknown: %i)", *&string];
+}
+
 - (int)StringAsDisplayContext:(id)context
 {
   if ([context isEqualToString:@"NEW_TAB_PAGE"])
@@ -188,6 +219,19 @@
   }
 
   *&self->_has = *&self->_has & 0xDF | v3;
+}
+
+- (id)sectionAsString:(int)string
+{
+  if (string >= 3)
+  {
+    return [MEMORY[0x29EDBA0F8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    return off_29EE32DE0[string];
+  }
 }
 
 - (int)StringAsSection:(id)section
@@ -354,7 +398,6 @@ LABEL_23:
   has = self->_has;
   if ((has & 8) != 0)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
     has = self->_has;
     if ((has & 2) == 0)
@@ -374,7 +417,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  row = self->_row;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 1) == 0)
@@ -389,7 +431,6 @@ LABEL_4:
   }
 
 LABEL_11:
-  itemsPerRow = self->_itemsPerRow;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 4) == 0)
@@ -404,7 +445,6 @@ LABEL_5:
   }
 
 LABEL_12:
-  sectionIndex = self->_sectionIndex;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 0x40) == 0)
@@ -416,7 +456,6 @@ LABEL_6:
     }
 
 LABEL_14:
-    displayContext = self->_displayContext;
     PBDataWriterWriteInt32Field();
     if ((*&self->_has & 0x20) == 0)
     {
@@ -427,7 +466,6 @@ LABEL_14:
   }
 
 LABEL_13:
-  type = self->_type;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((has & 0x10) != 0)
@@ -442,7 +480,6 @@ LABEL_7:
   }
 
 LABEL_15:
-  section = self->_section;
 
   PBDataWriterWriteInt32Field();
 }

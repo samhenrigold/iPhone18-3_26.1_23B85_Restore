@@ -278,11 +278,11 @@ LABEL_12:
     [v29 setTranslatesAutoresizingMaskIntoConstraints:0];
     v35 = [[EKUILabeledAvatarView alloc] initWithIdentity:sharee placement:0 options:0];
     [(EKUILabeledAvatarView *)v35 setTranslatesAutoresizingMaskIntoConstraints:0];
-    contentView = [(EKUICenteredTextTableViewCell *)v6 contentView];
-    [contentView addSubview:v29];
+    v36 = objc_msgSend_contentView(v6);
+    [v36 addSubview:v29];
 
-    contentView2 = [(EKUICenteredTextTableViewCell *)v6 contentView];
-    [contentView2 addSubview:v35];
+    v37 = objc_msgSend_contentView(v6);
+    [v37 addSubview:v35];
 
     v38 = 0x1E696A000uLL;
     if ([v22 length])
@@ -301,8 +301,8 @@ LABEL_12:
 
       [v39 setNumberOfLines:1];
       [v39 setTranslatesAutoresizingMaskIntoConstraints:0];
-      contentView3 = [(EKUICenteredTextTableViewCell *)v6 contentView];
-      [contentView3 addSubview:v39];
+      v45 = objc_msgSend_contentView(v6);
+      [v45 addSubview:v39];
 
       v46 = _NSDictionaryOfVariableBindings(&cfstr_TitleAvatarAdd.isa, v29, v35, v39, 0);
       v47 = MEMORY[0x1E696ACD8];
@@ -343,8 +343,8 @@ LABEL_12:
     [v61 setActive:1];
 
     centerYAnchor = [(EKUILabeledAvatarView *)v35 centerYAnchor];
-    contentView4 = [(EKUICenteredTextTableViewCell *)v6 contentView];
-    centerYAnchor2 = [contentView4 centerYAnchor];
+    v63 = objc_msgSend_contentView(v6);
+    centerYAnchor2 = [v63 centerYAnchor];
     v65 = [centerYAnchor constraintEqualToAnchor:centerYAnchor2];
     [v65 setActive:1];
   }

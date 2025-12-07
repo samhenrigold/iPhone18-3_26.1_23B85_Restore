@@ -10,10 +10,10 @@
   if (!lazy cache variable for type metadata for Published<[UInt64 : AttachmentLedger_AttachmentEncryption]>)
   {
     __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSDys6UInt64V14CopresenceCore017AttachmentLedger_D10EncryptionVGMd, &_sSDys6UInt64V14CopresenceCore017AttachmentLedger_D10EncryptionVGMR);
-    v0 = type metadata accessor for Published();
-    if (!v1)
+    v1 = type metadata accessor for Published();
+    if (!v2)
     {
-      atomic_store(v0, &lazy cache variable for type metadata for Published<[UInt64 : AttachmentLedger_AttachmentEncryption]>);
+      atomic_store(v1, &lazy cache variable for type metadata for Published<[UInt64 : AttachmentLedger_AttachmentEncryption]>);
     }
   }
 }

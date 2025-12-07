@@ -1,8 +1,11 @@
 @interface AWDMETRICSCellularPowerLog1xEVDORRCStateChange
 - (BOOL)isEqual:(id)equal;
+- (id)causeAsString:(int)string;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)prevStateAsString:(int)string;
+- (id)stateAsString:(int)string;
 - (int)StringAsCause:(id)cause;
 - (int)StringAsPrevState:(id)state;
 - (int)StringAsState:(id)state;
@@ -48,6 +51,21 @@
   }
 
   *&self->_has = *&self->_has & 0xEF | v3;
+}
+
+- (id)stateAsString:(int)string
+{
+  if (string >= 0x15)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_278261398[string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsState:(id)state
@@ -192,6 +210,21 @@
   }
 
   *&self->_has = *&self->_has & 0xFB | v3;
+}
+
+- (id)prevStateAsString:(int)string
+{
+  if (string >= 0x15)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_278261398[string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsPrevState:(id)state
@@ -366,6 +399,34 @@
   }
 
   *&self->_has = *&self->_has & 0xFD | v3;
+}
+
+- (id)causeAsString:(int)string
+{
+  if (string)
+  {
+    if (string == 254)
+    {
+      v4 = @"NONE";
+    }
+
+    else if (string == 1)
+    {
+      v4 = @"MT";
+    }
+
+    else
+    {
+      v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+    }
+  }
+
+  else
+  {
+    v4 = @"MO";
+  }
+
+  return v4;
 }
 
 - (int)StringAsCause:(id)cause
@@ -547,7 +608,6 @@ LABEL_27:
   has = self->_has;
   if (has)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
     has = self->_has;
     if ((has & 0x10) == 0)
@@ -567,7 +627,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  state = self->_state;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((has & 4) == 0)
@@ -582,7 +641,6 @@ LABEL_4:
   }
 
 LABEL_13:
-  prevState = self->_prevState;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((has & 8) == 0)
@@ -597,7 +655,6 @@ LABEL_5:
   }
 
 LABEL_14:
-  prevStateDurMs = self->_prevStateDurMs;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x20) == 0)
@@ -612,12 +669,10 @@ LABEL_6:
   }
 
 LABEL_15:
-  subsId = self->_subsId;
   PBDataWriterWriteUint32Field();
   if ((*&self->_has & 2) != 0)
   {
 LABEL_7:
-    cause = self->_cause;
     PBDataWriterWriteInt32Field();
   }
 

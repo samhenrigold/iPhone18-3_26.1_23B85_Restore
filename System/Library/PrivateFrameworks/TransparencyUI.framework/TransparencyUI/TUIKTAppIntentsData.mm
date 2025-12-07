@@ -46,7 +46,7 @@ uint64_t __27__TUIKTAppIntentsData_init__block_invoke()
 
 - (void)statusWithCompletion:(id)completion
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   if (TRANSPARENCYUI_DEFAULT_LOG_BLOCK_18 != -1)
   {
@@ -67,26 +67,25 @@ uint64_t __27__TUIKTAppIntentsData_init__block_invoke()
   if (os_log_type_enabled(TRANSPARENCYUI_DEFAULT_LOG_INTERNAL_18, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v13 = "[TUIKTAppIntentsData statusWithCompletion:]";
-    v14 = 2114;
+    v12 = "[TUIKTAppIntentsData statusWithCompletion:]";
+    v13 = 2114;
     selfCopy = self;
     _os_log_impl(&dword_26F50B000, v5, OS_LOG_TYPE_DEFAULT, "%s getting CKV status on %{public}@", buf, 0x16u);
   }
 
   objc_initWeak(buf, self);
   v6 = dispatch_get_global_queue(33, 0);
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __44__TUIKTAppIntentsData_statusWithCompletion___block_invoke_9;
-  v9[3] = &unk_279DDAF50;
-  objc_copyWeak(&v11, buf);
-  v10 = completionCopy;
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __44__TUIKTAppIntentsData_statusWithCompletion___block_invoke_9;
+  v8[3] = &unk_279DDAF50;
+  objc_copyWeak(&v10, buf);
+  v9 = completionCopy;
   v7 = completionCopy;
-  dispatch_async(v6, v9);
+  dispatch_async(v6, v8);
 
-  objc_destroyWeak(&v11);
+  objc_destroyWeak(&v10);
   objc_destroyWeak(buf);
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __44__TUIKTAppIntentsData_statusWithCompletion___block_invoke()
@@ -105,15 +104,15 @@ uint64_t __44__TUIKTAppIntentsData_statusWithCompletion___block_invoke_6()
 
 void __44__TUIKTAppIntentsData_statusWithCompletion___block_invoke_9(uint64_t a1)
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v3 = WeakRetained;
   if (WeakRetained)
   {
     v4 = [WeakRetained ktStatus];
-    v21 = 0;
-    v5 = [v4 status:&v21];
-    v6 = v21;
+    v20 = 0;
+    v5 = [v4 status:&v20];
+    v6 = v20;
 
     if (TRANSPARENCYUI_DEFAULT_LOG_BLOCK_18 != -1)
     {
@@ -124,13 +123,13 @@ void __44__TUIKTAppIntentsData_statusWithCompletion___block_invoke_9(uint64_t a1
     if (os_log_type_enabled(TRANSPARENCYUI_DEFAULT_LOG_INTERNAL_18, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315906;
-      v23 = "[TUIKTAppIntentsData statusWithCompletion:]_block_invoke_2";
-      v24 = 2114;
-      v25 = v5;
-      v26 = 2114;
-      v27 = v6;
-      v28 = 2114;
-      v29 = v3;
+      v22 = "[TUIKTAppIntentsData statusWithCompletion:]_block_invoke_2";
+      v23 = 2114;
+      v24 = v5;
+      v25 = 2114;
+      v26 = v6;
+      v27 = 2114;
+      v28 = v3;
       _os_log_impl(&dword_26F50B000, v7, OS_LOG_TYPE_DEFAULT, "%s got CKV status = %{public}@, error = %{public}@ on %{public}@", buf, 0x2Au);
     }
 
@@ -187,7 +186,7 @@ void __44__TUIKTAppIntentsData_statusWithCompletion___block_invoke_9(uint64_t a1
     if (os_log_type_enabled(TRANSPARENCYUI_DEFAULT_LOG_INTERNAL_18, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315138;
-      v23 = "[TUIKTAppIntentsData statusWithCompletion:]_block_invoke";
+      v22 = "[TUIKTAppIntentsData statusWithCompletion:]_block_invoke";
       _os_log_impl(&dword_26F50B000, v14, OS_LOG_TYPE_ERROR, "%s, block strong self is nil", buf, 0xCu);
     }
 
@@ -195,8 +194,6 @@ void __44__TUIKTAppIntentsData_statusWithCompletion___block_invoke_9(uint64_t a1
     v6 = [MEMORY[0x277D735A0] errorWithDomain:*MEMORY[0x277D735F0] code:-120 description:@"object deallocated"];
     (*(v15 + 16))(v15, &stru_287F92480, v6);
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __44__TUIKTAppIntentsData_statusWithCompletion___block_invoke_2()
@@ -250,15 +247,15 @@ uint64_t __60__TUIKTAppIntentsData_publicVerificationCodeWithCompletion___block_
 
 void __60__TUIKTAppIntentsData_publicVerificationCodeWithCompletion___block_invoke_35(uint64_t a1)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v3 = WeakRetained;
   if (WeakRetained)
   {
     v4 = [WeakRetained ktStatus];
-    v20 = 0;
-    v5 = [v4 status:&v20];
-    v6 = v20;
+    v19 = 0;
+    v5 = [v4 status:&v19];
+    v6 = v19;
 
     if (TRANSPARENCYUI_DEFAULT_LOG_BLOCK_18 != -1)
     {
@@ -269,13 +266,13 @@ void __60__TUIKTAppIntentsData_publicVerificationCodeWithCompletion___block_invo
     if (os_log_type_enabled(TRANSPARENCYUI_DEFAULT_LOG_INTERNAL_18, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315906;
-      v22 = "[TUIKTAppIntentsData publicVerificationCodeWithCompletion:]_block_invoke_2";
-      v23 = 2114;
-      v24 = v5;
-      v25 = 2114;
-      v26 = v6;
-      v27 = 2114;
-      v28 = v3;
+      v21 = "[TUIKTAppIntentsData publicVerificationCodeWithCompletion:]_block_invoke_2";
+      v22 = 2114;
+      v23 = v5;
+      v24 = 2114;
+      v25 = v6;
+      v26 = 2114;
+      v27 = v3;
       _os_log_impl(&dword_26F50B000, v7, OS_LOG_TYPE_DEFAULT, "%s got CKV status = %{public}@, error = %{public}@ on %{public}@", buf, 0x2Au);
     }
 
@@ -323,7 +320,7 @@ void __60__TUIKTAppIntentsData_publicVerificationCodeWithCompletion___block_invo
     if (os_log_type_enabled(TRANSPARENCYUI_DEFAULT_LOG_INTERNAL_18, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315138;
-      v22 = "[TUIKTAppIntentsData publicVerificationCodeWithCompletion:]_block_invoke";
+      v21 = "[TUIKTAppIntentsData publicVerificationCodeWithCompletion:]_block_invoke";
       _os_log_impl(&dword_26F50B000, v17, OS_LOG_TYPE_ERROR, "%s, block strong self is nil", buf, 0xCu);
     }
 
@@ -331,8 +328,6 @@ void __60__TUIKTAppIntentsData_publicVerificationCodeWithCompletion___block_invo
     v6 = [MEMORY[0x277D735A0] errorWithDomain:*MEMORY[0x277D735F0] code:-120 description:@"object deallocated"];
     (*(v18 + 16))(v18, &stru_287F92480, v6);
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __60__TUIKTAppIntentsData_publicVerificationCodeWithCompletion___block_invoke_2()
@@ -351,26 +346,23 @@ uint64_t __60__TUIKTAppIntentsData_publicVerificationCodeWithCompletion___block_
 
 - (void)init
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2(&dword_26F50B000, v0, v1, "%s  on %{public}@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2(&dword_26F50B000, v0, v1, "%s  on %{public}@", v2, v3, v4, v5, v6);
 }
 
 - (void)statusWithCompletion:.cold.2()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2(&dword_26F50B000, v0, v1, "%s  on %{public}@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2(&dword_26F50B000, v0, v1, "%s  on %{public}@", v2, v3, v4, v5, v6);
 }
 
 - (void)publicVerificationCodeWithCompletion:.cold.2()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2(&dword_26F50B000, v0, v1, "%s  on %{public}@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2(&dword_26F50B000, v0, v1, "%s  on %{public}@", v2, v3, v4, v5, v6);
 }
 
 @end

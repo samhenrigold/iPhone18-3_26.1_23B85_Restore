@@ -23,10 +23,10 @@
 
 - (QLScrubView)init
 {
-  v26[1] = *MEMORY[0x277D85DE8];
-  v22.receiver = self;
-  v22.super_class = QLScrubView;
-  v2 = [(QLScrubView *)&v22 init];
+  v25[1] = *MEMORY[0x277D85DE8];
+  v21.receiver = self;
+  v21.super_class = QLScrubView;
+  v2 = [(QLScrubView *)&v21 init];
   if (v2)
   {
     clearColor = [MEMORY[0x277D75348] clearColor];
@@ -38,16 +38,16 @@
     [(QLScrubView *)v2 sendSubviewToBack:v5];
     [v5 setTranslatesAutoresizingMaskIntoConstraints:0];
     v6 = MEMORY[0x277CCAAD0];
-    v25 = @"visualEffectView";
-    v26[0] = v5;
-    v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v26 forKeys:&v25 count:1];
+    v24 = @"visualEffectView";
+    v25[0] = v5;
+    v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:&v24 count:1];
     v8 = [v6 constraintsWithVisualFormat:@"V:|[visualEffectView]|" options:0 metrics:0 views:v7];
     [(QLScrubView *)v2 addConstraints:v8];
 
     v9 = MEMORY[0x277CCAAD0];
-    v23 = @"visualEffectView";
-    v24 = v5;
-    v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v24 forKeys:&v23 count:1];
+    v22 = @"visualEffectView";
+    v23 = v5;
+    v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v23 forKeys:&v22 count:1];
     v11 = [v9 constraintsWithVisualFormat:@"H:|[visualEffectView]|" options:0 metrics:0 views:v10];
     [(QLScrubView *)v2 addConstraints:v11];
 
@@ -73,48 +73,46 @@
     v19 = v2;
   }
 
-  v20 = *MEMORY[0x277D85DE8];
   return v2;
 }
 
 - (void)_removeThumbviews
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   v3 = self->_thumbViews;
-  v4 = [(NSMutableDictionary *)v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v4 = [(NSMutableDictionary *)v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v11;
+    v6 = *v10;
     do
     {
       v7 = 0;
       do
       {
-        if (*v11 != v6)
+        if (*v10 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = [(NSMutableDictionary *)self->_thumbViews objectForKey:*(*(&v10 + 1) + 8 * v7), v10];
+        v8 = [(NSMutableDictionary *)self->_thumbViews objectForKey:*(*(&v9 + 1) + 8 * v7), v9];
         [v8 removeFromSuperview];
 
         ++v7;
       }
 
       while (v5 != v7);
-      v5 = [(NSMutableDictionary *)v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v5 = [(NSMutableDictionary *)v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v5);
   }
 
   [(NSMutableArray *)self->_visibleThumbIndexes removeAllObjects];
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)reloadThumbnails
@@ -330,7 +328,7 @@ LABEL_8:
 
 - (void)layoutSubviews
 {
-  v75 = *MEMORY[0x277D85DE8];
+  v74 = *MEMORY[0x277D85DE8];
   if (self->_needsThumbLayout)
   {
     if (self->_pageCount)
@@ -341,23 +339,23 @@ LABEL_8:
         self->_needsThumbLayout = 0;
         [(QLScrubView *)self _removeThumbviews];
         [(QLScrubView *)self bounds];
-        v6 = v5;
+        v5 = v4;
         [(QLScrubView *)self topOffset];
-        v8 = v6 - v7;
+        v7 = v5 - v6;
         WeakRetained = objc_loadWeakRetained(&self->_dataSource);
         [WeakRetained scrubView:self pageSizeAtIndex:0];
-        v11 = v10;
-        v13 = v12;
+        v10 = v9;
+        v12 = v11;
 
-        v14 = floor(v13 * 32.0 / v11);
-        self->_thumbHeight = v14;
-        v15 = v14 + 8.0;
-        v16 = (v8 + -36.0) / v15 + 1.0;
-        if (v16)
+        v13 = floor(v12 * 32.0 / v10);
+        self->_thumbHeight = v13;
+        v14 = v13 + 8.0;
+        v15 = (v7 + -36.0) / v14 + 1.0;
+        if (v15)
         {
-          if (self->_pageCount >= v16)
+          if (self->_pageCount >= v15)
           {
-            pageCount = v16;
+            pageCount = v15;
           }
 
           else
@@ -365,155 +363,155 @@ LABEL_8:
             pageCount = self->_pageCount;
           }
 
-          v18 = pageCount * v15 + -8.0;
+          v17 = pageCount * v14 + -8.0;
           [(QLScrubView *)self topOffset];
-          v20 = v19 + floor((v8 - v18) * 0.5);
-          self->_thumbOrigin = v20;
-          self->_thumbEnd = v18 + v20;
+          v19 = v18 + floor((v7 - v17) * 0.5);
+          self->_thumbOrigin = v19;
+          self->_thumbEnd = v17 + v19;
+          v68 = 0u;
           v69 = 0u;
           v70 = 0u;
           v71 = 0u;
-          v72 = 0u;
-          v21 = self->_thumbViews;
-          v22 = [(NSMutableDictionary *)v21 countByEnumeratingWithState:&v69 objects:v74 count:16];
-          if (v22)
+          v20 = self->_thumbViews;
+          v21 = [(NSMutableDictionary *)v20 countByEnumeratingWithState:&v68 objects:v73 count:16];
+          if (v21)
           {
-            v23 = v22;
-            v24 = *v70;
-            v25 = *MEMORY[0x277CBF3A0];
-            v26 = *(MEMORY[0x277CBF3A0] + 8);
-            v27 = *(MEMORY[0x277CBF3A0] + 16);
-            v28 = *(MEMORY[0x277CBF3A0] + 24);
+            v22 = v21;
+            v23 = *v69;
+            v24 = *MEMORY[0x277CBF3A0];
+            v25 = *(MEMORY[0x277CBF3A0] + 8);
+            v26 = *(MEMORY[0x277CBF3A0] + 16);
+            v27 = *(MEMORY[0x277CBF3A0] + 24);
             do
             {
-              for (i = 0; i != v23; ++i)
+              for (i = 0; i != v22; ++i)
               {
-                if (*v70 != v24)
+                if (*v69 != v23)
                 {
-                  objc_enumerationMutation(v21);
+                  objc_enumerationMutation(v20);
                 }
 
-                v30 = [(NSMutableDictionary *)self->_thumbViews objectForKey:*(*(&v69 + 1) + 8 * i)];
-                [v30 setAlwaysVisible:0];
-                [v30 setFrame:{v25, v26, v27, v28}];
-                [v30 setUnselectedFrame:{v25, v26, v27, v28}];
+                v29 = [(NSMutableDictionary *)self->_thumbViews objectForKey:*(*(&v68 + 1) + 8 * i)];
+                [v29 setAlwaysVisible:0];
+                [v29 setFrame:{v24, v25, v26, v27}];
+                [v29 setUnselectedFrame:{v24, v25, v26, v27}];
               }
 
-              v23 = [(NSMutableDictionary *)v21 countByEnumeratingWithState:&v69 objects:v74 count:16];
+              v22 = [(NSMutableDictionary *)v20 countByEnumeratingWithState:&v68 objects:v73 count:16];
             }
 
-            while (v23);
+            while (v22);
           }
 
           [(NSMutableArray *)self->_visibleThumbIndexes removeAllObjects];
           if (pageCount >= 1)
           {
-            v31 = 0;
-            v32 = pageCount;
+            v30 = 0;
+            v31 = pageCount;
             do
             {
-              v33 = self->_pageCount;
-              if (v32 == 1)
+              v32 = self->_pageCount;
+              if (v31 == 1)
               {
-                v34 = v33 - 1;
+                v33 = v32 - 1;
               }
 
               else
               {
-                v34 = (v33 / pageCount + v33) * v31 / pageCount;
+                v33 = (v32 / pageCount + v32) * v30 / pageCount;
               }
 
               visibleThumbIndexes = self->_visibleThumbIndexes;
-              v36 = [MEMORY[0x277CCABB0] numberWithInteger:v34];
-              [(NSMutableArray *)visibleThumbIndexes addObject:v36];
+              v35 = [MEMORY[0x277CCABB0] numberWithInteger:v33];
+              [(NSMutableArray *)visibleThumbIndexes addObject:v35];
 
-              ++v31;
-              --v32;
+              ++v30;
+              --v31;
             }
 
-            while (v32);
+            while (v31);
           }
 
-          v67 = 0u;
-          v68 = 0u;
-          v65 = 0u;
           v66 = 0u;
-          v37 = self->_visibleThumbIndexes;
-          v38 = [(NSMutableArray *)v37 countByEnumeratingWithState:&v65 objects:v73 count:16];
-          if (v38)
+          v67 = 0u;
+          v64 = 0u;
+          v65 = 0u;
+          v36 = self->_visibleThumbIndexes;
+          v37 = [(NSMutableArray *)v36 countByEnumeratingWithState:&v64 objects:v72 count:16];
+          if (v37)
           {
-            v39 = v38;
-            v40 = *v66;
-            v41 = *(MEMORY[0x277CBF3A0] + 8);
-            v60 = *MEMORY[0x277CBF3A0];
-            v42 = *(MEMORY[0x277CBF3A0] + 16);
-            v43 = *(MEMORY[0x277CBF3A0] + 24);
-            v59 = v62;
+            v38 = v37;
+            v39 = *v65;
+            v40 = *(MEMORY[0x277CBF3A0] + 8);
+            v59 = *MEMORY[0x277CBF3A0];
+            v41 = *(MEMORY[0x277CBF3A0] + 16);
+            v42 = *(MEMORY[0x277CBF3A0] + 24);
+            v58 = v61;
             do
             {
-              for (j = 0; j != v39; ++j)
+              for (j = 0; j != v38; ++j)
               {
-                if (*v66 != v40)
+                if (*v65 != v39)
                 {
-                  objc_enumerationMutation(v37);
+                  objc_enumerationMutation(v36);
                 }
 
-                v45 = *(*(&v65 + 1) + 8 * j);
-                integerValue = [v45 integerValue];
-                v47 = [(NSMutableDictionary *)self->_thumbViews objectForKey:v45];
-                if (!v47)
+                v44 = *(*(&v64 + 1) + 8 * j);
+                integerValue = [v44 integerValue];
+                v46 = [(NSMutableDictionary *)self->_thumbViews objectForKey:v44];
+                if (!v46)
                 {
-                  v47 = [[QLThumbnailView alloc] initWithFrame:v60, v41, v42, v43];
-                  [(QLThumbnailView *)v47 setPageNumber:integerValue];
-                  [(NSMutableDictionary *)self->_thumbViews setObject:v47 forKey:v45];
+                  v46 = [[QLThumbnailView alloc] initWithFrame:v59, v40, v41, v42];
+                  [(QLThumbnailView *)v46 setPageNumber:integerValue];
+                  [(NSMutableDictionary *)self->_thumbViews setObject:v46 forKey:v44];
                 }
 
-                image = [(QLThumbnailView *)v47 image];
+                image = [(QLThumbnailView *)v46 image];
 
                 if (!image)
                 {
-                  v49 = objc_loadWeakRetained(&self->_dataSource);
+                  v48 = objc_loadWeakRetained(&self->_dataSource);
                   thumbHeight = self->_thumbHeight;
-                  v61[0] = MEMORY[0x277D85DD0];
-                  v61[1] = 3221225472;
-                  v62[0] = __29__QLScrubView_layoutSubviews__block_invoke;
-                  v62[1] = &unk_278B57918;
-                  v63 = v47;
-                  v64 = integerValue;
-                  [v49 scrubView:self thumbnailForPage:integerValue size:v61 withCompletionBlock:{32.0, thumbHeight}];
+                  v60[0] = MEMORY[0x277D85DD0];
+                  v60[1] = 3221225472;
+                  v61[0] = __29__QLScrubView_layoutSubviews__block_invoke;
+                  v61[1] = &unk_278B57918;
+                  v62 = v46;
+                  v63 = integerValue;
+                  [v48 scrubView:self thumbnailForPage:integerValue size:v60 withCompletionBlock:{32.0, thumbHeight}];
                 }
 
                 [(QLScrubView *)self _thumbnailFrameForPageAtIndex:integerValue];
-                v52 = v51;
-                v54 = v53;
-                v56 = v55;
-                v58 = v57;
-                [(QLThumbnailView *)v47 setUnselectedFrame:?];
+                v51 = v50;
+                v53 = v52;
+                v55 = v54;
+                v57 = v56;
+                [(QLThumbnailView *)v46 setUnselectedFrame:?];
                 if (integerValue == self->_selectedPage)
                 {
-                  v76.origin.x = v52;
-                  v76.origin.y = v54;
-                  v76.size.width = v56;
-                  v76.size.height = v58;
-                  v77 = CGRectInset(v76, -8.0, -8.0);
-                  [(QLThumbnailView *)v47 setFrame:v77.origin.x, v77.origin.y, v77.size.width, v77.size.height];
-                  objc_storeStrong(&self->_selectedThumbnailView, v47);
+                  v75.origin.x = v51;
+                  v75.origin.y = v53;
+                  v75.size.width = v55;
+                  v75.size.height = v57;
+                  v76 = CGRectInset(v75, -8.0, -8.0);
+                  [(QLThumbnailView *)v46 setFrame:v76.origin.x, v76.origin.y, v76.size.width, v76.size.height];
+                  objc_storeStrong(&self->_selectedThumbnailView, v46);
                 }
 
                 else
                 {
-                  [(QLThumbnailView *)v47 setFrame:v52, v54, v56, v58];
+                  [(QLThumbnailView *)v46 setFrame:v51, v53, v55, v57];
                 }
 
-                [(QLThumbnailView *)v47 setAlwaysVisible:1];
-                [(QLScrubView *)self addSubview:v47];
-                [(QLScrubView *)self bringSubviewToFront:v47];
+                [(QLThumbnailView *)v46 setAlwaysVisible:1];
+                [(QLScrubView *)self addSubview:v46];
+                [(QLScrubView *)self bringSubviewToFront:v46];
               }
 
-              v39 = [(NSMutableArray *)v37 countByEnumeratingWithState:&v65 objects:v73 count:16];
+              v38 = [(NSMutableArray *)v36 countByEnumeratingWithState:&v64 objects:v72 count:16];
             }
 
-            while (v39);
+            while (v38);
           }
 
           if (self->_selectedThumbnailView)
@@ -524,21 +522,17 @@ LABEL_8:
       }
     }
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 void __29__QLScrubView_layoutSubviews__block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = *(a1 + 32);
-  v7 = *(a1 + 40);
-  v6 = v4;
-  v5 = v3;
+  v5 = *(a1 + 32);
+  v4 = v3;
   QLRunInMainThread();
 }
 
-uint64_t __29__QLScrubView_layoutSubviews__block_invoke_2(uint64_t a1)
+void *__29__QLScrubView_layoutSubviews__block_invoke_2(uint64_t a1)
 {
   result = [*(a1 + 32) pageNumber];
   if (result == *(a1 + 48))
@@ -639,13 +633,11 @@ uint64_t __29__QLScrubView_layoutSubviews__block_invoke_2(uint64_t a1)
 void __43__QLScrubView__updateSelectedThumbnailView__block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v5 = *(a1 + 32);
-  v6 = v3;
-  v4 = v3;
+  v2 = v3;
   QLRunInMainThread();
 }
 
-uint64_t __43__QLScrubView__updateSelectedThumbnailView__block_invoke_2(uint64_t a1)
+void *__43__QLScrubView__updateSelectedThumbnailView__block_invoke_2(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 472) pageNumber];
   v3 = *(a1 + 32);

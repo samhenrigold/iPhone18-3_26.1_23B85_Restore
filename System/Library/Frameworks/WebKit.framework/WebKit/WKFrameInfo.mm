@@ -65,8 +65,8 @@
 - (WKSecurityOrigin)securityOrigin
 {
   API::SecurityOrigin::create(&v8);
-  v2 = *(v8 + 8);
-  if (!v2)
+  var1 = v8->var1;
+  if (!var1)
   {
     v6 = 0;
     v8 = 0;
@@ -76,19 +76,19 @@
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v3 = v2;
-    v4 = v2;
+    v3 = var1;
+    v4 = var1;
     v5 = v8;
     v8 = 0;
     if (!v5)
     {
-      return v2;
+      return var1;
     }
 
-    v6 = *(v5 + 8);
+    v6 = v5->var1;
 LABEL_6:
     CFRelease(v6);
-    return v2;
+    return var1;
   }
 
   result = 117;
@@ -214,7 +214,7 @@ LABEL_6:
 
 - (NSString)_title
 {
-  API::FrameInfo::title(&self->_frameInfo, &v9);
+  API::FrameInfo::title(&v9, &self->_frameInfo);
   v2 = v9;
   if (v9)
   {

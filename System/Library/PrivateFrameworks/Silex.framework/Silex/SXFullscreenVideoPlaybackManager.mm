@@ -1,10 +1,10 @@
 @interface SXFullscreenVideoPlaybackManager
 - (SXFullscreenVideoPlaybackManager)init;
-- (uint64_t)addCandidate:(uint64_t)result;
-- (uint64_t)didLayoutForSize:(uint64_t)result;
-- (uint64_t)didTransitionToSize:(uint64_t)result;
-- (uint64_t)enterFullscreenIfNeeded;
-- (uint64_t)removeCandidate:(uint64_t)result;
+- (id)addCandidate:(id *)result;
+- (id)didLayoutForSize:(id *)result;
+- (id)didTransitionToSize:(id *)result;
+- (id)enterFullscreenIfNeeded;
+- (id)removeCandidate:(id *)result;
 - (uint64_t)willLayoutAndTransitionToSize:(uint64_t)result;
 @end
 
@@ -25,34 +25,34 @@
   return v2;
 }
 
-- (uint64_t)addCandidate:(uint64_t)result
+- (id)addCandidate:(id *)result
 {
   if (result)
   {
-    return [*(result + 16) addObject:a2];
+    return [result[2] addObject:a2];
   }
 
   return result;
 }
 
-- (uint64_t)removeCandidate:(uint64_t)result
+- (id)removeCandidate:(id *)result
 {
   if (result)
   {
-    return [*(result + 16) removeObject:a2];
+    return [result[2] removeObject:a2];
   }
 
   return result;
 }
 
-- (uint64_t)enterFullscreenIfNeeded
+- (id)enterFullscreenIfNeeded
 {
   v6 = *MEMORY[0x1E69E9840];
   if (result)
   {
     v1 = result;
     memset(v4, 0, sizeof(v4));
-    v2 = *(result + 16);
+    v2 = result[2];
     if ([v2 countByEnumeratingWithState:v4 objects:v5 count:16])
     {
       v3 = **(&v4[0] + 1);
@@ -62,7 +62,7 @@
       }
     }
 
-    return [*(v1 + 16) removeAllObjects];
+    return [v1[2] removeAllObjects];
   }
 
   return result;
@@ -78,7 +78,7 @@
   return result;
 }
 
-- (uint64_t)didTransitionToSize:(uint64_t)result
+- (id)didTransitionToSize:(id *)result
 {
   if (result)
   {
@@ -94,12 +94,12 @@
   return result;
 }
 
-- (uint64_t)didLayoutForSize:(uint64_t)result
+- (id)didLayoutForSize:(id *)result
 {
   if (result)
   {
     v1 = result;
-    if (*(result + 9) == 1 && (*(result + 8) & 1) == 0)
+    if (*(result + 9) == 1 && (result[1] & 1) == 0)
     {
       result = [(SXFullscreenVideoPlaybackManager *)result enterFullscreenIfNeeded];
     }

@@ -5,6 +5,7 @@
 - (void)notifyStreamWillStop:(id)stop;
 - (void)registerClient;
 - (void)updateCodecConfigForSession:(id)session withCodecInfo:(id)info;
+- (void)updateMicrophoneForSession:(id)session withMute:(unsigned __int8)mute;
 - (void)updateVolumeForSession:(id)session withVolume:(float)volume;
 @end
 
@@ -112,6 +113,24 @@
   v7 = +[ConnectionManager instance];
   *&v8 = volume;
   [v7 updateVolumeForSession:sessionCopy withVolume:v8];
+}
+
+- (void)updateMicrophoneForSession:(id)session withMute:(unsigned __int8)mute
+{
+  muteCopy = mute;
+  sessionCopy = session;
+  v6 = qword_1000A9FE0;
+  if (os_log_type_enabled(qword_1000A9FE0, OS_LOG_TYPE_DEFAULT))
+  {
+    v8 = 138412546;
+    v9 = sessionCopy;
+    v10 = 1024;
+    v11 = muteCopy;
+    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Updating Microphone for session %@ with mute %d", &v8, 0x12u);
+  }
+
+  v7 = +[ConnectionManager instance];
+  [v7 updateMicrophoneForSession:sessionCopy withMute:muteCopy];
 }
 
 @end

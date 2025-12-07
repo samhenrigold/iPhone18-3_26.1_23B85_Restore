@@ -123,7 +123,7 @@
 
 void __54__SecureMAHelper_graftSecureAssetsFromLastBootSession__block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v53 = *MEMORY[0x29EDCA608];
+  v52 = *MEMORY[0x29EDCA608];
   v5 = a2;
   v6 = a3;
   objc_opt_class();
@@ -145,7 +145,7 @@ LABEL_29:
 
     v8 = [v6 objectForKey:@"PerformGraft"];
     objc_opt_class();
-    v44 = v8;
+    v43 = v8;
     if ((objc_opt_isKindOfClass() & 1) != 0 && [v8 BOOLValue])
     {
       v9 = objc_autoreleasePoolPush();
@@ -158,13 +158,13 @@ LABEL_29:
         v13 = [MEMORY[0x29EDB8E50] setWithArray:v7];
         [v12 setPathsToPurgeOnGraftFailureInEarlyBootTask:v13];
 
-        v51 = 0;
-        v14 = [(SecureMobileAssetBundle *)v11 beginAccessWithOptions:v12 accessMechanismPtr:0 errorPtr:&v51];
-        v15 = v51;
+        v50 = 0;
+        v14 = [(SecureMobileAssetBundle *)v11 beginAccessWithOptions:v12 accessMechanismPtr:0 errorPtr:&v50];
+        v15 = v50;
         v16 = *(a1 + 32);
         if (v14)
         {
-          [MEMORY[0x29EDBA0F8] stringWithFormat:@"Successfully grafted asset at %@\n", v5, v40];
+          [MEMORY[0x29EDBA0F8] stringWithFormat:@"Successfully grafted asset at %@\n", v5, v39];
         }
 
         else
@@ -181,7 +181,7 @@ LABEL_29:
         [v16 log:v24];
 
         objc_autoreleasePoolPop(context);
-        v25 = v44;
+        v25 = v43;
         if (v14)
         {
           goto LABEL_28;
@@ -200,29 +200,29 @@ LABEL_29:
       *(*(*(a1 + 40) + 8) + 24) = 0;
     }
 
-    v42 = v6;
-    v43 = v5;
-    v49 = 0u;
-    v50 = 0u;
-    v47 = 0u;
+    v41 = v6;
+    v42 = v5;
     v48 = 0u;
-    v41 = v7;
+    v49 = 0u;
+    v46 = 0u;
+    v47 = 0u;
+    v40 = v7;
     contexta = v7;
-    v26 = [contexta countByEnumeratingWithState:&v47 objects:v52 count:16];
+    v26 = [contexta countByEnumeratingWithState:&v46 objects:v51 count:16];
     if (v26)
     {
       v27 = v26;
-      v28 = *v48;
+      v28 = *v47;
       do
       {
         for (i = 0; i != v27; ++i)
         {
-          if (*v48 != v28)
+          if (*v47 != v28)
           {
             objc_enumerationMutation(contexta);
           }
 
-          v30 = *(*(&v47 + 1) + 8 * i);
+          v30 = *(*(&v46 + 1) + 8 * i);
           v31 = *(a1 + 32);
           v32 = [MEMORY[0x29EDBA0F8] stringWithFormat:@"Cleaning up path: %@", v30];
           [v31 log:v32];
@@ -251,16 +251,16 @@ LABEL_29:
           }
         }
 
-        v27 = [contexta countByEnumeratingWithState:&v47 objects:v52 count:16];
+        v27 = [contexta countByEnumeratingWithState:&v46 objects:v51 count:16];
       }
 
       while (v27);
     }
 
-    v6 = v42;
-    v5 = v43;
-    v7 = v41;
-    v25 = v44;
+    v6 = v41;
+    v5 = v42;
+    v7 = v40;
+    v25 = v43;
 LABEL_28:
 
     goto LABEL_29;
@@ -272,8 +272,6 @@ LABEL_28:
 
   *(*(*(a1 + 40) + 8) + 24) = 0;
 LABEL_30:
-
-  v39 = *MEMORY[0x29EDCA608];
 }
 
 @end

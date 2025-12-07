@@ -43,12 +43,12 @@ void CMMsl::FocusModes::~FocusModes(CMMsl::FocusModes *this)
   operator delete();
 }
 
-uint64_t CMMsl::FocusModes::FocusModes(uint64_t this, const CMMsl::FocusModes *a2)
+CMMsl::FocusModes *CMMsl::FocusModes::FocusModes(CMMsl::FocusModes *this, const CMMsl::FocusModes *a2)
 {
-  *(this + 8) = 0;
+  *(this + 1) = 0;
   *this = off_10041E700;
-  *(this + 16) = 0;
-  *(this + 48) = 0;
+  *(this + 2) = 0;
+  *(this + 12) = 0;
   if (*(a2 + 1))
   {
     operator new();
@@ -64,7 +64,7 @@ uint64_t CMMsl::FocusModes::FocusModes(uint64_t this, const CMMsl::FocusModes *a
   {
     v4 = *(a2 + 9);
     *(this + 48) |= 4u;
-    *(this + 36) = v4;
+    *(this + 9) = v4;
     v2 = *(a2 + 48);
     if ((v2 & 2) == 0)
     {
@@ -85,7 +85,7 @@ LABEL_7:
 
   v5 = *(a2 + 8);
   *(this + 48) |= 2u;
-  *(this + 32) = v5;
+  *(this + 8) = v5;
   v2 = *(a2 + 48);
   if ((v2 & 8) == 0)
   {
@@ -101,7 +101,7 @@ LABEL_8:
 LABEL_14:
   v6 = *(a2 + 10);
   *(this + 48) |= 8u;
-  *(this + 40) = v6;
+  *(this + 10) = v6;
   v2 = *(a2 + 48);
   if ((v2 & 0x10) == 0)
   {
@@ -126,7 +126,7 @@ LABEL_15:
 LABEL_10:
   v3 = *(a2 + 3);
   *(this + 48) |= 1u;
-  *(this + 24) = v3;
+  *(this + 3) = v3;
   return this;
 }
 
@@ -1732,7 +1732,6 @@ uint64_t CMMsl::FrequencyResponse::writeTo(uint64_t this, PB::Writer *a2)
 
 BOOL CMMsl::FrequencyResponse::operator==(uint64_t a1, uint64_t a2)
 {
-  v2 = *(a2 + 64);
   if (*(a1 + 64))
   {
     if ((*(a2 + 64) & 1) == 0 || *(a1 + 56) != *(a2 + 56))
@@ -1746,48 +1745,48 @@ BOOL CMMsl::FrequencyResponse::operator==(uint64_t a1, uint64_t a2)
     return 0;
   }
 
-  v4 = *(a1 + 8);
-  v3 = *(a1 + 16);
-  v5 = *(a2 + 8);
-  if (v3 - v4 != *(a2 + 16) - v5)
+  v3 = *(a1 + 8);
+  v2 = *(a1 + 16);
+  v4 = *(a2 + 8);
+  if (v2 - v3 != *(a2 + 16) - v4)
   {
     return 0;
   }
 
-  while (v4 != v3)
+  while (v3 != v2)
   {
-    if (*v4 != *v5)
+    if (*v3 != *v4)
     {
       return 0;
     }
 
+    ++v3;
     ++v4;
-    ++v5;
   }
 
-  v7 = *(a1 + 32);
-  v6 = *(a1 + 40);
-  v8 = *(a2 + 32);
-  if (v6 - v7 != *(a2 + 40) - v8)
+  v6 = *(a1 + 32);
+  v5 = *(a1 + 40);
+  v7 = *(a2 + 32);
+  if (v5 - v6 != *(a2 + 40) - v7)
   {
     return 0;
   }
 
-  if (v7 == v6)
+  if (v6 == v5)
   {
     return 1;
   }
 
-  v9 = v7 + 4;
+  v8 = v6 + 4;
   do
   {
-    v10 = *v8++;
-    result = *(v9 - 4) == v10;
-    v12 = *(v9 - 4) != v10 || v9 == v6;
-    v9 += 4;
+    v9 = *v7++;
+    result = *(v8 - 4) == v9;
+    v11 = *(v8 - 4) != v9 || v8 == v5;
+    v8 += 4;
   }
 
-  while (!v12);
+  while (!v11);
   return result;
 }
 
@@ -1797,26 +1796,22 @@ uint64_t CMMsl::FrequencyResponse::hash_value(CMMsl::FrequencyResponse *this)
   {
     if (*(this + 7) == 0.0)
     {
-      v2 = 0;
+      v1 = 0;
     }
 
     else
     {
-      v2 = *(this + 7);
+      v1 = *(this + 7);
     }
   }
 
   else
   {
-    v2 = 0;
+    v1 = 0;
   }
 
-  v3 = *(this + 1);
-  v4 = *(this + 2);
-  v5 = PBHashBytes() ^ v2;
-  v6 = *(this + 4);
-  v7 = *(this + 5);
-  return v5 ^ PBHashBytes();
+  v2 = PBHashBytes() ^ v1;
+  return v2 ^ PBHashBytes();
 }
 
 void *CMMsl::FusedBioMotionClassification::FusedBioMotionClassification(void *this)
@@ -1851,11 +1846,11 @@ void CMMsl::FusedBioMotionClassification::~FusedBioMotionClassification(CMMsl::F
   operator delete();
 }
 
-void *CMMsl::FusedBioMotionClassification::FusedBioMotionClassification(void *this, const CMMsl::FusedBioMotionClassification *a2)
+CMMsl::FusedBioMotionClassification *CMMsl::FusedBioMotionClassification::FusedBioMotionClassification(CMMsl::FusedBioMotionClassification *this, const CMMsl::BioMotionClassification **a2)
 {
   *this = off_10041E770;
-  this[1] = 0;
-  if (*(a2 + 1))
+  *(this + 1) = 0;
+  if (a2[1])
   {
     operator new();
   }
@@ -1863,13 +1858,13 @@ void *CMMsl::FusedBioMotionClassification::FusedBioMotionClassification(void *th
   return this;
 }
 
-const CMMsl::FusedBioMotionClassification *CMMsl::FusedBioMotionClassification::operator=(const CMMsl::FusedBioMotionClassification *a1, const CMMsl::FusedBioMotionClassification *a2)
+uint64_t CMMsl::FusedBioMotionClassification::operator=(uint64_t a1, const CMMsl::BioMotionClassification **a2)
 {
   if (a1 != a2)
   {
     CMMsl::FusedBioMotionClassification::FusedBioMotionClassification(&v5, a2);
-    v3 = *(a1 + 1);
-    *(a1 + 1) = v6;
+    v3 = *(a1 + 8);
+    *(a1 + 8) = v6;
     v6 = v3;
     CMMsl::FusedBioMotionClassification::~FusedBioMotionClassification(&v5);
   }
@@ -2097,9 +2092,9 @@ CMMsl::BioMotionClassification *CMMsl::FusedBioMotionClassification::hash_value(
   return result;
 }
 
-uint64_t CMMsl::FusedBioMotionClassification::makeSuper(uint64_t this)
+void *CMMsl::FusedBioMotionClassification::makeSuper(void *this)
 {
-  if (!*(this + 8))
+  if (!this[1])
   {
     operator new();
   }
@@ -3476,7 +3471,7 @@ float CMMsl::GaitCycleSegment::GaitCycleSegment(uint64_t a1, uint64_t a2)
   return result;
 }
 
-CMMsl *CMMsl::GaitCycleSegment::operator=(CMMsl *a1, uint64_t a2)
+CMMsl *CMMsl::GaitCycleSegment::operator=(CMMsl *a1, CMMsl *a2)
 {
   if (a1 != a2)
   {
@@ -6087,7 +6082,7 @@ float CMMsl::GaitCycleSegmentationState::GaitCycleSegmentationState(uint64_t a1,
   return result;
 }
 
-CMMsl *CMMsl::GaitCycleSegmentationState::operator=(CMMsl *a1, uint64_t a2)
+CMMsl *CMMsl::GaitCycleSegmentationState::operator=(CMMsl *a1, CMMsl *a2)
 {
   if (a1 != a2)
   {
@@ -9732,7 +9727,7 @@ double CMMsl::GaitEventsModelOutput::GaitEventsModelOutput(uint64_t a1, uint64_t
   return result;
 }
 
-CMMsl *CMMsl::GaitEventsModelOutput::operator=(CMMsl *a1, uint64_t a2)
+CMMsl *CMMsl::GaitEventsModelOutput::operator=(CMMsl *a1, CMMsl *a2)
 {
   if (a1 != a2)
   {

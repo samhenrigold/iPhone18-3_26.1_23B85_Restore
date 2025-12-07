@@ -96,7 +96,7 @@
       _os_log_impl(dword_100000000, v4, OS_LOG_TYPE_INFO, "{msg%{public}.0s:Must be overridden, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
     }
 
-    abort_report_np();
+    abort_report_np("%s:%d: assertion failure in %s", "/Library/Caches/com.apple.xbs/Sources/CoreLocation/Daemon/Shared/Streaming/CLStreamedLocationProvider.mm", 932, "[CLStreamedLocationProviderAssertion takeAssertion]");
 LABEL_11:
     dispatch_once(&qword_1025D47B0, &stru_102456810);
   }
@@ -161,7 +161,7 @@ LABEL_11:
       _os_log_impl(dword_100000000, v4, OS_LOG_TYPE_INFO, "{msg%{public}.0s:Must be overridden, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
     }
 
-    abort_report_np();
+    abort_report_np("%s:%d: assertion failure in %s", "/Library/Caches/com.apple.xbs/Sources/CoreLocation/Daemon/Shared/Streaming/CLStreamedLocationProvider.mm", 937, "[CLStreamedLocationProviderAssertion releaseAssertion]");
 LABEL_11:
     dispatch_once(&qword_1025D47B0, &stru_102456810);
   }

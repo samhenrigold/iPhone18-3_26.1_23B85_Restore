@@ -12,49 +12,50 @@
 
 - (ARPointCloudSensorData)initWithPointCloudData:(id)data captureFramePerSecond:(int64_t)second captureDevice:(id)device captureSession:(id)session
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v41 = *MEMORY[0x1E69E9840];
   dataCopy = data;
   deviceCopy = device;
-  if (_isPointCloudBlackened(dataCopy))
+  isPointCloudBlackened = _isPointCloudBlackened(dataCopy);
+  if (isPointCloudBlackened)
   {
     if (ARShouldUseLogTypeError_onceToken_32 != -1)
     {
       [ARPointCloudSensorData initWithPointCloudData:captureFramePerSecond:captureDevice:captureSession:];
     }
 
-    v11 = ARShouldUseLogTypeError_internalOSVersion_32;
-    v12 = _ARLogGeneral_23();
-    v13 = v12;
-    if (v11 == 1)
+    v12 = ARShouldUseLogTypeError_internalOSVersion_32;
+    v13 = _ARLogGeneral_23(isPointCloudBlackened);
+    v14 = v13;
+    if (v12 == 1)
     {
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
-        v14 = objc_opt_class();
-        v15 = NSStringFromClass(v14);
+        v15 = objc_opt_class();
+        v16 = NSStringFromClass(v15);
         LODWORD(time.value) = 138543618;
-        *(&time.value + 4) = v15;
+        *(&time.value + 4) = v16;
         LOWORD(time.flags) = 2048;
         *(&time.flags + 2) = self;
-        v16 = "%{public}@ <%p>: Aborted generating data because the point cloud is blackened.";
-        v17 = v13;
-        v18 = OS_LOG_TYPE_ERROR;
+        v17 = "%{public}@ <%p>: Aborted generating data because the point cloud is blackened.";
+        v18 = v14;
+        v19 = OS_LOG_TYPE_ERROR;
 LABEL_15:
-        _os_log_impl(&dword_1C241C000, v17, v18, v16, &time, 0x16u);
+        _os_log_impl(&dword_1C241C000, v18, v19, v17, &time, 0x16u);
 LABEL_24:
       }
     }
 
-    else if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+    else if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
     {
-      v27 = objc_opt_class();
-      v15 = NSStringFromClass(v27);
+      v29 = objc_opt_class();
+      v16 = NSStringFromClass(v29);
       LODWORD(time.value) = 138543618;
-      *(&time.value + 4) = v15;
+      *(&time.value + 4) = v16;
       LOWORD(time.flags) = 2048;
       *(&time.flags + 2) = self;
-      v16 = "Error: %{public}@ <%p>: Aborted generating data because the point cloud is blackened.";
-      v17 = v13;
-      v18 = OS_LOG_TYPE_INFO;
+      v17 = "Error: %{public}@ <%p>: Aborted generating data because the point cloud is blackened.";
+      v18 = v14;
+      v19 = OS_LOG_TYPE_INFO;
       goto LABEL_15;
     }
 
@@ -62,83 +63,84 @@ LABEL_24:
     goto LABEL_26;
   }
 
-  v13 = [MEMORY[0x1E698C170] makeWithDataBuffer:{objc_msgSend(dataCopy, "pointCloudDataBuffer")}];
-  if (!v13)
+  v20 = [MEMORY[0x1E698C170] makeWithDataBuffer:{objc_msgSend(dataCopy, "pointCloudDataBuffer")}];
+  v14 = v20;
+  if (!v20)
   {
     if (ARShouldUseLogTypeError_onceToken_32 != -1)
     {
       [ARPointCloudSensorData initWithPointCloudData:captureFramePerSecond:captureDevice:captureSession:];
     }
 
-    v28 = ARShouldUseLogTypeError_internalOSVersion_32;
-    v29 = _ARLogGeneral_23();
-    v15 = v29;
-    if (v28 == 1)
+    v30 = ARShouldUseLogTypeError_internalOSVersion_32;
+    v31 = _ARLogGeneral_23(v20);
+    v16 = v31;
+    if (v30 == 1)
     {
-      if (!os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+      if (!os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
       {
         goto LABEL_24;
       }
 
-      v30 = objc_opt_class();
-      v31 = NSStringFromClass(v30);
+      v32 = objc_opt_class();
+      v33 = NSStringFromClass(v32);
       LODWORD(time.value) = 138543618;
-      *(&time.value + 4) = v31;
+      *(&time.value + 4) = v33;
       LOWORD(time.flags) = 2048;
       *(&time.flags + 2) = self;
-      v32 = "%{public}@ <%p>: Couldn't generate pointcloud from pointcloud data";
-      v33 = v15;
-      v34 = OS_LOG_TYPE_ERROR;
+      v34 = "%{public}@ <%p>: Couldn't generate pointcloud from pointcloud data";
+      v35 = v16;
+      v36 = OS_LOG_TYPE_ERROR;
     }
 
     else
     {
-      if (!os_log_type_enabled(v29, OS_LOG_TYPE_INFO))
+      if (!os_log_type_enabled(v31, OS_LOG_TYPE_INFO))
       {
         goto LABEL_24;
       }
 
-      v35 = objc_opt_class();
-      v31 = NSStringFromClass(v35);
+      v37 = objc_opt_class();
+      v33 = NSStringFromClass(v37);
       LODWORD(time.value) = 138543618;
-      *(&time.value + 4) = v31;
+      *(&time.value + 4) = v33;
       LOWORD(time.flags) = 2048;
       *(&time.flags + 2) = self;
-      v32 = "Error: %{public}@ <%p>: Couldn't generate pointcloud from pointcloud data";
-      v33 = v15;
-      v34 = OS_LOG_TYPE_INFO;
+      v34 = "Error: %{public}@ <%p>: Couldn't generate pointcloud from pointcloud data";
+      v35 = v16;
+      v36 = OS_LOG_TYPE_INFO;
     }
 
-    _os_log_impl(&dword_1C241C000, v33, v34, v32, &time, 0x16u);
+    _os_log_impl(&dword_1C241C000, v35, v36, v34, &time, 0x16u);
 
     goto LABEL_24;
   }
 
-  v37.receiver = self;
-  v37.super_class = ARPointCloudSensorData;
-  v19 = [(ARPointCloudSensorData *)&v37 init];
-  v20 = v19;
-  if (v19)
+  v39.receiver = self;
+  v39.super_class = ARPointCloudSensorData;
+  v21 = [(ARPointCloudSensorData *)&v39 init];
+  v22 = v21;
+  if (v21)
   {
-    objc_storeStrong(&v19->_pointCloudData, data);
-    objc_storeStrong(&v20->_pointCloud, v13);
+    objc_storeStrong(&v21->_pointCloudData, data);
+    objc_storeStrong(&v22->_pointCloud, v14);
     deviceType = [deviceCopy deviceType];
-    cameraType = v20->_cameraType;
-    v20->_cameraType = deviceType;
+    cameraType = v22->_cameraType;
+    v22->_cameraType = deviceType;
 
-    v20->_cameraPosition = [deviceCopy position];
-    v20->_projectorMode = [(AVPointCloudData *)v20->_pointCloudData projectorMode];
-    v23 = ARPixelBufferGetMetadata([dataCopy pointCloudDataBuffer]);
-    v24 = v23;
-    if (v23)
+    v22->_cameraPosition = objc_msgSend_position(deviceCopy);
+    v22->_projectorMode = [(AVPointCloudData *)v22->_pointCloudData projectorMode];
+    v25 = ARPixelBufferGetMetadata([dataCopy pointCloudDataBuffer]);
+    v26 = v25;
+    if (v25)
     {
-      v25 = [v23 objectForKeyedSubscript:*MEMORY[0x1E6990D58]];
-      CMTimeMakeFromDictionary(&time, v25);
-      v20->_timestamp = CMTimeGetSeconds(&time);
+      v27 = [v25 objectForKeyedSubscript:*MEMORY[0x1E6990D58]];
+      CMTimeMakeFromDictionary(&time, v27);
+      v22->_timestamp = CMTimeGetSeconds(&time);
     }
   }
 
-  self = v20;
+  self = v22;
   selfCopy = self;
 LABEL_26:
 

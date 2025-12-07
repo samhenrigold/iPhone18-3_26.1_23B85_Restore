@@ -16,7 +16,7 @@
 - (void)getElementsInSection:(id)section withHandler:(id)handler
 {
   handlerCopy = handler;
-  v5 = NLActivityUpNextRelevanceEngineSampleRelevanceProviderForPosition(10.0);
+  v5 = NLActivityUpNextRelevanceEngineSampleRelevanceProviderForPosition(handlerCopy, 10.0);
   v6 = NLActivityUpNextRelevanceEngineContent(0xFuLL);
   v7 = [REElement alloc];
   v12 = v5;

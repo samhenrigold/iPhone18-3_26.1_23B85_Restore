@@ -17,7 +17,7 @@
 
 - (_SFPBPhotosLibraryImage)initWithFacade:(id)facade
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   facadeCopy = facade;
   v5 = [(_SFPBPhotosLibraryImage *)self init];
   if (v5)
@@ -46,33 +46,33 @@
       v9 = 0;
     }
 
-    v23 = 0u;
-    v24 = 0u;
-    v21 = 0u;
     v22 = 0u;
+    v23 = 0u;
+    v20 = 0u;
+    v21 = 0u;
     peopleInPhoto2 = [facadeCopy peopleInPhoto];
-    v11 = [peopleInPhoto2 countByEnumeratingWithState:&v21 objects:v25 count:16];
+    v11 = [peopleInPhoto2 countByEnumeratingWithState:&v20 objects:v24 count:16];
     if (v11)
     {
       v12 = v11;
-      v13 = *v22;
+      v13 = *v21;
       do
       {
         for (i = 0; i != v12; ++i)
         {
-          if (*v22 != v13)
+          if (*v21 != v13)
           {
             objc_enumerationMutation(peopleInPhoto2);
           }
 
-          v15 = [[_SFPBPerson alloc] initWithFacade:*(*(&v21 + 1) + 8 * i)];
+          v15 = [[_SFPBPerson alloc] initWithFacade:*(*(&v20 + 1) + 8 * i)];
           if (v15)
           {
             [v9 addObject:v15];
           }
         }
 
-        v12 = [peopleInPhoto2 countByEnumeratingWithState:&v21 objects:v25 count:16];
+        v12 = [peopleInPhoto2 countByEnumeratingWithState:&v20 objects:v24 count:16];
       }
 
       while (v12);
@@ -90,17 +90,16 @@
     v18 = v5;
   }
 
-  v19 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
 - (_SFPBPhotosLibraryImage)initWithDictionary:(id)dictionary
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
-  v28.receiver = self;
-  v28.super_class = _SFPBPhotosLibraryImage;
-  v5 = [(_SFPBPhotosLibraryImage *)&v28 init];
+  v27.receiver = self;
+  v27.super_class = _SFPBPhotosLibraryImage;
+  v5 = [(_SFPBPhotosLibraryImage *)&v27 init];
   if (v5)
   {
     v6 = [dictionaryCopy objectForKeyedSubscript:@"photoIdentifier"];
@@ -122,28 +121,28 @@
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v22 = v8;
-      v23 = v6;
-      v26 = 0u;
-      v27 = 0u;
-      v24 = 0u;
+      v21 = v8;
+      v22 = v6;
       v25 = 0u;
+      v26 = 0u;
+      v23 = 0u;
+      v24 = 0u;
       v10 = v9;
-      v11 = [v10 countByEnumeratingWithState:&v24 objects:v29 count:16];
+      v11 = [v10 countByEnumeratingWithState:&v23 objects:v28 count:16];
       if (v11)
       {
         v12 = v11;
-        v13 = *v25;
+        v13 = *v24;
         do
         {
           for (i = 0; i != v12; ++i)
           {
-            if (*v25 != v13)
+            if (*v24 != v13)
             {
               objc_enumerationMutation(v10);
             }
 
-            v15 = *(*(&v24 + 1) + 8 * i);
+            v15 = *(*(&v23 + 1) + 8 * i);
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
@@ -152,16 +151,16 @@
             }
           }
 
-          v12 = [v10 countByEnumeratingWithState:&v24 objects:v29 count:16];
+          v12 = [v10 countByEnumeratingWithState:&v23 objects:v28 count:16];
         }
 
         while (v12);
       }
 
-      v8 = v22;
+      v8 = v21;
     }
 
-    v17 = [dictionaryCopy objectForKeyedSubscript:{@"applicationBundleIdentifier", v22, v23, v24}];
+    v17 = [dictionaryCopy objectForKeyedSubscript:{@"applicationBundleIdentifier", v21, v22, v23}];
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
@@ -172,7 +171,6 @@
     v19 = v5;
   }
 
-  v20 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
@@ -212,7 +210,7 @@
 
 - (id)dictionaryRepresentation
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   dictionary = [MEMORY[0x1E695DF90] dictionary];
   if (self->_applicationBundleIdentifier)
   {
@@ -230,26 +228,26 @@
   if ([(NSArray *)self->_peopleInPhotos count])
   {
     array = [MEMORY[0x1E695DF70] array];
+    v18 = 0u;
     v19 = 0u;
     v20 = 0u;
     v21 = 0u;
-    v22 = 0u;
     v8 = self->_peopleInPhotos;
-    v9 = [(NSArray *)v8 countByEnumeratingWithState:&v19 objects:v23 count:16];
+    v9 = [(NSArray *)v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v20;
+      v11 = *v19;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v20 != v11)
+          if (*v19 != v11)
           {
             objc_enumerationMutation(v8);
           }
 
-          dictionaryRepresentation = [*(*(&v19 + 1) + 8 * i) dictionaryRepresentation];
+          dictionaryRepresentation = [*(*(&v18 + 1) + 8 * i) dictionaryRepresentation];
           if (dictionaryRepresentation)
           {
             [array addObject:dictionaryRepresentation];
@@ -262,7 +260,7 @@
           }
         }
 
-        v10 = [(NSArray *)v8 countByEnumeratingWithState:&v19 objects:v23 count:16];
+        v10 = [(NSArray *)v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
       }
 
       while (v10);
@@ -277,8 +275,6 @@
     v16 = [photoIdentifier copy];
     [dictionary setObject:v16 forKeyedSubscript:@"photoIdentifier"];
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 
   return dictionary;
 }
@@ -401,7 +397,7 @@ LABEL_19:
 
 - (void)writeTo:(id)to
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   toCopy = to;
   photoIdentifier = [(_SFPBPhotosLibraryImage *)self photoIdentifier];
   if (photoIdentifier)
@@ -415,32 +411,31 @@ LABEL_19:
   }
 
   peopleInPhotos = [(_SFPBPhotosLibraryImage *)self peopleInPhotos];
+  v12 = 0u;
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
-  v17 = 0u;
-  v7 = [peopleInPhotos countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v7 = [peopleInPhotos countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v15;
+    v9 = *v13;
     do
     {
       v10 = 0;
       do
       {
-        if (*v15 != v9)
+        if (*v13 != v9)
         {
           objc_enumerationMutation(peopleInPhotos);
         }
 
-        v11 = *(*(&v14 + 1) + 8 * v10);
         PBDataWriterWriteSubmessage();
         ++v10;
       }
 
       while (v8 != v10);
-      v8 = [peopleInPhotos countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v8 = [peopleInPhotos countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v8);
@@ -451,15 +446,11 @@ LABEL_19:
   {
     PBDataWriterWriteStringField();
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setApplicationBundleIdentifier:(id)identifier
 {
-  v4 = [identifier copy];
-  applicationBundleIdentifier = self->_applicationBundleIdentifier;
-  self->_applicationBundleIdentifier = v4;
+  self->_applicationBundleIdentifier = [identifier copy];
 
   MEMORY[0x1EEE66BB8]();
 }
@@ -484,18 +475,14 @@ LABEL_19:
 
 - (void)setPeopleInPhoto:(id)photo
 {
-  v4 = [photo copy];
-  peopleInPhotos = self->_peopleInPhotos;
-  self->_peopleInPhotos = v4;
+  self->_peopleInPhotos = [photo copy];
 
   MEMORY[0x1EEE66BB8]();
 }
 
 - (void)setPhotoIdentifier:(id)identifier
 {
-  v4 = [identifier copy];
-  photoIdentifier = self->_photoIdentifier;
-  self->_photoIdentifier = v4;
+  self->_photoIdentifier = [identifier copy];
 
   MEMORY[0x1EEE66BB8]();
 }

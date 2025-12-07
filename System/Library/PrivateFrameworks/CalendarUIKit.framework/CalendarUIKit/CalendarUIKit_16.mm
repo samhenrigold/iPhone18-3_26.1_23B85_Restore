@@ -48,7 +48,7 @@ uint64_t sub_1CAD1393C()
     v17 = v16[3];
     if (v18 >= v17 >> 1)
     {
-      v357 = sub_1CAD353C4(v17 > 1, v18 + 1, 1, v16);
+      v357 = sub_1CAD353C4((v17 > 1), v18 + 1, 1, v16);
     }
 
     else
@@ -64,7 +64,7 @@ uint64_t sub_1CAD1393C()
 
     v13 = (v19 + 1);
     sub_1CAD1AC00(v21, type metadata accessor for LocationSearchResult);
-    *(v357 + 16) = v18 + 1;
+    v357[2] = v18 + 1;
     sub_1CAD1AB98(v22, v357 + ((*(v23 + 80) + 32) & ~*(v23 + 80)) + *(v23 + 72) * v18, type metadata accessor for LocationSearchResult);
     if (v19 + 1 != v20)
     {
@@ -89,7 +89,7 @@ uint64_t sub_1CAD1393C()
       v11[15] = v11 + 104;
       v11[11] = sub_1CAD1385C;
       v49 = swift_continuation_init();
-      v11[101] = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC468188);
+      v11[101] = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC468188, &qword_1CAD69268);
       v11[98] = v49;
       v11[94] = MEMORY[0x1E69E9820];
       v11[95] = 1107296256;
@@ -107,7 +107,7 @@ uint64_t sub_1CAD1393C()
     }
 
     v25 = v24;
-    sub_1CABD4070(0, &qword_1EC468178);
+    sub_1CABD4070(0, &qword_1EC468178, 0x1E6966B38);
     v26 = sub_1CAD4E214();
     v11[161] = v26;
 
@@ -163,7 +163,7 @@ LABEL_35:
       }
 
       v31 = [v30 joinMethods];
-      v11[166] = sub_1CABD4070(0, &qword_1EC464E70);
+      v11[166] = sub_1CABD4070(0, &qword_1EC464E70, 0x1E6966B40);
       v18 = sub_1CAD4E214();
 
       if (v18 >> 62)
@@ -204,7 +204,7 @@ LABEL_22:
           v11[7] = v39;
           v11[3] = sub_1CAD1636C;
           v43 = swift_continuation_init();
-          v11[93] = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC468180);
+          v11[93] = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC468180, &qword_1CAD69260);
           v11[90] = v43;
           v11[86] = MEMORY[0x1E69E9820];
           v11[87] = 1107296256;
@@ -237,7 +237,7 @@ LABEL_32:
     v16 = sub_1CAD353C4(0, v16[2] + 1, 1, v16);
   }
 
-  if (!*(v357 + 16))
+  if (!v357[2])
   {
     v328 = MEMORY[0x1E69E7CC0];
     goto LABEL_42;
@@ -276,7 +276,7 @@ LABEL_42:
     }
 
     v57 = v56;
-    sub_1CABD4070(0, &qword_1EC468170);
+    sub_1CABD4070(0, &qword_1EC468170, 0x1E6966AA0);
     v12 = sub_1CAD4E214();
 
     if (v12 >> 62)
@@ -380,7 +380,7 @@ LABEL_65:
       v69 = v383[151];
       if (v68 == 1)
       {
-        sub_1CAB21B68(v69, &qword_1EC467E38);
+        sub_1CAB21B68(v69, &qword_1EC467E38, &qword_1CAD68DB8);
       }
 
       else
@@ -398,7 +398,7 @@ LABEL_65:
         v72 = v60[3];
         if (v73 >= v72 >> 1)
         {
-          v60 = sub_1CAD353C4(v72 > 1, v73 + 1, 1, v60);
+          v60 = sub_1CAD353C4((v72 > 1), v73 + 1, 1, v60);
         }
 
         v74 = v383[145];
@@ -427,7 +427,7 @@ LABEL_62:
   }
 
   v81 = v80;
-  sub_1CABD4070(0, &qword_1EC468168);
+  sub_1CABD4070(0, &qword_1EC468168, 0x1E69669D8);
   v82 = sub_1CAD4E214();
 
   if (v82 >> 62)
@@ -592,7 +592,7 @@ LABEL_62:
           v11 = v383;
           if (v12 >= v120 >> 1)
           {
-            v18 = sub_1CAD353C4(v120 > 1, v12 + 1, 1, v18);
+            v18 = sub_1CAD353C4((v120 > 1), v12 + 1, 1, v18);
           }
 
           v121 = v383[144];
@@ -644,7 +644,7 @@ LABEL_114:
   if (v127)
   {
     v128 = v127;
-    sub_1CABD4070(0, &qword_1EC468158);
+    sub_1CABD4070(0, &qword_1EC468158, 0x1E6966B08);
     v12 = sub_1CAD4E214();
 
     if (!(v12 >> 62))
@@ -731,7 +731,7 @@ LABEL_114:
         v177 = v176[3];
         if (v12 >= v177 >> 1)
         {
-          v176 = sub_1CAD353C4(v177 > 1, v12 + 1, 1, v176);
+          v176 = sub_1CAD353C4((v177 > 1), v12 + 1, 1, v176);
         }
 
         v178 = v11[141];
@@ -750,7 +750,7 @@ LABEL_114:
       }
 
       v180 = v179;
-      sub_1CABD4070(0, &qword_1EC468160);
+      sub_1CABD4070(0, &qword_1EC468160, 0x1E6966B18);
       v181 = sub_1CAD4E214();
 
       if (v181 >> 62)
@@ -912,7 +912,7 @@ LABEL_164:
           v217 = *(v184 + 24);
           if (v12 >= v217 >> 1)
           {
-            sub_1CACBA39C(v217 > 1, v12 + 1, 1);
+            sub_1CACBA39C((v217 > 1), v12 + 1, 1);
             v184 = v393;
           }
 
@@ -970,7 +970,7 @@ LABEL_129:
     if (v219)
     {
       v220 = v219;
-      sub_1CABD4070(0, &qword_1EC468158);
+      sub_1CABD4070(0, &qword_1EC468158, 0x1E6966B08);
       v12 = sub_1CAD4E214();
 
       if (v12 >> 62)
@@ -1105,7 +1105,7 @@ LABEL_108:
           v243 = *(v377 + 24);
           if (v12 >= v243 >> 1)
           {
-            sub_1CACBA39C(v243 > 1, v12 + 1, 1);
+            sub_1CACBA39C((v243 > 1), v12 + 1, 1);
             v224 = v393;
           }
 
@@ -1139,7 +1139,7 @@ LABEL_108:
     }
 
     v246 = v245;
-    sub_1CABD4070(0, &qword_1EC468118);
+    sub_1CABD4070(0, &qword_1EC468118, 0x1E6966A48);
     v247 = sub_1CAD4E214();
 
     if (!(v247 >> 62))
@@ -1254,7 +1254,7 @@ LABEL_184:
         v275 = v378[3];
         if (v12 >= v275 >> 1)
         {
-          v378 = sub_1CAD353C4(v275 > 1, v12 + 1, 1, v378);
+          v378 = sub_1CAD353C4((v275 > 1), v12 + 1, 1, v378);
         }
 
         v276 = v383[138];
@@ -1367,7 +1367,7 @@ LABEL_117:
       v144 = v131[3];
       if (v145 >= v144 >> 1)
       {
-        sub_1CACBA39C(v144 > 1, v145 + 1, 1);
+        sub_1CACBA39C((v144 > 1), v145 + 1, 1);
         v131 = v393;
       }
 
@@ -1445,7 +1445,7 @@ LABEL_208:
   }
 
   v284 = v283;
-  sub_1CABD4070(0, &qword_1EC468158);
+  sub_1CABD4070(0, &qword_1EC468158, 0x1E6966B08);
   v285 = sub_1CAD4E214();
 
   if (v285 >> 62)
@@ -1575,7 +1575,7 @@ LABEL_231:
 
       if (v301 >= v302 >> 1)
       {
-        sub_1CACBA39C(v302 > 1, v301 + 1, 1);
+        sub_1CACBA39C((v302 > 1), v301 + 1, 1);
         v288 = v393;
       }
 
@@ -1615,7 +1615,7 @@ LABEL_238:
   v316 = v11[108];
   v317 = v11;
   v318 = v11[107];
-  sub_1CAB23A9C(v311, v312, &qword_1EC467E38);
+  sub_1CAB23A9C(v311, v312, &qword_1EC467E38, &qword_1CAD68DB8);
   *(v312 + *(v315 + 20)) = v310;
   v319 = sub_1CAD4E304();
   (*(*(v319 - 8) + 56))(v316, 1, 1, v319);
@@ -1633,7 +1633,7 @@ LABEL_238:
   sub_1CACA6D34(0, 0, v316, &unk_1CAD69258, v322);
 
   sub_1CAD1AC00(v312, type metadata accessor for LocationSearchResults);
-  sub_1CAB21B68(v311, &qword_1EC467E38);
+  sub_1CAB21B68(v311, &qword_1EC467E38, &qword_1CAD68DB8);
 
   v324 = v317[1];
 
@@ -1657,19 +1657,19 @@ uint64_t sub_1CAD1644C()
   v5 = *(v0 + 1008);
   v6 = *(v0 + 992);
   v7 = *(v0 + 984);
-  sub_1CABA62E4(*(v0 + 1024), v4, &qword_1EC468150);
+  sub_1CABA62E4(*(v0 + 1024), v4, &qword_1EC468150, &qword_1CAD69248);
   v8 = *(v6 + 80);
   v9 = v4[1];
   *v3 = *v4;
   v3[1] = v9;
-  sub_1CABA62E4(v4 + v8, v3 + v8, &qword_1EC465450);
+  sub_1CABA62E4(v4 + v8, v3 + v8, &qword_1EC465450, &qword_1CAD5A1B0);
 
-  sub_1CAB23A9C(v3, v5, &qword_1EC468150);
+  sub_1CAB23A9C(v3, v5, &qword_1EC468150, &qword_1CAD69248);
 
-  sub_1CABA62E4(v5 + *(v6 + 80), v7, &qword_1EC465450);
+  sub_1CABA62E4(v5 + *(v6 + 80), v7, &qword_1EC465450, &qword_1CAD5A1B0);
   if ((*(v2 + 48))(v7, 1, v472) == 1)
   {
-    sub_1CAB21B68(*(v0 + 984), &qword_1EC465450);
+    sub_1CAB21B68(*(v0 + 984), &qword_1EC465450, &qword_1CAD5A1B0);
     v431 = 0;
     v432 = 0;
   }
@@ -1708,11 +1708,11 @@ uint64_t sub_1CAD1644C()
     v22 = *(v0 + 1032);
     v23 = *(v0 + 1016);
     v24 = *(v0 + 992);
-    sub_1CAB23A9C(v22, v17[127], &qword_1EC468150);
+    sub_1CAB23A9C(v22, v17[127], &qword_1EC468150, &qword_1CAD69248);
 
     v418 = *(v23 + 16);
     v424 = *(v23 + 8);
-    sub_1CAB21B68(v23 + *(v24 + 80), &qword_1EC465450);
+    sub_1CAB21B68(v23 + *(v24 + 80), &qword_1EC465450, &qword_1CAD5A1B0);
   }
 
   v25 = [v17[164] joinMethods];
@@ -1805,7 +1805,7 @@ LABEL_9:
         v46 = *(v30 + 24);
         if (v47 >= v46 >> 1)
         {
-          sub_1CACB9FD8(v46 > 1, v47 + 1, 1);
+          sub_1CACB9FD8((v46 > 1), v47 + 1, 1);
           v30 = *v413;
         }
 
@@ -1915,12 +1915,12 @@ LABEL_23:
   *(v74 + 64) = v408;
   sub_1CABD4E34(v391, v74 + v76);
   sub_1CABD4E34(v73, v74 + v77);
-  sub_1CAB23A9C(v394, v71, &qword_1EC468150);
+  sub_1CAB23A9C(v394, v71, &qword_1EC468150, &qword_1CAD69248);
 
   v78 = *(v71 + 8);
   v79 = *(v71 + 16);
   v464 = *(v398 + 80);
-  sub_1CAB23A9C(v394, v72, &qword_1EC468150);
+  sub_1CAB23A9C(v394, v72, &qword_1EC468150, &qword_1CAD69248);
   v80 = *v72;
 
   v81 = *(v398 + 80);
@@ -1940,8 +1940,8 @@ LABEL_23:
   *(v68 + 4) = v80;
   v84 = v72 + v81;
   i = v473;
-  sub_1CAB21B68(v84, &qword_1EC465450);
-  sub_1CAB21B68(v71 + v464, &qword_1EC465450);
+  sub_1CAB21B68(v84, &qword_1EC465450, &qword_1CAD5A1B0);
+  sub_1CAB21B68(v71 + v464, &qword_1EC465450, &qword_1CAD5A1B0);
   sub_1CAD1B670(v68, v440, type metadata accessor for LocationSearchResult);
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
   v431 = v473[163];
@@ -1956,7 +1956,7 @@ LABEL_23:
     v87 = v431[3];
     if (v88 >= v87 >> 1)
     {
-      v431 = sub_1CAD353C4(v87 > 1, v88 + 1, 1, v431);
+      v431 = sub_1CAD353C4((v87 > 1), v88 + 1, 1, v431);
     }
 
     v89 = *(i + 1312);
@@ -1970,7 +1970,7 @@ LABEL_23:
     v96 = v473[119];
 
     sub_1CAD1AC00(v90, type metadata accessor for LocationSearchResult);
-    sub_1CAB21B68(v95, &qword_1EC468150);
+    sub_1CAB21B68(v95, &qword_1EC468150, &qword_1CAD69248);
     (*(v94 + 8))(v93, v7);
     v17 = v473;
     v431[2] = v88 + 1;
@@ -2004,7 +2004,7 @@ LABEL_23:
       }
 
       v105 = [v103 joinMethods];
-      v473[166] = sub_1CABD4070(0, &qword_1EC464E70);
+      v473[166] = sub_1CABD4070(0, &qword_1EC464E70, 0x1E6966B40);
       v7 = sub_1CAD4E214();
 
       if (v7 >> 62)
@@ -2037,7 +2037,7 @@ LABEL_56:
               v473[7] = v113;
               v473[3] = sub_1CAD1636C;
               v117 = swift_continuation_init();
-              v473[93] = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC468180);
+              v473[93] = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC468180, &qword_1CAD69260);
               v473[90] = v117;
               v473[86] = MEMORY[0x1E69E9820];
               v473[87] = 1107296256;
@@ -2105,7 +2105,7 @@ LABEL_84:
     }
 
     v119 = v118;
-    sub_1CABD4070(0, &qword_1EC468170);
+    sub_1CABD4070(0, &qword_1EC468170, 0x1E6966AA0);
     v120 = sub_1CAD4E214();
 
     if (v120 >> 62)
@@ -2209,7 +2209,7 @@ LABEL_87:
       v130 = v473[151];
       if (v129 == 1)
       {
-        sub_1CAB21B68(v130, &qword_1EC467E38);
+        sub_1CAB21B68(v130, &qword_1EC467E38, &qword_1CAD68DB8);
       }
 
       else
@@ -2227,7 +2227,7 @@ LABEL_87:
         v133 = v122[3];
         if (v134 >= v133 >> 1)
         {
-          v122 = sub_1CAD353C4(v133 > 1, v134 + 1, 1, v122);
+          v122 = sub_1CAD353C4((v133 > 1), v134 + 1, 1, v122);
         }
 
         v135 = v473[145];
@@ -2261,7 +2261,7 @@ LABEL_82:
   }
 
   v143 = v141;
-  sub_1CABD4070(0, &qword_1EC468168);
+  sub_1CABD4070(0, &qword_1EC468168, 0x1E69669D8);
   v88 = sub_1CAD4E214();
 
   if (v88 >> 62)
@@ -2426,7 +2426,7 @@ LABEL_82:
           v17 = v473;
           if (v182 >= v181 >> 1)
           {
-            v7 = sub_1CAD353C4(v181 > 1, v182 + 1, 1, v7);
+            v7 = sub_1CAD353C4((v181 > 1), v182 + 1, 1, v7);
           }
 
           v183 = v473[144];
@@ -2479,7 +2479,7 @@ LABEL_136:
   if (v189)
   {
     v190 = v189;
-    sub_1CABD4070(0, &qword_1EC468158);
+    sub_1CABD4070(0, &qword_1EC468158, 0x1E6966B08);
     v88 = sub_1CAD4E214();
 
     if (!(v88 >> 62))
@@ -2566,7 +2566,7 @@ LABEL_136:
         v238 = v237[3];
         if (v88 >= v238 >> 1)
         {
-          v237 = sub_1CAD353C4(v238 > 1, v88 + 1, 1, v237);
+          v237 = sub_1CAD353C4((v238 > 1), v88 + 1, 1, v237);
         }
 
         v239 = v17[141];
@@ -2585,7 +2585,7 @@ LABEL_136:
       }
 
       v241 = v240;
-      sub_1CABD4070(0, &qword_1EC468160);
+      sub_1CABD4070(0, &qword_1EC468160, 0x1E6966B18);
       v88 = sub_1CAD4E214();
 
       if (v88 >> 62)
@@ -2758,7 +2758,7 @@ LABEL_186:
           v283 = *(v444 + 24);
           if (v88 >= v283 >> 1)
           {
-            sub_1CACBA39C(v283 > 1, v88 + 1, 1);
+            sub_1CACBA39C((v283 > 1), v88 + 1, 1);
             v245 = v483;
           }
 
@@ -2818,7 +2818,7 @@ LABEL_151:
     if (v285)
     {
       v286 = v285;
-      sub_1CABD4070(0, &qword_1EC468158);
+      sub_1CABD4070(0, &qword_1EC468158, 0x1E6966B08);
       v88 = sub_1CAD4E214();
 
       if (v88 >> 62)
@@ -2954,7 +2954,7 @@ LABEL_130:
           v309 = *(v459 + 24);
           if (v88 >= v309 >> 1)
           {
-            sub_1CACBA39C(v309 > 1, v88 + 1, 1);
+            sub_1CACBA39C((v309 > 1), v88 + 1, 1);
             v290 = v483;
           }
 
@@ -2988,7 +2988,7 @@ LABEL_130:
     }
 
     v312 = v311;
-    sub_1CABD4070(0, &qword_1EC468118);
+    sub_1CABD4070(0, &qword_1EC468118, 0x1E6966A48);
     v313 = sub_1CAD4E214();
 
     if (!(v313 >> 62))
@@ -3103,7 +3103,7 @@ LABEL_206:
         v340 = v460[3];
         if (v88 >= v340 >> 1)
         {
-          v460 = sub_1CAD353C4(v340 > 1, v88 + 1, 1, v460);
+          v460 = sub_1CAD353C4((v340 > 1), v88 + 1, 1, v460);
         }
 
         v341 = v473[138];
@@ -3216,7 +3216,7 @@ LABEL_139:
       v206 = v192[3];
       if (v88 >= v206 >> 1)
       {
-        sub_1CACBA39C(v206 > 1, v88 + 1, 1);
+        sub_1CACBA39C((v206 > 1), v88 + 1, 1);
         v192 = v483;
       }
 
@@ -3294,7 +3294,7 @@ LABEL_230:
   }
 
   v349 = v348;
-  sub_1CABD4070(0, &qword_1EC468158);
+  sub_1CABD4070(0, &qword_1EC468158, 0x1E6966B08);
   v350 = sub_1CAD4E214();
 
   if (v350 >> 62)
@@ -3424,7 +3424,7 @@ LABEL_253:
 
       if (v365 >= v366 >> 1)
       {
-        sub_1CACBA39C(v366 > 1, v365 + 1, 1);
+        sub_1CACBA39C((v366 > 1), v365 + 1, 1);
         v352 = v483;
       }
 
@@ -3463,7 +3463,7 @@ LABEL_260:
   v380 = v17[108];
   v381 = v17;
   v382 = v17[107];
-  sub_1CAB23A9C(v375, v376, &qword_1EC467E38);
+  sub_1CAB23A9C(v375, v376, &qword_1EC467E38, &qword_1CAD68DB8);
   *(v376 + *(v379 + 20)) = v374;
   v383 = sub_1CAD4E304();
   (*(*(v383 - 8) + 56))(v380, 1, 1, v383);
@@ -3481,7 +3481,7 @@ LABEL_260:
   sub_1CACA6D34(0, 0, v380, &unk_1CAD69258, v386);
 
   sub_1CAD1AC00(v376, type metadata accessor for LocationSearchResults);
-  sub_1CAB21B68(v375, &qword_1EC467E38);
+  sub_1CAB21B68(v375, &qword_1EC467E38, &qword_1CAD68DB8);
 
   v388 = v381[1];
 
@@ -3501,10 +3501,10 @@ uint64_t sub_1CAD194D8(uint64_t a1, void *a2, void *a3)
 
 uint64_t sub_1CAD1954C(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC465450);
+  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC465450, &qword_1CAD5A1B0);
   MEMORY[0x1EEE9AC00](v10 - 8);
   v12 = &v24 - v11;
-  v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC468150);
+  v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC468150, &qword_1CAD69248);
   MEMORY[0x1EEE9AC00](v13);
   v15 = (&v24 - v14);
   v16 = *__swift_project_boxed_opaque_existential_1((a1 + 32), *(a1 + 56));
@@ -3536,10 +3536,10 @@ uint64_t sub_1CAD1954C(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, uint64_t
     (*(*(v20 - 8) + 56))(v12, 1, 1, v20);
   }
 
-  sub_1CABA62E4(v12, v15 + *(v13 + 80), &qword_1EC465450);
+  sub_1CABA62E4(v12, v15 + *(v13 + 80), &qword_1EC465450, &qword_1CAD5A1B0);
   v21 = *(*(v16 + 64) + 40);
   v22 = a2;
-  sub_1CABA62E4(v15, v21, &qword_1EC468150);
+  sub_1CABA62E4(v15, v21, &qword_1EC468150, &qword_1CAD69248);
   return swift_continuation_resume();
 }
 
@@ -3698,7 +3698,7 @@ uint64_t sub_1CAD19C4C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
 {
   v5[3] = a4;
   v5[4] = a5;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC467E58);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC467E58, &qword_1CAD69270);
   v5[5] = swift_task_alloc();
   sub_1CAD4E2C4();
   v5[6] = sub_1CAD4E2B4();
@@ -3716,15 +3716,15 @@ uint64_t sub_1CAD19D1C()
   sub_1CAD1B670(v2, v1, type metadata accessor for LocationSearchResults);
   v4 = type metadata accessor for LocationSearchResults(0);
   (*(*(v4 - 8) + 56))(v1, 0, 1, v4);
-  swift_getKeyPath();
+  swift_getKeyPath("h%q!");
   v5 = swift_task_alloc();
   *(v5 + 16) = v3;
   *(v5 + 24) = v1;
   v0[2] = v3;
-  sub_1CAD1AB50(&qword_1EC465790, type metadata accessor for LocationDataModel);
+  sub_1CAD1AB50(&qword_1EC465790, type metadata accessor for LocationDataModel, &unk_1CAD6921C);
   sub_1CAD4C414();
 
-  sub_1CAB21B68(v1, &qword_1EC467E58);
+  sub_1CAB21B68(v1, &qword_1EC467E58, &qword_1CAD69270);
 
   v6 = v0[1];
 
@@ -3733,7 +3733,7 @@ uint64_t sub_1CAD19D1C()
 
 id sub_1CAD19EC8(uint64_t a1, char a2)
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC468060);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC468060, &qword_1CAD690A8);
   MEMORY[0x1EEE9AC00](v5 - 8);
   v7 = v38 - v6;
   v8 = type metadata accessor for LocationModelObject(0);
@@ -3747,10 +3747,10 @@ id sub_1CAD19EC8(uint64_t a1, char a2)
   if ((a2 & 1) == 0)
   {
     v20 = type metadata accessor for LocationSearchResult(0);
-    sub_1CAB23A9C(a1 + *(v20 + 32), v7, &qword_1EC468060);
+    sub_1CAB23A9C(a1 + *(v20 + 32), v7, &qword_1EC468060, &qword_1CAD690A8);
     if ((*(v9 + 48))(v7, 1, v8) == 1)
     {
-      return sub_1CAB21B68(v7, &qword_1EC468060);
+      return sub_1CAB21B68(v7, &qword_1EC468060, &qword_1CAD690A8);
     }
 
     sub_1CAD1AB98(v7, v17, type metadata accessor for LocationModelObject);
@@ -3853,7 +3853,7 @@ LABEL_19:
 
 uint64_t sub_1CAD1A314()
 {
-  sub_1CAB21B68(v0 + OBJC_IVAR____TtC13CalendarUIKit17LocationDataModel__result, &qword_1EC467E58);
+  sub_1CAB21B68(v0 + OBJC_IVAR____TtC13CalendarUIKit17LocationDataModel__result, &qword_1EC467E58, &qword_1CAD69270);
   sub_1CAD1AC00(v0 + OBJC_IVAR____TtC13CalendarUIKit17LocationDataModel__selectedLocationResult, type metadata accessor for LocationModelObject);
 
   v1 = OBJC_IVAR____TtC13CalendarUIKit17LocationDataModel___observationRegistrar;
@@ -3869,16 +3869,16 @@ uint64_t sub_1CAD1A404()
   return swift_deallocClassInstance();
 }
 
-void sub_1CAD1A484()
+void sub_1CAD1A484(uint64_t a1)
 {
   sub_1CAD1A71C(319, &qword_1EC468038, type metadata accessor for LocationSearchResults, type metadata accessor for LocationSearchState);
-  if (v0 <= 0x3F)
+  if (v1 <= 0x3F)
   {
     type metadata accessor for LocationModelObject(319);
-    if (v1 <= 0x3F)
+    if (v2 <= 0x3F)
     {
       sub_1CAD4C464();
-      if (v2 <= 0x3F)
+      if (v3 <= 0x3F)
       {
         swift_updateClassMetadata2();
       }
@@ -3886,13 +3886,13 @@ void sub_1CAD1A484()
   }
 }
 
-void sub_1CAD1A668()
+void sub_1CAD1A668(uint64_t a1)
 {
   sub_1CAD1A71C(319, &qword_1EC468050, type metadata accessor for LocationSearchResult, MEMORY[0x1E69E6720]);
-  if (v0 <= 0x3F)
+  if (v1 <= 0x3F)
   {
-    sub_1CAD1A7A0();
-    if (v1 <= 0x3F)
+    sub_1CAD1A7A0(319);
+    if (v2 <= 0x3F)
     {
       swift_cvw_initStructMetadataWithLayoutString();
     }
@@ -3912,29 +3912,29 @@ void sub_1CAD1A71C(uint64_t a1, unint64_t *a2, uint64_t (*a3)(uint64_t), uint64_
   }
 }
 
-void sub_1CAD1A7A0()
+void sub_1CAD1A7A0(uint64_t a1)
 {
   if (!qword_1EC468058)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_1EC467EA0);
-    v0 = sub_1CAD4E4D4();
-    if (!v1)
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_1EC467EA0, &qword_1CAD68E38);
+    v1 = sub_1CAD4E4D4();
+    if (!v2)
     {
-      atomic_store(v0, &qword_1EC468058);
+      atomic_store(v1, &qword_1EC468058);
     }
   }
 }
 
-void sub_1CAD1A83C()
+void sub_1CAD1A83C(uint64_t a1)
 {
   sub_1CABDB2B0();
-  if (v0 <= 0x3F)
+  if (v1 <= 0x3F)
   {
-    sub_1CAD1A90C();
-    if (v1 <= 0x3F)
+    sub_1CAD1A90C(319);
+    if (v2 <= 0x3F)
     {
       sub_1CAD1A71C(319, qword_1EC468080, type metadata accessor for LocationModelObject, MEMORY[0x1E69E6720]);
-      if (v2 <= 0x3F)
+      if (v3 <= 0x3F)
       {
         swift_cvw_initStructMetadataWithLayoutString();
       }
@@ -3942,29 +3942,29 @@ void sub_1CAD1A83C()
   }
 }
 
-void sub_1CAD1A90C()
+void sub_1CAD1A90C(uint64_t a1)
 {
   if (!qword_1EC468078)
   {
-    sub_1CABD4070(255, &qword_1EC4667E8);
-    v0 = sub_1CAD4E4D4();
-    if (!v1)
+    sub_1CABD4070(255, &qword_1EC4667E8, 0x1E69DCAB8);
+    v1 = sub_1CAD4E4D4();
+    if (!v2)
     {
-      atomic_store(v0, &qword_1EC468078);
+      atomic_store(v1, &qword_1EC468078);
     }
   }
 }
 
-void sub_1CAD1A974()
+void sub_1CAD1A974(uint64_t a1)
 {
-  sub_1CABD4070(319, &qword_1EC468118);
-  if (v0 <= 0x3F)
+  sub_1CABD4070(319, &qword_1EC468118, 0x1E6966A48);
+  if (v1 <= 0x3F)
   {
     sub_1CAD1AA20();
-    if (v1 <= 0x3F)
+    if (v2 <= 0x3F)
     {
       sub_1CAD1AA68();
-      if (v2 <= 0x3F)
+      if (v3 <= 0x3F)
       {
         swift_cvw_initEnumMetadataMultiPayloadWithLayoutString();
       }
@@ -3988,7 +3988,7 @@ void sub_1CAD1AA68()
 {
   if (!qword_1EC468128)
   {
-    v0 = sub_1CABD4070(0, &qword_1EC468130);
+    v0 = sub_1CABD4070(0, &qword_1EC468130, 0x1E6966B48);
     if (!v1)
     {
       atomic_store(v0, &qword_1EC468128);
@@ -3996,7 +3996,7 @@ void sub_1CAD1AA68()
   }
 }
 
-uint64_t sub_1CAD1AB50(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t sub_1CAD1AB50(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -4029,10 +4029,10 @@ BOOL sub_1CAD1AC60(void *a1, void *a2)
   v5 = *(v4 - 8);
   MEMORY[0x1EEE9AC00](v4);
   v7 = &v30 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC468060);
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC468060, &qword_1CAD690A8);
   MEMORY[0x1EEE9AC00](v8 - 8);
   v10 = &v30 - v9;
-  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC468140);
+  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC468140, &qword_1CAD69238);
   MEMORY[0x1EEE9AC00](v11);
   v13 = &v30 - v12;
   v14 = a1[1];
@@ -4075,7 +4075,7 @@ BOOL sub_1CAD1AC60(void *a1, void *a2)
       return 0;
     }
 
-    sub_1CABD4070(0, &qword_1EC4667E8);
+    sub_1CABD4070(0, &qword_1EC4667E8, 0x1E69DCAB8);
     v20 = v19;
     v21 = v18;
     v22 = sub_1CAD4E494();
@@ -4108,26 +4108,26 @@ BOOL sub_1CAD1AC60(void *a1, void *a2)
 
   v25 = *(type metadata accessor for LocationSearchResult(0) + 32);
   v26 = *(v11 + 48);
-  sub_1CAB23A9C(a1 + v25, v13, &qword_1EC468060);
-  sub_1CAB23A9C(a2 + v25, &v13[v26], &qword_1EC468060);
+  sub_1CAB23A9C(a1 + v25, v13, &qword_1EC468060, &qword_1CAD690A8);
+  sub_1CAB23A9C(a2 + v25, &v13[v26], &qword_1EC468060, &qword_1CAD690A8);
   v27 = *(v31 + 48);
   if (v27(v13, 1, v4) == 1)
   {
     if (v27(&v13[v26], 1, v4) == 1)
     {
-      sub_1CAB21B68(v13, &qword_1EC468060);
+      sub_1CAB21B68(v13, &qword_1EC468060, &qword_1CAD690A8);
       return 1;
     }
 
     goto LABEL_32;
   }
 
-  sub_1CAB23A9C(v13, v10, &qword_1EC468060);
+  sub_1CAB23A9C(v13, v10, &qword_1EC468060, &qword_1CAD690A8);
   if (v27(&v13[v26], 1, v4) == 1)
   {
     sub_1CAD1AC00(v10, type metadata accessor for LocationModelObject);
 LABEL_32:
-    sub_1CAB21B68(v13, &qword_1EC468140);
+    sub_1CAB21B68(v13, &qword_1EC468140, &qword_1CAD69238);
     return 0;
   }
 
@@ -4135,7 +4135,7 @@ LABEL_32:
   v29 = sub_1CAD1B078(v10, v7);
   sub_1CAD1AC00(v7, type metadata accessor for LocationModelObject);
   sub_1CAD1AC00(v10, type metadata accessor for LocationModelObject);
-  sub_1CAB21B68(v13, &qword_1EC468060);
+  sub_1CAB21B68(v13, &qword_1EC468060, &qword_1CAD690A8);
   return (v29 & 1) != 0;
 }
 
@@ -4156,7 +4156,7 @@ uint64_t sub_1CAD1B078(uint64_t a1, uint64_t a2)
   v16 = (&v61 - v15);
   MEMORY[0x1EEE9AC00](v14);
   v18 = (&v61 - v17);
-  v19 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC468148);
+  v19 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC468148, &qword_1CAD69240);
   v20 = MEMORY[0x1EEE9AC00](v19 - 8);
   v22 = &v61 - v21;
   v23 = (&v61 + *(v20 + 56) - v21);
@@ -4297,7 +4297,7 @@ LABEL_22:
     {
 LABEL_15:
       v43 = *v25;
-      sub_1CABD4070(0, &qword_1EC4667E0);
+      sub_1CABD4070(0, &qword_1EC4667E0, 0x1E69E58C0);
       v34 = sub_1CAD4E494();
 
       goto LABEL_22;
@@ -4337,7 +4337,7 @@ LABEL_15:
 LABEL_9:
 
 LABEL_20:
-    sub_1CAB21B68(v22, &qword_1EC468148);
+    sub_1CAB21B68(v22, &qword_1EC468148, &qword_1CAD69240);
     v34 = 0;
     return v34 & 1;
   }
@@ -4376,7 +4376,7 @@ uint64_t sub_1CAD1B6D8(uint64_t a1)
 
 uint64_t sub_1CAD1B820(uint64_t a1, uint64_t a2)
 {
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC467E58);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC467E58, &qword_1CAD69270);
   (*(*(v4 - 8) + 24))(a2, a1, v4);
   return a2;
 }
@@ -4404,7 +4404,7 @@ uint64_t sub_1CAD1B9E0(uint64_t a1, uint64_t a2)
   v6 = *(a2 + 16);
   v7 = *(a2 + 40);
   v26 = *(a2 + 48);
-  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC467E58);
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC467E58, &qword_1CAD69270);
   MEMORY[0x1EEE9AC00](v8 - 8);
   v10 = &v25[-v9];
   v11 = OBJC_IVAR____TtC13CalendarUIKit17LocationDataModel__result;
@@ -4441,13 +4441,13 @@ LABEL_8:
   if (v7)
   {
     *(v3 + OBJC_IVAR____TtC13CalendarUIKit17LocationDataModel_conferenceRoomNamesToExclude) = v7;
-    sub_1CAB23A9C(&v30, &v31, &qword_1EC4643D0);
+    sub_1CAB23A9C(&v30, &v31, &qword_1EC4643D0, &unk_1CAD5C590);
   }
 
   else
   {
     *(v3 + OBJC_IVAR____TtC13CalendarUIKit17LocationDataModel_conferenceRoomNamesToExclude) = 0;
-    sub_1CAB23A9C(&v30, &v31, &qword_1EC4643D0);
+    sub_1CAB23A9C(&v30, &v31, &qword_1EC4643D0, &unk_1CAD5C590);
   }
 
   v17 = v6;
@@ -4460,24 +4460,24 @@ LABEL_8:
   }
 
   v18 = v14;
-  sub_1CAB23A9C(&v31, v29, &qword_1EC4643D0);
+  sub_1CAB23A9C(&v31, v29, &qword_1EC4643D0, &unk_1CAD5C590);
   v19 = sub_1CAD4DF54();
-  sub_1CAB21B68(&v31, &qword_1EC4643D0);
+  sub_1CAB21B68(&v31, &qword_1EC4643D0, &unk_1CAD5C590);
   v20 = [v13 sourceWithIdentifier_];
 
   *(v3 + OBJC_IVAR____TtC13CalendarUIKit17LocationDataModel_source) = v20;
 LABEL_9:
   [*(v3 + 16) setDelegate_];
   v27(v10, 1, 1, v12);
-  KeyPath = swift_getKeyPath();
+  KeyPath = swift_getKeyPath("h%q!");
   MEMORY[0x1EEE9AC00](KeyPath);
   *&v25[-16] = v3;
   *&v25[-8] = v10;
   v29[0] = v3;
-  sub_1CAD1AB50(&qword_1EC465790, type metadata accessor for LocationDataModel);
+  sub_1CAD1AB50(&qword_1EC465790, type metadata accessor for LocationDataModel, &unk_1CAD6921C);
   sub_1CAD4C414();
 
-  sub_1CAB21B68(v10, &qword_1EC467E58);
+  sub_1CAB21B68(v10, &qword_1EC467E58, &qword_1CAD69270);
   v23 = v28;
   if (*(a2 + 8) == 1 || (*(a2 + 49) & 1) != 0)
   {
@@ -4606,7 +4606,7 @@ uint64_t sub_1CAD1BFDC(uint64_t result, unsigned int a2, unsigned int a3)
 
 uint64_t EventModelObject.singleRecurrenceRule.getter@<X0>(uint64_t a1@<X8>)
 {
-  v3 = *(v1 + *(type metadata accessor for EventModelObject() + 132));
+  v3 = *(v1 + *(type metadata accessor for EventModelObject(0) + 132));
   if (v3)
   {
     v4 = *(v3 + 16);
@@ -4643,7 +4643,7 @@ uint64_t EventModelObject.singleRecurrenceRule.getter@<X0>(uint64_t a1@<X8>)
   return v7(v8, v9, 1, v11);
 }
 
-uint64_t type metadata accessor for EventModelObject()
+uint64_t type metadata accessor for EventModelObject(uint64_t a1)
 {
   result = qword_1EDA5F810;
   if (!qword_1EDA5F810)
@@ -4656,7 +4656,7 @@ uint64_t type metadata accessor for EventModelObject()
 
 uint64_t sub_1CAD1C1E4@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
 {
-  v3 = *(a1 + *(type metadata accessor for EventModelObject() + 132));
+  v3 = *(a1 + *(type metadata accessor for EventModelObject(0) + 132));
   if (v3)
   {
     v4 = *(v3 + 16);
@@ -4695,10 +4695,10 @@ uint64_t sub_1CAD1C1E4@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
 
 uint64_t sub_1CAD1C310(uint64_t a1)
 {
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC463170);
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC463170, &qword_1CAD59540);
   MEMORY[0x1EEE9AC00](v2 - 8);
   v4 = &v6 - v3;
-  sub_1CAB23A9C(a1, &v6 - v3, &qword_1EC463170);
+  sub_1CAB23A9C(a1, &v6 - v3, &qword_1EC463170, &qword_1CAD59540);
   return EventModelObject.singleRecurrenceRule.setter(v4);
 }
 
@@ -4708,29 +4708,29 @@ uint64_t EventModelObject.singleRecurrenceRule.setter(uint64_t a1)
   v4 = *(v3 - 8);
   MEMORY[0x1EEE9AC00](v3);
   v6 = &v14 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC463170);
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC463170, &qword_1CAD59540);
   MEMORY[0x1EEE9AC00](v7 - 8);
   v9 = &v14 - v8;
-  sub_1CAB23A9C(a1, &v14 - v8, &qword_1EC463170);
+  sub_1CAB23A9C(a1, &v14 - v8, &qword_1EC463170, &qword_1CAD59540);
   if ((*(v4 + 48))(v9, 1, v3) == 1)
   {
-    sub_1CAB21B68(a1, &qword_1EC463170);
+    sub_1CAB21B68(a1, &qword_1EC463170, &qword_1CAD59540);
     v10 = 0;
   }
 
   else
   {
     sub_1CAD2E6A8(v9, v6, type metadata accessor for EventRecurrenceRuleModelObject);
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC465D50);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC465D50, &unk_1CAD61F10);
     v11 = (*(v4 + 80) + 32) & ~*(v4 + 80);
     v10 = swift_allocObject();
     *(v10 + 16) = xmmword_1CAD58380;
     sub_1CAD2E710(v6, v10 + v11, type metadata accessor for EventRecurrenceRuleModelObject);
-    sub_1CAB21B68(a1, &qword_1EC463170);
+    sub_1CAB21B68(a1, &qword_1EC463170, &qword_1CAD59540);
     sub_1CAD2DF04(v6, type metadata accessor for EventRecurrenceRuleModelObject);
   }
 
-  v12 = *(type metadata accessor for EventModelObject() + 132);
+  v12 = *(type metadata accessor for EventModelObject(0) + 132);
 
   *(v1 + v12) = v10;
   return result;
@@ -4738,15 +4738,15 @@ uint64_t EventModelObject.singleRecurrenceRule.setter(uint64_t a1)
 
 uint64_t EventModelObject.constraints.getter@<X0>(uint64_t a1@<X8>)
 {
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC464020);
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC464020, &qword_1CAD5E370);
   MEMORY[0x1EEE9AC00](v3 - 8);
   v5 = v19 - v4;
-  v6 = type metadata accessor for EventModelObject();
-  sub_1CAB23A9C(v1 + *(v6 + 104), v5, &qword_1EC464020);
-  v7 = type metadata accessor for EventCalendarModelObject();
+  v6 = type metadata accessor for EventModelObject(0);
+  sub_1CAB23A9C(v1 + *(v6 + 104), v5, &qword_1EC464020, &qword_1CAD5E370);
+  v7 = type metadata accessor for EventCalendarModelObject(0);
   if ((*(*(v7 - 8) + 48))(v5, 1, v7) == 1)
   {
-    result = sub_1CAB21B68(v5, &qword_1EC464020);
+    result = sub_1CAB21B68(v5, &qword_1EC464020, &qword_1CAD5E370);
     *a1 = xmmword_1CAD5D940;
     *(a1 + 16) = 0;
     *(a1 + 24) = 0;
@@ -4788,7 +4788,7 @@ uint64_t EventModelObject.constraints.getter@<X0>(uint64_t a1@<X8>)
   return result;
 }
 
-double EventModelObject.init(id:uniqueID:title:startDate:endDate:isAllDay:isProposedTime:startTimeZone:endTimeZone:isFloating:floatingTimeZone:virtualConference:location:locationWithoutPrediction:locationsWithoutPrediction:structuredLocation:structuredLocationWithoutPrediction:preferredLocation:travelTime:travelRoutingMode:calendar:privacyLevel:status:alarms:notes:availability:recurrenceDate:recurrenceRules:organizer:attendees:selfAttendee:url:hasAttachment:conferenceURLForDisplayCached:conferenceURLForDisplay:integration:isEditable:isNew:isSuggestedEvent:)@<D0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, void (*a5)(void, void, void)@<X4>, void *a6@<X5>, uint64_t a7@<X6>, uint64_t a8@<X7>, char *a9@<X8>, double a10@<D0>, unsigned __int8 a11, unsigned __int8 a12, uint64_t a13, uint64_t a14, unsigned __int8 a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, __int128 *a23, __int128 *a24, __int128 *a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, unsigned __int8 a40, unsigned __int8 a41, uint64_t a42, __int128 *a43, unsigned __int8 a44, unsigned __int8 a45, unsigned __int8 a46)
+double EventModelObject.init(id:uniqueID:title:startDate:endDate:isAllDay:isProposedTime:startTimeZone:endTimeZone:isFloating:floatingTimeZone:virtualConference:location:locationWithoutPrediction:locationsWithoutPrediction:structuredLocation:structuredLocationWithoutPrediction:preferredLocation:travelTime:travelRoutingMode:calendar:privacyLevel:status:alarms:notes:availability:recurrenceDate:recurrenceRules:organizer:attendees:selfAttendee:url:hasAttachment:conferenceURLForDisplayCached:conferenceURLForDisplay:integration:isEditable:isNew:isSuggestedEvent:)@<D0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, void (*a5)(char *, uint64_t, uint64_t)@<X4>, void *a6@<X5>, uint64_t a7@<X6>, uint64_t a8@<X7>, char *a9@<X8>, double a10@<D0>, unsigned __int8 a11, unsigned __int8 a12, uint64_t a13, uint64_t a14, unsigned __int8 a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, __int128 *a23, __int128 *a24, __int128 *a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, unsigned __int8 a40, unsigned __int8 a41, uint64_t a42, __int128 *a43, unsigned __int8 a44, unsigned __int8 a45, unsigned __int8 a46)
 {
   v271 = a8;
   v272 = a7;
@@ -4830,7 +4830,7 @@ double EventModelObject.init(id:uniqueID:title:startDate:endDate:isAllDay:isProp
   v224 = a11;
   v260 = a42;
   v235 = a22;
-  v48 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EC465A70);
+  v48 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EC465A70, &unk_1CAD61F00);
   v49 = MEMORY[0x1EEE9AC00](v48 - 8);
   v240 = &v207 - ((v50 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v49);
@@ -4890,7 +4890,7 @@ double EventModelObject.init(id:uniqueID:title:startDate:endDate:isAllDay:isProp
   v250 = *(a43 + 5);
   v251 = v68;
   v249 = *(a43 + 6);
-  v69 = type metadata accessor for EventModelObject();
+  v69 = type metadata accessor for EventModelObject(0);
   v70 = v69[11];
   v214 = v70;
   v71 = sub_1CAD4C404();
@@ -4994,7 +4994,7 @@ double EventModelObject.init(id:uniqueID:title:startDate:endDate:isAllDay:isProp
   *(v114 + 3) = v105;
   v115 = v69[26];
   v216 = v115;
-  v116 = type metadata accessor for EventCalendarModelObject();
+  v116 = type metadata accessor for EventCalendarModelObject(0);
   (*(*(v116 - 8) + 56))(&v78[v115], 1, 1, v116);
   v117 = v69[29];
   v217 = &v78[v69[30]];
@@ -5056,11 +5056,11 @@ double EventModelObject.init(id:uniqueID:title:startDate:endDate:isAllDay:isProp
   v141 = v225;
   *(v130 + v69[9]) = v224;
   *(v130 + v69[10]) = v141;
-  sub_1CAC809BC(v270, v130 + v214, &qword_1EC4635D0);
-  sub_1CAC809BC(v269, v130 + v213, &qword_1EC4635D0);
+  sub_1CAC809BC(v270, v130 + v214, &qword_1EC4635D0, &qword_1CAD599B0);
+  sub_1CAC809BC(v269, v130 + v213, &qword_1EC4635D0, &qword_1CAD599B0);
   *(v130 + v69[13]) = v228;
-  sub_1CAC809BC(v268, v130 + v215, &qword_1EC4635D0);
-  sub_1CAC809BC(v267, v130 + v212, &qword_1EC467A40);
+  sub_1CAC809BC(v268, v130 + v215, &qword_1EC4635D0, &qword_1CAD599B0);
+  sub_1CAC809BC(v267, v130 + v212, &qword_1EC467A40, &qword_1CAD5E390);
   v142 = v237;
   v144 = v209;
   v143 = v210;
@@ -5068,7 +5068,7 @@ double EventModelObject.init(id:uniqueID:title:startDate:endDate:isAllDay:isProp
   *(v144 + 1) = v142;
   v145 = v239;
   *v143 = v238;
-  *(v143 + 1) = v145;
+  v143[1] = v145;
   *(v130 + v211) = v235;
   v146 = *(v77 + 9);
   v319[8] = *(v77 + 8);
@@ -5086,7 +5086,7 @@ double EventModelObject.init(id:uniqueID:title:startDate:endDate:isAllDay:isProp
   v150 = *(v77 + 2);
   v319[3] = *(v77 + 3);
   v319[2] = v150;
-  sub_1CAB21B68(v319, &qword_1EC463C00);
+  sub_1CAB21B68(v319, &qword_1EC463C00, &qword_1CAD5A7C0);
   v151 = v280;
   *(v77 + 4) = v279;
   *(v77 + 5) = v151;
@@ -5119,7 +5119,7 @@ double EventModelObject.init(id:uniqueID:title:startDate:endDate:isAllDay:isProp
   v160 = *(v96 + 2);
   v320[3] = *(v96 + 3);
   v320[2] = v160;
-  sub_1CAB21B68(v320, &qword_1EC463C00);
+  sub_1CAB21B68(v320, &qword_1EC463C00, &qword_1CAD5A7C0);
   v161 = v291;
   *(v96 + 4) = v290;
   *(v96 + 5) = v161;
@@ -5152,7 +5152,7 @@ double EventModelObject.init(id:uniqueID:title:startDate:endDate:isAllDay:isProp
   v170 = *(v97 + 2);
   v321[3] = *(v97 + 3);
   v321[2] = v170;
-  sub_1CAB21B68(v321, &qword_1EC463C00);
+  sub_1CAB21B68(v321, &qword_1EC463C00, &qword_1CAD5A7C0);
   v171 = v302;
   *(v97 + 4) = v301;
   *(v97 + 5) = v171;
@@ -5189,7 +5189,7 @@ double EventModelObject.init(id:uniqueID:title:startDate:endDate:isAllDay:isProp
   v322[3] = *(v114 + 3);
   v322[2] = v182;
   v183 = v273;
-  sub_1CAB21B68(v322, &qword_1EC463C00);
+  sub_1CAB21B68(v322, &qword_1EC463C00, &qword_1CAD5A7C0);
   v184 = v317;
   *(v114 + 8) = v316;
   *(v114 + 9) = v184;
@@ -5209,7 +5209,7 @@ double EventModelObject.init(id:uniqueID:title:startDate:endDate:isAllDay:isProp
   v189 = v274;
   *(v130 + v69[24]) = v241;
   *(v130 + v69[25]) = 0;
-  sub_1CAC809BC(v265, v130 + v216, &qword_1EC464020);
+  sub_1CAC809BC(v265, v130 + v216, &qword_1EC464020, &qword_1CAD5E370);
   v190 = v243;
   *(v130 + v69[27]) = v242;
   *(v130 + v69[28]) = v190;
@@ -5219,7 +5219,7 @@ double EventModelObject.init(id:uniqueID:title:startDate:endDate:isAllDay:isProp
   *v217 = v191;
   *(v192 + 1) = v246;
   *(v130 + v69[31]) = v248;
-  sub_1CAB23A9C(v266, v177, &unk_1EC465A70);
+  sub_1CAB23A9C(v266, v177, &unk_1EC465A70, &unk_1CAD61F00);
   v193 = v189[6];
   if (v193(v177, 1, v183) == 1)
   {
@@ -5227,7 +5227,7 @@ double EventModelObject.init(id:uniqueID:title:startDate:endDate:isAllDay:isProp
     v233(v247, v272, v183);
     if (v193(v177, 1, v183) != 1)
     {
-      sub_1CAB21B68(v177, &unk_1EC465A70);
+      sub_1CAB21B68(v177, &unk_1EC465A70, &unk_1CAD61F00);
     }
   }
 
@@ -5241,32 +5241,32 @@ double EventModelObject.init(id:uniqueID:title:startDate:endDate:isAllDay:isProp
   v196 = v69[33];
   v197 = v69[35];
   v221(v194, 0, 1, v183);
-  sub_1CABC6AC8(v194, v226, &unk_1EC465A70);
+  sub_1CABC6AC8(v194, v226, &unk_1EC465A70, &unk_1CAD61F00);
   *(v130 + v196) = v254;
   v198 = v259;
-  sub_1CAC809BC(v259, v223, &qword_1EC465AC0);
+  sub_1CAC809BC(v259, v223, &qword_1EC465AC0, &qword_1CAD5E3D0);
   *(v130 + v197) = v255;
   v199 = v258;
-  sub_1CAC809BC(v258, v220, &qword_1EC464E38);
+  sub_1CAC809BC(v258, v220, &qword_1EC464E38, &unk_1CAD5E360);
   v200 = v257;
-  sub_1CAC809BC(v257, v219, &qword_1EC465450);
+  sub_1CAC809BC(v257, v219, &qword_1EC465450, &qword_1CAD5A1B0);
   *(v130 + v69[38]) = v256 & 1;
-  sub_1CAB21B68(v200, &qword_1EC465450);
-  sub_1CAB21B68(v199, &qword_1EC464E38);
-  sub_1CAB21B68(v198, &qword_1EC465AC0);
-  sub_1CAB21B68(v266, &unk_1EC465A70);
-  sub_1CAB21B68(v265, &qword_1EC464020);
-  sub_1CAB21B68(v267, &qword_1EC467A40);
-  sub_1CAB21B68(v268, &qword_1EC4635D0);
-  sub_1CAB21B68(v269, &qword_1EC4635D0);
-  sub_1CAB21B68(v270, &qword_1EC4635D0);
+  sub_1CAB21B68(v200, &qword_1EC465450, &qword_1CAD5A1B0);
+  sub_1CAB21B68(v199, &qword_1EC464E38, &unk_1CAD5E360);
+  sub_1CAB21B68(v198, &qword_1EC465AC0, &qword_1CAD5E3D0);
+  sub_1CAB21B68(v266, &unk_1EC465A70, &unk_1CAD61F00);
+  sub_1CAB21B68(v265, &qword_1EC464020, &qword_1CAD5E370);
+  sub_1CAB21B68(v267, &qword_1EC467A40, &qword_1CAD5E390);
+  sub_1CAB21B68(v268, &qword_1EC4635D0, &qword_1CAD599B0);
+  sub_1CAB21B68(v269, &qword_1EC4635D0, &qword_1CAD599B0);
+  sub_1CAB21B68(v270, &qword_1EC4635D0, &qword_1CAD599B0);
   v201 = v274[1];
   v202 = v273;
   v201(v271, v273);
   v201(v272, v202);
   *(v130 + v69[39]) = MEMORY[0x1E69E7CC0];
   *(v130 + v69[40]) = v261 & 1;
-  sub_1CABC6AC8(v260, v231, &qword_1EC465450);
+  sub_1CABC6AC8(v260, v231, &qword_1EC465450, &qword_1CAD5A1B0);
   v203 = v208;
   sub_1CAC80A24(*v208, *(v208 + 1), *(v208 + 2), *(v208 + 3), *(v208 + 4), *(v208 + 5), *(v208 + 6));
   v205 = v252;
@@ -5286,42 +5286,42 @@ double EventModelObject.init(id:uniqueID:title:startDate:endDate:isAllDay:isProp
 uint64_t EventModelObject.init(_:)@<X0>(char *a1@<X0>, uint64_t a2@<X8>)
 {
   v441 = a2;
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC465450);
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC465450, &qword_1CAD5A1B0);
   MEMORY[0x1EEE9AC00](v3 - 8);
   v440 = &v402 - v4;
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC464E38);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC464E38, &unk_1CAD5E360);
   MEMORY[0x1EEE9AC00](v5 - 8);
   v439 = &v402 - v6;
   v7 = type metadata accessor for EventAttendeeModelObject(0);
   v8 = *(v7 - 8);
   MEMORY[0x1EEE9AC00](v7);
   v435 = &v402 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC465AC0);
+  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC465AC0, &qword_1CAD5E3D0);
   MEMORY[0x1EEE9AC00](v10 - 8);
   v433 = &v402 - v11;
   v12 = type metadata accessor for EventRecurrenceRuleModelObject(0);
   v428 = *(v12 - 8);
   MEMORY[0x1EEE9AC00](v12 - 8);
   v442 = &v402 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v14 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EC465A70);
+  v14 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EC465A70, &unk_1CAD61F00);
   v15 = MEMORY[0x1EEE9AC00](v14 - 8);
   v422 = &v402 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v15);
   v426 = &v402 - v17;
-  v403 = type metadata accessor for EventAlarmModelObject();
+  v403 = type metadata accessor for EventAlarmModelObject(0);
   v448 = *(v403 - 8);
   MEMORY[0x1EEE9AC00](v403);
   v449 = &v402 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v19 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC464020);
+  v19 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC464020, &qword_1CAD5E370);
   MEMORY[0x1EEE9AC00](v19 - 8);
   v418 = &v402 - v20;
-  v21 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC467A40);
+  v21 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC467A40, &qword_1CAD5E390);
   MEMORY[0x1EEE9AC00](v21 - 8);
   v410 = &v402 - v22;
-  v23 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC4635D0);
+  v23 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC4635D0, &qword_1CAD599B0);
   MEMORY[0x1EEE9AC00](v23 - 8);
   v404 = &v402 - v24;
-  v25 = type metadata accessor for EventModelObject();
+  v25 = type metadata accessor for EventModelObject(0);
   v26 = MEMORY[0x1EEE9AC00](v25);
   v28 = &v402 - ((v27 + 15) & 0xFFFFFFFFFFFFFFF0);
   v29 = *(v26 + 44);
@@ -5429,7 +5429,7 @@ uint64_t EventModelObject.init(_:)@<X0>(char *a1@<X0>, uint64_t a2@<X8>)
   v72[3] = v63;
   v413 = v72;
   v73 = v25[26];
-  v74 = type metadata accessor for EventCalendarModelObject();
+  v74 = type metadata accessor for EventCalendarModelObject(0);
   v75 = *(v74 - 8);
   v76 = *(v75 + 56);
   v416 = v74;
@@ -5478,62 +5478,62 @@ uint64_t EventModelObject.init(_:)@<X0>(char *a1@<X0>, uint64_t a2@<X8>)
   *(v90 + 24) = 0u;
   v437 = v90;
   *(v90 + 40) = 0u;
-  v91 = a1[3];
-  v92 = a1[4];
+  v91 = *(a1 + 3);
+  v92 = *(a1 + 4);
   __swift_project_boxed_opaque_existential_1(a1, v91);
   *v28 = (*(v92 + 152))(v91, v92);
   *(v28 + 1) = v93;
-  v94 = a1[3];
-  v95 = a1[4];
+  v94 = *(a1 + 3);
+  v95 = *(a1 + 4);
   __swift_project_boxed_opaque_existential_1(a1, v94);
   *(v28 + 2) = (*(v95 + 168))(v94, v95);
   *(v28 + 3) = v96;
-  v97 = a1[3];
-  v98 = a1[4];
+  v97 = *(a1 + 3);
+  v98 = *(a1 + 4);
   __swift_project_boxed_opaque_existential_1(a1, v97);
   *(v28 + 4) = (*(v98 + 160))(v97, v98);
   *(v28 + 5) = v99;
-  v100 = a1[3];
-  v101 = a1[4];
+  v100 = *(a1 + 3);
+  v101 = *(a1 + 4);
   __swift_project_boxed_opaque_existential_1(a1, v100);
   (*(v101 + 176))(v100, v101);
-  v102 = a1[3];
-  v103 = a1[4];
+  v102 = *(a1 + 3);
+  v103 = *(a1 + 4);
   __swift_project_boxed_opaque_existential_1(a1, v102);
   (*(v103 + 184))(v102, v103);
-  v104 = a1[3];
-  v105 = a1[4];
+  v104 = *(a1 + 3);
+  v105 = *(a1 + 4);
   __swift_project_boxed_opaque_existential_1(a1, v104);
   v28[v25[9]] = (*(v105 + 200))(v104, v105) & 1;
-  v106 = a1[3];
-  v107 = a1[4];
+  v106 = *(a1 + 3);
+  v107 = *(a1 + 4);
   __swift_project_boxed_opaque_existential_1(a1, v106);
   v28[v25[10]] = (*(v107 + 208))(v106, v107) & 1;
-  v108 = a1[3];
-  v109 = a1[4];
+  v108 = *(a1 + 3);
+  v109 = *(a1 + 4);
   __swift_project_boxed_opaque_existential_1(a1, v108);
   v110 = v404;
   (*(v109 + 216))(v108, v109);
-  sub_1CABC6AC8(v110, v445 + v28, &qword_1EC4635D0);
-  v111 = a1[3];
-  v112 = a1[4];
+  sub_1CABC6AC8(v110, v445 + v28, &qword_1EC4635D0, &qword_1CAD599B0);
+  v111 = *(a1 + 3);
+  v112 = *(a1 + 4);
   __swift_project_boxed_opaque_existential_1(a1, v111);
   (*(v112 + 224))(v111, v112);
-  sub_1CABC6AC8(v110, &v28[v447], &qword_1EC4635D0);
-  v113 = a1[3];
-  v114 = a1[4];
+  sub_1CABC6AC8(v110, &v28[v447], &qword_1EC4635D0, &qword_1CAD599B0);
+  v113 = *(a1 + 3);
+  v114 = *(a1 + 4);
   __swift_project_boxed_opaque_existential_1(a1, v113);
   v115 = (*(v114 + 232))(v113, v114);
   v445 = v25;
   v28[v25[13]] = v115 & 1;
-  v116 = a1[3];
-  v117 = a1[4];
+  v116 = *(a1 + 3);
+  v117 = *(a1 + 4);
   __swift_project_boxed_opaque_existential_1(a1, v116);
   (*(v117 + 240))(v116, v117);
   v447 = v28;
-  sub_1CABC6AC8(v110, &v446[v28], &qword_1EC4635D0);
-  v119 = a1[3];
-  v118 = a1[4];
+  sub_1CABC6AC8(v110, &v446[v28], &qword_1EC4635D0, &qword_1CAD599B0);
+  v119 = *(a1 + 3);
+  v118 = *(a1 + 4);
   v446 = a1;
   __swift_project_boxed_opaque_existential_1(a1, v119);
   v120 = *(v118 + 248);
@@ -5560,7 +5560,7 @@ uint64_t EventModelObject.init(_:)@<X0>(char *a1@<X0>, uint64_t a2@<X8>)
     (*(v126 + 32))(boxed_opaque_existential_1, v125, AssociatedTypeWitness);
   }
 
-  sub_1CAB23A9C(&v563, &v550, &qword_1EC468190);
+  sub_1CAB23A9C(&v563, &v550, &qword_1EC468190, &unk_1CAD69340);
   v128 = v446;
   v129 = v410;
   if (*(&v551 + 1))
@@ -5584,8 +5584,8 @@ uint64_t EventModelObject.init(_:)@<X0>(char *a1@<X0>, uint64_t a2@<X8>)
   v133 = (v447 + v445[16]);
   v134 = (v447 + v445[17]);
   v135 = v445[18];
-  sub_1CAB21B68(&v563, &qword_1EC468190);
-  sub_1CABC6AC8(v129, v132 + v409, &qword_1EC467A40);
+  sub_1CAB21B68(&v563, &qword_1EC468190, &unk_1CAD69340);
+  sub_1CABC6AC8(v129, v132 + v409, &qword_1EC467A40, &qword_1CAD5E390);
   v136 = v128[3];
   v137 = v128[4];
   __swift_project_boxed_opaque_existential_1(v128, v136);
@@ -5628,7 +5628,7 @@ uint64_t EventModelObject.init(_:)@<X0>(char *a1@<X0>, uint64_t a2@<X8>)
     (*(v152 + 32))(v153, v151, v147);
   }
 
-  sub_1CAB23A9C(&v574, &v561, &qword_1EC464C38);
+  sub_1CAB23A9C(&v574, &v561, &qword_1EC464C38, &unk_1CAD5D8B0);
   v154 = v446;
   if (v562)
   {
@@ -5647,7 +5647,7 @@ uint64_t EventModelObject.init(_:)@<X0>(char *a1@<X0>, uint64_t a2@<X8>)
     v551 = v537;
     v553 = v539;
     v552 = v538;
-    nullsub_1(&v550);
+    nullsub_1();
     v571 = v558;
     v572 = v559;
     v573 = v560;
@@ -5678,7 +5678,7 @@ uint64_t EventModelObject.init(_:)@<X0>(char *a1@<X0>, uint64_t a2@<X8>)
 
   v566 = v155;
   v565 = v156;
-  sub_1CAB21B68(&v574, &qword_1EC464C38);
+  sub_1CAB21B68(&v574, &qword_1EC464C38, &unk_1CAD5D8B0);
   v157 = v405;
   v158 = v405[9];
   v558 = v405[8];
@@ -5696,7 +5696,7 @@ uint64_t EventModelObject.init(_:)@<X0>(char *a1@<X0>, uint64_t a2@<X8>)
   v162 = v405[2];
   v553 = v405[3];
   v552 = v162;
-  sub_1CAB21B68(&v550, &qword_1EC463C00);
+  sub_1CAB21B68(&v550, &qword_1EC463C00, &qword_1CAD5A7C0);
   v163 = v572;
   v157[8] = v571;
   v157[9] = v163;
@@ -5741,7 +5741,7 @@ uint64_t EventModelObject.init(_:)@<X0>(char *a1@<X0>, uint64_t a2@<X8>)
     (*(v176 + 32))(v177, v175, v171);
   }
 
-  sub_1CAB23A9C(&v547, &v534, &qword_1EC464C38);
+  sub_1CAB23A9C(&v547, &v534, &qword_1EC464C38, &unk_1CAD5D8B0);
   v178 = v446;
   if (v535)
   {
@@ -5760,7 +5760,7 @@ uint64_t EventModelObject.init(_:)@<X0>(char *a1@<X0>, uint64_t a2@<X8>)
     v524 = v510;
     v526 = v512;
     v525 = v511;
-    nullsub_1(&v523);
+    nullsub_1();
     v544 = v531;
     v545 = v532;
     v546 = v533;
@@ -5791,7 +5791,7 @@ uint64_t EventModelObject.init(_:)@<X0>(char *a1@<X0>, uint64_t a2@<X8>)
 
   v539 = v179;
   v538 = v180;
-  sub_1CAB21B68(&v547, &qword_1EC464C38);
+  sub_1CAB21B68(&v547, &qword_1EC464C38, &unk_1CAD5D8B0);
   v181 = v411;
   v182 = v411[9];
   v531 = v411[8];
@@ -5809,7 +5809,7 @@ uint64_t EventModelObject.init(_:)@<X0>(char *a1@<X0>, uint64_t a2@<X8>)
   v186 = v411[2];
   v526 = v411[3];
   v525 = v186;
-  sub_1CAB21B68(&v523, &qword_1EC463C00);
+  sub_1CAB21B68(&v523, &qword_1EC463C00, &qword_1CAD5A7C0);
   v187 = v545;
   v181[8] = v544;
   v181[9] = v187;
@@ -5854,7 +5854,7 @@ uint64_t EventModelObject.init(_:)@<X0>(char *a1@<X0>, uint64_t a2@<X8>)
     (*(v200 + 32))(v201, v199, v195);
   }
 
-  sub_1CAB23A9C(&v520, &v507, &qword_1EC464C38);
+  sub_1CAB23A9C(&v520, &v507, &qword_1EC464C38, &unk_1CAD5D8B0);
   v202 = v446;
   if (v508)
   {
@@ -5873,7 +5873,7 @@ uint64_t EventModelObject.init(_:)@<X0>(char *a1@<X0>, uint64_t a2@<X8>)
     v497 = v483;
     v499 = v485;
     v498 = v484;
-    nullsub_1(&v496);
+    nullsub_1();
     v517 = v504;
     v518 = v505;
     v519 = v506;
@@ -5904,7 +5904,7 @@ uint64_t EventModelObject.init(_:)@<X0>(char *a1@<X0>, uint64_t a2@<X8>)
 
   v512 = v203;
   v511 = v204;
-  sub_1CAB21B68(&v520, &qword_1EC464C38);
+  sub_1CAB21B68(&v520, &qword_1EC464C38, &unk_1CAD5D8B0);
   v205 = v412;
   v206 = v412[9];
   v504 = v412[8];
@@ -5922,7 +5922,7 @@ uint64_t EventModelObject.init(_:)@<X0>(char *a1@<X0>, uint64_t a2@<X8>)
   v210 = v412[2];
   v499 = v412[3];
   v498 = v210;
-  sub_1CAB21B68(&v496, &qword_1EC463C00);
+  sub_1CAB21B68(&v496, &qword_1EC463C00, &qword_1CAD5A7C0);
   v211 = v518;
   v205[8] = v517;
   v205[9] = v211;
@@ -5972,7 +5972,7 @@ uint64_t EventModelObject.init(_:)@<X0>(char *a1@<X0>, uint64_t a2@<X8>)
     (*(v227 + 32))(v228, v226, v222);
   }
 
-  sub_1CAB23A9C(&v493, &v480, &qword_1EC464C38);
+  sub_1CAB23A9C(&v493, &v480, &qword_1EC464C38, &unk_1CAD5D8B0);
   v229 = v446;
   if (v481)
   {
@@ -5991,7 +5991,7 @@ uint64_t EventModelObject.init(_:)@<X0>(char *a1@<X0>, uint64_t a2@<X8>)
     v470 = v451;
     v471 = v452;
     v472 = v453;
-    nullsub_1(&v469);
+    nullsub_1();
     v490 = v477;
     v491 = v478;
     v492 = v479;
@@ -6022,7 +6022,7 @@ uint64_t EventModelObject.init(_:)@<X0>(char *a1@<X0>, uint64_t a2@<X8>)
 
   v484 = v231;
   v485 = v230;
-  sub_1CAB21B68(&v493, &qword_1EC464C38);
+  sub_1CAB21B68(&v493, &qword_1EC464C38, &unk_1CAD5D8B0);
   v232 = v413;
   v233 = v413[9];
   v477 = v413[8];
@@ -6040,7 +6040,7 @@ uint64_t EventModelObject.init(_:)@<X0>(char *a1@<X0>, uint64_t a2@<X8>)
   v237 = v413[3];
   v471 = v413[2];
   v472 = v237;
-  sub_1CAB21B68(&v469, &qword_1EC463C00);
+  sub_1CAB21B68(&v469, &qword_1EC463C00, &qword_1CAD5A7C0);
   v238 = v491;
   v232[8] = v490;
   v232[9] = v238;
@@ -6097,7 +6097,7 @@ uint64_t EventModelObject.init(_:)@<X0>(char *a1@<X0>, uint64_t a2@<X8>)
   }
 
   v260 = v418;
-  sub_1CAB23A9C(&v450, &v466, &qword_1EC468198);
+  sub_1CAB23A9C(&v450, &v466, &qword_1EC468198, &qword_1CAD69350);
   v261 = v446;
   v262 = v442;
   if (v467)
@@ -6117,9 +6117,9 @@ uint64_t EventModelObject.init(_:)@<X0>(char *a1@<X0>, uint64_t a2@<X8>)
   }
 
   v415(v263, v264, 1, v416);
-  sub_1CAB21B68(&v450, &qword_1EC468198);
+  sub_1CAB21B68(&v450, &qword_1EC468198, &qword_1CAD69350);
   v265 = v447;
-  sub_1CABC6AC8(v260, v447 + v417, &qword_1EC464020);
+  sub_1CABC6AC8(v260, v447 + v417, &qword_1EC464020, &qword_1CAD5E370);
   v266 = v261[3];
   v267 = v261[4];
   __swift_project_boxed_opaque_existential_1(v261, v266);
@@ -6136,7 +6136,7 @@ uint64_t EventModelObject.init(_:)@<X0>(char *a1@<X0>, uint64_t a2@<X8>)
   if ((*(v273 + 360))(v272, v273))
   {
     swift_getAssociatedTypeWitness();
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC4655E0);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC4655E0, &qword_1CAD69380);
     v274 = sub_1CAD4E784();
 
     v275 = *(v274 + 16);
@@ -6169,7 +6169,7 @@ uint64_t EventModelObject.init(_:)@<X0>(char *a1@<X0>, uint64_t a2@<X8>)
         v286 = *(v276 + 24);
         if (v287 >= v286 >> 1)
         {
-          sub_1CACBA314(v286 > 1, v287 + 1, 1);
+          sub_1CACBA314((v286 > 1), v287 + 1, 1);
           v285 = v449;
           v276 = v465[0];
         }
@@ -6211,7 +6211,7 @@ uint64_t EventModelObject.init(_:)@<X0>(char *a1@<X0>, uint64_t a2@<X8>)
   __swift_project_boxed_opaque_existential_1(v261, v294);
   *(v289 + v288[31]) = (*(v295 + 376))(v294, v295);
   v296 = v422;
-  sub_1CAB23A9C(v289 + v444, v422, &unk_1EC465A70);
+  sub_1CAB23A9C(v289 + v444, v422, &unk_1EC465A70, &unk_1CAD61F00);
   v297 = v419;
   v298 = *(v419 + 48);
   v299 = v443;
@@ -6228,7 +6228,7 @@ uint64_t EventModelObject.init(_:)@<X0>(char *a1@<X0>, uint64_t a2@<X8>)
     v305 = v428;
     if (!v303)
     {
-      sub_1CAB21B68(v304, &unk_1EC465A70);
+      sub_1CAB21B68(v304, &unk_1EC465A70, &unk_1CAD61F00);
     }
   }
 
@@ -6240,7 +6240,7 @@ uint64_t EventModelObject.init(_:)@<X0>(char *a1@<X0>, uint64_t a2@<X8>)
   }
 
   v420(v302, 0, 1, v299);
-  sub_1CABC6AC8(v302, v447 + v444, &unk_1EC465A70);
+  sub_1CABC6AC8(v302, v447 + v444, &unk_1EC465A70, &unk_1CAD61F00);
   v306 = v261[3];
   v307 = v261[4];
   __swift_project_boxed_opaque_existential_1(v261, v306);
@@ -6248,7 +6248,7 @@ uint64_t EventModelObject.init(_:)@<X0>(char *a1@<X0>, uint64_t a2@<X8>)
   if (v308)
   {
     swift_getAssociatedTypeWitness();
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC4681B8);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC4681B8, &qword_1CAD69378);
     v309 = sub_1CAD4E784();
 
     v310 = *(v309 + 16);
@@ -6269,7 +6269,7 @@ uint64_t EventModelObject.init(_:)@<X0>(char *a1@<X0>, uint64_t a2@<X8>)
         v312 = *(v308 + 24);
         if (v313 >= v312 >> 1)
         {
-          sub_1CACBA358(v312 > 1, v313 + 1, 1);
+          sub_1CACBA358((v312 > 1), v313 + 1, 1);
           v308 = v465[0];
         }
 
@@ -6321,7 +6321,7 @@ uint64_t EventModelObject.init(_:)@<X0>(char *a1@<X0>, uint64_t a2@<X8>)
   v325 = v435;
   v324 = v436;
   v326 = v433;
-  sub_1CAB23A9C(&v450, &v466, &qword_1EC4681A0);
+  sub_1CAB23A9C(&v450, &v466, &qword_1EC4681A0, &qword_1CAD69358);
   v327 = v446;
   if (v467)
   {
@@ -6340,8 +6340,8 @@ uint64_t EventModelObject.init(_:)@<X0>(char *a1@<X0>, uint64_t a2@<X8>)
   }
 
   v424(v328, v329, 1, v425);
-  sub_1CAB21B68(&v450, &qword_1EC4681A0);
-  sub_1CABC6AC8(v326, v447 + v427, &qword_1EC465AC0);
+  sub_1CAB21B68(&v450, &qword_1EC4681A0, &qword_1CAD69358);
+  sub_1CABC6AC8(v326, v447 + v427, &qword_1EC465AC0, &qword_1CAD5E3D0);
   v330 = v327[3];
   v331 = v327[4];
   __swift_project_boxed_opaque_existential_1(v327, v330);
@@ -6349,7 +6349,7 @@ uint64_t EventModelObject.init(_:)@<X0>(char *a1@<X0>, uint64_t a2@<X8>)
   if (v332)
   {
     swift_getAssociatedTypeWitness();
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC464C40);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC464C40, &qword_1CAD69370);
     v333 = sub_1CAD4E784();
 
     v334 = *(v333 + 16);
@@ -6370,7 +6370,7 @@ uint64_t EventModelObject.init(_:)@<X0>(char *a1@<X0>, uint64_t a2@<X8>)
         v336 = *(v332 + 24);
         if (v337 >= v336 >> 1)
         {
-          sub_1CACB9E14(v336 > 1, v337 + 1, 1);
+          sub_1CACB9E14((v336 > 1), v337 + 1, 1);
           v332 = v465[0];
         }
 
@@ -6420,7 +6420,7 @@ uint64_t EventModelObject.init(_:)@<X0>(char *a1@<X0>, uint64_t a2@<X8>)
   }
 
   v348 = v439;
-  sub_1CAB23A9C(&v450, &v466, &qword_1EC4681A8);
+  sub_1CAB23A9C(&v450, &v466, &qword_1EC4681A8, &qword_1CAD69360);
   v349 = v446;
   if (v467)
   {
@@ -6439,15 +6439,15 @@ uint64_t EventModelObject.init(_:)@<X0>(char *a1@<X0>, uint64_t a2@<X8>)
   }
 
   v429(v350, v351, 1, v438);
-  sub_1CAB21B68(&v450, &qword_1EC4681A8);
+  sub_1CAB21B68(&v450, &qword_1EC4681A8, &qword_1CAD69360);
   v352 = v447;
-  sub_1CABC6AC8(v348, v447 + v431, &qword_1EC464E38);
+  sub_1CABC6AC8(v348, v447 + v431, &qword_1EC464E38, &unk_1CAD5E360);
   v353 = v349[3];
   v354 = v349[4];
   __swift_project_boxed_opaque_existential_1(v349, v353);
   v355 = v440;
   (*(v354 + 432))(v353, v354);
-  sub_1CABC6AC8(v355, v352 + v432, &qword_1EC465450);
+  sub_1CABC6AC8(v355, v352 + v432, &qword_1EC465450, &qword_1CAD5A1B0);
   v356 = v349[3];
   v357 = v349[4];
   __swift_project_boxed_opaque_existential_1(v349, v356);
@@ -6466,7 +6466,7 @@ uint64_t EventModelObject.init(_:)@<X0>(char *a1@<X0>, uint64_t a2@<X8>)
   v365 = v349[4];
   __swift_project_boxed_opaque_existential_1(v349, v364);
   (*(v365 + 464))(v364, v365);
-  sub_1CABC6AC8(v355, v352 + v434, &qword_1EC465450);
+  sub_1CABC6AC8(v355, v352 + v434, &qword_1EC465450, &qword_1CAD5A1B0);
   v366 = v349[3];
   v367 = v349[4];
   __swift_project_boxed_opaque_existential_1(v349, v366);
@@ -6495,7 +6495,7 @@ uint64_t EventModelObject.init(_:)@<X0>(char *a1@<X0>, uint64_t a2@<X8>)
     (*(v374 + 32))(v375, v373, v369);
   }
 
-  sub_1CAB23A9C(&v450, &v466, &qword_1EC4681B0);
+  sub_1CAB23A9C(&v450, &v466, &qword_1EC4681B0, &qword_1CAD69368);
   if (v467)
   {
     sub_1CAB284E0(&v466, v465);
@@ -6538,7 +6538,7 @@ uint64_t EventModelObject.init(_:)@<X0>(char *a1@<X0>, uint64_t a2@<X8>)
     v382 = 1;
   }
 
-  sub_1CAB21B68(&v450, &qword_1EC4681B0);
+  sub_1CAB21B68(&v450, &qword_1EC4681B0, &qword_1CAD69368);
   v390 = v437;
   sub_1CAC80A24(*v437, v437[1], v437[2], v437[3], v437[4], v437[5], v437[6]);
   *v390 = v389;
@@ -6616,7 +6616,7 @@ uint64_t EventModelObject.title.setter(uint64_t a1, uint64_t a2)
 
 uint64_t EventModelObject.startDate.getter@<X0>(uint64_t a1@<X8>)
 {
-  v3 = *(type metadata accessor for EventModelObject() + 28);
+  v3 = *(type metadata accessor for EventModelObject(0) + 28);
   v4 = sub_1CAD4C0F4();
   v5 = *(*(v4 - 8) + 16);
 
@@ -6625,7 +6625,7 @@ uint64_t EventModelObject.startDate.getter@<X0>(uint64_t a1@<X8>)
 
 uint64_t EventModelObject.startDate.setter(uint64_t a1)
 {
-  v3 = *(type metadata accessor for EventModelObject() + 28);
+  v3 = *(type metadata accessor for EventModelObject(0) + 28);
   v4 = sub_1CAD4C0F4();
   v5 = *(*(v4 - 8) + 40);
 
@@ -6634,7 +6634,7 @@ uint64_t EventModelObject.startDate.setter(uint64_t a1)
 
 uint64_t EventModelObject.endDate.getter@<X0>(uint64_t a1@<X8>)
 {
-  v3 = *(type metadata accessor for EventModelObject() + 32);
+  v3 = *(type metadata accessor for EventModelObject(0) + 32);
   v4 = sub_1CAD4C0F4();
   v5 = *(*(v4 - 8) + 16);
 
@@ -6643,7 +6643,7 @@ uint64_t EventModelObject.endDate.getter@<X0>(uint64_t a1@<X8>)
 
 uint64_t EventModelObject.endDate.setter(uint64_t a1)
 {
-  v3 = *(type metadata accessor for EventModelObject() + 32);
+  v3 = *(type metadata accessor for EventModelObject(0) + 32);
   v4 = sub_1CAD4C0F4();
   v5 = *(*(v4 - 8) + 40);
 
@@ -6652,35 +6652,35 @@ uint64_t EventModelObject.endDate.setter(uint64_t a1)
 
 uint64_t EventModelObject.isAllDay.setter(char a1)
 {
-  result = type metadata accessor for EventModelObject();
+  result = type metadata accessor for EventModelObject(0);
   *(v1 + *(result + 36)) = a1;
   return result;
 }
 
 uint64_t EventModelObject.isProposedTime.setter(char a1)
 {
-  result = type metadata accessor for EventModelObject();
+  result = type metadata accessor for EventModelObject(0);
   *(v1 + *(result + 40)) = a1;
   return result;
 }
 
 uint64_t EventModelObject.isFloating.setter(char a1)
 {
-  result = type metadata accessor for EventModelObject();
+  result = type metadata accessor for EventModelObject(0);
   *(v1 + *(result + 52)) = a1;
   return result;
 }
 
 uint64_t EventModelObject.location.getter()
 {
-  v1 = *(v0 + *(type metadata accessor for EventModelObject() + 64));
+  v1 = *(v0 + *(type metadata accessor for EventModelObject(0) + 64));
 
   return v1;
 }
 
 uint64_t EventModelObject.location.setter(uint64_t a1, uint64_t a2)
 {
-  v5 = (v2 + *(type metadata accessor for EventModelObject() + 64));
+  v5 = (v2 + *(type metadata accessor for EventModelObject(0) + 64));
 
   *v5 = a1;
   v5[1] = a2;
@@ -6689,14 +6689,14 @@ uint64_t EventModelObject.location.setter(uint64_t a1, uint64_t a2)
 
 uint64_t EventModelObject.locationWithoutPrediction.getter()
 {
-  v1 = *(v0 + *(type metadata accessor for EventModelObject() + 68));
+  v1 = *(v0 + *(type metadata accessor for EventModelObject(0) + 68));
 
   return v1;
 }
 
 uint64_t EventModelObject.locationWithoutPrediction.setter(uint64_t a1, uint64_t a2)
 {
-  v5 = (v2 + *(type metadata accessor for EventModelObject() + 68));
+  v5 = (v2 + *(type metadata accessor for EventModelObject(0) + 68));
 
   *v5 = a1;
   v5[1] = a2;
@@ -6705,12 +6705,12 @@ uint64_t EventModelObject.locationWithoutPrediction.setter(uint64_t a1, uint64_t
 
 uint64_t EventModelObject.locationsWithoutPrediction.getter()
 {
-  type metadata accessor for EventModelObject();
+  type metadata accessor for EventModelObject(0);
 }
 
 uint64_t EventModelObject.locationsWithoutPrediction.setter(uint64_t a1)
 {
-  v3 = *(type metadata accessor for EventModelObject() + 72);
+  v3 = *(type metadata accessor for EventModelObject(0) + 72);
 
   *(v1 + v3) = a1;
   return result;
@@ -6718,7 +6718,7 @@ uint64_t EventModelObject.locationsWithoutPrediction.setter(uint64_t a1)
 
 uint64_t EventModelObject.structuredLocation.getter@<X0>(_OWORD *a1@<X8>)
 {
-  v3 = (v1 + *(type metadata accessor for EventModelObject() + 76));
+  v3 = (v1 + *(type metadata accessor for EventModelObject(0) + 76));
   v4 = v3[7];
   v5 = v3[9];
   v27 = v3[8];
@@ -6755,12 +6755,12 @@ uint64_t EventModelObject.structuredLocation.getter@<X0>(_OWORD *a1@<X8>)
   a1[1] = v15;
   a1[2] = v17;
   a1[3] = v7;
-  return sub_1CAB23A9C(v20, &v19, &qword_1EC463C00);
+  return sub_1CAB23A9C(v20, &v19, &qword_1EC463C00, &qword_1CAD5A7C0);
 }
 
 __n128 EventModelObject.structuredLocation.setter(uint64_t a1)
 {
-  v3 = (v1 + *(type metadata accessor for EventModelObject() + 76));
+  v3 = (v1 + *(type metadata accessor for EventModelObject(0) + 76));
   v4 = v3[9];
   v14[8] = v3[8];
   v14[9] = v4;
@@ -6777,7 +6777,7 @@ __n128 EventModelObject.structuredLocation.setter(uint64_t a1)
   v8 = v3[3];
   v14[2] = v3[2];
   v14[3] = v8;
-  sub_1CAB21B68(v14, &qword_1EC463C00);
+  sub_1CAB21B68(v14, &qword_1EC463C00, &qword_1CAD5A7C0);
   v9 = *(a1 + 144);
   v3[8] = *(a1 + 128);
   v3[9] = v9;
@@ -6799,7 +6799,7 @@ __n128 EventModelObject.structuredLocation.setter(uint64_t a1)
 
 uint64_t EventModelObject.structuredLocationWithoutPrediction.getter@<X0>(_OWORD *a1@<X8>)
 {
-  v3 = (v1 + *(type metadata accessor for EventModelObject() + 80));
+  v3 = (v1 + *(type metadata accessor for EventModelObject(0) + 80));
   v4 = v3[7];
   v5 = v3[9];
   v27 = v3[8];
@@ -6836,12 +6836,12 @@ uint64_t EventModelObject.structuredLocationWithoutPrediction.getter@<X0>(_OWORD
   a1[1] = v15;
   a1[2] = v17;
   a1[3] = v10;
-  return sub_1CAB23A9C(v20, &v19, &qword_1EC463C00);
+  return sub_1CAB23A9C(v20, &v19, &qword_1EC463C00, &qword_1CAD5A7C0);
 }
 
 __n128 EventModelObject.structuredLocationWithoutPrediction.setter(uint64_t a1)
 {
-  v3 = (v1 + *(type metadata accessor for EventModelObject() + 80));
+  v3 = (v1 + *(type metadata accessor for EventModelObject(0) + 80));
   v4 = v3[9];
   v14[8] = v3[8];
   v14[9] = v4;
@@ -6858,7 +6858,7 @@ __n128 EventModelObject.structuredLocationWithoutPrediction.setter(uint64_t a1)
   v8 = v3[3];
   v14[2] = v3[2];
   v14[3] = v8;
-  sub_1CAB21B68(v14, &qword_1EC463C00);
+  sub_1CAB21B68(v14, &qword_1EC463C00, &qword_1CAD5A7C0);
   v9 = *(a1 + 144);
   v3[8] = *(a1 + 128);
   v3[9] = v9;
@@ -6880,7 +6880,7 @@ __n128 EventModelObject.structuredLocationWithoutPrediction.setter(uint64_t a1)
 
 uint64_t EventModelObject.preferredLocation.getter@<X0>(_OWORD *a1@<X8>)
 {
-  v3 = (v1 + *(type metadata accessor for EventModelObject() + 84));
+  v3 = (v1 + *(type metadata accessor for EventModelObject(0) + 84));
   v4 = v3[7];
   v5 = v3[9];
   v27 = v3[8];
@@ -6917,12 +6917,12 @@ uint64_t EventModelObject.preferredLocation.getter@<X0>(_OWORD *a1@<X8>)
   a1[1] = v15;
   a1[2] = v17;
   a1[3] = v10;
-  return sub_1CAB23A9C(v20, &v19, &qword_1EC463C00);
+  return sub_1CAB23A9C(v20, &v19, &qword_1EC463C00, &qword_1CAD5A7C0);
 }
 
 __n128 EventModelObject.preferredLocation.setter(uint64_t a1)
 {
-  v3 = (v1 + *(type metadata accessor for EventModelObject() + 84));
+  v3 = (v1 + *(type metadata accessor for EventModelObject(0) + 84));
   v4 = v3[9];
   v14[8] = v3[8];
   v14[9] = v4;
@@ -6939,7 +6939,7 @@ __n128 EventModelObject.preferredLocation.setter(uint64_t a1)
   v8 = v3[3];
   v14[2] = v3[2];
   v14[3] = v8;
-  sub_1CAB21B68(v14, &qword_1EC463C00);
+  sub_1CAB21B68(v14, &qword_1EC463C00, &qword_1CAD5A7C0);
   v9 = *(a1 + 144);
   v3[8] = *(a1 + 128);
   v3[9] = v9;
@@ -6961,14 +6961,14 @@ __n128 EventModelObject.preferredLocation.setter(uint64_t a1)
 
 uint64_t EventModelObject.travelTime.setter(double a1)
 {
-  result = type metadata accessor for EventModelObject();
+  result = type metadata accessor for EventModelObject(0);
   *(v1 + *(result + 88)) = a1;
   return result;
 }
 
 uint64_t EventModelObject.travelStartLocation.getter@<X0>(_OWORD *a1@<X8>)
 {
-  v3 = (v1 + *(type metadata accessor for EventModelObject() + 92));
+  v3 = (v1 + *(type metadata accessor for EventModelObject(0) + 92));
   v4 = v3[7];
   v5 = v3[9];
   v27 = v3[8];
@@ -7005,12 +7005,12 @@ uint64_t EventModelObject.travelStartLocation.getter@<X0>(_OWORD *a1@<X8>)
   a1[1] = v15;
   a1[2] = v17;
   a1[3] = v10;
-  return sub_1CAB23A9C(v20, &v19, &qword_1EC463C00);
+  return sub_1CAB23A9C(v20, &v19, &qword_1EC463C00, &qword_1CAD5A7C0);
 }
 
 __n128 EventModelObject.travelStartLocation.setter(uint64_t a1)
 {
-  v3 = (v1 + *(type metadata accessor for EventModelObject() + 92));
+  v3 = (v1 + *(type metadata accessor for EventModelObject(0) + 92));
   v4 = v3[9];
   v14[8] = v3[8];
   v14[9] = v4;
@@ -7027,7 +7027,7 @@ __n128 EventModelObject.travelStartLocation.setter(uint64_t a1)
   v8 = v3[3];
   v14[2] = v3[2];
   v14[3] = v8;
-  sub_1CAB21B68(v14, &qword_1EC463C00);
+  sub_1CAB21B68(v14, &qword_1EC463C00, &qword_1CAD5A7C0);
   v9 = *(a1 + 144);
   v3[8] = *(a1 + 128);
   v3[9] = v9;
@@ -7049,21 +7049,21 @@ __n128 EventModelObject.travelStartLocation.setter(uint64_t a1)
 
 uint64_t EventModelObject.travelRoutingMode.setter(uint64_t a1)
 {
-  result = type metadata accessor for EventModelObject();
+  result = type metadata accessor for EventModelObject(0);
   *(v1 + *(result + 96)) = a1;
   return result;
 }
 
 uint64_t EventModelObject.travelAdvisoryBehavior.setter(uint64_t a1)
 {
-  result = type metadata accessor for EventModelObject();
+  result = type metadata accessor for EventModelObject(0);
   *(v1 + *(result + 100)) = a1;
   return result;
 }
 
 uint64_t EventModelObject.privacyLevel.setter(uint64_t a1)
 {
-  result = type metadata accessor for EventModelObject();
+  result = type metadata accessor for EventModelObject(0);
   *(v1 + *(result + 108)) = a1;
   return result;
 }
@@ -7071,13 +7071,13 @@ uint64_t EventModelObject.privacyLevel.setter(uint64_t a1)
 uint64_t sub_1CAD21EA4(unsigned __int8 *a1, uint64_t a2)
 {
   v3 = *a1;
-  result = type metadata accessor for EventModelObject();
+  result = type metadata accessor for EventModelObject(0);
   v5 = result;
   v6 = 0;
   if (v3 == 1)
   {
     v7 = a2 + *(result + 104);
-    v8 = type metadata accessor for EventCalendarModelObject();
+    v8 = type metadata accessor for EventCalendarModelObject(0);
     result = (*(*(v8 - 8) + 48))(v7, 1, v8);
     if (result || (v9 = *(v7 + 184), v10 = *(v7 + 216), v13[6] = *(v7 + 200), v14[0] = v10, *(v14 + 10) = *(v7 + 226), v11 = *(v7 + 120), v12 = *(v7 + 152), v13[2] = *(v7 + 136), v13[3] = v12, v13[4] = *(v7 + 168), v13[5] = v9, v13[0] = *(v7 + 104), v13[1] = v11, result = sub_1CABED4EC(v13), result == 1))
     {
@@ -7096,13 +7096,13 @@ uint64_t sub_1CAD21EA4(unsigned __int8 *a1, uint64_t a2)
 
 uint64_t EventModelObject.isPrivate.setter(char a1)
 {
-  result = type metadata accessor for EventModelObject();
+  result = type metadata accessor for EventModelObject(0);
   v4 = result;
   v5 = 0;
   if (a1)
   {
     v6 = v1 + *(result + 104);
-    v7 = type metadata accessor for EventCalendarModelObject();
+    v7 = type metadata accessor for EventCalendarModelObject(0);
     result = (*(*(v7 - 8) + 48))(v6, 1, v7);
     if (result || (v8 = *(v6 + 184), v9 = *(v6 + 216), v12[6] = *(v6 + 200), v13[0] = v9, *(v13 + 10) = *(v6 + 226), v10 = *(v6 + 120), v11 = *(v6 + 152), v12[2] = *(v6 + 136), v12[3] = v11, v12[4] = *(v6 + 168), v12[5] = v8, v12[0] = *(v6 + 104), v12[1] = v10, result = sub_1CABED4EC(v12), result == 1))
     {
@@ -7134,7 +7134,7 @@ void (*EventModelObject.isPrivate.modify(uint64_t *a1))(char **a1)
   v4 = v3;
   *a1 = v3;
   *(v3 + 144) = v1;
-  v5 = type metadata accessor for EventModelObject();
+  v5 = type metadata accessor for EventModelObject(0);
   *(v4 + 152) = v5;
   v6 = *(v5 + 108);
   *(v4 + 140) = v6;
@@ -7148,7 +7148,7 @@ void sub_1CAD22110(char **a1)
   if ((*a1)[138])
   {
     v2 = *(v1 + 18) + *(*(v1 + 19) + 104);
-    v3 = type metadata accessor for EventCalendarModelObject();
+    v3 = type metadata accessor for EventCalendarModelObject(0);
     if ((*(*(v3 - 8) + 48))(v2, 1, v3) || (*v1 = *(v2 + 104), v4 = *(v2 + 120), v5 = *(v2 + 136), v6 = *(v2 + 168), *(v1 + 3) = *(v2 + 152), *(v1 + 4) = v6, *(v1 + 1) = v4, *(v1 + 2) = v5, v7 = *(v2 + 184), v8 = *(v2 + 200), v9 = *(v2 + 216), *(v1 + 122) = *(v2 + 226), *(v1 + 6) = v8, *(v1 + 7) = v9, *(v1 + 5) = v7, sub_1CABED4EC(v1) == 1))
     {
       v10 = 2;
@@ -7172,19 +7172,19 @@ void sub_1CAD22110(char **a1)
 
 uint64_t EventModelObject.status.setter(uint64_t a1)
 {
-  result = type metadata accessor for EventModelObject();
+  result = type metadata accessor for EventModelObject(0);
   *(v1 + *(result + 112)) = a1;
   return result;
 }
 
 uint64_t EventModelObject.alarms.getter()
 {
-  type metadata accessor for EventModelObject();
+  type metadata accessor for EventModelObject(0);
 }
 
 uint64_t EventModelObject.alarms.setter(uint64_t a1)
 {
-  v3 = *(type metadata accessor for EventModelObject() + 116);
+  v3 = *(type metadata accessor for EventModelObject(0) + 116);
 
   *(v1 + v3) = a1;
   return result;
@@ -7192,14 +7192,14 @@ uint64_t EventModelObject.alarms.setter(uint64_t a1)
 
 uint64_t EventModelObject.notes.getter()
 {
-  v1 = *(v0 + *(type metadata accessor for EventModelObject() + 120));
+  v1 = *(v0 + *(type metadata accessor for EventModelObject(0) + 120));
 
   return v1;
 }
 
 uint64_t EventModelObject.notes.setter(uint64_t a1, uint64_t a2)
 {
-  v5 = (v2 + *(type metadata accessor for EventModelObject() + 120));
+  v5 = (v2 + *(type metadata accessor for EventModelObject(0) + 120));
 
   *v5 = a1;
   v5[1] = a2;
@@ -7208,19 +7208,19 @@ uint64_t EventModelObject.notes.setter(uint64_t a1, uint64_t a2)
 
 uint64_t EventModelObject.availability.setter(uint64_t a1)
 {
-  result = type metadata accessor for EventModelObject();
+  result = type metadata accessor for EventModelObject(0);
   *(v1 + *(result + 124)) = a1;
   return result;
 }
 
 uint64_t EventModelObject.recurrenceRules.getter()
 {
-  type metadata accessor for EventModelObject();
+  type metadata accessor for EventModelObject(0);
 }
 
 uint64_t EventModelObject.recurrenceRules.setter(uint64_t a1)
 {
-  v3 = *(type metadata accessor for EventModelObject() + 132);
+  v3 = *(type metadata accessor for EventModelObject(0) + 132);
 
   *(v1 + v3) = a1;
   return result;
@@ -7258,7 +7258,7 @@ void (*EventModelObject.singleRecurrenceRule.modify(void *a1))(uint64_t a1, char
   }
 
   v5[3] = v9;
-  v10 = *(*(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC463170) - 8) + 64);
+  v10 = *(*(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC463170, &qword_1CAD59540) - 8) + 64);
   if (v3)
   {
     v5[4] = swift_coroFrameAlloc();
@@ -7277,7 +7277,7 @@ void (*EventModelObject.singleRecurrenceRule.modify(void *a1))(uint64_t a1, char
 
   v12 = v11;
   v5[7] = v11;
-  v13 = *(type metadata accessor for EventModelObject() + 132);
+  v13 = *(type metadata accessor for EventModelObject(0) + 132);
   *(v5 + 18) = v13;
   v14 = *(v1 + v13);
   v5[8] = v14;
@@ -7306,13 +7306,13 @@ void sub_1CAD22860(uint64_t a1, char a2)
     v4 = v2[5];
     v6 = v2[1];
     v7 = v2[2];
-    sub_1CAB23A9C(v3, v4, &qword_1EC463170);
-    sub_1CAB23A9C(v4, v5, &qword_1EC463170);
+    sub_1CAB23A9C(v3, v4, &qword_1EC463170, &qword_1CAD59540);
+    sub_1CAB23A9C(v4, v5, &qword_1EC463170, &qword_1CAD59540);
     v8 = (*(v7 + 48))(v5, 1, v6);
     v9 = v2[5];
     if (v8 == 1)
     {
-      sub_1CAB21B68(v2[5], &qword_1EC463170);
+      sub_1CAB21B68(v2[5], &qword_1EC463170, &qword_1CAD59540);
 
       v10 = 0;
     }
@@ -7322,12 +7322,12 @@ void sub_1CAD22860(uint64_t a1, char a2)
       v17 = v2[3];
       v18 = v2[2];
       sub_1CAD2E6A8(v2[4], v17, type metadata accessor for EventRecurrenceRuleModelObject);
-      __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC465D50);
+      __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC465D50, &unk_1CAD61F10);
       v19 = (*(v18 + 80) + 32) & ~*(v18 + 80);
       v10 = swift_allocObject();
       *(v10 + 16) = xmmword_1CAD58380;
       sub_1CAD2E6A8(v17, v10 + v19, type metadata accessor for EventRecurrenceRuleModelObject);
-      sub_1CAB21B68(v9, &qword_1EC463170);
+      sub_1CAB21B68(v9, &qword_1EC463170, &qword_1CAD59540);
     }
 
     v21 = v2[6];
@@ -7336,7 +7336,7 @@ void sub_1CAD22860(uint64_t a1, char a2)
     v22 = v2[5];
     v24 = v2[3];
     *(*v2 + *(v2 + 18)) = v10;
-    sub_1CAB21B68(v20, &qword_1EC463170);
+    sub_1CAB21B68(v20, &qword_1EC463170, &qword_1CAD59540);
   }
 
   else
@@ -7344,12 +7344,12 @@ void sub_1CAD22860(uint64_t a1, char a2)
     v11 = v2[6];
     v12 = v2[1];
     v13 = v2[2];
-    sub_1CAB23A9C(v3, v11, &qword_1EC463170);
+    sub_1CAB23A9C(v3, v11, &qword_1EC463170, &qword_1CAD59540);
     v14 = (*(v13 + 48))(v11, 1, v12);
     v15 = v2[7];
     if (v14 == 1)
     {
-      sub_1CAB21B68(v2[7], &qword_1EC463170);
+      sub_1CAB21B68(v2[7], &qword_1EC463170, &qword_1CAD59540);
 
       v16 = 0;
     }
@@ -7359,12 +7359,12 @@ void sub_1CAD22860(uint64_t a1, char a2)
       v26 = v2[2];
       v25 = v2[3];
       sub_1CAD2E6A8(v2[6], v25, type metadata accessor for EventRecurrenceRuleModelObject);
-      __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC465D50);
+      __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC465D50, &unk_1CAD61F10);
       v27 = (*(v26 + 80) + 32) & ~*(v26 + 80);
       v16 = swift_allocObject();
       *(v16 + 16) = xmmword_1CAD58380;
       sub_1CAD2E6A8(v25, v16 + v27, type metadata accessor for EventRecurrenceRuleModelObject);
-      sub_1CAB21B68(v15, &qword_1EC463170);
+      sub_1CAB21B68(v15, &qword_1EC463170, &qword_1CAD59540);
     }
 
     v21 = v2[6];
@@ -7386,12 +7386,12 @@ void sub_1CAD22860(uint64_t a1, char a2)
 
 uint64_t EventModelObject.attendees.getter()
 {
-  type metadata accessor for EventModelObject();
+  type metadata accessor for EventModelObject(0);
 }
 
 uint64_t EventModelObject.attendees.setter(uint64_t a1)
 {
-  v3 = *(type metadata accessor for EventModelObject() + 140);
+  v3 = *(type metadata accessor for EventModelObject(0) + 140);
 
   *(v1 + v3) = a1;
   return result;
@@ -7399,19 +7399,19 @@ uint64_t EventModelObject.attendees.setter(uint64_t a1)
 
 uint64_t EventModelObject.hasAttachment.setter(char a1)
 {
-  result = type metadata accessor for EventModelObject();
+  result = type metadata accessor for EventModelObject(0);
   *(v1 + *(result + 152)) = a1;
   return result;
 }
 
 uint64_t EventModelObject.attachments.getter()
 {
-  type metadata accessor for EventModelObject();
+  type metadata accessor for EventModelObject(0);
 }
 
 uint64_t EventModelObject.attachments.setter(uint64_t a1)
 {
-  v3 = *(type metadata accessor for EventModelObject() + 156);
+  v3 = *(type metadata accessor for EventModelObject(0) + 156);
 
   *(v1 + v3) = a1;
   return result;
@@ -7419,14 +7419,14 @@ uint64_t EventModelObject.attachments.setter(uint64_t a1)
 
 uint64_t EventModelObject.conferenceURLForDisplayCached.setter(char a1)
 {
-  result = type metadata accessor for EventModelObject();
+  result = type metadata accessor for EventModelObject(0);
   *(v1 + *(result + 160)) = a1;
   return result;
 }
 
 void EventModelObject.integration.getter(uint64_t *a1@<X8>)
 {
-  v3 = (v1 + *(type metadata accessor for EventModelObject() + 168));
+  v3 = (v1 + *(type metadata accessor for EventModelObject(0) + 168));
   v4 = *v3;
   v5 = v3[1];
   v6 = v3[2];
@@ -7449,7 +7449,7 @@ __n128 EventModelObject.integration.setter(uint64_t a1)
 {
   v7 = *(a1 + 32);
   v3 = *(a1 + 48);
-  v4 = v1 + *(type metadata accessor for EventModelObject() + 168);
+  v4 = v1 + *(type metadata accessor for EventModelObject(0) + 168);
   sub_1CAC80A24(*v4, *(v4 + 8), *(v4 + 16), *(v4 + 24), *(v4 + 32), *(v4 + 40), *(v4 + 48));
   v5 = *(a1 + 16);
   *v4 = *a1;
@@ -7462,38 +7462,38 @@ __n128 EventModelObject.integration.setter(uint64_t a1)
 
 uint64_t EventModelObject.isEditable.setter(char a1)
 {
-  result = type metadata accessor for EventModelObject();
+  result = type metadata accessor for EventModelObject(0);
   *(v1 + *(result + 172)) = a1;
   return result;
 }
 
 uint64_t EventModelObject.isNew.setter(char a1)
 {
-  result = type metadata accessor for EventModelObject();
+  result = type metadata accessor for EventModelObject(0);
   *(v1 + *(result + 176)) = a1;
   return result;
 }
 
 uint64_t EventModelObject.isSuggestedEvent.setter(char a1)
 {
-  result = type metadata accessor for EventModelObject();
+  result = type metadata accessor for EventModelObject(0);
   *(v1 + *(result + 180)) = a1;
   return result;
 }
 
-uint64_t EventModelObject.hash(into:)(uint64_t a1)
+uint64_t EventModelObject.hash(into:)(__int128 *a1)
 {
   v3 = sub_1CAD4BFF4();
   v185 = *(v3 - 8);
   v186 = v3;
   MEMORY[0x1EEE9AC00](v3);
   v184 = &v157 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC465450);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC465450, &qword_1CAD5A1B0);
   v6 = MEMORY[0x1EEE9AC00](v5 - 8);
   v183 = &v157 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v6);
   v182 = &v157 - v8;
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC464E38);
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC464E38, &unk_1CAD5E360);
   MEMORY[0x1EEE9AC00](v9 - 8);
   v181 = &v157 - v10;
   v11 = type metadata accessor for EventAttendeeModelObject(0);
@@ -7508,7 +7508,7 @@ uint64_t EventModelObject.hash(into:)(uint64_t a1)
   v178 = v15;
   MEMORY[0x1EEE9AC00](v15);
   v162 = &v157 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v17 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC465AC0);
+  v17 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC465AC0, &qword_1CAD5E3D0);
   MEMORY[0x1EEE9AC00](v17 - 8);
   v176 = &v157 - v18;
   v19 = type metadata accessor for EventRecurrenceRuleModelObject(0);
@@ -7519,15 +7519,15 @@ uint64_t EventModelObject.hash(into:)(uint64_t a1)
   v174 = *(v22 - 8);
   MEMORY[0x1EEE9AC00](v22);
   v161 = &v157 - ((v23 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v24 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EC465A70);
+  v24 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EC465A70, &unk_1CAD61F00);
   MEMORY[0x1EEE9AC00](v24 - 8);
   v173 = &v157 - v25;
-  v26 = type metadata accessor for EventCalendarModelObject();
+  v26 = type metadata accessor for EventCalendarModelObject(0);
   v171 = *(v26 - 8);
   v172 = v26;
   MEMORY[0x1EEE9AC00](v26);
   v160 = &v157 - ((v27 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v28 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC464020);
+  v28 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC464020, &qword_1CAD5E370);
   MEMORY[0x1EEE9AC00](v28 - 8);
   v170 = &v157 - v29;
   v30 = type metadata accessor for EventVirtualConferenceModelObject(0);
@@ -7535,14 +7535,14 @@ uint64_t EventModelObject.hash(into:)(uint64_t a1)
   v168 = v30;
   MEMORY[0x1EEE9AC00](v30);
   v158 = &v157 - ((v31 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v32 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC467A40);
+  v32 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC467A40, &qword_1CAD5E390);
   MEMORY[0x1EEE9AC00](v32 - 8);
   v166 = &v157 - v33;
   v34 = sub_1CAD4C404();
   v188 = *(v34 - 8);
   MEMORY[0x1EEE9AC00](v34);
   v187 = &v157 - ((v35 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v36 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC4635D0);
+  v36 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC4635D0, &qword_1CAD599B0);
   v37 = MEMORY[0x1EEE9AC00](v36 - 8);
   v165 = &v157 - ((v38 + 15) & 0xFFFFFFFFFFFFFFF0);
   v39 = MEMORY[0x1EEE9AC00](v37);
@@ -7552,8 +7552,8 @@ uint64_t EventModelObject.hash(into:)(uint64_t a1)
   sub_1CAD4E054();
   sub_1CAD4E054();
   sub_1CAD4E054();
-  v43 = type metadata accessor for EventModelObject();
-  v44 = sub_1CAD2FEA4(&qword_1EC4623F8, MEMORY[0x1E6969530]);
+  v43 = type metadata accessor for EventModelObject(0);
+  v44 = sub_1CAD2FEA4(&qword_1EC4623F8, MEMORY[0x1E6969530], MEMORY[0x1E6969540]);
   sub_1CAD4DEB4();
   v175 = v22;
   v159 = v44;
@@ -7563,7 +7563,7 @@ uint64_t EventModelObject.hash(into:)(uint64_t a1)
   sub_1CAD4EAA4();
   v189 = v1;
   v190 = v43;
-  sub_1CAB23A9C(v1 + *(v43 + 44), v42, &qword_1EC4635D0);
+  sub_1CAB23A9C(v1 + *(v43 + 44), v42, &qword_1EC4635D0, &qword_1CAD599B0);
   v46 = *(v45 + 48);
   if (v46(v42, 1, v34) == 1)
   {
@@ -7576,14 +7576,14 @@ uint64_t EventModelObject.hash(into:)(uint64_t a1)
     v48 = v187;
     (*(v45 + 32))(v187, v42, v34);
     sub_1CAD4EAA4();
-    sub_1CAD2FEA4(&qword_1EC4681C0, MEMORY[0x1E6969BC0]);
+    sub_1CAD2FEA4(&qword_1EC4681C0, MEMORY[0x1E6969BC0], MEMORY[0x1E6969BD0]);
     v47 = v48;
     sub_1CAD4DEB4();
     (*(v45 + 8))(v48, v34);
   }
 
   v49 = v164;
-  sub_1CAB23A9C(v189 + v190[12], v164, &qword_1EC4635D0);
+  sub_1CAB23A9C(v189 + v190[12], v164, &qword_1EC4635D0, &qword_1CAD599B0);
   v50 = v46(v49, 1, v34);
   v51 = v169;
   if (v50 == 1)
@@ -7596,7 +7596,7 @@ uint64_t EventModelObject.hash(into:)(uint64_t a1)
     v52 = v188;
     (*(v188 + 32))(v47, v49, v34);
     sub_1CAD4EAA4();
-    sub_1CAD2FEA4(&qword_1EC4681C0, MEMORY[0x1E6969BC0]);
+    sub_1CAD2FEA4(&qword_1EC4681C0, MEMORY[0x1E6969BC0], MEMORY[0x1E6969BD0]);
     sub_1CAD4DEB4();
     (*(v52 + 8))(v47, v34);
   }
@@ -7605,7 +7605,7 @@ uint64_t EventModelObject.hash(into:)(uint64_t a1)
   v53 = v190;
   sub_1CAD4EAA4();
   v55 = v165;
-  sub_1CAB23A9C(v54 + v53[14], v165, &qword_1EC4635D0);
+  sub_1CAB23A9C(v54 + v53[14], v165, &qword_1EC4635D0, &qword_1CAD599B0);
   if (v46(v55, 1, v34) == 1)
   {
     sub_1CAD4EAA4();
@@ -7617,14 +7617,14 @@ uint64_t EventModelObject.hash(into:)(uint64_t a1)
     v56 = v188;
     (*(v188 + 32))(v187, v55, v34);
     sub_1CAD4EAA4();
-    sub_1CAD2FEA4(&qword_1EC4681C0, MEMORY[0x1E6969BC0]);
+    sub_1CAD2FEA4(&qword_1EC4681C0, MEMORY[0x1E6969BC0], MEMORY[0x1E6969BD0]);
     sub_1CAD4DEB4();
     (*(v56 + 8))(v57, v34);
   }
 
   v58 = v190;
   v59 = v166;
-  sub_1CAB23A9C(v54 + v190[15], v166, &qword_1EC467A40);
+  sub_1CAB23A9C(v54 + v190[15], v166, &qword_1EC467A40, &qword_1CAD5E390);
   if ((*(v167 + 48))(v59, 1, v168) == 1)
   {
     sub_1CAD4EAA4();
@@ -7754,7 +7754,7 @@ uint64_t EventModelObject.hash(into:)(uint64_t a1)
     v261 = v283;
     v260 = v282;
     sub_1CABD3C1C(&v258, &v269);
-    EventLocationModelObject.hash(into:)();
+    EventLocationModelObject.hash(into:)(a1);
     v277 = v255;
     v278 = v256;
     v279 = v257;
@@ -7835,7 +7835,7 @@ uint64_t EventModelObject.hash(into:)(uint64_t a1)
     v239 = v261;
     v238 = v260;
     sub_1CABD3C1C(&v236, &v247);
-    EventLocationModelObject.hash(into:)();
+    EventLocationModelObject.hash(into:)(a1);
     v255 = v233;
     v256 = v234;
     v257 = v235;
@@ -7916,7 +7916,7 @@ uint64_t EventModelObject.hash(into:)(uint64_t a1)
     v216 = v238;
     v217 = v239;
     sub_1CABD3C1C(&v214, &v225);
-    EventLocationModelObject.hash(into:)();
+    EventLocationModelObject.hash(into:)(a1);
     v233 = v211;
     v234 = v212;
     v235 = v213;
@@ -8003,7 +8003,7 @@ uint64_t EventModelObject.hash(into:)(uint64_t a1)
     v202[2] = v216;
     v202[3] = v217;
     sub_1CABD3C1C(v202, &v203);
-    EventLocationModelObject.hash(into:)();
+    EventLocationModelObject.hash(into:)(a1);
     v211 = v199;
     v212 = v200;
     v213 = v201;
@@ -8021,7 +8021,7 @@ uint64_t EventModelObject.hash(into:)(uint64_t a1)
   MEMORY[0x1CCAA7D10](*(v54 + v58[24]));
   MEMORY[0x1CCAA7D10](*(v54 + v58[25]));
   v116 = v170;
-  sub_1CAB23A9C(v54 + v58[26], v170, &qword_1EC464020);
+  sub_1CAB23A9C(v54 + v58[26], v170, &qword_1EC464020, &qword_1CAD5E370);
   if ((*(v171 + 48))(v116, 1, v172) == 1)
   {
     sub_1CAD4EAA4();
@@ -8058,7 +8058,7 @@ uint64_t EventModelObject.hash(into:)(uint64_t a1)
 
   MEMORY[0x1CCAA7D10](*(v54 + v58[31]));
   v119 = v173;
-  sub_1CAB23A9C(v54 + v58[32], v173, &unk_1EC465A70);
+  sub_1CAB23A9C(v54 + v58[32], v173, &unk_1EC465A70, &unk_1CAD61F00);
   v121 = v174;
   v120 = v175;
   if ((*(v174 + 48))(v119, 1, v175) == 1)
@@ -8088,7 +8088,7 @@ uint64_t EventModelObject.hash(into:)(uint64_t a1)
       do
       {
         sub_1CAD2E710(v125, v21, type metadata accessor for EventRecurrenceRuleModelObject);
-        EventRecurrenceRuleModelObject.hash(into:)();
+        EventRecurrenceRuleModelObject.hash(into:)(a1);
         sub_1CAD2DF04(v21, type metadata accessor for EventRecurrenceRuleModelObject);
         v125 += v126;
         --v124;
@@ -8104,7 +8104,7 @@ uint64_t EventModelObject.hash(into:)(uint64_t a1)
   }
 
   v127 = v176;
-  sub_1CAB23A9C(v54 + v58[34], v176, &qword_1EC465AC0);
+  sub_1CAB23A9C(v54 + v58[34], v176, &qword_1EC465AC0, &qword_1CAD5E3D0);
   if ((*(v177 + 48))(v127, 1, v178) == 1)
   {
     sub_1CAD4EAA4();
@@ -8115,7 +8115,7 @@ uint64_t EventModelObject.hash(into:)(uint64_t a1)
     v128 = v162;
     sub_1CAD2E6A8(v127, v162, type metadata accessor for EventOrganizerModelObject);
     sub_1CAD4EAA4();
-    EventOrganizerModelObject.hash(into:)();
+    EventOrganizerModelObject.hash(into:)(a1);
     sub_1CAD2DF04(v128, type metadata accessor for EventOrganizerModelObject);
   }
 
@@ -8133,7 +8133,7 @@ uint64_t EventModelObject.hash(into:)(uint64_t a1)
       do
       {
         sub_1CAD2E710(v132, v51, type metadata accessor for EventAttendeeModelObject);
-        EventAttendeeModelObject.hash(into:)();
+        EventAttendeeModelObject.hash(into:)(a1);
         sub_1CAD2DF04(v51, type metadata accessor for EventAttendeeModelObject);
         v132 += v133;
         --v131;
@@ -8149,7 +8149,7 @@ uint64_t EventModelObject.hash(into:)(uint64_t a1)
   }
 
   v134 = v181;
-  sub_1CAB23A9C(v54 + v58[36], v181, &qword_1EC464E38);
+  sub_1CAB23A9C(v54 + v58[36], v181, &qword_1EC464E38, &unk_1CAD5E360);
   if ((*(v129 + 48))(v134, 1, v180) == 1)
   {
     sub_1CAD4EAA4();
@@ -8160,14 +8160,14 @@ uint64_t EventModelObject.hash(into:)(uint64_t a1)
     v135 = v163;
     sub_1CAD2E6A8(v134, v163, type metadata accessor for EventAttendeeModelObject);
     sub_1CAD4EAA4();
-    EventAttendeeModelObject.hash(into:)();
+    EventAttendeeModelObject.hash(into:)(a1);
     sub_1CAD2DF04(v135, type metadata accessor for EventAttendeeModelObject);
   }
 
   v137 = v185;
   v136 = v186;
   v138 = v182;
-  sub_1CAB23A9C(v54 + v58[37], v182, &qword_1EC465450);
+  sub_1CAB23A9C(v54 + v58[37], v182, &qword_1EC465450, &qword_1CAD5A1B0);
   v139 = *(v137 + 48);
   if (v139(v138, 1, v136) == 1)
   {
@@ -8179,7 +8179,7 @@ uint64_t EventModelObject.hash(into:)(uint64_t a1)
     v140 = v184;
     (*(v137 + 32))(v184, v138, v136);
     sub_1CAD4EAA4();
-    sub_1CAD2FEA4(&qword_1EC463C50, MEMORY[0x1E6968FB0]);
+    sub_1CAD2FEA4(&qword_1EC463C50, MEMORY[0x1E6968FB0], MEMORY[0x1E6968FC0]);
     sub_1CAD4DEB4();
     (*(v137 + 8))(v140, v136);
   }
@@ -8188,7 +8188,7 @@ uint64_t EventModelObject.hash(into:)(uint64_t a1)
   sub_1CACBC1D8(a1, *(v54 + v58[39]));
   sub_1CAD4EAA4();
   v141 = v183;
-  sub_1CAB23A9C(v54 + v58[41], v183, &qword_1EC465450);
+  sub_1CAB23A9C(v54 + v58[41], v183, &qword_1EC465450, &qword_1CAD5A1B0);
   if (v139(v141, 1, v136) == 1)
   {
     sub_1CAD4EAA4();
@@ -8199,7 +8199,7 @@ uint64_t EventModelObject.hash(into:)(uint64_t a1)
     v142 = v184;
     (*(v137 + 32))(v184, v141, v136);
     sub_1CAD4EAA4();
-    sub_1CAD2FEA4(&qword_1EC463C50, MEMORY[0x1E6968FB0]);
+    sub_1CAD2FEA4(&qword_1EC463C50, MEMORY[0x1E6968FB0], MEMORY[0x1E6968FC0]);
     sub_1CAD4DEB4();
     (*(v137 + 8))(v142, v136);
   }
@@ -8476,7 +8476,7 @@ uint64_t sub_1CAD256C4@<X0>(uint64_t a1@<X0>, _OWORD *a2@<X8>)
   a2[1] = v15;
   a2[2] = v17;
   a2[3] = v7;
-  return sub_1CAB23A9C(v20, &v19, &qword_1EC463C00);
+  return sub_1CAB23A9C(v20, &v19, &qword_1EC463C00, &qword_1CAD5A7C0);
 }
 
 uint64_t sub_1CAD2576C@<X0>(uint64_t a1@<X0>, _OWORD *a2@<X8>)
@@ -8518,7 +8518,7 @@ uint64_t sub_1CAD2576C@<X0>(uint64_t a1@<X0>, _OWORD *a2@<X8>)
   a2[1] = v15;
   a2[2] = v17;
   a2[3] = v7;
-  return sub_1CAB23A9C(v20, &v19, &qword_1EC463C00);
+  return sub_1CAB23A9C(v20, &v19, &qword_1EC463C00, &qword_1CAD5A7C0);
 }
 
 uint64_t sub_1CAD25814@<X0>(uint64_t a1@<X0>, _OWORD *a2@<X8>)
@@ -8560,7 +8560,7 @@ uint64_t sub_1CAD25814@<X0>(uint64_t a1@<X0>, _OWORD *a2@<X8>)
   a2[1] = v15;
   a2[2] = v17;
   a2[3] = v7;
-  return sub_1CAB23A9C(v20, &v19, &qword_1EC463C00);
+  return sub_1CAB23A9C(v20, &v19, &qword_1EC463C00, &qword_1CAD5A7C0);
 }
 
 uint64_t sub_1CAD258C8@<X0>(uint64_t a1@<X0>, _OWORD *a2@<X8>)
@@ -8602,7 +8602,7 @@ uint64_t sub_1CAD258C8@<X0>(uint64_t a1@<X0>, _OWORD *a2@<X8>)
   a2[1] = v15;
   a2[2] = v17;
   a2[3] = v7;
-  return sub_1CAB23A9C(v20, &v19, &qword_1EC463C00);
+  return sub_1CAB23A9C(v20, &v19, &qword_1EC463C00, &qword_1CAD5A7C0);
 }
 
 uint64_t sub_1CAD259E0(uint64_t a1)
@@ -8678,17 +8678,17 @@ uint64_t sub_1CAD25CD4()
   return sub_1CAD4EAC4();
 }
 
-uint64_t sub_1CAD25D18()
+uint64_t sub_1CAD25D18(uint64_t a1)
 {
   sub_1CAD4EA84();
-  EventModelObject.hash(into:)(v1);
+  EventModelObject.hash(into:)(v2);
   return sub_1CAD4EAC4();
 }
 
-uint64_t sub_1CAD25D64@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
+uint64_t sub_1CAD25D64@<X0>(_BYTE *a1@<X8>, uint64_t a2@<X0>, uint64_t a3@<X1>)
 {
-  result = sub_1CAD2F184(a1, a2);
-  *a3 = result;
+  result = sub_1CAD2F184(a2, a3);
+  *a1 = result;
   return result;
 }
 
@@ -8710,27 +8710,27 @@ void EventModelObject.init(from:)(void *a1@<X0>, uint64_t a2@<X8>)
 {
   v305 = a1;
   v274 = a2;
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC465450);
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC465450, &qword_1CAD5A1B0);
   v3 = MEMORY[0x1EEE9AC00](v2 - 8);
   *&v273 = &v261 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v3);
   v272 = &v261 - v5;
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC464E38);
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC464E38, &unk_1CAD5E360);
   MEMORY[0x1EEE9AC00](v6 - 8);
   v271 = &v261 - v7;
-  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC465AC0);
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC465AC0, &qword_1CAD5E3D0);
   MEMORY[0x1EEE9AC00](v8 - 8);
   v270 = &v261 - v9;
-  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EC465A70);
+  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EC465A70, &unk_1CAD61F00);
   MEMORY[0x1EEE9AC00](v10 - 8);
   v269 = &v261 - v11;
-  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC464020);
+  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC464020, &qword_1CAD5E370);
   MEMORY[0x1EEE9AC00](v12 - 8);
   v267 = &v261 - v13;
-  v14 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC467A40);
+  v14 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC467A40, &qword_1CAD5E390);
   MEMORY[0x1EEE9AC00](v14 - 8);
   *&v276 = &v261 - v15;
-  v16 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC4635D0);
+  v16 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC4635D0, &qword_1CAD599B0);
   v17 = MEMORY[0x1EEE9AC00](v16 - 8);
   v277 = &v261 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
   v19 = MEMORY[0x1EEE9AC00](v17);
@@ -8743,12 +8743,12 @@ void EventModelObject.init(from:)(void *a1@<X0>, uint64_t a2@<X8>)
   v286 = &v261 - ((v25 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v24);
   v287 = &v261 - v26;
-  v27 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC4681C8);
+  v27 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC4681C8, &unk_1CAD69388);
   v282 = *(v27 - 8);
   v283 = v27;
   MEMORY[0x1EEE9AC00](v27);
   v304 = &v261 - v28;
-  v29 = type metadata accessor for EventModelObject();
+  v29 = type metadata accessor for EventModelObject(0);
   v30 = MEMORY[0x1EEE9AC00](v29);
   v32 = (&v261 - ((v31 + 15) & 0xFFFFFFFFFFFFFFF0));
   v33 = *(v30 + 44);
@@ -8854,7 +8854,7 @@ void EventModelObject.init(from:)(void *a1@<X0>, uint64_t a2@<X8>)
   v75[3] = v66;
   v288 = v75;
   v76 = v29[26];
-  v77 = type metadata accessor for EventCalendarModelObject();
+  v77 = type metadata accessor for EventCalendarModelObject(0);
   v78 = *(*(v77 - 8) + 56);
   v294 = v76;
   v268 = v77;
@@ -8918,7 +8918,7 @@ void EventModelObject.init(from:)(void *a1@<X0>, uint64_t a2@<X8>)
     v32[4] = v120;
     v32[5] = v121;
     LOBYTE(v390) = 3;
-    v122 = sub_1CAD2FEA4(&qword_1EC465020, MEMORY[0x1E6969530]);
+    v122 = sub_1CAD2FEA4(&qword_1EC465020, MEMORY[0x1E6969530], MEMORY[0x1E6969558]);
     v123 = v93;
     v124 = v281;
     v125 = v302;
@@ -8987,12 +8987,12 @@ LABEL_16:
       v137 = v280;
       *(v32 + v129[10]) = v142 & 1;
       LOBYTE(v390) = 7;
-      sub_1CAD2FEA4(&qword_1EC4681D8, MEMORY[0x1E6969BC0]);
+      sub_1CAD2FEA4(&qword_1EC4681D8, MEMORY[0x1E6969BC0], MEMORY[0x1E6969BE0]);
       v143 = v279;
       v144 = v302;
       sub_1CAD4E874();
       v302 = v144;
-      if (v144 || (sub_1CABC6AC8(v143, v32 + v301, &qword_1EC4635D0), LOBYTE(v390) = 8, v145 = v278, v146 = v302, sub_1CAD4E874(), (v302 = v146) != 0))
+      if (v144 || (sub_1CABC6AC8(v143, v32 + v301, &qword_1EC4635D0, &qword_1CAD599B0), LOBYTE(v390) = 8, v145 = v278, v146 = v302, sub_1CAD4E874(), (v302 = v146) != 0))
       {
         (*(v95 + 8))(v134, v283);
         v285 = 0;
@@ -9006,7 +9006,7 @@ LABEL_16:
         goto LABEL_16;
       }
 
-      sub_1CABC6AC8(v145, v303 + v300, &qword_1EC4635D0);
+      sub_1CABC6AC8(v145, v303 + v300, &qword_1EC4635D0, &qword_1CAD599B0);
       LOBYTE(v390) = 9;
       v147 = v134;
       v148 = v302;
@@ -9018,15 +9018,15 @@ LABEL_16:
         LOBYTE(v390) = 10;
         sub_1CAD4E874();
         v302 = 0;
-        sub_1CABC6AC8(v277, v303 + v299, &qword_1EC4635D0);
+        sub_1CABC6AC8(v277, v303 + v299, &qword_1EC4635D0, &qword_1CAD599B0);
         LOBYTE(v390) = 11;
-        sub_1CAD2FEA4(&qword_1EC4681E0, type metadata accessor for EventVirtualConferenceModelObject);
+        sub_1CAD2FEA4(&qword_1EC4681E0, type metadata accessor for EventVirtualConferenceModelObject, &protocol conformance descriptor for EventVirtualConferenceModelObject);
         v150 = v302;
         sub_1CAD4E874();
         v302 = v150;
         if (!v150)
         {
-          sub_1CABC6AC8(v276, v303 + v298, &qword_1EC467A40);
+          sub_1CABC6AC8(v276, v303 + v298, &qword_1EC467A40, &qword_1CAD5E390);
           LOBYTE(v390) = 12;
           v151 = v302;
           v152 = sub_1CAD4E824();
@@ -9045,9 +9045,9 @@ LABEL_16:
             v158 = (v303 + v284[17]);
             *v158 = v156;
             v158[1] = v157;
-            __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC464730);
+            __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC464730, &qword_1CAD5D970);
             LOBYTE(v379) = 14;
-            sub_1CAC17494(&qword_1EC464CB8);
+            sub_1CAC17494(&qword_1EC464CB8, MEMORY[0x1E69E6190], MEMORY[0x1E69E6330]);
             v159 = v302;
             sub_1CAD4E874();
             v302 = v159;
@@ -9092,7 +9092,7 @@ LABEL_16:
               v166 = v297[2];
               v382 = v297[3];
               v381 = v166;
-              sub_1CAB21B68(&v379, &qword_1EC463C00);
+              sub_1CAB21B68(&v379, &qword_1EC463C00, &qword_1CAD5A7C0);
               v167 = v377;
               v161[8] = v376;
               v161[9] = v167;
@@ -9146,7 +9146,7 @@ LABEL_16:
               v178 = v295[2];
               v356[3] = v295[3];
               v356[2] = v178;
-              sub_1CAB21B68(v356, &qword_1EC463C00);
+              sub_1CAB21B68(v356, &qword_1EC463C00, &qword_1CAD5A7C0);
               v179 = v354;
               v173[8] = v353;
               v173[9] = v179;
@@ -9200,7 +9200,7 @@ LABEL_16:
               v190 = v296[2];
               v344[3] = v296[3];
               v344[2] = v190;
-              sub_1CAB21B68(v344, &qword_1EC463C00);
+              sub_1CAB21B68(v344, &qword_1EC463C00, &qword_1CAD5A7C0);
               v191 = v342;
               v185[8] = v341;
               v185[9] = v191;
@@ -9265,7 +9265,7 @@ LABEL_16:
               v206 = v288[3];
               v321[2] = v288[2];
               v321[3] = v206;
-              sub_1CAB21B68(v321, &qword_1EC463C00);
+              sub_1CAB21B68(v321, &qword_1EC463C00, &qword_1CAD5A7C0);
               v207 = v319;
               v201[8] = v318;
               v201[9] = v207;
@@ -9284,7 +9284,7 @@ LABEL_16:
               v201[3] = v211;
               type metadata accessor for EKLocationRoutingMode(0);
               v412 = 20;
-              sub_1CAD2FEA4(&qword_1EC4681F0, type metadata accessor for EKLocationRoutingMode);
+              sub_1CAD2FEA4(&qword_1EC4681F0, type metadata accessor for EKLocationRoutingMode, &protocol conformance descriptor for EKLocationRoutingMode);
               v212 = v302;
               sub_1CAD4E874();
               v302 = v212;
@@ -9302,7 +9302,7 @@ LABEL_16:
               *(v303 + v284[24]) = v213;
               type metadata accessor for EKEventTravelAdvisoryBehavior(0);
               v412 = 21;
-              sub_1CAD2FEA4(&qword_1EC4681F8, type metadata accessor for EKEventTravelAdvisoryBehavior);
+              sub_1CAD2FEA4(&qword_1EC4681F8, type metadata accessor for EKEventTravelAdvisoryBehavior, &protocol conformance descriptor for EKEventTravelAdvisoryBehavior);
               v214 = v302;
               sub_1CAD4E874();
               v302 = v214;
@@ -9319,7 +9319,7 @@ LABEL_16:
 
               *(v303 + v284[25]) = v215;
               LOBYTE(v306) = 22;
-              sub_1CAD2FEA4(&qword_1EC468200, type metadata accessor for EventCalendarModelObject);
+              sub_1CAD2FEA4(&qword_1EC468200, type metadata accessor for EventCalendarModelObject, &protocol conformance descriptor for EventCalendarModelObject);
               v216 = v302;
               sub_1CAD4E874();
               v302 = v216;
@@ -9328,10 +9328,10 @@ LABEL_16:
                 goto LABEL_57;
               }
 
-              sub_1CABC6AC8(v267, v303 + v294, &qword_1EC464020);
+              sub_1CABC6AC8(v267, v303 + v294, &qword_1EC464020, &qword_1CAD5E370);
               type metadata accessor for EKPrivacyLevel(0);
               v412 = 24;
-              sub_1CAD2FEA4(&qword_1EC467010, type metadata accessor for EKPrivacyLevel);
+              sub_1CAD2FEA4(&qword_1EC467010, type metadata accessor for EKPrivacyLevel, &protocol conformance descriptor for EKPrivacyLevel);
               v217 = v302;
               sub_1CAD4E874();
               v302 = v217;
@@ -9349,7 +9349,7 @@ LABEL_16:
               *(v303 + v284[27]) = v218;
               type metadata accessor for EKEventStatus(0);
               v412 = 25;
-              sub_1CAD2FEA4(&qword_1EC468208, type metadata accessor for EKEventStatus);
+              sub_1CAD2FEA4(&qword_1EC468208, type metadata accessor for EKEventStatus, &protocol conformance descriptor for EKEventStatus);
               v219 = v302;
               sub_1CAD4E874();
               v302 = v219;
@@ -9365,7 +9365,7 @@ LABEL_16:
               }
 
               *(v303 + v284[28]) = v220;
-              __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC468210);
+              __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC468210, &qword_1CAD69398);
               v412 = 26;
               sub_1CAD2E00C();
               v221 = v302;
@@ -9399,7 +9399,7 @@ LABEL_57:
                 v225[1] = v224;
                 type metadata accessor for EKEventAvailability(0);
                 v412 = 28;
-                sub_1CAD2FEA4(&qword_1EC468228, type metadata accessor for EKEventAvailability);
+                sub_1CAD2FEA4(&qword_1EC468228, type metadata accessor for EKEventAvailability, &protocol conformance descriptor for EKEventAvailability);
                 v226 = v302;
                 sub_1CAD4E874();
                 v302 = v226;
@@ -9419,8 +9419,8 @@ LABEL_57:
                 LOBYTE(v306) = 29;
                 sub_1CAD4E874();
                 v302 = v228;
-                sub_1CABC6AC8(v269, v303 + v292, &unk_1EC465A70);
-                __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC468230);
+                sub_1CABC6AC8(v269, v303 + v292, &unk_1EC465A70, &unk_1CAD61F00);
+                __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC468230, &qword_1CAD693A0);
                 v412 = 30;
                 sub_1CAD2E0C0();
                 v229 = v302;
@@ -9440,11 +9440,11 @@ LABEL_62:
                   v286 = v306;
                   *(v303 + v230) = v306;
                   LOBYTE(v306) = 31;
-                  sub_1CAD2FEA4(&qword_1EC468248, type metadata accessor for EventOrganizerModelObject);
+                  sub_1CAD2FEA4(&qword_1EC468248, type metadata accessor for EventOrganizerModelObject, &protocol conformance descriptor for EventOrganizerModelObject);
                   v231 = v302;
                   sub_1CAD4E874();
                   v302 = v231;
-                  if (v231 || (sub_1CABC6AC8(v270, v303 + v293, &qword_1EC465AC0), __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC468250), v412 = 32, sub_1CAD2E174(), v232 = v302, sub_1CAD4E874(), (v302 = v232) != 0))
+                  if (v231 || (sub_1CABC6AC8(v270, v303 + v293, &qword_1EC465AC0, &qword_1CAD5E3D0), __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC468250, &qword_1CAD693A8), v412 = 32, sub_1CAD2E174(), v232 = v302, sub_1CAD4E874(), (v302 = v232) != 0))
                   {
                     (*(v95 + 8))(v147, v283);
                     v285 = 0;
@@ -9456,21 +9456,21 @@ LABEL_62:
                     v285 = v306;
                     *(v303 + v233) = v306;
                     LOBYTE(v306) = 33;
-                    sub_1CAD2FEA4(&qword_1EC468260, type metadata accessor for EventAttendeeModelObject);
+                    sub_1CAD2FEA4(&qword_1EC468260, type metadata accessor for EventAttendeeModelObject, &protocol conformance descriptor for EventAttendeeModelObject);
                     v234 = v302;
                     sub_1CAD4E874();
                     v302 = v234;
                     if (!v234)
                     {
-                      sub_1CABC6AC8(v271, v303 + v291, &qword_1EC464E38);
+                      sub_1CABC6AC8(v271, v303 + v291, &qword_1EC464E38, &unk_1CAD5E360);
                       LOBYTE(v306) = 34;
-                      sub_1CAD2FEA4(&qword_1EC463C68, MEMORY[0x1E6968FB0]);
+                      sub_1CAD2FEA4(&qword_1EC463C68, MEMORY[0x1E6968FB0], MEMORY[0x1E6968FD0]);
                       v235 = v302;
                       sub_1CAD4E874();
                       v302 = v235;
                       if (!v235)
                       {
-                        sub_1CABC6AC8(v272, v303 + v289, &qword_1EC465450);
+                        sub_1CABC6AC8(v272, v303 + v289, &qword_1EC465450, &qword_1CAD5A1B0);
                         LOBYTE(v306) = 35;
                         v236 = v302;
                         v237 = sub_1CAD4E834();
@@ -9478,7 +9478,7 @@ LABEL_62:
                         if (!v236)
                         {
                           *(v303 + v284[38]) = v237 & 1;
-                          __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC466828);
+                          __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC466828, &qword_1CAD693B0);
                           v412 = 36;
                           sub_1CAD2E228();
                           v238 = v302;
@@ -9501,7 +9501,7 @@ LABEL_62:
                             LOBYTE(v306) = 38;
                             sub_1CAD4E874();
                             v302 = 0;
-                            sub_1CABC6AC8(v273, v303 + v263, &qword_1EC465450);
+                            sub_1CABC6AC8(v273, v303 + v263, &qword_1EC465450, &qword_1CAD5A1B0);
                             v412 = 39;
                             sub_1CAD2E2DC();
                             v242 = v302;
@@ -9656,10 +9656,10 @@ LABEL_14:
   v287 = 0;
 LABEL_4:
   v97 = v303;
-  sub_1CAB21B68(v303 + v301, &qword_1EC4635D0);
-  sub_1CAB21B68(v97 + v300, &qword_1EC4635D0);
-  sub_1CAB21B68(v97 + v299, &qword_1EC4635D0);
-  sub_1CAB21B68(v97 + v298, &qword_1EC467A40);
+  sub_1CAB21B68(v303 + v301, &qword_1EC4635D0, &qword_1CAD599B0);
+  sub_1CAB21B68(v97 + v300, &qword_1EC4635D0, &qword_1CAD599B0);
+  sub_1CAB21B68(v97 + v299, &qword_1EC4635D0, &qword_1CAD599B0);
+  sub_1CAB21B68(v97 + v298, &qword_1EC467A40, &qword_1CAD5E390);
 
   v98 = v297[9];
   v365 = v297[8];
@@ -9677,7 +9677,7 @@ LABEL_4:
   v102 = v297[2];
   v360 = v297[3];
   v359 = v102;
-  sub_1CAB21B68(&v357, &qword_1EC463C00);
+  sub_1CAB21B68(&v357, &qword_1EC463C00, &qword_1CAD5A7C0);
   v103 = v295[9];
   v376 = v295[8];
   v377 = v103;
@@ -9694,7 +9694,7 @@ LABEL_4:
   v107 = v295[2];
   v371 = v295[3];
   v370 = v107;
-  sub_1CAB21B68(&v368, &qword_1EC463C00);
+  sub_1CAB21B68(&v368, &qword_1EC463C00, &qword_1CAD5A7C0);
   v108 = v296[9];
   v387 = v296[8];
   v388 = v108;
@@ -9711,7 +9711,7 @@ LABEL_4:
   v112 = v296[2];
   v382 = v296[3];
   v381 = v112;
-  sub_1CAB21B68(&v379, &qword_1EC463C00);
+  sub_1CAB21B68(&v379, &qword_1EC463C00, &qword_1CAD5A7C0);
   v113 = v288[9];
   v398 = v288[8];
   v399 = v113;
@@ -9728,27 +9728,27 @@ LABEL_4:
   v117 = v288[2];
   v393 = v288[3];
   v392 = v117;
-  sub_1CAB21B68(&v390, &qword_1EC463C00);
-  sub_1CAB21B68(v97 + v294, &qword_1EC464020);
+  sub_1CAB21B68(&v390, &qword_1EC463C00, &qword_1CAD5A7C0);
+  sub_1CAB21B68(v97 + v294, &qword_1EC464020, &qword_1CAD5E370);
 
-  sub_1CAB21B68(v97 + v292, &unk_1EC465A70);
+  sub_1CAB21B68(v97 + v292, &unk_1EC465A70, &unk_1CAD61F00);
 
-  sub_1CAB21B68(v97 + v293, &qword_1EC465AC0);
+  sub_1CAB21B68(v97 + v293, &qword_1EC465AC0, &qword_1CAD5E3D0);
 
-  sub_1CAB21B68(v97 + v291, &qword_1EC464E38);
-  sub_1CAB21B68(v97 + v289, &qword_1EC465450);
+  sub_1CAB21B68(v97 + v291, &qword_1EC464E38, &unk_1CAD5E360);
+  sub_1CAB21B68(v97 + v289, &qword_1EC465450, &qword_1CAD5A1B0);
   if (v305)
   {
   }
 
-  sub_1CAB21B68(v97 + v90, &qword_1EC465450);
+  sub_1CAB21B68(v97 + v90, &qword_1EC465450, &qword_1CAD5A1B0);
   sub_1CAC80A24(*v290, *(v290 + 1), *(v290 + 2), *(v290 + 3), *(v290 + 4), *(v290 + 5), *(v290 + 6));
 }
 
 uint64_t EventModelObject.encode(to:)(void *a1)
 {
   v3 = v1;
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC468280);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC468280, &qword_1CAD693B8);
   v6 = *(v5 - 8);
   MEMORY[0x1EEE9AC00](v5);
   v8 = v71 - v7;
@@ -9763,10 +9763,10 @@ uint64_t EventModelObject.encode(to:)(void *a1)
     sub_1CAD4E934();
     LOBYTE(v153[0]) = 2;
     sub_1CAD4E934();
-    v73 = type metadata accessor for EventModelObject();
+    v73 = type metadata accessor for EventModelObject(0);
     LOBYTE(v153[0]) = 3;
     sub_1CAD4C0F4();
-    sub_1CAD2FEA4(&qword_1EC462400, MEMORY[0x1E6969530]);
+    sub_1CAD2FEA4(&qword_1EC462400, MEMORY[0x1E6969530], MEMORY[0x1E6969538]);
     sub_1CAD4E984();
     LOBYTE(v153[0]) = 4;
     sub_1CAD4E984();
@@ -9777,7 +9777,7 @@ uint64_t EventModelObject.encode(to:)(void *a1)
     v72 = v73[11];
     LOBYTE(v153[0]) = 7;
     v10 = sub_1CAD4C404();
-    v71[1] = sub_1CAD2FEA4(&qword_1EC468288, MEMORY[0x1E6969BC0]);
+    v71[1] = sub_1CAD2FEA4(&qword_1EC468288, MEMORY[0x1E6969BC0], MEMORY[0x1E6969BC8]);
     v72 = v10;
     sub_1CAD4E924();
     LOBYTE(v153[0]) = 8;
@@ -9789,16 +9789,16 @@ uint64_t EventModelObject.encode(to:)(void *a1)
     v72 = v73[15];
     LOBYTE(v153[0]) = 11;
     type metadata accessor for EventVirtualConferenceModelObject(0);
-    sub_1CAD2FEA4(&qword_1EC468290, type metadata accessor for EventVirtualConferenceModelObject);
+    sub_1CAD2FEA4(&qword_1EC468290, type metadata accessor for EventVirtualConferenceModelObject, &protocol conformance descriptor for EventVirtualConferenceModelObject);
     sub_1CAD4E924();
     LOBYTE(v153[0]) = 12;
     sub_1CAD4E904();
     LOBYTE(v153[0]) = 13;
     sub_1CAD4E904();
     v162 = *(v3 + v73[18]);
-    v161 = 14;
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC464730);
-    sub_1CAC17494(&qword_1EC464CE8);
+    v161[0] = 14;
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC464730, &qword_1CAD5D970);
+    sub_1CAC17494(&qword_1EC464CE8, MEMORY[0x1E69E6160], MEMORY[0x1E69E6300]);
     sub_1CAD4E924();
     v11 = (v3 + v73[19]);
     v12 = v11[7];
@@ -9836,7 +9836,7 @@ uint64_t EventModelObject.encode(to:)(void *a1)
     v145 = v15;
     v144 = v21;
     v141 = 15;
-    sub_1CAB23A9C(v153, v137, &qword_1EC463C00);
+    sub_1CAB23A9C(v153, v137, &qword_1EC463C00, &qword_1CAD5A7C0);
     v72 = sub_1CAD2E330();
     sub_1CAD4E924();
     v136[8] = v150;
@@ -9850,7 +9850,7 @@ uint64_t EventModelObject.encode(to:)(void *a1)
     v136[1] = v143;
     v136[3] = v145;
     v136[2] = v144;
-    sub_1CAB21B68(v136, &qword_1EC463C00);
+    sub_1CAB21B68(v136, &qword_1EC463C00, &qword_1CAD5A7C0);
     v24 = (v3 + v73[20]);
     v25 = v24[7];
     v26 = v24[9];
@@ -9888,7 +9888,7 @@ uint64_t EventModelObject.encode(to:)(void *a1)
     v128 = v32;
     v127 = v35;
     v124 = 16;
-    sub_1CAB23A9C(v137, v120, &qword_1EC463C00);
+    sub_1CAB23A9C(v137, v120, &qword_1EC463C00, &qword_1CAD5A7C0);
     sub_1CAD4E924();
     v119[8] = v133;
     v119[9] = v134;
@@ -9901,7 +9901,7 @@ uint64_t EventModelObject.encode(to:)(void *a1)
     v119[1] = v126;
     v119[3] = v128;
     v119[2] = v127;
-    sub_1CAB21B68(v119, &qword_1EC463C00);
+    sub_1CAB21B68(v119, &qword_1EC463C00, &qword_1CAD5A7C0);
     v38 = (v3 + v73[21]);
     v39 = v38[7];
     v40 = v38[9];
@@ -9939,7 +9939,7 @@ uint64_t EventModelObject.encode(to:)(void *a1)
     v110 = v49;
     v111 = v46;
     v107 = 17;
-    sub_1CAB23A9C(v120, v106, &qword_1EC463C00);
+    sub_1CAB23A9C(v120, v106, &qword_1EC463C00, &qword_1CAD5A7C0);
     sub_1CAD4E924();
     v106[8] = v116;
     v106[9] = v117;
@@ -9952,7 +9952,7 @@ uint64_t EventModelObject.encode(to:)(void *a1)
     v106[1] = v109;
     v106[2] = v110;
     v106[3] = v111;
-    sub_1CAB21B68(v106, &qword_1EC463C00);
+    sub_1CAB21B68(v106, &qword_1EC463C00, &qword_1CAD5A7C0);
     v105 = 18;
     sub_1CAD4E954();
     v52 = (v3 + v73[23]);
@@ -9990,7 +9990,7 @@ uint64_t EventModelObject.encode(to:)(void *a1)
     v86 = v96;
     v87 = v56;
     v83 = 19;
-    sub_1CAB23A9C(v95, v82, &qword_1EC463C00);
+    sub_1CAB23A9C(v95, v82, &qword_1EC463C00, &qword_1CAD5A7C0);
     sub_1CAD4E924();
     v82[8] = v92;
     v82[9] = v93;
@@ -10003,35 +10003,35 @@ uint64_t EventModelObject.encode(to:)(void *a1)
     v82[1] = v85;
     v82[2] = v86;
     v82[3] = v87;
-    sub_1CAB21B68(v82, &qword_1EC463C00);
+    sub_1CAB21B68(v82, &qword_1EC463C00, &qword_1CAD5A7C0);
     v74 = *(v3 + v73[24]);
     v81 = 20;
     type metadata accessor for EKLocationRoutingMode(0);
-    sub_1CAD2FEA4(&qword_1EC4682A0, type metadata accessor for EKLocationRoutingMode);
+    sub_1CAD2FEA4(&qword_1EC4682A0, type metadata accessor for EKLocationRoutingMode, &protocol conformance descriptor for EKLocationRoutingMode);
     sub_1CAD4E984();
     v74 = *(v3 + v73[25]);
     v81 = 21;
     type metadata accessor for EKEventTravelAdvisoryBehavior(0);
-    sub_1CAD2FEA4(&qword_1EC4682A8, type metadata accessor for EKEventTravelAdvisoryBehavior);
+    sub_1CAD2FEA4(&qword_1EC4682A8, type metadata accessor for EKEventTravelAdvisoryBehavior, &protocol conformance descriptor for EKEventTravelAdvisoryBehavior);
     sub_1CAD4E984();
     v72 = v73[26];
     LOBYTE(v74) = 22;
-    type metadata accessor for EventCalendarModelObject();
-    sub_1CAD2FEA4(&qword_1EC4682B0, type metadata accessor for EventCalendarModelObject);
+    type metadata accessor for EventCalendarModelObject(0);
+    sub_1CAD2FEA4(&qword_1EC4682B0, type metadata accessor for EventCalendarModelObject, &protocol conformance descriptor for EventCalendarModelObject);
     sub_1CAD4E924();
     v74 = *(v3 + v73[27]);
     v81 = 24;
     type metadata accessor for EKPrivacyLevel(0);
-    sub_1CAD2FEA4(&qword_1EC467048, type metadata accessor for EKPrivacyLevel);
+    sub_1CAD2FEA4(&qword_1EC467048, type metadata accessor for EKPrivacyLevel, &protocol conformance descriptor for EKPrivacyLevel);
     sub_1CAD4E984();
     v74 = *(v3 + v73[28]);
     v81 = 25;
     type metadata accessor for EKEventStatus(0);
-    sub_1CAD2FEA4(&qword_1EC4682B8, type metadata accessor for EKEventStatus);
+    sub_1CAD2FEA4(&qword_1EC4682B8, type metadata accessor for EKEventStatus, &protocol conformance descriptor for EKEventStatus);
     sub_1CAD4E984();
     v74 = *(v3 + v73[29]);
     v81 = 26;
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC468210);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC468210, &qword_1CAD69398);
     sub_1CAD2E384();
     sub_1CAD4E924();
     LOBYTE(v74) = 27;
@@ -10039,37 +10039,37 @@ uint64_t EventModelObject.encode(to:)(void *a1)
     v74 = *(v3 + v73[31]);
     v81 = 28;
     type metadata accessor for EKEventAvailability(0);
-    sub_1CAD2FEA4(&qword_1EC4682D0, type metadata accessor for EKEventAvailability);
+    sub_1CAD2FEA4(&qword_1EC4682D0, type metadata accessor for EKEventAvailability, &protocol conformance descriptor for EKEventAvailability);
     sub_1CAD4E984();
     LOBYTE(v74) = 29;
     sub_1CAD4E924();
     v74 = *(v3 + v73[33]);
     v81 = 30;
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC468230);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC468230, &qword_1CAD693A0);
     sub_1CAD2E438();
     sub_1CAD4E924();
     LOBYTE(v74) = 31;
     type metadata accessor for EventOrganizerModelObject(0);
-    sub_1CAD2FEA4(&qword_1EC4682E8, type metadata accessor for EventOrganizerModelObject);
+    sub_1CAD2FEA4(&qword_1EC4682E8, type metadata accessor for EventOrganizerModelObject, &protocol conformance descriptor for EventOrganizerModelObject);
     sub_1CAD4E924();
     v74 = *(v3 + v73[35]);
     v81 = 32;
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC468250);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC468250, &qword_1CAD693A8);
     sub_1CAD2E4EC();
     sub_1CAD4E924();
     LOBYTE(v74) = 33;
     type metadata accessor for EventAttendeeModelObject(0);
-    sub_1CAD2FEA4(&qword_1EC4682F8, type metadata accessor for EventAttendeeModelObject);
+    sub_1CAD2FEA4(&qword_1EC4682F8, type metadata accessor for EventAttendeeModelObject, &protocol conformance descriptor for EventAttendeeModelObject);
     sub_1CAD4E924();
     LOBYTE(v74) = 34;
     sub_1CAD4BFF4();
-    sub_1CAD2FEA4(&qword_1EC463C78, MEMORY[0x1E6968FB0]);
+    sub_1CAD2FEA4(&qword_1EC463C78, MEMORY[0x1E6968FB0], MEMORY[0x1E6968FB8]);
     sub_1CAD4E924();
     LOBYTE(v74) = 35;
     sub_1CAD4E944();
     v74 = *(v3 + v73[39]);
     v81 = 36;
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC466828);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC466828, &qword_1CAD693B0);
     sub_1CAD2E5A0();
     sub_1CAD4E984();
     LOBYTE(v74) = 37;

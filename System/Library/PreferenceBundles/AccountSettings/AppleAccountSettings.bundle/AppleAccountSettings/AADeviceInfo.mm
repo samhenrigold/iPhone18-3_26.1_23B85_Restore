@@ -8,7 +8,7 @@
 {
   v2 = objc_alloc_init(DMFiCloudPolicyMonitor);
   iCloudLogoutPolicy = [v2 iCloudLogoutPolicy];
-  v4 = _AAUILogSystem();
+  v4 = _AAUILogSystem(iCloudLogoutPolicy);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     sub_338E8(iCloudLogoutPolicy == 0, v4);

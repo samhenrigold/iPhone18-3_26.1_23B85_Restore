@@ -44,7 +44,7 @@
 
 - (uint64_t)isFolderOnlyPredicate
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   selfCopy = self;
   if ([selfCopy _isContentTypeFolderComparisonPredicate])
   {
@@ -59,32 +59,32 @@
       v3 = selfCopy;
       if ([v3 compoundPredicateType] == 1)
       {
-        v11 = 0u;
-        v12 = 0u;
-        v9 = 0u;
         v10 = 0u;
+        v11 = 0u;
+        v8 = 0u;
+        v9 = 0u;
         subpredicates = [v3 subpredicates];
-        v2 = [subpredicates countByEnumeratingWithState:&v9 objects:v13 count:16];
+        v2 = [subpredicates countByEnumeratingWithState:&v8 objects:v12 count:16];
         if (v2)
         {
-          v5 = *v10;
+          v5 = *v9;
           while (2)
           {
             for (i = 0; i != v2; ++i)
             {
-              if (*v10 != v5)
+              if (*v9 != v5)
               {
                 objc_enumerationMutation(subpredicates);
               }
 
-              if ([*(*(&v9 + 1) + 8 * i) isFolderOnlyPredicate])
+              if ([*(*(&v8 + 1) + 8 * i) isFolderOnlyPredicate])
               {
                 v2 = 1;
                 goto LABEL_17;
               }
             }
 
-            v2 = [subpredicates countByEnumeratingWithState:&v9 objects:v13 count:16];
+            v2 = [subpredicates countByEnumeratingWithState:&v8 objects:v12 count:16];
             if (v2)
             {
               continue;
@@ -109,7 +109,6 @@ LABEL_17:
     }
   }
 
-  v7 = *MEMORY[0x1E69E9840];
   return v2;
 }
 

@@ -36,16 +36,15 @@
 {
   v5 = sub_10007DF48();
   v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
   __chkstk_darwin(v5);
-  v9 = (&v13 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v8 = (&v12 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0));
   authorizationCopy = authorization;
   selfCopy = self;
-  *v9 = [(GeneralMapsLocationUpdater *)selfCopy dispatchQueue];
-  (*(v6 + 104))(v9, enum case for DispatchPredicate.onQueue(_:), v5);
-  v12 = sub_10007DF68();
-  (*(v6 + 8))(v9, v5);
-  if (v12)
+  *v8 = [(GeneralMapsLocationUpdater *)selfCopy dispatchQueue];
+  (*(v6 + 104))(v8, enum case for DispatchPredicate.onQueue(_:), v5);
+  v11 = sub_10007DF68();
+  (*(v6 + 8))(v8, v5);
+  if (v11)
   {
     -[GeneralMapsLocationUpdater considerMyAllowanceAsLimited:](selfCopy, "considerMyAllowanceAsLimited:", [authorizationCopy accuracyAuthorization] != 0);
   }

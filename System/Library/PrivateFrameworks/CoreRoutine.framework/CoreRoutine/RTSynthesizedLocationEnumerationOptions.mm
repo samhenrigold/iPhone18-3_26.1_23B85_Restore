@@ -232,10 +232,9 @@ LABEL_15:
   stringFromDate = [startDate stringFromDate];
   endDate = [(NSDateInterval *)self->_dateInterval endDate];
   stringFromDate2 = [endDate stringFromDate];
-  batchSize = self->_batchSize;
-  v9 = [v3 stringWithFormat:@"start date, %@, end date, %@, horizontal accuracy, %lu, batchSize, %lu, boundingBoxLocation, %@", stringFromDate, stringFromDate2, self->_preferredDownsamplingLevel, batchSize, self->_boundingBoxLocation];
+  v8 = [v3 stringWithFormat:@"start date, %@, end date, %@, horizontal accuracy, %lu, batchSize, %lu, boundingBoxLocation, %@", stringFromDate, stringFromDate2, self->_preferredDownsamplingLevel, self->_batchSize, self->_boundingBoxLocation];
 
-  return v9;
+  return v8;
 }
 
 @end

@@ -18,14 +18,14 @@
 - (void)viewDidAppear:(BOOL)appear
 {
   appearCopy = appear;
-  v5.receiver = self;
-  v5.super_class = type metadata accessor for DiscoverySheetViewController();
-  v4 = v5.receiver;
-  [(DiscoverySheetViewController *)&v5 viewDidAppear:appearCopy];
-  sub_1005C7880();
+  v7.receiver = self;
+  v7.super_class = type metadata accessor for DiscoverySheetViewController(0);
+  v4 = v7.receiver;
+  [(DiscoverySheetViewController *)&v7 viewDidAppear:appearCopy];
+  sub_1005C7880(v5);
   if (swift_unknownObjectWeakLoadStrong())
   {
-    sub_100329EB8(v4[OBJC_IVAR____TtC10FitnessApp28DiscoverySheetViewController_dataModel]);
+    sub_100329EB8(v4[OBJC_IVAR____TtC10FitnessApp28DiscoverySheetViewController_dataModel], v6);
     swift_unknownObjectRelease();
   }
 }

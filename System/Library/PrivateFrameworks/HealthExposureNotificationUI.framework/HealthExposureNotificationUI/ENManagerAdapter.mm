@@ -16,6 +16,7 @@
 - (void)setExposureNotificationStatus:(int64_t)status;
 - (void)setIsAvailabilityAlertsSwitchEnabled:(BOOL)enabled;
 - (void)setIsExposureLoggingDataPresent:(BOOL)present;
+- (void)setPreAuthorizeDiagnosisKeysEnabled:(BOOL)enabled forRegion:(id)region completion:(id)completion;
 - (void)setShareAnalyticsEnabled:(BOOL)enabled region:(id)region version:(id)version completion:(id)completion;
 - (void)setStatusChangeObservers:(id)observers;
 - (void)setTravelStatusEnabled:(BOOL)enabled region:(id)region completion:(id)completion;
@@ -107,25 +108,22 @@
 
 - (NSSet)statusChangeObservers
 {
-  v3 = OBJC_IVAR____TtC28HealthExposureNotificationUI16ENManagerAdapter_statusChangeObservers;
   swift_beginAccess();
-  v4 = *(self + v3);
   type metadata accessor for ENManagerAdapter.StatusChangeObserver();
-  sub_2516CFAA4(&qword_27F454410, type metadata accessor for ENManagerAdapter.StatusChangeObserver);
+  sub_2516CFAA4(&qword_27F454410, type metadata accessor for ENManagerAdapter.StatusChangeObserver, MEMORY[0x277D85378]);
 
-  v5 = sub_2517032C4();
+  v2 = sub_2517032C4();
 
-  return v5;
+  return v2;
 }
 
 - (void)setStatusChangeObservers:(id)observers
 {
   type metadata accessor for ENManagerAdapter.StatusChangeObserver();
-  sub_2516CFAA4(&qword_27F454410, type metadata accessor for ENManagerAdapter.StatusChangeObserver);
+  sub_2516CFAA4(&qword_27F454410, type metadata accessor for ENManagerAdapter.StatusChangeObserver, MEMORY[0x277D85378]);
   v4 = sub_2517032D4();
   v5 = OBJC_IVAR____TtC28HealthExposureNotificationUI16ENManagerAdapter_statusChangeObservers;
   swift_beginAccess();
-  v6 = *(self + v5);
   *(self + v5) = v4;
 }
 
@@ -230,6 +228,28 @@
   sub_2516C59C8(sub_2516CFC44, v10);
 }
 
+- (void)setPreAuthorizeDiagnosisKeysEnabled:(BOOL)enabled forRegion:(id)region completion:(id)completion
+{
+  enabledCopy = enabled;
+  v8 = _Block_copy(completion);
+  v9 = swift_allocObject();
+  *(v9 + 16) = v8;
+  regionCopy = region;
+  selfCopy = self;
+  manager = [(ENManagerAdapter *)selfCopy manager];
+  v14[4] = sub_2516CFD10;
+  v14[5] = v9;
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 1107296256;
+  v14[2] = sub_2516C5814;
+  v14[3] = &block_descriptor_132;
+  v13 = _Block_copy(v14);
+
+  [(ENManager *)manager setPreAuthorizeDiagnosisKeysEnabled:enabledCopy region:regionCopy completionHandler:v13];
+
+  _Block_release(v13);
+}
+
 - (void)setUserConsent:(int64_t)consent region:(id)region text:(id)text version:(id)version completion:(id)completion
 {
   v11 = _Block_copy(completion);
@@ -267,12 +287,13 @@
 
 - (BOOL)tccContainsRecordForBundleIdentifier:(id)identifier
 {
-  sub_251703164();
-  selfCopy = self;
-  _s28HealthExposureNotificationUI16ENManagerAdapterC17tccContainsRecord19forBundleIdentifierSbSS_tF_0();
+  v4 = sub_251703164();
   v6 = v5;
+  selfCopy = self;
+  _s28HealthExposureNotificationUI16ENManagerAdapterC17tccContainsRecord19forBundleIdentifierSbSS_tF_0(v4, v6);
+  LOBYTE(v4) = v8;
 
-  return v6 & 1;
+  return v4 & 1;
 }
 
 - (void)notifyChangeObserversForChangeFrom:(int64_t)from to:(int64_t)to

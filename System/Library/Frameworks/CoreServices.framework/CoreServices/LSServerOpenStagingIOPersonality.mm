@@ -11,14 +11,14 @@
 
 - (id)mainUserContainerURL
 {
-  SharedInstance = __LSDefaultsGetSharedInstance();
+  SharedInstance = __LSDefaultsGetSharedInstance(self, a2);
 
   return [SharedInstance userContainerURL];
 }
 
 - (id)mainSystemContainerURL
 {
-  SharedInstance = __LSDefaultsGetSharedInstance();
+  SharedInstance = __LSDefaultsGetSharedInstance(self, a2);
 
   return [SharedInstance systemContainerURL];
 }
@@ -50,9 +50,9 @@
 
 - (optional<LaunchServices::StagingDirectoryInfo>)stagingDirectoryInfoForPersonaUniqueString:(SEL)string error:(id)error
 {
-  v28[1] = *MEMORY[0x1E69E9840];
+  v29[1] = *MEMORY[0x1E69E9840];
   errorCopy = error;
-  v24 = errorCopy;
+  v25 = errorCopy;
   retstr->var0.var0 = 0;
   retstr->var1 = 0;
   container_query_create();
@@ -63,62 +63,64 @@
   if (!container_query_get_single_result())
   {
     container_query_get_last_error();
-    v15 = container_error_copy_unlocalized_description();
-    v10 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithUTF8String:v15];
-    free(v15);
-    LODWORD(v15) = container_error_get_posix_errno();
-    v27 = @"ContainerErrorDescription";
-    v28[0] = v10;
-    v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v28 forKeys:&v27 count:1];
-    v14 = _LSMakeNSErrorImpl(*MEMORY[0x1E696A768], v15, v11, "[LSServerOpenStagingIOPersonality stagingDirectoryInfoForPersonaUniqueString:error:]", "/Library/Caches/com.apple.xbs/Sources/CoreServices/LaunchServices.subprj/Source/LaunchServices/Workspace/LSOpenStagingDirectoryManager.mm", 126);
+    v16 = container_error_copy_unlocalized_description();
+    v11 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithUTF8String:v16];
+    free(v16);
+    LODWORD(v16) = container_error_get_posix_errno();
+    v28 = @"ContainerErrorDescription";
+    v29[0] = v11;
+    v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v29 forKeys:&v28 count:1];
+    v15 = _LSMakeNSErrorImpl(*MEMORY[0x1E696A768], v16, v12, "[LSServerOpenStagingIOPersonality stagingDirectoryInfoForPersonaUniqueString:error:]", "/Library/Caches/com.apple.xbs/Sources/CoreServices/LaunchServices.subprj/Source/LaunchServices/Workspace/LSOpenStagingDirectoryManager.mm", 126);
     goto LABEL_20;
   }
 
   path = container_get_path();
+  v9 = path;
   if (path)
   {
-    v9 = _LSDefaultLog();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+    v10 = _LSDefaultLog(path);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
     {
-      [LSServerOpenStagingIOPersonality stagingDirectoryInfoForPersonaUniqueString:v9 error:?];
+      [LSServerOpenStagingIOPersonality stagingDirectoryInfoForPersonaUniqueString:v9 error:v10];
     }
 
-    v10 = [objc_alloc(MEMORY[0x1E695DFF8]) initFileURLWithFileSystemRepresentation:path isDirectory:1 relativeToURL:0];
-    v11 = makeStagingDirectoryURLInContainer(v10);
-    if (v11)
+    v11 = [objc_alloc(MEMORY[0x1E695DFF8]) initFileURLWithFileSystemRepresentation:v9 isDirectory:1 relativeToURL:0];
+    v12 = makeStagingDirectoryURLInContainer(v11);
+    if (v12)
     {
-      v23 = -1;
-      v12 = container_copy_sandbox_token();
-      if (v12)
+      v24 = -1;
+      v13 = container_copy_sandbox_token();
+      if (v13)
       {
-        v23 = sandbox_extension_consume();
-        if (v23 < 0)
+        v24 = sandbox_extension_consume();
+        if (v24 < 0)
         {
-          v16 = *__error();
-          v17 = _LSDefaultLog();
-          if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+          v17 = __error();
+          v18 = *v17;
+          v19 = _LSDefaultLog(v17);
+          if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
           {
-            [LSServerOpenStagingIOPersonality stagingDirectoryInfoForPersonaUniqueString:v16 error:v17];
+            [LSServerOpenStagingIOPersonality stagingDirectoryInfoForPersonaUniqueString:v18 error:v19];
           }
 
-          v14 = _LSMakeNSErrorImpl(*MEMORY[0x1E696A798], v16, 0, "[LSServerOpenStagingIOPersonality stagingDirectoryInfoForPersonaUniqueString:error:]", "/Library/Caches/com.apple.xbs/Sources/CoreServices/LaunchServices.subprj/Source/LaunchServices/Workspace/LSOpenStagingDirectoryManager.mm", 142);
-          free(v12);
+          v15 = _LSMakeNSErrorImpl(*MEMORY[0x1E696A798], v18, 0, "[LSServerOpenStagingIOPersonality stagingDirectoryInfoForPersonaUniqueString:error:]", "/Library/Caches/com.apple.xbs/Sources/CoreServices/LaunchServices.subprj/Source/LaunchServices/Workspace/LSOpenStagingDirectoryManager.mm", 142);
+          free(v13);
           goto LABEL_20;
         }
 
-        free(v12);
+        free(v13);
       }
 
-      v21 = 0;
-      v13 = [[FSNode alloc] initWithURL:v11 flags:8 error:&v21];
-      v14 = v21;
-      v22 = v13;
-      if (v13)
+      v22 = 0;
+      v14 = [[FSNode alloc] initWithURL:v12 flags:8 error:&v22];
+      v15 = v22;
+      v23 = v14;
+      if (v14)
       {
-        std::optional<LaunchServices::OpenStaging::StagingDirectoryInfo>::emplace[abi:nn200100]<NSString * {__strong}&,FSNode * {__strong}&,long long &,void>(retstr, &v24, &v22, &v23);
+        std::optional<LaunchServices::OpenStaging::StagingDirectoryInfo>::emplace[abi:nn200100]<NSString * {__strong}&,FSNode * {__strong}&,long long &,void>(retstr, &v25, &v23, &v24);
       }
 
-      if (!retstr->var1 && (v23 & 0x8000000000000000) == 0)
+      if (!retstr->var1 && (v24 & 0x8000000000000000) == 0)
       {
         sandbox_extension_release();
       }
@@ -126,7 +128,7 @@
 
     else
     {
-      v14 = 0;
+      v15 = 0;
     }
 
 LABEL_20:
@@ -134,35 +136,34 @@ LABEL_20:
     goto LABEL_21;
   }
 
-  v25 = *MEMORY[0x1E696A278];
-  v26 = @"No path in container";
-  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v26 forKeys:&v25 count:1];
-  v14 = _LSMakeNSErrorImpl(*MEMORY[0x1E696A798], 96, v10, "[LSServerOpenStagingIOPersonality stagingDirectoryInfoForPersonaUniqueString:error:]", "/Library/Caches/com.apple.xbs/Sources/CoreServices/LaunchServices.subprj/Source/LaunchServices/Workspace/LSOpenStagingDirectoryManager.mm", 158);
+  v26 = *MEMORY[0x1E696A278];
+  v27 = @"No path in container";
+  v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v27 forKeys:&v26 count:1];
+  v15 = _LSMakeNSErrorImpl(*MEMORY[0x1E696A798], 96, v11, "[LSServerOpenStagingIOPersonality stagingDirectoryInfoForPersonaUniqueString:error:]", "/Library/Caches/com.apple.xbs/Sources/CoreServices/LaunchServices.subprj/Source/LaunchServices/Workspace/LSOpenStagingDirectoryManager.mm", 158);
 LABEL_21:
 
   if (a5 && !retstr->var1)
   {
-    v18 = v14;
-    *a5 = v14;
+    v20 = v15;
+    *a5 = v15;
   }
 
-  v20 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 - (optional<unsigned)stagingDirectoryKeyForNode:(id)node error:(id *)error
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   nodeCopy = node;
-  v17 = 0;
-  v6 = [nodeCopy getFileSystemRepresentation:v18 error:&v17];
-  v7 = v17;
+  v16 = 0;
+  v6 = [nodeCopy getFileSystemRepresentation:v17 error:&v16];
+  v7 = v16;
   if (v6)
   {
-    if (!statfs(v18, &v19))
+    if (!statfs(v17, &v18))
     {
-      v11 = v19.f_fsid.val[0] & 0xFFFFFFFFFFFFFF00;
-      v13 = LOBYTE(v19.f_fsid.val[0]);
+      v11 = v18.f_fsid.val[0] & 0xFFFFFFFFFFFFFF00;
+      v13 = LOBYTE(v18.f_fsid.val[0]);
       v12 = 1;
       goto LABEL_8;
     }
@@ -191,19 +192,18 @@ LABEL_21:
 
 LABEL_8:
 
-  v14 = *MEMORY[0x1E69E9840];
-  v15.__val_ = v13 | v11;
-  v16 = v12;
-  result.__engaged_ = v16;
-  result.var0 = v15;
+  v14.__val_ = v13 | v11;
+  v15 = v12;
+  result.__engaged_ = v15;
+  result.var0 = v14;
   return result;
 }
 
 - (optional<unsigned)stagingDirectoryKeyForFileHandle:(id)handle error:(id *)error
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   handleCopy = handle;
-  if (fstatfs([handleCopy fileDescriptor], &v14))
+  if (fstatfs([handleCopy fileDescriptor], &v13))
   {
     v6 = __error();
     v7 = _LSMakeNSErrorImpl(*MEMORY[0x1E696A798], *v6, 0, "[LSServerOpenStagingIOPersonality stagingDirectoryKeyForFileHandle:error:]", "/Library/Caches/com.apple.xbs/Sources/CoreServices/LaunchServices.subprj/Source/LaunchServices/Workspace/LSOpenStagingDirectoryManager.mm", 211);
@@ -227,39 +227,36 @@ LABEL_8:
   else
   {
     v7 = 0;
-    v8 = v14.f_fsid.val[0] & 0xFFFFFFFFFFFFFF00;
-    v10 = LOBYTE(v14.f_fsid.val[0]);
+    v8 = v13.f_fsid.val[0] & 0xFFFFFFFFFFFFFF00;
+    v10 = LOBYTE(v13.f_fsid.val[0]);
     v9 = 1;
   }
 
-  v11 = *MEMORY[0x1E69E9840];
-  v12.__val_ = v10 | v8;
-  v13 = v9;
-  result.__engaged_ = v13;
-  result.var0 = v12;
+  v11.__val_ = v10 | v8;
+  v12 = v9;
+  result.__engaged_ = v12;
+  result.var0 = v11;
   return result;
 }
 
 - (void)stagingDirectoryInfoForPersonaUniqueString:(uint64_t)a1 error:(NSObject *)a2 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
-  v3 = 136446467;
-  v4 = "[LSServerOpenStagingIOPersonality stagingDirectoryInfoForPersonaUniqueString:error:]";
-  v5 = 2081;
-  v6 = a1;
-  _os_log_debug_impl(&dword_18162D000, a2, OS_LOG_TYPE_DEBUG, "%{public}s: got user container URL %{private}s from containermanagerd", &v3, 0x16u);
-  v2 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
+  v2 = 136446467;
+  v3 = "[LSServerOpenStagingIOPersonality stagingDirectoryInfoForPersonaUniqueString:error:]";
+  v4 = 2081;
+  v5 = a1;
+  _os_log_debug_impl(&dword_18162D000, a2, OS_LOG_TYPE_DEBUG, "%{public}s: got user container URL %{private}s from containermanagerd", &v2, 0x16u);
 }
 
 - (void)stagingDirectoryInfoForPersonaUniqueString:(int)a1 error:(NSObject *)a2 .cold.2(int a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
-  v3 = 136446466;
-  v4 = "[LSServerOpenStagingIOPersonality stagingDirectoryInfoForPersonaUniqueString:error:]";
-  v5 = 1024;
-  v6 = a1;
-  _os_log_error_impl(&dword_18162D000, a2, OS_LOG_TYPE_ERROR, "%{public}s: Failed to consume container sandbox token, errno = %{darwin.errno}d", &v3, 0x12u);
-  v2 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
+  v2 = 136446466;
+  v3 = "[LSServerOpenStagingIOPersonality stagingDirectoryInfoForPersonaUniqueString:error:]";
+  v4 = 1024;
+  v5 = a1;
+  _os_log_error_impl(&dword_18162D000, a2, OS_LOG_TYPE_ERROR, "%{public}s: Failed to consume container sandbox token, errno = %{darwin.errno}d", &v2, 0x12u);
 }
 
 @end

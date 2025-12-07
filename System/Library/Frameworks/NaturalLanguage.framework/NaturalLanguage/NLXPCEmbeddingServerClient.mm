@@ -15,30 +15,30 @@
 
 - (NLXPCEmbeddingServerClient)init
 {
-  v27[4] = *MEMORY[0x1E69E9840];
-  v25.receiver = self;
-  v25.super_class = NLXPCEmbeddingServerClient;
-  v2 = [(NLXPCEmbeddingServerClient *)&v25 init];
+  v26[4] = *MEMORY[0x1E69E9840];
+  v24.receiver = self;
+  v24.super_class = NLXPCEmbeddingServerClient;
+  v2 = [(NLXPCEmbeddingServerClient *)&v24 init];
   v3 = v2;
   if (v2)
   {
     v4 = v2;
     v5 = [MEMORY[0x1E696B0D0] interfaceWithProtocol:&unk_1F10DA488];
     v6 = MEMORY[0x1E695DFD8];
-    v27[0] = objc_opt_class();
-    v27[1] = objc_opt_class();
-    v27[2] = objc_opt_class();
-    v27[3] = objc_opt_class();
-    v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v27 count:4];
-    v8 = [v6 setWithArray:v7];
-    [v5 setClasses:v8 forSelector:sel__xpc_dataFromTokenVectorEmbeddingForString_language_identifier_completionHandler_ argumentIndex:1 ofReply:1];
-
-    v9 = MEMORY[0x1E695DFD8];
     v26[0] = objc_opt_class();
     v26[1] = objc_opt_class();
     v26[2] = objc_opt_class();
     v26[3] = objc_opt_class();
-    v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v26 count:4];
+    v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v26 count:4];
+    v8 = [v6 setWithArray:v7];
+    [v5 setClasses:v8 forSelector:sel__xpc_dataFromTokenVectorEmbeddingForString_language_identifier_completionHandler_ argumentIndex:1 ofReply:1];
+
+    v9 = MEMORY[0x1E695DFD8];
+    v25[0] = objc_opt_class();
+    v25[1] = objc_opt_class();
+    v25[2] = objc_opt_class();
+    v25[3] = objc_opt_class();
+    v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v25 count:4];
     v11 = [v9 setWithArray:v10];
     [v5 setClasses:v11 forSelector:sel__xpc_batchDataFromTokenVectorEmbeddingForStrings_language_identifier_completionHandler_ argumentIndex:1 ofReply:1];
 
@@ -53,18 +53,17 @@
 
     [(NSXPCConnection *)v4->_connection setRemoteObjectInterface:v5];
     [(NSXPCConnection *)v4->_connection _setQueue:v12];
-    v20 = MEMORY[0x1E69E9820];
-    v21 = 3221225472;
-    v22 = __34__NLXPCEmbeddingServerClient_init__block_invoke;
-    v23 = &unk_1E7628FC8;
-    v24 = v4;
+    v19 = MEMORY[0x1E69E9820];
+    v20 = 3221225472;
+    v21 = __34__NLXPCEmbeddingServerClient_init__block_invoke;
+    v22 = &unk_1E7628FC8;
+    v23 = v4;
     v16 = v4->_connection;
     v17 = v4;
-    [(NSXPCConnection *)v16 setInvalidationHandler:&v20];
-    [(NSXPCConnection *)v4->_connection resume:v20];
+    [(NSXPCConnection *)v16 setInvalidationHandler:&v19];
+    [(NSXPCConnection *)v4->_connection resume:v19];
   }
 
-  v18 = *MEMORY[0x1E69E9840];
   return v3;
 }
 

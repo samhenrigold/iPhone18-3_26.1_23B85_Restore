@@ -42,7 +42,7 @@
 
     if (dividerType)
     {
-      if ([@"full" isEqualToString:dividerType])
+      if (objc_msgSend_isEqualToString_(@"full"))
       {
         v5 = 1;
 LABEL_10:
@@ -52,13 +52,13 @@ LABEL_10:
         return self->_dividerType;
       }
 
-      if ([@"inset" isEqualToString:dividerType])
+      if (objc_msgSend_isEqualToString_(@"inset"))
       {
         v5 = 2;
         goto LABEL_10;
       }
 
-      if ([@"borderless" isEqualToString:dividerType])
+      if (objc_msgSend_isEqualToString_(@"borderless"))
       {
         v5 = 3;
         goto LABEL_10;

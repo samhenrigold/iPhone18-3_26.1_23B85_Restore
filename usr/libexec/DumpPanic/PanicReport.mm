@@ -50,18 +50,14 @@
 
 - (void)setBiomeProperties:(id)properties
 {
-  v4 = [properties copy];
-  biomeProperties = self->_biomeProperties;
-  self->_biomeProperties = v4;
+  self->_biomeProperties = [properties copy];
 
   _objc_release_x1();
 }
 
 - (void)setPatternUUID:(id)d
 {
-  v4 = [d copy];
-  patternUUID = self->_patternUUID;
-  self->_patternUUID = v4;
+  self->_patternUUID = [d copy];
 
   _objc_release_x1();
 }
@@ -99,41 +95,40 @@
 - (void)generateLogAtLevel:(BOOL)level withBlock:(id)block
 {
   blockCopy = block;
-  v150[0] = @"incident";
+  v149[0] = @"incident";
   incidentID = [(PanicReport *)self incidentID];
-  v151[0] = incidentID;
-  v150[1] = @"crashReporterKey";
-  v101 = +[OSASystemConfiguration sharedInstance];
-  crashReporterKey = [v101 crashReporterKey];
-  v151[1] = crashReporterKey;
-  v150[2] = @"product";
-  v98 = +[OSASystemConfiguration sharedInstance];
-  modelCode = [v98 modelCode];
-  v151[2] = modelCode;
-  v150[3] = @"socId";
-  v96 = [NSString stringWithFormat:@"%x", self->_socId];
-  v151[3] = v96;
-  v150[4] = @"socRevision";
-  v95 = [NSString stringWithFormat:@"%x", self->_socRev];
-  v151[4] = v95;
-  v150[5] = @"build";
+  v150[0] = incidentID;
+  v149[1] = @"crashReporterKey";
+  v100 = +[OSASystemConfiguration sharedInstance];
+  crashReporterKey = [v100 crashReporterKey];
+  v150[1] = crashReporterKey;
+  v149[2] = @"product";
+  v97 = +[OSASystemConfiguration sharedInstance];
+  modelCode = [v97 modelCode];
+  v150[2] = modelCode;
+  v149[3] = @"socId";
+  v95 = [NSString stringWithFormat:@"%x", self->_socId];
+  v150[3] = v95;
+  v149[4] = @"socRevision";
+  v94 = [NSString stringWithFormat:@"%x", self->_socRev];
+  v150[4] = v94;
+  v149[5] = @"build";
   getBuildVersionString = [(PanicReport *)self getBuildVersionString];
-  v151[5] = getBuildVersionString;
-  v150[6] = @"kernel";
+  v150[5] = getBuildVersionString;
+  v149[6] = @"kernel";
   kernelVersionDescription = [objc_opt_class() kernelVersionDescription];
-  v151[6] = kernelVersionDescription;
-  v150[7] = @"date";
-  v7 = *&self->OSAStackShotReport_opaque[OBJC_IVAR___OSAReport__capture_time];
-  v8 = OSADateFormat();
-  v9 = v8;
+  v150[6] = kernelVersionDescription;
+  v149[7] = @"date";
+  v7 = OSADateFormat();
+  v8 = v7;
   if (self->_isBtnReset)
   {
-    v10 = @"string";
+    v9 = @"string";
   }
 
   else
   {
-    v10 = @"panicString";
+    v9 = @"panicString";
   }
 
   panicString = self->_panicString;
@@ -142,33 +137,33 @@
     panicString = @"<mysterious>";
   }
 
-  v151[7] = v8;
-  v151[8] = panicString;
-  v150[8] = v10;
-  v150[9] = @"panicFlags";
-  v12 = [NSString stringWithFormat:@"0x%llx", self->_panicFlags];
-  v151[9] = v12;
-  v150[10] = @"codeSigningMonitor";
-  v13 = +[NSNumber numberWithUnsignedInt:](NSNumber, "numberWithUnsignedInt:", [objc_opt_class() codeSigningMonitor]);
-  v151[10] = v13;
-  v150[11] = @"panicProcessingFlags";
-  v14 = [NSString stringWithFormat:@"0x%llx", self->_panicProcessingFlags];
-  v151[11] = v14;
-  v15 = [NSDictionary dictionaryWithObjects:v151 forKeys:v150 count:12];
-  blockCopy[2](blockCopy, v15);
+  v150[7] = v7;
+  v150[8] = panicString;
+  v149[8] = v9;
+  v149[9] = @"panicFlags";
+  v11 = [NSString stringWithFormat:@"0x%llx", self->_panicFlags];
+  v150[9] = v11;
+  v149[10] = @"codeSigningMonitor";
+  v12 = +[NSNumber numberWithUnsignedInt:](NSNumber, "numberWithUnsignedInt:", [objc_opt_class() codeSigningMonitor]);
+  v150[10] = v12;
+  v149[11] = @"panicProcessingFlags";
+  v13 = [NSString stringWithFormat:@"0x%llx", self->_panicProcessingFlags];
+  v150[11] = v13;
+  v14 = [NSDictionary dictionaryWithObjects:v150 forKeys:v149 count:12];
+  blockCopy[2](blockCopy, v14);
 
   selfCopy = self;
   problemType = [(PanicReport *)self problemType];
-  v18 = [OSALog commonFieldsForBody:problemType];
-  blockCopy[2](blockCopy, v18);
+  v17 = [OSALog commonFieldsForBody:problemType];
+  blockCopy[2](blockCopy, v17);
 
   panicInitiator = self->_panicInitiator;
   if (panicInitiator)
   {
-    v148 = @"panicInitiator";
-    v149 = panicInitiator;
-    v20 = [NSDictionary dictionaryWithObjects:&v149 forKeys:&v148 count:1];
-    blockCopy[2](blockCopy, v20);
+    v147 = @"panicInitiator";
+    v148 = panicInitiator;
+    v19 = [NSDictionary dictionaryWithObjects:&v148 forKeys:&v147 count:1];
+    blockCopy[2](blockCopy, v19);
   }
 
   if (self->_isInterruptedCoredump)
@@ -178,10 +173,10 @@
 
   if ([(NSString *)self->_otherString length])
   {
-    v146 = @"otherString";
+    v145 = @"otherString";
     otherString = self->_otherString;
-    v21 = [NSDictionary dictionaryWithObjects:&otherString forKeys:&v146 count:1];
-    blockCopy[2](blockCopy, v21);
+    v20 = [NSDictionary dictionaryWithObjects:&otherString forKeys:&v145 count:1];
+    blockCopy[2](blockCopy, v20);
   }
 
   if (self->_foregroundAppHashSet)
@@ -189,11 +184,11 @@
     foregroundAppHash = self->_foregroundAppHash;
     if (foregroundAppHash)
     {
-      v144 = @"foregroundAppHash";
+      v143 = @"foregroundAppHash";
       foregroundAppHash = [NSString stringWithFormat:@"%@", foregroundAppHash];
-      v145 = foregroundAppHash;
-      v24 = [NSDictionary dictionaryWithObjects:&v145 forKeys:&v144 count:1];
-      blockCopy[2](blockCopy, v24);
+      v144 = foregroundAppHash;
+      v23 = [NSDictionary dictionaryWithObjects:&v144 forKeys:&v143 count:1];
+      blockCopy[2](blockCopy, v23);
     }
   }
 
@@ -205,10 +200,10 @@
   utilizationInfo = self->_utilizationInfo;
   if (utilizationInfo)
   {
-    v142 = @"PanicLogUtilizationMetrics";
-    v143 = utilizationInfo;
-    v26 = [NSDictionary dictionaryWithObjects:&v143 forKeys:&v142 count:1];
-    blockCopy[2](blockCopy, v26);
+    v141 = @"PanicLogUtilizationMetrics";
+    v142 = utilizationInfo;
+    v25 = [NSDictionary dictionaryWithObjects:&v142 forKeys:&v141 count:1];
+    blockCopy[2](blockCopy, v25);
   }
 
   if (qword_100042A88 != -1)
@@ -223,24 +218,24 @@
       dispatch_once(&qword_100042AA8, &stru_100038F38);
     }
 
-    v27 = qword_100042AA0;
-    v28 = v27;
-    if (v27)
+    v26 = qword_100042AA0;
+    v27 = v26;
+    if (v26)
     {
-      v140 = @"ECID";
-      v141 = v27;
-      v29 = [NSDictionary dictionaryWithObjects:&v141 forKeys:&v140 count:1];
-      blockCopy[2](blockCopy, v29);
+      v139 = @"ECID";
+      v140 = v26;
+      v28 = [NSDictionary dictionaryWithObjects:&v140 forKeys:&v139 count:1];
+      blockCopy[2](blockCopy, v28);
     }
   }
 
   patternUUID = self->_patternUUID;
   if (patternUUID)
   {
-    v138 = @"patternUUIDs";
-    v139 = patternUUID;
-    v31 = [NSDictionary dictionaryWithObjects:&v139 forKeys:&v138 count:1];
-    blockCopy[2](blockCopy, v31);
+    v137 = @"patternUUIDs";
+    v138 = patternUUID;
+    v30 = [NSDictionary dictionaryWithObjects:&v138 forKeys:&v137 count:1];
+    blockCopy[2](blockCopy, v30);
   }
 
   if ([objc_opt_class() isInLDM])
@@ -275,91 +270,91 @@ LABEL_39:
   }
 
   bootProgressRegister = [objc_opt_class() bootProgressRegister];
-  v33 = bootProgressRegister;
+  v32 = bootProgressRegister;
   if (bootProgressRegister)
   {
-    v136 = @"bootProgressRegister";
-    v34 = +[NSString stringWithFormat:](NSString, "stringWithFormat:", @"0x%llx", [bootProgressRegister unsignedLongLongValue]);
-    v137 = v34;
-    v35 = [NSDictionary dictionaryWithObjects:&v137 forKeys:&v136 count:1];
-    blockCopy[2](blockCopy, v35);
+    v135 = @"bootProgressRegister";
+    v33 = +[NSString stringWithFormat:](NSString, "stringWithFormat:", @"0x%llx", [bootProgressRegister unsignedLongLongValue]);
+    v136 = v33;
+    v34 = [NSDictionary dictionaryWithObjects:&v136 forKeys:&v135 count:1];
+    blockCopy[2](blockCopy, v34);
   }
 
   if (objc_opt_class())
   {
-    v134 = @"repairStatus";
-    v36 = +[NSString stringWithFormat:](NSString, "stringWithFormat:", @"%llu", +[CRAuthRepairInspector getStatus]);
-    v135 = v36;
-    v37 = [NSDictionary dictionaryWithObjects:&v135 forKeys:&v134 count:1];
-    blockCopy[2](blockCopy, v37);
+    v133 = @"repairStatus";
+    v35 = +[NSString stringWithFormat:](NSString, "stringWithFormat:", @"%llu", +[CRAuthRepairInspector getStatus]);
+    v134 = v35;
+    v36 = [NSDictionary dictionaryWithObjects:&v134 forKeys:&v133 count:1];
+    blockCopy[2](blockCopy, v36);
   }
 
   if ([(NSString *)selfCopy->_socdNandContainer length])
   {
-    v132 = @"SOCDNandContainer";
+    v131 = @"SOCDNandContainer";
     socdNandContainer = selfCopy->_socdNandContainer;
-    v38 = [NSDictionary dictionaryWithObjects:&socdNandContainer forKeys:&v132 count:1];
-    blockCopy[2](blockCopy, v38);
+    v37 = [NSDictionary dictionaryWithObjects:&socdNandContainer forKeys:&v131 count:1];
+    blockCopy[2](blockCopy, v37);
   }
 
-  v103 = selfCopy;
-  v100 = v33;
+  v102 = selfCopy;
+  v99 = v32;
   if (os_variant_has_internal_diagnostics())
   {
     parseExtPaniclog = [(PanicReport *)selfCopy parseExtPaniclog];
-    v40 = parseExtPaniclog;
+    v39 = parseExtPaniclog;
     if (parseExtPaniclog)
     {
-      v41 = [parseExtPaniclog objectForKeyedSubscript:@"extPaniclogData"];
-      if (v41)
+      v40 = [parseExtPaniclog objectForKeyedSubscript:@"extPaniclogData"];
+      if (v40)
       {
-        v130 = @"ExtensiblePaniclog";
-        v42 = [v40 objectForKeyedSubscript:@"extPaniclogData"];
-        v131 = v42;
-        v43 = [NSDictionary dictionaryWithObjects:&v131 forKeys:&v130 count:1];
-        blockCopy[2](blockCopy, v43);
+        v129 = @"ExtensiblePaniclog";
+        v41 = [v39 objectForKeyedSubscript:@"extPaniclogData"];
+        v130 = v41;
+        v42 = [NSDictionary dictionaryWithObjects:&v130 forKeys:&v129 count:1];
+        blockCopy[2](blockCopy, v42);
       }
 
-      v44 = [v40 objectForKeyedSubscript:@"additionalData"];
-      v45 = v44;
-      if (v44)
+      v43 = [v39 objectForKeyedSubscript:@"additionalData"];
+      v44 = v43;
+      if (v43)
       {
-        v105 = v41;
-        v113 = 0u;
-        v114 = 0u;
-        v111 = 0u;
+        v104 = v40;
         v112 = 0u;
-        v46 = v44;
-        v47 = [v46 countByEnumeratingWithState:&v111 objects:v129 count:16];
-        if (v47)
+        v113 = 0u;
+        v110 = 0u;
+        v111 = 0u;
+        v45 = v43;
+        v46 = [v45 countByEnumeratingWithState:&v110 objects:v128 count:16];
+        if (v46)
         {
-          v48 = v47;
-          v49 = *v112;
+          v47 = v46;
+          v48 = *v111;
           do
           {
-            for (i = 0; i != v48; i = i + 1)
+            for (i = 0; i != v47; i = i + 1)
             {
-              if (*v112 != v49)
+              if (*v111 != v48)
               {
-                objc_enumerationMutation(v46);
+                objc_enumerationMutation(v45);
               }
 
-              v51 = *(*(&v111 + 1) + 8 * i);
-              v52 = [v46 objectForKeyedSubscript:v51];
+              v50 = *(*(&v110 + 1) + 8 * i);
+              v51 = [v45 objectForKeyedSubscript:v50];
+              v126 = v50;
               v127 = v51;
-              v128 = v52;
-              v53 = [NSDictionary dictionaryWithObjects:&v128 forKeys:&v127 count:1];
-              blockCopy[2](blockCopy, v53);
+              v52 = [NSDictionary dictionaryWithObjects:&v127 forKeys:&v126 count:1];
+              blockCopy[2](blockCopy, v52);
             }
 
-            v48 = [v46 countByEnumeratingWithState:&v111 objects:v129 count:16];
+            v47 = [v45 countByEnumeratingWithState:&v110 objects:v128 count:16];
           }
 
-          while (v48);
+          while (v47);
         }
 
-        selfCopy = v103;
-        v41 = v105;
+        selfCopy = v102;
+        v40 = v104;
       }
     }
   }
@@ -367,82 +362,82 @@ LABEL_39:
   if ([(NSString *)selfCopy->_storagePanicData length])
   {
     storagePanicData = selfCopy->_storagePanicData;
-    v125 = @"storagePanicData";
-    v126 = storagePanicData;
-    v55 = [NSDictionary dictionaryWithObjects:&v126 forKeys:&v125 count:1];
-    blockCopy[2](blockCopy, v55);
+    v124 = @"storagePanicData";
+    v125 = storagePanicData;
+    v54 = [NSDictionary dictionaryWithObjects:&v125 forKeys:&v124 count:1];
+    blockCopy[2](blockCopy, v54);
   }
 
-  v102 = blockCopy;
-  v106 = objc_alloc_init(NSMutableArray);
+  v101 = blockCopy;
+  v105 = objc_alloc_init(NSMutableArray);
+  v106 = 0u;
   v107 = 0u;
   v108 = 0u;
   v109 = 0u;
-  v110 = 0u;
-  v56 = selfCopy->_socdContainerArray;
-  v57 = [(NSMutableArray *)v56 countByEnumeratingWithState:&v107 objects:v124 count:16];
-  if (v57)
+  v55 = selfCopy->_socdContainerArray;
+  v56 = [(NSMutableArray *)v55 countByEnumeratingWithState:&v106 objects:v123 count:16];
+  if (v56)
   {
-    v58 = v57;
-    v59 = *v108;
+    v57 = v56;
+    v58 = *v107;
     do
     {
-      for (j = 0; j != v58; j = j + 1)
+      for (j = 0; j != v57; j = j + 1)
       {
-        if (*v108 != v59)
+        if (*v107 != v58)
         {
-          objc_enumerationMutation(v56);
+          objc_enumerationMutation(v55);
         }
 
-        v61 = *(*(&v107 + 1) + 8 * j);
-        if ([v61 count])
+        v60 = *(*(&v106 + 1) + 8 * j);
+        if ([v60 count])
         {
-          v62 = objc_alloc_init(NSMutableDictionary);
-          v63 = [v61 objectAtIndex:0];
-          v64 = +[NSNull null];
-          v65 = [v63 isEqual:v64];
+          v61 = objc_alloc_init(NSMutableDictionary);
+          v62 = [v60 objectAtIndex:0];
+          v63 = +[NSNull null];
+          v64 = [v62 isEqual:v63];
 
-          if ((v65 & 1) == 0)
+          if ((v64 & 1) == 0)
           {
-            v66 = [v61 objectAtIndex:0];
-            if ([v66 length])
+            v65 = [v60 objectAtIndex:0];
+            if ([v65 length])
             {
-              [v62 setObject:v66 forKey:@"SOCDContainer"];
+              [v61 setObject:v65 forKey:@"SOCDContainer"];
             }
           }
 
-          v67 = [v61 objectAtIndex:1];
-          v68 = +[NSNull null];
-          v69 = [v67 isEqual:v68];
+          v66 = [v60 objectAtIndex:1];
+          v67 = +[NSNull null];
+          v68 = [v66 isEqual:v67];
 
-          if ((v69 & 1) == 0)
+          if ((v68 & 1) == 0)
           {
-            v70 = [v61 objectAtIndex:1];
-            if ([v70 length])
+            v69 = [v60 objectAtIndex:1];
+            if ([v69 length])
             {
-              [v62 setObject:v70 forKey:@"SOCDPanicString"];
+              [v61 setObject:v69 forKey:@"SOCDPanicString"];
             }
           }
 
-          if ([v62 count])
+          if ([v61 count])
           {
-            [v106 addObject:v62];
+            [v105 addObject:v61];
           }
         }
       }
 
-      v58 = [(NSMutableArray *)v56 countByEnumeratingWithState:&v107 objects:v124 count:16];
+      v57 = [(NSMutableArray *)v55 countByEnumeratingWithState:&v106 objects:v123 count:16];
     }
 
-    while (v58);
+    while (v57);
   }
 
-  if ([v106 count])
+  if ([v105 count])
   {
-    v122 = @"SOCDContainers";
-    v123 = v106;
-    v71 = [NSDictionary dictionaryWithObjects:&v123 forKeys:&v122 count:1];
-    v102[2](v102, v71);
+    v121 = @"SOCDContainers";
+    v122 = v105;
+    v70 = [NSDictionary dictionaryWithObjects:&v122 forKeys:&v121 count:1];
+    v101[2](v101, v70);
   }
 
   if (qword_100042A28 != -1)
@@ -457,37 +452,37 @@ LABEL_39:
       dispatch_once(&qword_100042A48, &stru_100038E78);
     }
 
-    v72 = qword_100042A40;
-    if ([v72 count])
+    v71 = qword_100042A40;
+    if ([v71 count])
     {
-      v120 = @"PanicMedicReports";
-      v121 = v72;
-      v73 = [NSDictionary dictionaryWithObjects:&v121 forKeys:&v120 count:1];
-      v102[2](v102, v73);
+      v119 = @"PanicMedicReports";
+      v120 = v71;
+      v72 = [NSDictionary dictionaryWithObjects:&v120 forKeys:&v119 count:1];
+      v101[2](v101, v72);
     }
   }
 
-  v74 = objc_alloc_init(OSABinaryImageCatalog);
-  [(PanicReport *)v103 decodeKCDataWithBlock:v102 withTuning:&off_10003C630 usingCatalog:v74];
-  v118 = @"binaryImages";
-  reportUsedImages = [v74 reportUsedImages];
-  v119 = reportUsedImages;
-  v76 = [NSDictionary dictionaryWithObjects:&v119 forKeys:&v118 count:1];
-  v102[2](v102, v76);
+  v73 = objc_alloc_init(OSABinaryImageCatalog);
+  [(PanicReport *)v102 decodeKCDataWithBlock:v101 withTuning:&off_10003C630 usingCatalog:v73];
+  v117 = @"binaryImages";
+  reportUsedImages = [v73 reportUsedImages];
+  v118 = reportUsedImages;
+  v75 = [NSDictionary dictionaryWithObjects:&v118 forKeys:&v117 count:1];
+  v101[2](v101, v75);
 
-  v77 = OBJC_IVAR___OSAReport__notes;
-  [v74 appendNotesTo:*&v103->OSAStackShotReport_opaque[OBJC_IVAR___OSAReport__notes]];
+  v76 = OBJC_IVAR___OSAReport__notes;
+  [v73 appendNotesTo:*&v102->OSAStackShotReport_opaque[OBJC_IVAR___OSAReport__notes]];
   if (os_variant_has_internal_diagnostics())
   {
-    v78 = sub_10000EEA8();
-    v80 = v79;
-    if ((v78 & 0x100) != 0)
+    v77 = sub_10000EEA8();
+    v79 = v78;
+    if ((v77 & 0x100) != 0)
     {
-      [*&v103->OSAStackShotReport_opaque[v77] addObject:@"test automation device"];
-      if ((v78 & 0x10000) == 0)
+      [*&v102->OSAStackShotReport_opaque[v76] addObject:@"test automation device"];
+      if ((v77 & 0x10000) == 0)
       {
 LABEL_95:
-        if (!v80)
+        if (!v79)
         {
           goto LABEL_97;
         }
@@ -496,29 +491,29 @@ LABEL_95:
       }
     }
 
-    else if ((v78 & 0x10000) == 0)
+    else if ((v77 & 0x10000) == 0)
     {
       goto LABEL_95;
     }
 
-    [*&v103->OSAStackShotReport_opaque[v77] addObject:@"intentional panic"];
-    if (v80)
+    [*&v102->OSAStackShotReport_opaque[v76] addObject:@"intentional panic"];
+    if (v79)
     {
 LABEL_96:
-      v81 = *&v103->OSAStackShotReport_opaque[v77];
-      v82 = [NSString stringWithFormat:@"test plan id: %llu", v80];
-      [v81 addObject:v82];
+      v80 = *&v102->OSAStackShotReport_opaque[v76];
+      v81 = [NSString stringWithFormat:@"test plan id: %llu", v79];
+      [v80 addObject:v81];
     }
   }
 
 LABEL_97:
-  if ([*&v103->OSAStackShotReport_opaque[v77] count])
+  if ([*&v102->OSAStackShotReport_opaque[v76] count])
   {
-    v83 = *&v103->OSAStackShotReport_opaque[v77];
-    v116 = @"notes";
-    v117 = v83;
-    v84 = [NSDictionary dictionaryWithObjects:&v117 forKeys:&v116 count:1];
-    v102[2](v102, v84);
+    v82 = *&v102->OSAStackShotReport_opaque[v76];
+    v115 = @"notes";
+    v116 = v82;
+    v83 = [NSDictionary dictionaryWithObjects:&v116 forKeys:&v115 count:1];
+    v101[2](v101, v83);
   }
 
   if (qword_100042A68 != -1)
@@ -528,49 +523,49 @@ LABEL_97:
 
   if (byte_100042A60 == 1)
   {
-    v102[2](v102, &off_10003C658);
-    v85 = qword_100042B28;
+    v101[2](v101, &off_10003C658);
+    v84 = qword_100042B28;
     if (os_log_type_enabled(qword_100042B28, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v85, OS_LOG_TYPE_DEFAULT, "Deleting dumppanic boot-arg...", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v84, OS_LOG_TYPE_DEFAULT, "Deleting dumppanic boot-arg...", buf, 2u);
     }
 
-    v86 = sub_10000D4EC();
-    v87 = @"dumppanic";
-    if (([v86 containsString:@"dumppanic"]& 1) == 0)
+    v85 = sub_10000D4EC();
+    v86 = @"dumppanic";
+    if (([v85 containsString:@"dumppanic"]& 1) == 0)
     {
 
 LABEL_117:
       goto LABEL_118;
     }
 
-    v88 = [v86 rangeOfString:@"dumppanic"];
-    if (v88 == 0x7FFFFFFFFFFFFFFFLL)
+    v87 = [v85 rangeOfString:@"dumppanic"];
+    if (v87 == 0x7FFFFFFFFFFFFFFFLL)
     {
       _os_assert_log();
       _os_crash();
       __break(1u);
     }
 
-    v89 = v88;
-    v90 = [v86 substringToIndex:v88];
-    while (v89 < [v86 length]&& [v86 characterAtIndex:v89]!= 32)
+    v88 = v87;
+    v89 = [v85 substringToIndex:v87];
+    while (v88 < [v85 length]&& [v85 characterAtIndex:v88]!= 32)
     {
-      ++v89;
+      ++v88;
     }
 
-    v91 = [v86 substringFromIndex:v89];
-    v92 = [v90 stringByAppendingString:v91];
-    v93 = sub_10000CDB8(@"boot-args", v92);
+    v90 = [v85 substringFromIndex:v88];
+    v91 = [v89 stringByAppendingString:v90];
+    v92 = sub_10000CDB8(@"boot-args", v91);
 
-    if (v93)
+    if (v92)
     {
-      v86 = qword_100042B28;
-      if (os_log_type_enabled(v86, OS_LOG_TYPE_ERROR))
+      v85 = qword_100042B28;
+      if (os_log_type_enabled(v85, OS_LOG_TYPE_ERROR))
       {
         *buf = 0;
-        _os_log_error_impl(&_mh_execute_header, v86, OS_LOG_TYPE_ERROR, "failed to delete dumppanic in boot-args", buf, 2u);
+        _os_log_error_impl(&_mh_execute_header, v85, OS_LOG_TYPE_ERROR, "failed to delete dumppanic in boot-args", buf, 2u);
       }
 
       goto LABEL_117;

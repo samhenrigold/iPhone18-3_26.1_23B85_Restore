@@ -53,9 +53,11 @@
 - (id)description
 {
   clientID = self->_clientID;
-  NSAppendPrintF();
+  v5 = 0;
+  NSAppendPrintF(&v5, "AAController, CID 0x%X", clientID);
+  v2 = v5;
 
-  return 0;
+  return v2;
 }
 
 - (void)activateWithCompletion:(id)completion
@@ -86,20 +88,19 @@
 {
   if (self->_invalidateCalled)
   {
-    v3 = *MEMORY[0x277CCA590];
-    v6 = NSErrorF();
+    v5 = NSErrorF(*MEMORY[0x277CCA590], 4294896148, "Activate after invalidate");
     if (gLogCategory_AAController <= 90 && (gLogCategory_AAController != -1 || _LogCategory_Initialize()))
     {
       LogPrintF();
     }
 
-    v4 = MEMORY[0x245CE9060](self->_activateCompletion);
+    v3 = MEMORY[0x245CE9060](self->_activateCompletion);
     activateCompletion = self->_activateCompletion;
     self->_activateCompletion = 0;
 
-    if (v4)
+    if (v3)
     {
-      (v4)[2](v4, v6);
+      (v3)[2](v3, v5);
     }
   }
 
@@ -117,7 +118,7 @@
     if (gLogCategory_AAController <= 30 && (gLogCategory_AAController != -1 || _LogCategory_Initialize()))
     {
 LABEL_12:
-      [AAController _activateXPC:?];
+      [AAController _activateXPC:];
     }
   }
 
@@ -153,7 +154,7 @@ LABEL_12:
   {
     if (gLogCategory_AAController <= 90 && (gLogCategory_AAController != -1 || _LogCategory_Initialize()))
     {
-      [AAController _activateXPCCompleted:?];
+      [(AAController *)self _activateXPCCompleted:v5];
     }
 
     v6 = MEMORY[0x245CE9060](self->_activateCompletion);
@@ -182,7 +183,7 @@ LABEL_12:
 
     if (gLogCategory_AAController <= 30 && (gLogCategory_AAController != -1 || _LogCategory_Initialize()))
     {
-      [AAController _activateXPCCompleted:?];
+      [AAController _activateXPCCompleted:];
     }
 
     v9 = MEMORY[0x245CE9060](self->_activateCompletion);
@@ -269,16 +270,16 @@ void *__33__AAController__ensureXPCStarted__block_invoke(uint64_t a1, uint64_t a
   dispatch_async(dispatchQueue, block);
 }
 
-uint64_t __26__AAController_invalidate__block_invoke(uint64_t result)
+char *__26__AAController_invalidate__block_invoke(char *result)
 {
   v2 = (result + 32);
-  v1 = *(result + 32);
+  v1 = *(result + 4);
   if ((*(v1 + 24) & 1) == 0)
   {
     *(v1 + 24) = 1;
     if (gLogCategory_AAController <= 30 && (gLogCategory_AAController != -1 || _LogCategory_Initialize()))
     {
-      __26__AAController_invalidate__block_invoke_cold_1(v2);
+      __26__AAController_invalidate__block_invoke_cold_1();
     }
 
     v3 = *v2;
@@ -375,7 +376,7 @@ uint64_t __86__AAController_sendConversationDetectMessage_destinationIdentifier_
 {
   if (gLogCategory_AAController <= 30 && (gLogCategory_AAController != -1 || _LogCategory_Initialize()))
   {
-    __86__AAController_sendConversationDetectMessage_destinationIdentifier_completionHandler___block_invoke_cold_1(a1);
+    __86__AAController_sendConversationDetectMessage_destinationIdentifier_completionHandler___block_invoke_cold_1();
   }
 
   v3 = a1[4];
@@ -410,7 +411,7 @@ uint64_t __91__AAController_sendDEOCTempDisableIntervalMessage_destinationIdenti
 {
   if (gLogCategory_AAController <= 30 && (gLogCategory_AAController != -1 || _LogCategory_Initialize()))
   {
-    __91__AAController_sendDEOCTempDisableIntervalMessage_destinationIdentifier_completionHandler___block_invoke_cold_1(a1);
+    __91__AAController_sendDEOCTempDisableIntervalMessage_destinationIdentifier_completionHandler___block_invoke_cold_1();
   }
 
   v3 = a1[4];
@@ -445,7 +446,7 @@ uint64_t __85__AAController_sendMultimodalContextMessage_destinationIdentifier_c
 {
   if (gLogCategory_AAController <= 30 && (gLogCategory_AAController != -1 || _LogCategory_Initialize()))
   {
-    __85__AAController_sendMultimodalContextMessage_destinationIdentifier_completionHandler___block_invoke_cold_1(a1);
+    __85__AAController_sendMultimodalContextMessage_destinationIdentifier_completionHandler___block_invoke_cold_1();
   }
 
   v3 = a1[4];
@@ -480,7 +481,7 @@ uint64_t __74__AAController_sendPMEConfigData_destinationIdentifier_completionHa
 {
   if (gLogCategory_AAController <= 30 && (gLogCategory_AAController != -1 || _LogCategory_Initialize()))
   {
-    __74__AAController_sendPMEConfigData_destinationIdentifier_completionHandler___block_invoke_cold_1(a1);
+    __74__AAController_sendPMEConfigData_destinationIdentifier_completionHandler___block_invoke_cold_1();
   }
 
   v3 = a1[4];
@@ -515,7 +516,7 @@ uint64_t __73__AAController_sendDeviceConfig_destinationIdentifier_completionHan
 {
   if (gLogCategory_AAController <= 30 && (gLogCategory_AAController != -1 || _LogCategory_Initialize()))
   {
-    __73__AAController_sendDeviceConfig_destinationIdentifier_completionHandler___block_invoke_cold_1(a1);
+    __73__AAController_sendDeviceConfig_destinationIdentifier_completionHandler___block_invoke_cold_1();
   }
 
   v3 = a1[4];
@@ -548,7 +549,7 @@ void __81__AAController_sendGetTipiTableMessageToDestinationIdentifier_completio
   v2 = [@"Send getTipiTable message" dataUsingEncoding:4];
   if (gLogCategory_AAController <= 30 && (gLogCategory_AAController != -1 || _LogCategory_Initialize()))
   {
-    __81__AAController_sendGetTipiTableMessageToDestinationIdentifier_completionHandler___block_invoke_cold_1(a1);
+    __81__AAController_sendGetTipiTableMessageToDestinationIdentifier_completionHandler___block_invoke_cold_1();
   }
 
   [*(a1 + 40) _sendAccessoryEventMessage:v2 eventType:6 destinationIdentifier:*(a1 + 32) completionHandler:*(a1 + 48)];
@@ -578,7 +579,7 @@ uint64_t __82__AAController_sendSleepDetectionMessage_destinationIdentifier_comp
 {
   if (gLogCategory_AAController <= 30 && (gLogCategory_AAController != -1 || _LogCategory_Initialize()))
   {
-    __82__AAController_sendSleepDetectionMessage_destinationIdentifier_completionHandler___block_invoke_cold_1(a1);
+    __82__AAController_sendSleepDetectionMessage_destinationIdentifier_completionHandler___block_invoke_cold_1();
   }
 
   v3 = a1[4];
@@ -597,79 +598,77 @@ uint64_t __82__AAController_sendSleepDetectionMessage_destinationIdentifier_comp
   handlerCopy = handler;
   if (self->_invalidateCalled)
   {
-    v13 = *MEMORY[0x277CCA590];
-    v14 = NSErrorF();
+    v13 = NSErrorF(*MEMORY[0x277CCA590], 4294896148, "Request after invalidate");
     if (gLogCategory_AAController <= 90 && (gLogCategory_AAController != -1 || _LogCategory_Initialize()))
     {
-      [AAController _sendAccessoryEventMessage:typeCopy eventType:? destinationIdentifier:? completionHandler:?];
+      [AAController _sendAccessoryEventMessage:typeCopy eventType:v13 destinationIdentifier:? completionHandler:?];
     }
 
 LABEL_15:
-    handlerCopy[2](handlerCopy, v14);
+    handlerCopy[2](handlerCopy, v13);
     goto LABEL_16;
   }
 
   if (!identifierCopy)
   {
-    v29 = *MEMORY[0x277CCA590];
-    v14 = NSErrorF();
+    v13 = NSErrorF(*MEMORY[0x277CCA590], 4294960591, "Invalid parameter");
     if (gLogCategory_AAController <= 90 && (gLogCategory_AAController != -1 || _LogCategory_Initialize()))
     {
-      [AAController _sendAccessoryEventMessage:typeCopy eventType:? destinationIdentifier:? completionHandler:?];
+      [AAController _sendAccessoryEventMessage:typeCopy eventType:v13 destinationIdentifier:? completionHandler:?];
     }
 
     goto LABEL_15;
   }
 
-  v14 = objc_alloc_init(MEMORY[0x277CBE020]);
-  [v14 setIdentifier:identifierCopy];
-  [v14 dictionaryRepresentation];
-  v15 = _CFXPCCreateXPCObjectFromCFObject();
-  v16 = xpc_dictionary_create(0, 0, 0);
-  xpc_dictionary_set_string(v16, "mTyp", "SnAE");
-  xpc_dictionary_set_uint64(v16, "acET", typeCopy);
+  v13 = objc_alloc_init(MEMORY[0x277CBE020]);
+  [v13 setIdentifier:identifierCopy];
+  [v13 dictionaryRepresentation];
+  v14 = _CFXPCCreateXPCObjectFromCFObject();
+  v15 = xpc_dictionary_create(0, 0, 0);
+  xpc_dictionary_set_string(v15, "mTyp", "SnAE");
+  xpc_dictionary_set_uint64(v15, "acET", typeCopy);
   if (messageCopy)
   {
-    v17 = messageCopy;
-    v18 = v16;
-    v19 = messageCopy;
-    bytes = [v19 bytes];
-    v21 = "";
+    v16 = messageCopy;
+    v17 = v15;
+    v18 = messageCopy;
+    bytes = [v18 bytes];
+    v20 = "";
     if (bytes)
     {
-      v21 = bytes;
+      v20 = bytes;
     }
 
-    v22 = messageCopy;
+    v21 = messageCopy;
+    v22 = v13;
     v23 = v14;
-    v24 = v15;
-    v25 = [v19 length];
+    v24 = [v18 length];
 
-    v26 = v25;
-    v15 = v24;
+    v25 = v24;
     v14 = v23;
-    messageCopy = v22;
-    xpc_dictionary_set_data(v18, "acMd", bytes, v26);
+    v13 = v22;
+    messageCopy = v21;
+    xpc_dictionary_set_data(v17, "acMd", bytes, v25);
   }
 
-  xpc_dictionary_set_value(v16, "dstD", v15);
+  xpc_dictionary_set_value(v15, "dstD", v14);
   _ensureXPCStarted = [(AAController *)self _ensureXPCStarted];
   dispatchQueue = self->_dispatchQueue;
   handler[0] = MEMORY[0x277D85DD0];
   handler[1] = 3221225472;
   handler[2] = __93__AAController__sendAccessoryEventMessage_eventType_destinationIdentifier_completionHandler___block_invoke;
   handler[3] = &unk_278CDD9D0;
-  v32 = handlerCopy;
-  xpc_connection_send_message_with_reply(_ensureXPCStarted, v16, dispatchQueue, handler);
+  v30 = handlerCopy;
+  xpc_connection_send_message_with_reply(_ensureXPCStarted, v15, dispatchQueue, handler);
 
 LABEL_16:
 }
 
-void __93__AAController__sendAccessoryEventMessage_eventType_destinationIdentifier_completionHandler___block_invoke(uint64_t a1)
+void __93__AAController__sendAccessoryEventMessage_eventType_destinationIdentifier_completionHandler___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v1 = *(a1 + 32);
-  v2 = CUXPCDecodeNSErrorIfNeeded();
-  (*(v1 + 16))(v1, v2);
+  v2 = *(a1 + 32);
+  v3 = CUXPCDecodeNSErrorIfNeeded();
+  (*(v2 + 16))(v2, v3);
 }
 
 - (void)_sendDeviceConfig:(id)config destinationIdentifier:(id)identifier completionHandler:(id)handler
@@ -679,81 +678,79 @@ void __93__AAController__sendAccessoryEventMessage_eventType_destinationIdentifi
   handlerCopy = handler;
   if (self->_invalidateCalled)
   {
-    v11 = *MEMORY[0x277CCA590];
-    v12 = NSErrorF();
+    v11 = NSErrorF(*MEMORY[0x277CCA590], 4294896148, "Request after invalidate");
     if (gLogCategory_AAController <= 90 && (gLogCategory_AAController != -1 || _LogCategory_Initialize()))
     {
-      [AAController _sendDeviceConfig:destinationIdentifier:completionHandler:];
+      [AAController _sendDeviceConfig:v11 destinationIdentifier:? completionHandler:?];
     }
 
 LABEL_11:
-    handlerCopy[2](handlerCopy, v12);
+    handlerCopy[2](handlerCopy, v11);
     goto LABEL_12;
   }
 
   if (!identifierCopy)
   {
-    v17 = *MEMORY[0x277CCA590];
-    v12 = NSErrorF();
+    v11 = NSErrorF(*MEMORY[0x277CCA590], 4294960591, "Invalid parameter");
     if (gLogCategory_AAController <= 90 && (gLogCategory_AAController != -1 || _LogCategory_Initialize()))
     {
-      [AAController _sendDeviceConfig:destinationIdentifier:completionHandler:];
+      [AAController _sendDeviceConfig:v11 destinationIdentifier:? completionHandler:?];
     }
 
     goto LABEL_11;
   }
 
-  v12 = objc_alloc_init(MEMORY[0x277CBE020]);
-  [v12 setIdentifier:identifierCopy];
-  [v12 dictionaryRepresentation];
-  v13 = _CFXPCCreateXPCObjectFromCFObject();
-  v14 = xpc_dictionary_create(0, 0, 0);
-  xpc_dictionary_set_string(v14, "mTyp", "SnAC");
-  xpc_dictionary_set_value(v14, "acMd", configCopy);
-  xpc_dictionary_set_value(v14, "dstD", v13);
+  v11 = objc_alloc_init(MEMORY[0x277CBE020]);
+  [v11 setIdentifier:identifierCopy];
+  [v11 dictionaryRepresentation];
+  v12 = _CFXPCCreateXPCObjectFromCFObject();
+  v13 = xpc_dictionary_create(0, 0, 0);
+  xpc_dictionary_set_string(v13, "mTyp", "SnAC");
+  xpc_dictionary_set_value(v13, "acMd", configCopy);
+  xpc_dictionary_set_value(v13, "dstD", v12);
   _ensureXPCStarted = [(AAController *)self _ensureXPCStarted];
   dispatchQueue = self->_dispatchQueue;
   handler[0] = MEMORY[0x277D85DD0];
   handler[1] = 3221225472;
   handler[2] = __74__AAController__sendDeviceConfig_destinationIdentifier_completionHandler___block_invoke;
   handler[3] = &unk_278CDD9D0;
-  v19 = handlerCopy;
-  xpc_connection_send_message_with_reply(_ensureXPCStarted, v14, dispatchQueue, handler);
+  v17 = handlerCopy;
+  xpc_connection_send_message_with_reply(_ensureXPCStarted, v13, dispatchQueue, handler);
 
 LABEL_12:
 }
 
-void __74__AAController__sendDeviceConfig_destinationIdentifier_completionHandler___block_invoke(uint64_t a1)
+void __74__AAController__sendDeviceConfig_destinationIdentifier_completionHandler___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v1 = *(a1 + 32);
-  v2 = CUXPCDecodeNSErrorIfNeeded();
-  (*(v1 + 16))(v1, v2);
+  v2 = *(a1 + 32);
+  v3 = CUXPCDecodeNSErrorIfNeeded();
+  (*(v2 + 16))(v2, v3);
 }
 
 - (void)xpcReceivedMessage:(id)message
 {
   messageCopy = message;
-  v13 = messageCopy;
+  v12 = messageCopy;
   if (gLogCategory_AAController <= 10)
   {
-    if (gLogCategory_AAController != -1 || (v5 = _LogCategory_Initialize(), messageCopy = v13, v5))
+    if (gLogCategory_AAController != -1 || (v5 = _LogCategory_Initialize(), messageCopy = v12, v5))
     {
       [AAController xpcReceivedMessage:];
-      messageCopy = v13;
+      messageCopy = v12;
     }
   }
 
   if (MEMORY[0x245CE9330](messageCopy) == MEMORY[0x277D86468])
   {
-    [(AAController *)self _xpcReceivedMessage:v13];
+    [(AAController *)self _xpcReceivedMessage:v12];
   }
 
-  else if (v13 == MEMORY[0x277D863F0])
+  else if (v12 == MEMORY[0x277D863F0])
   {
     [(AAController *)self _interrupted];
   }
 
-  else if (v13 == MEMORY[0x277D863F8])
+  else if (v12 == MEMORY[0x277D863F8])
   {
     if (!self->_invalidateCalled && gLogCategory_AAController <= 90 && (gLogCategory_AAController != -1 || _LogCategory_Initialize()))
     {
@@ -780,15 +777,14 @@ void __74__AAController__sendDeviceConfig_destinationIdentifier_completionHandle
 
     else
     {
-      v11 = *MEMORY[0x277CCA590];
-      v8 = NSErrorF();
+      v8 = NSErrorF(*MEMORY[0x277CCA590], 4294960596, "XPC event error");
     }
 
-    v12 = v8;
+    v11 = v8;
 
     if (gLogCategory_AAController <= 90 && (gLogCategory_AAController != -1 || _LogCategory_Initialize()))
     {
-      [AAController xpcReceivedMessage:];
+      [(AAController *)v11 xpcReceivedMessage:v12];
     }
   }
 }
@@ -842,10 +838,10 @@ void __74__AAController__sendDeviceConfig_destinationIdentifier_completionHandle
     objc_opt_class();
     CUXPCDecodeObject();
     v5 = 0;
-    v8 = CUPrintNSError();
-    v6 = NSPrintF_safe();
-    v7 = v11[5];
-    v11[5] = v6;
+    v6 = CUPrintNSError();
+    v7 = NSPrintF_safe("bad source device: %@", v6);
+    v8 = v11[5];
+    v11[5] = v7;
   }
 
   else
@@ -860,19 +856,20 @@ void __74__AAController__sendDeviceConfig_destinationIdentifier_completionHandle
 
 uint64_t __43__AAController__xpcReceivedAccessoryEvent___block_invoke(uint64_t result)
 {
-  if (*(*(*(result + 32) + 8) + 40) && gLogCategory_AAController <= 90)
+  if (*(*(*(result + 32) + 8) + 40))
   {
-    if (gLogCategory_AAController != -1)
+    if (gLogCategory_AAController <= 90)
     {
-      return LogPrintF();
-    }
+      if (gLogCategory_AAController != -1)
+      {
+        return LogPrintF();
+      }
 
-    v1 = result;
-    result = _LogCategory_Initialize();
-    if (result)
-    {
-      v2 = *(*(*(v1 + 32) + 8) + 40);
-      return LogPrintF();
+      result = _LogCategory_Initialize();
+      if (result)
+      {
+        return LogPrintF();
+      }
     }
   }
 
@@ -928,19 +925,20 @@ uint64_t __43__AAController__xpcReceivedAccessoryEvent___block_invoke(uint64_t r
 
 uint64_t __59__AAController__xpcReceivedAudioAccessoryDeviceInfoChange___block_invoke(uint64_t result)
 {
-  if (*(*(*(result + 32) + 8) + 40) && gLogCategory_AAController <= 90)
+  if (*(*(*(result + 32) + 8) + 40))
   {
-    if (gLogCategory_AAController != -1)
+    if (gLogCategory_AAController <= 90)
     {
-      return LogPrintF();
-    }
+      if (gLogCategory_AAController != -1)
+      {
+        return LogPrintF();
+      }
 
-    v1 = result;
-    result = _LogCategory_Initialize();
-    if (result)
-    {
-      v2 = *(*(*(v1 + 32) + 8) + 40);
-      return LogPrintF();
+      result = _LogCategory_Initialize();
+      if (result)
+      {
+        return LogPrintF();
+      }
     }
   }
 
@@ -980,10 +978,10 @@ uint64_t __59__AAController__xpcReceivedAudioAccessoryDeviceInfoChange___block_i
 
     else
     {
-      v13 = CUPrintNSError();
-      v11 = NSPrintF_safe();
-      v12 = v17[5];
-      v17[5] = v11;
+      v11 = CUPrintNSError();
+      v12 = NSPrintF_safe("bad source identifier: %@", v11);
+      v13 = v17[5];
+      v17[5] = v12;
     }
   }
 
@@ -993,19 +991,20 @@ uint64_t __59__AAController__xpcReceivedAudioAccessoryDeviceInfoChange___block_i
 
 uint64_t __55__AAController__batteryInfoMessageReceived_fromDevice___block_invoke(uint64_t result)
 {
-  if (*(*(*(result + 32) + 8) + 40) && gLogCategory_AAController <= 90)
+  if (*(*(*(result + 32) + 8) + 40))
   {
-    if (gLogCategory_AAController != -1)
+    if (gLogCategory_AAController <= 90)
     {
-      return LogPrintF();
-    }
+      if (gLogCategory_AAController != -1)
+      {
+        return LogPrintF();
+      }
 
-    v1 = result;
-    result = _LogCategory_Initialize();
-    if (result)
-    {
-      v2 = *(*(*(v1 + 32) + 8) + 40);
-      return LogPrintF();
+      result = _LogCategory_Initialize();
+      if (result)
+      {
+        return LogPrintF();
+      }
     }
   }
 
@@ -1045,10 +1044,10 @@ uint64_t __55__AAController__batteryInfoMessageReceived_fromDevice___block_invok
 
     else
     {
-      v13 = CUPrintNSError();
-      v11 = NSPrintF_safe();
-      v12 = v17[5];
-      v17[5] = v11;
+      v11 = CUPrintNSError();
+      v12 = NSPrintF_safe("bad source identifier: %@", v11);
+      v13 = v17[5];
+      v17[5] = v12;
     }
   }
 
@@ -1058,19 +1057,20 @@ uint64_t __55__AAController__batteryInfoMessageReceived_fromDevice___block_invok
 
 uint64_t __62__AAController__conversationDetectMessageReceived_fromDevice___block_invoke(uint64_t result)
 {
-  if (*(*(*(result + 32) + 8) + 40) && gLogCategory_AAController <= 90)
+  if (*(*(*(result + 32) + 8) + 40))
   {
-    if (gLogCategory_AAController != -1)
+    if (gLogCategory_AAController <= 90)
     {
-      return LogPrintF();
-    }
+      if (gLogCategory_AAController != -1)
+      {
+        return LogPrintF();
+      }
 
-    v1 = result;
-    result = _LogCategory_Initialize();
-    if (result)
-    {
-      v2 = *(*(*(v1 + 32) + 8) + 40);
-      return LogPrintF();
+      result = _LogCategory_Initialize();
+      if (result)
+      {
+        return LogPrintF();
+      }
     }
   }
 
@@ -1106,7 +1106,7 @@ uint64_t __62__AAController__conversationDetectMessageReceived_fromDevice___bloc
     if (!identifier)
     {
       v14 = CUPrintNSError();
-      v20 = NSPrintF_safe();
+      v20 = NSPrintF_safe("bad source identifier: %@", v14);
       v17 = v24[5];
       v24[5] = v20;
       goto LABEL_19;
@@ -1140,7 +1140,7 @@ LABEL_13:
 
 LABEL_17:
     v17 = CUPrintNSError();
-    v18 = NSPrintF_safe();
+    v18 = NSPrintF_safe("bad source address: %@", v17);
     v19 = v24[5];
     v24[5] = v18;
 
@@ -1156,19 +1156,20 @@ LABEL_14:
 
 uint64_t __65__AAController__accessoryUsageSummaryMessageReceived_fromDevice___block_invoke(uint64_t result)
 {
-  if (*(*(*(result + 32) + 8) + 40) && gLogCategory_AAController <= 90)
+  if (*(*(*(result + 32) + 8) + 40))
   {
-    if (gLogCategory_AAController != -1)
+    if (gLogCategory_AAController <= 90)
     {
-      return LogPrintF();
-    }
+      if (gLogCategory_AAController != -1)
+      {
+        return LogPrintF();
+      }
 
-    v1 = result;
-    result = _LogCategory_Initialize();
-    if (result)
-    {
-      v2 = *(*(*(v1 + 32) + 8) + 40);
-      return LogPrintF();
+      result = _LogCategory_Initialize();
+      if (result)
+      {
+        return LogPrintF();
+      }
     }
   }
 
@@ -1208,10 +1209,10 @@ uint64_t __65__AAController__accessoryUsageSummaryMessageReceived_fromDevice___b
 
     else
     {
-      v13 = CUPrintNSError();
-      v11 = NSPrintF_safe();
-      v12 = v17[5];
-      v17[5] = v11;
+      v11 = CUPrintNSError();
+      v12 = NSPrintF_safe("bad source identifier: %@", v11);
+      v13 = v17[5];
+      v17[5] = v12;
     }
   }
 
@@ -1221,19 +1222,20 @@ uint64_t __65__AAController__accessoryUsageSummaryMessageReceived_fromDevice___b
 
 uint64_t __61__AAController__multimodalContextMessageReceived_fromDevice___block_invoke(uint64_t result)
 {
-  if (*(*(*(result + 32) + 8) + 40) && gLogCategory_AAController <= 90)
+  if (*(*(*(result + 32) + 8) + 40))
   {
-    if (gLogCategory_AAController != -1)
+    if (gLogCategory_AAController <= 90)
     {
-      return LogPrintF();
-    }
+      if (gLogCategory_AAController != -1)
+      {
+        return LogPrintF();
+      }
 
-    v1 = result;
-    result = _LogCategory_Initialize();
-    if (result)
-    {
-      v2 = *(*(*(v1 + 32) + 8) + 40);
-      return LogPrintF();
+      result = _LogCategory_Initialize();
+      if (result)
+      {
+        return LogPrintF();
+      }
     }
   }
 
@@ -1276,10 +1278,10 @@ uint64_t __61__AAController__multimodalContextMessageReceived_fromDevice___block
 
     else
     {
-      v14 = CUPrintNSError();
-      v12 = NSPrintF_safe();
-      v13 = v18[5];
-      v18[5] = v12;
+      v12 = CUPrintNSError();
+      v13 = NSPrintF_safe("Bad source BT address: %@", v12);
+      v14 = v18[5];
+      v18[5] = v13;
     }
   }
 
@@ -1289,19 +1291,20 @@ uint64_t __61__AAController__multimodalContextMessageReceived_fromDevice___block
 
 uint64_t __63__AAController__personalTranslationMessageReceived_fromDevice___block_invoke(uint64_t result)
 {
-  if (*(*(*(result + 32) + 8) + 40) && gLogCategory_AAController <= 90)
+  if (*(*(*(result + 32) + 8) + 40))
   {
-    if (gLogCategory_AAController != -1)
+    if (gLogCategory_AAController <= 90)
     {
-      return LogPrintF();
-    }
+      if (gLogCategory_AAController != -1)
+      {
+        return LogPrintF();
+      }
 
-    v1 = result;
-    result = _LogCategory_Initialize();
-    if (result)
-    {
-      v2 = *(*(*(v1 + 32) + 8) + 40);
-      return LogPrintF();
+      result = _LogCategory_Initialize();
+      if (result)
+      {
+        return LogPrintF();
+      }
     }
   }
 
@@ -1341,10 +1344,10 @@ uint64_t __63__AAController__personalTranslationMessageReceived_fromDevice___blo
 
     else
     {
-      v13 = CUPrintNSError();
-      v11 = NSPrintF_safe();
-      v12 = v17[5];
-      v17[5] = v11;
+      v11 = CUPrintNSError();
+      v12 = NSPrintF_safe("bad source identifier: %@", v11);
+      v13 = v17[5];
+      v17[5] = v12;
     }
   }
 
@@ -1354,19 +1357,20 @@ uint64_t __63__AAController__personalTranslationMessageReceived_fromDevice___blo
 
 uint64_t __50__AAController__pmeConfigDataReceived_fromDevice___block_invoke(uint64_t result)
 {
-  if (*(*(*(result + 32) + 8) + 40) && gLogCategory_AAController <= 90)
+  if (*(*(*(result + 32) + 8) + 40))
   {
-    if (gLogCategory_AAController != -1)
+    if (gLogCategory_AAController <= 90)
     {
-      return LogPrintF();
-    }
+      if (gLogCategory_AAController != -1)
+      {
+        return LogPrintF();
+      }
 
-    v1 = result;
-    result = _LogCategory_Initialize();
-    if (result)
-    {
-      v2 = *(*(*(v1 + 32) + 8) + 40);
-      return LogPrintF();
+      result = _LogCategory_Initialize();
+      if (result)
+      {
+        return LogPrintF();
+      }
     }
   }
 
@@ -1407,10 +1411,10 @@ uint64_t __50__AAController__pmeConfigDataReceived_fromDevice___block_invoke(uin
 
     else
     {
-      v13 = CUPrintNSError();
-      v11 = NSPrintF_safe();
-      v12 = v17[5];
-      v17[5] = v11;
+      v11 = CUPrintNSError();
+      v12 = NSPrintF_safe("bad source identifier: %@", v11);
+      v13 = v17[5];
+      v17[5] = v12;
     }
   }
 
@@ -1420,19 +1424,20 @@ uint64_t __50__AAController__pmeConfigDataReceived_fromDevice___block_invoke(uin
 
 uint64_t __54__AAController__rawGestureMessageReceived_fromDevice___block_invoke(uint64_t result)
 {
-  if (*(*(*(result + 32) + 8) + 40) && gLogCategory_AAController <= 90)
+  if (*(*(*(result + 32) + 8) + 40))
   {
-    if (gLogCategory_AAController != -1)
+    if (gLogCategory_AAController <= 90)
     {
-      return LogPrintF();
-    }
+      if (gLogCategory_AAController != -1)
+      {
+        return LogPrintF();
+      }
 
-    v1 = result;
-    result = _LogCategory_Initialize();
-    if (result)
-    {
-      v2 = *(*(*(v1 + 32) + 8) + 40);
-      return LogPrintF();
+      result = _LogCategory_Initialize();
+      if (result)
+      {
+        return LogPrintF();
+      }
     }
   }
 
@@ -1472,10 +1477,10 @@ uint64_t __54__AAController__rawGestureMessageReceived_fromDevice___block_invoke
 
     else
     {
-      v13 = CUPrintNSError();
-      v11 = NSPrintF_safe();
-      v12 = v17[5];
-      v17[5] = v11;
+      v11 = CUPrintNSError();
+      v12 = NSPrintF_safe("bad source identifier: %@", v11);
+      v13 = v17[5];
+      v17[5] = v12;
     }
   }
 
@@ -1485,19 +1490,20 @@ uint64_t __54__AAController__rawGestureMessageReceived_fromDevice___block_invoke
 
 uint64_t __58__AAController__sleepDetectionMessageReceived_fromDevice___block_invoke(uint64_t result)
 {
-  if (*(*(*(result + 32) + 8) + 40) && gLogCategory_AAController <= 90)
+  if (*(*(*(result + 32) + 8) + 40))
   {
-    if (gLogCategory_AAController != -1)
+    if (gLogCategory_AAController <= 90)
     {
-      return LogPrintF();
-    }
+      if (gLogCategory_AAController != -1)
+      {
+        return LogPrintF();
+      }
 
-    v1 = result;
-    result = _LogCategory_Initialize();
-    if (result)
-    {
-      v2 = *(*(*(v1 + 32) + 8) + 40);
-      return LogPrintF();
+      result = _LogCategory_Initialize();
+      if (result)
+      {
+        return LogPrintF();
+      }
     }
   }
 
@@ -1517,44 +1523,33 @@ BOOL __38__AAController__activateXPCCompleted___block_invoke(uint64_t a1, uint64
   return v6 != 0;
 }
 
-- (void)_activateXPCCompleted:(uint64_t)a1 .cold.1(uint64_t a1)
+- (void)_activateXPCCompleted:(uint64_t)a1 .cold.1(uint64_t a1, uint64_t a2)
 {
-  v1 = *(a1 + 40);
   v2 = CUPrintNSError();
   LogPrintF();
 }
 
-- (void)_sendAccessoryEventMessage:(unsigned __int8)a1 eventType:destinationIdentifier:completionHandler:.cold.1(unsigned __int8 a1)
+- (void)_sendAccessoryEventMessage:(uint64_t)a1 eventType:(uint64_t)a2 destinationIdentifier:completionHandler:.cold.1(uint64_t a1, uint64_t a2)
 {
-  if (a1 <= 0xCu)
-  {
-    v1 = off_278CDDA18[a1];
-  }
-
   v2 = CUPrintNSError();
   LogPrintF();
 }
 
-- (void)_sendAccessoryEventMessage:(unsigned __int8)a1 eventType:destinationIdentifier:completionHandler:.cold.2(unsigned __int8 a1)
+- (void)_sendAccessoryEventMessage:(uint64_t)a1 eventType:(uint64_t)a2 destinationIdentifier:completionHandler:.cold.2(uint64_t a1, uint64_t a2)
 {
-  if (a1 <= 0xCu)
-  {
-    v1 = off_278CDDA18[a1];
-  }
-
   v2 = CUPrintNSError();
   LogPrintF();
 }
 
-- (void)_sendDeviceConfig:destinationIdentifier:completionHandler:.cold.1()
+- (void)_sendDeviceConfig:(uint64_t)a1 destinationIdentifier:completionHandler:.cold.1(uint64_t a1)
 {
-  v0 = CUPrintNSError();
+  v1 = CUPrintNSError();
   LogPrintF();
 }
 
-- (void)_sendDeviceConfig:destinationIdentifier:completionHandler:.cold.2()
+- (void)_sendDeviceConfig:(uint64_t)a1 destinationIdentifier:completionHandler:.cold.2(uint64_t a1)
 {
-  v0 = CUPrintNSError();
+  v1 = CUPrintNSError();
   LogPrintF();
 }
 
@@ -1564,18 +1559,11 @@ BOOL __38__AAController__activateXPCCompleted___block_invoke(uint64_t a1, uint64
   LogPrintF();
 }
 
-- (void)xpcReceivedMessage:.cold.2()
+- (void)xpcReceivedMessage:(uint64_t)a1 .cold.2(uint64_t a1, uint64_t a2)
 {
-  v1 = CUPrintNSError();
-  v0 = CUPrintXPC();
+  v3 = CUPrintNSError();
+  v2 = CUPrintXPC();
   LogPrintF();
-}
-
-- (uint64_t)xpcReceivedMessage:(uint64_t)a1 .cold.3(uint64_t a1)
-{
-  v1 = *(a1 + 32);
-  xpc_connection_copy_invalidation_reason();
-  return LogPrintF();
 }
 
 @end

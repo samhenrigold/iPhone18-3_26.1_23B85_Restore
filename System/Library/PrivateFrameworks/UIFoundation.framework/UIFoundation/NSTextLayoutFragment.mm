@@ -365,7 +365,7 @@
   return coordinateSystemCompatibilityFor2022AndEarlierSDKEnabled_coordinateSystemCompatibilityFor2022AndEarlierSDKEnabled;
 }
 
-uint64_t __80__NSTextLayoutFragment_coordinateSystemCompatibilityFor2022AndEarlierSDKEnabled__block_invoke()
+void *__80__NSTextLayoutFragment_coordinateSystemCompatibilityFor2022AndEarlierSDKEnabled__block_invoke()
 {
   v0 = [objc_msgSend(MEMORY[0x1E695E000] "standardUserDefaults")];
   if (v0)
@@ -375,7 +375,7 @@ uint64_t __80__NSTextLayoutFragment_coordinateSystemCompatibilityFor2022AndEarli
 
   else
   {
-    result = dyld_program_sdk_at_least() ^ 1;
+    result = (dyld_program_sdk_at_least() ^ 1);
   }
 
   coordinateSystemCompatibilityFor2022AndEarlierSDKEnabled_coordinateSystemCompatibilityFor2022AndEarlierSDKEnabled = result;
@@ -397,7 +397,7 @@ uint64_t __31__NSTextLayoutFragment__layout__block_invoke_5(uint64_t a1, uint64_
 
   else
   {
-    v8 = [v6 locationFromLocation:*(a1 + 48) withOffset:?];
+    v8 = [v6 locationFromLocation:*(a1 + 48) withOffset:a4];
   }
 
   v10 = v8;
@@ -2048,7 +2048,7 @@ uint64_t __77__NSTextLayoutFragment_textLineFragmentForVerticalOffset_requiresEx
   return _validCoreTextRenderingAttributes_coreTextAttributes;
 }
 
-uint64_t __57__NSTextLayoutFragment__validCoreTextRenderingAttributes__block_invoke()
+void *__57__NSTextLayoutFragment__validCoreTextRenderingAttributes__block_invoke()
 {
   result = [objc_alloc(MEMORY[0x1E695DFD8]) initWithObjects:{@"NSColor", @"NSBackgroundColor", @"NSShadow", @"NSLink", 0}];
   _validCoreTextRenderingAttributes_coreTextAttributes = result;
@@ -2272,7 +2272,7 @@ LABEL_11:
   return v10;
 }
 
-uint64_t __31__NSTextLayoutFragment__layout__block_invoke_2(id *a1, void *a2, uint64_t a3, uint64_t a4)
+void *__31__NSTextLayoutFragment__layout__block_invoke_2(id *a1, void *a2, uint64_t a3, uint64_t a4)
 {
   v42 = *MEMORY[0x1E69E9840];
   v8 = [a1[4] locationForCharacterIndex:a3 dataSourceLocationsOnly:0 actualRange:0];
@@ -2740,7 +2740,7 @@ uint64_t __31__NSTextLayoutFragment__layout__block_invoke_7(uint64_t a1, void *a
   [(NSTextLayoutManager *)textLayoutManager enumerateTemporaryAttributesFromLocation:location reverse:reverseCopy usingBlock:v10];
 }
 
-uint64_t __84__NSTextLayoutFragment_enumerateRenderingAttributesFromLocation_reverse_usingBlock___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, void *a4, _BYTE *a5)
+void *__84__NSTextLayoutFragment_enumerateRenderingAttributesFromLocation_reverse_usingBlock___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, void *a4, _BYTE *a5)
 {
   result = [a4 textRangeByIntersectingWithTextRange:{objc_msgSend(*(a1 + 32), "rangeInElement")}];
   if (result)
@@ -2786,7 +2786,7 @@ uint64_t __84__NSTextLayoutFragment_enumerateRenderingAttributesFromLocation_rev
   return _textAttributesAffectingLayout_coreTextAttributes;
 }
 
-uint64_t __54__NSTextLayoutFragment__textAttributesAffectingLayout__block_invoke()
+void *__54__NSTextLayoutFragment__textAttributesAffectingLayout__block_invoke()
 {
   v0 = objc_alloc(MEMORY[0x1E695DFD8]);
   result = [v0 initWithObjects:{@"NSFont", @"NSParagraphStyle", @"NSLigature", @"NSKern", @"CTTracking", @"NSAttachment", @"NSBaselineOffset", @"NSObliqueness", @"NSExpansion", @"NSWritingDirection", @"CTVerticalForms", @"NSSuperScript", NSGlyphInfoAttributeName, 0}];
@@ -2851,7 +2851,7 @@ uint64_t __54__NSTextLayoutFragment__textAttributesAffectingLayout__block_invoke
   [(_NSTextRunStorage *)self->_renderingAttributesTable setObject:v8 forRange:range];
 }
 
-uint64_t __60__NSTextLayoutFragment_setRenderingAttributes_forTextRange___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4)
+void *__60__NSTextLayoutFragment_setRenderingAttributes_forTextRange___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4)
 {
   result = [*(a1 + 32) containsObject:a2];
   if (result)
@@ -2895,7 +2895,7 @@ uint64_t __60__NSTextLayoutFragment_setRenderingAttributes_forTextRange___block_
   }
 }
 
-uint64_t __76__NSTextLayoutFragment_layoutManagerDidSetTemporaryAttributes_forTextRange___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4)
+void *__76__NSTextLayoutFragment_layoutManagerDidSetTemporaryAttributes_forTextRange___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4)
 {
   result = [*(a1 + 32) containsObject:a2];
   if (result)
@@ -3567,7 +3567,7 @@ LABEL_19:
   return attributes;
 }
 
-uint64_t __109__NSTextLayoutFragment__renderingAttributesForTextAnimationContextComponent_range_attributes_effectiveRange___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
+void *__109__NSTextLayoutFragment__renderingAttributesForTextAnimationContextComponent_range_attributes_effectiveRange___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
   result = [MEMORY[0x1E695DFB0] null];
   if (result == a3)

@@ -485,18 +485,19 @@ LABEL_12:
   reducedCopy = reduced;
   lCopy = l;
   roleCopy = role;
+  v10 = roleCopy;
   if (!lCopy)
   {
-    v10 = PRLogCommon();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
+    v11 = PRLogCommon(roleCopy);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
     {
-      [PRPosterTitleStyleConfiguration vibrancyConfigurationWithExtensionBundleURL:v10 luminanceReduced:? forRole:?];
+      [PRPosterTitleStyleConfiguration vibrancyConfigurationWithExtensionBundleURL:v11 luminanceReduced:? forRole:?];
     }
   }
 
-  v11 = [(PRPosterTitleStyleConfiguration *)self _vibrancyConfigurationWithExtensionBundleURL:lCopy luminanceReduced:reducedCopy role:roleCopy];
+  v12 = [(PRPosterTitleStyleConfiguration *)self _vibrancyConfigurationWithExtensionBundleURL:lCopy luminanceReduced:reducedCopy role:v10];
 
-  return v11;
+  return v12;
 }
 
 - (id)_vibrancyConfigurationWithExtensionBundleURL:(id)l luminanceReduced:(BOOL)reduced role:(id)role
@@ -735,13 +736,13 @@ LABEL_12:
   [coderCopy encodeObject:v7 forKey:*MEMORY[0x1E69C5520]];
 
   titleContentStyle = [(PRPosterTitleStyleConfiguration *)self titleContentStyle];
-  v9 = PRLogCommon();
+  v9 = PRLogCommon(titleContentStyle);
   v10 = os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG);
   if (titleContentStyle)
   {
     if (v10)
     {
-      [PRPosterTitleStyleConfiguration encodeWithCoder:];
+      [PRPosterTitleStyleConfiguration encodeWithCoder:?];
     }
 
     v9 = [PRPosterContentStyleSerialization dataForContentStyle:titleContentStyle error:0];
@@ -810,7 +811,7 @@ LABEL_12:
     }
 
     contentStyle = [objc_opt_class() defaultTitleContentStyleForRole:@"PRPosterRoleLockScreen"];
-    v12 = PRLogCommon();
+    v12 = PRLogCommon(contentStyle);
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543874;
@@ -846,7 +847,7 @@ LABEL_12:
     }
 
     contentStyle = [(PRPosterColor *)v11 contentStyle];
-    v12 = PRLogCommon();
+    v12 = PRLogCommon(contentStyle);
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
@@ -957,13 +958,13 @@ LABEL_13:
   [coderCopy encodeObject:v7 forKey:*MEMORY[0x1E69C5520]];
 
   titleContentStyle = [(PRPosterTitleStyleConfiguration *)self titleContentStyle];
-  v9 = PRLogCommon();
+  v9 = PRLogCommon(titleContentStyle);
   v10 = os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG);
   if (titleContentStyle)
   {
     if (v10)
     {
-      [PRPosterTitleStyleConfiguration encodeWithCoder:];
+      [PRPosterTitleStyleConfiguration encodeWithCoder:?];
     }
 
     v9 = [PRPosterContentStyleSerialization dataForContentStyle:titleContentStyle error:0];
@@ -1029,7 +1030,7 @@ LABEL_13:
     }
 
     contentStyle = [objc_opt_class() defaultTitleContentStyleForRole:@"PRPosterRoleLockScreen"];
-    v9 = PRLogCommon();
+    v9 = PRLogCommon(contentStyle);
     if (os_log_type_enabled(&v9->super, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543874;
@@ -1065,7 +1066,7 @@ LABEL_13:
     }
 
     contentStyle = [(PRPosterColor *)v9 contentStyle];
-    v14 = PRLogCommon();
+    v14 = PRLogCommon(contentStyle);
     if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
@@ -1169,7 +1170,7 @@ LABEL_14:
 
 + (id)performMigrationIfNecessary:(id)necessary
 {
-  v46 = *MEMORY[0x1E69E9840];
+  v48 = *MEMORY[0x1E69E9840];
   necessaryCopy = necessary;
   version = [necessaryCopy version];
   if (version < +[PRPosterTitleStyleConfiguration currentVersion]&& PUIFeatureEnabled())
@@ -1217,46 +1218,46 @@ LABEL_14:
           timeFontIdentifier2 = [(PRPosterSystemTimeFontConfiguration *)v10 timeFontIdentifier];
           v11 = [(PRPosterSystemTimeFontConfiguration *)v18 initWithTimeFontIdentifier:timeFontIdentifier2 weight:[(PRPosterSystemTimeFontConfiguration *)v10 isSystemItem] systemItem:v17];
 
-          v20 = PRLogCommon();
-          if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+          v21 = PRLogCommon(v20);
+          if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
           {
             [(PRPosterSystemTimeFontConfiguration *)v10 weight];
             *buf = 134218240;
-            v43 = v21;
-            v44 = 2048;
-            v45 = v17;
-            _os_log_impl(&dword_1A8AA7000, v20, OS_LOG_TYPE_DEFAULT, "Migrating font weight from %f to %f", buf, 0x16u);
+            v45 = v22;
+            v46 = 2048;
+            v47 = v17;
+            _os_log_impl(&dword_1A8AA7000, v21, OS_LOG_TYPE_DEFAULT, "Migrating font weight from %f to %f", buf, 0x16u);
           }
         }
       }
     }
 
-    v40 = v7;
-    v41 = v10;
-    v22 = [PRPosterTitleStyleConfiguration alloc];
+    v42 = v7;
+    v43 = v10;
+    v23 = [PRPosterTitleStyleConfiguration alloc];
     preferredTitleAlignment = [necessaryCopy preferredTitleAlignment];
     preferredTitleLayout = [necessaryCopy preferredTitleLayout];
     titleContentStyle = [necessaryCopy titleContentStyle];
     timeNumberingSystem = [necessaryCopy timeNumberingSystem];
     isUserConfigured = [necessaryCopy isUserConfigured];
     [necessaryCopy preferredTimeMaxYPortrait];
-    v29 = v28;
+    v30 = v29;
     [necessaryCopy preferredTimeMaxYLandscape];
-    v31 = v30;
+    v32 = v31;
     [necessaryCopy contentsLuminance];
-    v33 = v32;
+    v34 = v33;
     isAlternateDateEnabled = [necessaryCopy isAlternateDateEnabled];
     groupName = [necessaryCopy groupName];
-    LOBYTE(v39) = isAlternateDateEnabled;
-    v9 = [(PRPosterTitleStyleConfiguration *)v22 initWithTimeFontConfiguration:v11 preferredTitleAlignment:preferredTitleAlignment preferredTitleLayout:preferredTitleLayout titleContentStyle:titleContentStyle timeNumberingSystem:timeNumberingSystem userConfigured:isUserConfigured preferredTimeMaxYPortrait:v29 preferredTimeMaxYLandscape:v31 contentsLuminance:v33 alternateDateEnabled:v39 groupName:groupName];
+    LOBYTE(v41) = isAlternateDateEnabled;
+    v9 = [(PRPosterTitleStyleConfiguration *)v23 initWithTimeFontConfiguration:v11 preferredTitleAlignment:preferredTitleAlignment preferredTitleLayout:preferredTitleLayout titleContentStyle:titleContentStyle timeNumberingSystem:timeNumberingSystem userConfigured:isUserConfigured preferredTimeMaxYPortrait:v30 preferredTimeMaxYLandscape:v32 contentsLuminance:v34 alternateDateEnabled:v41 groupName:groupName];
 
-    v36 = PRLogCommon();
-    if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
+    v38 = PRLogCommon(v37);
+    if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
     {
       version2 = [(PRPosterTitleStyleConfiguration *)v9 version];
       *buf = 134217984;
-      v43 = version2;
-      _os_log_impl(&dword_1A8AA7000, v36, OS_LOG_TYPE_DEFAULT, "Migrating titleStyleConfiguration to version: %lu", buf, 0xCu);
+      v45 = version2;
+      _os_log_impl(&dword_1A8AA7000, v38, OS_LOG_TYPE_DEFAULT, "Migrating titleStyleConfiguration to version: %lu", buf, 0xCu);
     }
   }
 
@@ -1399,7 +1400,7 @@ LABEL_14:
   lCopy = l;
   if (!lCopy)
   {
-    v7 = PRLogCommon();
+    v7 = PRLogCommon(0);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
     {
       [PRPosterTitleStyleConfiguration vibrancyConfigurationWithExtensionBundleURL:v7 luminanceReduced:? forRole:?];
@@ -1432,14 +1433,14 @@ LABEL_14:
   [v2 handleFailureInMethod:v1 object:v0 file:@"PRPosterTitleStyleConfiguration.m" lineNumber:173 description:{@"Invalid parameter not satisfying: %@", @"extensionBundleURL != nil"}];
 }
 
-- (void)encodeWithCoder:.cold.1()
+- (void)encodeWithCoder:(uint64_t)a1 .cold.1(uint64_t a1)
 {
-  v0 = objc_opt_class();
-  v1 = NSStringFromClass(v0);
+  v1 = objc_opt_class();
+  v2 = NSStringFromClass(v1);
   OUTLINED_FUNCTION_0_9();
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1_5();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 0x20u);
+  _os_log_debug_impl(v3, v4, v5, v6, v7, 0x20u);
 }
 
 - (void)encodeWithCoder:.cold.2()

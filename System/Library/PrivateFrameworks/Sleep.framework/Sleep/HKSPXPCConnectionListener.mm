@@ -54,10 +54,7 @@
 
 uint64_t __42__HKSPXPCConnectionListener_currentClient__block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 32) _currentClientForConnection:*(a1 + 40)];
-  v3 = *(*(a1 + 48) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 48) + 8) + 40) = [*(a1 + 32) _currentClientForConnection:*(a1 + 40)];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -92,13 +89,13 @@ uint64_t __42__HKSPXPCConnectionListener_currentClient__block_invoke(uint64_t a1
 
 - (HKSPXPCConnectionListener)initWithConnectionInfo:(id)info connectionListener:(id)listener heartbeatGenerator:(id)generator
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   infoCopy = info;
   listenerCopy = listener;
   generatorCopy = generator;
-  v26.receiver = self;
-  v26.super_class = HKSPXPCConnectionListener;
-  v12 = [(HKSPXPCConnectionListener *)&v26 init];
+  v25.receiver = self;
+  v25.super_class = HKSPXPCConnectionListener;
+  v12 = [(HKSPXPCConnectionListener *)&v25 init];
   if (v12)
   {
     v13 = HKSPLogForCategory(4uLL);
@@ -106,9 +103,9 @@ uint64_t __42__HKSPXPCConnectionListener_currentClient__block_invoke(uint64_t a1
     {
       v14 = objc_opt_class();
       *buf = 138543618;
-      v28 = v14;
-      v29 = 2114;
-      v30 = infoCopy;
+      v27 = v14;
+      v28 = 2114;
+      v29 = infoCopy;
       v15 = v14;
       _os_log_impl(&dword_269A84000, v13, OS_LOG_TYPE_DEFAULT, "[%{public}@] initializing with %{public}@", buf, 0x16u);
     }
@@ -124,21 +121,20 @@ uint64_t __42__HKSPXPCConnectionListener_currentClient__block_invoke(uint64_t a1
     [(NSXPCListener *)v12->_connectionListener setDelegate:v12];
     objc_initWeak(buf, v12);
     v18 = [HKSPThrottler alloc];
-    v24[0] = MEMORY[0x277D85DD0];
-    v24[1] = 3221225472;
-    v24[2] = __90__HKSPXPCConnectionListener_initWithConnectionInfo_connectionListener_heartbeatGenerator___block_invoke;
-    v24[3] = &unk_279C74E70;
-    objc_copyWeak(&v25, buf);
-    v19 = [(HKSPThrottler *)v18 initWithInterval:v24 executeBlock:1.0];
+    v23[0] = MEMORY[0x277D85DD0];
+    v23[1] = 3221225472;
+    v23[2] = __90__HKSPXPCConnectionListener_initWithConnectionInfo_connectionListener_heartbeatGenerator___block_invoke;
+    v23[3] = &unk_279C74E70;
+    objc_copyWeak(&v24, buf);
+    v19 = [(HKSPThrottler *)v18 initWithInterval:v23 executeBlock:1.0];
     logThrottler = v12->_logThrottler;
     v12->_logThrottler = v19;
 
     v21 = v12;
-    objc_destroyWeak(&v25);
+    objc_destroyWeak(&v24);
     objc_destroyWeak(buf);
   }
 
-  v22 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
@@ -159,51 +155,41 @@ void __90__HKSPXPCConnectionListener_initWithConnectionInfo_connectionListener_h
 
 - (void)startListening
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   [(NSXPCListener *)self->_connectionListener resume];
   v3 = HKSPLogForCategory(4uLL);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 138543362;
-    v7 = objc_opt_class();
-    v4 = v7;
-    _os_log_impl(&dword_269A84000, v3, OS_LOG_TYPE_DEFAULT, "[%{public}@] sending heartbeat", &v6, 0xCu);
+    v5 = 138543362;
+    v6 = objc_opt_class();
+    v4 = v6;
+    _os_log_impl(&dword_269A84000, v3, OS_LOG_TYPE_DEFAULT, "[%{public}@] sending heartbeat", &v5, 0xCu);
   }
 
   [(HKSPXPCHeartbeatGenerator *)self->_heartbeatGenerator sendHeartbeat];
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)listener:(id)listener shouldAcceptNewConnection:(id)connection
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   listenerCopy = listener;
   connectionCopy = connection;
   requiredEntitlement = [(HKSPXPCConnectionInfo *)self->_connectionInfo requiredEntitlement];
-  if (!requiredEntitlement)
-  {
-    goto LABEL_3;
-  }
-
-  requiredEntitlement2 = [(HKSPXPCConnectionInfo *)self->_connectionInfo requiredEntitlement];
-  v10 = [connectionCopy valueForEntitlement:requiredEntitlement2];
-  bOOLValue = [v10 BOOLValue];
-
-  if (!bOOLValue)
+  if (requiredEntitlement && (-[HKSPXPCConnectionInfo requiredEntitlement](self->_connectionInfo, "requiredEntitlement"), v9 = objc_claimAutoreleasedReturnValue(), [connectionCopy valueForEntitlement:v9], v10 = objc_claimAutoreleasedReturnValue(), v11 = objc_msgSend(v10, "BOOLValue"), v10, v9, requiredEntitlement, !v11))
   {
     v17 = HKSPLogForCategory(4uLL);
     if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
-      v20 = objc_opt_class();
+      v19 = objc_opt_class();
       connectionInfo = self->_connectionInfo;
-      v22 = v20;
-      requiredEntitlement3 = [(HKSPXPCConnectionInfo *)connectionInfo requiredEntitlement];
+      v21 = v19;
+      requiredEntitlement2 = [(HKSPXPCConnectionInfo *)connectionInfo requiredEntitlement];
       *location = 138543874;
-      *&location[4] = v20;
-      v37 = 2114;
-      v38 = connectionCopy;
-      v39 = 2114;
-      v40 = requiredEntitlement3;
+      *&location[4] = v19;
+      v36 = 2114;
+      v37 = connectionCopy;
+      v38 = 2114;
+      v39 = requiredEntitlement2;
       _os_log_error_impl(&dword_269A84000, v17, OS_LOG_TYPE_ERROR, "[%{public}@] connection %{public}@ not entitled (%{public}@)", location, 0x20u);
     }
 
@@ -212,7 +198,6 @@ void __90__HKSPXPCConnectionListener_initWithConnectionInfo_connectionListener_h
 
   else
   {
-LABEL_3:
     exportedObjectInterface = [(HKSPXPCConnectionInfo *)self->_connectionInfo exportedObjectInterface];
     [connectionCopy setExportedInterface:exportedObjectInterface];
 
@@ -224,40 +209,39 @@ LABEL_3:
 
     objc_initWeak(location, self);
     objc_initWeak(&from, connectionCopy);
-    v32[0] = MEMORY[0x277D85DD0];
-    v32[1] = 3221225472;
-    v32[2] = __64__HKSPXPCConnectionListener_listener_shouldAcceptNewConnection___block_invoke;
-    v32[3] = &unk_279C75D10;
-    objc_copyWeak(&v33, location);
-    objc_copyWeak(&v34, &from);
-    v15 = [connectionCopy remoteObjectProxyWithErrorHandler:v32];
-    v29[0] = MEMORY[0x277D85DD0];
-    v29[1] = 3221225472;
-    v29[2] = __64__HKSPXPCConnectionListener_listener_shouldAcceptNewConnection___block_invoke_2;
-    v29[3] = &unk_279C75D38;
-    objc_copyWeak(&v30, location);
-    objc_copyWeak(&v31, &from);
-    [connectionCopy setInvalidationHandler:v29];
-    v24 = MEMORY[0x277D85DD0];
-    v25 = 3221225472;
-    v26 = __64__HKSPXPCConnectionListener_listener_shouldAcceptNewConnection___block_invoke_296;
-    v27 = &unk_279C74E70;
-    objc_copyWeak(&v28, location);
-    [connectionCopy setInterruptionHandler:&v24];
-    [(HKSPXPCConnectionListener *)self addClientConnection:connectionCopy clientLink:v15, v24, v25, v26, v27];
+    v31[0] = MEMORY[0x277D85DD0];
+    v31[1] = 3221225472;
+    v31[2] = __64__HKSPXPCConnectionListener_listener_shouldAcceptNewConnection___block_invoke;
+    v31[3] = &unk_279C75D10;
+    objc_copyWeak(&v32, location);
+    objc_copyWeak(&v33, &from);
+    v15 = [connectionCopy remoteObjectProxyWithErrorHandler:v31];
+    v28[0] = MEMORY[0x277D85DD0];
+    v28[1] = 3221225472;
+    v28[2] = __64__HKSPXPCConnectionListener_listener_shouldAcceptNewConnection___block_invoke_2;
+    v28[3] = &unk_279C75D38;
+    objc_copyWeak(&v29, location);
+    objc_copyWeak(&v30, &from);
+    [connectionCopy setInvalidationHandler:v28];
+    v23 = MEMORY[0x277D85DD0];
+    v24 = 3221225472;
+    v25 = __64__HKSPXPCConnectionListener_listener_shouldAcceptNewConnection___block_invoke_296;
+    v26 = &unk_279C74E70;
+    objc_copyWeak(&v27, location);
+    [connectionCopy setInterruptionHandler:&v23];
+    [(HKSPXPCConnectionListener *)self addClientConnection:connectionCopy clientLink:v15, v23, v24, v25, v26];
     [connectionCopy resume];
-    objc_destroyWeak(&v28);
-    objc_destroyWeak(&v31);
+    objc_destroyWeak(&v27);
     objc_destroyWeak(&v30);
+    objc_destroyWeak(&v29);
 
-    objc_destroyWeak(&v34);
     objc_destroyWeak(&v33);
+    objc_destroyWeak(&v32);
     objc_destroyWeak(&from);
     objc_destroyWeak(location);
     v16 = 1;
   }
 
-  v18 = *MEMORY[0x277D85DE8];
   return v16;
 }
 
@@ -270,22 +254,21 @@ void __64__HKSPXPCConnectionListener_listener_shouldAcceptNewConnection___block_
 
 void __64__HKSPXPCConnectionListener_listener_shouldAcceptNewConnection___block_invoke_2(uint64_t a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v3 = objc_loadWeakRetained((a1 + 40));
   v4 = HKSPLogForCategory(4uLL);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    v7 = 138543618;
-    v8 = objc_opt_class();
-    v9 = 2114;
-    v10 = v3;
-    v6 = v8;
-    _os_log_error_impl(&dword_269A84000, v4, OS_LOG_TYPE_ERROR, "[%{public}@] invalidation handler called for connection %{public}@...", &v7, 0x16u);
+    v6 = 138543618;
+    v7 = objc_opt_class();
+    v8 = 2114;
+    v9 = v3;
+    v5 = v7;
+    _os_log_error_impl(&dword_269A84000, v4, OS_LOG_TYPE_ERROR, "[%{public}@] invalidation handler called for connection %{public}@...", &v6, 0x16u);
   }
 
   [WeakRetained _didInvalidateConnection:v3];
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __64__HKSPXPCConnectionListener_listener_shouldAcceptNewConnection___block_invoke_296(uint64_t a1)
@@ -296,44 +279,41 @@ void __64__HKSPXPCConnectionListener_listener_shouldAcceptNewConnection___block_
 
 - (void)_didInterruptConnection
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = HKSPLogForCategory(4uLL);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    v5 = objc_opt_class();
+    v4 = objc_opt_class();
     connectionInfo = self->_connectionInfo;
-    v7 = v5;
+    v6 = v4;
     machServiceName = [(HKSPXPCConnectionInfo *)connectionInfo machServiceName];
-    v9 = 138543618;
-    v10 = v5;
-    v11 = 2114;
-    v12 = machServiceName;
-    _os_log_error_impl(&dword_269A84000, v3, OS_LOG_TYPE_ERROR, "[%{public}@] connection to server via %{public}@ mach port was interrupted.", &v9, 0x16u);
+    v8 = 138543618;
+    v9 = v4;
+    v10 = 2114;
+    v11 = machServiceName;
+    _os_log_error_impl(&dword_269A84000, v3, OS_LOG_TYPE_ERROR, "[%{public}@] connection to server via %{public}@ mach port was interrupted.", &v8, 0x16u);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_didInvalidateConnection:(id)connection
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   connectionCopy = connection;
   v5 = HKSPLogForCategory(4uLL);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
-    v7 = objc_opt_class();
+    v6 = objc_opt_class();
     connectionInfo = self->_connectionInfo;
-    v9 = v7;
+    v8 = v6;
     machServiceName = [(HKSPXPCConnectionInfo *)connectionInfo machServiceName];
-    v11 = 138543618;
-    v12 = v7;
-    v13 = 2114;
-    v14 = machServiceName;
-    _os_log_error_impl(&dword_269A84000, v5, OS_LOG_TYPE_ERROR, "[%{public}@] connection to server via %{public}@ mach port was invalidated.", &v11, 0x16u);
+    v10 = 138543618;
+    v11 = v6;
+    v12 = 2114;
+    v13 = machServiceName;
+    _os_log_error_impl(&dword_269A84000, v5, OS_LOG_TYPE_ERROR, "[%{public}@] connection to server via %{public}@ mach port was invalidated.", &v10, 0x16u);
   }
 
   [(HKSPXPCConnectionListener *)self removeClientConnection:connectionCopy];
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addClientConnection:(id)connection clientLink:(id)link
@@ -367,35 +347,33 @@ void __64__HKSPXPCConnectionListener_listener_shouldAcceptNewConnection___block_
   _Block_object_dispose(&v19, 8);
 }
 
-uint64_t __60__HKSPXPCConnectionListener_addClientConnection_clientLink___block_invoke(uint64_t result)
+id *__60__HKSPXPCConnectionListener_addClientConnection_clientLink___block_invoke(id *result)
 {
-  v15 = *MEMORY[0x277D85DE8];
-  if (*(result + 32))
+  v13 = *MEMORY[0x277D85DE8];
+  if (result[4])
   {
     v1 = result;
-    v2 = [*(result + 40) _clientWithConnection:*(result + 48) clientLink:?];
-    v3 = *(*(v1 + 56) + 8);
+    v2 = [result[5] _clientWithConnection:result[6] clientLink:?];
+    v3 = *(v1[7] + 1);
     v4 = *(v3 + 40);
     *(v3 + 40) = v2;
 
     v5 = HKSPLogForCategory(4uLL);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = *(v1 + 40);
-      v7 = objc_opt_class();
-      v8 = *(*(*(v1 + 56) + 8) + 40);
-      v11 = 138543618;
+      v6 = objc_opt_class();
+      v7 = *(*(v1[7] + 1) + 40);
+      v9 = 138543618;
+      v10 = v6;
+      v11 = 2114;
       v12 = v7;
-      v13 = 2114;
-      v14 = v8;
-      v9 = v7;
-      _os_log_impl(&dword_269A84000, v5, OS_LOG_TYPE_DEFAULT, "[%{public}@] adding XPC client: %{public}@", &v11, 0x16u);
+      v8 = v6;
+      _os_log_impl(&dword_269A84000, v5, OS_LOG_TYPE_DEFAULT, "[%{public}@] adding XPC client: %{public}@", &v9, 0x16u);
     }
 
-    result = [*(*(v1 + 40) + 48) addObject:*(*(*(v1 + 56) + 8) + 40)];
+    return [*(v1[5] + 6) addObject:*(*(v1[7] + 1) + 40)];
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -424,21 +402,19 @@ uint64_t __60__HKSPXPCConnectionListener_addClientConnection_clientLink___block_
 
 void __62__HKSPXPCConnectionListener__clientWithConnection_clientLink___block_invoke(uint64_t a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v3 = objc_loadWeakRetained((a1 + 40));
   v4 = HKSPLogForCategory(4uLL);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138543618;
-    v8 = objc_opt_class();
-    v9 = 2114;
-    v10 = v3;
-    v5 = v8;
-    _os_log_impl(&dword_269A84000, v4, OS_LOG_TYPE_DEFAULT, "[%{public}@] determined identity of client: %{public}@", &v7, 0x16u);
+    v6 = 138543618;
+    v7 = objc_opt_class();
+    v8 = 2114;
+    v9 = v3;
+    v5 = v7;
+    _os_log_impl(&dword_269A84000, v4, OS_LOG_TYPE_DEFAULT, "[%{public}@] determined identity of client: %{public}@", &v6, 0x16u);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_clientIdentifierProviderForClientLink:(id)link
@@ -487,27 +463,27 @@ void __62__HKSPXPCConnectionListener__clientWithConnection_clientLink___block_in
 
 void __52__HKSPXPCConnectionListener_removeClientConnection___block_invoke(void *a1)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
+  v13 = 0u;
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
-  v18 = 0u;
   v2 = [*(a1[4] + 48) allObjects];
-  v3 = [v2 countByEnumeratingWithState:&v15 objects:v23 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v13 objects:v21 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v16;
+    v5 = *v14;
     while (2)
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v16 != v5)
+        if (*v14 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v15 + 1) + 8 * i);
+        v7 = *(*(&v13 + 1) + 8 * i);
         v8 = [v7 connection];
         v9 = a1[5];
 
@@ -516,13 +492,12 @@ void __52__HKSPXPCConnectionListener_removeClientConnection___block_invoke(void 
           v10 = HKSPLogForCategory(4uLL);
           if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
           {
-            v11 = a1[4];
-            v12 = objc_opt_class();
+            v11 = objc_opt_class();
             *buf = 138543618;
-            v20 = v12;
-            v21 = 2114;
-            v22 = v7;
-            v13 = v12;
+            v18 = v11;
+            v19 = 2114;
+            v20 = v7;
+            v12 = v11;
             _os_log_impl(&dword_269A84000, v10, OS_LOG_TYPE_DEFAULT, "[%{public}@] removing XPC client: %{public}@", buf, 0x16u);
           }
 
@@ -532,7 +507,7 @@ void __52__HKSPXPCConnectionListener_removeClientConnection___block_invoke(void 
         }
       }
 
-      v4 = [v2 countByEnumeratingWithState:&v15 objects:v23 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v13 objects:v21 count:16];
       if (v4)
       {
         continue;
@@ -543,71 +518,64 @@ void __52__HKSPXPCConnectionListener_removeClientConnection___block_invoke(void 
   }
 
 LABEL_13:
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_logConnectedClients
 {
-  *&v22[13] = *MEMORY[0x277D85DE8];
-  v13 = 0;
-  v14 = &v13;
-  v15 = 0x3032000000;
-  v16 = __Block_byref_object_copy__7;
-  v17 = __Block_byref_object_dispose__7;
-  v18 = 0;
-  v12[0] = MEMORY[0x277D85DD0];
-  v12[1] = 3221225472;
-  v12[2] = __49__HKSPXPCConnectionListener__logConnectedClients__block_invoke;
-  v12[3] = &unk_279C741E0;
-  v12[4] = self;
-  v12[5] = &v13;
-  [(HKSPXPCConnectionListener *)self _withLock:v12];
+  *&v21[13] = *MEMORY[0x277D85DE8];
+  v12 = 0;
+  v13 = &v12;
+  v14 = 0x3032000000;
+  v15 = __Block_byref_object_copy__7;
+  v16 = __Block_byref_object_dispose__7;
+  v17 = 0;
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = __49__HKSPXPCConnectionListener__logConnectedClients__block_invoke;
+  v11[3] = &unk_279C741E0;
+  v11[4] = self;
+  v11[5] = &v12;
+  [(HKSPXPCConnectionListener *)self _withLock:v11];
   v2 = HKSPLogForCategory(4uLL);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = objc_opt_class();
-    v4 = [v14[5] count];
+    v4 = [v13[5] count];
     *buf = 138543618;
-    v20 = v3;
-    v21 = 2048;
-    *v22 = v4;
+    v19 = v3;
+    v20 = 2048;
+    *v21 = v4;
     _os_log_impl(&dword_269A84000, v2, OS_LOG_TYPE_DEFAULT, "[%{public}@] current XPC clients: %lu", buf, 0x16u);
   }
 
   v5 = 0;
   *&v6 = 138543874;
-  v11 = v6;
-  while ([v14[5] count] > v5)
+  v10 = v6;
+  while ([v13[5] count] > v5)
   {
     v7 = HKSPLogForCategory(4uLL);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       v8 = objc_opt_class();
-      v9 = [v14[5] objectAtIndexedSubscript:v5];
-      *buf = v11;
-      v20 = v8;
-      v21 = 1024;
-      *v22 = v5;
-      v22[2] = 2114;
-      *&v22[3] = v9;
+      v9 = [v13[5] objectAtIndexedSubscript:v5];
+      *buf = v10;
+      v19 = v8;
+      v20 = 1024;
+      *v21 = v5;
+      v21[2] = 2114;
+      *&v21[3] = v9;
       _os_log_impl(&dword_269A84000, v7, OS_LOG_TYPE_DEFAULT, "[%{public}@] connected client[%i]: %{public}@", buf, 0x1Cu);
     }
 
     ++v5;
   }
 
-  _Block_object_dispose(&v13, 8);
-
-  v10 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v12, 8);
 }
 
 uint64_t __49__HKSPXPCConnectionListener__logConnectedClients__block_invoke(uint64_t a1)
 {
-  v2 = [*(*(a1 + 32) + 48) allObjects];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(*(a1 + 32) + 48) allObjects];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -635,10 +603,7 @@ uint64_t __49__HKSPXPCConnectionListener__logConnectedClients__block_invoke(uint
 
 uint64_t __45__HKSPXPCConnectionListener_connectedClients__block_invoke(uint64_t a1)
 {
-  v2 = [*(*(a1 + 32) + 48) allObjects];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(*(a1 + 32) + 48) allObjects];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -715,23 +680,23 @@ void __69__HKSPXPCConnectionListener_performRemoteBlockOnClients_passingTest___b
 
 - (void)performRemoteBlock:(id)block onClient:(id)client
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   blockCopy = block;
   clientCopy = client;
-  v16 = 0;
-  v17 = &v16;
-  v18 = 0x2020000000;
-  v19 = 0;
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = 3221225472;
-  v13[2] = __57__HKSPXPCConnectionListener_performRemoteBlock_onClient___block_invoke;
-  v13[3] = &unk_279C74230;
-  v15 = &v16;
-  v13[4] = self;
+  v15 = 0;
+  v16 = &v15;
+  v17 = 0x2020000000;
+  v18 = 0;
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __57__HKSPXPCConnectionListener_performRemoteBlock_onClient___block_invoke;
+  v12[3] = &unk_279C74230;
+  v14 = &v15;
+  v12[4] = self;
   v8 = clientCopy;
-  v14 = v8;
-  [(HKSPXPCConnectionListener *)self _withLock:v13];
-  if (*(v17 + 24) == 1)
+  v13 = v8;
+  [(HKSPXPCConnectionListener *)self _withLock:v12];
+  if (*(v16 + 24) == 1)
   {
     clientLink = [v8 clientLink];
     blockCopy[2](blockCopy, clientLink);
@@ -742,21 +707,20 @@ void __69__HKSPXPCConnectionListener_performRemoteBlockOnClients_passingTest___b
     clientLink = HKSPLogForCategory(4uLL);
     if (os_log_type_enabled(clientLink, OS_LOG_TYPE_ERROR))
     {
-      v11 = objc_opt_class();
+      v10 = objc_opt_class();
       *buf = 138543618;
-      v21 = v11;
-      v22 = 2114;
-      v23 = v8;
-      v12 = v11;
+      v20 = v10;
+      v21 = 2114;
+      v22 = v8;
+      v11 = v10;
       _os_log_error_impl(&dword_269A84000, clientLink, OS_LOG_TYPE_ERROR, "[%{public}@] client doesn't exist: %{public}@", buf, 0x16u);
     }
   }
 
-  _Block_object_dispose(&v16, 8);
-  v10 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v15, 8);
 }
 
-uint64_t __57__HKSPXPCConnectionListener_performRemoteBlock_onClient___block_invoke(void *a1)
+void *__57__HKSPXPCConnectionListener_performRemoteBlock_onClient___block_invoke(void *a1)
 {
   result = [*(a1[4] + 48) containsObject:a1[5]];
   *(*(a1[6] + 8) + 24) = result;

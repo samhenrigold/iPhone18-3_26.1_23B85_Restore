@@ -10,7 +10,7 @@
 
 - (NSDate)entryTime
 {
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EC156760);
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EC156760, &unk_1C52A91E0);
   MEMORY[0x1EEE9AC00](v3 - 8);
   v5 = &v13 - v4;
   v6 = OBJC_IVAR____TtC15MapsSuggestions34MapsSuggestionsIsInWindowCondition_entryTime;
@@ -32,7 +32,7 @@
 
 - (void)setEntryTime:(id)time
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EC156760);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EC156760, &unk_1C52A91E0);
   MEMORY[0x1EEE9AC00](v5 - 8);
   v7 = &v12 - v6;
   if (time)
@@ -65,7 +65,7 @@
 
 - (id)window
 {
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC1566A0);
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC1566A0, &unk_1C52A9618);
   MEMORY[0x1EEE9AC00](v3 - 8);
   v5 = &v13 - v4;
   selfCopy = self;
@@ -103,7 +103,7 @@
   v11 = sub_1C529D71C();
 
   v14.receiver = self;
-  v14.super_class = type metadata accessor for MapsSuggestionsIsInWindowCondition();
+  v14.super_class = type metadata accessor for MapsSuggestionsIsInWindowCondition(0);
   v12 = [(MapsSuggestionsBaseCondition *)&v14 initWithName:v11];
 
   return v12;

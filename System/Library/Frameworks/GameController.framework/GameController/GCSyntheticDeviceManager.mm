@@ -20,9 +20,9 @@
 - (GCSyntheticDeviceManager)initWithServer:(id)server
 {
   serverCopy = server;
-  v59.receiver = self;
-  v59.super_class = GCSyntheticDeviceManager;
-  v7 = [(GCSyntheticDeviceManager *)&v59 init];
+  v65.receiver = self;
+  v65.super_class = GCSyntheticDeviceManager;
+  v7 = [(GCSyntheticDeviceManager *)&v65 init];
   objc_storeStrong(v7 + 1, server);
   v8 = dispatch_queue_create("SyntheticDeviceManager", 0);
   v9 = *(v7 + 2);
@@ -33,8 +33,8 @@
   *(v7 + 3) = v11;
   if (!v11)
   {
-    v15 = getLogger();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v16 = getLogger(0);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
       [GCSyntheticDeviceManager initWithServer:];
     }
@@ -48,8 +48,8 @@
   v7[8] = MatchingService;
   if (!MatchingService)
   {
-    v15 = getLogger();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v16 = getLogger(MatchingService);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
       [GCSyntheticDeviceManager initWithServer:];
     }
@@ -58,12 +58,14 @@
   }
 
   v14 = MEMORY[0x1E69E9A60];
-  if (!IOServiceOpen(MatchingService, *MEMORY[0x1E69E9A60], 0, v7 + 9))
+  v15 = IOServiceOpen(MatchingService, *MEMORY[0x1E69E9A60], 0, v7 + 9);
+  if (!v15)
   {
-    if ([(GCSyntheticDeviceManager *)v7 _kernel_open:?])
+    v19 = [(GCSyntheticDeviceManager *)v7 _kernel_open:?];
+    if (v19)
     {
-      v15 = getLogger();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+      v16 = getLogger(v19);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
         [GCSyntheticDeviceManager initWithServer:];
       }
@@ -73,16 +75,18 @@
 
     if (_os_feature_enabled_impl())
     {
-      if (mach_port_allocate(*v14, 1u, v7 + 12))
+      v20 = mach_port_allocate(*v14, 1u, v7 + 12);
+      if (v20)
       {
-        if (!gc_isInternalBuild())
+        isInternalBuild = gc_isInternalBuild(v20, v21);
+        if (!isInternalBuild)
         {
-          v16 = 0;
+          v17 = 0;
           goto LABEL_12;
         }
 
-        v15 = getGCLogger();
-        if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+        v16 = getGCLogger(isInternalBuild);
+        if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
         {
           [GCSyntheticDeviceManager initWithServer:];
         }
@@ -90,131 +94,132 @@
         goto LABEL_10;
       }
 
-      v18 = v7[12];
+      v23 = v7[12];
       aBlock[0] = MEMORY[0x1E69E9820];
       aBlock[1] = 3221225472;
       aBlock[2] = __43__GCSyntheticDeviceManager_initWithServer___block_invoke;
       aBlock[3] = &unk_1E841A690;
-      v58 = v18;
-      v56 = v7;
-      v57 = a2;
-      v19 = v7;
-      v55 = v19;
-      v20 = _Block_copy(aBlock);
-      v21 = *(v7 + 2);
-      v22 = dispatch_mach_create();
-      v23 = *(v19 + 7);
-      *(v19 + 7) = v22;
+      v64 = v23;
+      v62 = v7;
+      v63 = a2;
+      v24 = v7;
+      v61 = v24;
+      v25 = _Block_copy(aBlock);
+      v26 = dispatch_mach_create();
+      v27 = *(v24 + 7);
+      *(v24 + 7) = v26;
 
-      if (!*(v19 + 7))
+      if (!*(v24 + 7))
       {
-        v47 = getLogger();
-        if (os_log_type_enabled(v47, OS_LOG_TYPE_ERROR))
+        v53 = getLogger(0);
+        if (os_log_type_enabled(v53, OS_LOG_TYPE_ERROR))
         {
           [GCSyntheticDeviceManager initWithServer:];
         }
 
-        v16 = 0;
-        v15 = v55;
+        v17 = 0;
+        v16 = v61;
         goto LABEL_11;
       }
 
-      v24 = v7[12];
       dispatch_mach_connect();
-      if (MEMORY[0x1D38AC160](v7[9], 1, v18, 0))
+      v28 = MEMORY[0x1D38AC160](v7[9], 1, v23, 0);
+      if (v28)
       {
-        v25 = getLogger();
-        if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+        v29 = getLogger(v28);
+        if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
         {
           [GCSyntheticDeviceManager initWithServer:];
         }
       }
     }
 
-    v26 = IOServiceMatching("IOHIDUserDevice");
-    *(v7 + 8) = v26;
-    CFDictionarySetValue(v26, @"VendorID", &unk_1F4E8E348);
+    v30 = IOServiceMatching("IOHIDUserDevice");
+    *(v7 + 8) = v30;
+    CFDictionarySetValue(v30, @"VendorID", &unk_1F4E8E348);
     CFDictionarySetValue(*(v7 + 8), @"ProductID", &unk_1F4E8E360);
-    v27 = *(v7 + 3);
-    v28 = CFRetain(*(v7 + 8));
-    if (IOServiceAddMatchingNotification(v27, "IOServicePublish", v28, __onqueue_3PSyntheticControllersChanged, v7, v7 + 18))
-    {
-      v29 = getLogger();
-      if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
-      {
-        [GCSyntheticDeviceManager initWithServer:];
-      }
-    }
-
-    v30 = *(v7 + 3);
-    v31 = CFRetain(*(v7 + 8));
-    if (IOServiceAddMatchingNotification(v30, "IOServiceTerminate", v31, __onqueue_3PSyntheticControllersChanged, v7, v7 + 19))
-    {
-      v32 = getLogger();
-      if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
-      {
-        [GCSyntheticDeviceManager initWithServer:];
-      }
-    }
-
-    v33 = v7[18];
+    v31 = *(v7 + 3);
+    v32 = CFRetain(*(v7 + 8));
+    v33 = IOServiceAddMatchingNotification(v31, "IOServicePublish", v32, __onqueue_3PSyntheticControllersChanged, v7, v7 + 18);
     if (v33)
+    {
+      v34 = getLogger(v33);
+      if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
+      {
+        [GCSyntheticDeviceManager initWithServer:];
+      }
+    }
+
+    v35 = *(v7 + 3);
+    v36 = CFRetain(*(v7 + 8));
+    v37 = IOServiceAddMatchingNotification(v35, "IOServiceTerminate", v36, __onqueue_3PSyntheticControllersChanged, v7, v7 + 19);
+    if (v37)
+    {
+      v38 = getLogger(v37);
+      if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
+      {
+        [GCSyntheticDeviceManager initWithServer:];
+      }
+    }
+
+    v39 = v7[18];
+    if (v39)
     {
       if (v7[19])
       {
-        __3PSyntheticControllersDrainIterator(v7, v33);
+        __3PSyntheticControllersDrainIterator(v7, v39);
         __3PSyntheticControllersDrainIterator(v7, v7[19]);
 LABEL_40:
-        v35 = *(v7 + 2);
+        v41 = *(v7 + 2);
         block[0] = MEMORY[0x1E69E9820];
         block[1] = 3221225472;
         block[2] = __43__GCSyntheticDeviceManager_initWithServer___block_invoke_112;
         block[3] = &unk_1E8418C28;
-        v36 = v7;
-        v53 = v36;
-        dispatch_async(v35, block);
+        v42 = v7;
+        v59 = v42;
+        dispatch_async(v41, block);
 
-        LOBYTE(v35) = _os_feature_enabled_impl() ^ 1;
-        v37 = GCLookupService();
-        v38 = *(v36 + 11);
-        *(v36 + 11) = v37;
+        LOBYTE(v41) = _os_feature_enabled_impl() ^ 1;
+        v43 = GCLookupService();
+        v44 = *(v42 + 11);
+        *(v42 + 11) = v43;
 
-        v39 = GCLookupService();
-        v40 = *(v36 + 13);
-        *(v36 + 13) = v39;
+        v45 = GCLookupService();
+        v46 = *(v42 + 13);
+        *(v42 + 13) = v45;
 
-        *(v36 + 96) = v35;
-        v41 = *(v36 + 11);
-        if (v41)
+        *(v42 + 96) = v41;
+        v47 = *(v42 + 11);
+        if (v47)
         {
-          [v41 addObserver:v36 forKeyPath:@"enableSyntheticDevices" options:5 context:0];
+          [v47 addObserver:v42 forKeyPath:@"enableSyntheticDevices" options:5 context:0];
         }
 
         else
         {
-          [GCSyntheticDeviceManager initWithServer:];
+          [GCSyntheticDeviceManager initWithServer:?];
         }
 
-        v42 = *(v7 + 2);
-        v50[0] = MEMORY[0x1E69E9820];
-        v50[1] = 3221225472;
-        v50[2] = __43__GCSyntheticDeviceManager_initWithServer___block_invoke_114;
-        v50[3] = &unk_1E8418C28;
-        v43 = v36;
-        v51 = v43;
-        dispatch_async(v42, v50);
-        v44 = dispatch_time(0, 5000000000);
-        v45 = *(v7 + 2);
-        v48[0] = MEMORY[0x1E69E9820];
-        v48[1] = 3221225472;
-        v48[2] = __43__GCSyntheticDeviceManager_initWithServer___block_invoke_2;
-        v48[3] = &unk_1E8418C28;
-        v46 = v43;
-        v49 = v46;
-        dispatch_after(v44, v45, v48);
-        v16 = v46;
+        v48 = *(v7 + 2);
+        v56[0] = MEMORY[0x1E69E9820];
+        v56[1] = 3221225472;
+        v56[2] = __43__GCSyntheticDeviceManager_initWithServer___block_invoke_114;
+        v56[3] = &unk_1E8418C28;
+        v49 = v42;
+        v57 = v49;
+        dispatch_async(v48, v56);
+        v50 = dispatch_time(0, 5000000000);
+        v51 = *(v7 + 2);
+        v54[0] = MEMORY[0x1E69E9820];
+        v54[1] = 3221225472;
+        v54[2] = __43__GCSyntheticDeviceManager_initWithServer___block_invoke_2;
+        v54[3] = &unk_1E8418C28;
+        v52 = v49;
+        v55 = v52;
+        dispatch_after(v50, v51, v54);
+        v17 = v52;
 
-        v15 = v51;
+        v16 = v57;
         goto LABEL_11;
       }
 
@@ -222,28 +227,28 @@ LABEL_40:
       v7[18] = 0;
     }
 
-    v34 = v7[19];
-    if (v34)
+    v40 = v7[19];
+    if (v40)
     {
-      IOObjectRelease(v34);
+      IOObjectRelease(v40);
       v7[19] = 0;
     }
 
     goto LABEL_40;
   }
 
-  v15 = getLogger();
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+  v16 = getLogger(v15);
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
   {
     [GCSyntheticDeviceManager initWithServer:];
   }
 
 LABEL_10:
-  v16 = 0;
+  v17 = 0;
 LABEL_11:
 
 LABEL_12:
-  return v16;
+  return v17;
 }
 
 void __43__GCSyntheticDeviceManager_initWithServer___block_invoke(uint64_t a1, uint64_t a2, void *a3)
@@ -255,7 +260,6 @@ void __43__GCSyntheticDeviceManager_initWithServer___block_invoke(uint64_t a1, u
     v6 = dispatch_mach_msg_get_msg();
     v7 = v6;
     memset(msg, 0, sizeof(msg));
-    p_msgh_id = &v6->msgh_id;
     if (v6->msgh_id == 1)
     {
       if ((v6->msgh_bits & 0x80000000) != 0)
@@ -265,25 +269,25 @@ void __43__GCSyntheticDeviceManager_initWithServer___block_invoke(uint64_t a1, u
         {
           if (v7[1].msgh_bits == 1)
           {
-            if (HIBYTE(v7[1].msgh_local_port) == 1 && (v10 = *&v7[1].msgh_size) != 0)
+            if (HIBYTE(v7[1].msgh_local_port) == 1 && (v9 = *&v7[1].msgh_size) != 0)
             {
               v32 = 0;
               errorString = 0;
-              v11 = IOCFUnserializeWithSize(v10, v7[1].msgh_voucher_port, 0, 0, &errorString);
-              v12 = v11;
-              if (v11)
+              v10 = IOCFUnserializeWithSize(v9, v7[1].msgh_voucher_port, 0, 0, &errorString);
+              v11 = v10;
+              if (v10)
               {
-                v13 = CFGetTypeID(v11);
-                if (v13 != CFDictionaryGetTypeID())
+                v12 = CFGetTypeID(v10);
+                if (v12 != CFDictionaryGetTypeID())
                 {
-                  CFRelease(v12);
-                  v12 = 0;
+                  CFRelease(v11);
+                  v11 = 0;
                   errorString = @"ClientAttributes not a CFDictionary";
                 }
               }
 
-              MEMORY[0x1D38AD500](*MEMORY[0x1E69E9A60], *&v7[1].msgh_size, v7[1].msgh_voucher_port);
-              if (v12)
+              v13 = MEMORY[0x1D38AD500](*MEMORY[0x1E69E9A60], *&v7[1].msgh_size, v7[1].msgh_voucher_port);
+              if (v11)
               {
                 v29 = 0u;
                 v30 = 0u;
@@ -332,8 +336,8 @@ LABEL_16:
                     goto LABEL_30;
                   }
 
-                  [(GCSyntheticDeviceManager *)*(a1 + 40) _user_check:v12 device:v19 enabled:&v32];
-                  v21 = 0;
+                  [(GCSyntheticDeviceManager *)*(a1 + 40) _user_check:v11 device:v19 enabled:&v32];
+                  v22 = 0;
                 }
 
                 else
@@ -341,40 +345,41 @@ LABEL_16:
 LABEL_24:
 
 LABEL_30:
-                  v19 = getLogger();
+                  v19 = getLogger(v20);
                   if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
                   {
                     __43__GCSyntheticDeviceManager_initWithServer___block_invoke_cold_5();
                   }
 
-                  v21 = 4;
+                  v22 = 4;
                 }
 
-                v22 = v32;
+                v23 = v32;
               }
 
               else
               {
-                v23 = getLogger();
-                if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+                v24 = getLogger(v13);
+                if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
                 {
-                  __43__GCSyntheticDeviceManager_initWithServer___block_invoke_cold_6(&errorString);
+                  __43__GCSyntheticDeviceManager_initWithServer___block_invoke_cold_6();
                 }
 
-                v22 = 0;
-                v21 = 4;
+                v23 = 0;
+                v22 = 4;
               }
 
               *msg = v7->msgh_bits & 0x1F;
               *&msg[4] = 32;
               msgh_id = v7->msgh_id;
               *&msg[8] = v7->msgh_remote_port;
-              *&msg[20] = __PAIR64__(v21, msgh_id);
-              *&msg[28] = v22;
-              v25 = mach_msg(msg, 17, 0x20u, 0, 0, 0, 0);
-              if (v25)
+              *&msg[20] = msgh_id;
+              *&msg[24] = v22;
+              *&msg[28] = v23;
+              v26 = mach_msg(msg, 17, 0x20u, 0, 0, 0, 0);
+              if (v26)
               {
-                __43__GCSyntheticDeviceManager_initWithServer___block_invoke_cold_7(v25);
+                __43__GCSyntheticDeviceManager_initWithServer___block_invoke_cold_7(v26);
               }
             }
 
@@ -404,10 +409,10 @@ LABEL_30:
 
     else
     {
-      v20 = getLogger();
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+      v21 = getLogger(v6);
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
       {
-        __43__GCSyntheticDeviceManager_initWithServer___block_invoke_cold_1(p_msgh_id);
+        __43__GCSyntheticDeviceManager_initWithServer___block_invoke_cold_1();
       }
 
       mach_msg_destroy(v7);
@@ -418,8 +423,6 @@ LABEL_30:
   {
     mach_port_mod_refs(*MEMORY[0x1E69E9A60], *(a1 + 56), 1u, -1);
   }
-
-  v26 = *MEMORY[0x1E69E9840];
 }
 
 - (uint64_t)_user_check:(void *)_user_check device:(int *)device enabled:
@@ -429,48 +432,48 @@ LABEL_30:
   if (self)
   {
     v9 = _os_activity_create(&dword_1D2CD5000, "[Synthetic Device Manager] Check Process Enabled", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
-    v20.opaque[0] = 0;
-    v20.opaque[1] = 0;
-    os_activity_scope_enter(v9, &v20);
-    v10 = getLogger();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+    v21.opaque[0] = 0;
+    v21.opaque[1] = 0;
+    os_activity_scope_enter(v9, &v21);
+    v11 = getLogger(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
     {
-      [GCSyntheticDeviceManager _user_check:_user_checkCopy device:v7 enabled:v10];
+      [GCSyntheticDeviceManager _user_check:_user_checkCopy device:v7 enabled:v11];
     }
 
     persistentIdentifier = [(_GCSyntheticDevice *)_user_checkCopy persistentIdentifier];
-    v13 = [v7 objectForKeyedSubscript:@"BundleIdentifier"];
-    if (v13)
+    v14 = [v7 objectForKeyedSubscript:@"BundleIdentifier"];
+    if (v14)
     {
       games = [*(self + 104) games];
-      v15 = [games gameWithBundleIdentifier:v13];
+      v16 = [games gameWithBundleIdentifier:v14];
 
-      if (v15)
+      if (v16)
       {
-        controllerToCompatibilityModeMappings = [v15 controllerToCompatibilityModeMappings];
-        v17 = [controllerToCompatibilityModeMappings objectForKeyedSubscript:persistentIdentifier];
+        controllerToCompatibilityModeMappings = [v16 controllerToCompatibilityModeMappings];
+        v18 = [controllerToCompatibilityModeMappings objectForKeyedSubscript:persistentIdentifier];
       }
 
       else
       {
-        v17 = 0;
+        v18 = 0;
       }
 
-      if ([v17 isEqualToString:*MEMORY[0x1E69A0720]])
+      if ([v18 isEqualToString:*MEMORY[0x1E69A0720]])
       {
-        v18 = 2;
+        v19 = 2;
 LABEL_12:
-        *device = v18;
+        *device = v19;
 
 LABEL_15:
-        os_activity_scope_leave(&v20);
+        os_activity_scope_leave(&v21);
 
         goto LABEL_16;
       }
 
-      if ([v17 isEqualToString:*MEMORY[0x1E69A0718]])
+      if ([v18 isEqualToString:*MEMORY[0x1E69A0718]])
       {
-        v18 = 0;
+        v19 = 0;
         goto LABEL_12;
       }
     }
@@ -546,11 +549,11 @@ LABEL_16:
     state.opaque[0] = 0;
     state.opaque[1] = 0;
     os_activity_scope_enter(v4, &state);
-    v5 = getLogger();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+    v6 = getLogger(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
-      v6 = [v3 debugDescription];
-      [(GCSyntheticDeviceManager *)v6 _onqueue_setupDeviceWithDescription:buf, v5];
+      v7 = [v3 debugDescription];
+      [(GCSyntheticDeviceManager *)v7 _onqueue_setupDeviceWithDescription:buf, v6];
     }
 
     v9[0] = MEMORY[0x1E69E9820];
@@ -562,37 +565,29 @@ LABEL_16:
     os_activity_scope_leave(&state);
   }
 
-  v7 = *MEMORY[0x1E69E9840];
-
   return description;
 }
 
 uint64_t __64__GCSyntheticDeviceManager__onqueue_setupDeviceWithDescription___block_invoke(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v7 = 0;
-  v2 = [(GCSyntheticDeviceManager *)*(a1 + 32) _kernel_createDeviceWithProperties:a2 service:&v7];
-  if (v2)
+  v9 = *MEMORY[0x1E69E9840];
+  v6 = 0;
+  v2 = [(GCSyntheticDeviceManager *)*(a1 + 32) _kernel_createDeviceWithProperties:a2 service:&v6];
+  if (!v2)
   {
-    v3 = v2;
-    v4 = getLogger();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
-    {
-      *buf = 67109120;
-      v9 = v3;
-      _os_log_impl(&dword_1D2CD5000, v4, OS_LOG_TYPE_DEFAULT, "#KERNEL AppleGCResource create device failed: %{mach.errno}d.", buf, 8u);
-    }
-
-    result = 0;
+    return v6;
   }
 
-  else
+  v3 = v2;
+  v4 = getLogger(v2);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    result = v7;
+    *buf = 67109120;
+    v8 = v3;
+    _os_log_impl(&dword_1D2CD5000, v4, OS_LOG_TYPE_DEFAULT, "#KERNEL AppleGCResource create device failed: %{mach.errno}d.", buf, 8u);
   }
 
-  v6 = *MEMORY[0x1E69E9840];
-  return result;
+  return 0;
 }
 
 - (void)observeValueForKeyPath:(id)path ofObject:(id)object change:(id)change context:(void *)context
@@ -634,7 +629,7 @@ uint64_t __64__GCSyntheticDeviceManager__onqueue_setupDeviceWithDescription___bl
     v13 = _os_activity_create(&dword_1D2CD5000, "[Synthetic Device Manager] Preference changed", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
     os_activity_scope_enter(v13, &state);
     v17 = [changeCopy objectForKeyedSubscript:*MEMORY[0x1E696A4F0]];
-    v18 = getLogger();
+    v18 = getLogger(v17);
     if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
     {
       [GCSyntheticDeviceManager observeValueForKeyPath:v17 ofObject:v18 change:? context:?];
@@ -678,71 +673,64 @@ LABEL_13:
 
 - (void)_onqueue_refreshSyntheticControllersEnabled
 {
-  v25 = *MEMORY[0x1E69E9840];
-  if (!self)
+  if (self)
   {
-    goto LABEL_13;
-  }
-
-  dispatch_assert_queue_V2(*(self + 16));
-  if (*(self + 80))
-  {
-    v2 = getLogger();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
+    dispatch_assert_queue_V2(*(self + 16));
+    if (*(self + 80))
     {
-      v24 = *(self + 80);
-      OUTLINED_FUNCTION_5_6();
-      _os_log_debug_impl(v9, v10, v11, v12, v13, 0xCu);
+      v3 = getLogger(v2);
+      if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
+      {
+        OUTLINED_FUNCTION_5_6();
+        _os_log_debug_impl(v9, v10, v11, v12, v13, 0xCu);
+      }
+
+      if (*(self + 96) != 1)
+      {
+        goto LABEL_11;
+      }
+
+      goto LABEL_8;
     }
 
-    if (*(self + 96) != 1)
+    if (*(self + 96))
     {
-      goto LABEL_11;
-    }
-
-    goto LABEL_8;
-  }
-
-  if (*(self + 96))
-  {
 LABEL_8:
-    v3 = getLogger();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
-    {
-      OUTLINED_FUNCTION_5_6();
-      _os_log_debug_impl(v14, v15, v16, v17, v18, 2u);
-    }
+      v4 = getLogger(v2);
+      if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
+      {
+        OUTLINED_FUNCTION_5_6();
+        _os_log_debug_impl(v14, v15, v16, v17, v18, 2u);
+      }
 
 LABEL_11:
-    if (*(self + 112))
-    {
-      [(GCSyntheticDeviceManager *)self _onqueue_setActiveDevices:?];
-      [*(self + 8) removeObserver:self forKeyPath:@"activeControllerDevices" context:0];
-      v8 = *(self + 112);
-      *(self + 112) = 0;
+      if (*(self + 112))
+      {
+        [(GCSyntheticDeviceManager *)self _onqueue_setActiveDevices:?];
+        [*(self + 8) removeObserver:self forKeyPath:@"activeControllerDevices" context:0];
+        v8 = *(self + 112);
+        *(self + 112) = 0;
+      }
+
+      return;
     }
 
-    goto LABEL_13;
-  }
-
-  if (!*(self + 112))
-  {
-    v5 = getLogger();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+    if (!*(self + 112))
     {
-      OUTLINED_FUNCTION_5_6();
-      _os_log_debug_impl(v19, v20, v21, v22, v23, 2u);
+      v5 = getLogger(v2);
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+      {
+        OUTLINED_FUNCTION_5_6();
+        _os_log_debug_impl(v19, v20, v21, v22, v23, 2u);
+      }
+
+      strongToStrongObjectsMapTable = [MEMORY[0x1E696AD18] strongToStrongObjectsMapTable];
+      v7 = *(self + 112);
+      *(self + 112) = strongToStrongObjectsMapTable;
+
+      [*(self + 8) addObserver:self forKeyPath:@"activeControllerDevices" options:5 context:0];
     }
-
-    strongToStrongObjectsMapTable = [MEMORY[0x1E696AD18] strongToStrongObjectsMapTable];
-    v7 = *(self + 112);
-    *(self + 112) = strongToStrongObjectsMapTable;
-
-    [*(self + 8) addObserver:self forKeyPath:@"activeControllerDevices" options:5 context:0];
   }
-
-LABEL_13:
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (uint64_t)_kernel_terminateAllDevices:(uint64_t)result
@@ -812,7 +800,7 @@ LABEL_13:
 
     else
     {
-      v12 = getLogger();
+      v12 = getLogger(0);
       if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
       {
         *buf = 0;
@@ -836,49 +824,49 @@ LABEL_13:
     v16.opaque[1] = 0;
     v4 = _os_activity_create(&dword_1D2CD5000, "[Synthetic Device Manager] Teardown Kernel Device", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
     os_activity_scope_enter(v4, &v16);
-    v5 = getLogger();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+    v6 = getLogger(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138412290;
       v18 = v3;
-      _os_log_debug_impl(&dword_1D2CD5000, v5, OS_LOG_TYPE_DEBUG, "Teardown kernel synthetic device: %@", buf, 0xCu);
+      _os_log_debug_impl(&dword_1D2CD5000, v6, OS_LOG_TYPE_DEBUG, "Teardown kernel synthetic device: %@", buf, 0xCu);
     }
 
     identifier = [(_GCSyntheticDevice *)v3 identifier];
-    v8 = [(GCSyntheticDeviceManager *)device _kernel_terminateDeviceWithIdentifier:identifier];
-    if (!v8)
+    v9 = [(GCSyntheticDeviceManager *)device _kernel_terminateDeviceWithIdentifier:identifier];
+    if (!v9)
     {
       goto LABEL_12;
     }
 
-    v9 = v8;
-    if (v8 == -536870208)
+    v10 = v9;
+    if (v9 == -536870208)
     {
-      v10 = getLogger();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+      v11 = getLogger(v9);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
       {
         *buf = 138412290;
         v18 = identifier;
-        v11 = "No kernel device with identifier '%@'.";
-        v12 = v10;
-        v13 = OS_LOG_TYPE_INFO;
-        v14 = 12;
+        v12 = "No kernel device with identifier '%@'.";
+        v13 = v11;
+        v14 = OS_LOG_TYPE_INFO;
+        v15 = 12;
 LABEL_10:
-        _os_log_impl(&dword_1D2CD5000, v12, v13, v11, buf, v14);
+        _os_log_impl(&dword_1D2CD5000, v13, v14, v12, buf, v15);
       }
     }
 
     else
     {
-      v10 = getLogger();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+      v11 = getLogger(v9);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 67109120;
-        LODWORD(v18) = v9;
-        v11 = "#KERNEL AppleGCResource terminate device failed: %{mach.errno}d.";
-        v12 = v10;
-        v13 = OS_LOG_TYPE_DEFAULT;
-        v14 = 8;
+        LODWORD(v18) = v10;
+        v12 = "#KERNEL AppleGCResource terminate device failed: %{mach.errno}d.";
+        v13 = v11;
+        v14 = OS_LOG_TYPE_DEFAULT;
+        v15 = 8;
         goto LABEL_10;
       }
     }
@@ -886,21 +874,19 @@ LABEL_10:
 LABEL_12:
     os_activity_scope_leave(&v16);
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (uint64_t)_kernel_terminateDeviceWithIdentifier:(uint64_t)identifier
 {
   identifierCopy = identifier;
-  v16[1] = *MEMORY[0x1E69E9840];
+  v15[1] = *MEMORY[0x1E69E9840];
   if (identifier)
   {
-    v15 = @"_GCSyntheticDeviceIdentifier";
-    v16[0] = a2;
+    v14 = @"_GCSyntheticDeviceIdentifier";
+    v15[0] = a2;
     v3 = MEMORY[0x1E695DF20];
     v4 = a2;
-    v5 = [v3 dictionaryWithObjects:v16 forKeys:&v15 count:1];
+    v5 = [v3 dictionaryWithObjects:v15 forKeys:&v14 count:1];
 
     v6 = IOCFSerialize(v5, 0);
     if (v6)
@@ -915,7 +901,7 @@ LABEL_12:
 
     else
     {
-      v11 = getLogger();
+      v11 = getLogger(0);
       if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
       {
         *buf = 0;
@@ -926,13 +912,12 @@ LABEL_12:
     }
   }
 
-  v12 = *MEMORY[0x1E69E9840];
   return identifierCopy;
 }
 
 - (void)_onqueue_setActiveDevices:(uint64_t)devices
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (devices)
   {
@@ -941,27 +926,27 @@ LABEL_12:
     v5 = v4;
     if (v4)
     {
-      v33 = 0u;
-      v34 = 0u;
-      v31 = 0u;
       v32 = 0u;
+      v33 = 0u;
+      v30 = 0u;
+      v31 = 0u;
       keyEnumerator = [v4 keyEnumerator];
-      v7 = [keyEnumerator countByEnumeratingWithState:&v31 objects:v38 count:16];
+      v7 = [keyEnumerator countByEnumeratingWithState:&v30 objects:v37 count:16];
       if (v7)
       {
         v8 = v7;
-        v9 = *v32;
+        v9 = *v31;
         do
         {
           v10 = 0;
           do
           {
-            if (*v32 != v9)
+            if (*v31 != v9)
             {
               objc_enumerationMutation(keyEnumerator);
             }
 
-            v11 = *(*(&v31 + 1) + 8 * v10);
+            v11 = *(*(&v30 + 1) + 8 * v10);
             v12 = [v3 member:v11];
 
             if (!v12)
@@ -981,34 +966,34 @@ LABEL_12:
           }
 
           while (v8 != v10);
-          v14 = [keyEnumerator countByEnumeratingWithState:&v31 objects:v38 count:16];
+          v14 = [keyEnumerator countByEnumeratingWithState:&v30 objects:v37 count:16];
           v8 = v14;
         }
 
         while (v14);
       }
 
-      v29 = 0u;
-      v30 = 0u;
-      v27 = 0u;
       v28 = 0u;
+      v29 = 0u;
+      v26 = 0u;
+      v27 = 0u;
       v15 = v3;
-      v16 = [v15 countByEnumeratingWithState:&v27 objects:v37 count:16];
+      v16 = [v15 countByEnumeratingWithState:&v26 objects:v36 count:16];
       if (v16)
       {
         v17 = v16;
-        v18 = *v28;
+        v18 = *v27;
         do
         {
           v19 = 0;
           do
           {
-            if (*v28 != v18)
+            if (*v27 != v18)
             {
               objc_enumerationMutation(v15);
             }
 
-            v20 = *(*(&v27 + 1) + 8 * v19);
+            v20 = *(*(&v26 + 1) + 8 * v19);
             v21 = [v5 objectForKey:v20];
 
             if (!v21)
@@ -1022,11 +1007,11 @@ LABEL_12:
 
               else
               {
-                v23 = getLogger();
+                v23 = getLogger(0);
                 if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
                 {
                   *buf = 138412290;
-                  v36 = v20;
+                  v35 = v20;
                   _os_log_error_impl(&dword_1D2CD5000, v23, OS_LOG_TYPE_ERROR, "%@ did not return a synthetic device description.", buf, 0xCu);
                 }
               }
@@ -1036,7 +1021,7 @@ LABEL_12:
           }
 
           while (v17 != v19);
-          v24 = [v15 countByEnumeratingWithState:&v27 objects:v37 count:16];
+          v24 = [v15 countByEnumeratingWithState:&v26 objects:v36 count:16];
           v17 = v24;
         }
 
@@ -1044,8 +1029,6 @@ LABEL_12:
       }
     }
   }
-
-  v25 = *MEMORY[0x1E69E9840];
 }
 
 void __75__GCSyntheticDeviceManager_observeValueForKeyPath_ofObject_change_context___block_invoke(uint64_t a1)
@@ -1059,20 +1042,16 @@ void __75__GCSyntheticDeviceManager_observeValueForKeyPath_ofObject_change_conte
 
 - (void)initWithServer:.cold.1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1_7();
   OUTLINED_FUNCTION_0_24();
   _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)initWithServer:.cold.2()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1_7();
   OUTLINED_FUNCTION_0_24();
   _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)initWithServer:.cold.3()
@@ -1084,38 +1063,32 @@ void __75__GCSyntheticDeviceManager_observeValueForKeyPath_ofObject_change_conte
 
 - (void)initWithServer:.cold.4()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1_7();
   OUTLINED_FUNCTION_0_24();
   _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)initWithServer:.cold.5()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1_7();
   OUTLINED_FUNCTION_0_24();
   _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)initWithServer:.cold.6()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1_7();
   OUTLINED_FUNCTION_0_24();
   _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
-- (void)initWithServer:.cold.7()
+- (void)initWithServer:(uint64_t)a1 .cold.7(uint64_t a1)
 {
-  v0 = getLogger();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+  v1 = getLogger(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
-    *v1 = 0;
-    _os_log_error_impl(&dword_1D2CD5000, v0, OS_LOG_TYPE_ERROR, "Failed to load user defaults.", v1, 2u);
+    *v2 = 0;
+    _os_log_error_impl(&dword_1D2CD5000, v1, OS_LOG_TYPE_ERROR, "Failed to load user defaults.", v2, 2u);
   }
 }
 
@@ -1140,43 +1113,28 @@ void __75__GCSyntheticDeviceManager_observeValueForKeyPath_ofObject_change_conte
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void __43__GCSyntheticDeviceManager_initWithServer___block_invoke_cold_1(int *a1)
+void __43__GCSyntheticDeviceManager_initWithServer___block_invoke_cold_2(uint64_t a1, mach_msg_header_t *a2)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v7 = *a1;
-  OUTLINED_FUNCTION_0_24();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 8u);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __43__GCSyntheticDeviceManager_initWithServer___block_invoke_cold_2(int *a1, mach_msg_header_t *a2)
-{
-  v13 = *MEMORY[0x1E69E9840];
-  v5 = getLogger();
-  if (OUTLINED_FUNCTION_5_8(v5))
+  v4 = getLogger(a1);
+  if (OUTLINED_FUNCTION_5_8(v4))
   {
-    v12 = *a1;
     OUTLINED_FUNCTION_1_18();
-    _os_log_error_impl(v7, v8, v9, v10, v11, 8u);
+    _os_log_error_impl(v5, v6, v7, v8, v9, 8u);
   }
 
   mach_msg_destroy(a2);
-  v6 = *MEMORY[0x1E69E9840];
 }
 
-void __43__GCSyntheticDeviceManager_initWithServer___block_invoke_cold_3(int *a1, mach_msg_header_t *a2)
+void __43__GCSyntheticDeviceManager_initWithServer___block_invoke_cold_3(uint64_t a1, mach_msg_header_t *a2)
 {
-  v13 = *MEMORY[0x1E69E9840];
-  v5 = getLogger();
-  if (OUTLINED_FUNCTION_5_8(v5))
+  v4 = getLogger(a1);
+  if (OUTLINED_FUNCTION_5_8(v4))
   {
-    v12 = *a1;
     OUTLINED_FUNCTION_1_18();
-    _os_log_error_impl(v7, v8, v9, v10, v11, 8u);
+    _os_log_error_impl(v5, v6, v7, v8, v9, 8u);
   }
 
   mach_msg_destroy(a2);
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void __43__GCSyntheticDeviceManager_initWithServer___block_invoke_cold_4(void *a1, void *a2)
@@ -1192,32 +1150,22 @@ void __43__GCSyntheticDeviceManager_initWithServer___block_invoke_cold_5()
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void __43__GCSyntheticDeviceManager_initWithServer___block_invoke_cold_6(uint64_t *a1)
+void __43__GCSyntheticDeviceManager_initWithServer___block_invoke_cold_7(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v7 = *a1;
-  OUTLINED_FUNCTION_0_24();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __43__GCSyntheticDeviceManager_initWithServer___block_invoke_cold_7(int a1)
-{
-  v5 = *MEMORY[0x1E69E9840];
-  v2 = getLogger();
+  v1 = a1;
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = getLogger(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
-    v4[0] = 67109120;
-    v4[1] = a1;
-    _os_log_error_impl(&dword_1D2CD5000, v2, OS_LOG_TYPE_ERROR, "#Mach message reply failed: %{mach.errno}d.", v4, 8u);
+    v3[0] = 67109120;
+    v3[1] = v1;
+    _os_log_error_impl(&dword_1D2CD5000, v2, OS_LOG_TYPE_ERROR, "#Mach message reply failed: %{mach.errno}d.", v3, 8u);
   }
-
-  v3 = *MEMORY[0x1E69E9840];
 }
 
 void __43__GCSyntheticDeviceManager_initWithServer___block_invoke_cold_8(mach_msg_header_t *a1)
 {
-  v3 = getLogger();
+  v3 = getLogger(a1);
   if (OUTLINED_FUNCTION_5_8(v3))
   {
     OUTLINED_FUNCTION_1_18();
@@ -1229,7 +1177,7 @@ void __43__GCSyntheticDeviceManager_initWithServer___block_invoke_cold_8(mach_ms
 
 void __43__GCSyntheticDeviceManager_initWithServer___block_invoke_cold_9(mach_msg_header_t *a1)
 {
-  v3 = getLogger();
+  v3 = getLogger(a1);
   if (OUTLINED_FUNCTION_5_8(v3))
   {
     OUTLINED_FUNCTION_1_18();
@@ -1241,13 +1189,12 @@ void __43__GCSyntheticDeviceManager_initWithServer___block_invoke_cold_9(mach_ms
 
 - (void)_user_check:(uint64_t)a1 device:(uint64_t)a2 enabled:(os_log_t)log .cold.1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v4 = 138412546;
-  v5 = a1;
-  v6 = 2112;
-  v7 = a2;
-  _os_log_debug_impl(&dword_1D2CD5000, log, OS_LOG_TYPE_DEBUG, "Check %@ enabled: %@", &v4, 0x16u);
-  v3 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
+  v3 = 138412546;
+  v4 = a1;
+  v5 = 2112;
+  v6 = a2;
+  _os_log_debug_impl(&dword_1D2CD5000, log, OS_LOG_TYPE_DEBUG, "Check %@ enabled: %@", &v3, 0x16u);
 }
 
 - (void)_onqueue_setupDeviceWithDescription:(os_log_t)log .cold.1(void *a1, uint8_t *buf, os_log_t log)
@@ -1259,13 +1206,12 @@ void __43__GCSyntheticDeviceManager_initWithServer___block_invoke_cold_9(mach_ms
 
 - (void)observeValueForKeyPath:(uint64_t)a1 ofObject:(NSObject *)a2 change:context:.cold.1(uint64_t a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
-  v3 = 138543618;
-  v4 = @"enableSyntheticDevices";
-  v5 = 2114;
-  v6 = a1;
-  _os_log_debug_impl(&dword_1D2CD5000, a2, OS_LOG_TYPE_DEBUG, "New %{public}@ #preference is %{public}@.", &v3, 0x16u);
-  v2 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
+  v2 = 138543618;
+  v3 = @"enableSyntheticDevices";
+  v4 = 2114;
+  v5 = a1;
+  _os_log_debug_impl(&dword_1D2CD5000, a2, OS_LOG_TYPE_DEBUG, "New %{public}@ #preference is %{public}@.", &v2, 0x16u);
 }
 
 @end

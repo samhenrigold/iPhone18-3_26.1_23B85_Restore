@@ -21,6 +21,7 @@
 - (id)phyModeFromWifiInterface:(id)interface;
 - (id)reportingClientExperimentSettingsDictionary;
 - (id)symptomsOccurrencesStats;
+- (int)learntBitrateForSegment:(id)segment defaultValue:(int)value;
 - (uint64_t)copyCurrentWiFiDevice;
 - (void)addAggregateAudioInjectorMetricsToReport:(id)report;
 - (void)addAlternateThermalMetricsToReportDictionary:(id)dictionary;
@@ -36,6 +37,7 @@
 - (void)addVideoFeatureStatus:(id)status;
 - (void)copyCurrentWiFiDevice;
 - (void)dealloc;
+- (void)dispatchedProcessEventWithCategory:(unsigned __int16)category type:(unsigned __int16)type payload:(id)payload;
 - (void)filterDictionaryUsingQRServerPrefix:(id)prefix addTo:(id)to;
 - (void)initializeAudioTxTelemetry;
 - (void)initializeLowLatencyInterfaceStatistics;
@@ -61,6 +63,8 @@
 - (void)updateHandoverCount:(id)count withPreviousSegmentKey:(id)key;
 - (void)updateLateFrameStatsForHistogram:(id)histogram WithPayload:(id)payload;
 - (void)updateReportWithQRServerSessionStats:(id)stats;
+- (void)updateSegment:(id)segment TBR:(int)r ISBTR:(int)tR SATXBR:(int)bR SARBR:(int)rBR BWE:(int)e;
+- (void)updateSymptomCount:(unsigned int)count;
 - (void)updateThermalDurationsFromPayload:(id)payload;
 - (void)updateThermalMetricsFromPayload:(id)payload;
 - (void)updateTimeToThermalsAlternate:(id)alternate;
@@ -269,30 +273,53 @@ void *__57__VCAggregator_setEventDrivenAggregationOccurredHandler___block_invoke
   return result;
 }
 
+- (void)updateSymptomCount:(unsigned int)count
+{
+  v4 = [MEMORY[0x277CCABA8] numberWithUnsignedInt:*&count];
+  symptomsOccurrences = self->_symptomsOccurrences;
+  if (symptomsOccurrences)
+  {
+    if ([(__CFDictionary *)symptomsOccurrences objectForKeyedSubscript:v4])
+    {
+      v6 = [-[__CFDictionary objectForKeyedSubscript:](self->_symptomsOccurrences objectForKeyedSubscript:{v4), "intValue"}] + 1;
+    }
+
+    else
+    {
+      v6 = 1;
+    }
+
+    v7 = self->_symptomsOccurrences;
+    v8 = [MEMORY[0x277CCABA8] numberWithInt:v6];
+
+    CFDictionarySetValue(v7, v4, v8);
+  }
+}
+
 - (id)symptomsOccurrencesStats
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   obj = self->_symptomsOccurrences;
-  v3 = [(__CFDictionary *)obj countByEnumeratingWithState:&v19 objects:v33 count:16];
+  v3 = [(__CFDictionary *)obj countByEnumeratingWithState:&v18 objects:v32 count:16];
   if (v3)
   {
     v4 = v3;
     v5 = 0;
-    v6 = *v20;
+    v6 = *v19;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v20 != v6)
+        if (*v19 != v6)
         {
           objc_enumerationMutation(obj);
         }
 
-        v8 = *(*(&v19 + 1) + 8 * i);
+        v8 = *(*(&v18 + 1) + 8 * i);
         v9 = [(__CFDictionary *)self->_symptomsOccurrences objectForKey:v8];
         if (VRTraceGetErrorLogLevelForModule("") >= 8)
         {
@@ -304,15 +331,15 @@ void *__57__VCAggregator_setEventDrivenAggregationOccurredHandler___block_invoke
             {
               v12 = [(__CFDictionary *)self->_symptomsOccurrences objectForKey:v8];
               *buf = 136316162;
-              v24 = v10;
-              v25 = 2080;
-              v26 = "[VCAggregator symptomsOccurrencesStats]";
-              v27 = 1024;
-              v28 = 451;
-              v29 = 2112;
-              v30 = v8;
-              v31 = 2112;
-              v32 = v12;
+              v23 = v10;
+              v24 = 2080;
+              v25 = "[VCAggregator symptomsOccurrencesStats]";
+              v26 = 1024;
+              v27 = 451;
+              v28 = 2112;
+              v29 = v8;
+              v30 = 2112;
+              v31 = v12;
               _os_log_impl(&dword_23D4DF000, v11, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d key=%@ value=%@", buf, 0x30u);
             }
           }
@@ -321,15 +348,15 @@ void *__57__VCAggregator_setEventDrivenAggregationOccurredHandler___block_invoke
           {
             v14 = [(__CFDictionary *)self->_symptomsOccurrences objectForKey:v8];
             *buf = 136316162;
-            v24 = v10;
-            v25 = 2080;
-            v26 = "[VCAggregator symptomsOccurrencesStats]";
-            v27 = 1024;
-            v28 = 451;
-            v29 = 2112;
-            v30 = v8;
-            v31 = 2112;
-            v32 = v14;
+            v23 = v10;
+            v24 = 2080;
+            v25 = "[VCAggregator symptomsOccurrencesStats]";
+            v26 = 1024;
+            v27 = 451;
+            v28 = 2112;
+            v29 = v8;
+            v30 = 2112;
+            v31 = v14;
             _os_log_debug_impl(&dword_23D4DF000, v11, OS_LOG_TYPE_DEBUG, " [%s] %s:%d key=%@ value=%@", buf, 0x30u);
           }
         }
@@ -341,13 +368,13 @@ void *__57__VCAggregator_setEventDrivenAggregationOccurredHandler___block_invoke
 
         else
         {
-          v13 = [MEMORY[0x277CCACA0] stringWithFormat:@"%@=%@", v8, v9, v17];
+          v13 = [MEMORY[0x277CCACA0] stringWithFormat:@"%@=%@", v8, v9, v16];
         }
 
         v5 = v13;
       }
 
-      v4 = [(__CFDictionary *)obj countByEnumeratingWithState:&v19 objects:v33 count:16];
+      v4 = [(__CFDictionary *)obj countByEnumeratingWithState:&v18 objects:v32 count:16];
     }
 
     while (v4);
@@ -360,16 +387,13 @@ void *__57__VCAggregator_setEventDrivenAggregationOccurredHandler___block_invoke
 
   if (v5)
   {
-    result = v5;
+    return v5;
   }
 
   else
   {
-    result = &stru_284F80940;
+    return &stru_284F80940;
   }
-
-  v16 = *MEMORY[0x277D85DE8];
-  return result;
 }
 
 - (void)updateLateFrameStatsForHistogram:(id)histogram WithPayload:(id)payload
@@ -574,16 +598,14 @@ uint64_t __50__VCAggregator_updateThermalDurationsFromPayload___block_invoke(uin
 
 - (id)reportingClientExperimentSettingsDictionary
 {
-  v7[2] = *MEMORY[0x277D85DE8];
-  v6[0] = @"NCM";
+  v6[2] = *MEMORY[0x277D85DE8];
+  v5[0] = @"NCM";
   p_reportingClientExperimentSettings = &self->_reportingClientExperimentSettings;
   v3 = [MEMORY[0x277CCABA8] numberWithUnsignedInt:self->_reportingClientExperimentSettings.networkConditionMonitoringClientExperimentEnabled];
-  v6[1] = @"MBD";
-  v7[0] = v3;
-  v7[1] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:p_reportingClientExperimentSettings->motionBasedDuplicationClientExperimentEnabled];
-  result = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:v6 count:2];
-  v5 = *MEMORY[0x277D85DE8];
-  return result;
+  v5[1] = @"MBD";
+  v6[0] = v3;
+  v6[1] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:p_reportingClientExperimentSettings->motionBasedDuplicationClientExperimentEnabled];
+  return [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:v5 count:2];
 }
 
 - (void)addThermalMetricsToReportDictionary:(id)dictionary
@@ -683,7 +705,7 @@ uint64_t __50__VCAggregator_updateThermalDurationsFromPayload___block_invoke(uin
   return v5;
 }
 
-uint64_t __71__VCAggregator_processVideoFeatureStatus_currentFeatureStatus_payload___block_invoke(uint64_t a1, void *a2)
+void *__71__VCAggregator_processVideoFeatureStatus_currentFeatureStatus_payload___block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 intValue];
   *(*(*(a1 + 32) + 8) + 24) = result;
@@ -846,7 +868,7 @@ uint64_t __71__VCAggregator_processVideoFeatureStatus_currentFeatureStatus_paylo
 
 - (void)updateAdaptiveLearningStats:(unsigned int)stats payload:(id)payload
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   if (!stats)
   {
     [objc_msgSend(payload objectForKeyedSubscript:{@"TtSD", "doubleValue"}];
@@ -864,45 +886,43 @@ uint64_t __71__VCAggregator_processVideoFeatureStatus_currentFeatureStatus_paylo
           initialRampUpTime = self->_initialRampUpTime;
           initialBitrateDelta = self->_initialBitrateDelta;
           initialBitrate = self->_initialBitrate;
-          v16 = 136316418;
-          v17 = v7;
-          v18 = 2080;
-          v19 = "[VCAggregator updateAdaptiveLearningStats:payload:]";
-          v20 = 1024;
-          v21 = 814;
-          v22 = 1024;
-          v23 = initialRampUpTime;
-          v24 = 1024;
-          v25 = initialBitrateDelta;
-          v26 = 1024;
-          v27 = initialBitrate;
-          _os_log_impl(&dword_23D4DF000, v8, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d VCAggregator: Initial Ramp Up time is %d ms, Initial Bitrate delta is %d, Initial bitrate is %d", &v16, 0x2Eu);
+          v15 = 136316418;
+          v16 = v7;
+          v17 = 2080;
+          v18 = "[VCAggregator updateAdaptiveLearningStats:payload:]";
+          v19 = 1024;
+          v20 = 814;
+          v21 = 1024;
+          v22 = initialRampUpTime;
+          v23 = 1024;
+          v24 = initialBitrateDelta;
+          v25 = 1024;
+          v26 = initialBitrate;
+          _os_log_impl(&dword_23D4DF000, v8, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d VCAggregator: Initial Ramp Up time is %d ms, Initial Bitrate delta is %d, Initial bitrate is %d", &v15, 0x2Eu);
         }
       }
 
       else if (os_log_type_enabled(gVRTraceOSLog, OS_LOG_TYPE_DEBUG))
       {
-        v13 = self->_initialRampUpTime;
-        v14 = self->_initialBitrateDelta;
-        v15 = self->_initialBitrate;
-        v16 = 136316418;
-        v17 = v7;
-        v18 = 2080;
-        v19 = "[VCAggregator updateAdaptiveLearningStats:payload:]";
-        v20 = 1024;
-        v21 = 814;
-        v22 = 1024;
-        v23 = v13;
-        v24 = 1024;
-        v25 = v14;
-        v26 = 1024;
-        v27 = v15;
-        _os_log_debug_impl(&dword_23D4DF000, v8, OS_LOG_TYPE_DEBUG, " [%s] %s:%d VCAggregator: Initial Ramp Up time is %d ms, Initial Bitrate delta is %d, Initial bitrate is %d", &v16, 0x2Eu);
+        v12 = self->_initialRampUpTime;
+        v13 = self->_initialBitrateDelta;
+        v14 = self->_initialBitrate;
+        v15 = 136316418;
+        v16 = v7;
+        v17 = 2080;
+        v18 = "[VCAggregator updateAdaptiveLearningStats:payload:]";
+        v19 = 1024;
+        v20 = 814;
+        v21 = 1024;
+        v22 = v12;
+        v23 = 1024;
+        v24 = v13;
+        v25 = 1024;
+        v26 = v14;
+        _os_log_debug_impl(&dword_23D4DF000, v8, OS_LOG_TYPE_DEBUG, " [%s] %s:%d VCAggregator: Initial Ramp Up time is %d ms, Initial Bitrate delta is %d, Initial bitrate is %d", &v15, 0x2Eu);
       }
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)processAudioInjectionInitWithPayload:(id)payload currentTime:(double)time
@@ -957,6 +977,316 @@ LABEL_9:
   [v2 addObject:v6];
 
   return v2;
+}
+
+- (void)dispatchedProcessEventWithCategory:(unsigned __int16)category type:(unsigned __int16)type payload:(id)payload
+{
+  typeCopy = type;
+  categoryCopy = category;
+  v41 = *MEMORY[0x277D85DE8];
+  dispatch_assert_queue_V2(self->_stateQueue);
+  if (!categoryCopy)
+  {
+    if (VRTraceGetErrorLogLevelForModule("") < 8)
+    {
+      return;
+    }
+
+    v10 = VRTraceErrorLogLevelToCSTR(8u);
+    v11 = gVRTraceOSLog;
+    if (gVRTraceLogDebugAsInfo != 1)
+    {
+      if (os_log_type_enabled(gVRTraceOSLog, OS_LOG_TYPE_DEBUG))
+      {
+        [VCAggregator dispatchedProcessEventWithCategory:v10 type:? payload:?];
+      }
+
+      return;
+    }
+
+    if (!os_log_type_enabled(gVRTraceOSLog, OS_LOG_TYPE_DEFAULT))
+    {
+      return;
+    }
+
+    *buf = 136315650;
+    v32 = v10;
+    v33 = 2080;
+    v34 = "[VCAggregator dispatchedProcessEventWithCategory:type:payload:]";
+    v35 = 1024;
+    v36 = 878;
+    v12 = " [%s] %s:%d Not processing reserved event";
+    v13 = v11;
+    v14 = 28;
+    goto LABEL_15;
+  }
+
+  if (![(TimingCollection *)self->_cameraTimers hasKey:1])
+  {
+    cameraTimers = self->_cameraTimers;
+    [(VCAggregator *)self microFromPayload:payload];
+    [(TimingCollection *)cameraTimers setStartTime:1 forKey:?];
+  }
+
+  [(VCAggregator *)self microFromPayload:payload];
+  if (categoryCopy > 179)
+  {
+    if (categoryCopy > 239)
+    {
+      if (categoryCopy > 330)
+      {
+        if (categoryCopy == 331)
+        {
+          [(VCAggregator *)self microFromPayload:payload];
+
+          [(VCAggregator *)self processAudioInjectionReadyWithCurrentTime:?];
+          return;
+        }
+
+        if (categoryCopy != 360)
+        {
+          if (categoryCopy == 362 && typeCopy != 1)
+          {
+
+            [(VCAggregator *)self updateThermalDurationsFromPayload:payload];
+          }
+
+          return;
+        }
+
+        goto LABEL_54;
+      }
+
+      if (categoryCopy != 240)
+      {
+        if (categoryCopy == 270)
+        {
+          mediaAnalyzerDataCollector = self->_mediaAnalyzerDataCollector;
+          [(VCAggregator *)self microFromPayload:payload];
+
+          [(VCMediaAnalyzerDataCollector *)mediaAnalyzerDataCollector processMediaAnalyzerEnabled:typeCopy != 0 withCurrentTime:?];
+        }
+
+        else if (categoryCopy == 330)
+        {
+          [(VCAggregator *)self microFromPayload:payload];
+
+          [(VCAggregator *)self processAudioInjectionInitWithPayload:payload currentTime:?];
+        }
+
+        return;
+      }
+    }
+
+    else
+    {
+      if (categoryCopy > 234)
+      {
+        switch(categoryCopy)
+        {
+          case 235:
+            captionsDataCollector = self->_captionsDataCollector;
+            [(VCAggregator *)self microFromPayload:payload];
+
+            [(VCCaptionsDataCollector *)captionsDataCollector processCaptionsEnabled:typeCopy != 0 withCurrentTime:?];
+            break;
+          case 236:
+            v19 = self->_captionsDataCollector;
+
+            [(VCCaptionsDataCollector *)v19 processCaptionsConfiguration:payload];
+            break;
+          case 237:
+            v15 = self->_captionsDataCollector;
+
+            [(VCCaptionsDataCollector *)v15 setLanguageDetectorEnabled:typeCopy != 0];
+            break;
+        }
+
+        return;
+      }
+
+      if (categoryCopy != 180 && categoryCopy != 186)
+      {
+        if (categoryCopy != 201)
+        {
+          return;
+        }
+
+        goto LABEL_54;
+      }
+    }
+
+LABEL_61:
+    notificationQueue = self->_notificationQueue;
+    block[0] = MEMORY[0x277D85DD0];
+    block[1] = 3221225472;
+    block[2] = __64__VCAggregator_dispatchedProcessEventWithCategory_type_payload___block_invoke;
+    block[3] = &unk_278BD4D48;
+    block[4] = self;
+    block[5] = payload;
+    v17 = block;
+    goto LABEL_62;
+  }
+
+  if (categoryCopy > 129)
+  {
+    if (categoryCopy <= 156)
+    {
+      if ((categoryCopy - 155) >= 2 && categoryCopy != 130)
+      {
+        return;
+      }
+
+      goto LABEL_61;
+    }
+
+    if (categoryCopy != 157)
+    {
+      if (categoryCopy == 163)
+      {
+
+        [(VCAggregator *)self processInitWithPayload:payload timestamp:?];
+      }
+
+      else if (categoryCopy == 164)
+      {
+
+        [(VCAggregator *)self processStart:?];
+      }
+
+      return;
+    }
+
+LABEL_54:
+    notificationQueue = self->_notificationQueue;
+    v28[0] = MEMORY[0x277D85DD0];
+    v28[1] = 3221225472;
+    v28[2] = __64__VCAggregator_dispatchedProcessEventWithCategory_type_payload___block_invoke_2;
+    v28[3] = &unk_278BD4E10;
+    v29 = categoryCopy;
+    v28[4] = self;
+    v28[5] = payload;
+    v17 = v28;
+LABEL_62:
+    dispatch_async(notificationQueue, v17);
+    return;
+  }
+
+  if (categoryCopy <= 52)
+  {
+    if (categoryCopy != 7)
+    {
+      if (categoryCopy != 33)
+      {
+        if (categoryCopy == 36)
+        {
+
+          [(VCAggregator *)self updateThermalMetricsFromPayload:payload];
+        }
+
+        return;
+      }
+
+      goto LABEL_61;
+    }
+
+    v22 = self->_cameraTimers;
+    [(VCAggregator *)self microFromPayload:payload];
+    [(TimingCollection *)v22 setStopTime:1 forKey:?];
+    if (typeCopy)
+    {
+      v23 = self->_cameraTimers;
+      [(VCAggregator *)self microFromPayload:payload];
+      [(TimingCollection *)v23 setStartTime:1 forKey:?];
+    }
+
+    if (VRTraceGetErrorLogLevelForModule("") < 8)
+    {
+      return;
+    }
+
+    v24 = VRTraceErrorLogLevelToCSTR(8u);
+    v25 = gVRTraceOSLog;
+    if (gVRTraceLogDebugAsInfo != 1)
+    {
+      if (os_log_type_enabled(gVRTraceOSLog, OS_LOG_TYPE_DEBUG))
+      {
+        [(TimingCollection *)self->_cameraTimers totalTimeForKey:1];
+        *buf = 136316162;
+        v32 = v24;
+        v33 = 2080;
+        v34 = "[VCAggregator dispatchedProcessEventWithCategory:type:payload:]";
+        v35 = 1024;
+        v36 = 932;
+        v37 = 1024;
+        v38 = typeCopy != 0;
+        v39 = 2048;
+        v40 = v27;
+        _os_log_debug_impl(&dword_23D4DF000, v25, OS_LOG_TYPE_DEBUG, " [%s] %s:%d isFrontCamera=%d, frontCameraTime=%10.2f", buf, 0x2Cu);
+      }
+
+      return;
+    }
+
+    if (!os_log_type_enabled(gVRTraceOSLog, OS_LOG_TYPE_DEFAULT))
+    {
+      return;
+    }
+
+    [(TimingCollection *)self->_cameraTimers totalTimeForKey:1];
+    *buf = 136316162;
+    v32 = v24;
+    v33 = 2080;
+    v34 = "[VCAggregator dispatchedProcessEventWithCategory:type:payload:]";
+    v35 = 1024;
+    v36 = 932;
+    v37 = 1024;
+    v38 = typeCopy != 0;
+    v39 = 2048;
+    v40 = v26;
+    v12 = " [%s] %s:%d isFrontCamera=%d, frontCameraTime=%10.2f";
+    v13 = v25;
+    v14 = 44;
+LABEL_15:
+    _os_log_impl(&dword_23D4DF000, v13, OS_LOG_TYPE_DEFAULT, v12, buf, v14);
+    return;
+  }
+
+  if (categoryCopy > 80)
+  {
+    if (categoryCopy == 81)
+    {
+      mediaRecorderDataCollector = self->_mediaRecorderDataCollector;
+
+      [(VCMediaRecorderDataCollector *)mediaRecorderDataCollector updateMediaRecorderEventStats:payload];
+    }
+
+    else if (categoryCopy == 83)
+    {
+
+      [(VCAggregator *)self updateAdaptiveLearningStats:typeCopy payload:payload];
+    }
+  }
+
+  else
+  {
+    if (categoryCopy != 53)
+    {
+      if (categoryCopy != 75)
+      {
+        return;
+      }
+
+      goto LABEL_54;
+    }
+
+    if ([payload objectForKeyedSubscript:@"ACAS"])
+    {
+      -[VCAggregator setActiveConnectionRegistry:](self, "setActiveConnectionRegistry:", [payload objectForKeyedSubscript:@"ACAS"]);
+
+      [(VCAggregator *)self updateActiveConnectionRegistry:payload type:typeCopy];
+    }
+  }
 }
 
 uint64_t __64__VCAggregator_dispatchedProcessEventWithCategory_type_payload___block_invoke(uint64_t result)
@@ -1030,7 +1360,7 @@ uint64_t __64__VCAggregator_dispatchedProcessEventWithCategory_type_payload___bl
 
 - (void)addCameraMetricsToReportDictionary:(id)dictionary totalDuration:(int)duration
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   cameraTimers = self->_cameraTimers;
   [(VCAggregator *)self microFromPayload:0];
   [(TimingCollection *)cameraTimers setStopTime:1 forKey:?];
@@ -1056,43 +1386,42 @@ uint64_t __64__VCAggregator_dispatchedProcessEventWithCategory_type_payload___bl
     {
       if (os_log_type_enabled(gVRTraceOSLog, OS_LOG_TYPE_DEFAULT))
       {
-        v15 = 136316418;
-        v16 = v12;
-        v17 = 2080;
-        v18 = "[VCAggregator addCameraMetricsToReportDictionary:totalDuration:]";
-        v19 = 1024;
-        v20 = 1015;
-        v21 = 1024;
-        v22 = v10;
-        v23 = 2048;
-        v24 = v9;
-        v25 = 1024;
+        v14 = 136316418;
+        v15 = v12;
+        v16 = 2080;
+        v17 = "[VCAggregator addCameraMetricsToReportDictionary:totalDuration:]";
+        v18 = 1024;
+        v19 = 1015;
+        v20 = 1024;
+        v21 = v10;
+        v22 = 2048;
+        v23 = v9;
+        v24 = 1024;
         durationCopy2 = duration;
-        _os_log_impl(&dword_23D4DF000, v13, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d cameraFrontPercentage=%d, frontCameraTime=%8.2f, TotalTime=%d", &v15, 0x32u);
+        _os_log_impl(&dword_23D4DF000, v13, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d cameraFrontPercentage=%d, frontCameraTime=%8.2f, TotalTime=%d", &v14, 0x32u);
       }
     }
 
     else if (os_log_type_enabled(gVRTraceOSLog, OS_LOG_TYPE_DEBUG))
     {
-      v15 = 136316418;
-      v16 = v12;
-      v17 = 2080;
-      v18 = "[VCAggregator addCameraMetricsToReportDictionary:totalDuration:]";
-      v19 = 1024;
-      v20 = 1015;
-      v21 = 1024;
-      v22 = v10;
-      v23 = 2048;
-      v24 = v9;
-      v25 = 1024;
+      v14 = 136316418;
+      v15 = v12;
+      v16 = 2080;
+      v17 = "[VCAggregator addCameraMetricsToReportDictionary:totalDuration:]";
+      v18 = 1024;
+      v19 = 1015;
+      v20 = 1024;
+      v21 = v10;
+      v22 = 2048;
+      v23 = v9;
+      v24 = 1024;
       durationCopy2 = duration;
-      _os_log_debug_impl(&dword_23D4DF000, v13, OS_LOG_TYPE_DEBUG, " [%s] %s:%d cameraFrontPercentage=%d, frontCameraTime=%8.2f, TotalTime=%d", &v15, 0x32u);
+      _os_log_debug_impl(&dword_23D4DF000, v13, OS_LOG_TYPE_DEBUG, " [%s] %s:%d cameraFrontPercentage=%d, frontCameraTime=%8.2f, TotalTime=%d", &v14, 0x32u);
     }
   }
 
   [dictionary setObject:objc_msgSend(MEMORY[0x277CCABA8] forKeyedSubscript:{"numberWithUnsignedInt:", v10), @"CAMPOS"}];
   [(VCMediaRecorderDataCollector *)self->_mediaRecorderDataCollector addAggregatedMediaRecorderMetricsToReport:dictionary];
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addAggregateAudioInjectorMetricsToReport:(id)report
@@ -1107,7 +1436,7 @@ uint64_t __64__VCAggregator_dispatchedProcessEventWithCategory_type_payload___bl
 
 - (void)setNWActivityReportingEnabled:(BOOL)enabled
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   self->_isNWActivityReportingEnabled = enabled;
   if (VRTraceGetErrorLogLevelForModule("") >= 8)
   {
@@ -1118,25 +1447,23 @@ uint64_t __64__VCAggregator_dispatchedProcessEventWithCategory_type_payload___bl
       if (os_log_type_enabled(gVRTraceOSLog, OS_LOG_TYPE_DEFAULT))
       {
         isNWActivityReportingEnabled = self->_isNWActivityReportingEnabled;
-        v8 = 136315906;
-        v9 = v4;
-        v10 = 2080;
-        v11 = "[VCAggregator setNWActivityReportingEnabled:]";
-        v12 = 1024;
-        v13 = 1031;
-        v14 = 1024;
-        v15 = isNWActivityReportingEnabled;
-        _os_log_impl(&dword_23D4DF000, v5, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d _isNWActivityReportingEnabled=%d", &v8, 0x22u);
+        v7 = 136315906;
+        v8 = v4;
+        v9 = 2080;
+        v10 = "[VCAggregator setNWActivityReportingEnabled:]";
+        v11 = 1024;
+        v12 = 1031;
+        v13 = 1024;
+        v14 = isNWActivityReportingEnabled;
+        _os_log_impl(&dword_23D4DF000, v5, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d _isNWActivityReportingEnabled=%d", &v7, 0x22u);
       }
     }
 
     else if (os_log_type_enabled(gVRTraceOSLog, OS_LOG_TYPE_DEBUG))
     {
-      [(VCAggregator *)v4 setNWActivityReportingEnabled:?];
+      [VCAggregator setNWActivityReportingEnabled:];
     }
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addAudioStreamTimestampJumpDurationToReport:(id)report
@@ -1155,6 +1482,28 @@ uint64_t __64__VCAggregator_dispatchedProcessEventWithCategory_type_payload___bl
   {
 
     [to setObject:v8 forKeyedSubscript:withKey];
+  }
+}
+
+- (void)updateSegment:(id)segment TBR:(int)r ISBTR:(int)tR SATXBR:(int)bR SARBR:(int)rBR BWE:(int)e
+{
+  if (self->_callMode == 1)
+  {
+    [(VCAdaptiveLearning *)self->_adaptiveLearning updateSegment:segment TBR:*&r ISBTR:*&tR SATXBR:*&bR SARBR:*&rBR BWE:*&e];
+  }
+}
+
+- (int)learntBitrateForSegment:(id)segment defaultValue:(int)value
+{
+  adaptiveLearning = self->_adaptiveLearning;
+  if (adaptiveLearning)
+  {
+    return [(VCAdaptiveLearning *)adaptiveLearning learntBitrateForSegment:segment defaultValue:*&value];
+  }
+
+  else
+  {
+    return value;
   }
 }
 
@@ -1189,7 +1538,7 @@ LABEL_7:
 
 - (double)microFromPayload:(id)payload
 {
-  v5 = micro();
+  v5 = micro(self, a2);
   if (!payload)
   {
     return self->_lastUsedTimestamp;
@@ -1293,34 +1642,34 @@ LABEL_7:
 
 - (void)updateVideoFECStatsOnCall:(id)call callLossPattern:(id)pattern
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   if (call)
   {
     if (pattern)
     {
       v5 = [objc_msgSend(call objectForKeyedSubscript:{@"VFecStats", "objectForKeyedSubscript:", @"VRLossPattern"}];
+      v10 = 0u;
       v11 = 0u;
       v12 = 0u;
       v13 = 0u;
-      v14 = 0u;
-      v6 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v6 = [v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
       if (v6)
       {
         v7 = v6;
-        v8 = *v12;
+        v8 = *v11;
         do
         {
           for (i = 0; i != v7; ++i)
           {
-            if (*v12 != v8)
+            if (*v11 != v8)
             {
               objc_enumerationMutation(v5);
             }
 
-            [pattern addValue:objc_msgSend(*(*(&v11 + 1) + 8 * i) withIncrement:{"integerValue"), objc_msgSend(objc_msgSend(v5, "objectForKeyedSubscript:", *(*(&v11 + 1) + 8 * i)), "integerValue")}];
+            [pattern addValue:objc_msgSend(*(*(&v10 + 1) + 8 * i) withIncrement:{"integerValue"), objc_msgSend(objc_msgSend(v5, "objectForKeyedSubscript:", *(*(&v10 + 1) + 8 * i)), "integerValue")}];
           }
 
-          v7 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
+          v7 = [v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
         }
 
         while (v7);
@@ -1337,13 +1686,11 @@ LABEL_7:
   {
     [VCAggregator updateVideoFECStatsOnCall:callLossPattern:];
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateVideoFECStatsOnSegment:(id)segment fecStats:(id)stats segmentLossPattern:(id)pattern segmentLossHistogram:(id)histogram segmentLossFecHistogram:(id)fecHistogram direction:(int)direction
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   if (segment)
   {
     if (stats)
@@ -1363,84 +1710,84 @@ LABEL_7:
             v14 = [segment objectForKeyedSubscript:v13];
             [(VCAggregator *)self updateFECStats:stats usingUpdateValuesIn:v14];
             v15 = [v14 objectForKeyedSubscript:@"VRLossPattern"];
+            v38 = 0u;
             v39 = 0u;
             v40 = 0u;
             v41 = 0u;
-            v42 = 0u;
-            v16 = [v15 countByEnumeratingWithState:&v39 objects:v45 count:16];
+            v16 = [v15 countByEnumeratingWithState:&v38 objects:v44 count:16];
             if (v16)
             {
               v17 = v16;
-              v18 = *v40;
+              v18 = *v39;
               do
               {
                 for (i = 0; i != v17; ++i)
                 {
-                  if (*v40 != v18)
+                  if (*v39 != v18)
                   {
                     objc_enumerationMutation(v15);
                   }
 
-                  [pattern addValue:objc_msgSend(*(*(&v39 + 1) + 8 * i) withIncrement:{"integerValue"), objc_msgSend(objc_msgSend(v15, "objectForKeyedSubscript:", *(*(&v39 + 1) + 8 * i)), "integerValue")}];
+                  [pattern addValue:objc_msgSend(*(*(&v38 + 1) + 8 * i) withIncrement:{"integerValue"), objc_msgSend(objc_msgSend(v15, "objectForKeyedSubscript:", *(*(&v38 + 1) + 8 * i)), "integerValue")}];
                 }
 
-                v17 = [v15 countByEnumeratingWithState:&v39 objects:v45 count:16];
+                v17 = [v15 countByEnumeratingWithState:&v38 objects:v44 count:16];
               }
 
               while (v17);
             }
 
             v20 = [v14 objectForKeyedSubscript:@"VRLossHistogram"];
+            v34 = 0u;
             v35 = 0u;
             v36 = 0u;
             v37 = 0u;
-            v38 = 0u;
-            v21 = [v20 countByEnumeratingWithState:&v35 objects:v44 count:16];
+            v21 = [v20 countByEnumeratingWithState:&v34 objects:v43 count:16];
             if (v21)
             {
               v22 = v21;
-              v23 = *v36;
+              v23 = *v35;
               do
               {
                 for (j = 0; j != v22; ++j)
                 {
-                  if (*v36 != v23)
+                  if (*v35 != v23)
                   {
                     objc_enumerationMutation(v20);
                   }
 
-                  [histogram addValue:objc_msgSend(*(*(&v35 + 1) + 8 * j) withArray:{"integerValue"), objc_msgSend(v20, "objectForKeyedSubscript:", *(*(&v35 + 1) + 8 * j))}];
+                  [histogram addValue:objc_msgSend(*(*(&v34 + 1) + 8 * j) withArray:{"integerValue"), objc_msgSend(v20, "objectForKeyedSubscript:", *(*(&v34 + 1) + 8 * j))}];
                 }
 
-                v22 = [v20 countByEnumeratingWithState:&v35 objects:v44 count:16];
+                v22 = [v20 countByEnumeratingWithState:&v34 objects:v43 count:16];
               }
 
               while (v22);
             }
 
             v25 = [v14 objectForKeyedSubscript:@"VRLossFecHistogram"];
+            v30 = 0u;
             v31 = 0u;
             v32 = 0u;
             v33 = 0u;
-            v34 = 0u;
-            v26 = [v20 countByEnumeratingWithState:&v31 objects:v43 count:16];
+            v26 = [v20 countByEnumeratingWithState:&v30 objects:v42 count:16];
             if (v26)
             {
               v27 = v26;
-              v28 = *v32;
+              v28 = *v31;
               do
               {
                 for (k = 0; k != v27; ++k)
                 {
-                  if (*v32 != v28)
+                  if (*v31 != v28)
                   {
                     objc_enumerationMutation(v20);
                   }
 
-                  [fecHistogram addValue:objc_msgSend(*(*(&v31 + 1) + 8 * k) withArray:{"integerValue"), objc_msgSend(v25, "objectForKeyedSubscript:", *(*(&v31 + 1) + 8 * k))}];
+                  [fecHistogram addValue:objc_msgSend(*(*(&v30 + 1) + 8 * k) withArray:{"integerValue"), objc_msgSend(v25, "objectForKeyedSubscript:", *(*(&v30 + 1) + 8 * k))}];
                 }
 
-                v27 = [v20 countByEnumeratingWithState:&v31 objects:v43 count:16];
+                v27 = [v20 countByEnumeratingWithState:&v30 objects:v42 count:16];
               }
 
               while (v27);
@@ -1475,30 +1822,28 @@ LABEL_7:
   {
     [VCAggregator updateVideoFECStatsOnSegment:fecStats:segmentLossPattern:segmentLossHistogram:segmentLossFecHistogram:direction:];
   }
-
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateFECStats:(id)stats usingUpdateValuesIn:(id)in
 {
-  v112 = *MEMORY[0x277D85DE8];
+  v111 = *MEMORY[0x277D85DE8];
   if ([in objectForKeyedSubscript:@"VFecDB"])
   {
-    v100 = 0u;
-    v101 = 0u;
-    v98 = 0u;
     v99 = 0u;
+    v100 = 0u;
+    v97 = 0u;
+    v98 = 0u;
     v6 = [in objectForKeyedSubscript:@"VFecDB"];
-    v7 = [v6 countByEnumeratingWithState:&v98 objects:v111 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v97 objects:v110 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v99;
+      v9 = *v98;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v99 != v9)
+          if (*v98 != v9)
           {
             objc_enumerationMutation(v6);
           }
@@ -1506,7 +1851,7 @@ LABEL_7:
           [objc_msgSend(stats "totalFECDataByteCount")];
         }
 
-        v8 = [v6 countByEnumeratingWithState:&v98 objects:v111 count:16];
+        v8 = [v6 countByEnumeratingWithState:&v97 objects:v110 count:16];
       }
 
       while (v8);
@@ -1515,21 +1860,21 @@ LABEL_7:
 
   if ([in objectForKeyedSubscript:@"VFecPB"])
   {
-    v96 = 0u;
-    v97 = 0u;
-    v94 = 0u;
     v95 = 0u;
+    v96 = 0u;
+    v93 = 0u;
+    v94 = 0u;
     v11 = [in objectForKeyedSubscript:@"VFecPB"];
-    v12 = [v11 countByEnumeratingWithState:&v94 objects:v110 count:16];
+    v12 = [v11 countByEnumeratingWithState:&v93 objects:v109 count:16];
     if (v12)
     {
       v13 = v12;
-      v14 = *v95;
+      v14 = *v94;
       do
       {
         for (j = 0; j != v13; ++j)
         {
-          if (*v95 != v14)
+          if (*v94 != v14)
           {
             objc_enumerationMutation(v11);
           }
@@ -1537,7 +1882,7 @@ LABEL_7:
           [objc_msgSend(stats "totalFECParityByteCount")];
         }
 
-        v13 = [v11 countByEnumeratingWithState:&v94 objects:v110 count:16];
+        v13 = [v11 countByEnumeratingWithState:&v93 objects:v109 count:16];
       }
 
       while (v13);
@@ -1546,21 +1891,21 @@ LABEL_7:
 
   if ([in objectForKeyedSubscript:@"VFecTF"])
   {
-    v92 = 0u;
-    v93 = 0u;
-    v90 = 0u;
     v91 = 0u;
+    v92 = 0u;
+    v89 = 0u;
+    v90 = 0u;
     v16 = [in objectForKeyedSubscript:@"VFecTF"];
-    v17 = [v16 countByEnumeratingWithState:&v90 objects:v109 count:16];
+    v17 = [v16 countByEnumeratingWithState:&v89 objects:v108 count:16];
     if (v17)
     {
       v18 = v17;
-      v19 = *v91;
+      v19 = *v90;
       do
       {
         for (k = 0; k != v18; ++k)
         {
-          if (*v91 != v19)
+          if (*v90 != v19)
           {
             objc_enumerationMutation(v16);
           }
@@ -1568,7 +1913,7 @@ LABEL_7:
           [objc_msgSend(stats "totalFECFrameCount")];
         }
 
-        v18 = [v16 countByEnumeratingWithState:&v90 objects:v109 count:16];
+        v18 = [v16 countByEnumeratingWithState:&v89 objects:v108 count:16];
       }
 
       while (v18);
@@ -1577,21 +1922,21 @@ LABEL_7:
 
   if ([in objectForKeyedSubscript:@"VFecCF"])
   {
-    v88 = 0u;
-    v89 = 0u;
-    v86 = 0u;
     v87 = 0u;
+    v88 = 0u;
+    v85 = 0u;
+    v86 = 0u;
     v21 = [in objectForKeyedSubscript:@"VFecCF"];
-    v22 = [v21 countByEnumeratingWithState:&v86 objects:v108 count:16];
+    v22 = [v21 countByEnumeratingWithState:&v85 objects:v107 count:16];
     if (v22)
     {
       v23 = v22;
-      v24 = *v87;
+      v24 = *v86;
       do
       {
         for (m = 0; m != v23; ++m)
         {
-          if (*v87 != v24)
+          if (*v86 != v24)
           {
             objc_enumerationMutation(v21);
           }
@@ -1599,7 +1944,7 @@ LABEL_7:
           [objc_msgSend(stats "completeFECFrameCount")];
         }
 
-        v23 = [v21 countByEnumeratingWithState:&v86 objects:v108 count:16];
+        v23 = [v21 countByEnumeratingWithState:&v85 objects:v107 count:16];
       }
 
       while (v23);
@@ -1608,21 +1953,21 @@ LABEL_7:
 
   if ([in objectForKeyedSubscript:@"VFecNF"])
   {
-    v84 = 0u;
-    v85 = 0u;
-    v82 = 0u;
     v83 = 0u;
+    v84 = 0u;
+    v81 = 0u;
+    v82 = 0u;
     v26 = [in objectForKeyedSubscript:@"VFecNF"];
-    v27 = [v26 countByEnumeratingWithState:&v82 objects:v107 count:16];
+    v27 = [v26 countByEnumeratingWithState:&v81 objects:v106 count:16];
     if (v27)
     {
       v28 = v27;
-      v29 = *v83;
+      v29 = *v82;
       do
       {
         for (n = 0; n != v28; ++n)
         {
-          if (*v83 != v29)
+          if (*v82 != v29)
           {
             objc_enumerationMutation(v26);
           }
@@ -1630,7 +1975,7 @@ LABEL_7:
           [objc_msgSend(stats "unfixableFECFrameCount")];
         }
 
-        v28 = [v26 countByEnumeratingWithState:&v82 objects:v107 count:16];
+        v28 = [v26 countByEnumeratingWithState:&v81 objects:v106 count:16];
       }
 
       while (v28);
@@ -1639,21 +1984,21 @@ LABEL_7:
 
   if ([in objectForKeyedSubscript:@"VFecFF"])
   {
-    v80 = 0u;
-    v81 = 0u;
-    v78 = 0u;
     v79 = 0u;
+    v80 = 0u;
+    v77 = 0u;
+    v78 = 0u;
     v31 = [in objectForKeyedSubscript:@"VFecFF"];
-    v32 = [v31 countByEnumeratingWithState:&v78 objects:v106 count:16];
+    v32 = [v31 countByEnumeratingWithState:&v77 objects:v105 count:16];
     if (v32)
     {
       v33 = v32;
-      v34 = *v79;
+      v34 = *v78;
       do
       {
         for (ii = 0; ii != v33; ++ii)
         {
-          if (*v79 != v34)
+          if (*v78 != v34)
           {
             objc_enumerationMutation(v31);
           }
@@ -1661,7 +2006,7 @@ LABEL_7:
           [objc_msgSend(stats "failedFECFrameCount")];
         }
 
-        v33 = [v31 countByEnumeratingWithState:&v78 objects:v106 count:16];
+        v33 = [v31 countByEnumeratingWithState:&v77 objects:v105 count:16];
       }
 
       while (v33);
@@ -1670,21 +2015,21 @@ LABEL_7:
 
   if ([in objectForKeyedSubscript:@"VFecMPC"])
   {
-    v76 = 0u;
-    v77 = 0u;
-    v74 = 0u;
     v75 = 0u;
+    v76 = 0u;
+    v73 = 0u;
+    v74 = 0u;
     v36 = [in objectForKeyedSubscript:@"VFecMPC"];
-    v37 = [v36 countByEnumeratingWithState:&v74 objects:v105 count:16];
+    v37 = [v36 countByEnumeratingWithState:&v73 objects:v104 count:16];
     if (v37)
     {
       v38 = v37;
-      v39 = *v75;
+      v39 = *v74;
       do
       {
         for (jj = 0; jj != v38; ++jj)
         {
-          if (*v75 != v39)
+          if (*v74 != v39)
           {
             objc_enumerationMutation(v36);
           }
@@ -1692,7 +2037,7 @@ LABEL_7:
           [objc_msgSend(stats "totalFECMediaPacketCount")];
         }
 
-        v38 = [v36 countByEnumeratingWithState:&v74 objects:v105 count:16];
+        v38 = [v36 countByEnumeratingWithState:&v73 objects:v104 count:16];
       }
 
       while (v38);
@@ -1701,21 +2046,21 @@ LABEL_7:
 
   if ([in objectForKeyedSubscript:@"VFecPPC"])
   {
-    v72 = 0u;
-    v73 = 0u;
-    v70 = 0u;
     v71 = 0u;
+    v72 = 0u;
+    v69 = 0u;
+    v70 = 0u;
     v41 = [in objectForKeyedSubscript:@"VFecPPC"];
-    v42 = [v41 countByEnumeratingWithState:&v70 objects:v104 count:16];
+    v42 = [v41 countByEnumeratingWithState:&v69 objects:v103 count:16];
     if (v42)
     {
       v43 = v42;
-      v44 = *v71;
+      v44 = *v70;
       do
       {
         for (kk = 0; kk != v43; ++kk)
         {
-          if (*v71 != v44)
+          if (*v70 != v44)
           {
             objc_enumerationMutation(v41);
           }
@@ -1723,31 +2068,31 @@ LABEL_7:
           [objc_msgSend(stats "totalFECParityPacketCount")];
         }
 
-        v43 = [v41 countByEnumeratingWithState:&v70 objects:v104 count:16];
+        v43 = [v41 countByEnumeratingWithState:&v69 objects:v103 count:16];
       }
 
       while (v43);
     }
   }
 
-  if ([in objectForKeyedSubscript:@"VFecTF"] && (v68 = 0u, v69 = 0u, v66 = 0u, v67 = 0u, v46 = objc_msgSend(in, "objectForKeyedSubscript:", @"VFecTF"), (v47 = objc_msgSend(v46, "countByEnumeratingWithState:objects:count:", &v66, v103, 16)) != 0))
+  if ([in objectForKeyedSubscript:@"VFecTF"] && (v67 = 0u, v68 = 0u, v65 = 0u, v66 = 0u, v46 = objc_msgSend(in, "objectForKeyedSubscript:", @"VFecTF"), (v47 = objc_msgSend(v46, "countByEnumeratingWithState:objects:count:", &v65, v102, 16)) != 0))
   {
     v48 = v47;
     v49 = 0;
-    v50 = *v67;
+    v50 = *v66;
     do
     {
       for (mm = 0; mm != v48; ++mm)
       {
-        if (*v67 != v50)
+        if (*v66 != v50)
         {
           objc_enumerationMutation(v46);
         }
 
-        v49 += [objc_msgSend(objc_msgSend(in objectForKeyedSubscript:{@"VFecTF", "objectForKeyedSubscript:", *(*(&v66 + 1) + 8 * mm)), "unsignedLongValue"}];
+        v49 += [objc_msgSend(objc_msgSend(in objectForKeyedSubscript:{@"VFecTF", "objectForKeyedSubscript:", *(*(&v65 + 1) + 8 * mm)), "unsignedLongValue"}];
       }
 
-      v48 = [v46 countByEnumeratingWithState:&v66 objects:v103 count:16];
+      v48 = [v46 countByEnumeratingWithState:&v65 objects:v102 count:16];
     }
 
     while (v48);
@@ -1760,32 +2105,32 @@ LABEL_7:
 
   if ([in objectForKeyedSubscript:@"VFecTF"])
   {
-    v64 = 0u;
-    v65 = 0u;
-    v62 = 0u;
     v63 = 0u;
+    v64 = 0u;
+    v61 = 0u;
+    v62 = 0u;
     obj = [in objectForKeyedSubscript:@"VFecTF"];
-    v52 = [obj countByEnumeratingWithState:&v62 objects:v102 count:16];
+    v52 = [obj countByEnumeratingWithState:&v61 objects:v101 count:16];
     if (v52)
     {
       v53 = v52;
       v54 = 0;
-      v55 = *v63;
+      v55 = *v62;
       do
       {
         for (nn = 0; nn != v53; ++nn)
         {
-          if (*v63 != v55)
+          if (*v62 != v55)
           {
             objc_enumerationMutation(obj);
           }
 
-          v57 = *(*(&v62 + 1) + 8 * nn);
+          v57 = *(*(&v61 + 1) + 8 * nn);
           v58 = [objc_msgSend(objc_msgSend(in objectForKeyedSubscript:{@"VFecTF", "objectForKeyedSubscript:", v57), "unsignedLongValue"}];
           v54 += v58 * [v57 intValue];
         }
 
-        v53 = [obj countByEnumeratingWithState:&v62 objects:v102 count:16];
+        v53 = [obj countByEnumeratingWithState:&v61 objects:v101 count:16];
       }
 
       while (v53);
@@ -1810,7 +2155,6 @@ LABEL_84:
   v59 = v54 / v49;
 LABEL_87:
   [objc_msgSend(stats "fecLevelDuration")];
-  v60 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addFECStatsHolderKPIs:(id)is usingFECStatsHolder:(id)holder reportFrameSizeTelemetry:(BOOL)telemetry reportLevels:(BOOL)levels
@@ -1863,7 +2207,6 @@ LABEL_87:
   {
     if (parameters)
     {
-      var0 = parameters->var0;
       if (parameters->var0)
       {
         if (parameters->var1)
@@ -1876,20 +2219,20 @@ LABEL_87:
               var6 = parameters->var6;
               if (var6)
               {
-                v10 = parameters->var7 / var6;
+                v9 = parameters->var7 / var6;
               }
 
               else
               {
-                v10 = 0;
+                v9 = 0;
               }
 
-              [stats setObject:objc_msgSend(MEMORY[0x277CCABA8] forKeyedSubscript:{"numberWithUnsignedInt:", v10), @"AFECET"}];
+              [stats setObject:objc_msgSend(MEMORY[0x277CCABA8] forKeyedSubscript:{"numberWithUnsignedInt:", v9), @"AFECET"}];
               [stats setObject:objc_msgSend(parameters->var1 forKeyedSubscript:{"description"), @"VRXL"}];
               [stats setObject:objc_msgSend(parameters->var2 forKeyedSubscript:{"description"), @"VRXLP"}];
-              v11 = [parameters->var3 description];
+              v10 = [parameters->var3 description];
 
-              [stats setObject:v11 forKeyedSubscript:@"VRXLFP"];
+              [stats setObject:v10 forKeyedSubscript:@"VRXLFP"];
             }
 
             else
@@ -2043,14 +2386,14 @@ LABEL_3:
 
 - (BOOL)isApplePersonalHotspotAndUpdatePhyMode
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   dispatch_assert_queue_V2(self->_stateQueue);
   if (self->_isDuplicationEnabled)
   {
     [(VCAggregator *)buf isApplePersonalHotspotAndUpdatePhyMode];
 LABEL_25:
     v5 = *buf;
-    isPersonalHotspot = LOBYTE(v17[0]);
+    isPersonalHotspot = LOBYTE(v16[0]);
     goto LABEL_17;
   }
 
@@ -2063,18 +2406,18 @@ LABEL_25:
   *buf = 0;
   *&buf[8] = buf;
   *&buf[16] = 0x3052000000;
-  *&v19 = __Block_byref_object_copy__9;
+  *&v18 = __Block_byref_object_copy__9;
   v3 = getCWFInterfaceClass_softClass;
-  *(&v19 + 1) = __Block_byref_object_dispose__9;
-  v20 = getCWFInterfaceClass_softClass;
+  *(&v18 + 1) = __Block_byref_object_dispose__9;
+  v19 = getCWFInterfaceClass_softClass;
   if (!getCWFInterfaceClass_softClass)
   {
-    v17[0] = MEMORY[0x277D85DD0];
-    v17[1] = 3221225472;
-    v17[2] = __getCWFInterfaceClass_block_invoke;
-    v17[3] = &unk_278BD5310;
-    v17[4] = buf;
-    __getCWFInterfaceClass_block_invoke(v17);
+    v16[0] = MEMORY[0x277D85DD0];
+    v16[1] = 3221225472;
+    v16[2] = __getCWFInterfaceClass_block_invoke;
+    v16[3] = &unk_278BD5310;
+    v16[4] = buf;
+    __getCWFInterfaceClass_block_invoke(v16);
     v3 = *(*&buf[8] + 40);
   }
 
@@ -2103,16 +2446,16 @@ LABEL_25:
         *&buf[12] = 2080;
         *&buf[14] = "[VCAggregator isApplePersonalHotspotAndUpdatePhyMode]";
         *&buf[22] = 1024;
-        LODWORD(v19) = 1504;
-        WORD2(v19) = 2112;
-        *(&v19 + 6) = localPHYMode;
+        LODWORD(v18) = 1504;
+        WORD2(v18) = 2112;
+        *(&v18 + 6) = localPHYMode;
         _os_log_impl(&dword_23D4DF000, v7, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d locaPHYMode=%@", buf, 0x26u);
       }
     }
 
     else if (os_log_type_enabled(gVRTraceOSLog, OS_LOG_TYPE_DEBUG))
     {
-      [(VCAggregator *)v6 isApplePersonalHotspotAndUpdatePhyMode];
+      [VCAggregator isApplePersonalHotspotAndUpdatePhyMode];
     }
   }
 
@@ -2128,9 +2471,9 @@ LABEL_25:
       *&buf[12] = 2080;
       *&buf[14] = "[VCAggregator isApplePersonalHotspotAndUpdatePhyMode]";
       *&buf[22] = 1024;
-      LODWORD(v19) = 1508;
-      WORD2(v19) = 2112;
-      *(&v19 + 6) = currentKnownNetworkProfile;
+      LODWORD(v18) = 1508;
+      WORD2(v18) = 2112;
+      *(&v18 + 6) = currentKnownNetworkProfile;
       _os_log_impl(&dword_23D4DF000, v11, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d PHS: WiFi interface profile=%@", buf, 0x26u);
     }
   }
@@ -2156,14 +2499,13 @@ LABEL_17:
       *&buf[12] = 2080;
       *&buf[14] = "[VCAggregator isApplePersonalHotspotAndUpdatePhyMode]";
       *&buf[22] = 1024;
-      LODWORD(v19) = 1517;
-      WORD2(v19) = 1024;
-      *(&v19 + 6) = isPersonalHotspot;
+      LODWORD(v18) = 1517;
+      WORD2(v18) = 1024;
+      *(&v18 + 6) = isPersonalHotspot;
       _os_log_impl(&dword_23D4DF000, v14, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d PHS: returned value=%d", buf, 0x22u);
     }
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   return isPersonalHotspot;
 }
 
@@ -2179,36 +2521,36 @@ LABEL_17:
 
 - (void)updateReportWithQRServerSessionStats:(id)stats
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   qrExperiments = self->_qrExperiments;
   if (qrExperiments)
   {
-    v14 = 0u;
-    v15 = 0u;
-    v12 = 0u;
     v13 = 0u;
-    v6 = [(NSDictionary *)qrExperiments countByEnumeratingWithState:&v12 objects:v16 count:16];
+    v14 = 0u;
+    v11 = 0u;
+    v12 = 0u;
+    v6 = [(NSDictionary *)qrExperiments countByEnumeratingWithState:&v11 objects:v15 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v13;
+      v8 = *v12;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v13 != v8)
+          if (*v12 != v8)
           {
             objc_enumerationMutation(qrExperiments);
           }
 
-          v10 = *(*(&v12 + 1) + 8 * i);
+          v10 = *(*(&v11 + 1) + 8 * i);
           if ([(VCAggregator *)self hasQRServerSessionPrefix:v10])
           {
             [stats setObject:-[NSDictionary objectForKeyedSubscript:](self->_qrExperiments forKeyedSubscript:{"objectForKeyedSubscript:", v10), v10}];
           }
         }
 
-        v7 = [(NSDictionary *)qrExperiments countByEnumeratingWithState:&v12 objects:v16 count:16];
+        v7 = [(NSDictionary *)qrExperiments countByEnumeratingWithState:&v11 objects:v15 count:16];
       }
 
       while (v7);
@@ -2219,45 +2561,41 @@ LABEL_17:
   {
     [VCAggregator updateReportWithQRServerSessionStats:];
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)filterDictionaryUsingQRServerPrefix:(id)prefix addTo:(id)to
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
-  v7 = [prefix countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v7 = [prefix countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v14;
+    v9 = *v13;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v14 != v9)
+        if (*v13 != v9)
         {
           objc_enumerationMutation(prefix);
         }
 
-        v11 = *(*(&v13 + 1) + 8 * i);
+        v11 = *(*(&v12 + 1) + 8 * i);
         if ([(VCAggregator *)self hasQRServerPrefix:v11])
         {
           [to setObject:objc_msgSend(prefix forKeyedSubscript:{"objectForKeyedSubscript:", v11), v11}];
         }
       }
 
-      v8 = [prefix countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v8 = [prefix countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v8);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)processRTEvent:(id)event
@@ -2379,7 +2717,7 @@ LABEL_17:
 
 - (void)initializeLowLatencyInterfaceStatistics
 {
-  v73 = *MEMORY[0x277D85DE8];
+  v72 = *MEMORY[0x277D85DE8];
   if (self->_transportType == 2 && self->_shouldReportLowLatencyInterfaceStatistics)
   {
     if (![(VCAggregator *)self lowLatencyInterfaceMonitor])
@@ -2400,7 +2738,7 @@ LABEL_17:
           __lasts = 0;
           strtok_r(__str[0], "\n", &__lasts);
           *&v34 = 136316162;
-          v69 = v34;
+          v68 = v34;
           do
           {
             if (VRTraceGetErrorLogLevelForModule("") >= 8)
@@ -2412,8 +2750,8 @@ LABEL_17:
                 v36 = os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT);
                 if (v36)
                 {
-                  OUTLINED_FUNCTION_6_8(v36, v37, v38, v39, v40, v41, v42, v43, v62, v63, v65, v67, v69);
-                  v72 = 2080;
+                  OUTLINED_FUNCTION_6_8(v36, v37, v38, v39, v40, v41, v42, v43, v61, v62, v64, v66, v68);
+                  v71 = 2080;
                   v44 = OUTLINED_FUNCTION_2_6();
                   _os_log_impl(v44, v45, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d %s %s", v46, 0x30u);
                 }
@@ -2424,8 +2762,8 @@ LABEL_17:
                 v47 = os_log_type_enabled(v35, OS_LOG_TYPE_DEBUG);
                 if (v47)
                 {
-                  OUTLINED_FUNCTION_6_8(v47, v48, v49, v50, v51, v52, v53, v54, v62, v63, v65, v67, v69);
-                  v72 = 2080;
+                  OUTLINED_FUNCTION_6_8(v47, v48, v49, v50, v51, v52, v53, v54, v61, v62, v64, v66, v68);
+                  v71 = 2080;
                   v57 = OUTLINED_FUNCTION_2_6();
                   _os_log_debug_impl(v57, v58, OS_LOG_TYPE_DEBUG, " [%s] %s:%d %s %s", v59, 0x30u);
                 }
@@ -2464,7 +2802,7 @@ LABEL_17:
           __lasts = 0;
           strtok_r(__str[0], "\n", &__lasts);
           *&v7 = 136316162;
-          v68 = v7;
+          v67 = v7;
           do
           {
             if (VRTraceGetErrorLogLevelForModule("") >= 8)
@@ -2476,8 +2814,8 @@ LABEL_17:
                 v10 = os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
                 if (v10)
                 {
-                  OUTLINED_FUNCTION_6_8(v10, v11, v12, v13, v14, v15, v16, v17, v61, v64, v66, v67, v68);
-                  v72 = 2080;
+                  OUTLINED_FUNCTION_6_8(v10, v11, v12, v13, v14, v15, v16, v17, v60, v63, v65, v66, v67);
+                  v71 = 2080;
                   v18 = OUTLINED_FUNCTION_2_6();
                   _os_log_impl(v18, v19, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d %s %s", v20, 0x30u);
                 }
@@ -2488,8 +2826,8 @@ LABEL_17:
                 v21 = os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG);
                 if (v21)
                 {
-                  OUTLINED_FUNCTION_6_8(v21, v22, v23, v24, v25, v26, v27, v28, v61, v64, v66, v67, v68);
-                  v72 = 2080;
+                  OUTLINED_FUNCTION_6_8(v21, v22, v23, v24, v25, v26, v27, v28, v60, v63, v65, v66, v67);
+                  v71 = 2080;
                   v31 = OUTLINED_FUNCTION_2_6();
                   _os_log_debug_impl(v31, v32, OS_LOG_TYPE_DEBUG, " [%s] %s:%d %s %s", v33, 0x30u);
                 }
@@ -2506,13 +2844,11 @@ LABEL_38:
       }
     }
   }
-
-  v60 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addLowLatencyInterfaceStatisticsToPayload:(id)payload
 {
-  v342 = *MEMORY[0x277D85DE8];
+  v341 = *MEMORY[0x277D85DE8];
   if (self->_transportType == 2)
   {
     if ([(VCAggregator *)self lowLatencyInterfaceMonitor])
@@ -2522,12 +2858,12 @@ LABEL_38:
       {
         if (VRTraceGetErrorLogLevelForModule("") >= 8)
         {
-          v337 = 0;
+          v336 = 0;
           v6 = copyLowLatencyStatistics ? [objc_msgSend(copyLowLatencyStatistics "description")] : "<nil>";
-          asprintf(&v337, "%s", v6);
-          if (v337)
+          asprintf(&v336, "%s", v6);
+          if (v336)
           {
-            OUTLINED_FUNCTION_25_1(v337, v44, v45, v46, v47, v48, v49, v50, v317, v323, v327, v331, v334, *(&v334 + 1), 0);
+            OUTLINED_FUNCTION_25_1(v336, v44, v45, v46, v47, v48, v49, v50, v316, v322, v326, v330, v333, *(&v333 + 1), 0);
             OUTLINED_FUNCTION_23_0();
             do
             {
@@ -2541,7 +2877,7 @@ LABEL_38:
                   v52 = os_log_type_enabled(v51, OS_LOG_TYPE_DEFAULT);
                   if (v52)
                   {
-                    OUTLINED_FUNCTION_3_5(v52, v53, v54, v55, v56, v57, v58, v59, v318, v323, v327, v331, v334);
+                    OUTLINED_FUNCTION_3_5(v52, v53, v54, v55, v56, v57, v58, v59, v317, v322, v326, v330, v333);
                     OUTLINED_FUNCTION_5_2();
                     OUTLINED_FUNCTION_1_7();
                     OUTLINED_FUNCTION_20_2();
@@ -2554,7 +2890,7 @@ LABEL_38:
                   v64 = os_log_type_enabled(v51, OS_LOG_TYPE_DEBUG);
                   if (v64)
                   {
-                    OUTLINED_FUNCTION_3_5(v64, v65, v66, v67, v68, v69, v70, v71, v318, v323, v327, v331, v334);
+                    OUTLINED_FUNCTION_3_5(v64, v65, v66, v67, v68, v69, v70, v71, v317, v322, v326, v330, v333);
                     OUTLINED_FUNCTION_5_2();
                     OUTLINED_FUNCTION_1_7();
                     OUTLINED_FUNCTION_21_1();
@@ -2586,13 +2922,13 @@ LABEL_38:
 
         if (VRTraceGetErrorLogLevelForModule("") >= 8)
         {
-          v337 = 0;
+          v336 = 0;
           uTF8String = [(__CFString *)v5 UTF8String];
           v8 = copyLowLatencyStatistics ? [objc_msgSend(copyLowLatencyStatistics "description")] : "<nil>";
-          asprintf(&v337, "%s(%p) %s", uTF8String, self, v8);
-          if (v337)
+          asprintf(&v336, "%s(%p) %s", uTF8String, self, v8);
+          if (v336)
           {
-            OUTLINED_FUNCTION_25_1(v337, v9, v10, v11, v12, v13, v14, v15, v315, v323, v327, v331, v334, *(&v334 + 1), 0);
+            OUTLINED_FUNCTION_25_1(v336, v9, v10, v11, v12, v13, v14, v15, v314, v322, v326, v330, v333, *(&v333 + 1), 0);
             OUTLINED_FUNCTION_23_0();
             do
             {
@@ -2606,7 +2942,7 @@ LABEL_38:
                   v18 = os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT);
                   if (v18)
                   {
-                    OUTLINED_FUNCTION_3_5(v18, v19, v20, v21, v22, v23, v24, v25, v316, v323, v327, v331, v334);
+                    OUTLINED_FUNCTION_3_5(v18, v19, v20, v21, v22, v23, v24, v25, v315, v322, v326, v330, v333);
                     OUTLINED_FUNCTION_5_2();
                     OUTLINED_FUNCTION_1_7();
                     OUTLINED_FUNCTION_20_2();
@@ -2619,7 +2955,7 @@ LABEL_38:
                   v30 = os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG);
                   if (v30)
                   {
-                    OUTLINED_FUNCTION_3_5(v30, v31, v32, v33, v34, v35, v36, v37, v316, v323, v327, v331, v334);
+                    OUTLINED_FUNCTION_3_5(v30, v31, v32, v33, v34, v35, v36, v37, v315, v322, v326, v330, v333);
                     OUTLINED_FUNCTION_5_2();
                     OUTLINED_FUNCTION_1_7();
                     OUTLINED_FUNCTION_21_1();
@@ -2633,7 +2969,7 @@ LABEL_38:
 
             while (strtok_r(v38, "\n", v39));
 LABEL_36:
-            free(v337);
+            free(v336);
           }
         }
       }
@@ -2647,16 +2983,16 @@ LABEL_36:
           goto LABEL_71;
         }
 
-        v337 = 0;
+        v336 = 0;
         v82 = v78 ? [objc_msgSend(v78 "description")] : "<nil>";
-        asprintf(&v337, "%s", v82);
-        ErrorLogLevelForModule = v337;
-        if (!v337)
+        asprintf(&v336, "%s", v82);
+        ErrorLogLevelForModule = v336;
+        if (!v336)
         {
           goto LABEL_71;
         }
 
-        OUTLINED_FUNCTION_25_1(v337, v81, v118, v119, v120, v121, v122, v123, v321, v323, v327, v331, v334, *(&v334 + 1), 0);
+        OUTLINED_FUNCTION_25_1(v336, v81, v118, v119, v120, v121, v122, v123, v320, v322, v326, v330, v333, *(&v333 + 1), 0);
         OUTLINED_FUNCTION_23_0();
         do
         {
@@ -2670,7 +3006,7 @@ LABEL_36:
               v125 = os_log_type_enabled(v124, OS_LOG_TYPE_DEFAULT);
               if (v125)
               {
-                OUTLINED_FUNCTION_3_5(v125, v126, v127, v128, v129, v130, v131, v132, v322, v326, v330, v333, v336);
+                OUTLINED_FUNCTION_3_5(v125, v126, v127, v128, v129, v130, v131, v132, v321, v325, v329, v332, v335);
                 OUTLINED_FUNCTION_5_2();
                 OUTLINED_FUNCTION_1_7();
                 OUTLINED_FUNCTION_20_2();
@@ -2683,7 +3019,7 @@ LABEL_36:
               v137 = os_log_type_enabled(v124, OS_LOG_TYPE_DEBUG);
               if (v137)
               {
-                OUTLINED_FUNCTION_3_5(v137, v138, v139, v140, v141, v142, v143, v144, v322, v326, v330, v333, v336);
+                OUTLINED_FUNCTION_3_5(v137, v138, v139, v140, v141, v142, v143, v144, v321, v325, v329, v332, v335);
                 OUTLINED_FUNCTION_5_2();
                 OUTLINED_FUNCTION_1_7();
                 OUTLINED_FUNCTION_21_1();
@@ -2716,17 +3052,17 @@ LABEL_36:
           goto LABEL_71;
         }
 
-        v337 = 0;
+        v336 = 0;
         uTF8String2 = [(__CFString *)v79 UTF8String];
         v84 = v78 ? [objc_msgSend(v78 "description")] : "<nil>";
-        asprintf(&v337, "%s(%p) %s", uTF8String2, self, v84);
-        ErrorLogLevelForModule = v337;
-        if (!v337)
+        asprintf(&v336, "%s(%p) %s", uTF8String2, self, v84);
+        ErrorLogLevelForModule = v336;
+        if (!v336)
         {
           goto LABEL_71;
         }
 
-        OUTLINED_FUNCTION_25_1(v337, v81, v85, v86, v87, v88, v89, v90, v319, v324, v328, v331, v334, *(&v334 + 1), 0);
+        OUTLINED_FUNCTION_25_1(v336, v81, v85, v86, v87, v88, v89, v90, v318, v323, v327, v330, v333, *(&v333 + 1), 0);
         OUTLINED_FUNCTION_23_0();
         do
         {
@@ -2740,7 +3076,7 @@ LABEL_36:
               v92 = os_log_type_enabled(v91, OS_LOG_TYPE_DEFAULT);
               if (v92)
               {
-                OUTLINED_FUNCTION_3_5(v92, v93, v94, v95, v96, v97, v98, v99, v320, v325, v329, v332, v335);
+                OUTLINED_FUNCTION_3_5(v92, v93, v94, v95, v96, v97, v98, v99, v319, v324, v328, v331, v334);
                 OUTLINED_FUNCTION_5_2();
                 OUTLINED_FUNCTION_1_7();
                 OUTLINED_FUNCTION_20_2();
@@ -2753,7 +3089,7 @@ LABEL_36:
               v104 = os_log_type_enabled(v91, OS_LOG_TYPE_DEBUG);
               if (v104)
               {
-                OUTLINED_FUNCTION_3_5(v104, v105, v106, v107, v108, v109, v110, v111, v320, v325, v329, v332, v335);
+                OUTLINED_FUNCTION_3_5(v104, v105, v106, v107, v108, v109, v110, v111, v319, v324, v328, v331, v334);
                 OUTLINED_FUNCTION_5_2();
                 OUTLINED_FUNCTION_1_7();
                 OUTLINED_FUNCTION_21_1();
@@ -2768,7 +3104,7 @@ LABEL_36:
         while (strtok_r(v112, "\n", v113));
       }
 
-      free(v337);
+      free(v336);
 LABEL_71:
       v151 = OUTLINED_FUNCTION_8_5(ErrorLogLevelForModule, v81, @"LL_STATS_ISSDB");
       v153 = OUTLINED_FUNCTION_8_5(v151, v152, @"LL_STATS_COUNTRY_CODE");
@@ -2851,32 +3187,28 @@ LABEL_71:
       v307 = OUTLINED_FUNCTION_8_5(v305, v306, @"LL_STATS_2G_IN_CHAN_SEQ");
       v309 = OUTLINED_FUNCTION_8_5(v307, v308, @"LL_STATS_SIDECAR_SERV_TYPE_BITMAP");
       OUTLINED_FUNCTION_8_5(v309, v310, @"LL_STATS_RTG_ID");
-      goto LABEL_72;
+      return;
     }
 
     if (VRTraceGetErrorLogLevelForModule("") >= 5)
     {
-      v312 = VRTraceErrorLogLevelToCSTR(5u);
-      v313 = gVRTraceOSLog;
+      v311 = VRTraceErrorLogLevelToCSTR(5u);
+      v312 = gVRTraceOSLog;
       if (os_log_type_enabled(gVRTraceOSLog, OS_LOG_TYPE_DEFAULT))
       {
-        v338 = 136315650;
-        v339 = v312;
-        v340 = 2080;
+        v337 = 136315650;
+        v338 = v311;
+        v339 = 2080;
         OUTLINED_FUNCTION_5_2();
-        v341 = 1058;
-        OUTLINED_FUNCTION_16_2(&dword_23D4DF000, v313, v314, " [%s] %s:%d _lowLatencyInterfaceMonitor=nil, not reporting low latency stats", &v338);
+        v340 = 1058;
+        OUTLINED_FUNCTION_16_2(&dword_23D4DF000, v312, v313, " [%s] %s:%d _lowLatencyInterfaceMonitor=nil, not reporting low latency stats", &v337);
       }
     }
   }
-
-LABEL_72:
-  v311 = *MEMORY[0x277D85DE8];
 }
 
 - (void)processIDSReportingBlob:.cold.1()
 {
-  v8 = *MEMORY[0x277D85DE8];
   if (VRTraceGetErrorLogLevelForModule("") >= 3)
   {
     VRTraceErrorLogLevelToCSTR(3u);
@@ -2884,16 +3216,13 @@ LABEL_72:
     {
       OUTLINED_FUNCTION_3_3();
       OUTLINED_FUNCTION_0();
-      OUTLINED_FUNCTION_1_1(&dword_23D4DF000, v1, v2, " [%s] %s:%d Can not aggregate IDS reporting blob that's not a dictionary", v3, v4, v5, v6, v7);
+      OUTLINED_FUNCTION_1_1(&dword_23D4DF000, v0, v1, " [%s] %s:%d Can not aggregate IDS reporting blob that's not a dictionary", v2, v3, v4, v5);
     }
   }
-
-  v0 = *MEMORY[0x277D85DE8];
 }
 
 - (void)processIDSReportingBlob:.cold.2()
 {
-  v8 = *MEMORY[0x277D85DE8];
   if (VRTraceGetErrorLogLevelForModule("") >= 3)
   {
     VRTraceErrorLogLevelToCSTR(3u);
@@ -2901,16 +3230,13 @@ LABEL_72:
     {
       OUTLINED_FUNCTION_3_3();
       OUTLINED_FUNCTION_0();
-      OUTLINED_FUNCTION_1_1(&dword_23D4DF000, v1, v2, " [%s] %s:%d Can not aggregate IDS reporting blob that's not a dictionary", v3, v4, v5, v6, v7);
+      OUTLINED_FUNCTION_1_1(&dword_23D4DF000, v0, v1, " [%s] %s:%d Can not aggregate IDS reporting blob that's not a dictionary", v2, v3, v4, v5);
     }
   }
-
-  v0 = *MEMORY[0x277D85DE8];
 }
 
 + (void)newThermalDataCollectors
 {
-  v8 = *MEMORY[0x277D85DE8];
   if (VRTraceGetErrorLogLevelForModule("") >= 3)
   {
     VRTraceErrorLogLevelToCSTR(3u);
@@ -2918,42 +3244,37 @@ LABEL_72:
     {
       OUTLINED_FUNCTION_3_0();
       OUTLINED_FUNCTION_0();
-      OUTLINED_FUNCTION_1_5(&dword_23D4DF000, v1, v2, " [%s] %s:%d Failed to allocate thermal data collectors array", v3, v4, v5, v6, v7);
+      OUTLINED_FUNCTION_1_5(&dword_23D4DF000, v0, v1, " [%s] %s:%d Failed to allocate thermal data collectors array", v2, v3, v4, v5);
     }
   }
 
   OUTLINED_FUNCTION_31_0();
-  v0 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dispatchedProcessEventWithCategory:(uint64_t)a1 type:payload:.cold.1(uint64_t a1)
 {
-  v6 = *MEMORY[0x277D85DE8];
-  v3 = 136315650;
-  v4 = a1;
+  v5 = *MEMORY[0x277D85DE8];
+  v2 = 136315650;
+  v3 = a1;
   OUTLINED_FUNCTION_0();
-  v5 = 878;
-  _os_log_debug_impl(&dword_23D4DF000, v1, OS_LOG_TYPE_DEBUG, " [%s] %s:%d Not processing reserved event", &v3, 0x1Cu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = 878;
+  _os_log_debug_impl(&dword_23D4DF000, v1, OS_LOG_TYPE_DEBUG, " [%s] %s:%d Not processing reserved event", &v2, 0x1Cu);
 }
 
-- (void)setNWActivityReportingEnabled:(uint64_t)a1 .cold.1(uint64_t a1, unsigned __int8 *a2)
+- (void)setNWActivityReportingEnabled:.cold.1()
 {
-  v12 = *MEMORY[0x277D85DE8];
-  v2 = *a2;
+  v8 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_4_2();
-  v7 = "[VCAggregator setNWActivityReportingEnabled:]";
-  v8 = 1024;
-  v9 = 1031;
-  v10 = 1024;
-  v11 = v3;
-  _os_log_debug_impl(&dword_23D4DF000, v4, OS_LOG_TYPE_DEBUG, " [%s] %s:%d _isNWActivityReportingEnabled=%d", v6, 0x22u);
-  v5 = *MEMORY[0x277D85DE8];
+  v3 = "[VCAggregator setNWActivityReportingEnabled:]";
+  v4 = 1024;
+  v5 = 1031;
+  v6 = 1024;
+  v7 = v0;
+  _os_log_debug_impl(&dword_23D4DF000, v1, OS_LOG_TYPE_DEBUG, " [%s] %s:%d _isNWActivityReportingEnabled=%d", v2, 0x22u);
 }
 
 - (void)updateVideoFECStatsOnCall:callLossPattern:.cold.1()
 {
-  v8 = *MEMORY[0x277D85DE8];
   if (VRTraceGetErrorLogLevelForModule("") >= 3)
   {
     VRTraceErrorLogLevelToCSTR(3u);
@@ -2961,16 +3282,13 @@ LABEL_72:
     {
       OUTLINED_FUNCTION_3_3();
       OUTLINED_FUNCTION_0();
-      OUTLINED_FUNCTION_1_1(&dword_23D4DF000, v1, v2, " [%s] %s:%d callLossPattern must not be nil", v3, v4, v5, v6, v7);
+      OUTLINED_FUNCTION_1_1(&dword_23D4DF000, v0, v1, " [%s] %s:%d callLossPattern must not be nil", v2, v3, v4, v5);
     }
   }
-
-  v0 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateVideoFECStatsOnCall:callLossPattern:.cold.2()
 {
-  v8 = *MEMORY[0x277D85DE8];
   if (VRTraceGetErrorLogLevelForModule("") >= 3)
   {
     VRTraceErrorLogLevelToCSTR(3u);
@@ -2978,16 +3296,13 @@ LABEL_72:
     {
       OUTLINED_FUNCTION_3_3();
       OUTLINED_FUNCTION_0();
-      OUTLINED_FUNCTION_1_1(&dword_23D4DF000, v1, v2, " [%s] %s:%d payload must not be nil", v3, v4, v5, v6, v7);
+      OUTLINED_FUNCTION_1_1(&dword_23D4DF000, v0, v1, " [%s] %s:%d payload must not be nil", v2, v3, v4, v5);
     }
   }
-
-  v0 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateVideoFECStatsOnSegment:fecStats:segmentLossPattern:segmentLossHistogram:segmentLossFecHistogram:direction:.cold.1()
 {
-  v8 = *MEMORY[0x277D85DE8];
   if (VRTraceGetErrorLogLevelForModule("") >= 3)
   {
     VRTraceErrorLogLevelToCSTR(3u);
@@ -2995,16 +3310,13 @@ LABEL_72:
     {
       OUTLINED_FUNCTION_3_3();
       OUTLINED_FUNCTION_0();
-      OUTLINED_FUNCTION_1_1(&dword_23D4DF000, v1, v2, " [%s] %s:%d segmentLossFecHistogram must not be nil", v3, v4, v5, v6, v7);
+      OUTLINED_FUNCTION_1_1(&dword_23D4DF000, v0, v1, " [%s] %s:%d segmentLossFecHistogram must not be nil", v2, v3, v4, v5);
     }
   }
-
-  v0 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateVideoFECStatsOnSegment:fecStats:segmentLossPattern:segmentLossHistogram:segmentLossFecHistogram:direction:.cold.2()
 {
-  v8 = *MEMORY[0x277D85DE8];
   if (VRTraceGetErrorLogLevelForModule("") >= 3)
   {
     VRTraceErrorLogLevelToCSTR(3u);
@@ -3012,16 +3324,13 @@ LABEL_72:
     {
       OUTLINED_FUNCTION_3_3();
       OUTLINED_FUNCTION_0();
-      OUTLINED_FUNCTION_1_1(&dword_23D4DF000, v1, v2, " [%s] %s:%d segmentLossHistogram must not be nil", v3, v4, v5, v6, v7);
+      OUTLINED_FUNCTION_1_1(&dword_23D4DF000, v0, v1, " [%s] %s:%d segmentLossHistogram must not be nil", v2, v3, v4, v5);
     }
   }
-
-  v0 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateVideoFECStatsOnSegment:fecStats:segmentLossPattern:segmentLossHistogram:segmentLossFecHistogram:direction:.cold.3()
 {
-  v8 = *MEMORY[0x277D85DE8];
   if (VRTraceGetErrorLogLevelForModule("") >= 3)
   {
     VRTraceErrorLogLevelToCSTR(3u);
@@ -3029,16 +3338,13 @@ LABEL_72:
     {
       OUTLINED_FUNCTION_3_3();
       OUTLINED_FUNCTION_0();
-      OUTLINED_FUNCTION_1_1(&dword_23D4DF000, v1, v2, " [%s] %s:%d segmentLossPattern must not be nil", v3, v4, v5, v6, v7);
+      OUTLINED_FUNCTION_1_1(&dword_23D4DF000, v0, v1, " [%s] %s:%d segmentLossPattern must not be nil", v2, v3, v4, v5);
     }
   }
-
-  v0 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateVideoFECStatsOnSegment:fecStats:segmentLossPattern:segmentLossHistogram:segmentLossFecHistogram:direction:.cold.4()
 {
-  v8 = *MEMORY[0x277D85DE8];
   if (VRTraceGetErrorLogLevelForModule("") >= 3)
   {
     VRTraceErrorLogLevelToCSTR(3u);
@@ -3046,16 +3352,13 @@ LABEL_72:
     {
       OUTLINED_FUNCTION_3_3();
       OUTLINED_FUNCTION_0();
-      OUTLINED_FUNCTION_1_1(&dword_23D4DF000, v1, v2, " [%s] %s:%d segmentFecStats must point to a valid container", v3, v4, v5, v6, v7);
+      OUTLINED_FUNCTION_1_1(&dword_23D4DF000, v0, v1, " [%s] %s:%d segmentFecStats must point to a valid container", v2, v3, v4, v5);
     }
   }
-
-  v0 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateVideoFECStatsOnSegment:fecStats:segmentLossPattern:segmentLossHistogram:segmentLossFecHistogram:direction:.cold.5()
 {
-  v8 = *MEMORY[0x277D85DE8];
   if (VRTraceGetErrorLogLevelForModule("") >= 3)
   {
     VRTraceErrorLogLevelToCSTR(3u);
@@ -3063,16 +3366,13 @@ LABEL_72:
     {
       OUTLINED_FUNCTION_3_3();
       OUTLINED_FUNCTION_0();
-      OUTLINED_FUNCTION_1_1(&dword_23D4DF000, v1, v2, " [%s] %s:%d payload must not be nil", v3, v4, v5, v6, v7);
+      OUTLINED_FUNCTION_1_1(&dword_23D4DF000, v0, v1, " [%s] %s:%d payload must not be nil", v2, v3, v4, v5);
     }
   }
-
-  v0 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addFECStatsHolderKPIs:usingFECStatsHolder:reportFrameSizeTelemetry:reportLevels:.cold.1()
 {
-  v8 = *MEMORY[0x277D85DE8];
   if (VRTraceGetErrorLogLevelForModule("") >= 3)
   {
     VRTraceErrorLogLevelToCSTR(3u);
@@ -3080,16 +3380,13 @@ LABEL_72:
     {
       OUTLINED_FUNCTION_3_3();
       OUTLINED_FUNCTION_0();
-      OUTLINED_FUNCTION_1_1(&dword_23D4DF000, v1, v2, " [%s] %s:%d segmentFECStats must point to a valid container", v3, v4, v5, v6, v7);
+      OUTLINED_FUNCTION_1_1(&dword_23D4DF000, v0, v1, " [%s] %s:%d segmentFECStats must point to a valid container", v2, v3, v4, v5);
     }
   }
-
-  v0 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addFECStats:parameters:reportFrameSizeTelemetry:reportLevels:.cold.1()
 {
-  v8 = *MEMORY[0x277D85DE8];
   if (VRTraceGetErrorLogLevelForModule("") >= 3)
   {
     VRTraceErrorLogLevelToCSTR(3u);
@@ -3097,16 +3394,13 @@ LABEL_72:
     {
       OUTLINED_FUNCTION_3_3();
       OUTLINED_FUNCTION_0();
-      OUTLINED_FUNCTION_1_1(&dword_23D4DF000, v1, v2, " [%s] %s:%d segmentLossFecHistogram must not be nil", v3, v4, v5, v6, v7);
+      OUTLINED_FUNCTION_1_1(&dword_23D4DF000, v0, v1, " [%s] %s:%d segmentLossFecHistogram must not be nil", v2, v3, v4, v5);
     }
   }
-
-  v0 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addFECStats:parameters:reportFrameSizeTelemetry:reportLevels:.cold.2()
 {
-  v8 = *MEMORY[0x277D85DE8];
   if (VRTraceGetErrorLogLevelForModule("") >= 3)
   {
     VRTraceErrorLogLevelToCSTR(3u);
@@ -3114,16 +3408,13 @@ LABEL_72:
     {
       OUTLINED_FUNCTION_3_3();
       OUTLINED_FUNCTION_0();
-      OUTLINED_FUNCTION_1_1(&dword_23D4DF000, v1, v2, " [%s] %s:%d segmentLossHistogram must not be nil", v3, v4, v5, v6, v7);
+      OUTLINED_FUNCTION_1_1(&dword_23D4DF000, v0, v1, " [%s] %s:%d segmentLossHistogram must not be nil", v2, v3, v4, v5);
     }
   }
-
-  v0 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addFECStats:parameters:reportFrameSizeTelemetry:reportLevels:.cold.3()
 {
-  v8 = *MEMORY[0x277D85DE8];
   if (VRTraceGetErrorLogLevelForModule("") >= 3)
   {
     VRTraceErrorLogLevelToCSTR(3u);
@@ -3131,16 +3422,13 @@ LABEL_72:
     {
       OUTLINED_FUNCTION_3_3();
       OUTLINED_FUNCTION_0();
-      OUTLINED_FUNCTION_1_1(&dword_23D4DF000, v1, v2, " [%s] %s:%d segmentLossPattern must not be nil", v3, v4, v5, v6, v7);
+      OUTLINED_FUNCTION_1_1(&dword_23D4DF000, v0, v1, " [%s] %s:%d segmentLossPattern must not be nil", v2, v3, v4, v5);
     }
   }
-
-  v0 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addFECStats:parameters:reportFrameSizeTelemetry:reportLevels:.cold.4()
 {
-  v8 = *MEMORY[0x277D85DE8];
   if (VRTraceGetErrorLogLevelForModule("") >= 3)
   {
     VRTraceErrorLogLevelToCSTR(3u);
@@ -3148,16 +3436,13 @@ LABEL_72:
     {
       OUTLINED_FUNCTION_3_3();
       OUTLINED_FUNCTION_0();
-      OUTLINED_FUNCTION_1_1(&dword_23D4DF000, v1, v2, " [%s] %s:%d segmentFECStats must point to a valid container", v3, v4, v5, v6, v7);
+      OUTLINED_FUNCTION_1_1(&dword_23D4DF000, v0, v1, " [%s] %s:%d segmentFECStats must point to a valid container", v2, v3, v4, v5);
     }
   }
-
-  v0 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addFECStats:parameters:reportFrameSizeTelemetry:reportLevels:.cold.5()
 {
-  v8 = *MEMORY[0x277D85DE8];
   if (VRTraceGetErrorLogLevelForModule("") >= 3)
   {
     VRTraceErrorLogLevelToCSTR(3u);
@@ -3165,16 +3450,13 @@ LABEL_72:
     {
       OUTLINED_FUNCTION_3_3();
       OUTLINED_FUNCTION_0();
-      OUTLINED_FUNCTION_1_1(&dword_23D4DF000, v1, v2, " [%s] %s:%d parameters must not be nil", v3, v4, v5, v6, v7);
+      OUTLINED_FUNCTION_1_1(&dword_23D4DF000, v0, v1, " [%s] %s:%d parameters must not be nil", v2, v3, v4, v5);
     }
   }
-
-  v0 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addFECStats:parameters:reportFrameSizeTelemetry:reportLevels:.cold.6()
 {
-  v8 = *MEMORY[0x277D85DE8];
   if (VRTraceGetErrorLogLevelForModule("") >= 3)
   {
     VRTraceErrorLogLevelToCSTR(3u);
@@ -3182,11 +3464,9 @@ LABEL_72:
     {
       OUTLINED_FUNCTION_3_3();
       OUTLINED_FUNCTION_0();
-      OUTLINED_FUNCTION_1_1(&dword_23D4DF000, v1, v2, " [%s] %s:%d fecStatsReport must not be nil", v3, v4, v5, v6, v7);
+      OUTLINED_FUNCTION_1_1(&dword_23D4DF000, v0, v1, " [%s] %s:%d fecStatsReport must not be nil", v2, v3, v4, v5);
     }
   }
-
-  v0 = *MEMORY[0x277D85DE8];
 }
 
 - (void)copyCurrentWiFiDevice
@@ -3198,7 +3478,6 @@ LABEL_72:
 
 - (uint64_t)copyCurrentWiFiDevice
 {
-  v11 = *MEMORY[0x277D85DE8];
   if (VRTraceGetErrorLogLevelForModule("") >= 3)
   {
     VRTraceErrorLogLevelToCSTR(3u);
@@ -3206,17 +3485,16 @@ LABEL_72:
     {
       OUTLINED_FUNCTION_3_0();
       OUTLINED_FUNCTION_0();
-      OUTLINED_FUNCTION_1_5(&dword_23D4DF000, v4, v5, " [%s] %s:%d Failed to get device list for WiFi manager", v6, v7, v8, v9, v10);
+      OUTLINED_FUNCTION_1_5(&dword_23D4DF000, v3, v4, " [%s] %s:%d Failed to get device list for WiFi manager", v5, v6, v7, v8);
     }
   }
 
-  v2 = *MEMORY[0x277D85DE8];
   return self & 1;
 }
 
 - (void)phyModeFromWifiInterface:.cold.1()
 {
-  v5 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
   if (VRTraceGetErrorLogLevelForModule("") >= 5)
   {
     VRTraceErrorLogLevelToCSTR(5u);
@@ -3225,18 +3503,17 @@ LABEL_72:
     {
       OUTLINED_FUNCTION_3_0();
       OUTLINED_FUNCTION_0();
-      v4 = 1473;
-      OUTLINED_FUNCTION_16_2(&dword_23D4DF000, v0, v1, " [%s] %s:%d Cellular interface used, set phyMode to empty", v3);
+      v3 = 1473;
+      OUTLINED_FUNCTION_16_2(&dword_23D4DF000, v0, v1, " [%s] %s:%d Cellular interface used, set phyMode to empty", v2);
     }
   }
 
   OUTLINED_FUNCTION_31_0();
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 - (void)phyModeFromWifiInterface:.cold.2()
 {
-  v5 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
   if (VRTraceGetErrorLogLevelForModule("") >= 5)
   {
     VRTraceErrorLogLevelToCSTR(5u);
@@ -3245,18 +3522,16 @@ LABEL_72:
     {
       OUTLINED_FUNCTION_3_0();
       OUTLINED_FUNCTION_0();
-      v4 = 1475;
-      OUTLINED_FUNCTION_16_2(&dword_23D4DF000, v0, v1, " [%s] %s:%d result is nil", v3);
+      v3 = 1475;
+      OUTLINED_FUNCTION_16_2(&dword_23D4DF000, v0, v1, " [%s] %s:%d result is nil", v2);
     }
   }
 
   OUTLINED_FUNCTION_31_0();
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 - (void)isApplePersonalHotspotAndUpdatePhyMode
 {
-  v9 = *MEMORY[0x277D85DE8];
   if (VRTraceGetErrorLogLevelForModule("") >= 5)
   {
     VRTraceErrorLogLevelToCSTR(5u);
@@ -3271,12 +3546,10 @@ LABEL_72:
 
   *a2 = 0;
   OUTLINED_FUNCTION_31_0();
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateReportWithQRServerSessionStats:.cold.1()
 {
-  v8 = *MEMORY[0x277D85DE8];
   if (VRTraceGetErrorLogLevelForModule("") >= 3)
   {
     VRTraceErrorLogLevelToCSTR(3u);
@@ -3284,11 +3557,9 @@ LABEL_72:
     {
       OUTLINED_FUNCTION_3_3();
       OUTLINED_FUNCTION_0();
-      OUTLINED_FUNCTION_1_1(&dword_23D4DF000, v1, v2, " [%s] %s:%d qrExperiments must not be nil", v3, v4, v5, v6, v7);
+      OUTLINED_FUNCTION_1_1(&dword_23D4DF000, v0, v1, " [%s] %s:%d qrExperiments must not be nil", v2, v3, v4, v5);
     }
   }
-
-  v0 = *MEMORY[0x277D85DE8];
 }
 
 @end

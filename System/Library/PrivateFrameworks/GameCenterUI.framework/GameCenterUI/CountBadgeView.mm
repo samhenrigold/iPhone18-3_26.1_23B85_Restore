@@ -23,7 +23,7 @@
 - (void)layoutSubviews
 {
   selfCopy = self;
-  sub_24E32E0D0();
+  sub_24E32E0D0(selfCopy);
 }
 
 - (NSLayoutYAxisAnchor)firstBaselineAnchor

@@ -1,6 +1,7 @@
 @interface MFOSXServerIMAPAccount
 + (id)_authSchemeForAuthenticationMethod:(id)method;
 + (id)newChildAccountWithParentAccount:(id)account error:(id *)error;
+- (id)_credentialCreateIfNecessary:(BOOL)necessary error:(id *)error;
 - (id)_deliveryAccountCreateIfNeeded:(BOOL)needed;
 - (id)displayName;
 - (void)dealloc;
@@ -32,12 +33,19 @@
   }
 }
 
+- (id)_credentialCreateIfNecessary:(BOOL)necessary error:(id *)error
+{
+  parentAccount = [(MFAccount *)self parentAccount];
+
+  return [(ACAccount *)parentAccount credentialWithError:error];
+}
+
 + (id)newChildAccountWithParentAccount:(id)account error:(id *)error
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   if (!account)
   {
-    goto LABEL_20;
+    return 0;
   }
 
   v7 = *MEMORY[0x277CB9150];
@@ -45,34 +53,34 @@
   dictionary = [MEMORY[0x277CBEB38] dictionary];
   if (([account isProvisionedForDataclass:v7] & 1) != 0 || (v10 = objc_msgSend(MEMORY[0x277D28410], "errorWithDomain:code:localizedDescription:", @"OSXServerIMAPErrorDomain", 2, 0)) == 0)
   {
-    v36 = 0u;
-    v37 = 0u;
-    v34 = 0u;
     v35 = 0u;
+    v36 = 0u;
+    v33 = 0u;
+    v34 = 0u;
     childAccounts = [account childAccounts];
-    v12 = [childAccounts countByEnumeratingWithState:&v34 objects:v39 count:16];
+    v12 = [childAccounts countByEnumeratingWithState:&v33 objects:v38 count:16];
     if (v12)
     {
       v13 = v12;
-      v14 = *v35;
+      v14 = *v34;
       v15 = *MEMORY[0x277CB8C68];
       while (2)
       {
         for (i = 0; i != v13; ++i)
         {
-          if (*v35 != v14)
+          if (*v34 != v14)
           {
             objc_enumerationMutation(childAccounts);
           }
 
-          if ([objc_msgSend(objc_msgSend(*(*(&v34 + 1) + 8 * i) "accountType")])
+          if ([objc_msgSend(objc_msgSend(*(*(&v33 + 1) + 8 * i) "accountType")])
           {
             v10 = [MEMORY[0x277D28410] errorWithDomain:@"OSXServerIMAPErrorDomain" code:1 localizedDescription:0];
             goto LABEL_15;
           }
         }
 
-        v13 = [childAccounts countByEnumeratingWithState:&v34 objects:v39 count:16];
+        v13 = [childAccounts countByEnumeratingWithState:&v33 objects:v38 count:16];
         v10 = 0;
         if (v13)
         {
@@ -103,12 +111,10 @@ LABEL_15:
     {
       v19 = 0;
       *error = v10;
-      goto LABEL_31;
+      return v19;
     }
 
-LABEL_20:
-    v19 = 0;
-    goto LABEL_31;
+    return 0;
   }
 
   v20 = v18;
@@ -133,8 +139,8 @@ LABEL_20:
       v22 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@@%@", username, v24];
     }
 
-    v38 = v22;
-    v21 = [MEMORY[0x277CBEA60] arrayWithObjects:&v38 count:1];
+    v37 = v22;
+    v21 = [MEMORY[0x277CBEA60] arrayWithObjects:&v37 count:1];
   }
 
   [dictionary setObject:v21 forKeyedSubscript:*MEMORY[0x277D28358]];
@@ -160,8 +166,6 @@ LABEL_20:
   persistentAccount = [v19 persistentAccount];
   [persistentAccount setParentAccount:account];
   [persistentAccount setAuthenticationType:*MEMORY[0x277CB90B8]];
-LABEL_31:
-  v32 = *MEMORY[0x277D85DE8];
   return v19;
 }
 

@@ -76,7 +76,7 @@
 - (BOOL)isEqualToCacheKey:(id)key
 {
   keyCopy = key;
-  v6 = keyCopy && ((className = self->_className, className == *(keyCopy + 1)) || [(NSString *)className isEqualToString:?]) && self->_scale == *(keyCopy + 2) && self->_cornerRadius == *(keyCopy + 3) && self->_lineWidth == *(keyCopy + 4) && CGColorEqualToColor(self->_strokeColor, *(keyCopy + 5)) && CGColorEqualToColor(self->_fillColor, *(keyCopy + 6));
+  v6 = keyCopy && ((className = self->_className, className == *(keyCopy + 1)) || objc_msgSend_isEqualToString_(className)) && self->_scale == *(keyCopy + 2) && self->_cornerRadius == *(keyCopy + 3) && self->_lineWidth == *(keyCopy + 4) && CGColorEqualToColor(self->_strokeColor, *(keyCopy + 5)) && CGColorEqualToColor(self->_fillColor, *(keyCopy + 6));
 
   return v6;
 }

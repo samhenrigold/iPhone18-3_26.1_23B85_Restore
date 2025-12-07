@@ -332,11 +332,11 @@ LABEL_11:
   return v26;
 }
 
-NSString *__116__VNContoursDetector_createRegionOfInterestCrop_options_qosClass_warningRecorder_pixelBuffer_error_progressHandler___block_invoke()
+NSString *__116__VNContoursDetector_createRegionOfInterestCrop_options_qosClass_warningRecorder_pixelBuffer_error_progressHandler___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
+  v2 = objc_opt_class();
 
-  return NSStringFromClass(v0);
+  return NSStringFromClass(v2);
 }
 
 uint64_t __114__VNContoursDetector__highContastMonoCVPixelBufferFromImageBuffer_cropRect_options_pixelBufferRepsCacheKey_error___block_invoke(uint64_t a1, uint64_t a2)

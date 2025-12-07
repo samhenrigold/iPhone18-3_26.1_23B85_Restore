@@ -13,7 +13,7 @@
 
 - (void)launchProcessWithUserInfo:(id)info
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v4 = MEMORY[0x1E696B0D8];
   infoCopy = info;
   anonymousListener = [v4 anonymousListener];
@@ -34,18 +34,16 @@
   remoteAlertHandle = self->_remoteAlertHandle;
   self->_remoteAlertHandle = v13;
 
-  [(SBSRemoteAlertHandle *)self->_remoteAlertHandle registerObserver:self];
-  v15 = _AALogSystem();
+  v15 = _AALogSystem([(SBSRemoteAlertHandle *)self->_remoteAlertHandle registerObserver:self]);
   if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
   {
     remoteAlertHandle = [(AAFlowPresenter *)self remoteAlertHandle];
-    v18 = 138412290;
-    v19 = remoteAlertHandle;
-    _os_log_impl(&dword_1B6F6A000, v15, OS_LOG_TYPE_DEFAULT, "Activating handle: %@", &v18, 0xCu);
+    v17 = 138412290;
+    v18 = remoteAlertHandle;
+    _os_log_impl(&dword_1B6F6A000, v15, OS_LOG_TYPE_DEFAULT, "Activating handle: %@", &v17, 0xCu);
   }
 
   [(SBSRemoteAlertHandle *)self->_remoteAlertHandle activateWithContext:v12];
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (void)flowFinishedWithError:(id)error completion:(id)completion
@@ -73,35 +71,31 @@
 
 - (void)remoteAlertHandleDidActivate:(id)activate
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   activateCopy = activate;
-  v4 = _AALogSystem();
+  v4 = _AALogSystem(activateCopy);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 138412290;
-    v7 = activateCopy;
-    _os_log_impl(&dword_1B6F6A000, v4, OS_LOG_TYPE_DEFAULT, "Alert handle (%@) activated.", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = activateCopy;
+    _os_log_impl(&dword_1B6F6A000, v4, OS_LOG_TYPE_DEFAULT, "Alert handle (%@) activated.", &v5, 0xCu);
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)remoteAlertHandleDidDeactivate:(id)deactivate
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   deactivateCopy = deactivate;
-  v5 = _AALogSystem();
+  v5 = _AALogSystem(deactivateCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 138412290;
-    v9 = deactivateCopy;
-    _os_log_impl(&dword_1B6F6A000, v5, OS_LOG_TYPE_DEFAULT, "Alert handle (%@) deactivated.", &v8, 0xCu);
+    v7 = 138412290;
+    v8 = deactivateCopy;
+    _os_log_impl(&dword_1B6F6A000, v5, OS_LOG_TYPE_DEFAULT, "Alert handle (%@) deactivated.", &v7, 0xCu);
   }
 
   v6 = [MEMORY[0x1E696ABC0] aa_errorWithCode:-1];
   [(AAFlowPresenter *)self _callCompletionBlockWithError:v6];
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)remoteAlertHandle:(id)handle didInvalidateWithError:(id)error
@@ -116,15 +110,15 @@
     {
 
 LABEL_9:
-      v12 = _AALogSystem();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+      v13 = _AALogSystem(v9);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
       {
         v15 = 138412290;
         v16 = handleCopy;
-        _os_log_impl(&dword_1B6F6A000, v12, OS_LOG_TYPE_DEFAULT, "Alert handle (%@) deactivated by request.", &v15, 0xCu);
+        _os_log_impl(&dword_1B6F6A000, v13, OS_LOG_TYPE_DEFAULT, "Alert handle (%@) deactivated by request.", &v15, 0xCu);
       }
 
-      v10 = [MEMORY[0x1E696ABC0] aa_errorWithCode:-1];
+      v11 = [MEMORY[0x1E696ABC0] aa_errorWithCode:-1];
       goto LABEL_12;
     }
 
@@ -140,22 +134,20 @@ LABEL_9:
   {
   }
 
-  v9 = _AALogSystem();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  v10 = _AALogSystem(v9);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     v15 = 138412546;
     v16 = handleCopy;
     v17 = 2112;
     v18 = errorCopy;
-    _os_log_impl(&dword_1B6F6A000, v9, OS_LOG_TYPE_DEFAULT, "Alert handle (%@) interrupted with error: %@", &v15, 0x16u);
+    _os_log_impl(&dword_1B6F6A000, v10, OS_LOG_TYPE_DEFAULT, "Alert handle (%@) interrupted with error: %@", &v15, 0x16u);
   }
 
-  v10 = [MEMORY[0x1E696ABC0] aa_errorWithCode:0 underlyingError:errorCopy];
+  v11 = [MEMORY[0x1E696ABC0] aa_errorWithCode:0 underlyingError:errorCopy];
 LABEL_12:
-  v13 = v10;
-  [(AAFlowPresenter *)self _callCompletionBlockWithError:v10];
-
-  v14 = *MEMORY[0x1E69E9840];
+  v14 = v11;
+  [(AAFlowPresenter *)self _callCompletionBlockWithError:v11];
 }
 
 - (void)_callCompletionBlockWithError:(id)error
@@ -174,7 +166,7 @@ LABEL_12:
 
 - (void)dealloc
 {
-  v3 = _AALogSystem();
+  v3 = _AALogSystem(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     [(AAInheritanceController *)self dealloc];

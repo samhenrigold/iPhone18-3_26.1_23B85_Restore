@@ -41,8 +41,7 @@
 
 - (BOOL)csd_isUnknown
 {
-  accountID = [(CTXPCContextInfo *)self accountID];
-  v7 = [accountID length] && (objc_msgSend(accountID, "csd_UUIDv5"), v4 = objc_claimAutoreleasedReturnValue(), -[CTXPCContextInfo uuid](self, "uuid"), v5 = objc_claimAutoreleasedReturnValue(), v6 = objc_msgSend(v4, "isEqual:", v5), v5, v4, v6) && -[CTXPCContextInfo slotID](self, "slotID") == 0;
+  v7 = [accountID length] && (objc_msgSend(accountID, "csd_UUIDv5"), v4 = accountID = [(CTXPCContextInfo *)self accountID];
 
   return v7;
 }

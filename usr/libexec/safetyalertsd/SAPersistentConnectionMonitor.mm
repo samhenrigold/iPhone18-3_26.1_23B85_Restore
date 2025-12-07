@@ -88,7 +88,7 @@ LABEL_8:
       v14 = 1.0;
     }
 
-    sub_100092E8C(reachabilityInstance + 48, &v15, v14);
+    sub_100092E8C(reachabilityInstance + 6, &v15, v14);
   }
 
   objc_autoreleasePoolPop(v5);

@@ -131,10 +131,10 @@ LABEL_8:
     v13 = 0x200000000;
   }
 
-  v23.origin.x = x;
-  v23.origin.y = y;
-  v23.size.width = width;
-  v23.size.height = v12;
+  v30.origin.x = x;
+  v30.origin.y = y;
+  v30.size.width = width;
+  v30.size.height = v12;
   if (_UISolariumFeatureFlagEnabled())
   {
     v14 = 20.0;
@@ -145,48 +145,54 @@ LABEL_8:
     v14 = 16.0;
   }
 
-  v26.origin.x = x;
-  v26.origin.y = y;
-  v26.size.width = width;
-  v26.size.height = v12;
-  CGRectDivide(v26, &slice, &v23, 8.0, CGRectMinYEdge);
-  CGRectDivide(v23, &slice, &v23, 8.0, CGRectMaxYEdge);
-  CGRectDivide(v23, &slice, &v23, v14, v13);
-  CGRectDivide(v23, &slice, &v23, v14, HIDWORD(v13));
+  v33.origin.x = x;
+  v33.origin.y = y;
+  v33.size.width = width;
+  v33.size.height = v12;
+  CGRectDivide(v33, &slice, &v30, 8.0, CGRectMinYEdge);
+  CGRectDivide(v30, &slice, &v30, 8.0, CGRectMaxYEdge);
+  CGRectDivide(v30, &slice, &v30, v14, v13);
+  CGRectDivide(v30, &slice, &v30, v14, HIDWORD(v13));
   if (v11)
   {
-    CGRectDivide(v23, &slice, &v23, v8, CGRectMinXEdge);
+    CGRectDivide(v30, &slice, &v30, v8, CGRectMinXEdge);
     iconButton = self->_iconButton;
-    PKSizeAlignedInRect();
+    v16.n128_u64[0] = *&slice.origin.x;
+    v17.n128_u64[0] = *&slice.origin.y;
+    v18.n128_u64[0] = *&slice.size.width;
+    v19.n128_u64[0] = *&slice.size.height;
+    v20.n128_f64[0] = v8;
+    v21.n128_f64[0] = v8;
+    PKSizeAlignedInRect(*MEMORY[0x1E69BB7F8], v20, v21, v16, v17, v18, v19, v22);
     [(UIButton *)iconButton setFrame:?];
     emojiLabel = self->_emojiLabel;
     [(UIButton *)self->_iconButton bounds];
     [(UILabel *)emojiLabel setFrame:?];
   }
 
-  [(UIButton *)self->_iconButton setHidden:v11 ^ 1u, *&v23.origin.x, *&v23.origin.y, *&v23.size.width, *&v23.size.height, *&slice.origin.x, *&slice.origin.y, *&slice.size.width, *&slice.size.height];
+  [(UIButton *)self->_iconButton setHidden:v11 ^ 1u, *&v30.origin.x, *&v30.origin.y, *&v30.size.width, *&v30.size.height];
   [(UILabel *)self->_emojiLabel setHidden:v11 ^ 1u];
-  if (-[PKPeerPaymentRecurringPaymentDetailRowItem isEditable](self->_item, "isEditable") || ((-[PKPeerPaymentRecurringPaymentMemoRowItem memo](self->_item, "memo"), v17 = objc_claimAutoreleasedReturnValue(), [v17 text], v18 = objc_claimAutoreleasedReturnValue(), !objc_msgSend(v18, "length")) ? (v19 = v11) : (v19 = 0), v18, v17, (v19 & 1) == 0))
+  if (-[PKPeerPaymentRecurringPaymentDetailRowItem isEditable](self->_item, "isEditable") || ((-[PKPeerPaymentRecurringPaymentMemoRowItem memo](self->_item, "memo"), v24 = objc_claimAutoreleasedReturnValue(), [v24 text], v25 = objc_claimAutoreleasedReturnValue(), !objc_msgSend(v25, "length")) ? (v26 = v11) : (v26 = 0), v25, v24, (v26 & 1) == 0))
   {
     if (v11)
     {
-      CGRectDivide(v23, &slice, &v23, v14, CGRectMinXEdge);
+      CGRectDivide(v30, &slice, &v30, v14, CGRectMinXEdge);
     }
 
-    [(UITextField *)self->_textField setFrame:v23.origin.x, v23.origin.y, v23.size.width, v23.size.height];
-    v20 = 0;
+    [(UITextField *)self->_textField setFrame:v30.origin.x, v30.origin.y, v30.size.width, v30.size.height];
+    v27 = 0;
   }
 
   else
   {
-    v20 = 1;
+    v27 = 1;
   }
 
-  [(UITextField *)self->_textField setHidden:v20];
-  v21 = width;
-  v22 = v12;
-  result.height = v22;
-  result.width = v21;
+  [(UITextField *)self->_textField setHidden:v27];
+  v28 = width;
+  v29 = v12;
+  result.height = v29;
+  result.width = v28;
   return result;
 }
 

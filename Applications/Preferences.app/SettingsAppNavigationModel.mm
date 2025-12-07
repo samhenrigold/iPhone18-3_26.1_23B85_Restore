@@ -6,11 +6,11 @@
 
 - (BOOL)shouldContinueActiveURLRoutingForURLResourceDictionary:(id)dictionary
 {
-  static Dictionary._unconditionallyBridgeFromObjectiveC(_:)();
+  v3 = static Dictionary._unconditionallyBridgeFromObjectiveC(_:)();
 
-  v3 = sub_1000B5F84();
+  v4 = sub_1000B5F84(v3);
 
-  return v3;
+  return v4;
 }
 
 @end

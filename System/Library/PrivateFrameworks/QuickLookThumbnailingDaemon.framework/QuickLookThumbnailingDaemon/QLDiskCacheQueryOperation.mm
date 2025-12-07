@@ -23,13 +23,13 @@
 
 - (void)main
 {
-  v28 = *MEMORY[0x277D85DE8];
-  v21 = 0;
-  v22 = &v21;
-  v23 = 0x3032000000;
-  v24 = __Block_byref_object_copy__1;
-  v25 = __Block_byref_object_dispose__1;
-  v26 = 0;
+  v27 = *MEMORY[0x277D85DE8];
+  v20 = 0;
+  v21 = &v20;
+  v22 = 0x3032000000;
+  v23 = __Block_byref_object_copy__1;
+  v24 = __Block_byref_object_dispose__1;
+  v25 = 0;
   selfCopy = self;
   objc_sync_enter(selfCopy);
   queue = selfCopy->_queue;
@@ -40,47 +40,47 @@
     block[2] = __33__QLDiskCacheQueryOperation_main__block_invoke;
     block[3] = &unk_279ADD578;
     block[4] = selfCopy;
-    block[5] = &v21;
+    block[5] = &v20;
     dispatch_sync(queue, block);
   }
 
   objc_sync_exit(selfCopy);
 
-  if (v22[5])
+  if (v21[5])
   {
     diskCache = [(_QLCacheThread *)selfCopy->_cacheThread diskCache];
-    v19[0] = MEMORY[0x277D85DD0];
-    v19[1] = 3221225472;
-    v19[2] = __33__QLDiskCacheQueryOperation_main__block_invoke_2;
-    v19[3] = &unk_279ADD5C8;
-    v19[4] = selfCopy;
-    v19[5] = &v21;
-    v5 = [diskCache doReading:v19];
+    v18[0] = MEMORY[0x277D85DD0];
+    v18[1] = 3221225472;
+    v18[2] = __33__QLDiskCacheQueryOperation_main__block_invoke_2;
+    v18[3] = &unk_279ADD5C8;
+    v18[4] = selfCopy;
+    v18[5] = &v20;
+    v5 = [diskCache doReading:v18];
 
     if ((v5 & 1) == 0)
     {
-      v17 = 0u;
-      v18 = 0u;
-      v15 = 0u;
       v16 = 0u;
-      allValues = [v22[5] allValues];
-      v7 = [allValues countByEnumeratingWithState:&v15 objects:v27 count:16];
+      v17 = 0u;
+      v14 = 0u;
+      v15 = 0u;
+      allValues = [v21[5] allValues];
+      v7 = [allValues countByEnumeratingWithState:&v14 objects:v26 count:16];
       if (v7)
       {
         v8 = 0;
-        v9 = *v16;
+        v9 = *v15;
         do
         {
           v10 = 0;
           v11 = v8;
           do
           {
-            if (*v16 != v9)
+            if (*v15 != v9)
             {
               objc_enumerationMutation(allValues);
             }
 
-            v8 = *(*(&v15 + 1) + 8 * v10);
+            v8 = *(*(&v14 + 1) + 8 * v10);
 
             [(_QLCacheThread *)selfCopy->_cacheThread _dispatchThumbnailRequestInServerThread:v8];
             ++v10;
@@ -88,7 +88,7 @@
           }
 
           while (v7 != v10);
-          v7 = [allValues countByEnumeratingWithState:&v15 objects:v27 count:16];
+          v7 = [allValues countByEnumeratingWithState:&v14 objects:v26 count:16];
         }
 
         while (v7);
@@ -97,15 +97,14 @@
   }
 
   serverThread = [(_QLCacheThread *)selfCopy->_cacheThread serverThread];
-  v14[0] = MEMORY[0x277D85DD0];
-  v14[1] = 3221225472;
-  v14[2] = __33__QLDiskCacheQueryOperation_main__block_invoke_25;
-  v14[3] = &unk_279ADD0F8;
-  v14[4] = selfCopy;
-  [serverThread perform:v14];
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 3221225472;
+  v13[2] = __33__QLDiskCacheQueryOperation_main__block_invoke_25;
+  v13[3] = &unk_279ADD0F8;
+  v13[4] = selfCopy;
+  [serverThread perform:v13];
 
-  _Block_object_dispose(&v21, 8);
-  v13 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v20, 8);
 }
 
 uint64_t __33__QLDiskCacheQueryOperation_main__block_invoke(uint64_t a1)
@@ -122,20 +121,20 @@ uint64_t __33__QLDiskCacheQueryOperation_main__block_invoke(uint64_t a1)
 
 void __33__QLDiskCacheQueryOperation_main__block_invoke_2(uint64_t a1)
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) cacheThread];
   v3 = [v2 diskCache];
   v4 = [v3 enumeratorForThumbnailRequests:*(*(*(a1 + 40) + 8) + 40)];
 
-  v27 = 0;
-  v5 = [v4 nextThumbnailRequestWithThumbnailData:&v27];
-  v6 = v27;
+  v26 = 0;
+  v5 = [v4 nextThumbnailRequestWithThumbnailData:&v26];
+  v6 = v26;
   v8 = v6;
   if (v5)
   {
     v9 = MEMORY[0x277CDAB78];
     *&v7 = 138412546;
-    v25 = v7;
+    v24 = v7;
     do
     {
       state.opaque[0] = 0;
@@ -165,10 +164,10 @@ void __33__QLDiskCacheQueryOperation_main__block_invoke_2(uint64_t a1)
           v14 = [v5 request];
           v15 = [v5 request];
           v16 = [v15 fileIdentifier];
-          *buf = v25;
-          v29 = v14;
-          v30 = 2112;
-          v31 = v16;
+          *buf = v24;
+          v28 = v14;
+          v29 = 2112;
+          v30 = v16;
           _os_log_impl(&dword_2615D3000, v13, OS_LOG_TYPE_INFO, "Thumbnail found in disk cache for request:%@ fi: %@", buf, 0x16u);
         }
 
@@ -191,10 +190,10 @@ void __33__QLDiskCacheQueryOperation_main__block_invoke_2(uint64_t a1)
           v19 = [v5 request];
           v20 = [v5 request];
           v21 = [v20 fileIdentifier];
-          *buf = v25;
-          v29 = v19;
-          v30 = 2112;
-          v31 = v21;
+          *buf = v24;
+          v28 = v19;
+          v29 = 2112;
+          v30 = v21;
           _os_log_impl(&dword_2615D3000, v18, OS_LOG_TYPE_INFO, "No thumbnail found in disk cache for request: %@ fi: %@", buf, 0x16u);
         }
 
@@ -203,9 +202,9 @@ void __33__QLDiskCacheQueryOperation_main__block_invoke_2(uint64_t a1)
       }
 
       os_activity_scope_leave(&state);
-      v27 = v8;
-      v22 = [v4 nextThumbnailRequestWithThumbnailData:&v27];
-      v23 = v27;
+      v26 = v8;
+      v22 = [v4 nextThumbnailRequestWithThumbnailData:&v26];
+      v23 = v26;
 
       v8 = v23;
       v5 = v22;
@@ -218,8 +217,6 @@ void __33__QLDiskCacheQueryOperation_main__block_invoke_2(uint64_t a1)
   {
     v23 = v6;
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (QLDiskCacheQueryOperation)initWithCacheThread:(id)thread
@@ -275,7 +272,7 @@ void __33__QLDiskCacheQueryOperation_main__block_invoke_2(uint64_t a1)
 
 void __52__QLDiskCacheQueryOperation_appendThumbnailRequest___block_invoke(uint64_t a1)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   if ([*(a1 + 32) isReady])
   {
     v2 = [*(a1 + 32) thumbnailRequestBatch];
@@ -325,28 +322,26 @@ void __52__QLDiskCacheQueryOperation_appendThumbnailRequest___block_invoke(uint6
           v13 = *(a1 + 40);
           v9 = v12;
           v14 = [v13 request];
-          v16 = 138412290;
-          v17 = v14;
-          _os_log_impl(&dword_2615D3000, v9, OS_LOG_TYPE_INFO, "could not get pathID for %@", &v16, 0xCu);
+          v15 = 138412290;
+          v16 = v14;
+          _os_log_impl(&dword_2615D3000, v9, OS_LOG_TYPE_INFO, "could not get pathID for %@", &v15, 0xCu);
         }
 
 LABEL_13:
       }
     }
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)cancel
 {
-  v41 = *MEMORY[0x277D85DE8];
-  v31 = 0;
-  v32 = &v31;
-  v33 = 0x3032000000;
-  v34 = __Block_byref_object_copy__1;
-  v35 = __Block_byref_object_dispose__1;
-  v36 = 0;
+  v40 = *MEMORY[0x277D85DE8];
+  v30 = 0;
+  v31 = &v30;
+  v32 = 0x3032000000;
+  v33 = __Block_byref_object_copy__1;
+  v34 = __Block_byref_object_dispose__1;
+  v35 = 0;
   selfCopy = self;
   objc_sync_enter(selfCopy);
   queue = selfCopy->_queue;
@@ -357,53 +352,53 @@ LABEL_13:
     block[2] = __35__QLDiskCacheQueryOperation_cancel__block_invoke;
     block[3] = &unk_279ADD578;
     block[4] = selfCopy;
-    block[5] = &v31;
+    block[5] = &v30;
     dispatch_sync(queue, block);
   }
 
   objc_sync_exit(selfCopy);
 
-  if (v32[5])
+  if (v31[5])
   {
-    v28 = 0u;
-    v29 = 0u;
     v27 = 0u;
+    v28 = 0u;
     v26 = 0u;
-    obj = [v32[5] allValues];
-    v18 = [obj countByEnumeratingWithState:&v26 objects:v40 count:16];
-    if (v18)
+    v25 = 0u;
+    obj = [v31[5] allValues];
+    v17 = [obj countByEnumeratingWithState:&v25 objects:v39 count:16];
+    if (v17)
     {
-      v17 = *v27;
+      v16 = *v26;
       do
       {
-        for (i = 0; i != v18; ++i)
+        for (i = 0; i != v17; ++i)
         {
-          if (*v27 != v17)
+          if (*v26 != v16)
           {
             objc_enumerationMutation(obj);
           }
 
-          v4 = *(*(&v26 + 1) + 8 * i);
+          v4 = *(*(&v25 + 1) + 8 * i);
+          v21 = 0u;
           v22 = 0u;
           v23 = 0u;
           v24 = 0u;
-          v25 = 0u;
           v5 = v4;
-          v6 = [v5 countByEnumeratingWithState:&v22 objects:v39 count:16];
+          v6 = [v5 countByEnumeratingWithState:&v21 objects:v38 count:16];
           if (v6)
           {
-            v7 = *v23;
+            v7 = *v22;
             do
             {
               v8 = 0;
               do
               {
-                if (*v23 != v7)
+                if (*v22 != v7)
                 {
                   objc_enumerationMutation(v5);
                 }
 
-                v9 = *(*(&v22 + 1) + 8 * v8);
+                v9 = *(*(&v21 + 1) + 8 * v8);
                 v10 = *(MEMORY[0x277CDAB78] + 16);
                 if (!v10)
                 {
@@ -417,7 +412,7 @@ LABEL_13:
                   request = [v9 request];
                   fileIdentifier = [request fileIdentifier];
                   *buf = 138412290;
-                  v38 = fileIdentifier;
+                  v37 = fileIdentifier;
                   _os_log_impl(&dword_2615D3000, v11, OS_LOG_TYPE_INFO, "Disk cache request cancel, sending the thumbnail request to the server thread (%@)", buf, 0xCu);
                 }
 
@@ -426,33 +421,32 @@ LABEL_13:
               }
 
               while (v6 != v8);
-              v6 = [v5 countByEnumeratingWithState:&v22 objects:v39 count:16];
+              v6 = [v5 countByEnumeratingWithState:&v21 objects:v38 count:16];
             }
 
             while (v6);
           }
         }
 
-        v18 = [obj countByEnumeratingWithState:&v26 objects:v40 count:16];
+        v17 = [obj countByEnumeratingWithState:&v25 objects:v39 count:16];
       }
 
-      while (v18);
+      while (v17);
     }
   }
 
-  v21.receiver = selfCopy;
-  v21.super_class = QLDiskCacheQueryOperation;
-  [(QLDiskCacheQueryOperation *)&v21 cancel];
+  v20.receiver = selfCopy;
+  v20.super_class = QLDiskCacheQueryOperation;
+  [(QLDiskCacheQueryOperation *)&v20 cancel];
   serverThread = [(_QLCacheThread *)selfCopy->_cacheThread serverThread];
-  v20[0] = MEMORY[0x277D85DD0];
-  v20[1] = 3221225472;
-  v20[2] = __35__QLDiskCacheQueryOperation_cancel__block_invoke_26;
-  v20[3] = &unk_279ADD0F8;
-  v20[4] = selfCopy;
-  [serverThread perform:v20];
+  v19[0] = MEMORY[0x277D85DD0];
+  v19[1] = 3221225472;
+  v19[2] = __35__QLDiskCacheQueryOperation_cancel__block_invoke_26;
+  v19[3] = &unk_279ADD0F8;
+  v19[4] = selfCopy;
+  [serverThread perform:v19];
 
-  _Block_object_dispose(&v31, 8);
-  v15 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v30, 8);
 }
 
 uint64_t __35__QLDiskCacheQueryOperation_cancel__block_invoke(uint64_t a1)

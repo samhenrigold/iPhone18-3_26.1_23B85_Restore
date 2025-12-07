@@ -8,7 +8,7 @@
 
 - (id)DNSServersIPAddresses
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v2 = objc_alloc_init(MEMORY[0x277CBEB18]);
   v3 = malloc_type_calloc(1uLL, 0x228uLL, 0x10B2040E67E7BACuLL);
   if (!res_9_ninit(v3))
@@ -48,8 +48,8 @@ LABEL_10:
       v8 = 30;
       v10 = 46;
 LABEL_8:
-      inet_ntop(v8, v9, v15, v10);
-      v11 = [MEMORY[0x277CCACA8] stringWithUTF8String:v15];
+      inet_ntop(v8, v9, v14, v10);
+      v11 = [MEMORY[0x277CCACA8] stringWithUTF8String:v14];
       if (v11)
       {
         [v2 addObject:v11];
@@ -73,8 +73,6 @@ LABEL_11:
   {
     v12 = 0;
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v12;
 }

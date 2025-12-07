@@ -2,6 +2,7 @@
 - (BOOL)CKOperationShouldRun:(id *)run;
 - (BOOL)zoneIDHasCorrectDatabaseScope:(id)scope error:(id *)error;
 - (CKDatabase)database;
+- (id)CKDescriptionPropertiesWithPublic:(BOOL)public private:(BOOL)private shouldExpand:(BOOL)expand;
 - (id)databaseIfNotNil;
 - (int64_t)databaseScope;
 - (void)fillFromOperationInfo:(id)info;
@@ -49,6 +50,25 @@
   v6 = objc_msgSend_databaseScope(v3, v4, v5);
 
   return v6;
+}
+
+- (id)CKDescriptionPropertiesWithPublic:(BOOL)public private:(BOOL)private shouldExpand:(BOOL)expand
+{
+  v20.receiver = self;
+  v20.super_class = CKDatabaseOperation;
+  v6 = [(CKOperation *)&v20 CKDescriptionPropertiesWithPublic:public private:private shouldExpand:expand];
+  v9 = objc_msgSend_mutableCopy(v6, v7, v8);
+
+  v12 = objc_msgSend_databaseIfNotNil(self, v10, v11);
+  v15 = v12;
+  if (v12)
+  {
+    v16 = objc_msgSend_databaseScope(v12, v13, v14);
+    v17 = CKDatabaseScopeString(v16);
+    objc_msgSend_setObject_forKeyedSubscript_(v9, v18, v17, @"databaseScope");
+  }
+
+  return v9;
 }
 
 - (void)setDatabase:(CKDatabase *)database

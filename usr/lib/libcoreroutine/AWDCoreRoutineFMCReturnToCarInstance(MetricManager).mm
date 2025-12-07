@@ -71,12 +71,12 @@ LABEL_9:
 
 - (id)description
 {
-  v2 = MEMORY[0x277CCACA8];
-  v3 = objc_opt_class();
-  v4 = NSStringFromClass(v3);
-  v5 = [v2 stringWithFormat:@"%@, horizontalAccuracy %d, horizontalDistance %d", v4, objc_msgSend(self, "horizontalAccuracy"), objc_msgSend(self, "horizontalDistance")];
+  v3 = MEMORY[0x277CCACA8];
+  v4 = objc_opt_class();
+  v5 = NSStringFromClass(v4);
+  v6 = [v3 stringWithFormat:@"%@, horizontalAccuracy %d, horizontalDistance %d", v5, objc_msgSend(self, "horizontalAccuracy"), objc_msgSend(self, "horizontalDistance")];
 
-  return v5;
+  return v6;
 }
 
 @end

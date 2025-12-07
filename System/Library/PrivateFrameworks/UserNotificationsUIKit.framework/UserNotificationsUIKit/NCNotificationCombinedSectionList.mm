@@ -398,7 +398,7 @@
   return v3 & 1;
 }
 
-uint64_t __62__NCNotificationCombinedSectionList_hasVisibleContentToReveal__block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
+void *__62__NCNotificationCombinedSectionList_hasVisibleContentToReveal__block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
   result = [a2 hasVisibleContentToReveal];
   *(*(*(a1 + 32) + 8) + 24) = result;
@@ -612,7 +612,7 @@ void __63__NCNotificationCombinedSectionList_itemCountWithExpandedGroup__block_i
   return v5 & 1;
 }
 
-uint64_t __65__NCNotificationCombinedSectionList_containsNotificationRequest___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
+void *__65__NCNotificationCombinedSectionList_containsNotificationRequest___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
   result = [a2 containsNotificationRequest:*(a1 + 32)];
   if (result)

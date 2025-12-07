@@ -93,9 +93,9 @@
 
 - (void)layoutSubviews
 {
-  v24.receiver = self;
-  v24.super_class = STSImageCell;
-  [(STSImageCell *)&v24 layoutSubviews];
+  v26.receiver = self;
+  v26.super_class = STSImageCell;
+  [(STSImageCell *)&v26 layoutSubviews];
   contentView = [(STSImageCell *)self contentView];
   [contentView bounds];
   v5 = v4;
@@ -103,38 +103,38 @@
   v9 = v8;
   v11 = v10;
 
-  v25.origin.x = v5;
-  v25.origin.y = v7;
-  v25.size.width = v9;
-  v25.size.height = v11;
-  Width = CGRectGetWidth(v25);
-  v26.origin.x = v5;
-  v26.origin.y = v7;
-  v26.size.width = v9;
-  v26.size.height = v11;
-  Height = CGRectGetHeight(v26);
+  v27.origin.x = v5;
+  v27.origin.y = v7;
+  v27.size.width = v9;
+  v27.size.height = v11;
+  Width = CGRectGetWidth(v27);
+  v28.origin.x = v5;
+  v28.origin.y = v7;
+  v28.size.width = v9;
+  v28.size.height = v11;
+  Height = CGRectGetHeight(v28);
   [(STSImageCell *)self imageAspectRatio];
   UIFloorToViewScale();
   v15 = v14;
   [(UIImageView *)self->_badgeView sizeThatFits:v9, v11];
   v17 = v16;
-  v23 = v18;
-  v27.origin.x = v5;
-  v27.origin.y = v7;
-  v27.size.width = v9;
-  v27.size.height = v11;
-  v22 = CGRectGetMaxX(v27) - v17 + -5.0;
+  v25 = v18;
+  v29.origin.x = v5;
+  v29.origin.y = v7;
+  v29.size.width = v9;
+  v29.size.height = v11;
+  v24 = CGRectGetMaxX(v29) - v17 + -5.0;
   v19 = Height + -24.0;
   [(STSCellDownloadOverlayView *)self->_downloadProgressView setFrame:v5, v7, v9, v11];
   [(UIImageView *)self->_imageView setFrame:0.0, 0.0, Width, v15];
   [(UIView *)self->_placeholderColorView setFrame:0.0, 0.0, Width, v15];
-  [(UIImageView *)self->_badgeView setFrame:v22, 5.0, v17, v23];
+  [(UIImageView *)self->_badgeView setFrame:v24, 5.0, v17, v25];
   [(UIView *)self->_labelBackgroundView setFrame:0.0, v19, Width, 24.0];
-  [(UILabel *)self->_labelView setFrame:6.0, v19, Width + -12.0, 24.0];
-  if (STSIsInternalInstall())
+  v20 = [(UILabel *)self->_labelView setFrame:6.0, v19, Width + -12.0, 24.0];
+  if (STSIsInternalInstall(v20, v21))
   {
     [(UIImageView *)self->_debugBadgeView sizeThatFits:v9, v11];
-    [(UIImageView *)self->_debugBadgeView setFrame:5.0, 5.0, v20, v21];
+    [(UIImageView *)self->_debugBadgeView setFrame:5.0, 5.0, v22, v23];
   }
 }
 
@@ -336,40 +336,40 @@ LABEL_6:
 - (void)setDebugBadge:(id)badge
 {
   badgeCopy = badge;
-  if (STSIsInternalInstall())
+  if (STSIsInternalInstall(badgeCopy, v4))
   {
     image = [(UIImageView *)self->_debugBadgeView image];
-    v5 = [badgeCopy isEqual:image];
+    v6 = [badgeCopy isEqual:image];
 
-    if ((v5 & 1) == 0)
+    if ((v6 & 1) == 0)
     {
       debugBadgeView = self->_debugBadgeView;
-      v7 = badgeCopy;
+      v8 = badgeCopy;
       if (badgeCopy)
       {
         if (!debugBadgeView)
         {
-          v8 = objc_alloc(MEMORY[0x277D755E8]);
-          v9 = [v8 initWithFrame:{*MEMORY[0x277CBF3A0], *(MEMORY[0x277CBF3A0] + 8), *(MEMORY[0x277CBF3A0] + 16), *(MEMORY[0x277CBF3A0] + 24)}];
-          v10 = self->_debugBadgeView;
-          self->_debugBadgeView = v9;
+          v9 = objc_alloc(MEMORY[0x277D755E8]);
+          v10 = [v9 initWithFrame:{*MEMORY[0x277CBF3A0], *(MEMORY[0x277CBF3A0] + 8), *(MEMORY[0x277CBF3A0] + 16), *(MEMORY[0x277CBF3A0] + 24)}];
+          v11 = self->_debugBadgeView;
+          self->_debugBadgeView = v10;
 
           [(UIImageView *)self->_debugBadgeView setTranslatesAutoresizingMaskIntoConstraints:0];
           contentView = [(STSImageCell *)self contentView];
           [contentView insertSubview:self->_debugBadgeView aboveSubview:self->_placeholderColorView];
 
-          v7 = badgeCopy;
+          v8 = badgeCopy;
           debugBadgeView = self->_debugBadgeView;
         }
 
-        [(UIImageView *)debugBadgeView setImage:v7];
+        [(UIImageView *)debugBadgeView setImage:v8];
         [(STSImageCell *)self setNeedsLayout];
       }
 
       else
       {
         [(UIImageView *)debugBadgeView removeFromSuperview];
-        v12 = self->_debugBadgeView;
+        v13 = self->_debugBadgeView;
         self->_debugBadgeView = 0;
       }
     }

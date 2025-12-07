@@ -28,7 +28,7 @@
         *buf = 138412290;
         v14 = v8;
         _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_ERROR, "=error-injection= Failed to compile regex: %@", buf, 0xCu);
-        _MBLog();
+        _MBLog(@"E ", "=error-injection= Failed to compile regex: %@", v8);
       }
 
       v9 = 0;

@@ -27,7 +27,7 @@
 
   else if (equal)
   {
-    isType = WTF::ObjCTypeCastTraits<_WKFrameHandle>::isType();
+    isType = WTF::ObjCTypeCastTraits<_WKFrameHandle>::isType(equal);
     if (isType)
     {
       v6 = *&self->_frameHandle.m_storage.data[16];

@@ -46,7 +46,7 @@
 
   appearanceOption = [(DBSDeviceAppearanceOptionView *)self appearanceOption];
   v12 = MEMORY[0x277D755B8];
-  v13 = DBS_BundleForDisplayAndBrightnessSettingsFramework();
+  v13 = DBS_BundleForDisplayAndBrightnessSettingsFramework(appearanceOption);
   if (appearanceOption)
   {
     v14 = @"AppearanceDark";

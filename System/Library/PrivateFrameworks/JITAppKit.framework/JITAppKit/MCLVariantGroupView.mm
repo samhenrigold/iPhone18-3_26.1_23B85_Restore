@@ -210,8 +210,6 @@
     [MEMORY[0x277CCAAD0] activateConstraints:selfCopy->_buttonConstraints];
     objc_storeStrong(v55, 0);
   }
-
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)clearVariants
@@ -272,7 +270,6 @@ void __36__MCLVariantGroupView_clearVariants__block_invoke(void *a1, void *a2)
   }
 
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)selectItemAtIndex:(int64_t)index

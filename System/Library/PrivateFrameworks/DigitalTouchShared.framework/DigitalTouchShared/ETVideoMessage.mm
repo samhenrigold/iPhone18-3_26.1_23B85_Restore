@@ -289,7 +289,7 @@
       [v13 setRequestedTimeToleranceBefore:&v25];
       if (v7)
       {
-        [v7 duration];
+        objc_msgSend_duration(v7);
       }
 
       else
@@ -360,7 +360,7 @@ LABEL_8:
     lastObject = v3;
     if (v3)
     {
-      [v3 duration];
+      objc_msgSend_duration(v3);
     }
 
     else

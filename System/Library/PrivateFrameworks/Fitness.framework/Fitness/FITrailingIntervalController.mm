@@ -19,21 +19,21 @@
 
 - (FITrailingIntervalController)initWithQuantityType:(id)type threshold:(id)threshold startDate:(id)date
 {
-  v23[1] = *MEMORY[0x277D85DE8];
+  v22[1] = *MEMORY[0x277D85DE8];
   typeCopy = type;
   thresholdCopy = threshold;
   dateCopy = date;
-  v22.receiver = self;
-  v22.super_class = FITrailingIntervalController;
-  v12 = [(FITrailingIntervalController *)&v22 init];
+  v21.receiver = self;
+  v21.super_class = FITrailingIntervalController;
+  v12 = [(FITrailingIntervalController *)&v21 init];
   v13 = v12;
   if (v12)
   {
     objc_storeStrong(&v12->_quantityType, type);
     objc_storeStrong(&v13->_threshold, threshold);
     v14 = [[FITrailingQuantityTimeSlice alloc] initWithQuantityType:typeCopy startDate:dateCopy];
-    v23[0] = v14;
-    v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:1];
+    v22[0] = v14;
+    v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:1];
     slices = v13->_slices;
     v13->_slices = v15;
 
@@ -45,47 +45,45 @@
     v13->_pauseResumeEvents = v18;
   }
 
-  v20 = *MEMORY[0x277D85DE8];
   return v13;
 }
 
 - (void)addSample:(id)sample
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   sampleCopy = sample;
   v4 = MEMORY[0x277CBEA60];
   sampleCopy2 = sample;
   v6 = [v4 arrayWithObjects:&sampleCopy count:1];
 
-  [(FITrailingIntervalController *)self addSamples:v6, sampleCopy, v9];
-  v7 = *MEMORY[0x277D85DE8];
+  [(FITrailingIntervalController *)self addSamples:v6, sampleCopy, v8];
 }
 
 - (void)addSamples:(id)samples
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v4 = FIFilterSamplesByType(samples, self->_quantityType);
-  v18 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(v4, "count")}];
+  v17 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(v4, "count")}];
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   v5 = v4;
-  v6 = [v5 countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v20;
+    v8 = *v19;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v20 != v8)
+        if (*v19 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v19 + 1) + 8 * i);
+        v10 = *(*(&v18 + 1) + 8 * i);
         startDate = [v10 startDate];
         lastObject = [(NSArray *)self->_slices lastObject];
         endDate = [lastObject endDate];
@@ -93,7 +91,7 @@
 
         if (v14)
         {
-          [v18 addObject:v10];
+          [v17 addObject:v10];
         }
 
         else
@@ -104,19 +102,17 @@
         }
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v7);
   }
 
-  if ([v18 count])
+  if ([v17 count])
   {
-    [(FITrailingIntervalController *)self _updateSlicesWithSamples:v18];
+    [(FITrailingIntervalController *)self _updateSlicesWithSamples:v17];
     [(FITrailingIntervalController *)self _determineAndProcessThresholdReached];
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_determineAndProcessThresholdReached
@@ -389,32 +385,32 @@ LABEL_20:
 
 - (double)committedDuration
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   v2 = self->_slices;
-  v3 = [(NSArray *)v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v3 = [(NSArray *)v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v12;
+    v5 = *v11;
     v6 = 0.0;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v12 != v5)
+        if (*v11 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        [*(*(&v11 + 1) + 8 * i) committedDuration];
+        [*(*(&v10 + 1) + 8 * i) committedDuration];
         v6 = v6 + v8;
       }
 
-      v4 = [(NSArray *)v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v4 = [(NSArray *)v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v4);
@@ -425,39 +421,38 @@ LABEL_20:
     v6 = 0.0;
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
 - (double)activeDurationUntilDate:(id)date
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   dateCopy = date;
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v5 = self->_slices;
-  v6 = [(NSArray *)v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v6 = [(NSArray *)v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v15;
+    v8 = *v14;
     v9 = 0.0;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v15 != v8)
+        if (*v14 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        [*(*(&v14 + 1) + 8 * i) activeDurationUntilDate:{dateCopy, v14}];
+        [*(*(&v13 + 1) + 8 * i) activeDurationUntilDate:{dateCopy, v13}];
         v9 = v9 + v11;
       }
 
-      v7 = [(NSArray *)v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v7 = [(NSArray *)v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v7);
@@ -468,7 +463,6 @@ LABEL_20:
     v9 = 0.0;
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
@@ -553,33 +547,33 @@ void __54__FITrailingIntervalController_idleDurationUntilDate___block_invoke(uin
 
 - (HKQuantity)quantity
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277CCD7E8];
   canonicalUnit = [(HKQuantityType *)self->_quantityType canonicalUnit];
   v5 = [v3 quantityWithUnit:canonicalUnit doubleValue:0.0];
 
-  v17 = 0u;
-  v18 = 0u;
-  v15 = 0u;
   v16 = 0u;
+  v17 = 0u;
+  v14 = 0u;
+  v15 = 0u;
   v6 = self->_slices;
-  v7 = [(NSArray *)v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v7 = [(NSArray *)v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v16;
+    v9 = *v15;
     do
     {
       v10 = 0;
       v11 = v5;
       do
       {
-        if (*v16 != v9)
+        if (*v15 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        committedTotal = [*(*(&v15 + 1) + 8 * v10) committedTotal];
+        committedTotal = [*(*(&v14 + 1) + 8 * v10) committedTotal];
         v5 = [v11 _quantityByAddingQuantity:committedTotal];
 
         ++v10;
@@ -587,13 +581,11 @@ void __54__FITrailingIntervalController_idleDurationUntilDate___block_invoke(uin
       }
 
       while (v8 != v10);
-      v8 = [(NSArray *)v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v8 = [(NSArray *)v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v8);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v5;
 }

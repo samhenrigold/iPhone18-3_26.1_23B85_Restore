@@ -48,7 +48,7 @@
   infoCopy = info;
   if ((objc_opt_respondsToSelector() & 1) != 0 && [presentableCopy providesTemplateContent] && objc_msgSend(presentableCopy, "presentableBehavior") == 1)
   {
-    v8 = SBLogSystemApertureNotice();
+    v8 = SBLogSystemApertureNotice(1);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       v9 = BNEffectivePresentableDescription();
@@ -315,7 +315,7 @@ void __72__SBSystemAperturePresentableManager_willInterceptPresentable_userInfo_
   v27 = *MEMORY[0x277D85DE8];
   identificationCopy = identification;
   reasonCopy = reason;
-  v7 = SBLogSystemApertureNotice();
+  v7 = SBLogSystemApertureNotice(reasonCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
@@ -361,7 +361,7 @@ void __72__SBSystemAperturePresentableManager_willInterceptPresentable_userInfo_
 
         else
         {
-          v17 = SBLogSystemApertureNotice();
+          v17 = SBLogSystemApertureNotice(0);
           if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
           {
             BNEffectivePresentableDescription();
@@ -568,7 +568,7 @@ void __72__SBSystemAperturePresentableManager_willInterceptPresentable_userInfo_
 
 - (void)_registerElement:(id)element
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   elementCopy = element;
   if (elementCopy)
   {
@@ -577,13 +577,13 @@ void __72__SBSystemAperturePresentableManager_willInterceptPresentable_userInfo_
     v6 = [(SBSystemAperturePresentableManager *)selfCopy _existingAssertionForElement:elementCopy];
     if (!v6)
     {
-      v7 = SBLogSystemApertureNotice();
+      v7 = SBLogSystemApertureNotice(0);
       if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
         v8 = MEMORY[0x223D6CED0](elementCopy);
-        v11 = 138543362;
-        v12 = v8;
-        _os_log_impl(&dword_21ED4E000, v7, OS_LOG_TYPE_DEFAULT, "Registering element: %{public}@", &v11, 0xCu);
+        v12 = 138543362;
+        v13 = v8;
+        _os_log_impl(&dword_21ED4E000, v7, OS_LOG_TYPE_DEFAULT, "Registering element: %{public}@", &v12, 0xCu);
       }
 
       WeakRetained = objc_loadWeakRetained(&selfCopy->_elementRegistrar);
@@ -596,8 +596,8 @@ void __72__SBSystemAperturePresentableManager_willInterceptPresentable_userInfo_
 
       else
       {
-        v10 = SBLogSystemApertureNotice();
-        if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+        v11 = SBLogSystemApertureNotice(v10);
+        if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
         {
           MEMORY[0x223D6CED0](elementCopy);
           objc_claimAutoreleasedReturnValue();
@@ -617,7 +617,7 @@ void __72__SBSystemAperturePresentableManager_willInterceptPresentable_userInfo_
   v18 = *MEMORY[0x277D85DE8];
   assertionCopy = assertion;
   elementCopy = element;
-  v8 = SBLogSystemApertureNotice();
+  v8 = SBLogSystemApertureNotice(elementCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
@@ -687,7 +687,7 @@ void __73__SBSystemAperturePresentableManager__sync_registerAssertion_forElement
 
     else
     {
-      v9 = SBLogSystemApertureNotice();
+      v9 = SBLogSystemApertureNotice(0);
       if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
       {
         MEMORY[0x223D6CED0](elementCopy);
@@ -702,32 +702,32 @@ void __73__SBSystemAperturePresentableManager__sync_registerAssertion_forElement
 
 - (void)_removePresentableForElement:(id)element
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   elementCopy = element;
   if (elementCopy)
   {
     selfCopy = self;
     objc_sync_enter(selfCopy);
-    v15 = 0u;
     v16 = 0u;
     v17 = 0u;
     v18 = 0u;
+    v19 = 0u;
     v6 = selfCopy->_presentablesToElements;
-    v7 = [(NSMapTable *)v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+    v7 = [(NSMapTable *)v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
     if (v7)
     {
-      v8 = *v16;
+      v8 = *v17;
 LABEL_4:
       v9 = 0;
       while (1)
       {
-        if (*v16 != v8)
+        if (*v17 != v8)
         {
           objc_enumerationMutation(v6);
         }
 
-        v10 = *(*(&v15 + 1) + 8 * v9);
-        v11 = [(NSMapTable *)selfCopy->_presentablesToElements objectForKey:v10, v15];
+        v10 = *(*(&v16 + 1) + 8 * v9);
+        v11 = [(NSMapTable *)selfCopy->_presentablesToElements objectForKey:v10, v16];
         v12 = v11 == elementCopy;
 
         if (v12)
@@ -737,7 +737,7 @@ LABEL_4:
 
         if (v7 == ++v9)
         {
-          v7 = [(NSMapTable *)v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+          v7 = [(NSMapTable *)v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
           if (v7)
           {
             goto LABEL_4;
@@ -747,14 +747,14 @@ LABEL_4:
         }
       }
 
-      v13 = v10;
+      v14 = v10;
 
-      if (!v13)
+      if (!v14)
       {
         goto LABEL_13;
       }
 
-      [(NSMapTable *)selfCopy->_presentablesToElements removeObjectForKey:v13];
+      [(NSMapTable *)selfCopy->_presentablesToElements removeObjectForKey:v14];
     }
 
     else
@@ -762,15 +762,15 @@ LABEL_4:
 LABEL_10:
 
 LABEL_13:
-      v14 = SBLogSystemApertureNotice();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+      v15 = SBLogSystemApertureNotice(v13);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
         MEMORY[0x223D6CED0](elementCopy);
         objc_claimAutoreleasedReturnValue();
         [SBSystemAperturePresentableManager _removePresentableForElement:];
       }
 
-      v13 = 0;
+      v14 = 0;
     }
 
     objc_sync_exit(selfCopy);
@@ -779,17 +779,17 @@ LABEL_13:
 
 - (void)_invalidateElement:(id)element withReason:(id)reason
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   elementCopy = element;
   reasonCopy = reason;
-  v9 = SBLogSystemApertureNotice();
+  v9 = SBLogSystemApertureNotice(reasonCopy);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     v10 = MEMORY[0x223D6CED0](elementCopy);
     *buf = 138543618;
-    v24 = v10;
-    v25 = 2114;
-    v26 = reasonCopy;
+    v25 = v10;
+    v26 = 2114;
+    v27 = reasonCopy;
     _os_log_impl(&dword_21ED4E000, v9, OS_LOG_TYPE_DEFAULT, "Asked to invalidate element with reason: element: %{public}@; reason: %{public}@", buf, 0x16u);
   }
 
@@ -827,14 +827,14 @@ LABEL_13:
 
     if ([v16 isActivated] && (objc_msgSend(v16, "isDeactivating") & 1) == 0)
     {
-      v20[0] = MEMORY[0x277D85DD0];
-      v20[1] = 3221225472;
-      v20[2] = __68__SBSystemAperturePresentableManager__invalidateElement_withReason___block_invoke;
-      v20[3] = &unk_2783AD618;
-      v20[4] = selfCopy;
-      v21 = v14;
-      v22 = reasonCopy;
-      [v16 deactivateWhenRemovedWithHandler:v20];
+      v21[0] = MEMORY[0x277D85DD0];
+      v21[1] = 3221225472;
+      v21[2] = __68__SBSystemAperturePresentableManager__invalidateElement_withReason___block_invoke;
+      v21[3] = &unk_2783AD618;
+      v21[4] = selfCopy;
+      v22 = v14;
+      v23 = reasonCopy;
+      [v16 deactivateWhenRemovedWithHandler:v21];
     }
 
     else if (!v16)
@@ -847,7 +847,8 @@ LABEL_13:
       [v14 removeElementLayoutSpecifierObserver:selfCopy];
     }
 
-    if ([v12 isValid])
+    isValid = [v12 isValid];
+    if (isValid)
     {
       [v12 invalidateWithReason:reasonCopy];
       [(SBSystemAperturePresentableManager *)selfCopy _removeAssertionForElement:v14];
@@ -855,13 +856,13 @@ LABEL_13:
 
     else
     {
-      v17 = SBLogSystemApertureNotice();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+      v18 = SBLogSystemApertureNotice(isValid);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
       {
-        v18 = MEMORY[0x223D6CED0](v14);
+        v19 = MEMORY[0x223D6CED0](v14);
         *buf = 138543362;
-        v24 = v18;
-        _os_log_impl(&dword_21ED4E000, v17, OS_LOG_TYPE_DEFAULT, "There was no assertion for element: %{public}@", buf, 0xCu);
+        v25 = v19;
+        _os_log_impl(&dword_21ED4E000, v18, OS_LOG_TYPE_DEFAULT, "There was no assertion for element: %{public}@", buf, 0xCu);
       }
 
       presentable = [v14 presentable];
@@ -935,7 +936,7 @@ LABEL_11:
     v10 = appearCopy;
     selfCopy = self;
     objc_sync_enter(selfCopy);
-    if (![(NSHashTable *)selfCopy->_elementsThatDidAppear containsObject:v10])
+    if ((objc_msgSend_containsObject_(selfCopy->_elementsThatDidAppear) & 1) == 0)
     {
       presentable = [v10 presentable];
       if ([(SBSystemAperturePresentableManager *)selfCopy _takeProcessAssertionForElement:v10])
@@ -970,7 +971,7 @@ LABEL_11:
   {
     selfCopy = self;
     objc_sync_enter(selfCopy);
-    if ([(NSHashTable *)selfCopy->_elementsThatDidAppear containsObject:invalidateCopy])
+    if (objc_msgSend_containsObject_(selfCopy->_elementsThatDidAppear))
     {
       [(SBSystemAperturePresentableManager *)selfCopy _noteElementWillDisappear:invalidateCopy reason:reasonCopy];
       v9 = objc_opt_class();
@@ -1038,7 +1039,7 @@ LABEL_11:
 {
   disappearCopy = disappear;
   reasonCopy = reason;
-  if ([(NSHashTable *)self->_elementsThatDidAppear containsObject:disappearCopy])
+  if (objc_msgSend_containsObject_(self->_elementsThatDidAppear))
   {
     presentable = [disappearCopy presentable];
     if ([(SBSystemAperturePresentableManager *)self _takeProcessAssertionForElement:disappearCopy])
@@ -1052,7 +1053,7 @@ LABEL_11:
 {
   disappearCopy = disappear;
   reasonCopy = reason;
-  if ([(NSHashTable *)self->_elementsThatDidAppear containsObject:disappearCopy])
+  if (objc_msgSend_containsObject_(self->_elementsThatDidAppear))
   {
     presentable = [disappearCopy presentable];
     if ([(SBSystemAperturePresentableManager *)self _takeProcessAssertionForElement:disappearCopy])
@@ -1068,7 +1069,7 @@ LABEL_11:
 
 - (BOOL)_takeProcessAssertionForElement:(id)element
 {
-  v34[7] = *MEMORY[0x277D85DE8];
+  v35[7] = *MEMORY[0x277D85DE8];
   elementCopy = element;
   v4 = objc_opt_class();
   v5 = elementCopy;
@@ -1098,69 +1099,69 @@ LABEL_11:
 
   if (v10 < 2)
   {
-    v21 = 0;
+    v22 = 0;
   }
 
   else
   {
-    v25 = [MEMORY[0x277D47008] targetWithPid:v10];
-    v11 = [MEMORY[0x277D46D78] attributeWithCompletionPolicy:1];
-    v34[0] = v11;
+    v26 = [MEMORY[0x277D47008] targetWithPid:v10];
+    v12 = [MEMORY[0x277D46D78] attributeWithCompletionPolicy:1];
+    v35[0] = v12;
     grantWithUserInteractivity = [MEMORY[0x277D46DF0] grantWithUserInteractivity];
-    v34[1] = grantWithUserInteractivity;
+    v35[1] = grantWithUserInteractivity;
     grantWithForegroundPriority = [MEMORY[0x277D46EA8] grantWithForegroundPriority];
-    v34[2] = grantWithForegroundPriority;
-    v14 = [MEMORY[0x277D46FC0] grantWithResistance:40];
-    v34[3] = v14;
+    v35[2] = grantWithForegroundPriority;
+    v15 = [MEMORY[0x277D46FC0] grantWithResistance:40];
+    v35[3] = v15;
     grant = [MEMORY[0x277D46E30] grant];
-    v34[4] = grant;
-    v16 = [MEMORY[0x277D46FD0] withReason:7];
-    v34[5] = v16;
-    v17 = [MEMORY[0x277D46E48] invalidateAfterInterval:1.0];
-    v34[6] = v17;
-    v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v34 count:7];
+    v35[4] = grant;
+    v17 = [MEMORY[0x277D46FD0] withReason:7];
+    v35[5] = v17;
+    v18 = [MEMORY[0x277D46E48] invalidateAfterInterval:1.0];
+    v35[6] = v18;
+    v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v35 count:7];
 
-    v28 = 0;
-    v29 = &v28;
-    v30 = 0x3032000000;
-    v31 = __Block_byref_object_copy__10;
-    v32 = __Block_byref_object_dispose__10;
-    v33 = [objc_alloc(MEMORY[0x277D46DB8]) initWithExplanation:@"SBSystemAperturePresentableManagerBannerKitCallbacks" target:v25 attributes:v18];
-    v19 = v29[5];
-    v27[0] = MEMORY[0x277D85DD0];
-    v27[1] = 3221225472;
-    v27[2] = __70__SBSystemAperturePresentableManager__takeProcessAssertionForElement___block_invoke;
-    v27[3] = &unk_2783AD640;
-    v27[4] = &v28;
-    [v19 setInvalidationHandler:v27];
-    v20 = v29[5];
-    v26 = 0;
-    LOBYTE(grantWithUserInteractivity) = [v20 acquireWithError:&v26];
-    v21 = v26;
-    _Block_object_dispose(&v28, 8);
+    v29 = 0;
+    v30 = &v29;
+    v31 = 0x3032000000;
+    v32 = __Block_byref_object_copy__10;
+    v33 = __Block_byref_object_dispose__10;
+    v34 = [objc_alloc(MEMORY[0x277D46DB8]) initWithExplanation:@"SBSystemAperturePresentableManagerBannerKitCallbacks" target:v26 attributes:v19];
+    v20 = v30[5];
+    v28[0] = MEMORY[0x277D85DD0];
+    v28[1] = 3221225472;
+    v28[2] = __70__SBSystemAperturePresentableManager__takeProcessAssertionForElement___block_invoke;
+    v28[3] = &unk_2783AD640;
+    v28[4] = &v29;
+    [v20 setInvalidationHandler:v28];
+    v21 = v30[5];
+    v27 = 0;
+    LOBYTE(grantWithUserInteractivity) = [v21 acquireWithError:&v27];
+    v22 = v27;
+    _Block_object_dispose(&v29, 8);
 
     if (grantWithUserInteractivity)
     {
-      v22 = 1;
+      v23 = 1;
       goto LABEL_13;
     }
   }
 
-  v23 = SBLogSystemApertureNotice();
-  if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+  v24 = SBLogSystemApertureNotice(v11);
+  if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
   {
-    [(SBSystemAperturePresentableManager *)v5 _takeProcessAssertionForElement:v21, v23];
+    [(SBSystemAperturePresentableManager *)v5 _takeProcessAssertionForElement:v22, v24];
   }
 
-  v22 = 0;
+  v23 = 0;
 LABEL_13:
 
-  return v22;
+  return v23;
 }
 
 void __70__SBSystemAperturePresentableManager__takeProcessAssertionForElement___block_invoke(uint64_t a1)
 {
-  v2 = SBLogSystemApertureNotice();
+  v2 = SBLogSystemApertureNotice(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
     __70__SBSystemAperturePresentableManager__takeProcessAssertionForElement___block_invoke_cold_1(a1, v2);

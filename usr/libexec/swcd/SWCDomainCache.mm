@@ -1,8 +1,8 @@
 @interface SWCDomainCache
 - (id)_entriesForDomain:(id)domain;
+- (id)_entriesForDomain:(id)domain operationMode:(char)mode;
 - (id)_entriesFromDomain:(id)domain;
 - (id)entriesForDomain:(id)domain;
-- (void)clear;
 - (void)updateCachedDomainsForEntries:(id)entries;
 @end
 
@@ -233,11 +233,20 @@ LABEL_13:
   return v7;
 }
 
-- (void)clear
+- (id)_entriesForDomain:(id)domain operationMode:(char)mode
 {
-  cachedEntries = self->_cachedEntries;
-  self->_cachedEntries = 0;
-  _objc_release_x1();
+  if (mode)
+  {
+    v5 = [domain domainRequiringModeOfOperation:mode];
+    v6 = [(SWCDomainCache *)self _entriesForDomain:v5];
+  }
+
+  else
+  {
+    v6 = [(SWCDomainCache *)self _entriesForDomain:domain];
+  }
+
+  return v6;
 }
 
 - (id)_entriesFromDomain:(id)domain

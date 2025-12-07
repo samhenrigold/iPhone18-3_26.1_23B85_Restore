@@ -11,7 +11,7 @@
 {
   dictionaryCopy = dictionary;
   v4 = [dictionaryCopy PKStringForKey:@"type"];
-  if ([@"text" isEqualToString:v4])
+  if (objc_msgSend_isEqualToString_(@"text"))
   {
 
     v5 = off_1E79C1B00;
@@ -20,9 +20,9 @@ LABEL_5:
     goto LABEL_7;
   }
 
-  v6 = [@"picker" isEqualToString:v4];
+  isEqualToString = objc_msgSend_isEqualToString_(@"picker");
 
-  if (v6)
+  if (isEqualToString)
   {
     v5 = off_1E79C13D0;
     goto LABEL_5;

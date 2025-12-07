@@ -59,7 +59,7 @@
   v23 = (v17 - v20) * 0.5;
   [(UIImageView *)self->_playControlView setFrame:floorf(v22), floorf(v23)];
   v24 = self->_playControlView;
-  [(SUUIVideoThumbnailView *)self transform];
+  objc_msgSend_transform(self);
   CGAffineTransformInvert(&v26, &v25);
   [(UIImageView *)v24 setTransform:&v26];
 }

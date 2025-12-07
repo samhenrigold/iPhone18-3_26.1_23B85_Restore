@@ -51,20 +51,18 @@
 
 void __42__RCQueryManager_defaultFetchedProperties__block_invoke()
 {
-  v3[8] = *MEMORY[0x277D85DE8];
-  v3[0] = @"customLabelForSorting";
-  v3[1] = @"date";
-  v3[2] = @"localDuration";
-  v3[3] = @"sharedFlags";
-  v3[4] = @"uniqueID";
-  v3[5] = @"evictionDate";
-  v3[6] = @"flags";
-  v3[7] = @"path";
-  v0 = [MEMORY[0x277CBEA60] arrayWithObjects:v3 count:8];
+  v2[8] = *MEMORY[0x277D85DE8];
+  v2[0] = @"customLabelForSorting";
+  v2[1] = @"date";
+  v2[2] = @"localDuration";
+  v2[3] = @"sharedFlags";
+  v2[4] = @"uniqueID";
+  v2[5] = @"evictionDate";
+  v2[6] = @"flags";
+  v2[7] = @"path";
+  v0 = [MEMORY[0x277CBEA60] arrayWithObjects:v2 count:8];
   v1 = defaultFetchedProperties_properties;
   defaultFetchedProperties_properties = v0;
-
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 + (id)playableRecordingsExcludingDeletedPredicate
@@ -102,33 +100,29 @@ void __42__RCQueryManager_defaultFetchedProperties__block_invoke()
 
 void __40__RCQueryManager_defaultSortDescriptors__block_invoke()
 {
-  v5[2] = *MEMORY[0x277D85DE8];
+  v4[2] = *MEMORY[0x277D85DE8];
   v0 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"date" ascending:0];
-  v5[0] = v0;
+  v4[0] = v0;
   v1 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"customLabelForSorting" ascending:1];
-  v5[1] = v1;
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:2];
+  v4[1] = v1;
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:2];
   v3 = defaultSortDescriptors_sortDescriptors;
   defaultSortDescriptors_sortDescriptors = v2;
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 void __60__RCQueryManager_defaultResidentRecordingsFetchedProperties__block_invoke()
 {
-  v3[7] = *MEMORY[0x277D85DE8];
-  v3[0] = @"customLabelForSorting";
-  v3[1] = @"date";
-  v3[2] = @"localDuration";
-  v3[3] = @"sharedFlags";
-  v3[4] = @"uniqueID";
-  v3[5] = @"evictionDate";
-  v3[6] = @"flags";
-  v0 = [MEMORY[0x277CBEA60] arrayWithObjects:v3 count:7];
+  v2[7] = *MEMORY[0x277D85DE8];
+  v2[0] = @"customLabelForSorting";
+  v2[1] = @"date";
+  v2[2] = @"localDuration";
+  v2[3] = @"sharedFlags";
+  v2[4] = @"uniqueID";
+  v2[5] = @"evictionDate";
+  v2[6] = @"flags";
+  v0 = [MEMORY[0x277CBEA60] arrayWithObjects:v2 count:7];
   v1 = defaultResidentRecordingsFetchedProperties_properties;
   defaultResidentRecordingsFetchedProperties_properties = v0;
-
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 + (id)deletedRecordingsFetchRequest
@@ -152,15 +146,13 @@ void __60__RCQueryManager_defaultResidentRecordingsFetchedProperties__block_invo
 
 + (id)userDefinedFoldersFetchRequest
 {
-  v7[1] = *MEMORY[0x277D85DE8];
+  v6[1] = *MEMORY[0x277D85DE8];
   v2 = [self _foldersWithPredicateFormat:@"%K != NULL && %K != NULL", @"encryptedName", @"uuid"];
   [v2 setShouldRefreshRefetchedObjects:1];
   v3 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"rank" ascending:1];
-  v7[0] = v3;
-  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:1];
+  v6[0] = v3;
+  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:1];
   [v2 setSortDescriptors:v4];
-
-  v5 = *MEMORY[0x277D85DE8];
 
   return v2;
 }
@@ -180,14 +172,12 @@ void __60__RCQueryManager_defaultResidentRecordingsFetchedProperties__block_invo
 
 void __44__RCQueryManager__defaultFolderFetchRequest__block_invoke()
 {
-  v3[2] = *MEMORY[0x277D85DE8];
-  v3[0] = @"encryptedName";
-  v3[1] = @"rank";
-  v0 = [MEMORY[0x277CBEA60] arrayWithObjects:v3 count:2];
+  v2[2] = *MEMORY[0x277D85DE8];
+  v2[0] = @"encryptedName";
+  v2[1] = @"rank";
+  v0 = [MEMORY[0x277CBEA60] arrayWithObjects:v2 count:2];
   v1 = _defaultFolderFetchRequest_defaultFolderPropertiesToFetch;
   _defaultFolderFetchRequest_defaultFolderPropertiesToFetch = v0;
-
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 + (id)playableRecordingsFetchRequestWithSubPredicate:(id)predicate
@@ -216,17 +206,16 @@ void __44__RCQueryManager__defaultFolderFetchRequest__block_invoke()
 
 + (id)evictionDateBeforeFetchRequest:(id)request
 {
-  v10[1] = *MEMORY[0x277D85DE8];
+  v9[1] = *MEMORY[0x277D85DE8];
   requestCopy = request;
   _defaultRecordingsFetchRequest = [self _defaultRecordingsFetchRequest];
-  v10[0] = @"evictionDate";
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:1];
+  v9[0] = @"evictionDate";
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:1];
   [_defaultRecordingsFetchRequest setPropertiesToFetch:v6];
 
   requestCopy = [MEMORY[0x277CCAC30] predicateWithFormat:@"%K != nil AND %K <= %@", @"evictionDate", @"evictionDate", requestCopy];
 
   [_defaultRecordingsFetchRequest setPredicate:requestCopy];
-  v8 = *MEMORY[0x277D85DE8];
 
   return _defaultRecordingsFetchRequest;
 }
@@ -241,28 +230,27 @@ void __44__RCQueryManager__defaultFolderFetchRequest__block_invoke()
 
 + (id)allCustomLabelsFetchRequest
 {
-  v6[2] = *MEMORY[0x277D85DE8];
+  v5[2] = *MEMORY[0x277D85DE8];
   _defaultRecordingsFetchRequest = [self _defaultRecordingsFetchRequest];
-  v6[0] = @"customLabelForSorting";
-  v6[1] = @"evictionDate";
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:2];
+  v5[0] = @"customLabelForSorting";
+  v5[1] = @"evictionDate";
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:2];
   [_defaultRecordingsFetchRequest setPropertiesToFetch:v3];
-
-  v4 = *MEMORY[0x277D85DE8];
 
   return _defaultRecordingsFetchRequest;
 }
 
 + (id)recordingWithNameFetchRequest:(id)request searchOption:(int)option
 {
+  v4 = *&option;
   v6 = MEMORY[0x277CCA9C0];
   requestCopy = request;
   v8 = [v6 expressionForKeyPath:@"customLabelForSorting"];
   v9 = [MEMORY[0x277CCA9C0] expressionForConstantValue:requestCopy];
 
   v10 = MEMORY[0x277CCA918];
-  v11 = _predicateOperatorTypeForSearchOption(option);
-  v12 = [v10 predicateWithLeftExpression:v8 rightExpression:v9 modifier:0 type:v11 options:_predicateOptionsForSearchOption(option)];
+  v11 = _predicateOperatorTypeForSearchOption(v4);
+  v12 = [v10 predicateWithLeftExpression:v8 rightExpression:v9 modifier:0 type:v11 options:_predicateOptionsForSearchOption(v4)];
   v13 = [self _defaultRecordingsFetchRequest:v12];
 
   return v13;
@@ -281,30 +269,26 @@ void __44__RCQueryManager__defaultFolderFetchRequest__block_invoke()
 
 + (id)recordingsNeedingAssetExportFetchRequest
 {
-  v8[1] = *MEMORY[0x277D85DE8];
+  v7[1] = *MEMORY[0x277D85DE8];
   v3 = [MEMORY[0x277CCAC30] predicateWithFormat:@"%K != nil && bitwiseAnd:with:(%K, %@) == %@", @"flags", @"flags", &unk_2881AE0D0, &unk_2881AE0D0];
   v4 = [self _defaultRecordingsFetchRequest:v3];
 
-  v8[0] = @"flags";
-  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:1];
+  v7[0] = @"flags";
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:1];
   [v4 setPropertiesToFetch:v5];
-
-  v6 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
 
 + (id)recordingsWithNilAudioFuturesFetchRequest
 {
-  v6[3] = *MEMORY[0x277D85DE8];
+  v5[3] = *MEMORY[0x277D85DE8];
   v2 = [self _recordingsWithPredicateFormat:@"%K == nil && %K == nil && %K == nil", @"audioFuture", @"mtAudioFuture", @"versionedAudioFuture"];
-  v6[0] = @"audioFuture";
-  v6[1] = @"mtAudioFuture";
-  v6[2] = @"versionedAudioFuture";
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:3];
+  v5[0] = @"audioFuture";
+  v5[1] = @"mtAudioFuture";
+  v5[2] = @"versionedAudioFuture";
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:3];
   [v2 setPropertiesToFetch:v3];
-
-  v4 = *MEMORY[0x277D85DE8];
 
   return v2;
 }
@@ -331,14 +315,15 @@ void __44__RCQueryManager__defaultFolderFetchRequest__block_invoke()
 
 + (id)foldersWithNameFetchRequest:(id)request searchOption:(int)option
 {
+  v4 = *&option;
   v6 = MEMORY[0x277CCA9C0];
   requestCopy = request;
   v8 = [v6 expressionForKeyPath:@"encryptedName"];
   v9 = [MEMORY[0x277CCA9C0] expressionForConstantValue:requestCopy];
 
   v10 = MEMORY[0x277CCA918];
-  v11 = _predicateOperatorTypeForSearchOption(option);
-  v12 = [v10 predicateWithLeftExpression:v8 rightExpression:v9 modifier:0 type:v11 options:_predicateOptionsForSearchOption(option)];
+  v11 = _predicateOperatorTypeForSearchOption(v4);
+  v12 = [v10 predicateWithLeftExpression:v8 rightExpression:v9 modifier:0 type:v11 options:_predicateOptionsForSearchOption(v4)];
   v13 = [self _defaultFolderFetchRequest:v12];
 
   return v13;
@@ -354,14 +339,12 @@ void __44__RCQueryManager__defaultFolderFetchRequest__block_invoke()
 
 + (id)allFoldersForSortingFetchRequest
 {
-  v6[2] = *MEMORY[0x277D85DE8];
+  v5[2] = *MEMORY[0x277D85DE8];
   _defaultFolderFetchRequest = [self _defaultFolderFetchRequest];
-  v6[0] = @"rank";
-  v6[1] = @"uuid";
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:2];
+  v5[0] = @"rank";
+  v5[1] = @"uuid";
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:2];
   [_defaultFolderFetchRequest setPropertiesToFetch:v3];
-
-  v4 = *MEMORY[0x277D85DE8];
 
   return _defaultFolderFetchRequest;
 }

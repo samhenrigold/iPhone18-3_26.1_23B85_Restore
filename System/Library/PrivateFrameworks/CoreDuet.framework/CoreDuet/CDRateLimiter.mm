@@ -3,7 +3,7 @@
 
 @implementation CDRateLimiter
 
-uint64_t __25___CDRateLimiter_debited__block_invoke(uint64_t a1)
+void *__25___CDRateLimiter_debited__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) recordTimeAndRefillIfNeeded];
   v3 = *(a1 + 32);
@@ -34,7 +34,7 @@ uint64_t __35___CDRateLimiter_sharedRateLimiter__block_invoke()
   return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
-uint64_t __24___CDRateLimiter_credit__block_invoke(uint64_t a1)
+void *__24___CDRateLimiter_credit__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) recordTimeAndRefillIfNeeded];
   --*(*(a1 + 32) + 16);

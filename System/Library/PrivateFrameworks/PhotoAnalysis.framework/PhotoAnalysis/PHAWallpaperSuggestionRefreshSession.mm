@@ -4037,17 +4037,17 @@ void __96__PHAWallpaperSuggestionRefreshSession_refreshPosterDescriptorsWithProg
   }
 }
 
-void __96__PHAWallpaperSuggestionRefreshSession_refreshPosterDescriptorsWithProgressReporter_completion___block_invoke_350(uint64_t a1)
+void __96__PHAWallpaperSuggestionRefreshSession_refreshPosterDescriptorsWithProgressReporter_completion___block_invoke_350(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v130 = *MEMORY[0x277D85DE8];
-  v2 = *(a1 + 32);
-  if (!*(v2 + 8))
+  v132 = *MEMORY[0x277D85DE8];
+  v4 = *(a1 + 32);
+  if (!*(v4 + 8))
   {
-    v5 = *(v2 + 56);
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v7 = *(v4 + 56);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
-      _os_log_error_impl(&dword_22FA28000, v5, OS_LOG_TYPE_ERROR, "[PHAWallpaperSuggestionRefreshSession] Refresh session has been cleaned up, bailing", buf, 2u);
+      _os_log_error_impl(&dword_22FA28000, v7, OS_LOG_TYPE_ERROR, "[PHAWallpaperSuggestionRefreshSession] Refresh session has been cleaned up, bailing", buf, 2u);
     }
 
     goto LABEL_7;
@@ -4055,416 +4055,416 @@ void __96__PHAWallpaperSuggestionRefreshSession_refreshPosterDescriptorsWithProg
 
   if (PLIsFeaturedContentAllowed())
   {
-    v3 = *(*(a1 + 72) + 8);
-    if (*(v3 + 24))
+    v5 = *(*(a1 + 72) + 8);
+    if (*(v5 + 24))
     {
-      v4 = 1;
+      v6 = 1;
     }
 
     else
     {
-      v4 = [*(a1 + 48) isCancelledWithProgress:0.25];
-      v3 = *(*(a1 + 72) + 8);
+      v6 = [*(a1 + 48) isCancelledWithProgress:0.25];
+      v5 = *(*(a1 + 72) + 8);
     }
 
-    *(v3 + 24) = v4;
+    *(v5 + 24) = v6;
     if (*(*(*(a1 + 72) + 8) + 24) == 1)
     {
-      v11 = *(*(a1 + 32) + 56);
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+      v13 = *(*(a1 + 32) + 56);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_22FA28000, v11, OS_LOG_TYPE_DEFAULT, "[PHAWallpaperSuggestionRefreshSession] Poster Descriptors refresh was canceled", buf, 2u);
+        _os_log_impl(&dword_22FA28000, v13, OS_LOG_TYPE_DEFAULT, "[PHAWallpaperSuggestionRefreshSession] Poster Descriptors refresh was canceled", buf, 2u);
       }
 
 LABEL_7:
-      v6 = *(a1 + 64);
-      v7 = [MEMORY[0x277CCA9B8] pl_analysisErrorWithCode:16];
-      (*(v6 + 16))(v6, 0, v7);
+      v8 = *(a1 + 64);
+      v9 = [MEMORY[0x277CCA9B8] pl_analysisErrorWithCode:16];
+      (*(v8 + 16))(v8, 0, v9);
 
       return;
     }
 
-    v12 = objc_alloc_init(MEMORY[0x277CBEB18]);
-    v13 = objc_alloc_init(MEMORY[0x277CBEB58]);
+    v14 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v15 = objc_alloc_init(MEMORY[0x277CBEB58]);
     if ([MEMORY[0x277D3C810] wallpaperDemoModeEnabled])
     {
-      v14 = *(*(a1 + 32) + 56);
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+      v16 = *(*(a1 + 32) + 56);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_22FA28000, v14, OS_LOG_TYPE_DEFAULT, "[PHAWallpaperSuggestionRefreshSession] Wallpaper Demo Mode ON", buf, 2u);
+        _os_log_impl(&dword_22FA28000, v16, OS_LOG_TYPE_DEFAULT, "[PHAWallpaperSuggestionRefreshSession] Wallpaper Demo Mode ON", buf, 2u);
       }
 
-      v15 = [[PHAWallpaperGalleryDemoHelper alloc] initWithPhotoLibrary:*(*(a1 + 32) + 48) loggingConnection:*(*(a1 + 32) + 56)];
-      v16 = [(PHAWallpaperGalleryDemoHelper *)v15 demoDescriptors];
-      [v12 addObjectsFromArray:v16];
+      v17 = [[PHAWallpaperGalleryDemoHelper alloc] initWithPhotoLibrary:*(*(a1 + 32) + 48) loggingConnection:*(*(a1 + 32) + 56)];
+      v18 = [(PHAWallpaperGalleryDemoHelper *)v17 demoDescriptors];
+      [v14 addObjectsFromArray:v18];
     }
 
     else
     {
-      v15 = [[PHAWallpaperShuffleDescriptorGenerator alloc] initWithPhotoLibrary:*(*(a1 + 32) + 48) loggingConnection:*(*(a1 + 32) + 56)];
-      v16 = [(PHAWallpaperGalleryDemoHelper *)v15 shuffleDescriptorsForDonation];
-      [v12 addObjectsFromArray:v16];
-      v17 = [*(a1 + 32) suggestionUUIDsForPosterDescriptors:v16];
-      [v13 unionSet:v17];
-
-      v18 = [*(a1 + 32) settlingEffectDescriptorsForDonationWithSuggestionUUIDsToAvoid:v13];
-      [v12 addObjectsFromArray:v18];
+      v17 = [[PHAWallpaperShuffleDescriptorGenerator alloc] initWithPhotoLibrary:*(*(a1 + 32) + 48) loggingConnection:*(*(a1 + 32) + 56)];
+      v18 = [(PHAWallpaperGalleryDemoHelper *)v17 shuffleDescriptorsForDonation];
+      [v14 addObjectsFromArray:v18];
       v19 = [*(a1 + 32) suggestionUUIDsForPosterDescriptors:v18];
-      [v13 unionSet:v19];
+      [v15 unionSet:v19];
 
-      v20 = [*(a1 + 32) spatialPhotoDescriptorsForDonationWithSuggestionUUIDsToAvoid:v13];
-      [v12 addObjectsFromArray:v20];
+      v20 = [*(a1 + 32) settlingEffectDescriptorsForDonationWithSuggestionUUIDsToAvoid:v15];
+      [v14 addObjectsFromArray:v20];
       v21 = [*(a1 + 32) suggestionUUIDsForPosterDescriptors:v20];
-      [v13 unionSet:v21];
+      [v15 unionSet:v21];
 
-      v22 = [*(a1 + 32) featuredPhotoDescriptorsForDonationWithSuggestionUUIDsToAvoid:v13 count:{11 - objc_msgSend(v18, "count")}];
-      [v12 addObjectsFromArray:v22];
+      v22 = [*(a1 + 32) spatialPhotoDescriptorsForDonationWithSuggestionUUIDsToAvoid:v15];
+      [v14 addObjectsFromArray:v22];
       v23 = [*(a1 + 32) suggestionUUIDsForPosterDescriptors:v22];
-      [v13 unionSet:v23];
+      [v15 unionSet:v23];
+
+      v24 = [*(a1 + 32) featuredPhotoDescriptorsForDonationWithSuggestionUUIDsToAvoid:v15 count:{11 - objc_msgSend(v20, "count")}];
+      [v14 addObjectsFromArray:v24];
+      v25 = [*(a1 + 32) suggestionUUIDsForPosterDescriptors:v24];
+      [v15 unionSet:v25];
     }
 
-    v24 = objc_alloc_init(MEMORY[0x277CBEB38]);
-    v118 = 0u;
-    v119 = 0u;
+    v26 = objc_alloc_init(MEMORY[0x277CBEB38]);
     v120 = 0u;
     v121 = 0u;
-    v25 = v12;
-    v26 = [v25 countByEnumeratingWithState:&v118 objects:v129 count:16];
-    if (v26)
+    v122 = 0u;
+    v123 = 0u;
+    v27 = v14;
+    v28 = [v27 countByEnumeratingWithState:&v120 objects:v131 count:16];
+    if (v28)
     {
-      v27 = v26;
-      v28 = *v119;
+      v29 = v28;
+      v30 = *v121;
       do
       {
-        for (i = 0; i != v27; ++i)
+        for (i = 0; i != v29; ++i)
         {
-          if (*v119 != v28)
+          if (*v121 != v30)
           {
-            objc_enumerationMutation(v25);
+            objc_enumerationMutation(v27);
           }
 
-          v30 = *(*(&v118 + 1) + 8 * i);
-          v31 = [v30 identifier];
-          [v24 setObject:v30 forKeyedSubscript:v31];
+          v32 = *(*(&v120 + 1) + 8 * i);
+          v33 = [v32 identifier];
+          [v26 setObject:v32 forKeyedSubscript:v33];
         }
 
-        v27 = [v25 countByEnumeratingWithState:&v118 objects:v129 count:16];
+        v29 = [v27 countByEnumeratingWithState:&v120 objects:v131 count:16];
       }
 
-      while (v27);
+      while (v29);
     }
 
-    v32 = [*(a1 + 32) currentlyFeaturedSuggestionUUIDsForTop:1];
-    [*(a1 + 32) updateSuggestionFeaturedStateWithNewSuggestionUUIDs:v13 oldSuggestionUUIDs:v32];
-    v33 = [v24 allKeys];
-    v34 = [v24 count];
-    v35 = *(*(a1 + 32) + 56);
-    v36 = os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT);
-    if (v34)
+    v34 = [*(a1 + 32) currentlyFeaturedSuggestionUUIDsForTop:1];
+    [*(a1 + 32) updateSuggestionFeaturedStateWithNewSuggestionUUIDs:v15 oldSuggestionUUIDs:v34];
+    v35 = [v26 allKeys];
+    v36 = [v26 count];
+    v37 = *(*(a1 + 32) + 56);
+    v38 = os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT);
+    if (v36)
     {
-      if (v36)
+      if (v38)
       {
-        v37 = v35;
-        v38 = [v24 count];
+        v39 = v37;
+        v40 = [v26 count];
         *buf = 67109378;
-        *v128 = v38;
-        *&v128[4] = 2112;
-        *&v128[6] = v33;
-        _os_log_impl(&dword_22FA28000, v37, OS_LOG_TYPE_DEFAULT, "[PHAWallpaperSuggestionRefreshSession] Refreshing gallery with %d suggestions %@", buf, 0x12u);
+        *v130 = v40;
+        *&v130[4] = 2112;
+        *&v130[6] = v35;
+        _os_log_impl(&dword_22FA28000, v39, OS_LOG_TYPE_DEFAULT, "[PHAWallpaperSuggestionRefreshSession] Refreshing gallery with %d suggestions %@", buf, 0x12u);
       }
 
-      v39 = *(*(a1 + 72) + 8);
-      if (*(v39 + 24))
+      v41 = *(*(a1 + 72) + 8);
+      if (*(v41 + 24))
       {
-        v40 = 1;
+        v42 = 1;
       }
 
       else
       {
-        v40 = [*(a1 + 48) isCancelledWithProgress:0.3];
-        v39 = *(*(a1 + 72) + 8);
+        v42 = [*(a1 + 48) isCancelledWithProgress:0.3];
+        v41 = *(*(a1 + 72) + 8);
       }
 
-      *(v39 + 24) = v40;
+      *(v41 + 24) = v42;
       if (*(*(*(a1 + 72) + 8) + 24) == 1)
       {
-        v41 = *(*(a1 + 32) + 56);
-        if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
+        v43 = *(*(a1 + 32) + 56);
+        if (os_log_type_enabled(v43, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
-          _os_log_impl(&dword_22FA28000, v41, OS_LOG_TYPE_DEFAULT, "[PHAWallpaperSuggestionRefreshSession] Poster Descriptors refresh was canceled", buf, 2u);
+          _os_log_impl(&dword_22FA28000, v43, OS_LOG_TYPE_DEFAULT, "[PHAWallpaperSuggestionRefreshSession] Poster Descriptors refresh was canceled", buf, 2u);
         }
 
-        v42 = *(a1 + 64);
-        v43 = [MEMORY[0x277CCA9B8] pl_analysisErrorWithCode:16];
-        (*(v42 + 16))(v42, 0, v43);
+        v44 = *(a1 + 64);
+        v45 = [MEMORY[0x277CCA9B8] pl_analysisErrorWithCode:16];
+        (*(v44 + 16))(v44, 0, v45);
       }
 
       else
       {
-        v102 = v32;
-        v103 = v33;
-        v104 = v13;
-        v44 = objc_alloc_init(MEMORY[0x277CBEB38]);
-        v114 = 0u;
-        v115 = 0u;
+        v104 = v34;
+        v105 = v35;
+        v106 = v15;
+        v46 = objc_alloc_init(MEMORY[0x277CBEB38]);
         v116 = 0u;
         v117 = 0u;
-        v45 = *(a1 + 40);
-        v46 = [v45 countByEnumeratingWithState:&v114 objects:v126 count:16];
-        if (v46)
+        v118 = 0u;
+        v119 = 0u;
+        v47 = *(a1 + 40);
+        v48 = [v47 countByEnumeratingWithState:&v116 objects:v128 count:16];
+        if (v48)
         {
-          v47 = v46;
-          v48 = *v115;
+          v49 = v48;
+          v50 = *v117;
           do
           {
-            for (j = 0; j != v47; ++j)
+            for (j = 0; j != v49; ++j)
             {
-              if (*v115 != v48)
+              if (*v117 != v50)
               {
-                objc_enumerationMutation(v45);
+                objc_enumerationMutation(v47);
               }
 
-              v50 = *(*(&v114 + 1) + 8 * j);
-              v51 = [v50 identifier];
-              [v44 setObject:v50 forKeyedSubscript:v51];
+              v52 = *(*(&v116 + 1) + 8 * j);
+              v53 = [v52 identifier];
+              [v46 setObject:v52 forKeyedSubscript:v53];
             }
 
-            v47 = [v45 countByEnumeratingWithState:&v114 objects:v126 count:16];
+            v49 = [v47 countByEnumeratingWithState:&v116 objects:v128 count:16];
           }
 
-          while (v47);
+          while (v49);
         }
 
-        v52 = [*(a1 + 56) childProgressReporterFromStart:0.3 toEnd:0.8];
-        v53 = *(a1 + 32);
-        v113 = 0;
-        v54 = [v53 updateIfNeededPosterDescriptors:v24 fromCurrentPosterDescriptors:v44 partialErrors:&v113 progressReporter:v52];
-        v55 = v113;
-        if (v54)
+        v54 = [*(a1 + 56) childProgressReporterFromStart:0.3 toEnd:0.8];
+        v55 = *(a1 + 32);
+        v115 = 0;
+        v56 = [v55 updateIfNeededPosterDescriptors:v26 fromCurrentPosterDescriptors:v46 partialErrors:&v115 progressReporter:v54];
+        v57 = v115;
+        if (v56)
         {
-          v56 = [objc_alloc(MEMORY[0x277CBEB18]) initWithArray:v55];
-          v13 = v104;
-          v101 = v56;
-          if ([v54 count])
+          v58 = [objc_alloc(MEMORY[0x277CBEB18]) initWithArray:v57];
+          v15 = v106;
+          v103 = v58;
+          if ([v56 count])
           {
-            v57 = *(*(a1 + 72) + 8);
-            v58 = v52;
-            if (*(v57 + 24))
+            v59 = *(*(a1 + 72) + 8);
+            v60 = v54;
+            if (*(v59 + 24))
             {
-              v59 = 1;
+              v61 = 1;
             }
 
             else
             {
-              v59 = [*(a1 + 48) isCancelledWithProgress:0.85];
-              v57 = *(*(a1 + 72) + 8);
+              v61 = [*(a1 + 48) isCancelledWithProgress:0.85];
+              v59 = *(*(a1 + 72) + 8);
             }
 
-            *(v57 + 24) = v59;
-            v69 = *(*(*(a1 + 72) + 8) + 24);
-            v70 = *(a1 + 32);
-            v71 = *(v70 + 56);
-            v72 = os_log_type_enabled(v71, OS_LOG_TYPE_DEFAULT);
-            if (v69 == 1)
+            *(v59 + 24) = v61;
+            v71 = *(*(*(a1 + 72) + 8) + 24);
+            v72 = *(a1 + 32);
+            v73 = *(v72 + 56);
+            v74 = os_log_type_enabled(v73, OS_LOG_TYPE_DEFAULT);
+            if (v71 == 1)
             {
-              v52 = v58;
-              if (v72)
+              v54 = v60;
+              if (v74)
               {
                 *buf = 0;
-                _os_log_impl(&dword_22FA28000, v71, OS_LOG_TYPE_DEFAULT, "[PHAWallpaperSuggestionRefreshSession] Poster Descriptors refresh was canceled", buf, 2u);
+                _os_log_impl(&dword_22FA28000, v73, OS_LOG_TYPE_DEFAULT, "[PHAWallpaperSuggestionRefreshSession] Poster Descriptors refresh was canceled", buf, 2u);
               }
 
-              v73 = *(a1 + 64);
-              v74 = [MEMORY[0x277CCA9B8] pl_analysisErrorWithCode:16];
-              (*(v73 + 16))(v73, 0, v74);
-              v13 = v104;
-              v62 = v101;
+              v75 = *(a1 + 64);
+              v76 = [MEMORY[0x277CCA9B8] pl_analysisErrorWithCode:16];
+              (*(v75 + 16))(v75, 0, v76);
+              v15 = v106;
+              v64 = v103;
             }
 
             else
             {
-              v99 = v55;
-              v52 = v58;
-              if (v72)
+              v101 = v57;
+              v54 = v60;
+              if (v74)
               {
-                v75 = v71;
-                v76 = [v54 count];
+                v77 = v73;
+                v78 = [v56 count];
                 *buf = 67109120;
-                *v128 = v76;
-                _os_log_impl(&dword_22FA28000, v75, OS_LOG_TYPE_DEFAULT, "[PHAWallpaperSuggestionRefreshSession] %d poster descriptors changed, needs actual refresh", buf, 8u);
+                *v130 = v78;
+                _os_log_impl(&dword_22FA28000, v77, OS_LOG_TYPE_DEFAULT, "[PHAWallpaperSuggestionRefreshSession] %d poster descriptors changed, needs actual refresh", buf, 8u);
 
-                v70 = *(a1 + 32);
+                v72 = *(a1 + 32);
               }
 
-              v74 = [*(v70 + 16) URLByAppendingPathComponent:@"UpdatedPosterDescriptorIdentifiers"];
-              v77 = [v54 allObjects];
-              v78 = [v77 sortedArrayUsingSelector:sel_compare_];
+              v76 = [*(v72 + 16) URLByAppendingPathComponent:@"UpdatedPosterDescriptorIdentifiers"];
+              v79 = [v56 allObjects];
+              v80 = [v79 sortedArrayUsingSelector:sel_compare_];
 
-              v112 = 0;
-              v95 = v78;
-              LODWORD(v77) = [v78 writeToURL:v74 error:&v112];
-              v94 = v112;
-              v79 = *(*(a1 + 32) + 56);
-              if (v77)
+              v114 = 0;
+              v97 = v80;
+              LODWORD(v79) = [v80 writeToURL:v76 error:&v114];
+              v96 = v114;
+              v81 = *(*(a1 + 32) + 56);
+              if (v79)
               {
-                v13 = v104;
-                if (os_log_type_enabled(v79, OS_LOG_TYPE_INFO))
+                v15 = v106;
+                if (os_log_type_enabled(v81, OS_LOG_TYPE_INFO))
                 {
                   *buf = 138412290;
-                  *v128 = v95;
-                  _os_log_impl(&dword_22FA28000, v79, OS_LOG_TYPE_INFO, "[PHAWallpaperSuggestionRefreshSession] Successfully persisted updated poster descriptor identifiers: %@", buf, 0xCu);
+                  *v130 = v97;
+                  _os_log_impl(&dword_22FA28000, v81, OS_LOG_TYPE_INFO, "[PHAWallpaperSuggestionRefreshSession] Successfully persisted updated poster descriptor identifiers: %@", buf, 0xCu);
                 }
 
-                v80 = *(*(a1 + 72) + 8);
-                if (*(v80 + 24))
+                v82 = *(*(a1 + 72) + 8);
+                if (*(v82 + 24))
                 {
-                  v81 = 1;
+                  v83 = 1;
                 }
 
                 else
                 {
-                  v81 = [*(a1 + 48) isCancelledWithProgress:0.9];
-                  v80 = *(*(a1 + 72) + 8);
+                  v83 = [*(a1 + 48) isCancelledWithProgress:0.9];
+                  v82 = *(*(a1 + 72) + 8);
                 }
 
-                v55 = v99;
-                *(v80 + 24) = v81;
+                v57 = v101;
+                *(v82 + 24) = v83;
                 if (*(*(*(a1 + 72) + 8) + 24) == 1)
                 {
-                  v97 = v52;
-                  v85 = v74;
-                  v86 = *(*(a1 + 32) + 56);
-                  if (os_log_type_enabled(v86, OS_LOG_TYPE_DEFAULT))
+                  v99 = v54;
+                  v87 = v76;
+                  v88 = *(*(a1 + 32) + 56);
+                  if (os_log_type_enabled(v88, OS_LOG_TYPE_DEFAULT))
                   {
                     *buf = 0;
-                    _os_log_impl(&dword_22FA28000, v86, OS_LOG_TYPE_DEFAULT, "[PHAWallpaperSuggestionRefreshSession] Poster Descriptors refresh was canceled", buf, 2u);
+                    _os_log_impl(&dword_22FA28000, v88, OS_LOG_TYPE_DEFAULT, "[PHAWallpaperSuggestionRefreshSession] Poster Descriptors refresh was canceled", buf, 2u);
                   }
 
-                  v87 = *(a1 + 64);
-                  v88 = [MEMORY[0x277CCA9B8] pl_analysisErrorWithCode:{16, v94}];
-                  (*(v87 + 16))(v87, 0, v88);
+                  v89 = *(a1 + 64);
+                  v90 = [MEMORY[0x277CCA9B8] pl_analysisErrorWithCode:{16, v96}];
+                  (*(v89 + 16))(v89, 0, v90);
 
-                  v62 = v101;
-                  v74 = v85;
-                  v52 = v97;
+                  v64 = v103;
+                  v76 = v87;
+                  v54 = v99;
                 }
 
                 else
                 {
-                  v100 = objc_alloc_init(MEMORY[0x277D3E9E8]);
-                  v89 = [*(*(a1 + 32) + 16) path];
-                  [v100 setIdentifier:v89];
+                  v102 = objc_alloc_init(MEMORY[0x277D3E9E8]);
+                  v91 = [*(*(a1 + 32) + 16) path];
+                  [v102 setIdentifier:v91];
 
-                  v90 = *(*(a1 + 32) + 24);
-                  v105[0] = MEMORY[0x277D85DD0];
-                  v105[1] = 3221225472;
-                  v105[2] = __96__PHAWallpaperSuggestionRefreshSession_refreshPosterDescriptorsWithProgressReporter_completion___block_invoke_368;
-                  v105[3] = &unk_2788B27E8;
-                  v111 = *(a1 + 72);
-                  v91 = *(a1 + 48);
-                  v92 = *(a1 + 32);
-                  v106 = v91;
-                  v107 = v92;
-                  v110 = *(a1 + 64);
-                  v108 = v101;
-                  v109 = v103;
-                  v93 = v90;
-                  v62 = v101;
-                  [v93 refreshPosterDescriptorsForExtension:@"com.apple.PhotosUIPrivate.PhotosPosterProvider" sessionInfo:v100 completion:v105];
+                  v92 = *(*(a1 + 32) + 24);
+                  v107[0] = MEMORY[0x277D85DD0];
+                  v107[1] = 3221225472;
+                  v107[2] = __96__PHAWallpaperSuggestionRefreshSession_refreshPosterDescriptorsWithProgressReporter_completion___block_invoke_368;
+                  v107[3] = &unk_2788B27E8;
+                  v113 = *(a1 + 72);
+                  v93 = *(a1 + 48);
+                  v94 = *(a1 + 32);
+                  v108 = v93;
+                  v109 = v94;
+                  v112 = *(a1 + 64);
+                  v110 = v103;
+                  v111 = v105;
+                  v95 = v92;
+                  v64 = v103;
+                  [v95 refreshPosterDescriptorsForExtension:@"com.apple.PhotosUIPrivate.PhotosPosterProvider" sessionInfo:v102 completion:v107];
                 }
 
-                v83 = v94;
+                v85 = v96;
               }
 
               else
               {
-                v13 = v104;
-                if (os_log_type_enabled(v79, OS_LOG_TYPE_ERROR))
+                v15 = v106;
+                if (os_log_type_enabled(v81, OS_LOG_TYPE_ERROR))
                 {
                   *buf = 138412290;
-                  *v128 = v94;
-                  _os_log_error_impl(&dword_22FA28000, v79, OS_LOG_TYPE_ERROR, "[PHAWallpaperSuggestionRefreshSession] Failed to persist updated poster descriptor identifiers: %@", buf, 0xCu);
+                  *v130 = v96;
+                  _os_log_error_impl(&dword_22FA28000, v81, OS_LOG_TYPE_ERROR, "[PHAWallpaperSuggestionRefreshSession] Failed to persist updated poster descriptor identifiers: %@", buf, 0xCu);
                 }
 
-                v82 = *(*(a1 + 64) + 16);
-                v83 = v94;
-                v82();
-                v55 = v99;
-                v62 = v101;
+                v84 = *(*(a1 + 64) + 16);
+                v85 = v96;
+                v84();
+                v57 = v101;
+                v64 = v103;
               }
             }
           }
 
           else
           {
-            v63 = *(*(a1 + 32) + 56);
-            if (os_log_type_enabled(v63, OS_LOG_TYPE_DEFAULT))
+            v65 = *(*(a1 + 32) + 56);
+            if (os_log_type_enabled(v65, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 0;
-              _os_log_impl(&dword_22FA28000, v63, OS_LOG_TYPE_DEFAULT, "[PHAWallpaperSuggestionRefreshSession] No poster descriptors changed, no actual refresh needed", buf, 2u);
+              _os_log_impl(&dword_22FA28000, v65, OS_LOG_TYPE_DEFAULT, "[PHAWallpaperSuggestionRefreshSession] No poster descriptors changed, no actual refresh needed", buf, 2u);
             }
 
-            v96 = v52;
-            v98 = v55;
-            if ([v56 count])
+            v98 = v54;
+            v100 = v57;
+            if ([v58 count])
             {
-              v64 = v56;
-              v65 = MEMORY[0x277CCA9B8];
-              v122 = *MEMORY[0x277CCA578];
-              v123 = v64;
-              v66 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v123 forKeys:&v122 count:1];
-              v67 = [v65 pl_analysisErrorWithCode:24 userInfo:v66];
-              v68 = 0;
+              v66 = v58;
+              v67 = MEMORY[0x277CCA9B8];
+              v124 = *MEMORY[0x277CCA578];
+              v125 = v66;
+              v68 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v125 forKeys:&v124 count:1];
+              v69 = [v67 pl_analysisErrorWithCode:24 userInfo:v68];
+              v70 = 0;
             }
 
             else
             {
-              v124 = @"posterDescriptorIdentifiers";
-              v125 = v103;
-              v68 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v125 forKeys:&v124 count:1];
-              v84 = objc_opt_class();
-              v66 = [MEMORY[0x277CBEAA8] date];
-              [v84 saveLastGalleryRefreshDate:v66 loggingConnection:*(*(a1 + 32) + 56)];
-              v67 = 0;
+              v126 = @"posterDescriptorIdentifiers";
+              v127 = v105;
+              v70 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v127 forKeys:&v126 count:1];
+              v86 = objc_opt_class();
+              v68 = [MEMORY[0x277CBEAA8] date];
+              [v86 saveLastGalleryRefreshDate:v68 loggingConnection:*(*(a1 + 32) + 56)];
+              v69 = 0;
             }
 
             (*(*(a1 + 64) + 16))();
-            v55 = v98;
-            v62 = v101;
-            v74 = v68;
-            v52 = v96;
+            v57 = v100;
+            v64 = v103;
+            v76 = v70;
+            v54 = v98;
           }
         }
 
         else
         {
-          v60 = *(*(a1 + 32) + 56);
-          v13 = v104;
-          if (os_log_type_enabled(v60, OS_LOG_TYPE_DEFAULT))
+          v62 = *(*(a1 + 32) + 56);
+          v15 = v106;
+          if (os_log_type_enabled(v62, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 0;
-            _os_log_impl(&dword_22FA28000, v60, OS_LOG_TYPE_DEFAULT, "[PHAWallpaperSuggestionRefreshSession] Poster Descriptors refresh was canceled", buf, 2u);
+            _os_log_impl(&dword_22FA28000, v62, OS_LOG_TYPE_DEFAULT, "[PHAWallpaperSuggestionRefreshSession] Poster Descriptors refresh was canceled", buf, 2u);
           }
 
-          v61 = *(a1 + 64);
-          v62 = [MEMORY[0x277CCA9B8] pl_analysisErrorWithCode:16];
-          (*(v61 + 16))(v61, 0, v62);
+          v63 = *(a1 + 64);
+          v64 = [MEMORY[0x277CCA9B8] pl_analysisErrorWithCode:16];
+          (*(v63 + 16))(v63, 0, v64);
         }
 
-        v32 = v102;
-        v33 = v103;
+        v34 = v104;
+        v35 = v105;
       }
     }
 
     else
     {
-      if (v36)
+      if (v38)
       {
         *buf = 0;
-        _os_log_impl(&dword_22FA28000, v35, OS_LOG_TYPE_DEFAULT, "[PHAWallpaperSuggestionRefreshSession] No poster descriptors to refresh gallery, bailing", buf, 2u);
+        _os_log_impl(&dword_22FA28000, v37, OS_LOG_TYPE_DEFAULT, "[PHAWallpaperSuggestionRefreshSession] No poster descriptors to refresh gallery, bailing", buf, 2u);
       }
 
       (*(*(a1 + 64) + 16))();
@@ -4473,11 +4473,11 @@ LABEL_7:
 
   else
   {
-    v8 = *(a1 + 32);
-    v9 = *(a1 + 40);
-    v10 = *(a1 + 64);
+    v10 = *(a1 + 32);
+    v11 = *(a1 + 40);
+    v12 = *(a1 + 64);
 
-    [v8 _removeIfNeededFeaturedContent:v9 withCompletion:v10];
+    [v10 _removeIfNeededFeaturedContent:v11 withCompletion:v12];
   }
 }
 

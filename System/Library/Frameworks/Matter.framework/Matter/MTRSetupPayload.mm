@@ -72,7 +72,7 @@
 
 - (void)setVersion:(NSNumber *)version
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v4 = version;
   v5 = v4;
   if (self->_concatenatedQRCode)
@@ -87,7 +87,7 @@
 
     if (sub_2393D5398(1u))
     {
-      sub_2393D5320(0, 1);
+      sub_2393D5320(0, 1, "%@ Unable to change version of concatenated QR code", self);
     }
   }
 
@@ -95,13 +95,11 @@
   {
     self->_payload.version = [(NSNumber *)v4 unsignedIntegerValue];
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setVendorID:(NSNumber *)vendorID
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v4 = vendorID;
   v5 = v4;
   if (self->_concatenatedQRCode)
@@ -116,7 +114,7 @@
 
     if (sub_2393D5398(1u))
     {
-      sub_2393D5320(0, 1);
+      sub_2393D5320(0, 1, "%@ Unable to change vendorID of concatenated QR code", self);
     }
   }
 
@@ -124,13 +122,11 @@
   {
     self->_payload.vendorID = [(NSNumber *)v4 unsignedIntegerValue];
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setProductID:(NSNumber *)productID
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v4 = productID;
   v5 = v4;
   if (self->_concatenatedQRCode)
@@ -145,7 +141,7 @@
 
     if (sub_2393D5398(1u))
     {
-      sub_2393D5320(0, 1);
+      sub_2393D5320(0, 1, "%@ Unable to change productID of concatenated QR code", self);
     }
   }
 
@@ -153,13 +149,11 @@
   {
     self->_payload.productID = [(NSNumber *)v4 unsignedIntegerValue];
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setCommissioningFlow:(MTRCommissioningFlow)commissioningFlow
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   if (self->_concatenatedQRCode)
   {
     v4 = sub_2393D9044(0);
@@ -172,7 +166,7 @@
 
     if (sub_2393D5398(1u))
     {
-      sub_2393D5320(0, 1);
+      sub_2393D5320(0, 1, "%@ Unable to change commissioningFlow of concatenated QR code", self);
     }
   }
 
@@ -180,8 +174,6 @@
   {
     self->_payload.commissioningFlow = commissioningFlow;
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (MTRDiscoveryCapabilities)discoveryCapabilities
@@ -193,7 +185,7 @@
     return 0;
   }
 
-  v4 = sub_2392E0F30(p_rendezvousInformation);
+  sub_2392E0F30(p_rendezvousInformation, a2);
   if (*v4)
   {
     return *v4;
@@ -207,7 +199,7 @@
 
 - (void)setDiscoveryCapabilities:(MTRDiscoveryCapabilities)discoveryCapabilities
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   if (self->_concatenatedQRCode)
   {
     v4 = sub_2393D9044(0);
@@ -220,7 +212,7 @@
 
     if (sub_2393D5398(1u))
     {
-      sub_2393D5320(0, 1);
+      sub_2393D5320(0, 1, "%@ Unable to change discoveryCapabilities of concatenated QR code", self);
     }
   }
 
@@ -234,8 +226,6 @@
   {
     self->_payload.rendezvousInformation.mValueHolder.mHasValue = 0;
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (NSNumber)discriminator
@@ -256,7 +246,7 @@
 
     else
     {
-      mDiscriminator_low = sub_2392E10A8(&self->_payload.discriminator);
+      mDiscriminator_low = sub_2392E10A8(&self->_payload.discriminator, a2);
     }
 
     v3 = [v4 numberWithInt:mDiscriminator_low];
@@ -273,7 +263,7 @@
 
 - (void)setHasShortDiscriminator:(BOOL)hasShortDiscriminator
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   if (self->_concatenatedQRCode)
   {
     v4 = sub_2393D9044(0);
@@ -286,28 +276,24 @@
 
     if (sub_2393D5398(1u))
     {
-      sub_2393D5320(0, 1);
+      sub_2393D5320(0, 1, "%@ Unable to change hasShortDiscriminator of concatenated QR code", self);
     }
-
-    goto LABEL_10;
   }
 
-  v5 = hasShortDiscriminator;
-  if ([(MTRSetupPayload *)self hasShortDiscriminator]== hasShortDiscriminator)
+  else
   {
-LABEL_10:
-    v7 = *MEMORY[0x277D85DE8];
-    return;
+    v5 = hasShortDiscriminator;
+    if ([(MTRSetupPayload *)self hasShortDiscriminator]!= hasShortDiscriminator)
+    {
+      discriminator = [(MTRSetupPayload *)self discriminator];
+      sub_23952D5F0(self, [discriminator unsignedShortValue], v5);
+    }
   }
-
-  discriminator = [(MTRSetupPayload *)self discriminator];
-  sub_23952D5F0(self, [discriminator unsignedShortValue], v5);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setSetupPasscode:(NSNumber *)setupPasscode
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v4 = setupPasscode;
   v5 = v4;
   if (self->_concatenatedQRCode)
@@ -322,7 +308,7 @@ LABEL_10:
 
     if (sub_2393D5398(1u))
     {
-      sub_2393D5320(0, 1);
+      sub_2393D5320(0, 1, "%@ Unable to change setupPasscode of concatenated QR code", self);
     }
   }
 
@@ -330,8 +316,6 @@ LABEL_10:
   {
     self->_payload.setUpPINCode = [(NSNumber *)v4 unsignedIntegerValue];
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (NSString)serialNumber
@@ -423,8 +407,8 @@ LABEL_20:
 
     if (sub_2393D5398(1u))
     {
-      sub_2393C9138();
-      sub_2393D5320(0, 1);
+      v13 = sub_2393C9138();
+      sub_2393D5320(0, 1, "Ignoring unexpected error in SetupPayload::addSerialNumber: %s", v13);
     }
 
     goto LABEL_20;
@@ -440,12 +424,10 @@ LABEL_20:
 
   if (sub_2393D5398(1u))
   {
-    sub_2393D5320(0, 1);
+    sub_2393D5320(0, 1, "%@ Unable to change serialNumber of concatenated QR code", self);
   }
 
 LABEL_21:
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (NSArray)vendorElements
@@ -505,7 +487,7 @@ LABEL_21:
 
 - (void)removeVendorElementWithTag:(id)tag
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   tagCopy = tag;
   v5 = tagCopy;
   if (self->_concatenatedQRCode)
@@ -520,7 +502,7 @@ LABEL_21:
 
     if (sub_2393D5398(1u))
     {
-      sub_2393D5320(0, 1);
+      sub_2393D5320(0, 1, "%@ Unable to modify vendor elements of concatenated QR code", self);
     }
   }
 
@@ -529,8 +511,6 @@ LABEL_21:
     v7 = sub_2392DFAF8(tagCopy);
     sub_23948FE9C(&self->_payload, v7);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addOrReplaceVendorElement:(id)element
@@ -550,7 +530,7 @@ LABEL_21:
 
     if (sub_2393D5398(1u))
     {
-      sub_2393D5320(0, 1);
+      sub_2393D5320(0, 1, "%@ Unable to modify vendor elements of concatenated QR code", self);
     }
   }
 
@@ -563,25 +543,23 @@ LABEL_21:
 
     if (sub_2392DFD00(elementCopy, &self->_payload))
     {
-      v8 = sub_2393D9044(0);
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+      v7 = sub_2393D9044(0);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315138;
         selfCopy = sub_2393C9138();
-        _os_log_impl(&dword_238DAE000, v8, OS_LOG_TYPE_ERROR, "Internal error: %s", buf, 0xCu);
+        _os_log_impl(&dword_238DAE000, v7, OS_LOG_TYPE_ERROR, "Internal error: %s", buf, 0xCu);
       }
 
       if (sub_2393D5398(1u))
       {
-        sub_2393C9138();
-        sub_2393D5320(0, 1);
+        v8 = sub_2393C9138();
+        sub_2393D5320(0, 1, "Internal error: %s", v8);
       }
 
       abort();
     }
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (NSString)manualEntryCode

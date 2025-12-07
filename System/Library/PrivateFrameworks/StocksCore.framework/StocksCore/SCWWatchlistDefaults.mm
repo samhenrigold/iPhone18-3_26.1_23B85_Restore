@@ -29,7 +29,7 @@
 
 + (id)defaultsForCurrentCountry
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   currentLocale = [MEMORY[0x1E695DF58] currentLocale];
   v4 = [currentLocale objectForKey:*MEMORY[0x1E695D978]];
 
@@ -55,11 +55,11 @@
   v9 = StocksLogForCategory(4);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
-    v15 = 138543618;
-    v16 = v4;
-    v17 = 2114;
-    v18 = v6;
-    _os_log_impl(&dword_1DAA3F000, v9, OS_LOG_TYPE_DEFAULT, "for country code=%{public}@, found default symbols: %{public}@", &v15, 0x16u);
+    v14 = 138543618;
+    v15 = v4;
+    v16 = 2114;
+    v17 = v6;
+    _os_log_impl(&dword_1DAA3F000, v9, OS_LOG_TYPE_DEFAULT, "for country code=%{public}@, found default symbols: %{public}@", &v14, 0x16u);
   }
 
   v10 = objc_alloc(objc_opt_class());
@@ -74,8 +74,6 @@
   }
 
   v12 = [v10 initWithDefaultSymbols:v11];
-
-  v13 = *MEMORY[0x1E69E9840];
 
   return v12;
 }
@@ -97,43 +95,41 @@
 
 + (id)defaultsHistoryForCurrentCountry
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   array = [MEMORY[0x1E695DF70] array];
   defaultsForCurrentCountry = [self defaultsForCurrentCountry];
   _iOS10DefaultsForCurrentCountry = [self _iOS10DefaultsForCurrentCountry];
   _iOS7DefaultsForCurrentCountry = [self _iOS7DefaultsForCurrentCountry];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
-  v18[0] = defaultsForCurrentCountry;
-  v18[1] = _iOS10DefaultsForCurrentCountry;
-  v18[2] = _iOS7DefaultsForCurrentCountry;
-  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v18 count:{3, 0}];
-  v8 = [v7 countByEnumeratingWithState:&v14 objects:v19 count:16];
+  v17[0] = defaultsForCurrentCountry;
+  v17[1] = _iOS10DefaultsForCurrentCountry;
+  v17[2] = _iOS7DefaultsForCurrentCountry;
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v17 count:{3, 0}];
+  v8 = [v7 countByEnumeratingWithState:&v13 objects:v18 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v15;
+    v10 = *v14;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v15 != v10)
+        if (*v14 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        [array addObject:*(*(&v14 + 1) + 8 * i)];
+        [array addObject:*(*(&v13 + 1) + 8 * i)];
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v14 objects:v19 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v13 objects:v18 count:16];
     }
 
     while (v9);
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 
   return array;
 }

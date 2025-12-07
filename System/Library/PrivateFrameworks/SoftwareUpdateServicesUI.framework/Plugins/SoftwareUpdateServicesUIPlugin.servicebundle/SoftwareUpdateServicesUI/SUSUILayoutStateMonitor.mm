@@ -307,105 +307,104 @@
   location[1] = a2;
   location[0] = 0;
   objc_storeStrong(location, layout);
-  v47 = 0;
-  objc_storeStrong(&v47, context);
-  v4 = selfCopy->_queue;
+  v46 = 0;
+  objc_storeStrong(&v46, context);
   BSDispatchQueueAssert();
   oslog = SUSUILog();
   type = OS_LOG_TYPE_DEBUG;
   if (os_log_type_enabled(oslog, OS_LOG_TYPE_DEBUG))
   {
-    sub_195C(v53, location[0], v47);
-    _os_log_debug_impl(&dword_0, oslog, type, "new layout: >>>\n%@\ncontext: >>>\n%@", v53, 0x16u);
+    sub_195C(v52, location[0], v46);
+    _os_log_debug_impl(&dword_0, oslog, type, "new layout: >>>\n%@\ncontext: >>>\n%@", v52, 0x16u);
   }
 
   objc_storeStrong(&oslog, 0);
   if (location[0])
   {
-    v43 = 0;
     v42 = 0;
     v41 = 0;
     v40 = 0;
+    v39 = 0;
     memset(__b, 0, sizeof(__b));
     elements = [location[0] elements];
-    v24 = [elements countByEnumeratingWithState:__b objects:v52 count:16];
-    if (v24)
+    v23 = [elements countByEnumeratingWithState:__b objects:v51 count:16];
+    if (v23)
     {
-      v20 = *__b[2];
-      v21 = 0;
-      v22 = v24;
+      v19 = *__b[2];
+      v20 = 0;
+      v21 = v23;
       while (1)
       {
-        v19 = v21;
-        if (*__b[2] != v20)
+        v18 = v20;
+        if (*__b[2] != v19)
         {
           objc_enumerationMutation(elements);
         }
 
-        v39 = *(__b[1] + 8 * v21);
-        if ([v39 isSpringBoardElement])
+        v38 = *(__b[1] + 8 * v20);
+        if ([v38 isSpringBoardElement])
         {
-          layoutRole = [v39 layoutRole];
+          layoutRole = [v38 layoutRole];
           if (layoutRole == (&dword_0 + 1))
           {
-            identifier = [v39 identifier];
-            v17 = [identifier isEqualToString:SBSDisplayLayoutElementHomeScreenIdentifier];
+            identifier = [v38 identifier];
+            v16 = [identifier isEqualToString:SBSDisplayLayoutElementHomeScreenIdentifier];
 
-            if (v17)
+            if (v16)
             {
-              v43 = 1;
+              v42 = 1;
             }
 
-            else if ([v39 isUIApplicationElement])
+            else if ([v38 isUIApplicationElement])
             {
-              bundleIdentifier = [v39 bundleIdentifier];
-              v6 = v40;
-              v40 = bundleIdentifier;
+              bundleIdentifier = [v38 bundleIdentifier];
+              v5 = v39;
+              v39 = bundleIdentifier;
             }
 
             else
             {
-              v51[0] = SBSDisplayLayoutElementAppSwitcherIdentifier;
-              v51[1] = SBSDisplayLayoutElementSpotlightFullscreenOverlayIdentifier;
-              v14 = [NSArray arrayWithObjects:v51 count:2];
-              identifier2 = [v39 identifier];
-              v15 = [(NSArray *)v14 containsObject:?];
+              v50[0] = SBSDisplayLayoutElementAppSwitcherIdentifier;
+              v50[1] = SBSDisplayLayoutElementSpotlightFullscreenOverlayIdentifier;
+              v13 = [NSArray arrayWithObjects:v50 count:2];
+              identifier2 = [v38 identifier];
+              v14 = [(NSArray *)v13 containsObject:?];
 
-              if (v15)
+              if (v14)
               {
-                v41 = 1;
+                v40 = 1;
               }
             }
           }
 
           else if (layoutRole == (&dword_0 + 3))
           {
-            v42 = 1;
+            v41 = 1;
           }
 
           else if (layoutRole == &dword_4 || layoutRole == (&dword_4 + 2))
           {
-            v50[0] = SBSDisplayLayoutElementTodayViewIdentifier;
-            v50[1] = FBSDisplayLayoutElementControlCenterIdentifier;
-            v50[2] = SBSDisplayLayoutElementSpotlightIdentifier;
-            v50[3] = SBSDisplayLayoutElementSpotlightFullscreenOverlayIdentifier;
-            v11 = [NSArray arrayWithObjects:v50 count:4];
-            identifier3 = [v39 identifier];
-            v12 = [(NSArray *)v11 containsObject:?];
+            v49[0] = SBSDisplayLayoutElementTodayViewIdentifier;
+            v49[1] = FBSDisplayLayoutElementControlCenterIdentifier;
+            v49[2] = SBSDisplayLayoutElementSpotlightIdentifier;
+            v49[3] = SBSDisplayLayoutElementSpotlightFullscreenOverlayIdentifier;
+            v10 = [NSArray arrayWithObjects:v49 count:4];
+            identifier3 = [v38 identifier];
+            v11 = [(NSArray *)v10 containsObject:?];
 
-            if (v12)
+            if (v11)
             {
-              v41 = 1;
+              v40 = 1;
             }
           }
         }
 
-        ++v21;
-        if (v19 + 1 >= v22)
+        ++v20;
+        if (v18 + 1 >= v21)
         {
-          v21 = 0;
-          v22 = [elements countByEnumeratingWithState:__b objects:v52 count:16];
-          if (!v22)
+          v20 = 0;
+          v21 = [elements countByEnumeratingWithState:__b objects:v51 count:16];
+          if (!v21)
           {
             break;
           }
@@ -413,57 +412,57 @@
       }
     }
 
-    v9 = 0;
-    if (v43)
+    v8 = 0;
+    if (v42)
     {
-      v9 = 0;
-      if ((v42 & 1) == 0)
+      v8 = 0;
+      if ((v41 & 1) == 0)
       {
-        v9 = v41 ^ 1;
+        v8 = v40 ^ 1;
       }
     }
 
-    v37 = [(SUSUILayoutStateMonitor *)selfCopy _queue_setHomeScreenForeground:v9 & 1];
-    v36 = [(SUSUILayoutStateMonitor *)selfCopy _queue_setForegroundBundleID:v40];
-    v35 = -[SUSUILayoutStateMonitor _queue_setScreenOn:](selfCopy, "_queue_setScreenOn:", [location[0] displayBacklightLevel] > 0);
-    v8 = 1;
-    if ((v37 & 1) == 0)
+    v36 = [(SUSUILayoutStateMonitor *)selfCopy _queue_setHomeScreenForeground:v8 & 1];
+    v35 = [(SUSUILayoutStateMonitor *)selfCopy _queue_setForegroundBundleID:v39];
+    v34 = -[SUSUILayoutStateMonitor _queue_setScreenOn:](selfCopy, "_queue_setScreenOn:", [location[0] displayBacklightLevel] > 0);
+    v7 = 1;
+    if ((v36 & 1) == 0)
     {
-      v8 = 1;
-      if ((v36 & 1) == 0)
+      v7 = 1;
+      if ((v35 & 1) == 0)
       {
-        v8 = v35;
+        v7 = v34;
       }
     }
 
-    v34 = v8 & 1;
-    if ((v8 & 1) != 0 && [(NSHashTable *)selfCopy->_queue_observers count])
+    v33 = v7 & 1;
+    if ((v7 & 1) != 0 && [(NSHashTable *)selfCopy->_queue_observers count])
     {
       allObjects = [(NSHashTable *)selfCopy->_queue_observers allObjects];
       queue = selfCopy->_observerCalloutQueue;
-      v26 = _NSConcreteStackBlock;
-      v27 = -1073741824;
-      v28 = 0;
-      v29 = sub_20518;
-      v30 = &unk_5D008;
-      v31 = allObjects;
-      v32 = selfCopy;
-      dispatch_async(queue, &v26);
-      objc_storeStrong(&v32, 0);
+      v25 = _NSConcreteStackBlock;
+      v26 = -1073741824;
+      v27 = 0;
+      v28 = sub_20518;
+      v29 = &unk_5D008;
+      v30 = allObjects;
+      v31 = selfCopy;
+      dispatch_async(queue, &v25);
       objc_storeStrong(&v31, 0);
+      objc_storeStrong(&v30, 0);
       objc_storeStrong(&allObjects, 0);
     }
 
-    objc_storeStrong(&v40, 0);
-    v44 = 0;
+    objc_storeStrong(&v39, 0);
+    v43 = 0;
   }
 
   else
   {
-    v44 = 1;
+    v43 = 1;
   }
 
-  objc_storeStrong(&v47, 0);
+  objc_storeStrong(&v46, 0);
   objc_storeStrong(location, 0);
 }
 

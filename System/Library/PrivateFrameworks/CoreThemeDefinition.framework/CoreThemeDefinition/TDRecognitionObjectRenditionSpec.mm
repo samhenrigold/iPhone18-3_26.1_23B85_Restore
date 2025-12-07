@@ -1,6 +1,7 @@
 @interface TDRecognitionObjectRenditionSpec
 - (__n128)referenceOriginTransform;
-- (uint64_t)setReferenceOriginTransform:(__n128)transform;
+- (id)createCSIRepresentationWithCompression:(BOOL)compression colorSpaceID:(unint64_t)d document:(id)document;
+- (void)setReferenceOriginTransform:(__n128)transform;
 @end
 
 @implementation TDRecognitionObjectRenditionSpec
@@ -14,8 +15,8 @@
   [self a31];
   v8 = v4;
   [self a41];
-  *&v5 = __PAIR64__(v9, v10);
-  *(&v5 + 1) = __PAIR64__(v6, v8);
+  v5.n128_u64[0] = __PAIR64__(v9, v10);
+  v5.n128_u64[1] = __PAIR64__(v6, v8);
   v11 = v5;
   [self a12];
   [self a22];
@@ -32,7 +33,7 @@
   return v11;
 }
 
-- (uint64_t)setReferenceOriginTransform:(__n128)transform
+- (void)setReferenceOriginTransform:(__n128)transform
 {
   [self setA11:?];
   HIDWORD(v6) = a2.n128_u32[1];
@@ -59,6 +60,42 @@
   [self setA34:{COERCE_DOUBLE(__PAIR64__(a5.n128_u32[1], a5.n128_u32[2]))}];
 
   return [self setA44:{COERCE_DOUBLE(__PAIR64__(a5.n128_u32[1], a5.n128_u32[3]))}];
+}
+
+- (id)createCSIRepresentationWithCompression:(BOOL)compression colorSpaceID:(unint64_t)d document:(id)document
+{
+  v14 = 0;
+  v7 = [(TDRecognitionObjectRenditionSpec *)self asset:compression];
+  v8 = [v7 fileURLWithDocument:document];
+  v9 = [objc_alloc(MEMORY[0x277CBEA90]) initWithContentsOfURL:v8 options:2 error:0];
+  v10 = [objc_alloc(MEMORY[0x277D02668]) initWithRawData:v9 pixelFormat:1145132097 layout:1014];
+  [v10 setName:{objc_msgSend(v7, "name")}];
+  [(TDRecognitionObjectRenditionSpec *)self referenceOriginTransform];
+  [v10 setTransformation:?];
+  [v10 setObjectVersion:{-[TDRecognitionObjectRenditionSpec version](self, "version")}];
+  [v10 setCompressionType:2];
+
+  if ([objc_msgSend(-[TDRecognitionObjectRenditionSpec production](self "production")])
+  {
+    v11 = [-[TDRecognitionObjectRenditionSpec production](self "production")];
+  }
+
+  else
+  {
+    if (![v8 getResourceValue:&v14 forKey:*MEMORY[0x277CBE918] error:0])
+    {
+      [v10 setName:{objc_msgSend(v7, "name")}];
+      goto LABEL_6;
+    }
+
+    v11 = v14;
+  }
+
+  [v10 setUtiType:v11];
+LABEL_6:
+  v12 = [v10 CSIRepresentationWithCompression:1];
+
+  return v12;
 }
 
 @end

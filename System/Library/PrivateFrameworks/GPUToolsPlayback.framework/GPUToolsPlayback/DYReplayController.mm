@@ -1,4 +1,5 @@
 @interface DYReplayController
+- (BOOL)_handleArchiveLoadingForPlaybackRequest:(id)request replyKind:(int)kind;
 - (BOOL)_loadArchives:(id)archives error:(id *)error;
 - (BOOL)informReady;
 - (BOOL)initializeTransportWith:(id)with;
@@ -99,22 +100,21 @@
     [(DYReplayController *)self setOrigSourceMessageHandler:v12];
 
     objc_initWeak(&location, self);
-    v18 = MEMORY[0x277D85DD0];
-    objc_copyWeak(&v19, &location);
-    v13 = [(DYReplayController *)self source:v18];
-    [v13 setMessageHandler:&v18];
+    v17 = MEMORY[0x277D85DD0];
+    objc_copyWeak(&v18, &location);
+    v13 = [(DYReplayController *)self source:v17];
+    [v13 setMessageHandler:&v17];
 
     source3 = [(DYReplayController *)self source];
     [source3 resume];
 
-    objc_destroyWeak(&v19);
+    objc_destroyWeak(&v18);
     objc_destroyWeak(&location);
     v15 = 1;
   }
 
   else
   {
-    v16 = *MEMORY[0x277D0B240];
     _DYOLog();
     v15 = 0;
   }
@@ -131,34 +131,32 @@ void __46__DYReplayController_initializeTransportWith___block_invoke(uint64_t a1
 
 - (BOOL)informReady
 {
-  v20[3] = *MEMORY[0x277D85DE8];
+  v18[3] = *MEMORY[0x277D85DE8];
   v3 = DYGetInterposeVersion();
   v5 = v4;
   v6 = MEMORY[0x277D0AFE0];
-  v19[0] = @"version";
+  v17[0] = @"version";
   v7 = [MEMORY[0x277CCABB0] numberWithInt:*MEMORY[0x277D0B010]];
-  v20[0] = v7;
-  v19[1] = @"interpose-feature-version";
+  v18[0] = v7;
+  v17[1] = @"interpose-feature-version";
   v8 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:v3];
-  v20[1] = v8;
-  v19[2] = @"interpose-patch-version";
+  v18[1] = v8;
+  v17[2] = @"interpose-patch-version";
   v9 = [MEMORY[0x277CCACA8] stringWithUTF8String:v5];
-  v20[2] = v9;
-  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:v19 count:3];
+  v18[2] = v9;
+  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:3];
   v11 = [v6 messageWithKind:4096 attributes:v10];
 
   transport = [(DYReplayController *)self transport];
-  v18 = 0;
-  v13 = [transport send:v11 error:&v18];
-  v14 = v18;
+  v16 = 0;
+  v13 = [transport send:v11 error:&v16];
+  v14 = v16;
 
   if ((v13 & 1) == 0)
   {
-    v15 = *MEMORY[0x277D0B240];
     _DYOLog();
   }
 
-  v16 = *MEMORY[0x277D85DE8];
   return v13;
 }
 
@@ -221,7 +219,7 @@ void __46__DYReplayController_initializeTransportWith___block_invoke(uint64_t a1
   return v3;
 }
 
-uint64_t __33__DYReplayController__popMessage__block_invoke(uint64_t a1)
+void *__33__DYReplayController__popMessage__block_invoke(uint64_t a1)
 {
   v2 = [*(*(a1 + 32) + 24) firstObject];
   v3 = *(*(a1 + 40) + 8);
@@ -388,7 +386,7 @@ LABEL_9:
 
 - (void)_processMessage:(id)message
 {
-  v177 = *MEMORY[0x277D85DE8];
+  v176 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   kind = [messageCopy kind];
   if (kind > 4097)
@@ -411,9 +409,9 @@ LABEL_9:
           v7 = MEMORY[0x277CBEB98];
           v8 = objc_opt_class();
           v9 = [v7 setWithObjects:{v8, objc_opt_class(), 0}];
-          v170 = 0;
-          v10 = [v6 unarchivedObjectOfClasses:v9 fromData:v5 error:&v170];
-          v11 = v170;
+          v169 = 0;
+          v10 = [v6 unarchivedObjectOfClasses:v9 fromData:v5 error:&v169];
+          v11 = v169;
 
           if (v10)
           {
@@ -427,63 +425,63 @@ LABEL_9:
           v11 = 0;
         }
 
-        v137 = *MEMORY[0x277D0B488];
-        v138 = [messageCopy attributeForKey:*MEMORY[0x277D0B488]];
-        v139 = *MEMORY[0x277D0B480];
-        v140 = [messageCopy attributeForKey:*MEMORY[0x277D0B480]];
-        v160 = v140;
-        if (v138)
+        v136 = *MEMORY[0x277D0B488];
+        v137 = [messageCopy attributeForKey:*MEMORY[0x277D0B488]];
+        v138 = *MEMORY[0x277D0B480];
+        v139 = [messageCopy attributeForKey:*MEMORY[0x277D0B480]];
+        v159 = v139;
+        if (v137)
         {
-          v141 = objc_opt_new();
-          [(DYReplayController *)self setProfileInfo:v141];
+          v140 = objc_opt_new();
+          [(DYReplayController *)self setProfileInfo:v140];
 
           profileInfo = [(DYReplayController *)self profileInfo];
-          [profileInfo setObject:v138 forKey:v137];
+          [profileInfo setObject:v137 forKey:v136];
         }
 
         else
         {
-          if (![v140 count])
+          if (![v139 count])
           {
             goto LABEL_63;
           }
 
-          v143 = objc_opt_new();
-          [(DYReplayController *)self setProfileInfo:v143];
+          v142 = objc_opt_new();
+          [(DYReplayController *)self setProfileInfo:v142];
 
           profileInfo = [(DYReplayController *)self profileInfo];
-          [profileInfo setObject:v160 forKey:v139];
+          [profileInfo setObject:v159 forKey:v138];
         }
 
 LABEL_63:
         _playbackCurrentArchiveAndExperiments = [(DYReplayController *)self _playbackCurrentArchiveAndExperiments];
         [_playbackCurrentArchiveAndExperiments waitUntilResolved];
         profileInfo2 = [(DYReplayController *)self profileInfo];
-        v146 = profileInfo2 == 0;
+        v145 = profileInfo2 == 0;
 
-        if (v146)
+        if (v145)
         {
           transport = [(DYReplayController *)self transport];
-          v154 = MEMORY[0x277D0AFE0];
+          v153 = MEMORY[0x277D0AFE0];
           transport2 = [MEMORY[0x277CCABB0] numberWithBool:1];
-          v152 = [v154 messageWithKind:4100 objectPayload:transport2];
+          v151 = [v153 messageWithKind:4100 objectPayload:transport2];
           replayMessage = [(DYReplayController *)self replayMessage];
-          [transport send:v152 inReplyTo:replayMessage error:0];
+          [transport send:v151 inReplyTo:replayMessage error:0];
         }
 
         else
         {
-          v147 = MEMORY[0x277CCAAB0];
+          v146 = MEMORY[0x277CCAAB0];
           result = [_playbackCurrentArchiveAndExperiments result];
-          v169 = v11;
-          transport = [v147 archivedDataWithRootObject:result requiringSecureCoding:1 error:&v169];
-          v150 = v169;
+          v168 = v11;
+          transport = [v146 archivedDataWithRootObject:result requiringSecureCoding:1 error:&v168];
+          v149 = v168;
 
           transport2 = [(DYReplayController *)self transport];
-          v152 = [MEMORY[0x277D0AFE0] messageWithKind:4100 objectPayload:transport];
+          v151 = [MEMORY[0x277D0AFE0] messageWithKind:4100 objectPayload:transport];
           replayMessage = [(DYReplayController *)self replayMessage];
-          [transport2 send:v152 inReplyTo:replayMessage error:0];
-          v11 = v150;
+          [transport2 send:v151 inReplyTo:replayMessage error:0];
+          v11 = v149;
         }
 
         [(DYReplayController *)self setReplayMessage:0];
@@ -664,16 +662,16 @@ LABEL_45:
         if (!replayMessage2)
         {
           plistPayload = [messageCopy plistPayload];
-          v175 = 0;
-          v130 = [(DYReplayController *)self _loadArchives:plistPayload error:&v175];
-          v131 = v175;
+          v174 = 0;
+          v129 = [(DYReplayController *)self _loadArchives:plistPayload error:&v174];
+          v130 = v174;
 
           transport12 = [(DYReplayController *)self transport];
-          v133 = MEMORY[0x277D0AFE0];
-          v134 = DYDictionaryFromError();
-          v135 = [MEMORY[0x277CCABB0] numberWithBool:v130];
-          v136 = [v133 messageWithKind:4114 attributes:v134 objectPayload:v135];
-          [transport12 send:v136 inReplyTo:messageCopy error:0];
+          v132 = MEMORY[0x277D0AFE0];
+          v133 = DYDictionaryFromError();
+          v134 = [MEMORY[0x277CCABB0] numberWithBool:v129];
+          v135 = [v132 messageWithKind:4114 attributes:v133 objectPayload:v134];
+          [transport12 send:v135 inReplyTo:messageCopy error:0];
 
           goto LABEL_54;
         }
@@ -691,30 +689,30 @@ LABEL_52:
 
         break;
       case 4115:
-        v159 = objc_opt_new();
+        v158 = objc_opt_new();
         archiveStack = [(DYReplayController *)self archiveStack];
         allObjects = [archiveStack allObjects];
 
-        v173 = 0u;
-        v174 = 0u;
-        v171 = 0u;
         v172 = 0u;
+        v173 = 0u;
+        v170 = 0u;
+        v171 = 0u;
         obja = allObjects;
-        v28 = [obja countByEnumeratingWithState:&v171 objects:v176 count:16];
+        v28 = [obja countByEnumeratingWithState:&v170 objects:v175 count:16];
         if (v28)
         {
-          v29 = *v172;
+          v29 = *v171;
           v30 = *MEMORY[0x277CBECE8];
           do
           {
             for (i = 0; i != v28; ++i)
             {
-              if (*v172 != v29)
+              if (*v171 != v29)
               {
                 objc_enumerationMutation(obja);
               }
 
-              v32 = *(*(&v171 + 1) + 8 * i);
+              v32 = *(*(&v170 + 1) + 8 * i);
               v33 = CFUUIDCreateString(v30, [v32 uuid]);
               if (!v33)
               {
@@ -726,17 +724,17 @@ LABEL_52:
               lastPathComponent = [path lastPathComponent];
               v37 = [v34 initWithObjectsAndKeys:{lastPathComponent, @"filename", v33, @"uuid", 0}];
 
-              [v159 addObject:v37];
+              [v158 addObject:v37];
             }
 
-            v28 = [obja countByEnumeratingWithState:&v171 objects:v176 count:16];
+            v28 = [obja countByEnumeratingWithState:&v170 objects:v175 count:16];
           }
 
           while (v28);
         }
 
         transport13 = [(DYReplayController *)selfCopy transport];
-        v39 = [MEMORY[0x277D0AFE0] messageWithKind:4115 attributes:0 plistPayload:v159];
+        v39 = [MEMORY[0x277D0AFE0] messageWithKind:4115 attributes:0 plistPayload:v158];
         [transport13 send:v39 inReplyTo:messageCopy error:0];
 
         goto LABEL_54;
@@ -751,25 +749,25 @@ LABEL_52:
       case 4119:
         replayControllerSupport8 = [(DYReplayController *)self replayControllerSupport];
         playbackEngine9 = [(DYReplayController *)self playbackEngine];
-        v167[0] = MEMORY[0x277D85DD0];
-        v167[1] = 3221225472;
-        v167[2] = __38__DYReplayController__processMessage___block_invoke;
-        v167[3] = &unk_27930FA28;
-        v167[4] = self;
-        v168 = messageCopy;
-        [replayControllerSupport8 generateThumbnailsWithPlaybackEngine:playbackEngine9 forMessage:v168 onReady:v167];
+        v166[0] = MEMORY[0x277D85DD0];
+        v166[1] = 3221225472;
+        v166[2] = __38__DYReplayController__processMessage___block_invoke;
+        v166[3] = &unk_27930FA28;
+        v166[4] = self;
+        v167 = messageCopy;
+        [replayControllerSupport8 generateThumbnailsWithPlaybackEngine:playbackEngine9 forMessage:v167 onReady:v166];
 
         goto LABEL_54;
       case 4120:
         replayControllerSupport9 = [(DYReplayController *)self replayControllerSupport];
         playbackEngine10 = [(DYReplayController *)self playbackEngine];
-        v163[0] = MEMORY[0x277D85DD0];
-        v163[1] = 3221225472;
-        v163[2] = __38__DYReplayController__processMessage___block_invoke_3;
-        v163[3] = &unk_27930FA28;
-        v163[4] = self;
-        v164 = messageCopy;
-        [replayControllerSupport9 generateDependencyGraphThumbnailsWithPlaybackEngine:playbackEngine10 forMessage:v164 onReady:v163];
+        v162[0] = MEMORY[0x277D85DD0];
+        v162[1] = 3221225472;
+        v162[2] = __38__DYReplayController__processMessage___block_invoke_3;
+        v162[3] = &unk_27930FA28;
+        v162[4] = self;
+        v163 = messageCopy;
+        [replayControllerSupport9 generateDependencyGraphThumbnailsWithPlaybackEngine:playbackEngine10 forMessage:v163 onReady:v162];
 
         goto LABEL_54;
       case 4121:
@@ -794,13 +792,13 @@ LABEL_52:
       case 4126:
         replayControllerSupport11 = [(DYReplayController *)self replayControllerSupport];
         playbackEngine12 = [(DYReplayController *)self playbackEngine];
-        v161[0] = MEMORY[0x277D85DD0];
-        v161[1] = 3221225472;
-        v161[2] = __38__DYReplayController__processMessage___block_invoke_4;
-        v161[3] = &unk_27930FA28;
-        v161[4] = self;
-        v162 = messageCopy;
-        [replayControllerSupport11 generatePixelHistoryWithPlaybackEngine:playbackEngine12 forMessage:v162 onReady:v161];
+        v160[0] = MEMORY[0x277D85DD0];
+        v160[1] = 3221225472;
+        v160[2] = __38__DYReplayController__processMessage___block_invoke_4;
+        v160[3] = &unk_27930FA28;
+        v160[4] = self;
+        v161 = messageCopy;
+        [replayControllerSupport11 generatePixelHistoryWithPlaybackEngine:playbackEngine12 forMessage:v161 onReady:v160];
 
         goto LABEL_54;
       default:
@@ -872,16 +870,15 @@ LABEL_53:
 
   replayControllerSupport12 = [(DYReplayController *)self replayControllerSupport];
   playbackEngine20 = [(DYReplayController *)self playbackEngine];
-  v165[0] = MEMORY[0x277D85DD0];
-  v165[1] = 3221225472;
-  v165[2] = __38__DYReplayController__processMessage___block_invoke_2;
-  v165[3] = &unk_27930FA28;
-  v165[4] = self;
-  v166 = messageCopy;
-  [replayControllerSupport12 generateShaderDebuggerTraceForMessage:v166 playbackEngine:playbackEngine20 onReady:v165];
+  v164[0] = MEMORY[0x277D85DD0];
+  v164[1] = 3221225472;
+  v164[2] = __38__DYReplayController__processMessage___block_invoke_2;
+  v164[3] = &unk_27930FA28;
+  v164[4] = self;
+  v165 = messageCopy;
+  [replayControllerSupport12 generateShaderDebuggerTraceForMessage:v165 playbackEngine:playbackEngine20 onReady:v164];
 
 LABEL_54:
-  v128 = *MEMORY[0x277D85DE8];
 }
 
 void __38__DYReplayController__processMessage___block_invoke(uint64_t a1, uint64_t a2)
@@ -914,7 +911,7 @@ void __38__DYReplayController__processMessage___block_invoke_4(uint64_t a1, uint
 
 - (BOOL)_loadArchives:(id)archives error:(id *)error
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   archivesCopy = archives;
   if (!archivesCopy)
   {
@@ -924,26 +921,26 @@ void __38__DYReplayController__processMessage___block_invoke_4(uint64_t a1, uint
   archiveStack = [(DYReplayController *)self archiveStack];
   [archiveStack close];
 
-  v25 = 0u;
-  v26 = 0u;
-  v23 = 0u;
   v24 = 0u;
+  v25 = 0u;
+  v22 = 0u;
+  v23 = 0u;
   obj = archivesCopy;
-  v8 = [obj countByEnumeratingWithState:&v23 objects:v27 count:16];
+  v8 = [obj countByEnumeratingWithState:&v22 objects:v26 count:16];
   if (v8)
   {
-    v21 = archivesCopy;
-    v9 = *v24;
+    v20 = archivesCopy;
+    v9 = *v23;
     while (2)
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v24 != v9)
+        if (*v23 != v9)
         {
           objc_enumerationMutation(obj);
         }
 
-        v11 = *(*(&v23 + 1) + 8 * i);
+        v11 = *(*(&v22 + 1) + 8 * i);
         if ([v11 isAbsolutePath])
         {
           v12 = v11;
@@ -970,7 +967,7 @@ void __38__DYReplayController__processMessage___block_invoke_4(uint64_t a1, uint
         [archiveStack2 push:v16];
       }
 
-      v8 = [obj countByEnumeratingWithState:&v23 objects:v27 count:16];
+      v8 = [obj countByEnumeratingWithState:&v22 objects:v26 count:16];
       if (v8)
       {
         continue;
@@ -983,13 +980,12 @@ void __38__DYReplayController__processMessage___block_invoke_4(uint64_t a1, uint
   v18 = 1;
 LABEL_15:
 
-  v19 = *MEMORY[0x277D85DE8];
   return v18;
 }
 
 - (void)_deleteAllArchives
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   replayMessage = [(DYReplayController *)self replayMessage];
 
   if (!replayMessage)
@@ -1004,24 +1000,24 @@ LABEL_15:
   v8 = [v6 fileURLWithPath:_archiveDirectory];
 
   [v5 contentsOfDirectoryAtURL:v8 includingPropertiesForKeys:MEMORY[0x277CBEBF8] options:0 error:0];
+  v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
-  v17 = 0u;
-  v9 = v18 = 0u;
-  v10 = [v9 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v16 = 0u;
+  v9 = v17 = 0u;
+  v10 = [v9 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v10)
   {
-    v11 = *v18;
+    v11 = *v17;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v18 != v11)
+        if (*v17 != v11)
         {
           objc_enumerationMutation(v9);
         }
 
-        v13 = *(*(&v17 + 1) + 8 * i);
+        v13 = *(*(&v16 + 1) + 8 * i);
         pathExtension = [v13 pathExtension];
         v15 = [pathExtension caseInsensitiveCompare:@"gputrace"] == 0;
 
@@ -1031,13 +1027,11 @@ LABEL_15:
         }
       }
 
-      v10 = [v9 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v10 = [v9 countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v10);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_endPlayback
@@ -1046,6 +1040,82 @@ LABEL_15:
   [replayControllerSupport endPlayback];
 
   [(DYReplayController *)self setPlaybackEngine:0];
+}
+
+- (BOOL)_handleArchiveLoadingForPlaybackRequest:(id)request replyKind:(int)kind
+{
+  v4 = *&kind;
+  requestCopy = request;
+  replayMessage = [(DYReplayController *)self replayMessage];
+
+  if (!replayMessage)
+  {
+    stringPayload = [requestCopy stringPayload];
+    if (stringPayload)
+    {
+      v16 = [MEMORY[0x277CBEA60] arrayWithObject:stringPayload];
+      v30 = 0;
+      v17 = [(DYReplayController *)self _loadArchives:v16 error:&v30];
+      v8 = v30;
+
+      if (!v17)
+      {
+        v18 = MEMORY[0x277D0AFE0];
+        v19 = DYDictionaryFromError();
+        v20 = [MEMORY[0x277CCABB0] numberWithBool:0];
+        v21 = [v18 messageWithKind:v4 attributes:v19 objectPayload:v20];
+
+        transport = [(DYReplayController *)self transport];
+        [transport send:v21 inReplyTo:requestCopy error:0];
+        goto LABEL_10;
+      }
+    }
+
+    else
+    {
+      v8 = 0;
+    }
+
+    archiveStack = [(DYReplayController *)self archiveStack];
+    v24 = [archiveStack size];
+
+    if (v24)
+    {
+      v14 = 1;
+LABEL_11:
+
+      goto LABEL_12;
+    }
+
+    v25 = [MEMORY[0x277D0AFC0] errorWithDomain:*MEMORY[0x277D0AFB8] code:2049 userInfo:0];
+
+    v26 = MEMORY[0x277D0AFE0];
+    v27 = DYDictionaryFromError();
+    v28 = [MEMORY[0x277CCABB0] numberWithBool:0];
+    v21 = [v26 messageWithKind:v4 attributes:v27 objectPayload:v28];
+
+    transport = [(DYReplayController *)self transport];
+    [transport send:v21 inReplyTo:requestCopy error:0];
+    v8 = v25;
+LABEL_10:
+
+    v14 = 0;
+    goto LABEL_11;
+  }
+
+  v8 = [MEMORY[0x277D0AFC0] errorWithDomain:*MEMORY[0x277D0AFB8] code:2048 userInfo:0];
+  v9 = MEMORY[0x277D0AFE0];
+  v10 = DYDictionaryFromError();
+  v11 = [MEMORY[0x277CCABB0] numberWithBool:0];
+  v12 = [v9 messageWithKind:v4 attributes:v10 objectPayload:v11];
+
+  transport2 = [(DYReplayController *)self transport];
+  [transport2 send:v12 inReplyTo:requestCopy error:0];
+
+  v14 = 0;
+LABEL_12:
+
+  return v14;
 }
 
 - (id)_playbackCurrentArchiveAndExperiments

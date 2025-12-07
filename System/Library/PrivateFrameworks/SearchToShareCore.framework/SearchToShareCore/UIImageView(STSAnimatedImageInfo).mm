@@ -12,7 +12,7 @@
 
   if (v6)
   {
-    [v4 duration];
+    objc_msgSend_duration(v4);
     v8 = v7;
     if (v7 == 0.0)
     {

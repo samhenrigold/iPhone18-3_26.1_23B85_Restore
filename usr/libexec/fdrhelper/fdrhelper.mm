@@ -70,9 +70,9 @@ BOOL sub_1000018B4(uint64_t a1, const void **a2, const void **a3, uint64_t a4)
   return v13;
 }
 
-void sub_100001A44(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_100001A44(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -181,12 +181,10 @@ void sub_100001D60(id a1)
 
 intptr_t sub_100001DA0(void *a1)
 {
-  v2 = a1[6];
-  v3 = a1[7];
   *(*(a1[5] + 8) + 24) = lockdown_send_message();
-  v4 = a1[4];
+  v2 = a1[4];
 
-  return dispatch_semaphore_signal(v4);
+  return dispatch_semaphore_signal(v2);
 }
 
 uint64_t DERImg4DecodeTagCompare(uint64_t a1, unsigned int a2)
@@ -261,7 +259,7 @@ uint64_t sub_100001E98(void *a1, unint64_t a2, uint64_t a3, unint64_t a4, unsign
   return result;
 }
 
-uint64_t DERImg4DecodeFindPropertyInSequence(unint64_t *a1, uint64_t a2, unint64_t a3, unint64_t a4)
+uint64_t DERImg4DecodeFindPropertyInSequence(unint64_t *a1, uint64_t a2, unint64_t a3, void *a4)
 {
   v10 = 0;
   v11 = 0uLL;
@@ -1085,7 +1083,7 @@ void sub_100002D84(const void *a1)
   }
 }
 
-uint64_t DERImg4DecodePropertyWithItem(uint64_t a1, uint64_t a2, unint64_t a3, unint64_t a4)
+uint64_t DERImg4DecodePropertyWithItem(uint64_t a1, uint64_t a2, unint64_t a3, void *a4)
 {
   v8 = 0;
   v9[0] = 0;
@@ -1102,8 +1100,8 @@ uint64_t DERImg4DecodePropertyWithItem(uint64_t a1, uint64_t a2, unint64_t a3, u
       if ((v8 | 0xE000000000000000) == a2)
       {
         result = 0;
-        *(a4 + 16) = a2 | 0xE000000000000000;
-        *(a4 + 40) = a3;
+        a4[2] = a2 | 0xE000000000000000;
+        a4[5] = a3;
       }
 
       else
@@ -1116,7 +1114,7 @@ uint64_t DERImg4DecodePropertyWithItem(uint64_t a1, uint64_t a2, unint64_t a3, u
   return result;
 }
 
-unint64_t *DERImg4DecodeFindProperty(unint64_t *a1, uint64_t a2, unint64_t a3, unint64_t a4)
+unint64_t *DERImg4DecodeFindProperty(unint64_t *a1, uint64_t a2, unint64_t a3, void *a4)
 {
   v8[0] = 0;
   v8[1] = 0;

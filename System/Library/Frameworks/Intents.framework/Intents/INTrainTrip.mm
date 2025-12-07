@@ -14,27 +14,27 @@
 
 - (id)_dictionaryRepresentation
 {
-  v28[8] = *MEMORY[0x1E69E9840];
+  v27[8] = *MEMORY[0x1E69E9840];
   provider = self->_provider;
   null = provider;
-  v27[0] = @"provider";
+  v26[0] = @"provider";
   if (!provider)
   {
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v28[0] = null;
-  v27[1] = @"trainName";
+  v27[0] = null;
+  v26[1] = @"trainName";
   trainName = self->_trainName;
-  v24 = trainName;
+  v23 = trainName;
   if (!trainName)
   {
     trainName = [MEMORY[0x1E695DFB0] null];
   }
 
-  v23 = trainName;
-  v28[1] = trainName;
-  v27[2] = @"trainNumber";
+  v22 = trainName;
+  v27[1] = trainName;
+  v26[2] = @"trainNumber";
   trainNumber = self->_trainNumber;
   null2 = trainNumber;
   if (!trainNumber)
@@ -42,9 +42,9 @@
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v22 = null2;
-  v28[2] = null2;
-  v27[3] = @"tripDuration";
+  v21 = null2;
+  v27[2] = null2;
+  v26[3] = @"tripDuration";
   tripDuration = self->_tripDuration;
   null3 = tripDuration;
   if (!tripDuration)
@@ -52,10 +52,10 @@
     null3 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v25 = null;
-  v21 = null3;
-  v28[3] = null3;
-  v27[4] = @"departureStationLocation";
+  v24 = null;
+  v20 = null3;
+  v27[3] = null3;
+  v26[4] = @"departureStationLocation";
   departureStationLocation = self->_departureStationLocation;
   null4 = departureStationLocation;
   if (!departureStationLocation)
@@ -63,9 +63,9 @@
     null4 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v20 = null4;
-  v28[4] = null4;
-  v27[5] = @"departurePlatform";
+  v19 = null4;
+  v27[4] = null4;
+  v26[5] = @"departurePlatform";
   departurePlatform = self->_departurePlatform;
   null5 = departurePlatform;
   if (!departurePlatform)
@@ -73,8 +73,8 @@
     null5 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v28[5] = null5;
-  v27[6] = @"arrivalStationLocation";
+  v27[5] = null5;
+  v26[6] = @"arrivalStationLocation";
   arrivalStationLocation = self->_arrivalStationLocation;
   null6 = arrivalStationLocation;
   if (!arrivalStationLocation)
@@ -82,8 +82,8 @@
     null6 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v28[6] = null6;
-  v27[7] = @"arrivalPlatform";
+  v27[6] = null6;
+  v26[7] = @"arrivalPlatform";
   arrivalPlatform = self->_arrivalPlatform;
   null7 = arrivalPlatform;
   if (!arrivalPlatform)
@@ -91,8 +91,8 @@
     null7 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v28[7] = null7;
-  v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v28 forKeys:v27 count:8];
+  v27[7] = null7;
+  v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v27 forKeys:v26 count:8];
   if (arrivalPlatform)
   {
     if (arrivalStationLocation)
@@ -155,15 +155,13 @@ LABEL_21:
   }
 
 LABEL_23:
-  if (!v24)
+  if (!v23)
   {
   }
 
   if (!provider)
   {
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 
   return v17;
 }

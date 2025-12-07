@@ -28,7 +28,7 @@
 
 - (void)acquireAssertion:(id)assertion
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   assertionCopy = assertion;
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
@@ -45,21 +45,18 @@
 
   else
   {
-    [(NSMutableArray *)self->_assertionsToAcquire addObject:assertionCopy];
-    v5 = bls_assertions_log();
+    v5 = bls_assertions_log([(NSMutableArray *)self->_assertionsToAcquire addObject:assertionCopy]);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
       *buf = 134218242;
       selfCopy = self;
-      v9 = 2114;
-      v10 = assertionCopy;
+      v8 = 2114;
+      v9 = assertionCopy;
       _os_log_impl(&dword_21FE25000, v5, OS_LOG_TYPE_INFO, "%p assertion acquired before service setup, pending:%{public}@", buf, 0x16u);
     }
   }
 
   os_unfair_lock_unlock(&self->_lock);
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)replaceWithService:(id)service
@@ -71,43 +68,41 @@
   [(NSMutableArray *)self->_assertionsToAcquire removeAllObjects];
   objc_storeStrong(&self->_replacementService, service);
   os_unfair_lock_unlock(&self->_lock);
-  v7 = bls_assertions_log();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+  v8 = bls_assertions_log(v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
-    [(BLSPendingAssertionService *)self replaceWithService:v6, v7];
+    [(BLSPendingAssertionService *)self replaceWithService:v6, v8];
   }
 
   v17 = 0u;
   v18 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v8 = v6;
-  v9 = [v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
-  if (v9)
+  v9 = v6;
+  v10 = [v9 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  if (v10)
   {
-    v10 = v9;
-    v11 = *v16;
+    v11 = v10;
+    v12 = *v16;
     do
     {
-      for (i = 0; i != v10; ++i)
+      for (i = 0; i != v11; ++i)
       {
-        if (*v16 != v11)
+        if (*v16 != v12)
         {
-          objc_enumerationMutation(v8);
+          objc_enumerationMutation(v9);
         }
 
-        v13 = *(*(&v15 + 1) + 8 * i);
-        [v13 setService:{serviceCopy, v15}];
-        [serviceCopy acquireAssertion:v13];
+        v14 = *(*(&v15 + 1) + 8 * i);
+        [v14 setService:{serviceCopy, v15}];
+        [serviceCopy acquireAssertion:v14];
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
-    while (v10);
+    while (v11);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)hasReplacementService
@@ -136,8 +131,8 @@
   os_unfair_lock_lock(&self->_lock);
   [(NSMutableArray *)self->_assertionsToAcquire removeObject:assertionCopy];
   os_unfair_lock_unlock(&self->_lock);
-  v8 = bls_assertions_log();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+  v9 = bls_assertions_log(v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
   {
     *buf = 134218498;
     selfCopy = self;
@@ -145,43 +140,39 @@
     v13 = errorCopy;
     v14 = 2114;
     v15 = assertionCopy;
-    _os_log_impl(&dword_21FE25000, v8, OS_LOG_TYPE_INFO, "%p assertion invalidated (%{public}@) before service setup, no longer pending:%{public}@", buf, 0x20u);
+    _os_log_impl(&dword_21FE25000, v9, OS_LOG_TYPE_INFO, "%p assertion invalidated (%{public}@) before service setup, no longer pending:%{public}@", buf, 0x20u);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)restartAssertionTimeoutTimer:(id)timer
 {
   v11 = *MEMORY[0x277D85DE8];
   timerCopy = timer;
-  if ([(BLSPendingAssertionService *)self hasReplacementService])
+  hasReplacementService = [(BLSPendingAssertionService *)self hasReplacementService];
+  if (hasReplacementService)
   {
-    [MEMORY[0x277CBEAD8] raise:*MEMORY[0x277CBE658] format:{@"replacement service has been set, should not be restarting timeout timer for:%@", timerCopy}];
+    hasReplacementService = [MEMORY[0x277CBEAD8] raise:*MEMORY[0x277CBE658] format:{@"replacement service has been set, should not be restarting timeout timer for:%@", timerCopy}];
   }
 
-  v5 = bls_assertions_log();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+  v6 = bls_assertions_log(hasReplacementService);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     *buf = 134218242;
     selfCopy = self;
     v9 = 2114;
     v10 = timerCopy;
-    _os_log_impl(&dword_21FE25000, v5, OS_LOG_TYPE_INFO, "%p assertion timeout restarted before service setup:%{public}@", buf, 0x16u);
+    _os_log_impl(&dword_21FE25000, v6, OS_LOG_TYPE_INFO, "%p assertion timeout restarted before service setup:%{public}@", buf, 0x16u);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)replaceWithService:(NSObject *)a3 .cold.1(uint64_t a1, void *a2, NSObject *a3)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v5 = 134218240;
-  v6 = a1;
-  v7 = 1024;
-  v8 = [a2 count];
-  _os_log_debug_impl(&dword_21FE25000, a3, OS_LOG_TYPE_DEBUG, "%p service setup, will transition %u assertions", &v5, 0x12u);
-  v4 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
+  v4 = 134218240;
+  v5 = a1;
+  v6 = 1024;
+  v7 = [a2 count];
+  _os_log_debug_impl(&dword_21FE25000, a3, OS_LOG_TYPE_DEBUG, "%p service setup, will transition %u assertions", &v4, 0x12u);
 }
 
 @end

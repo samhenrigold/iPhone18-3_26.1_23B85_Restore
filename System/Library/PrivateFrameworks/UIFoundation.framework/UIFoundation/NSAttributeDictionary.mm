@@ -204,7 +204,7 @@ LABEL_31:
     }
 
     v22 = 0;
-    v23 = &normalizedKeyInfo;
+    v23 = normalizedKeyInfo;
     while (v21 != v23[1])
     {
       v24 = 1;

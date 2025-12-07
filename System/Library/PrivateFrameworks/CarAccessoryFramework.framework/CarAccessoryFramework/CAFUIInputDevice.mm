@@ -3,6 +3,7 @@
 - (BOOL)registeredForUIInputDevicePurpose;
 - (CAFUIInputDevicePurposeCharacteristic)uiInputDevicePurposeCharacteristic;
 - (unsigned)uiInputDevicePurpose;
+- (void)_characteristicDidUpdate:(id)update fromGroupUpdate:(BOOL)groupUpdate;
 - (void)registerObserver:(id)observer;
 - (void)unregisterObserver:(id)observer;
 @end
@@ -88,6 +89,33 @@
   uIInputDevicePurposeValue = [uiInputDevicePurposeCharacteristic uIInputDevicePurposeValue];
 
   return uIInputDevicePurposeValue;
+}
+
+- (void)_characteristicDidUpdate:(id)update fromGroupUpdate:(BOOL)groupUpdate
+{
+  groupUpdateCopy = groupUpdate;
+  updateCopy = update;
+  characteristicType = [updateCopy characteristicType];
+  if (![characteristicType isEqual:@"0x0000000047000002"])
+  {
+    goto LABEL_4;
+  }
+
+  uniqueIdentifier = [updateCopy uniqueIdentifier];
+  uiInputDevicePurposeCharacteristic = [(CAFUIInputDevice *)self uiInputDevicePurposeCharacteristic];
+  uniqueIdentifier2 = [uiInputDevicePurposeCharacteristic uniqueIdentifier];
+  v11 = [uniqueIdentifier isEqual:uniqueIdentifier2];
+
+  if (v11)
+  {
+    characteristicType = [(CAFService *)self observers];
+    [characteristicType uIInputDeviceService:self didUpdateUiInputDevicePurpose:{-[CAFUIInputDevice uiInputDevicePurpose](self, "uiInputDevicePurpose")}];
+LABEL_4:
+  }
+
+  v12.receiver = self;
+  v12.super_class = CAFUIInputDevice;
+  [(CAFService *)&v12 _characteristicDidUpdate:updateCopy fromGroupUpdate:groupUpdateCopy];
 }
 
 - (BOOL)registeredForUIInputDevicePurpose

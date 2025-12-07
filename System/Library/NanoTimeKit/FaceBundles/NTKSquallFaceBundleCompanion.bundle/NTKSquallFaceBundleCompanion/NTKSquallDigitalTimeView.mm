@@ -512,7 +512,7 @@
 
   v15 = [(UIFontDescriptor *)self->_linkFontDescriptor fontDescriptorByAddingAttributes:v11];
   sub_2D30(self->_device, v18);
-  v16 = [UIFont fontWithDescriptor:v15 size:v18[0]];
+  v16 = [UIFont fontWithDescriptor:v15 size:*v18];
 
   return v16;
 }

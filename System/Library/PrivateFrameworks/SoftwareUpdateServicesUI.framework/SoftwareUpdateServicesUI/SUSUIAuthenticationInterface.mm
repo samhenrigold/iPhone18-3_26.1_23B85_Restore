@@ -86,7 +86,6 @@ uint64_t __46__SUSUIAuthenticationInterface_sharedInstance__block_invoke()
   v8 = MEMORY[0x277D82BE0](selfCopy);
   objc_storeStrong(location, 0);
   objc_storeStrong(&selfCopy, 0);
-  *MEMORY[0x277D85DE8];
   return v8;
 }
 
@@ -106,27 +105,21 @@ uint64_t __46__SUSUIAuthenticationInterface_sharedInstance__block_invoke()
   }
 
   objc_storeStrong(&location, 0);
-  if (*&v8 <= 0.0)
+  if (*&v8 > 0.0)
   {
-    _currentFailedAttemptsCount = [(SUSUIAuthenticationInterface *)selfCopy _currentFailedAttemptsCount];
-    oslog = SUSUILogKeybagInterface();
-    if (os_log_type_enabled(oslog, OS_LOG_TYPE_DEFAULT))
-    {
-      __os_log_helper_16_0_1_4_0(v12, _currentFailedAttemptsCount);
-      _os_log_impl(&dword_26AC54000, oslog, OS_LOG_TYPE_DEFAULT, "isBlocked: currentFailedAttemptsCount: %d", v12, 8u);
-    }
-
-    objc_storeStrong(&oslog, 0);
-    v11 = _currentFailedAttemptsCount >= 5;
+    return 1;
   }
 
-  else
+  _currentFailedAttemptsCount = [(SUSUIAuthenticationInterface *)selfCopy _currentFailedAttemptsCount];
+  oslog = SUSUILogKeybagInterface();
+  if (os_log_type_enabled(oslog, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = 1;
+    __os_log_helper_16_0_1_4_0(v12, _currentFailedAttemptsCount);
+    _os_log_impl(&dword_26AC54000, oslog, OS_LOG_TYPE_DEFAULT, "isBlocked: currentFailedAttemptsCount: %d", v12, 8u);
   }
 
-  *MEMORY[0x277D85DE8];
-  return v11;
+  objc_storeStrong(&oslog, 0);
+  return _currentFailedAttemptsCount >= 5;
 }
 
 - (BOOL)attemptAuthentication:(id)authentication outBlocked:(BOOL *)blocked
@@ -239,8 +232,6 @@ uint64_t __46__SUSUIAuthenticationInterface_sharedInstance__block_invoke()
     objc_storeStrong(&oslog, 0);
     [(SUSUIAuthenticationInterface *)selfCopy resetAttempts];
   }
-
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)keybagInterface:(id)interface passcodeLockedStateDidChange:(BOOL)change

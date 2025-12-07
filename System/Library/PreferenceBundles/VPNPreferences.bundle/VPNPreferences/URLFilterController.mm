@@ -4,6 +4,7 @@
 - (id)specifiers;
 - (id)tableView:(id)view cellForRowAtIndexPath:(id)path;
 - (void)dealloc;
+- (void)setURLFilterActive:(BOOL)active specifier:(id)specifier;
 - (void)setURLFilterState:(id)state forSpecifier:(id)specifier;
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)path;
 - (void)urlFilterStatusChanged:(id)changed;
@@ -89,6 +90,45 @@
     [(URLFilterController *)self endUpdates];
     object = v16;
     changedCopy = v17;
+  }
+}
+
+- (void)setURLFilterActive:(BOOL)active specifier:(id)specifier
+{
+  activeCopy = active;
+  specifierCopy = specifier;
+  currentConnection = [(URLFilterController *)self currentConnection];
+
+  if (currentConnection)
+  {
+    if (activeCopy)
+    {
+      if (+[VPNBundleController networkingIsDisabled])
+      {
+        rootController = [(URLFilterController *)self rootController];
+        topViewController = [rootController topViewController];
+
+        [topViewController showConfirmationViewForSpecifier:specifierCopy];
+      }
+
+      else
+      {
+        topViewController = [(URLFilterController *)self currentConnection];
+        [topViewController connect];
+      }
+    }
+
+    else
+    {
+      topViewController = [(URLFilterController *)self currentConnection];
+      [topViewController disconnect];
+    }
+
+    currentConnection2 = [(URLFilterController *)self currentConnection];
+    serviceID = [currentConnection2 serviceID];
+    [NEURLFilterManagerPrivate enableConfig:activeCopy serviceID:serviceID completion:&stru_41048];
+
+    [(URLFilterController *)self urlFilterStatusChanged:0];
   }
 }
 

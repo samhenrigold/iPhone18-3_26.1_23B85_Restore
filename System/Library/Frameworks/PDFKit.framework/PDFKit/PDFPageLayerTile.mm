@@ -11,38 +11,38 @@
 - (PDFPageLayerTile)initWithFrame:(CGRect)frame forPageLayer:(id)layer withRenderingTransform:(CGAffineTransform *)transform tileContentsScale:(double)scale generationID:(int)d
 {
   layerCopy = layer;
-  v19.receiver = self;
-  v19.super_class = PDFPageLayerTile;
-  v12 = [(PDFPageLayerTile *)&v19 init];
-  v13 = v12;
+  v18.receiver = self;
+  v18.super_class = PDFPageLayerTile;
+  v12 = [(PDFPageLayerTile *)&v18 init];
   if (v12)
   {
-    [(PDFPageLayerTile *)v12 setFrame:PDFRectToCGRect(v12)];
-    [(PDFPageLayerTile *)v13 setContentsOpaque:1];
-    [(PDFPageLayerTile *)v13 setContents:0];
-    pageSurface = v13->pageSurface;
-    v13->pageSurface = 0;
+    PDFRectToCGRect();
+    [v12 setFrame:?];
+    [v12 setContentsOpaque:1];
+    [v12 setContents:0];
+    v13 = *(v12 + 14);
+    *(v12 + 14) = 0;
 
-    objc_storeWeak(&v13->pageLayer, layerCopy);
-    v16 = *&transform->c;
-    v15 = *&transform->tx;
-    *&v13->renderingTransform.a = *&transform->a;
-    *&v13->renderingTransform.c = v16;
-    *&v13->renderingTransform.tx = v15;
-    v13->generationID = d;
-    atomic_store(0, &v13->isWorking);
-    atomic_store(0, &v13->hasContent);
-    v13->tileContentsScale = scale;
-    [(PDFPageLayerTile *)v13 setContentsScale:scale];
-    [(PDFPageLayerTile *)v13 setContentsGravity:*MEMORY[0x1E6979DC0]];
-    [(PDFPageLayerTile *)v13 setEdgeAntialiasingMask:0];
-    [(PDFPageLayerTile *)v13 setMinificationFilter:*MEMORY[0x1E6979CB8]];
-    [(PDFPageLayerTile *)v13 setMagnificationFilter:*MEMORY[0x1E6979C48]];
-    v17 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Generation %d", v13->generationID];
-    [(PDFPageLayerTile *)v13 setName:v17];
+    objc_storeWeak(v12 + 6, layerCopy);
+    v15 = *&transform->c;
+    v14 = *&transform->tx;
+    *(v12 + 56) = *&transform->a;
+    *(v12 + 72) = v15;
+    *(v12 + 88) = v14;
+    *(v12 + 30) = d;
+    atomic_store(0, v12 + 124);
+    atomic_store(0, v12 + 125);
+    *(v12 + 13) = scale;
+    [v12 setContentsScale:scale];
+    [v12 setContentsGravity:*MEMORY[0x1E6979DC0]];
+    [v12 setEdgeAntialiasingMask:0];
+    [v12 setMinificationFilter:*MEMORY[0x1E6979CB8]];
+    [v12 setMagnificationFilter:*MEMORY[0x1E6979C48]];
+    v16 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Generation %d", *(v12 + 30)];
+    [v12 setName:v16];
   }
 
-  return v13;
+  return v12;
 }
 
 - (void)dealloc

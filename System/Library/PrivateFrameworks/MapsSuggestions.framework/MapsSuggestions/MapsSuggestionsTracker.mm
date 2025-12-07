@@ -7,7 +7,6 @@
 - (id)_q_etaChargeTitleFormatterForType:(uint64_t)type;
 - (id)_q_etaTitleFormatterForType:(uint64_t)type;
 - (uint64_t)_q_isUnusableETA:(uint64_t)a;
-- (uint64_t)_q_scheduleRefresh;
 - (void)_q_captureSignalsFromEntries:(uint64_t)entries;
 - (void)_q_decorateETA:(void *)a forEntry:;
 - (void)_q_decorateEntry:(void *)entry eta:(void *)eta requiredChargeLevel:(void *)level currentChargeLevel:;
@@ -20,6 +19,7 @@
 - (void)_q_requestETAs;
 - (void)_q_requestFlightInfo;
 - (void)_q_resetAllTitleFormatting;
+- (void)_q_scheduleRefresh;
 - (void)_q_scheduleRefreshIfCurrentLocationIsMuchBetterThanLocation:(uint64_t)location;
 - (void)_unschedule;
 - (void)clearLocationAndETAs;
@@ -82,7 +82,7 @@ void __41__MapsSuggestionsTracker_scheduleRefresh__block_invoke(uint64_t a1)
   v2 = WeakRetained;
   if (WeakRetained)
   {
-    *(WeakRetained + 96) = 1;
+    WeakRetained[96] = 1;
     [(MapsSuggestionsTracker *)WeakRetained _q_scheduleRefresh];
   }
 
@@ -102,7 +102,7 @@ void __41__MapsSuggestionsTracker_scheduleRefresh__block_invoke(uint64_t a1)
   }
 }
 
-- (uint64_t)_q_scheduleRefresh
+- (void)_q_scheduleRefresh
 {
   if (result)
   {
@@ -788,67 +788,68 @@ void __46__MapsSuggestionsTracker__q_requestFlightInfo__block_invoke_315(uint64_
   dispatch_sync(queue, v7);
 }
 
-void __38__MapsSuggestionsTracker_setLocation___block_invoke(uint64_t a1)
+void __38__MapsSuggestionsTracker_setLocation___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v14 = *MEMORY[0x1E69E9840];
-  if (MapsSuggestionsLoggingIsVerbose())
+  v21 = *MEMORY[0x1E69E9840];
+  if (MapsSuggestionsLoggingIsVerbose(a1, a2))
   {
-    v2 = GEOFindOrCreateLog();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
+    v3 = GEOFindOrCreateLog();
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
     {
-      v3 = *(a1 + 32);
-      v12 = 138412290;
-      v13 = v3;
-      _os_log_impl(&dword_1C5126000, v2, OS_LOG_TYPE_DEBUG, "LOCATION received: %@", &v12, 0xCu);
+      v4 = *(a1 + 32);
+      v19 = 138412290;
+      v20 = v4;
+      _os_log_impl(&dword_1C5126000, v3, OS_LOG_TYPE_DEBUG, "LOCATION received: %@", &v19, 0xCu);
     }
   }
 
-  if (MapsSuggestionsTrackerIsUsableLocation(*(a1 + 32)))
+  IsUsableLocation = MapsSuggestionsTrackerIsUsableLocation(*(a1 + 32));
+  if (IsUsableLocation)
   {
-    v9 = [*(a1 + 40) currentLocation];
-    [*(*(a1 + 40) + 120) kickCanBySameTime];
-    if (MapsSuggestionsLoggingIsVerbose())
+    v14 = [*(a1 + 40) currentLocation];
+    v15 = [*(*(a1 + 40) + 120) kickCanBySameTime];
+    if (MapsSuggestionsLoggingIsVerbose(v15, v16))
     {
-      v10 = GEOFindOrCreateLog();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+      v17 = GEOFindOrCreateLog();
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
       {
-        v11 = *(a1 + 32);
-        v12 = 138412290;
-        v13 = v11;
-        _os_log_impl(&dword_1C5126000, v10, OS_LOG_TYPE_DEBUG, "LOCATION accepted: %@", &v12, 0xCu);
+        v18 = *(a1 + 32);
+        v19 = 138412290;
+        v20 = v18;
+        _os_log_impl(&dword_1C5126000, v17, OS_LOG_TYPE_DEBUG, "LOCATION accepted: %@", &v19, 0xCu);
       }
     }
 
     [*(a1 + 40) setCurrentLocation:*(a1 + 32)];
-    [(MapsSuggestionsTracker *)*(a1 + 40) _q_scheduleRefreshIfCurrentLocationIsMuchBetterThanLocation:v9];
+    [(MapsSuggestionsTracker *)*(a1 + 40) _q_scheduleRefreshIfCurrentLocationIsMuchBetterThanLocation:v14];
   }
 
   else
   {
-    if (MapsSuggestionsLoggingIsVerbose())
+    if (MapsSuggestionsLoggingIsVerbose(IsUsableLocation, v6))
     {
-      v4 = GEOFindOrCreateLog();
-      if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
+      v7 = GEOFindOrCreateLog();
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
       {
-        v5 = [*(a1 + 40) currentLocation];
-        v12 = 138412290;
-        v13 = v5;
-        _os_log_impl(&dword_1C5126000, v4, OS_LOG_TYPE_DEBUG, "LOCATION dropped for current one: %@", &v12, 0xCu);
+        v8 = [*(a1 + 40) currentLocation];
+        v19 = 138412290;
+        v20 = v8;
+        _os_log_impl(&dword_1C5126000, v7, OS_LOG_TYPE_DEBUG, "LOCATION dropped for current one: %@", &v19, 0xCu);
       }
     }
 
-    v6 = [*(a1 + 40) currentLocation];
-    IsUsableLocation = MapsSuggestionsTrackerIsUsableLocation(v6);
+    v9 = [*(a1 + 40) currentLocation];
+    v10 = MapsSuggestionsTrackerIsUsableLocation(v9);
 
-    if ((IsUsableLocation & 1) == 0)
+    if ((v10 & 1) == 0)
     {
-      if (MapsSuggestionsLoggingIsVerbose())
+      if (MapsSuggestionsLoggingIsVerbose(v11, v12))
       {
-        v8 = GEOFindOrCreateLog();
-        if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+        v13 = GEOFindOrCreateLog();
+        if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
         {
-          LOWORD(v12) = 0;
-          _os_log_impl(&dword_1C5126000, v8, OS_LOG_TYPE_DEBUG, "LOCATION reset to nil", &v12, 2u);
+          LOWORD(v19) = 0;
+          _os_log_impl(&dword_1C5126000, v13, OS_LOG_TYPE_DEBUG, "LOCATION reset to nil", &v19, 2u);
         }
       }
 
@@ -869,17 +870,17 @@ void __38__MapsSuggestionsTracker_setLocation___block_invoke(uint64_t a1)
   dispatch_sync(queue, v4);
 }
 
-uint64_t __37__MapsSuggestionsTracker_setMapType___block_invoke(uint64_t result)
+void *__37__MapsSuggestionsTracker_setMapType___block_invoke(void *result)
 {
-  v3 = *(result + 32);
-  v4 = *(result + 40);
+  v3 = result[4];
+  v4 = *(result + 10);
   if (*(v3 + 160) != v4)
   {
     v8 = v1;
     v9 = v2;
     v5 = result;
     *(v3 + 160) = v4;
-    [*(*(result + 32) + 104) setMapType:*(result + 40)];
+    [*(result[4] + 104) setMapType:*(result + 10)];
     v6 = GEOFindOrCreateLog();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
@@ -887,7 +888,7 @@ uint64_t __37__MapsSuggestionsTracker_setMapType___block_invoke(uint64_t result)
       _os_log_impl(&dword_1C5126000, v6, OS_LOG_TYPE_DEBUG, "MAP TYPE caused a Tracker REFRESH", v7, 2u);
     }
 
-    return [(MapsSuggestionsTracker *)*(v5 + 32) _q_scheduleRefresh];
+    return [(MapsSuggestionsTracker *)v5[4] _q_scheduleRefresh];
   }
 
   return result;
@@ -909,14 +910,14 @@ uint64_t __37__MapsSuggestionsTracker_setMapType___block_invoke(uint64_t result)
 
 uint64_t __47__MapsSuggestionsTracker_setAutomobileOptions___block_invoke(uint64_t a1)
 {
-  v1 = a1 + 32;
+  v1 = (a1 + 32);
   result = *(*(a1 + 32) + 168);
-  if (result != *(v1 + 8))
+  if (result != v1[1])
   {
     result = [result isEqual:?];
     if ((result & 1) == 0)
     {
-      return __47__MapsSuggestionsTracker_setAutomobileOptions___block_invoke_cold_1((v1 + 8), v1);
+      return __47__MapsSuggestionsTracker_setAutomobileOptions___block_invoke_cold_1(v1 + 1, v1);
     }
   }
 
@@ -1068,7 +1069,7 @@ void __63__MapsSuggestionsTracker_rescheduleRefreshOnlyIfAlreadyRunning__block_i
   v2 = WeakRetained;
   if (WeakRetained)
   {
-    if (*(WeakRetained + 96))
+    if (WeakRetained[96])
     {
       [(MapsSuggestionsTracker *)WeakRetained _q_scheduleRefresh];
     }
@@ -1649,7 +1650,7 @@ void __63__MapsSuggestionsTracker_trackSuggestionEntries_transportType___block_i
 
 - (void)_q_decorateETA:(void *)a forEntry:
 {
-  v63 = *MEMORY[0x1E69E9840];
+  v64 = *MEMORY[0x1E69E9840];
   v7 = a2;
   aCopy = a;
   v9 = aCopy;
@@ -1660,11 +1661,11 @@ void __63__MapsSuggestionsTracker_trackSuggestionEntries_transportType___block_i
       v11 = GEOFindOrCreateLog();
       if (OUTLINED_FUNCTION_14(v11))
       {
-        v57 = 136446978;
+        v58 = 136446978;
         OUTLINED_FUNCTION_4();
         OUTLINED_FUNCTION_5();
         OUTLINED_FUNCTION_3();
-        *&v62[6] = "nil == (entry)";
+        *&v63[6] = "nil == (entry)";
         goto LABEL_8;
       }
 
@@ -1678,11 +1679,11 @@ LABEL_9:
       v10 = GEOFindOrCreateLog();
       if (OUTLINED_FUNCTION_14(v10))
       {
-        v57 = 136446978;
+        v58 = 136446978;
         OUTLINED_FUNCTION_4();
         OUTLINED_FUNCTION_5();
         OUTLINED_FUNCTION_3();
-        *&v62[6] = "nil == (eta)";
+        *&v63[6] = "nil == (eta)";
 LABEL_8:
         OUTLINED_FUNCTION_6_2();
         _os_log_impl(v12, v13, v14, v15, v16, 0x26u);
@@ -1712,7 +1713,7 @@ LABEL_8:
     {
       uniqueName = [self uniqueName];
       OUTLINED_FUNCTION_0_3();
-      v60 = "_decorateETA";
+      v61 = "_decorateETA";
       OUTLINED_FUNCTION_4_3();
       _os_log_impl(v28, v29, v30, v31, v32, 0x16u);
     }
@@ -1720,7 +1721,7 @@ LABEL_8:
     v33 = GEOFindOrCreateLog();
     if (os_signpost_enabled(v33))
     {
-      LOWORD(v57) = 0;
+      LOWORD(v58) = 0;
       OUTLINED_FUNCTION_7_0();
       OUTLINED_FUNCTION_20(v34, v33, v35, v36, v37, v38, v39);
     }
@@ -1737,72 +1738,72 @@ LABEL_8:
         if (os_log_type_enabled(v41, OS_LOG_TYPE_DEBUG))
         {
           uniqueName2 = [self uniqueName];
-          IsVerbose = MapsSuggestionsLoggingIsVerbose();
+          IsVerbose = MapsSuggestionsLoggingIsVerbose(uniqueName2, v43);
           if (IsVerbose)
           {
-            serializedBase64String = [v9 serializedBase64String];
+            v45 = objc_msgSend_serializedBase64String(v9);
           }
 
           else
           {
-            serializedBase64String = &stru_1F444C108;
+            v45 = &stru_1F444C108;
           }
 
-          v57 = 138413058;
-          v58 = uniqueName2;
-          v59 = 2048;
-          v60 = v9;
-          v61 = 2112;
-          *v62 = serializedBase64String;
-          *&v62[8] = 2112;
-          *&v62[10] = v9;
-          _os_log_impl(&dword_1C5126000, v41, OS_LOG_TYPE_DEBUG, "{MSgDebug} ETA UPDATE by TRACKER{%@} {%p:%@}:\n%@", &v57, 0x2Au);
+          v58 = 138413058;
+          v59 = uniqueName2;
+          v60 = 2048;
+          v61 = v9;
+          v62 = 2112;
+          *v63 = v45;
+          *&v63[8] = 2112;
+          *&v63[10] = v9;
+          _os_log_impl(&dword_1C5126000, v41, OS_LOG_TYPE_DEBUG, "{MSgDebug} ETA UPDATE by TRACKER{%@} {%p:%@}:\n%@", &v58, 0x2Au);
           if (IsVerbose)
           {
           }
         }
       }
 
-      v49 = GEOFindOrCreateLog();
-      if (os_log_type_enabled(v49, OS_LOG_TYPE_DEBUG))
+      v50 = GEOFindOrCreateLog();
+      if (os_log_type_enabled(v50, OS_LOG_TYPE_DEBUG))
       {
         uniqueName3 = [self uniqueName];
         OUTLINED_FUNCTION_0_3();
-        v60 = "_decorateETA";
-        OUTLINED_FUNCTION_9_2(&dword_1C5126000, v49, v51, "{MSgDebug} OBJECT{%@} %s END", &v57);
+        v61 = "_decorateETA";
+        OUTLINED_FUNCTION_9_2(&dword_1C5126000, v50, v52, "{MSgDebug} OBJECT{%@} %s END", &v58);
       }
 
-      v48 = GEOFindOrCreateLog();
-      if (!os_signpost_enabled(v48))
+      v49 = GEOFindOrCreateLog();
+      if (!os_signpost_enabled(v49))
       {
         goto LABEL_36;
       }
 
-      LOWORD(v57) = 0;
+      LOWORD(v58) = 0;
     }
 
     else
     {
-      v45 = GEOFindOrCreateLog();
-      if (os_log_type_enabled(v45, OS_LOG_TYPE_DEBUG))
+      v46 = GEOFindOrCreateLog();
+      if (os_log_type_enabled(v46, OS_LOG_TYPE_DEBUG))
       {
         uniqueName4 = [self uniqueName];
         OUTLINED_FUNCTION_0_3();
-        v60 = "_decorateETA";
-        OUTLINED_FUNCTION_9_2(&dword_1C5126000, v45, v47, "{MSgDebug} OBJECT{%@} %s END", &v57);
+        v61 = "_decorateETA";
+        OUTLINED_FUNCTION_9_2(&dword_1C5126000, v46, v48, "{MSgDebug} OBJECT{%@} %s END", &v58);
       }
 
-      v48 = GEOFindOrCreateLog();
-      if (!os_signpost_enabled(v48))
+      v49 = GEOFindOrCreateLog();
+      if (!os_signpost_enabled(v49))
       {
         goto LABEL_36;
       }
 
-      LOWORD(v57) = 0;
+      LOWORD(v58) = 0;
     }
 
     OUTLINED_FUNCTION_7_0();
-    _os_signpost_emit_with_name_impl(v52, v48, OS_SIGNPOST_INTERVAL_END, v53, v54, v55, v56, 2u);
+    _os_signpost_emit_with_name_impl(v53, v49, OS_SIGNPOST_INTERVAL_END, v54, v55, v56, v57, 2u);
 LABEL_36:
 
     goto LABEL_9;
@@ -1813,7 +1814,7 @@ LABEL_10:
 
 - (void)_q_decorateFlightInfoForEntry:(dispatch_queue_t *)entry
 {
-  v64 = *MEMORY[0x1E69E9840];
+  v65 = *MEMORY[0x1E69E9840];
   v4 = a2;
   v5 = v4;
   if (entry)
@@ -1823,12 +1824,12 @@ LABEL_10:
       v6 = GEOFindOrCreateLog();
       if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
       {
-        v58 = 136446978;
+        v59 = 136446978;
         OUTLINED_FUNCTION_4();
         OUTLINED_FUNCTION_5();
         OUTLINED_FUNCTION_3();
-        *&v63[6] = "nil == (entry)";
-        _os_log_impl(&dword_1C5126000, v6, OS_LOG_TYPE_ERROR, "At %{public}s:%d, %{public}s forbids: %{public}s. Requires an entry", &v58, 0x26u);
+        *&v64[6] = "nil == (entry)";
+        _os_log_impl(&dword_1C5126000, v6, OS_LOG_TYPE_ERROR, "At %{public}s:%d, %{public}s forbids: %{public}s. Requires an entry", &v59, 0x26u);
       }
 
       goto LABEL_5;
@@ -1859,7 +1860,7 @@ LABEL_10:
     {
       uniqueName = [(dispatch_queue_t *)entry uniqueName];
       OUTLINED_FUNCTION_0_3();
-      v61 = "_decorateFlightInfoForEntry";
+      v62 = "_decorateFlightInfoForEntry";
       OUTLINED_FUNCTION_19();
       OUTLINED_FUNCTION_9_2(v13, v14, v15, v16, v17);
     }
@@ -1867,7 +1868,7 @@ LABEL_10:
     v18 = GEOFindOrCreateLog();
     if (os_signpost_enabled(v18))
     {
-      LOWORD(v58) = 0;
+      LOWORD(v59) = 0;
       OUTLINED_FUNCTION_7_0();
       OUTLINED_FUNCTION_20(v19, v18, v20, v21, v22, v23, v24);
     }
@@ -1883,76 +1884,76 @@ LABEL_10:
         if (OUTLINED_FUNCTION_5_0(v27))
         {
           uniqueName2 = [(dispatch_queue_t *)entry uniqueName];
-          IsVerbose = MapsSuggestionsLoggingIsVerbose();
+          IsVerbose = MapsSuggestionsLoggingIsVerbose(uniqueName2, v29);
           if (IsVerbose)
           {
-            serializedBase64String = [v5 serializedBase64String];
+            v31 = objc_msgSend_serializedBase64String(v5);
           }
 
           else
           {
-            serializedBase64String = &stru_1F444C108;
+            v31 = &stru_1F444C108;
           }
 
-          v58 = 138413058;
-          v59 = uniqueName2;
-          v60 = 2048;
-          v61 = v5;
-          v62 = 2112;
-          *v63 = serializedBase64String;
-          *&v63[8] = 2112;
-          *&v63[10] = v5;
+          v59 = 138413058;
+          v60 = uniqueName2;
+          v61 = 2048;
+          v62 = v5;
+          v63 = 2112;
+          *v64 = v31;
+          *&v64[8] = 2112;
+          *&v64[10] = v5;
           OUTLINED_FUNCTION_4_3();
-          _os_log_impl(v39, v40, v41, v42, v43, 0x2Au);
+          _os_log_impl(v40, v41, v42, v43, v44, 0x2Au);
           if (IsVerbose)
           {
           }
         }
       }
 
-      v44 = GEOFindOrCreateLog();
-      if (OUTLINED_FUNCTION_5_0(v44))
+      v45 = GEOFindOrCreateLog();
+      if (OUTLINED_FUNCTION_5_0(v45))
       {
         uniqueName3 = [(dispatch_queue_t *)entry uniqueName];
         OUTLINED_FUNCTION_0_3();
-        v61 = "_decorateFlightInfoForEntry";
+        v62 = "_decorateFlightInfoForEntry";
         OUTLINED_FUNCTION_4_3();
-        _os_log_impl(v46, v47, v48, v49, v50, 0x16u);
+        _os_log_impl(v47, v48, v49, v50, v51, 0x16u);
       }
 
-      v38 = GEOFindOrCreateLog();
-      if (!os_signpost_enabled(v38))
+      v39 = GEOFindOrCreateLog();
+      if (!os_signpost_enabled(v39))
       {
         goto LABEL_35;
       }
 
-      LOWORD(v58) = 0;
+      LOWORD(v59) = 0;
     }
 
     else
     {
-      v31 = GEOFindOrCreateLog();
-      if (OUTLINED_FUNCTION_5_0(v31))
+      v32 = GEOFindOrCreateLog();
+      if (OUTLINED_FUNCTION_5_0(v32))
       {
         uniqueName4 = [(dispatch_queue_t *)entry uniqueName];
         OUTLINED_FUNCTION_0_3();
-        v61 = "_decorateFlightInfoForEntry";
+        v62 = "_decorateFlightInfoForEntry";
         OUTLINED_FUNCTION_4_3();
-        _os_log_impl(v33, v34, v35, v36, v37, 0x16u);
+        _os_log_impl(v34, v35, v36, v37, v38, 0x16u);
       }
 
-      v38 = GEOFindOrCreateLog();
-      if (!os_signpost_enabled(v38))
+      v39 = GEOFindOrCreateLog();
+      if (!os_signpost_enabled(v39))
       {
         goto LABEL_35;
       }
 
-      LOWORD(v58) = 0;
+      LOWORD(v59) = 0;
     }
 
     OUTLINED_FUNCTION_7_0();
     OUTLINED_FUNCTION_13_0();
-    _os_signpost_emit_with_name_impl(v51, v52, v53, v54, v55, v56, v57, 2u);
+    _os_signpost_emit_with_name_impl(v52, v53, v54, v55, v56, v57, v58, 2u);
 LABEL_35:
 
 LABEL_5:
@@ -2079,7 +2080,7 @@ LABEL_5:
       v25 = GEOFindOrCreateLog();
       if (OUTLINED_FUNCTION_17(v25))
       {
-        *v30 = 0;
+        v30[0] = 0;
         OUTLINED_FUNCTION_7(&dword_1C5126000, v26, v27, "No current location, can't calculate distance.", v30);
       }
 
@@ -2311,10 +2312,10 @@ void __67__MapsSuggestionsTracker__q_requestChargeInfoAndDecorateEntry_eta___blo
   [(MapsSuggestionsTracker *)a2 _q_decorateEntry:v3 eta:v4 requiredChargeLevel:v5 currentChargeLevel:v6];
 }
 
-uint64_t __47__MapsSuggestionsTracker_setAutomobileOptions___block_invoke_cold_1(id *a1, uint64_t *a2)
+void *__47__MapsSuggestionsTracker_setAutomobileOptions___block_invoke_cold_1(id *a1, void **a2)
 {
-  objc_storeStrong((*a2 + 168), *a1);
-  [*(*a2 + 104) setAutomobileOptions:*a1];
+  objc_storeStrong(*a2 + 21, *a1);
+  [*(*a2 + 13) setAutomobileOptions:*a1];
   v5 = GEOFindOrCreateLog();
   if (OUTLINED_FUNCTION_21(v5))
   {

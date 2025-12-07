@@ -174,7 +174,7 @@ void __39__ASKLoadContactResourceOperation_main__block_invoke(uint64_t a1, void 
   return v3;
 }
 
-uint64_t __50__ASKLoadContactResourceOperation_mainScreenScale__block_invoke(uint64_t a1, void *a2)
+void *__50__ASKLoadContactResourceOperation_mainScreenScale__block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 scale];
   v5 = *(*(a1 + 32) + 8);

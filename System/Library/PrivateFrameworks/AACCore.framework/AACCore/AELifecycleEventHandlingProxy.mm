@@ -204,16 +204,11 @@ void __67__AELifecycleEventHandlingProxy_handleEventDidBeginWithCompletion___blo
 {
   v4 = a2;
   OUTLINED_FUNCTION_5();
-  if (v5)
-  {
-    v6 = *(v5 + 16);
-  }
-
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_4_0();
-  v16 = *(a1 + 40);
-  v7 = v2;
-  OUTLINED_FUNCTION_3_0(v7, v8, v9, v10, v11, v12, v13, v14, v15);
+  v14 = *(a1 + 40);
+  v5 = v2;
+  OUTLINED_FUNCTION_3_0(v5, v6, v7, v8, v9, v10, v11, v12, v13);
 }
 
 - (void)_handleEventDidBeginWithCompletion:(uint64_t)completion
@@ -237,16 +232,11 @@ void __78__AELifecycleEventHandlingProxy_handleEventDidInvalidateWithError_compl
 {
   v4 = a2;
   OUTLINED_FUNCTION_5();
-  if (v5)
-  {
-    v6 = *(v5 + 16);
-  }
-
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_4_0();
-  v16 = *(a1 + 40);
-  v7 = v2;
-  OUTLINED_FUNCTION_3_0(v7, v8, v9, v10, v11, v12, v13, v14, v15);
+  v14 = *(a1 + 40);
+  v5 = v2;
+  OUTLINED_FUNCTION_3_0(v5, v6, v7, v8, v9, v10, v11, v12, v13);
 }
 
 - (void)_handleEventDidInvalidateWithError:(void *)error completion:
@@ -271,16 +261,11 @@ void __82__AELifecycleEventHandlingProxy_handleEventWantsBeginSingleAppModeWithC
 {
   v4 = a2;
   OUTLINED_FUNCTION_5();
-  if (v5)
-  {
-    v6 = *(v5 + 16);
-  }
-
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_4_0();
-  v16 = *(a1 + 40);
-  v7 = v2;
-  OUTLINED_FUNCTION_3_0(v7, v8, v9, v10, v11, v12, v13, v14, v15);
+  v14 = *(a1 + 40);
+  v5 = v2;
+  OUTLINED_FUNCTION_3_0(v5, v6, v7, v8, v9, v10, v11, v12, v13);
 }
 
 - (void)_handleEventWantsBeginSingleAppModeWithCompletion:(uint64_t)completion
@@ -304,16 +289,11 @@ void __80__AELifecycleEventHandlingProxy_handleEventWantsEndSingleAppModeWithCom
 {
   v4 = a2;
   OUTLINED_FUNCTION_5();
-  if (v5)
-  {
-    v6 = *(v5 + 16);
-  }
-
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_4_0();
-  v16 = *(a1 + 40);
-  v7 = v2;
-  OUTLINED_FUNCTION_3_0(v7, v8, v9, v10, v11, v12, v13, v14, v15);
+  v14 = *(a1 + 40);
+  v5 = v2;
+  OUTLINED_FUNCTION_3_0(v5, v6, v7, v8, v9, v10, v11, v12, v13);
 }
 
 - (void)_handleEventWantsEndSingleAppModeWithCompletion:(uint64_t)completion
@@ -337,16 +317,11 @@ void __92__AELifecycleEventHandlingProxy_handleEventWantsPresentBannerWithTitle_
 {
   v4 = a2;
   OUTLINED_FUNCTION_5();
-  if (v5)
-  {
-    v6 = *(v5 + 16);
-  }
-
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_4_0();
-  v16 = *(a1 + 40);
-  v7 = v2;
-  OUTLINED_FUNCTION_3_0(v7, v8, v9, v10, v11, v12, v13, v14, v15);
+  v14 = *(a1 + 40);
+  v5 = v2;
+  OUTLINED_FUNCTION_3_0(v5, v6, v7, v8, v9, v10, v11, v12, v13);
 }
 
 - (void)_handleEventWantsPresentBannerWithTitle:(void *)title duration:(void *)duration completion:
@@ -372,16 +347,11 @@ void __89__AELifecycleEventHandlingProxy_handleEventWantsStartWindowContentCaptu
 {
   v4 = a2;
   OUTLINED_FUNCTION_5();
-  if (v5)
-  {
-    v6 = *(v5 + 16);
-  }
-
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_4_0();
-  v16 = *(a1 + 40);
-  v7 = v2;
-  OUTLINED_FUNCTION_3_0(v7, v8, v9, v10, v11, v12, v13, v14, v15);
+  v14 = *(a1 + 40);
+  v5 = v2;
+  OUTLINED_FUNCTION_3_0(v5, v6, v7, v8, v9, v10, v11, v12, v13);
 }
 
 - (void)_handleEventWantsStartWindowContentCaptureWithCompletion:(uint64_t)completion
@@ -405,16 +375,11 @@ void __88__AELifecycleEventHandlingProxy_handleEventWantsStopWindowContentCaptur
 {
   v4 = a2;
   OUTLINED_FUNCTION_5();
-  if (v5)
-  {
-    v6 = *(v5 + 16);
-  }
-
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_4_0();
-  v16 = *(a1 + 40);
-  v7 = v2;
-  OUTLINED_FUNCTION_3_0(v7, v8, v9, v10, v11, v12, v13, v14, v15);
+  v14 = *(a1 + 40);
+  v5 = v2;
+  OUTLINED_FUNCTION_3_0(v5, v6, v7, v8, v9, v10, v11, v12, v13);
 }
 
 - (void)_handleEventWantsStopWindowContentCaptureWithCompletion:(uint64_t)completion

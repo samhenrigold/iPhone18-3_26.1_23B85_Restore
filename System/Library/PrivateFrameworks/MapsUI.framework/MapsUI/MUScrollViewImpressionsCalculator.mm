@@ -7,7 +7,7 @@
 
 - (void)logImpressions
 {
-  v42 = *MEMORY[0x1E69E9840];
+  v41 = *MEMORY[0x1E69E9840];
   if ([(MUImpressionsCalculator *)self isActive])
   {
     v3 = MEMORY[0x1E695DFA8];
@@ -18,27 +18,27 @@
     WeakRetained = objc_loadWeakRetained(&self->_visibleItemsProvider);
     visibleImpressionElements = [WeakRetained visibleImpressionElements];
 
-    v38 = 0u;
-    v39 = 0u;
-    v36 = 0u;
     v37 = 0u;
+    v38 = 0u;
+    v35 = 0u;
+    v36 = 0u;
     v9 = visibleImpressionElements;
-    v10 = [v9 countByEnumeratingWithState:&v36 objects:v41 count:16];
+    v10 = [v9 countByEnumeratingWithState:&v35 objects:v40 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v37;
+      v12 = *v36;
       do
       {
         v13 = 0;
         do
         {
-          if (*v37 != v12)
+          if (*v36 != v12)
           {
             objc_enumerationMutation(v9);
           }
 
-          v14 = *(*(&v36 + 1) + 8 * v13);
+          v14 = *(*(&v35 + 1) + 8 * v13);
           uiElementsByIdentifiers2 = [(MUImpressionsCalculator *)self uiElementsByIdentifiers];
           elementIdentifier = [v14 elementIdentifier];
           v17 = [uiElementsByIdentifiers2 objectForKey:elementIdentifier];
@@ -66,36 +66,36 @@
         }
 
         while (v11 != v13);
-        v11 = [v9 countByEnumeratingWithState:&v36 objects:v41 count:16];
+        v11 = [v9 countByEnumeratingWithState:&v35 objects:v40 count:16];
       }
 
       while (v11);
     }
 
-    v31 = v9;
+    v30 = v9;
 
     date = [MEMORY[0x1E695DF00] date];
+    v31 = 0u;
     v32 = 0u;
     v33 = 0u;
     v34 = 0u;
-    v35 = 0u;
     allObjects = [v6 allObjects];
-    v22 = [allObjects countByEnumeratingWithState:&v32 objects:v40 count:16];
+    v22 = [allObjects countByEnumeratingWithState:&v31 objects:v39 count:16];
     if (v22)
     {
       v23 = v22;
-      v24 = *v33;
+      v24 = *v32;
       do
       {
         v25 = 0;
         do
         {
-          if (*v33 != v24)
+          if (*v32 != v24)
           {
             objc_enumerationMutation(allObjects);
           }
 
-          v26 = *(*(&v32 + 1) + 8 * v25);
+          v26 = *(*(&v31 + 1) + 8 * v25);
           uiElementsByIdentifiers3 = [(MUImpressionsCalculator *)self uiElementsByIdentifiers];
           v28 = [uiElementsByIdentifiers3 objectForKey:v26];
 
@@ -107,7 +107,7 @@
         }
 
         while (v23 != v25);
-        v23 = [allObjects countByEnumeratingWithState:&v32 objects:v40 count:16];
+        v23 = [allObjects countByEnumeratingWithState:&v31 objects:v39 count:16];
       }
 
       while (v23);
@@ -115,8 +115,6 @@
 
     [(MUImpressionsCalculator *)self _checkVisibilityForAllItemsOnDate:date];
   }
-
-  v30 = *MEMORY[0x1E69E9840];
 }
 
 - (MUScrollViewImpressionsCalculator)initWithConfiguration:(id)configuration visibleItemsProvider:(id)provider

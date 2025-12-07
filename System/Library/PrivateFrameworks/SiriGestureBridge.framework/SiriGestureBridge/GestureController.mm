@@ -11,7 +11,7 @@
 {
   observerCopy = observer;
   selfCopy = self;
-  sub_266E2A5F4();
+  sub_266E2A5F4(selfCopy, from, to);
 }
 
 - (void)didDetectedWithHeadGesture:(id)gesture

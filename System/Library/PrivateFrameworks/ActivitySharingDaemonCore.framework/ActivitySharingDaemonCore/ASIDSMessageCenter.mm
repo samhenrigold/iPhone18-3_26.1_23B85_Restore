@@ -24,6 +24,7 @@
 - (void)_handleWithdrawInviteRequest:(id)request fromSenderAddress:(id)address receiverAddress:(id)receiverAddress messageHandledCompletion:(id)completion;
 - (void)_processMessageQueue:(id)queue preprocessingBlock:(id)block;
 - (void)_retrieveFirewallWithCompletion:(id)completion;
+- (void)_sendMessage:(id)message type:(int)type destinations:(id)destinations fromAddress:(id)address completion:(id)completion;
 - (void)_sendPayload:(id)payload type:(int)type destinations:(id)destinations fromAddress:(id)address completion:(id)completion;
 - (void)beginReceivingMessages;
 - (void)dealloc;
@@ -32,6 +33,7 @@
 - (void)endReceivingMessages;
 - (void)processPersistedMessageQueue;
 - (void)processRetryMessageQueue;
+- (void)service:(id)service account:(id)account identifier:(id)identifier didSendWithSuccess:(BOOL)success error:(id)error;
 - (void)service:(id)service account:(id)account identifier:(id)identifier hasBeenDeliveredWithContext:(id)context;
 - (void)service:(id)service account:(id)account incomingUnhandledProtobuf:(id)protobuf fromID:(id)d context:(id)context;
 @end
@@ -107,19 +109,18 @@
 
 - (void)processRetryMessageQueue
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   ASLoggingInitialize();
   v3 = *MEMORY[0x277CE9008];
   if (os_log_type_enabled(*MEMORY[0x277CE9008], OS_LOG_TYPE_DEFAULT))
   {
     serviceIdentifier = self->_serviceIdentifier;
-    v6 = 138543362;
-    v7 = serviceIdentifier;
-    _os_log_impl(&dword_23E5E3000, v3, OS_LOG_TYPE_DEFAULT, "IDSMessageCenter [%{public}@] processing retry messages", &v6, 0xCu);
+    v5 = 138543362;
+    v6 = serviceIdentifier;
+    _os_log_impl(&dword_23E5E3000, v3, OS_LOG_TYPE_DEFAULT, "IDSMessageCenter [%{public}@] processing retry messages", &v5, 0xCu);
   }
 
   [(ASIDSMessageCenter *)self _processMessageQueue:self->_retryMessageQueue preprocessingBlock:&__block_literal_global_13];
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __46__ASIDSMessageCenter_processRetryMessageQueue__block_invoke(uint64_t a1, uint64_t a2, void *a3)
@@ -130,19 +131,18 @@ void __46__ASIDSMessageCenter_processRetryMessageQueue__block_invoke(uint64_t a1
 
 - (void)processPersistedMessageQueue
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   ASLoggingInitialize();
   v3 = *MEMORY[0x277CE9008];
   if (os_log_type_enabled(*MEMORY[0x277CE9008], OS_LOG_TYPE_DEFAULT))
   {
     serviceIdentifier = self->_serviceIdentifier;
-    v6 = 138543362;
-    v7 = serviceIdentifier;
-    _os_log_impl(&dword_23E5E3000, v3, OS_LOG_TYPE_DEFAULT, "IDSMessageCenter [%{public}@] processing persisted messages", &v6, 0xCu);
+    v5 = 138543362;
+    v6 = serviceIdentifier;
+    _os_log_impl(&dword_23E5E3000, v3, OS_LOG_TYPE_DEFAULT, "IDSMessageCenter [%{public}@] processing persisted messages", &v5, 0xCu);
   }
 
   [(ASIDSMessageCenter *)self _processMessageQueue:self->_persistedMessageQueue preprocessingBlock:0];
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_messageHandlerForType:(int)type
@@ -259,21 +259,21 @@ LABEL_13:
 
 - (void)_handleMessage:(id)message identifier:(id)identifier
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   identifierCopy = identifier;
   dispatch_assert_queue_V2(self->_incomingDispatchQueue);
   objc_initWeak(&location, self);
-  v16 = MEMORY[0x277D85DD0];
-  v17 = 3221225472;
-  v18 = __48__ASIDSMessageCenter__handleMessage_identifier___block_invoke;
-  v19 = &unk_278C4CDA0;
-  objc_copyWeak(&v22, &location);
+  v15 = MEMORY[0x277D85DD0];
+  v16 = 3221225472;
+  v17 = __48__ASIDSMessageCenter__handleMessage_identifier___block_invoke;
+  v18 = &unk_278C4CDA0;
+  objc_copyWeak(&v21, &location);
   v8 = messageCopy;
-  v20 = v8;
+  v19 = v8;
   v9 = identifierCopy;
-  v21 = v9;
-  v10 = MEMORY[0x23EF0EB00](&v16);
+  v20 = v9;
+  v10 = MEMORY[0x23EF0EB00](&v15);
   v11 = -[ASIDSMessageCenter _messageHandlerForType:](self, "_messageHandlerForType:", [v8 type]);
   if (v11)
   {
@@ -289,21 +289,19 @@ LABEL_13:
     {
       senderAddress = [v8 senderAddress];
       *buf = 138543874;
-      v25 = v12;
-      v26 = 2114;
-      v27 = v9;
-      v28 = 2112;
-      v29 = senderAddress;
+      v24 = v12;
+      v25 = 2114;
+      v26 = v9;
+      v27 = 2112;
+      v28 = senderAddress;
       _os_log_error_impl(&dword_23E5E3000, v13, OS_LOG_TYPE_ERROR, "IDSMessageCenter ignoring protobuf with unknown type %{public}@, guid: %{public}@, from: %@", buf, 0x20u);
     }
 
     v10[2](v10, 0);
   }
 
-  objc_destroyWeak(&v22);
+  objc_destroyWeak(&v21);
   objc_destroyWeak(&location);
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __48__ASIDSMessageCenter__handleMessage_identifier___block_invoke(id *a1, uint64_t a2)
@@ -327,7 +325,7 @@ void __48__ASIDSMessageCenter__handleMessage_identifier___block_invoke(id *a1, u
 
 void __48__ASIDSMessageCenter__handleMessage_identifier___block_invoke_2(void *a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v2 = a1[7];
   if (v2 != 2)
   {
@@ -339,27 +337,27 @@ void __48__ASIDSMessageCenter__handleMessage_identifier___block_invoke_2(void *a
         v3 = *MEMORY[0x277CE9008];
         if (os_log_type_enabled(*MEMORY[0x277CE9008], OS_LOG_TYPE_DEFAULT))
         {
-          LOWORD(v12) = 0;
-          _os_log_impl(&dword_23E5E3000, v3, OS_LOG_TYPE_DEFAULT, "IDSMessageCenter message handled successfully", &v12, 2u);
+          LOWORD(v11) = 0;
+          _os_log_impl(&dword_23E5E3000, v3, OS_LOG_TYPE_DEFAULT, "IDSMessageCenter message handled successfully", &v11, 2u);
         }
       }
 
-      goto LABEL_16;
+      return;
     }
 
     ASLoggingInitialize();
     v4 = *MEMORY[0x277CE9008];
     if (os_log_type_enabled(*MEMORY[0x277CE9008], OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v12) = 0;
-      _os_log_impl(&dword_23E5E3000, v4, OS_LOG_TYPE_DEFAULT, "IDSMessageCenter persisting message for later use", &v12, 2u);
+      LOWORD(v11) = 0;
+      _os_log_impl(&dword_23E5E3000, v4, OS_LOG_TYPE_DEFAULT, "IDSMessageCenter persisting message for later use", &v11, 2u);
     }
 
     v5 = a1[5];
     v6 = *(a1[4] + 48);
 LABEL_13:
     [v6 setMessage:v5 identifier:a1[6]];
-    goto LABEL_16;
+    return;
   }
 
   ASLoggingInitialize();
@@ -369,9 +367,9 @@ LABEL_13:
   {
     v9 = a1[5];
     v10 = v8;
-    v12 = 134217984;
-    v13 = [v9 retryCount];
-    _os_log_impl(&dword_23E5E3000, v10, OS_LOG_TYPE_DEFAULT, "IDSMessageCenter message needs retry, current count is %ld", &v12, 0xCu);
+    v11 = 134217984;
+    v12 = [v9 retryCount];
+    _os_log_impl(&dword_23E5E3000, v10, OS_LOG_TYPE_DEFAULT, "IDSMessageCenter message needs retry, current count is %ld", &v11, 0xCu);
   }
 
   if ([a1[5] retryCount] <= 9)
@@ -386,9 +384,6 @@ LABEL_13:
   {
     __48__ASIDSMessageCenter__handleMessage_identifier___block_invoke_2_cold_1();
   }
-
-LABEL_16:
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_dispatchMessage:(id)message handler:(id)handler messageHandledCompletion:(id)completion
@@ -544,7 +539,7 @@ uint64_t __45__ASIDSMessageCenter__handleErrorForMessage___block_invoke(void *a1
 
 - (void)service:(id)service account:(id)account incomingUnhandledProtobuf:(id)protobuf fromID:(id)d context:(id)context
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   dCopy = d;
   protobufCopy = protobuf;
@@ -572,36 +567,54 @@ uint64_t __45__ASIDSMessageCenter__handleErrorForMessage___block_invoke(void *a1
   {
     v23 = v22;
     senderAddress = [(ASMessage *)v15 senderAddress];
-    v26 = 138543874;
-    v27 = v21;
-    v28 = 2114;
-    v29 = outgoingResponseIdentifier;
-    v30 = 2112;
-    v31 = senderAddress;
-    _os_log_impl(&dword_23E5E3000, v23, OS_LOG_TYPE_DEFAULT, "IDSMessageCenter received protobuf of type %{public}@, guid: %{public}@, from: %@", &v26, 0x20u);
+    v25 = 138543874;
+    v26 = v21;
+    v27 = 2114;
+    v28 = outgoingResponseIdentifier;
+    v29 = 2112;
+    v30 = senderAddress;
+    _os_log_impl(&dword_23E5E3000, v23, OS_LOG_TYPE_DEFAULT, "IDSMessageCenter received protobuf of type %{public}@, guid: %{public}@, from: %@", &v25, 0x20u);
   }
 
   [(ASIDSMessageCenter *)self _handleMessage:v15 identifier:outgoingResponseIdentifier];
+}
 
-  v25 = *MEMORY[0x277D85DE8];
+- (void)service:(id)service account:(id)account identifier:(id)identifier didSendWithSuccess:(BOOL)success error:(id)error
+{
+  successCopy = success;
+  v19 = *MEMORY[0x277D85DE8];
+  identifierCopy = identifier;
+  errorCopy = error;
+  ASLoggingInitialize();
+  v12 = *MEMORY[0x277CE9008];
+  if (os_log_type_enabled(*MEMORY[0x277CE9008], OS_LOG_TYPE_DEFAULT))
+  {
+    v13 = 138543874;
+    v14 = identifierCopy;
+    v15 = 1024;
+    v16 = successCopy;
+    v17 = 2114;
+    v18 = errorCopy;
+    _os_log_impl(&dword_23E5E3000, v12, OS_LOG_TYPE_DEFAULT, "IDSMessageCenter sent protobuf with guid %{public}@ to server with success: %d error: %{public}@", &v13, 0x1Cu);
+  }
+
+  [(ASIDSMessageCenter *)self _handleMessageSendSuccess:successCopy error:errorCopy identifier:identifierCopy];
 }
 
 - (void)service:(id)service account:(id)account identifier:(id)identifier hasBeenDeliveredWithContext:(id)context
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   ASLoggingInitialize();
   v8 = *MEMORY[0x277CE9008];
   if (os_log_type_enabled(*MEMORY[0x277CE9008], OS_LOG_TYPE_DEFAULT))
   {
-    v10 = 138543362;
-    v11 = identifierCopy;
-    _os_log_impl(&dword_23E5E3000, v8, OS_LOG_TYPE_DEFAULT, "IDSMessageCenter successfully delivered protobuf with guid %{public}@ to remote device", &v10, 0xCu);
+    v9 = 138543362;
+    v10 = identifierCopy;
+    _os_log_impl(&dword_23E5E3000, v8, OS_LOG_TYPE_DEFAULT, "IDSMessageCenter successfully delivered protobuf with guid %{public}@ to remote device", &v9, 0xCu);
   }
 
   [(ASIDSMessageCenter *)self _handleMessageSendSuccess:1 error:0 identifier:identifierCopy];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleMessageSendSuccess:(BOOL)success error:(id)error identifier:(id)identifier
@@ -624,7 +637,7 @@ uint64_t __45__ASIDSMessageCenter__handleErrorForMessage___block_invoke(void *a1
 
 void __65__ASIDSMessageCenter__handleMessageSendSuccess_error_identifier___block_invoke(uint64_t a1)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v2 = [*(*(a1 + 32) + 32) messageWithIdentifier:*(a1 + 40)];
   v3 = v2;
   if (v2)
@@ -633,15 +646,15 @@ void __65__ASIDSMessageCenter__handleMessageSendSuccess_error_identifier___block
     if (*(a1 + 56) == 1 && !*(a1 + 48))
     {
       ASLoggingInitialize();
-      v8 = *MEMORY[0x277CE9008];
+      v7 = *MEMORY[0x277CE9008];
       if (os_log_type_enabled(*MEMORY[0x277CE9008], OS_LOG_TYPE_DEFAULT))
       {
-        v9 = *(a1 + 40);
+        v8 = *(a1 + 40);
         *buf = 138543618;
-        v17 = v4;
-        v18 = 2114;
-        v19 = v9;
-        _os_log_impl(&dword_23E5E3000, v8, OS_LOG_TYPE_DEFAULT, "IDSMessageCenter success sending protobuf with type %{public}@, guid %{public}@", buf, 0x16u);
+        v16 = v4;
+        v17 = 2114;
+        v18 = v8;
+        _os_log_impl(&dword_23E5E3000, v7, OS_LOG_TYPE_DEFAULT, "IDSMessageCenter success sending protobuf with type %{public}@, guid %{public}@", buf, 0x16u);
       }
     }
 
@@ -651,14 +664,14 @@ void __65__ASIDSMessageCenter__handleMessageSendSuccess_error_identifier___block
       v5 = *MEMORY[0x277CE9008];
       if (os_log_type_enabled(*MEMORY[0x277CE9008], OS_LOG_TYPE_ERROR))
       {
-        v10 = *(a1 + 40);
-        v11 = *(a1 + 48);
+        v9 = *(a1 + 40);
+        v10 = *(a1 + 48);
         *buf = 138543874;
-        v17 = v4;
-        v18 = 2114;
-        v19 = v10;
-        v20 = 2114;
-        v21 = v11;
+        v16 = v4;
+        v17 = 2114;
+        v18 = v9;
+        v19 = 2114;
+        v20 = v10;
         _os_log_error_impl(&dword_23E5E3000, v5, OS_LOG_TYPE_ERROR, "IDSMessageCenter error sending protobuf with type %{public}@, guid %{public}@, error: %{public}@", buf, 0x20u);
       }
 
@@ -674,20 +687,28 @@ void __65__ASIDSMessageCenter__handleMessageSendSuccess_error_identifier___block
       block[1] = 3221225472;
       block[2] = __65__ASIDSMessageCenter__handleMessageSendSuccess_error_identifier___block_invoke_375;
       block[3] = &unk_278C4C758;
-      v13 = v3;
-      v15 = *(a1 + 56);
-      v14 = *(a1 + 48);
+      v12 = v3;
+      v14 = *(a1 + 56);
+      v13 = *(a1 + 48);
       dispatch_async(MEMORY[0x277D85CD0], block);
     }
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __65__ASIDSMessageCenter__handleMessageSendSuccess_error_identifier___block_invoke_375(uint64_t a1)
 {
   v2 = [*(a1 + 32) ephemeralCompletionBlock];
   (*(v2 + 2))(v2, *(a1 + 48), *(a1 + 40));
+}
+
+- (void)_sendMessage:(id)message type:(int)type destinations:(id)destinations fromAddress:(id)address completion:(id)completion
+{
+  v9 = *&type;
+  completionCopy = completion;
+  addressCopy = address;
+  destinationsCopy = destinations;
+  data = [message data];
+  [(ASIDSMessageCenter *)self _sendPayload:data type:v9 destinations:destinationsCopy fromAddress:addressCopy completion:completionCopy];
 }
 
 - (void)_sendPayload:(id)payload type:(int)type destinations:(id)destinations fromAddress:(id)address completion:(id)completion
@@ -716,7 +737,7 @@ void __65__ASIDSMessageCenter__handleMessageSendSuccess_error_identifier___block
 
 void __76__ASIDSMessageCenter__sendPayload_type_destinations_fromAddress_completion___block_invoke(uint64_t a1)
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   v2 = NSStringFromASMessageType(*(a1 + 72));
   ASLoggingInitialize();
   v3 = *MEMORY[0x277CE9008];
@@ -724,19 +745,19 @@ void __76__ASIDSMessageCenter__sendPayload_type_destinations_fromAddress_complet
   {
     v4 = *(a1 + 32);
     *buf = 138543618;
-    v29 = v2;
-    v30 = 2112;
-    v31 = v4;
+    v28 = v2;
+    v29 = 2112;
+    v30 = v4;
     _os_log_impl(&dword_23E5E3000, v3, OS_LOG_TYPE_DEFAULT, "IDSMessageCenter requesting send for protobuf of type %{public}@ to destinations: %@", buf, 0x16u);
   }
 
   v5 = [objc_alloc(MEMORY[0x277D189F0]) initWithProtobufData:*(a1 + 40) type:*(a1 + 72) isResponse:0];
-  v26[0] = *MEMORY[0x277D18650];
+  v25[0] = *MEMORY[0x277D18650];
   v6 = [MEMORY[0x277CCABB0] numberWithDouble:*MEMORY[0x277D18828]];
-  v26[1] = *MEMORY[0x277D18678];
-  v27[0] = v6;
-  v27[1] = MEMORY[0x277CBEC38];
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v27 forKeys:v26 count:2];
+  v25[1] = *MEMORY[0x277D18678];
+  v26[0] = v6;
+  v26[1] = MEMORY[0x277CBEC38];
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v26 forKeys:v25 count:2];
   v8 = [v7 mutableCopy];
 
   if (*(a1 + 48))
@@ -747,11 +768,11 @@ void __76__ASIDSMessageCenter__sendPayload_type_destinations_fromAddress_complet
 
   v10 = [*(a1 + 56) _idsIdentifiersForDestinations:*(a1 + 32)];
   v11 = *(*(a1 + 56) + 8);
+  v23 = 0;
   v24 = 0;
-  v25 = 0;
-  v12 = [v11 sendProtobuf:v5 toDestinations:v10 priority:300 options:v8 identifier:&v25 error:&v24];
-  v13 = v25;
-  v14 = v24;
+  v12 = [v11 sendProtobuf:v5 toDestinations:v10 priority:300 options:v8 identifier:&v24 error:&v23];
+  v13 = v24;
+  v14 = v23;
   v15 = objc_alloc_init(ASMessage);
   [(ASMessage *)v15 setType:*(a1 + 72)];
   [(ASMessage *)v15 setPayload:*(a1 + 40)];
@@ -775,9 +796,9 @@ void __76__ASIDSMessageCenter__sendPayload_type_destinations_fromAddress_complet
       block[1] = 3221225472;
       block[2] = __76__ASIDSMessageCenter__sendPayload_type_destinations_fromAddress_completion___block_invoke_379;
       block[3] = &unk_278C4C758;
-      v21 = v15;
-      v23 = v12;
-      v22 = v14;
+      v20 = v15;
+      v22 = v12;
+      v21 = v14;
       dispatch_async(MEMORY[0x277D85CD0], block);
     }
   }
@@ -790,14 +811,12 @@ void __76__ASIDSMessageCenter__sendPayload_type_destinations_fromAddress_complet
     if (os_log_type_enabled(*MEMORY[0x277CE9008], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543618;
-      v29 = v2;
-      v30 = 2114;
-      v31 = v13;
+      v28 = v2;
+      v29 = 2114;
+      v30 = v13;
       _os_log_impl(&dword_23E5E3000, v17, OS_LOG_TYPE_DEFAULT, "IDSMessageCenter successfully requested send for protobuf of type %{public}@, guid: %{public}@", buf, 0x16u);
     }
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 void __76__ASIDSMessageCenter__sendPayload_type_destinations_fromAddress_completion___block_invoke_379(uint64_t a1)
@@ -857,7 +876,7 @@ void __62__ASIDSMessageCenter__processMessageQueue_preprocessingBlock___block_in
 
 void __62__ASIDSMessageCenter__processMessageQueue_preprocessingBlock___block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   ASLoggingInitialize();
@@ -867,13 +886,13 @@ void __62__ASIDSMessageCenter__processMessageQueue_preprocessingBlock___block_in
     v8 = v7;
     v9 = NSStringFromASMessageType([v6 type]);
     v10 = [v6 senderAddress];
-    v13 = 138543874;
-    v14 = v9;
-    v15 = 2114;
-    v16 = v5;
-    v17 = 2112;
-    v18 = v10;
-    _os_log_impl(&dword_23E5E3000, v8, OS_LOG_TYPE_DEFAULT, "IDSMessageCenter redelivering protobuf of type %{public}@, guid: %{public}@, from: %@", &v13, 0x20u);
+    v12 = 138543874;
+    v13 = v9;
+    v14 = 2114;
+    v15 = v5;
+    v16 = 2112;
+    v17 = v10;
+    _os_log_impl(&dword_23E5E3000, v8, OS_LOG_TYPE_DEFAULT, "IDSMessageCenter redelivering protobuf of type %{public}@, guid: %{public}@, from: %@", &v12, 0x20u);
   }
 
   v11 = *(a1 + 48);
@@ -884,8 +903,6 @@ void __62__ASIDSMessageCenter__processMessageQueue_preprocessingBlock___block_in
 
   [*(a1 + 32) removeMessageWithIdentifier:v5];
   [*(a1 + 40) _handleMessage:v6 identifier:v5];
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_idsIdentifierForDestination:(id)destination
@@ -922,44 +939,42 @@ LABEL_5:
 
 - (id)_idsIdentifiersForDestinations:(id)destinations
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   destinationsCopy = destinations;
   v5 = [MEMORY[0x277CBEB58] setWithCapacity:{objc_msgSend(destinationsCopy, "count")}];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v6 = destinationsCopy;
-  v7 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v16;
+    v9 = *v15;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v16 != v9)
+        if (*v15 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = [(ASIDSMessageCenter *)self _idsIdentifierForDestination:*(*(&v15 + 1) + 8 * i), v15];
+        v11 = [(ASIDSMessageCenter *)self _idsIdentifierForDestination:*(*(&v14 + 1) + 8 * i), v14];
         if (v11)
         {
           [v5 addObject:v11];
         }
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v8);
   }
 
   v12 = [MEMORY[0x277CBEB98] setWithSet:v5];
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v12;
 }
@@ -1034,32 +1049,30 @@ LABEL_8:
 
 void __48__ASIDSMessageCenter__donateEntries_completion___block_invoke(uint64_t a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   ASLoggingInitialize();
   v2 = *MEMORY[0x277CE9008];
   if (os_log_type_enabled(*MEMORY[0x277CE9008], OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
     *buf = 138543362;
-    v10 = v3;
+    v9 = v3;
     _os_log_impl(&dword_23E5E3000, v2, OS_LOG_TYPE_DEFAULT, "IDSMessageCenter adding firewall entries %{public}@", buf, 0xCu);
   }
 
-  v6[0] = MEMORY[0x277D85DD0];
-  v6[1] = 3221225472;
-  v6[2] = __48__ASIDSMessageCenter__donateEntries_completion___block_invoke_394;
-  v6[3] = &unk_278C4CF30;
+  v5[0] = MEMORY[0x277D85DD0];
+  v5[1] = 3221225472;
+  v5[2] = __48__ASIDSMessageCenter__donateEntries_completion___block_invoke_394;
+  v5[3] = &unk_278C4CF30;
   v4 = *(a1 + 40);
-  v8 = *(a1 + 48);
-  v7 = *(a1 + 32);
-  [v4 _retrieveFirewallWithCompletion:v6];
-
-  v5 = *MEMORY[0x277D85DE8];
+  v7 = *(a1 + 48);
+  v6 = *(a1 + 32);
+  [v4 _retrieveFirewallWithCompletion:v5];
 }
 
 void __48__ASIDSMessageCenter__donateEntries_completion___block_invoke_394(uint64_t a1, void *a2, uint64_t a3)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v5 = a2;
   if (a3)
   {
@@ -1074,28 +1087,26 @@ void __48__ASIDSMessageCenter__donateEntries_completion___block_invoke_394(uint6
     {
       v7 = *(a1 + 32);
       *buf = 138543618;
-      v14 = v7;
-      v15 = 2114;
-      v16 = v5;
+      v13 = v7;
+      v14 = 2114;
+      v15 = v5;
       _os_log_impl(&dword_23E5E3000, v6, OS_LOG_TYPE_DEFAULT, "IDSMessageCenter donating firewall entries %{public}@, to firewall %{public}@", buf, 0x16u);
     }
 
     v8 = *(a1 + 32);
-    v10[0] = MEMORY[0x277D85DD0];
-    v10[1] = 3221225472;
-    v10[2] = __48__ASIDSMessageCenter__donateEntries_completion___block_invoke_395;
-    v10[3] = &unk_278C4CF08;
-    v11 = v8;
-    v12 = *(a1 + 40);
-    [v5 donateEntries:v11 withCompletion:v10];
+    v9[0] = MEMORY[0x277D85DD0];
+    v9[1] = 3221225472;
+    v9[2] = __48__ASIDSMessageCenter__donateEntries_completion___block_invoke_395;
+    v9[3] = &unk_278C4CF08;
+    v10 = v8;
+    v11 = *(a1 + 40);
+    [v5 donateEntries:v10 withCompletion:v9];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __48__ASIDSMessageCenter__donateEntries_completion___block_invoke_395(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = a2;
   ASLoggingInitialize();
   v4 = *MEMORY[0x277CE9008];
@@ -1115,17 +1126,15 @@ void __48__ASIDSMessageCenter__donateEntries_completion___block_invoke_395(uint6
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       v7 = *(a1 + 32);
-      v9 = 138543362;
-      v10 = v7;
-      _os_log_impl(&dword_23E5E3000, v4, OS_LOG_TYPE_DEFAULT, "IDSMessageCenter added firewall entries %{public}@", &v9, 0xCu);
+      v8 = 138543362;
+      v9 = v7;
+      _os_log_impl(&dword_23E5E3000, v4, OS_LOG_TYPE_DEFAULT, "IDSMessageCenter added firewall entries %{public}@", &v8, 0xCu);
     }
 
     v6 = *(*(a1 + 40) + 16);
   }
 
   v6();
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)donateAddresses:(id)addresses completion:(id)completion
@@ -1308,85 +1317,62 @@ id __53__ASIDSMessageCenter_donatedAddressesWithCompletion___block_invoke_402(ui
 
 - (void)_handleErrorSendingSecureCloudMessage:(void *)a1 .cold.1(void *a1, void *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = NSStringFromASMessageType([a2 type]);
   OUTLINED_FUNCTION_1_0();
-  _os_log_error_impl(&dword_23E5E3000, v3, OS_LOG_TYPE_ERROR, "Error sending secure cloud message of type: %@", v6, 0xCu);
-
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void __76__ASIDSMessageCenter__sendPayload_type_destinations_fromAddress_completion___block_invoke_cold_1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_3_0(&dword_23E5E3000, v0, v1, "IDSMessageCenter error requesting send for protobuf of type %{public}@, error: %{public}@");
-  v2 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_23E5E3000, v3, OS_LOG_TYPE_ERROR, "Error sending secure cloud message of type: %@", v5, 0xCu);
 }
 
 void __54__ASIDSMessageCenter__retrieveFirewallWithCompletion___block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __48__ASIDSMessageCenter__donateEntries_completion___block_invoke_395_cold_1(uint64_t a1, uint64_t a2, NSObject *a3)
 {
-  *v4 = 138543618;
-  *&v4[4] = *(a1 + 32);
-  *&v4[12] = 2114;
-  *&v4[14] = a2;
-  OUTLINED_FUNCTION_3_0(&dword_23E5E3000, a2, a3, "IDSMessageCenter failed to donate firewall entries %{public}@, error %{public}@", *v4, *&v4[8], *&v4[16], *MEMORY[0x277D85DE8]);
-  v3 = *MEMORY[0x277D85DE8];
+  *v3 = 138543618;
+  *&v3[4] = *(a1 + 32);
+  *&v3[12] = 2114;
+  *&v3[14] = a2;
+  OUTLINED_FUNCTION_3_0(&dword_23E5E3000, a2, a3, "IDSMessageCenter failed to donate firewall entries %{public}@, error %{public}@", *v3, *&v3[8], *&v3[16], *MEMORY[0x277D85DE8]);
 }
 
 - (void)donateAddresses:completion:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __49__ASIDSMessageCenter_donateAddresses_completion___block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __49__ASIDSMessageCenter_donateAddresses_completion___block_invoke_cold_2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __53__ASIDSMessageCenter_donatedAddressesWithCompletion___block_invoke_2_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 + (void)addContext:toInvitation:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

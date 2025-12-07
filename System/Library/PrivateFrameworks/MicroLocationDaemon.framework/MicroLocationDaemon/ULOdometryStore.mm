@@ -77,7 +77,7 @@
 
 - (BOOL)insertDataObjects:(const void *)objects atLoiUUID:(const uuid *)d
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   selfCopy = self;
   dbStore = [(ULStore *)self dbStore];
   v8 = (*(dbStore->var0 + 8))(dbStore);
@@ -110,14 +110,13 @@
   }
 
   v13 = v10;
-  v18[0] = &unk_286A56908;
-  v18[1] = &selfCopy;
-  v18[2] = v13;
-  v18[3] = v18;
-  inserted = ULDBUtils::insertDataObjects<ULOdometryDO,ULOdometryMO>(self, objects, v18);
-  std::__function::__value_func<ULOdometryMO * ()(ULOdometryDO const&)>::~__value_func[abi:ne200100](v18);
+  v17[0] = &unk_286A56908;
+  v17[1] = &selfCopy;
+  v17[2] = v13;
+  v17[3] = v17;
+  inserted = ULDBUtils::insertDataObjects<ULOdometryDO,ULOdometryMO>(self, objects, v17);
+  std::__function::__value_func<ULOdometryMO * ()(ULOdometryDO const&)>::~__value_func[abi:ne200100](v17);
 
-  v15 = *MEMORY[0x277D85DE8];
   return inserted;
 }
 
@@ -171,40 +170,35 @@
 
 - (BOOL)flushStoreBuffer
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   p_dataObjectBuffer = &self->_dataObjectBuffer;
   if (self->_dataObjectBuffer.__begin_ == self->_dataObjectBuffer.__end_)
   {
-    v6 = 1;
+    return 1;
   }
 
-  else
+  if (onceToken_MicroLocation_Default != -1)
   {
-    if (onceToken_MicroLocation_Default != -1)
-    {
-      [ULOdometryStore insertDataObjects:atLoiUUID:];
-    }
-
-    v4 = logObject_MicroLocation_Default;
-    if (os_log_type_enabled(logObject_MicroLocation_Default, OS_LOG_TYPE_DEBUG))
-    {
-      v5 = (p_dataObjectBuffer->__end_ - p_dataObjectBuffer->__begin_) >> 6;
-      v11 = 134217984;
-      v12 = v5;
-      _os_log_impl(&dword_258FE9000, v4, OS_LOG_TYPE_DEBUG, "ULOdometryStore: flushing %zu buffered odometry entries", &v11, 0xCu);
-    }
-
-    v6 = [(ULOdometryStore *)self insertDataObjects:p_dataObjectBuffer atLoiUUID:&self->_currentLoiUUID];
-    begin = p_dataObjectBuffer->__begin_;
-    for (i = p_dataObjectBuffer->__end_; i != begin; std::__destroy_at[abi:ne200100]<ULOdometryDO,0>(i))
-    {
-      i -= 64;
-    }
-
-    p_dataObjectBuffer->__end_ = begin;
+    [ULOdometryStore insertDataObjects:atLoiUUID:];
   }
 
-  v9 = *MEMORY[0x277D85DE8];
+  v4 = logObject_MicroLocation_Default;
+  if (os_log_type_enabled(logObject_MicroLocation_Default, OS_LOG_TYPE_DEBUG))
+  {
+    v5 = (p_dataObjectBuffer->__end_ - p_dataObjectBuffer->__begin_) >> 6;
+    v10 = 134217984;
+    v11 = v5;
+    _os_log_impl(&dword_258FE9000, v4, OS_LOG_TYPE_DEBUG, "ULOdometryStore: flushing %zu buffered odometry entries", &v10, 0xCu);
+  }
+
+  v6 = [(ULOdometryStore *)self insertDataObjects:p_dataObjectBuffer atLoiUUID:&self->_currentLoiUUID];
+  begin = p_dataObjectBuffer->__begin_;
+  for (i = p_dataObjectBuffer->__end_; i != begin; std::__destroy_at[abi:ne200100]<ULOdometryDO,0>(i))
+  {
+    i -= 64;
+  }
+
+  p_dataObjectBuffer->__end_ = begin;
   return v6;
 }
 
@@ -227,9 +221,9 @@
 - (vector<ULOdometryDO,)efficientlyFetchOdometryEntriesWithLOIGroupUUIDs:(ULOdometryStore *)self odometrySource:(SEL)source startDate:()vector<boost:(std:(int64_t)boost :(id)a6 allocator<boost:(id)a7 :(unint64_t)a8 uuids:(BOOL)uuids :(BOOL)self0 uuid>> *)a4 :uuids::uuid endDate:fetchLimit:newest:ascending:
 {
   uuidsCopy = uuids;
-  v53[2] = *MEMORY[0x277D85DE8];
-  v48 = a6;
-  v47 = a7;
+  v52[2] = *MEMORY[0x277D85DE8];
+  v47 = a6;
+  v46 = a7;
   [(ULOdometryStore *)self flushStoreBuffer];
   retstr->__begin_ = 0;
   retstr->__end_ = 0;
@@ -238,16 +232,16 @@
   array = [MEMORY[0x277CBEB18] array];
   if (a4->var1 != a4->var0)
   {
-    v44 = ULDBUtils::NSStringArrayFromBoostUUIDs(a4);
-    v45 = [MEMORY[0x277CCAC30] predicateWithFormat:@"%K.%K IN %@", @"loi", @"loiGroupId", v44];
+    v43 = ULDBUtils::NSStringArrayFromBoostUUIDs(a4);
+    v44 = [MEMORY[0x277CCAC30] predicateWithFormat:@"%K.%K IN %@", @"loi", @"loiGroupId", v43];
     var0 = a4->var0;
     var1 = a4->var1;
     if (var0 == var1)
     {
 LABEL_5:
-      v21 = v44;
-      v20 = v45;
-      [array addObject:v45];
+      v21 = v43;
+      v20 = v44;
+      [array addObject:v44];
     }
 
     else
@@ -262,33 +256,33 @@ LABEL_5:
 
       v22 = [MEMORY[0x277CCAC30] predicateWithFormat:@"%K = NIL", @"loi"];
       v23 = MEMORY[0x277CCA920];
-      v21 = v44;
-      v53[0] = v45;
-      v53[1] = v22;
-      v43 = v22;
-      v24 = [MEMORY[0x277CBEA60] arrayWithObjects:v53 count:2];
+      v21 = v43;
+      v52[0] = v44;
+      v52[1] = v22;
+      v42 = v22;
+      v24 = [MEMORY[0x277CBEA60] arrayWithObjects:v52 count:2];
       v25 = [v23 orPredicateWithSubpredicates:v24];
       [array addObject:v25];
 
-      v20 = v45;
+      v20 = v44;
     }
   }
 
-  if (v48)
+  if (v47)
   {
     v26 = MEMORY[0x277CCAC30];
     v27 = MEMORY[0x277CCABB0];
-    [v48 timeIntervalSinceReferenceDate];
+    [v47 timeIntervalSinceReferenceDate];
     v28 = [v27 numberWithDouble:?];
     v29 = [v26 predicateWithFormat:@"%K >= %@", @"timestamp", v28];
     [array addObject:v29];
   }
 
-  if (v47)
+  if (v46)
   {
     v30 = MEMORY[0x277CCAC30];
     v31 = MEMORY[0x277CCABB0];
-    [v47 timeIntervalSinceReferenceDate];
+    [v46 timeIntervalSinceReferenceDate];
     v32 = [v31 numberWithDouble:?];
     v33 = [v30 predicateWithFormat:@"%K <= %@", @"timestamp", v32];
     [array addObject:v33];
@@ -308,16 +302,16 @@ LABEL_5:
   }
 
   v36 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"timestamp" ascending:v35];
-  v52 = v36;
-  v37 = [MEMORY[0x277CBEA60] arrayWithObjects:&v52 count:1];
-  ULDBUtils::efficientlyFetchDataObjects<ULOdometryDO,ULOdometryMO>(self, array, v37, a8, 500, &v49);
-  std::vector<ULOdometryDO>::__vdeallocate(&retstr->__begin_);
-  *&retstr->__begin_ = v49;
-  retstr->__cap_ = v50;
-  v50 = 0;
-  v49 = 0uLL;
-  v51 = &v49;
-  std::vector<ULOdometryDO>::__destroy_vector::operator()[abi:ne200100](&v51);
+  v51 = v36;
+  v37 = [MEMORY[0x277CBEA60] arrayWithObjects:&v51 count:1];
+  ULDBUtils::efficientlyFetchDataObjects<ULOdometryDO,ULOdometryMO>(self, array, v37, a8, 500, &v48);
+  std::vector<ULOdometryDO>::__vdeallocate(retstr);
+  *&retstr->__begin_ = v48;
+  retstr->__cap_ = v49;
+  v49 = 0;
+  v48 = 0uLL;
+  v50 = &v48;
+  std::vector<ULOdometryDO>::__destroy_vector::operator()[abi:ne200100](&v50);
 
   objc_autoreleasePoolPop(context);
   if (v35 != a10)
@@ -334,47 +328,44 @@ LABEL_5:
     }
   }
 
-  v42 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 - (optional<std::chrono::time_point<cl::chrono::CFAbsoluteTimeClock,)getMostRecentOdometryTimeForLoiGroupId:(ULOdometryStore *)self odometrySource:
 {
-  v3 = v2;
-  v4 = v1;
-  v19[1] = *MEMORY[0x277D85DE8];
+  v2 = v1;
+  *(&v16 + 1) = *MEMORY[0x277D85DE8];
   [(ULOdometryStore *)self flushStoreBuffer];
-  v16 = *v4;
+  v13 = *v2;
   nilBoostUUID = [MEMORY[0x277CCAD78] nilBoostUUID];
-  v18 = v6;
-  v13 = 0;
-  v14 = 0;
+  v15 = v4;
+  v10 = 0;
+  v11 = 0;
   __p = 0;
-  std::vector<boost::uuids::uuid>::__init_with_size[abi:ne200100]<boost::uuids::uuid const*,boost::uuids::uuid const*>(&__p, &v16, v19, 2uLL);
-  LOBYTE(v11) = 0;
-  [(ULOdometryStore *)self efficientlyFetchOdometryEntriesWithLOIGroupUUIDs:&__p odometrySource:v3 startDate:0 endDate:0 fetchLimit:1 newest:1 ascending:v11];
+  std::vector<boost::uuids::uuid>::__init_with_size[abi:ne200100]<boost::uuids::uuid const*,boost::uuids::uuid const*>(&__p, &v13, &v16, 2uLL);
+  v8 = 0;
+  objc_msgSend_efficientlyFetchOdometryEntriesWithLOIGroupUUIDs_odometrySource_startDate_endDate_fetchLimit_newest_ascending_(self, v8);
   if (__p)
   {
-    v13 = __p;
+    v10 = __p;
     operator delete(__p);
   }
 
-  if (v15[1] == v15[0])
+  if (v12[1] == v12[0])
   {
-    LOBYTE(v7) = 0;
-    v8 = 0;
+    LOBYTE(v5) = 0;
+    v6 = 0;
   }
 
   else
   {
-    v7 = *(v15[0] + 40) & 0xFFFFFFFFFFFFFF00;
-    v8 = *(v15[0] + 40);
+    v5 = *(v12[0] + 40) & 0xFFFFFFFFFFFFFF00;
+    v6 = *(v12[0] + 40);
   }
 
-  *&v16 = v15;
-  std::vector<ULOdometryDO>::__destroy_vector::operator()[abi:ne200100](&v16);
-  v9 = *MEMORY[0x277D85DE8];
-  return (v8 | v7);
+  *&v13 = v12;
+  std::vector<ULOdometryDO>::__destroy_vector::operator()[abi:ne200100](&v13);
+  return (v6 | v5);
 }
 
 - (id).cxx_construct

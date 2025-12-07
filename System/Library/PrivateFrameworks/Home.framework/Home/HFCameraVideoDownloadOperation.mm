@@ -74,17 +74,17 @@ void __59__HFCameraVideoDownloadOperation_downloadOperationForClip___block_invok
 
 - (void)fileDownloadNotNeeded
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v3 = HFLogForCategory(0x1DuLL);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     clip = [(HFCameraVideoDownloadOperation *)self clip];
     hf_prettyDescription = [clip hf_prettyDescription];
-    v16 = 136315394;
-    v17 = "[HFCameraVideoDownloadOperation fileDownloadNotNeeded]";
-    v18 = 2112;
-    v19 = hf_prettyDescription;
-    _os_log_impl(&dword_20D9BF000, v3, OS_LOG_TYPE_DEFAULT, "%s %@", &v16, 0x16u);
+    v15 = 136315394;
+    v16 = "[HFCameraVideoDownloadOperation fileDownloadNotNeeded]";
+    v17 = 2112;
+    v18 = hf_prettyDescription;
+    _os_log_impl(&dword_20D9BF000, v3, OS_LOG_TYPE_DEFAULT, "%s %@", &v15, 0x16u);
   }
 
   clip2 = [(HFCameraVideoDownloadOperation *)self clip];
@@ -106,26 +106,24 @@ void __59__HFCameraVideoDownloadOperation_downloadOperationForClip___block_invok
     destinationURL = [(HFCameraVideoDownloadOperation *)self destinationURL];
     [delegate2 foundVideoFileForClip:clip3 atURL:destinationURL];
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)fileDownloadFailedWithError:(id)error
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   v5 = HFLogForCategory(0x1DuLL);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
     clip = [(HFCameraVideoDownloadOperation *)self clip];
     hf_prettyDescription = [clip hf_prettyDescription];
-    v17 = 136315650;
-    v18 = "[HFCameraVideoDownloadOperation fileDownloadFailedWithError:]";
-    v19 = 2112;
-    v20 = errorCopy;
-    v21 = 2112;
-    v22 = hf_prettyDescription;
-    _os_log_error_impl(&dword_20D9BF000, v5, OS_LOG_TYPE_ERROR, "%s %@ fetching clip: %@", &v17, 0x20u);
+    v16 = 136315650;
+    v17 = "[HFCameraVideoDownloadOperation fileDownloadFailedWithError:]";
+    v18 = 2112;
+    v19 = errorCopy;
+    v20 = 2112;
+    v21 = hf_prettyDescription;
+    _os_log_error_impl(&dword_20D9BF000, v5, OS_LOG_TYPE_ERROR, "%s %@ fetching clip: %@", &v16, 0x20u);
   }
 
   clip2 = [(HFCameraVideoDownloadOperation *)self clip];
@@ -146,29 +144,27 @@ void __59__HFCameraVideoDownloadOperation_downloadOperationForClip___block_invok
     clip3 = [(HFCameraVideoDownloadOperation *)self clip];
     [delegate2 failedToDownloadVideoFileForClip:clip3];
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)fileDownloadFinishedWithElapsedTime:(double)time
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   v5 = HFLogForCategory(0x1DuLL);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     clip = [(HFCameraVideoDownloadOperation *)self clip];
     hf_prettyDescription = [clip hf_prettyDescription];
     clip2 = [(HFCameraVideoDownloadOperation *)self clip];
-    [clip2 duration];
-    v20 = 136315906;
-    v21 = "[HFCameraVideoDownloadOperation fileDownloadFinishedWithElapsedTime:]";
-    v22 = 2112;
-    v23 = hf_prettyDescription;
-    v24 = 2048;
-    v25 = v9;
-    v26 = 2048;
+    objc_msgSend_duration(clip2);
+    v19 = 136315906;
+    v20 = "[HFCameraVideoDownloadOperation fileDownloadFinishedWithElapsedTime:]";
+    v21 = 2112;
+    v22 = hf_prettyDescription;
+    v23 = 2048;
+    v24 = v9;
+    v25 = 2048;
     timeCopy = time;
-    _os_log_impl(&dword_20D9BF000, v5, OS_LOG_TYPE_DEFAULT, "%s %@; duration: %.2f in %.2f", &v20, 0x2Au);
+    _os_log_impl(&dword_20D9BF000, v5, OS_LOG_TYPE_DEFAULT, "%s %@; duration: %.2f in %.2f", &v19, 0x2Au);
   }
 
   clip3 = [(HFCameraVideoDownloadOperation *)self clip];
@@ -190,26 +186,24 @@ void __59__HFCameraVideoDownloadOperation_downloadOperationForClip___block_invok
     destinationURL = [(HFCameraVideoDownloadOperation *)self destinationURL];
     [delegate2 didDownloadVideoFileForClip:clip4 toURL:destinationURL];
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)fileDownloadProgress:(unint64_t)progress
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v5 = HFLogForCategory(0x1DuLL);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     clip = [(HFCameraVideoDownloadOperation *)self clip];
     hf_prettyDescription = [clip hf_prettyDescription];
     v8 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:progress];
-    v14 = 136315650;
-    v15 = "[HFCameraVideoDownloadOperation fileDownloadProgress:]";
-    v16 = 2112;
-    v17 = hf_prettyDescription;
-    v18 = 2112;
-    v19 = v8;
-    _os_log_impl(&dword_20D9BF000, v5, OS_LOG_TYPE_DEFAULT, "%s %@; download progress: %@", &v14, 0x20u);
+    v13 = 136315650;
+    v14 = "[HFCameraVideoDownloadOperation fileDownloadProgress:]";
+    v15 = 2112;
+    v16 = hf_prettyDescription;
+    v17 = 2112;
+    v18 = v8;
+    _os_log_impl(&dword_20D9BF000, v5, OS_LOG_TYPE_DEFAULT, "%s %@; download progress: %@", &v13, 0x20u);
   }
 
   delegate = [(HFCameraVideoDownloadOperation *)self delegate];
@@ -221,8 +215,6 @@ void __59__HFCameraVideoDownloadOperation_downloadOperationForClip___block_invok
     clip2 = [(HFCameraVideoDownloadOperation *)self clip];
     [delegate2 downloadProgress:progress forClip:clip2];
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (id)description

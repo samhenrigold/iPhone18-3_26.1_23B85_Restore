@@ -9,6 +9,7 @@
 - (unint64_t)_accessibilityContaineeLayout;
 - (void)_accessibilityLoadAccessibilityInformation;
 - (void)layoutSubviews;
+- (void)setLayoutIfSupported:(unint64_t)supported animated:(BOOL)animated;
 @end
 
 @implementation UIDropShadowViewAccessibility_Maps_AppKit
@@ -27,6 +28,13 @@
   [validationsCopy validateClass:@"MapsRouteCreationContainee"];
   [validationsCopy validateClass:@"ContainerViewController" hasInstanceMethod:@"currentViewController" withFullSignature:{"@", 0}];
   [validationsCopy validateClass:@"CardPresentationController" hasInstanceMethod:@"containeeLayout" withFullSignature:{"Q", 0}];
+}
+
+- (void)setLayoutIfSupported:(unint64_t)supported animated:(BOOL)animated
+{
+  v4.receiver = self;
+  v4.super_class = UIDropShadowViewAccessibility_Maps_AppKit;
+  [(UIDropShadowViewAccessibility_Maps_AppKit *)&v4 setLayoutIfSupported:supported animated:animated];
 }
 
 - (BOOL)_axExpandCard
@@ -105,10 +113,10 @@ LABEL_7:
 
 - (void)_accessibilityLoadAccessibilityInformation
 {
-  v21[2] = *MEMORY[0x29EDCA608];
-  v20.receiver = self;
-  v20.super_class = UIDropShadowViewAccessibility_Maps_AppKit;
-  [(UIDropShadowViewAccessibility_Maps_AppKit *)&v20 _accessibilityLoadAccessibilityInformation];
+  v20[2] = *MEMORY[0x29EDCA608];
+  v19.receiver = self;
+  v19.super_class = UIDropShadowViewAccessibility_Maps_AppKit;
+  [(UIDropShadowViewAccessibility_Maps_AppKit *)&v19 _accessibilityLoadAccessibilityInformation];
   v3 = [(UIDropShadowViewAccessibility_Maps_AppKit *)self safeUIViewForKey:@"_topGrabber"];
   [v3 _accessibilitySetFrameExpansion:{20.0, 10.0}];
   [v3 setIsAccessibilityElement:1];
@@ -131,9 +139,9 @@ LABEL_7:
     defaultCenter = [MEMORY[0x29EDBA068] defaultCenter];
     [defaultCenter addObserver:self selector:sel__axCollapseCard name:@"AXCollapseMapsChromeNotification" object:0];
 
-    v21[0] = v8;
-    v21[1] = v11;
-    v13 = [MEMORY[0x29EDB8D80] arrayWithObjects:v21 count:2];
+    v20[0] = v8;
+    v20[1] = v11;
+    v13 = [MEMORY[0x29EDB8D80] arrayWithObjects:v20 count:2];
     [v3 setAccessibilityCustomActions:v13];
 
     v14 = AXMapsLocString(@"CARD_GRABBER_VIEW");
@@ -142,18 +150,16 @@ LABEL_7:
     v15 = AXMapsLocString(@"CARD_GRABBER_VIEW_HINT");
     [v3 setAccessibilityHint:v15];
 
-    v17[0] = MEMORY[0x29EDCA5F8];
-    v17[1] = 3221225472;
-    v17[2] = __87__UIDropShadowViewAccessibility_Maps_AppKit__accessibilityLoadAccessibilityInformation__block_invoke;
-    v17[3] = &unk_29F2CC418;
-    objc_copyWeak(&v18, &location);
-    [v3 _setAccessibilityValueBlock:v17];
-    objc_destroyWeak(&v18);
+    v16[0] = MEMORY[0x29EDCA5F8];
+    v16[1] = 3221225472;
+    v16[2] = __87__UIDropShadowViewAccessibility_Maps_AppKit__accessibilityLoadAccessibilityInformation__block_invoke;
+    v16[3] = &unk_29F2CC418;
+    objc_copyWeak(&v17, &location);
+    [v3 _setAccessibilityValueBlock:v16];
+    objc_destroyWeak(&v17);
 
     objc_destroyWeak(&location);
   }
-
-  v16 = *MEMORY[0x29EDCA608];
 }
 
 - (void)layoutSubviews

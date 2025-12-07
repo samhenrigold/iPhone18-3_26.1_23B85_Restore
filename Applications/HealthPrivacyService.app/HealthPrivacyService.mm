@@ -172,16 +172,16 @@ id sub_100002D9C(uint64_t a1)
   return [v2 _configureNavigationController];
 }
 
-void sub_100003454(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_100003454(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va1, a9);
-  va_start(va, a9);
-  v10 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
+  va_start(va1, a16);
+  va_start(va, a16);
+  v17 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -210,10 +210,11 @@ void sub_1000034AC(uint64_t a1, void *a2, void *a3)
   dispatch_semaphore_signal(*(a1 + 32));
 }
 
-void sub_100003A08(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, char a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, char a31)
+void sub_100003A08(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, ...)
 {
+  va_start(va, a30);
   _Block_object_dispose(&a25, 8);
-  _Block_object_dispose(&a31, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -234,155 +235,155 @@ void sub_100003A54(uint64_t a1, void *a2, void *a3)
   dispatch_semaphore_signal(*(a1 + 32));
 }
 
-void sub_100003BCC(uint64_t a1)
+void sub_100003BCC(uint64_t a1, uint64_t a2)
 {
   if (!*(a1 + 32))
   {
-    v6 = objc_alloc_init(NSMutableDictionary);
     v7 = objc_alloc_init(NSMutableDictionary);
-    v8 = *(*(a1 + 40) + 88);
-    v9 = +[HKUserAnnotatedMedicationType userAnnotatedMedicationType];
-    v10 = v9;
-    if (v8 == v9)
+    v8 = objc_alloc_init(NSMutableDictionary);
+    v9 = *(*(a1 + 40) + 88);
+    v10 = +[HKUserAnnotatedMedicationType userAnnotatedMedicationType];
+    v11 = v10;
+    if (v9 == v10)
     {
     }
 
     else
     {
-      v11 = +[HKUserAnnotatedMedicationType userAnnotatedMedicationType];
-      if (!v11)
+      v12 = +[HKUserAnnotatedMedicationType userAnnotatedMedicationType];
+      if (!v12)
       {
 
 LABEL_14:
         _HKInitializeLogging();
-        v16 = HKLogAuthorization();
-        if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+        v17 = HKLogAuthorization();
+        if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
-          _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "Successfully selected authorization for object picker.", buf, 2u);
+          _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "Successfully selected authorization for object picker.", buf, 2u);
         }
 
-        v41 = 0u;
         v42 = 0u;
-        v39 = 0u;
+        v43 = 0u;
         v40 = 0u;
-        v17 = [*(a1 + 48) allSamples];
-        v18 = [v17 countByEnumeratingWithState:&v39 objects:v46 count:16];
-        if (v18)
+        v41 = 0u;
+        v18 = [*(a1 + 48) allSamples];
+        v19 = [v18 countByEnumeratingWithState:&v40 objects:v47 count:16];
+        if (v19)
         {
-          v19 = *v40;
+          v20 = *v41;
           do
           {
-            for (i = 0; i != v18; i = i + 1)
+            for (i = 0; i != v19; i = i + 1)
             {
-              if (*v40 != v19)
+              if (*v41 != v20)
               {
-                objc_enumerationMutation(v17);
+                objc_enumerationMutation(v18);
               }
 
-              v21 = [*(*(&v39 + 1) + 8 * i) UUID];
-              [v6 setObject:&off_10000CA50 forKeyedSubscript:v21];
+              v22 = [*(*(&v40 + 1) + 8 * i) UUID];
+              [v7 setObject:&off_10000CA50 forKeyedSubscript:v22];
             }
 
-            v18 = [v17 countByEnumeratingWithState:&v39 objects:v46 count:16];
+            v19 = [v18 countByEnumeratingWithState:&v40 objects:v47 count:16];
           }
 
-          while (v18);
+          while (v19);
         }
 
+        v39 = 0u;
+        v37 = 0u;
         v38 = 0u;
         v36 = 0u;
-        v37 = 0u;
-        v35 = 0u;
-        v22 = [*(a1 + 48) enabledSamples];
-        v23 = [v22 countByEnumeratingWithState:&v35 objects:v45 count:16];
-        if (v23)
+        v23 = [*(a1 + 48) enabledSamples];
+        v24 = [v23 countByEnumeratingWithState:&v36 objects:v46 count:16];
+        if (v24)
         {
-          v24 = *v36;
+          v25 = *v37;
           do
           {
-            for (j = 0; j != v23; j = j + 1)
+            for (j = 0; j != v24; j = j + 1)
             {
-              if (*v36 != v24)
+              if (*v37 != v25)
               {
-                objc_enumerationMutation(v22);
+                objc_enumerationMutation(v23);
               }
 
-              v26 = [*(*(&v35 + 1) + 8 * j) UUID];
-              [v6 setObject:&off_10000CA68 forKeyedSubscript:v26];
+              v27 = [*(*(&v36 + 1) + 8 * j) UUID];
+              [v7 setObject:&off_10000CA68 forKeyedSubscript:v27];
             }
 
-            v23 = [v22 countByEnumeratingWithState:&v35 objects:v45 count:16];
+            v24 = [v23 countByEnumeratingWithState:&v36 objects:v46 count:16];
           }
 
-          while (v23);
+          while (v24);
         }
 
-        v33[0] = _NSConcreteStackBlock;
-        v33[1] = 3221225472;
-        v33[2] = sub_10000410C;
-        v33[3] = &unk_10000C5E8;
-        v34 = v7;
-        [v6 enumerateKeysAndObjectsUsingBlock:v33];
-        v15 = v34;
+        v34[0] = _NSConcreteStackBlock;
+        v34[1] = 3221225472;
+        v34[2] = sub_10000410C;
+        v34[3] = &unk_10000C5E8;
+        v35 = v8;
+        [v7 enumerateKeysAndObjectsUsingBlock:v34];
+        v16 = v35;
 LABEL_31:
 
-        v27 = [[HKObjectAuthorizationSetStatusContext alloc] initWithObjectAuthorizationStatuses:v7 sessionIdentifier:0];
+        v28 = [[HKObjectAuthorizationSetStatusContext alloc] initWithObjectAuthorizationStatuses:v8 sessionIdentifier:0];
         objc_initWeak(buf, *(a1 + 40));
-        v28 = *(*(a1 + 40) + 16);
-        v29 = *(*(a1 + 40) + 88);
-        v30 = [*(*(a1 + 40) + 40) bundleIdentifier];
-        v31[0] = _NSConcreteStackBlock;
-        v31[1] = 3221225472;
-        v31[2] = sub_1000041CC;
-        v31[3] = &unk_10000C638;
-        v31[4] = *(a1 + 40);
-        objc_copyWeak(&v32, buf);
-        [v28 setObjectAuthorizationStatusContext:v27 forObjectType:v29 bundleIdentifier:v30 completion:v31];
+        v29 = *(*(a1 + 40) + 16);
+        v30 = *(*(a1 + 40) + 88);
+        v31 = [*(*(a1 + 40) + 40) bundleIdentifier];
+        v32[0] = _NSConcreteStackBlock;
+        v32[1] = 3221225472;
+        v32[2] = sub_1000041CC;
+        v32[3] = &unk_10000C638;
+        v32[4] = *(a1 + 40);
+        objc_copyWeak(&v33, buf);
+        [v29 setObjectAuthorizationStatusContext:v28 forObjectType:v30 bundleIdentifier:v31 completion:v32];
 
-        objc_destroyWeak(&v32);
+        objc_destroyWeak(&v33);
         objc_destroyWeak(buf);
 
         return;
       }
 
-      v12 = *(*(a1 + 40) + 88);
-      v13 = +[HKUserAnnotatedMedicationType userAnnotatedMedicationType];
-      LODWORD(v12) = [v12 isEqual:v13];
+      v13 = *(*(a1 + 40) + 88);
+      v14 = +[HKUserAnnotatedMedicationType userAnnotatedMedicationType];
+      LODWORD(v13) = [v13 isEqual:v14];
 
-      if (!v12)
+      if (!v13)
       {
         goto LABEL_14;
       }
     }
 
     _HKInitializeLogging();
-    v14 = HKLogAuthorization();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    v15 = HKLogAuthorization();
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "Successfully selected authorization for health concept authorization sheet.", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "Successfully selected authorization for health concept authorization sheet.", buf, 2u);
     }
 
-    v15 = [*(a1 + 48) updatedUserAnnotatedMedications];
-    [v7 addEntriesFromDictionary:v15];
+    v16 = [*(a1 + 48) updatedUserAnnotatedMedications];
+    [v8 addEntriesFromDictionary:v16];
     goto LABEL_31;
   }
 
   _HKInitializeLogging();
-  v2 = HKLogAuthorization();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = HKLogAuthorization();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = *(a1 + 32);
+    v4 = *(a1 + 32);
     *buf = 138412290;
-    v44 = v3;
-    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "Object selection failed with error: %@.", buf, 0xCu);
+    v45 = v4;
+    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "Object selection failed with error: %@.", buf, 0xCu);
   }
 
-  v5 = *(a1 + 32);
-  v4 = a1 + 32;
-  objc_storeStrong((*(v4 + 8) + 32), v5);
-  [*(v4 + 8) _finishWithError:*v4];
+  v6 = *(a1 + 32);
+  v5 = a1 + 32;
+  objc_storeStrong((*(v5 + 8) + 32), v6);
+  [*(v5 + 8) _finishWithError:*v5];
 }
 
 void sub_1000040E0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, id location)
@@ -420,16 +421,16 @@ void sub_1000041CC(uint64_t a1, uint64_t a2, void *a3)
   objc_destroyWeak(&v10);
 }
 
-void sub_100004284(uint64_t a1)
+void sub_100004284(uint64_t a1, uint64_t a2)
 {
   _HKInitializeLogging();
-  v2 = HKLogAuthorization();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = HKLogAuthorization();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = *(a1 + 32);
-    v5 = 138412290;
-    v6 = v3;
-    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "Finished setting status with error: %@.", &v5, 0xCu);
+    v4 = *(a1 + 32);
+    v6 = 138412290;
+    v7 = v4;
+    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "Finished setting status with error: %@.", &v6, 0xCu);
   }
 
   objc_storeStrong((*(a1 + 40) + 32), *(a1 + 32));
@@ -437,16 +438,18 @@ void sub_100004284(uint64_t a1)
   [WeakRetained _finishWithError:*(a1 + 32)];
 }
 
-void sub_100004820(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_100004820(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, v9, OS_LOG_TYPE_DEBUG, a4, &a9, 0xCu);
+  _os_log_debug_impl(a1, v8, OS_LOG_TYPE_DEBUG, a4, va, 0xCu);
 }
 
-void sub_100004840(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_100004840(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0x16u);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0x16u);
 }
 
 void sub_1000053C0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, id location)
@@ -587,14 +590,14 @@ void sub_100005E3C(void *a1)
 {
   v1 = [a1 sessionIdentifier];
   sub_100004814();
-  sub_100004840(&_mh_execute_header, v2, v3, "Failed to locate context to authorize session %{public}@: %{public}@", v4, v5, v6, v7, v8);
+  sub_100004840(&_mh_execute_header, v2, v3, "Failed to locate context to authorize session %{public}@: %{public}@", v4, v5, v6, v7);
 }
 
 void sub_100005ED8(void *a1)
 {
   v1 = [a1 sessionIdentifier];
   sub_100004814();
-  sub_100004840(&_mh_execute_header, v2, v3, "Failed to locate context to health concept authorize session %{public}@: %{public}@", v4, v5, v6, v7, v8);
+  sub_100004840(&_mh_execute_header, v2, v3, "Failed to locate context to health concept authorize session %{public}@: %{public}@", v4, v5, v6, v7);
 }
 
 void sub_100005F74(unsigned int a1, NSObject *a2)
@@ -616,28 +619,28 @@ void sub_10000606C(uint64_t a1, uint64_t a2)
   [v4 handleFailureInMethod:a1 object:a2 file:@"HKHealthPrivacyServiceObjectPickerViewController.m" lineNumber:238 description:{@"Invalid parameter not satisfying: %@", @"_sessionIdentifier == nil"}];
 }
 
-void sub_1000060E8()
+void sub_1000060E8(uint64_t a1)
 {
   objc_opt_class();
   sub_100004814();
-  v1 = v0;
-  sub_100004820(&_mh_execute_header, v2, v3, "%{public}@: beginning authorization delegate transaction", v4, v5, v6, v7, v8);
+  v2 = v1;
+  sub_100004820(&_mh_execute_header, v3, v4, "%{public}@: beginning authorization delegate transaction", v5, v6, v7, v8);
 }
 
-void sub_10000616C()
+void sub_10000616C(uint64_t a1)
 {
   objc_opt_class();
   sub_100004814();
-  v1 = v0;
-  sub_100004820(&_mh_execute_header, v2, v3, "%{public}@: finishing authorization delegate transaction", v4, v5, v6, v7, v8);
+  v2 = v1;
+  sub_100004820(&_mh_execute_header, v3, v4, "%{public}@: finishing authorization delegate transaction", v5, v6, v7, v8);
 }
 
-void sub_1000062D8()
+void sub_1000062D8(uint64_t a1)
 {
   objc_opt_class();
   sub_100004814();
-  v1 = v0;
-  sub_100004820(&_mh_execute_header, v2, v3, "%@: dismissing", v4, v5, v6, v7, v8);
+  v2 = v1;
+  sub_100004820(&_mh_execute_header, v3, v4, "%@: dismissing", v5, v6, v7, v8);
 }
 
 void sub_10000635C()

@@ -26,32 +26,32 @@
   }
 
   v5 = CUIRenditionKeyValueForAttribute([objc_msgSend(renditions objectAtIndex:{0), "key"}], 2);
-  v70 = 0u;
-  v71 = 0u;
-  v72 = 0u;
-  v73 = 0u;
-  v6 = [renditions countByEnumeratingWithState:&v70 objects:v78 count:16];
+  v63 = 0u;
+  v64 = 0u;
+  v65 = 0u;
+  v66 = 0u;
+  v6 = [renditions countByEnumeratingWithState:&v63 objects:v71 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v71;
+    v8 = *v64;
     while (2)
     {
       for (i = 0; i != v7; i = i + 1)
       {
-        if (*v71 != v8)
+        if (*v64 != v8)
         {
           objc_enumerationMutation(renditions);
         }
 
-        if (CUIRenditionKeyValueForAttribute([*(*(&v70 + 1) + 8 * i) key], 2) != v5)
+        if (CUIRenditionKeyValueForAttribute([*(*(&v63 + 1) + 8 * i) key], 2) != v5)
         {
-          _CUILog(1, "Can't create rendition groups. The problem: not all renditions come from the same part.", v10, v11, v12, v13, v14, v15, v49);
+          _CUILog(1, "Can't create rendition groups. The problem: not all renditions come from the same part.");
           return 0;
         }
       }
 
-      v7 = [renditions countByEnumeratingWithState:&v70 objects:v78 count:16];
+      v7 = [renditions countByEnumeratingWithState:&v63 objects:v71 count:16];
       if (v7)
       {
         continue;
@@ -62,74 +62,74 @@
   }
 
   obj = +[NSMutableArray array];
-  v16 = [NSMutableArray arrayWithArray:renditions];
+  v10 = [NSMutableArray arrayWithArray:renditions];
   for (j = 1; j != 3; ++j)
   {
     for (k = 0; k != 4; ++k)
     {
       for (m = 0; m != 6; ++m)
       {
-        v20 = +[NSMutableArray array];
-        v66 = 0u;
-        v67 = 0u;
-        v68 = 0u;
-        v69 = 0u;
-        v21 = [(NSMutableArray *)v16 countByEnumeratingWithState:&v66 objects:v77 count:16];
-        if (v21)
+        v14 = +[NSMutableArray array];
+        v59 = 0u;
+        v60 = 0u;
+        v61 = 0u;
+        v62 = 0u;
+        v15 = [(NSMutableArray *)v10 countByEnumeratingWithState:&v59 objects:v70 count:16];
+        if (v15)
         {
-          v22 = v21;
-          v23 = *v67;
+          v16 = v15;
+          v17 = *v60;
           do
           {
-            for (n = 0; n != v22; n = n + 1)
+            for (n = 0; n != v16; n = n + 1)
             {
-              if (*v67 != v23)
+              if (*v60 != v17)
               {
-                objc_enumerationMutation(v16);
+                objc_enumerationMutation(v10);
               }
 
-              v25 = *(*(&v66 + 1) + 8 * n);
-              v26 = [v25 key];
-              if (m == CUIRenditionKeyValueForAttribute(v26, 4) && k == CUIRenditionKeyValueForAttribute(v26, 3) && j == CUIRenditionKeyValueForAttribute(v26, 12))
+              v19 = *(*(&v59 + 1) + 8 * n);
+              v20 = [v19 key];
+              if (m == CUIRenditionKeyValueForAttribute(v20, 4) && k == CUIRenditionKeyValueForAttribute(v20, 3) && j == CUIRenditionKeyValueForAttribute(v20, 12))
               {
-                [v20 addObject:v25];
+                [v14 addObject:v19];
               }
             }
 
-            v22 = [(NSMutableArray *)v16 countByEnumeratingWithState:&v66 objects:v77 count:16];
+            v16 = [(NSMutableArray *)v10 countByEnumeratingWithState:&v59 objects:v70 count:16];
           }
 
-          while (v22);
+          while (v16);
         }
 
-        if ([v20 count])
+        if ([v14 count])
         {
-          [obj addObject:{-[CUIThemeSchemaRenditionGroup initWithRenditions:part:]([CUIThemeSchemaRenditionGroup alloc], "initWithRenditions:part:", v20, part)}];
-          v64 = 0u;
-          v65 = 0u;
-          v62 = 0u;
-          v63 = 0u;
-          v27 = [v20 countByEnumeratingWithState:&v62 objects:v76 count:16];
-          if (v27)
+          [obj addObject:{-[CUIThemeSchemaRenditionGroup initWithRenditions:part:]([CUIThemeSchemaRenditionGroup alloc], "initWithRenditions:part:", v14, part)}];
+          v57 = 0u;
+          v58 = 0u;
+          v55 = 0u;
+          v56 = 0u;
+          v21 = [v14 countByEnumeratingWithState:&v55 objects:v69 count:16];
+          if (v21)
           {
-            v28 = v27;
-            v29 = *v63;
+            v22 = v21;
+            v23 = *v56;
             do
             {
-              for (ii = 0; ii != v28; ii = ii + 1)
+              for (ii = 0; ii != v22; ii = ii + 1)
               {
-                if (*v63 != v29)
+                if (*v56 != v23)
                 {
-                  objc_enumerationMutation(v20);
+                  objc_enumerationMutation(v14);
                 }
 
-                [(NSMutableArray *)v16 removeObject:*(*(&v62 + 1) + 8 * ii)];
+                [(NSMutableArray *)v10 removeObject:*(*(&v55 + 1) + 8 * ii)];
               }
 
-              v28 = [v20 countByEnumeratingWithState:&v62 objects:v76 count:16];
+              v22 = [v14 countByEnumeratingWithState:&v55 objects:v69 count:16];
             }
 
-            while (v28);
+            while (v22);
           }
         }
       }
@@ -139,88 +139,88 @@
   var4 = part->var4;
   if ([obj count] && (var4 & 0x10004) == 0x10004)
   {
-    v32 = [NSMutableArray arrayWithArray:obj];
-    v58 = 0u;
-    v59 = 0u;
-    v60 = 0u;
-    v61 = 0u;
-    v33 = [obj countByEnumeratingWithState:&v58 objects:v75 count:16];
-    if (v33)
+    v26 = [NSMutableArray arrayWithArray:obj];
+    v51 = 0u;
+    v52 = 0u;
+    v53 = 0u;
+    v54 = 0u;
+    v27 = [obj countByEnumeratingWithState:&v51 objects:v68 count:16];
+    if (v27)
     {
-      v34 = v33;
-      v50 = v32;
-      v51 = *v59;
+      v28 = v27;
+      v43 = v26;
+      v44 = *v52;
       do
       {
-        for (jj = 0; jj != v34; jj = jj + 1)
+        for (jj = 0; jj != v28; jj = jj + 1)
         {
-          if (*v59 != v51)
+          if (*v52 != v44)
           {
             objc_enumerationMutation(obj);
           }
 
-          v36 = *(*(&v58 + 1) + 8 * jj);
-          renditions = [v36 renditions];
-          v38 = +[NSMutableArray array];
-          v39 = +[NSMutableArray array];
-          v54 = 0u;
-          v55 = 0u;
-          v56 = 0u;
-          v57 = 0u;
-          v40 = [renditions countByEnumeratingWithState:&v54 objects:v74 count:16];
-          if (v40)
+          v30 = *(*(&v51 + 1) + 8 * jj);
+          renditions = [v30 renditions];
+          v32 = +[NSMutableArray array];
+          v33 = +[NSMutableArray array];
+          v47 = 0u;
+          v48 = 0u;
+          v49 = 0u;
+          v50 = 0u;
+          v34 = [renditions countByEnumeratingWithState:&v47 objects:v67 count:16];
+          if (v34)
           {
-            v41 = v40;
-            v42 = *v55;
+            v35 = v34;
+            v36 = *v48;
             do
             {
-              for (kk = 0; kk != v41; kk = kk + 1)
+              for (kk = 0; kk != v35; kk = kk + 1)
               {
-                if (*v55 != v42)
+                if (*v48 != v36)
                 {
                   objc_enumerationMutation(renditions);
                 }
 
-                v44 = *(*(&v54 + 1) + 8 * kk);
-                if (CUIRenditionKeyValueForAttribute([v44 key], 14))
+                v38 = *(*(&v47 + 1) + 8 * kk);
+                if (CUIRenditionKeyValueForAttribute([v38 key], 14))
                 {
-                  v45 = v39;
+                  v39 = v33;
                 }
 
                 else
                 {
-                  v45 = v38;
+                  v39 = v32;
                 }
 
-                [v45 addObject:v44];
+                [v39 addObject:v38];
               }
 
-              v41 = [renditions countByEnumeratingWithState:&v54 objects:v74 count:16];
+              v35 = [renditions countByEnumeratingWithState:&v47 objects:v67 count:16];
             }
 
-            while (v41);
+            while (v35);
           }
 
-          if ([v38 count] && objc_msgSend(v39, "count"))
+          if ([v32 count] && objc_msgSend(v33, "count"))
           {
-            v46 = [[CUIThemeSchemaRenditionGroup alloc] initWithRenditions:v38 part:part];
-            v47 = [[CUIThemeSchemaRenditionGroup alloc] initWithRenditions:v39 part:part];
-            [(NSMutableArray *)v50 removeObject:v36];
-            [(NSMutableArray *)v50 addObject:v46];
-            [(NSMutableArray *)v50 addObject:v47];
+            v40 = [[CUIThemeSchemaRenditionGroup alloc] initWithRenditions:v32 part:part];
+            v41 = [[CUIThemeSchemaRenditionGroup alloc] initWithRenditions:v33 part:part];
+            [(NSMutableArray *)v43 removeObject:v30];
+            [(NSMutableArray *)v43 addObject:v40];
+            [(NSMutableArray *)v43 addObject:v41];
           }
         }
 
-        v34 = [obj countByEnumeratingWithState:&v58 objects:v75 count:16];
+        v28 = [obj countByEnumeratingWithState:&v51 objects:v68 count:16];
       }
 
-      while (v34);
-      return v50;
+      while (v28);
+      return v43;
     }
 
     else
     {
-      return v32;
+      return v26;
     }
   }
 

@@ -18,12 +18,12 @@
 
 - (BOOL)canStartWithError:(id *)error
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   destinationID = [(HMDCameraStreamManagerSession *)self destinationID];
 
   if (!destinationID)
   {
-    goto LABEL_4;
+    return 1;
   }
 
   v6 = +[HMDDeviceCapabilities deviceCapabilities];
@@ -31,49 +31,40 @@
 
   if (!isResidentCapable)
   {
-    goto LABEL_4;
+    return 1;
   }
 
   v8 = +[HMDCameraRemoteStreamTracker sharedTracker];
   v9 = [v8 startTrackingStreamSession:self];
 
-  if ((v9 & 1) == 0)
+  if (v9)
   {
-    v12 = objc_autoreleasePoolPush();
-    selfCopy = self;
-    v14 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
-    {
-      v15 = HMFGetLogIdentifier();
-      v18 = 138543618;
-      v19 = v15;
-      v20 = 2112;
-      v21 = selfCopy;
-      _os_log_impl(&dword_229538000, v14, OS_LOG_TYPE_ERROR, "%{public}@Stream tracker cannot start stream session: %@", &v18, 0x16u);
-    }
-
-    objc_autoreleasePoolPop(v12);
-    if (error)
-    {
-      v16 = [MEMORY[0x277CCA9B8] hmInternalErrorWithCode:1018];
-      v17 = v16;
-      result = 0;
-      *error = v16;
-    }
-
-    else
-    {
-      result = 0;
-    }
+    return 1;
   }
 
-  else
+  v11 = objc_autoreleasePoolPush();
+  selfCopy = self;
+  v13 = HMFGetOSLogHandle();
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
   {
-LABEL_4:
-    result = 1;
+    v14 = HMFGetLogIdentifier();
+    v17 = 138543618;
+    v18 = v14;
+    v19 = 2112;
+    v20 = selfCopy;
+    _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_ERROR, "%{public}@Stream tracker cannot start stream session: %@", &v17, 0x16u);
   }
 
-  v11 = *MEMORY[0x277D85DE8];
+  objc_autoreleasePoolPop(v11);
+  if (!error)
+  {
+    return 0;
+  }
+
+  v15 = [MEMORY[0x277CCA9B8] hmInternalErrorWithCode:1018];
+  v16 = v15;
+  result = 0;
+  *error = v15;
   return result;
 }
 
@@ -107,7 +98,7 @@ LABEL_6:
     v18->_sessionID = dCopy;
     v20 = dCopy;
 
-    v21 = [iDCopy copy];
+    v21 = objc_msgSend_copy(iDCopy);
     destinationID = v18->_destinationID;
     v18->_destinationID = v21;
 
@@ -177,10 +168,9 @@ LABEL_7:
 
 void __44__HMDCameraStreamManagerSession_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v2_7916;
-  logCategory__hmf_once_v2_7916 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v2_7916;
+  logCategory__hmf_once_v2_7916 = v0;
 }
 
 @end

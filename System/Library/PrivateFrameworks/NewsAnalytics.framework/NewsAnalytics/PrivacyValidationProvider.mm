@@ -16,23 +16,20 @@
 {
   v6 = sub_217D8844C();
   v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
-  v9 = MEMORY[0x28223BE20](v6);
-  v11 = &v17 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v9);
-  v13 = (&v17 - v12);
+  v8 = MEMORY[0x28223BE20](v6);
+  v10 = &v14 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v8);
+  v12 = (&v14 - v11);
   swift_unknownObjectRetain_n();
   selfCopy = self;
-  sub_217A4A520(change, v13);
-  v15 = OBJC_IVAR____TtC13NewsAnalytics25PrivacyValidationProvider__privacyValidation;
+  sub_217A4A520(change, v12);
   swift_beginAccess();
-  v16 = *(&selfCopy->super.isa + v15);
-  (*(v7 + 16))(v11, v13, v6);
+  (*(v7 + 16))(v10, v12, v6);
 
   sub_217D88D9C();
   swift_unknownObjectRelease();
 
-  (*(v7 + 8))(v13, v6);
+  (*(v7 + 8))(v12, v6);
 }
 
 @end

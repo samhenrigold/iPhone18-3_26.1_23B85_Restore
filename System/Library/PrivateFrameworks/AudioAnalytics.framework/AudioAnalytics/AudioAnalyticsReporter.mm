@@ -126,15 +126,14 @@
     self = swift_once();
   }
 
-  v3 = *(qword_1ED6F78F0 + OBJC_IVAR____TtC14AudioAnalytics12ServerClient_serialQueue);
   MEMORY[0x1EEE9AC00](self);
-  v5 = v4;
+  v4 = v3;
   sub_1C0BEC178();
 
-  *(&selfCopy->super.isa + OBJC_IVAR___AudioAnalyticsReporter_reporterID) = v8;
-  v7.receiver = selfCopy;
-  v7.super_class = AudioAnalyticsReporter;
-  return [(AudioAnalyticsReporter *)&v7 init];
+  *(&selfCopy->super.isa + OBJC_IVAR___AudioAnalyticsReporter_reporterID) = v7;
+  v6.receiver = selfCopy;
+  v6.super_class = AudioAnalyticsReporter;
+  return [(AudioAnalyticsReporter *)&v6 init];
 }
 
 - (AudioAnalyticsReporter)initWithReporterID:(int64_t)d
@@ -214,12 +213,11 @@ LABEL_5:
 
   v4 = qword_1ED6F78F0;
   reporterID = [(AudioAnalyticsReporter *)selfCopy reporterID];
-  v6 = *&v4[OBJC_IVAR____TtC14AudioAnalytics12ServerClient_serialQueue];
   MEMORY[0x1EEE9AC00](reporterID);
   type metadata accessor for AudioServiceType(0);
   sub_1C0BEC178();
 
-  return v8;
+  return v7;
 }
 
 - (NSDictionary)configuration
@@ -233,14 +231,13 @@ LABEL_5:
 
   v4 = qword_1ED6F78F0;
   reporterID = [(AudioAnalyticsReporter *)selfCopy reporterID];
-  v6 = *&v4[OBJC_IVAR____TtC14AudioAnalytics12ServerClient_serialQueue];
   MEMORY[0x1EEE9AC00](reporterID);
   __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBE52888, &qword_1C0BED068);
   sub_1C0BEC178();
 
-  v7 = sub_1C0BEC038();
+  v6 = sub_1C0BEC038();
 
-  return v7;
+  return v6;
 }
 
 - (void)setConfiguration:(id)configuration

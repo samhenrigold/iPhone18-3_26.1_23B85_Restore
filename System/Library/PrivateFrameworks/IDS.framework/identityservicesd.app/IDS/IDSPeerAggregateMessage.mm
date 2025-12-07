@@ -895,7 +895,7 @@ LABEL_15:
     v18 = encryptionType;
     encryptionType2 = [(IDSPeerAggregateMessage *)self encryptionType];
     v20 = IDSEncryptionTypeStringFromEncryptionType();
-    v21 = [encryptionType2 isEqualToIgnoringCase:v20];
+    v21 = objc_msgSend_isEqualToIgnoringCase_(encryptionType2);
 
     if ((v21 & 1) == 0)
     {

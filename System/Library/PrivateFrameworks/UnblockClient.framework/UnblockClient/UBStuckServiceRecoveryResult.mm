@@ -142,9 +142,10 @@
 {
   if ([(UBStuckServiceRecoveryResult *)self recoveryStatus]!= 4)
   {
-    v7 = *__error();
-    v8 = _ublogt();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v11 = __error();
+    v9 = *v11;
+    v10 = _ublogt(v11);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       [UBStuckServiceRecoveryResult recoveryHadEffectiveness:];
     }
@@ -154,29 +155,31 @@
 
   if (!effectiveness)
   {
-    v5 = *__error();
-    v6 = _ublogt();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v5 = __error();
+    v6 = *v5;
+    v7 = _ublogt(v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       [UBStuckServiceRecoveryResult recoveryHadEffectiveness:];
     }
 
-    *__error() = v5;
+    *__error() = v6;
     effectiveness = 3;
   }
 
   if ([(UBStuckServiceRecoveryResult *)self effectiveness])
   {
-    v7 = *__error();
-    v8 = _ublogt();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v8 = __error();
+    v9 = *v8;
+    v10 = _ublogt(v8);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       [UBStuckServiceRecoveryResult recoveryHadEffectiveness:];
     }
 
 LABEL_11:
 
-    *__error() = v7;
+    *__error() = v9;
     return;
   }
 
@@ -659,8 +662,9 @@ LABEL_34:
   [v143 setObject:v116 forKeyedSubscript:@"NumThreadsBlockedByOtherIssues"];
 
 LABEL_88:
-  v155 = *__error();
-  osloga = _ublogt();
+  v117 = __error();
+  v155 = *v117;
+  osloga = _ublogt(v117);
   if (os_log_type_enabled(osloga, OS_LOG_TYPE_DEFAULT))
   {
     v142 = [v143 objectForKeyedSubscript:@"Client"];
@@ -674,23 +678,23 @@ LABEL_88:
     v131 = UBRecoveryConfidenceCopyDescription([obja integerValue]);
     v146 = [v143 objectForKeyedSubscript:@"TimeSinceIssueBegan"];
     [v146 doubleValue];
-    v118 = v117;
+    v119 = v118;
     v136 = [v143 objectForKeyedSubscript:@"ServiceProcess"];
     v135 = [v143 objectForKeyedSubscript:@"SelectedProcess"];
     v134 = [v143 objectForKeyedSubscript:@"ProcessesInvolved"];
     v133 = [v143 objectForKeyedSubscript:@"ThreadsInvolved"];
     v144 = [v143 objectForKeyedSubscript:@"NumThreadsInvolved"];
     longValue = [v144 longValue];
-    v119 = [v143 objectForKeyedSubscript:@"NumThreadsBlockedByThisIssue"];
-    longValue2 = [v119 longValue];
-    v121 = [v143 objectForKeyedSubscript:@"NumThreadsBlockedByOtherIssues"];
-    longValue3 = [v121 longValue];
-    v123 = [v143 objectForKeyedSubscript:@"NumOtherIssues"];
-    longValue4 = [v123 longValue];
-    v125 = [v143 objectForKeyedSubscript:@"ProcessesBlockedByThisIssue"];
-    v126 = [v143 objectForKeyedSubscript:@"ProcessesBlockedByThisIssueOnly"];
-    v127 = [v143 objectForKeyedSubscript:@"ProcessesBlockedByThisAndOtherIssues"];
-    v128 = [v143 objectForKeyedSubscript:@"ProcessesBlockedByOtherIssuesOnly"];
+    v120 = [v143 objectForKeyedSubscript:@"NumThreadsBlockedByThisIssue"];
+    longValue2 = [v120 longValue];
+    v122 = [v143 objectForKeyedSubscript:@"NumThreadsBlockedByOtherIssues"];
+    longValue3 = [v122 longValue];
+    v124 = [v143 objectForKeyedSubscript:@"NumOtherIssues"];
+    longValue4 = [v124 longValue];
+    v126 = [v143 objectForKeyedSubscript:@"ProcessesBlockedByThisIssue"];
+    v127 = [v143 objectForKeyedSubscript:@"ProcessesBlockedByThisIssueOnly"];
+    v128 = [v143 objectForKeyedSubscript:@"ProcessesBlockedByThisAndOtherIssues"];
+    v129 = [v143 objectForKeyedSubscript:@"ProcessesBlockedByOtherIssuesOnly"];
     *buf = 138547714;
     *&buf[4] = v142;
     *&buf[12] = 2114;
@@ -702,7 +706,7 @@ LABEL_88:
     *&v207[10] = 2114;
     *&v207[12] = v131;
     v208 = 2048;
-    v209 = v118;
+    v209 = v119;
     v210 = 2114;
     v211 = v136;
     v212 = 2114;
@@ -720,20 +724,18 @@ LABEL_88:
     v224 = 2048;
     v225 = longValue4;
     v226 = 2114;
-    v227 = v125;
+    v227 = v126;
     v228 = 2114;
-    v229 = v126;
+    v229 = v127;
     v230 = 2114;
-    v231 = v127;
+    v231 = v128;
     v232 = 2114;
-    v233 = v128;
+    v233 = v129;
     _os_log_impl(&dword_27038C000, osloga, OS_LOG_TYPE_DEFAULT, "Emitting recovery effectiveness telemetry\nClient:%{public}@\nEffectiveness:%{public}@\nRecoveryStatus:%{public}@\nIssueType:%{public}@\nRecoveryConfidence:%{public}@\nTimeSinceIssueBegan:%.0fs\nServiceProcess:%{public}@\nSelectedProcess:%{public}@\nProcessesInvolved:%{public}@\nThreadsInvolved:%{public}@\nNumThreadsInvolved:%ld\nNumThreadsBlockedByThisIssue:%ld\nNumThreadsBlockedByOtherIssues:%ld\nNumOtherIssues:%ld\nProcessesBlockedByThisIssue:%{public}@\nProcessesBlockedByThisIssueOnly:%{public}@\nProcessesBlockedByThisAndOtherIssues:%{public}@\nProcessesBlockedByOtherIssuesOnly:%{public}@", buf, 0xB6u);
   }
 
   *__error() = v155;
   AnalyticsSendEvent();
-
-  v129 = *MEMORY[0x277D85DE8];
 }
 
 void __58__UBStuckServiceRecoveryResult__recoveryHadEffectiveness___block_invoke(void *a1)
@@ -825,7 +827,7 @@ void __58__UBStuckServiceRecoveryResult__recoveryHadEffectiveness___block_invoke
 
 - (id)headerDescription
 {
-  v145 = *MEMORY[0x277D85DE8];
+  v144 = *MEMORY[0x277D85DE8];
   v3 = objc_alloc_init(MEMORY[0x277CCAB68]);
   [v3 appendFormat:@"Monitored service:   "];
   service = [(UBStuckServiceRecoveryResult *)self service];
@@ -1003,7 +1005,7 @@ LABEL_19:
     }
 
     selfCopy = self;
-    v120 = v3;
+    v119 = v3;
     if ([(UBStuckServiceRecoveryResult *)self numOtherIssues])
     {
       [v3 appendFormat:@"Number of other issues: %ld\n", -[UBStuckServiceRecoveryResult numOtherIssues](self, "numOtherIssues")];
@@ -1011,26 +1013,26 @@ LABEL_19:
       processesBlockedByThisIssueOnly = [(UBStuckServiceRecoveryResult *)self processesBlockedByThisIssueOnly];
       v58 = [v56 initWithCapacity:{objc_msgSend(processesBlockedByThisIssueOnly, "count")}];
 
-      v135 = 0u;
-      v136 = 0u;
-      v133 = 0u;
       v134 = 0u;
+      v135 = 0u;
+      v132 = 0u;
+      v133 = 0u;
       obj = [(UBStuckServiceRecoveryResult *)self processesBlockedByThisIssueOnly];
-      v59 = [obj countByEnumeratingWithState:&v133 objects:v143 count:16];
+      v59 = [obj countByEnumeratingWithState:&v132 objects:v142 count:16];
       if (v59)
       {
         v60 = v59;
-        v61 = *v134;
+        v61 = *v133;
         do
         {
           for (i = 0; i != v60; ++i)
           {
-            if (*v134 != v61)
+            if (*v133 != v61)
             {
               objc_enumerationMutation(obj);
             }
 
-            v63 = *(*(&v133 + 1) + 8 * i);
+            v63 = *(*(&v132 + 1) + 8 * i);
             v64 = objc_alloc(MEMORY[0x277CCACA8]);
             name2 = [v63 name];
             v66 = name2;
@@ -1058,7 +1060,7 @@ LABEL_19:
             [v58 addObject:v69];
           }
 
-          v60 = [obj countByEnumeratingWithState:&v133 objects:v143 count:16];
+          v60 = [obj countByEnumeratingWithState:&v132 objects:v142 count:16];
         }
 
         while (v60);
@@ -1067,38 +1069,38 @@ LABEL_19:
       if ([v58 count])
       {
         v70 = [v58 componentsJoinedByString:{@", "}];
-        [v120 appendFormat:@"Processes blocked by this issue only:       %@\n", v70];
+        [v119 appendFormat:@"Processes blocked by this issue only:       %@\n", v70];
       }
 
       else
       {
-        [v120 appendFormat:@"Processes blocked by this issue only:       %@\n", @"None"];
+        [v119 appendFormat:@"Processes blocked by this issue only:       %@\n", @"None"];
       }
 
       v86 = objc_alloc(MEMORY[0x277CBEB18]);
       processesBlockedByThisAndOtherIssues = [(UBStuckServiceRecoveryResult *)selfCopy processesBlockedByThisAndOtherIssues];
       v88 = [v86 initWithCapacity:{objc_msgSend(processesBlockedByThisAndOtherIssues, "count")}];
 
-      v131 = 0u;
-      v132 = 0u;
-      v129 = 0u;
       v130 = 0u;
+      v131 = 0u;
+      v128 = 0u;
+      v129 = 0u;
       objb = [(UBStuckServiceRecoveryResult *)selfCopy processesBlockedByThisAndOtherIssues];
-      v89 = [objb countByEnumeratingWithState:&v129 objects:v142 count:16];
+      v89 = [objb countByEnumeratingWithState:&v128 objects:v141 count:16];
       if (v89)
       {
         v90 = v89;
-        v91 = *v130;
+        v91 = *v129;
         do
         {
           for (j = 0; j != v90; ++j)
           {
-            if (*v130 != v91)
+            if (*v129 != v91)
             {
               objc_enumerationMutation(objb);
             }
 
-            v93 = *(*(&v129 + 1) + 8 * j);
+            v93 = *(*(&v128 + 1) + 8 * j);
             v94 = objc_alloc(MEMORY[0x277CCACA8]);
             name3 = [v93 name];
             v96 = name3;
@@ -1126,7 +1128,7 @@ LABEL_19:
             [v88 addObject:v99];
           }
 
-          v90 = [objb countByEnumeratingWithState:&v129 objects:v142 count:16];
+          v90 = [objb countByEnumeratingWithState:&v128 objects:v141 count:16];
         }
 
         while (v90);
@@ -1135,14 +1137,14 @@ LABEL_19:
       if ([v88 count])
       {
         v100 = [v88 componentsJoinedByString:{@", "}];
-        v101 = v120;
-        [v120 appendFormat:@"Processes blocked by this and other issues: %@\n", v100];
+        v101 = v119;
+        [v119 appendFormat:@"Processes blocked by this and other issues: %@\n", v100];
       }
 
       else
       {
-        v101 = v120;
-        [v120 appendFormat:@"Processes blocked by this and other issues: %@\n", @"None"];
+        v101 = v119;
+        [v119 appendFormat:@"Processes blocked by this and other issues: %@\n", @"None"];
       }
 
       [v101 appendFormat:@"Number of threads blocked by this issue:    %ld\n", -[UBStuckServiceRecoveryResult numThreadsBlockedByThisIssue](selfCopy, "numThreadsBlockedByThisIssue")];
@@ -1150,26 +1152,26 @@ LABEL_19:
       processesBlockedByOtherIssuesOnly = [(UBStuckServiceRecoveryResult *)selfCopy processesBlockedByOtherIssuesOnly];
       v104 = [v102 initWithCapacity:{objc_msgSend(processesBlockedByOtherIssuesOnly, "count")}];
 
-      v127 = 0u;
-      v128 = 0u;
-      v125 = 0u;
       v126 = 0u;
+      v127 = 0u;
+      v124 = 0u;
+      v125 = 0u;
       objc = [(UBStuckServiceRecoveryResult *)selfCopy processesBlockedByOtherIssuesOnly];
-      v105 = [objc countByEnumeratingWithState:&v125 objects:v141 count:16];
+      v105 = [objc countByEnumeratingWithState:&v124 objects:v140 count:16];
       if (v105)
       {
         v106 = v105;
-        v107 = *v126;
+        v107 = *v125;
         do
         {
           for (k = 0; k != v106; ++k)
           {
-            if (*v126 != v107)
+            if (*v125 != v107)
             {
               objc_enumerationMutation(objc);
             }
 
-            v109 = *(*(&v125 + 1) + 8 * k);
+            v109 = *(*(&v124 + 1) + 8 * k);
             v110 = objc_alloc(MEMORY[0x277CCACA8]);
             name4 = [v109 name];
             v112 = name4;
@@ -1197,7 +1199,7 @@ LABEL_19:
             [v104 addObject:v115];
           }
 
-          v106 = [objc countByEnumeratingWithState:&v125 objects:v141 count:16];
+          v106 = [objc countByEnumeratingWithState:&v124 objects:v140 count:16];
         }
 
         while (v106);
@@ -1206,14 +1208,14 @@ LABEL_19:
       if ([v104 count])
       {
         v116 = [v104 componentsJoinedByString:{@", "}];
-        v3 = v120;
-        [v120 appendFormat:@"Processes blocked by other issues only:     %@\n", v116];
+        v3 = v119;
+        [v119 appendFormat:@"Processes blocked by other issues only:     %@\n", v116];
       }
 
       else
       {
-        v3 = v120;
-        [v120 appendFormat:@"Processes blocked by other issues only:     %@\n", @"None"];
+        v3 = v119;
+        [v119 appendFormat:@"Processes blocked by other issues only:     %@\n", @"None"];
       }
 
       [v3 appendFormat:@"Number of threads blocked by other issues:  %ld\n", -[UBStuckServiceRecoveryResult numThreadsBlockedByOtherIssues](selfCopy, "numThreadsBlockedByOtherIssues")];
@@ -1225,26 +1227,26 @@ LABEL_19:
       processesBlockedByThisAndOtherIssues2 = [(UBStuckServiceRecoveryResult *)self processesBlockedByThisAndOtherIssues];
       v73 = [v71 initWithCapacity:{objc_msgSend(processesBlockedByThisAndOtherIssues2, "count")}];
 
-      v139 = 0u;
-      v140 = 0u;
-      v137 = 0u;
       v138 = 0u;
+      v139 = 0u;
+      v136 = 0u;
+      v137 = 0u;
       obja = [(UBStuckServiceRecoveryResult *)self processesBlockedByThisIssueOnly];
-      v74 = [obja countByEnumeratingWithState:&v137 objects:v144 count:16];
+      v74 = [obja countByEnumeratingWithState:&v136 objects:v143 count:16];
       if (v74)
       {
         v75 = v74;
-        v76 = *v138;
+        v76 = *v137;
         do
         {
           for (m = 0; m != v75; ++m)
           {
-            if (*v138 != v76)
+            if (*v137 != v76)
             {
               objc_enumerationMutation(obja);
             }
 
-            v78 = *(*(&v137 + 1) + 8 * m);
+            v78 = *(*(&v136 + 1) + 8 * m);
             v79 = objc_alloc(MEMORY[0x277CCACA8]);
             name5 = [v78 name];
             v81 = name5;
@@ -1272,7 +1274,7 @@ LABEL_19:
             [v73 addObject:v84];
           }
 
-          v75 = [obja countByEnumeratingWithState:&v137 objects:v144 count:16];
+          v75 = [obja countByEnumeratingWithState:&v136 objects:v143 count:16];
         }
 
         while (v75);
@@ -1281,49 +1283,47 @@ LABEL_19:
       if ([v73 count])
       {
         v85 = [v73 componentsJoinedByString:{@", "}];
-        v3 = v120;
-        [v120 appendFormat:@"Processes blocked by this issue: %@\n", v85];
+        v3 = v119;
+        [v119 appendFormat:@"Processes blocked by this issue: %@\n", v85];
       }
 
       else
       {
-        v3 = v120;
-        [v120 appendFormat:@"Processes blocked by this issue: %@\n", @"None"];
+        v3 = v119;
+        [v119 appendFormat:@"Processes blocked by this issue: %@\n", @"None"];
       }
 
       [v3 appendFormat:@"Number of threads blocked by this issue:    %ld\n", -[UBStuckServiceRecoveryResult numThreadsBlockedByThisIssue](selfCopy, "numThreadsBlockedByThisIssue")];
     }
   }
 
-  v117 = *MEMORY[0x277D85DE8];
-
   return v3;
 }
 
 id __49__UBStuckServiceRecoveryResult_headerDescription__block_invoke(uint64_t a1, void *a2)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v2 = a2;
-  v20 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(v2, "count")}];
+  v19 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(v2, "count")}];
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
   obj = v2;
-  v21 = [obj countByEnumeratingWithState:&v22 objects:v26 count:16];
-  if (v21)
+  v20 = [obj countByEnumeratingWithState:&v21 objects:v25 count:16];
+  if (v20)
   {
-    v19 = *v23;
+    v18 = *v22;
     do
     {
-      for (i = 0; i != v21; ++i)
+      for (i = 0; i != v20; ++i)
       {
-        if (*v23 != v19)
+        if (*v22 != v18)
         {
           objc_enumerationMutation(obj);
         }
 
-        v4 = *(*(&v22 + 1) + 8 * i);
+        v4 = *(*(&v21 + 1) + 8 * i);
         v5 = [v4 process];
         v6 = [v4 thread];
         v7 = objc_alloc(MEMORY[0x277CCACA8]);
@@ -1354,7 +1354,7 @@ id __49__UBStuckServiceRecoveryResult_headerDescription__block_invoke(uint64_t a
         if (!v12)
         {
           v13 = [v6 threadName];
-          v18 = v13;
+          v17 = v13;
         }
 
         v14 = [v7 initWithFormat:@"%@ [%@] (%d:%llu)", v11, v13, objc_msgSend(v5, "pid"), objc_msgSend(v6, "tid")];
@@ -1362,18 +1362,16 @@ id __49__UBStuckServiceRecoveryResult_headerDescription__block_invoke(uint64_t a
         {
         }
 
-        [v20 addObject:v14];
+        [v19 addObject:v14];
       }
 
-      v21 = [obj countByEnumeratingWithState:&v22 objects:v26 count:16];
+      v20 = [obj countByEnumeratingWithState:&v21 objects:v25 count:16];
     }
 
-    while (v21);
+    while (v20);
   }
 
-  v15 = *MEMORY[0x277D85DE8];
-
-  return v20;
+  return v19;
 }
 
 - (id)description
@@ -1402,22 +1400,6 @@ id __49__UBStuckServiceRecoveryResult_headerDescription__block_invoke(uint64_t a
   v5 = [v3 initWithFormat:@"<%p %@>", self, v4];
 
   return v5;
-}
-
-- (void)recoveryHadEffectiveness:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_2(&dword_27038C000, v0, v1, "Client reporting effectiveness %ld, despite us not doing anything: %@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)recoveryHadEffectiveness:.cold.3()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_2(&dword_27038C000, v0, v1, "recovery:hadEffectiveness: called again with effectiveness %ld, for %@");
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 @end

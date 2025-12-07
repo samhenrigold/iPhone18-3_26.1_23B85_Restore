@@ -1,5 +1,6 @@
 @interface GDKTSDataAggregateRepresentation
 - (GDKTSDataAggregateRepresentation)initWithCoder:(id)coder;
+- (GDKTSDataAggregateRepresentation)initWithStartTime:(id)time endTime:(id)endTime distanceInMeters:(id)meters elevationGainInMeters:(id)inMeters distanceBuckets:(id)buckets durationInSeconds:(id)seconds expectedDurationInSecondsNoTraffic:(id)traffic distanceSpentInTrafficBuckets:(id)self0 timeSpentInTrafficBuckets:(id)self1 distanceSpentAtSpeedBuckets:(id)self2 timeSpentAtSpeedBuckets:(id)self3 distanceSpentAtRelativeSpeeds:(id)self4 timeSpentAtRelativeSpeeds:(id)self5 distancePerRoadType:(id)self6 timePerRoadType:(id)self7 distancePerWeatherType:(id)self8 timePerWeatherType:(id)self9 distancePerTerrainType:(id)terrainType timePerTerrainType:(id)perTerrainType averageSpeedInMetersPerSecond:(id)second score:(double)score usageKwh:(id)kwh optimalUsageKwh:(id)usageKwh numBrakingEvents:(int)events numAccelEvents:(int)accelEvents numHighSpeedEvents:(int)speedEvents roadDistancesInMeters:(id)distancesInMeters roadSpeedBuckets:(id)time0 roadRelativeSpeedBuckets:(id)time1 roadTimes:(id)time2 route:(id)time3 lifeEventIds:(id)time4 ktsSegmentIds:(id)time5 maxTripDistanceInMeters:(id)time6 avgTripDistanceInMeters:(id)time7 maxElevationGainInMeters:(id)time8 avgElevationGainInMeters:(id)time9 percentTimeSpentAtSpeedBuckets:(id)endTime0 percentTimeSpentAtTrafficBuckets:(id)endTime1 percentTimeSpentAtRelativeSpeeds:(id)endTime2 percentTimeSpentAtRoadTypes:(id)endTime3 percentTimeSpentInWeatherTypes:(id)endTime4 percentTimeSpentInTerrainTypes:(id)endTime5 percentDistanceTraveledAtSpeedBuckets:(id)endTime6 percentDistanceTraveledAtTrafficBuckets:(id)endTime7 percentDistanceTraveledAtRelativeSpeeds:(id)endTime8 percentDistanceTraveledForRoadTypes:(id)endTime9 percentDistanceTraveledInWeatherTypes:(id)meters0 percentDistanceTraveledInTerrainTypes:(id)meters1 scorePerSpeedBucket:(id)meters2 scorePerTrafficBucket:(id)meters3 scorePerRelativeSpeed:(id)meters4 scorePerRoadType:(id)meters5 scorePerWeatherType:(id)meters6 scorePerTerrainType:(id)meters7 avgNumBrakingEvents:(double)meters8 avgNumAccelEvents:(double)meters9 avgNumHighSpeedEvents:(double)inMeters0 mostEfficientDriveScore:(double)inMeters1 routeHeatMap:(id)inMeters2;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (void)encodeWithCoder:(id)coder;
@@ -9,20 +10,13 @@
 
 - (id)description
 {
-  v14.receiver = self;
-  v14.super_class = GDKTSDataAggregateRepresentation;
-  v3 = [(GDKTSDataRepresentation *)&v14 description];
+  v7.receiver = self;
+  v7.super_class = GDKTSDataAggregateRepresentation;
+  v3 = [(GDKTSDataRepresentation *)&v7 description];
   v4 = [v3 substringToIndex:{objc_msgSend(v3, "length") - 2}];
-  maxTripDistanceInMeters = self->_maxTripDistanceInMeters;
-  percentDistanceTraveledAtSpeedBuckets = self->_percentDistanceTraveledAtSpeedBuckets;
-  percentDistanceTraveledAtRelativeSpeeds = self->_percentDistanceTraveledAtRelativeSpeeds;
-  percentDistanceTraveledInWeatherTypes = self->_percentDistanceTraveledInWeatherTypes;
-  scorePerSpeedBucket = self->_scorePerSpeedBucket;
-  avgNumBrakingEvents = self->_avgNumBrakingEvents;
-  avgNumHighSpeedEvents = self->_avgNumHighSpeedEvents;
-  v12 = [v4 stringByAppendingFormat:@", \nnumTrips: %d, \nmaxDistance: %@, \navgDistance: %@, \nmaxElevationGain: %@, \navgElevationGain: %@, \npercentTimeAtSpeedBuckets: %@, \npercentTimeAtTrafficBuckets: %@, \npercentTimeAtRelativeSpeeds: %@, \npercentTimeSpentAtRoadTypes: %@, \npercentTimeSpentInWeatherTypes: %@, \npercentTimeSpentInTerrainTypes: %@, \npercentDistanceTraveledAtSpeedBuckets: %@, \npercentDistanceTraveledAtTrafficBuckets: %@, \npercentDistanceTraveledAtRelativeSpeeds: %@, \npercentDistanceTraveledForRoadTypes: %@, \npercentDistanceTraveledInWeatherTypes: %@, \npercentDistanceTraveledInTerrainTypes: %@, \nscorePerSpeedBucket: %@, \nscorePerTrafficBucket: %@, \nscorePerRelativeSpeed: %@, \nscorePerRoadType: %@, \nscorePerWeatherType: %@, \nscorePerTerrainType: %@, \navgNumBrakingEvents: %lf, \navgNumHighSpeedEvents: %lf, \navgNumAccelEvents: %lf, \nmostEfficientDriveScore: %lf>", self->_numTrips, maxTripDistanceInMeters, self->_avgTripDistanceInMeters, self->_maxElevationGainInMeters, self->_avgElevationGainInMeters, self->_percentTimeSpentAtSpeedBuckets, self->_percentTimeSpentAtTrafficBuckets, self->_percentTimeSpentAtRelativeSpeeds, self->_percentTimeSpentAtRoadTypes, self->_percentTimeSpentInWeatherTypes, self->_percentTimeSpentInTerrainTypes, percentDistanceTraveledAtSpeedBuckets, self->_percentDistanceTraveledAtTrafficBuckets, percentDistanceTraveledAtRelativeSpeeds, self->_percentDistanceTraveledForRoadTypes, percentDistanceTraveledInWeatherTypes, self->_percentDistanceTraveledInTerrainTypes, scorePerSpeedBucket, self->_scorePerTrafficBucket, self->_scorePerRelativeSpeed, self->_scorePerRoadType, self->_scorePerWeatherType, self->_scorePerTerrainType, *&avgNumBrakingEvents, *&self->_avgNumAccelEvents, *&avgNumHighSpeedEvents, *&self->_mostEfficientDriveScore];
+  v5 = [v4 stringByAppendingFormat:@", \nnumTrips: %d, \nmaxDistance: %@, \navgDistance: %@, \nmaxElevationGain: %@, \navgElevationGain: %@, \npercentTimeAtSpeedBuckets: %@, \npercentTimeAtTrafficBuckets: %@, \npercentTimeAtRelativeSpeeds: %@, \npercentTimeSpentAtRoadTypes: %@, \npercentTimeSpentInWeatherTypes: %@, \npercentTimeSpentInTerrainTypes: %@, \npercentDistanceTraveledAtSpeedBuckets: %@, \npercentDistanceTraveledAtTrafficBuckets: %@, \npercentDistanceTraveledAtRelativeSpeeds: %@, \npercentDistanceTraveledForRoadTypes: %@, \npercentDistanceTraveledInWeatherTypes: %@, \npercentDistanceTraveledInTerrainTypes: %@, \nscorePerSpeedBucket: %@, \nscorePerTrafficBucket: %@, \nscorePerRelativeSpeed: %@, \nscorePerRoadType: %@, \nscorePerWeatherType: %@, \nscorePerTerrainType: %@, \navgNumBrakingEvents: %lf, \navgNumHighSpeedEvents: %lf, \navgNumAccelEvents: %lf, \nmostEfficientDriveScore: %lf>", self->_numTrips, self->_maxTripDistanceInMeters, self->_avgTripDistanceInMeters, self->_maxElevationGainInMeters, self->_avgElevationGainInMeters, self->_percentTimeSpentAtSpeedBuckets, self->_percentTimeSpentAtTrafficBuckets, self->_percentTimeSpentAtRelativeSpeeds, self->_percentTimeSpentAtRoadTypes, self->_percentTimeSpentInWeatherTypes, self->_percentTimeSpentInTerrainTypes, self->_percentDistanceTraveledAtSpeedBuckets, self->_percentDistanceTraveledAtTrafficBuckets, self->_percentDistanceTraveledAtRelativeSpeeds, self->_percentDistanceTraveledForRoadTypes, self->_percentDistanceTraveledInWeatherTypes, self->_percentDistanceTraveledInTerrainTypes, self->_scorePerSpeedBucket, self->_scorePerTrafficBucket, self->_scorePerRelativeSpeed, self->_scorePerRoadType, self->_scorePerWeatherType, self->_scorePerTerrainType, *&self->_avgNumBrakingEvents, *&self->_avgNumAccelEvents, *&self->_avgNumHighSpeedEvents, *&self->_mostEfficientDriveScore];
 
-  return v12;
+  return v5;
 }
 
 - (id)copyWithZone:(_NSZone *)zone
@@ -143,11 +137,11 @@
 
 - (GDKTSDataAggregateRepresentation)initWithCoder:(id)coder
 {
-  v74[3] = *MEMORY[0x1E69E9840];
+  v73[3] = *MEMORY[0x1E69E9840];
   coderCopy = coder;
-  v73.receiver = self;
-  v73.super_class = GDKTSDataAggregateRepresentation;
-  v5 = [(GDKTSDataRepresentation *)&v73 initWithCoder:coderCopy];
+  v72.receiver = self;
+  v72.super_class = GDKTSDataAggregateRepresentation;
+  v5 = [(GDKTSDataRepresentation *)&v72 initWithCoder:coderCopy];
   if (v5)
   {
     v6 = objc_opt_class();
@@ -232,10 +226,10 @@
     v5->_mostEfficientDriveScore = v64;
 
     v65 = MEMORY[0x1E695DFD8];
-    v74[0] = objc_opt_class();
-    v74[1] = objc_opt_class();
-    v74[2] = objc_opt_class();
-    v66 = [MEMORY[0x1E695DEC8] arrayWithObjects:v74 count:3];
+    v73[0] = objc_opt_class();
+    v73[1] = objc_opt_class();
+    v73[2] = objc_opt_class();
+    v66 = [MEMORY[0x1E695DEC8] arrayWithObjects:v73 count:3];
     v67 = [v65 setWithArray:v66];
     v68 = NSStringFromSelector(sel_routeHeatMap);
     v69 = [coderCopy decodeObjectOfClasses:v67 forKey:v68];
@@ -243,7 +237,6 @@
     v5->_routeHeatMap = v69;
   }
 
-  v71 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
@@ -301,6 +294,138 @@
   v29.receiver = self;
   v29.super_class = GDKTSDataAggregateRepresentation;
   [(GDKTSDataRepresentation *)&v29 encodeWithCoder:coderCopy];
+}
+
+- (GDKTSDataAggregateRepresentation)initWithStartTime:(id)time endTime:(id)endTime distanceInMeters:(id)meters elevationGainInMeters:(id)inMeters distanceBuckets:(id)buckets durationInSeconds:(id)seconds expectedDurationInSecondsNoTraffic:(id)traffic distanceSpentInTrafficBuckets:(id)self0 timeSpentInTrafficBuckets:(id)self1 distanceSpentAtSpeedBuckets:(id)self2 timeSpentAtSpeedBuckets:(id)self3 distanceSpentAtRelativeSpeeds:(id)self4 timeSpentAtRelativeSpeeds:(id)self5 distancePerRoadType:(id)self6 timePerRoadType:(id)self7 distancePerWeatherType:(id)self8 timePerWeatherType:(id)self9 distancePerTerrainType:(id)terrainType timePerTerrainType:(id)perTerrainType averageSpeedInMetersPerSecond:(id)second score:(double)score usageKwh:(id)kwh optimalUsageKwh:(id)usageKwh numBrakingEvents:(int)events numAccelEvents:(int)accelEvents numHighSpeedEvents:(int)speedEvents roadDistancesInMeters:(id)distancesInMeters roadSpeedBuckets:(id)time0 roadRelativeSpeedBuckets:(id)time1 roadTimes:(id)time2 route:(id)time3 lifeEventIds:(id)time4 ktsSegmentIds:(id)time5 maxTripDistanceInMeters:(id)time6 avgTripDistanceInMeters:(id)time7 maxElevationGainInMeters:(id)time8 avgElevationGainInMeters:(id)time9 percentTimeSpentAtSpeedBuckets:(id)endTime0 percentTimeSpentAtTrafficBuckets:(id)endTime1 percentTimeSpentAtRelativeSpeeds:(id)endTime2 percentTimeSpentAtRoadTypes:(id)endTime3 percentTimeSpentInWeatherTypes:(id)endTime4 percentTimeSpentInTerrainTypes:(id)endTime5 percentDistanceTraveledAtSpeedBuckets:(id)endTime6 percentDistanceTraveledAtTrafficBuckets:(id)endTime7 percentDistanceTraveledAtRelativeSpeeds:(id)endTime8 percentDistanceTraveledForRoadTypes:(id)endTime9 percentDistanceTraveledInWeatherTypes:(id)meters0 percentDistanceTraveledInTerrainTypes:(id)meters1 scorePerSpeedBucket:(id)meters2 scorePerTrafficBucket:(id)meters3 scorePerRelativeSpeed:(id)meters4 scorePerRoadType:(id)meters5 scorePerWeatherType:(id)meters6 scorePerTerrainType:(id)meters7 avgNumBrakingEvents:(double)meters8 avgNumAccelEvents:(double)meters9 avgNumHighSpeedEvents:(double)inMeters0 mostEfficientDriveScore:(double)inMeters1 routeHeatMap:(id)inMeters2
+{
+  idsCopy = ids;
+  distanceInMetersCopy = distanceInMeters;
+  tripDistanceInMetersCopy = tripDistanceInMeters;
+  gainInMetersCopy = gainInMeters;
+  elevationGainInMetersCopy = elevationGainInMeters;
+  spentAtSpeedBucketsCopy = spentAtSpeedBuckets;
+  atTrafficBucketsCopy = atTrafficBuckets;
+  atRelativeSpeedsCopy = atRelativeSpeeds;
+  typesCopy = types;
+  weatherTypesCopy = weatherTypes;
+  terrainTypesCopy = terrainTypes;
+  traveledAtSpeedBucketsCopy = traveledAtSpeedBuckets;
+  traveledAtTrafficBucketsCopy = traveledAtTrafficBuckets;
+  traveledAtRelativeSpeedsCopy = traveledAtRelativeSpeeds;
+  roadTypesCopy = roadTypes;
+  inWeatherTypesCopy = inWeatherTypes;
+  inTerrainTypesCopy = inTerrainTypes;
+  bucketCopy = bucket;
+  trafficBucketCopy = trafficBucket;
+  speedCopy = speed;
+  perRoadTypeCopy = perRoadType;
+  scorePerWeatherTypeCopy = scorePerWeatherType;
+  scorePerTerrainTypeCopy = scorePerTerrainType;
+  mapCopy = map;
+  v145.receiver = self;
+  v145.super_class = GDKTSDataAggregateRepresentation;
+  v76 = [(GDKTSDataRepresentation *)&v145 initWithStartTime:time endTime:endTime distanceInMeters:meters elevationGainInMeters:inMeters distanceBuckets:buckets durationInSeconds:seconds expectedDurationInSecondsNoTraffic:score distanceSpentInTrafficBuckets:traffic timeSpentInTrafficBuckets:trafficBuckets distanceSpentAtSpeedBuckets:inTrafficBuckets timeSpentAtSpeedBuckets:speedBuckets distanceSpentAtRelativeSpeeds:atSpeedBuckets timeSpentAtRelativeSpeeds:speeds distancePerRoadType:relativeSpeeds timePerRoadType:type distancePerWeatherType:roadType timePerWeatherType:weatherType distancePerTerrainType:perWeatherType timePerTerrainType:terrainType averageSpeedInMetersPerSecond:perTerrainType score:second usageKwh:kwh optimalUsageKwh:usageKwh numBrakingEvents:*&events numAccelEvents:speedEvents numHighSpeedEvents:distancesInMeters roadDistancesInMeters:roadSpeedBuckets roadSpeedBuckets:relativeSpeedBuckets roadRelativeSpeedBuckets:times roadTimes:route route:idsCopy lifeEventIds:segmentIds ktsSegmentIds:?];
+  if (v76)
+  {
+    v76->_numTrips = [idsCopy count];
+    objc_storeStrong(&v76->_maxTripDistanceInMeters, distanceInMeters);
+    objc_storeStrong(&v76->_avgTripDistanceInMeters, tripDistanceInMeters);
+    objc_storeStrong(&v76->_maxElevationGainInMeters, gainInMeters);
+    objc_storeStrong(&v76->_avgElevationGainInMeters, elevationGainInMeters);
+    v77 = [spentAtSpeedBucketsCopy copy];
+    percentTimeSpentAtSpeedBuckets = v76->_percentTimeSpentAtSpeedBuckets;
+    v76->_percentTimeSpentAtSpeedBuckets = v77;
+
+    v79 = [atTrafficBucketsCopy copy];
+    percentTimeSpentAtTrafficBuckets = v76->_percentTimeSpentAtTrafficBuckets;
+    v76->_percentTimeSpentAtTrafficBuckets = v79;
+
+    v81 = [atRelativeSpeedsCopy copy];
+    percentTimeSpentAtRelativeSpeeds = v76->_percentTimeSpentAtRelativeSpeeds;
+    v76->_percentTimeSpentAtRelativeSpeeds = v81;
+
+    v83 = [spentAtSpeedBucketsCopy copy];
+    v84 = v76->_percentTimeSpentAtSpeedBuckets;
+    v76->_percentTimeSpentAtSpeedBuckets = v83;
+
+    v85 = [atTrafficBucketsCopy copy];
+    v86 = v76->_percentTimeSpentAtTrafficBuckets;
+    v76->_percentTimeSpentAtTrafficBuckets = v85;
+
+    v87 = [atRelativeSpeedsCopy copy];
+    v88 = v76->_percentTimeSpentAtRelativeSpeeds;
+    v76->_percentTimeSpentAtRelativeSpeeds = v87;
+
+    v89 = [typesCopy copy];
+    percentTimeSpentAtRoadTypes = v76->_percentTimeSpentAtRoadTypes;
+    v76->_percentTimeSpentAtRoadTypes = v89;
+
+    v91 = [weatherTypesCopy copy];
+    percentTimeSpentInWeatherTypes = v76->_percentTimeSpentInWeatherTypes;
+    v76->_percentTimeSpentInWeatherTypes = v91;
+
+    v93 = [terrainTypesCopy copy];
+    percentTimeSpentInTerrainTypes = v76->_percentTimeSpentInTerrainTypes;
+    v76->_percentTimeSpentInTerrainTypes = v93;
+
+    v95 = [traveledAtSpeedBucketsCopy copy];
+    percentDistanceTraveledAtSpeedBuckets = v76->_percentDistanceTraveledAtSpeedBuckets;
+    v76->_percentDistanceTraveledAtSpeedBuckets = v95;
+
+    v97 = [traveledAtTrafficBucketsCopy copy];
+    percentDistanceTraveledAtTrafficBuckets = v76->_percentDistanceTraveledAtTrafficBuckets;
+    v76->_percentDistanceTraveledAtTrafficBuckets = v97;
+
+    v99 = [traveledAtRelativeSpeedsCopy copy];
+    percentDistanceTraveledAtRelativeSpeeds = v76->_percentDistanceTraveledAtRelativeSpeeds;
+    v76->_percentDistanceTraveledAtRelativeSpeeds = v99;
+
+    v101 = [roadTypesCopy copy];
+    percentDistanceTraveledForRoadTypes = v76->_percentDistanceTraveledForRoadTypes;
+    v76->_percentDistanceTraveledForRoadTypes = v101;
+
+    v103 = [inWeatherTypesCopy copy];
+    percentDistanceTraveledInWeatherTypes = v76->_percentDistanceTraveledInWeatherTypes;
+    v76->_percentDistanceTraveledInWeatherTypes = v103;
+
+    v105 = [inTerrainTypesCopy copy];
+    percentDistanceTraveledInTerrainTypes = v76->_percentDistanceTraveledInTerrainTypes;
+    v76->_percentDistanceTraveledInTerrainTypes = v105;
+
+    v107 = [bucketCopy copy];
+    scorePerSpeedBucket = v76->_scorePerSpeedBucket;
+    v76->_scorePerSpeedBucket = v107;
+
+    v109 = [trafficBucketCopy copy];
+    scorePerTrafficBucket = v76->_scorePerTrafficBucket;
+    v76->_scorePerTrafficBucket = v109;
+
+    v111 = [speedCopy copy];
+    scorePerRelativeSpeed = v76->_scorePerRelativeSpeed;
+    v76->_scorePerRelativeSpeed = v111;
+
+    v113 = [perRoadTypeCopy copy];
+    scorePerRoadType = v76->_scorePerRoadType;
+    v76->_scorePerRoadType = v113;
+
+    v115 = [scorePerWeatherTypeCopy copy];
+    scorePerWeatherType = v76->_scorePerWeatherType;
+    v76->_scorePerWeatherType = v115;
+
+    v117 = [scorePerTerrainTypeCopy copy];
+    scorePerTerrainType = v76->_scorePerTerrainType;
+    v76->_scorePerTerrainType = v117;
+
+    v76->_avgNumBrakingEvents = brakingEvents;
+    v76->_avgNumAccelEvents = numAccelEvents;
+    v76->_avgNumHighSpeedEvents = highSpeedEvents;
+    v76->_mostEfficientDriveScore = driveScore;
+    v119 = [mapCopy copy];
+    routeHeatMap = v76->_routeHeatMap;
+    v76->_routeHeatMap = v119;
+  }
+
+  return v76;
 }
 
 @end

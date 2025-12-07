@@ -34,7 +34,7 @@
 
 + (double)bestCropVariantFromSignalsWithAspectRatio:(uint64_t)ratio sourcePixelWidth:(uint64_t)width sourcePixelHeight:(uint64_t)height acceptableCropRect:(uint64_t)rect preferredCropRect:(uint64_t)cropRect normalizedFaceAreaRect:(uint64_t)areaRect gazeAreaRect:(__int128)gazeAreaRect
 {
-  v17 = [self cropVariantsFromSignalsWithCropTypes:&unk_1F471FD70 aspectRatio:ratio sourcePixelWidth:width sourcePixelHeight:MEMORY[0x1E695E0F0] acceptableCropRect:0 preferredCropRect:gazeAreaRect faceAreaRect:a10 objectSaliencyRects:a11 gazeAreaRect:a12 isDenormalized:{a13, a14, a15, a16, a17}];
+  v17 = [self cropVariantsFromSignalsWithCropTypes:&unk_1F471FD70 aspectRatio:ratio sourcePixelWidth:width sourcePixelHeight:MEMORY[0x1E695E0F0] acceptableCropRect:0 preferredCropRect:areaRect faceAreaRect:gazeAreaRect objectSaliencyRects:a10 gazeAreaRect:a11 isDenormalized:{a12, a13, a14, a15, a16, a17}];
   firstObject = [v17 firstObject];
   [firstObject cropRect];
   v20 = v19;

@@ -63,7 +63,7 @@
       [v7 rotation];
       v11 = v10;
       v13 = v12;
-      [v8 translation];
+      objc_msgSend_translation(v8);
       [(_UIFloatingContentView *)v9 setContentMotionRotation:v11 translation:v13, v14, v15];
     }
 

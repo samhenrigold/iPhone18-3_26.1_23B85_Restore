@@ -57,7 +57,6 @@
 
 - (__n128)hitTestRayFrom:(uint64_t)from withDirection:(uint64_t)direction usingCamera:(void *)camera
 {
-  v20 = *MEMORY[0x277D85DE8];
   cameraCopy = camera;
   __asm { FMOV            V0.2S, #1.0 }
 
@@ -68,21 +67,21 @@
   v14 = vnegq_f32(v13);
   if (v12 == v11)
   {
-    v19 = v14;
+    v18 = v14;
   }
 
   else
   {
-    v19 = v14;
+    v18 = v14;
     v5.i32[0] = 2139095039;
     do
     {
-      v18 = v5;
+      v17 = v5;
       sub_239E879CC(*v12);
       v15.i32[0] = 2139095039;
-      v5 = v18;
-      v19 = vbslq_s8(vdupq_lane_s32(*&vcgtq_f32(v18, v15), 0), 0, v19);
-      if (v18.f32[0] > 3.4028e38)
+      v5 = v17;
+      v18 = vbslq_s8(vdupq_lane_s32(*&vcgtq_f32(v17, v15), 0), 0, v18);
+      if (v17.f32[0] > 3.4028e38)
       {
         v5.f32[0] = 3.4028e38;
       }
@@ -93,14 +92,13 @@
     while (v12 != v11);
   }
 
-  v16 = *MEMORY[0x277D85DE8];
-  return v19;
+  return v18;
 }
 
 - (void)addObject:(id)object
 {
   objectCopy = object;
-  objc_msgSend_addObject_(self->_objects, v5, objectCopy);
+  objc_msgSend_addObject_(self->_objects, v5, objectCopy, v6, v11, v12, v13, v14, v7, v8, v9, v10);
   sceneMutex = self->_sceneMutex;
   std::mutex::lock(sceneMutex);
   objc_opt_class();
@@ -109,21 +107,21 @@
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v7 = objectCopy;
-      objc_msgSend_vertexCount(v7, v8, v9);
-      objc_msgSend_vertexCount(v7, v10, v11);
-      objc_msgSend_vertexCount(v7, v12, v13);
-      objc_msgSend_vertexCount(v7, v14, v15);
-      objc_msgSend_vertexCount(v7, v16, v17);
-      objc_msgSend_vertexCount(v7, v18, v19);
-      objc_msgSend_vertexCount(v7, v20, v21);
+      v16 = objectCopy;
+      objc_msgSend_vertexCount(v16, v17, v18, v19, v24, v25, v26, v27, v20, v21, v22, v23);
+      objc_msgSend_vertexCount(v16, v28, v29, v30, v35, v36, v37, v38, v31, v32, v33, v34);
+      objc_msgSend_vertexCount(v16, v39, v40, v41, v46, v47, v48, v49, v42, v43, v44, v45);
+      objc_msgSend_vertexCount(v16, v50, v51, v52, v57, v58, v59, v60, v53, v54, v55, v56);
+      objc_msgSend_vertexCount(v16, v61, v62, v63, v68, v69, v70, v71, v64, v65, v66, v67);
+      objc_msgSend_vertexCount(v16, v72, v73, v74, v79, v80, v81, v82, v75, v76, v77, v78);
+      objc_msgSend_vertexCount(v16, v83, v84, v85, v90, v91, v92, v93, v86, v87, v88, v89);
     }
 
     operator new();
   }
 
-  v22 = objectCopy;
-  sub_239F5469C(&self->_sceneLights.__begin_, &v22);
+  v94 = objectCopy;
+  sub_239F5469C(&self->_sceneLights.__begin_, &v94);
 
   std::mutex::unlock(sceneMutex);
 }
@@ -157,69 +155,69 @@
 
 - (id)raytraceSceneWithCamera:(const RTCamera *)camera reflection:(id)reflection irradiance:(id)irradiance size:
 {
-  v47 = v5;
+  v91 = v5;
   reflectionCopy = reflection;
   irradianceCopy = irradiance;
   v11 = objc_alloc(MEMORY[0x277CBEB28]);
-  v13 = objc_msgSend_initWithLength_(v11, v12, 4 * v47.i32[1] * v47.i32[0]);
-  v14 = v13;
-  v17 = objc_msgSend_mutableBytes(v14, v15, v16);
+  v21 = objc_msgSend_initWithLength_(v11, v12, 4 * v91.n128_u32[1] * v91.n128_u32[0], v13, v91, v18, v19, v20, v14, v15, v16, v17);
+  v22 = v21;
+  v34 = objc_msgSend_mutableBytes(v22, v23, v24, v25, v30, v31, v32, v33, v26, v27, v28, v29);
   if ((atomic_load_explicit(&qword_27DF912B8, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_27DF912B8))
   {
     operator new();
   }
 
-  v18 = objc_autoreleasePoolPush();
-  v21 = objc_msgSend_acquireLockGuard(self, v19, v20);
-  v22 = clock();
-  objc_msgSend_translation(camera->var10, v23, v24);
-  v43 = v25;
-  v45 = dispatch_queue_create("trace", 0);
-  v44 = dispatch_group_create();
-  v26 = dispatch_get_global_queue(33, 0);
-  v46 = COERCE_DOUBLE(vcvt_f32_s32(v47));
-  *&v27 = sub_239F1633C(camera, 0.0, v46);
-  v42 = v27;
-  *&v28 = sub_239F1633C(camera, COERCE_DOUBLE(LODWORD(v46)), v46);
-  v41 = v28;
-  DWORD1(v28) = HIDWORD(v46);
-  LODWORD(v28) = 0;
-  *&v29 = sub_239F1633C(camera, *&v28, v46);
-  v40 = v29;
-  *&v30 = sub_239F1633C(camera, v46, v46);
-  v31 = vrsqrte_f32(1062333316);
-  v32 = vmul_f32(vrsqrts_f32(1062333316, vmul_f32(v31, v31)), v31);
+  v35 = objc_autoreleasePoolPush();
+  v47 = objc_msgSend_acquireLockGuard(self, v36, v37, v38, v43, v44, v45, v46, v39, v40, v41, v42);
+  v48 = clock();
+  objc_msgSend_translation(camera->var10, v49, v50, v51, v56, v57, v58, v59, v52, v53, v54, v55);
+  v87 = v60;
+  v89 = dispatch_queue_create("trace", 0);
+  v88 = dispatch_group_create();
+  v61 = dispatch_get_global_queue(33, 0);
+  v90 = COERCE_DOUBLE(vcvt_f32_s32(v91.n128_u64[0]));
+  *&v62 = sub_239F1633C(camera, 0.0, v90);
+  v86 = v62;
+  *&v63 = sub_239F1633C(camera, COERCE_DOUBLE(LODWORD(v90)), v90);
+  v85 = v63;
+  DWORD1(v63) = HIDWORD(v90);
+  LODWORD(v63) = 0;
+  *&v64 = sub_239F1633C(camera, *&v63, v90);
+  v84 = v64;
+  *&v65 = sub_239F1633C(camera, v90, v90);
+  v66 = vrsqrte_f32(1062333316);
+  v67 = vmul_f32(vrsqrts_f32(1062333316, vmul_f32(v66, v66)), v66);
   block[1] = 3221225472;
   block[0] = MEMORY[0x277D85DD0];
   block[2] = sub_239F54C00;
   block[3] = &unk_278B41200;
-  v60 = v47;
-  v49 = v42;
-  v50 = v40;
-  v51 = v41;
-  v52 = v30;
+  v104 = v91.n128_u64[0];
+  v93 = v86;
+  v94 = v84;
+  v95 = v85;
+  v96 = v65;
   selfCopy = self;
-  v61 = v17;
+  v105 = v34;
   cameraCopy = camera;
-  v53 = v43;
-  v54 = vmulq_n_f32(xmmword_239F9EB30, vmul_f32(v32, vrsqrts_f32(1062333316, vmul_f32(v32, v32))).f32[0]);
-  v33 = reflectionCopy;
-  v56 = v33;
-  v34 = irradianceCopy;
-  v57 = v34;
-  v35 = v44;
-  v58 = v35;
-  v36 = v45;
-  v59 = v36;
-  dispatch_apply(0x20uLL, v26, block);
-  dispatch_group_wait(v35, 0xFFFFFFFFFFFFFFFFLL);
-  v37 = clock();
-  NSLog(&cfstr_FrameTime2fms.isa, (v37 - v22) * 0.0001);
-  objc_msgSend_releaseLockGuard_(self, v38, v21);
+  v97 = v87;
+  v98 = vmulq_n_f32(xmmword_239F9EB30, vmul_f32(v67, vrsqrts_f32(1062333316, vmul_f32(v67, v67))).f32[0]);
+  v68 = reflectionCopy;
+  v100 = v68;
+  v69 = irradianceCopy;
+  v101 = v69;
+  v70 = v88;
+  v102 = v70;
+  v71 = v89;
+  v103 = v71;
+  dispatch_apply(0x20uLL, v61, block);
+  dispatch_group_wait(v70, 0xFFFFFFFFFFFFFFFFLL);
+  v72 = clock();
+  NSLog(&cfstr_FrameTime2fms.isa, (v72 - v48) * 0.0001);
+  objc_msgSend_releaseLockGuard_(self, v73, v47, v74, v79, v80, v81, v82, v75, v76, v77, v78);
 
-  objc_autoreleasePoolPop(v18);
+  objc_autoreleasePoolPop(v35);
 
-  return v13;
+  return v21;
 }
 
 - (id).cxx_construct

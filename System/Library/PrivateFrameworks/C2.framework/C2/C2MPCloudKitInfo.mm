@@ -19,7 +19,7 @@
 
 - (id)dictionaryRepresentation
 {
-  v47 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   dictionary = [MEMORY[0x277CBEB38] dictionary];
   v4 = dictionary;
   clientProcessVersion = self->_clientProcessVersion;
@@ -85,30 +85,30 @@
   if ([(NSMutableArray *)self->_operationGroups count])
   {
     v15 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{-[NSMutableArray count](self->_operationGroups, "count")}];
+    v40 = 0u;
     v41 = 0u;
     v42 = 0u;
     v43 = 0u;
-    v44 = 0u;
     v16 = self->_operationGroups;
-    v17 = [(NSMutableArray *)v16 countByEnumeratingWithState:&v41 objects:v46 count:16];
+    v17 = [(NSMutableArray *)v16 countByEnumeratingWithState:&v40 objects:v45 count:16];
     if (v17)
     {
       v18 = v17;
-      v19 = *v42;
+      v19 = *v41;
       do
       {
         for (i = 0; i != v18; ++i)
         {
-          if (*v42 != v19)
+          if (*v41 != v19)
           {
             objc_enumerationMutation(v16);
           }
 
-          dictionaryRepresentation = [*(*(&v41 + 1) + 8 * i) dictionaryRepresentation];
+          dictionaryRepresentation = [*(*(&v40 + 1) + 8 * i) dictionaryRepresentation];
           [v15 addObject:dictionaryRepresentation];
         }
 
-        v18 = [(NSMutableArray *)v16 countByEnumeratingWithState:&v41 objects:v46 count:16];
+        v18 = [(NSMutableArray *)v16 countByEnumeratingWithState:&v40 objects:v45 count:16];
       }
 
       while (v18);
@@ -135,30 +135,30 @@
   if ([(NSMutableArray *)self->_clientOperations count])
   {
     v25 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{-[NSMutableArray count](self->_clientOperations, "count")}];
+    v36 = 0u;
     v37 = 0u;
     v38 = 0u;
     v39 = 0u;
-    v40 = 0u;
     v26 = self->_clientOperations;
-    v27 = [(NSMutableArray *)v26 countByEnumeratingWithState:&v37 objects:v45 count:16];
+    v27 = [(NSMutableArray *)v26 countByEnumeratingWithState:&v36 objects:v44 count:16];
     if (v27)
     {
       v28 = v27;
-      v29 = *v38;
+      v29 = *v37;
       do
       {
         for (j = 0; j != v28; ++j)
         {
-          if (*v38 != v29)
+          if (*v37 != v29)
           {
             objc_enumerationMutation(v26);
           }
 
-          dictionaryRepresentation2 = [*(*(&v37 + 1) + 8 * j) dictionaryRepresentation];
+          dictionaryRepresentation2 = [*(*(&v36 + 1) + 8 * j) dictionaryRepresentation];
           [v25 addObject:dictionaryRepresentation2];
         }
 
-        v28 = [(NSMutableArray *)v26 countByEnumeratingWithState:&v37 objects:v45 count:16];
+        v28 = [(NSMutableArray *)v26 countByEnumeratingWithState:&v36 objects:v44 count:16];
       }
 
       while (v28);
@@ -181,8 +181,6 @@
     v34 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:self->_reportClientOperationFrequencyBase];
     [v4 setObject:v34 forKey:@"report_client_operation_frequency_base"];
   }
-
-  v35 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
@@ -297,7 +295,7 @@
 
 - (void)writeTo:(id)to
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   toCopy = to;
   if (self->_clientProcessVersion)
   {
@@ -321,7 +319,6 @@
 
   if ((*&self->_has & 0x10) != 0)
   {
-    anonymous = self->_anonymous;
     PBDataWriterWriteBOOLField();
   }
 
@@ -350,93 +347,85 @@
     PBDataWriterWriteStringField();
   }
 
-  v31 = 0u;
-  v32 = 0u;
-  v29 = 0u;
-  v30 = 0u;
-  v6 = self->_operationGroups;
-  v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v29 objects:v34 count:16];
-  if (v7)
+  v23 = 0u;
+  v24 = 0u;
+  v21 = 0u;
+  v22 = 0u;
+  v5 = self->_operationGroups;
+  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v21 objects:v26 count:16];
+  if (v6)
   {
-    v8 = v7;
-    v9 = *v30;
+    v7 = v6;
+    v8 = *v22;
     do
     {
-      for (i = 0; i != v8; ++i)
+      for (i = 0; i != v7; ++i)
       {
-        if (*v30 != v9)
+        if (*v22 != v8)
         {
-          objc_enumerationMutation(v6);
+          objc_enumerationMutation(v5);
         }
 
-        v11 = *(*(&v29 + 1) + 8 * i);
         PBDataWriterWriteSubmessage();
       }
 
-      v8 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v29 objects:v34 count:16];
+      v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v21 objects:v26 count:16];
     }
 
-    while (v8);
+    while (v7);
   }
 
   has = self->_has;
   if ((has & 4) != 0)
   {
-    reportOperationGroupFrequency = self->_reportOperationGroupFrequency;
     PBDataWriterWriteUint64Field();
     has = self->_has;
   }
 
   if ((has & 8) != 0)
   {
-    reportOperationGroupFrequencyBase = self->_reportOperationGroupFrequencyBase;
     PBDataWriterWriteUint64Field();
   }
 
-  v27 = 0u;
-  v28 = 0u;
-  v25 = 0u;
-  v26 = 0u;
-  v15 = self->_clientOperations;
-  v16 = [(NSMutableArray *)v15 countByEnumeratingWithState:&v25 objects:v33 count:16];
-  if (v16)
+  v19 = 0u;
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
+  v11 = self->_clientOperations;
+  v12 = [(NSMutableArray *)v11 countByEnumeratingWithState:&v17 objects:v25 count:16];
+  if (v12)
   {
-    v17 = v16;
-    v18 = *v26;
+    v13 = v12;
+    v14 = *v18;
     do
     {
-      for (j = 0; j != v17; ++j)
+      for (j = 0; j != v13; ++j)
       {
-        if (*v26 != v18)
+        if (*v18 != v14)
         {
-          objc_enumerationMutation(v15);
+          objc_enumerationMutation(v11);
         }
 
-        v20 = *(*(&v25 + 1) + 8 * j);
         PBDataWriterWriteSubmessage();
       }
 
-      v17 = [(NSMutableArray *)v15 countByEnumeratingWithState:&v25 objects:v33 count:16];
+      v13 = [(NSMutableArray *)v11 countByEnumeratingWithState:&v17 objects:v25 count:16];
     }
 
-    while (v17);
+    while (v13);
   }
 
-  v21 = self->_has;
-  if (v21)
+  v16 = self->_has;
+  if (v16)
   {
-    reportClientOperationFrequency = self->_reportClientOperationFrequency;
     PBDataWriterWriteUint64Field();
-    v21 = self->_has;
+    v16 = self->_has;
   }
 
-  if ((v21 & 2) != 0)
+  if ((v16 & 2) != 0)
   {
-    reportClientOperationFrequencyBase = self->_reportClientOperationFrequencyBase;
     PBDataWriterWriteUint64Field();
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (void)copyTo:(id)to
@@ -559,7 +548,7 @@
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v50 = *MEMORY[0x277D85DE8];
+  v49 = *MEMORY[0x277D85DE8];
   v5 = [objc_msgSend(objc_opt_class() allocWithZone:{zone), "init"}];
   v6 = [(NSString *)self->_clientProcessVersion copyWithZone:zone];
   v7 = *(v5 + 72);
@@ -603,30 +592,30 @@
   v23 = *(v5 + 104);
   *(v5 + 104) = v22;
 
-  v46 = 0u;
-  v47 = 0u;
-  v44 = 0u;
   v45 = 0u;
+  v46 = 0u;
+  v43 = 0u;
+  v44 = 0u;
   v24 = self->_operationGroups;
-  v25 = [(NSMutableArray *)v24 countByEnumeratingWithState:&v44 objects:v49 count:16];
+  v25 = [(NSMutableArray *)v24 countByEnumeratingWithState:&v43 objects:v48 count:16];
   if (v25)
   {
     v26 = v25;
-    v27 = *v45;
+    v27 = *v44;
     do
     {
       for (i = 0; i != v26; ++i)
       {
-        if (*v45 != v27)
+        if (*v44 != v27)
         {
           objc_enumerationMutation(v24);
         }
 
-        v29 = [*(*(&v44 + 1) + 8 * i) copyWithZone:zone];
+        v29 = [*(*(&v43 + 1) + 8 * i) copyWithZone:zone];
         [v5 addOperationGroup:v29];
       }
 
-      v26 = [(NSMutableArray *)v24 countByEnumeratingWithState:&v44 objects:v49 count:16];
+      v26 = [(NSMutableArray *)v24 countByEnumeratingWithState:&v43 objects:v48 count:16];
     }
 
     while (v26);
@@ -646,30 +635,30 @@
     *(v5 + 132) |= 8u;
   }
 
-  v42 = 0u;
-  v43 = 0u;
-  v40 = 0u;
   v41 = 0u;
+  v42 = 0u;
+  v39 = 0u;
+  v40 = 0u;
   v31 = self->_clientOperations;
-  v32 = [(NSMutableArray *)v31 countByEnumeratingWithState:&v40 objects:v48 count:16];
+  v32 = [(NSMutableArray *)v31 countByEnumeratingWithState:&v39 objects:v47 count:16];
   if (v32)
   {
     v33 = v32;
-    v34 = *v41;
+    v34 = *v40;
     do
     {
       for (j = 0; j != v33; ++j)
       {
-        if (*v41 != v34)
+        if (*v40 != v34)
         {
           objc_enumerationMutation(v31);
         }
 
-        v36 = [*(*(&v40 + 1) + 8 * j) copyWithZone:{zone, v40}];
+        v36 = [*(*(&v39 + 1) + 8 * j) copyWithZone:{zone, v39}];
         [v5 addClientOperation:v36];
       }
 
-      v33 = [(NSMutableArray *)v31 countByEnumeratingWithState:&v40 objects:v48 count:16];
+      v33 = [(NSMutableArray *)v31 countByEnumeratingWithState:&v39 objects:v47 count:16];
     }
 
     while (v33);
@@ -689,7 +678,6 @@
     *(v5 + 132) |= 2u;
   }
 
-  v38 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -737,7 +725,6 @@
     }
   }
 
-  v9 = *(equalCopy + 132);
   if ((*&self->_has & 0x10) != 0)
   {
     if ((*(equalCopy + 132) & 0x10) == 0)
@@ -745,7 +732,6 @@
       goto LABEL_28;
     }
 
-    v20 = *(equalCopy + 128);
     if (self->_anonymous)
     {
       if ((*(equalCopy + 128) & 1) == 0)
@@ -817,7 +803,6 @@
   }
 
   has = self->_has;
-  v17 = *(equalCopy + 132);
   if ((has & 4) != 0)
   {
     if ((*(equalCopy + 132) & 4) == 0 || self->_reportOperationGroupFrequency != *(equalCopy + 3))
@@ -868,7 +853,7 @@
     goto LABEL_28;
   }
 
-  v18 = (*(equalCopy + 132) & 2) == 0;
+  v16 = (*(equalCopy + 132) & 2) == 0;
   if ((has & 2) == 0)
   {
     goto LABEL_29;
@@ -876,15 +861,15 @@
 
   if ((*(equalCopy + 132) & 2) != 0 && self->_reportClientOperationFrequencyBase == *(equalCopy + 2))
   {
-    v18 = 1;
+    v16 = 1;
     goto LABEL_29;
   }
 
 LABEL_28:
-  v18 = 0;
+  v16 = 0;
 LABEL_29:
 
-  return v18;
+  return v16;
 }
 
 - (unint64_t)hash
@@ -958,7 +943,7 @@ LABEL_11:
 
 - (void)mergeFrom:(id)from
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   fromCopy = from;
   if (*(fromCopy + 9))
   {
@@ -1011,29 +996,29 @@ LABEL_11:
     [(C2MPCloudKitInfo *)self setDatabaseScope:?];
   }
 
-  v24 = 0u;
-  v25 = 0u;
-  v22 = 0u;
   v23 = 0u;
+  v24 = 0u;
+  v21 = 0u;
+  v22 = 0u;
   v5 = *(fromCopy + 15);
-  v6 = [v5 countByEnumeratingWithState:&v22 objects:v27 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v21 objects:v26 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v23;
+    v8 = *v22;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v23 != v8)
+        if (*v22 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        [(C2MPCloudKitInfo *)self addOperationGroup:*(*(&v22 + 1) + 8 * i)];
+        [(C2MPCloudKitInfo *)self addOperationGroup:*(*(&v21 + 1) + 8 * i)];
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v22 objects:v27 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v21 objects:v26 count:16];
     }
 
     while (v7);
@@ -1053,29 +1038,29 @@ LABEL_11:
     *&self->_has |= 8u;
   }
 
-  v20 = 0u;
-  v21 = 0u;
-  v18 = 0u;
   v19 = 0u;
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
   v11 = *(fromCopy + 8);
-  v12 = [v11 countByEnumeratingWithState:&v18 objects:v26 count:16];
+  v12 = [v11 countByEnumeratingWithState:&v17 objects:v25 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v19;
+    v14 = *v18;
     do
     {
       for (j = 0; j != v13; ++j)
       {
-        if (*v19 != v14)
+        if (*v18 != v14)
         {
           objc_enumerationMutation(v11);
         }
 
-        [(C2MPCloudKitInfo *)self addClientOperation:*(*(&v18 + 1) + 8 * j), v18];
+        [(C2MPCloudKitInfo *)self addClientOperation:*(*(&v17 + 1) + 8 * j), v17];
       }
 
-      v13 = [v11 countByEnumeratingWithState:&v18 objects:v26 count:16];
+      v13 = [v11 countByEnumeratingWithState:&v17 objects:v25 count:16];
     }
 
     while (v13);
@@ -1094,8 +1079,6 @@ LABEL_11:
     self->_reportClientOperationFrequencyBase = *(fromCopy + 2);
     *&self->_has |= 2u;
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 @end

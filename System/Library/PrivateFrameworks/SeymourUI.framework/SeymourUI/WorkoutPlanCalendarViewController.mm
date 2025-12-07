@@ -22,7 +22,7 @@
 - (void)viewDidLoad
 {
   selfCopy = self;
-  sub_20B81FEE4();
+  sub_20B81FEE4(v2);
 }
 
 - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id)coordinator
@@ -31,7 +31,8 @@
   width = size.width;
   swift_unknownObjectRetain();
   selfCopy = self;
-  sub_20B820AAC(coordinator, width, height);
+  v8.n128_f64[0] = width;
+  sub_20B820AAC(coordinator, v8, height);
   swift_unknownObjectRelease();
 }
 
@@ -51,7 +52,7 @@
   sub_20C1331E4();
   viewCopy = view;
   selfCopy = self;
-  sub_20B821B94();
+  sub_20B821B94(v9);
 
   (*(v7 + 8))(v9, v6);
 }

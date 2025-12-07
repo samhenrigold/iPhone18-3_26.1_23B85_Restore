@@ -114,7 +114,7 @@ uint64_t __72__CSSiriAudioMessageRequestClient_getAudioFileWithRequestId_complet
 
 - (id)_connection
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   dispatch_assert_queue_V2(self->_queue);
   xpcConnection = self->_xpcConnection;
   if (!xpcConnection)
@@ -128,7 +128,7 @@ uint64_t __72__CSSiriAudioMessageRequestClient_getAudioFileWithRequestId_complet
     if (os_log_type_enabled(*MEMORY[0x277D015D8], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v27 = "[CSSiriAudioMessageRequestClient _connection]";
+      v26 = "[CSSiriAudioMessageRequestClient _connection]";
       _os_log_impl(&dword_222E4D000, v7, OS_LOG_TYPE_DEFAULT, "%s Creating new xpc connection...", buf, 0xCu);
     }
 
@@ -139,49 +139,47 @@ uint64_t __72__CSSiriAudioMessageRequestClient_getAudioFileWithRequestId_complet
     objc_initWeak(buf, self);
     v10 = self->_xpcConnectionUUIDString;
     v11 = self->_xpcConnection;
-    v23[0] = MEMORY[0x277D85DD0];
-    v23[1] = 3221225472;
-    v23[2] = __46__CSSiriAudioMessageRequestClient__connection__block_invoke;
-    v23[3] = &unk_2784C6C18;
-    objc_copyWeak(&v25, buf);
+    v22[0] = MEMORY[0x277D85DD0];
+    v22[1] = 3221225472;
+    v22[2] = __46__CSSiriAudioMessageRequestClient__connection__block_invoke;
+    v22[3] = &unk_2784C6C18;
+    objc_copyWeak(&v24, buf);
     v12 = v10;
-    v24 = v12;
-    [(NSXPCConnection *)v11 setInterruptionHandler:v23];
+    v23 = v12;
+    [(NSXPCConnection *)v11 setInterruptionHandler:v22];
     v13 = self->_xpcConnection;
-    v17 = MEMORY[0x277D85DD0];
-    v18 = 3221225472;
-    v19 = __46__CSSiriAudioMessageRequestClient__connection__block_invoke_5;
-    v20 = &unk_2784C6C18;
-    objc_copyWeak(&v22, buf);
+    v16 = MEMORY[0x277D85DD0];
+    v17 = 3221225472;
+    v18 = __46__CSSiriAudioMessageRequestClient__connection__block_invoke_5;
+    v19 = &unk_2784C6C18;
+    objc_copyWeak(&v21, buf);
     v14 = v12;
-    v21 = v14;
-    [(NSXPCConnection *)v13 setInvalidationHandler:&v17];
-    [(NSXPCConnection *)self->_xpcConnection resume:v17];
+    v20 = v14;
+    [(NSXPCConnection *)v13 setInvalidationHandler:&v16];
+    [(NSXPCConnection *)self->_xpcConnection resume:v16];
 
-    objc_destroyWeak(&v22);
-    objc_destroyWeak(&v25);
+    objc_destroyWeak(&v21);
+    objc_destroyWeak(&v24);
 
     objc_destroyWeak(buf);
     xpcConnection = self->_xpcConnection;
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return xpcConnection;
 }
 
 void __46__CSSiriAudioMessageRequestClient__connection__block_invoke(uint64_t a1)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v2 = MEMORY[0x277D015D8];
   v3 = *MEMORY[0x277D015D8];
   if (os_log_type_enabled(*MEMORY[0x277D015D8], OS_LOG_TYPE_DEFAULT))
   {
-    v14 = 136315394;
-    v15 = "[CSSiriAudioMessageRequestClient _connection]_block_invoke";
-    v16 = 2112;
-    v17 = @"com.apple.siri.audio_message_service.xpc";
-    _os_log_impl(&dword_222E4D000, v3, OS_LOG_TYPE_DEFAULT, "%s xpc connection %@ Interrupted", &v14, 0x16u);
+    v13 = 136315394;
+    v14 = "[CSSiriAudioMessageRequestClient _connection]_block_invoke";
+    v15 = 2112;
+    v16 = @"com.apple.siri.audio_message_service.xpc";
+    _os_log_impl(&dword_222E4D000, v3, OS_LOG_TYPE_DEFAULT, "%s xpc connection %@ Interrupted", &v13, 0x16u);
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 40));
@@ -207,32 +205,30 @@ void __46__CSSiriAudioMessageRequestClient__connection__block_invoke(uint64_t a1
         v10 = *(a1 + 32);
         v11 = v9;
         v12 = [v5 xpcConnectionUUIDString];
-        v14 = 136315650;
-        v15 = "[CSSiriAudioMessageRequestClient _connection]_block_invoke";
-        v16 = 2112;
-        v17 = v10;
-        v18 = 2112;
-        v19 = v12;
-        _os_log_impl(&dword_222E4D000, v11, OS_LOG_TYPE_DEFAULT, "%s Ignore since the UUID of xpc connection not match : %@ vs. %@", &v14, 0x20u);
+        v13 = 136315650;
+        v14 = "[CSSiriAudioMessageRequestClient _connection]_block_invoke";
+        v15 = 2112;
+        v16 = v10;
+        v17 = 2112;
+        v18 = v12;
+        _os_log_impl(&dword_222E4D000, v11, OS_LOG_TYPE_DEFAULT, "%s Ignore since the UUID of xpc connection not match : %@ vs. %@", &v13, 0x20u);
       }
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __46__CSSiriAudioMessageRequestClient__connection__block_invoke_5(uint64_t a1)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v2 = MEMORY[0x277D015D8];
   v3 = *MEMORY[0x277D015D8];
   if (os_log_type_enabled(*MEMORY[0x277D015D8], OS_LOG_TYPE_DEFAULT))
   {
-    v13 = 136315394;
-    v14 = "[CSSiriAudioMessageRequestClient _connection]_block_invoke";
-    v15 = 2112;
-    v16 = @"com.apple.siri.audio_message_service.xpc";
-    _os_log_impl(&dword_222E4D000, v3, OS_LOG_TYPE_DEFAULT, "%s xpc connection %@ Invalidated", &v13, 0x16u);
+    v12 = 136315394;
+    v13 = "[CSSiriAudioMessageRequestClient _connection]_block_invoke";
+    v14 = 2112;
+    v15 = @"com.apple.siri.audio_message_service.xpc";
+    _os_log_impl(&dword_222E4D000, v3, OS_LOG_TYPE_DEFAULT, "%s xpc connection %@ Invalidated", &v12, 0x16u);
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 40));
@@ -251,18 +247,16 @@ void __46__CSSiriAudioMessageRequestClient__connection__block_invoke_5(uint64_t 
         v9 = *(a1 + 32);
         v10 = v8;
         v11 = [v5 xpcConnectionUUIDString];
-        v13 = 136315650;
-        v14 = "[CSSiriAudioMessageRequestClient _connection]_block_invoke";
-        v15 = 2112;
-        v16 = v9;
-        v17 = 2112;
-        v18 = v11;
-        _os_log_impl(&dword_222E4D000, v10, OS_LOG_TYPE_DEFAULT, "%s Ignore since the UUID of xpc connection not match : %@ vs. %@", &v13, 0x20u);
+        v12 = 136315650;
+        v13 = "[CSSiriAudioMessageRequestClient _connection]_block_invoke";
+        v14 = 2112;
+        v15 = v9;
+        v16 = 2112;
+        v17 = v11;
+        _os_log_impl(&dword_222E4D000, v10, OS_LOG_TYPE_DEFAULT, "%s Ignore since the UUID of xpc connection not match : %@ vs. %@", &v12, 0x20u);
       }
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_newConnection
@@ -277,20 +271,19 @@ void __46__CSSiriAudioMessageRequestClient__connection__block_invoke_5(uint64_t 
 
 - (void)dealloc
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v3 = *MEMORY[0x277D015D8];
   if (os_log_type_enabled(*MEMORY[0x277D015D8], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v7 = "[CSSiriAudioMessageRequestClient dealloc]";
+    v6 = "[CSSiriAudioMessageRequestClient dealloc]";
     _os_log_impl(&dword_222E4D000, v3, OS_LOG_TYPE_DEFAULT, "%s deallocated", buf, 0xCu);
   }
 
   [(NSXPCConnection *)self->_xpcConnection invalidate];
-  v5.receiver = self;
-  v5.super_class = CSSiriAudioMessageRequestClient;
-  [(CSSiriAudioMessageRequestClient *)&v5 dealloc];
-  v4 = *MEMORY[0x277D85DE8];
+  v4.receiver = self;
+  v4.super_class = CSSiriAudioMessageRequestClient;
+  [(CSSiriAudioMessageRequestClient *)&v4 dealloc];
 }
 
 @end

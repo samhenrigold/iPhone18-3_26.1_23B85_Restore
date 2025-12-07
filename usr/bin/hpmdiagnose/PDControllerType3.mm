@@ -1,4 +1,5 @@
 @interface PDControllerType3
++ (id)PDControllerType3MicroWithDeviceAddress:(unsigned __int8)address userClient:(id)client;
 - (PDControllerType3)initWithAddress:(unsigned __int8)address userClient:(id)client;
 - (int)executeIECSCommand:(unsigned int)command;
 - (int)getVDM:(unsigned int *)m ofLength:(unint64_t *)length;
@@ -10,6 +11,15 @@
 @end
 
 @implementation PDControllerType3
+
++ (id)PDControllerType3MicroWithDeviceAddress:(unsigned __int8)address userClient:(id)client
+{
+  addressCopy = address;
+  clientCopy = client;
+  v7 = [[self alloc] initWithAddress:addressCopy userClient:clientCopy];
+
+  return v7;
+}
 
 - (PDControllerType3)initWithAddress:(unsigned __int8)address userClient:(id)client
 {

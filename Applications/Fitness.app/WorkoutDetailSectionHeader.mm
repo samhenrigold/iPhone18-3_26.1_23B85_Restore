@@ -26,7 +26,7 @@
   selfCopy = self;
   sub_10050ADC0(v6, v8, 0, 0, v5, v9, 0.0);
 
-  sub_1000245E0(v5);
+  sub_1000245E0(v5, v9);
 }
 
 - (_TtC10FitnessApp26WorkoutDetailSectionHeader)initWithReuseIdentifier:(id)identifier

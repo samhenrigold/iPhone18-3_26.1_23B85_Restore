@@ -153,36 +153,37 @@
   [(IMCoreDataSource *)self saveMetaData];
   if ([contextCopy hasChanges])
   {
-    v9 = 0;
-    v5 = [contextCopy save:&v9];
-    v6 = v9;
+    v11 = 0;
+    v5 = [contextCopy save:&v11];
+    v6 = v11;
+    v7 = v6;
     if ((v5 & 1) == 0)
     {
-      v7 = BCIMLog();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
-      {
-        *buf = 136315650;
-        v11 = "[IMCoreDataSource saveManagedObjectContext:]";
-        v12 = 2080;
-        v13 = "/Library/Caches/com.apple.xbs/Sources/Alder/frameworks/BookCore/BookCore/Database/BCCoreDataSource.m";
-        v14 = 1024;
-        v15 = 155;
-        _os_log_impl(&dword_0, v7, OS_LOG_TYPE_INFO, "%s %s:%d", buf, 0x1Cu);
-      }
-
-      v8 = BCIMLog();
+      v8 = BCIMLog(v6);
       if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
       {
+        *buf = 136315650;
+        v13 = "[IMCoreDataSource saveManagedObjectContext:]";
+        v14 = 2080;
+        v15 = "/Library/Caches/com.apple.xbs/Sources/Alder/frameworks/BookCore/BookCore/Database/BCCoreDataSource.m";
+        v16 = 1024;
+        v17 = 155;
+        _os_log_impl(&dword_0, v8, OS_LOG_TYPE_INFO, "%s %s:%d", buf, 0x1Cu);
+      }
+
+      v10 = BCIMLog(v9);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+      {
         *buf = 138412290;
-        v11 = v6;
-        _os_log_impl(&dword_0, v8, OS_LOG_TYPE_INFO, "@Failed to save MOC with error: %@", buf, 0xCu);
+        v13 = v7;
+        _os_log_impl(&dword_0, v10, OS_LOG_TYPE_INFO, "@Failed to save MOC with error: %@", buf, 0xCu);
       }
     }
   }
 
   else
   {
-    v6 = 0;
+    v7 = 0;
   }
 }
 
@@ -277,19 +278,19 @@
 - (void)_loadPersistentStoreAndRetryIfNeeded:(BOOL)needed
 {
   neededCopy = needed;
-  v44[0] = NSMigratePersistentStoresAutomaticallyOption;
-  v44[1] = NSInferMappingModelAutomaticallyOption;
-  v45[0] = &__kCFBooleanFalse;
-  v45[1] = &__kCFBooleanTrue;
-  v5 = [NSDictionary dictionaryWithObjects:v45 forKeys:v44 count:2];
+  v48[0] = NSMigratePersistentStoresAutomaticallyOption;
+  v48[1] = NSInferMappingModelAutomaticallyOption;
+  v49[0] = &__kCFBooleanFalse;
+  v49[1] = &__kCFBooleanTrue;
+  v5 = [NSDictionary dictionaryWithObjects:v49 forKeys:v48 count:2];
   persistentStoreURL = [(IMCoreDataSource *)self persistentStoreURL];
   v7 = NSSQLiteStoreType;
   persistentStoreCoordinator = [(IMCoreDataSource *)self persistentStoreCoordinator];
-  v35 = 0;
-  v31 = persistentStoreURL;
-  v32 = v7;
-  v9 = [persistentStoreCoordinator addPersistentStoreWithType:v7 configuration:0 URL:persistentStoreURL options:v5 error:&v35];
-  v10 = v35;
+  v39 = 0;
+  v35 = persistentStoreURL;
+  v36 = v7;
+  v9 = [persistentStoreCoordinator addPersistentStoreWithType:v7 configuration:0 URL:persistentStoreURL options:v5 error:&v39];
+  v10 = v39;
 
   if (v9)
   {
@@ -299,18 +300,18 @@
 LABEL_7:
     [(IMCoreDataSource *)self setPersistentStore:v11];
     persistentStoreInitializedHandler = [(IMCoreDataSource *)self persistentStoreInitializedHandler];
-    v21 = persistentStoreInitializedHandler;
+    v22 = persistentStoreInitializedHandler;
     if (persistentStoreInitializedHandler)
     {
       (*(persistentStoreInitializedHandler + 16))(persistentStoreInitializedHandler);
     }
 
-    v16 = v31;
-    v17 = v32;
+    v17 = v35;
+    v18 = v36;
     if (!v9)
     {
       migrationHandler = [(IMCoreDataSource *)self migrationHandler];
-      v23 = migrationHandler;
+      v24 = migrationHandler;
       if (migrationHandler)
       {
         (*(migrationHandler + 16))(migrationHandler);
@@ -323,98 +324,98 @@ LABEL_7:
     goto LABEL_14;
   }
 
-  v30 = neededCopy;
-  if ([v10 code] == &loc_20BD4 || objc_msgSend(v10, "code") == &loc_20B84)
+  v34 = neededCopy;
+  if ([v10 code] == &loc_20BD4 || (v14 = objc_msgSend(v10, "code"), v14 == &loc_20B84))
   {
-    v42[0] = NSMigratePersistentStoresAutomaticallyOption;
-    v42[1] = NSInferMappingModelAutomaticallyOption;
-    v43[0] = &__kCFBooleanTrue;
-    v43[1] = &__kCFBooleanTrue;
-    v14 = [NSDictionary dictionaryWithObjects:v43 forKeys:v42 count:2];
+    v46[0] = NSMigratePersistentStoresAutomaticallyOption;
+    v46[1] = NSInferMappingModelAutomaticallyOption;
+    v47[0] = &__kCFBooleanTrue;
+    v47[1] = &__kCFBooleanTrue;
+    v15 = [NSDictionary dictionaryWithObjects:v47 forKeys:v46 count:2];
 
     persistentStoreCoordinator2 = [(IMCoreDataSource *)self persistentStoreCoordinator];
-    v34 = v10;
-    v16 = v31;
-    v17 = v32;
-    v18 = v14;
-    v11 = [persistentStoreCoordinator2 addPersistentStoreWithType:v32 configuration:0 URL:v31 options:v14 error:&v34];
-    v19 = v34;
+    v38 = v10;
+    v17 = v35;
+    v18 = v36;
+    v19 = v15;
+    v11 = [persistentStoreCoordinator2 addPersistentStoreWithType:v36 configuration:0 URL:v35 options:v15 error:&v38];
+    v20 = v38;
 
     if (v11)
     {
       [(IMCoreDataSource *)self setPersistentStore:v11];
-      v12 = v18;
-      v13 = v19;
+      v12 = v19;
+      v13 = v20;
       goto LABEL_7;
     }
 
-    v10 = v19;
-    v12 = v18;
+    v10 = v20;
+    v12 = v19;
   }
 
   else
   {
     v12 = v5;
-    v16 = v31;
-    v17 = v32;
+    v17 = v35;
+    v18 = v36;
   }
 
-  v24 = BCIMLog();
-  if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
-  {
-    *buf = 136315650;
-    v37 = "[IMCoreDataSource _loadPersistentStoreAndRetryIfNeeded:]";
-    v38 = 2080;
-    v39 = "/Library/Caches/com.apple.xbs/Sources/Alder/frameworks/BookCore/BookCore/Database/BCCoreDataSource.m";
-    v40 = 1024;
-    v41 = 250;
-    _os_log_impl(&dword_0, v24, OS_LOG_TYPE_INFO, "%s %s:%d", buf, 0x1Cu);
-  }
-
-  v25 = BCIMLog();
+  v25 = BCIMLog(v14);
   if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
   {
-    *buf = 138412546;
-    v37 = v16;
-    v38 = 2112;
-    v39 = v10;
-    _os_log_impl(&dword_0, v25, OS_LOG_TYPE_INFO, "@Failed to add persistentStore {%@} error {%@}", buf, 0x16u);
+    *buf = 136315650;
+    v41 = "[IMCoreDataSource _loadPersistentStoreAndRetryIfNeeded:]";
+    v42 = 2080;
+    v43 = "/Library/Caches/com.apple.xbs/Sources/Alder/frameworks/BookCore/BookCore/Database/BCCoreDataSource.m";
+    v44 = 1024;
+    v45 = 250;
+    _os_log_impl(&dword_0, v25, OS_LOG_TYPE_INFO, "%s %s:%d", buf, 0x1Cu);
   }
 
-  if (v30)
+  v27 = BCIMLog(v26);
+  if (os_log_type_enabled(v27, OS_LOG_TYPE_INFO))
+  {
+    *buf = 138412546;
+    v41 = v17;
+    v42 = 2112;
+    v43 = v10;
+    _os_log_impl(&dword_0, v27, OS_LOG_TYPE_INFO, "@Failed to add persistentStore {%@} error {%@}", buf, 0x16u);
+  }
+
+  if (v34)
   {
     persistentStoreCoordinator3 = [(IMCoreDataSource *)self persistentStoreCoordinator];
-    v33 = v10;
-    v27 = [persistentStoreCoordinator3 bkspi_destroyPersistentStoreAtURL:v16 withType:v17 error:&v33];
-    v13 = v33;
+    v37 = v10;
+    v29 = [persistentStoreCoordinator3 bkspi_destroyPersistentStoreAtURL:v17 withType:v18 error:&v37];
+    v13 = v37;
 
-    if (v27)
+    if (v29)
     {
       [(IMCoreDataSource *)self _loadPersistentStoreAndRetryIfNeeded:0];
     }
 
     else
     {
-      v28 = BCIMLog();
-      if (os_log_type_enabled(v28, OS_LOG_TYPE_INFO))
+      v31 = BCIMLog(v30);
+      if (os_log_type_enabled(v31, OS_LOG_TYPE_INFO))
       {
         *buf = 136315650;
-        v37 = "[IMCoreDataSource _loadPersistentStoreAndRetryIfNeeded:]";
-        v38 = 2080;
-        v39 = "/Library/Caches/com.apple.xbs/Sources/Alder/frameworks/BookCore/BookCore/Database/BCCoreDataSource.m";
-        v40 = 1024;
-        v41 = 260;
-        _os_log_impl(&dword_0, v28, OS_LOG_TYPE_INFO, "%s %s:%d", buf, 0x1Cu);
+        v41 = "[IMCoreDataSource _loadPersistentStoreAndRetryIfNeeded:]";
+        v42 = 2080;
+        v43 = "/Library/Caches/com.apple.xbs/Sources/Alder/frameworks/BookCore/BookCore/Database/BCCoreDataSource.m";
+        v44 = 1024;
+        v45 = 260;
+        _os_log_impl(&dword_0, v31, OS_LOG_TYPE_INFO, "%s %s:%d", buf, 0x1Cu);
       }
 
-      v29 = BCIMLog();
-      if (os_log_type_enabled(v29, OS_LOG_TYPE_INFO))
+      v33 = BCIMLog(v32);
+      if (os_log_type_enabled(v33, OS_LOG_TYPE_INFO))
       {
         *buf = 138412546;
-        v37 = v16;
-        v38 = 2112;
-        v39 = v13;
-        _os_log_impl(&dword_0, v29, OS_LOG_TYPE_INFO, "@Failed to destroy persistent store at URL {%@} error {%@}", buf, 0x16u);
+        v41 = v17;
+        v42 = 2112;
+        v43 = v13;
+        _os_log_impl(&dword_0, v33, OS_LOG_TYPE_INFO, "@Failed to destroy persistent store at URL {%@} error {%@}", buf, 0x16u);
       }
 
       [(IMCoreDataSource *)self setPersistentStoreInitializedHandler:0];

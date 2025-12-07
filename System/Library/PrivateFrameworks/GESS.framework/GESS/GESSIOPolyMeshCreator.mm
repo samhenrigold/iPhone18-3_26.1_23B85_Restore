@@ -9,7 +9,7 @@
 
 - (BOOL)setMtlFilePath:(id)path
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   pathCopy = path;
   if (objc_msgSend_length(pathCopy, v4, v5, v6))
   {
@@ -34,12 +34,12 @@
     }
 
     __dst.__r_.__value_.__s.__data_[v13] = 0;
-    sub_24BCCA6F0(&v17.__pn_, &__dst);
-    std::__fs::filesystem::__status(&v17, 0);
-    v14 = v19;
-    if (SHIBYTE(v17.__pn_.__r_.__value_.__r.__words[2]) < 0)
+    sub_24BCCA6F0(&v16.__pn_, &__dst);
+    std::__fs::filesystem::__status(&v16, 0);
+    v14 = v18;
+    if (SHIBYTE(v16.__pn_.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v17.__pn_.__r_.__value_.__l.__data_);
+      operator delete(v16.__pn_.__r_.__value_.__l.__data_);
     }
 
     if (v14 && v14 != 255)
@@ -53,7 +53,6 @@
     }
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
@@ -134,7 +133,7 @@ LABEL_117:
 
   if (objc_msgSend_meshType(createCopy, v52, v53, v54) == 1 || objc_msgSend_meshType(createCopy, v59, v60, v61) == 11)
   {
-    v197 = createCopy;
+    v196 = createCopy;
     if (objc_msgSend_meshType(createCopy, v59, v60, v61) == 1)
     {
       v68 = objc_msgSend_length(self->_faceData, v62, v63, v64) / 0xCuLL;
@@ -175,8 +174,8 @@ LABEL_117:
       v220 = 1;
       v79 = 3 * (v73 / 0xC);
       sub_24BC8CAB0(__dst, v79);
-      v194 = v78;
-      v195 = v68;
+      v193 = v78;
+      v194 = v68;
       v83 = objc_msgSend_bytes(self->_positionData, v80, v81, v82);
       if (v79)
       {
@@ -191,7 +190,7 @@ LABEL_117:
         memmove(v206[0], v90, 4 * v86);
       }
 
-      if (objc_msgSend_meshType(v197, v90, v91, v92) == 11)
+      if (objc_msgSend_meshType(v196, v90, v91, v92) == 11)
       {
         v96 = objc_msgSend_length(self->_faceVertexCountData, v93, v94, v95);
         sub_24BC8F988(v212, v96);
@@ -202,14 +201,14 @@ LABEL_117:
         }
       }
 
-      v196 = objc_msgSend_length(self->_vertexNormalData, v93, v94, v95) / 0xCuLL;
+      v195 = objc_msgSend_length(self->_vertexNormalData, v93, v94, v95) / 0xCuLL;
       if (objc_msgSend_length(self->_vertexNormalData, v100, v101, v102))
       {
-        sub_24BC8CAB0(&v213[1], (3 * v196));
+        sub_24BC8CAB0(&v213[1], (3 * v195));
         v103 = objc_msgSend_bytes(self->_vertexNormalData, v106, v107, v108);
-        if (3 * v196)
+        if (3 * v195)
         {
-          memmove(v213[1], v103, 4 * (3 * v196));
+          memmove(v213[1], v103, 4 * (3 * v195));
         }
       }
 
@@ -310,13 +309,13 @@ LABEL_117:
               }
 
               v165 = *(*(&v199 + 1) + 8 * i);
-              LOWORD(v198[0]) = objc_msgSend_unsignedShortValue(v165, v159, v160, v161);
+              LOWORD(v197) = objc_msgSend_unsignedShortValue(v165, v159, v160, v161);
               v168 = objc_msgSend_objectForKeyedSubscript_(self->_groupIDToMaterialNameDict, v166, v165, v167);
               v169 = v168;
               v173 = objc_msgSend_UTF8String(v168, v170, v171, v172);
 
-              v198[2] = v198;
-              v174 = sub_24BD303B8(&v218, v198);
+              v198 = &v197;
+              v174 = sub_24BD303B8(&v218, &v197, &unk_24BFEDD60, &v198);
               MEMORY[0x24C2541D0](v174 + 5, v173);
             }
 
@@ -327,7 +326,7 @@ LABEL_117:
         }
       }
 
-      createCopy = v197;
+      createCopy = v196;
       if (v213[1] == v214)
       {
         goto LABEL_112;
@@ -335,7 +334,7 @@ LABEL_117:
 
       if (v209[0] == v209[1])
       {
-        if (v196 == v194)
+        if (v195 == v193)
         {
 LABEL_84:
           v178 = 1;
@@ -343,7 +342,7 @@ LABEL_84:
 
         else
         {
-          v178 = 2 * (v195 == v196);
+          v178 = 2 * (v194 == v195);
         }
 
         goto LABEL_111;
@@ -360,9 +359,9 @@ LABEL_84:
         }
       }
 
-      if (objc_msgSend_meshType(v197, v154, v155, v156) == 1)
+      if (objc_msgSend_meshType(v196, v154, v155, v156) == 1)
       {
-        if (v195)
+        if (v194)
         {
           v179 = 0;
           while (1)
@@ -393,7 +392,7 @@ LABEL_84:
 
             ++v179;
             v178 = 2;
-            if (v179 == v195)
+            if (v179 == v194)
             {
               goto LABEL_111;
             }
@@ -407,9 +406,9 @@ LABEL_110:
 
       else
       {
-        v183 = objc_msgSend_meshType(v197, v154, v155, v156);
+        v183 = objc_msgSend_meshType(v196, v154, v155, v156);
         v178 = 2;
-        if (v183 != 11 || !v195)
+        if (v183 != 11 || !v194)
         {
           goto LABEL_111;
         }
@@ -435,7 +434,7 @@ LABEL_110:
           v185 += *(v212[0] + v184++);
         }
 
-        while (v184 != v195);
+        while (v184 != v194);
         if (!v186)
         {
           goto LABEL_110;
@@ -446,12 +445,12 @@ LABEL_110:
 LABEL_111:
       v220 = v178;
 LABEL_112:
-      if (objc_msgSend_meshType(v197, v154, v155, v156) == 1)
+      if (objc_msgSend_meshType(v196, v154, v155, v156) == 1)
       {
         sub_24BD51FA4();
       }
 
-      if (objc_msgSend_meshType(v197, v189, v190, v191) == 11)
+      if (objc_msgSend_meshType(v196, v189, v190, v191) == 11)
       {
         sub_24BD2A7F0();
       }
@@ -470,7 +469,6 @@ LABEL_112:
 
 LABEL_118:
 
-  v192 = *MEMORY[0x277D85DE8];
   return v69;
 }
 

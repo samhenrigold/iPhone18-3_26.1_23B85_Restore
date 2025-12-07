@@ -329,7 +329,7 @@
   result = *(&self->scope_ifname_set_ + 4);
   if (result)
   {
-    return JavaNetNetworkInterface_getByNameWithNSString_(result);
+    return JavaNetNetworkInterface_getByNameWithNSString_(result, a2);
   }
 
   return result;
@@ -395,27 +395,25 @@ LABEL_7:
 {
   if (*(&self->scope_ifname_set_ + 4))
   {
-    v24.receiver = self;
-    v24.super_class = JavaNetInet6Address;
-    v3 = [(JavaNetInetAddress *)&v24 description];
-    v20 = *(&self->scope_ifname_set_ + 4);
-    return JreStrcat("$C$", v4, v5, v6, v7, v8, v9, v10, v3);
+    v21.receiver = self;
+    v21.super_class = JavaNetInet6Address;
+    v2 = [(JavaNetInetAddress *)&v21 description];
+    return JreStrcat("$C$", v3, v4, v5, v6, v7, v8, v9, v2);
   }
 
   else if (*&self->scope_id_set_)
   {
-    v23.receiver = self;
-    v23.super_class = JavaNetInet6Address;
-    v12 = [(JavaNetInetAddress *)&v23 description];
-    v21 = *&self->scope_id_set_;
-    return JreStrcat("$CI", v13, v14, v15, v16, v17, v18, v19, v12);
+    v20.receiver = self;
+    v20.super_class = JavaNetInet6Address;
+    v11 = [(JavaNetInetAddress *)&v20 description];
+    return JreStrcat("$CI", v12, v13, v14, v15, v16, v17, v18, v11);
   }
 
   else
   {
-    v22.receiver = self;
-    v22.super_class = JavaNetInet6Address;
-    return [(JavaNetInetAddress *)&v22 description];
+    v19.receiver = self;
+    v19.super_class = JavaNetInet6Address;
+    return [(JavaNetInetAddress *)&v19 description];
   }
 }
 
@@ -430,17 +428,17 @@ LABEL_7:
 {
   if (objc_opt_class() == self)
   {
-    v12[0] = 0;
-    v12[1] = 0;
-    v2 = [IOSByteArray arrayWithBytes:v12 count:16];
+    v14[0] = 0;
+    v14[1] = 0;
+    v2 = [IOSByteArray arrayWithBytes:v14 count:16];
     v3 = [JavaNetInet6Address alloc];
     JavaNetInetAddress_initWithInt_withByteArray_withNSString_(v3, 30, v2, 0);
     *&v3->scope_id_set_ = 0;
     *(&v3->super.family_ + 4) = 0;
     JreStrongAssignAndConsume(&JavaNetInet6Address_ANY_, v3);
-    memset(v11, 0, 15);
-    v11[15] = 1;
-    v4 = [IOSByteArray arrayWithBytes:v11 count:16];
+    memset(v13, 0, 15);
+    v13[15] = 1;
+    v4 = [IOSByteArray arrayWithBytes:v13 count:16];
     v5 = [JavaNetInet6Address alloc];
     JavaNetInetAddress_initWithInt_withByteArray_withNSString_(v5, 30, v4, @"localhost");
     *&v5->scope_id_set_ = 0;
@@ -448,13 +446,13 @@ LABEL_7:
     JreStrongAssignAndConsume(&JavaNetInet6Address_LOOPBACK_, v5);
     v6 = IOSClass_arrayType(+[IOSClass byteClass], 1u);
     v7 = [IOSClass intClass:new_JavaIoObjectStreamField_initWithNSString_withIOSClass_(@"ipaddress"];
-    v10[1] = new_JavaIoObjectStreamField_initWithNSString_withIOSClass_(@"scope_id", v7);
-    v10[2] = new_JavaIoObjectStreamField_initWithNSString_withIOSClass_(@"scope_id_set", +[IOSClass BOOLeanClass]);
-    v10[3] = new_JavaIoObjectStreamField_initWithNSString_withIOSClass_(@"scope_ifname_set", +[IOSClass BOOLeanClass]);
+    v11[1] = new_JavaIoObjectStreamField_initWithNSString_withIOSClass_(@"scope_id", v7);
+    v11[2] = new_JavaIoObjectStreamField_initWithNSString_withIOSClass_(@"scope_id_set", +[IOSClass BOOLeanClass]);
+    v11[3] = new_JavaIoObjectStreamField_initWithNSString_withIOSClass_(@"scope_ifname_set", +[IOSClass BOOLeanClass]);
     v8 = NSString_class_();
-    v10[4] = new_JavaIoObjectStreamField_initWithNSString_withIOSClass_(@"ifname", v8);
-    v9 = [IOSObjectArray newArrayWithObjects:v10 count:5 type:JavaIoObjectStreamField_class_()];
-    JreStrongAssignAndConsume(&qword_100554F10, v9);
+    v12 = new_JavaIoObjectStreamField_initWithNSString_withIOSClass_(@"ifname", v8);
+    v10 = [IOSObjectArray newArrayWithObjects:v11 count:5 type:JavaIoObjectStreamField_class_(v12, v9)];
+    JreStrongAssignAndConsume(&qword_100554F10, v10);
     atomic_store(1u, JavaNetInet6Address__initialized);
   }
 }

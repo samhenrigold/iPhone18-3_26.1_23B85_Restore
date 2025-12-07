@@ -6,6 +6,7 @@
 - (void)disableLPEMFeature:(unint64_t)feature completion:(id)completion;
 - (void)enableLPEMFeature:(unint64_t)feature completion:(id)completion;
 - (void)getLPEMBluetoothLog:(BOOL)log callback:(id)callback;
+- (void)getLPEMBluetoothLog:(BOOL)log withCompletion:(id)completion;
 - (void)getLPEMFeaturesWithCompletion:(id)completion;
 @end
 
@@ -394,6 +395,82 @@ LABEL_15:
   }
 }
 
+- (void)getLPEMBluetoothLog:(BOOL)log withCompletion:(id)completion
+{
+  logCopy = log;
+  completionCopy = completion;
+  if (![(_NFSession *)self didStart]|| [(_NFSession *)self isSuspended]|| [(_NFSession *)self didEnd])
+  {
+    dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
+    Logger = NFLogGetLogger();
+    if (Logger)
+    {
+      v9 = Logger;
+      Class = object_getClass(self);
+      isMetaClass = class_isMetaClass(Class);
+      ClassName = object_getClassName(self);
+      Name = sel_getName(a2);
+      sessionUID = [(_NFSession *)self sessionUID];
+      v15 = 45;
+      if (isMetaClass)
+      {
+        v15 = 43;
+      }
+
+      v9(3, "%c[%{public}s %{public}s]:%i Session %{public}@ is not active", v15, ClassName, Name, 79, sessionUID);
+    }
+
+    dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
+    v16 = NFSharedLogGetLogger();
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    {
+      v17 = object_getClass(self);
+      if (class_isMetaClass(v17))
+      {
+        v18 = 43;
+      }
+
+      else
+      {
+        v18 = 45;
+      }
+
+      v19 = object_getClassName(self);
+      v20 = sel_getName(a2);
+      sessionUID2 = [(_NFSession *)self sessionUID];
+      *buf = 67110146;
+      v31 = v18;
+      v32 = 2082;
+      v33 = v19;
+      v34 = 2082;
+      v35 = v20;
+      v36 = 1024;
+      v37 = 79;
+      v38 = 2114;
+      v39 = sessionUID2;
+      _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i Session %{public}@ is not active", buf, 0x2Cu);
+    }
+
+    if (completionCopy)
+    {
+      v22 = [NSError alloc];
+      v23 = [NSString stringWithUTF8String:"nfcd"];
+      v28 = NSLocalizedDescriptionKey;
+      v24 = [NSString stringWithUTF8String:"Session not active"];
+      v29 = v24;
+      v25 = [NSDictionary dictionaryWithObjects:&v29 forKeys:&v28 count:1];
+      v26 = [v22 initWithDomain:v23 code:54 userInfo:v25];
+      v27 = objc_opt_new();
+      completionCopy[2](completionCopy, v26, v27);
+    }
+  }
+
+  else
+  {
+    [(_NFLPEMConfigSession *)self getLPEMBluetoothLog:logCopy callback:completionCopy];
+  }
+}
+
 - (void)getLPEMBluetoothLog:(BOOL)log callback:(id)callback
 {
   callbackCopy = callback;
@@ -422,7 +499,7 @@ LABEL_15:
 
   if (byte_10035DA19 != 1)
   {
-    v16 = sub_10004BF2C();
+    v16 = sub_10004BF2C(NFRoutingConfig);
     v18 = +[_NFHardwareManager sharedHardwareManager];
     v19 = [v18 setRoutingConfig:v16];
     dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
@@ -474,11 +551,11 @@ LABEL_15:
         _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_DEFAULT, "%c[%{public}s %{public}s]:%i Failed to set routing to retrieve LPEM logs", buf, 0x22u);
       }
 
-      v31 = NFSharedSignpostLog();
-      if (os_signpost_enabled(v31))
+      p_super = NFSharedSignpostLog();
+      if (os_signpost_enabled(p_super))
       {
         *buf = 0;
-        _os_signpost_emit_with_name_impl(&_mh_execute_header, v31, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "DUMP_LPEM_LOGS", &unk_1002E8B7A, buf, 2u);
+        _os_signpost_emit_with_name_impl(&_mh_execute_header, p_super, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "DUMP_LPEM_LOGS", &unk_1002E8B7A, buf, 2u);
       }
 
       v17 = 0;
@@ -533,7 +610,7 @@ LABEL_15:
     v129 = 0;
     v42 = sub_100096634(secureElementWrapper, 4, &v129);
     v43 = v129;
-    v31 = v43;
+    p_super = &v43->super.super;
     if (v42)
     {
       v44 = 1;
@@ -791,7 +868,7 @@ LABEL_15:
       _os_log_impl(&_mh_execute_header, v93, OS_LOG_TYPE_DEFAULT, "%c[%{public}s %{public}s]:%i Cached boot UUID does not match current boot UUID or file does not exist, updating ..", buf, 0x22u);
     }
 
-    v58 = [v31 mutableCopy];
+    v58 = [p_super mutableCopy];
     [v58 setObject:v125 forKeyedSubscript:@"bootuuid"];
     if (([v58 writeToFile:v126 atomically:0]& 1) == 0)
     {
@@ -859,7 +936,7 @@ LABEL_104:
 LABEL_105:
 
     v108 = [objc_alloc(v48[56]) initWithBytes:&unk_1002977BE length:10];
-    v109 = [v31 objectForKey:v108];
+    v109 = [p_super objectForKey:v108];
 
     if (v109)
     {

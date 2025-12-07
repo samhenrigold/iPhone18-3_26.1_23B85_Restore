@@ -915,7 +915,7 @@ uint64_t __47__PUPhotoPickerRemoteViewController_initialize__block_invoke()
   v0 = [MEMORY[0x1E695E000] standardUserDefaults];
   [v0 removeObjectForKey:@"UIBarsApplyChromelessEverywhere"];
 
-  return MEMORY[0x1EEE2D218]();
+  return MEMORY[0x1EEE2D218](v1);
 }
 
 @end

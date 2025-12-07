@@ -27,10 +27,10 @@
   return v2;
 }
 
-void __39__ATXDefaultWidgetSuggesterClient_init__block_invoke()
+void __39__ATXDefaultWidgetSuggesterClient_init__block_invoke(uint64_t a1)
 {
-  v0 = __atxlog_handle_home_screen();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+  v1 = __atxlog_handle_home_screen(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
     __39__ATXDefaultWidgetSuggesterClient_init__block_invoke_cold_1();
   }
@@ -38,126 +38,128 @@ void __39__ATXDefaultWidgetSuggesterClient_init__block_invoke()
 
 - (void)defaultWidgetSuggestionOfType:(int64_t)type completionHandler:(id)handler
 {
-  v52 = *MEMORY[0x1E69E9840];
+  v54 = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
+  v7 = handlerCopy;
   if (type == 1)
   {
-    v7 = objc_alloc(MEMORY[0x1E695E000]);
-    v8 = [v7 initWithSuiteName:*MEMORY[0x1E698B030]];
-    v9 = [v8 integerForKey:*MEMORY[0x1E698AFB8]];
-    if (v9 < 1)
+    v8 = objc_alloc(MEMORY[0x1E695E000]);
+    v9 = [v8 initWithSuiteName:*MEMORY[0x1E698B030]];
+    v10 = [v9 integerForKey:*MEMORY[0x1E698AFB8]];
+    if (v10 < 1)
     {
-      v13 = [v8 objectForKey:*MEMORY[0x1E698AF88]];
-      v14 = [v8 objectForKey:*MEMORY[0x1E698AF98]];
-      v15 = [v8 objectForKey:*MEMORY[0x1E698AFA0]];
-      v16 = v15;
-      if (v13)
+      v14 = [v9 objectForKey:*MEMORY[0x1E698AF88]];
+      v15 = [v9 objectForKey:*MEMORY[0x1E698AF98]];
+      v16 = [v9 objectForKey:*MEMORY[0x1E698AFA0]];
+      v17 = v16;
+      if (v14)
       {
-        v17 = v15 == 0;
+        v18 = v16 == 0;
       }
 
       else
       {
-        v17 = 1;
+        v18 = 1;
       }
 
-      if (v17 || v14 == 0)
+      if (v18 || v15 == 0)
       {
-        v19 = __atxlog_handle_home_screen();
-        if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+        v20 = __atxlog_handle_home_screen(v16);
+        if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
-          _os_log_impl(&dword_1BF549000, v19, OS_LOG_TYPE_DEFAULT, "ATXDefaultWidgetSuggesterClient: requesting full computation of TV widget suggstion", buf, 2u);
+          _os_log_impl(&dword_1BF549000, v20, OS_LOG_TYPE_DEFAULT, "ATXDefaultWidgetSuggesterClient: requesting full computation of TV widget suggstion", buf, 2u);
         }
 
+        v44[0] = MEMORY[0x1E69E9820];
+        v44[1] = 3221225472;
+        v44[2] = __83__ATXDefaultWidgetSuggesterClient_defaultWidgetSuggestionOfType_completionHandler___block_invoke;
+        v44[3] = &unk_1E80C4548;
+        v45 = v9;
+        v21 = v7;
+        v46 = v21;
+        v47 = 1;
+        v22 = MEMORY[0x1BFB5BA40](v44);
+        xpcConnection = self->_xpcConnection;
         v42[0] = MEMORY[0x1E69E9820];
         v42[1] = 3221225472;
-        v42[2] = __83__ATXDefaultWidgetSuggesterClient_defaultWidgetSuggestionOfType_completionHandler___block_invoke;
-        v42[3] = &unk_1E80C4548;
-        v43 = v8;
-        v20 = handlerCopy;
-        v44 = v20;
-        v45 = 1;
-        v21 = MEMORY[0x1BFB5BA40](v42);
-        xpcConnection = self->_xpcConnection;
-        v40[0] = MEMORY[0x1E69E9820];
-        v40[1] = 3221225472;
-        v40[2] = __83__ATXDefaultWidgetSuggesterClient_defaultWidgetSuggestionOfType_completionHandler___block_invoke_25;
-        v40[3] = &unk_1E80C08E0;
-        v23 = v21;
-        v41 = v23;
-        v24 = [(NSXPCConnection *)xpcConnection remoteObjectProxyWithErrorHandler:v40];
-        v36[0] = MEMORY[0x1E69E9820];
-        v36[1] = 3221225472;
-        v36[2] = __83__ATXDefaultWidgetSuggesterClient_defaultWidgetSuggestionOfType_completionHandler___block_invoke_27;
-        v36[3] = &unk_1E80C4570;
-        v37 = v23;
-        v38 = v20;
-        v39 = 1;
-        v25 = v23;
-        [v24 shouldSuggestTVWithCompletionHandler:v36];
+        v42[2] = __83__ATXDefaultWidgetSuggesterClient_defaultWidgetSuggestionOfType_completionHandler___block_invoke_25;
+        v42[3] = &unk_1E80C08E0;
+        v24 = v22;
+        v43 = v24;
+        v25 = [(NSXPCConnection *)xpcConnection remoteObjectProxyWithErrorHandler:v42];
+        v38[0] = MEMORY[0x1E69E9820];
+        v38[1] = 3221225472;
+        v38[2] = __83__ATXDefaultWidgetSuggesterClient_defaultWidgetSuggestionOfType_completionHandler___block_invoke_27;
+        v38[3] = &unk_1E80C4570;
+        v39 = v24;
+        v40 = v21;
+        v41 = 1;
+        v26 = v24;
+        [v25 shouldSuggestTVWithCompletionHandler:v38];
       }
 
       else
       {
-        v26 = objc_opt_class();
-        [v13 doubleValue];
-        v28 = v27;
+        v27 = objc_opt_class();
         [v14 doubleValue];
-        v30 = v29;
-        [v16 doubleValue];
-        v32 = [v26 shouldSuggestTVWithAppLaunchCount:v28 intentDonationCount:v30 upcomingMediaCount:v31];
-        v33 = __atxlog_handle_home_screen();
-        if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
+        v29 = v28;
+        [v15 doubleValue];
+        v31 = v30;
+        [v17 doubleValue];
+        v33 = [v27 shouldSuggestTVWithAppLaunchCount:v29 intentDonationCount:v31 upcomingMediaCount:v32];
+        v34 = v33;
+        v35 = __atxlog_handle_home_screen(v33);
+        if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 67109890;
-          *v47 = v32;
-          *&v47[4] = 2114;
-          *&v47[6] = v13;
-          v48 = 2114;
-          v49 = v14;
+          *v49 = v34;
+          *&v49[4] = 2114;
+          *&v49[6] = v14;
           v50 = 2114;
-          v51 = v16;
-          _os_log_impl(&dword_1BF549000, v33, OS_LOG_TYPE_DEFAULT, "ATXDefaultWidgetSuggesterClient: returning TV widget suggestion (%{BOOL}d) using cached app launches: %{public}@, intent donations: %{public}@, upcoming media: %{public}@", buf, 0x26u);
+          v51 = v15;
+          v52 = 2114;
+          v53 = v17;
+          _os_log_impl(&dword_1BF549000, v35, OS_LOG_TYPE_DEFAULT, "ATXDefaultWidgetSuggesterClient: returning TV widget suggestion (%{BOOL}d) using cached app launches: %{public}@, intent donations: %{public}@, upcoming media: %{public}@", buf, 0x26u);
         }
 
-        if (v32)
+        if (v34)
         {
-          v35 = [[ATXDefaultWidgetSuggestion alloc] initWithType:1];
-          (*(handlerCopy + 2))(handlerCopy, v35);
+          v37 = [[ATXDefaultWidgetSuggestion alloc] initWithType:1];
+          (v7)[2](v7, v37);
         }
 
         else
         {
-          (*(handlerCopy + 2))(handlerCopy, 0);
+          v7[2](v7, 0);
         }
       }
     }
 
     else
     {
-      v10 = v9;
-      v11 = __atxlog_handle_home_screen();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+      v11 = v10;
+      v12 = __atxlog_handle_home_screen(v10);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 134217984;
-        *v47 = v10;
-        _os_log_impl(&dword_1BF549000, v11, OS_LOG_TYPE_DEFAULT, "ATXDefaultWidgetSuggesterClient: not making a TV suggestion that we have feedback for: %ld", buf, 0xCu);
+        *v49 = v11;
+        _os_log_impl(&dword_1BF549000, v12, OS_LOG_TYPE_DEFAULT, "ATXDefaultWidgetSuggesterClient: not making a TV suggestion that we have feedback for: %ld", buf, 0xCu);
       }
 
-      (*(handlerCopy + 2))(handlerCopy, 0);
+      v7[2](v7, 0);
     }
   }
 
   else
   {
-    v12 = __atxlog_handle_home_screen();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_FAULT))
+    v13 = __atxlog_handle_home_screen(handlerCopy);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_FAULT))
     {
       [ATXDefaultWidgetSuggesterClient defaultWidgetSuggestionOfType:completionHandler:];
     }
 
-    (*(handlerCopy + 2))(handlerCopy, 0);
+    v7[2](v7, 0);
   }
 }
 
@@ -166,14 +168,14 @@ void __83__ATXDefaultWidgetSuggesterClient_defaultWidgetSuggestionOfType_complet
   v2 = [*(a1 + 32) objectForKey:*MEMORY[0x1E698AF90]];
   if (!v2)
   {
-    v4 = __atxlog_handle_home_screen();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v6 = __atxlog_handle_home_screen(0);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v12 = 0;
-      v8 = "ATXDefaultWidgetSuggesterClient: no cached AzulF key";
-      v9 = &v12;
+      v14 = 0;
+      v10 = "ATXDefaultWidgetSuggesterClient: no cached AzulF key";
+      v11 = &v14;
 LABEL_13:
-      _os_log_impl(&dword_1BF549000, v4, OS_LOG_TYPE_DEFAULT, v8, v9, 2u);
+      _os_log_impl(&dword_1BF549000, v6, OS_LOG_TYPE_DEFAULT, v10, v11, 2u);
     }
 
 LABEL_14:
@@ -183,10 +185,11 @@ LABEL_14:
   }
 
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) == 0)
+  isKindOfClass = objc_opt_isKindOfClass();
+  if ((isKindOfClass & 1) == 0)
   {
-    v4 = __atxlog_handle_home_screen();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
+    v6 = __atxlog_handle_home_screen(isKindOfClass);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
     {
       __83__ATXDefaultWidgetSuggesterClient_defaultWidgetSuggestionOfType_completionHandler___block_invoke_cold_1();
     }
@@ -194,31 +197,32 @@ LABEL_14:
     goto LABEL_14;
   }
 
-  v3 = [v2 BOOLValue];
-  v4 = __atxlog_handle_home_screen();
-  v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
-  if (!v3)
+  v4 = [v2 BOOLValue];
+  v5 = v4;
+  v6 = __atxlog_handle_home_screen(v4);
+  v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
+  if (!v5)
   {
-    if (v5)
+    if (v7)
     {
-      v10 = 0;
-      v8 = "ATXDefaultWidgetSuggesterClient: returning TV widget suggestion (NO) using cached AzulF BOOL";
-      v9 = &v10;
+      v12 = 0;
+      v10 = "ATXDefaultWidgetSuggesterClient: returning TV widget suggestion (NO) using cached AzulF BOOL";
+      v11 = &v12;
       goto LABEL_13;
     }
 
     goto LABEL_14;
   }
 
-  if (v5)
+  if (v7)
   {
     *buf = 0;
-    _os_log_impl(&dword_1BF549000, v4, OS_LOG_TYPE_DEFAULT, "ATXDefaultWidgetSuggesterClient: returning TV widget suggestion (YES) using cached AzulF BOOL", buf, 2u);
+    _os_log_impl(&dword_1BF549000, v6, OS_LOG_TYPE_DEFAULT, "ATXDefaultWidgetSuggesterClient: returning TV widget suggestion (YES) using cached AzulF BOOL", buf, 2u);
   }
 
-  v6 = *(a1 + 40);
-  v7 = [[ATXDefaultWidgetSuggestion alloc] initWithType:*(a1 + 48)];
-  (*(v6 + 16))(v6, v7);
+  v8 = *(a1 + 40);
+  v9 = [[ATXDefaultWidgetSuggestion alloc] initWithType:*(a1 + 48)];
+  (*(v8 + 16))(v8, v9);
 
 LABEL_15:
 }
@@ -226,7 +230,7 @@ LABEL_15:
 void __83__ATXDefaultWidgetSuggesterClient_defaultWidgetSuggestionOfType_completionHandler___block_invoke_25(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = __atxlog_handle_home_screen();
+  v4 = __atxlog_handle_home_screen(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __83__ATXDefaultWidgetSuggesterClient_defaultWidgetSuggestionOfType_completionHandler___block_invoke_25_cold_1(v3, v4);
@@ -239,7 +243,7 @@ void __83__ATXDefaultWidgetSuggesterClient_defaultWidgetSuggestionOfType_complet
 {
   v11 = *MEMORY[0x1E69E9840];
   v5 = a3;
-  v6 = __atxlog_handle_home_screen();
+  v6 = __atxlog_handle_home_screen(v5);
   v7 = v6;
   if (v5)
   {
@@ -311,7 +315,7 @@ LABEL_11:
     goto LABEL_11;
   }
 
-  v8 = __atxlog_handle_home_screen();
+  v8 = __atxlog_handle_home_screen(self);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
   {
     [ATXDefaultWidgetSuggesterClient defaultWidgetSuggestionOfType:completionHandler:];

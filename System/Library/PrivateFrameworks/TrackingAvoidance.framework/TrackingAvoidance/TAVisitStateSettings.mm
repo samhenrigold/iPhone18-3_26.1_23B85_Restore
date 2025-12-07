@@ -250,63 +250,7 @@ LABEL_35:
     {
       v5 = equalCopy;
       visitSnapshotCapacity = [(TAVisitStateSettings *)self visitSnapshotCapacity];
-      if (visitSnapshotCapacity != [(TAVisitStateSettings *)v5 visitSnapshotCapacity])
-      {
-        goto LABEL_18;
-      }
-
-      visitDisplayBufferCapacity = [(TAVisitStateSettings *)self visitDisplayBufferCapacity];
-      if (visitDisplayBufferCapacity != [(TAVisitStateSettings *)v5 visitDisplayBufferCapacity])
-      {
-        goto LABEL_18;
-      }
-
-      interVisitMetricSnapshotCapacity = [(TAVisitStateSettings *)self interVisitMetricSnapshotCapacity];
-      if (interVisitMetricSnapshotCapacity != [(TAVisitStateSettings *)v5 interVisitMetricSnapshotCapacity])
-      {
-        goto LABEL_18;
-      }
-
-      [(TAVisitStateSettings *)self interVisitSnapshotUpdateInterval];
-      v10 = v9;
-      [(TAVisitStateSettings *)v5 interVisitSnapshotUpdateInterval];
-      if (v10 != v11)
-      {
-        goto LABEL_18;
-      }
-
-      [(TAVisitStateSettings *)self thresholdOfLocationRelevance];
-      v13 = v12;
-      [(TAVisitStateSettings *)v5 thresholdOfLocationRelevance];
-      if (v13 != v14)
-      {
-        goto LABEL_18;
-      }
-
-      [(TAVisitStateSettings *)self snapshotBufferTimeIntervalOfRetention];
-      v16 = v15;
-      [(TAVisitStateSettings *)v5 snapshotBufferTimeIntervalOfRetention];
-      if (v16 != v17)
-      {
-        goto LABEL_18;
-      }
-
-      loiBufferPerTypeCapacity = [(TAVisitStateSettings *)self loiBufferPerTypeCapacity];
-      if (loiBufferPerTypeCapacity != [(TAVisitStateSettings *)v5 loiBufferPerTypeCapacity])
-      {
-        goto LABEL_18;
-      }
-
-      [(TAVisitStateSettings *)self loiBufferTimeIntervalOfRetention];
-      v20 = v19;
-      [(TAVisitStateSettings *)v5 loiBufferTimeIntervalOfRetention];
-      if (v20 != v21)
-      {
-        goto LABEL_18;
-      }
-
-      maxNSigmaBetweenLastLocationAndVisit = [(TAVisitStateSettings *)self maxNSigmaBetweenLastLocationAndVisit];
-      if (maxNSigmaBetweenLastLocationAndVisit == [(TAVisitStateSettings *)v5 maxNSigmaBetweenLastLocationAndVisit]&& ([(TAVisitStateSettings *)self qualitySnapshotDwellDuration], v24 = v23, [(TAVisitStateSettings *)v5 qualitySnapshotDwellDuration], v24 == v25) && ([(TAVisitStateSettings *)self qualitySnapshotDisplayOnDuration], v27 = v26, [(TAVisitStateSettings *)v5 qualitySnapshotDisplayOnDuration], v27 == v28))
+      if (visitSnapshotCapacity == [(TAVisitStateSettings *)v5 visitSnapshotCapacity]&& (v7 = [(TAVisitStateSettings *)self visitDisplayBufferCapacity], v7 == [(TAVisitStateSettings *)v5 visitDisplayBufferCapacity]) && (v8 = [(TAVisitStateSettings *)self interVisitMetricSnapshotCapacity], v8 == [(TAVisitStateSettings *)v5 interVisitMetricSnapshotCapacity]) && ([(TAVisitStateSettings *)self interVisitSnapshotUpdateInterval], v10 = v9, [(TAVisitStateSettings *)v5 interVisitSnapshotUpdateInterval], v10 == v11) && ([(TAVisitStateSettings *)self thresholdOfLocationRelevance], v13 = v12, [(TAVisitStateSettings *)v5 thresholdOfLocationRelevance], v13 == v14) && ([(TAVisitStateSettings *)self snapshotBufferTimeIntervalOfRetention], v16 = v15, [(TAVisitStateSettings *)v5 snapshotBufferTimeIntervalOfRetention], v16 == v17) && (v18 = [(TAVisitStateSettings *)self loiBufferPerTypeCapacity], v18 == [(TAVisitStateSettings *)v5 loiBufferPerTypeCapacity]) && ([(TAVisitStateSettings *)self loiBufferTimeIntervalOfRetention], v20 = v19, [(TAVisitStateSettings *)v5 loiBufferTimeIntervalOfRetention], v20 == v21) && (v22 = [(TAVisitStateSettings *)self maxNSigmaBetweenLastLocationAndVisit], v22 == [(TAVisitStateSettings *)v5 maxNSigmaBetweenLastLocationAndVisit]) && ([(TAVisitStateSettings *)self qualitySnapshotDwellDuration], v24 = v23, [(TAVisitStateSettings *)v5 qualitySnapshotDwellDuration], v24 == v25) && ([(TAVisitStateSettings *)self qualitySnapshotDisplayOnDuration], v27 = v26, [(TAVisitStateSettings *)v5 qualitySnapshotDisplayOnDuration], v27 == v28))
       {
         sensitiveLOITypes = [(TAVisitStateSettings *)self sensitiveLOITypes];
         sensitiveLOITypes2 = [(TAVisitStateSettings *)v5 sensitiveLOITypes];
@@ -325,7 +269,6 @@ LABEL_35:
 
       else
       {
-LABEL_18:
         v33 = 0;
       }
     }

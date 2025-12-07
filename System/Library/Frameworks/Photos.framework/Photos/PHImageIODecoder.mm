@@ -169,9 +169,11 @@ intptr_t __91__PHImageIODecoder_decodeImageFromData_orFileURL_options_existingRe
 
 uint64_t __33__PHImageIODecoder_sharedDecoder__block_invoke()
 {
-  sharedDecoder_s_shared = objc_alloc_init(PHImageIODecoder);
+  v0 = objc_alloc_init(PHImageIODecoder);
+  v1 = sharedDecoder_s_shared;
+  sharedDecoder_s_shared = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 @end

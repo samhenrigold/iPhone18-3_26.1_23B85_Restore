@@ -409,45 +409,45 @@
 
 - (id)description
 {
-  v105[5] = *MEMORY[0x1E69E9840];
+  v104[5] = *MEMORY[0x1E69E9840];
   v3 = objc_opt_new();
-  v104[0] = @"totalClientRequests";
+  v103[0] = @"totalClientRequests";
   totalClientRequests = [(MAAutoAssetControlStatistics *)self totalClientRequests];
-  v105[0] = totalClientRequests;
-  v104[1] = @"totalClientRepliesSuccess";
+  v104[0] = totalClientRequests;
+  v103[1] = @"totalClientRepliesSuccess";
   totalClientRepliesSuccess = [(MAAutoAssetControlStatistics *)self totalClientRepliesSuccess];
-  v105[1] = totalClientRepliesSuccess;
-  v104[2] = @"totalClientRepliesFailure";
+  v104[1] = totalClientRepliesSuccess;
+  v103[2] = @"totalClientRepliesFailure";
   totalClientRepliesFailure = [(MAAutoAssetControlStatistics *)self totalClientRepliesFailure];
-  v105[2] = totalClientRepliesFailure;
-  v104[3] = @"totalQueuedClientRequests";
+  v104[2] = totalClientRepliesFailure;
+  v103[3] = @"totalQueuedClientRequests";
   totalQueuedClientRequests = [(MAAutoAssetControlStatistics *)self totalQueuedClientRequests];
-  v105[3] = totalQueuedClientRequests;
-  v104[4] = @"totalDequeuedClientRequests";
+  v104[3] = totalQueuedClientRequests;
+  v103[4] = @"totalDequeuedClientRequests";
   selfCopy = self;
   totalDequeuedClientRequests = [(MAAutoAssetControlStatistics *)self totalDequeuedClientRequests];
-  v105[4] = totalDequeuedClientRequests;
-  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v105 forKeys:v104 count:5];
+  v104[4] = totalDequeuedClientRequests;
+  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v104 forKeys:v103 count:5];
 
-  v102 = 0u;
   v101 = 0u;
-  v99 = 0u;
   v100 = 0u;
-  v10 = [&unk_1F0C33388 countByEnumeratingWithState:&v99 objects:v103 count:16];
+  v98 = 0u;
+  v99 = 0u;
+  v10 = [&unk_1F0C33388 countByEnumeratingWithState:&v98 objects:v102 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v100;
+    v12 = *v99;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v100 != v12)
+        if (*v99 != v12)
         {
           objc_enumerationMutation(&unk_1F0C33388);
         }
 
-        v14 = *(*(&v99 + 1) + 8 * i);
+        v14 = *(*(&v98 + 1) + 8 * i);
         v15 = [v9 objectForKeyedSubscript:v14];
         if (v15)
         {
@@ -472,13 +472,13 @@
         }
       }
 
-      v11 = [&unk_1F0C33388 countByEnumeratingWithState:&v99 objects:v103 count:16];
+      v11 = [&unk_1F0C33388 countByEnumeratingWithState:&v98 objects:v102 count:16];
     }
 
     while (v11);
   }
 
-  v91 = MEMORY[0x1E696AEC0];
+  v90 = MEMORY[0x1E696AEC0];
   totalAutoAssetJobsStarted = [(MAAutoAssetControlStatistics *)selfCopy totalAutoAssetJobsStarted];
   totalAutoJobsFinished = [(MAAutoAssetControlStatistics *)selfCopy totalAutoJobsFinished];
   totalStagerDetermineJobsStarted = [(MAAutoAssetControlStatistics *)selfCopy totalStagerDetermineJobsStarted];
@@ -550,7 +550,7 @@
     v16 = @"N";
   }
 
-  v34 = v16;
+  v33 = v16;
   if ([(MAAutoAssetControlStatistics *)selfCopy garbageCollectionReclaimSpace])
   {
     v17 = @"Y";
@@ -561,23 +561,28 @@
     v17 = @"N";
   }
 
-  v33 = v17;
-  v35 = [MAAutoAssetControlStatistics allocStringForBytes:[(MAAutoAssetControlStatistics *)selfCopy garbageCollectionTotalReclaimedSpace]];
+  v32 = v17;
+  v34 = [MAAutoAssetControlStatistics allocStringForBytes:[(MAAutoAssetControlStatistics *)selfCopy garbageCollectionTotalReclaimedSpace]];
   garbageCollectionReclaimedV2AssetCount = [(MAAutoAssetControlStatistics *)selfCopy garbageCollectionReclaimedV2AssetCount];
-  v32 = [MAAutoAssetControlStatistics allocStringForBytes:[(MAAutoAssetControlStatistics *)selfCopy garbageCollectionReclaimedV2AssetSpace]];
+  v31 = [MAAutoAssetControlStatistics allocStringForBytes:[(MAAutoAssetControlStatistics *)selfCopy garbageCollectionReclaimedV2AssetSpace]];
   garbageCollectionReclaimedUnlockedCount = [(MAAutoAssetControlStatistics *)selfCopy garbageCollectionReclaimedUnlockedCount];
-  v30 = [MAAutoAssetControlStatistics allocStringForBytes:[(MAAutoAssetControlStatistics *)selfCopy garbageCollectionReclaimedUnlockedSpace]];
+  v29 = [MAAutoAssetControlStatistics allocStringForBytes:[(MAAutoAssetControlStatistics *)selfCopy garbageCollectionReclaimedUnlockedSpace]];
   garbageCollectionReclaimedLockedOverridableCount = [(MAAutoAssetControlStatistics *)selfCopy garbageCollectionReclaimedLockedOverridableCount];
-  v28 = [MAAutoAssetControlStatistics allocStringForBytes:[(MAAutoAssetControlStatistics *)selfCopy garbageCollectionReclaimedLockedOverridableSpace]];
+  v27 = [MAAutoAssetControlStatistics allocStringForBytes:[(MAAutoAssetControlStatistics *)selfCopy garbageCollectionReclaimedLockedOverridableSpace]];
   garbageCollectionReclaimedLockedNeverRemoveCount = [(MAAutoAssetControlStatistics *)selfCopy garbageCollectionReclaimedLockedNeverRemoveCount];
   v19 = [MAAutoAssetControlStatistics allocStringForBytes:[(MAAutoAssetControlStatistics *)selfCopy garbageCollectionReclaimedLockedNeverRemoveSpace]];
   garbageCollectionReclaimedStagedCount = [(MAAutoAssetControlStatistics *)selfCopy garbageCollectionReclaimedStagedCount];
   v21 = [MAAutoAssetControlStatistics allocStringForBytes:[(MAAutoAssetControlStatistics *)selfCopy garbageCollectionReclaimedStagedSpace]];
   garbageCollectionReclaimedMetadataBlockedCount = [(MAAutoAssetControlStatistics *)selfCopy garbageCollectionReclaimedMetadataBlockedCount];
   v23 = [MAAutoAssetControlStatistics allocStringForBytes:[(MAAutoAssetControlStatistics *)selfCopy garbageCollectionReclaimedMetadataBlockedSpace]];
-  v24 = [v91 stringWithFormat:@">>>\nCategory                    Statistic                   Value\n=========================== =========================== ================================\n%@autoJobs                     totalAutoAssetJobsStarted: %lld\nautoJobs                         totalAutoJobsFinished: %lld\nstagerJobs             totalStagerDetermineJobsStarted: %lld\nstagerJobs            totalStagerDetermineJobsFinished: %lld\nstagerJobs              totalStagerDownloadJobsStarted: %lld\nstagerJobs             totalStagerDownloadJobsFinished: %lld\nresumedInFlightJobs           totalResumedInFlightJobs: %lld\nscheduledJobs              totalSchedulerTriggeredJobs: %lld\nfailuresToStartJobs           totalFailuresToStartJobs: %lld\n\npreviously           previouslyDownloadedPatchedAssets: %lld\npreviously            previouslyDownloadedPatchedBytes: %lld\npreviously              previouslyDownloadedFullAssets: %lld\npreviously               previouslyDownloadedFullBytes: %lld\n\ndownloaded                totalDownloadedPatchedAssets: %lld\ndownloaded                 totalDownloadedPatchedBytes: %lld\ndownloaded                   totalDownloadedFullAssets: %lld\ndownloaded                    totalDownloadedFullBytes: %lld\n\nstaged                        totalStagedPatchedAssets: %lld\nstaged                         totalStagedPatchedBytes: %lld\nstaged                           totalStagedFullAssets: %lld\nstaged                            totalStagedFullBytes: %lld\n\nunstaged                    totalUnstagedPatchedAssets: %lld\nunstaged                     totalUnstagedPatchedBytes: %lld\nunstaged                       totalUnstagedFullAssets: %lld\nunstaged                        totalUnstagedFullBytes: %lld\n\npromoted                    totalPromotedPatchedAssets: %lld\npromoted                     totalPromotedPatchedBytes: %lld\npromoted                       totalPromotedFullAssets: %lld\npromoted                        totalPromotedFullBytes: %lld\n\nremoved                      totalRemovedPatchedAssets: %lld\nremoved                       totalRemovedPatchedBytes: %lld\nremoved                         totalRemovedFullAssets: %lld\nremoved                          totalRemovedFullBytes: %lld\n\nfinishedJobs        finishedJobSchedulerNetworkFailure: %lld\nfinishedJobs     finishedJobSchedulerNotNetworkRelated: %lld\nfinishedJobs           finishedJobClientNetworkFailure: %lld\nfinishedJobs        finishedJobClientNotNetworkRelated: %lld\n\ngarbageColection                             performed: %@\ngarbageColection                          reclaimSpace: %@\ngarbageColection                   totalReclaimedSpace: %@\ngarbageColection                 reclaimedV2AssetCount: %ld\ngarbageColection                 reclaimedV2AssetSpace: %@\ngarbageColection                reclaimedUnlockedCount: %ld\ngarbageColection                reclaimedUnlockedSpace: %@\ngarbageColection       reclaimedLockedOverridableCount: %ld\ngarbageColection       reclaimedLockedOverridableSpace: %@\ngarbageColection       reclaimedLockedNeverRemoveCount: %ld\ngarbageColection       reclaimedLockedNeverRemoveSpace: %@\ngarbageColection                  reclaimedStagedCount: %ld\ngarbageColection                  reclaimedStagedSpace: %@\ngarbageColection         reclaimedMetadataBlockedCount: %ld\ngarbageColection         reclaimedMetadataBlockedSpace: %@\n<<<]", v3, totalAutoAssetJobsStarted, totalAutoJobsFinished, totalStagerDetermineJobsStarted, totalStagerDetermineJobsFinished, totalStagerDownloadJobsStarted, totalStagerDownloadJobsFinished, totalResumedInFlightJobs, totalSchedulerTriggeredJobs, totalFailuresToStartJobs, patchedAssets, patchedBytes, fullAssets, fullBytes, patchedAssets2, patchedBytes2, fullAssets2, fullBytes2, patchedAssets3, patchedBytes3, fullAssets3, fullBytes3, patchedAssets4, patchedBytes4, fullAssets4, fullBytes4, patchedAssets5, patchedBytes5, fullAssets5, fullBytes5, patchedAssets6, patchedBytes6, fullAssets6, fullBytes6, finishedJobSchedulerNetworkFailure, finishedJobSchedulerNotNetworkRelated, finishedJobClientNetworkFailure, finishedJobClientNotNetworkRelated, v34, v33, v35, garbageCollectionReclaimedV2AssetCount, v32, garbageCollectionReclaimedUnlockedCount, v30, garbageCollectionReclaimedLockedOverridableCount, v28, garbageCollectionReclaimedLockedNeverRemoveCount, v19, garbageCollectionReclaimedStagedCount, v21, garbageCollectionReclaimedMetadataBlockedCount, v23];
-
-  v25 = *MEMORY[0x1E69E9840];
+  objc_msgSend( v90,  "stringWithFormat:",  @">>>\nCategory                    Statistic                   Value\n=========================== =========================== ================================\n%@autoJobs                     totalAutoAssetJobsStarted: %lld\nautoJobs                         totalAutoJobsFinished: %lld\nstagerJobs             totalStagerDetermineJobsStarted: %lld\nstagerJobs            totalStagerDetermineJobsFinished: %lld\nstagerJobs              totalStagerDownloadJobsStarted: %lld\nstagerJobs             totalStagerDownloadJobsFinished: %lld\nresumedInFlightJobs           totalResumedInFlightJobs: %lld\nscheduledJobs              totalSchedulerTriggeredJobs: %lld\nfailuresToStartJobs           totalFailuresToStartJobs: %lld\n\npreviously           previouslyDownloadedPatchedAssets: %lld\npreviously            previouslyDownloadedPatchedBytes: %lld\npreviously              previouslyDownloadedFullAssets: %lld\npreviously               previouslyDownloadedFullBytes: %lld\n\ndownloaded                totalDownloadedPatchedAssets: %lld\ndownloaded                 totalDownloadedPatchedBytes: %lld\ndownloaded                   totalDownloadedFullAssets: %lld\ndownloaded                    totalDownloadedFullBytes: %lld\n\nstaged                        totalStagedPatchedAssets: %lld\nstaged                         totalStagedPatchedBytes: %lld\nstaged                           totalStagedFullAssets: %lld\nstaged                            totalStagedFullBytes: %lld\n\nunstaged                    totalUnstagedPatchedAssets: %lld\nunstaged                     totalUnstagedPatchedBytes: %lld\nunstaged                       totalUnstagedFullAssets: %lld\nunstaged                        totalUnstagedFullBytes: %lld\n\npromoted                    totalPromotedPatchedAssets: %lld\npromoted                     totalPromotedPatchedBytes: %lld\npromoted                       totalPromotedFullAssets: %lld\npromoted                        totalPromotedFullBytes: %lld\n\nremoved                      totalRemovedPatchedAssets: %lld\nremoved                       totalRemovedPatchedBytes: %lld\nremoved                         totalRemovedFullAssets: %lld\nremoved                          totalRemovedFullBytes: %lld\n\nfinishedJobs        finishedJobSchedulerNetworkFailure: %lld\nfinishedJobs     finishedJobSchedulerNotNetworkRelated: %lld\nfinishedJobs           finishedJobClientNetworkFailure: %lld\nfinishedJobs        finishedJobClientNotNetworkRelated: %lld\n\ngarbageColection                             performed: %@\ngarbageColection                          reclaimSpace: %@\ngarbageColection                   totalReclaimedSpace: %@\ngarbageColection                 reclaimedV2AssetCount: %ld\ngarbageColection                 reclaimedV2AssetSpace: %@\ngarbageColection                reclaimedUnlockedCount: %ld\ngarbageColection                reclaimedUnlockedSpace: %@\ngarbageColection       reclaimedLockedOverridableCount: %ld\ngarbageColection       reclaimedLockedOverridableSpace: %@\ngarbageColection       reclaimedLockedNeverRemoveCount: %ld\ngarbageColection       reclaimedLockedNeverRemoveSpace: %@\ngarbageColection                  reclaimedStagedCount: %ld\ngarbageColection                  reclaimedStagedSpace: %@\ngarbageColection         reclaimedMetadataBlockedCount: %ld\ngarbageColection         reclaimedMetadataBlockedSpace: %@\n<<<]",  v3,  totalAutoAssetJobsStarted,  totalAutoJobsFinished,  totalStagerDetermineJobsStarted,  totalStagerDetermineJobsFinished,  totalStagerDownloadJobsStarted,  totalStagerDownloadJobsFinished,  totalResumedInFlightJobs,  totalSchedulerTriggeredJobs,  totalFailuresToStartJobs,  patchedAssets,  patchedBytes,  fullAssets,  fullBytes,  patchedAssets2,  patchedBytes2,  fullAssets2,  fullBytes2,  patchedAssets3,  patchedBytes3,  fullAssets3,  fullBytes3,  patchedAssets4,  patchedBytes4,  fullAssets4,  fullBytes4,  patchedAssets5,  patchedBytes5,  fullAssets5,  fullBytes5,  patchedAssets6,  patchedBytes6,  fullAssets6,  fullBytes6,  finishedJobSchedulerNetworkFailure,  finishedJobSchedulerNotNetworkRelated,  finishedJobClientNetworkFailure,  finishedJobClientNotNetworkRelated,  v33,  v32,  v34,  garbageCollectionReclaimedV2AssetCount,  v31,  garbageCollectionReclaimedUnlockedCount,  v29,  garbageCollectionReclaimedLockedOverridableCount,
+    v27,
+    garbageCollectionReclaimedLockedNeverRemoveCount,
+    v19,
+    garbageCollectionReclaimedStagedCount,
+    v21,
+    garbageCollectionReclaimedMetadataBlockedCount,
+  v24 = v23);
 
   return v24;
 }

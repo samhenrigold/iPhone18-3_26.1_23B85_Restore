@@ -52,60 +52,60 @@
   x = frame.origin.x;
   width = frame.size.width;
   y = frame.origin.y;
-  v68 = *MEMORY[0x29EDCA608];
+  v67 = *MEMORY[0x29EDCA608];
   viewCopy = view;
   selfCopy = self;
   collectionViewLayout = [(SKUICollectionViewAccessibility *)self collectionViewLayout];
   NSClassFromString(&cfstr_Skuistorepagec.isa);
   if (objc_opt_isKindOfClass())
   {
-    v42 = collectionViewLayout;
-    indexPathsForPinningItems = [v42 indexPathsForPinningItems];
-    v33 = [viewCopy _accessibilityAncestorIsKindOf:objc_opt_class()];
-    if (v33)
+    v41 = collectionViewLayout;
+    indexPathsForPinningItems = [v41 indexPathsForPinningItems];
+    v32 = [viewCopy _accessibilityAncestorIsKindOf:objc_opt_class()];
+    if (v32)
     {
-      v39 = [(SKUICollectionViewAccessibility *)self indexPathForCell:?];
-      if (v39)
+      v38 = [(SKUICollectionViewAccessibility *)self indexPathForCell:?];
+      if (v38)
       {
-        v65 = 0u;
-        v66 = 0u;
-        v63 = 0u;
         v64 = 0u;
+        v65 = 0u;
+        v62 = 0u;
+        v63 = 0u;
         obj = indexPathsForPinningItems;
-        v7 = [obj countByEnumeratingWithState:&v63 objects:v67 count:16];
+        v7 = [obj countByEnumeratingWithState:&v62 objects:v66 count:16];
         if (v7)
         {
           v8 = 0;
-          v41 = *v64;
+          v40 = *v63;
           do
           {
             v9 = 0;
             v10 = v8;
             do
             {
-              if (*v64 != v41)
+              if (*v63 != v40)
               {
                 objc_enumerationMutation(obj);
               }
 
-              v11 = *(*(&v63 + 1) + 8 * v9);
-              v50 = 0;
-              v51 = &v50;
-              v52 = 0x3032000000;
-              v53 = __Block_byref_object_copy__3;
-              *&v54 = __Block_byref_object_dispose__3;
-              *(&v54 + 1) = 0;
-              v56 = MEMORY[0x29EDCA5F8];
-              v57 = 3221225472;
-              v58 = __71__SKUICollectionViewAccessibility__accessibilityScrollToFrame_forView___block_invoke;
-              v59 = &unk_29F304278;
-              v62 = &v50;
-              v60 = v42;
-              v61 = v11;
+              v11 = *(*(&v62 + 1) + 8 * v9);
+              v49 = 0;
+              v50 = &v49;
+              v51 = 0x3032000000;
+              v52 = __Block_byref_object_copy__3;
+              *&v53 = __Block_byref_object_dispose__3;
+              *(&v53 + 1) = 0;
+              v55 = MEMORY[0x29EDCA5F8];
+              v56 = 3221225472;
+              v57 = __71__SKUICollectionViewAccessibility__accessibilityScrollToFrame_forView___block_invoke;
+              v58 = &unk_29F304278;
+              v61 = &v49;
+              v59 = v41;
+              v60 = v11;
               AXPerformSafeBlock();
-              v12 = *(v51 + 5);
+              v12 = *(v50 + 5);
 
-              _Block_object_dispose(&v50, 8);
+              _Block_object_dispose(&v49, 8);
               v13 = 0.0;
               if ([v12 safeBoolForKey:@"hasValidPinningStyle"])
               {
@@ -113,30 +113,30 @@
                 v8 = v14;
                 if (v14 && v14 != 3 && [v12 safeBoolForKey:@"hasValidPinningContentInset"])
                 {
-                  v50 = 0;
-                  v51 = &v50;
-                  v52 = 0x4010000000;
-                  v53 = &unk_29C460E8B;
+                  v49 = 0;
+                  v50 = &v49;
+                  v51 = 0x4010000000;
+                  v52 = &unk_29C460E8B;
+                  v53 = 0u;
                   v54 = 0u;
-                  v55 = 0u;
-                  v44 = MEMORY[0x29EDCA5F8];
-                  v45 = 3221225472;
-                  v46 = __71__SKUICollectionViewAccessibility__accessibilityScrollToFrame_forView___block_invoke_2;
-                  v47 = &unk_29F304190;
-                  v49 = &v50;
-                  v48 = v12;
+                  v43 = MEMORY[0x29EDCA5F8];
+                  v44 = 3221225472;
+                  v45 = __71__SKUICollectionViewAccessibility__accessibilityScrollToFrame_forView___block_invoke_2;
+                  v46 = &unk_29F304190;
+                  v48 = &v49;
+                  v47 = v12;
                   AXPerformSafeBlock();
-                  v15 = v51[4];
-                  v16 = v51[6];
+                  v15 = v50[4];
+                  v16 = v50[6];
 
-                  _Block_object_dispose(&v50, 8);
+                  _Block_object_dispose(&v49, 8);
                   v17 = [(SKUICollectionViewAccessibility *)selfCopy layoutAttributesForItemAtIndexPath:v11];
                   [v17 size];
                   v19 = v18;
 
                   section = [v11 section];
                   v21 = v15 + v16 + v19;
-                  if (section < [v39 section] || (v24 = objc_msgSend(v11, "section"), v24 == objc_msgSend(v39, "section")) && (v25 = objc_msgSend(v11, "row"), v25 < objc_msgSend(v39, "row")))
+                  if (section < [v38 section] || (v24 = objc_msgSend(v11, "section"), v24 == objc_msgSend(v38, "section")) && (v25 = objc_msgSend(v11, "row"), v25 < objc_msgSend(v38, "row")))
                   {
                     v22 = v10 == 1 || v8 == 1;
                     v13 = 0.0;
@@ -153,7 +153,7 @@
 
                   else
                   {
-                    v26 = [v11 isEqual:{v39, indexPathsForPinningItems, v33}];
+                    v26 = [v11 isEqual:{v38, indexPathsForPinningItems, v32}];
                     if (v8 == 5)
                     {
                       v27 = v26;
@@ -196,7 +196,7 @@
             }
 
             while (v7 != v9);
-            v28 = [obj countByEnumeratingWithState:&v63 objects:v67 count:16];
+            v28 = [obj countByEnumeratingWithState:&v62 objects:v66 count:16];
             v7 = v28;
           }
 
@@ -206,20 +206,16 @@
     }
   }
 
-  v43.receiver = selfCopy;
-  v43.super_class = SKUICollectionViewAccessibility;
-  v29 = [(SKUICollectionViewAccessibility *)&v43 _accessibilityScrollToFrame:viewCopy forView:x, y, width, height, indexPathsForPinningItems];
+  v42.receiver = selfCopy;
+  v42.super_class = SKUICollectionViewAccessibility;
+  v29 = [(SKUICollectionViewAccessibility *)&v42 _accessibilityScrollToFrame:viewCopy forView:x, y, width, height, indexPathsForPinningItems];
 
-  v30 = *MEMORY[0x29EDCA608];
   return v29;
 }
 
 uint64_t __71__SKUICollectionViewAccessibility__accessibilityScrollToFrame_forView___block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 32) _itemPinningConfigurationForItemAtIndexPath:*(a1 + 40)];
-  v3 = *(*(a1 + 48) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 48) + 8) + 40) = [*(a1 + 32) _itemPinningConfigurationForItemAtIndexPath:*(a1 + 40)];
 
   return MEMORY[0x2A1C71028]();
 }

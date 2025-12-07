@@ -90,179 +90,179 @@ uint64_t IMSCallInfo::startCall(IMSCallInfo *this)
 {
   if (*(this + 152) == 1)
   {
+    v29 = 0;
     v30 = 0;
-    v31 = 0;
-    IMSCallInfo::stack(this, &v30);
-    if (!v30)
+    IMSCallInfo::stack(this, &v29);
+    if (!v29)
     {
-      v11 = std::string::basic_string[abi:ne200100]<0>(&v32, "call");
-      v26[0] = 0;
-      v29 = 0;
-      v12 = ims::debug(v11, v26);
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v12 + 8), "Strange: how could stack be null? startCall() failed.", 53);
-      *(v12 + 17) = 0;
-      (*(*v12 + 64))(v12, std::endl[abi:ne200100]<char,std::char_traits<char>>);
-      *(v12 + 17) = 0;
-      if (v29 == 1 && v28 < 0)
+      v10 = std::string::basic_string[abi:ne200100]<0>(&v31, "call");
+      v25[0] = 0;
+      v28 = 0;
+      v11 = ims::debug(v10, v25);
+      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v11 + 8), "Strange: how could stack be null? startCall() failed.", 53);
+      *(v11 + 17) = 0;
+      (*(*v11 + 64))(v11, std::endl[abi:ne200100]<char,std::char_traits<char>>);
+      *(v11 + 17) = 0;
+      if (v28 == 1 && v27 < 0)
       {
-        operator delete(v27);
+        operator delete(v26);
       }
 
+      if (v33 < 0)
+      {
+        operator delete(v31);
+      }
+
+      v7 = 0;
+      goto LABEL_54;
+    }
+
+    if (TelephonyRadiosGetRadioVendor() == 1 || TelephonyRadiosGetRadioVendor() == 3 && ims::AccessNetwork::isNR((v29 + 3432)))
+    {
+      v2 = std::string::basic_string[abi:ne200100]<0>(&v39, "call");
+      v21[0] = 0;
+      v24 = 0;
+      v3 = ims::info(v2, v21);
+      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v3 + 8), "Checking UAC access barring before dialing call ", 48);
+      *(v3 + 17) = 0;
+      IMSCallInfo::uuid(&v31, this);
+      (*(v31 + 2))(&v31, v3);
+      (*(*v3 + 64))(v3, std::endl[abi:ne200100]<char,std::char_traits<char>>);
+      *(v3 + 17) = 0;
+      v31 = &unk_1F5EBEE78;
       if (v34 < 0)
       {
         operator delete(v32);
       }
 
-      v8 = 0;
-      goto LABEL_54;
-    }
-
-    if (TelephonyRadiosGetRadioVendor() == 1 || TelephonyRadiosGetRadioVendor() == 3 && ims::AccessNetwork::isNR((v30 + 3432)))
-    {
-      v2 = std::string::basic_string[abi:ne200100]<0>(&v40, "call");
-      v22[0] = 0;
-      v25 = 0;
-      v3 = ims::info(v2, v22);
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v3 + 8), "Checking UAC access barring before dialing call ", 48);
-      *(v3 + 17) = 0;
-      IMSCallInfo::uuid(&v32, this);
-      (*(v32 + 2))(&v32, v3);
-      v4 = (*(*v3 + 64))(v3, std::endl[abi:ne200100]<char,std::char_traits<char>>);
-      *(v3 + 17) = 0;
-      v32 = &unk_1F5EBEE78;
-      if (v35 < 0)
-      {
-        operator delete(v33);
-      }
-
-      if (v25 == 1 && v24 < 0)
+      if (v24 == 1 && v23 < 0)
       {
         operator delete(__p);
       }
 
-      if (v42 < 0)
+      if (v41 < 0)
       {
-        operator delete(v40);
+        operator delete(v39);
       }
 
-      IPTelephonyManager::getCallManager(v4, &v32);
-      IMSCallManager::sendCallStatusRequest(v5, this + 136, 0, 1, *(this + 600));
-      if (v33)
+      IPTelephonyManager::getCallManager(&v31);
+      IMSCallManager::sendCallStatusRequest(v4, this + 136, 0, 1, *(this + 600));
+      if (v32)
       {
-        std::__shared_weak_count::__release_shared[abi:ne200100](v33);
+        std::__shared_weak_count::__release_shared[abi:ne200100](v32);
       }
 
-      IPTelephonyManager::getBambiClient(&v40);
-      (*(*v40 + 184))(&v32);
-      v6 = v32;
-      if (ims::AccessNetwork::isLTE((v32 + 3432)) || ims::AccessNetwork::isNR((v6 + 3432)))
+      IPTelephonyManager::getBambiClient(&v39);
+      (*(*v39 + 184))(&v31);
+      v5 = v31;
+      if (ims::AccessNetwork::isLTE((v31 + 3432)) || ims::AccessNetwork::isNR((v5 + 3432)))
       {
-        v7 = *(this + 600);
-        if (v33)
+        v6 = *(this + 600);
+        if (v32)
         {
-          std::__shared_weak_count::__release_shared[abi:ne200100](v33);
+          std::__shared_weak_count::__release_shared[abi:ne200100](v32);
         }
 
-        if (v41)
+        if (v40)
         {
-          std::__shared_weak_count::__release_shared[abi:ne200100](v41);
+          std::__shared_weak_count::__release_shared[abi:ne200100](v40);
         }
 
-        if ((v7 & 1) == 0)
+        if ((v6 & 1) == 0)
         {
-          v8 = 1;
+          v7 = 1;
           goto LABEL_54;
         }
       }
 
       else
       {
-        if (v33)
+        if (v32)
         {
-          std::__shared_weak_count::__release_shared[abi:ne200100](v33);
+          std::__shared_weak_count::__release_shared[abi:ne200100](v32);
         }
 
-        if (v41)
+        if (v40)
         {
-          std::__shared_weak_count::__release_shared[abi:ne200100](v41);
+          std::__shared_weak_count::__release_shared[abi:ne200100](v40);
         }
       }
 
-      v13 = std::string::basic_string[abi:ne200100]<0>(&v32, "call");
-      v18[0] = 0;
-      v21 = 0;
-      v14 = ims::debug(v13, v18);
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v14 + 8), "Not waiting for UAC check ", 26);
-      *(v14 + 17) = 0;
+      v12 = std::string::basic_string[abi:ne200100]<0>(&v31, "call");
+      v17[0] = 0;
+      v20 = 0;
+      v13 = ims::debug(v12, v17);
+      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v13 + 8), "Not waiting for UAC check ", 26);
+      *(v13 + 17) = 0;
       if (*(this + 600))
       {
-        v15 = "for emergency call";
+        v14 = "for emergency call";
       }
 
       else
       {
-        v15 = "while on WiFi";
+        v14 = "while on WiFi";
       }
 
       if (*(this + 600))
       {
-        v16 = 18;
+        v15 = 18;
       }
 
       else
       {
-        v16 = 13;
+        v15 = 13;
       }
 
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v14 + 8), v15, v16);
-      *(v14 + 17) = 0;
-      (*(*v14 + 64))(v14, std::endl[abi:ne200100]<char,std::char_traits<char>>);
-      *(v14 + 17) = 0;
-      if (v21 == 1 && v20 < 0)
+      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v13 + 8), v14, v15);
+      *(v13 + 17) = 0;
+      (*(*v13 + 64))(v13, std::endl[abi:ne200100]<char,std::char_traits<char>>);
+      *(v13 + 17) = 0;
+      if (v20 == 1 && v19 < 0)
       {
-        operator delete(v19);
+        operator delete(v18);
       }
 
-      if (v34 < 0)
+      if (v33 < 0)
       {
-        operator delete(v32);
+        operator delete(v31);
       }
     }
 
-    v8 = IMSCallInfo::continueCall(this);
+    v7 = IMSCallInfo::continueCall(this);
 LABEL_54:
-    if (v31)
+    if (v30)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v31);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v30);
     }
 
-    return v8;
+    return v7;
   }
 
-  v9 = std::string::basic_string[abi:ne200100]<0>(&v40, "call");
-  v36[0] = 0;
-  v39 = 0;
-  v10 = ims::warn(v9, v36);
-  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v10 + 8), "Not waiting to dial call ", 25);
-  *(v10 + 17) = 0;
-  IMSCallInfo::uuid(&v32, this);
-  (*(v32 + 2))(&v32, v10);
-  (*(*v10 + 64))(v10, std::endl[abi:ne200100]<char,std::char_traits<char>>);
-  *(v10 + 17) = 0;
-  v32 = &unk_1F5EBEE78;
-  if (v35 < 0)
+  v8 = std::string::basic_string[abi:ne200100]<0>(&v39, "call");
+  v35[0] = 0;
+  v38 = 0;
+  v9 = ims::warn(v8, v35);
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v9 + 8), "Not waiting to dial call ", 25);
+  *(v9 + 17) = 0;
+  IMSCallInfo::uuid(&v31, this);
+  (*(v31 + 2))(&v31, v9);
+  (*(*v9 + 64))(v9, std::endl[abi:ne200100]<char,std::char_traits<char>>);
+  *(v9 + 17) = 0;
+  v31 = &unk_1F5EBEE78;
+  if (v34 < 0)
   {
-    operator delete(v33);
+    operator delete(v32);
   }
 
-  if (v39 == 1 && v38 < 0)
+  if (v38 == 1 && v37 < 0)
   {
-    operator delete(v37);
+    operator delete(v36);
   }
 
-  if (v42 < 0)
+  if (v41 < 0)
   {
-    operator delete(v40);
+    operator delete(v39);
   }
 
   return 1;
@@ -279,119 +279,121 @@ void sub_1E4D10688(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void IMSCallManager::sendCallStatusRequest(IPTelephonyManager *a1, uint64_t a2, int a3, uint64_t a4, char a5)
+void IMSCallManager::sendCallStatusRequest(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v26 = a3;
-  IPTelephonyManager::instance(&v23, a1);
-  IPTelephonyManager::sendCallStatusRequest(v23, a2, a3, 1, a4, a5);
-  if (v24)
+  v5 = a5;
+  v7 = a3;
+  v24 = a3;
+  IPTelephonyManager::instance(&v21);
+  IPTelephonyManager::sendCallStatusRequest(v21, a2, v7, 1, a4, v5);
+  if (v22)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v24);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v22);
   }
 
-  v9 = std::string::basic_string[abi:ne200100]<0>(&v23, "call");
-  v19[0] = 0;
-  v22 = 0;
-  v10 = ims::debug(v9, v19);
+  v9 = std::string::basic_string[abi:ne200100]<0>(&v21, "call");
+  v17[0] = 0;
+  v20 = 0;
+  v10 = ims::debug(v9, v17);
   std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v10 + 8), "Voice call ", 11);
   *(v10 + 17) = 0;
-  ims::toString<UacCallStatus>(&v26, __p);
+  ims::toString<UacCallStatus>(&v24, __p);
   (*(*v10 + 32))(v10, __p);
   v11 = *(v10 + 8);
-  v27 = 32;
-  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v11, &v27, 1);
+  v25 = 32;
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v11, &v25, 1);
   *(v10 + 17) = 0;
   (*(*v10 + 32))(v10, a2);
   (*(*v10 + 64))(v10, std::endl[abi:ne200100]<char,std::char_traits<char>>);
   *(v10 + 17) = 0;
-  if (v18 < 0)
+  if (v16 < 0)
   {
     operator delete(__p[0]);
   }
 
-  if (v22 == 1 && v21 < 0)
+  if (v20 == 1 && v19 < 0)
   {
-    operator delete(v20);
+    operator delete(v18);
   }
 
-  if (v25 < 0)
+  if (v23 < 0)
   {
-    operator delete(v23);
-    if (a3)
+    operator delete(v21);
+    if (v7)
     {
       goto LABEL_10;
     }
 
 LABEL_14:
-    v14 = pthread_mutex_lock(&ctu::Singleton<IMSMetricsManager,IMSMetricsManager,ctu::PthreadMutexGuardPolicy<IMSMetricsManager>>::sInstance);
-    v15 = off_1EE2BBBC0;
+    pthread_mutex_lock(&ctu::Singleton<IMSMetricsManager,IMSMetricsManager,ctu::PthreadMutexGuardPolicy<IMSMetricsManager>>::sInstance);
+    v13 = off_1EE2BBBC0;
     if (!off_1EE2BBBC0)
     {
-      IMSMetricsManager::create_default_global(v14);
+      IMSMetricsManager::create_default_global();
     }
 
-    v16 = *(&off_1EE2BBBC0 + 1);
+    v14 = *(&off_1EE2BBBC0 + 1);
     if (*(&off_1EE2BBBC0 + 1))
     {
       atomic_fetch_add_explicit((*(&off_1EE2BBBC0 + 1) + 8), 1uLL, memory_order_relaxed);
     }
 
     pthread_mutex_unlock(&ctu::Singleton<IMSMetricsManager,IMSMetricsManager,ctu::PthreadMutexGuardPolicy<IMSMetricsManager>>::sInstance);
-    AnalyticsLogger::setCallActive(*(v15 + 184), 1);
+    AnalyticsLogger::setCallActive(*(v13 + 184), 1);
     goto LABEL_22;
   }
 
-  if (!a3)
+  if (!v7)
   {
     goto LABEL_14;
   }
 
 LABEL_10:
-  if (a3 != 2)
+  if (v7 != 2)
   {
     return;
   }
 
-  v12 = pthread_mutex_lock(&ctu::Singleton<IMSMetricsManager,IMSMetricsManager,ctu::PthreadMutexGuardPolicy<IMSMetricsManager>>::sInstance);
-  v13 = off_1EE2BBBC0;
+  pthread_mutex_lock(&ctu::Singleton<IMSMetricsManager,IMSMetricsManager,ctu::PthreadMutexGuardPolicy<IMSMetricsManager>>::sInstance);
+  v12 = off_1EE2BBBC0;
   if (!off_1EE2BBBC0)
   {
-    IMSMetricsManager::create_default_global(v12);
+    IMSMetricsManager::create_default_global();
   }
 
-  v16 = *(&off_1EE2BBBC0 + 1);
+  v14 = *(&off_1EE2BBBC0 + 1);
   if (*(&off_1EE2BBBC0 + 1))
   {
     atomic_fetch_add_explicit((*(&off_1EE2BBBC0 + 1) + 8), 1uLL, memory_order_relaxed);
   }
 
   pthread_mutex_unlock(&ctu::Singleton<IMSMetricsManager,IMSMetricsManager,ctu::PthreadMutexGuardPolicy<IMSMetricsManager>>::sInstance);
-  AnalyticsLogger::setCallActive(*(v13 + 184), 0);
+  AnalyticsLogger::setCallActive(*(v12 + 184), 0);
 LABEL_22:
-  if (v16)
+  if (v14)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v16);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v14);
   }
 }
 
 uint64_t IMSCallInfo::continueCall(IMSCallInfo *this)
 {
   ims::AccessNetwork::clear(this + 624);
-  v126 = 0;
-  v127 = 0;
-  IMSCallInfo::stack(this, &v126);
-  v2 = v126;
-  if (v126)
+  v124 = 0;
+  v125 = 0;
+  IMSCallInfo::stack(this, &v124);
+  v2 = v124;
+  if (v124)
   {
-    std::string::operator=(this + 26, v126 + 143);
+    std::string::operator=(this + 26, v124 + 143);
     std::string::operator=(this + 27, v2 + 144);
     v3 = *&v2[145].__r_.__value_.__l.__data_;
     *(this + 688) = v2[145].__r_.__value_.__s.__data_[16];
     *(this + 42) = v3;
-    std::string::basic_string[abi:ne200100]<0>(&v102, "call");
-    v122[0] = 0;
-    v125 = 0;
-    v4 = ims::debug(&v102, v122);
+    std::string::basic_string[abi:ne200100]<0>(&v100, "call");
+    v120[0] = 0;
+    v123 = 0;
+    v4 = ims::debug(&v100, v120);
     std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v4 + 8), "ANI at call start: ", 19);
     *(v4 + 17) = 0;
     LoggableString::LoggableString(__p, this + 26);
@@ -403,38 +405,38 @@ uint64_t IMSCallInfo::continueCall(IMSCallInfo *this)
       operator delete(*__p);
     }
 
-    if (v125 == 1 && v124 < 0)
+    if (v123 == 1 && v122 < 0)
     {
-      operator delete(v123);
+      operator delete(v121);
     }
 
-    if (SHIBYTE(v104) < 0)
+    if (SHIBYTE(v102) < 0)
     {
-      operator delete(v102);
+      operator delete(v100);
     }
   }
 
   if (*(this + 152) != 1)
   {
     std::string::basic_string[abi:ne200100]<0>(__p, "call");
-    v118[0] = 0;
-    v121 = 0;
-    v11 = ims::warn(__p, v118);
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v11 + 8), "Not waiting to dial call ", 25);
-    *(v11 + 17) = 0;
-    IMSCallInfo::uuid(&v102, this);
-    (*(v102 + 2))(&v102, v11);
-    (*(*v11 + 64))(v11, std::endl[abi:ne200100]<char,std::char_traits<char>>);
-    *(v11 + 17) = 0;
-    v102 = &unk_1F5EBEE78;
-    if (SHIBYTE(v105) < 0)
+    v116[0] = 0;
+    v119 = 0;
+    v10 = ims::warn(__p, v116);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v10 + 8), "Not waiting to dial call ", 25);
+    *(v10 + 17) = 0;
+    IMSCallInfo::uuid(&v100, this);
+    (*(v100 + 2))(&v100, v10);
+    (*(*v10 + 64))(v10, std::endl[abi:ne200100]<char,std::char_traits<char>>);
+    *(v10 + 17) = 0;
+    v100 = &unk_1F5EBEE78;
+    if (SHIBYTE(v103) < 0)
     {
-      operator delete(v103);
+      operator delete(v101);
     }
 
-    if (v121 == 1 && v120 < 0)
+    if (v119 == 1 && v118 < 0)
     {
-      operator delete(v119);
+      operator delete(v117);
     }
 
     if ((__p[23] & 0x80000000) != 0)
@@ -448,80 +450,80 @@ uint64_t IMSCallInfo::continueCall(IMSCallInfo *this)
   *(this + 152) = 2;
   if (*(this + 77))
   {
-    v113 = 0;
-    v112 = 0;
-    IPTelephonyManager::getBambiClient(&v112);
     v111 = 0;
     v110 = 0;
-    IPTelephonyManager::getCallManager(v5, &v110);
-    v105 = 0;
-    v104 = 0;
+    IPTelephonyManager::getBambiClient(&v110);
+    v109 = 0;
+    v108 = 0;
+    IPTelephonyManager::getCallManager(&v108);
+    v103 = 0;
+    v102 = 0;
+    v105 = 0u;
+    v106 = 0u;
     v107 = 0u;
-    v108 = 0u;
-    v109 = 0u;
-    v102 = &unk_1F5EBDEF8;
-    v103 = &_bambiDomain;
-    v106 = 0;
-    v101 = 0;
-    v100 = 0;
-    v6 = v112;
-    (*(*v112 + 184))(&v100, v112, this + 136);
-    v7 = *(this + 5);
-    if (!v7 || (v8 = *(this + 4), (v9 = std::__shared_weak_count::lock(v7)) == 0))
+    v100 = &unk_1F5EBDEF8;
+    v101 = &_bambiDomain;
+    v104 = 0;
+    v99 = 0;
+    v98 = 0;
+    v5 = v110;
+    (*(*v110 + 184))(&v98, v110, this + 136);
+    v6 = *(this + 5);
+    if (!v6 || (v7 = *(this + 4), (v8 = std::__shared_weak_count::lock(v6)) == 0))
     {
       std::__throw_bad_weak_ptr[abi:ne200100]();
     }
 
-    v10 = v9;
-    atomic_fetch_add_explicit(&v9->__shared_weak_owners_, 1uLL, memory_order_relaxed);
-    std::__shared_weak_count::__release_shared[abi:ne200100](v9);
-    v99 = 0;
-    v98 = 0;
-    if (*(v100 + 4455) < 0)
+    v9 = v8;
+    atomic_fetch_add_explicit(&v8->__shared_weak_owners_, 1uLL, memory_order_relaxed);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v8);
+    v97 = 0;
+    v96 = 0;
+    if (*(v98 + 4455) < 0)
     {
-      std::string::__init_copy_ctor_external(__p, *(v100 + 4432), *(v100 + 4440));
+      std::string::__init_copy_ctor_external(__p, *(v98 + 4432), *(v98 + 4440));
     }
 
     else
     {
-      *__p = *(v100 + 4432);
+      *__p = *(v98 + 4432);
     }
 
-    v14 = (this + 616);
-    v15 = *(this + 77);
-    v97 = 0;
-    v96 = 0;
-    v16 = std::__shared_weak_count::lock(v10);
-    if (v16)
+    v13 = (this + 616);
+    v14 = *(this + 77);
+    v95 = 0;
+    v94 = 0;
+    v15 = std::__shared_weak_count::lock(v9);
+    if (v15)
     {
-      v17 = v16;
-      atomic_fetch_add_explicit(&v16->__shared_weak_owners_, 1uLL, memory_order_relaxed);
-      v18 = v97;
-      v96 = v8;
-      v97 = v17;
+      v16 = v15;
+      atomic_fetch_add_explicit(&v15->__shared_weak_owners_, 1uLL, memory_order_relaxed);
+      v17 = v95;
+      v94 = v7;
+      v95 = v16;
+      if (v17)
+      {
+        std::__shared_weak_count::__release_weak(v17);
+      }
+
+      std::__shared_weak_count::__release_shared[abi:ne200100](v16);
+    }
+
+    else
+    {
+      v18 = v95;
+      v95 = 0;
+      v94 = 0;
       if (v18)
       {
         std::__shared_weak_count::__release_weak(v18);
       }
-
-      std::__shared_weak_count::__release_shared[abi:ne200100](v17);
     }
 
-    else
+    BambiClient::initializeCallToRemoteUri(v5, __p, (v14 + 360), &v94, (*v13 + 1), **v13, &v100, &v96);
+    if (v95)
     {
-      v19 = v97;
-      v97 = 0;
-      v96 = 0;
-      if (v19)
-      {
-        std::__shared_weak_count::__release_weak(v19);
-      }
-    }
-
-    BambiClient::initializeCallToRemoteUri(v6, __p, v15 + 360, &v96, (*v14 + 1), **v14, &v102, &v98);
-    if (v97)
-    {
-      std::__shared_weak_count::__release_weak(v97);
+      std::__shared_weak_count::__release_weak(v95);
     }
 
     if ((__p[23] & 0x80000000) != 0)
@@ -529,33 +531,33 @@ uint64_t IMSCallInfo::continueCall(IMSCallInfo *this)
       operator delete(*__p);
     }
 
-    v20 = v98;
-    if (v98)
+    v19 = v96;
+    if (v96)
     {
-      v21 = *(v98 + 384);
+      v20 = *(v96 + 384);
+      if (!v20)
+      {
+        goto LABEL_141;
+      }
+
+      v21 = std::__shared_weak_count::lock(v20);
       if (!v21)
       {
         goto LABEL_141;
       }
 
-      v22 = std::__shared_weak_count::lock(v21);
-      if (!v22)
+      v22 = v21;
+      if (*(v19 + 376))
       {
-        goto LABEL_141;
-      }
-
-      v23 = v22;
-      if (*(v20 + 376))
-      {
-        v24 = v98;
-        v25 = *(v98 + 384);
-        if (v25 && (v26 = std::__shared_weak_count::lock(v25)) != 0)
+        v23 = v96;
+        v24 = *(v96 + 384);
+        if (v24 && (v25 = std::__shared_weak_count::lock(v24)) != 0)
         {
-          v27 = *(v24 + 376);
-          v28 = v100;
-          std::__shared_weak_count::__release_shared[abi:ne200100](v26);
-          std::__shared_weak_count::__release_shared[abi:ne200100](v23);
-          if (v27 == v28)
+          v26 = *(v23 + 376);
+          v27 = v98;
+          std::__shared_weak_count::__release_shared[abi:ne200100](v25);
+          std::__shared_weak_count::__release_shared[abi:ne200100](v22);
+          if (v26 == v27)
           {
             goto LABEL_141;
           }
@@ -563,173 +565,173 @@ uint64_t IMSCallInfo::continueCall(IMSCallInfo *this)
 
         else
         {
-          v33 = v100;
-          std::__shared_weak_count::__release_shared[abi:ne200100](v23);
-          if (!v33)
+          v32 = v98;
+          std::__shared_weak_count::__release_shared[abi:ne200100](v22);
+          if (!v32)
           {
 LABEL_141:
-            v51 = v98;
-            v52 = v99;
-            if (v99)
+            v50 = v96;
+            v51 = v97;
+            if (v97)
             {
-              atomic_fetch_add_explicit(&v99->__shared_owners_, 1uLL, memory_order_relaxed);
+              atomic_fetch_add_explicit(&v97->__shared_owners_, 1uLL, memory_order_relaxed);
             }
 
-            v53 = *(this + 21);
-            *(this + 20) = v51;
-            *(this + 21) = v52;
-            if (v53)
+            v52 = *(this + 21);
+            *(this + 20) = v50;
+            *(this + 21) = v51;
+            if (v52)
             {
-              std::__shared_weak_count::__release_shared[abi:ne200100](v53);
+              std::__shared_weak_count::__release_shared[abi:ne200100](v52);
             }
 
-            v54 = v110;
-            v64[0] = 0;
-            v64[1] = 0;
-            IMSCallManager::setEPSFallbackCall(v110, v64);
+            v53 = v108;
+            v62[0] = 0;
+            v62[1] = 0;
+            IMSCallManager::setEPSFallbackCall(v108, v62);
             std::unique_ptr<IMSCallInfo::DialInfo>::reset[abi:ne200100](this + 77, 0);
-            v55 = pthread_mutex_lock(&ctu::Singleton<IMSMetricsManager,IMSMetricsManager,ctu::PthreadMutexGuardPolicy<IMSMetricsManager>>::sInstance);
-            v56 = off_1EE2BBBC0;
+            pthread_mutex_lock(&ctu::Singleton<IMSMetricsManager,IMSMetricsManager,ctu::PthreadMutexGuardPolicy<IMSMetricsManager>>::sInstance);
+            v54 = off_1EE2BBBC0;
             if (!off_1EE2BBBC0)
             {
-              IMSMetricsManager::create_default_global(v55);
+              IMSMetricsManager::create_default_global();
             }
 
-            v57 = *(&off_1EE2BBBC0 + 1);
+            v55 = *(&off_1EE2BBBC0 + 1);
             if (*(&off_1EE2BBBC0 + 1))
             {
               atomic_fetch_add_explicit((*(&off_1EE2BBBC0 + 1) + 8), 1uLL, memory_order_relaxed);
             }
 
             pthread_mutex_unlock(&ctu::Singleton<IMSMetricsManager,IMSMetricsManager,ctu::PthreadMutexGuardPolicy<IMSMetricsManager>>::sInstance);
-            v58 = *(this + 21);
-            v63[0] = *(this + 20);
-            v63[1] = v58;
-            if (v58)
+            v56 = *(this + 21);
+            v61[0] = *(this + 20);
+            v61[1] = v56;
+            if (v56)
             {
-              atomic_fetch_add_explicit(&v58->__shared_owners_, 1uLL, memory_order_relaxed);
+              atomic_fetch_add_explicit(&v56->__shared_owners_, 1uLL, memory_order_relaxed);
             }
 
-            IMSMetricsManager::logSessionRequestedEvent(v56, v63, *(this + 72), 1);
-            if (v58)
+            IMSMetricsManager::logSessionRequestedEvent(v54, v61, *(this + 72), 1);
+            if (v56)
             {
-              std::__shared_weak_count::__release_shared[abi:ne200100](v58);
+              std::__shared_weak_count::__release_shared[abi:ne200100](v56);
             }
 
-            if (v57)
+            if (v55)
             {
-              std::__shared_weak_count::__release_shared[abi:ne200100](v57);
+              std::__shared_weak_count::__release_shared[abi:ne200100](v55);
             }
 
-            IMSCallInfo::uuid(v61, this);
+            IMSCallInfo::uuid(v59, this);
             if (*(this + 601))
             {
-              v59 = kIMSCallStatusPulling;
+              v57 = kIMSCallStatusPulling;
             }
 
             else
             {
-              v59 = kIMSCallStatusDialing;
+              v57 = kIMSCallStatusDialing;
             }
 
-            (*(*v54 + 216))(v54, v61, *v59, *(this + 72), 0);
-            v61[0] = &unk_1F5EBEE78;
-            if ((v62 & 0x80000000) == 0)
+            (*(*v53 + 216))(v53, v59, *v57, *(this + 72), 0);
+            v59[0] = &unk_1F5EBEE78;
+            if ((v60 & 0x80000000) == 0)
             {
               goto LABEL_161;
             }
 
-            v46 = v61[1];
+            v45 = v59[1];
 LABEL_160:
-            operator delete(v46);
+            operator delete(v45);
 LABEL_161:
+            if (v97)
+            {
+              std::__shared_weak_count::__release_shared[abi:ne200100](v97);
+            }
+
+            std::__shared_weak_count::__release_weak(v9);
             if (v99)
             {
               std::__shared_weak_count::__release_shared[abi:ne200100](v99);
             }
 
-            std::__shared_weak_count::__release_weak(v10);
-            if (v101)
+            ImsResult::~ImsResult(&v100);
+            if (v109)
             {
-              std::__shared_weak_count::__release_shared[abi:ne200100](v101);
+              std::__shared_weak_count::__release_shared[abi:ne200100](v109);
             }
 
-            ImsResult::~ImsResult(&v102);
             if (v111)
             {
               std::__shared_weak_count::__release_shared[abi:ne200100](v111);
             }
 
-            if (v113)
-            {
-              std::__shared_weak_count::__release_shared[abi:ne200100](v113);
-            }
-
 LABEL_169:
-            v13 = 1;
+            v12 = 1;
             goto LABEL_170;
           }
         }
 
         std::string::basic_string[abi:ne200100]<0>(__p, "call");
-        v65[0] = 0;
-        v68 = 0;
-        v34 = ims::warn(__p, v65);
-        std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v34 + 8), "desired stack (", 15);
-        *(v34 + 17) = 0;
-        (*(*v34 + 32))(v34, this + 136);
-        std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v34 + 8), ") not equal to actual stack (", 29);
-        *(v34 + 17) = 0;
-        v35 = v98;
-        v36 = *(v98 + 384);
-        if (v36)
+        v63[0] = 0;
+        v66 = 0;
+        v33 = ims::warn(__p, v63);
+        std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v33 + 8), "desired stack (", 15);
+        *(v33 + 17) = 0;
+        (*(*v33 + 32))(v33, this + 136);
+        std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v33 + 8), ") not equal to actual stack (", 29);
+        *(v33 + 17) = 0;
+        v34 = v96;
+        v35 = *(v96 + 384);
+        if (v35)
         {
-          v37 = std::__shared_weak_count::lock(v36);
-          if (v37)
+          v36 = std::__shared_weak_count::lock(v35);
+          if (v36)
           {
-            v38 = *(v35 + 376);
+            v37 = *(v34 + 376);
           }
 
           else
           {
-            v38 = 0;
+            v37 = 0;
           }
         }
 
         else
         {
-          v38 = 0;
           v37 = 0;
+          v36 = 0;
         }
 
-        if (*(v38 + 4455) < 0)
+        if (*(v37 + 4455) < 0)
         {
-          std::string::__init_copy_ctor_external(&v87, *(v38 + 4432), *(v38 + 4440));
+          std::string::__init_copy_ctor_external(&v85, *(v37 + 4432), *(v37 + 4440));
         }
 
         else
         {
-          v87 = *(v38 + 4432);
+          v85 = *(v37 + 4432);
         }
 
-        (*(*v34 + 32))(v34, &v87);
-        std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v34 + 8), ")", 1);
-        *(v34 + 17) = 0;
-        (*(*v34 + 64))(v34, std::endl[abi:ne200100]<char,std::char_traits<char>>);
-        *(v34 + 17) = 0;
-        if (SHIBYTE(v87.__r_.__value_.__r.__words[2]) < 0)
+        (*(*v33 + 32))(v33, &v85);
+        std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v33 + 8), ")", 1);
+        *(v33 + 17) = 0;
+        (*(*v33 + 64))(v33, std::endl[abi:ne200100]<char,std::char_traits<char>>);
+        *(v33 + 17) = 0;
+        if (SHIBYTE(v85.__r_.__value_.__r.__words[2]) < 0)
         {
-          operator delete(v87.__r_.__value_.__l.__data_);
+          operator delete(v85.__r_.__value_.__l.__data_);
         }
 
-        if (v37)
+        if (v36)
         {
-          std::__shared_weak_count::__release_shared[abi:ne200100](v37);
+          std::__shared_weak_count::__release_shared[abi:ne200100](v36);
         }
 
-        if (v68 == 1 && v67 < 0)
+        if (v66 == 1 && v65 < 0)
         {
-          operator delete(v66);
+          operator delete(v64);
         }
 
         if ((__p[23] & 0x80000000) != 0)
@@ -737,38 +739,38 @@ LABEL_169:
           operator delete(*__p);
         }
 
-        v47 = v98;
-        v48 = *(v98 + 384);
-        if (v48)
+        v46 = v96;
+        v47 = *(v96 + 384);
+        if (v47)
         {
-          v23 = std::__shared_weak_count::lock(v48);
-          if (v23)
+          v22 = std::__shared_weak_count::lock(v47);
+          if (v22)
           {
-            v49 = *(v47 + 376);
+            v48 = *(v46 + 376);
           }
 
           else
           {
-            v49 = 0;
+            v48 = 0;
           }
         }
 
         else
         {
-          v49 = 0;
-          v23 = 0;
+          v48 = 0;
+          v22 = 0;
         }
 
-        if (*(v49 + 4455) < 0)
+        if (*(v48 + 4455) < 0)
         {
-          std::string::__init_copy_ctor_external(__p, *(v49 + 4432), *(v49 + 4440));
+          std::string::__init_copy_ctor_external(__p, *(v48 + 4432), *(v48 + 4440));
         }
 
         else
         {
-          v50 = v49 + 4432;
-          *__p = *v50;
-          *&__p[16] = *(v50 + 16);
+          v49 = v48 + 4432;
+          *__p = *v49;
+          *&__p[16] = *(v49 + 16);
         }
 
         if (*(this + 159) < 0)
@@ -780,240 +782,240 @@ LABEL_169:
         *(this + 19) = *&__p[16];
         __p[23] = 0;
         __p[0] = 0;
-        if (!v23)
+        if (!v22)
         {
           goto LABEL_141;
         }
       }
 
-      std::__shared_weak_count::__release_shared[abi:ne200100](v23);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v22);
       goto LABEL_141;
     }
 
     *__p = 0x100uLL;
     *&__p[24] = 0;
-    v93 = 0;
+    v91 = 0;
     *&__p[16] = 0;
     __s = 0u;
-    memset(v95, 0, sizeof(v95));
+    memset(v93, 0, sizeof(v93));
+    v86 = 0u;
+    v87 = 0u;
     v88 = 0u;
     v89 = 0u;
-    v90 = 0u;
-    v91 = 0u;
-    v87.__r_.__value_.__r.__words[0] = &unk_1F5EBDEF8;
-    v87.__r_.__value_.__l.__size_ = &SessionTerminatedResultDomain::_domain;
-    LODWORD(v87.__r_.__value_.__r.__words[2]) = 28;
-    if (v103 == &SessionTerminatedResultDomain::_domain)
+    v85.__r_.__value_.__r.__words[0] = &unk_1F5EBDEF8;
+    v85.__r_.__value_.__l.__size_ = &SessionTerminatedResultDomain::_domain;
+    LODWORD(v85.__r_.__value_.__r.__words[2]) = 28;
+    if (v101 == &SessionTerminatedResultDomain::_domain)
     {
-      v29 = v104;
-      ImsResult::~ImsResult(&v87);
-      if (v29 == 28)
+      v28 = v102;
+      ImsResult::~ImsResult(&v85);
+      if (v28 == 28)
       {
         std::string::__assign_external(&__p[8], "SessionTerminated:OnEmergencyCall", 0x21uLL);
-        v30 = kIMSCallDisconnectionReasonOnEmergencyCall;
+        v29 = kIMSCallDisconnectionReasonOnEmergencyCall;
         goto LABEL_80;
       }
     }
 
     else
     {
-      ImsResult::~ImsResult(&v87);
+      ImsResult::~ImsResult(&v85);
     }
 
-    if (*(v100 + 320) != 2)
+    if (*(v98 + 320) != 2)
     {
       goto LABEL_69;
     }
 
-    v31 = *(v100 + 248);
-    v32 = *(v100 + 256);
-    if (v32)
+    v30 = *(v98 + 248);
+    v31 = *(v98 + 256);
+    if (v31)
     {
-      atomic_fetch_add_explicit(&v32->__shared_owners_, 1uLL, memory_order_relaxed);
-      if (*(SipUserAgent::config(v31) + 456) != 1)
+      atomic_fetch_add_explicit(&v31->__shared_owners_, 1uLL, memory_order_relaxed);
+      if (*(SipUserAgent::config(v30) + 456) != 1)
       {
-        std::__shared_weak_count::__release_shared[abi:ne200100](v32);
+        std::__shared_weak_count::__release_shared[abi:ne200100](v31);
         goto LABEL_69;
       }
     }
 
-    else if ((*(SipUserAgent::config(v31) + 456) & 1) == 0)
+    else if ((*(SipUserAgent::config(v30) + 456) & 1) == 0)
     {
 LABEL_69:
-      std::string::basic_string[abi:ne200100]<0>(&v87, "call");
-      v79[0] = 0;
-      v82 = 0;
-      v42 = ims::error(&v87, v79);
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v42 + 8), "IMSCallInfo::continueCall not falling back to CS", 48);
-      *(v42 + 17) = 0;
-      (*(*v42 + 64))(v42, std::endl[abi:ne200100]<char,std::char_traits<char>>);
-      *(v42 + 17) = 0;
-      if (v82 == 1 && v81 < 0)
+      std::string::basic_string[abi:ne200100]<0>(&v85, "call");
+      v77[0] = 0;
+      v80 = 0;
+      v41 = ims::error(&v85, v77);
+      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v41 + 8), "IMSCallInfo::continueCall not falling back to CS", 48);
+      *(v41 + 17) = 0;
+      (*(*v41 + 64))(v41, std::endl[abi:ne200100]<char,std::char_traits<char>>);
+      *(v41 + 17) = 0;
+      if (v80 == 1 && v79 < 0)
       {
-        operator delete(v80);
+        operator delete(v78);
       }
 
-      v43 = @"kCallDisconnectionReasonUnknownError";
-      if (SHIBYTE(v87.__r_.__value_.__r.__words[2]) < 0)
+      v42 = @"kCallDisconnectionReasonUnknownError";
+      if (SHIBYTE(v85.__r_.__value_.__r.__words[2]) < 0)
       {
-        operator delete(v87.__r_.__value_.__l.__data_);
+        operator delete(v85.__r_.__value_.__l.__data_);
       }
 
       goto LABEL_81;
     }
 
-    v39 = *(v100 + 248);
-    v40 = *(v100 + 256);
-    if (v40)
+    v38 = *(v98 + 248);
+    v39 = *(v98 + 256);
+    if (v39)
     {
-      atomic_fetch_add_explicit(&v40->__shared_owners_, 1uLL, memory_order_relaxed);
-      v41 = *(SipUserAgent::config(v39) + 912);
-      std::__shared_weak_count::__release_shared[abi:ne200100](v40);
+      atomic_fetch_add_explicit(&v39->__shared_owners_, 1uLL, memory_order_relaxed);
+      v40 = *(SipUserAgent::config(v38) + 912);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v39);
     }
 
     else
     {
-      v41 = *(SipUserAgent::config(v39) + 912);
+      v40 = *(SipUserAgent::config(v38) + 912);
     }
 
-    if (v32)
+    if (v31)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v32);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v31);
     }
 
-    if (v41)
+    if (v40)
     {
       goto LABEL_69;
     }
 
-    std::string::basic_string[abi:ne200100]<0>(&v87, "call");
-    v83[0] = 0;
-    v86 = 0;
-    v44 = ims::error(&v87, v83);
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v44 + 8), "IMSCallInfo::continueCall falling back to CS", 44);
-    *(v44 + 17) = 0;
-    (*(*v44 + 64))(v44, std::endl[abi:ne200100]<char,std::char_traits<char>>);
-    *(v44 + 17) = 0;
-    if (v86 == 1 && v85 < 0)
+    std::string::basic_string[abi:ne200100]<0>(&v85, "call");
+    v81[0] = 0;
+    v84 = 0;
+    v43 = ims::error(&v85, v81);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v43 + 8), "IMSCallInfo::continueCall falling back to CS", 44);
+    *(v43 + 17) = 0;
+    (*(*v43 + 64))(v43, std::endl[abi:ne200100]<char,std::char_traits<char>>);
+    *(v43 + 17) = 0;
+    if (v84 == 1 && v83 < 0)
     {
-      operator delete(v84);
+      operator delete(v82);
     }
 
-    if (SHIBYTE(v87.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v85.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v87.__r_.__value_.__l.__data_);
+      operator delete(v85.__r_.__value_.__l.__data_);
     }
 
-    v30 = kIMSCallDisconnectionReasonRequiresCSFB;
+    v29 = kIMSCallDisconnectionReasonRequiresCSFB;
 LABEL_80:
-    v43 = *v30;
+    v42 = *v29;
 LABEL_81:
-    LODWORD(v93) = 4;
+    LODWORD(v91) = 4;
     __p[2] = 1;
-    v69[0] = MEMORY[0x1E69E9820];
-    v69[1] = 1174405120;
-    v69[2] = ___ZN11IMSCallInfo12continueCallEv_block_invoke;
-    v69[3] = &__block_descriptor_tmp_33;
-    v69[4] = this;
-    v69[5] = v110;
-    v70 = v111;
-    if (v111)
+    v67[0] = MEMORY[0x1E69E9820];
+    v67[1] = 1174405120;
+    v67[2] = ___ZN11IMSCallInfo12continueCallEv_block_invoke;
+    v67[3] = &__block_descriptor_tmp_33;
+    v67[4] = this;
+    v67[5] = v108;
+    v68 = v109;
+    if (v109)
     {
-      atomic_fetch_add_explicit(&v111->__shared_owners_, 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit(&v109->__shared_owners_, 1uLL, memory_order_relaxed);
     }
 
-    v71 = v43;
-    v72 = *__p;
-    v73 = __p[2];
+    v69 = v42;
+    v70 = *__p;
+    v71 = __p[2];
     if ((__p[31] & 0x80000000) != 0)
     {
-      std::string::__init_copy_ctor_external(&v74, *&__p[8], *&__p[16]);
+      std::string::__init_copy_ctor_external(&v72, *&__p[8], *&__p[16]);
     }
 
     else
     {
-      v74 = *&__p[8];
+      v72 = *&__p[8];
     }
 
-    v75 = v93;
-    v76 = BYTE4(v93);
-    if (SHIBYTE(v95[0]) < 0)
+    v73 = v91;
+    v74 = BYTE4(v91);
+    if (SHIBYTE(v93[0]) < 0)
     {
-      std::string::__init_copy_ctor_external(&v77, __s, *(&__s + 1));
+      std::string::__init_copy_ctor_external(&v75, __s, *(&__s + 1));
     }
 
     else
     {
-      *&v77.__r_.__value_.__l.__data_ = __s;
-      v77.__r_.__value_.__r.__words[2] = v95[0];
+      *&v75.__r_.__value_.__l.__data_ = __s;
+      v75.__r_.__value_.__r.__words[2] = v93[0];
     }
 
-    if (SHIBYTE(v95[3]) < 0)
+    if (SHIBYTE(v93[3]) < 0)
     {
-      std::string::__init_copy_ctor_external(&v78, v95[1], v95[2]);
+      std::string::__init_copy_ctor_external(&v76, v93[1], v93[2]);
     }
 
     else
     {
-      v78 = *&v95[1];
+      v76 = *&v93[1];
     }
 
-    ims::performBlock(v69);
-    v45 = **v14;
-    if (v45)
+    ims::performBlock(v67);
+    v44 = **v13;
+    if (v44)
     {
-      if (*(v45 + 4775) < 0)
+      if (*(v44 + 4775) < 0)
       {
-        operator delete(*(v45 + 4752));
+        operator delete(*(v44 + 4752));
       }
 
-      SipUri::~SipUri((v45 + 4344));
-      SipStackConfig::~SipStackConfig((v45 + 1752));
-      SipRegistrationConfig::~SipRegistrationConfig((v45 + 80));
-      if (*(v45 + 71) < 0)
+      SipUri::~SipUri((v44 + 4344));
+      SipStackConfig::~SipStackConfig((v44 + 1752));
+      SipRegistrationConfig::~SipRegistrationConfig((v44 + 80));
+      if (*(v44 + 71) < 0)
       {
-        operator delete(*(v45 + 48));
+        operator delete(*(v44 + 48));
       }
 
-      if (*(v45 + 47) < 0)
+      if (*(v44 + 47) < 0)
       {
-        operator delete(*(v45 + 24));
+        operator delete(*(v44 + 24));
       }
 
-      if (*(v45 + 23) < 0)
+      if (*(v44 + 23) < 0)
       {
-        operator delete(*v45);
+        operator delete(*v44);
       }
 
-      MEMORY[0x1E69235B0](v45, 0x10B2C40F20492F8);
+      MEMORY[0x1E69235B0](v44, 0x10B2C40F20492F8);
     }
 
-    if (SHIBYTE(v78.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v76.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v78.__r_.__value_.__l.__data_);
+      operator delete(v76.__r_.__value_.__l.__data_);
     }
 
-    if (SHIBYTE(v77.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v75.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v77.__r_.__value_.__l.__data_);
+      operator delete(v75.__r_.__value_.__l.__data_);
     }
 
-    if (SHIBYTE(v74.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v72.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v74.__r_.__value_.__l.__data_);
+      operator delete(v72.__r_.__value_.__l.__data_);
     }
 
-    if (v70)
+    if (v68)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v70);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v68);
     }
 
-    if (SHIBYTE(v95[3]) < 0)
+    if (SHIBYTE(v93[3]) < 0)
     {
-      operator delete(v95[1]);
+      operator delete(v93[1]);
     }
 
-    if (SHIBYTE(v95[0]) < 0)
+    if (SHIBYTE(v93[0]) < 0)
     {
       operator delete(__s);
     }
@@ -1023,29 +1025,29 @@ LABEL_81:
       goto LABEL_161;
     }
 
-    v46 = *&__p[8];
+    v45 = *&__p[8];
     goto LABEL_160;
   }
 
   std::string::basic_string[abi:ne200100]<0>(__p, "call");
-  v114[0] = 0;
-  v117 = 0;
-  v12 = ims::warn(__p, v114);
-  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v12 + 8), "No dial information cached for ", 31);
-  *(v12 + 17) = 0;
-  IMSCallInfo::uuid(&v102, this);
-  (*(v102 + 2))(&v102, v12);
-  (*(*v12 + 64))(v12, std::endl[abi:ne200100]<char,std::char_traits<char>>);
-  *(v12 + 17) = 0;
-  v102 = &unk_1F5EBEE78;
-  if (SHIBYTE(v105) < 0)
+  v112[0] = 0;
+  v115 = 0;
+  v11 = ims::warn(__p, v112);
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v11 + 8), "No dial information cached for ", 31);
+  *(v11 + 17) = 0;
+  IMSCallInfo::uuid(&v100, this);
+  (*(v100 + 2))(&v100, v11);
+  (*(*v11 + 64))(v11, std::endl[abi:ne200100]<char,std::char_traits<char>>);
+  *(v11 + 17) = 0;
+  v100 = &unk_1F5EBEE78;
+  if (SHIBYTE(v103) < 0)
   {
-    operator delete(v103);
+    operator delete(v101);
   }
 
-  if (v117 == 1 && v116 < 0)
+  if (v115 == 1 && v114 < 0)
   {
-    operator delete(v115);
+    operator delete(v113);
   }
 
   if ((__p[23] & 0x80000000) != 0)
@@ -1053,14 +1055,14 @@ LABEL_81:
     operator delete(*__p);
   }
 
-  v13 = 0;
+  v12 = 0;
 LABEL_170:
-  if (v127)
+  if (v125)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v127);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v125);
   }
 
-  return v13;
+  return v12;
 }
 
 void sub_1E4D11A74(_Unwind_Exception *a1)
@@ -1136,7 +1138,7 @@ void ___ZN11IMSCallInfo12continueCallEv_block_invoke(uint64_t a1)
   v2 = *(a1 + 32);
   v3 = *(a1 + 40);
   IMSCallInfo::uuid(v9, v2);
-  ims::CFString::asString(*(a1 + 56), 0x8000100, &__p);
+  ims::CFString::asString(&__p, *(a1 + 56), 0x8000100);
   IMSCallManager::sendCallDisconnectionNotification(v3, v9, &__p, a1 + 64);
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
@@ -1303,7 +1305,7 @@ void IMSCallManager::sendCallDisconnectionNotification(uint64_t a1, uint64_t a2,
       atomic_fetch_add_explicit(&v30->__shared_owners_, 1uLL, memory_order_relaxed);
     }
 
-    ims::CFString::asString(@"kCallDisconnectionReasonNormal", 0x8000100, &v20);
+    ims::CFString::asString(&v20, @"kCallDisconnectionReasonNormal", 0x8000100);
     v13 = *(a3 + 23);
     if (v13 >= 0)
     {
@@ -1362,7 +1364,7 @@ void IMSCallManager::sendCallDisconnectionNotification(uint64_t a1, uint64_t a2,
       std::__shared_weak_count::__release_shared[abi:ne200100](v12);
     }
 
-    v19 = IMSClientManager::delegateForStack(&v31.__r_.__value_.__l.__data_);
+    v19 = IMSClientManager::delegateForStack(&v31);
     if (*(a2 + 31) < 0)
     {
       std::string::__init_copy_ctor_external(&v20, *(a2 + 8), *(a2 + 16));
@@ -1596,7 +1598,7 @@ void IMSCallInfo::endCall(uint64_t a1, const std::string *a2)
 {
   v66 = 0;
   v67 = 0;
-  IPTelephonyManager::getCallManager(a1, &v66);
+  IPTelephonyManager::getCallManager(&v66);
   if (!*(a1 + 584))
   {
     if (!*(a1 + 160))
@@ -1618,8 +1620,8 @@ void IMSCallInfo::endCall(uint64_t a1, const std::string *a2)
 
         v16 = a2->__r_.__value_.__r.__words[0];
 LABEL_37:
-        v17 = *v16;
-        v18 = *(v16 + 5);
+        v17 = v16->__r_.__value_.__r.__words[0];
+        v18 = *(v16->__r_.__value_.__r.__words + 5);
         if (v17 == *"UserTriggered" && v18 == *"riggered")
         {
           v22 = *(a1 + 160);
@@ -1744,8 +1746,8 @@ LABEL_92:
 
                   v36 = a2->__r_.__value_.__r.__words[0];
 LABEL_83:
-                  v37 = *v36;
-                  v38 = *(v36 + 5);
+                  v37 = v36->__r_.__value_.__r.__words[0];
+                  v38 = *(v36->__r_.__value_.__r.__words + 5);
                   if (v37 == *"UserTriggered" && v38 == *"riggered")
                   {
                     v40 = *(a1 + 160);
@@ -1804,8 +1806,8 @@ LABEL_50:
 
         v21 = a2->__r_.__value_.__r.__words[0];
 LABEL_52:
-        v25 = *v21;
-        v26 = *(v21 + 5);
+        v25 = v21->__r_.__value_.__r.__words[0];
+        v26 = *(v21->__r_.__value_.__r.__words + 5);
         if (v25 != *"UserTriggered" || v26 != *"riggered")
         {
           goto LABEL_77;
@@ -1984,7 +1986,7 @@ void IMSCallInfo::ringCall(IMSCallInfo *this)
   v1 = *(this + 20);
   if (v1)
   {
-    v2 = BambiCall::ring(v1, &v9);
+    v2 = BambiCall::ring(&v9, v1);
     v3 = (*(*v10 + 24))(v10, v11, v2);
     ImsResult::~ImsResult(&v9);
     if (v3)
@@ -2103,7 +2105,7 @@ void IMSCallInfo::setActive(BambiCall **this, uint64_t a2)
 {
   if (this[73])
   {
-    IPTelephonyManager::getCallManager(this, &v4);
+    IPTelephonyManager::getCallManager(&v4);
     (*(*v4 + 184))(v4, a2);
     if (v5)
     {
@@ -2145,67 +2147,67 @@ uint64_t IMSCallInfo::isActive(IMSCallInfo *this)
 {
   if (*(this + 73))
   {
-    v1 = std::string::basic_string[abi:ne200100]<0>(&v22, "call");
-    v18[0] = 0;
-    v21 = 0;
-    v2 = ims::debug(v1, v18);
+    v1 = std::string::basic_string[abi:ne200100]<0>(&v21, "call");
+    v17[0] = 0;
+    v20 = 0;
+    v2 = ims::debug(v1, v17);
     std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v2 + 8), "isActive: call is conference participant", 40);
     *(v2 + 17) = 0;
-    v3 = (*(*v2 + 64))(v2, std::endl[abi:ne200100]<char,std::char_traits<char>>);
+    (*(*v2 + 64))(v2, std::endl[abi:ne200100]<char,std::char_traits<char>>);
     *(v2 + 17) = 0;
-    if (v21 == 1 && v20 < 0)
+    if (v20 == 1 && v19 < 0)
     {
       operator delete(__p);
     }
 
-    if (v24 < 0)
+    if (v23 < 0)
     {
-      operator delete(v22);
+      operator delete(v21);
     }
 
+    v15 = 0;
     v16 = 0;
-    v17 = 0;
-    IPTelephonyManager::getCallManager(v3, &v22);
-    (*(*v22 + 200))(&v16);
-    if (v23)
+    IPTelephonyManager::getCallManager(&v21);
+    (*(*v21 + 200))(&v15);
+    if (v22)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v23);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v22);
     }
 
-    if (v16 && (v4 = *(v16 + 408)) != 0 && SipSession::confirmed(v4) && (*(v16 + 480) & 0xFFFFFFFE) != 2)
+    if (v15 && (v3 = *(v15 + 408)) != 0 && SipSession::confirmed(v3) && (*(v15 + 480) & 0xFFFFFFFE) != 2)
     {
-      v10 = std::string::basic_string[abi:ne200100]<0>(&v22, "call");
-      v12[0] = 0;
-      v15 = 0;
-      v11 = ims::debug(v10, v12);
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v11 + 8), "isActive: conference call is confirmed or unheld", 48);
-      *(v11 + 17) = 0;
-      (*(*v11 + 64))(v11, std::endl[abi:ne200100]<char,std::char_traits<char>>);
-      *(v11 + 17) = 0;
-      if (v15 == 1 && v14 < 0)
+      v9 = std::string::basic_string[abi:ne200100]<0>(&v21, "call");
+      v11[0] = 0;
+      v14 = 0;
+      v10 = ims::debug(v9, v11);
+      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v10 + 8), "isActive: conference call is confirmed or unheld", 48);
+      *(v10 + 17) = 0;
+      (*(*v10 + 64))(v10, std::endl[abi:ne200100]<char,std::char_traits<char>>);
+      *(v10 + 17) = 0;
+      if (v14 == 1 && v13 < 0)
       {
-        operator delete(v13);
+        operator delete(v12);
       }
 
-      if (v24 < 0)
+      if (v23 < 0)
       {
-        operator delete(v22);
+        operator delete(v21);
       }
 
-      v5 = 0;
+      v4 = 0;
     }
 
     else
     {
-      v5 = 1;
+      v4 = 1;
     }
 
-    if (v17)
+    if (v16)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v17);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v16);
     }
 
-    if ((v5 & 1) == 0)
+    if ((v4 & 1) == 0)
     {
       return 1;
     }
@@ -2213,13 +2215,13 @@ uint64_t IMSCallInfo::isActive(IMSCallInfo *this)
 
   else
   {
-    v8 = *(this + 20);
-    if (v8)
+    v7 = *(this + 20);
+    if (v7)
     {
-      v9 = *(v8 + 408);
-      if (v9)
+      v8 = *(v7 + 408);
+      if (v8)
       {
-        if (SipSession::confirmed(v9) && (*(*(this + 20) + 480) & 0xFFFFFFFE) != 2)
+        if (SipSession::confirmed(v8) && (*(*(this + 20) + 480) & 0xFFFFFFFE) != 2)
         {
           return 1;
         }
@@ -2257,12 +2259,12 @@ SipSession *IMSCallInfo::isAlerting(IMSCallInfo *this)
   return result;
 }
 
-void IMSCallInfo::refresh(IMSCallInfo *this, int a2)
+void IMSCallInfo::refresh(IMSCallInfo *this, BOOL a2)
 {
   v2 = *(this + 20);
   if (v2)
   {
-    BambiCall::handleSRVCCFailure(v2, a2, v3);
+    BambiCall::handleSRVCCFailure(v3, v2, a2);
     ImsResult::~ImsResult(v3);
   }
 }
@@ -2311,10 +2313,10 @@ void ___ZN11IMSCallInfo27sendAccessBarringDisconnectEv_block_invoke(uint64_t a1)
   v2 = *(a1 + 32);
   v10 = 0;
   v11 = 0;
-  IPTelephonyManager::getCallManager(a1, &v10);
+  IPTelephonyManager::getCallManager(&v10);
   v3 = v10;
   IMSCallInfo::uuid(v8, v2);
-  ims::CFString::asString(*(a1 + 40), 0x8000100, &__p);
+  ims::CFString::asString(&__p, *(a1 + 40), 0x8000100);
   IMSCallManager::sendCallDisconnectionNotification(v3, v8, &__p, a1 + 48);
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
@@ -2588,7 +2590,7 @@ void IMSCallInfo::handleJoinedConferenceEvent(IMSCallInfo *this, BambiCallJoined
 
     v40 = 0;
     v41 = 0;
-    IPTelephonyManager::getCallManager(v25, &v40);
+    IPTelephonyManager::getCallManager(&v40);
     v26 = v40;
     IMSCallInfo::uuid(v30, this);
     (*(*v26 + 216))(v26, v30, @"kCallStatusJoined", *(this + 72), a2);
@@ -2674,60 +2676,60 @@ void IMSCallInfo::handleInputFrequencyLevelEvent(uint64_t a1, uint64_t *a2, uint
         std::__shared_weak_count::__release_shared[abi:ne200100](v8);
         if (v9)
         {
-          IPTelephonyManager::getCallManager(v10, &v19);
-          v11 = *a2;
-          v12 = *(*a2 + 384);
-          if (v12)
+          IPTelephonyManager::getCallManager(&v18);
+          v10 = *a2;
+          v11 = *(*a2 + 384);
+          if (v11)
           {
-            v13 = std::__shared_weak_count::lock(v12);
-            if (v13)
+            v12 = std::__shared_weak_count::lock(v11);
+            if (v12)
             {
-              v14 = *(v11 + 376);
+              v13 = *(v10 + 376);
             }
 
             else
             {
-              v14 = 0;
+              v13 = 0;
             }
           }
 
           else
           {
-            v14 = 0;
             v13 = 0;
+            v12 = 0;
           }
 
-          if (*(v14 + 4455) < 0)
+          if (*(v13 + 4455) < 0)
           {
-            std::string::__init_copy_ctor_external(&v18, *(v14 + 4432), *(v14 + 4440));
+            std::string::__init_copy_ctor_external(&v17, *(v13 + 4432), *(v13 + 4440));
           }
 
           else
           {
-            v18 = *(v14 + 4432);
+            v17 = *(v13 + 4432);
           }
 
-          IMSCallInfo::uuid(v16, a1);
-          IMSCallManager::sendInputFrequencyLevelUpdateNotification(v15, &v18.__r_.__value_.__l.__data_, v16, a3);
-          v16[0] = &unk_1F5EBEE78;
-          if (v17 < 0)
+          IMSCallInfo::uuid(v15, a1);
+          IMSCallManager::sendInputFrequencyLevelUpdateNotification(v14, &v17, v15, a3);
+          v15[0] = &unk_1F5EBEE78;
+          if (v16 < 0)
           {
-            operator delete(v16[1]);
+            operator delete(v15[1]);
           }
 
-          if (SHIBYTE(v18.__r_.__value_.__r.__words[2]) < 0)
+          if (SHIBYTE(v17.__r_.__value_.__r.__words[2]) < 0)
           {
-            operator delete(v18.__r_.__value_.__l.__data_);
+            operator delete(v17.__r_.__value_.__l.__data_);
           }
 
-          if (v13)
+          if (v12)
           {
-            std::__shared_weak_count::__release_shared[abi:ne200100](v13);
+            std::__shared_weak_count::__release_shared[abi:ne200100](v12);
           }
 
-          if (v20)
+          if (v19)
           {
-            std::__shared_weak_count::__release_shared[abi:ne200100](v20);
+            std::__shared_weak_count::__release_shared[abi:ne200100](v19);
           }
         }
       }
@@ -2751,7 +2753,7 @@ void sub_1E4D14424(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void IMSCallManager::sendInputFrequencyLevelUpdateNotification(uint64_t a1, void **a2, uint64_t a3, uint64_t a4)
+void IMSCallManager::sendInputFrequencyLevelUpdateNotification(uint64_t a1, char *a2, uint64_t a3, uint64_t a4)
 {
   v6 = IMSClientManager::delegateForStack(a2);
   if (*(a3 + 31) < 0)
@@ -2796,60 +2798,60 @@ void IMSCallInfo::handleOutputFrequencyLevelEvent(uint64_t a1, uint64_t *a2, uin
         std::__shared_weak_count::__release_shared[abi:ne200100](v8);
         if (v9)
         {
-          IPTelephonyManager::getCallManager(v10, &v19);
-          v11 = *a2;
-          v12 = *(*a2 + 384);
-          if (v12)
+          IPTelephonyManager::getCallManager(&v18);
+          v10 = *a2;
+          v11 = *(*a2 + 384);
+          if (v11)
           {
-            v13 = std::__shared_weak_count::lock(v12);
-            if (v13)
+            v12 = std::__shared_weak_count::lock(v11);
+            if (v12)
             {
-              v14 = *(v11 + 376);
+              v13 = *(v10 + 376);
             }
 
             else
             {
-              v14 = 0;
+              v13 = 0;
             }
           }
 
           else
           {
-            v14 = 0;
             v13 = 0;
+            v12 = 0;
           }
 
-          if (*(v14 + 4455) < 0)
+          if (*(v13 + 4455) < 0)
           {
-            std::string::__init_copy_ctor_external(&v18, *(v14 + 4432), *(v14 + 4440));
+            std::string::__init_copy_ctor_external(&v17, *(v13 + 4432), *(v13 + 4440));
           }
 
           else
           {
-            v18 = *(v14 + 4432);
+            v17 = *(v13 + 4432);
           }
 
-          IMSCallInfo::uuid(v16, a1);
-          IMSCallManager::sendOutputFrequencyLevelUpdateNotification(v15, &v18.__r_.__value_.__l.__data_, v16, a3);
-          v16[0] = &unk_1F5EBEE78;
-          if (v17 < 0)
+          IMSCallInfo::uuid(v15, a1);
+          IMSCallManager::sendOutputFrequencyLevelUpdateNotification(v14, &v17, v15, a3);
+          v15[0] = &unk_1F5EBEE78;
+          if (v16 < 0)
           {
-            operator delete(v16[1]);
+            operator delete(v15[1]);
           }
 
-          if (SHIBYTE(v18.__r_.__value_.__r.__words[2]) < 0)
+          if (SHIBYTE(v17.__r_.__value_.__r.__words[2]) < 0)
           {
-            operator delete(v18.__r_.__value_.__l.__data_);
+            operator delete(v17.__r_.__value_.__l.__data_);
           }
 
-          if (v13)
+          if (v12)
           {
-            std::__shared_weak_count::__release_shared[abi:ne200100](v13);
+            std::__shared_weak_count::__release_shared[abi:ne200100](v12);
           }
 
-          if (v20)
+          if (v19)
           {
-            std::__shared_weak_count::__release_shared[abi:ne200100](v20);
+            std::__shared_weak_count::__release_shared[abi:ne200100](v19);
           }
         }
       }
@@ -2873,7 +2875,7 @@ void sub_1E4D14698(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void IMSCallManager::sendOutputFrequencyLevelUpdateNotification(uint64_t a1, void **a2, uint64_t a3, uint64_t a4)
+void IMSCallManager::sendOutputFrequencyLevelUpdateNotification(uint64_t a1, char *a2, uint64_t a3, uint64_t a4)
 {
   v6 = IMSClientManager::delegateForStack(a2);
   if (*(a3 + 31) < 0)
@@ -2905,50 +2907,49 @@ void sub_1E4D147B0(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 void IMSCallInfo::handleVocoderInfoEvent(IMSCallInfo *a1, uint64_t a2, uint64_t a3)
 {
-  IMSCallInfo::stack(a1, &v13);
-  size = v13.__r_.__value_.__l.__size_;
-  v7 = v13.__r_.__value_.__r.__words[0];
-  if (v13.__r_.__value_.__l.__size_)
+  IMSCallInfo::stack(a1, &v12);
+  v6 = v12.__r_.__value_.__r.__words[0];
+  if (v12.__r_.__value_.__l.__size_)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v13.__r_.__value_.__l.__size_);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v12.__r_.__value_.__l.__size_);
   }
 
-  if (v7)
+  if (v6)
   {
-    IPTelephonyManager::getCallManager(size, &v14);
-    IMSCallInfo::stack(a1, &v11);
-    if (*(v11 + 4455) < 0)
+    IPTelephonyManager::getCallManager(&v13);
+    IMSCallInfo::stack(a1, &v10);
+    if (*(v10 + 4455) < 0)
     {
-      std::string::__init_copy_ctor_external(&v13, *(v11 + 4432), *(v11 + 4440));
+      std::string::__init_copy_ctor_external(&v12, *(v10 + 4432), *(v10 + 4440));
     }
 
     else
     {
-      v13 = *(v11 + 4432);
+      v12 = *(v10 + 4432);
     }
 
-    IMSCallInfo::uuid(v9, a1);
-    v8 = IMSClientManager::delegateForStack(&v13.__r_.__value_.__l.__data_);
-    (*(*v8 + 232))(v8, a2, a3);
-    v9[0] = &unk_1F5EBEE78;
-    if (v10 < 0)
+    IMSCallInfo::uuid(v8, a1);
+    v7 = IMSClientManager::delegateForStack(&v12);
+    (*(*v7 + 232))(v7, a2, a3);
+    v8[0] = &unk_1F5EBEE78;
+    if (v9 < 0)
     {
-      operator delete(v9[1]);
+      operator delete(v8[1]);
     }
 
-    if (SHIBYTE(v13.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v12.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v13.__r_.__value_.__l.__data_);
+      operator delete(v12.__r_.__value_.__l.__data_);
     }
 
-    if (v12)
+    if (v11)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v12);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v11);
     }
 
-    if (v15)
+    if (v14)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v15);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v14);
     }
   }
 }
@@ -2969,7 +2970,7 @@ void sub_1E4D14904(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t IMSCallManager::sendVocoderInfoNotification(uint64_t a1, void **a2)
+uint64_t IMSCallManager::sendVocoderInfoNotification(uint64_t a1, char *a2)
 {
   v2 = *(*IMSClientManager::delegateForStack(a2) + 232);
 
@@ -2978,53 +2979,53 @@ uint64_t IMSCallManager::sendVocoderInfoNotification(uint64_t a1, void **a2)
 
 void IMSCallInfo::handleAudioStreamTokensEvent(IMSCallInfo *this, const __CFArray *a2)
 {
+  v10 = 0;
   v11 = 0;
-  v12 = 0;
   if (*(this + 135) < 0)
   {
-    std::string::__init_copy_ctor_external(&v10, *(this + 14), *(this + 15));
+    std::string::__init_copy_ctor_external(&v9, *(this + 14), *(this + 15));
   }
 
   else
   {
-    v10 = *(this + 112);
+    v9 = *(this + 112);
   }
 
-  v4 = ims::CFString::CFString(&v11, &v10);
-  if (SHIBYTE(v10.__r_.__value_.__r.__words[2]) < 0)
+  ims::CFString::CFString(&v10, &v9);
+  if (SHIBYTE(v9.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v10.__r_.__value_.__l.__data_);
+    operator delete(v9.__r_.__value_.__l.__data_);
   }
 
-  IPTelephonyManager::getCallManager(v4, &v8);
-  IMSCallInfo::stack(this, &v6);
-  if (*(v6 + 4455) < 0)
+  IPTelephonyManager::getCallManager(&v7);
+  IMSCallInfo::stack(this, &v5);
+  if (*(v5 + 4455) < 0)
   {
-    std::string::__init_copy_ctor_external(&v10, *(v6 + 4432), *(v6 + 4440));
+    std::string::__init_copy_ctor_external(&v9, *(v5 + 4432), *(v5 + 4440));
   }
 
   else
   {
-    v10 = *(v6 + 4432);
+    v9 = *(v5 + 4432);
   }
 
-  IMSCallManager::sendAudioStreamTokensNotification(v5, &v10.__r_.__value_.__l.__data_, v12, 0, a2);
-  if (SHIBYTE(v10.__r_.__value_.__r.__words[2]) < 0)
+  IMSCallManager::sendAudioStreamTokensNotification(v4, &v9, v11, 0, a2);
+  if (SHIBYTE(v9.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v10.__r_.__value_.__l.__data_);
+    operator delete(v9.__r_.__value_.__l.__data_);
   }
 
-  if (v7)
+  if (v6)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v7);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v6);
   }
 
-  if (v9)
+  if (v8)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v9);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v8);
   }
 
-  ims::CFType::~CFType(&v11);
+  ims::CFType::~CFType(&v10);
 }
 
 void sub_1E4D14AEC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, std::__shared_weak_count *a10, uint64_t a11, std::__shared_weak_count *a12, void *__p, uint64_t a14, int a15, __int16 a16, char a17, char a18)
@@ -3053,25 +3054,25 @@ void sub_1E4D14B40(int a1, int a2, int a3, int a4, int a5, int a6, int a7, int a
   JUMPOUT(0x1E4D14B38);
 }
 
-const void **IMSCallManager::sendAudioStreamTokensNotification(int a1, void **a2, CFStringRef theString, int a4, CFTypeRef cf)
+const void **IMSCallManager::sendAudioStreamTokensNotification(int a1, char *a2, CFStringRef theString, int a4, CFTypeRef cf)
 {
-  v30 = *MEMORY[0x1E69E9840];
-  v28 = 0u;
-  v29 = 0u;
-  v26 = 0u;
+  v29 = *MEMORY[0x1E69E9840];
   v27 = 0u;
-  v24 = 0u;
+  v28 = 0u;
   v25 = 0u;
-  v22 = 0u;
+  v26 = 0u;
   v23 = 0u;
-  v20 = 0u;
+  v24 = 0u;
   v21 = 0u;
-  v18 = 0u;
+  v22 = 0u;
   v19 = 0u;
-  v16 = 0u;
+  v20 = 0u;
   v17 = 0u;
-  *buffer = 0u;
+  v18 = 0u;
   v15 = 0u;
+  v16 = 0u;
+  *buffer = 0u;
+  v14 = 0u;
   cfa = cf;
   if (cf)
   {
@@ -3081,22 +3082,20 @@ const void **IMSCallManager::sendAudioStreamTokensNotification(int a1, void **a2
   CFStringGetCString(theString, buffer, 256, 0x600u);
   v7 = IMSClientManager::delegateForStack(a2);
   std::string::basic_string[abi:ne200100]<0>(__p, buffer);
-  v10 = cfa;
+  v9 = cfa;
   if (cfa)
   {
     CFRetain(cfa);
   }
 
-  (*(*v7 + 176))(v7, __p, &v10);
-  ctu::SharedRef<__CFArray const,ctu::cf::cfretain_functor,ctu::cf::cfrelease_functor,__CFArray const>::~SharedRef(&v10);
-  if (v12 < 0)
+  (*(*v7 + 176))(v7, __p, &v9);
+  ctu::SharedRef<__CFArray const,ctu::cf::cfretain_functor,ctu::cf::cfrelease_functor,__CFArray const>::~SharedRef(&v9);
+  if (v11 < 0)
   {
     operator delete(__p[0]);
   }
 
-  result = ctu::SharedRef<__CFArray const,ctu::cf::cfretain_functor,ctu::cf::cfrelease_functor,__CFArray const>::~SharedRef(&cfa);
-  v9 = *MEMORY[0x1E69E9840];
-  return result;
+  return ctu::SharedRef<__CFArray const,ctu::cf::cfretain_functor,ctu::cf::cfrelease_functor,__CFArray const>::~SharedRef(&cfa);
 }
 
 void sub_1E4D14C7C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, void *__p, uint64_t a12, int a13, __int16 a14, char a15, char a16, char a17)
@@ -3111,53 +3110,53 @@ void sub_1E4D14C7C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 void IMSCallInfo::handleTextStreamTokenEvent(IMSCallInfo *this, const __CFNumber *a2)
 {
+  v10 = 0;
   v11 = 0;
-  v12 = 0;
   if (*(this + 135) < 0)
   {
-    std::string::__init_copy_ctor_external(&v10, *(this + 14), *(this + 15));
+    std::string::__init_copy_ctor_external(&v9, *(this + 14), *(this + 15));
   }
 
   else
   {
-    v10 = *(this + 112);
+    v9 = *(this + 112);
   }
 
-  v4 = ims::CFString::CFString(&v11, &v10);
-  if (SHIBYTE(v10.__r_.__value_.__r.__words[2]) < 0)
+  ims::CFString::CFString(&v10, &v9);
+  if (SHIBYTE(v9.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v10.__r_.__value_.__l.__data_);
+    operator delete(v9.__r_.__value_.__l.__data_);
   }
 
-  IPTelephonyManager::getCallManager(v4, &v8);
-  IMSCallInfo::stack(this, &v6);
-  if (*(v6 + 4455) < 0)
+  IPTelephonyManager::getCallManager(&v7);
+  IMSCallInfo::stack(this, &v5);
+  if (*(v5 + 4455) < 0)
   {
-    std::string::__init_copy_ctor_external(&v10, *(v6 + 4432), *(v6 + 4440));
+    std::string::__init_copy_ctor_external(&v9, *(v5 + 4432), *(v5 + 4440));
   }
 
   else
   {
-    v10 = *(v6 + 4432);
+    v9 = *(v5 + 4432);
   }
 
-  IMSCallManager::sendTextStreamTokenNotification(v5, &v10.__r_.__value_.__l.__data_, v12, 0, a2);
-  if (SHIBYTE(v10.__r_.__value_.__r.__words[2]) < 0)
+  IMSCallManager::sendTextStreamTokenNotification(v4, &v9, v11, 0, a2);
+  if (SHIBYTE(v9.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v10.__r_.__value_.__l.__data_);
+    operator delete(v9.__r_.__value_.__l.__data_);
   }
 
-  if (v7)
+  if (v6)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v7);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v6);
   }
 
-  if (v9)
+  if (v8)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v9);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v8);
   }
 
-  ims::CFType::~CFType(&v11);
+  ims::CFType::~CFType(&v10);
 }
 
 void sub_1E4D14DD0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, std::__shared_weak_count *a10, uint64_t a11, std::__shared_weak_count *a12, void *__p, uint64_t a14, int a15, __int16 a16, char a17, char a18)
@@ -3186,25 +3185,25 @@ void sub_1E4D14E24(int a1, int a2, int a3, int a4, int a5, int a6, int a7, int a
   JUMPOUT(0x1E4D14E1CLL);
 }
 
-const void **IMSCallManager::sendTextStreamTokenNotification(int a1, void **a2, CFStringRef theString, int a4, CFTypeRef cf)
+const void **IMSCallManager::sendTextStreamTokenNotification(int a1, char *a2, CFStringRef theString, int a4, CFTypeRef cf)
 {
-  v30 = *MEMORY[0x1E69E9840];
-  v28 = 0u;
-  v29 = 0u;
-  v26 = 0u;
+  v29 = *MEMORY[0x1E69E9840];
   v27 = 0u;
-  v24 = 0u;
+  v28 = 0u;
   v25 = 0u;
-  v22 = 0u;
+  v26 = 0u;
   v23 = 0u;
-  v20 = 0u;
+  v24 = 0u;
   v21 = 0u;
-  v18 = 0u;
+  v22 = 0u;
   v19 = 0u;
-  v16 = 0u;
+  v20 = 0u;
   v17 = 0u;
-  *buffer = 0u;
+  v18 = 0u;
   v15 = 0u;
+  v16 = 0u;
+  *buffer = 0u;
+  v14 = 0u;
   cfa = cf;
   if (cf)
   {
@@ -3214,22 +3213,20 @@ const void **IMSCallManager::sendTextStreamTokenNotification(int a1, void **a2, 
   CFStringGetCString(theString, buffer, 256, 0x600u);
   v7 = IMSClientManager::delegateForStack(a2);
   std::string::basic_string[abi:ne200100]<0>(__p, buffer);
-  v10 = cfa;
+  v9 = cfa;
   if (cfa)
   {
     CFRetain(cfa);
   }
 
-  (*(*v7 + 184))(v7, __p, &v10);
-  ctu::SharedRef<__CFNumber const,ctu::cf::cfretain_functor,ctu::cf::cfrelease_functor,__CFNumber const>::~SharedRef(&v10);
-  if (v12 < 0)
+  (*(*v7 + 184))(v7, __p, &v9);
+  ctu::SharedRef<__CFNumber const,ctu::cf::cfretain_functor,ctu::cf::cfrelease_functor,__CFNumber const>::~SharedRef(&v9);
+  if (v11 < 0)
   {
     operator delete(__p[0]);
   }
 
-  result = ctu::SharedRef<__CFNumber const,ctu::cf::cfretain_functor,ctu::cf::cfrelease_functor,__CFNumber const>::~SharedRef(&cfa);
-  v9 = *MEMORY[0x1E69E9840];
-  return result;
+  return ctu::SharedRef<__CFNumber const,ctu::cf::cfretain_functor,ctu::cf::cfrelease_functor,__CFNumber const>::~SharedRef(&cfa);
 }
 
 void sub_1E4D14F60(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, void *__p, uint64_t a12, int a13, __int16 a14, char a15, char a16, char a17)
@@ -3244,53 +3241,53 @@ void sub_1E4D14F60(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 void IMSCallInfo::handleIncomingDtmfEvent(IMSCallInfo *this, uint64_t a2)
 {
+  v10 = 0;
   v11 = 0;
-  v12 = 0;
   if (*(this + 135) < 0)
   {
-    std::string::__init_copy_ctor_external(&v10, *(this + 14), *(this + 15));
+    std::string::__init_copy_ctor_external(&v9, *(this + 14), *(this + 15));
   }
 
   else
   {
-    v10 = *(this + 112);
+    v9 = *(this + 112);
   }
 
-  v4 = ims::CFString::CFString(&v11, &v10);
-  if (SHIBYTE(v10.__r_.__value_.__r.__words[2]) < 0)
+  ims::CFString::CFString(&v10, &v9);
+  if (SHIBYTE(v9.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v10.__r_.__value_.__l.__data_);
+    operator delete(v9.__r_.__value_.__l.__data_);
   }
 
-  IPTelephonyManager::getCallManager(v4, &v8);
-  IMSCallInfo::stack(this, &v6);
-  if (*(v6 + 4455) < 0)
+  IPTelephonyManager::getCallManager(&v7);
+  IMSCallInfo::stack(this, &v5);
+  if (*(v5 + 4455) < 0)
   {
-    std::string::__init_copy_ctor_external(&v10, *(v6 + 4432), *(v6 + 4440));
+    std::string::__init_copy_ctor_external(&v9, *(v5 + 4432), *(v5 + 4440));
   }
 
   else
   {
-    v10 = *(v6 + 4432);
+    v9 = *(v5 + 4432);
   }
 
-  IMSCallManager::sendIncomingDtmfNotification(v5, &v10.__r_.__value_.__l.__data_, v12, a2);
-  if (SHIBYTE(v10.__r_.__value_.__r.__words[2]) < 0)
+  IMSCallManager::sendIncomingDtmfNotification(v4, &v9, v11, a2);
+  if (SHIBYTE(v9.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v10.__r_.__value_.__l.__data_);
+    operator delete(v9.__r_.__value_.__l.__data_);
   }
 
-  if (v7)
+  if (v6)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v7);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v6);
   }
 
-  if (v9)
+  if (v8)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v9);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v8);
   }
 
-  ims::CFType::~CFType(&v11);
+  ims::CFType::~CFType(&v10);
 }
 
 void sub_1E4D150B0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, std::__shared_weak_count *a10, uint64_t a11, std::__shared_weak_count *a12, void *__p, uint64_t a14, int a15, __int16 a16, char a17, char a18)
@@ -3319,35 +3316,33 @@ void sub_1E4D15104(int a1, int a2, int a3, int a4, int a5, int a6, int a7, int a
   JUMPOUT(0x1E4D150FCLL);
 }
 
-void IMSCallManager::sendIncomingDtmfNotification(int a1, void **a2, CFStringRef theString, uint64_t a4)
+void IMSCallManager::sendIncomingDtmfNotification(int a1, char *a2, CFStringRef theString, uint64_t a4)
 {
-  v26 = *MEMORY[0x1E69E9840];
-  v24 = 0u;
-  v25 = 0u;
-  v22 = 0u;
+  v25 = *MEMORY[0x1E69E9840];
   v23 = 0u;
-  v20 = 0u;
+  v24 = 0u;
   v21 = 0u;
-  v18 = 0u;
+  v22 = 0u;
   v19 = 0u;
+  v20 = 0u;
   v17 = 0u;
-  v15 = 0u;
+  v18 = 0u;
   v16 = 0u;
-  v13 = 0u;
   v14 = 0u;
-  v11 = 0u;
+  v15 = 0u;
   v12 = 0u;
+  v13 = 0u;
+  v10 = 0u;
+  v11 = 0u;
   *buffer = 0u;
   CFStringGetCString(theString, buffer, 256, 0x600u);
   v6 = IMSClientManager::delegateForStack(a2);
   std::string::basic_string[abi:ne200100]<0>(__p, buffer);
   (*(*v6 + 192))(v6, __p, a4);
-  if (v9 < 0)
+  if (v8 < 0)
   {
     operator delete(__p[0]);
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void sub_1E4D15214(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
@@ -3396,7 +3391,7 @@ void IMSCallInfo::handleTextStreamHeldEvent(IMSCallInfo *this, uint64_t a2)
     v7 = __p;
   }
 
-  v4 = IMSClientManager::delegateForStack(&v8.__r_.__value_.__l.__data_);
+  v4 = IMSClientManager::delegateForStack(&v8);
   (*(*v4 + 136))(v4, &v7, a2);
   if (SHIBYTE(v7.__r_.__value_.__r.__words[2]) < 0)
   {
@@ -3427,42 +3422,42 @@ void sub_1E4D15388(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 void IMSCallInfo::handleCallInvalidated(std::string *a1, void *a2)
 {
   std::string::basic_string[abi:ne200100]<0>(__p, "call");
-  v38[0] = 0;
-  v41 = 0;
-  v4 = ims::debug(__p, v38);
+  v37[0] = 0;
+  v40 = 0;
+  v4 = ims::debug(__p, v37);
   std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v4 + 8), "handleCallInvalidated", 21);
   *(v4 + 17) = 0;
-  v5 = (*(*v4 + 64))(v4, std::endl[abi:ne200100]<char,std::char_traits<char>>);
+  (*(*v4 + 64))(v4, std::endl[abi:ne200100]<char,std::char_traits<char>>);
   *(v4 + 17) = 0;
-  if (v41 == 1 && v40 < 0)
+  if (v40 == 1 && v39 < 0)
   {
-    operator delete(v39);
+    operator delete(v38);
   }
 
-  if (SBYTE7(v25) < 0)
+  if (SBYTE7(v24) < 0)
   {
     operator delete(__p[0]);
   }
 
+  v35 = 0;
   v36 = 0;
-  v37 = 0;
-  IPTelephonyManager::getCallManager(v5, &v36);
+  IPTelephonyManager::getCallManager(&v35);
   if (a1[24].__r_.__value_.__l.__size_)
   {
     std::string::basic_string[abi:ne200100]<0>(__p, "call");
-    v32[0] = 0;
-    v35 = 0;
-    v6 = ims::debug(__p, v32);
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v6 + 8), "Invalidated call turned into a conference participant.  Keeping CallInfo", 72);
-    *(v6 + 17) = 0;
-    (*(*v6 + 64))(v6, std::endl[abi:ne200100]<char,std::char_traits<char>>);
-    *(v6 + 17) = 0;
-    if (v35 == 1 && v34 < 0)
+    v31[0] = 0;
+    v34 = 0;
+    v5 = ims::debug(__p, v31);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v5 + 8), "Invalidated call turned into a conference participant.  Keeping CallInfo", 72);
+    *(v5 + 17) = 0;
+    (*(*v5 + 64))(v5, std::endl[abi:ne200100]<char,std::char_traits<char>>);
+    *(v5 + 17) = 0;
+    if (v34 == 1 && v33 < 0)
     {
-      operator delete(v33);
+      operator delete(v32);
     }
 
-    if (SBYTE7(v25) < 0)
+    if (SBYTE7(v24) < 0)
     {
       operator delete(__p[0]);
     }
@@ -3484,79 +3479,79 @@ void IMSCallInfo::handleCallInvalidated(std::string *a1, void *a2)
   }
 
   std::string::basic_string[abi:ne200100]<0>(__p, "call");
-  v28[0] = 0;
-  v31 = 0;
-  v8 = ims::debug(__p, v28);
-  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v8 + 8), "handleCallInvalidated actually removing the call", 48);
-  *(v8 + 17) = 0;
-  (*(*v8 + 64))(v8, std::endl[abi:ne200100]<char,std::char_traits<char>>);
-  *(v8 + 17) = 0;
-  if (v31 == 1 && v30 < 0)
+  v27[0] = 0;
+  v30 = 0;
+  v7 = ims::debug(__p, v27);
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v7 + 8), "handleCallInvalidated actually removing the call", 48);
+  *(v7 + 17) = 0;
+  (*(*v7 + 64))(v7, std::endl[abi:ne200100]<char,std::char_traits<char>>);
+  *(v7 + 17) = 0;
+  if (v30 == 1 && v29 < 0)
   {
-    operator delete(v29);
+    operator delete(v28);
   }
 
-  if (SBYTE7(v25) < 0)
+  if (SBYTE7(v24) < 0)
   {
     operator delete(__p[0]);
   }
 
-  v9 = *a2;
+  v8 = *a2;
   if (*(*a2 + 1529))
   {
-    v10 = a1[25].__r_.__value_.__s.__data_[3];
+    v9 = a1[25].__r_.__value_.__s.__data_[3];
   }
 
   else
   {
-    v10 = a1[25].__r_.__value_.__s.__data_[3];
-    if ((*(v9 + 1530) & 1) == 0)
+    v9 = a1[25].__r_.__value_.__s.__data_[3];
+    if ((*(v8 + 1530) & 1) == 0)
     {
       if ((a1[25].__r_.__value_.__s.__data_[3] & 1) == 0)
       {
-        v14 = *(v9 + 384);
-        if (v14)
+        v13 = *(v8 + 384);
+        if (v13)
         {
-          v14 = std::__shared_weak_count::lock(v14);
-          v15 = v14;
-          if (v14)
+          v13 = std::__shared_weak_count::lock(v13);
+          v14 = v13;
+          if (v13)
           {
-            v16 = *(v9 + 376);
+            v15 = *(v8 + 376);
           }
 
           else
           {
-            v16 = 0;
+            v15 = 0;
           }
         }
 
         else
         {
-          v16 = 0;
           v15 = 0;
+          v14 = 0;
         }
 
-        if (*(v16 + 4455) < 0)
+        if (*(v15 + 4455) < 0)
         {
-          std::string::__init_copy_ctor_external(__p, *(v16 + 4432), *(v16 + 4440));
+          std::string::__init_copy_ctor_external(__p, *(v15 + 4432), *(v15 + 4440));
         }
 
         else
         {
-          v17 = v16 + 4432;
-          *__p = *v17;
-          *&v25 = *(v17 + 16);
+          v16 = v15 + 4432;
+          *__p = *v16;
+          *&v24 = *(v16 + 16);
         }
 
-        IMSCallManager::sendCallStatusRequest(v14, __p, 2, *(*a2 + 1529), *(*a2 + 552) != 0);
-        if (SBYTE7(v25) < 0)
+        IMSCallManager::sendCallStatusRequest(v13, __p, 2, *(*a2 + 1529), *(*a2 + 552) != 0);
+        if (SBYTE7(v24) < 0)
         {
           operator delete(__p[0]);
         }
 
-        if (v15)
+        if (v14)
         {
-          std::__shared_weak_count::__release_shared[abi:ne200100](v15);
+          std::__shared_weak_count::__release_shared[abi:ne200100](v14);
         }
       }
 
@@ -3564,30 +3559,30 @@ void IMSCallInfo::handleCallInvalidated(std::string *a1, void *a2)
     }
   }
 
-  if ((v10 & 1) == 0)
+  if ((v9 & 1) == 0)
   {
     bzero(__p, 0x250uLL);
     BambiCallSessionTerminationBaseEvent::BambiCallSessionTerminationBaseEvent(__p, 15, 10);
     __p[0] = &unk_1F5EC4038;
-    v11 = *a2;
-    v12 = a2[1];
-    if (v12)
+    v10 = *a2;
+    v11 = a2[1];
+    if (v11)
     {
-      atomic_fetch_add_explicit(&v12->__shared_owners_, 1uLL, memory_order_relaxed);
-      atomic_fetch_add_explicit(&v12->__shared_weak_owners_, 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit(&v11->__shared_owners_, 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit(&v11->__shared_weak_owners_, 1uLL, memory_order_relaxed);
     }
 
-    v13 = *(&v25 + 1);
-    *&v25 = v11;
-    *(&v25 + 1) = v12;
-    if (v13)
-    {
-      std::__shared_weak_count::__release_weak(v13);
-    }
-
+    v12 = *(&v24 + 1);
+    *&v24 = v10;
+    *(&v24 + 1) = v11;
     if (v12)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v12);
+      std::__shared_weak_count::__release_weak(v12);
+    }
+
+    if (v11)
+    {
+      std::__shared_weak_count::__release_shared[abi:ne200100](v11);
     }
 
     IMSCallInfo::handleSessionTerminationEvent(a1, __p);
@@ -3596,58 +3591,58 @@ void IMSCallInfo::handleCallInvalidated(std::string *a1, void *a2)
   }
 
 LABEL_47:
-  v27 = 0;
-  v25 = 0u;
-  *v26 = 0u;
+  v26 = 0;
+  v24 = 0u;
+  *v25 = 0u;
   *__p = 0u;
-  std::string::basic_string[abi:ne200100]<0>(v22, "CallInvalidated");
-  BambiCallNamedEvent::BambiCallNamedEvent(__p, v22);
-  if (v23 < 0)
+  std::string::basic_string[abi:ne200100]<0>(v21, "CallInvalidated");
+  BambiCallNamedEvent::BambiCallNamedEvent(__p, v21);
+  if (v22 < 0)
   {
-    operator delete(v22[0]);
+    operator delete(v21[0]);
   }
 
   __p[0] = &unk_1F5ED0738;
-  if (SHIBYTE(v27) < 0)
+  if (SHIBYTE(v26) < 0)
   {
-    operator delete(v26[0]);
+    operator delete(v25[0]);
   }
 
   __p[0] = &unk_1F5EC4090;
-  if (*(&v25 + 1))
+  if (*(&v24 + 1))
   {
-    std::__shared_weak_count::__release_weak(*(&v25 + 1));
+    std::__shared_weak_count::__release_weak(*(&v24 + 1));
   }
 
 LABEL_53:
-  v18 = v36;
-  v19 = a1[1].__r_.__value_.__r.__words[2];
+  v17 = v35;
+  v18 = a1[1].__r_.__value_.__r.__words[2];
   size = a1[1].__r_.__value_.__l.__size_;
-  if (!v19)
+  if (!v18)
   {
-    v21 = 0;
+    v20 = 0;
 LABEL_58:
     std::__throw_bad_weak_ptr[abi:ne200100]();
   }
 
-  v21 = std::__shared_weak_count::lock(v19);
-  if (!v21)
+  v20 = std::__shared_weak_count::lock(v18);
+  if (!v20)
   {
     goto LABEL_58;
   }
 
-  (*(*v18 + 224))(v18, &size);
-  data = v21;
-  if (v21)
+  (*(*v17 + 224))(v17, &size);
+  data = v20;
+  if (v20)
   {
 LABEL_13:
     std::__shared_weak_count::__release_shared[abi:ne200100](data);
   }
 
 LABEL_15:
-  if (v37)
+  if (v36)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v37);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v36);
   }
 }
 
@@ -3691,10 +3686,10 @@ void IMSCallInfo::handleSessionTerminationEvent(std::string *this, BambiCallSess
 
   if (v5 != this[6].__r_.__value_.__r.__words[2])
   {
-    std::string::basic_string[abi:ne200100]<0>(&v233, "call");
-    v342[0] = 0;
-    v345 = 0;
-    v7 = ims::debug(&v233, v342);
+    std::string::basic_string[abi:ne200100]<0>(&v231, "call");
+    v340[0] = 0;
+    v343 = 0;
+    v7 = ims::debug(&v231, v340);
     std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v7 + 8), "IMSCallInfo: received ", 22);
     *(v7 + 17) = 0;
     (*(*a2 + 16))(a2, v7);
@@ -3702,14 +3697,14 @@ void IMSCallInfo::handleSessionTerminationEvent(std::string *this, BambiCallSess
     *(v7 + 17) = 0;
     (*(*v7 + 64))(v7, std::endl[abi:ne200100]<char,std::char_traits<char>>);
     *(v7 + 17) = 0;
-    if (v345 == 1 && v344 < 0)
+    if (v343 == 1 && v342 < 0)
     {
-      operator delete(v343);
+      operator delete(v341);
     }
 
-    if (SBYTE7(v234) < 0)
+    if (SBYTE7(v232) < 0)
     {
-      v8 = v233;
+      v8 = v231;
 LABEL_391:
       operator delete(v8);
       goto LABEL_392;
@@ -3718,47 +3713,47 @@ LABEL_391:
     goto LABEL_392;
   }
 
-  v335 = 256;
-  v337 = 0;
-  v338 = 0;
-  v336 = 0uLL;
+  v333 = 256;
+  v335 = 0;
+  v336 = 0;
+  v334 = 0uLL;
+  v337 = 0u;
+  v338 = 0u;
   v339 = 0u;
-  v340 = 0u;
-  v341 = 0u;
-  LODWORD(v338) = IMSCallInfo::sendSessionTerminationMetric(this, a2, &v335);
-  (*(*a2 + 40))(&v233, a2);
-  if (SHIBYTE(v337) < 0)
+  LODWORD(v336) = IMSCallInfo::sendSessionTerminationMetric(this, a2, &v333);
+  (*(*a2 + 40))(&v231, a2);
+  if (SHIBYTE(v335) < 0)
   {
-    operator delete(v336);
+    operator delete(v334);
   }
 
-  v336 = v233;
-  v337 = v234;
-  BYTE1(v335) = *(a2 + 146);
+  v334 = v231;
+  v335 = v232;
+  BYTE1(v333) = *(a2 + 146);
   this[25].__r_.__value_.__s.__data_[3] = 1;
-  v334 = 0;
-  v333 = 0u;
-  v332 = 0u;
+  v332 = 0;
   v331 = 0u;
   v330 = 0u;
-  v329 = 0;
-  v328 = 0;
-  IMSCallInfo::stack(this, &v328);
-  v9 = v328;
-  if (v328)
-  {
-    std::string::operator=(&v330, v328 + 143);
-    std::string::operator=((&v331 + 8), v9 + 144);
-    LOBYTE(v334) = v9[145].__r_.__value_.__s.__data_[16];
-    v333 = *&v9[145].__r_.__value_.__l.__data_;
-  }
-
+  v329 = 0u;
+  v328 = 0u;
   v327 = 0;
   v326 = 0;
-  IPTelephonyManager::getBambiClient(&v326);
+  IMSCallInfo::stack(this, &v326);
+  v9 = v326;
+  if (v326)
+  {
+    std::string::operator=(&v328, v326 + 143);
+    std::string::operator=((&v329 + 8), v9 + 144);
+    LOBYTE(v332) = v9[145].__r_.__value_.__s.__data_[16];
+    v331 = *&v9[145].__r_.__value_.__l.__data_;
+  }
+
   v325 = 0;
   v324 = 0;
-  IPTelephonyManager::getCallManager(v10, &v324);
+  IPTelephonyManager::getBambiClient(&v324);
+  v323 = 0;
+  v322 = 0;
+  IPTelephonyManager::getCallManager(&v322);
   if ((this[29].__r_.__value_.__s.__data_[0] & 1) == 0)
   {
     if ((SHIBYTE(this[26].__r_.__value_.__r.__words[2]) & 0x8000000000000000) != 0)
@@ -3782,85 +3777,85 @@ LABEL_391:
 
     if (size)
     {
-      v13 = BYTE7(v331);
-      if (SBYTE7(v331) < 0)
+      v12 = BYTE7(v329);
+      if (SBYTE7(v329) < 0)
       {
-        v13 = *(&v330 + 1);
+        v12 = *(&v328 + 1);
       }
 
-      if (v13)
+      if (v12)
       {
-        v14 = HIBYTE(v332);
-        if (v332 < 0)
+        v13 = HIBYTE(v330);
+        if (v330 < 0)
         {
-          v14 = v332;
+          v13 = v330;
         }
 
-        if (v14)
+        if (v13)
         {
-          v11 = ims::AccessNetwork::isNR(&this[26]) && ims::AccessNetwork::isLTE(&v330);
-          std::string::basic_string[abi:ne200100]<0>(&v233, "call");
-          v320[0] = 0;
-          v323 = 0;
-          v30 = ims::debug(&v233, v320);
-          std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v30 + 8), "start ANI: ", 11);
-          *(v30 + 17) = 0;
-          LoggableString::LoggableString(v228, this + 26);
-          (*(*v30 + 40))(v30, v228);
-          std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v30 + 8), ", current ANI: ", 15);
-          *(v30 + 17) = 0;
-          LoggableString::LoggableString(&v319, &v330);
-          (*(*v30 + 40))(v30, &v319);
-          if (v11)
+          v10 = ims::AccessNetwork::isNR(&this[26]) && ims::AccessNetwork::isLTE(&v328);
+          std::string::basic_string[abi:ne200100]<0>(&v231, "call");
+          v318[0] = 0;
+          v321 = 0;
+          v29 = ims::debug(&v231, v318);
+          std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v29 + 8), "start ANI: ", 11);
+          *(v29 + 17) = 0;
+          LoggableString::LoggableString(v226, this + 26);
+          (*(*v29 + 40))(v29, v226);
+          std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v29 + 8), ", current ANI: ", 15);
+          *(v29 + 17) = 0;
+          LoggableString::LoggableString(&v317, &v328);
+          (*(*v29 + 40))(v29, &v317);
+          if (v10)
           {
-            v31 = ": EPS Fallback happend during the call";
+            v30 = ": EPS Fallback happend during the call";
           }
 
           else
           {
-            v31 = ": EPS Fallback did not happen during the call";
+            v30 = ": EPS Fallback did not happen during the call";
           }
 
-          if (v11)
+          if (v10)
           {
-            v32 = 38;
+            v31 = 38;
           }
 
           else
           {
-            v32 = 45;
+            v31 = 45;
           }
 
-          std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v30 + 8), v31, v32);
-          *(v30 + 17) = 0;
-          (*(*v30 + 64))(v30, std::endl[abi:ne200100]<char,std::char_traits<char>>);
-          *(v30 + 17) = 0;
-          if (SHIBYTE(v319.__r_.__value_.__r.__words[2]) < 0)
+          std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v29 + 8), v30, v31);
+          *(v29 + 17) = 0;
+          (*(*v29 + 64))(v29, std::endl[abi:ne200100]<char,std::char_traits<char>>);
+          *(v29 + 17) = 0;
+          if (SHIBYTE(v317.__r_.__value_.__r.__words[2]) < 0)
           {
-            operator delete(v319.__r_.__value_.__l.__data_);
+            operator delete(v317.__r_.__value_.__l.__data_);
           }
 
-          if (SHIBYTE(v228[0].__r_.__value_.__r.__words[2]) < 0)
+          if (SHIBYTE(v226[0].__r_.__value_.__r.__words[2]) < 0)
           {
-            operator delete(v228[0].__r_.__value_.__l.__data_);
+            operator delete(v226[0].__r_.__value_.__l.__data_);
           }
 
-          if (v323 == 1 && v322 < 0)
+          if (v321 == 1 && v320 < 0)
           {
-            operator delete(v321);
+            operator delete(v319);
           }
 
-          if (SBYTE7(v234) < 0)
+          if (SBYTE7(v232) < 0)
           {
-            operator delete(v233);
+            operator delete(v231);
           }
 
 LABEL_36:
-          if (v335)
+          if (v333)
           {
-            v233 = 0uLL;
-            *&v234 = 0;
-            if (!v11)
+            v231 = 0uLL;
+            *&v232 = 0;
+            if (!v10)
             {
               goto LABEL_56;
             }
@@ -3869,295 +3864,293 @@ LABEL_36:
           }
 
 LABEL_40:
-          v17 = this[6].__r_.__value_.__r.__words[2];
-          if ((*(v17 + 1529) & 1) == 0 && (*(v17 + 1530) & 1) == 0)
+          v16 = this[6].__r_.__value_.__r.__words[2];
+          if ((*(v16 + 1529) & 1) == 0 && (*(v16 + 1530) & 1) == 0)
           {
-            std::string::basic_string[abi:ne200100]<0>(&v233, "call");
-            v305[0] = 0;
-            v308 = 0;
-            v25 = ims::debug(&v233, v305);
-            std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v25 + 8), "Not sending termination event for hidden call", 45);
-            *(v25 + 17) = 0;
-            (*(*v25 + 64))(v25, std::endl[abi:ne200100]<char,std::char_traits<char>>);
-            *(v25 + 17) = 0;
-            if (v308 == 1 && v307 < 0)
+            std::string::basic_string[abi:ne200100]<0>(&v231, "call");
+            v303[0] = 0;
+            v306 = 0;
+            v24 = ims::debug(&v231, v303);
+            std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v24 + 8), "Not sending termination event for hidden call", 45);
+            *(v24 + 17) = 0;
+            (*(*v24 + 64))(v24, std::endl[abi:ne200100]<char,std::char_traits<char>>);
+            *(v24 + 17) = 0;
+            if (v306 == 1 && v305 < 0)
             {
-              operator delete(v306);
+              operator delete(v304);
             }
 
-            if (SBYTE7(v234) < 0)
+            if (SBYTE7(v232) < 0)
             {
-              operator delete(v233);
+              operator delete(v231);
             }
 
-            v26 = v324;
-            v27 = this[1].__r_.__value_.__r.__words[2];
-            v304[0] = this[1].__r_.__value_.__l.__size_;
-            if (!v27 || (v28 = std::__shared_weak_count::lock(v27), (v304[1] = v28) == 0))
+            v25 = v322;
+            v26 = this[1].__r_.__value_.__r.__words[2];
+            v302[0] = this[1].__r_.__value_.__l.__size_;
+            if (!v26 || (v27 = std::__shared_weak_count::lock(v26), (v302[1] = v27) == 0))
             {
               std::__throw_bad_weak_ptr[abi:ne200100]();
             }
 
-            v29 = v28;
-            BYTE4(v338) = IMSCallManager::sendCallEndRequest(v26, v304, 0);
-            std::__shared_weak_count::__release_shared[abi:ne200100](v29);
+            v28 = v27;
+            BYTE4(v336) = IMSCallManager::sendCallEndRequest(v25, v302, 0);
+            std::__shared_weak_count::__release_shared[abi:ne200100](v28);
             goto LABEL_375;
           }
 
-          memset(&v319, 0, sizeof(v319));
-          v18 = *(a2 + 8);
-          switch(v18)
+          memset(&v317, 0, sizeof(v317));
+          v17 = *(a2 + 8);
+          switch(v17)
           {
             case 0:
             case 4:
-              std::string::basic_string[abi:ne200100]<0>(&v233, "call");
-              v217[0] = 0;
-              v220 = 0;
-              v35 = ims::debug(&v233, v217);
-              v36 = ImsOutStream::operator<<(v35, "I hung up with ");
-              (*(*(this[6].__r_.__value_.__r.__words[2] + 1080) + 40))(this[6].__r_.__value_.__r.__words[2] + 1080, v36);
-              (*(*v36 + 64))(v36, std::endl[abi:ne200100]<char,std::char_traits<char>>);
-              v36[17] = 0;
-              if (v220 == 1 && v219 < 0)
+              std::string::basic_string[abi:ne200100]<0>(&v231, "call");
+              v215[0] = 0;
+              v218 = 0;
+              v34 = ims::debug(&v231, v215);
+              v35 = ImsOutStream::operator<<(v34, "I hung up with ");
+              (*(*(this[6].__r_.__value_.__r.__words[2] + 1080) + 40))(this[6].__r_.__value_.__r.__words[2] + 1080, v35);
+              (*(*v35 + 64))(v35, std::endl[abi:ne200100]<char,std::char_traits<char>>);
+              v35[17] = 0;
+              if (v218 == 1 && v217 < 0)
               {
-                operator delete(v218);
+                operator delete(v216);
               }
 
-              if (SBYTE7(v234) < 0)
+              if (SBYTE7(v232) < 0)
               {
-                operator delete(v233);
+                operator delete(v231);
               }
 
-              ims::CFString::asString(@"kCallDisconnectionReasonNormal", 0x8000100, &v233);
+              ims::CFString::asString(&v231, @"kCallDisconnectionReasonNormal", 0x8000100);
               goto LABEL_303;
             case 1:
             case 5:
-              std::string::basic_string[abi:ne200100]<0>(&v233, "call");
-              v292[0] = 0;
-              v295 = 0;
-              v33 = ims::debug(&v233, v292);
-              (*(*(this[6].__r_.__value_.__r.__words[2] + 1080) + 40))(this[6].__r_.__value_.__r.__words[2] + 1080, v33);
-              v34 = ImsOutStream::operator<<(v33, " hung up");
-              (*(*v34 + 64))(v34, std::endl[abi:ne200100]<char,std::char_traits<char>>);
-              v34[17] = 0;
-              if (v295 == 1 && v294 < 0)
+              std::string::basic_string[abi:ne200100]<0>(&v231, "call");
+              v290[0] = 0;
+              v293 = 0;
+              v32 = ims::debug(&v231, v290);
+              (*(*(this[6].__r_.__value_.__r.__words[2] + 1080) + 40))(this[6].__r_.__value_.__r.__words[2] + 1080, v32);
+              v33 = ImsOutStream::operator<<(v32, " hung up");
+              (*(*v33 + 64))(v33, std::endl[abi:ne200100]<char,std::char_traits<char>>);
+              v33[17] = 0;
+              if (v293 == 1 && v292 < 0)
               {
-                operator delete(v293);
+                operator delete(v291);
               }
 
-              if (SBYTE7(v234) < 0)
+              if (SBYTE7(v232) < 0)
               {
-                operator delete(v233);
+                operator delete(v231);
               }
 
-              ims::CFString::asString(@"kCallDisconnectionReasonNormal", 0x8000100, &v233);
+              ims::CFString::asString(&v231, @"kCallDisconnectionReasonNormal", 0x8000100);
               goto LABEL_335;
             case 2:
-              std::string::basic_string[abi:ne200100]<0>(&v233, "call");
-              v280[0] = 0;
-              v283 = 0;
-              v98 = ims::debug(&v233, v280);
-              v99 = ImsOutStream::operator<<(v98, "I rejected call from ");
-              (*(*(this[6].__r_.__value_.__r.__words[2] + 1080) + 40))(this[6].__r_.__value_.__r.__words[2] + 1080, v99);
-              (*(*v99 + 64))(v99, std::endl[abi:ne200100]<char,std::char_traits<char>>);
-              v99[17] = 0;
-              if (v283 == 1 && v282 < 0)
+              std::string::basic_string[abi:ne200100]<0>(&v231, "call");
+              v278[0] = 0;
+              v281 = 0;
+              v96 = ims::debug(&v231, v278);
+              v97 = ImsOutStream::operator<<(v96, "I rejected call from ");
+              (*(*(this[6].__r_.__value_.__r.__words[2] + 1080) + 40))(this[6].__r_.__value_.__r.__words[2] + 1080, v97);
+              (*(*v97 + 64))(v97, std::endl[abi:ne200100]<char,std::char_traits<char>>);
+              v97[17] = 0;
+              if (v281 == 1 && v280 < 0)
               {
-                operator delete(v281);
+                operator delete(v279);
               }
 
-              if (SBYTE7(v234) < 0)
+              if (SBYTE7(v232) < 0)
               {
-                operator delete(v233);
+                operator delete(v231);
               }
 
-              ims::CFString::asString(@"kCallDisconnectionReasonNormal", 0x8000100, &v233);
+              ims::CFString::asString(&v231, @"kCallDisconnectionReasonNormal", 0x8000100);
               goto LABEL_303;
             case 3:
-              std::string::basic_string[abi:ne200100]<0>(&v233, "call");
-              v268[0] = 0;
-              v271 = 0;
-              v65 = ims::debug(&v233, v268);
-              (*(*(this[6].__r_.__value_.__r.__words[2] + 1080) + 40))(this[6].__r_.__value_.__r.__words[2] + 1080, v65);
-              v66 = ImsOutStream::operator<<(v65, " Rejected");
-              (*(*v66 + 64))(v66, std::endl[abi:ne200100]<char,std::char_traits<char>>);
-              v66[17] = 0;
-              if (v271 == 1 && v270 < 0)
+              std::string::basic_string[abi:ne200100]<0>(&v231, "call");
+              v266[0] = 0;
+              v269 = 0;
+              v64 = ims::debug(&v231, v266);
+              (*(*(this[6].__r_.__value_.__r.__words[2] + 1080) + 40))(this[6].__r_.__value_.__r.__words[2] + 1080, v64);
+              v65 = ImsOutStream::operator<<(v64, " Rejected");
+              (*(*v65 + 64))(v65, std::endl[abi:ne200100]<char,std::char_traits<char>>);
+              v65[17] = 0;
+              if (v269 == 1 && v268 < 0)
               {
-                operator delete(v269);
+                operator delete(v267);
               }
 
-              if (SBYTE7(v234) < 0)
+              if (SBYTE7(v232) < 0)
               {
-                operator delete(v233);
+                operator delete(v231);
               }
 
-              ims::CFString::asString(@"kCallDisconnectionReasonRemoteBusy", 0x8000100, &v233);
+              ims::CFString::asString(&v231, @"kCallDisconnectionReasonRemoteBusy", 0x8000100);
               goto LABEL_335;
             case 6:
-              std::string::basic_string[abi:ne200100]<0>(&v233, "call");
-              v288[0] = 0;
-              v291 = 0;
-              v87 = ims::debug(&v233, v288);
-              (*(*(this[6].__r_.__value_.__r.__words[2] + 1080) + 40))(this[6].__r_.__value_.__r.__words[2] + 1080, v87);
-              v88 = ImsOutStream::operator<<(v87, " answered elsewhere");
-              (*(*v88 + 64))(v88, std::endl[abi:ne200100]<char,std::char_traits<char>>);
-              v88[17] = 0;
-              if (v291 == 1 && v290 < 0)
+              std::string::basic_string[abi:ne200100]<0>(&v231, "call");
+              v286[0] = 0;
+              v289 = 0;
+              v86 = ims::debug(&v231, v286);
+              (*(*(this[6].__r_.__value_.__r.__words[2] + 1080) + 40))(this[6].__r_.__value_.__r.__words[2] + 1080, v86);
+              v87 = ImsOutStream::operator<<(v86, " answered elsewhere");
+              (*(*v87 + 64))(v87, std::endl[abi:ne200100]<char,std::char_traits<char>>);
+              v87[17] = 0;
+              if (v289 == 1 && v288 < 0)
               {
-                operator delete(v289);
+                operator delete(v287);
               }
 
-              if (SBYTE7(v234) < 0)
+              if (SBYTE7(v232) < 0)
               {
-                operator delete(v233);
+                operator delete(v231);
               }
 
-              ims::CFString::asString(@"kIMSCallDisconnectionReasonAnsweredElsewhere", 0x8000100, &v233);
+              ims::CFString::asString(&v231, @"kIMSCallDisconnectionReasonAnsweredElsewhere", 0x8000100);
               goto LABEL_335;
             case 7:
-              std::string::basic_string[abi:ne200100]<0>(&v233, "call");
-              v284[0] = 0;
-              v287 = 0;
-              v89 = ims::debug(&v233, v284);
-              (*(*(this[6].__r_.__value_.__r.__words[2] + 1080) + 40))(this[6].__r_.__value_.__r.__words[2] + 1080, v89);
-              v90 = ImsOutStream::operator<<(v89, " not allowed as other secondary device is in use");
-              (*(*v90 + 64))(v90, std::endl[abi:ne200100]<char,std::char_traits<char>>);
-              v90[17] = 0;
-              if (v287 == 1 && v286 < 0)
+              std::string::basic_string[abi:ne200100]<0>(&v231, "call");
+              v282[0] = 0;
+              v285 = 0;
+              v88 = ims::debug(&v231, v282);
+              (*(*(this[6].__r_.__value_.__r.__words[2] + 1080) + 40))(this[6].__r_.__value_.__r.__words[2] + 1080, v88);
+              v89 = ImsOutStream::operator<<(v88, " not allowed as other secondary device is in use");
+              (*(*v89 + 64))(v89, std::endl[abi:ne200100]<char,std::char_traits<char>>);
+              v89[17] = 0;
+              if (v285 == 1 && v284 < 0)
               {
-                operator delete(v285);
+                operator delete(v283);
               }
 
-              if (SBYTE7(v234) < 0)
+              if (SBYTE7(v232) < 0)
               {
-                operator delete(v233);
+                operator delete(v231);
               }
 
-              ims::CFString::asString(@"kIMSCallDisconnectionReasonSecondaryDeviceAlreadyInUse", 0x8000100, &v233);
+              ims::CFString::asString(&v231, @"kIMSCallDisconnectionReasonSecondaryDeviceAlreadyInUse", 0x8000100);
               goto LABEL_335;
             case 8:
-              std::string::basic_string[abi:ne200100]<0>(&v233, "call");
-              v260[0] = 0;
-              v263 = 0;
-              v102 = ims::debug(&v233, v260);
-              (*(*(this[6].__r_.__value_.__r.__words[2] + 1080) + 40))(this[6].__r_.__value_.__r.__words[2] + 1080, v102);
-              v103 = ImsOutStream::operator<<(v102, " Silent hangup completed");
-              (*(*v103 + 64))(v103, std::endl[abi:ne200100]<char,std::char_traits<char>>);
-              v103[17] = 0;
-              if (v263 == 1 && v262 < 0)
+              std::string::basic_string[abi:ne200100]<0>(&v231, "call");
+              v258[0] = 0;
+              v261 = 0;
+              v100 = ims::debug(&v231, v258);
+              (*(*(this[6].__r_.__value_.__r.__words[2] + 1080) + 40))(this[6].__r_.__value_.__r.__words[2] + 1080, v100);
+              v101 = ImsOutStream::operator<<(v100, " Silent hangup completed");
+              (*(*v101 + 64))(v101, std::endl[abi:ne200100]<char,std::char_traits<char>>);
+              v101[17] = 0;
+              if (v261 == 1 && v260 < 0)
               {
-                operator delete(v261);
+                operator delete(v259);
               }
 
-              if (SBYTE7(v234) < 0)
+              if (SBYTE7(v232) < 0)
               {
-                operator delete(v233);
+                operator delete(v231);
               }
 
-              v104 = v324;
-              v105 = this[1].__r_.__value_.__r.__words[2];
-              v259[0] = this[1].__r_.__value_.__l.__size_;
-              if (!v105 || (v106 = std::__shared_weak_count::lock(v105), (v259[1] = v106) == 0))
+              v102 = v322;
+              v103 = this[1].__r_.__value_.__r.__words[2];
+              v257[0] = this[1].__r_.__value_.__l.__size_;
+              if (!v103 || (v104 = std::__shared_weak_count::lock(v103), (v257[1] = v104) == 0))
               {
                 std::__throw_bad_weak_ptr[abi:ne200100]();
               }
 
-              v107 = v106;
-              BYTE4(v338) = IMSCallManager::sendCallEndRequest(v104, v259, 0);
-              v108 = v107;
+              v105 = v104;
+              BYTE4(v336) = IMSCallManager::sendCallEndRequest(v102, v257, 0);
+              v106 = v105;
               goto LABEL_367;
             case 9:
-              std::string::basic_string[abi:ne200100]<0>(&v233, "call");
-              v300[0] = 0;
-              v303 = 0;
-              v100 = ims::debug(&v233, v300);
-              (*(*(this[6].__r_.__value_.__r.__words[2] + 1080) + 40))(this[6].__r_.__value_.__r.__words[2] + 1080, v100);
-              v101 = ImsOutStream::operator<<(v100, " transferred to another device");
-              (*(*v101 + 64))(v101, std::endl[abi:ne200100]<char,std::char_traits<char>>);
-              v101[17] = 0;
-              if (v303 == 1 && v302 < 0)
+              std::string::basic_string[abi:ne200100]<0>(&v231, "call");
+              v298[0] = 0;
+              v301 = 0;
+              v98 = ims::debug(&v231, v298);
+              (*(*(this[6].__r_.__value_.__r.__words[2] + 1080) + 40))(this[6].__r_.__value_.__r.__words[2] + 1080, v98);
+              v99 = ImsOutStream::operator<<(v98, " transferred to another device");
+              (*(*v99 + 64))(v99, std::endl[abi:ne200100]<char,std::char_traits<char>>);
+              v99[17] = 0;
+              if (v301 == 1 && v300 < 0)
               {
-                operator delete(v301);
+                operator delete(v299);
               }
 
-              if (SBYTE7(v234) < 0)
+              if (SBYTE7(v232) < 0)
               {
-                operator delete(v233);
+                operator delete(v231);
               }
 
-              ims::CFString::asString(@"kIMSCallDisconnectionReasonTransferredToOtherDevice", 0x8000100, &v233);
+              ims::CFString::asString(&v231, @"kIMSCallDisconnectionReasonTransferredToOtherDevice", 0x8000100);
               goto LABEL_335;
             case 11:
             case 12:
             case 13:
             case 14:
             case 29:
-              if (v18 != 11 || !v11)
+              if (v17 != 11 || !v10)
               {
                 goto LABEL_114;
               }
 
-              (*(*v326 + 184))(&v233);
-              v19 = SipStack::prefs(v233);
-              v20 = ImsPrefs::RedialOverLteIfEpsFallbackCallFailed(v19) && SLODWORD(this[25].__r_.__value_.__r.__words[1]) < 3;
-              if (*(&v233 + 1))
+              (*(*v324 + 184))(&v231);
+              v18 = SipStack::prefs(v231);
+              v19 = ImsPrefs::RedialOverLteIfEpsFallbackCallFailed(v18) && SLODWORD(this[25].__r_.__value_.__r.__words[1]) < 3;
+              if (*(&v231 + 1))
               {
-                std::__shared_weak_count::__release_shared[abi:ne200100](*(&v233 + 1));
+                std::__shared_weak_count::__release_shared[abi:ne200100](*(&v231 + 1));
               }
 
-              if (v20)
+              if (v19)
               {
-                std::string::basic_string[abi:ne200100]<0>(&v233, "call");
-                v276[0] = 0;
-                v279 = 0;
-                v37 = ims::debug(&v233, v276);
-                v38 = ImsOutStream::operator<<(v37, "Network error resulting in redial over LTE with ");
-                (*(*(this[6].__r_.__value_.__r.__words[2] + 1080) + 40))(this[6].__r_.__value_.__r.__words[2] + 1080, v38);
-                (*(*v38 + 64))(v38, std::endl[abi:ne200100]<char,std::char_traits<char>>);
-                v38[17] = 0;
-                if (v279 == 1 && v278 < 0)
+                std::string::basic_string[abi:ne200100]<0>(&v231, "call");
+                v274[0] = 0;
+                v277 = 0;
+                v36 = ims::debug(&v231, v274);
+                v37 = ImsOutStream::operator<<(v36, "Network error resulting in redial over LTE with ");
+                (*(*(this[6].__r_.__value_.__r.__words[2] + 1080) + 40))(this[6].__r_.__value_.__r.__words[2] + 1080, v37);
+                (*(*v37 + 64))(v37, std::endl[abi:ne200100]<char,std::char_traits<char>>);
+                v37[17] = 0;
+                if (v277 == 1 && v276 < 0)
                 {
-                  operator delete(v277);
+                  operator delete(v275);
                 }
 
-                if (SBYTE7(v234) < 0)
+                if (SBYTE7(v232) < 0)
                 {
-                  operator delete(v233);
+                  operator delete(v231);
                 }
 
-                ims::CFString::asString(@"kCallDisconnectionReasonRequiresRedialOverLteOnly", 0x8000100, &v233);
+                ims::CFString::asString(&v231, @"kCallDisconnectionReasonRequiresRedialOverLteOnly", 0x8000100);
               }
 
               else
               {
 LABEL_114:
-                std::string::basic_string[abi:ne200100]<0>(&v233, "call");
-                v272[0] = 0;
-                v275 = 0;
-                v39 = ims::debug(&v233, v272);
-                v40 = ImsOutStream::operator<<(v39, "Network error resulting in redial with ");
-                (*(*(this[6].__r_.__value_.__r.__words[2] + 1080) + 40))(this[6].__r_.__value_.__r.__words[2] + 1080, v40);
-                (*(*v40 + 64))(v40, std::endl[abi:ne200100]<char,std::char_traits<char>>);
-                v40[17] = 0;
-                if (v275 == 1 && v274 < 0)
+                std::string::basic_string[abi:ne200100]<0>(&v231, "call");
+                v270[0] = 0;
+                v273 = 0;
+                v38 = ims::debug(&v231, v270);
+                v39 = ImsOutStream::operator<<(v38, "Network error resulting in redial with ");
+                (*(*(this[6].__r_.__value_.__r.__words[2] + 1080) + 40))(this[6].__r_.__value_.__r.__words[2] + 1080, v39);
+                (*(*v39 + 64))(v39, std::endl[abi:ne200100]<char,std::char_traits<char>>);
+                v39[17] = 0;
+                if (v273 == 1 && v272 < 0)
                 {
-                  operator delete(v273);
+                  operator delete(v271);
                 }
 
-                if (SBYTE7(v234) < 0)
+                if (SBYTE7(v232) < 0)
                 {
-                  operator delete(v233);
+                  operator delete(v231);
                 }
 
-                ims::CFString::asString(@"kCallDisconnectionReasonNetworkError", 0x8000100, &v233);
+                ims::CFString::asString(&v231, @"kCallDisconnectionReasonNetworkError", 0x8000100);
               }
 
               goto LABEL_335;
             case 15:
-              v258 = 0;
-              v256 = 0u;
-              v257 = 0u;
+              v256 = 0;
               v254 = 0u;
               v255 = 0u;
               v252 = 0u;
@@ -4180,894 +4173,900 @@ LABEL_114:
               v237 = 0u;
               v234 = 0u;
               v235 = 0u;
+              v232 = 0u;
               v233 = 0u;
-              SipUri::SipUri(&v233);
-              std::string::basic_string[abi:ne200100]<0>(v228, "call");
-              v229[0] = 0;
-              v232 = 0;
-              v91 = ims::debug(v228, v229);
-              v92 = ImsOutStream::operator<<(v91, "Call to ");
-              (*(*(this[6].__r_.__value_.__r.__words[2] + 1080) + 40))(this[6].__r_.__value_.__r.__words[2] + 1080, v92);
-              v93 = ImsOutStream::operator<<(v92, " requires emergency session");
-              (*(*v93 + 64))(v93, std::endl[abi:ne200100]<char,std::char_traits<char>>);
-              v93[17] = 0;
-              if (v232 == 1 && v231 < 0)
+              v231 = 0u;
+              SipUri::SipUri(&v231);
+              std::string::basic_string[abi:ne200100]<0>(v226, "call");
+              v227[0] = 0;
+              v230 = 0;
+              v90 = ims::debug(v226, v227);
+              v91 = ImsOutStream::operator<<(v90, "Call to ");
+              (*(*(this[6].__r_.__value_.__r.__words[2] + 1080) + 40))(this[6].__r_.__value_.__r.__words[2] + 1080, v91);
+              v92 = ImsOutStream::operator<<(v91, " requires emergency session");
+              (*(*v92 + 64))(v92, std::endl[abi:ne200100]<char,std::char_traits<char>>);
+              v92[17] = 0;
+              if (v230 == 1 && v229 < 0)
               {
-                operator delete(v230);
+                operator delete(v228);
               }
 
-              if (SHIBYTE(v228[0].__r_.__value_.__r.__words[2]) < 0)
+              if (SHIBYTE(v226[0].__r_.__value_.__r.__words[2]) < 0)
               {
-                operator delete(v228[0].__r_.__value_.__l.__data_);
+                operator delete(v226[0].__r_.__value_.__l.__data_);
               }
 
-              v94 = **a2;
-              if (v95)
+              if (v93)
               {
-                v96 = v95;
-                SipUri::SipUri(v228, (v95 + 592));
-                SipUri::operator=(&v233, v228);
-                SipUri::~SipUri(v228);
-                v97 = v96[1000];
+                v94 = v93;
+                SipUri::SipUri(v226, (v93 + 592));
+                SipUri::operator=(&v231, v226);
+                SipUri::~SipUri(v226);
+                v95 = v94[1000];
               }
 
               else
               {
-                v97 = 0;
+                v95 = 0;
               }
 
-              v128 = v324;
-              v129 = this[1].__r_.__value_.__r.__words[2];
-              v227[0] = this[1].__r_.__value_.__l.__size_;
-              if (!v129 || (v130 = std::__shared_weak_count::lock(v129), (v227[1] = v130) == 0))
+              v126 = v322;
+              v127 = this[1].__r_.__value_.__r.__words[2];
+              v225[0] = this[1].__r_.__value_.__l.__size_;
+              if (!v127 || (v128 = std::__shared_weak_count::lock(v127), (v225[1] = v128) == 0))
               {
                 std::__throw_bad_weak_ptr[abi:ne200100]();
               }
 
-              v131 = v130;
-              BYTE4(v338) = IMSCallManager::sendCallEndRequest(v128, v227, 1);
-              std::__shared_weak_count::__release_shared[abi:ne200100](v131);
-              IMSCallInfo::uuid(v225, this);
-              IMSCallManager::sendEmergencySessionRequiredNotification(v128, v225, &v233, v97 & 1);
-              v225[0] = &unk_1F5EBEE78;
-              if (v226 < 0)
+              v129 = v128;
+              BYTE4(v336) = IMSCallManager::sendCallEndRequest(v126, v225, 1);
+              std::__shared_weak_count::__release_shared[abi:ne200100](v129);
+              IMSCallInfo::uuid(v223, this);
+              IMSCallManager::sendEmergencySessionRequiredNotification(v126, v223, &v231, v95 & 1);
+              v223[0] = &unk_1F5EBEE78;
+              if (v224 < 0)
               {
-                operator delete(v225[1]);
+                operator delete(v223[1]);
               }
 
-              SipUri::~SipUri(&v233);
+              SipUri::~SipUri(&v231);
               goto LABEL_372;
             case 16:
-              std::string::basic_string[abi:ne200100]<0>(&v233, "call");
-              v213[0] = 0;
-              v216 = 0;
-              v111 = ims::debug(&v233, v213);
-              v112 = ImsOutStream::operator<<(v111, "Disconnected from ");
-              (*(*(this[6].__r_.__value_.__r.__words[2] + 1080) + 40))(this[6].__r_.__value_.__r.__words[2] + 1080, v112);
-              v113 = ImsOutStream::operator<<(v112, " due to ");
-              v114 = *(a2 + 8);
-              if (v114 <= 37)
+              std::string::basic_string[abi:ne200100]<0>(&v231, "call");
+              v211[0] = 0;
+              v214 = 0;
+              v109 = ims::debug(&v231, v211);
+              v110 = ImsOutStream::operator<<(v109, "Disconnected from ");
+              (*(*(this[6].__r_.__value_.__r.__words[2] + 1080) + 40))(this[6].__r_.__value_.__r.__words[2] + 1080, v110);
+              v111 = ImsOutStream::operator<<(v110, " due to ");
+              v112 = *(a2 + 8);
+              if (v112 <= 37)
               {
-                v115 = (reasonStrings + 24 * v114);
+                v113 = (reasonStrings + 24 * v112);
               }
 
               else
               {
-                v115 = (reasonStrings + 240);
+                v113 = (reasonStrings + 240);
               }
 
-              LoggableString::LoggableString(v228, v115);
-              (*(*v113 + 40))(v113, v228);
-              (*(*v113 + 64))(v113, std::endl[abi:ne200100]<char,std::char_traits<char>>);
-              v113[17] = 0;
-              if (SHIBYTE(v228[0].__r_.__value_.__r.__words[2]) < 0)
+              LoggableString::LoggableString(v226, v113);
+              (*(*v111 + 40))(v111, v226);
+              (*(*v111 + 64))(v111, std::endl[abi:ne200100]<char,std::char_traits<char>>);
+              v111[17] = 0;
+              if (SHIBYTE(v226[0].__r_.__value_.__r.__words[2]) < 0)
               {
-                operator delete(v228[0].__r_.__value_.__l.__data_);
+                operator delete(v226[0].__r_.__value_.__l.__data_);
               }
 
-              if (v216 == 1 && v215 < 0)
+              if (v214 == 1 && v213 < 0)
               {
-                operator delete(v214);
+                operator delete(v212);
               }
 
-              if (SBYTE7(v234) < 0)
+              if (SBYTE7(v232) < 0)
               {
-                operator delete(v233);
+                operator delete(v231);
               }
 
-              ims::CFString::asString(@"kIMSCallDisconnectionReasonForbidden", 0x8000100, &v233);
+              ims::CFString::asString(&v231, @"kIMSCallDisconnectionReasonForbidden", 0x8000100);
               goto LABEL_335;
             case 17:
-              std::string::basic_string[abi:ne200100]<0>(&v233, "call");
-              v221[0] = 0;
-              v224 = 0;
-              v109 = ims::debug(&v233, v221);
-              v110 = ImsOutStream::operator<<(v109, "INVITE timed out to ");
-              (*(*(this[6].__r_.__value_.__r.__words[2] + 1080) + 40))(this[6].__r_.__value_.__r.__words[2] + 1080, v110);
-              (*(*v110 + 64))(v110, std::endl[abi:ne200100]<char,std::char_traits<char>>);
-              v110[17] = 0;
-              if (v224 == 1 && v223 < 0)
+              std::string::basic_string[abi:ne200100]<0>(&v231, "call");
+              v219[0] = 0;
+              v222 = 0;
+              v107 = ims::debug(&v231, v219);
+              v108 = ImsOutStream::operator<<(v107, "INVITE timed out to ");
+              (*(*(this[6].__r_.__value_.__r.__words[2] + 1080) + 40))(this[6].__r_.__value_.__r.__words[2] + 1080, v108);
+              (*(*v108 + 64))(v108, std::endl[abi:ne200100]<char,std::char_traits<char>>);
+              v108[17] = 0;
+              if (v222 == 1 && v221 < 0)
               {
-                operator delete(v222);
+                operator delete(v220);
               }
 
-              if (SBYTE7(v234) < 0)
+              if (SBYTE7(v232) < 0)
               {
-                operator delete(v233);
+                operator delete(v231);
               }
 
-              ims::CFString::asString(@"kCallDisconnectionReasonTimeout", 0x8000100, &v233);
+              ims::CFString::asString(&v231, @"kCallDisconnectionReasonTimeout", 0x8000100);
               goto LABEL_303;
             case 19:
-              std::string::basic_string[abi:ne200100]<0>(&v233, "call");
-              v209[0] = 0;
-              v212 = 0;
-              v41 = ims::debug(&v233, v209);
-              v42 = ImsOutStream::operator<<(v41, "Disconnected from ");
-              (*(*(this[6].__r_.__value_.__r.__words[2] + 1080) + 40))(this[6].__r_.__value_.__r.__words[2] + 1080, v42);
-              v43 = ImsOutStream::operator<<(v42, " due to ");
-              v44 = *(a2 + 8);
-              if (v44 <= 37)
+              std::string::basic_string[abi:ne200100]<0>(&v231, "call");
+              v207[0] = 0;
+              v210 = 0;
+              v40 = ims::debug(&v231, v207);
+              v41 = ImsOutStream::operator<<(v40, "Disconnected from ");
+              (*(*(this[6].__r_.__value_.__r.__words[2] + 1080) + 40))(this[6].__r_.__value_.__r.__words[2] + 1080, v41);
+              v42 = ImsOutStream::operator<<(v41, " due to ");
+              v43 = *(a2 + 8);
+              if (v43 <= 37)
               {
-                v45 = (reasonStrings + 24 * v44);
+                v44 = (reasonStrings + 24 * v43);
               }
 
               else
               {
-                v45 = (reasonStrings + 240);
+                v44 = (reasonStrings + 240);
               }
 
-              LoggableString::LoggableString(v228, v45);
-              (*(*v43 + 40))(v43, v228);
-              (*(*v43 + 64))(v43, std::endl[abi:ne200100]<char,std::char_traits<char>>);
-              v43[17] = 0;
-              if (SHIBYTE(v228[0].__r_.__value_.__r.__words[2]) < 0)
+              LoggableString::LoggableString(v226, v44);
+              (*(*v42 + 40))(v42, v226);
+              (*(*v42 + 64))(v42, std::endl[abi:ne200100]<char,std::char_traits<char>>);
+              v42[17] = 0;
+              if (SHIBYTE(v226[0].__r_.__value_.__r.__words[2]) < 0)
               {
-                operator delete(v228[0].__r_.__value_.__l.__data_);
+                operator delete(v226[0].__r_.__value_.__l.__data_);
               }
 
-              if (v212 == 1 && v211 < 0)
+              if (v210 == 1 && v209 < 0)
               {
-                operator delete(v210);
+                operator delete(v208);
               }
 
-              if (SBYTE7(v234) < 0)
+              if (SBYTE7(v232) < 0)
               {
-                operator delete(v233);
+                operator delete(v231);
               }
 
-              ims::CFString::asString(@"kCallDisconnectionReasonMediaError", 0x8000100, &v233);
+              ims::CFString::asString(&v231, @"kCallDisconnectionReasonMediaError", 0x8000100);
               goto LABEL_303;
             case 20:
-              std::string::basic_string[abi:ne200100]<0>(&v233, "call");
-              v205[0] = 0;
-              v208 = 0;
-              v67 = ims::debug(&v233, v205);
-              v68 = ImsOutStream::operator<<(v67, "Disconnected from ");
-              (*(*(this[6].__r_.__value_.__r.__words[2] + 1080) + 40))(this[6].__r_.__value_.__r.__words[2] + 1080, v68);
-              v69 = ImsOutStream::operator<<(v68, " due to ");
-              v70 = *(a2 + 8);
-              if (v70 <= 37)
+              std::string::basic_string[abi:ne200100]<0>(&v231, "call");
+              v203[0] = 0;
+              v206 = 0;
+              v66 = ims::debug(&v231, v203);
+              v67 = ImsOutStream::operator<<(v66, "Disconnected from ");
+              (*(*(this[6].__r_.__value_.__r.__words[2] + 1080) + 40))(this[6].__r_.__value_.__r.__words[2] + 1080, v67);
+              v68 = ImsOutStream::operator<<(v67, " due to ");
+              v69 = *(a2 + 8);
+              if (v69 <= 37)
               {
-                v71 = (reasonStrings + 24 * v70);
+                v70 = (reasonStrings + 24 * v69);
               }
 
               else
               {
-                v71 = (reasonStrings + 240);
+                v70 = (reasonStrings + 240);
               }
 
-              LoggableString::LoggableString(v228, v71);
-              (*(*v69 + 40))(v69, v228);
-              (*(*v69 + 64))(v69, std::endl[abi:ne200100]<char,std::char_traits<char>>);
-              v69[17] = 0;
-              if (SHIBYTE(v228[0].__r_.__value_.__r.__words[2]) < 0)
+              LoggableString::LoggableString(v226, v70);
+              (*(*v68 + 40))(v68, v226);
+              (*(*v68 + 64))(v68, std::endl[abi:ne200100]<char,std::char_traits<char>>);
+              v68[17] = 0;
+              if (SHIBYTE(v226[0].__r_.__value_.__r.__words[2]) < 0)
               {
-                operator delete(v228[0].__r_.__value_.__l.__data_);
+                operator delete(v226[0].__r_.__value_.__l.__data_);
               }
 
-              if (v208 == 1 && v207 < 0)
+              if (v206 == 1 && v205 < 0)
               {
-                operator delete(v206);
+                operator delete(v204);
               }
 
-              if (SBYTE7(v234) < 0)
+              if (SBYTE7(v232) < 0)
               {
-                operator delete(v233);
+                operator delete(v231);
               }
 
-              ims::CFString::asString(@"kCallDisconnectionReasonMediaTimeout", 0x8000100, &v233);
+              ims::CFString::asString(&v231, @"kCallDisconnectionReasonMediaTimeout", 0x8000100);
               goto LABEL_303;
             case 21:
-              std::string::basic_string[abi:ne200100]<0>(&v233, "call");
-              v201[0] = 0;
-              v204 = 0;
-              v116 = ims::debug(&v233, v201);
-              v117 = ImsOutStream::operator<<(v116, "Disconnected from ");
-              (*(*(this[6].__r_.__value_.__r.__words[2] + 1080) + 40))(this[6].__r_.__value_.__r.__words[2] + 1080, v117);
-              v118 = ImsOutStream::operator<<(v117, " due to ");
-              v119 = *(a2 + 8);
-              if (v119 <= 37)
+              std::string::basic_string[abi:ne200100]<0>(&v231, "call");
+              v199[0] = 0;
+              v202 = 0;
+              v114 = ims::debug(&v231, v199);
+              v115 = ImsOutStream::operator<<(v114, "Disconnected from ");
+              (*(*(this[6].__r_.__value_.__r.__words[2] + 1080) + 40))(this[6].__r_.__value_.__r.__words[2] + 1080, v115);
+              v116 = ImsOutStream::operator<<(v115, " due to ");
+              v117 = *(a2 + 8);
+              if (v117 <= 37)
               {
-                v120 = (reasonStrings + 24 * v119);
+                v118 = (reasonStrings + 24 * v117);
               }
 
               else
               {
-                v120 = (reasonStrings + 240);
+                v118 = (reasonStrings + 240);
               }
 
-              LoggableString::LoggableString(v228, v120);
-              (*(*v118 + 40))(v118, v228);
-              (*(*v118 + 64))(v118, std::endl[abi:ne200100]<char,std::char_traits<char>>);
-              v118[17] = 0;
-              if (SHIBYTE(v228[0].__r_.__value_.__r.__words[2]) < 0)
+              LoggableString::LoggableString(v226, v118);
+              (*(*v116 + 40))(v116, v226);
+              (*(*v116 + 64))(v116, std::endl[abi:ne200100]<char,std::char_traits<char>>);
+              v116[17] = 0;
+              if (SHIBYTE(v226[0].__r_.__value_.__r.__words[2]) < 0)
               {
-                operator delete(v228[0].__r_.__value_.__l.__data_);
+                operator delete(v226[0].__r_.__value_.__l.__data_);
               }
 
-              if (v204 == 1 && v203 < 0)
+              if (v202 == 1 && v201 < 0)
               {
-                operator delete(v202);
+                operator delete(v200);
               }
 
-              if (SBYTE7(v234) < 0)
+              if (SBYTE7(v232) < 0)
               {
-                operator delete(v233);
+                operator delete(v231);
               }
 
-              ims::CFString::asString(@"kCallDisconnectionReasonMediaHeartbeatTimeout", 0x8000100, &v233);
+              ims::CFString::asString(&v231, @"kCallDisconnectionReasonMediaHeartbeatTimeout", 0x8000100);
               goto LABEL_303;
             case 22:
-              std::string::basic_string[abi:ne200100]<0>(&v233, "call");
-              v197[0] = 0;
-              v200 = 0;
-              v46 = ims::debug(&v233, v197);
-              v47 = ImsOutStream::operator<<(v46, "Disconnected from ");
-              (*(*(this[6].__r_.__value_.__r.__words[2] + 1080) + 40))(this[6].__r_.__value_.__r.__words[2] + 1080, v47);
-              v48 = ImsOutStream::operator<<(v47, " due to ");
-              v49 = *(a2 + 8);
-              if (v49 <= 37)
+              std::string::basic_string[abi:ne200100]<0>(&v231, "call");
+              v195[0] = 0;
+              v198 = 0;
+              v45 = ims::debug(&v231, v195);
+              v46 = ImsOutStream::operator<<(v45, "Disconnected from ");
+              (*(*(this[6].__r_.__value_.__r.__words[2] + 1080) + 40))(this[6].__r_.__value_.__r.__words[2] + 1080, v46);
+              v47 = ImsOutStream::operator<<(v46, " due to ");
+              v48 = *(a2 + 8);
+              if (v48 <= 37)
               {
-                v50 = (reasonStrings + 24 * v49);
+                v49 = (reasonStrings + 24 * v48);
               }
 
               else
               {
-                v50 = (reasonStrings + 240);
+                v49 = (reasonStrings + 240);
               }
 
-              LoggableString::LoggableString(v228, v50);
-              (*(*v48 + 40))(v48, v228);
-              (*(*v48 + 64))(v48, std::endl[abi:ne200100]<char,std::char_traits<char>>);
-              v48[17] = 0;
-              if (SHIBYTE(v228[0].__r_.__value_.__r.__words[2]) < 0)
+              LoggableString::LoggableString(v226, v49);
+              (*(*v47 + 40))(v47, v226);
+              (*(*v47 + 64))(v47, std::endl[abi:ne200100]<char,std::char_traits<char>>);
+              v47[17] = 0;
+              if (SHIBYTE(v226[0].__r_.__value_.__r.__words[2]) < 0)
               {
-                operator delete(v228[0].__r_.__value_.__l.__data_);
+                operator delete(v226[0].__r_.__value_.__l.__data_);
               }
 
-              if (v200 == 1 && v199 < 0)
+              if (v198 == 1 && v197 < 0)
               {
-                operator delete(v198);
+                operator delete(v196);
               }
 
-              if (SBYTE7(v234) < 0)
+              if (SBYTE7(v232) < 0)
               {
-                operator delete(v233);
+                operator delete(v231);
               }
 
-              ims::CFString::asString(@"kCallDisconnectionReasonLocalSocketError", 0x8000100, &v233);
+              ims::CFString::asString(&v231, @"kCallDisconnectionReasonLocalSocketError", 0x8000100);
               goto LABEL_303;
             case 24:
-              if (!v11)
+              if (!v10)
               {
                 goto LABEL_329;
               }
 
-              (*(*v326 + 184))(&v233);
-              v63 = SipStack::prefs(v233);
-              v64 = ImsPrefs::RedialOverLteIfEpsFallbackCallFailed(v63) && SLODWORD(this[25].__r_.__value_.__r.__words[1]) < 3;
-              if (*(&v233 + 1))
+              (*(*v324 + 184))(&v231);
+              v62 = SipStack::prefs(v231);
+              v63 = ImsPrefs::RedialOverLteIfEpsFallbackCallFailed(v62) && SLODWORD(this[25].__r_.__value_.__r.__words[1]) < 3;
+              if (*(&v231 + 1))
               {
-                std::__shared_weak_count::__release_shared[abi:ne200100](*(&v233 + 1));
+                std::__shared_weak_count::__release_shared[abi:ne200100](*(&v231 + 1));
               }
 
-              if (v64)
+              if (v63)
               {
-                std::string::basic_string[abi:ne200100]<0>(&v233, "call");
-                v173[0] = 0;
-                v176 = 0;
-                v132 = ims::debug(&v233, v173);
-                v133 = ImsOutStream::operator<<(v132, "Call to ");
-                (*(*(this[6].__r_.__value_.__r.__words[2] + 1080) + 40))(this[6].__r_.__value_.__r.__words[2] + 1080, v133);
-                v134 = ImsOutStream::operator<<(v133, " requires redial over LTE due to LocalQosTimeout");
-                (*(*v134 + 64))(v134, std::endl[abi:ne200100]<char,std::char_traits<char>>);
-                v134[17] = 0;
-                if (v176 == 1 && v175 < 0)
+                std::string::basic_string[abi:ne200100]<0>(&v231, "call");
+                v171[0] = 0;
+                v174 = 0;
+                v130 = ims::debug(&v231, v171);
+                v131 = ImsOutStream::operator<<(v130, "Call to ");
+                (*(*(this[6].__r_.__value_.__r.__words[2] + 1080) + 40))(this[6].__r_.__value_.__r.__words[2] + 1080, v131);
+                v132 = ImsOutStream::operator<<(v131, " requires redial over LTE due to LocalQosTimeout");
+                (*(*v132 + 64))(v132, std::endl[abi:ne200100]<char,std::char_traits<char>>);
+                v132[17] = 0;
+                if (v174 == 1 && v173 < 0)
                 {
-                  operator delete(v174);
+                  operator delete(v172);
                 }
 
-                if (SBYTE7(v234) < 0)
+                if (SBYTE7(v232) < 0)
                 {
-                  operator delete(v233);
+                  operator delete(v231);
                 }
 
-                ims::CFString::asString(@"kCallDisconnectionReasonRequiresRedialOverLteOnly", 0x8000100, &v233);
+                ims::CFString::asString(&v231, @"kCallDisconnectionReasonRequiresRedialOverLteOnly", 0x8000100);
               }
 
               else
               {
 LABEL_329:
-                std::string::basic_string[abi:ne200100]<0>(&v233, "call");
-                v169[0] = 0;
-                v172 = 0;
-                v135 = ims::debug(&v233, v169);
-                v136 = ImsOutStream::operator<<(v135, "Disconnected from ");
-                (*(*(this[6].__r_.__value_.__r.__words[2] + 1080) + 40))(this[6].__r_.__value_.__r.__words[2] + 1080, v136);
-                v137 = ImsOutStream::operator<<(v136, " as in the dedault case due to LocalQosTimeout");
-                (*(*v137 + 64))(v137, std::endl[abi:ne200100]<char,std::char_traits<char>>);
-                v137[17] = 0;
-                if (v172 == 1 && v171 < 0)
+                std::string::basic_string[abi:ne200100]<0>(&v231, "call");
+                v167[0] = 0;
+                v170 = 0;
+                v133 = ims::debug(&v231, v167);
+                v134 = ImsOutStream::operator<<(v133, "Disconnected from ");
+                (*(*(this[6].__r_.__value_.__r.__words[2] + 1080) + 40))(this[6].__r_.__value_.__r.__words[2] + 1080, v134);
+                v135 = ImsOutStream::operator<<(v134, " as in the dedault case due to LocalQosTimeout");
+                (*(*v135 + 64))(v135, std::endl[abi:ne200100]<char,std::char_traits<char>>);
+                v135[17] = 0;
+                if (v170 == 1 && v169 < 0)
                 {
-                  operator delete(v170);
+                  operator delete(v168);
                 }
 
-                if (SBYTE7(v234) < 0)
+                if (SBYTE7(v232) < 0)
                 {
-                  operator delete(v233);
+                  operator delete(v231);
                 }
 
-                ims::CFString::asString(@"kCallDisconnectionReasonUnknownError", 0x8000100, &v233);
+                ims::CFString::asString(&v231, @"kCallDisconnectionReasonUnknownError", 0x8000100);
               }
 
               goto LABEL_335;
             case 31:
-              std::string::basic_string[abi:ne200100]<0>(&v233, "call");
-              v296[0] = 0;
-              v299 = 0;
-              v56 = ims::debug(&v233, v296);
-              (*(*(this[6].__r_.__value_.__r.__words[2] + 1080) + 40))(this[6].__r_.__value_.__r.__words[2] + 1080, v56);
-              v57 = ImsOutStream::operator<<(v56, " failed: we cannot support emergency calls in this location");
-              (*(*v57 + 64))(v57, std::endl[abi:ne200100]<char,std::char_traits<char>>);
-              v57[17] = 0;
-              if (v299 == 1 && v298 < 0)
+              std::string::basic_string[abi:ne200100]<0>(&v231, "call");
+              v294[0] = 0;
+              v297 = 0;
+              v55 = ims::debug(&v231, v294);
+              (*(*(this[6].__r_.__value_.__r.__words[2] + 1080) + 40))(this[6].__r_.__value_.__r.__words[2] + 1080, v55);
+              v56 = ImsOutStream::operator<<(v55, " failed: we cannot support emergency calls in this location");
+              (*(*v56 + 64))(v56, std::endl[abi:ne200100]<char,std::char_traits<char>>);
+              v56[17] = 0;
+              if (v297 == 1 && v296 < 0)
               {
-                operator delete(v297);
+                operator delete(v295);
               }
 
-              if (SBYTE7(v234) < 0)
+              if (SBYTE7(v232) < 0)
               {
-                operator delete(v233);
+                operator delete(v231);
               }
 
-              ims::CFString::asString(@"kIMSCallDisconnectionReasonNoEmergencyCallLocation", 0x8000100, &v233);
+              ims::CFString::asString(&v231, @"kIMSCallDisconnectionReasonNoEmergencyCallLocation", 0x8000100);
               goto LABEL_335;
             case 32:
-              std::string::basic_string[abi:ne200100]<0>(&v233, "call");
-              v193[0] = 0;
-              v196 = 0;
-              v82 = ims::debug(&v233, v193);
-              v83 = ImsOutStream::operator<<(v82, "Disconnected from ");
-              (*(*(this[6].__r_.__value_.__r.__words[2] + 1080) + 40))(this[6].__r_.__value_.__r.__words[2] + 1080, v83);
-              v84 = ImsOutStream::operator<<(v83, " due to ");
-              v85 = *(a2 + 8);
-              if (v85 <= 37)
+              std::string::basic_string[abi:ne200100]<0>(&v231, "call");
+              v191[0] = 0;
+              v194 = 0;
+              v81 = ims::debug(&v231, v191);
+              v82 = ImsOutStream::operator<<(v81, "Disconnected from ");
+              (*(*(this[6].__r_.__value_.__r.__words[2] + 1080) + 40))(this[6].__r_.__value_.__r.__words[2] + 1080, v82);
+              v83 = ImsOutStream::operator<<(v82, " due to ");
+              v84 = *(a2 + 8);
+              if (v84 <= 37)
               {
-                v86 = (reasonStrings + 24 * v85);
+                v85 = (reasonStrings + 24 * v84);
               }
 
               else
               {
-                v86 = (reasonStrings + 240);
+                v85 = (reasonStrings + 240);
               }
 
-              LoggableString::LoggableString(v228, v86);
-              (*(*v84 + 40))(v84, v228);
-              (*(*v84 + 64))(v84, std::endl[abi:ne200100]<char,std::char_traits<char>>);
-              v84[17] = 0;
-              if (SHIBYTE(v228[0].__r_.__value_.__r.__words[2]) < 0)
+              LoggableString::LoggableString(v226, v85);
+              (*(*v83 + 40))(v83, v226);
+              (*(*v83 + 64))(v83, std::endl[abi:ne200100]<char,std::char_traits<char>>);
+              v83[17] = 0;
+              if (SHIBYTE(v226[0].__r_.__value_.__r.__words[2]) < 0)
               {
-                operator delete(v228[0].__r_.__value_.__l.__data_);
+                operator delete(v226[0].__r_.__value_.__l.__data_);
               }
 
-              if (v196 == 1 && v195 < 0)
+              if (v194 == 1 && v193 < 0)
               {
-                operator delete(v194);
+                operator delete(v192);
               }
 
-              if (SBYTE7(v234) < 0)
+              if (SBYTE7(v232) < 0)
               {
-                operator delete(v233);
+                operator delete(v231);
               }
 
-              ims::CFString::asString(@"kIMSCallDisconnectionReasonAudioUnit", 0x8000100, &v233);
+              ims::CFString::asString(&v231, @"kIMSCallDisconnectionReasonAudioUnit", 0x8000100);
               goto LABEL_303;
             case 33:
-              std::string::basic_string[abi:ne200100]<0>(&v233, "call");
-              v189[0] = 0;
-              v192 = 0;
-              v51 = ims::debug(&v233, v189);
-              v52 = ImsOutStream::operator<<(v51, "Disconnected from ");
-              (*(*(this[6].__r_.__value_.__r.__words[2] + 1080) + 40))(this[6].__r_.__value_.__r.__words[2] + 1080, v52);
-              v53 = ImsOutStream::operator<<(v52, " due to ");
-              v54 = *(a2 + 8);
-              if (v54 <= 37)
+              std::string::basic_string[abi:ne200100]<0>(&v231, "call");
+              v187[0] = 0;
+              v190 = 0;
+              v50 = ims::debug(&v231, v187);
+              v51 = ImsOutStream::operator<<(v50, "Disconnected from ");
+              (*(*(this[6].__r_.__value_.__r.__words[2] + 1080) + 40))(this[6].__r_.__value_.__r.__words[2] + 1080, v51);
+              v52 = ImsOutStream::operator<<(v51, " due to ");
+              v53 = *(a2 + 8);
+              if (v53 <= 37)
               {
-                v55 = (reasonStrings + 24 * v54);
+                v54 = (reasonStrings + 24 * v53);
               }
 
               else
               {
-                v55 = (reasonStrings + 240);
+                v54 = (reasonStrings + 240);
               }
 
-              LoggableString::LoggableString(v228, v55);
-              (*(*v53 + 40))(v53, v228);
-              (*(*v53 + 64))(v53, std::endl[abi:ne200100]<char,std::char_traits<char>>);
-              v53[17] = 0;
-              if (SHIBYTE(v228[0].__r_.__value_.__r.__words[2]) < 0)
+              LoggableString::LoggableString(v226, v54);
+              (*(*v52 + 40))(v52, v226);
+              (*(*v52 + 64))(v52, std::endl[abi:ne200100]<char,std::char_traits<char>>);
+              v52[17] = 0;
+              if (SHIBYTE(v226[0].__r_.__value_.__r.__words[2]) < 0)
               {
-                operator delete(v228[0].__r_.__value_.__l.__data_);
+                operator delete(v226[0].__r_.__value_.__l.__data_);
               }
 
-              if (v192 == 1 && v191 < 0)
+              if (v190 == 1 && v189 < 0)
               {
-                operator delete(v190);
+                operator delete(v188);
               }
 
-              if (SBYTE7(v234) < 0)
+              if (SBYTE7(v232) < 0)
               {
-                operator delete(v233);
+                operator delete(v231);
               }
 
-              ims::CFString::asString(@"kIMSCallDisconnectionReasonAVConferencedCrash", 0x8000100, &v233);
+              ims::CFString::asString(&v231, @"kIMSCallDisconnectionReasonAVConferencedCrash", 0x8000100);
               goto LABEL_303;
             case 34:
-              std::string::basic_string[abi:ne200100]<0>(&v233, "call");
-              v264[0] = 0;
-              v267 = 0;
-              v126 = ims::debug(&v233, v264);
-              (*(*(this[6].__r_.__value_.__r.__words[2] + 1080) + 40))(this[6].__r_.__value_.__r.__words[2] + 1080, v126);
-              v127 = ImsOutStream::operator<<(v126, " Declined, locally busy.");
-              (*(*v127 + 64))(v127, std::endl[abi:ne200100]<char,std::char_traits<char>>);
-              v127[17] = 0;
-              if (v267 == 1 && v266 < 0)
+              std::string::basic_string[abi:ne200100]<0>(&v231, "call");
+              v262[0] = 0;
+              v265 = 0;
+              v124 = ims::debug(&v231, v262);
+              (*(*(this[6].__r_.__value_.__r.__words[2] + 1080) + 40))(this[6].__r_.__value_.__r.__words[2] + 1080, v124);
+              v125 = ImsOutStream::operator<<(v124, " Declined, locally busy.");
+              (*(*v125 + 64))(v125, std::endl[abi:ne200100]<char,std::char_traits<char>>);
+              v125[17] = 0;
+              if (v265 == 1 && v264 < 0)
               {
-                operator delete(v265);
+                operator delete(v263);
               }
 
-              if (SBYTE7(v234) < 0)
+              if (SBYTE7(v232) < 0)
               {
-                operator delete(v233);
+                operator delete(v231);
               }
 
-              ims::CFString::asString(@"kIMSCallDisconnectionReasonLocalBusy", 0x8000100, &v233);
+              ims::CFString::asString(&v231, @"kIMSCallDisconnectionReasonLocalBusy", 0x8000100);
               goto LABEL_335;
             case 35:
-              std::string::basic_string[abi:ne200100]<0>(&v233, "call");
-              v185[0] = 0;
-              v188 = 0;
-              v121 = ims::debug(&v233, v185);
-              v122 = ImsOutStream::operator<<(v121, "Disconnected from ");
-              (*(*(this[6].__r_.__value_.__r.__words[2] + 1080) + 40))(this[6].__r_.__value_.__r.__words[2] + 1080, v122);
-              v123 = ImsOutStream::operator<<(v122, " due to ");
-              v124 = *(a2 + 8);
-              if (v124 <= 37)
+              std::string::basic_string[abi:ne200100]<0>(&v231, "call");
+              v183[0] = 0;
+              v186 = 0;
+              v119 = ims::debug(&v231, v183);
+              v120 = ImsOutStream::operator<<(v119, "Disconnected from ");
+              (*(*(this[6].__r_.__value_.__r.__words[2] + 1080) + 40))(this[6].__r_.__value_.__r.__words[2] + 1080, v120);
+              v121 = ImsOutStream::operator<<(v120, " due to ");
+              v122 = *(a2 + 8);
+              if (v122 <= 37)
               {
-                v125 = (reasonStrings + 24 * v124);
+                v123 = (reasonStrings + 24 * v122);
               }
 
               else
               {
-                v125 = (reasonStrings + 240);
+                v123 = (reasonStrings + 240);
               }
 
-              LoggableString::LoggableString(v228, v125);
-              (*(*v123 + 40))(v123, v228);
-              (*(*v123 + 64))(v123, std::endl[abi:ne200100]<char,std::char_traits<char>>);
-              v123[17] = 0;
-              if (SHIBYTE(v228[0].__r_.__value_.__r.__words[2]) < 0)
+              LoggableString::LoggableString(v226, v123);
+              (*(*v121 + 40))(v121, v226);
+              (*(*v121 + 64))(v121, std::endl[abi:ne200100]<char,std::char_traits<char>>);
+              v121[17] = 0;
+              if (SHIBYTE(v226[0].__r_.__value_.__r.__words[2]) < 0)
               {
-                operator delete(v228[0].__r_.__value_.__l.__data_);
+                operator delete(v226[0].__r_.__value_.__l.__data_);
               }
 
-              if (v188 == 1 && v187 < 0)
+              if (v186 == 1 && v185 < 0)
               {
-                operator delete(v186);
+                operator delete(v184);
               }
 
-              if (SBYTE7(v234) < 0)
+              if (SBYTE7(v232) < 0)
               {
-                operator delete(v233);
+                operator delete(v231);
               }
 
-              ims::CFString::asString(@"kIMSCallDisconnectionReasonBasebandCrash", 0x8000100, &v233);
+              ims::CFString::asString(&v231, @"kIMSCallDisconnectionReasonBasebandCrash", 0x8000100);
               goto LABEL_303;
             case 36:
-              std::string::basic_string[abi:ne200100]<0>(&v233, "call");
-              v181[0] = 0;
-              v184 = 0;
-              v58 = ims::debug(&v233, v181);
-              v59 = ImsOutStream::operator<<(v58, "Disconnected from ");
-              (*(*(this[6].__r_.__value_.__r.__words[2] + 1080) + 40))(this[6].__r_.__value_.__r.__words[2] + 1080, v59);
-              v60 = ImsOutStream::operator<<(v59, " due to ");
-              v61 = *(a2 + 8);
-              if (v61 <= 37)
+              std::string::basic_string[abi:ne200100]<0>(&v231, "call");
+              v179[0] = 0;
+              v182 = 0;
+              v57 = ims::debug(&v231, v179);
+              v58 = ImsOutStream::operator<<(v57, "Disconnected from ");
+              (*(*(this[6].__r_.__value_.__r.__words[2] + 1080) + 40))(this[6].__r_.__value_.__r.__words[2] + 1080, v58);
+              v59 = ImsOutStream::operator<<(v58, " due to ");
+              v60 = *(a2 + 8);
+              if (v60 <= 37)
               {
-                v62 = (reasonStrings + 24 * v61);
+                v61 = (reasonStrings + 24 * v60);
               }
 
               else
               {
-                v62 = (reasonStrings + 240);
+                v61 = (reasonStrings + 240);
               }
 
-              LoggableString::LoggableString(v228, v62);
-              (*(*v60 + 40))(v60, v228);
-              (*(*v60 + 64))(v60, std::endl[abi:ne200100]<char,std::char_traits<char>>);
-              v60[17] = 0;
-              if (SHIBYTE(v228[0].__r_.__value_.__r.__words[2]) < 0)
+              LoggableString::LoggableString(v226, v61);
+              (*(*v59 + 40))(v59, v226);
+              (*(*v59 + 64))(v59, std::endl[abi:ne200100]<char,std::char_traits<char>>);
+              v59[17] = 0;
+              if (SHIBYTE(v226[0].__r_.__value_.__r.__words[2]) < 0)
               {
-                operator delete(v228[0].__r_.__value_.__l.__data_);
+                operator delete(v226[0].__r_.__value_.__l.__data_);
               }
 
-              if (v184 == 1 && v183 < 0)
+              if (v182 == 1 && v181 < 0)
               {
-                operator delete(v182);
+                operator delete(v180);
               }
 
-              if (SBYTE7(v234) < 0)
+              if (SBYTE7(v232) < 0)
               {
-                operator delete(v233);
+                operator delete(v231);
               }
 
-              ims::CFString::asString(@"kCallDisconnectionReasonRequiresCSFB", 0x8000100, &v233);
-              if (SHIBYTE(v319.__r_.__value_.__r.__words[2]) < 0)
+              ims::CFString::asString(&v231, @"kCallDisconnectionReasonRequiresCSFB", 0x8000100);
+              if (SHIBYTE(v317.__r_.__value_.__r.__words[2]) < 0)
               {
-                operator delete(v319.__r_.__value_.__l.__data_);
+                operator delete(v317.__r_.__value_.__l.__data_);
               }
 
-              *&v319.__r_.__value_.__l.__data_ = v233;
-              v319.__r_.__value_.__r.__words[2] = v234;
-              LOBYTE(v335) = 1;
+              *&v317.__r_.__value_.__l.__data_ = v231;
+              v317.__r_.__value_.__r.__words[2] = v232;
+              LOBYTE(v333) = 1;
               goto LABEL_306;
             case 37:
-              std::string::basic_string[abi:ne200100]<0>(&v233, "call");
-              v177[0] = 0;
-              v180 = 0;
-              v72 = ims::debug(&v233, v177);
-              v73 = ImsOutStream::operator<<(v72, "Disconnected from ");
-              (*(*(this[6].__r_.__value_.__r.__words[2] + 1080) + 40))(this[6].__r_.__value_.__r.__words[2] + 1080, v73);
-              v74 = ImsOutStream::operator<<(v73, " due to ");
-              v75 = *(a2 + 8);
-              if (v75 <= 37)
+              std::string::basic_string[abi:ne200100]<0>(&v231, "call");
+              v175[0] = 0;
+              v178 = 0;
+              v71 = ims::debug(&v231, v175);
+              v72 = ImsOutStream::operator<<(v71, "Disconnected from ");
+              (*(*(this[6].__r_.__value_.__r.__words[2] + 1080) + 40))(this[6].__r_.__value_.__r.__words[2] + 1080, v72);
+              v73 = ImsOutStream::operator<<(v72, " due to ");
+              v74 = *(a2 + 8);
+              if (v74 <= 37)
               {
-                v76 = (reasonStrings + 24 * v75);
+                v75 = (reasonStrings + 24 * v74);
               }
 
               else
               {
-                v76 = (reasonStrings + 240);
+                v75 = (reasonStrings + 240);
               }
 
-              LoggableString::LoggableString(v228, v76);
-              (*(*v74 + 40))(v74, v228);
-              (*(*v74 + 64))(v74, std::endl[abi:ne200100]<char,std::char_traits<char>>);
-              v74[17] = 0;
-              if (SHIBYTE(v228[0].__r_.__value_.__r.__words[2]) < 0)
+              LoggableString::LoggableString(v226, v75);
+              (*(*v73 + 40))(v73, v226);
+              (*(*v73 + 64))(v73, std::endl[abi:ne200100]<char,std::char_traits<char>>);
+              v73[17] = 0;
+              if (SHIBYTE(v226[0].__r_.__value_.__r.__words[2]) < 0)
               {
-                operator delete(v228[0].__r_.__value_.__l.__data_);
+                operator delete(v226[0].__r_.__value_.__l.__data_);
               }
 
-              if (v180 == 1 && v179 < 0)
+              if (v178 == 1 && v177 < 0)
               {
-                operator delete(v178);
+                operator delete(v176);
               }
 
-              if (SBYTE7(v234) < 0)
+              if (SBYTE7(v232) < 0)
               {
-                operator delete(v233);
+                operator delete(v231);
               }
 
-              ims::CFString::asString(@"kCallDisconnectionReasonRequiresRedial", 0x8000100, &v233);
+              ims::CFString::asString(&v231, @"kCallDisconnectionReasonRequiresRedial", 0x8000100);
 LABEL_303:
-              if (SHIBYTE(v319.__r_.__value_.__r.__words[2]) < 0)
+              if (SHIBYTE(v317.__r_.__value_.__r.__words[2]) < 0)
               {
-                operator delete(v319.__r_.__value_.__l.__data_);
+                operator delete(v317.__r_.__value_.__l.__data_);
               }
 
-              *&v319.__r_.__value_.__l.__data_ = v233;
-              v319.__r_.__value_.__r.__words[2] = v234;
+              *&v317.__r_.__value_.__l.__data_ = v231;
+              v317.__r_.__value_.__r.__words[2] = v232;
 LABEL_306:
-              BYTE2(v335) = 1;
+              BYTE2(v333) = 1;
               break;
             default:
-              std::string::basic_string[abi:ne200100]<0>(&v233, "call");
-              v165[0] = 0;
-              v168 = 0;
-              v77 = ims::debug(&v233, v165);
-              v78 = ImsOutStream::operator<<(v77, "Disconnected from ");
-              (*(*(this[6].__r_.__value_.__r.__words[2] + 1080) + 40))(this[6].__r_.__value_.__r.__words[2] + 1080, v78);
-              v79 = ImsOutStream::operator<<(v78, " due to ");
-              v80 = *(a2 + 8);
-              if (v80 <= 37)
+              std::string::basic_string[abi:ne200100]<0>(&v231, "call");
+              v163[0] = 0;
+              v166 = 0;
+              v76 = ims::debug(&v231, v163);
+              v77 = ImsOutStream::operator<<(v76, "Disconnected from ");
+              (*(*(this[6].__r_.__value_.__r.__words[2] + 1080) + 40))(this[6].__r_.__value_.__r.__words[2] + 1080, v77);
+              v78 = ImsOutStream::operator<<(v77, " due to ");
+              v79 = *(a2 + 8);
+              if (v79 <= 37)
               {
-                v81 = (reasonStrings + 24 * v80);
+                v80 = (reasonStrings + 24 * v79);
               }
 
               else
               {
-                v81 = (reasonStrings + 240);
+                v80 = (reasonStrings + 240);
               }
 
-              LoggableString::LoggableString(v228, v81);
-              (*(*v79 + 40))(v79, v228);
-              (*(*v79 + 64))(v79, std::endl[abi:ne200100]<char,std::char_traits<char>>);
-              v79[17] = 0;
-              if (SHIBYTE(v228[0].__r_.__value_.__r.__words[2]) < 0)
+              LoggableString::LoggableString(v226, v80);
+              (*(*v78 + 40))(v78, v226);
+              (*(*v78 + 64))(v78, std::endl[abi:ne200100]<char,std::char_traits<char>>);
+              v78[17] = 0;
+              if (SHIBYTE(v226[0].__r_.__value_.__r.__words[2]) < 0)
               {
-                operator delete(v228[0].__r_.__value_.__l.__data_);
+                operator delete(v226[0].__r_.__value_.__l.__data_);
               }
 
-              if (v168 == 1 && v167 < 0)
+              if (v166 == 1 && v165 < 0)
               {
-                operator delete(v166);
+                operator delete(v164);
               }
 
-              if (SBYTE7(v234) < 0)
+              if (SBYTE7(v232) < 0)
               {
-                operator delete(v233);
+                operator delete(v231);
               }
 
-              ims::CFString::asString(@"kCallDisconnectionReasonUnknownError", 0x8000100, &v233);
+              ims::CFString::asString(&v231, @"kCallDisconnectionReasonUnknownError", 0x8000100);
 LABEL_335:
-              if (SHIBYTE(v319.__r_.__value_.__r.__words[2]) < 0)
+              if (SHIBYTE(v317.__r_.__value_.__r.__words[2]) < 0)
               {
-                operator delete(v319.__r_.__value_.__l.__data_);
+                operator delete(v317.__r_.__value_.__l.__data_);
               }
 
-              *&v319.__r_.__value_.__l.__data_ = v233;
-              v319.__r_.__value_.__r.__words[2] = v234;
+              *&v317.__r_.__value_.__l.__data_ = v231;
+              v317.__r_.__value_.__r.__words[2] = v232;
               break;
           }
 
           if (*(a2 + 148) == 1 && *(this[6].__r_.__value_.__r.__words[2] + 552))
           {
-            IMSCallInfo::stack(this, &v233);
-            isNR = ims::AccessNetwork::isNR((v233 + 3432));
-            if (*(&v233 + 1))
+            IMSCallInfo::stack(this, &v231);
+            isNR = ims::AccessNetwork::isNR((v231 + 3432));
+            if (*(&v231 + 1))
             {
-              std::__shared_weak_count::__release_shared[abi:ne200100](*(&v233 + 1));
+              std::__shared_weak_count::__release_shared[abi:ne200100](*(&v231 + 1));
             }
 
             if (isNR)
             {
-              std::string::basic_string[abi:ne200100]<0>(&v233, "call");
-              v153[0] = 0;
-              v156 = 0;
-              v139 = ims::debug(&v233, v153);
-              v140 = ImsOutStream::operator<<(v139, "Anonymous redial requested for NR emergency call.  Doing EPS fallback instead.");
-              (*(*v140 + 64))(v140, std::endl[abi:ne200100]<char,std::char_traits<char>>);
-              v140[17] = 0;
-              if (v156 == 1 && v155 < 0)
+              std::string::basic_string[abi:ne200100]<0>(&v231, "call");
+              v151[0] = 0;
+              v154 = 0;
+              v137 = ims::debug(&v231, v151);
+              v138 = ImsOutStream::operator<<(v137, "Anonymous redial requested for NR emergency call.  Doing EPS fallback instead.");
+              (*(*v138 + 64))(v138, std::endl[abi:ne200100]<char,std::char_traits<char>>);
+              v138[17] = 0;
+              if (v154 == 1 && v153 < 0)
               {
-                operator delete(v154);
+                operator delete(v152);
               }
 
-              if (SBYTE7(v234) < 0)
+              if (SBYTE7(v232) < 0)
               {
-                operator delete(v233);
+                operator delete(v231);
               }
             }
 
             else
             {
-              std::string::basic_string[abi:ne200100]<0>(&v233, "call");
-              v161[0] = 0;
-              v164 = 0;
-              v141 = ims::debug(&v233, v161);
-              v142 = ImsOutStream::operator<<(v141, "Anonymous redial is set for this call, attempting new emergency call.");
-              (*(*v142 + 64))(v142, std::endl[abi:ne200100]<char,std::char_traits<char>>);
-              v142[17] = 0;
-              if (v164 == 1 && v163 < 0)
+              std::string::basic_string[abi:ne200100]<0>(&v231, "call");
+              v159[0] = 0;
+              v162 = 0;
+              v139 = ims::debug(&v231, v159);
+              v140 = ImsOutStream::operator<<(v139, "Anonymous redial is set for this call, attempting new emergency call.");
+              (*(*v140 + 64))(v140, std::endl[abi:ne200100]<char,std::char_traits<char>>);
+              v140[17] = 0;
+              if (v162 == 1 && v161 < 0)
               {
-                operator delete(v162);
+                operator delete(v160);
               }
 
-              if (SBYTE7(v234) < 0)
+              if (SBYTE7(v232) < 0)
               {
-                operator delete(v233);
+                operator delete(v231);
               }
 
-              v233 = 0uLL;
-              v143 = v326;
+              v231 = 0uLL;
+              v141 = v324;
               data = this[7].__r_.__value_.__l.__data_;
-              v159 = this[6].__r_.__value_.__r.__words[2];
-              v160 = data;
+              v157 = this[6].__r_.__value_.__r.__words[2];
+              v158 = data;
               if (data)
               {
                 atomic_fetch_add_explicit(&data->__shared_owners_, 1uLL, memory_order_relaxed);
               }
 
-              v157 = 0;
-              v158 = 0;
-              BambiClient::initializeRedial(v143, &v159, &v157, &v233);
+              v155 = 0;
+              v156 = 0;
+              BambiClient::initializeRedial(v141, &v157, 0, &v155, &v231);
+              if (v156)
+              {
+                std::__shared_weak_count::__release_weak(v156);
+              }
+
               if (v158)
               {
-                std::__shared_weak_count::__release_weak(v158);
+                std::__shared_weak_count::__release_shared[abi:ne200100](v158);
               }
 
-              if (v160)
+              v143 = v231;
+              if (v231)
               {
-                std::__shared_weak_count::__release_shared[abi:ne200100](v160);
-              }
+                v144 = this[6].__r_.__value_.__r.__words[2];
+                v145 = *(v144 + 432);
+                *(v144 + 424) = 0;
+                *(v144 + 432) = 0;
+                if (v145)
+                {
+                  std::__shared_weak_count::__release_weak(v145);
+                  v143 = v231;
+                }
 
-              v145 = v233;
-              if (v233)
-              {
-                v146 = this[6].__r_.__value_.__r.__words[2];
-                v147 = *(v146 + 432);
-                *(v146 + 424) = 0;
-                *(v146 + 432) = 0;
+                v146 = *(&v231 + 1);
+                if (*(&v231 + 1))
+                {
+                  atomic_fetch_add_explicit((*(&v231 + 1) + 8), 1uLL, memory_order_relaxed);
+                }
+
+                v147 = this[7].__r_.__value_.__l.__data_;
+                this[6].__r_.__value_.__r.__words[2] = v143;
+                this[7].__r_.__value_.__r.__words[0] = v146;
                 if (v147)
                 {
-                  std::__shared_weak_count::__release_weak(v147);
-                  v145 = v233;
-                }
-
-                v148 = *(&v233 + 1);
-                if (*(&v233 + 1))
-                {
-                  atomic_fetch_add_explicit((*(&v233 + 1) + 8), 1uLL, memory_order_relaxed);
-                }
-
-                v149 = this[7].__r_.__value_.__l.__data_;
-                this[6].__r_.__value_.__r.__words[2] = v145;
-                this[7].__r_.__value_.__r.__words[0] = v148;
-                if (v149)
-                {
-                  std::__shared_weak_count::__release_shared[abi:ne200100](v149);
+                  std::__shared_weak_count::__release_shared[abi:ne200100](v147);
                 }
 
                 this[25].__r_.__value_.__s.__data_[6] = 1;
                 this[25].__r_.__value_.__s.__data_[3] = 0;
-                v108 = *(&v233 + 1);
-                if (*(&v233 + 1))
+                v106 = *(&v231 + 1);
+                if (*(&v231 + 1))
                 {
 LABEL_367:
-                  std::__shared_weak_count::__release_shared[abi:ne200100](v108);
+                  std::__shared_weak_count::__release_shared[abi:ne200100](v106);
                 }
 
                 goto LABEL_372;
               }
 
-              if (*(&v233 + 1))
+              if (*(&v231 + 1))
               {
-                std::__shared_weak_count::__release_shared[abi:ne200100](*(&v233 + 1));
+                std::__shared_weak_count::__release_shared[abi:ne200100](*(&v231 + 1));
               }
             }
           }
 
-          v150 = v324;
-          IMSCallInfo::uuid(v151, this);
-          IMSCallManager::sendCallDisconnectionNotification(v150, v151, &v319, &v335);
-          v151[0] = &unk_1F5EBEE78;
-          if (v152 < 0)
+          v148 = v322;
+          IMSCallInfo::uuid(v149, this);
+          IMSCallManager::sendCallDisconnectionNotification(v148, v149, &v317, &v333);
+          v149[0] = &unk_1F5EBEE78;
+          if (v150 < 0)
           {
-            operator delete(v151[1]);
+            operator delete(v149[1]);
           }
 
 LABEL_372:
-          if ((SHIBYTE(v319.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+          if ((SHIBYTE(v317.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
           {
             goto LABEL_375;
           }
 
-          v24 = v319.__r_.__value_.__r.__words[0];
+          v23 = v317.__r_.__value_.__r.__words[0];
           goto LABEL_374;
         }
       }
     }
 
 LABEL_35:
-    v11 = 0;
+    v10 = 0;
     goto LABEL_36;
   }
 
-  if (v335 != 1)
+  if (v333 != 1)
   {
-    v11 = 1;
+    v10 = 1;
     goto LABEL_40;
   }
 
-  v233 = 0uLL;
-  *&v234 = 0;
+  v231 = 0uLL;
+  *&v232 = 0;
 LABEL_38:
-  (*(*v326 + 184))(v228);
-  v15 = SipStack::prefs(v228[0].__r_.__value_.__l.__data_);
-  v16 = ImsPrefs::RedialOverLteIfEpsFallbackCallFailed(v15) && SLODWORD(this[25].__r_.__value_.__r.__words[1]) < 3;
-  if (v228[0].__r_.__value_.__l.__size_)
+  (*(*v324 + 184))(v226);
+  v14 = SipStack::prefs(v226[0].__r_.__value_.__l.__data_);
+  v15 = ImsPrefs::RedialOverLteIfEpsFallbackCallFailed(v14) && SLODWORD(this[25].__r_.__value_.__r.__words[1]) < 3;
+  if (v226[0].__r_.__value_.__l.__size_)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v228[0].__r_.__value_.__l.__size_);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v226[0].__r_.__value_.__l.__size_);
   }
 
-  if (v16)
+  if (v15)
   {
-    std::string::basic_string[abi:ne200100]<0>(v228, "call");
-    v315[0] = 0;
-    v318 = 0;
-    v21 = ims::debug(v228, v315);
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v21 + 8), "Call to ", 8);
-    *(v21 + 17) = 0;
-    (*(*(this[6].__r_.__value_.__r.__words[2] + 1080) + 40))(this[6].__r_.__value_.__r.__words[2] + 1080, v21);
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v21 + 8), " requires redial over LTE", 25);
-    *(v21 + 17) = 0;
-    (*(*v21 + 64))(v21, std::endl[abi:ne200100]<char,std::char_traits<char>>);
-    *(v21 + 17) = 0;
-    if (v318 == 1 && v317 < 0)
+    std::string::basic_string[abi:ne200100]<0>(v226, "call");
+    v313[0] = 0;
+    v316 = 0;
+    v20 = ims::debug(v226, v313);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v20 + 8), "Call to ", 8);
+    *(v20 + 17) = 0;
+    (*(*(this[6].__r_.__value_.__r.__words[2] + 1080) + 40))(this[6].__r_.__value_.__r.__words[2] + 1080, v20);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v20 + 8), " requires redial over LTE", 25);
+    *(v20 + 17) = 0;
+    (*(*v20 + 64))(v20, std::endl[abi:ne200100]<char,std::char_traits<char>>);
+    *(v20 + 17) = 0;
+    if (v316 == 1 && v315 < 0)
     {
       operator delete(__p);
     }
 
-    if (SHIBYTE(v228[0].__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v226[0].__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v228[0].__r_.__value_.__l.__data_);
+      operator delete(v226[0].__r_.__value_.__l.__data_);
     }
 
-    ims::CFString::asString(@"kCallDisconnectionReasonRequiresRedialOverLteOnly", 0x8000100, v228);
+    ims::CFString::asString(v226, @"kCallDisconnectionReasonRequiresRedialOverLteOnly", 0x8000100);
     goto LABEL_62;
   }
 
 LABEL_56:
-  std::string::basic_string[abi:ne200100]<0>(v228, "call");
-  v311[0] = 0;
-  v314 = 0;
-  v22 = ims::debug(v228, v311);
-  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v22 + 8), "Call to ", 8);
-  *(v22 + 17) = 0;
-  (*(*(this[6].__r_.__value_.__r.__words[2] + 1080) + 40))(this[6].__r_.__value_.__r.__words[2] + 1080, v22);
-  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v22 + 8), " requires CS fallback", 21);
-  *(v22 + 17) = 0;
-  (*(*v22 + 64))(v22, std::endl[abi:ne200100]<char,std::char_traits<char>>);
-  *(v22 + 17) = 0;
-  if (v314 == 1 && v313 < 0)
+  std::string::basic_string[abi:ne200100]<0>(v226, "call");
+  v309[0] = 0;
+  v312 = 0;
+  v21 = ims::debug(v226, v309);
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v21 + 8), "Call to ", 8);
+  *(v21 + 17) = 0;
+  (*(*(this[6].__r_.__value_.__r.__words[2] + 1080) + 40))(this[6].__r_.__value_.__r.__words[2] + 1080, v21);
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v21 + 8), " requires CS fallback", 21);
+  *(v21 + 17) = 0;
+  (*(*v21 + 64))(v21, std::endl[abi:ne200100]<char,std::char_traits<char>>);
+  *(v21 + 17) = 0;
+  if (v312 == 1 && v311 < 0)
   {
-    operator delete(v312);
+    operator delete(v310);
   }
 
-  if (SHIBYTE(v228[0].__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v226[0].__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v228[0].__r_.__value_.__l.__data_);
+    operator delete(v226[0].__r_.__value_.__l.__data_);
   }
 
-  ims::CFString::asString(@"kCallDisconnectionReasonRequiresCSFB", 0x8000100, v228);
+  ims::CFString::asString(v226, @"kCallDisconnectionReasonRequiresCSFB", 0x8000100);
 LABEL_62:
-  if (SBYTE7(v234) < 0)
+  if (SBYTE7(v232) < 0)
   {
-    operator delete(v233);
+    operator delete(v231);
   }
 
-  v233 = *&v228[0].__r_.__value_.__l.__data_;
-  *&v234 = *(&v228[0].__r_.__value_.__l + 2);
-  BYTE2(v335) = 1;
-  v23 = v324;
-  IMSCallInfo::uuid(v309, this);
-  IMSCallManager::sendCallDisconnectionNotification(v23, v309, &v233, &v335);
-  v309[0] = &unk_1F5EBEE78;
-  if (v310 < 0)
+  v231 = *&v226[0].__r_.__value_.__l.__data_;
+  *&v232 = *(&v226[0].__r_.__value_.__l + 2);
+  BYTE2(v333) = 1;
+  v22 = v322;
+  IMSCallInfo::uuid(v307, this);
+  IMSCallManager::sendCallDisconnectionNotification(v22, v307, &v231, &v333);
+  v307[0] = &unk_1F5EBEE78;
+  if (v308 < 0)
   {
-    operator delete(v309[1]);
+    operator delete(v307[1]);
   }
 
-  if (SBYTE7(v234) < 0)
+  if (SBYTE7(v232) < 0)
   {
-    v24 = v233;
+    v23 = v231;
 LABEL_374:
-    operator delete(v24);
+    operator delete(v23);
   }
 
 LABEL_375:
+  if (v323)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v323);
+  }
+
   if (v325)
   {
     std::__shared_weak_count::__release_shared[abi:ne200100](v325);
@@ -5078,34 +5077,29 @@ LABEL_375:
     std::__shared_weak_count::__release_shared[abi:ne200100](v327);
   }
 
-  if (v329)
+  if (SHIBYTE(v330) < 0)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v329);
+    operator delete(*(&v329 + 1));
   }
 
-  if (SHIBYTE(v332) < 0)
+  if (SBYTE7(v329) < 0)
   {
-    operator delete(*(&v331 + 1));
+    operator delete(v328);
   }
 
-  if (SBYTE7(v331) < 0)
+  if (SHIBYTE(v339) < 0)
   {
-    operator delete(v330);
+    operator delete(*(&v338 + 1));
   }
 
-  if (SHIBYTE(v341) < 0)
+  if (SBYTE7(v338) < 0)
   {
-    operator delete(*(&v340 + 1));
+    operator delete(v337);
   }
 
-  if (SBYTE7(v340) < 0)
+  if (SHIBYTE(v335) < 0)
   {
-    operator delete(v339);
-  }
-
-  if (SHIBYTE(v337) < 0)
-  {
-    v8 = v336;
+    v8 = v334;
     goto LABEL_391;
   }
 
@@ -5165,7 +5159,7 @@ void sub_1E4D18FCC()
 
 void IMSCallInfo::handleMediaInitializedEvent(IMSCallInfo *this, BambiCallEvent *a2)
 {
-  IPTelephonyManager::getCallManager(this, &v7);
+  IPTelephonyManager::getCallManager(&v7);
   v4 = v7;
   IMSCallInfo::uuid(v5, this);
   (*(*v4 + 216))(v4, v5, @"kCallStatusMediaInitialized", *(this + 72), a2);
@@ -5198,10 +5192,10 @@ void sub_1E4D190CC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 void IMSCallInfo::handleMediaActivationEvent(IMSCallInfo *this, BambiCallEvent *a2, uint64_t a3)
 {
-  v6 = std::string::basic_string[abi:ne200100]<0>(&v38, "call");
-  v34[0] = 0;
-  v37 = 0;
-  v7 = ims::debug(v6, v34);
+  v6 = std::string::basic_string[abi:ne200100]<0>(&v37, "call");
+  v33[0] = 0;
+  v36 = 0;
+  v7 = ims::debug(v6, v33);
   std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v7 + 8), "handleMedia", 11);
   *(v7 + 17) = 0;
   if (a3)
@@ -5228,79 +5222,79 @@ void IMSCallInfo::handleMediaActivationEvent(IMSCallInfo *this, BambiCallEvent *
   *(v7 + 17) = 0;
   std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v7 + 8), "ctivationEvent", 14);
   *(v7 + 17) = 0;
-  v10 = (*(*v7 + 64))(v7, std::endl[abi:ne200100]<char,std::char_traits<char>>);
+  (*(*v7 + 64))(v7, std::endl[abi:ne200100]<char,std::char_traits<char>>);
   *(v7 + 17) = 0;
-  if (v37 == 1 && v36 < 0)
+  if (v36 == 1 && v35 < 0)
   {
     operator delete(__p);
   }
 
-  if (v40 < 0)
+  if (v39 < 0)
   {
-    operator delete(v38);
+    operator delete(v37);
   }
 
   if (*(this + 73))
   {
-    v11 = std::string::basic_string[abi:ne200100]<0>(&v38, "call");
-    v30[0] = 0;
-    v33 = 0;
-    v12 = ims::debug(v11, v30);
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v12 + 8), "Ignore for conference participant.", 34);
-    *(v12 + 17) = 0;
-    (*(*v12 + 64))(v12, std::endl[abi:ne200100]<char,std::char_traits<char>>);
-    *(v12 + 17) = 0;
-    if (v33 == 1 && v32 < 0)
+    v10 = std::string::basic_string[abi:ne200100]<0>(&v37, "call");
+    v29[0] = 0;
+    v32 = 0;
+    v11 = ims::debug(v10, v29);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v11 + 8), "Ignore for conference participant.", 34);
+    *(v11 + 17) = 0;
+    (*(*v11 + 64))(v11, std::endl[abi:ne200100]<char,std::char_traits<char>>);
+    *(v11 + 17) = 0;
+    if (v32 == 1 && v31 < 0)
     {
-      operator delete(v31);
+      operator delete(v30);
     }
 
-    if (v40 < 0)
+    if (v39 < 0)
     {
-      operator delete(v38);
+      operator delete(v37);
     }
 
     return;
   }
 
   *(this + 604) = a3;
+  v37 = 0;
   v38 = 0;
-  v39 = 0;
-  IPTelephonyManager::getCallManager(v10, &v38);
-  v13 = *(a2 + 3);
-  if (v13)
+  IPTelephonyManager::getCallManager(&v37);
+  v12 = *(a2 + 3);
+  if (v12)
   {
-    v14 = *(a2 + 2);
-    atomic_fetch_add_explicit(&v13->__shared_weak_owners_, 1uLL, memory_order_relaxed);
-    v15 = std::__shared_weak_count::lock(v13);
-    v16 = v15;
-    if (v15)
+    v13 = *(a2 + 2);
+    atomic_fetch_add_explicit(&v12->__shared_weak_owners_, 1uLL, memory_order_relaxed);
+    v14 = std::__shared_weak_count::lock(v12);
+    v15 = v14;
+    if (v14)
     {
-      v17 = v14;
+      v16 = v13;
     }
 
     else
     {
-      v17 = 0;
+      v16 = 0;
     }
 
-    v18 = *(this + 20);
-    if (v17 != v18)
+    v17 = *(this + 20);
+    if (v16 != v17)
     {
-      if (v15)
+      if (v14)
       {
-        std::__shared_weak_count::__release_shared[abi:ne200100](v15);
+        std::__shared_weak_count::__release_shared[abi:ne200100](v14);
       }
 
-      std::__shared_weak_count::__release_weak(v13);
+      std::__shared_weak_count::__release_weak(v12);
       goto LABEL_40;
     }
 
-    v19 = *(v18 + 408);
-    if (v19)
+    v18 = *(v17 + 408);
+    if (v18)
     {
-      v20 = SipSession::confirmed(v19);
-      if (!v16)
+      v19 = SipSession::confirmed(v18);
+      if (!v15)
       {
         goto LABEL_29;
       }
@@ -5308,47 +5302,47 @@ void IMSCallInfo::handleMediaActivationEvent(IMSCallInfo *this, BambiCallEvent *
 
     else
     {
-      v20 = 0;
-      if (!v16)
+      v19 = 0;
+      if (!v15)
       {
 LABEL_29:
-        std::__shared_weak_count::__release_weak(v13);
-        if (v20)
+        std::__shared_weak_count::__release_weak(v12);
+        if (v19)
         {
-          v21 = v38;
-          IMSCallInfo::uuid(v28, this);
-          v22 = kIMSCallStatusMediaActive;
+          v20 = v37;
+          IMSCallInfo::uuid(v27, this);
+          v21 = kIMSCallStatusMediaActive;
           if (!a3)
           {
-            v22 = kIMSCallStatusMediaInactive;
+            v21 = kIMSCallStatusMediaInactive;
           }
 
-          (*(*v21 + 216))(v21, v28, *v22, *(this + 72), a2);
-          v28[0] = &unk_1F5EBEE78;
-          if (v29 < 0)
+          (*(*v20 + 216))(v20, v27, *v21, *(this + 72), a2);
+          v27[0] = &unk_1F5EBEE78;
+          if (v28 < 0)
           {
-            operator delete(v28[1]);
+            operator delete(v27[1]);
           }
 
-          v23 = *(this + 21);
-          v26 = *(this + 20);
-          v27 = v23;
-          if (v23)
+          v22 = *(this + 21);
+          v25 = *(this + 20);
+          v26 = v22;
+          if (v22)
           {
-            atomic_fetch_add_explicit(&v23->__shared_owners_, 1uLL, memory_order_relaxed);
+            atomic_fetch_add_explicit(&v22->__shared_owners_, 1uLL, memory_order_relaxed);
           }
 
-          IMSCallInfo::uuid(v24, this);
-          (*(*v21 + 192))(v21, &v26, a3, v24);
-          v24[0] = &unk_1F5EBEE78;
-          if (v25 < 0)
+          IMSCallInfo::uuid(v23, this);
+          (*(*v20 + 192))(v20, &v25, a3, v23);
+          v23[0] = &unk_1F5EBEE78;
+          if (v24 < 0)
           {
-            operator delete(v24[1]);
+            operator delete(v23[1]);
           }
 
-          if (v27)
+          if (v26)
           {
-            std::__shared_weak_count::__release_shared[abi:ne200100](v27);
+            std::__shared_weak_count::__release_shared[abi:ne200100](v26);
           }
         }
 
@@ -5356,14 +5350,14 @@ LABEL_29:
       }
     }
 
-    std::__shared_weak_count::__release_shared[abi:ne200100](v16);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v15);
     goto LABEL_29;
   }
 
 LABEL_40:
-  if (v39)
+  if (v38)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v39);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v38);
   }
 }
 
@@ -5412,156 +5406,156 @@ void IMSCallInfo::handleSessionConfirmedEvent(IMSCallInfo *this, BambiCallSessio
 
   if (v5 == *(this + 20))
   {
-    v9 = std::string::basic_string[abi:ne200100]<0>(&v41, "call");
-    v33[0] = 0;
-    v36 = 0;
-    v10 = ims::debug(v9, v33);
+    v9 = std::string::basic_string[abi:ne200100]<0>(&v39, "call");
+    v31[0] = 0;
+    v34 = 0;
+    v10 = ims::debug(v9, v31);
     std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v10 + 8), "Session confirmed with ", 23);
     *(v10 + 17) = 0;
     (*(*(v5 + 1080) + 40))(v5 + 1080, v10);
-    v11 = (*(*v10 + 64))(v10, std::endl[abi:ne200100]<char,std::char_traits<char>>);
+    (*(*v10 + 64))(v10, std::endl[abi:ne200100]<char,std::char_traits<char>>);
     *(v10 + 17) = 0;
-    if (v36 == 1 && v35 < 0)
+    if (v34 == 1 && v33 < 0)
     {
       operator delete(__p);
     }
 
-    if (SHIBYTE(v41.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v39.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v41.__r_.__value_.__l.__data_);
+      operator delete(v39.__r_.__value_.__l.__data_);
     }
 
-    v31 = 0;
-    v32 = 0;
-    IPTelephonyManager::getCallManager(v11, &v31);
-    v12 = v31;
-    IMSCallInfo::uuid(v29, this);
-    (*(*v12 + 216))(v12, v29, @"kCallStatusMediaActive", *(this + 72), 0);
-    v29[0] = &unk_1F5EBEE78;
-    if (v30 < 0)
+    v29 = 0;
+    v30 = 0;
+    IPTelephonyManager::getCallManager(&v29);
+    v11 = v29;
+    IMSCallInfo::uuid(v27, this);
+    (*(*v11 + 216))(v11, v27, @"kCallStatusMediaActive", *(this + 72), 0);
+    v27[0] = &unk_1F5EBEE78;
+    if (v28 < 0)
     {
-      operator delete(v29[1]);
+      operator delete(v27[1]);
     }
 
-    v13 = *(this + 21);
-    v27 = *(this + 20);
-    v28 = v13;
-    if (v13)
+    v12 = *(this + 21);
+    v25 = *(this + 20);
+    v26 = v12;
+    if (v12)
     {
-      atomic_fetch_add_explicit(&v13->__shared_owners_, 1uLL, memory_order_relaxed);
-    }
-
-    IMSCallInfo::uuid(v25, this);
-    (*(*v12 + 192))(v12, &v27, 1, v25);
-    v25[0] = &unk_1F5EBEE78;
-    if (v26 < 0)
-    {
-      operator delete(v25[1]);
-    }
-
-    if (v28)
-    {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v28);
+      atomic_fetch_add_explicit(&v12->__shared_owners_, 1uLL, memory_order_relaxed);
     }
 
     IMSCallInfo::uuid(v23, this);
-    (*(*v12 + 216))(v12, v23, @"kCallStatusActive", *(this + 72), a2);
+    (*(*v11 + 192))(v11, &v25, 1, v23);
     v23[0] = &unk_1F5EBEE78;
     if (v24 < 0)
     {
       operator delete(v23[1]);
     }
 
-    v14 = *(this + 20);
-    if (v14)
+    if (v26)
     {
-      BambiCall::sendHoldResumeIndication(v14, (*(v14 + 120) & 0xFFFFFFFE) == 2);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v26);
+    }
+
+    IMSCallInfo::uuid(v21, this);
+    (*(*v11 + 216))(v11, v21, @"kCallStatusActive", *(this + 72), a2);
+    v21[0] = &unk_1F5EBEE78;
+    if (v22 < 0)
+    {
+      operator delete(v21[1]);
+    }
+
+    v13 = *(this + 20);
+    if (v13)
+    {
+      BambiCall::sendHoldResumeIndication(v13, (*(v13 + 120) & 0xFFFFFFFE) == 2);
     }
 
     if (*(this + 152) == 2 && *(this + 20))
     {
-      IMSCallInfo::stack(this, &v21);
-      if (*(v21 + 4455) < 0)
+      IMSCallInfo::stack(this, &v19);
+      if (*(v19 + 4455) < 0)
       {
-        std::string::__init_copy_ctor_external(&v41, *(v21 + 4432), *(v21 + 4440));
+        std::string::__init_copy_ctor_external(&v39, *(v19 + 4432), *(v19 + 4440));
       }
 
       else
       {
-        v41 = *(v21 + 4432);
+        v39 = *(v19 + 4432);
       }
 
-      IMSCallManager::sendCallStatusRequest(v15, &v41, 1, *(*(this + 20) + 1529), *(*(this + 20) + 552) != 0);
-      if (SHIBYTE(v41.__r_.__value_.__r.__words[2]) < 0)
+      IMSCallManager::sendCallStatusRequest(v14, &v39, 1, *(*(this + 20) + 1529), *(*(this + 20) + 552) != 0);
+      if (SHIBYTE(v39.__r_.__value_.__r.__words[2]) < 0)
       {
-        operator delete(v41.__r_.__value_.__l.__data_);
+        operator delete(v39.__r_.__value_.__l.__data_);
       }
 
-      if (v22)
+      if (v20)
       {
-        std::__shared_weak_count::__release_shared[abi:ne200100](v22);
+        std::__shared_weak_count::__release_shared[abi:ne200100](v20);
       }
 
       *(this + 152) = 3;
     }
 
-    v16 = pthread_mutex_lock(&ctu::Singleton<IMSMetricsManager,IMSMetricsManager,ctu::PthreadMutexGuardPolicy<IMSMetricsManager>>::sInstance);
-    v17 = off_1EE2BBBC0;
+    pthread_mutex_lock(&ctu::Singleton<IMSMetricsManager,IMSMetricsManager,ctu::PthreadMutexGuardPolicy<IMSMetricsManager>>::sInstance);
+    v15 = off_1EE2BBBC0;
     if (!off_1EE2BBBC0)
     {
-      IMSMetricsManager::create_default_global(v16);
+      IMSMetricsManager::create_default_global();
     }
 
-    v18 = *(&off_1EE2BBBC0 + 1);
+    v16 = *(&off_1EE2BBBC0 + 1);
     if (*(&off_1EE2BBBC0 + 1))
     {
       atomic_fetch_add_explicit((*(&off_1EE2BBBC0 + 1) + 8), 1uLL, memory_order_relaxed);
     }
 
     pthread_mutex_unlock(&ctu::Singleton<IMSMetricsManager,IMSMetricsManager,ctu::PthreadMutexGuardPolicy<IMSMetricsManager>>::sInstance);
-    v19 = *(this + 21);
-    v20[0] = *(this + 20);
-    v20[1] = v19;
-    if (v19)
+    v17 = *(this + 21);
+    v18[0] = *(this + 20);
+    v18[1] = v17;
+    if (v17)
     {
-      atomic_fetch_add_explicit(&v19->__shared_owners_, 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit(&v17->__shared_owners_, 1uLL, memory_order_relaxed);
     }
 
-    IMSMetricsManager::logSessionConfirmedEvent(v17, v20, *(this + 72), *(this + 72));
-    if (v19)
+    IMSMetricsManager::logSessionConfirmedEvent(v15, v18, *(this + 72), *(this + 72));
+    if (v17)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v19);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v17);
     }
 
-    if (v18)
+    if (v16)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v18);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v16);
     }
 
-    if (v32)
+    if (v30)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v32);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v30);
     }
   }
 
   else
   {
-    v7 = std::string::basic_string[abi:ne200100]<0>(&v41, "call");
-    v37[0] = 0;
-    v40 = 0;
-    v8 = ims::debug(v7, v37);
+    v7 = std::string::basic_string[abi:ne200100]<0>(&v39, "call");
+    v35[0] = 0;
+    v38 = 0;
+    v8 = ims::debug(v7, v35);
     std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v8 + 8), "IMSCallInfo::handleSessionConfirmedEvent for an unknown call", 60);
     *(v8 + 17) = 0;
     (*(*v8 + 64))(v8, std::endl[abi:ne200100]<char,std::char_traits<char>>);
     *(v8 + 17) = 0;
-    if (v40 == 1 && v39 < 0)
+    if (v38 == 1 && v37 < 0)
     {
-      operator delete(v38);
+      operator delete(v36);
     }
 
-    if (SHIBYTE(v41.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v39.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v41.__r_.__value_.__l.__data_);
+      operator delete(v39.__r_.__value_.__l.__data_);
     }
   }
 
@@ -5615,59 +5609,59 @@ void IMSCallInfo::handleSessionAcknowledgedEvent(IMSCallInfo *this, BambiCallEve
 
   if (v4 == *(this + 20))
   {
-    v8 = std::string::basic_string[abi:ne200100]<0>(&v22, "call");
-    v14[0] = 0;
-    v17 = 0;
-    v9 = ims::debug(v8, v14);
+    v8 = std::string::basic_string[abi:ne200100]<0>(&v21, "call");
+    v13[0] = 0;
+    v16 = 0;
+    v9 = ims::debug(v8, v13);
     std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v9 + 8), "Session acknowledged with ", 26);
     *(v9 + 17) = 0;
     (*(*(v4 + 1080) + 40))(v4 + 1080, v9);
-    v10 = (*(*v9 + 64))(v9, std::endl[abi:ne200100]<char,std::char_traits<char>>);
+    (*(*v9 + 64))(v9, std::endl[abi:ne200100]<char,std::char_traits<char>>);
     *(v9 + 17) = 0;
-    if (v17 == 1 && v16 < 0)
+    if (v16 == 1 && v15 < 0)
     {
-      operator delete(v15);
+      operator delete(v14);
     }
 
-    if (v24 < 0)
+    if (v23 < 0)
     {
-      operator delete(v22);
+      operator delete(v21);
     }
 
-    IPTelephonyManager::getCallManager(v10, &v22);
-    v11 = v22;
-    IMSCallInfo::uuid(v12, this);
-    (*(*v11 + 216))(v11, v12, @"kCallStatusAcknowledged", *(this + 72), 0);
-    v12[0] = &unk_1F5EBEE78;
-    if (v13 < 0)
+    IPTelephonyManager::getCallManager(&v21);
+    v10 = v21;
+    IMSCallInfo::uuid(v11, this);
+    (*(*v10 + 216))(v10, v11, @"kCallStatusAcknowledged", *(this + 72), 0);
+    v11[0] = &unk_1F5EBEE78;
+    if (v12 < 0)
     {
-      operator delete(v12[1]);
+      operator delete(v11[1]);
     }
 
-    if (v23)
+    if (v22)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v23);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v22);
     }
   }
 
   else
   {
-    v6 = std::string::basic_string[abi:ne200100]<0>(&v22, "call");
-    v18[0] = 0;
-    v21 = 0;
-    v7 = ims::debug(v6, v18);
+    v6 = std::string::basic_string[abi:ne200100]<0>(&v21, "call");
+    v17[0] = 0;
+    v20 = 0;
+    v7 = ims::debug(v6, v17);
     std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v7 + 8), "IMSCallInfo::handleSessionAcknowledgedEvent for an unknown call", 63);
     *(v7 + 17) = 0;
     (*(*v7 + 64))(v7, std::endl[abi:ne200100]<char,std::char_traits<char>>);
     *(v7 + 17) = 0;
-    if (v21 == 1 && v20 < 0)
+    if (v20 == 1 && v19 < 0)
     {
       operator delete(__p);
     }
 
-    if (v24 < 0)
+    if (v23 < 0)
     {
-      operator delete(v22);
+      operator delete(v21);
     }
   }
 
@@ -5722,121 +5716,121 @@ void IMSCallInfo::handleSessionRequestedEvent(IMSCallInfo *this, BambiCallSessio
 
   if (v4 != *(this + 20))
   {
-    v6 = std::string::basic_string[abi:ne200100]<0>(v57, "call");
-    v53[0] = 0;
-    v56 = 0;
-    v7 = ims::debug(v6, v53);
+    v6 = std::string::basic_string[abi:ne200100]<0>(v54, "call");
+    v50[0] = 0;
+    v53 = 0;
+    v7 = ims::debug(v6, v50);
     std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v7 + 8), "IMSCallInfo::handleSessionRequestedEvent for an unknown call", 60);
     *(v7 + 17) = 0;
     (*(*v7 + 64))(v7, std::endl[abi:ne200100]<char,std::char_traits<char>>);
     *(v7 + 17) = 0;
-    if (v56 == 1 && v55 < 0)
+    if (v53 == 1 && v52 < 0)
     {
-      operator delete(v54);
+      operator delete(v51);
     }
 
-    if (v58 < 0)
+    if (v55 < 0)
     {
-      operator delete(v57[0]);
+      operator delete(v54[0]);
     }
 
     goto LABEL_75;
   }
 
-  v51 = 0;
-  v52 = 0;
-  IPTelephonyManager::getBambiClient(&v51);
+  v48 = 0;
   v49 = 0;
-  v50 = 0;
-  IPTelephonyManager::getCallManager(v8, &v49);
-  v9 = v51;
-  v10 = *(this + 21);
-  v48[0] = *(this + 20);
-  v48[1] = v10;
-  if (v10)
+  IPTelephonyManager::getBambiClient(&v48);
+  v46 = 0;
+  v47 = 0;
+  IPTelephonyManager::getCallManager(&v46);
+  v8 = v48;
+  v9 = *(this + 21);
+  v45[0] = *(this + 20);
+  v45[1] = v9;
+  if (v9)
   {
-    atomic_fetch_add_explicit(&v10->__shared_owners_, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(&v9->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  v11 = BambiClient::unconfirmedCallsExcludingCall(v9, 0, v48);
-  if (v10)
+  v10 = BambiClient::unconfirmedCallsExcludingCall(v8, 0, v45);
+  if (v9)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v10);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v9);
   }
 
-  if (!v11)
+  if (!v10)
   {
-    v40 = 0;
-    v41 = 0;
-    (*(*v9 + 184))(&v40, v9, this + 136);
-    if (v40)
+    v37 = 0;
+    v38 = 0;
+    (*(*v8 + 184))(&v37, v8, this + 136);
+    if (v37)
     {
-      v15 = SipStack::prefs(v40);
-      v16 = ImsPrefs::MaxCallCount(v15);
+      v14 = SipStack::prefs(v37);
+      v15 = ImsPrefs::MaxCallCount(v14);
     }
 
     else
     {
-      v16 = 3;
+      v15 = 3;
     }
 
-    v57[0] = 0;
-    v57[1] = 0;
-    if (BambiClient::callCountExcludingCall(v9, v57) <= v16)
+    v54[0] = 0;
+    v54[1] = 0;
+    if (BambiClient::callCountExcludingCall(v8, v54) <= v15)
     {
-      v21 = pthread_mutex_lock(&ctu::Singleton<IMSMetricsManager,IMSMetricsManager,ctu::PthreadMutexGuardPolicy<IMSMetricsManager>>::sInstance);
-      v22 = off_1EE2BBBC0;
+      pthread_mutex_lock(&ctu::Singleton<IMSMetricsManager,IMSMetricsManager,ctu::PthreadMutexGuardPolicy<IMSMetricsManager>>::sInstance);
+      v20 = off_1EE2BBBC0;
       if (!off_1EE2BBBC0)
       {
-        IMSMetricsManager::create_default_global(v21);
+        IMSMetricsManager::create_default_global();
       }
 
-      v23 = *(&off_1EE2BBBC0 + 1);
+      v21 = *(&off_1EE2BBBC0 + 1);
       if (*(&off_1EE2BBBC0 + 1))
       {
         atomic_fetch_add_explicit((*(&off_1EE2BBBC0 + 1) + 8), 1uLL, memory_order_relaxed);
       }
 
       pthread_mutex_unlock(&ctu::Singleton<IMSMetricsManager,IMSMetricsManager,ctu::PthreadMutexGuardPolicy<IMSMetricsManager>>::sInstance);
-      v24 = *(this + 21);
-      v33[0] = *(this + 20);
-      v33[1] = v24;
-      if (v24)
+      v22 = *(this + 21);
+      v30[0] = *(this + 20);
+      v30[1] = v22;
+      if (v22)
       {
-        atomic_fetch_add_explicit(&v24->__shared_owners_, 1uLL, memory_order_relaxed);
+        atomic_fetch_add_explicit(&v22->__shared_owners_, 1uLL, memory_order_relaxed);
       }
 
-      IMSMetricsManager::logSessionRequestedEvent(v22, v33, *(this + 72), 0);
-      if (v24)
+      IMSMetricsManager::logSessionRequestedEvent(v20, v30, *(this + 72), 0);
+      if (v22)
       {
-        std::__shared_weak_count::__release_shared[abi:ne200100](v24);
+        std::__shared_weak_count::__release_shared[abi:ne200100](v22);
       }
 
-      if (v23)
+      if (v21)
       {
-        std::__shared_weak_count::__release_shared[abi:ne200100](v23);
+        std::__shared_weak_count::__release_shared[abi:ne200100](v21);
       }
 
-      v25 = pthread_mutex_lock(&ctu::Singleton<IMSMetricsManager,IMSMetricsManager,ctu::PthreadMutexGuardPolicy<IMSMetricsManager>>::sInstance);
-      v26 = off_1EE2BBBC0;
+      pthread_mutex_lock(&ctu::Singleton<IMSMetricsManager,IMSMetricsManager,ctu::PthreadMutexGuardPolicy<IMSMetricsManager>>::sInstance);
+      v23 = off_1EE2BBBC0;
       if (!off_1EE2BBBC0)
       {
-        IMSMetricsManager::create_default_global(v25);
+        IMSMetricsManager::create_default_global();
       }
 
-      v27 = *(&off_1EE2BBBC0 + 1);
+      v24 = *(&off_1EE2BBBC0 + 1);
       if (*(&off_1EE2BBBC0 + 1))
       {
         atomic_fetch_add_explicit((*(&off_1EE2BBBC0 + 1) + 8), 1uLL, memory_order_relaxed);
       }
 
       pthread_mutex_unlock(&ctu::Singleton<IMSMetricsManager,IMSMetricsManager,ctu::PthreadMutexGuardPolicy<IMSMetricsManager>>::sInstance);
-      if (*(v26 + 264) == 1)
+      if (*(v23 + 264) == 1)
       {
-        isWifi = ims::AccessNetwork::isWifi((v40 + 3432));
-        if (v27)
+        isWifi = ims::AccessNetwork::isWifi((v37 + 3432));
+        if (v24)
         {
-          std::__shared_weak_count::__release_shared[abi:ne200100](v27);
+          std::__shared_weak_count::__release_shared[abi:ne200100](v24);
         }
 
         if (!isWifi)
@@ -5845,137 +5839,137 @@ void IMSCallInfo::handleSessionRequestedEvent(IMSCallInfo *this, BambiCallSessio
         }
       }
 
-      else if (v27)
+      else if (v24)
       {
-        std::__shared_weak_count::__release_shared[abi:ne200100](v27);
+        std::__shared_weak_count::__release_shared[abi:ne200100](v24);
       }
 
-      v29 = *(this + 5);
-      v32[0] = *(this + 4);
-      if (!v29 || (v30 = std::__shared_weak_count::lock(v29), (v32[1] = v30) == 0))
+      v26 = *(this + 5);
+      v29[0] = *(this + 4);
+      if (!v26 || (v27 = std::__shared_weak_count::lock(v26), (v29[1] = v27) == 0))
       {
         std::__throw_bad_weak_ptr[abi:ne200100]();
       }
 
-      v31 = v30;
-      IMSCallManager::sendIncomingCallStatusNotification(v30, v32);
-      std::__shared_weak_count::__release_shared[abi:ne200100](v31);
+      v28 = v27;
+      IMSCallManager::sendIncomingCallStatusNotification(v27, v29);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v28);
     }
 
     else
     {
-      v17 = std::string::basic_string[abi:ne200100]<0>(v57, "call");
-      v36[0] = 0;
-      v39 = 0;
-      v18 = ims::info(v17, v36);
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v18 + 8), "IMSCallInfo::handleSessionRequestedEvent when we already have ", 62);
-      *(v18 + 17) = 0;
-      v59[0] = 0;
-      v59[1] = 0;
-      v19 = BambiClient::callCountExcludingCall(v9, v59);
-      MEMORY[0x1E6923370](*(v18 + 8), v19);
-      *(v18 + 17) = 0;
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v18 + 8), " calls. Declining.", 18);
-      *(v18 + 17) = 0;
-      (*(*v18 + 64))(v18, std::endl[abi:ne200100]<char,std::char_traits<char>>);
-      *(v18 + 17) = 0;
-      if (v39 == 1 && v38 < 0)
+      v16 = std::string::basic_string[abi:ne200100]<0>(v54, "call");
+      v33[0] = 0;
+      v36 = 0;
+      v17 = ims::info(v16, v33);
+      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v17 + 8), "IMSCallInfo::handleSessionRequestedEvent when we already have ", 62);
+      *(v17 + 17) = 0;
+      v56[0] = 0;
+      v56[1] = 0;
+      v18 = BambiClient::callCountExcludingCall(v8, v56);
+      MEMORY[0x1E6923370](*(v17 + 8), v18);
+      *(v17 + 17) = 0;
+      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v17 + 8), " calls. Declining.", 18);
+      *(v17 + 17) = 0;
+      (*(*v17 + 64))(v17, std::endl[abi:ne200100]<char,std::char_traits<char>>);
+      *(v17 + 17) = 0;
+      if (v36 == 1 && v35 < 0)
       {
-        operator delete(v37);
+        operator delete(v34);
       }
 
-      if (v58 < 0)
+      if (v55 < 0)
       {
-        operator delete(v57[0]);
+        operator delete(v54[0]);
       }
 
-      v20 = v49;
-      v34 = &unk_1F5EBEE78;
+      v19 = v46;
+      v31 = &unk_1F5EBEE78;
       if (*(this + 135) < 0)
       {
-        std::string::__init_copy_ctor_external(&v35, *(this + 14), *(this + 15));
+        std::string::__init_copy_ctor_external(&v32, *(this + 14), *(this + 15));
       }
 
       else
       {
-        v35 = *(this + 112);
+        v32 = *(this + 112);
       }
 
-      std::string::basic_string[abi:ne200100]<0>(v57, "AlreadyOnMaxCalls");
-      (*(*v20 + 56))(v20, &v34, v57);
-      if (v58 < 0)
+      std::string::basic_string[abi:ne200100]<0>(v54, "AlreadyOnMaxCalls");
+      (*(*v19 + 56))(v19, &v31, v54);
+      if (v55 < 0)
       {
-        operator delete(v57[0]);
+        operator delete(v54[0]);
       }
 
-      v34 = &unk_1F5EBEE78;
-      if (SHIBYTE(v35.__r_.__value_.__r.__words[2]) < 0)
+      v31 = &unk_1F5EBEE78;
+      if (SHIBYTE(v32.__r_.__value_.__r.__words[2]) < 0)
       {
-        operator delete(v35.__r_.__value_.__l.__data_);
+        operator delete(v32.__r_.__value_.__l.__data_);
       }
     }
 
 LABEL_69:
-    if (v41)
+    if (v38)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v41);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v38);
     }
 
     goto LABEL_71;
   }
 
-  v12 = std::string::basic_string[abi:ne200100]<0>(v57, "call");
-  v44[0] = 0;
-  v47 = 0;
-  v13 = ims::info(v12, v44);
-  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v13 + 8), "IMSCallInfo::handleSessionRequestedEvent during an existing alerting call. Declining.", 85);
-  *(v13 + 17) = 0;
-  (*(*v13 + 64))(v13, std::endl[abi:ne200100]<char,std::char_traits<char>>);
-  *(v13 + 17) = 0;
-  if (v47 == 1 && v46 < 0)
+  v11 = std::string::basic_string[abi:ne200100]<0>(v54, "call");
+  v41[0] = 0;
+  v44 = 0;
+  v12 = ims::info(v11, v41);
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v12 + 8), "IMSCallInfo::handleSessionRequestedEvent during an existing alerting call. Declining.", 85);
+  *(v12 + 17) = 0;
+  (*(*v12 + 64))(v12, std::endl[abi:ne200100]<char,std::char_traits<char>>);
+  *(v12 + 17) = 0;
+  if (v44 == 1 && v43 < 0)
   {
     operator delete(__p);
   }
 
-  if (v58 < 0)
+  if (v55 < 0)
   {
-    operator delete(v57[0]);
+    operator delete(v54[0]);
   }
 
-  v14 = v49;
-  v42 = &unk_1F5EBEE78;
+  v13 = v46;
+  v39 = &unk_1F5EBEE78;
   if (*(this + 135) < 0)
   {
-    std::string::__init_copy_ctor_external(&v43, *(this + 14), *(this + 15));
+    std::string::__init_copy_ctor_external(&v40, *(this + 14), *(this + 15));
   }
 
   else
   {
-    v43 = *(this + 112);
+    v40 = *(this + 112);
   }
 
-  std::string::basic_string[abi:ne200100]<0>(v57, "EstablishingAnotherCall");
-  (*(*v14 + 56))(v14, &v42, v57);
-  if (v58 < 0)
+  std::string::basic_string[abi:ne200100]<0>(v54, "EstablishingAnotherCall");
+  (*(*v13 + 56))(v13, &v39, v54);
+  if (v55 < 0)
   {
-    operator delete(v57[0]);
+    operator delete(v54[0]);
   }
 
-  v42 = &unk_1F5EBEE78;
-  if (SHIBYTE(v43.__r_.__value_.__r.__words[2]) < 0)
+  v39 = &unk_1F5EBEE78;
+  if (SHIBYTE(v40.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v43.__r_.__value_.__l.__data_);
+    operator delete(v40.__r_.__value_.__l.__data_);
   }
 
 LABEL_71:
-  if (v50)
+  if (v47)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v50);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v47);
   }
 
-  if (v52)
+  if (v49)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v52);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v49);
   }
 
 LABEL_75:
@@ -6050,7 +6044,7 @@ void IMSCallManager::sendIncomingCallStatusNotification(uint64_t a1, IMSCallInfo
         }
 
 LABEL_14:
-        BambiCall::remoteDisplayName(v5, &__str);
+        BambiCall::remoteDisplayName(&__str, v5);
         if ((v7 & 1) == 0)
         {
           std::__shared_weak_count::__release_shared[abi:ne200100](v6);
@@ -6079,8 +6073,8 @@ LABEL_14:
           if (ImsPrefs::EnableSenderName(v12))
           {
             ims::removeQuotes(&__str, &v76);
-            std::string::basic_string[abi:ne200100]<0>(&v75, "\");
-            ims::unescapeString(&v76, 0x5Cu, &v75, &v69);
+            std::string::basic_string[abi:ne200100]<0>(&v75, "\"");
+            ims::unescapeString(&v76, 92, &v75, &v69);
             if (SHIBYTE(__str.__r_.__value_.__r.__words[2]) < 0)
             {
               operator delete(__str.__r_.__value_.__l.__data_);
@@ -6141,7 +6135,7 @@ LABEL_14:
             atomic_fetch_add_explicit(&v17->__shared_owners_, 1uLL, memory_order_relaxed);
           }
 
-          BambiCall::remoteDisplayCountryCode(v16, &v69);
+          BambiCall::remoteDisplayCountryCode(&v69, v16);
           if (SBYTE7(v91) < 0)
           {
             operator delete(v90);
@@ -6525,7 +6519,7 @@ LABEL_146:
             atomic_fetch_add_explicit(&v56->__shared_owners_, 1uLL, memory_order_relaxed);
           }
 
-          BambiCall::spamInfo(v55, &v69);
+          BambiCall::spamInfo(&v69, v55);
           *(&v95 + 1) = v69.__r_.__value_.__r.__words[0];
           if (SBYTE7(v97[0]) < 0)
           {
@@ -6693,9 +6687,9 @@ LABEL_170:
 
 void sub_1E4D1B564(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void *a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, void *a16, uint64_t a17, uint64_t a18, void *a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, void *a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, void *__p, uint64_t a42, int a43, __int16 a44, char a45, char a46, void *a47, uint64_t a48, int a49, __int16 a50, char a51, char a52, uint64_t a53, uint64_t a54, void *a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, std::__shared_weak_count *a61, void *a62, uint64_t a63)
 {
-  if (v72)
+  if (v67)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v72);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v67);
   }
 
   if (a46 < 0)
@@ -6713,23 +6707,23 @@ void sub_1E4D1B564(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
     std::__shared_weak_count::__release_shared[abi:ne200100](a61);
   }
 
-  if (a67 < 0)
+  if (a65 < 0)
   {
     operator delete(a62);
   }
 
-  if (a72 < 0)
+  if (a67 < 0)
   {
-    operator delete(a68);
+    operator delete(a66);
   }
 
-  ims::CallIncomingInfo::~CallIncomingInfo((v73 - 240));
+  ims::CallIncomingInfo::~CallIncomingInfo((v68 - 240));
   _Unwind_Resume(a1);
 }
 
 void sub_1E4D1B808(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, int a32, __int16 a33, char a34, char a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
 {
-  if (a73 == 1 && a72 < 0)
+  if (a67 == 1 && a66 < 0)
   {
     operator delete(__p);
   }
@@ -6742,7 +6736,7 @@ void sub_1E4D1B808(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t 
   JUMPOUT(0x1E4D1B7F8);
 }
 
-uint64_t IMSCallInfo::handleForceLTEFallbackEvent(uint64_t a1, void **a2)
+uint64_t IMSCallInfo::handleForceLTEFallbackEvent(uint64_t a1, char *a2)
 {
   v2 = *(*(IMSClientManager::delegateForStack(a2) + 16) + 104);
 
@@ -6764,7 +6758,7 @@ void IMSCallInfo::handleHoldIndicationEvent(IMSCallInfo *this, BambiCallHoldResu
       v10 = *(v8 + 4432);
     }
 
-    v4 = IMSClientManager::delegateForStack(&v10.__r_.__value_.__l.__data_);
+    v4 = IMSClientManager::delegateForStack(&v10);
     IMSCallInfo::uuid(&v5, this);
     if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
     {
@@ -6835,7 +6829,7 @@ void IMSCallInfo::handleResumeIndicationEvent(IMSCallInfo *this, BambiCallHoldRe
       v10 = *(v8 + 4432);
     }
 
-    v4 = IMSClientManager::delegateForStack(&v10.__r_.__value_.__l.__data_);
+    v4 = IMSClientManager::delegateForStack(&v10);
     IMSCallInfo::uuid(&v5, this);
     if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
     {
@@ -6891,13 +6885,13 @@ void sub_1E4D1BBA0(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void IMSCallInfo::handleSessionTerminatingEvent(IMSCallInfo *this, BambiCallSessionTerminatingEvent *a2)
+void IMSCallInfo::handleSessionTerminatingEvent(std::string *this, BambiCallSessionTerminatingEvent *a2)
 {
-  if (*(this + 603) == 1)
+  if (this[25].__r_.__value_.__s.__data_[3] == 1)
   {
     v7 = v2;
     v8 = v3;
-    IPTelephonyManager::getCallManager(this, &v5);
+    IPTelephonyManager::getCallManager(&v5);
     v4 = v6;
     if (v6)
     {
@@ -6915,95 +6909,94 @@ void IMSCallInfo::handleSessionTerminatingEvent(IMSCallInfo *this, BambiCallSess
 
 void IMSCallInfo::handleSessionTerminatedEvent(std::string *this, BambiCallSessionTerminatedEvent *a2)
 {
-  v4 = pthread_mutex_lock(&ctu::Singleton<IMSMetricsManager,IMSMetricsManager,ctu::PthreadMutexGuardPolicy<IMSMetricsManager>>::sInstance);
-  v5 = off_1EE2BBBC0;
+  pthread_mutex_lock(&ctu::Singleton<IMSMetricsManager,IMSMetricsManager,ctu::PthreadMutexGuardPolicy<IMSMetricsManager>>::sInstance);
+  v4 = off_1EE2BBBC0;
   if (!off_1EE2BBBC0)
   {
-    IMSMetricsManager::create_default_global(v4);
+    IMSMetricsManager::create_default_global();
   }
 
-  v6 = *(&off_1EE2BBBC0 + 1);
+  v5 = *(&off_1EE2BBBC0 + 1);
   if (*(&off_1EE2BBBC0 + 1))
   {
     atomic_fetch_add_explicit((*(&off_1EE2BBBC0 + 1) + 8), 1uLL, memory_order_relaxed);
   }
 
-  v7 = pthread_mutex_unlock(&ctu::Singleton<IMSMetricsManager,IMSMetricsManager,ctu::PthreadMutexGuardPolicy<IMSMetricsManager>>::sInstance);
-  v8 = v5 + 240;
-  for (i = *(v5 + 248); i != v8; i = *(i + 8))
+  pthread_mutex_unlock(&ctu::Singleton<IMSMetricsManager,IMSMetricsManager,ctu::PthreadMutexGuardPolicy<IMSMetricsManager>>::sInstance);
+  v6 = v4 + 240;
+  for (i = *(v4 + 248); i != v6; i = *(i + 8))
   {
-    v7 = (*(**(i + 16) + 80))(*(i + 16), a2);
+    (*(**(i + 16) + 80))(*(i + 16), a2);
   }
 
-  if (v6)
+  if (v5)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v6);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v5);
   }
 
-  v18 = 0uLL;
-  IPTelephonyManager::getCallManager(v7, &v18);
+  v16 = 0uLL;
+  IPTelephonyManager::getCallManager(&v16);
   if ((this[25].__r_.__value_.__s.__data_[3] & 1) == 0)
   {
-    v10 = v18;
-    IMSCallInfo::uuid(v16, this);
-    (*(*v10 + 216))(v10, v16, @"kCallStatusMediaInactive", this[3].__r_.__value_.__s.__data_[0], 0);
-    v16[0] = &unk_1F5EBEE78;
-    if (v17 < 0)
+    v8 = v16;
+    IMSCallInfo::uuid(v14, this);
+    (*(*v8 + 216))(v8, v14, @"kCallStatusMediaInactive", this[3].__r_.__value_.__s.__data_[0], 0);
+    v14[0] = &unk_1F5EBEE78;
+    if (v15 < 0)
     {
-      operator delete(v16[1]);
+      operator delete(v14[1]);
     }
 
     data = this[7].__r_.__value_.__l.__data_;
-    v14 = this[6].__r_.__value_.__r.__words[2];
-    v15 = data;
+    v12 = this[6].__r_.__value_.__r.__words[2];
+    v13 = data;
     if (data)
     {
       atomic_fetch_add_explicit(&data->__shared_owners_, 1uLL, memory_order_relaxed);
     }
 
-    IMSCallInfo::uuid(v12, this);
-    (*(*v10 + 192))(v10, &v14, 0, v12);
-    v12[0] = &unk_1F5EBEE78;
-    if (v13 < 0)
+    IMSCallInfo::uuid(v10, this);
+    (*(*v8 + 192))(v8, &v12, 0, v10);
+    v10[0] = &unk_1F5EBEE78;
+    if (v11 < 0)
     {
-      operator delete(v12[1]);
+      operator delete(v10[1]);
     }
 
-    if (v15)
+    if (v13)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v15);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v13);
     }
 
     IMSCallInfo::handleSessionTerminationEvent(this, a2);
   }
 
-  if (*(&v18 + 1))
+  if (*(&v16 + 1))
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](*(&v18 + 1));
+    std::__shared_weak_count::__release_shared[abi:ne200100](*(&v16 + 1));
   }
 }
 
-void IMSCallInfo::handleMetricOnlyEvent(std::__shared_weak_count **this, char **lpsrc)
+void IMSCallInfo::handleMetricOnlyEvent(std::__shared_weak_count **this, BambiCallEvent *lpsrc)
 {
-  if ((lpsrc[1] & 0xFFFFFFFE) == 0xE)
+  if ((*(lpsrc + 2) & 0xFFFFFFFE) == 0xE)
   {
-    v3 = **lpsrc;
-    v5 = IMSCallInfo::sendSessionTerminationMetric(this, v4, 0);
-    IPTelephonyManager::getCallManager(v5, &v11);
-    v6 = v11;
-    v7 = this[5];
-    v10[0] = this[4];
-    if (!v7 || (v8 = std::__shared_weak_count::lock(v7), (v10[1] = v8) == 0))
+    IMSCallInfo::sendSessionTerminationMetric(this, v3, 0);
+    IPTelephonyManager::getCallManager(&v9);
+    v4 = v9;
+    v5 = this[5];
+    v8[0] = this[4];
+    if (!v5 || (v6 = std::__shared_weak_count::lock(v5), (v8[1] = v6) == 0))
     {
       std::__throw_bad_weak_ptr[abi:ne200100]();
     }
 
-    v9 = v8;
-    IMSCallManager::sendCallEndRequest(v6, v10, 0);
-    std::__shared_weak_count::__release_shared[abi:ne200100](v9);
-    if (v12)
+    v7 = v6;
+    IMSCallManager::sendCallEndRequest(v4, v8, 0);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v7);
+    if (v10)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v12);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v10);
     }
   }
 }
@@ -7019,12 +7012,12 @@ void sub_1E4D1C060(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-uint64_t IMSCallInfo::sendSessionTerminationMetric(IMSCallInfo *this, char **a2, BOOL *a3)
+uint64_t IMSCallInfo::sendSessionTerminationMetric(IMSCallInfo *this, BambiCallSessionTerminationBaseEvent *a2, BOOL *a3)
 {
-  v6 = a2[3];
+  v6 = *(a2 + 3);
   if (v6)
   {
-    v7 = a2[2];
+    v7 = *(a2 + 2);
     atomic_fetch_add_explicit(&v6->__shared_weak_owners_, 1uLL, memory_order_relaxed);
     v8 = std::__shared_weak_count::lock(v6);
     if (!v8)
@@ -7043,55 +7036,55 @@ uint64_t IMSCallInfo::sendSessionTerminationMetric(IMSCallInfo *this, char **a2,
 
   if (*(a2 + 144) == 1 && (*(a2 + 145) & 1) == 0)
   {
-    IMSCallInfo::stack(this, &v33);
-    if (v33)
+    IMSCallInfo::stack(this, &v30);
+    if (v30)
     {
-      IMSCallInfo::stack(this, &v31);
-      v15 = *(v31 + 248);
-      v16 = *(v31 + 256);
-      if (v16)
+      IMSCallInfo::stack(this, &v28);
+      v13 = *(v28 + 248);
+      v14 = *(v28 + 256);
+      if (v14)
       {
-        atomic_fetch_add_explicit(&v16->__shared_owners_, 1uLL, memory_order_relaxed);
+        atomic_fetch_add_explicit(&v14->__shared_owners_, 1uLL, memory_order_relaxed);
       }
 
-      v17 = *(SipUserAgent::config(v15) + 456) != 1 || v7 == 0;
-      if (v17 || v7[1529] != 1)
+      v15 = *(SipUserAgent::config(v13) + 456) != 1 || v7 == 0;
+      if (v15 || *(v7 + 1529) != 1)
       {
         v9 = 0;
       }
 
       else
       {
-        IMSCallInfo::stack(this, &v29);
-        v18 = *(v29 + 248);
-        v19 = *(v29 + 256);
-        if (v19)
+        IMSCallInfo::stack(this, &v26);
+        v16 = *(v26 + 248);
+        v17 = *(v26 + 256);
+        if (v17)
         {
-          atomic_fetch_add_explicit(&v19->__shared_owners_, 1uLL, memory_order_relaxed);
-          v20 = *(SipUserAgent::config(v18) + 912);
-          std::__shared_weak_count::__release_shared[abi:ne200100](v19);
+          atomic_fetch_add_explicit(&v17->__shared_owners_, 1uLL, memory_order_relaxed);
+          v18 = *(SipUserAgent::config(v16) + 912);
+          std::__shared_weak_count::__release_shared[abi:ne200100](v17);
         }
 
         else
         {
-          v20 = *(SipUserAgent::config(v18) + 912);
+          v18 = *(SipUserAgent::config(v16) + 912);
         }
 
-        v9 = v20 ^ 1;
-        if (v30)
+        v9 = v18 ^ 1;
+        if (v27)
         {
-          std::__shared_weak_count::__release_shared[abi:ne200100](v30);
+          std::__shared_weak_count::__release_shared[abi:ne200100](v27);
         }
       }
 
-      if (v16)
+      if (v14)
       {
-        std::__shared_weak_count::__release_shared[abi:ne200100](v16);
+        std::__shared_weak_count::__release_shared[abi:ne200100](v14);
       }
 
-      if (v32)
+      if (v29)
       {
-        std::__shared_weak_count::__release_shared[abi:ne200100](v32);
+        std::__shared_weak_count::__release_shared[abi:ne200100](v29);
       }
     }
 
@@ -7100,9 +7093,9 @@ uint64_t IMSCallInfo::sendSessionTerminationMetric(IMSCallInfo *this, char **a2,
       v9 = 0;
     }
 
-    if (v34)
+    if (v31)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v34);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v31);
     }
   }
 
@@ -7116,54 +7109,53 @@ uint64_t IMSCallInfo::sendSessionTerminationMetric(IMSCallInfo *this, char **a2,
     *a3 = v9 & 1;
   }
 
-  v10 = **a2;
-  if (v11)
+  if (v10)
   {
-    v12 = v11;
-    v13 = pthread_mutex_lock(&ctu::Singleton<IMSMetricsManager,IMSMetricsManager,ctu::PthreadMutexGuardPolicy<IMSMetricsManager>>::sInstance);
-    v14 = off_1EE2BBBC0;
+    v11 = v10;
+    pthread_mutex_lock(&ctu::Singleton<IMSMetricsManager,IMSMetricsManager,ctu::PthreadMutexGuardPolicy<IMSMetricsManager>>::sInstance);
+    v12 = off_1EE2BBBC0;
     if (!off_1EE2BBBC0)
     {
-      IMSMetricsManager::create_default_global(v13);
+      IMSMetricsManager::create_default_global();
     }
 
-    v21 = *(&off_1EE2BBBC0 + 1);
+    v19 = *(&off_1EE2BBBC0 + 1);
     if (*(&off_1EE2BBBC0 + 1))
     {
       atomic_fetch_add_explicit((*(&off_1EE2BBBC0 + 1) + 8), 1uLL, memory_order_relaxed);
     }
 
     pthread_mutex_unlock(&ctu::Singleton<IMSMetricsManager,IMSMetricsManager,ctu::PthreadMutexGuardPolicy<IMSMetricsManager>>::sInstance);
-    v22 = v14 + 240;
-    for (i = *(v14 + 248); i != v22; i = *(i + 8))
+    v20 = v12 + 240;
+    for (i = *(v12 + 248); i != v20; i = *(i + 8))
     {
-      (*(**(i + 16) + 80))(*(i + 16), v12);
+      (*(**(i + 16) + 80))(*(i + 16), v11);
     }
 
-    if (v21)
+    if (v19)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v21);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v19);
     }
   }
 
-  v24 = pthread_mutex_lock(&ctu::Singleton<IMSMetricsManager,IMSMetricsManager,ctu::PthreadMutexGuardPolicy<IMSMetricsManager>>::sInstance);
-  v25 = off_1EE2BBBC0;
+  pthread_mutex_lock(&ctu::Singleton<IMSMetricsManager,IMSMetricsManager,ctu::PthreadMutexGuardPolicy<IMSMetricsManager>>::sInstance);
+  v22 = off_1EE2BBBC0;
   if (!off_1EE2BBBC0)
   {
-    IMSMetricsManager::create_default_global(v24);
+    IMSMetricsManager::create_default_global();
   }
 
-  v26 = *(&off_1EE2BBBC0 + 1);
+  v23 = *(&off_1EE2BBBC0 + 1);
   if (*(&off_1EE2BBBC0 + 1))
   {
     atomic_fetch_add_explicit((*(&off_1EE2BBBC0 + 1) + 8), 1uLL, memory_order_relaxed);
   }
 
   pthread_mutex_unlock(&ctu::Singleton<IMSMetricsManager,IMSMetricsManager,ctu::PthreadMutexGuardPolicy<IMSMetricsManager>>::sInstance);
-  v27 = IMSMetricsManager::logSessionTerminationEvent(v25, a2, *(this + 72), *(this + 72), v9 & 1);
-  if (v26)
+  v24 = IMSMetricsManager::logSessionTerminationEvent(v22, a2, *(this + 72), *(this + 72), v9 & 1);
+  if (v23)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v26);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v23);
   }
 
   if (v8)
@@ -7171,7 +7163,7 @@ uint64_t IMSCallInfo::sendSessionTerminationMetric(IMSCallInfo *this, char **a2,
     std::__shared_weak_count::__release_shared[abi:ne200100](v8);
   }
 
-  return v27;
+  return v24;
 }
 
 void sub_1E4D1C3C0(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, std::__shared_weak_count *a12, uint64_t a13, std::__shared_weak_count *a14)
@@ -7613,8 +7605,8 @@ void IMSCallManager::sendEmergencySessionRequiredNotification(uint64_t a1, uint6
     v17 = 0;
     v18 = 0;
     v19 = 0;
-    SipUri::asString(a3, &v17);
-    v15 = IMSClientManager::delegateForStack(&v32.__r_.__value_.__l.__data_);
+    SipUri::asString(a3, 1, &v17);
+    v15 = IMSClientManager::delegateForStack(&v32);
     if (*(a2 + 31) < 0)
     {
       std::string::__init_copy_ctor_external(&v16, *(a2 + 8), *(a2 + 16));
@@ -7691,71 +7683,48 @@ void sub_1E4D1CC8C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 void IMSCallInfo::handleParticipantLeftConference(uint64_t a1, uint64_t a2, char a3)
 {
   std::string::basic_string[abi:ne200100]<0>(&__p, "call");
-  v39[0] = 0;
-  v42 = 0;
-  v6 = ims::debug(&__p, v39);
+  v37[0] = 0;
+  v40 = 0;
+  v6 = ims::debug(&__p, v37);
   std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v6 + 8), "handleParticipantLeftConferenceEvent", 36);
   *(v6 + 17) = 0;
-  v7 = (*(*v6 + 64))(v6, std::endl[abi:ne200100]<char,std::char_traits<char>>);
+  (*(*v6 + 64))(v6, std::endl[abi:ne200100]<char,std::char_traits<char>>);
   *(v6 + 17) = 0;
-  if (v42 == 1 && v41 < 0)
+  if (v40 == 1 && v39 < 0)
   {
-    operator delete(v40);
+    operator delete(v38);
   }
 
-  if (v32.__r_.__value_.__s.__data_[15] < 0)
+  if (v30.__r_.__value_.__s.__data_[15] < 0)
   {
     operator delete(__p);
   }
 
-  v37 = 0;
-  v38 = 0;
-  IPTelephonyManager::getCallManager(v7, &v37);
+  v35 = 0;
+  v36 = 0;
+  IPTelephonyManager::getCallManager(&v35);
   if ((a3 & 1) == 0)
   {
     __p = 65792;
-    v33 = 0;
-    memset(&v32, 0, sizeof(v32));
+    v31 = 0;
+    memset(&v30, 0, sizeof(v30));
+    v32 = 0u;
+    v33 = 0u;
     v34 = 0u;
-    v35 = 0u;
-    v36 = 0u;
-    v8 = *(*a2 + 1316);
-    if (v8 > 9)
+    v7 = *(*a2 + 1316);
+    if (v7 > 9)
     {
-      if (v8 == 20)
+      if (v7 == 20)
       {
-        LODWORD(v33) = 1026;
-        std::string::__assign_external(&v32, "ConferenceParticipantLeft:MediaTimeout", 0x26uLL);
-        v13 = v37;
-        IMSCallInfo::uuid(v26, a1);
-        ims::CFString::asString(@"kCallDisconnectionReasonMediaTimeout", 0x8000100, &v28);
-        IMSCallManager::sendCallDisconnectionNotification(v13, v26, &v28, &__p);
-        if (SHIBYTE(v28.__r_.__value_.__r.__words[2]) < 0)
-        {
-          operator delete(v28.__r_.__value_.__l.__data_);
-        }
-
-        v26[0] = &unk_1F5EBEE78;
-        if ((v27 & 0x80000000) == 0)
-        {
-          goto LABEL_28;
-        }
-
-        v12 = v26;
-      }
-
-      else
-      {
-        LODWORD(v33) = 1009;
-        BYTE2(__p) = 0;
-        std::string::__assign_external(&v32, "ConferenceParticipantLeft:NetworkError", 0x26uLL);
-        v14 = v37;
+        LODWORD(v31) = 1026;
+        std::string::__assign_external(&v30, "ConferenceParticipantLeft:MediaTimeout", 0x26uLL);
+        v12 = v35;
         IMSCallInfo::uuid(v24, a1);
-        ims::CFString::asString(@"kCallDisconnectionReasonNetworkError", 0x8000100, &v28);
-        IMSCallManager::sendCallDisconnectionNotification(v14, v24, &v28, &__p);
-        if (SHIBYTE(v28.__r_.__value_.__r.__words[2]) < 0)
+        ims::CFString::asString(&v26, @"kCallDisconnectionReasonMediaTimeout", 0x8000100);
+        IMSCallManager::sendCallDisconnectionNotification(v12, v24, &v26, &__p);
+        if (SHIBYTE(v26.__r_.__value_.__r.__words[2]) < 0)
         {
-          operator delete(v28.__r_.__value_.__l.__data_);
+          operator delete(v26.__r_.__value_.__l.__data_);
         }
 
         v24[0] = &unk_1F5EBEE78;
@@ -7764,120 +7733,143 @@ void IMSCallInfo::handleParticipantLeftConference(uint64_t a1, uint64_t a2, char
           goto LABEL_28;
         }
 
-        v12 = v24;
+        v11 = v24;
+      }
+
+      else
+      {
+        LODWORD(v31) = 1009;
+        BYTE2(__p) = 0;
+        std::string::__assign_external(&v30, "ConferenceParticipantLeft:NetworkError", 0x26uLL);
+        v13 = v35;
+        IMSCallInfo::uuid(v22, a1);
+        ims::CFString::asString(&v26, @"kCallDisconnectionReasonNetworkError", 0x8000100);
+        IMSCallManager::sendCallDisconnectionNotification(v13, v22, &v26, &__p);
+        if (SHIBYTE(v26.__r_.__value_.__r.__words[2]) < 0)
+        {
+          operator delete(v26.__r_.__value_.__l.__data_);
+        }
+
+        v22[0] = &unk_1F5EBEE78;
+        if ((v23 & 0x80000000) == 0)
+        {
+          goto LABEL_28;
+        }
+
+        v11 = v22;
       }
     }
 
     else
     {
-      if (v8 == 1)
+      if (v7 == 1)
       {
-        v9 = 1008;
+        v8 = 1008;
       }
 
       else
       {
-        v9 = 1003;
+        v8 = 1003;
       }
 
-      if (v8)
+      if (v7)
       {
-        v10 = v9;
+        v9 = v8;
       }
 
       else
       {
-        v10 = 1007;
+        v9 = 1007;
       }
 
-      LODWORD(v33) = v10;
-      std::string::__assign_external(&v32, "ConferenceParticipantLeft:Normal", 0x20uLL);
-      v11 = v37;
-      IMSCallInfo::uuid(v29, a1);
-      ims::CFString::asString(@"kCallDisconnectionReasonNormal", 0x8000100, &v28);
-      IMSCallManager::sendCallDisconnectionNotification(v11, v29, &v28, &__p);
-      if (SHIBYTE(v28.__r_.__value_.__r.__words[2]) < 0)
+      LODWORD(v31) = v9;
+      std::string::__assign_external(&v30, "ConferenceParticipantLeft:Normal", 0x20uLL);
+      v10 = v35;
+      IMSCallInfo::uuid(v27, a1);
+      ims::CFString::asString(&v26, @"kCallDisconnectionReasonNormal", 0x8000100);
+      IMSCallManager::sendCallDisconnectionNotification(v10, v27, &v26, &__p);
+      if (SHIBYTE(v26.__r_.__value_.__r.__words[2]) < 0)
       {
-        operator delete(v28.__r_.__value_.__l.__data_);
+        operator delete(v26.__r_.__value_.__l.__data_);
       }
 
-      v29[0] = &unk_1F5EBEE78;
-      if ((v30 & 0x80000000) == 0)
+      v27[0] = &unk_1F5EBEE78;
+      if ((v28 & 0x80000000) == 0)
       {
         goto LABEL_28;
       }
 
-      v12 = v29;
+      v11 = v27;
     }
 
-    operator delete(v12[1]);
+    operator delete(v11[1]);
 LABEL_28:
-    if (SHIBYTE(v36) < 0)
+    if (SHIBYTE(v34) < 0)
     {
-      operator delete(*(&v35 + 1));
+      operator delete(*(&v33 + 1));
     }
 
-    if (SBYTE7(v35) < 0)
+    if (SBYTE7(v33) < 0)
     {
-      operator delete(v34);
+      operator delete(v32);
     }
 
-    if (SHIBYTE(v32.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v30.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v32.__r_.__value_.__l.__data_);
+      operator delete(v30.__r_.__value_.__l.__data_);
     }
   }
 
-  v15 = pthread_mutex_lock(&ctu::Singleton<IMSMetricsManager,IMSMetricsManager,ctu::PthreadMutexGuardPolicy<IMSMetricsManager>>::sInstance);
-  v16 = off_1EE2BBBC0;
+  pthread_mutex_lock(&ctu::Singleton<IMSMetricsManager,IMSMetricsManager,ctu::PthreadMutexGuardPolicy<IMSMetricsManager>>::sInstance);
+  v14 = off_1EE2BBBC0;
   if (!off_1EE2BBBC0)
   {
-    IMSMetricsManager::create_default_global(v15);
+    IMSMetricsManager::create_default_global();
   }
 
-  v17 = *(&off_1EE2BBBC0 + 1);
+  v15 = *(&off_1EE2BBBC0 + 1);
   if (*(&off_1EE2BBBC0 + 1))
   {
     atomic_fetch_add_explicit((*(&off_1EE2BBBC0 + 1) + 8), 1uLL, memory_order_relaxed);
   }
 
   pthread_mutex_unlock(&ctu::Singleton<IMSMetricsManager,IMSMetricsManager,ctu::PthreadMutexGuardPolicy<IMSMetricsManager>>::sInstance);
-  v18 = v16 + 240;
-  for (i = *(v16 + 248); i != v18; i = *(i + 8))
+  v16 = v14 + 240;
+  for (i = *(v14 + 248); i != v16; i = *(i + 8))
   {
     (*(**(i + 16) + 104))(*(i + 16), a1 + 80);
   }
 
-  if (v17)
+  if (v15)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v17);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v15);
   }
 
-  v20 = v37;
-  v21 = *(a1 + 40);
-  v22 = *(a1 + 32);
-  if (!v21)
+  v18 = v35;
+  v19 = *(a1 + 40);
+  v20 = *(a1 + 32);
+  if (!v19)
   {
-    v23 = 0;
+    v21 = 0;
 LABEL_51:
     std::__throw_bad_weak_ptr[abi:ne200100]();
   }
 
-  v23 = std::__shared_weak_count::lock(v21);
-  if (!v23)
+  v21 = std::__shared_weak_count::lock(v19);
+  if (!v21)
   {
     goto LABEL_51;
   }
 
-  (*(*v20 + 224))(v20, &v22);
-  if (v23)
+  (*(*v18 + 224))(v18, &v20);
+  if (v21)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v23);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v21);
   }
 
-  if (v38)
+  if (v36)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v38);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v36);
   }
 }
 
@@ -7927,10 +7919,10 @@ void IMSCallInfo::handleSessionActivatedEvent(IMSCallInfo *this, BambiCallEvent 
 
   if (v5 == *(this + 20))
   {
-    v9 = std::string::basic_string[abi:ne200100]<0>(&v42, "call");
-    v34[0] = 0;
-    v37 = 0;
-    v10 = ims::debug(v9, v34);
+    v9 = std::string::basic_string[abi:ne200100]<0>(&v40, "call");
+    v32[0] = 0;
+    v35 = 0;
+    v10 = ims::debug(v9, v32);
     std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v10 + 8), "Call ", 5);
     *(v10 + 17) = 0;
     (*(*(this + 13) + 16))(this + 104, v10);
@@ -7938,120 +7930,120 @@ void IMSCallInfo::handleSessionActivatedEvent(IMSCallInfo *this, BambiCallEvent 
     *(v10 + 17) = 0;
     (*(*v10 + 64))(v10, std::endl[abi:ne200100]<char,std::char_traits<char>>);
     *(v10 + 17) = 0;
-    if (v37 == 1 && v36 < 0)
+    if (v35 == 1 && v34 < 0)
     {
       operator delete(__p);
     }
 
-    if (v43 < 0)
+    if (v41 < 0)
     {
-      operator delete(v42);
+      operator delete(v40);
     }
 
     v11 = *(*(this + 20) + 408);
     if (v11 && SipSession::confirmed(v11))
     {
-      v12 = std::string::basic_string[abi:ne200100]<0>(&v42, "call");
-      v30[0] = 0;
-      v33 = 0;
-      v13 = ims::debug(v12, v30);
+      v12 = std::string::basic_string[abi:ne200100]<0>(&v40, "call");
+      v28[0] = 0;
+      v31 = 0;
+      v13 = ims::debug(v12, v28);
       std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v13 + 8), "Sending kIMSCallStatusActive", 28);
       *(v13 + 17) = 0;
-      v14 = (*(*v13 + 64))(v13, std::endl[abi:ne200100]<char,std::char_traits<char>>);
+      (*(*v13 + 64))(v13, std::endl[abi:ne200100]<char,std::char_traits<char>>);
       *(v13 + 17) = 0;
-      if (v33 == 1 && v32 < 0)
+      if (v31 == 1 && v30 < 0)
       {
-        operator delete(v31);
+        operator delete(v29);
       }
 
-      if (v43 < 0)
+      if (v41 < 0)
       {
-        operator delete(v42);
+        operator delete(v40);
       }
 
-      v28 = 0;
-      v29 = 0;
-      IPTelephonyManager::getCallManager(v14, &v28);
-      v15 = v28;
-      IMSCallInfo::uuid(v26, this);
-      (*(*v15 + 216))(v15, v26, @"kCallStatusActive", *(this + 72), a2);
-      v26[0] = &unk_1F5EBEE78;
-      if (v27 < 0)
+      v26 = 0;
+      v27 = 0;
+      IPTelephonyManager::getCallManager(&v26);
+      v14 = v26;
+      IMSCallInfo::uuid(v24, this);
+      (*(*v14 + 216))(v14, v24, @"kCallStatusActive", *(this + 72), a2);
+      v24[0] = &unk_1F5EBEE78;
+      if (v25 < 0)
       {
-        operator delete(v26[1]);
+        operator delete(v24[1]);
       }
 
-      v16 = pthread_mutex_lock(&ctu::Singleton<IMSMetricsManager,IMSMetricsManager,ctu::PthreadMutexGuardPolicy<IMSMetricsManager>>::sInstance);
-      v17 = off_1EE2BBBC0;
+      pthread_mutex_lock(&ctu::Singleton<IMSMetricsManager,IMSMetricsManager,ctu::PthreadMutexGuardPolicy<IMSMetricsManager>>::sInstance);
+      v15 = off_1EE2BBBC0;
       if (!off_1EE2BBBC0)
       {
-        IMSMetricsManager::create_default_global(v16);
+        IMSMetricsManager::create_default_global();
       }
 
-      v18 = *(&off_1EE2BBBC0 + 1);
+      v16 = *(&off_1EE2BBBC0 + 1);
       if (*(&off_1EE2BBBC0 + 1))
       {
         atomic_fetch_add_explicit((*(&off_1EE2BBBC0 + 1) + 8), 1uLL, memory_order_relaxed);
       }
 
       pthread_mutex_unlock(&ctu::Singleton<IMSMetricsManager,IMSMetricsManager,ctu::PthreadMutexGuardPolicy<IMSMetricsManager>>::sInstance);
-      v19 = v17 + 240;
-      for (i = *(v17 + 248); i != v19; i = *(i + 8))
+      v17 = v15 + 240;
+      for (i = *(v15 + 248); i != v17; i = *(i + 8))
       {
         (*(**(i + 16) + 96))(*(i + 16), a2, @"kCallStatusActive");
       }
 
-      if (v18)
+      if (v16)
       {
-        std::__shared_weak_count::__release_shared[abi:ne200100](v18);
+        std::__shared_weak_count::__release_shared[abi:ne200100](v16);
       }
 
-      v21 = *(this + 21);
-      v24 = *(this + 20);
-      v25 = v21;
-      if (v21)
+      v19 = *(this + 21);
+      v22 = *(this + 20);
+      v23 = v19;
+      if (v19)
       {
-        atomic_fetch_add_explicit(&v21->__shared_owners_, 1uLL, memory_order_relaxed);
+        atomic_fetch_add_explicit(&v19->__shared_owners_, 1uLL, memory_order_relaxed);
       }
 
-      IMSCallInfo::uuid(v22, this);
-      (*(*v15 + 192))(v15, &v24, 1, v22);
-      v22[0] = &unk_1F5EBEE78;
-      if (v23 < 0)
+      IMSCallInfo::uuid(v20, this);
+      (*(*v14 + 192))(v14, &v22, 1, v20);
+      v20[0] = &unk_1F5EBEE78;
+      if (v21 < 0)
       {
-        operator delete(v22[1]);
+        operator delete(v20[1]);
       }
 
-      if (v25)
+      if (v23)
       {
-        std::__shared_weak_count::__release_shared[abi:ne200100](v25);
+        std::__shared_weak_count::__release_shared[abi:ne200100](v23);
       }
 
-      if (v29)
+      if (v27)
       {
-        std::__shared_weak_count::__release_shared[abi:ne200100](v29);
+        std::__shared_weak_count::__release_shared[abi:ne200100](v27);
       }
     }
   }
 
   else
   {
-    v7 = std::string::basic_string[abi:ne200100]<0>(&v42, "call");
-    v38[0] = 0;
-    v41 = 0;
-    v8 = ims::debug(v7, v38);
+    v7 = std::string::basic_string[abi:ne200100]<0>(&v40, "call");
+    v36[0] = 0;
+    v39 = 0;
+    v8 = ims::debug(v7, v36);
     std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v8 + 8), "IMSCallInfo::handleSessionActivatedEvent for an unknown call", 60);
     *(v8 + 17) = 0;
     (*(*v8 + 64))(v8, std::endl[abi:ne200100]<char,std::char_traits<char>>);
     *(v8 + 17) = 0;
-    if (v41 == 1 && v40 < 0)
+    if (v39 == 1 && v38 < 0)
     {
-      operator delete(v39);
+      operator delete(v37);
     }
 
-    if (v43 < 0)
+    if (v41 < 0)
     {
-      operator delete(v42);
+      operator delete(v40);
     }
   }
 
@@ -8101,10 +8093,10 @@ void IMSCallInfo::handleSessionHoldFailedEvent(IMSCallInfo *this, BambiCallEvent
 
   if (v5 == *(this + 20))
   {
-    v9 = std::string::basic_string[abi:ne200100]<0>(&v35, "call");
-    v27[0] = 0;
-    v30 = 0;
-    v10 = ims::debug(v9, v27);
+    v9 = std::string::basic_string[abi:ne200100]<0>(&v34, "call");
+    v26[0] = 0;
+    v29 = 0;
+    v10 = ims::debug(v9, v26);
     std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v10 + 8), "Call ", 5);
     *(v10 + 17) = 0;
     (*(*(this + 13) + 16))(this + 104, v10);
@@ -8112,95 +8104,95 @@ void IMSCallInfo::handleSessionHoldFailedEvent(IMSCallInfo *this, BambiCallEvent
     *(v10 + 17) = 0;
     (*(*v10 + 64))(v10, std::endl[abi:ne200100]<char,std::char_traits<char>>);
     *(v10 + 17) = 0;
-    if (v30 == 1 && v29 < 0)
+    if (v29 == 1 && v28 < 0)
     {
       operator delete(__p);
     }
 
-    if (v37 < 0)
+    if (v36 < 0)
     {
-      operator delete(v35);
+      operator delete(v34);
     }
 
     v11 = *(*(this + 20) + 408);
     if (v11 && SipSession::confirmed(v11))
     {
-      v12 = std::string::basic_string[abi:ne200100]<0>(&v35, "call");
-      v23[0] = 0;
-      v26 = 0;
-      v13 = ims::debug(v12, v23);
+      v12 = std::string::basic_string[abi:ne200100]<0>(&v34, "call");
+      v22[0] = 0;
+      v25 = 0;
+      v13 = ims::debug(v12, v22);
       std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v13 + 8), "Sending kIMSCallStatusHoldFailed", 32);
       *(v13 + 17) = 0;
-      v14 = (*(*v13 + 64))(v13, std::endl[abi:ne200100]<char,std::char_traits<char>>);
+      (*(*v13 + 64))(v13, std::endl[abi:ne200100]<char,std::char_traits<char>>);
       *(v13 + 17) = 0;
-      if (v26 == 1 && v25 < 0)
+      if (v25 == 1 && v24 < 0)
       {
-        operator delete(v24);
+        operator delete(v23);
       }
 
-      if (v37 < 0)
+      if (v36 < 0)
       {
-        operator delete(v35);
+        operator delete(v34);
       }
 
+      v34 = 0;
       v35 = 0;
-      v36 = 0;
-      IPTelephonyManager::getCallManager(v14, &v35);
-      v15 = v35;
-      IMSCallInfo::uuid(v21, this);
-      (*(*v15 + 216))(v15, v21, @"kCallStatusHoldFailed", *(this + 72), a2);
-      v21[0] = &unk_1F5EBEE78;
-      if (v22 < 0)
+      IPTelephonyManager::getCallManager(&v34);
+      v14 = v34;
+      IMSCallInfo::uuid(v20, this);
+      (*(*v14 + 216))(v14, v20, @"kCallStatusHoldFailed", *(this + 72), a2);
+      v20[0] = &unk_1F5EBEE78;
+      if (v21 < 0)
       {
-        operator delete(v21[1]);
+        operator delete(v20[1]);
       }
 
-      v16 = *(this + 21);
-      v19 = *(this + 20);
-      v20 = v16;
-      if (v16)
+      v15 = *(this + 21);
+      v18 = *(this + 20);
+      v19 = v15;
+      if (v15)
       {
-        atomic_fetch_add_explicit(&v16->__shared_owners_, 1uLL, memory_order_relaxed);
+        atomic_fetch_add_explicit(&v15->__shared_owners_, 1uLL, memory_order_relaxed);
       }
 
-      IMSCallInfo::uuid(v17, this);
-      (*(*v15 + 192))(v15, &v19, 1, v17);
-      v17[0] = &unk_1F5EBEE78;
-      if (v18 < 0)
+      IMSCallInfo::uuid(v16, this);
+      (*(*v14 + 192))(v14, &v18, 1, v16);
+      v16[0] = &unk_1F5EBEE78;
+      if (v17 < 0)
       {
-        operator delete(v17[1]);
+        operator delete(v16[1]);
       }
 
-      if (v20)
+      if (v19)
       {
-        std::__shared_weak_count::__release_shared[abi:ne200100](v20);
+        std::__shared_weak_count::__release_shared[abi:ne200100](v19);
       }
 
-      if (v36)
+      if (v35)
       {
-        std::__shared_weak_count::__release_shared[abi:ne200100](v36);
+        std::__shared_weak_count::__release_shared[abi:ne200100](v35);
       }
     }
   }
 
   else
   {
-    v7 = std::string::basic_string[abi:ne200100]<0>(&v35, "call");
-    v31[0] = 0;
-    v34 = 0;
-    v8 = ims::debug(v7, v31);
+    v7 = std::string::basic_string[abi:ne200100]<0>(&v34, "call");
+    v30[0] = 0;
+    v33 = 0;
+    v8 = ims::debug(v7, v30);
     std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v8 + 8), "IMSCallInfo::handleSessionHoldFailedEvent for an unknown call", 61);
     *(v8 + 17) = 0;
     (*(*v8 + 64))(v8, std::endl[abi:ne200100]<char,std::char_traits<char>>);
     *(v8 + 17) = 0;
-    if (v34 == 1 && v33 < 0)
+    if (v33 == 1 && v32 < 0)
     {
-      operator delete(v32);
+      operator delete(v31);
     }
 
-    if (v37 < 0)
+    if (v36 < 0)
     {
-      operator delete(v35);
+      operator delete(v34);
     }
   }
 
@@ -8260,10 +8252,10 @@ void IMSCallInfo::handleSessionResumeFailedEvent(IMSCallInfo *this, BambiCallEve
 
   if (v5 == *(this + 20))
   {
-    v9 = std::string::basic_string[abi:ne200100]<0>(&v35, "call");
-    v27[0] = 0;
-    v30 = 0;
-    v10 = ims::debug(v9, v27);
+    v9 = std::string::basic_string[abi:ne200100]<0>(&v34, "call");
+    v26[0] = 0;
+    v29 = 0;
+    v10 = ims::debug(v9, v26);
     std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v10 + 8), "Call ", 5);
     *(v10 + 17) = 0;
     (*(*(this + 13) + 16))(this + 104, v10);
@@ -8271,95 +8263,95 @@ void IMSCallInfo::handleSessionResumeFailedEvent(IMSCallInfo *this, BambiCallEve
     *(v10 + 17) = 0;
     (*(*v10 + 64))(v10, std::endl[abi:ne200100]<char,std::char_traits<char>>);
     *(v10 + 17) = 0;
-    if (v30 == 1 && v29 < 0)
+    if (v29 == 1 && v28 < 0)
     {
       operator delete(__p);
     }
 
-    if (v37 < 0)
+    if (v36 < 0)
     {
-      operator delete(v35);
+      operator delete(v34);
     }
 
     v11 = *(*(this + 20) + 408);
     if (v11 && SipSession::confirmed(v11))
     {
-      v12 = std::string::basic_string[abi:ne200100]<0>(&v35, "call");
-      v23[0] = 0;
-      v26 = 0;
-      v13 = ims::debug(v12, v23);
+      v12 = std::string::basic_string[abi:ne200100]<0>(&v34, "call");
+      v22[0] = 0;
+      v25 = 0;
+      v13 = ims::debug(v12, v22);
       std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v13 + 8), "Sending kIMSCallStatusResumeFailed", 34);
       *(v13 + 17) = 0;
-      v14 = (*(*v13 + 64))(v13, std::endl[abi:ne200100]<char,std::char_traits<char>>);
+      (*(*v13 + 64))(v13, std::endl[abi:ne200100]<char,std::char_traits<char>>);
       *(v13 + 17) = 0;
-      if (v26 == 1 && v25 < 0)
+      if (v25 == 1 && v24 < 0)
       {
-        operator delete(v24);
+        operator delete(v23);
       }
 
-      if (v37 < 0)
+      if (v36 < 0)
       {
-        operator delete(v35);
+        operator delete(v34);
       }
 
+      v34 = 0;
       v35 = 0;
-      v36 = 0;
-      IPTelephonyManager::getCallManager(v14, &v35);
-      v15 = v35;
-      IMSCallInfo::uuid(v21, this);
-      (*(*v15 + 216))(v15, v21, @"kCallStatusResumeFailed", *(this + 72), a2);
-      v21[0] = &unk_1F5EBEE78;
-      if (v22 < 0)
+      IPTelephonyManager::getCallManager(&v34);
+      v14 = v34;
+      IMSCallInfo::uuid(v20, this);
+      (*(*v14 + 216))(v14, v20, @"kCallStatusResumeFailed", *(this + 72), a2);
+      v20[0] = &unk_1F5EBEE78;
+      if (v21 < 0)
       {
-        operator delete(v21[1]);
+        operator delete(v20[1]);
       }
 
-      v16 = *(this + 21);
-      v19 = *(this + 20);
-      v20 = v16;
-      if (v16)
+      v15 = *(this + 21);
+      v18 = *(this + 20);
+      v19 = v15;
+      if (v15)
       {
-        atomic_fetch_add_explicit(&v16->__shared_owners_, 1uLL, memory_order_relaxed);
+        atomic_fetch_add_explicit(&v15->__shared_owners_, 1uLL, memory_order_relaxed);
       }
 
-      IMSCallInfo::uuid(v17, this);
-      (*(*v15 + 192))(v15, &v19, 0, v17);
-      v17[0] = &unk_1F5EBEE78;
-      if (v18 < 0)
+      IMSCallInfo::uuid(v16, this);
+      (*(*v14 + 192))(v14, &v18, 0, v16);
+      v16[0] = &unk_1F5EBEE78;
+      if (v17 < 0)
       {
-        operator delete(v17[1]);
+        operator delete(v16[1]);
       }
 
-      if (v20)
+      if (v19)
       {
-        std::__shared_weak_count::__release_shared[abi:ne200100](v20);
+        std::__shared_weak_count::__release_shared[abi:ne200100](v19);
       }
 
-      if (v36)
+      if (v35)
       {
-        std::__shared_weak_count::__release_shared[abi:ne200100](v36);
+        std::__shared_weak_count::__release_shared[abi:ne200100](v35);
       }
     }
   }
 
   else
   {
-    v7 = std::string::basic_string[abi:ne200100]<0>(&v35, "call");
-    v31[0] = 0;
-    v34 = 0;
-    v8 = ims::debug(v7, v31);
+    v7 = std::string::basic_string[abi:ne200100]<0>(&v34, "call");
+    v30[0] = 0;
+    v33 = 0;
+    v8 = ims::debug(v7, v30);
     std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v8 + 8), "IMSCallInfo::handleSessionResumeFailedEvent for an unknown call", 63);
     *(v8 + 17) = 0;
     (*(*v8 + 64))(v8, std::endl[abi:ne200100]<char,std::char_traits<char>>);
     *(v8 + 17) = 0;
-    if (v34 == 1 && v33 < 0)
+    if (v33 == 1 && v32 < 0)
     {
-      operator delete(v32);
+      operator delete(v31);
     }
 
-    if (v37 < 0)
+    if (v36 < 0)
     {
-      operator delete(v35);
+      operator delete(v34);
     }
   }
 
@@ -8419,130 +8411,130 @@ void IMSCallInfo::handleSessionLocalHeldEvent(IMSCallInfo *this, BambiCallEvent 
 
   if (v5 == *(this + 20))
   {
-    v9 = pthread_mutex_lock(&ctu::Singleton<IMSMetricsManager,IMSMetricsManager,ctu::PthreadMutexGuardPolicy<IMSMetricsManager>>::sInstance);
-    v10 = off_1EE2BBBC0;
+    pthread_mutex_lock(&ctu::Singleton<IMSMetricsManager,IMSMetricsManager,ctu::PthreadMutexGuardPolicy<IMSMetricsManager>>::sInstance);
+    v9 = off_1EE2BBBC0;
     if (!off_1EE2BBBC0)
     {
-      IMSMetricsManager::create_default_global(v9);
+      IMSMetricsManager::create_default_global();
     }
 
-    v11 = *(&off_1EE2BBBC0 + 1);
+    v10 = *(&off_1EE2BBBC0 + 1);
     if (*(&off_1EE2BBBC0 + 1))
     {
       atomic_fetch_add_explicit((*(&off_1EE2BBBC0 + 1) + 8), 1uLL, memory_order_relaxed);
     }
 
     pthread_mutex_unlock(&ctu::Singleton<IMSMetricsManager,IMSMetricsManager,ctu::PthreadMutexGuardPolicy<IMSMetricsManager>>::sInstance);
-    v12 = v10 + 240;
-    for (i = *(v10 + 248); i != v12; i = *(i + 8))
+    v11 = v9 + 240;
+    for (i = *(v9 + 248); i != v11; i = *(i + 8))
     {
       (*(**(i + 16) + 96))(*(i + 16), a2, @"kCallStatusInactive");
     }
 
-    if (v11)
+    if (v10)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v11);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v10);
     }
 
-    v14 = std::string::basic_string[abi:ne200100]<0>(&v40, "call");
-    v32[0] = 0;
-    v35 = 0;
-    v15 = ims::debug(v14, v32);
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v15 + 8), "Call ", 5);
-    *(v15 + 17) = 0;
-    (*(*(this + 13) + 16))(this + 104, v15);
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v15 + 8), " deactivated", 12);
-    *(v15 + 17) = 0;
-    (*(*v15 + 64))(v15, std::endl[abi:ne200100]<char,std::char_traits<char>>);
-    *(v15 + 17) = 0;
-    if (v35 == 1 && v34 < 0)
+    v13 = std::string::basic_string[abi:ne200100]<0>(&v38, "call");
+    v30[0] = 0;
+    v33 = 0;
+    v14 = ims::debug(v13, v30);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v14 + 8), "Call ", 5);
+    *(v14 + 17) = 0;
+    (*(*(this + 13) + 16))(this + 104, v14);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v14 + 8), " deactivated", 12);
+    *(v14 + 17) = 0;
+    (*(*v14 + 64))(v14, std::endl[abi:ne200100]<char,std::char_traits<char>>);
+    *(v14 + 17) = 0;
+    if (v33 == 1 && v32 < 0)
     {
       operator delete(__p);
     }
 
-    if (v41 < 0)
+    if (v39 < 0)
     {
-      operator delete(v40);
+      operator delete(v38);
     }
 
-    v16 = *(*(this + 20) + 408);
-    if (v16 && SipSession::confirmed(v16))
+    v15 = *(*(this + 20) + 408);
+    if (v15 && SipSession::confirmed(v15))
     {
-      v17 = std::string::basic_string[abi:ne200100]<0>(&v40, "call");
-      v28[0] = 0;
-      v31 = 0;
-      v18 = ims::debug(v17, v28);
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v18 + 8), "Sending kIMSCallStatusInactive", 30);
-      *(v18 + 17) = 0;
-      v19 = (*(*v18 + 64))(v18, std::endl[abi:ne200100]<char,std::char_traits<char>>);
-      *(v18 + 17) = 0;
-      if (v31 == 1 && v30 < 0)
+      v16 = std::string::basic_string[abi:ne200100]<0>(&v38, "call");
+      v26[0] = 0;
+      v29 = 0;
+      v17 = ims::debug(v16, v26);
+      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v17 + 8), "Sending kIMSCallStatusInactive", 30);
+      *(v17 + 17) = 0;
+      (*(*v17 + 64))(v17, std::endl[abi:ne200100]<char,std::char_traits<char>>);
+      *(v17 + 17) = 0;
+      if (v29 == 1 && v28 < 0)
       {
-        operator delete(v29);
+        operator delete(v27);
       }
 
-      if (v41 < 0)
+      if (v39 < 0)
       {
-        operator delete(v40);
+        operator delete(v38);
       }
 
-      v40 = 0uLL;
-      IPTelephonyManager::getCallManager(v19, &v40);
-      v20 = v40;
-      IMSCallInfo::uuid(v26, this);
-      (*(*v20 + 216))(v20, v26, @"kCallStatusInactive", *(this + 72), a2);
-      v26[0] = &unk_1F5EBEE78;
-      if (v27 < 0)
+      v38 = 0uLL;
+      IPTelephonyManager::getCallManager(&v38);
+      v18 = v38;
+      IMSCallInfo::uuid(v24, this);
+      (*(*v18 + 216))(v18, v24, @"kCallStatusInactive", *(this + 72), a2);
+      v24[0] = &unk_1F5EBEE78;
+      if (v25 < 0)
       {
-        operator delete(v26[1]);
+        operator delete(v24[1]);
       }
 
-      v21 = *(this + 21);
-      v24 = *(this + 20);
-      v25 = v21;
-      if (v21)
+      v19 = *(this + 21);
+      v22 = *(this + 20);
+      v23 = v19;
+      if (v19)
       {
-        atomic_fetch_add_explicit(&v21->__shared_owners_, 1uLL, memory_order_relaxed);
+        atomic_fetch_add_explicit(&v19->__shared_owners_, 1uLL, memory_order_relaxed);
       }
 
-      IMSCallInfo::uuid(v22, this);
-      (*(*v20 + 192))(v20, &v24, 0, v22);
-      v22[0] = &unk_1F5EBEE78;
-      if (v23 < 0)
+      IMSCallInfo::uuid(v20, this);
+      (*(*v18 + 192))(v18, &v22, 0, v20);
+      v20[0] = &unk_1F5EBEE78;
+      if (v21 < 0)
       {
-        operator delete(v22[1]);
+        operator delete(v20[1]);
       }
 
-      if (v25)
+      if (v23)
       {
-        std::__shared_weak_count::__release_shared[abi:ne200100](v25);
+        std::__shared_weak_count::__release_shared[abi:ne200100](v23);
       }
 
-      if (*(&v40 + 1))
+      if (*(&v38 + 1))
       {
-        std::__shared_weak_count::__release_shared[abi:ne200100](*(&v40 + 1));
+        std::__shared_weak_count::__release_shared[abi:ne200100](*(&v38 + 1));
       }
     }
   }
 
   else
   {
-    v7 = std::string::basic_string[abi:ne200100]<0>(&v40, "call");
-    v36[0] = 0;
-    v39 = 0;
-    v8 = ims::debug(v7, v36);
+    v7 = std::string::basic_string[abi:ne200100]<0>(&v38, "call");
+    v34[0] = 0;
+    v37 = 0;
+    v8 = ims::debug(v7, v34);
     std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v8 + 8), "IMSCallInfo::handleSessionLocalHeldEvent for an unknown call", 60);
     *(v8 + 17) = 0;
     (*(*v8 + 64))(v8, std::endl[abi:ne200100]<char,std::char_traits<char>>);
     *(v8 + 17) = 0;
-    if (v39 == 1 && v38 < 0)
+    if (v37 == 1 && v36 < 0)
     {
-      operator delete(v37);
+      operator delete(v35);
     }
 
-    if (v41 < 0)
+    if (v39 < 0)
     {
-      operator delete(v40);
+      operator delete(v38);
     }
   }
 
@@ -8602,73 +8594,73 @@ void IMSCallInfo::handleRingingEvent(std::__shared_weak_count **this, BambiCallP
 
   if (v5 == this[20])
   {
-    IPTelephonyManager::getCallManager(this, &v21);
-    v9 = v21;
-    IMSCallInfo::uuid(v15, this);
-    (*(*v9 + 216))(v9, v15, @"kCallStatusRinging", *(this + 72), a2);
-    v15[0] = &unk_1F5EBEE78;
-    if (v16 < 0)
+    IPTelephonyManager::getCallManager(&v20);
+    v9 = v20;
+    IMSCallInfo::uuid(v14, this);
+    (*(*v9 + 216))(v9, v14, @"kCallStatusRinging", *(this + 72), a2);
+    v14[0] = &unk_1F5EBEE78;
+    if (v15 < 0)
     {
-      operator delete(v15[1]);
+      operator delete(v14[1]);
     }
 
-    if (v22)
+    if (v21)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v22);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v21);
     }
 
-    v10 = pthread_mutex_lock(&ctu::Singleton<IMSMetricsManager,IMSMetricsManager,ctu::PthreadMutexGuardPolicy<IMSMetricsManager>>::sInstance);
-    v11 = off_1EE2BBBC0;
+    pthread_mutex_lock(&ctu::Singleton<IMSMetricsManager,IMSMetricsManager,ctu::PthreadMutexGuardPolicy<IMSMetricsManager>>::sInstance);
+    v10 = off_1EE2BBBC0;
     if (!off_1EE2BBBC0)
     {
-      IMSMetricsManager::create_default_global(v10);
+      IMSMetricsManager::create_default_global();
     }
 
-    v12 = *(&off_1EE2BBBC0 + 1);
+    v11 = *(&off_1EE2BBBC0 + 1);
     if (*(&off_1EE2BBBC0 + 1))
     {
       atomic_fetch_add_explicit((*(&off_1EE2BBBC0 + 1) + 8), 1uLL, memory_order_relaxed);
     }
 
     pthread_mutex_unlock(&ctu::Singleton<IMSMetricsManager,IMSMetricsManager,ctu::PthreadMutexGuardPolicy<IMSMetricsManager>>::sInstance);
-    v13 = this[21];
-    v14[0] = this[20];
-    v14[1] = v13;
-    if (v13)
+    v12 = this[21];
+    v13[0] = this[20];
+    v13[1] = v12;
+    if (v12)
     {
-      atomic_fetch_add_explicit(&v13->__shared_owners_, 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit(&v12->__shared_owners_, 1uLL, memory_order_relaxed);
     }
 
-    IMSMetricsManager::logRingingEvent(v11, v14, *(this + 72), *(this + 72));
-    if (v13)
-    {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v13);
-    }
-
+    IMSMetricsManager::logRingingEvent(v10, v13, *(this + 72), *(this + 72));
     if (v12)
     {
       std::__shared_weak_count::__release_shared[abi:ne200100](v12);
+    }
+
+    if (v11)
+    {
+      std::__shared_weak_count::__release_shared[abi:ne200100](v11);
     }
   }
 
   else
   {
-    v7 = std::string::basic_string[abi:ne200100]<0>(&v21, "call");
-    v17[0] = 0;
-    v20 = 0;
-    v8 = ims::debug(v7, v17);
+    v7 = std::string::basic_string[abi:ne200100]<0>(&v20, "call");
+    v16[0] = 0;
+    v19 = 0;
+    v8 = ims::debug(v7, v16);
     std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v8 + 8), "IMSCallInfo::handleRingingEvent for an unknown call", 51);
     *(v8 + 17) = 0;
     (*(*v8 + 64))(v8, std::endl[abi:ne200100]<char,std::char_traits<char>>);
     *(v8 + 17) = 0;
-    if (v20 == 1 && v19 < 0)
+    if (v19 == 1 && v18 < 0)
     {
       operator delete(__p);
     }
 
-    if (v23 < 0)
+    if (v22 < 0)
     {
-      operator delete(v21);
+      operator delete(v20);
     }
   }
 
@@ -8713,7 +8705,7 @@ void IMSCallInfo::handleLRBTEvent(IMSCallInfo *this, BambiCallEvent *a2, int a3)
 
   if (v7 == *(this + 20))
   {
-    IPTelephonyManager::getCallManager(this, &v19);
+    IPTelephonyManager::getCallManager(&v19);
     v11 = v19;
     IMSCallInfo::uuid(v13, this);
     v12 = kIMSCallStatusPlayLRBT;
@@ -8807,7 +8799,7 @@ void IMSCallInfo::handleTextMediaDetectedEvent(IMSCallInfo *this, BambiCallEvent
 
   if (v5 == *(this + 20))
   {
-    IPTelephonyManager::getCallManager(this, &v16);
+    IPTelephonyManager::getCallManager(&v16);
     v9 = v16;
     IMSCallInfo::uuid(v10, this);
     (*(*v9 + 216))(v9, v10, @"kIMSCallStatusTextMediaDetected", *(this + 72), a2);
@@ -8895,7 +8887,7 @@ void IMSCallInfo::handleTextMediaDeactivatedEvent(IMSCallInfo *this, BambiCallEv
 
   if (v5 == *(this + 20))
   {
-    IPTelephonyManager::getCallManager(this, &v16);
+    IPTelephonyManager::getCallManager(&v16);
     v9 = v16;
     IMSCallInfo::uuid(v10, this);
     (*(*v9 + 216))(v9, v10, @"kIMSCallStatusTextMediaDeactivated", *(this + 72), a2);
@@ -8983,42 +8975,37 @@ void IMSCallInfo::handleSessionProgressEvent(IMSCallInfo *this, BambiCallProvisi
 
   if (v5 == *(this + 20))
   {
-    v9 = pthread_mutex_lock(&ctu::Singleton<IMSMetricsManager,IMSMetricsManager,ctu::PthreadMutexGuardPolicy<IMSMetricsManager>>::sInstance);
-    v10 = off_1EE2BBBC0;
+    pthread_mutex_lock(&ctu::Singleton<IMSMetricsManager,IMSMetricsManager,ctu::PthreadMutexGuardPolicy<IMSMetricsManager>>::sInstance);
+    v9 = off_1EE2BBBC0;
     if (!off_1EE2BBBC0)
     {
-      IMSMetricsManager::create_default_global(v9);
+      IMSMetricsManager::create_default_global();
     }
 
-    v11 = *(&off_1EE2BBBC0 + 1);
+    v10 = *(&off_1EE2BBBC0 + 1);
     if (*(&off_1EE2BBBC0 + 1))
     {
       atomic_fetch_add_explicit((*(&off_1EE2BBBC0 + 1) + 8), 1uLL, memory_order_relaxed);
     }
 
     pthread_mutex_unlock(&ctu::Singleton<IMSMetricsManager,IMSMetricsManager,ctu::PthreadMutexGuardPolicy<IMSMetricsManager>>::sInstance);
-    v12 = *(a2 + 5);
-    v19[0] = *(a2 + 4);
-    v19[1] = v12;
+    v11 = *(a2 + 5);
+    v17[0] = *(a2 + 4);
+    v17[1] = v11;
+    if (v11)
+    {
+      atomic_fetch_add_explicit(&v11->__shared_owners_, 1uLL, memory_order_relaxed);
+    }
+
+    v12 = *(this + 21);
+    v16[0] = *(this + 20);
+    v16[1] = v12;
     if (v12)
     {
       atomic_fetch_add_explicit(&v12->__shared_owners_, 1uLL, memory_order_relaxed);
     }
 
-    v13 = *(this + 21);
-    v18[0] = *(this + 20);
-    v18[1] = v13;
-    if (v13)
-    {
-      atomic_fetch_add_explicit(&v13->__shared_owners_, 1uLL, memory_order_relaxed);
-    }
-
-    IMSMetricsManager::logSessionProgress(v10, v19, v18, *(this + 72));
-    if (v13)
-    {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v13);
-    }
-
+    IMSMetricsManager::logSessionProgress(v9, v17, v16, *(this + 72));
     if (v12)
     {
       std::__shared_weak_count::__release_shared[abi:ne200100](v12);
@@ -9029,40 +9016,45 @@ void IMSCallInfo::handleSessionProgressEvent(IMSCallInfo *this, BambiCallProvisi
       std::__shared_weak_count::__release_shared[abi:ne200100](v11);
     }
 
-    IPTelephonyManager::getCallManager(v14, &v24);
-    v15 = v24;
-    IMSCallInfo::uuid(v16, this);
-    (*(*v15 + 216))(v15, v16, @"kCallStatusInProgress", *(this + 72), a2);
-    v16[0] = &unk_1F5EBEE78;
-    if (v17 < 0)
+    if (v10)
     {
-      operator delete(v16[1]);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v10);
     }
 
-    if (v25)
+    IPTelephonyManager::getCallManager(&v22);
+    v13 = v22;
+    IMSCallInfo::uuid(v14, this);
+    (*(*v13 + 216))(v13, v14, @"kCallStatusInProgress", *(this + 72), a2);
+    v14[0] = &unk_1F5EBEE78;
+    if (v15 < 0)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v25);
+      operator delete(v14[1]);
+    }
+
+    if (v23)
+    {
+      std::__shared_weak_count::__release_shared[abi:ne200100](v23);
     }
   }
 
   else
   {
-    v7 = std::string::basic_string[abi:ne200100]<0>(&v24, "call");
-    v20[0] = 0;
-    v23 = 0;
-    v8 = ims::debug(v7, v20);
+    v7 = std::string::basic_string[abi:ne200100]<0>(&v22, "call");
+    v18[0] = 0;
+    v21 = 0;
+    v8 = ims::debug(v7, v18);
     std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v8 + 8), "IMSCallInfo::handleInProgressEvent for an unknown call", 54);
     *(v8 + 17) = 0;
     (*(*v8 + 64))(v8, std::endl[abi:ne200100]<char,std::char_traits<char>>);
     *(v8 + 17) = 0;
-    if (v23 == 1 && v22 < 0)
+    if (v21 == 1 && v20 < 0)
     {
       operator delete(__p);
     }
 
-    if (v26 < 0)
+    if (v24 < 0)
     {
-      operator delete(v24);
+      operator delete(v22);
     }
   }
 
@@ -9107,7 +9099,7 @@ void IMSCallInfo::handleTryingEvent(IMSCallInfo *this, BambiCallEvent *a2)
 
   if (v5 == *(this + 20))
   {
-    IPTelephonyManager::getCallManager(this, &v16);
+    IPTelephonyManager::getCallManager(&v16);
     v9 = v16;
     IMSCallInfo::uuid(v10, this);
     (*(*v9 + 216))(v9, v10, @"kCallStatusTrying", *(this + 72), a2);
@@ -9173,7 +9165,7 @@ void sub_1E4D1FA68(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 void IMSCallInfo::handlePreconditionsSatisfiedEvent(IMSCallInfo *this, BambiCallPreconditionsSatisfiedEvent *a2)
 {
-  IPTelephonyManager::getCallManager(this, &v3);
+  IPTelephonyManager::getCallManager(&v3);
   v2 = v4;
   if (v4)
   {
@@ -9184,7 +9176,7 @@ void IMSCallInfo::handlePreconditionsSatisfiedEvent(IMSCallInfo *this, BambiCall
 
 void IMSCallInfo::handleUnprocessedEvent(IMSCallInfo *this, BambiCallEvent *a2)
 {
-  IPTelephonyManager::getCallManager(this, &v3);
+  IPTelephonyManager::getCallManager(&v3);
   v2 = v4;
   if (v4)
   {
@@ -9195,107 +9187,107 @@ void IMSCallInfo::handleUnprocessedEvent(IMSCallInfo *this, BambiCallEvent *a2)
 
 void IMSCallInfo::logIncomingPrack(uint64_t a1, uint64_t *a2)
 {
-  v4 = pthread_mutex_lock(&ctu::Singleton<IMSMetricsManager,IMSMetricsManager,ctu::PthreadMutexGuardPolicy<IMSMetricsManager>>::sInstance);
-  v5 = off_1EE2BBBC0;
+  pthread_mutex_lock(&ctu::Singleton<IMSMetricsManager,IMSMetricsManager,ctu::PthreadMutexGuardPolicy<IMSMetricsManager>>::sInstance);
+  v4 = off_1EE2BBBC0;
   if (!off_1EE2BBBC0)
   {
-    IMSMetricsManager::create_default_global(v4);
+    IMSMetricsManager::create_default_global();
   }
 
-  v6 = *(&off_1EE2BBBC0 + 1);
+  v5 = *(&off_1EE2BBBC0 + 1);
   if (*(&off_1EE2BBBC0 + 1))
   {
     atomic_fetch_add_explicit((*(&off_1EE2BBBC0 + 1) + 8), 1uLL, memory_order_relaxed);
   }
 
   pthread_mutex_unlock(&ctu::Singleton<IMSMetricsManager,IMSMetricsManager,ctu::PthreadMutexGuardPolicy<IMSMetricsManager>>::sInstance);
-  v7 = *a2;
-  v8 = a2[1];
-  v11[0] = v7;
-  v11[1] = v8;
+  v6 = *a2;
+  v7 = a2[1];
+  v10[0] = v6;
+  v10[1] = v7;
+  if (v7)
+  {
+    atomic_fetch_add_explicit(&v7->__shared_owners_, 1uLL, memory_order_relaxed);
+  }
+
+  v8 = *(a1 + 168);
+  v9[0] = *(a1 + 160);
+  v9[1] = v8;
   if (v8)
   {
     atomic_fetch_add_explicit(&v8->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  v9 = *(a1 + 168);
-  v10[0] = *(a1 + 160);
-  v10[1] = v9;
-  if (v9)
-  {
-    atomic_fetch_add_explicit(&v9->__shared_owners_, 1uLL, memory_order_relaxed);
-  }
-
-  IMSMetricsManager::logIncomingPrack(v5, v11, v10, *(a1 + 72));
-  if (v9)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v9);
-  }
-
+  IMSMetricsManager::logIncomingPrack(v4, v10, v9, *(a1 + 72));
   if (v8)
   {
     std::__shared_weak_count::__release_shared[abi:ne200100](v8);
   }
 
-  if (v6)
+  if (v7)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v7);
+  }
+
+  if (v5)
   {
 
-    std::__shared_weak_count::__release_shared[abi:ne200100](v6);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v5);
   }
 }
 
 void IMSCallInfo::logPrackResponse(uint64_t a1, uint64_t *a2)
 {
-  v4 = pthread_mutex_lock(&ctu::Singleton<IMSMetricsManager,IMSMetricsManager,ctu::PthreadMutexGuardPolicy<IMSMetricsManager>>::sInstance);
-  v5 = off_1EE2BBBC0;
+  pthread_mutex_lock(&ctu::Singleton<IMSMetricsManager,IMSMetricsManager,ctu::PthreadMutexGuardPolicy<IMSMetricsManager>>::sInstance);
+  v4 = off_1EE2BBBC0;
   if (!off_1EE2BBBC0)
   {
-    IMSMetricsManager::create_default_global(v4);
+    IMSMetricsManager::create_default_global();
   }
 
-  v6 = *(&off_1EE2BBBC0 + 1);
+  v5 = *(&off_1EE2BBBC0 + 1);
   if (*(&off_1EE2BBBC0 + 1))
   {
     atomic_fetch_add_explicit((*(&off_1EE2BBBC0 + 1) + 8), 1uLL, memory_order_relaxed);
   }
 
   pthread_mutex_unlock(&ctu::Singleton<IMSMetricsManager,IMSMetricsManager,ctu::PthreadMutexGuardPolicy<IMSMetricsManager>>::sInstance);
-  v7 = *a2;
-  v8 = a2[1];
-  v11[0] = v7;
-  v11[1] = v8;
+  v6 = *a2;
+  v7 = a2[1];
+  v10[0] = v6;
+  v10[1] = v7;
+  if (v7)
+  {
+    atomic_fetch_add_explicit(&v7->__shared_owners_, 1uLL, memory_order_relaxed);
+  }
+
+  v8 = *(a1 + 168);
+  v9[0] = *(a1 + 160);
+  v9[1] = v8;
   if (v8)
   {
     atomic_fetch_add_explicit(&v8->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  v9 = *(a1 + 168);
-  v10[0] = *(a1 + 160);
-  v10[1] = v9;
-  if (v9)
-  {
-    atomic_fetch_add_explicit(&v9->__shared_owners_, 1uLL, memory_order_relaxed);
-  }
-
-  IMSMetricsManager::logPrackResponse(v5, v11, v10, *(a1 + 72));
-  if (v9)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v9);
-  }
-
+  IMSMetricsManager::logPrackResponse(v4, v10, v9, *(a1 + 72));
   if (v8)
   {
     std::__shared_weak_count::__release_shared[abi:ne200100](v8);
   }
 
-  if (v6)
+  if (v7)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v7);
+  }
+
+  if (v5)
   {
 
-    std::__shared_weak_count::__release_shared[abi:ne200100](v6);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v5);
   }
 }
 
-void sub_1E4D20070(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, std::__shared_weak_count *a10, void *a11, uint64_t a12, int a13, __int16 a14, char a15, char a16, uint64_t a17, uint64_t a18, void *__p, uint64_t a20, int a21, __int16 a22, char a23, char a24)
+void sub_1E4D20070(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, std::__shared_weak_count *a10, void *a11, uint64_t a12, int a13, __int16 a14, char a15, char a16, uint64_t a17, uint64_t a18, void *__p, uint64_t a20, int a21, __int16 a22, char a23, char a24)
 {
   if (a10)
   {
@@ -9312,7 +9304,7 @@ void sub_1E4D20070(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
     operator delete(__p);
   }
 
-  MEMORY[0x1E69235B0](v24, v25);
+  MEMORY[0x1E69235B0](v24, v25, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
@@ -9409,7 +9401,7 @@ void IMSCallManager::IMSCallManager(IMSCallManager *this)
   *(this + 17) = 0u;
 }
 
-void *ims::SharedLoggable<IMSCallManager>::SharedLoggable(void *a1, const char *a2)
+void *ims::SharedLoggable<IMSCallManager>::SharedLoggable(void *a1, NSObject *a2)
 {
   v5 = a2;
   ims::getQueue(&object);
@@ -9651,69 +9643,69 @@ uint64_t IMSCallManager::dumpState(IMSCallManager *this, ImsOutStream *a2)
   return result;
 }
 
-void IMSCallManager::delegateForIncomingCall(uint64_t a1, uint64_t *a2)
+void IMSCallManager::delegateForIncomingCall(std::__shared_weak_count *a1, uint64_t *a2)
 {
-  memset(&v11[6], 0, 24);
-  v3 = *a2;
+  memset(&v12[6], 0, 24);
+  v4 = *a2;
   if (*a2)
   {
-    v4 = *(v3 + 384);
-    if (v4)
+    v5 = *(v4 + 384);
+    if (v5)
     {
-      v5 = std::__shared_weak_count::lock(v4);
-      if (v5)
+      v6 = std::__shared_weak_count::lock(v5);
+      if (v6)
       {
-        v6 = *(v3 + 376);
-        std::__shared_weak_count::__release_shared[abi:ne200100](v5);
-        if (v6)
+        v7 = *(v4 + 376);
+        std::__shared_weak_count::__release_shared[abi:ne200100](v6);
+        if (v7)
         {
-          v7 = *a2;
-          v8 = *(*a2 + 384);
-          if (v8)
+          v8 = *a2;
+          v9 = *(*a2 + 384);
+          if (v9)
           {
-            v9 = std::__shared_weak_count::lock(v8);
-            if (v9)
+            v10 = std::__shared_weak_count::lock(v9);
+            if (v10)
             {
-              v10 = *(v7 + 376);
+              v11 = *(v8 + 376);
             }
 
             else
             {
-              v10 = 0;
+              v11 = 0;
             }
           }
 
           else
           {
+            v11 = 0;
             v10 = 0;
-            v9 = 0;
           }
 
-          if (*(v10 + 4455) < 0)
+          if (*(v11 + 4455) < 0)
           {
-            std::string::__init_copy_ctor_external(&v12, *(v10 + 4432), *(v10 + 4440));
+            std::string::__init_copy_ctor_external(&v13, *(v11 + 4432), *(v11 + 4440));
           }
 
           else
           {
-            v12 = *(v10 + 4432);
+            v13 = *(v11 + 4432);
           }
 
-          *&v11[6] = v12;
-          *(&v12.__r_.__value_.__s + 23) = 0;
-          v12.__r_.__value_.__s.__data_[0] = 0;
-          if (v9)
+          *&v12[6] = v13;
+          *(&v13.__r_.__value_.__s + 23) = 0;
+          v13.__r_.__value_.__s.__data_[0] = 0;
+          if (v10)
           {
-            std::__shared_weak_count::__release_shared[abi:ne200100](v9);
+            std::__shared_weak_count::__release_shared[abi:ne200100](v10);
           }
         }
       }
     }
   }
 
-  v11[4] = 0;
-  v11[5] = 0;
-  ImsUuid::generate(v11);
+  v12[4] = 0;
+  v12[5] = 0;
+  ImsUuid::generate(v12);
   operator new();
 }
 

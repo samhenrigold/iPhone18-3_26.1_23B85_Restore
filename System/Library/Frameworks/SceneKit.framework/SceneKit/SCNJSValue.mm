@@ -20,7 +20,7 @@
 {
   if (self)
   {
-    return [(SCNMatrix4 *)self SCNMatrix4Value];
+    return objc_msgSend_SCNMatrix4Value(self, a3);
   }
 
   *&retstr->m31 = 0u;

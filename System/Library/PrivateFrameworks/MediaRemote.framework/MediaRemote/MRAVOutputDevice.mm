@@ -69,28 +69,28 @@
 
 - (NSDictionary)roomsLookupTable
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v3 = objc_alloc_init(MEMORY[0x1E695DF90]);
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   activatedClusterMembersOutputDevices = [(MRAVOutputDevice *)self activatedClusterMembersOutputDevices];
-  v5 = [activatedClusterMembersOutputDevices countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v5 = [activatedClusterMembersOutputDevices countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v15;
+    v7 = *v14;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v15 != v7)
+        if (*v14 != v7)
         {
           objc_enumerationMutation(activatedClusterMembersOutputDevices);
         }
 
-        v9 = *(*(&v14 + 1) + 8 * i);
+        v9 = *(*(&v13 + 1) + 8 * i);
         roomID = [v9 roomID];
         if (roomID)
         {
@@ -105,20 +105,18 @@
         }
       }
 
-      v6 = [activatedClusterMembersOutputDevices countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v6 = [activatedClusterMembersOutputDevices countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v6);
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 
   return v3;
 }
 
 - (_MRAVOutputDeviceDescriptorProtobuf)descriptor
 {
-  v77 = *MEMORY[0x1E69E9840];
+  v76 = *MEMORY[0x1E69E9840];
   v3 = objc_alloc_init(_MRAVOutputDeviceDescriptorProtobuf);
   name = [(MRAVOutputDevice *)self name];
   [(_MRAVOutputDeviceDescriptorProtobuf *)v3 setName:name];
@@ -193,33 +191,33 @@
   [(_MRAVOutputDeviceDescriptorProtobuf *)v3 setUsingJSONProtocol:[(MRAVOutputDevice *)self isUsingJSONProtocol]];
   sourceInfo = [(MRAVOutputDevice *)self sourceInfo];
   v15 = objc_alloc_init(_MRAVOutputDeviceSourceInfoProtobuf);
-  v56 = sourceInfo;
+  v55 = sourceInfo;
   -[_MRAVOutputDeviceSourceInfoProtobuf setMultipleBuiltInDevices:](v15, "setMultipleBuiltInDevices:", [sourceInfo multipleBuiltInDevices]);
   [(_MRAVOutputDeviceDescriptorProtobuf *)v3 setSourceInfo:v15];
-  v71 = 0u;
-  v72 = 0u;
-  v69 = 0u;
   v70 = 0u;
+  v71 = 0u;
+  v68 = 0u;
+  v69 = 0u;
   clusterComposition = [(MRAVOutputDevice *)self clusterComposition];
-  v17 = [clusterComposition countByEnumeratingWithState:&v69 objects:v76 count:16];
+  v17 = [clusterComposition countByEnumeratingWithState:&v68 objects:v75 count:16];
   if (v17)
   {
     v18 = v17;
-    v19 = *v70;
+    v19 = *v69;
     do
     {
       for (i = 0; i != v18; ++i)
       {
-        if (*v70 != v19)
+        if (*v69 != v19)
         {
           objc_enumerationMutation(clusterComposition);
         }
 
-        descriptor = [*(*(&v69 + 1) + 8 * i) descriptor];
+        descriptor = [*(*(&v68 + 1) + 8 * i) descriptor];
         [(_MRAVOutputDeviceDescriptorProtobuf *)v3 addClusterComposition:descriptor];
       }
 
-      v18 = [clusterComposition countByEnumeratingWithState:&v69 objects:v76 count:16];
+      v18 = [clusterComposition countByEnumeratingWithState:&v68 objects:v75 count:16];
     }
 
     while (v18);
@@ -249,59 +247,59 @@
     [(_MRAVOutputDeviceDescriptorProtobuf *)v3 setDiscoveredOnSameInfra:0];
   }
 
-  v67 = 0u;
-  v68 = 0u;
-  v65 = 0u;
   v66 = 0u;
+  v67 = 0u;
+  v64 = 0u;
+  v65 = 0u;
   activatedClusterMembersOutputDevices = [(MRAVOutputDevice *)self activatedClusterMembersOutputDevices];
-  v28 = [activatedClusterMembersOutputDevices countByEnumeratingWithState:&v65 objects:v75 count:16];
+  v28 = [activatedClusterMembersOutputDevices countByEnumeratingWithState:&v64 objects:v74 count:16];
   if (v28)
   {
     v29 = v28;
-    v30 = *v66;
+    v30 = *v65;
     do
     {
       for (j = 0; j != v29; ++j)
       {
-        if (*v66 != v30)
+        if (*v65 != v30)
         {
           objc_enumerationMutation(activatedClusterMembersOutputDevices);
         }
 
-        descriptor2 = [*(*(&v65 + 1) + 8 * j) descriptor];
+        descriptor2 = [*(*(&v64 + 1) + 8 * j) descriptor];
         [(_MRAVOutputDeviceDescriptorProtobuf *)v3 addActivatedClusterMembers:descriptor2];
       }
 
-      v29 = [activatedClusterMembersOutputDevices countByEnumeratingWithState:&v65 objects:v75 count:16];
+      v29 = [activatedClusterMembersOutputDevices countByEnumeratingWithState:&v64 objects:v74 count:16];
     }
 
     while (v29);
   }
 
-  v63 = 0u;
-  v64 = 0u;
-  v61 = 0u;
   v62 = 0u;
+  v63 = 0u;
+  v60 = 0u;
+  v61 = 0u;
   allClusterMembers = [(MRAVOutputDevice *)self allClusterMembers];
-  v34 = [allClusterMembers countByEnumeratingWithState:&v61 objects:v74 count:16];
+  v34 = [allClusterMembers countByEnumeratingWithState:&v60 objects:v73 count:16];
   if (v34)
   {
     v35 = v34;
-    v36 = *v62;
+    v36 = *v61;
     do
     {
       for (k = 0; k != v35; ++k)
       {
-        if (*v62 != v36)
+        if (*v61 != v36)
         {
           objc_enumerationMutation(allClusterMembers);
         }
 
-        descriptor3 = [*(*(&v61 + 1) + 8 * k) descriptor];
+        descriptor3 = [*(*(&v60 + 1) + 8 * k) descriptor];
         [(_MRAVOutputDeviceDescriptorProtobuf *)v3 addAllClusterMembers:descriptor3];
       }
 
-      v35 = [allClusterMembers countByEnumeratingWithState:&v61 objects:v74 count:16];
+      v35 = [allClusterMembers countByEnumeratingWithState:&v60 objects:v73 count:16];
     }
 
     while (v35);
@@ -362,31 +360,31 @@
   headTrackedSpatialAudioMode = [(MRAVOutputDevice *)self headTrackedSpatialAudioMode];
   [(_MRAVOutputDeviceDescriptorProtobuf *)v3 setHeadTrackedSpatialAudioMode:headTrackedSpatialAudioMode];
 
-  v59 = 0u;
-  v60 = 0u;
-  v57 = 0u;
   v58 = 0u;
+  v59 = 0u;
+  v56 = 0u;
+  v57 = 0u;
   dnsNames = [(MRAVOutputDevice *)self dnsNames];
-  v47 = [dnsNames countByEnumeratingWithState:&v57 objects:v73 count:16];
+  v47 = [dnsNames countByEnumeratingWithState:&v56 objects:v72 count:16];
   if (v47)
   {
     v48 = v47;
-    v49 = *v58;
+    v49 = *v57;
     do
     {
       for (m = 0; m != v48; ++m)
       {
-        if (*v58 != v49)
+        if (*v57 != v49)
         {
           objc_enumerationMutation(dnsNames);
         }
 
-        v51 = *(*(&v57 + 1) + 8 * m);
+        v51 = *(*(&v56 + 1) + 8 * m);
         dnsNames2 = [(_MRAVOutputDeviceDescriptorProtobuf *)v3 dnsNames];
         [dnsNames2 addObject:v51];
       }
 
-      v48 = [dnsNames countByEnumeratingWithState:&v57 objects:v73 count:16];
+      v48 = [dnsNames countByEnumeratingWithState:&v56 objects:v72 count:16];
     }
 
     while (v48);
@@ -408,8 +406,6 @@
   [(_MRAVOutputDeviceDescriptorProtobuf *)v3 setDeviceIsPlaying:[(MRAVOutputDevice *)self discoveredDeviceIsPlaying]];
   [(_MRAVOutputDeviceDescriptorProtobuf *)v3 setWasDiscoveredInCache:[(MRAVOutputDevice *)self wasDiscoveredInCache]];
   [(_MRAVOutputDeviceDescriptorProtobuf *)v3 setRepresentsUGLSender:[(MRAVOutputDevice *)self representsUGLSender]];
-
-  v54 = *MEMORY[0x1E69E9840];
 
   return v3;
 }
@@ -1023,9 +1019,9 @@ id __50__MRAVOutputDevice__clusterCompositionDescription__block_invoke(uint64_t 
 {
   primaryID = [(MRAVOutputDevice *)self primaryID];
   v3 = MRMediaRemoteCopyDeviceUID();
-  v4 = [primaryID isEqualToString:v3];
+  isEqualToString = objc_msgSend_isEqualToString_(primaryID);
 
-  return v4;
+  return isEqualToString;
 }
 
 - (NSString)baseGroupID
@@ -1235,9 +1231,9 @@ MRAVDistantOutputDevice *__51__MRAVOutputDevice_clusterCompositionOutputDevices_
 - (BOOL)isSystemCaptureDevice
 {
   v2 = [(MRAVOutputDevice *)self uid];
-  v3 = [v2 isEqualToString:@"Valeria"];
+  isEqualToString = objc_msgSend_isEqualToString_(v2);
 
-  return v3;
+  return isEqualToString;
 }
 
 - (void)setCarPlayVideoActive:(BOOL)active completion:(id)completion
@@ -1265,7 +1261,7 @@ MRAVDistantOutputDevice *__51__MRAVOutputDevice_clusterCompositionOutputDevices_
     v5 = equalCopy;
     if (self == v5)
     {
-      v10 = 1;
+      isEqualToString = 1;
     }
 
     else
@@ -1278,28 +1274,28 @@ MRAVDistantOutputDevice *__51__MRAVOutputDevice_clusterCompositionOutputDevices_
         {
           v8 = [(MRAVOutputDevice *)self uid];
           v9 = [(MRAVOutputDevice *)v5 uid];
-          v10 = [v8 isEqualToString:v9];
+          isEqualToString = objc_msgSend_isEqualToString_(v8);
         }
 
         else
         {
-          v10 = 0;
+          isEqualToString = 0;
         }
       }
 
       else
       {
-        v10 = 0;
+        isEqualToString = 0;
       }
     }
   }
 
   else
   {
-    v10 = 0;
+    isEqualToString = 0;
   }
 
-  return v10;
+  return isEqualToString;
 }
 
 - (BOOL)isEqualToOutputDevice:(id)device denyList:(id)list addedProperties:(id *)properties removedProperties:(id *)removedProperties changedProperties:(id *)changedProperties
@@ -1376,39 +1372,37 @@ MRAVDistantOutputDevice *__51__MRAVOutputDevice_clusterCompositionOutputDevices_
 
 void __103__MRAVOutputDevice_isEqualToOutputDevice_denyList_addedProperties_removedProperties_changedProperties___block_invoke(uint64_t a1, void *a2)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v3 = a2;
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   v4 = *(a1 + 32);
-  v5 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v11;
+    v7 = *v10;
     do
     {
       v8 = 0;
       do
       {
-        if (*v11 != v7)
+        if (*v10 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        [v3 setObject:0 forKeyedSubscript:{*(*(&v10 + 1) + 8 * v8++), v10}];
+        [v3 setObject:0 forKeyedSubscript:{*(*(&v9 + 1) + 8 * v8++), v9}];
       }
 
       while (v6 != v8);
-      v6 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v6);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)isEqualFuzzy:(id)fuzzy
@@ -1651,10 +1645,10 @@ void __38__MRAVOutputDevice_mergingVolumeFrom___block_invoke(uint64_t a1, void *
 
 - (NSDictionary)jsonEncodableDictionaryRepresentation
 {
-  v46[25] = *MEMORY[0x1E69E9840];
-  v45[0] = @"name";
+  v45[25] = *MEMORY[0x1E69E9840];
+  v44[0] = @"name";
   name = [(MRAVOutputDevice *)self name];
-  v44 = name;
+  v43 = name;
   if (name)
   {
     v4 = name;
@@ -1665,10 +1659,10 @@ void __38__MRAVOutputDevice_mergingVolumeFrom___block_invoke(uint64_t a1, void *
     v4 = &stru_1F1513E38;
   }
 
-  v46[0] = v4;
-  v45[1] = @"uid";
+  v45[0] = v4;
+  v44[1] = @"uid";
   v5 = [(MRAVOutputDevice *)self uid];
-  v43 = v5;
+  v42 = v5;
   if (v5)
   {
     v6 = v5;
@@ -1679,10 +1673,10 @@ void __38__MRAVOutputDevice_mergingVolumeFrom___block_invoke(uint64_t a1, void *
     v6 = &stru_1F1513E38;
   }
 
-  v46[1] = v6;
-  v45[2] = @"group-id";
+  v45[1] = v6;
+  v44[2] = @"group-id";
   groupID = [(MRAVOutputDevice *)self groupID];
-  v42 = groupID;
+  v41 = groupID;
   if (groupID)
   {
     v8 = groupID;
@@ -1693,10 +1687,10 @@ void __38__MRAVOutputDevice_mergingVolumeFrom___block_invoke(uint64_t a1, void *
     v8 = &stru_1F1513E38;
   }
 
-  v46[2] = v8;
-  v45[3] = @"type";
+  v45[2] = v8;
+  v44[3] = @"type";
   v9 = MRAVOutputDeviceTypeCopyDescription([(MRAVOutputDevice *)self deviceType]);
-  v41 = v9;
+  v40 = v9;
   if (v9)
   {
     v10 = v9;
@@ -1707,10 +1701,10 @@ void __38__MRAVOutputDevice_mergingVolumeFrom___block_invoke(uint64_t a1, void *
     v10 = &stru_1F1513E38;
   }
 
-  v46[3] = v10;
-  v45[4] = @"subtype";
+  v45[3] = v10;
+  v44[4] = @"subtype";
   v11 = MRAVOutputDeviceSubtypeCopyDescription([(MRAVOutputDevice *)self deviceSubtype]);
-  v40 = v11;
+  v39 = v11;
   if (v11)
   {
     v12 = v11;
@@ -1721,32 +1715,32 @@ void __38__MRAVOutputDevice_mergingVolumeFrom___block_invoke(uint64_t a1, void *
     v12 = &stru_1F1513E38;
   }
 
-  v46[4] = v12;
-  v45[5] = @"buffered-airplay";
-  v39 = [MEMORY[0x1E696AD98] numberWithBool:{-[MRAVOutputDevice supportsBufferedAirPlay](self, "supportsBufferedAirPlay")}];
-  v46[5] = v39;
-  v45[6] = @"group-leader";
-  v38 = [MEMORY[0x1E696AD98] numberWithBool:{-[MRAVOutputDevice isGroupLeader](self, "isGroupLeader")}];
-  v46[6] = v38;
-  v45[7] = @"remote-assets";
-  v37 = [MEMORY[0x1E696AD98] numberWithBool:{-[MRAVOutputDevice canAccessRemoteAssets](self, "canAccessRemoteAssets")}];
-  v46[7] = v37;
-  v45[8] = @"remote-controllable";
-  v36 = [MEMORY[0x1E696AD98] numberWithBool:{-[MRAVOutputDevice isRemoteControllable](self, "isRemoteControllable")}];
-  v46[8] = v36;
-  v45[9] = @"relayable";
-  v35 = [MEMORY[0x1E696AD98] numberWithBool:{-[MRAVOutputDevice canRelayCommunicationChannel](self, "canRelayCommunicationChannel")}];
-  v46[9] = v35;
-  v45[10] = @"groupable";
-  v34 = [MEMORY[0x1E696AD98] numberWithBool:{-[MRAVOutputDevice isGroupable](self, "isGroupable")}];
-  v46[10] = v34;
-  v45[11] = @"discoverable-leader";
-  v33 = [MEMORY[0x1E696AD98] numberWithBool:{-[MRAVOutputDevice groupContainsGroupLeader](self, "groupContainsGroupLeader")}];
-  v46[11] = v33;
-  v45[12] = @"airplay-receiving";
-  v32 = [MEMORY[0x1E696AD98] numberWithBool:{-[MRAVOutputDevice isAirPlayReceiverSessionActive](self, "isAirPlayReceiverSessionActive")}];
-  v46[12] = v32;
-  v45[13] = @"parent-group-id";
+  v45[4] = v12;
+  v44[5] = @"buffered-airplay";
+  v38 = [MEMORY[0x1E696AD98] numberWithBool:{-[MRAVOutputDevice supportsBufferedAirPlay](self, "supportsBufferedAirPlay")}];
+  v45[5] = v38;
+  v44[6] = @"group-leader";
+  v37 = [MEMORY[0x1E696AD98] numberWithBool:{-[MRAVOutputDevice isGroupLeader](self, "isGroupLeader")}];
+  v45[6] = v37;
+  v44[7] = @"remote-assets";
+  v36 = [MEMORY[0x1E696AD98] numberWithBool:{-[MRAVOutputDevice canAccessRemoteAssets](self, "canAccessRemoteAssets")}];
+  v45[7] = v36;
+  v44[8] = @"remote-controllable";
+  v35 = [MEMORY[0x1E696AD98] numberWithBool:{-[MRAVOutputDevice isRemoteControllable](self, "isRemoteControllable")}];
+  v45[8] = v35;
+  v44[9] = @"relayable";
+  v34 = [MEMORY[0x1E696AD98] numberWithBool:{-[MRAVOutputDevice canRelayCommunicationChannel](self, "canRelayCommunicationChannel")}];
+  v45[9] = v34;
+  v44[10] = @"groupable";
+  v33 = [MEMORY[0x1E696AD98] numberWithBool:{-[MRAVOutputDevice isGroupable](self, "isGroupable")}];
+  v45[10] = v33;
+  v44[11] = @"discoverable-leader";
+  v32 = [MEMORY[0x1E696AD98] numberWithBool:{-[MRAVOutputDevice groupContainsGroupLeader](self, "groupContainsGroupLeader")}];
+  v45[11] = v32;
+  v44[12] = @"airplay-receiving";
+  v31 = [MEMORY[0x1E696AD98] numberWithBool:{-[MRAVOutputDevice isAirPlayReceiverSessionActive](self, "isAirPlayReceiverSessionActive")}];
+  v45[12] = v31;
+  v44[13] = @"parent-group-id";
   parentGroupIdentifier = [(MRAVOutputDevice *)self parentGroupIdentifier];
   v14 = parentGroupIdentifier;
   if (parentGroupIdentifier)
@@ -1759,23 +1753,23 @@ void __38__MRAVOutputDevice_mergingVolumeFrom___block_invoke(uint64_t a1, void *
     v15 = &stru_1F1513E38;
   }
 
-  v46[13] = v15;
-  v45[14] = @"parent-group-discoverable-leader";
-  v31 = [MEMORY[0x1E696AD98] numberWithBool:{-[MRAVOutputDevice parentGroupContainsDiscoverableLeader](self, "parentGroupContainsDiscoverableLeader")}];
-  v46[14] = v31;
-  v45[15] = @"proxy";
-  v30 = [MEMORY[0x1E696AD98] numberWithBool:{-[MRAVOutputDevice isProxyGroupPlayer](self, "isProxyGroupPlayer")}];
-  v46[15] = v30;
-  v45[16] = @"music";
-  v29 = [MEMORY[0x1E696AD98] numberWithBool:{-[MRAVOutputDevice canAccessAppleMusic](self, "canAccessAppleMusic")}];
-  v46[16] = v29;
-  v45[17] = @"iCML";
+  v45[13] = v15;
+  v44[14] = @"parent-group-discoverable-leader";
+  v30 = [MEMORY[0x1E696AD98] numberWithBool:{-[MRAVOutputDevice parentGroupContainsDiscoverableLeader](self, "parentGroupContainsDiscoverableLeader")}];
+  v45[14] = v30;
+  v44[15] = @"proxy";
+  v29 = [MEMORY[0x1E696AD98] numberWithBool:{-[MRAVOutputDevice isProxyGroupPlayer](self, "isProxyGroupPlayer")}];
+  v45[15] = v29;
+  v44[16] = @"music";
+  v28 = [MEMORY[0x1E696AD98] numberWithBool:{-[MRAVOutputDevice canAccessAppleMusic](self, "canAccessAppleMusic")}];
+  v45[16] = v28;
+  v44[17] = @"iCML";
   v16 = [MEMORY[0x1E696AD98] numberWithBool:{-[MRAVOutputDevice canAccessiCloudMusicLibrary](self, "canAccessiCloudMusicLibrary")}];
-  v46[17] = v16;
-  v45[18] = @"is-added-to-home-kit";
+  v45[17] = v16;
+  v44[18] = @"is-added-to-home-kit";
   v17 = [MEMORY[0x1E696AD98] numberWithBool:{-[MRAVOutputDevice isAddedToHomeKit](self, "isAddedToHomeKit")}];
-  v46[18] = v17;
-  v45[19] = @"bluetoothID";
+  v45[18] = v17;
+  v44[19] = @"bluetoothID";
   bluetoothID = [(MRAVOutputDevice *)self bluetoothID];
   v19 = bluetoothID;
   if (bluetoothID)
@@ -1788,25 +1782,23 @@ void __38__MRAVOutputDevice_mergingVolumeFrom___block_invoke(uint64_t a1, void *
     v20 = &stru_1F1513E38;
   }
 
-  v46[19] = v20;
-  v45[20] = @"supportsHAP";
+  v45[19] = v20;
+  v44[20] = @"supportsHAP";
   v21 = [MEMORY[0x1E696AD98] numberWithBool:{-[MRAVOutputDevice supportsHAP](self, "supportsHAP")}];
-  v46[20] = v21;
-  v45[21] = @"modelID";
+  v45[20] = v21;
+  v44[21] = @"modelID";
   modelID = [(MRAVOutputDevice *)self modelID];
-  v46[21] = modelID;
-  v45[22] = @"discoveredDeviceIsPlaying";
+  v45[21] = modelID;
+  v44[22] = @"discoveredDeviceIsPlaying";
   v23 = [MEMORY[0x1E696AD98] numberWithBool:{-[MRAVOutputDevice discoveredDeviceIsPlaying](self, "discoveredDeviceIsPlaying")}];
-  v46[22] = v23;
-  v45[23] = @"wasDiscoveredInCache";
+  v45[22] = v23;
+  v44[23] = @"wasDiscoveredInCache";
   v24 = [MEMORY[0x1E696AD98] numberWithBool:{-[MRAVOutputDevice wasDiscoveredInCache](self, "wasDiscoveredInCache")}];
-  v46[23] = v24;
-  v45[24] = @"representsUGLSender";
+  v45[23] = v24;
+  v44[24] = @"representsUGLSender";
   v25 = [MEMORY[0x1E696AD98] numberWithBool:{-[MRAVOutputDevice representsUGLSender](self, "representsUGLSender")}];
-  v46[24] = v25;
-  v26 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v46 forKeys:v45 count:25];
-
-  v27 = *MEMORY[0x1E69E9840];
+  v45[24] = v25;
+  v26 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v45 forKeys:v44 count:25];
 
   return v26;
 }
@@ -1826,7 +1818,7 @@ void __38__MRAVOutputDevice_mergingVolumeFrom___block_invoke(uint64_t a1, void *
 {
   dCopy = d;
   v5 = [(MRAVOutputDevice *)self uid];
-  if ([v5 isEqualToString:dCopy])
+  if (objc_msgSend_isEqualToString_(v5))
   {
     v6 = 1;
   }
@@ -1834,7 +1826,7 @@ void __38__MRAVOutputDevice_mergingVolumeFrom___block_invoke(uint64_t a1, void *
   else
   {
     primaryID = [(MRAVOutputDevice *)self primaryID];
-    if ([primaryID isEqualToString:dCopy])
+    if (objc_msgSend_isEqualToString_(primaryID))
     {
       v6 = 1;
     }
@@ -1886,28 +1878,28 @@ void __38__MRAVOutputDevice_mergingVolumeFrom___block_invoke(uint64_t a1, void *
 
 - (id)effectiveOutputDeviceForUID:(id)d
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   dCopy = d;
+  v26 = 0u;
   v27 = 0u;
   v28 = 0u;
   v29 = 0u;
-  v30 = 0u;
   rooms = [(MRAVOutputDevice *)self rooms];
-  v6 = [rooms countByEnumeratingWithState:&v27 objects:v32 count:16];
+  v6 = [rooms countByEnumeratingWithState:&v26 objects:v31 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v28;
+    v8 = *v27;
 LABEL_3:
     v9 = 0;
     while (1)
     {
-      if (*v28 != v8)
+      if (*v27 != v8)
       {
         objc_enumerationMutation(rooms);
       }
 
-      v10 = *(*(&v27 + 1) + 8 * v9);
+      v10 = *(*(&v26 + 1) + 8 * v9);
       v11 = [v10 uid];
       v12 = [v11 isEqual:dCopy];
 
@@ -1918,7 +1910,7 @@ LABEL_3:
 
       if (v7 == ++v9)
       {
-        v7 = [rooms countByEnumeratingWithState:&v27 objects:v32 count:16];
+        v7 = [rooms countByEnumeratingWithState:&v26 objects:v31 count:16];
         if (v7)
         {
           goto LABEL_3;
@@ -1933,12 +1925,12 @@ LABEL_3:
   {
 LABEL_9:
 
-    v25 = 0u;
-    v26 = 0u;
-    v23 = 0u;
     v24 = 0u;
+    v25 = 0u;
+    v22 = 0u;
+    v23 = 0u;
     rooms = [(MRAVOutputDevice *)self activatedClusterMembersOutputDevices];
-    v13 = [rooms countByEnumeratingWithState:&v23 objects:v31 count:16];
+    v13 = [rooms countByEnumeratingWithState:&v22 objects:v30 count:16];
     if (!v13)
     {
 LABEL_17:
@@ -1958,17 +1950,17 @@ LABEL_17:
     }
 
     v14 = v13;
-    v15 = *v24;
+    v15 = *v23;
 LABEL_11:
     v16 = 0;
     while (1)
     {
-      if (*v24 != v15)
+      if (*v23 != v15)
       {
         objc_enumerationMutation(rooms);
       }
 
-      v10 = *(*(&v23 + 1) + 8 * v16);
+      v10 = *(*(&v22 + 1) + 8 * v16);
       v17 = [v10 uid];
       v18 = [v17 isEqual:dCopy];
 
@@ -1979,7 +1971,7 @@ LABEL_11:
 
       if (v14 == ++v16)
       {
-        v14 = [rooms countByEnumeratingWithState:&v23 objects:v31 count:16];
+        v14 = [rooms countByEnumeratingWithState:&v22 objects:v30 count:16];
         if (v14)
         {
           goto LABEL_11;
@@ -1993,7 +1985,6 @@ LABEL_11:
   v20 = v10;
 
 LABEL_22:
-  v21 = *MEMORY[0x1E69E9840];
 
   return v20;
 }
@@ -2140,9 +2131,9 @@ MRAVDistantOutputDevice *__50__MRAVOutputDevice_allClusterMembersOutputDevices__
 - (BOOL)hasPlaceholderName
 {
   name = [(MRAVOutputDevice *)self name];
-  v3 = [name isEqualToString:@"UGL iPhone"];
+  isEqualToString = objc_msgSend_isEqualToString_(name);
 
-  return v3;
+  return isEqualToString;
 }
 
 - (MRAVEndpoint)endpoint

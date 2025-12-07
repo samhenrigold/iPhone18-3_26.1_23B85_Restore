@@ -159,7 +159,7 @@ LABEL_31:
     currentParsingBook = self->_currentParsingBook;
     self->_currentParsingBook = v7;
 
-    _objc_release_x1();
+    _objc_release_x1(v7, currentParsingBook);
   }
 }
 
@@ -302,7 +302,7 @@ LABEL_22:
   parsedBooks = self->_parsedBooks;
   self->_parsedBooks = v4;
 
-  _objc_release_x1();
+  _objc_release_x1(v4, parsedBooks);
 }
 
 - (BooksParserDelegate)initWithOperation:(id)operation

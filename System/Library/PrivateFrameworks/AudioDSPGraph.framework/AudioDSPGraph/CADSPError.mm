@@ -1,4 +1,5 @@
 @interface CADSPError
++ (id)_errorForUnsupportedRemoteProcessingBlockScope:(unsigned int)scope connectionType:(id)type;
 + (id)createWithRealTimeError:(id)error;
 + (id)errorWithCode:(int64_t)code descriptionFormat:(id)format;
 + (id)errorWithCode:(int64_t)code userInfo:(const CADSPErrorUserInfo *)info;
@@ -54,17 +55,17 @@
 
 - (CADSPError)initWithCode:(int64_t)code userInfo:(const CADSPErrorUserInfo *)info
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   v7 = CFGetAllocator(self);
   v8 = v7;
-  v27 = 0u;
-  v28 = 0u;
-  *keys = 0u;
   v26 = 0u;
-  v23 = 0u;
-  v24 = 0u;
-  *values = 0u;
+  v27 = 0u;
+  *keys = 0u;
+  v25 = 0u;
   v22 = 0u;
+  v23 = 0u;
+  *values = 0u;
+  v21 = 0u;
   if (info)
   {
     if (info->var0)
@@ -128,11 +129,10 @@
   }
 
 LABEL_13:
-  v20.receiver = self;
-  v20.super_class = CADSPError;
-  v17 = [(CADSPError *)&v20 initWithDomain:@"com.apple.audio.AudioDSPGraph" code:code userInfo:v13];
+  v19.receiver = self;
+  v19.super_class = CADSPError;
+  v17 = [(CADSPError *)&v19 initWithDomain:@"com.apple.audio.AudioDSPGraph" code:code userInfo:v13];
 
-  v18 = *MEMORY[0x1E69E9840];
   return v17;
 }
 
@@ -158,31 +158,43 @@ LABEL_13:
 
 - (CADSPError)initWithRealTimeError:(id)error
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   errorCopy = error;
   v5 = errorCopy;
   if (!errorCopy)
   {
-    v14 = 0u;
+    v12 = 0;
+    v18 = 0u;
+    v19 = 0u;
+    v16 = 0u;
+    v17 = 0u;
     v15 = 0u;
-    v12 = 0u;
-    v13 = 0u;
-    v11 = 0u;
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    _os_log_send_and_compose_impl();
+    v10 = MEMORY[0x1E69E9C10];
+    if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+    {
+      v11 = 3;
+    }
+
+    else
+    {
+      v11 = 2;
+    }
+
+    v13 = 134217984;
+    v14 = 0;
+    _os_log_send_and_compose_impl(v11, &v12, &v15, 80, &dword_1C91AE000, v10, 16, "assertion failure: error != nullptr -> %llu", &v13);
     _os_crash_msg();
     __break(1u);
   }
 
-  LODWORD(v11) = [errorCopy errorStatus];
-  *(&v11 + 1) = 0;
+  LODWORD(v15) = [errorCopy errorStatus];
+  *(&v15 + 1) = 0;
   errorSourceFile = [v5 errorSourceFile];
-  *&v12 = [errorSourceFile UTF8String];
+  *&v16 = [errorSourceFile UTF8String];
   errorSourceLine = [v5 errorSourceLine];
-  DWORD2(v12) = [errorSourceLine unsignedIntValue];
-  v8 = -[CADSPError initWithCode:userInfo:](self, "initWithCode:userInfo:", [v5 errorCode], &v11);
+  DWORD2(v16) = [errorSourceLine unsignedIntValue];
+  v8 = -[CADSPError initWithCode:userInfo:](self, "initWithCode:userInfo:", [v5 errorCode], &v15);
 
-  v9 = *MEMORY[0x1E69E9840];
   return v8;
 }
 
@@ -192,6 +204,24 @@ LABEL_13:
   v4 = [[CADSPError alloc] initWithRealTimeError:errorCopy];
 
   return v4;
+}
+
++ (id)_errorForUnsupportedRemoteProcessingBlockScope:(unsigned int)scope connectionType:(id)type
+{
+  v4 = *&scope;
+  typeCopy = type;
+  v7 = [MEMORY[0x1E696AEC0] stringWithFormat:@"unknown scope %u", v4];
+  v8 = v7;
+  if (v4 < 8)
+  {
+    v9 = *(&off_1E8334748 + v4);
+
+    v8 = v9;
+  }
+
+  v10 = [self errorWithCode:1668049253 descriptionFormat:@"%@ cannot support %@", typeCopy, v8];
+
+  return v10;
 }
 
 @end

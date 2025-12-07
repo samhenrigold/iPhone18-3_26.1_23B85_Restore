@@ -4,13 +4,14 @@
 - (void)dealloc;
 - (void)flush;
 - (void)writeWithByteArray:(id)array withInt:(int)int withInt:(int)withInt;
+- (void)writeWithInt:(int)int;
 @end
 
 @implementation JavaIoFilterOutputStream
 
 - (JavaIoFilterOutputStream)initWithJavaIoOutputStream:(id)stream
 {
-  JavaIoOutputStream_init(self, a2);
+  JavaIoOutputStream_init();
   JreStrongAssign(&self->out_, stream);
   return self;
 }
@@ -46,7 +47,7 @@
   }
 
   intCopy = int;
-  JavaUtilArrays_checkOffsetAndCountWithInt_withInt_withInt_(*(array + 2), int, withInt);
+  JavaUtilArrays_checkOffsetAndCountWithInt_withInt_withInt_(*(array + 2), *&int, withInt);
   if (withInt >= 1)
   {
     withIntCopy = withInt;
@@ -64,6 +65,17 @@
 
     while (withIntCopy);
   }
+}
+
+- (void)writeWithInt:(int)int
+{
+  out = self->out_;
+  if (!out)
+  {
+    JreThrowNullPointerException();
+  }
+
+  [(JavaIoOutputStream *)out writeWithInt:*&int];
 }
 
 - (void)dealloc

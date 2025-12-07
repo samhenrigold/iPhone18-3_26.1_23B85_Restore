@@ -55,7 +55,7 @@
 
   minimumNumberShouldMatch = self->minimumNumberShouldMatch_;
   disableCoord = self->disableCoord_;
-  v5 = [(JavaUtilList *)clauses toArrayWithNSObjectArray:[IOSObjectArray arrayWithLength:0 type:OrgApacheLuceneSearchBooleanClause_class_()]];
+  v5 = [(JavaUtilList *)clauses toArrayWithNSObjectArray:[IOSObjectArray arrayWithLength:0 type:OrgApacheLuceneSearchBooleanClause_class_(self, a2)]];
   v6 = [OrgApacheLuceneSearchBooleanQuery alloc];
   sub_1000E40D8(v6, disableCoord, minimumNumberShouldMatch, v5);
 

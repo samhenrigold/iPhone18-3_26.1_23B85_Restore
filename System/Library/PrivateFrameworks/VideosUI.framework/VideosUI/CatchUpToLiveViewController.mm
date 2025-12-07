@@ -26,22 +26,24 @@
 
 - (void)vui_viewDidAppear:(BOOL)appear
 {
+  appearCopy = appear;
   selfCopy = self;
   OUTLINED_FUNCTION_37_3();
-  sub_1E4153990(appear);
+  sub_1E4153990(appearCopy);
 }
 
 - (void)vui_viewDidDisappear:(BOOL)disappear
 {
+  disappearCopy = disappear;
   selfCopy = self;
   OUTLINED_FUNCTION_37_3();
-  sub_1E4153B10(disappear);
+  sub_1E4153B10(disappearCopy);
 }
 
 - (void)vui_viewDidLayoutSubviews
 {
   selfCopy = self;
-  sub_1E4157CC8();
+  sub_1E4157CC8(selfCopy);
 }
 
 - (void)axViewTappedWithGesture:(id)gesture

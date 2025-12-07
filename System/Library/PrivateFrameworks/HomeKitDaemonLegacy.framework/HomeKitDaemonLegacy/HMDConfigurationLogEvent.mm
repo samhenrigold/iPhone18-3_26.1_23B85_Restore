@@ -2,6 +2,7 @@
 - (BOOL)isMediaOnlyConfiguration;
 - (BOOL)isTelevisionOnlyConfiguration;
 - (HMDConfigurationLogEvent)initWithHomeConfigurations:(id)configurations widgetDataSource:(id)source isFMFDevice:(BOOL)device isStandaloneWatch:(BOOL)watch;
+- (HMDConfigurationLogEvent)initWithHomeManager:(id)manager widgetDataSource:(id)source metadataVersion:(unsigned int)version;
 @end
 
 @implementation HMDConfigurationLogEvent
@@ -35,41 +36,41 @@
 
 - (HMDConfigurationLogEvent)initWithHomeConfigurations:(id)configurations widgetDataSource:(id)source isFMFDevice:(BOOL)device isStandaloneWatch:(BOOL)watch
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   configurationsCopy = configurations;
   sourceCopy = source;
-  v28.receiver = self;
-  v28.super_class = HMDConfigurationLogEvent;
-  v13 = [(HMMLogEvent *)&v28 init];
+  v27.receiver = self;
+  v27.super_class = HMDConfigurationLogEvent;
+  v13 = [(HMMLogEvent *)&v27 init];
   if (v13)
   {
-    v23 = configurationsCopy;
+    v22 = configurationsCopy;
     os_unfair_lock_lock_with_options();
     v13->_instanceId = ++_currentInstanceId;
     os_unfair_lock_unlock(&_lock_25480);
-    v22 = sourceCopy;
+    v21 = sourceCopy;
     v13->_totalWidgets = [sourceCopy configuredWidgetsCount];
     objc_storeStrong(&v13->_homeConfigurations, configurations);
-    v26 = 0u;
-    v27 = 0u;
-    v24 = 0u;
     v25 = 0u;
+    v26 = 0u;
+    v23 = 0u;
+    v24 = 0u;
     homeConfigurations = [(HMDConfigurationLogEvent *)v13 homeConfigurations];
-    v15 = [homeConfigurations countByEnumeratingWithState:&v24 objects:v29 count:16];
+    v15 = [homeConfigurations countByEnumeratingWithState:&v23 objects:v28 count:16];
     if (v15)
     {
       v16 = v15;
-      v17 = *v25;
+      v17 = *v24;
       do
       {
         for (i = 0; i != v16; ++i)
         {
-          if (*v25 != v17)
+          if (*v24 != v17)
           {
             objc_enumerationMutation(homeConfigurations);
           }
 
-          v19 = *(*(&v24 + 1) + 8 * i);
+          v19 = *(*(&v23 + 1) + 8 * i);
           ++v13->_totalHomes;
           v13->_totalHomeCategoryBitMask |= [v19 homeCategoryBitMask];
           v13->_totalAppleMediaCategoryBitMask |= [v19 appleMediaCategoryBitMask];
@@ -127,7 +128,7 @@
           }
         }
 
-        v16 = [homeConfigurations countByEnumeratingWithState:&v24 objects:v29 count:16];
+        v16 = [homeConfigurations countByEnumeratingWithState:&v23 objects:v28 count:16];
       }
 
       while (v16);
@@ -135,12 +136,59 @@
 
     v13->_isFMFDevice = device;
     v13->_isStandaloneWatch = watch;
-    configurationsCopy = v23;
-    sourceCopy = v22;
+    configurationsCopy = v22;
+    sourceCopy = v21;
   }
 
-  v20 = *MEMORY[0x277D85DE8];
   return v13;
+}
+
+- (HMDConfigurationLogEvent)initWithHomeManager:(id)manager widgetDataSource:(id)source metadataVersion:(unsigned int)version
+{
+  v5 = *&version;
+  v25 = *MEMORY[0x277D85DE8];
+  managerCopy = manager;
+  sourceCopy = source;
+  array = [MEMORY[0x277CBEB18] array];
+  v20 = 0u;
+  v21 = 0u;
+  v22 = 0u;
+  v23 = 0u;
+  obj = [managerCopy homes];
+  v10 = [obj countByEnumeratingWithState:&v20 objects:v24 count:16];
+  if (v10)
+  {
+    v11 = v10;
+    v12 = 0;
+    v13 = *v21;
+    do
+    {
+      v14 = 0;
+      do
+      {
+        if (*v21 != v13)
+        {
+          objc_enumerationMutation(obj);
+        }
+
+        v15 = -[HMDHomeConfigurationLogEvent initWithHome:configuredWidgetsCount:]([HMDHomeConfigurationLogEvent alloc], "initWithHome:configuredWidgetsCount:", *(*(&v20 + 1) + 8 * v14), [sourceCopy configuredWidgetsCount]);
+        [(HMDHomeConfigurationLogEvent *)v15 setHomeIndex:++v12];
+        -[HMDHomeConfigurationLogEvent setDatabaseSize:](v15, "setDatabaseSize:", [managerCopy homeDatabaseSize]);
+        [(HMDHomeConfigurationLogEvent *)v15 setMetadataVersion:v5];
+        [array addObject:v15];
+
+        ++v14;
+      }
+
+      while (v11 != v14);
+      v11 = [obj countByEnumeratingWithState:&v20 objects:v24 count:16];
+    }
+
+    while (v11);
+  }
+
+  v16 = [(HMDConfigurationLogEvent *)self initWithHomeConfigurations:array widgetDataSource:sourceCopy isFMFDevice:isThisDeviceDesignatedFMFDevice() isStandaloneWatch:0];
+  return v16;
 }
 
 @end

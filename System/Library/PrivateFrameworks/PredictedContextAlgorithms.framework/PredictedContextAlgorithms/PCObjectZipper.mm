@@ -53,24 +53,22 @@
   if (self->object && self->other)
   {
     (*(handlerCopy + 2))(handlerCopy);
-    other = self->other;
-    object = self->object;
-    v8 = (*(self->objectComparator + 2))();
-    v9 = 16;
-    if (v8 == -1)
+    v6 = (*(self->objectComparator + 2))();
+    v7 = 16;
+    if (v6 == -1)
     {
-      v9 = 8;
-      v10 = 24;
+      v7 = 8;
+      v8 = 24;
     }
 
     else
     {
-      v10 = 32;
+      v8 = 32;
     }
 
-    nextObject = [*(&self->super.isa + v9) nextObject];
-    v12 = *(&self->super.isa + v10);
-    *(&self->super.isa + v10) = nextObject;
+    nextObject = [*(&self->super.isa + v7) nextObject];
+    v10 = *(&self->super.isa + v8);
+    *(&self->super.isa + v8) = nextObject;
 
     hasNextObjectPair = [(PCObjectZipper *)self hasNextObjectPair];
   }

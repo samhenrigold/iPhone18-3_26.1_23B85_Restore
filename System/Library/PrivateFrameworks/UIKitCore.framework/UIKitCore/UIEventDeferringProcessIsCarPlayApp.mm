@@ -5,8 +5,8 @@
 
 void ___UIEventDeferringProcessIsCarPlayApp_block_invoke(uint64_t a1)
 {
-  v2 = _UIMainBundleIdentifier();
-  _MergedGlobals_1249 = [v2 isEqualToString:*(a1 + 32)];
+  v1 = _UIMainBundleIdentifier();
+  _MergedGlobals_1249 = objc_msgSend_isEqualToString_(v1);
 }
 
 @end

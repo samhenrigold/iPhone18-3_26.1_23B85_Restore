@@ -182,14 +182,14 @@
   return v6;
 }
 
-uint64_t __79__BSUIAnimationFactory__animateWithAdditionalDelay_options_actions_completion___block_invoke(uint64_t result, double a2, double a3, double a4)
+_DWORD *__79__BSUIAnimationFactory__animateWithAdditionalDelay_options_actions_completion___block_invoke(_DWORD *result, double a2, double a3, double a4)
 {
-  if (*(result + 32))
+  if (*(result + 4))
   {
-    LODWORD(a2) = *(result + 40);
-    LODWORD(a3) = *(result + 44);
-    LODWORD(a4) = *(result + 48);
-    return [MEMORY[0x1E69DD250] _modifyAnimationsWithPreferredFrameRateRange:*(result + 52) updateReason:a2 animations:{a3, a4}];
+    LODWORD(a2) = result[10];
+    LODWORD(a3) = result[11];
+    LODWORD(a4) = result[12];
+    return [MEMORY[0x1E69DD250] _modifyAnimationsWithPreferredFrameRateRange:result[13] updateReason:a2 animations:{a3, a4}];
   }
 
   return result;

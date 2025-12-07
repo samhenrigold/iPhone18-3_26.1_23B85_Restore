@@ -232,52 +232,48 @@
   y = keyboard.origin.y;
   x = keyboard.origin.x;
   [(PinView *)self bounds];
-  v8 = v26.origin.x;
-  v9 = v26.origin.y;
-  v10 = v26.size.width;
-  v11 = v26.size.height;
-  if (!CGRectIsEmpty(v26))
+  v8 = v22.origin.x;
+  v9 = v22.origin.y;
+  v10 = v22.size.width;
+  v11 = v22.size.height;
+  if (!CGRectIsEmpty(v22))
   {
     viewController = [(PinView *)self viewController];
     view = [viewController view];
     [view safeAreaInsets];
-    v24 = v14;
+    v20 = v14;
 
     cancelButton = self->_cancelButton;
     if (cancelButton)
     {
       [(UIButton *)cancelButton frame];
-      [(UIButton *)self->_cancelButton setFrame:v10 - v16 + -15.0, v24 + 10.0];
+      [(UIButton *)self->_cancelButton setFrame:v10 - v16 + -15.0, v20 + 10.0];
     }
 
-    v27.origin.x = v8;
-    v27.origin.y = v9;
-    v27.size.width = v10;
-    v27.size.height = v11;
-    v29.origin.x = x;
-    v29.origin.y = y;
-    v29.size.width = width;
-    v29.size.height = height;
-    v28 = CGRectIntersection(v27, v29);
-    CGRectIsNull(v28);
+    v23.origin.x = v8;
+    v23.origin.y = v9;
+    v23.size.width = v10;
+    v23.size.height = v11;
+    v25.origin.x = x;
+    v25.origin.y = y;
+    v25.size.width = width;
+    v25.size.height = height;
+    v24 = CGRectIntersection(v23, v25);
+    CGRectIsNull(v24);
     [(PinField *)self->_pinField updateLayoutForWidth:v10];
     [(UILabel *)self->_titleLabel sizeThatFits:v10 + -30.0, v11];
     [(PinField *)self->_pinField frame];
     UIRectCenteredXInRect();
-    scale = self->_scale;
     UIRectIntegralWithScale();
-    v18 = self->_scale;
     UIRectIntegralWithScale();
-    v20 = v19;
+    v18 = v17;
     [(PinField *)self->_pinField setFrame:?];
-    v21 = CGPointZero.y;
     UIRectCenteredXInRect();
-    v22 = self->_scale;
     UIRectIntegralWithScale();
     [(UILabel *)self->_titleLabel setFrame:?];
     titleLabel = self->_titleLabel;
 
-    [(UILabel *)titleLabel _setLastLineBaselineFrameOriginY:v20 + -30.0];
+    [(UILabel *)titleLabel _setLastLineBaselineFrameOriginY:v18 + -30.0];
   }
 }
 

@@ -139,15 +139,15 @@
 
 - (void)sendMotionEvent:(id)event
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   eventCopy = event;
   if ([(BSServiceConnection *)self->_connection isValid])
   {
-    [(PRRenderingServiceConnection *)self _updateSendingStateBasedOnAcks];
+    _updateSendingStateBasedOnAcks = [(PRRenderingServiceConnection *)self _updateSendingStateBasedOnAcks];
     if (self->_shouldStopSending)
     {
-      v5 = PRLogRenderingService();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+      v6 = PRLogRenderingService(_updateSendingStateBasedOnAcks);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
       {
         [PRRenderingServiceConnection sendMotionEvent:];
       }
@@ -159,19 +159,19 @@
       [remoteTarget sendMotionEvent:eventCopy];
 
       ++self->_motionEventsSentSinceLastAck;
-      v5 = PRLogRenderingService();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+      v6 = PRLogRenderingService(v8);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
       {
         connection = self->_connection;
         pid = self->_pid;
         motionEventsSentSinceLastAck = self->_motionEventsSentSinceLastAck;
-        v10 = 134218496;
-        v11 = connection;
-        v12 = 1024;
-        v13 = pid;
-        v14 = 2048;
-        v15 = motionEventsSentSinceLastAck;
-        _os_log_debug_impl(&dword_1A8AA7000, v5, OS_LOG_TYPE_DEBUG, "PRRenderingServiceConnection: connection <%p> pid: %i sent motion event (since last ack: %lu)", &v10, 0x1Cu);
+        v12 = 134218496;
+        v13 = connection;
+        v14 = 1024;
+        v15 = pid;
+        v16 = 2048;
+        v17 = motionEventsSentSinceLastAck;
+        _os_log_debug_impl(&dword_1A8AA7000, v6, OS_LOG_TYPE_DEBUG, "PRRenderingServiceConnection: connection <%p> pid: %i sent motion event (since last ack: %lu)", &v12, 0x1Cu);
       }
     }
   }

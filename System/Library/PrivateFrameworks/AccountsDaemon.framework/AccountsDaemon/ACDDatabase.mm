@@ -35,20 +35,19 @@
 
 - (ACDDatabase)initWithDatabaseURL:(id)l
 {
-  v12[3] = *MEMORY[0x277D85DE8];
+  v11[3] = *MEMORY[0x277D85DE8];
   v4 = *MEMORY[0x277CBE1D8];
-  v11[0] = *MEMORY[0x277CBE178];
-  v11[1] = v4;
-  v12[0] = MEMORY[0x277CBEC38];
-  v12[1] = MEMORY[0x277CBEC28];
-  v11[2] = *MEMORY[0x277CBE240];
-  v12[2] = *MEMORY[0x277CCA1B8];
+  v10[0] = *MEMORY[0x277CBE178];
+  v10[1] = v4;
+  v11[0] = MEMORY[0x277CBEC38];
+  v11[1] = MEMORY[0x277CBEC28];
+  v10[2] = *MEMORY[0x277CBE240];
+  v11[2] = *MEMORY[0x277CCA1B8];
   v5 = MEMORY[0x277CBEAC0];
   lCopy = l;
-  v7 = [v5 dictionaryWithObjects:v12 forKeys:v11 count:3];
+  v7 = [v5 dictionaryWithObjects:v11 forKeys:v10 count:3];
   v8 = [(ACDDatabase *)self initWithDatabaseURL:lCopy storeOptions:v7];
 
-  v9 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
@@ -66,9 +65,9 @@
     [ACDDatabase initWithDatabaseURL:storeOptions:];
   }
 
-  v36.receiver = self;
-  v36.super_class = ACDDatabase;
-  v9 = [(ACDDatabase *)&v36 init];
+  v38.receiver = self;
+  v38.super_class = ACDDatabase;
+  v9 = [(ACDDatabase *)&v38 init];
   v10 = v9;
   if (v9)
   {
@@ -77,48 +76,49 @@
     storeOptions = v10->_storeOptions;
     v10->_storeOptions = v11;
 
-    v13 = _ACDManagedObjectModel();
-    v14 = [objc_alloc(MEMORY[0x277CBE4D8]) initWithManagedObjectModel:v13];
+    v14 = _ACDManagedObjectModel(v13);
+    v15 = [objc_alloc(MEMORY[0x277CBE4D8]) initWithManagedObjectModel:v14];
     persistentStoreCoordinator = v10->_persistentStoreCoordinator;
-    v10->_persistentStoreCoordinator = v14;
+    v10->_persistentStoreCoordinator = v15;
 
-    v16 = *MEMORY[0x277CBE2E8];
-    v17 = v10->_storeOptions;
-    v35 = 0;
-    v18 = [(ACDDatabase *)v10 _addPersistentStoreWithType:v16 configuration:0 URL:lCopy options:v17 error:&v35];
-    v19 = v35;
-    v20 = _ACDLogSystem();
-    v21 = v20;
-    if (v18)
+    v17 = *MEMORY[0x277CBE2E8];
+    v18 = v10->_storeOptions;
+    v37 = 0;
+    v19 = [(ACDDatabase *)v10 _addPersistentStoreWithType:v17 configuration:0 URL:lCopy options:v18 error:&v37];
+    v20 = v37;
+    v21 = _ACDLogSystem(v20);
+    v22 = v21;
+    if (v19)
     {
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
       {
-        [ACDDatabase initWithDatabaseURL:v21 storeOptions:?];
+        [ACDDatabase initWithDatabaseURL:v22 storeOptions:?];
       }
     }
 
     else
     {
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
       {
-        [(ACDDatabase *)&v10->_storeOptions initWithDatabaseURL:v19 storeOptions:v21];
+        [(ACDDatabase *)&v10->_storeOptions initWithDatabaseURL:v20 storeOptions:v22];
       }
 
-      v22 = [(ACDDatabase *)v10 _shouldResetPersistentStoreAfterError:v19];
-      if (v19)
+      v23 = [(ACDDatabase *)v10 _shouldResetPersistentStoreAfterError:v20];
+      if (v20)
       {
-        v23 = +[ACDEventLedger sharedLedger];
-        v24 = [v19 description];
-        [v23 recordEvent:v24];
+        v24 = +[ACDEventLedger sharedLedger];
+        v25 = [v20 description];
+        [v24 recordEvent:v25];
       }
 
-      if (!v22)
+      if (!v23)
       {
 LABEL_16:
-        if ([v19 ac_isDiskFullSQLError])
+        ac_isDiskFullSQLError = [v20 ac_isDiskFullSQLError];
+        if (ac_isDiskFullSQLError)
         {
-          v31 = _ACDLogSystem();
-          if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
+          v33 = _ACDLogSystem(ac_isDiskFullSQLError);
+          if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
           {
             [ACDDatabase initWithDatabaseURL:storeOptions:];
           }
@@ -126,20 +126,20 @@ LABEL_16:
 
         else
         {
-          v32 = 0;
+          v34 = 0;
           createConnection = [(ACDDatabase *)v10 createConnection];
-          v27 = [[ACDDatabaseInitializer alloc] initWithDatabaseConnection:createConnection];
-          v28 = [(ACDDatabaseInitializer *)v27 updateDefaultContentIfNecessary:&v32];
+          v29 = [[ACDDatabaseInitializer alloc] initWithDatabaseConnection:createConnection];
+          v30 = [(ACDDatabaseInitializer *)v29 updateDefaultContentIfNecessary:&v34];
 
-          v29 = v32;
-          if (v28)
+          v31 = v34;
+          if (v30)
           {
 
             goto LABEL_19;
           }
 
-          v31 = _ACDLogSystem();
-          if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
+          v33 = _ACDLogSystem(v31);
+          if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
           {
             [ACDDatabase initWithDatabaseURL:storeOptions:];
           }
@@ -148,14 +148,14 @@ LABEL_16:
         exit(0);
       }
 
-      v25 = v10->_persistentStoreCoordinator;
-      v33[0] = MEMORY[0x277D85DD0];
-      v33[1] = 3221225472;
-      v33[2] = __48__ACDDatabase_initWithDatabaseURL_storeOptions___block_invoke;
-      v33[3] = &unk_27848BF78;
-      v34 = v10;
-      [(NSPersistentStoreCoordinator *)v25 performBlockAndWait:v33];
-      v21 = v34;
+      v26 = v10->_persistentStoreCoordinator;
+      v35[0] = MEMORY[0x277D85DD0];
+      v35[1] = 3221225472;
+      v35[2] = __48__ACDDatabase_initWithDatabaseURL_storeOptions___block_invoke;
+      v35[3] = &unk_27848BF78;
+      v36 = v10;
+      [(NSPersistentStoreCoordinator *)v26 performBlockAndWait:v35];
+      v22 = v36;
     }
 
     goto LABEL_16;
@@ -168,23 +168,21 @@ LABEL_19:
 
 void __48__ACDDatabase_initWithDatabaseURL_storeOptions___block_invoke(uint64_t a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v1 = *(a1 + 32);
-  v7 = 0;
-  v2 = [v1 _persistentStoreCoodinator_resetPersistentStoreCoordinatorWithError:&v7];
-  v3 = v7;
-  v4 = _ACDLogSystem();
+  v6 = 0;
+  v2 = [v1 _persistentStoreCoodinator_resetPersistentStoreCoordinatorWithError:&v6];
+  v3 = v6;
+  v4 = _ACDLogSystem(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = [MEMORY[0x277CCABB0] numberWithBool:v2];
     *buf = 138412546;
-    v9 = v5;
-    v10 = 2112;
-    v11 = v3;
+    v8 = v5;
+    v9 = 2112;
+    v10 = v3;
     _os_log_impl(&dword_221D2F000, v4, OS_LOG_TYPE_DEFAULT, "Reset persistentStoreCoordinator, success: %@, error: %@", buf, 0x16u);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_backupURL
@@ -282,49 +280,49 @@ void __48__ACDDatabase_initWithDatabaseURL_storeOptions___block_invoke(uint64_t 
 
   if (v8)
   {
+    v24 = 0;
+    v25 = &v24;
+    v26 = 0x2020000000;
+    v27 = 0;
+    v18 = 0;
+    v19 = &v18;
+    v20 = 0x3032000000;
+    v21 = __Block_byref_object_copy__2;
+    v22 = __Block_byref_object_dispose__2;
     v23 = 0;
-    v24 = &v23;
-    v25 = 0x2020000000;
-    v26 = 0;
-    v17 = 0;
-    v18 = &v17;
-    v19 = 0x3032000000;
-    v20 = __Block_byref_object_copy__2;
-    v21 = __Block_byref_object_dispose__2;
-    v22 = 0;
     persistentStoreCoordinator = self->_persistentStoreCoordinator;
-    v13[0] = MEMORY[0x277D85DD0];
-    v13[1] = 3221225472;
-    v13[2] = __47__ACDDatabase_restoreFromBackupReturningError___block_invoke;
-    v13[3] = &unk_27848C130;
-    v15 = &v23;
-    v13[4] = self;
-    v14 = _backupURL;
-    v16 = &v17;
-    [(NSPersistentStoreCoordinator *)persistentStoreCoordinator performBlockAndWait:v13];
+    v14[0] = MEMORY[0x277D85DD0];
+    v14[1] = 3221225472;
+    v14[2] = __47__ACDDatabase_restoreFromBackupReturningError___block_invoke;
+    v14[3] = &unk_27848C130;
+    v16 = &v24;
+    v14[4] = self;
+    v15 = _backupURL;
+    v17 = &v18;
+    [(NSPersistentStoreCoordinator *)persistentStoreCoordinator performBlockAndWait:v14];
     if (error)
     {
-      *error = v18[5];
+      *error = v19[5];
     }
 
-    v10 = *(v24 + 24);
+    v11 = *(v25 + 24);
 
-    _Block_object_dispose(&v17, 8);
-    _Block_object_dispose(&v23, 8);
+    _Block_object_dispose(&v18, 8);
+    _Block_object_dispose(&v24, 8);
   }
 
   else
   {
-    v11 = _ACDLogSystem();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v12 = _ACDLogSystem(v9);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       [ACDDatabase restoreFromBackupReturningError:];
     }
 
-    v10 = 0;
+    v11 = 0;
   }
 
-  return v10 & 1;
+  return v11 & 1;
 }
 
 void __47__ACDDatabase_restoreFromBackupReturningError___block_invoke(void *a1)
@@ -399,14 +397,11 @@ void __35__ACDDatabase_resetReturningError___block_invoke(void *a1)
 
 - (id)_addPersistentStoreWithType:(id)type configuration:(id)configuration URL:(id)l options:(id)options error:(id *)error
 {
-  v19 = *MEMORY[0x277D85DE8];
   typeCopy = type;
   configurationCopy = configuration;
   lCopy = l;
   optionsCopy = options;
   v16 = [(NSPersistentStoreCoordinator *)self->_persistentStoreCoordinator addPersistentStoreWithType:typeCopy configuration:configurationCopy URL:lCopy options:optionsCopy error:error];
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return v16;
 }
@@ -416,7 +411,7 @@ void __35__ACDDatabase_resetReturningError___block_invoke(void *a1)
   errorCopy = error;
   if ([errorCopy code] == 134100)
   {
-    v5 = _ACDLogSystem();
+    v5 = _ACDLogSystem(134100);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
@@ -424,13 +419,14 @@ void __35__ACDDatabase_resetReturningError___block_invoke(void *a1)
     }
 
     v6 = [[ACDDatabaseMigrator alloc] initForDatabaseAtURL:self->_databaseURL persistentStoreCoordinator:self->_persistentStoreCoordinator storeOptions:self->_storeOptions];
-    v18 = 0;
-    v7 = [v6 runReturningError:&v18];
-    v8 = _ACDLogSystem();
-    v9 = v8;
-    if (!v7)
+    v20 = 0;
+    v7 = [v6 runReturningError:&v20];
+    v8 = v7;
+    v9 = _ACDLogSystem(v7);
+    v10 = v9;
+    if (!v8)
     {
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
         [ACDDatabase _shouldResetPersistentStoreAfterError:];
       }
@@ -438,50 +434,51 @@ void __35__ACDDatabase_resetReturningError___block_invoke(void *a1)
       goto LABEL_13;
     }
 
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_221D2F000, v9, OS_LOG_TYPE_DEFAULT, "Successfully migrated existing persistentStore!", buf, 2u);
+      _os_log_impl(&dword_221D2F000, v10, OS_LOG_TYPE_DEFAULT, "Successfully migrated existing persistentStore!", buf, 2u);
     }
   }
 
-  if (![errorCopy ac_isUnrecoverableDatabaseError])
+  ac_isUnrecoverableDatabaseError = [errorCopy ac_isUnrecoverableDatabaseError];
+  if (!ac_isUnrecoverableDatabaseError)
   {
-    v10 = 0;
+    v12 = 0;
     goto LABEL_21;
   }
 
 LABEL_13:
-  v11 = _ACDLogSystem();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+  v13 = _ACDLogSystem(ac_isUnrecoverableDatabaseError);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_221D2F000, v11, OS_LOG_TYPE_DEFAULT, "Attempting to restore persistentStore...", buf, 2u);
+    _os_log_impl(&dword_221D2F000, v13, OS_LOG_TYPE_DEFAULT, "Attempting to restore persistentStore...", buf, 2u);
   }
 
-  v17 = 0;
-  v12 = [(ACDDatabase *)self restoreFromBackupReturningError:&v17];
-  v13 = v17;
-  v14 = _ACDLogSystem();
-  v15 = v14;
-  if (v12)
+  v19 = 0;
+  v14 = [(ACDDatabase *)self restoreFromBackupReturningError:&v19];
+  v15 = v19;
+  v16 = _ACDLogSystem(v15);
+  v17 = v16;
+  if (v14)
   {
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_221D2F000, v15, OS_LOG_TYPE_DEFAULT, "Successfully restored persistentStore!", buf, 2u);
+      _os_log_impl(&dword_221D2F000, v17, OS_LOG_TYPE_DEFAULT, "Successfully restored persistentStore!", buf, 2u);
     }
   }
 
-  else if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+  else if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
   {
     [ACDDatabase _shouldResetPersistentStoreAfterError:];
   }
 
-  v10 = !v12;
+  v12 = !v14;
 LABEL_21:
 
-  return v10;
+  return v12;
 }
 
 - (BOOL)_performBackupToURL:(id)l unverifiedBackupURL:(id)rL error:(id *)error
@@ -706,13 +703,13 @@ LABEL_3:
 
 void __64__ACDDatabase_databaseConnection_encounteredUnrecoverableError___block_invoke(uint64_t a1)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v2 = (a1 + 32);
   v1 = *(a1 + 32);
-  v18 = 0;
-  v3 = [v1 restoreFromBackupReturningError:&v18];
-  v4 = v18;
-  v5 = _ACDLogSystem();
+  v17 = 0;
+  v3 = [v1 restoreFromBackupReturningError:&v17];
+  v4 = v17;
+  v5 = _ACDLogSystem(v4);
   v6 = v5;
   if (v3)
   {
@@ -720,7 +717,7 @@ void __64__ACDDatabase_databaseConnection_encounteredUnrecoverableError___block_
     {
       v7 = [*v2 _backupURL];
       *buf = 138412290;
-      v20 = v7;
+      v19 = v7;
       _os_log_impl(&dword_221D2F000, v6, OS_LOG_TYPE_DEFAULT, "Successfully restored with backup at URL: %@", buf, 0xCu);
     }
 
@@ -736,10 +733,10 @@ void __64__ACDDatabase_databaseConnection_encounteredUnrecoverableError___block_
     }
 
     v9 = *v2;
-    v17 = 0;
-    v10 = [v9 _persistentStoreCoodinator_resetPersistentStoreCoordinatorWithError:&v17];
-    v8 = v17;
-    v11 = _ACDLogSystem();
+    v16 = 0;
+    v10 = [v9 _persistentStoreCoodinator_resetPersistentStoreCoordinatorWithError:&v16];
+    v8 = v16;
+    v11 = _ACDLogSystem(v8);
     v12 = v11;
     if (v10)
     {
@@ -747,7 +744,7 @@ void __64__ACDDatabase_databaseConnection_encounteredUnrecoverableError___block_
       {
         v13 = [*v2 databaseURL];
         *buf = 138412290;
-        v20 = v13;
+        v19 = v13;
         _os_log_impl(&dword_221D2F000, v12, OS_LOG_TYPE_DEFAULT, "Successfully reset the database at URL: %@", buf, 0xCu);
       }
 
@@ -767,8 +764,6 @@ void __64__ACDDatabase_databaseConnection_encounteredUnrecoverableError___block_
     v15 = +[ACDEventLedger sharedLedger];
     [v15 recordEvent:v14];
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initWithDatabaseURL:storeOptions:.cold.1()
@@ -789,40 +784,22 @@ void __64__ACDDatabase_databaseConnection_encounteredUnrecoverableError___block_
 
 - (void)initWithDatabaseURL:(uint64_t *)a1 storeOptions:(NSObject *)a2 .cold.3(uint64_t *a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v2 = *a1;
-  v4 = 138477827;
-  v5 = v2;
-  _os_log_debug_impl(&dword_221D2F000, a2, OS_LOG_TYPE_DEBUG, "Successfully added persistentStore with options: %{private}@", &v4, 0xCu);
-  v3 = *MEMORY[0x277D85DE8];
+  v3 = 138477827;
+  v4 = v2;
+  _os_log_debug_impl(&dword_221D2F000, a2, OS_LOG_TYPE_DEBUG, "Successfully added persistentStore with options: %{private}@", &v3, 0xCu);
 }
 
 - (void)initWithDatabaseURL:(os_log_t)log storeOptions:.cold.4(uint64_t *a1, uint64_t a2, os_log_t log)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = *a1;
-  v5 = 138478083;
-  v6 = v3;
-  v7 = 2112;
-  v8 = a2;
-  _os_log_error_impl(&dword_221D2F000, log, OS_LOG_TYPE_ERROR, "Failed to add persistentStore with options: %{private}@, error: %@", &v5, 0x16u);
-  v4 = *MEMORY[0x277D85DE8];
-}
-
-- (void)initWithDatabaseURL:storeOptions:.cold.5()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_shouldResetPersistentStoreAfterError:.cold.2()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
+  v4 = 138478083;
+  v5 = v3;
+  v6 = 2112;
+  v7 = a2;
+  _os_log_error_impl(&dword_221D2F000, log, OS_LOG_TYPE_ERROR, "Failed to add persistentStore with options: %{private}@, error: %@", &v4, 0x16u);
 }
 
 - (void)_performBackupToURL:unverifiedBackupURL:error:.cold.1()
@@ -843,22 +820,16 @@ void __64__ACDDatabase_databaseConnection_encounteredUnrecoverableError___block_
 
 void __64__ACDDatabase_databaseConnection_encounteredUnrecoverableError___block_invoke_cold_1(id *a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
   v1 = [*a1 _backupURL];
   OUTLINED_FUNCTION_1_1();
-  OUTLINED_FUNCTION_4_0(&dword_221D2F000, v2, v3, "Failed to restore with backup at URL: %@, error: %@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_4_0(&dword_221D2F000, v2, v3, "Failed to restore with backup at URL: %@, error: %@", v4, v5, v6, v7);
 }
 
 void __64__ACDDatabase_databaseConnection_encounteredUnrecoverableError___block_invoke_cold_2(id *a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
   v1 = [*a1 databaseURL];
   OUTLINED_FUNCTION_1_1();
-  OUTLINED_FUNCTION_4_0(&dword_221D2F000, v2, v3, "Failed to reset the database at URL: %@, error: %@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_4_0(&dword_221D2F000, v2, v3, "Failed to reset the database at URL: %@, error: %@", v4, v5, v6, v7);
 }
 
 @end

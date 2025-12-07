@@ -21,7 +21,7 @@ void __42___UICalendarDateViewCell_setHighlighted___block_invoke(uint64_t a1)
   v3 = *(a1 + 40);
   if (v3)
   {
-    [v3 highlightedContentTransform];
+    objc_msgSend_highlightedContentTransform(v3);
   }
 
   else

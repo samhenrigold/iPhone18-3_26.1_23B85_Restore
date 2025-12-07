@@ -49,7 +49,7 @@
   v5 = equalCopy;
   if (self == equalCopy)
   {
-    v17 = 1;
+    v16 = 1;
   }
 
   else
@@ -74,42 +74,41 @@
             creationDate = [(ASCPasswordCredential *)v6 creationDate];
             if ([(NSDate *)creationDate isEqual:creationDate])
             {
-              externalProviderBundleIdentifier = self->_externalProviderBundleIdentifier;
               externalProviderBundleIdentifier = [(ASCPasswordCredential *)v6 externalProviderBundleIdentifier];
-              v17 = WBSIsEqual();
+              v16 = WBSIsEqual();
             }
 
             else
             {
-              v17 = 0;
+              v16 = 0;
             }
           }
 
           else
           {
-            v17 = 0;
+            v16 = 0;
           }
         }
 
         else
         {
-          v17 = 0;
+          v16 = 0;
         }
       }
 
       else
       {
-        v17 = 0;
+        v16 = 0;
       }
     }
 
     else
     {
-      v17 = 0;
+      v16 = 0;
     }
   }
 
-  return v17;
+  return v16;
 }
 
 - (unint64_t)hash

@@ -574,7 +574,7 @@ LABEL_13:
   mAnimationContext = self->super.mAnimationContext;
   if (mAnimationContext)
   {
-    [(KNAnimationContext *)mAnimationContext slideProjectionMatrix];
+    objc_msgSend_slideProjectionMatrix(mAnimationContext);
     v61 = vcvt_hight_f32_f64(vcvt_f32_f64(v103), v104);
     v62 = vcvt_hight_f32_f64(vcvt_f32_f64(v101), v102);
     v63 = vcvt_hight_f32_f64(vcvt_f32_f64(v99), v100);
@@ -609,7 +609,7 @@ LABEL_13:
       *&v85.c = v98;
       *&v85.tx = v99;
       v86 = v100;
-      [(TSDMetalMotionBlurEffect *)v64 adjustTransformForMotionBlurBuffer:&v85];
+      objc_msgSend_adjustTransformForMotionBlurBuffer_(v64);
     }
 
     else

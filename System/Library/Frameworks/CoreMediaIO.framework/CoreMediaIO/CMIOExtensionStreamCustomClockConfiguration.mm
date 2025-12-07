@@ -1,4 +1,5 @@
 @interface CMIOExtensionStreamCustomClockConfiguration
++ (CMIOExtensionStreamCustomClockConfiguration)customClockConfigurationWithClockName:(NSString *)clockName sourceIdentifier:(NSUUID *)sourceIdentifier getTimeCallMinimumInterval:(CMTime *)getTimeCallMinimumInterval numberOfEventsForRateSmoothing:(uint32_t)numberOfEventsForRateSmoothing numberOfAveragesForRateSmoothing:(uint32_t)numberOfAveragesForRateSmoothing;
 - (BOOL)isEqual:(id)equal;
 - (CMIOExtensionStreamCustomClockConfiguration)initWithClockName:(NSString *)clockName sourceIdentifier:(NSUUID *)sourceIdentifier getTimeCallMinimumInterval:(CMTime *)getTimeCallMinimumInterval numberOfEventsForRateSmoothing:(uint32_t)numberOfEventsForRateSmoothing numberOfAveragesForRateSmoothing:(uint32_t)numberOfAveragesForRateSmoothing;
 - (CMIOExtensionStreamCustomClockConfiguration)initWithCoder:(id)coder;
@@ -10,6 +11,15 @@
 @end
 
 @implementation CMIOExtensionStreamCustomClockConfiguration
+
++ (CMIOExtensionStreamCustomClockConfiguration)customClockConfigurationWithClockName:(NSString *)clockName sourceIdentifier:(NSUUID *)sourceIdentifier getTimeCallMinimumInterval:(CMTime *)getTimeCallMinimumInterval numberOfEventsForRateSmoothing:(uint32_t)numberOfEventsForRateSmoothing numberOfAveragesForRateSmoothing:(uint32_t)numberOfAveragesForRateSmoothing
+{
+  v7 = *&numberOfAveragesForRateSmoothing;
+  v8 = *&numberOfEventsForRateSmoothing;
+  v12 = objc_alloc(objc_opt_class());
+  v14 = *getTimeCallMinimumInterval;
+  return [v12 initWithClockName:clockName sourceIdentifier:sourceIdentifier getTimeCallMinimumInterval:&v14 numberOfEventsForRateSmoothing:v8 numberOfAveragesForRateSmoothing:v7];
+}
 
 - (CMIOExtensionStreamCustomClockConfiguration)initWithClockName:(NSString *)clockName sourceIdentifier:(NSUUID *)sourceIdentifier getTimeCallMinimumInterval:(CMTime *)getTimeCallMinimumInterval numberOfEventsForRateSmoothing:(uint32_t)numberOfEventsForRateSmoothing numberOfAveragesForRateSmoothing:(uint32_t)numberOfAveragesForRateSmoothing
 {
@@ -94,7 +104,7 @@
       {
         if (equal)
         {
-          [equal getTimeCallMinimumInterval];
+          objc_msgSend_getTimeCallMinimumInterval(equal);
         }
 
         else
@@ -134,16 +144,16 @@ LABEL_12:
   copyXPCDictionary = [(CMIOExtensionStreamCustomClockConfiguration *)self copyXPCDictionary];
   if (copyXPCDictionary)
   {
-    v6 = copyXPCDictionary;
+    v7 = copyXPCDictionary;
     [coder encodeXPCObject:copyXPCDictionary forKey:@"streamCustomClockConfiguration"];
 
-    xpc_release(v6);
+    xpc_release(v7);
   }
 
   else
   {
-    v7 = CMIOLog();
-    if (v7 && os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = CMIOLog(0, v6);
+    if (v8 && os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       [CMIOExtensionStreamCustomClockConfiguration encodeWithCoder:];
     }
@@ -244,13 +254,11 @@ LABEL_12:
 
 - (void)encodeWithCoder:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   CMIOFilename("/Library/Caches/com.apple.xbs/Sources/CoreMediaIO/Sources/Extensions/Sources/CMIOExtensionProperties.m");
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x1Cu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

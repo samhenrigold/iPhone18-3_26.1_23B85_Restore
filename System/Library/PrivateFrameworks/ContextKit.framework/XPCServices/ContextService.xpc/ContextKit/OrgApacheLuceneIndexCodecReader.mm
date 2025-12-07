@@ -7,13 +7,43 @@
 - (id)getSortedDocValuesWithNSString:(id)string;
 - (id)getSortedNumericDocValuesWithNSString:(id)string;
 - (id)getSortedSetDocValuesWithNSString:(id)string;
+- (id)getTermVectorsWithInt:(int)int;
 - (int64_t)ramBytesUsed;
 - (void)checkIntegrity;
 - (void)dealloc;
 - (void)doClose;
+- (void)documentWithInt:(int)int withOrgApacheLuceneIndexStoredFieldVisitor:(id)visitor;
 @end
 
 @implementation OrgApacheLuceneIndexCodecReader
+
+- (void)documentWithInt:(int)int withOrgApacheLuceneIndexStoredFieldVisitor:(id)visitor
+{
+  v5 = *&int;
+  sub_10001AC90(self, int);
+  getFieldsReader = [(OrgApacheLuceneIndexCodecReader *)self getFieldsReader];
+  if (!getFieldsReader)
+  {
+    JreThrowNullPointerException();
+  }
+
+  [getFieldsReader visitDocumentWithInt:v5 withOrgApacheLuceneIndexStoredFieldVisitor:visitor];
+}
+
+- (id)getTermVectorsWithInt:(int)int
+{
+  v3 = *&int;
+  result = [(OrgApacheLuceneIndexCodecReader *)self getTermVectorsReader];
+  if (result)
+  {
+    v6 = result;
+    sub_10001AC90(self, v3);
+
+    return [v6 getWithInt:v3];
+  }
+
+  return result;
+}
 
 - (id)getNumericDocValuesWithNSString:(id)string
 {
@@ -108,7 +138,7 @@ LABEL_13:
         getDocValuesType = v14;
       }
 
-      if (getDocValuesType == OrgApacheLuceneIndexDocValuesTypeEnum_values_)
+      if (getDocValuesType == OrgApacheLuceneIndexDocValuesTypeEnum_values_[0])
       {
         return 0;
       }
@@ -399,7 +429,7 @@ LABEL_11:
   v4[0] = self->docValuesLocal_;
   v4[1] = docsWithFieldLocal;
   v4[2] = self->normsLocal_;
-  v3 = [IOSObjectArray arrayWithObjects:v4 count:3 type:JavaIoCloseable_class_()];
+  v3 = [IOSObjectArray arrayWithObjects:v4 count:3 type:JavaIoCloseable_class_(self, a2)];
   OrgApacheLuceneUtilIOUtils_closeWithJavaIoCloseableArray_(v3);
 }
 
@@ -488,10 +518,10 @@ LABEL_15:
   if ([(OrgApacheLuceneIndexCodecReader *)self getTermVectorsReader])
   {
     getTermVectorsReader = [(OrgApacheLuceneIndexCodecReader *)self getTermVectorsReader];
-    [(JavaUtilArrayList *)v3 addWithId:OrgApacheLuceneUtilAccountables_namedAccountableWithNSString_withOrgApacheLuceneUtilAccountable_(@"term vectors", getTermVectorsReader, v33, v34, v35, v36, v37, v38)];
+    [(JavaUtilArrayList *)v3 addWithId:OrgApacheLuceneUtilAccountables_namedAccountableWithNSString_withOrgApacheLuceneUtilAccountable_(@"term vectors", getTermVectorsReader, v34, v35, v36, v37, v38, v39)];
   }
 
-  return JavaUtilCollections_unmodifiableListWithJavaUtilList_(v3);
+  return JavaUtilCollections_unmodifiableListWithJavaUtilList_(v3, v32);
 }
 
 - (void)checkIntegrity

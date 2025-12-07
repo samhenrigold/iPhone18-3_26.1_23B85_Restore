@@ -17,45 +17,54 @@ intptr_t ___APTNANDataSessionGenerateDiversifiedPIN_block_invoke(void *a1, uint6
 
   *(*(a1[5] + 8) + 24) = v5;
   v6 = a1[5];
-  if (*(*(v6 + 8) + 24))
+  v7 = *(*(v6 + 8) + 24);
+  if (v7)
   {
-    v7 = 90;
+    v8 = 90;
   }
 
   else
   {
-    v7 = 50;
+    v8 = 50;
   }
 
-  if (v7 >= gLogCategory_APTNANDataSession)
+  if (v8 >= gLogCategory_APTNANDataSession)
   {
-    if (gLogCategory_APTNANDataSession != -1)
+    if (gLogCategory_APTNANDataSession == -1)
     {
-LABEL_9:
-      v12 = a1[7];
-      LogPrintF();
+      v10 = _LogCategory_Initialize();
       v6 = a1[5];
-      goto LABEL_11;
+      if (!v10)
+      {
+        goto LABEL_14;
+      }
+
+      v7 = *(*(v6 + 8) + 24);
     }
 
-    v8 = _LogCategory_Initialize();
-    v6 = a1[5];
-    if (v8)
+    if (v7)
     {
-      v11 = *(*(v6 + 8) + 24);
-      goto LABEL_9;
+      v9 = 33554522;
     }
+
+    else
+    {
+      v9 = 33554482;
+    }
+
+    LogPrintF(&gLogCategory_APTNANDataSession, "OSStatus _APTNANDataSessionGenerateDiversifiedPIN(APTNANDataSessionRef, CFStringRef *)_block_invoke", v9, "NANDS [%{ptr}] diversified PIN callback called%?{end} with err=%#m", a1[7], v7 == 0, v7);
+    v6 = a1[5];
   }
 
-LABEL_11:
+LABEL_14:
   if (!*(*(v6 + 8) + 24))
   {
     *(*(a1[6] + 8) + 40) = a3;
   }
 
-  v9 = a1[4];
+  v11 = a1[4];
 
-  return dispatch_semaphore_signal(v9);
+  return dispatch_semaphore_signal(v11);
 }
 
 @end

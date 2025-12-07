@@ -31,7 +31,7 @@
 
 - (id)debugHierarchyValueForObjCType_CGAffineTransform
 {
-  [(NSValue *)self CGAffineTransformValue];
+  objc_msgSend_CGAffineTransformValue(self, a2);
   v2 = [NSNumber numberWithDouble:0.0];
   v10[0] = v2;
   v3 = [NSNumber numberWithDouble:0.0];
@@ -237,7 +237,7 @@
 
 - (id)debugHierarchyValueForObjCType_CATransform3D
 {
-  [(NSValue *)self CATransform3DValue];
+  objc_msgSend_CATransform3DValue(self, a2);
   v19 = [NSNumber numberWithDouble:v20];
   v36[0] = v19;
   v18 = [NSNumber numberWithDouble:v21];

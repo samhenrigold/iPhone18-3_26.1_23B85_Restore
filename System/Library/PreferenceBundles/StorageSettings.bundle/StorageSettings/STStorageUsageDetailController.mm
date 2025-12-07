@@ -1,9 +1,21 @@
 @interface STStorageUsageDetailController
 - (id)dataSize:(id)size;
 - (id)specifiers;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation STStorageUsageDetailController
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v7.receiver = self;
+  v7.super_class = STStorageUsageDetailController;
+  [(STStorageUsageDetailController *)&v7 viewWillAppear:appear];
+  usageBundle = [(STStorageApp *)self->_storageApp usageBundle];
+  name = [usageBundle name];
+  navigationItem = [(STStorageUsageDetailController *)self navigationItem];
+  [navigationItem setTitle:name];
+}
 
 - (id)dataSize:(id)size
 {

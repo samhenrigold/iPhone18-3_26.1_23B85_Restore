@@ -7,6 +7,7 @@
 - (void)addAggregatedLanguageDetectorMetricsToReport:(id)report;
 - (void)dealloc;
 - (void)processCaptionsConfiguration:(id)configuration;
+- (void)processCaptionsEnabled:(BOOL)enabled withCurrentTime:(double)time;
 - (void)processCaptionsMetrics:(id)metrics;
 @end
 
@@ -125,9 +126,23 @@ LABEL_7:
   self->_translatedLatencyAverage = v18;
 }
 
+- (void)processCaptionsEnabled:(BOOL)enabled withCurrentTime:(double)time
+{
+  enabledCopy = enabled;
+  dispatch_assert_queue_V2(self->_stateQueue);
+  [(VCCaptionsDataCollector *)self setCaptionsEnabled:enabledCopy];
+  if (!enabledCopy)
+  {
+    self->_captionsEnabledDuration = time - self->_lastCaptionsEnabledTime + self->_captionsEnabledDuration;
+    time = NAN;
+  }
+
+  self->_lastCaptionsEnabledTime = time;
+}
+
 - (void)processCaptionsConfiguration:(id)configuration
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   dispatch_assert_queue_V2(self->_stateQueue);
   v5 = [configuration objectForKeyedSubscript:@"ACSU"];
   charValue = [v5 charValue];
@@ -166,19 +181,19 @@ LABEL_7:
           v10 = gVRTraceOSLog;
           if (os_log_type_enabled(gVRTraceOSLog, OS_LOG_TYPE_ERROR))
           {
-            v29 = 136316418;
-            v30 = v9;
-            v31 = 2080;
-            v32 = "[VCCaptionsDataCollector processCaptionsConfiguration:]";
-            v33 = 1024;
-            v34 = 180;
-            v35 = 2112;
-            v36 = v8;
-            v37 = 2048;
+            v28 = 136316418;
+            v29 = v9;
+            v30 = 2080;
+            v31 = "[VCCaptionsDataCollector processCaptionsConfiguration:]";
+            v32 = 1024;
+            v33 = 180;
+            v34 = 2112;
+            v35 = v8;
+            v36 = 2048;
             selfCopy3 = self;
-            v39 = 1024;
-            v40 = v7;
-            _os_log_error_impl(&dword_23D4DF000, v10, OS_LOG_TYPE_ERROR, " [%s] %s:%d %@(%p) Failed to find bucket for usage=%hhu", &v29, 0x36u);
+            v38 = 1024;
+            v39 = v7;
+            _os_log_error_impl(&dword_23D4DF000, v10, OS_LOG_TYPE_ERROR, " [%s] %s:%d %@(%p) Failed to find bucket for usage=%hhu", &v28, 0x36u);
           }
         }
       }
@@ -238,19 +253,19 @@ LABEL_7:
           v20 = gVRTraceOSLog;
           if (os_log_type_enabled(gVRTraceOSLog, OS_LOG_TYPE_ERROR))
           {
-            v29 = 136316418;
-            v30 = v19;
-            v31 = 2080;
-            v32 = "[VCCaptionsDataCollector processCaptionsConfiguration:]";
-            v33 = 1024;
-            v34 = 198;
-            v35 = 2112;
-            v36 = v18;
-            v37 = 2048;
+            v28 = 136316418;
+            v29 = v19;
+            v30 = 2080;
+            v31 = "[VCCaptionsDataCollector processCaptionsConfiguration:]";
+            v32 = 1024;
+            v33 = 198;
+            v34 = 2112;
+            v35 = v18;
+            v36 = 2048;
             selfCopy3 = self;
-            v39 = 1024;
-            v40 = v17;
-            _os_log_error_impl(&dword_23D4DF000, v20, OS_LOG_TYPE_ERROR, " [%s] %s:%d %@(%p) Failed to find bucket for speech model=%hhu", &v29, 0x36u);
+            v38 = 1024;
+            v39 = v17;
+            _os_log_error_impl(&dword_23D4DF000, v20, OS_LOG_TYPE_ERROR, " [%s] %s:%d %@(%p) Failed to find bucket for speech model=%hhu", &v28, 0x36u);
           }
         }
       }
@@ -300,26 +315,24 @@ LABEL_7:
           v27 = gVRTraceOSLog;
           if (os_log_type_enabled(gVRTraceOSLog, OS_LOG_TYPE_ERROR))
           {
-            v29 = 136316418;
-            v30 = v26;
-            v31 = 2080;
-            v32 = "[VCCaptionsDataCollector processCaptionsConfiguration:]";
-            v33 = 1024;
-            v34 = 209;
-            v35 = 2112;
-            v36 = v25;
-            v37 = 2048;
+            v28 = 136316418;
+            v29 = v26;
+            v30 = 2080;
+            v31 = "[VCCaptionsDataCollector processCaptionsConfiguration:]";
+            v32 = 1024;
+            v33 = 209;
+            v34 = 2112;
+            v35 = v25;
+            v36 = 2048;
             selfCopy3 = self;
-            v39 = 1024;
-            v40 = v24;
-            _os_log_error_impl(&dword_23D4DF000, v27, OS_LOG_TYPE_ERROR, " [%s] %s:%d %@(%p) Failed to find bucket for call type=%hhu", &v29, 0x36u);
+            v38 = 1024;
+            v39 = v24;
+            _os_log_error_impl(&dword_23D4DF000, v27, OS_LOG_TYPE_ERROR, " [%s] %s:%d %@(%p) Failed to find bucket for call type=%hhu", &v28, 0x36u);
           }
         }
       }
     }
   }
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addAggregatedCaptionsConfigurationToReport:(id)report
@@ -338,29 +351,29 @@ LABEL_7:
 
 - (void)addAggregatedLanguageDetectorMetricsToReport:(id)report
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   dispatch_assert_queue_V2(self->_stateQueue);
   [report setObject:objc_msgSend(MEMORY[0x277CCABA8] forKeyedSubscript:{"numberWithUnsignedInt:", self->_isLanguageDetectorEnabled), @"VCALDE"}];
-  v15 = 0u;
-  v16 = 0u;
-  v13 = 0u;
   v14 = 0u;
+  v15 = 0u;
+  v12 = 0u;
+  v13 = 0u;
   languageCodeDict = self->_languageCodeDict;
-  v6 = [(NSMutableDictionary *)languageCodeDict countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v6 = [(NSMutableDictionary *)languageCodeDict countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v14;
+    v8 = *v13;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v14 != v8)
+        if (*v13 != v8)
         {
           objc_enumerationMutation(languageCodeDict);
         }
 
-        v10 = *(*(&v13 + 1) + 8 * i);
+        v10 = *(*(&v12 + 1) + 8 * i);
         if (!v10)
         {
           v11 = @"VCADLC";
@@ -376,13 +389,11 @@ LABEL_10:
         }
       }
 
-      v7 = [(NSMutableDictionary *)languageCodeDict countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v7 = [(NSMutableDictionary *)languageCodeDict countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v7);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addAggregatedCaptionsHistogramsToReport:(id)report shouldAlwaysAdd:(BOOL)add
@@ -425,64 +436,56 @@ LABEL_10:
 
 - (void)initWithDispatchQueue:.cold.1()
 {
-  v7 = *MEMORY[0x277D85DE8];
   if (VRTraceGetErrorLogLevelForModule("") >= 3)
   {
-    VRTraceErrorLogLevelToCSTR(3u);
+    v0 = VRTraceErrorLogLevelToCSTR(3u);
     if (os_log_type_enabled(gVRTraceOSLog, OS_LOG_TYPE_ERROR))
     {
+      LODWORD(v7) = 136315650;
+      *(&v7 + 4) = v0;
       OUTLINED_FUNCTION_0();
-      OUTLINED_FUNCTION_1_1(&dword_23D4DF000, v1, v2, " [%s] %s:%d Invalid dispatchQueue provided", v3, v4, v5, v6, 2u);
+      OUTLINED_FUNCTION_1_1(&dword_23D4DF000, v1, v2, " [%s] %s:%d Invalid dispatchQueue provided", v3, v4, v5, v6, v7, DWORD2(v7));
     }
   }
-
-  v0 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initWithDispatchQueue:.cold.2()
 {
-  v7 = *MEMORY[0x277D85DE8];
   if (VRTraceGetErrorLogLevelForModule("") >= 3)
   {
-    VRTraceErrorLogLevelToCSTR(3u);
+    v0 = VRTraceErrorLogLevelToCSTR(3u);
     if (os_log_type_enabled(gVRTraceOSLog, OS_LOG_TYPE_ERROR))
     {
+      LODWORD(v7) = 136315650;
+      *(&v7 + 4) = v0;
       OUTLINED_FUNCTION_0();
-      OUTLINED_FUNCTION_1_1(&dword_23D4DF000, v1, v2, " [%s] %s:%d Failed to super initialize VCCaptionsDataCollector", v3, v4, v5, v6, 2u);
+      OUTLINED_FUNCTION_1_1(&dword_23D4DF000, v1, v2, " [%s] %s:%d Failed to super initialize VCCaptionsDataCollector", v3, v4, v5, v6, v7, DWORD2(v7));
     }
   }
-
-  v0 = *MEMORY[0x277D85DE8];
 }
 
 - (void)processCaptionsConfiguration:.cold.1()
 {
-  v7 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_2();
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_35();
-  OUTLINED_FUNCTION_13_0(&dword_23D4DF000, v0, v1, " [%s] %s:%d Failed to find bucket for usage=%hhu", v3, v4, v5, v6);
-  v2 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_13_0(&dword_23D4DF000, v0, v1, " [%s] %s:%d Failed to find bucket for usage=%hhu", v2, v3, v4, v5);
 }
 
 - (void)processCaptionsConfiguration:.cold.2()
 {
-  v7 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_2();
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_35();
-  OUTLINED_FUNCTION_13_0(&dword_23D4DF000, v0, v1, " [%s] %s:%d Failed to find bucket for speech model=%hhu", v3, v4, v5, v6);
-  v2 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_13_0(&dword_23D4DF000, v0, v1, " [%s] %s:%d Failed to find bucket for speech model=%hhu", v2, v3, v4, v5);
 }
 
 - (void)processCaptionsConfiguration:.cold.3()
 {
-  v7 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_2();
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_35();
-  OUTLINED_FUNCTION_13_0(&dword_23D4DF000, v0, v1, " [%s] %s:%d Failed to find bucket for call type=%hhu", v3, v4, v5, v6);
-  v2 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_13_0(&dword_23D4DF000, v0, v1, " [%s] %s:%d Failed to find bucket for call type=%hhu", v2, v3, v4, v5);
 }
 
 @end

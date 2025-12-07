@@ -25,10 +25,10 @@
   width = frame.size.width;
   y = frame.origin.y;
   x = frame.origin.x;
-  sub_2761E2498(0, a2, frame.origin.x, frame.origin.y, frame.size.width, frame.size.height);
+  sub_2761E2498(0, frame.origin.x, frame.origin.y, frame.size.width, frame.size.height, a2);
   objc_msgSend_p_sideIntersectionLengthForChartAreaRange_(self, v8, v9, v10, v11);
   v13 = v12;
-  sub_2761E2498(1, v14, x, y, width, height);
+  sub_2761E2498(1, x, y, width, height, v14);
   objc_msgSend_p_sideIntersectionLengthForChartAreaRange_(self, v15, v16, v17, v18);
   return fmin(v13, v19);
 }
@@ -197,26 +197,26 @@
   width = areaFrame.size.width;
   y = areaFrame.origin.y;
   x = areaFrame.origin.x;
-  sub_2761E2498(dimension, a2, frame.origin.x, frame.origin.y, frame.size.width, frame.size.height);
+  sub_2761E2498(dimension, frame.origin.x, frame.origin.y, frame.size.width, frame.size.height, a2);
   v13 = v12;
   v15 = v14;
-  sub_2761E2498(dimension, v16, x, y, width, height);
+  sub_2761E2498(dimension, x, y, width, height, v16);
   v18 = v17;
   v20 = v19;
-  sub_2761E302C(v21, v22, v13, v15, v17, v19);
+  sub_2761E302C(v13, v15, v17, v19, v21, v22);
   v84 = v23;
   v81 = v20;
   v82 = v18;
-  sub_2761E302C(v24, v25, v18, v20, v13, v15);
+  sub_2761E302C(v18, v20, v13, v15, v24, v25);
   v83 = v26;
   v27 = objc_opt_class();
   objc_msgSend_innerAnchoringFrameFromChartAreaFrame_(v27, v28, x, y, width, height);
-  sub_2761E2498(dimension, v29, v30, v31, v32, v33);
+  sub_2761E2498(dimension, v30, v31, v32, v33, v29);
   v35 = v34;
   v37 = v36;
   v38 = objc_opt_class();
   objc_msgSend_outerAnchoringFrameFromChartAreaFrame_(v38, v39, x, y, width, height);
-  sub_2761E2498(dimension, v40, v41, v42, v43, v44);
+  sub_2761E2498(dimension, v41, v42, v43, v44, v40);
   v46 = v45;
   v48 = fmax(v35, v47);
   v49 = fmin(v35, v47);
@@ -259,7 +259,7 @@
       sub_2761E2D10(v13, v15, v82, v81, v67, v68);
       if (v75 == 0.0)
       {
-        v76 = sub_2761E2878(v73, v74, v82, v81, v13, v15);
+        v76 = sub_2761E2878(v82, v81, v13, v15, v73, v74);
         if (sub_2761E21EC(v76, v79, v80, v77, v78) <= 0.6)
         {
           result = 0;
@@ -468,7 +468,7 @@
   v58 = frames->var0.origin;
   v59 = v29;
   objc_msgSend_p_updateLegendConfinementBoundsForFrames_(self, a2, v58.x, v29.width, v7, &v58);
-  sub_2761E2498(dimension, v30, frames->var0.origin.x, frames->var0.origin.y, frames->var0.size.width, frames->var0.size.height);
+  sub_2761E2498(dimension, frames->var0.origin.x, frames->var0.origin.y, frames->var0.size.width, frames->var0.size.height, v30);
   v32 = v31;
   v34 = v33;
   if (!objc_msgSend_p_shouldUpdateConfinedPushableAnchoring(self, v35, v31, v33, v36))
@@ -548,13 +548,13 @@ LABEL_11:
     objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v21, v22, v23, v24);
   }
 
-  sub_2761E2498(dimension, a2, frames->var1.origin.x, frames->var1.origin.y, frames->var1.size.width, frames->var1.size.height);
+  sub_2761E2498(dimension, frames->var1.origin.x, frames->var1.origin.y, frames->var1.size.width, frames->var1.size.height, a2);
   v26 = v25;
   v28 = v27;
-  sub_2761E2498(dimension, v29, frames->var2.origin.x, frames->var2.origin.y, frames->var2.size.width, frames->var2.size.height);
+  sub_2761E2498(dimension, frames->var2.origin.x, frames->var2.origin.y, frames->var2.size.width, frames->var2.size.height, v29);
   v31 = v30;
   v33 = v32;
-  sub_2761E2498(dimension, v34, frames->var0.origin.x, frames->var0.origin.y, frames->var0.size.width, frames->var0.size.height);
+  sub_2761E2498(dimension, frames->var0.origin.x, frames->var0.origin.y, frames->var0.size.width, frames->var0.size.height, v34);
   v40 = v37;
   v41 = v38;
   anchoringStates = self->_anchoringStates;
@@ -573,8 +573,8 @@ LABEL_11:
         goto LABEL_20;
       }
 
-      v50 = sub_2761E2878(v35, v36, v26, v28, v37, v38);
-      v37 = sub_2761E2AC4(v51, v52, v31, v33, v50, v53);
+      v50 = sub_2761E2878(v26, v28, v37, v38, v35, v36);
+      v37 = sub_2761E2AC4(v31, v33, v50, v53, v51, v52);
 LABEL_16:
       v40 = v37;
       v41 = v38;
@@ -588,8 +588,8 @@ LABEL_16:
   if (!v43)
   {
     v54 = sub_2761E22CC(v37, v38, v39, v35, v36);
-    v57 = sub_2761E25F0(v55, v56, v26, v28, v54);
-    v60 = sub_2761E2780(v58, v59, v31, v33, v57);
+    v57 = sub_2761E25F0(v26, v28, v54, v55, v56);
+    v60 = sub_2761E2780(v31, v33, v57, v58, v59);
     v64 = sub_2761E21EC(v40, v41, v63, v61, v62) * 0.5;
     v49 = v60 - v64;
     v47 = v60 + v64;
@@ -648,7 +648,7 @@ LABEL_17:
   width = frame.size.width;
   y = frame.origin.y;
   x = frame.origin.x;
-  v78 = *MEMORY[0x277D85DE8];
+  v77 = *MEMORY[0x277D85DE8];
   geometryCopy = geometry;
   objc_msgSend_p_updateStateForIsIndirectResizing_(self, v13, v14, v15, v16, resizingCopy);
   if (!geometryCopy)
@@ -664,14 +664,14 @@ LABEL_17:
   objc_msgSend_frame(geometryCopy, v17, v18, v19, v20);
   v39 = v38;
   v41 = v40;
-  v42 = v37;
+  v42 = v37.n128_f64[0];
   v44 = v43;
   v45 = 0;
   v46 = 0;
   v47 = 0;
-  v76 = xmmword_2764D6470;
-  *v77 = unk_2764D6480;
-  v48 = &v76;
+  v75 = xmmword_2764D6470;
+  v76 = unk_2764D6480;
+  v48 = &v75;
   v49 = 1;
   do
   {
@@ -679,59 +679,60 @@ LABEL_17:
     if (self->_anchoringStates[v45] == 4)
     {
       ++v47;
-      LOBYTE(v71.a) = 0;
-      v72.a = v39;
-      v72.b = v41;
-      v72.c = v42;
-      v72.d = v44;
-      v72.tx = x;
-      v72.ty = y;
-      v73 = width;
-      v74 = height;
+      LOBYTE(v70.a) = 0;
+      v71.a = v39;
+      v71.b = v41;
+      v71.c = v42;
+      v71.d = v44;
+      v71.tx = x;
+      v71.ty = y;
+      v72 = width;
+      v73 = height;
       areaFrameCopy2 = areaFrame;
-      IsConfined = objc_msgSend_p_pushedLegendForFrames_dimension_returningIsConfined_(self, v36, areaFrame.size.height, areaFrame.size.width, v37, &v72);
+      IsConfined = objc_msgSend_p_pushedLegendForFrames_dimension_returningIsConfined_(self, v36, areaFrame.size.height, areaFrame.size.width, v37.n128_f64[0], &v71);
       *v48 = v52;
       *(v48 + 1) = v53;
-      v46 += LOBYTE(v71.a);
+      v46 += LOBYTE(v70.a);
     }
 
     else
     {
-      v72.a = v39;
-      v72.b = v41;
-      v72.c = v42;
-      v72.d = v44;
-      v72.tx = x;
-      v72.ty = y;
-      v73 = width;
-      v74 = height;
+      v71.a = v39;
+      v71.b = v41;
+      v71.c = v42;
+      v71.d = v44;
+      v71.tx = x;
+      v71.ty = y;
+      v72 = width;
+      v73 = height;
       areaFrameCopy2 = areaFrame;
-      IsConfined = objc_msgSend_p_resizedLegendForFrames_dimension_(self, v36, areaFrame.size.height, areaFrame.size.width, v37, &v72);
+      IsConfined = objc_msgSend_p_resizedLegendForFrames_dimension_(self, v36, areaFrame.size.height, areaFrame.size.width, v37.n128_f64[0], &v71);
       *v48 = v52;
       *(v48 + 1) = v53;
     }
 
     v49 = 0;
-    v48 = v77;
+    v48 = &v76;
     v45 = 1;
   }
 
   while ((v50 & 1) != 0);
   if (v47 && v46 == v47)
   {
-    IsConfined = objc_msgSend_setP_shouldUpdateConfinedPushableAnchoring_(self, v36, v52, v53, v37, 0, 1);
+    IsConfined = objc_msgSend_setP_shouldUpdateConfinedPushableAnchoring_(self, v36, v52, v53, v37.n128_f64[0], 0, 1);
   }
 
-  sub_2761E31EC(*&v76, *(&v76 + 1), v77[0], v77[1], IsConfined, v36);
+  v37.n128_u64[0] = v76;
+  sub_2761E31EC(*&v75, *(&v75 + 1), v37, *(&v76 + 1), IsConfined, v36);
   v55 = v54;
   v57 = v56;
   TSUSubtractPoints();
-  memset(&v72, 0, sizeof(v72));
-  CGAffineTransformMakeTranslation(&v72, v58, v59);
   memset(&v71, 0, sizeof(v71));
+  CGAffineTransformMakeTranslation(&v71, v58, v59);
+  memset(&v70, 0, sizeof(v70));
   if (geometryCopy)
   {
-    objc_msgSend_transform(geometryCopy, v60, 0.0, v61, v62);
+    objc_msgSend_transform(geometryCopy, 0.0, v60, v61);
   }
 
   else
@@ -739,13 +740,13 @@ LABEL_17:
     memset(&t2, 0, sizeof(t2));
   }
 
-  t1 = v72;
-  CGAffineTransformConcat(&v71, &t1, &t2);
-  v63 = objc_alloc(MEMORY[0x277D80300]);
-  t2 = v71;
-  v66 = objc_msgSend_initWithSize_transform_(v63, v64, v55, v57, v65, &t2);
+  t1 = v71;
+  CGAffineTransformConcat(&v70, &t1, &t2);
+  v62 = objc_alloc(MEMORY[0x277D80300]);
+  t2 = v70;
+  v65 = objc_msgSend_initWithSize_transform_(v62, v63, v55, v57, v64, &t2);
 
-  return v66;
+  return v65;
 }
 
 @end

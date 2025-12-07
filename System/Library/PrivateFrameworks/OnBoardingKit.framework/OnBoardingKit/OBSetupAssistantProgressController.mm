@@ -27,10 +27,10 @@
 
 - (void)viewDidLoad
 {
-  v86[8] = *MEMORY[0x1E69E9840];
-  v85.receiver = self;
-  v85.super_class = OBSetupAssistantProgressController;
-  [(OBWelcomeController *)&v85 viewDidLoad];
+  v85[8] = *MEMORY[0x1E69E9840];
+  v84.receiver = self;
+  v84.super_class = OBSetupAssistantProgressController;
+  [(OBWelcomeController *)&v84 viewDidLoad];
   [(OBWelcomeController *)self setTemplateType:2];
   headerView = [(OBWelcomeController *)self headerView];
   [headerView setForceCenterAlignment:1];
@@ -78,60 +78,60 @@
   topAnchor = [progressLabel7 topAnchor];
   scrollView = [(OBWelcomeController *)self scrollView];
   centerYAnchor = [scrollView centerYAnchor];
-  v84 = _progressFont;
+  v83 = _progressFont;
   [(OBSetupAssistantProgressController *)self _progressLabelTopAnchorConstraintConstantWithFont:_progressFont];
   v25 = [topAnchor constraintGreaterThanOrEqualToAnchor:centerYAnchor constant:?];
   [(OBSetupAssistantProgressController *)self setProgressLabelTopAnchorConstraint:v25];
 
-  v68 = MEMORY[0x1E696ACD8];
+  v67 = MEMORY[0x1E696ACD8];
   progressBar4 = [(OBSetupAssistantProgressController *)self progressBar];
   topAnchor2 = [progressBar4 topAnchor];
   contentView3 = [(OBWelcomeController *)self contentView];
   topAnchor3 = [contentView3 topAnchor];
-  v79 = [topAnchor2 constraintGreaterThanOrEqualToAnchor:topAnchor3];
-  v86[0] = v79;
+  v78 = [topAnchor2 constraintGreaterThanOrEqualToAnchor:topAnchor3];
+  v85[0] = v78;
   progressBar5 = [(OBSetupAssistantProgressController *)self progressBar];
   centerXAnchor = [progressBar5 centerXAnchor];
   contentView4 = [(OBWelcomeController *)self contentView];
   centerXAnchor2 = [contentView4 centerXAnchor];
-  v74 = [centerXAnchor constraintEqualToAnchor:centerXAnchor2];
-  v86[1] = v74;
+  v73 = [centerXAnchor constraintEqualToAnchor:centerXAnchor2];
+  v85[1] = v73;
   progressBar6 = [(OBSetupAssistantProgressController *)self progressBar];
   heightAnchor = [progressBar6 heightAnchor];
   progressBar7 = [(OBSetupAssistantProgressController *)self progressBar];
   [progressBar7 intrinsicContentSize];
-  v70 = [heightAnchor constraintEqualToConstant:v26];
-  v86[2] = v70;
+  v69 = [heightAnchor constraintEqualToConstant:v26];
+  v85[2] = v69;
   progressBar8 = [(OBSetupAssistantProgressController *)self progressBar];
   bottomAnchor = [progressBar8 bottomAnchor];
   progressLabel8 = [(OBSetupAssistantProgressController *)self progressLabel];
   topAnchor4 = [progressLabel8 topAnchor];
-  v64 = [bottomAnchor constraintEqualToAnchor:topAnchor4 constant:-14.0];
-  v86[3] = v64;
+  v63 = [bottomAnchor constraintEqualToAnchor:topAnchor4 constant:-14.0];
+  v85[3] = v63;
   progressLabel9 = [(OBSetupAssistantProgressController *)self progressLabel];
   leftAnchor = [progressLabel9 leftAnchor];
   contentView5 = [(OBWelcomeController *)self contentView];
   safeAreaLayoutGuide = [contentView5 safeAreaLayoutGuide];
   leftAnchor2 = [safeAreaLayoutGuide leftAnchor];
-  v58 = [leftAnchor constraintEqualToAnchor:leftAnchor2];
-  v86[4] = v58;
+  v57 = [leftAnchor constraintEqualToAnchor:leftAnchor2];
+  v85[4] = v57;
   progressLabel10 = [(OBSetupAssistantProgressController *)self progressLabel];
   rightAnchor = [progressLabel10 rightAnchor];
   contentView6 = [(OBWelcomeController *)self contentView];
   safeAreaLayoutGuide2 = [contentView6 safeAreaLayoutGuide];
   rightAnchor2 = [safeAreaLayoutGuide2 rightAnchor];
   v28 = [rightAnchor constraintEqualToAnchor:rightAnchor2];
-  v86[5] = v28;
+  v85[5] = v28;
   progressLabelTopAnchorConstraint = [(OBSetupAssistantProgressController *)self progressLabelTopAnchorConstraint];
-  v86[6] = progressLabelTopAnchorConstraint;
+  v85[6] = progressLabelTopAnchorConstraint;
   progressLabel11 = [(OBSetupAssistantProgressController *)self progressLabel];
   bottomAnchor2 = [progressLabel11 bottomAnchor];
   contentView7 = [(OBWelcomeController *)self contentView];
   bottomAnchor3 = [contentView7 bottomAnchor];
   v34 = [bottomAnchor2 constraintEqualToAnchor:bottomAnchor3];
-  v86[7] = v34;
-  v35 = [MEMORY[0x1E695DEC8] arrayWithObjects:v86 count:8];
-  [v68 activateConstraints:v35];
+  v85[7] = v34;
+  v35 = [MEMORY[0x1E695DEC8] arrayWithObjects:v85 count:8];
+  [v67 activateConstraints:v35];
 
   progressLabel12 = [(OBSetupAssistantProgressController *)self progressLabel];
   LODWORD(v37) = 1148846080;
@@ -175,8 +175,6 @@ LABEL_5:
   contentView9 = [rightAnchor3 constraintEqualToConstant:448.0];
   [contentView9 setActive:1];
 LABEL_6:
-
-  v53 = *MEMORY[0x1E69E9840];
 }
 
 - (void)traitCollectionDidChange:(id)change

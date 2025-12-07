@@ -284,18 +284,14 @@ LABEL_18:
 
 - (void)setDefaultValue:(id)value
 {
-  v4 = [value copy];
-  defaultValue = self->_defaultValue;
-  self->_defaultValue = v4;
+  self->_defaultValue = [value copy];
 
   MEMORY[0x1EEE66BB8]();
 }
 
 - (void)setName:(id)name
 {
-  v4 = [name copy];
-  name = self->_name;
-  self->_name = v4;
+  self->_name = [name copy];
 
   MEMORY[0x1EEE66BB8]();
 }

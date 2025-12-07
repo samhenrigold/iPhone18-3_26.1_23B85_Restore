@@ -213,9 +213,9 @@ void __35__BCUIChargeRing_setPercentCharge___block_invoke(uint64_t a1)
 
 - (void)layoutSubviews
 {
-  v45.receiver = self;
-  v45.super_class = BCUIChargeRing;
-  [(BCUIChargeRing *)&v45 layoutSubviews];
+  v59.receiver = self;
+  v59.super_class = BCUIChargeRing;
+  [(BCUIChargeRing *)&v59 layoutSubviews];
   [(BCUIChargeRing *)self bounds];
   v4 = v3;
   v6 = v5;
@@ -268,16 +268,16 @@ LABEL_6:
   [(BCUIRingView *)chargeRing setAlpha:v20];
   ringCapShadow = self->_ringCapShadow;
   [(BCUIChargeRing *)self _configureRingCapShadowIfNecessary];
-  v44[0] = MEMORY[0x1E69E9820];
-  v44[1] = 3221225472;
-  v44[2] = __32__BCUIChargeRing_layoutSubviews__block_invoke;
-  v44[3] = &unk_1E814EC40;
-  v44[4] = self;
-  *&v44[5] = v4;
-  *&v44[6] = v6;
-  *&v44[7] = v8;
-  *&v44[8] = v10;
-  v22 = MEMORY[0x1C690A930](v44);
+  v58[0] = MEMORY[0x1E69E9820];
+  v58[1] = 3221225472;
+  v58[2] = __32__BCUIChargeRing_layoutSubviews__block_invoke;
+  v58[3] = &unk_1E814EC40;
+  v58[4] = self;
+  *&v58[5] = v4;
+  *&v58[6] = v6;
+  *&v58[7] = v8;
+  *&v58[8] = v10;
+  v22 = MEMORY[0x1C690A930](v58);
   v23 = v22;
   if (ringCapShadow || !self->_ringCapShadow)
   {
@@ -304,31 +304,45 @@ LABEL_6:
     window2 = [(BCUIChargeRing *)self window];
     screen = [window2 screen];
     [screen scale];
+    v31 = v30;
   }
 
   else
   {
     window2 = [MEMORY[0x1E69DCEB0] mainScreen];
     [window2 scale];
+    v31 = v32;
   }
 
   if (self->_charging)
   {
     [(BCUIRingView *)self->_baseRing bounds];
-    CGRectGetMidX(v46);
+    v33 = v10;
+    v34 = v8;
+    v35 = v6;
+    v36 = v4;
+    v37 = self->_scaleFactor * 15.0 * self->_ringScale;
+    CGRectGetMidX(v62);
     BSRectWithSize();
-    UIRectCenteredAboutPoint();
-    UIRectIntegralWithScale();
-    v43[0] = MEMORY[0x1E69E9820];
-    v43[1] = 3221225472;
-    v43[2] = __32__BCUIChargeRing_layoutSubviews__block_invoke_2;
-    v43[3] = &unk_1E814EC40;
-    v43[4] = self;
-    v43[5] = v30;
-    v43[6] = v31;
-    v43[7] = v32;
-    v43[8] = v33;
-    [MEMORY[0x1E69DD250] performWithoutAnimation:v43];
+    v38 = UIRectCenteredAboutPoint();
+    v39 = v37 / 5.0;
+    v4 = v36;
+    v6 = v35;
+    v8 = v34;
+    v10 = v33;
+    v60.height = v39 * 0.5 + v40;
+    v61.height = v31;
+    UIRectIntegralWithScale(v38, v41, v60, v43, v61, v42);
+    v57[0] = MEMORY[0x1E69E9820];
+    v57[1] = 3221225472;
+    v57[2] = __32__BCUIChargeRing_layoutSubviews__block_invoke_2;
+    v57[3] = &unk_1E814EC40;
+    v57[4] = self;
+    v57[5] = v44;
+    v57[6] = v45;
+    v57[7] = v46;
+    v57[8] = v47;
+    [MEMORY[0x1E69DD250] performWithoutAnimation:v57];
   }
 
   [(BCUIChargeRing *)self _updateVisualStylingForBolt];
@@ -336,26 +350,26 @@ LABEL_6:
   [(CABackdropLayer *)self->_captureBackdrop setFrame:v4, v6, v8, v10];
   if (self->_charging)
   {
-    v34 = 1.0;
+    v48 = 1.0;
   }
 
   else
   {
-    v34 = 0.0;
+    v48 = 0.0;
   }
 
-  [(UIImageView *)self->_boltMaskImageView setAlpha:v34];
+  [(UIImageView *)self->_boltMaskImageView setAlpha:v48];
   if (self->_charging)
   {
-    v35 = 1.0;
+    v49 = 1.0;
   }
 
   else
   {
-    v35 = 0.0;
+    v49 = 0.0;
   }
 
-  [(UIImageView *)self->_boltImageView setAlpha:v35];
+  [(UIImageView *)self->_boltImageView setAlpha:v49];
   _glyphImageView = [(BCUIChargeRing *)self _glyphImageView];
   image = [_glyphImageView image];
   glyph = self->_glyph;
@@ -364,24 +378,24 @@ LABEL_6:
   {
     [(UIImageView *)self->_glyphImageView setImage:self->_glyph];
     [(UIImageView *)self->_glyphImageView setContentMode:4];
-    v39 = [MEMORY[0x1E69DCAD8] configurationWithPointSize:self->_scaleFactor * 24.0 * self->_ringScale];
-    v40 = [MEMORY[0x1E69DCAD8] configurationWithPaletteColors:MEMORY[0x1E695E0F0]];
-    v41 = [v39 configurationByApplyingConfiguration:v40];
+    v53 = [MEMORY[0x1E69DCAD8] configurationWithPointSize:self->_scaleFactor * 24.0 * self->_ringScale];
+    v54 = [MEMORY[0x1E69DCAD8] configurationWithPaletteColors:MEMORY[0x1E695E0F0]];
+    v55 = [v53 configurationByApplyingConfiguration:v54];
 
-    [(UIImageView *)self->_glyphImageView setPreferredSymbolConfiguration:v41];
+    [(UIImageView *)self->_glyphImageView setPreferredSymbolConfiguration:v55];
     [(UIImageView *)self->_glyphImageView pl_performCrossFadeIfNecessary];
   }
 
-  v42[0] = MEMORY[0x1E69E9820];
-  v42[1] = 3221225472;
-  v42[2] = __32__BCUIChargeRing_layoutSubviews__block_invoke_3;
-  v42[3] = &unk_1E814EC40;
-  v42[4] = self;
-  *&v42[5] = v4;
-  *&v42[6] = v6;
-  *&v42[7] = v8;
-  *&v42[8] = v10;
-  [MEMORY[0x1E69DD250] performWithoutAnimation:v42];
+  v56[0] = MEMORY[0x1E69E9820];
+  v56[1] = 3221225472;
+  v56[2] = __32__BCUIChargeRing_layoutSubviews__block_invoke_3;
+  v56[3] = &unk_1E814EC40;
+  v56[4] = self;
+  *&v56[5] = v4;
+  *&v56[6] = v6;
+  *&v56[7] = v8;
+  *&v56[8] = v10;
+  [MEMORY[0x1E69DD250] performWithoutAnimation:v56];
 }
 
 uint64_t __32__BCUIChargeRing_layoutSubviews__block_invoke(uint64_t a1)
@@ -747,13 +761,13 @@ uint64_t __52__BCUIChargeRing__configureRingCapShadowIfNecessary__block_invoke_3
   }
 }
 
-uint64_t __69__BCUIChargeRing__stopAutomaticallyUpdatingVisualStylingForCategory___block_invoke(uint64_t result, uint64_t a2)
+void *__69__BCUIChargeRing__stopAutomaticallyUpdatingVisualStylingForCategory___block_invoke(void *result, uint64_t a2)
 {
   if (a2)
   {
     v2 = result;
-    [*(*(result + 32) + 464) stopAutomaticallyUpdatingView:a2];
-    v3 = *(v2 + 32);
+    [*(result[4] + 464) stopAutomaticallyUpdatingView:a2];
+    v3 = v2[4];
 
     return [v3 setNeedsDisplay];
   }

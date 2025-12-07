@@ -36,7 +36,7 @@
   return qword_1ED43FBB8;
 }
 
-uint64_t __30__NSTermOfAddress_currentUser__block_invoke(uint64_t a1)
+void *__30__NSTermOfAddress_currentUser__block_invoke(uint64_t a1)
 {
   result = [objc_alloc(*(a1 + 32)) _initWithGender:0 addressingUser:1];
   qword_1ED43FBB8 = result;
@@ -131,7 +131,7 @@ uint64_t __30__NSTermOfAddress_currentUser__block_invoke(uint64_t a1)
   {
     TermOfAddress._bridgeToObjectiveC()(v8);
     v5 = v4;
-    outlined destroy of TermOfAddress?(&v7, &_s10Foundation13TermOfAddressVSgMd);
+    outlined destroy of TermOfAddress?(&v7, &_s10Foundation13TermOfAddressVSgMd, &_s10Foundation13TermOfAddressVSgMR);
     v3 = v5;
   }
 
@@ -189,7 +189,7 @@ uint64_t __30__NSTermOfAddress_currentUser__block_invoke(uint64_t a1)
   return _MergedGlobals_120;
 }
 
-uint64_t __26__NSTermOfAddress_neutral__block_invoke(uint64_t a1)
+void *__26__NSTermOfAddress_neutral__block_invoke(uint64_t a1)
 {
   result = [objc_alloc(*(a1 + 32)) _initWithGender:3 addressingUser:0];
   _MergedGlobals_120 = result;
@@ -212,7 +212,7 @@ uint64_t __26__NSTermOfAddress_neutral__block_invoke(uint64_t a1)
   return qword_1ED43FB98;
 }
 
-uint64_t __27__NSTermOfAddress_feminine__block_invoke(uint64_t a1)
+void *__27__NSTermOfAddress_feminine__block_invoke(uint64_t a1)
 {
   result = [objc_alloc(*(a1 + 32)) _initWithGender:1 addressingUser:0];
   qword_1ED43FB98 = result;
@@ -235,7 +235,7 @@ uint64_t __27__NSTermOfAddress_feminine__block_invoke(uint64_t a1)
   return qword_1ED43FBA8;
 }
 
-uint64_t __28__NSTermOfAddress_masculine__block_invoke(uint64_t a1)
+void *__28__NSTermOfAddress_masculine__block_invoke(uint64_t a1)
 {
   result = [objc_alloc(*(a1 + 32)) _initWithGender:2 addressingUser:0];
   qword_1ED43FBA8 = result;
@@ -399,7 +399,7 @@ LABEL_13:
   if ((objc_opt_isKindOfClass() & 1) != 0 && self->_gender == *(equal + 1) && self->_addressesCurrentUser == *(equal + 16))
   {
     pronouns = self->_pronouns;
-    if (pronouns == *(equal + 4) || (v6 = [(NSArray *)pronouns isEqualToArray:?]))
+    if (pronouns == *(equal + 4) || (v6 = [(NSArray *)pronouns isEqualToArray:?]) != 0)
     {
       language = self->_language;
       if (language == *(equal + 3))
@@ -410,7 +410,7 @@ LABEL_13:
       else
       {
 
-        LOBYTE(v6) = [(NSString *)language isEqualToString:?];
+        LOBYTE(v6) = objc_msgSend_isEqualToString_(language);
       }
     }
   }

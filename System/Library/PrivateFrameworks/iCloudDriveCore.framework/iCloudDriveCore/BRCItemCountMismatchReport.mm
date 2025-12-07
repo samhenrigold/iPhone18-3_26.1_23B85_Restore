@@ -36,7 +36,7 @@
     v7 = brc_default_log();
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
-      [BRCItemCountMismatchReport shareChangedDuringCheckWithSession:?];
+      [BRCItemCountMismatchReport shareChangedDuringCheckWithSession:];
     }
   }
 
@@ -52,7 +52,7 @@
 
 - (void)incrementErrorRetryCountWithSession:(id)session
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   sessionCopy = session;
   clientDB = [sessionCopy clientDB];
   itemID = [(BRCItemGlobalID *)self->_itemGlobalID itemID];
@@ -69,13 +69,13 @@
     lastError = self->_lastError;
     failureRetryCount = self->_failureRetryCount;
     *buf = 138413058;
-    v21 = fp_obfuscatedPath;
-    v22 = 2112;
-    v23 = lastError;
-    v24 = 2048;
-    v25 = failureRetryCount;
-    v26 = 2112;
-    v27 = v9;
+    v20 = fp_obfuscatedPath;
+    v21 = 2112;
+    v22 = lastError;
+    v23 = 2048;
+    v24 = failureRetryCount;
+    v25 = 2112;
+    v26 = v9;
     _os_log_impl(&dword_223E7A000, v10, OS_LOG_TYPE_DEFAULT, "[WARNING] Telemetry report at %@ finished with error %@ retry count %llu%@", buf, 0x2Au);
   }
 
@@ -85,8 +85,6 @@
   itemID2 = [(BRCItemGlobalID *)self->_itemGlobalID itemID];
   zoneRowID2 = [(BRCItemGlobalID *)self->_itemGlobalID zoneRowID];
   [clientDB2 execute:{@"INSERT OR REPLACE INTO telemetry_failure_counts (retry_count, item_id, zone_rowid) VALUES (%lld, %@, %@)", v16, itemID2, zoneRowID2}];
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 + (void)_finishReport:(id)report session:(id)session completionHandler:(id)handler
@@ -110,7 +108,7 @@
 
 uint64_t __70__BRCItemCountMismatchReport__finishReport_session_completionHandler___block_invoke(uint64_t a1)
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v2 = (a1 + 32);
   v3 = [*(a1 + 32) lastError];
   if (v3)
@@ -174,17 +172,14 @@ LABEL_3:
       v22 = [*(*v2 + 2) path];
       v23 = [v22 fp_obfuscatedPath];
       *buf = 138412546;
-      v28 = v23;
-      v29 = 2112;
-      v30 = v20;
+      v26 = v23;
+      v27 = 2112;
+      v28 = v20;
       _os_log_impl(&dword_223E7A000, v21, OS_LOG_TYPE_DEFAULT, "[WARNING] Telemetry report at %@ did not run%@", buf, 0x16u);
     }
   }
 
-  v24 = *(a1 + 32);
-  result = (*(*(a1 + 48) + 16))();
-  v26 = *MEMORY[0x277D85DE8];
-  return result;
+  return (*(*(a1 + 48) + 16))();
 }
 
 + (void)generateReportForSharedFolder:(id)folder qualityOfService:(int64_t)service completionHandler:(id)handler
@@ -215,7 +210,7 @@ LABEL_3:
 
 void __95__BRCItemCountMismatchReport_generateReportForSharedFolder_qualityOfService_completionHandler___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v66 = *MEMORY[0x277D85DE8];
+  v65 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = brc_bread_crumbs();
@@ -253,21 +248,21 @@ void __95__BRCItemCountMismatchReport_generateReportForSharedFolder_qualityOfSer
     v27 = brc_default_log();
     if (os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
     {
-      v45 = [v5 path];
-      v41 = [v45 fp_obfuscatedPath];
+      v44 = [v5 path];
+      v40 = [v44 fp_obfuscatedPath];
       *buf = 138412802;
-      v61 = v14;
-      v62 = 2112;
-      v63 = v41;
-      v64 = 2112;
-      v65 = v26;
+      v60 = v14;
+      v61 = 2112;
+      v62 = v40;
+      v63 = 2112;
+      v64 = v26;
       _os_log_debug_impl(&dword_223E7A000, v27, OS_LOG_TYPE_DEBUG, "[DEBUG] Telemetry - Server metrics found %@ items under %@%@", buf, 0x20u);
     }
 
-    v59 = 0;
-    v28 = [MEMORY[0x277CC6438] wrapperWithURL:v5 readonly:1 error:&v59];
-    v29 = v59;
-    v30 = v59;
+    v58 = 0;
+    v28 = [MEMORY[0x277CC6438] wrapperWithURL:v5 readonly:1 error:&v58];
+    v29 = v58;
+    v30 = v58;
     if (v30)
     {
       objc_storeStrong(&v9->_lastError, v29);
@@ -277,39 +272,39 @@ void __95__BRCItemCountMismatchReport_generateReportForSharedFolder_qualityOfSer
     else
     {
       v31 = BRDiskCheckerServiceConnection();
-      v54[0] = MEMORY[0x277D85DD0];
-      v54[1] = 3221225472;
-      v54[2] = __95__BRCItemCountMismatchReport_generateReportForSharedFolder_qualityOfService_completionHandler___block_invoke_670;
-      v54[3] = &unk_278500338;
+      v53[0] = MEMORY[0x277D85DD0];
+      v53[1] = 3221225472;
+      v53[2] = __95__BRCItemCountMismatchReport_generateReportForSharedFolder_qualityOfService_completionHandler___block_invoke_670;
+      v53[3] = &unk_278500338;
       v32 = v9;
       v33 = *(a1 + 40);
-      v55 = v32;
-      v58 = v33;
-      v44 = v28;
+      v54 = v32;
+      v57 = v33;
+      v43 = v28;
       v34 = v15;
-      v56 = v34;
-      v57 = *(a1 + 32);
-      v42 = [v31 remoteObjectProxyWithErrorHandler:v54];
-      v43 = *(a1 + 48);
-      v46[0] = MEMORY[0x277D85DD0];
-      v46[1] = 3221225472;
-      v46[2] = __95__BRCItemCountMismatchReport_generateReportForSharedFolder_qualityOfService_completionHandler___block_invoke_671;
-      v46[3] = &unk_278500360;
+      v55 = v34;
+      v56 = *(a1 + 32);
+      v41 = [v31 remoteObjectProxyWithErrorHandler:v53];
+      v42 = *(a1 + 48);
+      v45[0] = MEMORY[0x277D85DD0];
+      v45[1] = 3221225472;
+      v45[2] = __95__BRCItemCountMismatchReport_generateReportForSharedFolder_qualityOfService_completionHandler___block_invoke_671;
+      v45[3] = &unk_278500360;
       v35 = v32;
       v36 = *(a1 + 40);
-      v47 = v35;
-      v53 = v36;
+      v46 = v35;
+      v52 = v36;
       v37 = v34;
-      v28 = v44;
-      v48 = v37;
-      v52 = *(a1 + 32);
+      v28 = v43;
+      v47 = v37;
+      v51 = *(a1 + 32);
       v38 = v31;
       v30 = 0;
-      v49 = v38;
-      v50 = v5;
-      v51 = v14;
+      v48 = v38;
+      v49 = v5;
+      v50 = v14;
       v39 = v38;
-      [v42 checkRecursiveChildItemCountFromURLWrapper:v44 qualityOfService:v43 reply:v46];
+      [v41 checkRecursiveChildItemCountFromURLWrapper:v43 qualityOfService:v42 reply:v45];
     }
   }
 
@@ -323,8 +318,6 @@ void __95__BRCItemCountMismatchReport_generateReportForSharedFolder_qualityOfSer
 
     [*(a1 + 40) _finishReport:v9 session:v15 completionHandler:*(a1 + 32)];
   }
-
-  v40 = *MEMORY[0x277D85DE8];
 }
 
 void __95__BRCItemCountMismatchReport_generateReportForSharedFolder_qualityOfService_completionHandler___block_invoke_670(uint64_t a1, void *a2)
@@ -346,7 +339,7 @@ void __95__BRCItemCountMismatchReport_generateReportForSharedFolder_qualityOfSer
 
 void __95__BRCItemCountMismatchReport_generateReportForSharedFolder_qualityOfService_completionHandler___block_invoke_671(uint64_t a1, void *a2, void *a3)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (v6)
@@ -362,15 +355,15 @@ void __95__BRCItemCountMismatchReport_generateReportForSharedFolder_qualityOfSer
     v8 = brc_default_log();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
-      v11 = [*(a1 + 56) path];
-      v12 = [v11 fp_obfuscatedPath];
-      v13 = 138412802;
-      v14 = v5;
-      v15 = 2112;
-      v16 = v12;
-      v17 = 2112;
-      v18 = v7;
-      _os_log_debug_impl(&dword_223E7A000, v8, OS_LOG_TYPE_DEBUG, "[DEBUG] Telemetry - Disk checker found %@ items under %@%@", &v13, 0x20u);
+      v10 = [*(a1 + 56) path];
+      v11 = [v10 fp_obfuscatedPath];
+      v12 = 138412802;
+      v13 = v5;
+      v14 = 2112;
+      v15 = v11;
+      v16 = 2112;
+      v17 = v7;
+      _os_log_debug_impl(&dword_223E7A000, v8, OS_LOG_TYPE_DEBUG, "[DEBUG] Telemetry - Disk checker found %@ items under %@%@", &v12, 0x20u);
     }
 
     v9 = [v5 longLongValue];
@@ -378,8 +371,6 @@ void __95__BRCItemCountMismatchReport_generateReportForSharedFolder_qualityOfSer
   }
 
   [*(a1 + 80) _finishReport:*(a1 + 32) session:*(a1 + 40) completionHandler:*(a1 + 72)];
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __95__BRCItemCountMismatchReport_generateReportForSharedFolder_qualityOfService_completionHandler___block_invoke_674(id *a1, uint64_t a2)
@@ -431,7 +422,7 @@ void __95__BRCItemCountMismatchReport_generateReportForSharedFolder_qualityOfSer
 
 void __95__BRCItemCountMismatchReport_generateReportForSharedFolder_qualityOfService_completionHandler___block_invoke_676(uint64_t a1, void *a2, void *a3)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = v6;
@@ -441,13 +432,13 @@ void __95__BRCItemCountMismatchReport_generateReportForSharedFolder_qualityOfSer
     v10 = brc_default_log();
     if (os_log_type_enabled(v10, 0x90u))
     {
-      v12 = *(a1 + 32);
+      v11 = *(a1 + 32);
       *buf = 138412802;
-      v19 = v12;
-      v20 = 2112;
-      v21 = v7;
-      v22 = 2112;
-      v23 = v9;
+      v18 = v11;
+      v19 = 2112;
+      v20 = v7;
+      v21 = 2112;
+      v22 = v9;
       _os_log_error_impl(&dword_223E7A000, v10, 0x90u, "[ERROR] Can't find the user visible URL for %@ - %@%@", buf, 0x20u);
     }
 
@@ -457,27 +448,24 @@ void __95__BRCItemCountMismatchReport_generateReportForSharedFolder_qualityOfSer
   else
   {
     v8 = [*(a1 + 40) clientTruthWorkloop];
-    v13[0] = MEMORY[0x277D85DD0];
-    v13[1] = 3221225472;
-    v13[2] = __95__BRCItemCountMismatchReport_generateReportForSharedFolder_qualityOfService_completionHandler___block_invoke_677;
-    v13[3] = &unk_2785003B0;
-    v14 = *(a1 + 40);
-    v15 = *(a1 + 32);
-    v17 = *(a1 + 56);
-    v16 = v5;
-    dispatch_async(v8, v13);
+    v12[0] = MEMORY[0x277D85DD0];
+    v12[1] = 3221225472;
+    v12[2] = __95__BRCItemCountMismatchReport_generateReportForSharedFolder_qualityOfService_completionHandler___block_invoke_677;
+    v12[3] = &unk_2785003B0;
+    v13 = *(a1 + 40);
+    v14 = *(a1 + 32);
+    v16 = *(a1 + 56);
+    v15 = v5;
+    dispatch_async(v8, v12);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __95__BRCItemCountMismatchReport_generateReportForSharedFolder_qualityOfService_completionHandler___block_invoke_677(uint64_t a1)
 {
   v2 = [*(a1 + 32) itemFetcher];
   v3 = [v2 itemByItemGlobalID:*(a1 + 40)];
-  v5 = [v3 asDirectory];
+  v4 = [v3 asDirectory];
 
-  v4 = *(a1 + 48);
   (*(*(a1 + 56) + 16))();
 }
 
@@ -505,8 +493,6 @@ void __95__BRCItemCountMismatchReport_generateReportForSharedFolder_qualityOfSer
 
     else
     {
-      zoneMangledID = self->_zoneMangledID;
-      isEnhancedDrivePrivacyEnabled = self->_isEnhancedDrivePrivacyEnabled;
       v6 = [AppTelemetryTimeSeriesEvent newFolderSharingCountMismatchEventWithCount:"newFolderSharingCountMismatchEventWithCount:zoneMangledID:enhancedDrivePrivacyEnabled:" zoneMangledID:? enhancedDrivePrivacyEnabled:?];
     }
 
@@ -519,56 +505,45 @@ LABEL_10:
   return v6;
 }
 
-- (void)shareChangedDuringCheckWithSession:(uint64_t)a1 .cold.1(uint64_t a1)
+- (void)shareChangedDuringCheckWithSession:.cold.1()
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v6 = *(a1 + 48);
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_9();
-  _os_log_debug_impl(v1, v2, OS_LOG_TYPE_DEBUG, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v0, v1, OS_LOG_TYPE_DEBUG, v2, v3, 0x16u);
 }
 
 void __70__BRCItemCountMismatchReport__finishReport_session_completionHandler___block_invoke_cold_1()
 {
   OUTLINED_FUNCTION_18();
-  v9 = *MEMORY[0x277D85DE8];
   v1 = [*(*v0 + 16) path];
   v2 = [v1 fp_obfuscatedPath];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_2_1();
   _os_log_debug_impl(v3, v4, v5, v6, v7, 0x16u);
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __95__BRCItemCountMismatchReport_generateReportForSharedFolder_qualityOfService_completionHandler___block_invoke_cold_1()
 {
   OUTLINED_FUNCTION_18();
-  v9 = *MEMORY[0x277D85DE8];
   v1 = [v0 path];
   v2 = [v1 fp_obfuscatedPath];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_2_1();
   _os_log_debug_impl(v3, v4, v5, v6, v7, 0x16u);
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __95__BRCItemCountMismatchReport_generateReportForSharedFolder_qualityOfService_completionHandler___block_invoke_674_cold_1()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
-  _os_log_fault_impl(&dword_223E7A000, v0, OS_LOG_TYPE_FAULT, "[CRIT] UNREACHABLE: Failed adopting persona%@", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_fault_impl(&dword_223E7A000, v0, OS_LOG_TYPE_FAULT, "[CRIT] UNREACHABLE: Failed adopting persona%@", v1, 0xCu);
 }
 
 void __95__BRCItemCountMismatchReport_generateReportForSharedFolder_qualityOfService_completionHandler___block_invoke_674_cold_2()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
-  _os_log_error_impl(&dword_223E7A000, v0, 0x90u, "[ERROR] Can't get a shared provider manager%@", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_223E7A000, v0, 0x90u, "[ERROR] Can't get a shared provider manager%@", v1, 0xCu);
 }
 
 @end

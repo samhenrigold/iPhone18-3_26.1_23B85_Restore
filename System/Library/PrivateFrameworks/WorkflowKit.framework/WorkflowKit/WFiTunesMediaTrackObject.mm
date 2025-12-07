@@ -79,38 +79,36 @@ id __51__WFiTunesMediaTrackObject_durationJSONTransformer__block_invoke(uint64_t
 
 + (id)JSONKeyPathsByPropertyKey
 {
-  v9[11] = *MEMORY[0x1E69E9840];
-  v7.receiver = self;
-  v7.super_class = &OBJC_METACLASS___WFiTunesMediaTrackObject;
-  v2 = objc_msgSendSuper2(&v7, sel_JSONKeyPathsByPropertyKey);
+  v8[11] = *MEMORY[0x1E69E9840];
+  v6.receiver = self;
+  v6.super_class = &OBJC_METACLASS___WFiTunesMediaTrackObject;
+  v2 = objc_msgSendSuper2(&v6, sel_JSONKeyPathsByPropertyKey);
   v3 = [v2 mutableCopy];
 
-  v8[0] = @"identifier";
-  v8[1] = @"name";
-  v9[0] = @"trackId";
-  v9[1] = @"trackName";
-  v8[2] = @"censoredName";
+  v7[0] = @"identifier";
+  v7[1] = @"name";
+  v8[0] = @"trackId";
+  v8[1] = @"trackName";
+  v7[2] = @"censoredName";
+  v7[3] = @"kind";
+  v8[2] = @"trackCensoredName";
   v8[3] = @"kind";
-  v9[2] = @"trackCensoredName";
-  v9[3] = @"kind";
-  v8[4] = @"price";
-  v8[5] = @"viewURL";
-  v9[4] = &unk_1F4A9B5F0;
-  v9[5] = @"trackViewUrl";
-  v8[6] = @"duration";
-  v8[7] = @"genre";
-  v9[6] = @"trackTimeMillis";
-  v9[7] = @"primaryGenreName";
-  v8[8] = @"previewURL";
-  v8[9] = @"explicit";
-  v9[8] = @"previewUrl";
-  v9[9] = @"trackExplicitness";
-  v8[10] = @"streamable";
-  v9[10] = @"isStreamable";
-  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:v8 count:11];
+  v7[4] = @"price";
+  v7[5] = @"viewURL";
+  v8[4] = &unk_1F4A9B5F0;
+  v8[5] = @"trackViewUrl";
+  v7[6] = @"duration";
+  v7[7] = @"genre";
+  v8[6] = @"trackTimeMillis";
+  v8[7] = @"primaryGenreName";
+  v7[8] = @"previewURL";
+  v7[9] = @"explicit";
+  v8[8] = @"previewUrl";
+  v8[9] = @"trackExplicitness";
+  v7[10] = @"streamable";
+  v8[10] = @"isStreamable";
+  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:v7 count:11];
   [v3 addEntriesFromDictionary:v4];
-
-  v5 = *MEMORY[0x1E69E9840];
 
   return v3;
 }

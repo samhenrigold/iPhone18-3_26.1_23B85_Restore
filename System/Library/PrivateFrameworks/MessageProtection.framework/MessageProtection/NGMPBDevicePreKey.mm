@@ -71,7 +71,6 @@
     PBDataWriterWriteSubmessage();
   }
 
-  timestamp = self->_timestamp;
   PBDataWriterWriteDoubleField();
   if (!self->_prekeySignature)
   {
@@ -89,12 +88,11 @@
     PBDataWriterWriteDataField();
   }
 
-  v5 = toCopy;
+  v4 = toCopy;
   if (*&self->_has)
   {
-    tetraVersion = self->_tetraVersion;
     PBDataWriterWriteUint32Field();
-    v5 = toCopy;
+    v4 = toCopy;
   }
 }
 

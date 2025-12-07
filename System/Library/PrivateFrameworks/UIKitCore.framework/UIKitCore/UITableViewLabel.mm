@@ -157,9 +157,9 @@ LABEL_15:
   }
 
   text2 = [(UILabel *)self text];
-  v7 = [textCopy isEqualToString:text2];
+  isEqualToString = objc_msgSend_isEqualToString_(textCopy);
 
-  if ((v7 & 1) == 0)
+  if ((isEqualToString & 1) == 0)
   {
     if (dyld_program_sdk_at_least() && self->_firstParagraphFirstLineHeadIndent != 0.0 && [textCopy length])
     {
@@ -247,7 +247,7 @@ LABEL_10:
     traitCollection3 = [(UIView *)self traitCollection];
     preferredContentSizeCategory = [traitCollection3 preferredContentSizeCategory];
     preferredContentSizeCategory2 = [changeCopy preferredContentSizeCategory];
-    v15 = [preferredContentSizeCategory isEqual:preferredContentSizeCategory2];
+    isEqual = objc_msgSend_isEqual_(preferredContentSizeCategory);
 
     traitCollection4 = [(UIView *)self traitCollection];
     preferredContentSizeCategory3 = [traitCollection4 preferredContentSizeCategory];
@@ -256,7 +256,7 @@ LABEL_10:
     preferredContentSizeCategory4 = [changeCopy preferredContentSizeCategory];
     v20 = UIContentSizeCategoryIsAccessibilityCategory(preferredContentSizeCategory4);
 
-    if ((v15 & 1) == 0)
+    if ((isEqual & 1) == 0)
     {
       if (numberOfLines)
       {

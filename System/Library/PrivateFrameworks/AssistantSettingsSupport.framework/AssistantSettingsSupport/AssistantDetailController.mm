@@ -3,6 +3,7 @@
 - (BOOL)_isApplicationLockedCheck:(id)check;
 - (id)_appName;
 - (id)_bundleId;
+- (id)_enableSiriAppSpecifiersWithAppId:(id)id accessGranted:(BOOL)granted;
 - (id)_siriSuggestionsClients;
 - (id)_suggestionsFooterString;
 - (id)_suggestionsShowToggleLableString;
@@ -25,9 +26,22 @@
 - (void)setSuggestionsShowOnHomeScreenEnabled:(id)enabled specifier:(id)specifier;
 - (void)setSuggestionsSuggestAppEnabled:(id)enabled specifier:(id)specifier;
 - (void)setSuggestionsSuggestionNotificationsEnabled:(id)enabled specifier:(id)specifier;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation AssistantDetailController
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v5.receiver = self;
+  v5.super_class = AssistantDetailController;
+  [(AssistantDetailController *)&v5 viewWillAppear:appear];
+  if ([(AssistantDetailController *)self isMovingToParentViewController])
+  {
+    _bundleId = [(AssistantDetailController *)self _bundleId];
+    [AssistantMetrics didDetailVisit:_bundleId];
+  }
+}
 
 - (id)specifiers
 {
@@ -733,32 +747,32 @@ void __64__AssistantDetailController__asyncAddAskSiriSettingsIfNecessary__block_
 
 void __67__AssistantDetailController__fetchIntentsSpecifiersWithCompletion___block_invoke(uint64_t a1, void *a2)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if ([v3 count])
   {
-    v20 = 0u;
-    v21 = 0u;
-    v18 = 0u;
     v19 = 0u;
+    v20 = 0u;
+    v17 = 0u;
+    v18 = 0u;
     v4 = v3;
-    v5 = [v4 countByEnumeratingWithState:&v18 objects:v22 count:16];
+    v5 = [v4 countByEnumeratingWithState:&v17 objects:v21 count:16];
     if (v5)
     {
       v6 = v5;
-      v17 = v3;
-      v7 = *v19;
+      v16 = v3;
+      v7 = *v18;
       v8 = MEMORY[0x277CBEBF8];
       while (2)
       {
         for (i = 0; i != v6; ++i)
         {
-          if (*v19 != v7)
+          if (*v18 != v7)
           {
             objc_enumerationMutation(v4);
           }
 
-          v10 = *(*(&v18 + 1) + 8 * i);
+          v10 = *(*(&v17 + 1) + 8 * i);
           v11 = [v10 appID];
           v12 = [*(a1 + 32) _bundleId];
           v13 = [v11 isEqualToString:v12];
@@ -773,7 +787,7 @@ void __67__AssistantDetailController__fetchIntentsSpecifiersWithCompletion___blo
           }
         }
 
-        v6 = [v4 countByEnumeratingWithState:&v18 objects:v22 count:16];
+        v6 = [v4 countByEnumeratingWithState:&v17 objects:v21 count:16];
         if (v6)
         {
           continue;
@@ -783,7 +797,7 @@ void __67__AssistantDetailController__fetchIntentsSpecifiersWithCompletion___blo
       }
 
 LABEL_12:
-      v3 = v17;
+      v3 = v16;
     }
 
     else
@@ -798,8 +812,43 @@ LABEL_12:
   {
     (*(*(a1 + 40) + 16))();
   }
+}
 
-  v16 = *MEMORY[0x277D85DE8];
+- (id)_enableSiriAppSpecifiersWithAppId:(id)id accessGranted:(BOOL)granted
+{
+  grantedCopy = granted;
+  v6 = MEMORY[0x277CBEB18];
+  idCopy = id;
+  v8 = objc_alloc_init(v6);
+  v9 = [MEMORY[0x277D3FAD8] groupSpecifierWithID:@"SIRI_KIT"];
+  v10 = +[AssistantController bundle];
+  v11 = [v10 localizedStringForKey:@"SIRI_PERAPP_SIRIREQUESTS_FOOTER" value:&stru_285317CF0 table:@"AssistantSettings"];
+  [v9 setProperty:v11 forKey:*MEMORY[0x277D3FF88]];
+
+  if (self->_isApplicationHidden)
+  {
+    [v9 setProperty:MEMORY[0x277CBEC28] forKey:*MEMORY[0x277D3FF38]];
+  }
+
+  [v8 addObject:v9];
+  v12 = MEMORY[0x277D3FAD8];
+  v13 = +[AssistantController bundle];
+  v14 = [v13 localizedStringForKey:@"SIRI_PERAPP_SIRIREQUESTS_USEWITHSIRI_TOGGLE" value:&stru_285317CF0 table:@"AssistantSettings"];
+  v15 = [v12 preferenceSpecifierNamed:v14 target:self set:sel_setAskSiriUseWithAskSiriEnabled_specifier_ get:sel_askSiriUseWithAskSiriEnabled_ detail:0 cell:6 edit:0];
+
+  [v15 setProperty:MEMORY[0x277CBEC38] forKey:*MEMORY[0x277D3FD80]];
+  v16 = [MEMORY[0x277CCABB0] numberWithBool:grantedCopy];
+  [v15 setProperty:v16 forKey:*MEMORY[0x277D401A8]];
+
+  [v15 setProperty:idCopy forKey:@"intentsAppID"];
+  if (self->_isApplicationHidden)
+  {
+    [v15 setProperty:MEMORY[0x277CBEC28] forKey:*MEMORY[0x277D3FF38]];
+  }
+
+  [v8 addObject:v15];
+
+  return v8;
 }
 
 - (void)setAskSiriUseWithAskSiriEnabled:(id)enabled specifier:(id)specifier

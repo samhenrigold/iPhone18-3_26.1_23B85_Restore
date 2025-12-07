@@ -9,12 +9,12 @@
   handleCopy = handle;
   if (self->_loginHandle != handleCopy)
   {
-    v10 = handleCopy;
+    v7 = handleCopy;
     objc_storeStrong(&self->_loginHandle, handle);
-    v8 = objc_msgSend_ID(v10, v6, v7);
-    objc_msgSend_setLogin_(self, v9, v8);
+    v6 = [(IMHandle *)v7 ID];
+    [(IMAccount *)self setLogin:v6];
 
-    handleCopy = v10;
+    handleCopy = v7;
   }
 }
 

@@ -68,22 +68,22 @@
 
 - (void)submitActivity:(id)activity completionHandler:(id)handler
 {
-  v60 = *MEMORY[0x1E69E9840];
+  v59 = *MEMORY[0x1E69E9840];
   activityCopy = activity;
   handlerCopy = handler;
-  v52 = 0;
-  v8 = _CKCheckArgument("activity", activityCopy, 0, 0, 0, &v52);
-  v9 = v52;
+  v51 = 0;
+  v8 = _CKCheckArgument("activity", activityCopy, 0, 0, 0, &v51);
+  v9 = v51;
   v10 = v9;
   if ((v8 & 1) == 0)
   {
-    v25 = [CKException alloc];
-    v28 = objc_msgSend_code(v10, v26, v27);
-    v31 = objc_msgSend_localizedDescription(v10, v29, v30);
-    v33 = objc_msgSend_initWithCode_format_(v25, v32, v28, @"%@", v31);
-    v34 = v33;
+    v24 = [CKException alloc];
+    v27 = objc_msgSend_code(v10, v25, v26);
+    v30 = objc_msgSend_localizedDescription(v10, v28, v29);
+    v32 = objc_msgSend_initWithCode_format_(v24, v31, v27, @"%@", v30);
+    v33 = v32;
 
-    objc_exception_throw(v33);
+    objc_exception_throw(v32);
   }
 
   v11 = _os_activity_create(&dword_1883EA000, "client/scheduler-submit", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
@@ -103,12 +103,12 @@
     _os_log_debug_impl(&dword_1883EA000, v12, OS_LOG_TYPE_DEBUG, "About to submit activity: %@", &buf, 0xCu);
   }
 
-  v45 = 0;
-  v46 = &v45;
-  v47 = 0x3032000000;
-  v48 = sub_1883EE190;
-  v49 = sub_1883EF77C;
-  v50 = 0;
+  v44 = 0;
+  v45 = &v44;
+  v46 = 0x3032000000;
+  v47 = sub_1883EE190;
+  v48 = sub_1883EF77C;
+  v49 = 0;
   if (self)
   {
     queue = self->_queue;
@@ -123,19 +123,19 @@
   block[1] = 3221225472;
   block[2] = sub_18864BB78;
   block[3] = &unk_1E70BFF08;
-  v44 = &v45;
+  v43 = &v44;
   block[4] = self;
   v14 = activityCopy;
-  v43 = v14;
+  v42 = v14;
   dispatch_sync(queue, block);
-  if (!v46[5])
+  if (!v45[5])
   {
-    v35 = [CKException alloc];
-    v38 = objc_msgSend_identifier(v14, v36, v37);
-    v40 = objc_msgSend_initWithName_format_(v35, v39, *MEMORY[0x1E695D940], @"Must register a handler for activity identifier %@ before submitting it", v38);
-    v41 = v40;
+    v34 = [CKException alloc];
+    v37 = objc_msgSend_identifier(v14, v35, v36);
+    v39 = objc_msgSend_initWithName_format_(v34, v38, *MEMORY[0x1E695D940], @"Must register a handler for activity identifier %@ before submitting it", v37);
+    v40 = v39;
 
-    objc_exception_throw(v40);
+    objc_exception_throw(v39);
   }
 
   v16 = objc_msgSend_suggestedXPCActivityCriteriaForActivity_(self, v15, v14);
@@ -147,14 +147,14 @@
     xpcActivityRegisterQueue = self->_xpcActivityRegisterQueue;
     *&buf = MEMORY[0x1E69E9820];
     *(&buf + 1) = 3221225472;
-    v54 = sub_18864BBFC;
-    v55 = &unk_1E70BFEB8;
+    v53 = sub_18864BBFC;
+    v54 = &unk_1E70BFEB8;
     v21 = v17;
-    v56 = v21;
+    v55 = v21;
     selfCopy = self;
     v22 = v18;
-    v58 = v22;
-    v59 = v19;
+    v57 = v22;
+    v58 = v19;
     dispatch_async(xpcActivityRegisterQueue, &buf);
     if (sub_18864C3D0(CKScheduler, v21))
     {
@@ -163,10 +163,8 @@
     }
   }
 
-  _Block_object_dispose(&v45, 8);
+  _Block_object_dispose(&v44, 8);
   os_activity_scope_leave(&state);
-
-  v24 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setXPCActivity:(id)activity forActivityIdentifier:(id)identifier
@@ -427,7 +425,7 @@
 
 - (id)suggestedXPCActivityCriteriaForActivity:(id)activity
 {
-  v205 = *MEMORY[0x1E69E9840];
+  v204 = *MEMORY[0x1E69E9840];
   activityCopy = activity;
   v5 = xpc_dictionary_create(0, 0, 0);
   xpc_dictionary_set_BOOL(v5, *MEMORY[0x1E69E9C40], 1);
@@ -485,30 +483,30 @@
   if (v54)
   {
     empty = xpc_array_create_empty();
+    v190 = 0u;
     v191 = 0u;
     v192 = 0u;
     v193 = 0u;
-    v194 = 0u;
     v60 = objc_msgSend_relatedApplicationBundleIdentifiers(activityCopy, v58, v59);
-    v62 = objc_msgSend_countByEnumeratingWithState_objects_count_(v60, v61, &v191, v199, 16);
+    v62 = objc_msgSend_countByEnumeratingWithState_objects_count_(v60, v61, &v190, v198, 16);
     if (v62)
     {
-      v63 = *v192;
+      v63 = *v191;
       do
       {
         for (i = 0; i != v62; ++i)
         {
-          if (*v192 != v63)
+          if (*v191 != v63)
           {
             objc_enumerationMutation(v60);
           }
 
-          v65 = *(*(&v191 + 1) + 8 * i);
+          v65 = *(*(&v190 + 1) + 8 * i);
           v68 = objc_msgSend_UTF8String(v65, v66, v67);
           xpc_array_set_string(empty, 0xFFFFFFFFFFFFFFFFLL, v68);
         }
 
-        v62 = objc_msgSend_countByEnumeratingWithState_objects_count_(v60, v69, &v191, v199, 16);
+        v62 = objc_msgSend_countByEnumeratingWithState_objects_count_(v60, v69, &v190, v198, 16);
       }
 
       while (v62);
@@ -657,33 +655,33 @@ LABEL_28:
     goto LABEL_67;
   }
 
-  v195 = 0;
-  v196 = &v195;
-  v197 = 0x2020000000;
+  v194 = 0;
+  v195 = &v194;
+  v196 = 0x2020000000;
   v136 = &qword_1ED4B6000;
   v142 = qword_1ED4B62F8;
-  v198 = qword_1ED4B62F8;
+  v197 = qword_1ED4B62F8;
   if (!qword_1ED4B62F8)
   {
     *applier = MEMORY[0x1E69E9820];
     *&applier[8] = 3221225472;
     *&applier[16] = sub_1886509D4;
-    v201 = &unk_1E70BBE90;
-    v202 = &v195;
+    v200 = &unk_1E70BBE90;
+    v201 = &v194;
     v143 = sub_18865080C(v133, v134, v135);
     v144 = dlsym(v143, "_DASRateLimitConfigurationKey");
-    *(v202[1] + 24) = v144;
-    qword_1ED4B62F8 = *(v202[1] + 24);
-    v142 = v196[3];
+    *(v201[1] + 24) = v144;
+    qword_1ED4B62F8 = *(v201[1] + 24);
+    v142 = v195[3];
   }
 
-  _Block_object_dispose(&v195, 8);
+  _Block_object_dispose(&v194, 8);
   if (!v142)
   {
     v8 = objc_msgSend_currentHandler(MEMORY[0x1E696AAA8], v145, v146);
-    v179 = objc_msgSend_stringWithUTF8String_(MEMORY[0x1E696AEC0], v184, "NSString *get_DASRateLimitConfigurationKey(void)");
-    v185 = dlerror();
-    objc_msgSend_handleFailureInFunction_file_lineNumber_description_(v8, v186, v179, @"CKScheduler.m", 28, @"%s", v185);
+    v179 = objc_msgSend_stringWithUTF8String_(MEMORY[0x1E696AEC0], v183, "NSString *get_DASRateLimitConfigurationKey(void)");
+    v184 = dlerror();
+    objc_msgSend_handleFailureInFunction_file_lineNumber_description_(v8, v185, v179, @"CKScheduler.m", 28, @"%s", v184);
 
 LABEL_80:
     __break(1u);
@@ -694,32 +692,32 @@ LABEL_81:
 
   v147 = *v142;
   v136 = v147;
-  v195 = 0;
-  v196 = &v195;
-  v197 = 0x2020000000;
+  v194 = 0;
+  v195 = &v194;
+  v196 = 0x2020000000;
   v150 = qword_1ED4B6300;
-  v198 = qword_1ED4B6300;
+  v197 = qword_1ED4B6300;
   if (!qword_1ED4B6300)
   {
     *applier = MEMORY[0x1E69E9820];
     *&applier[8] = 3221225472;
     *&applier[16] = sub_188650A24;
-    v201 = &unk_1E70BBE90;
-    v202 = &v195;
+    v200 = &unk_1E70BBE90;
+    v201 = &v194;
     v151 = sub_18865080C(v147, v148, v149);
     v152 = dlsym(v151, "_DASCKRateLimitConfigurationName");
-    *(v202[1] + 24) = v152;
-    qword_1ED4B6300 = *(v202[1] + 24);
-    v150 = v196[3];
+    *(v201[1] + 24) = v152;
+    qword_1ED4B6300 = *(v201[1] + 24);
+    v150 = v195[3];
   }
 
-  _Block_object_dispose(&v195, 8);
+  _Block_object_dispose(&v194, 8);
   if (!v150)
   {
     v8 = objc_msgSend_currentHandler(MEMORY[0x1E696AAA8], v153, v154);
-    v179 = objc_msgSend_stringWithUTF8String_(MEMORY[0x1E696AEC0], v187, "NSString *get_DASCKRateLimitConfigurationName(void)");
-    v188 = dlerror();
-    objc_msgSend_handleFailureInFunction_file_lineNumber_description_(v8, v189, v179, @"CKScheduler.m", 29, @"%s", v188);
+    v179 = objc_msgSend_stringWithUTF8String_(MEMORY[0x1E696AEC0], v186, "NSString *get_DASCKRateLimitConfigurationName(void)");
+    v187 = dlerror();
+    objc_msgSend_handleFailureInFunction_file_lineNumber_description_(v8, v188, v179, @"CKScheduler.m", 29, @"%s", v187);
 
     goto LABEL_80;
   }
@@ -770,11 +768,11 @@ LABEL_67:
       *applier = MEMORY[0x1E69E9820];
       *&applier[8] = 3221225472;
       *&applier[16] = sub_18864F6A4;
-      v201 = &unk_1E70C0198;
+      v200 = &unk_1E70C0198;
       v176 = v5;
-      v202 = v176;
-      v203 = activityCopy;
-      v204 = v172;
+      v201 = v176;
+      v202 = activityCopy;
+      v203 = v172;
       v177 = v172;
       xpc_dictionary_apply(v175, applier);
 
@@ -782,9 +780,9 @@ LABEL_67:
     }
   }
 
-  v190 = 0;
-  v179 = objc_msgSend_networkTransferEndpointWithError_(v8, v178, &v190);
-  v136 = v190;
+  v189 = 0;
+  v179 = objc_msgSend_networkTransferEndpointWithError_(v8, v178, &v189);
+  v136 = v189;
   if (v179)
   {
     v180 = nw_endpoint_copy_dictionary();
@@ -809,14 +807,12 @@ LABEL_73:
 
 LABEL_75:
 
-  v182 = *MEMORY[0x1E69E9840];
-
   return v5;
 }
 
 + (id)xpcActivityIdentifierForCKActivityIdentifier:(id)identifier
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   v6 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], v5, @"%@.", @"com.apple.xpc.activity.test");
   hasPrefix = objc_msgSend_hasPrefix_(identifierCopy, v7, v6);
@@ -849,9 +845,9 @@ LABEL_75:
   if (os_log_type_enabled(ck_log_facility_scheduler, OS_LOG_TYPE_DEBUG))
   {
     *buf = 138543618;
-    v30 = v20;
-    v31 = 2114;
-    v32 = v13;
+    v29 = v20;
+    v30 = 2114;
+    v31 = v13;
     _os_log_debug_impl(&dword_1883EA000, v21, OS_LOG_TYPE_DEBUG, "Using hash %{public}@ for name %{public}@", buf, 0x16u);
     if (hasPrefix)
     {
@@ -875,14 +871,13 @@ LABEL_13:
   v25 = objc_msgSend_xpcActivityIdentifierForCKActivityIdentifier_(self, v24, v23);
 
 LABEL_14:
-  v27 = *MEMORY[0x1E69E9840];
 
   return v25;
 }
 
 + (id)activityFromXPCActivity:(id)activity
 {
-  v69 = *MEMORY[0x1E69E9840];
+  v68 = *MEMORY[0x1E69E9840];
   activityCopy = activity;
   v4 = xpc_activity_copy_criteria(activityCopy);
   v5 = v4;
@@ -909,7 +904,7 @@ LABEL_14:
       if (os_log_type_enabled(ck_log_facility_scheduler, OS_LOG_TYPE_INFO))
       {
         *buf = 138412290;
-        v68 = v5;
+        v67 = v5;
         _os_log_impl(&dword_1883EA000, v17, OS_LOG_TYPE_INFO, "Unable to get container identifier and environment from XPC activity criteria: %@", buf, 0xCu);
       }
 
@@ -929,7 +924,7 @@ LABEL_14:
       if (os_log_type_enabled(ck_log_facility_scheduler, OS_LOG_TYPE_INFO))
       {
         *buf = 138412290;
-        v68 = v5;
+        v67 = v5;
         _os_log_impl(&dword_1883EA000, v31, OS_LOG_TYPE_INFO, "Unable to get activity identifier from XPC activity criteria: %@", buf, 0xCu);
       }
 
@@ -989,7 +984,7 @@ LABEL_30:
         v45 = v42;
         if (v42)
         {
-          v66 = v41;
+          v65 = v41;
           count = xpc_array_get_count(v42);
           v47 = objc_alloc(MEMORY[0x1E695DF70]);
           v50 = objc_msgSend_initWithCapacity_(v47, v48, count);
@@ -1011,7 +1006,7 @@ LABEL_30:
 
           objc_msgSend_setRelatedApplicationBundleIdentifiers_(v16, v49, v50);
 
-          v41 = v66;
+          v41 = v65;
         }
 
         v55 = sub_18864F540(v42, v43, v44);
@@ -1061,14 +1056,12 @@ LABEL_30:
   if (os_log_type_enabled(ck_log_facility_scheduler, OS_LOG_TYPE_DEBUG))
   {
     *buf = 138412290;
-    v68 = activityCopy;
+    v67 = activityCopy;
     _os_log_debug_impl(&dword_1883EA000, v15, OS_LOG_TYPE_DEBUG, "Couldn't get XPC activity criteria for xpc_activity %@", buf, 0xCu);
   }
 
   v16 = 0;
 LABEL_53:
-
-  v64 = *MEMORY[0x1E69E9840];
 
   return v16;
 }

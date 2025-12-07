@@ -37,33 +37,32 @@
       fileSystemRepresentation = [(UNSecurityScopedURL *)self fileSystemRepresentation];
       if (v6 && fileSystemRepresentation != 0)
       {
-        v9 = *MEMORY[0x1E69E9BE0];
-        v10 = sandbox_extension_issue_file();
-        v11 = v10;
-        if (!v10)
+        v9 = sandbox_extension_issue_file();
+        v10 = v9;
+        if (!v9)
         {
 LABEL_10:
 
           goto LABEL_12;
         }
 
-        v12 = strnlen(v10, 0x400uLL);
-        if (v12 <= 0x3FF)
+        v11 = strnlen(v9, 0x400uLL);
+        if (v11 <= 0x3FF)
         {
-          v11 = [MEMORY[0x1E695DEF0] dataWithBytesNoCopy:v11 length:v12 + 1];
+          v10 = [MEMORY[0x1E695DEF0] dataWithBytesNoCopy:v10 length:v11 + 1];
           goto LABEL_10;
         }
       }
     }
 
-    v11 = 0;
+    v10 = 0;
     goto LABEL_10;
   }
 
-  v11 = 0;
+  v10 = 0;
 LABEL_12:
 
-  return v11;
+  return v10;
 }
 
 - (void)encodeWithCoder:(id)coder

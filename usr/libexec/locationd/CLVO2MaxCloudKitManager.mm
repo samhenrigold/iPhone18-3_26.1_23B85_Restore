@@ -100,59 +100,60 @@
 
 - (void)setUpSyncActivity
 {
-  sub_10000FF38(v16, "VO2MaxCloudKitManager.setUpSyncActivity", 0);
+  sub_10000FF38(v21, "VO2MaxCloudKitManager.setUpSyncActivity", 0);
   Current = CFAbsoluteTimeGetCurrent();
-  v4 = sub_100011660();
-  sub_100185AC0(v4, &v14);
-  v13 = 0.0;
-  sub_1000B9370(v14, "VO2MaxCloudKitManagerNextActivityTime", &v13);
-  v5 = v13;
-  if (v13 > Current + XPC_ACTIVITY_INTERVAL_1_DAY)
+  v6 = sub_100011660(v4, v5);
+  sub_100185AC0(v6, &v19);
+  v18 = 0.0;
+  sub_1000B9370(v19, "VO2MaxCloudKitManagerNextActivityTime", &v18);
+  v7 = v18;
+  if (v18 > Current + XPC_ACTIVITY_INTERVAL_1_DAY)
   {
     if (qword_1025D4450 != -1)
     {
       sub_10015DAE4();
     }
 
-    v6 = qword_1025D4458;
+    v8 = qword_1025D4458;
     if (os_log_type_enabled(qword_1025D4458, OS_LOG_TYPE_ERROR))
     {
       *buf = 136446466;
-      v24 = "VO2MaxCloudKitManagerNextActivityTime";
-      v25 = 2050;
-      v26 = v13;
-      _os_log_impl(dword_100000000, v6, OS_LOG_TYPE_ERROR, "%{public}s is too far in the future (%{public}.2f). Resetting!", buf, 0x16u);
+      v29 = "VO2MaxCloudKitManagerNextActivityTime";
+      v30 = 2050;
+      v31 = v18;
+      _os_log_impl(dword_100000000, v8, OS_LOG_TYPE_ERROR, "%{public}s is too far in the future (%{public}.2f). Resetting!", buf, 0x16u);
     }
 
     if (sub_10000A100(121, 0))
     {
       sub_10189C758(buf);
-      v17 = 136446466;
-      v18 = "VO2MaxCloudKitManagerNextActivityTime";
-      v19 = 2050;
-      v20 = v13;
-      v11 = _os_log_send_and_compose_impl();
-      sub_100152C7C("Generic", 1, 0, 0, "[CLVO2MaxCloudKitManager setUpSyncActivity]", "%s\n", v11);
-      if (v11 != buf)
+      v22 = 136446466;
+      v23 = "VO2MaxCloudKitManagerNextActivityTime";
+      v24 = 2050;
+      v25 = v18;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, dword_100000000, qword_1025D4458, 16, "%{public}s is too far in the future (%{public}.2f). Resetting!", &v22, 22);
+      v15 = v14;
+      sub_100152C7C("Generic", 1, 0, 0, "[CLVO2MaxCloudKitManager setUpSyncActivity]", "%s\n", v14);
+      if (v15 != buf)
       {
-        free(v11);
+        free(v15);
       }
     }
 
-    sub_1004FA8B8(v14, "VO2MaxCloudKitManagerNextActivityTime", 0xFFFFFFFFLL);
-    v13 = 0.0;
-    v5 = 0.0;
+    sub_1004FA8B8(v19, "VO2MaxCloudKitManagerNextActivityTime", 0xFFFFFFFFLL);
+    v18 = 0.0;
+    v7 = 0.0;
   }
 
-  v7 = v5 - Current;
-  if (XPC_ACTIVITY_INTERVAL_30_MIN <= v7)
+  v9 = v7 - Current;
+  if (XPC_ACTIVITY_INTERVAL_30_MIN <= v9)
   {
-    v8 = v7;
+    v10 = v9;
   }
 
   else
   {
-    v8 = XPC_ACTIVITY_INTERVAL_30_MIN;
+    v10 = XPC_ACTIVITY_INTERVAL_30_MIN;
   }
 
   if (qword_1025D4450 != -1)
@@ -160,32 +161,34 @@
     sub_10015DAE4();
   }
 
-  v9 = qword_1025D4458;
+  v11 = qword_1025D4458;
   if (os_log_type_enabled(qword_1025D4458, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446722;
-    v24 = "com.apple.vo2max.CloudKitManager";
-    v25 = 2050;
-    v26 = v13;
-    v27 = 2050;
-    v28 = v8;
-    _os_log_impl(dword_100000000, v9, OS_LOG_TYPE_DEFAULT, "%{public}s: Registering XPC Activity with nextPreprocessingTime=(%{public}.2f) and delay=(%{public}lld)", buf, 0x20u);
+    v29 = "com.apple.vo2max.CloudKitManager";
+    v30 = 2050;
+    v31 = v18;
+    v32 = 2050;
+    v33 = v10;
+    _os_log_impl(dword_100000000, v11, OS_LOG_TYPE_DEFAULT, "%{public}s: Registering XPC Activity with nextPreprocessingTime=(%{public}.2f) and delay=(%{public}lld)", buf, 0x20u);
   }
 
   if (sub_10000A100(121, 2))
   {
     sub_10189C758(buf);
-    v17 = 136446722;
-    v18 = "com.apple.vo2max.CloudKitManager";
-    v19 = 2050;
-    v20 = v13;
-    v21 = 2050;
-    v22 = v8;
-    v10 = _os_log_send_and_compose_impl();
-    sub_100152C7C("Generic", 1, 0, 2, "[CLVO2MaxCloudKitManager setUpSyncActivity]", "%s\n", v10);
-    if (v10 != buf)
+    v22 = 136446722;
+    v23 = "com.apple.vo2max.CloudKitManager";
+    v24 = 2050;
+    v25 = v18;
+    v26 = 2050;
+    v27 = v10;
+    LODWORD(v16) = 32;
+    _os_log_send_and_compose_impl(2, 0, buf, 1628, dword_100000000, qword_1025D4458, 0, "%{public}s: Registering XPC Activity with nextPreprocessingTime=(%{public}.2f) and delay=(%{public}lld)", &v22, v16);
+    v13 = v12;
+    sub_100152C7C("Generic", 1, 0, 2, "[CLVO2MaxCloudKitManager setUpSyncActivity]", "%s\n", v12);
+    if (v13 != buf)
     {
-      free(v10);
+      free(v13);
     }
   }
 
@@ -195,14 +198,14 @@
   handler[2] = sub_1004D7918;
   handler[3] = &unk_102450188;
   handler[4] = [objc_msgSend(-[CLVO2MaxCloudKitManager universe](self "universe")];
-  handler[5] = v8;
+  handler[5] = v10;
   xpc_activity_register("com.apple.vo2max.CloudKitManager", XPC_ACTIVITY_CHECK_IN, handler);
-  if (v15)
+  if (v20)
   {
-    sub_100008080(v15);
+    sub_100008080(v20);
   }
 
-  sub_10001A420(v16);
+  sub_10001A420(v21);
 }
 
 - (void)endService
@@ -434,7 +437,7 @@
 - (void)resetSyncActivity:(id)activity withDelay:(int64_t)delay
 {
   v6 = CFAbsoluteTimeGetCurrent() + delay;
-  v11 = v6;
+  v13 = v6;
   if (qword_1025D4450 != -1)
   {
     sub_10189C184();
@@ -450,14 +453,15 @@
     _os_log_impl(dword_100000000, v7, OS_LOG_TYPE_DEFAULT, "%{public}s: Resetting next activity time to: %{public}.1f", buf, 0x16u);
   }
 
-  if (sub_10000A100(121, 2))
+  v8 = sub_10000A100(121, 2);
+  if (v8)
   {
     sub_10189CAE4();
   }
 
-  v8 = sub_100011660();
-  sub_100185AC0(v8, buf);
-  sub_100116D68(*buf, "VO2MaxCloudKitManagerNextActivityTime", &v11);
+  v10 = sub_100011660(v8, v9);
+  sub_100185AC0(v10, buf);
+  sub_100116D68(*buf, "VO2MaxCloudKitManagerNextActivityTime", &v13);
   if (*&buf[8])
   {
     sub_100008080(*&buf[8]);
@@ -470,13 +474,13 @@
       sub_10015DAE4();
     }
 
-    v9 = qword_1025D4458;
+    v11 = qword_1025D4458;
     if (os_log_type_enabled(qword_1025D4458, OS_LOG_TYPE_FAULT))
     {
       state = xpc_activity_get_state(activity);
       *buf = 134349056;
       *&buf[4] = state;
-      _os_log_impl(dword_100000000, v9, OS_LOG_TYPE_FAULT, "Failed to mark activity as Done. Current state is %{public}ld", buf, 0xCu);
+      _os_log_impl(dword_100000000, v11, OS_LOG_TYPE_FAULT, "Failed to mark activity as Done. Current state is %{public}ld", buf, 0xCu);
     }
 
     if (sub_10000A100(121, 0))
@@ -563,8 +567,8 @@
   }
 
   [(CLVO2MaxCloudKitManager *)self checkForDeletionOfVO2MaxData:self->fCloudKitDeletionState];
-  [(CLVO2MaxCloudKitManager *)self getCKSyncEngineMetadata];
-  if (v25 && [v25 length])
+  objc_msgSend_getCKSyncEngineMetadata(self);
+  if (v33 && [v33 length])
   {
     if (qword_1025D4450 != -1)
     {
@@ -610,37 +614,38 @@
 
   [(CLVO2MaxCloudKitManager *)self bulkUploadRecordIDsShouldReupload:v7 shouldUploadToOutputZone:1 shouldUploadToInputZone:1 shouldUploadToPriorZone:1 shouldThrottle:1];
   v9 = 0.0;
-  if (v24 != 1.79769313e308)
+  if (v32 != 1.79769313e308)
   {
-    v9 = CFAbsoluteTimeGetCurrent() - v24;
+    v9 = CFAbsoluteTimeGetCurrent() - v32;
   }
 
   v10 = arc4random_uniform(self->fMinTimeBetweenForcedFetches);
-  sub_10001A3E8();
-  v11 = sub_100328630();
+  v11 = v10;
+  v13 = sub_10001A3E8(v10, v12);
+  v15 = sub_100328630(v13, v14);
   fMinTimeBetweenForcedFetches = self->fMinTimeBetweenForcedFetches;
   if (fMinTimeBetweenForcedFetches == 0.0)
   {
-    v13 = v11;
+    v18 = v15;
   }
 
   else
   {
-    v13 = 0;
+    v18 = 0;
   }
 
-  if (v13 == 1)
+  if (v18 == 1)
   {
     if (qword_1025D4450 != -1)
     {
       sub_10015DAE4();
     }
 
-    v14 = qword_1025D4458;
+    v19 = qword_1025D4458;
     if (os_log_type_enabled(qword_1025D4458, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(dword_100000000, v14, OS_LOG_TYPE_DEFAULT, "[CKManager] INTERNAL - Forcing CloudKit Fetch. Does not count towards daily stats (VO2MaxCloudKitMinTimeBetweenForcedFetches == 0)", buf, 2u);
+      _os_log_impl(dword_100000000, v19, OS_LOG_TYPE_DEFAULT, "[CKManager] INTERNAL - Forcing CloudKit Fetch. Does not count towards daily stats (VO2MaxCloudKitMinTimeBetweenForcedFetches == 0)", buf, 2u);
     }
 
     if (sub_10000A100(121, 2))
@@ -651,35 +656,35 @@
     [(CKSyncEngine *)self->_syncEngine setNeedsToFetchChanges];
   }
 
-  else if (v9 > fMinTimeBetweenForcedFetches + v10)
+  else if (v9 > fMinTimeBetweenForcedFetches + v11)
   {
-    v23 = 0.0;
-    v15 = sub_100011660();
-    sub_100185AC0(v15, buf);
-    sub_1000B9370(*buf, "VO2MaxCloudKitLastForcedFetch", &v23);
+    v31 = 0.0;
+    v20 = sub_100011660(v15, v16);
+    sub_100185AC0(v20, buf);
+    sub_1000B9370(*buf, "VO2MaxCloudKitLastForcedFetch", &v31);
     if (*&buf[8])
     {
       sub_100008080(*&buf[8]);
     }
 
-    v16 = CFAbsoluteTimeGetCurrent() - v23;
-    if (v16 > self->fMinTimeBetweenForcedFetches)
+    v21 = CFAbsoluteTimeGetCurrent() - v31;
+    if (v21 > self->fMinTimeBetweenForcedFetches)
     {
       if (qword_1025D4450 != -1)
       {
         sub_10015DAE4();
       }
 
-      v17 = qword_1025D4458;
+      v22 = qword_1025D4458;
       if (os_log_type_enabled(qword_1025D4458, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 134349568;
         *&buf[4] = v9;
         *&buf[12] = 2050;
-        *&buf[14] = v16;
-        v32 = 1026;
-        v33 = v10;
-        _os_log_impl(dword_100000000, v17, OS_LOG_TYPE_DEFAULT, "Forcing fetch from CloudKit. secondsSinceMetadataUpdate: %{public}f, secondsSinceLastForcedFetch: %{public}f, buffer: %{public}d", buf, 0x1Cu);
+        *&buf[14] = v21;
+        v40 = 1026;
+        v41 = v11;
+        _os_log_impl(dword_100000000, v22, OS_LOG_TYPE_DEFAULT, "Forcing fetch from CloudKit. secondsSinceMetadataUpdate: %{public}f, secondsSinceLastForcedFetch: %{public}f, buffer: %{public}d", buf, 0x1Cu);
       }
 
       if (sub_10000A100(121, 2))
@@ -690,26 +695,27 @@
           sub_10015DAE4();
         }
 
-        *v26 = 134349568;
-        *&v26[4] = v9;
-        v27 = 2050;
-        v28 = v16;
-        v29 = 1026;
-        v30 = v10;
-        v22 = _os_log_send_and_compose_impl();
-        sub_100152C7C("Generic", 1, 0, 2, "[CLVO2MaxCloudKitManager handleSyncUpload:]", "%s\n", v22);
-        if (v22 != buf)
+        *v34 = 134349568;
+        *&v34[4] = v9;
+        v35 = 2050;
+        v36 = v21;
+        v37 = 1026;
+        v38 = v11;
+        _os_log_send_and_compose_impl(2, 0, buf, 1628, dword_100000000, qword_1025D4458, 0, "Forcing fetch from CloudKit. secondsSinceMetadataUpdate: %{public}f, secondsSinceLastForcedFetch: %{public}f, buffer: %{public}d", v34, 28);
+        v30 = v29;
+        sub_100152C7C("Generic", 1, 0, 2, "[CLVO2MaxCloudKitManager handleSyncUpload:]", "%s\n", v29);
+        if (v30 != buf)
         {
-          free(v22);
+          free(v30);
         }
       }
 
-      [(CKSyncEngine *)self->_syncEngine setNeedsToFetchChanges];
-      v18 = sub_100011660();
-      sub_100185AC0(v18, buf);
-      v19 = *buf;
-      *v26 = CFAbsoluteTimeGetCurrent();
-      sub_100116D68(v19, "VO2MaxCloudKitLastForcedFetch", v26);
+      setNeedsToFetchChanges = [(CKSyncEngine *)self->_syncEngine setNeedsToFetchChanges];
+      v25 = sub_100011660(setNeedsToFetchChanges, v24);
+      sub_100185AC0(v25, buf);
+      v26 = *buf;
+      *v34 = CFAbsoluteTimeGetCurrent();
+      sub_100116D68(v26, "VO2MaxCloudKitLastForcedFetch", v34);
       if (*&buf[8])
       {
         sub_100008080(*&buf[8]);
@@ -719,14 +725,14 @@
     }
   }
 
-  v20 = _os_feature_enabled_impl();
-  v21 = &XPC_ACTIVITY_INTERVAL_4_HOURS;
-  if (!v20)
+  v27 = _os_feature_enabled_impl();
+  v28 = &XPC_ACTIVITY_INTERVAL_4_HOURS;
+  if (!v27)
   {
-    v21 = &XPC_ACTIVITY_INTERVAL_1_DAY;
+    v28 = &XPC_ACTIVITY_INTERVAL_1_DAY;
   }
 
-  [(CLVO2MaxCloudKitManager *)self resetSyncActivity:upload withDelay:*v21];
+  [(CLVO2MaxCloudKitManager *)self resetSyncActivity:upload withDelay:*v28];
 }
 
 - (void)cloudKitAccountDidChange:(id)change
@@ -816,17 +822,19 @@
 
 - (BOOL)shouldKeepLocalDataOnAccountChange
 {
-  v6 = 0;
-  v2 = sub_100011660();
-  sub_100185AC0(v2, &v4);
-  sub_10001CB4C(v4, "VO2MaxCloudKitKeepLocalDataOnAccountChange", &v6);
-  if (v5)
+  v11 = 0;
+  v2 = sub_100011660(self, a2);
+  sub_100185AC0(v2, &v9);
+  sub_10001CB4C(v9, "VO2MaxCloudKitKeepLocalDataOnAccountChange", &v11, 0xFFFFFFFFLL);
+  v4 = v10;
+  if (v10)
   {
-    sub_100008080(v5);
+    sub_100008080(v10);
   }
 
-  sub_10001A3E8();
-  return sub_100328630() & v6;
+  v5 = sub_10001A3E8(v4, v3);
+  v7 = sub_100328630(v5, v6);
+  return v7 & v11;
 }
 
 - (void)setUserRecordIDName:(id)name
@@ -839,39 +847,38 @@
   v4 = qword_1025D4458;
   if (os_log_type_enabled(qword_1025D4458, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138477827;
+    v11 = 138477827;
     nameCopy = name;
-    _os_log_impl(dword_100000000, v4, OS_LOG_TYPE_DEFAULT, "Setting userRecordIDName to %{private}@", &v7, 0xCu);
+    _os_log_impl(dword_100000000, v4, OS_LOG_TYPE_DEFAULT, "Setting userRecordIDName to %{private}@", &v11, 0xCu);
   }
 
-  if (sub_10000A100(121, 2))
+  v5 = sub_10000A100(121, 2);
+  if (v5)
   {
     sub_10189DEF4();
   }
 
-  v5 = sub_1000206B4();
-  sub_1002DC480(v5, @"kCloudKitUserRecordId", [name UTF8String]);
-  v6 = *sub_1000206B4();
-  (*(v6 + 944))();
+  v7 = sub_1000206B4(v5, v6);
+  v8 = sub_1002DC480(v7, @"kCloudKitUserRecordId", [name UTF8String]);
+  v10 = *sub_1000206B4(v8, v9);
+  (*(v10 + 944))();
 }
 
 - (id)getUserRecordIDName
 {
-  __p = 0;
-  v9 = 0;
-  v10 = 0;
-  v2 = sub_1000206B4();
+  memset(&__p, 0, sizeof(__p));
+  v2 = sub_1000206B4(self, a2);
   sub_100005050(v2, @"kCloudKitUserRecordId", &__p);
-  v3 = HIBYTE(v10);
-  if (v10 < 0)
+  size = HIBYTE(__p.__r_.__value_.__r.__words[2]);
+  if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
   {
-    v3 = v9;
+    size = __p.__r_.__value_.__l.__size_;
   }
 
-  if (!v3)
+  if (!size)
   {
     v6 = 0;
-    if ((v10 & 0x8000000000000000) == 0)
+    if ((*(&__p.__r_.__value_.__s + 23) & 0x80) == 0)
     {
       return v6;
     }
@@ -880,21 +887,21 @@
   }
 
   v4 = [NSString alloc];
-  if (v10 >= 0)
+  if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
     p_p = &__p;
   }
 
   else
   {
-    p_p = __p;
+    p_p = __p.__r_.__value_.__r.__words[0];
   }
 
   v6 = [v4 initWithUTF8String:p_p];
-  if (v10 < 0)
+  if ((*(&__p.__r_.__value_.__s + 23) & 0x80) != 0)
   {
 LABEL_8:
-    operator delete(__p);
+    operator delete(__p.__r_.__value_.__l.__data_);
   }
 
   return v6;
@@ -1070,7 +1077,7 @@ LABEL_8:
 {
   if (self)
   {
-    [(CLVO2MaxCloudKitManager *)self getCKSyncEngineMetadata];
+    objc_msgSend_getCKSyncEngineMetadata(self, a2);
   }
 
   else
@@ -1368,13 +1375,13 @@ LABEL_8:
   inputZoneCopy = inputZone;
   zoneCopy = zone;
   __p = 0;
-  v42 = 0;
-  v43 = 0;
+  v44 = 0;
+  v45 = 0;
   v10 = sub_10104516C();
-  sub_101045F44(v10, &__p);
-  v11 = 126 - 2 * __clz(0xCCCCCCCCCCCCCCCDLL * ((v42 - __p) >> 4));
+  sub_101045F44(v10, &__p, 0.0);
+  v11 = 126 - 2 * __clz(0xCCCCCCCCCCCCCCCDLL * ((v44 - __p) >> 4));
   *buf = sub_1004DAEBC;
-  if (v42 == __p)
+  if (v44 == __p)
   {
     v12 = 0;
   }
@@ -1384,39 +1391,39 @@ LABEL_8:
     v12 = v11;
   }
 
-  sub_100155F78(__p, v42, buf, v12, 1);
+  sub_100155F78(__p, v44, buf, v12, 1);
   *buf = sub_1004DAEE0;
-  v13 = sub_1004E1C10(__p, v42, buf);
-  v14 = v42;
-  if (v13 != v42)
+  v13 = sub_1004E1C10(__p, v44, buf);
+  v14 = v44;
+  if (v13 != v44)
   {
     v14 = v13;
-    v42 = v13;
+    v44 = v13;
   }
 
-  v38 = throttleCopy && 0xCCCCCCCCCCCCCCCDLL * ((v14 - __p) >> 4) > self->fMaxSessionsForUploadThrottling;
+  v40 = throttleCopy && 0xCCCCCCCCCCCCCCCDLL * ((v14 - __p) >> 4) > self->fMaxSessionsForUploadThrottling;
   if (__p != v14)
   {
     v15 = 0;
     v16 = (__p + 80);
     do
     {
-      v47 = *(v16 - 5);
+      v48 = *(v16 - 5);
       v17 = *(v16 - 4);
       v18 = *(v16 - 3);
       v19 = *(v16 - 1);
-      v48[2] = *(v16 - 2);
-      v49 = v19;
-      v48[0] = v17;
-      v48[1] = v18;
+      v49[2] = *(v16 - 2);
+      v50 = v19;
+      v49[0] = v17;
+      v49[1] = v18;
       v20 = objc_autoreleasePoolPush();
-      v21 = [[NSUUID alloc] initWithUUIDBytes:v48];
+      v21 = [[NSUUID alloc] initWithUUIDBytes:v49];
       if (zoneCopy)
       {
         v22 = 1;
-        if (!reupload && v49)
+        if (!reupload && v50)
         {
-          v22 = [v49 length] == 0;
+          v22 = [v50 length] == 0;
         }
       }
 
@@ -1425,8 +1432,8 @@ LABEL_8:
         v22 = 0;
       }
 
-      v23 = inputZoneCopy && (reupload || !*(&v49 + 1) || ![*(&v49 + 1) length]) && sub_10102F6A8(self->fInputStore.__ptr_, v48);
-      if ((v22 || v23) && (-[CLVO2MaxCloudKitManager addRecordIDsForSessionId:shouldUploadToOutputZone:shouldUploadToInputZone:](self, "addRecordIDsForSessionId:shouldUploadToOutputZone:shouldUploadToInputZone:", [v21 UUIDString], v22, v23), v38) && (++v15, v15 >= self->fMaxSessionsForUploadThrottling))
+      v23 = inputZoneCopy && (reupload || !*(&v50 + 1) || ![*(&v50 + 1) length]) && sub_10102F6A8(self->fInputStore.__ptr_, v49);
+      if ((v22 || v23) && (-[CLVO2MaxCloudKitManager addRecordIDsForSessionId:shouldUploadToOutputZone:shouldUploadToInputZone:](self, "addRecordIDsForSessionId:shouldUploadToOutputZone:shouldUploadToInputZone:", [v21 UUIDString], v22, v23), v40) && (++v15, v15 >= self->fMaxSessionsForUploadThrottling))
       {
         if (qword_1025D4450 != -1)
         {
@@ -1446,14 +1453,15 @@ LABEL_8:
         {
           sub_10189C758(buf);
           v28 = self->fMaxSessionsForUploadThrottling;
-          v44 = 67240192;
-          v45 = v28;
-          LODWORD(v36) = 8;
-          v29 = _os_log_send_and_compose_impl();
+          v46[0] = 67240192;
+          v46[1] = v28;
+          LODWORD(v38) = 8;
+          _os_log_send_and_compose_impl(2, 0, buf, 1628, dword_100000000, qword_1025D4458, 0, "Hit the max of %{public}d sessions per CloudKit upload. Will check for more data later.", v46, v38);
+          v30 = v29;
           sub_100152C7C("Generic", 1, 0, 2, "[CLVO2MaxCloudKitManager bulkUploadRecordIDsShouldReupload:shouldUploadToOutputZone:shouldUploadToInputZone:shouldUploadToPriorZone:shouldThrottle:]", "%s\n", v29);
-          if (v29 != buf)
+          if (v30 != buf)
           {
-            free(v29);
+            free(v30);
           }
         }
 
@@ -1482,18 +1490,18 @@ LABEL_8:
     while ((v25 & 1) == 0);
   }
 
-  v47 = 0uLL;
-  *&v48[0] = 0;
-  (*(*self->fPriorDb.__ptr_ + 40))(self->fPriorDb.__ptr_, &v47);
-  v31 = *(&v47 + 1);
-  for (i = v47; i != v31; i += 48)
+  v48 = 0uLL;
+  *&v49[0] = 0;
+  (*(*self->fPriorDb.__ptr_ + 40))(self->fPriorDb.__ptr_, &v48);
+  v32 = *(&v48 + 1);
+  for (i = v48; i != v32; i += 48)
   {
     if (priorZoneCopy)
     {
-      v32 = *(i + 8);
-      if (reupload || (v33 = *(i + 40)) == 0 || ![v33 length])
+      v33 = *(i + 8);
+      if (reupload || (v34 = *(i + 40)) == 0 || ![v34 length])
       {
-        [(CLVO2MaxCloudKitManager *)self addRecordIDsForStartTime:[NSString stringWithFormat:@"%f", v32, v36]];
+        [(CLVO2MaxCloudKitManager *)self addRecordIDsForStartTime:[NSString stringWithFormat:@"%f", v33]];
       }
     }
   }
@@ -1503,34 +1511,36 @@ LABEL_8:
     sub_10015DAE4();
   }
 
-  v34 = qword_1025D4458;
+  v35 = qword_1025D4458;
   if (os_log_type_enabled(qword_1025D4458, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(dword_100000000, v34, OS_LOG_TYPE_DEFAULT, "Done adding sessions and prior to sync", buf, 2u);
+    _os_log_impl(dword_100000000, v35, OS_LOG_TYPE_DEFAULT, "Done adding sessions and prior to sync", buf, 2u);
   }
 
   if (sub_10000A100(121, 2))
   {
     sub_10189C758(buf);
-    LOWORD(v44) = 0;
-    v35 = _os_log_send_and_compose_impl();
-    sub_100152C7C("Generic", 1, 0, 2, "[CLVO2MaxCloudKitManager bulkUploadRecordIDsShouldReupload:shouldUploadToOutputZone:shouldUploadToInputZone:shouldUploadToPriorZone:shouldThrottle:]", "%s\n", v35);
-    if (v35 != buf)
+    LOWORD(v46[0]) = 0;
+    LODWORD(v38) = 2;
+    _os_log_send_and_compose_impl(2, 0, buf, 1628, dword_100000000, qword_1025D4458, 0, "Done adding sessions and prior to sync", v46, v38);
+    v37 = v36;
+    sub_100152C7C("Generic", 1, 0, 2, "[CLVO2MaxCloudKitManager bulkUploadRecordIDsShouldReupload:shouldUploadToOutputZone:shouldUploadToInputZone:shouldUploadToPriorZone:shouldThrottle:]", "%s\n", v36);
+    if (v37 != buf)
     {
-      free(v35);
+      free(v37);
     }
   }
 
-  if (v47)
+  if (v48)
   {
-    *(&v47 + 1) = v47;
-    operator delete(v47);
+    *(&v48 + 1) = v48;
+    operator delete(v48);
   }
 
   if (__p)
   {
-    v42 = __p;
+    v44 = __p;
     operator delete(__p);
   }
 }
@@ -1670,31 +1680,31 @@ LABEL_8:
 
 - (void)updateOutputSystemFields:(id)fields outputRecord:(id)record
 {
-  v31[0] = 0;
-  v31[1] = 0;
-  [objc_msgSend([NSUUID alloc] initWithUUIDString:{objc_msgSend(objc_msgSend(record, "recordID"), "recordName")), "getUUIDBytes:", v31}];
+  v34[0] = 0;
+  v34[1] = 0;
+  [objc_msgSend([NSUUID alloc] initWithUUIDString:{objc_msgSend(objc_msgSend(record, "recordID"), "recordName")), "getUUIDBytes:", v34}];
   __p = 0;
-  v21 = 0;
-  v22 = 0;
+  v24 = 0;
+  v25 = 0;
   v6 = sub_10104516C();
-  if (sub_101045F10(v6, v31, &__p))
+  if (sub_101045F10(v6, v34, &__p))
   {
     v7 = __p;
-    v8 = v21;
-    if (__p != v21)
+    v8 = v24;
+    if (__p != v24)
     {
       do
       {
-        v26 = *v7;
+        v29 = *v7;
         v9 = v7[1];
         v10 = v7[2];
         v11 = v7[4];
-        v27[2] = v7[3];
-        v28 = v11;
-        v27[0] = v9;
-        v27[1] = v10;
+        v30[2] = v7[3];
+        v31 = v11;
+        v30[0] = v9;
+        v30[1] = v10;
         memset(out, 0, 37);
-        uuid_unparse(v27, out);
+        uuid_unparse(v30, out);
         if (qword_1025D4450 != -1)
         {
           sub_10015DAE4();
@@ -1704,26 +1714,27 @@ LABEL_8:
         if (os_log_type_enabled(qword_1025D4458, OS_LOG_TYPE_DEBUG))
         {
           *buf = 136315138;
-          v30 = out;
+          v33 = out;
           _os_log_impl(dword_100000000, v12, OS_LOG_TYPE_DEBUG, "Saving output metadata %s", buf, 0xCu);
         }
 
         if (sub_10000A100(121, 2))
         {
           sub_10189C758(buf);
-          v23 = 136315138;
-          v24 = out;
-          v14 = _os_log_send_and_compose_impl();
+          v26 = 136315138;
+          v27 = out;
+          _os_log_send_and_compose_impl(2, 0, buf, 1628, dword_100000000, qword_1025D4458, 2, "Saving output metadata %s", &v26);
+          v15 = v14;
           sub_100152C7C("Generic", 1, 0, 2, "[CLVO2MaxCloudKitManager updateOutputSystemFields:outputRecord:]", "%s\n", v14);
-          if (v14 != buf)
+          if (v15 != buf)
           {
-            free(v14);
+            free(v15);
           }
         }
 
-        *&v28 = fields;
+        *&v31 = fields;
         v13 = sub_10104516C();
-        sub_101045DCC(v13, &v26);
+        sub_101045DCC(v13, &v29);
         v7 += 5;
       }
 
@@ -1740,33 +1751,35 @@ LABEL_8:
       sub_10015DAE4();
     }
 
-    v15 = qword_1025D4458;
+    v16 = qword_1025D4458;
     if (os_log_type_enabled(qword_1025D4458, OS_LOG_TYPE_ERROR))
     {
       recordID = [record recordID];
       *buf = 138543362;
-      v30 = recordID;
-      _os_log_impl(dword_100000000, v15, OS_LOG_TYPE_ERROR, "Failed to retrieve VO2MaxSessionAttributes for CKRecord with ID: %{public}@", buf, 0xCu);
+      v33 = recordID;
+      _os_log_impl(dword_100000000, v16, OS_LOG_TYPE_ERROR, "Failed to retrieve VO2MaxSessionAttributes for CKRecord with ID: %{public}@", buf, 0xCu);
     }
 
     if (sub_10000A100(121, 0))
     {
       sub_10189C758(buf);
+      v18 = qword_1025D4458;
       recordID2 = [record recordID];
-      LODWORD(v26) = 138543362;
-      *(&v26 + 4) = recordID2;
-      v18 = _os_log_send_and_compose_impl();
-      sub_100152C7C("Generic", 1, 0, 0, "[CLVO2MaxCloudKitManager updateOutputSystemFields:outputRecord:]", "%s\n", v18);
-      if (v18 != buf)
+      LODWORD(v29) = 138543362;
+      *(&v29 + 4) = recordID2;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, dword_100000000, v18, 16, "Failed to retrieve VO2MaxSessionAttributes for CKRecord with ID: %{public}@", &v29, 12);
+      v21 = v20;
+      sub_100152C7C("Generic", 1, 0, 0, "[CLVO2MaxCloudKitManager updateOutputSystemFields:outputRecord:]", "%s\n", v20);
+      if (v21 != buf)
       {
-        free(v18);
+        free(v21);
       }
     }
   }
 
   if (__p)
   {
-    v21 = __p;
+    v24 = __p;
     operator delete(__p);
   }
 }
@@ -1954,21 +1967,22 @@ LABEL_8:
 - (id)createCKRecordForPrior:(id)prior
 {
   [objc_msgSend(prior "recordName")];
-  v14[2] = 0;
-  v15 = 0;
-  if ((sub_1008FCEEC(self->fPriorDb.__ptr_) & 1) == 0)
+  v6 = v5;
+  *(&v18[0] + 1) = 0;
+  v19 = 0;
+  if ((sub_1008FCEEC(self->fPriorDb.__ptr_, v18, v5) & 1) == 0)
   {
     if (qword_1025D4450 != -1)
     {
       sub_10015DAE4();
     }
 
-    v8 = qword_1025D4458;
+    v11 = qword_1025D4458;
     if (os_log_type_enabled(qword_1025D4458, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v17 = *&prior;
-      _os_log_impl(dword_100000000, v8, OS_LOG_TYPE_ERROR, "Failed to retrieve prior for CKRecordID: %{public}@", buf, 0xCu);
+      v21 = *&prior;
+      _os_log_impl(dword_100000000, v11, OS_LOG_TYPE_ERROR, "Failed to retrieve prior for CKRecordID: %{public}@", buf, 0xCu);
     }
 
     if (sub_10000A100(121, 0))
@@ -1979,27 +1993,28 @@ LABEL_8:
     return 0;
   }
 
-  if ([v15 length])
+  if ([v19 length])
   {
-    v14[0] = 0;
-    v5 = [[NSKeyedUnarchiver alloc] initForReadingFromData:v15 error:v14];
-    [v5 setRequiresSecureCoding:1];
-    v6 = [[CKRecord alloc] initWithCoder:v5];
-    [v5 finishDecoding];
+    v17 = 0.0;
+    v7 = [NSKeyedUnarchiver alloc];
+    v8 = [v7 initForReadingFromData:v19 error:&v17];
+    [v8 setRequiresSecureCoding:1];
+    v9 = [[CKRecord alloc] initWithCoder:v8];
+    [v8 finishDecoding];
 
-    if (!v6)
+    if (!v9)
     {
       if (qword_1025D4450 != -1)
       {
         sub_10015DAE4();
       }
 
-      v7 = qword_1025D4458;
+      v10 = qword_1025D4458;
       if (os_log_type_enabled(qword_1025D4458, OS_LOG_TYPE_ERROR))
       {
         *buf = 138543362;
-        v17 = *v14;
-        _os_log_impl(dword_100000000, v7, OS_LOG_TYPE_ERROR, "Failed to decode prior record from system fields data: %{public}@", buf, 0xCu);
+        v21 = v17;
+        _os_log_impl(dword_100000000, v10, OS_LOG_TYPE_ERROR, "Failed to decode prior record from system fields data: %{public}@", buf, 0xCu);
       }
 
       if (sub_10000A100(121, 0))
@@ -2013,25 +2028,25 @@ LABEL_8:
 
   else
   {
-    v6 = [[CKRecord alloc] initWithRecordType:@"VO2MaxPrior" recordID:prior];
+    v9 = [[CKRecord alloc] initWithRecordType:@"VO2MaxPrior" recordID:prior];
   }
 
-  v14[0] = 0;
+  v17 = 0.0;
   Current = CFAbsoluteTimeGetCurrent();
-  if (sub_1008FD3B0(self->fPriorDb.__ptr_, v14))
+  if (sub_1008FD3B0(self->fPriorDb.__ptr_, &v17, v6))
   {
     if (qword_1025D4450 != -1)
     {
       sub_10015DAE4();
     }
 
-    v10 = qword_1025D4458;
+    v13 = qword_1025D4458;
     if (os_log_type_enabled(qword_1025D4458, OS_LOG_TYPE_DEBUG))
     {
-      v11 = CFAbsoluteTimeGetCurrent();
+      v14 = CFAbsoluteTimeGetCurrent();
       *buf = 134349056;
-      v17 = v11 - Current;
-      _os_log_impl(dword_100000000, v10, OS_LOG_TYPE_DEBUG, "Completed fetch of priorData proto; duration: %{public}f", buf, 0xCu);
+      v21 = v14 - Current;
+      _os_log_impl(dword_100000000, v13, OS_LOG_TYPE_DEBUG, "Completed fetch of priorData proto; duration: %{public}f", buf, 0xCu);
     }
 
     if (sub_10000A100(121, 2))
@@ -2039,7 +2054,7 @@ LABEL_8:
       sub_10189FE9C();
     }
 
-    [objc_msgSend(v6 "encryptedValuesByKey")];
+    [objc_msgSend(v9 "encryptedValuesByKey")];
     ++self->fDailyStats.priorSaveAttemptedCount;
   }
 
@@ -2050,11 +2065,11 @@ LABEL_8:
       sub_10015DAE4();
     }
 
-    v12 = qword_1025D4458;
+    v15 = qword_1025D4458;
     if (os_log_type_enabled(qword_1025D4458, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(dword_100000000, v12, OS_LOG_TYPE_DEFAULT, "Unable to get input due to device being locked, clearing the sync engine and will try again later.", buf, 2u);
+      _os_log_impl(dword_100000000, v15, OS_LOG_TYPE_DEFAULT, "Unable to get input due to device being locked, clearing the sync engine and will try again later.", buf, 2u);
     }
 
     if (sub_10000A100(121, 2))
@@ -2062,42 +2077,42 @@ LABEL_8:
       sub_10189FDB8();
     }
 
-    v6 = 0;
+    v9 = 0;
     self->_syncEngine = 0;
     self->fDailyStats.syncEngineEnabled = 0;
     self->fDeviceUnlocked = 0;
   }
 
-  return v6;
+  return v9;
 }
 
 - (void)updateInputSystemFields:(id)fields inputRecord:(id)record
 {
-  v31[0] = 0;
-  v31[1] = 0;
-  [objc_msgSend([NSUUID alloc] initWithUUIDString:{objc_msgSend(objc_msgSend(record, "recordID"), "recordName")), "getUUIDBytes:", v31}];
+  v34[0] = 0;
+  v34[1] = 0;
+  [objc_msgSend([NSUUID alloc] initWithUUIDString:{objc_msgSend(objc_msgSend(record, "recordID"), "recordName")), "getUUIDBytes:", v34}];
   __p = 0;
-  v21 = 0;
-  v22 = 0;
+  v24 = 0;
+  v25 = 0;
   v6 = sub_10104516C();
-  if (sub_101045F10(v6, v31, &__p))
+  if (sub_101045F10(v6, v34, &__p))
   {
     v7 = __p;
-    v8 = v21;
-    if (__p != v21)
+    v8 = v24;
+    if (__p != v24)
     {
       do
       {
-        v26 = *v7;
+        v29 = *v7;
         v9 = v7[1];
         v10 = v7[2];
         v11 = v7[4];
-        v27[2] = v7[3];
-        v28 = v11;
-        v27[0] = v9;
-        v27[1] = v10;
+        v30[2] = v7[3];
+        v31 = v11;
+        v30[0] = v9;
+        v30[1] = v10;
         memset(out, 0, 37);
-        uuid_unparse(v27, out);
+        uuid_unparse(v30, out);
         if (qword_1025D4450 != -1)
         {
           sub_10015DAE4();
@@ -2107,26 +2122,27 @@ LABEL_8:
         if (os_log_type_enabled(qword_1025D4458, OS_LOG_TYPE_DEBUG))
         {
           *buf = 136315138;
-          v30 = out;
+          v33 = out;
           _os_log_impl(dword_100000000, v12, OS_LOG_TYPE_DEBUG, "Saving input metadata %s", buf, 0xCu);
         }
 
         if (sub_10000A100(121, 2))
         {
           sub_10189C758(buf);
-          v23 = 136315138;
-          v24 = out;
-          v14 = _os_log_send_and_compose_impl();
+          v26 = 136315138;
+          v27 = out;
+          _os_log_send_and_compose_impl(2, 0, buf, 1628, dword_100000000, qword_1025D4458, 2, "Saving input metadata %s", &v26);
+          v15 = v14;
           sub_100152C7C("Generic", 1, 0, 2, "[CLVO2MaxCloudKitManager updateInputSystemFields:inputRecord:]", "%s\n", v14);
-          if (v14 != buf)
+          if (v15 != buf)
           {
-            free(v14);
+            free(v15);
           }
         }
 
-        *(&v28 + 1) = fields;
+        *(&v31 + 1) = fields;
         v13 = sub_10104516C();
-        sub_101045DCC(v13, &v26);
+        sub_101045DCC(v13, &v29);
         v7 += 5;
       }
 
@@ -2143,33 +2159,35 @@ LABEL_8:
       sub_10015DAE4();
     }
 
-    v15 = qword_1025D4458;
+    v16 = qword_1025D4458;
     if (os_log_type_enabled(qword_1025D4458, OS_LOG_TYPE_ERROR))
     {
       recordID = [record recordID];
       *buf = 138543362;
-      v30 = recordID;
-      _os_log_impl(dword_100000000, v15, OS_LOG_TYPE_ERROR, "Failed to retrieve VO2MaxSessionAttributes for CKRecord with ID: %{public}@", buf, 0xCu);
+      v33 = recordID;
+      _os_log_impl(dword_100000000, v16, OS_LOG_TYPE_ERROR, "Failed to retrieve VO2MaxSessionAttributes for CKRecord with ID: %{public}@", buf, 0xCu);
     }
 
     if (sub_10000A100(121, 0))
     {
       sub_10189C758(buf);
+      v18 = qword_1025D4458;
       recordID2 = [record recordID];
-      LODWORD(v26) = 138543362;
-      *(&v26 + 4) = recordID2;
-      v18 = _os_log_send_and_compose_impl();
-      sub_100152C7C("Generic", 1, 0, 0, "[CLVO2MaxCloudKitManager updateInputSystemFields:inputRecord:]", "%s\n", v18);
-      if (v18 != buf)
+      LODWORD(v29) = 138543362;
+      *(&v29 + 4) = recordID2;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, dword_100000000, v18, 16, "Failed to retrieve VO2MaxSessionAttributes for CKRecord with ID: %{public}@", &v29, 12);
+      v21 = v20;
+      sub_100152C7C("Generic", 1, 0, 0, "[CLVO2MaxCloudKitManager updateInputSystemFields:inputRecord:]", "%s\n", v20);
+      if (v21 != buf)
       {
-        free(v18);
+        free(v21);
       }
     }
   }
 
   if (__p)
   {
-    v21 = __p;
+    v24 = __p;
     operator delete(__p);
   }
 }
@@ -2178,7 +2196,7 @@ LABEL_8:
 {
   [objc_msgSend(objc_msgSend(record "recordID")];
   v8 = v7;
-  v12[1] = 0;
+  *(&v12[0] + 1) = 0;
   fieldsCopy = 0;
   if (qword_1025D4450 != -1)
   {
@@ -2198,7 +2216,7 @@ LABEL_8:
     sub_10189FF94(v8);
   }
 
-  if (sub_1008FCEEC(self->fPriorDb.__ptr_))
+  if (sub_1008FCEEC(self->fPriorDb.__ptr_, v12, v8))
   {
     fieldsCopy = fields;
     sub_1008FD7E0(self->fPriorDb.__ptr_, v12);
@@ -2234,9 +2252,7 @@ LABEL_8:
   {
     v5 = -[CLCKVO2MaxSessionInput initWithData:]([CLCKVO2MaxSessionInput alloc], "initWithData:", [objc_msgSend(record "encryptedValuesByKey")]);
     Current = CFAbsoluteTimeGetCurrent();
-    ptr = self->fInputStore.__ptr_;
-    [(CLVO2MaxCloudKitManager *)self getSystemFieldsFromCKRecord:record];
-    if (sub_10102F8A8(ptr, v5))
+    if (sub_10102F8A8(self->fInputStore.__ptr_, v5, [(CLVO2MaxCloudKitManager *)self getSystemFieldsFromCKRecord:record]))
     {
       ++self->fDailyStats.inputFetchSuccessCount;
     }
@@ -2248,11 +2264,11 @@ LABEL_8:
         sub_10189C184();
       }
 
-      v8 = qword_1025D4458;
+      v7 = qword_1025D4458;
       if (os_log_type_enabled(qword_1025D4458, OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v11) = 0;
-        _os_log_impl(dword_100000000, v8, OS_LOG_TYPE_DEFAULT, "Unable to persist fetched input due to device being locked, clearing the sync engine and will try again later.", &v11, 2u);
+        LOWORD(v10) = 0;
+        _os_log_impl(dword_100000000, v7, OS_LOG_TYPE_DEFAULT, "Unable to persist fetched input due to device being locked, clearing the sync engine and will try again later.", &v10, 2u);
       }
 
       if (sub_10000A100(121, 2))
@@ -2271,13 +2287,13 @@ LABEL_8:
       sub_10015DAE4();
     }
 
-    v9 = qword_1025D4458;
+    v8 = qword_1025D4458;
     if (os_log_type_enabled(qword_1025D4458, OS_LOG_TYPE_DEBUG))
     {
-      v10 = CFAbsoluteTimeGetCurrent();
-      v11 = 134349056;
-      v12 = v10 - Current;
-      _os_log_impl(dword_100000000, v9, OS_LOG_TYPE_DEBUG, "Completed save of input proto; duration: %{public}f", &v11, 0xCu);
+      v9 = CFAbsoluteTimeGetCurrent();
+      v10 = 134349056;
+      v11 = v9 - Current;
+      _os_log_impl(dword_100000000, v8, OS_LOG_TYPE_DEBUG, "Completed save of input proto; duration: %{public}f", &v10, 0xCu);
     }
 
     if (sub_10000A100(121, 2))
@@ -2343,7 +2359,7 @@ LABEL_8:
   [objc_msgSend(d "recordName")];
   ptr = self->fPriorDb.__ptr_;
 
-  sub_1008FDE2C(ptr);
+  sub_1008FDE2C(ptr, v4);
 }
 
 - (void)handleServerRecordChanged:(id)changed

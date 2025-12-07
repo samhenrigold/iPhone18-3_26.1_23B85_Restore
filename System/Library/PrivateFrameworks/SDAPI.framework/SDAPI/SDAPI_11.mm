@@ -1,3 +1,219 @@
+unint64_t Lattice<WordLatticeLC>::connectOutLinkUnordered(unint64_t result, unsigned int a2)
+{
+  v3 = *(result + 128) + 136 * a2;
+  v4 = *(v3 + 116);
+  v5 = *(result + 80) + 24 * v4;
+  v6 = *(v5 + 20);
+  *(v5 + 20) = a2;
+  *(v3 + 128) = v6;
+  v7 = *(v5 + 12);
+  *(v5 + 12) = v7 + 1;
+  if (!v7)
+  {
+    return DgnPrimArray<unsigned int>::removeKeepOrder((result + 48), v4);
+  }
+
+  return result;
+}
+
+void (***DgnDelete<Recognizer>(void (***result)(void)))(void)
+{
+  if (result)
+  {
+    v1 = result;
+    (**result)(result);
+
+    return MemChunkFree(v1, 0);
+  }
+
+  return result;
+}
+
+void TTokenizerParamManager::TTokenizerParamManager(TTokenizerParamManager *this, TLocaleInfo *a2)
+{
+  TParamManager::TParamManager(this, 0, a2);
+  *v3 = &unk_287525438;
+  v4 = (v3 + 18);
+  TBoolParam::TBoolParam((v3 + 18), "S", "I", 0, 0, "9", &dword_262873E64);
+  TBoolParam::TBoolParam(this + 392, "P", "I", 0, 0, "9", &dword_262873E64);
+  TBoolParam::TBoolParam(this + 640, "T", "T", 0, 0, "9", &dword_262873E64);
+  TBoolParam::TBoolParam(this + 888, "A", "I", 0, 0, "9", &dword_262873E64);
+  TBoolParam::TBoolParam(this + 1136, "M", "I", 0, 1, "9", &dword_262873E64);
+  TBoolParam::TBoolParam(this + 1384, "T", "I", 0, 1, "9", &dword_262873E64);
+  TBoolParam::TBoolParam(this + 1632, "T", "A", 0, 1, "1", &dword_262873E64);
+  TBoolParam::TBoolParam(this + 1880, "S", "I", 0, 0, "9", &dword_262873E64);
+  TBoolParam::TBoolParam(this + 2128, "M", "I", 0, 1, "1", "1");
+  TStringParam::TStringParam(this + 2376, "C", "A", 0, "'", "1", &dword_262873E64);
+  TStringParam::TStringParam(this + 3752, "C", "A", 0, &dword_262873E64, "1", &dword_262873E64);
+  TBoolParam::TBoolParam(this + 5128, "D", "I", 0, 1, "9", &dword_262873E64);
+  TBoolParam::TBoolParam(this + 5376, "D", "I", 0, 0, "9", &dword_262873E64);
+  TBoolParam::TBoolParam(this + 5624, "D", "I", 0, 0, "9", &dword_262873E64);
+  TBoolParam::TBoolParam(this + 5872, "D", "I", 0, 0, "9", &dword_262873E64);
+  TBoolParam::TBoolParam(this + 6120, "D", "I", 0, 0, "9", &dword_262873E64);
+  TStringParam::TStringParam(this + 6368, "D", "B", 0, &dword_262873E64, "1", "1");
+  TBoolParam::TBoolParam(this + 7744, "C", "R", 0, 0, "9", &dword_262873E64);
+  TStringParam::TStringParam(this + 7992, "C", "S", 256, &dword_262873E64, "9", &dword_262873E64);
+  TStringParam::TStringParam(this + 9368, "C", "W", 0, "x", "1", "1");
+  TStringParam::TStringParam(this + 10744, "V", "T", 0, &dword_262873E64, "9", &dword_262873E64);
+  TBoolParam::TBoolParam(this + 12120, "U", "I", 0, 1, "9", &dword_262873E64);
+  TBoolParam::TBoolParam(this + 12368, "R", "I", 0, 0, "9", &dword_262873E64);
+  TBoolParam::TBoolParam(this + 12616, "C", "N", 0, 1, "1", &dword_262873E64);
+  TBoolParam::TBoolParam(this + 12864, "C", "T", 0, 0, "1", &dword_262873E64);
+  TBoolParam::TBoolParam(this + 13112, "D", "I", 0, 0, "9", &dword_262873E64);
+  TBoolParam::TBoolParam(this + 13360, "H", "S", 0, 0, "1", &dword_262873E64);
+  TIntParam::TIntParam((this + 13608), "N", "I", 0, 0, 1000, 30, "9", &dword_262873E64);
+  TIntParam::TIntParam((this + 13960), "M", "I", 0, 0, 1000, 5, "9", &dword_262873E64);
+  TIntParam::TIntParam((this + 14312), "N", "W", 0, 0, 4, 0, "1", &dword_262873E64);
+  TIntParam::TIntParam((this + 14664), "P", "T", 0, 0, 300, 0, "1", &dword_262873E64);
+  TBoolParam::TBoolParam(this + 15016, "P", "I", 0, 0, "9", "1");
+  TBoolParam::TBoolParam(this + 15264, "A", "I", 0, 1, "1", &dword_262873E64);
+  TBoolParam::TBoolParam(this + 15512, "M", "I", 0, 1, "1", "1");
+  TIntParam::TIntParam((this + 15760), "P", "T", 0, -1, 100, 10, "1", &dword_262873E64);
+  TIntParam::TIntParam((this + 16112), "C", "P", 0, 1, 256, 4, "1", &dword_262873E64);
+  TIntParam::TIntParam((this + 16464), "A", "P", 0, 1, 256, 4, "1", &dword_262873E64);
+  TIntParam::TIntParam((this + 16816), "P", "S", 0, -1, 100, 20, "1", &dword_262873E64);
+  TIntParam::TIntParam((this + 17168), "P", "S", 0, -1, 100, 30, "1", &dword_262873E64);
+  TIntParam::TIntParam((this + 17520), "P", "S", 0, -1, 100, 40, "1", &dword_262873E64);
+  TBoolParam::TBoolParam(this + 17872, "O", "O", 0, 0, "1", &dword_262873E64);
+  TIntParam::TIntParam((this + 18120), "P", "S", 0, -1, 100, -1, "1", &dword_262873E64);
+  TIntParam::TIntParam((this + 18472), "P", "S", 0, -1, 100, 50, "1", &dword_262873E64);
+  TIntParam::TIntParam((this + 18824), "P", "S", 0, -1, 100, 60, "1", &dword_262873E64);
+  TBoolParam::TBoolParam(this + 19176, "U", "I", 0, 1, "1", "1");
+  TBoolParam::TBoolParam(this + 19424, "U", "I", 0, 1, "1", "1");
+  TBoolParam::TBoolParam(this + 19672, "U", "I", 0, 1, "1", "1");
+  TBoolParam::TBoolParam(this + 19920, "U", "I", 0, 1, "1", "1");
+  TBoolParam::TBoolParam(this + 20168, "U", "I", 0, 0, "1", "1");
+  TBoolParam::TBoolParam(this + 20416, "U", "I", 0, 1, "1", "1");
+  TBoolParam::TBoolParam(this + 20664, "L", "I", 0, 0, "1", &dword_262873E64);
+  TBoolParam::TBoolParam(this + 20912, "L", "I", 0, 0, "1", &dword_262873E64);
+  TIntParam::TIntParam((this + 21160), "M", "M", 0, 1, 100, 10, "1", &dword_262873E64);
+  TBoolParam::TBoolParam(this + 21512, "L", "L", 0, 0, "9", &dword_262873E64);
+  TBoolParam::TBoolParam(this + 21760, "L", "L", 0, 0, "9", &dword_262873E64);
+  TBoolParam::TBoolParam(this + 22008, "D", "D", 32, 1, "9", &dword_262873E64);
+  TBoolParam::TBoolParam(this + 22256, "D", "D", 288, 1, "1", &dword_262873E64);
+  TStringParam::TStringParam(this + 22504, "D", "D", 32, &dword_262873E64, "9", &dword_262873E64);
+  TStringParam::TStringParam(this + 23880, "D", "D", 288, &dword_262873E64, "1", &dword_262873E64);
+  TIntParam::TIntParam((this + 25256), "D", "D", 32, -1, 10, 5, "9", &dword_262873E64);
+  TIntParam::TIntParam((this + 25608), "D", "D", 288, -1, 10, 5, "1", &dword_262873E64);
+  TStringParam::TStringParam(this + 3245, "D");
+  TStringParam::TStringParam(this + 3417, "D");
+  TFloatParam::TFloatParam(this + 28712, "D", "D", 32, "9", &dword_262873E64, 0.0);
+  TFloatParam::TFloatParam(this + 29248, "D", "D", 288, "1", &dword_262873E64, 0.0);
+  TParamManager::add(this, v4);
+  TParamManager::add(this, (this + 392));
+  TParamManager::add(this, (this + 640));
+  TParamManager::add(this, (this + 888));
+  TParamManager::add(this, (this + 1136));
+  TParamManager::add(this, (this + 1384));
+  TParamManager::add(this, (this + 1632));
+  TParamManager::add(this, (this + 1880));
+  TParamManager::add(this, (this + 2128));
+  TParamManager::add(this, (this + 2376));
+  TParamManager::add(this, (this + 3752));
+  TParamManager::add(this, (this + 5128));
+  TParamManager::add(this, (this + 5376));
+  TParamManager::add(this, (this + 5624));
+  TParamManager::add(this, (this + 5872));
+  TParamManager::add(this, (this + 6120));
+  TParamManager::add(this, (this + 6368));
+  TParamManager::add(this, (this + 7744));
+  TParamManager::add(this, (this + 7992));
+  TParamManager::add(this, (this + 9368));
+  TParamManager::add(this, (this + 10744));
+  TParamManager::add(this, (this + 12120));
+  TParamManager::add(this, (this + 12368));
+  TParamManager::add(this, (this + 12616));
+  TParamManager::add(this, (this + 12864));
+  TParamManager::add(this, (this + 13112));
+  TParamManager::add(this, (this + 13360));
+  TParamManager::add(this, (this + 13608));
+  TParamManager::add(this, (this + 13960));
+  TParamManager::add(this, (this + 14312));
+  TParamManager::add(this, (this + 14664));
+  TParamManager::add(this, (this + 15016));
+  TParamManager::add(this, (this + 15264));
+  TParamManager::add(this, (this + 15512));
+  TParamManager::add(this, (this + 15760));
+  TParamManager::add(this, (this + 16112));
+  TParamManager::add(this, (this + 16464));
+  TParamManager::add(this, (this + 16816));
+  TParamManager::add(this, (this + 17168));
+  TParamManager::add(this, (this + 17520));
+  TParamManager::add(this, (this + 17872));
+  TParamManager::add(this, (this + 18120));
+  TParamManager::add(this, (this + 18472));
+  TParamManager::add(this, (this + 18824));
+  TParamManager::add(this, (this + 19176));
+  TParamManager::add(this, (this + 19424));
+  TParamManager::add(this, (this + 19672));
+  TParamManager::add(this, (this + 19920));
+  TParamManager::add(this, (this + 20168));
+  TParamManager::add(this, (this + 20416));
+  TParamManager::add(this, (this + 20664));
+  TParamManager::add(this, (this + 20912));
+  TParamManager::add(this, (this + 21160));
+  TParamManager::add(this, (this + 21512));
+  TParamManager::add(this, (this + 21760));
+  TParamManager::add(this, (this + 22008));
+  TParamManager::add(this, (this + 22256));
+  TParamManager::add(this, (this + 22504));
+  TParamManager::add(this, (this + 23880));
+  TParamManager::add(this, (this + 25256));
+  TParamManager::add(this, (this + 25608));
+  MEMORY[0x26672AF30](this + 26000, "D");
+  MEMORY[0x26672AF30](this + 26024, "9");
+  MEMORY[0x26672AF30](this + 26048, &dword_262873E64);
+  *(this + 3259) |= 0x20uLL;
+  std::vector<std::wstring>::vector[abi:ne200100](v11, 4uLL);
+  std::vector<std::wstring>::vector[abi:ne200100](v10, 4uLL);
+  v5 = 0;
+  v6 = "a";
+  do
+  {
+    MEMORY[0x26672AF30](&v11[0][v5], v6);
+    v6 += wcslen(v6) + 1;
+    ++v5;
+  }
+
+  while (v5 != 4);
+  TStringParam::setAllowables(this + 25960, v11, 0, 0);
+  TStringParam::setOriginal(this + 3245, 0, &dword_262873E64);
+  TParamManager::add(this, (this + 25960));
+  v12 = v10;
+  std::vector<std::wstring>::__destroy_vector::operator()[abi:ne200100](&v12);
+  v10[0] = v11;
+  std::vector<std::wstring>::__destroy_vector::operator()[abi:ne200100](v10);
+  MEMORY[0x26672AF30](this + 27376, "D");
+  MEMORY[0x26672AF30](this + 27400, "1");
+  MEMORY[0x26672AF30](this + 27424, &dword_262873E64);
+  *(this + 3431) |= 0x120uLL;
+  std::vector<std::wstring>::vector[abi:ne200100](v11, 4uLL);
+  std::vector<std::wstring>::vector[abi:ne200100](v10, 4uLL);
+  v7 = 0;
+  v8 = "a";
+  do
+  {
+    MEMORY[0x26672AF30](&v11[0][v7], v8);
+    v8 += wcslen(v8) + 1;
+    ++v7;
+  }
+
+  while (v7 != 4);
+  TStringParam::setAllowables(this + 27336, v11, 0, 0);
+  TStringParam::setOriginal(this + 3417, 0, &dword_262873E64);
+  TParamManager::add(this, (this + 27336));
+  v12 = v10;
+  std::vector<std::wstring>::__destroy_vector::operator()[abi:ne200100](&v12);
+  v10[0] = v11;
+  std::vector<std::wstring>::__destroy_vector::operator()[abi:ne200100](v10);
+  TParamManager::add(this, (this + 28712));
+  TParamManager::add(this, (this + 29248));
+  *&v9 = -1;
+  *(&v9 + 1) = -1;
+  *(this + 29784) = v9;
+  *(this + 29800) = v9;
+}
+
 void sub_262609FEC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void **a10, uint64_t a11, uint64_t a12, char a13)
 {
   a10 = &a13;
@@ -81,18 +297,18 @@ void TTokenizerParamManager::notifyChange(TTokenizerParamManager *this, const TP
     {
       v4 = TStringParam::get(v2);
       loggableUnicode(v4, __p);
-      if (v11 >= 0)
+      if (v8 >= 0)
       {
-        v9 = __p;
+        v6 = __p;
       }
 
       else
       {
-        v9 = __p[0];
+        v6 = __p[0];
       }
 
-      tknPrintf("Warning: CharacterMapping contains an odd number of characters: <%s>\n", v5, v6, v7, v8, v9);
-      if (v11 < 0)
+      tknPrintf("Warning: CharacterMapping contains an odd number of characters: <%s>\n", v5, v6);
+      if (v8 < 0)
       {
         operator delete(__p[0]);
       }
@@ -1719,7 +1935,7 @@ LABEL_85:
 
       if (a6)
       {
-        DgnMatrix::invert(&v232, &v230);
+        DgnMatrix::invert(&v230, &v232);
         if (v14)
         {
           v157 = 0;
@@ -2259,13 +2475,14 @@ LABEL_246:
   return DgnPrimArray<unsigned int>::~DgnPrimArray(v242);
 }
 
-void sub_26260CCFC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, char a24, uint64_t a25, char a26, uint64_t a27, char a28, uint64_t a29, char a30)
+void sub_26260CCFC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, ...)
 {
+  va_start(va, a29);
   DgnPrimFixArray<double>::~DgnPrimFixArray(&a24);
   DgnPrimArray<unsigned int>::~DgnPrimArray(&a26);
   DgnArray<DgnPrimArray<unsigned char>>::releaseAll(&a28);
-  DgnPrimArray<unsigned int>::~DgnPrimArray(&a30);
-  DgnPrimArray<unsigned int>::~DgnPrimArray(v30 - 152);
+  DgnPrimArray<unsigned int>::~DgnPrimArray(va);
+  DgnPrimArray<unsigned int>::~DgnPrimArray(v29 - 152);
   _Unwind_Resume(a1);
 }
 
@@ -2790,7 +3007,7 @@ LABEL_21:
   *(this + 22) = 0;
 }
 
-uint64_t writeObject<DgnPrimArray<long long>>(uint64_t a1, uint64_t a2, _DWORD *a3)
+uint64_t writeObject<DgnPrimArray<long long>>(DgnStream *a1, uint64_t a2, unsigned int *a3)
 {
   v9 = *(a2 + 8);
   result = writeObject(a1, &v9, a3);
@@ -2811,9 +3028,9 @@ uint64_t writeObject<DgnPrimArray<long long>>(uint64_t a1, uint64_t a2, _DWORD *
   return result;
 }
 
-void CTPelAccum::addAccum(CTPelAccum *this, const CTPelAccum *a2, char a3)
+void CTPelAccum::addAccum(uint64_t this, const CTPelAccum *a2, char a3)
 {
-  *(this + 7) += *(a2 + 7);
+  *(this + 56) += *(a2 + 7);
   if (*(this + 24) != 1)
   {
     goto LABEL_37;
@@ -2821,12 +3038,12 @@ void CTPelAccum::addAccum(CTPelAccum *this, const CTPelAccum *a2, char a3)
 
   if (*(this + 26) == 1)
   {
-    v4 = *(this + 4);
+    v4 = *(this + 16);
     if (v4)
     {
       v5 = *(a2 + 13);
-      v6 = *(this + 13);
-      v7 = *(this + 4);
+      v6 = *(this + 104);
+      v7 = *(this + 16);
       do
       {
         v8 = *v5++;
@@ -2856,7 +3073,7 @@ void CTPelAccum::addAccum(CTPelAccum *this, const CTPelAccum *a2, char a3)
       v10 = 1;
     }
 
-    v9 = *(this + 4);
+    v9 = *(this + 16);
     if (*(this + 25) & v10)
     {
       v11 = 2;
@@ -2876,7 +3093,7 @@ void CTPelAccum::addAccum(CTPelAccum *this, const CTPelAccum *a2, char a3)
         if (v11)
         {
           v14 = *(v13 + 16 * v12);
-          v15 = *(*(this + 8) + 16 * v12);
+          v15 = *(*(this + 64) + 16 * v12);
           v16 = v11;
           do
           {
@@ -2897,11 +3114,11 @@ void CTPelAccum::addAccum(CTPelAccum *this, const CTPelAccum *a2, char a3)
     v53 = (v11 + v11 * v11) >> 1;
     if ((a3 & 1) != 0 || *(a2 + 27) != 1)
     {
-      v26 = *(this + 24) * v53;
+      v26 = *(this + 96) * v53;
       if (v26)
       {
         v27 = *(a2 + 10);
-        v28 = *(this + 10);
+        v28 = *(this + 80);
         do
         {
           v29 = *v27++;
@@ -2915,7 +3132,7 @@ void CTPelAccum::addAccum(CTPelAccum *this, const CTPelAccum *a2, char a3)
 
     else
     {
-      v51 = *(this + 24);
+      v51 = *(this + 96);
       if (v51)
       {
         v48 = a3;
@@ -2929,7 +3146,7 @@ void CTPelAccum::addAccum(CTPelAccum *this, const CTPelAccum *a2, char a3)
           {
             v19 = 0;
             v20 = 0;
-            v21 = *(v49 + 10);
+            v21 = *(v49 + 80);
             v22 = 2;
             v23 = 1;
             do
@@ -2970,7 +3187,7 @@ LABEL_37:
       return;
     }
 
-    LODWORD(v9) = *(this + 4);
+    LODWORD(v9) = *(this + 16);
   }
 
   if (v9)
@@ -2983,7 +3200,7 @@ LABEL_37:
       if (v9 != -1)
       {
         v33 = *(v32 + 16 * v30);
-        v34 = *(*(this + 16) + 16 * v30);
+        v34 = *(*(this + 128) + 16 * v30);
         v35 = (v9 + 1);
         do
         {
@@ -3009,11 +3226,11 @@ LABEL_37:
   v54 = (v31 * (v9 + 2)) >> 1;
   if ((a3 & 1) != 0 || *(a2 + 27) != 1)
   {
-    v44 = *(this + 40) * v54;
+    v44 = *(this + 160) * v54;
     if (v44)
     {
       v45 = *(a2 + 18);
-      v46 = *(this + 18);
+      v46 = *(this + 144);
       do
       {
         v47 = *v45++;
@@ -3028,7 +3245,7 @@ LABEL_37:
   else
   {
     v50 = this;
-    v52 = *(this + 40);
+    v52 = *(this + 160);
     if (v52)
     {
       v58 = 0;
@@ -3040,7 +3257,7 @@ LABEL_37:
         {
           v38 = 0;
           v39 = 0;
-          v40 = *(v50 + 18);
+          v40 = *(v50 + 144);
           v41 = 2;
           v42 = 1;
           do
@@ -3417,35 +3634,36 @@ unint64_t CTPelAccum::sizeObject(uint64_t a1, int a2)
   return (v11 & 0xFFFFFFFFFFFFFFFDLL | (2 * (a2 != 3))) + v5 + v6 + v7 + v8 + v9 + ((2 * (a2 != 3)) | (8 * (a2 != 3))) + v10;
 }
 
-BOOL CTPelAccum::adaptOneFrame(uint64_t *a1, unsigned int a2, int a3, AdaptStats *a4, unsigned int a5, uint64_t a6, double a7, double a8)
+BOOL CTPelAccum::adaptOneFrame(void *a1, unsigned int a2, BOOL a3, AdaptStats *a4, double a5, double a6, uint64_t a7, uint64_t a8)
 {
-  if (a7 == 0.0)
+  if (a5 == 0.0)
   {
     return 0;
   }
 
+  v10 = a7;
   v16 = a1;
-  v290 = 0;
-  v289 = 0;
+  v284 = 0;
+  v283 = 0;
   v17 = *(*(*a1 + 288) + 2 * a2);
-  v288 = 0u;
-  v287 = 0u;
-  v286 = 0u;
-  v285 = 0u;
-  v284 = 0u;
-  v283 = 0u;
   v282 = 0u;
   v281 = 0u;
-  PelStats::resetStats(v280);
-  if (!*(a6 + 8))
+  v280 = 0u;
+  v279 = 0u;
+  v278 = 0u;
+  v277 = 0u;
+  v276 = 0u;
+  v275 = 0u;
+  PelStats::resetStats(v274);
+  if (!*(a8 + 8))
   {
-    a6 = PelScorer::setFrameStaticsForGenoneAdapt(v16[1], v17, a3, v280, v18, v19, v20, v21);
+    a8 = PelScorer::setFrameStaticsForGenoneAdapt(v16[1], v17, a3, v274);
   }
 
-  v279[0] = 0;
-  v279[1] = 0;
-  DgnPrimArray<unsigned char>::copyArraySlice(v279, a6, 0, *(a6 + 8));
-  ComponentProbs = PelScorer::getComponentProbs(v16[1], a2, &v289, a5);
+  v273[0] = 0;
+  v273[1] = 0;
+  DgnPrimArray<unsigned char>::copyArraySlice(v273, a8, 0, *(a8 + 8));
+  ComponentProbs = PelScorer::getComponentProbs(v16[1], a2, &v283, v10);
   if (ComponentProbs == 0.0)
   {
     v8 = 0;
@@ -3454,1093 +3672,1091 @@ BOOL CTPelAccum::adaptOneFrame(uint64_t *a1, unsigned int a2, int a3, AdaptStats
 
   if (*(v16 + 24) == 1)
   {
-    v261 = *(v16 + 21) ^ 1;
+    v255 = *(v16 + 21) ^ 1;
   }
 
   else
   {
-    v261 = 0;
+    v255 = 0;
   }
 
-  v23 = *(*v16 + 16);
-  if (v23 == 1)
+  v19 = *(*v16 + 16);
+  if (v19 == 1)
   {
-    v24 = *(v16 + 20);
+    v20 = *(v16 + 20);
   }
 
   else
   {
-    v24 = 1;
+    v20 = 1;
   }
 
-  v277 = 0;
-  v278 = 0;
-  v275 = 0;
-  v276 = 0;
-  v25 = (*(v16 + 4) + 1);
-  v273 = 0;
-  v26 = realloc_array(0, &v273, v25, 0, 0, 1);
-  v277 = v273;
-  v278 = __PAIR64__(v26, v25);
-  *v273 = 1;
-  LODWORD(v28) = *(v16 + 4);
-  if (v28)
+  v271 = 0;
+  v272 = 0;
+  v269 = 0;
+  v270 = 0;
+  v21 = (*(v16 + 4) + 1);
+  v267 = 0;
+  v22 = realloc_array(0, &v267, v21, 0, 0, 1);
+  v271 = v267;
+  v272 = __PAIR64__(v22, v21);
+  *v267 = 1;
+  LODWORD(v23) = *(v16 + 4);
+  if (v23)
   {
-    v29 = 0;
+    v24 = 0;
     do
     {
-      v277[v29 + 1] = *(v279[0] + v29);
-      v28 = *(v16 + 4);
-      ++v29;
+      v271[v24 + 1] = *(v273[0] + v24);
+      v23 = *(v16 + 4);
+      ++v24;
     }
 
-    while (v29 < v28);
+    while (v24 < v23);
   }
 
   if (*(v16 + 24) == 1)
   {
-    v30 = *(v16 + 25) & v24;
-    v31 = (v28 + 2 + (v28 + 2) * v28) >> 1;
-    v32 = 2 * v28 + 2;
-    if (v30)
+    v25 = *(v16 + 25) & v20;
+    v26 = (v23 + 2 + (v23 + 2) * v23) >> 1;
+    v27 = 2 * v23 + 2;
+    if (v25)
     {
-      v33 = v32;
+      v28 = v27;
     }
 
     else
     {
-      v33 = v31;
+      v28 = v26;
     }
 
-    v34 = v275;
-    if (HIDWORD(v276) < v33)
+    v29 = v269;
+    if (HIDWORD(v270) < v28)
     {
-      v273 = 0;
-      HIDWORD(v276) = realloc_array(v275, &v273, 8 * v33, 8 * v276, 8 * v276, 1) >> 3;
-      v34 = v273;
-      v275 = v273;
+      v267 = 0;
+      HIDWORD(v270) = realloc_array(v269, &v267, 8 * v28, 8 * v270, 8 * v270, 1) >> 3;
+      v29 = v267;
+      v269 = v267;
     }
 
-    LODWORD(v276) = v33;
-    *v34 = 0x400000;
-    if (v30)
+    LODWORD(v270) = v28;
+    *v29 = 0x400000;
+    if (v25)
     {
-      v34[1] = 0;
+      v29[1] = 0;
     }
 
-    LODWORD(v28) = *(v16 + 4);
-    v35 = (v28 + 1);
-    if (v35 >= 2)
+    LODWORD(v23) = *(v16 + 4);
+    v30 = (v23 + 1);
+    if (v30 >= 2)
     {
-      v36 = v277;
-      v37 = 1;
+      v31 = v271;
+      v32 = 1;
       do
       {
-        v38 = 0;
-        v39 = v37++;
-        if (v37 <= 1)
+        v33 = 0;
+        v34 = v32++;
+        if (v32 <= 1)
         {
-          v40 = 1;
+          v35 = 1;
         }
 
         else
         {
-          v40 = v37;
+          v35 = v32;
         }
 
-        if (v30)
+        if (v25)
         {
-          v41 = v39;
-        }
-
-        else
-        {
-          v41 = 1;
-        }
-
-        v42 = 2 * v39;
-        if (v30)
-        {
-          v40 = 2;
+          v36 = v34;
         }
 
         else
         {
-          v42 = (v37 * v39) >> 1;
+          v36 = 1;
+        }
+
+        v37 = 2 * v34;
+        if (v25)
+        {
+          v35 = 2;
+        }
+
+        else
+        {
+          v37 = (v32 * v34) >> 1;
         }
 
         do
         {
-          if (v38)
+          if (v33)
           {
-            v43 = 8;
+            v38 = 8;
           }
 
           else
           {
-            v43 = 15;
+            v38 = 15;
           }
 
-          v34[v42++] = (v36[v39] << v43) * v36[v38];
-          v38 += v41;
-          --v40;
+          v29[v37++] = (v31[v34] << v38) * v31[v33];
+          v33 += v36;
+          --v35;
         }
 
-        while (v40);
+        while (v35);
       }
 
-      while (v37 != v35);
+      while (v32 != v30);
     }
   }
 
-  v273 = 0;
-  v274 = 0;
-  v271 = 0;
-  v272 = 0;
-  if ((v261 & 1) != 0 || *(v16 + 23) == 1)
+  v267 = 0;
+  v268 = 0;
+  v265 = 0;
+  v266 = 0;
+  if ((v255 & 1) != 0 || *(v16 + 23) == 1)
   {
-    v44 = v28 + 1;
-    if (v28 == -1)
+    v39 = v23 + 1;
+    if (v23 == -1)
     {
-      v45 = 0;
-      v46 = 0;
+      v40 = 0;
+      v41 = 0;
     }
 
     else
     {
-      v269 = 0;
-      HIDWORD(v274) = realloc_array(0, &v269, 4 * (v28 + 1), 0, 0, 1) >> 2;
-      v273 = v269;
-      v45 = HIDWORD(v272);
-      v46 = (*(v16 + 4) + 2 + (*(v16 + 4) + 2) * *(v16 + 4)) >> 1;
+      v263 = 0;
+      HIDWORD(v268) = realloc_array(0, &v263, 4 * (v23 + 1), 0, 0, 1) >> 2;
+      v267 = v263;
+      v40 = HIDWORD(v266);
+      v41 = (*(v16 + 4) + 2 + (*(v16 + 4) + 2) * *(v16 + 4)) >> 1;
     }
 
-    LODWORD(v274) = v44;
-    if (v45 < v46)
+    LODWORD(v268) = v39;
+    if (v40 < v41)
     {
-      v269 = 0;
-      HIDWORD(v272) = realloc_array(v271, &v269, 8 * v46, 8 * v272, 8 * v272, 1) >> 3;
-      v271 = v269;
+      v263 = 0;
+      HIDWORD(v266) = realloc_array(v265, &v263, 8 * v41, 8 * v266, 8 * v266, 1) >> 3;
+      v265 = v263;
     }
 
-    LODWORD(v272) = v46;
+    LODWORD(v266) = v41;
   }
 
-  v47 = (*(*v16 + 456) + 4 * a2);
-  v49 = *v47;
-  v48 = v47[1];
-  v269 = 0;
-  v270 = 0;
-  v50 = (v48 - v49);
-  if (v48 == v49)
+  v42 = (*(*v16 + 456) + 4 * a2);
+  v44 = *v42;
+  v43 = v42[1];
+  v263 = 0;
+  v264 = 0;
+  v45 = (v43 - v44);
+  if (v43 == v44)
   {
-    v51 = 0;
-    LODWORD(v270) = v48 - v49;
+    v46 = 0;
+    LODWORD(v264) = v43 - v44;
   }
 
   else
   {
-    v268[0] = 0;
-    v52 = realloc_array(0, v268, 16 * v50, 0, 0, 1);
-    v53 = 0;
-    v54 = v52 >> 4;
-    v51 = v268[0];
-    v269 = v268[0];
-    HIDWORD(v270) = v54;
-    LODWORD(v270) = v48 - v49;
-    v55 = v289;
-    v56 = v268[0] + 8;
-    v50 = (v48 - v49);
+    v262[0] = 0;
+    v47 = realloc_array(0, v262, 16 * v45, 0, 0, 1);
+    v48 = 0;
+    v49 = v47 >> 4;
+    v46 = v262[0];
+    v263 = v262[0];
+    HIDWORD(v264) = v49;
+    LODWORD(v264) = v43 - v44;
+    v50 = v283;
+    v51 = (v262[0] + 8);
+    v45 = (v43 - v44);
     do
     {
-      *v56 = v53;
-      v27.n128_f64[0] = *(v55 + 8 * v53) / ComponentProbs;
-      *(v56 - 1) = v27.n128_u64[0];
-      ++v53;
-      v56 += 4;
+      *v51 = v48;
+      *(v51 - 1) = *(v50 + 8 * v48++) / ComponentProbs;
+      v51 += 2;
     }
 
-    while (v48 - v49 != v53);
+    while (v43 - v44 != v48);
   }
 
-  v247 = v50;
-  mrec_qsort_r<CompAndProb>(v51, v50, 16, v27);
-  v245 = v23;
-  v246 = a4;
-  v268[0] = 0;
-  v268[1] = 0;
-  v267[0] = 0;
-  v267[1] = 0;
-  v266[0] = 0;
-  v266[1] = 0;
-  v263[1] = 0;
-  v264 = 0;
-  v265 = 0;
-  v263[0] = 0;
-  v57 = *v16;
-  if (v23 == 1)
+  v241 = v45;
+  mrec_qsort_r<CompAndProb>(v46, v45, 0x10uLL);
+  v239 = v19;
+  v240 = a4;
+  v262[0] = 0;
+  v262[1] = 0;
+  v261[0] = 0;
+  v261[1] = 0;
+  v260[0] = 0;
+  v260[1] = 0;
+  v257[1] = 0;
+  v258 = 0;
+  v259 = 0;
+  v257[0] = 0;
+  v52 = *v16;
+  if (v19 == 1)
   {
-    DgnArray<DgnArray<DgnPrimArray<int>>>::copyArraySlice(v263, (v57 + 184), 0, *(v57 + 192));
-    v57 = *v16;
-    v58 = *(*v16 + 152);
-    v60 = *(*v16 + 160);
-    v59 = *(*v16 + 164);
-    v61 = *(v16 + 4);
+    DgnArray<DgnArray<DgnPrimArray<int>>>::copyArraySlice(v257, (v52 + 184), 0, *(v52 + 192));
+    v52 = *v16;
+    v53 = *(*v16 + 152);
+    v55 = *(*v16 + 160);
+    v54 = *(*v16 + 164);
+    v56 = *(v16 + 4);
     if (*(v16 + 20))
     {
-      v62 = 1;
+      v57 = 1;
     }
 
     else
     {
-      v62 = *(v16 + 4);
+      v57 = *(v16 + 4);
     }
 
-    v63 = v61 * v62;
-    if (v61 * v62 && !v265)
+    v58 = v56 * v57;
+    if (v56 * v57 && !v259)
     {
-      v264 = MemChunkAlloc(8 * (v61 * v62), 0);
-      v265 = v63;
-      v57 = *v16;
+      v258 = MemChunkAlloc(8 * (v56 * v57), 0);
+      v259 = v58;
+      v52 = *v16;
     }
 
-    v64 = v60 + v59;
+    v59 = v55 + v54;
   }
 
   else
   {
-    v58 = 0;
-    v64 = 0;
+    v53 = 0;
+    v59 = 0;
   }
 
-  v65 = v247;
-  if (v48 == v49)
+  v60 = v241;
+  if (v43 == v44)
   {
     v8 = 0;
     goto LABEL_236;
   }
 
-  v66 = 0;
-  v67 = 1.0 / (1 << v64);
-  v248 = a7 * 256.0;
-  v244 = *(*(v57 + 272) + 4 * v17);
-  v68 = 0.0;
-  v262 = v16;
+  v61 = 0;
+  v62 = 1.0 / (1 << v59);
+  v242 = a5 * 256.0;
+  v238 = *(*(v52 + 272) + 4 * v17);
+  v63 = 0.0;
+  v256 = v16;
   do
   {
-    v69 = v269 + 16 * v66;
-    v70 = *v69;
-    v71 = v248 * *v69 + 0.5;
-    v72 = v71;
-    if (!v71)
+    v64 = v263 + 16 * v61;
+    v65 = *v64;
+    v66 = v242 * *v64 + 0.5;
+    v67 = v66;
+    if (!v66)
     {
       goto LABEL_234;
     }
 
-    v249 = v66;
-    v73 = *(v69 + 2);
-    v16[7] += v72;
-    if (v246)
+    v243 = v61;
+    v68 = *(v64 + 2);
+    v16[7] += v67;
+    if (v240)
     {
-      AdaptStats::update(v246, *(*(*v16 + 416) + 4 * a2), v71, 256);
+      AdaptStats::update(v240, *(*(*v16 + 416) + 4 * a2), v66, 256);
     }
 
-    v74 = a8;
-    v75 = v72;
-    if (v245 == 1)
+    v69 = a6;
+    v70 = v67;
+    if (v239 == 1)
     {
-      PelMgr::unpackPelMixtureComponent(*v16, a2, v73, v268, v266);
-      v77 = v75 + 0.5;
+      PelMgr::unpackPelMixtureComponent(*v16, a2, v68, v262, v260);
+      v72 = v70 + 0.5;
     }
 
     else
     {
       if (*(v16 + 26))
       {
-        v78 = 1.0;
+        v73 = 1.0;
       }
 
       else
       {
-        v78 = 40.7436654;
+        v73 = 40.7436654;
       }
 
-      PelMgr::unpackPelMixtureComponent(*v16, a2, v73, v268, v267);
-      v77 = v75 * v78 + 0.5;
+      PelMgr::unpackPelMixtureComponent(*v16, a2, v68, v262, v261);
+      v72 = v70 * v73 + 0.5;
     }
 
-    a8 = v74;
-    if (v261 & 1) != 0 || (*(v16 + 23))
+    a6 = v69;
+    if (v255 & 1) != 0 || (*(v16 + 23))
     {
-      v79 = v273;
-      v80 = 1;
-      *v273 = 1;
+      v74 = v267;
+      v75 = 1;
+      *v267 = 1;
       if (*(v16 + 4))
       {
-        v81 = 0;
-        v82 = v268[0];
+        v76 = 0;
+        v77 = v262[0];
         do
         {
-          v79[v81 + 1] = v82[v81];
-          v83 = *(v16 + 4);
-          ++v81;
+          v74[v76 + 1] = v77[v76];
+          v78 = *(v16 + 4);
+          ++v76;
         }
 
-        while (v81 < v83);
-        v80 = v83 + 1;
-        if (v83 == -1)
+        while (v76 < v78);
+        v75 = v78 + 1;
+        if (v78 == -1)
         {
-          v80 = 0;
-          LODWORD(v83) = -1;
+          v75 = 0;
+          LODWORD(v78) = -1;
           goto LABEL_92;
         }
       }
 
       else
       {
-        LODWORD(v83) = 0;
+        LODWORD(v78) = 0;
       }
 
-      v84 = 0;
-      v85 = 0;
-      v86 = v271;
-      v87 = 2;
-      v88 = 1;
+      v79 = 0;
+      v80 = 0;
+      v81 = v265;
+      v82 = 2;
+      v83 = 1;
       do
       {
-        v89 = 0;
-        v90 = v85;
-        v91 = v79[v85++];
+        v84 = 0;
+        v85 = v80;
+        v86 = v74[v80++];
         do
         {
-          if (v89 | v90)
+          if (v84 | v85)
           {
-            v92 = 15;
+            v87 = 15;
           }
 
           else
           {
-            v92 = 22;
+            v87 = 22;
           }
 
-          if (v89)
+          if (v84)
           {
-            v92 = 8;
+            v87 = 8;
           }
 
-          v86[(v84 >> 1) + v89] = (v91 << v92) * v79[v89];
-          ++v89;
+          v81[(v79 >> 1) + v84] = (v86 << v87) * v74[v84];
+          ++v84;
         }
 
-        while (v88 != v89);
-        ++v88;
-        v84 += v87;
-        v87 += 2;
+        while (v83 != v84);
+        ++v83;
+        v79 += v82;
+        v82 += 2;
       }
 
-      while (v85 != v80);
+      while (v80 != v75);
     }
 
     else
     {
-      LODWORD(v83) = *(v16 + 4);
-      v80 = v83 + 1;
+      LODWORD(v78) = *(v16 + 4);
+      v75 = v78 + 1;
     }
 
 LABEL_92:
-    v257 = (v77 & 0x3FFFFFFFFFFFLL) << 10;
-    v260 = (v80 * (v83 + 2)) >> 1;
-    if (v245 != 1)
+    v251 = (v72 & 0x3FFFFFFFFFFFLL) << 10;
+    v254 = (v75 * (v78 + 2)) >> 1;
+    if (v239 != 1)
     {
-      v253 = v80;
-      if (!v83)
+      v247 = v75;
+      if (!v78)
       {
         goto LABEL_233;
       }
 
-      v105 = 0;
-      v106 = 0;
-      v107 = 0;
-      v256 = v267[0];
-      v252 = v268[0];
-      v258 = *(v16 + 27);
-      v251 = v73 + v244;
-      v255 = *(v16 + 24);
-      v108 = v277;
-      v109 = v275;
-      v250 = v279[0];
-      v110 = v273;
-      v254 = v83;
-      v111 = v277 + 1;
-      v112 = 2;
+      v100 = 0;
+      v101 = 0;
+      v102 = 0;
+      v250 = v261[0];
+      v246 = v262[0];
+      v252 = *(v16 + 27);
+      v245 = v68 + v238;
+      v249 = *(v16 + 24);
+      v103 = v271;
+      v104 = v269;
+      v244 = v273[0];
+      v105 = v267;
+      v248 = v78;
+      v106 = v271 + 1;
+      v107 = 2;
       while (1)
       {
-        v113 = (*(v256 + 4 * v107) * *(v256 + 4 * v107));
-        v114 = (v257 + (v113 >> 1)) / v113;
-        if (v258)
+        v108 = (*(v250 + 4 * v102) * *(v250 + 4 * v102));
+        v109 = (v251 + (v108 >> 1)) / v108;
+        if (v252)
         {
-          v115 = (v257 + (v113 >> 1)) / v113;
-          if (v107 < *(v16 + 8))
+          v110 = (v251 + (v108 >> 1)) / v108;
+          if (v102 < *(v16 + 8))
           {
-            v115 = (v257 * *(*(v16[5] + 8) + 8 * (v251 + *v16[5] * v107)) + 0.5);
+            v110 = (v251 * *(*(v16[5] + 8) + 8 * (v245 + *v16[5] * v102)) + 0.5);
           }
         }
 
         else
         {
-          v115 = (v257 + (v113 >> 1)) / v113;
+          v110 = (v251 + (v108 >> 1)) / v108;
         }
 
-        if (!v255)
+        if (!v249)
         {
           goto LABEL_129;
         }
 
-        v116 = v252[v107];
-        v117 = v114 * v116;
-        v118 = *(v262 + 26);
-        if (*(v262 + 25) == 1)
+        v111 = v246[v102];
+        v112 = v109 * v111;
+        if (*(v256 + 25) == 1)
         {
-          if ((*(v262 + 26) & 1) == 0)
+          if ((*(v256 + 26) & 1) == 0)
           {
-            v119 = 0;
-            v120 = *(v262[8] + 16 * v107);
-            v121 = v262[10];
-            v122 = 1;
-            v123 = 15;
-            v124 = 1;
+            v113 = 0;
+            v114 = *(v256[8] + 16 * v102);
+            v115 = v256[10];
+            v116 = 1;
+            v117 = 15;
+            v118 = 1;
             do
             {
-              v125 = v122;
-              *(v120 + 8 * v119) += ((v108[v119 * (v107 + 1)] << v123) * v117) >> 18;
-              v126 = &v109[16 * ((v112 * v119) >> 1)];
-              v127 = v105 + ((v119 + v119 * v119) >> 1);
-              v128 = v124;
+              v119 = v116;
+              *(v114 + 8 * v113) += ((v103[v113 * (v102 + 1)] << v117) * v112) >> 18;
+              v120 = &v104[16 * ((v107 * v113) >> 1)];
+              v121 = v100 + ((v113 + v113 * v113) >> 1);
+              v122 = v118;
               do
               {
-                v129 = *v126;
-                v126 += 8;
-                *(v121 + 8 * v127++) += (v129 * v114) >> 18;
-                --v128;
+                v123 = *v120;
+                v120 += 8;
+                *(v115 + 8 * v121++) += (v123 * v109) >> 18;
+                --v122;
               }
 
-              while (v128);
-              v122 = 0;
-              ++v124;
-              v123 = 8;
-              v119 = 1;
+              while (v122);
+              v116 = 0;
+              ++v118;
+              v117 = 8;
+              v113 = 1;
             }
 
-            while ((v125 & 1) != 0);
+            while ((v119 & 1) != 0);
             goto LABEL_129;
           }
         }
 
-        else if ((*(v262 + 26) & 1) == 0)
+        else if ((*(v256 + 26) & 1) == 0)
         {
-          if (v258)
+          if (v252)
           {
-            v130 = v107 < *(v262 + 8);
+            v124 = v102 < *(v256 + 8);
           }
 
           else
           {
-            v130 = 1;
+            v124 = 1;
           }
 
-          if (v253)
+          if (v247)
           {
-            v131 = 0;
-            v132 = 0;
-            v133 = *(v262[8] + 16 * v107);
-            v134 = 2;
-            v135 = v275;
-            v136 = 1;
+            v125 = 0;
+            v126 = 0;
+            v127 = *(v256[8] + 16 * v102);
+            v128 = 2;
+            v129 = v269;
+            v130 = 1;
             do
             {
-              if (v132)
+              if (v126)
               {
-                v137 = 8;
+                v131 = 8;
               }
 
               else
               {
-                v137 = 15;
+                v131 = 15;
               }
 
-              *(v133 + 8 * v132) += ((v108[v132] << v137) * v117) >> 18;
-              if (v130)
+              *(v127 + 8 * v126) += ((v103[v126] << v131) * v112) >> 18;
+              if (v124)
               {
-                v138 = v131 >> 1;
-                v139 = v262[10];
-                v140 = v136;
-                v141 = v106 + (v131 >> 1);
+                v132 = v125 >> 1;
+                v133 = v256[10];
+                v134 = v130;
+                v135 = v101 + (v125 >> 1);
                 do
                 {
-                  *(v139 + 8 * v141++) += (v135[v138++] * v115) >> 18;
-                  --v140;
+                  *(v133 + 8 * v135++) += (v129[v132++] * v110) >> 18;
+                  --v134;
                 }
 
-                while (v140);
+                while (v134);
               }
 
-              ++v132;
-              ++v136;
-              v131 += v134;
-              v134 += 2;
+              ++v126;
+              ++v130;
+              v125 += v128;
+              v128 += 2;
             }
 
-            while (v132 != v253);
+            while (v126 != v247);
           }
 
           goto LABEL_129;
         }
 
-        *(v262[13] + 8 * v107) += ((v77 << 25) * (*(v250 + v107) - v116)) >> 18;
+        *(v256[13] + 8 * v102) += ((v72 << 25) * (*(v244 + v102) - v111)) >> 18;
 LABEL_129:
-        v16 = v262;
-        if ((v261 & 1) != 0 || *(v262 + 23) == 1)
+        v16 = v256;
+        if ((v255 & 1) != 0 || *(v256 + 23) == 1)
         {
-          v142 = !v258 || v107 < *(v262 + 8);
-          if (v253)
+          v136 = !v252 || v102 < *(v256 + 8);
+          if (v247)
           {
-            v143 = 0;
-            v144 = 0;
-            v145 = *(v262[16] + 16 * v107);
-            v146 = 2;
-            v147 = v271;
-            v148 = 1;
+            v137 = 0;
+            v138 = 0;
+            v139 = *(v256[16] + 16 * v102);
+            v140 = 2;
+            v141 = v265;
+            v142 = 1;
             do
             {
-              if (v144)
+              if (v138)
               {
-                v149 = 8;
+                v143 = 8;
               }
 
               else
               {
-                v149 = 15;
+                v143 = 15;
               }
 
-              *(v145 + 8 * v144) += ((v111[v107] << v149) * v114 * v110[v144]) >> 18;
-              if (v142)
+              *(v139 + 8 * v138) += ((v106[v102] << v143) * v109 * v105[v138]) >> 18;
+              if (v136)
               {
-                v150 = v143 >> 1;
-                v151 = v262[18];
-                v152 = v148;
+                v144 = v137 >> 1;
+                v145 = v256[18];
+                v146 = v142;
                 do
                 {
-                  *(v151 + 8 * (v106 + v150)) += (v147[v150] * v115) >> 18;
-                  ++v150;
-                  --v152;
+                  *(v145 + 8 * (v101 + v144)) += (v141[v144] * v110) >> 18;
+                  ++v144;
+                  --v146;
                 }
 
-                while (v152);
+                while (v146);
               }
 
-              ++v144;
-              ++v148;
-              v143 += v146;
-              v146 += 2;
+              ++v138;
+              ++v142;
+              v137 += v140;
+              v140 += 2;
             }
 
-            while (v144 != v253);
+            while (v138 != v247);
           }
         }
 
-        ++v107;
-        v106 += v260;
-        v112 += 2;
-        v105 += 3;
-        if (v107 == v254)
+        ++v102;
+        v101 += v254;
+        v107 += 2;
+        v100 += 3;
+        if (v102 == v248)
         {
           goto LABEL_233;
         }
       }
     }
 
-    v93 = *(v16 + 20);
-    if (v93)
+    v88 = *(v16 + 20);
+    if (v88)
     {
-      if (v83)
+      if (v78)
       {
-        v94 = 0;
-        v95 = v266[0];
-        v96 = v263[0];
-        v97 = v264;
+        v89 = 0;
+        v90 = v260[0];
+        v91 = v257[0];
+        v92 = v258;
         do
         {
-          v98 = 0.0;
-          if (v58)
+          v93 = 0.0;
+          if (v53)
           {
-            v99 = v58;
-            v100 = v96;
-            v101 = v95;
+            v94 = v53;
+            v95 = v91;
+            v96 = v90;
             do
             {
-              v102 = *v101++;
-              v103 = v102;
-              v104 = *v100;
-              v100 += 2;
-              v76 = *(*(v104 + 16 * v94) + 4 * v94);
-              v98 = v98 + v103 * v76;
-              --v99;
+              v97 = *v96++;
+              v98 = v97;
+              v99 = *v95;
+              v95 += 2;
+              v71 = *(*(v99 + 16 * v89) + 4 * v89);
+              v93 = v93 + v98 * v71;
+              --v94;
             }
 
-            while (v99);
+            while (v94);
           }
 
-          *&v97[v94++] = v67 * v98;
+          *&v92[v89++] = v62 * v93;
         }
 
-        while (v94 != v83);
+        while (v89 != v78);
         goto LABEL_153;
       }
     }
 
-    else if (v83)
+    else if (v78)
     {
-      v153 = 0;
-      v154 = v264;
+      v147 = 0;
+      v148 = v258;
       do
       {
-        v155 = 0;
-        v156 = v266[0];
-        v157 = v263[0];
+        v149 = 0;
+        v150 = v260[0];
+        v151 = v257[0];
         do
         {
-          v158 = 0.0;
-          if (v58)
+          v152 = 0.0;
+          if (v53)
           {
-            v159 = v58;
-            v160 = v157;
-            v161 = v156;
+            v153 = v53;
+            v154 = v151;
+            v155 = v150;
             do
             {
-              v162 = *v161++;
-              v163 = v162;
-              v164 = *v160;
-              v160 += 2;
-              v76 = *(*(v164 + 16 * v153) + 4 * v155);
-              v158 = v158 + v163 * v76;
-              --v159;
+              v156 = *v155++;
+              v157 = v156;
+              v158 = *v154;
+              v154 += 2;
+              v71 = *(*(v158 + 16 * v147) + 4 * v149);
+              v152 = v152 + v157 * v71;
+              --v153;
             }
 
-            while (v159);
+            while (v153);
           }
 
-          *&v154[(v83 * v153 + v155++)] = v67 * v158;
+          *&v148[(v78 * v147 + v149++)] = v62 * v152;
         }
 
-        while (v155 != v83);
-        ++v153;
+        while (v149 != v78);
+        ++v147;
       }
 
-      while (v153 != v83);
+      while (v147 != v78);
 LABEL_153:
-      v165 = v83 != 0;
-      v259 = *(v16 + 24);
-      if (v259 == 1 && v83 != 0)
+      v159 = v78 != 0;
+      v253 = *(v16 + 24);
+      if (v253 == 1 && v78 != 0)
       {
-        v167 = 0;
-        v168 = 0;
-        v169 = v264;
-        v170 = v268[0];
-        v171 = *(v16 + 25) & v93;
-        v172 = v277;
+        v161 = 0;
+        v162 = 0;
+        v163 = v258;
+        v164 = v262[0];
+        v165 = *(v16 + 25) & v88;
+        v166 = v271;
         do
         {
-          if (v93)
+          if (v88)
           {
-            LODWORD(v76) = v170[v168];
-            v173 = *&v169[v168] * *&v76;
+            LODWORD(v71) = v164[v162];
+            v167 = *&v163[v162] * *&v71;
           }
 
           else
           {
-            v173 = 0.0;
-            v174 = v83;
-            v175 = v170;
-            v176 = v167;
+            v167 = 0.0;
+            v168 = v78;
+            v169 = v164;
+            v170 = v161;
             do
             {
-              v177 = *v175++;
-              v173 = v173 + *&v169[v176++] * v177;
-              --v174;
+              v171 = *v169++;
+              v167 = v167 + *&v163[v170++] * v171;
+              --v168;
             }
 
-            while (v174);
+            while (v168);
           }
 
-          if (v173 < 0.0)
+          if (v167 < 0.0)
           {
-            v76 = -0.5;
+            v71 = -0.5;
           }
 
           else
           {
-            v76 = 0.5;
+            v71 = 0.5;
           }
 
-          v178 = (v76 + v173 * v257);
-          if (v171)
+          v172 = (v71 + v167 * v251);
+          if (v165)
           {
-            v179 = 0;
-            v180 = *(v16[8] + 16 * v168);
-            v181 = 1;
-            v182 = 15;
+            v173 = 0;
+            v174 = *(v16[8] + 16 * v162);
+            v175 = 1;
+            v176 = 15;
             do
             {
-              v183 = v181;
-              *(v180 + 8 * v179) += ((v178 << v182) * v172[v179 * (v168 + 1)]) >> 18;
-              v182 = 8;
-              v179 = 1;
-              v181 = 0;
+              v177 = v175;
+              *(v174 + 8 * v173) += ((v172 << v176) * v166[v173 * (v162 + 1)]) >> 18;
+              v176 = 8;
+              v173 = 1;
+              v175 = 0;
             }
 
-            while ((v183 & 1) != 0);
+            while ((v177 & 1) != 0);
           }
 
-          else if (v80)
+          else if (v75)
           {
-            v184 = 0;
-            v185 = *(v16[8] + 16 * v168);
+            v178 = 0;
+            v179 = *(v16[8] + 16 * v162);
             do
             {
-              if (v184)
+              if (v178)
               {
-                v186 = 8;
+                v180 = 8;
               }
 
               else
               {
-                v186 = 15;
+                v180 = 15;
               }
 
-              *(v185 + 8 * v184) += ((v178 << v186) * v172[v184]) >> 18;
-              ++v184;
+              *(v179 + 8 * v178) += ((v172 << v180) * v166[v178]) >> 18;
+              ++v178;
             }
 
-            while (v80 != v184);
+            while (v75 != v178);
           }
 
-          ++v168;
-          v167 += v83;
+          ++v162;
+          v161 += v78;
         }
 
-        while (v168 != v83);
+        while (v162 != v78);
       }
 
-      if (v261)
+      if (v255)
       {
 LABEL_182:
-        v187 = 0;
-        v188 = 0;
-        v189 = v264;
-        v190 = v273;
-        if (v83 <= 1)
+        v181 = 0;
+        v182 = 0;
+        v183 = v258;
+        v184 = v267;
+        if (v78 <= 1)
         {
-          v191 = 1;
+          v185 = 1;
         }
 
         else
         {
-          v191 = v83;
+          v185 = v78;
         }
 
-        v192 = v277 + 1;
+        v186 = v271 + 1;
         do
         {
-          if (v93)
+          if (v88)
           {
-            LOBYTE(v76) = v192[v188];
-            v193 = *&v189[v188] * *&v76;
+            LOBYTE(v71) = v186[v182];
+            v187 = *&v183[v182] * *&v71;
           }
 
           else
           {
-            v193 = 0.0;
-            v194 = v192;
-            v195 = v191;
-            v196 = v187;
+            v187 = 0.0;
+            v188 = v186;
+            v189 = v185;
+            v190 = v181;
             do
             {
-              v197 = *v194++;
-              v193 = v193 + *&v189[v196++] * v197;
-              --v195;
+              v191 = *v188++;
+              v187 = v187 + *&v183[v190++] * v191;
+              --v189;
             }
 
-            while (v195);
+            while (v189);
           }
 
-          if (v193 < 0.0)
+          if (v187 < 0.0)
           {
-            v76 = -0.5;
+            v71 = -0.5;
           }
 
           else
           {
-            v76 = 0.5;
+            v71 = 0.5;
           }
 
-          if (v80)
+          if (v75)
           {
-            v198 = 0;
-            v199 = v76 + v193 * v257;
-            v200 = *(v16[16] + 16 * v188);
+            v192 = 0;
+            v193 = v71 + v187 * v251;
+            v194 = *(v16[16] + 16 * v182);
             do
             {
-              if (v198)
+              if (v192)
               {
-                v201 = 8;
+                v195 = 8;
               }
 
               else
               {
-                v201 = 15;
+                v195 = 15;
               }
 
-              *(v200 + 8 * v198) += ((v199 << v201) * v190[v198]) >> 18;
-              ++v198;
+              *(v194 + 8 * v192) += ((v193 << v195) * v184[v192]) >> 18;
+              ++v192;
             }
 
-            while (v80 != v198);
+            while (v75 != v192);
           }
 
-          ++v188;
-          v187 += v83;
+          ++v182;
+          v181 += v78;
         }
 
-        while (v188 != v191);
+        while (v182 != v185);
         goto LABEL_200;
       }
 
       goto LABEL_180;
     }
 
-    LOBYTE(v259) = *(v16 + 24);
-    if (v261)
+    LOBYTE(v253) = *(v16 + 24);
+    if (v255)
     {
       goto LABEL_200;
     }
 
-    v165 = 0;
+    v159 = 0;
 LABEL_180:
-    if (*(v16 + 23) == 1 && v165)
+    if (*(v16 + 23) == 1 && v159)
     {
       goto LABEL_182;
     }
 
 LABEL_200:
-    v202 = *(v16 + 24);
-    if (v202)
+    v196 = *(v16 + 24);
+    if (v196)
     {
-      v203 = v80;
-      v204 = 0;
-      v205 = 0;
-      v206 = 0;
-      v207 = 0;
-      v208 = 0;
-      v209 = v264;
-      v210 = v275;
-      v211 = v271;
-      if (v80 <= 1)
+      v197 = v75;
+      v198 = 0;
+      v199 = 0;
+      v200 = 0;
+      v201 = 0;
+      v202 = 0;
+      v203 = v258;
+      v204 = v269;
+      v205 = v265;
+      if (v75 <= 1)
       {
-        v212 = 1;
+        v206 = 1;
       }
 
       else
       {
-        v212 = v80;
+        v206 = v75;
       }
 
-      v213 = 1;
+      v207 = 1;
       do
       {
-        if (v93)
+        if (v88)
         {
-          v214 = v206;
+          v208 = v200;
         }
 
         else
         {
-          v214 = v207 + v208 * v83;
-          if (v207 + 1 <= v208)
+          v208 = v201 + v202 * v78;
+          if (v201 + 1 <= v202)
           {
-            ++v207;
+            ++v201;
           }
 
           else
           {
-            ++v208;
-            v207 = 0;
+            ++v202;
+            v201 = 0;
           }
         }
 
-        v215 = *&v209[v214];
-        v216 = v213 & 0x7FFFFFFF;
-        if (v215 < 0.0)
+        v209 = *&v203[v208];
+        v210 = v207 & 0x7FFFFFFF;
+        if (v209 < 0.0)
         {
-          v217 = -0.5;
+          v211 = -0.5;
         }
 
         else
         {
-          v217 = 0.5;
+          v211 = 0.5;
         }
 
-        v218 = (v217 + v215 * v257);
-        if (v259)
+        v212 = (v211 + v209 * v251);
+        if (v253)
         {
-          if (*(v262 + 25) & v93)
+          if (*(v256 + 25) & v88)
           {
-            v219 = 0;
-            v220 = v262[10];
-            v221 = 1;
-            v222 = 1;
+            v213 = 0;
+            v214 = v256[10];
+            v215 = 1;
+            v216 = 1;
             do
             {
-              v223 = v221;
-              v224 = (v210 + 16 * v216 * v219);
-              v225 = v204 + ((v219 + v219 * v219) >> 1);
-              v226 = v222;
+              v217 = v215;
+              v218 = (v204 + 16 * v210 * v213);
+              v219 = v198 + ((v213 + v213 * v213) >> 1);
+              v220 = v216;
               do
               {
-                v227 = *v224++;
-                *(v220 + 8 * v225++) += (v227 * v218) >> 18;
-                --v226;
+                v221 = *v218++;
+                *(v214 + 8 * v219++) += (v221 * v212) >> 18;
+                --v220;
               }
 
-              while (v226);
-              v221 = 0;
-              ++v222;
-              v219 = 1;
+              while (v220);
+              v215 = 0;
+              ++v216;
+              v213 = 1;
             }
 
-            while ((v223 & 1) != 0);
+            while ((v217 & 1) != 0);
           }
 
-          else if (v203)
+          else if (v197)
           {
-            v228 = 0;
-            v229 = 0;
-            v230 = v262[10];
-            v231 = 2;
-            v232 = 1;
+            v222 = 0;
+            v223 = 0;
+            v224 = v256[10];
+            v225 = 2;
+            v226 = 1;
             do
             {
-              v233 = v228 >> 1;
-              ++v229;
-              v234 = v232;
-              v235 = v205 + (v228 >> 1);
+              v227 = v222 >> 1;
+              ++v223;
+              v228 = v226;
+              v229 = v199 + (v222 >> 1);
               do
               {
-                *(v230 + 8 * v235++) += (v210[v233++] * v218) >> 18;
-                --v234;
+                *(v224 + 8 * v229++) += (v204[v227++] * v212) >> 18;
+                --v228;
               }
 
-              while (v234);
-              ++v232;
-              v228 += v231;
-              v231 += 2;
+              while (v228);
+              ++v226;
+              v222 += v225;
+              v225 += 2;
             }
 
-            while (v229 != v203);
+            while (v223 != v197);
           }
         }
 
-        if (((v261 & 1) != 0 || *(v262 + 23) == 1) && v203)
+        if (((v255 & 1) != 0 || *(v256 + 23) == 1) && v197)
         {
-          v236 = 0;
-          v237 = 0;
-          v238 = v262[18];
-          v239 = 2;
-          v240 = 1;
+          v230 = 0;
+          v231 = 0;
+          v232 = v256[18];
+          v233 = 2;
+          v234 = 1;
           do
           {
-            v241 = v236 >> 1;
-            ++v237;
-            v242 = v240;
+            v235 = v230 >> 1;
+            ++v231;
+            v236 = v234;
             do
             {
-              *(v238 + 8 * (v205 + v241)) += (v211[v241] * v218) >> 18;
-              ++v241;
-              --v242;
+              *(v232 + 8 * (v199 + v235)) += (v205[v235] * v212) >> 18;
+              ++v235;
+              --v236;
             }
 
-            while (v242);
-            ++v240;
-            v236 += v239;
-            v239 += 2;
+            while (v236);
+            ++v234;
+            v230 += v233;
+            v233 += 2;
           }
 
-          while (v237 != v212);
+          while (v231 != v206);
         }
 
-        ++v206;
-        v205 += v260;
-        v213 = v216 + 1;
-        v204 += 3;
-        v16 = v262;
+        ++v200;
+        v199 += v254;
+        v207 = v210 + 1;
+        v198 += 3;
+        v16 = v256;
       }
 
-      while (v206 != v202);
+      while (v200 != v196);
     }
 
 LABEL_233:
-    v68 = v68 + v70;
-    v65 = v247;
-    v66 = v249;
-    if (v68 > v74)
+    v63 = v63 + v65;
+    v60 = v241;
+    v61 = v243;
+    if (v63 > v69)
     {
       break;
     }
 
 LABEL_234:
-    ++v66;
+    ++v61;
   }
 
-  while (v66 != v65);
-  v8 = v68 > 0.0;
+  while (v61 != v60);
+  v8 = v63 > 0.0;
 LABEL_236:
-  DgnArray<DgnArray<DgnPrimArray<unsigned int>>>::releaseAll(v263);
-  DgnPrimFixArray<double>::~DgnPrimFixArray(&v264);
-  DgnPrimArray<unsigned int>::~DgnPrimArray(v266);
-  DgnPrimArray<unsigned int>::~DgnPrimArray(v267);
-  DgnPrimArray<unsigned int>::~DgnPrimArray(v268);
-  DgnIArray<Utterance *>::~DgnIArray(&v269);
+  DgnArray<DgnArray<DgnPrimArray<unsigned int>>>::releaseAll(v257);
+  DgnPrimFixArray<double>::~DgnPrimFixArray(&v258);
+  DgnPrimArray<unsigned int>::~DgnPrimArray(v260);
+  DgnPrimArray<unsigned int>::~DgnPrimArray(v261);
+  DgnPrimArray<unsigned int>::~DgnPrimArray(v262);
+  DgnIArray<Utterance *>::~DgnIArray(&v263);
+  DgnPrimArray<unsigned int>::~DgnPrimArray(&v265);
+  DgnPrimArray<unsigned int>::~DgnPrimArray(&v267);
+  DgnPrimArray<unsigned int>::~DgnPrimArray(&v269);
   DgnPrimArray<unsigned int>::~DgnPrimArray(&v271);
-  DgnPrimArray<unsigned int>::~DgnPrimArray(&v273);
-  DgnPrimArray<unsigned int>::~DgnPrimArray(&v275);
-  DgnPrimArray<unsigned int>::~DgnPrimArray(&v277);
 LABEL_237:
-  DgnPrimArray<unsigned int>::~DgnPrimArray(v279);
-  DgnPrimFixArray<double>::~DgnPrimFixArray(&v289);
+  DgnPrimArray<unsigned int>::~DgnPrimArray(v273);
+  DgnPrimFixArray<double>::~DgnPrimFixArray(&v283);
   return v8;
 }
 
-void sub_26260EE24(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, char a46, uint64_t a47, char a48, uint64_t a49, char a50)
+void sub_26260EE24(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, ...)
 {
+  va_start(va, a49);
   DgnPrimArray<unsigned int>::~DgnPrimArray(&a46);
   DgnPrimArray<unsigned int>::~DgnPrimArray(&a48);
-  DgnPrimArray<unsigned int>::~DgnPrimArray(&a50);
-  DgnPrimFixArray<double>::~DgnPrimFixArray(v50 - 168);
+  DgnPrimArray<unsigned int>::~DgnPrimArray(va);
+  DgnPrimFixArray<double>::~DgnPrimFixArray(v49 - 168);
   _Unwind_Resume(a1);
 }
 
-unint64_t mrec_qsort_r<CompAndProb>(unint64_t result, unint64_t a2, int64_t a3, __n128 a4)
+unint64_t mrec_qsort_r<CompAndProb>(unint64_t result, unint64_t a2, unint64_t a3)
 {
-  v5 = -a3;
-  v6 = a3 != 8;
-  v7 = ((result | a3) & 7) == 0;
+  v4 = -a3;
+  v5 = a3 != 8;
+  v6 = ((result | a3) & 7) == 0;
   if (((result | a3) & 7) != 0)
   {
-    v8 = 2;
+    v7 = 2;
   }
 
   else
   {
-    v8 = a3 != 8;
+    v7 = a3 != 8;
   }
 
   if (a2 < 7)
@@ -4548,137 +4764,137 @@ unint64_t mrec_qsort_r<CompAndProb>(unint64_t result, unint64_t a2, int64_t a3, 
 LABEL_5:
     if ((a2 * a3) > a3)
     {
-      v9 = result + a2 * a3;
-      v10 = result + a3;
-      v11 = result;
+      v8 = result + a2 * a3;
+      v9 = result + a3;
+      v10 = result;
       do
       {
-        if (v10 > result)
+        if (v9 > result)
         {
-          v12 = v11;
-          v13 = v10;
+          v11 = v10;
+          v12 = v9;
           do
           {
-            v14 = v13;
-            v13 += v5;
-            v15 = *v14;
-            if (*v13 == *v14)
+            v13 = v12;
+            v12 += v4;
+            v14 = *v13;
+            if (*v12 == *v13)
             {
-              if (*(v13 + 8) <= *(v14 + 8))
+              if (*(v12 + 8) <= *(v13 + 8))
               {
                 break;
               }
             }
 
-            else if (*v13 > *v14)
+            else if (*v12 > *v13)
             {
               break;
             }
 
-            if (v8)
+            if (v7)
             {
-              v16 = 0;
-              if (v7)
+              v15 = 0;
+              if (v6)
               {
-                v17 = v13;
+                v16 = v12;
                 do
                 {
-                  v18 = *(v14 + 8 * v16);
-                  *(v14 + 8 * v16) = *v17;
-                  *v17++ = v18;
-                  ++v16;
+                  v17 = *(v13 + 8 * v15);
+                  *(v13 + 8 * v15) = *v16;
+                  *v16++ = v17;
+                  ++v15;
                 }
 
-                while (a3 >> 3 != v16);
+                while (a3 >> 3 != v15);
               }
 
               else
               {
-                v19 = a3;
+                v18 = a3;
                 do
                 {
-                  v20 = *(v14 + v16);
-                  *(v14 + v16) = *(v12 + v16);
-                  *(v12 + v16++) = v20;
-                  --v19;
+                  v19 = *(v13 + v15);
+                  *(v13 + v15) = *(v11 + v15);
+                  *(v11 + v15++) = v19;
+                  --v18;
                 }
 
-                while (v19);
+                while (v18);
               }
             }
 
             else
             {
-              *v14 = *v13;
-              *v13 = v15;
+              *v13 = *v12;
+              *v12 = v14;
             }
 
-            v12 += v5;
+            v11 += v4;
           }
 
-          while (v13 > result);
+          while (v12 > result);
         }
 
+        v9 += a3;
         v10 += a3;
-        v11 += a3;
       }
 
-      while (v10 < v9);
+      while (v9 < v8);
     }
 
     return result;
   }
 
-  v21 = a3 >> 3;
+  v20 = a3 >> 3;
   while (2)
   {
-    v22 = (result + (a2 >> 1) * a3);
+    v21 = (result + (a2 >> 1) * a3);
     if (a2 == 7)
     {
       goto LABEL_26;
     }
 
-    v26 = result + (a2 - 1) * a3;
+    v25 = result + (a2 - 1) * a3;
     if (a2 < 0x29)
     {
-      v28 = result;
+      v27 = result;
       goto LABEL_111;
     }
 
-    v27 = (a2 >> 3) * a3;
-    v28 = result + v27;
-    v29 = result + 2 * v27;
-    v30 = *result;
-    v31 = *(result + v27);
-    if (*result == v31)
+    v26 = (a2 >> 3) * a3;
+    v27 = result + v26;
+    v28 = result + 2 * v26;
+    v29 = *result;
+    v30 = *(result + v26);
+    if (*result == v30)
     {
-      if (*(result + 8) < *(v28 + 8))
+      if (*(result + 8) < *(v27 + 8))
       {
         goto LABEL_34;
       }
     }
 
-    else if (*result > v31)
+    else if (*result > v30)
     {
 LABEL_34:
-      v32 = *v29;
-      if (v31 == *v29)
+      v31 = *v28;
+      if (v30 == *v28)
       {
-        if (*(v28 + 8) < *(v29 + 8))
+        if (*(v27 + 8) < *(v28 + 8))
         {
           goto LABEL_128;
         }
       }
 
-      else if (v31 > *v29)
+      else if (v30 > *v28)
       {
         goto LABEL_128;
       }
 
-      if (v30 == v32)
+      if (v29 == v31)
       {
-        v28 = result + 2 * v27;
-        if (*(result + 8) < *(v29 + 8))
+        v27 = result + 2 * v26;
+        if (*(result + 8) < *(v28 + 8))
         {
           goto LABEL_128;
         }
@@ -4686,35 +4902,35 @@ LABEL_34:
 
       else
       {
-        v28 = result + 2 * v27;
-        if (v30 > v32)
+        v27 = result + 2 * v26;
+        if (v29 > v31)
         {
           goto LABEL_128;
         }
       }
 
-      v28 = result;
+      v27 = result;
       goto LABEL_128;
     }
 
-    v77 = *v29;
-    if (v31 == *v29)
+    v77 = *v28;
+    if (v30 == *v28)
     {
-      if (*(v28 + 8) > *(v29 + 8))
+      if (*(v27 + 8) > *(v28 + 8))
       {
         goto LABEL_128;
       }
     }
 
-    else if (v31 <= *v29)
+    else if (v30 <= *v28)
     {
       goto LABEL_128;
     }
 
-    if (v30 != v77)
+    if (v29 != v77)
     {
-      v28 = result;
-      if (v30 > v77)
+      v27 = result;
+      if (v29 > v77)
       {
         goto LABEL_128;
       }
@@ -4722,33 +4938,33 @@ LABEL_34:
       goto LABEL_127;
     }
 
-    v28 = result;
-    if (*(result + 8) >= *(v29 + 8))
+    v27 = result;
+    if (*(result + 8) >= *(v28 + 8))
     {
 LABEL_127:
-      v28 = result + 2 * v27;
+      v27 = result + 2 * v26;
     }
 
 LABEL_128:
-    v78 = &v22[-v27];
-    v79 = &v22[v27];
-    v80 = *&v22[-v27];
-    v81 = *v22;
-    if (v80 == *v22)
+    v78 = &v21[-v26];
+    v79 = &v21[v26];
+    v80 = *&v21[-v26];
+    v81 = *v21;
+    if (v80 == *v21)
     {
-      if (*(v78 + 2) < *(v22 + 2))
+      if (*(v78 + 2) < *(v21 + 2))
       {
         goto LABEL_130;
       }
     }
 
-    else if (v80 > *v22)
+    else if (v80 > *v21)
     {
 LABEL_130:
       v82 = *v79;
       if (v81 == *v79)
       {
-        if (*(v22 + 2) < *(v79 + 2))
+        if (*(v21 + 2) < *(v79 + 2))
         {
           goto LABEL_149;
         }
@@ -4761,7 +4977,7 @@ LABEL_130:
 
       if (v80 == v82)
       {
-        v22 += v27;
+        v21 += v26;
         if (*(v78 + 2) < *(v79 + 2))
         {
           goto LABEL_149;
@@ -4770,21 +4986,21 @@ LABEL_130:
 
       else
       {
-        v22 += v27;
+        v21 += v26;
         if (v80 > v82)
         {
           goto LABEL_149;
         }
       }
 
-      v22 = v78;
+      v21 = v78;
       goto LABEL_149;
     }
 
     v83 = *v79;
     if (v81 == *v79)
     {
-      if (*(v22 + 2) > *(v79 + 2))
+      if (*(v21 + 2) > *(v79 + 2))
       {
         goto LABEL_149;
       }
@@ -4797,7 +5013,7 @@ LABEL_130:
 
     if (v80 != v83)
     {
-      v22 -= v27;
+      v21 -= v26;
       if (v80 > v83)
       {
         goto LABEL_149;
@@ -4806,19 +5022,19 @@ LABEL_130:
       goto LABEL_148;
     }
 
-    v22 -= v27;
+    v21 -= v26;
     if (*(v78 + 2) >= *(v79 + 2))
     {
 LABEL_148:
-      v22 = v79;
+      v21 = v79;
     }
 
 LABEL_149:
-    v84 = -v27;
-    v76 = v26 - 2 * v27;
-    v85 = v26 + v84;
+    v84 = -v26;
+    v76 = v25 - 2 * v26;
+    v85 = v25 + v84;
     v86 = *v76;
-    v87 = *(v26 + v84);
+    v87 = *(v25 + v84);
     if (*v76 == v87)
     {
       if (*(v76 + 8) < *(v85 + 8))
@@ -4827,23 +5043,23 @@ LABEL_149:
       }
 
 LABEL_155:
-      v89 = *v26;
-      if (v87 == *v26)
+      v89 = *v25;
+      if (v87 == *v25)
       {
-        if (*(v85 + 8) > *(v26 + 8))
+        if (*(v85 + 8) > *(v25 + 8))
         {
           goto LABEL_166;
         }
       }
 
-      else if (v87 <= *v26)
+      else if (v87 <= *v25)
       {
         goto LABEL_166;
       }
 
       if (v86 == v89)
       {
-        if (*(v76 + 8) >= *(v26 + 8))
+        if (*(v76 + 8) >= *(v25 + 8))
         {
           goto LABEL_111;
         }
@@ -4863,10 +5079,10 @@ LABEL_155:
     }
 
 LABEL_151:
-    v88 = *v26;
-    if (v87 == *v26)
+    v88 = *v25;
+    if (v87 == *v25)
     {
-      if (*(v85 + 8) < *(v26 + 8))
+      if (*(v85 + 8) < *(v25 + 8))
       {
         goto LABEL_166;
       }
@@ -4874,17 +5090,17 @@ LABEL_151:
       goto LABEL_159;
     }
 
-    if (v87 > *v26)
+    if (v87 > *v25)
     {
 LABEL_166:
-      v76 = v26 + v84;
+      v76 = v25 + v84;
       goto LABEL_167;
     }
 
 LABEL_159:
     if (v86 == v88)
     {
-      if (*(v76 + 8) >= *(v26 + 8))
+      if (*(v76 + 8) >= *(v25 + 8))
       {
         goto LABEL_167;
       }
@@ -4900,34 +5116,34 @@ LABEL_111:
     }
 
 LABEL_167:
-    a4.n128_u64[0] = *v28;
-    v90 = *v22;
-    if (*v28 == *v22)
+    v90 = *v27;
+    v91 = *v21;
+    if (*v27 == *v21)
     {
-      if (*(v28 + 8) < *(v22 + 2))
+      if (*(v27 + 8) < *(v21 + 2))
       {
         goto LABEL_169;
       }
 
 LABEL_173:
-      v92 = *v76;
-      if (v90 == *v76)
+      v93 = *v76;
+      if (v91 == *v76)
       {
-        if (*(v22 + 2) > *(v76 + 8))
+        if (*(v21 + 2) > *(v76 + 8))
         {
           goto LABEL_26;
         }
       }
 
-      else if (v90 <= *v76)
+      else if (v91 <= *v76)
       {
         goto LABEL_26;
       }
 
-      if (a4.n128_f64[0] == v92)
+      if (v90 == v93)
       {
-        v22 = v28;
-        if (*(v28 + 8) < *(v76 + 8))
+        v21 = v27;
+        if (*(v27 + 8) < *(v76 + 8))
         {
           goto LABEL_26;
         }
@@ -4935,41 +5151,41 @@ LABEL_173:
 
       else
       {
-        v22 = v28;
-        if (a4.n128_f64[0] > v92)
+        v21 = v27;
+        if (v90 > v93)
         {
           goto LABEL_26;
         }
       }
 
-      v22 = v76;
+      v21 = v76;
       goto LABEL_26;
     }
 
-    if (*v28 <= *v22)
+    if (*v27 <= *v21)
     {
       goto LABEL_173;
     }
 
 LABEL_169:
-    v91 = *v76;
-    if (v90 == *v76)
+    v92 = *v76;
+    if (v91 == *v76)
     {
-      if (*(v22 + 2) < *(v76 + 8))
+      if (*(v21 + 2) < *(v76 + 8))
       {
         goto LABEL_26;
       }
     }
 
-    else if (v90 > *v76)
+    else if (v91 > *v76)
     {
       goto LABEL_26;
     }
 
-    if (a4.n128_f64[0] == v91)
+    if (v90 == v92)
     {
-      v22 = v76;
-      if (*(v28 + 8) >= *(v76 + 8))
+      v21 = v76;
+      if (*(v27 + 8) >= *(v76 + 8))
       {
         goto LABEL_185;
       }
@@ -4977,166 +5193,165 @@ LABEL_169:
 
     else
     {
-      v22 = v76;
-      if (a4.n128_f64[0] <= v91)
+      v21 = v76;
+      if (v90 <= v92)
       {
 LABEL_185:
-        v22 = v28;
+        v21 = v27;
       }
     }
 
 LABEL_26:
-    if (v8)
+    if (v7)
     {
-      if (v7)
+      if (v6)
       {
-        v23 = result;
-        v24 = a3 >> 3;
+        v22 = result;
+        v23 = a3 >> 3;
         do
         {
-          v25 = *v23;
-          *v23++ = *v22;
-          *v22 = v25;
-          v22 += 8;
-          --v24;
+          v24 = *v22;
+          *v22++ = *v21;
+          *v21 = v24;
+          v21 += 8;
+          --v23;
         }
 
-        while (v24);
+        while (v23);
       }
 
       else
       {
-        v34 = a3;
-        v35 = result;
+        v33 = a3;
+        v34 = result;
         do
         {
-          v36 = *v35;
-          *v35++ = *v22;
-          *v22++ = v36;
-          --v34;
+          v35 = *v34;
+          *v34++ = *v21;
+          *v21++ = v35;
+          --v33;
         }
 
-        while (v34);
+        while (v33);
       }
     }
 
     else
     {
-      v33 = *result;
-      *result = *v22;
-      *v22 = v33;
+      v32 = *result;
+      *result = *v21;
+      *v21 = v32;
     }
 
-    v37 = 0;
-    v38 = result + a3;
-    v39 = (result + (a2 - 1) * a3);
-    v40 = v39;
+    v36 = 0;
+    v37 = result + a3;
+    v38 = (result + (a2 - 1) * a3);
+    v39 = v38;
+    v40 = (result + a3);
     v41 = (result + a3);
-    v42 = (result + a3);
     while (1)
     {
 LABEL_41:
-      if (v41 > v40)
+      if (v40 > v39)
       {
         goto LABEL_57;
       }
 
-      a4.n128_u64[0] = *v41;
-      if (*v41 == *result)
+      if (*v40 == *result)
       {
         break;
       }
 
-      if (*v41 <= *result)
+      if (*v40 <= *result)
       {
         goto LABEL_57;
       }
 
 LABEL_77:
-      v41 = (v41 + a3);
+      v40 += a3;
     }
 
-    v43 = *(v41 + 2);
-    v44 = *(result + 8);
-    if (v43 == v44)
+    v42 = *(v40 + 2);
+    v43 = *(result + 8);
+    if (v42 == v43)
     {
-      if (v8)
+      if (v7)
       {
-        v45 = 0;
-        if (v7)
+        v44 = 0;
+        if (v6)
         {
           do
           {
-            v46 = v42[v45];
-            v42[v45] = v41[v45];
-            v41[v45++] = v46;
+            v45 = v41[v44];
+            v41[v44] = *&v40[8 * v44];
+            *&v40[8 * v44++] = v45;
           }
 
-          while (v21 != v45);
+          while (v20 != v44);
         }
 
         else
         {
           do
           {
-            v47 = *(v42 + v45);
-            *(v42 + v45) = *(v41 + v45);
-            *(v41 + v45++) = v47;
+            v46 = *(v41 + v44);
+            *(v41 + v44) = v40[v44];
+            v40[v44++] = v46;
           }
 
-          while (a3 != v45);
+          while (a3 != v44);
         }
       }
 
       else
       {
-        v56 = *v42;
-        *v42 = a4.n128_u64[0];
-        *v41 = v56;
+        v56 = *v41;
+        *v41 = *v40;
+        *v40 = v56;
       }
 
-      v42 = (v42 + a3);
-      v37 = 1;
+      v41 = (v41 + a3);
+      v36 = 1;
       goto LABEL_77;
     }
 
-    if (v43 < v44)
+    if (v42 < v43)
     {
       goto LABEL_77;
     }
 
 LABEL_57:
-    while (v41 <= v40)
+    while (v40 <= v39)
     {
-      a4.n128_u64[0] = *v40;
-      if (*v40 == *result)
+      v47 = *v39;
+      if (*v39 == *result)
       {
-        v48 = *(v40 + 2);
+        v48 = *(v39 + 2);
         v49 = *(result + 8);
         if (v48 == v49)
         {
-          if (v8)
+          if (v7)
           {
             v50 = 0;
-            if (v7)
+            if (v6)
             {
               do
               {
-                v51 = v40[v50];
-                v40[v50] = v39[v50];
-                v39[v50++] = v51;
+                v51 = v39[v50];
+                v39[v50] = v38[v50];
+                v38[v50++] = v51;
               }
 
-              while (v21 != v50);
+              while (v20 != v50);
             }
 
             else
             {
               do
               {
-                v52 = *(v40 + v50);
-                *(v40 + v50) = *(v39 + v50);
-                *(v39 + v50++) = v52;
+                v52 = *(v39 + v50);
+                *(v39 + v50) = *(v38 + v50);
+                *(v38 + v50++) = v52;
               }
 
               while (a3 != v50);
@@ -5145,39 +5360,39 @@ LABEL_57:
 
           else
           {
-            *v40 = *v39;
-            *v39 = a4.n128_u64[0];
+            *v39 = *v38;
+            *v38 = v47;
           }
 
-          v39 = (v39 + v5);
-          v37 = 1;
+          v38 = (v38 + v4);
+          v36 = 1;
         }
 
         else if (v48 < v49)
         {
 LABEL_69:
-          if (v8)
+          if (v7)
           {
             v53 = 0;
-            if (v7)
+            if (v6)
             {
               do
               {
-                v54 = v41[v53];
-                v41[v53] = v40[v53];
-                v40[v53++] = v54;
+                v54 = *&v40[8 * v53];
+                *&v40[8 * v53] = v39[v53];
+                v39[v53++] = v54;
               }
 
-              while (v21 != v53);
+              while (v20 != v53);
             }
 
             else
             {
               do
               {
-                v55 = *(v41 + v53);
-                *(v41 + v53) = *(v40 + v53);
-                *(v40 + v53++) = v55;
+                v55 = v40[v53];
+                v40[v53] = *(v39 + v53);
+                *(v39 + v53++) = v55;
               }
 
               while (a3 != v53);
@@ -5186,45 +5401,45 @@ LABEL_69:
 
           else
           {
-            v57 = *v41;
-            *v41 = a4.n128_u64[0];
-            *v40 = v57;
+            v57 = *v40;
+            *v40 = v47;
+            *v39 = v57;
           }
 
-          v41 = (v41 + a3);
-          v40 = (v40 + v5);
-          v37 = 1;
+          v40 += a3;
+          v39 = (v39 + v4);
+          v36 = 1;
           goto LABEL_41;
         }
       }
 
-      else if (*v40 > *result)
+      else if (*v39 > *result)
       {
         goto LABEL_69;
       }
 
-      v40 = (v40 + v5);
+      v39 = (v39 + v4);
     }
 
     v58 = result + a2 * a3;
-    if (v37)
+    if (v36)
     {
-      v59 = v41 - v42;
-      if ((v42 - result) >= v41 - v42)
+      v59 = v40 - v41;
+      if ((v41 - result) >= v40 - v41)
       {
-        v60 = v41 - v42;
+        v60 = v40 - v41;
       }
 
       else
       {
-        v60 = v42 - result;
+        v60 = v41 - result;
       }
 
       if (v60)
       {
-        if (v7)
+        if (v6)
         {
-          v61 = (v41 - v60);
+          v61 = &v40[-v60];
           v62 = v60 >> 3;
           v63 = result;
           do
@@ -5245,8 +5460,8 @@ LABEL_69:
           do
           {
             v67 = *v66;
-            *v66++ = *(v41 + v65);
-            *(v41 + v65) = v67;
+            *v66++ = v40[v65];
+            v40[v65] = v67;
             v68 = __CFADD__(v65++, 1);
           }
 
@@ -5254,23 +5469,24 @@ LABEL_69:
         }
       }
 
-      v69 = v39 - v40;
-      v70 = v58 - (v39 + a3);
-      if (v39 - v40 < v70)
+      v69 = v38 - v39;
+      v70 = v58 - (v38 + a3);
+      if (v38 - v39 < v70)
       {
-        v70 = v39 - v40;
+        v70 = v38 - v39;
       }
 
       if (v70)
       {
-        if (v7)
+        if (v6)
         {
           v71 = (v58 - v70);
           v72 = v70 >> 3;
           do
           {
-            v73 = *v41;
-            *v41++ = *v71;
+            v73 = *v40;
+            *v40 = *v71;
+            v40 += 8;
             *v71++ = v73;
             --v72;
           }
@@ -5283,9 +5499,8 @@ LABEL_69:
           v74 = -v70;
           do
           {
-            v75 = *v41;
-            *v41 = *(v58 + v74);
-            v41 = (v41 + 1);
+            v75 = *v40;
+            *v40++ = *(v58 + v74);
             *(v58 + v74) = v75;
             v68 = __CFADD__(v74++, 1);
           }
@@ -5296,22 +5511,22 @@ LABEL_69:
 
       if (v59 > a3)
       {
-        result = mrec_qsort_r<CompAndProb>(a4);
+        result = mrec_qsort_r<CompAndProb>(result, v59 / a3, a3);
       }
 
       if (v69 > a3)
       {
         result = v58 - v69;
         a2 = v69 / a3;
-        v7 = (((v58 - v69) | a3) & 7) == 0;
+        v6 = (((v58 - v69) | a3) & 7) == 0;
         if ((((v58 - v69) | a3) & 7) != 0)
         {
-          v8 = 2;
+          v7 = 2;
         }
 
         else
         {
-          v8 = v6;
+          v7 = v5;
         }
 
         if (a2 < 7)
@@ -5325,80 +5540,80 @@ LABEL_69:
 
     else if ((a2 * a3) > a3)
     {
-      v93 = result;
+      v94 = result;
       do
       {
-        if (v38 > result)
+        if (v37 > result)
         {
-          v94 = v93;
-          v95 = v38;
+          v95 = v94;
+          v96 = v37;
           do
           {
-            v96 = v95;
-            v95 += v5;
-            v97 = *v96;
-            if (*v95 == *v96)
+            v97 = v96;
+            v96 += v4;
+            v98 = *v97;
+            if (*v96 == *v97)
             {
-              if (*(v95 + 8) <= *(v96 + 8))
+              if (*(v96 + 8) <= *(v97 + 8))
               {
                 break;
               }
             }
 
-            else if (*v95 > *v96)
+            else if (*v96 > *v97)
             {
               break;
             }
 
-            if (v8)
+            if (v7)
             {
-              v98 = 0;
-              if (v7)
+              v99 = 0;
+              if (v6)
               {
-                v99 = v95;
+                v100 = v96;
                 do
                 {
-                  v100 = *(v96 + 8 * v98);
-                  *(v96 + 8 * v98) = *v99;
-                  *v99++ = v100;
-                  ++v98;
+                  v101 = *(v97 + 8 * v99);
+                  *(v97 + 8 * v99) = *v100;
+                  *v100++ = v101;
+                  ++v99;
                 }
 
-                while (v21 != v98);
+                while (v20 != v99);
               }
 
               else
               {
-                v101 = a3;
+                v102 = a3;
                 do
                 {
-                  v102 = *(v96 + v98);
-                  *(v96 + v98) = *(v94 + v98);
-                  *(v94 + v98++) = v102;
-                  --v101;
+                  v103 = *(v97 + v99);
+                  *(v97 + v99) = *(v95 + v99);
+                  *(v95 + v99++) = v103;
+                  --v102;
                 }
 
-                while (v101);
+                while (v102);
               }
             }
 
             else
             {
-              *v96 = *v95;
-              *v95 = v97;
+              *v97 = *v96;
+              *v96 = v98;
             }
 
-            v94 += v5;
+            v95 += v4;
           }
 
-          while (v95 > result);
+          while (v96 > result);
         }
 
-        v38 += a3;
-        v93 += a3;
+        v37 += a3;
+        v94 += a3;
       }
 
-      while (v38 < v58);
+      while (v37 < v58);
     }
 
     return result;
@@ -5651,7 +5866,7 @@ double ConstrainedTransAccMgr::ConstrainedTransAccMgr(uint64_t a1, uint64_t a2, 
   return result;
 }
 
-void ConstrainedTransAccMgr::~ConstrainedTransAccMgr(CTModelRelevance **this)
+void ConstrainedTransAccMgr::~ConstrainedTransAccMgr(CTFTMgr **this)
 {
   ConstrainedTransAccMgr::releaseAccum(this);
   v2 = this[7];
@@ -5707,61 +5922,60 @@ void *CTFTMgr::resetOnlineCTList(CTFTMgr *this)
   return result;
 }
 
-uint64_t ConstrainedTransAccMgr::initAccum(ConstrainedTransAccMgr *this, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t ConstrainedTransAccMgr::initAccum(ConstrainedTransAccMgr *this, char a2)
 {
-  v47 = a2;
   if (a2)
   {
-    v49 = *((*(**(this + 1) + 200))(*(this + 1)) + 56);
+    v41 = *((*(**(this + 1) + 200))(*(this + 1)) + 56);
     result = (*(**(this + 1) + 208))(*(this + 1));
-    v10 = result;
-    v11 = 0;
-    v12 = 0;
-    LOBYTE(v13) = 0;
-    LOBYTE(v14) = 1;
-    v48 = 1;
-    v15 = 1;
-    v16 = 1;
-    v17 = 1;
+    v4 = result;
+    v5 = 0;
+    v6 = 0;
+    LOBYTE(v7) = 0;
+    LOBYTE(v8) = 1;
+    v40 = 1;
+    v9 = 1;
+    v10 = 1;
+    v11 = 1;
   }
 
   else
   {
-    PelMgr = AdaptController::getPelMgr(*this, a2, a3, a4, a5, a6, a7, a8);
-    v21 = *this;
-    v10 = *(*this + 32);
-    v49 = PelMgr;
-    v46 = *(PelMgr + 16);
-    v22 = *(*this + 8);
-    v48 = v22[332];
-    v15 = v22[96];
-    v23 = v22[81];
-    v24 = v22[82];
-    if ((v23 & 1) == 0 && (v24 & 1) == 0)
+    PelMgr = AdaptController::getPelMgr(*this);
+    v13 = *this;
+    v4 = *(*this + 32);
+    v41 = PelMgr;
+    v38 = *(PelMgr + 16);
+    v14 = *(*this + 8);
+    v40 = v14[332];
+    v9 = v14[96];
+    v15 = v14[81];
+    v16 = v14[82];
+    if ((v15 & 1) == 0 && (v16 & 1) == 0)
     {
-      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/recogctl/contrnac.cpp", 2383, "recogctl/contrnac", 2, "%s", v19, v20, &errStr_recogctl_contrnac_E_IDENTITY_TRANSFORM);
-      v22 = *(*this + 8);
+      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/recogctl/contrnac.cpp", 2383, "recogctl/contrnac", 2, "%s", &errStr_recogctl_contrnac_E_IDENTITY_TRANSFORM);
+      v14 = *(*this + 8);
     }
 
-    v25 = v23 ^ 1;
-    v13 = v25 & v24;
-    v14 = v22[83];
-    v26 = v21[52];
-    v27 = v21[53];
-    v12 = v21[48];
-    v16 = v26 | v27;
-    if (v27)
+    v17 = v15 ^ 1;
+    v7 = v17 & v16;
+    v8 = v14[83];
+    v18 = v13[52];
+    v19 = v13[53];
+    v6 = v13[48];
+    v10 = v18 | v19;
+    if (v19)
     {
-      v28 = 2;
+      v20 = 2;
     }
 
     else
     {
-      v28 = v26;
+      v20 = v18;
     }
 
-    result = GenoneClassTree::initForType(*(this + 2), v28, this + 56);
-    v29 = result;
+    result = GenoneClassTree::initForType(*(this + 2), v20, this + 7);
+    v21 = result;
     if (result == 1)
     {
       result = *(this + 7);
@@ -5774,21 +5988,21 @@ uint64_t ConstrainedTransAccMgr::initAccum(ConstrainedTransAccMgr *this, uint64_
       *(this + 8) = 0;
     }
 
-    v11 = 0;
-    if ((v25 | v14 | v13))
+    v5 = 0;
+    if ((v17 | v8 | v7))
     {
-      v17 = v29;
+      v11 = v21;
     }
 
     else
     {
-      v17 = v29;
-      if (v46 != 1)
+      v11 = v21;
+      if (v38 != 1)
       {
         if (*this)
         {
-          v11 = *(*(*this + 8) + 160);
-          if (v11)
+          v5 = *(*(*this + 8) + 160);
+          if (v5)
           {
             result = GenoneClassTree::decomposeInverseVariancesForTransformationMatrixAdaptation(*(this + 2));
           }
@@ -5796,119 +6010,119 @@ uint64_t ConstrainedTransAccMgr::initAccum(ConstrainedTransAccMgr *this, uint64_
 
         else
         {
-          v11 = 0;
+          v5 = 0;
         }
 
-        LOBYTE(v14) = 0;
-        LOBYTE(v13) = 0;
+        LOBYTE(v8) = 0;
+        LOBYTE(v7) = 0;
       }
     }
   }
 
-  v30 = *(this + 13);
-  if (v17 > v30)
+  v22 = *(this + 13);
+  if (v11 > v22)
   {
-    result = DgnPrimArray<unsigned long long>::reallocElts(this + 40, v17 - v30, 0);
+    result = DgnPrimArray<unsigned long long>::reallocElts(this + 40, v11 - v22, 0);
   }
 
-  v31 = *(this + 12);
-  if (v31 <= v17)
+  v23 = *(this + 12);
+  if (v23 <= v11)
   {
-    if (v31 < v17)
+    if (v23 < v11)
     {
       do
       {
-        *(*(this + 5) + 8 * v31++) = 0;
+        *(*(this + 5) + 8 * v23++) = 0;
       }
 
-      while (v17 != v31);
+      while (v11 != v23);
     }
   }
 
   else
   {
-    result = DgnIOwnArray<CTPelAccum *>::destructAt((this + 40), v17, v31 - v17);
+    result = DgnIOwnArray<CTPelAccum *>::destructAt((this + 40), v11, v23 - v11);
   }
 
-  *(this + 12) = v17;
-  if (v17)
+  *(this + 12) = v11;
+  if (v11)
   {
-    for (i = 0; i != v17; *(*(this + 5) + 8 * i++) = result)
+    for (i = 0; i != v11; *(*(this + 5) + 8 * i++) = result)
     {
-      v33 = MemChunkAlloc(0xA8uLL, 0);
-      v34 = *(this + 2);
-      if (v34)
+      v25 = MemChunkAlloc(0xA8uLL, 0);
+      v26 = *(this + 2);
+      if (v26)
       {
-        if (i >= *(v34 + 272))
+        if (i >= *(v26 + 272))
         {
-          v35 = 0;
+          v27 = 0;
         }
 
         else
         {
-          v35 = (*(v34 + 264) + 16 * i);
+          v27 = (*(v26 + 264) + 16 * i);
         }
 
-        v36 = v34 + 240;
-        if (i >= *(v34 + 288))
+        v28 = v26 + 240;
+        if (i >= *(v26 + 288))
         {
-          v34 = 0;
+          v26 = 0;
         }
 
         else
         {
-          v34 = *(v34 + 280) + 24 * i;
+          v26 = *(v26 + 280) + 24 * i;
         }
       }
 
       else
       {
-        v35 = 0;
-        v36 = 0;
+        v27 = 0;
+        v28 = 0;
       }
 
-      result = CTPelAccum::CTPelAccum(v33, v49, v10, v48, v15, v12, v16 & 1, v14 & 1, v13, v11, v36, v35, v34);
+      result = CTPelAccum::CTPelAccum(v25, v41, v4, v40, v9, v6, v10 & 1, v8 & 1, v7, v5, v28, v27, v26);
     }
   }
 
-  if ((v47 & 1) == 0)
+  if ((a2 & 1) == 0)
   {
-    v37 = *(*this + 8);
-    if (v16)
+    v29 = *(*this + 8);
+    if (v10)
     {
-      v38 = 152;
+      v30 = 152;
     }
 
     else
     {
-      v38 = 392;
+      v30 = 392;
     }
 
-    v39 = 352;
-    if (v16)
+    v31 = 352;
+    if (v10)
     {
-      v39 = 72;
+      v31 = 72;
     }
 
-    v40 = 384;
-    if (v16)
+    v32 = 384;
+    if (v10)
     {
-      v40 = 112;
+      v32 = 112;
     }
 
-    v41 = *(v37 + v38);
-    if (v41)
+    v33 = *(v29 + v30);
+    if (v33)
     {
-      v42 = *(v37 + v40);
-      v43 = *(v37 + v39);
-      if (v43 != 0.0 && v42 != 0)
+      v34 = *(v29 + v32);
+      v35 = *(v29 + v31);
+      if (v35 != 0.0 && v34 != 0)
       {
-        v45 = MemChunkAlloc(0x30uLL, 0);
-        *(v45 + 1) = 0u;
-        *(v45 + 3) = 0u;
-        *(this + 4) = v45;
+        v37 = MemChunkAlloc(0x30uLL, 0);
+        *(v37 + 1) = 0u;
+        *(v37 + 3) = 0u;
+        *(this + 4) = v37;
 
-        return CTModelRelevance::computeModelRelevance(v45, v49, v41, v43, v12, v16 & 1, v15, v48, v14 & 1);
+        return CTModelRelevance::computeModelRelevance(v37, v41, v33, v35, v6, v10 & 1, v9, v40, v8 & 1);
       }
     }
   }
@@ -5955,72 +6169,70 @@ void *DgnIOwnArray<CTPelAccum *>::releaseAll(uint64_t a1)
   return result;
 }
 
-BOOL ConstrainedTransAccMgr::adaptPel(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, double a9)
+BOOL ConstrainedTransAccMgr::adaptPel(void *a1, unsigned int a2, uint64_t a3, uint64_t a4, double a5)
 {
-  v10 = a3;
-  v12 = a2;
-  v14 = *(a4 + 8);
-  if (v14)
+  v10 = *(a4 + 8);
+  if (v10)
   {
-    v15 = 0;
-    v16 = 0;
-    v17 = 0;
-    v18 = *(a1 + 12);
-    v19 = 104;
+    v11 = 0;
+    v12 = 0;
+    v13 = 0;
+    v14 = *(a1 + 12);
+    v15 = 104;
   }
 
   else
   {
-    v20 = *a1;
-    v15 = *a1 + 40;
-    v16 = *(*a1 + 152);
+    v16 = *a1;
+    v11 = *a1 + 40;
+    v12 = *(*a1 + 152);
     if (*(*a1 + 52))
     {
-      v19 = 104;
+      v15 = 104;
     }
 
-    else if (*(v20 + 53))
+    else if (*(v16 + 53))
     {
-      v19 = 104;
+      v15 = 104;
     }
 
     else
     {
-      v19 = 376;
+      v15 = 376;
     }
 
-    v18 = *(a1 + 12);
-    v17 = *(*(AdaptController::getPelMgr(v20, a2, a3, a4, a5, a6, a7, a8) + 288) + 2 * a2);
+    v14 = *(a1 + 12);
+    v13 = *(*(AdaptController::getPelMgr(v16) + 288) + 2 * a2);
   }
 
-  if (v18 != 1)
+  if (v14 != 1)
   {
-    v21 = *(a1[7] + 4 * v17);
-    if (v14)
+    v17 = *(a1[7] + 4 * v13);
+    if (v10)
     {
       goto LABEL_11;
     }
 
 LABEL_13:
-    v24 = *(*a1 + 8);
-    v23 = *(v24 + v19);
-    v22 = *(v24 + 140) == 1 && *(v15 + 13) == 1 && *(a1[3] + 12) == *a1[3];
+    v20 = *(*a1 + 8);
+    v19 = *(v20 + v15);
+    v18 = *(v20 + 140) == 1 && *(v11 + 13) == 1 && *(a1[3] + 12) == *a1[3];
     goto LABEL_17;
   }
 
-  v21 = 0;
-  if (!v14)
+  v17 = 0;
+  if (!v10)
   {
     goto LABEL_13;
   }
 
 LABEL_11:
-  v22 = 0;
-  v23 = 1.0;
+  v18 = 0;
+  v19 = 1.0;
 LABEL_17:
-  v25 = *(a1[5] + 8 * v21);
+  v21 = *(a1[5] + 8 * v17);
 
-  return CTPelAccum::adaptOneFrame(v25, v12, v22, v16, v10, a4, a9, v23);
+  return CTPelAccum::adaptOneFrame(v21, a2, v18, v12, a5, v19, a3, a4);
 }
 
 uint64_t ConstrainedTransAccMgr::downScaleAccum(uint64_t this, unsigned int a2, unsigned int a3, double a4)
@@ -6052,21 +6264,21 @@ uint64_t ConstrainedTransAccMgr::downScaleAccum(uint64_t this, unsigned int a2, 
   return this;
 }
 
-unint64_t ConstrainedTransAccMgr::getFrameCountsByTNode(unint64_t result, uint64_t a2)
+uint64_t *ConstrainedTransAccMgr::getFrameCountsByTNode(uint64_t *result, uint64_t *a2)
 {
   v3 = result;
-  v4 = *(*(result + 16) + 200);
-  v5 = *(a2 + 12);
+  v4 = *(result[2] + 200);
+  v5 = *(a2 + 3);
   if (v4 > v5)
   {
     result = DgnPrimArray<unsigned int>::reallocElts(a2, v4 - v5, 0);
   }
 
-  *(a2 + 8) = v4;
-  if (*(v3 + 48))
+  *(a2 + 2) = v4;
+  if (*(v3 + 12))
   {
     v6 = 0;
-    v7 = *(v3 + 40);
+    v7 = v3[5];
     v8 = *a2;
     do
     {
@@ -6074,67 +6286,67 @@ unint64_t ConstrainedTransAccMgr::getFrameCountsByTNode(unint64_t result, uint64
       ++v6;
     }
 
-    while (v6 < *(v3 + 48));
+    while (v6 < *(v3 + 12));
   }
 
   return result;
 }
 
-uint64_t *ConstrainedTransAccMgr::computeGlobalSmoothing(AdaptController **this, double a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
+uint64_t *ConstrainedTransAccMgr::computeGlobalSmoothing(AdaptController **this, double a2)
 {
-  v11 = *(this + 12);
-  PelMgr = AdaptController::getPelMgr(*this, a3, a4, a5, a6, a7, a8, a9);
-  v15 = *this;
-  v16 = *(*this + 4);
-  v17 = *(*this + 1);
-  v18 = v17[332];
-  v19 = v17[83];
-  v20 = v17[81];
-  v21 = v17[82];
-  if ((v20 & 1) == 0 && (v17[82] & 1) == 0)
+  v4 = *(this + 12);
+  PelMgr = AdaptController::getPelMgr(*this);
+  v6 = *this;
+  v7 = *(*this + 4);
+  v8 = *(*this + 1);
+  v9 = v8[332];
+  v10 = v8[83];
+  v11 = v8[81];
+  v12 = v8[82];
+  if ((v11 & 1) == 0 && (v8[82] & 1) == 0)
   {
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/recogctl/contrnac.cpp", 2719, "recogctl/contrnac", 2, "%s", v12, v13, &errStr_recogctl_contrnac_E_IDENTITY_TRANSFORM);
+    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/recogctl/contrnac.cpp", 2719, "recogctl/contrnac", 2, "%s", &errStr_recogctl_contrnac_E_IDENTITY_TRANSFORM);
   }
 
-  v22 = (v20 ^ 1) & v21;
-  v23 = MemChunkAlloc(0xA8uLL, 0);
-  v24 = v23;
-  if (v15[52])
+  v13 = (v11 ^ 1) & v12;
+  v14 = MemChunkAlloc(0xA8uLL, 0);
+  v15 = v14;
+  if (v6[52])
   {
-    v25 = 1;
+    v16 = 1;
   }
 
   else
   {
-    v25 = v15[53];
+    v16 = v6[53];
   }
 
-  CTPelAccum::CTPelAccum(v23, PelMgr, v16, v18, *(*(*this + 1) + 96), v15[48], v25 & 1, v19, v22, 0, 0, 0, 0);
-  if (v11)
+  CTPelAccum::CTPelAccum(v14, PelMgr, v7, v9, *(*(*this + 1) + 96), v6[48], v16 & 1, v10, v13, 0, 0, 0, 0);
+  if (v4)
   {
-    v26 = 0;
+    v17 = 0;
     do
     {
-      CTPelAccum::addAccum(v24, *(this[5] + v26), 0);
-      v26 += 8;
+      CTPelAccum::addAccum(v15, *(this[5] + v17), 0);
+      v17 += 8;
     }
 
-    while (8 * v11 != v26);
+    while (8 * v4 != v17);
   }
 
-  v27 = v24[7] * 0.00390625;
-  if (v27 <= 0.0)
+  v18 = v15[7] * 0.00390625;
+  if (v18 <= 0.0)
   {
-    DgnDelete<CTPelAccum>(v24);
+    DgnDelete<CTPelAccum>(v15);
     return 0;
   }
 
   else
   {
-    CTPelAccum::scaleAccum(v24, a2 / v27);
+    CTPelAccum::scaleAccum(v15, a2 / v18);
   }
 
-  return v24;
+  return v15;
 }
 
 CTPelAccum *DgnDelete<CTPelAccum>(CTPelAccum *result)
@@ -6154,263 +6366,262 @@ void ConstrainedTransAccMgr::printSize(ConstrainedTransAccMgr *this, uint64_t a2
   *a4 = 0;
   *a5 = 0;
   *a6 = 0;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/recogctl/contrnac.cpp", 2766, &v79);
-  if (v80)
+  getShipObjectSizeDescription(&v51, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/recogctl/contrnac.cpp", 2766);
+  if (v52)
   {
-    v15 = v79;
+    v12 = v51;
   }
 
   else
   {
-    v15 = &unk_26287F771;
+    v12 = &unk_26287F771;
   }
 
-  xlprintf("ObSize: %*s*************************************************************\nObSize: %*sBegin %s ", v11, v12, v13, v14, a3, &unk_26287F771, a3, &unk_26287F771, v15);
-  DgnString::~DgnString(&v79);
+  xlprintf("ObSize: %*s*************************************************************\nObSize: %*sBegin %s ", v11, a3, &unk_26287F771, a3, &unk_26287F771, v12);
+  DgnString::~DgnString(&v51);
   if (a2 != -1)
   {
-    xlprintf("%d ", v16, v17, v18, v19, a2);
+    xlprintf("%d ", v13, a2);
   }
 
-  xlprintf("(alloc, used, shared)\nObSize: %*s*************************************************************\n", v16, v17, v18, v19, a3, &unk_26287F771);
+  xlprintf("(alloc, used, shared)\nObSize: %*s*************************************************************\n", v13, a3, &unk_26287F771);
   if (gShadowDiagnosticShowIdealizedObjectSizes)
   {
-    v20 = 4;
+    v14 = 4;
   }
 
   else
   {
-    v20 = 8;
+    v14 = 8;
   }
 
-  v21 = (a3 + 1);
-  v22 = (34 - a3);
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/recogctl/contrnac.cpp", 2767, &v79);
-  if (v80)
+  v15 = (a3 + 1);
+  v16 = (34 - a3);
+  getShipObjectSizeDescription(&v51, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/recogctl/contrnac.cpp", 2767);
+  if (v52)
   {
-    v27 = v79;
+    v18 = v51;
   }
 
   else
   {
-    v27 = &unk_26287F771;
+    v18 = &unk_26287F771;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v23, v24, v25, v26, (a3 + 1), &unk_26287F771, (34 - a3), (34 - a3), v27, v20, v20, 0);
-  DgnString::~DgnString(&v79);
-  *a4 += v20;
-  *a5 += v20;
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v17, (a3 + 1), &unk_26287F771, (34 - a3), (34 - a3), v18, v14, v14, 0);
+  DgnString::~DgnString(&v51);
+  *a4 += v14;
+  *a5 += v14;
   if (gShadowDiagnosticShowIdealizedObjectSizes)
   {
-    v28 = 4;
+    v19 = 4;
   }
 
   else
   {
-    v28 = 8;
+    v19 = 8;
   }
 
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/recogctl/contrnac.cpp", 2768, &v79);
-  if (v80)
+  getShipObjectSizeDescription(&v51, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/recogctl/contrnac.cpp", 2768);
+  if (v52)
   {
-    v33 = v79;
+    v21 = v51;
   }
 
   else
   {
-    v33 = &unk_26287F771;
+    v21 = &unk_26287F771;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v29, v30, v31, v32, (a3 + 1), &unk_26287F771, (34 - a3), (34 - a3), v33, v28, v28, 0);
-  DgnString::~DgnString(&v79);
-  *a4 += v28;
-  *a5 += v28;
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v20, (a3 + 1), &unk_26287F771, (34 - a3), (34 - a3), v21, v19, v19, 0);
+  DgnString::~DgnString(&v51);
+  *a4 += v19;
+  *a5 += v19;
   if (gShadowDiagnosticShowIdealizedObjectSizes)
   {
-    v34 = 4;
+    v22 = 4;
   }
 
   else
   {
-    v34 = 8;
+    v22 = 8;
   }
 
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/recogctl/contrnac.cpp", 2769, &v79);
-  if (v80)
+  getShipObjectSizeDescription(&v51, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/recogctl/contrnac.cpp", 2769);
+  if (v52)
   {
-    v39 = v79;
+    v24 = v51;
   }
 
   else
   {
-    v39 = &unk_26287F771;
+    v24 = &unk_26287F771;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v35, v36, v37, v38, (a3 + 1), &unk_26287F771, (34 - a3), (34 - a3), v39, v34, v34, 0);
-  DgnString::~DgnString(&v79);
-  *a4 += v34;
-  *a5 += v34;
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v23, (a3 + 1), &unk_26287F771, (34 - a3), (34 - a3), v24, v22, v22, 0);
+  DgnString::~DgnString(&v51);
+  *a4 += v22;
+  *a5 += v22;
   if (gShadowDiagnosticShowIdealizedObjectSizes)
   {
-    v40 = 12;
+    v25 = 12;
   }
 
   else
   {
-    v40 = 16;
+    v25 = 16;
   }
 
-  v41 = *(this + 16);
-  v42 = *(this + 17);
-  if (v42 >= v41)
+  v26 = *(this + 16);
+  v27 = *(this + 17);
+  if (v27 >= v26)
   {
-    v43 = 0;
-    if (v41 > 0)
+    v28 = 0;
+    if (v26 > 0)
     {
-      v40 += 4 * (v41 - 1) + 4;
+      v25 += 4 * (v26 - 1) + 4;
     }
 
-    v44 = v40 + 4 * (v42 - v41);
+    v29 = v25 + 4 * (v27 - v26);
   }
 
   else
   {
-    v43 = 4 * v41;
-    v44 = v40;
+    v28 = 4 * v26;
+    v29 = v25;
   }
 
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/recogctl/contrnac.cpp", 2771, &v79);
-  if (v80)
+  getShipObjectSizeDescription(&v51, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/recogctl/contrnac.cpp", 2771);
+  if (v52)
   {
-    v49 = v79;
+    v31 = v51;
   }
 
   else
   {
-    v49 = &unk_26287F771;
+    v31 = &unk_26287F771;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v45, v46, v47, v48, (a3 + 1), &unk_26287F771, (34 - a3), (34 - a3), v49, v44, v40, v43);
-  DgnString::~DgnString(&v79);
-  *a4 += v44;
-  *a5 += v40;
-  *a6 += v43;
-  v50 = sizeObject<CTPelAccum *>(this + 40, 0);
-  v51 = sizeObject<CTPelAccum *>(this + 40, 1);
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/recogctl/contrnac.cpp", 2772, &v79);
-  if (v80)
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v30, (a3 + 1), &unk_26287F771, (34 - a3), (34 - a3), v31, v29, v25, v28);
+  DgnString::~DgnString(&v51);
+  *a4 += v29;
+  *a5 += v25;
+  *a6 += v28;
+  v32 = sizeObject<CTPelAccum *>(this + 40, 0);
+  v33 = sizeObject<CTPelAccum *>(this + 40, 1);
+  getShipObjectSizeDescription(&v51, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/recogctl/contrnac.cpp", 2772);
+  if (v52)
   {
-    v56 = v79;
+    v35 = v51;
   }
 
   else
   {
-    v56 = &unk_26287F771;
+    v35 = &unk_26287F771;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v52, v53, v54, v55, (a3 + 1), &unk_26287F771, (34 - a3), (34 - a3), v56, v50, v51, 0);
-  DgnString::~DgnString(&v79);
-  *a4 += v50;
-  *a5 += v51;
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v34, (a3 + 1), &unk_26287F771, (34 - a3), (34 - a3), v35, v32, v33, 0);
+  DgnString::~DgnString(&v51);
+  *a4 += v32;
+  *a5 += v33;
   if (gShadowDiagnosticShowIdealizedObjectSizes)
   {
-    v57 = 4;
+    v36 = 4;
   }
 
   else
   {
-    v57 = 8;
+    v36 = 8;
   }
 
-  v58 = *(this + 4);
-  if (v58)
+  v37 = *(this + 4);
+  if (v37)
   {
-    v76 = (a3 + 1);
-    v77 = a3;
-    v59 = sizeObject<DgnPrimArray<double>>(v58 + 8, 0);
-    v60 = v57 + v59 + sizeObject<DgnArray<DgnPrimArray<long long>>>(v58 + 24, 0) + 12;
-    v61 = *(this + 4);
+    v48 = (a3 + 1);
+    v49 = a3;
+    v38 = sizeObject<DgnPrimArray<double>>(v37 + 8, 0);
+    v39 = v36 + v38 + sizeObject<DgnArray<DgnPrimArray<long long>>>(v37 + 24, 0) + 12;
+    v40 = *(this + 4);
     if (gShadowDiagnosticShowIdealizedObjectSizes)
     {
-      v57 = 4;
+      v36 = 4;
     }
 
     else
     {
-      v57 = 8;
+      v36 = 8;
     }
 
-    if (v61)
+    if (v40)
     {
-      v62 = sizeObject<DgnPrimArray<double>>(v61 + 8, 1);
-      v57 += v62 + sizeObject<DgnArray<DgnPrimArray<long long>>>(v61 + 24, 1) + 12;
-      v63 = *(this + 4);
-      v21 = v76;
-      if (v63)
+      v41 = sizeObject<DgnPrimArray<double>>(v40 + 8, 1);
+      v36 += v41 + sizeObject<DgnArray<DgnPrimArray<long long>>>(v40 + 24, 1) + 12;
+      v42 = *(this + 4);
+      v15 = v48;
+      if (v42)
       {
-        v79 = 0;
-        v80 = 0;
-        DgnPrimArray<unsigned int>::~DgnPrimArray(&v79);
-        v64 = sizeObject<DgnArray<DgnPrimArray<long long>>>(v63 + 24, 3);
+        v51 = 0;
+        v52 = 0;
+        DgnPrimArray<unsigned int>::~DgnPrimArray(&v51);
+        v43 = sizeObject<DgnArray<DgnPrimArray<long long>>>(v42 + 24, 3);
       }
 
       else
       {
-        v64 = 0;
+        v43 = 0;
       }
 
-      a3 = v77;
+      a3 = v49;
     }
 
     else
     {
-      v64 = 0;
-      v21 = v76;
-      a3 = v77;
+      v43 = 0;
+      v15 = v48;
+      a3 = v49;
     }
   }
 
   else
   {
-    v64 = 0;
-    v60 = v57;
+    v43 = 0;
+    v39 = v36;
   }
 
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/recogctl/contrnac.cpp", 2774, &v79);
-  if (v80)
+  getShipObjectSizeDescription(&v51, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/recogctl/contrnac.cpp", 2774);
+  if (v52)
   {
-    v69 = v79;
+    v45 = v51;
   }
 
   else
   {
-    v69 = &unk_26287F771;
+    v45 = &unk_26287F771;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v65, v66, v67, v68, v21, &unk_26287F771, v22, v22, v69, v60, v57, v64);
-  DgnString::~DgnString(&v79);
-  *a4 += v60;
-  *a5 += v57;
-  *a6 += v64;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/recogctl/contrnac.cpp", 2776, &v79);
-  if (v80)
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v44, v15, &unk_26287F771, v16, v16, v45, v39, v36, v43);
+  DgnString::~DgnString(&v51);
+  *a4 += v39;
+  *a5 += v36;
+  *a6 += v43;
+  getShipObjectSizeDescription(&v51, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/recogctl/contrnac.cpp", 2776);
+  if (v52)
   {
-    v74 = v79;
+    v47 = v51;
   }
 
   else
   {
-    v74 = &unk_26287F771;
+    v47 = &unk_26287F771;
   }
 
-  v75 = *a5;
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v70, v71, v72, v73, a3, &unk_26287F771, (35 - a3), (35 - a3), v74, *a4, *a5, *a6);
-  DgnString::~DgnString(&v79);
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v46, a3, &unk_26287F771, (35 - a3), (35 - a3), v47, *a4, *a5, *a6);
+  DgnString::~DgnString(&v51);
 }
 
-void sub_26261093C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_26261093C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   DgnString::~DgnString(va);
   _Unwind_Resume(a1);
 }
@@ -6481,9 +6692,8 @@ uint64_t sizeObject<CTPelAccum *>(uint64_t a1, int a2)
   return v2;
 }
 
-BOOL ConstrainedTransAccMgr::computeTransform(ConstrainedTransAccMgr *this, uint64_t a2, double a3, SnapTime *a4, unsigned int *a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
+BOOL ConstrainedTransAccMgr::computeTransform(ConstrainedTransAccMgr *this, int a2, double a3, SnapTime *a4, unsigned int *a5)
 {
-  v190 = a2;
   if (a5)
   {
     *a5 = 0;
@@ -6491,367 +6701,367 @@ BOOL ConstrainedTransAccMgr::computeTransform(ConstrainedTransAccMgr *this, uint
 
   if (a2)
   {
-    v11 = *((*(**(this + 1) + 200))(*(this + 1)) + 56);
-    v197 = (*(**(this + 1) + 208))(*(this + 1));
-    v19 = 0;
-    v186 = 0;
-    v20 = 0;
-    v182 = 0;
-    v21 = 0;
-    v22 = 0;
-    v23 = 0;
-    PelMgr = v11;
-    v194 = *(v11 + 16) == 1;
-    v24 = this + 40;
-    v25 = *(this + 12);
-    v189 = 1;
-    v199 = 1;
-    v26 = 1;
-    v27 = 1;
+    v7 = *((*(**(this + 1) + 200))(*(this + 1)) + 56);
+    v174 = (*(**(this + 1) + 208))(*(this + 1));
+    v8 = 0;
+    v163 = 0;
+    v9 = 0;
+    v159 = 0;
+    v10 = 0;
+    v11 = 0;
+    v12 = 0;
+    PelMgr = v7;
+    v171 = *(v7 + 16) == 1;
+    v13 = this + 40;
+    v14 = *(this + 12);
+    v166 = 1;
+    v176 = 1;
+    v15 = 1;
+    v16 = 1;
 LABEL_5:
-    v196 = 1;
+    v173 = 1;
     goto LABEL_19;
   }
 
-  PelMgr = AdaptController::getPelMgr(*this, a2, a4, a5, a6, a7, a8, a9);
-  v28 = *this;
-  v29 = *(*this + 32);
-  v182 = *this + 40;
-  v30 = *(*this + 8);
-  v199 = *(v30 + 332);
-  v26 = *(v30 + 96);
-  v31 = *(v30 + 81);
-  v27 = *(v30 + 82);
-  if ((v31 & 1) == 0 && (v27 & 1) == 0)
+  PelMgr = AdaptController::getPelMgr(*this);
+  v17 = *this;
+  v18 = *(*this + 32);
+  v159 = *this + 40;
+  v19 = *(*this + 8);
+  v176 = *(v19 + 332);
+  v15 = *(v19 + 96);
+  v20 = *(v19 + 81);
+  v16 = *(v19 + 82);
+  if ((v20 & 1) == 0 && (v16 & 1) == 0)
   {
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/recogctl/contrnac.cpp", 2890, "recogctl/contrnac", 2, "%s", v17, v18, &errStr_recogctl_contrnac_E_IDENTITY_TRANSFORM);
-    v30 = *(*this + 8);
+    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/recogctl/contrnac.cpp", 2890, "recogctl/contrnac", 2, "%s", &errStr_recogctl_contrnac_E_IDENTITY_TRANSFORM);
+    v19 = *(*this + 8);
   }
 
-  v20 = (v31 ^ 1) & v27;
-  v189 = *(v30 + 83);
-  v197 = v29;
-  if (v28[52] == 1)
+  v9 = (v20 ^ 1) & v16;
+  v166 = *(v19 + 83);
+  v174 = v18;
+  if (v17[52] == 1)
   {
-    v32 = v28[48];
-    v194 = *(PelMgr + 16) == 1;
-    v24 = this + 40;
-    v33 = *(this + 12);
-    v34 = v28[53];
-    v21 = *(v30 + 84);
-    v19 = *(v30 + 156);
-    if ((v34 & 1) == 0)
+    v21 = v17[48];
+    v171 = *(PelMgr + 16) == 1;
+    v13 = this + 40;
+    v22 = *(this + 12);
+    v23 = v17[53];
+    v10 = *(v19 + 84);
+    v8 = *(v19 + 156);
+    if ((v23 & 1) == 0)
     {
-      v186 = v32;
-      v22 = 0;
-      v25 = *(this + 12);
-      v23 = *(v30 + 100);
+      v163 = v21;
+      v11 = 0;
+      v14 = *(this + 12);
+      v12 = *(v19 + 100);
       goto LABEL_5;
     }
   }
 
   else
   {
-    v32 = v28[48];
-    v194 = *(PelMgr + 16) == 1;
-    v24 = this + 40;
-    v33 = *(this + 12);
-    if (v28[53] != 1)
+    v21 = v17[48];
+    v171 = *(PelMgr + 16) == 1;
+    v13 = this + 40;
+    v22 = *(this + 12);
+    if (v17[53] != 1)
     {
-      v186 = v28[48];
-      v196 = 0;
-      v19 = *(v30 + 360);
-      v25 = *(this + 12);
-      v23 = *(v30 + 372);
-      v22 = 1;
-      v21 = v19;
+      v163 = v17[48];
+      v173 = 0;
+      v8 = *(v19 + 360);
+      v14 = *(this + 12);
+      v12 = *(v19 + 372);
+      v11 = 1;
+      v10 = v8;
       goto LABEL_19;
     }
 
-    v21 = *(v30 + 84);
-    v19 = *(v30 + 156);
+    v10 = *(v19 + 84);
+    v8 = *(v19 + 156);
   }
 
-  v186 = v32;
-  v35 = *(v30 + 148);
-  v22 = 0;
-  if (v35 == -1)
+  v163 = v21;
+  v24 = *(v19 + 148);
+  v11 = 0;
+  if (v24 == -1)
   {
-    v23 = 0;
+    v12 = 0;
   }
 
   else
   {
-    v23 = *(v30 + 144) + v35;
+    v12 = *(v19 + 144) + v24;
   }
 
-  v196 = 1;
-  v25 = v33;
+  v173 = 1;
+  v14 = v22;
 LABEL_19:
-  v224 = 0;
-  v225 = 0;
-  v222 = 0;
-  v223 = 0;
-  v181 = v25;
-  if (v25 >= 2)
+  v201 = 0;
+  v202 = 0;
+  v199 = 0;
+  v200 = 0;
+  v158 = v14;
+  if (v14 >= 2)
   {
-    v36 = *(*(*this + 8) + 68) / 10000.0;
-    v37 = v196;
-    if (v36 <= 0.0)
+    v25 = *(*(*this + 8) + 68) / 10000.0;
+    v26 = v173;
+    if (v25 <= 0.0)
     {
-      v37 = 0;
+      v26 = 0;
     }
 
-    if (v37 != 1)
+    if (v26 != 1)
     {
       goto LABEL_31;
     }
 
-    v38 = *(*(this + 7) + 4 * **(AdaptController::getPelMgr(*this, v12, v13, v14, v15, v16, v17, v18) + 288));
-    v39 = *(this + 5);
-    v40 = *(v39 + 8 * v38);
-    v41 = *(v40 + 56);
-    v42 = v181;
-    v43 = 0.0;
+    v27 = *(*(this + 7) + 4 * **(AdaptController::getPelMgr(*this) + 288));
+    v28 = *(this + 5);
+    v29 = *(v28 + 8 * v27);
+    v30 = *(v29 + 56);
+    v31 = v158;
+    v32 = 0.0;
     do
     {
-      if (v38)
+      if (v27)
       {
-        v43 = v43 + *(*v39 + 56) * 0.00390625;
+        v32 = v32 + *(*v28 + 56) * 0.00390625;
       }
 
-      --v38;
-      v39 += 8;
-      --v42;
+      --v27;
+      v28 += 8;
+      --v31;
     }
 
-    while (v42);
-    v44 = 0.0;
-    if (v43 > 0.0)
+    while (v31);
+    v33 = 0.0;
+    if (v32 > 0.0)
     {
-      if (v41 * 0.00390625 / v43 <= v36)
+      if (v30 * 0.00390625 / v32 <= v25)
       {
         goto LABEL_31;
       }
 
-      v44 = v36 * v43 / (v41 * 0.00390625);
+      v33 = v25 * v32 / (v30 * 0.00390625);
     }
 
-    CTPelAccum::scaleAccum(v40, v44);
+    CTPelAccum::scaleAccum(v29, v33);
 LABEL_31:
-    v211 = 0;
-    v212 = 0;
-    ConstrainedTransAccMgr::getFrameCountsByTNode(this, &v211);
-    GenoneClassTree::getDynamicClasses(*(this + 2), &v211, v23, v19, v21, &v224, &v222);
-    if (*(*(*this + 8) + 80) == 1 && v225 >= 2)
+    v188 = 0;
+    v189 = 0;
+    ConstrainedTransAccMgr::getFrameCountsByTNode(this, &v188);
+    GenoneClassTree::getDynamicClasses(*(this + 2), &v188, v12, v8, v10, &v201, &v199);
+    if (*(*(*this + 8) + 80) == 1 && v202 >= 2)
     {
-      v206 = 0;
-      v207 = 0;
-      v45 = v223;
-      if (v223 == HIDWORD(v223))
+      v183 = 0;
+      v184 = 0;
+      v34 = v200;
+      if (v200 == HIDWORD(v200))
       {
-        DgnArray<DgnPrimArray<double>>::reallocElts(&v222, 1, 1);
-        v45 = v223;
+        DgnArray<DgnPrimArray<double>>::reallocElts(&v199, 1, 1);
+        v34 = v200;
       }
 
-      v46 = &v222[2 * v45];
-      *v46 = 0;
-      v46[1] = 0;
-      DgnPrimArray<int>::copyArraySlice(v46, &v206, 0, v207);
-      LODWORD(v223) = v223 + 1;
-      v47 = v225;
-      if (v225)
+      v35 = &v199[2 * v34];
+      *v35 = 0;
+      v35[1] = 0;
+      DgnPrimArray<int>::copyArraySlice(v35, &v183, 0, v184);
+      LODWORD(v200) = v200 + 1;
+      v36 = v202;
+      if (v202)
       {
-        v48 = 0;
-        v49 = v224;
+        v37 = 0;
+        v38 = v201;
         do
         {
-          v50 = &v49[16 * v48];
-          if (*(v50 + 2))
+          v39 = &v38[16 * v37];
+          if (*(v39 + 2))
           {
-            v51 = 0;
-            v52 = v207;
+            v40 = 0;
+            v41 = v184;
             do
             {
-              v53 = *(*v50 + 4 * v51);
-              if (v52 == HIDWORD(v207))
+              v42 = *(*v39 + 4 * v40);
+              if (v41 == HIDWORD(v184))
               {
-                DgnPrimArray<unsigned int>::reallocElts(&v206, 1, 1);
-                v52 = v207;
-                v49 = v224;
+                DgnPrimArray<unsigned int>::reallocElts(&v183, 1, 1);
+                v41 = v184;
+                v38 = v201;
               }
 
-              *(v206 + v52) = v53;
-              v52 = v207 + 1;
-              LODWORD(v207) = v207 + 1;
-              ++v51;
-              v50 = &v49[16 * v48];
+              *(v183 + v41) = v42;
+              v41 = v184 + 1;
+              LODWORD(v184) = v184 + 1;
+              ++v40;
+              v39 = &v38[16 * v37];
             }
 
-            while (v51 < *(v50 + 2));
-            v47 = v225;
+            while (v40 < *(v39 + 2));
+            v36 = v202;
           }
 
-          ++v48;
+          ++v37;
         }
 
-        while (v48 < v47);
+        while (v37 < v36);
       }
 
       else
       {
-        v47 = 0;
+        v36 = 0;
       }
 
-      if (v47 == HIDWORD(v225))
+      if (v36 == HIDWORD(v202))
       {
-        DgnArray<DgnPrimArray<double>>::reallocElts(&v224, 1, 1);
-        v47 = v225;
+        DgnArray<DgnPrimArray<double>>::reallocElts(&v201, 1, 1);
+        v36 = v202;
       }
 
-      v65 = &v224[16 * v47];
-      *v65 = 0;
-      *(v65 + 1) = 0;
-      DgnPrimArray<int>::copyArraySlice(v65, &v206, 0, v207);
-      LODWORD(v225) = v225 + 1;
-      DgnPrimArray<unsigned int>::~DgnPrimArray(&v206);
-      v54 = 1;
+      v54 = &v201[16 * v36];
+      *v54 = 0;
+      v54[1] = 0;
+      DgnPrimArray<int>::copyArraySlice(v54, &v183, 0, v184);
+      LODWORD(v202) = v202 + 1;
+      DgnPrimArray<unsigned int>::~DgnPrimArray(&v183);
+      v43 = 1;
     }
 
     else
     {
-      v54 = 0;
+      v43 = 0;
     }
 
-    DgnPrimArray<unsigned int>::~DgnPrimArray(&v211);
+    DgnPrimArray<unsigned int>::~DgnPrimArray(&v188);
     goto LABEL_74;
   }
 
-  if (v19 <= (*(**v24 + 56) * 0.00390625 + 0.5))
+  if (v8 <= (*(**v13 + 56) * 0.00390625 + 0.5))
   {
-    v211 = 0;
-    HIDWORD(v225) = realloc_array(0, &v211, 0x10uLL, 0, 0, 1) >> 4;
-    v55 = v211;
-    v224 = v211;
-    v56 = v225;
-    if (v225 <= 1)
+    v188 = 0;
+    HIDWORD(v202) = realloc_array(0, &v188, 0x10uLL, 0, 0, 1) >> 4;
+    v44 = v188;
+    v201 = v188;
+    v45 = v202;
+    if (v202 <= 1)
     {
-      if (!v225)
+      if (!v202)
       {
-        *v211 = 0;
-        v55[1] = 0;
+        *v188 = 0;
+        v44[1] = 0;
       }
     }
 
-    else if (v225 >= 2)
+    else if (v202 >= 2)
     {
-      v57 = 16 * v225 - 16;
+      v46 = 16 * v202 - 16;
       do
       {
-        --v56;
-        DgnPrimArray<unsigned int>::~DgnPrimArray(&v224[v57]);
-        v57 -= 16;
+        --v45;
+        DgnPrimArray<unsigned int>::~DgnPrimArray(&v201[v46]);
+        v46 -= 16;
       }
 
-      while (v56 > 1);
+      while (v45 > 1);
     }
 
-    LODWORD(v225) = 1;
-    v58 = v224;
-    v59 = *(v224 + 2);
-    if (v59 == *(v224 + 3))
+    LODWORD(v202) = 1;
+    v47 = v201;
+    v48 = *(v201 + 2);
+    if (v48 == *(v201 + 3))
     {
-      DgnPrimArray<unsigned int>::reallocElts(v224, 1, 1);
-      v59 = v58[2];
+      DgnPrimArray<unsigned int>::reallocElts(v201, 1, 1);
+      v48 = v47[2];
     }
 
-    *(*v58 + 4 * v59) = 0;
-    ++v58[2];
-    if (!HIDWORD(v223))
+    *(*v47 + 4 * v48) = 0;
+    ++v47[2];
+    if (!HIDWORD(v200))
     {
-      v211 = 0;
-      HIDWORD(v223) = realloc_array(v222, &v211, 0x10uLL, 16 * v223, 16 * v223, 1) >> 4;
-      v222 = v211;
+      v188 = 0;
+      HIDWORD(v200) = realloc_array(v199, &v188, 0x10uLL, 16 * v200, 16 * v200, 1) >> 4;
+      v199 = v188;
     }
 
-    v60 = v223;
-    if (v223 <= 1)
+    v49 = v200;
+    if (v200 <= 1)
     {
-      if (!v223)
+      if (!v200)
       {
-        v62 = v222;
-        *v222 = 0;
-        v62[1] = 0;
+        v51 = v199;
+        *v199 = 0;
+        v51[1] = 0;
       }
     }
 
-    else if (v223 >= 2)
+    else if (v200 >= 2)
     {
-      v61 = 16 * v223 - 16;
+      v50 = 16 * v200 - 16;
       do
       {
-        --v60;
-        DgnPrimArray<unsigned int>::~DgnPrimArray(v222 + v61);
-        v61 -= 16;
+        --v49;
+        DgnPrimArray<unsigned int>::~DgnPrimArray(v199 + v50);
+        v50 -= 16;
       }
 
-      while (v60 > 1);
+      while (v49 > 1);
     }
 
-    LODWORD(v223) = 1;
-    v63 = v222;
-    v64 = *(v222 + 2);
-    if (v64 == *(v222 + 3))
+    LODWORD(v200) = 1;
+    v52 = v199;
+    v53 = *(v199 + 2);
+    if (v53 == *(v199 + 3))
     {
-      DgnPrimArray<unsigned int>::reallocElts(v222, 1, 1);
-      v64 = *(v63 + 2);
+      DgnPrimArray<unsigned int>::reallocElts(v199, 1, 1);
+      v53 = *(v52 + 2);
     }
 
-    v54 = 0;
-    *(*v63 + 4 * v64) = 0;
-    ++*(v63 + 2);
+    v43 = 0;
+    *(*v52 + 4 * v53) = 0;
+    ++*(v52 + 2);
   }
 
   else
   {
-    v54 = 0;
+    v43 = 0;
   }
 
 LABEL_74:
-  v66 = v225;
+  v55 = v202;
   SnapTime::recordTime(a4, 1, 1, 1, 1);
-  if (!v66)
+  if (!v55)
   {
     goto LABEL_83;
   }
 
-  v193 = v66;
-  if (v190)
+  v170 = v55;
+  if (a2)
   {
-    v74 = 1;
+    v56 = 1;
 LABEL_79:
-    v75 = *(*(this + 3) + 136);
+    v57 = *(*(this + 3) + 136);
     SnapTime::recordTime(a4, 1, 1, 1, 1);
-    if (v75 >= v74)
+    if (v57 >= v56)
     {
-      v76 = v74;
+      v58 = v56;
     }
 
     else
     {
-      v76 = v75;
+      v58 = v57;
     }
 
-    LODWORD(v66) = v193;
-    if (v193 < v76)
+    LODWORD(v55) = v170;
+    if (v170 < v58)
     {
       goto LABEL_83;
     }
 
-    if (v196)
+    if (v173)
     {
-      v78 = 1 << *(*(this + 3) + 4);
-      if (v190)
+      v60 = 1 << *(*(this + 3) + 4);
+      if (a2)
       {
         goto LABEL_91;
       }
@@ -6859,573 +7069,573 @@ LABEL_79:
       goto LABEL_89;
     }
 
-    v78 = 0x4000;
-    if (v190)
+    v60 = 0x4000;
+    if (a2)
     {
 LABEL_91:
-      v188 = 0;
+      v165 = 0;
       goto LABEL_95;
     }
 
 LABEL_93:
-    v79 = 384;
+    v61 = 384;
     goto LABEL_94;
   }
 
-  if (*(v182 + 13) == 1)
+  if (*(v159 + 13) == 1)
   {
-    v74 = *(*(*this + 8) + 144);
+    v56 = *(*(*this + 8) + 144);
     goto LABEL_79;
   }
 
-  if (!v196)
+  if (!v173)
   {
-    v78 = 0x4000;
+    v60 = 0x4000;
     goto LABEL_93;
   }
 
-  v78 = 1 << *(*(this + 3) + 4);
+  v60 = 1 << *(*(this + 3) + 4);
 LABEL_89:
-  v79 = 112;
+  v61 = 112;
 LABEL_94:
-  v188 = *(*(*this + 8) + v79);
+  v165 = *(*(*this + 8) + v61);
 LABEL_95:
-  v192 = v78;
-  v187 = v22 ^ (v22 | v26 | v20);
-  if (((v22 | v26) | v20))
+  v169 = v60;
+  v164 = v11 ^ (v11 | v15 | v9);
+  if (((v11 | v15) | v9))
   {
-    v80 = v189;
-    v81 = v199;
+    v62 = v166;
+    v63 = v176;
   }
 
   else
   {
-    v80 = v189;
-    v81 = v199;
-    if (((v189 ^ 1) & 1) == 0)
+    v62 = v166;
+    v63 = v176;
+    if (((v166 ^ 1) & 1) == 0)
     {
-      v187 = !v194 | v199;
+      v164 = !v171 | v176;
     }
   }
 
-  if ((v190 & 1) == 0)
+  if ((a2 & 1) == 0)
   {
-    v184 = 0;
-    v191 = 0;
-    v82 = *(*this + 8);
-    v83 = 368;
-    if (v196)
+    v161 = 0;
+    v168 = 0;
+    v64 = *(*this + 8);
+    v65 = 368;
+    if (v173)
     {
-      v83 = 92;
+      v65 = 92;
     }
 
-    v84 = 364;
-    if (v196)
+    v66 = 364;
+    if (v173)
     {
-      v84 = 88;
+      v66 = 88;
     }
 
-    v179 = *(v82 + v84);
-    if (v66 == 1)
-    {
-      goto LABEL_109;
-    }
-
-    v85 = *(v82 + v83);
-    if (!v85)
+    v156 = *(v64 + v66);
+    if (v55 == 1)
     {
       goto LABEL_109;
     }
 
-    v184 = ConstrainedTransAccMgr::computeGlobalSmoothing(this, v85, v67, v68, v69, v70, v71, v72, v73);
+    v67 = *(v64 + v65);
+    if (!v67)
+    {
+      goto LABEL_109;
+    }
+
+    v161 = ConstrainedTransAccMgr::computeGlobalSmoothing(this, v67);
     SnapTime::recordTime(a4, 1, 1, 1, 1);
-    if (v184)
+    if (v161)
     {
-      v191 = 1;
+      v168 = 1;
       goto LABEL_109;
     }
 
 LABEL_83:
-    v77 = 0;
+    v59 = 0;
     goto LABEL_271;
   }
 
-  v191 = 0;
-  v179 = 0;
-  v184 = 0;
+  v168 = 0;
+  v156 = 0;
+  v161 = 0;
 LABEL_109:
-  v86 = MemChunkAlloc(0xA8uLL, 0);
-  CTPelAccum::CTPelAccum(v86, PelMgr, v197, v81, v26, v186, v196, v80, v20, 0, 0, 0, 0);
-  v178 = v54;
-  v87 = *(v86 + 4);
-  if (v80)
+  v68 = MemChunkAlloc(0xA8uLL, 0);
+  CTPelAccum::CTPelAccum(v68, PelMgr, v174, v63, v15, v163, v173, v62, v9, 0, 0, 0, 0);
+  v155 = v43;
+  v69 = *(v68 + 4);
+  if (v62)
   {
-    v88 = 2;
+    v70 = 2;
   }
 
   else
   {
-    v88 = 1;
+    v70 = 1;
   }
 
-  if (v20)
+  if (v9)
   {
-    v88 = 3;
+    v70 = 3;
   }
 
-  v200 = v88;
-  if (v20)
+  v177 = v70;
+  if (v9)
   {
-    v89 = 0;
+    v71 = 0;
   }
 
   else
   {
-    v89 = v87;
+    v71 = v69;
   }
 
-  DgnArray<DgnPrimArray<unsigned int>>::DgnArray(&v220, v89);
-  v90 = v221;
-  if (v221)
+  DgnArray<DgnPrimArray<unsigned int>>::DgnArray(&v197, v71);
+  v72 = v198;
+  if (v198)
   {
-    v91 = 0;
-    v92 = 0;
-    if (((v20 ^ 1) & v189) != 0)
+    v73 = 0;
+    v74 = 0;
+    if (((v9 ^ 1) & v166) != 0)
     {
-      v93 = 1;
+      v75 = 1;
     }
 
     else
     {
-      v93 = v87;
+      v75 = v69;
     }
 
     do
     {
-      v94 = v220 + v91;
-      v95 = *(v220 + v91 + 12);
-      if (v93 > v95)
+      v76 = v197 + v73;
+      v77 = *(v197 + v73 + 12);
+      if (v75 > v77)
       {
-        DgnPrimArray<unsigned int>::reallocElts(v220 + v91, v93 - v95, 0);
-        v90 = v221;
+        DgnPrimArray<unsigned int>::reallocElts(v197 + v73, v75 - v77, 0);
+        v72 = v198;
       }
 
-      *(v94 + 8) = v93;
-      ++v92;
-      v91 += 16;
+      *(v76 + 8) = v75;
+      ++v74;
+      v73 += 16;
     }
 
-    while (v92 < v90);
+    while (v74 < v72);
   }
 
-  v198 = v27 | v189;
-  if ((v27 | v189))
+  v175 = v16 | v166;
+  if ((v16 | v166))
   {
-    v96 = v87;
+    v78 = v69;
   }
 
   else
   {
-    v96 = 0;
+    v78 = 0;
   }
 
-  v218 = 0;
-  v219 = 0;
-  if (v96)
+  v195 = 0;
+  v196 = 0;
+  if (v78)
   {
-    v211 = 0;
-    HIDWORD(v219) = realloc_array(0, &v211, 4 * v96, 0, 0, 1) >> 2;
-    v218 = v211;
+    v188 = 0;
+    HIDWORD(v196) = realloc_array(0, &v188, 4 * v78, 0, 0, 1) >> 2;
+    v195 = v188;
   }
 
-  LODWORD(v219) = v96;
-  v216 = 0;
-  v217 = 0;
-  v211 = 0;
-  HIDWORD(v217) = realloc_array(0, &v211, 72 * v193, 0, 0, 1) / 0x48;
-  v216 = v211;
-  v97 = v217;
-  if (v193 >= v217)
+  LODWORD(v196) = v78;
+  v193 = 0;
+  v194 = 0;
+  v188 = 0;
+  HIDWORD(v194) = realloc_array(0, &v188, 72 * v170, 0, 0, 1) / 0x48;
+  v193 = v188;
+  v79 = v194;
+  if (v170 >= v194)
   {
-    if (v193 > v217)
+    if (v170 > v194)
     {
-      v99 = v193 - v217;
-      v100 = 72 * v217;
+      v81 = v170 - v194;
+      v82 = 72 * v194;
       do
       {
-        LinearTransform::LinearTransform(&v216[v100]);
-        v100 += 72;
-        --v99;
+        LinearTransform::LinearTransform(&v193[v82]);
+        v82 += 72;
+        --v81;
       }
 
-      while (v99);
+      while (v81);
     }
   }
 
-  else if (v217 > v193)
+  else if (v194 > v170)
   {
-    v98 = 72 * v217 - 72;
+    v80 = 72 * v194 - 72;
     do
     {
-      --v97;
-      LinearTransform::~LinearTransform(&v216[v98]);
-      v98 -= 72;
+      --v79;
+      LinearTransform::~LinearTransform(&v193[v80]);
+      v80 -= 72;
     }
 
-    while (v97 > v193);
+    while (v79 > v170);
   }
 
-  LODWORD(v217) = v193;
-  v214 = 0;
-  v215 = 0;
-  if (v196)
+  LODWORD(v194) = v170;
+  v191 = 0;
+  v192 = 0;
+  if (v173)
   {
-    v211 = 0;
-    v101 = realloc_array(0, &v211, 4 * v193, 0, 0, 1);
-    v214 = v211;
-    LODWORD(v215) = v193;
-    HIDWORD(v215) = v101 >> 2;
+    v188 = 0;
+    v83 = realloc_array(0, &v188, 4 * v170, 0, 0, 1);
+    v191 = v188;
+    LODWORD(v192) = v170;
+    HIDWORD(v192) = v83 >> 2;
   }
 
-  v185 = v20;
-  v102 = 0;
-  v103 = 0;
-  v211 = 0;
-  v212 = 0;
-  v213 = 0;
-  v210 = 0;
-  v209 = 0;
+  v162 = v9;
+  v84 = 0;
+  v85 = 0;
+  v188 = 0;
+  v189 = 0;
+  v190 = 0;
+  v187 = 0;
+  v186 = 0;
   do
   {
-    CTPelAccum::reset(v86);
-    v104 = &v224[16 * v102];
-    if (*(v104 + 2))
+    CTPelAccum::reset(v68);
+    v86 = &v201[16 * v84];
+    if (*(v86 + 2))
     {
-      v105 = 0;
+      v87 = 0;
       do
       {
-        CTPelAccum::addAccum(v86, *(*v24 + 8 * *(*v104 + 4 * v105++)), 0);
-        v104 = &v224[16 * v102];
+        CTPelAccum::addAccum(v68, *(*v13 + 8 * *(*v86 + 4 * v87++)), 0);
+        v86 = &v201[16 * v84];
       }
 
-      while (v105 < *(v104 + 2));
+      while (v87 < *(v86 + 2));
     }
 
-    if ((v191 & 1) != 0 && (v86[7] * 0.00390625 + 0.5) < v179)
+    if ((v168 & 1) != 0 && (v68[7] * 0.00390625 + 0.5) < v156)
     {
-      CTPelAccum::addAccum(v86, v184, 0);
+      CTPelAccum::addAccum(v68, v161, 0);
     }
 
-    v106 = *(this + 4);
-    if (v106)
+    v88 = *(this + 4);
+    if (v88)
     {
-      CTPelAccum::addModelRelevance(v86, v106, v188);
+      CTPelAccum::addModelRelevance(v68, v88, v165);
     }
 
-    DgnMatrix::makeIdentity(v87, &v206);
-    v211 = v206;
-    DgnPrimFixArray<double>::copyArraySlice(&v212, &v207, 0, v208);
-    DgnPrimFixArray<double>::~DgnPrimFixArray(&v207);
-    LODWORD(v207) = 0;
-    v206 = 0;
-    if (v87)
+    DgnMatrix::makeIdentity(v69, &v183);
+    v188 = v183;
+    DgnPrimFixArray<double>::copyArraySlice(&v189, &v184, 0, v185);
+    DgnPrimFixArray<double>::~DgnPrimFixArray(&v184);
+    LODWORD(v184) = 0;
+    v183 = 0;
+    if (v69)
     {
-      v206 = MemChunkAlloc(8 * v87, 0);
-      LODWORD(v207) = v87;
-      bzero(v206, 8 * v87);
+      v183 = MemChunkAlloc(8 * v69, 0);
+      LODWORD(v184) = v69;
+      bzero(v183, 8 * v69);
     }
 
-    DgnPrimFixArray<double>::copyArraySlice(&v209, &v206, 0, v87);
-    DgnPrimFixArray<double>::~DgnPrimFixArray(&v206);
-    if (v196)
+    DgnPrimFixArray<double>::copyArraySlice(&v186, &v183, 0, v69);
+    DgnPrimFixArray<double>::~DgnPrimFixArray(&v183);
+    if (v173)
     {
-      if ((v187 & 1) == 0 && !ConstrainedTransAccMgr::computeInitialTransform(this, v86, v194, &v211))
+      if ((v164 & 1) == 0 && !ConstrainedTransAccMgr::computeInitialTransform(this, v68, v171, &v188))
       {
-        DgnMatrix::makeIdentity(v87, &v206);
-        v211 = v206;
-        DgnPrimFixArray<double>::copyArraySlice(&v212, &v207, 0, v208);
-        DgnPrimFixArray<double>::~DgnPrimFixArray(&v207);
-        LODWORD(v207) = 0;
-        v206 = 0;
-        if (v87)
+        DgnMatrix::makeIdentity(v69, &v183);
+        v188 = v183;
+        DgnPrimFixArray<double>::copyArraySlice(&v189, &v184, 0, v185);
+        DgnPrimFixArray<double>::~DgnPrimFixArray(&v184);
+        LODWORD(v184) = 0;
+        v183 = 0;
+        if (v69)
         {
-          v206 = MemChunkAlloc(8 * v87, 0);
-          LODWORD(v207) = v87;
-          bzero(v206, 8 * v87);
+          v183 = MemChunkAlloc(8 * v69, 0);
+          LODWORD(v184) = v69;
+          bzero(v183, 8 * v69);
         }
 
-        DgnPrimFixArray<double>::copyArraySlice(&v209, &v206, 0, v87);
-        DgnPrimFixArray<double>::~DgnPrimFixArray(&v206);
+        DgnPrimFixArray<double>::copyArraySlice(&v186, &v183, 0, v69);
+        DgnPrimFixArray<double>::~DgnPrimFixArray(&v183);
       }
 
-      v107 = ConstrainedTransAccMgr::computeIterativeTransform(this, v86, v190, v194, v189, v185, &v211, &v209, a3);
+      v89 = ConstrainedTransAccMgr::computeIterativeTransform(this, v68, a2, v171, v166, v162, &v188, &v186, a3);
     }
 
     else
     {
-      v107 = ConstrainedTransAccMgr::computeMeansTransform(this, v86, v194, &v211);
+      v89 = ConstrainedTransAccMgr::computeMeansTransform(this, v68, v171, &v188);
     }
 
-    if (!v107 || !fillIntTransform(&v211, &v209, &v220, &v218, v192, v200, v198 & 1, v87))
+    if (!v89 || !fillIntTransform(&v188, &v186, &v197, &v195, v169, v177, v175 & 1, v69))
     {
-      DgnMatrix::makeIdentity(v87, &v206);
-      v211 = v206;
-      DgnPrimFixArray<double>::copyArraySlice(&v212, &v207, 0, v208);
-      DgnPrimFixArray<double>::~DgnPrimFixArray(&v207);
-      LODWORD(v207) = 0;
-      v206 = 0;
-      if (v87)
+      DgnMatrix::makeIdentity(v69, &v183);
+      v188 = v183;
+      DgnPrimFixArray<double>::copyArraySlice(&v189, &v184, 0, v185);
+      DgnPrimFixArray<double>::~DgnPrimFixArray(&v184);
+      LODWORD(v184) = 0;
+      v183 = 0;
+      if (v69)
       {
-        v206 = MemChunkAlloc(8 * v87, 0);
-        LODWORD(v207) = v87;
-        bzero(v206, 8 * v87);
+        v183 = MemChunkAlloc(8 * v69, 0);
+        LODWORD(v184) = v69;
+        bzero(v183, 8 * v69);
       }
 
-      DgnPrimFixArray<double>::copyArraySlice(&v209, &v206, 0, v87);
-      ++v103;
-      DgnPrimFixArray<double>::~DgnPrimFixArray(&v206);
-      fillIntTransform(&v211, &v209, &v220, &v218, v192, v200, v198 & 1, v87);
+      DgnPrimFixArray<double>::copyArraySlice(&v186, &v183, 0, v69);
+      ++v85;
+      DgnPrimFixArray<double>::~DgnPrimFixArray(&v183);
+      fillIntTransform(&v188, &v186, &v197, &v195, v169, v177, v175 & 1, v69);
     }
 
-    LinearTransform::setSize(&v216[72 * v102], v87, v87);
-    LinearTransform::setTransform(&v216[72 * v102], &v220, v200, &v218, v198 & 1, v192, 0, v108);
-    if (v196)
+    LinearTransform::setSize(&v193[72 * v84], v69, v69);
+    LinearTransform::setTransform(&v193[72 * v84], &v197, v177, &v195, v175 & 1, v169, 0);
+    if (v173)
     {
-      v109 = DgnMatrix::determinant(&v211);
-      v110 = DgnLog(v109) * v192;
-      if (v110 >= 0.0)
+      v90 = DgnMatrix::determinant(&v188);
+      v91 = DgnLog(v90) * v169;
+      if (v91 >= 0.0)
       {
-        v111 = 0.5;
+        v92 = 0.5;
       }
 
       else
       {
-        v111 = -0.5;
+        v92 = -0.5;
       }
 
-      v214[v102] = (v110 + v111);
+      v191[v84] = (v91 + v92);
     }
 
-    ++v102;
+    ++v84;
   }
 
-  while (v102 != v193);
-  DgnDelete<CTPelAccum>(v86);
-  DgnDelete<CTPelAccum>(v184);
+  while (v84 != v170);
+  DgnDelete<CTPelAccum>(v68);
+  DgnDelete<CTPelAccum>(v161);
   SnapTime::recordTime(a4, 1, 1, 1, 1);
-  v116 = (20 * v193 + 50) / 0x64u;
-  v77 = v103 <= v116;
-  if (v103 <= v116)
+  v93 = (20 * v170 + 50) / 0x64u;
+  v59 = v85 <= v93;
+  if (v85 <= v93)
   {
-    v206 = 0;
-    v207 = 0;
-    LODWORD(v117) = v193;
-    v205[0] = 0;
-    v205[1] = 0;
-    if (v178)
+    v183 = 0;
+    v184 = 0;
+    LODWORD(v94) = v170;
+    v182[0] = 0;
+    v182[1] = 0;
+    if (v155)
     {
-      v117 = (v193 - 1);
-      if (v225 <= v117)
+      v94 = (v170 - 1);
+      if (v202 <= v94)
       {
-        if (v225 < v117)
+        if (v202 < v94)
         {
-          v120 = v117 - v225;
-          v121 = 16 * v225;
+          v97 = v94 - v202;
+          v98 = 16 * v202;
           do
           {
-            v122 = &v224[v121];
-            *v122 = 0;
-            *(v122 + 1) = 0;
-            v121 += 16;
-            --v120;
+            v99 = &v201[v98];
+            *v99 = 0;
+            *(v99 + 1) = 0;
+            v98 += 16;
+            --v97;
           }
 
-          while (v120);
+          while (v97);
         }
       }
 
-      else if (v225 > v117)
+      else if (v202 > v94)
       {
-        v118 = v225;
-        v119 = 16 * v225 - 16;
+        v95 = v202;
+        v96 = 16 * v202 - 16;
         do
         {
-          --v118;
-          DgnPrimArray<unsigned int>::~DgnPrimArray(&v224[v119]);
-          v119 -= 16;
+          --v95;
+          DgnPrimArray<unsigned int>::~DgnPrimArray(&v201[v96]);
+          v96 -= 16;
         }
 
-        while (v118 > v117);
+        while (v95 > v94);
       }
 
-      LODWORD(v225) = v193 - 1;
-      if (v223 <= v117)
+      LODWORD(v202) = v170 - 1;
+      if (v200 <= v94)
       {
-        if (v223 < v117)
+        if (v200 < v94)
         {
-          v125 = v117 - v223;
-          v126 = 2 * v223;
+          v102 = v94 - v200;
+          v103 = 2 * v200;
           do
           {
-            v127 = &v222[v126];
-            *v127 = 0;
-            v127[1] = 0;
-            v126 += 2;
-            --v125;
+            v104 = &v199[v103];
+            *v104 = 0;
+            v104[1] = 0;
+            v103 += 2;
+            --v102;
           }
 
-          while (v125);
+          while (v102);
         }
       }
 
-      else if (v223 > v117)
+      else if (v200 > v94)
       {
-        v123 = v223;
-        v124 = 16 * v223 - 16;
+        v100 = v200;
+        v101 = 16 * v200 - 16;
         do
         {
-          --v123;
-          DgnPrimArray<unsigned int>::~DgnPrimArray(v222 + v124);
-          v124 -= 16;
+          --v100;
+          DgnPrimArray<unsigned int>::~DgnPrimArray(v199 + v101);
+          v101 -= 16;
         }
 
-        while (v123 > v117);
+        while (v100 > v94);
       }
 
-      LODWORD(v223) = v193 - 1;
-      DgnArray<LinearTransform>::copyArraySlice(&v206, &v216, v117, 1u);
-      DgnPrimArray<int>::copyArraySlice(v205, &v214, v117, 1u);
-      v128 = v217;
-      if (v217 <= v117)
+      LODWORD(v200) = v170 - 1;
+      DgnArray<LinearTransform>::copyArraySlice(&v183, &v193, v94, 1);
+      DgnPrimArray<int>::copyArraySlice(v182, &v191, v94, 1u);
+      v105 = v194;
+      if (v194 <= v94)
       {
-        if (v217 < v117)
+        if (v194 < v94)
         {
-          v130 = ~v217 + v193;
-          v131 = 72 * v217;
+          v107 = ~v194 + v170;
+          v108 = 72 * v194;
           do
           {
-            LinearTransform::LinearTransform(&v216[v131]);
-            v131 += 72;
-            --v130;
+            LinearTransform::LinearTransform(&v193[v108]);
+            v108 += 72;
+            --v107;
           }
 
-          while (v130);
+          while (v107);
         }
       }
 
-      else if (v217 > v117)
+      else if (v194 > v94)
       {
-        v129 = 72 * v217 - 72;
+        v106 = 72 * v194 - 72;
         do
         {
-          --v128;
-          LinearTransform::~LinearTransform(&v216[v129]);
-          v129 -= 72;
+          --v105;
+          LinearTransform::~LinearTransform(&v193[v106]);
+          v106 -= 72;
         }
 
-        while (v128 > v117);
+        while (v105 > v94);
       }
 
-      LODWORD(v217) = v193 - 1;
-      LODWORD(v215) = v193 - 1;
+      LODWORD(v194) = v170 - 1;
+      LODWORD(v192) = v170 - 1;
     }
 
-    if (v190)
+    if (a2)
     {
-      CTFTMgr::setOnlineCTList(*(this + 3), &v216, &v214);
+      CTFTMgr::setOnlineCTList(*(this + 3), &v193, &v191);
     }
 
-    else if (v196)
+    else if (v173)
     {
-      v132 = *(this + 2);
-      v133 = 120;
-      if (*(v182 + 13))
+      v109 = *(this + 2);
+      v110 = 120;
+      if (*(v159 + 13))
       {
-        v133 = 152;
+        v110 = 152;
       }
 
-      v134 = *(*(v132 + v133) + 4 * (*(v132 + v133 + 8) - 1));
-      v203 = 0;
-      v204 = 0;
-      v135 = v134 + 1;
-      if (v134 != -1)
+      v111 = *(*(v109 + v110) + 4 * (*(v109 + v110 + 8) - 1));
+      v180 = 0;
+      v181 = 0;
+      v112 = v111 + 1;
+      if (v111 != -1)
       {
-        v201 = 0;
-        HIDWORD(v204) = realloc_array(0, &v201, 4 * (v134 + 1), 0, 0, 1) >> 2;
-        v203 = v201;
-        v132 = *(this + 2);
+        v178 = 0;
+        HIDWORD(v181) = realloc_array(0, &v178, 4 * (v111 + 1), 0, 0, 1) >> 2;
+        v180 = v178;
+        v109 = *(this + 2);
       }
 
-      LODWORD(v204) = v135;
-      v201 = 0;
-      v202 = 0;
-      DgnPrimArray<int>::copyArraySlice(&v201, (v132 + 192), 0, *(v132 + 200));
-      if (v204)
+      LODWORD(v181) = v112;
+      v178 = 0;
+      v179 = 0;
+      DgnPrimArray<int>::copyArraySlice(&v178, (v109 + 192), 0, *(v109 + 200));
+      if (v181)
       {
-        v136 = 0;
-        v137 = v203;
+        v113 = 0;
+        v114 = v180;
         do
         {
-          *&v137[4 * v136++] = -1;
+          *&v114[4 * v113++] = -1;
         }
 
-        while (v136 < v204);
+        while (v113 < v181);
       }
 
-      v138 = v223;
-      if (v223)
+      v115 = v200;
+      if (v200)
       {
-        v139 = 0;
-        v140 = v222;
-        v141 = v201;
-        v142 = v203;
+        v116 = 0;
+        v117 = v199;
+        v118 = v178;
+        v119 = v180;
         do
         {
-          v143 = &v140[2 * v139];
-          if (*(v143 + 2))
+          v120 = &v117[2 * v116];
+          if (*(v120 + 2))
           {
-            v144 = 0;
-            v145 = *v143;
+            v121 = 0;
+            v122 = *v120;
             do
             {
-              *&v142[4 * v141[*(v145 + 4 * v144++)]] = v139;
+              *&v119[4 * v118[*(v122 + 4 * v121++)]] = v116;
             }
 
-            while (v144 < *(v143 + 2));
-            v138 = v223;
+            while (v121 < *(v120 + 2));
+            v115 = v200;
           }
 
-          ++v139;
+          ++v116;
         }
 
-        while (v139 < v138);
+        while (v116 < v115);
       }
 
-      if (*(v182 + 12))
+      if (*(v159 + 12))
       {
-        CTFTMgr::setSpeakerCTList(*(this + 3), &v216, &v214, &v203, &v206, v205);
+        CTFTMgr::setSpeakerCTList(*(this + 3), &v193, &v191, &v180, &v183, v182);
       }
 
-      else if (*(v182 + 13) == 1)
+      else if (*(v159 + 13) == 1)
       {
         if (*(*(*this + 8) + 140) == 1)
         {
-          v169 = *(this + 3);
-          if (*(v169 + 12) == *v169 && v117 == *(v169 + 136) && v178 == *(v169 + 176))
+          v146 = *(this + 3);
+          if (*(v146 + 12) == *v146 && v94 == *(v146 + 136) && v155 == *(v146 + 176))
           {
-            if (v204)
+            if (v181)
             {
-              v170 = 0;
+              v147 = 0;
               while (1)
               {
-                v171 = *&v203[v170];
-                if (v171 != -1 && (!v117 || v171 != *(*(v169 + 40) + v170)))
+                v148 = *&v180[v147];
+                if (v148 != -1 && (!v94 || v148 != *(*(v146 + 40) + v147)))
                 {
                   break;
                 }
 
-                v170 += 4;
-                if (4 * v204 == v170)
+                v147 += 4;
+                if (4 * v181 == v147)
                 {
                   goto LABEL_256;
                 }
@@ -7435,208 +7645,209 @@ LABEL_109:
             else
             {
 LABEL_256:
-              if (v117)
+              if (v94)
               {
-                v172 = 0;
+                v149 = 0;
                 do
                 {
-                  multiplyIntTransform(&v216[72 * v172], (*(*(this + 3) + 144) + 72 * v172), v192, v200, v198 & 1, v87, &v214[v172]);
-                  ++v172;
+                  multiplyIntTransform(&v193[72 * v149], (*(*(this + 3) + 144) + 72 * v149), v169, v177, v175 & 1, v69, &v191[v149]);
+                  ++v149;
                 }
 
-                while (v172 != v117);
+                while (v149 != v94);
               }
 
-              for (i = 0; i < v178; i = 1)
+              for (i = 0; i < v155; i = 1)
               {
-                multiplyIntTransform(v206, *(*(this + 3) + 184), v192, v200, v198 & 1, v87, v205[0]);
+                multiplyIntTransform(v183, *(*(this + 3) + 184), v169, v177, v175 & 1, v69, v182[0]);
               }
             }
           }
         }
 
-        CTFTMgr::setChannelCTList(*(this + 3), &v216, &v214, &v203, &v206, v205);
+        CTFTMgr::setChannelCTList(*(this + 3), &v193, &v191, &v180, &v183, v182);
       }
 
-      DgnPrimArray<unsigned int>::~DgnPrimArray(&v201);
-      DgnPrimArray<unsigned int>::~DgnPrimArray(&v203);
+      DgnPrimArray<unsigned int>::~DgnPrimArray(&v178);
+      DgnPrimArray<unsigned int>::~DgnPrimArray(&v180);
     }
 
     else
     {
-      v203 = 0;
-      v204 = 0;
-      v146 = *(this + 2);
-      v201 = 0;
-      v202 = 0;
-      if (v223)
+      v180 = 0;
+      v181 = 0;
+      v123 = *(this + 2);
+      v178 = 0;
+      v179 = 0;
+      if (v200)
       {
-        v147 = 0;
-        v148 = 0;
+        v124 = 0;
+        v125 = 0;
         do
         {
-          LODWORD(v202) = 0;
-          v149 = v222;
-          v150 = &v222[2 * v148];
-          if (*(v150 + 2))
+          LODWORD(v179) = 0;
+          v126 = v199;
+          v127 = &v199[2 * v125];
+          if (*(v127 + 2))
           {
-            v151 = 0;
-            v152 = 0;
+            v128 = 0;
+            v129 = 0;
             do
             {
-              v153 = *(*(this + 2) + 208) + 16 * *(*v150 + 4 * v152);
-              v154 = *(v153 + 8);
-              if (v154)
+              v130 = *(*(this + 2) + 208) + 16 * *(*v127 + 4 * v129);
+              v131 = *(v130 + 8);
+              if (v131)
               {
-                for (j = 0; j < v154; ++j)
+                for (j = 0; j < v131; ++j)
                 {
-                  v156 = *(*v153 + 4 * j);
-                  if ((*(*(v146 + 64) + ((v156 >> 3) & 0x1FFFFFFC)) >> v156))
+                  v133 = *(*v130 + 4 * j);
+                  if ((*(*(v123 + 64) + ((v133 >> 3) & 0x1FFFFFFC)) >> v133))
                   {
-                    v157 = *(*(v146 + 32) + 2 * v156);
-                    if (v157 != 65534)
+                    v134 = *(*(v123 + 32) + 2 * v133);
+                    if (v134 != 65534)
                     {
-                      if (v151 == HIDWORD(v202))
+                      if (v128 == HIDWORD(v179))
                       {
-                        DgnPrimArray<short>::reallocElts(&v201, 1, 1);
-                        v151 = v202;
-                        v154 = *(v153 + 8);
+                        DgnPrimArray<short>::reallocElts(&v178, 1, 1);
+                        v128 = v179;
+                        v131 = *(v130 + 8);
                       }
 
-                      *(v201 + v151++) = v157;
-                      LODWORD(v202) = v151;
+                      *(v178 + v128++) = v134;
+                      LODWORD(v179) = v128;
                     }
                   }
                 }
 
-                v149 = v222;
+                v126 = v199;
               }
 
-              ++v152;
-              v150 = &v149[2 * v148];
+              ++v129;
+              v127 = &v126[2 * v125];
             }
 
-            while (v152 < *(v150 + 2));
-            v147 = v204;
+            while (v129 < *(v127 + 2));
+            v124 = v181;
           }
 
-          if (v147 == HIDWORD(v204))
+          if (v124 == HIDWORD(v181))
           {
-            DgnArray<DgnPrimArray<double>>::reallocElts(&v203, 1, 1);
-            v147 = v204;
+            DgnArray<DgnPrimArray<double>>::reallocElts(&v180, 1, 1);
+            v124 = v181;
           }
 
-          v158 = &v203[16 * v147];
-          *v158 = 0;
-          *(v158 + 1) = 0;
-          DgnPrimArray<unsigned short>::copyArraySlice(v158, &v201, 0, v202);
-          v147 = v204 + 1;
-          LODWORD(v204) = v204 + 1;
-          ++v148;
+          v135 = &v180[16 * v124];
+          *v135 = 0;
+          v135[1] = 0;
+          DgnPrimArray<unsigned short>::copyArraySlice(v135, &v178, 0, v179);
+          v124 = v181 + 1;
+          LODWORD(v181) = v181 + 1;
+          ++v125;
         }
 
-        while (v148 < v223);
+        while (v125 < v200);
       }
 
-      v159 = v217;
-      if (v217)
+      v136 = v194;
+      if (v194)
       {
-        v160 = 0;
-        v161 = v203;
+        v137 = 0;
+        v138 = v180;
         do
         {
-          v162 = &v161[16 * v160];
-          if (*(v162 + 2))
+          v139 = &v138[16 * v137];
+          if (*(v139 + 2))
           {
-            v163 = 0;
+            v140 = 0;
             do
             {
-              v164 = *(*v162 + 2 * v163);
-              v165 = *(*(PelMgr + 272) + 4 * v164);
-              v166 = *(*(PelMgr + 272) + 4 * v164 + 4);
-              v167 = v166 - v165;
-              if (v166 != v165)
+              v141 = *(*v139 + 2 * v140);
+              v142 = *(*(PelMgr + 272) + 4 * v141);
+              v143 = *(*(PelMgr + 272) + 4 * v141 + 4);
+              v144 = v143 - v142;
+              if (v143 != v142)
               {
-                v168 = 0;
+                v145 = 0;
                 do
                 {
-                  ConstrainedTransAccMgr::copyBackMeans(this, v164, v168, &v216[72 * v160], v112, v113, v114, v115);
-                  v168 = (v168 + 1);
+                  ConstrainedTransAccMgr::copyBackMeans(this, v141, v145, &v193[72 * v137]);
+                  v145 = (v145 + 1);
                 }
 
-                while (v167 != v168);
-                v161 = v203;
+                while (v144 != v145);
+                v138 = v180;
               }
 
-              ++v163;
-              v162 = &v161[16 * v160];
+              ++v140;
+              v139 = &v138[16 * v137];
             }
 
-            while (v163 < *(v162 + 2));
-            v159 = v217;
+            while (v140 < *(v139 + 2));
+            v136 = v194;
           }
 
-          ++v160;
+          ++v137;
         }
 
-        while (v160 < v159);
+        while (v137 < v136);
       }
 
-      DgnPrimArray<unsigned int>::~DgnPrimArray(&v201);
-      DgnArray<DgnPrimArray<unsigned char>>::releaseAll(&v203);
+      DgnPrimArray<unsigned int>::~DgnPrimArray(&v178);
+      DgnArray<DgnPrimArray<unsigned char>>::releaseAll(&v180);
     }
 
-    if (v181)
+    if (v158)
     {
-      v174 = *v24;
-      v175 = v181;
+      v151 = *v13;
+      v152 = v158;
       do
       {
-        v176 = *v174++;
-        *(v176 + 22) = 1;
-        --v175;
+        v153 = *v151++;
+        *(v153 + 22) = 1;
+        --v152;
       }
 
-      while (v175);
+      while (v152);
     }
 
     SnapTime::recordTime(a4, 1, 1, 1, 1);
     if (a5)
     {
-      *a5 = v117;
+      *a5 = v94;
     }
 
-    DgnPrimArray<unsigned int>::~DgnPrimArray(v205);
-    DgnArray<LinearTransform>::releaseAll(&v206);
-    v77 = 1;
+    DgnPrimArray<unsigned int>::~DgnPrimArray(v182);
+    DgnArray<LinearTransform>::releaseAll(&v183);
+    v59 = 1;
   }
 
-  DgnPrimFixArray<double>::~DgnPrimFixArray(&v209);
-  DgnPrimFixArray<double>::~DgnPrimFixArray(&v212);
-  DgnPrimArray<unsigned int>::~DgnPrimArray(&v214);
-  DgnArray<LinearTransform>::releaseAll(&v216);
-  DgnPrimArray<unsigned int>::~DgnPrimArray(&v218);
-  DgnArray<DgnPrimArray<unsigned char>>::releaseAll(&v220);
+  DgnPrimFixArray<double>::~DgnPrimFixArray(&v186);
+  DgnPrimFixArray<double>::~DgnPrimFixArray(&v189);
+  DgnPrimArray<unsigned int>::~DgnPrimArray(&v191);
+  DgnArray<LinearTransform>::releaseAll(&v193);
+  DgnPrimArray<unsigned int>::~DgnPrimArray(&v195);
+  DgnArray<DgnPrimArray<unsigned char>>::releaseAll(&v197);
 LABEL_271:
-  DgnArray<DgnPrimArray<unsigned char>>::releaseAll(&v222);
-  DgnArray<DgnPrimArray<unsigned char>>::releaseAll(&v224);
-  return v77;
+  DgnArray<DgnPrimArray<unsigned char>>::releaseAll(&v199);
+  DgnArray<DgnPrimArray<unsigned char>>::releaseAll(&v201);
+  return v59;
 }
 
-void sub_262611FDC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, char a30, uint64_t a31, char a32, uint64_t a33, char a34, uint64_t a35, char a36, uint64_t a37, uint64_t a38, char a39)
+void sub_262611FDC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, ...)
 {
+  va_start(va, a38);
   DgnPrimArray<unsigned int>::~DgnPrimArray(&a30);
   DgnPrimArray<unsigned int>::~DgnPrimArray(&a32);
   DgnPrimArray<unsigned int>::~DgnPrimArray(&a34);
   DgnArray<LinearTransform>::releaseAll(&a36);
-  DgnPrimFixArray<double>::~DgnPrimFixArray(&a39);
-  DgnPrimFixArray<double>::~DgnPrimFixArray(v39 - 232);
-  DgnPrimArray<unsigned int>::~DgnPrimArray(v39 - 216);
-  DgnArray<LinearTransform>::releaseAll(v39 - 200);
-  DgnPrimArray<unsigned int>::~DgnPrimArray(v39 - 184);
-  DgnArray<DgnPrimArray<unsigned char>>::releaseAll(v39 - 168);
-  DgnArray<DgnPrimArray<unsigned char>>::releaseAll(v39 - 152);
-  DgnArray<DgnPrimArray<unsigned char>>::releaseAll(v39 - 136);
+  DgnPrimFixArray<double>::~DgnPrimFixArray(va);
+  DgnPrimFixArray<double>::~DgnPrimFixArray(v38 - 232);
+  DgnPrimArray<unsigned int>::~DgnPrimArray(v38 - 216);
+  DgnArray<LinearTransform>::releaseAll(v38 - 200);
+  DgnPrimArray<unsigned int>::~DgnPrimArray(v38 - 184);
+  DgnArray<DgnPrimArray<unsigned char>>::releaseAll(v38 - 168);
+  DgnArray<DgnPrimArray<unsigned char>>::releaseAll(v38 - 152);
+  DgnArray<DgnPrimArray<unsigned char>>::releaseAll(v38 - 136);
   _Unwind_Resume(a1);
 }
 
@@ -7646,7 +7857,7 @@ BOOL ConstrainedTransAccMgr::computeInitialTransform(ConstrainedTransAccMgr *thi
   DgnMatrix::makeIdentity(v8, &v21);
   if (ConstrainedTransAccMgr::computeMeansTransform(this, a2, a3, &v21))
   {
-    DgnMatrix::invert(&v21, &v19);
+    DgnMatrix::invert(&v19, &v21);
     v9 = v19;
     v10 = v19 != 0;
     if (v19 && v8)
@@ -7687,9 +7898,9 @@ BOOL ConstrainedTransAccMgr::computeInitialTransform(ConstrainedTransAccMgr *thi
   return v10;
 }
 
-void sub_262612268(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_262612268(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   DgnPrimFixArray<double>::~DgnPrimFixArray(va);
   _Unwind_Resume(a1);
 }
@@ -8024,7 +8235,7 @@ LABEL_52:
       v70 = (v68 - v65) * 0.5;
       if ((vmovn_s64(vmvnq_s8(vcgtq_f64(vdupq_laneq_s64(v83, 1), v83))).u8[0] & 1) == 0)
       {
-        v210.f64[0] = v210.f64[1];
+        v210.i64[0] = v210.i64[1];
         v70 = __xa;
       }
     }
@@ -8032,12 +8243,12 @@ LABEL_52:
     if (v172)
     {
       v70 = v170 + v171 * v70;
-      v84 = v210.f64[0] * v171;
+      v84 = *v210.i64 * v171;
     }
 
     else
     {
-      v84 = v210.f64[0];
+      v84 = *v210.i64;
     }
 
     v85 = v224;
@@ -8332,7 +8543,7 @@ LABEL_50:
     DgnPrimFixArray<double>::~DgnPrimFixArray(&v222);
   }
 
-  DgnMatrix::invert(&v226, &v221);
+  DgnMatrix::invert(&v221, &v226);
   if (!v221)
   {
     goto LABEL_165;
@@ -8612,7 +8823,7 @@ LABEL_46:
         {
           if (v29 != v28)
           {
-            DgnMatrix::getRow(a4, v29, v68);
+            DgnMatrix::getRow(v68, a4, v29);
             v30 = 0;
             v31 = 0;
             if (v29 <= v28)
@@ -8687,7 +8898,7 @@ LABEL_46:
         DgnPrimFixArray<double>::~DgnPrimFixArray(&v70);
       }
 
-      DgnMatrix::invert(&v74, &v69);
+      DgnMatrix::invert(&v69, &v74);
       if (!v69)
       {
         break;
@@ -8826,7 +9037,7 @@ LABEL_18:
   return v12;
 }
 
-void DgnArray<LinearTransform>::copyArraySlice(uint64_t a1, void *a2, unsigned int a3, unsigned int a4)
+void DgnArray<LinearTransform>::copyArraySlice(uint64_t a1, void *a2, unsigned int a3, int a4)
 {
   v8 = *(a1 + 8);
   if (v8 >= 1)
@@ -8909,14 +9120,14 @@ LABEL_17:
   *(a1 + 8) = a4;
 }
 
-unint64_t CTFTMgr::setSpeakerCTList(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
+uint64_t *CTFTMgr::setSpeakerCTList(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
   DgnArray<LinearTransform>::copyArraySlice(a1 + 64, a2, 0, *(a2 + 8));
-  DgnPrimArray<int>::copyArraySlice(a1 + 80, a3, 0, *(a3 + 8));
+  DgnPrimArray<int>::copyArraySlice((a1 + 80), a3, 0, *(a3 + 8));
   *(a1 + 56) = *(a1 + 72);
-  DgnPrimArray<int>::copyArraySlice(a1 + 24, a4, 0, *(a4 + 8));
+  DgnPrimArray<int>::copyArraySlice((a1 + 24), a4, 0, *(a4 + 8));
   DgnArray<LinearTransform>::copyArraySlice(a1 + 104, a5, 0, *(a5 + 8));
-  result = DgnPrimArray<int>::copyArraySlice(a1 + 120, a6, 0, *(a6 + 8));
+  result = DgnPrimArray<int>::copyArraySlice((a1 + 120), a6, 0, *(a6 + 8));
   *(a1 + 96) = *(a1 + 112);
   v12 = *(a1 + 56);
   if (v12)
@@ -8928,43 +9139,43 @@ unint64_t CTFTMgr::setSpeakerCTList(uint64_t a1, uint64_t a2, uint64_t a3, uint6
   return result;
 }
 
-uint64_t multiplyIntTransform(LinearTransform *a1, const LinearTransform *a2, unsigned int a3, int a4, int a5, DgnMatrix *this, int *a7)
+uint64_t multiplyIntTransform(LinearTransform *a1, const LinearTransform *a2, uint64_t a3, int a4, int a5, DgnMatrix *this, int *a7)
 {
-  DgnMatrix::makeIdentity(this, &v44);
-  DgnMatrix::makeIdentity(this, &v42);
-  DgnMatrix::makeIdentity(this, &v40);
-  v39 = 0;
+  DgnMatrix::makeIdentity(this, &v43);
+  DgnMatrix::makeIdentity(this, &v41);
+  DgnMatrix::makeIdentity(this, &v39);
   v38 = 0;
+  v37 = 0;
   if (this)
   {
-    v38 = MemChunkAlloc(8 * this, 0);
-    v39 = this;
-    bzero(v38, 8 * this);
-    v36 = MemChunkAlloc(8 * this, 0);
-    v37 = this;
-    bzero(v36, 8 * this);
-    v34 = MemChunkAlloc(8 * this, 0);
-    v35 = this;
-    bzero(v34, 8 * this);
+    v37 = MemChunkAlloc(8 * this, 0);
+    v38 = this;
+    bzero(v37, 8 * this);
+    v35 = MemChunkAlloc(8 * this, 0);
+    v36 = this;
+    bzero(v35, 8 * this);
+    v33 = MemChunkAlloc(8 * this, 0);
+    v34 = this;
+    bzero(v33, 8 * this);
   }
 
   else
   {
-    v37 = 0;
     v36 = 0;
     v35 = 0;
     v34 = 0;
+    v33 = 0;
   }
 
-  LinearTransform::getUnscaledData(a1, &v44, &v38);
-  LinearTransform::getUnscaledData(a2, &v42, &v36);
+  LinearTransform::getUnscaledData(a1, &v43, &v37);
+  LinearTransform::getUnscaledData(a2, &v41, &v35);
   if (a4 == 3)
   {
     if (a5)
     {
-      DgnVector::operator+(&v36, &v38, &v31);
-      DgnPrimFixArray<double>::copyArraySlice(&v34, &v31, 0, v32);
-      DgnPrimFixArray<double>::~DgnPrimFixArray(&v31);
+      DgnVector::operator+(&v35, &v37, &v30);
+      DgnPrimFixArray<double>::copyArraySlice(&v33, &v30, 0, v31);
+      DgnPrimFixArray<double>::~DgnPrimFixArray(&v30);
     }
 
     v14 = 0;
@@ -8972,25 +9183,25 @@ uint64_t multiplyIntTransform(LinearTransform *a1, const LinearTransform *a2, un
 
   else
   {
-    DgnMatrix::operator*(&v44, &v42, &v31);
-    v40 = v31;
-    DgnPrimFixArray<double>::copyArraySlice(v41, &v32, 0, v33);
-    DgnPrimFixArray<double>::~DgnPrimFixArray(&v32);
+    DgnMatrix::operator*(&v43, &v41, &v30);
+    v39 = v30;
+    DgnPrimFixArray<double>::copyArraySlice(v40, &v31, 0, v32);
+    DgnPrimFixArray<double>::~DgnPrimFixArray(&v31);
     v14 = this;
     if (a5)
     {
-      DgnMatrix::operator*(&v44, &v36, &v29);
-      DgnVector::operator+(&v29, &v38, &v31);
-      DgnPrimFixArray<double>::copyArraySlice(&v34, &v31, 0, v32);
-      DgnPrimFixArray<double>::~DgnPrimFixArray(&v31);
-      DgnPrimFixArray<double>::~DgnPrimFixArray(&v29);
+      DgnMatrix::operator*(&v43, &v35, &v28);
+      DgnVector::operator+(&v28, &v37, &v30);
+      DgnPrimFixArray<double>::copyArraySlice(&v33, &v30, 0, v31);
+      DgnPrimFixArray<double>::~DgnPrimFixArray(&v30);
+      DgnPrimFixArray<double>::~DgnPrimFixArray(&v28);
       v14 = this;
     }
   }
 
-  DgnArray<DgnPrimArray<unsigned int>>::DgnArray(&v29, v14);
-  v15 = v30;
-  if (v30)
+  DgnArray<DgnPrimArray<unsigned int>>::DgnArray(&v28, v14);
+  v15 = v29;
+  if (v29)
   {
     v16 = 0;
     v17 = 0;
@@ -9006,12 +9217,12 @@ uint64_t multiplyIntTransform(LinearTransform *a1, const LinearTransform *a2, un
 
     do
     {
-      v19 = v29 + v16;
-      v20 = *(v29 + v16 + 12);
+      v19 = v28 + v16;
+      v20 = *(v28 + v16 + 12);
       if (v18 > v20)
       {
-        DgnPrimArray<unsigned int>::reallocElts(v29 + v16, v18 - v20, 0);
-        v15 = v30;
+        DgnPrimArray<unsigned int>::reallocElts(v28 + v16, v18 - v20, 0);
+        v15 = v29;
       }
 
       *(v19 + 8) = v18;
@@ -9032,58 +9243,58 @@ uint64_t multiplyIntTransform(LinearTransform *a1, const LinearTransform *a2, un
     v21 = 0;
   }
 
+  v26 = 0;
   v27 = 0;
-  v28 = 0;
   if (v21)
   {
-    v31 = 0;
-    HIDWORD(v28) = realloc_array(0, &v31, 4 * v21, 0, 0, 1) >> 2;
-    v27 = v31;
+    v30 = 0;
+    HIDWORD(v27) = realloc_array(0, &v30, 4 * v21, 0, 0, 1) >> 2;
+    v26 = v30;
   }
 
-  LODWORD(v28) = v21;
-  if (!fillIntTransform(&v40, &v34, &v29, &v27, a3, a4, a5, this))
+  LODWORD(v27) = v21;
+  if (!fillIntTransform(&v39, &v33, &v28, &v26, a3, a4, a5, this))
   {
-    DgnMatrix::makeIdentity(this, &v31);
-    v40 = v31;
-    DgnPrimFixArray<double>::copyArraySlice(v41, &v32, 0, v33);
-    DgnPrimFixArray<double>::~DgnPrimFixArray(&v32);
-    LODWORD(v32) = 0;
-    v31 = 0;
+    DgnMatrix::makeIdentity(this, &v30);
+    v39 = v30;
+    DgnPrimFixArray<double>::copyArraySlice(v40, &v31, 0, v32);
+    DgnPrimFixArray<double>::~DgnPrimFixArray(&v31);
+    LODWORD(v31) = 0;
+    v30 = 0;
     if (this)
     {
-      v31 = MemChunkAlloc(8 * this, 0);
-      LODWORD(v32) = this;
-      bzero(v31, 8 * this);
+      v30 = MemChunkAlloc(8 * this, 0);
+      LODWORD(v31) = this;
+      bzero(v30, 8 * this);
     }
 
-    DgnPrimFixArray<double>::copyArraySlice(&v34, &v31, 0, this);
-    DgnPrimFixArray<double>::~DgnPrimFixArray(&v31);
-    fillIntTransform(&v40, &v34, &v29, &v27, a3, a4, a5, this);
+    DgnPrimFixArray<double>::copyArraySlice(&v33, &v30, 0, this);
+    DgnPrimFixArray<double>::~DgnPrimFixArray(&v30);
+    fillIntTransform(&v39, &v33, &v28, &v26, a3, a4, a5, this);
   }
 
   LinearTransform::setSize(a1, this, this);
-  LinearTransform::setTransform(a1, &v29, a4, &v27, a5, a3, 0, v22);
-  v23 = DgnMatrix::determinant(&v40);
-  v24 = DgnLog(v23) * a3;
-  v25 = 0.5;
-  if (v24 < 0.0)
+  LinearTransform::setTransform(a1, &v28, a4, &v26, a5, a3, 0);
+  v22 = DgnMatrix::determinant(&v39);
+  v23 = DgnLog(v22) * a3;
+  v24 = 0.5;
+  if (v23 < 0.0)
   {
-    v25 = -0.5;
+    v24 = -0.5;
   }
 
-  *a7 = (v24 + v25);
-  DgnPrimArray<unsigned int>::~DgnPrimArray(&v27);
-  DgnArray<DgnPrimArray<unsigned char>>::releaseAll(&v29);
-  DgnPrimFixArray<double>::~DgnPrimFixArray(&v34);
-  DgnPrimFixArray<double>::~DgnPrimFixArray(&v36);
-  DgnPrimFixArray<double>::~DgnPrimFixArray(&v38);
-  DgnPrimFixArray<double>::~DgnPrimFixArray(v41);
-  DgnPrimFixArray<double>::~DgnPrimFixArray(&v43);
-  return DgnPrimFixArray<double>::~DgnPrimFixArray(&v45);
+  *a7 = (v23 + v24);
+  DgnPrimArray<unsigned int>::~DgnPrimArray(&v26);
+  DgnArray<DgnPrimArray<unsigned char>>::releaseAll(&v28);
+  DgnPrimFixArray<double>::~DgnPrimFixArray(&v33);
+  DgnPrimFixArray<double>::~DgnPrimFixArray(&v35);
+  DgnPrimFixArray<double>::~DgnPrimFixArray(&v37);
+  DgnPrimFixArray<double>::~DgnPrimFixArray(v40);
+  DgnPrimFixArray<double>::~DgnPrimFixArray(&v42);
+  return DgnPrimFixArray<double>::~DgnPrimFixArray(&v44);
 }
 
-void sub_262613DE8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, char a12, uint64_t a13, char a14, uint64_t a15, uint64_t a16, char a17, uint64_t a18, char a19, uint64_t a20, char a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27)
+void sub_262613DE8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27)
 {
   DgnPrimFixArray<double>::~DgnPrimFixArray(&a14);
   DgnPrimFixArray<double>::~DgnPrimFixArray(&a12);
@@ -9096,14 +9307,14 @@ void sub_262613DE8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-unint64_t CTFTMgr::setChannelCTList(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
+uint64_t *CTFTMgr::setChannelCTList(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
   DgnArray<LinearTransform>::copyArraySlice(a1 + 144, a2, 0, *(a2 + 8));
-  DgnPrimArray<int>::copyArraySlice(a1 + 160, a3, 0, *(a3 + 8));
+  DgnPrimArray<int>::copyArraySlice((a1 + 160), a3, 0, *(a3 + 8));
   *(a1 + 136) = *(a1 + 152);
-  DgnPrimArray<int>::copyArraySlice(a1 + 40, a4, 0, *(a4 + 8));
+  DgnPrimArray<int>::copyArraySlice((a1 + 40), a4, 0, *(a4 + 8));
   DgnArray<LinearTransform>::copyArraySlice(a1 + 184, a5, 0, *(a5 + 8));
-  result = DgnPrimArray<int>::copyArraySlice(a1 + 200, a6, 0, *(a6 + 8));
+  result = DgnPrimArray<int>::copyArraySlice((a1 + 200), a6, 0, *(a6 + 8));
   *(a1 + 176) = *(a1 + 192);
   v12 = *(a1 + 136);
   if (v12)
@@ -9115,68 +9326,68 @@ unint64_t CTFTMgr::setChannelCTList(uint64_t a1, uint64_t a2, uint64_t a3, uint6
   return result;
 }
 
-uint64_t ConstrainedTransAccMgr::copyBackMeans(AdaptController **this, uint64_t a2, uint64_t a3, LinearTransform *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t ConstrainedTransAccMgr::copyBackMeans(AdaptController **this, uint64_t a2, uint64_t a3, LinearTransform *a4)
 {
-  v9 = a3;
-  v10 = a2;
-  PelMgr = AdaptController::getPelMgr(*this, a2, a3, a4, a5, a6, a7, a8);
-  v12 = PelMgr;
-  v27[0] = 0;
-  v27[1] = 0;
-  v26[0] = 0;
-  v26[1] = 0;
-  v25[0] = 0;
-  v25[1] = 0;
-  v13 = *(PelMgr + 16);
-  if (v13 == 1)
+  v5 = a3;
+  v6 = a2;
+  PelMgr = AdaptController::getPelMgr(*this);
+  v8 = PelMgr;
+  v18[0] = 0;
+  v18[1] = 0;
+  v17[0] = 0;
+  v17[1] = 0;
+  v16[0] = 0;
+  v16[1] = 0;
+  v9 = *(PelMgr + 16);
+  if (v9 == 1)
   {
-    PelMgr::unpackGenoneComponent(PelMgr, v10, v9, v27, v25);
+    PelMgr::unpackGenoneComponent(PelMgr, v6, v5, v18, v16);
   }
 
   else
   {
-    PelMgr::unpackGenoneComponent(PelMgr, v10, v9, v27, v26);
+    PelMgr::unpackGenoneComponent(PelMgr, v6, v5, v18, v17);
   }
 
-  v24[0] = 0;
-  v24[1] = 0;
-  LinearTransform::transformMeans(a4, v27, v24, v14, v15, v16, v17, v18);
-  if (v13 == 1)
+  v15[0] = 0;
+  v15[1] = 0;
+  LinearTransform::transformMeans(a4, v18, v15);
+  if (v9 == 1)
   {
-    PelMgr::packGenoneComponent(v12, v10, v9, v24, v25, 1, v19, v20, v21, v22);
+    PelMgr::packGenoneComponent(v8, v6, v5, v15, v16, 1, v10, v11, v12, v13);
   }
 
   else
   {
-    PelMgr::packGenoneComponent(v12, v10, v9, v24, v26);
+    PelMgr::packGenoneComponent(v8, v6, v5, v15, v17);
   }
 
-  DgnPrimArray<unsigned int>::~DgnPrimArray(v24);
-  DgnPrimArray<unsigned int>::~DgnPrimArray(v25);
-  DgnPrimArray<unsigned int>::~DgnPrimArray(v26);
-  return DgnPrimArray<unsigned int>::~DgnPrimArray(v27);
+  DgnPrimArray<unsigned int>::~DgnPrimArray(v15);
+  DgnPrimArray<unsigned int>::~DgnPrimArray(v16);
+  DgnPrimArray<unsigned int>::~DgnPrimArray(v17);
+  return DgnPrimArray<unsigned int>::~DgnPrimArray(v18);
 }
 
-void sub_2626140C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_2626140C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va2, a3);
-  va_start(va1, a3);
-  va_start(va, a3);
-  v4 = va_arg(va1, void);
+  va_start(va2, a5);
+  va_start(va1, a5);
+  va_start(va, a5);
   v6 = va_arg(va1, void);
+  v8 = va_arg(va1, void);
   va_copy(va2, va1);
-  v7 = va_arg(va2, void);
   v9 = va_arg(va2, void);
+  v11 = va_arg(va2, void);
   DgnPrimArray<unsigned int>::~DgnPrimArray(va);
   DgnPrimArray<unsigned int>::~DgnPrimArray(va1);
   DgnPrimArray<unsigned int>::~DgnPrimArray(va2);
   _Unwind_Resume(a1);
 }
 
-unint64_t CTFTMgr::setOnlineCTList(uint64_t a1, uint64_t a2, uint64_t a3)
+uint64_t *CTFTMgr::setOnlineCTList(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   DgnArray<LinearTransform>::copyArraySlice(a1 + 224, a2, 0, *(a2 + 8));
-  result = DgnPrimArray<int>::copyArraySlice(a1 + 240, a3, 0, *(a3 + 8));
+  result = DgnPrimArray<int>::copyArraySlice((a1 + 240), a3, 0, *(a3 + 8));
   v6 = *(a1 + 232);
   *(a1 + 216) = v6;
   if (v6)
@@ -9212,7 +9423,7 @@ double DgnVector::operator+@<D0>(uint64_t a1@<X0>, double **a2@<X1>, uint64_t a3
   return result;
 }
 
-uint64_t DgnArray<DgnArray<DgnPrimArray<int>>>::copyArraySlice(uint64_t result, void *a2, unsigned int a3, unsigned int a4)
+uint64_t DgnArray<DgnArray<DgnPrimArray<int>>>::copyArraySlice(uint64_t result, void *a2, unsigned int a3, int a4)
 {
   v7 = result;
   v8 = *(result + 8);
@@ -9324,7 +9535,7 @@ CTPelAccum *DgnIOwnArray<CTPelAccum *>::destructAt(CTPelAccum *result, int a2, i
   return result;
 }
 
-unint64_t DgnArray<LinearTransform>::reallocElts(uint64_t a1, uint64_t a2, int a3)
+uint64_t *DgnArray<LinearTransform>::reallocElts(uint64_t a1, uint64_t a2, int a3)
 {
   v3 = a2;
   if (a3)
@@ -9343,7 +9554,7 @@ unint64_t DgnArray<LinearTransform>::reallocElts(uint64_t a1, uint64_t a2, int a
 
 void DgnSharedMemMgr::DgnSharedMemMgr(DgnSharedMemMgr *this, const char *a2)
 {
-  v3 = DgnString::DgnString(this, a2);
+  DgnString::DgnString(this, a2);
   recursive_mutex_init((v3 + 16));
   *(this + 20) = 0;
   *(this + 12) = 0;
@@ -9363,194 +9574,193 @@ void DgnSharedMemMgr::printSize(DgnSharedMemMgr *this, uint64_t a2, uint64_t a3,
   *a4 = 0;
   *a5 = 0;
   *a6 = 0;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/mrecutil/dsmmgr.cpp", 78, &v72);
-  if (v73)
+  getShipObjectSizeDescription(&v47, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/mrecutil/dsmmgr.cpp", 78);
+  if (v48)
   {
-    v16 = v72;
+    v13 = v47;
   }
 
   else
   {
-    v16 = &unk_26287F772;
+    v13 = byte_26287F772;
   }
 
-  xlprintf("ObSize: %*s*************************************************************\nObSize: %*sBegin %s ", v12, v13, v14, v15, a3, &unk_26287F772, a3, &unk_26287F772, v16);
-  v69 = a5;
-  DgnString::~DgnString(&v72);
+  xlprintf("ObSize: %*s*************************************************************\nObSize: %*sBegin %s ", v12, a3, byte_26287F772, a3, byte_26287F772, v13);
+  v44 = a5;
+  DgnString::~DgnString(&v47);
   if (a2 != -1)
   {
-    xlprintf("%d ", v17, v18, v19, v20, a2);
+    xlprintf("%d ", v14, a2);
   }
 
-  xlprintf("(alloc, used, shared)\nObSize: %*s*************************************************************\n", v17, v18, v19, v20, a3, &unk_26287F772);
-  v21 = sizeObject(this);
-  v22 = sizeObject(this);
-  v23 = sizeObject(this);
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/mrecutil/dsmmgr.cpp", 80, &v72);
-  if (v73)
+  xlprintf("(alloc, used, shared)\nObSize: %*s*************************************************************\n", v14, a3, byte_26287F772);
+  v15 = sizeObject(this, 0);
+  v16 = sizeObject(this, 1);
+  v17 = sizeObject(this, 3);
+  getShipObjectSizeDescription(&v47, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/mrecutil/dsmmgr.cpp", 80);
+  if (v48)
   {
-    v28 = v72;
-  }
-
-  else
-  {
-    v28 = &unk_26287F772;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v24, v25, v26, v27, (a3 + 1), &unk_26287F772, (34 - a3), (34 - a3), v28, v21, v22, v23);
-  DgnString::~DgnString(&v72);
-  *a4 += v21;
-  *v69 += v22;
-  *a6 += v23;
-  v29 = sizeObject(this + 16, 0);
-  v30 = sizeObject(this + 16, 1);
-  v31 = sizeObject(this + 16, 3);
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/mrecutil/dsmmgr.cpp", 81, &v72);
-  if (v73)
-  {
-    v36 = v72;
+    v19 = v47;
   }
 
   else
   {
-    v36 = &unk_26287F772;
+    v19 = byte_26287F772;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v32, v33, v34, v35, (a3 + 1), &unk_26287F772, (34 - a3), (34 - a3), v36, v29, v30, v31);
-  DgnString::~DgnString(&v72);
-  *a4 += v29;
-  *v69 += v30;
-  *a6 += v31;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/mrecutil/dsmmgr.cpp", 82, &v72);
-  if (v73)
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v18, (a3 + 1), byte_26287F772, (34 - a3), (34 - a3), v19, v15, v16, v17);
+  DgnString::~DgnString(&v47);
+  *a4 += v15;
+  *v44 += v16;
+  *a6 += v17;
+  v20 = sizeObject(this + 16, 0);
+  v21 = sizeObject(this + 16, 1);
+  v22 = sizeObject(this + 16, 3);
+  getShipObjectSizeDescription(&v47, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/mrecutil/dsmmgr.cpp", 81);
+  if (v48)
   {
-    v41 = v72;
+    v24 = v47;
   }
 
   else
   {
-    v41 = &unk_26287F772;
+    v24 = byte_26287F772;
   }
 
-  xlprintf("ObSize: %*s*************************************************************\nObSize: %*sBegin %s ", v37, v38, v39, v40, (a3 + 1), &unk_26287F772, (a3 + 1), &unk_26287F772, v41);
-  DgnString::~DgnString(&v72);
-  xlprintf("(alloc, used, shared)\nObSize: %*s*************************************************************\n", v42, v43, v44, v45, (a3 + 1), &unk_26287F772);
-  v46 = *(this + 26);
-  if (v46)
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v23, (a3 + 1), byte_26287F772, (34 - a3), (34 - a3), v24, v20, v21, v22);
+  DgnString::~DgnString(&v47);
+  *a4 += v20;
+  *v44 += v21;
+  *a6 += v22;
+  getShipObjectSizeDescription(&v47, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/mrecutil/dsmmgr.cpp", 82);
+  if (v48)
   {
-    v47 = 0;
-    v48 = 0;
-    v49 = 0;
-    v50 = 0;
+    v26 = v47;
+  }
+
+  else
+  {
+    v26 = byte_26287F772;
+  }
+
+  xlprintf("ObSize: %*s*************************************************************\nObSize: %*sBegin %s ", v25, (a3 + 1), byte_26287F772, (a3 + 1), byte_26287F772, v26);
+  DgnString::~DgnString(&v47);
+  xlprintf("(alloc, used, shared)\nObSize: %*s*************************************************************\n", v27, (a3 + 1), byte_26287F772);
+  v28 = *(this + 26);
+  if (v28)
+  {
+    v29 = 0;
+    v30 = 0;
+    v31 = 0;
+    v32 = 0;
     do
     {
-      v51 = *(this + 12);
-      if (*(v51 + 8 * v47))
+      v33 = *(this + 12);
+      if (*(v33 + 8 * v29))
       {
-        v72 = 0;
-        v70 = 0;
-        v71 = 0;
-        DgnSharedMemSet::printSize(*(v51 + 8 * v47), v47, (a3 + 2), &v72, &v71, &v70);
-        v50 += v72;
-        v49 += v71;
-        v48 += v70;
-        v46 = *(this + 26);
+        v47 = 0;
+        v45 = 0;
+        v46 = 0;
+        DgnSharedMemSet::printSize(*(v33 + 8 * v29), v29, (a3 + 2), &v47, &v46, &v45);
+        v32 += v47;
+        v31 += v46;
+        v30 += v45;
+        v28 = *(this + 26);
       }
 
-      ++v47;
+      ++v29;
     }
 
-    while (v47 < v46);
+    while (v29 < v28);
   }
 
   else
   {
-    v50 = 0;
-    v49 = 0;
-    v48 = 0;
-    v46 = 0;
+    v32 = 0;
+    v31 = 0;
+    v30 = 0;
+    v28 = 0;
   }
 
-  v52 = 16;
+  v34 = 16;
   if (gShadowDiagnosticShowIdealizedObjectSizes)
   {
-    v52 = 12;
+    v34 = 12;
   }
 
-  v53 = v52 + v50;
-  v54 = v52 + v49;
-  v55 = 2;
+  v35 = v34 + v32;
+  v36 = v34 + v31;
+  v37 = 2;
   if ((gShadowDiagnosticShowIdealizedObjectSizes & 1) == 0)
   {
-    v55 = 3;
+    v37 = 3;
   }
 
-  v56 = v53 + (*(this + 27) << v55);
-  v57 = v54 + (v46 << v55);
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/mrecutil/dsmmgr.cpp", 82, &v72);
-  if (v73)
+  v38 = v35 + (*(this + 27) << v37);
+  v39 = v36 + (v28 << v37);
+  getShipObjectSizeDescription(&v47, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/mrecutil/dsmmgr.cpp", 82);
+  if (v48)
   {
-    v62 = v72;
+    v41 = v47;
   }
 
   else
   {
-    v62 = &unk_26287F772;
+    v41 = byte_26287F772;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v58, v59, v60, v61, (a3 + 1), &unk_26287F772, (34 - a3), (34 - a3), v62, v56, v57, v48);
-  DgnString::~DgnString(&v72);
-  *a4 += v56;
-  *v69 += v57;
-  *a6 += v48;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/mrecutil/dsmmgr.cpp", 84, &v72);
-  if (v73)
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v40, (a3 + 1), byte_26287F772, (34 - a3), (34 - a3), v41, v38, v39, v30);
+  DgnString::~DgnString(&v47);
+  *a4 += v38;
+  *v44 += v39;
+  *a6 += v30;
+  getShipObjectSizeDescription(&v47, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/mrecutil/dsmmgr.cpp", 84);
+  if (v48)
   {
-    v67 = v72;
+    v43 = v47;
   }
 
   else
   {
-    v67 = &unk_26287F772;
+    v43 = byte_26287F772;
   }
 
-  v68 = *v69;
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v63, v64, v65, v66, a3, &unk_26287F772, (35 - a3), (35 - a3), v67, *a4, *v69, *a6);
-  DgnString::~DgnString(&v72);
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v42, a3, byte_26287F772, (35 - a3), (35 - a3), v43, *a4, *v44, *a6);
+  DgnString::~DgnString(&v47);
 }
 
-uint64_t DgnSharedMemMgr::getMaybeCreateSetObjectEx(DgnSharedMemMgr *this, const DgnString *a2, const DgnString *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t DgnSharedMemMgr::getMaybeCreateSetObjectEx(DgnSharedMemMgr *this, const DgnString *a2, const DgnString *a3)
 {
-  errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/mrecutil/dsmmgr.cpp", 115, "mrecutil/dsmmgr", 2, "%s", a7, a8, &unk_26287F772);
-  DgnString::DgnString(&v25, this);
-  DgnString::operator+=(&v25, a3);
-  v11 = *(this + 26);
-  v24 = this + 16;
+  errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/mrecutil/dsmmgr.cpp", 115, "mrecutil/dsmmgr", 2, "%s", byte_26287F772);
+  DgnString::DgnString(&v20, this);
+  DgnString::operator+=(&v20, a3);
+  v6 = *(this + 26);
+  v19 = this + 16;
   pthread_mutex_lock((this + 16));
   ++*(this + 20);
   *(this + 11) = pthread_self();
-  if (v11)
+  if (v6)
   {
-    v13 = 0;
+    v8 = 0;
     while (1)
     {
-      SetPrefixName = DgnSharedMemSet::getSetPrefixName(*(*(this + 12) + 8 * v13));
-      v15 = *(SetPrefixName + 8) ? *SetPrefixName : &unk_26287F772;
-      v16 = (v26 ? v25 : &unk_26287F772);
-      if (!strcmp(v15, v16))
+      SetPrefixName = DgnSharedMemSet::getSetPrefixName(*(*(this + 12) + 8 * v8));
+      v10 = *(SetPrefixName + 8) ? *SetPrefixName : byte_26287F772;
+      v11 = v21 ? v20 : byte_26287F772;
+      if (!strcmp(v10, v11))
       {
-        SetCacheDir = DgnSharedMemSet::getSetCacheDir(*(*(this + 12) + 8 * v13));
-        v18 = *(SetCacheDir + 8) ? *SetCacheDir : &unk_26287F772;
-        v19 = *(a2 + 2) ? *a2 : &unk_26287F772;
-        if (!strcmp(v18, v19))
+        SetCacheDir = DgnSharedMemSet::getSetCacheDir(*(*(this + 12) + 8 * v8));
+        v13 = *(SetCacheDir + 8) ? *SetCacheDir : byte_26287F772;
+        v14 = *(a2 + 2) ? *a2 : byte_26287F772;
+        if (!strcmp(v13, v14))
         {
           break;
         }
       }
 
-      if (v11 == ++v13)
+      if (v6 == ++v8)
       {
-        LODWORD(v13) = v11;
+        LODWORD(v8) = v6;
         goto LABEL_21;
       }
     }
@@ -9558,33 +9768,33 @@ uint64_t DgnSharedMemMgr::getMaybeCreateSetObjectEx(DgnSharedMemMgr *this, const
 
   else
   {
-    LODWORD(v13) = 0;
+    LODWORD(v8) = 0;
   }
 
-  if (v13 == v11)
+  if (v8 == v6)
   {
 LABEL_21:
-    Set = DgnSharedMemSet::createSet(a2, &v25, v12);
-    v21 = *(this + 26);
-    if (v21 == *(this + 27))
+    Set = DgnSharedMemSet::createSet(a2, &v20, v7);
+    v16 = *(this + 26);
+    if (v16 == *(this + 27))
     {
       DgnPrimArray<unsigned long long>::reallocElts(this + 96, 1, 1);
-      v21 = *(this + 26);
+      v16 = *(this + 26);
     }
 
-    *(*(this + 12) + 8 * v21) = Set;
-    *(this + 26) = v21 + 1;
+    *(*(this + 12) + 8 * v16) = Set;
+    *(this + 26) = v16 + 1;
   }
 
-  v22 = *(*(this + 12) + 8 * v13);
-  Latch<DgnLock,LatchAdapter>::~Latch(&v24);
-  DgnString::~DgnString(&v25);
-  return v22;
+  v17 = *(*(this + 12) + 8 * v8);
+  Latch<DgnLock,LatchAdapter>::~Latch(&v19);
+  DgnString::~DgnString(&v20);
+  return v17;
 }
 
-void sub_262614AAC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_262614AAC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   DgnString::~DgnString(va);
   _Unwind_Resume(a1);
 }
@@ -9608,39 +9818,39 @@ uint64_t *Latch<DgnLock,LatchAdapter>::~Latch(uint64_t *a1)
   return a1;
 }
 
-uint64_t loggableToken(uint64_t a1, uint64_t a2)
+uint64_t loggableToken(const char *a1, uint64_t a2)
 {
-  std::ostringstream::basic_ostringstream[abi:ne200100](&v8);
-  if (*(a1 + 23) < 0)
+  std::ostringstream::basic_ostringstream[abi:ne200100](&v9);
+  if (a1[23] < 0)
   {
     a1 = *a1;
   }
 
-  v4 = strlen(a1);
-  v5 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v8, a1, v4);
-  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v5, " (", 2);
-  v6 = MEMORY[0x26672B080](&v8, *(a2 + 16));
-  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v6, ") : ", 4);
+  v5 = strlen(a1);
+  v6 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v9, a1, v5);
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v6, " (", 2);
+  v7 = MEMORY[0x26672B080](&v9, *(a2 + 16));
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v7, ") : ", 4);
   std::stringbuf::str();
-  v8 = *MEMORY[0x277D82828];
-  *(&v8 + *(v8 - 24)) = *(MEMORY[0x277D82828] + 24);
-  v9 = MEMORY[0x277D82878] + 16;
-  if (v11 < 0)
+  v9 = *MEMORY[0x277D82828];
+  *(&v9 + *(v9 - 24)) = *(MEMORY[0x277D82828] + 24);
+  v10 = MEMORY[0x277D82878] + 16;
+  if (v12 < 0)
   {
-    operator delete(v10[7].__locale_);
+    operator delete(v11[7].__locale_);
   }
 
-  v9 = MEMORY[0x277D82868] + 16;
-  std::locale::~locale(v10);
+  v10 = MEMORY[0x277D82868] + 16;
+  std::locale::~locale(v11);
   std::ostream::~ostream();
-  return MEMORY[0x26672B160](&v12);
+  return MEMORY[0x26672B160](&v13);
 }
 
-void sub_262614CCC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_262614CCC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::ostringstream::~ostringstream(va, MEMORY[0x277D82828]);
-  MEMORY[0x26672B160](v2 + 112);
+  MEMORY[0x26672B160](v3 + 112);
   _Unwind_Resume(a1);
 }
 
@@ -9650,215 +9860,4 @@ void TLexerLexicon::TLexerLexicon(TLexerLexicon *this, const TLocaleInfo *a2)
   *(this + 2) = 0u;
   *this = 0u;
   operator new();
-}
-
-void sub_262614D54(_Unwind_Exception *a1)
-{
-  MEMORY[0x26672B1B0](v2, 0x60C40CE5A77A8);
-  v4 = *(v1 + 24);
-  if (v4)
-  {
-    *(v1 + 32) = v4;
-    operator delete(v4);
-  }
-
-  v5 = *v1;
-  if (*v1)
-  {
-    *(v1 + 8) = v5;
-    operator delete(v5);
-  }
-
-  _Unwind_Resume(a1);
-}
-
-void TLexerLexicon::~TLexerLexicon(TLexerLexicon *this)
-{
-  v2 = *(this + 6);
-  if (v2)
-  {
-    TRegExp::~TRegExp(v2);
-    MEMORY[0x26672B1B0]();
-  }
-
-  v3 = *(this + 3);
-  if (v3)
-  {
-    *(this + 4) = v3;
-    operator delete(v3);
-  }
-
-  v4 = *this;
-  if (*this)
-  {
-    *(this + 1) = v4;
-    operator delete(v4);
-  }
-}
-
-void TLexerLexicon::addRegExp(const void **a1, __int32 *a2, uint64_t a3)
-{
-  TRegExp::add(a1[6], a2, (a1[1] - *a1) >> 3);
-  v6 = a1[1];
-  v5 = a1[2];
-  if (v6 >= v5)
-  {
-    v8 = *a1;
-    v9 = v6 - *a1;
-    v10 = v9 >> 3;
-    v11 = (v9 >> 3) + 1;
-    if (v11 >> 61)
-    {
-      std::vector<std::wstring>::__throw_length_error[abi:ne200100]();
-    }
-
-    v12 = v5 - v8;
-    if (v12 >> 2 > v11)
-    {
-      v11 = v12 >> 2;
-    }
-
-    v13 = v12 >= 0x7FFFFFFFFFFFFFF8;
-    v14 = 0x1FFFFFFFFFFFFFFFLL;
-    if (!v13)
-    {
-      v14 = v11;
-    }
-
-    if (v14)
-    {
-      std::__allocate_at_least[abi:ne200100]<std::allocator<unsigned long>>(a1, v14);
-    }
-
-    *(8 * v10) = a3;
-    v7 = 8 * v10 + 8;
-    memcpy(0, v8, v9);
-    v15 = *a1;
-    *a1 = 0;
-    a1[1] = v7;
-    a1[2] = 0;
-    if (v15)
-    {
-      operator delete(v15);
-    }
-  }
-
-  else
-  {
-    *v6 = a3;
-    v7 = (v6 + 8);
-  }
-
-  a1[1] = v7;
-}
-
-void TLexerLexicon::addLiteral(const void **a1, uint64_t a2, uint64_t a3)
-{
-  v6 = v8;
-  v7 = xmmword_26286B6F0;
-  v9 = 1;
-  TRegExp::stringToRegExp(a2, &v6, 0, 0);
-  if (*(&v7 + 1) >= v7)
-  {
-    if (v9)
-    {
-      v10 = 0;
-      TBuffer<wchar_t>::insert(&v6, *(&v7 + 1), &v10, 1uLL);
-      v5 = v6;
-      --*(&v7 + 1);
-    }
-
-    else
-    {
-      v5 = v6;
-      if (v7)
-      {
-        v6[v7 - 1] = 0;
-      }
-    }
-  }
-
-  else
-  {
-    v5 = v6;
-    v6[*(&v7 + 1)] = 0;
-  }
-
-  TLexerLexicon::addRegExp(a1, v5, a3);
-  if (v9 == 1 && v6 != v8)
-  {
-    if (v6)
-    {
-      MEMORY[0x26672B1B0]();
-    }
-  }
-}
-
-void sub_262615080(_Unwind_Exception *a1, uint64_t a2, ...)
-{
-  va_start(va, a2);
-  if (LOBYTE(STACK[0x420]) == 1)
-  {
-    TSegmenter::findSegmentEnd(va, v2);
-  }
-
-  _Unwind_Resume(a1);
-}
-
-void TLexerLexicon::addString(void *a1, int a2, uint64_t a3, int a4)
-{
-  v7 = a1[4];
-  v8 = a1[5];
-  if (v7 >= v8)
-  {
-    v10 = a1[3];
-    v11 = v7 - v10;
-    v12 = (v7 - v10) >> 4;
-    v13 = v12 + 1;
-    if ((v12 + 1) >> 60)
-    {
-      std::vector<std::wstring>::__throw_length_error[abi:ne200100]();
-    }
-
-    v14 = v8 - v10;
-    if (v14 >> 3 > v13)
-    {
-      v13 = v14 >> 3;
-    }
-
-    if (v14 >= 0x7FFFFFFFFFFFFFF0)
-    {
-      v13 = 0xFFFFFFFFFFFFFFFLL;
-    }
-
-    if (v13)
-    {
-      std::__allocate_at_least[abi:ne200100]<std::allocator<TPTokenState>>((a1 + 3), v13);
-    }
-
-    v15 = 16 * v12;
-    *v15 = a3;
-    *(v15 + 8) = a2;
-    *(v15 + 12) = a4;
-    v9 = 16 * v12 + 16;
-    memcpy(0, v10, v11);
-    v16 = a1[3];
-    a1[3] = 0;
-    a1[4] = v9;
-    a1[5] = 0;
-    if (v16)
-    {
-      operator delete(v16);
-    }
-  }
-
-  else
-  {
-    *v7 = a3;
-    v9 = v7 + 16;
-    *(v7 + 8) = a2;
-    *(v7 + 12) = a4;
-  }
-
-  a1[4] = v9;
 }

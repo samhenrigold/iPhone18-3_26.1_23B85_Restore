@@ -164,7 +164,7 @@ void __32__SafeguardsManagingClient_init__block_invoke_47(uint64_t a1)
 
 - (void)reportScheduledIntensiveWorkByProcesses:(id)processes
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   processesCopy = processes;
   if (self->_featureEnabled)
   {
@@ -172,21 +172,19 @@ void __32__SafeguardsManagingClient_init__block_invoke_47(uint64_t a1)
     if (os_log_type_enabled(logger, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v11 = processesCopy;
+      v10 = processesCopy;
       _os_log_impl(&dword_1BACB7000, logger, OS_LOG_TYPE_DEFAULT, "Reporting %@ as now running intensive workloads", buf, 0xCu);
     }
 
     connection = self->_connection;
-    v9[0] = MEMORY[0x1E69E9820];
-    v9[1] = 3221225472;
-    v9[2] = __68__SafeguardsManagingClient_reportScheduledIntensiveWorkByProcesses___block_invoke;
-    v9[3] = &unk_1E7F18938;
-    v9[4] = self;
-    v7 = [(NSXPCConnection *)connection remoteObjectProxyWithErrorHandler:v9];
+    v8[0] = MEMORY[0x1E69E9820];
+    v8[1] = 3221225472;
+    v8[2] = __68__SafeguardsManagingClient_reportScheduledIntensiveWorkByProcesses___block_invoke;
+    v8[3] = &unk_1E7F18938;
+    v8[4] = self;
+    v7 = [(NSXPCConnection *)connection remoteObjectProxyWithErrorHandler:v8];
     [v7 reportScheduledIntensiveWorkByProcesses:processesCopy];
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __68__SafeguardsManagingClient_reportScheduledIntensiveWorkByProcesses___block_invoke(uint64_t a1, void *a2)
@@ -2694,318 +2692,10 @@ void __55__SafeguardsManagingClient_sendCoalitionEntries_error___block_invoke_85
 
 - (void)init
 {
-  v12 = *MEMORY[0x1E69E9840];
-  v2 = *self;
-  v3 = a2;
+  v2 = a2;
   xpc_strerror();
   OUTLINED_FUNCTION_2_0();
-  OUTLINED_FUNCTION_3_0(&dword_1BACB7000, v4, v5, "xpc_user_sessions_get_foreground_uid() failed with error %d - %s", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x1E69E9840];
-}
-
-void __68__SafeguardsManagingClient_reportScheduledIntensiveWorkByProcesses___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_0_0(&dword_1BACB7000, v0, v1, "Failed to report scheduled intensive work %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __47__SafeguardsManagingClient_getActiveScenarios___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_0_0(&dword_1BACB7000, v0, v1, "Failed to copy active scenarios %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __41__SafeguardsManagingClient_getScenarios___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_0_0(&dword_1BACB7000, v0, v1, "Failed to copy scenarios %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __48__SafeguardsManagingClient_getMitigationPolicy___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_0_0(&dword_1BACB7000, v0, v1, "Failed to get mitigation information, %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __71__SafeguardsManagingClient_getProcessesAffectedByScenarioMapWithError___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_0_0(&dword_1BACB7000, v0, v1, "Failed to copy scenario map %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __76__SafeguardsManagingClient_getRestrictionsForProcess_forScenario_withError___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_0_0(&dword_1BACB7000, v0, v1, "Failed to copy restrictions %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __47__SafeguardsManagingClient_getPollingInterval___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_0_0(&dword_1BACB7000, v0, v1, "Failed to copy polling interval %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __55__SafeguardsManagingClient_getRelaunchPollingInterval___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_0_0(&dword_1BACB7000, v0, v1, "Failed to copy relaunch polling interval %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __58__SafeguardsManagingClient_getMaxRelaunchPollingInterval___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_0_0(&dword_1BACB7000, v0, v1, "Failed to copy max relaunch polling interval %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __47__SafeguardsManagingClient_getTriggerInterval___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_0_0(&dword_1BACB7000, v0, v1, "Failed to copy trigger interval %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __55__SafeguardsManagingClient_getScenarioRefreshInterval___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_0_0(&dword_1BACB7000, v0, v1, "Failed to copy scenario refresh interval %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __45__SafeguardsManagingClient_getTargetProcess___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_0_0(&dword_1BACB7000, v0, v1, "Failed to get target process %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __52__SafeguardsManagingClient_getInfoForProcess_error___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_0_0(&dword_1BACB7000, v0, v1, "Failed to get process info %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __40__SafeguardsManagingClient_getDefaults___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_0_0(&dword_1BACB7000, v0, v1, "Failed to get defaults %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __45__SafeguardsManagingClient_getMonitoredList___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_0_0(&dword_1BACB7000, v0, v1, "Failed to get monitored list %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __43__SafeguardsManagingClient_getPenaltyList___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_0_0(&dword_1BACB7000, v0, v1, "Failed to get penalty list %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __113__SafeguardsManagingClient_getCpuPercentageTriggerForWindowEndDate_windowStartDate_crossedThreshold_score_error___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_0_0(&dword_1BACB7000, v0, v1, "Failed to get cpu percentage trigger %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __62__SafeguardsManagingClient_getTargetProcessMitigationRecords___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_0_0(&dword_1BACB7000, v0, v1, "Failed to get mitigation records for target process %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __70__SafeguardsManagingClient_setRestrictionsByProcessPerScenario_error___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_0_0(&dword_1BACB7000, v0, v1, "Failed to set restrictions %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __53__SafeguardsManagingClient_setPollingInterval_error___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_0_0(&dword_1BACB7000, v0, v1, "Failed to set polling interval %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __61__SafeguardsManagingClient_setRelaunchPollingInterval_error___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_0_0(&dword_1BACB7000, v0, v1, "Failed to set relaunch polling interval %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __64__SafeguardsManagingClient_setMaxRelaunchPollingInterval_error___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_0_0(&dword_1BACB7000, v0, v1, "Failed to set relaunch polling interval max %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __53__SafeguardsManagingClient_setTriggerInterval_error___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_0_0(&dword_1BACB7000, v0, v1, "Failed to set trigger interval %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __61__SafeguardsManagingClient_setScenarioRefreshInterval_error___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_0_0(&dword_1BACB7000, v0, v1, "Failed to set scenario refresh interval %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __56__SafeguardsManagingClient_clearTargetProcessWithError___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_0_0(&dword_1BACB7000, v0, v1, "Failed to clear target process %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __131__SafeguardsManagingClient_setInfoForProcess_withFatalCount_withNonFatalCount_withExitCount_withPenaltyCount_withPolicyMask_error___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_0_0(&dword_1BACB7000, v0, v1, "Failed to set process info %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __68__SafeguardsManagingClient_setContextForIdentifier_withState_error___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_0_0(&dword_1BACB7000, v0, v1, "Failed to set context %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __221__SafeguardsManagingClient_setDefaultsWithMaxFatalCount_withMaxNonFatal_withEnableMitigations_withEnablePenaltyBox_withPercentage_withSeconds_withPenaltyBoxDuration_withMitigationsPluggedIn_withMitigateXPCServices_error___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_0_0(&dword_1BACB7000, v0, v1, "Failed to set defaults %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __72__SafeguardsManagingClient_setTargetProcessMitigationRecords_withError___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_0_0(&dword_1BACB7000, v0, v1, "Failed to set mitigation records %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __60__SafeguardsManagingClient_clearMitigationRecordsWithError___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_0_0(&dword_1BACB7000, v0, v1, "Failed to clear mitigation records %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __111__SafeguardsManagingClient_setRuleParameters_withWindowSize_withStepSize_withMaxLookback_withDaemonOnly_error___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_0_0(&dword_1BACB7000, v0, v1, "Failed to set rule parameters %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __54__SafeguardsManagingClient_resetRuleParameters_error___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_0_0(&dword_1BACB7000, v0, v1, "Failed to reset rule parameters %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __111__SafeguardsManagingClient_forceMitigation_forProcess_withPercentage_withSeconds_withPenaltyBoxDuration_error___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_0_0(&dword_1BACB7000, v0, v1, "Failed to force mitigation %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __49__SafeguardsManagingClient_forceMidnightRoutine___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_0_0(&dword_1BACB7000, v0, v1, "Failed to force midnight routine %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __62__SafeguardsManagingClient_forceCPUViolationForProcess_error___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_0_0(&dword_1BACB7000, v0, v1, "Failed to force CPU violation %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __67__SafeguardsManagingClient_forceDetectorViolationForProcess_error___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_0_0(&dword_1BACB7000, v0, v1, "Failed to force detector violation %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __70__SafeguardsManagingClient_forceDetectionWithStartTime_endTime_error___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_0_0(&dword_1BACB7000, v0, v1, "Failed to force detection with startTime and endTime %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __55__SafeguardsManagingClient_sendCoalitionEntries_error___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_0_0(&dword_1BACB7000, v0, v1, "Failed to send coalition entries %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_3_0(&dword_1BACB7000, v3, v4, "xpc_user_sessions_get_foreground_uid() failed with error %d - %s", v5, v6, v7, v8);
 }
 
 @end

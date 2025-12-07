@@ -1,91 +1,3 @@
-uint64_t io_service_wait_quiet_with_options(unsigned int a1, uint64_t a2, int a3)
-{
-  v8 = *MEMORY[0x277D85EF8];
-  v9 = a2;
-  v10 = a3;
-  *&v7.msgh_bits = 0x2C00001513;
-  *&v7.msgh_remote_port = __PAIR64__(mig_get_reply_port(), a1);
-  *&v7.msgh_voucher_port = 0xB4A00000000;
-  v3 = mach_msg2_internal();
-  v4 = v3;
-  if ((v3 - 268435458) > 0xE || ((1 << (v3 - 2)) & 0x4003) == 0)
-  {
-    if (v3)
-    {
-      mig_dealloc_reply_port(v7.msgh_local_port);
-    }
-
-    else
-    {
-      v4 = 4294966995;
-      mach_msg_destroy(&v7);
-    }
-  }
-
-  else
-  {
-    mig_put_reply_port(v7.msgh_local_port);
-  }
-
-  return v4;
-}
-
-IOReturn IOReporter::configureAllReports(OSCollection *reporters, OSData *channels, IOReportConfigureAction action, uint32_t *outCount)
-{
-  v7 = channelListWithData(channels);
-  v8 = -536870206;
-  if (outCount && reporters && v7)
-  {
-    v20 = 0;
-    v21 = &v20;
-    v22 = 0x2000000000;
-    v23 = 0;
-    v16 = 0;
-    v17 = &v16;
-    v18 = 0x2000000000;
-    v19 = -536870212;
-    if (action > 2)
-    {
-      v8 = -536870201;
-    }
-
-    else
-    {
-      v12 = 0;
-      v13 = &v12;
-      v14 = 0x2000000000;
-      v15 = 1;
-      v10[0] = MEMORY[0x277D85DD0];
-      v10[1] = 1107296256;
-      v10[2] = ___ZN10IOReporter19configureAllReportsEP12OSCollectionP6OSDatajPj_block_invoke;
-      v10[3] = &__block_descriptor_tmp_2;
-      v11 = action;
-      v10[4] = &v20;
-      v10[5] = &v16;
-      v10[6] = &v12;
-      v10[7] = v7;
-      (reporters->iterateObjects)(reporters, v10);
-      if (v13[3])
-      {
-        _Block_object_dispose(&v12, 8);
-        v8 = 0;
-        *outCount = *(v21 + 6);
-      }
-
-      else
-      {
-        v8 = *(v17 + 6);
-        _Block_object_dispose(&v12, 8);
-      }
-    }
-
-    _Block_object_dispose(&v16, 8);
-    _Block_object_dispose(&v20, 8);
-  }
-
-  return v8;
-}
-
 unsigned int *channelListWithData(OSData *a1)
 {
   if (OSData::getLength(a1) < 8)
@@ -121,6 +33,19 @@ BOOL ___ZN10IOReporter19configureAllReportsEP12OSCollectionP6OSDatajPj_block_inv
   }
 
   return (*(*(*(a1 + 48) + 8) + 24) & 1) == 0;
+}
+
+IOReturn IOReporter::configureReport(IOReporter *this, IOReportChannelList *channelList, IOReportConfigureAction action, uint32_t *elementCount)
+{
+  v5 = *&action;
+  ivars = this->ivars;
+  IOLockLock(*(ivars + 13));
+  *(ivars + 65) = 1;
+  LODWORD(elementCount) = (*(*this->ivars + 40))(this->ivars, channelList, v5, elementCount);
+  v9 = this->ivars;
+  *(v9 + 65) = 0;
+  IOLockUnlock(*(v9 + 13));
+  return elementCount;
 }
 
 void __copy_helper_block_8_32r40r48r(uint64_t a1, uint64_t a2)
@@ -254,6 +179,19 @@ BOOL ___ZN10IOReporter16updateAllReportsEP12OSCollectionP6OSDatajPjyyP18IOMemory
   }
 
   return (*(*(*(a1 + 64) + 8) + 24) & 1) == 0;
+}
+
+IOReturn IOReporter::updateReport(IOReporter *this, IOReportChannelList *channelList, IOReportConfigureAction action, uint32_t *elementCount, uint8_t **buffer, size_t *capacity)
+{
+  v9 = *&action;
+  ivars = this->ivars;
+  IOLockLock(*(ivars + 14));
+  *(ivars + 64) = 1;
+  LODWORD(capacity) = (*(*this->ivars + 48))(this->ivars, channelList, v9, elementCount, buffer, capacity);
+  v13 = this->ivars;
+  *(v13 + 64) = 0;
+  IOLockUnlock(*(v13 + 14));
+  return capacity;
 }
 
 void __copy_helper_block_8_32r40r48r56r64r(uint64_t a1, uint64_t a2)
@@ -490,7 +428,7 @@ OSPtr<IOReportLegendEntry> IOReporter::createLegend(IOReporter *this)
   return v3;
 }
 
-uint64_t IOReporter_IVars::handleSwapPrepare(IOReporter_IVars *this, signed int a2)
+uint64_t IOReporter_IVars::handleSwapPrepare(IOReporter_IVars *this, unsigned int a2)
 {
   if ((*(this + 65) & 1) == 0)
   {
@@ -532,7 +470,7 @@ uint64_t IOReporter_IVars::handleSwapPrepare(IOReporter_IVars *this, signed int 
           goto LABEL_11;
         }
 
-        v7 = (4 * a2);
+        v7 = 4 * a2;
         v12 = IOMallocTyped(v7, 0x100004052888210uLL);
         *(this + 10) = v12;
         if (v12)
@@ -861,15 +799,15 @@ uint64_t IOReporter_IVars::updateReportChannel(IOReporter_IVars *this, int a2, u
   return result;
 }
 
-OSArrayPtr IOReporter_IVars::handleCreateLegend@<X0>(IOReporter_IVars *this@<X0>, IOReporter_IVars **a2@<X8>)
+OSArray *IOReporter_IVars::handleCreateLegend@<X0>(IOReporter_IVars *this@<X0>, IOReporter_IVars **a2@<X8>)
 {
   *a2 = 0;
-  result = IOReporter_IVars::copyChannelIDs(this, &v8);
+  result = IOReporter_IVars::copyChannelIDs(&v8, this);
   v5 = v8;
   if (v8)
   {
     v6 = *(this + 11);
-    IOReporter_IVars::legendWith(v8, *(this + 7), *(this + 1), v6, &v8);
+    IOReporter_IVars::legendWith(&v8, v8, *(this + 7), *(this + 1), v6);
     *a2 = v8;
     v7 = *(*v5 + 16);
 
@@ -879,7 +817,7 @@ OSArrayPtr IOReporter_IVars::handleCreateLegend@<X0>(IOReporter_IVars *this@<X0>
   return result;
 }
 
-OSArrayPtr IOReporter_IVars::copyChannelIDs@<X0>(IOReporter_IVars *this@<X0>, OSArrayPtr *a2@<X8>)
+OSArray *IOReporter_IVars::copyChannelIDs@<X0>(OSArray **__return_ptr a1@<X8>, IOReporter_IVars *this@<X0>)
 {
   result = OSArray::withCapacity(*(this + 12));
   if (result)
@@ -887,7 +825,7 @@ OSArrayPtr IOReporter_IVars::copyChannelIDs@<X0>(IOReporter_IVars *this@<X0>, OS
     v5 = result;
     if (*(this + 12) <= 0)
     {
-      *a2 = result;
+      *a1 = result;
     }
 
     else
@@ -911,14 +849,14 @@ OSArrayPtr IOReporter_IVars::copyChannelIDs@<X0>(IOReporter_IVars *this@<X0>, OS
         v7 = v8;
         if (v6 >= *(this + 12))
         {
-          *a2 = v5;
+          *a1 = v5;
           release = v8->release;
           v10 = v8;
           goto LABEL_12;
         }
       }
 
-      *a2 = 0;
+      *a1 = 0;
       release = v5->release;
       v10 = v5;
 LABEL_12:
@@ -929,22 +867,22 @@ LABEL_12:
 
   else
   {
-    *a2 = 0;
+    *a1 = 0;
   }
 
   return result;
 }
 
-OSNumberPtr IOReporter_IVars::legendWith@<X0>(OSNumberPtr this@<X0>, OSArray *a2@<X1>, OSArray *a3@<X2>, IOReportChannelType a4@<0:X3>, OSDictionary **a5@<X8>)
+uint64_t *IOReporter_IVars::legendWith@<X0>(OSDictionary **__return_ptr a1@<X8>, uint64_t *this@<X0>, OSArray *a3@<X1>, OSArray *a4@<X2>, IOReportChannelType a5@<0:X3>)
 {
-  *a5 = 0;
+  *a1 = 0;
   if (!this)
   {
     return this;
   }
 
   v7 = this;
-  v8 = (this->OSContainer::OSObject::OSMetaClassBase::__vftable[1].release)(this);
+  v8 = (*(*this + 72))(this);
   v9 = OSArray::withCapacity(v8);
   if (!v8)
   {
@@ -952,14 +890,14 @@ LABEL_14:
     if ((v9->getCount)(v9) && (v17 = OSDictionary::withCapacity(1u)) != 0)
     {
       v18 = v17;
-      v19 = OSNumber::withNumber(*&a4, 0x40uLL);
+      v19 = OSNumber::withNumber(*&a5, 0x40uLL);
       if (v19)
       {
         OSDictionary::setObject(v18, "IOReportChannelUnit", v19);
       }
 
       v20 = OSDictionary::withCapacity(1u);
-      *a5 = v20;
+      *a1 = v20;
       if (v20)
       {
         v21 = v20;
@@ -984,7 +922,7 @@ LABEL_14:
     v11 = OSArray::withCapacity(3u);
     Object = OSArray::getObject(v7, v10);
     OSArray::setObject(v11, 0, Object);
-    this = OSNumber::withNumber(a3, 0x40uLL);
+    this = OSNumber::withNumber(a4, 0x40uLL);
     if (!this)
     {
       break;
@@ -992,10 +930,10 @@ LABEL_14:
 
     v13 = this;
     OSArray::setObject(v11, 1u, this);
-    (v13->release)(v13);
-    if (a2)
+    (*(*v13 + 16))(v13);
+    if (a3)
     {
-      v14 = OSArray::getObject(a2, v10);
+      v14 = OSArray::getObject(a3, v10);
       v15 = OSMetaClassBase::safeMetaCast(v14, gOSStringMetaClass);
       if (v15)
       {
@@ -1073,7 +1011,7 @@ __n128 IOReporter_IVars::setElementValues(IOReporter_IVars *this, int a2, IORepo
   return result;
 }
 
-unint64_t IOReporter_IVars::getElementValues(IOReporter_IVars *this, unsigned int a2)
+unint64_t IOReporter_IVars::getElementValues(IOReporter_IVars *this, uint64_t a2)
 {
   if ((*(this + 64) & 1) == 0)
   {
@@ -1624,7 +1562,7 @@ void IOHistogramReporter_IVars::~IOHistogramReporter_IVars(IOHistogramReporter_I
   JUMPOUT(0x2383EBD30);
 }
 
-OSArrayPtr IOHistogramReporter_IVars::handleCreateLegend@<X0>(const void **this@<X0>, const OSDictionary **a2@<X8>)
+OSArray *IOHistogramReporter_IVars::handleCreateLegend@<X0>(const void **this@<X0>, const OSDictionary **a2@<X8>)
 {
   result = IOReporter_IVars::handleCreateLegend(this, &v12);
   v5 = v12;
@@ -1670,6 +1608,30 @@ OSArrayPtr IOHistogramReporter_IVars::handleCreateLegend@<X0>(const void **this@
   }
 
   return result;
+}
+
+IOReturn IOHistogramReporter::overrideBucketValues(IOHistogramReporter *this, unsigned int index, uint64_t bucket_hits, int64_t bucket_min, int64_t bucket_max, int64_t bucket_sum)
+{
+  v10 = *&index;
+  IOReporter_IVars::lockReporter(this->ivars);
+  ivars = this->ivars;
+  if (*(ivars + 34) <= v10)
+  {
+    v13 = -536870206;
+  }
+
+  else
+  {
+    v15[0] = bucket_hits;
+    v15[1] = bucket_min;
+    v15[2] = bucket_max;
+    v15[3] = bucket_sum;
+    v13 = (*(*ivars + 72))(ivars, v10, v15, 0);
+    ivars = this->ivars;
+  }
+
+  IOReporter_IVars::unlockReporter(ivars);
+  return v13;
 }
 
 int IOHistogramReporter::tallyValue(IOHistogramReporter *this, int64_t value)
@@ -2018,7 +1980,7 @@ LABEL_17:
   return v4;
 }
 
-void IOStateReporter_IVars::handleSwapCleanup(IOStateReporter_IVars *this, int a2)
+void IOStateReporter_IVars::handleSwapCleanup(IOStateReporter_IVars *this, unsigned int a2)
 {
   if ((*(this + 65) & 1) == 0)
   {
@@ -2039,7 +2001,7 @@ void IOStateReporter_IVars::handleSwapCleanup(IOStateReporter_IVars *this, int a
       IOStateReporter_IVars::handleSwapCleanup();
     }
 
-    IOFree(v4, (4 * a2));
+    IOFree(v4, 4 * a2);
     *(this + 17) = 0;
   }
 
@@ -2056,7 +2018,7 @@ void IOStateReporter_IVars::handleSwapCleanup(IOStateReporter_IVars *this, int a
       IOStateReporter_IVars::handleSwapCleanup();
     }
 
-    IOFree(v5, (8 * a2));
+    IOFree(v5, 8 * a2);
     *(this + 18) = 0;
   }
 }
@@ -2259,6 +2221,15 @@ LABEL_10:
   return v4;
 }
 
+IOReturn IOStateReporter::setStateID(IOStateReporter *this, uint64_t channel_id, int state_index, uint64_t state_id)
+{
+  v5 = *&state_index;
+  IOReporter_IVars::lockReporter(this->ivars);
+  LODWORD(state_id) = (*(*this->ivars + 128))(this->ivars, channel_id, v5, state_id);
+  IOReporter_IVars::unlockReporter(this->ivars);
+  return state_id;
+}
+
 uint64_t IOStateReporter_IVars::handleSetStateID(IOStateReporter_IVars *this, uint64_t a2, int a3, uint64_t a4)
 {
   v9 = 0;
@@ -2294,7 +2265,17 @@ uint64_t IOStateReporter_IVars::handleSetStateID(IOStateReporter_IVars *this, ui
   return v7;
 }
 
-uint64_t IOStateReporter_IVars::handleSetStateByIndices(IOStateReporter_IVars *this, unsigned int a2, int a3, uint64_t a4, uint64_t a5)
+IOReturn IOStateReporter::setStateByIndices(IOStateReporter *this, int channel_index, int new_state_index)
+{
+  v3 = *&new_state_index;
+  v4 = *&channel_index;
+  IOReporter_IVars::lockReporter(this->ivars);
+  LODWORD(v3) = (*(*this->ivars + 120))(this->ivars, v4, v3, 0, 0);
+  IOReporter_IVars::unlockReporter(this->ivars);
+  return v3;
+}
+
+uint64_t IOStateReporter_IVars::handleSetStateByIndices(IOStateReporter_IVars *this, int a2, int a3, uint64_t a4, uint64_t a5)
 {
   v10 = mach_absolute_time();
   if ((*(this + 64) & 1) == 0)
@@ -2303,7 +2284,7 @@ uint64_t IOStateReporter_IVars::handleSetStateByIndices(IOStateReporter_IVars *t
   }
 
   v11 = 3758097090;
-  if ((a2 & 0x80000000) != 0 || *(this + 12) <= a2)
+  if (a2 < 0 || *(this + 12) <= a2)
   {
     return v11;
   }
@@ -2333,7 +2314,7 @@ uint64_t IOStateReporter_IVars::handleSetStateByIndices(IOStateReporter_IVars *t
       return 3758097128;
     }
 
-    v23 = a3 + v22 * a2;
+    v23 = (a3 + v22 * a2);
     if ((*(*this + 112))(this, v23, &v25))
     {
       return v11;
@@ -2366,7 +2347,7 @@ LABEL_16:
     return 3758097128;
   }
 
-  v19 = v14 + v18 * a2;
+  v19 = (v14 + v18 * a2);
   if (!(*(*this + 112))(this, v19, v28))
   {
     v20 = v13 - v17;
@@ -2452,7 +2433,7 @@ uint64_t IOStateReporter::getStateLastChannelUpdateTime(IOStateReporter *this, u
   return v6;
 }
 
-uint64_t IOStateReporter_IVars::updateChannelValues(IOStateReporter_IVars *this, unsigned int a2)
+uint64_t IOStateReporter_IVars::updateChannelValues(IOStateReporter_IVars *this, int a2)
 {
   if ((*(this + 64) & 1) == 0)
   {
@@ -2469,7 +2450,7 @@ uint64_t IOStateReporter_IVars::updateChannelValues(IOStateReporter_IVars *this,
       v7 = *(this + 20);
       if ((*(this + 11) - v6) / v7 >= a2)
       {
-        v8 = v6 + v7 * a2;
+        v8 = (v6 + v7 * a2);
         result = (*(*this + 112))(this, v8, v10);
         if (!result)
         {
@@ -2505,7 +2486,7 @@ OSPtr<IOReportLegend> IOReportLegend::with(OSArray *legend)
   operator new();
 }
 
-OSArray *deepcopy@<X0>(OSArray **__return_ptr a1@<X8>, OSArray *a2@<X0>)
+const OSData *deepcopy@<X0>(OSArray **__return_ptr a1@<X8>, OSArray *a2@<X0>)
 {
   v4 = (a2->getCount)(a2);
   v5 = (a2->getCount)(a2);
@@ -2742,7 +2723,7 @@ LABEL_20:
   return v4;
 }
 
-uint64_t *deepcopy@<X0>(uint64_t *__return_ptr a1@<X8>, uint64_t *result@<X0>)
+const OSData *deepcopy@<X0>(uint64_t *__return_ptr a1@<X8>, const OSData *result@<X0>)
 {
   if (!result)
   {
@@ -2827,7 +2808,7 @@ LABEL_6:
   result = v20;
   if (v20)
   {
-    result = (*(*v20 + 16))(v20);
+    result = (v20->release)(v20);
   }
 
   v20 = 0;
@@ -2840,7 +2821,7 @@ LABEL_6:
   return result;
 }
 
-BOOL ___ZL8deepcopyP12OSDictionary_block_invoke(uint64_t a1, OSObject *a2, OSObject *a3)
+BOOL ___ZL8deepcopyP12OSDictionary_block_invoke(uint64_t a1, const OSData *a2, const OSData *a3)
 {
   deepcopy(&v10, a2);
   deepcopy(&v9, a3);
@@ -2899,15 +2880,12 @@ uint64_t __destroy_helper_block_8_32c33_ZTS11OSSharedPtrI12OSDictionaryE(uint64_
 
 void *MD5Init(void *a1)
 {
-  v8[1] = *MEMORY[0x277D85DE8];
+  v6[1] = *MEMORY[0x277D85DE8];
   v2 = ccmd5_di();
-  v3 = (*(v2 + 8) + *(v2 + 16) + 19) & 0xFFFFFFFFFFFFFFF8;
   MEMORY[0x28223BE20](v2);
-  v5 = (v8 - v4);
+  v4 = (v6 - v3);
   ccdigest_init();
-  result = DiToMD5(v2, v5, a1);
-  v7 = *MEMORY[0x277D85DE8];
-  return result;
+  return DiToMD5(v2, v4, a1);
 }
 
 void *DiToMD5(uint64_t a1, unint64_t *a2, void *a3)
@@ -2923,18 +2901,15 @@ void *DiToMD5(uint64_t a1, unint64_t *a2, void *a3)
   return memcpy(a3, v6, v9);
 }
 
-void *MD5Update(unsigned int *a1)
+void *MD5Update(unsigned int *a1, uint64_t a2, unsigned int a3)
 {
   v9[1] = *MEMORY[0x277D85DE8];
-  v2 = ccmd5_di();
-  v3 = (*(v2 + 8) + *(v2 + 16) + 19) & 0xFFFFFFFFFFFFFFF8;
-  v4 = MEMORY[0x28223BE20](v2);
-  v6 = (v9 - v5);
-  MD5ToDi(v4, a1, (v9 - v5));
+  v4 = ccmd5_di();
+  v5 = MEMORY[0x28223BE20](v4);
+  v7 = (v9 - v6);
+  MD5ToDi(v5, a1, (v9 - v6));
   ccdigest_update();
-  result = DiToMD5(v2, v6, a1);
-  v8 = *MEMORY[0x277D85DE8];
-  return result;
+  return DiToMD5(v4, v7, a1);
 }
 
 void *MD5ToDi(uint64_t a1, unsigned int *a2, void *a3)
@@ -2943,9 +2918,9 @@ void *MD5ToDi(uint64_t a1, unsigned int *a2, void *a3)
   v8 = *(a1 + 8);
   v7 = *(a1 + 16);
   *a3 = 8 * (v6 - (v6 % v7));
-  v9 = (a3 + 1);
-  *&v9[v8 + v7] = v6 % v7;
-  memcpy(&v9[v8], a2 + 6, v7);
+  v9 = a3 + 1;
+  *(v9 + v8 + v7) = v6 % v7;
+  memcpy(v9 + v8, a2 + 6, v7);
   v10 = *(a1 + 8);
 
   return memcpy(v9, a2, v10);
@@ -2953,28 +2928,22 @@ void *MD5ToDi(uint64_t a1, unsigned int *a2, void *a3)
 
 uint64_t MD5Final(uint64_t a1, unsigned int *a2)
 {
-  v11[1] = *MEMORY[0x277D85DE8];
+  v9[1] = *MEMORY[0x277D85DE8];
   v4 = ccmd5_di();
-  v5 = (*(v4 + 8) + *(v4 + 16) + 19) & 0xFFFFFFFFFFFFFFF8;
-  v6 = MEMORY[0x28223BE20](v4);
-  v8 = v11 - v7;
-  MD5ToDi(v6, a2, (v11 - v7));
-  result = (*(v4 + 56))(v4, v8, a1);
-  v10 = *MEMORY[0x277D85DE8];
-  return result;
+  v5 = MEMORY[0x28223BE20](v4);
+  v7 = v9 - v6;
+  MD5ToDi(v5, a2, (v9 - v6));
+  return (*(v4 + 56))(v4, v7, a1);
 }
 
 void *SHA1Init(void *a1)
 {
-  v8[1] = *MEMORY[0x277D85DE8];
+  v6[1] = *MEMORY[0x277D85DE8];
   v2 = ccsha1_di();
-  v3 = (*(v2 + 8) + *(v2 + 16) + 19) & 0xFFFFFFFFFFFFFFF8;
   MEMORY[0x28223BE20](v2);
-  v5 = (v8 - v4);
+  v4 = (v6 - v3);
   ccdigest_init();
-  result = DiToSHA1(v2, v5, a1);
-  v7 = *MEMORY[0x277D85DE8];
-  return result;
+  return DiToSHA1(v2, v4, a1);
 }
 
 void *DiToSHA1(uint64_t a1, void *a2, void *a3)
@@ -2987,18 +2956,15 @@ void *DiToSHA1(uint64_t a1, void *a2, void *a3)
   return memcpy(a3, v5, v6);
 }
 
-void *SHA1Update(void *a1)
+void *SHA1Update(void *a1, uint64_t a2, uint64_t a3)
 {
   v9[1] = *MEMORY[0x277D85DE8];
-  v2 = ccsha1_di();
-  v3 = (*(v2 + 8) + *(v2 + 16) + 19) & 0xFFFFFFFFFFFFFFF8;
-  v4 = MEMORY[0x28223BE20](v2);
-  v6 = (v9 - v5);
-  SHA1ToDi(v4, a1, (v9 - v5));
+  v4 = ccsha1_di();
+  v5 = MEMORY[0x28223BE20](v4);
+  v7 = (v9 - v6);
+  SHA1ToDi(v5, a1, (v9 - v6));
   ccdigest_update();
-  result = DiToSHA1(v2, v6, a1);
-  v8 = *MEMORY[0x277D85DE8];
-  return result;
+  return DiToSHA1(v4, v7, a1);
 }
 
 void *SHA1ToDi(uint64_t a1, void *a2, void *a3)
@@ -3007,9 +2973,9 @@ void *SHA1ToDi(uint64_t a1, void *a2, void *a3)
   v8 = *(a1 + 8);
   v7 = *(a1 + 16);
   *a3 = 8 * (v6 - (v6 % v7));
-  v9 = (a3 + 1);
-  *&v9[v8 + v7] = v6 % v7;
-  memcpy(&v9[v8], a2 + 4, v7);
+  v9 = a3 + 1;
+  *(v9 + v8 + v7) = v6 % v7;
+  memcpy(v9 + v8, a2 + 4, v7);
   v10 = *(a1 + 8);
 
   return memcpy(v9, a2, v10);
@@ -3017,15 +2983,12 @@ void *SHA1ToDi(uint64_t a1, void *a2, void *a3)
 
 uint64_t SHA1Final(uint64_t a1, void *a2)
 {
-  v11[1] = *MEMORY[0x277D85DE8];
+  v9[1] = *MEMORY[0x277D85DE8];
   v4 = ccsha1_di();
-  v5 = (*(v4 + 8) + *(v4 + 16) + 19) & 0xFFFFFFFFFFFFFFF8;
-  v6 = MEMORY[0x28223BE20](v4);
-  v8 = v11 - v7;
-  SHA1ToDi(v6, a2, (v11 - v7));
-  result = (*(v4 + 56))(v4, v8, a1);
-  v10 = *MEMORY[0x277D85DE8];
-  return result;
+  v5 = MEMORY[0x28223BE20](v4);
+  v7 = v9 - v6;
+  SHA1ToDi(v5, a2, (v9 - v6));
+  return (*(v4 + 56))(v4, v7, a1);
 }
 
 uint64_t aes_encrypt_key()
@@ -3038,19 +3001,16 @@ uint64_t aes_encrypt_key()
   return MEMORY[0x2822013E8]();
 }
 
-uint64_t aes_encrypt_cbc()
+uint64_t aes_encrypt_cbc(uint64_t a1, uint64_t a2, unsigned int a3, uint64_t a4, uint64_t a5)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v0 = ccaes_cbc_encrypt_mode();
-  v1 = (*(v0 + 8) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20](v0);
+  v5 = ccaes_cbc_encrypt_mode();
+  MEMORY[0x28223BE20](v5);
   result = cccbc_set_iv();
   if (!result)
   {
-    result = cccbc_update();
+    return cccbc_update();
   }
 
-  v3 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -3064,19 +3024,16 @@ uint64_t aes_decrypt_key()
   return MEMORY[0x2822013E8]();
 }
 
-uint64_t aes_decrypt_cbc()
+uint64_t aes_decrypt_cbc(uint64_t a1, uint64_t a2, unsigned int a3, uint64_t a4, uint64_t a5)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v0 = ccaes_cbc_decrypt_mode();
-  v1 = (*(v0 + 8) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20](v0);
+  v5 = ccaes_cbc_decrypt_mode();
+  MEMORY[0x28223BE20](v5);
   result = cccbc_set_iv();
   if (!result)
   {
-    result = cccbc_update();
+    return cccbc_update();
   }
 
-  v3 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -3100,14 +3057,15 @@ uint64_t aes_encrypt_key_with_iv_gcm()
   return MEMORY[0x282201748]();
 }
 
-uint64_t aes_encrypt_set_iv_gcm()
+uint64_t aes_encrypt_set_iv_gcm(uint64_t a1, unsigned int a2, uint64_t a3)
 {
-  if (!ccaes_gcm_encrypt_mode())
+  v6 = ccaes_gcm_encrypt_mode();
+  if (!v6)
   {
     return 0xFFFFFFFFLL;
   }
 
-  return MEMORY[0x282201760]();
+  return MEMORY[0x282201760](v6, a3, a2, a1);
 }
 
 uint64_t aes_encrypt_reset_gcm()
@@ -3150,7 +3108,7 @@ uint64_t aes_encrypt_gcm()
   return MEMORY[0x282201768]();
 }
 
-uint64_t aes_encrypt_finalize_gcm()
+uint64_t aes_encrypt_finalize_gcm(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (!ccaes_gcm_encrypt_mode())
   {
@@ -3206,7 +3164,7 @@ uint64_t aes_decrypt_set_iv_gcm(uint64_t a1, uint64_t a2, uint64_t a3)
   return result;
 }
 
-uint64_t aes_decrypt_reset_gcm()
+uint64_t aes_decrypt_reset_gcm(uint64_t a1)
 {
   if (!ccaes_gcm_decrypt_mode())
   {
@@ -3246,7 +3204,7 @@ uint64_t aes_decrypt_gcm()
   return MEMORY[0x282201768]();
 }
 
-uint64_t aes_decrypt_finalize_gcm()
+uint64_t aes_decrypt_finalize_gcm(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (!ccaes_gcm_decrypt_mode())
   {
@@ -3413,26 +3371,26 @@ kern_return_t IOBufferMemoryDescriptorMetaClass::Dispatch(IOBufferMemoryDescript
 
 kern_return_t IOBufferMemoryDescriptor::Create(uint64_t options, uint64_t capacity, uint64_t alignment, IOBufferMemoryDescriptor **memory)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
+  v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
-  v13 = 0;
-  DWORD1(v11) = 96;
-  v14 = xmmword_23820CB30;
-  v15 = 1;
+  v12 = 0;
+  DWORD1(v10) = 96;
+  v13 = xmmword_23820CB30;
+  v14 = 1;
   anObject = gIOBufferMemoryDescriptorMetaClass;
-  *(&v12 + 4) = 0x14DA2B68CLL;
-  v17 = options;
-  v18 = capacity;
-  v19 = alignment;
-  invoke.message = &v11;
-  invoke.reply = &v11;
+  *(&v11 + 4) = 0x14DA2B68CLL;
+  v16 = options;
+  v17 = capacity;
+  v18 = alignment;
+  invoke.message = &v10;
+  invoke.reply = &v10;
   *&invoke.sendSize = 0x8C00000060;
   v5 = OSMetaClassBase::Invoke(gIOBufferMemoryDescriptorMetaClass, &invoke);
   if (!v5)
   {
     v5 = -536870209;
-    if (DWORD1(v11) == 72 && v14 == 0xB78DE684E17D5A4BLL && DWORD2(v12) == 1 && v15 == 1)
+    if (DWORD1(v10) == 72 && v13 == 0xB78DE684E17D5A4BLL && DWORD2(v11) == 1 && v14 == 1)
     {
       v6 = OSMetaClassBase::safeMetaCast(anObject, gIOBufferMemoryDescriptorMetaClass);
       *memory = v6;
@@ -3448,70 +3406,67 @@ kern_return_t IOBufferMemoryDescriptor::Create(uint64_t options, uint64_t capaci
 
       if (v7)
       {
-        v5 = 0;
+        return 0;
       }
 
       else
       {
-        v5 = -536870206;
+        return -536870206;
       }
     }
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
 kern_return_t IOBufferMemoryDescriptor::SetLength(IOBufferMemoryDescriptor *this, uint64_t length, OSDispatchMethod supermethod)
 {
-  v11 = *MEMORY[0x277D85DE8];
-  memset(v6, 0, sizeof(v6));
-  *&v6[4] = 80;
-  v7 = xmmword_23820CB40;
-  v8 = 1;
-  v9 = this;
-  *&v6[20] = 0x14DA2B68CLL;
-  v10 = length;
+  v10 = *MEMORY[0x277D85DE8];
+  memset(v5, 0, sizeof(v5));
+  *&v5[4] = 80;
+  v6 = xmmword_23820CB40;
+  v7 = 1;
+  v8 = this;
+  *&v5[20] = 0x14DA2B68CLL;
+  v9 = length;
   if (supermethod)
   {
-    invoke.message = v6;
-    invoke.reply = v6;
+    invoke.message = v5;
+    invoke.reply = v5;
     *&invoke.sendSize = 0x7800000050;
     result = (supermethod)(this, &invoke);
     if (result)
     {
-      goto LABEL_11;
+      return result;
     }
   }
 
   else
   {
-    invoke.message = v6;
-    invoke.reply = v6;
+    invoke.message = v5;
+    invoke.reply = v5;
     *&invoke.sendSize = 0x7800000050;
     result = OSMetaClassBase::Invoke(this, &invoke);
     if (result)
     {
-      goto LABEL_11;
+      return result;
     }
   }
 
   result = -536870209;
-  if (*&v6[4] == 52 && *&v6[28] == 0xC115230C191A6A9ALL && !*&v6[24])
+  if (*&v5[4] == 52 && *&v5[28] == 0xC115230C191A6A9ALL && !*&v5[24])
   {
-    if (*(&v7 + 4))
+    if (*(&v6 + 4))
     {
-      result = -536870209;
+      return -536870209;
     }
 
     else
     {
-      result = 0;
+      return 0;
     }
   }
 
-LABEL_11:
-  v4 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -3729,70 +3684,68 @@ kern_return_t IODMACommand::PrepareForDMA(IODMACommand *this, uint64_t options, 
 
 kern_return_t IODMACommand::CompleteDMA(IODMACommand *this, uint64_t options, OSDispatchMethod supermethod)
 {
-  v11 = *MEMORY[0x277D85DE8];
-  memset(v6, 0, sizeof(v6));
-  *&v6[4] = 80;
-  v7 = xmmword_23820D010;
-  v8 = 1;
-  v9 = this;
-  *&v6[20] = 0x14DA2B68CLL;
-  v10 = options;
+  v10 = *MEMORY[0x277D85DE8];
+  memset(v5, 0, sizeof(v5));
+  *&v5[4] = 80;
+  v6 = xmmword_23820D010;
+  v7 = 1;
+  v8 = this;
+  *&v5[20] = 0x14DA2B68CLL;
+  v9 = options;
   if (supermethod)
   {
-    invoke.message = v6;
-    invoke.reply = v6;
+    invoke.message = v5;
+    invoke.reply = v5;
     *&invoke.sendSize = 0x7800000050;
     result = (supermethod)(this, &invoke);
     if (result)
     {
-      goto LABEL_11;
+      return result;
     }
   }
 
   else
   {
-    invoke.message = v6;
-    invoke.reply = v6;
+    invoke.message = v5;
+    invoke.reply = v5;
     *&invoke.sendSize = 0x7800000050;
     result = OSMetaClassBase::Invoke(this, &invoke);
     if (result)
     {
-      goto LABEL_11;
+      return result;
     }
   }
 
   result = -536870209;
-  if (*&v6[4] == 52 && *&v6[28] == 0xAE15E446C7041259 && !*&v6[24])
+  if (*&v5[4] == 52 && *&v5[28] == 0xAE15E446C7041259 && !*&v5[24])
   {
-    if (*(&v7 + 4))
+    if (*(&v6 + 4))
     {
-      result = -536870209;
+      return -536870209;
     }
 
     else
     {
-      result = 0;
+      return 0;
     }
   }
 
-LABEL_11:
-  v4 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 kern_return_t IODMACommand::GetPreparation(IODMACommand *this, uint64_t *offset, uint64_t *length, IOMemoryDescriptor **memory, OSDispatchMethod supermethod)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
+  v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
-  v17 = 0;
-  DWORD1(v15) = 72;
-  v18 = xmmword_23820D020;
-  v19 = 1;
+  v16 = 0;
+  DWORD1(v14) = 72;
+  v17 = xmmword_23820D020;
+  v18 = 1;
   anObject = this;
-  *(&v16 + 4) = 0x14DA2B68CLL;
-  invoke.message = &v15;
-  invoke.reply = &v15;
+  *(&v15 + 4) = 0x14DA2B68CLL;
+  invoke.message = &v14;
+  invoke.reply = &v14;
   *&invoke.sendSize = 0x9C00000048;
   if (supermethod)
   {
@@ -3808,16 +3761,16 @@ kern_return_t IODMACommand::GetPreparation(IODMACommand *this, uint64_t *offset,
   if (!v8)
   {
     v9 = -536870209;
-    if (DWORD1(v15) == 88 && v18 == 0xCB1908DDF3B73CDELL && DWORD2(v16) == 1 && v19 == 1)
+    if (DWORD1(v14) == 88 && v17 == 0xCB1908DDF3B73CDELL && DWORD2(v15) == 1 && v18 == 1)
     {
       if (offset)
       {
-        *offset = v21;
+        *offset = v20;
       }
 
       if (length)
       {
-        *length = v22;
+        *length = v21;
       }
 
       v10 = OSMetaClassBase::safeMetaCast(anObject, gIOMemoryDescriptorMetaClass);
@@ -3834,17 +3787,16 @@ kern_return_t IODMACommand::GetPreparation(IODMACommand *this, uint64_t *offset,
 
       if (v11)
       {
-        v9 = 0;
+        return 0;
       }
 
       else
       {
-        v9 = -536870206;
+        return -536870206;
       }
     }
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
@@ -3911,7 +3863,6 @@ kern_return_t IODMACommand::Create_Invoke(const IORPC *rpc, IODMACommand::Create
     reply = rpc->reply;
     if (OSMetaClassBase::safeMetaCast(*&message[3].msgh.msgh_bits, gIOServiceMetaClass) || !*&message[3].msgh.msgh_bits)
     {
-      v6 = *&message[3].msgh.msgh_remote_port;
       v2 = (func)();
       if (!v2)
       {
@@ -4233,17 +4184,17 @@ kern_return_t IODataQueueDispatchSource::SetDataServicedHandler(IODataQueueDispa
 
 kern_return_t IODataQueueDispatchSource::CopyMemory(IODataQueueDispatchSource *this, IOMemoryDescriptor **memory, OSDispatchMethod supermethod)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
+  v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
-  v13 = 0;
-  DWORD1(v11) = 72;
-  v14 = xmmword_23820D280;
-  v15 = 1;
+  v12 = 0;
+  DWORD1(v10) = 72;
+  v13 = xmmword_23820D280;
+  v14 = 1;
   anObject = this;
-  *(&v12 + 4) = 0x14DA2B68CLL;
-  invoke.message = &v11;
-  invoke.reply = &v11;
+  *(&v11 + 4) = 0x14DA2B68CLL;
+  invoke.message = &v10;
+  invoke.reply = &v10;
   *&invoke.sendSize = 0x8C00000048;
   if (supermethod)
   {
@@ -4259,7 +4210,7 @@ kern_return_t IODataQueueDispatchSource::CopyMemory(IODataQueueDispatchSource *t
   if (!v4)
   {
     v5 = -536870209;
-    if (DWORD1(v11) == 72 && v14 == 0x9BE617EC7D8CD728 && DWORD2(v12) == 1 && v15 == 1)
+    if (DWORD1(v10) == 72 && v13 == 0x9BE617EC7D8CD728 && DWORD2(v11) == 1 && v14 == 1)
     {
       v6 = OSMetaClassBase::safeMetaCast(anObject, gIOMemoryDescriptorMetaClass);
       *memory = v6;
@@ -4275,33 +4226,32 @@ kern_return_t IODataQueueDispatchSource::CopyMemory(IODataQueueDispatchSource *t
 
       if (v7)
       {
-        v5 = 0;
+        return 0;
       }
 
       else
       {
-        v5 = -536870206;
+        return -536870206;
       }
     }
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
 kern_return_t IODataQueueDispatchSource::CopyDataAvailableHandler(IODataQueueDispatchSource *this, OSAction **action, OSDispatchMethod supermethod)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
+  v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
-  v13 = 0;
-  DWORD1(v11) = 72;
-  v14 = xmmword_23820D290;
-  v15 = 1;
+  v12 = 0;
+  DWORD1(v10) = 72;
+  v13 = xmmword_23820D290;
+  v14 = 1;
   anObject = this;
-  *(&v12 + 4) = 0x14DA2B68CLL;
-  invoke.message = &v11;
-  invoke.reply = &v11;
+  *(&v11 + 4) = 0x14DA2B68CLL;
+  invoke.message = &v10;
+  invoke.reply = &v10;
   *&invoke.sendSize = 0x8C00000048;
   if (supermethod)
   {
@@ -4317,7 +4267,7 @@ kern_return_t IODataQueueDispatchSource::CopyDataAvailableHandler(IODataQueueDis
   if (!v4)
   {
     v5 = -536870209;
-    if (DWORD1(v11) == 72 && v14 == 0xC856B17471F65D99 && DWORD2(v12) == 1 && v15 == 1)
+    if (DWORD1(v10) == 72 && v13 == 0xC856B17471F65D99 && DWORD2(v11) == 1 && v14 == 1)
     {
       v6 = OSMetaClassBase::safeMetaCast(anObject, gOSActionMetaClass);
       *action = v6;
@@ -4333,33 +4283,32 @@ kern_return_t IODataQueueDispatchSource::CopyDataAvailableHandler(IODataQueueDis
 
       if (v7)
       {
-        v5 = 0;
+        return 0;
       }
 
       else
       {
-        v5 = -536870206;
+        return -536870206;
       }
     }
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
 kern_return_t IODataQueueDispatchSource::CopyDataServicedHandler(IODataQueueDispatchSource *this, OSAction **action, OSDispatchMethod supermethod)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
+  v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
-  v13 = 0;
-  DWORD1(v11) = 72;
-  v14 = xmmword_23820D2A0;
-  v15 = 1;
+  v12 = 0;
+  DWORD1(v10) = 72;
+  v13 = xmmword_23820D2A0;
+  v14 = 1;
   anObject = this;
-  *(&v12 + 4) = 0x14DA2B68CLL;
-  invoke.message = &v11;
-  invoke.reply = &v11;
+  *(&v11 + 4) = 0x14DA2B68CLL;
+  invoke.message = &v10;
+  invoke.reply = &v10;
   *&invoke.sendSize = 0x8C00000048;
   if (supermethod)
   {
@@ -4375,7 +4324,7 @@ kern_return_t IODataQueueDispatchSource::CopyDataServicedHandler(IODataQueueDisp
   if (!v4)
   {
     v5 = -536870209;
-    if (DWORD1(v11) == 72 && v14 == 0xD8759C8DA406B3FCLL && DWORD2(v12) == 1 && v15 == 1)
+    if (DWORD1(v10) == 72 && v13 == 0xD8759C8DA406B3FCLL && DWORD2(v11) == 1 && v14 == 1)
     {
       v6 = OSMetaClassBase::safeMetaCast(anObject, gOSActionMetaClass);
       *action = v6;
@@ -4391,17 +4340,16 @@ kern_return_t IODataQueueDispatchSource::CopyDataServicedHandler(IODataQueueDisp
 
       if (v7)
       {
-        v5 = 0;
+        return 0;
       }
 
       else
       {
-        v5 = -536870206;
+        return -536870206;
       }
     }
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -4734,30 +4682,30 @@ kern_return_t IODispatchQueue::SetPort(IODispatchQueue *this, mach_port_t port, 
 
 kern_return_t IODispatchQueue::Create_Call(const char *name, uint64_t options, uint64_t priority, IODispatchQueue **queue)
 {
-  v22 = *MEMORY[0x277D85DE8];
-  v21 = 0u;
-  memset(v20, 0, sizeof(v20));
-  v17 = 0;
-  v14 = 0u;
-  v15 = 0;
+  v21 = *MEMORY[0x277D85DE8];
+  v20 = 0u;
+  memset(v19, 0, sizeof(v19));
+  v16 = 0;
   v13 = 0u;
-  DWORD1(v13) = 352;
-  v16 = 0xAC000428DF2A91D0;
-  v18 = 1;
-  *(&v14 + 4) = 0x14DA2B68CLL;
+  v14 = 0;
+  v12 = 0u;
+  DWORD1(v12) = 352;
+  v15 = 0xAC000428DF2A91D0;
+  v17 = 1;
+  *(&v13 + 4) = 0x14DA2B68CLL;
   anObject[0] = gIODispatchQueueMetaClass;
   anObject[1] = 0;
-  strlcpy(v20, name, 0x100uLL);
-  *&v21 = options;
-  *(&v21 + 1) = priority;
-  invoke.message = &v13;
-  invoke.reply = &v13;
+  strlcpy(v19, name, 0x100uLL);
+  *&v20 = options;
+  *(&v20 + 1) = priority;
+  invoke.message = &v12;
+  invoke.reply = &v12;
   *&invoke.sendSize = 0x8C00000160;
   v7 = OSMetaClassBase::Invoke(gIODispatchQueueMetaClass, &invoke);
   if (!v7)
   {
     v7 = -536870209;
-    if (DWORD1(v13) == 72 && v16 == 0xAC000428DF2A91D0 && DWORD2(v14) == 1 && v18 == 1)
+    if (DWORD1(v12) == 72 && v15 == 0xAC000428DF2A91D0 && DWORD2(v13) == 1 && v17 == 1)
     {
       v8 = OSMetaClassBase::safeMetaCast(anObject[0], gIODispatchQueueMetaClass);
       *queue = v8;
@@ -4773,17 +4721,16 @@ kern_return_t IODispatchQueue::Create_Call(const char *name, uint64_t options, u
 
       if (v9)
       {
-        v7 = 0;
+        return 0;
       }
 
       else
       {
-        v7 = -536870206;
+        return -536870206;
       }
     }
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
@@ -4885,121 +4832,117 @@ kern_return_t IODispatchSourceMetaClass::Dispatch(IODispatchSourceMetaClass *thi
 
 kern_return_t IODispatchSource::Cancel(IODispatchSource *this, IODispatchSourceCancelHandler handler, OSDispatchMethod supermethod)
 {
-  v11 = *MEMORY[0x277D85DE8];
-  memset(v6, 0, sizeof(v6));
-  *&v6[4] = 80;
-  v7 = xmmword_23820D6E0;
-  v8 = 1;
-  v9 = this;
-  *&v6[20] = 0x14DA2B68CLL;
-  v10 = handler;
+  v10 = *MEMORY[0x277D85DE8];
+  memset(v5, 0, sizeof(v5));
+  *&v5[4] = 80;
+  v6 = xmmword_23820D6E0;
+  v7 = 1;
+  v8 = this;
+  *&v5[20] = 0x14DA2B68CLL;
+  v9 = handler;
   if (supermethod)
   {
-    invoke.message = v6;
-    invoke.reply = v6;
+    invoke.message = v5;
+    invoke.reply = v5;
     *&invoke.sendSize = 0x7800000050;
     result = (supermethod)(this, &invoke);
     if (result)
     {
-      goto LABEL_11;
+      return result;
     }
   }
 
   else
   {
-    invoke.message = v6;
-    invoke.reply = v6;
+    invoke.message = v5;
+    invoke.reply = v5;
     *&invoke.sendSize = 0x7800000050;
     result = OSMetaClassBase::Invoke(this, &invoke);
     if (result)
     {
-      goto LABEL_11;
+      return result;
     }
   }
 
   result = -536870209;
-  if (*&v6[4] == 52 && *&v6[28] == 0xD963BB196F70BB93 && !*&v6[24])
+  if (*&v5[4] == 52 && *&v5[28] == 0xD963BB196F70BB93 && !*&v5[24])
   {
-    if (*(&v7 + 4))
+    if (*(&v6 + 4))
     {
-      result = -536870209;
+      return -536870209;
     }
 
     else
     {
-      result = 0;
+      return 0;
     }
   }
 
-LABEL_11:
-  v4 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 kern_return_t IODispatchSource::SetEnableWithCompletion(IODispatchSource *this, BOOL enable, IODispatchSourceCancelHandler handler, OSDispatchMethod supermethod)
 {
-  v13 = *MEMORY[0x277D85DE8];
-  memset(v7, 0, sizeof(v7));
-  *&v7[4] = 88;
-  v8 = xmmword_23820D6F0;
-  v9 = 1;
-  v10 = this;
-  *&v7[20] = 0x14DA2B68CLL;
-  v11 = enable;
-  v12 = handler;
+  v12 = *MEMORY[0x277D85DE8];
+  memset(v6, 0, sizeof(v6));
+  *&v6[4] = 88;
+  v7 = xmmword_23820D6F0;
+  v8 = 1;
+  v9 = this;
+  *&v6[20] = 0x14DA2B68CLL;
+  v10 = enable;
+  v11 = handler;
   if (supermethod)
   {
-    invoke.message = v7;
-    invoke.reply = v7;
+    invoke.message = v6;
+    invoke.reply = v6;
     *&invoke.sendSize = 0x7800000058;
     result = (supermethod)(this, &invoke);
     if (result)
     {
-      goto LABEL_11;
+      return result;
     }
   }
 
   else
   {
-    invoke.message = v7;
-    invoke.reply = v7;
+    invoke.message = v6;
+    invoke.reply = v6;
     *&invoke.sendSize = 0x7800000058;
     result = OSMetaClassBase::Invoke(this, &invoke);
     if (result)
     {
-      goto LABEL_11;
+      return result;
     }
   }
 
   result = -536870209;
-  if (*&v7[4] == 52 && *&v7[28] == 0xBB42C489FE4DEE8ELL && !*&v7[24])
+  if (*&v6[4] == 52 && *&v6[28] == 0xBB42C489FE4DEE8ELL && !*&v6[24])
   {
-    if (*(&v8 + 4))
+    if (*(&v7 + 4))
     {
-      result = -536870209;
+      return -536870209;
     }
 
     else
     {
-      result = 0;
+      return 0;
     }
   }
 
-LABEL_11:
-  v5 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 kern_return_t IODispatchSource::CheckForWork(IODispatchSource *this, BOOL synchronous, OSDispatchMethod supermethod)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   memset(msg, 0, sizeof(msg));
   *&msg[4] = 80;
-  v11 = xmmword_23820D700;
-  v12 = 1;
-  v13 = this;
+  v10 = xmmword_23820D700;
+  v11 = 1;
+  v12 = this;
   *&msg[20] = 0x14DA2B68CLL;
-  v14 = synchronous;
+  v13 = synchronous;
   invoke.message = msg;
   invoke.reply = msg;
   *&invoke.sendSize = 0xB800000050;
@@ -5023,13 +4966,13 @@ kern_return_t IODispatchSource::CheckForWork(IODispatchSource *this, BOOL synchr
       {
         if (*&msg[4] < 0x40u)
         {
-          goto LABEL_16;
+          return v4;
         }
       }
 
-      else if (*&msg[4] != 116 || *&msg[28] != 0xEF19D38D4F945FD0 || *(&v11 + 4))
+      else if (*&msg[4] != 116 || *&msg[28] != 0xEF19D38D4F945FD0 || *(&v10 + 4))
       {
-        goto LABEL_16;
+        return v4;
       }
 
       v5 = IORPCMessageFromMach(msg, 0);
@@ -5043,68 +4986,64 @@ kern_return_t IODispatchSource::CheckForWork(IODispatchSource *this, BOOL synchr
             invoke.message = msg;
             invoke.reply = 0;
             *&invoke.sendSize = 184;
-            v4 = OSMetaClassBase::Invoke(msgid, &invoke);
+            return OSMetaClassBase::Invoke(msgid, &invoke);
           }
         }
       }
     }
   }
 
-LABEL_16:
-  v7 = *MEMORY[0x277D85DE8];
   return v4;
 }
 
 kern_return_t IODispatchSource::SetEnable(IODispatchSource *this, BOOL enable, OSDispatchMethod supermethod)
 {
-  v11 = *MEMORY[0x277D85DE8];
-  memset(v6, 0, sizeof(v6));
-  *&v6[4] = 80;
-  v7 = xmmword_23820D710;
-  v8 = 1;
-  v9 = this;
-  *&v6[20] = 0x14DA2B68CLL;
-  v10 = enable;
+  v10 = *MEMORY[0x277D85DE8];
+  memset(v5, 0, sizeof(v5));
+  *&v5[4] = 80;
+  v6 = xmmword_23820D710;
+  v7 = 1;
+  v8 = this;
+  *&v5[20] = 0x14DA2B68CLL;
+  v9 = enable;
   if (supermethod)
   {
-    invoke.message = v6;
-    invoke.reply = v6;
+    invoke.message = v5;
+    invoke.reply = v5;
     *&invoke.sendSize = 0x7800000050;
     result = (supermethod)(this, &invoke);
     if (result)
     {
-      goto LABEL_11;
+      return result;
     }
   }
 
   else
   {
-    invoke.message = v6;
-    invoke.reply = v6;
+    invoke.message = v5;
+    invoke.reply = v5;
     *&invoke.sendSize = 0x7800000050;
     result = OSMetaClassBase::Invoke(this, &invoke);
     if (result)
     {
-      goto LABEL_11;
+      return result;
     }
   }
 
   result = -536870209;
-  if (*&v6[4] == 52 && *&v6[28] == 0xBBC036B4C2A26C45 && !*&v6[24])
+  if (*&v5[4] == 52 && *&v5[28] == 0xBBC036B4C2A26C45 && !*&v5[24])
   {
-    if (*(&v7 + 4))
+    if (*(&v6 + 4))
     {
-      result = -536870209;
+      return -536870209;
     }
 
     else
     {
-      result = 0;
+      return 0;
     }
   }
 
-LABEL_11:
-  v4 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -5479,31 +5418,31 @@ uint64_t IOExtensiblePaniclogMetaClass::Dispatch(OSMetaClassBase *this, IORPC *a
 
 uint64_t IOExtensiblePaniclog::Create(IOExtensiblePaniclog *this, OSData *a2, OSString *a3, int a4, OSMetaClassBase **a5, IOExtensiblePaniclog **a6)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
+  v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
-  v15 = 0;
-  DWORD1(v13) = 128;
-  v20 = xmmword_23820DAF0;
-  v21 = 3;
-  v22 = gIOExtensiblePaniclogMetaClass;
-  *(&v14 + 4) = 0x34DA2B68CLL;
-  v17 = 16777472;
-  v16 = 32;
-  v18 = 40;
+  v14 = 0;
+  DWORD1(v12) = 128;
+  v19 = xmmword_23820DAF0;
+  v20 = 3;
+  v21 = gIOExtensiblePaniclogMetaClass;
+  *(&v13 + 4) = 0x34DA2B68CLL;
+  v16 = 16777472;
+  v15 = 32;
+  v17 = 40;
   anObject = 16777472;
-  v23 = this;
-  v24 = a2;
-  v25 = a3;
-  v26 = a4;
-  invoke.message = &v13;
-  invoke.reply = &v13;
+  v22 = this;
+  v23 = a2;
+  v24 = a3;
+  v25 = a4;
+  invoke.message = &v12;
+  invoke.reply = &v12;
   *&invoke.sendSize = 0x8C00000080;
   v7 = OSMetaClassBase::Invoke(gIOExtensiblePaniclogMetaClass, &invoke);
   if (!v7)
   {
     v7 = 3758097087;
-    if (DWORD1(v13) == 72 && v16 == 0xA7F6249922E20BD7 && DWORD2(v14) == 1 && v18 == 1)
+    if (DWORD1(v12) == 72 && v15 == 0xA7F6249922E20BD7 && DWORD2(v13) == 1 && v17 == 1)
     {
       v8 = OSMetaClassBase::safeMetaCast(anObject, gIOExtensiblePaniclogMetaClass);
       *a5 = v8;
@@ -5519,247 +5458,238 @@ uint64_t IOExtensiblePaniclog::Create(IOExtensiblePaniclog *this, OSData *a2, OS
 
       if (v9)
       {
-        v7 = 0;
+        return 0;
       }
 
       else
       {
-        v7 = 3758097090;
+        return 3758097090;
       }
     }
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
 uint64_t IOExtensiblePaniclog::SetActive(OSMetaClassBase *this, uint64_t (*a2)(OSMetaClassBase *, IORPC *))
 {
-  v9 = *MEMORY[0x277D85DE8];
-  memset(v5, 0, sizeof(v5));
-  *&v5[4] = 72;
-  v6 = xmmword_23820DB00;
-  v7 = 1;
-  v8 = this;
-  *&v5[20] = 0x14DA2B68CLL;
+  v8 = *MEMORY[0x277D85DE8];
+  memset(v4, 0, sizeof(v4));
+  *&v4[4] = 72;
+  v5 = xmmword_23820DB00;
+  v6 = 1;
+  v7 = this;
+  *&v4[20] = 0x14DA2B68CLL;
   if (a2)
   {
-    invoke.message = v5;
-    invoke.reply = v5;
+    invoke.message = v4;
+    invoke.reply = v4;
     *&invoke.sendSize = 0x7800000048;
     result = a2(this, &invoke);
     if (result)
     {
-      goto LABEL_11;
+      return result;
     }
   }
 
   else
   {
-    invoke.message = v5;
-    invoke.reply = v5;
+    invoke.message = v4;
+    invoke.reply = v4;
     *&invoke.sendSize = 0x7800000048;
     result = OSMetaClassBase::Invoke(this, &invoke);
     if (result)
     {
-      goto LABEL_11;
+      return result;
     }
   }
 
   result = 3758097087;
-  if (*&v5[4] == 52 && *&v5[28] == 0xB058F6942CD75C58 && !*&v5[24])
+  if (*&v4[4] == 52 && *&v4[28] == 0xB058F6942CD75C58 && !*&v4[24])
   {
-    if (*(&v6 + 4))
+    if (*(&v5 + 4))
     {
-      result = 3758097087;
+      return 3758097087;
     }
 
     else
     {
-      result = 0;
+      return 0;
     }
   }
 
-LABEL_11:
-  v3 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 uint64_t IOExtensiblePaniclog::SetInactive(OSMetaClassBase *this, uint64_t (*a2)(OSMetaClassBase *, IORPC *))
 {
-  v9 = *MEMORY[0x277D85DE8];
-  memset(v5, 0, sizeof(v5));
-  *&v5[4] = 72;
-  v6 = xmmword_23820DB10;
-  v7 = 1;
-  v8 = this;
-  *&v5[20] = 0x14DA2B68CLL;
+  v8 = *MEMORY[0x277D85DE8];
+  memset(v4, 0, sizeof(v4));
+  *&v4[4] = 72;
+  v5 = xmmword_23820DB10;
+  v6 = 1;
+  v7 = this;
+  *&v4[20] = 0x14DA2B68CLL;
   if (a2)
   {
-    invoke.message = v5;
-    invoke.reply = v5;
+    invoke.message = v4;
+    invoke.reply = v4;
     *&invoke.sendSize = 0x7800000048;
     result = a2(this, &invoke);
     if (result)
     {
-      goto LABEL_11;
+      return result;
     }
   }
 
   else
   {
-    invoke.message = v5;
-    invoke.reply = v5;
+    invoke.message = v4;
+    invoke.reply = v4;
     *&invoke.sendSize = 0x7800000048;
     result = OSMetaClassBase::Invoke(this, &invoke);
     if (result)
     {
-      goto LABEL_11;
+      return result;
     }
   }
 
   result = 3758097087;
-  if (*&v5[4] == 52 && *&v5[28] == 0xF3F3D6994A227E5CLL && !*&v5[24])
+  if (*&v4[4] == 52 && *&v4[28] == 0xF3F3D6994A227E5CLL && !*&v4[24])
   {
-    if (*(&v6 + 4))
+    if (*(&v5 + 4))
     {
-      result = 3758097087;
+      return 3758097087;
     }
 
     else
     {
-      result = 0;
+      return 0;
     }
   }
 
-LABEL_11:
-  v3 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 uint64_t IOExtensiblePaniclog::InsertData(OSMetaClassBase *this, OSData *a2, uint64_t (*a3)(OSMetaClassBase *, IORPC *))
 {
-  v12 = *MEMORY[0x277D85DE8];
-  memset(v6, 0, sizeof(v6));
-  *&v6[4] = 96;
-  v8 = xmmword_23820DB20;
-  v9 = 2;
-  v10 = this;
-  *&v7 = 32;
-  *(&v7 + 1) = 16777472;
-  *&v6[20] = 0x24DA2B68CLL;
-  v11 = a2;
+  v11 = *MEMORY[0x277D85DE8];
+  memset(v5, 0, sizeof(v5));
+  *&v5[4] = 96;
+  v7 = xmmword_23820DB20;
+  v8 = 2;
+  v9 = this;
+  *&v6 = 32;
+  *(&v6 + 1) = 16777472;
+  *&v5[20] = 0x24DA2B68CLL;
+  v10 = a2;
   if (a3)
   {
-    invoke.message = v6;
-    invoke.reply = v6;
+    invoke.message = v5;
+    invoke.reply = v5;
     *&invoke.sendSize = 0x7800000060;
     result = a3(this, &invoke);
     if (result)
     {
-      goto LABEL_11;
+      return result;
     }
   }
 
   else
   {
-    invoke.message = v6;
-    invoke.reply = v6;
+    invoke.message = v5;
+    invoke.reply = v5;
     *&invoke.sendSize = 0x7800000060;
     result = OSMetaClassBase::Invoke(this, &invoke);
     if (result)
     {
-      goto LABEL_11;
+      return result;
     }
   }
 
   result = 3758097087;
-  if (*&v6[4] == 52 && *&v6[28] == 0xD1F144A17E423D38 && !*&v6[24])
+  if (*&v5[4] == 52 && *&v5[28] == 0xD1F144A17E423D38 && !*&v5[24])
   {
-    if (*(&v7 + 4))
+    if (*(&v6 + 4))
     {
-      result = 3758097087;
+      return 3758097087;
     }
 
     else
     {
-      result = 0;
+      return 0;
     }
   }
 
-LABEL_11:
-  v4 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 uint64_t IOExtensiblePaniclog::AppendData(OSMetaClassBase *this, OSData *a2, uint64_t (*a3)(OSMetaClassBase *, IORPC *))
 {
-  v12 = *MEMORY[0x277D85DE8];
-  memset(v6, 0, sizeof(v6));
-  *&v6[4] = 96;
-  v8 = xmmword_23820DB30;
-  v9 = 2;
-  v10 = this;
-  *&v7 = 32;
-  *(&v7 + 1) = 16777472;
-  *&v6[20] = 0x24DA2B68CLL;
-  v11 = a2;
+  v11 = *MEMORY[0x277D85DE8];
+  memset(v5, 0, sizeof(v5));
+  *&v5[4] = 96;
+  v7 = xmmword_23820DB30;
+  v8 = 2;
+  v9 = this;
+  *&v6 = 32;
+  *(&v6 + 1) = 16777472;
+  *&v5[20] = 0x24DA2B68CLL;
+  v10 = a2;
   if (a3)
   {
-    invoke.message = v6;
-    invoke.reply = v6;
+    invoke.message = v5;
+    invoke.reply = v5;
     *&invoke.sendSize = 0x7800000060;
     result = a3(this, &invoke);
     if (result)
     {
-      goto LABEL_11;
+      return result;
     }
   }
 
   else
   {
-    invoke.message = v6;
-    invoke.reply = v6;
+    invoke.message = v5;
+    invoke.reply = v5;
     *&invoke.sendSize = 0x7800000060;
     result = OSMetaClassBase::Invoke(this, &invoke);
     if (result)
     {
-      goto LABEL_11;
+      return result;
     }
   }
 
   result = 3758097087;
-  if (*&v6[4] == 52 && *&v6[28] == 0xB4E7EDBA1A448DBFLL && !*&v6[24])
+  if (*&v5[4] == 52 && *&v5[28] == 0xB4E7EDBA1A448DBFLL && !*&v5[24])
   {
-    if (*(&v7 + 4))
+    if (*(&v6 + 4))
     {
-      result = 3758097087;
+      return 3758097087;
     }
 
     else
     {
-      result = 0;
+      return 0;
     }
   }
 
-LABEL_11:
-  v4 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 uint64_t IOExtensiblePaniclog::CopyMemoryDescriptor(OSMetaClassBase *this, IOBufferMemoryDescriptor **a2, uint64_t (*a3)(OSMetaClassBase *, IORPC *))
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
+  v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
-  v13 = 0;
-  DWORD1(v11) = 72;
-  v14 = xmmword_23820DB40;
-  v15 = 1;
+  v12 = 0;
+  DWORD1(v10) = 72;
+  v13 = xmmword_23820DB40;
+  v14 = 1;
   anObject = this;
-  *(&v12 + 4) = 0x14DA2B68CLL;
-  invoke.message = &v11;
-  invoke.reply = &v11;
+  *(&v11 + 4) = 0x14DA2B68CLL;
+  invoke.message = &v10;
+  invoke.reply = &v10;
   *&invoke.sendSize = 0x8C00000048;
   if (a3)
   {
@@ -5775,7 +5705,7 @@ uint64_t IOExtensiblePaniclog::CopyMemoryDescriptor(OSMetaClassBase *this, IOBuf
   if (!v4)
   {
     v5 = 3758097087;
-    if (DWORD1(v11) == 72 && v14 == 0xE16647D53B415A3BLL && DWORD2(v12) == 1 && v15 == 1)
+    if (DWORD1(v10) == 72 && v13 == 0xE16647D53B415A3BLL && DWORD2(v11) == 1 && v14 == 1)
     {
       v6 = OSMetaClassBase::safeMetaCast(anObject, gIOBufferMemoryDescriptorMetaClass);
       *a2 = v6;
@@ -5791,70 +5721,67 @@ uint64_t IOExtensiblePaniclog::CopyMemoryDescriptor(OSMetaClassBase *this, IOBuf
 
       if (v7)
       {
-        v5 = 0;
+        return 0;
       }
 
       else
       {
-        v5 = 3758097090;
+        return 3758097090;
       }
     }
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
 uint64_t IOExtensiblePaniclog::SetUsedLen(OSMetaClassBase *this, unsigned int a2, uint64_t (*a3)(OSMetaClassBase *, IORPC *))
 {
-  v11 = *MEMORY[0x277D85DE8];
-  memset(v6, 0, sizeof(v6));
-  *&v6[4] = 80;
-  v7 = xmmword_23820DB50;
-  v8 = 1;
-  v9 = this;
-  *&v6[20] = 0x14DA2B68CLL;
-  v10 = a2;
+  v10 = *MEMORY[0x277D85DE8];
+  memset(v5, 0, sizeof(v5));
+  *&v5[4] = 80;
+  v6 = xmmword_23820DB50;
+  v7 = 1;
+  v8 = this;
+  *&v5[20] = 0x14DA2B68CLL;
+  v9 = a2;
   if (a3)
   {
-    invoke.message = v6;
-    invoke.reply = v6;
+    invoke.message = v5;
+    invoke.reply = v5;
     *&invoke.sendSize = 0x7800000050;
     result = a3(this, &invoke);
     if (result)
     {
-      goto LABEL_11;
+      return result;
     }
   }
 
   else
   {
-    invoke.message = v6;
-    invoke.reply = v6;
+    invoke.message = v5;
+    invoke.reply = v5;
     *&invoke.sendSize = 0x7800000050;
     result = OSMetaClassBase::Invoke(this, &invoke);
     if (result)
     {
-      goto LABEL_11;
+      return result;
     }
   }
 
   result = 3758097087;
-  if (*&v6[4] == 52 && *&v6[28] == 0xFD7C6CCBBC4D6C5ELL && !*&v6[24])
+  if (*&v5[4] == 52 && *&v5[28] == 0xFD7C6CCBBC4D6C5ELL && !*&v5[24])
   {
-    if (*(&v7 + 4))
+    if (*(&v6 + 4))
     {
-      result = 3758097087;
+      return 3758097087;
     }
 
     else
     {
-      result = 0;
+      return 0;
     }
   }
 
-LABEL_11:
-  v4 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -6128,29 +6055,29 @@ kern_return_t IOInterruptDispatchSourceMetaClass::Dispatch(IOInterruptDispatchSo
 
 kern_return_t IOInterruptDispatchSource::Create_Call(IOService *provider, uint32_t index, IODispatchQueue *queue, IOInterruptDispatchSource **source)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   anObject[1] = 0;
+  v10 = 0u;
   v11 = 0u;
+  v18 = queue;
   v12 = 0u;
-  v19 = queue;
   v13 = 0u;
-  v14 = 0u;
-  DWORD1(v11) = 120;
+  DWORD1(v10) = 120;
   anObject[0] = 0xB6A948B1585FC259;
-  v16 = 3;
-  v17 = gIOInterruptDispatchSourceMetaClass;
-  *(&v12 + 4) = 0x34DA2B68CLL;
-  LODWORD(v14) = 0;
-  v20 = index;
-  v18 = provider;
-  invoke.message = &v11;
-  invoke.reply = &v11;
+  v15 = 3;
+  v16 = gIOInterruptDispatchSourceMetaClass;
+  *(&v11 + 4) = 0x34DA2B68CLL;
+  LODWORD(v13) = 0;
+  v19 = index;
+  v17 = provider;
+  invoke.message = &v10;
+  invoke.reply = &v10;
   *&invoke.sendSize = 0x8C00000078;
   v5 = OSMetaClassBase::Invoke(gIOInterruptDispatchSourceMetaClass, &invoke);
   if (!v5)
   {
     v5 = -536870209;
-    if (DWORD1(v11) == 72 && *(&v13 + 1) == 0xB6A948B1585FC259 && DWORD2(v12) == 1 && *(&v14 + 1) == 1)
+    if (DWORD1(v10) == 72 && *(&v12 + 1) == 0xB6A948B1585FC259 && DWORD2(v11) == 1 && *(&v13 + 1) == 1)
     {
       v6 = OSMetaClassBase::safeMetaCast(anObject[0], gIOInterruptDispatchSourceMetaClass);
       *source = v6;
@@ -6166,17 +6093,16 @@ kern_return_t IOInterruptDispatchSource::Create_Call(IOService *provider, uint32
 
       if (v7)
       {
-        v5 = 0;
+        return 0;
       }
 
       else
       {
-        v5 = -536870206;
+        return -536870206;
       }
     }
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -6276,54 +6202,52 @@ kern_return_t IOInterruptDispatchSource::SetHandler(IOInterruptDispatchSource *t
 
 kern_return_t IOInterruptDispatchSource::GetLastInterrupt(IOInterruptDispatchSource *this, uint64_t *count, uint64_t *time, OSDispatchMethod supermethod)
 {
-  v11 = *MEMORY[0x277D85DE8];
-  memset(v9, 0, sizeof(v9));
-  *&v9[4] = 72;
-  *v10 = xmmword_23820DDC0;
-  *&v10[16] = 1;
-  *&v10[24] = this;
-  *&v9[20] = 0x14DA2B68CLL;
+  v10 = *MEMORY[0x277D85DE8];
+  memset(v8, 0, sizeof(v8));
+  *&v8[4] = 72;
+  *v9 = xmmword_23820DDC0;
+  *&v9[16] = 1;
+  *&v9[24] = this;
+  *&v8[20] = 0x14DA2B68CLL;
   if (supermethod)
   {
-    invoke.message = v9;
-    invoke.reply = v9;
+    invoke.message = v8;
+    invoke.reply = v8;
     *&invoke.sendSize = 0x8800000048;
     result = (supermethod)(this, &invoke);
     if (result)
     {
-      goto LABEL_13;
+      return result;
     }
   }
 
   else
   {
-    invoke.message = v9;
-    invoke.reply = v9;
+    invoke.message = v8;
+    invoke.reply = v8;
     *&invoke.sendSize = 0x8800000048;
     result = OSMetaClassBase::Invoke(this, &invoke);
     if (result)
     {
-      goto LABEL_13;
+      return result;
     }
   }
 
   result = -536870209;
-  if (*&v9[4] == 68 && *&v9[28] == 0x9B89E0DEA24A143BLL && !*&v9[24] && !*&v10[4])
+  if (*&v8[4] == 68 && *&v8[28] == 0x9B89E0DEA24A143BLL && !*&v8[24] && !*&v9[4])
   {
     if (count)
     {
-      *count = *&v10[12];
+      *count = *&v9[12];
     }
 
     result = 0;
     if (time)
     {
-      *time = *&v10[20];
+      *time = *&v9[20];
     }
   }
 
-LABEL_13:
-  v7 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -6384,7 +6308,6 @@ kern_return_t IOInterruptDispatchSource::GetInterruptType_Invoke(const IORPC *rp
     reply = rpc->reply;
     if (OSMetaClassBase::safeMetaCast(*&message[3].msgh.msgh_bits, gIOServiceMetaClass) || !*&message[3].msgh.msgh_bits)
     {
-      msgh_remote_port = message[3].msgh.msgh_remote_port;
       v2 = (func)();
       if (!v2)
       {
@@ -6485,41 +6408,41 @@ kern_return_t IOMemoryDescriptorMetaClass::Dispatch(IOMemoryDescriptorMetaClass 
 
 kern_return_t IOMemoryDescriptor::_CopyState(IOMemoryDescriptor *this, _IOMDPrivateState *state, OSDispatchMethod supermethod)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  memset(v7, 0, sizeof(v7));
-  *&v7[4] = 72;
-  *v8 = xmmword_23820DFE0;
-  *&v8[16] = 1;
-  *&v8[24] = this;
-  *&v7[20] = 0x14DA2B68CLL;
+  v8 = *MEMORY[0x277D85DE8];
+  memset(v6, 0, sizeof(v6));
+  *&v6[4] = 72;
+  *v7 = xmmword_23820DFE0;
+  *&v7[16] = 1;
+  *&v7[24] = this;
+  *&v6[20] = 0x14DA2B68CLL;
   if (supermethod)
   {
-    invoke.message = v7;
-    invoke.reply = v7;
+    invoke.message = v6;
+    invoke.reply = v6;
     *&invoke.sendSize = 0x8800000048;
     result = (supermethod)(this, &invoke);
     if (result)
     {
-      goto LABEL_14;
+      return result;
     }
   }
 
   else
   {
-    invoke.message = v7;
-    invoke.reply = v7;
+    invoke.message = v6;
+    invoke.reply = v6;
     *&invoke.sendSize = 0x8800000048;
     result = OSMetaClassBase::Invoke(this, &invoke);
     if (result)
     {
-      goto LABEL_14;
+      return result;
     }
   }
 
   result = -536870209;
-  if (*&v7[4] == 68 && *&v7[28] == 0xA2C0861D4118CE5ELL && !*&v7[24])
+  if (*&v6[4] == 68 && *&v6[28] == 0xA2C0861D4118CE5ELL && !*&v6[24])
   {
-    if (*&v8[4])
+    if (*&v7[4])
     {
       result = -536870209;
     }
@@ -6529,36 +6452,37 @@ kern_return_t IOMemoryDescriptor::_CopyState(IOMemoryDescriptor *this, _IOMDPriv
       result = 0;
     }
 
-    if (state && !*&v8[4])
+    if (state)
     {
-      result = 0;
-      *state = *&v8[12];
+      if (!*&v7[4])
+      {
+        result = 0;
+        *state = *&v7[12];
+      }
     }
   }
 
-LABEL_14:
-  v5 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 kern_return_t IOMemoryDescriptor::CreateMapping(IOMemoryDescriptor *this, uint64_t options, uint64_t address, uint64_t offset, uint64_t length, uint64_t alignment, IOMemoryMap **map, OSDispatchMethod supermethod)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
+  v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
-  v18 = 0;
-  DWORD1(v16) = 112;
-  v19 = xmmword_23820DFF0;
-  v20 = 1;
+  v17 = 0;
+  DWORD1(v15) = 112;
+  v18 = xmmword_23820DFF0;
+  v19 = 1;
   anObject = this;
-  *(&v17 + 4) = 0x14DA2B68CLL;
-  v22 = options;
-  v23 = address;
-  v24 = offset;
-  v25 = length;
-  v26 = alignment;
-  invoke.message = &v16;
-  invoke.reply = &v16;
+  *(&v16 + 4) = 0x14DA2B68CLL;
+  v21 = options;
+  v22 = address;
+  v23 = offset;
+  v24 = length;
+  v25 = alignment;
+  invoke.message = &v15;
+  invoke.reply = &v15;
   *&invoke.sendSize = 0x8C00000070;
   if (supermethod)
   {
@@ -6574,7 +6498,7 @@ kern_return_t IOMemoryDescriptor::CreateMapping(IOMemoryDescriptor *this, uint64
   if (!v9)
   {
     v10 = -536870209;
-    if (DWORD1(v16) == 72 && v19 == 0xC5E69B0414FF6EE5 && DWORD2(v17) == 1 && v20 == 1)
+    if (DWORD1(v15) == 72 && v18 == 0xC5E69B0414FF6EE5 && DWORD2(v16) == 1 && v19 == 1)
     {
       v11 = OSMetaClassBase::safeMetaCast(anObject, gIOMemoryMapMetaClass);
       *map = v11;
@@ -6590,17 +6514,16 @@ kern_return_t IOMemoryDescriptor::CreateMapping(IOMemoryDescriptor *this, uint64
 
       if (v12)
       {
-        v10 = 0;
+        return 0;
       }
 
       else
       {
-        v10 = -536870206;
+        return -536870206;
       }
     }
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
@@ -6873,41 +6796,41 @@ kern_return_t IOMemoryMapMetaClass::Dispatch(IOMemoryMapMetaClass *this, const I
 
 kern_return_t IOMemoryMap::_CopyState(IOMemoryMap *this, _IOMemoryMapPrivateState *state, OSDispatchMethod supermethod)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  memset(v8, 0, sizeof(v8));
-  *&v8[4] = 72;
-  *v9 = xmmword_23820E200;
-  *&v9[16] = 1;
-  *&v9[24] = this;
-  *&v8[20] = 0x14DA2B68CLL;
+  v9 = *MEMORY[0x277D85DE8];
+  memset(v7, 0, sizeof(v7));
+  *&v7[4] = 72;
+  *v8 = xmmword_23820E200;
+  *&v8[16] = 1;
+  *&v8[24] = this;
+  *&v7[20] = 0x14DA2B68CLL;
   if (supermethod)
   {
-    invoke.message = v8;
-    invoke.reply = v8;
+    invoke.message = v7;
+    invoke.reply = v7;
     *&invoke.sendSize = 0x9800000048;
     result = (supermethod)(this, &invoke);
     if (result)
     {
-      goto LABEL_14;
+      return result;
     }
   }
 
   else
   {
-    invoke.message = v8;
-    invoke.reply = v8;
+    invoke.message = v7;
+    invoke.reply = v7;
     *&invoke.sendSize = 0x9800000048;
     result = OSMetaClassBase::Invoke(this, &invoke);
     if (result)
     {
-      goto LABEL_14;
+      return result;
     }
   }
 
   result = -536870209;
-  if (*&v8[4] == 84 && *&v8[28] == 0xFC92B3D7F2D48EC7 && !*&v8[24])
+  if (*&v7[4] == 84 && *&v7[28] == 0xFC92B3D7F2D48EC7 && !*&v7[24])
   {
-    if (*&v9[4])
+    if (*&v8[4])
     {
       result = -536870209;
     }
@@ -6917,17 +6840,18 @@ kern_return_t IOMemoryMap::_CopyState(IOMemoryMap *this, _IOMemoryMapPrivateStat
       result = 0;
     }
 
-    if (state && !*&v9[4])
+    if (state)
     {
-      result = 0;
-      v5 = *&v9[28];
-      *&state->length = *&v9[12];
-      *&state->options = v5;
+      if (!*&v8[4])
+      {
+        result = 0;
+        v5 = *&v8[28];
+        *&state->length = *&v8[12];
+        *&state->options = v5;
+      }
     }
   }
 
-LABEL_14:
-  v6 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -7454,41 +7378,41 @@ kern_return_t IOService::ClientCrashed(IOService *this, IOService *client, uint6
 
 kern_return_t IOService::GetRegistryEntryID(IOService *this, uint64_t *registryEntryID, OSDispatchMethod supermethod)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  memset(v7, 0, sizeof(v7));
-  *&v7[4] = 72;
-  *v8 = xmmword_23820EBD0;
-  *&v8[16] = 1;
-  v9 = this;
-  *&v7[20] = 0x14DA2B68CLL;
+  v9 = *MEMORY[0x277D85DE8];
+  memset(v6, 0, sizeof(v6));
+  *&v6[4] = 72;
+  *v7 = xmmword_23820EBD0;
+  *&v7[16] = 1;
+  v8 = this;
+  *&v6[20] = 0x14DA2B68CLL;
   if (supermethod)
   {
-    invoke.message = v7;
-    invoke.reply = v7;
+    invoke.message = v6;
+    invoke.reply = v6;
     *&invoke.sendSize = 0x8000000048;
     result = (supermethod)(this, &invoke);
     if (result)
     {
-      goto LABEL_14;
+      return result;
     }
   }
 
   else
   {
-    invoke.message = v7;
-    invoke.reply = v7;
+    invoke.message = v6;
+    invoke.reply = v6;
     *&invoke.sendSize = 0x8000000048;
     result = OSMetaClassBase::Invoke(this, &invoke);
     if (result)
     {
-      goto LABEL_14;
+      return result;
     }
   }
 
   result = -536870209;
-  if (*&v7[4] == 60 && *&v7[28] == 0x8A6F522F3894A0D7 && !*&v7[24])
+  if (*&v6[4] == 60 && *&v6[28] == 0x8A6F522F3894A0D7 && !*&v6[24])
   {
-    if (*&v8[4])
+    if (*&v7[4])
     {
       result = -536870209;
     }
@@ -7498,137 +7422,134 @@ kern_return_t IOService::GetRegistryEntryID(IOService *this, uint64_t *registryE
       result = 0;
     }
 
-    if (registryEntryID && !*&v8[4])
+    if (registryEntryID)
     {
-      result = 0;
-      *registryEntryID = *&v8[12];
+      if (!*&v7[4])
+      {
+        result = 0;
+        *registryEntryID = *&v7[12];
+      }
     }
   }
 
-LABEL_14:
-  v5 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 kern_return_t IOService::SetName(IOService *this, const char *name, OSDispatchMethod supermethod)
 {
-  v13 = *MEMORY[0x277D85DE8];
-  memset(v8, 0, sizeof(v8));
-  memset(v12, 0, sizeof(v12));
-  *&v8[4] = 208;
-  v9 = xmmword_23820EBE0;
-  v10 = 1;
-  v11 = this;
-  *&v8[20] = 0x14DA2B68CLL;
-  strlcpy(v12, name, 0x80uLL);
+  v12 = *MEMORY[0x277D85DE8];
+  memset(v7, 0, sizeof(v7));
+  memset(v11, 0, sizeof(v11));
+  *&v7[4] = 208;
+  v8 = xmmword_23820EBE0;
+  v9 = 1;
+  v10 = this;
+  *&v7[20] = 0x14DA2B68CLL;
+  strlcpy(v11, name, 0x80uLL);
   if (supermethod)
   {
-    invoke.message = v8;
-    invoke.reply = v8;
+    invoke.message = v7;
+    invoke.reply = v7;
     *&invoke.sendSize = 0x78000000D0;
     result = (supermethod)(this, &invoke);
     if (result)
     {
-      goto LABEL_11;
+      return result;
     }
   }
 
   else
   {
-    invoke.message = v8;
-    invoke.reply = v8;
+    invoke.message = v7;
+    invoke.reply = v7;
     *&invoke.sendSize = 0x78000000D0;
     result = OSMetaClassBase::Invoke(this, &invoke);
     if (result)
     {
-      goto LABEL_11;
+      return result;
     }
   }
 
   result = -536870209;
-  if (*&v8[4] == 52 && *&v8[28] == 0xFF378DD57615EB9FLL && !*&v8[24])
+  if (*&v7[4] == 52 && *&v7[28] == 0xFF378DD57615EB9FLL && !*&v7[24])
   {
-    if (*(&v9 + 4))
+    if (*(&v8 + 4))
     {
-      result = -536870209;
+      return -536870209;
     }
 
     else
     {
-      result = 0;
+      return 0;
     }
   }
 
-LABEL_11:
-  v6 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 kern_return_t IOService::RegisterService(IOService *this, OSDispatchMethod supermethod)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  memset(v5, 0, sizeof(v5));
-  *&v5[4] = 72;
-  v6 = xmmword_23820EBF0;
-  v7 = 1;
-  v8 = this;
-  *&v5[20] = 0x14DA2B68CLL;
+  v8 = *MEMORY[0x277D85DE8];
+  memset(v4, 0, sizeof(v4));
+  *&v4[4] = 72;
+  v5 = xmmword_23820EBF0;
+  v6 = 1;
+  v7 = this;
+  *&v4[20] = 0x14DA2B68CLL;
   if (supermethod)
   {
-    invoke.message = v5;
-    invoke.reply = v5;
+    invoke.message = v4;
+    invoke.reply = v4;
     *&invoke.sendSize = 0x7800000048;
     result = (supermethod)(this, &invoke);
     if (result)
     {
-      goto LABEL_11;
+      return result;
     }
   }
 
   else
   {
-    invoke.message = v5;
-    invoke.reply = v5;
+    invoke.message = v4;
+    invoke.reply = v4;
     *&invoke.sendSize = 0x7800000048;
     result = OSMetaClassBase::Invoke(this, &invoke);
     if (result)
     {
-      goto LABEL_11;
+      return result;
     }
   }
 
   result = -536870209;
-  if (*&v5[4] == 52 && *&v5[28] == 0xE9722C2BB1347C28 && !*&v5[24])
+  if (*&v4[4] == 52 && *&v4[28] == 0xE9722C2BB1347C28 && !*&v4[24])
   {
-    if (*(&v6 + 4))
+    if (*(&v5 + 4))
     {
-      result = -536870209;
+      return -536870209;
     }
 
     else
     {
-      result = 0;
+      return 0;
     }
   }
 
-LABEL_11:
-  v3 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 kern_return_t IOService::CreateDefaultDispatchQueue(IOService *this, IODispatchQueue **queue, OSDispatchMethod supermethod)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
+  v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
-  v13 = 0;
-  DWORD1(v11) = 72;
-  v14 = xmmword_23820EC00;
-  v15 = 1;
+  v12 = 0;
+  DWORD1(v10) = 72;
+  v13 = xmmword_23820EC00;
+  v14 = 1;
   anObject = this;
-  *(&v12 + 4) = 0x14DA2B68CLL;
-  invoke.message = &v11;
-  invoke.reply = &v11;
+  *(&v11 + 4) = 0x14DA2B68CLL;
+  invoke.message = &v10;
+  invoke.reply = &v10;
   *&invoke.sendSize = 0x8C00000048;
   if (supermethod)
   {
@@ -7644,7 +7565,7 @@ kern_return_t IOService::CreateDefaultDispatchQueue(IOService *this, IODispatchQ
   if (!v4)
   {
     v5 = -536870209;
-    if (DWORD1(v11) == 72 && v14 == 0x805BB452F0B44EF7 && DWORD2(v12) == 1 && v15 == 1)
+    if (DWORD1(v10) == 72 && v13 == 0x805BB452F0B44EF7 && DWORD2(v11) == 1 && v14 == 1)
     {
       v6 = OSMetaClassBase::safeMetaCast(anObject, gIODispatchQueueMetaClass);
       *queue = v6;
@@ -7660,33 +7581,32 @@ kern_return_t IOService::CreateDefaultDispatchQueue(IOService *this, IODispatchQ
 
       if (v7)
       {
-        v5 = 0;
+        return 0;
       }
 
       else
       {
-        v5 = -536870206;
+        return -536870206;
       }
     }
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
 kern_return_t IOService::CopyProperties(IOService *this, OSDictionary **properties, OSDispatchMethod supermethod)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
+  v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
-  v13 = 0;
-  DWORD1(v11) = 72;
-  v14 = xmmword_23820EC10;
-  *v15 = 1;
-  *&v15[8] = this;
-  *(&v12 + 4) = 0x14DA2B68CLL;
-  invoke.message = &v11;
-  invoke.reply = &v11;
+  v12 = 0;
+  DWORD1(v10) = 72;
+  v13 = xmmword_23820EC10;
+  *v14 = 1;
+  *&v14[8] = this;
+  *(&v11 + 4) = 0x14DA2B68CLL;
+  invoke.message = &v10;
+  invoke.reply = &v10;
   *&invoke.sendSize = 0x9000000048;
   if (supermethod)
   {
@@ -7702,9 +7622,9 @@ kern_return_t IOService::CopyProperties(IOService *this, OSDictionary **properti
   if (!v4)
   {
     v5 = -536870209;
-    if (DWORD1(v11) == 76 && *(&v14 + 4) == 0x833EC8F92F8B5362 && DWORD2(v12) == 1 && *&v15[4] == 1)
+    if (DWORD1(v10) == 76 && *(&v13 + 4) == 0x833EC8F92F8B5362 && DWORD2(v11) == 1 && *&v14[4] == 1)
     {
-      v6 = OSMetaClassBase::safeMetaCast(*&v15[12], gOSDictionaryMetaClass);
+      v6 = OSMetaClassBase::safeMetaCast(*&v14[12], gOSDictionaryMetaClass);
       *properties = v6;
       if (v6)
       {
@@ -7713,44 +7633,43 @@ kern_return_t IOService::CopyProperties(IOService *this, OSDictionary **properti
 
       else
       {
-        v7 = *&v15[12] == 0;
+        v7 = *&v14[12] == 0;
       }
 
       if (v7)
       {
-        v5 = 0;
+        return 0;
       }
 
       else
       {
-        v5 = -536870206;
+        return -536870206;
       }
     }
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
 kern_return_t IOService::SearchProperty(IOService *this, const char *name, const char *plane, uint64_t options, OSContainer **property, OSDispatchMethod supermethod)
 {
-  v25 = *MEMORY[0x277D85DE8];
-  v24 = 0u;
-  memset(v23, 0, sizeof(v23));
-  v19 = 0u;
-  v20 = 0;
+  v24 = *MEMORY[0x277D85DE8];
+  v23 = 0u;
+  memset(v22, 0, sizeof(v22));
   v18 = 0u;
-  DWORD1(v18) = 352;
-  v21 = 0xAD751CDB94C8DCC8;
-  *v22 = 1;
-  *&v22[8] = this;
-  *(&v19 + 4) = 0x14DA2B68CLL;
-  strlcpy(v23, name, 0x80uLL);
-  *&v23[8] = 0;
-  strlcpy(&v23[8] + 8, plane, 0x80uLL);
-  *(&v24 + 1) = options;
-  invoke.message = &v18;
-  invoke.reply = &v18;
+  v19 = 0;
+  v17 = 0u;
+  DWORD1(v17) = 352;
+  v20 = 0xAD751CDB94C8DCC8;
+  *v21 = 1;
+  *&v21[8] = this;
+  *(&v18 + 4) = 0x14DA2B68CLL;
+  strlcpy(v22, name, 0x80uLL);
+  *&v22[8] = 0;
+  strlcpy(&v22[8] + 8, plane, 0x80uLL);
+  *(&v23 + 1) = options;
+  invoke.message = &v17;
+  invoke.reply = &v17;
   *&invoke.sendSize = 0x9000000160;
   if (supermethod)
   {
@@ -7766,9 +7685,9 @@ kern_return_t IOService::SearchProperty(IOService *this, const char *name, const
   if (!v11)
   {
     v12 = -536870209;
-    if (DWORD1(v18) == 76 && *(&v21 + 4) == 0xAD751CDB94C8DCC8 && DWORD2(v19) == 1 && *&v22[4] == 1)
+    if (DWORD1(v17) == 76 && *(&v20 + 4) == 0xAD751CDB94C8DCC8 && DWORD2(v18) == 1 && *&v21[4] == 1)
     {
-      v13 = OSMetaClassBase::safeMetaCast(*&v22[12], gOSContainerMetaClass);
+      v13 = OSMetaClassBase::safeMetaCast(*&v21[12], gOSContainerMetaClass);
       *property = v13;
       if (v13)
       {
@@ -7777,306 +7696,295 @@ kern_return_t IOService::SearchProperty(IOService *this, const char *name, const
 
       else
       {
-        v14 = *&v22[12] == 0;
+        v14 = *&v21[12] == 0;
       }
 
       if (v14)
       {
-        v12 = 0;
+        return 0;
       }
 
       else
       {
-        v12 = -536870206;
+        return -536870206;
       }
     }
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
 kern_return_t IOService::SetProperties(IOService *this, OSDictionary *properties, OSDispatchMethod supermethod)
 {
-  v12 = *MEMORY[0x277D85DE8];
-  memset(v6, 0, sizeof(v6));
-  *&v6[4] = 96;
-  v8 = xmmword_23820EC20;
-  v9 = 2;
-  v10 = this;
-  *&v7 = 32;
-  *(&v7 + 1) = 16777472;
-  *&v6[20] = 0x24DA2B68CLL;
-  v11 = properties;
+  v11 = *MEMORY[0x277D85DE8];
+  memset(v5, 0, sizeof(v5));
+  *&v5[4] = 96;
+  v7 = xmmword_23820EC20;
+  v8 = 2;
+  v9 = this;
+  *&v6 = 32;
+  *(&v6 + 1) = 16777472;
+  *&v5[20] = 0x24DA2B68CLL;
+  v10 = properties;
   if (supermethod)
   {
-    invoke.message = v6;
-    invoke.reply = v6;
+    invoke.message = v5;
+    invoke.reply = v5;
     *&invoke.sendSize = 0x7800000060;
     result = (supermethod)(this, &invoke);
     if (result)
     {
-      goto LABEL_11;
+      return result;
     }
   }
 
   else
   {
-    invoke.message = v6;
-    invoke.reply = v6;
+    invoke.message = v5;
+    invoke.reply = v5;
     *&invoke.sendSize = 0x7800000060;
     result = OSMetaClassBase::Invoke(this, &invoke);
     if (result)
     {
-      goto LABEL_11;
+      return result;
     }
   }
 
   result = -536870209;
-  if (*&v6[4] == 52 && *&v6[28] == 0xD8A753EA156F9162 && !*&v6[24])
+  if (*&v5[4] == 52 && *&v5[28] == 0xD8A753EA156F9162 && !*&v5[24])
   {
-    if (*(&v7 + 4))
+    if (*(&v6 + 4))
     {
-      result = -536870209;
+      return -536870209;
     }
 
     else
     {
-      result = 0;
+      return 0;
     }
   }
 
-LABEL_11:
-  v4 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 kern_return_t IOService::JoinPMTree(IOService *this, OSDispatchMethod supermethod)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  memset(v5, 0, sizeof(v5));
-  *&v5[4] = 72;
-  v6 = xmmword_23820EC30;
-  v7 = 1;
-  v8 = this;
-  *&v5[20] = 0x14DA2B68CLL;
+  v8 = *MEMORY[0x277D85DE8];
+  memset(v4, 0, sizeof(v4));
+  *&v4[4] = 72;
+  v5 = xmmword_23820EC30;
+  v6 = 1;
+  v7 = this;
+  *&v4[20] = 0x14DA2B68CLL;
   if (supermethod)
   {
-    invoke.message = v5;
-    invoke.reply = v5;
+    invoke.message = v4;
+    invoke.reply = v4;
     *&invoke.sendSize = 0x7800000048;
     result = (supermethod)(this, &invoke);
     if (result)
     {
-      goto LABEL_11;
+      return result;
     }
   }
 
   else
   {
-    invoke.message = v5;
-    invoke.reply = v5;
+    invoke.message = v4;
+    invoke.reply = v4;
     *&invoke.sendSize = 0x7800000048;
     result = OSMetaClassBase::Invoke(this, &invoke);
     if (result)
     {
-      goto LABEL_11;
+      return result;
     }
   }
 
   result = -536870209;
-  if (*&v5[4] == 52 && *&v5[28] == 0xF26C46526735EFFFLL && !*&v5[24])
+  if (*&v4[4] == 52 && *&v4[28] == 0xF26C46526735EFFFLL && !*&v4[24])
   {
-    if (*(&v6 + 4))
+    if (*(&v5 + 4))
     {
-      result = -536870209;
+      return -536870209;
     }
 
     else
     {
-      result = 0;
+      return 0;
     }
   }
 
-LABEL_11:
-  v3 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 kern_return_t IOService::SetPowerState(IOService *this, uint32_t powerFlags, OSDispatchMethod supermethod)
 {
-  v11 = *MEMORY[0x277D85DE8];
-  memset(v6, 0, sizeof(v6));
-  *&v6[4] = 80;
-  v7 = xmmword_23820EC40;
-  v8 = 1;
-  v9 = this;
-  *&v6[20] = 0x14DA2B68CLL;
-  v10 = powerFlags;
+  v10 = *MEMORY[0x277D85DE8];
+  memset(v5, 0, sizeof(v5));
+  *&v5[4] = 80;
+  v6 = xmmword_23820EC40;
+  v7 = 1;
+  v8 = this;
+  *&v5[20] = 0x14DA2B68CLL;
+  v9 = powerFlags;
   if (supermethod)
   {
-    invoke.message = v6;
-    invoke.reply = v6;
+    invoke.message = v5;
+    invoke.reply = v5;
     *&invoke.sendSize = 0x7800000050;
     result = (supermethod)(this, &invoke);
     if (result)
     {
-      goto LABEL_11;
+      return result;
     }
   }
 
   else
   {
-    invoke.message = v6;
-    invoke.reply = v6;
+    invoke.message = v5;
+    invoke.reply = v5;
     *&invoke.sendSize = 0x7800000050;
     result = OSMetaClassBase::Invoke(this, &invoke);
     if (result)
     {
-      goto LABEL_11;
+      return result;
     }
   }
 
   result = -536870209;
-  if (*&v6[4] == 52 && *&v6[28] == 0xD200FDE7D57ECCA6 && !*&v6[24])
+  if (*&v5[4] == 52 && *&v5[28] == 0xD200FDE7D57ECCA6 && !*&v5[24])
   {
-    if (*(&v7 + 4))
+    if (*(&v6 + 4))
     {
-      result = -536870209;
+      return -536870209;
     }
 
     else
     {
-      result = 0;
+      return 0;
     }
   }
 
-LABEL_11:
-  v4 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 kern_return_t IOService::ChangePowerState(IOService *this, uint32_t powerFlags, OSDispatchMethod supermethod)
 {
-  v11 = *MEMORY[0x277D85DE8];
-  memset(v6, 0, sizeof(v6));
-  *&v6[4] = 80;
-  v7 = xmmword_23820EC50;
-  v8 = 1;
-  v9 = this;
-  *&v6[20] = 0x14DA2B68CLL;
-  v10 = powerFlags;
+  v10 = *MEMORY[0x277D85DE8];
+  memset(v5, 0, sizeof(v5));
+  *&v5[4] = 80;
+  v6 = xmmword_23820EC50;
+  v7 = 1;
+  v8 = this;
+  *&v5[20] = 0x14DA2B68CLL;
+  v9 = powerFlags;
   if (supermethod)
   {
-    invoke.message = v6;
-    invoke.reply = v6;
+    invoke.message = v5;
+    invoke.reply = v5;
     *&invoke.sendSize = 0x7800000050;
     result = (supermethod)(this, &invoke);
     if (result)
     {
-      goto LABEL_11;
+      return result;
     }
   }
 
   else
   {
-    invoke.message = v6;
-    invoke.reply = v6;
+    invoke.message = v5;
+    invoke.reply = v5;
     *&invoke.sendSize = 0x7800000050;
     result = OSMetaClassBase::Invoke(this, &invoke);
     if (result)
     {
-      goto LABEL_11;
+      return result;
     }
   }
 
   result = -536870209;
-  if (*&v6[4] == 52 && *&v6[28] == 0xDB75CFC3395484A0 && !*&v6[24])
+  if (*&v5[4] == 52 && *&v5[28] == 0xDB75CFC3395484A0 && !*&v5[24])
   {
-    if (*(&v7 + 4))
+    if (*(&v6 + 4))
     {
-      result = -536870209;
+      return -536870209;
     }
 
     else
     {
-      result = 0;
+      return 0;
     }
   }
 
-LABEL_11:
-  v4 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 uint64_t IOService::SetPowerOverride(IOService *this, unsigned __int8 a2, uint64_t (*a3)(IOService *, IORPC *))
 {
-  v11 = *MEMORY[0x277D85DE8];
-  memset(v6, 0, sizeof(v6));
-  *&v6[4] = 80;
-  v7 = xmmword_23820EC60;
-  v8 = 1;
-  v9 = this;
-  *&v6[20] = 0x14DA2B68CLL;
-  v10 = a2;
+  v10 = *MEMORY[0x277D85DE8];
+  memset(v5, 0, sizeof(v5));
+  *&v5[4] = 80;
+  v6 = xmmword_23820EC60;
+  v7 = 1;
+  v8 = this;
+  *&v5[20] = 0x14DA2B68CLL;
+  v9 = a2;
   if (a3)
   {
-    invoke.message = v6;
-    invoke.reply = v6;
+    invoke.message = v5;
+    invoke.reply = v5;
     *&invoke.sendSize = 0x7800000050;
     result = a3(this, &invoke);
     if (result)
     {
-      goto LABEL_11;
+      return result;
     }
   }
 
   else
   {
-    invoke.message = v6;
-    invoke.reply = v6;
+    invoke.message = v5;
+    invoke.reply = v5;
     *&invoke.sendSize = 0x7800000050;
     result = OSMetaClassBase::Invoke(this, &invoke);
     if (result)
     {
-      goto LABEL_11;
+      return result;
     }
   }
 
   result = 3758097087;
-  if (*&v6[4] == 52 && *&v6[28] == 0xDCA775718F07AE4FLL && !*&v6[24])
+  if (*&v5[4] == 52 && *&v5[28] == 0xDCA775718F07AE4FLL && !*&v5[24])
   {
-    if (*(&v7 + 4))
+    if (*(&v6 + 4))
     {
-      result = 3758097087;
+      return 3758097087;
     }
 
     else
     {
-      result = 0;
+      return 0;
     }
   }
 
-LABEL_11:
-  v4 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 kern_return_t IOService::NewUserClient(IOService *this, uint32_t type, IOUserClient **userClient, OSDispatchMethod supermethod)
 {
-  v19 = *MEMORY[0x277D85DE8];
-  v16 = 0;
-  v13 = 0u;
-  v14 = 0;
+  v18 = *MEMORY[0x277D85DE8];
+  v15 = 0;
   v12 = 0u;
-  DWORD1(v12) = 80;
-  v15 = 0xF669EFFFCB89ED9CLL;
-  v17 = 1;
+  v13 = 0;
+  v11 = 0u;
+  DWORD1(v11) = 80;
+  v14 = 0xF669EFFFCB89ED9CLL;
+  v16 = 1;
   anObject[0] = this;
-  *(&v13 + 4) = 0x14DA2B68CLL;
+  *(&v12 + 4) = 0x14DA2B68CLL;
   anObject[1] = type;
-  invoke.message = &v12;
-  invoke.reply = &v12;
+  invoke.message = &v11;
+  invoke.reply = &v11;
   *&invoke.sendSize = 0x8C00000050;
   if (supermethod)
   {
@@ -8092,7 +8000,7 @@ kern_return_t IOService::NewUserClient(IOService *this, uint32_t type, IOUserCli
   if (!v5)
   {
     v6 = -536870209;
-    if (DWORD1(v12) == 72 && v15 == 0xF669EFFFCB89ED9CLL && DWORD2(v13) == 1 && v17 == 1)
+    if (DWORD1(v11) == 72 && v14 == 0xF669EFFFCB89ED9CLL && DWORD2(v12) == 1 && v16 == 1)
     {
       v7 = OSMetaClassBase::safeMetaCast(anObject[0], gIOUserClientMetaClass);
       *userClient = v7;
@@ -8108,41 +8016,40 @@ kern_return_t IOService::NewUserClient(IOService *this, uint32_t type, IOUserCli
 
       if (v8)
       {
-        v6 = 0;
+        return 0;
       }
 
       else
       {
-        v6 = -536870206;
+        return -536870206;
       }
     }
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
 kern_return_t IOService::Create(IOService *this, IOService *provider, const char *propertiesKey, IOService **result, OSDispatchMethod supermethod)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   *anObject = 0;
-  v23 = 0;
+  v22 = 0;
+  v14 = 0u;
   v15 = 0u;
+  v24 = 0;
+  memset(v23, 0, sizeof(v23));
   v16 = 0u;
-  v25 = 0;
-  memset(v24, 0, sizeof(v24));
-  v17 = 0u;
-  *&v19[8] = 0;
-  DWORD1(v15) = 228;
-  *v19 = 0xE1A46DBD68BBE09CLL;
+  *&v18[8] = 0;
+  DWORD1(v14) = 228;
+  *v18 = 0xE1A46DBD68BBE09CLL;
   anObject_12 = this;
   *&anObject[4] = 2;
-  *(&v16 + 4) = 0x24DA2B68CLL;
-  v18 = 0;
-  v22 = provider;
-  strlcpy(&v24[4], propertiesKey, 0x80uLL);
-  invoke.message = &v15;
-  invoke.reply = &v15;
+  *(&v15 + 4) = 0x24DA2B68CLL;
+  v17 = 0;
+  v21 = provider;
+  strlcpy(&v23[4], propertiesKey, 0x80uLL);
+  invoke.message = &v14;
+  invoke.reply = &v14;
   *&invoke.sendSize = 0x8C000000E4;
   if (supermethod)
   {
@@ -8158,7 +8065,7 @@ kern_return_t IOService::Create(IOService *this, IOService *provider, const char
   if (!v8)
   {
     v9 = -536870209;
-    if (DWORD1(v15) == 72 && *(&v17 + 1) == 0xE1A46DBD68BBE09CLL && DWORD2(v16) == 1 && *&v19[4] == 1)
+    if (DWORD1(v14) == 72 && *(&v16 + 1) == 0xE1A46DBD68BBE09CLL && DWORD2(v15) == 1 && *&v18[4] == 1)
     {
       v10 = OSMetaClassBase::safeMetaCast(*anObject, gIOServiceMetaClass);
       *result = v10;
@@ -8174,89 +8081,86 @@ kern_return_t IOService::Create(IOService *this, IOService *provider, const char
 
       if (v11)
       {
-        v9 = 0;
+        return 0;
       }
 
       else
       {
-        v9 = -536870206;
+        return -536870206;
       }
     }
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
 kern_return_t IOService::Terminate(IOService *this, uint64_t options, OSDispatchMethod supermethod)
 {
-  v11 = *MEMORY[0x277D85DE8];
-  memset(v6, 0, sizeof(v6));
-  *&v6[4] = 80;
-  v7 = xmmword_23820EC70;
-  v8 = 1;
-  v9 = this;
-  *&v6[20] = 0x14DA2B68CLL;
-  v10 = options;
+  v10 = *MEMORY[0x277D85DE8];
+  memset(v5, 0, sizeof(v5));
+  *&v5[4] = 80;
+  v6 = xmmword_23820EC70;
+  v7 = 1;
+  v8 = this;
+  *&v5[20] = 0x14DA2B68CLL;
+  v9 = options;
   if (supermethod)
   {
-    invoke.message = v6;
-    invoke.reply = v6;
+    invoke.message = v5;
+    invoke.reply = v5;
     *&invoke.sendSize = 0x7800000050;
     result = (supermethod)(this, &invoke);
     if (result)
     {
-      goto LABEL_11;
+      return result;
     }
   }
 
   else
   {
-    invoke.message = v6;
-    invoke.reply = v6;
+    invoke.message = v5;
+    invoke.reply = v5;
     *&invoke.sendSize = 0x7800000050;
     result = OSMetaClassBase::Invoke(this, &invoke);
     if (result)
     {
-      goto LABEL_11;
+      return result;
     }
   }
 
   result = -536870209;
-  if (*&v6[4] == 52 && *&v6[28] == 0xF7A595D9927810C8 && !*&v6[24])
+  if (*&v5[4] == 52 && *&v5[28] == 0xF7A595D9927810C8 && !*&v5[24])
   {
-    if (*(&v7 + 4))
+    if (*(&v6 + 4))
     {
-      result = -536870209;
+      return -536870209;
     }
 
     else
     {
-      result = 0;
+      return 0;
     }
   }
 
-LABEL_11:
-  v4 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 kern_return_t IOService::CopyProviderProperties(IOService *this, OSArray *propertyKeys, OSArray **properties, OSDispatchMethod supermethod)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
+  v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
-  v14 = 0;
-  DWORD1(v12) = 96;
-  *v16 = xmmword_23820EC80;
-  *&v16[16] = 2;
-  v17 = this;
-  *&v15 = 32;
-  *(&v15 + 1) = 16777472;
-  *(&v13 + 4) = 0x24DA2B68CLL;
-  v18 = propertyKeys;
-  invoke.message = &v12;
-  invoke.reply = &v12;
+  v13 = 0;
+  DWORD1(v11) = 96;
+  *v15 = xmmword_23820EC80;
+  *&v15[16] = 2;
+  v16 = this;
+  *&v14 = 32;
+  *(&v14 + 1) = 16777472;
+  *(&v12 + 4) = 0x24DA2B68CLL;
+  v17 = propertyKeys;
+  invoke.message = &v11;
+  invoke.reply = &v11;
   *&invoke.sendSize = 0x9000000060;
   if (supermethod)
   {
@@ -8272,9 +8176,9 @@ kern_return_t IOService::CopyProviderProperties(IOService *this, OSArray *proper
   if (!v5)
   {
     v6 = -536870209;
-    if (DWORD1(v12) == 76 && *(&v15 + 4) == 0xC2A554959002C8E7 && DWORD2(v13) == 1 && *&v16[4] == 1)
+    if (DWORD1(v11) == 76 && *(&v14 + 4) == 0xC2A554959002C8E7 && DWORD2(v12) == 1 && *&v15[4] == 1)
     {
-      v7 = OSMetaClassBase::safeMetaCast(*&v16[12], gOSArrayMetaClass);
+      v7 = OSMetaClassBase::safeMetaCast(*&v15[12], gOSArrayMetaClass);
       *properties = v7;
       if (v7)
       {
@@ -8283,97 +8187,144 @@ kern_return_t IOService::CopyProviderProperties(IOService *this, OSArray *proper
 
       else
       {
-        v8 = *&v16[12] == 0;
+        v8 = *&v15[12] == 0;
       }
 
       if (v8)
       {
-        v6 = 0;
+        return 0;
       }
 
       else
       {
-        v6 = -536870206;
+        return -536870206;
       }
     }
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
 kern_return_t IOService::RequireMaxBusStall(IOService *this, uint64_t maxBusStall, OSDispatchMethod supermethod)
 {
-  v11 = *MEMORY[0x277D85DE8];
-  memset(v6, 0, sizeof(v6));
-  *&v6[4] = 80;
-  v7 = xmmword_23820EC90;
-  v8 = 1;
-  v9 = this;
-  *&v6[20] = 0x14DA2B68CLL;
-  v10 = maxBusStall;
+  v10 = *MEMORY[0x277D85DE8];
+  memset(v5, 0, sizeof(v5));
+  *&v5[4] = 80;
+  v6 = xmmword_23820EC90;
+  v7 = 1;
+  v8 = this;
+  *&v5[20] = 0x14DA2B68CLL;
+  v9 = maxBusStall;
   if (supermethod)
   {
-    invoke.message = v6;
-    invoke.reply = v6;
+    invoke.message = v5;
+    invoke.reply = v5;
     *&invoke.sendSize = 0x7800000050;
     result = (supermethod)(this, &invoke);
     if (result)
     {
-      goto LABEL_11;
+      return result;
     }
   }
 
   else
   {
-    invoke.message = v6;
-    invoke.reply = v6;
+    invoke.message = v5;
+    invoke.reply = v5;
     *&invoke.sendSize = 0x7800000050;
     result = OSMetaClassBase::Invoke(this, &invoke);
     if (result)
     {
-      goto LABEL_11;
+      return result;
     }
   }
 
   result = -536870209;
-  if (*&v6[4] == 52 && *&v6[28] == 0xC21228652FF536AFLL && !*&v6[24])
+  if (*&v5[4] == 52 && *&v5[28] == 0xC21228652FF536AFLL && !*&v5[24])
   {
-    if (*(&v7 + 4))
+    if (*(&v6 + 4))
     {
-      result = -536870209;
+      return -536870209;
     }
 
     else
     {
-      result = 0;
+      return 0;
     }
   }
 
-LABEL_11:
-  v4 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 kern_return_t IOService::AdjustBusy(IOService *this, int32_t delta, OSDispatchMethod supermethod)
 {
-  v11 = *MEMORY[0x277D85DE8];
-  memset(v6, 0, sizeof(v6));
-  *&v6[4] = 80;
-  v7 = xmmword_23820ECA0;
-  v8 = 1;
-  v9 = this;
-  *&v6[20] = 0x14DA2B68CLL;
-  v10 = delta;
+  v10 = *MEMORY[0x277D85DE8];
+  memset(v5, 0, sizeof(v5));
+  *&v5[4] = 80;
+  v6 = xmmword_23820ECA0;
+  v7 = 1;
+  v8 = this;
+  *&v5[20] = 0x14DA2B68CLL;
+  v9 = delta;
   if (supermethod)
   {
-    invoke.message = v6;
-    invoke.reply = v6;
+    invoke.message = v5;
+    invoke.reply = v5;
     *&invoke.sendSize = 0x7800000050;
     result = (supermethod)(this, &invoke);
     if (result)
     {
-      goto LABEL_11;
+      return result;
+    }
+  }
+
+  else
+  {
+    invoke.message = v5;
+    invoke.reply = v5;
+    *&invoke.sendSize = 0x7800000050;
+    result = OSMetaClassBase::Invoke(this, &invoke);
+    if (result)
+    {
+      return result;
+    }
+  }
+
+  result = -536870209;
+  if (*&v5[4] == 52 && *&v5[28] == 0xDE9F5AB8CC9758EBLL && !*&v5[24])
+  {
+    if (*(&v6 + 4))
+    {
+      return -536870209;
+    }
+
+    else
+    {
+      return 0;
+    }
+  }
+
+  return result;
+}
+
+kern_return_t IOService::GetBusyState(IOService *this, uint32_t *busyState, OSDispatchMethod supermethod)
+{
+  v10 = *MEMORY[0x277D85DE8];
+  memset(v6, 0, sizeof(v6));
+  *&v6[4] = 72;
+  v7 = xmmword_23820ECB0;
+  v8 = 1;
+  v9 = this;
+  *&v6[20] = 0x14DA2B68CLL;
+  if (supermethod)
+  {
+    invoke.message = v6;
+    invoke.reply = v6;
+    *&invoke.sendSize = 0x7C00000048;
+    result = (supermethod)(this, &invoke);
+    if (result)
+    {
+      return result;
     }
   }
 
@@ -8381,16 +8332,16 @@ kern_return_t IOService::AdjustBusy(IOService *this, int32_t delta, OSDispatchMe
   {
     invoke.message = v6;
     invoke.reply = v6;
-    *&invoke.sendSize = 0x7800000050;
+    *&invoke.sendSize = 0x7C00000048;
     result = OSMetaClassBase::Invoke(this, &invoke);
     if (result)
     {
-      goto LABEL_11;
+      return result;
     }
   }
 
   result = -536870209;
-  if (*&v6[4] == 52 && *&v6[28] == 0xDE9F5AB8CC9758EBLL && !*&v6[24])
+  if (*&v6[4] == 56 && *&v6[28] == 0xF5E47B685861DEE5 && !*&v6[24])
   {
     if (*(&v7 + 4))
     {
@@ -8401,68 +8352,17 @@ kern_return_t IOService::AdjustBusy(IOService *this, int32_t delta, OSDispatchMe
     {
       result = 0;
     }
-  }
 
-LABEL_11:
-  v4 = *MEMORY[0x277D85DE8];
-  return result;
-}
-
-kern_return_t IOService::GetBusyState(IOService *this, uint32_t *busyState, OSDispatchMethod supermethod)
-{
-  v11 = *MEMORY[0x277D85DE8];
-  memset(v7, 0, sizeof(v7));
-  *&v7[4] = 72;
-  v8 = xmmword_23820ECB0;
-  v9 = 1;
-  v10 = this;
-  *&v7[20] = 0x14DA2B68CLL;
-  if (supermethod)
-  {
-    invoke.message = v7;
-    invoke.reply = v7;
-    *&invoke.sendSize = 0x7C00000048;
-    result = (supermethod)(this, &invoke);
-    if (result)
+    if (busyState)
     {
-      goto LABEL_14;
+      if (!*(&v7 + 4))
+      {
+        result = 0;
+        *busyState = HIDWORD(v7);
+      }
     }
   }
 
-  else
-  {
-    invoke.message = v7;
-    invoke.reply = v7;
-    *&invoke.sendSize = 0x7C00000048;
-    result = OSMetaClassBase::Invoke(this, &invoke);
-    if (result)
-    {
-      goto LABEL_14;
-    }
-  }
-
-  result = -536870209;
-  if (*&v7[4] == 56 && *&v7[28] == 0xF5E47B685861DEE5 && !*&v7[24])
-  {
-    if (*(&v8 + 4))
-    {
-      result = -536870209;
-    }
-
-    else
-    {
-      result = 0;
-    }
-
-    if (busyState && !*(&v8 + 4))
-    {
-      result = 0;
-      *busyState = HIDWORD(v8);
-    }
-  }
-
-LABEL_14:
-  v5 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -8524,52 +8424,52 @@ kern_return_t IOService::CoreAnalyticsSendEvent(IOService *this, uint64_t option
 
 IOReturn IOService::UpdateReport(IOService *this, OSData *channels, uint32_t action, uint32_t *outElementCount, uint64_t offset, uint64_t capacity, IOMemoryDescriptor *buffer, OSDispatchMethod supermethod)
 {
-  v22 = *MEMORY[0x277D85DE8];
-  v15 = 0;
-  *&v13[8] = 0u;
-  v14 = 0u;
-  memset(v12, 0, sizeof(v12));
-  v19 = 0u;
-  *&v12[4] = 140;
-  *(&v14 + 4) = 0x8509EED786C7FF1ALL;
-  v17 = this;
-  v16 = 3;
-  *&v12[20] = 0x34DA2B68CLL;
-  *&v13[8] = 16777472;
-  *v13 = 32;
-  v18 = channels;
-  DWORD2(v19) = action;
-  v20 = offset;
-  v21 = capacity;
-  *&v19 = buffer;
+  v21 = *MEMORY[0x277D85DE8];
+  v14 = 0;
+  *&v12[8] = 0u;
+  v13 = 0u;
+  memset(v11, 0, sizeof(v11));
+  v18 = 0u;
+  *&v11[4] = 140;
+  *(&v13 + 4) = 0x8509EED786C7FF1ALL;
+  v16 = this;
+  v15 = 3;
+  *&v11[20] = 0x34DA2B68CLL;
+  *&v12[8] = 16777472;
+  *v12 = 32;
+  v17 = channels;
+  DWORD2(v18) = action;
+  v19 = offset;
+  v20 = capacity;
+  *&v18 = buffer;
   if (supermethod)
   {
-    invoke.message = v12;
-    invoke.reply = v12;
+    invoke.message = v11;
+    invoke.reply = v11;
     *&invoke.sendSize = 0x7C0000008CLL;
     result = (supermethod)(this, &invoke);
     if (result)
     {
-      goto LABEL_14;
+      return result;
     }
   }
 
   else
   {
-    invoke.message = v12;
-    invoke.reply = v12;
+    invoke.message = v11;
+    invoke.reply = v11;
     *&invoke.sendSize = 0x7C0000008CLL;
     result = OSMetaClassBase::Invoke(this, &invoke);
     if (result)
     {
-      goto LABEL_14;
+      return result;
     }
   }
 
   result = -536870209;
-  if (*&v12[4] == 56 && *&v12[28] == 0x8509EED786C7FF1ALL && !*&v12[24])
+  if (*&v11[4] == 56 && *&v11[28] == 0x8509EED786C7FF1ALL && !*&v11[24])
   {
-    if (*&v13[4])
+    if (*&v12[4])
     {
       result = -536870209;
     }
@@ -8579,60 +8479,61 @@ IOReturn IOService::UpdateReport(IOService *this, OSData *channels, uint32_t act
       result = 0;
     }
 
-    if (outElementCount && !*&v13[4])
+    if (outElementCount)
     {
-      result = 0;
-      *outElementCount = *&v13[12];
+      if (!*&v12[4])
+      {
+        result = 0;
+        *outElementCount = *&v12[12];
+      }
     }
   }
 
-LABEL_14:
-  v10 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 IOReturn IOService::ConfigureReport(IOService *this, OSData *channels, uint32_t action, uint32_t *outCount, OSDispatchMethod supermethod)
 {
-  v17 = *MEMORY[0x277D85DE8];
-  v12 = 0;
-  memset(v9, 0, sizeof(v9));
-  *(&v10 + 1) = 16777472;
-  *&v9[4] = 104;
-  v11 = 0x85D9DEF59E3F02BELL;
-  v13 = 2;
-  v14 = this;
-  *&v9[20] = 0x24DA2B68CLL;
-  *&v10 = 32;
-  v15 = channels;
-  v16 = action;
+  v16 = *MEMORY[0x277D85DE8];
+  v11 = 0;
+  memset(v8, 0, sizeof(v8));
+  *(&v9 + 1) = 16777472;
+  *&v8[4] = 104;
+  v10 = 0x85D9DEF59E3F02BELL;
+  v12 = 2;
+  v13 = this;
+  *&v8[20] = 0x24DA2B68CLL;
+  *&v9 = 32;
+  v14 = channels;
+  v15 = action;
   if (supermethod)
   {
-    invoke.message = v9;
-    invoke.reply = v9;
+    invoke.message = v8;
+    invoke.reply = v8;
     *&invoke.sendSize = 0x7C00000068;
     result = (supermethod)(this, &invoke);
     if (result)
     {
-      goto LABEL_14;
+      return result;
     }
   }
 
   else
   {
-    invoke.message = v9;
-    invoke.reply = v9;
+    invoke.message = v8;
+    invoke.reply = v8;
     *&invoke.sendSize = 0x7C00000068;
     result = OSMetaClassBase::Invoke(this, &invoke);
     if (result)
     {
-      goto LABEL_14;
+      return result;
     }
   }
 
   result = -536870209;
-  if (*&v9[4] == 56 && *&v9[28] == 0x85D9DEF59E3F02BELL && !*&v9[24])
+  if (*&v8[4] == 56 && *&v8[28] == 0x85D9DEF59E3F02BELL && !*&v8[24])
   {
-    if (*(&v10 + 4))
+    if (*(&v9 + 4))
     {
       result = -536870209;
     }
@@ -8642,88 +8543,87 @@ IOReturn IOService::ConfigureReport(IOService *this, OSData *channels, uint32_t 
       result = 0;
     }
 
-    if (outCount && !*(&v10 + 4))
+    if (outCount)
     {
-      result = 0;
-      *outCount = HIDWORD(v10);
+      if (!*(&v9 + 4))
+      {
+        result = 0;
+        *outCount = HIDWORD(v9);
+      }
     }
   }
 
-LABEL_14:
-  v7 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 IOReturn IOService::SetLegend(IOService *this, OSArray *legend, BOOL is_public, OSDispatchMethod supermethod)
 {
-  v15 = *MEMORY[0x277D85DE8];
-  v10 = 0;
-  memset(v7, 0, sizeof(v7));
-  *(&v8 + 1) = 16777472;
-  *&v7[4] = 104;
-  v9 = 0xA32EE5222548AFA2;
-  v11 = 2;
-  v12 = this;
-  *&v7[20] = 0x24DA2B68CLL;
-  *&v8 = 32;
-  v13 = legend;
-  v14 = is_public;
+  v14 = *MEMORY[0x277D85DE8];
+  v9 = 0;
+  memset(v6, 0, sizeof(v6));
+  *(&v7 + 1) = 16777472;
+  *&v6[4] = 104;
+  v8 = 0xA32EE5222548AFA2;
+  v10 = 2;
+  v11 = this;
+  *&v6[20] = 0x24DA2B68CLL;
+  *&v7 = 32;
+  v12 = legend;
+  v13 = is_public;
   if (supermethod)
   {
-    invoke.message = v7;
-    invoke.reply = v7;
+    invoke.message = v6;
+    invoke.reply = v6;
     *&invoke.sendSize = 0x7800000068;
     result = (supermethod)(this, &invoke);
     if (result)
     {
-      goto LABEL_11;
+      return result;
     }
   }
 
   else
   {
-    invoke.message = v7;
-    invoke.reply = v7;
+    invoke.message = v6;
+    invoke.reply = v6;
     *&invoke.sendSize = 0x7800000068;
     result = OSMetaClassBase::Invoke(this, &invoke);
     if (result)
     {
-      goto LABEL_11;
+      return result;
     }
   }
 
   result = -536870209;
-  if (*&v7[4] == 52 && *&v7[28] == 0xA32EE5222548AFA2 && !*&v7[24])
+  if (*&v6[4] == 52 && *&v6[28] == 0xA32EE5222548AFA2 && !*&v6[24])
   {
-    if (*(&v8 + 4))
+    if (*(&v7 + 4))
     {
-      result = -536870209;
+      return -536870209;
     }
 
     else
     {
-      result = 0;
+      return 0;
     }
   }
 
-LABEL_11:
-  v5 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 kern_return_t IOService::CopyName(IOService *this, OSString **name, OSDispatchMethod supermethod)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
+  v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
-  v13 = 0;
-  DWORD1(v11) = 72;
-  v14 = xmmword_23820ECD0;
-  *v15 = 1;
-  *&v15[8] = this;
-  *(&v12 + 4) = 0x14DA2B68CLL;
-  invoke.message = &v11;
-  invoke.reply = &v11;
+  v12 = 0;
+  DWORD1(v10) = 72;
+  v13 = xmmword_23820ECD0;
+  *v14 = 1;
+  *&v14[8] = this;
+  *(&v11 + 4) = 0x14DA2B68CLL;
+  invoke.message = &v10;
+  invoke.reply = &v10;
   *&invoke.sendSize = 0x9000000048;
   if (supermethod)
   {
@@ -8739,9 +8639,9 @@ kern_return_t IOService::CopyName(IOService *this, OSString **name, OSDispatchMe
   if (!v4)
   {
     v5 = -536870209;
-    if (DWORD1(v11) == 76 && *(&v14 + 4) == 0xFE0617FEBC5B2CC4 && DWORD2(v12) == 1 && *&v15[4] == 1)
+    if (DWORD1(v10) == 76 && *(&v13 + 4) == 0xFE0617FEBC5B2CC4 && DWORD2(v11) == 1 && *&v14[4] == 1)
     {
-      v6 = OSMetaClassBase::safeMetaCast(*&v15[12], gOSStringMetaClass);
+      v6 = OSMetaClassBase::safeMetaCast(*&v14[12], gOSStringMetaClass);
       *name = v6;
       if (v6)
       {
@@ -8750,39 +8650,38 @@ kern_return_t IOService::CopyName(IOService *this, OSString **name, OSDispatchMe
 
       else
       {
-        v7 = *&v15[12] == 0;
+        v7 = *&v14[12] == 0;
       }
 
       if (v7)
       {
-        v5 = 0;
+        return 0;
       }
 
       else
       {
-        v5 = -536870206;
+        return -536870206;
       }
     }
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
 kern_return_t IOService::StringFromReturn(IOService *this, IOReturn retval, OSString **str, OSDispatchMethod supermethod)
 {
-  v17 = *MEMORY[0x277D85DE8];
-  v13 = 0u;
-  v14 = 0;
+  v16 = *MEMORY[0x277D85DE8];
   v12 = 0u;
-  DWORD1(v12) = 80;
-  v15 = 0xF62CEC3DF59DB769;
-  *v16 = 1;
-  *&v16[8] = this;
-  *(&v13 + 4) = 0x14DA2B68CLL;
-  *&v16[16] = retval;
-  invoke.message = &v12;
-  invoke.reply = &v12;
+  v13 = 0;
+  v11 = 0u;
+  DWORD1(v11) = 80;
+  v14 = 0xF62CEC3DF59DB769;
+  *v15 = 1;
+  *&v15[8] = this;
+  *(&v12 + 4) = 0x14DA2B68CLL;
+  *&v15[16] = retval;
+  invoke.message = &v11;
+  invoke.reply = &v11;
   *&invoke.sendSize = 0x9000000050;
   if (supermethod)
   {
@@ -8798,9 +8697,9 @@ kern_return_t IOService::StringFromReturn(IOService *this, IOReturn retval, OSSt
   if (!v5)
   {
     v6 = -536870209;
-    if (DWORD1(v12) == 76 && *(&v15 + 4) == 0xF62CEC3DF59DB769 && DWORD2(v13) == 1 && *&v16[4] == 1)
+    if (DWORD1(v11) == 76 && *(&v14 + 4) == 0xF62CEC3DF59DB769 && DWORD2(v12) == 1 && *&v15[4] == 1)
     {
-      v7 = OSMetaClassBase::safeMetaCast(*&v16[12], gOSStringMetaClass);
+      v7 = OSMetaClassBase::safeMetaCast(*&v15[12], gOSStringMetaClass);
       *str = v7;
       if (v7)
       {
@@ -8809,263 +8708,254 @@ kern_return_t IOService::StringFromReturn(IOService *this, IOReturn retval, OSSt
 
       else
       {
-        v8 = *&v16[12] == 0;
+        v8 = *&v15[12] == 0;
       }
 
       if (v8)
       {
-        v6 = 0;
+        return 0;
       }
 
       else
       {
-        v6 = -536870206;
+        return -536870206;
       }
     }
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
 kern_return_t IOService::_ClaimSystemWakeEvent(IOService *this, IOService *device, uint64_t flags, const char *reason, OSContainer *details, OSDispatchMethod supermethod)
 {
-  v22 = *MEMORY[0x277D85DE8];
-  v21 = 0;
-  memset(v20, 0, sizeof(v20));
-  *&v19[4] = 0u;
-  v16 = 0;
-  v15 = 0u;
-  memset(v12, 0, sizeof(v12));
-  *&v12[4] = 260;
-  *(&v15 + 4) = 0x845C18DFE6F75305;
-  v18[0] = this;
-  v17 = 3;
-  *&v12[20] = 0x34DA2B68CLL;
-  v18[1] = device;
-  *&v19[8] = flags;
-  strlcpy(&v20[4], reason, 0x80uLL);
-  v14 = 16777472;
-  v13 = 40;
-  *v19 = details;
+  v21 = *MEMORY[0x277D85DE8];
+  v20 = 0;
+  memset(v19, 0, sizeof(v19));
+  *&v18[4] = 0u;
+  v15 = 0;
+  v14 = 0u;
+  memset(v11, 0, sizeof(v11));
+  *&v11[4] = 260;
+  *(&v14 + 4) = 0x845C18DFE6F75305;
+  v17[0] = this;
+  v16 = 3;
+  *&v11[20] = 0x34DA2B68CLL;
+  v17[1] = device;
+  *&v18[8] = flags;
+  strlcpy(&v19[4], reason, 0x80uLL);
+  v13 = 16777472;
+  v12 = 40;
+  *v18 = details;
   if (supermethod)
   {
-    invoke.message = v12;
-    invoke.reply = v12;
+    invoke.message = v11;
+    invoke.reply = v11;
     *&invoke.sendSize = 0x7800000104;
     result = (supermethod)(this, &invoke);
     if (result)
     {
-      goto LABEL_11;
+      return result;
     }
   }
 
   else
   {
-    invoke.message = v12;
-    invoke.reply = v12;
+    invoke.message = v11;
+    invoke.reply = v11;
     *&invoke.sendSize = 0x7800000104;
     result = OSMetaClassBase::Invoke(this, &invoke);
     if (result)
     {
-      goto LABEL_11;
+      return result;
     }
   }
 
   result = -536870209;
-  if (*&v12[4] == 52 && *&v12[28] == 0x845C18DFE6F75305 && !*&v12[24])
+  if (*&v11[4] == 52 && *&v11[28] == 0x845C18DFE6F75305 && !*&v11[24])
   {
-    if (*&v12[44])
+    if (*&v11[44])
     {
-      result = -536870209;
+      return -536870209;
     }
 
     else
     {
-      result = 0;
+      return 0;
     }
   }
 
-LABEL_11:
-  v10 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 kern_return_t IOService::UserSetProperties(IOService *this, OSContainer *properties, OSDispatchMethod supermethod)
 {
-  v12 = *MEMORY[0x277D85DE8];
-  memset(v6, 0, sizeof(v6));
-  *&v6[4] = 96;
-  v8 = xmmword_23820ECE0;
-  v9 = 2;
-  v10 = this;
-  *&v7 = 32;
-  *(&v7 + 1) = 16777472;
-  *&v6[20] = 0x24DA2B68CLL;
-  v11 = properties;
+  v11 = *MEMORY[0x277D85DE8];
+  memset(v5, 0, sizeof(v5));
+  *&v5[4] = 96;
+  v7 = xmmword_23820ECE0;
+  v8 = 2;
+  v9 = this;
+  *&v6 = 32;
+  *(&v6 + 1) = 16777472;
+  *&v5[20] = 0x24DA2B68CLL;
+  v10 = properties;
   if (supermethod)
   {
-    invoke.message = v6;
-    invoke.reply = v6;
+    invoke.message = v5;
+    invoke.reply = v5;
     *&invoke.sendSize = 0x7800000060;
     result = (supermethod)(this, &invoke);
     if (result)
     {
-      goto LABEL_11;
+      return result;
     }
   }
 
   else
   {
-    invoke.message = v6;
-    invoke.reply = v6;
+    invoke.message = v5;
+    invoke.reply = v5;
     *&invoke.sendSize = 0x7800000060;
     result = OSMetaClassBase::Invoke(this, &invoke);
     if (result)
     {
-      goto LABEL_11;
+      return result;
     }
   }
 
   result = -536870209;
-  if (*&v6[4] == 52 && *&v6[28] == 0xAD8461D6BB5E656DLL && !*&v6[24])
+  if (*&v5[4] == 52 && *&v5[28] == 0xAD8461D6BB5E656DLL && !*&v5[24])
   {
-    if (*(&v7 + 4))
+    if (*(&v6 + 4))
     {
-      result = -536870209;
+      return -536870209;
     }
 
     else
     {
-      result = 0;
+      return 0;
     }
   }
 
-LABEL_11:
-  v4 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 kern_return_t IOService::SendIOMessageServicePropertyChange(IOService *this, OSDispatchMethod supermethod)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  memset(v5, 0, sizeof(v5));
-  *&v5[4] = 72;
-  v6 = xmmword_23820ECF0;
-  v7 = 1;
-  v8 = this;
-  *&v5[20] = 0x14DA2B68CLL;
+  v8 = *MEMORY[0x277D85DE8];
+  memset(v4, 0, sizeof(v4));
+  *&v4[4] = 72;
+  v5 = xmmword_23820ECF0;
+  v6 = 1;
+  v7 = this;
+  *&v4[20] = 0x14DA2B68CLL;
   if (supermethod)
   {
-    invoke.message = v5;
-    invoke.reply = v5;
+    invoke.message = v4;
+    invoke.reply = v4;
     *&invoke.sendSize = 0x7800000048;
     result = (supermethod)(this, &invoke);
     if (result)
     {
-      goto LABEL_11;
+      return result;
     }
   }
 
   else
   {
-    invoke.message = v5;
-    invoke.reply = v5;
+    invoke.message = v4;
+    invoke.reply = v4;
     *&invoke.sendSize = 0x7800000048;
     result = OSMetaClassBase::Invoke(this, &invoke);
     if (result)
     {
-      goto LABEL_11;
+      return result;
     }
   }
 
   result = -536870209;
-  if (*&v5[4] == 52 && *&v5[28] == 0xF26F1C63C935E672 && !*&v5[24])
+  if (*&v4[4] == 52 && *&v4[28] == 0xF26F1C63C935E672 && !*&v4[24])
   {
-    if (*(&v6 + 4))
+    if (*(&v5 + 4))
     {
-      result = -536870209;
+      return -536870209;
     }
 
     else
     {
-      result = 0;
+      return 0;
     }
   }
 
-LABEL_11:
-  v3 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 kern_return_t IOService::RemoveProperty(IOService *this, OSString *propertyName, OSDispatchMethod supermethod)
 {
-  v12 = *MEMORY[0x277D85DE8];
-  memset(v6, 0, sizeof(v6));
-  *&v6[4] = 96;
-  v8 = xmmword_23820ED00;
-  v9 = 2;
-  v10 = this;
-  *&v7 = 32;
-  *(&v7 + 1) = 16777472;
-  *&v6[20] = 0x24DA2B68CLL;
-  v11 = propertyName;
+  v11 = *MEMORY[0x277D85DE8];
+  memset(v5, 0, sizeof(v5));
+  *&v5[4] = 96;
+  v7 = xmmword_23820ED00;
+  v8 = 2;
+  v9 = this;
+  *&v6 = 32;
+  *(&v6 + 1) = 16777472;
+  *&v5[20] = 0x24DA2B68CLL;
+  v10 = propertyName;
   if (supermethod)
   {
-    invoke.message = v6;
-    invoke.reply = v6;
+    invoke.message = v5;
+    invoke.reply = v5;
     *&invoke.sendSize = 0x7800000060;
     result = (supermethod)(this, &invoke);
     if (result)
     {
-      goto LABEL_11;
+      return result;
     }
   }
 
   else
   {
-    invoke.message = v6;
-    invoke.reply = v6;
+    invoke.message = v5;
+    invoke.reply = v5;
     *&invoke.sendSize = 0x7800000060;
     result = OSMetaClassBase::Invoke(this, &invoke);
     if (result)
     {
-      goto LABEL_11;
+      return result;
     }
   }
 
   result = -536870209;
-  if (*&v6[4] == 52 && *&v6[28] == 0xDADEB06419D321B0 && !*&v6[24])
+  if (*&v5[4] == 52 && *&v5[28] == 0xDADEB06419D321B0 && !*&v5[24])
   {
-    if (*(&v7 + 4))
+    if (*(&v6 + 4))
     {
-      result = -536870209;
+      return -536870209;
     }
 
     else
     {
-      result = 0;
+      return 0;
     }
   }
 
-LABEL_11:
-  v4 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 kern_return_t IOService::CopySystemStateNotificationService(IOService *this, IOService **service, OSDispatchMethod supermethod)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
+  v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
-  v13 = 0;
-  DWORD1(v11) = 72;
-  v14 = xmmword_23820ED10;
-  v15 = 1;
+  v12 = 0;
+  DWORD1(v10) = 72;
+  v13 = xmmword_23820ED10;
+  v14 = 1;
   anObject = this;
-  *(&v12 + 4) = 0x14DA2B68CLL;
-  invoke.message = &v11;
-  invoke.reply = &v11;
+  *(&v11 + 4) = 0x14DA2B68CLL;
+  invoke.message = &v10;
+  invoke.reply = &v10;
   *&invoke.sendSize = 0x8C00000048;
   if (supermethod)
   {
@@ -9081,7 +8971,7 @@ kern_return_t IOService::CopySystemStateNotificationService(IOService *this, IOS
   if (!v4)
   {
     v5 = -536870209;
-    if (DWORD1(v11) == 72 && v14 == 0x9165D1FCE9B2CA5ALL && DWORD2(v12) == 1 && v15 == 1)
+    if (DWORD1(v10) == 72 && v13 == 0x9165D1FCE9B2CA5ALL && DWORD2(v11) == 1 && v14 == 1)
     {
       v6 = OSMetaClassBase::safeMetaCast(anObject, gIOServiceMetaClass);
       *service = v6;
@@ -9097,17 +8987,16 @@ kern_return_t IOService::CopySystemStateNotificationService(IOService *this, IOS
 
       if (v7)
       {
-        v5 = 0;
+        return 0;
       }
 
       else
       {
-        v5 = -536870206;
+        return -536870206;
       }
     }
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -9223,20 +9112,20 @@ kern_return_t IOService::StateNotificationItemSet(IOService *this, OSString *ite
 
 kern_return_t IOService::StateNotificationItemCopy(IOService *this, OSString *itemName, OSDictionary **value, OSDispatchMethod supermethod)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
+  v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
-  v14 = 0;
-  DWORD1(v12) = 96;
-  *v16 = xmmword_23820ED40;
-  *&v16[16] = 2;
-  v17 = this;
-  *&v15 = 32;
-  *(&v15 + 1) = 16777472;
-  *(&v13 + 4) = 0x24DA2B68CLL;
-  v18 = itemName;
-  invoke.message = &v12;
-  invoke.reply = &v12;
+  v13 = 0;
+  DWORD1(v11) = 96;
+  *v15 = xmmword_23820ED40;
+  *&v15[16] = 2;
+  v16 = this;
+  *&v14 = 32;
+  *(&v14 + 1) = 16777472;
+  *(&v12 + 4) = 0x24DA2B68CLL;
+  v17 = itemName;
+  invoke.message = &v11;
+  invoke.reply = &v11;
   *&invoke.sendSize = 0x9000000060;
   if (supermethod)
   {
@@ -9252,9 +9141,9 @@ kern_return_t IOService::StateNotificationItemCopy(IOService *this, OSString *it
   if (!v5)
   {
     v6 = -536870209;
-    if (DWORD1(v12) == 76 && *(&v15 + 4) == 0xAD2E6404FDE4B615 && DWORD2(v13) == 1 && *&v16[4] == 1)
+    if (DWORD1(v11) == 76 && *(&v14 + 4) == 0xAD2E6404FDE4B615 && DWORD2(v12) == 1 && *&v15[4] == 1)
     {
-      v7 = OSMetaClassBase::safeMetaCast(*&v16[12], gOSDictionaryMetaClass);
+      v7 = OSMetaClassBase::safeMetaCast(*&v15[12], gOSDictionaryMetaClass);
       *value = v7;
       if (v7)
       {
@@ -9263,64 +9152,63 @@ kern_return_t IOService::StateNotificationItemCopy(IOService *this, OSString *it
 
       else
       {
-        v8 = *&v16[12] == 0;
+        v8 = *&v15[12] == 0;
       }
 
       if (v8)
       {
-        v6 = 0;
+        return 0;
       }
 
       else
       {
-        v6 = -536870206;
+        return -536870206;
       }
     }
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
 uint64_t IOService::CreatePMAssertion(IOService *this, int a2, unint64_t *a3, unsigned __int8 a4, uint64_t (*a5)(IOService *, IORPC *))
 {
-  v14 = *MEMORY[0x277D85DE8];
-  memset(v9, 0, sizeof(v9));
-  *&v9[4] = 80;
-  *v10 = xmmword_23820ED50;
-  *&v10[16] = 1;
-  v11 = this;
-  *&v9[20] = 0x14DA2B68CLL;
-  v12 = a2;
-  v13 = a4;
+  v13 = *MEMORY[0x277D85DE8];
+  memset(v8, 0, sizeof(v8));
+  *&v8[4] = 80;
+  *v9 = xmmword_23820ED50;
+  *&v9[16] = 1;
+  v10 = this;
+  *&v8[20] = 0x14DA2B68CLL;
+  v11 = a2;
+  v12 = a4;
   if (a5)
   {
-    invoke.message = v9;
-    invoke.reply = v9;
+    invoke.message = v8;
+    invoke.reply = v8;
     *&invoke.sendSize = 0x8000000050;
     result = a5(this, &invoke);
     if (result)
     {
-      goto LABEL_14;
+      return result;
     }
   }
 
   else
   {
-    invoke.message = v9;
-    invoke.reply = v9;
+    invoke.message = v8;
+    invoke.reply = v8;
     *&invoke.sendSize = 0x8000000050;
     result = OSMetaClassBase::Invoke(this, &invoke);
     if (result)
     {
-      goto LABEL_14;
+      return result;
     }
   }
 
   result = 3758097087;
-  if (*&v9[4] == 60 && *&v9[28] == 0xABC814D03B619A1CLL && !*&v9[24])
+  if (*&v8[4] == 60 && *&v8[28] == 0xABC814D03B619A1CLL && !*&v8[24])
   {
-    if (*&v10[4])
+    if (*&v9[4])
     {
       result = 3758097087;
     }
@@ -9330,68 +9218,67 @@ uint64_t IOService::CreatePMAssertion(IOService *this, int a2, unint64_t *a3, un
       result = 0;
     }
 
-    if (a3 && !*&v10[4])
+    if (a3)
     {
-      result = 0;
-      *a3 = *&v10[12];
+      if (!*&v9[4])
+      {
+        result = 0;
+        *a3 = *&v9[12];
+      }
     }
   }
 
-LABEL_14:
-  v7 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 uint64_t IOService::ReleasePMAssertion(IOService *this, uint64_t a2, uint64_t (*a3)(IOService *, IORPC *))
 {
-  v11 = *MEMORY[0x277D85DE8];
-  memset(v6, 0, sizeof(v6));
-  *&v6[4] = 80;
-  v7 = xmmword_23820ED60;
-  v8 = 1;
-  v9 = this;
-  *&v6[20] = 0x14DA2B68CLL;
-  v10 = a2;
+  v10 = *MEMORY[0x277D85DE8];
+  memset(v5, 0, sizeof(v5));
+  *&v5[4] = 80;
+  v6 = xmmword_23820ED60;
+  v7 = 1;
+  v8 = this;
+  *&v5[20] = 0x14DA2B68CLL;
+  v9 = a2;
   if (a3)
   {
-    invoke.message = v6;
-    invoke.reply = v6;
+    invoke.message = v5;
+    invoke.reply = v5;
     *&invoke.sendSize = 0x7800000050;
     result = a3(this, &invoke);
     if (result)
     {
-      goto LABEL_11;
+      return result;
     }
   }
 
   else
   {
-    invoke.message = v6;
-    invoke.reply = v6;
+    invoke.message = v5;
+    invoke.reply = v5;
     *&invoke.sendSize = 0x7800000050;
     result = OSMetaClassBase::Invoke(this, &invoke);
     if (result)
     {
-      goto LABEL_11;
+      return result;
     }
   }
 
   result = 3758097087;
-  if (*&v6[4] == 52 && *&v6[28] == 0xB2C356503BBC13DCLL && !*&v6[24])
+  if (*&v5[4] == 52 && *&v5[28] == 0xB2C356503BBC13DCLL && !*&v5[24])
   {
-    if (*(&v7 + 4))
+    if (*(&v6 + 4))
     {
-      result = 3758097087;
+      return 3758097087;
     }
 
     else
     {
-      result = 0;
+      return 0;
     }
   }
 
-LABEL_11:
-  v4 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -9423,22 +9310,22 @@ void IOService::Stop_async(IOService *this, IOService *provider, OSDispatchMetho
 
 kern_return_t IOService::_NewUserClient(IOService *this, uint32_t type, OSDictionary *entitlements, IOUserClient **userClient, OSDispatchMethod supermethod)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   anObject[0] = 0;
+  v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
-  v15 = 0;
-  v17 = 16777472;
-  DWORD1(v13) = 104;
-  v18 = 0x80B22DD60EE3ABB6;
+  v14 = 0;
+  v16 = 16777472;
+  DWORD1(v12) = 104;
+  v17 = 0x80B22DD60EE3ABB6;
   anObject[1] = 2;
-  v20 = this;
-  *(&v14 + 4) = 0x24DA2B68CLL;
-  v21 = entitlements;
-  v22 = type;
-  v16 = 32;
-  invoke.message = &v13;
-  invoke.reply = &v13;
+  v19 = this;
+  *(&v13 + 4) = 0x24DA2B68CLL;
+  v20 = entitlements;
+  v21 = type;
+  v15 = 32;
+  invoke.message = &v12;
+  invoke.reply = &v12;
   *&invoke.sendSize = 0x8C00000068;
   if (supermethod)
   {
@@ -9454,7 +9341,7 @@ kern_return_t IOService::_NewUserClient(IOService *this, uint32_t type, OSDictio
   if (!v6)
   {
     v7 = -536870209;
-    if (DWORD1(v13) == 72 && v16 == 0x80B22DD60EE3ABB6 && DWORD2(v14) == 1 && v18 == 1)
+    if (DWORD1(v12) == 72 && v15 == 0x80B22DD60EE3ABB6 && DWORD2(v13) == 1 && v17 == 1)
     {
       v8 = OSMetaClassBase::safeMetaCast(anObject[0], gIOUserClientMetaClass);
       *userClient = v8;
@@ -9470,17 +9357,16 @@ kern_return_t IOService::_NewUserClient(IOService *this, uint32_t type, OSDictio
 
       if (v9)
       {
-        v7 = 0;
+        return 0;
       }
 
       else
       {
-        v7 = -536870206;
+        return -536870206;
       }
     }
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
@@ -9641,4 +9527,103 @@ kern_return_t IOService::SetProperties_Invoke(const IORPC *rpc, OSMetaClassBase 
   }
 
   return v3;
+}
+
+kern_return_t IOService::JoinPMTree_Invoke(const IORPC *rpc, OSMetaClassBase *target, IOService::JoinPMTree_Handler func)
+{
+  result = -536870209;
+  if (rpc->message->msgh_body.msgh_descriptor_count == 1 && *&rpc->message[2].msgh.msgh_bits == 1 && rpc->sendSize >= 0x48 && rpc->replySize >= 0x34)
+  {
+    reply = rpc->reply;
+    result = (func)(target);
+    if (!result)
+    {
+      *&reply[1].msgh.msgh_bits = xmmword_23820EDE0;
+      reply->msgh.msgh_size = 52;
+      *&reply->msgh.msgh_id = 1302509197;
+      *&reply[1].msgh.msgh_voucher_port = 0;
+    }
+  }
+
+  return result;
+}
+
+kern_return_t IOService::ChangePowerState_Invoke(const IORPC *rpc, OSMetaClassBase *target, IOService::ChangePowerState_Handler func)
+{
+  result = -536870209;
+  message = rpc->message;
+  if (rpc->message->msgh_body.msgh_descriptor_count == 1 && *&message[2].msgh.msgh_bits == 1 && rpc->sendSize >= 0x50 && rpc->replySize >= 0x34)
+  {
+    reply = rpc->reply;
+    result = (func)(target, message[2].msgh.msgh_voucher_port);
+    if (!result)
+    {
+      *&reply[1].msgh.msgh_bits = xmmword_23820EDF0;
+      reply->msgh.msgh_size = 52;
+      *&reply->msgh.msgh_id = 1302509197;
+      *&reply[1].msgh.msgh_voucher_port = 0;
+    }
+  }
+
+  return result;
+}
+
+double IOService::SetPowerOverride_Invoke(IOService *this, IORPC *a2, OSMetaClassBase *a3, int (*a4)(OSMetaClassBase *, BOOL))
+{
+  v4 = this->OSObject::OSMetaClassBase::__vftable;
+  if (LODWORD(this->isEqualTo) == 1 && v4[1].getMetaClass == 1 && LODWORD(this->meta) >= 0x50 && HIDWORD(this->meta) >= 0x34)
+  {
+    v5 = *&this->refcount;
+    if (!(a3)(a2, LOBYTE(v4[1].release)))
+    {
+      *(v5 + 28) = xmmword_23820EE00;
+      *(v5 + 4) = 52;
+      *&result = 1302509197;
+      *(v5 + 20) = 1302509197;
+      *(v5 + 44) = 0;
+    }
+  }
+
+  return result;
+}
+
+kern_return_t IOService::NewUserClient_Invoke(const IORPC *rpc, OSMetaClassBase *target, IOService::NewUserClient_Handler func)
+{
+  result = -536870209;
+  message = rpc->message;
+  if (rpc->message->msgh_body.msgh_descriptor_count == 1 && *&message[2].msgh.msgh_bits == 1 && rpc->sendSize >= 0x50 && rpc->replySize >= 0x48)
+  {
+    reply = rpc->reply;
+    result = (func)(target, message[2].msgh.msgh_voucher_port, &reply[2].msgh.msgh_remote_port);
+    if (!result)
+    {
+      *&reply[1].msgh.msgh_local_port = xmmword_23820EE10;
+      reply->msgh.msgh_size = 72;
+      *&reply->msgh.msgh_id = 0x14DA2B68DLL;
+      *&reply[2].msgh.msgh_bits = 1;
+      reply[1].msgh.msgh_remote_port &= 0xFFFFFFu;
+    }
+  }
+
+  return result;
+}
+
+kern_return_t IOService::Terminate_Invoke(const IORPC *rpc, OSMetaClassBase *target, IOService::Terminate_Handler func)
+{
+  result = -536870209;
+  message = rpc->message;
+  if (rpc->message->msgh_body.msgh_descriptor_count == 1 && *&message[2].msgh.msgh_bits == 1 && rpc->sendSize >= 0x50 && rpc->replySize >= 0x34)
+  {
+    reply = rpc->reply;
+    result = (func)(target, *&message[2].msgh.msgh_voucher_port);
+    if (!result)
+    {
+      *&reply[1].msgh.msgh_bits = xmmword_23820EE20;
+      reply->msgh.msgh_size = 52;
+      *&reply->msgh.msgh_id = 1302509197;
+      *&reply[1].msgh.msgh_voucher_port = 0;
+    }
+  }
+
+  return result;
 }

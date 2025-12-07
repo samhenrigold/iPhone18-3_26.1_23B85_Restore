@@ -152,33 +152,13 @@ LABEL_19:
   v12.receiver = self;
   v12.super_class = HKRatioValue;
   v5 = [(HKRatioValue *)&v12 init];
-  if (!v5)
+  if (!v5 || ([coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"NumeratorKey"], v6 = objc_claimAutoreleasedReturnValue(), numerator = v5->_numerator, v5->_numerator = v6, numerator, v5->_numerator) && (objc_msgSend(coderCopy, "decodeObjectOfClass:forKey:", objc_opt_class(), @"DenominatorKey"), v8 = objc_claimAutoreleasedReturnValue(), denominator = v5->_denominator, v5->_denominator = v8, denominator, v5->_denominator))
   {
-    goto LABEL_4;
-  }
-
-  v6 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"NumeratorKey"];
-  numerator = v5->_numerator;
-  v5->_numerator = v6;
-
-  if (!v5->_numerator)
-  {
-    goto LABEL_5;
-  }
-
-  v8 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"DenominatorKey"];
-  denominator = v5->_denominator;
-  v5->_denominator = v8;
-
-  if (v5->_denominator)
-  {
-LABEL_4:
     v10 = v5;
   }
 
   else
   {
-LABEL_5:
     v10 = 0;
   }
 

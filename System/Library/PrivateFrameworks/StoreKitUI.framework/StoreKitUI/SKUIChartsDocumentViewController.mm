@@ -405,79 +405,80 @@ void __87__SKUIChartsDocumentViewController_viewWillTransitionToSize_withTransit
 
 - (id)_newColumnViewControllersWithReusableViewControllers:(id)controllers
 {
-  v54 = *MEMORY[0x277D85DE8];
+  v56 = *MEMORY[0x277D85DE8];
   controllersCopy = controllers;
-  v39 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v41 = objc_alloc_init(MEMORY[0x277CBEB18]);
   clientContext = [(SKUIViewController *)self clientContext];
   [(SKUIChartColumnsView *)self->_chartsView bounds];
   v5 = v4;
   v7 = v6;
   v8 = [(SKUIChartsDocumentViewController *)self _visibleColumnCountForWidth:v4];
   [(SKUIChartsTemplateViewElement *)self->_templateElement columns];
-  v47 = 0u;
-  v48 = 0u;
   v49 = 0u;
-  obj = v50 = 0u;
-  v41 = [obj countByEnumeratingWithState:&v47 objects:v53 count:16];
-  if (v41)
+  v50 = 0u;
+  v51 = 0u;
+  obj = v52 = 0u;
+  v43 = [obj countByEnumeratingWithState:&v49 objects:v55 count:16];
+  if (v43)
   {
     v9 = v5 / v8;
     v10 = floorf(v9);
-    v40 = *v48;
+    v42 = *v50;
     selfCopy = self;
     do
     {
-      for (i = 0; i != v41; ++i)
+      for (i = 0; i != v43; ++i)
       {
-        if (*v48 != v40)
+        if (*v50 != v42)
         {
           objc_enumerationMutation(obj);
         }
 
-        v12 = *(*(&v47 + 1) + 8 * i);
-        v13 = [objc_alloc(SKUIPageComponentClassForComponentType(objc_msgSend(v12 "pageComponentType")))];
-        if (v13)
+        v12 = *(*(&v49 + 1) + 8 * i);
+        pageComponentType = [v12 pageComponentType];
+        v15 = [objc_alloc(SKUIPageComponentClassForComponentType(pageComponentType v14))];
+        if (v15)
         {
           headerElement = [v12 headerElement];
           titleLabels = [headerElement titleLabels];
           firstObject = [titleLabels firstObject];
 
-          v42 = firstObject;
+          v44 = firstObject;
           text = [firstObject text];
           string = [text string];
 
+          v47 = 0u;
+          v48 = 0u;
           v45 = 0u;
           v46 = 0u;
-          v43 = 0u;
-          v44 = 0u;
-          v19 = controllersCopy;
-          v20 = [v19 countByEnumeratingWithState:&v43 objects:v52 count:16];
-          if (v20)
+          v21 = controllersCopy;
+          v22 = [v21 countByEnumeratingWithState:&v45 objects:v54 count:16];
+          if (v22)
           {
-            v21 = v20;
-            v22 = *v44;
+            v23 = v22;
+            v24 = *v46;
 LABEL_9:
-            v23 = 0;
+            v25 = 0;
             while (1)
             {
-              if (*v44 != v22)
+              if (*v46 != v24)
               {
-                objc_enumerationMutation(v19);
+                objc_enumerationMutation(v21);
               }
 
-              v24 = *(*(&v43 + 1) + 8 * v23);
-              title = [v24 title];
-              v26 = [title isEqualToString:string];
+              v26 = *(*(&v45 + 1) + 8 * v25);
+              title = [v26 title];
+              isEqualToString = objc_msgSend_isEqualToString_(title);
 
-              if (v26)
+              if (isEqualToString)
               {
                 break;
               }
 
-              if (v21 == ++v23)
+              if (v23 == ++v25)
               {
-                v21 = [v19 countByEnumeratingWithState:&v43 objects:v52 count:16];
-                if (v21)
+                v23 = [v21 countByEnumeratingWithState:&v45 objects:v54 count:16];
+                if (v23)
                 {
                   goto LABEL_9;
                 }
@@ -486,10 +487,10 @@ LABEL_9:
               }
             }
 
-            v28 = v24;
+            v30 = v26;
 
-            v27 = selfCopy;
-            if (v28)
+            v29 = selfCopy;
+            if (v30)
             {
               goto LABEL_21;
             }
@@ -499,49 +500,49 @@ LABEL_9:
           {
 LABEL_15:
 
-            v27 = selfCopy;
+            v29 = selfCopy;
           }
 
-          v28 = [[SKUIStorePageSectionsViewController alloc] initWithLayoutStyle:0];
-          [(SKUIViewController *)v28 setClientContext:clientContext];
-          operationQueue = [(SKUIViewController *)v27 operationQueue];
-          [(SKUIViewController *)v28 setOperationQueue:operationQueue];
+          v30 = [[SKUIStorePageSectionsViewController alloc] initWithLayoutStyle:0];
+          [(SKUIViewController *)v30 setClientContext:clientContext];
+          operationQueue = [(SKUIViewController *)v29 operationQueue];
+          [(SKUIViewController *)v30 setOperationQueue:operationQueue];
 
-          _resourceLoader = [(SKUIChartsDocumentViewController *)v27 _resourceLoader];
-          [(SKUIStorePageSectionsViewController *)v28 setResourceLoader:_resourceLoader];
+          _resourceLoader = [(SKUIChartsDocumentViewController *)v29 _resourceLoader];
+          [(SKUIStorePageSectionsViewController *)v30 setResourceLoader:_resourceLoader];
 
           if (string)
           {
-            v31 = string;
+            v33 = string;
           }
 
           else
           {
-            v31 = &stru_2827FFAC8;
+            v33 = &stru_2827FFAC8;
           }
 
-          [(SKUIStorePageSectionsViewController *)v28 setTitle:v31];
-          v32 = objc_alloc_init(SKUIMetricsImpressionSession);
-          [(SKUIStorePageSectionsViewController *)v28 setActiveMetricsImpressionSession:v32];
+          [(SKUIStorePageSectionsViewController *)v30 setTitle:v33];
+          v34 = objc_alloc_init(SKUIMetricsImpressionSession);
+          [(SKUIStorePageSectionsViewController *)v30 setActiveMetricsImpressionSession:v34];
 
 LABEL_21:
-          [(SKUIStorePageSectionsViewController *)v28 setPreferredContentSize:v10, v7];
-          v51 = v13;
-          v33 = [MEMORY[0x277CBEA60] arrayWithObjects:&v51 count:1];
-          [(SKUIStorePageSectionsViewController *)v28 setSectionsWithPageComponents:v33];
+          [(SKUIStorePageSectionsViewController *)v30 setPreferredContentSize:v10, v7];
+          v53 = v15;
+          v35 = [MEMORY[0x277CBEA60] arrayWithObjects:&v53 count:1];
+          [(SKUIStorePageSectionsViewController *)v30 setSectionsWithPageComponents:v35];
 
-          [(SKUIChartsDocumentViewController *)v27 addChildViewController:v28];
-          [v39 addObject:v28];
+          [(SKUIChartsDocumentViewController *)v29 addChildViewController:v30];
+          [v41 addObject:v30];
         }
       }
 
-      v41 = [obj countByEnumeratingWithState:&v47 objects:v53 count:16];
+      v43 = [obj countByEnumeratingWithState:&v49 objects:v55 count:16];
     }
 
-    while (v41);
+    while (v43);
   }
 
-  return v39;
+  return v41;
 }
 
 - (int64_t)_visibleColumnCountForWidth:(double)width

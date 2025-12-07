@@ -98,27 +98,27 @@
 
 - (void)viewDidLoad
 {
-  v29[2] = *MEMORY[0x277D85DE8];
-  v27.receiver = self;
-  v27.super_class = CapsuleNavigationBarViewController;
-  [(CapsuleNavigationBarViewController *)&v27 viewDidLoad];
+  v30[2] = *MEMORY[0x277D85DE8];
+  v28.receiver = self;
+  v28.super_class = CapsuleNavigationBarViewController;
+  [(CapsuleNavigationBarViewController *)&v28 viewDidLoad];
   [(CapsuleNavigationBarViewController *)self updateAdditionalBottomObscuredInset];
   [(SFCapsuleCollectionView *)self->_capsuleCollectionView updateVerticalSwipeThreshold];
   objc_initWeak(&location, self);
   capsuleCollectionView = self->_capsuleCollectionView;
-  v24[0] = MEMORY[0x277D85DD0];
-  v24[1] = 3221225472;
-  v24[2] = __49__CapsuleNavigationBarViewController_viewDidLoad__block_invoke;
-  v24[3] = &unk_2781D5B30;
-  objc_copyWeak(&v25, &location);
-  [(SFCapsuleCollectionView *)capsuleCollectionView registerContentViewIdentifier:@"urlField" block:v24];
+  v25[0] = MEMORY[0x277D85DD0];
+  v25[1] = 3221225472;
+  v25[2] = __49__CapsuleNavigationBarViewController_viewDidLoad__block_invoke;
+  v25[3] = &unk_2781D5B30;
+  objc_copyWeak(&v26, &location);
+  [(SFCapsuleCollectionView *)capsuleCollectionView registerContentViewIdentifier:@"urlField" block:v25];
   v4 = self->_capsuleCollectionView;
-  v22[0] = MEMORY[0x277D85DD0];
-  v22[1] = 3221225472;
-  v22[2] = __49__CapsuleNavigationBarViewController_viewDidLoad__block_invoke_3;
-  v22[3] = &unk_2781D5B30;
-  objc_copyWeak(&v23, &location);
-  [(SFCapsuleCollectionView *)v4 registerContentViewIdentifier:@"navigationBar" block:v22];
+  v23[0] = MEMORY[0x277D85DD0];
+  v23[1] = 3221225472;
+  v23[2] = __49__CapsuleNavigationBarViewController_viewDidLoad__block_invoke_3;
+  v23[3] = &unk_2781D5B30;
+  objc_copyWeak(&v24, &location);
+  [(SFCapsuleCollectionView *)v4 registerContentViewIdentifier:@"navigationBar" block:v23];
   defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
   [defaultCenter addObserver:self selector:sel__keyboardWillShow_ name:*MEMORY[0x277D76C60] object:0];
   [defaultCenter addObserver:self selector:sel__keyboardWillHide_ name:*MEMORY[0x277D76C50] object:0];
@@ -146,30 +146,29 @@
   maximumContentSizeCategory2 = [MEMORY[0x277D28BF8] maximumContentSizeCategory];
   [(SFCapsuleNavigationBar *)self->_minimizedSizingNavigationBar setMaximumContentSizeCategory:maximumContentSizeCategory2];
 
-  [(SFCapsuleNavigationBar *)self->_minimizedSizingNavigationBar _setHostsLayoutEngine:1];
-  v14 = __49__CapsuleNavigationBarViewController_viewDidLoad__block_invoke_4();
-  v29[0] = v14;
-  v15 = __49__CapsuleNavigationBarViewController_viewDidLoad__block_invoke_4();
-  v29[1] = v15;
-  v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v29 count:2];
+  v14 = __49__CapsuleNavigationBarViewController_viewDidLoad__block_invoke_4([(SFCapsuleNavigationBar *)self->_minimizedSizingNavigationBar _setHostsLayoutEngine:1], 0);
+  v30[0] = v14;
+  v15 = __49__CapsuleNavigationBarViewController_viewDidLoad__block_invoke_4(v14, 1);
+  v30[1] = v15;
+  v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v30 count:2];
   [(SFCapsuleNavigationBar *)self->_sizingNavigationBar setLeadingButtons:v16];
 
-  v17 = __49__CapsuleNavigationBarViewController_viewDidLoad__block_invoke_4();
-  v28[0] = v17;
-  v18 = __49__CapsuleNavigationBarViewController_viewDidLoad__block_invoke_4();
-  v28[1] = v18;
-  v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v28 count:2];
-  [(SFCapsuleNavigationBar *)self->_sizingNavigationBar setTrailingButtons:v19];
+  v18 = __49__CapsuleNavigationBarViewController_viewDidLoad__block_invoke_4(v17, 6);
+  v29[0] = v18;
+  v19 = __49__CapsuleNavigationBarViewController_viewDidLoad__block_invoke_4(v18, 8);
+  v29[1] = v19;
+  v20 = [MEMORY[0x277CBEA60] arrayWithObjects:v29 count:2];
+  [(SFCapsuleNavigationBar *)self->_sizingNavigationBar setTrailingButtons:v20];
 
   [(CapsuleNavigationBarViewController *)self _updateSelectedItemAccessoryViews];
   standardUserDefaults = [MEMORY[0x277CBEBD0] standardUserDefaults];
   [standardUserDefaults floatForKey:@"DebugCapsuleEdgeMargin"];
-  [(SFCapsuleCollectionView *)self->_capsuleCollectionView setEdgeMargin:v21];
+  [(SFCapsuleCollectionView *)self->_capsuleCollectionView setEdgeMargin:v22];
   [(CapsuleNavigationBarViewController *)self updateCapsuleMinimizationBehavior];
   [standardUserDefaults addObserver:self forKeyPath:@"DebugBarCollapsingBehavior" options:0 context:kvoContext];
 
-  objc_destroyWeak(&v23);
-  objc_destroyWeak(&v25);
+  objc_destroyWeak(&v24);
+  objc_destroyWeak(&v26);
   objc_destroyWeak(&location);
 }
 
@@ -180,26 +179,26 @@
   self->_additionalBottomObscuredInset = v3;
 }
 
-id __49__CapsuleNavigationBarViewController_viewDidLoad__block_invoke_4()
+id __49__CapsuleNavigationBarViewController_viewDidLoad__block_invoke_4(uint64_t a1, uint64_t a2)
 {
-  v0 = [MEMORY[0x277D75230] plainButtonConfiguration];
-  v1 = [MEMORY[0x277D75348] clearColor];
-  v2 = [v0 background];
-  [v2 setBackgroundColor:v1];
+  v2 = [MEMORY[0x277D75230] plainButtonConfiguration];
+  v3 = [MEMORY[0x277D75348] clearColor];
+  v4 = [v2 background];
+  [v4 setBackgroundColor:v3];
 
-  [v0 setContentInsets:{*MEMORY[0x277D75060], *(MEMORY[0x277D75060] + 8), *(MEMORY[0x277D75060] + 16), *(MEMORY[0x277D75060] + 24)}];
-  v3 = MEMORY[0x277D755B8];
-  v4 = SFSystemImageNameForBarItem();
-  v5 = [v3 systemImageNamed:v4];
-  [v0 setImage:v5];
+  [v2 setContentInsets:{*MEMORY[0x277D75060], *(MEMORY[0x277D75060] + 8), *(MEMORY[0x277D75060] + 16), *(MEMORY[0x277D75060] + 24)}];
+  v5 = MEMORY[0x277D755B8];
+  v6 = SFSystemImageNameForBarItem();
+  v7 = [v5 systemImageNamed:v6];
+  [v2 setImage:v7];
 
-  v6 = [MEMORY[0x277D755D0] configurationWithTextStyle:*MEMORY[0x277D76918] scale:2];
-  [v0 setPreferredSymbolConfigurationForImage:v6];
+  v8 = [MEMORY[0x277D755D0] configurationWithTextStyle:*MEMORY[0x277D76918] scale:2];
+  [v2 setPreferredSymbolConfigurationForImage:v8];
 
-  v7 = [MEMORY[0x277D28F18] buttonWithConfiguration:v0 primaryAction:0];
-  [v7 sf_applyContentSizeCategoryLimitsForToolbarButton];
+  v9 = [MEMORY[0x277D28F18] buttonWithConfiguration:v2 primaryAction:0];
+  [v9 sf_applyContentSizeCategoryLimitsForToolbarButton];
 
-  return v7;
+  return v9;
 }
 
 - (void)_updateSelectedItemAccessoryViews
@@ -618,14 +617,14 @@ LABEL_8:
 - (void)beginHidingCapsuleAnimated:(BOOL)animated reason:(id)reason
 {
   animatedCopy = animated;
-  v10 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   reasonCopy = reason;
-  v7 = WBS_LOG_CHANNEL_PREFIXLoweredTabBar();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  v8 = WBS_LOG_CHANNEL_PREFIXLoweredTabBar(reasonCopy, v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 138543362;
-    v9 = reasonCopy;
-    _os_log_impl(&dword_215819000, v7, OS_LOG_TYPE_DEFAULT, "Begin hiding capsule with reason: %{public}@", &v8, 0xCu);
+    v9 = 138543362;
+    v10 = reasonCopy;
+    _os_log_impl(&dword_215819000, v8, OS_LOG_TYPE_DEFAULT, "Begin hiding capsule with reason: %{public}@", &v9, 0xCu);
   }
 
   ++self->_hideCapsuleCount;
@@ -635,14 +634,15 @@ LABEL_8:
 - (void)endHidingCapsuleAnimated:(BOOL)animated reason:(id)reason
 {
   animatedCopy = animated;
-  v12 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   reasonCopy = reason;
-  v7 = WBS_LOG_CHANNEL_PREFIXLoweredTabBar();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  v8 = WBS_LOG_CHANNEL_PREFIXLoweredTabBar(reasonCopy, v7);
+  v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
+  if (v9)
   {
-    v10 = 138543362;
-    v11 = reasonCopy;
-    _os_log_impl(&dword_215819000, v7, OS_LOG_TYPE_DEFAULT, "End hiding capsule with reason: %{public}@", &v10, 0xCu);
+    v13 = 138543362;
+    v14 = reasonCopy;
+    _os_log_impl(&dword_215819000, v8, OS_LOG_TYPE_DEFAULT, "End hiding capsule with reason: %{public}@", &v13, 0xCu);
   }
 
   hideCapsuleCount = self->_hideCapsuleCount;
@@ -654,10 +654,10 @@ LABEL_8:
 
   else
   {
-    v9 = WBS_LOG_CHANNEL_PREFIXLoweredTabBar();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
+    v12 = WBS_LOG_CHANNEL_PREFIXLoweredTabBar(v9, v10);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_FAULT))
     {
-      [CapsuleNavigationBarViewController endHidingCapsuleAnimated:v9 reason:?];
+      [CapsuleNavigationBarViewController endHidingCapsuleAnimated:v12 reason:?];
     }
   }
 }

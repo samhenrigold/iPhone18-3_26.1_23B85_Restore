@@ -26,32 +26,32 @@
 
 - (void)dealloc
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v3 = sub_23921C1E4(MTRError, 0x1A8000000ACLL, "/Library/Caches/com.apple.xbs/Sources/CHIPFramework/connectedhomeip/src/darwin/Framework/CHIP/MTRDiagnosticLogsDownloader.mm");
-  v13 = 0u;
-  v14 = 0u;
-  v11 = 0u;
   v12 = 0u;
+  v13 = 0u;
+  v10 = 0u;
+  v11 = 0u;
   v4 = self->_downloads;
-  v5 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v5 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v5)
   {
-    v6 = *v12;
+    v6 = *v11;
     do
     {
       v7 = 0;
       do
       {
-        if (*v12 != v6)
+        if (*v11 != v6)
         {
           objc_enumerationMutation(v4);
         }
 
-        [*(*(&v11 + 1) + 8 * v7++) failure:v3];
+        [*(*(&v10 + 1) + 8 * v7++) failure:v3];
       }
 
       while (v5 != v7);
-      v5 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v5 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v5);
@@ -60,45 +60,44 @@
   downloads = self->_downloads;
   self->_downloads = 0;
 
-  v10.receiver = self;
-  v10.super_class = MTRDownloads;
-  [(MTRDownloads *)&v10 dealloc];
-  v9 = *MEMORY[0x277D85DE8];
+  v9.receiver = self;
+  v9.super_class = MTRDownloads;
+  [(MTRDownloads *)&v9 dealloc];
 }
 
 - (id)get:(id)get fabricIndex:(id)index nodeID:(id)d
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   getCopy = get;
   indexCopy = index;
   dCopy = d;
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   v11 = self->_downloads;
-  v12 = [(NSMutableArray *)v11 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v12 = [(NSMutableArray *)v11 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v12)
   {
-    v13 = *v19;
+    v13 = *v18;
     while (2)
     {
       for (i = 0; i != v12; i = i + 1)
       {
-        if (*v19 != v13)
+        if (*v18 != v13)
         {
           objc_enumerationMutation(v11);
         }
 
-        v15 = *(*(&v18 + 1) + 8 * i);
-        if ([v15 matches:getCopy fabricIndex:indexCopy nodeID:{dCopy, v18}])
+        v15 = *(*(&v17 + 1) + 8 * i);
+        if ([v15 matches:getCopy fabricIndex:indexCopy nodeID:{dCopy, v17}])
         {
           v12 = v15;
           goto LABEL_11;
         }
       }
 
-      v12 = [(NSMutableArray *)v11 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v12 = [(NSMutableArray *)v11 countByEnumeratingWithState:&v17 objects:v21 count:16];
       if (v12)
       {
         continue;
@@ -109,8 +108,6 @@
   }
 
 LABEL_11:
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return v12;
 }
@@ -135,33 +132,33 @@ LABEL_11:
 
 - (void)abortDownloadsForController:(id)controller nodeID:(id)d
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   controllerCopy = controller;
   dCopy = d;
-  v20 = controllerCopy;
+  v19 = controllerCopy;
   sub_23947632C("/Library/Caches/com.apple.xbs/Sources/CHIPFramework/connectedhomeip/src/darwin/Framework/CHIP/MTRDiagnosticLogsDownloader.mm", 461);
-  v8 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:{objc_msgSend(controllerCopy, "fabricIndex")}];
-  v23 = 0u;
-  v24 = 0u;
-  v21 = 0u;
+  v8 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:objc_msgSend_fabricIndex(controllerCopy)];
   v22 = 0u;
+  v23 = 0u;
+  v20 = 0u;
+  v21 = 0u;
   v9 = [(NSMutableArray *)self->_downloads copy];
-  v10 = [v9 countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v10)
   {
-    v11 = *v22;
+    v11 = *v21;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v22 != v11)
+        if (*v21 != v11)
         {
           objc_enumerationMutation(v9);
         }
 
-        v13 = *(*(&v21 + 1) + 8 * i);
-        fabricIndex = [v13 fabricIndex];
-        v15 = [fabricIndex isEqual:v8];
+        v13 = *(*(&v20 + 1) + 8 * i);
+        v14 = objc_msgSend_fabricIndex(v13);
+        v15 = [v14 isEqual:v8];
 
         if (v15)
         {
@@ -175,13 +172,11 @@ LABEL_11:
         }
       }
 
-      v10 = [v9 countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v10 = [v9 countByEnumeratingWithState:&v20 objects:v24 count:16];
     }
 
     while (v10);
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)remove:(id)remove

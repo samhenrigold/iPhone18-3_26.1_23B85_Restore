@@ -259,7 +259,7 @@
 
           v13 = v12;
           bundleIdentifier = [(SBDisplayItem *)v12 bundleIdentifier];
-          if (!bundleIdentifier || ([v5 containsObject:bundleIdentifier] & 1) == 0)
+          if (!bundleIdentifier || (objc_msgSend_containsObject_(v5) & 1) == 0)
           {
             v15 = SBLogCommon();
             if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))

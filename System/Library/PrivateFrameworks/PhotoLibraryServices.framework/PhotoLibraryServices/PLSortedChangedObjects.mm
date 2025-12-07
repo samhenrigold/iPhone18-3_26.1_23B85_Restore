@@ -21,7 +21,7 @@
   v6 = [(PLSortedChangedObjects *)&v10 init];
   if (v6)
   {
-    v7 = [objectsCopy count];
+    v7 = objc_msgSend_count(objectsCopy);
     v6->_count = v7;
     objc_storeStrong(&v6->_changedObjects, objects);
     v8 = malloc_type_calloc(v7, 8uLL, 0x80040B8603338uLL);

@@ -1,4 +1,5 @@
 @interface NWAppStateHandler
+- (BOOL)currentForegroundStateForProcessWithPid:(int)pid;
 - (BOOL)identifierShouldBeIgnored:(id)ignored;
 - (BOOL)rbsProcessStateToForeground:(id)foreground;
 - (NWAppStateHandler)init;
@@ -33,27 +34,27 @@
 
 void __35__NWAppStateHandler_trackerForPid___block_invoke(uint64_t a1, uint64_t a2, void *a3, _BYTE *a4)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v6 = a3;
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
-  v7 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v14;
+    v9 = *v13;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v14 != v9)
+        if (*v13 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v13 + 1) + 8 * i);
+        v11 = *(*(&v12 + 1) + 8 * i);
         if ([v11 pid] == *(a1 + 40))
         {
           objc_storeStrong((*(*(a1 + 32) + 8) + 40), v11);
@@ -61,13 +62,23 @@ void __35__NWAppStateHandler_trackerForPid___block_invoke(uint64_t a1, uint64_t 
         }
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v8);
   }
+}
 
-  v12 = *MEMORY[0x277D85DE8];
+- (BOOL)currentForegroundStateForProcessWithPid:(int)pid
+{
+  v3 = *&pid;
+  v5 = self->_appBundlesMonitored;
+  objc_sync_enter(v5);
+  v6 = [(NWAppStateHandler *)self trackerForPid:v3];
+  LOBYTE(v3) = v6 != 0;
+
+  objc_sync_exit(v5);
+  return v3;
 }
 
 - (void)_removeStateTracker:(id)tracker
@@ -137,7 +148,7 @@ void __47__NWAppStateHandler_identifierShouldBeIgnored___block_invoke()
 
 - (void)handleStateUpdate:(id)update forProcess:(id)process
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   updateCopy = update;
   processCopy = process;
   identity = [processCopy identity];
@@ -155,43 +166,44 @@ void __47__NWAppStateHandler_identifierShouldBeIgnored___block_invoke()
     }
   }
 
-  if (![(NWAppStateHandler *)self identifierShouldBeIgnored:embeddedApplicationIdentifier])
+  v11 = [(NWAppStateHandler *)self identifierShouldBeIgnored:embeddedApplicationIdentifier];
+  if ((v11 & 1) == 0)
   {
     if (!embeddedApplicationIdentifier)
     {
-      v27 = NStatGetLog();
-      if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+      v30 = NStatGetLog(v11);
+      if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        *v32 = processCopy;
-        _os_log_impl(&dword_25BA3A000, v27, OS_LOG_TYPE_ERROR, "handleStateUpdate no identifier from process %@", buf, 0xCu);
+        *v35 = processCopy;
+        _os_log_impl(&dword_25BA3A000, v30, OS_LOG_TYPE_ERROR, "handleStateUpdate no identifier from process %@", buf, 0xCu);
       }
 
-      v12 = NStatGetLog();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      v13 = NStatGetLog(v31);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        *v32 = updateCopy;
-        _os_log_impl(&dword_25BA3A000, v12, OS_LOG_TYPE_ERROR, "handleStateUpdate failed identifier lookup was from update %@", buf, 0xCu);
+        *v35 = updateCopy;
+        _os_log_impl(&dword_25BA3A000, v13, OS_LOG_TYPE_ERROR, "handleStateUpdate failed identifier lookup was from update %@", buf, 0xCu);
       }
 
       goto LABEL_33;
     }
 
-    v11 = [processCopy pid];
-    v12 = pid_to_uuid(v11);
+    v12 = [processCopy pid];
+    v13 = pid_to_uuid(v12);
     state = [updateCopy state];
-    v14 = [(NWAppStateHandler *)self rbsProcessStateToForeground:state];
+    v15 = [(NWAppStateHandler *)self rbsProcessStateToForeground:state];
 
     obj = self->_appBundlesMonitored;
     objc_sync_enter(obj);
-    v15 = [(NWAppStateHandler *)self trackerForPid:v11];
-    v16 = v15;
-    if (!v14)
+    v16 = [(NWAppStateHandler *)self trackerForPid:v12];
+    v17 = v16;
+    if (!v15)
     {
-      if (v15)
+      if (v16)
       {
-        [(NWAppStateHandler *)self _removeStateTracker:v15];
+        [(NWAppStateHandler *)self _removeStateTracker:v16];
       }
 
       goto LABEL_32;
@@ -202,40 +214,40 @@ void __47__NWAppStateHandler_identifierShouldBeIgnored___block_invoke()
 
     if (taskState)
     {
-      if (!v16)
+      if (!v17)
       {
 LABEL_16:
-        v25 = objc_alloc_init(NWAppStateTracker);
+        v28 = objc_alloc_init(NWAppStateTracker);
 
-        if (!v25)
+        if (!v28)
         {
-          v16 = 0;
+          v17 = 0;
           goto LABEL_32;
         }
 
-        [(NWAppStateTracker *)v25 setIdentifier:embeddedApplicationIdentifier];
-        [(NWAppStateTracker *)v25 setUuid:v12];
-        [(NWAppStateTracker *)v25 setPid:v11];
-        v26 = [(NSMutableDictionary *)self->_appBundlesMonitored objectForKeyedSubscript:embeddedApplicationIdentifier];
-        if (!v26)
+        [(NWAppStateTracker *)v28 setIdentifier:embeddedApplicationIdentifier];
+        [(NWAppStateTracker *)v28 setUuid:v13];
+        [(NWAppStateTracker *)v28 setPid:v12];
+        v29 = [(NSMutableDictionary *)self->_appBundlesMonitored objectForKeyedSubscript:embeddedApplicationIdentifier];
+        if (!v29)
         {
-          v26 = objc_alloc_init(MEMORY[0x277CBEB58]);
-          [(NSMutableDictionary *)self->_appBundlesMonitored setObject:v26 forKey:embeddedApplicationIdentifier];
+          v29 = objc_alloc_init(MEMORY[0x277CBEB58]);
+          [(NSMutableDictionary *)self->_appBundlesMonitored setObject:v29 forKey:embeddedApplicationIdentifier];
         }
 
-        [v26 addObject:v25];
+        [v29 addObject:v28];
         goto LABEL_31;
       }
 
-      uuid = [(NWAppStateTracker *)v16 uuid];
-      v20 = [uuid isEqual:v12];
+      uuid = [(NWAppStateTracker *)v17 uuid];
+      v22 = [uuid isEqual:v13];
 
-      if (v20)
+      if (v22)
       {
-        identifier = [(NWAppStateTracker *)v16 identifier];
-        v22 = [identifier isEqualToString:embeddedApplicationIdentifier];
+        identifier = [(NWAppStateTracker *)v17 identifier];
+        v25 = [identifier isEqualToString:embeddedApplicationIdentifier];
 
-        if (v22)
+        if (v25)
         {
 LABEL_32:
 
@@ -245,58 +257,56 @@ LABEL_33:
           goto LABEL_34;
         }
 
-        identifier2 = [(NWAppStateTracker *)v16 identifier];
-        v24 = NStatGetLog();
-        if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+        identifier2 = [(NWAppStateTracker *)v17 identifier];
+        v27 = NStatGetLog(identifier2);
+        if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 67109634;
-          *v32 = v11;
-          *&v32[4] = 2112;
-          *&v32[6] = embeddedApplicationIdentifier;
-          v33 = 2112;
-          v34 = identifier2;
-          _os_log_impl(&dword_25BA3A000, v24, OS_LOG_TYPE_DEFAULT, "State change notification for pid %d now has bundle %@, not matching previous %@", buf, 0x1Cu);
+          *v35 = v12;
+          *&v35[4] = 2112;
+          *&v35[6] = embeddedApplicationIdentifier;
+          v36 = 2112;
+          v37 = identifier2;
+          _os_log_impl(&dword_25BA3A000, v27, OS_LOG_TYPE_DEFAULT, "State change notification for pid %d now has bundle %@, not matching previous %@", buf, 0x1Cu);
         }
 
-        [(NWAppStateHandler *)self _removeStateTracker:v16];
+        [(NWAppStateHandler *)self _removeStateTracker:v17];
         goto LABEL_16;
       }
 
-      v26 = NStatGetLog();
-      if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+      v29 = NStatGetLog(v23);
+      if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
       {
-        uuid2 = [(NWAppStateTracker *)v16 uuid];
+        uuid2 = [(NWAppStateTracker *)v17 uuid];
         *buf = 67109634;
-        *v32 = v11;
-        *&v32[4] = 2112;
-        *&v32[6] = v12;
-        v33 = 2112;
-        v34 = uuid2;
-        _os_log_impl(&dword_25BA3A000, v26, OS_LOG_TYPE_ERROR, "State change notification for pid %d has uuid %@, not matching previous %@", buf, 0x1Cu);
+        *v35 = v12;
+        *&v35[4] = 2112;
+        *&v35[6] = v13;
+        v36 = 2112;
+        v37 = uuid2;
+        _os_log_impl(&dword_25BA3A000, v29, OS_LOG_TYPE_ERROR, "State change notification for pid %d has uuid %@, not matching previous %@", buf, 0x1Cu);
       }
     }
 
     else
     {
-      v26 = NStatGetLog();
-      if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+      v29 = NStatGetLog(v20);
+      if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        *v32 = v16;
-        _os_log_impl(&dword_25BA3A000, v26, OS_LOG_TYPE_ERROR, "Process state is unknown %@", buf, 0xCu);
+        *v35 = v17;
+        _os_log_impl(&dword_25BA3A000, v29, OS_LOG_TYPE_ERROR, "Process state is unknown %@", buf, 0xCu);
       }
     }
 
-    v25 = v16;
+    v28 = v17;
 LABEL_31:
 
-    v16 = v25;
+    v17 = v28;
     goto LABEL_32;
   }
 
 LABEL_34:
-
-  v29 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)rbsProcessStateToForeground:(id)foreground

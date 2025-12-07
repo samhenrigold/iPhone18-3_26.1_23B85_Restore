@@ -10,21 +10,19 @@
 
 - (id)dictionaryRepresentation
 {
-  v12[3] = *MEMORY[0x1E69E9840];
-  v11[0] = @"version";
+  v11[3] = *MEMORY[0x1E69E9840];
+  v10[0] = @"version";
   v3 = [(NSString *)self->_version copy];
-  v12[0] = v3;
-  v11[1] = @"score";
+  v11[0] = v3;
+  v10[1] = @"score";
   *&v4 = self->_score;
   v5 = [MEMORY[0x1E696AD98] numberWithFloat:v4];
-  v12[1] = v5;
-  v11[2] = @"threshold";
+  v11[1] = v5;
+  v10[2] = @"threshold";
   *&v6 = self->_threshold;
   v7 = [MEMORY[0x1E696AD98] numberWithFloat:v6];
-  v12[2] = v7;
-  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:v11 count:3];
-
-  v9 = *MEMORY[0x1E69E9840];
+  v11[2] = v7;
+  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:v10 count:3];
 
   return v8;
 }

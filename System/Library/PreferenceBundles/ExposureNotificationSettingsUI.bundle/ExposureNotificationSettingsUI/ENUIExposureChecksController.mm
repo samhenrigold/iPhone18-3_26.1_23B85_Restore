@@ -123,7 +123,6 @@
     else if ([(ENUIExposureChecksController *)selfCopy fetchCompleted])
     {
       v31 = +[PSSpecifier emptyGroupSpecifier];
-      selfCopy->_exposureChecks;
       v32 = ENUILocalizedString();
       [v31 setObject:v32 forKeyedSubscript:PSFooterTextGroupKey];
 

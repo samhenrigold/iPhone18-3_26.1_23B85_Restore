@@ -20,9 +20,11 @@
 
 uint64_t __29__PHFigDecoder_sharedDecoder__block_invoke()
 {
-  sharedDecoder_s_shared_50343 = objc_alloc_init(PHFigDecoder);
+  v0 = objc_alloc_init(PHFigDecoder);
+  v1 = sharedDecoder_s_shared_50343;
+  sharedDecoder_s_shared_50343 = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 - (void)cancelInFlightAsyncDecodeForRequestHandle:(id)handle

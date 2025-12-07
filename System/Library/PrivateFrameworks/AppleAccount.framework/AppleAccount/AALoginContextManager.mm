@@ -111,7 +111,7 @@ void __46__AALoginContextManager_persistStashedContext__block_invoke(uint64_t a1
 
   else
   {
-    v5 = _AALogSystem();
+    v5 = _AALogSystem(a1);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       __46__AALoginContextManager_persistStashedContext__block_invoke_cold_1();
@@ -121,10 +121,10 @@ void __46__AALoginContextManager_persistStashedContext__block_invoke(uint64_t a1
 
 + (void)stashLoginResponseWithAuthenticationResults:(id)results cloudKitToken:(id)token
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   resultsCopy = results;
   tokenCopy = token;
-  v7 = _AALogSystem();
+  v7 = _AALogSystem(tokenCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
     +[AALoginContextManager stashLoginResponseWithAuthenticationResults:cloudKitToken:];
@@ -133,7 +133,7 @@ void __46__AALoginContextManager_persistStashedContext__block_invoke(uint64_t a1
   v8 = [resultsCopy objectForKeyedSubscript:*MEMORY[0x1E698DBF0]];
   if (!v8)
   {
-    v9 = _AALogSystem();
+    v9 = _AALogSystem(0);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       +[AALoginContextManager stashLoginResponseWithAuthenticationResults:cloudKitToken:];
@@ -143,17 +143,17 @@ void __46__AALoginContextManager_persistStashedContext__block_invoke(uint64_t a1
   v10 = [resultsCopy objectForKeyedSubscript:*MEMORY[0x1E698DB40]];
   if (!v10)
   {
-    v11 = _AALogSystem();
+    v11 = _AALogSystem(0);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       +[AALoginContextManager stashLoginResponseWithAuthenticationResults:cloudKitToken:];
     }
   }
 
-  v33 = v8;
+  v34 = v8;
   v12 = [[AAStorableLoginContext alloc] initWithAppleID:v8 altDSID:v10];
   v13 = [resultsCopy objectForKeyedSubscript:*MEMORY[0x1E698DB68]];
-  v32 = v13;
+  v33 = v13;
   if (v13)
   {
     [(AAStorableLoginContext *)v12 setDSID:v13];
@@ -161,7 +161,7 @@ void __46__AALoginContextManager_persistStashedContext__block_invoke(uint64_t a1
 
   else
   {
-    v14 = _AALogSystem();
+    v14 = _AALogSystem(0);
     if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       +[AALoginContextManager stashLoginResponseWithAuthenticationResults:cloudKitToken:];
@@ -176,7 +176,7 @@ void __46__AALoginContextManager_persistStashedContext__block_invoke(uint64_t a1
 
   else
   {
-    v16 = _AALogSystem();
+    v16 = _AALogSystem(0);
     if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
       +[AALoginContextManager stashLoginResponseWithAuthenticationResults:cloudKitToken:];
@@ -187,26 +187,27 @@ void __46__AALoginContextManager_persistStashedContext__block_invoke(uint64_t a1
 
   if (v17)
   {
-    v18 = _AALogSystem();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+    v19 = _AALogSystem(v18);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_1B6F6A000, v18, OS_LOG_TYPE_DEFAULT, "AuthResult is indicating that we're dealing with a beneficiary account.", buf, 2u);
+      _os_log_impl(&dword_1B6F6A000, v19, OS_LOG_TYPE_DEFAULT, "AuthResult is indicating that we're dealing with a beneficiary account.", buf, 2u);
     }
 
     [(AAStorableLoginContext *)v12 setBeneficiaryLogin:1];
   }
 
-  v19 = [resultsCopy objectForKeyedSubscript:*MEMORY[0x1E698DB90]];
-  if (v19)
-  {
-    [(AAStorableLoginContext *)v12 setFirstName:v19];
-  }
-
-  v20 = [resultsCopy objectForKeyedSubscript:*MEMORY[0x1E698DBB8]];
+  v20 = [resultsCopy objectForKeyedSubscript:*MEMORY[0x1E698DB90]];
   if (v20)
   {
-    [(AAStorableLoginContext *)v12 setLastName:v20];
+    [(AAStorableLoginContext *)v12 setFirstName:v20];
+  }
+
+  v21 = [resultsCopy objectForKeyedSubscript:*MEMORY[0x1E698DBB8]];
+  v22 = v21;
+  if (v21)
+  {
+    v21 = [(AAStorableLoginContext *)v12 setLastName:v21];
   }
 
   if (tokenCopy)
@@ -216,53 +217,51 @@ void __46__AALoginContextManager_persistStashedContext__block_invoke(uint64_t a1
 
   else
   {
-    v21 = _AALogSystem();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+    v23 = _AALogSystem(v21);
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
     {
       +[AALoginContextManager stashLoginResponseWithAuthenticationResults:cloudKitToken:];
     }
   }
 
-  v34 = tokenCopy;
+  v35 = tokenCopy;
   defaultStore = [MEMORY[0x1E6959A48] defaultStore];
-  v23 = [defaultStore aa_authKitAccountForAltDSID:v10];
-  v24 = v23;
-  if (v23)
+  v25 = [defaultStore aa_authKitAccountForAltDSID:v10];
+  v26 = v25;
+  if (v25)
   {
-    credential = [v23 credential];
-    v26 = _AALogSystem();
-    if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+    credential = [v25 credential];
+    v28 = _AALogSystem(credential);
+    if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v36 = v24;
-      _os_log_impl(&dword_1B6F6A000, v26, OS_LOG_TYPE_DEFAULT, "Trying to add CK and PRK for %@ to login context...", buf, 0xCu);
+      v37 = v26;
+      _os_log_impl(&dword_1B6F6A000, v28, OS_LOG_TYPE_DEFAULT, "Trying to add CK and PRK for %@ to login context...", buf, 0xCu);
     }
 
-    v27 = [credential credentialItemForKey:*MEMORY[0x1E6959950]];
-    [(AAStorableLoginContext *)v12 setContinuationKey:v27];
+    v29 = [credential credentialItemForKey:*MEMORY[0x1E6959950]];
+    [(AAStorableLoginContext *)v12 setContinuationKey:v29];
 
-    v28 = [credential credentialItemForKey:*MEMORY[0x1E69599E0]];
-    [(AAStorableLoginContext *)v12 setPasswordResetKey:v28];
+    v30 = [credential credentialItemForKey:*MEMORY[0x1E69599E0]];
+    [(AAStorableLoginContext *)v12 setPasswordResetKey:v30];
   }
 
   else
   {
-    credential = _AALogSystem();
+    credential = _AALogSystem(0);
     if (os_log_type_enabled(credential, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v36 = v10;
+      v37 = v10;
       _os_log_impl(&dword_1B6F6A000, credential, OS_LOG_TYPE_DEFAULT, "No AuthKit account to grab CK and PRK from for altDSID: %{mask}@", buf, 0xCu);
     }
   }
 
-  v29 = +[AALoginContextManager sharedManager];
-  [v29 setStashedContext:v12];
+  v31 = +[AALoginContextManager sharedManager];
+  [v31 setStashedContext:v12];
 
-  v30 = +[AALoginContextManager sharedManager];
-  [v30 persistStashedContext];
-
-  v31 = *MEMORY[0x1E69E9840];
+  v32 = +[AALoginContextManager sharedManager];
+  [v32 persistStashedContext];
 }
 
 @end

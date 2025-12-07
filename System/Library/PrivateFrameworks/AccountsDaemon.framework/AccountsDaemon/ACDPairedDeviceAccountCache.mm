@@ -75,23 +75,23 @@ uint64_t __45__ACDPairedDeviceAccountCache_sharedInstance__block_invoke()
 
 void __92__ACDPairedDeviceAccountCache_accountsFromRemoteDeviceProxy_ignoreCache_options_completion___block_invoke(uint64_t a1)
 {
-  v27 = *MEMORY[0x277D85DE8];
-  v2 = _ACDLogSystem();
+  v26 = *MEMORY[0x277D85DE8];
+  v2 = _ACDLogSystem(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = [MEMORY[0x277CCABB0] numberWithBool:*(*(a1 + 32) + 16)];
     v4 = [MEMORY[0x277CCABB0] numberWithBool:*(a1 + 64)];
     v5 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(*(*(a1 + 32) + 24), "count")}];
     v6 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(*(*(a1 + 32) + 32), "count")}];
-    v19 = 138413058;
-    v20 = v3;
-    v21 = 2112;
-    v22 = v4;
-    v23 = 2112;
-    v24 = v5;
-    v25 = 2112;
-    v26 = v6;
-    _os_log_impl(&dword_221D2F000, v2, OS_LOG_TYPE_DEFAULT, "_accountsIsValid %@ ignoreCache %@ _accounts.count %@ _completions.count %@", &v19, 0x2Au);
+    v18 = 138413058;
+    v19 = v3;
+    v20 = 2112;
+    v21 = v4;
+    v22 = 2112;
+    v23 = v5;
+    v24 = 2112;
+    v25 = v6;
+    _os_log_impl(&dword_221D2F000, v2, OS_LOG_TYPE_DEFAULT, "_accountsIsValid %@ ignoreCache %@ _accounts.count %@ _completions.count %@", &v18, 0x2Au);
   }
 
   v7 = *(a1 + 32);
@@ -128,18 +128,16 @@ void __92__ACDPairedDeviceAccountCache_accountsFromRemoteDeviceProxy_ignoreCache
         [v14 addObject:v15];
       }
 
-      v16 = _ACDLogSystem();
+      v16 = _ACDLogSystem(v13);
       if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v19) = 0;
-        _os_log_impl(&dword_221D2F000, v16, OS_LOG_TYPE_DEFAULT, "will fetch from remote device", &v19, 2u);
+        LOWORD(v18) = 0;
+        _os_log_impl(&dword_221D2F000, v16, OS_LOG_TYPE_DEFAULT, "will fetch from remote device", &v18, 2u);
       }
 
       [*(a1 + 40) sendCommand:*MEMORY[0x277CB8EB8] withAccount:0 options:*(a1 + 48) completion:&__block_literal_global_7_0];
     }
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 void __92__ACDPairedDeviceAccountCache_accountsFromRemoteDeviceProxy_ignoreCache_options_completion___block_invoke_4(uint64_t a1, uint64_t a2, void *a3, void *a4)
@@ -155,7 +153,7 @@ void __92__ACDPairedDeviceAccountCache_accountsFromRemoteDeviceProxy_ignoreCache
   v34 = *MEMORY[0x277D85DE8];
   accountsCopy = accounts;
   errorCopy = error;
-  v8 = _ACDLogSystem();
+  v8 = _ACDLogSystem(errorCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     v9 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(accountsCopy, "count")}];
@@ -182,52 +180,51 @@ void __92__ACDPairedDeviceAccountCache_accountsFromRemoteDeviceProxy_ignoreCache
   v25 = v11;
   v26 = buf;
   dispatch_sync(synchronizationQueue, block);
-  v12 = _ACDLogSystem();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+  v13 = _ACDLogSystem(v12);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
-    v13 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(*(*&buf[8] + 40), "count")}];
+    v14 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(*(*&buf[8] + 40), "count")}];
     *v28 = 138412290;
-    v29 = v13;
-    _os_log_impl(&dword_221D2F000, v12, OS_LOG_TYPE_DEFAULT, "calling %@ completions", v28, 0xCu);
+    v29 = v14;
+    _os_log_impl(&dword_221D2F000, v13, OS_LOG_TYPE_DEFAULT, "calling %@ completions", v28, 0xCu);
   }
 
   v22 = 0u;
   v23 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v14 = *(*&buf[8] + 40);
-  v15 = [v14 countByEnumeratingWithState:&v20 objects:v27 count:16];
-  if (v15)
+  v15 = *(*&buf[8] + 40);
+  v16 = [v15 countByEnumeratingWithState:&v20 objects:v27 count:16];
+  if (v16)
   {
-    v16 = *v21;
+    v17 = *v21;
     do
     {
-      v17 = 0;
+      v18 = 0;
       do
       {
-        if (*v21 != v16)
+        if (*v21 != v17)
         {
-          objc_enumerationMutation(v14);
+          objc_enumerationMutation(v15);
         }
 
-        v18 = *(*(&v20 + 1) + 8 * v17);
-        if (v18)
+        v19 = *(*(&v20 + 1) + 8 * v18);
+        if (v19)
         {
-          (*(v18 + 16))(v18, v11, errorCopy);
+          (*(v19 + 16))(v19, v11, errorCopy);
         }
 
-        ++v17;
+        ++v18;
       }
 
-      while (v15 != v17);
-      v15 = [v14 countByEnumeratingWithState:&v20 objects:v27 count:16];
+      while (v16 != v18);
+      v16 = [v15 countByEnumeratingWithState:&v20 objects:v27 count:16];
     }
 
-    while (v15);
+    while (v16);
   }
 
   _Block_object_dispose(buf, 8);
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 void __55__ACDPairedDeviceAccountCache__didFetchAccounts_error___block_invoke(uint64_t a1)
@@ -253,7 +250,7 @@ void __55__ACDPairedDeviceAccountCache__didFetchAccounts_error___block_invoke(ui
 
 void __41__ACDPairedDeviceAccountCache_invalidate__block_invoke(uint64_t a1)
 {
-  v2 = _ACDLogSystem();
+  v2 = _ACDLogSystem(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *v5 = 0;

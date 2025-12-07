@@ -1,6 +1,6 @@
 @interface _MTLDynamicLibrary
 + (unsigned)dynamicLibraryTypeAtURL:(id)l device:(id)device error:(id *)error;
-+ (void)dynamicLibraryTypeAtURL:(void *)l device:(unint64_t *)device error:;
++ (void)dynamicLibraryTypeAtURL:(float *)l device:(unint64_t *)device error:;
 - (_MTLDynamicLibrary)initWithLibrary:(id)library binaryData:(id)data device:(id)device error:(id *)error;
 - (_MTLDynamicLibrary)initWithURL:(id)l device:(id)device options:(unint64_t)options error:(id *)error;
 - (id)formattedDescription:(unint64_t)description;
@@ -178,7 +178,7 @@
     v21 = v35;
     cpuType = [v20 cpuType];
     v31 = [v20 cpuSubtype] | (cpuType << 32);
-    v23 = std::unordered_map<unsigned long long,+[_MTLDynamicLibrary dynamicLibraryTypeAtURL:device:error:]::archSliceId>::operator[](v21 + 6, &v31);
+    v23 = std::unordered_map<unsigned long long,+[_MTLDynamicLibrary dynamicLibraryTypeAtURL:device:error:]::archSliceId>::operator[](v21 + 12, &v31);
     v24 = v23[1];
     v53[3] = *v23;
     v49[3] = v24;
@@ -266,10 +266,10 @@ LABEL_31:
   return v13;
 }
 
-+ (void)dynamicLibraryTypeAtURL:(void *)l device:(unint64_t *)device error:
++ (void)dynamicLibraryTypeAtURL:(float *)l device:(unint64_t *)device error:
 {
   v2 = *device;
-  v3 = l[1];
+  v3 = *(l + 2);
   if (!*&v3)
   {
     goto LABEL_18;
@@ -349,15 +349,15 @@ LABEL_17:
 
 - (id)formattedDescription:(unint64_t)description
 {
-  v16[9] = *MEMORY[0x1E69E9840];
+  v15[9] = *MEMORY[0x1E69E9840];
   v4 = [@"\n" stringByPaddingToLength:description + 4 withString:@" " startingAtIndex:0];
   retainedLabel = [(_MTLObjectWithLabel *)self retainedLabel];
   v6 = MEMORY[0x1E696AEC0];
-  v15.receiver = self;
-  v15.super_class = _MTLDynamicLibrary;
-  v7 = [(_MTLDynamicLibrary *)&v15 description];
-  v16[0] = v4;
-  v16[1] = @"label =";
+  v14.receiver = self;
+  v14.super_class = _MTLDynamicLibrary;
+  v7 = [(_MTLDynamicLibrary *)&v14 description];
+  v15[0] = v4;
+  v15[1] = @"label =";
   v8 = @"<none>";
   if (retainedLabel)
   {
@@ -369,28 +369,27 @@ LABEL_17:
     v9 = @"<none>";
   }
 
-  v16[2] = v9;
-  v16[3] = v4;
+  v15[2] = v9;
+  v15[3] = v4;
   installName = self->_container->_installName;
   if (!installName)
   {
     installName = @"<none>";
   }
 
-  v16[4] = @"installName =";
-  v16[5] = installName;
+  v15[4] = @"installName =";
+  v15[5] = installName;
   libraryPath = self->_libraryPath;
-  v16[6] = v4;
-  v16[7] = @"loadPath =";
+  v15[6] = v4;
+  v15[7] = @"loadPath =";
   if (libraryPath)
   {
     v8 = libraryPath;
   }
 
-  v16[8] = v8;
-  v12 = [v6 stringWithFormat:@"%@%@", v7, objc_msgSend(objc_msgSend(MEMORY[0x1E695DEC8], "arrayWithObjects:count:", v16, 9), "componentsJoinedByString:", @" "];
+  v15[8] = v8;
+  v12 = [v6 stringWithFormat:@"%@%@", v7, objc_msgSend(objc_msgSend(MEMORY[0x1E695DEC8], "arrayWithObjects:count:", v15, 9), "componentsJoinedByString:", @" "];
 
-  v13 = *MEMORY[0x1E69E9840];
   return v12;
 }
 

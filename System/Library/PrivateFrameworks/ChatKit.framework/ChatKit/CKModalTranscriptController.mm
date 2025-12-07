@@ -487,7 +487,7 @@ void __159__CKModalTranscriptController_insertRichLinkWithURL_sendAsCopyURL_data
     v4 = v3;
     if (!v3)
     {
-      v1 = CKFrameworkBundle();
+      v1 = CKFrameworkBundle(0);
       v4 = [v1 localizedStringForKey:@"DEFAULT_COLLABORATION_OPTIONS_SUMMARY" value:&stru_1F04268F8 table:@"ChatKit"];
     }
 
@@ -551,29 +551,29 @@ void __159__CKModalTranscriptController_insertRichLinkWithURL_sendAsCopyURL_data
   }
 }
 
-void __159__CKModalTranscriptController_insertRichLinkWithURL_sendAsCopyURL_data_collaborationType_collaborationShareOptions_metadata_isCollaboration_completionHandler___block_invoke_4(uint64_t a1)
+void __159__CKModalTranscriptController_insertRichLinkWithURL_sendAsCopyURL_data_collaborationType_collaborationShareOptions_metadata_isCollaboration_completionHandler___block_invoke_4(uint64_t a1, uint64_t a2)
 {
   if (IMOSLoggingEnabled())
   {
-    v2 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
+    v3 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
     {
-      *v11 = 0;
-      _os_log_impl(&dword_19020E000, v2, OS_LOG_TYPE_INFO, "Start spinner animation.", v11, 2u);
+      *v12 = 0;
+      _os_log_impl(&dword_19020E000, v3, OS_LOG_TYPE_INFO, "Start spinner animation.", v12, 2u);
     }
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 40));
-  v4 = [WeakRetained entryView];
-  v5 = [v4 contentView];
-  v6 = [v5 shelfPluginPayload];
-  v7 = [v6 datasource];
-  [v7 updatePayloadForShelfAnimation:*(*(*(a1 + 32) + 8) + 40)];
+  v5 = [WeakRetained entryView];
+  v6 = [v5 contentView];
+  v7 = [v6 shelfPluginPayload];
+  v8 = [v7 datasource];
+  [v8 updatePayloadForShelfAnimation:*(*(*(a1 + 32) + 8) + 40)];
 
-  v8 = objc_loadWeakRetained((a1 + 40));
-  v9 = [v8 entryView];
-  v10 = [v9 contentView];
-  [v10 setupShelfPluginPayload:*(*(*(a1 + 32) + 8) + 40)];
+  v9 = objc_loadWeakRetained((a1 + 40));
+  v10 = [v9 entryView];
+  v11 = [v10 contentView];
+  [v11 setupShelfPluginPayload:*(*(*(a1 + 32) + 8) + 40)];
 }
 
 void __159__CKModalTranscriptController_insertRichLinkWithURL_sendAsCopyURL_data_collaborationType_collaborationShareOptions_metadata_isCollaboration_completionHandler___block_invoke_247(uint64_t a1, void *a2, void *a3, void *a4)
@@ -747,71 +747,71 @@ void __159__CKModalTranscriptController_insertRichLinkWithURL_sendAsCopyURL_data
   dispatch_async(MEMORY[0x1E69E96A0], v19);
 }
 
-void __159__CKModalTranscriptController_insertRichLinkWithURL_sendAsCopyURL_data_collaborationType_collaborationShareOptions_metadata_isCollaboration_completionHandler___block_invoke_2_260(uint64_t a1)
+void __159__CKModalTranscriptController_insertRichLinkWithURL_sendAsCopyURL_data_collaborationType_collaborationShareOptions_metadata_isCollaboration_completionHandler___block_invoke_2_260(uint64_t a1, uint64_t a2)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   if (*(a1 + 32))
   {
     if (IMOSLoggingEnabled())
     {
-      v3 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
+      v4 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
       {
-        v4 = *(a1 + 32);
-        v13 = 138412290;
-        v14 = v4;
-        _os_log_impl(&dword_19020E000, v3, OS_LOG_TYPE_INFO, "Error while trying to get the user name and email : %@.", &v13, 0xCu);
+        v5 = *(a1 + 32);
+        v14 = 138412290;
+        v15 = v5;
+        _os_log_impl(&dword_19020E000, v4, OS_LOG_TYPE_INFO, "Error while trying to get the user name and email : %@.", &v14, 0xCu);
       }
     }
 
     (*(*(a1 + 96) + 16))();
-    v5 = *(a1 + 104);
-    if (v5)
+    v6 = *(a1 + 104);
+    if (v6)
     {
-      (*(v5 + 16))(v5, 1);
+      (*(v6 + 16))(v6, 1);
     }
   }
 
   else
   {
     [*(a1 + 64) setInitiatorHandle:*(a1 + 72)];
-    v6 = objc_alloc_init(MEMORY[0x1E696ADF8]);
-    v7 = [v6 personNameComponentsFromString:*(a1 + 80)];
-    [*(a1 + 64) setInitiatorNameComponents:v7];
+    v7 = objc_alloc_init(MEMORY[0x1E696ADF8]);
+    v8 = [v7 personNameComponentsFromString:*(a1 + 80)];
+    [*(a1 + 64) setInitiatorNameComponents:v8];
     if (IMOSLoggingEnabled())
     {
-      v8 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+      v9 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
       {
-        v9 = *(a1 + 72);
-        v13 = 138412546;
-        v14 = v9;
-        v15 = 2112;
-        v16 = v7;
-        _os_log_impl(&dword_19020E000, v8, OS_LOG_TYPE_INFO, "Updating metadata with email: %@, nameComponents: %@", &v13, 0x16u);
+        v10 = *(a1 + 72);
+        v14 = 138412546;
+        v15 = v10;
+        v16 = 2112;
+        v17 = v8;
+        _os_log_impl(&dword_19020E000, v9, OS_LOG_TYPE_INFO, "Updating metadata with email: %@, nameComponents: %@", &v14, 0x16u);
       }
     }
 
     [*(*(*(a1 + 112) + 8) + 40) setCollaborationMetadata:*(a1 + 64)];
-    v10 = [*(a1 + 56) summary];
-    v11 = v10;
-    if (!v10)
+    v11 = [*(a1 + 56) summary];
+    v12 = v11;
+    if (!v11)
     {
-      v1 = CKFrameworkBundle();
-      v11 = [v1 localizedStringForKey:@"DEFAULT_COLLABORATION_OPTIONS_SUMMARY" value:&stru_1F04268F8 table:@"ChatKit"];
+      v2 = CKFrameworkBundle(0);
+      v12 = [v2 localizedStringForKey:@"DEFAULT_COLLABORATION_OPTIONS_SUMMARY" value:&stru_1F04268F8 table:@"ChatKit"];
     }
 
-    [*(*(*(a1 + 112) + 8) + 40) setCollaborationOptionsSummary:v11];
-    if (!v10)
+    [*(*(*(a1 + 112) + 8) + 40) setCollaborationOptionsSummary:v12];
+    if (!v11)
     {
     }
 
     [*(a1 + 88) setCompositionForPluginPayload:*(*(*(a1 + 112) + 8) + 40) shelfMediaObject:*(*(*(a1 + 120) + 8) + 40) collaborationShareOptions:*(a1 + 56)];
     (*(*(a1 + 96) + 16))();
-    v12 = *(a1 + 104);
-    if (v12)
+    v13 = *(a1 + 104);
+    if (v13)
     {
-      (*(v12 + 16))(v12, 1);
+      (*(v13 + 16))(v13, 1);
     }
   }
 }
@@ -1007,7 +1007,7 @@ void __159__CKModalTranscriptController_insertRichLinkWithURL_sendAsCopyURL_data
   v9 = v8;
   if (!v8)
   {
-    v1 = CKFrameworkBundle();
+    v1 = CKFrameworkBundle(0);
     v9 = [v1 localizedStringForKey:@"DEFAULT_COLLABORATION_OPTIONS_SUMMARY" value:&stru_1F04268F8 table:@"ChatKit"];
   }
 
@@ -1238,7 +1238,7 @@ void __124__CKModalTranscriptController_insertRichLinkWithCloudKitShare_containe
 
       else
       {
-        v11 = CKFrameworkBundle();
+        v11 = CKFrameworkBundle(0);
         v12 = [v11 localizedStringForKey:@"DEFAULT_COLLABORATION_OPTIONS_SUMMARY" value:&stru_1F04268F8 table:@"ChatKit"];
         [*(a1 + 48) setCollaborationOptionsSummary:v12];
       }
@@ -1506,7 +1506,7 @@ void __142__CKModalTranscriptController_insertRichLinkWithCloudKitShare_containe
 
         else
         {
-          v17 = CKFrameworkBundle();
+          v17 = CKFrameworkBundle(0);
           v18 = [v17 localizedStringForKey:@"DEFAULT_COLLABORATION_OPTIONS_SUMMARY" value:&stru_1F04268F8 table:@"ChatKit"];
           [*(a1 + 48) setCollaborationOptionsSummary:v18];
         }
@@ -2285,7 +2285,7 @@ void __83__CKModalTranscriptController_insertMessage_bundleProxy_extensionBundle
 
   [(CKModalTranscriptController *)self _insertMediaObjectAndReturnFrame:v22];
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) == 0 || ([v22 duration], v35 = v34, -[CKCoreChatController conversation](self, "conversation"), v36 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v36, "maxTrimDurationForMedia:", v22), v38 = v35 <= v37, v36, v38))
+  if ((objc_opt_isKindOfClass() & 1) == 0 || (objc_msgSend_duration(v22), v35 = v34, -[CKCoreChatController conversation](self, "conversation"), v36 = objc_claimAutoreleasedReturnValue(), [v36 maxTrimDurationForMedia:v22], v38 = v35 <= v37, v36, v38))
   {
     transfer = [v22 transfer];
     v40 = CKFileSizeEligibleForEagerUpload([transfer totalBytes]);
@@ -2836,7 +2836,7 @@ void __82__CKModalTranscriptController_viewWillTransitionToSize_withTransitionCo
 - (void)registerForNotifications
 {
   defaultCenter = [MEMORY[0x1E696AD88] defaultCenter];
-  if (!CKIsRunningInMessagesOrSpringBoard())
+  if (!CKIsRunningInMessagesOrSpringBoard(defaultCenter))
   {
     [defaultCenter addObserver:self selector:sel__applicationBecameActive_ name:*MEMORY[0x1E69DDAB0] object:0];
     [defaultCenter addObserver:self selector:sel__screenLocked_ name:*MEMORY[0x1E69DDB98] object:0];

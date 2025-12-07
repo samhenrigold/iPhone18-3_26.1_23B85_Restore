@@ -48,7 +48,7 @@
 
 - (BOOL)consume
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   p_consumedSandboxExtension = &self->_consumedSandboxExtension;
   if (self->_consumedSandboxExtension == -1)
   {
@@ -60,7 +60,7 @@
       *p_consumedSandboxExtension = v5;
       if (v5 != -1)
       {
-        v6 = _EXDefaultLog();
+        v6 = _EXDefaultLog(v5);
         if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
         {
           [(_EXSandboxExtension *)p_sandboxExtensionToken consume];
@@ -69,13 +69,13 @@
         v3 = 1;
 LABEL_14:
 
-        goto LABEL_15;
+        return v3;
       }
     }
 
     else
     {
-      v7 = _EXDefaultLog();
+      v7 = _EXDefaultLog(0);
       if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
       {
         [(_EXSandboxExtension *)v7 consume];
@@ -84,25 +84,22 @@ LABEL_14:
       *p_consumedSandboxExtension = -1;
     }
 
-    v6 = _EXDefaultLog();
+    v6 = _EXDefaultLog(v5);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       uTF8String = [(NSString *)*p_sandboxExtensionToken UTF8String];
       v9 = *__error();
-      v12 = 136446466;
-      v13 = uTF8String;
-      v14 = 1024;
-      v15 = v9;
+      v11 = 136446466;
+      v12 = uTF8String;
+      v13 = 1024;
+      v14 = v9;
     }
 
     v3 = 0;
     goto LABEL_14;
   }
 
-  v3 = 1;
-LABEL_15:
-  v10 = *MEMORY[0x1E69E9840];
-  return v3;
+  return 1;
 }
 
 - (_EXSandboxExtension)initWithExtensionClass:(id)class machServiceName:(id)name process:(id *)process
@@ -134,34 +131,25 @@ LABEL_15:
 
 - (_EXSandboxExtension)initWithURL:(id)l readonly:(BOOL)readonly
 {
-  readonlyCopy = readonly;
   lCopy = l;
-  v7 = [(_EXSandboxExtension *)self init];
-  if (v7)
+  v6 = [(_EXSandboxExtension *)self init];
+  if (v6)
   {
-    v8 = MEMORY[0x1E69E9BA8];
-    if (!readonlyCopy)
-    {
-      v8 = MEMORY[0x1E69E9BB0];
-    }
-
-    v9 = *v8;
     [lCopy fileSystemRepresentation];
-    v10 = *MEMORY[0x1E69E9BE0];
-    v11 = sandbox_extension_issue_file();
-    if (v11)
+    v7 = sandbox_extension_issue_file();
+    if (v7)
     {
-      v12 = v11;
-      v7->_consumedSandboxExtension = -1;
-      v13 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v11];
-      sandboxExtensionToken = v7->_sandboxExtensionToken;
-      v7->_sandboxExtensionToken = v13;
+      v8 = v7;
+      v6->_consumedSandboxExtension = -1;
+      v9 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v7];
+      sandboxExtensionToken = v6->_sandboxExtensionToken;
+      v6->_sandboxExtensionToken = v9;
 
-      free(v12);
+      free(v8);
     }
   }
 
-  return v7;
+  return v6;
 }
 
 - (_EXSandboxExtension)initWithCoder:(id)coder
@@ -184,14 +172,13 @@ LABEL_15:
 
 - (void)consume
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   uTF8String = [*self UTF8String];
   v6 = *a2;
-  v8 = 136446466;
-  v9 = uTF8String;
-  v10 = 2048;
-  v11 = v6;
-  v7 = *MEMORY[0x1E69E9840];
+  v7 = 136446466;
+  v8 = uTF8String;
+  v9 = 2048;
+  v10 = v6;
 }
 
 @end

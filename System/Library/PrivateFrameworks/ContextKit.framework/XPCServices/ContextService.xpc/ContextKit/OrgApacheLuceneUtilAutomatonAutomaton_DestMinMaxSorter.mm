@@ -115,7 +115,7 @@
 - (OrgApacheLuceneUtilAutomatonAutomaton_DestMinMaxSorter)initWithOrgApacheLuceneUtilAutomatonAutomaton:(id)automaton
 {
   objc_storeWeak(&self->this$0_, automaton);
-  OrgApacheLuceneUtilInPlaceMergeSorter_init(self);
+  OrgApacheLuceneUtilInPlaceMergeSorter_init(self, v4);
   return self;
 }
 

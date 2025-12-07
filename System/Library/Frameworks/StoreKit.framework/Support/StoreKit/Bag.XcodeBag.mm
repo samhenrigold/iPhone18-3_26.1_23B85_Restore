@@ -17,7 +17,7 @@
 
 - (NSDate)expirationDate
 {
-  v2 = sub_100080FB4(&qword_1003CD9A0);
+  v2 = sub_100080FB4(&qword_1003CD9A0, &qword_1002F0F80);
   __chkstk_darwin(v2 - 8);
   v4 = &v8 - v3;
   sub_10023BBA0();
@@ -34,7 +34,7 @@
 
 - (void)setExpirationDate:(id)date
 {
-  v5 = sub_100080FB4(&qword_1003CD9A0);
+  v5 = sub_100080FB4(&qword_1003CD9A0, &qword_1002F0F80);
   __chkstk_darwin(v5 - 8);
   v7 = &v11 - v6;
   if (date)
@@ -52,13 +52,13 @@
 
   sub_100081DFC(v7, v9, 1, v8);
   selfCopy = self;
-  sub_10023BCDC();
+  sub_10023BCDC(v7);
 }
 
 - (NSString)profile
 {
   selfCopy = self;
-  sub_100239878();
+  sub_100239878(selfCopy);
 
   v3 = String._bridgeToObjectiveC()();
 

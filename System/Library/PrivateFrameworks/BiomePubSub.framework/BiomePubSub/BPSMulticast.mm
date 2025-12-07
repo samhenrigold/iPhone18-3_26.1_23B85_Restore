@@ -58,12 +58,10 @@
 
 - (id)upstreamPublishers
 {
-  v6[1] = *MEMORY[0x1E69E9840];
+  v5[1] = *MEMORY[0x1E69E9840];
   upstream = [(BPSMulticast *)self upstream];
-  v6[0] = upstream;
-  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v6 count:1];
-
-  v4 = *MEMORY[0x1E69E9840];
+  v5[0] = upstream;
+  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v5 count:1];
 
   return v3;
 }
@@ -96,7 +94,7 @@
 
 - (id)nextEventForMulticastDownstream:(id)downstream
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   downstreamCopy = downstream;
   if (![(BPSMulticast *)self connected])
   {
@@ -121,29 +119,29 @@
 
       if (nextEvent)
       {
-        v26 = v7;
-        v27 = downstreamCopy;
-        v31 = 0u;
-        v32 = 0u;
-        v29 = 0u;
+        v25 = v7;
+        v26 = downstreamCopy;
         v30 = 0u;
+        v31 = 0u;
+        v28 = 0u;
+        v29 = 0u;
         obj = [(BPSMulticast *)self downstreams];
-        v12 = [obj countByEnumeratingWithState:&v29 objects:v33 count:16];
+        v12 = [obj countByEnumeratingWithState:&v28 objects:v32 count:16];
         if (v12)
         {
           v13 = v12;
           v14 = 0;
-          v15 = *v30;
+          v15 = *v29;
           do
           {
             for (i = 0; i != v13; ++i)
             {
-              if (*v30 != v15)
+              if (*v29 != v15)
               {
                 objc_enumerationMutation(obj);
               }
 
-              v17 = *(*(&v29 + 1) + 8 * i);
+              v17 = *(*(&v28 + 1) + 8 * i);
               electedMainDownstream2 = [(BPSMulticast *)self electedMainDownstream];
               v19 = [electedMainDownstream2 isEqual:v17];
 
@@ -165,7 +163,7 @@
               }
             }
 
-            v13 = [obj countByEnumeratingWithState:&v29 objects:v33 count:16];
+            v13 = [obj countByEnumeratingWithState:&v28 objects:v32 count:16];
           }
 
           while (v13);
@@ -176,8 +174,8 @@
           v14 = 0;
         }
 
-        v7 = v26;
-        downstreamCopy = v27;
+        v7 = v25;
+        downstreamCopy = v26;
       }
 
       else
@@ -200,7 +198,6 @@
 LABEL_24:
 
 LABEL_25:
-  v24 = *MEMORY[0x1E69E9840];
 
   return v14;
 }
@@ -252,24 +249,22 @@ LABEL_25:
 
 - (id)bookmark
 {
-  v9[2] = *MEMORY[0x1E69E9840];
+  v8[2] = *MEMORY[0x1E69E9840];
   [(BPSMulticast *)self setBookmarkCount:[(BPSMulticast *)self bookmarkCount]+ 1];
   pendingEvents = self->_pendingEvents;
-  v8[0] = @"pendingEvents";
-  v8[1] = @"bookmarkCount";
-  v9[0] = pendingEvents;
+  v7[0] = @"pendingEvents";
+  v7[1] = @"bookmarkCount";
+  v8[0] = pendingEvents;
   v4 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:self->_bookmarkCount];
-  v9[1] = v4;
-  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:v8 count:2];
-
-  v6 = *MEMORY[0x1E69E9840];
+  v8[1] = v4;
+  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:v7 count:2];
 
   return v5;
 }
 
 - (id)validateBookmark:(id)bookmark
 {
-  v26[1] = *MEMORY[0x1E69E9840];
+  v25[1] = *MEMORY[0x1E69E9840];
   bookmarkCopy = bookmark;
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
@@ -278,9 +273,9 @@ LABEL_25:
     v9 = objc_opt_class();
     bookmarkCopy = [v8 initWithFormat:@"%@ expected bookmark of class %@, but received %@", v9, objc_opt_class(), bookmarkCopy];
     v10 = MEMORY[0x1E696ABC0];
-    v25 = *MEMORY[0x1E696A578];
-    v26[0] = bookmarkCopy;
-    v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v26 forKeys:&v25 count:1];
+    v24 = *MEMORY[0x1E696A578];
+    v25[0] = bookmarkCopy;
+    v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v25 forKeys:&v24 count:1];
     v7 = [v10 errorWithDomain:@"BiomePubSubError" code:2 userInfo:v5];
     goto LABEL_12;
   }
@@ -293,9 +288,9 @@ LABEL_25:
     v12 = objc_opt_class();
     v6 = [v11 initWithFormat:@"%@ expected pendingEvents of class %@, but received %@", v12, objc_opt_class(), v5];
     v13 = MEMORY[0x1E696ABC0];
-    v23 = *MEMORY[0x1E696A578];
-    v24 = v6;
-    v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v24 forKeys:&v23 count:1];
+    v22 = *MEMORY[0x1E696A578];
+    v23 = v6;
+    v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v23 forKeys:&v22 count:1];
     v7 = [v13 errorWithDomain:@"BiomePubSubError" code:2 userInfo:v14];
 LABEL_10:
 
@@ -309,9 +304,9 @@ LABEL_10:
     v16 = objc_opt_class();
     v14 = [v15 initWithFormat:@"%@ expected bookmarkCount of class %@, but received %@", v16, objc_opt_class(), v6];
     v17 = MEMORY[0x1E696ABC0];
-    v21 = *MEMORY[0x1E696A578];
-    v22 = v14;
-    v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v22 forKeys:&v21 count:1];
+    v20 = *MEMORY[0x1E696A578];
+    v21 = v14;
+    v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v21 forKeys:&v20 count:1];
     v7 = [v17 errorWithDomain:@"BiomePubSubError" code:2 userInfo:v18];
 
     goto LABEL_10;
@@ -321,7 +316,6 @@ LABEL_10:
 LABEL_11:
 
 LABEL_12:
-  v19 = *MEMORY[0x1E69E9840];
 
   return v7;
 }
@@ -385,28 +379,28 @@ void __34__BPSMulticast_applyBookmarkNode___block_invoke(uint64_t a1, void *a2, 
 
 - (void)requestNextEvents
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   downstreams = [(BPSMulticast *)self downstreams];
-  v4 = [downstreams countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v4 = [downstreams countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v12;
+    v6 = *v11;
     do
     {
       v7 = 0;
       do
       {
-        if (*v12 != v6)
+        if (*v11 != v6)
         {
           objc_enumerationMutation(downstreams);
         }
 
-        [(BPSMulticast *)self setElectedMainDownstream:*(*(&v11 + 1) + 8 * v7)];
+        [(BPSMulticast *)self setElectedMainDownstream:*(*(&v10 + 1) + 8 * v7)];
         electedMainDownstream = [(BPSMulticast *)self electedMainDownstream];
         subscriber = [electedMainDownstream subscriber];
         [subscriber requestNextEvents];
@@ -415,13 +409,11 @@ void __34__BPSMulticast_applyBookmarkNode___block_invoke(uint64_t a1, void *a2, 
       }
 
       while (v5 != v7);
-      v5 = [downstreams countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v5 = [downstreams countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v5);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (id)lazySubject
@@ -498,12 +490,10 @@ void __34__BPSMulticast_applyBookmarkNode___block_invoke(uint64_t a1, void *a2, 
 
 - (id)bookmarkableUpstreams
 {
-  v6[1] = *MEMORY[0x1E69E9840];
+  v5[1] = *MEMORY[0x1E69E9840];
   upstream = [(BPSMulticast *)self upstream];
-  v6[0] = upstream;
-  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v6 count:1];
-
-  v4 = *MEMORY[0x1E69E9840];
+  v5[0] = upstream;
+  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v5 count:1];
 
   return v3;
 }

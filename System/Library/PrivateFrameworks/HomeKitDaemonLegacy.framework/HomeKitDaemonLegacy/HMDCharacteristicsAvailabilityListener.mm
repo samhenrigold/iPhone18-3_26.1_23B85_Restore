@@ -40,22 +40,20 @@
 
 uint64_t __64__HMDCharacteristicsAvailabilityListener_handleServicesUpdated___block_invoke(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   v3 = *(a1 + 32);
   v4 = HMFGetOSLogHandle();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     v5 = HMFGetLogIdentifier();
-    v8 = 138543362;
-    v9 = v5;
-    _os_log_impl(&dword_2531F8000, v4, OS_LOG_TYPE_DEBUG, "%{public}@Services updated", &v8, 0xCu);
+    v7 = 138543362;
+    v8 = v5;
+    _os_log_impl(&dword_2531F8000, v4, OS_LOG_TYPE_DEBUG, "%{public}@Services updated", &v7, 0xCu);
   }
 
   objc_autoreleasePoolPop(v2);
-  result = [*(a1 + 32) _notifyDelegate];
-  v7 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 32) _notifyDelegate];
 }
 
 - (void)handleCharacteristicsUpdated:(id)updated
@@ -71,27 +69,25 @@ uint64_t __64__HMDCharacteristicsAvailabilityListener_handleServicesUpdated___bl
 
 uint64_t __71__HMDCharacteristicsAvailabilityListener_handleCharacteristicsUpdated___block_invoke(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   v3 = *(a1 + 32);
   v4 = HMFGetOSLogHandle();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     v5 = HMFGetLogIdentifier();
-    v8 = 138543362;
-    v9 = v5;
-    _os_log_impl(&dword_2531F8000, v4, OS_LOG_TYPE_DEBUG, "%{public}@Characteristics updated", &v8, 0xCu);
+    v7 = 138543362;
+    v8 = v5;
+    _os_log_impl(&dword_2531F8000, v4, OS_LOG_TYPE_DEBUG, "%{public}@Characteristics updated", &v7, 0xCu);
   }
 
   objc_autoreleasePoolPop(v2);
-  result = [*(a1 + 32) _notifyDelegate];
-  v7 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 32) _notifyDelegate];
 }
 
 - (void)_notifyDelegate
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   workQueue = [(HMDCharacteristicsAvailabilityListener *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
 
@@ -108,11 +104,11 @@ uint64_t __71__HMDCharacteristicsAvailabilityListener_handleCharacteristicsUpdat
     if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
       v10 = HMFGetLogIdentifier();
-      v14 = 138543618;
-      v15 = v10;
-      v16 = 2112;
-      v17 = _accessoryCharacteristicsToObserve;
-      _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_INFO, "%{public}@Notifying delegate of characteristics update: %@", &v14, 0x16u);
+      v13 = 138543618;
+      v14 = v10;
+      v15 = 2112;
+      v16 = _accessoryCharacteristicsToObserve;
+      _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_INFO, "%{public}@Notifying delegate of characteristics update: %@", &v13, 0x16u);
     }
 
     objc_autoreleasePoolPop(v7);
@@ -120,86 +116,83 @@ uint64_t __71__HMDCharacteristicsAvailabilityListener_handleCharacteristicsUpdat
     availableCharacteristics2 = [(HMDCharacteristicsAvailabilityListener *)selfCopy availableCharacteristics];
     [delegate listener:selfCopy didUpdateAvailableCharacteristics:availableCharacteristics2];
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_accessoryCharacteristicsToObserve
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   workQueue = [(HMDCharacteristicsAvailabilityListener *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
 
   v4 = [MEMORY[0x277CBEB58] set];
+  v29 = 0u;
   v30 = 0u;
   v31 = 0u;
   v32 = 0u;
-  v33 = 0u;
   selfCopy = self;
   accessory = [(HMDCharacteristicsAvailabilityListener *)self accessory];
   services = [accessory services];
 
   obj = services;
-  v7 = [services countByEnumeratingWithState:&v30 objects:v35 count:16];
+  v7 = [services countByEnumeratingWithState:&v29 objects:v34 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v31;
+    v9 = *v30;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v31 != v9)
+        if (*v30 != v9)
         {
           objc_enumerationMutation(obj);
         }
 
-        v11 = *(*(&v30 + 1) + 8 * i);
+        v11 = *(*(&v29 + 1) + 8 * i);
         interestedCharacteristicTypesByServiceType = [(HMDCharacteristicsAvailabilityListener *)selfCopy interestedCharacteristicTypesByServiceType];
-        serviceType = [v11 serviceType];
-        v14 = [interestedCharacteristicTypesByServiceType hmf_setForKey:serviceType];
+        v13 = objc_msgSend_serviceType(v11);
+        v14 = [interestedCharacteristicTypesByServiceType hmf_setForKey:v13];
 
-        v28 = 0u;
-        v29 = 0u;
-        v26 = 0u;
         v27 = 0u;
+        v28 = 0u;
+        v25 = 0u;
+        v26 = 0u;
         v15 = v14;
-        v16 = [v15 countByEnumeratingWithState:&v26 objects:v34 count:16];
+        v16 = [v15 countByEnumeratingWithState:&v25 objects:v33 count:16];
         if (v16)
         {
           v17 = v16;
-          v18 = *v27;
+          v18 = *v26;
           do
           {
             for (j = 0; j != v17; ++j)
             {
-              if (*v27 != v18)
+              if (*v26 != v18)
               {
                 objc_enumerationMutation(v15);
               }
 
-              v20 = [v11 findCharacteristicWithType:*(*(&v26 + 1) + 8 * j)];
+              v20 = [v11 findCharacteristicWithType:*(*(&v25 + 1) + 8 * j)];
               if (v20)
               {
                 [v4 addObject:v20];
               }
             }
 
-            v17 = [v15 countByEnumeratingWithState:&v26 objects:v34 count:16];
+            v17 = [v15 countByEnumeratingWithState:&v25 objects:v33 count:16];
           }
 
           while (v17);
         }
       }
 
-      v8 = [obj countByEnumeratingWithState:&v30 objects:v35 count:16];
+      v8 = [obj countByEnumeratingWithState:&v29 objects:v34 count:16];
     }
 
     while (v8);
   }
 
-  v21 = [v4 copy];
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = objc_msgSend_copy(v4);
 
   return v21;
 }
@@ -251,7 +244,7 @@ uint64_t __71__HMDCharacteristicsAvailabilityListener_handleCharacteristicsUpdat
     name2 = [accessoryCopy name];
     uuid = [accessoryCopy uuid];
     v20 = [v15 stringWithFormat:@"%@/%@/%@", name, name2, uuid];
-    v21 = [v20 copy];
+    v21 = objc_msgSend_copy(v20);
     logIdentifier = v12->_logIdentifier;
     v12->_logIdentifier = v21;
   }
@@ -273,12 +266,11 @@ uint64_t __71__HMDCharacteristicsAvailabilityListener_handleCharacteristicsUpdat
 
 uint64_t __53__HMDCharacteristicsAvailabilityListener_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v4_194826;
-  logCategory__hmf_once_v4_194826 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v4_194826;
+  logCategory__hmf_once_v4_194826 = v0;
 
-  return MEMORY[0x2821F96F8](v1, v2);
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 @end

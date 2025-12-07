@@ -53,7 +53,7 @@
   sub_100003E30(v5, qword_100779F88);
   sub_1003F99F4(0x746544207473694CLL, 0xEC000000736C6961);
   [v4 resignFirstResponder];
-  sub_1002DE800(&qword_10077A100, type metadata accessor for TTRIListDetailViewController);
+  sub_1002DE800(&qword_10077A100, type metadata accessor for TTRIListDetailViewController, &unk_100638EF0);
   TTRKeyboardAvoidance<>.stopAvoidingKeyboard()();
 }
 
@@ -62,7 +62,7 @@
   v4 = type metadata accessor for TTRIPopoverAnchor();
   v5 = *(v4 - 8);
   __chkstk_darwin(v4);
-  v7 = &v13[-((v6 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  v7 = v13 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   swift_unknownObjectRetain();
   selfCopy = self;
   _bridgeAnyObjectToAny(_:)();
@@ -90,9 +90,9 @@
 
 - (void)didTapDone:(id)done
 {
-  v4 = sub_100058000(&qword_10076BE10);
+  v4 = sub_100058000(&qword_10076BE10, &qword_10062FF90);
   __chkstk_darwin(v4 - 8);
-  v6 = &v12[-v5];
+  v6 = v12 - v5;
   swift_unknownObjectRetain();
   selfCopy = self;
   _bridgeAnyObjectToAny(_:)();

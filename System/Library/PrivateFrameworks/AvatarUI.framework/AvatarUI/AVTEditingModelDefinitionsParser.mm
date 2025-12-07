@@ -1518,7 +1518,7 @@ void __90__AVTEditingModelDefinitionsParser_coreModelColorsForColorDefinitions_p
   {
     v8 = MEMORY[0x1E695DF30];
     v9 = *MEMORY[0x1E695D930];
-    v10 = AVTAvatarSettingKindDescription(*(a1 + 48));
+    v10 = AVTAvatarSettingKindDescription(*(a1 + 48), *(a1 + 56));
     [v8 raise:v9 format:{@"Can't find matching color for name '%@' in color kind and category '%@'\nIs it missing from AvatarKit's palette plist?", v3, v10}];
 
     if (!v5)

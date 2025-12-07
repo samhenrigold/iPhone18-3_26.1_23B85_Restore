@@ -3,11 +3,11 @@
 
 @implementation DMCEnrollmentFlowController(Utilities)
 
-- (uint64_t)_fetchAppAttributesWithITunesItemID:()Utilities completionHandler:.cold.1()
+- (void)_fetchAppAttributesWithITunesItemID:()Utilities completionHandler:.cold.1()
 {
-  dlerror();
-  v0 = abort_report_np();
-  return [(DMCEnrollmentFlowController(Utilities) *)v0 _trustedErrors];
+  v0 = dlerror();
+  abort_report_np("%s", v0);
+  [DMCEnrollmentFlowController(Utilities) _trustedErrors];
 }
 
 @end

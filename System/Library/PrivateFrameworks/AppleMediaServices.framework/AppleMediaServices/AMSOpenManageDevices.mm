@@ -34,12 +34,12 @@
   return binaryPromiseAdapter;
 }
 
-id __28__AMSOpenManageDevices_open__block_invoke(uint64_t a1)
+id __28__AMSOpenManageDevices_open__block_invoke(id *a1)
 {
   v26 = *MEMORY[0x1E69E9840];
   if ([AMSProcessInfo BOOLForEntitlement:@"com.apple.springboard.opensensitiveurl"])
   {
-    v7 = [*(a1 + 32) bag];
+    v7 = [a1[4] bag];
     v8 = [v7 URLForKey:@"manageDevicesUrl"];
 
     v9 = [v8 valuePromise];
@@ -47,7 +47,7 @@ id __28__AMSOpenManageDevices_open__block_invoke(uint64_t a1)
     v21[1] = 3221225472;
     v21[2] = __28__AMSOpenManageDevices_open__block_invoke_16;
     v21[3] = &unk_1E73BA620;
-    v21[4] = *(a1 + 32);
+    v21[4] = a1[4];
     v10 = [v9 continueWithBinaryPromiseBlock:v21];
     v11 = [v10 promiseAdapter];
   }
@@ -97,7 +97,7 @@ id __28__AMSOpenManageDevices_open__block_invoke(uint64_t a1)
   return v11;
 }
 
-id __28__AMSOpenManageDevices_open__block_invoke_16(uint64_t a1, void *a2, void *a3)
+id __28__AMSOpenManageDevices_open__block_invoke_16(void *a1, void *a2, void *a3)
 {
   v41 = *MEMORY[0x1E69E9840];
   v5 = a2;

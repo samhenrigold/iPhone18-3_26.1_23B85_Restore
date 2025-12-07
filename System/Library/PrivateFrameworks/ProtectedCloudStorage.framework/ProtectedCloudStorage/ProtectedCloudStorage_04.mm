@@ -1,396 +1,4 @@
-BOOL __PCSDeleteFromKeychainICDP(const void *a1, CFErrorRef *a2, int a3, int a4, int a5, int a6, int a7, int a8)
-{
-  v9 = 0;
-  v10 = 0;
-  v28[3] = *MEMORY[0x1E69E9840];
-  v28[0] = kPCSServiceName[0];
-  v28[1] = kPCSiCloudServiceMarkerName[0];
-  v28[2] = kPCSiCloudServiceName[0];
-  v27 = *MEMORY[0x1E697AFF8];
-  v26 = *MEMORY[0x1E697B018];
-  v11 = *MEMORY[0x1E697AE70];
-  v12 = *MEMORY[0x1E697B390];
-  v13 = *MEMORY[0x1E695E4D0];
-  v14 = *MEMORY[0x1E697B3B8];
-  v15 = *MEMORY[0x1E695E4C0];
-  key = *MEMORY[0x1E697AE80];
-  v23 = *MEMORY[0x1E697AEB0];
-  do
-  {
-    v16 = v28[v9];
-    MutableForCFTypesWith = CFDictionaryCreateMutableForCFTypesWith(a1, a2, a3, a4, a5, a6, a7, a8, v27, v26);
-    if (!MutableForCFTypesWith)
-    {
-      break;
-    }
-
-    v18 = MutableForCFTypesWith;
-    if (a1)
-    {
-      CFDictionarySetValue(MutableForCFTypesWith, key, a1);
-    }
-
-    if (PCSUseSyncKeychain == 1)
-    {
-      CFDictionarySetValue(v18, v23, v13);
-    }
-
-    v19 = _PCSSecItemDeleteIfPresent(v18);
-    v20 = PCSSecError(v19, a2, @"SecItem failed to delete iCDP %@ domain", v16);
-    CFRelease(v18);
-    if (!v20)
-    {
-      break;
-    }
-
-    v10 = v9++ > 1;
-  }
-
-  while (v9 != 3);
-  v21 = *MEMORY[0x1E69E9840];
-  return v10;
-}
-
-__CFDictionary *__PCSDeleteFromKeychainICDPForRPD(const void *a1, CFErrorRef *a2, int a3, int a4, int a5, int a6, int a7, int a8)
-{
-  v10 = kPCSiCloudServiceGuitarfishName[0];
-  v11 = *MEMORY[0x1E695E4D0];
-  v20 = *MEMORY[0x1E695E4C0];
-  v18 = *MEMORY[0x1E695E4D0];
-  v19 = *MEMORY[0x1E697B3B8];
-  v17 = *MEMORY[0x1E697B390];
-  v16 = *MEMORY[0x1E697AE70];
-  result = CFDictionaryCreateMutableForCFTypesWith(a1, a2, a3, a4, a5, a6, a7, a8, *MEMORY[0x1E697AFF8], *MEMORY[0x1E697B018]);
-  if (result)
-  {
-    v13 = result;
-    if (a1)
-    {
-      CFDictionarySetValue(result, *MEMORY[0x1E697AE80], a1);
-    }
-
-    if (PCSUseSyncKeychain == 1)
-    {
-      CFDictionarySetValue(v13, *MEMORY[0x1E697AEB0], v11);
-    }
-
-    v14 = _PCSSecItemDeleteIfPresent(v13);
-    v15 = PCSSecError(v14, a2, @"SecItem failed to delete iCDP %@ domain", v10);
-    CFRelease(v13);
-    return v15;
-  }
-
-  return result;
-}
-
-CFTypeRef PCSFPCreate(void *a1, void *a2, const void **a3)
-{
-  v5 = a1;
-  v6 = a2;
-  objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) == 0 || v6 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0) || (Empty = __PCSShareProtectionCreateEmpty(a3)) == 0)
-  {
-    v17 = 0;
-    goto LABEL_13;
-  }
-
-  v8 = Empty;
-  RandomKey = CreateRandomKey();
-  if (!RandomKey)
-  {
-    v17 = 0;
-    goto LABEL_12;
-  }
-
-  v10 = RandomKey;
-  *(v8 + 208) = 1;
-  if ([v5 isEqualToString:kPCSFPTypeClassic])
-  {
-    *(v8 + 204) = 2;
-    v20 = CFRetain(v10);
-    *(v8 + 72) = v20;
-    generateObjectKey(v8, v20, 0);
-  }
-
-  else if ([v5 isEqualToString:kPCSFPTypeShare])
-  {
-    *(v8 + 204) = 3;
-    *(v8 + 209) = 0;
-    *(v8 + 213) = 0;
-    generateOtherKeysFromRWMasterKey(v8, v10, v11, v12, v13, v14, v15, v16);
-  }
-
-  else
-  {
-    if (![v5 isEqualToString:kPCSFPTypeLight])
-    {
-      v17 = 0;
-      goto LABEL_10;
-    }
-
-    *(v8 + 204) = 0;
-    generateObjectKey(v8, v10, 0);
-    *(v8 + 72) = CFRetain(v10);
-  }
-
-  *(v8 + 176) = PCFPOptionCopyIdentity(v6);
-  v21 = PCFPOptionCopyIdentity(v6);
-  if (v21)
-  {
-    v23 = v21;
-    SigningIdentity = _PCSIdentityGetSigningIdentity(v21);
-    v22 = SigningIdentity;
-    if (SigningIdentity)
-    {
-      CFRetain(SigningIdentity);
-    }
-
-    CFRelease(v23);
-  }
-
-  else
-  {
-    v22 = 0;
-  }
-
-  *(v8 + 184) = v22;
-  v25 = v6;
-  objc_opt_class();
-  if (objc_opt_isKindOfClass())
-  {
-    v26 = [v25 objectForKeyedSubscript:kPCSFPService];
-    objc_opt_class();
-    if (objc_opt_isKindOfClass())
-    {
-      v27 = PCSServiceItemRequireAuthorship(v26);
-    }
-
-    else
-    {
-      v27 = 0;
-    }
-  }
-
-  else
-  {
-    v27 = 0;
-  }
-
-  *(v8 + 214) = v27;
-  v28 = [v25 objectForKeyedSubscript:kPCSFPZoneObject];
-
-  if (v28)
-  {
-    v29 = v28[50];
-    if (v29)
-    {
-      *(v8 + 200) = v29;
-    }
-  }
-
-  KeyIDFromKey = CreateKeyIDFromKey(*(v8 + 72));
-  *(v8 + 80) = KeyIDFromKey;
-  if (!KeyIDFromKey)
-  {
-    v17 = 0;
-    v18 = v8;
-    v8 = v10;
-    goto LABEL_11;
-  }
-
-  v17 = CFRetain(v8);
-LABEL_10:
-  v18 = v10;
-LABEL_11:
-  CFRelease(v18);
-LABEL_12:
-  CFRelease(v8);
-LABEL_13:
-
-  return v17;
-}
-
-void *PCFPOptionCopyIdentity(void *a1)
-{
-  v18 = *MEMORY[0x1E69E9840];
-  v1 = a1;
-  objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) == 0)
-  {
-    goto LABEL_19;
-  }
-
-  v2 = [v1 objectForKeyedSubscript:kPCSFPIdentity];
-
-  if (v2)
-  {
-    v3 = CFGetTypeID(v2);
-    if (v3 == PCSIdentityGetTypeID())
-    {
-      v4 = CFRetain(v2);
-LABEL_18:
-      v9 = v4;
-      goto LABEL_20;
-    }
-  }
-
-  v5 = [v1 objectForKeyedSubscript:kPCSFPIdentitySet];
-
-  if (!v5 || (v6 = CFGetTypeID(v5), v6 != PCSIdentitySetGetTypeID()))
-  {
-    v9 = [v1 objectForKeyedSubscript:kPCSFPZoneObject];
-
-    if (!v9)
-    {
-      goto LABEL_20;
-    }
-
-    v11 = CFGetTypeID(v9);
-    if (v11 == PCSShareProtectionGetTypeID())
-    {
-      v12 = v9[2];
-      if (v12)
-      {
-        v4 = PCSIdentitySetCopyCurrentIdentityWithError(v12, kPCSServiceRaw, 0);
-        goto LABEL_18;
-      }
-    }
-
-LABEL_19:
-    v9 = 0;
-    goto LABEL_20;
-  }
-
-  v7 = [v1 objectForKeyedSubscript:kPCSFPService];
-
-  if (!v7)
-  {
-    goto LABEL_19;
-  }
-
-  v8 = CFGetTypeID(v7);
-  if (v8 != CFStringGetTypeID())
-  {
-    goto LABEL_19;
-  }
-
-  cf = 0;
-  v9 = PCSIdentitySetCopyCurrentIdentityWithError(v5, v7, &cf);
-  if (!v9 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
-  {
-    *buf = 138412290;
-    v17 = cf;
-    _os_log_impl(&dword_1B229C000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "PCFPOptionCopyIdentity(kPCSFPIdentitySet) but failed to find identity: %@", buf, 0xCu);
-  }
-
-  v10 = cf;
-  if (cf)
-  {
-    cf = 0;
-    CFRelease(v10);
-  }
-
-LABEL_20:
-
-  v13 = *MEMORY[0x1E69E9840];
-  return v9;
-}
-
-uint64_t MarkForCounterSigning(uint64_t a1, uint64_t a2)
-{
-  result = 0;
-  if (a1)
-  {
-    if (a2)
-    {
-      result = *(a2 + 16);
-      if (result)
-      {
-        result = PCSIdentitySetCopyCurrentIdentityWithError(result, kPCSServiceRaw, 0);
-        if (result)
-        {
-          v5 = result;
-          v6 = *(a1 + 176);
-          if (v6)
-          {
-            *(a1 + 176) = 0;
-            CFRelease(v6);
-          }
-
-          v7 = *(a1 + 184);
-          if (v7)
-          {
-            *(a1 + 184) = 0;
-            CFRelease(v7);
-          }
-
-          *(a1 + 176) = v5;
-          SigningIdentity = _PCSIdentityGetSigningIdentity(v5);
-          v9 = SigningIdentity;
-          if (SigningIdentity)
-          {
-            CFRetain(SigningIdentity);
-          }
-
-          *(a1 + 184) = v9;
-          result = 1;
-          *(a1 + 214) = 1;
-          v10 = *(a2 + 200);
-          if (v10)
-          {
-            *(a1 + 200) = v10;
-          }
-        }
-      }
-    }
-  }
-
-  return result;
-}
-
-const void *PCSFPCopyCurrentPrivateKey(uint64_t a1)
-{
-  if (a1 && (v1 = *(a1 + 16)) != 0)
-  {
-    return PCSIdentitySetCopyCurrentIdentityWithError(v1, kPCSServiceRaw, 0);
-  }
-
-  else
-  {
-    return OUTLINED_FUNCTION_3_0();
-  }
-}
-
-CFTypeRef PCSFPCreateWithExported(uint64_t a1, uint64_t a2, const void **a3)
-{
-  if (!a2)
-  {
-    _PCSError(a3, 27, @"PCSFPCreateWithExported need an identity");
-    return 0;
-  }
-
-  Mutable = PCSIdentitySetCreateMutable(a3);
-  if (!Mutable)
-  {
-    return 0;
-  }
-
-  v7 = Mutable;
-  if (PCSIdentitySetAddIdentity(Mutable, a2))
-  {
-    v8 = CreateWithExportedInternal(a1, v7, 0, 0, 0, 0, 0, a3);
-  }
-
-  else
-  {
-    v8 = 0;
-  }
-
-  CFRelease(v7);
-  return v8;
-}
-
-CFTypeRef PCSObjectCreateFromExportedWithKeyedPCS(uint64_t a1, uint64_t a2, const void **a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
+_DWORD *PCSObjectCreateFromExportedWithKeyedPCS(uint64_t a1, void *a2, const void **a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
 {
   v7 = *(a1 + 16);
   if (v7)
@@ -404,7 +12,7 @@ CFTypeRef PCSObjectCreateFromExportedWithKeyedPCS(uint64_t a1, uint64_t a2, cons
   }
 }
 
-CFTypeRef PCSObjectCreateFromExportedWithKeyedPCSAndOptionsWithTrusts(uint64_t a1, uint64_t a2, uint64_t a3, void *a4, const void **a5, uint64_t a6, uint64_t a7)
+_DWORD *PCSObjectCreateFromExportedWithKeyedPCSAndOptionsWithTrusts(uint64_t a1, uint64_t a2, void *a3, void *a4, const void **a5, uint64_t a6, uint64_t a7)
 {
   v7 = *(a1 + 16);
   if (v7)
@@ -663,12 +271,12 @@ void noMatchingIdentity(uint64_t a1, uint64_t a2, const void **a3)
     if (v15)
     {
       v16 = v15;
-      v33[0] = MEMORY[0x1E69E9820];
-      v33[1] = 3221225472;
-      v33[2] = __noMatchingIdentity_block_invoke;
-      v33[3] = &__block_descriptor_40_e21_v16__0____CFString__8l;
-      v33[4] = v15;
-      PCSIdentitySetEnumeratePublicKeys(a1, v33);
+      v32[0] = MEMORY[0x1E69E9820];
+      v32[1] = 3221225472;
+      v32[2] = __noMatchingIdentity_block_invoke;
+      v32[3] = &__block_descriptor_40_e21_v16__0____CFString__8l;
+      v32[4] = v15;
+      PCSIdentitySetEnumeratePublicKeys(a1, v32);
       v17 = CFStringCreateByCombiningStrings(0, v16, @", ");
       if (v17)
       {
@@ -679,16 +287,15 @@ void noMatchingIdentity(uint64_t a1, uint64_t a2, const void **a3)
         v22 = CFArrayCreateMutable(v19, v20, v21);
         if (!v22)
         {
-          v28 = 0;
+          v27 = 0;
           goto LABEL_10;
         }
 
         v23 = v22;
         if (a2)
         {
-          v24 = *(a2 + 40);
           OUTLINED_FUNCTION_2_0();
-          CFDictionaryApplyFunction(v25, v26, v23);
+          CFDictionaryApplyFunction(v24, v25, v23);
         }
 
         else
@@ -696,38 +303,38 @@ void noMatchingIdentity(uint64_t a1, uint64_t a2, const void **a3)
           CFArrayAppendValue(v22, @"light-object");
         }
 
-        v27 = CFStringCreateByCombiningStrings(0, v23, @", ");
-        if (v27)
+        v26 = CFStringCreateByCombiningStrings(0, v23, @", ");
+        if (v26)
         {
-          v28 = v27;
+          v27 = v26;
           CFDictionarySetValue(v11, kPCSErrorObjectIdentities, v23);
           CFRelease(v23);
-          _PCSErrorUserInfo(0, a3, 73, v11, @"PCS object didn't contain any of the identities [%@], it contained [%@]", v29, v30, v31, v18);
+          _PCSErrorUserInfo(0, a3, 73, v11, @"PCS object didn't contain any of the identities [%@], it contained [%@]", v28, v29, v30, v18, v27);
 LABEL_10:
           CFRelease(v11);
           CFRelease(v18);
-          if (!v28)
+          if (!v27)
           {
             return;
           }
 
-          v32 = v28;
+          v31 = v27;
           goto LABEL_12;
         }
 
         CFRelease(v23);
         CFRelease(v11);
-        v32 = v18;
+        v31 = v18;
       }
 
       else
       {
         CFRelease(v16);
-        v32 = v11;
+        v31 = v11;
       }
 
 LABEL_12:
-      CFRelease(v32);
+      CFRelease(v31);
       return;
     }
 
@@ -796,7 +403,7 @@ uint64_t __fillChainingKeys_block_invoke(uint64_t a1, uint64_t a2)
   {
     v5 = v4;
     LODWORD(v8) = 3;
-    if (!FillOctetString(&v9, v4) || add_PCSSPKeyList((*(*(a1 + 32) + 8) + 32)))
+    if (!FillOctetString(&v9, v4) || add_PCSSPKeyList((*(*(a1 + 32) + 8) + 32), &v8))
     {
 LABEL_7:
       CFRelease(v5);
@@ -812,7 +419,7 @@ LABEL_7:
       LODWORD(v8) = 2;
       if (FillOctetString(&v9, v6))
       {
-        add_PCSSPKeyList((*(*(a1 + 40) + 8) + 32));
+        add_PCSSPKeyList((*(*(a1 + 40) + 8) + 32), &v8);
       }
 
       goto LABEL_7;
@@ -820,23 +427,6 @@ LABEL_7:
   }
 
   return free_PCSSPKey(&v8);
-}
-
-void __PCSObjectCreateFromExportedWithIdentitiesAndOptionsAsync_block_invoke_3_cold_1(uint64_t *a1)
-{
-  v8 = *MEMORY[0x1E69E9840];
-  v7 = *a1;
-  OUTLINED_FUNCTION_5();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __PCSObjectCreateFromExportedWithIdentitiesAndOptionsAsync_block_invoke_3_cold_2()
-{
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_5();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void PCSFPAddSharePCSWithFlags_cold_2(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4)
@@ -900,37 +490,19 @@ LABEL_8:
   *a2 = RandomCompactRaw;
 }
 
-void deriveHKDF_cold_1()
-{
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_5();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-void deriveHKDF_cold_2()
-{
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_5();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x1E69E9840];
-}
-
 void PCSFPUpdateIdentityAndRollZoneKey_cold_1(uint64_t a1, uint64_t *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v4 = pcsLogObjForScope("fpkeyRoll");
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = *a2;
-    v7 = 138412546;
-    v8 = a1;
-    v9 = 2112;
-    v10 = v5;
-    _os_log_impl(&dword_1B229C000, v4, OS_LOG_TYPE_DEFAULT, "FP Failed Roll for zone %@ %@", &v7, 0x16u);
+    v6 = 138412546;
+    v7 = a1;
+    v8 = 2112;
+    v9 = v5;
+    _os_log_impl(&dword_1B229C000, v4, OS_LOG_TYPE_DEFAULT, "FP Failed Roll for zone %@ %@", &v6, 0x16u);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 CFIndex ValidateSignature_cold_3(uint64_t *a1, const void **a2)
@@ -957,98 +529,13 @@ CFTypeRef PCSIdentitySetCreateNamed(const void *a1, const void **a2)
   {
     v9 = v6;
     v10 = OUTLINED_FUNCTION_0_3(v6, v7, v8, @"Bladerunner");
-    if (!v10)
-    {
-      goto LABEL_30;
-    }
-
-    v13 = OUTLINED_FUNCTION_0_3(v10, v11, v12, @"Hyperion");
-    if (!v13)
-    {
-      goto LABEL_30;
-    }
-
-    v16 = OUTLINED_FUNCTION_0_3(v13, v14, v15, @"Liverpool");
-    if (!v16)
-    {
-      goto LABEL_30;
-    }
-
-    v19 = OUTLINED_FUNCTION_0_3(v16, v17, v18, kPCSServiceEscrow);
-    if (!v19)
-    {
-      goto LABEL_30;
-    }
-
-    v22 = OUTLINED_FUNCTION_0_3(v19, v20, v21, kPCSServicePianoMover);
-    if (!v22)
-    {
-      goto LABEL_30;
-    }
-
-    v25 = OUTLINED_FUNCTION_0_3(v22, v23, v24, kPCSServiceBackup);
-    if (!v25)
-    {
-      goto LABEL_30;
-    }
-
-    v28 = OUTLINED_FUNCTION_0_3(v25, v26, v27, kPCSServiceNotes);
-    if (!v28)
-    {
-      goto LABEL_30;
-    }
-
-    v31 = OUTLINED_FUNCTION_0_3(v28, v29, v30, kPCSServiceNews);
-    if (!v31)
-    {
-      goto LABEL_30;
-    }
-
-    v34 = OUTLINED_FUNCTION_0_3(v31, v32, v33, kPCSServiceFDE);
-    if (!v34)
-    {
-      goto LABEL_30;
-    }
-
-    v37 = OUTLINED_FUNCTION_0_3(v34, v35, v36, kPCSServiceSharing);
-    if (!v37)
-    {
-      goto LABEL_30;
-    }
-
-    v40 = OUTLINED_FUNCTION_0_3(v37, v38, v39, kPCSServiceKeyboardServices);
-    if (!v40)
-    {
-      goto LABEL_30;
-    }
-
-    v43 = OUTLINED_FUNCTION_0_3(v40, v41, v42, kPCSServiceActivities);
-    if (!v43)
-    {
-      goto LABEL_30;
-    }
-
-    v46 = OUTLINED_FUNCTION_0_3(v43, v44, v45, kPCSServiceGaming);
-    if (!v46)
-    {
-      goto LABEL_30;
-    }
-
-    v49 = OUTLINED_FUNCTION_0_3(v46, v47, v48, kPCSServiceiAD);
-    if (!v49)
-    {
-      goto LABEL_30;
-    }
-
-    v52 = OUTLINED_FUNCTION_0_3(v49, v50, v51, kPCSServiceBulkMail);
-    if (v52 && (v55 = OUTLINED_FUNCTION_0_3(v52, v53, v54, kPCSServiceBTPairing)) && (v58 = OUTLINED_FUNCTION_0_3(v55, v56, v57, kPCSServiceBTAnnouncement)) && (v61 = OUTLINED_FUNCTION_0_3(v58, v59, v60, kPCSServiceTTYCallHistory)) && (v64 = OUTLINED_FUNCTION_0_3(v61, v62, v63, kPCSServiceContinuity)) && (v67 = OUTLINED_FUNCTION_0_3(v64, v65, v66, kPCSServiceSafari)) && (v70 = OUTLINED_FUNCTION_0_3(v67, v68, v69, kPCSServiceCloudKitApple)) && OUTLINED_FUNCTION_0_3(v70, v71, v72, kPCSHealthSync2))
+    if (v10 && (v13 = OUTLINED_FUNCTION_0_3(v10, v11, v12, @"Hyperion")) && (v16 = OUTLINED_FUNCTION_0_3(v13, v14, v15, @"Liverpool")) && (v19 = OUTLINED_FUNCTION_0_3(v16, v17, v18, kPCSServiceEscrow)) && (v22 = OUTLINED_FUNCTION_0_3(v19, v20, v21, kPCSServicePianoMover)) && (v25 = OUTLINED_FUNCTION_0_3(v22, v23, v24, kPCSServiceBackup)) && (v28 = OUTLINED_FUNCTION_0_3(v25, v26, v27, kPCSServiceNotes)) && (v31 = OUTLINED_FUNCTION_0_3(v28, v29, v30, kPCSServiceNews)) && (v34 = OUTLINED_FUNCTION_0_3(v31, v32, v33, kPCSServiceFDE)) && (v37 = OUTLINED_FUNCTION_0_3(v34, v35, v36, kPCSServiceSharing)) && (v40 = OUTLINED_FUNCTION_0_3(v37, v38, v39, kPCSServiceKeyboardServices)) && (v43 = OUTLINED_FUNCTION_0_3(v40, v41, v42, kPCSServiceActivities)) && (v46 = OUTLINED_FUNCTION_0_3(v43, v44, v45, kPCSServiceGaming)) && (v49 = OUTLINED_FUNCTION_0_3(v46, v47, v48, kPCSServiceiAD)) && (v52 = OUTLINED_FUNCTION_0_3(v49, v50, v51, kPCSServiceBulkMail)) && (v55 = OUTLINED_FUNCTION_0_3(v52, v53, v54, kPCSServiceBTPairing)) && (v58 = OUTLINED_FUNCTION_0_3(v55, v56, v57, kPCSServiceBTAnnouncement)) && (v61 = OUTLINED_FUNCTION_0_3(v58, v59, v60, kPCSServiceTTYCallHistory)) && (v64 = OUTLINED_FUNCTION_0_3(v61, v62, v63, kPCSServiceContinuity)) && (v67 = OUTLINED_FUNCTION_0_3(v64, v65, v66, kPCSServiceSafari)) && (v70 = OUTLINED_FUNCTION_0_3(v67, v68, v69, kPCSServiceCloudKitApple)) && OUTLINED_FUNCTION_0_3(v70, v71, v72, kPCSHealthSync2))
     {
       v73 = CFRetain(v5);
     }
 
     else
     {
-LABEL_30:
       v73 = 0;
     }
 
@@ -1100,10 +587,10 @@ void *PCSIdentitySetCopyCurrentPublicIdentityWithError(uint64_t a1, uint64_t a2,
   return 0;
 }
 
-uint64_t PCSIdentitySetCreateClassic(uint64_t a1, uint64_t a2, uint64_t a3)
+uint64_t *PCSIdentitySetCreateClassic(uint64_t a1, uint64_t a2, uint64_t *a3)
 {
   OUTLINED_FUNCTION_3_1();
-  v27[1] = *MEMORY[0x1E69E9840];
+  v26[1] = *MEMORY[0x1E69E9840];
   if (!v11)
   {
     goto LABEL_5;
@@ -1120,7 +607,7 @@ uint64_t PCSIdentitySetCreateClassic(uint64_t a1, uint64_t a2, uint64_t a3)
   if (v14 != CFStringGetTypeID())
   {
     _PCSError(a3, 47, @"DSID not a string");
-    goto LABEL_17;
+    return 0;
   }
 
   if (!CFEqual(v13, kPCSSetupDSIDAny[0]))
@@ -1133,19 +620,17 @@ LABEL_6:
 
     if (!a3)
     {
-      goto LABEL_14;
+      return a3;
     }
 
-    v23 = MEMORY[0x1E696ABC0];
-    v24 = kPCSErrorDomain;
-    v26 = *MEMORY[0x1E696A578];
-    v27[0] = @"Current persona does not match chosen dsid";
-    v25 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v27 forKeys:&v26 count:1];
-    *a3 = [v23 errorWithDomain:v24 code:152 userInfo:v25];
+    v22 = MEMORY[0x1E696ABC0];
+    v23 = kPCSErrorDomain;
+    v25 = *MEMORY[0x1E696A578];
+    v26[0] = @"Current persona does not match chosen dsid";
+    v24 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v26 forKeys:&v25 count:1];
+    *a3 = [v22 errorWithDomain:v23 code:152 userInfo:v24];
 
-LABEL_17:
-    a3 = 0;
-    goto LABEL_14;
+    return 0;
   }
 
 LABEL_5:
@@ -1157,7 +642,7 @@ LABEL_7:
     v15 = __PCSCopyFromKeychain(0, 0, v13, a3, v16, v17, v18, v19);
     if (!v15)
     {
-      goto LABEL_17;
+      return 0;
     }
   }
 
@@ -1170,12 +655,10 @@ LABEL_7:
       CFRetain(v3);
     }
 
-    *(a3 + 32) = v3;
+    a3[4] = v3;
   }
 
   CFRelease(v20);
-LABEL_14:
-  v21 = *MEMORY[0x1E69E9840];
   return a3;
 }
 
@@ -1220,7 +703,7 @@ BOOL _PCSKeychainAmendCKKSEntry(uint64_t a1, __CFDictionary *a2)
 
 CFTypeRef _PCSIdentityCopyKeychainAttributes(uint64_t a1)
 {
-  v43 = 0;
+  v31 = 0;
   ServiceName = PCSIdentityGetServiceName(a1);
   if (!ServiceName)
   {
@@ -1228,77 +711,64 @@ CFTypeRef _PCSIdentityCopyKeychainAttributes(uint64_t a1)
   }
 
   v3 = ServiceName;
-  v41 = IdentityCopyServiceNumber(a1, 0);
-  if (!v41)
+  v29 = IdentityCopyServiceNumber(a1, 0);
+  if (!v29)
   {
     return 0;
   }
 
   PublicKey = PCSIdentityGetPublicKey(a1);
-  if (!PublicKey || (v44.location = 0, v44.length = 8, (v5 = CFStringCreateWithSubstring(0, PublicKey, v44)) == 0))
+  if (!PublicKey || (v32.location = 0, v32.length = 8, (v5 = CFStringCreateWithSubstring(0, PublicKey, v32)) == 0))
   {
-    v28 = v41;
+    v26 = v29;
 LABEL_21:
-    CFRelease(v28);
+    CFRelease(v26);
     return 0;
   }
 
   v6 = v5;
-  if (!PCSIdentityGetKeyID(a1) || (v7 = OUTLINED_FUNCTION_0_1(), (v42 = CFStringCreateWithFormat(v7, v8, v9, v3, v6)) == 0))
+  if (!PCSIdentityGetKeyID(a1) || (v7 = OUTLINED_FUNCTION_0_1(), (v30 = CFStringCreateWithFormat(v7, v8, v9, v3, v6)) == 0))
   {
-    CFRelease(v41);
-    v28 = v6;
+    CFRelease(v29);
+    v26 = v6;
     goto LABEL_21;
   }
 
-  v10 = PCSIdentityCopyExportedPrivateKey(a1, &v43);
+  v10 = PCSIdentityCopyExportedPrivateKey(a1, &v31);
   if (v10)
   {
-    v40 = v6;
     key = *MEMORY[0x1E697AFF8];
-    v38 = *MEMORY[0x1E697B018];
-    v37 = *MEMORY[0x1E697ABD8];
+    v27 = *MEMORY[0x1E697B018];
     PCSServiceItemGetAccessClassByName(v3);
-    v11 = *MEMORY[0x1E697B390];
-    v12 = *MEMORY[0x1E695E4D0];
-    v13 = *MEMORY[0x1E697ABD0];
+    v11 = *MEMORY[0x1E695E4D0];
     AccessGroupByName = PCSServiceItemGetAccessGroupByName(v3);
-    v36 = *MEMORY[0x1E697B3C0];
-    v35 = *MEMORY[0x1E697AD00];
-    v34 = *MEMORY[0x1E697AE80];
-    v15 = v41;
-    v33 = *MEMORY[0x1E697AEF8];
-    v32 = *MEMORY[0x1E697ADC8];
-    v31 = *MEMORY[0x1E697AC50];
-    v30 = *MEMORY[0x1E697AC30];
-    v29 = *MEMORY[0x1E697AE70];
-    MutableForCFTypesWith = CFDictionaryCreateMutableForCFTypesWith(AccessGroupByName, v16, v17, v18, v19, v20, v21, v22, key, v38);
+    v13 = v29;
+    MutableForCFTypesWith = CFDictionaryCreateMutableForCFTypesWith(AccessGroupByName, v14, v15, v16, v17, v18, v19, v20, key, v27);
     ServiceViewHint = PCSIdentityGetServiceViewHint(a1);
     if (ServiceViewHint)
     {
       CFDictionarySetValue(MutableForCFTypesWith, *MEMORY[0x1E697AEA8], ServiceViewHint);
     }
 
-    OUTLINED_FUNCTION_0_4(&PCSUseSyncKeychain);
-    v6 = v40;
-    if (v25)
+    OUTLINED_FUNCTION_0_4();
+    if (v23)
     {
-      CFDictionarySetValue(MutableForCFTypesWith, *MEMORY[0x1E697AEB0], v12);
+      CFDictionarySetValue(MutableForCFTypesWith, *MEMORY[0x1E697AEB0], v11);
     }
 
     _PCSKeychainAmendCKKSEntry(a1, MutableForCFTypesWith);
-    v26 = CFRetain(MutableForCFTypesWith);
+    v24 = CFRetain(MutableForCFTypesWith);
   }
 
   else
   {
     MutableForCFTypesWith = 0;
-    v26 = 0;
-    v15 = v41;
+    v24 = 0;
+    v13 = v29;
   }
 
-  CFRelease(v15);
-  CFRelease(v42);
+  CFRelease(v13);
+  CFRelease(v30);
   CFRelease(v6);
   if (v10)
   {
@@ -1310,7 +780,7 @@ LABEL_21:
     CFRelease(MutableForCFTypesWith);
   }
 
-  return v26;
+  return v24;
 }
 
 BOOL MemoryIsCurrentIdentity()
@@ -1340,131 +810,123 @@ BOOL MemoryIsCurrentIdentity()
 
 void *KeychainCopyByKeyID(uint64_t a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8)
 {
-  v46 = 0;
-  v9 = *MEMORY[0x1E697B018];
-  v10 = *MEMORY[0x1E697AE70];
-  v11 = *MEMORY[0x1E697B260];
-  v12 = *MEMORY[0x1E695E4D0];
-  v44 = *MEMORY[0x1E695E4D0];
-  v45 = *MEMORY[0x1E697B318];
-  v43 = *MEMORY[0x1E697B310];
-  v41 = *MEMORY[0x1E697B268];
-  v42 = *MEMORY[0x1E697AC50];
-  v13 = OUTLINED_FUNCTION_2_1(a1, a2, a3, a4, a5, a6, a7, a8, *MEMORY[0x1E697AFF8], v36, v37, v38, v39, v40);
-  if (!v13)
+  v38 = 0;
+  v9 = *MEMORY[0x1E695E4D0];
+  v10 = OUTLINED_FUNCTION_2_1(a1, a2, a3, a4, a5, a6, a7, a8, *MEMORY[0x1E697AFF8], v33, v34, v35, v36, v37);
+  if (!v10)
   {
     return 0;
   }
 
-  v14 = v13;
-  v15 = *(a1 + 40);
-  if (v15)
+  v11 = v10;
+  v12 = *(a1 + 40);
+  if (v12)
   {
-    CFDictionarySetValue(v13, *MEMORY[0x1E697AE80], v15);
+    CFDictionarySetValue(v10, *MEMORY[0x1E697AE80], v12);
   }
 
-  OUTLINED_FUNCTION_0_4(&PCSUseSyncKeychain);
-  if (v16)
+  OUTLINED_FUNCTION_0_4();
+  if (v13)
   {
-    CFDictionarySetValue(v14, *MEMORY[0x1E697AEB0], v12);
+    CFDictionarySetValue(v11, *MEMORY[0x1E697AEB0], v9);
   }
 
   PCSMeasureRelativeNanoTime();
   ++qword_1ED6F2630;
-  v17 = _PCSKeychainForwardTable(v14, &v46);
-  v18 = PCSMeasureRelativeNanoTime();
-  OUTLINED_FUNCTION_11_0(v18);
-  if (v17)
+  v14 = _PCSKeychainForwardTable(v11, &v38);
+  v15 = PCSMeasureRelativeNanoTime();
+  OUTLINED_FUNCTION_11_0(v15);
+  if (v14)
   {
     goto LABEL_24;
   }
 
-  if (!v46)
+  if (!v38)
   {
     goto LABEL_24;
   }
 
-  v19 = CFGetTypeID(v46);
-  if (v19 != CFArrayGetTypeID())
+  v16 = CFGetTypeID(v38);
+  if (v16 != CFArrayGetTypeID())
   {
     goto LABEL_24;
   }
 
-  Count = CFArrayGetCount(v46);
+  Count = CFArrayGetCount(v38);
   if (Count < 1)
   {
     goto LABEL_24;
   }
 
-  v21 = Count;
-  v22 = 0;
-  v23 = 0;
-  v24 = 0;
-  v25 = *MEMORY[0x1E697B3C0];
-  v26 = *MEMORY[0x1E697AEA8];
+  v18 = Count;
+  v19 = 0;
+  v20 = 0;
+  v21 = 0;
+  v22 = *MEMORY[0x1E697B3C0];
+  v23 = *MEMORY[0x1E697AEA8];
   do
   {
-    ValueAtIndex = CFArrayGetValueAtIndex(v46, v24);
-    Value = CFDictionaryGetValue(ValueAtIndex, v25);
+    ValueAtIndex = CFArrayGetValueAtIndex(v38, v21);
+    Value = CFDictionaryGetValue(ValueAtIndex, v22);
     if (Value)
     {
-      v29 = CFGetTypeID(Value);
-      if (v29 == CFDataGetTypeID())
+      v26 = CFGetTypeID(Value);
+      if (v26 == CFDataGetTypeID())
       {
-        v30 = CFDictionaryGetValue(ValueAtIndex, v26);
-        v31 = IsViewHintPreferred(v30);
-        if (v22)
+        v27 = CFDictionaryGetValue(ValueAtIndex, v23);
+        v28 = IsViewHintPreferred(v27);
+        if (v19)
         {
-          v32 = v22;
+          v29 = v19;
         }
 
         else
         {
-          v32 = ValueAtIndex;
+          v29 = ValueAtIndex;
         }
 
-        if (v31)
+        if (v28)
         {
-          v23 = ValueAtIndex;
+          v20 = ValueAtIndex;
         }
 
         else
         {
-          v22 = v32;
+          v19 = v29;
         }
       }
     }
 
-    ++v24;
+    ++v21;
   }
 
-  while (v21 != v24);
-  if (v23 || (v23 = v22) != 0)
+  while (v18 != v21);
+  if (v20 || (v20 = v19) != 0)
   {
-    v33 = PCSIdentityCreateWithKeychainAttributes(v23);
-    UpdateCKKSIdentity(v33, v23);
+    v30 = PCSIdentityCreateWithKeychainAttributes(v20);
+    UpdateCKKSIdentity(v30, v20);
   }
 
   else
   {
 LABEL_24:
-    v33 = 0;
+    v30 = 0;
   }
 
-  CFRelease(v14);
-  v34 = v46;
-  if (v46)
+  CFRelease(v11);
+  v31 = v38;
+  if (v38)
   {
-    v46 = 0;
-    CFRelease(v34);
+    v38 = 0;
+    CFRelease(v31);
   }
 
-  return v33;
+  return v30;
 }
 
 uint64_t KeychainIsCurrentIdentity(uint64_t a1, uint64_t a2, char a3)
 {
-  v34 = 0;
+  v31 = 0;
   valuePtr = 0;
   if (a3)
   {
@@ -1484,35 +946,32 @@ uint64_t KeychainIsCurrentIdentity(uint64_t a1, uint64_t a2, char a3)
 
   key = *MEMORY[0x1E697AFF8];
   v9 = *MEMORY[0x1E697B018];
-  v10 = *MEMORY[0x1E697AE70];
-  v11 = *MEMORY[0x1E697AC30];
   PublicKey = PCSIdentityGetPublicKey(a2);
-  v32 = *MEMORY[0x1E697B310];
-  MutableForCFTypesWith = CFDictionaryCreateMutableForCFTypesWith(PublicKey, v12, v13, v14, v15, v16, v17, v18, key, v9);
+  MutableForCFTypesWith = CFDictionaryCreateMutableForCFTypesWith(PublicKey, v10, v11, v12, v13, v14, v15, v16, key, v9);
   if (!MutableForCFTypesWith)
   {
     return 0;
   }
 
-  v20 = MutableForCFTypesWith;
-  v21 = *(a1 + 40);
-  if (v21)
+  v18 = MutableForCFTypesWith;
+  v19 = *(a1 + 40);
+  if (v19)
   {
-    CFDictionarySetValue(MutableForCFTypesWith, *MEMORY[0x1E697AE80], v21);
+    CFDictionarySetValue(MutableForCFTypesWith, *MEMORY[0x1E697AE80], v19);
   }
 
-  OUTLINED_FUNCTION_0_4(&PCSUseSyncKeychain);
-  if (v22)
+  OUTLINED_FUNCTION_0_4();
+  if (v20)
   {
-    CFDictionarySetValue(v20, *MEMORY[0x1E697AEB0], v6);
+    CFDictionarySetValue(v18, *MEMORY[0x1E697AEB0], v6);
   }
 
   PCSMeasureRelativeNanoTime();
   ++qword_1ED6F2630;
-  v23 = _PCSKeychainForwardTable(v20, &v34);
-  v24 = PCSMeasureRelativeNanoTime();
-  OUTLINED_FUNCTION_11_0(v24);
-  if (!v23 && v34 && (v25 = CFGetTypeID(v34), v25 == CFDictionaryGetTypeID()) && (Value = CFDictionaryGetValue(v34, *MEMORY[0x1E697AEF8])) != 0 && (v27 = Value, v28 = CFGetTypeID(Value), v28 == CFNumberGetTypeID()) && CFNumberGetValue(v27, kCFNumberSInt32Type, &valuePtr))
+  v21 = _PCSKeychainForwardTable(v18, &v31);
+  v22 = PCSMeasureRelativeNanoTime();
+  OUTLINED_FUNCTION_11_0(v22);
+  if (!v21 && v31 && (v23 = CFGetTypeID(v31), v23 == CFDictionaryGetTypeID()) && (Value = CFDictionaryGetValue(v31, *MEMORY[0x1E697AEF8])) != 0 && (v25 = Value, v26 = CFGetTypeID(Value), v26 == CFNumberGetTypeID()) && CFNumberGetValue(v25, kCFNumberSInt32Type, &valuePtr))
   {
     v7 = BYTE2(valuePtr) & 1;
   }
@@ -1522,12 +981,12 @@ uint64_t KeychainIsCurrentIdentity(uint64_t a1, uint64_t a2, char a3)
     v7 = 0;
   }
 
-  CFRelease(v20);
-  v29 = v34;
-  if (v34)
+  CFRelease(v18);
+  v27 = v31;
+  if (v31)
   {
-    v34 = 0;
-    CFRelease(v29);
+    v31 = 0;
+    CFRelease(v27);
   }
 
   return v7;
@@ -1577,10 +1036,6 @@ BOOL KeychainRemoveIdentity(uint64_t a1, int a2, int a3, int a4, int a5, int a6,
     return 0;
   }
 
-  v18 = *(a1 + 40);
-  v17 = *MEMORY[0x1E697AE80];
-  v16 = *MEMORY[0x1E697AC30];
-  v15 = *MEMORY[0x1E697AE70];
   MutableForCFTypesWith = CFDictionaryCreateMutableForCFTypesWith(a1, a2, a3, a4, a5, a6, a7, a8, *MEMORY[0x1E697AFF8], *MEMORY[0x1E697B018]);
   if (!MutableForCFTypesWith)
   {
@@ -1588,7 +1043,7 @@ BOOL KeychainRemoveIdentity(uint64_t a1, int a2, int a3, int a4, int a5, int a6,
   }
 
   v9 = MutableForCFTypesWith;
-  OUTLINED_FUNCTION_0_4(&PCSUseSyncKeychain);
+  OUTLINED_FUNCTION_0_4();
   if (v10)
   {
     CFDictionarySetValue(v9, *MEMORY[0x1E697AEB0], *MEMORY[0x1E695E4D0]);
@@ -1612,76 +1067,72 @@ uint64_t KeychainSetCurrentIdentity(uint64_t a1, uint64_t a2, CFErrorRef *a3)
   {
     v16 = *MEMORY[0x1E697AFF8];
     v17 = *MEMORY[0x1E697B018];
-    v18 = *MEMORY[0x1E697AE70];
-    v19 = *MEMORY[0x1E697AEF8];
-    v56 = *(a1 + 40);
-    v55 = *MEMORY[0x1E697AE80];
+    v18 = *MEMORY[0x1E697AEF8];
     MutableForCFTypesWith = CFDictionaryCreateMutableForCFTypesWith(v7, v8, v9, v10, v11, v12, v13, v14, *MEMORY[0x1E697AFF8], *MEMORY[0x1E697B018]);
-    v28 = MutableForCFTypesWith;
+    v27 = MutableForCFTypesWith;
     if (MutableForCFTypesWith)
     {
-      v57 = a3;
-      v58 = v15;
+      v53 = a3;
+      v54 = v15;
       if (PCSUseSyncKeychain == 1)
       {
         CFDictionarySetValue(MutableForCFTypesWith, *MEMORY[0x1E697AEB0], *MEMORY[0x1E695E4D0]);
       }
 
-      v29 = CFDictionaryCreateForCFTypes(MutableForCFTypesWith, v21, v22, v23, v24, v25, v26, v27, v19, v6);
+      v28 = CFDictionaryCreateForCFTypes(MutableForCFTypesWith, v20, v21, v22, v23, v24, v25, v26, v18, v6);
       PCSMeasureRelativeNanoTime();
       ++qword_1ED6F2610;
-      v30 = qword_1ED6F2358(v28, v29);
-      v31 = PCSMeasureRelativeNanoTime();
-      OUTLINED_FUNCTION_10_0(v31);
-      if (v30 == -25300 || !v30)
+      v29 = qword_1ED6F2358(v27, v28);
+      v30 = PCSMeasureRelativeNanoTime();
+      OUTLINED_FUNCTION_10_0(v30);
+      if (v29 == -25300 || !v29)
       {
-        CFRelease(v28);
-        if (v29)
-        {
-          CFRelease(v29);
-        }
-
-        v32 = *MEMORY[0x1E697AC30];
-        PublicKey = PCSIdentityGetPublicKey(a2);
-        v28 = CFDictionaryCreateMutableForCFTypesWith(PublicKey, v33, v34, v35, v36, v37, v38, v39, v16, v17);
-        v15 = v58;
+        CFRelease(v27);
         if (v28)
         {
-          OUTLINED_FUNCTION_0_4(&PCSUseSyncKeychain);
-          if (v48)
+          CFRelease(v28);
+        }
+
+        PublicKey = PCSIdentityGetPublicKey(a2);
+        v27 = CFDictionaryCreateMutableForCFTypesWith(PublicKey, v31, v32, v33, v34, v35, v36, v37, v16, v17);
+        v15 = v54;
+        if (v27)
+        {
+          OUTLINED_FUNCTION_0_4();
+          if (v46)
           {
-            CFDictionarySetValue(v28, *MEMORY[0x1E697AEB0], *MEMORY[0x1E695E4D0]);
+            CFDictionarySetValue(v27, *MEMORY[0x1E697AEB0], *MEMORY[0x1E695E4D0]);
           }
 
-          v29 = CFDictionaryCreateForCFTypes(v40, v41, v42, v43, v44, v45, v46, v47, v19, v58);
-          if (v29)
+          v28 = CFDictionaryCreateForCFTypes(v38, v39, v40, v41, v42, v43, v44, v45, v18, v54);
+          if (v28)
           {
             PCSMeasureRelativeNanoTime();
             ++qword_1ED6F2610;
-            v49 = qword_1ED6F2358(v28, v29);
-            v50 = PCSMeasureRelativeNanoTime();
-            OUTLINED_FUNCTION_10_0(v50);
-            if (!v49)
+            v47 = qword_1ED6F2358(v27, v28);
+            v48 = PCSMeasureRelativeNanoTime();
+            OUTLINED_FUNCTION_10_0(v48);
+            if (!v47)
             {
-              v51 = 1;
+              v49 = 1;
 LABEL_18:
-              v15 = v58;
+              v15 = v54;
               goto LABEL_19;
             }
 
-            PCSSecError(v49, v57, @"Failed to mark %@ as current", a2);
+            PCSSecError(v47, v53, @"Failed to mark %@ as current", a2);
 LABEL_17:
-            v51 = 0;
+            v49 = 0;
             goto LABEL_18;
           }
         }
 
         else
         {
-          v29 = 0;
+          v28 = 0;
         }
 
-        v51 = 0;
+        v49 = 0;
 LABEL_19:
         if (!v6)
         {
@@ -1691,20 +1142,20 @@ LABEL_19:
         goto LABEL_20;
       }
 
-      PCSSecError(v30, v57, @"Failed to remove current on attributes", key);
+      PCSSecError(v29, v53, @"Failed to remove current on attributes", key);
       goto LABEL_17;
     }
 
-    v29 = 0;
+    v28 = 0;
   }
 
   else
   {
-    v29 = 0;
     v28 = 0;
+    v27 = 0;
   }
 
-  v51 = 0;
+  v49 = 0;
   if (v6)
   {
 LABEL_20:
@@ -1717,17 +1168,17 @@ LABEL_21:
     CFRelease(v15);
   }
 
+  if (v27)
+  {
+    CFRelease(v27);
+  }
+
   if (v28)
   {
     CFRelease(v28);
   }
 
-  if (v29)
-  {
-    CFRelease(v29);
-  }
-
-  return v51;
+  return v49;
 }
 
 uint64_t KeychainUnsetCurrentIdentity(uint64_t a1, const __CFNumber *key, CFErrorRef *a3)
@@ -1738,60 +1189,57 @@ uint64_t KeychainUnsetCurrentIdentity(uint64_t a1, const __CFNumber *key, CFErro
   }
 
   IndexByName = PCSServiceItemGetIndexByName(key);
-  v36 = IndexByName;
+  v32 = IndexByName;
   if (!IndexByName)
   {
     return 0;
   }
 
-  v7 = OUTLINED_FUNCTION_7_1(IndexByName, v6, &v36);
-  v36 |= 0x10000u;
-  v9 = OUTLINED_FUNCTION_7_1(v7, v8, &v36);
-  v10 = *MEMORY[0x1E697AEF8];
-  v35 = *(a1 + 40);
-  v34 = *MEMORY[0x1E697AE80];
-  v33 = *MEMORY[0x1E697AE70];
-  MutableForCFTypesWith = CFDictionaryCreateMutableForCFTypesWith(v9, v11, v12, v13, v14, v15, v16, v17, *MEMORY[0x1E697AFF8], *MEMORY[0x1E697B018]);
+  v6 = OUTLINED_FUNCTION_7_1(IndexByName, v5, &v32);
+  v32 |= 0x10000u;
+  v8 = OUTLINED_FUNCTION_7_1(v6, v7, &v32);
+  v9 = *MEMORY[0x1E697AEF8];
+  MutableForCFTypesWith = CFDictionaryCreateMutableForCFTypesWith(v8, v10, v11, v12, v13, v14, v15, v16, *MEMORY[0x1E697AFF8], *MEMORY[0x1E697B018]);
   if (MutableForCFTypesWith)
   {
-    OUTLINED_FUNCTION_0_4(&PCSUseSyncKeychain);
-    if (v27)
+    OUTLINED_FUNCTION_0_4();
+    if (v26)
     {
       CFDictionarySetValue(MutableForCFTypesWith, *MEMORY[0x1E697AEB0], *MEMORY[0x1E695E4D0]);
     }
 
-    v28 = CFDictionaryCreateForCFTypes(v19, v20, v21, v22, v23, v24, v25, v26, v10, v7);
-    if (v28)
+    v27 = CFDictionaryCreateForCFTypes(v18, v19, v20, v21, v22, v23, v24, v25, v9, v6);
+    if (v27)
     {
-      v29 = PCSMeasureRelativeNanoTime();
+      v28 = PCSMeasureRelativeNanoTime();
       ++qword_1ED6F2610;
-      v30 = qword_1ED6F2358(MutableForCFTypesWith, v28);
-      qword_1ED6F2618 += PCSMeasureRelativeNanoTime() - v29;
-      v31 = 1;
-      if (v30 == -25300 || !v30)
+      v29 = qword_1ED6F2358(MutableForCFTypesWith, v27);
+      qword_1ED6F2618 += PCSMeasureRelativeNanoTime() - v28;
+      v30 = 1;
+      if (v29 == -25300 || !v29)
       {
         goto LABEL_12;
       }
 
-      PCSSecError(v30, a3, @"Failed to remove current on attributes");
+      PCSSecError(v29, a3, @"Failed to remove current on attributes");
     }
   }
 
   else
   {
-    v28 = 0;
+    v27 = 0;
   }
 
-  v31 = 0;
+  v30 = 0;
 LABEL_12:
-  if (v7)
+  if (v6)
   {
-    CFRelease(v7);
+    CFRelease(v6);
   }
 
-  if (v9)
+  if (v8)
   {
-    CFRelease(v9);
+    CFRelease(v8);
   }
 
   if (MutableForCFTypesWith)
@@ -1799,12 +1247,12 @@ LABEL_12:
     CFRelease(MutableForCFTypesWith);
   }
 
-  if (v28)
+  if (v27)
   {
-    CFRelease(v28);
+    CFRelease(v27);
   }
 
-  return v31;
+  return v30;
 }
 
 uint64_t KeychainEnumerateIdentities(uint64_t a1, const void *a2, void *a3)
@@ -1828,74 +1276,55 @@ uint64_t KeychainEnumerateIdentities(uint64_t a1, const void *a2, void *a3)
     }
   }
 
-  v16 = *MEMORY[0x1E697B018];
-  v17 = *MEMORY[0x1E697AE70];
-  v18 = *MEMORY[0x1E697B260];
-  v19 = *MEMORY[0x1E695E4D0];
-  v43 = *MEMORY[0x1E695E4D0];
-  v44 = *MEMORY[0x1E697B310];
-  v41 = *MEMORY[0x1E697B268];
-  v42 = *MEMORY[0x1E697B318];
-  v20 = OUTLINED_FUNCTION_2_1(TypeID, v6, v7, v8, v9, v10, v11, v12, *MEMORY[0x1E697AFF8], v36, v37, v38, v39, v40);
-  if (!v20)
+  v16 = *MEMORY[0x1E695E4D0];
+  v17 = OUTLINED_FUNCTION_2_1(TypeID, v6, v7, v8, v9, v10, v11, v12, *MEMORY[0x1E697AFF8], v32, v33, v34, v35, v36);
+  if (!v17)
   {
 LABEL_21:
-    v34 = 0;
+    v30 = 0;
     goto LABEL_20;
   }
 
-  v21 = v20;
-  v22 = *(a1 + 40);
-  if (v22)
+  v18 = v17;
+  v19 = *(a1 + 40);
+  if (v19)
   {
-    CFDictionarySetValue(v20, *MEMORY[0x1E697AE80], v22);
+    CFDictionarySetValue(v17, *MEMORY[0x1E697AE80], v19);
   }
 
-  OUTLINED_FUNCTION_0_4(&PCSUseSyncKeychain);
-  if (v23)
+  OUTLINED_FUNCTION_0_4();
+  if (v20)
   {
-    CFDictionarySetValue(v21, *MEMORY[0x1E697AEB0], v19);
+    CFDictionarySetValue(v18, *MEMORY[0x1E697AEB0], v16);
   }
 
   if (v14)
   {
-    v24 = CFGetTypeID(v14);
-    if (v24 == CFStringGetTypeID())
+    v21 = CFGetTypeID(v14);
+    if (v21 == CFStringGetTypeID())
     {
       IndexByName = PCSServiceItemGetIndexByName(v14);
-      v45 = IndexByName;
-      v27 = OUTLINED_FUNCTION_7_1(IndexByName, v26, &v45);
-      if (!v27)
+      v37 = IndexByName;
+      v24 = OUTLINED_FUNCTION_7_1(IndexByName, v23, &v37);
+      if (!v24 || (v25 = v24, OUTLINED_FUNCTION_8_1(), CFRelease(v25), processQuery(v18, v13), (v26 = OUTLINED_FUNCTION_4_1()) == 0) || (v27 = v26, OUTLINED_FUNCTION_8_1(), CFRelease(v27), processQuery(v18, v13), (v28 = OUTLINED_FUNCTION_4_1()) == 0))
       {
-        goto LABEL_22;
-      }
-
-      v28 = v27;
-      v29 = *MEMORY[0x1E697AEF8];
-      OUTLINED_FUNCTION_8_1();
-      CFRelease(v28);
-      processQuery(v21, v13);
-      v30 = OUTLINED_FUNCTION_4_1();
-      if (!v30 || (v31 = v30, OUTLINED_FUNCTION_8_1(), CFRelease(v31), processQuery(v21, v13), (v32 = OUTLINED_FUNCTION_4_1()) == 0))
-      {
-LABEL_22:
-        v34 = 0;
+        v30 = 0;
         goto LABEL_19;
       }
 
-      v33 = v32;
+      v29 = v28;
       OUTLINED_FUNCTION_8_1();
-      CFRelease(v33);
+      CFRelease(v29);
     }
   }
 
-  processQuery(v21, v13);
-  v34 = 1;
+  processQuery(v18, v13);
+  v30 = 1;
 LABEL_19:
-  CFRelease(v21);
+  CFRelease(v18);
 LABEL_20:
 
-  return v34;
+  return v30;
 }
 
 CFMutableDictionaryRef KeychainCopyIdentities()
@@ -1920,8 +1349,8 @@ CFMutableDictionaryRef KeychainCopyIdentities()
 PCSCurrentIdentity *KeychainCopyXIdentityWithCount(uint64_t a1, const __CFNumber *key, CFIndex *a3, const void **a4)
 {
   v6 = key;
-  v61 = 0;
-  v60 = 0;
+  v51 = 0;
+  v50 = 0;
   if (!key)
   {
     v6 = *(a1 + 32);
@@ -1933,61 +1362,51 @@ PCSCurrentIdentity *KeychainCopyXIdentityWithCount(uint64_t a1, const __CFNumber
   }
 
   IndexByName = PCSServiceItemGetIndexByName(v6);
-  v60 = IndexByName;
+  v50 = IndexByName;
   if (!IndexByName)
   {
 LABEL_35:
-    v44 = 0;
-    v24 = 0;
+    v41 = 0;
+    v21 = 0;
     v18 = 0;
     goto LABEL_40;
   }
 
-  v60 = IndexByName | 0x10000;
-  v10 = OUTLINED_FUNCTION_7_1(IndexByName, v9, &v60);
+  v50 = IndexByName | 0x10000;
+  v10 = OUTLINED_FUNCTION_7_1(IndexByName, v9, &v50);
   v18 = v10;
   if (v10)
   {
-    v19 = *MEMORY[0x1E697B018];
-    v20 = *MEMORY[0x1E697AE70];
-    v21 = *MEMORY[0x1E697AEF8];
-    v22 = *MEMORY[0x1E695E4D0];
-    v58 = *MEMORY[0x1E695E4D0];
-    v59 = *MEMORY[0x1E697B390];
-    v56 = *MEMORY[0x1E695E4D0];
-    v57 = *MEMORY[0x1E697B318];
-    v54 = *MEMORY[0x1E697B268];
-    v55 = *MEMORY[0x1E697B310];
-    v53 = *MEMORY[0x1E697B260];
-    v23 = OUTLINED_FUNCTION_2_1(v10, v11, v12, v13, v14, v15, v16, v17, *MEMORY[0x1E697AFF8], v48, v49, v50, v51, v52);
-    v24 = v23;
-    if (v23)
+    v19 = *MEMORY[0x1E695E4D0];
+    v20 = OUTLINED_FUNCTION_2_1(v10, v11, v12, v13, v14, v15, v16, v17, *MEMORY[0x1E697AFF8], v45, v46, v47, v48, v49);
+    v21 = v20;
+    if (v20)
     {
-      v25 = *(a1 + 40);
+      v22 = *(a1 + 40);
+      if (v22)
+      {
+        CFDictionarySetValue(v20, *MEMORY[0x1E697AE80], v22);
+      }
+
+      OUTLINED_FUNCTION_0_4();
+      if (v23)
+      {
+        CFDictionarySetValue(v21, *MEMORY[0x1E697AEB0], v19);
+      }
+
+      v24 = PCSMeasureRelativeNanoTime();
+      ++qword_1ED6F2630;
+      v25 = _PCSKeychainForwardTable(v21, &v51);
+      qword_1ED6F2638 += PCSMeasureRelativeNanoTime() - v24;
       if (v25)
       {
-        CFDictionarySetValue(v23, *MEMORY[0x1E697AE80], v25);
+        PCSSecError(v25, a4, @"Failed finding service %@", v6);
       }
 
-      OUTLINED_FUNCTION_0_4(&PCSUseSyncKeychain);
-      if (v26)
+      else if (v51 && (v26 = CFGetTypeID(v51), v26 == CFArrayGetTypeID()))
       {
-        CFDictionarySetValue(v24, *MEMORY[0x1E697AEB0], v22);
-      }
-
-      v27 = PCSMeasureRelativeNanoTime();
-      ++qword_1ED6F2630;
-      v28 = _PCSKeychainForwardTable(v24, &v61);
-      qword_1ED6F2638 += PCSMeasureRelativeNanoTime() - v27;
-      if (v28)
-      {
-        PCSSecError(v28, a4, @"Failed finding service %@", v6);
-      }
-
-      else if (v61 && (v29 = CFGetTypeID(v61), v29 == CFArrayGetTypeID()))
-      {
-        Count = CFArrayGetCount(v61);
-        v31 = Count;
+        Count = CFArrayGetCount(v51);
+        v28 = Count;
         if (a3)
         {
           *a3 = Count;
@@ -1995,53 +1414,53 @@ LABEL_35:
 
         if (Count >= 1)
         {
-          v32 = 0;
-          v33 = 0;
-          v34 = 0;
-          v35 = *MEMORY[0x1E697B3C0];
-          v36 = *MEMORY[0x1E697AEA8];
+          v29 = 0;
+          v30 = 0;
+          v31 = 0;
+          v32 = *MEMORY[0x1E697B3C0];
+          v33 = *MEMORY[0x1E697AEA8];
           do
           {
-            ValueAtIndex = CFArrayGetValueAtIndex(v61, v34);
+            ValueAtIndex = CFArrayGetValueAtIndex(v51, v31);
             if (ValueAtIndex)
             {
-              v38 = ValueAtIndex;
-              v39 = CFGetTypeID(ValueAtIndex);
-              if (v39 == CFDictionaryGetTypeID())
+              v35 = ValueAtIndex;
+              v36 = CFGetTypeID(ValueAtIndex);
+              if (v36 == CFDictionaryGetTypeID())
               {
-                Value = CFDictionaryGetValue(v38, v35);
+                Value = CFDictionaryGetValue(v35, v32);
                 if (Value)
                 {
-                  v41 = CFGetTypeID(Value);
-                  if (v41 == CFDataGetTypeID())
+                  v38 = CFGetTypeID(Value);
+                  if (v38 == CFDataGetTypeID())
                   {
-                    v42 = CFDictionaryGetValue(v38, v36);
-                    if (IsViewHintPreferred(v42) && (!v33 || IdentityAttributesCompare(v38, v33) == kCFCompareGreaterThan))
+                    v39 = CFDictionaryGetValue(v35, v33);
+                    if (IsViewHintPreferred(v39) && (!v30 || IdentityAttributesCompare(v35, v30) == kCFCompareGreaterThan))
                     {
-                      v33 = v38;
+                      v30 = v35;
                     }
 
-                    else if (!v32 || IdentityAttributesCompare(v38, v32) == kCFCompareGreaterThan)
+                    else if (!v29 || IdentityAttributesCompare(v35, v29) == kCFCompareGreaterThan)
                     {
-                      v32 = v38;
+                      v29 = v35;
                     }
                   }
                 }
               }
             }
 
-            ++v34;
+            ++v31;
           }
 
-          while (v31 != v34);
-          if (v33 || (v33 = v32) != 0)
+          while (v28 != v31);
+          if (v30 || (v30 = v29) != 0)
           {
-            v43 = PCSIdentityCreateWithKeychainAttributes(v33);
-            UpdateCKKSIdentity(v43, v33);
-            if (v43)
+            v40 = PCSIdentityCreateWithKeychainAttributes(v30);
+            UpdateCKKSIdentity(v40, v30);
+            if (v40)
             {
-              v44 = [[PCSCurrentIdentity alloc] initWithIdentity:v43 currentItemPointerModificationTime:0];
-              CFRelease(v43);
+              v41 = [[PCSCurrentIdentity alloc] initWithIdentity:v40 currentItemPointerModificationTime:0];
+              CFRelease(v40);
               goto LABEL_40;
             }
           }
@@ -2054,34 +1473,34 @@ LABEL_35:
       }
     }
 
-    v44 = 0;
+    v41 = 0;
   }
 
   else
   {
     _PCSErrorOOM(a4);
-    v44 = 0;
-    v24 = 0;
+    v41 = 0;
+    v21 = 0;
   }
 
 LABEL_40:
-  v45 = v61;
-  if (v61)
+  v42 = v51;
+  if (v51)
   {
-    v61 = 0;
-    CFRelease(v45);
+    v51 = 0;
+    CFRelease(v42);
   }
 
-  if (v24)
+  if (v21)
   {
-    CFRelease(v24);
+    CFRelease(v21);
   }
 
-  v46 = v61;
-  if (v61)
+  v43 = v51;
+  if (v51)
   {
-    v61 = 0;
-    CFRelease(v46);
+    v51 = 0;
+    CFRelease(v43);
   }
 
   if (v18)
@@ -2089,17 +1508,17 @@ LABEL_40:
     CFRelease(v18);
   }
 
-  return v44;
+  return v41;
 }
 
 void __KeychainRepairCurrentIdentity_block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x1E69E9840];
-  v11 = 0;
-  v2 = KeychainCopyXIdentityWithCount(*(a1 + 40), *(a1 + 48), &v11, 0);
+  v13 = *MEMORY[0x1E69E9840];
+  v10 = 0;
+  v2 = KeychainCopyXIdentityWithCount(*(a1 + 40), *(a1 + 48), &v10, 0);
   v3 = v2;
   cf = 0;
-  if (v11 <= 1 && (!v2 || CFEqual([v2 identity], *(a1 + 56))))
+  if (v10 <= 1 && (!v2 || CFEqual([v2 identity], *(a1 + 56))))
   {
 LABEL_4:
     v4 = 1;
@@ -2112,11 +1531,11 @@ LABEL_4:
     _os_log_impl(&dword_1B229C000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "current pointer/bit mismatch detected", buf, 2u);
   }
 
-  v8 = KeychainSetCurrentIdentity(*(a1 + 40), *(a1 + 56), &cf);
-  v9 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT);
-  if (v8)
+  v7 = KeychainSetCurrentIdentity(*(a1 + 40), *(a1 + 56), &cf);
+  v8 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT);
+  if (v7)
   {
-    if (v9)
+    if (v8)
     {
       *buf = 0;
       _os_log_impl(&dword_1B229C000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "successfully set current identity", buf, 2u);
@@ -2125,10 +1544,10 @@ LABEL_4:
     goto LABEL_4;
   }
 
-  if (v9)
+  if (v8)
   {
     *buf = 138412290;
-    v13 = cf;
+    v12 = cf;
     _os_log_impl(&dword_1B229C000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "failed to set current identity: %@", buf, 0xCu);
   }
 
@@ -2151,31 +1570,29 @@ LABEL_5:
   CFRelease(*(a1 + 40));
   CFRelease(*(a1 + 48));
   CFRelease(*(a1 + 56));
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
-uint64_t KeychainGetSecurityDomainStatus(uint64_t a1, __CFString *a2, int *a3, const void **a4, int a5, int a6, int a7, int a8)
+uint64_t KeychainGetSecurityDomainStatus(uint64_t a1, __CFString *a2, unsigned int *a3, const void **a4, int a5, int a6, int a7, int a8)
 {
-  v114 = *MEMORY[0x1E69E9840];
-  v109 = 0;
+  v113 = *MEMORY[0x1E69E9840];
+  v108 = 0;
   v10 = *MEMORY[0x1E697AC30];
   v11 = *MEMORY[0x1E695E4D0];
   v12 = *MEMORY[0x1E697B260];
   v13 = *MEMORY[0x1E697B270];
-  v89 = *MEMORY[0x1E697B270];
-  v90 = 0;
-  v87 = *MEMORY[0x1E695E4D0];
-  v88 = *MEMORY[0x1E697B260];
-  v106 = *MEMORY[0x1E697B318];
-  v85 = kPCSAccount[0];
-  v86 = *MEMORY[0x1E697B318];
-  v84 = *MEMORY[0x1E697AC30];
-  v82 = *MEMORY[0x1E697AE70];
-  v83 = a2;
-  v103 = *MEMORY[0x1E697AE70];
-  v104 = *MEMORY[0x1E697B018];
-  v107 = *MEMORY[0x1E697AFF8];
+  v88 = *MEMORY[0x1E697B270];
+  v89 = 0;
+  v86 = *MEMORY[0x1E695E4D0];
+  v87 = *MEMORY[0x1E697B260];
+  v105 = *MEMORY[0x1E697B318];
+  v84 = kPCSAccount[0];
+  v85 = *MEMORY[0x1E697B318];
+  v83 = *MEMORY[0x1E697AC30];
+  v81 = *MEMORY[0x1E697AE70];
+  v82 = a2;
+  v102 = *MEMORY[0x1E697AE70];
+  v103 = *MEMORY[0x1E697B018];
+  v106 = *MEMORY[0x1E697AFF8];
   MutableForCFTypesWith = CFDictionaryCreateMutableForCFTypesWith(a1, a2, a3, a4, a5, a6, a7, a8, *MEMORY[0x1E697AFF8], *MEMORY[0x1E697B018]);
   v15 = MutableForCFTypesWith;
   v16 = *(a1 + 40);
@@ -2191,7 +1608,7 @@ uint64_t KeychainGetSecurityDomainStatus(uint64_t a1, __CFString *a2, int *a3, c
 
   PCSMeasureRelativeNanoTime();
   ++qword_1ED6F2630;
-  *a3 = _PCSKeychainForwardTable(v15, &v109);
+  *a3 = _PCSKeychainForwardTable(v15, &v108);
   v17 = PCSMeasureRelativeNanoTime();
   v18 = OUTLINED_FUNCTION_5_1(v17);
   if (v26 != -25300)
@@ -2204,18 +1621,18 @@ uint64_t KeychainGetSecurityDomainStatus(uint64_t a1, __CFString *a2, int *a3, c
     CFRelease(v15);
   }
 
-  v89 = v13;
-  v90 = 0;
-  v87 = v11;
-  v88 = v12;
-  v85 = kPCSAccount[0];
-  v86 = v106;
-  v84 = v10;
-  v82 = *MEMORY[0x1E697AE88];
-  v83 = a2;
-  v101 = *MEMORY[0x1E697AE88];
-  v102 = *MEMORY[0x1E697B008];
-  v27 = CFDictionaryCreateMutableForCFTypesWith(v18, v19, v20, v21, v22, v23, v24, v25, v107, *MEMORY[0x1E697B008]);
+  v88 = v13;
+  v89 = 0;
+  v86 = v11;
+  v87 = v12;
+  v84 = kPCSAccount[0];
+  v85 = v105;
+  v83 = v10;
+  v81 = *MEMORY[0x1E697AE88];
+  v82 = a2;
+  v100 = *MEMORY[0x1E697AE88];
+  v101 = *MEMORY[0x1E697B008];
+  v27 = CFDictionaryCreateMutableForCFTypesWith(v18, v19, v20, v21, v22, v23, v24, v25, v106, *MEMORY[0x1E697B008]);
   v15 = v27;
   v28 = *(a1 + 40);
   if (v28)
@@ -2223,7 +1640,7 @@ uint64_t KeychainGetSecurityDomainStatus(uint64_t a1, __CFString *a2, int *a3, c
     CFDictionarySetValue(v27, *MEMORY[0x1E697ACF0], v28);
   }
 
-  OUTLINED_FUNCTION_0_4(&PCSUseSyncKeychain);
+  OUTLINED_FUNCTION_0_4();
   if (v29)
   {
     CFDictionarySetValue(v15, *MEMORY[0x1E697AEB0], v11);
@@ -2231,7 +1648,7 @@ uint64_t KeychainGetSecurityDomainStatus(uint64_t a1, __CFString *a2, int *a3, c
 
   PCSMeasureRelativeNanoTime();
   ++qword_1ED6F2630;
-  *a3 = _PCSKeychainForwardTable(v15, &v109);
+  *a3 = _PCSKeychainForwardTable(v15, &v108);
   v30 = PCSMeasureRelativeNanoTime();
   OUTLINED_FUNCTION_5_1(v30);
   if (v31)
@@ -2239,89 +1656,89 @@ uint64_t KeychainGetSecurityDomainStatus(uint64_t a1, __CFString *a2, int *a3, c
     goto LABEL_14;
   }
 
-  v53 = *(a1 + 40);
-  if (!v53)
+  v52 = *(a1 + 40);
+  if (!v52)
   {
     goto LABEL_14;
   }
 
-  v54 = v109;
+  v53 = v108;
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
   {
-    LOWORD(v110) = 0;
+    LOWORD(v109) = 0;
     OUTLINED_FUNCTION_6_1();
-    _os_log_impl(v61, v62, v63, v64, v65, 2u);
+    _os_log_impl(v60, v61, v62, v63, v64, 2u);
   }
 
-  v99 = v54;
-  v100 = 0;
-  v97 = @"PCS-MasterKey";
-  v98 = *MEMORY[0x1E697B3C0];
-  v95 = v53;
-  v96 = *MEMORY[0x1E697AEA8];
-  v93 = kPCSDefaultKeychainGroup[0];
-  v94 = *MEMORY[0x1E697AE80];
-  v91 = v11;
-  v92 = *MEMORY[0x1E697ABD0];
-  v89 = *MEMORY[0x1E697ABE0];
-  v90 = *MEMORY[0x1E697B390];
-  v87 = kPCSAccount[0];
-  v88 = *MEMORY[0x1E697ABD8];
-  v85 = kPCSiCloudServiceMarkerName[0];
-  v86 = v10;
-  v83 = @"PCS iCloud Data Protection";
-  v84 = v103;
-  v82 = *MEMORY[0x1E697ADC8];
-  v66 = CFDictionaryCreateMutableForCFTypesWith(@"PCS-MasterKey", *MEMORY[0x1E697B3C0], v55, v56, v57, v58, v59, v60, v107, v104);
-  v67 = MEMORY[0x1E697AEB0];
-  if (v66)
+  v98 = v53;
+  v99 = 0;
+  v96 = @"PCS-MasterKey";
+  v97 = *MEMORY[0x1E697B3C0];
+  v94 = v52;
+  v95 = *MEMORY[0x1E697AEA8];
+  v92 = kPCSDefaultKeychainGroup[0];
+  v93 = *MEMORY[0x1E697AE80];
+  v90 = v11;
+  v91 = *MEMORY[0x1E697ABD0];
+  v88 = *MEMORY[0x1E697ABE0];
+  v89 = *MEMORY[0x1E697B390];
+  v86 = kPCSAccount[0];
+  v87 = *MEMORY[0x1E697ABD8];
+  v84 = kPCSiCloudServiceMarkerName[0];
+  v85 = v10;
+  v82 = @"PCS iCloud Data Protection";
+  v83 = v102;
+  v81 = *MEMORY[0x1E697ADC8];
+  v65 = CFDictionaryCreateMutableForCFTypesWith(@"PCS-MasterKey", *MEMORY[0x1E697B3C0], v54, v55, v56, v57, v58, v59, v106, v103);
+  v66 = MEMORY[0x1E697AEB0];
+  if (v65)
   {
-    v68 = v66;
-    OUTLINED_FUNCTION_0_4(&PCSUseSyncKeychain);
+    v67 = v65;
+    OUTLINED_FUNCTION_0_4();
     if (v29)
     {
-      CFDictionarySetValue(v68, *v67, v11);
+      CFDictionarySetValue(v67, *v66, v11);
     }
 
-    v93 = v13;
-    v94 = 0;
-    v91 = v11;
-    v92 = v12;
-    v89 = v11;
-    v90 = v106;
-    v87 = v53;
-    v88 = *MEMORY[0x1E697AD00];
-    v85 = kPCSAccount[0];
-    v86 = *MEMORY[0x1E697ACF0];
-    v83 = kPCSiCloudServiceMarkerName[0];
-    v84 = v10;
-    v82 = v101;
-    v77 = CFDictionaryCreateMutableForCFTypesWith(v69, v70, v71, v72, v73, v74, v75, v76, v107, v102);
-    if (v77)
+    v92 = v13;
+    v93 = 0;
+    v90 = v11;
+    v91 = v12;
+    v88 = v11;
+    v89 = v105;
+    v86 = v52;
+    v87 = *MEMORY[0x1E697AD00];
+    v84 = kPCSAccount[0];
+    v85 = *MEMORY[0x1E697ACF0];
+    v82 = kPCSiCloudServiceMarkerName[0];
+    v83 = v10;
+    v81 = v100;
+    v76 = CFDictionaryCreateMutableForCFTypesWith(v68, v69, v70, v71, v72, v73, v74, v75, v106, v101);
+    if (v76)
     {
-      v78 = v77;
-      OUTLINED_FUNCTION_0_4(&PCSUseSyncKeychain);
+      v77 = v76;
+      OUTLINED_FUNCTION_0_4();
       if (v29)
       {
-        CFDictionarySetValue(v78, *v67, v11);
+        CFDictionarySetValue(v77, *v66, v11);
       }
 
-      v79 = (*(&_PCSKeychainForwardTable + 1))(v68, 0);
-      if (!v79 || v79 == -25299)
+      v78 = (*(&_PCSKeychainForwardTable + 1))(v67, 0);
+      if (!v78 || v78 == -25299)
       {
-        off_1ED6F2360(v78);
+        off_1ED6F2360(v77);
       }
 
-      CFRelease(v68);
+      CFRelease(v67);
     }
 
     else
     {
-      v78 = v68;
+      v77 = v67;
     }
 
     v32 = a2;
-    CFRelease(v78);
+    CFRelease(v77);
   }
 
   else
@@ -2333,10 +1750,10 @@ LABEL_14:
   if (!CFEqual(v32, kPCSPlesioMarkerName[0]) && !CFEqual(v32, kPCSPlesioMarkerNewName[0]) && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
   {
     v33 = *a3;
-    v110 = 138412546;
-    v111 = v32;
-    v112 = 1024;
-    LODWORD(v113) = v33;
+    v109 = 138412546;
+    v110 = v32;
+    v111 = 1024;
+    LODWORD(v112) = v33;
     OUTLINED_FUNCTION_6_1();
     _os_log_impl(v34, v35, v36, v37, v38, 0x12u);
   }
@@ -2346,15 +1763,15 @@ LABEL_14:
   {
     if (v39 != -25300)
     {
-      _PCSError(a4, 50, @"Marker (%@) return unexpected error code: %d", v32, v39, v82, v83, v84, v85, v86, v87, v88, v89, v90, v91, v92, v93, v94, v95, v96, v97, v98, v99, v100);
+      _PCSError(a4, 50, @"Marker (%@) return unexpected error code: %d", v32, v39, v81, v82, v83, v84, v85, v86, v87, v88, v89, v90, v91, v92, v93, v94, v95, v96, v97, v98, v99);
     }
 
     goto LABEL_57;
   }
 
-  if (!v109 || (v40 = CFGetTypeID(v109), v40 != CFDataGetTypeID()))
+  if (!v108 || (v40 = CFGetTypeID(v108), v40 != CFDataGetTypeID()))
   {
-    _PCSError(a4, 50, @"Failed getting iCDP data", key, v81, v82, v83, v84, v85, v86, v87, v88, v89, v90, v91, v92, v93, v94, v95, v96, v97, v98, v99, v100);
+    _PCSError(a4, 50, @"Failed getting iCDP data", key, v80, v81, v82, v83, v84, v85, v86, v87, v88, v89, v90, v91, v92, v93, v94, v95, v96, v97, v98, v99);
 LABEL_57:
     v42 = 0;
     goto LABEL_26;
@@ -2364,7 +1781,7 @@ LABEL_57:
   v42 = v41;
   if (v41)
   {
-    if (CFEqual(v41, v109))
+    if (CFEqual(v41, v108))
     {
       v43 = 1;
       goto LABEL_27;
@@ -2389,10 +1806,10 @@ LABEL_27:
       v44 = "on";
     }
 
-    v110 = 138412546;
-    v111 = v32;
-    v112 = 2080;
-    v113 = v44;
+    v109 = 138412546;
+    v110 = v32;
+    v111 = 2080;
+    v112 = v44;
     OUTLINED_FUNCTION_6_1();
     _os_log_impl(v45, v46, v47, v48, v49, 0x16u);
   }
@@ -2402,10 +1819,10 @@ LABEL_27:
     CFRelease(v15);
   }
 
-  v50 = v109;
-  if (v109)
+  v50 = v108;
+  if (v108)
   {
-    v109 = 0;
+    v108 = 0;
     CFRelease(v50);
   }
 
@@ -2414,13 +1831,11 @@ LABEL_27:
     CFRelease(v42);
   }
 
-  v51 = *MEMORY[0x1E69E9840];
   return v43;
 }
 
 uint64_t KeychainSetSecurityDomainStatus(uint64_t a1, CFTypeRef cf1, int a3, CFErrorRef *a4)
 {
-  v89 = *MEMORY[0x1E69E9840];
   if (a4)
   {
     v8 = *a4;
@@ -2433,7 +1848,7 @@ uint64_t KeychainSetSecurityDomainStatus(uint64_t a1, CFTypeRef cf1, int a3, CFE
 
   if (!*(a1 + 40))
   {
-    goto LABEL_41;
+    return 0;
   }
 
   v9 = CFEqual(cf1, kPCSPlesioMarkerName[0]);
@@ -2453,32 +1868,28 @@ uint64_t KeychainSetSecurityDomainStatus(uint64_t a1, CFTypeRef cf1, int a3, CFE
 
   if (!a3)
   {
-    v78 = *(a1 + 40);
-    v76 = *MEMORY[0x1E697AE80];
-    v75 = *MEMORY[0x1E697AC30];
-    v74 = *MEMORY[0x1E697AE70];
     MutableForCFTypesWith = CFDictionaryCreateMutableForCFTypesWith(v9, v10, v11, v12, v13, v14, v15, v16, *MEMORY[0x1E697AFF8], *MEMORY[0x1E697B018]);
     if (MutableForCFTypesWith)
     {
-      v67 = MutableForCFTypesWith;
-      OUTLINED_FUNCTION_0_4(&PCSUseSyncKeychain);
-      if (v38)
+      v66 = MutableForCFTypesWith;
+      OUTLINED_FUNCTION_0_4();
+      if (v37)
       {
-        CFDictionarySetValue(v67, *MEMORY[0x1E697AEB0], *MEMORY[0x1E695E4D0]);
+        CFDictionarySetValue(v66, *MEMORY[0x1E697AEB0], *MEMORY[0x1E695E4D0]);
       }
 
-      v68 = PCSMeasureRelativeNanoTime();
+      v67 = PCSMeasureRelativeNanoTime();
       ++qword_1ED6F2620;
-      v69 = off_1ED6F2360(v67);
-      qword_1ED6F2628 += PCSMeasureRelativeNanoTime() - v68;
-      v63 = 1;
-      if (v69 != -25300 && v69)
+      v68 = off_1ED6F2360(v66);
+      qword_1ED6F2628 += PCSMeasureRelativeNanoTime() - v67;
+      v62 = 1;
+      if (v68 != -25300 && v68)
       {
-        PCSSecError(v69, a4, @"Failed to delete: %@", cf1);
-        v63 = 0;
+        PCSSecError(v68, a4, @"Failed to delete: %@", cf1);
+        v62 = 0;
       }
 
-      v70 = v67;
+      v69 = v66;
       goto LABEL_37;
     }
 
@@ -2490,95 +1901,82 @@ uint64_t KeychainSetSecurityDomainStatus(uint64_t a1, CFTypeRef cf1, int a3, CFE
   {
 LABEL_39:
     _PCSErrorOOM(a4);
-LABEL_41:
-    v63 = 0;
-    goto LABEL_38;
+    return 0;
   }
 
   v28 = v22;
-  v87 = a4;
+  v71 = a4;
   v29 = *MEMORY[0x1E697AFF8];
   v30 = *MEMORY[0x1E697B018];
-  v31 = *MEMORY[0x1E697AE70];
-  v32 = *MEMORY[0x1E695E4D0];
+  v31 = *MEMORY[0x1E695E4D0];
   key = *MEMORY[0x1E697B3C0];
-  v86 = *MEMORY[0x1E697AEA8];
-  v84 = *(a1 + 40);
-  v85 = *MEMORY[0x1E697AD00];
-  v82 = *MEMORY[0x1E695E4D0];
-  v83 = *MEMORY[0x1E697ABD0];
-  v80 = *MEMORY[0x1E697ABE0];
-  v81 = *MEMORY[0x1E697B390];
-  v79 = *MEMORY[0x1E697ABD8];
-  v73 = *MEMORY[0x1E697ADC8];
-  v34 = CFDictionaryCreateMutableForCFTypesWith(@"PCS-MasterKey", *MEMORY[0x1E697AC30], *MEMORY[0x1E697AE80], v23, v24, v25, v26, v27, *MEMORY[0x1E697AFF8], *MEMORY[0x1E697B018]);
-  if (!v34)
+  v33 = CFDictionaryCreateMutableForCFTypesWith(@"PCS-MasterKey", *MEMORY[0x1E697AC30], *MEMORY[0x1E697AE80], v23, v24, v25, v26, v27, *MEMORY[0x1E697AFF8], *MEMORY[0x1E697B018]);
+  if (!v33)
   {
 LABEL_40:
-    _PCSErrorOOM(v87);
+    _PCSErrorOOM(v71);
     CFRelease(v28);
-    goto LABEL_41;
+    return 0;
   }
 
-  v35 = v34;
-  v36 = v30;
-  v88 = v28;
-  v37 = v29;
-  OUTLINED_FUNCTION_0_4(&PCSUseSyncKeychain);
-  if (v38)
+  v34 = v33;
+  v35 = v30;
+  v72 = v28;
+  v36 = v29;
+  OUTLINED_FUNCTION_0_4();
+  if (v37)
   {
-    CFDictionarySetValue(v35, *MEMORY[0x1E697AEB0], v32);
+    CFDictionarySetValue(v34, *MEMORY[0x1E697AEB0], v31);
   }
 
-  v39 = PCSMeasureRelativeNanoTime();
+  v38 = PCSMeasureRelativeNanoTime();
   ++PCSMeasure;
-  v40 = (*(&_PCSKeychainForwardTable + 1))(v35, 0);
-  qword_1ED6F2608 += PCSMeasureRelativeNanoTime() - v39;
-  if (v40 == -25299)
+  v39 = (*(&_PCSKeychainForwardTable + 1))(v34, 0);
+  qword_1ED6F2608 += PCSMeasureRelativeNanoTime() - v38;
+  if (v39 == -25299)
   {
-    v41 = v37;
+    v40 = v36;
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
     {
       OUTLINED_FUNCTION_6_1();
-      _os_log_impl(v42, v43, v44, v45, v46, 0x1Cu);
+      _os_log_impl(v41, v42, v43, v44, v45, 0x1Cu);
     }
 
-    CFRelease(v35);
-    v28 = v88;
-    v55 = CFDictionaryCreateMutableForCFTypesWith(v47, v48, v49, v50, v51, v52, v53, v54, key, v88);
-    if (v55)
+    CFRelease(v34);
+    v28 = v72;
+    v54 = CFDictionaryCreateMutableForCFTypesWith(v46, v47, v48, v49, v50, v51, v52, v53, key, v72);
+    if (v54)
     {
-      v35 = v55;
-      v77 = *(a1 + 40);
-      v63 = CFDictionaryCreateMutableForCFTypesWith(v55, v56, v57, v58, v59, v60, v61, v62, v41, v36);
-      if (v63)
+      v34 = v54;
+      v62 = CFDictionaryCreateMutableForCFTypesWith(v54, v55, v56, v57, v58, v59, v60, v61, v40, v35);
+      if (v62)
       {
-        OUTLINED_FUNCTION_0_4(&PCSUseSyncKeychain);
-        if (v38)
+        OUTLINED_FUNCTION_0_4();
+        if (v37)
         {
-          CFDictionarySetValue(v63, *MEMORY[0x1E697AEB0], v32);
+          CFDictionarySetValue(v62, *MEMORY[0x1E697AEB0], v31);
         }
 
-        v64 = PCSMeasureRelativeNanoTime();
+        v63 = PCSMeasureRelativeNanoTime();
         ++qword_1ED6F2610;
-        v65 = qword_1ED6F2358(v63, v35);
-        qword_1ED6F2618 += PCSMeasureRelativeNanoTime() - v64;
-        CFRelease(v63);
-        if (v65)
+        v64 = qword_1ED6F2358(v62, v34);
+        qword_1ED6F2618 += PCSMeasureRelativeNanoTime() - v63;
+        CFRelease(v62);
+        if (v64)
         {
-          PCSSecError(v65, v87, @"Failed to update: %@", cf1);
-          v63 = 0;
+          PCSSecError(v64, v71, @"Failed to update: %@", cf1);
+          v62 = 0;
         }
 
         else
         {
-          v63 = 1;
+          v62 = 1;
         }
       }
 
       else
       {
-        _PCSErrorOOM(v87);
+        _PCSErrorOOM(v71);
       }
 
       goto LABEL_36;
@@ -2587,60 +1985,53 @@ LABEL_40:
     goto LABEL_40;
   }
 
-  if (v40)
+  if (v39)
   {
-    PCSSecError(v40, v87, @"Failed to add: %@", cf1);
-    v63 = 0;
+    PCSSecError(v39, v71, @"Failed to add: %@", cf1);
+    v62 = 0;
   }
 
   else
   {
-    v63 = 1;
+    v62 = 1;
   }
 
-  v28 = v88;
+  v28 = v72;
 LABEL_36:
   CFRelease(v28);
-  v70 = v35;
+  v69 = v34;
 LABEL_37:
-  CFRelease(v70);
-LABEL_38:
-  v71 = *MEMORY[0x1E69E9840];
-  return v63;
+  CFRelease(v69);
+  return v62;
 }
 
 void KeychainCopyCurrentIdentity_cold_1(uint64_t *a1)
 {
-  v5 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
   v1 = *a1;
-  v3 = 138412290;
-  v4 = v1;
-  _os_log_error_impl(&dword_1B229C000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "Failed to get W state: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = v1;
+  _os_log_error_impl(&dword_1B229C000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "Failed to get W state: %@", &v2, 0xCu);
 }
 
 void UpdateCKKSIdentity_cold_1(uint64_t a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8)
 {
-  v41 = *MEMORY[0x1E69E9840];
-  v9 = *MEMORY[0x1E697B018];
-  v10 = *MEMORY[0x1E697B390];
-  v11 = *MEMORY[0x1E697AEB0];
-  v36 = *MEMORY[0x1E695E4D0];
-  v12 = OUTLINED_FUNCTION_2_1(a1, a2, a3, a4, a5, a6, a7, a8, *MEMORY[0x1E697AFF8], v31, v32, v33, v34, v35);
-  v13 = OUTLINED_FUNCTION_0_1();
-  Mutable = CFDictionaryCreateMutable(v13, v14, v15, v16);
-  v18 = _PCSKeychainAmendCKKSEntry(a1, Mutable);
-  if (v18)
+  v35 = *MEMORY[0x1E69E9840];
+  v9 = OUTLINED_FUNCTION_2_1(a1, a2, a3, a4, a5, a6, a7, a8, *MEMORY[0x1E697AFF8], v26, v27, v28, v29, v30);
+  v10 = OUTLINED_FUNCTION_0_1();
+  Mutable = CFDictionaryCreateMutable(v10, v11, v12, v13);
+  v15 = _PCSKeychainAmendCKKSEntry(a1, Mutable);
+  if (v15)
   {
-    OUTLINED_FUNCTION_9_0(v18, v19, *MEMORY[0x1E697AEA8]);
-    OUTLINED_FUNCTION_9_0(v20, v21, *MEMORY[0x1E697AE70]);
-    OUTLINED_FUNCTION_9_0(v22, v23, *MEMORY[0x1E697AC30]);
-    OUTLINED_FUNCTION_9_0(v24, v25, *MEMORY[0x1E697AEF8]);
-    OUTLINED_FUNCTION_9_0(v26, v27, *MEMORY[0x1E697AE80]);
-    v28 = qword_1ED6F2358(v12, Mutable);
-    if (v12)
+    OUTLINED_FUNCTION_9_0(v15, v16, *MEMORY[0x1E697AEA8]);
+    OUTLINED_FUNCTION_9_0(v17, v18, *MEMORY[0x1E697AE70]);
+    OUTLINED_FUNCTION_9_0(v19, v20, *MEMORY[0x1E697AC30]);
+    OUTLINED_FUNCTION_9_0(v21, v22, *MEMORY[0x1E697AEF8]);
+    OUTLINED_FUNCTION_9_0(v23, v24, *MEMORY[0x1E697AE80]);
+    v25 = qword_1ED6F2358(v9, Mutable);
+    if (v9)
     {
-      CFRelease(v12);
+      CFRelease(v9);
     }
 
     if (Mutable)
@@ -2648,36 +2039,32 @@ void UpdateCKKSIdentity_cold_1(uint64_t a1, int a2, int a3, int a4, int a5, int 
       CFRelease(Mutable);
     }
 
-    if (v28)
+    if (v25)
     {
       if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412546;
-        v38 = a1;
-        v39 = 1024;
-        v40 = v28;
+        v32 = a1;
+        v33 = 1024;
+        v34 = v25;
         _os_log_impl(&dword_1B229C000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "Failed to update identity %@ to set CKKS PCS public attributes: %d", buf, 0x12u);
       }
     }
-
-LABEL_15:
-    v30 = *MEMORY[0x1E69E9840];
-    return;
   }
 
-  if (v12)
+  else
   {
-    CFRelease(v12);
+    if (v9)
+    {
+      CFRelease(v9);
+    }
+
+    if (Mutable)
+    {
+
+      CFRelease(Mutable);
+    }
   }
-
-  if (!Mutable)
-  {
-    goto LABEL_15;
-  }
-
-  v29 = *MEMORY[0x1E69E9840];
-
-  CFRelease(Mutable);
 }
 
 const __CFDictionary *_PCSIsiCDPEnabled(const __CFDictionary *a1, int a2)
@@ -3400,9 +2787,9 @@ uint64_t PCSEnginePrepareMetaData(void *a1)
   return v3;
 }
 
-uint64_t PCSEngineSynchronizeiCDP(void *a1, const void **a2)
+uint64_t PCSEngineSynchronizeiCDP(void *a1, uint64_t *a2)
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   v3 = a1;
   v4 = GetiCDPMetadata([v3 metadata]);
   if (v4)
@@ -3465,7 +2852,7 @@ uint64_t PCSEngineSynchronizeiCDP(void *a1, const void **a2)
       }
 
       *buf = 138412290;
-      v23 = v16;
+      v22 = v16;
       _os_log_impl(&dword_1B229C000, v15, OS_LOG_TYPE_DEFAULT, "Not creating new identity; local store iCDP state is %@", buf, 0xCu);
     }
   }
@@ -3500,7 +2887,6 @@ uint64_t PCSEngineSynchronizeiCDP(void *a1, const void **a2)
     CFRelease(v12);
   }
 
-  v20 = *MEMORY[0x1E69E9840];
   return 1;
 }
 
@@ -3511,7 +2897,7 @@ void PCSEngineAddMissingFromRegistry(int a1, int a2, int a3, int a4, int a5, int
   a28 = v29;
   v31 = v30;
   v33 = v32;
-  v34 = _PCSServiceItemsGetTooRolledServiceTypes();
+  v34 = _PCSServiceItemsGetTooRolledServiceTypes(v33);
   a16 = 0;
   if ([v33 missingFromRegistry])
   {
@@ -3651,7 +3037,7 @@ LABEL_38:
 uint64_t PCSEngineStepValidateLooseLeaves(void *a1, const void **a2)
 {
   v5 = a1;
-  _PCSServiceItemsGetTooRolledServiceTypes();
+  _PCSServiceItemsGetTooRolledServiceTypes(v5);
   objc_claimAutoreleasedReturnValue();
   if (![OUTLINED_FUNCTION_11_1() stableMetadata])
   {
@@ -3703,11 +3089,11 @@ uint64_t PCSEngineStepValidateLooseLeaves(void *a1, const void **a2)
 
   else
   {
-    v14 = OUTLINED_FUNCTION_0_1();
-    MutableCopy = CFDictionaryCreateMutable(v14, v15, v16, v17);
+    v15 = OUTLINED_FUNCTION_0_1();
+    MutableCopy = CFDictionaryCreateMutable(v15, v16, v17, v18);
   }
 
-  v18 = MutableCopy;
+  v19 = MutableCopy;
   if (!MutableCopy)
   {
 LABEL_43:
@@ -3715,35 +3101,35 @@ LABEL_43:
     goto LABEL_40;
   }
 
-  v43 = a2;
-  CFArrayOfNames = PCSServiceItemsGetCFArrayOfNames();
+  v44 = a2;
+  CFArrayOfNames = PCSServiceItemsGetCFArrayOfNames(MutableCopy, v14);
   cf = PCSIdentitySetCreateMutable(0);
   Count = CFArrayGetCount(CFArrayOfNames);
   if (Count < 1)
   {
 LABEL_33:
-    v41 = [v5 stableMetadata];
-    CFDictionarySetValue(v41, kPCSSecureBackupCFStableLooseLeaves[0], v18);
-    v25 = 0;
+    v42 = [v5 stableMetadata];
+    CFDictionarySetValue(v42, kPCSSecureBackupCFStableLooseLeaves[0], v19);
+    v26 = 0;
     Mutable = 0;
     goto LABEL_34;
   }
 
-  v21 = Count;
-  v22 = 0;
-  v45 = v3;
+  v22 = Count;
+  v23 = 0;
+  v46 = v3;
   while (1)
   {
-    ValueAtIndex = CFArrayGetValueAtIndex(CFArrayOfNames, v22);
+    ValueAtIndex = CFArrayGetValueAtIndex(CFArrayOfNames, v23);
     if (!PCSServiceItemTypeIsManatee(ValueAtIndex))
     {
       break;
     }
 
 LABEL_21:
-    CFDictionaryRemoveValue(v18, ValueAtIndex);
+    CFDictionaryRemoveValue(v19, ValueAtIndex);
 LABEL_22:
-    if (v21 == ++v22)
+    if (v22 == ++v23)
     {
       goto LABEL_33;
     }
@@ -3755,97 +3141,97 @@ LABEL_22:
     goto LABEL_21;
   }
 
-  v24 = PCSIdentitySetCopyOrderedIdentities([v5 set], ValueAtIndex);
-  if (!v24)
+  v25 = PCSIdentitySetCopyOrderedIdentities([v5 set], ValueAtIndex);
+  if (!v25)
   {
     goto LABEL_22;
   }
 
-  v25 = v24;
-  v26 = OUTLINED_FUNCTION_0_1();
-  Mutable = CFDictionaryCreateMutable(v26, v27, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
+  v26 = v25;
+  v27 = OUTLINED_FUNCTION_0_1();
+  Mutable = CFDictionaryCreateMutable(v27, v28, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
   if (!Mutable)
   {
-    _PCSErrorOOM(v43);
+    _PCSErrorOOM(v44);
     goto LABEL_34;
   }
 
-  Value = CFDictionaryGetValue(v18, ValueAtIndex);
+  Value = CFDictionaryGetValue(v19, ValueAtIndex);
   if (Value)
   {
-    v30 = Value;
-    v31 = CFGetTypeID(Value);
-    if (v31 == CFArrayGetTypeID())
+    v31 = Value;
+    v32 = CFGetTypeID(Value);
+    if (v32 == CFArrayGetTypeID())
     {
-      v53 = MEMORY[0x1E69E9820];
-      v54 = 3221225472;
-      v55 = __PCSEngineStepValidateLooseLeaves_block_invoke;
-      v56 = &unk_1E7B194C0;
-      v57 = v5;
-      v58 = cf;
-      v59 = ValueAtIndex;
-      v60 = Mutable;
-      CFArrayGetCount(v30);
+      v54 = MEMORY[0x1E69E9820];
+      v55 = 3221225472;
+      v56 = __PCSEngineStepValidateLooseLeaves_block_invoke;
+      v57 = &unk_1E7B194C0;
+      v58 = v5;
+      v59 = cf;
+      v60 = ValueAtIndex;
+      v61 = Mutable;
+      CFArrayGetCount(v31);
       OUTLINED_FUNCTION_2_2();
-      v32 = OUTLINED_FUNCTION_8_2();
-      CFArrayApplyFunction(v32, v61, v33, v34);
+      v33 = OUTLINED_FUNCTION_8_2();
+      CFArrayApplyFunction(v33, v62, v34, v35);
     }
   }
 
-  v35 = OUTLINED_FUNCTION_0_1();
-  v37 = CFArrayCreateMutable(v35, v36, MEMORY[0x1E695E9C0]);
-  if (v37)
+  v36 = OUTLINED_FUNCTION_0_1();
+  v38 = CFArrayCreateMutable(v36, v37, MEMORY[0x1E695E9C0]);
+  if (v38)
   {
-    v38 = v37;
+    v39 = v38;
     context[0] = MEMORY[0x1E69E9820];
     context[1] = 3221225472;
     context[2] = __PCSEngineStepValidateLooseLeaves_block_invoke_2;
     context[3] = &unk_1E7B194E8;
-    v51 = Mutable;
-    v52 = v37;
-    v39 = v5;
-    v50 = v39;
-    CFArrayGetCount(v25);
+    v52 = Mutable;
+    v53 = v38;
+    v40 = v5;
+    v51 = v40;
+    CFArrayGetCount(v26);
     OUTLINED_FUNCTION_2_2();
-    v62.location = 0;
-    CFArrayApplyFunction(v25, v62, v40, context);
-    if (CFArrayGetCount(v38))
+    v63.location = 0;
+    CFArrayApplyFunction(v26, v63, v41, context);
+    if (CFArrayGetCount(v39))
     {
-      v46[0] = MEMORY[0x1E69E9820];
-      v46[1] = 3221225472;
-      v46[2] = __PCSEngineStepValidateLooseLeaves_block_invoke_3;
-      v46[3] = &unk_1E7B19510;
-      v48 = v38;
-      v47 = v39;
-      CFDictionaryApplyFunction(Mutable, apply_block_2_3, v46);
-      CFDictionarySetValue(v18, ValueAtIndex, v38);
+      v47[0] = MEMORY[0x1E69E9820];
+      v47[1] = 3221225472;
+      v47[2] = __PCSEngineStepValidateLooseLeaves_block_invoke_3;
+      v47[3] = &unk_1E7B19510;
+      v49 = v39;
+      v48 = v40;
+      CFDictionaryApplyFunction(Mutable, apply_block_2_3, v47);
+      CFDictionarySetValue(v19, ValueAtIndex, v39);
     }
 
     CFRelease(Mutable);
-    CFRelease(v25);
-    CFRelease(v38);
+    CFRelease(v26);
+    CFRelease(v39);
 
-    v3 = v45;
+    v3 = v46;
     goto LABEL_22;
   }
 
-  _PCSErrorOOM(v43);
-  v3 = v45;
+  _PCSErrorOOM(v44);
+  v3 = v46;
 LABEL_34:
   if (cf)
   {
     CFRelease(cf);
   }
 
-  CFRelease(v18);
+  CFRelease(v19);
   if (Mutable)
   {
     CFRelease(Mutable);
   }
 
-  if (v25)
+  if (v26)
   {
-    CFRelease(v25);
+    CFRelease(v26);
   }
 
 LABEL_40:
@@ -4149,7 +3535,7 @@ uint64_t PCSEngineStepValidateEscrowedKeys(void *a1)
   return 1;
 }
 
-uint64_t _PCSEngineStoreiCDPStatus(void *a1, char a2, const void **a3)
+uint64_t _PCSEngineStoreiCDPStatus(void *a1, char a2, CFTypeRef *a3)
 {
   v5 = a1;
   cf = 0;
@@ -4531,7 +3917,7 @@ BOOL PCSEngineIgnoreKeysInHSM(void *a1, const void **a2)
   return v5;
 }
 
-uint64_t PCSEngineValidateiCDP(void *a1, const void **a2)
+uint64_t PCSEngineValidateiCDP(void *a1, CFTypeRef *a2)
 {
   v3 = a1;
   if ([v3 metadata])
@@ -4603,7 +3989,7 @@ CFIndex PCSEngineEnsureClassicContent_cold_5(void *a1, const void **a2)
   return _PCSErrorContext(v3, a2, 126, @"Metadata missing");
 }
 
-uint64_t PCSEngineEnsureClassicContent_cold_7(void *a1, char a2, CFErrorRef *a3, char *a4)
+CFErrorRef PCSEngineEnsureClassicContent_cold_7(void *a1, char a2, CFErrorRef *a3, char *a4)
 {
   result = [a1 classicContent];
   v9 = 0;
@@ -4634,7 +4020,7 @@ uint64_t PCSEngineEnsureClassicContent_cold_7(void *a1, char a2, CFErrorRef *a3,
   return result;
 }
 
-uint64_t PCSEngineExtractKeys_cold_3(void *a1, void *a2, void *a3, void *a4)
+void *PCSEngineExtractKeys_cold_3(void *a1, void *a2, void *a3, void *a4)
 {
   v8 = [a1 log];
   if (a2)
@@ -4716,80 +4102,47 @@ void PCSCacheCurrentIdentitiesForServices_cold_1(uint8_t *buf, uint64_t a2, void
 
 void _PCSGuitarfishGetKeychainItem_cold_1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_0_6();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void _PCSGuitarfishSetKeychainItem_cold_1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_0_6();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void _PCSGuitarfishSetKeychainItem_cold_2()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_0_6();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
-void PCSGuitarfishResetProtectedData_cold_1()
+void PCSGuitarfishResetProtectedData_cold_2()
 {
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_5();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-void PCSGuitarfishResetProtectedData_cold_2(uint64_t *a1)
-{
-  OUTLINED_FUNCTION_4_3(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_4_3(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_3_2();
   OUTLINED_FUNCTION_5();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
-void PCSGuitarfishResetProtectedData_cold_3(uint64_t *a1)
+void PCSGuitarfishResetProtectedData_cold_3()
 {
-  OUTLINED_FUNCTION_4_3(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_4_3(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_3_2();
   OUTLINED_FUNCTION_5();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void PCSGuitarfishResetProtectedData_cold_4()
-{
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
-void PCSGuitarfishResetProtectedData_cold_5()
+void PCSGuitarfishResetProtectedData_cold_6()
 {
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_5();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-void PCSGuitarfishResetProtectedData_cold_6(uint64_t *a1)
-{
-  OUTLINED_FUNCTION_4_3(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_4_3(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_3_2();
   OUTLINED_FUNCTION_5();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void PCSGuitarfishResetProtectedData_cold_7()
@@ -4848,50 +4201,44 @@ void PCSGuitarfishResetProtectedData_cold_14()
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void performStingrayRecovery_cold_1(uint64_t *a1)
+void performStingrayRecovery_cold_1()
 {
-  OUTLINED_FUNCTION_4_3(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_4_3(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_3_2();
   OUTLINED_FUNCTION_5();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
-void performStingrayRecovery_cold_2(uint64_t *a1)
+void performStingrayRecovery_cold_2()
 {
-  OUTLINED_FUNCTION_4_3(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_4_3(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_3_2();
   OUTLINED_FUNCTION_5();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
-void performStingrayRecovery_cold_3(uint64_t *a1)
+void performStingrayRecovery_cold_3()
 {
-  OUTLINED_FUNCTION_4_3(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_4_3(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_3_2();
   OUTLINED_FUNCTION_5();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
-void PCSGuitarfishSetupIdentitiesAndReturnRecoveryToken_cold_1(uint64_t *a1)
+void PCSGuitarfishSetupIdentitiesAndReturnRecoveryToken_cold_1()
 {
-  OUTLINED_FUNCTION_4_3(a1, *MEMORY[0x1E69E9840]);
-  v2 = *(v1 + 40);
+  OUTLINED_FUNCTION_4_3(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_3_2();
   OUTLINED_FUNCTION_5();
-  _os_log_error_impl(v3, v4, v5, v6, v7, 0xCu);
-  v8 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
-void PCSGuitarfishSetupIdentitiesAndReturnRecoveryToken_cold_2(uint64_t *a1)
+void PCSGuitarfishSetupIdentitiesAndReturnRecoveryToken_cold_2()
 {
-  OUTLINED_FUNCTION_4_3(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_4_3(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_3_2();
   OUTLINED_FUNCTION_5();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void PCSGuitarfishSetupIdentitiesAndReturnRecoveryToken_cold_3()
@@ -4903,11 +4250,9 @@ void PCSGuitarfishSetupIdentitiesAndReturnRecoveryToken_cold_3()
 
 void _PCSGuitarfishDeleteKeychainItem_cold_1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_0_6();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void PCSGuitarfishUnwrapKeysUsingWrappingKey_cold_1(NSObject *a1)
@@ -4958,12 +4303,11 @@ CFTypeRef BackupCreateEscrowedCommon(const __CFData *a1, const __CFData *a2, uin
 
 void PCSGuitarfishRepairIdentities_cold_1(uint64_t a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v2 = *(*a1 + 40);
-  v4 = 138412290;
-  v5 = v2;
-  _os_log_error_impl(&dword_1B229C000, a2, OS_LOG_TYPE_ERROR, "Existing stashed wrappingKey is not valid for the current record. p_password or p_token recover is needed: %@", &v4, 0xCu);
-  v3 = *MEMORY[0x1E69E9840];
+  v3 = 138412290;
+  v4 = v2;
+  _os_log_error_impl(&dword_1B229C000, a2, OS_LOG_TYPE_ERROR, "Existing stashed wrappingKey is not valid for the current record. p_password or p_token recover is needed: %@", &v3, 0xCu);
 }
 
 void __PCSSupportGetClientInfo_block_invoke()
@@ -4993,127 +4337,69 @@ void __PCSSupportGetClientInfo_block_invoke()
 
 CFTypeRef PCSMMCSCopyEncryptedData(const __CFData *a1, const __CFData *a2, const __CFData *a3)
 {
-  v16 = *MEMORY[0x1E69E9840];
-  v6 = ccaes_siv_encrypt_mode();
-  v7 = OUTLINED_FUNCTION_0_7(v6);
-  MEMORY[0x1EEE9AC00](v7);
-  if (PCSMMCSGetDerivedSIVKey(a1, &v15) && (OUTLINED_FUNCTION_1_3(), ccsiv_init(), CFDataGetLength(a3), v8 = ccsiv_ciphertext_size(), (Mutable = CFDataCreateMutable(0, 0)) != 0))
+  v15 = *MEMORY[0x1E69E9840];
+  ccaes_siv_encrypt_mode();
+  OUTLINED_FUNCTION_0_7();
+  MEMORY[0x1EEE9AC00](v6);
+  if (PCSMMCSGetDerivedSIVKey(a1, &v13, v14) && (OUTLINED_FUNCTION_1_3(), ccsiv_init(), CFDataGetLength(a3), v7 = ccsiv_ciphertext_size(), (Mutable = CFDataCreateMutable(0, 0)) != 0))
   {
-    v10 = Mutable;
-    CFDataSetLength(Mutable, v8 + 17);
-    MutableBytePtr = CFDataGetMutableBytePtr(v10);
-    *MutableBytePtr = v15;
-    if (SecRandomCopyBytes(*MEMORY[0x1E697B308], 0x10uLL, MutableBytePtr + 1))
+    v9 = Mutable;
+    CFDataSetLength(Mutable, v7 + 17);
+    MutableBytePtr = CFDataGetMutableBytePtr(v9);
+    *MutableBytePtr = v13;
+    if (SecRandomCopyBytes(*MEMORY[0x1E697B308], 0x10uLL, MutableBytePtr + 1) || (OUTLINED_FUNCTION_1_3(), ccsiv_set_nonce(), CFDataGetMutableBytePtr(v9), OUTLINED_FUNCTION_1_3(), ccsiv_aad()) || a2 && (CFDataGetLength(a2), CFDataGetBytePtr(a2), OUTLINED_FUNCTION_1_3(), ccsiv_aad()) || (CFDataGetLength(a3), CFDataGetBytePtr(a3), OUTLINED_FUNCTION_1_3(), ccsiv_crypt()))
     {
-      goto LABEL_11;
-    }
-
-    OUTLINED_FUNCTION_1_3();
-    ccsiv_set_nonce();
-    CFDataGetMutableBytePtr(v10);
-    OUTLINED_FUNCTION_1_3();
-    if (ccsiv_aad())
-    {
-      goto LABEL_11;
-    }
-
-    if (a2)
-    {
-      CFDataGetLength(a2);
-      CFDataGetBytePtr(a2);
-      OUTLINED_FUNCTION_1_3();
-      if (ccsiv_aad())
-      {
-        goto LABEL_11;
-      }
-    }
-
-    CFDataGetLength(a3);
-    CFDataGetBytePtr(a3);
-    OUTLINED_FUNCTION_1_3();
-    if (ccsiv_crypt())
-    {
-LABEL_11:
-      v12 = 0;
+      v11 = 0;
     }
 
     else
     {
-      v12 = CFRetain(v10);
+      v11 = CFRetain(v9);
     }
 
-    CFRelease(v10);
+    CFRelease(v9);
   }
 
   else
   {
-    v12 = 0;
+    v11 = 0;
   }
 
   cc_clear();
-  v13 = *MEMORY[0x1E69E9840];
-  return v12;
+  return v11;
 }
 
 CFTypeRef PCSMMCSCopyDecryptedData(const __CFData *a1, const __CFData *a2, const __CFData *a3)
 {
-  v16 = *MEMORY[0x1E69E9840];
-  v6 = ccaes_siv_decrypt_mode();
-  v7 = OUTLINED_FUNCTION_0_7(v6);
-  MEMORY[0x1EEE9AC00](v7);
-  if (CFDataGetLength(a3) >= 18 && PCSMMCSGetDerivedSIVKey(a1, &v15) && (OUTLINED_FUNCTION_0_0(), ccsiv_init(), CFDataGetLength(a3), v8 = ccsiv_plaintext_size(), (Mutable = CFDataCreateMutable(0, 0)) != 0))
+  v15 = *MEMORY[0x1E69E9840];
+  ccaes_siv_decrypt_mode();
+  OUTLINED_FUNCTION_0_7();
+  MEMORY[0x1EEE9AC00](v6);
+  if (CFDataGetLength(a3) >= 18 && PCSMMCSGetDerivedSIVKey(a1, &v13, v14) && (OUTLINED_FUNCTION_0_0(), ccsiv_init(), CFDataGetLength(a3), v7 = ccsiv_plaintext_size(), (Mutable = CFDataCreateMutable(0, 0)) != 0))
   {
-    v10 = Mutable;
-    CFDataSetLength(Mutable, v8);
+    v9 = Mutable;
+    CFDataSetLength(Mutable, v7);
     BytePtr = CFDataGetBytePtr(a3);
-    if (*BytePtr != v15)
+    if (*BytePtr != v13 || (OUTLINED_FUNCTION_0_0(), ccsiv_set_nonce(), OUTLINED_FUNCTION_0_0(), ccsiv_aad()) || a2 && (CFDataGetLength(a2), CFDataGetBytePtr(a2), OUTLINED_FUNCTION_0_0(), ccsiv_aad()) || (CFDataGetMutableBytePtr(v9), OUTLINED_FUNCTION_0_0(), ccsiv_crypt()))
     {
-      goto LABEL_12;
-    }
-
-    OUTLINED_FUNCTION_0_0();
-    ccsiv_set_nonce();
-    OUTLINED_FUNCTION_0_0();
-    if (ccsiv_aad())
-    {
-      goto LABEL_12;
-    }
-
-    if (a2)
-    {
-      CFDataGetLength(a2);
-      CFDataGetBytePtr(a2);
-      OUTLINED_FUNCTION_0_0();
-      if (ccsiv_aad())
-      {
-        goto LABEL_12;
-      }
-    }
-
-    CFDataGetMutableBytePtr(v10);
-    OUTLINED_FUNCTION_0_0();
-    if (ccsiv_crypt())
-    {
-LABEL_12:
-      v12 = 0;
+      v11 = 0;
     }
 
     else
     {
-      v12 = CFRetain(v10);
+      v11 = CFRetain(v9);
     }
 
-    CFRelease(v10);
+    CFRelease(v9);
   }
 
   else
   {
-    v12 = 0;
+    v11 = 0;
   }
 
   cc_clear();
-  v13 = *MEMORY[0x1E69E9840];
-  return v12;
+  return v11;
 }
 
 __CFData *PCSKeyEnvelopeEncrypt(uint64_t a1, uint64_t a2, const __CFData *a3, CFTypeRef cf, const void **a5)
@@ -5307,20 +4593,6 @@ uint64_t PCSKeyEnvelopeVerify(uint64_t a1, uint64_t a2, const void *a3, CFTypeRe
   v10 = *v9;
   CFRelease(v7);
   return v10;
-}
-
-uint64_t aks_assert_hold_cold_1()
-{
-  v0 = *MEMORY[0x1E69E9858];
-  OUTLINED_FUNCTION_0_10();
-  return fprintf(v1, "%s:%spid:%d,%s:%s%s%s%s%s%u:%s aks connection failed%s\n", "aks", v2, v4, v5, v6, v7, v8, v9, ":", 1773, "", "");
-}
-
-uint64_t aks_assert_drop_cold_1()
-{
-  v0 = *MEMORY[0x1E69E9858];
-  OUTLINED_FUNCTION_0_10();
-  return fprintf(v1, "%s:%spid:%d,%s:%s%s%s%s%s%u:%s aks connection failed%s\n", "aks", v2, v4, v5, v6, v7, v8, v9, ":", 1791, "", "");
 }
 
 CFRange CFDataFind(CFDataRef theData, CFDataRef dataToFind, CFRange searchRange, CFDataSearchFlags compareOptions)

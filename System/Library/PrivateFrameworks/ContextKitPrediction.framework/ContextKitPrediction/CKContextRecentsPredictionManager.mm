@@ -131,13 +131,13 @@
 
 - (void)modeDidChangeToModeWithUUIDString:(id)string forCache:(id)cache
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   stringCopy = string;
   cacheCopy = cache;
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
   {
     *buf = 138412290;
-    v24 = stringCopy;
+    v23 = stringCopy;
     _os_log_impl(&dword_244167000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Mode did change to mode with identifier: %@", buf, 0xCu);
   }
 
@@ -159,29 +159,27 @@
   block[1] = 3221225472;
   block[2] = __80__CKContextRecentsPredictionManager_modeDidChangeToModeWithUUIDString_forCache___block_invoke;
   block[3] = &unk_278E06CD0;
-  objc_copyWeak(&v22, buf);
+  objc_copyWeak(&v21, buf);
   v12 = stringCopy;
-  v20 = v12;
+  v19 = v12;
   v13 = cacheCopy;
-  v21 = v13;
+  v20 = v13;
   v14 = dispatch_block_create(0, block);
   v15 = selfCopy->_suggestionsContributionBlock;
   selfCopy->_suggestionsContributionBlock = v14;
 
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
   {
-    *v18 = 0;
-    _os_log_impl(&dword_244167000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Scheduling predictions contribution", v18, 2u);
+    *v17 = 0;
+    _os_log_impl(&dword_244167000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Scheduling predictions contribution", v17, 2u);
   }
 
   v16 = dispatch_time(0, 10000000000);
   dispatch_after(v16, selfCopy->_suggestionReportingQueue, selfCopy->_suggestionsContributionBlock);
 
-  objc_destroyWeak(&v22);
+  objc_destroyWeak(&v21);
   objc_destroyWeak(buf);
   objc_sync_exit(selfCopy);
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 void __80__CKContextRecentsPredictionManager_modeDidChangeToModeWithUUIDString_forCache___block_invoke(uint64_t a1)
@@ -207,13 +205,13 @@ void __80__CKContextRecentsPredictionManager_modeDidChangeToModeWithUUIDString_f
 
 - (void)_handleModeChangeToModeWithUUIDString:(id)string forCache:(id)cache
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   stringCopy = string;
   cacheCopy = cache;
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
   {
     *buf = 138412290;
-    v16 = stringCopy;
+    v15 = stringCopy;
     _os_log_impl(&dword_244167000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Handling mode change to mode: %@", buf, 0xCu);
   }
 
@@ -222,16 +220,16 @@ void __80__CKContextRecentsPredictionManager_modeDidChangeToModeWithUUIDString_f
   {
     objc_initWeak(buf, self);
     recentsCache = self->_recentsCache;
-    v11[0] = MEMORY[0x277D85DD0];
-    v11[1] = 3221225472;
-    v11[2] = __84__CKContextRecentsPredictionManager__handleModeChangeToModeWithUUIDString_forCache___block_invoke;
-    v11[3] = &unk_278E06CF8;
-    objc_copyWeak(&v14, buf);
-    v12 = stringCopy;
+    v10[0] = MEMORY[0x277D85DD0];
+    v10[1] = 3221225472;
+    v10[2] = __84__CKContextRecentsPredictionManager__handleModeChangeToModeWithUUIDString_forCache___block_invoke;
+    v10[3] = &unk_278E06CF8;
+    objc_copyWeak(&v13, buf);
+    v11 = stringCopy;
     selfCopy = self;
-    [(CKContextRecentsCache *)recentsCache retrieveRecentsForPredictionWithReply:v11];
+    [(CKContextRecentsCache *)recentsCache retrieveRecentsForPredictionWithReply:v10];
 
-    objc_destroyWeak(&v14);
+    objc_destroyWeak(&v13);
     objc_destroyWeak(buf);
   }
 
@@ -240,126 +238,124 @@ void __80__CKContextRecentsPredictionManager_modeDidChangeToModeWithUUIDString_f
     suggestionDonationTransaction = self->_suggestionDonationTransaction;
     self->_suggestionDonationTransaction = 0;
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __84__CKContextRecentsPredictionManager__handleModeChangeToModeWithUUIDString_forCache___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v86 = *MEMORY[0x277D85DE8];
-  v58 = a2;
-  v66 = a3;
-  v62 = a1;
+  v85 = *MEMORY[0x277D85DE8];
+  v57 = a2;
+  v65 = a3;
+  v61 = a1;
   WeakRetained = objc_loadWeakRetained((a1 + 48));
   if (WeakRetained)
   {
-    if ([v58 count] && objc_msgSend(v66, "count"))
+    if ([v57 count] && objc_msgSend(v65, "count"))
     {
-      v65 = WeakRetained;
-      v57 = [WeakRetained _recentsEligibleForDonationMatchingMode:*(a1 + 32) fromRecents:v58 uuidsToCounts:v66];
-      if ([v57 count])
+      v64 = WeakRetained;
+      v56 = [WeakRetained _recentsEligibleForDonationMatchingMode:*(a1 + 32) fromRecents:v57 uuidsToCounts:v65];
+      if ([v56 count])
       {
         [WeakRetained _createClientModelIfNecessary];
-        v61 = [WeakRetained _retrieveModeConfigurations];
-        v59 = objc_alloc_init(MEMORY[0x277CBEB18]);
+        v60 = [WeakRetained _retrieveModeConfigurations];
+        v58 = objc_alloc_init(MEMORY[0x277CBEB18]);
+        v71 = 0u;
         v72 = 0u;
         v73 = 0u;
         v74 = 0u;
-        v75 = 0u;
-        obj = v57;
-        v64 = [obj countByEnumeratingWithState:&v72 objects:v85 count:16];
-        if (v64)
+        obj = v56;
+        v63 = [obj countByEnumeratingWithState:&v71 objects:v84 count:16];
+        if (v63)
         {
-          v63 = *v73;
+          v62 = *v72;
           do
           {
-            for (i = 0; i != v64; ++i)
+            for (i = 0; i != v63; ++i)
             {
-              if (*v73 != v63)
+              if (*v72 != v62)
               {
                 objc_enumerationMutation(obj);
               }
 
-              v7 = *(*(&v72 + 1) + 8 * i);
+              v7 = *(*(&v71 + 1) + 8 * i);
               context = objc_autoreleasePoolPush();
               v8 = objc_alloc(MEMORY[0x277CCAE58]);
               v9 = [v7 userActivityData];
-              v71 = [v8 _initWithUserActivityData:v9];
+              v70 = [v8 _initWithUserActivityData:v9];
 
-              v81 = 0;
-              v82 = &v81;
-              v83 = 0x2050000000;
+              v80 = 0;
+              v81 = &v80;
+              v82 = 0x2050000000;
               v10 = getATXProactiveSuggestionClientModelSpecificationClass_softClass;
-              v84 = getATXProactiveSuggestionClientModelSpecificationClass_softClass;
+              v83 = getATXProactiveSuggestionClientModelSpecificationClass_softClass;
               if (!getATXProactiveSuggestionClientModelSpecificationClass_softClass)
               {
                 *buf = MEMORY[0x277D85DD0];
-                v77 = 3221225472;
-                v78 = __getATXProactiveSuggestionClientModelSpecificationClass_block_invoke;
-                v79 = &unk_278E06DB8;
-                v80 = &v81;
+                v76 = 3221225472;
+                v77 = __getATXProactiveSuggestionClientModelSpecificationClass_block_invoke;
+                v78 = &unk_278E06DB8;
+                v79 = &v80;
                 __getATXProactiveSuggestionClientModelSpecificationClass_block_invoke(buf);
-                v10 = v82[3];
+                v10 = v81[3];
               }
 
               v11 = v10;
-              _Block_object_dispose(&v81, 8);
-              v70 = [[v10 alloc] initWithClientModelId:@"ck_universal_recents" clientModelVersion:@"1.0"];
+              _Block_object_dispose(&v80, 8);
+              v69 = [[v10 alloc] initWithClientModelId:@"ck_universal_recents" clientModelVersion:@"1.0"];
               v12 = [v7 title];
               if ([v12 length])
               {
                 v13 = [v7 uuid];
-                v14 = [v66 objectForKeyedSubscript:v13];
+                v14 = [v65 objectForKeyedSubscript:v13];
                 v15 = [v14 unsignedIntValue];
 
                 v16 = [v7 modeIdentifier];
-                v68 = [v65 _modeForModeIdentifier:v16 withConfigurations:v61];
+                v67 = [v64 _modeForModeIdentifier:v16 withConfigurations:v60];
 
-                v17 = [v65 _userFacingReasonStringForRecentWithNumberOfInstances:v15 mode:v68];
-                v67 = [v7 associatedBundleId];
-                v81 = 0;
-                v82 = &v81;
-                v83 = 0x2050000000;
+                v17 = [v64 _userFacingReasonStringForRecentWithNumberOfInstances:v15 mode:v67];
+                v66 = [v7 associatedBundleId];
+                v80 = 0;
+                v81 = &v80;
+                v82 = 0x2050000000;
                 v18 = getATXActionClass_softClass;
-                v84 = getATXActionClass_softClass;
+                v83 = getATXActionClass_softClass;
                 if (!getATXActionClass_softClass)
                 {
                   *buf = MEMORY[0x277D85DD0];
-                  v77 = 3221225472;
-                  v78 = __getATXActionClass_block_invoke;
-                  v79 = &unk_278E06DB8;
-                  v80 = &v81;
+                  v76 = 3221225472;
+                  v77 = __getATXActionClass_block_invoke;
+                  v78 = &unk_278E06DB8;
+                  v79 = &v80;
                   __getATXActionClass_block_invoke(buf);
-                  v18 = v82[3];
+                  v18 = v81[3];
                 }
 
                 v19 = v18;
-                _Block_object_dispose(&v81, 8);
+                _Block_object_dispose(&v80, 8);
                 v20 = [v18 alloc];
                 v21 = objc_alloc(MEMORY[0x277CCAD78]);
                 v22 = [v7 uuid];
                 v23 = [v21 initWithUUIDString:v22];
-                LOBYTE(v56) = 0;
-                v24 = [v20 initWithNSUserActivity:v71 actionUUID:v23 bundleId:v67 contentAttributeSet:0 itemIdentifier:0 heuristic:@"ck_universal_recents_mode" heuristicMetadata:0 criteria:0 isFutureMedia:v56 title:v12 subtitle:v17];
+                LOBYTE(v55) = 0;
+                v24 = [v20 initWithNSUserActivity:v70 actionUUID:v23 bundleId:v66 contentAttributeSet:0 itemIdentifier:0 heuristic:@"ck_universal_recents_mode" heuristicMetadata:0 criteria:0 isFutureMedia:v55 title:v12 subtitle:v17];
 
-                v81 = 0;
-                v82 = &v81;
-                v83 = 0x2050000000;
+                v80 = 0;
+                v81 = &v80;
+                v82 = 0x2050000000;
                 v25 = getATXProactiveSuggestionExecutableSpecificationClass_softClass;
-                v84 = getATXProactiveSuggestionExecutableSpecificationClass_softClass;
+                v83 = getATXProactiveSuggestionExecutableSpecificationClass_softClass;
                 if (!getATXProactiveSuggestionExecutableSpecificationClass_softClass)
                 {
                   *buf = MEMORY[0x277D85DD0];
-                  v77 = 3221225472;
-                  v78 = __getATXProactiveSuggestionExecutableSpecificationClass_block_invoke;
-                  v79 = &unk_278E06DB8;
-                  v80 = &v81;
+                  v76 = 3221225472;
+                  v77 = __getATXProactiveSuggestionExecutableSpecificationClass_block_invoke;
+                  v78 = &unk_278E06DB8;
+                  v79 = &v80;
                   __getATXProactiveSuggestionExecutableSpecificationClass_block_invoke(buf);
-                  v25 = v82[3];
+                  v25 = v81[3];
                 }
 
                 v26 = v25;
-                _Block_object_dispose(&v81, 8);
+                _Block_object_dispose(&v80, 8);
                 v27 = [v25 alloc];
                 v28 = MEMORY[0x277CCACA8];
                 v29 = [v7 title];
@@ -367,114 +363,114 @@ void __84__CKContextRecentsPredictionManager__handleModeChangeToModeWithUUIDStri
                 v31 = [v7 uuid];
                 v32 = [v27 initWithExecutableObject:v24 executableDescription:v30 executableIdentifier:v31 suggestionExecutableType:2];
 
-                v81 = 0;
-                v82 = &v81;
-                v83 = 0x2050000000;
+                v80 = 0;
+                v81 = &v80;
+                v82 = 0x2050000000;
                 v33 = getATXProactiveSuggestionUISpecificationClass_softClass;
-                v84 = getATXProactiveSuggestionUISpecificationClass_softClass;
+                v83 = getATXProactiveSuggestionUISpecificationClass_softClass;
                 if (!getATXProactiveSuggestionUISpecificationClass_softClass)
                 {
                   *buf = MEMORY[0x277D85DD0];
-                  v77 = 3221225472;
-                  v78 = __getATXProactiveSuggestionUISpecificationClass_block_invoke;
-                  v79 = &unk_278E06DB8;
-                  v80 = &v81;
+                  v76 = 3221225472;
+                  v77 = __getATXProactiveSuggestionUISpecificationClass_block_invoke;
+                  v78 = &unk_278E06DB8;
+                  v79 = &v80;
                   __getATXProactiveSuggestionUISpecificationClass_block_invoke(buf);
-                  v33 = v82[3];
+                  v33 = v81[3];
                 }
 
                 v34 = v33;
-                _Block_object_dispose(&v81, 8);
+                _Block_object_dispose(&v80, 8);
                 v35 = [v33 alloc];
-                v81 = 0;
-                v82 = &v81;
-                v83 = 0x2050000000;
+                v80 = 0;
+                v81 = &v80;
+                v82 = 0x2050000000;
                 v36 = getATXProactiveSuggestionLayoutConfigClass_softClass;
-                v84 = getATXProactiveSuggestionLayoutConfigClass_softClass;
+                v83 = getATXProactiveSuggestionLayoutConfigClass_softClass;
                 if (!getATXProactiveSuggestionLayoutConfigClass_softClass)
                 {
                   *buf = MEMORY[0x277D85DD0];
-                  v77 = 3221225472;
-                  v78 = __getATXProactiveSuggestionLayoutConfigClass_block_invoke;
-                  v79 = &unk_278E06DB8;
-                  v80 = &v81;
+                  v76 = 3221225472;
+                  v77 = __getATXProactiveSuggestionLayoutConfigClass_block_invoke;
+                  v78 = &unk_278E06DB8;
+                  v79 = &v80;
                   __getATXProactiveSuggestionLayoutConfigClass_block_invoke(buf);
-                  v36 = v82[3];
+                  v36 = v81[3];
                 }
 
                 v37 = v36;
-                _Block_object_dispose(&v81, 8);
+                _Block_object_dispose(&v80, 8);
                 v38 = [v36 layoutConfigurationsForLayoutOptions:40];
-                LOWORD(v55) = 256;
-                v39 = [v35 initWithTitle:v12 subtitle:v17 predictionReason:v17 preferredLayoutConfigs:v38 allowedOnLockscreen:1 allowedOnHomeScreen:1 allowedOnSpotlight:v55 shouldClearOnEngagement:?];
+                LOWORD(v54) = 256;
+                v39 = [v35 initWithTitle:v12 subtitle:v17 predictionReason:v17 preferredLayoutConfigs:v38 allowedOnLockscreen:1 allowedOnHomeScreen:1 allowedOnSpotlight:v54 shouldClearOnEngagement:?];
 
-                v40 = *(v62 + 40);
+                v40 = *(v61 + 40);
                 v41 = [v7 uuid];
-                v42 = [v66 objectForKeyedSubscript:v41];
+                v42 = [v65 objectForKeyedSubscript:v41];
                 v43 = [v40 _suggestionConfidenceForRecent:v7 withCount:{objc_msgSend(v42, "unsignedIntegerValue")}];
 
-                v81 = 0;
-                v82 = &v81;
-                v83 = 0x2050000000;
+                v80 = 0;
+                v81 = &v80;
+                v82 = 0x2050000000;
                 v44 = getATXProactiveSuggestionScoreSpecificationClass_softClass;
-                v84 = getATXProactiveSuggestionScoreSpecificationClass_softClass;
+                v83 = getATXProactiveSuggestionScoreSpecificationClass_softClass;
                 if (!getATXProactiveSuggestionScoreSpecificationClass_softClass)
                 {
                   *buf = MEMORY[0x277D85DD0];
-                  v77 = 3221225472;
-                  v78 = __getATXProactiveSuggestionScoreSpecificationClass_block_invoke;
-                  v79 = &unk_278E06DB8;
-                  v80 = &v81;
+                  v76 = 3221225472;
+                  v77 = __getATXProactiveSuggestionScoreSpecificationClass_block_invoke;
+                  v78 = &unk_278E06DB8;
+                  v79 = &v80;
                   __getATXProactiveSuggestionScoreSpecificationClass_block_invoke(buf);
-                  v44 = v82[3];
+                  v44 = v81[3];
                 }
 
                 v45 = v44;
-                _Block_object_dispose(&v81, 8);
+                _Block_object_dispose(&v80, 8);
                 v46 = [[v44 alloc] initWithRawScore:v43 suggestedConfidenceCategory:1.0];
-                v81 = 0;
-                v82 = &v81;
-                v83 = 0x2050000000;
+                v80 = 0;
+                v81 = &v80;
+                v82 = 0x2050000000;
                 v47 = getATXProactiveSuggestionClass_softClass;
-                v84 = getATXProactiveSuggestionClass_softClass;
+                v83 = getATXProactiveSuggestionClass_softClass;
                 if (!getATXProactiveSuggestionClass_softClass)
                 {
                   *buf = MEMORY[0x277D85DD0];
-                  v77 = 3221225472;
-                  v78 = __getATXProactiveSuggestionClass_block_invoke;
-                  v79 = &unk_278E06DB8;
-                  v80 = &v81;
+                  v76 = 3221225472;
+                  v77 = __getATXProactiveSuggestionClass_block_invoke;
+                  v78 = &unk_278E06DB8;
+                  v79 = &v80;
                   __getATXProactiveSuggestionClass_block_invoke(buf);
-                  v47 = v82[3];
+                  v47 = v81[3];
                 }
 
                 v48 = v47;
-                _Block_object_dispose(&v81, 8);
-                v49 = [[v47 alloc] initWithClientModelSpecification:v70 executableSpecification:v32 uiSpecification:v39 scoreSpecification:v46];
+                _Block_object_dispose(&v80, 8);
+                v49 = [[v47 alloc] initWithClientModelSpecification:v69 executableSpecification:v32 uiSpecification:v39 scoreSpecification:v46];
                 if (v49)
                 {
-                  [v59 addObject:v49];
+                  [v58 addObject:v49];
                 }
               }
 
               objc_autoreleasePoolPop(context);
             }
 
-            v64 = [obj countByEnumeratingWithState:&v72 objects:v85 count:16];
+            v63 = [obj countByEnumeratingWithState:&v71 objects:v84 count:16];
           }
 
-          while (v64);
+          while (v63);
         }
 
-        if ([v59 count])
+        if ([v58 count])
         {
-          [v65 _updateBlendingLayerWithSuggestions:v59];
-          v50 = v65;
+          [v64 _updateBlendingLayerWithSuggestions:v58];
+          v50 = v64;
         }
 
         else
         {
-          v50 = v65;
+          v50 = v64;
           if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
           {
             *buf = 0;
@@ -485,7 +481,7 @@ void __84__CKContextRecentsPredictionManager__handleModeChangeToModeWithUUIDStri
         v53 = v50[6];
         v50[6] = 0;
 
-        v52 = v61;
+        v52 = v60;
       }
 
       else
@@ -499,7 +495,7 @@ void __84__CKContextRecentsPredictionManager__handleModeChangeToModeWithUUIDStri
         WeakRetained[6] = 0;
       }
 
-      WeakRetained = v65;
+      WeakRetained = v64;
     }
 
     else
@@ -508,8 +504,6 @@ void __84__CKContextRecentsPredictionManager__handleModeChangeToModeWithUUIDStri
       WeakRetained[6] = 0;
     }
   }
-
-  v54 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_updateBlendingLayerWithSuggestions:(id)suggestions
@@ -884,38 +878,38 @@ void __74__CKContextRecentsPredictionManager_retrievePredictionsForMode_withRepl
 
 - (id)_recentsEligibleForDonationMatchingMode:(id)mode fromRecents:(id)recents uuidsToCounts:(id)counts
 {
-  v79 = *MEMORY[0x277D85DE8];
+  v78 = *MEMORY[0x277D85DE8];
   modeCopy = mode;
   recentsCopy = recents;
   countsCopy = counts;
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
   {
     *buf = 138412290;
-    v72 = modeCopy;
+    v71 = modeCopy;
     _os_log_impl(&dword_244167000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "🔮 Finding recents eligible prediction for mode: %@", buf, 0xCu);
   }
 
   v9 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v66 = 0u;
   v67 = 0u;
   v68 = 0u;
   v69 = 0u;
-  v70 = 0u;
   v10 = recentsCopy;
-  v11 = [v10 countByEnumeratingWithState:&v67 objects:v78 count:16];
+  v11 = [v10 countByEnumeratingWithState:&v66 objects:v77 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v68;
+    v13 = *v67;
     do
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v68 != v13)
+        if (*v67 != v13)
         {
           objc_enumerationMutation(v10);
         }
 
-        v15 = *(*(&v67 + 1) + 8 * i);
+        v15 = *(*(&v66 + 1) + 8 * i);
         modeIdentifier = [v15 modeIdentifier];
         v17 = [modeIdentifier isEqualToString:modeCopy];
 
@@ -925,7 +919,7 @@ void __74__CKContextRecentsPredictionManager_retrievePredictionsForMode_withRepl
         }
       }
 
-      v12 = [v10 countByEnumeratingWithState:&v67 objects:v78 count:16];
+      v12 = [v10 countByEnumeratingWithState:&v66 objects:v77 count:16];
     }
 
     while (v12);
@@ -933,20 +927,20 @@ void __74__CKContextRecentsPredictionManager_retrievePredictionsForMode_withRepl
 
   if ([v9 count])
   {
-    v55 = v10;
+    v54 = v10;
     firstObject = [v9 firstObject];
     v19 = MEMORY[0x277CBEAA8];
-    v54 = firstObject;
+    v53 = firstObject;
     [firstObject absoluteTimestamp];
-    v58 = [v19 dateWithTimeIntervalSinceReferenceDate:?];
-    v56 = v9;
-    v57 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v57 = [v19 dateWithTimeIntervalSinceReferenceDate:?];
+    v55 = v9;
+    v56 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v62 = 0u;
     v63 = 0u;
     v64 = 0u;
     v65 = 0u;
-    v66 = 0u;
     obj = [v9 reverseObjectEnumerator];
-    v20 = [obj countByEnumeratingWithState:&v63 objects:v77 count:16];
+    v20 = [obj countByEnumeratingWithState:&v62 objects:v76 count:16];
     if (!v20)
     {
       goto LABEL_56;
@@ -954,17 +948,17 @@ void __74__CKContextRecentsPredictionManager_retrievePredictionsForMode_withRepl
 
     v21 = v20;
     v22 = MEMORY[0x277D86220];
-    v23 = *v64;
+    v23 = *v63;
     while (1)
     {
       for (j = 0; j != v21; ++j)
       {
-        if (*v64 != v23)
+        if (*v63 != v23)
         {
           objc_enumerationMutation(obj);
         }
 
-        v25 = *(*(&v63 + 1) + 8 * j);
+        v25 = *(*(&v62 + 1) + 8 * j);
         if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
         {
           associatedBundleId = [v25 associatedBundleId];
@@ -972,11 +966,11 @@ void __74__CKContextRecentsPredictionManager_retrievePredictionsForMode_withRepl
           [v25 absoluteTimestamp];
           v28 = [v27 dateWithTimeIntervalSinceReferenceDate:?];
           *buf = 138412802;
-          v72 = modeCopy;
-          v73 = 2112;
-          v74 = associatedBundleId;
-          v75 = 2112;
-          v76 = v28;
+          v71 = modeCopy;
+          v72 = 2112;
+          v73 = associatedBundleId;
+          v74 = 2112;
+          v75 = v28;
           _os_log_impl(&dword_244167000, v22, OS_LOG_TYPE_INFO, "Considering recent for mode: %@ from bundle: %@, date: %@", buf, 0x20u);
         }
 
@@ -1015,10 +1009,10 @@ void __74__CKContextRecentsPredictionManager_retrievePredictionsForMode_withRepl
                   associatedBundleId2 = [v25 associatedBundleId];
                   if ([associatedBundleId2 length] && !objc_msgSend(kBundleIdentifiersToNotSuggest, "containsObject:", associatedBundleId2))
                   {
-                    v59 = MEMORY[0x277CBEAA8];
+                    v58 = MEMORY[0x277CBEAA8];
                     [v25 absoluteTimestamp];
-                    v60 = [v59 dateWithTimeIntervalSinceReferenceDate:?];
-                    [v60 timeIntervalSinceDate:v58];
+                    v59 = [v58 dateWithTimeIntervalSinceReferenceDate:?];
+                    [v59 timeIntervalSinceDate:v57];
                     v47 = fabs(v46);
                     v48 = os_log_type_enabled(v22, OS_LOG_TYPE_INFO);
                     if (v47 <= 1800.0)
@@ -1029,7 +1023,7 @@ void __74__CKContextRecentsPredictionManager_retrievePredictionsForMode_withRepl
                         _os_log_impl(&dword_244167000, v22, OS_LOG_TYPE_INFO, "--- accepting as valid candidate", buf, 2u);
                       }
 
-                      [v57 addObject:v25];
+                      [v56 addObject:v25];
                     }
 
                     else if (v48)
@@ -1072,17 +1066,17 @@ LABEL_41:
         if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
         {
           *buf = 134217984;
-          v72 = unsignedIntValue;
+          v71 = unsignedIntValue;
           _os_log_impl(&dword_244167000, v22, OS_LOG_TYPE_INFO, "--- rejecting due to occurence count: %lu", buf, 0xCu);
         }
       }
 
-      v21 = [obj countByEnumeratingWithState:&v63 objects:v77 count:16];
+      v21 = [obj countByEnumeratingWithState:&v62 objects:v76 count:16];
       if (!v21)
       {
 LABEL_56:
 
-        v49 = [v57 count];
+        v49 = [v56 count];
         if (v49 >= 2)
         {
           v50 = 2;
@@ -1093,10 +1087,10 @@ LABEL_56:
           v50 = v49;
         }
 
-        v51 = [v57 subarrayWithRange:{0, v50}];
+        v51 = [v56 subarrayWithRange:{0, v50}];
 
-        v10 = v55;
-        v9 = v56;
+        v10 = v54;
+        v9 = v55;
         goto LABEL_61;
       }
     }
@@ -1104,8 +1098,6 @@ LABEL_56:
 
   v51 = MEMORY[0x277CBEBF8];
 LABEL_61:
-
-  v52 = *MEMORY[0x277D85DE8];
 
   return v51;
 }
@@ -1245,51 +1237,40 @@ void __79__CKContextRecentsPredictionManager__modeForModeIdentifier_withConfigur
 
 void __73__CKContextRecentsPredictionManager__updateBlendingLayerWithSuggestions___block_invoke_cold_1()
 {
-  v2 = *MEMORY[0x277D85DE8];
+  v1 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
-  _os_log_error_impl(&dword_244167000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Error updating suggestions to ATX: %@", v1, 0xCu);
-  v0 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_244167000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Error updating suggestions to ATX: %@", v0, 0xCu);
 }
 
 - (void)_suggestionConfidenceForRecent:(void *)a1 withCount:.cold.1(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [a1 uuid];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_suggestionConfidenceForRecent:(void *)a1 withCount:.cold.2(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [a1 uuid];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_suggestionConfidenceForRecent:(void *)a1 withCount:.cold.3(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [a1 uuid];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_retrieveModeConfigurations
 {
-  v2 = *MEMORY[0x277D85DE8];
+  v1 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
-  _os_log_error_impl(&dword_244167000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Could not obtain mode configurations: %{public}@", v1, 0xCu);
-  v0 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_244167000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Could not obtain mode configurations: %{public}@", v0, 0xCu);
 }
 
 @end

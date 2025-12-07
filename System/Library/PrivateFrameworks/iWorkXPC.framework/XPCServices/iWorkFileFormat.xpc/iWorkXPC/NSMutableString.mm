@@ -1,9 +1,16 @@
 @interface NSMutableString
 - (void)tsu_appendSeparator:(id)separator format:(id)format;
 - (void)tsu_indentBy:(unint64_t)by;
+- (void)tsu_insertCharacter:(unsigned __int16)character atIndex:(unint64_t)index;
 @end
 
 @implementation NSMutableString
+
+- (void)tsu_insertCharacter:(unsigned __int16)character atIndex:(unint64_t)index
+{
+  character = [[NSString alloc] initWithFormat:@"%C", character];
+  [(NSMutableString *)self insertString:character atIndex:index];
+}
 
 - (void)tsu_appendSeparator:(id)separator format:(id)format
 {

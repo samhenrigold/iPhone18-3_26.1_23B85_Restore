@@ -922,7 +922,7 @@ LABEL_18:
   }
   v11 = ;
 
-  if ([iconModel isIconVisible:v11] & 1) != 0 || (appsAllowedWhileHidden = self->_appsAllowedWhileHidden, objc_msgSend(itemCopy, "bundleIdentifier"), v13 = objc_claimAutoreleasedReturnValue(), LOBYTE(appsAllowedWhileHidden) = -[NSMutableSet containsObject:](appsAllowedWhileHidden, "containsObject:", v13), v13, (appsAllowedWhileHidden))
+  if ([iconModel isIconVisible:v11] & 1) != 0 || (appsAllowedWhileHidden = self->_appsAllowedWhileHidden, objc_msgSend(itemCopy, "bundleIdentifier"), v13 = objc_claimAutoreleasedReturnValue(), LOBYTE(appsAllowedWhileHidden) = objc_msgSend_containsObject_(appsAllowedWhileHidden), v13, (appsAllowedWhileHidden))
   {
     v14 = 1;
   }

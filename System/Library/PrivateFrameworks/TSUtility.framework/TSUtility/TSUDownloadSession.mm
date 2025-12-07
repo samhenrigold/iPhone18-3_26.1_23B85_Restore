@@ -79,7 +79,7 @@
   return v3 & 1;
 }
 
-uint64_t __30__TSUDownloadSession_isActive__block_invoke(uint64_t a1)
+void *__30__TSUDownloadSession_isActive__block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 64) count];
   *(*(*(a1 + 40) + 8) + 24) = result != 0;

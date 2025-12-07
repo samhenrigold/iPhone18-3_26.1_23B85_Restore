@@ -17,7 +17,7 @@
   v9 = (&self->super.super.super.super.isa + OBJC_IVAR____TtC24MenstrualCyclesAppPlugin32TappableCollectionViewFooterView_highlightedText);
   *v9 = 0;
   v9[1] = 0;
-  v10 = (&self->super.super.super.super.isa + OBJC_IVAR____TtC24MenstrualCyclesAppPlugin32TappableCollectionViewFooterView_tapCompletion);
+  v10 = (self + OBJC_IVAR____TtC24MenstrualCyclesAppPlugin32TappableCollectionViewFooterView_tapCompletion);
   *v10 = nullsub_1;
   v10[1] = 0;
   v13.receiver = self;
@@ -35,7 +35,7 @@
   v5 = (&self->super.super.super.super.isa + OBJC_IVAR____TtC24MenstrualCyclesAppPlugin32TappableCollectionViewFooterView_highlightedText);
   *v5 = 0;
   v5[1] = 0;
-  v6 = (&self->super.super.super.super.isa + OBJC_IVAR____TtC24MenstrualCyclesAppPlugin32TappableCollectionViewFooterView_tapCompletion);
+  v6 = (self + OBJC_IVAR____TtC24MenstrualCyclesAppPlugin32TappableCollectionViewFooterView_tapCompletion);
   *v6 = nullsub_1;
   v6[1] = 0;
   result = sub_29E2C4724();

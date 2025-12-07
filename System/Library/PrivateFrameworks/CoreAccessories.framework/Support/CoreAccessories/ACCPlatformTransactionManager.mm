@@ -434,7 +434,9 @@ uint64_t __46__ACCPlatformTransactionManager_sharedManager__block_invoke(uint64_
 void __37__ACCPlatformTransactionManager_init__block_invoke_2_cold_3(id *a1)
 {
   v1 = [*a1 transactions];
-  OUTLINED_FUNCTION_6_8(&_mh_execute_header, v2, v3, "[#Transactions] transactions: %@", v4, v5, v6, v7, 2u);
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = v1;
+  OUTLINED_FUNCTION_6_8(&_mh_execute_header, v2, v3, "[#Transactions] transactions: %@", v4, v5, v6, v7, v8, DWORD2(v8));
 }
 
 void __65__ACCPlatformTransactionManager_addTransactionForConnectionUUID___block_invoke_cold_3(uint64_t *a1, NSObject *a2)

@@ -34,53 +34,58 @@
   accessor = [accessCopy accessor];
   v6 = [(PALApplicationMetadataResolver *)self bundleRecordForApplication:accessor];
 
-  if (-[PALSettings accessFilteringPolicy](self->_settings, "accessFilteringPolicy") == 1 && [v6 developerType] != 3)
+  if ([(PALSettings *)self->_settings accessFilteringPolicy]== 1)
   {
-    accessor2 = sub_1000030DC();
-    if (os_log_type_enabled(accessor2, OS_LOG_TYPE_DEBUG))
+    developerType = [v6 developerType];
+    if (developerType != 3)
     {
-      sub_1000032EC();
-    }
+      accessor2 = sub_1000030DC(developerType);
+      if (os_log_type_enabled(accessor2, OS_LOG_TYPE_DEBUG))
+      {
+        sub_1000032EC();
+      }
 
-    goto LABEL_14;
+      goto LABEL_14;
+    }
   }
 
   accessor2 = [accessCopy accessor];
-  if ([accessor2 identifierType]== 2)
+  identifierType = [accessor2 identifierType];
+  if (identifierType == 2)
   {
     bundleIdentifier = [v6 bundleIdentifier];
 
     if (bundleIdentifier)
     {
       bundleIdentifier2 = [v6 bundleIdentifier];
-      v10 = [PAApplication applicationWithBundleID:bundleIdentifier2];
+      v13 = [PAApplication applicationWithBundleID:bundleIdentifier2];
 
-      accessor2 = v10;
+      accessor2 = v13;
       goto LABEL_6;
     }
 
-    v13 = sub_1000030DC();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_FAULT))
+    v16 = sub_1000030DC(v11);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_FAULT))
     {
       sub_100003414();
     }
 
 LABEL_14:
-    v12 = 0;
+    v15 = 0;
     goto LABEL_15;
   }
 
 LABEL_6:
-  v11 = sub_1000030DC();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+  v14 = sub_1000030DC(identifierType);
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
   {
-    sub_100003364(accessCopy, accessor2, v11);
+    sub_100003364(accessCopy, accessor2, v14);
   }
 
-  v12 = [accessCopy copyWithNewAccessor:accessor2];
+  v15 = [accessCopy copyWithNewAccessor:accessor2];
 LABEL_15:
 
-  return v12;
+  return v15;
 }
 
 - (id)bundleRecordForApplication:(id)application

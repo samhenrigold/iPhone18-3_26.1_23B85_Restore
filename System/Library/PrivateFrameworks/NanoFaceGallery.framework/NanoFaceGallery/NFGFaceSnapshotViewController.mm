@@ -11,9 +11,8 @@
 - (NFGFaceSnapshotViewController)initWithFace:(id)face libraryIdentifier:(id)identifier
 {
   v5 = sub_25B0E24A0();
-  v6 = *(*(v5 - 8) + 64);
   MEMORY[0x28223BE20](v5 - 8);
-  v8 = &v12 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = &v11 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_25B0E3900();
   sub_25B0E38F0();
   sub_25B0E3850();
@@ -24,9 +23,9 @@
 
   sub_25B0E2480();
   faceCopy = face;
-  v10 = sub_25B0DF6B8(faceCopy, v8);
+  v9 = sub_25B0DF6B8(faceCopy, v7);
 
-  return v10;
+  return v9;
 }
 
 - (NFGFaceSnapshotViewController)initWithFace:(id)face galleryIdentifier:(id)identifier
@@ -39,11 +38,12 @@
     swift_task_reportUnexpectedExecutor();
   }
 
-  sub_25B0E3740();
+  v5 = sub_25B0E3740();
+  v7 = v6;
   faceCopy = face;
-  v6 = sub_25B0DF8F8(faceCopy);
+  v9 = sub_25B0DF8F8(faceCopy, v5, v7);
 
-  return v6;
+  return v9;
 }
 
 - (NFGFaceSnapshotViewController)initWithCoder:(id)coder

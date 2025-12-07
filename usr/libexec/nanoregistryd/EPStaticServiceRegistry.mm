@@ -155,51 +155,50 @@ LABEL_12:
 - (void)addService:(id)service
 {
   serviceCopy = service;
-  v5 = sub_1000034AC();
+  v5 = sub_1000034AC(serviceCopy);
   v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
 
   if (v6)
   {
-    v7 = sub_1000034AC();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = sub_1000034AC(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = objc_opt_class();
-      v9 = NSStringFromClass(v8);
-      v17 = 136315650;
-      v18 = "[EPStaticServiceRegistry addService:]";
-      v19 = 2112;
-      v20 = v9;
-      v21 = 2048;
-      v22 = serviceCopy;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "%s: Request to add class %@[%p] to service registry", &v17, 0x20u);
+      v9 = objc_opt_class();
+      v10 = NSStringFromClass(v9);
+      v19 = 136315650;
+      v20 = "[EPStaticServiceRegistry addService:]";
+      v21 = 2112;
+      v22 = v10;
+      v23 = 2048;
+      v24 = serviceCopy;
+      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "%s: Request to add class %@[%p] to service registry", &v19, 0x20u);
     }
   }
 
   os_unfair_lock_lock(&self->_lock);
-  v10 = [NSValue valueWithNonretainedObject:objc_opt_class()];
-  v11 = [(NSMutableDictionary *)self->_servicesByClass objectForKeyedSubscript:v10];
-  if (v11 != serviceCopy)
+  v11 = [NSValue valueWithNonretainedObject:objc_opt_class()];
+  v12 = [(NSMutableDictionary *)self->_servicesByClass objectForKeyedSubscript:v11];
+  if (v12 != serviceCopy)
   {
-    [(EPStaticServiceRegistry *)self _removeService:v11];
-    v12 = sub_1000034AC();
-    v13 = os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT);
+    v13 = sub_1000034AC([(EPStaticServiceRegistry *)self _removeService:v12]);
+    v14 = os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT);
 
-    if (v13)
+    if (v14)
     {
-      v14 = sub_1000034AC();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+      v16 = sub_1000034AC(v15);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
       {
-        v15 = objc_opt_class();
-        v16 = NSStringFromClass(v15);
-        v17 = 138412546;
-        v18 = v16;
-        v19 = 2048;
-        v20 = serviceCopy;
-        _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "Adding class %@[%p] to service registry", &v17, 0x16u);
+        v17 = objc_opt_class();
+        v18 = NSStringFromClass(v17);
+        v19 = 138412546;
+        v20 = v18;
+        v21 = 2048;
+        v22 = serviceCopy;
+        _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "Adding class %@[%p] to service registry", &v19, 0x16u);
       }
     }
 
-    [(NSMutableDictionary *)self->_servicesByClass setObject:serviceCopy forKeyedSubscript:v10];
+    [(NSMutableDictionary *)self->_servicesByClass setObject:serviceCopy forKeyedSubscript:v11];
   }
 
   os_unfair_lock_unlock(&self->_lock);
@@ -217,118 +216,118 @@ LABEL_12:
 - (void)_removeService:(id)service
 {
   serviceCopy = service;
-  v5 = sub_1000034AC();
+  v5 = sub_1000034AC(serviceCopy);
   v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
 
   if (v6)
   {
-    v7 = sub_1000034AC();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = sub_1000034AC(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = objc_opt_class();
-      v9 = NSStringFromClass(v8);
+      v9 = objc_opt_class();
+      v10 = NSStringFromClass(v9);
       *buf = 136315650;
-      v41 = "[EPStaticServiceRegistry _removeService:]";
-      v42 = 2112;
-      v43 = v9;
-      v44 = 2048;
-      v45 = serviceCopy;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "%s: Request to remove class %@[%p] to service registry", buf, 0x20u);
+      v43 = "[EPStaticServiceRegistry _removeService:]";
+      v44 = 2112;
+      v45 = v10;
+      v46 = 2048;
+      v47 = serviceCopy;
+      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "%s: Request to remove class %@[%p] to service registry", buf, 0x20u);
     }
   }
 
   if (serviceCopy)
   {
-    v10 = sub_1000034AC();
-    v11 = os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT);
+    v11 = sub_1000034AC(v7);
+    v12 = os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT);
 
-    if (v11)
+    if (v12)
     {
-      v12 = sub_1000034AC();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+      v14 = sub_1000034AC(v13);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
       {
-        v13 = objc_opt_class();
-        v14 = NSStringFromClass(v13);
+        v15 = objc_opt_class();
+        v16 = NSStringFromClass(v15);
         *buf = 138412546;
-        v41 = v14;
-        v42 = 2048;
-        v43 = serviceCopy;
-        _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Removing class %@[%p] from service registry", buf, 0x16u);
+        v43 = v16;
+        v44 = 2048;
+        v45 = serviceCopy;
+        _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "Removing class %@[%p] from service registry", buf, 0x16u);
       }
     }
 
-    v15 = [NSValue valueWithNonretainedObject:objc_opt_class()];
-    v34 = 0u;
-    v35 = 0u;
+    v17 = [NSValue valueWithNonretainedObject:objc_opt_class()];
     v36 = 0u;
     v37 = 0u;
-    v16 = [(NSMutableDictionary *)self->_servicesByClass copy];
-    v17 = [v16 countByEnumeratingWithState:&v34 objects:v39 count:16];
-    if (v17)
+    v38 = 0u;
+    v39 = 0u;
+    v18 = [(NSMutableDictionary *)self->_servicesByClass copy];
+    v19 = [v18 countByEnumeratingWithState:&v36 objects:v41 count:16];
+    if (v19)
     {
-      v18 = v17;
-      v19 = *v35;
+      v20 = v19;
+      v21 = *v37;
       do
       {
-        v20 = 0;
-        v21 = v15;
+        v22 = 0;
+        v23 = v17;
         do
         {
-          if (*v35 != v19)
+          if (*v37 != v21)
           {
-            objc_enumerationMutation(v16);
+            objc_enumerationMutation(v18);
           }
 
-          v15 = *(*(&v34 + 1) + 8 * v20);
+          v17 = *(*(&v36 + 1) + 8 * v22);
 
-          v22 = [(NSMutableDictionary *)self->_servicesByClass objectForKeyedSubscript:v15];
-          if (v22 == serviceCopy)
+          v24 = [(NSMutableDictionary *)self->_servicesByClass objectForKeyedSubscript:v17];
+          if (v24 == serviceCopy)
           {
-            [(NSMutableDictionary *)self->_servicesByClass removeObjectForKey:v15];
+            [(NSMutableDictionary *)self->_servicesByClass removeObjectForKey:v17];
           }
 
-          v20 = v20 + 1;
-          v21 = v15;
+          v22 = v22 + 1;
+          v23 = v17;
         }
 
-        while (v18 != v20);
-        v18 = [v16 countByEnumeratingWithState:&v34 objects:v39 count:16];
+        while (v20 != v22);
+        v20 = [v18 countByEnumeratingWithState:&v36 objects:v41 count:16];
       }
 
-      while (v18);
+      while (v20);
     }
 
+    v34 = 0u;
+    v35 = 0u;
     v32 = 0u;
     v33 = 0u;
-    v30 = 0u;
-    v31 = 0u;
-    v23 = [(NSMutableDictionary *)self->_servicesByProtocol copy];
-    v24 = [v23 countByEnumeratingWithState:&v30 objects:v38 count:16];
-    if (v24)
+    v25 = [(NSMutableDictionary *)self->_servicesByProtocol copy];
+    v26 = [v25 countByEnumeratingWithState:&v32 objects:v40 count:16];
+    if (v26)
     {
-      v25 = v24;
-      v26 = *v31;
+      v27 = v26;
+      v28 = *v33;
       do
       {
-        for (i = 0; i != v25; i = i + 1)
+        for (i = 0; i != v27; i = i + 1)
         {
-          if (*v31 != v26)
+          if (*v33 != v28)
           {
-            objc_enumerationMutation(v23);
+            objc_enumerationMutation(v25);
           }
 
-          v28 = *(*(&v30 + 1) + 8 * i);
-          v29 = [(NSMutableDictionary *)self->_servicesByProtocol objectForKeyedSubscript:v28];
-          if (v29 == serviceCopy)
+          v30 = *(*(&v32 + 1) + 8 * i);
+          v31 = [(NSMutableDictionary *)self->_servicesByProtocol objectForKeyedSubscript:v30];
+          if (v31 == serviceCopy)
           {
-            [(NSMutableDictionary *)self->_servicesByProtocol removeObjectForKey:v28];
+            [(NSMutableDictionary *)self->_servicesByProtocol removeObjectForKey:v30];
           }
         }
 
-        v25 = [v23 countByEnumeratingWithState:&v30 objects:v38 count:16];
+        v27 = [v25 countByEnumeratingWithState:&v32 objects:v40 count:16];
       }
 
-      while (v25);
+      while (v27);
     }
   }
 }

@@ -5,7 +5,9 @@
 - (id)description;
 - (id)dictionary;
 - (unint64_t)uniqueValueCount;
+- (unsigned)countForValue:(unsigned __int16)value;
 - (void)_convertToDictionaryRepresentation;
+- (void)addValue:(unsigned __int16)value;
 - (void)dealloc;
 - (void)enumerateValuesAndCountsUsingBlock:(id)block;
 @end
@@ -14,7 +16,7 @@
 
 - (id)description
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v3 = objc_opt_new();
   [v3 appendString:@"["];
   vectorStorage = self->_vectorStorage;
@@ -43,26 +45,26 @@
 
   else
   {
-    v22 = 0u;
-    v23 = 0u;
-    v20 = 0u;
     v21 = 0u;
+    v22 = 0u;
+    v19 = 0u;
+    v20 = 0u;
     v8 = self->_dictStorage;
-    v9 = [(NSMutableDictionary *)v8 countByEnumeratingWithState:&v20 objects:v24 count:16];
+    v9 = [(NSMutableDictionary *)v8 countByEnumeratingWithState:&v19 objects:v23 count:16];
     if (v9)
     {
-      v10 = *v21;
+      v10 = *v20;
       v11 = 1;
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v21 != v10)
+          if (*v20 != v10)
           {
             objc_enumerationMutation(v8);
           }
 
-          v13 = *(*(&v20 + 1) + 8 * i);
+          v13 = *(*(&v19 + 1) + 8 * i);
           if ((v11 & 1) == 0)
           {
             [v3 appendString:{@", "}];
@@ -71,12 +73,12 @@
           intValue = [v13 intValue];
           v15 = [(NSMutableDictionary *)self->_dictStorage objectForKeyedSubscript:v13];
           intValue2 = [v15 intValue];
-          [v3 appendFormat:@"%u [%u]", intValue, intValue2, v20];
+          [v3 appendFormat:@"%u [%u]", intValue, intValue2, v19];
 
           v11 = 0;
         }
 
-        v9 = [(NSMutableDictionary *)v8 countByEnumeratingWithState:&v20 objects:v24 count:16];
+        v9 = [(NSMutableDictionary *)v8 countByEnumeratingWithState:&v19 objects:v23 count:16];
         v11 = 0;
       }
 
@@ -86,8 +88,6 @@
 
   [v3 appendString:@"]"];
   v17 = [v3 copy];
-
-  v18 = *MEMORY[0x277D85DE8];
 
   return v17;
 }
@@ -355,6 +355,169 @@ void __59__PPU16CountedSet__dictEnumerateValuesAndCountsUsingBlock___block_invok
   else
   {
     return [(NSMutableDictionary *)self->_dictStorage count];
+  }
+}
+
+- (unsigned)countForValue:(unsigned __int16)value
+{
+  valueCopy = value;
+  vectorStorage = self->_vectorStorage;
+  if (vectorStorage)
+  {
+    v5 = *vectorStorage;
+    v6 = vectorStorage[1];
+    if (v5 != v6)
+    {
+      while (*v5 != value)
+      {
+        v5 += 2;
+        if (v5 == v6)
+        {
+          return 0;
+        }
+      }
+    }
+
+    if (v5 == v6)
+    {
+      return 0;
+    }
+
+    else
+    {
+      return v5[1];
+    }
+  }
+
+  else
+  {
+    v9 = objc_autoreleasePoolPush();
+    dictStorage = self->_dictStorage;
+    v11 = [MEMORY[0x277CCABB0] numberWithUnsignedShort:valueCopy];
+    v12 = [(NSMutableDictionary *)dictStorage objectForKeyedSubscript:v11];
+
+    if (v12)
+    {
+      unsignedIntValue = [v12 unsignedIntValue];
+    }
+
+    else
+    {
+      unsignedIntValue = 0;
+    }
+
+    objc_autoreleasePoolPop(v9);
+  }
+
+  return unsignedIntValue;
+}
+
+- (void)addValue:(unsigned __int16)value
+{
+  valueCopy = value;
+  vectorStorage = self->_vectorStorage;
+  if (vectorStorage)
+  {
+    v7 = *vectorStorage;
+    v6 = vectorStorage[1];
+    v8 = *vectorStorage;
+    if (*vectorStorage != v6)
+    {
+      while (*v8 != value)
+      {
+        v8 += 2;
+        if (v8 == v6)
+        {
+          goto LABEL_14;
+        }
+      }
+    }
+
+    if (v8 == v6)
+    {
+LABEL_14:
+      v15 = (v6 - v7) >> 2;
+      if (v15 < 0x80)
+      {
+        v17 = vectorStorage[2];
+        if (v6 >= v17)
+        {
+          v18 = v17 - v7;
+          if (v18 >> 1 <= v15 + 1)
+          {
+            v19 = v15 + 1;
+          }
+
+          else
+          {
+            v19 = v18 >> 1;
+          }
+
+          if (v18 >= 0x7FFFFFFFFFFFFFFCLL)
+          {
+            v20 = 0x3FFFFFFFFFFFFFFFLL;
+          }
+
+          else
+          {
+            v20 = v19;
+          }
+
+          std::__allocate_at_least[abi:ne200100]<std::allocator<std::pair<unsigned short,unsigned short>>>(v20);
+        }
+
+        *v6 = value;
+        v6[1] = 1;
+        vectorStorage[1] = v6 + 2;
+      }
+
+      else
+      {
+        [(PPU16CountedSet *)self _convertToDictionaryRepresentation];
+        dictStorage = self->_dictStorage;
+        v22 = [MEMORY[0x277CCABB0] numberWithUnsignedShort:valueCopy];
+        [(NSMutableDictionary *)dictStorage setObject:&unk_284783A68 forKeyedSubscript:?];
+      }
+    }
+
+    else
+    {
+      v9 = v8[1];
+      if (v9 == 0xFFFF)
+      {
+        v10 = -1;
+      }
+
+      else
+      {
+        v10 = v9 + 1;
+      }
+
+      v8[1] = v10;
+    }
+  }
+
+  else
+  {
+    v11 = objc_autoreleasePoolPush();
+    v21 = [MEMORY[0x277CCABB0] numberWithUnsignedShort:valueCopy];
+    v12 = [(NSMutableDictionary *)self->_dictStorage objectForKeyedSubscript:?];
+    v13 = v12;
+    if (v12)
+    {
+      if ([v12 unsignedIntValue] <= 0xFFFE)
+      {
+        v14 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:{objc_msgSend(v13, "unsignedIntValue") + 1}];
+        [(NSMutableDictionary *)self->_dictStorage setObject:v14 forKeyedSubscript:v21];
+      }
+    }
+
+    else
+    {
+      [(NSMutableDictionary *)self->_dictStorage setObject:&unk_284783A68 forKeyedSubscript:v21];
+    }
+
+    objc_autoreleasePoolPop(v11);
   }
 }
 

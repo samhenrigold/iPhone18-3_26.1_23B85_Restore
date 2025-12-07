@@ -126,7 +126,7 @@ LABEL_17:
     if (v17)
     {
       v18 = [self E5RTProgramLibraryCompilationOptionsForModelSource:v17 configurationOptions:optionsCopy error:error];
-      v19 = VNANEArchitectureName();
+      v19 = VNANEArchitectureName(v18);
       v20 = VNANEGenerationNumberForArchitectureName(v19, error);
 
       if (!v20)
@@ -410,7 +410,7 @@ void __64__VNImageSegmenter_supportedOutputPixelFormatsForOptions_error___block_
 
 + (BOOL)modelFullyANEResident
 {
-  v2 = VNANEArchitectureName();
+  v2 = VNANEArchitectureName(self);
   v3 = VNANEGenerationNumberForArchitectureName(v2, 0);
 
   if (v3)
@@ -431,7 +431,7 @@ void __64__VNImageSegmenter_supportedOutputPixelFormatsForOptions_error___block_
   v21 = *MEMORY[0x1E69E9840];
   v5 = a4;
   v19 = -1082130432;
-  std::vector<float>::vector[abi:ne200100](retstr, 0x400uLL);
+  std::vector<float>::vector[abi:ne200100](retstr, 0x400uLL, &v19);
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
@@ -669,7 +669,7 @@ LABEL_15:
       v45 = optionsCopy;
       v20 = [v18 count];
       v42 = v19;
-      [(VNImageSegmenter *)self _oneDimensionalArrayFromInputVNPointArray:v19];
+      objc_msgSend__oneDimensionalArrayFromInputVNPointArray_(self);
       if (v20 < 1)
       {
         v46 = 0;
@@ -770,7 +770,7 @@ LABEL_17:
   {
     if ([v12 count])
     {
-      [(VNImageSegmenter *)self _oneDimensionalArrayFromInputVNPointArray:v12];
+      objc_msgSend__oneDimensionalArrayFromInputVNPointArray_(self);
       v35 = [VNFgBgE5MLInputTensors alloc];
       configuration = [(VNFgBgE5MLInstanceSegmenter *)self->_fgbgInstanceSegmenter configuration];
       queryNumber = [configuration queryNumber];
@@ -949,60 +949,45 @@ LABEL_28:
 
 - (id)_observationsFromSegmenter:(id)segmenter instanceFeatures:(id)features originatingRequestSpecifier:(id)specifier options:(id)options maskPixelFormatType:(unsigned int)type session:(id)session error:(id *)error
 {
-  v75 = *MEMORY[0x1E69E9840];
+  v73 = *MEMORY[0x1E69E9840];
   segmenterCopy = segmenter;
   featuresCopy = features;
   specifierCopy = specifier;
   optionsCopy = options;
   sessionCopy = session;
-  v53 = objc_alloc_init(MEMORY[0x1E696AFB0]);
-  v52 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v51 = objc_alloc_init(MEMORY[0x1E696AFB0]);
+  v50 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v54 = objc_alloc_init(MEMORY[0x1E695DF70]);
   v56 = objc_alloc_init(MEMORY[0x1E695DF70]);
-  v58 = objc_alloc_init(MEMORY[0x1E695DF70]);
-  v55 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v53 = objc_alloc_init(MEMORY[0x1E695DF70]);
   v15 = [optionsCopy objectForKeyedSubscript:@"disableCCRefinement"];
   bOOLValue = [v15 BOOLValue];
 
-  v72 = 0;
-  if (![VNValidationUtilities getBOOLValue:&v72 forKey:@"fillMaskGaps" inOptions:optionsCopy withDefaultValue:0 error:error])
+  v70 = 0;
+  if (![VNValidationUtilities getBOOLValue:&v70 forKey:@"fillMaskGaps" inOptions:optionsCopy withDefaultValue:0 error:error])
   {
     v19 = 0;
-    v44 = 0;
+    v42 = 0;
     goto LABEL_44;
   }
 
-  v71 = 0;
-  v17 = [VNValidationUtilities getOptionalArray:&v71 forKey:@"targetPts" inOptions:optionsCopy withElementsOfClass:objc_opt_class() error:error];
-  v18 = v71;
-  v50 = v18;
+  v69 = 0;
+  v17 = [VNValidationUtilities getOptionalArray:&v69 forKey:@"targetPts" inOptions:optionsCopy withElementsOfClass:objc_opt_class() error:error];
+  v18 = v69;
+  v48 = v18;
   if (v17)
   {
-    v48 = [v18 count];
+    v46 = [v18 count];
     if ((bOOLValue & 1) == 0)
     {
-      v70 = 0;
-      *v68 = 0u;
-      v69 = 0u;
-      fgbgInstanceSegmenter = self->_fgbgInstanceSegmenter;
-      intValue = [&unk_1F19C19D8 intValue];
-      if (fgbgInstanceSegmenter)
-      {
-        [(VNFgBgE5MLInstanceSegmenter *)fgbgInstanceSegmenter generateMaskFromInstanceFeatures:featuresCopy toCategory:intValue drawBox:0 maskImageType:&v70];
-      }
-
-      else
-      {
-        *v68 = 0u;
-        v69 = 0u;
-      }
-
+      v68 = 0;
       *v66 = 0u;
       v67 = 0u;
-      v40 = self->_fgbgInstanceSegmenter;
-      intValue2 = [&unk_1F19C19F0 intValue];
-      if (v40)
+      fgbgInstanceSegmenter = self->_fgbgInstanceSegmenter;
+      [&unk_1F19C19D8 intValue];
+      if (fgbgInstanceSegmenter)
       {
-        [(VNFgBgE5MLInstanceSegmenter *)v40 generateMaskFromInstanceFeatures:featuresCopy toCategory:intValue2 drawBox:0 maskImageType:&v70];
+        objc_msgSend_generateMaskFromInstanceFeatures_toCategory_drawBox_maskImageType_(fgbgInstanceSegmenter);
       }
 
       else
@@ -1011,44 +996,59 @@ LABEL_28:
         v67 = 0u;
       }
 
-      apple::vision::fgbg::ConnectedComponentResult::ConnectedComponentResult(&v65, 0, 0, 0, 0, 0);
+      *v64 = 0u;
+      v65 = 0u;
+      v39 = self->_fgbgInstanceSegmenter;
+      [&unk_1F19C19F0 intValue];
+      if (v39)
+      {
+        objc_msgSend_generateMaskFromInstanceFeatures_toCategory_drawBox_maskImageType_(v39);
+      }
+
+      else
+      {
+        *v64 = 0u;
+        v65 = 0u;
+      }
+
+      apple::vision::fgbg::ConnectedComponentResult::ConnectedComponentResult(&v63, 0, 0, 0, 0, 0);
     }
 
     selfCopy = self;
-    LODWORD(v65) = 0;
-    if ([VNValidationUtilities getOSTypeValue:&v65 forKey:@"VNImageSegmenterProcessOption_OutputPixelFormat" inOptions:optionsCopy withDefaultValue:1278226534 error:error])
+    LODWORD(v63) = 0;
+    if ([VNValidationUtilities getOSTypeValue:&v63 forKey:@"VNImageSegmenterProcessOption_OutputPixelFormat" inOptions:optionsCopy withDefaultValue:1278226534 error:error])
     {
-      if ([(VNImageSegmenter *)self _validateSegmentationOutputFormat:v65])
+      if ([(VNImageSegmenter *)self _validateSegmentationOutputFormat:v63])
       {
-        v19 = [(VNImageSegmenter *)self _createPixelBufferOfFormat:v65 fromSegmenter:segmenterCopy instanceFeatures:featuresCopy options:optionsCopy session:sessionCopy error:error];
+        v19 = [(VNImageSegmenter *)self _createPixelBufferOfFormat:v63 fromSegmenter:segmenterCopy instanceFeatures:featuresCopy options:optionsCopy session:sessionCopy error:error];
         if (v19)
         {
-          v62 = 0u;
-          v63 = 0u;
           v60 = 0u;
           v61 = 0u;
+          v58 = 0u;
+          v59 = 0u;
           obj = featuresCopy;
-          v20 = [obj countByEnumeratingWithState:&v60 objects:v74 count:16];
+          v20 = [obj countByEnumeratingWithState:&v58 objects:v72 count:16];
           if (v20)
           {
-            v47 = *v61;
+            v45 = *v59;
             while (2)
             {
-              v46 = v20;
-              for (i = 0; i != v46; ++i)
+              v44 = v20;
+              for (i = 0; i != v44; ++i)
               {
-                if (*v61 != v47)
+                if (*v59 != v45)
                 {
                   objc_enumerationMutation(obj);
                 }
 
-                v22 = *(*(&v60 + 1) + 8 * i);
+                v22 = *(*(&v58 + 1) + 8 * i);
                 miyoshiCategoryName = [v22 miyoshiCategoryName];
                 v24 = [miyoshiCategoryName isEqualToString:@"Foreground Object"];
 
                 if (v24)
                 {
-                  [v58 addObject:@"VNImageSegmentationFeatureForeground"];
+                  [v56 addObject:@"VNImageSegmentationFeatureForeground"];
                 }
 
                 miyoshiCategoryName2 = [v22 miyoshiCategoryName];
@@ -1056,12 +1056,12 @@ LABEL_28:
 
                 if (v26)
                 {
-                  [v58 addObject:@"VNImageSegmentationFeatureBackground"];
+                  [v56 addObject:@"VNImageSegmentationFeatureBackground"];
                 }
 
                 miyoshiCategoryName3 = [v22 miyoshiCategoryName];
                 v28 = [miyoshiCategoryName3 isEqualToString:@"Scene Background"];
-                if (v48)
+                if (v46)
                 {
                   v29 = v28;
                 }
@@ -1073,7 +1073,7 @@ LABEL_28:
 
                 if (v29)
                 {
-                  [v58 addObject:@"VNImageSegmentationFeatureBackground"];
+                  [v56 addObject:@"VNImageSegmentationFeatureBackground"];
                 }
 
                 v30 = objc_alloc_init(MEMORY[0x1E695DF70]);
@@ -1093,14 +1093,14 @@ LABEL_28:
                   [v30 addObject:@"VNImageSegmentationCategoryStrand"];
                 }
 
-                [v55 addObject:v30];
-                LODWORD(v64) = 0;
-                if (![VNValidationUtilities getOSTypeValue:&v64 forKey:@"VNImageSegmenterProcessOption_OutputPixelFormat" inOptions:optionsCopy withDefaultValue:1278226534 error:error])
+                [v53 addObject:v30];
+                LODWORD(v62) = 0;
+                if (![VNValidationUtilities getOSTypeValue:&v62 forKey:@"VNImageSegmenterProcessOption_OutputPixelFormat" inOptions:optionsCopy withDefaultValue:1278226534 error:error])
                 {
                   goto LABEL_49;
                 }
 
-                if (![(VNImageSegmenter *)selfCopy _validateSegmentationOutputFormat:v65])
+                if (![(VNImageSegmenter *)selfCopy _validateSegmentationOutputFormat:v63])
                 {
                   if (error)
                   {
@@ -1112,9 +1112,9 @@ LABEL_49:
                   goto LABEL_42;
                 }
 
-                v35 = v64;
-                v73 = v22;
-                v36 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v73 count:1];
+                v35 = v62;
+                v71 = v22;
+                v36 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v71 count:1];
                 v37 = -[VNImageSegmenter _createPixelBufferOfFormat:fromSegmenter:instanceFeatures:category:options:session:error:](selfCopy, "_createPixelBufferOfFormat:fromSegmenter:instanceFeatures:category:options:session:error:", v35, segmenterCopy, v36, [v22 miyoshiCategory], optionsCopy, sessionCopy, error);
 
                 if (!v37)
@@ -1122,10 +1122,10 @@ LABEL_49:
                   goto LABEL_49;
                 }
 
-                [v56 addObject:v37];
+                [v54 addObject:v37];
               }
 
-              v20 = [obj countByEnumeratingWithState:&v60 objects:v74 count:16];
+              v20 = [obj countByEnumeratingWithState:&v58 objects:v72 count:16];
               if (v20)
               {
                 continue;
@@ -1135,10 +1135,10 @@ LABEL_49:
             }
           }
 
-          v43 = -[VNInstanceMaskObservation initWithOriginatingRequestSpecifier:instanceLowResMaskArray:instanceFeatureKeyIndexMap:instanceCategoryKeyIndexMap:instanceMask:numComponents:regionOfInterest:]([VNInstanceMaskObservation alloc], "initWithOriginatingRequestSpecifier:instanceLowResMaskArray:instanceFeatureKeyIndexMap:instanceCategoryKeyIndexMap:instanceMask:numComponents:regionOfInterest:", specifierCopy, v56, v58, v55, v19, [v56 count] + 1, 0.0, 0.0, 1.0, 1.0);
-          [(VNObservation *)v43 setUUID:v53];
-          [v52 addObject:v43];
-          v44 = v52;
+          v41 = -[VNInstanceMaskObservation initWithOriginatingRequestSpecifier:instanceLowResMaskArray:instanceFeatureKeyIndexMap:instanceCategoryKeyIndexMap:instanceMask:numComponents:regionOfInterest:]([VNInstanceMaskObservation alloc], "initWithOriginatingRequestSpecifier:instanceLowResMaskArray:instanceFeatureKeyIndexMap:instanceCategoryKeyIndexMap:instanceMask:numComponents:regionOfInterest:", specifierCopy, v54, v56, v53, v19, [v54 count] + 1, 0.0, 0.0, 1.0, 1.0);
+          [(VNObservation *)v41 setUUID:v51];
+          [v50 addObject:v41];
+          v42 = v50;
 
           goto LABEL_43;
         }
@@ -1153,18 +1153,18 @@ LABEL_49:
 
   v19 = 0;
 LABEL_42:
-  v44 = 0;
+  v42 = 0;
 LABEL_43:
 
 LABEL_44:
   CVPixelBufferRelease(v19);
 
-  return v44;
+  return v42;
 }
 
 - (BOOL)_addInstanceMaskBuffersForCategory:(id)category instanceFeatures:(id)features toInstanceMaskArray:(id)array connectedComponentResult:(const void *)result featureInstanceMaskMap:(id)map categoryInstanceMaskMap:(id)maskMap options:(id)options session:(id)self0 error:(id *)self1
 {
-  v87 = *MEMORY[0x1E69E9840];
+  v82 = *MEMORY[0x1E69E9840];
   categoryCopy = category;
   featuresCopy = features;
   arrayCopy = array;
@@ -1172,8 +1172,8 @@ LABEL_44:
   maskMapCopy = maskMap;
   optionsCopy = options;
   sessionCopy = session;
-  v65 = categoryCopy;
-  v69 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v60 = categoryCopy;
+  v64 = objc_alloc_init(MEMORY[0x1E695DF70]);
   if ([categoryCopy isEqualToString:@"VNImageSegmentationFeatureForeground"])
   {
     v16 = [MEMORY[0x1E696AE18] predicateWithBlock:&__block_literal_global_118];
@@ -1199,161 +1199,146 @@ LABEL_44:
 
   v18 = v17;
 
-  v69 = v18;
+  v64 = v18;
 LABEL_8:
   v19 = *(result + 10);
-  v63 = *(result + 11);
-  if (v19 == v63)
+  v58 = *(result + 11);
+  if (v19 == v58)
   {
-LABEL_51:
-    v59 = 1;
+LABEL_50:
+    v54 = 1;
   }
 
   else
   {
     while (1)
     {
-      v76 = v19;
-      v20 = **v19;
-      v21 = (*v19)[1];
-      v22 = v20;
-      v23 = v21;
-      if ((v22 & 0x80000000) != 0 || (v24 = *(result + 13), v24 <= v22) || (v23 & 0x80000000) != 0)
+      v71 = v19;
+      x = (*v19)->x;
+      y = (*v19)->y;
+      if ((x & 0x80000000) != 0 || *(result + 13) <= x || (y & 0x80000000) != 0)
       {
-        resultCopy3 = result;
         if (error)
         {
-LABEL_52:
-          v60 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Point (%i, %i) is out of the mask image bounds of %lu x %lu", v22, v23, *(result + 13), *(result + 14)];
-          *error = [VNError errorWithCode:14 message:v60];
-
-          goto LABEL_56;
-        }
-
-        v24 = *(result + 13);
-      }
-
-      else if (error)
-      {
-        resultCopy3 = result;
-        if (*(result + 14) <= v23)
-        {
-          goto LABEL_52;
+          goto LABEL_51;
         }
       }
 
-      else
+      else if (error && *(result + 14) <= y)
       {
-        resultCopy3 = result;
+LABEL_51:
+        v55 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Point (%i, %i) is out of the mask image bounds of %lu x %lu", x, y, *(result + 13), *(result + 14)];
+        *error = [VNError errorWithCode:14 message:v55];
+
+        goto LABEL_55;
       }
 
-      v26 = *(*resultCopy3 + 8 * (v20 + v21 * v24));
-      *v84 = 0u;
-      v85 = 0u;
+      *v79 = 0u;
+      v80 = 0u;
       fgbgInstanceSegmenter = self->_fgbgInstanceSegmenter;
       if (fgbgInstanceSegmenter)
       {
-        [VNFgBgE5MLInstanceSegmenter generateMaskForLabel:"generateMaskForLabel:fromConnectedComponents:error:" fromConnectedComponents:v26 error:?];
+        objc_msgSend_generateMaskForLabel_fromConnectedComponents_error_(fgbgInstanceSegmenter);
       }
 
-      v83 = 0;
-      if (![VNValidationUtilities getOSTypeValue:&v83 forKey:@"VNImageSegmenterProcessOption_OutputPixelFormat" inOptions:optionsCopy withDefaultValue:1278226534 error:error])
+      v78 = 0;
+      if (![VNValidationUtilities getOSTypeValue:&v78 forKey:@"VNImageSegmenterProcessOption_OutputPixelFormat" inOptions:optionsCopy withDefaultValue:1278226534 error:error])
       {
-        goto LABEL_56;
+        goto LABEL_55;
       }
 
-      if (![(VNImageSegmenter *)self _validateSegmentationOutputFormat:v83])
+      if (![(VNImageSegmenter *)self _validateSegmentationOutputFormat:v78])
       {
         break;
       }
 
-      v82[0] = *v84;
-      v82[1] = v85;
-      v28 = [(VNImageSegmenter *)self _createPixelBufferOfFormat:v83 fromImageBuffer:v82 ofType:1 options:optionsCopy session:sessionCopy error:error];
-      free(v84[0]);
-      v84[0] = 0;
-      if (!v28)
+      v77[0] = *v79;
+      v77[1] = v80;
+      v23 = [(VNImageSegmenter *)self _createPixelBufferOfFormat:v78 fromImageBuffer:v77 ofType:1 options:optionsCopy session:sessionCopy error:error];
+      free(v79[0]);
+      v79[0] = 0;
+      if (!v23)
       {
-        goto LABEL_56;
+        goto LABEL_55;
       }
 
-      v81 = 0;
-      v29 = [VNValidationUtilities getOptionalArray:&v81 forKey:@"targetPts" inOptions:optionsCopy withElementsOfClass:objc_opt_class() error:error];
-      v30 = v81;
-      v73 = v30;
-      if (!v29)
+      v76 = 0;
+      v24 = [VNValidationUtilities getOptionalArray:&v76 forKey:@"targetPts" inOptions:optionsCopy withElementsOfClass:objc_opt_class() error:error];
+      v25 = v76;
+      v68 = v25;
+      if (!v24)
       {
-        CVPixelBufferRelease(v28);
+        CVPixelBufferRelease(v23);
 
-        goto LABEL_56;
+        goto LABEL_55;
       }
 
-      if (![v30 count] || -[VNImageSegmenter _instanceMask:containsTargetPoints:](self, "_instanceMask:containsTargetPoints:", v28, v73))
+      if (![v25 count] || -[VNImageSegmenter _instanceMask:containsTargetPoints:](self, "_instanceMask:containsTargetPoints:", v23, v68))
       {
-        [arrayCopy addObject:v28];
+        [arrayCopy addObject:v23];
 
-        [mapCopy addObject:v65];
-        v31 = objc_alloc_init(MEMORY[0x1E695DF70]);
-        v79 = 0u;
-        v80 = 0u;
-        v77 = 0u;
-        v78 = 0u;
-        obj = v69;
-        v32 = [obj countByEnumeratingWithState:&v77 objects:v86 count:16];
-        if (!v32)
+        [mapCopy addObject:v60];
+        v26 = objc_alloc_init(MEMORY[0x1E695DF70]);
+        v74 = 0u;
+        v75 = 0u;
+        v72 = 0u;
+        v73 = 0u;
+        obj = v64;
+        v27 = [obj countByEnumeratingWithState:&v72 objects:v81 count:16];
+        if (!v27)
         {
-          goto LABEL_46;
+          goto LABEL_45;
         }
 
-        v75 = *v78;
+        v70 = *v73;
         while (1)
         {
-          for (i = 0; i != v32; ++i)
+          for (i = 0; i != v27; ++i)
           {
-            if (*v78 != v75)
+            if (*v73 != v70)
             {
               objc_enumerationMutation(obj);
             }
 
-            v34 = *(*(&v77 + 1) + 8 * i);
-            [v34 bbox];
-            v36 = v35;
-            v38 = v37;
-            v40 = v39;
-            v42 = v41;
-            [v34 mapSize];
-            v44 = v43;
-            [v34 mapSize];
-            v46 = *v76;
-            v47 = v76[1];
-            if (*v76 == v47)
+            v29 = *(*(&v72 + 1) + 8 * i);
+            [v29 bbox];
+            v31 = v30;
+            v33 = v32;
+            v35 = v34;
+            v37 = v36;
+            [v29 mapSize];
+            v39 = v38;
+            [v29 mapSize];
+            v41 = *v71;
+            v42 = v71[1];
+            if (*v71 == v42)
             {
               continue;
             }
 
-            v48 = v45;
-            v49 = v42 * v48;
-            v50 = v38 * v48;
-            v51 = v44;
-            v52 = v40 * v51;
-            v53 = v36 * v51;
+            v43 = v40;
+            v44 = v37 * v43;
+            v45 = v33 * v43;
+            v46 = v39;
+            v47 = v35 * v46;
+            v48 = v31 * v46;
             while (1)
             {
-              v88.origin.x = v53;
-              v88.origin.y = v50;
-              v88.size.width = v52;
-              v88.size.height = v49;
-              if (CGRectContainsPoint(v88, *v46))
+              v83.origin.x = v48;
+              v83.origin.y = v45;
+              v83.size.width = v47;
+              v83.size.height = v44;
+              if (CGRectContainsPoint(v83, *v41))
               {
-                cocoCategoryName = [v34 cocoCategoryName];
+                cocoCategoryName = [v29 cocoCategoryName];
                 if ([cocoCategoryName isEqualToString:@"shadow"])
                 {
-                  v55 = [v31 containsObject:@"VNImageSegmentationCategoryShadow"];
+                  v50 = [v26 containsObject:@"VNImageSegmentationCategoryShadow"];
 
-                  if ((v55 & 1) == 0)
+                  if ((v50 & 1) == 0)
                   {
-                    v58 = @"VNImageSegmentationCategoryShadow";
-                    goto LABEL_43;
+                    v53 = @"VNImageSegmentationCategoryShadow";
+                    goto LABEL_42;
                   }
                 }
 
@@ -1361,53 +1346,53 @@ LABEL_52:
                 {
                 }
 
-                cocoCategoryName2 = [v34 cocoCategoryName];
+                cocoCategoryName2 = [v29 cocoCategoryName];
                 if (![cocoCategoryName2 isEqualToString:@"texture-other"])
                 {
 
-                  goto LABEL_41;
+                  goto LABEL_40;
                 }
 
-                v57 = [v31 containsObject:@"VNImageSegmentationCategoryStrand"];
+                v52 = [v26 containsObject:@"VNImageSegmentationCategoryStrand"];
 
-                if ((v57 & 1) == 0)
+                if ((v52 & 1) == 0)
                 {
                   break;
                 }
               }
 
-LABEL_41:
-              if (++v46 == v47)
+LABEL_40:
+              if (++v41 == v42)
               {
-                goto LABEL_44;
+                goto LABEL_43;
               }
             }
 
-            v58 = @"VNImageSegmentationCategoryStrand";
+            v53 = @"VNImageSegmentationCategoryStrand";
+LABEL_42:
+            [v26 addObject:v53];
 LABEL_43:
-            [v31 addObject:v58];
-LABEL_44:
             ;
           }
 
-          v32 = [obj countByEnumeratingWithState:&v77 objects:v86 count:16];
-          if (!v32)
+          v27 = [obj countByEnumeratingWithState:&v72 objects:v81 count:16];
+          if (!v27)
           {
-LABEL_46:
+LABEL_45:
 
-            [maskMapCopy addObject:v31];
-            goto LABEL_48;
+            [maskMapCopy addObject:v26];
+            goto LABEL_47;
           }
         }
       }
 
-      CVPixelBufferRelease(v28);
-LABEL_48:
+      CVPixelBufferRelease(v23);
+LABEL_47:
 
-      v19 = v76 + 3;
-      if (v76 + 3 == v63)
+      v19 = v71 + 3;
+      if (v71 + 3 == v58)
       {
-        goto LABEL_51;
+        goto LABEL_50;
       }
     }
 
@@ -1416,11 +1401,11 @@ LABEL_48:
       *error = [VNError errorForInvalidOptionWithLocalizedDescription:@"Unsupported output format specified. Please use kCVPixelFormatType_OneComponent32Float or kCVPixelFormatType_OneComponent8"];
     }
 
-LABEL_56:
-    v59 = 0;
+LABEL_55:
+    v54 = 0;
   }
 
-  return v59;
+  return v54;
 }
 
 uint64_t __186__VNImageSegmenter__addInstanceMaskBuffersForCategory_instanceFeatures_toInstanceMaskArray_connectedComponentResult_featureInstanceMaskMap_categoryInstanceMaskMap_options_session_error___block_invoke_3(uint64_t a1, void *a2)
@@ -1507,7 +1492,7 @@ LABEL_11:
   v23 = 0;
   *v21 = 0u;
   v22 = 0u;
-  if (segmenterCopy && ([segmenterCopy generateMaskForInstanceFeatures:featuresCopy maskImageType:&v23], v21[0]))
+  if (segmenterCopy && (objc_msgSend_generateMaskForInstanceFeatures_maskImageType_(segmenterCopy), v21[0]))
   {
     v20[0] = *v21;
     v20[1] = v22;
@@ -1538,7 +1523,7 @@ LABEL_11:
   v25 = 0;
   *v23 = 0u;
   v24 = 0u;
-  if (segmenterCopy && ([segmenterCopy generateMaskFromInstanceFeatures:featuresCopy toCategory:v11 drawBox:0 maskImageType:&v25], v23[0]))
+  if (segmenterCopy && (objc_msgSend_generateMaskFromInstanceFeatures_toCategory_drawBox_maskImageType_(segmenterCopy), v23[0]))
   {
     v22[0] = *v23;
     v22[1] = v24;

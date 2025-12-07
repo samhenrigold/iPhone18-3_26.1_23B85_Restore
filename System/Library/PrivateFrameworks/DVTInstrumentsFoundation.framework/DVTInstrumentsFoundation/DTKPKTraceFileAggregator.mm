@@ -4,6 +4,7 @@
 - (id)start;
 - (id)stop;
 - (id)swapOutCurrentDatastream:(id *)datastream;
+- (int)startKtraceSession:(char *)session useExisting:(BOOL)existing outputFileURL:(id *)l;
 @end
 
 @implementation DTKPKTraceFileAggregator
@@ -30,9 +31,109 @@
   return v7;
 }
 
+- (int)startKtraceSession:(char *)session useExisting:(BOOL)existing outputFileURL:(id *)l
+{
+  existingCopy = existing;
+  v33 = *MEMORY[0x277D85DE8];
+  providerOptions = [(DTKPConfiguration *)self->_config providerOptions];
+  v10 = providerOptions;
+  v11 = MEMORY[0x277CBEC10];
+  if (providerOptions)
+  {
+    v11 = providerOptions;
+  }
+
+  v12 = v11;
+
+  v30 = 0;
+  v13 = [DTKTraceSessionCreator getDefaultedRemotePath:&v30];
+  if (v30 == -1)
+  {
+    v18 = 5;
+  }
+
+  else
+  {
+    logHandle = self->_logHandle;
+    if (os_signpost_enabled(logHandle))
+    {
+      *buf = 0;
+      _os_signpost_emit_with_name_impl(&dword_247F67000, logHandle, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "Start Operation", "", buf, 2u);
+    }
+
+    v15 = objc_opt_new();
+    [v15 setProviders:v12];
+    v16 = [MEMORY[0x277CBEA90] dataWithBytes:session length:0x2000];
+    [v15 setBitmap:v16];
+
+    [v15 setUseExisting:existingCopy];
+    [v15 setCollectionInterval:{-[DTKPConfiguration collectionInterval](self->_config, "collectionInterval")}];
+    *buf = -1;
+    if (kperf_bless_get() || (v17 = *buf, v17 != getpid()) || geteuid())
+    {
+      v18 = 5;
+    }
+
+    else
+    {
+      v25 = [DTKTraceSessionCreator alloc];
+      v29 = 0;
+      v26 = [(DTKTraceSessionCreator *)v25 initWithFD:v30 configuration:v15 error:&v29];
+      v27 = v29;
+      ktraceSession = self->_ktraceSession;
+      self->_ktraceSession = v26;
+
+      if (v26)
+      {
+        v18 = 0;
+      }
+
+      else
+      {
+        v18 = 5;
+      }
+    }
+
+    if (!existingCopy)
+    {
+      v19 = self->_logHandle;
+      if (os_signpost_enabled(v19))
+      {
+        *buf = 0;
+        _os_signpost_emit_with_name_impl(&dword_247F67000, v19, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "Recording Lifetime", "", buf, 2u);
+      }
+    }
+
+    if (v18)
+    {
+      defaultManager = [MEMORY[0x277CCAA00] defaultManager];
+      [defaultManager removeItemAtURL:v13 error:0];
+
+      v21 = [MEMORY[0x277CCACA8] stringWithFormat:@"Failure: %s", strerror(v18)];
+    }
+
+    else
+    {
+      v22 = v13;
+      *l = v13;
+      v21 = @"Success";
+    }
+
+    v23 = self->_logHandle;
+    if (os_signpost_enabled(v23))
+    {
+      *buf = 138412290;
+      v32 = v21;
+      _os_signpost_emit_with_name_impl(&dword_247F67000, v23, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "Start Operation", "Result: %@", buf, 0xCu);
+    }
+  }
+
+  return v18;
+}
+
 - (BOOL)stopKtraceSessionWithError:(id *)error
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   logHandle = self->_logHandle;
   if (os_signpost_enabled(logHandle))
   {
@@ -48,9 +149,9 @@
   }
 
   ktraceSession = self->_ktraceSession;
-  v19 = 0;
-  v8 = [(DTKTraceSessionCreator *)ktraceSession stopWithError:&v19];
-  v9 = v19;
+  v18 = 0;
+  v8 = [(DTKTraceSessionCreator *)ktraceSession stopWithError:&v18];
+  v9 = v18;
   v10 = self->_ktraceSession;
   self->_ktraceSession = 0;
 
@@ -109,21 +210,20 @@ LABEL_17:
   if (os_signpost_enabled(v16))
   {
     *buf = 138412290;
-    v21 = localizedDescription;
+    v20 = localizedDescription;
     _os_signpost_emit_with_name_impl(&dword_247F67000, v16, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "End Operation", "Result: %@", buf, 0xCu);
   }
 
-  v17 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
 - (id)start
 {
-  v27 = *MEMORY[0x277D85DE8];
-  v23 = 0;
+  v25 = *MEMORY[0x277D85DE8];
+  v21 = 0;
   selfCopy = self;
-  v21 = &v21;
-  v22 = &v21;
+  v19 = &v19;
+  v20 = &v19;
   triggers = [(DTKPConfiguration *)self->_config triggers];
   v3 = [triggers count];
 
@@ -133,16 +233,16 @@ LABEL_17:
     if (kpc_set_counting())
     {
       v4 = *__error();
-      for (i = v22; i != &v21; i = i[1])
+      for (i = v20; i != &v19; i = i[1])
       {
-        sub_247FC6A28(v25, (i + 2));
-        if (!v26)
+        sub_247FC6A28(v23, (i + 2));
+        if (!v24)
         {
           sub_247F93BE0();
         }
 
-        (*(*v26 + 48))(v26);
-        sub_247FC6B34(v25);
+        (*(*v24 + 48))(v24);
+        sub_247FC6B34(v23);
       }
 
       queryCodeSet = [MEMORY[0x277CCACA8] stringWithFormat:@"kpc_set_counting failed (%s).", strerror(v4)];
@@ -154,13 +254,12 @@ LABEL_17:
   if (v3)
   {
     kperf_sample_on();
-    v25[0] = &unk_285A189C0;
-    v25[1] = &selfCopy;
-    v26 = v25;
+    v23[0] = &unk_285A189C0;
+    v23[1] = &selfCopy;
+    v24 = v23;
     operator new();
   }
 
-  config = selfCopy->_config;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
@@ -171,38 +270,38 @@ LABEL_17:
       if (![(DTKPConfiguration *)selfCopy->_config hasEnabledCountingWithManualConfiguration]|| ([(DTKPConfiguration *)selfCopy->_config enabledKPCClasses], !kpc_set_counting()))
       {
         kperf_logging_start();
-        v25[0] = &unk_285A18AD0;
-        v26 = v25;
+        v23[0] = &unk_285A18AD0;
+        v24 = v23;
         operator new();
       }
 
-      v9 = *__error();
-      for (j = v22; j != &v21; j = j[1])
+      v8 = *__error();
+      for (j = v20; j != &v19; j = j[1])
       {
-        sub_247FC6A28(v25, (j + 2));
-        if (!v26)
+        sub_247FC6A28(v23, (j + 2));
+        if (!v24)
         {
           sub_247F93BE0();
         }
 
-        (*(*v26 + 48))(v26);
-        sub_247FC6B34(v25);
+        (*(*v24 + 48))(v24);
+        sub_247FC6B34(v23);
       }
 
-      v15 = [MEMORY[0x277CCACA8] stringWithFormat:@"kpc_set_counting failed (%s).", strerror(v9)];
-      v17 = sub_247FC5D88(v15, -6);
+      v14 = [MEMORY[0x277CCACA8] stringWithFormat:@"kpc_set_counting failed (%s).", strerror(v8)];
+      v16 = sub_247FC5D88(v14, -6);
     }
 
     else
     {
-      v12 = [queryCodeSet createFilterMask:0];
-      v20 = 0;
-      v13 = [(DTKPKTraceFileAggregator *)selfCopy startKtraceSession:v12 useExisting:0 outputFileURL:&v20];
-      v14 = v20;
-      v15 = v20;
-      objc_storeStrong(&selfCopy->_ktraceURL, v14);
-      [DTKPKDebugCodeSet releaseFilterMask:v12];
-      if (!v13)
+      v11 = [queryCodeSet createFilterMask:0];
+      v18 = 0;
+      v12 = [(DTKPKTraceFileAggregator *)selfCopy startKtraceSession:v11 useExisting:0 outputFileURL:&v18];
+      v13 = v18;
+      v14 = v18;
+      objc_storeStrong(&selfCopy->_ktraceURL, v13);
+      [DTKPKDebugCodeSet releaseFilterMask:v11];
+      if (!v12)
       {
         v7 = 0;
 LABEL_33:
@@ -211,41 +310,40 @@ LABEL_34:
         goto LABEL_35;
       }
 
-      for (k = v22; k != &v21; k = k[1])
+      for (k = v20; k != &v19; k = k[1])
       {
-        sub_247FC6A28(v25, (k + 2));
-        if (!v26)
+        sub_247FC6A28(v23, (k + 2));
+        if (!v24)
         {
           sub_247F93BE0();
         }
 
-        (*(*v26 + 48))(v26);
-        sub_247FC6B34(v25);
+        (*(*v24 + 48))(v24);
+        sub_247FC6B34(v23);
       }
 
-      v17 = sub_247FC5D88(@"Failed starting ktrace session.", -11);
+      v16 = sub_247FC5D88(@"Failed starting ktrace session.", -11);
     }
 
-    v7 = v17;
+    v7 = v16;
     goto LABEL_33;
   }
 
-  for (m = v22; m != &v21; m = m[1])
+  for (m = v20; m != &v19; m = m[1])
   {
-    sub_247FC6A28(v25, (m + 2));
-    if (!v26)
+    sub_247FC6A28(v23, (m + 2));
+    if (!v24)
     {
       sub_247F93BE0();
     }
 
-    (*(*v26 + 48))(v26);
-    sub_247FC6B34(v25);
+    (*(*v24 + 48))(v24);
+    sub_247FC6B34(v23);
   }
 
   v7 = sub_247FC5D88(@"DTKPKTraceFileAggregator can only work with DTKPKperfConfiguration.", -11);
 LABEL_35:
-  sub_247FC6AC0(&v21);
-  v18 = *MEMORY[0x277D85DE8];
+  sub_247FC6AC0(&v19);
 
   return v7;
 }

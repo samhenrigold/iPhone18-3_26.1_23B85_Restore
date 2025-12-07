@@ -14,7 +14,7 @@
 
 - (void)dealloc
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v3 = atomic_load(&self->cow);
   if (v3)
   {
@@ -41,10 +41,9 @@
     __RELEASE_OBJECTS_IN_THE_ARRAY__(self, 0);
   }
 
-  v8.receiver = self;
-  v8.super_class = __NSFrozenArrayM;
-  [(__NSFrozenArrayM *)&v8 dealloc];
-  v7 = *MEMORY[0x1E69E9840];
+  v7.receiver = self;
+  v7.super_class = __NSFrozenArrayM;
+  [(__NSFrozenArrayM *)&v7 dealloc];
 }
 
 - (id)mutableCopy
@@ -70,22 +69,23 @@
 
 - (id)objectAtIndex:(unint64_t)index
 {
-  v17[1] = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   used = self->storage.state.var0.used;
   if ((index & 0x8000000000000000) != 0 || used <= index)
   {
-    v9 = _os_log_pack_size();
-    v11 = v17 - ((MEMORY[0x1EEE9AC00](v9, v10) + 15) & 0xFFFFFFFFFFFFFFF0);
-    v12 = _os_log_pack_fill();
+    v8 = _os_log_pack_size();
+    v11 = &v18 - ((MEMORY[0x1EEE9AC00](v8, v9, v10) + 15) & 0xFFFFFFFFFFFFFFF0);
     if (used)
     {
-      v14 = used - 1;
-      v15 = __os_log_helper_1_2_3_8_32_8_0_8_0(v12, "[__NSFrozenArrayM objectAtIndex:]", index, v14);
-      v13 = CFStringCreateWithFormat(&__kCFAllocatorSystemDefault, 0, @"*** %s: index %lu beyond bounds [0 .. %lu]", v15, "[__NSFrozenArrayM objectAtIndex:]", index, v14);
+      v14 = _os_log_pack_fill(v11, v8, 0, &dword_1830E6000, "*** %s: index %lu beyond bounds [0 .. %lu]", v18, v19, v20);
+      v15 = used - 1;
+      v16 = __os_log_helper_1_2_3_8_32_8_0_8_0(v14, "[__NSFrozenArrayM objectAtIndex:]", index, v15);
+      v13 = CFStringCreateWithFormat(&__kCFAllocatorSystemDefault, 0, @"*** %s: index %lu beyond bounds [0 .. %lu]", v16, "[__NSFrozenArrayM objectAtIndex:]", index, v15);
     }
 
     else
     {
+      v12 = _os_log_pack_fill(v11, v8, 0, &dword_1830E6000, "*** %s: index %lu beyond bounds for empty array", v18, v19);
       *v12 = 136315394;
       *(v12 + 4) = "[__NSFrozenArrayM objectAtIndex:]";
       *(v12 + 12) = 2048;
@@ -93,8 +93,8 @@
       v13 = CFStringCreateWithFormat(&__kCFAllocatorSystemDefault, 0, @"*** %s: index %lu beyond bounds for empty array", "[__NSFrozenArrayM objectAtIndex:]", index);
     }
 
-    v16 = [NSException exceptionWithName:@"NSRangeException" reason:_CFAutoreleasePoolAddObject(0 userInfo:v13) osLogPack:0 size:v11, v9];
-    objc_exception_throw(v16);
+    v17 = [NSException exceptionWithName:@"NSRangeException" reason:_CFAutoreleasePoolAddObject(0 userInfo:v13) osLogPack:0 size:v11, v8];
+    objc_exception_throw(v17);
   }
 
   size = self->storage.size;
@@ -104,29 +104,28 @@
     size = 0;
   }
 
-  result = self->storage.list[v5 - size];
-  v7 = *MEMORY[0x1E69E9840];
-  return result;
+  return self->storage.list[v5 - size];
 }
 
 - (id)objectAtIndexedSubscript:(unint64_t)subscript
 {
-  v17[1] = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   used = self->storage.state.var0.used;
   if ((subscript & 0x8000000000000000) != 0 || used <= subscript)
   {
-    v9 = _os_log_pack_size();
-    v11 = v17 - ((MEMORY[0x1EEE9AC00](v9, v10) + 15) & 0xFFFFFFFFFFFFFFF0);
-    v12 = _os_log_pack_fill();
+    v8 = _os_log_pack_size();
+    v11 = &v18 - ((MEMORY[0x1EEE9AC00](v8, v9, v10) + 15) & 0xFFFFFFFFFFFFFFF0);
     if (used)
     {
-      v14 = used - 1;
-      v15 = __os_log_helper_1_2_3_8_32_8_0_8_0(v12, "[__NSFrozenArrayM objectAtIndexedSubscript:]", subscript, v14);
-      v13 = CFStringCreateWithFormat(&__kCFAllocatorSystemDefault, 0, @"*** %s: index %lu beyond bounds [0 .. %lu]", v15, "[__NSFrozenArrayM objectAtIndexedSubscript:]", subscript, v14);
+      v14 = _os_log_pack_fill(v11, v8, 0, &dword_1830E6000, "*** %s: index %lu beyond bounds [0 .. %lu]", v18, v19, v20);
+      v15 = used - 1;
+      v16 = __os_log_helper_1_2_3_8_32_8_0_8_0(v14, "[__NSFrozenArrayM objectAtIndexedSubscript:]", subscript, v15);
+      v13 = CFStringCreateWithFormat(&__kCFAllocatorSystemDefault, 0, @"*** %s: index %lu beyond bounds [0 .. %lu]", v16, "[__NSFrozenArrayM objectAtIndexedSubscript:]", subscript, v15);
     }
 
     else
     {
+      v12 = _os_log_pack_fill(v11, v8, 0, &dword_1830E6000, "*** %s: index %lu beyond bounds for empty array", v18, v19);
       *v12 = 136315394;
       *(v12 + 4) = "[__NSFrozenArrayM objectAtIndexedSubscript:]";
       *(v12 + 12) = 2048;
@@ -134,8 +133,8 @@
       v13 = CFStringCreateWithFormat(&__kCFAllocatorSystemDefault, 0, @"*** %s: index %lu beyond bounds for empty array", "[__NSFrozenArrayM objectAtIndexedSubscript:]", subscript);
     }
 
-    v16 = [NSException exceptionWithName:@"NSRangeException" reason:_CFAutoreleasePoolAddObject(0 userInfo:v13) osLogPack:0 size:v11, v9];
-    objc_exception_throw(v16);
+    v17 = [NSException exceptionWithName:@"NSRangeException" reason:_CFAutoreleasePoolAddObject(0 userInfo:v13) osLogPack:0 size:v11, v8];
+    objc_exception_throw(v17);
   }
 
   size = self->storage.size;
@@ -145,9 +144,7 @@
     size = 0;
   }
 
-  result = self->storage.list[v5 - size];
-  v7 = *MEMORY[0x1E69E9840];
-  return result;
+  return self->storage.list[v5 - size];
 }
 
 - (unint64_t)countByEnumeratingWithState:(id *)state objects:(id *)objects count:(unint64_t)count
@@ -194,104 +191,87 @@
 
 - (void)enumerateObjectsWithOptions:(unint64_t)options usingBlock:(id)block
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   if (!block)
   {
-    v20 = _os_log_pack_size();
-    v22 = &v26 - ((MEMORY[0x1EEE9AC00](v20, v21) + 15) & 0xFFFFFFFFFFFFFFF0);
-    v23 = _os_log_pack_fill();
-    *v23 = 136315138;
-    *(v23 + 4) = "[__NSFrozenArrayM enumerateObjectsWithOptions:usingBlock:]";
-    v24 = CFStringCreateWithFormat(&__kCFAllocatorSystemDefault, 0, @"*** %s: block cannot be nil", "[__NSFrozenArrayM enumerateObjectsWithOptions:usingBlock:]");
-    v25 = [NSException exceptionWithName:@"NSInvalidArgumentException" reason:_CFAutoreleasePoolAddObject(0 userInfo:v24) osLogPack:0 size:v22, v20];
-    objc_exception_throw(v25);
+    v13 = _os_log_pack_size();
+    v16 = &v20 - ((MEMORY[0x1EEE9AC00](v13, v14, v15) + 15) & 0xFFFFFFFFFFFFFFF0);
+    v17 = _os_log_pack_fill(v16, v13, 0, &dword_1830E6000, "*** %s: block cannot be nil", v20);
+    *v17 = 136315138;
+    *(v17 + 4) = "[__NSFrozenArrayM enumerateObjectsWithOptions:usingBlock:]";
+    v18 = CFStringCreateWithFormat(&__kCFAllocatorSystemDefault, 0, @"*** %s: block cannot be nil", "[__NSFrozenArrayM enumerateObjectsWithOptions:usingBlock:]");
+    v19 = [NSException exceptionWithName:@"NSInvalidArgumentException" reason:_CFAutoreleasePoolAddObject(0 userInfo:v18) osLogPack:0 size:v16, v13];
+    objc_exception_throw(v19);
   }
 
   optionsCopy = options;
   p_storage = &self->storage;
   size = self->storage.size;
   used = self->storage.state.var0.used;
-  v28[0] = MEMORY[0x1E69E9820];
-  v28[1] = 3221225472;
-  v28[2] = ___deque_enumerateObjectsWithOptionsBlock_block_invoke;
-  v28[3] = &unk_1E6D7D438;
-  v29 = size;
-  v28[4] = block;
-  v28[5] = &self->storage;
-  if ((__NSCollectionHandleConcurrentEnumerationIfSpecified(optionsCopy, 1, used, v28) & 1) == 0)
+  v22[0] = MEMORY[0x1E69E9820];
+  v22[1] = 3221225472;
+  v22[2] = ___deque_enumerateObjectsWithOptionsBlock_block_invoke;
+  v22[3] = &unk_1E6D7D438;
+  v23 = size;
+  v22[4] = block;
+  v22[5] = &self->storage;
+  if ((__NSCollectionHandleConcurrentEnumerationIfSpecified(optionsCopy, 1, used, v22) & 1) == 0)
   {
     if ((optionsCopy & 2) != 0)
     {
-      v27 = 0;
-      v15 = p_storage->state.var0.used;
+      v21 = 0;
+      v11 = p_storage->state.var0.used;
       do
       {
-        if (!v15)
+        if (!v11)
         {
           break;
         }
 
-        --v15;
-        var0 = p_storage->var0;
-        v17 = size <= v15 + var0 ? size : 0;
-        v18 = *(&p_storage->list[v15] + var0 - v17);
-        v19 = _CFAutoreleasePoolPush();
+        --v11;
+        v12 = _CFAutoreleasePoolPush();
         __NSARRAY_IS_CALLING_OUT_TO_A_BLOCK__(block);
-        _CFAutoreleasePoolPop(v19);
+        _CFAutoreleasePoolPop(v12);
       }
 
-      while (v27 != 1);
+      while (v21 != 1);
     }
 
     else
     {
-      v27 = 0;
+      v21 = 0;
       if (p_storage->state.var0.used)
       {
-        v10 = 0;
+        v9 = 0;
         do
         {
-          v11 = p_storage->var0;
-          if (size <= v10 + v11)
-          {
-            v12 = size;
-          }
-
-          else
-          {
-            v12 = 0;
-          }
-
-          v13 = *(&p_storage->list[v10] + v11 - v12);
-          v14 = _CFAutoreleasePoolPush();
+          v10 = _CFAutoreleasePoolPush();
           __NSARRAY_IS_CALLING_OUT_TO_A_BLOCK__(block);
-          _CFAutoreleasePoolPop(v14);
-          if (v27 == 1)
+          _CFAutoreleasePoolPop(v10);
+          if (v21 == 1)
           {
             break;
           }
 
-          ++v10;
+          ++v9;
         }
 
-        while (v10 < p_storage->state.var0.used);
+        while (v9 < p_storage->state.var0.used);
       }
     }
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)getObjects:(id *)objects range:(_NSRange)range
 {
   length = range.length;
   objectsCopy = objects;
-  v44[1] = *MEMORY[0x1E69E9840];
+  v48 = *MEMORY[0x1E69E9840];
   if (!objects && range.length)
   {
-    v26 = _os_log_pack_size();
-    v28 = v44 - ((MEMORY[0x1EEE9AC00](v26, v27) + 15) & 0xFFFFFFFFFFFFFFF0);
-    v29 = _os_log_pack_fill();
+    v25 = _os_log_pack_size();
+    v28 = &v47 - ((MEMORY[0x1EEE9AC00](v25, v26, v27) + 15) & 0xFFFFFFFFFFFFFFF0);
+    v29 = _os_log_pack_fill(v28, v25, 0, &dword_1830E6000, "*** %s: pointer to objects array is NULL but length is %lu", v47, v48);
     *v29 = 136315394;
     *(v29 + 4) = "[__NSFrozenArrayM getObjects:range:]";
     *(v29 + 12) = 2048;
@@ -302,17 +282,17 @@
 
   if (range.length >> 61)
   {
-    v26 = _os_log_pack_size();
-    v28 = v44 - ((MEMORY[0x1EEE9AC00](v26, v31) + 15) & 0xFFFFFFFFFFFFFFF0);
-    v32 = _os_log_pack_fill();
-    *v32 = 136315394;
-    *(v32 + 4) = "[__NSFrozenArrayM getObjects:range:]";
-    *(v32 + 12) = 2048;
-    *(v32 + 14) = length;
+    v25 = _os_log_pack_size();
+    v28 = &v47 - ((MEMORY[0x1EEE9AC00](v25, v31, v32) + 15) & 0xFFFFFFFFFFFFFFF0);
+    v33 = _os_log_pack_fill(v28, v25, 0, &dword_1830E6000, "*** %s: count (%lu) of objects array is ridiculous", v47, v48);
+    *v33 = 136315394;
+    *(v33 + 4) = "[__NSFrozenArrayM getObjects:range:]";
+    *(v33 + 12) = 2048;
+    *(v33 + 14) = length;
     v30 = CFStringCreateWithFormat(&__kCFAllocatorSystemDefault, 0, @"*** %s: count (%lu) of objects array is ridiculous", "[__NSFrozenArrayM getObjects:range:]", length);
 LABEL_40:
-    v33 = [NSException exceptionWithName:@"NSInvalidArgumentException" reason:_CFAutoreleasePoolAddObject(0 userInfo:v30) osLogPack:0 size:v28, v26];
-    objc_exception_throw(v33);
+    v34 = [NSException exceptionWithName:@"NSInvalidArgumentException" reason:_CFAutoreleasePoolAddObject(0 userInfo:v30) osLogPack:0 size:v28, v25];
+    objc_exception_throw(v34);
   }
 
   p_storage = &self->storage;
@@ -320,24 +300,25 @@ LABEL_40:
   if ((range.location & 0x8000000000000000) != 0 || range.location + range.length > used)
   {
     location = range.location;
-    v35 = _os_log_pack_size();
-    v37 = v44 - ((MEMORY[0x1EEE9AC00](v35, v36) + 15) & 0xFFFFFFFFFFFFFFF0);
-    v38 = _os_log_pack_fill();
+    v36 = _os_log_pack_size();
+    v39 = &v47 - ((MEMORY[0x1EEE9AC00](v36, v37, v38) + 15) & 0xFFFFFFFFFFFFFFF0);
     if (used)
     {
-      v41 = used - 1;
-      v42 = __os_log_helper_1_2_4_8_32_8_0_8_0_8_0(v38, "[__NSFrozenArrayM getObjects:range:]", location, length, v41);
-      v40 = CFStringCreateWithFormat(&__kCFAllocatorSystemDefault, 0, @"*** %s: range {%lu, %lu} extends beyond bounds [0 .. %lu]", v42, "[__NSFrozenArrayM getObjects:range:]", location, length, v41);
+      v43 = _os_log_pack_fill(v39, v36, 0, &dword_1830E6000, "*** %s: range {%lu, %lu} extends beyond bounds [0 .. %lu]", v47, v48, v49, v50);
+      v44 = used - 1;
+      v45 = __os_log_helper_1_2_4_8_32_8_0_8_0_8_0(v43, "[__NSFrozenArrayM getObjects:range:]", location, length, v44);
+      v42 = CFStringCreateWithFormat(&__kCFAllocatorSystemDefault, 0, @"*** %s: range {%lu, %lu} extends beyond bounds [0 .. %lu]", v45, "[__NSFrozenArrayM getObjects:range:]", location, length, v44);
     }
 
     else
     {
-      v39 = __os_log_helper_1_2_3_8_32_8_0_8_0(v38, "[__NSFrozenArrayM getObjects:range:]", location, length);
-      v40 = CFStringCreateWithFormat(&__kCFAllocatorSystemDefault, 0, @"*** %s: range {%lu, %lu} extends beyond bounds for empty array", v39, "[__NSFrozenArrayM getObjects:range:]", location, length);
+      v40 = _os_log_pack_fill(v39, v36, 0, &dword_1830E6000, "*** %s: range {%lu, %lu} extends beyond bounds for empty array", v47, v48, v49);
+      v41 = __os_log_helper_1_2_3_8_32_8_0_8_0(v40, "[__NSFrozenArrayM getObjects:range:]", location, length);
+      v42 = CFStringCreateWithFormat(&__kCFAllocatorSystemDefault, 0, @"*** %s: range {%lu, %lu} extends beyond bounds for empty array", v41, "[__NSFrozenArrayM getObjects:range:]", location, length);
     }
 
-    v43 = [NSException exceptionWithName:@"NSRangeException" reason:_CFAutoreleasePoolAddObject(0 userInfo:v40) osLogPack:0 size:v37, v35];
-    objc_exception_throw(v43);
+    v46 = [NSException exceptionWithName:@"NSRangeException" reason:_CFAutoreleasePoolAddObject(0 userInfo:v42) osLogPack:0 size:v39, v36];
+    objc_exception_throw(v46);
   }
 
   if (objects && range.length)
@@ -407,7 +388,7 @@ LABEL_24:
       {
 LABEL_36:
         *objectsCopy = *v14;
-        goto LABEL_37;
+        return;
       }
 
       if (range.length == 2)
@@ -453,9 +434,6 @@ LABEL_32:
 
     goto LABEL_24;
   }
-
-LABEL_37:
-  v25 = *MEMORY[0x1E69E9840];
 }
 
 - (unint64_t)indexOfObjectIdenticalTo:(id)to

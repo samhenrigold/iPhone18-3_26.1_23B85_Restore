@@ -900,22 +900,7 @@ LABEL_16:
     }
 
     v16 = v27[5];
-    if (!v16)
-    {
-      goto LABEL_14;
-    }
-
-    v17 = [v16 objectForKeyedSubscript:{@"batteryCycleCountData", _NSConcreteStackBlock, 3221225472, sub_1000269D8, &unk_100090A88, v7, &v26}];
-    if (!v17)
-    {
-      goto LABEL_14;
-    }
-
-    v18 = [v27[5] objectForKeyedSubscript:@"batteryCycleCountData"];
-    objc_opt_class();
-    isKindOfClass = objc_opt_isKindOfClass();
-
-    if (isKindOfClass)
+    if (v16 && ([v16 objectForKeyedSubscript:{@"batteryCycleCountData", _NSConcreteStackBlock, 3221225472, sub_1000269D8, &unk_100090A88, v7, &v26}], (v17 = objc_claimAutoreleasedReturnValue()) != 0) && (objc_msgSend(v27[5], "objectForKeyedSubscript:", @"batteryCycleCountData"), v18 = objc_claimAutoreleasedReturnValue(), objc_opt_class(), isKindOfClass = objc_opt_isKindOfClass(), v18, v17, (isKindOfClass & 1) != 0))
     {
       v20 = [v27[5] objectForKeyedSubscript:@"batteryCycleCountData"];
       v10 = [(ComponentBatteryInternalBase *)self _encodeDataInDictionary:v20];
@@ -943,7 +928,6 @@ LABEL_16:
 
     else
     {
-LABEL_14:
       v10 = DiagnosticLogHandleForCategory();
       if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
@@ -1055,22 +1039,7 @@ LABEL_13:
         }
 
         v22 = v36[5];
-        if (!v22)
-        {
-          goto LABEL_21;
-        }
-
-        v23 = [v22 objectForKeyedSubscript:@"batteryHeatMapData"];
-        if (!v23)
-        {
-          goto LABEL_21;
-        }
-
-        v24 = [v36[5] objectForKeyedSubscript:@"batteryHeatMapData"];
-        objc_opt_class();
-        isKindOfClass = objc_opt_isKindOfClass();
-
-        if (isKindOfClass)
+        if (v22 && ([v22 objectForKeyedSubscript:@"batteryHeatMapData"], (v23 = objc_claimAutoreleasedReturnValue()) != 0) && (objc_msgSend(v36[5], "objectForKeyedSubscript:", @"batteryHeatMapData"), v24 = objc_claimAutoreleasedReturnValue(), objc_opt_class(), isKindOfClass = objc_opt_isKindOfClass(), v24, v23, (isKindOfClass & 1) != 0))
         {
           v16 = [v36[5] objectForKeyedSubscript:@"batteryHeatMapData"];
           if ([NSJSONSerialization isValidJSONObject:v16])
@@ -1095,7 +1064,6 @@ LABEL_13:
 
         else
         {
-LABEL_21:
           v16 = DiagnosticLogHandleForCategory();
           if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
           {

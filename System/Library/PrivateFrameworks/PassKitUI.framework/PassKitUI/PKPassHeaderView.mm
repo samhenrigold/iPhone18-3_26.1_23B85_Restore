@@ -136,9 +136,9 @@
 
 - (void)layoutSubviews
 {
-  v75.receiver = self;
-  v75.super_class = PKPassHeaderView;
-  [(PKPassHeaderView *)&v75 layoutSubviews];
+  v120.receiver = self;
+  v120.super_class = PKPassHeaderView;
+  [(PKPassHeaderView *)&v120 layoutSubviews];
   [(PKPassHeaderView *)self bounds];
   v4 = v3;
   v6 = v5;
@@ -155,9 +155,9 @@
   remainder.size.width = v13;
   remainder.size.height = v15;
   sx = 0.0;
-  v70 = 0u;
+  v115 = 0u;
   *amount = 0u;
-  [(PKPassHeaderView *)self passSizeInfoForHeight:self->passImageHeight];
+  objc_msgSend_passSizeInfoForHeight_(self, self->passImageHeight);
   [(UIView *)self->_passMaskView setFrame:v4 + -44.0, v6 + -44.0, v8 + 88.0, self->_contentInsets.top + 44.0 + 0.0];
   if ([(UIView *)self->_passMaskView clipsToBounds:0])
   {
@@ -166,77 +166,111 @@
 
   [(UIImageView *)self->_maskShadow setAlpha:0];
   layer = [(PKPassView *)self->_passView layer];
-  CATransform3DMakeScale(&v69, sx, sx, 1.0);
-  [layer setTransform:&v69];
+  CATransform3DMakeScale(&v114, sx, sx, 1.0);
+  [layer setTransform:&v114];
   [layer bounds];
   v18 = v17;
-  v68 = v19;
+  v113 = v19;
   [layer anchorPoint];
   v21 = v20;
   v23 = v22;
-  v76.origin.x = v11;
-  v76.origin.y = v12;
-  v76.size.width = v13;
-  v76.size.height = v15;
-  CGRectDivide(v76, &slice, &remainder, amount[1], CGRectMinYEdge);
-  PKSizeAlignedInRect();
-  v25 = *&v24;
-  v27 = *&v26;
-  v29 = v28;
-  v31 = v30;
-  v32.n128_f64[0] = sx;
-  v33.n128_f64[0] = v24 + 44.0 + v21 * v18 * sx;
-  v34.n128_f64[0] = v26 + 44.0 + v23 * v68 * sx;
-  PKPointRoundToPixel(v33, v34, v32);
+  v121.origin.x = v11;
+  v121.origin.y = v12;
+  v121.size.width = v13;
+  v121.size.height = v15;
+  CGRectDivide(v121, &slice, &remainder, amount[1], CGRectMinYEdge);
+  v24.n128_f64[0] = amount[0];
+  v25.n128_f64[0] = amount[1];
+  v26.n128_u64[0] = *&slice.origin.x;
+  v27.n128_u64[0] = *&slice.origin.y;
+  v28.n128_u64[0] = *&slice.size.width;
+  v29.n128_u64[0] = *&slice.size.height;
+  PKSizeAlignedInRect(1, v24, v25, v26, v27, v28, v29, v30);
+  v32 = *&v31;
+  v34 = *&v33;
+  v36 = v35;
+  v38 = v37;
+  v39.n128_f64[0] = sx;
+  v40.n128_f64[0] = v31 + 44.0 + v21 * v18 * sx;
+  v41.n128_f64[0] = v33 + 44.0 + v23 * v113 * sx;
+  PKPointRoundToPixel(v40, v41, v39);
   [layer setPosition:?];
   [(UIImageView *)self->_maskShadow pkui_alignmentRect];
-  v35.n128_u64[0] = v25;
-  v36.n128_u64[0] = v27;
-  v37.n128_u64[0] = v29;
-  v38.n128_u64[0] = v31;
-  PKRectRoundToPixel(v35, v36, v37, v38, v39);
-  PKSizeAlignedInRect();
-  [(UIImageView *)self->_maskShadow pkui_setAlignmentRect:v40 + 44.0, v41 + 44.0];
+  v43 = v42;
+  v45 = v44;
+  v46.n128_u64[0] = v32;
+  v47.n128_u64[0] = v34;
+  v48.n128_u64[0] = v36;
+  v49.n128_u64[0] = v38;
+  PKRectRoundToPixel(v46, v47, v48, v49, v50);
+  v52 = v51;
+  v54 = v53;
+  v56.n128_u64[0] = v55;
+  v58 = v57;
+  v59.n128_u64[0] = v43;
+  v60.n128_u64[0] = v45;
+  v61.n128_u64[0] = v52;
+  v62.n128_u64[0] = v54;
+  v63.n128_u64[0] = v56.n128_u64[0];
+  v64.n128_u64[0] = v58;
+  PKSizeAlignedInRect(0x200000003, v59, v60, v61, v62, v63, v64, v56);
+  [(UIImageView *)self->_maskShadow pkui_setAlignmentRect:v65 + 44.0, v66 + 44.0];
   font = [(UILabel *)self->_title font];
   [font _bodyLeading];
-  v44 = v43;
+  v69 = v68;
 
   font2 = [(UILabel *)self->_subtitle font];
   [font2 _bodyLeading];
-  v47 = v46;
+  v72 = v71;
 
-  v48.n128_f64[0] = v44 * 0.2682;
-  PKFloatFloorToPixel(v48, v49);
-  CGRectDivide(remainder, &slice, &remainder, v50, CGRectMinYEdge);
+  v73.n128_f64[0] = v69 * 0.2682;
+  PKFloatFloorToPixel(v73, v74);
+  CGRectDivide(remainder, &slice, &remainder, v75, CGRectMinYEdge);
   [(UILabel *)self->_title minimumScaleFactor];
-  v52 = v51;
-  [(UILabel *)self->_title pkui_sizeThatFits:1 forceWordWrap:remainder.size.width / v51, remainder.size.height / v51];
-  v55.n128_f64[0] = fmax(fmin(fmin(remainder.size.width / v53, 1.0), fmin(remainder.size.height / v54, 1.0)), v52);
-  v56.n128_f64[0] = v53 * v55.n128_f64[0];
-  v57.n128_f64[0] = v54 * v55.n128_f64[0];
-  PKSizeCeilToPixel(v56, v57, v55);
-  CGRectDivide(remainder, &slice, &remainder, v58, CGRectMinYEdge);
+  v77 = v76;
+  [(UILabel *)self->_title pkui_sizeThatFits:1 forceWordWrap:remainder.size.width / v76, remainder.size.height / v76];
+  v80.n128_f64[0] = fmax(fmin(fmin(remainder.size.width / v78, 1.0), fmin(remainder.size.height / v79, 1.0)), v77);
+  v81.n128_f64[0] = v78 * v80.n128_f64[0];
+  v82.n128_f64[0] = v79 * v80.n128_f64[0];
+  PKSizeCeilToPixel(v81, v82, v80);
+  v84 = v83;
+  v86 = *&v85;
+  CGRectDivide(remainder, &slice, &remainder, v85, CGRectMinYEdge);
   title = self->_title;
-  PKSizeAlignedInRect();
+  v88.n128_u64[0] = *&slice.origin.x;
+  v89.n128_u64[0] = *&slice.origin.y;
+  v90.n128_u64[0] = *&slice.size.width;
+  v91.n128_u64[0] = *&slice.size.height;
+  v92.n128_u64[0] = v84;
+  v93.n128_u64[0] = v86;
+  PKSizeAlignedInRect(0x100000001, v92, v93, v88, v89, v90, v91, v94);
   [(UILabel *)title setFrame:?];
   text = [(UILabel *)self->_subtitle text];
-  v61 = [text length];
+  v96 = [text length];
 
-  if (v61)
+  if (v96)
   {
-    v62.n128_f64[0] = v47 * 0.1111;
-    PKFloatFloorToPixel(v62, v63);
-    CGRectDivide(remainder, &slice, &remainder, v64, CGRectMinYEdge);
+    v97.n128_f64[0] = v72 * 0.1111;
+    PKFloatFloorToPixel(v97, v98);
+    CGRectDivide(remainder, &slice, &remainder, v99, CGRectMinYEdge);
     [(UILabel *)self->_subtitle pkui_sizeThatFits:remainder.size.width, remainder.size.height];
-    CGRectDivide(remainder, &slice, &remainder, v65, CGRectMinYEdge);
+    v101 = v100;
+    v103 = *&v102;
+    CGRectDivide(remainder, &slice, &remainder, v102, CGRectMinYEdge);
     subtitle = self->_subtitle;
-    PKSizeAlignedInRect();
+    v105.n128_u64[0] = *&slice.origin.x;
+    v106.n128_u64[0] = *&slice.origin.y;
+    v107.n128_u64[0] = *&slice.size.width;
+    v108.n128_u64[0] = *&slice.size.height;
+    v109.n128_u64[0] = v101;
+    v110.n128_u64[0] = v103;
+    PKSizeAlignedInRect(*MEMORY[0x1E69BB7F8], v109, v110, v105, v106, v107, v108, v111);
     [(UILabel *)subtitle setFrame:?];
   }
 
-  v62.n128_f64[0] = v44 * 0.1219;
-  PKFloatFloorToPixel(v62, v63);
-  CGRectDivide(remainder, &slice, &remainder, v67, CGRectMinYEdge);
+  v97.n128_f64[0] = v69 * 0.1219;
+  PKFloatFloorToPixel(v97, v98);
+  CGRectDivide(remainder, &slice, &remainder, v112, CGRectMinYEdge);
 }
 
 - (CGSize)sizeThatFits:(CGSize)fits
@@ -244,7 +278,7 @@
   height = fits.height;
   width = fits.width;
   self->passImageHeight = fits.height;
-  [(PKPassHeaderView *)self passSizeInfoForHeight:fits.height, 0, 0, 0];
+  objc_msgSend_passSizeInfoForHeight_(self, a2, fits.height, 0, 0, 0);
   font = [(UILabel *)self->_title font];
   [font _bodyLeading];
   v8 = v7;

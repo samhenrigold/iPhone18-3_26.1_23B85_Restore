@@ -26,8 +26,8 @@
 
 - (id)_dictionaryRepresentation
 {
-  v16[4] = *MEMORY[0x1E69E9840];
-  v15[0] = @"settingMetadata";
+  v15[4] = *MEMORY[0x1E69E9840];
+  v14[0] = @"settingMetadata";
   settingMetadata = [(INSetTemporalSettingIntent *)self settingMetadata];
   null = settingMetadata;
   if (!settingMetadata)
@@ -35,8 +35,8 @@
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v16[0] = null;
-  v15[1] = @"timeValue";
+  v15[0] = null;
+  v14[1] = @"timeValue";
   timeValue = [(INSetTemporalSettingIntent *)self timeValue];
   null2 = timeValue;
   if (!timeValue)
@@ -44,8 +44,8 @@
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v16[1] = null2;
-  v15[2] = @"temporalEventTrigger";
+  v15[1] = null2;
+  v14[2] = @"temporalEventTrigger";
   temporalEventTrigger = [(INSetTemporalSettingIntent *)self temporalEventTrigger];
   null3 = temporalEventTrigger;
   if (!temporalEventTrigger)
@@ -53,8 +53,8 @@
     null3 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v16[2] = null3;
-  v15[3] = @"action";
+  v15[2] = null3;
+  v14[3] = @"action";
   action = [(INSetTemporalSettingIntent *)self action];
   if ((action - 1) > 2)
   {
@@ -67,8 +67,8 @@
   }
 
   v11 = v10;
-  v16[3] = v11;
-  v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:v15 count:4];
+  v15[3] = v11;
+  v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:v14 count:4];
 
   if (!temporalEventTrigger)
   {
@@ -81,8 +81,6 @@
   if (!settingMetadata)
   {
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 
   return v12;
 }

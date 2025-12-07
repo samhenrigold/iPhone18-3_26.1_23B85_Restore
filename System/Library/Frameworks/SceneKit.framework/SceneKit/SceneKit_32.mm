@@ -1,43 +1,2523 @@
+void *SCNDecodeMorpherUsingAnimCodec(void *a1, void *a2)
+{
+  v4 = [a1 decodeObjectOfClass:objc_opt_class() forKey:@"morpherCompressedData"];
+  if (!v4)
+  {
+    return 0;
+  }
+
+  v5 = v4;
+  v6 = [objc_msgSend(a2 "geometry")];
+  v45 = 0;
+  v43 = 0u;
+  *__p = 0u;
+  *v41 = 0u;
+  *v42 = 0u;
+  Mesh = C3DGeometryGetMesh(v6, v7);
+  fillMesh(v41, Mesh);
+  Info = AnimCodec::AnimDecoder::getInfo([v5 bytes], objc_msgSend(v5, "length"), v38);
+  if (!Info)
+  {
+    v13 = (0xAAAAAAAAAAAAAAABLL * ((v41[1] - v41[0]) >> 2));
+    v14 = v42[1];
+    v15 = v43;
+    v16 = __p[0];
+    v17 = __p[1];
+    v18 = v39;
+    memset(&v37, 0, sizeof(v37));
+    std::vector<float>::resize(&v37, 3 * v13 * v39);
+    v19 = [v5 bytes];
+    v20 = [v5 length];
+    v21 = AnimCodec::AnimDecoder::decompress(&v40, v19, v20, v14, v16, 3, v13, (v15 - v14) >> 2, (v17 - v16) >> 2, v37.__begin_);
+    if (v21)
+    {
+      v23 = scn_default_log(v21, v22);
+      if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+      {
+        SCNDecodeMorpherUsingAnimCodec_cold_2();
+      }
+    }
+
+    else
+    {
+      v25 = [a1 decodeObjectOfClass:objc_opt_class() forKey:@"morpherMetaData"];
+      v27 = v25;
+      if (v25)
+      {
+        if ([v25 length] < (v18 + 2))
+        {
+          __assert_rtn("SCNDecodeMorpherUsingAnimCodec", "SCNMorpherAnimCodecSupport.mm", 351, "morpherMetaData.length >= (2+targetCount)");
+        }
+
+        v28 = [v27 bytes];
+        v29 = *v28;
+        v30 = v28[1];
+        v12 = [MEMORY[0x277CBEB18] arrayWithCapacity:v18];
+        if (v18)
+        {
+          v31 = 0;
+          v32 = v28 + 2;
+          v33 = *MEMORY[0x277CBECE8];
+          do
+          {
+            v34 = targetGeometryFromAnimation(&v37, v41, v31, 3, v29, v30);
+            [v12 addObject:v34];
+            v35 = CFStringCreateWithCString(v33, v32, 0x8000100u);
+            [(SCNGeometry *)v34 setName:v35];
+            if (v35)
+            {
+              CFRelease(v35);
+            }
+
+            v32 += strlen(v32) + 1;
+            ++v31;
+          }
+
+          while (v18 != v31);
+        }
+
+        goto LABEL_11;
+      }
+
+      v36 = scn_default_log(0, v26);
+      if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
+      {
+        SCNDecodeMorpherUsingAnimCodec_cold_3();
+      }
+    }
+
+    v12 = 0;
+LABEL_11:
+    if (v37.__begin_)
+    {
+      v37.__end_ = v37.__begin_;
+      operator delete(v37.__begin_);
+    }
+
+    goto LABEL_13;
+  }
+
+  v11 = scn_default_log(Info, v10);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+  {
+    SCNDecodeMorpherUsingAnimCodec_cold_1();
+  }
+
+  v12 = 0;
+LABEL_13:
+  if (__p[0])
+  {
+    __p[1] = __p[0];
+    operator delete(__p[0]);
+  }
+
+  if (v42[1])
+  {
+    *&v43 = v42[1];
+    operator delete(v42[1]);
+  }
+
+  if (v41[0])
+  {
+    v41[1] = v41[0];
+    operator delete(v41[0]);
+  }
+
+  return v12;
+}
+
+void sub_21C1B1940(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+{
+  va_start(va, a16);
+  if (__p)
+  {
+    operator delete(__p);
+  }
+
+  vmesh::StaticAdjacencyInformation<Pair>::~StaticAdjacencyInformation(va);
+  _Unwind_Resume(a1);
+}
+
+void std::vector<AnimCodec::Vector3<float>>::resize(void *result, unint64_t a2)
+{
+  v2 = 0xAAAAAAAAAAAAAAABLL * ((result[1] - *result) >> 2);
+  v3 = a2 >= v2;
+  v4 = a2 - v2;
+  if (v4 != 0 && v3)
+  {
+    std::vector<AnimCodec::Vector3<float>>::__append(result, v4);
+  }
+
+  else if (!v3)
+  {
+    result[1] = *result + 12 * a2;
+  }
+}
+
+void std::vector<AnimCodec::Vector3<float>>::__append(uint64_t a1, unint64_t a2)
+{
+  v5 = *(a1 + 8);
+  v4 = *(a1 + 16);
+  if (0xAAAAAAAAAAAAAAABLL * ((v4 - v5) >> 2) >= a2)
+  {
+    if (a2)
+    {
+      v10 = 12 * ((12 * a2 - 12) / 0xC) + 12;
+      bzero(*(a1 + 8), v10);
+      v5 += v10;
+    }
+
+    *(a1 + 8) = v5;
+  }
+
+  else
+  {
+    v6 = 0xAAAAAAAAAAAAAAABLL * ((v5 - *a1) >> 2);
+    v7 = v6 + a2;
+    if (v6 + a2 > 0x1555555555555555)
+    {
+      std::string::__throw_length_error[abi:nn200100]();
+    }
+
+    v8 = 0xAAAAAAAAAAAAAAABLL * ((v4 - *a1) >> 2);
+    if (2 * v8 > v7)
+    {
+      v7 = 2 * v8;
+    }
+
+    if (v8 >= 0xAAAAAAAAAAAAAAALL)
+    {
+      v9 = 0x1555555555555555;
+    }
+
+    else
+    {
+      v9 = v7;
+    }
+
+    v16 = a1;
+    if (v9)
+    {
+      std::__allocate_at_least[abi:nn200100]<std::allocator<vmesh::Triangle>>(a1, v9);
+    }
+
+    __p = 0;
+    v13 = 12 * v6;
+    v15 = 0;
+    v11 = 12 * ((12 * a2 - 12) / 0xC) + 12;
+    bzero((12 * v6), v11);
+    v14 = 12 * v6 + v11;
+    std::vector<AnimCodec::Vector3<float>>::__swap_out_circular_buffer(a1, &__p);
+    if (v14 != v13)
+    {
+      v14 = (v14 - v13 - 12) % 0xC + v13;
+    }
+
+    if (__p)
+    {
+      operator delete(__p);
+    }
+  }
+}
+
+void sub_21C1B1B5C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, uint64_t a12)
+{
+  if (__p)
+  {
+    operator delete(__p);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+void *std::vector<AnimCodec::Vector3<float>>::__swap_out_circular_buffer(void *result, void *a2)
+{
+  v2 = *result;
+  v3 = result[1];
+  v4 = a2[1] + *result - v3;
+  if (v3 != *result)
+  {
+    v5 = *result;
+    v6 = (a2[1] + *result - v3);
+    do
+    {
+      *v6 = *v5;
+      v6[1] = v5[1];
+      v6[2] = v5[2];
+      v5 += 3;
+      v6 += 3;
+    }
+
+    while (v5 != v3);
+  }
+
+  a2[1] = v4;
+  v7 = *result;
+  *result = v4;
+  result[1] = v2;
+  a2[1] = v7;
+  v8 = result[1];
+  result[1] = a2[2];
+  a2[2] = v8;
+  v9 = result[2];
+  result[2] = a2[3];
+  a2[3] = v9;
+  *a2 = a2[1];
+  return result;
+}
+
+uint64_t C3DGLSLGetUniformType(int a1, GLuint program, int a3)
+{
+  v11 = *MEMORY[0x277D85DE8];
+  *params = 0;
+  *size = 0;
+  glGetProgramiv(program, 0x8B86u, params);
+  if (params[0] < 1)
+  {
+    return 0;
+  }
+
+  v5 = 0;
+  while (1)
+  {
+    glGetActiveUniform(program, v5, 256, &size[1], size, &params[1], name);
+    if (glGetUniformLocation(program, name) == a3)
+    {
+      break;
+    }
+
+    if (++v5 >= params[0])
+    {
+      return 0;
+    }
+  }
+
+  if (params[1] <= 35667)
+  {
+    if (params[1] <= 35664)
+    {
+      switch(params[1])
+      {
+        case 5124:
+          return 2;
+        case 5126:
+          return 1;
+        case 35664:
+          return 8;
+      }
+
+      return 0;
+    }
+
+    if (params[1] == 35665)
+    {
+      return 9;
+    }
+
+    else if (params[1] == 35666)
+    {
+      return 10;
+    }
+
+    else
+    {
+      return 18;
+    }
+  }
+
+  else
+  {
+    if (params[1] <= 35675)
+    {
+      switch(params[1])
+      {
+        case 35668:
+          return 19;
+        case 35669:
+          return 20;
+        case 35675:
+          return 12;
+      }
+
+      return 0;
+    }
+
+    result = 5;
+    if (params[1] > 35679)
+    {
+      if (params[1] == 35680)
+      {
+        return result;
+      }
+
+      v7 = 35682;
+    }
+
+    else
+    {
+      if (params[1] == 35676)
+      {
+        return 11;
+      }
+
+      v7 = 35678;
+    }
+
+    if (params[1] != v7)
+    {
+      return 0;
+    }
+  }
+
+  return result;
+}
+
+double C3DGeometryInitSubdivision(uint64_t a1)
+{
+  *(a1 + 168) = 0u;
+  *(a1 + 152) = 0u;
+  *(a1 + 136) = 0u;
+  *(a1 + 137) = C3DWasLinkedBeforeMajorOSYear2017() ^ 1;
+  *&result = 17105153;
+  *(a1 + 138) = 17105153;
+  return result;
+}
+
+void C3DGeometryFinalizeSubdivision(__C3DGeometry *a1)
+{
+  C3DSubdivisionOsdGPUContextDestroy(a1);
+  C3DGeometryDestroySubdivTopologyInfo(a1);
+  var5 = a1->var10.var5;
+  if (var5)
+  {
+    CFRelease(var5);
+    a1->var10.var5 = 0;
+  }
+
+  var4 = a1->var10.var4;
+  if (var4)
+  {
+    CFRelease(var4);
+    a1->var10.var4 = 0;
+  }
+
+  var3 = a1->var10.var3;
+  if (var3)
+  {
+    CFRelease(var3);
+    a1->var10.var3 = 0;
+  }
+}
+
+__C3DMeshElement *C3DGeometryCopySubdivision(uint64_t a1, __C3DGeometry *a2)
+{
+  a2->var10.var2.var3 = *(a1 + 141);
+  *&a2->var10.var0 = *(a1 + 136);
+  a2->var10.var2.var2 = *(a1 + 140);
+  C3DSubdivisionOsdGPUContextDestroy(a2);
+  C3DGeometryDestroySubdivTopologyInfo(a2);
+  var5 = a2->var10.var5;
+  if (var5)
+  {
+    CFRelease(var5);
+    a2->var10.var5 = 0;
+  }
+
+  var4 = a2->var10.var4;
+  v6 = *(a1 + 152);
+  if (var4 != v6)
+  {
+    if (var4)
+    {
+      CFRelease(a2->var10.var4);
+      a2->var10.var4 = 0;
+      v6 = *(a1 + 152);
+    }
+
+    if (v6)
+    {
+      v6 = CFRetain(v6);
+    }
+
+    a2->var10.var4 = v6;
+  }
+
+  var3 = a2->var10.var3;
+  result = *(a1 + 144);
+  if (var3 != result)
+  {
+    if (var3)
+    {
+      CFRelease(a2->var10.var3);
+      a2->var10.var3 = 0;
+      result = *(a1 + 144);
+    }
+
+    if (result)
+    {
+      result = CFRetain(result);
+    }
+
+    a2->var10.var3 = result;
+  }
+
+  return result;
+}
+
+BOOL C3DGeometryMeshElementsSupportsSubdivision(__C3DGeometry *a1, uint64_t a2)
+{
+  var12 = a1->var12;
+  v3 = var12 & 0xC;
+  if ((var12 & 0xC) == 0)
+  {
+    Mesh = C3DGeometryGetMesh(a1, a2);
+    MeshElements = C3DMeshGetMeshElements(Mesh, 0);
+    Count = CFArrayGetCount(MeshElements);
+    if (Count < 1)
+    {
+LABEL_6:
+      v3 = 4;
+    }
+
+    else
+    {
+      v8 = Count;
+      v9 = 0;
+      while (1)
+      {
+        ValueAtIndex = CFArrayGetValueAtIndex(MeshElements, v9);
+        Type = C3DMeshElementGetType(ValueAtIndex, v11);
+        if (!C3DMeshElementTypeDefinesSurface(Type))
+        {
+          break;
+        }
+
+        if (v8 == ++v9)
+        {
+          goto LABEL_6;
+        }
+      }
+
+      v3 = 8;
+    }
+
+    a1->var12 = v3 | var12;
+  }
+
+  return v3 == 4;
+}
+
+void C3DGeometryOsdSetSubdivisionLevel(__C3DGeometry *a1, uint64_t a2)
+{
+  v2 = a2;
+  var0 = a1->var10.var0;
+  if (var0 != a2)
+  {
+    a1->var10.var0 = a2;
+    var5 = a1->var10.var5;
+    if (var5)
+    {
+      CFRelease(var5);
+      a1->var10.var5 = 0;
+    }
+
+    C3DNotifyGeometryDidChange(a1);
+  }
+
+  v6 = a1->var11.var0;
+  v7 = a1->var11.var0;
+
+  C3DGeometryOpenSubdivGPUParameterDidChange(a1, v6, v7, var0, v2);
+}
+
+void C3DGeometryOpenSubdivGPUParameterDidChange(__C3DGeometry *a1, uint64_t a2, int a3, int a4, int a5)
+{
+  v8 = a2;
+  if ((C3DSubdivisionOsdGPUContextInvalidateIfNeeded(a1, a2) & 1) == 0 && (a3 == 4 ? (v11 = a5 == 0) : (v11 = 1), v11 ? (v12 = 0) : (v12 = 1), v8 == 4 ? (v13 = a4 == 0) : (v13 = 1), v13 ? (v14 = 0) : (v14 = 1), v14 == v12))
+  {
+    if ((v8 != 0) != (a3 == 0))
+    {
+      return;
+    }
+
+    v15 = 6;
+  }
+
+  else
+  {
+    v15 = 7;
+  }
+
+  v16 = C3DGetScene(a1, v10);
+
+  C3DScenePostPipelineEvent(v16, v15, a1, 0);
+}
+
+void C3DGeometryOsdSetWantsAdaptiveSubdivision(__C3DGeometry *a1, _BOOL4 a2)
+{
+  if (a1->var10.var1 != a2)
+  {
+    a1->var10.var1 = a2;
+    var5 = a1->var10.var5;
+    if (var5)
+    {
+      CFRelease(var5);
+      a1->var10.var5 = 0;
+    }
+
+    C3DNotifyGeometryDidChange(a1);
+  }
+
+  var0 = a1->var11.var0;
+  v5 = a1->var10.var0;
+  v6 = a1->var11.var0;
+
+  C3DGeometryOpenSubdivGPUParameterDidChange(a1, var0, v6, v5, v5);
+}
+
+void C3DGeometryOsdSetSubdivisionSettings(uint64_t result, int a2)
+{
+  if (a2 != *(result + 138))
+  {
+    *(result + 138) = a2;
+    v3 = *(result + 160);
+    if (v3)
+    {
+      CFRelease(v3);
+      *(result + 160) = 0;
+    }
+
+    C3DNotifyGeometryDidChange(result);
+    v4 = *(result + 184);
+    v5 = *(result + 136);
+    v6 = *(result + 184);
+
+    C3DGeometryOpenSubdivGPUParameterDidChange(result, v4, v6, v5, v5);
+  }
+}
+
+void C3DGeometryOsdSetEdgeCreasesSource(__C3DGeometry *a1, __C3DMeshSource *cf)
+{
+  var4 = a1->var10.var4;
+  if (var4 != cf)
+  {
+    if (var4)
+    {
+      CFRelease(var4);
+      a1->var10.var4 = 0;
+    }
+
+    if (cf)
+    {
+      v5 = CFRetain(cf);
+    }
+
+    else
+    {
+      v5 = 0;
+    }
+
+    a1->var10.var4 = v5;
+    var5 = a1->var10.var5;
+    if (var5)
+    {
+      CFRelease(var5);
+      a1->var10.var5 = 0;
+    }
+
+    C3DNotifyGeometryDidChange(a1);
+  }
+
+  C3DGeometryInvalidateSubdivCreaseAndCornerTopologyInfo(a1);
+  var0 = a1->var11.var0;
+  v8 = a1->var10.var0;
+  v9 = a1->var11.var0;
+
+  C3DGeometryOpenSubdivGPUParameterDidChange(a1, var0, v9, v8, v8);
+}
+
+void C3DGeometryOsdSetEdgeCreasesElement(__C3DGeometry *a1, __C3DMeshElement *cf)
+{
+  var3 = a1->var10.var3;
+  if (var3 != cf)
+  {
+    if (var3)
+    {
+      CFRelease(var3);
+      a1->var10.var3 = 0;
+    }
+
+    if (cf)
+    {
+      v5 = CFRetain(cf);
+    }
+
+    else
+    {
+      v5 = 0;
+    }
+
+    a1->var10.var3 = v5;
+    var5 = a1->var10.var5;
+    if (var5)
+    {
+      CFRelease(var5);
+      a1->var10.var5 = 0;
+    }
+
+    C3DNotifyGeometryDidChange(a1);
+  }
+
+  C3DGeometryInvalidateSubdivCreaseAndCornerTopologyInfo(a1);
+  var0 = a1->var11.var0;
+  v8 = a1->var10.var0;
+  v9 = a1->var11.var0;
+
+  C3DGeometryOpenSubdivGPUParameterDidChange(a1, var0, v9, v8, v8);
+}
+
+unint64_t C3DGeometryOpenSubdivAuthoringEnvironmentColorForSharpness(float a1)
+{
+  v1 = a1 * 0.5;
+  if ((a1 * 0.5) > 1.0)
+  {
+    v1 = 1.0;
+  }
+
+  v2 = 2.0 - (a1 * 0.5);
+  if (v2 > 1.0)
+  {
+    v2 = 1.0;
+  }
+
+  return LODWORD(v1) | (LODWORD(v2) << 32);
+}
+
+void C3DGeometryOpenSubdivAuthoringEnvironmentEnumerateCreases(uint64_t a1, uint64_t a2)
+{
+  Mesh = C3DGeometryGetMesh(a1, a2);
+  ChannelForSourceWithSemanticAtIndex = C3DMeshGetChannelForSourceWithSemanticAtIndex(Mesh, 0, 0);
+  v8 = a1 + 144;
+  v6 = *(a1 + 144);
+  v7 = *(v8 + 8);
+  if (v7)
+  {
+    v9 = v6 == 0;
+  }
+
+  else
+  {
+    v9 = 1;
+  }
+
+  if (!v9)
+  {
+    v10 = ChannelForSourceWithSemanticAtIndex;
+    IndicesChannelCount = C3DMeshElementGetIndicesChannelCount(v6);
+    if (IndicesChannelCount != 1)
+    {
+      v19 = scn_default_log(IndicesChannelCount, v12);
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_FAULT))
+      {
+        C3DGeometryOpenSubdivAuthoringEnvironmentEnumerateCreases_cold_1(v19);
+      }
+    }
+
+    Accessor = C3DMeshSourceGetAccessor(v7, v12, v13, v14, v15, v16, v17, v18);
+    PrimitiveCount = C3DMeshElementGetPrimitiveCount(v6);
+    ElementsCount = C3DMeshGetElementsCount(Mesh, v22);
+    if (ElementsCount >= 1)
+    {
+      v24 = ElementsCount;
+      for (i = 0; i != v24; ++i)
+      {
+        ElementAtIndex = C3DMeshGetElementAtIndex(Mesh, i, 0);
+        v31 = 0u;
+        v32 = 0u;
+        v29 = 0u;
+        v30 = 0u;
+        C3DMeshElementGetContent(ElementAtIndex, v10, &v29);
+        v28[0] = v29;
+        v28[1] = v30;
+        v28[2] = v31;
+        v28[3] = v32;
+        v27[0] = MEMORY[0x277D85DD0];
+        v27[1] = 0x40000000;
+        v27[2] = __C3DGeometryOpenSubdivAuthoringEnvironmentEnumerateCreases_block_invoke;
+        v27[3] = &unk_2783021A8;
+        v27[6] = v6;
+        v27[7] = 0;
+        v27[8] = Accessor;
+        v27[4] = a2;
+        v27[5] = PrimitiveCount;
+        C3DIndicesContentEnumeratePrimitives(v28, v27, v31);
+      }
+    }
+  }
+}
+
+uint64_t __C3DGeometryOpenSubdivAuthoringEnvironmentEnumerateCreases_block_invoke(uint64_t result, uint64_t a2, uint64_t a3, unsigned int a4)
+{
+  if (a4)
+  {
+    v5 = result;
+    v6 = 0;
+    v7 = a4;
+    do
+    {
+      v8 = *(a3 + 4 * v6++);
+      v9 = v6;
+      if (v6 == v7)
+      {
+        v9 = 0;
+      }
+
+      v10 = *(a3 + 4 * v9);
+      v11 = 0.0;
+      if (*(v5 + 40) >= 1)
+      {
+        v12 = 0;
+        while (1)
+        {
+          Index = C3DMeshElementGetIndex(*(v5 + 48), v12, 0, *(v5 + 56));
+          v14 = C3DMeshElementGetIndex(*(v5 + 48), v12, 1, *(v5 + 56));
+          if (v8 == Index && v10 == v14)
+          {
+            break;
+          }
+
+          if (v8 == v14 && v10 == Index)
+          {
+            break;
+          }
+
+          if (++v12 >= *(v5 + 40))
+          {
+            goto LABEL_18;
+          }
+        }
+
+        v11 = *C3DSourceAccessorGetValuePtrAtIndex(*(v5 + 64), v12);
+      }
+
+LABEL_18:
+      result = (*(*(v5 + 32) + 16))(v11);
+    }
+
+    while (v6 != v7);
+  }
+
+  return result;
+}
+
+uint64_t C3DGeometryOpenSubdivAuthoringEnvironmentEnumerateCorners(uint64_t a1, uint64_t a2)
+{
+  Mesh = C3DGeometryGetMesh(a1, a2);
+  SourceWithSemanticAtIndex = C3DMeshGetSourceWithSemanticAtIndex(Mesh, 0, 0, 0);
+  result = C3DMeshGetSourceWithSemanticAtIndex(Mesh, 7, 0, 0);
+  if (result)
+  {
+    Accessor = C3DMeshSourceGetAccessor(result, v6, v7, v8, v9, v10, v11, v12);
+    result = C3DMeshSourceGetCount(SourceWithSemanticAtIndex, v14);
+    if (result >= 1)
+    {
+      v15 = result;
+      for (i = 0; i != v15; ++i)
+      {
+        ValuePtrAtIndex = C3DSourceAccessorGetValuePtrAtIndex(Accessor, i);
+        result = (*(a2 + 16))(a2, i, *ValuePtrAtIndex);
+      }
+    }
+  }
+
+  return result;
+}
+
+uint64_t __C3DShapeGetTypeID_block_invoke()
+{
+  result = _CFRuntimeRegisterClass();
+  C3DShapeGetTypeID_typeID = result;
+  return result;
+}
+
+uint64_t C3DShapeCreate(uint64_t a1)
+{
+  if (C3DShapeGetTypeID_onceToken != -1)
+  {
+    C3DShapeCreate_cold_1();
+  }
+
+  Instance = C3DTypeCreateInstance_(C3DShapeGetTypeID_typeID, 40);
+  v3 = *(a1 + 16);
+  v5[0] = *a1;
+  v5[1] = v3;
+  v5[2] = *(a1 + 32);
+  v6 = *(a1 + 48);
+  C3DShapeInit(Instance, v5);
+  return Instance;
+}
+
+void C3DShapeInit(uint64_t a1, uint64_t a2)
+{
+  *(a1 + 24) = 0;
+  *(a1 + 32) = 0;
+  *(a1 + 16) = CGPathRetain(*(a2 + 24));
+  v4 = *(a2 + 16);
+  v5[0] = *a2;
+  v5[1] = v4;
+  v5[2] = *(a2 + 32);
+  v6 = *(a2 + 48);
+  C3DShapeBuildConnectedComponents(a1, v5);
+  C3DShapeBuildDelaunayTriangulation(a1);
+}
+
+void C3DShapeFinalize(uint64_t a1)
+{
+  if (a1)
+  {
+    v2 = *(a1 + 32);
+    if (v2)
+    {
+      free(v2);
+    }
+
+    if (*(a1 + 48))
+    {
+      v3 = 0;
+      do
+      {
+        v4 = *(a1 + 40) + 32 * v3;
+        if (*(v4 + 8))
+        {
+          v5 = 0;
+          v6 = 0;
+          do
+          {
+            free(*(*v4 + v5));
+            ++v6;
+            v4 = *(a1 + 40) + 32 * v3;
+            v5 += 56;
+          }
+
+          while (v6 < *(v4 + 8));
+        }
+
+        free(*v4);
+        free(*(*(a1 + 40) + 32 * v3++ + 16));
+      }
+
+      while (v3 < *(a1 + 48));
+    }
+
+    free(*(a1 + 40));
+    v7 = *(a1 + 16);
+
+    CGPathRelease(v7);
+  }
+}
+
+const void *C3DShapeGeometryGetMeshForC3DKitNeeds(uint64_t a1, uint64_t a2, void *a3, uint64_t a4)
+{
+  result = *(a1 + 64);
+  if (!result || (*a2 == *a3 ? (v8 = *(a2 + 8) == a3[1]) : (v8 = 0), !v8))
+  {
+    result = *(a1 + 272);
+    if (*a2 != *(a1 + 280) || *(a2 + 8) != *(a1 + 288))
+    {
+      if (result)
+      {
+        CFRelease(result);
+      }
+
+      *(a1 + 280) = *a2;
+      result = (*(a4 + 16))(a4);
+      *(a1 + 272) = result;
+    }
+  }
+
+  return result;
+}
+
+void C3DShapeGeometryResolveMeshForC3DKitNeeds(void *a1, void *a2)
+{
+  if (!a1[8])
+  {
+    v3 = a1[34];
+    if (v3)
+    {
+      if (*a2 == a1[35] && a2[1] == a1[36])
+      {
+        a1[8] = CFRetain(v3);
+        v3 = a1[34];
+      }
+
+      CFRelease(v3);
+      a1[35] = 0;
+      a1[36] = 0;
+      a1[34] = 0;
+    }
+  }
+}
+
+void C3DShapeGeometryValidate(uint64_t a1)
+{
+  v30 = *MEMORY[0x277D85DE8];
+  v3 = CFGetTypeID(a1);
+  if (C3DShapeGeometryGetTypeID_onceToken != -1)
+  {
+    C3DShapeGeometryValidate_cold_1();
+  }
+
+  if (v3 != C3DShapeGeometryGetTypeID_typeID)
+  {
+    C3DShapeGeometryValidate_cold_2();
+  }
+
+  *md = 0;
+  v29 = 0;
+  C3DShapeGeometryGetC3DKitParameters(a1, &data, v2);
+  CC_MD5(&data, 0x38u, md);
+  C3DShapeGeometryResolveMeshForC3DKitNeeds(a1, md);
+  if (!*(a1 + 64))
+  {
+    v4 = *(a1 + 216);
+    v5 = *(a1 + 224);
+    v21 = *(a1 + 232);
+    v22 = *(a1 + 248);
+    v23 = *(a1 + 264);
+    v6 = v5 * 0.5;
+    if (v6 <= *(a1 + 228))
+    {
+      v7 = v6;
+    }
+
+    else
+    {
+      v7 = *(a1 + 228);
+    }
+
+    *&data = *(a1 + 216);
+    *(&data + 1) = __PAIR64__(LODWORD(v7), LODWORD(v5));
+    v8 = *(a1 + 248);
+    v25 = *(a1 + 232);
+    v26 = v8;
+    v27 = *(a1 + 264);
+    v9 = C3DShapeCreate(&data);
+    *&data = v4;
+    *(&data + 1) = __PAIR64__(LODWORD(v7), LODWORD(v5));
+    v25 = v21;
+    v26 = v22;
+    v27 = v23;
+    v10 = C3DMeshCreateShape(v9, &data);
+    if (v10)
+    {
+      v12 = v10;
+      C3DGeometrySetMesh(a1, v10);
+      CFRelease(v12);
+      if (!v9)
+      {
+        return;
+      }
+
+      goto LABEL_10;
+    }
+
+    v13 = scn_default_log(0, v11);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_FAULT))
+    {
+      C3DShapeGeometryValidate_cold_3(v13, v14, v15, v16, v17, v18, v19, v20);
+    }
+
+    C3DGeometrySetMesh(a1, 0);
+    if (v9)
+    {
+LABEL_10:
+      CFRelease(v9);
+    }
+  }
+}
+
+uint64_t C3DShapeGeometryGetTypeID(uint64_t a1, uint64_t a2)
+{
+  if (C3DShapeGeometryGetTypeID_onceToken != -1)
+  {
+    C3DShapeGeometryValidate_cold_1();
+  }
+
+  return C3DShapeGeometryGetTypeID_typeID;
+}
+
+void C3DShapeGeometryGetC3DKitParameters(uint64_t a1@<X0>, uint64_t a2@<X8>, uint64_t a3@<X1>)
+{
+  *a2 = 0u;
+  *(a2 + 16) = 0u;
+  *a2 = C3DShapeGeometryGetPrimitiveType(a1, a3);
+  *(a2 + 8) = C3DShapeGeometryGetExtrusionDepth(a1, v5);
+  *(a2 + 16) = C3DShapeGeometryGetChamferRadius(a1, v6);
+  *(a2 + 32) = C3DShapeGeometryGetDiscretizedStraightLineMaxLength(a1, v7);
+  v8 = *(a1 + 264);
+  *(a2 + 40) = *(a1 + 248);
+  *(a2 + 48) = v8;
+}
+
+void C3DTextGeometryValidate(uint64_t a1, uint64_t a2)
+{
+  v40 = *MEMORY[0x277D85DE8];
+  *md = 0;
+  v39 = 0;
+  C3DTextGeometryGetC3DKitParameters(a1, &data, a2);
+  CC_MD5(&data, 0x80u, md);
+  C3DShapeGeometryResolveMeshForC3DKitNeeds(a1, md);
+  if (!*(a1 + 64))
+  {
+    C3DTextGeometryComputeCTFrameIfNeeded(a1);
+    v3 = (a1 + 336);
+    if (*(a1 + 329))
+    {
+      v4 = (a1 + 344);
+    }
+
+    else
+    {
+      v4 = (MEMORY[0x277CBF348] + 8);
+    }
+
+    if (!*(a1 + 329))
+    {
+      v3 = MEMORY[0x277CBF348];
+    }
+
+    v5 = *v3;
+    v6 = *v4;
+    v7 = *(a1 + 216);
+    v9 = *(a1 + 224);
+    v8 = *(a1 + 228);
+    v10 = *(a1 + 248);
+    v30 = *(a1 + 232);
+    v31 = v10;
+    v32 = *(a1 + 264);
+    v11 = v9 * 0.5;
+    if (v11 <= v8)
+    {
+      v12 = v11;
+    }
+
+    else
+    {
+      v12 = v8;
+    }
+
+    v13 = *(a1 + 296);
+    *&data = v7;
+    *(&data + 1) = __PAIR64__(LODWORD(v12), LODWORD(v9));
+    v34 = *(a1 + 232);
+    v35 = *(a1 + 248);
+    *&v36 = *(a1 + 264);
+    v14 = C3DTextFrameCreate(v13, &data);
+    *&v28[0] = v7;
+    *(&v28[0] + 1) = __PAIR64__(LODWORD(v12), LODWORD(v9));
+    v28[1] = v30;
+    v28[2] = v31;
+    v29 = v32;
+    v15 = *(a1 + 344);
+    v35 = *(a1 + 328);
+    v36 = v15;
+    v37 = *(a1 + 360);
+    v16 = *(a1 + 312);
+    data = *(a1 + 296);
+    v34 = v16;
+    Text = C3DMeshCreateText(v14, v28, &data, v5, v6);
+    if (Text)
+    {
+      v19 = Text;
+      C3DGeometrySetMesh(a1, Text);
+      CFRelease(v19);
+      if (!v14)
+      {
+        return;
+      }
+
+      goto LABEL_12;
+    }
+
+    v20 = scn_default_log(0, v18);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_FAULT))
+    {
+      C3DShapeGeometryValidate_cold_3(v20, v21, v22, v23, v24, v25, v26, v27);
+    }
+
+    C3DGeometrySetMesh(a1, 0);
+    if (v14)
+    {
+LABEL_12:
+      CFRelease(v14);
+    }
+  }
+}
+
+double C3DTextGeometryGetC3DKitParameters@<D0>(uint64_t a1@<X0>, uint64_t a2@<X8>, uint64_t a3@<X1>)
+{
+  C3DShapeGeometryGetC3DKitParameters(a1, a2, a3);
+  *(a2 + 80) = 0;
+  *(a2 + 56) = *(a1 + 304);
+  *(a2 + 72) = *(a1 + 320);
+  *(a2 + 80) = *(a1 + 328);
+  v5 = *(a1 + 352);
+  *(a2 + 88) = *(a1 + 336);
+  *(a2 + 104) = v5;
+  result = *(a1 + 220);
+  *(a2 + 120) = result;
+  return result;
+}
+
+void C3DTextGeometryComputeCTFrameIfNeeded(uint64_t a1)
+{
+  if (*(a1 + 296))
+  {
+    return;
+  }
+
+  objc_opt_class();
+  if ((objc_opt_isKindOfClass() & 1) == 0)
+  {
+    v4 = objc_alloc_init(MEMORY[0x277D74240]);
+    v5 = v4;
+    if (*(a1 + 328) == 1)
+    {
+      if (*(a1 + 329))
+      {
+        v6 = *(a1 + 320) - 1;
+        if (v6 > 3)
+        {
+          v7 = 4;
+        }
+
+        else
+        {
+          v7 = qword_21C2A3F98[v6];
+        }
+      }
+
+      else
+      {
+        v7 = 4;
+      }
+
+      [v4 setAlignment:v7];
+    }
+
+    else
+    {
+      if (*(a1 + 329))
+      {
+        v8 = (*(a1 + 324) - 1);
+        if (v8 >= 3)
+        {
+          v9 = 2;
+        }
+
+        else
+        {
+          v9 = v8 + 3;
+        }
+      }
+
+      else
+      {
+        v9 = 2;
+      }
+
+      [v4 setLineBreakMode:v9];
+    }
+
+    objc_opt_class();
+    isKindOfClass = objc_opt_isKindOfClass();
+    v11 = MEMORY[0x277D740A8];
+    if (isKindOfClass)
+    {
+      v12 = [*(a1 + 304) attribute:*MEMORY[0x277D740A8] atIndex:0 effectiveRange:0];
+    }
+
+    else
+    {
+      v13 = *(a1 + 312);
+      if (v13)
+      {
+LABEL_23:
+        v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjectsAndKeys:{v13, *v11, v5, *MEMORY[0x277D74118], 0}];
+        v15 = objc_alloc(MEMORY[0x277CCA898]);
+        if (*(a1 + 304))
+        {
+          v16 = *(a1 + 304);
+        }
+
+        else
+        {
+          v16 = &stru_282DCC058;
+        }
+
+        v3 = [v15 initWithString:v16 attributes:v14];
+        goto LABEL_27;
+      }
+
+      v12 = [MEMORY[0x277D74300] fontWithName:@"Helvetica" size:12.0];
+    }
+
+    v13 = v12;
+    goto LABEL_23;
+  }
+
+  v3 = *(a1 + 304);
+LABEL_27:
+  v17 = CTFramesetterCreateWithAttributedString(v3);
+  v30.width = 1.79769313e308;
+  v28.location = 0;
+  v28.length = 0;
+  v30.height = 1.79769313e308;
+  v18 = CTFramesetterSuggestFrameSizeWithConstraints(v17, v28, 0, v30, 0);
+  width = v18.width;
+  height = v18.height;
+  Mutable = CGPathCreateMutable();
+  v22 = Mutable;
+  if (*(a1 + 329) == 1)
+  {
+    v23 = *(a1 + 336);
+    v24 = *(a1 + 344);
+    width = *(a1 + 352);
+    height = *(a1 + 360);
+  }
+
+  else
+  {
+    v23 = 0;
+    v24 = 0;
+  }
+
+  v25 = width;
+  v26 = height;
+  CGPathAddRect(Mutable, 0, *&v23);
+  v29.location = 0;
+  v29.length = 0;
+  Frame = CTFramesetterCreateFrame(v17, v29, v22, 0);
+  C3DTextGeometrySetCTFrame(a1, Frame);
+  CFRelease(v17);
+  CFRelease(Frame);
+
+  CFRelease(v22);
+}
+
+uint64_t C3DShapeGeometryGetChamferMode(uint64_t a1, uint64_t a2)
+{
+  if (!a1)
+  {
+    v3 = scn_default_log(0, a2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
+    {
+      C3DShapeGeometryGetChamferMode_cold_1(v3, v4, v5, v6, v7, v8, v9, v10);
+    }
+  }
+
+  return *(a1 + 232);
+}
+
+void C3DShapeGeometrySetChamferMode(uint64_t a1, uint64_t a2)
+{
+  v2 = a2;
+  if (!a1)
+  {
+    v4 = scn_default_log(0, a2);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
+    {
+      C3DShapeGeometryGetChamferMode_cold_1(v4, v5, v6, v7, v8, v9, v10, v11);
+    }
+  }
+
+  if (*(a1 + 232) != v2)
+  {
+    *(a1 + 232) = v2;
+    C3DGeometrySetMesh(a1, 0);
+  }
+}
+
+double C3DShapeGeometryGetChamferRadius(uint64_t a1, uint64_t a2)
+{
+  if (!a1)
+  {
+    v3 = scn_default_log(0, a2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
+    {
+      C3DShapeGeometryGetChamferMode_cold_1(v3, v4, v5, v6, v7, v8, v9, v10);
+    }
+  }
+
+  return *(a1 + 228);
+}
+
+void C3DShapeGeometrySetChamferRadius(uint64_t a1, uint64_t a2, double a3)
+{
+  if (!a1)
+  {
+    v5 = scn_default_log(0, a2);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
+    {
+      C3DShapeGeometryGetChamferMode_cold_1(v5, v6, v7, v8, v9, v10, v11, v12);
+    }
+  }
+
+  if (*(a1 + 228) != a3)
+  {
+    v13 = a3;
+    *(a1 + 228) = v13;
+    C3DGeometrySetMesh(a1, 0);
+  }
+}
+
+double C3DShapeGeometryGetDiscretizedStraightLineMaxLength(uint64_t a1, uint64_t a2)
+{
+  if (!a1)
+  {
+    v3 = scn_default_log(0, a2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
+    {
+      C3DShapeGeometryGetChamferMode_cold_1(v3, v4, v5, v6, v7, v8, v9, v10);
+    }
+  }
+
+  return *(a1 + 236);
+}
+
+void C3DShapeGeometrySetDiscretizedStraightLineMaxLength(uint64_t a1, uint64_t a2, double a3)
+{
+  if (!a1)
+  {
+    v5 = scn_default_log(0, a2);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
+    {
+      C3DShapeGeometryGetChamferMode_cold_1(v5, v6, v7, v8, v9, v10, v11, v12);
+    }
+  }
+
+  if (*(a1 + 236) != a3)
+  {
+    v13 = a3;
+    *(a1 + 236) = v13;
+    C3DGeometrySetMesh(a1, 0);
+  }
+}
+
+double C3DShapeGeometryGetExtrusionDepth(uint64_t a1, uint64_t a2)
+{
+  if (!a1)
+  {
+    v3 = scn_default_log(0, a2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
+    {
+      C3DShapeGeometryGetChamferMode_cold_1(v3, v4, v5, v6, v7, v8, v9, v10);
+    }
+  }
+
+  return *(a1 + 224);
+}
+
+void C3DShapeGeometrySetExtrusionDepth(uint64_t a1, uint64_t a2, double a3)
+{
+  if (!a1)
+  {
+    v5 = scn_default_log(0, a2);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
+    {
+      C3DShapeGeometryGetChamferMode_cold_1(v5, v6, v7, v8, v9, v10, v11, v12);
+    }
+  }
+
+  if (*(a1 + 224) != a3)
+  {
+    v13 = a3;
+    *(a1 + 224) = v13;
+    C3DGeometrySetMesh(a1, 0);
+  }
+}
+
+uint64_t C3DShapeGeometryGetPrimitiveType(uint64_t a1, uint64_t a2)
+{
+  if (!a1)
+  {
+    v3 = scn_default_log(0, a2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
+    {
+      C3DShapeGeometryGetChamferMode_cold_1(v3, v4, v5, v6, v7, v8, v9, v10);
+    }
+  }
+
+  return *(a1 + 216);
+}
+
+void C3DShapeGeometrySetPrimitiveType(uint64_t a1, uint64_t a2)
+{
+  v2 = a2;
+  if (!a1)
+  {
+    v4 = scn_default_log(0, a2);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
+    {
+      C3DShapeGeometryGetChamferMode_cold_1(v4, v5, v6, v7, v8, v9, v10, v11);
+    }
+  }
+
+  if (*(a1 + 216) != v2)
+  {
+    *(a1 + 216) = v2;
+    C3DGeometrySetMesh(a1, 0);
+  }
+}
+
+void C3DShapeGeometrySetC3DKitParameters(uint64_t a1, void **a2)
+{
+  C3DShapeGeometrySetPrimitiveType(a1, *a2);
+  C3DShapeGeometrySetExtrusionDepth(a1, v4, *(a2 + 1));
+  C3DShapeGeometrySetChamferRadius(a1, v5, *(a2 + 2));
+  C3DShapeGeometrySetDiscretizedStraightLineMaxLength(a1, v6, *(a2 + 4));
+  C3DShapeGeometrySetObjCPath(a1, a2[5]);
+  v7 = a2[6];
+
+  C3DShapeGeometrySetObjCChamferProfile(a1, v7);
+}
+
+void C3DShapeGeometrySetObjCPath(uint64_t a1, void *a2)
+{
+  v8 = *(a1 + 248);
+  if (v8 != a2)
+  {
+    v15 = v4;
+    v16 = v3;
+    v17 = v2;
+
+    *(a1 + 248) = a2;
+    [a2 flatness];
+    *&v11 = v11;
+    *(a1 + 220) = LODWORD(v11);
+    v12 = *(a1 + 240);
+    if (v12 != [a2 CGPath])
+    {
+      v13 = *(a1 + 240);
+      if (v13)
+      {
+        CFRelease(v13);
+        *(a1 + 240) = 0;
+      }
+
+      v14 = [a2 CGPath];
+      if (v14)
+      {
+        v14 = CFRetain(v14);
+      }
+
+      *(a1 + 240) = v14;
+    }
+
+    C3DGeometrySetMesh(a1, 0);
+  }
+}
+
+void C3DShapeGeometrySetObjCChamferProfile(uint64_t a1, void *a2)
+{
+  v8 = *(a1 + 264);
+  if (v8 != a2)
+  {
+    v14 = v4;
+    v15 = v3;
+    v16 = v2;
+
+    *(a1 + 264) = a2;
+    v11 = *(a1 + 256);
+    if (v11 != [a2 CGPath])
+    {
+      v12 = *(a1 + 256);
+      if (v12)
+      {
+        CFRelease(v12);
+        *(a1 + 256) = 0;
+      }
+
+      v13 = [a2 CGPath];
+      if (v13)
+      {
+        v13 = CFRetain(v13);
+      }
+
+      *(a1 + 256) = v13;
+    }
+
+    C3DGeometrySetMesh(a1, 0);
+  }
+}
+
+float C3DShapeGeometrySetFlatness(uint64_t a1, double a2)
+{
+  if (a2 <= 0.0)
+  {
+    a2 = 0.001;
+  }
+
+  if (a2 != *(a1 + 220))
+  {
+    v2 = a2;
+    *(a1 + 220) = v2;
+    C3DGeometrySetMesh(a1, 0);
+  }
+
+  return *&a2;
+}
+
+void C3DTextGeometrySetC3DKitParameters(uint64_t a1, uint64_t a2)
+{
+  v4 = *(a2 + 16);
+  v8[0] = *a2;
+  v8[1] = v4;
+  v8[2] = *(a2 + 32);
+  v9 = *(a2 + 48);
+  C3DShapeGeometrySetC3DKitParameters(a1, v8);
+  C3DTextGeometrySetString(a1, *(a2 + 56));
+  C3DTextGeometrySetFont(a1, *(a2 + 64));
+  C3DTextGeometrySetAlignmentMode(a1, *(a2 + 72));
+  C3DTextGeometrySetTruncationMode(a1, *(a2 + 76));
+  C3DTextGeometrySetWrapped(a1, *(a2 + 80));
+  v5 = *(a2 + 81);
+  if (*(a1 + 329) != v5)
+  {
+    *(a1 + 329) = v5;
+    C3DGeometrySetMesh(a1, 0);
+  }
+
+  C3DTextGeometrySetCustomContainerFrame(a1, *(a2 + 88), *(a2 + 96), *(a2 + 104), *(a2 + 112));
+  v6 = *(a2 + 120);
+  if (v6 <= 0.0)
+  {
+    v6 = 0.001;
+  }
+
+  if (v6 != *(a1 + 220))
+  {
+    v7 = v6;
+    *(a1 + 220) = v7;
+
+    C3DGeometrySetMesh(a1, 0);
+  }
+}
+
+void C3DTextGeometrySetString(uint64_t a1, void *a2)
+{
+  v3 = *(a1 + 304);
+  if (v3 != a2)
+  {
+
+    *(a1 + 304) = a2;
+    C3DTextGeometrySetCTFrame(a1, 0);
+
+    C3DGeometrySetMesh(a1, 0);
+  }
+}
+
+void C3DTextGeometrySetFont(uint64_t a1, void *a2)
+{
+  v3 = *(a1 + 312);
+  if (v3 != a2)
+  {
+
+    *(a1 + 312) = a2;
+    C3DTextGeometrySetCTFrame(a1, 0);
+
+    C3DGeometrySetMesh(a1, 0);
+  }
+}
+
+void C3DTextGeometrySetAlignmentMode(uint64_t a1, int a2)
+{
+  if (*(a1 + 320) != a2)
+  {
+    *(a1 + 320) = a2;
+    C3DTextGeometrySetCTFrame(a1, 0);
+
+    C3DGeometrySetMesh(a1, 0);
+  }
+}
+
+void C3DTextGeometrySetTruncationMode(uint64_t a1, int a2)
+{
+  if (*(a1 + 324) != a2)
+  {
+    *(a1 + 324) = a2;
+    C3DTextGeometrySetCTFrame(a1, 0);
+
+    C3DGeometrySetMesh(a1, 0);
+  }
+}
+
+void C3DTextGeometrySetWrapped(uint64_t a1, int a2)
+{
+  if (*(a1 + 328) != a2)
+  {
+    *(a1 + 328) = a2;
+    C3DTextGeometrySetCTFrame(a1, 0);
+
+    C3DGeometrySetMesh(a1, 0);
+  }
+}
+
+void C3DTextGeometrySetUseCustomContainerFrame(uint64_t a1, int a2)
+{
+  if (*(a1 + 329) != a2)
+  {
+    *(a1 + 329) = a2;
+    C3DGeometrySetMesh(a1, 0);
+  }
+}
+
+void C3DTextGeometrySetCustomContainerFrame(uint64_t a1, CGFloat a2, CGFloat a3, CGFloat a4, CGFloat a5)
+{
+  v11.origin.x = a2;
+  v11.origin.y = a3;
+  v11.size.width = a4;
+  v11.size.height = a5;
+  if (!CGRectEqualToRect(*(a1 + 336), v11))
+  {
+    *(a1 + 336) = a2;
+    *(a1 + 344) = a3;
+    *(a1 + 352) = a4;
+    *(a1 + 360) = a5;
+    C3DTextGeometrySetCTFrame(a1, 0);
+
+    C3DGeometrySetMesh(a1, 0);
+  }
+}
+
+void C3DTextGeometrySetCTFrame(uint64_t a1, CFTypeRef cf)
+{
+  v3 = *(a1 + 296);
+  if (v3 != cf)
+  {
+    if (v3)
+    {
+      CFRelease(v3);
+      *(a1 + 296) = 0;
+    }
+
+    if (cf)
+    {
+      v5 = CFRetain(cf);
+    }
+
+    else
+    {
+      v5 = 0;
+    }
+
+    *(a1 + 296) = v5;
+
+    C3DGeometrySetMesh(a1, 0);
+  }
+}
+
+void C3DTextGeometrySetUseSeparateGeometryElements(uint64_t a1, int a2)
+{
+  if (*(a1 + 330) != a2)
+  {
+    *(a1 + 330) = a2;
+    C3DGeometrySetMesh(a1, 0);
+  }
+}
+
+double __C3DShapeGeometryGetTypeID_block_invoke()
+{
+  v0 = _CFRuntimeRegisterClass();
+  C3DShapeGeometryGetTypeID_typeID = v0;
+  TypeID = C3DGeometryGetTypeID(v0, v1);
+  C3DModelPathResolverRegisterClassBegin(v0, TypeID);
+  C3DModelPathResolverRegisterProperty(@"chamferRadius", 228, 7, 0);
+  C3DModelPathResolverRegisterProperty(@"extrusionDepth", 224, 7, 0);
+  C3DModelPathResolverRegisterClassEnd();
+  unk_281740548 = kC3DC3DShapeGeometryContextClassSerializable;
+  unk_281740558 = *&off_282DC8850;
+  unk_281740508 = kC3DC3DShapeGeometryContextClassBoundingVolumes;
+  xmmword_2817404F0 = kC3DC3DShapeGeometryContextClassAnimatable;
+  result = *&kC3DC3DShapeGeometryContextClassSceneLink;
+  unk_281740518 = kC3DC3DShapeGeometryContextClassSceneLink;
+  unk_281740528 = *algn_282DC8890;
+  qword_281740538 = qword_282DC88A0;
+  qword_281740568 = _C3DShapeGeometryCreateCopy;
+  return result;
+}
+
+uint64_t C3DTextGeometryGetTypeID(uint64_t a1, uint64_t a2)
+{
+  if (C3DTextGeometryGetTypeID_onceToken != -1)
+  {
+    C3DTextGeometryGetTypeID_cold_1();
+  }
+
+  return C3DTextGeometryGetTypeID_typeID;
+}
+
+double __C3DTextGeometryGetTypeID_block_invoke()
+{
+  v0 = _CFRuntimeRegisterClass();
+  C3DTextGeometryGetTypeID_typeID = v0;
+  if (C3DShapeGeometryGetTypeID_onceToken != -1)
+  {
+    C3DShapeGeometryValidate_cold_1();
+  }
+
+  C3DModelPathResolverRegisterClassBegin(v0, C3DShapeGeometryGetTypeID_typeID);
+  C3DModelPathResolverRegisterClassEnd();
+  unk_2817401A8 = kC3DC3DTextGeometryContextClassSerializable;
+  unk_2817401B8 = *&off_282DC88B8;
+  unk_281740168 = kC3DC3DTextGeometryContextClassBoundingVolumes;
+  xmmword_281740150 = kC3DC3DTextGeometryContextClassAnimatable;
+  result = *&kC3DC3DTextGeometryContextClassSceneLink;
+  unk_281740178 = kC3DC3DTextGeometryContextClassSceneLink;
+  unk_281740188 = unk_282DC88F8;
+  qword_281740198 = qword_282DC8908;
+  qword_2817401C8 = _C3DTextGeometryCreateCopy;
+  return result;
+}
+
+double C3DShapeGeometryInit(uint64_t a1)
+{
+  C3DGeometryInit(a1);
+  Default = C3DMaterialCreateDefault(v2, v3);
+  C3DGeometryAppendMaterial(a1, Default);
+  CFRelease(Default);
+  *(a1 + 216) = 0;
+  *(a1 + 220) = 1065353216;
+  *(a1 + 228) = 0;
+  *(a1 + 236) = 2139095039;
+  result = 0.0;
+  *(a1 + 240) = 0u;
+  *(a1 + 256) = 0u;
+  *(a1 + 120) = kC3DShapeGeometryValidationCallBacks;
+  return result;
+}
+
+uint64_t C3DShapeGeometryCreate(uint64_t a1, uint64_t a2)
+{
+  if (C3DShapeGeometryGetTypeID_onceToken != -1)
+  {
+    C3DShapeGeometryValidate_cold_1();
+  }
+
+  Instance = C3DTypeCreateInstance_(C3DShapeGeometryGetTypeID_typeID, 280);
+  C3DShapeGeometryInit(Instance);
+  return Instance;
+}
+
+void C3DShapeGeometryCopy(uint64_t a1, uint64_t a2)
+{
+  C3DGeometryCopy(a1, a2);
+  PrimitiveType = C3DShapeGeometryGetPrimitiveType(a1, v4);
+  C3DShapeGeometrySetPrimitiveType(a2, PrimitiveType);
+  v7 = *(a1 + 220);
+  v8 = v7;
+  v9 = v7 > 0.0;
+  v10 = 0.001;
+  if (v9)
+  {
+    v10 = v8;
+  }
+
+  if (v10 != *(a2 + 220))
+  {
+    v11 = v10;
+    *(a2 + 220) = v11;
+    C3DGeometrySetMesh(a2, 0);
+  }
+
+  ExtrusionDepth = C3DShapeGeometryGetExtrusionDepth(a1, v6);
+  C3DShapeGeometrySetExtrusionDepth(a2, v13, ExtrusionDepth);
+  ChamferRadius = C3DShapeGeometryGetChamferRadius(a1, v14);
+  C3DShapeGeometrySetChamferRadius(a2, v16, ChamferRadius);
+  DiscretizedStraightLineMaxLength = C3DShapeGeometryGetDiscretizedStraightLineMaxLength(a1, v17);
+  C3DShapeGeometrySetDiscretizedStraightLineMaxLength(a2, v19, DiscretizedStraightLineMaxLength);
+  C3DShapeGeometrySetObjCPath(a2, *(a1 + 248));
+  v20 = *(a1 + 264);
+
+  C3DShapeGeometrySetObjCChamferProfile(a2, v20);
+}
+
+void C3DShapeGeometryFinalize(uint64_t a1)
+{
+  C3DShapeGeometrySetObjCPath(a1, 0);
+  C3DShapeGeometrySetObjCChamferProfile(a1, 0);
+  v2 = *(a1 + 272);
+  if (v2)
+  {
+    CFRelease(v2);
+    *(a1 + 272) = 0;
+  }
+}
+
+uint64_t C3DTextGeometryCreate(uint64_t a1, uint64_t a2)
+{
+  if (C3DTextGeometryGetTypeID_onceToken != -1)
+  {
+    C3DTextGeometryGetTypeID_cold_1();
+  }
+
+  Instance = C3DTypeCreateInstance_(C3DTextGeometryGetTypeID_typeID, 352);
+  C3DShapeGeometryInit(Instance);
+  *(Instance + 328) = 0;
+  *(Instance + 296) = 0u;
+  *(Instance + 312) = 0u;
+  v3 = *(MEMORY[0x277CBF3A0] + 16);
+  *(Instance + 336) = *MEMORY[0x277CBF3A0];
+  *(Instance + 352) = v3;
+  *(Instance + 330) = 0;
+  *(Instance + 120) = &kC3DTextGeometryValidationCallBacks;
+  return Instance;
+}
+
+void C3DTextGeometryCopy(uint64_t a1, uint64_t a2)
+{
+  C3DShapeGeometryCopy(a1, a2);
+  C3DTextGeometrySetCTFrame(a2, *(a1 + 296));
+  C3DTextGeometrySetString(a2, *(a1 + 304));
+  C3DTextGeometrySetFont(a2, *(a1 + 312));
+  C3DTextGeometrySetAlignmentMode(a2, *(a1 + 320));
+  C3DTextGeometrySetTruncationMode(a2, *(a1 + 324));
+  C3DTextGeometrySetWrapped(a2, *(a1 + 328));
+  v4 = *(a1 + 329);
+  if (*(a2 + 329) != v4)
+  {
+    *(a2 + 329) = v4;
+    C3DGeometrySetMesh(a2, 0);
+  }
+
+  v5 = *(a1 + 336);
+  v6 = *(a1 + 344);
+  v7 = *(a1 + 352);
+  v8 = *(a1 + 360);
+
+  C3DTextGeometrySetCustomContainerFrame(a2, v5, v6, v7, v8);
+}
+
+void C3DTextGeometryFinalize(uint64_t a1)
+{
+  C3DTextGeometrySetCTFrame(a1, 0);
+  C3DTextGeometrySetString(a1, 0);
+  C3DTextGeometrySetFont(a1, 0);
+
+  C3DShapeGeometryFinalize(a1);
+}
+
+const void *C3DShapeGeometryMeshForBoundingBox(const void *a1, __int128 *a2)
+{
+  v20 = *MEMORY[0x277D85DE8];
+  v5 = CFGetTypeID(a1);
+  if (C3DShapeGeometryGetTypeID_onceToken != -1)
+  {
+    C3DShapeGeometryValidate_cold_1();
+  }
+
+  if (v5 != C3DShapeGeometryGetTypeID_typeID)
+  {
+    C3DShapeGeometryMeshForBoundingBox_cold_2();
+  }
+
+  *md = 0;
+  v19 = 0;
+  *v16 = 0;
+  v17 = 0;
+  C3DShapeGeometryGetC3DKitParameters(a1, data, v4);
+  CC_MD5(data, 0x38u, md);
+  v6 = a2[1];
+  data[0] = *a2;
+  data[1] = v6;
+  data[2] = a2[2];
+  v15 = *(a2 + 6);
+  CC_MD5(data, 0x38u, v16);
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v9[2] = __C3DShapeGeometryMeshForBoundingBox_block_invoke;
+  v9[3] = &__block_descriptor_88_e17_____C3DMesh__8__0l;
+  v7 = a2[1];
+  v10 = *a2;
+  v11 = v7;
+  v12 = a2[2];
+  v13 = *(a2 + 6);
+  return C3DShapeGeometryGetMeshForC3DKitNeeds(a1, v16, md, v9);
+}
+
+const void *__C3DShapeGeometryMeshForBoundingBox_block_invoke(uint64_t a1, uint64_t a2)
+{
+  v3 = C3DShapeGeometryCreate(a1, a2);
+  v4 = *(a1 + 48);
+  v8[0] = *(a1 + 32);
+  v8[1] = v4;
+  v8[2] = *(a1 + 64);
+  v9 = *(a1 + 80);
+  C3DShapeGeometrySetC3DKitParameters(v3, v8);
+  Mesh = C3DGeometryGetMesh(v3, v5);
+  CFRetain(Mesh);
+  CFRelease(v3);
+  return Mesh;
+}
+
+uint64_t C3DShapeGeometryGetBoundingBox(const void *a1, _OWORD *a2, _OWORD *a3, uint64_t a4)
+{
+  v8 = CFGetTypeID(a1);
+  if (C3DShapeGeometryGetTypeID_onceToken != -1)
+  {
+    C3DShapeGeometryValidate_cold_1();
+  }
+
+  if (v8 != C3DShapeGeometryGetTypeID_typeID)
+  {
+    C3DShapeGeometryGetBoundingBox_cold_2();
+  }
+
+  v9 = *(a4 + 16);
+  v12[0] = *a4;
+  v12[1] = v9;
+  v12[2] = *(a4 + 32);
+  v13 = *(a4 + 48);
+  v10 = C3DShapeGeometryMeshForBoundingBox(a1, v12);
+
+  return C3DMeshGetBoundingBox(v10, a2, a3);
+}
+
+uint64_t C3DShapeGeometryGetBoundingSphere(const void *a1, _OWORD *a2, uint64_t a3)
+{
+  v6 = CFGetTypeID(a1);
+  if (C3DShapeGeometryGetTypeID_onceToken != -1)
+  {
+    C3DShapeGeometryValidate_cold_1();
+  }
+
+  if (v6 != C3DShapeGeometryGetTypeID_typeID)
+  {
+    C3DShapeGeometryGetBoundingSphere_cold_2();
+  }
+
+  v7 = *(a3 + 16);
+  v10[0] = *a3;
+  v10[1] = v7;
+  v10[2] = *(a3 + 32);
+  v11 = *(a3 + 48);
+  v8 = C3DShapeGeometryMeshForBoundingBox(a1, v10);
+
+  return C3DMeshGetBoundingSphere(v8, a2);
+}
+
+const void *C3DTextGeometryMeshForBoundingBox(uint64_t a1, _OWORD *a2)
+{
+  v27 = *MEMORY[0x277D85DE8];
+  *md = 0;
+  v26 = 0;
+  *v23 = 0;
+  v24 = 0;
+  C3DTextGeometryGetC3DKitParameters(a1, data, a2);
+  CC_MD5(data, 0x80u, md);
+  v4 = a2[5];
+  data[4] = a2[4];
+  data[5] = v4;
+  v5 = a2[7];
+  data[6] = a2[6];
+  data[7] = v5;
+  v6 = a2[1];
+  data[0] = *a2;
+  data[1] = v6;
+  v7 = a2[3];
+  data[2] = a2[2];
+  data[3] = v7;
+  CC_MD5(data, 0x80u, v23);
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 3221225472;
+  v13[2] = __C3DTextGeometryMeshForBoundingBox_block_invoke;
+  v13[3] = &__block_descriptor_160_e17_____C3DMesh__8__0l;
+  v8 = a2[5];
+  v18 = a2[4];
+  v19 = v8;
+  v9 = a2[7];
+  v20 = a2[6];
+  v21 = v9;
+  v10 = a2[1];
+  v14 = *a2;
+  v15 = v10;
+  v11 = a2[3];
+  v16 = a2[2];
+  v17 = v11;
+  return C3DShapeGeometryGetMeshForC3DKitNeeds(a1, v23, md, v13);
+}
+
+const void *__C3DTextGeometryMeshForBoundingBox_block_invoke(_OWORD *a1, uint64_t a2)
+{
+  v3 = C3DTextGeometryCreate(a1, a2);
+  v4 = a1[7];
+  v11[4] = a1[6];
+  v11[5] = v4;
+  v5 = a1[9];
+  v11[6] = a1[8];
+  v11[7] = v5;
+  v6 = a1[3];
+  v11[0] = a1[2];
+  v11[1] = v6;
+  v7 = a1[5];
+  v11[2] = a1[4];
+  v11[3] = v7;
+  C3DTextGeometrySetC3DKitParameters(v3, v11);
+  Mesh = C3DGeometryGetMesh(v3, v8);
+  CFRetain(Mesh);
+  CFRelease(v3);
+  return Mesh;
+}
+
+uint64_t C3DTextGeometryGetBoundingBox(uint64_t a1, _OWORD *a2, _OWORD *a3, _OWORD *a4)
+{
+  v6 = a4[5];
+  v12[4] = a4[4];
+  v12[5] = v6;
+  v7 = a4[7];
+  v12[6] = a4[6];
+  v12[7] = v7;
+  v8 = a4[1];
+  v12[0] = *a4;
+  v12[1] = v8;
+  v9 = a4[3];
+  v12[2] = a4[2];
+  v12[3] = v9;
+  v10 = C3DTextGeometryMeshForBoundingBox(a1, v12);
+
+  return C3DMeshGetBoundingBox(v10, a2, a3);
+}
+
+uint64_t C3DTextGeometryGetBoundingSphere(uint64_t a1, _OWORD *a2, _OWORD *a3)
+{
+  v4 = a3[5];
+  v10[4] = a3[4];
+  v10[5] = v4;
+  v5 = a3[7];
+  v10[6] = a3[6];
+  v10[7] = v5;
+  v6 = a3[1];
+  v10[0] = *a3;
+  v10[1] = v6;
+  v7 = a3[3];
+  v10[2] = a3[2];
+  v10[3] = v7;
+  v8 = C3DTextGeometryMeshForBoundingBox(a1, v10);
+
+  return C3DMeshGetBoundingSphere(v8, a2);
+}
+
+id _C3DShapeGeometryCFFinalize(__C3DGeometry *a1)
+{
+  C3DShapeGeometryFinalize(a1);
+
+  return _C3DGeometryCFFinalize(a1, v2);
+}
+
+id _C3DTextGeometryCFFinalize(__C3DGeometry *a1)
+{
+  C3DTextGeometryFinalize(a1);
+
+  return _C3DGeometryCFFinalize(a1, v2);
+}
+
+uint64_t _C3DShapeGeometryGetBoundingBox(uint64_t a1, uint64_t a2, _OWORD *a3, _OWORD *a4)
+{
+  result = C3DGeometryGetMesh(a1, a2);
+  if (result)
+  {
+
+    return C3DMeshGetBoundingBox(result, a3, a4);
+  }
+
+  return result;
+}
+
+uint64_t _C3DShapeGeometryGetBoundingSphere(uint64_t a1, uint64_t a2, _OWORD *a3)
+{
+  result = C3DGeometryGetMesh(a1, a2);
+  if (result)
+  {
+
+    return C3DMeshGetBoundingSphere(result, a3);
+  }
+
+  return result;
+}
+
+void _C3DShapeGeometrySetValue(uint64_t a1, void *__dst, void *__src, size_t __n)
+{
+  memcpy(__dst, __src, __n);
+
+  C3DGeometrySetMesh(a1, 0);
+}
+
+uint64_t _C3DShapeGeometryCreateCopy(_BOOL8 a1, uint64_t a2)
+{
+  v2 = a1;
+  if (!a1)
+  {
+    v3 = scn_default_log(0, a2);
+    a1 = os_log_type_enabled(v3, OS_LOG_TYPE_FAULT);
+    if (a1)
+    {
+      C3DGeometryCopy_cold_1(v3, a2, v4, v5, v6, v7, v8, v9);
+    }
+  }
+
+  v10 = C3DShapeGeometryCreate(a1, a2);
+  C3DShapeGeometryCopy(v2, v10);
+  return v10;
+}
+
+uint64_t _C3DTextGeometryGetBoundingBox(uint64_t a1, uint64_t a2, _OWORD *a3, _OWORD *a4)
+{
+  result = C3DGeometryGetMesh(a1, a2);
+  if (result)
+  {
+
+    return C3DMeshGetBoundingBox(result, a3, a4);
+  }
+
+  return result;
+}
+
+uint64_t _C3DTextGeometryGetBoundingSphere(uint64_t a1, uint64_t a2, _OWORD *a3)
+{
+  result = C3DGeometryGetMesh(a1, a2);
+  if (result)
+  {
+
+    return C3DMeshGetBoundingSphere(result, a3);
+  }
+
+  return result;
+}
+
+void _C3DTextGeometrySetValue(uint64_t a1, void *__dst, void *__src, size_t __n)
+{
+  memcpy(__dst, __src, __n);
+
+  C3DGeometrySetMesh(a1, 0);
+}
+
+uint64_t _C3DTextGeometryCreateCopy(_BOOL8 a1, uint64_t a2)
+{
+  v2 = a1;
+  if (!a1)
+  {
+    v3 = scn_default_log(0, a2);
+    a1 = os_log_type_enabled(v3, OS_LOG_TYPE_FAULT);
+    if (a1)
+    {
+      C3DGeometryCopy_cold_1(v3, a2, v4, v5, v6, v7, v8, v9);
+    }
+  }
+
+  v10 = C3DTextGeometryCreate(a1, a2);
+  C3DTextGeometryCopy(v2, v10);
+  return v10;
+}
+
+uint64_t C3D::ShouldShowOutline(C3D *this, const void *a2)
+{
+  if ((C3DAuthoringEnvironmentGetDisplayMask(this) & 0x20000) != 0)
+  {
+    SelectedNodes = C3DAuthoringEnvironmentGetSelectedNodes(this);
+    v5 = 0;
+    v9 = 0;
+    v10 = &v9;
+    v11 = 0x2020000000;
+    v12 = 0;
+    while (v5 < [SelectedNodes count])
+    {
+      v6 = [SelectedNodes objectAtIndexedSubscript:v5];
+      v8[0] = MEMORY[0x277D85DD0];
+      v8[1] = 3221225472;
+      v8[2] = ___ZN3C3D17ShouldShowOutlineEPKv_block_invoke;
+      v8[3] = &unk_2782FCA90;
+      v8[4] = &v9;
+      C3DNodeApplyHierarchy(v6, v8);
+      ++v5;
+      if (v10[3])
+      {
+        v3 = 1;
+        goto LABEL_8;
+      }
+    }
+
+    v3 = *(v10 + 24);
+LABEL_8:
+    _Block_object_dispose(&v9, 8);
+  }
+
+  else
+  {
+    v3 = 0;
+  }
+
+  return v3 & 1;
+}
+
+void sub_21C1B50AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+{
+  va_start(va, a13);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+uint64_t ___ZN3C3D17ShouldShowOutlineEPKv_block_invoke(uint64_t a1, uint64_t a2)
+{
+  if (!a2)
+  {
+    return 0;
+  }
+
+  if (C3DNodeIsHiddenOrTransparent(a2, a2))
+  {
+    return 1;
+  }
+
+  result = C3DNodeGetGeometry(a2, v4);
+  if (result)
+  {
+    *(*(*(a1 + 32) + 8) + 24) = 1;
+    return 2;
+  }
+
+  return result;
+}
+
+double C3D::AdaptCullingContextForAuthoring(C3D *this, __n128 **a2, const Parameters *a3, __C3DCullingContext *a4)
+{
+  Scene = C3DEngineContextGetScene(this, a2);
+  StackAllocator = C3DEngineContextGetStackAllocator(this, v9);
+  C3D::Array<C3D::Pass *,0u,C3D::StackAllocator>::Array(&v30, StackAllocator);
+  LayerRootNode = C3DSceneGetLayerRootNode(Scene, a4);
+  v33.i64[0] = MEMORY[0x277D85DD0];
+  v33.i64[1] = 3321888768;
+  v34 = ___ZZN3C3D31AdaptCullingContextForAuthoringEP18__C3DEngineContextRKNS_13DrawNodesPass10ParametersER19__C3DCullingContexthENK3__0cvU13block_pointerF18C3DNodeApplyStatusP9__C3DNodeEEv_block_invoke;
+  v35 = &__block_descriptor_40_e8_32c127_ZTSKZN3C3D31AdaptCullingContextForAuthoringEP18__C3DEngineContextRKNS_13DrawNodesPass10ParametersER19__C3DCullingContexthE3__0_e20_q16__0____C3DNode__8l;
+  v36 = &v30;
+  C3DNodeApplyHierarchySkippingHiddenNodes(LayerRootNode, [objc_msgSend(&v33 "copy")]);
+  if (v31)
+  {
+    v12 = 0;
+    v13 = v32;
+    v14 = 8 * v31;
+    v15 = 0uLL;
+    do
+    {
+      v28 = v15;
+      v16 = *v13;
+      if (C3DGetBoundingSphere(*v13, 0, &v33))
+      {
+        WorldMatrix = C3DNodeGetWorldMatrix(v16, v17);
+        C3DSphereXFormMatrix4x4(&v33, WorldMatrix, &v33);
+        v19 = v33;
+        if ((v12 & 1) != 0 && (v20 = v28, v21 = vsubq_f32(v28, v33), v22 = vmulq_f32(v21, v21), v23 = sqrtf(v22.f32[2] + vaddv_f32(*v22.f32)), (v28.f32[3] + v23) >= v33.f32[3]))
+        {
+          if ((v33.f32[3] + v23) > v28.f32[3])
+          {
+            v20 = vmlaq_n_f32(v28, v21, (v28.f32[3] - (((v28.f32[3] + v33.f32[3]) + v23) * 0.5)) / v23);
+            v20.f32[3] = ((v28.f32[3] + v33.f32[3]) + v23) * 0.5;
+          }
+
+          v12 = 1;
+          v19 = v20;
+        }
+
+        else
+        {
+          v12 = 1;
+        }
+      }
+
+      else
+      {
+        v19 = v28;
+      }
+
+      ++v13;
+      v15 = v19;
+      v14 -= 8;
+    }
+
+    while (v14);
+  }
+
+  else
+  {
+    v19 = 0uLL;
+  }
+
+  v29 = v19;
+  *v24.i64 = C3DNodeGetPosition(a2[1]);
+  a3[469].var4 = 1;
+  *&a3[474].var4 = 0x3F847AE147AE147BLL;
+  v25 = vsubq_f32(v24, v29);
+  v26 = vmulq_f32(v25, v25);
+  result = (v29.f32[3] + sqrtf(v26.f32[2] + vaddv_f32(*v26.f32)));
+  *&a3[475].var2 = result;
+  return result;
+}
+
+double C3D::AuthoringPass::AuthoringPass(C3D::AuthoringPass *this, C3D::RenderGraph *a2, C3D::Pass *a3)
+{
+  v6 = 0;
+  v8 = 0u;
+  v9 = 0x20000;
+  memset(v5, 0, sizeof(v5));
+  v7 = -1;
+  BYTE8(v8) = 1;
+  v3 = C3D::DrawNodesPass::DrawNodesPass(this, a2, a3, v5);
+  *v3 = &unk_282DC8920;
+  *(v3 + 2692) = 0;
+  result = 0.0;
+  *(v3 + 335) = 0u;
+  return result;
+}
+
+void C3D::AuthoringPass::setup(C3D::AuthoringPass *this)
+{
+  AuthoringEnvironment = C3DEngineContextGetAuthoringEnvironment(*(this + 2), 0);
+  *(this + 5384) = C3D::ShouldShowOutline(AuthoringEnvironment, v3);
+  C3D::Pass::setInputCount(this, 2u);
+  C3D::Pass::setOutputCount(this, 2u);
+  v4 = C3D::PassDescriptor::inputAtIndex((this + 32), 0);
+  v5 = v4;
+  if ((*(this + 5384) & 1) == 0)
+  {
+    *(v4 + 8) = "COLOR";
+    C3D::Pass::parentColorDesc(&v18, this);
+    *(v5 + 16) = v18;
+    *(v5 + 32) = v19;
+    *(v5 + 66) = *(v5 + 66) & 0xFF78 | 0x85;
+  }
+
+  v6 = C3D::PassDescriptor::inputAtIndex((this + 32), 1);
+  *(v6 + 8) = "DEPTH";
+  *(v6 + 64) = 2;
+  C3D::Pass::parentDepthDesc(&v18, this);
+  *(v6 + 16) = v18;
+  *(v6 + 32) = v19;
+  *(v6 + 66) = *(v6 + 66) & 0xFF78 | 0x85;
+  v7 = C3D::PassDescriptor::outputAtIndex((this + 32), 0);
+  *(v7 + 8) = "COLOR";
+  *(v7 + 65) = 0;
+  C3D::Pass::parentColorDesc(&v18, this);
+  *(v7 + 16) = v18;
+  *(v7 + 32) = v19;
+  *(v7 + 66) = *(v7 + 66) & 0xFFFC | ((*(this + 5384) & 1) == 0);
+  v8 = C3D::PassDescriptor::outputAtIndex((this + 32), 1);
+  *(v8 + 8) = "DEPTH";
+  v9 = *(v8 + 66) & 0xFFFD;
+  *(v8 + 64) = 2;
+  *(v8 + 66) = v9 | 9;
+  *(this + 296) = 0;
+  *(this + 31) = C3DEngineContextGetPointOfView(*(this + 2), v10);
+  *(this + 303) = 256;
+  *(this + 119) = 1;
+  *(this + 11) = 2;
+  if (*(this + 5384) == 1)
+  {
+    v12 = *(this + 3);
+    *&v18 = this;
+    v13 = C3D::RenderGraph::createPass<C3D::OutlinePass,C3D::AuthoringPass *>(v12, &v18);
+    *(this + 671) = v13;
+    v14 = C3D::PassDescriptor::outputAtIndex((v13 + 32), 0);
+    *v5 = *v14;
+    v15 = v14[4];
+    v17 = v14[1];
+    v16 = v14[2];
+    *(v5 + 48) = v14[3];
+    *(v5 + 64) = v15;
+    *(v5 + 16) = v17;
+    *(v5 + 32) = v16;
+    C3D::Pass::addDependency(this, *(this + 671));
+  }
+
+  C3D::DrawNodesPass::setup(this, v11);
+}
+
+C3D::OutlinePass *C3D::RenderGraph::createPass<C3D::OutlinePass,C3D::AuthoringPass *>(uint64_t a1, C3D::Pass **a2)
+{
+  Aligned = C3DScratchAllocatorAllocateAligned(*(a1 + 16), 256, 16, 0);
+  C3D::OutlinePass::OutlinePass(Aligned, a1, *a2);
+  C3D::RenderGraph::addPass(a1, Aligned);
+  if (*(a1 + 209) == 1)
+  {
+    (*(*Aligned + 8))(Aligned);
+  }
+
+  return Aligned;
+}
+
+void C3D::AuthoringPass::compile(C3D::AuthoringPass *this, uint64_t a2)
+{
+  RenderContext = C3DEngineContextGetRenderContext(*(this + 2), a2);
+  [(SCNMTLRenderContext *)RenderContext resourceManager];
+  v4 = C3D::PassDescriptor::outputAtIndex((this + 32), 0);
+  v5 = *(v4 + 28);
+  v6 = C3D::Pass::resource(this);
+  v7 = [*C3D::PassResource::outputAtIndex(v6 1)];
+  v8 = [(SCNMTLRenderContext *)RenderContext reverseZ]| (2 * *(v4 + 31));
+  v9 = 0x9DDFEA08EB382D69 * (v8 ^ *(this + 5384));
+  v10 = 0x9DDFEA08EB382D69 * ((0x9DDFEA08EB382D69 * (v8 ^ (v9 >> 47) ^ v9)) ^ ((0x9DDFEA08EB382D69 * (v8 ^ (v9 >> 47) ^ v9)) >> 47));
+  v11 = 0x9DDFEA08EB382D69 * (v10 ^ ((0x9DDFEA08EB382D69 * (v10 ^ v5)) >> 47) ^ (0x9DDFEA08EB382D69 * (v10 ^ v5)));
+  v12 = 0x9DDFEA08EB382D69 * ((0x9DDFEA08EB382D69 * (v11 ^ (v11 >> 47))) ^ ((0x9DDFEA08EB382D69 * ((0x9DDFEA08EB382D69 * (v11 ^ (v11 >> 47))) ^ v7)) >> 47) ^ (0x9DDFEA08EB382D69 * ((0x9DDFEA08EB382D69 * (v11 ^ (v11 >> 47))) ^ v7)));
+  v13 = 0xC6A4A7935BD1E995 * ((*(*this + 64))(this) ^ 0x35253C9ADE8F4CA8 ^ (0xC6A4A7935BD1E995 * ((0xF05FE8936EBFFF1DLL * (v12 ^ (v12 >> 47))) ^ ((0xF05FE8936EBFFF1DLL * (v12 ^ (v12 >> 47))) >> 47))));
+  v14 = C3D::RenderGraphResourceManager::get(*(*(this + 3) + 128), (0xC6A4A7935BD1E995 * (v13 ^ (v13 >> 47))) ^ ((0xC6A4A7935BD1E995 * (v13 ^ (v13 >> 47))) >> 47));
+  *(this + 672) = v14;
+  if (!v14)
+  {
+    operator new();
+  }
+
+  C3D::DrawNodesPass::compile(this, v15);
+}
+
 uint64_t C3D::AuthoringPass::execute(uint64_t a1, SCNMTLRenderCommandEncoder **a2)
 {
   v5 = a1 + 4096;
-  Scene = C3DEngineContextGetScene(*(a1 + 16));
-  EnginePipeline = C3DSceneGetEnginePipeline(Scene);
-  RendererElementStore = C3DEnginePipelineGetRendererElementStore(EnginePipeline);
+  Scene = C3DEngineContextGetScene(*(a1 + 16), a2);
+  EnginePipeline = C3DSceneGetEnginePipeline(Scene, v7);
+  RendererElementStore = C3DEnginePipelineGetRendererElementStore(EnginePipeline, v9);
   [(*a2)->var24[1] pushDebugGroup:@"Authoring"];
   if ((*(v5 + 1288) & 1) != 0 || *(v5 + 1289) == 1)
   {
-    [(*a2)->var24[1] setDepthStencilState:{C3D::SmartPtr<SCNMTLRenderPipeline *, C3D::detail::NSRetainFct, C3D::detail::NSReleaseFct>::operator SCNMTLRenderPipeline *(*(a1 + 5376) + 64)}];
-    v9 = *a2;
-    v10 = [C3D::SmartPtr<SCNMTLRenderPipeline * C3D:C3D::detail::NSReleaseFct>::operator SCNMTLRenderPipeline *(*(a1 + 5376) + 24) :"state" detail:? :?NSRetainFct];
-    if (v9->var23 != v10)
+    [(*a2)->var24[1] setDepthStencilState:{C3D::SmartPtr<SCNMTLRenderPipeline *, C3D::detail::NSRetainFct, C3D::detail::NSReleaseFct>::operator SCNMTLRenderPipeline *(*(a1 + 5376) + 64, v11)}];
+    v12 = *a2;
+    v14 = [C3D::SmartPtr<SCNMTLRenderPipeline * C3D:C3D::detail::NSReleaseFct>::operator SCNMTLRenderPipeline *(*(a1 + 5376) + 24 :v13) detail:"state" :?NSRetainFct];
+    if (v12->var23 != v14)
     {
-      v9->var23 = v10;
-      [v9->var24[1] setRenderPipelineState:v10];
+      v12->var23 = v14;
+      [v12->var24[1] setRenderPipelineState:v14];
     }
 
-    v11 = *a2;
-    v12 = C3D::Pass::inputTextureAtIndex(a1, 0);
-    SCNMTLRenderCommandEncoder::setFragmentTexture(v11, v12, 0);
-    SCNMTLRenderCommandEncoder::drawFullScreenTriangle(*a2);
+    v15 = *a2;
+    v16 = C3D::Pass::inputTextureAtIndex(a1, 0);
+    SCNMTLRenderCommandEncoder::setFragmentTexture(v15, v16, 0);
+    SCNMTLRenderCommandEncoder::drawFullScreenTriangle(*a2, v17);
   }
 
   AuthoringEnvironment = C3DEngineContextGetAuthoringEnvironment(*(a1 + 16), 1);
   if (C3DAuthoringEnvironmentShouldDisplayConstraints(AuthoringEnvironment))
   {
-    ControllerManager = C3DSceneGetControllerManager(Scene);
+    ControllerManager = C3DSceneGetControllerManager(Scene, v19);
     C3DConstraintManagerAppendAuthoringInfo(ControllerManager, AuthoringEnvironment);
   }
 
   CullingContext = C3D::DrawNodesPass::getCullingContext(*(a1 + 5360));
-  v16 = *(CullingContext + 4920);
-  if (v16)
+  v23 = *(CullingContext + 4920);
+  if (v23)
   {
-    v17 = *(CullingContext + 4912);
+    v24 = *(CullingContext + 4912);
     do
     {
-      v18 = *v17++;
-      v2 = v2 & 0xFFFFFFFF00000000 | v18;
+      v25 = *v24++;
+      v2 = v2 & 0xFFFFFFFF00000000 | v25;
       Element = C3DRendererElementStoreGetElement(RendererElementStore, v2);
       Node = C3DRendererElementGetNode(Element);
       if (Node)
@@ -45,42 +2525,42 @@ uint64_t C3D::AuthoringPass::execute(uint64_t a1, SCNMTLRenderCommandEncoder **a
         C3DAuthoringEnvironmentAppendDebugNode(AuthoringEnvironment, Node, Element);
       }
 
-      --v16;
+      --v23;
     }
 
-    while (v16);
+    while (v23);
   }
 
-  RootNode = C3DSceneGetRootNode(Scene);
-  v29[0] = MEMORY[0x277D85DD0];
-  v29[1] = 3221225472;
-  v29[2] = ___ZN3C3D13AuthoringPass7executeERKNS_10RenderArgsE_block_invoke;
-  v29[3] = &__block_descriptor_40_e20_q16__0____C3DNode__8l;
-  v29[4] = AuthoringEnvironment;
-  C3DNodeApplyHierarchy(RootNode, v29);
+  RootNode = C3DSceneGetRootNode(Scene, v22);
+  v38[0] = MEMORY[0x277D85DD0];
+  v38[1] = 3221225472;
+  v38[2] = ___ZN3C3D13AuthoringPass7executeERKNS_10RenderArgsE_block_invoke;
+  v38[3] = &__block_descriptor_40_e20_q16__0____C3DNode__8l;
+  v38[4] = AuthoringEnvironment;
+  C3DNodeApplyHierarchy(RootNode, v38);
   C3DAuthoringEnvironmentDrawZbufferDependant(AuthoringEnvironment);
   C3DAuthoringEnvironmentDrawPending(AuthoringEnvironment);
-  [(*a2)->var24[1] setDepthStencilState:{C3D::SmartPtr<SCNMTLRenderPipeline *, C3D::detail::NSRetainFct, C3D::detail::NSReleaseFct>::operator SCNMTLRenderPipeline *(*(a1 + 5376) + 64)}];
-  C3DAuthoringEnvironmentDrawZbufferIndependant(AuthoringEnvironment, v22);
+  [(*a2)->var24[1] setDepthStencilState:{C3D::SmartPtr<SCNMTLRenderPipeline *, C3D::detail::NSRetainFct, C3D::detail::NSReleaseFct>::operator SCNMTLRenderPipeline *(*(a1 + 5376) + 64, v29)}];
+  C3DAuthoringEnvironmentDrawZbufferIndependant(AuthoringEnvironment, v30);
   C3DAuthoringEnvironmentDrawPending(AuthoringEnvironment);
-  RenderContext = C3DEngineContextGetRenderContext(*(a1 + 16));
-  v24 = C3DRasterizerStatesDefault();
-  v25 = [(SCNMTLRenderContext *)RenderContext resourceManager];
-  v26 = [(SCNMTLRenderContext *)RenderContext reverseZ];
-  [(*a2)->var24[1] setDepthStencilState:{-[SCNMTLResourceManager renderResourceForRasterizerState:reverseZ:](v25, v24, v26)}];
+  RenderContext = C3DEngineContextGetRenderContext(*(a1 + 16), v31);
+  v33 = C3DRasterizerStatesDefault();
+  v34 = [(SCNMTLRenderContext *)RenderContext resourceManager];
+  v35 = [(SCNMTLRenderContext *)RenderContext reverseZ];
+  [(*a2)->var24[1] setDepthStencilState:{-[SCNMTLResourceManager renderResourceForRasterizerState:reverseZ:](v34, v33, v35)}];
   [SCNMTLRenderContext setRasterizerStates:?];
-  if (AuthoringEnvironment && ([AuthoringEnvironment authoringDisplayMask] & 0x200) != 0)
+  if (AuthoringEnvironment && ([(float32x2_t *)AuthoringEnvironment authoringDisplayMask]& 0x200) != 0)
   {
     C3D::AuthoringPass::drawReflectionProbes(a1, a2);
   }
 
   if (([(SCNMTLRenderContext *)RenderContext features]& 0x1000) != 0)
   {
-    v27 = *a2;
+    v36 = *a2;
     if ((*a2)->var4 != 1)
     {
-      v27->var4 = 1;
-      v27->var8 = 1;
+      v36->var4 = 1;
+      v36->var8 = 1;
     }
   }
 
@@ -89,9 +2569,9 @@ uint64_t C3D::AuthoringPass::execute(uint64_t a1, SCNMTLRenderCommandEncoder **a
   return [(*a2)->var24[1] popDebugGroup];
 }
 
-uint64_t ___ZN3C3D13AuthoringPass7executeERKNS_10RenderArgsE_block_invoke(uint64_t a1, float32x4_t *a2)
+uint64_t ___ZN3C3D13AuthoringPass7executeERKNS_10RenderArgsE_block_invoke(uint64_t a1, void *a2)
 {
-  if (C3DNodeIsHiddenOrTransparent(a2))
+  if (C3DNodeIsHiddenOrTransparent(a2, a2))
   {
     return 1;
   }
@@ -100,56 +2580,56 @@ uint64_t ___ZN3C3D13AuthoringPass7executeERKNS_10RenderArgsE_block_invoke(uint64
   return 0;
 }
 
-uint64_t C3D::AuthoringPass::drawReflectionProbes(uint64_t a1, uint64_t *a2)
+void *C3D::AuthoringPass::drawReflectionProbes(uint64_t a1, uint64_t *a2)
 {
-  RenderContext = C3DEngineContextGetRenderContext(*(a1 + 16));
+  RenderContext = C3DEngineContextGetRenderContext(*(a1 + 16), a2);
   result = [(SCNMTLRenderContext *)RenderContext _clusterInfo];
-  v6 = *(result + 104);
+  v6 = result[13];
   v7 = HIDWORD(v6);
   if (HIDWORD(v6))
   {
     v8 = result;
-    v16 = *(result + 104);
+    v19 = result[13];
     result = [(SCNMTLRenderContext *)RenderContext _reflectionProbeArrayTexture];
     if (result)
     {
       v9 = result;
       v10 = [(SCNMTLRenderContext *)RenderContext features];
-      v11 = v10;
-      v12 = *a2;
-      if ((*(*a2 + 73) & 1) == 0 && *(v12 + 16) != 2)
+      v12 = v10;
+      v13 = *a2;
+      if ((*(*a2 + 73) & 1) == 0 && *(v13 + 16) != 2)
       {
-        *(v12 + 16) = 2;
-        *(v12 + 41) = 1;
+        *(v13 + 16) = 2;
+        *(v13 + 41) = 1;
       }
 
-      if ((v10 & 0x1000) != 0 && *(v12 + 32) != 1)
+      if ((v10 & 0x1000) != 0 && *(v13 + 32) != 1)
       {
-        *(v12 + 32) = 1;
-        *(v12 + 43) = 1;
+        *(v13 + 32) = 1;
+        *(v13 + 43) = 1;
       }
 
-      v13 = [C3D::SmartPtr<SCNMTLRenderPipeline * C3D:C3D::detail::NSReleaseFct>::operator SCNMTLRenderPipeline *(*(a1 + 5376) + 32) :"state" detail:? :?NSRetainFct];
-      if (*(v12 + 3376) != v13)
+      v14 = [C3D::SmartPtr<SCNMTLRenderPipeline * C3D:C3D::detail::NSReleaseFct>::operator SCNMTLRenderPipeline *(*(a1 + 5376) + 32 :v11) detail:"state" :?NSRetainFct];
+      if (*(v13 + 3376) != v14)
       {
-        *(v12 + 3376) = v13;
-        [*(v12 + 3392) setRenderPipelineState:v13];
+        *(v13 + 3376) = v14;
+        [*(v13 + 3392) setRenderPipelineState:v14];
       }
 
       SCNMTLRenderCommandEncoder::setFragmentTexture(*a2, v9, 0);
       [(SCNMTLRenderContext *)RenderContext _setSceneBufferAtVertexIndex:-1 fragmentIndex:?];
-      SCNMTLRenderCommandEncoder::setVertexBuffer(*a2, *(v8 + 120), *(v8 + 128) + (v16 << 8), 1);
-      C3D::SmartPtr<SCNMTLRenderPipeline *,C3D::detail::NSRetainFct,C3D::detail::NSReleaseFct>::operator SCNMTLRenderPipeline *(*(a1 + 5376) + 40);
+      SCNMTLRenderCommandEncoder::setVertexBuffer(*a2, *(v8 + 120), *(v8 + 128) + (v19 << 8), 1);
+      C3D::SmartPtr<SCNMTLRenderPipeline *,C3D::detail::NSRetainFct,C3D::detail::NSReleaseFct>::operator SCNMTLRenderPipeline *(*(a1 + 5376) + 40, v15);
       [SCNMTLRenderContext _setMeshBuffers:?];
-      v14 = C3D::SmartPtr<SCNMTLRenderPipeline *,C3D::detail::NSRetainFct,C3D::detail::NSReleaseFct>::operator SCNMTLRenderPipeline *(*(a1 + 5376) + 48);
-      result = [(SCNMTLRenderContext *)RenderContext _drawMeshElement:v14 instanceCount:v7];
-      if ((v11 & 0x1000) != 0)
+      v17 = C3D::SmartPtr<SCNMTLRenderPipeline *,C3D::detail::NSRetainFct,C3D::detail::NSReleaseFct>::operator SCNMTLRenderPipeline *(*(a1 + 5376) + 48, v16);
+      result = [(SCNMTLRenderContext *)RenderContext _drawMeshElement:v17 instanceCount:v7];
+      if ((v12 & 0x1000) != 0)
       {
-        v15 = *a2;
+        v18 = *a2;
         if (*(*a2 + 32))
         {
-          *(v15 + 32) = 0;
-          *(v15 + 43) = 1;
+          *(v18 + 32) = 0;
+          *(v18 + 43) = 1;
         }
       }
     }
@@ -161,10 +2641,10 @@ uint64_t C3D::AuthoringPass::drawReflectionProbes(uint64_t a1, uint64_t *a2)
 uint64_t C3D::AuthoringPass::setColorInput(C3D::AuthoringPass *this, const C3D::PassIODescriptor *a2)
 {
   v4 = C3D::PassDescriptor::inputAtIndex((this + 32), 0);
-  v5 = C3D::PassDescriptor::inputAtIndex((this + 32), 1u);
+  v5 = C3D::PassDescriptor::inputAtIndex((this + 32), 1);
   v6 = C3D::PassDescriptor::outputAtIndex((this + 32), 0);
-  v7 = C3D::PassDescriptor::outputAtIndex((this + 32), 1u);
-  RenderContext = C3DEngineContextGetRenderContext(*(this + 2));
+  v7 = C3D::PassDescriptor::outputAtIndex((this + 32), 1);
+  RenderContext = C3DEngineContextGetRenderContext(*(this + 2), v8);
   result = [(SCNMTLRenderContext *)RenderContext sampleCount];
   if (result < 2)
   {
@@ -176,27 +2656,27 @@ uint64_t C3D::AuthoringPass::setColorInput(C3D::AuthoringPass *this, const C3D::
 
   else
   {
-    v10 = this + 4096;
-    v11 = *(a2 + 31);
+    v11 = this + 4096;
+    v12 = *(a2 + 31);
     *(v6 + 31) = [(SCNMTLRenderContext *)RenderContext sampleCount];
     *(v6 + 24) = 4;
     result = [(SCNMTLRenderContext *)RenderContext sampleCount];
     *(v5 + 31) = result;
     *(v5 + 24) = 4;
-    if ((v10[1288] & 1) == 0 && v11 <= 1)
+    if ((v11[1288] & 1) == 0 && v12 <= 1)
     {
-      v12 = *(a2 + 1);
-      v13 = *(a2 + 2);
-      v14 = *(a2 + 3);
+      v13 = *(a2 + 1);
+      v14 = *(a2 + 2);
+      v15 = *(a2 + 3);
       *(v4 + 64) = *(a2 + 4);
-      v15 = *a2;
-      *(v4 + 32) = v13;
-      *(v4 + 48) = v14;
-      *v4 = v15;
-      *(v4 + 16) = v12;
+      v16 = *a2;
+      *(v4 + 32) = v14;
+      *(v4 + 48) = v15;
+      *v4 = v16;
+      *(v4 + 16) = v13;
       *(v4 + 66) &= ~0x80u;
       *(v6 + 66) &= 0xFFFCu;
-      v10[1289] = 1;
+      v11[1289] = 1;
     }
   }
 
@@ -214,7 +2694,7 @@ uint64_t C3D::AuthoringPass::setColorInput(C3D::AuthoringPass *this, const C3D::
 uint64_t ___ZZN3C3D31AdaptCullingContextForAuthoringEP18__C3DEngineContextRKNS_13DrawNodesPass10ParametersER19__C3DCullingContexthENK3__0cvU13block_pointerF18C3DNodeApplyStatusP9__C3DNodeEEv_block_invoke(uint64_t a1, uint64_t a2)
 {
   v4 = a2;
-  if (C3DNodeGetGeometry(a2))
+  if (C3DNodeGetGeometry(a2, a2))
   {
     C3D::Array<char const*,0u,C3D::StackAllocator>::push_back<char const*&>(*(a1 + 32), &v4);
   }
@@ -270,24 +2750,25 @@ void C3D::AuthoringPassResource::~AuthoringPassResource(C3D::AuthoringPassResour
 
 void C3DShaderAddStandardUniform(const __CFDictionary *a1, const void *a2, uint64_t a3, uint64_t a4, uint64_t a5, int a6)
 {
-  if (CFDictionaryGetValue(a1, a2))
+  Value = CFDictionaryGetValue(a1, a2);
+  if (Value)
   {
-    v12 = scn_default_log();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_FAULT))
+    v14 = scn_default_log(Value, v13);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_FAULT))
     {
-      C3DShaderAddStandardUniform_cold_1(a2, v12);
+      C3DShaderAddStandardUniform_cold_1(a2, v14);
     }
   }
 
-  v13 = C3DMalloc(0x20uLL);
-  v13[1] = a4;
-  v13[2] = a5;
-  *v13 = a3;
-  *(v13 + 6) = a6;
-  CFDictionarySetValue(a1, a2, v13);
+  v15 = C3DMalloc(0x20uLL);
+  v15[1] = a4;
+  v15[2] = a5;
+  *v15 = a3;
+  *(v15 + 6) = a6;
+  CFDictionarySetValue(a1, a2, v15);
 }
 
-uint64_t C3DShaderGetStandardUniforms()
+uint64_t C3DShaderGetStandardUniforms(uint64_t a1, uint64_t a2)
 {
   if (C3DShaderGetStandardUniforms_onceToken != -1)
   {
@@ -338,16 +2819,16 @@ void __C3DShaderGetStandardUniforms_block_invoke()
   C3DShaderAddStandardUniform(v0, @"scn_frame.viewToCubeWorld", @"float4x4", 16, 0, 0);
 }
 
-void C3DShaderFeedStandardUniformsToIndex(void *context)
+void C3DShaderFeedStandardUniformsToIndex(void *context, uint64_t a2)
 {
   if (C3DShaderGetStandardUniforms_onceToken != -1)
   {
     C3DShaderGetStandardUniforms_cold_1();
   }
 
-  v2 = C3DShaderGetStandardUniforms_s_standardUniforms;
+  v3 = C3DShaderGetStandardUniforms_s_standardUniforms;
 
-  CFDictionaryApplyFunction(v2, __DeclareSymbolToIndexMapping, context);
+  CFDictionaryApplyFunction(v3, __DeclareSymbolToIndexMapping, context);
 }
 
 uint64_t OUTLINED_FUNCTION_0_16(uint64_t a1, uint64_t a2)
@@ -383,7 +2864,7 @@ void btDbvt::btDbvt(btDbvt *this)
   *(this + 6) = 0;
 }
 
-void btDbvt::~btDbvt(void ***this)
+void btDbvt::~btDbvt(void **this)
 {
   btDbvt::clear(this);
   v2 = this[10];
@@ -408,24 +2889,24 @@ void btDbvt::~btDbvt(void ***this)
   *(this + 10) = 0;
 }
 
-void btDbvt::clear(btDbvt *this)
+void btDbvt::clear(void **this)
 {
   if (*this)
   {
     recursedeletenode(this, *this);
   }
 
-  btAlignedFreeInternal(*(this + 1));
-  *(this + 1) = 0;
+  btAlignedFreeInternal(this[1]);
+  this[1] = 0;
   *(this + 4) = -1;
-  v2 = *(this + 6);
+  v2 = this[6];
   if (v2 && *(this + 56) == 1)
   {
     btAlignedFreeInternal(v2);
   }
 
   *(this + 56) = 1;
-  *(this + 6) = 0;
+  this[6] = 0;
   *(this + 9) = 0;
   *(this + 10) = 0;
   *(this + 6) = 0;
@@ -478,7 +2959,7 @@ uint64_t btDbvt::optimizeIncremental(uint64_t this, int a2)
         v7 = 0;
         do
         {
-          v8 = v5[4];
+          v8 = v5[2].i64[0];
           if (v8 <= v5)
           {
             v8 = v5;
@@ -486,40 +2967,40 @@ uint64_t btDbvt::optimizeIncremental(uint64_t this, int a2)
 
           else
           {
-            v9 = v8[6];
-            v10 = v8[4];
+            v9 = v8[3].i64[0];
+            v10 = v8[2].i64[0];
             v11 = v3;
             if (v10)
             {
-              v11 = &v10[(v10[6] == v8) + 5];
+              v11 = (v10 + 8 * (*(v10 + 48) == v8) + 40);
             }
 
-            v12 = v8[(v9 != v5) + 5];
+            v12 = v8[2].i64[(v9 != v5) + 1];
             *v11 = v5;
-            v12[4] = v5;
-            v8[4] = v5;
-            v5[4] = v10;
-            v8[5] = v5[5];
-            v8[6] = *v6;
-            *(v5[5] + 4) = v8;
+            *(v12 + 32) = v5;
+            v8[2].i64[0] = v5;
+            v5[2].i64[0] = v10;
+            v8[2].i64[1] = v5[2].i64[1];
+            v8[3].i64[0] = *v6;
+            *(v5[2].i64[1] + 32) = v8;
             *(*v6 + 32) = v8;
-            v5[(v9 == v5) + 5] = v8;
-            v5[(v9 != v5) + 5] = v12;
+            v5[2].i64[(v9 == v5) + 1] = v8;
+            v5[2].i64[(v9 != v5) + 1] = v12;
             v13 = *v8;
-            v14 = *(v8 + 1);
+            v14 = v8[1];
             *v8 = *v5;
-            *(v8 + 1) = *(v5 + 1);
+            v8[1] = v5[1];
             *v5 = v13;
-            *(v5 + 1) = v14;
+            v5[1] = v14;
           }
 
-          v15 = &v8[(*(v3 + 24) >> v7) & 1];
+          v15 = v8 + 8 * ((*(v3 + 24) >> v7) & 1);
           v7 = (v7 + 1) & 0x1F;
-          v5 = v15[5];
-          v6 = (v5 + 6);
+          v5 = *(v15 + 5);
+          v6 = &v5[3];
         }
 
-        while (v5[6]);
+        while (v5[3].i64[0]);
       }
 
       this = btDbvt::update(v3, v5, -1);
@@ -533,7 +3014,7 @@ uint64_t btDbvt::optimizeIncremental(uint64_t this, int a2)
   return this;
 }
 
-uint64_t btDbvt::update(void ***a1, float32x4_t *a2, int a3)
+uint64_t btDbvt::update(void **a1, float32x4_t *a2, int a3)
 {
   v6 = removeleaf(a1, a2);
   if (v6)
@@ -547,12 +3028,12 @@ uint64_t btDbvt::update(void ***a1, float32x4_t *a2, int a3)
     {
       for (; a3; --a3)
       {
-        if (!v6[4])
+        if (!*(v6 + 4))
         {
           break;
         }
 
-        v6 = v6[4];
+        v6 = *(v6 + 4);
       }
     }
   }
@@ -718,7 +3199,7 @@ uint64_t insertleaf(uint64_t result, uint64_t a2, float32x4_t *a3)
   return result;
 }
 
-void **removeleaf(void ***a1, uint64_t a2)
+__int128 *removeleaf(void **a1, void *a2)
 {
   if (*a1 == a2)
   {
@@ -728,13 +3209,13 @@ void **removeleaf(void ***a1, uint64_t a2)
 
   else
   {
-    v3 = *(a2 + 32);
-    v4 = *(v3 + 32);
-    v5 = *(v3 + 8 * (*(v3 + 48) != a2) + 40);
+    v3 = a2[4];
+    v4 = v3[4];
+    v5 = v3[(v3[6] != a2) + 5];
     if (v4)
     {
       *(v4 + (*(v4 + 6) == v3) + 5) = v5;
-      *(v5 + 32) = v4;
+      v5[4] = v4;
       btAlignedFreeInternal(a1[1]);
       a1[1] = v3;
       while (1)
@@ -782,7 +3263,7 @@ void **removeleaf(void ***a1, uint64_t a2)
     else
     {
       *a1 = v5;
-      *(v5 + 32) = 0;
+      v5[4] = 0;
       btAlignedFreeInternal(a1[1]);
       a1[1] = v3;
       return *a1;
@@ -807,12 +3288,12 @@ uint64_t btDbvt::update(uint64_t a1, uint64_t a2, _OWORD *a3)
     {
       for (; v7; --v7)
       {
-        if (!v6[4])
+        if (!*(v6 + 4))
         {
           break;
         }
 
-        v6 = v6[4];
+        v6 = *(v6 + 4);
       }
     }
   }
@@ -873,7 +3354,7 @@ uint64_t btDbvt::update(uint64_t a1, float *a2, float32x4_t *a3, uint64_t a4, in
   return 1;
 }
 
-void btDbvt::remove(uint64_t a1, uint64_t a2)
+void btDbvt::remove(uint64_t a1, void *a2)
 {
   removeleaf(a1, a2);
   btAlignedFreeInternal(*(a1 + 8));
@@ -1113,49 +3594,49 @@ void btDbvtBroadphase::rayTest(uint64_t a1, float *a2, uint64_t a3, uint64_t a4,
 {
   v12[0] = &unk_282DC8B20;
   v12[1] = a4;
-  btDbvt::rayTestInternal(a1 + 8, *(a1 + 8), a2, *(a4 + 44), a3, (a4 + 16), (a4 + 32), a5, a6, v12);
-  btDbvt::rayTestInternal(a1 + 104, *(a1 + 104), a2, *(a4 + 44), a3, (a4 + 16), (a4 + 32), a5, a6, v12);
+  btDbvt::rayTestInternal((a1 + 8), *(a1 + 8), a2, *(a4 + 44), a3, (a4 + 16), (a4 + 32), a5, a6, v12);
+  btDbvt::rayTestInternal((a1 + 104), *(a1 + 104), a2, *(a4 + 44), a3, (a4 + 16), (a4 + 32), a5, a6, v12);
 }
 
-void btDbvt::rayTestInternal(uint64_t a1, uint64_t a2, float *a3, float a4, uint64_t a5, float *a6, unsigned int *a7, float32x4_t *a8, float32x4_t *a9, uint64_t a10)
+void btDbvt::rayTestInternal(int *result, uint64_t a2, float *a3, float a4, uint64_t a5, float *a6, unsigned int *a7, float32x4_t *a8, float32x4_t *a9, uint64_t a10)
 {
   v65 = *MEMORY[0x277D85DE8];
   if (a2)
   {
     v10 = a9;
-    v17 = *(a1 + 68);
+    v17 = result[17];
     if (v17 <= 127)
     {
-      if (*(a1 + 72) <= 127)
+      if (result[18] <= 127)
       {
         v18 = a8;
         v19 = btAlignedAllocInternal(1024, 16);
         v20 = v19;
-        v21 = *(a1 + 68);
+        v21 = result[17];
         if (v21 >= 1)
         {
           v22 = 0;
           v23 = 8 * v21;
           do
           {
-            *(v19 + v22) = *(*(a1 + 80) + v22);
+            *(v19 + v22) = *(*(result + 10) + v22);
             v22 += 8;
           }
 
           while (v23 != v22);
         }
 
-        v24 = *(a1 + 80);
+        v24 = *(result + 10);
         a8 = v18;
-        if (v24 && *(a1 + 88) == 1)
+        if (v24 && *(result + 88) == 1)
         {
           btAlignedFreeInternal(v24);
           a8 = v18;
         }
 
-        *(a1 + 88) = 1;
-        *(a1 + 80) = v20;
-        *(a1 + 72) = 128;
+        *(result + 88) = 1;
+        *(result + 10) = v20;
+        result[18] = 128;
         v10 = a9;
       }
 
@@ -1163,7 +3644,7 @@ void btDbvt::rayTestInternal(uint64_t a1, uint64_t a2, float *a3, float a4, uint
       v26 = 128 - v17;
       do
       {
-        *(*(a1 + 80) + v25) = 0;
+        *(*(result + 10) + v25) = 0;
         v25 += 8;
         --v26;
       }
@@ -1171,15 +3652,15 @@ void btDbvt::rayTestInternal(uint64_t a1, uint64_t a2, float *a3, float a4, uint
       while (v26);
     }
 
-    *(a1 + 68) = 128;
-    **(a1 + 80) = a2;
+    result[17] = 128;
+    **(result + 10) = a2;
     v27 = 126;
     LODWORD(v28) = 1;
     while (1)
     {
       v29 = v28;
       v28 = v28 - 1;
-      v30 = *(a1 + 80);
+      v30 = *(result + 10);
       v31 = *(v30 + 8 * v28);
       v32 = vsubq_f32(*v31, *v10);
       v32.i32[3] = 0;
@@ -1235,25 +3716,25 @@ void btDbvt::rayTestInternal(uint64_t a1, uint64_t a2, float *a3, float a4, uint
       {
         if (v28 > v27)
         {
-          v50 = *(a1 + 68);
+          v50 = result[17];
           v51 = 2 * v50;
           if (v50 < 2 * v50)
           {
-            if (*(a1 + 72) < v51)
+            if (result[18] < v51)
             {
               v62 = a8;
               if (v50)
               {
                 v52 = btAlignedAllocInternal(16 * v50, 16);
                 v53 = v52;
-                v54 = *(a1 + 68);
+                v54 = result[17];
                 if (v54 >= 1)
                 {
                   v55 = 0;
                   v56 = 8 * v54;
                   do
                   {
-                    *(v52 + v55) = *(*(a1 + 80) + v55);
+                    *(v52 + v55) = *(*(result + 10) + v55);
                     v55 += 8;
                   }
 
@@ -1269,8 +3750,8 @@ void btDbvt::rayTestInternal(uint64_t a1, uint64_t a2, float *a3, float a4, uint
                 v53 = 0;
               }
 
-              v60 = *(a1 + 80);
-              if (v60 && *(a1 + 88) == 1)
+              v60 = *(result + 10);
+              if (v60 && *(result + 88) == 1)
               {
                 v61 = v53;
                 btAlignedFreeInternal(v60);
@@ -1279,28 +3760,28 @@ void btDbvt::rayTestInternal(uint64_t a1, uint64_t a2, float *a3, float a4, uint
                 a8 = v62;
               }
 
-              *(a1 + 88) = 1;
-              *(a1 + 80) = v53;
-              *(a1 + 72) = v51;
+              *(result + 88) = 1;
+              *(result + 10) = v53;
+              result[18] = v51;
             }
 
             do
             {
-              *(*(a1 + 80) + 8 * v50++) = 0;
+              *(*(result + 10) + 8 * v50++) = 0;
             }
 
             while (v51 != v50);
-            v30 = *(a1 + 80);
+            v30 = *(result + 10);
           }
 
-          *(a1 + 68) = v51;
+          result[17] = v51;
           v27 = (v51 - 2);
           v10 = a9;
         }
 
         *(v30 + 8 * v28) = v31[2].i64[1];
         LODWORD(v28) = v29 + 1;
-        *(*(a1 + 80) + 8 * v29) = v31[3].i64[0];
+        *(*(result + 10) + 8 * v29) = v31[3].i64[0];
         if (v29 == -1)
         {
           return;
@@ -1312,7 +3793,7 @@ void btDbvt::rayTestInternal(uint64_t a1, uint64_t a2, float *a3, float a4, uint
         v57 = v31;
         v58 = a8;
         v59 = v27;
-        (*(*a10 + 24))(a10, v57);
+        (*(*a10 + 24))(a10, v57, a3, a5);
         v27 = v59;
         a8 = v58;
 LABEL_45:
@@ -1336,23 +3817,23 @@ void btDbvtBroadphase::aabbTest(uint64_t a1, __int128 *a2, __int128 *a3, uint64_
   btDbvt::collideTV(a1 + 104, *(a1 + 104), v6, v7);
 }
 
-void btDbvtBroadphase::setAabb(uint64_t a1, uint64_t a2, float32x4_t *a3, float32x4_t *a4, double a5, double a6, double a7, float32x4_t a8)
+void btDbvtBroadphase::setAabb(uint64_t a1, float32x4_t *a2, float32x4_t *a3, float32x4_t *a4, double a5, double a6, double a7, float32x4_t a8)
 {
   v12 = *a3;
   v13 = *a4;
   v28[0] = *a3;
   v28[1] = v13;
-  if (*(a2 + 104) == 2)
+  if (a2[6].i32[2] == 2)
   {
-    btDbvt::remove(a1 + 104, *(a2 + 80));
-    *(a2 + 80) = btDbvt::insert(a1 + 8, v28, a2);
+    btDbvt::remove(a1 + 104, a2[5].i64[0]);
+    a2[5].i64[0] = btDbvt::insert(a1 + 8, v28, a2);
 LABEL_10:
     v15 = 1;
     goto LABEL_11;
   }
 
   ++*(a1 + 260);
-  v14 = *(a2 + 80);
+  v14 = a2[5].i64[0];
   if (*v14 > v13.f32[0] || *(v14 + 16) < v12.f32[0] || *(v14 + 4) > v13.f32[1] || (a8.i32[0] = *(v14 + 20), a8.f32[0] < v12.f32[1]) || *(v14 + 8) > v13.f32[2] || *(v14 + 24) < v12.f32[2])
   {
     btDbvt::update(a1 + 8, v14, v28);
@@ -1360,9 +3841,9 @@ LABEL_10:
     goto LABEL_10;
   }
 
-  v22 = *(a2 + 48);
+  v22 = a2[3];
   v23 = vsubq_f32(*a3, v22);
-  v24 = vsubq_f32(*(a2 + 64), v22);
+  v24 = vsubq_f32(a2[4], v22);
   v24.i32[3] = 0;
   v25.i64[0] = 0x3F0000003F000000;
   v25.i64[1] = 0x3F0000003F000000;
@@ -1395,9 +3876,9 @@ LABEL_10:
 
 LABEL_11:
   v16 = a1 + 200;
-  v17 = (a1 + 200 + 8 * *(a2 + 104));
-  v19 = *(a2 + 88);
-  v18 = *(a2 + 96);
+  v17 = (a1 + 200 + 8 * a2[6].i32[2]);
+  v19 = a2[5].i64[1];
+  v18 = a2[6].i64[0];
   if (v19)
   {
     v17 = (v19 + 96);
@@ -1406,16 +3887,16 @@ LABEL_11:
   *v17 = v18;
   if (v18)
   {
-    *(v18 + 88) = *(a2 + 88);
+    *(v18 + 88) = a2[5].i64[1];
   }
 
-  *(a2 + 48) = *a3;
-  *(a2 + 64) = *a4;
+  a2[3] = *a3;
+  a2[4] = *a4;
   v20 = *(a1 + 236);
-  *(a2 + 104) = v20;
-  *(a2 + 88) = 0;
+  a2[6].i32[2] = v20;
+  a2[5].i64[1] = 0;
   v21 = *(v16 + 8 * v20);
-  *(a2 + 96) = v21;
+  a2[6].i64[0] = v21;
   if (v21)
   {
     *(v21 + 88) = a2;
@@ -1429,47 +3910,47 @@ LABEL_11:
     {
       v27.i64[0] = &unk_282DC8AD8;
       v27.i64[1] = a1;
-      btDbvt::collideTTpersistentStack(a1 + 104, *(a1 + 104), *(a2 + 80), &v27);
-      btDbvt::collideTTpersistentStack(a1 + 8, *(a1 + 8), *(a2 + 80), &v27);
+      btDbvt::collideTTpersistentStack((a1 + 104), *(a1 + 104), a2[5].i64[0], &v27);
+      btDbvt::collideTTpersistentStack((a1 + 8), *(a1 + 8), a2[5].i64[0], &v27);
     }
   }
 }
 
-void btDbvt::collideTTpersistentStack(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+void btDbvt::collideTTpersistentStack(int *result, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   if (a2 && a3)
   {
-    if (*(a1 + 36) <= 127 && *(a1 + 40) <= 127)
+    if (result[9] <= 127 && result[10] <= 127)
     {
       v8 = btAlignedAllocInternal(2048, 16);
       v9 = v8;
-      v10 = *(a1 + 36);
+      v10 = result[9];
       if (v10 >= 1)
       {
         v11 = 0;
         v12 = 16 * v10;
         do
         {
-          *(v8 + v11) = *(*(a1 + 48) + v11);
+          *(v8 + v11) = *(*(result + 6) + v11);
           v11 += 16;
         }
 
         while (v12 != v11);
       }
 
-      v13 = *(a1 + 48);
-      if (v13 && *(a1 + 56) == 1)
+      v13 = *(result + 6);
+      if (v13 && *(result + 56) == 1)
       {
         btAlignedFreeInternal(v13);
       }
 
-      *(a1 + 56) = 1;
-      *(a1 + 48) = v9;
-      *(a1 + 40) = 128;
+      *(result + 56) = 1;
+      *(result + 6) = v9;
+      result[10] = 128;
     }
 
-    *(a1 + 36) = 128;
-    v14 = *(a1 + 48);
+    result[9] = 128;
+    v14 = *(result + 6);
     *v14 = a2;
     v14[1] = a3;
     v15 = 124;
@@ -1478,27 +3959,27 @@ void btDbvt::collideTTpersistentStack(uint64_t a1, uint64_t a2, uint64_t a3, uin
     {
       v17 = v16;
       v16 = v16 - 1;
-      v18 = (*(a1 + 48) + 16 * v16);
+      v18 = (*(result + 6) + 16 * v16);
       v19 = *v18;
       v20 = v18[1];
       if (v16 > v15)
       {
-        v21 = *(a1 + 36);
+        v21 = result[9];
         v22 = 2 * v21;
-        if (v21 < 2 * v21 && *(a1 + 40) < v22)
+        if (v21 < 2 * v21 && result[10] < v22)
         {
           if (v21)
           {
             v23 = btAlignedAllocInternal(32 * v21, 16);
             v24 = v23;
-            v25 = *(a1 + 36);
+            v25 = result[9];
             if (v25 >= 1)
             {
               v26 = 0;
               v27 = 16 * v25;
               do
               {
-                *(v23 + v26) = *(*(a1 + 48) + v26);
+                *(v23 + v26) = *(*(result + 6) + v26);
                 v26 += 16;
               }
 
@@ -1511,18 +3992,18 @@ void btDbvt::collideTTpersistentStack(uint64_t a1, uint64_t a2, uint64_t a3, uin
             v24 = 0;
           }
 
-          v28 = *(a1 + 48);
-          if (v28 && *(a1 + 56) == 1)
+          v28 = *(result + 6);
+          if (v28 && *(result + 56) == 1)
           {
             btAlignedFreeInternal(v28);
           }
 
-          *(a1 + 56) = 1;
-          *(a1 + 48) = v24;
-          *(a1 + 40) = v22;
+          *(result + 56) = 1;
+          *(result + 6) = v24;
+          result[10] = v22;
         }
 
-        *(a1 + 36) = v22;
+        result[9] = v22;
         v15 = v22 - 4;
       }
 
@@ -1532,12 +4013,12 @@ void btDbvt::collideTTpersistentStack(uint64_t a1, uint64_t a2, uint64_t a3, uin
         {
           v39 = (v19 + 40);
           v40 = vld1q_dup_f64(v39);
-          *(*(a1 + 48) + 16 * v16) = v40;
+          *(*(result + 6) + 16 * v16) = v40;
           v41 = (v19 + 48);
           v42 = vld1q_dup_f64(v41);
-          *(*(a1 + 48) + 16 * v17) = v42;
+          *(*(result + 6) + 16 * v17) = v42;
           LODWORD(v16) = v17 + 2;
-          *(*(a1 + 48) + 16 * v17 + 16) = *(v19 + 40);
+          *(*(result + 6) + 16 * v17 + 16) = *(v19 + 40);
         }
       }
 
@@ -1550,31 +4031,31 @@ void btDbvt::collideTTpersistentStack(uint64_t a1, uint64_t a2, uint64_t a3, uin
           if (v29)
           {
             v31 = *(v20 + 40);
-            v32 = (*(a1 + 48) + 16 * v16);
+            v32 = (*(result + 6) + 16 * v16);
             *v32 = v30;
             v32[1] = v31;
             v33 = *(v20 + 40);
-            v34 = (*(a1 + 48) + 16 * v17);
+            v34 = (*(result + 6) + 16 * v17);
             *v34 = *(v19 + 48);
             v34[1] = v33;
             v35 = *(v20 + 48);
-            v36 = *(a1 + 48) + 16 * v17;
+            v36 = *(result + 6) + 16 * v17;
             *(v36 + 16) = *(v19 + 40);
             *(v36 + 24) = v35;
             v37 = *(v20 + 48);
             LODWORD(v16) = v17 + 3;
-            v38 = *(a1 + 48) + 16 * v17;
+            v38 = *(result + 6) + 16 * v17;
             *(v38 + 32) = *(v19 + 48);
             *(v38 + 40) = v37;
           }
 
           else
           {
-            v47 = (*(a1 + 48) + 16 * v16);
+            v47 = (*(result + 6) + 16 * v16);
             *v47 = v30;
             v47[1] = v20;
             LODWORD(v16) = v17 + 1;
-            v48 = (*(a1 + 48) + 16 * v17);
+            v48 = (*(result + 6) + 16 * v17);
             *v48 = *(v19 + 48);
             v48[1] = v20;
           }
@@ -1583,12 +4064,12 @@ void btDbvt::collideTTpersistentStack(uint64_t a1, uint64_t a2, uint64_t a3, uin
         else if (v29)
         {
           v43 = *(v20 + 40);
-          v44 = (*(a1 + 48) + 16 * v16);
+          v44 = (*(result + 6) + 16 * v16);
           *v44 = v19;
           v44[1] = v43;
           v45 = *(v20 + 48);
           LODWORD(v16) = v17 + 1;
-          v46 = (*(a1 + 48) + 16 * v17);
+          v46 = (*(result + 6) + 16 * v17);
           *v46 = v19;
           v46[1] = v45;
         }
@@ -1681,10 +4162,10 @@ uint32x2_t btDbvtBroadphase::collide(uint64_t a1)
   *(&v31[0] + 1) = a1;
   if (*(a1 + 285) == 1)
   {
-    btDbvt::collideTTpersistentStack(a1 + 8, *(a1 + 8), *(a1 + 104), v31);
+    btDbvt::collideTTpersistentStack((a1 + 8), *(a1 + 8), *(a1 + 104), v31);
     if (*(a1 + 285))
     {
-      btDbvt::collideTTpersistentStack(a1 + 8, *(a1 + 8), *(a1 + 8), v31);
+      btDbvt::collideTTpersistentStack((a1 + 8), *(a1 + 8), *(a1 + 8), v31);
     }
   }
 
@@ -2443,7 +4924,7 @@ void *btHashedOverlappingPairCache::findPair(uint64_t a1, uint64_t a2, uint64_t 
   return v15;
 }
 
-void *btHashedOverlappingPairCache::internalAddPair(btHashedOverlappingPairCache *this, uint64_t a2, uint64_t a3)
+uint64_t *btHashedOverlappingPairCache::internalAddPair(btHashedOverlappingPairCache *this, uint64_t a2, uint64_t a3)
 {
   v4 = *(a2 + 40);
   v5 = *(a3 + 40);
@@ -2914,7 +5395,7 @@ LABEL_25:
   }
 }
 
-void *btHashedOverlappingPairCache::addOverlappingPair(btHashedOverlappingPairCache *a1, void *a2, void *a3)
+uint64_t *btHashedOverlappingPairCache::addOverlappingPair(btHashedOverlappingPairCache *a1, void *a2, void *a3)
 {
   v6 = *(a1 + 5);
   if (v6)
@@ -2989,17 +5470,17 @@ void btQuantizedBvh::btQuantizedBvh(btQuantizedBvh *this)
   *(this + 2) = xmmword_21C2A2690;
 }
 
-void btQuantizedBvh::buildTree(btQuantizedBvh *this, int a2, int a3, double a4, double a5, float32x4_t a6, double a7, float32x4_t a8, float32x4_t a9, float a10, float32x4_t a11)
+void btQuantizedBvh::buildTree(uint64_t this, int a2, int a3, double a4, double a5, float32x4_t a6, double a7, float32x4_t a8, float32x4_t a9, float a10, float32x4_t a11)
 {
   v13 = a3 - a2;
-  v14 = *(this + 17);
+  v14 = *(this + 68);
   if (a3 - a2 != 1)
   {
     v16 = btQuantizedBvh::calcSplittingAxis(this, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11);
     v24 = btQuantizedBvh::sortAndCalcSplittingIndex(this, a2, a3, v16, v17, v18, v19, v20, v21, v22, v23);
-    v25 = *(this + 17);
-    btQuantizedBvh::setInternalNodeAabbMin(this, v25, this + 2);
-    v26 = btQuantizedBvh::setInternalNodeAabbMax(this, *(this + 17), this + 1);
+    v25 = *(this + 68);
+    btQuantizedBvh::setInternalNodeAabbMin(this, v25, (this + 32));
+    v26 = btQuantizedBvh::setInternalNodeAabbMax(this, *(this + 68), (this + 16));
     if (a3 > a2)
     {
       v29 = 16 * a2;
@@ -3008,17 +5489,17 @@ void btQuantizedBvh::buildTree(btQuantizedBvh *this, int a2, int a3, double a4, 
       {
         if (*(this + 72) == 1)
         {
-          v31 = (*(this + 20) + v29);
+          v31 = (*(this + 160) + v29);
           v26.i16[0] = *v31;
-          v32 = *(this + 12);
-          v33 = *(this + 13);
+          v32 = *(this + 48);
+          v33 = *(this + 52);
           LOWORD(v27) = v31[1];
           LOWORD(v28) = v31[2];
-          v34 = *(this + 14);
+          v34 = *(this + 56);
           v49.var0.var0[0] = v26.u32[0] / v32;
           v49.var0.var0[1] = v27 / v33;
           *&v49.var0.var0[2] = COERCE_UNSIGNED_INT(v28 / v34);
-          v35 = *(this + 1);
+          v35 = *(this + 16);
           v36 = vaddq_f32(v49, v35);
           v49 = v36;
           v36.i16[0] = v31[3];
@@ -3033,12 +5514,12 @@ void btQuantizedBvh::buildTree(btQuantizedBvh *this, int a2, int a3, double a4, 
 
         else
         {
-          v39 = (*(this + 12) + v30);
+          v39 = (*(this + 96) + v30);
           v49 = v39[-1];
           v38 = *v39;
         }
 
-        v40 = *(this + 17);
+        v40 = *(this + 68);
         v48 = v38;
         v26 = btQuantizedBvh::mergeInternalNodeAabb(this, v40, &v49, &v48);
         v29 += 16;
@@ -3050,19 +5531,19 @@ void btQuantizedBvh::buildTree(btQuantizedBvh *this, int a2, int a3, double a4, 
     }
 
     v41 = v25;
-    v42 = *(this + 17) + 1;
-    *(this + 17) = v42;
+    v42 = *(this + 68) + 1;
+    *(this + 68) = v42;
     btQuantizedBvh::buildTree(this, a2, v24);
-    v43 = *(this + 17);
+    v43 = *(this + 68);
     btQuantizedBvh::buildTree(this, v24, a3);
-    v44 = *(this + 17) - v14;
+    v44 = *(this + 68) - v14;
     if (*(this + 72) == 1 && v44 >= 129)
     {
       btQuantizedBvh::updateSubtreeHeaders(this, v42, v43);
       if ((*(this + 72) & 1) == 0)
       {
 LABEL_13:
-        *(*(this + 16) + (v41 << 6) + 32) = v44;
+        *(*(this + 128) + (v41 << 6) + 32) = v44;
         return;
       }
     }
@@ -3072,19 +5553,19 @@ LABEL_13:
       goto LABEL_13;
     }
 
-    *(*(this + 24) + 16 * v41 + 12) = -v44;
+    *(*(this + 192) + 16 * v41 + 12) = -v44;
     return;
   }
 
   if (*(this + 72) == 1)
   {
-    *(*(this + 24) + 16 * v14) = *(*(this + 20) + 16 * a2);
+    *(*(this + 192) + 16 * v14) = *(*(this + 160) + 16 * a2);
   }
 
   else
   {
-    v45 = (*(this + 12) + (a2 << 6));
-    v46 = (*(this + 16) + (v14 << 6));
+    v45 = (*(this + 96) + (a2 << 6));
+    v46 = (*(this + 128) + (v14 << 6));
     *v46 = *v45;
     v46[1] = v45[1];
     v47 = v45[3];
@@ -3092,7 +5573,7 @@ LABEL_13:
     v46[3] = v47;
   }
 
-  ++*(this + 17);
+  ++*(this + 68);
 }
 
 float32x4_t btQuantizedBvh::setQuantizationValues(float32x4_t *this, float32x4_t *a2, float32x4_t *a3, int32x2_t a4)
@@ -3570,9 +6051,9 @@ float32x4_t btQuantizedBvh::mergeInternalNodeAabb(float32x4_t *this, int a2, flo
   return result;
 }
 
-void btQuantizedBvh::updateSubtreeHeaders(btQuantizedBvh *this, int a2, int a3)
+void btQuantizedBvh::updateSubtreeHeaders(uint64_t this, int a2, int a3)
 {
-  v5 = *(this + 24);
+  v5 = *(this + 192);
   v6 = v5 + 16 * a2;
   v7 = *(v6 + 12);
   if (v7 < 0)
@@ -3599,9 +6080,9 @@ void btQuantizedBvh::updateSubtreeHeaders(btQuantizedBvh *this, int a2, int a3)
 
   if (v8 <= 0x80)
   {
-    v13 = *(this + 55);
+    v13 = *(this + 220);
     v14 = v13;
-    if (v13 == *(this + 56))
+    if (v13 == *(this + 224))
     {
       v15 = v13 ? 2 * v13 : 1;
       if (v13 < v15)
@@ -3609,7 +6090,7 @@ void btQuantizedBvh::updateSubtreeHeaders(btQuantizedBvh *this, int a2, int a3)
         if (v15)
         {
           v16 = btAlignedAllocInternal(32 * v15, 16);
-          v13 = *(this + 55);
+          v13 = *(this + 220);
         }
 
         else
@@ -3624,7 +6105,7 @@ void btQuantizedBvh::updateSubtreeHeaders(btQuantizedBvh *this, int a2, int a3)
           do
           {
             v19 = (v16 + v17);
-            v20 = (*(this + 29) + v17);
+            v20 = (*(this + 232) + v17);
             v21 = v20[1];
             *v19 = *v20;
             v19[1] = v21;
@@ -3634,21 +6115,21 @@ void btQuantizedBvh::updateSubtreeHeaders(btQuantizedBvh *this, int a2, int a3)
           while (v18 != v17);
         }
 
-        v22 = *(this + 29);
+        v22 = *(this + 232);
         if (v22 && *(this + 240) == 1)
         {
           btAlignedFreeInternal(v22);
         }
 
         *(this + 240) = 1;
-        *(this + 29) = v16;
-        *(this + 56) = v15;
-        v13 = *(this + 55);
+        *(this + 232) = v16;
+        *(this + 224) = v15;
+        v13 = *(this + 220);
       }
     }
 
-    *(this + 55) = v13 + 1;
-    v23 = *(this + 29) + 32 * v14;
+    *(this + 220) = v13 + 1;
+    v23 = *(this + 232) + 32 * v14;
     *v23 = *v6;
     *(v23 + 2) = *(v6 + 2);
     *(v23 + 4) = *(v6 + 4);
@@ -3661,9 +6142,9 @@ void btQuantizedBvh::updateSubtreeHeaders(btQuantizedBvh *this, int a2, int a3)
 
   if (v11 <= 128)
   {
-    v24 = *(this + 55);
+    v24 = *(this + 220);
     v25 = v24;
-    if (v24 == *(this + 56))
+    if (v24 == *(this + 224))
     {
       v26 = v24 ? 2 * v24 : 1;
       if (v24 < v26)
@@ -3671,7 +6152,7 @@ void btQuantizedBvh::updateSubtreeHeaders(btQuantizedBvh *this, int a2, int a3)
         if (v26)
         {
           v27 = btAlignedAllocInternal(32 * v26, 16);
-          v24 = *(this + 55);
+          v24 = *(this + 220);
         }
 
         else
@@ -3686,7 +6167,7 @@ void btQuantizedBvh::updateSubtreeHeaders(btQuantizedBvh *this, int a2, int a3)
           do
           {
             v30 = (v27 + v28);
-            v31 = (*(this + 29) + v28);
+            v31 = (*(this + 232) + v28);
             v32 = v31[1];
             *v30 = *v31;
             v30[1] = v32;
@@ -3696,21 +6177,21 @@ void btQuantizedBvh::updateSubtreeHeaders(btQuantizedBvh *this, int a2, int a3)
           while (v29 != v28);
         }
 
-        v33 = *(this + 29);
+        v33 = *(this + 232);
         if (v33 && *(this + 240) == 1)
         {
           btAlignedFreeInternal(v33);
         }
 
         *(this + 240) = 1;
-        *(this + 29) = v27;
-        *(this + 56) = v26;
-        v24 = *(this + 55);
+        *(this + 232) = v27;
+        *(this + 224) = v26;
+        v24 = *(this + 220);
       }
     }
 
-    *(this + 55) = v24 + 1;
-    v34 = *(this + 29) + 32 * v25;
+    *(this + 220) = v24 + 1;
+    v34 = *(this + 232) + 32 * v25;
     *v34 = *v9;
     *(v34 + 2) = *(v9 + 2);
     *(v34 + 4) = *(v9 + 4);
@@ -3721,7 +6202,7 @@ void btQuantizedBvh::updateSubtreeHeaders(btQuantizedBvh *this, int a2, int a3)
     *(v34 + 16) = v11;
   }
 
-  *(this + 62) = *(this + 55);
+  *(this + 248) = *(this + 220);
 }
 
 __n128 btQuantizedBvh::swapLeafNodes(btQuantizedBvh *this, int a2, int a3)
@@ -4145,7 +6626,7 @@ LABEL_52:
   return result;
 }
 
-float32x4_t *btQuantizedBvh::walkStacklessQuantizedTreeAgainstRay(float32x4_t *result, uint64_t a2, float32x4_t *a3, float32x4_t *a4, float32x4_t *a5, float32x4_t *a6, int a7, uint64_t a8)
+unint64_t btQuantizedBvh::walkStacklessQuantizedTreeAgainstRay(unint64_t result, uint64_t a2, float32x4_t *a3, float32x4_t *a4, float32x4_t *a5, float32x4_t *a6, int a7, uint64_t a8)
 {
   v8 = a7;
   v91 = *MEMORY[0x277D85DE8];
@@ -4177,11 +6658,11 @@ float32x4_t *btQuantizedBvh::walkStacklessQuantizedTreeAgainstRay(float32x4_t *r
     v24 = vminq_f32(v10, v9);
     v25 = vmaxq_f32(v10, v9);
     v26 = vaddq_f32(v24, *a5);
-    v27 = result[1];
-    v28 = result[2];
-    v29 = result[3];
+    v27 = *(result + 16);
+    v28 = *(result + 32);
+    v29 = *(result + 48);
     v30 = vmulq_f32(v29, vsubq_f32(vminq_f32(vmaxq_f32(v26, v27), v28), v27));
-    result = (v30.f32[0] & 0xFFFE);
+    result = v30.f32[0] & 0xFFFE;
     v31 = v30.f32[1] & 0xFFFE;
     v32 = v30.f32[2] & 0xFFFE;
     v33 = vmulq_f32(v29, vsubq_f32(vminq_f32(vmaxq_f32(vaddq_f32(v25, *a6), v27), v28), v27));
@@ -5392,7 +7873,7 @@ uint64_t SphereTriangleDetector::SphereTriangleDetector(uint64_t result, uint64_
   return result;
 }
 
-uint64_t SphereTriangleDetector::getClosestPoints(float *a1, float32x4_t *a2, uint64_t a3, uint64_t a4, int a5, float *a6)
+uint64_t SphereTriangleDetector::getClosestPoints(SphereTriangleDetector *a1, float32x4_t *a2, uint64_t a3, uint64_t a4, int a5, float *a6)
 {
   v39 = 0.0;
   v9 = a2[2];
@@ -5415,7 +7896,7 @@ uint64_t SphereTriangleDetector::getClosestPoints(float *a1, float32x4_t *a2, ui
   v37[2] = vmlaq_lane_f32(vmlaq_lane_f32(vmulq_lane_f32(v12, *v14.f32, 1), v13, *v15.f32, 1), v9, *v10.f32, 1);
   v37[3] = v17;
   v38 = vaddq_f32(vaddq_f32(vmulq_n_f32(v14, v11.f32[0]), vmulq_lane_f32(v15, *v11.f32, 1)), vmulq_laneq_f32(v10, v11, 2));
-  result = SphereTriangleDetector::collide(a1, &v38, &v41, &v40, &v39, a6, a1[6]);
+  result = SphereTriangleDetector::collide(a1, &v38, &v41, &v40, &v39, a6, *(a1 + 6));
   if (result)
   {
     v19 = a2[4];
@@ -5464,7 +7945,7 @@ uint64_t SphereTriangleDetector::getClosestPoints(float *a1, float32x4_t *a2, ui
   return result;
 }
 
-uint64_t SphereTriangleDetector::collide(SphereTriangleDetector *this, float32x4_t *a2, btVector3 *a3, btVector3 *a4, float *a5, float *a6, float a7)
+uint64_t SphereTriangleDetector::collide(SphereTriangleDetector *this, btVector3 *a2, btVector3 *a3, btVector3 *a4, float *a5, float *a6, float a7)
 {
   v12 = *(this + 2);
   v13 = v12[7].f32[3];
@@ -5687,7 +8168,7 @@ void btBoxBoxCollisionAlgorithm::~btBoxBoxCollisionAlgorithm(btBoxBoxCollisionAl
     (*(**(this + 1) + 32))(*(this + 1));
   }
 
-  C3DSceneSourcePerformConsistencyCheck(this);
+  C3DSceneSourcePerformConsistencyCheck();
 }
 
 {
@@ -5752,10 +8233,10 @@ btPersistentManifold *btBoxBoxCollisionAlgorithm::processCollision(btPersistentM
   return result;
 }
 
-void btBoxBoxCollisionAlgorithm::getAllContactManifolds(uint64_t a1, uint64_t a2)
+void btBoxBoxCollisionAlgorithm::getAllContactManifolds(uint64_t result, uint64_t a2)
 {
-  v2 = *(a1 + 24);
-  if (v2 && *(a1 + 16) == 1)
+  v2 = *(result + 24);
+  if (v2 && *(result + 16) == 1)
   {
     v5 = *(a2 + 4);
     if (v5 == *(a2 + 8))
@@ -5799,7 +8280,7 @@ void btBoxBoxCollisionAlgorithm::getAllContactManifolds(uint64_t a1, uint64_t a2
         *(a2 + 24) = 1;
         *(a2 + 16) = v7;
         *(a2 + 8) = v6;
-        v2 = *(a1 + 24);
+        v2 = *(result + 24);
       }
     }
 
@@ -5842,10 +8323,10 @@ float *dLineClosestApproach(float *result, const btVector3 *a2, const btVector3 
   return result;
 }
 
-void cullPoints2(int a1, float32x2_t *a2, int a3, int a4, int *a5)
+void cullPoints2(unsigned int a1, float32x2_t *a2, unsigned int a3, int a4, int *a5)
 {
   v35 = *MEMORY[0x277D85DE8];
-  v9 = (a1 - 1);
+  v9 = a1 - 1;
   if (a1 == 1)
   {
     v10 = *a2;
@@ -5881,7 +8362,7 @@ void cullPoints2(int a1, float32x2_t *a2, int a3, int a4, int *a5)
       while (v9);
     }
 
-    v16 = a2[a1 - 1];
+    v16 = *(a2 + 4 * (2 * a1) - 8);
     v17 = vmuls_lane_f32(-COERCE_FLOAT(*a2), v16, 1) + (v16.f32[0] * COERCE_FLOAT(HIDWORD(*a2)));
     v18 = v13 + v17;
     if (fabsf(v18) <= 0.00000011921)
@@ -5973,22 +8454,22 @@ LABEL_18:
   }
 }
 
-uint64_t dBoxBox2(float32x4_t *a1, float *a2, float32x2_t *a3, float32x4_t *a4, float *a5, float32x2_t *a6, float32x4_t *a7, float *a8, unsigned int *a9, int a10, uint64_t a11, uint64_t a12, uint64_t a13)
+uint64_t dBoxBox2(float32x4_t *a1, float32x2_t *a2, float32x2_t *a3, float32x4_t *a4, float32x2_t *a5, float32x2_t *a6, int8x16_t *a7, float *a8, unsigned int *a9, int a10, uint64_t a11, uint64_t a12, uint64_t a13)
 {
   v304 = *MEMORY[0x277D85DE8];
   _Q23 = vsubq_f32(*a4, *a1);
-  v14 = *a2;
-  v15 = a2[4];
-  v16 = a2[5];
-  v17 = a2[1];
-  _S5 = a2[8];
-  _S9 = a2[9];
-  v20 = a2 + 2;
-  v21 = a2[2];
+  v14 = a2->f32[0];
+  v15 = a2[2].f32[0];
+  v16 = a2[2].f32[1];
+  v17 = a2->f32[1];
+  _S5 = a2[4].f32[0];
+  _S9 = a2[4].f32[1];
+  v20 = &a2[1];
+  v21 = a2[1].f32[0];
   __asm { FMLA            S21, S5, V23.S[2] }
 
-  v27 = a2[6];
-  _S28 = a2[10];
+  v27 = a2[3].f32[0];
+  _S28 = a2[5].f32[0];
   v29 = vmul_f32(*a3, 0x3F0000003F000000);
   v302 = v29;
   v30 = a3[1].f32[0] * 0.5;
@@ -5997,18 +8478,18 @@ uint64_t dBoxBox2(float32x4_t *a1, float *a2, float32x2_t *a3, float32x4_t *a4, 
   v300 = _D4;
   v32 = a6[1].f32[0] * 0.5;
   v301 = v32;
-  v33 = *a5;
-  v35 = a5[4];
-  v34 = a5[5];
-  v37 = a5[8];
-  v36 = a5[9];
-  v38 = ((v15 * v35) + (v14 * *a5)) + (_S5 * v37);
-  v39 = a5[1];
+  v33 = a5->f32[0];
+  v35 = a5[2].f32[0];
+  v34 = a5[2].f32[1];
+  v37 = a5[4].f32[0];
+  v36 = a5[4].f32[1];
+  v38 = ((v15 * v35) + (v14 * a5->f32[0])) + (_S5 * v37);
+  v39 = a5->f32[1];
   v40 = ((v15 * v34) + (v14 * v39)) + (_S5 * v36);
-  v41 = a5 + 2;
-  v42 = a5[2];
-  v43 = a5[6];
-  v44 = a5[10];
+  v41 = &a5[1];
+  v42 = a5[1].f32[0];
+  v43 = a5[3].f32[0];
+  v44 = a5[5].f32[0];
   v45 = ((v15 * v43) + (v14 * v42)) + (_S5 * v44);
   v46 = fabsf(v38);
   _S25 = fabsf(v40);
@@ -6442,10 +8923,10 @@ uint64_t dBoxBox2(float32x4_t *a1, float *a2, float32x2_t *a3, float32x4_t *a4, 
       v264 = 0.0 / v142;
 LABEL_86:
       v144 = ((v266 * v137) + (v14 * v96)) + (v267 * v264);
-      a7->f32[0] = v144;
-      v145 = ((v137 * a2[5]) + (a2[4] * v96)) + (a2[6] * v264);
-      a7->f32[1] = v145;
-      v146 = ((v137 * a2[9]) + (a2[8] * v96)) + (a2[10] * v264);
+      *a7->i32 = v144;
+      v145 = ((v137 * a2[2].f32[1]) + (a2[2].f32[0] * v96)) + (a2[3].f32[0] * v264);
+      *&a7->i32[1] = v145;
+      v146 = ((v137 * a2[4].f32[1]) + (a2[4].f32[0] * v96)) + (a2[5].f32[0] * v264);
       goto LABEL_87;
     }
   }
@@ -6461,30 +8942,30 @@ LABEL_86:
   }
 
   v144 = *v41;
-  a7->f32[0] = *v41;
+  a7->i32[0] = *v41;
   v145 = v41[4];
-  a7->f32[1] = v145;
+  *&a7->i32[1] = v145;
   v146 = v41[8];
 LABEL_87:
-  a7->f32[2] = v146;
+  *&a7->i32[2] = v146;
   if (v81)
   {
-    a7->f32[0] = -v144;
-    a7->f32[1] = -v145;
-    a7->f32[2] = -v146;
+    *a7->i32 = -v144;
+    *&a7->i32[1] = -v145;
+    *&a7->i32[2] = -v146;
   }
 
   *a8 = -v278;
   if (v83 < 7)
   {
-    v280 = a7->f32[0];
+    v280 = *a7->i32;
     if (v83 > 3)
     {
-      v280 = -a7->f32[0];
-      v279 = -a7->f32[1];
+      v280 = -*a7->i32;
+      v279 = -*&a7->i32[1];
       v168 = &v300;
       v169 = &v302;
-      v275 = -a7->f32[2];
+      v275 = -*&a7->i32[2];
       v170 = a1;
       v91 = a4;
       v171 = a2;
@@ -6493,8 +8974,8 @@ LABEL_87:
 
     else
     {
-      v279 = a7->f32[1];
-      v275 = a7->f32[2];
+      v279 = *&a7->i32[1];
+      v275 = *&a7->i32[2];
       v168 = &v302;
       v169 = &v300;
       v170 = a4;
@@ -6588,12 +9069,12 @@ LABEL_87:
       v186 = 1;
     }
 
-    v187 = &a2[v186];
+    v187 = a2 + v186;
     v188 = *v187;
     v189 = v187[4];
     v190 = v187[8];
     v191 = ((v286 * v189) + (v285 * *v187)) + (v287 * v190);
-    v192 = &a2[v185];
+    v192 = a2 + v185;
     v193 = *v192;
     v194 = v192[4];
     v195 = v192[8];
@@ -6711,7 +9192,7 @@ LABEL_87:
           v261 = v291.var0.var0[v258];
           do
           {
-            *&v290.i32[v260] = (v259->var0.var0[v260] + v91->f32[v260]) - (a7->f32[v260] * v261);
+            *&v290.i32[v260] = (v259->var0.var0[v260] + v91->f32[v260]) - (*&a7->i32[v260] * v261);
             ++v260;
           }
 
@@ -6817,14 +9298,14 @@ LABEL_87:
     v148 = 0;
     *v292.var0.var0 = a1->i64[0];
     LODWORD(v292.var0.var0[2]) = a1->i32[2];
-    v150 = a7->f32[0];
-    v149 = a7->f32[1];
-    v151 = a7->f32[2];
+    v150 = *a7->i32;
+    v149 = *&a7->i32[1];
+    v151 = *&a7->i32[2];
     v152 = a2;
     do
     {
       v153 = 0;
-      if ((((v149 * a2[v148 + 4]) + (v150 * a2[v148])) + (v151 * a2[v148 + 8])) <= 0.0)
+      if ((((v149 * a2[2].f32[v148]) + (v150 * a2->f32[v148])) + (v151 * a2[4].f32[v148])) <= 0.0)
       {
         v154 = -v302.f32[v148];
       }
@@ -6849,12 +9330,12 @@ LABEL_87:
     v155 = 0;
     *v293.var0.var0 = a4->i64[0];
     LODWORD(v293.var0.var0[2]) = a4->i32[2];
-    v156 = a7->f32[0];
+    v156 = *a7->i32;
     v157 = a5;
     do
     {
       v158 = 0;
-      if ((((v149 * a5[v155 + 4]) + (v156 * a5[v155])) + (v151 * a5[v155 + 8])) <= 0.0)
+      if ((((v149 * a5[2].f32[v155]) + (v156 * a5->f32[v155])) + (v151 * a5[4].f32[v155])) <= 0.0)
       {
         v159 = v300.f32[v155];
       }
@@ -6877,7 +9358,7 @@ LABEL_87:
 
     while (v155 != 3);
     v160 = 0;
-    v161 = &a2[(v83 - 7) / 3uLL];
+    v161 = a2 + (v83 - 7) / 3uLL;
     v288.i32[0] = 0;
     v285 = 0.0;
     v162 = v161[4];
@@ -6886,7 +9367,7 @@ LABEL_87:
     v295.var0.var0[2] = v161[8];
     do
     {
-      v291.var0.var0[v160] = a5[v83 - 7 + v160 * 4 + -3 * (((v83 - 7) * 0x5555555555555556uLL) >> 64)];
+      v291.var0.var0[v160] = *(&a5[-3] + v83 + v160 * 4 + -3 * (((v83 - 7) * 0x5555555555555556uLL) >> 64) - 1);
       ++v160;
     }
 
@@ -7160,7 +9641,7 @@ void btCollisionDispatcher::~btCollisionDispatcher(btCollisionDispatcher *this)
   *(this + 5) = 0;
   *(this + 6) = 0;
 
-  C3DSceneSourcePerformConsistencyCheck(this);
+  C3DSceneSourcePerformConsistencyCheck();
 }
 
 {
@@ -7372,2474 +9853,5 @@ BOOL btCollisionDispatcher::needsResponse(btCollisionDispatcher *this, const btC
     return result && v9;
   }
 
-  return result;
-}
-
-uint64_t btCollisionDispatcher::needsCollision(btCollisionDispatcher *this, const btCollisionObject *a2, const btCollisionObject *a3)
-{
-  v3 = *(a2 + 61);
-  if (v3 == 5 || v3 == 2)
-  {
-    v5 = *(a3 + 61);
-    if (v5 == 2 || v5 == 5)
-    {
-      return 0;
-    }
-  }
-
-  if (*(a2 + 73))
-  {
-    return (**a2)(a2, a3);
-  }
-
-  return 1;
-}
-
-uint64_t btCollisionDispatcher::dispatchAllCollisionPairs(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
-{
-  v5[0] = &unk_282DC8E30;
-  v5[1] = a3;
-  v5[2] = a1;
-  return (*(*a2 + 96))(a2, v5, a4);
-}
-
-void *btCollisionDispatcher::allocateCollisionAlgorithm(btCollisionDispatcher *this, int a2)
-{
-  v2 = *(this + 13);
-  v3 = *(v2 + 8);
-  if (!v3)
-  {
-    return btAlignedAllocInternal(a2, 16);
-  }
-
-  result = *(v2 + 16);
-  *(v2 + 16) = *result;
-  *(v2 + 8) = v3 - 1;
-  return result;
-}
-
-void btCollisionDispatcher::freeCollisionAlgorithm(btCollisionDispatcher *this, void **a2)
-{
-  if (a2 && (v2 = *(this + 13), v3 = *(v2 + 3), v3 <= a2) && v3 + *v2 * v2[1] > a2)
-  {
-    *a2 = *(v2 + 2);
-    *(v2 + 2) = a2;
-    ++v2[2];
-  }
-
-  else
-  {
-    btAlignedFreeInternal(a2);
-  }
-}
-
-void btCollisionObject::btCollisionObject(btCollisionObject *this)
-{
-  *this = &unk_282DC8E58;
-  *(this + 11) = xmmword_21C280340;
-  *(this + 24) = 0x5D5E0B6B00000000;
-  *(this + 200) = 0u;
-  *(this + 216) = 0u;
-  *(this + 232) = xmmword_21C2A4000;
-  *(this + 248) = xmmword_21C2A4010;
-  *(this + 66) = 1;
-  *(this + 34) = 0;
-  *(this + 35) = 1065353216;
-  *(this + 36) = 0;
-  *(this + 1) = xmmword_21C27F910;
-  *(this + 2) = xmmword_21C27F8C0;
-  *(this + 3) = xmmword_21C27F600;
-  *(this + 8) = 0;
-  *(this + 9) = 0;
-}
-
-btCollisionObject *btCollisionObject::setActivationState(btCollisionObject *this, int a2)
-{
-  if ((*(this + 61) & 0xFFFFFFFE) != 4)
-  {
-    *(this + 61) = a2;
-  }
-
-  return this;
-}
-
-btCollisionObject *btCollisionObject::activate(btCollisionObject *this, char a2)
-{
-  if ((a2 & 1) != 0 || (*(this + 232) & 3) == 0)
-  {
-    if ((*(this + 61) & 0xFFFFFFFE) != 4)
-    {
-      *(this + 61) = 1;
-    }
-
-    *(this + 62) = 0;
-  }
-
-  return this;
-}
-
-const char *btCollisionObject::serialize(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  v6 = 0;
-  for (i = 0; i != 3; ++i)
-  {
-    v8 = 4;
-    v9 = v6;
-    do
-    {
-      *(a2 + v9 + 32) = *(a1 + v9 + 16);
-      v9 += 4;
-      --v8;
-    }
-
-    while (v8);
-    v6 += 16;
-  }
-
-  for (j = 0; j != 16; j += 4)
-  {
-    *(a2 + j + 80) = *(a1 + j + 64);
-  }
-
-  v11 = 0;
-  for (k = 0; k != 3; ++k)
-  {
-    v13 = 4;
-    v14 = v11;
-    do
-    {
-      *(a2 + v14 + 96) = *(a1 + v14 + 80);
-      v14 += 4;
-      --v13;
-    }
-
-    while (v13);
-    v11 += 16;
-  }
-
-  for (m = 0; m != 16; m += 4)
-  {
-    *(a2 + m + 144) = *(a1 + m + 128);
-  }
-
-  for (n = 0; n != 16; n += 4)
-  {
-    *(a2 + n + 160) = *(a1 + n + 144);
-  }
-
-  for (ii = 0; ii != 16; ii += 4)
-  {
-    *(a2 + ii + 176) = *(a1 + ii + 160);
-  }
-
-  for (jj = 0; jj != 16; jj += 4)
-  {
-    *(a2 + jj + 192) = *(a1 + jj + 176);
-  }
-
-  *(a2 + 240) = *(a1 + 192);
-  *(a2 + 208) = *(a1 + 196);
-  *a2 = 0;
-  *(a2 + 8) = (*(*a3 + 56))(a3, *(a1 + 208));
-  *(a2 + 16) = 0;
-  *(a2 + 244) = *(a1 + 232);
-  v19 = vrev64q_s32(*(a1 + 248));
-  v19.i64[0] = *(a1 + 248);
-  *(a2 + 212) = v19;
-  *(a2 + 260) = *(a1 + 264);
-  v20 = (*(*a3 + 80))(a3, a1);
-  v21 = (*(*a3 + 56))(a3, v20);
-  *(a2 + 24) = v21;
-  if (v21)
-  {
-    (*(*a3 + 96))(a3, v20);
-  }
-
-  *(a2 + 228) = *(a1 + 280);
-  *(a2 + 236) = *(a1 + 288);
-  *(a2 + 264) = *(a1 + 292);
-  return "btCollisionObjectFloatData";
-}
-
-uint64_t btCollisionObject::serializeSingleObject(uint64_t a1, uint64_t a2)
-{
-  v4 = (*(*a1 + 32))(a1);
-  v5 = (*(*a2 + 32))(a2, v4, 1);
-  v6 = (*(*a1 + 40))(a1, *(v5 + 8), a2);
-  v7 = *(*a2 + 40);
-
-  return v7(a2, v5, v6, 1245859651, a1);
-}
-
-btCollisionObject *btCollisionObject::setCollisionShape(btCollisionObject *this, btCollisionShape *a2)
-{
-  *(this + 26) = a2;
-  *(this + 28) = a2;
-  return this;
-}
-
-double btCollisionWorld::btCollisionWorld(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  *a1 = &unk_282DC8EA0;
-  *(a1 + 32) = 1;
-  *(a1 + 24) = 0;
-  *(a1 + 12) = 0;
-  *(a1 + 16) = 0;
-  *(a1 + 40) = a2;
-  *(a1 + 48) = 0;
-  *&result = 0x100000000;
-  *(a1 + 52) = 0x100000000;
-  *(a1 + 60) = 1065353216;
-  *(a1 + 64) = 1;
-  *(a1 + 72) = 0;
-  *(a1 + 80) = 256;
-  *(a1 + 82) = 1;
-  *(a1 + 84) = 1025758986;
-  *(a1 + 88) = 0;
-  *(a1 + 92) = 0;
-  *(a1 + 96) = a3;
-  *(a1 + 104) = 0;
-  *(a1 + 112) = 1;
-  return result;
-}
-
-void btCollisionWorld::~btCollisionWorld(btCollisionWorld *this)
-{
-  *this = &unk_282DC8EA0;
-  v2 = *(this + 3);
-  if (v2 >= 1)
-  {
-    for (i = 0; i < v2; ++i)
-    {
-      v4 = *(*(this + 3) + 8 * i);
-      v5 = *(v4 + 200);
-      if (v5)
-      {
-        v6 = (*(**(this + 12) + 72))(*(this + 12));
-        (*(*v6 + 80))(v6, v5, *(this + 5));
-        (*(**(this + 12) + 24))(*(this + 12), v5, *(this + 5));
-        *(v4 + 200) = 0;
-        v2 = *(this + 3);
-      }
-    }
-  }
-
-  v7 = *(this + 3);
-  if (v7 && *(this + 32) == 1)
-  {
-    btAlignedFreeInternal(v7);
-  }
-
-  *(this + 32) = 1;
-  *(this + 3) = 0;
-  *(this + 3) = 0;
-  *(this + 4) = 0;
-}
-
-{
-  btCollisionWorld::~btCollisionWorld(this);
-
-  JUMPOUT(0x21CF07610);
-}
-
-uint64_t btCollisionWorld::addCollisionObject(btCollisionWorld *this, btCollisionObject *a2, uint64_t a3, uint64_t a4, uint64_t a5)
-{
-  v10 = *(this + 3);
-  if (v10 == *(this + 4))
-  {
-    v11 = v10 ? 2 * v10 : 1;
-    if (v10 < v11)
-    {
-      if (v11)
-      {
-        v12 = btAlignedAllocInternal(8 * v11, 16);
-        v10 = *(this + 3);
-      }
-
-      else
-      {
-        v12 = 0;
-      }
-
-      if (v10 >= 1)
-      {
-        v13 = 0;
-        do
-        {
-          *(v12 + v13) = *(*(this + 3) + v13);
-          v13 += 8;
-        }
-
-        while (8 * v10 != v13);
-      }
-
-      v14 = *(this + 3);
-      if (v14 && *(this + 32) == 1)
-      {
-        btAlignedFreeInternal(v14);
-        v10 = *(this + 3);
-      }
-
-      *(this + 32) = 1;
-      *(this + 3) = v12;
-      *(this + 4) = v11;
-    }
-  }
-
-  *(*(this + 3) + 8 * v10) = a2;
-  *(this + 3) = v10 + 1;
-  v15 = *(a2 + 2);
-  v20[0] = *(a2 + 1);
-  v20[1] = v15;
-  v16 = *(a2 + 4);
-  v20[2] = *(a2 + 3);
-  v20[3] = v16;
-  (*(**(a2 + 26) + 16))(*(a2 + 26), v20, v19, v18);
-  result = (*(**(this + 12) + 16))(*(this + 12), v19, v18, *(*(a2 + 26) + 8), a2, a3, a4, a5, *(this + 5), 0);
-  *(a2 + 25) = result;
-  return result;
-}
-
-btCollisionObject *btCollisionWorld::updateSingleAabb(btCollisionWorld *this, btCollisionObject *a2)
-{
-  (*(**(a2 + 26) + 16))(*(a2 + 26), a2 + 16, &v15, &v14);
-  v4 = &gContactBreakingThreshold;
-  v5 = vld1q_dup_f32(v4);
-  v5.i32[3] = 0;
-  v6 = vsubq_f32(v15, v5);
-  v15 = v6;
-  v7 = vaddq_f32(v14, v5);
-  v14 = v7;
-  if (*(this + 64) == 1 && *(a2 + 66) == 2 && (*(a2 + 232) & 3) == 0)
-  {
-    v11 = v5;
-    (*(**(a2 + 26) + 16))(*(a2 + 26), a2 + 80, &v13, &v12);
-    v6 = vminq_f32(v15, vsubq_f32(v13, v11));
-    v15 = v6;
-    v7 = vmaxq_f32(v14, vaddq_f32(v11, v12));
-    v14 = v7;
-  }
-
-  if (*(a2 + 232))
-  {
-    return (*(**(this + 12) + 32))(*(this + 12), *(a2 + 25), &v15, &v14, *(this + 5));
-  }
-
-  v8 = vsubq_f32(v7, v6);
-  v8.i32[3] = 0;
-  v9 = vmulq_f32(v8, v8);
-  if (vadd_f32(vpadd_f32(*v9.i8, *v9.i8), *&vextq_s8(v9, v9, 8uLL)).f32[0] < 1.0e12)
-  {
-    return (*(**(this + 12) + 32))(*(this + 12), *(a2 + 25), &v15, &v14, *(this + 5));
-  }
-
-  result = btCollisionObject::setActivationState(a2, 5);
-  if ((btCollisionWorld::updateSingleAabb(btCollisionObject *)::reportMe & 1) == 0)
-  {
-    result = *(this + 13);
-    if (result)
-    {
-      btCollisionWorld::updateSingleAabb(btCollisionObject *)::reportMe = 1;
-      (*(*result + 72))(result, "Overflow in AABB, object removed from simulation");
-      (*(**(this + 13) + 72))(*(this + 13), "If you can reproduce this, please email bugs@continuousphysics.com\n");
-      (*(**(this + 13) + 72))(*(this + 13), "Please include above information, your Platform, version of OS.\n");
-      return (*(**(this + 13) + 72))(*(this + 13), "Thanks.\n");
-    }
-  }
-
-  return result;
-}
-
-btCollisionObject *btCollisionWorld::updateAabbs(btCollisionObject *this)
-{
-  v1 = *(this + 3);
-  if (v1 >= 1)
-  {
-    v2 = this;
-    for (i = 0; i < v1; ++i)
-    {
-      v4 = *(*(v2 + 24) + 8 * i);
-      if ((*(v2 + 112) & 1) == 0)
-      {
-        v5 = *(v4 + 244);
-        if (v5 == 2 || v5 == 5)
-        {
-          continue;
-        }
-      }
-
-      this = btCollisionWorld::updateSingleAabb(v2, v4);
-      v1 = *(v2 + 12);
-    }
-  }
-
-  return this;
-}
-
-uint64_t btCollisionWorld::performDiscreteCollisionDetection(btCollisionWorld *this)
-{
-  (*(*this + 16))(this);
-  result = (*(*this + 24))(this);
-  v3 = *(this + 5);
-  if (v3)
-  {
-    v4 = (*(**(this + 12) + 72))(*(this + 12));
-    v5 = *(this + 5);
-    v6 = *(*v3 + 64);
-
-    return v6(v3, v4, this + 48, v5);
-  }
-
-  return result;
-}
-
-uint64_t btCollisionWorld::removeCollisionObject(btCollisionWorld *this, btCollisionObject *a2)
-{
-  v7 = a2;
-  v3 = *(a2 + 25);
-  if (v3)
-  {
-    v5 = (*(**(this + 12) + 72))(*(this + 12));
-    (*(*v5 + 80))(v5, v3, *(this + 5));
-    (*(**(this + 12) + 24))(*(this + 12), v3, *(this + 5));
-    *(a2 + 25) = 0;
-  }
-
-  return btAlignedObjectArray<btCollisionObject *>::remove(this + 8, &v7);
-}
-
-uint64_t btAlignedObjectArray<btCollisionObject *>::remove(uint64_t result, void *a2)
-{
-  v2 = *(result + 4);
-  if (v2 >= 1)
-  {
-    v3 = 0;
-    v4 = *(result + 16);
-    while (*(v4 + 8 * v3) != *a2)
-    {
-      if (v2 == ++v3)
-      {
-        return result;
-      }
-    }
-
-    if (v2 > v3)
-    {
-      v5 = v2 - 1;
-      v6 = *(v4 + 8 * v3);
-      *(v4 + 8 * v3) = *(v4 + 8 * v5);
-      *(*(result + 16) + 8 * v5) = v6;
-      *(result + 4) = v5;
-    }
-  }
-
-  return result;
-}
-
-uint64_t btCollisionWorld::rayTestSingleInternal(float32x4_t *a1, uint64_t a2, void *a3, uint64_t a4)
-{
-  v111 = *MEMORY[0x277D85DE8];
-  btConvexInternalShape::btConvexInternalShape(&v107);
-  v107 = &unk_282DCA7E8;
-  v108 = 8;
-  v109 = 0;
-  v110 = 0;
-  v8 = a3[1];
-  v9 = a3[3];
-  v10 = *(v8 + 8);
-  if (v10 == 28)
-  {
-    v11 = *(v9 + 16);
-    v12 = *(v9 + 32);
-    v13 = vtrn1q_s32(*v9, v11);
-    v14 = vzip2_s32(*v12.i8, 0);
-    v15 = vextq_s8(v12, v12, 8uLL).u32[0];
-    v16.i64[0] = vextq_s8(v13, v13, 8uLL).u64[0];
-    v13.i64[1] = v12.u32[0];
-    v12.i64[0] = 0x8000000080000000;
-    v12.i64[1] = 0x8000000080000000;
-    v17 = veorq_s8(*(v9 + 48), v12);
-    v18 = vmulq_f32(v13, v17);
-    *v19.f32 = vzip2_s32(*v9, *v11.i8);
-    *&v19.u32[2] = v14;
-    v20 = vmulq_f32(v19, v17);
-    v16.i64[1] = v15;
-    v21 = vmulq_f32(v16, v17);
-    v21.i32[3] = 0;
-    *v18.f32 = vadd_f32(vpadd_f32(*v18.f32, *v20.i8), vzip1_s32(*&vextq_s8(v18, v18, 8uLL), *&vextq_s8(v20, v20, 8uLL)));
-    v22 = a1[3];
-    v23 = vmulq_f32(v13, v22);
-    v24 = vmulq_f32(v19, v22);
-    v25 = vmulq_f32(v16, v22);
-    v25.i32[3] = 0;
-    *v23.f32 = vadd_f32(vpadd_f32(*v23.f32, *v24.i8), vzip1_s32(*&vextq_s8(v23, v23, 8uLL), *&vextq_s8(v24, v24, 8uLL)));
-    *&v23.u32[2] = vpadd_f32(vpadd_f32(*v25.i8, *&vextq_s8(v25, v25, 8uLL)), 0);
-    *&v18.u32[2] = vpadd_f32(vpadd_f32(*v21.i8, *&vextq_s8(v21, v21, 8uLL)), 0);
-    v26 = *(a2 + 48);
-    v27 = vmulq_f32(v13, v26);
-    v28 = vmulq_f32(v19, v26);
-    v29 = vmulq_f32(v16, v26);
-    v29.i32[3] = 0;
-    *v28.f32 = vadd_f32(vpadd_f32(*v27.i8, *v28.f32), vzip1_s32(*&vextq_s8(v27, v27, 8uLL), *&vextq_s8(v28, v28, 8uLL)));
-    *&v28.u32[2] = vpadd_f32(vpadd_f32(*v29.i8, *&vextq_s8(v29, v29, 8uLL)), 0);
-    v30 = vaddq_f32(v18, v23);
-    v31 = vsubq_f32(vaddq_f32(v18, v28), v30);
-    v31.i32[3] = 0;
-    v32 = vmulq_f32(v31, v31);
-    v33 = sqrtf(vadd_f32(*&vextq_s8(v32, v32, 8uLL), vpadd_f32(*v32.i8, *v32.i8)).f32[0]);
-    v34 = *(v8 + 64);
-    v34.i32[3] = *(v8 + 80);
-    v35 = vmulq_f32(v34, vmulq_n_f32(v31, 1.0 / v33));
-    v36 = vadd_f32(vpadd_f32(*v35.i8, *v35.i8), *&vextq_s8(v35, v35, 8uLL)).f32[0];
-    if (v36 != 0.0)
-    {
-      v37 = vmulq_f32(v30, v34);
-      v38 = -(*(v8 + 80) + vadd_f32(*&vextq_s8(v37, v37, 8uLL), vpadd_f32(*v37.i8, *v37.i8)).f32[0]) / v36;
-      if (v38 >= -0.00000011921 && v38 <= v33)
-      {
-        v40 = v38 / v33;
-        if (v40 < *(a4 + 8))
-        {
-          v87 = a3[2];
-          v88 = 0;
-          v89 = v34;
-          *&v90 = v40;
-          (*(*a4 + 24))(a4, &v87, 0);
-        }
-      }
-    }
-  }
-
-  else if (v10 > 19)
-  {
-    if ((v10 - 21) > 8)
-    {
-      if (v10 == 31)
-      {
-        v71 = *(v8 + 96);
-        v72 = a3[2];
-        v87 = &unk_282DC8FB0;
-        v88 = v72;
-        v89.i64[0] = v8;
-        v89.i64[1] = v9;
-        v90 = a1;
-        v91 = a2;
-        v92 = a4;
-        if (v71)
-        {
-          v74 = *(v9 + 32);
-          v73 = *(v9 + 48);
-          v75 = vsubq_f32(a1[3], v73);
-          v75.i32[3] = 0;
-          v76 = *v9;
-          v77 = *(v9 + 16);
-          v76.i32[3] = 0;
-          v77.i32[3] = 0;
-          v74.i32[3] = 0;
-          v102 = vaddq_f32(vaddq_f32(vmulq_n_f32(v76, v75.f32[0]), vmulq_lane_f32(v77, *v75.f32, 1)), vmulq_laneq_f32(v74, v75, 2));
-          v78 = vsubq_f32(*(a2 + 48), v73);
-          v78.i32[3] = 0;
-          v84 = vaddq_f32(vaddq_f32(vmulq_n_f32(v76, v78.f32[0]), vmulq_lane_f32(v77, *v78.f32, 1)), vmulq_laneq_f32(v74, v78, 2));
-          btDbvt::rayTest(*v71, &v102, &v84, &v87);
-        }
-
-        else
-        {
-          v80 = *(v8 + 28);
-          if (v80 >= 1)
-          {
-            v81 = 0;
-            do
-            {
-              btCollisionWorld::rayTestSingleInternal(btTransform const&,btTransform const&,btCollisionObjectWrapper const*,btCollisionWorld::RayResultCallback &)::RayTester::ProcessLeaf(&v87, v81);
-              v81 = (v81 + 1);
-            }
-
-            while (v80 != v81);
-          }
-        }
-      }
-    }
-
-    else
-    {
-      v45 = *(v9 + 16);
-      v46 = *(v9 + 32);
-      v47 = vzip2_s32(*v46.f32, 0);
-      v48 = vextq_s8(v46, v46, 8uLL).u32[0];
-      v49 = vtrn1q_s32(*v9, v45);
-      v46.i64[0] = vextq_s8(v49, v49, 8uLL).u64[0];
-      v49.i64[1] = *(v9 + 32);
-      v50.i64[0] = 0x8000000080000000;
-      v50.i64[1] = 0x8000000080000000;
-      v51 = veorq_s8(*(v9 + 48), v50);
-      v52 = vmulq_f32(v49, v51);
-      *v45.f32 = vzip2_s32(*v9, *v45.f32);
-      *&v45.u32[2] = v47;
-      v53 = vmulq_f32(v45, v51);
-      *v53.f32 = vadd_f32(vpadd_f32(*v52.i8, *v53.f32), vzip1_s32(*&vextq_s8(v52, v52, 8uLL), *&vextq_s8(v53, v53, 8uLL)));
-      v46.i64[1] = v48;
-      v54 = vmulq_f32(v46, v51);
-      v54.i32[3] = 0;
-      *&v53.u32[2] = vpadd_f32(vpadd_f32(*v54.i8, *&vextq_s8(v54, v54, 8uLL)), 0);
-      v55 = a1[3];
-      v56 = vmulq_f32(v49, v55);
-      v57 = vmulq_f32(v45, v55);
-      v58 = vmulq_f32(v46, v55);
-      v58.i32[3] = 0;
-      *v56.f32 = vadd_f32(vpadd_f32(*v56.f32, *v57.i8), vzip1_s32(*&vextq_s8(v56, v56, 8uLL), *&vextq_s8(v57, v57, 8uLL)));
-      *&v56.u32[2] = vpadd_f32(vpadd_f32(*v58.i8, *&vextq_s8(v58, v58, 8uLL)), 0);
-      v102 = vaddq_f32(v53, v56);
-      v59 = *(a2 + 48);
-      v60 = vmulq_f32(v49, v59);
-      v61 = vmulq_f32(v45, v59);
-      v62 = vmulq_f32(v46, v59);
-      v62.i32[3] = 0;
-      *v60.f32 = vadd_f32(vpadd_f32(*v60.f32, *v61.i8), vzip1_s32(*&vextq_s8(v60, v60, 8uLL), *&vextq_s8(v61, v61, 8uLL)));
-      *&v60.u32[2] = vpadd_f32(vpadd_f32(*v62.i8, *&vextq_s8(v62, v62, 8uLL)), 0);
-      v84 = vaddq_f32(v53, v60);
-      v63 = a3[2];
-      if (v10 == 21)
-      {
-        btTriangleRaycastCallback::btTriangleRaycastCallback(&v87, &v102, &v84, *(a4 + 48));
-        v87 = &unk_282DC8F50;
-        v93 = a4;
-        v94 = v63;
-        v95 = v8;
-        v96 = *v9;
-        v97 = *(v9 + 16);
-        v98 = *(v9 + 32);
-        v99 = *(v9 + 48);
-        HIDWORD(v92) = *(a4 + 8);
-        btBvhTriangleMeshShape::performRaycast(v8, &v87, &v102, &v84, COERCE_DOUBLE(__PAIR64__(DWORD1(v99), HIDWORD(v92))), v64, v65, v66, v67, v68, v69, v70);
-      }
-
-      else
-      {
-        btTriangleRaycastCallback::btTriangleRaycastCallback(&v87, &v102, &v84, *(a4 + 48));
-        v87 = &unk_282DC8F80;
-        v93 = a4;
-        v94 = v63;
-        v95 = v8;
-        v96 = *v9;
-        v97 = *(v9 + 16);
-        v98 = *(v9 + 32);
-        v99 = *(v9 + 48);
-        HIDWORD(v92) = *(a4 + 8);
-        v82 = vmaxq_f32(v102, v84);
-        v83[0] = vminq_f32(v102, v84);
-        (*(*v8 + 128))(v8, &v87, v83, &v82);
-      }
-
-      C3DSceneSourcePerformConsistencyCheck(&v87);
-    }
-  }
-
-  else
-  {
-    *v102.var0.var0 = &unk_282DC8F18;
-    v105 = 0;
-    v106 = 0;
-    v104 = *(a4 + 8);
-    v100 = 953267991;
-    v101 = 0;
-    btSubsimplexConvexCast::btSubsimplexConvexCast(v83, &v107, v8, &v87);
-    if (btSubsimplexConvexCast::calcTimeOfImpact(v83, a1, a2, v9, v9, &v102))
-    {
-      v41 = vmulq_f32(v103, v103);
-      if (vadd_f32(vpadd_f32(*v41.i8, *v41.i8), *&vextq_s8(v41, v41, 8uLL)).f32[0] > 0.0001 && v104 < *(a4 + 8))
-      {
-        v42 = vmulq_f32(v103, *a1);
-        v43 = vmulq_f32(v103, a1[1]);
-        v44 = vmulq_f32(v103, a1[2]);
-        v44.i32[3] = 0;
-        *v43.f32 = vadd_f32(vpadd_f32(*v42.i8, *v43.f32), vzip1_s32(*&vextq_s8(v42, v42, 8uLL), *&vextq_s8(v43, v43, 8uLL)));
-        *&v43.u32[2] = vpadd_f32(vpadd_f32(*v44.i8, *&vextq_s8(v44, v44, 8uLL)), 0);
-        *v42.i8 = vmul_f32(*v43.f32, *v43.f32);
-        v103 = vmulq_n_f32(v43, 1.0 / sqrtf(vadd_f32(vpadd_f32(*v42.i8, *v42.i8), vmul_f32(*&v43.u32[2], *&v43.u32[2])).f32[0]));
-        v84 = a3[2];
-        v85 = v103;
-        v86 = v104;
-        (*(*a4 + 24))(a4, &v84, 1);
-      }
-    }
-
-    C3DSceneSourcePerformConsistencyCheck(v83);
-  }
-
-  return C3DSceneSourcePerformConsistencyCheck(&v107);
-}
-
-void btDbvt::rayTest(void *a1, float32x4_t *a2, float32x4_t *a3, uint64_t a4)
-{
-  v64 = *MEMORY[0x277D85DE8];
-  if (!a1)
-  {
-    return;
-  }
-
-  v7 = vsubq_f32(*a3, *a2);
-  v7.i32[3] = 0;
-  v8 = vmulq_f32(v7, v7);
-  v9 = vmulq_n_f32(v7, 1.0 / sqrtf(vadd_f32(vpadd_f32(*v8.i8, *v8.i8), *&vextq_s8(v8, v8, 8uLL)).f32[0]));
-  v59 = *v9.f32;
-  if (v9.f32[2] == 0.0)
-  {
-    v10 = 1.0e18;
-  }
-
-  else
-  {
-    v10 = 1.0 / v9.f32[2];
-  }
-
-  v11 = vmulq_f32(v9, v7);
-  v62 = vadd_f32(vpadd_f32(*v11.i8, *v11.i8), *&vextq_s8(v11, v11, 8uLL)).u32[0];
-  v12 = btAlignedAllocInternal(1024, 16);
-  bzero(v12 + 1, 0x3F8uLL);
-  v13 = *&v62;
-  __asm { FMOV            V0.2S, #1.0 }
-
-  v19 = vbsl_s8(vceqz_f32(v59), vdup_n_s32(0x5D5E0B6Bu), vdiv_f32(_D0, v59));
-  v20 = &v63[v19.f32[0] < 0.0];
-  v21 = &v63[v19.f32[0] >= 0.0];
-  v22 = &v63[v10 < 0.0] + 2;
-  v23 = &v63[v10 >= 0.0] + 2;
-  LODWORD(v24) = 1;
-  v25 = 126;
-  *v12 = a1;
-  v54 = 128;
-  v26 = &v63[v19.f32[1] < 0.0] + 1;
-  v27 = &v63[v19.f32[1] >= 0.0] + 1;
-  v28 = 128;
-  v56 = a4;
-  v57 = v21;
-  v58 = v19;
-  do
-  {
-    while (1)
-    {
-      v29 = v24;
-      v24 = v24 - 1;
-      v30 = v12[v24];
-      v31 = v30[1];
-      v63[0] = *v30;
-      v63[1] = v31;
-      LODWORD(v31) = *v20;
-      v32.i32[0] = *v21;
-      v32.i32[1] = *v26;
-      v33 = vmul_f32(v19, vsub_f32(v32, *a2->f32));
-      DWORD1(v31) = *v27;
-      v34 = vmul_f32(v19, vsub_f32(*&v31, *a2->f32));
-      if (v34.f32[0] > v34.f32[1] || v33.f32[1] > v33.f32[0])
-      {
-        goto LABEL_31;
-      }
-
-      if (v33.f32[1] > v34.f32[0])
-      {
-        v34.f32[0] = v33.f32[1];
-      }
-
-      if (v34.f32[1] < v33.f32[0])
-      {
-        v33.f32[0] = v34.f32[1];
-      }
-
-      v36 = a2->f32[2];
-      v37 = v10 * (*v22 - v36);
-      v38 = v10 * (*v23 - v36);
-      if (v34.f32[0] > v38 || v37 > v33.f32[0])
-      {
-        goto LABEL_31;
-      }
-
-      if (v37 > v34.f32[0])
-      {
-        v34.f32[0] = v37;
-      }
-
-      if (v38 < v33.f32[0])
-      {
-        v33.f32[0] = v38;
-      }
-
-      if (v34.f32[0] >= v13 || v33.f32[0] <= 0.0)
-      {
-        goto LABEL_31;
-      }
-
-      if (*(v30 + 6))
-      {
-        break;
-      }
-
-      v60 = v28;
-      v42 = v30;
-      v43 = v22;
-      v44 = v23;
-      v45 = v20;
-      v46 = v25;
-      (*(*a4 + 24))(a4, v42);
-      v25 = v46;
-      v20 = v45;
-      v21 = v57;
-      v28 = v60;
-      v23 = v44;
-      v22 = v43;
-      v19 = v58;
-      v13 = *&v62;
-LABEL_31:
-      if (!v24)
-      {
-        goto LABEL_47;
-      }
-    }
-
-    if (v24 <= v25)
-    {
-      v40 = v28;
-    }
-
-    else
-    {
-      v40 = (2 * v28);
-      if (v28 <= 2 * v28)
-      {
-        v47 = v54;
-        v52 = (2 * v28);
-        v53 = v22;
-        if (v28 >= v40 || v54 >= v40)
-        {
-          v41 = v12;
-        }
-
-        else
-        {
-          v55 = v23;
-          if (v28)
-          {
-            v48 = v28;
-            v49 = btAlignedAllocInternal(8 * v40, 16);
-            LODWORD(v28) = v48;
-            v41 = v49;
-          }
-
-          else
-          {
-            v41 = 0;
-          }
-
-          v50 = 0;
-          v61 = v28;
-          do
-          {
-            v41[v50] = v12[v50];
-            ++v50;
-          }
-
-          while (v28 != v50);
-          btAlignedFreeInternal(v12);
-          v40 = v52;
-          v22 = v53;
-          v47 = v52;
-          v13 = *&v62;
-          v19 = v58;
-          v23 = v55;
-          LODWORD(v28) = v61;
-        }
-
-        v54 = v47;
-        if (v28 < v40)
-        {
-          v51 = v23;
-          bzero(&v41[v28], 8 * (v28 - 1) + 8);
-          v40 = v52;
-          v22 = v53;
-          v23 = v51;
-          v19 = v58;
-          v13 = *&v62;
-        }
-      }
-
-      else
-      {
-        v41 = v12;
-      }
-
-      v25 = (v40 - 2);
-      v12 = v41;
-      a4 = v56;
-    }
-
-    v12[v24] = *(v30 + 5);
-    LODWORD(v24) = v29 + 1;
-    v12[v29] = *(v30 + 6);
-    v28 = v40;
-  }
-
-  while (v29 != -1);
-LABEL_47:
-
-  btAlignedFreeInternal(v12);
-}
-
-uint64_t btCollisionWorld::rayTestSingleInternal(btTransform const&,btTransform const&,btCollisionObjectWrapper const*,btCollisionWorld::RayResultCallback &)::RayTester::ProcessLeaf(uint64_t a1, int a2)
-{
-  v2 = *(a1 + 8);
-  v3 = *(*(a1 + 16) + 40) + 96 * a2;
-  v4 = *(v3 + 64);
-  v5 = *v3;
-  v6 = *(v3 + 16);
-  v7 = *(v3 + 32);
-  v8 = *(v3 + 48);
-  v9 = *(a1 + 24);
-  v10 = v9[1];
-  v11 = v9[2];
-  v12 = vmulq_f32(*v9, v8);
-  v13 = vmulq_f32(v10, v8);
-  *v12.f32 = vadd_f32(vzip1_s32(*&vextq_s8(v12, v12, 8uLL), *&vextq_s8(v13, v13, 8uLL)), vpadd_f32(*v12.f32, *v13.i8));
-  v14 = vmulq_f32(v11, v8);
-  v14.i32[3] = 0;
-  *&v12.u32[2] = vpadd_f32(vpadd_f32(*v14.i8, *&vextq_s8(v14, v14, 8uLL)), 0);
-  v7.i32[3] = 0;
-  v6.i32[3] = 0;
-  v15 = vaddq_f32(v9[3], v12);
-  v5.i32[3] = 0;
-  v29[0] = vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v5, COERCE_FLOAT(*v9)), v6, *v9->f32, 1), v7, *v9, 2);
-  v29[1] = vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v5, v10.f32[0]), v6, *v10.f32, 1), v7, v10, 2);
-  v29[2] = vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v5, v11.f32[0]), v6, *v11.f32, 1), v7, v11, 2);
-  v29[3] = v15;
-  v26[0] = 0;
-  v26[1] = v4;
-  v26[2] = v2;
-  v26[3] = v29;
-  v27 = -1;
-  v28 = a2;
-  v16 = *(a1 + 48);
-  v20 = 0;
-  v21 = xmmword_21C281170;
-  v22 = 0;
-  v18 = &unk_282DC8FF8;
-  v24 = v16;
-  v25 = a2;
-  v19 = *(v16 + 8);
-  v23 = *(v16 + 48);
-  return btCollisionWorld::rayTestSingleInternal(*(a1 + 32), *(a1 + 40), v26, &v18);
-}
-
-const btConvexShape *btCollisionWorld::objectQuerySingle(const btConvexShape *a1, uint64_t a2, float32x4_t *a3, uint64_t a4, uint64_t a5, uint64_t a6, float *a7, float a8)
-{
-  v9[0] = 0;
-  v9[1] = a5;
-  v9[2] = a4;
-  v9[3] = a6;
-  v9[4] = -1;
-  return btCollisionWorld::objectQuerySingleInternal(a1, a2, a3, v9, a7, a8);
-}
-
-const btConvexShape *btCollisionWorld::objectQuerySingleInternal(const btConvexShape *result, uint64_t a2, float32x4_t *a3, void *a4, float *a5, float a6)
-{
-  v11 = result;
-  v131 = *MEMORY[0x277D85DE8];
-  v12 = a4[1];
-  v13 = a4[3];
-  v14 = *(v12 + 8);
-  if (v14 <= 19)
-  {
-    v121.i64[0] = &unk_282DC8F18;
-    v129 = 0;
-    v130 = a6;
-    v128 = a5[2];
-    v119 = 953267991;
-    v120 = 0;
-    v102.i64[0] = &unk_282DCAB50;
-    btContinuousConvexCollision::btContinuousConvexCollision(v103, result, v12, v108, &v102);
-    if ((*(v103[0].i64[0] + 16))(v103, a2, a3, v13, v13, &v121))
-    {
-      v15 = vmulq_f32(v126, v126);
-      v16 = vadd_f32(vpadd_f32(*v15.i8, *v15.i8), *&vextq_s8(v15, v15, 8uLL)).f32[0];
-      if (v16 > 0.0001 && v128 < a5[2])
-      {
-        v126 = vmulq_n_f32(v126, 1.0 / sqrtf(v16));
-        v104 = a4[2];
-        v105 = v126;
-        v106 = v127;
-        v107 = v128;
-        (*(*a5 + 24))(a5, &v104, 1);
-      }
-    }
-
-    v17 = v103;
-    return C3DSceneSourcePerformConsistencyCheck(v17);
-  }
-
-  if ((v14 - 21) > 8)
-  {
-    if (v14 == 31 && *(v12 + 28) >= 1)
-    {
-      v53 = 0;
-      v54 = 0;
-      do
-      {
-        v55 = (*(v12 + 40) + v53);
-        v57 = *v55;
-        v56 = v55[1];
-        v58 = v55[2];
-        v59 = v55[3];
-        v60 = v55[4].i64[0];
-        v57.i32[3] = 0;
-        v56.i32[3] = 0;
-        v61 = v13[1];
-        v58.i32[3] = 0;
-        v62 = v13[2];
-        v63 = v13[3];
-        v64 = vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v57, v61.f32[0]), v56, *v61.f32, 1), v58, v61, 2);
-        v65 = vmulq_f32(v59, *v13);
-        v66 = vmulq_f32(v59, v61);
-        v67 = vmulq_f32(v59, v62);
-        v67.i32[3] = 0;
-        *v66.f32 = vadd_f32(vzip1_s32(*&vextq_s8(v65, v65, 8uLL), *&vextq_s8(v66, v66, 8uLL)), vpadd_f32(*v65.i8, *v66.f32));
-        *&v66.u32[2] = vpadd_f32(vpadd_f32(*v67.i8, *&vextq_s8(v67, v67, 8uLL)), 0);
-        v108[0] = vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v57, COERCE_FLOAT(*v13)), v56, *v13->f32, 1), v58, *v13, 2);
-        v108[1] = v64;
-        v108[2] = vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v57, v62.f32[0]), v56, *v62.f32, 1), v58, v62, 2);
-        v108[3] = vaddq_f32(v66, v63);
-        v122 = xmmword_21C281170;
-        v121.i64[0] = &unk_282DC9088;
-        v123.i64[0] = 0;
-        v123.i64[1] = a5;
-        LODWORD(v124) = v54;
-        v121.f32[2] = a5[2];
-        v68 = a4[2];
-        v104.i64[0] = a4;
-        v104.i64[1] = v60;
-        v105.i64[0] = v68;
-        v105.i64[1] = v108;
-        LODWORD(v106) = -1;
-        DWORD1(v106) = v54;
-        result = btCollisionWorld::objectQuerySingleInternal(v11, a2, a3, &v104, &v121, a6);
-        ++v54;
-        v53 += 96;
-      }
-
-      while (v54 < *(v12 + 28));
-    }
-  }
-
-  else
-  {
-    if (v14 == 28)
-    {
-      *&v108[0] = &unk_282DC8F18;
-      v112 = 0;
-      v113 = a6;
-      v111 = a5[2];
-      btContinuousConvexCollision::btContinuousConvexCollision(&v104, result, v12);
-      if ((*(v104.i64[0] + 16))(&v104, a2, a3, v13, v13, v108))
-      {
-        v69 = vmulq_f32(v109, v109);
-        v70 = vadd_f32(vpadd_f32(*v69.i8, *v69.i8), *&vextq_s8(v69, v69, 8uLL)).f32[0];
-        if (v70 > 0.0001 && v111 < a5[2])
-        {
-          v109 = vmulq_n_f32(v109, 1.0 / sqrtf(v70));
-          v121 = a4[2];
-          v122 = v109;
-          v123 = v110;
-          *&v124 = v111;
-          (*(*a5 + 24))(a5, &v121, 1);
-        }
-      }
-
-      v17 = &v104;
-      return C3DSceneSourcePerformConsistencyCheck(v17);
-    }
-
-    if (v14 == 21)
-    {
-      v18 = v13[1];
-      v19 = v13[2];
-      v20 = vtrn1q_s32(*v13, v18);
-      v21 = *a3;
-      v22 = a3[1];
-      v21.i32[3] = 0;
-      v22.i32[3] = 0;
-      v24 = a3[2];
-      v23 = a3[3];
-      v24.i32[3] = 0;
-      v25 = vmlaq_lane_f32(vmlaq_lane_f32(vmulq_lane_f32(v21, *v13->f32, 1), v22, *v18.f32, 1), v24, *v19.f32, 1);
-      v26 = vmlaq_n_f32(vmlaq_n_f32(vmulq_n_f32(v21, COERCE_FLOAT(*v13)), v22, v18.f32[0]), v24, v19.f32[0]);
-      v27.i64[0] = vextq_s8(v20, v20, 8uLL).u64[0];
-      v20.i64[1] = v19.u32[0];
-      v28.i64[0] = 0x8000000080000000;
-      v28.i64[1] = 0x8000000080000000;
-      v29 = veorq_s8(v13[3], v28);
-      v30 = vmulq_f32(v20, v29);
-      *v31.f32 = vzip2_s32(*v13->f32, *v18.f32);
-      *&v31.u32[2] = vzip2_s32(*v19.f32, 0);
-      v32 = vmulq_f32(v31, v29);
-      *v32.f32 = vadd_f32(vpadd_f32(*v30.i8, *v32.f32), vzip1_s32(*&vextq_s8(v30, v30, 8uLL), *&vextq_s8(v32, v32, 8uLL)));
-      v27.i64[1] = vextq_s8(v19, v19, 8uLL).u32[0];
-      v33 = vmulq_f32(v27, v29);
-      v33.i32[3] = 0;
-      *&v32.u32[2] = vpadd_f32(vpadd_f32(*v33.i8, *&vextq_s8(v33, v33, 8uLL)), 0);
-      v34 = vmlaq_laneq_f32(vmlaq_laneq_f32(vmulq_laneq_f32(v21, *v13, 2), v22, v18, 2), v24, v19, 2);
-      v35 = *(a2 + 48);
-      v36 = vmulq_f32(v20, v35);
-      v37 = vmulq_f32(v31, v35);
-      v38 = vmulq_f32(v27, v35);
-      v38.i32[3] = 0;
-      *v36.f32 = vadd_f32(vpadd_f32(*v36.f32, *v37.i8), vzip1_s32(*&vextq_s8(v36, v36, 8uLL), *&vextq_s8(v37, v37, 8uLL)));
-      *&v36.u32[2] = vpadd_f32(vpadd_f32(*v38.i8, *&vextq_s8(v38, v38, 8uLL)), 0);
-      v104 = vaddq_f32(v32, v36);
-      v39 = vmulq_f32(v20, v23);
-      v40 = vmulq_f32(v31, v23);
-      v41 = vmulq_f32(v27, v23);
-      v41.i32[3] = 0;
-      *v39.f32 = vadd_f32(vpadd_f32(*v39.f32, *v40.i8), vzip1_s32(*&vextq_s8(v39, v39, 8uLL), *&vextq_s8(v40, v40, 8uLL)));
-      *&v39.u32[2] = vpadd_f32(vpadd_f32(*v41.i8, *&vextq_s8(v41, v41, 8uLL)), 0);
-      v103[0] = vaddq_f32(v32, v39);
-      v121 = v26;
-      v122 = v25;
-      v123 = v34;
-      v125 = 0;
-      v124 = 0;
-      v42 = a4[2];
-      v43 = (*(*v12 + 96))(v12);
-      btTriangleConvexcastCallback::btTriangleConvexcastCallback(v108, v11, a2, a3, v13, v43);
-      *&v108[0] = &unk_282DC9028;
-      v116 = a5;
-      v117 = v42;
-      v118 = v12;
-      v114 = *(a5 + 2);
-      v115 = a6;
-      v44 = (*(*v11 + 16))(v11, &v121, &v102, &v101);
-      btBvhTriangleMeshShape::performConvexcast(v12, v108, &v104, v103, &v102, &v101, v44, v45, v46, v47, v48, v49, v50, v51);
-    }
-
-    else
-    {
-      v71 = v13[1];
-      v72 = v13[2];
-      v73 = vtrn1q_s32(*v13, v71);
-      v74 = vzip2_s32(*v72.f32, 0);
-      v75 = *a3;
-      v76 = a3[1];
-      v75.i32[3] = 0;
-      v76.i32[3] = 0;
-      v77 = vextq_s8(v72, v72, 8uLL).u32[0];
-      v79 = a3[2];
-      v78 = a3[3];
-      v79.i32[3] = 0;
-      v80 = vmlaq_laneq_f32(vmulq_laneq_f32(v75, *v13, 2), v76, v71, 2);
-      v81 = vmlaq_lane_f32(vmlaq_lane_f32(vmulq_lane_f32(v75, *v13->f32, 1), v76, *v71.f32, 1), v79, *v72.f32, 1);
-      v82 = vmlaq_n_f32(vmlaq_n_f32(vmulq_n_f32(v75, COERCE_FLOAT(*v13)), v76, v71.f32[0]), v79, v72.f32[0]);
-      v83 = vmlaq_laneq_f32(v80, v79, v72, 2);
-      v76.i64[0] = vextq_s8(v73, v73, 8uLL).u64[0];
-      v73.i64[1] = v72.u32[0];
-      v72.i64[0] = 0x8000000080000000;
-      v72.i64[1] = 0x8000000080000000;
-      v84 = veorq_s8(v13[3], v72);
-      v85 = vmulq_f32(v73, v84);
-      *v86.f32 = vzip2_s32(*v13->f32, *v71.f32);
-      *&v86.u32[2] = v74;
-      v87 = vmulq_f32(v86, v84);
-      v76.i64[1] = v77;
-      v88 = vmulq_f32(v76, v84);
-      v88.i32[3] = 0;
-      v89 = *(a2 + 48);
-      v90 = vmulq_f32(v73, v89);
-      v91 = vmulq_f32(v86, v89);
-      v92 = vmulq_f32(v76, v89);
-      v92.i32[3] = 0;
-      *v90.f32 = vadd_f32(vpadd_f32(*v90.f32, *v91.i8), vzip1_s32(*&vextq_s8(v90, v90, 8uLL), *&vextq_s8(v91, v91, 8uLL)));
-      *&v90.u32[2] = vpadd_f32(vpadd_f32(*v92.i8, *&vextq_s8(v92, v92, 8uLL)), 0);
-      v93 = vmulq_f32(v73, v78);
-      v94 = vmulq_f32(v86, v78);
-      v95 = vmulq_f32(v76, v78);
-      v95.i32[3] = 0;
-      *v94.f32 = vadd_f32(vpadd_f32(*v93.i8, *v94.f32), vzip1_s32(*&vextq_s8(v93, v93, 8uLL), *&vextq_s8(v94, v94, 8uLL)));
-      *&v94.u32[2] = vpadd_f32(vpadd_f32(*v95.i8, *&vextq_s8(v95, v95, 8uLL)), 0);
-      *v96.f32 = vadd_f32(vpadd_f32(*v85.i8, *v87.i8), vzip1_s32(*&vextq_s8(v85, v85, 8uLL), *&vextq_s8(v87, v87, 8uLL)));
-      *&v96.u32[2] = vpadd_f32(vpadd_f32(*v88.i8, *&vextq_s8(v88, v88, 8uLL)), 0);
-      v99 = vaddq_f32(v96, v94);
-      v100 = vaddq_f32(v96, v90);
-      v121 = v82;
-      v122 = v81;
-      v123 = v83;
-      v125 = 0;
-      v124 = 0;
-      v97 = a4[2];
-      v98 = (*(*v12 + 96))(v12);
-      btTriangleConvexcastCallback::btTriangleConvexcastCallback(v108, v11, a2, a3, v13, v98);
-      *&v108[0] = &unk_282DC9058;
-      v116 = a5;
-      v117 = v97;
-      v118 = v12;
-      v114 = *(a5 + 2);
-      v115 = a6;
-      (*(*v11 + 16))(v11, &v121, &v104, v103);
-      v101 = vaddq_f32(vmaxq_f32(v100, v99), v103[0]);
-      v102 = vaddq_f32(vminq_f32(v100, v99), v104);
-      (*(*v12 + 128))(v12, v108, &v102, &v101);
-    }
-
-    return C3DSceneSourcePerformConsistencyCheck(v108);
-  }
-
-  return result;
-}
-
-uint64_t btCollisionWorld::rayTest(uint64_t a1, float32x4_t *a2, float32x4_t *a3, uint64_t a4)
-{
-  *&v7 = btSingleRayCallback::btSingleRayCallback(v12, a2, a3, a1, a4);
-  v8 = *(a1 + 96);
-  v11[0] = 0;
-  v11[1] = 0;
-  v10[0] = 0;
-  v10[1] = 0;
-  return (*(*v8 + 48))(v8, a2, a3, v12, v11, v10, v7);
-}
-
-uint64_t btCollisionWorld::convexSweepTest(uint64_t a1, btCollisionShape *a2, uint64_t a3, uint64_t a4, float *a5, float a6)
-{
-  v12 = *(a3 + 16);
-  v25.var0[0] = *a3;
-  v25.var0[1] = v12;
-  v13 = *(a3 + 48);
-  v25.var0[2] = *(a3 + 32);
-  v26 = v13;
-  v14 = *(a4 + 16);
-  v24.var0.var0[0] = *a4;
-  v24.var0.var0[1] = v14;
-  v15 = *(a4 + 48);
-  v24.var0.var0[2] = *(a4 + 32);
-  v24.var1 = v15;
-  v23.var0.var0[0] = 0.0;
-  btTransformUtil::calculateDiffAxisAngle(&v25, &v24, v19, &v23, a5);
-  v16 = vmulq_n_f32(v19[0].var0.var0[0], v23.var0.var0[0]);
-  v16.var0.var0[3] = 0.0;
-  v21 = v16;
-  v20 = 0;
-  v19[0].var0.var0[0] = xmmword_21C27F910;
-  v19[0].var0.var0[1] = xmmword_21C27F8C0;
-  v19[0].var0.var0[2] = xmmword_21C27F600;
-  v19[0].var1 = 0uLL;
-  btMatrix3x3::getRotation(&v25, &v23);
-  btMatrix3x3::setRotation(&v19[0].var0, &v23);
-  btCollisionShape::calculateTemporalAabb(a2, v19, &v20, &v21, 1.0, &v23, &v22);
-  *&v17 = btSingleSweepCallback::btSingleSweepCallback(v19, a2, a3, a4, a1, a5, a6);
-  return (*(**(a1 + 96) + 48))(*(a1 + 96), &v26, &v24.var1, v19, &v23, &v22, v17);
-}
-
-uint64_t btCollisionWorld::contactTest(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  (*(**(a2 + 208) + 16))(*(a2 + 208), a2 + 16, v9, v8);
-  v7[0] = &unk_282DC9108;
-  v7[1] = a2;
-  v7[2] = a1;
-  v7[3] = a3;
-  return (*(**(a1 + 96) + 56))(*(a1 + 96), v9, v8, v7);
-}
-
-uint64_t btCollisionWorld::contactPairTest(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
-{
-  v6 = *(a2 + 208);
-  v12[0] = 0;
-  v12[1] = v6;
-  v12[2] = a2;
-  v12[3] = a2 + 16;
-  v12[4] = -1;
-  v7 = *(a3 + 208);
-  v11[0] = 0;
-  v11[1] = v7;
-  v11[2] = a3;
-  v11[3] = a3 + 16;
-  v11[4] = -1;
-  result = (*(**(a1 + 40) + 16))(*(a1 + 40), v12, v11, 0);
-  if (result)
-  {
-    v9 = result;
-    btManifoldResult::btManifoldResult(v10, v12, v11);
-    v10[0] = &unk_282DC9130;
-    v10[6] = a4;
-    (*(*v9 + 16))(v9, v12, v11, a1 + 48, v10);
-    (**v9)(v9);
-    return (*(**(a1 + 40) + 120))(*(a1 + 40), v9);
-  }
-
-  return result;
-}
-
-uint64_t btCollisionWorld::debugDrawObject(btCollisionWorld *this, const btTransform *a2, const btCollisionShape *a3, const btVector3 *a4)
-{
-  v8 = (*(*this + 40))(this);
-  result = (*(*v8 + 112))(v8, a2, 1.0);
-  var1 = a3->var1;
-  if (var1 > 10)
-  {
-    if (var1 <= 16)
-    {
-      if (var1 == 11)
-      {
-        var0_high = HIDWORD(a3[3].var0);
-        v63 = a3[3].var1;
-        v14 = *(*(*(*this + 40))(this) + 168);
-        v15.n128_u32[0] = var0_high;
-        v16.n128_u32[0] = v63;
-
-        return v14(v15, v16);
-      }
-
-      if (var1 == 13)
-      {
-        var0_low = SLODWORD(a3[3].var0);
-        v48 = (*(a3->var0 + 23))(a3);
-        v172 = *&a3[2].var0;
-        v49 = (*(a3->var0 + 12))(a3);
-        v168 = LODWORD(v49);
-        v50 = (*(a3->var0 + 12))(a3);
-        v166 = LODWORD(v50);
-        *&v51 = (*(a3->var0 + 12))(a3);
-        v52.i64[0] = __PAIR64__(v166, v168);
-        v52.i64[1] = v51;
-        v178 = vaddq_f32(v172, v52);
-        v53 = v178.i32[var0_low];
-        v54 = *(*(*(*this + 40))(this) + 160);
-        v55.n128_f32[0] = v48;
-        v56.n128_u32[0] = v53;
-
-        return v54(v55, v56);
-      }
-    }
-
-    else
-    {
-      switch(var1)
-      {
-        case 17:
-          goto LABEL_28;
-        case 28:
-          v80 = a3[3].var1;
-          v81 = *(*(*(*this + 40))(this) + 176);
-          v82.n128_u32[0] = v80;
-
-          return v81(v82);
-        case 31:
-          v17 = HIDWORD(a3[1].var0);
-          if (v17 >= 1)
-          {
-            v18 = v17 + 1;
-            v19 = 96 * v17;
-            do
-            {
-              v20 = (a3[1].var2 + v19);
-              v21 = v20[-6];
-              v22 = v20[-5];
-              v23 = v20[-4];
-              v24 = v20[-3];
-              v21.i32[3] = 0;
-              v25 = v20[-2].i64[0];
-              v22.i32[3] = 0;
-              v23.i32[3] = 0;
-              v26 = a2->var0.var0[1];
-              v27 = a2->var0.var0[2];
-              v28 = vmlaq_lane_f32(vmulq_n_f32(v21, v27.f32[0]), v22, *v27.f32, 1);
-              v29 = vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v21, v26.f32[0]), v22, *v26.f32, 1), v23, v26, 2);
-              v30 = vmulq_f32(v24, a2->var0.var0[0]);
-              v31 = vmulq_f32(v24, v27);
-              v31.i32[3] = 0;
-              v32 = vmulq_f32(v24, v26);
-              v33 = vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v21, COERCE_FLOAT(*a2->var0.var0)), v22, *a2->var0.var0[0].var0.var0, 1), v23, a2->var0.var0[0], 2);
-              *v22.f32 = vadd_f32(vzip1_s32(*&vextq_s8(v30, v30, 8uLL), *&vextq_s8(v32, v32, 8uLL)), vpadd_f32(*v30.i8, *v32.i8));
-              *&v22.u32[2] = vpadd_f32(vpadd_f32(*v31.i8, *&vextq_s8(v31, v31, 8uLL)), 0);
-              v34 = vaddq_f32(v22, a2->var1);
-              v178 = v33;
-              v179 = v29;
-              v180 = vmlaq_laneq_f32(v28, v23, v27, 2);
-              v181 = v34;
-              result = (*(*this + 56))(this, &v178, v25, a4);
-              --v18;
-              v19 -= 96;
-            }
-
-            while (v18 > 1);
-          }
-
-          return result;
-      }
-    }
-
-LABEL_42:
-    if (var1 <= 6)
-    {
-      var0 = a3[3].var0;
-      if (var0)
-      {
-        if (*(var0 + 11) >= 1)
-        {
-          v84 = 0;
-          do
-          {
-            v85 = var0[7];
-            v86 = &v85[6 * v84];
-            v87 = *(v86 + 1);
-            v170 = *(v86 + 1);
-            if (v87 < 1)
-            {
-              v90 = 0uLL;
-            }
-
-            else
-            {
-              v88 = 0;
-              v89 = *(*(v86 + 2) + 4 * v87 - 4);
-              v90 = 0uLL;
-              do
-              {
-                v91 = *(v85[6 * v84 + 2] + 4 * v88);
-                v175 = vaddq_f32(v90, *(var0[3] + v91));
-                v92 = (*(*this + 40))(this);
-                v93 = var0[3];
-                v94 = v93[v89];
-                v95 = a2->var0.var0[0];
-                v96 = a2->var0.var0[1];
-                v97 = vmulq_f32(a2->var0.var0[0], v94);
-                v98 = vmulq_f32(v94, v96);
-                v99 = a2->var0.var0[2];
-                v100 = a2->var1;
-                v101 = vmulq_f32(v94, v99);
-                v101.i32[3] = 0;
-                *v97.f32 = vadd_f32(vpadd_f32(*v97.f32, *v98.i8), vzip1_s32(*&vextq_s8(v97, v97, 8uLL), *&vextq_s8(v98, v98, 8uLL)));
-                *&v97.u32[2] = vpadd_f32(vpadd_f32(*v101.i8, *&vextq_s8(v101, v101, 8uLL)), 0);
-                v178 = vaddq_f32(v97, v100);
-                v102 = v93[v91];
-                v103 = vmulq_f32(v95, v102);
-                v104 = vmulq_f32(v96, v102);
-                v105 = vmulq_f32(v99, v102);
-                v105.i32[3] = 0;
-                *v103.f32 = vadd_f32(vpadd_f32(*v103.f32, *v104.i8), vzip1_s32(*&vextq_s8(v103, v103, 8uLL), *&vextq_s8(v104, v104, 8uLL)));
-                *&v103.u32[2] = vpadd_f32(vpadd_f32(*v105.i8, *&vextq_s8(v105, v105, 8uLL)), 0);
-                v187[0] = vaddq_f32(v100, v103);
-                (*(*v92 + 16))(v92, &v178, v187, a4);
-                v90 = v175;
-                ++v88;
-                v85 = var0[7];
-                v89 = v91;
-              }
-
-              while (v88 < SHIDWORD(v85[6 * v84]));
-            }
-
-            v176 = v90;
-            v106 = (*(*this + 40))(this);
-            result = (*(*v106 + 96))(v106);
-            if ((result & 0x4000) != 0)
-            {
-              v178 = xmmword_21C281190;
-              v107 = var0[7] + 48 * v84;
-              v108.i64[0] = *(v107 + 32);
-              v108.i64[1] = *(v107 + 40);
-              v171 = vmulq_n_f32(v176, 1.0 / v170);
-              v177 = v108;
-              v109 = (*(*this + 40))(this);
-              v110 = a2->var0.var0[0];
-              v111 = a2->var0.var0[1];
-              v112 = vmulq_f32(v171, a2->var0.var0[0]);
-              v113 = vmulq_f32(v171, v111);
-              v114 = a2->var0.var0[2];
-              v115 = a2->var1;
-              v116 = vmulq_f32(v171, v114);
-              v116.i32[3] = 0;
-              *v112.f32 = vadd_f32(vpadd_f32(*v112.f32, *v113.i8), vzip1_s32(*&vextq_s8(v112, v112, 8uLL), *&vextq_s8(v113, v113, 8uLL)));
-              *&v112.u32[2] = vpadd_f32(vpadd_f32(*v116.i8, *&vextq_s8(v116, v116, 8uLL)), 0);
-              v187[0] = vaddq_f32(v112, v115);
-              v117 = vaddq_f32(v171, v177);
-              v118 = vmulq_f32(v117, v110);
-              v119 = vmulq_f32(v117, v111);
-              v120 = vmulq_f32(v117, v114);
-              v120.i32[3] = 0;
-              *v118.f32 = vadd_f32(vzip1_s32(*&vextq_s8(v118, v118, 8uLL), *&vextq_s8(v119, v119, 8uLL)), vpadd_f32(*v118.f32, *v119.i8));
-              *&v118.u32[2] = vpadd_f32(vpadd_f32(*v120.i8, *&vextq_s8(v120, v120, 8uLL)), 0);
-              v186 = vaddq_f32(v115, v118);
-              result = (*(*v109 + 16))(v109, v187, &v186, &v178);
-            }
-
-            ++v84;
-          }
-
-          while (v84 < *(var0 + 11));
-        }
-      }
-
-      else
-      {
-        result = (*(a3->var0 + 25))(a3);
-        if (result >= 1)
-        {
-          v144 = 0;
-          do
-          {
-            (*(a3->var0 + 26))(a3, v144, &v178, v187);
-            v145 = a2->var0.var0[1];
-            v146 = vmulq_f32(a2->var0.var0[0], v178);
-            v147 = vmulq_f32(v178, v145);
-            v148 = a2->var0.var0[2];
-            v149 = a2->var1;
-            v150 = vmulq_f32(v178, v148);
-            v150.i32[3] = 0;
-            *v146.f32 = vadd_f32(vpadd_f32(*v146.f32, *v147.i8), vzip1_s32(*&vextq_s8(v146, v146, 8uLL), *&vextq_s8(v147, v147, 8uLL)));
-            *&v146.u32[2] = vpadd_f32(vpadd_f32(*v150.i8, *&vextq_s8(v150, v150, 8uLL)), 0);
-            v151 = vmulq_f32(a2->var0.var0[0], v187[0]);
-            v152 = vmulq_f32(v145, v187[0]);
-            v153 = vmulq_f32(v148, v187[0]);
-            v153.i32[3] = 0;
-            *v151.f32 = vadd_f32(vpadd_f32(*v151.f32, *v152.i8), vzip1_s32(*&vextq_s8(v151, v151, 8uLL), *&vextq_s8(v152, v152, 8uLL)));
-            *&v151.u32[2] = vpadd_f32(vpadd_f32(*v153.i8, *&vextq_s8(v153, v153, 8uLL)), 0);
-            v185 = vaddq_f32(v149, v151);
-            v186 = vaddq_f32(v146, v149);
-            v154 = (*(*this + 40))(this);
-            (*(*v154 + 16))(v154, &v186, &v185, a4);
-            v144 = (v144 + 1);
-            result = (*(a3->var0 + 25))(a3);
-          }
-
-          while (v144 < result);
-        }
-      }
-    }
-
-    v155 = a3->var1;
-    if ((v155 - 21) <= 8)
-    {
-      v186 = xmmword_21C2A4040;
-      v187[0] = xmmword_21C2A4030;
-      v156 = (*(*this + 40))(this);
-      v178.i64[0] = &unk_282DC9168;
-      v157 = a2->var0.var0[0];
-      v158 = a2->var0.var0[1];
-      v180 = *a4;
-      v181 = v157;
-      v159 = a2->var0.var0[2];
-      v160 = a2->var1;
-      v182 = v158;
-      v183 = v159;
-      v178.i64[1] = &unk_282DC9198;
-      v179.i64[0] = v156;
-      v184 = v160;
-      (*(a3->var0 + 16))(a3, &v178, &v186, v187);
-      C3DSceneSourcePerformConsistencyCheck(&v178.u32[2]);
-      result = C3DSceneSourcePerformConsistencyCheck(&v178);
-      v155 = a3->var1;
-    }
-
-    if (v155 == 3)
-    {
-      v186 = xmmword_21C2A4040;
-      v187[0] = xmmword_21C2A4030;
-      v161 = (*(*this + 40))(this);
-      v178.i64[0] = &unk_282DC9168;
-      v162 = a2->var0.var0[0];
-      v163 = a2->var0.var0[1];
-      v180 = *a4;
-      v181 = v162;
-      v164 = a2->var0.var0[2];
-      v165 = a2->var1;
-      v182 = v163;
-      v183 = v164;
-      v178.i64[1] = &unk_282DC9198;
-      v179.i64[0] = v161;
-      v184 = v165;
-      (*(*a3[5].var0 + 2))(a3[5].var0, &v178.u32[2], &v186, v187);
-      C3DSceneSourcePerformConsistencyCheck(&v178.u32[2]);
-      return C3DSceneSourcePerformConsistencyCheck(&v178);
-    }
-
-    return result;
-  }
-
-  if (var1 <= 7)
-  {
-    if (var1)
-    {
-      if (var1 == 4)
-      {
-        v35 = *(&a3[6].var1 + 1);
-        if ((v35 + 2) > 4)
-        {
-          if (v35 >= 3)
-          {
-            v121 = (v35 / 3);
-            v122 = a3[7].var0 + 1;
-            do
-            {
-              var2 = a3[5].var2;
-              v124 = *&a3[1].var1;
-              v125 = vmulq_f32(var2[*(v122 - 2)], v124);
-              v126 = vmulq_f32(v124, var2[*(v122 - 1)]);
-              v127 = vmulq_f32(v124, var2[*v122]);
-              v128 = a2->var0.var0[0];
-              v129 = a2->var0.var0[1];
-              v130 = vmulq_f32(v125, a2->var0.var0[0]);
-              v131 = vmulq_f32(v125, v129);
-              v132 = a2->var0.var0[2];
-              v133 = a2->var1;
-              v134 = vmulq_f32(v125, v132);
-              v134.i32[3] = 0;
-              *v130.f32 = vadd_f32(vpadd_f32(*v130.f32, *v131.i8), vzip1_s32(*&vextq_s8(v130, v130, 8uLL), *&vextq_s8(v131, v131, 8uLL)));
-              *&v130.u32[2] = vpadd_f32(vpadd_f32(*v134.i8, *&vextq_s8(v134, v134, 8uLL)), 0);
-              v135 = vmulq_f32(v126, a2->var0.var0[0]);
-              v136 = vmulq_f32(v126, v129);
-              v137 = vmulq_f32(v126, v132);
-              v137.i32[3] = 0;
-              *v135.f32 = vadd_f32(vzip1_s32(*&vextq_s8(v135, v135, 8uLL), *&vextq_s8(v136, v136, 8uLL)), vpadd_f32(*v135.f32, *v136.i8));
-              *&v135.u32[2] = vpadd_f32(vpadd_f32(*v137.i8, *&vextq_s8(v137, v137, 8uLL)), 0);
-              v178 = vaddq_f32(v130, v133);
-              v138 = vmulq_f32(v127, v128);
-              v139 = vmulq_f32(v127, v129);
-              v140 = vmulq_f32(v127, v132);
-              v140.i32[3] = 0;
-              *v138.f32 = vadd_f32(vzip1_s32(*&vextq_s8(v138, v138, 8uLL), *&vextq_s8(v139, v139, 8uLL)), vpadd_f32(*v138.f32, *v139.i8));
-              *&v138.u32[2] = vpadd_f32(vpadd_f32(*v140.i8, *&vextq_s8(v140, v140, 8uLL)), 0);
-              v186 = vaddq_f32(v133, v138);
-              v187[0] = vaddq_f32(v133, v135);
-              v141 = (*(*this + 40))(this);
-              (*(*v141 + 16))(v141, &v178, v187, a4);
-              v142 = (*(*this + 40))(this);
-              (*(*v142 + 16))(v142, &v178, &v186, a4);
-              v143 = (*(*this + 40))(this);
-              result = (*(*v143 + 16))(v143, v187, &v186, a4);
-              v122 = (v122 + 12);
-              --v121;
-            }
-
-            while (v121);
-          }
-        }
-
-        else
-        {
-          result = (*(a3->var0 + 25))(a3);
-          if (result >= 1)
-          {
-            v36 = 0;
-            do
-            {
-              (*(a3->var0 + 26))(a3, v36, &v178, v187);
-              v37 = a2->var0.var0[1];
-              v38 = vmulq_f32(a2->var0.var0[0], v178);
-              v39 = vmulq_f32(v178, v37);
-              v40 = a2->var0.var0[2];
-              v41 = a2->var1;
-              v42 = vmulq_f32(v178, v40);
-              v42.i32[3] = 0;
-              *v38.f32 = vadd_f32(vpadd_f32(*v38.f32, *v39.i8), vzip1_s32(*&vextq_s8(v38, v38, 8uLL), *&vextq_s8(v39, v39, 8uLL)));
-              *&v38.u32[2] = vpadd_f32(vpadd_f32(*v42.i8, *&vextq_s8(v42, v42, 8uLL)), 0);
-              v43 = vmulq_f32(a2->var0.var0[0], v187[0]);
-              v44 = vmulq_f32(v37, v187[0]);
-              v45 = vmulq_f32(v40, v187[0]);
-              v45.i32[3] = 0;
-              *v43.f32 = vadd_f32(vpadd_f32(*v43.f32, *v44.i8), vzip1_s32(*&vextq_s8(v43, v43, 8uLL), *&vextq_s8(v44, v44, 8uLL)));
-              *&v43.u32[2] = vpadd_f32(vpadd_f32(*v45.i8, *&vextq_s8(v45, v45, 8uLL)), 0);
-              v185 = vaddq_f32(v41, v43);
-              v186 = vaddq_f32(v38, v41);
-              v46 = (*(*this + 40))(this);
-              (*(*v46 + 16))(v46, &v186, &v185, a4);
-              v36 = (v36 + 1);
-              result = (*(a3->var0 + 25))(a3);
-            }
-
-            while (v36 < result);
-          }
-        }
-
-        return result;
-      }
-
-      goto LABEL_42;
-    }
-
-LABEL_28:
-    v173 = *&a3[2].var0;
-    v57 = (*(a3->var0 + 12))(a3);
-    v169 = LODWORD(v57);
-    v58 = (*(a3->var0 + 12))(a3);
-    v167 = LODWORD(v58);
-    *&v59 = (*(a3->var0 + 12))(a3);
-    v60.i64[0] = __PAIR64__(v167, v169);
-    v60.i64[1] = v59;
-    v178 = vaddq_f32(v173, v60);
-    v61 = (*(*this + 40))(this);
-    v187[0] = vnegq_f32(v178);
-    return (*(*v61 + 144))(v61, v187, &v178, a2, a4);
-  }
-
-  if (var1 == 8)
-  {
-    v64 = (*(a3->var0 + 12))(a3);
-    v65 = *(*(*(*this + 40))(this) + 32);
-    v66.n128_f32[0] = v64;
-
-    return v65(v66);
-  }
-
-  else
-  {
-    if (var1 != 9)
-    {
-      v11 = SLODWORD(a3[3].var0);
-      v12 = *(&a3[2].var0 + (v11 + 2) % 3);
-      v13 = *(&a3[2].var0 + v11);
-      v14 = *(*(*(*this + 40))(this) + 152);
-      v15.n128_u32[0] = v12;
-      v16.n128_u32[0] = v13;
-
-      return v14(v15, v16);
-    }
-
-    v67 = HIDWORD(a3[5].var0);
-    if (v67 >= 1)
-    {
-      v68 = v67 - 1;
-      do
-      {
-        v174 = *(a3[5].var2 + v68);
-        v69 = (*(*this + 40))(this);
-        v70 = *(a3[7].var0 + v68);
-        v71 = a2->var0.var0[1];
-        v72 = a2->var0.var0[2];
-        v73 = vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(xmmword_21C27F910, v71.f32[0]), xmmword_21C27F8C0, *v71.f32, 1), xmmword_21C27F600, v71, 2);
-        v74 = vmulq_f32(v174, a2->var0.var0[0]);
-        v75 = vmulq_f32(v174, v71);
-        v76 = vmulq_f32(v174, v72);
-        v76.i32[3] = 0;
-        *v77.f32 = vadd_f32(vzip1_s32(*&vextq_s8(v74, v74, 8uLL), *&vextq_s8(v75, v75, 8uLL)), vpadd_f32(*v74.i8, *v75.i8));
-        *&v77.u32[2] = vpadd_f32(vpadd_f32(*v76.i8, *&vextq_s8(v76, v76, 8uLL)), 0);
-        v78 = vaddq_f32(v77, a2->var1);
-        v178 = vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(xmmword_21C27F910, COERCE_FLOAT(*a2->var0.var0)), xmmword_21C27F8C0, *a2->var0.var0[0].var0.var0, 1), xmmword_21C27F600, a2->var0.var0[0], 2);
-        v179 = v73;
-        v180 = vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(xmmword_21C27F910, v72.f32[0]), xmmword_21C27F8C0, *v72.f32, 1), xmmword_21C27F600, v72, 2);
-        v181 = v78;
-        result = (*(*v69 + 32))(v69, &v178, a4, v70);
-        v79 = v68-- + 1;
-      }
-
-      while (v79 > 1);
-    }
-  }
-
-  return result;
-}
-
-void DebugDrawcallback::~DebugDrawcallback(DebugDrawcallback *this)
-{
-  C3DSceneSourcePerformConsistencyCheck(this + 8);
-
-  C3DSceneSourcePerformConsistencyCheck(this);
-}
-
-{
-  C3DSceneSourcePerformConsistencyCheck(this + 8);
-  C3DSceneSourcePerformConsistencyCheck(this);
-
-  JUMPOUT(0x21CF07610);
-}
-
-uint64_t btCollisionWorld::debugDrawWorld(btCollisionWorld *this)
-{
-  if ((*(*this + 40))(this))
-  {
-    v2 = (*(*this + 40))(this);
-    if (((*(*v2 + 96))(v2) & 8) != 0)
-    {
-      v3 = (*(**(this + 5) + 72))(*(this + 5));
-      v27 = xmmword_21C281190;
-      if (v3 >= 1)
-      {
-        v4 = v3;
-        v5 = 0;
-        do
-        {
-          v6 = (*(**(this + 5) + 80))(*(this + 5), v5);
-          v7 = *(v6 + 800);
-          if (v7 >= 1)
-          {
-            v8 = (v6 + 168);
-            do
-            {
-              v9 = (*(*this + 40))(this);
-              v10 = v8 - 30;
-              v11 = v8 - 22;
-              v12 = *(v8 - 18);
-              v13 = *v8;
-              v8 += 48;
-              (*(*v9 + 64))(v9, v10, v11, LODWORD(v13), &v27, v12);
-              --v7;
-            }
-
-            while (v7);
-          }
-
-          v5 = (v5 + 1);
-        }
-
-        while (v5 != v4);
-      }
-    }
-  }
-
-  result = (*(*this + 40))(this);
-  if (result)
-  {
-    v15 = (*(*this + 40))(this);
-    result = (*(*v15 + 96))(v15);
-    if ((result & 3) != 0 && *(this + 3) >= 1)
-    {
-      v16 = 0;
-      while (1)
-      {
-        v17 = *(*(this + 3) + 8 * v16);
-        if ((*(v17 + 232) & 0x20) == 0)
-        {
-          break;
-        }
-
-LABEL_34:
-        if (++v16 >= *(this + 3))
-        {
-          return result;
-        }
-      }
-
-      if (!(*(*this + 40))(this) || (v18 = (*(*this + 40))(this), ((*(*v18 + 96))(v18) & 1) == 0))
-      {
-LABEL_27:
-        result = *(this + 13);
-        if (result)
-        {
-          result = (*(*result + 96))(result);
-          if ((result & 2) != 0)
-          {
-            v25 = xmmword_21C27F910;
-            (*(**(v17 + 208) + 16))(*(v17 + 208), v17 + 16, &v27, &v26);
-            v21 = vld1q_dup_f32(&gContactBreakingThreshold);
-            v21.i32[3] = 0;
-            v26 = vaddq_f32(v26, v21);
-            v27 = vsubq_f32(v27, v21);
-            if (*(this + 64) == 1 && *(v17 + 264) == 2 && (*(v17 + 232) & 3) == 0)
-            {
-              v22 = v21;
-              (*(**(v17 + 208) + 16))(*(v17 + 208), v17 + 80, &v24, &v23);
-              v23 = vaddq_f32(v22, v23);
-              v24 = vsubq_f32(v24, v22);
-              v26 = vmaxq_f32(v26, v23);
-              v27 = vminq_f32(v27, v24);
-            }
-
-            result = (*(**(this + 13) + 104))(*(this + 13), &v27, &v26, &v25);
-          }
-        }
-
-        goto LABEL_34;
-      }
-
-      v19 = *(v17 + 244);
-      if (v19 <= 2)
-      {
-        if (v19 == 1)
-        {
-          v20 = xmmword_21C27F8C0;
-          goto LABEL_26;
-        }
-
-        if (v19 == 2)
-        {
-          v20 = xmmword_21C2A4060;
-          goto LABEL_26;
-        }
-      }
-
-      else
-      {
-        if (v19 == 3)
-        {
-          v20 = xmmword_21C2A4050;
-          goto LABEL_26;
-        }
-
-        if (v19 == 5)
-        {
-          v20 = xmmword_21C281190;
-LABEL_26:
-          v27 = v20;
-          (*(*this + 56))(this, v17 + 16, *(v17 + 208), &v27);
-          goto LABEL_27;
-        }
-      }
-
-      v20 = xmmword_21C27F910;
-      goto LABEL_26;
-    }
-  }
-
-  return result;
-}
-
-void btCollisionWorld::serializeCollisionObjects(uint64_t a1, uint64_t a2)
-{
-  v4 = *(a1 + 12);
-  if (v4 < 1)
-  {
-    v7 = 0;
-  }
-
-  else
-  {
-    for (i = 0; i < v4; ++i)
-    {
-      v6 = *(*(a1 + 24) + 8 * i);
-      if (v6[66] == 1)
-      {
-        (*(*v6 + 48))(v6, a2);
-        v4 = *(a1 + 12);
-      }
-    }
-
-    v7 = v4 > 0;
-  }
-
-  v14 = 1;
-  v13 = 0;
-  v12 = 0;
-  v17 = 1;
-  v16 = 0;
-  v15 = 0;
-  v20 = 1;
-  v19 = 0;
-  v18 = 0;
-  v23 = 1;
-  v22 = 0;
-  v21 = 0;
-  if (v7)
-  {
-    v8 = 0;
-    do
-    {
-      v9 = *(*(*(a1 + 24) + 8 * v8) + 208);
-      v10 = v9;
-      if (btHashMap<btHashPtr,btCollisionShape *>::findIndex(v11, &v9) == -1 || !v19)
-      {
-        v9 = v10;
-        btHashMap<btHashPtr,btCollisionShape *>::insert(v11, &v9, &v10);
-        (*(*v10 + 120))(v10, a2);
-      }
-
-      ++v8;
-    }
-
-    while (v8 < *(a1 + 12));
-    if (v22 && v23 == 1)
-    {
-      btAlignedFreeInternal(v22);
-    }
-  }
-
-  v23 = 1;
-  v22 = 0;
-  v21 = 0;
-  if (v19 && v20 == 1)
-  {
-    btAlignedFreeInternal(v19);
-  }
-
-  v20 = 1;
-  v19 = 0;
-  v18 = 0;
-  if (v16 && v17 == 1)
-  {
-    btAlignedFreeInternal(v16);
-  }
-
-  v17 = 1;
-  v16 = 0;
-  v15 = 0;
-  if (v13)
-  {
-    if (v14 == 1)
-    {
-      btAlignedFreeInternal(v13);
-    }
-  }
-}
-
-void btHashMap<btHashPtr,btCollisionShape *>::insert(uint64_t a1, int *a2, void *a3)
-{
-  v6 = *a2;
-  v7 = a2[1];
-  v8 = *(a1 + 72);
-  Index = btHashMap<btHashPtr,btCollisionShape *>::findIndex(a1, a2);
-  if (Index == -1)
-  {
-    v10 = 9 * ((v7 + v6 + ~((v7 + v6) << 15)) ^ ((v7 + v6 + ~((v7 + v6) << 15)) >> 10));
-    v11 = ((v10 ^ (v10 >> 6)) + ~((v10 ^ (v10 >> 6)) << 11)) ^ (((v10 ^ (v10 >> 6)) + ~((v10 ^ (v10 >> 6)) << 11)) >> 16);
-    v12 = v8 - 1;
-    v13 = *(a1 + 68);
-    v14 = *(a1 + 72);
-    v15 = v13;
-    if (v13 == v14)
-    {
-      v16 = v13 ? 2 * v13 : 1;
-      v15 = *(a1 + 68);
-      if (v13 < v16)
-      {
-        if (v16)
-        {
-          v17 = btAlignedAllocInternal(8 * v16, 16);
-        }
-
-        else
-        {
-          v17 = 0;
-        }
-
-        v15 = *(a1 + 68);
-        if (v15 >= 1)
-        {
-          v18 = 0;
-          do
-          {
-            *(v17 + v18) = *(*(a1 + 80) + v18);
-            v18 += 8;
-          }
-
-          while (8 * v15 != v18);
-        }
-
-        v19 = *(a1 + 80);
-        if (v19 && *(a1 + 88) == 1)
-        {
-          btAlignedFreeInternal(v19);
-          v15 = *(a1 + 68);
-        }
-
-        *(a1 + 88) = 1;
-        *(a1 + 80) = v17;
-        *(a1 + 72) = v16;
-      }
-    }
-
-    *(*(a1 + 80) + 8 * v15) = *a3;
-    v20 = v11 & v12;
-    *(a1 + 68) = v15 + 1;
-    v21 = *(a1 + 100);
-    if (v21 == *(a1 + 104))
-    {
-      v22 = v21 ? 2 * v21 : 1;
-      if (v21 < v22)
-      {
-        if (v22)
-        {
-          v23 = btAlignedAllocInternal(8 * v22, 16);
-          v21 = *(a1 + 100);
-        }
-
-        else
-        {
-          v23 = 0;
-        }
-
-        if (v21 >= 1)
-        {
-          v24 = 0;
-          v25 = 8 * v21;
-          do
-          {
-            *(v23 + v24) = *(*(a1 + 112) + v24);
-            v24 += 8;
-          }
-
-          while (v25 != v24);
-        }
-
-        v26 = *(a1 + 112);
-        if (v26 && *(a1 + 120) == 1)
-        {
-          btAlignedFreeInternal(v26);
-        }
-
-        *(a1 + 120) = 1;
-        *(a1 + 112) = v23;
-        *(a1 + 104) = v22;
-        v21 = *(a1 + 100);
-      }
-    }
-
-    *(*(a1 + 112) + 8 * v21) = *a2;
-    ++*(a1 + 100);
-    if (v14 < *(a1 + 72))
-    {
-      btHashMap<btHashPtr,btCollisionShape *>::growTables(a1);
-      v27 = 9 * ((a2[1] + *a2 + ~((a2[1] + *a2) << 15)) ^ ((a2[1] + *a2 + ~((a2[1] + *a2) << 15)) >> 10));
-      v28 = (v27 ^ (v27 >> 6)) + ~((v27 ^ (v27 >> 6)) << 11);
-      v20 = (v28 ^ (v28 >> 16)) & (*(a1 + 72) - 1);
-    }
-
-    v29 = *(a1 + 16);
-    *(*(a1 + 48) + 4 * v13) = *(v29 + 4 * v20);
-    *(v29 + 4 * v20) = v13;
-  }
-
-  else
-  {
-    *(*(a1 + 80) + 8 * Index) = *a3;
-  }
-}
-
-uint64_t btCollisionWorld::serialize(uint64_t a1, uint64_t a2)
-{
-  (*(*a2 + 64))(a2);
-  btCollisionWorld::serializeCollisionObjects(a1, a2);
-  v4 = *(*a2 + 72);
-
-  return v4(a2);
-}
-
-void btCollisionWorld::rayTestSingleInternal(btTransform const&,btTransform const&,btCollisionObjectWrapper const*,btCollisionWorld::RayResultCallback &)::BridgeTriangleRaycastCallback::~BridgeTriangleRaycastCallback(uint64_t a1)
-{
-  C3DSceneSourcePerformConsistencyCheck(a1);
-
-  JUMPOUT(0x21CF07610);
-}
-
-{
-  C3DSceneSourcePerformConsistencyCheck(a1);
-
-  JUMPOUT(0x21CF07610);
-}
-
-uint64_t btCollisionWorld::rayTestSingleInternal(btTransform const&,btTransform const&,btCollisionObjectWrapper const*,btCollisionWorld::RayResultCallback &)::BridgeTriangleRaycastCallback::reportHit(float32x4_t *a1, float32x4_t *a2, int a3, int a4, float a5)
-{
-  v15 = *MEMORY[0x277D85DE8];
-  v5 = vmulq_f32(a1[5], *a2);
-  v6 = vmulq_f32(*a2, a1[6]);
-  v7 = vmulq_f32(*a2, a1[7]);
-  v7.i32[3] = 0;
-  *v5.i8 = vadd_f32(vpadd_f32(*v5.i8, *v6.i8), vzip1_s32(*&vextq_s8(v5, v5, 8uLL), *&vextq_s8(v6, v6, 8uLL)));
-  v5.u64[1] = vpadd_f32(vpadd_f32(*v7.i8, *&vextq_s8(v7, v7, 8uLL)), 0);
-  v11[0] = a3;
-  v11[1] = a4;
-  v9 = &a1[3].i8[8];
-  v8 = a1[3].i64[1];
-  v12[0] = *(v9 + 1);
-  v12[1] = v11;
-  v13 = v5;
-  v14 = a5;
-  return (*(*v8 + 24))(v8, v12, 1);
-}
-
-{
-  v15 = *MEMORY[0x277D85DE8];
-  v5 = vmulq_f32(a1[5], *a2);
-  v6 = vmulq_f32(*a2, a1[6]);
-  v7 = vmulq_f32(*a2, a1[7]);
-  v7.i32[3] = 0;
-  *v5.i8 = vadd_f32(vpadd_f32(*v5.i8, *v6.i8), vzip1_s32(*&vextq_s8(v5, v5, 8uLL), *&vextq_s8(v6, v6, 8uLL)));
-  v5.u64[1] = vpadd_f32(vpadd_f32(*v7.i8, *&vextq_s8(v7, v7, 8uLL)), 0);
-  v11[0] = a3;
-  v11[1] = a4;
-  v9 = &a1[3].i8[8];
-  v8 = a1[3].i64[1];
-  v12[0] = *(v9 + 1);
-  v12[1] = v11;
-  v13 = v5;
-  v14 = a5;
-  return (*(*v8 + 24))(v8, v12, 1);
-}
-
-uint64_t btCollisionWorld::rayTestSingleInternal(btTransform const&,btTransform const&,btCollisionObjectWrapper const*,btCollisionWorld::RayResultCallback &)::LocalInfoAdder2::addSingleResult(uint64_t a1, uint64_t a2)
-{
-  v3 = *(a1 + 64);
-  v5[0] = -1;
-  v5[1] = v3;
-  if (!*(a2 + 8))
-  {
-    *(a2 + 8) = v5;
-  }
-
-  result = (*(**(a1 + 56) + 24))(*(a1 + 56));
-  *(a1 + 8) = *(*(a1 + 56) + 8);
-  return result;
-}
-
-void btCollisionWorld::objectQuerySingleInternal(btConvexShape const*,btTransform const&,btTransform const&,btCollisionObjectWrapper const*,btCollisionWorld::ConvexResultCallback &,float)::BridgeTriangleConvexcastCallback::~BridgeTriangleConvexcastCallback(uint64_t a1)
-{
-  C3DSceneSourcePerformConsistencyCheck(a1);
-
-  JUMPOUT(0x21CF07610);
-}
-
-{
-  C3DSceneSourcePerformConsistencyCheck(a1);
-
-  JUMPOUT(0x21CF07610);
-}
-
-float *btCollisionWorld::objectQuerySingleInternal(btConvexShape const*,btTransform const&,btTransform const&,btCollisionObjectWrapper const*,btCollisionWorld::ConvexResultCallback &,float)::BridgeTriangleConvexcastCallback::reportHit(uint64_t a1, __int128 *a2, __int128 *a3, int a4, int a5, float a6)
-{
-  v14 = *MEMORY[0x277D85DE8];
-  v9[0] = a4;
-  v9[1] = a5;
-  result = *(a1 + 224);
-  if (result[2] >= a6)
-  {
-    v10[0] = *(a1 + 232);
-    v10[1] = v9;
-    v8 = *a3;
-    v11 = *a2;
-    v12 = v8;
-    v13 = a6;
-    return (*(*result + 24))(result, v10, 1);
-  }
-
-  return result;
-}
-
-{
-  v14 = *MEMORY[0x277D85DE8];
-  v9[0] = a4;
-  v9[1] = a5;
-  result = *(a1 + 224);
-  if (result[2] >= a6)
-  {
-    v10[0] = *(a1 + 232);
-    v10[1] = v9;
-    v8 = *a3;
-    v11 = *a2;
-    v12 = v8;
-    v13 = a6;
-    return (*(*result + 24))(result, v10, 0);
-  }
-
-  return result;
-}
-
-uint64_t btCollisionWorld::objectQuerySingleInternal(btConvexShape const*,btTransform const&,btTransform const&,btCollisionObjectWrapper const*,btCollisionWorld::ConvexResultCallback &,float)::LocalInfoAdder::addSingleResult(uint64_t a1, uint64_t a2)
-{
-  v3 = *(a1 + 48);
-  v5[0] = -1;
-  v5[1] = v3;
-  if (!*(a2 + 8))
-  {
-    *(a2 + 8) = v5;
-  }
-
-  result = (*(**(a1 + 40) + 24))(*(a1 + 40));
-  *(a1 + 8) = *(*(a1 + 40) + 8);
-  return result;
-}
-
-float32x2_t btSingleRayCallback::btSingleRayCallback(uint64_t a1, float32x4_t *a2, float32x4_t *a3, uint64_t a4, uint64_t a5)
-{
-  *a1 = &unk_282DC90B8;
-  v5 = *a2;
-  *(a1 + 48) = *a2;
-  v6 = *a3;
-  *(a1 + 224) = a4;
-  *(a1 + 232) = a5;
-  *(a1 + 64) = v6;
-  *(a1 + 80) = xmmword_21C27F910;
-  *(a1 + 96) = xmmword_21C27F8C0;
-  *(a1 + 112) = xmmword_21C27F600;
-  *(a1 + 128) = v5;
-  *(a1 + 144) = xmmword_21C27F910;
-  *(a1 + 160) = xmmword_21C27F8C0;
-  *(a1 + 176) = xmmword_21C27F600;
-  *(a1 + 192) = v6;
-  v7 = vsubq_f32(*a3, *a2);
-  v7.i32[3] = 0;
-  v8 = vmulq_f32(v7, v7);
-  v9 = vmulq_n_f32(v7, 1.0 / sqrtf(vadd_f32(vpadd_f32(*v8.i8, *v8.i8), *&vextq_s8(v8, v8, 8uLL)).f32[0]));
-  __asm { FMOV            V5.2S, #1.0 }
-
-  v15 = vbsl_s8(vceqz_f32(*v9.f32), vdup_n_s32(0x5D5E0B6Bu), vdiv_f32(_D5, *v9.f32));
-  *(a1 + 16) = v15;
-  v16 = 1.0 / v9.f32[2];
-  if (v9.f32[2] == 0.0)
-  {
-    v16 = 1.0e18;
-  }
-
-  *(a1 + 24) = v16;
-  *(a1 + 32) = vand_s8(vcltz_f32(v15), 0x100000001);
-  *(a1 + 40) = v16 < 0.0;
-  v17 = vsubq_f32(v6, v5);
-  v17.i32[3] = 0;
-  v18 = vmulq_f32(v9, v17);
-  result = vadd_f32(vpadd_f32(*v18.i8, *v18.i8), *&vextq_s8(v18, v18, 8uLL));
-  *(a1 + 44) = result.i32[0];
-  return result;
-}
-
-BOOL btSingleRayCallback::process(float32x4_t *a1, uint64_t *a2)
-{
-  v3 = a1[14].i64[1];
-  v4 = v3[2];
-  if (v4 != 0.0)
-  {
-    v5 = *a2;
-    if ((*(*v3 + 16))(v3, *(*a2 + 200)))
-    {
-      v6 = *(v5 + 208);
-      v7 = a1[14].i64[1];
-      v9[0] = 0;
-      v9[1] = v6;
-      v9[2] = v5;
-      v9[3] = v5 + 16;
-      v9[4] = -1;
-      btCollisionWorld::rayTestSingleInternal(a1 + 5, &a1[9], v9, v7);
-    }
-  }
-
-  return v4 != 0.0;
-}
-
-void btTransformUtil::calculateDiffAxisAngle(float32x4_t *this, const btTransform *a2, const btTransform *a3, btVector3 *a4, float *a5)
-{
-  v7 = this[1].f32[1];
-  _D7.i32[0] = this[1].i32[2];
-  _S2 = this[1].f32[0];
-  _Q1 = *this;
-  v11 = *this[2].f32;
-  v12 = vrev64_s32(v11);
-  _S17 = v11.i32[1];
-  v14.f32[0] = vmuls_lane_f32(-_D7.f32[0], v11, 1) + (v7 * this[2].f32[2]);
-  v15 = vdup_lane_s32(*this->f32, 0);
-  v15.f32[0] = v7;
-  _Q22 = *this;
-  _Q22.f32[0] = _S2;
-  v17 = vmla_f32(vmul_f32(v11, vneg_f32(v15)), v12, *_Q22.f32);
-  *_Q22.f32 = vdup_laneq_s32(*this, 2);
-  _Q22.f32[0] = _S2;
-  v12.i32[0] = this[2].i32[2];
-  v18 = vmul_f32(v12, vneg_f32(*_Q22.f32));
-  __asm { FMLA            S22, S7, V1.S[1] }
-
-  _D7.i32[1] = this[2].i32[2];
-  v23 = vmla_f32(v18, vzip1_s32(v11, *this->f32), _D7);
-  v14.i32[1] = v23.i32[0];
-  __asm { FMLA            S4, S17, V1.S[2] }
-
-  v14.i64[1] = v17.u32[0];
-  v25 = vmulq_f32(*this, v14);
-  *v25.i32 = 1.0 / vadd_f32(vpadd_f32(*v25.i8, *v25.i8), *&vextq_s8(v25, v25, 8uLL)).f32[0];
-  v26.f32[0] = v14.f32[0] * *v25.i32;
-  *v27.f32 = vmul_n_f32(v23, *v25.i32);
-  __asm { FMLA            S21, S2, V1.S[2] }
-
-  *v29.f32 = vmul_n_f32(v17, *v25.i32);
-  v26.f32[1] = _S4 * *v25.i32;
-  v26.f32[2] = _Q22.f32[0] * *v25.i32;
-  v27.f32[2] = _S21 * *v25.i32;
-  v29.f32[2] = ((COERCE_FLOAT(*this) * v7) - (COERCE_FLOAT(HIDWORD(this->i64[0])) * _S2)) * *v25.i32;
-  v26.i32[3] = 0;
-  v27.i32[3] = 0;
-  v29.i32[3] = 0;
-  v30 = vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v26, COERCE_FLOAT(*&a2->var0.var0[1])), v27, *a2->var0.var0[1].var0.var0, 1), v29, a2->var0.var0[1], 2);
-  v31 = vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v26, COERCE_FLOAT(*&a2->var0.var0[2])), v27, *a2->var0.var0[2].var0.var0, 1), v29, a2->var0.var0[2], 2);
-  v43.var0[0] = vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v26, COERCE_FLOAT(*a2->var0.var0)), v27, *a2->var0.var0[0].var0.var0, 1), v29, a2->var0.var0[0], 2);
-  v43.var0[1] = v30;
-  v43.var0[2] = v31;
-  btMatrix3x3::getRotation(&v43, &v42);
-  v32 = vmulq_f32(v42, v42);
-  v32.i64[0] = vpaddq_f32(v32, v32).u64[0];
-  v33 = vmulq_n_f32(v42, 1.0 / sqrtf(vpadd_f32(*v32.f32, *v32.f32).f32[0]));
-  v41 = v33;
-  v34 = v33.f32[3];
-  if (v33.f32[3] < -1.0)
-  {
-    v34 = -1.0;
-  }
-
-  if (v34 > 1.0)
-  {
-    v34 = 1.0;
-  }
-
-  v35 = acosf(v34);
-  a4->var0.var0[0] = v35 + v35;
-  v36 = v41;
-  v36.var0.var0[3] = 0.0;
-  a3->var0.var0[0] = v36;
-  a3->var0.var0[0].var0.var0[3] = 0.0;
-  v37 = a3->var0.var0[0];
-  v38 = vmulq_f32(v37, v37);
-  v39 = vadd_f32(vpadd_f32(*v38.i8, *v38.i8), *&vextq_s8(v38, v38, 8uLL)).f32[0];
-  if (v39 >= 1.4211e-14)
-  {
-    v40 = vmulq_n_f32(v37, 1.0 / sqrtf(v39));
-  }
-
-  else
-  {
-    v40 = xmmword_21C27F910;
-  }
-
-  a3->var0.var0[0] = v40;
-}
-
-float32x4_t btMatrix3x3::getRotation(btMatrix3x3 *this, btQuaternion *a2)
-{
-  v2 = this->var0[0].var0.var0[0];
-  v3 = this->var0[1].var0.var0[1];
-  v4 = this->var0[2].var0.var0[2];
-  v5 = (this->var0[0].var0.var0[0] + v3) + v4;
-  if (v5 <= 0.0)
-  {
-    v9 = v2 >= v4;
-    v10 = 2 * (v2 < v4);
-    v11 = 2;
-    if (v2 < v4)
-    {
-      v11 = 1;
-    }
-
-    v12 = 2;
-    if (v3 >= v4)
-    {
-      v12 = 1;
-    }
-
-    if (v2 < v3)
-    {
-      v10 = v12;
-      v9 = 2 * (v3 >= v4);
-      v11 = v3 < v4;
-    }
-
-    v13 = &this->var0[v10];
-    v14 = &this->var0[v9];
-    v15 = &this->var0[v11];
-    v6 = ((v13->var0.var0[v10] - v14->var0.var0[v9]) - v15->var0.var0[v11]) + 1.0;
-    v19.f32[3] = v15->var0.var0[v9] - v14->var0.var0[v11];
-    v16 = v15->var0.var0[v10];
-    v17 = v13->var0.var0[v11];
-    *(&v19 | (4 * v9)) = v14->var0.var0[v10] + v13->var0.var0[v9];
-    *(&v19 | (4 * v11)) = v16 + v17;
-    *(&v19 | (4 * v10)) = v6;
-  }
-
-  else
-  {
-    v6 = v5 + 1.0;
-    v7 = this->var0[0].var0.var0[1];
-    v8 = this->var0[0].var0.var0[2] - this->var0[2].var0.var0[0];
-    v19.f32[0] = this->var0[2].var0.var0[1] - this->var0[1].var0.var0[2];
-    v19.f32[1] = v8;
-    v19.f32[2] = this->var0[1].var0.var0[0] - v7;
-    v19.f32[3] = v5 + 1.0;
-  }
-
-  result = vmulq_n_f32(v19, 0.5 / sqrtf(v6));
-  *a2 = result;
   return result;
 }

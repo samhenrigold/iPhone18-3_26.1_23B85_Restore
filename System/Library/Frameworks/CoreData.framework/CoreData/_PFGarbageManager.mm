@@ -49,7 +49,7 @@
     [store[1] setObject:stringByDeletingLastPathComponent forKey:externalDataReferencesDirectory];
   }
 
-  v6 = [MEMORY[0x1E695DFF8] fileURLWithPath:-[NSString stringByAppendingPathComponent:](-[NSString stringByAppendingPathComponent:](stringByDeletingLastPathComponent isDirectory:{"stringByAppendingPathComponent:", @".LINKS", "stringByAppendingPathComponent:", +[_PFRoutines _getUUID]()), 1}];
+  v6 = [MEMORY[0x1E695DFF8] fileURLWithPath:-[NSString stringByAppendingPathComponent:](-[NSString stringByAppendingPathComponent:](stringByDeletingLastPathComponent isDirectory:{"stringByAppendingPathComponent:", @".LINKS", "stringByAppendingPathComponent:", +[_PFRoutines _getUUID](_PFRoutines)), 1}];
   if (v6)
   {
     if ([objc_msgSend(MEMORY[0x1E696AC08] defaultManager])

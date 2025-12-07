@@ -4,6 +4,11 @@
 - (NIRegionPredicate)initWithName:(id)name devicePresencePreset:(int64_t)preset;
 - (NIRegionPredicate)initWithName:(id)name radius:(float)radius;
 - (NIRegionPredicate)initWithName:(id)name radius:(float)radius preferredUpdateRate:(int64_t)rate;
+- (NIRegionPredicate)initWithName:(id)name radius:(float)radius preferredUpdateRate:(int64_t)rate requiresUserIntent:(BOOL)intent;
+- (NIRegionPredicate)initWithName:(id)name radius:(float)radius preferredUpdateRate:(int64_t)rate requiresUserIntent:(BOOL)intent devicePresencePreset:(int64_t)preset;
+- (NIRegionPredicate)initWithName:(id)name regionSizeCategory:(int64_t)category radius:(float)radius preferredUpdateRate:(int64_t)rate requiresUserIntent:(BOOL)intent;
+- (NIRegionPredicate)initWithName:(id)name regionSizeCategory:(int64_t)category radius:(float)radius preferredUpdateRate:(int64_t)rate requiresUserIntent:(BOOL)intent coarseEstimation:(BOOL)estimation devicePresencePreset:(int64_t)preset;
+- (NIRegionPredicate)initWithName:(id)name regionSizeCategory:(int64_t)category radius:(float)radius preferredUpdateRate:(int64_t)rate requiresUserIntent:(BOOL)intent devicePresencePreset:(int64_t)preset;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)descriptionInternal;
@@ -90,6 +95,67 @@ LABEL_3:
   }
 
   return v9;
+}
+
+- (NIRegionPredicate)initWithName:(id)name radius:(float)radius preferredUpdateRate:(int64_t)rate requiresUserIntent:(BOOL)intent
+{
+  intentCopy = intent;
+  nameCopy = name;
+  v11 = [NIRegionPredicate alloc];
+  *&v12 = radius;
+  v13 = [(NIRegionPredicate *)v11 initWithName:nameCopy radius:rate preferredUpdateRate:v12];
+  [(NIRegionPredicate *)v13 setRequiresUserIntent:intentCopy];
+
+  return v13;
+}
+
+- (NIRegionPredicate)initWithName:(id)name regionSizeCategory:(int64_t)category radius:(float)radius preferredUpdateRate:(int64_t)rate requiresUserIntent:(BOOL)intent
+{
+  intentCopy = intent;
+  nameCopy = name;
+  v13 = [NIRegionPredicate alloc];
+  *&v14 = radius;
+  v15 = [(NIRegionPredicate *)v13 initWithName:nameCopy radius:rate preferredUpdateRate:intentCopy requiresUserIntent:v14];
+  [(NIRegionPredicate *)v15 setRegionSizeCategory:category];
+
+  return v15;
+}
+
+- (NIRegionPredicate)initWithName:(id)name radius:(float)radius preferredUpdateRate:(int64_t)rate requiresUserIntent:(BOOL)intent devicePresencePreset:(int64_t)preset
+{
+  intentCopy = intent;
+  nameCopy = name;
+  v13 = [NIRegionPredicate alloc];
+  *&v14 = radius;
+  v15 = [(NIRegionPredicate *)v13 initWithName:nameCopy radius:rate preferredUpdateRate:intentCopy requiresUserIntent:v14];
+  [(NIRegionPredicate *)v15 setDevicePresencePreset:preset];
+
+  return v15;
+}
+
+- (NIRegionPredicate)initWithName:(id)name regionSizeCategory:(int64_t)category radius:(float)radius preferredUpdateRate:(int64_t)rate requiresUserIntent:(BOOL)intent devicePresencePreset:(int64_t)preset
+{
+  intentCopy = intent;
+  nameCopy = name;
+  v15 = [NIRegionPredicate alloc];
+  *&v16 = radius;
+  v17 = [(NIRegionPredicate *)v15 initWithName:nameCopy regionSizeCategory:category radius:rate preferredUpdateRate:intentCopy requiresUserIntent:0 coarseEstimation:preset devicePresencePreset:v16];
+
+  return v17;
+}
+
+- (NIRegionPredicate)initWithName:(id)name regionSizeCategory:(int64_t)category radius:(float)radius preferredUpdateRate:(int64_t)rate requiresUserIntent:(BOOL)intent coarseEstimation:(BOOL)estimation devicePresencePreset:(int64_t)preset
+{
+  estimationCopy = estimation;
+  intentCopy = intent;
+  nameCopy = name;
+  v17 = [NIRegionPredicate alloc];
+  *&v18 = radius;
+  v19 = [(NIRegionPredicate *)v17 initWithName:nameCopy radius:rate preferredUpdateRate:intentCopy requiresUserIntent:preset devicePresencePreset:v18];
+  [(NIRegionPredicate *)v19 setRegionSizeCategory:category];
+  [(NIRegionPredicate *)v19 setCoarseEstimation:estimationCopy];
+
+  return v19;
 }
 
 - (id)copyWithZone:(_NSZone *)zone

@@ -8,7 +8,7 @@
 
 - (BOOL)handleScopeWhenFeatureIsDisabled:(id)disabled scopeType:(int64_t)type store:(id)store error:(id *)error
 {
-  v42 = *MEMORY[0x1E69E9840];
+  v41 = *MEMORY[0x1E69E9840];
   disabledCopy = disabled;
   storeCopy = store;
   if ((type & 0xFFFFFFFFFFFFFFFELL) == 2)
@@ -23,8 +23,8 @@
         v13 = [CPLScopeChange descriptionForScopeType:type];
         *buf = 138412546;
         *&buf[4] = scopeIdentifier;
-        v40 = 2112;
-        v41 = v13;
+        v39 = 2112;
+        v40 = v13;
         _os_log_impl(&dword_1DC05A000, v11, OS_LOG_TYPE_DEFAULT, "Automatically disabling %@ because feature for %@ is disabled", buf, 0x16u);
       }
     }
@@ -34,15 +34,15 @@
     date = [MEMORY[0x1E695DF00] date];
     v17 = [scopes flagsForScope:disabledCopy];
     [v17 setValue:1 forFlag:262152];
-    v38 = 0;
-    v18 = [scopes updateFlags:v17 forScope:disabledCopy error:&v38];
-    v19 = v38;
+    v37 = 0;
+    v18 = [scopes updateFlags:v17 forScope:disabledCopy error:&v37];
+    v19 = v37;
     v20 = v19;
     if (v18)
     {
-      v37 = v19;
-      v21 = [scopes setDisabledDate:date forScope:disabledCopy error:&v37];
-      v22 = v37;
+      v36 = v19;
+      v21 = [scopes setDisabledDate:date forScope:disabledCopy error:&v36];
+      v22 = v36;
 
       if (v21)
       {
@@ -55,9 +55,9 @@
           v25 = v23;
           *buf = 0;
           localIndex = [disabledCopy localIndex];
-          v36 = v20;
-          v21 = [downloadQueue deleteRecordsForScopeIndex:localIndex maxCount:100 deletedCount:buf error:&v36];
-          v20 = v36;
+          v35 = v20;
+          v21 = [downloadQueue deleteRecordsForScopeIndex:localIndex maxCount:100 deletedCount:buf error:&v35];
+          v20 = v35;
 
           if (!v21)
           {
@@ -89,8 +89,8 @@
               scopeIdentifier2 = [disabledCopy scopeIdentifier];
               *buf = 134218242;
               *&buf[4] = v25;
-              v40 = 2112;
-              v41 = scopeIdentifier2;
+              v39 = 2112;
+              v40 = scopeIdentifier2;
               v30 = scopeIdentifier2;
               _os_log_impl(&dword_1DC05A000, v28, OS_LOG_TYPE_DEFAULT, "Removed %ld background downloads from queue for %@", buf, 0x16u);
             }
@@ -131,37 +131,36 @@
     LOBYTE(v21) = 1;
   }
 
-  v32 = *MEMORY[0x1E69E9840];
   return v21;
 }
 
 - (BOOL)enableFeatureInStore:(id)store error:(id *)error
 {
   errorCopy = error;
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   storeCopy = store;
   scopes = [storeCopy scopes];
+  v30 = 0u;
   v31 = 0u;
   v32 = 0u;
   v33 = 0u;
-  v34 = 0u;
   obj = [scopes enumeratorForScopesIncludeInactive:0];
-  v5 = [obj countByEnumeratingWithState:&v31 objects:v37 count:16];
+  v5 = [obj countByEnumeratingWithState:&v30 objects:v36 count:16];
   if (v5)
   {
     v6 = v5;
     v7 = 0;
-    v8 = *v32;
+    v8 = *v31;
 LABEL_3:
     v9 = 0;
     while (1)
     {
-      if (*v32 != v8)
+      if (*v31 != v8)
       {
         objc_enumerationMutation(obj);
       }
 
-      v10 = *(*(&v31 + 1) + 8 * v9);
+      v10 = *(*(&v30 + 1) + 8 * v9);
       v11 = objc_autoreleasePoolPush();
       scopeType = [v10 scopeType];
       if ((scopeType & 0xFFFFFFFFFFFFFFFELL) == 2)
@@ -176,15 +175,15 @@ LABEL_3:
             {
               scopeIdentifier = [v10 scopeIdentifier];
               *buf = 138412290;
-              v36 = scopeIdentifier;
+              v35 = scopeIdentifier;
               _os_log_impl(&dword_1DC05A000, v14, OS_LOG_TYPE_DEFAULT, "Enabling %@", buf, 0xCu);
             }
           }
 
           [v13 setValue:0 forFlag:{262152, errorCopy}];
-          v30 = v7;
-          v16 = [scopes updateFlags:v13 forScope:v10 error:&v30];
-          v17 = v30;
+          v29 = v7;
+          v16 = [scopes updateFlags:v13 forScope:v10 error:&v29];
+          v17 = v29;
 
           if ((v16 & 1) == 0)
           {
@@ -197,9 +196,9 @@ LABEL_28:
             goto LABEL_29;
           }
 
-          v29 = v17;
-          v18 = [scopes setDisabledDate:0 forScope:v10 error:&v29];
-          v7 = v29;
+          v28 = v17;
+          v18 = [scopes setDisabledDate:0 forScope:v10 error:&v28];
+          v7 = v28;
 
           objc_autoreleasePoolPop(v11);
           if ((v18 & 1) == 0)
@@ -213,9 +212,9 @@ LABEL_28:
 
       else if (!scopeType)
       {
-        v28 = v7;
-        v19 = [scopes setScopeNeedsUpdateFromTransport:v10 error:&v28];
-        v20 = v28;
+        v27 = v7;
+        v19 = [scopes setScopeNeedsUpdateFromTransport:v10 error:&v27];
+        v20 = v27;
 
         objc_autoreleasePoolPop(v11);
         v7 = v20;
@@ -231,7 +230,7 @@ LABEL_28:
 LABEL_20:
       if (v6 == ++v9)
       {
-        v6 = [obj countByEnumeratingWithState:&v31 objects:v37 count:16];
+        v6 = [obj countByEnumeratingWithState:&v30 objects:v36 count:16];
         if (v6)
         {
           goto LABEL_3;
@@ -254,42 +253,41 @@ LABEL_24:
   v22 = 1;
 LABEL_29:
 
-  v23 = *MEMORY[0x1E69E9840];
   return v22;
 }
 
 - (BOOL)disableFeatureInStore:(id)store error:(id *)error
 {
   errorCopy = error;
-  v50 = *MEMORY[0x1E69E9840];
+  v49 = *MEMORY[0x1E69E9840];
   storeCopy = store;
   scopes = [storeCopy scopes];
-  v34 = storeCopy;
+  v33 = storeCopy;
   downloadQueue = [storeCopy downloadQueue];
   date = [MEMORY[0x1E695DF00] date];
+  v41 = 0u;
   v42 = 0u;
   v43 = 0u;
   v44 = 0u;
-  v45 = 0u;
   obj = [scopes enumeratorForScopesIncludeInactive:0];
-  v7 = [obj countByEnumeratingWithState:&v42 objects:v49 count:16];
+  v7 = [obj countByEnumeratingWithState:&v41 objects:v48 count:16];
   if (v7)
   {
     v8 = v7;
     v9 = 0;
-    v10 = *v43;
-    v35 = scopes;
+    v10 = *v42;
+    v34 = scopes;
 LABEL_3:
     v11 = 0;
-    v36 = v8;
+    v35 = v8;
     while (1)
     {
-      if (*v43 != v10)
+      if (*v42 != v10)
       {
         objc_enumerationMutation(obj);
       }
 
-      v12 = *(*(&v42 + 1) + 8 * v11);
+      v12 = *(*(&v41 + 1) + 8 * v11);
       v13 = objc_autoreleasePoolPush();
       if (([v12 scopeType] & 0xFFFFFFFFFFFFFFFELL) == 2)
       {
@@ -307,9 +305,9 @@ LABEL_3:
 
         v16 = [scopes flagsForScope:{v12, errorCopy}];
         [v16 setValue:1 forFlag:262152];
-        v41 = v9;
-        v17 = [scopes updateFlags:v16 forScope:v12 error:&v41];
-        v18 = v41;
+        v40 = v9;
+        v17 = [scopes updateFlags:v16 forScope:v12 error:&v40];
+        v18 = v40;
 
         if (!v17)
         {
@@ -323,9 +321,9 @@ LABEL_35:
           goto LABEL_36;
         }
 
-        v40 = v18;
-        v19 = [scopes setDisabledDate:date forScope:v12 error:&v40];
-        v9 = v40;
+        v39 = v18;
+        v19 = [scopes setDisabledDate:date forScope:v12 error:&v39];
+        v9 = v39;
 
         if (!v19)
         {
@@ -340,9 +338,9 @@ LABEL_35:
           v23 = v21;
           *buf = 0;
           localIndex = [v12 localIndex];
-          v39 = v9;
-          v25 = [downloadQueue deleteRecordsForScopeIndex:localIndex maxCount:100 deletedCount:buf error:&v39];
-          v9 = v39;
+          v38 = v9;
+          v25 = [downloadQueue deleteRecordsForScopeIndex:localIndex maxCount:100 deletedCount:buf error:&v38];
+          v9 = v38;
 
           if (!v25)
           {
@@ -368,8 +366,8 @@ LABEL_35:
 
           objc_autoreleasePoolPop(v13);
           v10 = v20;
-          scopes = v35;
-          v8 = v36;
+          scopes = v34;
+          v8 = v35;
           if ((v25 & 1) == 0)
           {
             goto LABEL_35;
@@ -384,21 +382,21 @@ LABEL_35:
           scopeIdentifier2 = [v12 scopeIdentifier];
           *buf = 134218242;
           *&buf[4] = v23;
-          v47 = 2112;
-          v48 = scopeIdentifier2;
+          v46 = 2112;
+          v47 = scopeIdentifier2;
           _os_log_impl(&dword_1DC05A000, v27, OS_LOG_TYPE_DEFAULT, "Removed %ld background downloads from queue for %@", buf, 0x16u);
         }
 
         v10 = v20;
-        scopes = v35;
-        v8 = v36;
+        scopes = v34;
+        v8 = v35;
       }
 
       objc_autoreleasePoolPop(v13);
 LABEL_26:
       if (++v11 == v8)
       {
-        v8 = [obj countByEnumeratingWithState:&v42 objects:v49 count:16];
+        v8 = [obj countByEnumeratingWithState:&v41 objects:v48 count:16];
         if (v8)
         {
           goto LABEL_3;
@@ -421,7 +419,6 @@ LABEL_30:
   v30 = 1;
 LABEL_36:
 
-  v31 = *MEMORY[0x1E69E9840];
   return v30;
 }
 

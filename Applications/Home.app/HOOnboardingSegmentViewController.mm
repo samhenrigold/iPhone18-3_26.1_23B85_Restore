@@ -6,8 +6,11 @@
 - (HOOnboardingSegmentViewController)initWithContentViewController:(id)controller delegate:(id)delegate;
 - (unint64_t)_numberOfPocketButtons;
 - (void)_buttonActivated:(id)activated;
+- (void)_setNavigationBarVisibility:(BOOL)visibility;
 - (void)setShowPocket:(BOOL)pocket;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
+- (void)viewWillDisappear:(BOOL)disappear;
 @end
 
 @implementation HOOnboardingSegmentViewController
@@ -116,6 +119,35 @@ LABEL_9:
   [view setBackgroundColor:v3];
 }
 
+- (void)viewWillAppear:(BOOL)appear
+{
+  appearCopy = appear;
+  v5 = HFLogForCategory();
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 0;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "[HOOnboardingSegmentViewController-viewWillAppear]", buf, 2u);
+  }
+
+  v6.receiver = self;
+  v6.super_class = HOOnboardingSegmentViewController;
+  [(HOOnboardingSegmentViewController *)&v6 viewWillAppear:appearCopy];
+  [(HOOnboardingSegmentViewController *)self _setNavigationBarVisibility:appearCopy];
+}
+
+- (void)viewWillDisappear:(BOOL)disappear
+{
+  v5.receiver = self;
+  v5.super_class = HOOnboardingSegmentViewController;
+  [(HOOnboardingSegmentViewController *)&v5 viewWillDisappear:disappear];
+  v3 = HFLogForCategory();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+  {
+    *v4 = 0;
+    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "[HOOnboardingSegmentViewController-viewWillDisappear]", v4, 2u);
+  }
+}
+
 - (BOOL)showPocket
 {
   pocketViewController = [(HOOnboardingSegmentViewController *)self pocketViewController];
@@ -201,6 +233,26 @@ LABEL_8:
 
   v7 = [descriptors count];
   return v7;
+}
+
+- (void)_setNavigationBarVisibility:(BOOL)visibility
+{
+  visibilityCopy = visibility;
+  v5 = [(HOOnboardingSegmentViewController *)self _numberOfPocketButtons]!= 1;
+  navigationItem = [(HOOnboardingSegmentViewController *)self navigationItem];
+  [navigationItem setHidesBackButton:v5];
+
+  navigationController = [(HOOnboardingSegmentViewController *)self navigationController];
+  [navigationController setNavigationBarHidden:0 animated:visibilityCopy];
+
+  navigationController2 = [(HOOnboardingSegmentViewController *)self navigationController];
+  navigationBar = [navigationController2 navigationBar];
+  v10 = +[UIColor systemBackgroundColor];
+  [navigationBar setBarTintColor:v10];
+
+  navigationController3 = [(HOOnboardingSegmentViewController *)self navigationController];
+  navigationBar2 = [navigationController3 navigationBar];
+  [navigationBar2 _setHidesShadow:1];
 }
 
 - (HOOnboardingChildViewControllerDelegate)delegate

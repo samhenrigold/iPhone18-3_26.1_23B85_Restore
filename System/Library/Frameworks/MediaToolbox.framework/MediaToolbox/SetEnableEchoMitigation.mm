@@ -3,23 +3,23 @@
 
 @implementation SetEnableEchoMitigation
 
-void __localHelper_SetEnableEchoMitigation_block_invoke(uint64_t a1)
+double __localHelper_SetEnableEchoMitigation_block_invoke(uint64_t a1)
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 48);
   v3 = CFSetContainsValue(**(a1 + 32), *(a1 + 40));
   if (v2)
   {
     if (v3)
     {
-      return;
+      return result;
     }
 
-    v4 = OUTLINED_FUNCTION_2_77();
+    v5 = OUTLINED_FUNCTION_2_77();
     CFSetAddValue(**(a1 + 32), *(a1 + 40));
-    if (v4)
+    if (v5)
     {
-      return;
+      return result;
     }
   }
 
@@ -27,64 +27,64 @@ void __localHelper_SetEnableEchoMitigation_block_invoke(uint64_t a1)
   {
     if (!v3)
     {
-      return;
+      return result;
     }
 
-    v5 = OUTLINED_FUNCTION_2_77();
+    v6 = OUTLINED_FUNCTION_2_77();
     CFSetRemoveValue(**(a1 + 32), *(a1 + 40));
-    if (v5 != 1)
+    if (v6 != 1)
     {
-      return;
+      return result;
     }
   }
 
-  v27 = 0u;
   v28 = 0u;
-  v25 = 0u;
+  v29 = 0u;
   v26 = 0u;
-  v6 = [*(*(a1 + 32) + 16) activeConversations];
-  v7 = [v6 countByEnumeratingWithState:&v25 objects:v30 count:16];
-  if (v7)
+  v27 = 0u;
+  v7 = [*(*(a1 + 32) + 16) activeConversations];
+  v8 = [v7 countByEnumeratingWithState:&v26 objects:v31 count:16];
+  if (v8)
   {
-    v8 = v7;
-    v9 = *v26;
-    v20 = *v26;
+    v9 = v8;
+    v10 = *v27;
+    v21 = *v27;
     do
     {
-      for (i = 0; i != v8; ++i)
+      for (i = 0; i != v9; ++i)
       {
-        if (*v26 != v9)
+        if (*v27 != v10)
         {
-          objc_enumerationMutation(v6);
+          objc_enumerationMutation(v7);
         }
 
-        v11 = *(*(&v25 + 1) + 8 * i);
-        v21 = 0u;
+        v12 = *(*(&v26 + 1) + 8 * i);
         v22 = 0u;
         v23 = 0u;
         v24 = 0u;
-        v12 = [v11 activitySessions];
-        v13 = [v12 countByEnumeratingWithState:&v21 objects:v29 count:16];
-        if (v13)
+        v25 = 0u;
+        v13 = [v12 activitySessions];
+        v14 = [v13 countByEnumeratingWithState:&v22 objects:v30 count:16];
+        if (v14)
         {
-          v14 = v13;
-          v15 = *v22;
+          v15 = v14;
+          v16 = *v23;
           while (2)
           {
-            for (j = 0; j != v14; ++j)
+            for (j = 0; j != v15; ++j)
             {
-              if (*v22 != v15)
+              if (*v23 != v16)
               {
-                objc_enumerationMutation(v12);
+                objc_enumerationMutation(v13);
               }
 
-              v17 = *(*(&v21 + 1) + 8 * j);
+              v18 = *(*(&v22 + 1) + 8 * j);
               if (!*(a1 + 48))
               {
                 goto LABEL_32;
               }
 
-              if ([objc_msgSend(objc_msgSend(objc_msgSend(*(*(&v21 + 1) + 8 * j) "activity")])
+              if ([objc_msgSend(objc_msgSend(objc_msgSend(*(*(&v22 + 1) + 8 * j) "activity")])
               {
                 goto LABEL_27;
               }
@@ -92,7 +92,7 @@ void __localHelper_SetEnableEchoMitigation_block_invoke(uint64_t a1)
               if (!*(a1 + 48))
               {
 LABEL_32:
-                if ([v17 isUsingAirplay])
+                if ([v18 isUsingAirplay])
                 {
 LABEL_27:
                   if (dword_1EAF170A0)
@@ -103,14 +103,14 @@ LABEL_27:
                     fig_log_call_emit_and_clean_up_after_send_and_compose();
                   }
 
-                  [*(*(a1 + 32) + 16) setUsingAirplay:*(a1 + 48) != 0 onActivitySession:v17 onConversation:v11];
-                  return;
+                  [*(*(a1 + 32) + 16) setUsingAirplay:*(a1 + 48) != 0 onActivitySession:v18 onConversation:v12];
+                  return result;
                 }
               }
             }
 
-            v14 = [v12 countByEnumeratingWithState:&v21 objects:v29 count:16];
-            if (v14)
+            v15 = [v13 countByEnumeratingWithState:&v22 objects:v30 count:16];
+            if (v15)
             {
               continue;
             }
@@ -119,22 +119,24 @@ LABEL_27:
           }
         }
 
-        v9 = v20;
+        v10 = v21;
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v25 objects:v30 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v26 objects:v31 count:16];
     }
 
-    while (v8);
+    while (v9);
   }
 
   if (dword_1EAF170A0)
   {
-    v18 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-    os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT);
+    v19 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+    os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT);
     OUTLINED_FUNCTION_0_80();
     fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
+
+  return result;
 }
 
 @end

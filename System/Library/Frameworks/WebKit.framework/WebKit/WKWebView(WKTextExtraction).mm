@@ -7,29 +7,29 @@
 - (uint64_t)_requestTextExtraction:()WKTextExtraction completionHandler:
 {
   WeakRetained = objc_loadWeakRetained((self + 16));
-  v5 = WTF::fastMalloc(0x10);
-  *v5 = &unk_1F10F9DB8;
-  v5[1] = WeakRetained;
-  v9 = v5;
+  v6 = WTF::fastMalloc(v5, 0x10);
+  *v6 = &unk_1F10F9DB8;
+  v6[1] = WeakRetained;
+  v10 = v6;
   if (a2[80] || *a2)
   {
-    v6 = 0;
+    v7 = 0;
   }
 
   else
   {
-    WebKit::createItemRecursive(a2, &v9, &v10);
-    v6 = v10;
+    WebKit::createItemRecursive(a2, &v10, &v11);
+    v7 = v11;
   }
 
   (*(*(self + 8) + 16))(*(self + 8));
-  if (v6)
+  if (v7)
   {
   }
 
-  v7 = *(*v5 + 8);
+  v8 = *(*v6 + 8);
 
-  return v7(v5);
+  return v8(v6);
 }
 
 @end

@@ -80,10 +80,9 @@
     v7 = @"NO";
   }
 
-  itemShareDirection = self->_itemShareDirection;
-  v9 = [v3 initWithFormat:@"itemURL, %@, itemIsPinned, %@, itemShareDirection, %lu, itemAttributionsCount, %@", mask, v7, itemShareDirection, self->_itemAttributionsCount];
+  v8 = [v3 initWithFormat:@"itemURL, %@, itemIsPinned, %@, itemShareDirection, %lu, itemAttributionsCount, %@", mask, v7, self->_itemShareDirection, self->_itemAttributionsCount];
 
-  return v9;
+  return v8;
 }
 
 @end

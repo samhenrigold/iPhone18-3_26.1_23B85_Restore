@@ -30,7 +30,7 @@
 
   v8 = sub_1011CA97C(action, v10);
 
-  sub_10000CAAC(v10, &unk_1019F4D00);
+  sub_10000CAAC(v10, &unk_1019F4D00, &unk_10146E7F0);
   return v8;
 }
 
@@ -46,13 +46,13 @@
 
   else
   {
-    memset(v6, 0, sizeof(v6));
+    memset(v7, 0, sizeof(v7));
     selfCopy2 = self;
   }
 
-  sub_1011D5EB0(v6);
+  sub_1011D5EB0(v7, v5);
 
-  sub_10000CAAC(v6, &unk_1019F4D00);
+  sub_10000CAAC(v7, &unk_1019F4D00, &unk_10146E7F0);
 }
 
 - (void)addContextualMenuElementsToArray:(id)array atPoint:(CGPoint)point
@@ -75,7 +75,7 @@
 
 - (id)nextEditorForSelection:(id)selection withNewEditorStack:(id)stack selectionPath:(id)path
 {
-  sub_1005B981C(&qword_101A09750);
+  sub_1005B981C(&qword_101A09750, &qword_101477C00);
   v8 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
   selectionCopy = selection;
   pathCopy = path;
@@ -103,7 +103,7 @@
 
 - (id)editMenuInteraction:(id)interaction menuForConfiguration:(id)configuration suggestedActions:(id)actions
 {
-  sub_100006370(0, &qword_1019F6C00);
+  sub_100006370(0, &qword_1019F6C00, UIMenu_ptr);
   v5._countAndFlagsBits = 0;
   v5._object = 0xE000000000000000;
   v10.value.super.isa = 0;

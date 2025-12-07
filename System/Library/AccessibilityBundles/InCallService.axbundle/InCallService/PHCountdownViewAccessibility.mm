@@ -50,7 +50,7 @@
 
 - (void)startCountdown
 {
-  v22 = *MEMORY[0x29EDCA608];
+  v21 = *MEMORY[0x29EDCA608];
   v3 = [(PHCountdownViewAccessibility *)self safeValueForKey:@"countdownViewModel"];
   if (UIAccessibilityIsVoiceOverRunning())
   {
@@ -82,39 +82,37 @@
 
     [*MEMORY[0x29EDC8008] _accessibilitySetIsDictationListeningOverride:MEMORY[0x29EDB8EB0]];
     UIAccessibilityPostNotification(*MEMORY[0x29EDC7EA8], &stru_2A21D0958);
-    v18.receiver = self;
-    v18.super_class = PHCountdownViewAccessibility;
-    [(PHCountdownViewAccessibility *)&v18 startCountdown];
+    v17.receiver = self;
+    v17.super_class = PHCountdownViewAccessibility;
+    [(PHCountdownViewAccessibility *)&v17 startCountdown];
   }
 
   else
   {
     *&buf = 0;
     *(&buf + 1) = &buf;
-    v20 = 0x2020000000;
-    v21 = [v3 safeUnsignedIntegerForKey:@"countdown"];
+    v19 = 0x2020000000;
+    v20 = [v3 safeUnsignedIntegerForKey:@"countdown"];
     v8 = [v3 safeValueForKey:@"_axAnnouncementString"];
     UIAccessibilitySpeakAndDoNotBeInterrupted();
-    v17.receiver = self;
-    v17.super_class = PHCountdownViewAccessibility;
-    [(PHCountdownViewAccessibility *)&v17 startCountdown];
+    v16.receiver = self;
+    v16.super_class = PHCountdownViewAccessibility;
+    [(PHCountdownViewAccessibility *)&v16 startCountdown];
     [v3 safeTimeIntervalForKey:@"countdownTickDuration"];
     v10 = v9;
     v11 = MEMORY[0x29EDB8E68];
-    v14[0] = MEMORY[0x29EDCA5F8];
-    v14[1] = 3221225472;
-    v14[2] = __46__PHCountdownViewAccessibility_startCountdown__block_invoke;
-    v14[3] = &unk_29F2C8B38;
-    v14[4] = self;
+    v13[0] = MEMORY[0x29EDCA5F8];
+    v13[1] = 3221225472;
+    v13[2] = __46__PHCountdownViewAccessibility_startCountdown__block_invoke;
+    v13[3] = &unk_29F2C8B38;
+    v13[4] = self;
     p_buf = &buf;
-    v15 = v3;
-    v12 = [v11 scheduledTimerWithTimeInterval:1 repeats:v14 block:v10];
+    v14 = v3;
+    v12 = [v11 scheduledTimerWithTimeInterval:1 repeats:v13 block:v10];
     [(PHCountdownViewAccessibility *)self _axSetAnnouncementTimer:v12];
 
     _Block_object_dispose(&buf, 8);
   }
-
-  v13 = *MEMORY[0x29EDCA608];
 }
 
 void __46__PHCountdownViewAccessibility_startCountdown__block_invoke(uint64_t a1)
@@ -124,7 +122,6 @@ void __46__PHCountdownViewAccessibility_startCountdown__block_invoke(uint64_t a1
     if (--*(*(*(a1 + 48) + 8) + 24))
     {
       v3 = *(a1 + 40);
-      v4 = *(a1 + 48);
       AXPerformSafeBlock();
     }
 

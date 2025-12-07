@@ -10,14 +10,13 @@
 {
   v4 = sub_1CFC9DA38();
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
   MEMORY[0x1EEE9AC00](v4);
-  v8 = &v10 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = &v9 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_1CFC9DA28();
   selfCopy = self;
   sub_1CFC817E4();
 
-  (*(v5 + 8))(v8, v4);
+  (*(v5 + 8))(v7, v4);
 }
 
 - (_TtC10CallsAppUI20RecentsStyleListCell)initWithFrame:(CGRect)frame

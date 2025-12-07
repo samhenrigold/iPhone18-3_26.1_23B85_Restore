@@ -7,7 +7,7 @@
 - (PPScoreInterpreterBytecode)initWithParseRoot:(id)root scalarSubscoreCount:(unint64_t)count arraySubscoreCount:(unint64_t)subscoreCount objectSubscoreCount:(unint64_t)objectSubscoreCount;
 - (id).cxx_construct;
 - (void)dealloc;
-- (void)resolveSubscoreDependencies:(uint64_t)dependencies resolved:(uint64_t *)resolved unresolved:(uint64_t)unresolved resolvedOrdering:;
+- (void)resolveSubscoreDependencies:(uint64_t *)dependencies resolved:(float *)resolved unresolved:(uint64_t)unresolved resolvedOrdering:;
 @end
 
 @implementation PPScoreInterpreterBytecode
@@ -31,30 +31,29 @@
 
 - (PPScoreInterpreterBytecode)initWithParseRoot:(id)root scalarSubscoreCount:(unint64_t)count arraySubscoreCount:(unint64_t)subscoreCount objectSubscoreCount:(unint64_t)objectSubscoreCount
 {
-  v20[3] = *MEMORY[0x277D85DE8];
+  v19[3] = *MEMORY[0x277D85DE8];
   rootCopy = root;
-  v13.receiver = self;
-  v13.super_class = PPScoreInterpreterBytecode;
-  if ([(PPScoreInterpreterBytecode *)&v13 init])
+  v12.receiver = self;
+  v12.super_class = PPScoreInterpreterBytecode;
+  if ([(PPScoreInterpreterBytecode *)&v12 init])
   {
-    std::vector<std::unordered_set<PPSubscoreIdentifier>>::vector[abi:ne200100](&v18, count);
-    std::vector<std::unordered_set<PPSubscoreIdentifier>>::vector[abi:ne200100](&v19, subscoreCount);
-    std::vector<std::unordered_set<PPSubscoreIdentifier>>::vector[abi:ne200100](v20, objectSubscoreCount);
-    v16 = 0uLL;
-    *&v17 = 0;
-    v14 = &v16;
-    v15 = 0;
+    std::vector<std::unordered_set<PPSubscoreIdentifier>>::vector[abi:ne200100](&v17, count);
+    std::vector<std::unordered_set<PPSubscoreIdentifier>>::vector[abi:ne200100](&v18, subscoreCount);
+    std::vector<std::unordered_set<PPSubscoreIdentifier>>::vector[abi:ne200100](v19, objectSubscoreCount);
+    v15 = 0uLL;
+    *&v16 = 0;
+    v13 = &v15;
+    v14 = 0;
     operator new();
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
 uint64_t __47__PPScoreInterpreterBytecode__compileBytecode___block_invoke(uint64_t a1, unsigned __int8 a2, __int16 a3)
 {
-  v8[0] = a2;
-  v8[1] = a3;
+  LOWORD(v8) = a2;
+  HIWORD(v8) = a3;
   v3 = **(*(a1 + 32) + 32);
   if (0xAAAAAAAAAAAAAAABLL * ((*(*(*(a1 + 32) + 32) + 8) - v3) >> 3) <= *(a1 + 48))
   {
@@ -69,7 +68,7 @@ uint64_t __47__PPScoreInterpreterBytecode__compileBytecode___block_invoke(uint64
     std::vector<std::vector<std::unordered_set<PPSubscoreIdentifier>>>::__throw_out_of_range[abi:ne200100]();
   }
 
-  return std::__hash_table<PPSubscoreIdentifier,std::hash<PPSubscoreIdentifier>,std::equal_to<PPSubscoreIdentifier>,std::allocator<PPSubscoreIdentifier>>::__emplace_unique_key_args<PPSubscoreIdentifier,PPSubscoreIdentifier const&>((v5 + 40 * v4), v8);
+  return std::__hash_table<PPSubscoreIdentifier,std::hash<PPSubscoreIdentifier>,std::equal_to<PPSubscoreIdentifier>,std::allocator<PPSubscoreIdentifier>>::__emplace_unique_key_args<PPSubscoreIdentifier,PPSubscoreIdentifier const&>((v5 + 40 * v4), &v8, &v8);
 }
 
 void __47__PPScoreInterpreterBytecode__compileBytecode___block_invoke_2(uint64_t a1, uint64_t a2, CFIndex a3)
@@ -397,10 +396,10 @@ LABEL_38:
   return data;
 }
 
-- (void)resolveSubscoreDependencies:(uint64_t)dependencies resolved:(uint64_t *)resolved unresolved:(uint64_t)unresolved resolvedOrdering:
+- (void)resolveSubscoreDependencies:(uint64_t *)dependencies resolved:(float *)resolved unresolved:(uint64_t)unresolved resolvedOrdering:
 {
   v38 = a2;
-  std::__hash_table<PPSubscoreIdentifier,std::hash<PPSubscoreIdentifier>,std::equal_to<PPSubscoreIdentifier>,std::allocator<PPSubscoreIdentifier>>::__emplace_unique_key_args<PPSubscoreIdentifier,PPSubscoreIdentifier const&>(resolved, &v38);
+  std::__hash_table<PPSubscoreIdentifier,std::hash<PPSubscoreIdentifier>,std::equal_to<PPSubscoreIdentifier>,std::allocator<PPSubscoreIdentifier>>::__emplace_unique_key_args<PPSubscoreIdentifier,PPSubscoreIdentifier const&>(resolved, &v38, &v38);
   v11 = **(self + 32);
   if (0xAAAAAAAAAAAAAAABLL * ((*(*(self + 32) + 8) - v11) >> 3) <= a2)
   {
@@ -416,9 +415,9 @@ LABEL_38:
 
   for (i = *(v12 + 40 * HIWORD(a2) + 16); i; i = *i)
   {
-    if (!std::__hash_table<PPSubscoreIdentifier,std::hash<PPSubscoreIdentifier>,std::equal_to<PPSubscoreIdentifier>,std::allocator<PPSubscoreIdentifier>>::find<PPSubscoreIdentifier>(*dependencies, *(dependencies + 8), i + 16))
+    if (!std::__hash_table<PPSubscoreIdentifier,std::hash<PPSubscoreIdentifier>,std::equal_to<PPSubscoreIdentifier>,std::allocator<PPSubscoreIdentifier>>::find<PPSubscoreIdentifier>(*dependencies, dependencies[1], i + 16))
     {
-      if (std::__hash_table<PPSubscoreIdentifier,std::hash<PPSubscoreIdentifier>,std::equal_to<PPSubscoreIdentifier>,std::allocator<PPSubscoreIdentifier>>::find<PPSubscoreIdentifier>(*resolved, resolved[1], i + 16))
+      if (std::__hash_table<PPSubscoreIdentifier,std::hash<PPSubscoreIdentifier>,std::equal_to<PPSubscoreIdentifier>,std::allocator<PPSubscoreIdentifier>>::find<PPSubscoreIdentifier>(*resolved, *(resolved + 1), i + 16))
       {
         currentHandler = [MEMORY[0x277CCA890] currentHandler];
         [currentHandler handleFailureInMethod:sel_resolveSubscoreDependencies_resolved_unresolved_resolvedOrdering_ object:self file:@"PPScoreInterpreter.mm" lineNumber:371 description:@"Circular dependency detected in model subscore definitions"];
@@ -429,7 +428,7 @@ LABEL_38:
     }
   }
 
-  if (std::__hash_table<PPSubscoreIdentifier,std::hash<PPSubscoreIdentifier>,std::equal_to<PPSubscoreIdentifier>,std::allocator<PPSubscoreIdentifier>>::__emplace_unique_key_args<PPSubscoreIdentifier,PPSubscoreIdentifier const&>(dependencies, &v38))
+  if (std::__hash_table<PPSubscoreIdentifier,std::hash<PPSubscoreIdentifier>,std::equal_to<PPSubscoreIdentifier>,std::allocator<PPSubscoreIdentifier>>::__emplace_unique_key_args<PPSubscoreIdentifier,PPSubscoreIdentifier const&>(dependencies, &v38, &v38))
   {
     v17 = *(unresolved + 8);
     v16 = *(unresolved + 16);
@@ -489,7 +488,7 @@ LABEL_38:
   }
 
   v28 = *resolved;
-  v27 = resolved[1];
+  v27 = *(resolved + 1);
   v29 = std::__hash_table<PPSubscoreIdentifier,std::hash<PPSubscoreIdentifier>,std::equal_to<PPSubscoreIdentifier>,std::allocator<PPSubscoreIdentifier>>::find<PPSubscoreIdentifier>(*resolved, v27, &v38);
   if (v29)
   {
@@ -517,12 +516,12 @@ LABEL_38:
     }
 
     while (v32 != v29);
-    if (v33 == resolved + 2)
+    if (v33 == resolved + 4)
     {
       goto LABEL_42;
     }
 
-    v34 = v33[1];
+    v34 = *(v33 + 1);
     if (v31.u32[0] > 1uLL)
     {
       if (v34 >= v27)
@@ -591,7 +590,7 @@ LABEL_43:
 
     *v33 = v36;
     *v29 = 0;
-    --resolved[3];
+    --*(resolved + 3);
 
     operator delete(v29);
   }
@@ -599,8 +598,8 @@ LABEL_43:
 
 + (id)_bytecodeInstructionForOp:(void *)op unsignedIntegerArgument:(void *)argument doubleArgument:(void *)doubleArgument objectArgument:
 {
-  v34 = *MEMORY[0x277D85DE8];
-  v30 = a2;
+  v33 = *MEMORY[0x277D85DE8];
+  v29 = a2;
   opCopy = op;
   argumentCopy = argument;
   doubleArgumentCopy = doubleArgument;
@@ -624,7 +623,7 @@ LABEL_43:
   v13 = v11;
   if (!opCopy && !argumentCopy && !doubleArgumentCopy)
   {
-    v14 = [objc_alloc(MEMORY[0x277CBEA90]) initWithBytes:&v30 length:2];
+    v14 = [objc_alloc(MEMORY[0x277CBEA90]) initWithBytes:&v29 length:2];
 LABEL_16:
     v17 = v14;
     goto LABEL_17;
@@ -635,17 +634,17 @@ LABEL_16:
     unsignedIntValue = [opCopy unsignedIntValue];
     if (HIWORD(unsignedIntValue))
     {
-      LOWORD(v33[0]) = -5;
-      HIWORD(v33[0]) = a2;
-      v33[1] = unsignedIntValue;
-      v14 = [objc_alloc(MEMORY[0x277CBEA90]) initWithBytes:v33 length:8];
+      LOWORD(v32[0]) = -5;
+      HIWORD(v32[0]) = a2;
+      v32[1] = unsignedIntValue;
+      v14 = [objc_alloc(MEMORY[0x277CBEA90]) initWithBytes:v32 length:8];
     }
 
     else
     {
-      LOWORD(v33[0]) = a2;
-      HIWORD(v33[0]) = unsignedIntValue;
-      v14 = [objc_alloc(MEMORY[0x277CBEA90]) initWithBytes:v33 length:4];
+      LOWORD(v32[0]) = a2;
+      HIWORD(v32[0]) = unsignedIntValue;
+      v14 = [objc_alloc(MEMORY[0x277CBEA90]) initWithBytes:v32 length:4];
     }
 
     goto LABEL_16;
@@ -653,42 +652,41 @@ LABEL_16:
 
   if (argumentCopy)
   {
-    LOWORD(v33[0]) = a2;
+    LOWORD(v32[0]) = a2;
     [argumentCopy doubleValue];
-    *(v33 + 2) = v16;
-    v14 = [objc_alloc(MEMORY[0x277CBEA90]) initWithBytes:v33 length:10];
+    *(v32 + 2) = v16;
+    v14 = [objc_alloc(MEMORY[0x277CBEA90]) initWithBytes:v32 length:10];
     goto LABEL_16;
   }
 
-  v29 = 0;
-  v20 = [MEMORY[0x277D425D8] dataWithPropertyList:doubleArgumentCopy error:&v29];
-  v21 = v29;
-  if (v21)
+  v28 = 0;
+  v19 = [MEMORY[0x277D425D8] dataWithPropertyList:doubleArgumentCopy error:&v28];
+  v20 = v28;
+  if (v20)
   {
-    v25 = MEMORY[0x277CBEAD8];
-    v31 = @"error";
-    v32 = v21;
-    v26 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v32 forKeys:&v31 count:1];
-    v27 = [v25 exceptionWithName:@"PPScoreInterpreterError" reason:@"couldn't encode obj arg to plist" userInfo:v26];
-    v28 = v27;
+    v24 = MEMORY[0x277CBEAD8];
+    v30 = @"error";
+    v31 = v20;
+    v25 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v31 forKeys:&v30 count:1];
+    v26 = [v24 exceptionWithName:@"PPScoreInterpreterError" reason:@"couldn't encode obj arg to plist" userInfo:v25];
+    v27 = v26;
 
-    objc_exception_throw(v27);
+    objc_exception_throw(v26);
   }
 
-  if (!v20)
+  if (!v19)
   {
     __assert_rtn("+[PPScoreInterpreterBytecode _bytecodeInstructionForOp:unsignedIntegerArgument:doubleArgument:objectArgument:]", "PPScoreInterpreter.mm", 529, "lazyPlist");
   }
 
-  v22 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v20, "length")}];
-  v23 = [(PPScoreInterpreterBytecode *)v13 _bytecodeInstructionForOp:a2 unsignedIntegerArgument:v22 doubleArgument:0 objectArgument:0];
+  v21 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v19, "length")}];
+  v22 = [(PPScoreInterpreterBytecode *)v13 _bytecodeInstructionForOp:a2 unsignedIntegerArgument:v21 doubleArgument:0 objectArgument:0];
 
-  v24 = [v23 mutableCopy];
-  [v24 appendData:v20];
-  v17 = [v24 copy];
+  v23 = [v22 mutableCopy];
+  [v23 appendData:v19];
+  v17 = [v23 copy];
 
 LABEL_17:
-  v18 = *MEMORY[0x277D85DE8];
 
   return v17;
 }
@@ -756,13 +754,13 @@ void __67__PPScoreInterpreterBytecode_bytecodeFromFactorName_namespaceName___blo
 
 id __67__PPScoreInterpreterBytecode_bytecodeFromFactorName_namespaceName___block_invoke_2(uint64_t a1)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v2 = +[PPTrialWrapper sharedInstance];
   v3 = [*(a1 + 32) first];
   v4 = [*(a1 + 32) second];
-  v12 = 0;
-  v5 = [v2 lazyPlistForFactorName:v3 namespaceName:v4 error:&v12];
-  v6 = v12;
+  v11 = 0;
+  v5 = [v2 lazyPlistForFactorName:v3 namespaceName:v4 error:&v11];
+  v6 = v11;
 
   if (v5)
   {
@@ -771,21 +769,19 @@ id __67__PPScoreInterpreterBytecode_bytecodeFromFactorName_namespaceName___block
 
   else
   {
-    v10 = pp_default_log_handle();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v9 = pp_default_log_handle();
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      v11 = *(a1 + 32);
+      v10 = *(a1 + 32);
       *buf = 138412546;
-      v14 = v11;
-      v15 = 2112;
-      v16 = v6;
-      _os_log_error_impl(&dword_23224A000, v10, OS_LOG_TYPE_ERROR, "Error loading asset %@: %@", buf, 0x16u);
+      v13 = v10;
+      v14 = 2112;
+      v15 = v6;
+      _os_log_error_impl(&dword_23224A000, v9, OS_LOG_TYPE_ERROR, "Error loading asset %@: %@", buf, 0x16u);
     }
 
     v7 = 0;
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 
   return v7;
 }

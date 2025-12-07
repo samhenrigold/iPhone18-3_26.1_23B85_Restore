@@ -31,9 +31,11 @@
 
 uint64_t __38__WLKBadgingUtilities_sharedUtilities__block_invoke()
 {
-  sharedUtilities___singleInstance = objc_alloc_init(WLKBadgingUtilities);
+  v0 = objc_alloc_init(WLKBadgingUtilities);
+  v1 = sharedUtilities___singleInstance;
+  sharedUtilities___singleInstance = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 - (id)_notificationCenter
@@ -110,26 +112,24 @@ void __42__WLKBadgingUtilities__notificationCenter__block_invoke()
 
 void __56__WLKBadgingUtilities_migrateToNewBadgingSystemIfNeeded__block_invoke(uint64_t a1, void *a2)
 {
-  v3 = *(a1 + 32);
-  v4 = a2;
-  v5 = [objc_opt_class() currentBadgeNumber];
-  v6 = v5;
-  if (v5)
+  v2 = a2;
+  v3 = [objc_opt_class() currentBadgeNumber];
+  v4 = v3;
+  if (v3)
   {
-    v7 = v5;
+    v5 = v3;
   }
 
   else
   {
-    v7 = [MEMORY[0x277CCABB0] numberWithInteger:0];
+    v5 = [MEMORY[0x277CCABB0] numberWithInteger:0];
   }
 
-  v10 = v7;
+  v7 = v5;
 
-  v8 = [v4 integerValue];
-  if (v8 == 1 && ![v10 integerValue])
+  v6 = [v2 integerValue];
+  if (v6 == 1 && ![v7 integerValue])
   {
-    v9 = *(a1 + 32);
     [objc_opt_class() addBadgeIdentifier:@"defaultTVAppBadgeId"];
   }
 }
@@ -285,27 +285,27 @@ LABEL_7:
 
 + (void)processStoredODJBadgingRequestActions
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   [objc_opt_class() _returnListofBadgingActionMetrics];
+  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
-  obj = v24 = 0u;
-  v2 = [obj countByEnumeratingWithState:&v21 objects:v25 count:16];
+  obj = v23 = 0u;
+  v2 = [obj countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v2)
   {
     v3 = v2;
-    v4 = *v22;
+    v4 = *v21;
     do
     {
       for (i = 0; i != v3; ++i)
       {
-        if (*v22 != v4)
+        if (*v21 != v4)
         {
           objc_enumerationMutation(obj);
         }
 
-        v6 = *(*(&v21 + 1) + 8 * i);
+        v6 = *(*(&v20 + 1) + 8 * i);
         v7 = [v6 objectForKeyedSubscript:@"actionMetrics"];
         v8 = [v6 objectForKeyedSubscript:@"badgeIdentifier"];
         v9 = v8;
@@ -332,7 +332,7 @@ LABEL_7:
         }
       }
 
-      v3 = [obj countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v3 = [obj countByEnumeratingWithState:&v20 objects:v24 count:16];
     }
 
     while (v3);
@@ -343,8 +343,6 @@ LABEL_7:
   v17 = +[WLKNotificationCenter defaultCenter];
   v18 = [MEMORY[0x277CCABB0] numberWithInt:0];
   [v17 setBadgeNumber:v18 withCompletionHandler:0];
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 + (id)_returnListofBadgingActionMetrics

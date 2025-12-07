@@ -19,10 +19,10 @@
 
 - (PTUISliderRowTableViewCell)initWithStyle:(int64_t)style reuseIdentifier:(id)identifier
 {
-  v24[2] = *MEMORY[0x277D85DE8];
-  v23.receiver = self;
-  v23.super_class = PTUISliderRowTableViewCell;
-  v4 = [(PTUISliderRowTableViewCell *)&v23 initWithStyle:style reuseIdentifier:identifier];
+  v23[2] = *MEMORY[0x277D85DE8];
+  v22.receiver = self;
+  v22.super_class = PTUISliderRowTableViewCell;
+  v4 = [(PTUISliderRowTableViewCell *)&v22 initWithStyle:style reuseIdentifier:identifier];
   if (v4)
   {
     v5 = objc_opt_new();
@@ -40,9 +40,9 @@
     [(UITextField *)v4->_textField setKeyboardType:8];
     [(UITextField *)v4->_textField setDelegate:v4];
     v10 = objc_alloc(MEMORY[0x277D75A68]);
-    v24[0] = v4->_slider;
-    v24[1] = v4->_textField;
-    v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:2];
+    v23[0] = v4->_slider;
+    v23[1] = v4->_textField;
+    v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:2];
     v12 = [v10 initWithArrangedSubviews:v11];
 
     [v12 setAxis:0];
@@ -61,7 +61,6 @@
     [(PTUISliderRowTableViewCell *)v4 setAccessoryView:v12];
   }
 
-  v21 = *MEMORY[0x277D85DE8];
   return v4;
 }
 

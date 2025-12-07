@@ -22,28 +22,28 @@
   storeCopy = store;
   keyCopy = key;
   dCopy = d;
-  v16 = CFPreferencesCopyAppValue(keyCopy, dCopy);
-  if (!v16 || (_SLLog(v7, 7, @"SLLastAccountManager fetching account with identifier %@"), [storeCopy accountWithIdentifier:{v16, v16}], (v17 = objc_claimAutoreleasedReturnValue()) == 0))
+  v21 = CFPreferencesCopyAppValue(keyCopy, dCopy);
+  if (!v21 || (_SLLog(v7, 7, @"SLLastAccountManager fetching account with identifier %@", v16, v17, v18, v19, v20, v21), [storeCopy accountWithIdentifier:v21], (v22 = objc_claimAutoreleasedReturnValue()) == 0))
   {
-    v18 = [storeCopy accountTypeWithAccountTypeIdentifier:identifierCopy];
-    v19 = [storeCopy accountsWithAccountType:v18];
+    v23 = [storeCopy accountTypeWithAccountTypeIdentifier:identifierCopy];
+    v24 = [storeCopy accountsWithAccountType:v23];
 
-    if ([v19 count])
+    if ([v24 count])
     {
-      v17 = [v19 objectAtIndex:0];
+      v22 = [v24 objectAtIndex:0];
       if (prefsCopy)
       {
-        [SLLastAccountManager _setLastAccount:v17 prefKey:keyCopy prefAppID:dCopy];
+        [SLLastAccountManager _setLastAccount:v22 prefKey:keyCopy prefAppID:dCopy];
       }
     }
 
     else
     {
-      v17 = 0;
+      v22 = 0;
     }
   }
 
-  return v17;
+  return v22;
 }
 
 @end

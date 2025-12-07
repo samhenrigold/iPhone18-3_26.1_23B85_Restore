@@ -86,7 +86,7 @@
 
 - (HMSiriEndpointProfileAssistant)initWithCoder:(id)coder
 {
-  v22[1] = *MEMORY[0x1E69E9840];
+  v21[1] = *MEMORY[0x1E69E9840];
   coderCopy = coder;
   v5 = [(HMSiriEndpointProfileAssistant *)self init];
   if (v5)
@@ -99,8 +99,8 @@
     if (v8)
     {
       stringValue = [(NSNumber *)v8 stringValue];
-      v22[0] = stringValue;
-      v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v22 count:1];
+      v21[0] = stringValue;
+      v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v21 count:1];
 
       v11 = MEMORY[0x1E696AFB0];
       uniqueIdentifierNamespace = [objc_opt_class() uniqueIdentifierNamespace];
@@ -128,7 +128,6 @@
     v5->_active = integerValue;
   }
 
-  v20 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
@@ -204,12 +203,11 @@
 
 uint64_t __45__HMSiriEndpointProfileAssistant_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x1E69A2980];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v4_65864;
-  logCategory__hmf_once_v4_65864 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v4_65864;
+  logCategory__hmf_once_v4_65864 = v0;
 
-  return MEMORY[0x1EEE66BB8](v1, v2);
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 + (id)uniqueIdentifierNamespace

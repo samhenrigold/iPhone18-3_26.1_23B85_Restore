@@ -109,7 +109,7 @@ void __31__EMOneTimeCodeAccelerator_log__block_invoke(uint64_t a1)
 
 void __96__EMOneTimeCodeAccelerator_didReceiveOneTimeCode_timestamp_messageID_subject_senders_observers___block_invoke(uint64_t a1)
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v2 = +[EMOneTimeCodeAccelerator log];
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
@@ -119,25 +119,23 @@ void __96__EMOneTimeCodeAccelerator_didReceiveOneTimeCode_timestamp_messageID_su
     v6 = [*(a1 + 56) description];
     v7 = *(a1 + 72);
     v8 = *(a1 + 80);
-    v11 = 138413570;
-    v12 = v3;
-    v13 = 2112;
-    v14 = v4;
-    v15 = 2112;
-    v16 = v5;
-    v17 = 2112;
-    v18 = v6;
-    v19 = 2048;
-    v20 = v7;
-    v21 = 2048;
-    v22 = v8;
-    _os_log_impl(&dword_1C6655000, v2, OS_LOG_TYPE_DEFAULT, "Received one-time code subject: %@, sender: %@, data: %@, timestamp: %@, GlobalMessageID: %lld, Current Observers: %lu", &v11, 0x3Eu);
+    v10 = 138413570;
+    v11 = v3;
+    v12 = 2112;
+    v13 = v4;
+    v14 = 2112;
+    v15 = v5;
+    v16 = 2112;
+    v17 = v6;
+    v18 = 2048;
+    v19 = v7;
+    v20 = 2048;
+    v21 = v8;
+    _os_log_impl(&dword_1C6655000, v2, OS_LOG_TYPE_DEFAULT, "Received one-time code subject: %@, sender: %@, data: %@, timestamp: %@, GlobalMessageID: %lld, Current Observers: %lu", &v10, 0x3Eu);
   }
 
   v9 = [*(a1 + 64) updateBlock];
   v9[2](v9, *(a1 + 48), *(a1 + 56), *(a1 + 72));
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)didEnterOneTimeCodeField
@@ -173,22 +171,21 @@ void __96__EMOneTimeCodeAccelerator_didReceiveOneTimeCode_timestamp_messageID_su
 
 - (void)didFillOneTimeCode:(int64_t)code
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v5 = +[EMOneTimeCodeAccelerator log];
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 134217984;
+    v6 = 134217984;
     codeCopy = code;
-    _os_log_impl(&dword_1C6655000, v5, OS_LOG_TYPE_DEFAULT, "One Time Code from message with GlobalMessageID: %lld was added to text field", &v7, 0xCu);
+    _os_log_impl(&dword_1C6655000, v5, OS_LOG_TYPE_DEFAULT, "One Time Code from message with GlobalMessageID: %lld was added to text field", &v6, 0xCu);
   }
 
   [(EMOneTimeCodeAccelerator *)self deleteOneTimeCodeEmails:code];
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)deleteOneTimeCodeEmails:(int64_t)emails
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v5 = [EMMessageObjectID alloc];
   v6 = +[EMMailboxScope allMailboxesScope];
   v7 = [(EMMessageObjectID *)v5 initWithGlobalMessageID:emails mailboxScope:v6];
@@ -200,12 +197,10 @@ void __96__EMOneTimeCodeAccelerator_didReceiveOneTimeCode_timestamp_messageID_su
   v10 = +[EMOneTimeCodeAccelerator log];
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
-    v12 = 134217984;
+    v11 = 134217984;
     emailsCopy = emails;
-    _os_log_impl(&dword_1C6655000, v10, OS_LOG_TYPE_DEFAULT, "Used one-time code email with GlobalMessageID %lld is moved to the trash folder", &v12, 0xCu);
+    _os_log_impl(&dword_1C6655000, v10, OS_LOG_TYPE_DEFAULT, "Used one-time code email with GlobalMessageID %lld is moved to the trash folder", &v11, 0xCu);
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)dealloc

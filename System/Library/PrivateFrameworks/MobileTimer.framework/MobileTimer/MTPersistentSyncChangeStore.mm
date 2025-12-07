@@ -62,7 +62,7 @@
 
 void __46__MTPersistentSyncChangeStore_persistChanges___block_invoke(uint64_t a1)
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   v2 = [MEMORY[0x1E696AC08] defaultManager];
   v3 = (a1 + 32);
   v4 = [*(a1 + 32) syncDataFile];
@@ -79,17 +79,17 @@ void __46__MTPersistentSyncChangeStore_persistChanges___block_invoke(uint64_t a1
     v7 = *v3;
     v8 = [*v3 syncDataPath];
     *buf = 138543618;
-    v24 = v7;
-    v25 = 2114;
-    v26 = v8;
+    v23 = v7;
+    v24 = 2114;
+    v25 = v8;
     _os_log_impl(&dword_1B1F9F000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@ creating sync directory at %{public}@", buf, 0x16u);
   }
 
   v9 = [MEMORY[0x1E696AC08] defaultManager];
   v10 = [*v3 syncDataPath];
-  v22 = 0;
-  [v9 createDirectoryAtPath:v10 withIntermediateDirectories:1 attributes:0 error:&v22];
-  v11 = v22;
+  v21 = 0;
+  [v9 createDirectoryAtPath:v10 withIntermediateDirectories:1 attributes:0 error:&v21];
+  v11 = v21;
 
   if (!v11)
   {
@@ -113,11 +113,11 @@ LABEL_7:
         v19 = *(a1 + 40);
         v20 = [v18 syncDataFile];
         *buf = 138543874;
-        v24 = v18;
-        v25 = 2114;
-        v26 = v19;
-        v27 = 2114;
-        v28 = v20;
+        v23 = v18;
+        v24 = 2114;
+        v25 = v19;
+        v26 = 2114;
+        v27 = v20;
         _os_log_impl(&dword_1B1F9F000, v17, OS_LOG_TYPE_DEFAULT, "%{public}@ wrote pending changes %{public}@ to file %{public}@", buf, 0x20u);
       }
     }
@@ -136,8 +136,6 @@ LABEL_7:
       __46__MTPersistentSyncChangeStore_persistChanges___block_invoke_cold_1((a1 + 32));
     }
   }
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 - (id)loadChanges
@@ -161,7 +159,7 @@ LABEL_7:
 
 void __42__MTPersistentSyncChangeStore_loadChanges__block_invoke(uint64_t a1)
 {
-  v35[3] = *MEMORY[0x1E69E9840];
+  v34[3] = *MEMORY[0x1E69E9840];
   v2 = [MEMORY[0x1E696AC08] defaultManager];
   v3 = (a1 + 32);
   v4 = [*(a1 + 32) syncDataFile];
@@ -175,9 +173,9 @@ void __42__MTPersistentSyncChangeStore_loadChanges__block_invoke(uint64_t a1)
 
     if (v8)
     {
-      v28 = 0;
-      v9 = [[MTSyncChangeUnarchiver alloc] initForReadingFromData:v8 error:&v28];
-      v10 = v28;
+      v27 = 0;
+      v9 = [[MTSyncChangeUnarchiver alloc] initForReadingFromData:v8 error:&v27];
+      v10 = v27;
       if (v10)
       {
         v11 = MTLogForCategory(6);
@@ -196,10 +194,10 @@ void __42__MTPersistentSyncChangeStore_loadChanges__block_invoke(uint64_t a1)
         if (v15 >= 4.0)
         {
           v18 = MEMORY[0x1E695DFD8];
-          v35[0] = objc_opt_class();
-          v35[1] = objc_opt_class();
-          v35[2] = objc_opt_class();
-          v19 = [MEMORY[0x1E695DEC8] arrayWithObjects:v35 count:3];
+          v34[0] = objc_opt_class();
+          v34[1] = objc_opt_class();
+          v34[2] = objc_opt_class();
+          v19 = [MEMORY[0x1E695DEC8] arrayWithObjects:v34 count:3];
           v20 = [v18 setWithArray:v19];
           v21 = [v9 decodeObjectOfClasses:v20 forKey:@"MTSyncStoragePendingChanges"];
 
@@ -209,11 +207,11 @@ void __42__MTPersistentSyncChangeStore_loadChanges__block_invoke(uint64_t a1)
             v23 = *v3;
             v24 = [*v3 syncDataFile];
             *buf = 138543874;
-            v30 = v23;
-            v31 = 2114;
-            v32 = v21;
-            v33 = 2114;
-            v34 = v24;
+            v29 = v23;
+            v30 = 2114;
+            v31 = v21;
+            v32 = 2114;
+            v33 = v24;
             _os_log_impl(&dword_1B1F9F000, v22, OS_LOG_TYPE_DEFAULT, "%{public}@ read pending changes %{public}@ from file %{public}@", buf, 0x20u);
           }
 
@@ -239,7 +237,7 @@ void __42__MTPersistentSyncChangeStore_loadChanges__block_invoke(uint64_t a1)
           {
             v17 = *v3;
             *buf = 138543362;
-            v30 = v17;
+            v29 = v17;
             _os_log_impl(&dword_1B1F9F000, v16, OS_LOG_TYPE_DEFAULT, "%{public}@ stored sync version is too old", buf, 0xCu);
           }
 
@@ -265,76 +263,61 @@ void __42__MTPersistentSyncChangeStore_loadChanges__block_invoke(uint64_t a1)
       v13 = *v3;
       v14 = [*v3 syncDataFile];
       *buf = 138543618;
-      v30 = v13;
-      v31 = 2114;
-      v32 = v14;
+      v29 = v13;
+      v30 = 2114;
+      v31 = v14;
       _os_log_impl(&dword_1B1F9F000, v12, OS_LOG_TYPE_DEFAULT, "%{public}@ had no pending changes in file %{public}@", buf, 0x16u);
     }
 
     [*(a1 + 40) finishWithResult:MEMORY[0x1E695E0F0]];
   }
-
-  v27 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_removeSyncDataFile
 {
-  v5 = *MEMORY[0x1E69E9840];
-  LODWORD(v4) = 138543618;
-  *(&v4 + 4) = self;
+  LODWORD(v3) = 138543618;
+  *(&v3 + 4) = self;
   OUTLINED_FUNCTION_1_3();
-  OUTLINED_FUNCTION_2(&dword_1B1F9F000, v1, v2, "%{public}@ failed to remove bogus pending changes with error %{public}@", v4, DWORD2(v4));
-  v3 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_2(&dword_1B1F9F000, v1, v2, "%{public}@ failed to remove bogus pending changes with error %{public}@", v3, DWORD2(v3));
 }
 
 void __46__MTPersistentSyncChangeStore_persistChanges___block_invoke_cold_1(id *a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
   v1 = [*a1 syncDataPath];
   OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_3_2(&dword_1B1F9F000, v2, v3, "%{public}@ failed to write create directory at %{public}@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_3_2(&dword_1B1F9F000, v2, v3, "%{public}@ failed to write create directory at %{public}@", v4, v5, v6, v7);
 }
 
 void __46__MTPersistentSyncChangeStore_persistChanges___block_invoke_cold_2(id *a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
   v1 = [*a1 syncDataFile];
   OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_3_2(&dword_1B1F9F000, v2, v3, "%{public}@ failed to write pending changes to file %{public}@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_3_2(&dword_1B1F9F000, v2, v3, "%{public}@ failed to write pending changes to file %{public}@", v4, v5, v6, v7);
 }
 
 void __42__MTPersistentSyncChangeStore_loadChanges__block_invoke_cold_1(void *a1)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  LODWORD(v4) = 138543618;
-  *(&v4 + 4) = *a1;
+  LODWORD(v3) = 138543618;
+  *(&v3 + 4) = *a1;
   OUTLINED_FUNCTION_1_3();
-  OUTLINED_FUNCTION_2(&dword_1B1F9F000, v1, v2, "%{public}@ unarchiving failed with error %{public}@", v4, DWORD2(v4));
-  v3 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_2(&dword_1B1F9F000, v1, v2, "%{public}@ unarchiving failed with error %{public}@", v3, DWORD2(v3));
 }
 
 void __42__MTPersistentSyncChangeStore_loadChanges__block_invoke_cold_2(uint64_t *a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v2 = *a1;
-  v4 = 138543362;
-  v5 = v2;
-  _os_log_error_impl(&dword_1B1F9F000, a2, OS_LOG_TYPE_ERROR, "%{public}@ got nil pending changes.", &v4, 0xCu);
-  v3 = *MEMORY[0x1E69E9840];
+  v3 = 138543362;
+  v4 = v2;
+  _os_log_error_impl(&dword_1B1F9F000, a2, OS_LOG_TYPE_ERROR, "%{public}@ got nil pending changes.", &v3, 0xCu);
 }
 
 void __42__MTPersistentSyncChangeStore_loadChanges__block_invoke_cold_3(void *a1)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  LODWORD(v4) = 138543618;
-  *(&v4 + 4) = *a1;
+  LODWORD(v3) = 138543618;
+  *(&v3 + 4) = *a1;
   OUTLINED_FUNCTION_1_3();
-  OUTLINED_FUNCTION_2(&dword_1B1F9F000, v1, v2, "%{public}@ caught exception %{public}@ when trying to read pending changes", v4, DWORD2(v4));
-  v3 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_2(&dword_1B1F9F000, v1, v2, "%{public}@ caught exception %{public}@ when trying to read pending changes", v3, DWORD2(v3));
 }
 
 @end

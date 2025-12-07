@@ -357,7 +357,7 @@ LABEL_47:
 
           v25 = self->_taggedPixelBufferGroupAdaptor;
           taggedBufferGroup = [dequeue taggedBufferGroup];
-          [dequeue taggedBufferPts];
+          objc_msgSend_taggedBufferPts(dequeue);
           v27 = [(AVAssetWriterInputTaggedPixelBufferGroupAdaptor *)v25 appendTaggedPixelBufferGroup:taggedBufferGroup withPresentationTime:buf];
           v28 = v23;
           avfAppendSignPostID2 = [(MIOWriterStreamInput *)self avfAppendSignPostID];

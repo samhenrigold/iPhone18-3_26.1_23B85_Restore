@@ -1,5 +1,6 @@
 @interface MKApp
 - (BOOL)isSupported:(int64_t)supported;
+- (MKApp)initWithBundleIdentifier:(id)identifier appStoreIdentifier:(id)storeIdentifier isFree:(BOOL)free;
 - (MKApp)initWithJSONData:(id)data;
 @end
 
@@ -7,11 +8,11 @@
 
 - (MKApp)initWithJSONData:(id)data
 {
-  v87 = *MEMORY[0x277D85DE8];
+  v86 = *MEMORY[0x277D85DE8];
   dataCopy = data;
-  v82.receiver = self;
-  v82.super_class = MKApp;
-  v5 = [(MKApp *)&v82 init];
+  v81.receiver = self;
+  v81.super_class = MKApp;
+  v5 = [(MKApp *)&v81 init];
   if (!v5)
   {
     goto LABEL_54;
@@ -48,32 +49,32 @@
               v18 = [v16 mk_arrayForKey:@"offers"];
               if (v17 && v18)
               {
-                v66 = v14;
-                v67 = v12;
-                v68 = v11;
-                v80 = 0u;
-                v81 = 0u;
-                v78 = 0u;
+                v65 = v14;
+                v66 = v12;
+                v67 = v11;
                 v79 = 0u;
+                v80 = 0u;
+                v77 = 0u;
+                v78 = 0u;
                 obj = v18;
-                v19 = [obj countByEnumeratingWithState:&v78 objects:v86 count:16];
-                v71 = v9;
-                v72 = v7;
-                v69 = v17;
-                v70 = v16;
+                v19 = [obj countByEnumeratingWithState:&v77 objects:v85 count:16];
+                v70 = v9;
+                v71 = v7;
+                v68 = v17;
+                v69 = v16;
                 if (v19)
                 {
-                  v20 = *v79;
+                  v20 = *v78;
                   while (2)
                   {
                     for (i = 0; i != v19; ++i)
                     {
-                      if (*v79 != v20)
+                      if (*v78 != v20)
                       {
                         objc_enumerationMutation(obj);
                       }
 
-                      v22 = *(*(&v78 + 1) + 8 * i);
+                      v22 = *(*(&v77 + 1) + 8 * i);
                       objc_opt_class();
                       if (objc_opt_isKindOfClass())
                       {
@@ -91,7 +92,7 @@
                       }
                     }
 
-                    v19 = [obj countByEnumeratingWithState:&v78 objects:v86 count:16];
+                    v19 = [obj countByEnumeratingWithState:&v77 objects:v85 count:16];
                     if (v19)
                     {
                       continue;
@@ -101,9 +102,9 @@
                   }
 
 LABEL_29:
-                  v9 = v71;
-                  v7 = v72;
-                  v17 = v69;
+                  v9 = v70;
+                  v7 = v71;
+                  v17 = v68;
                 }
 
                 v28 = [v9 mk_stringForKey:@"name"];
@@ -112,42 +113,42 @@ LABEL_29:
                 [(MKApp *)v5 setBundleIdentifier:v17];
                 [(MKApp *)v5 setAppStoreIdentifier:v7];
                 [(MKApp *)v5 setIsFree:v19];
-                v65 = v28;
+                v64 = v28;
                 [(MKApp *)v5 setName:v28];
-                v64 = v29;
+                v63 = v29;
                 [(MKApp *)v5 setDeveloper:v29];
-                v62 = v30;
+                v61 = v30;
                 [(MKApp *)v5 setCategory:v30];
-                v63 = [v16 mk_dictionaryForKey:@"artwork"];
-                v31 = [v63 mk_stringForKey:@"url"];
-                v84[0] = @"{h}";
-                v84[1] = @"{c}";
-                v85[0] = @"{w}";
-                v85[1] = @"bb";
-                v84[2] = @"{f}";
-                v85[2] = @"png";
-                [MEMORY[0x277CBEAC0] dictionaryWithObjects:v85 forKeys:v84 count:3];
+                v62 = [v16 mk_dictionaryForKey:@"artwork"];
+                v31 = [v62 mk_stringForKey:@"url"];
+                v83[0] = @"{h}";
+                v83[1] = @"{c}";
+                v84[0] = @"{w}";
+                v84[1] = @"bb";
+                v83[2] = @"{f}";
+                v84[2] = @"png";
+                [MEMORY[0x277CBEAC0] dictionaryWithObjects:v84 forKeys:v83 count:3];
+                v73 = 0u;
                 v74 = 0u;
                 v75 = 0u;
-                v76 = 0u;
-                v32 = v77 = 0u;
-                v33 = [v32 countByEnumeratingWithState:&v74 objects:v83 count:16];
+                v32 = v76 = 0u;
+                v33 = [v32 countByEnumeratingWithState:&v73 objects:v82 count:16];
                 if (v33)
                 {
                   v34 = v33;
-                  v35 = *v75;
+                  v35 = *v74;
                   do
                   {
                     v36 = 0;
                     v37 = v31;
                     do
                     {
-                      if (*v75 != v35)
+                      if (*v74 != v35)
                       {
                         objc_enumerationMutation(v32);
                       }
 
-                      v38 = *(*(&v74 + 1) + 8 * v36);
+                      v38 = *(*(&v73 + 1) + 8 * v36);
                       v39 = [v32 objectForKeyedSubscript:v38];
                       v31 = [v37 stringByReplacingOccurrencesOfString:v38 withString:v39];
 
@@ -156,7 +157,7 @@ LABEL_29:
                     }
 
                     while (v34 != v36);
-                    v34 = [v32 countByEnumeratingWithState:&v74 objects:v83 count:16];
+                    v34 = [v32 countByEnumeratingWithState:&v73 objects:v82 count:16];
                   }
 
                   while (v34);
@@ -187,15 +188,15 @@ LABEL_29:
 
                 if (iconSize <= 166)
                 {
-                  v53 = v67;
-                  v52 = v68;
-                  v54 = v66;
+                  v53 = v66;
+                  v52 = v67;
+                  v54 = v65;
                   if (iconSize != 120)
                   {
                     v57 = iconSize == 152;
-                    v56 = v71;
-                    v55 = v72;
-                    v58 = v62;
+                    v56 = v70;
+                    v55 = v71;
+                    v58 = v61;
                     if (!v57)
                     {
                       goto LABEL_53;
@@ -210,17 +211,17 @@ LABEL_29:
 
                 else
                 {
-                  v53 = v67;
-                  v52 = v68;
-                  v54 = v66;
+                  v53 = v66;
+                  v52 = v67;
+                  v54 = v65;
                   if (iconSize != 167)
                   {
-                    v56 = v71;
-                    v55 = v72;
+                    v56 = v70;
+                    v55 = v71;
                     if (iconSize != 180)
                     {
                       v57 = iconSize == 1024;
-                      v58 = v62;
+                      v58 = v61;
                       if (!v57)
                       {
                         goto LABEL_53;
@@ -238,15 +239,15 @@ LABEL_54:
 
                     v59 = 64;
 LABEL_51:
-                    v58 = v62;
+                    v58 = v61;
                     goto LABEL_52;
                   }
 
                   v59 = 80;
                 }
 
-                v56 = v71;
-                v55 = v72;
+                v56 = v70;
+                v55 = v71;
                 goto LABEL_51;
               }
             }
@@ -259,8 +260,26 @@ LABEL_51:
   v26 = 0;
 LABEL_55:
 
-  v60 = *MEMORY[0x277D85DE8];
   return v26;
+}
+
+- (MKApp)initWithBundleIdentifier:(id)identifier appStoreIdentifier:(id)storeIdentifier isFree:(BOOL)free
+{
+  freeCopy = free;
+  identifierCopy = identifier;
+  storeIdentifierCopy = storeIdentifier;
+  v13.receiver = self;
+  v13.super_class = MKApp;
+  v10 = [(MKApp *)&v13 init];
+  v11 = v10;
+  if (v10)
+  {
+    [(MKApp *)v10 setBundleIdentifier:identifierCopy];
+    [(MKApp *)v11 setAppStoreIdentifier:storeIdentifierCopy];
+    [(MKApp *)v11 setIsFree:freeCopy];
+  }
+
+  return v11;
 }
 
 - (BOOL)isSupported:(int64_t)supported

@@ -35,9 +35,9 @@
     goto LABEL_60;
   }
 
-  v5 = AffineTransformContextAlloc(self->_metalCommandQueue);
-  self->_gpuRenderer = v5;
-  if (!v5)
+  v6 = AffineTransformContextAlloc(self->_metalCommandQueue);
+  self->_gpuRenderer = v6;
+  if (!v6)
   {
     goto LABEL_60;
   }
@@ -46,61 +46,61 @@
   ispProcessingSession = self->_ispProcessingSession;
   if (!ispProcessingSession)
   {
-    v35 = objc_alloc_init(NSMutableDictionary);
-    if (!v35 || (Function = FigCaptureGetCaptureDeviceCreateFunction()) == 0)
+    v36 = objc_alloc_init(NSMutableDictionary);
+    if (!v36 || (Function = FigCaptureGetCaptureDeviceCreateFunction()) == 0)
     {
 
       goto LABEL_60;
     }
 
-    v37 = Function(kCFAllocatorDefault, 0, &self->_ispCaptureDevice);
-    if (!v37)
+    v38 = Function(kCFAllocatorDefault, 0, &self->_ispCaptureDevice);
+    if (!v38)
     {
       if (process == 3)
       {
-        v38 = &off_563F8;
+        v39 = &off_563F8;
       }
 
       else
       {
-        v38 = &off_56410;
+        v39 = &off_56410;
       }
 
-      [v35 setObject:v38 forKeyedSubscript:kFigCaptureISPProcessingSessionConfigurationKey_SessionType];
+      [v36 setObject:v39 forKeyedSubscript:kFigCaptureISPProcessingSessionConfigurationKey_SessionType];
       ispCaptureDevice = self->_ispCaptureDevice;
-      v40 = *(*(CMBaseObjectGetVTable() + 16) + 8);
-      if (!v40)
+      v41 = *(*(CMBaseObjectGetVTable() + 16) + 8);
+      if (!v41)
       {
-        LODWORD(v8) = -12782;
+        LODWORD(v9) = -12782;
 LABEL_47:
 
         goto LABEL_48;
       }
 
-      v37 = v40(ispCaptureDevice, kCFAllocatorDefault, v35, &self->_ispProcessingSession);
-      if (!v37)
+      v38 = v41(ispCaptureDevice, kCFAllocatorDefault, v36, &self->_ispProcessingSession);
+      if (!v38)
       {
 
         goto LABEL_6;
       }
     }
 
-    LODWORD(v8) = v37;
+    LODWORD(v9) = v38;
     goto LABEL_47;
   }
 
   CFRetain(ispProcessingSession);
 LABEL_6:
-  v8 = *p_ispProcessingSession;
+  v9 = *p_ispProcessingSession;
   if (!*p_ispProcessingSession)
   {
-    return v8;
+    return v9;
   }
 
-  v9 = *(*(CMBaseObjectGetVTable() + 8) + 48);
-  if (v9)
+  v10 = *(*(CMBaseObjectGetVTable() + 8) + 48);
+  if (v10)
   {
-    setup = v9(v8, kFigCaptureISPProcessingSessionProperty_SupportedOutputs, kCFAllocatorDefault, &self->_ispOutputIdentifiers);
+    setup = v10(v9, kFigCaptureISPProcessingSessionProperty_SupportedOutputs, kCFAllocatorDefault, &self->_ispOutputIdentifiers);
     if (setup)
     {
       goto LABEL_63;
@@ -111,27 +111,27 @@ LABEL_6:
       goto LABEL_60;
     }
 
-    v49 = 0u;
-    v50 = 0u;
-    v47 = 0u;
-    v48 = 0u;
-    v11 = self->_ispOutputIdentifiers;
-    v12 = [(NSArray *)v11 countByEnumeratingWithState:&v47 objects:v46 count:16];
-    if (v12)
+    v53 = 0u;
+    v54 = 0u;
+    v51 = 0u;
+    v52 = 0u;
+    v12 = self->_ispOutputIdentifiers;
+    v13 = [(NSArray *)v12 countByEnumeratingWithState:&v51 objects:v50 count:16];
+    if (v13)
     {
-      v13 = v12;
-      v14 = *v48;
+      v14 = v13;
+      v15 = *v52;
       while (1)
       {
-        if (*v48 != v14)
+        if (*v52 != v15)
         {
-          objc_enumerationMutation(v11);
+          objc_enumerationMutation(v12);
         }
 
-        if (!--v13)
+        if (!--v14)
         {
-          v13 = [(NSArray *)v11 countByEnumeratingWithState:&v47 objects:v46 count:16];
-          if (!v13)
+          v14 = [(NSArray *)v12 countByEnumeratingWithState:&v51 objects:v50 count:16];
+          if (!v14)
           {
             break;
           }
@@ -139,86 +139,86 @@ LABEL_6:
       }
     }
 
-    v15 = self->_ispProcessingSession;
-    v16 = *(*(CMBaseObjectGetVTable() + 8) + 48);
-    if (v16)
+    v16 = self->_ispProcessingSession;
+    v17 = *(*(CMBaseObjectGetVTable() + 8) + 48);
+    if (v17)
     {
-      setup = v16(v15, kFigCaptureISPProcessingSessionProperty_InputPixelBufferAttributes, kCFAllocatorDefault, &self->_ispInputPixelBufferAttributes);
+      setup = v17(v16, kFigCaptureISPProcessingSessionProperty_InputPixelBufferAttributes, kCFAllocatorDefault, &self->_ispInputPixelBufferAttributes);
       if (setup)
       {
         goto LABEL_63;
       }
 
-      v17 = self->_ispProcessingSession;
-      v18 = *(*(CMBaseObjectGetVTable() + 8) + 48);
-      if (v18)
+      v18 = self->_ispProcessingSession;
+      v19 = *(*(CMBaseObjectGetVTable() + 8) + 48);
+      if (v19)
       {
-        setup = v18(v17, kFigCaptureISPProcessingSessionProperty_OutputPixelBufferAttributes, kCFAllocatorDefault, &self->_ispOutputPixelBufferAttributes);
+        setup = v19(v18, kFigCaptureISPProcessingSessionProperty_OutputPixelBufferAttributes, kCFAllocatorDefault, &self->_ispOutputPixelBufferAttributes);
         if (setup)
         {
           goto LABEL_63;
         }
 
-        v19 = dispatch_semaphore_create(1);
+        v20 = dispatch_semaphore_create(1);
         ispRendererLock = self->_ispRendererLock;
-        self->_ispRendererLock = v19;
+        self->_ispRendererLock = v20;
 
         if (!self->_ispRendererLock)
         {
           goto LABEL_60;
         }
 
-        v21 = dispatch_semaphore_create(0);
+        v22 = dispatch_semaphore_create(0);
         ispWait = self->_ispWait;
-        self->_ispWait = v21;
+        self->_ispWait = v22;
 
         if (!self->_ispWait)
         {
           goto LABEL_60;
         }
 
-        v23 = dispatch_semaphore_create(6);
+        v24 = dispatch_semaphore_create(6);
         ispBackPressure = self->_ispBackPressure;
-        self->_ispBackPressure = v23;
+        self->_ispBackPressure = v24;
 
         if (!self->_ispBackPressure)
         {
           goto LABEL_60;
         }
 
-        v25 = dispatch_semaphore_create(1);
+        v26 = dispatch_semaphore_create(1);
         frameCounterMutex = self->_frameCounterMutex;
-        self->_frameCounterMutex = v25;
+        self->_frameCounterMutex = v26;
 
         if (!self->_frameCounterMutex)
         {
           goto LABEL_60;
         }
 
-        v27 = *p_ispProcessingSession;
-        v28 = *(*(CMBaseObjectGetVTable() + 8) + 56);
-        if (v28)
+        v28 = *p_ispProcessingSession;
+        v29 = *(*(CMBaseObjectGetVTable() + 8) + 56);
+        if (v29)
         {
-          setup = v28(v27, kFigCaptureISPProcessingSessionProperty_OutputHandler, &__block_literal_global_0);
+          setup = v29(v28, kFigCaptureISPProcessingSessionProperty_OutputHandler, &__block_literal_global_0);
           if (!setup)
           {
             objc_initWeak(&location, self);
-            v8 = self->_ispProcessingSession;
-            v43[0] = _NSConcreteStackBlock;
-            v43[1] = 3221225472;
-            v43[2] = __37__VISISPRendererV2_prepareToProcess___block_invoke_2;
-            v43[3] = &unk_55120;
-            objc_copyWeak(&v44, &location);
-            v29 = v43;
-            v30 = *(*(CMBaseObjectGetVTable() + 16) + 8);
-            if (v30)
+            v9 = self->_ispProcessingSession;
+            v44 = _NSConcreteStackBlock;
+            v45 = 3221225472;
+            v46 = __37__VISISPRendererV2_prepareToProcess___block_invoke_2;
+            v47 = &unk_55120;
+            objc_copyWeak(&v48, &location);
+            v30 = &v44;
+            v31 = *(*(CMBaseObjectGetVTable() + 16) + 8);
+            if (v31)
             {
-              LODWORD(v8) = v30(v8, v29);
+              LODWORD(v9) = v31(v9, v30);
 
-              if (v8)
+              if (v9)
               {
 LABEL_55:
-                objc_destroyWeak(&v44);
+                objc_destroyWeak(&v48);
                 objc_destroyWeak(&location);
                 goto LABEL_48;
               }
@@ -226,86 +226,86 @@ LABEL_55:
               dispatch_semaphore_wait(self->_ispWait, 0xFFFFFFFFFFFFFFFFLL);
               if (!self->_ispStatus)
               {
-                objc_destroyWeak(&v44);
+                objc_destroyWeak(&v48);
                 objc_destroyWeak(&location);
                 if (process == 3)
                 {
-                  LODWORD(v8) = [(VISISPRendererV2 *)self prepareToProcess:?];
-                  if (!v8)
+                  LODWORD(v9) = [(VISISPRendererV2 *)self prepareToProcess:?];
+                  if (!v9)
                   {
-                    return v8;
+                    return v9;
                   }
 
-                  if (v8 == 1)
+                  if (v9 == 1)
                   {
                     goto LABEL_35;
                   }
 
-                  LODWORD(v8) = location;
+                  LODWORD(v9) = location;
                   goto LABEL_48;
                 }
 
-                v31 = objc_alloc_init(VISISPStripGeneratorV2);
+                v32 = objc_alloc_init(VISISPStripGeneratorV2);
                 ispStripGenerator = self->_ispStripGenerator;
-                self->_ispStripGenerator = v31;
+                self->_ispStripGenerator = v32;
 
-                v33 = self->_ispStripGenerator;
-                if (v33)
+                v34 = self->_ispStripGenerator;
+                if (v34)
                 {
-                  [(VISISPStripGeneratorV2 *)v33 setInputSize:*self->_inputSize];
+                  [(VISISPStripGeneratorV2 *)v34 setInputSize:*self->_inputSize];
                   [(VISISPStripGeneratorV2 *)self->_ispStripGenerator setOutputSize:*self->_outputSize];
                   [(VISISPStripGeneratorV2 *)self->_ispStripGenerator setGridSize:*self->_gridSize];
                   [(VISISPStripGeneratorV2 *)self->_ispStripGenerator setExtendedOutputRowsToFill:self->_extendedOutputRowsToFill];
                   if (process == 1)
                   {
-                    v34 = 1;
+                    v35 = 1;
                   }
 
                   else
                   {
-                    v34 = 2;
+                    v35 = 2;
                   }
 
-                  [(VISISPStripGeneratorV2 *)self->_ispStripGenerator setType:v34];
+                  [(VISISPStripGeneratorV2 *)self->_ispStripGenerator setType:v35];
                   setup = [(VISISPStripGeneratorV2 *)self->_ispStripGenerator setup];
                   if (!setup)
                   {
 LABEL_35:
-                    LODWORD(v8) = 0;
+                    LODWORD(v9) = 0;
                     *&self->_setupCompleted = 1;
                     self->_numberOfFramesEnqueued = 0;
-                    return v8;
+                    return v9;
                   }
 
                   goto LABEL_63;
                 }
 
 LABEL_60:
-                LODWORD(v8) = 0;
-                return v8;
+                LODWORD(v9) = 0;
+                return v9;
               }
 
               fig_log_get_emitter();
-              FigDebugAssert3();
+              FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", 0, v3, v44, v45, v46, v47, v48, location);
             }
 
             else
             {
             }
 
-            LODWORD(v8) = -12782;
+            LODWORD(v9) = -12782;
             goto LABEL_55;
           }
 
 LABEL_63:
-          LODWORD(v8) = setup;
+          LODWORD(v9) = setup;
           goto LABEL_48;
         }
       }
     }
   }
 
-  LODWORD(v8) = -12782;
+  LODWORD(v9) = -12782;
 LABEL_48:
   if (*p_ispProcessingSession)
   {
@@ -313,14 +313,14 @@ LABEL_48:
     *p_ispProcessingSession = 0;
   }
 
-  v41 = self->_ispCaptureDevice;
-  if (v41)
+  v42 = self->_ispCaptureDevice;
+  if (v42)
   {
-    CFRelease(v41);
+    CFRelease(v42);
     self->_ispCaptureDevice = 0;
   }
 
-  return v8;
+  return v9;
 }
 
 void __37__VISISPRendererV2_prepareToProcess___block_invoke_2(uint64_t a1, int a2)

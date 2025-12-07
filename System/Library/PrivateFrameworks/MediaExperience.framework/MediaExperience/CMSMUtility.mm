@@ -15,9 +15,9 @@ uint64_t __CMSMUtility_CopyPrioritizedListBasedOnPlayingAndActiveState_block_inv
         return 1;
       }
 
-      if (![a2 isActive] || objc_msgSend(a3, "isActive"))
+      if (!objc_msgSend_isActive(a2) || objc_msgSend_isActive(a3))
       {
-        return ([a2 isActive] & 1) == 0 && objc_msgSend(a3, "isActive");
+        return (objc_msgSend_isActive(a2) & 1) == 0 && objc_msgSend_isActive(a3);
       }
     }
   }
@@ -45,14 +45,14 @@ uint64_t __CMSMUtility_CopyPrioritizedListBasedOnPlayingAndActiveState_block_inv
   return -1;
 }
 
-uint64_t __CMSMUtility_UpdateSharePlayVolumeBehaviours_block_invoke()
+uint64_t __CMSMUtility_UpdateSharePlayVolumeBehaviours_block_invoke(uint64_t a1, uint64_t a2)
 {
-  v6 = *MEMORY[0x1E69E9840];
-  SharePlayCapableActiveMediaSession = CMSMUtility_GetSharePlayCapableActiveMediaSession();
-  result = CMSMUtility_GetSharePlayCapableActiveCallSession();
+  v13 = *MEMORY[0x1E69E9840];
+  SharePlayCapableActiveMediaSession = CMSMUtility_GetSharePlayCapableActiveMediaSession(a1, a2);
+  result = CMSMUtility_GetSharePlayCapableActiveCallSession(SharePlayCapableActiveMediaSession, v3);
   if (result)
   {
-    v2 = result;
+    v5 = result;
     result = [result currentlyControllingFlags];
     if (SharePlayCapableActiveMediaSession)
     {
@@ -62,11 +62,11 @@ uint64_t __CMSMUtility_UpdateSharePlayVolumeBehaviours_block_invoke()
         {
           os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
           os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
-          fig_log_call_emit_and_clean_up_after_send_and_compose();
+          result = fig_log_call_emit_and_clean_up_after_send_and_compose();
         }
 
-        CMSMUtility_SetMediaPlaybackVolumeToCurrentPhoneCallVolume();
-        result = CMSMUtility_TransferVolumeControlFlagToSharePlayCapableMediaSession();
+        CMSMUtility_SetMediaPlaybackVolumeToCurrentPhoneCallVolume(result, v6);
+        return CMSMUtility_TransferVolumeControlFlagToSharePlayCapableMediaSession(v9, v10);
       }
     }
 
@@ -74,29 +74,28 @@ uint64_t __CMSMUtility_UpdateSharePlayVolumeBehaviours_block_invoke()
     {
       if (dword_1EB75DE40)
       {
-        v4 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-        os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
-        fig_log_call_emit_and_clean_up_after_send_and_compose();
+        v8 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+        os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
+        result = fig_log_call_emit_and_clean_up_after_send_and_compose();
       }
 
-      CMSMUtility_SetPhoneCallVolumeToCurrentMediaPlaybackVolume();
-      CMSMUtility_TransferVolumeControlFlagToSharePlayCapableCallSession();
-      result = cmsTryToTakeControl(v2);
+      CMSMUtility_SetPhoneCallVolumeToCurrentMediaPlaybackVolume(result, v6);
+      CMSMUtility_TransferVolumeControlFlagToSharePlayCapableCallSession(v11, v12);
+      return cmsTryToTakeControl(v5);
     }
   }
 
-  v5 = *MEMORY[0x1E69E9840];
   return result;
 }
 
-uint64_t __CMSMUtility_CopyMappedMXSessionAudioCategory_block_invoke()
+void *__CMSMUtility_CopyMappedMXSessionAudioCategory_block_invoke()
 {
   result = [objc_alloc(MEMORY[0x1E695DF20]) initWithObjectsAndKeys:{@"AmbientSound", @"AVAudioSessionCategoryAmbient", @"SoloAmbientSound", @"AVAudioSessionCategorySoloAmbient", @"MediaPlayback", @"AVAudioSessionCategoryPlayback", @"MediaPlaybackNoSpeaker", @"AVAudioSessionCategoryPlaybackNoSpeaker", @"VoiceOver", @"AVAudioSessionCategoryVoiceOver", @"AudioProcessing", @"AVAudioSessionCategoryAudioProcessing", @"Multi", @"AVAudioSessionCategoryMultiRoute", @"Ringtone", @"AVAudioSessionCategoryRingtone", @"RingtonePreview", @"AVAudioSessionCategoryRingtonePreview", @"PhoneCall", @"AVAudioSessionCategoryPhoneCall", @"TTYCall", @"AVAudioSessionCategoryTTYCall", @"Voicemail", @"AVAudioSessionCategoryVoiceMail", @"Alarm", @"AVAudioSessionCategoryAlarm", @"Record", @"AVAudioSessionCategoryRecord", @"PlayAndRecord", @"AVAudioSessionCategoryPlayAndRecord", @"FindMyPhone", @"AVAudioSessionCategoryFindMyPhone", @"EmergencyAlert", @"AVAudioSessionCategoryEmergencyAlert", @"EmergencyAlert_Muteable", @"AVAudioSessionCategoryEmergencyAlert_CanBeMuted", @"WaterEjection", @"AVAudioSessionCategoryWaterEjection", @"FindMyAudioDevice", @"AVAudioSessionCategoryFindMyDevice", @"SystemSoundsAndHaptics", @"AVAudioSessionCategorySystemSoundsAndHaptics", @"VoiceCommand", @"AVAudioSessionCategoryVoiceCommand", @"eARC", @"AVAudioSessionCategoryEARC", @"SpeechDetect", @"AVAudioSessionCategorySpeechDetection", 0}];
   CMSMUtility_CopyMappedMXSessionAudioCategory_sAudioSessionToMXCategoryMap = result;
   return result;
 }
 
-uint64_t __CMSMUtility_CopyMappedMXSessionAudioMode_block_invoke()
+void *__CMSMUtility_CopyMappedMXSessionAudioMode_block_invoke()
 {
   result = [objc_alloc(MEMORY[0x1E695DF20]) initWithObjectsAndKeys:{@"Default", @"AVAudioSessionModeDefault", @"VoiceChat", @"AVAudioSessionModeVoiceChat", @"VideoChat", @"AVAudioSessionModeVideoChat", @"VideoRecording", @"AVAudioSessionModeVideoRecording", @"SpeechRecognition", @"AVAudioSessionModeSpeechRecognition", @"Measurement", @"AVAudioSessionModeMeasurement", @"Raw", @"AVAudioSessionModeRaw", @"GameChat", @"AVAudioSessionModeGameChat", @"MoviePlayback", @"AVAudioSessionModeMoviePlayback", @"SpokenAudio", @"AVAudioSessionModeSpokenAudio", @"VoicePrompt", @"AVAudioSessionModeVoicePrompt", @"VoiceMessages", @"AVAudioSessionModeVoiceMessages", @"FindMyPhone", @"AVAudioSessionModeLocatePhone", @"LivePhoto", @"AVAudioSessionModeLivePhoto", @"HearingAccessibility", @"AVAudioSessionModeHearingAccessibility", @"SpatialRecording", @"AVAudioSessionModeSpatialRecording", @"SOSNotification", @"AVAudioSessionModeSOS", @"VideoChatForMedia", @"AVAudioSessionModeVideoChatForMedia", @"CustomVolume", @"AVAudioSessionModeHapticsConstantVolume", @"LowLatency", @"AVAudioSessionModeLowLatency", @"Beacon", @"AVAudioSessionModeBeacon", @"WebCam_MultiMic", @"AVAudioSessionModeTelephonyWebcam", 0}];
   CMSMUtility_CopyMappedMXSessionAudioMode_sAudioSessionToMXModeMap = result;

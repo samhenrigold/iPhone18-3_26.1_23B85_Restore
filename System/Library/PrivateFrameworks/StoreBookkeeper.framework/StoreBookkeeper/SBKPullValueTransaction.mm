@@ -18,13 +18,12 @@
 
     if (itemValuePayload)
     {
-      clientItemPayloadPair = self->_clientItemPayloadPair;
-      v9 = objc_opt_class();
+      v8 = objc_opt_class();
       itemKey = [responseCopy itemKey];
       itemValuePayload2 = [responseCopy itemValuePayload];
-      v12 = SBKKeyValuePayloadPairWithPreferredClass(v9, itemKey, itemValuePayload2);
+      v11 = SBKKeyValuePayloadPairWithPreferredClass(v8, itemKey, itemValuePayload2);
       resultItemPayloadPair = self->_resultItemPayloadPair;
-      self->_resultItemPayloadPair = v12;
+      self->_resultItemPayloadPair = v11;
 
       itemVersion = [responseCopy itemVersion];
     }
@@ -59,7 +58,6 @@
 
 - (id)description
 {
-  clientItemPayloadPair = self->_clientItemPayloadPair;
   clientItemVersionAnchor = self->_clientItemVersionAnchor;
   if (!clientItemVersionAnchor)
   {
@@ -67,7 +65,6 @@
   }
 
   clientItemVersionAnchor = [MEMORY[0x277CCACA8] stringWithFormat:@"[client: payload-pair=%@, anchor=%@]", self->_clientItemPayloadPair, clientItemVersionAnchor];
-  resultItemPayloadPair = self->_resultItemPayloadPair;
   resultItemVersionAnchor = self->_resultItemVersionAnchor;
   if (!resultItemVersionAnchor)
   {
@@ -75,14 +72,14 @@
   }
 
   resultItemVersionAnchor = [MEMORY[0x277CCACA8] stringWithFormat:@"[result: payload-pair=%@, anchor=%@]", self->_resultItemPayloadPair, resultItemVersionAnchor];
-  v9 = MEMORY[0x277CCACA8];
-  v14.receiver = self;
-  v14.super_class = SBKPullValueTransaction;
-  v10 = [(SBKPullValueTransaction *)&v14 description];
+  v7 = MEMORY[0x277CCACA8];
+  v12.receiver = self;
+  v12.super_class = SBKPullValueTransaction;
+  v8 = [(SBKPullValueTransaction *)&v12 description];
   domain = [(SBKTransaction *)self domain];
-  v12 = [v9 stringWithFormat:@"%@ domain = %@, GET: key='%@', %@, %@", v10, domain, self->_requestedKey, clientItemVersionAnchor, resultItemVersionAnchor];
+  v10 = [v7 stringWithFormat:@"%@ domain = %@, GET: key='%@', %@, %@", v8, domain, self->_requestedKey, clientItemVersionAnchor, resultItemVersionAnchor];
 
-  return v12;
+  return v10;
 }
 
 - (SBKPullValueTransaction)initWithStoreBagContext:(id)context requestedKey:(id)key clientItemPayloadPair:(id)pair clientItemVersionAnchor:(id)anchor

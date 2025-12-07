@@ -62,7 +62,7 @@
 
 id __64__HFConditionCollection__flattenedSubpredicatesForAndPredicate___block_invoke(uint64_t a1, void *a2)
 {
-  v11[1] = *MEMORY[0x277D85DE8];
+  v10[1] = *MEMORY[0x277D85DE8];
   v3 = a2;
   objc_opt_class();
   v4 = v3;
@@ -85,13 +85,11 @@ id __64__HFConditionCollection__flattenedSubpredicatesForAndPredicate___block_in
 
   else
   {
-    v11[0] = v4;
-    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:1];
+    v10[0] = v4;
+    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:1];
   }
 
   v8 = v7;
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
@@ -157,27 +155,25 @@ id __62__HFConditionCollection__findBestConditionMatchForPredicates___block_invo
 {
   if ([*(a1 + 32) count] < 2)
   {
-    v8 = *(a1 + 40);
-    v9 = objc_opt_class();
+    v7 = objc_opt_class();
     v3 = [*(a1 + 32) firstObject];
-    v5 = v9;
-    v6 = v3;
-    v7 = 0;
+    v4 = v7;
+    v5 = v3;
+    v6 = 0;
   }
 
   else
   {
     v2 = [*(a1 + 32) count] < 8;
     v3 = [objc_alloc(MEMORY[0x277CCA920]) initWithType:1 subpredicates:*(a1 + 32)];
-    v4 = *(a1 + 40);
-    v5 = objc_opt_class();
-    v6 = v3;
-    v7 = v2;
+    v4 = objc_opt_class();
+    v5 = v3;
+    v6 = v2;
   }
 
-  v10 = [v5 _singleConditionForPredicate:v6 knownConditionsOnly:v7];
+  v8 = [v4 _singleConditionForPredicate:v5 knownConditionsOnly:v6];
 
-  return v10;
+  return v8;
 }
 
 void __62__HFConditionCollection__findBestConditionMatchForPredicates___block_invoke_25(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -208,34 +204,34 @@ LABEL_5:
 
 + (id)_singleConditionForPredicate:(id)predicate knownConditionsOnly:(BOOL)only
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   predicateCopy = predicate;
   if (_MergedGlobals_214 != -1)
   {
     dispatch_once(&_MergedGlobals_214, &__block_literal_global_30_0);
   }
 
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   v6 = qword_280E02AF0;
-  v7 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v17;
+    v9 = *v16;
     while (2)
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v17 != v9)
+        if (*v16 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = objc_alloc(*(*(&v16 + 1) + 8 * i));
-        v12 = [v11 initWithPredicate:{predicateCopy, v16}];
+        v11 = objc_alloc(*(*(&v15 + 1) + 8 * i));
+        v12 = [v11 initWithPredicate:{predicateCopy, v15}];
         if (v12)
         {
           v13 = v12;
@@ -244,7 +240,7 @@ LABEL_5:
         }
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
       if (v8)
       {
         continue;
@@ -266,26 +262,22 @@ LABEL_5:
 
 LABEL_15:
 
-  v14 = *MEMORY[0x277D85DE8];
-
   return v13;
 }
 
-void __74__HFConditionCollection__singleConditionForPredicate_knownConditionsOnly___block_invoke_2()
+void __74__HFConditionCollection__singleConditionForPredicate_knownConditionsOnly___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v3[7] = *MEMORY[0x277D85DE8];
-  v3[0] = objc_opt_class();
-  v3[1] = objc_opt_class();
-  v3[2] = objc_opt_class();
-  v3[3] = objc_opt_class();
-  v3[4] = objc_opt_class();
-  v3[5] = objc_opt_class();
-  v3[6] = objc_opt_class();
-  v0 = [MEMORY[0x277CBEA60] arrayWithObjects:v3 count:7];
-  v1 = qword_280E02AF0;
-  qword_280E02AF0 = v0;
-
-  v2 = *MEMORY[0x277D85DE8];
+  v4[7] = *MEMORY[0x277D85DE8];
+  v4[0] = objc_opt_class();
+  v4[1] = objc_opt_class();
+  v4[2] = objc_opt_class();
+  v4[3] = objc_opt_class();
+  v4[4] = objc_opt_class();
+  v4[5] = objc_opt_class();
+  v4[6] = objc_opt_class();
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:7];
+  v3 = qword_280E02AF0;
+  qword_280E02AF0 = v2;
 }
 
 - (HFConditionCollection)init

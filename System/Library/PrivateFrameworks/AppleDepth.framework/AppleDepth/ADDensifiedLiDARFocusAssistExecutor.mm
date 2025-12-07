@@ -9,9 +9,9 @@
 - (int64_t)executeWithColor:(__CVBuffer *)color timestamp:(double)timestamp pointClouds:(id)clouds lidarCalibration:(id)calibration colorMetadata:(id)metadata colorCameraCalibration:(id)cameraCalibration outputDepthMap:(__CVBuffer *)map outputConfidenceMap:(__CVBuffer *)self0 outputCalibration:(id *)self1;
 - (int64_t)prepareForColorROI:(CGRect)i;
 - (int64_t)updateColorROI:(CGRect)i;
-- (uint64_t)executeWithColor:(double)color pointCloud:(double)cloud lidarToColorTransform:(double)transform colorCameraCalibration:(uint64_t)calibration outputDepthMap:(uint64_t)map outputConfidenceMap:(void *)confidenceMap outputCalibration:(void *)outputCalibration;
 - (void)dealloc;
 - (void)deallocateEspressoBuffers;
+- (void)executeWithColor:(double)color pointCloud:(double)cloud lidarToColorTransform:(double)transform colorCameraCalibration:(uint64_t)calibration outputDepthMap:(uint64_t)map outputConfidenceMap:(void *)confidenceMap outputCalibration:(void *)outputCalibration;
 @end
 
 @implementation ADDensifiedLiDARFocusAssistExecutor
@@ -106,7 +106,7 @@
   [(ADExecutor *)&v4 dealloc];
 }
 
-- (uint64_t)executeWithColor:(double)color pointCloud:(double)cloud lidarToColorTransform:(double)transform colorCameraCalibration:(uint64_t)calibration outputDepthMap:(uint64_t)map outputConfidenceMap:(void *)confidenceMap outputCalibration:(void *)outputCalibration
+- (void)executeWithColor:(double)color pointCloud:(double)cloud lidarToColorTransform:(double)transform colorCameraCalibration:(uint64_t)calibration outputDepthMap:(uint64_t)map outputConfidenceMap:(void *)confidenceMap outputCalibration:(void *)outputCalibration
 {
   v34[1] = *MEMORY[0x277D85DE8];
   confidenceMapCopy = confidenceMap;
@@ -129,14 +129,14 @@
 
 - (int64_t)executeWithColor:(__CVBuffer *)color timestamp:(double)timestamp pointClouds:(id)clouds lidarCalibration:(id)calibration colorMetadata:(id)metadata colorCameraCalibration:(id)cameraCalibration outputDepthMap:(__CVBuffer *)map outputConfidenceMap:(__CVBuffer *)self0 outputCalibration:(id *)self1
 {
-  v124 = *MEMORY[0x277D85DE8];
+  v130 = *MEMORY[0x277D85DE8];
   cloudsCopy = clouds;
   calibrationCopy = calibration;
   metadataCopy = metadata;
   cameraCalibrationCopy = cameraCalibration;
-  v119 = 335686992;
-  v120 = 0u;
-  v121 = 0u;
+  v125 = 335686992;
+  v126 = 0u;
+  v127 = 0u;
   kdebug_trace();
   selfCopy = self;
   objc_sync_enter(selfCopy);
@@ -152,37 +152,37 @@
     }
 
     v22 = [cloudsCopy objectAtIndexedSubscript:i];
-    *(&v118.__r_.__value_.__s + 23) = 15;
-    strcpy(&v118, "inputPointCloud");
-    std::to_string(&v117, v21);
-    if ((v117.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+    *(&v124.__r_.__value_.__s + 23) = 15;
+    strcpy(&v124, "inputPointCloud");
+    std::to_string(&v123, v21);
+    if ((v123.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
     {
-      v23 = &v117;
+      v23 = &v123;
     }
 
     else
     {
-      v23 = v117.__r_.__value_.__r.__words[0];
+      v23 = v123.__r_.__value_.__r.__words[0];
     }
 
-    if ((v117.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+    if ((v123.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
     {
-      size = HIBYTE(v117.__r_.__value_.__r.__words[2]);
+      size = HIBYTE(v123.__r_.__value_.__r.__words[2]);
     }
 
     else
     {
-      size = v117.__r_.__value_.__l.__size_;
+      size = v123.__r_.__value_.__l.__size_;
     }
 
-    v25 = std::string::append(&v118, v23, size);
+    v25 = std::string::append(&v124, v23, size);
     v26 = *&v25->__r_.__value_.__l.__data_;
-    v123 = v25->__r_.__value_.__r.__words[2];
+    v129 = v25->__r_.__value_.__r.__words[2];
     *buf = v26;
     v25->__r_.__value_.__l.__size_ = 0;
     v25->__r_.__value_.__r.__words[2] = 0;
     v25->__r_.__value_.__r.__words[0] = 0;
-    if (v123 >= 0)
+    if (v129 >= 0)
     {
       v27 = buf;
     }
@@ -193,14 +193,14 @@
     }
 
     [logger logPointCloud:v22 name:v27 timestamp:timestamp];
-    if (SHIBYTE(v123) < 0)
+    if (SHIBYTE(v129) < 0)
     {
       operator delete(*buf);
-      if (SHIBYTE(v117.__r_.__value_.__r.__words[2]) < 0)
+      if (SHIBYTE(v123.__r_.__value_.__r.__words[2]) < 0)
       {
 LABEL_17:
-        operator delete(v117.__r_.__value_.__l.__data_);
-        if ((SHIBYTE(v118.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+        operator delete(v123.__r_.__value_.__l.__data_);
+        if ((SHIBYTE(v124.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
         {
           goto LABEL_15;
         }
@@ -209,18 +209,18 @@ LABEL_17:
       }
     }
 
-    else if (SHIBYTE(v117.__r_.__value_.__r.__words[2]) < 0)
+    else if (SHIBYTE(v123.__r_.__value_.__r.__words[2]) < 0)
     {
       goto LABEL_17;
     }
 
-    if ((SHIBYTE(v118.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+    if ((SHIBYTE(v124.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
     {
       goto LABEL_15;
     }
 
 LABEL_18:
-    operator delete(v118.__r_.__value_.__l.__data_);
+    operator delete(v124.__r_.__value_.__l.__data_);
 LABEL_15:
   }
 
@@ -255,11 +255,11 @@ LABEL_15:
     v36 = (Height - v40) * 0.5;
   }
 
-  v127.origin.x = v34;
-  v127.origin.y = v36;
-  v127.size.width = v38;
-  v127.size.height = v40;
-  if (!CGRectIsNull(v127))
+  v133.origin.x = v34;
+  v133.origin.y = v36;
+  v133.size.width = v38;
+  v133.size.height = v40;
+  if (!CGRectIsNull(v133))
   {
     execute = [(ADDensifiedLiDARFocusAssistExecutor *)selfCopy updateColorROI:v34, v36, v38, v40];
     if (execute)
@@ -381,9 +381,9 @@ LABEL_58:
                       _os_log_impl(&dword_2402F6000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "increasing point cloud capacity", buf, 2u);
                     }
 
-                    v59 = [objc_alloc(MEMORY[0x277CED0E8]) initWithCapacity:{objc_msgSend(v28, "length")}];
+                    v64 = [objc_alloc(MEMORY[0x277CED0E8]) initWithCapacity:{objc_msgSend(v28, "length")}];
                     itmPovChangedPointCloud = selfCopy->_itmPovChangedPointCloud;
-                    selfCopy->_itmPovChangedPointCloud = v59;
+                    selfCopy->_itmPovChangedPointCloud = v64;
                   }
 
                   pipeline = selfCopy->_pipeline;
@@ -395,8 +395,8 @@ LABEL_58:
                     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
                     {
                       *buf = 0;
-                      v62 = MEMORY[0x277D86220];
-                      v63 = "changePointCloudPOV failed";
+                      v67 = MEMORY[0x277D86220];
+                      v68 = "changePointCloudPOV failed";
                       goto LABEL_92;
                     }
 
@@ -405,21 +405,21 @@ LABEL_58:
 
                   x = selfCopy->super._inputRoi.origin.x;
                   y = selfCopy->super._inputRoi.origin.y;
-                  v66 = selfCopy->super._inputRoi.size.width;
-                  v67 = selfCopy->super._inputRoi.size.height;
-                  v128.origin.x = x;
-                  v128.origin.y = y;
-                  v128.size.width = v66;
-                  v128.size.height = v67;
-                  if (CGRectIsEmpty(v128))
+                  v71 = selfCopy->super._inputRoi.size.width;
+                  v72 = selfCopy->super._inputRoi.size.height;
+                  v134.origin.x = x;
+                  v134.origin.y = y;
+                  v134.size.width = v71;
+                  v134.size.height = v72;
+                  if (CGRectIsEmpty(v134))
                   {
-                    v66 = CVPixelBufferGetWidth(color);
-                    v67 = CVPixelBufferGetHeight(color);
+                    v71 = CVPixelBufferGetWidth(color);
+                    v72 = CVPixelBufferGetHeight(color);
                     x = 0.0;
                     y = 0.0;
                   }
 
-                  execute = [(ADDensifiedLiDARFocusAssistPipeline *)selfCopy->_pipeline projectLidarPoints:selfCopy->_itmPovChangedPointCloud crop:selfCopy->_itmPreProcessedLidar projectedPointsBuffer:(v66 + x * 2.0 - (v66 + v66)) * 0.5, (v67 + y * 2.0 - (v67 + v67)) * 0.5];
+                  execute = [(ADDensifiedLiDARFocusAssistPipeline *)selfCopy->_pipeline projectLidarPoints:selfCopy->_itmPovChangedPointCloud crop:selfCopy->_itmPreProcessedLidar projectedPointsBuffer:(v71 + x * 2.0 - (v71 + v71)) * 0.5, (v72 + y * 2.0 - (v72 + v72)) * 0.5];
                   if (execute)
                   {
                     if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
@@ -428,65 +428,65 @@ LABEL_58:
                     }
 
                     *buf = 0;
-                    v62 = MEMORY[0x277D86220];
-                    v63 = "Projecting jasper points failed";
+                    v67 = MEMORY[0x277D86220];
+                    v68 = "Projecting jasper points failed";
                     goto LABEL_92;
                   }
 
                   [logger logPixelBuffer:selfCopy->_itmPreProcessedLidar name:"modelInputProjectedPointCloud" timestamp:timestamp];
                   pixelBuffera = v28;
-                  v106 = y;
-                  v107 = x;
+                  v111 = y;
+                  v112 = x;
                   if ([logger enabled])
                   {
-                    v68 = CVPixelBufferGetWidth(selfCopy->_itmPreProcessedLidar);
-                    v69 = CVPixelBufferGetHeight(selfCopy->_itmPreProcessedLidar);
-                    v70 = vcvtd_n_f64_u64(v68, 1uLL);
-                    v71 = vcvtd_n_f64_u64(v69, 1uLL);
+                    v73 = CVPixelBufferGetWidth(selfCopy->_itmPreProcessedLidar);
+                    v74 = CVPixelBufferGetHeight(selfCopy->_itmPreProcessedLidar);
+                    v75 = vcvtd_n_f64_u64(v73, 1uLL);
+                    v76 = vcvtd_n_f64_u64(v74, 1uLL);
                     dbgPointCloudCropped = selfCopy->_dbgPointCloudCropped;
                     if (!dbgPointCloudCropped)
                     {
-                      v73 = v69;
-                      v74 = v71;
-                      v75 = v70;
+                      v78 = v74;
+                      v79 = v76;
+                      v80 = v75;
                       PixelFormatType = CVPixelBufferGetPixelFormatType(selfCopy->_itmPreProcessedLidar);
-                      dbgPointCloudCropped = PixelBufferUtils::createPixelBuffer(v75, v74, PixelFormatType, 1);
+                      dbgPointCloudCropped = PixelBufferUtils::createPixelBuffer(v80, v79, PixelFormatType, 1);
                       selfCopy->_dbgPointCloudCropped = dbgPointCloudCropped;
-                      v70 = v75;
-                      v71 = v74;
-                      v69 = v73;
+                      v75 = v80;
+                      v76 = v79;
+                      v74 = v78;
                     }
 
-                    v77 = (v68 - v70) * 0.5;
-                    v78 = (v69 - v71) * 0.5;
-                    v129.origin.x = 0.0;
-                    v129.origin.y = 0.0;
-                    v129.size.width = v70;
-                    v129.size.height = v71;
-                    PixelBufferUtils::cropAndScalePixelBuffer(selfCopy->_itmPreProcessedLidar, dbgPointCloudCropped, 0, *(&v70 - 2), v129);
+                    v82 = (v73 - v75) * 0.5;
+                    v83 = (v74 - v76) * 0.5;
+                    v135.origin.x = 0.0;
+                    v135.origin.y = 0.0;
+                    v135.size.width = v75;
+                    v135.size.height = v76;
+                    PixelBufferUtils::cropAndScalePixelBuffer(selfCopy->_itmPreProcessedLidar, dbgPointCloudCropped, 0, *(&v75 - 2), v135);
                     [logger logPixelBuffer:selfCopy->_dbgPointCloudCropped name:"intermediatepointCloudCropped" timestamp:timestamp];
                   }
 
-                  v108 = *map != 0;
+                  v114 = *map != 0;
                   if (*map)
                   {
                     v28 = pixelBuffera;
-                    v79 = CVPixelBufferGetPixelFormatType(*map);
+                    v84 = CVPixelBufferGetPixelFormatType(*map);
                     inferenceDescriptor = [(ADDensifiedLiDARFocusAssistPipeline *)selfCopy->_pipeline inferenceDescriptor];
                     depthOutput = [inferenceDescriptor depthOutput];
                     imageDescriptor = [depthOutput imageDescriptor];
-                    v83 = v79 == [imageDescriptor pixelFormat];
+                    v88 = v84 == [imageDescriptor pixelFormat];
 
-                    if (v83)
+                    if (v88)
                     {
-                      v108 = 0;
+                      v114 = 0;
                       p_itmUnprocessedDepth = map;
 LABEL_105:
-                      v90 = *p_itmUnprocessedDepth;
+                      v95 = *p_itmUnprocessedDepth;
                       espressoRunner = selfCopy->super._espressoRunner;
                       inferenceDescriptor2 = [(ADDensifiedLiDARFocusAssistPipeline *)selfCopy->_pipeline inferenceDescriptor];
                       depthOutput2 = [inferenceDescriptor2 depthOutput];
-                      [(ADEspressoRunnerProtocol *)espressoRunner registerPixelBuffer:v90 forDescriptor:depthOutput2];
+                      [(ADEspressoRunnerProtocol *)espressoRunner registerPixelBuffer:v95 forDescriptor:depthOutput2];
 
                       [timeProfiler stopWithUTFString:"preprocess jasper"];
                       kdebug_trace();
@@ -495,7 +495,7 @@ LABEL_105:
                         kdebug_trace();
                         [timeProfiler startWithUTFString:"network execution"];
                         execute = [(ADEspressoRunnerProtocol *)selfCopy->super._espressoRunner execute];
-                        [logger logPixelBuffer:v90 name:"modelOutputDepth" timestamp:timestamp];
+                        [logger logPixelBuffer:v95 name:"modelOutputDepth" timestamp:timestamp];
                         [logger logPixelBuffer:selfCopy->_itmUnprocessedUncertainty name:"modelOutputUncertainty" timestamp:timestamp];
                         if (!execute)
                         {
@@ -508,9 +508,9 @@ LABEL_105:
 
                           kdebug_trace();
                           [timeProfiler startWithUTFString:"postprocess depth"];
-                          if (v108)
+                          if (v114)
                           {
-                            [ADUtils postProcessDepth:v90 depthOutput:*map];
+                            [ADUtils postProcessDepth:v95 depthOutput:*map];
                             [logger logPixelBuffer:*map name:"outputDepth" timestamp:timestamp];
                           }
 
@@ -525,25 +525,25 @@ LABEL_105:
                           [timeProfiler startWithUTFString:"postprocess confidence"];
                           if (confidenceMap)
                           {
-                            v94 = *confidenceMap;
+                            v99 = *confidenceMap;
                             if (!*confidenceMap)
                             {
                               inferenceDescriptor3 = [(ADDensifiedLiDARFocusAssistPipeline *)selfCopy->_pipeline inferenceDescriptor];
                               uncertaintyOutput = [inferenceDescriptor3 uncertaintyOutput];
                               imageDescriptor2 = [uncertaintyOutput imageDescriptor];
                               pixelFormat = [imageDescriptor2 pixelFormat];
-                              v126.width = v45;
-                              v126.height = v47;
-                              *confidenceMap = PixelBufferUtils::createPixelBuffer(pixelFormat, v126, 1);
+                              v132.width = v45;
+                              v132.height = v47;
+                              *confidenceMap = PixelBufferUtils::createPixelBuffer(pixelFormat, v132, 1);
 
-                              v94 = *confidenceMap;
+                              v99 = *confidenceMap;
                             }
 
-                            v99 = selfCopy->_pipeline;
+                            v104 = selfCopy->_pipeline;
                             itmUnprocessedUncertainty = selfCopy->_itmUnprocessedUncertainty;
                             executorParameters5 = [(ADExecutor *)selfCopy executorParameters];
                             pipelineParameters = [executorParameters5 pipelineParameters];
-                            execute = -[ADDensifiedLiDARFocusAssistPipeline postProcessUncertainty:outputConfidence:confidenceUnits:](v99, "postProcessUncertainty:outputConfidence:confidenceUnits:", itmUnprocessedUncertainty, v94, [pipelineParameters confidenceUnits]);
+                            execute = -[ADDensifiedLiDARFocusAssistPipeline postProcessUncertainty:outputConfidence:confidenceUnits:](v104, "postProcessUncertainty:outputConfidence:confidenceUnits:", itmUnprocessedUncertainty, v99, [pipelineParameters confidenceUnits]);
 
                             if (execute)
                             {
@@ -562,13 +562,13 @@ LABEL_105:
 
                           if (outputCalibration)
                           {
-                            v103 = [cameraCalibrationCopy mutableCopy];
-                            [v103 crop:{v107, v106, v66, v67}];
-                            v104 = CVPixelBufferGetWidth(v90);
-                            [v103 scale:{v104, CVPixelBufferGetHeight(v90)}];
-                            v105 = v103;
-                            *outputCalibration = v103;
-                            [logger logCalibration:v103 name:"outputDepthCalibration" timestamp:timestamp];
+                            v108 = [cameraCalibrationCopy mutableCopy];
+                            [v108 crop:{v112, v111, v71, v72}];
+                            v109 = CVPixelBufferGetWidth(v95);
+                            [v108 scale:{v109, CVPixelBufferGetHeight(v95)}];
+                            v110 = v108;
+                            *outputCalibration = v108;
+                            [logger logCalibration:v108 name:"outputDepthCalibration" timestamp:timestamp];
                           }
 
                           [timeProfiler stopWithUTFString:"postprocess confidence"];
@@ -599,10 +599,10 @@ LABEL_78:
                         }
 
                         *buf = 0;
-                        v62 = MEMORY[0x277D86220];
-                        v63 = "Failed executing network";
+                        v67 = MEMORY[0x277D86220];
+                        v68 = "Failed executing network";
 LABEL_92:
-                        _os_log_error_impl(&dword_2402F6000, v62, OS_LOG_TYPE_ERROR, v63, buf, 2u);
+                        _os_log_error_impl(&dword_2402F6000, v67, OS_LOG_TYPE_ERROR, v68, buf, 2u);
                         goto LABEL_78;
                       }
 
@@ -614,14 +614,14 @@ LABEL_71:
                     p_itmUnprocessedDepth = &selfCopy->_itmUnprocessedDepth;
                     if (selfCopy->_itmUnprocessedDepth)
                     {
-                      v108 = 1;
+                      v114 = 1;
                       goto LABEL_105;
                     }
 
-                    v89 = selfCopy->super._espressoRunner;
+                    v94 = selfCopy->super._espressoRunner;
                     inferenceDescriptor4 = [(ADDensifiedLiDARFocusAssistPipeline *)selfCopy->_pipeline inferenceDescriptor];
                     depthOutput3 = [inferenceDescriptor4 depthOutput];
-                    *p_itmUnprocessedDepth = [(ADEspressoRunnerProtocol *)v89 createAndRegisterPixelBufferForDescriptor:depthOutput3];
+                    *p_itmUnprocessedDepth = [(ADEspressoRunnerProtocol *)v94 createAndRegisterPixelBufferForDescriptor:depthOutput3];
                     v28 = pixelBuffera;
                   }
 
@@ -631,9 +631,9 @@ LABEL_71:
                     depthOutput3 = [inferenceDescriptor4 depthOutput];
                     imageDescriptor3 = [depthOutput3 imageDescriptor];
                     pixelFormat2 = [imageDescriptor3 pixelFormat];
-                    v125.width = v45;
-                    v125.height = v47;
-                    *map = PixelBufferUtils::createPixelBuffer(pixelFormat2, v125, 1);
+                    v131.width = v45;
+                    v131.height = v47;
+                    *map = PixelBufferUtils::createPixelBuffer(pixelFormat2, v131, 1);
 
                     v28 = pixelBuffera;
                     p_itmUnprocessedDepth = map;
@@ -645,18 +645,18 @@ LABEL_71:
                 if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
                 {
                   *buf = 0;
-                  v56 = MEMORY[0x277D86220];
-                  v57 = "Failed scaling color image";
+                  v61 = MEMORY[0x277D86220];
+                  v62 = "Failed scaling color image";
 LABEL_76:
-                  _os_log_error_impl(&dword_2402F6000, v56, OS_LOG_TYPE_ERROR, v57, buf, 2u);
+                  _os_log_error_impl(&dword_2402F6000, v61, OS_LOG_TYPE_ERROR, v62, buf, 2u);
                 }
               }
 
               else if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
               {
                 *buf = 0;
-                v56 = MEMORY[0x277D86220];
-                v57 = "Failed configuring color scaling session";
+                v61 = MEMORY[0x277D86220];
+                v62 = "Failed configuring color scaling session";
                 goto LABEL_76;
               }
 
@@ -672,13 +672,13 @@ LABEL_76:
             }
           }
 
-          CVPixelBufferGetWidth(color);
-          CVPixelBufferGetHeight(color);
-          CVPixelBufferGetPixelFormatType(color);
-          CVPixelBufferGetWidth(selfCopy->_itmPreProcessedColor);
-          CVPixelBufferGetHeight(selfCopy->_itmPreProcessedColor);
-          CVPixelBufferGetPixelFormatType(selfCopy->_itmPreProcessedColor);
-          PixelBufferUtilsSession::createCropScaleConvertRotateSession();
+          v113 = CVPixelBufferGetWidth(color);
+          v55 = CVPixelBufferGetHeight(color);
+          v56 = CVPixelBufferGetPixelFormatType(color);
+          v57 = CVPixelBufferGetWidth(selfCopy->_itmPreProcessedColor);
+          v58 = CVPixelBufferGetHeight(selfCopy->_itmPreProcessedColor);
+          v59 = CVPixelBufferGetPixelFormatType(selfCopy->_itmPreProcessedColor);
+          PixelBufferUtilsSession::createCropScaleConvertRotateSession(v56, v59, selfCopy->super._rotationConstant, v113, v55, v57, v58, selfCopy->super._inputRoi.origin.x, selfCopy->super._inputRoi.origin.y, selfCopy->super._inputRoi.size.width, selfCopy->super._inputRoi.size.height, *MEMORY[0x277CBF3A0], *(MEMORY[0x277CBF3A0] + 8), *(MEMORY[0x277CBF3A0] + 16), *(MEMORY[0x277CBF3A0] + 24));
         }
 
         v43 = v28;

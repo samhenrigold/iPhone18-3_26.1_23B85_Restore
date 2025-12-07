@@ -72,7 +72,7 @@
 
 - (void)_didUpdateCentroidWithTouches:(id)touches event:(id)event
 {
-  sub_188A34624(0, &qword_1EA9342F0);
+  sub_188A34624(0, &qword_1EA9342F0, off_1E70EAB90);
   sub_188E405E8();
   sub_18A4A77A8();
   eventCopy = event;
@@ -96,13 +96,13 @@
   if (_movingTouches)
   {
     v4 = _movingTouches;
-    sub_188A34624(0, &qword_1EA9342F0);
+    sub_188A34624(0, &qword_1EA9342F0, off_1E70EAB90);
     sub_18A4A7548();
 
     selfCopy = v4;
   }
 
-  sub_188A34624(0, &qword_1EA9342F0);
+  sub_188A34624(0, &qword_1EA9342F0, off_1E70EAB90);
   v5 = sub_18A4A7518();
 
   return v5;
@@ -120,7 +120,7 @@
 {
   if (touches)
   {
-    sub_188A34624(0, &qword_1EA9342F0);
+    sub_188A34624(0, &qword_1EA9342F0, off_1E70EAB90);
     v4 = sub_18A4A7548();
   }
 
@@ -130,12 +130,12 @@
   }
 
   selfCopy = self;
-  sub_188EC3F6C(v4);
+  sub_188EC3F6C(v4, v6);
 }
 
 - (void)process3DTouchesMoved:(id)moved withEvent:(id)event
 {
-  sub_188A34624(0, &qword_1EA9342F0);
+  sub_188A34624(0, &qword_1EA9342F0, off_1E70EAB90);
   sub_188E405E8();
   v6 = sub_18A4A77A8();
   eventCopy = event;
@@ -145,17 +145,17 @@
 
 - (void)update3DTouchesCentroid:(id)centroid
 {
-  sub_188A34624(0, &qword_1EA9342F0);
+  sub_188A34624(0, &qword_1EA9342F0, off_1E70EAB90);
   sub_188E405E8();
-  sub_18A4A77A8();
+  v4 = sub_18A4A77A8();
   selfCopy = self;
-  sub_188EC4208();
+  sub_188EC4208(v4);
 }
 
 - (CAPoint3D)centroid3DOfTouches:(id)touches excludingEnded:(BOOL)ended
 {
   endedCopy = ended;
-  sub_188A34624(0, &qword_1EA9342F0);
+  sub_188A34624(0, &qword_1EA9342F0, off_1E70EAB90);
   sub_188E405E8();
   sub_18A4A77A8();
   v5 = sub_18A4A7798();

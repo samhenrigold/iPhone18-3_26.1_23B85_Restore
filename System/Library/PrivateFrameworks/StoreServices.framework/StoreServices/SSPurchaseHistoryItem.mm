@@ -84,15 +84,15 @@ LABEL_9:
 {
   if (encoding && MEMORY[0x1DA6E0380](encoding, a2) == MEMORY[0x1E69E9E80])
   {
-    v8.receiver = self;
-    v8.super_class = SSPurchaseHistoryItem;
-    v5 = [(SSPurchaseHistoryItem *)&v8 init];
+    v9.receiver = self;
+    v9.super_class = SSPurchaseHistoryItem;
+    v5 = [(SSPurchaseHistoryItem *)&v9 init];
     if (v5)
     {
-      objc_opt_class();
-      v7 = SSXPCDictionaryCopyCFObjectWithClass(encoding, "0");
+      v7 = objc_opt_class();
+      v8 = SSXPCDictionaryCopyCFObjectWithClass(encoding, "0", v7);
 
-      v5->_properties = [(__CFArray *)v7 mutableCopy];
+      v5->_properties = [(__CFDate *)v8 mutableCopy];
     }
   }
 

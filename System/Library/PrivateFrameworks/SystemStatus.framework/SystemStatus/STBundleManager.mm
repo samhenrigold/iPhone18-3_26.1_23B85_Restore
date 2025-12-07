@@ -113,19 +113,17 @@ uint64_t __91__STBundleManager__initWithBundleRecordClass_directoryURLs_allowedB
 
 id __59__STBundleManager__defaultBundleRecordDirectoriesForClass___block_invoke(uint64_t a1, void *a2)
 {
-  v10[5] = *MEMORY[0x1E69E9840];
+  v9[5] = *MEMORY[0x1E69E9840];
   v3 = MEMORY[0x1E695DFF8];
   v4 = a2;
   v5 = BSSystemRootDirectory();
-  v10[0] = v5;
-  v10[1] = v4;
-  v10[2] = @"SystemStatus";
-  v10[3] = @"Bundles";
-  v10[4] = *(a1 + 32);
-  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:5];
+  v9[0] = v5;
+  v9[1] = v4;
+  v9[2] = @"SystemStatus";
+  v9[3] = @"Bundles";
+  v9[4] = *(a1 + 32);
+  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:5];
   v7 = [v3 fileURLWithPathComponents:v6];
-
-  v8 = *MEMORY[0x1E69E9840];
 
   return v7;
 }
@@ -151,44 +149,41 @@ id __59__STBundleManager__defaultBundleRecordDirectoriesForClass___block_invoke(
 
 void __67__STBundleManager__defaultBundleRecordIdentifierAllowListForClass___block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
-  v2 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
-  v3 = [v2 URLForResource:@"BundleAllowList" withExtension:@"plist"];
+  v12 = *MEMORY[0x1E69E9840];
+  v1 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
+  v2 = [v1 URLForResource:@"BundleAllowList" withExtension:@"plist"];
 
-  v11 = 0;
-  v4 = [objc_alloc(MEMORY[0x1E695DF20]) initWithContentsOfURL:v3 error:&v11];
-  v5 = v11;
-  v6 = v5;
-  if (v4)
+  v9 = 0;
+  v3 = [objc_alloc(MEMORY[0x1E695DF20]) initWithContentsOfURL:v2 error:&v9];
+  v4 = v9;
+  v5 = v4;
+  if (v3)
   {
-    v7 = v5 == 0;
+    v6 = v4 == 0;
   }
 
   else
   {
-    v7 = 0;
+    v6 = 0;
   }
 
-  if (v7)
+  if (v6)
   {
-    v9 = v4;
-    v8 = _MergedGlobals_7;
-    _MergedGlobals_7 = v9;
+    v8 = v3;
+    v7 = _MergedGlobals_7;
+    _MergedGlobals_7 = v8;
   }
 
   else
   {
-    v8 = STSystemStatusLogBundleLoading();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v7 = STSystemStatusLogBundleLoading();
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v13 = v6;
-      _os_log_error_impl(&dword_1DA9C2000, v8, OS_LOG_TYPE_ERROR, "Unable to load bundle allow list: %@", buf, 0xCu);
+      v11 = v5;
+      _os_log_error_impl(&dword_1DA9C2000, v7, OS_LOG_TYPE_ERROR, "Unable to load bundle allow list: %@", buf, 0xCu);
     }
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (id)bundleRecordForRecordIdentifier:(id)identifier
@@ -346,7 +341,7 @@ BOOL __46__STBundleManager__queue_loadAllBundleRecords__block_invoke_2(uint64_t 
 
 void *__46__STBundleManager__queue_loadAllBundleRecords__block_invoke_3(uint64_t a1, void *a2)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = [*(*(a1 + 32) + 8) bundleRecordForBundleAtURL:v3];
   v5 = v4;
@@ -356,11 +351,11 @@ void *__46__STBundleManager__queue_loadAllBundleRecords__block_invoke_3(uint64_t
     v9 = STSystemStatusLogBundleLoading();
     if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
-      v15 = 138543618;
-      v16 = v3;
-      v17 = 2114;
-      v18 = v5;
-      _os_log_impl(&dword_1DA9C2000, v9, OS_LOG_TYPE_INFO, "Loaded bundle at %{public}@:\n%{public}@", &v15, 0x16u);
+      v14 = 138543618;
+      v15 = v3;
+      v16 = 2114;
+      v17 = v5;
+      _os_log_impl(&dword_1DA9C2000, v9, OS_LOG_TYPE_INFO, "Loaded bundle at %{public}@:\n%{public}@", &v14, 0x16u);
     }
 
     v10 = v5;
@@ -377,12 +372,12 @@ void *__46__STBundleManager__queue_loadAllBundleRecords__block_invoke_3(uint64_t
     v9 = STSystemStatusLogBundleLoading();
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      v14 = [v5 recordIdentifier];
-      v15 = 138543618;
-      v16 = v3;
-      v17 = 2114;
-      v18 = v14;
-      _os_log_error_impl(&dword_1DA9C2000, v9, OS_LOG_TYPE_ERROR, "Not loading bundle at %{public}@, either add %{public}@ to the allow list, or configure SystemStatus for debugging.", &v15, 0x16u);
+      v13 = [v5 recordIdentifier];
+      v14 = 138543618;
+      v15 = v3;
+      v16 = 2114;
+      v17 = v13;
+      _os_log_error_impl(&dword_1DA9C2000, v9, OS_LOG_TYPE_ERROR, "Not loading bundle at %{public}@, either add %{public}@ to the allow list, or configure SystemStatus for debugging.", &v14, 0x16u);
     }
 
     v10 = 0;
@@ -391,62 +386,58 @@ void *__46__STBundleManager__queue_loadAllBundleRecords__block_invoke_3(uint64_t
 LABEL_7:
   v11 = v10;
 
-  v12 = *MEMORY[0x1E69E9840];
   return v10;
 }
 
 - (void)_queue_updateAllBundleRecordsForAllBundleRecords:(id)records
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   recordsCopy = records;
   dispatch_assert_queue_V2(self->_queue);
   v5 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:{objc_msgSend(recordsCopy, "count")}];
+  v16 = 0u;
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
-  v21 = 0u;
   v6 = recordsCopy;
-  v7 = [v6 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v19;
+    v9 = *v17;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v19 != v9)
+        if (*v17 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v18 + 1) + 8 * i);
+        v11 = *(*(&v16 + 1) + 8 * i);
         recordIdentifier = [v11 recordIdentifier];
         [v5 setObject:v11 forKey:recordIdentifier];
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v8);
   }
 
-  queue_allBundleRecordsByIdentifier = self->_queue_allBundleRecordsByIdentifier;
   if ((BSEqualObjects() & 1) == 0)
   {
-    v14 = [v5 copy];
-    v15 = self->_queue_allBundleRecordsByIdentifier;
-    self->_queue_allBundleRecordsByIdentifier = v14;
+    v13 = [v5 copy];
+    queue_allBundleRecordsByIdentifier = self->_queue_allBundleRecordsByIdentifier;
+    self->_queue_allBundleRecordsByIdentifier = v13;
 
-    v17[0] = MEMORY[0x1E69E9820];
-    v17[1] = 3221225472;
-    v17[2] = __68__STBundleManager__queue_updateAllBundleRecordsForAllBundleRecords___block_invoke;
-    v17[3] = &unk_1E85DE750;
-    v17[4] = self;
-    [(STBundleManager *)self _queue_runBlockOnObservers:v17];
+    v15[0] = MEMORY[0x1E69E9820];
+    v15[1] = 3221225472;
+    v15[2] = __68__STBundleManager__queue_updateAllBundleRecordsForAllBundleRecords___block_invoke;
+    v15[3] = &unk_1E85DE750;
+    v15[4] = self;
+    [(STBundleManager *)self _queue_runBlockOnObservers:v15];
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_queue_prepareInternalPreferences
@@ -501,7 +492,7 @@ void __62__STBundleManager__queue_registerForInternalPreferenceChanges__block_in
 - (void)_queue_setIgnoreAllowedList:(BOOL)list
 {
   listCopy = list;
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   dispatch_assert_queue_V2(self->_queue);
   if (MEMORY[0x1E12742A0]("[STBundleManager _queue_setIgnoreAllowedList:]") && self->_queue_ignoreAllowList != listCopy)
   {
@@ -515,15 +506,13 @@ void __62__STBundleManager__queue_registerForInternalPreferenceChanges__block_in
         v6 = @"Enabling";
       }
 
-      v8 = 138412290;
-      v9 = v6;
-      _os_log_impl(&dword_1DA9C2000, v5, OS_LOG_TYPE_DEFAULT, "%@ bundles which are not on the allow list and re-scanning...", &v8, 0xCu);
+      v7 = 138412290;
+      v8 = v6;
+      _os_log_impl(&dword_1DA9C2000, v5, OS_LOG_TYPE_DEFAULT, "%@ bundles which are not on the allow list and re-scanning...", &v7, 0xCu);
     }
 
     [(STBundleManager *)self _queue_updateAllBundleRecords];
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 @end

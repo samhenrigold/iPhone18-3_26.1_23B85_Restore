@@ -8,17 +8,15 @@
 
 - (id)wf_updatedParameterDefinition:()Workflow forCodableAttribute:localizer:
 {
-  v10[1] = *MEMORY[0x1E69E9840];
-  v8.receiver = self;
-  v8.super_class = &off_1F4B118E8;
-  v2 = objc_msgSendSuper2(&v8, sel_wf_updatedParameterDefinition_forCodableAttribute_localizer_);
-  v9 = @"FilePickerSupportedTypes";
+  v9[1] = *MEMORY[0x1E69E9840];
+  v7.receiver = self;
+  v7.super_class = &off_1F4B118E8;
+  v2 = objc_msgSendSuper2(&v7, sel_wf_updatedParameterDefinition_forCodableAttribute_localizer_);
+  v8 = @"FilePickerSupportedTypes";
   uTIs = [self UTIs];
-  v10[0] = uTIs;
-  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:&v9 count:1];
+  v9[0] = uTIs;
+  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:&v8 count:1];
   v5 = [v2 definitionByAddingEntriesInDictionary:v4];
-
-  v6 = *MEMORY[0x1E69E9840];
 
   return v5;
 }

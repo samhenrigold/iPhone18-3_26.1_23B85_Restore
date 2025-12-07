@@ -12,7 +12,11 @@
 - (void)clientDied:(id)died;
 - (void)dealloc;
 - (void)orientationManager:(id)manager userInterfaceOrientationMayHaveChanged:(int64_t)changed isDeviceOrientationLocked:(BOOL)locked;
+- (void)setAutoBrightnessEnabled:(BOOL)enabled;
+- (void)setBacklightFeatures:(id)features forPID:(int)d;
+- (void)setBacklightLocked:(BOOL)locked forReason:(id)reason;
 - (void)setBrightnessLevel:(float)level reason:(id)reason options:(unint64_t)options;
+- (void)setDisplayBrightnessCurve:(int)curve;
 - (void)setMinimumBrightnessLevel:(float)level fadeDuration:(float)duration;
 - (void)setProperty:(id)property forKey:(id)key;
 @end
@@ -80,6 +84,91 @@
   [v5 appendBodySectionWithName:@"brightnessFreeze" block:v6];
 }
 
+- (void)setBacklightFeatures:(id)features forPID:(int)d
+{
+  v4 = *&d;
+  featuresCopy = features;
+  os_unfair_lock_assert_not_owner(&self->_lock);
+  os_unfair_lock_lock(&self->_lock);
+  backlightClientPerPID = self->_backlightClientPerPID;
+  if (!backlightClientPerPID)
+  {
+    v8 = objc_opt_new();
+    v9 = self->_backlightClientPerPID;
+    self->_backlightClientPerPID = v8;
+
+    backlightClientPerPID = self->_backlightClientPerPID;
+  }
+
+  v10 = [(BSMutableIntegerMap *)backlightClientPerPID objectForKey:v4];
+  if (v10)
+  {
+    v11 = v10;
+  }
+
+  else
+  {
+    v11 = [(BKHIDEventClient *)[BKBacklightClient alloc] initWithPid:v4 sendRight:0 queue:&_dispatch_main_q];
+    [(BKHIDEventClient *)v11 setDelegate:self];
+    [(BSMutableIntegerMap *)self->_backlightClientPerPID setObject:v11 forKey:v4];
+    if (!v11)
+    {
+      goto LABEL_7;
+    }
+  }
+
+  objc_storeStrong((&v11->super._terminating + 1), features);
+LABEL_7:
+  sub_10008E6D8(self);
+  os_unfair_lock_unlock(&self->_lock);
+}
+
+- (void)setBacklightLocked:(BOOL)locked forReason:(id)reason
+{
+  lockedCopy = locked;
+  reasonCopy = reason;
+  v19[0] = @"FreezeBrightnessEnable";
+  v7 = [NSNumber numberWithBool:lockedCopy];
+  v20[0] = v7;
+  v19[1] = @"FreezeBrightnessRequestors";
+  v18 = reasonCopy;
+  v8 = [NSArray arrayWithObjects:&v18 count:1];
+  v19[2] = @"FreezeBrightnessPeriod";
+  v20[1] = v8;
+  v20[2] = &off_100107B98;
+  v9 = [NSDictionary dictionaryWithObjects:v20 forKeys:v19 count:3];
+
+  v10 = BKLogBacklight();
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  {
+    v15[0] = 67109378;
+    v15[1] = lockedCopy;
+    v16 = 2114;
+    v17 = reasonCopy;
+    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Freeze brightness:%{BOOL}u to current value -- %{public}@", v15, 0x12u);
+  }
+
+  self->_brightnessCurrentlyFrozen = lockedCopy;
+  BSContinuousMachTimeNow();
+  v12 = 96;
+  if (lockedCopy)
+  {
+    v12 = 80;
+  }
+
+  v13 = 104;
+  if (lockedCopy)
+  {
+    v13 = 88;
+  }
+
+  *(&self->super.isa + v12) = v11;
+  v14 = *(&self->super.isa + v13);
+  *(&self->super.isa + v13) = reasonCopy;
+
+  [(BKDisplayBrightnessController *)self setProperty:v9 forKey:@"FreezeBrightness"];
+}
+
 - (void)setProperty:(id)property forKey:(id)key
 {
   keyCopy = key;
@@ -110,6 +199,27 @@
   brightnessLevelCurve = self->_brightnessLevelCurve;
   os_unfair_lock_unlock(&self->_lock);
   return brightnessLevelCurve;
+}
+
+- (void)setDisplayBrightnessCurve:(int)curve
+{
+  v3 = *&curve;
+  os_unfair_lock_assert_not_owner(&self->_lock);
+  os_unfair_lock_lock(&self->_lock);
+  sub_10008F20C(self, v3, 1);
+
+  os_unfair_lock_unlock(&self->_lock);
+}
+
+- (void)setAutoBrightnessEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  v4 = +[BKSDefaults localDefaults];
+  [v4 setALSEnabled:enabledCopy];
+
+  v5 = BKDefaultKeyALSEnabled;
+
+  sub_100077A98(v5);
 }
 
 - (BOOL)isALSSupported
@@ -197,8 +307,8 @@ LABEL_13:
         *&buf[4] = level;
         *&buf[12] = 2114;
         *&buf[14] = v9;
-        v26 = 2112;
-        v27 = v13;
+        v24 = 2112;
+        v25 = v13;
         _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "brightness change:%g reason:%{public}@ options:%@", buf, 0x20u);
 
 LABEL_14:
@@ -206,11 +316,11 @@ LABEL_14:
         {
           *&v14 = level;
           v15 = [NSNumber numberWithFloat:v14, @"Brightness"];
-          v24[1] = @"Commit";
+          v22[1] = @"Commit";
           *buf = v15;
           v16 = [NSNumber numberWithBool:options & 1];
           *&buf[8] = v16;
-          v17 = [NSDictionary dictionaryWithObjects:buf forKeys:v24 count:2];
+          v17 = [NSDictionary dictionaryWithObjects:buf forKeys:v22 count:2];
 
           if ((options & 8) != 0)
           {
@@ -222,10 +332,9 @@ LABEL_14:
             v18 = @"DisplayBrightness";
           }
 
-          previousBrightnessLevelKey = self->_previousBrightnessLevelKey;
-          if (!BSEqualObjects() || (previousBrightnessLevelValue = self->_previousBrightnessLevelValue, (BSEqualObjects() & 1) == 0))
+          if (!BSEqualObjects() || (BSEqualObjects() & 1) == 0)
           {
-            v21 = self->_previousBrightnessLevelKey;
+            previousBrightnessLevelKey = self->_previousBrightnessLevelKey;
             self->_previousBrightnessLevelKey = &v18->isa;
 
             objc_storeStrong(&self->_previousBrightnessLevelValue, v17);
@@ -250,11 +359,11 @@ LABEL_28:
         notify_set_state(notificationToken, (((roundf((fminf(fmaxf(level, 0.0), 1.0) * 100.0) / 5.0) * 5.0) / 100.0) * 1000000.0));
         if ((options & 4) != 0)
         {
-          v23 = (level * 1000000.0);
-          if (self->_previousDarwinNotificationBrightnessLevel != v23 && ([(BSCompoundAssertion *)self->_suppressClientNotificationsAssertion isActive]& 1) == 0)
+          v21 = (level * 1000000.0);
+          if (self->_previousDarwinNotificationBrightnessLevel != v21 && ([(BSCompoundAssertion *)self->_suppressClientNotificationsAssertion isActive]& 1) == 0)
           {
             notify_post("UIBacklightLevelChangedNotification");
-            self->_previousDarwinNotificationBrightnessLevel = v23;
+            self->_previousDarwinNotificationBrightnessLevel = v21;
           }
         }
 

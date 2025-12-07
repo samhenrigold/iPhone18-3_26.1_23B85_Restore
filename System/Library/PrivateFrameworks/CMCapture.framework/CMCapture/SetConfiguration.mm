@@ -17,6 +17,7 @@ void __captureSession_SetConfiguration_block_invoke(uint64_t a1)
     }
 
     os_unfair_lock_unlock((*(a1 + 32) + 384));
+    v5 = *(a1 + 40);
     DerivedStorage = CMBaseObjectGetDerivedStorage();
     if (!_FigIsCurrentDispatchQueue())
     {
@@ -24,90 +25,122 @@ void __captureSession_SetConfiguration_block_invoke(uint64_t a1)
     }
 
     os_unfair_lock_lock((DerivedStorage + 384));
-    v6 = *(DerivedStorage + 504);
-    if (v6 == *(DerivedStorage + 512))
+    v7 = *(DerivedStorage + 504);
+    if (v7 == *(DerivedStorage + 512))
     {
       os_unfair_lock_unlock((DerivedStorage + 384));
-      v7 = 0;
+      v8 = 0;
     }
 
     else
     {
-      v7 = v6;
+      v8 = v7;
       os_unfair_lock_unlock((DerivedStorage + 384));
-      if (v7)
+      if (v8)
       {
-        v8 = [[FigCaptureSessionParsedConfiguration alloc] initWithSessionConfiguration:v7 clientSetsUserInitiatedCaptureRequestTime:captureSession_clientSetsUserInitiatedCaptureRequestTime() restrictions:*(DerivedStorage + 496)];
-        if (v8)
+        v9 = [[FigCaptureSessionParsedConfiguration alloc] initWithSessionConfiguration:v8 clientSetsUserInitiatedCaptureRequestTime:captureSession_clientSetsUserInitiatedCaptureRequestTime(v5) restrictions:*(DerivedStorage + 496)];
+        if (v9)
         {
-          v31 = 0u;
-          v32 = 0u;
-          v29 = 0u;
-          v30 = 0u;
-          v9 = [(FigCaptureSessionParsedConfiguration *)v8 parsedCameraSourceConfigurations];
-          v10 = [(NSArray *)v9 countByEnumeratingWithState:&v29 objects:v28 count:16];
-          if (v10)
+          v44 = 0u;
+          v45 = 0u;
+          v42 = 0u;
+          v43 = 0u;
+          v17 = [(FigCaptureSessionParsedConfiguration *)v9 parsedCameraSourceConfigurations];
+          v18 = [(NSArray *)v17 countByEnumeratingWithState:&v42 objects:v41 count:16];
+          if (v18)
           {
-            v11 = v10;
-            v27 = v7;
-            v12 = *v30;
+            v19 = v18;
+            v40 = v8;
+            v20 = *v43;
             while (2)
             {
-              for (i = 0; i != v11; ++i)
+              for (i = 0; i != v19; ++i)
               {
-                if (*v30 != v12)
+                if (*v43 != v20)
                 {
-                  objc_enumerationMutation(v9);
+                  objc_enumerationMutation(v17);
                 }
 
-                v14 = [*(*(&v29 + 1) + 8 * i) cameraConfiguration];
-                if (([v14 hasSetVideoZoomFactorOnCaptureSource] & 1) == 0)
+                v22 = [*(*(&v42 + 1) + 8 * i) cameraConfiguration];
+                if (([v22 hasSetVideoZoomFactorOnCaptureSource] & 1) == 0)
                 {
-                  v15 = [v14 source];
-                  v16 = *(*(CMBaseObjectGetVTable() + 16) + 8);
-                  if (!v16 || v16(v15))
+                  v23 = [v22 source];
+                  v24 = *(*(CMBaseObjectGetVTable() + 16) + 8);
+                  if (!v24)
                   {
-                    __captureSession_SetConfiguration_block_invoke_cold_5();
-                    goto LABEL_35;
+                    v25 = 4294954514;
+LABEL_32:
+                    __captureSession_SetConfiguration_block_invoke_cold_5(v25);
+                    goto LABEL_39;
                   }
 
-                  v17 = [v14 source];
-                  v18 = MEMORY[0x1E696AD98];
-                  [v14 videoZoomFactor];
-                  v19 = [v18 numberWithFloat:?];
-                  v20 = *(*(CMBaseObjectGetVTable() + 8) + 56);
-                  if (!v20 || v20(v17, @"VideoZoomFactor", v19))
+                  v25 = v24(v23);
+                  if (v25)
                   {
-                    __captureSession_SetConfiguration_block_invoke_cold_4();
-                    goto LABEL_35;
+                    goto LABEL_32;
                   }
 
-                  v21 = [v14 source];
-                  v22 = MEMORY[0x1E696AD98];
-                  [v14 simulatedAperture];
-                  v23 = [v22 numberWithFloat:?];
-                  v24 = *(*(CMBaseObjectGetVTable() + 8) + 56);
-                  if (!v24 || v24(v21, @"SimulatedAperture", v23))
+                  v26 = [v22 source];
+                  v27 = MEMORY[0x1E696AD98];
+                  [v22 videoZoomFactor];
+                  v28 = [v27 numberWithFloat:?];
+                  v29 = *(*(CMBaseObjectGetVTable() + 8) + 56);
+                  if (!v29)
                   {
-                    __captureSession_SetConfiguration_block_invoke_cold_3();
-                    goto LABEL_35;
+                    v30 = 4294954514;
+LABEL_34:
+                    __captureSession_SetConfiguration_block_invoke_cold_4(v30);
+                    goto LABEL_39;
                   }
 
-                  v25 = [v14 source];
-                  v26 = *(*(CMBaseObjectGetVTable() + 16) + 16);
-                  if (!v26 || v26(v25))
+                  v30 = v29(v26, @"VideoZoomFactor", v28);
+                  if (v30)
                   {
-                    __captureSession_SetConfiguration_block_invoke_cold_2();
-                    goto LABEL_35;
+                    goto LABEL_34;
                   }
 
-                  [v14 setHasSetVideoZoomFactorOnCaptureSource:1];
-                  [v14 setHasSetSimulatedApertureOnCaptureSource:1];
+                  v31 = [v22 source];
+                  v32 = MEMORY[0x1E696AD98];
+                  [v22 simulatedAperture];
+                  v33 = [v32 numberWithFloat:?];
+                  v34 = *(*(CMBaseObjectGetVTable() + 8) + 56);
+                  if (!v34)
+                  {
+                    v35 = 4294954514;
+LABEL_36:
+                    __captureSession_SetConfiguration_block_invoke_cold_3(v35);
+                    goto LABEL_39;
+                  }
+
+                  v35 = v34(v31, @"SimulatedAperture", v33);
+                  if (v35)
+                  {
+                    goto LABEL_36;
+                  }
+
+                  v36 = [v22 source];
+                  v37 = *(*(CMBaseObjectGetVTable() + 16) + 16);
+                  if (!v37)
+                  {
+                    v38 = 4294954514;
+LABEL_38:
+                    __captureSession_SetConfiguration_block_invoke_cold_2(v38);
+                    goto LABEL_39;
+                  }
+
+                  v38 = v37(v36);
+                  if (v38)
+                  {
+                    goto LABEL_38;
+                  }
+
+                  [v22 setHasSetVideoZoomFactorOnCaptureSource:1];
+                  [v22 setHasSetSimulatedApertureOnCaptureSource:1];
                 }
               }
 
-              v11 = [(NSArray *)v9 countByEnumeratingWithState:&v29 objects:v28 count:16];
-              if (v11)
+              v19 = [(NSArray *)v17 countByEnumeratingWithState:&v42 objects:v41 count:16];
+              if (v19)
               {
                 continue;
               }
@@ -115,14 +148,14 @@ void __captureSession_SetConfiguration_block_invoke(uint64_t a1)
               break;
             }
 
-LABEL_35:
-            v7 = v27;
+LABEL_39:
+            v8 = v40;
           }
         }
 
         else
         {
-          __captureSession_SetConfiguration_block_invoke_cold_6();
+          __captureSession_SetConfiguration_block_invoke_cold_6(0, v10, v11, v12, v13, v14, v15, v16, v39);
         }
       }
     }
@@ -140,7 +173,7 @@ uint64_t __captureSession_SetConfiguration_block_invoke_cold_1()
 {
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2_5();
-  return FigDebugAssert3();
+  return FigDebugAssert3(v0);
 }
 
 @end

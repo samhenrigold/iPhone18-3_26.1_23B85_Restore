@@ -339,11 +339,4 @@ LABEL_25:
   *out = BYTE4(self->_firstSignificantTimeStamp.epoch);
 }
 
-- (uint64_t)_updateGazeStatesUsingGazeProbabilitiesData:gazeConfidenceFilteredOut:gazeScoreFilteredOut:.cold.1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
 @end

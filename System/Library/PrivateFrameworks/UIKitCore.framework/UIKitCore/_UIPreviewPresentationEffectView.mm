@@ -38,7 +38,7 @@
 
     [(_UIPreviewPresentationEffectView *)v3 setShadowOffset:*MEMORY[0x1E695F060], *(MEMORY[0x1E695F060] + 8)];
     [(_UIPreviewPresentationEffectView *)v3 setShadowRadius:0.0];
-    v8 = +[UIColor blackColor];
+    v8 = objc_msgSend_blackColor(UIColor);
     v9 = [v8 colorWithAlphaComponent:0.333333333];
     [(_UIPreviewPresentationEffectView *)v3 setShadowColor:v9];
 
@@ -54,17 +54,17 @@
   keyCopy = key;
   v7.receiver = self;
   v7.super_class = _UIPreviewPresentationEffectView;
-  if (-[UIView _shouldAnimatePropertyWithKey:](&v7, sel__shouldAnimatePropertyWithKey_, keyCopy) || ([keyCopy isEqualToString:@"filters.gaussianBlur.inputRadius"] & 1) != 0 || (objc_msgSend(keyCopy, "isEqualToString:", @"cornerRadius") & 1) != 0 || (objc_msgSend(keyCopy, "isEqualToString:", @"shadowOpacity") & 1) != 0 || (objc_msgSend(keyCopy, "isEqualToString:", @"shadowOffset") & 1) != 0 || (objc_msgSend(keyCopy, "isEqualToString:", @"shadowRadius") & 1) != 0)
+  if ([(UIView *)&v7 _shouldAnimatePropertyWithKey:keyCopy]|| (objc_msgSend_isEqualToString_(keyCopy) & 1) != 0 || (objc_msgSend_isEqualToString_(keyCopy) & 1) != 0 || (objc_msgSend_isEqualToString_(keyCopy) & 1) != 0 || (objc_msgSend_isEqualToString_(keyCopy) & 1) != 0 || (objc_msgSend_isEqualToString_(keyCopy) & 1) != 0)
   {
-    v5 = 1;
+    isEqualToString = 1;
   }
 
   else
   {
-    v5 = [keyCopy isEqualToString:@"shadowColor"];
+    isEqualToString = objc_msgSend_isEqualToString_(keyCopy);
   }
 
-  return v5;
+  return isEqualToString;
 }
 
 - (double)blurRadius
@@ -163,9 +163,9 @@
 {
   colorCopy = color;
   shadowColor = [(_UIPreviewPresentationEffectView *)self shadowColor];
-  v5 = [shadowColor isEqual:colorCopy];
+  isEqual = objc_msgSend_isEqual_(shadowColor);
 
-  if ((v5 & 1) == 0)
+  if ((isEqual & 1) == 0)
   {
     v6 = [colorCopy copy];
     shadowColor = self->_shadowColor;

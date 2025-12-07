@@ -14,33 +14,33 @@
 
 - (WBLocalTabAttributes)initWithCoder:(id)coder
 {
-  v40[2] = *MEMORY[0x277D85DE8];
+  v39[2] = *MEMORY[0x277D85DE8];
   coderCopy = coder;
-  v37 = [coderCopy decodeIntegerForKey:@"version"];
-  v36 = [coderCopy decodeBoolForKey:*MEMORY[0x277D4A5A8]];
-  v34 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:*MEMORY[0x277D4A570]];
-  v32 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:*MEMORY[0x277D4A5B0]];
+  v36 = [coderCopy decodeIntegerForKey:@"version"];
+  v35 = [coderCopy decodeBoolForKey:*MEMORY[0x277D4A5A8]];
+  v33 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:*MEMORY[0x277D4A570]];
+  v31 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:*MEMORY[0x277D4A5B0]];
   v4 = MEMORY[0x277CBEB98];
-  v40[0] = objc_opt_class();
-  v40[1] = objc_opt_class();
-  v35 = [MEMORY[0x277CBEA60] arrayWithObjects:v40 count:2];
-  v33 = [v4 setWithArray:v35];
-  v30 = [coderCopy decodeObjectOfClasses:v33 forKey:*MEMORY[0x277D4A538]];
-  v29 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:*MEMORY[0x277D4A540]];
-  v31 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:*MEMORY[0x277D4A550]];
-  unsignedIntegerValue = [v31 unsignedIntegerValue];
-  v5 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:*MEMORY[0x277D4A5C8]];
-  v27 = [coderCopy decodeBoolForKey:*MEMORY[0x277D4A558]];
-  v26 = [coderCopy decodeBoolForKey:*MEMORY[0x277D4A568]];
-  v6 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:*MEMORY[0x277D4A588]];
-  v7 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:*MEMORY[0x277D4A580]];
-  v24 = [coderCopy decodeBoolForKey:*MEMORY[0x277D4A560]];
-  v8 = MEMORY[0x277CBEB98];
   v39[0] = objc_opt_class();
   v39[1] = objc_opt_class();
-  v25 = [MEMORY[0x277CBEA60] arrayWithObjects:v39 count:2];
-  v23 = [v8 setWithArray:v25];
-  v9 = [coderCopy decodeObjectOfClasses:v23 forKey:*MEMORY[0x277D4A590]];
+  v34 = [MEMORY[0x277CBEA60] arrayWithObjects:v39 count:2];
+  v32 = [v4 setWithArray:v34];
+  v29 = [coderCopy decodeObjectOfClasses:v32 forKey:*MEMORY[0x277D4A538]];
+  v28 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:*MEMORY[0x277D4A540]];
+  v30 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:*MEMORY[0x277D4A550]];
+  unsignedIntegerValue = [v30 unsignedIntegerValue];
+  v5 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:*MEMORY[0x277D4A5C8]];
+  v26 = [coderCopy decodeBoolForKey:*MEMORY[0x277D4A558]];
+  v25 = [coderCopy decodeBoolForKey:*MEMORY[0x277D4A568]];
+  v6 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:*MEMORY[0x277D4A588]];
+  v7 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:*MEMORY[0x277D4A580]];
+  v23 = [coderCopy decodeBoolForKey:*MEMORY[0x277D4A560]];
+  v8 = MEMORY[0x277CBEB98];
+  v38[0] = objc_opt_class();
+  v38[1] = objc_opt_class();
+  v24 = [MEMORY[0x277CBEA60] arrayWithObjects:v38 count:2];
+  v22 = [v8 setWithArray:v24];
+  v9 = [coderCopy decodeObjectOfClasses:v22 forKey:*MEMORY[0x277D4A590]];
   v10 = [coderCopy decodeBoolForKey:*MEMORY[0x277D4A548]];
   [coderCopy decodeDoubleForKey:*MEMORY[0x277D4A598]];
   v12 = v11;
@@ -49,16 +49,15 @@
   LOBYTE(v4) = [coderCopy decodeBoolForKey:*MEMORY[0x277D4A5B8]];
   v15 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:*MEMORY[0x277D4A5C0]];
 
-  BYTE1(v22) = v4;
-  LOBYTE(v22) = v14;
-  HIDWORD(v21) = v13;
-  LOBYTE(v21) = v10;
-  LOBYTE(v20) = v24;
-  BYTE1(v19) = v26;
-  LOBYTE(v19) = v27;
-  v16 = [WBLocalTabAttributes initWithVersion:"initWithVersion:safeToLoadWebPage:lastVisitTime:sessionStateData:ancestorTabUUIDs:dateClosed:tabIndex:windowUUID:disposable:pinned:pinnedPageURL:pinnedPageTitle:muted:queuedNavigation:displayingStandaloneImage:readerViewTopScrollOffset:readingListBookmarkID:openedFromLink:showingReader:webClipIDString:" safeToLoadWebPage:v37 lastVisitTime:v36 sessionStateData:v34 ancestorTabUUIDs:v32 dateClosed:v30 tabIndex:v29 windowUUID:v12 disposable:unsignedIntegerValue pinned:v5 pinnedPageURL:v19 pinnedPageTitle:v6 muted:v7 queuedNavigation:v20 displayingStandaloneImage:v9 readerViewTopScrollOffset:v21 readingListBookmarkID:v22 openedFromLink:v15 showingReader:? webClipIDString:?];
+  BYTE1(v21) = v4;
+  LOBYTE(v21) = v14;
+  HIDWORD(v20) = v13;
+  LOBYTE(v20) = v10;
+  LOBYTE(v19) = v23;
+  BYTE1(v18) = v25;
+  LOBYTE(v18) = v26;
+  v16 = [WBLocalTabAttributes initWithVersion:"initWithVersion:safeToLoadWebPage:lastVisitTime:sessionStateData:ancestorTabUUIDs:dateClosed:tabIndex:windowUUID:disposable:pinned:pinnedPageURL:pinnedPageTitle:muted:queuedNavigation:displayingStandaloneImage:readerViewTopScrollOffset:readingListBookmarkID:openedFromLink:showingReader:webClipIDString:" safeToLoadWebPage:v36 lastVisitTime:v35 sessionStateData:v33 ancestorTabUUIDs:v31 dateClosed:v29 tabIndex:v28 windowUUID:v12 disposable:unsignedIntegerValue pinned:v5 pinnedPageURL:v18 pinnedPageTitle:v6 muted:v7 queuedNavigation:v19 displayingStandaloneImage:v9 readerViewTopScrollOffset:v20 readingListBookmarkID:v21 openedFromLink:v15 showingReader:? webClipIDString:?];
 
-  v17 = *MEMORY[0x277D85DE8];
   return v16;
 }
 

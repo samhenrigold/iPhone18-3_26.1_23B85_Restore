@@ -66,7 +66,7 @@
 
             else
             {
-              value2 = _CNLogSystem();
+              value2 = _CNLogSystem(v18);
               if (os_log_type_enabled(value2, OS_LOG_TYPE_ERROR))
               {
                 [(CNRenderingSessionFrameAttributes *)0x284A05320 initWithTimedMetadataGroup:v12 sessionAttributes:value2];
@@ -98,7 +98,6 @@ LABEL_18:
     selfCopy = 0;
   }
 
-  v19 = *MEMORY[0x277D85DE8];
   return selfCopy;
 }
 
@@ -220,7 +219,7 @@ LABEL_18:
 
   else
   {
-    v13 = _CNLogSystem();
+    v13 = _CNLogSystem(0);
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       [CNRenderingSessionFrameAttributes _initWithTimedData:dataCopy sessionAttributes:v13];
@@ -234,26 +233,23 @@ LABEL_18:
 
 - (void)initWithTimedMetadataGroup:(NSObject *)a3 sessionAttributes:.cold.1(uint64_t a1, void *a2, NSObject *a3)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v5 = [a2 value];
   v6 = objc_opt_class();
   v7 = NSStringFromClass(v6);
-  v9 = 138412546;
-  v10 = a1;
-  v11 = 2112;
-  v12 = v7;
-  _os_log_error_impl(&dword_236F52000, a3, OS_LOG_TYPE_ERROR, "error: metadata item %@ of class %@ (expected NSData) -- skipping", &v9, 0x16u);
-
-  v8 = *MEMORY[0x277D85DE8];
+  v8 = 138412546;
+  v9 = a1;
+  v10 = 2112;
+  v11 = v7;
+  _os_log_error_impl(&dword_236F52000, a3, OS_LOG_TYPE_ERROR, "error: metadata item %@ of class %@ (expected NSData) -- skipping", &v8, 0x16u);
 }
 
 - (void)_initWithTimedData:(uint64_t)a1 sessionAttributes:(NSObject *)a2 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_236F52000, a2, OS_LOG_TYPE_ERROR, "Failed to deserialize timed rendering metadata: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_236F52000, a2, OS_LOG_TYPE_ERROR, "Failed to deserialize timed rendering metadata: %@", &v2, 0xCu);
 }
 
 @end

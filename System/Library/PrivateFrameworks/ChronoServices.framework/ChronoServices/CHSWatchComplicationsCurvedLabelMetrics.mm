@@ -267,10 +267,8 @@ id __54__CHSWatchComplicationsCurvedLabelMetrics_description__block_invoke(uint6
 - (void)encodeWithCoder:(id)coder
 {
   coderCopy = coder;
-  x = self->_circleCenter.x;
-  y = self->_circleCenter.y;
-  v6 = BSValueWithPoint();
-  [coderCopy encodeObject:v6 forKey:@"circleCenter"];
+  v4 = BSValueWithPoint();
+  [coderCopy encodeObject:v4 forKey:@"circleCenter"];
 
   [coderCopy encodeDouble:@"circleRadius" forKey:self->_circleRadius];
   [coderCopy encodeDouble:@"maximumAngularWidth" forKey:self->_maximumAngularWidth];
@@ -280,14 +278,12 @@ id __54__CHSWatchComplicationsCurvedLabelMetrics_description__block_invoke(uint6
   [coderCopy encodeDouble:@"tracking" forKey:self->_tracking];
   [coderCopy encodeDouble:@"fontSize" forKey:self->_fontSize];
   [coderCopy encodeObject:self->_textColor forKey:@"textColor"];
-  v7 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:self->_accessoryPlacement];
-  [coderCopy encodeObject:v7 forKey:@"accessoryPlacement"];
+  v5 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:self->_accessoryPlacement];
+  [coderCopy encodeObject:v5 forKey:@"accessoryPlacement"];
 
   [coderCopy encodeDouble:@"accessoryPadding" forKey:self->_accessoryPadding];
-  width = self->_accessoryMaxSize.width;
-  height = self->_accessoryMaxSize.height;
-  v10 = BSValueWithSize();
-  [coderCopy encodeObject:v10 forKey:@"accessoryMaxSize"];
+  v6 = BSValueWithSize();
+  [coderCopy encodeObject:v6 forKey:@"accessoryMaxSize"];
 }
 
 - (CHSWatchComplicationsCurvedLabelMetrics)initWithCoder:(id)coder
@@ -394,26 +390,27 @@ id __54__CHSWatchComplicationsCurvedLabelMetrics_description__block_invoke(uint6
 
 - (id)_filenameSafeStableHash
 {
-  v8 = 0;
-  v3 = [MEMORY[0x1E69C7360] encodeObject:self error:&v8];
-  v4 = v8;
+  v9 = 0;
+  v3 = [MEMORY[0x1E69C7360] encodeObject:self error:&v9];
+  v4 = v9;
+  v5 = v4;
   if (v4)
   {
-    v5 = CHSLogChronoServices();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = CHSLogChronoServices(v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      [(CHSWatchComplicationsCurvedLabelMetrics *)v4 _filenameSafeStableHash];
+      [(CHSWatchComplicationsCurvedLabelMetrics *)v5 _filenameSafeStableHash];
     }
   }
 
-  v6 = [(CHSWatchComplicationsCurvedLabelMetrics *)self _filenameSafeStableHashFromData:v3];
+  v7 = [(CHSWatchComplicationsCurvedLabelMetrics *)self _filenameSafeStableHashFromData:v3];
 
-  return v6;
+  return v7;
 }
 
 - (id)_filenameSafeStableHashFromData:(id)data
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   dataCopy = data;
   if (dataCopy)
   {
@@ -440,8 +437,6 @@ id __54__CHSWatchComplicationsCurvedLabelMetrics_description__block_invoke(uint6
     v8 = 0;
   }
 
-  v9 = *MEMORY[0x1E69E9840];
-
   return v8;
 }
 
@@ -465,11 +460,10 @@ id __54__CHSWatchComplicationsCurvedLabelMetrics_description__block_invoke(uint6
 
 - (void)_filenameSafeStableHash
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
   selfCopy = self;
-  _os_log_error_impl(&dword_195EB2000, a2, OS_LOG_TYPE_ERROR, "Error encoding object: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(&dword_195EB2000, a2, OS_LOG_TYPE_ERROR, "Error encoding object: %@", &v2, 0xCu);
 }
 
 @end

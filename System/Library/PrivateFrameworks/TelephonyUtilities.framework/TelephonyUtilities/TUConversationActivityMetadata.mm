@@ -7,6 +7,7 @@
 - (NSData)imageData;
 - (NSString)description;
 - (TUConversationActivityMetadata)initWithCoder:(id)coder;
+- (TUConversationActivityMetadata)initWithContext:(id)context linkMetadata:(id)metadata fallbackURL:(id)l invitationURL:(id)rL supportsContinuationOnTV:(BOOL)v title:(id)title subTitle:(id)subTitle imageData:(id)self0;
 - (TUConversationActivityMetadata)initWithContext:(id)context linkMetadata:(id)metadata fallbackURL:(id)l invitationURL:(id)rL supportsContinuationOnTV:(BOOL)v title:(id)title subTitle:(id)subTitle imageData:(id)self0 preferredBroadcastingAttributes:(int64_t)self1 sceneAssociationBehavior:(id)self2 supportsActivityPreviews:(BOOL)self3;
 - (TUConversationActivityMetadata)initWithContext:(id)context linkMetadata:(id)metadata fallbackURL:(id)l invitationURL:(id)rL supportsContinuationOnTV:(BOOL)v title:(id)title subTitle:(id)subTitle imageData:(id)self0 preferredBroadcastingAttributes:(int64_t)self1 sceneAssociationBehavior:(id)self2 supportsActivityPreviews:(BOOL)self3 lifetimePolicy:(int64_t)self4;
 - (id)_filePathForImage;
@@ -15,9 +16,7 @@
 - (id)sanitizedCopyWithZone:(_NSZone *)zone;
 - (unint64_t)hash;
 - (unint64_t)length;
-- (void)_createImageFolderIfNeeded;
 - (void)encodeWithCoder:(id)coder;
-- (void)imageData;
 - (void)removeImageDiskFile;
 - (void)saveImageToDisk;
 @end
@@ -120,6 +119,23 @@
     v25->_supportsActivityPreviews = previews;
     v25->_lifetimePolicy = 2;
   }
+
+  return v25;
+}
+
+- (TUConversationActivityMetadata)initWithContext:(id)context linkMetadata:(id)metadata fallbackURL:(id)l invitationURL:(id)rL supportsContinuationOnTV:(BOOL)v title:(id)title subTitle:(id)subTitle imageData:(id)self0
+{
+  vCopy = v;
+  dataCopy = data;
+  subTitleCopy = subTitle;
+  titleCopy = title;
+  rLCopy = rL;
+  lCopy = l;
+  metadataCopy = metadata;
+  contextCopy = context;
+  v24 = +[TUConversationActivitySceneAssociationBehavior defaultBehavior];
+  LOBYTE(v27) = 0;
+  v25 = [(TUConversationActivityMetadata *)self initWithContext:contextCopy linkMetadata:metadataCopy fallbackURL:lCopy invitationURL:rLCopy supportsContinuationOnTV:vCopy title:titleCopy subTitle:subTitleCopy imageData:dataCopy preferredBroadcastingAttributes:0 sceneAssociationBehavior:v24 supportsActivityPreviews:v27 lifetimePolicy:2];
 
   return v25;
 }
@@ -345,32 +361,54 @@
 
     if (v5)
     {
-      v8 = TUDefaultLog();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+      v9 = TUDefaultLog(v8);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
         [TUConversationActivityMetadata _createImageFolderIfNeeded];
       }
     }
   }
 
-  v9 = *MEMORY[0x1E69E9840];
   return v5 == 0;
 }
 
 - (void)saveImageToDisk
 {
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1_0(&dword_1956FD000, v0, v1, "TUConversationActivityMetadata Error writing image data to %@ error %@");
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  selfCopy = self;
+  _os_log_error_impl(&dword_1956FD000, a2, OS_LOG_TYPE_ERROR, "TUConversationActivityMetadata %@ failed to create image folder, can't write to disk.", &v2, 0xCu);
 }
 
 - (void)removeImageDiskFile
 {
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1_0(&dword_1956FD000, v0, v1, "TUConversationActivityMetadata %@ Wasn't able to delete image file error %@");
-  v2 = *MEMORY[0x1E69E9840];
+  imageFileURL = [(TUConversationActivityMetadata *)self imageFileURL];
+
+  if (imageFileURL)
+  {
+    defaultManager = [MEMORY[0x1E696AC08] defaultManager];
+    imageFileURL2 = [(TUConversationActivityMetadata *)self imageFileURL];
+    v6 = [imageFileURL2 URL];
+    v12 = 0;
+    [defaultManager removeItemAtURL:v6 error:&v12];
+    v7 = v12;
+
+    v9 = TUDefaultLog(v8);
+    v10 = v9;
+    if (v7)
+    {
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      {
+        [TUConversationActivityMetadata removeImageDiskFile];
+      }
+    }
+
+    else if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    {
+      *v11 = 0;
+      _os_log_impl(&dword_1956FD000, v10, OS_LOG_TYPE_DEFAULT, "TUConversationActivityMetadata deleted image", v11, 2u);
+    }
+  }
 }
 
 - (NSData)imageData
@@ -390,14 +428,14 @@
       v5 = MEMORY[0x1E695DEF0];
       imageFileURL2 = [(TUConversationActivityMetadata *)self imageFileURL];
       v7 = [imageFileURL2 URL];
-      v11 = 0;
-      imageFileURL = [v5 dataWithContentsOfURL:v7 options:8 error:&v11];
-      v8 = v11;
+      v12 = 0;
+      imageFileURL = [v5 dataWithContentsOfURL:v7 options:8 error:&v12];
+      v8 = v12;
 
       if (v8)
       {
-        v9 = TUDefaultLog();
-        if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+        v10 = TUDefaultLog(v9);
+        if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
         {
           [TUConversationActivityMetadata imageData];
         }
@@ -615,32 +653,33 @@
   blobCopy = blob;
   if ([blobCopy length])
   {
-    v9 = 0;
-    v4 = [MEMORY[0x1E696ACD0] unarchivedObjectOfClass:objc_opt_class() fromData:blobCopy error:&v9];
-    v5 = v9;
+    v10 = 0;
+    v4 = [MEMORY[0x1E696ACD0] unarchivedObjectOfClass:objc_opt_class() fromData:blobCopy error:&v10];
+    v5 = v10;
+    v6 = v5;
     if (v5 || !v4)
     {
-      v7 = TUDefaultLog();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+      v8 = TUDefaultLog(v5);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
-        [(TUConversationActivityMetadata *)v5 activityMetadataWithDataBlob:v7];
+        [(TUConversationActivityMetadata *)v6 activityMetadataWithDataBlob:v8];
       }
 
-      v6 = 0;
+      v7 = 0;
     }
 
     else
     {
-      v6 = v4;
+      v7 = v4;
     }
   }
 
   else
   {
-    v6 = 0;
+    v7 = 0;
   }
 
-  return v6;
+  return v7;
 }
 
 - (NSString)description
@@ -822,29 +861,12 @@ LABEL_19:
   return v12;
 }
 
-- (void)_createImageFolderIfNeeded
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1_0(&dword_1956FD000, v0, v1, "TUConversationActivityMetadata Error creating folder at %@ error %@");
-  v2 = *MEMORY[0x1E69E9840];
-}
-
-- (void)imageData
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1_0(&dword_1956FD000, v0, v1, "Failed to read image data for %@, error: %@");
-  v2 = *MEMORY[0x1E69E9840];
-}
-
 + (void)activityMetadataWithDataBlob:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_1956FD000, a2, OS_LOG_TYPE_ERROR, "Error deserializing activity metadata %@,", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_1956FD000, a2, OS_LOG_TYPE_ERROR, "Error deserializing activity metadata %@,", &v2, 0xCu);
 }
 
 @end

@@ -135,17 +135,17 @@ void sub_100001610(uint64_t a1)
     v4 = &__kCFBooleanFalse;
   }
 
-  v58[0] = @"RootFilePath";
-  v58[1] = @"JcopUpdateDisable";
-  v59[0] = @"/usr/standalone/firmware/nfrestore/firmware";
-  v59[1] = &__kCFBooleanTrue;
-  v58[2] = @"FactoryInstall";
-  v58[3] = @"StockholmOnly";
-  v59[2] = v4;
-  v59[3] = v7;
-  v58[4] = @"HammerfestOnly";
-  v59[4] = v10;
-  v12 = [NSDictionary dictionaryWithObjects:v59 forKeys:v58 count:5];
+  v57[0] = @"RootFilePath";
+  v57[1] = @"JcopUpdateDisable";
+  v58[0] = @"/usr/standalone/firmware/nfrestore/firmware";
+  v58[1] = &__kCFBooleanTrue;
+  v57[2] = @"FactoryInstall";
+  v57[3] = @"StockholmOnly";
+  v58[2] = v4;
+  v58[3] = v7;
+  v57[4] = @"HammerfestOnly";
+  v58[4] = v10;
+  v12 = [NSDictionary dictionaryWithObjects:v58 forKeys:v57 count:5];
   dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
   Logger = NFLogGetLogger();
   if (Logger)
@@ -182,87 +182,86 @@ void sub_100001610(uint64_t a1)
     v22 = object_getClassName(*(a1 + 40));
     v23 = sel_getName(*(a1 + 72));
     *buf = 67109890;
-    v49 = v21;
-    v50 = 2082;
-    v51 = v22;
-    v52 = 2082;
-    v53 = v23;
-    v54 = 1024;
-    v55 = 99;
+    v48 = v21;
+    v49 = 2082;
+    v50 = v22;
+    v51 = 2082;
+    v52 = v23;
+    v53 = 1024;
+    v54 = 99;
     _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "%c[%{public}s %{public}s]:%i Updating FW", buf, 0x22u);
   }
 
-  v24 = *(a1 + 40);
-  v25 = NfRestore();
+  v24 = NfRestore();
   dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
-  v26 = NFLogGetLogger();
-  if (v26)
+  v25 = NFLogGetLogger();
+  if (v25)
   {
-    v27 = v26;
-    v28 = object_getClass(*(a1 + 40));
-    v29 = class_isMetaClass(v28);
-    v43 = object_getClassName(*(a1 + 40));
-    v45 = sel_getName(*(a1 + 72));
-    v30 = 45;
-    if (v29)
+    v26 = v25;
+    v27 = object_getClass(*(a1 + 40));
+    v28 = class_isMetaClass(v27);
+    v42 = object_getClassName(*(a1 + 40));
+    v44 = sel_getName(*(a1 + 72));
+    v29 = 45;
+    if (v28)
     {
-      v30 = 43;
+      v29 = 43;
     }
 
-    v27(6, "%c[%{public}s %{public}s]:%i FW is updated with status %d", v30, v43, v45, 101, v25);
+    v26(6, "%c[%{public}s %{public}s]:%i FW is updated with status %d", v29, v42, v44, 101, v24);
   }
 
   dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
-  v31 = NFSharedLogGetLogger();
-  if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
+  v30 = NFSharedLogGetLogger();
+  if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
   {
-    v32 = object_getClass(*(a1 + 40));
-    if (class_isMetaClass(v32))
+    v31 = object_getClass(*(a1 + 40));
+    if (class_isMetaClass(v31))
     {
-      v33 = 43;
+      v32 = 43;
     }
 
     else
     {
-      v33 = 45;
+      v32 = 45;
     }
 
-    v34 = object_getClassName(*(a1 + 40));
-    v35 = sel_getName(*(a1 + 72));
+    v33 = object_getClassName(*(a1 + 40));
+    v34 = sel_getName(*(a1 + 72));
     *buf = 67110146;
-    v49 = v33;
-    v50 = 2082;
-    v51 = v34;
-    v52 = 2082;
-    v53 = v35;
-    v54 = 1024;
-    v55 = 101;
-    v56 = 1024;
-    v57 = v25;
-    _os_log_impl(&_mh_execute_header, v31, OS_LOG_TYPE_DEFAULT, "%c[%{public}s %{public}s]:%i FW is updated with status %d", buf, 0x28u);
+    v48 = v32;
+    v49 = 2082;
+    v50 = v33;
+    v51 = 2082;
+    v52 = v34;
+    v53 = 1024;
+    v54 = 101;
+    v55 = 1024;
+    v56 = v24;
+    _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_DEFAULT, "%c[%{public}s %{public}s]:%i FW is updated with status %d", buf, 0x28u);
   }
 
   dispatch_source_cancel(*(*(*(a1 + 56) + 8) + 40));
-  v36 = *(*(a1 + 56) + 8);
-  v37 = *(v36 + 40);
-  *(v36 + 40) = 0;
+  v35 = *(*(a1 + 56) + 8);
+  v36 = *(v35 + 40);
+  *(v35 + 40) = 0;
 
-  v38 = *(a1 + 48);
-  if (v25)
+  v37 = *(a1 + 48);
+  if (v24)
   {
-    v46 = NSLocalizedDescriptionKey;
-    v47 = @"Restore error";
-    v39 = [NSDictionary dictionaryWithObjects:&v47 forKeys:&v46 count:1];
-    v40 = [NSError errorWithDomain:@"nfrestore" code:v25 userInfo:v39];
-    (*(v38 + 16))(v38, 0, v40);
+    v45 = NSLocalizedDescriptionKey;
+    v46 = @"Restore error";
+    v38 = [NSDictionary dictionaryWithObjects:&v46 forKeys:&v45 count:1];
+    v39 = [NSError errorWithDomain:@"nfrestore" code:v24 userInfo:v38];
+    (*(v37 + 16))(v37, 0, v39);
   }
 
   else
   {
-    (*(v38 + 16))(*(a1 + 48), 0, 0);
+    (*(v37 + 16))(*(a1 + 48), 0, 0);
   }
 
-  v41 = *(*(a1 + 64) + 8);
-  v42 = *(v41 + 40);
-  *(v41 + 40) = 0;
+  v40 = *(*(a1 + 64) + 8);
+  v41 = *(v40 + 40);
+  *(v40 + 40) = 0;
 }

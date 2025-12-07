@@ -95,7 +95,7 @@ uint64_t __40__FMFMonogramUtility_contactStatusCache__block_invoke()
 
 + (id)monogramImageOfDiameter:(double)diameter forContact:(id)contact monogramStyle:(int64_t)style tintColor:(id)color customFont:(id)font isPersonImage:(BOOL *)image
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   contactCopy = contact;
   colorCopy = color;
   fontCopy = font;
@@ -105,35 +105,35 @@ uint64_t __40__FMFMonogramUtility_contactStatusCache__block_invoke()
   identifier = [(__CFString *)contactCopy identifier];
 
   styleCopy = style;
-  v35 = colorCopy != 0;
-  *(&v35 + 1) = fontCopy != 0;
-  v34 = [self hexStringFromColor:colorCopy];
+  v36 = colorCopy != 0;
+  *(&v36 + 1) = fontCopy != 0;
+  v35 = [self hexStringFromColor:colorCopy];
   v17 = [MEMORY[0x277CCAE60] value:&diameterCopy withObjCType:"{?=d^{__CFString}q^{__CFString}BB}"];
   contactImageCache = [self contactImageCache];
   contactStatusCache = [self contactStatusCache];
   v20 = [contactImageCache objectForKey:v17];
-  v21 = LogCategory_Daemon();
+  v21 = LogCategory_Daemon(v20);
   if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v37 = contactCopy;
+    v38 = contactCopy;
     _os_log_impl(&dword_24A4E3000, v21, OS_LOG_TYPE_DEFAULT, "FMFMonogramUtility monogramImageOfDiameterForContact: %@", buf, 0xCu);
   }
 
   if (v20)
   {
-    v22 = [contactStatusCache objectForKey:v17];
-    v23 = LogCategory_Daemon();
-    if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+    v23 = [contactStatusCache objectForKey:v17];
+    v24 = LogCategory_Daemon(v23);
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v37 = v20;
-      _os_log_impl(&dword_24A4E3000, v23, OS_LOG_TYPE_DEFAULT, "FMFMonogramUtility: Using cached image %@", buf, 0xCu);
+      v38 = v20;
+      _os_log_impl(&dword_24A4E3000, v24, OS_LOG_TYPE_DEFAULT, "FMFMonogramUtility: Using cached image %@", buf, 0xCu);
     }
 
-    if (v22)
+    if (v23)
     {
-      *imageCopy = [v22 BOOLValue];
+      *imageCopy = [v23 BOOLValue];
     }
   }
 
@@ -144,37 +144,35 @@ uint64_t __40__FMFMonogramUtility_contactStatusCache__block_invoke()
       goto LABEL_13;
     }
 
-    v24 = [self monogrammerWithDiameter:style style:colorCopy useTintColor:fontCopy customFont:diameter];
-    v20 = [v24 monogramForContact:contactCopy isContactImage:imageCopy];
+    v25 = [self monogrammerWithDiameter:style style:colorCopy useTintColor:fontCopy customFont:diameter];
+    v20 = [v25 monogramForContact:contactCopy isContactImage:imageCopy];
 
-    v25 = LogCategory_Daemon();
-    if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+    v27 = LogCategory_Daemon(v26);
+    if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v37 = @"Image";
-      _os_log_impl(&dword_24A4E3000, v25, OS_LOG_TYPE_DEFAULT, "FMFMonogramUtility: Record found, using %@", buf, 0xCu);
+      v38 = @"Image";
+      _os_log_impl(&dword_24A4E3000, v27, OS_LOG_TYPE_DEFAULT, "FMFMonogramUtility: Record found, using %@", buf, 0xCu);
     }
 
     if (!v20)
     {
 LABEL_13:
-      v26 = LogCategory_Daemon();
-      if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+      v28 = LogCategory_Daemon(v22);
+      if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_24A4E3000, v26, OS_LOG_TYPE_DEFAULT, "FMFMonogramUtility: No Record, using placeholder", buf, 2u);
+        _os_log_impl(&dword_24A4E3000, v28, OS_LOG_TYPE_DEFAULT, "FMFMonogramUtility: No Record, using placeholder", buf, 2u);
       }
 
       v20 = [self placeholderContactImageOfDiameter:style monogramStyle:colorCopy useTintColor:diameter];
     }
 
-    v27 = [MEMORY[0x277CCABB0] numberWithBool:*imageCopy];
-    [contactStatusCache setObject:v27 forKey:v17];
+    v29 = [MEMORY[0x277CCABB0] numberWithBool:*imageCopy];
+    [contactStatusCache setObject:v29 forKey:v17];
 
     [contactImageCache setObject:v20 forKey:v17];
   }
-
-  v28 = *MEMORY[0x277D85DE8];
 
   return v20;
 }
@@ -222,7 +220,7 @@ LABEL_13:
 
 + (__CFString)hexStringFromColor:(id)color
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   colorCopy = color;
   v4 = CGColorSpaceCreateWithName(*MEMORY[0x277CBF4B8]);
   CopyByMatchingToColorSpace = CGColorCreateCopyByMatchingToColorSpace(v4, kCGRenderingIntentDefault, [colorCopy CGColor], 0);
@@ -244,11 +242,11 @@ LABEL_13:
 
   else
   {
-    v8 = LogCategory_Daemon();
+    v8 = LogCategory_Daemon(Components);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v20 = colorCopy;
+      v19 = colorCopy;
       _os_log_impl(&dword_24A4E3000, v8, OS_LOG_TYPE_DEFAULT, "FMFMonogramUtility: invalid color provided in hexStringFromColor: %@", buf, 0xCu);
     }
 
@@ -256,7 +254,6 @@ LABEL_13:
     v9 = @"#FFFFFF";
   }
 
-  v17 = *MEMORY[0x277D85DE8];
   return v9;
 }
 

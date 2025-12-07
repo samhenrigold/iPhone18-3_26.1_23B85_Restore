@@ -334,7 +334,7 @@ LABEL_16:
   v12 = @"scroll";
   v6 = [NSNumber numberWithBool:1];
   v13 = v6;
-  v7 = [NSDictionary dictionaryWithObjects:&v13 forKeys:&v12 count:1];
+  v7 = objc_msgSend_dictionaryWithObjects_forKeys_count_(NSDictionary);
   [v5 refreshContentsForDataType:1 userInfo:v7];
 
   challenge = [(GKChallengeBulletin *)self challenge];

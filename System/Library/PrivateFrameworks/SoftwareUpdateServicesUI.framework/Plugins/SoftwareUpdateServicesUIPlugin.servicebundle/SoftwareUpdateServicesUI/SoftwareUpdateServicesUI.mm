@@ -158,58 +158,57 @@ void sub_44A4(id *a1)
 
 void sub_48C4(id *a1)
 {
-  v24[2] = a1;
-  v24[1] = a1;
-  v24[0] = 0;
-  v23 = 0;
-  v23 = [a1[4] descriptor];
+  v23[2] = a1;
+  v23[1] = a1;
+  v23[0] = 0;
+  v22 = 0;
+  v22 = [a1[4] descriptor];
 
-  if (v23)
+  if (v22)
   {
-    v5 = [SUDownloadOptions alloc];
-    v6 = [a1[5] descriptor];
-    v3 = [v5 initWithDescriptor:?];
-    v4 = v24[0];
-    v24[0] = v3;
+    v4 = [SUDownloadOptions alloc];
+    v5 = [a1[5] descriptor];
+    v2 = [v4 initWithDescriptor:?];
+    v3 = v23[0];
+    v23[0] = v2;
 
-    v8 = [a1[4] softwareUpdateController];
-    v7 = v24[0];
-    v13 = _NSConcreteStackBlock;
-    v14 = -1073741824;
-    v15 = 0;
-    v16 = sub_4BD4;
-    v17 = &unk_5CFE0;
-    v18 = a1[4];
-    [v8 startDownloadWithOptions:v7 withResult:&v13];
+    v7 = [a1[4] softwareUpdateController];
+    v6 = v23[0];
+    v12 = _NSConcreteStackBlock;
+    v13 = -1073741824;
+    v14 = 0;
+    v15 = sub_4BD4;
+    v16 = &unk_5CFE0;
+    v17 = a1[4];
+    [v7 startDownloadWithOptions:v6 withResult:&v12];
 
-    objc_storeStrong(&v18, 0);
-    v19 = 0;
+    objc_storeStrong(&v17, 0);
+    v18 = 0;
   }
 
   else
   {
-    v22 = SUSUILog();
-    v21 = OS_LOG_TYPE_DEFAULT;
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+    v21 = SUSUILog();
+    v20 = OS_LOG_TYPE_DEFAULT;
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
     {
-      log = v22;
-      type = v21;
-      v1 = a1[4];
-      v2 = objc_opt_class();
-      v11 = NSStringFromClass(v2);
-      v20 = v11;
-      sub_4B94(v25, v20);
-      _os_log_impl(&dword_0, log, type, "[%{public}@] Unable to start download of nil SUDescriptor", v25, 0xCu);
+      log = v21;
+      type = v20;
+      v1 = objc_opt_class();
+      v10 = NSStringFromClass(v1);
+      v19 = v10;
+      sub_4B94(v24, v19);
+      _os_log_impl(&dword_0, log, type, "[%{public}@] Unable to start download of nil SUDescriptor", v24, 0xCu);
 
-      objc_storeStrong(&v20, 0);
+      objc_storeStrong(&v19, 0);
     }
 
-    objc_storeStrong(&v22, 0);
-    v19 = 1;
+    objc_storeStrong(&v21, 0);
+    v18 = 1;
   }
 
-  objc_storeStrong(&v23, 0);
-  objc_storeStrong(v24, 0);
+  objc_storeStrong(&v22, 0);
+  objc_storeStrong(v23, 0);
 }
 
 uint64_t sub_4B94(uint64_t result, uint64_t a2)
@@ -224,48 +223,46 @@ uint64_t sub_4B94(uint64_t result, uint64_t a2)
 
 void sub_4BD4(void *a1, char a2, id obj)
 {
-  v22 = a1;
-  v21 = a2;
+  v20 = a1;
+  v19 = a2;
   location = 0;
   objc_storeStrong(&location, obj);
-  v19[1] = a1;
-  if (v21)
+  v17[1] = a1;
+  if (v19)
   {
-    v19[0] = SUSUILog();
-    v18 = OS_LOG_TYPE_DEFAULT;
-    if (os_log_type_enabled(v19[0], OS_LOG_TYPE_DEFAULT))
+    v17[0] = SUSUILog();
+    v16 = OS_LOG_TYPE_DEFAULT;
+    if (os_log_type_enabled(v17[0], OS_LOG_TYPE_DEFAULT))
     {
-      log = v19[0];
-      type = v18;
-      v3 = a1[4];
-      v4 = objc_opt_class();
-      v12 = NSStringFromClass(v4);
-      v17 = v12;
-      sub_4B94(v24, v17);
-      _os_log_impl(&dword_0, log, type, "[%{public}@] Successfully requested download", v24, 0xCu);
+      log = v17[0];
+      type = v16;
+      v3 = objc_opt_class();
+      v10 = NSStringFromClass(v3);
+      v15 = v10;
+      sub_4B94(v22, v15);
+      _os_log_impl(&dword_0, log, type, "[%{public}@] Successfully requested download", v22, 0xCu);
 
-      objc_storeStrong(&v17, 0);
+      objc_storeStrong(&v15, 0);
     }
 
-    objc_storeStrong(v19, 0);
+    objc_storeStrong(v17, 0);
   }
 
   else
   {
     oslog = SUSUILog();
-    v15 = OS_LOG_TYPE_DEFAULT;
+    v13 = OS_LOG_TYPE_DEFAULT;
     if (os_log_type_enabled(oslog, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = oslog;
-      v8 = v15;
-      v5 = a1[4];
-      v6 = objc_opt_class();
-      v9 = NSStringFromClass(v6);
-      v14 = v9;
-      sub_4E04(v23, v14, location);
-      _os_log_impl(&dword_0, v7, v8, "[%{public}@] Failed to initiate SU download: %@", v23, 0x16u);
+      v5 = oslog;
+      v6 = v13;
+      v4 = objc_opt_class();
+      v7 = NSStringFromClass(v4);
+      v12 = v7;
+      sub_4E04(v21, v12, location);
+      _os_log_impl(&dword_0, v5, v6, "[%{public}@] Failed to initiate SU download: %@", v21, 0x16u);
 
-      objc_storeStrong(&v14, 0);
+      objc_storeStrong(&v12, 0);
     }
 
     objc_storeStrong(&oslog, 0);
@@ -299,37 +296,36 @@ uint64_t sub_4E58(uint64_t result, char a2)
 
 void sub_50B0(id *a1, char a2, id obj)
 {
-  v20 = a1;
-  v19 = a2;
+  v19 = a1;
+  v18 = a2;
   location = 0;
   objc_storeStrong(&location, obj);
-  v17[1] = a1;
-  v3 = a1[4];
-  v4 = objc_opt_class();
-  v17[0] = NSStringFromClass(v4);
-  if (v19)
+  v16[1] = a1;
+  v3 = objc_opt_class();
+  v16[0] = NSStringFromClass(v3);
+  if (v18)
   {
-    v16 = SUSUILog();
-    v15 = OS_LOG_TYPE_DEFAULT;
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+    v15 = SUSUILog();
+    v14 = OS_LOG_TYPE_DEFAULT;
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
-      sub_4B94(v22, v17[0]);
-      _os_log_impl(&dword_0, v16, v15, "[%{public}@] Attempting to showing install tonight alert.", v22, 0xCu);
+      sub_4B94(v21, v16[0]);
+      _os_log_impl(&dword_0, v15, v14, "[%{public}@] Attempting to showing install tonight alert.", v21, 0xCu);
     }
 
-    objc_storeStrong(&v16, 0);
-    v5 = [a1[5] softwareUpdateController];
-    v8 = _NSConcreteStackBlock;
-    v9 = -1073741824;
-    v10 = 0;
-    v11 = sub_5364;
-    v12 = &unk_5D058;
-    v13 = a1[4];
-    v14 = v17[0];
-    [v5 _createInstallTonightForecastWithResult:&v8];
+    objc_storeStrong(&v15, 0);
+    v4 = [a1[5] softwareUpdateController];
+    v7 = _NSConcreteStackBlock;
+    v8 = -1073741824;
+    v9 = 0;
+    v10 = sub_5364;
+    v11 = &unk_5D058;
+    v12 = a1[4];
+    v13 = v16[0];
+    [v4 _createInstallTonightForecastWithResult:&v7];
 
-    objc_storeStrong(&v14, 0);
     objc_storeStrong(&v13, 0);
+    objc_storeStrong(&v12, 0);
   }
 
   else
@@ -337,18 +333,18 @@ void sub_50B0(id *a1, char a2, id obj)
     oslog = SUSUILog();
     if (os_log_type_enabled(oslog, OS_LOG_TYPE_DEFAULT))
     {
-      sub_54AC(v21, v17[0], location);
-      _os_log_impl(&dword_0, oslog, OS_LOG_TYPE_DEFAULT, "[%{public}@] Unable to start download: %{public}@", v21, 0x16u);
+      sub_54AC(v20, v16[0], location);
+      _os_log_impl(&dword_0, oslog, OS_LOG_TYPE_DEFAULT, "[%{public}@] Unable to start download: %{public}@", v20, 0x16u);
     }
 
     objc_storeStrong(&oslog, 0);
   }
 
-  objc_storeStrong(v17, 0);
+  objc_storeStrong(v16, 0);
   objc_storeStrong(&location, 0);
 }
 
-void sub_5364(uint64_t a1, void *a2)
+void sub_5364(NSObject *a1, void *a2)
 {
   location[1] = a1;
   location[0] = 0;
@@ -359,18 +355,18 @@ void sub_5364(uint64_t a1, void *a2)
     oslog[0] = SUSUILog();
     if (os_log_type_enabled(oslog[0], OS_LOG_TYPE_DEFAULT))
     {
-      sub_54AC(v5, *(a1 + 40), location[0]);
+      sub_54AC(v5, a1[5].isa, location[0]);
       _os_log_impl(&dword_0, oslog[0], OS_LOG_TYPE_DEFAULT, "[%{public}@] forecast not valid: %{public}@", v5, 0x16u);
     }
 
     objc_storeStrong(oslog, 0);
-    [*(a1 + 32) dismissAlert];
+    [(objc_class *)a1[4].isa dismissAlert];
   }
 
   else
   {
-    [*(a1 + 32) _activateInstallLaterAlert:location[0]];
-    [*(a1 + 32) dismissAlert];
+    [(objc_class *)a1[4].isa _activateInstallLaterAlert:location[0]];
+    [(objc_class *)a1[4].isa dismissAlert];
   }
 
   objc_storeStrong(location, 0);
@@ -539,57 +535,54 @@ void sub_AFEC(id a1)
 
 id sub_B8C0(id *a1)
 {
-  v10[2] = a1;
-  v10[1] = a1;
+  v9[2] = a1;
+  v9[1] = a1;
   [a1[4] setActionTaken:1];
-  v10[0] = SUSUILog();
-  v9 = OS_LOG_TYPE_DEFAULT;
-  if (os_log_type_enabled(v10[0], OS_LOG_TYPE_DEFAULT))
+  v9[0] = SUSUILog();
+  v8 = OS_LOG_TYPE_DEFAULT;
+  if (os_log_type_enabled(v9[0], OS_LOG_TYPE_DEFAULT))
   {
-    log = v10[0];
-    type = v9;
-    v1 = a1[4];
-    v2 = objc_opt_class();
-    v6 = NSStringFromClass(v2);
-    v8 = v6;
-    sub_4B94(v11, v8);
-    _os_log_impl(&dword_0, log, type, "[%{public}@] Details action taken", v11, 0xCu);
+    log = v9[0];
+    type = v8;
+    v1 = objc_opt_class();
+    v5 = NSStringFromClass(v1);
+    v7 = v5;
+    sub_4B94(v10, v7);
+    _os_log_impl(&dword_0, log, type, "[%{public}@] Details action taken", v10, 0xCu);
 
-    objc_storeStrong(&v8, 0);
+    objc_storeStrong(&v7, 0);
   }
 
-  objc_storeStrong(v10, 0);
+  objc_storeStrong(v9, 0);
   [a1[4] activateSoftwareUpdateSettingsDisplay];
   return [a1[4] dismissAlert];
 }
 
 void sub_BA1C(id *a1)
 {
-  v14[2] = a1;
-  v14[1] = a1;
+  v12[2] = a1;
+  v12[1] = a1;
   [a1[4] setActionTaken:1];
-  v14[0] = SUSUILog();
-  v13 = OS_LOG_TYPE_DEFAULT;
-  if (os_log_type_enabled(v14[0], OS_LOG_TYPE_DEFAULT))
+  v12[0] = SUSUILog();
+  v11 = OS_LOG_TYPE_DEFAULT;
+  if (os_log_type_enabled(v12[0], OS_LOG_TYPE_DEFAULT))
   {
-    log = v14[0];
-    type = v13;
-    v1 = a1[4];
-    v2 = objc_opt_class();
-    v10 = NSStringFromClass(v2);
-    v12 = v10;
-    sub_4B94(v15, v12);
-    _os_log_impl(&dword_0, log, type, "[%{public}@] Remind me later action taken", v15, 0xCu);
+    log = v12[0];
+    type = v11;
+    v1 = objc_opt_class();
+    v8 = NSStringFromClass(v1);
+    v10 = v8;
+    sub_4B94(v13, v10);
+    _os_log_impl(&dword_0, log, type, "[%{public}@] Remind me later action taken", v13, 0xCu);
 
-    objc_storeStrong(&v12, 0);
+    objc_storeStrong(&v10, 0);
   }
 
-  objc_storeStrong(v14, 0);
-  v7 = [a1[4] softwareUpdateController];
-  v3 = a1[4];
-  v4 = objc_opt_class();
-  v6 = NSStringFromClass(v4);
-  [v7 repopInstallAlertWithDefaultDurationFromNowForReason:?];
+  objc_storeStrong(v12, 0);
+  v5 = [a1[4] softwareUpdateController];
+  v2 = objc_opt_class();
+  v4 = NSStringFromClass(v2);
+  [v5 repopInstallAlertWithDefaultDurationFromNowForReason:?];
 }
 
 id sub_BDE0()
@@ -1158,7 +1151,6 @@ void sub_14570(void *a1, void *a2)
   location[1] = a1;
   location[0] = 0;
   objc_storeStrong(location, a2);
-  v2 = a1[4];
   (*(a1[5] + 16))();
   objc_storeStrong(location, 0);
 }
@@ -1295,10 +1287,10 @@ void sub_180BC(id *a1)
     if (*(a1[5] + 1))
     {
       location[0] = SUSUILog();
-      v25 = OS_LOG_TYPE_DEFAULT;
+      v23 = OS_LOG_TYPE_DEFAULT;
       if (os_log_type_enabled(location[0], OS_LOG_TYPE_DEFAULT))
       {
-        sub_186B0(v33, "[SUSUIDDMController setDeclaration:]_block_invoke");
+        sub_186B0(v31, "[SUSUIDDMController setDeclaration:]_block_invoke");
       }
 
       objc_storeStrong(location, 0);
@@ -1307,15 +1299,15 @@ void sub_180BC(id *a1)
 
     else
     {
-      v24 = SUSUILog();
-      v23 = OS_LOG_TYPE_DEFAULT;
-      if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+      v22 = SUSUILog();
+      v21 = OS_LOG_TYPE_DEFAULT;
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
       {
-        sub_186B0(v32, "[SUSUIDDMController setDeclaration:]_block_invoke");
-        _os_log_impl(&dword_0, v24, v23, "%s: [DDM] Got nil and the existing one is also nil...", v32, 0xCu);
+        sub_186B0(v30, "[SUSUIDDMController setDeclaration:]_block_invoke");
+        _os_log_impl(&dword_0, v22, v21, "%s: [DDM] Got nil and the existing one is also nil...", v30, 0xCu);
       }
 
-      objc_storeStrong(&v24, 0);
+      objc_storeStrong(&v22, 0);
     }
 
     return;
@@ -1326,65 +1318,64 @@ void sub_180BC(id *a1)
     if ([a1[4] isEqual:*(a1[5] + 1)])
     {
       oslog = SUSUILog();
-      v21 = OS_LOG_TYPE_DEFAULT;
+      v19 = OS_LOG_TYPE_DEFAULT;
       if (os_log_type_enabled(oslog, OS_LOG_TYPE_DEFAULT))
       {
-        sub_186B0(v31, "[SUSUIDDMController setDeclaration:]_block_invoke");
-        _os_log_impl(&dword_0, oslog, v21, "%s: [DDM] New declaration equals the existing one. No need to do anything", v31, 0xCu);
+        sub_186B0(v29, "[SUSUIDDMController setDeclaration:]_block_invoke");
+        _os_log_impl(&dword_0, oslog, v19, "%s: [DDM] New declaration equals the existing one. No need to do anything", v29, 0xCu);
       }
 
       objc_storeStrong(&oslog, 0);
       return;
     }
 
-    v20 = SUSUILog();
-    v19 = OS_LOG_TYPE_DEFAULT;
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
-    {
-      sub_186F0(v30, "[SUSUIDDMController setDeclaration:]_block_invoke", *(a1[5] + 1), a1[4]);
-      _os_log_impl(&dword_0, v20, v19, "%s: [DDM] Replacing existing declaration: %{public}@\nwith new declaration: %{public}@", v30, 0x20u);
-    }
-
-    objc_storeStrong(&v20, 0);
-  }
-
-  else
-  {
     v18 = SUSUILog();
     v17 = OS_LOG_TYPE_DEFAULT;
     if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
     {
-      sub_1875C(v29, "[SUSUIDDMController setDeclaration:]_block_invoke", a1[4]);
-      _os_log_impl(&dword_0, v18, v17, "%s: [DDM] No previous declaration, new declaration: %{public}@", v29, 0x16u);
+      sub_186F0(v28, "[SUSUIDDMController setDeclaration:]_block_invoke", *(a1[5] + 1), a1[4]);
+      _os_log_impl(&dword_0, v18, v17, "%s: [DDM] Replacing existing declaration: %{public}@\nwith new declaration: %{public}@", v28, 0x20u);
     }
 
     objc_storeStrong(&v18, 0);
   }
 
-  v1 = a1[5];
-  if ([objc_opt_class() _isDeclarationRelevant:a1[4]])
+  else
   {
-    [a1[5] _disarm];
-    objc_storeStrong(a1[5] + 1, a1[4]);
-    v12 = [*(a1[5] + 1) enforcedInstallDate];
-    v11 = +[NSDate now];
-    v10 = [(NSDate *)v11 dateByAddingTimeInterval:3600.0];
-    v2 = [v12 laterDate:?];
-    v3 = a1[5];
-    v4 = v3[9];
-    v3[9] = v2;
-
     v16 = SUSUILog();
     v15 = OS_LOG_TYPE_DEFAULT;
     if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = *(a1[5] + 9);
-      [v9 timeIntervalSince1970];
-      sub_187B0(v28, "[SUSUIDDMController setDeclaration:]_block_invoke", v9, v5);
-      _os_log_impl(&dword_0, v16, v15, "%s: [DDM] Will directly start installing after %{public}@ (interval: %lf)", v28, 0x20u);
+      sub_1875C(v27, "[SUSUIDDMController setDeclaration:]_block_invoke", a1[4]);
+      _os_log_impl(&dword_0, v16, v15, "%s: [DDM] No previous declaration, new declaration: %{public}@", v27, 0x16u);
     }
 
     objc_storeStrong(&v16, 0);
+  }
+
+  if ([objc_opt_class() _isDeclarationRelevant:a1[4]])
+  {
+    [a1[5] _disarm];
+    objc_storeStrong(a1[5] + 1, a1[4]);
+    v10 = [*(a1[5] + 1) enforcedInstallDate];
+    v9 = +[NSDate now];
+    v8 = [(NSDate *)v9 dateByAddingTimeInterval:3600.0];
+    v1 = [v10 laterDate:?];
+    v2 = a1[5];
+    v3 = v2[9];
+    v2[9] = v1;
+
+    v14 = SUSUILog();
+    v13 = OS_LOG_TYPE_DEFAULT;
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    {
+      v7 = *(a1[5] + 9);
+      [v7 timeIntervalSince1970];
+      sub_187B0(v26, "[SUSUIDDMController setDeclaration:]_block_invoke", v7, v4);
+      _os_log_impl(&dword_0, v14, v13, "%s: [DDM] Will directly start installing after %{public}@ (interval: %lf)", v26, 0x20u);
+    }
+
+    objc_storeStrong(&v14, 0);
     [a1[5] _setPasscodePolicyToRequiredIfNeeded];
     [a1[5] _makeScheduling];
     [a1[5] _scheduleNextDDMAlert];
@@ -1392,17 +1383,16 @@ void sub_180BC(id *a1)
 
   else
   {
-    v14 = SUSUILog();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    v12 = SUSUILog();
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = a1[4];
-      v6 = a1[5];
-      v7 = objc_opt_class();
-      sub_186F0(v27, "[SUSUIDDMController setDeclaration:]_block_invoke", v8, v7);
-      _os_log_impl(&dword_0, v14, OS_LOG_TYPE_DEFAULT, "%s: [DDM] Declaration %{public}@ isn't relevant for %{public}@", v27, 0x20u);
+      v6 = a1[4];
+      v5 = objc_opt_class();
+      sub_186F0(v25, "[SUSUIDDMController setDeclaration:]_block_invoke", v6, v5);
+      _os_log_impl(&dword_0, v12, OS_LOG_TYPE_DEFAULT, "%s: [DDM] Declaration %{public}@ isn't relevant for %{public}@", v25, 0x20u);
     }
 
-    objc_storeStrong(&v14, 0);
+    objc_storeStrong(&v12, 0);
   }
 }
 
@@ -1497,82 +1487,80 @@ void sub_18E04(id a1)
 
 void sub_1A30C(uint64_t a1, uint64_t a2)
 {
-  v26 = a1;
   v24 = a1;
-  v25 = a2 & ~[*(a1 + 32) ignorableConstraints];
-  if (v25)
+  v22 = a1;
+  v23 = a2 & ~[*(a1 + 32) ignorableConstraints];
+  if (v23)
   {
-    v11 = SUSUILog();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v9 = SUSUILog();
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      sub_1A8A4(v27, "[SUSUIDDMController _installNow]_block_invoke", v25);
-      _os_log_impl(&dword_0, v11, OS_LOG_TYPE_DEFAULT, "%s: [DDM] Cannot install due to %ld; show an alert instead", v27, 0x16u);
+      sub_1A8A4(v25, "[SUSUIDDMController _installNow]_block_invoke", v23);
+      _os_log_impl(&dword_0, v9, OS_LOG_TYPE_DEFAULT, "%s: [DDM] Cannot install due to %ld; show an alert instead", v25, 0x16u);
     }
 
-    objc_storeStrong(&v11, 0);
+    objc_storeStrong(&v9, 0);
     [*(a1 + 40) _showDDMAlertNowOrInstallIfNecessary:0];
   }
 
   else
   {
-    v6 = +[UMUserManager sharedManager];
-    v7 = [v6 isSharedIPad];
+    v4 = +[UMUserManager sharedManager];
+    v5 = [v4 isSharedIPad];
 
-    v23 = v7;
-    v8 = +[SUSUIPreferences sharedInstance];
-    v9 = [(SUSUIPreferences *)v8 isSharedIPad];
+    v21 = v5;
+    v6 = +[SUSUIPreferences sharedInstance];
+    v7 = [(SUSUIPreferences *)v6 isSharedIPad];
 
-    if (v9)
+    if (v7)
     {
       location = SUSUILog();
-      v21 = OS_LOG_TYPE_DEFAULT;
+      v19 = OS_LOG_TYPE_DEFAULT;
       if (os_log_type_enabled(location, OS_LOG_TYPE_DEFAULT))
       {
-        sub_186B0(v32, "[SUSUIDDMController _installNow]_block_invoke");
-        _os_log_impl(&dword_0, location, v21, "%s: [DDM] Overriding isSharedIPad to YES", v32, 0xCu);
+        sub_186B0(v30, "[SUSUIDDMController _installNow]_block_invoke");
+        _os_log_impl(&dword_0, location, v19, "%s: [DDM] Overriding isSharedIPad to YES", v30, 0xCu);
       }
 
       objc_storeStrong(&location, 0);
-      v23 = 1;
+      v21 = 1;
     }
 
-    v20 = SUSUILog();
-    v19 = OS_LOG_TYPE_DEFAULT;
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+    v18 = SUSUILog();
+    v17 = OS_LOG_TYPE_DEFAULT;
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
     {
-      sub_1A850(v31, "[SUSUIDDMController _installNow]_block_invoke", v23 & 1);
-      _os_log_impl(&dword_0, v20, v19, "%s: [DDM] Installing DDM update now (isSharedIpad = %d)", v31, 0x12u);
+      sub_1A850(v29, "[SUSUIDDMController _installNow]_block_invoke", v21 & 1);
+      _os_log_impl(&dword_0, v18, v17, "%s: [DDM] Installing DDM update now (isSharedIpad = %d)", v29, 0x12u);
     }
 
-    objc_storeStrong(&v20, 0);
-    if (v23)
+    objc_storeStrong(&v18, 0);
+    if (v21)
     {
-      v18 = SUSUILog();
-      v17 = OS_LOG_TYPE_DEFAULT;
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+      v16 = SUSUILog();
+      v15 = OS_LOG_TYPE_DEFAULT;
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
       {
-        sub_186B0(v30, "[SUSUIDDMController _installNow]_block_invoke");
-        _os_log_impl(&dword_0, v18, v17, "%s: [DDM] Directly install the update on a shared iPad", v30, 0xCu);
+        sub_186B0(v28, "[SUSUIDDMController _installNow]_block_invoke");
+        _os_log_impl(&dword_0, v16, v15, "%s: [DDM] Directly install the update on a shared iPad", v28, 0xCu);
       }
 
-      objc_storeStrong(&v18, 0);
+      objc_storeStrong(&v16, 0);
       [*(a1 + 40) _doInstall:*(a1 + 32)];
     }
 
     else
     {
-      v4 = [SUSUISoftwareUpdateInstallAlertItem alloc];
-      v5 = [*(*(a1 + 40) + 24) _download];
-      v2 = *(*(a1 + 40) + 24);
-      v3 = *(a1 + 32);
-      obj = [SUSUISoftwareUpdateInstallAlertItem initWithDownload:v4 style:"initWithDownload:style:softwareUpdateController:tryTonightInstallOperationForecast:installOptions:" softwareUpdateController:? tryTonightInstallOperationForecast:? installOptions:?];
+      v2 = [SUSUISoftwareUpdateInstallAlertItem alloc];
+      v3 = [*(*(a1 + 40) + 24) _download];
+      obj = [SUSUISoftwareUpdateInstallAlertItem initWithDownload:v2 style:"initWithDownload:style:softwareUpdateController:tryTonightInstallOperationForecast:installOptions:" softwareUpdateController:? tryTonightInstallOperationForecast:? installOptions:?];
 
       oslog = SUSUILog();
-      v14 = OS_LOG_TYPE_DEFAULT;
+      v12 = OS_LOG_TYPE_DEFAULT;
       if (os_log_type_enabled(oslog, OS_LOG_TYPE_DEFAULT))
       {
-        sub_1875C(v29, "[SUSUIDDMController _installNow]_block_invoke", obj);
-        _os_log_impl(&dword_0, oslog, v14, "%s: [DDM] [Install Alert] Presenting %{public}@", v29, 0x16u);
+        sub_1875C(v27, "[SUSUIDDMController _installNow]_block_invoke", obj);
+        _os_log_impl(&dword_0, oslog, v12, "%s: [DDM] [Install Alert] Presenting %{public}@", v27, 0x16u);
       }
 
       objc_storeStrong(&oslog, 0);
@@ -1583,15 +1571,15 @@ void sub_1A30C(uint64_t a1, uint64_t a2)
 
       else
       {
-        v13 = SUSUILog();
-        v12 = OS_LOG_TYPE_DEFAULT;
-        if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+        v11 = SUSUILog();
+        v10 = OS_LOG_TYPE_DEFAULT;
+        if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
         {
-          sub_186B0(v28, "[SUSUIDDMController _installNow]_block_invoke");
-          _os_log_impl(&dword_0, v13, v12, "%s: [DDM] Failed to show the countdown; try to show a regular alert", v28, 0xCu);
+          sub_186B0(v26, "[SUSUIDDMController _installNow]_block_invoke");
+          _os_log_impl(&dword_0, v11, v10, "%s: [DDM] Failed to show the countdown; try to show a regular alert", v26, 0xCu);
         }
 
-        objc_storeStrong(&v13, 0);
+        objc_storeStrong(&v11, 0);
         [*(a1 + 40) _showDDMAlertNowOrInstallIfNecessary:0];
       }
 
@@ -1721,36 +1709,35 @@ void sub_1CD1C(id *a1)
 
 void sub_1D128(uint64_t a1)
 {
-  v20[2] = a1;
-  v20[1] = a1;
-  v20[0] = *(*(a1 + 32) + 56);
+  v19[2] = a1;
+  v19[1] = a1;
+  v19[0] = *(*(a1 + 32) + 56);
   if ((*(a1 + 40) & 0x8000000000000000) != 0)
   {
-    v1 = *(a1 + 32);
-    v17 = objc_opt_class();
-    v18 = [*(*(a1 + 32) + 8) enforcedInstallDate];
-    v2 = [v17 _schedulingUnitForEnforcedDate:(86400 * *(a1 + 40)) withInterval:?];
-    v3 = *(a1 + 32);
-    v4 = *(v3 + 56);
-    *(v3 + 56) = v2;
+    v16 = objc_opt_class();
+    v17 = [*(*(a1 + 32) + 8) enforcedInstallDate];
+    v1 = [v16 _schedulingUnitForEnforcedDate:(86400 * *(a1 + 40)) withInterval:?];
+    v2 = *(a1 + 32);
+    v3 = *(v2 + 56);
+    *(v2 + 56) = v1;
   }
 
   else
   {
-    v16 = *(a1 + 40);
-    if (v16 < [*(*(a1 + 32) + 80) count])
+    v15 = *(a1 + 40);
+    if (v15 < [*(*(a1 + 32) + 80) count])
     {
-      v5 = [*(*(a1 + 32) + 80) objectAtIndex:*(a1 + 40)];
+      v4 = [*(*(a1 + 32) + 80) objectAtIndex:*(a1 + 40)];
     }
 
     else
     {
-      v5 = [*(*(a1 + 32) + 80) lastObject];
+      v4 = [*(*(a1 + 32) + 80) lastObject];
     }
 
-    v6 = *(a1 + 32);
-    v7 = *(v6 + 56);
-    *(v6 + 56) = v5;
+    v5 = *(a1 + 32);
+    v6 = *(v5 + 56);
+    *(v5 + 56) = v4;
   }
 
   if (qword_6F8A0)
@@ -1760,25 +1747,25 @@ void sub_1D128(uint64_t a1)
 
   if (*(a1 + 48))
   {
-    v14 = [SUSUISoftwareUpdateInstallAlertItem alloc];
-    v15 = [*(*(a1 + 32) + 24) _download];
-    v8 = -[SUSUISoftwareUpdateInstallAlertItem initWithDownload:style:softwareUpdateController:tryTonightInstallOperationForecast:installOptions:](v14, "initWithDownload:style:softwareUpdateController:tryTonightInstallOperationForecast:installOptions:", v15, [*(a1 + 32) scheduledAlertStyle], *(*(a1 + 32) + 24), 0);
-    v9 = qword_6F8A0;
-    qword_6F8A0 = v8;
+    v13 = [SUSUISoftwareUpdateInstallAlertItem alloc];
+    v14 = [*(*(a1 + 32) + 24) _download];
+    v7 = -[SUSUISoftwareUpdateInstallAlertItem initWithDownload:style:softwareUpdateController:tryTonightInstallOperationForecast:installOptions:](v13, "initWithDownload:style:softwareUpdateController:tryTonightInstallOperationForecast:installOptions:", v14, [*(a1 + 32) scheduledAlertStyle], *(*(a1 + 32) + 24), 0);
+    v8 = qword_6F8A0;
+    qword_6F8A0 = v7;
   }
 
   else
   {
-    v12 = [SUSUIDDMAvailableAlertItem alloc];
-    v13 = [*(a1 + 32) descriptor];
-    v10 = -[SUSUIDDMAvailableAlertItem initWithDescriptor:softwareUpdateController:alertWindow:](v12, "initWithDescriptor:softwareUpdateController:alertWindow:", v13, *(*(a1 + 32) + 24), [*(*(a1 + 32) + 56) window]);
-    v11 = qword_6F8A0;
-    qword_6F8A0 = v10;
+    v11 = [SUSUIDDMAvailableAlertItem alloc];
+    v12 = [*(a1 + 32) descriptor];
+    v9 = -[SUSUIDDMAvailableAlertItem initWithDescriptor:softwareUpdateController:alertWindow:](v11, "initWithDescriptor:softwareUpdateController:alertWindow:", v12, *(*(a1 + 32) + 24), [*(*(a1 + 32) + 56) window]);
+    v10 = qword_6F8A0;
+    qword_6F8A0 = v9;
   }
 
   [*(a1 + 32) _presentAlert:qword_6F8A0];
-  objc_storeStrong((*(a1 + 32) + 56), v20[0]);
-  objc_storeStrong(v20, 0);
+  objc_storeStrong((*(a1 + 32) + 56), v19[0]);
+  objc_storeStrong(v19, 0);
 }
 
 id sub_1D75C()
@@ -3779,29 +3766,27 @@ void sub_30D44(uint64_t a1, void *a2, void *a3, id obj)
 
 void sub_30E6C(uint64_t a1)
 {
-  v13[2] = a1;
-  v13[1] = a1;
-  v13[0] = SUSUILog();
-  v12 = OS_LOG_TYPE_DEFAULT;
-  if (os_log_type_enabled(v13[0], OS_LOG_TYPE_DEFAULT))
+  v11[2] = a1;
+  v11[1] = a1;
+  v11[0] = SUSUILog();
+  v10 = OS_LOG_TYPE_DEFAULT;
+  if (os_log_type_enabled(v11[0], OS_LOG_TYPE_DEFAULT))
   {
-    log = v13[0];
-    type = v12;
-    v1 = *(a1 + 48);
-    v8 = SUStringFromInstallationConstraints();
-    v4 = v8;
-    v11 = v4;
-    v2 = *(a1 + 56);
-    v7 = SUStringFromInstallationConstraints();
-    v10 = v7;
-    sub_2420(v14, v4, v10, *(a1 + 32));
-    _os_log_impl(&dword_0, log, type, "Installation constraints did change - unsatisfied constraints: %@, changed constraints: %@, error: %@", v14, 0x20u);
+    log = v11[0];
+    type = v10;
+    v6 = SUStringFromInstallationConstraints();
+    v2 = v6;
+    v9 = v2;
+    v5 = SUStringFromInstallationConstraints();
+    v8 = v5;
+    sub_2420(v12, v2, v8, *(a1 + 32));
+    _os_log_impl(&dword_0, log, type, "Installation constraints did change - unsatisfied constraints: %@, changed constraints: %@, error: %@", v12, 0x20u);
 
-    objc_storeStrong(&v10, 0);
-    objc_storeStrong(&v11, 0);
+    objc_storeStrong(&v8, 0);
+    objc_storeStrong(&v9, 0);
   }
 
-  objc_storeStrong(v13, 0);
+  objc_storeStrong(v11, 0);
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   [WeakRetained _installationConstraintsDidChange:*(a1 + 48) changed:*(a1 + 56) error:*(a1 + 32)];
 }
@@ -3868,104 +3853,103 @@ uint64_t sub_31FF8(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, uint6
 
 void sub_3228C(void *a1, char a2, id obj)
 {
-  v26 = a1;
-  v25 = a2;
+  v25 = a1;
+  v24 = a2;
   location = 0;
   objc_storeStrong(&location, obj);
-  v23 = a1;
-  v21 = 0;
-  v13 = 0;
-  if ((v25 & 1) == 0)
+  v22 = a1;
+  v20 = 0;
+  v12 = 0;
+  if ((v24 & 1) == 0)
   {
-    v13 = 0;
+    v12 = 0;
     if (location)
     {
-      v22 = [location domain];
-      v21 = 1;
-      v13 = [v22 isEqualToString:SUErrorDomain];
+      v21 = [location domain];
+      v20 = 1;
+      v12 = [v21 isEqualToString:SUErrorDomain];
     }
   }
 
-  if (v21)
+  if (v20)
   {
   }
 
-  if (v13)
+  if (v12)
   {
-    v11 = [location code];
-    if (v11 == (&dword_0 + 3) || v11 == (&dword_8 + 3))
+    v10 = [location code];
+    if (v10 == (&dword_0 + 3) || v10 == (&dword_8 + 3))
     {
       goto LABEL_14;
     }
 
-    if (v11 == (&dword_C + 1))
+    if (v10 == (&dword_C + 1))
     {
       *(*(a1[6] + 8) + 24) |= 0x4000000uLL;
       goto LABEL_22;
     }
 
-    if (v11 == (&dword_C + 2))
+    if (v10 == (&dword_C + 2))
     {
       *(*(a1[6] + 8) + 24) |= 0x2000000uLL;
       goto LABEL_22;
     }
 
-    if (v11 == (&dword_10 + 2))
+    if (v10 == (&dword_10 + 2))
     {
 LABEL_14:
       *(*(a1[6] + 8) + 24) |= 0x8000000uLL;
       goto LABEL_22;
     }
 
-    if (v11 == &dword_14)
+    if (v10 == &dword_14)
     {
-      v10 = [location userInfo];
-      v9 = [v10 objectForKey:kSUInstallationConstraintsUnmetKey];
-      *(*(a1[6] + 8) + 24) |= [v9 unsignedIntegerValue];
+      v9 = [location userInfo];
+      v8 = [v9 objectForKey:kSUInstallationConstraintsUnmetKey];
+      *(*(a1[6] + 8) + 24) |= [v8 unsignedIntegerValue];
 
       if ((*(*(a1[6] + 8) + 24) & 0x20) == 0x20 && ([*(a1[4] + 104) isPasscodeLocked] & 1) == 0)
       {
-        v20 = SUSUILog();
-        v19 = OS_LOG_TYPE_DEFAULT;
-        if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+        v19 = SUSUILog();
+        v18 = OS_LOG_TYPE_DEFAULT;
+        if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
         {
-          log = v20;
-          type = v19;
-          sub_2544(v18);
-          _os_log_impl(&dword_0, log, type, "[SoftwareUpdate] We were passcode locked, but now we're not. Reverting the passcode locked constraint.", v18, 2u);
+          log = v19;
+          type = v18;
+          sub_2544(v17);
+          _os_log_impl(&dword_0, log, type, "[SoftwareUpdate] We were passcode locked, but now we're not. Reverting the passcode locked constraint.", v17, 2u);
         }
 
-        objc_storeStrong(&v20, 0);
+        objc_storeStrong(&v19, 0);
         *(*(a1[6] + 8) + 24) &= ~0x20uLL;
       }
     }
   }
 
 LABEL_22:
-  v17 = *(*(a1[6] + 8) + 24) == 0;
-  v16 = 0;
-  v5 = a1[4];
-  v4 = *(*(a1[6] + 8) + 24);
-  v6 = [v5 _allNonInstallableReasons];
-  v15 = v16;
-  [v5 _doesStateContainNonInstallableReasons:v4 reasonsToCheck:? outMatchingReasonsString:?];
-  objc_storeStrong(&v16, v15);
+  v16 = *(*(a1[6] + 8) + 24) == 0;
+  v15 = 0;
+  v4 = a1[4];
+  v3 = *(*(a1[6] + 8) + 24);
+  v5 = [v4 _allNonInstallableReasons];
+  v14 = v15;
+  [v4 _doesStateContainNonInstallableReasons:v3 reasonsToCheck:? outMatchingReasonsString:?];
+  objc_storeStrong(&v15, v14);
 
   oslog = SUSUILog();
   if (os_log_type_enabled(oslog, OS_LOG_TYPE_DEFAULT))
   {
-    sub_3273C(v27, v17, v16);
-    _os_log_impl(&dword_0, oslog, OS_LOG_TYPE_DEFAULT, "SU is installable now? %d; reasons: %@", v27, 0x12u);
+    sub_3273C(v26, v16, v15);
+    _os_log_impl(&dword_0, oslog, OS_LOG_TYPE_DEFAULT, "SU is installable now? %d; reasons: %@", v26, 0x12u);
   }
 
   objc_storeStrong(&oslog, 0);
   if (a1[5])
   {
-    v3 = *(*(a1[6] + 8) + 24);
     (*(a1[5] + 16))();
   }
 
-  objc_storeStrong(&v16, 0);
+  objc_storeStrong(&v15, 0);
   objc_storeStrong(&location, 0);
 }
 

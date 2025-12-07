@@ -45,8 +45,8 @@ void __85__ATXDisplayOnIntervalStream_enumerateDisplayOnIntervalsFromStartDate_e
 
   if (v3)
   {
-    v4 = __atxlog_handle_default();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = __atxlog_handle_default(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       __85__ATXDisplayOnIntervalStream_enumerateDisplayOnIntervalsFromStartDate_endDate_block___block_invoke_cold_1(v2);
     }
@@ -147,8 +147,8 @@ void __85__ATXDisplayOnIntervalStream_enumerateDisplayStateEventsFromStartDate_e
 
   if (v3)
   {
-    v4 = __atxlog_handle_default();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = __atxlog_handle_default(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       __85__ATXDisplayOnIntervalStream_enumerateDisplayOnIntervalsFromStartDate_endDate_block___block_invoke_cold_1(v2);
     }
@@ -204,8 +204,8 @@ void __49__ATXDisplayOnIntervalStream_displayStateAtTime___block_invoke(uint64_t
 
   if (v3)
   {
-    v4 = __atxlog_handle_default();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = __atxlog_handle_default(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       __49__ATXDisplayOnIntervalStream_displayStateAtTime___block_invoke_cold_1(v2);
     }
@@ -248,11 +248,10 @@ void __49__ATXDisplayOnIntervalStream_displayStateAtTime___block_invoke_31(uint6
 
 void __85__ATXDisplayOnIntervalStream_enumerateDisplayOnIntervalsFromStartDate_endDate_block___block_invoke_cold_1(void *a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
   v1 = [a1 error];
-  OUTLINED_FUNCTION_0(&dword_226368000, v2, v3, "ATXDisplayOnIntervalStream: Error querying Backlight stream: %@", v4, v5, v6, v7, 2u);
-
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = v1;
+  OUTLINED_FUNCTION_0(&dword_226368000, v2, v3, "ATXDisplayOnIntervalStream: Error querying Backlight stream: %@", v4, v5, v6, v7, v8, DWORD2(v8));
 }
 
 - (void)enumerateDisplayStateEventsFromStartDate:(uint64_t)a1 endDate:(uint64_t)a2 block:.cold.1(uint64_t a1, uint64_t a2)
@@ -263,11 +262,10 @@ void __85__ATXDisplayOnIntervalStream_enumerateDisplayOnIntervalsFromStartDate_e
 
 void __49__ATXDisplayOnIntervalStream_displayStateAtTime___block_invoke_cold_1(void *a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
   v1 = [a1 error];
-  OUTLINED_FUNCTION_0(&dword_226368000, v2, v3, "ATXDisplayOnIntervalStream: displayStateAtTime Error querying Backlight stream: %@", v4, v5, v6, v7, 2u);
-
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = v1;
+  OUTLINED_FUNCTION_0(&dword_226368000, v2, v3, "ATXDisplayOnIntervalStream: displayStateAtTime Error querying Backlight stream: %@", v4, v5, v6, v7, v8, DWORD2(v8));
 }
 
 @end

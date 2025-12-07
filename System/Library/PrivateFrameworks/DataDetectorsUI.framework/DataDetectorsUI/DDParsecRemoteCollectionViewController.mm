@@ -1,9 +1,11 @@
 @interface DDParsecRemoteCollectionViewController
 - (DDParsecHostVCInterface)hostSideDelegate;
 - (void)getStatusBarHidden:(id)hidden;
+- (void)interactionEndedWithPunchout:(BOOL)punchout;
 - (void)loadReportAnIssueImage:(id)image;
 - (void)openParsecURL:(id)l;
 - (void)openTrailerPunchout:(id)punchout;
+- (void)performClientQueryWithServerAccessPermitted:(BOOL)permitted localSearchPermitted:(BOOL)searchPermitted;
 - (void)performClientTextQueryWithTerm:(id)term queryId:(unint64_t)id sessionId:(id)sessionId userAgent:(id)agent reply:(id)reply;
 - (void)remoteVCIsReady;
 - (void)reportAnIssueWithReportIdentifier:(id)identifier sfReportData:(id)data;
@@ -26,6 +28,17 @@
   v5.receiver = self;
   v5.super_class = DDParsecRemoteCollectionViewController;
   [(_UIRemoteViewController *)&v5 viewServiceDidTerminateWithError:errorCopy];
+}
+
+- (void)interactionEndedWithPunchout:(BOOL)punchout
+{
+  if (!self->_receivedInteractionDidFinish)
+  {
+    self->_receivedInteractionDidFinish = 1;
+    punchoutCopy = punchout;
+    hostSideDelegate = [(DDParsecRemoteCollectionViewController *)self hostSideDelegate];
+    [hostSideDelegate interactionEndedWithPunchout:punchoutCopy];
+  }
 }
 
 - (void)reportAnIssueWithReportIdentifier:(id)identifier sfReportData:(id)data
@@ -98,6 +111,14 @@ void __53__DDParsecRemoteCollectionViewController_showingFTE___block_invoke(uint
   [hostSideDelegate openTrailerPunchout:punchoutCopy];
 }
 
+- (void)performClientQueryWithServerAccessPermitted:(BOOL)permitted localSearchPermitted:(BOOL)searchPermitted
+{
+  searchPermittedCopy = searchPermitted;
+  permittedCopy = permitted;
+  hostSideDelegate = [(DDParsecRemoteCollectionViewController *)self hostSideDelegate];
+  [hostSideDelegate performClientQueryWithServerAccessPermitted:permittedCopy localSearchPermitted:searchPermittedCopy];
+}
+
 - (void)performClientTextQueryWithTerm:(id)term queryId:(unint64_t)id sessionId:(id)sessionId userAgent:(id)agent reply:(id)reply
 {
   replyCopy = reply;
@@ -123,11 +144,10 @@ void __53__DDParsecRemoteCollectionViewController_showingFTE___block_invoke(uint
 
 - (void)viewServiceDidTerminateWithError:(void *)a1 .cold.1(void *a1)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v2 = 134217984;
-  v3 = [a1 code];
-  _os_log_debug_impl(&dword_21AB70000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "View service did terminate (reason:%ld)", &v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v1 = 134217984;
+  v2 = [a1 code];
+  _os_log_debug_impl(&dword_21AB70000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "View service did terminate (reason:%ld)", &v1, 0xCu);
 }
 
 @end

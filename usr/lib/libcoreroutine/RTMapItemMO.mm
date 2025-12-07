@@ -669,17 +669,17 @@ LABEL_18:
 LABEL_19:
 }
 
-void __68__RTMapItemMO_updateDatabaseWithMapItem_managedObjectContext_error___block_invoke(uint64_t a1)
+void __68__RTMapItemMO_updateDatabaseWithMapItem_managedObjectContext_error___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = objc_opt_class();
-  v3 = [*(a1 + 32) identifier];
-  v4 = *(*(a1 + 48) + 8);
-  obj = *(v4 + 40);
-  v5 = [v2 mapItemForIdentifier:v3 error:&obj];
-  objc_storeStrong((v4 + 40), obj);
-  v6 = *(*(a1 + 40) + 8);
-  v7 = *(v6 + 40);
-  *(v6 + 40) = v5;
+  v3 = objc_opt_class();
+  v4 = [*(a1 + 32) identifier];
+  v5 = *(*(a1 + 48) + 8);
+  obj = *(v5 + 40);
+  v6 = [v3 mapItemForIdentifier:v4 error:&obj];
+  objc_storeStrong((v5 + 40), obj);
+  v7 = *(*(a1 + 40) + 8);
+  v8 = *(v7 + 40);
+  *(v7 + 40) = v6;
 }
 
 void __68__RTMapItemMO_updateDatabaseWithMapItem_managedObjectContext_error___block_invoke_60(uint64_t a1)

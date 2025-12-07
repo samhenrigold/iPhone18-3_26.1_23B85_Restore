@@ -132,16 +132,14 @@ uint64_t __49__ReticleViewAccessibility_accessibilityElements__block_invoke_5(ui
   [(ReticleViewAccessibility *)self safeFloatForKey:@"currentDiameter"];
   objc_opt_class();
   v2 = __UIAccessibilityCastAsClass();
-  v3 = *MEMORY[0x29EDB90E0];
-  v4 = *(MEMORY[0x29EDB90E0] + 8);
   [v2 bounds];
   UIRectCenteredRect();
 
   UIAccessibilityFrameForBounds();
-  result.size.height = v8;
-  result.size.width = v7;
-  result.origin.y = v6;
-  result.origin.x = v5;
+  result.size.height = v6;
+  result.size.width = v5;
+  result.origin.y = v4;
+  result.origin.x = v3;
   return result;
 }
 

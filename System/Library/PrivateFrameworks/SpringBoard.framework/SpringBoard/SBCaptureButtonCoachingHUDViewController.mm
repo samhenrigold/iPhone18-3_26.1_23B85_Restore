@@ -9,15 +9,15 @@
 - (double)_xTranslationTransformForCurrentState;
 - (id)_animationSettingsForTransitionFromState:(uint64_t)state toState:;
 - (id)_layoutCoachingButtonHighlight;
+- (id)_layoutCoachingContentView;
 - (id)_layoutCoachingLabel;
+- (id)_layoutDimmingView;
 - (id)_layoutGlyphView;
+- (id)_layoutTempBackdropView;
 - (id)_makeCoachingButtonHighlight;
 - (id)_makeCoachingLabel;
 - (id)_makeCoachingLabelWrapperView;
 - (id)_makeGaussianBlurFilter;
-- (uint64_t)_layoutCoachingContentView;
-- (uint64_t)_layoutDimmingView;
-- (uint64_t)_layoutTempBackdropView;
 - (uint64_t)coachingButtonHighlightView;
 - (uint64_t)coachingContentView;
 - (uint64_t)coachingLabel;
@@ -33,7 +33,6 @@
 - (uint64_t)isAttached;
 - (uint64_t)isRotating;
 - (uint64_t)liveRenderingAssertion;
-- (uint64_t)setCoachingLabelOrientation:(uint64_t)result;
 - (uint64_t)settings;
 - (uint64_t)stateTransitionAnimationCount;
 - (uint64_t)tempBackdropLayer;
@@ -42,10 +41,11 @@
 - (void)_pauseAndResetLayer:(uint64_t)layer;
 - (void)_playTimingOnLayerTree:(uint64_t)tree;
 - (void)_resetAndPauseTimingOnLayerTree:(uint64_t)tree;
-- (void)_resetGlyphViewToState:(uint64_t)state;
+- (void)_resetGlyphViewToState:(SBCaptureButtonCoachingHUDGlyphView *)state;
 - (void)_resumeLayer:(uint64_t)layer;
 - (void)_updateCoachingLabelTextIfNeeded;
 - (void)_updateLiveRenderingAssertionIfNeeded;
+- (void)setCoachingLabelOrientation:(void *)result;
 - (void)setCoachingText:(id)text glyphPackageName:(id)name glyphLandscapeState:(id)state;
 - (void)setIsAttached:(uint64_t)attached;
 - (void)setPositionOffset:(CGPoint)offset;
@@ -558,26 +558,26 @@ void __92__SBCaptureButtonCoachingHUDViewController__makeViewControllerTransitio
   return self;
 }
 
-- (void)_resetGlyphViewToState:(uint64_t)state
+- (void)_resetGlyphViewToState:(SBCaptureButtonCoachingHUDGlyphView *)state
 {
   if (state)
   {
-    v3 = *(state + 1120);
+    packedInsets = state[2].super.super._clippedSafeAreaCornerInsets.packedInsets;
     v4 = a2;
-    [v3 setState:0 animated:0];
-    [*(state + 1120) removeFromSuperview];
-    v5 = *(state + 1120);
-    *(state + 1120) = 0;
+    [packedInsets setState:0 animated:0];
+    [state[2].super.super._clippedSafeAreaCornerInsets.packedInsets removeFromSuperview];
+    v5 = state[2].super.super._clippedSafeAreaCornerInsets.packedInsets;
+    state[2].super.super._clippedSafeAreaCornerInsets.packedInsets = 0;
 
     _makeGlyphView = [(SBCaptureButtonCoachingHUDViewController *)state _makeGlyphView];
-    v7 = *(state + 1120);
-    *(state + 1120) = _makeGlyphView;
+    v7 = state[2].super.super._clippedSafeAreaCornerInsets.packedInsets;
+    state[2].super.super._clippedSafeAreaCornerInsets.packedInsets = _makeGlyphView;
 
-    [*(state + 1136) addSubview:*(state + 1120)];
-    [(SBCaptureButtonCoachingHUDViewController *)state _layoutGlyphView];
-    [*(state + 1120) setState:v4 animated:0];
+    [(_UIViewBackingAux *)state[2].super.super._viewBackingAux addSubview:state[2].super.super._clippedSafeAreaCornerInsets.packedInsets];
+    [(SBCaptureButtonCoachingHUDViewController *)&state->super.super.super.super.isa _layoutGlyphView];
+    [state[2].super.super._clippedSafeAreaCornerInsets.packedInsets setState:v4 animated:0];
 
-    layer = [*(state + 1120) layer];
+    layer = [state[2].super.super._clippedSafeAreaCornerInsets.packedInsets layer];
     [(SBCaptureButtonCoachingHUDViewController *)state _resetAndPauseTimingOnLayerTree:layer];
   }
 }
@@ -671,16 +671,16 @@ void __82__SBCaptureButtonCoachingHUDViewController_transitionToState_animated_c
   [v12 setShadowOpacity:v11];
 }
 
-- (uint64_t)_layoutCoachingContentView
+- (id)_layoutCoachingContentView
 {
   if (result)
   {
     v1 = result;
-    [*(result + 1096) bounds];
-    v2 = *(v1 + 1112);
+    [result[137] bounds];
+    v2 = v1[139];
     UIRectGetCenter();
     [v2 setCenter:?];
-    v3 = *(v1 + 1112);
+    v3 = v1[139];
     BSRectWithSize();
 
     return [v3 setBounds:?];
@@ -831,50 +831,50 @@ void __82__SBCaptureButtonCoachingHUDViewController_transitionToState_animated_c
     OUTLINED_FUNCTION_8_4();
     OUTLINED_FUNCTION_13();
     UIRectCenteredAboutPointScale();
-    v81 = 0u;
+    v83 = 0u;
+    v84 = 0u;
     v82 = 0u;
-    v80 = 0u;
     SBFTransformFromOrientationToOrientation();
-    memset(&v79, 0, sizeof(v79));
+    memset(&v81, 0, sizeof(v81));
     BSFloatRoundForScale();
-    CGAffineTransformMakeTranslation(&v79, v6, 0.0);
+    CGAffineTransformMakeTranslation(&v81, v6, 0.0);
     OUTLINED_FUNCTION_12_6(MEMORY[0x277CBF2C0]);
-    v15 = OUTLINED_FUNCTION_15(v7, v8, v9, v10, v11, v12, v13, v82, v14, v36, v39, v42, v4, v80, *(&v80 + 1), v81.n128_i64[0], v81.n128_i64[1], v81, v51, v54, v57, v60, v63, v66, v69);
-    OUTLINED_FUNCTION_7_6(v15, v16, v17, v18, v19, v20, v21, v22, v37, v40, v43, v45, v47, v48, v49, v50, v52, v55, v58, v61, v64, v67, v70, v72, v73, v75, v76);
-    OUTLINED_FUNCTION_15(v23, v24, v25, v26, v27, v28, v29, *&v79.tx, v30, v38, v41, v44, v46, *&v79.a, *&v79.b, *&v79.c, *&v79.d, *&v79.c, v53, v56, v59, v62, v65, v68, v71);
-    v80 = v74;
-    v81 = v77;
-    v82 = v78;
+    v16 = OUTLINED_FUNCTION_15(v7, v8, v9, v10, v11, v12, v13, v84, v14, v83, v38, v41, v44, v4, v82, *(&v82 + 1), v83.n128_i64[0], v83.n128_i64[1], v15, v53, v56, v59, v62, v65, v68, v71);
+    OUTLINED_FUNCTION_7_6(v16, v17, v18, v19, v20, v21, v22, v23, v39, v42, v45, v47, v49, v50, v51, v52, v54, v57, v60, v63, v66, v69, v72, v74, v75, v77, v78);
+    OUTLINED_FUNCTION_15(v24, v25, v26, v27, v28, v29, v30, *&v81.tx, v31, *&v81.c, v40, v43, v46, v48, *&v81.a, *&v81.b, *&v81.c, *&v81.d, v32, v55, v58, v61, v64, v67, v70, v73);
+    v82 = v76;
+    v83 = v79;
+    v84 = v80;
     OUTLINED_FUNCTION_5_13();
-    CGRectApplyAffineTransform(v83, v31);
+    CGRectApplyAffineTransform(v85, v33);
     OUTLINED_FUNCTION_5_13();
     UIRectGetCenter();
     OUTLINED_FUNCTION_8_4();
     SBUnintegralizedRectCenteredAboutPoint();
     BSPointRoundForScale();
-    v32 = v1[143];
+    v34 = v1[143];
     OUTLINED_FUNCTION_5_13();
     UIRectGetCenter();
-    [v32 setCenter:?];
-    v33 = v1[143];
+    [v34 setCenter:?];
+    v35 = v1[143];
     BSRectWithSize();
-    [v33 setBounds:?];
-    v34 = OUTLINED_FUNCTION_11_7();
-    v80 = v74;
-    v81 = v77;
-    v82 = v78;
-    [v34 setTransform:&v80];
+    [v35 setBounds:?];
+    v36 = OUTLINED_FUNCTION_11_7();
+    v82 = v76;
+    v83 = v79;
+    v84 = v80;
+    [v36 setTransform:&v82];
     if (v1[136] - 3 < 2)
     {
-      v35 = 1;
+      v37 = 1;
     }
 
     else
     {
-      v35 = 2;
+      v37 = 2;
     }
 
-    return [v1[143] setTextAlignment:v35];
+    return [v1[143] setTextAlignment:v37];
   }
 
   return result;
@@ -903,39 +903,39 @@ void __82__SBCaptureButtonCoachingHUDViewController_transitionToState_animated_c
     OUTLINED_FUNCTION_8_4();
     OUTLINED_FUNCTION_13();
     UIRectCenteredAboutPointScale();
-    v79 = 0u;
+    v81 = 0u;
+    v82 = 0u;
     v80 = 0u;
-    v78 = 0u;
     SBFTransformFromOrientationToOrientation();
-    memset(&v77, 0, sizeof(v77));
+    memset(&v79, 0, sizeof(v79));
     BSFloatRoundForScale();
-    CGAffineTransformMakeTranslation(&v77, v4, 0.0);
+    CGAffineTransformMakeTranslation(&v79, v4, 0.0);
     OUTLINED_FUNCTION_12_6(MEMORY[0x277CBF2C0]);
-    v13 = OUTLINED_FUNCTION_15(v5, v6, v7, v8, v9, v10, v11, v80, v12, v33, v36, v39, v42, v78, *(&v78 + 1), v79.n128_i64[0], v79.n128_i64[1], v79, v49, v52, v55, v58, v61, v64, v67);
-    OUTLINED_FUNCTION_7_6(v13, v14, v15, v16, v17, v18, v19, v20, v34, v37, v40, v43, v45, v46, v47, v48, v50, v53, v56, v59, v62, v65, v68, v70, v71, v73, v74);
-    OUTLINED_FUNCTION_15(v21, v22, v23, v24, v25, v26, v27, *&v77.tx, v28, v35, v38, v41, v44, *&v77.a, *&v77.b, *&v77.c, *&v77.d, *&v77.c, v51, v54, v57, v60, v63, v66, v69);
-    v78 = v72;
-    v79 = v75;
-    v80 = v76;
+    v14 = OUTLINED_FUNCTION_15(v5, v6, v7, v8, v9, v10, v11, v82, v12, v81, v35, v38, v41, v44, v80, *(&v80 + 1), v81.n128_i64[0], v81.n128_i64[1], v13, v51, v54, v57, v60, v63, v66, v69);
+    OUTLINED_FUNCTION_7_6(v14, v15, v16, v17, v18, v19, v20, v21, v36, v39, v42, v45, v47, v48, v49, v50, v52, v55, v58, v61, v64, v67, v70, v72, v73, v75, v76);
+    OUTLINED_FUNCTION_15(v22, v23, v24, v25, v26, v27, v28, *&v79.tx, v29, *&v79.c, v37, v40, v43, v46, *&v79.a, *&v79.b, *&v79.c, *&v79.d, v30, v53, v56, v59, v62, v65, v68, v71);
+    v80 = v74;
+    v81 = v77;
+    v82 = v78;
     OUTLINED_FUNCTION_5_13();
-    CGRectApplyAffineTransform(v81, v29);
+    CGRectApplyAffineTransform(v83, v31);
     OUTLINED_FUNCTION_5_13();
     UIRectGetCenter();
     OUTLINED_FUNCTION_8_4();
     SBUnintegralizedRectCenteredAboutPoint();
     BSPointRoundForScale();
-    v30 = v1[140];
+    v32 = v1[140];
     OUTLINED_FUNCTION_5_13();
     UIRectGetCenter();
-    [v30 setCenter:?];
-    v31 = v1[140];
+    [v32 setCenter:?];
+    v33 = v1[140];
     BSRectWithSize();
-    [v31 setBounds:?];
-    v32 = v1[140];
-    v78 = v72;
-    v79 = v75;
-    v80 = v76;
-    return [v32 setTransform:&v78];
+    [v33 setBounds:?];
+    v34 = v1[140];
+    v80 = v74;
+    v81 = v77;
+    v82 = v78;
+    return [v34 setTransform:&v80];
   }
 
   return result;
@@ -1127,11 +1127,11 @@ void __82__SBCaptureButtonCoachingHUDViewController_transitionToState_animated_c
   [(SBCaptureButtonCoachingHUDViewController *)self transitionToState:0 animated:0 completion:0];
 }
 
-- (uint64_t)setCoachingLabelOrientation:(uint64_t)result
+- (void)setCoachingLabelOrientation:(void *)result
 {
-  if (result && *(result + 1088) != a2)
+  if (result && *(result + 136) != a2)
   {
-    *(result + 1088) = a2;
+    *(result + 136) = a2;
     if ((a2 - 3) < 2)
     {
       v2 = 1;
@@ -1142,7 +1142,7 @@ void __82__SBCaptureButtonCoachingHUDViewController_transitionToState_animated_c
       v2 = 4;
     }
 
-    return [*(result + 1144) setTextAlignment:v2];
+    return [*(result + 143) setTextAlignment:v2];
   }
 
   return result;
@@ -1242,23 +1242,23 @@ LABEL_11:
   v3.super_class = SBCaptureButtonCoachingHUDViewController;
   [(SBCaptureButtonCoachingHUDViewController *)&v3 viewDidLayoutSubviews];
   [(SBCaptureButtonCoachingHUDViewController *)self _updateCoachingLabelTextIfNeeded];
-  [(SBCaptureButtonCoachingHUDViewController *)self _layoutTempBackdropView];
-  [(SBCaptureButtonCoachingHUDViewController *)self _layoutDimmingView];
-  [(SBCaptureButtonCoachingHUDViewController *)self _layoutCoachingContentView];
+  [(SBCaptureButtonCoachingHUDViewController *)&self->super.super.super.super.isa _layoutTempBackdropView];
+  [(SBCaptureButtonCoachingHUDViewController *)&self->super.super.super.super.isa _layoutDimmingView];
+  [(SBCaptureButtonCoachingHUDViewController *)&self->super.super.super.super.isa _layoutCoachingContentView];
   [(SBCaptureButtonCoachingHUDViewController *)&self->super.super.super.super.isa _layoutCoachingButtonHighlight];
   [(SBCaptureButtonCoachingHUDViewController *)self _layoutCoachingLabelWrapperView];
   [(SBCaptureButtonCoachingHUDViewController *)&self->super.super.super.super.isa _layoutCoachingLabel];
   [(SBCaptureButtonCoachingHUDViewController *)&self->super.super.super.super.isa _layoutGlyphView];
 }
 
-- (uint64_t)_layoutTempBackdropView
+- (id)_layoutTempBackdropView
 {
   if (result)
   {
     v1 = result;
-    [*(result + 1096) bounds];
+    [result[137] bounds];
     OUTLINED_FUNCTION_4_14();
-    v2 = *(v1 + 1152);
+    v2 = v1[144];
     UIRectGetCenter();
     [v2 setCenter:?];
     v4 = OUTLINED_FUNCTION_3_23();
@@ -1269,14 +1269,14 @@ LABEL_11:
   return result;
 }
 
-- (uint64_t)_layoutDimmingView
+- (id)_layoutDimmingView
 {
   if (result)
   {
     v1 = result;
-    [*(result + 1096) bounds];
+    [result[137] bounds];
     OUTLINED_FUNCTION_4_14();
-    v2 = *(v1 + 1104);
+    v2 = v1[138];
     UIRectGetCenter();
     [v2 setCenter:?];
     v4 = OUTLINED_FUNCTION_3_23();
@@ -1407,34 +1407,31 @@ uint64_t __95__SBCaptureButtonCoachingHUDViewController_viewWillTransitionToSize
 
 - (void)_coachingLabelWrapperViewSize
 {
-  if (result)
+  if (self)
   {
-    v1 = result;
-    traitCollection = [result traitCollection];
+    traitCollection = [self traitCollection];
     [traitCollection displayScale];
 
-    view = [v1 view];
+    view = [self view];
     window = [view window];
     interfaceOrientation = [window interfaceOrientation];
 
-    view2 = [v1 view];
+    view2 = [self view];
     [view2 safeAreaInsets];
 
-    view3 = [v1 view];
-    [view3 frame];
+    view3 = [self view];
+    objc_msgSend_frame(view3);
 
-    view4 = [v1 view];
-    [view4 frame];
+    view4 = [self view];
+    objc_msgSend_frame(view4);
     if ((interfaceOrientation - 1) <= 1)
     {
-      [(SBCaptureButtonCoachingHUDViewController *)v1 _captureButtonFrame];
+      [(SBCaptureButtonCoachingHUDViewController *)self _captureButtonFrame];
     }
 
     BSFloatRoundForScale();
-    return BSFloatRoundForScale();
+    BSFloatRoundForScale();
   }
-
-  return result;
 }
 
 - (uint64_t)settings

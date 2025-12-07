@@ -63,11 +63,12 @@
 
 - (id)findPresentationSourceViewWithId:(id)id
 {
-  sub_1E4205F14();
+  v4 = sub_1E4205F14();
+  v6 = v5;
   selfCopy = self;
-  v5 = sub_1E38F4A2C();
+  v8 = sub_1E38F4A2C(v4, v6);
 
-  return v5;
+  return v8;
 }
 
 @end

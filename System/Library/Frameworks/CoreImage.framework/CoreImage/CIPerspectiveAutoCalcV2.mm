@@ -70,25 +70,25 @@
 
 - (BOOL)compute
 {
-  v49 = *MEMORY[0x1E69E9840];
+  v53 = *MEMORY[0x1E69E9840];
   self->super.pitchFailureReason = 0;
   self->super.yawFailureReason = 0;
-  v3 = ci_signpost_log_perspectiveAC();
-  v4 = ci_signpost_log_perspectiveAC();
-  v5 = os_signpost_id_make_with_pointer(v4, self);
-  if (v5 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
+  v3 = ci_signpost_log_perspectiveAC(self, a2);
+  v5 = ci_signpost_log_perspectiveAC(v3, v4);
+  v6 = os_signpost_id_make_with_pointer(v5, self);
+  if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
   {
-    v6 = v5;
+    v7 = v6;
     if (os_signpost_enabled(v3))
     {
       [(CIImage *)self->super.img extent];
-      v8 = v7;
+      v9 = v8;
       [(CIImage *)self->super.img extent];
-      v46[0] = 67109376;
-      v46[1] = v8;
-      v47 = 1024;
-      v48 = v9;
-      _os_signpost_emit_with_name_impl(&dword_19CC36000, v3, OS_SIGNPOST_INTERVAL_BEGIN, v6, "compute", "imageSize: %d x %d", v46, 0xEu);
+      v50[0] = 67109376;
+      v50[1] = v9;
+      v51 = 1024;
+      v52 = v10;
+      _os_signpost_emit_with_name_impl(&dword_19CC36000, v3, OS_SIGNPOST_INTERVAL_BEGIN, v7, "compute", "imageSize: %d x %d", v50, 0xEu);
     }
   }
 
@@ -102,84 +102,86 @@
   {
     img = self->super.img;
     self->super.debugImage = img;
-    v11 = CGColorCreateSRGB(0.0, 1.0, 0.0, 1.0);
-    v12 = CI::Perspective::plotLines<CI::Perspective::Line>(img, v11, &self->vClusterInliers);
-    self->super.debugImage = v12;
-    v13 = CGColorCreateSRGB(1.0, 1.0, 0.0, 1.0);
-    v14 = CI::Perspective::plotLines<CI::Perspective::Line>(v12, v13, &self->vClusterOutliers);
-    self->super.debugImage = v14;
-    v15 = CGColorCreateSRGB(0.0, 1.0, 1.0, 1.0);
-    v16 = CI::Perspective::plotLines<CI::Perspective::Line>(v14, v15, &self->hClusterInliers);
-    self->super.debugImage = v16;
-    v17 = CGColorCreateSRGB(1.0, 0.0, 0.0, 1.0);
-    self->super.debugImage = CI::Perspective::plotLines<CI::Perspective::Line>(v16, v17, &self->hClusterOutliers);
+    v12 = CGColorCreateSRGB(0.0, 1.0, 0.0, 1.0);
+    v13 = CI::Perspective::plotLines<CI::Perspective::Line>(img, v12, &self->vClusterInliers);
+    self->super.debugImage = v13;
+    v14 = CGColorCreateSRGB(1.0, 1.0, 0.0, 1.0);
+    v15 = CI::Perspective::plotLines<CI::Perspective::Line>(v13, v14, &self->vClusterOutliers);
+    self->super.debugImage = v15;
+    v16 = CGColorCreateSRGB(0.0, 1.0, 1.0, 1.0);
+    v17 = CI::Perspective::plotLines<CI::Perspective::Line>(v15, v16, &self->hClusterInliers);
+    self->super.debugImage = v17;
+    v18 = CGColorCreateSRGB(1.0, 0.0, 0.0, 1.0);
+    self->super.debugImage = CI::Perspective::plotLines<CI::Perspective::Line>(v17, v18, &self->hClusterOutliers);
   }
 
   [(CIPerspectiveAutoCalcV2 *)self setupCostFunction];
   [(CIPerspectiveAutoCalcV2 *)self runOptimization];
   [(CIPerspectiveAutoCalcV2 *)self computeConfidence];
-  if ([(CIPerspectiveAutoCalc *)self generateDebugImage])
+  generateDebugImage = [(CIPerspectiveAutoCalc *)self generateDebugImage];
+  if (generateDebugImage)
   {
     debugImage = self->super.debugImage;
     pitch = self->super.pitch;
     yaw = self->super.yaw;
     roll = self->super.roll;
-    v22 = [CIFilter filterWithName:@"CIPerspectiveRotate"];
-    [(CIFilter *)v22 setValue:debugImage forKey:@"inputImage"];
-    *&v23 = pitch;
-    -[CIFilter setValue:forKey:](v22, "setValue:forKey:", [MEMORY[0x1E696AD98] numberWithFloat:v23], @"inputPitch");
-    *&v24 = yaw;
-    -[CIFilter setValue:forKey:](v22, "setValue:forKey:", [MEMORY[0x1E696AD98] numberWithFloat:v24], @"inputYaw");
-    *&v25 = roll;
-    -[CIFilter setValue:forKey:](v22, "setValue:forKey:", [MEMORY[0x1E696AD98] numberWithFloat:v25], @"inputRoll");
-    outputImage = [(CIFilter *)v22 outputImage];
+    v25 = [CIFilter filterWithName:@"CIPerspectiveRotate"];
+    [(CIFilter *)v25 setValue:debugImage forKey:@"inputImage"];
+    *&v26 = pitch;
+    -[CIFilter setValue:forKey:](v25, "setValue:forKey:", [MEMORY[0x1E696AD98] numberWithFloat:v26], @"inputPitch");
+    *&v27 = yaw;
+    -[CIFilter setValue:forKey:](v25, "setValue:forKey:", [MEMORY[0x1E696AD98] numberWithFloat:v27], @"inputYaw");
+    *&v28 = roll;
+    -[CIFilter setValue:forKey:](v25, "setValue:forKey:", [MEMORY[0x1E696AD98] numberWithFloat:v28], @"inputRoll");
+    outputImage = [(CIFilter *)v25 outputImage];
     self->super.debugImage = outputImage;
     [(CIImage *)outputImage extent];
-    v28 = v27;
-    v30 = v29;
-    v32 = v31;
-    v34 = v33;
-    v35 = [CIFilter filterWithName:@"CICheckerboardGenerator"];
-    v50.origin.x = v28;
-    v50.origin.y = v30;
-    v50.size.width = v32;
-    v50.size.height = v34;
-    MidX = CGRectGetMidX(v50);
-    v51.origin.x = v28;
-    v51.origin.y = v30;
-    v51.size.width = v32;
-    v51.size.height = v34;
-    [(CIFilter *)v35 setValue:[CIVector forKey:"vectorWithX:Y:" vectorWithX:CGRectGetMidY(v51) Y:?], @"inputCenter"];
-    if (v32 >= v34)
+    v31 = v30;
+    v33 = v32;
+    v35 = v34;
+    v37 = v36;
+    v38 = [CIFilter filterWithName:@"CICheckerboardGenerator"];
+    v54.origin.x = v31;
+    v54.origin.y = v33;
+    v54.size.width = v35;
+    v54.size.height = v37;
+    MidX = CGRectGetMidX(v54);
+    v55.origin.x = v31;
+    v55.origin.y = v33;
+    v55.size.width = v35;
+    v55.size.height = v37;
+    [(CIFilter *)v38 setValue:[CIVector forKey:"vectorWithX:Y:" vectorWithX:CGRectGetMidY(v55) Y:?], @"inputCenter"];
+    if (v35 >= v37)
     {
-      v37 = v34;
+      v40 = v37;
     }
 
     else
     {
-      v37 = v32;
+      v40 = v35;
     }
 
-    -[CIFilter setValue:forKey:](v35, "setValue:forKey:", [MEMORY[0x1E696AD98] numberWithDouble:v37 * 0.05], @"inputWidth");
-    v38 = [(CIImage *)[(CIFilter *)v35 outputImage] imageByCroppingToRect:v28, v30, v32, v34];
-    v39 = [CIFilter filterWithName:@"CIBlendWithAlphaMask"];
-    v40 = [[CIImage imageWithColor:?], "imageByCroppingToRect:", v28, v30, v32, v34];
-    [(CIFilter *)v39 setValue:outputImage forKey:@"inputImage"];
-    [(CIFilter *)v39 setValue:v38 forKey:@"inputBackgroundImage"];
-    [(CIFilter *)v39 setValue:v40 forKey:@"inputMaskImage"];
-    self->super.debugImage = [(CIImage *)[(CIFilter *)v39 outputImage] imageByCompositingOverImage:v38];
+    -[CIFilter setValue:forKey:](v38, "setValue:forKey:", [MEMORY[0x1E696AD98] numberWithDouble:v40 * 0.05], @"inputWidth");
+    v41 = [(CIImage *)[(CIFilter *)v38 outputImage] imageByCroppingToRect:v31, v33, v35, v37];
+    v42 = [CIFilter filterWithName:@"CIBlendWithAlphaMask"];
+    v43 = [[CIImage imageWithColor:?], "imageByCroppingToRect:", v31, v33, v35, v37];
+    [(CIFilter *)v42 setValue:outputImage forKey:@"inputImage"];
+    [(CIFilter *)v42 setValue:v41 forKey:@"inputBackgroundImage"];
+    [(CIFilter *)v42 setValue:v43 forKey:@"inputMaskImage"];
+    generateDebugImage = [(CIImage *)[(CIFilter *)v42 outputImage] imageByCompositingOverImage:v41];
+    self->super.debugImage = generateDebugImage;
   }
 
-  v41 = ci_signpost_log_perspectiveAC();
-  v42 = ci_signpost_log_perspectiveAC();
-  v43 = os_signpost_id_make_with_pointer(v42, self);
-  if (v43 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
+  v44 = ci_signpost_log_perspectiveAC(generateDebugImage, v20);
+  v46 = ci_signpost_log_perspectiveAC(v44, v45);
+  v47 = os_signpost_id_make_with_pointer(v46, self);
+  if (v47 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
   {
-    v44 = v43;
-    if (os_signpost_enabled(v41))
+    v48 = v47;
+    if (os_signpost_enabled(v44))
     {
-      LOWORD(v46[0]) = 0;
-      _os_signpost_emit_with_name_impl(&dword_19CC36000, v41, OS_SIGNPOST_INTERVAL_END, v44, "compute", &unk_19CFBCBAE, v46, 2u);
+      LOWORD(v50[0]) = 0;
+      _os_signpost_emit_with_name_impl(&dword_19CC36000, v44, OS_SIGNPOST_INTERVAL_END, v48, "compute", &unk_19CFBCBAE, v50, 2u);
     }
   }
 
@@ -188,72 +190,73 @@
 
 - (void)standardizeImage
 {
-  v42 = *MEMORY[0x1E69E9840];
-  v3 = ci_signpost_log_perspectiveAC();
-  v4 = ci_signpost_log_perspectiveAC();
-  v5 = os_signpost_id_make_with_pointer(v4, self);
-  if (v5 - 1 < 0xFFFFFFFFFFFFFFFELL)
+  v46 = *MEMORY[0x1E69E9840];
+  v3 = ci_signpost_log_perspectiveAC(self, a2);
+  v5 = ci_signpost_log_perspectiveAC(v3, v4);
+  v6 = os_signpost_id_make_with_pointer(v5, self);
+  if (v6 - 1 < 0xFFFFFFFFFFFFFFFELL)
   {
-    v6 = v5;
+    v7 = v6;
     if (os_signpost_enabled(v3))
     {
       [(CIImage *)self->super.img extent];
-      v8 = v7;
+      v9 = v8;
       [(CIImage *)self->super.img extent];
       *buf = 134218240;
-      *&buf[4] = v8;
+      *&buf[4] = v9;
       *&buf[12] = 2048;
-      *&buf[14] = v9;
-      _os_signpost_emit_with_name_impl(&dword_19CC36000, v3, OS_SIGNPOST_INTERVAL_BEGIN, v6, "StandardizeImage", "imageSize: %f x %f", buf, 0x16u);
+      *&buf[14] = v10;
+      _os_signpost_emit_with_name_impl(&dword_19CC36000, v3, OS_SIGNPOST_INTERVAL_BEGIN, v7, "StandardizeImage", "imageSize: %f x %f", buf, 0x16u);
     }
   }
 
   [(CIImage *)self->super.img extent];
-  v36 = v13;
-  v37 = v12;
-  if (v10 <= v11)
+  v40 = v14;
+  v41 = v13;
+  if (v11 <= v12)
   {
-    v14 = v11;
+    v15 = v12;
   }
 
   else
   {
-    v14 = v10;
+    v15 = v11;
   }
 
-  v15 = v14 * 0.0009765625;
-  v16 = logf(v15);
-  *&v17 = 1.0 / exp2(ceilf(v16));
-  v18 = -*&v17;
-  v43.columns[1].i32[0] = 0;
-  v43.columns[1].i64[1] = 0;
-  v43.columns[0] = v17;
-  v43.columns[1].i32[1] = v17;
-  *self->_anon_f0 = v17;
-  *&self->_anon_f0[16] = v43.columns[1].u64[0];
-  v19 = *&v17;
-  v20.f64[0] = v37;
-  v20.f64[1] = v36;
-  *v21.i8 = vcvt_f32_f64(vmulq_n_f64(v20, v18));
-  v38 = *v21.i8;
-  v22 = vuzp2q_s32(v21, vzip1q_s32(v21, v21));
+  v16 = v15 * 0.0009765625;
+  v17 = logf(v16);
+  *&v18 = 1.0 / exp2(ceilf(v17));
+  v19 = -*&v18;
+  v47.columns[1].i32[0] = 0;
+  v47.columns[1].i64[1] = 0;
+  v47.columns[0] = v18;
+  v47.columns[1].i32[1] = v18;
+  *self->_anon_f0 = v18;
+  *&self->_anon_f0[16] = v47.columns[1].u64[0];
+  v20 = *&v18;
+  v21.f64[0] = v41;
+  v21.f64[1] = v40;
+  *v22.i8 = vcvt_f32_f64(vmulq_n_f64(v21, v19));
+  v42 = *v22.i8;
+  v23 = vuzp2q_s32(v22, vzip1q_s32(v22, v22));
   __asm { FMOV            V3.4S, #1.0 }
 
-  v43.columns[2] = vzip1q_s32(vzip2q_s32(v22, _Q3), v22);
-  *&self->_anon_f0[32] = v43.columns[2];
-  v44 = __invert_f3(v43);
-  *self->_anon_120 = v44.columns[0].i64[0];
-  *&self->_anon_120[8] = v44.columns[0].i32[2];
-  *&self->_anon_120[16] = v44.columns[1].i64[0];
-  *&self->_anon_120[24] = v44.columns[1].i32[2];
-  *&self->_anon_120[32] = v44.columns[2].i64[0];
-  *&self->_anon_120[40] = v44.columns[2].i32[2];
+  v47.columns[2] = vzip1q_s32(vzip2q_s32(v23, _Q3), v23);
+  *&self->_anon_f0[32] = v47.columns[2];
+  v48 = __invert_f3(v47);
+  *self->_anon_120 = v48.columns[0].i64[0];
+  *&self->_anon_120[8] = v48.columns[0].i32[2];
+  *&self->_anon_120[16] = v48.columns[1].i64[0];
+  *&self->_anon_120[24] = v48.columns[1].i32[2];
+  *&self->_anon_120[32] = v48.columns[2].i64[0];
+  *&self->_anon_120[40] = v48.columns[2].i32[2];
   *&buf[8] = 0uLL;
   img = self->super.img;
-  *buf = v19;
-  v40 = v19;
-  v41 = vcvtq_f64_f32(v38);
-  self->super.img = [(CIImage *)img imageByApplyingTransform:buf highQualityDownsample:1];
+  *buf = v20;
+  v44 = v20;
+  v45 = vcvtq_f64_f32(v42);
+  v30 = [(CIImage *)img imageByApplyingTransform:buf highQualityDownsample:1];
+  self->super.img = v30;
   if (CI::Perspective::CI_AUTOPERSPECTIVE_DEBUG(void)::onceToken != -1)
   {
     [CIPerspectiveAutoCalcV2 standardizeImage];
@@ -261,77 +264,77 @@
 
   if (CI::Perspective::CI_AUTOPERSPECTIVE_DEBUG(void)::dump == 1)
   {
-    v29 = self->super.img;
-    v30 = [MEMORY[0x1E696AEC0] stringWithFormat:@"/tmp/PerspectiveV2_%@.png", @"0_standardized"];
-    CI::Perspective::CIImageToFile(v29, v30, v31, *MEMORY[0x1E695F050]);
+    v32 = self->super.img;
+    v33 = [MEMORY[0x1E696AEC0] stringWithFormat:@"/tmp/PerspectiveV2_%@.png", @"0_standardized"];
+    v30 = CI::Perspective::CIImageToFile(v32, v33, v34, *MEMORY[0x1E695F050]);
   }
 
-  v32 = ci_signpost_log_perspectiveAC();
-  v33 = ci_signpost_log_perspectiveAC();
-  v34 = os_signpost_id_make_with_pointer(v33, self);
-  if (v34 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
+  v35 = ci_signpost_log_perspectiveAC(v30, v31);
+  v37 = ci_signpost_log_perspectiveAC(v35, v36);
+  v38 = os_signpost_id_make_with_pointer(v37, self);
+  if (v38 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
   {
-    v35 = v34;
-    if (os_signpost_enabled(v32))
+    v39 = v38;
+    if (os_signpost_enabled(v35))
     {
       *buf = 0;
-      _os_signpost_emit_with_name_impl(&dword_19CC36000, v32, OS_SIGNPOST_INTERVAL_END, v35, "StandardizeImage", &unk_19CFBCBAE, buf, 2u);
+      _os_signpost_emit_with_name_impl(&dword_19CC36000, v35, OS_SIGNPOST_INTERVAL_END, v39, "StandardizeImage", &unk_19CFBCBAE, buf, 2u);
     }
   }
 }
 
 - (void)createGradientMap
 {
-  v49 = *MEMORY[0x1E69E9840];
-  v3 = ci_signpost_log_perspectiveAC();
-  v4 = ci_signpost_log_perspectiveAC();
-  v5 = os_signpost_id_make_with_pointer(v4, self);
-  if (v5 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
+  v52 = *MEMORY[0x1E69E9840];
+  v3 = ci_signpost_log_perspectiveAC(self, a2);
+  v5 = ci_signpost_log_perspectiveAC(v3, v4);
+  v6 = os_signpost_id_make_with_pointer(v5, self);
+  if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
   {
-    v6 = v5;
+    v7 = v6;
     if (os_signpost_enabled(v3))
     {
       gradMapW = self->gradMapW;
       gradMapH = self->gradMapH;
       *buf = 134218240;
-      v46 = gradMapW;
-      v47 = 2048;
-      v48 = gradMapH;
-      _os_signpost_emit_with_name_impl(&dword_19CC36000, v3, OS_SIGNPOST_INTERVAL_BEGIN, v6, "CreateGradientMap", "gradMapSize: %lu x %lu", buf, 0x16u);
+      v49 = gradMapW;
+      v50 = 2048;
+      v51 = gradMapH;
+      _os_signpost_emit_with_name_impl(&dword_19CC36000, v3, OS_SIGNPOST_INTERVAL_BEGIN, v7, "CreateGradientMap", "gradMapSize: %lu x %lu", buf, 0x16u);
     }
   }
 
   [(CIImage *)self->super.img extent];
-  v10 = v9;
-  v12 = v11;
-  v14 = v13;
-  v16 = v15;
-  self->gradMapW = v13;
-  self->gradMapH = v15;
-  v17 = [(CIImage *)self->super.img imageByApplyingFilter:@"CIColorControls" withInputParameters:&unk_1F10825C8];
-  v18 = [(CIKernel *)CIColorKernel kernelWithInternalRepresentation:&CI::_lumaRange];
-  v44[0] = self->super.img;
-  v44[1] = &unk_1F1085418;
-  v44[2] = &unk_1F1085428;
-  v19 = -[CIColorKernel applyWithExtent:arguments:](v18, "applyWithExtent:arguments:", [MEMORY[0x1E695DEC8] arrayWithObjects:v44 count:3], v10, v12, v14, v16);
-  v20 = [CIFilter filterWithName:@"CIBlendWithMask"];
-  [(CIFilter *)v20 setValue:self->super.img forKey:@"inputImage"];
-  [(CIFilter *)v20 setValue:v17 forKey:@"inputBackgroundImage"];
-  [(CIFilter *)v20 setValue:v19 forKey:@"inputMaskImage"];
-  outputImage = [(CIFilter *)v20 outputImage];
+  v11 = v10;
+  v13 = v12;
+  v15 = v14;
+  v17 = v16;
+  self->gradMapW = v14;
+  self->gradMapH = v16;
+  v18 = [(CIImage *)self->super.img imageByApplyingFilter:@"CIColorControls" withInputParameters:&unk_1F10825C8];
+  v19 = [(CIKernel *)CIColorKernel kernelWithInternalRepresentation:&CI::_lumaRange];
+  v47[0] = self->super.img;
+  v47[1] = &unk_1F1085418;
+  v47[2] = &unk_1F1085428;
+  v20 = -[CIColorKernel applyWithExtent:arguments:](v19, "applyWithExtent:arguments:", [MEMORY[0x1E695DEC8] arrayWithObjects:v47 count:3], v11, v13, v15, v17);
+  v21 = [CIFilter filterWithName:@"CIBlendWithMask"];
+  [(CIFilter *)v21 setValue:self->super.img forKey:@"inputImage"];
+  [(CIFilter *)v21 setValue:v18 forKey:@"inputBackgroundImage"];
+  [(CIFilter *)v21 setValue:v20 forKey:@"inputMaskImage"];
+  outputImage = [(CIFilter *)v21 outputImage];
   if (CI::Perspective::CI_AUTOPERSPECTIVE_DEBUG(void)::onceToken != -1)
   {
     [CIPerspectiveAutoCalcV2 standardizeImage];
   }
 
-  v22 = MEMORY[0x1E695F050];
+  v23 = MEMORY[0x1E695F050];
   if (CI::Perspective::CI_AUTOPERSPECTIVE_DEBUG(void)::dump == 1)
   {
-    v23 = [MEMORY[0x1E696AEC0] stringWithFormat:@"/tmp/PerspectiveV2_%@.png", @"0_Enhanced"];
-    CI::Perspective::CIImageToFile(outputImage, v23, v24, *v22);
+    v24 = [MEMORY[0x1E696AEC0] stringWithFormat:@"/tmp/PerspectiveV2_%@.png", @"0_Enhanced"];
+    CI::Perspective::CIImageToFile(outputImage, v24, v25, *v23);
   }
 
-  v25 = [objc_msgSend(objc_msgSend(-[CI::Perspective imageByApplyingFilter:](outputImage imageByApplyingFilter:{@"CILinearToSRGBToneCurve", "imageByClampingToExtent"), "imageByApplyingGaussianBlurWithSigma:", 1.4), "imageByCroppingToRect:", v10, v12, v14, v16}];
+  v26 = [objc_msgSend(objc_msgSend(-[CI::Perspective imageByApplyingFilter:](outputImage imageByApplyingFilter:{@"CILinearToSRGBToneCurve", "imageByClampingToExtent"), "imageByApplyingGaussianBlurWithSigma:", 1.4), "imageByCroppingToRect:", v11, v13, v15, v17}];
   if (CI::Perspective::CI_AUTOPERSPECTIVE_DEBUG(void)::onceToken != -1)
   {
     [CIPerspectiveAutoCalcV2 standardizeImage];
@@ -339,21 +342,22 @@
 
   if (CI::Perspective::CI_AUTOPERSPECTIVE_DEBUG(void)::dump == 1)
   {
-    v26 = [MEMORY[0x1E696AEC0] stringWithFormat:@"/tmp/PerspectiveV2_%@.png", @"1_Preprocessed"];
-    CI::Perspective::CIImageToFile(v25, v26, v27, *v22);
+    v27 = [MEMORY[0x1E696AEC0] stringWithFormat:@"/tmp/PerspectiveV2_%@.png", @"1_Preprocessed"];
+    CI::Perspective::CIImageToFile(v26, v27, v28, *v23);
   }
 
-  v28 = [(CI::Perspective *)v25 imageByApplyingFilter:@"CIGaborGradients"];
-  self->gradMap = v28;
-  [(CIImage *)v28 extent];
-  v51 = CGRectInset(v50, 5.0, 5.0);
-  v29 = [(CIImage *)v28 imageByCroppingToRect:v51.origin.x, v51.origin.y, v51.size.width, v51.size.height];
+  v29 = [(CI::Perspective *)v26 imageByApplyingFilter:@"CIGaborGradients"];
   self->gradMap = v29;
-  v30 = [(CIImage *)v29 imageByCompositingOverImage:+[CIImage blackImage]];
+  [(CIImage *)v29 extent];
+  v54 = CGRectInset(v53, 5.0, 5.0);
+  v30 = [(CIImage *)v29 imageByCroppingToRect:v54.origin.x, v54.origin.y, v54.size.width, v54.size.height];
   self->gradMap = v30;
-  v31 = [(CIImage *)v30 imageByCroppingToRect:v10, v12, v14, v16];
+  v31 = [(CIImage *)v30 imageByCompositingOverImage:+[CIImage blackImage]];
   self->gradMap = v31;
-  self->gradMap = [(CIImage *)v31 imageByInsertingIntermediate:1];
+  v32 = [(CIImage *)v31 imageByCroppingToRect:v11, v13, v15, v17];
+  self->gradMap = v32;
+  v33 = [(CIImage *)v32 imageByInsertingIntermediate:1];
+  self->gradMap = v33;
   if (CI::Perspective::CI_AUTOPERSPECTIVE_DEBUG(void)::onceToken != -1)
   {
     [CIPerspectiveAutoCalcV2 standardizeImage];
@@ -361,63 +365,64 @@
 
   if (CI::Perspective::CI_AUTOPERSPECTIVE_DEBUG(void)::dump == 1)
   {
-    v33 = CI::Perspective::gradDirImage(self->gradMap, v32);
-    v34 = [MEMORY[0x1E696AEC0] stringWithFormat:@"/tmp/PerspectiveV2_%@.png", @"2_GradMap_dir"];
-    CI::Perspective::CIImageToFile(v33, v34, v35, *v22);
-    v37 = CI::Perspective::gradMagImage(self->gradMap, v36);
-    v38 = [MEMORY[0x1E696AEC0] stringWithFormat:@"/tmp/PerspectiveV2_%@.png", @"2_GradMap_mag"];
-    CI::Perspective::CIImageToFile(v37, v38, v39, *v22);
+    v35 = CI::Perspective::gradDirImage(self->gradMap, v34);
+    v36 = [MEMORY[0x1E696AEC0] stringWithFormat:@"/tmp/PerspectiveV2_%@.png", @"2_GradMap_dir"];
+    CI::Perspective::CIImageToFile(v35, v36, v37, *v23);
+    v39 = CI::Perspective::gradMagImage(self->gradMap, v38);
+    v40 = [MEMORY[0x1E696AEC0] stringWithFormat:@"/tmp/PerspectiveV2_%@.png", @"2_GradMap_mag"];
+    v33 = CI::Perspective::CIImageToFile(v39, v40, v41, *v23);
   }
 
-  v40 = ci_signpost_log_perspectiveAC();
-  v41 = ci_signpost_log_perspectiveAC();
-  v42 = os_signpost_id_make_with_pointer(v41, self);
-  if (v42 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
+  v42 = ci_signpost_log_perspectiveAC(v33, v34);
+  v44 = ci_signpost_log_perspectiveAC(v42, v43);
+  v45 = os_signpost_id_make_with_pointer(v44, self);
+  if (v45 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
   {
-    v43 = v42;
-    if (os_signpost_enabled(v40))
+    v46 = v45;
+    if (os_signpost_enabled(v42))
     {
       *buf = 0;
-      _os_signpost_emit_with_name_impl(&dword_19CC36000, v40, OS_SIGNPOST_INTERVAL_END, v43, "CreateGradientMap", &unk_19CFBCBAE, buf, 2u);
+      _os_signpost_emit_with_name_impl(&dword_19CC36000, v42, OS_SIGNPOST_INTERVAL_END, v46, "CreateGradientMap", &unk_19CFBCBAE, buf, 2u);
     }
   }
 }
 
 - (void)normalizeGradientMap
 {
-  v41 = *MEMORY[0x1E69E9840];
-  v3 = ci_signpost_log_perspectiveAC();
-  v4 = ci_signpost_log_perspectiveAC();
-  v5 = os_signpost_id_make_with_pointer(v4, self);
-  if (v5 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
+  v44 = *MEMORY[0x1E69E9840];
+  v3 = ci_signpost_log_perspectiveAC(self, a2);
+  v5 = ci_signpost_log_perspectiveAC(v3, v4);
+  v6 = os_signpost_id_make_with_pointer(v5, self);
+  if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
   {
-    v6 = v5;
+    v7 = v6;
     if (os_signpost_enabled(v3))
     {
       gradMapW = self->gradMapW;
       gradMapH = self->gradMapH;
       *buf = 134218240;
-      v38 = gradMapW;
-      v39 = 2048;
-      v40 = gradMapH;
-      _os_signpost_emit_with_name_impl(&dword_19CC36000, v3, OS_SIGNPOST_INTERVAL_BEGIN, v6, "NormalizeGradientMap", "gradMapSize: %lu x %lu", buf, 0x16u);
+      v41 = gradMapW;
+      v42 = 2048;
+      v43 = gradMapH;
+      _os_signpost_emit_with_name_impl(&dword_19CC36000, v3, OS_SIGNPOST_INTERVAL_BEGIN, v7, "NormalizeGradientMap", "gradMapSize: %lu x %lu", buf, 0x16u);
     }
   }
 
   [(CIImage *)self->gradMap extent];
-  v10 = v9;
-  v12 = v11;
-  v14 = v13;
-  v16 = v15;
-  v18 = CI::Perspective::gradMagImage(self->gradMap, v17);
-  v35 = @"inputExtent";
-  [(CIImage *)v18 extent];
-  v36 = [CIVector vectorWithCGRect:?];
-  v19 = -[CIImage imageByApplyingFilter:withInputParameters:](v18, "imageByApplyingFilter:withInputParameters:", @"CIAreaMinMaxRed", [MEMORY[0x1E695DF20] dictionaryWithObjects:&v36 forKeys:&v35 count:1]);
-  v20 = [(CIKernel *)CIColorKernel kernelWithInternalRepresentation:&CI::_gradientNormalizeV2];
-  v34[0] = self->gradMap;
-  v34[1] = v19;
-  self->gradMap = -[CIColorKernel applyWithExtent:arguments:](v20, "applyWithExtent:arguments:", [MEMORY[0x1E695DEC8] arrayWithObjects:v34 count:2], v10, v12, v14, v16);
+  v11 = v10;
+  v13 = v12;
+  v15 = v14;
+  v17 = v16;
+  v19 = CI::Perspective::gradMagImage(self->gradMap, v18);
+  v38 = @"inputExtent";
+  [(CIImage *)v19 extent];
+  v39 = [CIVector vectorWithCGRect:?];
+  v20 = -[CIImage imageByApplyingFilter:withInputParameters:](v19, "imageByApplyingFilter:withInputParameters:", @"CIAreaMinMaxRed", [MEMORY[0x1E695DF20] dictionaryWithObjects:&v39 forKeys:&v38 count:1]);
+  v21 = [(CIKernel *)CIColorKernel kernelWithInternalRepresentation:&CI::_gradientNormalizeV2];
+  v37[0] = self->gradMap;
+  v37[1] = v20;
+  v22 = -[CIColorKernel applyWithExtent:arguments:](v21, "applyWithExtent:arguments:", [MEMORY[0x1E695DEC8] arrayWithObjects:v37 count:2], v11, v13, v15, v17);
+  self->gradMap = v22;
   if (CI::Perspective::CI_AUTOPERSPECTIVE_DEBUG(void)::onceToken != -1)
   {
     [CIPerspectiveAutoCalcV2 standardizeImage];
@@ -425,60 +430,61 @@
 
   if (CI::Perspective::CI_AUTOPERSPECTIVE_DEBUG(void)::dump == 1)
   {
-    v22 = CI::Perspective::gradDirImage(self->gradMap, v21);
-    v23 = [MEMORY[0x1E696AEC0] stringWithFormat:@"/tmp/PerspectiveV2_%@.png", @"3_GradMapNormalized_dir"];
-    v24 = MEMORY[0x1E695F050];
-    CI::Perspective::CIImageToFile(v22, v23, v25, *MEMORY[0x1E695F050]);
-    v27 = CI::Perspective::gradMagImage(self->gradMap, v26);
-    v28 = [MEMORY[0x1E696AEC0] stringWithFormat:@"/tmp/PerspectiveV2_%@.png", @"3_GradMapNormalized_mag"];
-    CI::Perspective::CIImageToFile(v27, v28, v29, *v24);
+    v24 = CI::Perspective::gradDirImage(self->gradMap, v23);
+    v25 = [MEMORY[0x1E696AEC0] stringWithFormat:@"/tmp/PerspectiveV2_%@.png", @"3_GradMapNormalized_dir"];
+    v26 = MEMORY[0x1E695F050];
+    CI::Perspective::CIImageToFile(v24, v25, v27, *MEMORY[0x1E695F050]);
+    v29 = CI::Perspective::gradMagImage(self->gradMap, v28);
+    v30 = [MEMORY[0x1E696AEC0] stringWithFormat:@"/tmp/PerspectiveV2_%@.png", @"3_GradMapNormalized_mag"];
+    v22 = CI::Perspective::CIImageToFile(v29, v30, v31, *v26);
   }
 
-  v30 = ci_signpost_log_perspectiveAC();
-  v31 = ci_signpost_log_perspectiveAC();
-  v32 = os_signpost_id_make_with_pointer(v31, self);
-  if (v32 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
+  v32 = ci_signpost_log_perspectiveAC(v22, v23);
+  v34 = ci_signpost_log_perspectiveAC(v32, v33);
+  v35 = os_signpost_id_make_with_pointer(v34, self);
+  if (v35 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
   {
-    v33 = v32;
-    if (os_signpost_enabled(v30))
+    v36 = v35;
+    if (os_signpost_enabled(v32))
     {
       *buf = 0;
-      _os_signpost_emit_with_name_impl(&dword_19CC36000, v30, OS_SIGNPOST_INTERVAL_END, v33, "NormalizeGradientMap", &unk_19CFBCBAE, buf, 2u);
+      _os_signpost_emit_with_name_impl(&dword_19CC36000, v32, OS_SIGNPOST_INTERVAL_END, v36, "NormalizeGradientMap", &unk_19CFBCBAE, buf, 2u);
     }
   }
 }
 
 - (void)thresholdGradientMap
 {
-  v36 = *MEMORY[0x1E69E9840];
-  v3 = ci_signpost_log_perspectiveAC();
-  v4 = ci_signpost_log_perspectiveAC();
-  v5 = os_signpost_id_make_with_pointer(v4, self);
-  if (v5 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
+  v39 = *MEMORY[0x1E69E9840];
+  v3 = ci_signpost_log_perspectiveAC(self, a2);
+  v5 = ci_signpost_log_perspectiveAC(v3, v4);
+  v6 = os_signpost_id_make_with_pointer(v5, self);
+  if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
   {
-    v6 = v5;
+    v7 = v6;
     if (os_signpost_enabled(v3))
     {
       gradMapW = self->gradMapW;
       gradMapH = self->gradMapH;
       *buf = 134218240;
-      v33 = gradMapW;
-      v34 = 2048;
-      v35 = gradMapH;
-      _os_signpost_emit_with_name_impl(&dword_19CC36000, v3, OS_SIGNPOST_INTERVAL_BEGIN, v6, "ThresholdGradientMap", "gradMapSize: %lu x %lu", buf, 0x16u);
+      v36 = gradMapW;
+      v37 = 2048;
+      v38 = gradMapH;
+      _os_signpost_emit_with_name_impl(&dword_19CC36000, v3, OS_SIGNPOST_INTERVAL_BEGIN, v7, "ThresholdGradientMap", "gradMapSize: %lu x %lu", buf, 0x16u);
     }
   }
 
   [(CIImage *)self->gradMap extent];
-  v10 = v9;
-  v12 = v11;
-  v14 = v13;
-  v16 = v15;
-  v17 = [(CIKernel *)CIColorKernel kernelWithInternalRepresentation:&CI::_gradientThresholdV2];
-  v31[0] = self->gradMap;
-  v31[1] = &unk_1F1085438;
-  v31[2] = &unk_1F1085448;
-  self->gradMap = -[CIColorKernel applyWithExtent:arguments:](v17, "applyWithExtent:arguments:", [MEMORY[0x1E695DEC8] arrayWithObjects:v31 count:3], v10, v12, v14, v16);
+  v11 = v10;
+  v13 = v12;
+  v15 = v14;
+  v17 = v16;
+  v18 = [(CIKernel *)CIColorKernel kernelWithInternalRepresentation:&CI::_gradientThresholdV2];
+  v34[0] = self->gradMap;
+  v34[1] = &unk_1F1085438;
+  v34[2] = &unk_1F1085448;
+  v19 = -[CIColorKernel applyWithExtent:arguments:](v18, "applyWithExtent:arguments:", [MEMORY[0x1E695DEC8] arrayWithObjects:v34 count:3], v11, v13, v15, v17);
+  self->gradMap = v19;
   if (CI::Perspective::CI_AUTOPERSPECTIVE_DEBUG(void)::onceToken != -1)
   {
     [CIPerspectiveAutoCalcV2 standardizeImage];
@@ -486,102 +492,104 @@
 
   if (CI::Perspective::CI_AUTOPERSPECTIVE_DEBUG(void)::dump == 1)
   {
-    v19 = CI::Perspective::gradDirImage(self->gradMap, v18);
-    v20 = [MEMORY[0x1E696AEC0] stringWithFormat:@"/tmp/PerspectiveV2_%@.png", @"4_GradMapThresholded_dir"];
-    v21 = MEMORY[0x1E695F050];
-    CI::Perspective::CIImageToFile(v19, v20, v22, *MEMORY[0x1E695F050]);
-    v24 = CI::Perspective::gradMagImage(self->gradMap, v23);
-    v25 = [MEMORY[0x1E696AEC0] stringWithFormat:@"/tmp/PerspectiveV2_%@.png", @"4_GradMapThresholded_mag"];
-    CI::Perspective::CIImageToFile(v24, v25, v26, *v21);
+    v21 = CI::Perspective::gradDirImage(self->gradMap, v20);
+    v22 = [MEMORY[0x1E696AEC0] stringWithFormat:@"/tmp/PerspectiveV2_%@.png", @"4_GradMapThresholded_dir"];
+    v23 = MEMORY[0x1E695F050];
+    CI::Perspective::CIImageToFile(v21, v22, v24, *MEMORY[0x1E695F050]);
+    v26 = CI::Perspective::gradMagImage(self->gradMap, v25);
+    v27 = [MEMORY[0x1E696AEC0] stringWithFormat:@"/tmp/PerspectiveV2_%@.png", @"4_GradMapThresholded_mag"];
+    v19 = CI::Perspective::CIImageToFile(v26, v27, v28, *v23);
   }
 
-  v27 = ci_signpost_log_perspectiveAC();
-  v28 = ci_signpost_log_perspectiveAC();
-  v29 = os_signpost_id_make_with_pointer(v28, self);
-  if (v29 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
+  v29 = ci_signpost_log_perspectiveAC(v19, v20);
+  v31 = ci_signpost_log_perspectiveAC(v29, v30);
+  v32 = os_signpost_id_make_with_pointer(v31, self);
+  if (v32 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
   {
-    v30 = v29;
-    if (os_signpost_enabled(v27))
+    v33 = v32;
+    if (os_signpost_enabled(v29))
     {
       *buf = 0;
-      _os_signpost_emit_with_name_impl(&dword_19CC36000, v27, OS_SIGNPOST_INTERVAL_END, v30, "ThresholdGradientMap", &unk_19CFBCBAE, buf, 2u);
+      _os_signpost_emit_with_name_impl(&dword_19CC36000, v29, OS_SIGNPOST_INTERVAL_END, v33, "ThresholdGradientMap", &unk_19CFBCBAE, buf, 2u);
     }
   }
 }
 
 - (void)extractLineSegments
 {
-  v26 = *MEMORY[0x1E69E9840];
-  v3 = ci_signpost_log_perspectiveAC();
-  v4 = ci_signpost_log_perspectiveAC();
-  v5 = os_signpost_id_make_with_pointer(v4, self);
-  if (v5 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
+  v34 = *MEMORY[0x1E69E9840];
+  v3 = ci_signpost_log_perspectiveAC(self, a2);
+  v5 = ci_signpost_log_perspectiveAC(v3, v4);
+  v6 = os_signpost_id_make_with_pointer(v5, self);
+  if ((v6 - 1) <= 0xFFFFFFFFFFFFFFFDLL)
   {
-    v6 = v5;
-    if (os_signpost_enabled(v3))
+    v8 = v6;
+    v6 = os_signpost_enabled(v3);
+    if (v6)
     {
       gradMapW = self->gradMapW;
       gradMapH = self->gradMapH;
       buf[0] = 134218240;
       *&buf[1] = gradMapW;
-      v24 = 2048;
-      v25 = gradMapH;
-      _os_signpost_emit_with_name_impl(&dword_19CC36000, v3, OS_SIGNPOST_INTERVAL_BEGIN, v6, "ExtractLineSegments", "gradMapSize: %lu x %lu", buf, 0x16u);
+      v32 = 2048;
+      v33 = gradMapH;
+      _os_signpost_emit_with_name_impl(&dword_19CC36000, v3, OS_SIGNPOST_INTERVAL_BEGIN, v8, "ExtractLineSegments", "gradMapSize: %lu x %lu", buf, 0x16u);
     }
   }
 
-  v9 = ci_signpost_log_perspectiveAC();
-  v10 = ci_signpost_log_perspectiveAC();
-  v11 = os_signpost_id_make_with_pointer(v10, self);
-  if (v11 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
+  v11 = ci_signpost_log_perspectiveAC(v6, v7);
+  v13 = ci_signpost_log_perspectiveAC(v11, v12);
+  v14 = os_signpost_id_make_with_pointer(v13, self);
+  if (v14 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
   {
-    v12 = v11;
-    if (os_signpost_enabled(v9))
+    v15 = v14;
+    if (os_signpost_enabled(v11))
     {
       LOWORD(buf[0]) = 0;
-      _os_signpost_emit_with_name_impl(&dword_19CC36000, v9, OS_SIGNPOST_INTERVAL_BEGIN, v12, "GradientMapRender", &unk_19CFBCBAE, buf, 2u);
+      _os_signpost_emit_with_name_impl(&dword_19CC36000, v11, OS_SIGNPOST_INTERVAL_BEGIN, v15, "GradientMapRender", &unk_19CFBCBAE, buf, 2u);
     }
   }
 
-  v13 = (8 * self->gradMapW + 15) & 0xFFFFFFFFFFFFFFF0;
-  self->gradMapRb = v13;
-  v14 = malloc_type_malloc(self->gradMapH * v13, 0x100004000313F17uLL);
-  *self->gradMapBmp = v14;
-  [(CIContext *)self->super.ctx render:self->gradMap toBitmap:v14 rowBytes:self->gradMapRb bounds:2310 format:0 colorSpace:0.0, 0.0, self->gradMapW, self->gradMapH];
-  v15 = ci_signpost_log_perspectiveAC();
-  v16 = ci_signpost_log_perspectiveAC();
-  v17 = os_signpost_id_make_with_pointer(v16, self);
-  if (v17 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
+  v16 = (8 * self->gradMapW + 15) & 0xFFFFFFFFFFFFFFF0;
+  self->gradMapRb = v16;
+  v17 = malloc_type_malloc(self->gradMapH * v16, 0x100004000313F17uLL);
+  *self->gradMapBmp = v17;
+  v18 = [(CIContext *)self->super.ctx render:self->gradMap toBitmap:v17 rowBytes:self->gradMapRb bounds:2310 format:0 colorSpace:0.0, 0.0, self->gradMapW, self->gradMapH];
+  v20 = ci_signpost_log_perspectiveAC(v18, v19);
+  v22 = ci_signpost_log_perspectiveAC(v20, v21);
+  v23 = os_signpost_id_make_with_pointer(v22, self);
+  if ((v23 - 1) <= 0xFFFFFFFFFFFFFFFDLL)
   {
-    v18 = v17;
-    if (os_signpost_enabled(v15))
+    v25 = v23;
+    v23 = os_signpost_enabled(v20);
+    if (v23)
     {
       LOWORD(buf[0]) = 0;
-      _os_signpost_emit_with_name_impl(&dword_19CC36000, v15, OS_SIGNPOST_INTERVAL_END, v18, "GradientMapRender", &unk_19CFBCBAE, buf, 2u);
+      _os_signpost_emit_with_name_impl(&dword_19CC36000, v20, OS_SIGNPOST_INTERVAL_END, v25, "GradientMapRender", &unk_19CFBCBAE, buf, 2u);
     }
   }
 
-  v19 = ci_signpost_log_perspectiveAC();
-  v20 = ci_signpost_log_perspectiveAC();
-  v21 = os_signpost_id_make_with_pointer(v20, self);
-  if (v21 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
+  v26 = ci_signpost_log_perspectiveAC(v23, v24);
+  v28 = ci_signpost_log_perspectiveAC(v26, v27);
+  v29 = os_signpost_id_make_with_pointer(v28, self);
+  if (v29 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
   {
-    v22 = v21;
-    if (os_signpost_enabled(v19))
+    v30 = v29;
+    if (os_signpost_enabled(v26))
     {
       LOWORD(buf[0]) = 0;
-      _os_signpost_emit_with_name_impl(&dword_19CC36000, v19, OS_SIGNPOST_INTERVAL_BEGIN, v22, "EDLines", &unk_19CFBCBAE, buf, 2u);
+      _os_signpost_emit_with_name_impl(&dword_19CC36000, v26, OS_SIGNPOST_INTERVAL_BEGIN, v30, "EDLines", &unk_19CFBCBAE, buf, 2u);
     }
   }
 
-  CI::Perspective::EDLines::Create();
+  CI::Perspective::EDLines::Create(*self->gradMapBmp, self->gradMapW, self->gradMapH, self->gradMapRb, 0);
 }
 
 - (void)clusterLineSegments
 {
   *a3 = 0;
-  *(a3 + 8) = 0;
-  *(a3 + 16) = 0;
+  a3[1] = 0;
+  a3[2] = 0;
   v7 = *a2;
   v6 = a2[1];
   v8 = ((v6 - *a2) >> 4) * ((v6 - *a2) >> 4);
@@ -594,13 +602,13 @@ LABEL_96:
     }
 
     std::__split_buffer<[CIPerspectiveAutoCalcV1 clusterLineSegments]::Hypothesis>::__split_buffer(&v102, v8 >> 1, 0, a3);
-    v9 = *(a3 + 8) - *a3;
+    v9 = a3[1] - *a3;
     v10 = *(&v102 + 1) - v9;
     memcpy((*(&v102 + 1) - v9), *a3, v9);
     v11 = *a3;
     *a3 = v10;
-    v12 = *(a3 + 16);
-    *(a3 + 8) = *v103;
+    v12 = a3[2];
+    *(a3 + 1) = *v103;
     v103[0] = v11;
     v103[1] = v12;
     *&v102 = v11;
@@ -738,8 +746,8 @@ LABEL_96:
 
             v33 = (v27 - v23) * (v32 - v29);
             v34 = v99[0];
-            v35 = *(a3 + 8);
-            v36 = *(a3 + 16);
+            v35 = a3[1];
+            v36 = a3[2];
             if (v35 >= v36)
             {
               v38 = 0xCCCCCCCCCCCCCCCDLL * ((v35 - *a3) >> 3);
@@ -773,14 +781,14 @@ LABEL_96:
               v42[3] = v34;
               v42[4].f32[0] = v33;
               v103[0] = &v42[5];
-              v43 = *(a3 + 8) - *a3;
+              v43 = a3[1] - *a3;
               v44 = *(&v102 + 1) - v43;
               memcpy((*(&v102 + 1) - v43), *a3, v43);
               v45 = *a3;
               *a3 = v44;
-              v46 = *(a3 + 16);
+              v46 = a3[2];
               v47 = v103[0];
-              *(a3 + 8) = *v103;
+              *(a3 + 1) = *v103;
               v103[0] = v45;
               v103[1] = v46;
               *&v102 = v45;
@@ -805,7 +813,7 @@ LABEL_96:
               v35[4].f32[0] = v33;
             }
 
-            *(a3 + 8) = v37;
+            a3[1] = v37;
           }
 
           ++*&v15;
@@ -824,7 +832,7 @@ LABEL_96:
   }
 
   v48 = *a3;
-  v49 = *(a3 + 8);
+  v49 = a3[1];
   if (0xCCCCCCCCCCCCCCCDLL * (&v49[-*a3] >> 3) > 0x28)
   {
     v50 = (v48 + 760);
@@ -955,8 +963,8 @@ LABEL_96:
 
     while (v60-- > 2);
     v82 = *a3;
-    v83 = *(a3 + 8);
-    v84 = v83 - *a3;
+    v83 = a3[1];
+    v84 = &v83[-*a3];
     v85 = 0xCCCCCCCCCCCCCCCDLL * (v84 >> 3);
     if (v85 > 0x27)
     {
@@ -970,7 +978,7 @@ LABEL_96:
 
     else
     {
-      v86 = *(a3 + 16);
+      v86 = a3[2];
       if (0xCCCCCCCCCCCCCCCDLL * ((v86 - v83) >> 3) < 40 - v85)
       {
         v87 = 0xCCCCCCCCCCCCCCCDLL * ((v86 - v82) >> 3);
@@ -995,13 +1003,13 @@ LABEL_96:
         v91 = 1560 - v84 - (1560 - v84) % 0x28u + 40;
         bzero(v103[0], v91);
         v103[0] = &v90[v91];
-        v92 = *(a3 + 8) - *a3;
+        v92 = a3[1] - *a3;
         v93 = *(&v102 + 1) - v92;
         memcpy((*(&v102 + 1) - v92), *a3, v92);
         v94 = *a3;
         *a3 = v93;
-        v95 = *(a3 + 16);
-        *(a3 + 8) = *v103;
+        v95 = a3[2];
+        *(a3 + 1) = *v103;
         v103[0] = v94;
         v103[1] = v95;
         *&v102 = v94;
@@ -1015,11 +1023,11 @@ LABEL_96:
       }
 
       v97 = 1560 - v84 - (1560 - v84) % 0x28u + 40;
-      bzero(*(a3 + 8), v97);
-      v96 = (v83 + v97);
+      bzero(a3[1], v97);
+      v96 = &v83[v97];
     }
 
-    *(a3 + 8) = v96;
+    a3[1] = v96;
   }
 }
 
@@ -1548,28 +1556,29 @@ LABEL_96:
 
 - (void)runOptimization
 {
-  v77 = *MEMORY[0x1E69E9840];
-  v3 = ci_signpost_log_perspectiveAC();
-  v4 = ci_signpost_log_perspectiveAC();
-  v5 = os_signpost_id_make_with_pointer(v4, self);
-  if (v5 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
+  v80 = *MEMORY[0x1E69E9840];
+  v3 = ci_signpost_log_perspectiveAC(self, a2);
+  v5 = ci_signpost_log_perspectiveAC(v3, v4);
+  v6 = os_signpost_id_make_with_pointer(v5, self);
+  if ((v6 - 1) <= 0xFFFFFFFFFFFFFFFDLL)
   {
-    v6 = v5;
-    if (os_signpost_enabled(v3))
+    v8 = v6;
+    v6 = os_signpost_enabled(v3);
+    if (v6)
     {
-      v7 = (self->vClusterInliers.__end_ - self->vClusterInliers.__begin_) >> 4;
-      v8 = (self->vClusterOutliers.__end_ - self->vClusterOutliers.__begin_) >> 4;
-      v9 = (self->hClusterInliers.__end_ - self->hClusterInliers.__begin_) >> 4;
-      v10 = (self->hClusterOutliers.__end_ - self->hClusterOutliers.__begin_) >> 4;
+      v9 = (self->vClusterInliers.__end_ - self->vClusterInliers.__begin_) >> 4;
+      v10 = (self->vClusterOutliers.__end_ - self->vClusterOutliers.__begin_) >> 4;
+      v11 = (self->hClusterInliers.__end_ - self->hClusterInliers.__begin_) >> 4;
+      v12 = (self->hClusterOutliers.__end_ - self->hClusterOutliers.__begin_) >> 4;
       *buf = 134218752;
-      v69 = v7;
-      v70 = 2048;
-      v71 = v8;
-      v72 = 2048;
-      v73 = v9;
-      v74 = 2048;
-      *v75 = v10;
-      _os_signpost_emit_with_name_impl(&dword_19CC36000, v3, OS_SIGNPOST_INTERVAL_BEGIN, v6, "runOptimization", "vClusterInliers: %lu vClusterOutliers: %luhClusterInliers: %lu hClusterOutliers: %lu", buf, 0x2Au);
+      v72 = v9;
+      v73 = 2048;
+      v74 = v10;
+      v75 = 2048;
+      v76 = v11;
+      v77 = 2048;
+      *v78 = v12;
+      _os_signpost_emit_with_name_impl(&dword_19CC36000, v3, OS_SIGNPOST_INTERVAL_BEGIN, v8, "runOptimization", "vClusterInliers: %lu vClusterOutliers: %luhClusterInliers: %lu hClusterOutliers: %lu", buf, 0x2Au);
     }
   }
 
@@ -1580,51 +1589,51 @@ LABEL_96:
   end = self->vLines.__end_;
   if (begin == end)
   {
-    v18 = self->hLines.__begin_;
-    v19 = self->hLines.__end_;
-    v14 = 0.0;
-    if (v18 == v19)
+    v20 = self->hLines.__begin_;
+    v21 = self->hLines.__end_;
+    v16 = 0.0;
+    if (v20 == v21)
     {
-      v31 = 0;
-      v29 = INFINITY;
-      v28 = 0.0;
+      v33 = 0;
+      v31 = INFINITY;
+      v30 = 0.0;
       rX = 0.0;
-      v24 = 0.0;
-      v23 = 0.0;
+      v26 = 0.0;
+      v25 = 0.0;
       rZ = 0.0;
-      v21 = INFINITY;
-      v32 = INFINITY;
-      *&v60 = 0;
+      v23 = INFINITY;
+      v34 = INFINITY;
+      *&v63 = 0;
       goto LABEL_24;
     }
 
 LABEL_11:
-    v23 = 0.0;
+    v25 = 0.0;
     do
     {
-      v25 = *v18;
-      v26 = *(v18 + 8);
-      v18 = (v18 + 16);
-      v27 = vsub_f32(v25, v26);
-      v23 = v23 + sqrtf(vaddv_f32(vmul_f32(v27, v27)));
+      v27 = *v20;
+      v28 = *(v20 + 8);
+      v20 = (v20 + 16);
+      v29 = vsub_f32(v27, v28);
+      v25 = v25 + sqrtf(vaddv_f32(vmul_f32(v29, v29)));
     }
 
-    while (v18 != v19);
-    v24 = v14 + v23;
-    v22 = v23 > 500.0;
-    if (v14 <= 500.0 || v23 <= 500.0)
+    while (v20 != v21);
+    v26 = v16 + v25;
+    v24 = v25 > 500.0;
+    if (v16 <= 500.0 || v25 <= 500.0)
     {
-      if (v14 <= 500.0)
+      if (v16 <= 500.0)
       {
-        *&v60 = 0;
-        v28 = 0.0;
-        v29 = INFINITY;
+        *&v63 = 0;
+        v30 = 0.0;
+        v31 = INFINITY;
         rX = 0.0;
         rZ = 0.0;
-        v21 = INFINITY;
-        v32 = INFINITY;
-        v31 = 0;
-        if (v23 <= 500.0)
+        v23 = INFINITY;
+        v34 = INFINITY;
+        v33 = 0;
+        if (v25 <= 500.0)
         {
           goto LABEL_24;
         }
@@ -1632,180 +1641,180 @@ LABEL_11:
         goto LABEL_22;
       }
 
-      *&v60 = 0;
+      *&v63 = 0;
       rZ = 0.0;
-      v21 = INFINITY;
+      v23 = INFINITY;
     }
 
     else
     {
-      v67[0] = MEMORY[0x1E69E9820];
-      v67[1] = 3221225472;
-      v67[2] = __42__CIPerspectiveAutoCalcV2_runOptimization__block_invoke;
-      v67[3] = &unk_1E75C3758;
-      v67[4] = self;
-      v64 = xmmword_19CF283D0;
-      v65 = 981668463;
-      v66 = 0;
-      _ZN2CI11Perspective9NMSimplexIDv3_fEC2ENS0_8NMParamsEU13block_pointerFfRKS2_EPS5_m(buf, &v64, v67, self->initialSimplexVerticesXYZ, 0x40uLL);
-      v60 = **&v75[6];
-      LODWORD(rZ) = *(*&v75[6] + 8);
-      v21 = *(*&v75[6] + 16);
-      v76 = *&v75[6];
-      operator delete(*&v75[6]);
-      v22 = 1;
+      v70[0] = MEMORY[0x1E69E9820];
+      v70[1] = 3221225472;
+      v70[2] = __42__CIPerspectiveAutoCalcV2_runOptimization__block_invoke;
+      v70[3] = &unk_1E75C3758;
+      v70[4] = self;
+      v67 = xmmword_19CF283D0;
+      v68 = 981668463;
+      v69 = 0;
+      _ZN2CI11Perspective9NMSimplexIDv3_fEC2ENS0_8NMParamsEU13block_pointerFfRKS2_EPS5_m(buf, &v67, v70, self->initialSimplexVerticesXYZ, 0x40uLL);
+      v63 = **&v78[6];
+      LODWORD(rZ) = *(*&v78[6] + 8);
+      v23 = *(*&v78[6] + 16);
+      v79 = *&v78[6];
+      operator delete(*&v78[6]);
+      v24 = 1;
     }
 
 LABEL_18:
-    v63[0] = MEMORY[0x1E69E9820];
-    v63[1] = 3221225472;
-    v63[2] = __42__CIPerspectiveAutoCalcV2_runOptimization__block_invoke_2;
-    v63[3] = &unk_1E75C3758;
-    v63[4] = self;
-    v64 = xmmword_19CF283D0;
-    v65 = 981668463;
-    v66 = 0;
-    _ZN2CI11Perspective9NMSimplexIDv2_fEC2ENS0_8NMParamsEU13block_pointerFfRKS2_EPS5_m(buf, &v64, v63, self->initialSimplexVerticesXZ, 0x10uLL);
-    LODWORD(v61) = **&v75[6];
-    LODWORD(v28) = HIDWORD(**&v75[6]);
-    v29 = *(*&v75[6] + 8);
-    v76 = *&v75[6];
-    operator delete(*&v75[6]);
-    if (!v22)
+    v66[0] = MEMORY[0x1E69E9820];
+    v66[1] = 3221225472;
+    v66[2] = __42__CIPerspectiveAutoCalcV2_runOptimization__block_invoke_2;
+    v66[3] = &unk_1E75C3758;
+    v66[4] = self;
+    v67 = xmmword_19CF283D0;
+    v68 = 981668463;
+    v69 = 0;
+    _ZN2CI11Perspective9NMSimplexIDv2_fEC2ENS0_8NMParamsEU13block_pointerFfRKS2_EPS5_m(buf, &v67, v66, self->initialSimplexVerticesXZ, 0x10uLL);
+    LODWORD(v64) = **&v78[6];
+    LODWORD(v30) = HIDWORD(**&v78[6]);
+    v31 = *(*&v78[6] + 8);
+    v79 = *&v78[6];
+    operator delete(*&v78[6]);
+    if (!v24)
     {
-      v31 = 0;
-      v32 = INFINITY;
+      v33 = 0;
+      v34 = INFINITY;
 LABEL_23:
-      rX = v61;
+      rX = v64;
       goto LABEL_24;
     }
 
-    rX = v61;
+    rX = v64;
 LABEL_22:
-    v61 = rX;
-    v62[0] = MEMORY[0x1E69E9820];
-    v62[1] = 3221225472;
-    v62[2] = __42__CIPerspectiveAutoCalcV2_runOptimization__block_invoke_3;
-    v62[3] = &unk_1E75C3758;
-    v62[4] = self;
-    v64 = xmmword_19CF283D0;
-    v65 = 981668463;
-    v66 = 0;
-    _ZN2CI11Perspective9NMSimplexIDv2_fEC2ENS0_8NMParamsEU13block_pointerFfRKS2_EPS5_m(buf, &v64, v62, self->initialSimplexVerticesYZ, 0x10uLL);
-    v59 = **&v75[6];
-    v32 = *(*&v75[6] + 8);
-    v76 = *&v75[6];
-    operator delete(*&v75[6]);
-    v31 = v59;
+    v64 = rX;
+    v65[0] = MEMORY[0x1E69E9820];
+    v65[1] = 3221225472;
+    v65[2] = __42__CIPerspectiveAutoCalcV2_runOptimization__block_invoke_3;
+    v65[3] = &unk_1E75C3758;
+    v65[4] = self;
+    v67 = xmmword_19CF283D0;
+    v68 = 981668463;
+    v69 = 0;
+    _ZN2CI11Perspective9NMSimplexIDv2_fEC2ENS0_8NMParamsEU13block_pointerFfRKS2_EPS5_m(buf, &v67, v65, self->initialSimplexVerticesYZ, 0x10uLL);
+    v62 = **&v78[6];
+    v34 = *(*&v78[6] + 8);
+    v79 = *&v78[6];
+    operator delete(*&v78[6]);
+    v33 = v62;
     goto LABEL_23;
   }
 
-  v14 = 0.0;
+  v16 = 0.0;
   do
   {
-    v15 = *begin;
-    v16 = *(begin + 8);
+    v17 = *begin;
+    v18 = *(begin + 8);
     begin = (begin + 16);
-    v17 = vsub_f32(v15, v16);
-    v14 = v14 + sqrtf(vaddv_f32(vmul_f32(v17, v17)));
+    v19 = vsub_f32(v17, v18);
+    v16 = v16 + sqrtf(vaddv_f32(vmul_f32(v19, v19)));
   }
 
   while (begin != end);
-  v18 = self->hLines.__begin_;
-  v19 = self->hLines.__end_;
-  if (v18 != v19)
+  v20 = self->hLines.__begin_;
+  v21 = self->hLines.__end_;
+  if (v20 != v21)
   {
     goto LABEL_11;
   }
 
-  *&v60 = 0;
+  *&v63 = 0;
   rZ = 0.0;
-  v21 = INFINITY;
-  if (v14 > 500.0)
+  v23 = INFINITY;
+  if (v16 > 500.0)
   {
-    v22 = 0;
-    v23 = 0.0;
-    v24 = v14;
+    v24 = 0;
+    v25 = 0.0;
+    v26 = v16;
     goto LABEL_18;
   }
 
-  v29 = INFINITY;
-  v28 = 0.0;
+  v31 = INFINITY;
+  v30 = 0.0;
   rX = 0.0;
-  v24 = v14;
-  v23 = 0.0;
-  v32 = INFINITY;
-  v31 = 0;
+  v26 = v16;
+  v25 = 0.0;
+  v34 = INFINITY;
+  v33 = 0;
 LABEL_24:
-  v33 = (v21 / v24) * 0.5;
-  v34 = (v29 / v14) * 0.75;
-  v35 = v32 / v23;
-  if (v33 > v34 || v33 > v35)
+  v35 = (v23 / v26) * 0.5;
+  v36 = (v31 / v16) * 0.75;
+  v37 = v34 / v25;
+  if (v35 > v36 || v35 > v37)
   {
-    if (v34 > v33 || v34 > v35)
+    if (v36 > v35 || v36 > v37)
     {
-      if (v35 > v33 || v35 > v34)
+      if (v37 > v35 || v37 > v36)
       {
-        v39 = 0;
+        v41 = 0;
         rX = p_solution->rX;
-        *&v31 = self->solution.rY;
+        *&v33 = self->solution.rY;
         rZ = self->solution.rZ;
-        v41 = 0.0;
-        v40 = INFINITY;
-        v42 = 0.0;
         v43 = 0.0;
+        v42 = INFINITY;
+        v44 = 0.0;
+        v45 = 0.0;
       }
 
       else
       {
         self->solutionType = 3;
         p_solution->rX = 0.0;
-        *&self->solution.rY = v31;
-        self->solution.cost = v32;
-        v45 = v33 > v34;
-        if (v33 <= v34)
+        *&self->solution.rY = v33;
+        self->solution.cost = v34;
+        v47 = v35 > v36;
+        if (v35 <= v36)
         {
-          v39 = 1;
+          v41 = 1;
         }
 
         else
         {
-          v39 = 2;
+          v41 = 2;
         }
 
-        if (v33 <= v34)
+        if (v35 <= v36)
         {
-          v40 = v21;
+          v42 = v23;
         }
 
         else
         {
-          v40 = v29;
+          v42 = v31;
         }
 
-        if (v33 <= v34)
+        if (v35 <= v36)
         {
-          v41 = rZ;
+          v43 = rZ;
         }
 
         else
         {
-          v41 = v28;
+          v43 = v30;
         }
 
-        v42 = *(&v60 + 1);
-        if (v45)
+        v44 = *(&v63 + 1);
+        if (v47)
         {
-          v42 = 0.0;
-          v43 = rX;
+          v44 = 0.0;
+          v45 = rX;
         }
 
         else
         {
-          v43 = *&v60;
+          v45 = *&v63;
         }
 
-        rZ = *(&v31 + 1);
+        rZ = *(&v33 + 1);
         rX = 0.0;
       }
     }
@@ -1815,149 +1824,149 @@ LABEL_24:
       self->solutionType = 2;
       p_solution->rX = rX;
       self->solution.rY = 0.0;
-      self->solution.rZ = v28;
-      self->solution.cost = v29;
-      v44 = v33 > v35;
-      if (v33 <= v35)
+      self->solution.rZ = v30;
+      self->solution.cost = v31;
+      v46 = v35 > v37;
+      if (v35 <= v37)
       {
-        v39 = 1;
+        v41 = 1;
       }
 
       else
       {
-        v39 = 3;
+        v41 = 3;
       }
 
-      if (v33 <= v35)
+      if (v35 <= v37)
       {
-        v40 = v21;
+        v42 = v23;
       }
 
       else
       {
-        v40 = v32;
+        v42 = v34;
       }
 
-      v41 = *(&v31 + 1);
-      if (!v44)
+      v43 = *(&v33 + 1);
+      if (!v46)
       {
-        v41 = rZ;
+        v43 = rZ;
       }
 
-      v42 = *(&v60 + 1);
-      v43 = *&v60;
-      if (v44)
+      v44 = *(&v63 + 1);
+      v45 = *&v63;
+      if (v46)
       {
-        v42 = *&v31;
+        v44 = *&v33;
       }
 
-      LODWORD(v31) = 0;
-      if (v44)
+      LODWORD(v33) = 0;
+      if (v46)
       {
-        v43 = 0.0;
+        v45 = 0.0;
       }
 
-      rZ = v28;
+      rZ = v30;
     }
   }
 
   else
   {
     self->solutionType = 1;
-    *&p_solution->rX = v60;
+    *&p_solution->rX = v63;
     self->solution.rZ = rZ;
-    self->solution.cost = v21;
-    v39 = 2;
-    v40 = v29;
-    v41 = v28;
-    v42 = 0.0;
-    v43 = rX;
-    LODWORD(v31) = DWORD1(v60);
-    rX = *&v60;
+    self->solution.cost = v23;
+    v41 = 2;
+    v42 = v31;
+    v43 = v30;
+    v44 = 0.0;
+    v45 = rX;
+    LODWORD(v33) = DWORD1(v63);
+    rX = *&v63;
   }
 
-  v46 = rX;
+  v48 = rX;
   self->unlimitedPitch = rX;
-  self->unlimitedYaw = *&v31;
+  self->unlimitedYaw = *&v33;
   self->unlimitedRoll = rZ;
-  v47 = -rX;
+  v49 = -rX;
   if (rX >= 0.0)
   {
-    v47 = rX;
+    v49 = rX;
   }
 
-  v48 = v47;
+  v50 = v49;
   pitchLimit = self->super.config.pitchLimit;
-  if (pitchLimit < v48)
+  if (pitchLimit < v50)
   {
     goto LABEL_76;
   }
 
-  v50 = -*&v31;
-  if (*&v31 >= 0.0)
+  v52 = -*&v33;
+  if (*&v33 >= 0.0)
   {
-    v50 = *&v31;
+    v52 = *&v33;
   }
 
-  if (self->super.config.yawLimit < v50)
+  if (self->super.config.yawLimit < v52)
   {
     goto LABEL_76;
   }
 
-  v51 = -rZ;
+  v53 = -rZ;
   if (rZ >= 0.0)
   {
-    v51 = rZ;
+    v53 = rZ;
   }
 
-  if (self->super.config.rollLimit >= v51)
+  if (self->super.config.rollLimit >= v53)
   {
-    self->super.pitch = v46;
-    self->super.yaw = *&v31;
+    self->super.pitch = v48;
+    self->super.yaw = *&v33;
     self->super.roll = rZ;
   }
 
   else
   {
 LABEL_76:
-    v52 = -v43;
+    v54 = -v45;
+    if (v45 >= 0.0)
+    {
+      v54 = v45;
+    }
+
+    if (pitchLimit < v54)
+    {
+      goto LABEL_85;
+    }
+
+    v55 = -v44;
+    if (v44 >= 0.0)
+    {
+      v55 = v44;
+    }
+
+    if (self->super.config.yawLimit < v55)
+    {
+      goto LABEL_85;
+    }
+
+    v56 = -v43;
     if (v43 >= 0.0)
     {
-      v52 = v43;
+      v56 = v43;
     }
 
-    if (pitchLimit < v52)
+    if (self->super.config.rollLimit >= v56)
     {
-      goto LABEL_85;
-    }
-
-    v53 = -v42;
-    if (v42 >= 0.0)
-    {
-      v53 = v42;
-    }
-
-    if (self->super.config.yawLimit < v53)
-    {
-      goto LABEL_85;
-    }
-
-    v54 = -v41;
-    if (v41 >= 0.0)
-    {
-      v54 = v41;
-    }
-
-    if (self->super.config.rollLimit >= v54)
-    {
-      self->solutionType = v39;
-      p_solution->rX = v43;
-      self->solution.rY = v42;
-      self->solution.rZ = v41;
-      self->solution.cost = v40;
-      self->super.pitch = v43;
-      self->super.yaw = v42;
-      self->super.roll = v41;
+      self->solutionType = v41;
+      p_solution->rX = v45;
+      self->solution.rY = v44;
+      self->solution.rZ = v43;
+      self->solution.cost = v42;
+      self->super.pitch = v45;
+      self->super.yaw = v44;
+      self->super.roll = v43;
     }
 
     else
@@ -1976,16 +1985,16 @@ LABEL_85:
 
   else
   {
-    v55 = ci_signpost_log_perspectiveAC();
-    v56 = ci_signpost_log_perspectiveAC();
-    v57 = os_signpost_id_make_with_pointer(v56, self);
-    if (v57 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
+    v57 = ci_signpost_log_perspectiveAC(v6, v7);
+    v59 = ci_signpost_log_perspectiveAC(v57, v58);
+    v60 = os_signpost_id_make_with_pointer(v59, self);
+    if (v60 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
     {
-      v58 = v57;
-      if (os_signpost_enabled(v55))
+      v61 = v60;
+      if (os_signpost_enabled(v57))
       {
         *buf = 0;
-        _os_signpost_emit_with_name_impl(&dword_19CC36000, v55, OS_SIGNPOST_INTERVAL_END, v58, "runOptimization", &unk_19CFBCBAE, buf, 2u);
+        _os_signpost_emit_with_name_impl(&dword_19CC36000, v57, OS_SIGNPOST_INTERVAL_END, v61, "runOptimization", &unk_19CFBCBAE, buf, 2u);
       }
     }
   }

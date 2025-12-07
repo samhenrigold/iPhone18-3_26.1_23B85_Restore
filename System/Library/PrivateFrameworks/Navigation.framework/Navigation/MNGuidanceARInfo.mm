@@ -203,7 +203,7 @@ LABEL_5:
 
 - (BOOL)isEqual:(id)equal
 {
-  v104 = *MEMORY[0x1E69E9840];
+  v103 = *MEMORY[0x1E69E9840];
   equalCopy = equal;
   if (equalCopy == self)
   {
@@ -233,10 +233,10 @@ LABEL_14:
     if (!(v15 | v16))
     {
 LABEL_9:
-      v92 = v15;
+      v91 = v15;
       v18 = arrowLabel2;
       arrowLabel = [(MNGuidanceARInfo *)self arrowLabel];
-      if (arrowLabel || ([(MNGuidanceARInfo *)v8 arrowLabel], (v98 = objc_claimAutoreleasedReturnValue()) != 0))
+      if (arrowLabel || ([(MNGuidanceARInfo *)v8 arrowLabel], (v97 = objc_claimAutoreleasedReturnValue()) != 0))
       {
         arrowLabel2 = [(MNGuidanceARInfo *)self arrowLabel];
         arrowLabel3 = [(MNGuidanceARInfo *)v8 arrowLabel];
@@ -252,15 +252,15 @@ LABEL_9:
       else
       {
         v20 = 0;
-        v98 = 0;
+        v97 = 0;
       }
 
       [(MNGuidanceARInfo *)self locationCoordinate];
-      v49 = v48;
-      v51 = v50;
-      v53 = v52;
+      v48 = v47;
+      v50 = v49;
+      v52 = v51;
       [(MNGuidanceARInfo *)v8 locationCoordinate];
-      if (vabdd_f64(v49, v56) >= 0.000000999999997 || vabdd_f64(v51, v54) >= 0.000000999999997)
+      if (vabdd_f64(v48, v55) >= 0.000000999999997 || vabdd_f64(v50, v53) >= 0.000000999999997)
       {
         v7 = 0;
         if ((v20 & 1) == 0)
@@ -271,12 +271,12 @@ LABEL_49:
           {
           }
 
-          v15 = v92;
+          v15 = v91;
           goto LABEL_87;
         }
       }
 
-      else if (vabdd_f64(v53, v55) < 0.000000999999997 && ([(MNGuidanceARInfo *)self locationCoordinateRange], [(MNGuidanceARInfo *)v8 locationCoordinateRange], GEOPolylineCoordinateRangeEqual()))
+      else if (vabdd_f64(v52, v54) < 0.000000999999997 && ([(MNGuidanceARInfo *)self locationCoordinateRange], [(MNGuidanceARInfo *)v8 locationCoordinateRange], GEOPolylineCoordinateRangeEqual()))
       {
         v7 = [(MNGuidanceARInfo *)self _isInstructionStringOutputEqual:v8];
         if ((v20 & 1) == 0)
@@ -306,65 +306,155 @@ LABEL_48:
 
     formatStrings = [v15 formatStrings];
     formatStrings2 = [arrowLabel2 formatStrings];
-    v25 = formatStrings;
-    v26 = formatStrings2;
-    v27 = v26;
-    if (v25 | v26)
+    v24 = formatStrings;
+    v25 = formatStrings2;
+    v26 = v25;
+    if (v24 | v25)
     {
-      if ((v25 == 0) != (v26 == 0) || (v39 = [v25 count], v39 != objc_msgSend(v27, "count")))
+      if ((v24 == 0) != (v25 == 0) || (v38 = [v24 count], v38 != objc_msgSend(v26, "count")))
       {
 
 LABEL_39:
         goto LABEL_84;
       }
 
-      v98 = v27;
-      v77 = arrowLabel2;
-      v93 = v15;
-      v101 = 0u;
-      v102 = 0u;
-      v99 = 0u;
+      v97 = v26;
+      v76 = arrowLabel2;
+      v92 = v15;
       v100 = 0u;
-      v84 = v25;
-      obj = v25;
-      v40 = [obj countByEnumeratingWithState:&v99 objects:v103 count:16];
-      if (v40)
+      v101 = 0u;
+      v98 = 0u;
+      v99 = 0u;
+      v83 = v24;
+      obj = v24;
+      v39 = [obj countByEnumeratingWithState:&v98 objects:v102 count:16];
+      if (v39)
       {
-        v41 = v40;
-        v42 = 0;
-        v97 = *v100;
+        v40 = v39;
+        v41 = 0;
+        v96 = *v99;
         while (2)
         {
-          for (i = 0; i != v41; ++i)
+          for (i = 0; i != v40; ++i)
           {
-            if (*v100 != v97)
+            if (*v99 != v96)
             {
               objc_enumerationMutation(obj);
             }
 
-            v44 = *(*(&v99 + 1) + 8 * i);
-            v45 = [v98 objectAtIndexedSubscript:{v42, v77}];
-            if (v44 | v45)
+            v43 = *(*(&v98 + 1) + 8 * i);
+            v44 = [v97 objectAtIndexedSubscript:{v41, v76}];
+            if (v43 | v44)
             {
-              v46 = v45;
-              v47 = [v44 isEqual:v45];
+              v45 = v44;
+              v46 = [v43 isEqual:v44];
 
-              if (!v47)
+              if (!v46)
               {
 
-                v27 = v98;
-                v15 = v93;
-                arrowLabel2 = v77;
-                v25 = v84;
+                v26 = v97;
+                v15 = v92;
+                arrowLabel2 = v76;
+                v24 = v83;
                 goto LABEL_39;
               }
             }
 
-            ++v42;
+            ++v41;
           }
 
-          v41 = [obj countByEnumeratingWithState:&v99 objects:v103 count:16];
-          if (v41)
+          v40 = [obj countByEnumeratingWithState:&v98 objects:v102 count:16];
+          if (v40)
+          {
+            continue;
+          }
+
+          break;
+        }
+      }
+
+      v15 = v92;
+      arrowLabel2 = v76;
+      v24 = v83;
+    }
+
+    else
+    {
+      v97 = v25;
+    }
+
+    separators = [v15 separators];
+    separators2 = [arrowLabel2 separators];
+    v29 = separators;
+    v30 = separators2;
+    v31 = v29;
+    v95 = v30;
+    if (v29 | v30)
+    {
+      v56 = v30;
+      if ((v31 == 0) != (v30 == 0) || (v57 = [v31 count], v58 = v57 == objc_msgSend(v95, "count"), v56 = v95, !v58))
+      {
+
+        v67 = v56;
+LABEL_68:
+        v68 = v97;
+LABEL_83:
+
+LABEL_84:
+LABEL_85:
+
+        goto LABEL_86;
+      }
+
+      v81 = v31;
+      v84 = v24;
+      v77 = arrowLabel2;
+      v93 = v15;
+      v100 = 0u;
+      v101 = 0u;
+      v98 = 0u;
+      v99 = 0u;
+      v85 = v31;
+      v59 = [v85 countByEnumeratingWithState:&v98 objects:v102 count:16];
+      if (v59)
+      {
+        v60 = v59;
+        v61 = 0;
+        obja = *v99;
+        while (2)
+        {
+          for (j = 0; j != v60; ++j)
+          {
+            if (*v99 != obja)
+            {
+              objc_enumerationMutation(v85);
+            }
+
+            v63 = *(*(&v98 + 1) + 8 * j);
+            v64 = [v56 objectAtIndexedSubscript:{v61, v77}];
+            if (v63 | v64)
+            {
+              v65 = v64;
+              v66 = [v63 isEqual:v64];
+
+              if (!v66)
+              {
+
+                v67 = v95;
+                v15 = v93;
+                arrowLabel2 = v77;
+                v31 = v81;
+                v24 = v84;
+                goto LABEL_68;
+              }
+            }
+
+            ++v61;
+            v56 = v95;
+          }
+
+          v60 = [v85 countByEnumeratingWithState:&v98 objects:v102 count:16];
+          if (v60)
           {
             continue;
           }
@@ -375,113 +465,23 @@ LABEL_39:
 
       v15 = v93;
       arrowLabel2 = v77;
-      v25 = v84;
+      v24 = v84;
     }
 
     else
     {
-      v98 = v26;
-    }
-
-    separators = [v15 separators];
-    separators2 = [arrowLabel2 separators];
-    v30 = separators;
-    v31 = separators2;
-    v32 = v30;
-    v96 = v31;
-    if (v30 | v31)
-    {
-      v57 = v31;
-      if ((v32 == 0) != (v31 == 0) || (v58 = [v32 count], v59 = v58 == objc_msgSend(v96, "count"), v57 = v96, !v59))
-      {
-
-        v68 = v57;
-LABEL_68:
-        v69 = v98;
-LABEL_83:
-
-LABEL_84:
-LABEL_85:
-
-        goto LABEL_86;
-      }
-
-      v82 = v32;
-      v85 = v25;
-      v78 = arrowLabel2;
-      v94 = v15;
-      v101 = 0u;
-      v102 = 0u;
-      v99 = 0u;
-      v100 = 0u;
-      v86 = v32;
-      v60 = [v86 countByEnumeratingWithState:&v99 objects:v103 count:16];
-      if (v60)
-      {
-        v61 = v60;
-        v62 = 0;
-        obja = *v100;
-        while (2)
-        {
-          for (j = 0; j != v61; ++j)
-          {
-            if (*v100 != obja)
-            {
-              objc_enumerationMutation(v86);
-            }
-
-            v64 = *(*(&v99 + 1) + 8 * j);
-            v65 = [v57 objectAtIndexedSubscript:{v62, v78}];
-            if (v64 | v65)
-            {
-              v66 = v65;
-              v67 = [v64 isEqual:v65];
-
-              if (!v67)
-              {
-
-                v68 = v96;
-                v15 = v94;
-                arrowLabel2 = v78;
-                v32 = v82;
-                v25 = v85;
-                goto LABEL_68;
-              }
-            }
-
-            ++v62;
-            v57 = v96;
-          }
-
-          v61 = [v86 countByEnumeratingWithState:&v99 objects:v103 count:16];
-          if (v61)
-          {
-            continue;
-          }
-
-          break;
-        }
-      }
-
-      v15 = v94;
-      arrowLabel2 = v78;
-      v25 = v85;
-    }
-
-    else
-    {
-      v82 = v30;
+      v81 = v29;
     }
 
     formatTokens = [v15 formatTokens];
     formatTokens2 = [arrowLabel2 formatTokens];
-    v35 = formatTokens;
-    v36 = formatTokens2;
-    v37 = v36;
-    if (!(v35 | v36))
+    v34 = formatTokens;
+    v35 = formatTokens2;
+    v36 = v35;
+    if (!(v34 | v35))
     {
-      v81 = v35;
-      v83 = v25;
+      v80 = v34;
+      v82 = v24;
 LABEL_23:
       arrowLabel3 = [v15 alternativeString];
       alternativeString = [arrowLabel2 alternativeString];
@@ -491,7 +491,7 @@ LABEL_23:
         goto LABEL_9;
       }
 
-      v76 = alternativeString;
+      v75 = alternativeString;
       objc = [arrowLabel3 isEqual:alternativeString];
 
       if (objc)
@@ -506,55 +506,54 @@ LABEL_87:
       goto LABEL_14;
     }
 
-    if ((v35 == 0) == (v36 == 0))
+    if ((v34 == 0) == (v35 == 0))
     {
-      v81 = v35;
-      v70 = [v35 count];
-      v59 = v70 == [v37 count];
-      v35 = v81;
-      if (v59)
+      v80 = v34;
+      v69 = [v34 count];
+      v58 = v69 == [v36 count];
+      v34 = v80;
+      if (v58)
       {
-        v83 = v25;
-        v79 = arrowLabel2;
-        v95 = v15;
-        v101 = 0u;
-        v102 = 0u;
-        v99 = 0u;
+        v82 = v24;
+        v78 = arrowLabel2;
+        v94 = v15;
         v100 = 0u;
-        v80 = v81;
-        objb = [v80 countByEnumeratingWithState:&v99 objects:v103 count:16];
+        v101 = 0u;
+        v98 = 0u;
+        v99 = 0u;
+        v79 = v80;
+        objb = [v79 countByEnumeratingWithState:&v98 objects:v102 count:16];
         if (objb)
         {
-          v71 = 0;
-          v87 = *v100;
+          v70 = 0;
+          v86 = *v99;
           while (2)
           {
-            for (k = 0; k != objb; k = k + 1)
+            for (k = 0; k != objb; ++k)
             {
-              if (*v100 != v87)
+              if (*v99 != v86)
               {
-                objc_enumerationMutation(v80);
+                objc_enumerationMutation(v79);
               }
 
-              v73 = *(*(&v99 + 1) + 8 * k);
-              v74 = v37;
-              v75 = [v37 objectAtIndexedSubscript:{v71, v79}];
-              LODWORD(v73) = GEOServerFormatTokenEqual();
+              v72 = v36;
+              v73 = [v36 objectAtIndexedSubscript:{v70, v78}];
+              v74 = GEOServerFormatTokenEqual();
 
-              if (!v73)
+              if (!v74)
               {
 
-                v15 = v95;
-                arrowLabel2 = v79;
-                v25 = v83;
+                v15 = v94;
+                arrowLabel2 = v78;
+                v24 = v82;
                 goto LABEL_82;
               }
 
-              ++v71;
-              v37 = v74;
+              ++v70;
+              v36 = v72;
             }
 
-            objb = [v80 countByEnumeratingWithState:&v99 objects:v103 count:16];
+            objb = [v79 countByEnumeratingWithState:&v98 objects:v102 count:16];
             if (objb)
             {
               continue;
@@ -564,23 +563,22 @@ LABEL_87:
           }
         }
 
-        v15 = v95;
-        arrowLabel2 = v79;
+        v15 = v94;
+        arrowLabel2 = v78;
         goto LABEL_23;
       }
     }
 
 LABEL_82:
-    v68 = v96;
-    v69 = v98;
-    v32 = v82;
+    v67 = v95;
+    v68 = v97;
+    v31 = v81;
     goto LABEL_83;
   }
 
   v7 = 0;
 LABEL_15:
 
-  v21 = *MEMORY[0x1E69E9840];
   return v7;
 }
 
@@ -822,16 +820,12 @@ LABEL_70:
         v6 = v12;
       }
 
-      start = self->_locationCoordinateRange.start;
-      end = self->_locationCoordinateRange.end;
       if (GEOPolylineCoordinateRangeIsValid())
       {
-        v15 = self->_locationCoordinateRange.start;
-        v16 = self->_locationCoordinateRange.end;
-        v17 = GEOPolylineCoordinateRangeAsString();
-        v18 = [v6 stringByAppendingFormat:@"\n\tlocationCoordinateRange %@", v17];
+        v13 = GEOPolylineCoordinateRangeAsString();
+        v14 = [v6 stringByAppendingFormat:@"\n\tlocationCoordinateRange %@", v13];
 
-        v6 = v18;
+        v6 = v14;
       }
 
       return v6;
@@ -1074,14 +1068,10 @@ LABEL_70:
         [v10 appendFormat:@" | %.2lf", *&self->_heading];
       }
 
-      start = self->_locationCoordinateRange.start;
-      end = self->_locationCoordinateRange.end;
       if (GEOPolylineCoordinateRangeIsValid())
       {
-        v15 = self->_locationCoordinateRange.start;
-        v16 = self->_locationCoordinateRange.end;
-        v17 = GEOPolylineCoordinateRangeAsString();
-        [v10 appendFormat:@" | %@", v17];
+        v13 = GEOPolylineCoordinateRangeAsString();
+        [v10 appendFormat:@" | %@", v13];
       }
 
       [v10 appendFormat:@" | %@", self->_guidanceEventID];

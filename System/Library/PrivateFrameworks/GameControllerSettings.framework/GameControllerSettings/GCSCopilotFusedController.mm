@@ -139,15 +139,15 @@
 
 - (GCSJSONObject)jsonObject
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277CBEB38];
   v4 = *&self->_fusedControllerIdentifier;
-  v11[0] = @"fusedControllerIdentifier";
-  v11[1] = @"pilotIdentifier";
-  v12 = v4;
-  v11[2] = @"copilotIdentifier";
+  v10[0] = @"fusedControllerIdentifier";
+  v10[1] = @"pilotIdentifier";
+  v11 = v4;
+  v10[2] = @"copilotIdentifier";
   copilotIdentifier = self->_copilotIdentifier;
-  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v12 forKeys:v11 count:3];
+  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v11 forKeys:v10 count:3];
   v6 = [v3 dictionaryWithDictionary:v5];
 
   modifiedDate = self->_modifiedDate;
@@ -156,8 +156,6 @@
     jsonObject = [(NSDate *)modifiedDate jsonObject];
     [v6 setObject:jsonObject forKeyedSubscript:@"modifiedDate"];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v6;
 }

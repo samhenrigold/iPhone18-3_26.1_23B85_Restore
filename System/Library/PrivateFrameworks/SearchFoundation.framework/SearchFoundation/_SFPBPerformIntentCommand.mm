@@ -377,36 +377,28 @@ LABEL_24:
 
 - (void)setBiomeStreamIdentifier:(id)identifier
 {
-  v4 = [identifier copy];
-  biomeStreamIdentifier = self->_biomeStreamIdentifier;
-  self->_biomeStreamIdentifier = v4;
+  self->_biomeStreamIdentifier = [identifier copy];
 
   MEMORY[0x1EEE66BB8]();
 }
 
 - (void)setIntentMessageData:(id)data
 {
-  v4 = [data copy];
-  intentMessageData = self->_intentMessageData;
-  self->_intentMessageData = v4;
+  self->_intentMessageData = [data copy];
 
   MEMORY[0x1EEE66BB8]();
 }
 
 - (void)setApplicationBundleIdentifier:(id)identifier
 {
-  v4 = [identifier copy];
-  applicationBundleIdentifier = self->_applicationBundleIdentifier;
-  self->_applicationBundleIdentifier = v4;
+  self->_applicationBundleIdentifier = [identifier copy];
 
   MEMORY[0x1EEE66BB8]();
 }
 
 - (void)setIntentMessageName:(id)name
 {
-  v4 = [name copy];
-  intentMessageName = self->_intentMessageName;
-  self->_intentMessageName = v4;
+  self->_intentMessageName = [name copy];
 
   MEMORY[0x1EEE66BB8]();
 }

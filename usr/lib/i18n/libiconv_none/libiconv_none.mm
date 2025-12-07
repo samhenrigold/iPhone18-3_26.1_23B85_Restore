@@ -63,7 +63,6 @@ uint64_t _citrus_iconv_none_iconv_convert(_DWORD *a1, const void **a2, unint64_t
         {
           v20 = *v8++;
           *v9++ = v20;
-          v21 = *(v18 + 16);
           (*(v18 + 8))();
           --v19;
         }

@@ -15,26 +15,26 @@ void FigStartCaptureServers()
     {
       v1 = BundleWithIdentifier;
       v2 = [objc_alloc(MEMORY[0x277CBEB18]) initWithObjects:{@"FigCaptureMemoryReporterStart", @"FigExternalStorageDeviceManagerServerStart", @"FigCapturePreloadShaders", @"FigCaptureSourceServerStart", @"FigCameraViewfinderServerStart", @"FigCaptureSessionServerStart", @"FigFlashlightServerStart", @"FigCaptureDeferredContainerManagerServerStart", 0}];
+      v12 = 0u;
       v13 = 0u;
       v14 = 0u;
       v15 = 0u;
-      v16 = 0u;
-      v3 = [v2 countByEnumeratingWithState:&v13 objects:v12 count:16];
+      v3 = [v2 countByEnumeratingWithState:&v12 objects:v11 count:16];
       if (v3)
       {
         v4 = v3;
-        v5 = *v14;
+        v5 = *v13;
         v6 = MEMORY[0x277D86220];
         do
         {
           for (i = 0; i != v4; ++i)
           {
-            if (*v14 != v5)
+            if (*v13 != v5)
             {
               objc_enumerationMutation(v2);
             }
 
-            v8 = *(*(&v13 + 1) + 8 * i);
+            v8 = *(*(&v12 + 1) + 8 * i);
             FunctionPointerForName = CFBundleGetFunctionPointerForName(v1, v8);
             if (FunctionPointerForName)
             {
@@ -43,11 +43,11 @@ void FigStartCaptureServers()
 
             else if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
             {
-              FigStartCaptureServers_cold_1(buf, v8, &v11);
+              FigStartCaptureServers_cold_1(buf, v8, &buf[4]);
             }
           }
 
-          v4 = [v2 countByEnumeratingWithState:&v13 objects:v12 count:16];
+          v4 = [v2 countByEnumeratingWithState:&v12 objects:v11 count:16];
         }
 
         while (v4);

@@ -14,17 +14,17 @@ void __40___UIContentEffectManager_sharedManager__block_invoke()
   *(qword_1ED4A2248 + 8) = v2;
 }
 
-void __73___UIContentEffectManager_compatibleEffectForKey_descriptor_constructor___block_invoke(uint64_t a1, void *a2, void *a3, _BYTE *a4)
+void __73___UIContentEffectManager_compatibleEffectForKey_descriptor_constructor___block_invoke(void *a1, void *a2, void *a3, _BYTE *a4)
 {
   v11 = a2;
   v8 = a3;
   v9 = [v8 descriptor];
-  canTransitionBetweenEffects = _canTransitionBetweenEffects(v9, *(a1 + 32));
+  canTransitionBetweenEffects = _canTransitionBetweenEffects(v9, a1[4]);
 
   if (canTransitionBetweenEffects)
   {
-    objc_storeStrong((*(*(a1 + 40) + 8) + 40), a2);
-    objc_storeStrong((*(*(a1 + 48) + 8) + 40), a3);
+    objc_storeStrong((*(a1[5] + 8) + 40), a2);
+    objc_storeStrong((*(a1[6] + 8) + 40), a3);
     *a4 = 1;
   }
 }

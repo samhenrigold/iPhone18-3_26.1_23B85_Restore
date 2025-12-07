@@ -47,95 +47,99 @@
 - (id)updateCacheWithActivity:(id)activity
 {
   activityCopy = activity;
-  if (![activityCopy didDefer])
+  didDefer = [activityCopy didDefer];
+  if (!didDefer)
   {
-    v5 = +[ATXWidgetDescriptorCache sharedInstance];
-    homeScreenDescriptors = [v5 homeScreenDescriptors];
-    v21 = 0;
-    v8 = [(ATXOnboardingStackWidgetCacheManager *)self _mapDescriptorsToAppLaunchData:homeScreenDescriptors error:&v21];
-    v9 = v21;
-    if (v8)
+    v6 = +[ATXWidgetDescriptorCache sharedInstance];
+    homeScreenDescriptors = [v6 homeScreenDescriptors];
+    v26 = 0;
+    v9 = [(ATXOnboardingStackWidgetCacheManager *)self _mapDescriptorsToAppLaunchData:homeScreenDescriptors error:&v26];
+    v10 = v26;
+    v11 = v10;
+    if (v9)
     {
-      if (![activityCopy didDefer])
+      didDefer2 = [activityCopy didDefer];
+      if (!didDefer2)
       {
-        v11 = objc_autoreleasePoolPush();
-        v12 = MEMORY[0x1E696AD98];
-        v13 = objc_opt_new();
-        v10 = [v12 numberWithBool:{objc_msgSend(v13, "hasiCloudFamily")}];
+        v14 = objc_autoreleasePoolPush();
+        v15 = MEMORY[0x1E696AD98];
+        v16 = objc_opt_new();
+        v13 = [v15 numberWithBool:{objc_msgSend(v16, "hasiCloudFamily")}];
 
-        objc_autoreleasePoolPop(v11);
-        if ([activityCopy didDefer])
+        objc_autoreleasePoolPop(v14);
+        didDefer3 = [activityCopy didDefer];
+        if (didDefer3)
         {
-          v14 = __atxlog_handle_home_screen();
-          if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+          v18 = __atxlog_handle_home_screen(didDefer3);
+          if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 0;
-            _os_log_impl(&dword_1BF549000, v14, OS_LOG_TYPE_DEFAULT, "ATXOnboardingStackWidgetCacheManager: Activity was deferred after fetching iCloud family state, stopping early", buf, 2u);
+            _os_log_impl(&dword_1BF549000, v18, OS_LOG_TYPE_DEFAULT, "ATXOnboardingStackWidgetCacheManager: Activity was deferred after fetching iCloud family state, stopping early", buf, 2u);
           }
 
-          v6 = 0;
-          v15 = v9;
+          v7 = 0;
+          v19 = v11;
         }
 
         else
         {
-          v14 = [(ATXOnboardingStackWidgetCacheManager *)self _sortAndFilterOutLeastUsed3PWidgets:v8];
-          v16 = [ATXOnboardingStackWidgetCache alloc];
-          v17 = objc_opt_new();
-          v6 = [(ATXOnboardingStackWidgetCache *)v16 initWithAppLaunchDictionary:v14 cacheUpdateDate:v17 hasiCloudFamily:v10];
+          v18 = [(ATXOnboardingStackWidgetCacheManager *)self _sortAndFilterOutLeastUsed3PWidgets:v9];
+          v20 = [ATXOnboardingStackWidgetCache alloc];
+          v21 = objc_opt_new();
+          v7 = [(ATXOnboardingStackWidgetCache *)v20 initWithAppLaunchDictionary:v18 cacheUpdateDate:v21 hasiCloudFamily:v13];
 
-          v20 = v9;
-          LOBYTE(v17) = [(ATXOnboardingStackWidgetCacheManager *)self _writeOnboardingWidgetStackCache:v6 withError:&v20];
-          v15 = v20;
+          v25 = v11;
+          LOBYTE(v21) = [(ATXOnboardingStackWidgetCacheManager *)self _writeOnboardingWidgetStackCache:v7 withError:&v25];
+          v19 = v25;
 
-          if ((v17 & 1) == 0)
+          if ((v21 & 1) == 0)
           {
-            v18 = __atxlog_handle_home_screen();
-            if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+            v23 = __atxlog_handle_home_screen(v22);
+            if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
             {
-              [(ATXOnboardingStackWidgetCacheManager *)v15 updateCacheWithActivity:v18];
+              [(ATXOnboardingStackWidgetCacheManager *)v19 updateCacheWithActivity:v23];
             }
           }
         }
 
-        v9 = v15;
+        v11 = v19;
         goto LABEL_21;
       }
 
-      v10 = __atxlog_handle_home_screen();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+      v13 = __atxlog_handle_home_screen(didDefer2);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_1BF549000, v10, OS_LOG_TYPE_DEFAULT, "ATXOnboardingStackWidgetCacheManager: Activity was deferred after fetching app launch data, stopping early", buf, 2u);
+        _os_log_impl(&dword_1BF549000, v13, OS_LOG_TYPE_DEFAULT, "ATXOnboardingStackWidgetCacheManager: Activity was deferred after fetching app launch data, stopping early", buf, 2u);
       }
     }
 
     else
     {
-      v10 = __atxlog_handle_home_screen();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      v13 = __atxlog_handle_home_screen(v10);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
-        [(ATXOnboardingStackWidgetCacheManager *)v9 updateCacheWithActivity:v10];
+        [(ATXOnboardingStackWidgetCacheManager *)v11 updateCacheWithActivity:v13];
       }
     }
 
-    v6 = 0;
+    v7 = 0;
 LABEL_21:
 
     goto LABEL_22;
   }
 
-  v5 = __atxlog_handle_home_screen();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v6 = __atxlog_handle_home_screen(didDefer);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_1BF549000, v5, OS_LOG_TYPE_DEFAULT, "ATXOnboardingStackWidgetCacheManager: Activity was deferred, stopping early", buf, 2u);
+    _os_log_impl(&dword_1BF549000, v6, OS_LOG_TYPE_DEFAULT, "ATXOnboardingStackWidgetCacheManager: Activity was deferred, stopping early", buf, 2u);
   }
 
-  v6 = 0;
+  v7 = 0;
 LABEL_22:
 
-  return v6;
+  return v7;
 }
 
 - (id)_sortAndFilterOutLeastUsed3PWidgets:(id)widgets
@@ -366,7 +370,7 @@ id __77__ATXOnboardingStackWidgetCacheManager__mapDescriptorsToAppLaunchData_err
 {
   v3 = objc_alloc(MEMORY[0x1E698AFF0]);
   cachePath = self->_cachePath;
-  v5 = __atxlog_handle_home_screen();
+  v5 = __atxlog_handle_home_screen(v3);
   v6 = [v3 initWithCacheFilePath:cachePath loggingHandle:v5 debugName:@"onboarding widget stacks"];
 
   return v6;

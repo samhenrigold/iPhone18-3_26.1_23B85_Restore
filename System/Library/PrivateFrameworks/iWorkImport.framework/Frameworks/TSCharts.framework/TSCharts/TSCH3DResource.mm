@@ -84,7 +84,7 @@
   v9 = bufferCopy;
   if (bufferCopy)
   {
-    objc_msgSend_bufferInfo(bufferCopy, v5, v6, v7, v8);
+    objc_msgSend_bufferInfo(bufferCopy, v6, v7, v8);
   }
 
   else

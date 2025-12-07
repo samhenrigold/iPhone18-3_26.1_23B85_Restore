@@ -140,7 +140,7 @@ void __56__ATLegacySyncSessionTask_reconcileWithAnchor_syncType___block_invoke(u
   _Block_object_dispose(v13, 8);
 }
 
-uint64_t __56__ATLegacySyncSessionTask_reconcileWithAnchor_syncType___block_invoke_2(uint64_t a1)
+void *__56__ATLegacySyncSessionTask_reconcileWithAnchor_syncType___block_invoke_2(uint64_t a1)
 {
   v23 = *MEMORY[0x277D85DE8];
   result = [*(a1 + 32) isCancelled];

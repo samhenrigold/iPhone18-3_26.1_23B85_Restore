@@ -137,7 +137,6 @@ LABEL_6:
   has = self->_has;
   if ((has & 4) != 0)
   {
-    absolute = self->_absolute;
     PBDataWriterWriteBOOLField();
     has = self->_has;
     if ((has & 8) == 0)
@@ -157,7 +156,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  integratedDisplay = self->_integratedDisplay;
   PBDataWriterWriteBOOLField();
   has = self->_has;
   if ((has & 2) == 0)
@@ -172,12 +170,10 @@ LABEL_4:
   }
 
 LABEL_11:
-  screenSizeWidth = self->_screenSizeWidth;
   PBDataWriterWriteFloatField();
   if (*&self->_has)
   {
 LABEL_5:
-    screenSizeHeight = self->_screenSizeHeight;
     PBDataWriterWriteFloatField();
   }
 
@@ -306,7 +302,6 @@ LABEL_5:
       goto LABEL_26;
     }
 
-    v5 = *(equalCopy + 16);
     if (self->_absolute)
     {
       if ((*(equalCopy + 16) & 1) == 0)
@@ -334,7 +329,7 @@ LABEL_5:
     }
 
 LABEL_26:
-    v7 = 0;
+    v5 = 0;
     goto LABEL_27;
   }
 
@@ -343,7 +338,6 @@ LABEL_26:
     goto LABEL_26;
   }
 
-  v6 = *(equalCopy + 17);
   if (self->_integratedDisplay)
   {
     if ((*(equalCopy + 17) & 1) == 0)
@@ -371,7 +365,7 @@ LABEL_6:
     goto LABEL_26;
   }
 
-  v7 = (*(equalCopy + 20) & 1) == 0;
+  v5 = (*(equalCopy + 20) & 1) == 0;
   if (*&self->_has)
   {
     if ((*(equalCopy + 20) & 1) == 0 || self->_screenSizeHeight != *(equalCopy + 2))
@@ -379,12 +373,12 @@ LABEL_6:
       goto LABEL_26;
     }
 
-    v7 = 1;
+    v5 = 1;
   }
 
 LABEL_27:
 
-  return v7;
+  return v5;
 }
 
 - (unint64_t)hash

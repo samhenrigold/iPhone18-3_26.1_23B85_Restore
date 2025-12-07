@@ -150,7 +150,7 @@
   }
 
   v7 = [[SBUpdateLayoutSwitcherEventResponse alloc] initWithOptions:8 updateMode:3];
-  v8 = SBAppendSwitcherModifierResponse(v7, v5);
+  v8 = SBAppendSwitcherModifierResponse();
 
   v5 = v8;
 LABEL_9:
@@ -164,7 +164,7 @@ LABEL_9:
     {
       self->_unblurred = v10;
       v11 = [[SBUpdateLayoutSwitcherEventResponse alloc] initWithOptions:64 updateMode:3];
-      v12 = SBAppendSwitcherModifierResponse(v11, v5);
+      v12 = SBAppendSwitcherModifierResponse();
 
       v5 = v12;
     }
@@ -183,7 +183,7 @@ LABEL_9:
       {
         self->_tucked = v13;
         v14 = [[SBUpdateLayoutSwitcherEventResponse alloc] initWithOptions:64 updateMode:3];
-        v15 = SBAppendSwitcherModifierResponse(v14, v5);
+        v15 = SBAppendSwitcherModifierResponse();
 
         v5 = v15;
       }
@@ -219,7 +219,7 @@ LABEL_9:
     {
       self->_shouldClipRegionAboveSystemAperture = 0;
       v21 = [[SBUpdateLayoutSwitcherEventResponse alloc] initWithOptions:64 updateMode:3];
-      v22 = SBAppendSwitcherModifierResponse(v21, v5);
+      v22 = SBAppendSwitcherModifierResponse();
 
       v5 = v22;
     }
@@ -249,7 +249,7 @@ LABEL_9:
   if (direction == 1)
   {
     v9 = objc_alloc_init(SBInvalidateRootContentViewClippingAndBlurEventResponse);
-    v10 = SBAppendSwitcherModifierResponse(v9, transitionWillBegin);
+    v10 = SBAppendSwitcherModifierResponse();
 
     direction = self->_direction;
     transitionWillBegin = v10;
@@ -258,7 +258,7 @@ LABEL_9:
   if (!direction && ([(SBFullScreenToHomeSystemApertureSwitcherModifier *)self switcherInterfaceOrientation]- 3) >= 2)
   {
     v11 = objc_alloc_init(SBInitiateSystemApertureStretchEventResponse);
-    v12 = SBAppendSwitcherModifierResponse(v11, transitionWillBegin);
+    v12 = SBAppendSwitcherModifierResponse();
 
     transitionWillBegin = v12;
   }
@@ -1171,11 +1171,11 @@ LABEL_30:
   v14 = 0u;
   if (v4)
   {
-    [v4 vertexAtIndex:6];
+    objc_msgSend_vertexAtIndex_(v4);
     v12 = 0;
     v10 = 0u;
     v11 = 0u;
-    [v4 vertexAtIndex:8];
+    objc_msgSend_vertexAtIndex_(v4);
   }
 
   else

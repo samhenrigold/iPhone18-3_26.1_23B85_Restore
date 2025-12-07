@@ -13,7 +13,7 @@
   swift_unknownObjectRetain();
   _bridgeAnyObjectToAny(_:)();
   swift_unknownObjectRelease();
-  return AudioVisualizationRingLayer.init(layer:)(&v4);
+  return AudioVisualizationRingLayer.init(layer:)(v4);
 }
 
 - (float)opacity

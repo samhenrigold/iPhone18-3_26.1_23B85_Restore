@@ -1,7 +1,7 @@
 @interface BWInferenceScalingRequirement
 - (BWInferenceScalingRequirement)initWithInputVideoRequirement:(id)requirement requestedOutputVideoRequirements:(id)requirements intermediatePixelBufferCompressionType:(int)type processingConfiguration:(id)configuration;
 - (BWInferenceVideoRequirement)_appendIntermediateRequirementsToList:(void *)list forSatisfyingOutputRequirement:(unsigned int)requirement intermediatePixelBufferCompressionType:(void *)type processingConfiguration:;
-- (unint64_t)_processOrderedVideoRequirementsForLandscapeOriented:(void *)oriented withPrototypeRequirement:;
+- (void)_processOrderedVideoRequirementsForLandscapeOriented:(void *)oriented withPrototypeRequirement:;
 - (void)dealloc;
 @end
 
@@ -357,7 +357,7 @@ LABEL_94:
   [(BWInferenceScalingRequirement *)&v3 dealloc];
 }
 
-- (unint64_t)_processOrderedVideoRequirementsForLandscapeOriented:(void *)oriented withPrototypeRequirement:
+- (void)_processOrderedVideoRequirementsForLandscapeOriented:(void *)oriented withPrototypeRequirement:
 {
   if (result)
   {

@@ -27,27 +27,27 @@
   if (v22)
   {
     objc_storeWeak(&v22->_profile, profileCopy);
-    v24 = [descriptorCopy copy];
+    v24 = objc_msgSend_copy(descriptorCopy);
     queryDescriptor = v23->_queryDescriptor;
     v23->_queryDescriptor = v24;
 
-    v26 = [identifierCopy copy];
+    v26 = objc_msgSend_copy(identifierCopy);
     cachingIdentifier = v23->_cachingIdentifier;
     v23->_cachingIdentifier = v26;
 
-    v28 = [entityCopy copy];
+    v28 = objc_msgSend_copy(entityCopy);
     sourceEntity = v23->_sourceEntity;
     v23->_sourceEntity = v28;
 
-    v30 = [indexCopy copy];
+    v30 = objc_msgSend_copy(indexCopy);
     timeIntervalToBucketIndex = v23->_timeIntervalToBucketIndex;
     v23->_timeIntervalToBucketIndex = v30;
 
-    v32 = [dateCopy copy];
+    v32 = objc_msgSend_copy(dateCopy);
     anchorDate = v23->_anchorDate;
     v23->_anchorDate = v32;
 
-    v34 = [componentsCopy copy];
+    v34 = objc_msgSend_copy(componentsCopy);
     intervalComponents = v23->_intervalComponents;
     v23->_intervalComponents = v34;
   }
@@ -266,32 +266,32 @@ LABEL_8:
 
 uint64_t __124__HDSampleAggregateCacheStore_enumerateForInterval_cachedClass_anchorAfterDatabaseScan_nowDate_calendar_error_cacheHandler___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v239 = *MEMORY[0x277D85DE8];
+  v234 = *MEMORY[0x277D85DE8];
   v4 = *(a1 + 32);
   v3 = *(a1 + 40);
   v5 = *(a1 + 48);
   v6 = *(a1 + 56);
-  v187 = 0;
+  v182 = 0;
   v7 = *(a1 + 64);
   v8 = *(a1 + 72);
-  v168 = v3;
-  v166 = v5;
-  v163 = v6;
-  v161 = v7;
+  v163 = v3;
+  v161 = v5;
+  v158 = v6;
+  v156 = v7;
   if (v4)
   {
-    v154 = v8;
+    v149 = v8;
     v9 = *(v4 + 16);
     v10 = *(v4 + 24);
-    v184 = v4;
+    v179 = v4;
     WeakRetained = objc_loadWeakRetained((v4 + 8));
-    v193 = 0;
+    v188 = 0;
     v12 = v9;
     v13 = WeakRetained;
-    v165 = [HDCachedQueryMetadataEntity cachedQueryMetadataForQueryIdentifier:v12 sourceEntity:v10 profile:WeakRetained error:&v193];
-    v14 = v193;
+    v160 = [HDCachedQueryMetadataEntity cachedQueryMetadataForQueryIdentifier:v12 sourceEntity:v10 profile:WeakRetained error:&v188];
+    v14 = v188;
 
-    if (v165)
+    if (v160)
     {
       v15 = 1;
     }
@@ -307,16 +307,16 @@ uint64_t __124__HDSampleAggregateCacheStore_enumerateForInterval_cachedClass_anc
       v22 = v21;
       v23 = 0;
       v24 = v21;
-      v187 = v21;
-      v164 = v21;
+      v182 = v21;
+      v159 = v21;
 LABEL_86:
 
       goto LABEL_87;
     }
 
-    if (v165)
+    if (v160)
     {
-      v16 = [v165 generationNumber];
+      v16 = [v160 generationNumber];
       v17 = v4;
       if (v16)
       {
@@ -324,34 +324,34 @@ LABEL_11:
         v18 = *(v17 + 16);
         v19 = *(v17 + 24);
         v20 = objc_loadWeakRetained((v17 + 8));
-        v192 = v14;
-        v159 = [HDCachedQueryMetadataEntity lastUpdatedDateForQueryIdentifier:v18 sourceEntity:v19 profile:v20 error:&v192];
-        v164 = v192;
+        v187 = v14;
+        v154 = [HDCachedQueryMetadataEntity lastUpdatedDateForQueryIdentifier:v18 sourceEntity:v19 profile:v20 error:&v187];
+        v159 = v187;
 
-        if (!v159 && v164)
+        if (!v154 && v159)
         {
-          v187 = v164;
+          v182 = v159;
 
           v23 = 0;
 LABEL_85:
 
-          v24 = v165;
+          v24 = v160;
           goto LABEL_86;
         }
 
-        v25 = v165;
-        v151 = v159;
-        v26 = v163;
-        v27 = v166;
-        v155 = v25;
+        v25 = v160;
+        v146 = v154;
+        v26 = v158;
+        v27 = v161;
+        v150 = v25;
         v28 = [v25 anchorDate];
-        v29 = v184;
+        v29 = v179;
         if (!v28)
         {
           goto LABEL_19;
         }
 
-        v30 = *(v184 + 32);
+        v30 = *(v179 + 32);
         v31 = [v25 anchorDate];
         v32 = v30;
         v33 = v31;
@@ -361,7 +361,7 @@ LABEL_85:
           v39 = v38;
           [v33 timeIntervalSinceReferenceDate];
           v41 = v40;
-          [*(v184 + 48) hk_approximateDuration];
+          [*(v179 + 48) hk_approximateDuration];
           v43 = ((v39 - v41) / v42);
           v44 = v43;
           v45 = v43 - 2;
@@ -370,7 +370,7 @@ LABEL_85:
             v46 = [*(v29 + 48) hk_dateByAddingInterval:v44 toDate:v33];
             v47 = [v46 isEqual:v32];
 
-            v29 = v184;
+            v29 = v179;
             if (v47)
             {
               break;
@@ -384,9 +384,9 @@ LABEL_85:
           }
         }
 
-        v34 = [v155 intervalComponents];
+        v34 = [v150 intervalComponents];
         v28 = v34;
-        v35 = *(v184 + 48);
+        v35 = *(v179 + 48);
         if (v34 == v35)
         {
         }
@@ -396,107 +396,105 @@ LABEL_85:
           if (!v35)
           {
 LABEL_24:
-            v150 = 0;
+            v145 = 0;
 LABEL_28:
-            v148 = 1;
+            v143 = 1;
 LABEL_29:
 
             goto LABEL_30;
           }
 
-          v36 = [v155 intervalComponents];
-          v37 = [v36 isEqual:*(v184 + 48)];
+          v36 = [v150 intervalComponents];
+          v37 = [v36 isEqual:*(v179 + 48)];
 
           if ((v37 & 1) == 0)
           {
 LABEL_19:
-            v150 = 0;
-            v148 = 1;
+            v145 = 0;
+            v143 = 1;
 LABEL_30:
 
-            v48 = [v155 anchorDate];
+            v48 = [v150 anchorDate];
             v49 = v48;
             if (!v48)
             {
-              v49 = *(v184 + 32);
+              v49 = *(v179 + 32);
             }
 
-            objc_storeStrong((v184 + 40), v49);
+            objc_storeStrong((v179 + 40), v49);
 
-            v191 = 0;
-            v188[0] = 0;
-            v188[1] = v188;
-            v188[2] = 0x4812000000;
-            v188[3] = __Block_byref_object_copy__24;
-            v188[4] = __Block_byref_object_dispose__24;
-            v188[5] = &unk_22929BC4D;
-            v190[0] = 0;
-            v190[1] = 0;
-            v189 = v190;
-            v156 = v168;
-            v157 = v155;
-            v50 = [v156 startDate];
+            v186 = 0;
+            v183[0] = 0;
+            v183[1] = v183;
+            v183[2] = 0x4812000000;
+            v183[3] = __Block_byref_object_copy__24;
+            v183[4] = __Block_byref_object_dispose__24;
+            v183[5] = &unk_22929BC4D;
+            v185[0] = 0;
+            v185[1] = 0;
+            v184 = v185;
+            v151 = v163;
+            v152 = v150;
+            v50 = [v151 startDate];
             [v50 timeIntervalSinceReferenceDate];
             v52 = v51;
 
-            v53 = [v156 endDate];
+            v53 = [v151 endDate];
             [v53 timeIntervalSinceReferenceDate];
             v55 = v54;
 
-            [v157 queryStartIndex];
-            v57 = v56 = v184;
+            [v152 queryStartIndex];
+            v57 = v56 = v179;
             if (v57)
             {
-              v58 = [v156 startDate];
+              v58 = [v151 startDate];
               v59 = v58 == 0;
 
-              v56 = v184;
+              v56 = v179;
               if (!v59)
               {
-                v60 = *(v184 + 40);
-                v61 = (*(*(v184 + 72) + 16))(v52);
-                v62 = [v157 queryStartIndex];
-                v63 = [v62 integerValue];
+                v60 = (*(*(v179 + 72) + 16))(v52);
+                v61 = [v152 queryStartIndex];
+                v62 = [v61 integerValue];
 
-                v56 = v184;
-                if (v61 < v63)
+                v56 = v179;
+                if (v60 < v62)
                 {
-                  v227[0] = v61;
+                  v222[0] = v60;
                   do
                   {
-                    std::__tree<long>::__emplace_unique_key_args<long,long const&>(&v189, v61++);
-                    v227[0] = v61;
+                    std::__tree<long>::__emplace_unique_key_args<long,long const&>(&v184, v60++, v222);
+                    v222[0] = v60;
                   }
 
-                  while (v63 != v61);
+                  while (v62 != v60);
                 }
               }
             }
 
-            v64 = [v157 queryEndIndex];
-            if (v64)
+            v63 = [v152 queryEndIndex];
+            if (v63)
             {
-              v65 = [v156 endDate];
-              v66 = v65 == 0;
+              v64 = [v151 endDate];
+              v65 = v64 == 0;
 
-              v56 = v184;
-              if (!v66)
+              v56 = v179;
+              if (!v65)
               {
-                v67 = *(v184 + 40);
-                v68 = (*(*(v184 + 72) + 16))(v55);
-                v69 = [v157 queryEndIndex];
-                v70 = [v69 integerValue];
+                v66 = (*(*(v179 + 72) + 16))(v55);
+                v67 = [v152 queryEndIndex];
+                v68 = [v67 integerValue];
 
-                v56 = v184;
-                if (v68 > v70)
+                v56 = v179;
+                if (v66 > v68)
                 {
-                  v71 = v70 + 1;
-                  v227[0] = v70 + 1;
+                  v69 = v68 + 1;
+                  v222[0] = v68 + 1;
                   do
                   {
-                    std::__tree<long>::__emplace_unique_key_args<long,long const&>(&v189, v71);
-                    v227[0] = v71 + 1;
-                    v15 = v71++ == v68;
+                    std::__tree<long>::__emplace_unique_key_args<long,long const&>(&v184, v69, v222);
+                    v222[0] = v69 + 1;
+                    v15 = v69++ == v66;
                   }
 
                   while (!v15);
@@ -504,140 +502,140 @@ LABEL_30:
               }
             }
 
-            v72 = *(v56 + 64);
-            if (v72)
+            v70 = *(v56 + 64);
+            if (v70)
             {
-              [v72 arrayByAddingObject:*(v56 + 56)];
+              [v70 arrayByAddingObject:*(v56 + 56)];
             }
 
             else
             {
-              v225 = *(v56 + 56);
-              [MEMORY[0x277CBEA60] arrayWithObjects:&v225 count:1];
+              v220 = *(v56 + 56);
+              [MEMORY[0x277CBEA60] arrayWithObjects:&v220 count:1];
             }
-            v73 = ;
-            v203 = 0;
-            v204 = &v203;
-            v205 = 0x4812000000;
-            v206 = __Block_byref_object_copy__319;
-            v207 = __Block_byref_object_dispose__320;
-            v208 = &unk_22929BC4D;
-            v211 = 0;
+            v71 = ;
+            v198 = 0;
+            v199 = &v198;
+            v200 = 0x4812000000;
+            v201 = __Block_byref_object_copy__319;
+            v202 = __Block_byref_object_dispose__320;
+            v203 = &unk_22929BC4D;
+            v206 = 0;
             __p = 0;
-            v210 = 0;
-            v199 = 0u;
-            v200 = 0u;
-            v201 = 0u;
-            v202 = 0u;
-            obj = v73;
-            v147 = [obj countByEnumeratingWithState:&v199 objects:aBlock count:16];
-            if (v147)
+            v205 = 0;
+            v194 = 0u;
+            v195 = 0u;
+            v196 = 0u;
+            v197 = 0u;
+            obj = v71;
+            v142 = [obj countByEnumeratingWithState:&v194 objects:aBlock count:16];
+            if (v142)
             {
-              v149 = *v200;
+              v144 = *v195;
               do
               {
-                for (i = 0; i != v147; ++i)
+                for (i = 0; i != v142; ++i)
                 {
-                  if (*v200 != v149)
+                  if (*v195 != v144)
                   {
                     objc_enumerationMutation(obj);
                   }
 
-                  v74 = *(*(&v199 + 1) + 8 * i);
-                  v175 = [v157 maxAnchor];
-                  v75 = v74;
-                  v181 = v156;
-                  v76 = objc_alloc_init(MEMORY[0x277CBEB18]);
-                  v214 = 0u;
-                  v215 = 0u;
-                  v212 = 0u;
-                  v213 = 0u;
-                  v178 = v76;
-                  v77 = [v75 sampleTypes];
-                  v171 = v77;
-                  v78 = [v77 countByEnumeratingWithState:&v212 objects:v227 count:16];
-                  if (v78)
+                  v72 = *(*(&v194 + 1) + 8 * i);
+                  v170 = [v152 maxAnchor];
+                  v73 = v72;
+                  v176 = v151;
+                  v74 = objc_alloc_init(MEMORY[0x277CBEB18]);
+                  v209 = 0u;
+                  v210 = 0u;
+                  v207 = 0u;
+                  v208 = 0u;
+                  v173 = v74;
+                  v75 = [v73 sampleTypes];
+                  v166 = v75;
+                  v76 = [v75 countByEnumeratingWithState:&v207 objects:v222 count:16];
+                  if (v76)
                   {
-                    v79 = *v213;
+                    v77 = *v208;
                     do
                     {
-                      for (j = 0; j != v78; ++j)
+                      for (j = 0; j != v76; ++j)
                       {
-                        if (*v213 != v79)
+                        if (*v208 != v77)
                         {
-                          objc_enumerationMutation(v171);
+                          objc_enumerationMutation(v166);
                         }
 
-                        v81 = *(*(&v212 + 1) + 8 * j);
-                        v82 = objc_loadWeakRetained((v184 + 8));
-                        v83 = [HDSampleEntity entityEnumeratorWithType:v81 profile:v82];
+                        v79 = *(*(&v207 + 1) + 8 * j);
+                        v80 = objc_loadWeakRetained((v179 + 8));
+                        v81 = [HDSampleEntity entityEnumeratorWithType:v79 profile:v80];
 
-                        v84 = [MEMORY[0x277CCABB0] numberWithLongLong:v175];
-                        [v83 setAnchor:v84];
+                        v82 = [MEMORY[0x277CCABB0] numberWithLongLong:v170];
+                        [v81 setAnchor:v82];
 
-                        v85 = HDSampleEntityPredicateForDateInterval(v181, v81);
-                        v86 = [objc_alloc(MEMORY[0x277CBEB18]) initWithObjects:{v85, 0}];
-                        v87 = [v75 samplePredicate];
-                        LOBYTE(v84) = v87 == 0;
+                        v83 = HDSampleEntityPredicateForDateInterval(v176, v79);
+                        v84 = [objc_alloc(MEMORY[0x277CBEB18]) initWithObjects:{v83, 0}];
+                        v85 = [v73 samplePredicate];
+                        LOBYTE(v82) = v85 == 0;
 
-                        if ((v84 & 1) == 0)
+                        if ((v82 & 1) == 0)
                         {
-                          v88 = [v75 samplePredicate];
-                          [v86 addObject:v88];
+                          v86 = [v73 samplePredicate];
+                          [v84 addObject:v86];
                         }
 
-                        v89 = [MEMORY[0x277D10B20] predicateMatchingAllPredicates:v86];
-                        [v83 setPredicate:v89];
+                        v87 = [MEMORY[0x277D10B20] predicateMatchingAllPredicates:v84];
+                        [v81 setPredicate:v87];
 
-                        v226[0] = v85;
-                        v90 = [MEMORY[0x277D10B60] isNullPredicateWithProperty:@"start_date"];
-                        v226[1] = v90;
-                        v91 = [MEMORY[0x277D10B60] isNullPredicateWithProperty:@"end_date"];
-                        v226[2] = v91;
-                        v92 = [MEMORY[0x277CBEA60] arrayWithObjects:v226 count:3];
+                        v221[0] = v83;
+                        v88 = [MEMORY[0x277D10B60] isNullPredicateWithProperty:@"start_date"];
+                        v221[1] = v88;
+                        v89 = [MEMORY[0x277D10B60] isNullPredicateWithProperty:@"end_date"];
+                        v221[2] = v89;
+                        v90 = [MEMORY[0x277CBEA60] arrayWithObjects:v221 count:3];
 
-                        v93 = [MEMORY[0x277D10B20] predicateMatchingAnyPredicates:v92];
-                        [v83 setDeletedObjectsPredicate:v93];
+                        v91 = [MEMORY[0x277D10B20] predicateMatchingAnyPredicates:v90];
+                        [v81 setDeletedObjectsPredicate:v91];
 
-                        [v178 addObject:v83];
+                        [v173 addObject:v81];
                       }
 
-                      v77 = v171;
-                      v78 = [v171 countByEnumeratingWithState:&v212 objects:v227 count:16];
+                      v75 = v166;
+                      v76 = [v166 countByEnumeratingWithState:&v207 objects:v222 count:16];
                     }
 
-                    while (v78);
+                    while (v76);
                   }
 
-                  v94 = [v178 copy];
-                  v195 = 0u;
-                  v196 = 0u;
-                  v197 = 0u;
-                  v198 = 0u;
-                  v95 = v94;
-                  v96 = [v95 countByEnumeratingWithState:&v195 objects:v216 count:16];
-                  if (v96)
+                  v92 = objc_msgSend_copy(v173);
+                  v190 = 0u;
+                  v191 = 0u;
+                  v192 = 0u;
+                  v193 = 0u;
+                  v93 = v92;
+                  v94 = [v93 countByEnumeratingWithState:&v190 objects:v211 count:16];
+                  if (v94)
                   {
-                    v97 = *v196;
+                    v95 = *v191;
                     while (2)
                     {
-                      for (k = 0; k != v96; ++k)
+                      for (k = 0; k != v94; ++k)
                       {
-                        if (*v196 != v97)
+                        if (*v191 != v95)
                         {
-                          objc_enumerationMutation(v95);
+                          objc_enumerationMutation(v93);
                         }
 
-                        v99 = *(*(&v195 + 1) + 8 * k);
-                        v194[0] = MEMORY[0x277D85DD0];
-                        v194[1] = 3221225472;
-                        v194[2] = __126__HDSampleAggregateCacheStore__bucketIndexesWithSampleChanges_forInterval_queryMetadata_deletedObjectWithoutDatesAdded_error___block_invoke;
-                        v194[3] = &unk_278616738;
-                        *&v194[6] = v52;
-                        *&v194[7] = v55;
-                        v194[5] = &v191;
-                        v194[4] = &v203;
-                        if (([v99 enumerateSampleTimesIncludingDeletedObjects:1 error:&v187 handler:v194] & 1) == 0)
+                        v97 = *(*(&v190 + 1) + 8 * k);
+                        v189[0] = MEMORY[0x277D85DD0];
+                        v189[1] = 3221225472;
+                        v189[2] = __126__HDSampleAggregateCacheStore__bucketIndexesWithSampleChanges_forInterval_queryMetadata_deletedObjectWithoutDatesAdded_error___block_invoke;
+                        v189[3] = &unk_278616738;
+                        *&v189[6] = v52;
+                        *&v189[7] = v55;
+                        v189[5] = &v186;
+                        v189[4] = &v198;
+                        if (([v97 enumerateSampleTimesIncludingDeletedObjects:1 error:&v182 handler:v189] & 1) == 0)
                         {
 
                           v23 = 0;
@@ -645,8 +643,8 @@ LABEL_30:
                         }
                       }
 
-                      v96 = [v95 countByEnumeratingWithState:&v195 objects:v216 count:16];
-                      if (v96)
+                      v94 = [v93 countByEnumeratingWithState:&v190 objects:v211 count:16];
+                      if (v94)
                       {
                         continue;
                       }
@@ -656,44 +654,42 @@ LABEL_30:
                   }
                 }
 
-                v147 = [obj countByEnumeratingWithState:&v199 objects:aBlock count:16];
+                v142 = [obj countByEnumeratingWithState:&v194 objects:aBlock count:16];
               }
 
-              while (v147);
+              while (v142);
             }
 
-            v100 = v204[6];
-            v101 = v204[7];
-            while (v100 != v101)
+            v98 = v199[6];
+            v99 = v199[7];
+            while (v98 != v99)
             {
-              v102 = objc_autoreleasePoolPush();
-              v103 = *(v184 + 40);
-              v104 = (*(*(v184 + 72) + 16))(*v100);
-              v105 = *(v184 + 40);
-              v106 = (*(*(v184 + 72) + 16))(v100[1]);
-              v227[0] = v104;
-              if (v104 <= v106)
+              v100 = objc_autoreleasePoolPush();
+              v101 = (*(*(v179 + 72) + 16))(*v98);
+              v102 = (*(*(v179 + 72) + 16))(v98[1]);
+              v222[0] = v101;
+              if (v101 <= v102)
               {
                 do
                 {
-                  std::__tree<long>::__emplace_unique_key_args<long,long const&>(&v189, v104);
-                  v227[0] = v104 + 1;
-                  v15 = v104++ == v106;
+                  std::__tree<long>::__emplace_unique_key_args<long,long const&>(&v184, v101, v222);
+                  v222[0] = v101 + 1;
+                  v15 = v101++ == v102;
                 }
 
                 while (!v15);
               }
 
-              objc_autoreleasePoolPop(v102);
-              v100 += 2;
+              objc_autoreleasePoolPop(v100);
+              v98 += 2;
             }
 
             v23 = 1;
 LABEL_78:
-            _Block_object_dispose(&v203, 8);
+            _Block_object_dispose(&v198, 8);
             if (__p)
             {
-              v210 = __p;
+              v205 = __p;
               operator delete(__p);
             }
 
@@ -703,137 +699,137 @@ LABEL_78:
               aBlock[1] = 3221225472;
               aBlock[2] = __101__HDSampleAggregateCacheStore__enumerateForInterval_cachedClass_nowDate_calendar_error_cacheHandler___block_invoke;
               aBlock[3] = &unk_2786166C0;
-              aBlock[4] = v184;
-              v107 = v157;
-              v221 = v107;
-              v222 = v188;
-              v223 = v148;
-              v224 = v191;
-              v179 = _Block_copy(aBlock);
-              v216[0] = MEMORY[0x277D85DD0];
-              v216[1] = 3221225472;
-              v216[2] = __101__HDSampleAggregateCacheStore__enumerateForInterval_cachedClass_nowDate_calendar_error_cacheHandler___block_invoke_2;
-              v216[3] = &unk_2786166E8;
-              v216[4] = v184;
-              v176 = v107;
-              v217 = v176;
-              v218 = v188;
-              v219 = v150;
-              v182 = _Block_copy(v216);
-              v108 = *(v184 + 72);
-              v109 = [v156 startDate];
-              [v109 timeIntervalSinceReferenceDate];
-              v110 = (*(v108 + 16))(v108, *(v184 + 40));
+              aBlock[4] = v179;
+              v103 = v152;
+              v216 = v103;
+              v217 = v183;
+              v218 = v143;
+              v219 = v186;
+              v174 = _Block_copy(aBlock);
+              v211[0] = MEMORY[0x277D85DD0];
+              v211[1] = 3221225472;
+              v211[2] = __101__HDSampleAggregateCacheStore__enumerateForInterval_cachedClass_nowDate_calendar_error_cacheHandler___block_invoke_2;
+              v211[3] = &unk_2786166E8;
+              v211[4] = v179;
+              v171 = v103;
+              v212 = v171;
+              v213 = v183;
+              v214 = v145;
+              v177 = _Block_copy(v211);
+              v104 = *(v179 + 72);
+              v105 = [v151 startDate];
+              [v105 timeIntervalSinceReferenceDate];
+              v106 = (*(v104 + 16))(v104, *(v179 + 40));
 
-              v111 = *(v184 + 72);
-              v112 = [v156 endDate];
-              [v112 timeIntervalSinceReferenceDate];
-              v113 = (*(v111 + 16))(v111, *(v184 + 40));
+              v107 = *(v179 + 72);
+              v108 = [v151 endDate];
+              [v108 timeIntervalSinceReferenceDate];
+              v109 = (*(v107 + 16))(v107, *(v179 + 40));
 
-              v203 = 0;
-              v204 = &v203;
-              v205 = 0x2020000000;
-              v206 = v110;
-              v115 = *(v184 + 16);
-              v114 = *(v184 + 24);
-              v116 = objc_loadWeakRetained((v184 + 8));
-              v227[0] = MEMORY[0x277D85DD0];
-              v227[1] = 3221225472;
-              v227[2] = __101__HDSampleAggregateCacheStore__enumerateForInterval_cachedClass_nowDate_calendar_error_cacheHandler___block_invoke_3;
-              v227[3] = &unk_278616710;
-              v234 = v110;
-              v235 = v113;
-              v236 = sel__enumerateForInterval_cachedClass_nowDate_calendar_error_cacheHandler_;
-              v227[4] = v184;
-              v232 = &v203;
-              v117 = v161;
-              v229 = v117;
-              v118 = v182;
-              v230 = v118;
-              v237 = v154;
-              v228 = v176;
-              v119 = v179;
-              v238 = v150;
-              v185 = v119;
-              v231 = v119;
-              v233 = v188;
-              [HDSampleAggregateCacheEntity enumerateCachedDataForQueryIdentifier:v115 sourceEntity:v114 profile:v116 startIndex:v110 endIndex:v113 error:&v187 enumerationHandler:v227];
+              v198 = 0;
+              v199 = &v198;
+              v200 = 0x2020000000;
+              v201 = v106;
+              v111 = *(v179 + 16);
+              v110 = *(v179 + 24);
+              v112 = objc_loadWeakRetained((v179 + 8));
+              v222[0] = MEMORY[0x277D85DD0];
+              v222[1] = 3221225472;
+              v222[2] = __101__HDSampleAggregateCacheStore__enumerateForInterval_cachedClass_nowDate_calendar_error_cacheHandler___block_invoke_3;
+              v222[3] = &unk_278616710;
+              v229 = v106;
+              v230 = v109;
+              v231 = sel__enumerateForInterval_cachedClass_nowDate_calendar_error_cacheHandler_;
+              v222[4] = v179;
+              v227 = &v198;
+              v113 = v156;
+              v224 = v113;
+              v114 = v177;
+              v225 = v114;
+              v232 = v149;
+              v223 = v171;
+              v115 = v174;
+              v233 = v145;
+              v180 = v115;
+              v226 = v115;
+              v228 = v183;
+              [HDSampleAggregateCacheEntity enumerateCachedDataForQueryIdentifier:v111 sourceEntity:v110 profile:v112 startIndex:v106 endIndex:v109 error:&v182 enumerationHandler:v222];
 
-              if (v204[3] < v113)
+              if (v199[3] < v109)
               {
                 do
                 {
-                  v120 = objc_autoreleasePoolPush();
-                  v121 = (*(v118 + 2))(v118, v204[3]);
-                  (*(v117 + 2))(v117, 0, v121, v204[3], 0);
-                  objc_autoreleasePoolPop(v120);
-                  v122 = v204[3] + 1;
-                  v204[3] = v122;
+                  v116 = objc_autoreleasePoolPush();
+                  v117 = (*(v114 + 2))(v114, v199[3]);
+                  (*(v113 + 2))(v113, 0, v117, v199[3], 0);
+                  objc_autoreleasePoolPop(v116);
+                  v118 = v199[3] + 1;
+                  v199[3] = v118;
                 }
 
-                while (v122 < v113);
+                while (v118 < v109);
               }
 
-              _Block_object_dispose(&v203, 8);
+              _Block_object_dispose(&v198, 8);
             }
 
-            _Block_object_dispose(v188, 8);
-            std::__tree<long>::destroy(v190[0]);
+            _Block_object_dispose(v183, 8);
+            std::__tree<long>::destroy(v185[0]);
             goto LABEL_85;
           }
         }
 
         v28 = [v26 hk_dateBySubtractingDays:*MEMORY[0x277CCBC20] - 1 fromDate:v27];
-        if ([v151 hk_isBeforeOrEqualToDate:v28])
+        if ([v146 hk_isBeforeOrEqualToDate:v28])
         {
           goto LABEL_27;
         }
 
-        v180 = [v155 buildVersion];
-        v183 = objc_loadWeakRetained((v184 + 8));
-        v177 = [v183 daemon];
-        v174 = [v177 behavior];
-        v138 = [v174 currentOSBuild];
-        v139 = v138;
-        if (v180 == v138)
+        v175 = [v150 buildVersion];
+        v178 = objc_loadWeakRetained((v179 + 8));
+        v172 = [v178 daemon];
+        v169 = [v172 behavior];
+        v133 = [v169 currentOSBuild];
+        v134 = v133;
+        if (v175 == v133)
         {
         }
 
         else
         {
-          v173 = objc_loadWeakRetained((v184 + 8));
-          v140 = [v173 daemon];
-          v141 = [v140 behavior];
-          v142 = [v141 currentOSBuild];
-          if (!v142)
+          v168 = objc_loadWeakRetained((v179 + 8));
+          v135 = [v168 daemon];
+          v136 = [v135 behavior];
+          v137 = [v136 currentOSBuild];
+          if (!v137)
           {
 
             goto LABEL_27;
           }
 
-          v170 = v140;
-          v172 = [v155 buildVersion];
-          v143 = objc_loadWeakRetained((v184 + 8));
-          v144 = [v143 daemon];
-          v145 = [v144 behavior];
-          v146 = [v145 currentOSBuild];
-          v158 = [v172 isEqualToString:v146];
+          v165 = v135;
+          v167 = [v150 buildVersion];
+          v138 = objc_loadWeakRetained((v179 + 8));
+          v139 = [v138 daemon];
+          v140 = [v139 behavior];
+          v141 = [v140 currentOSBuild];
+          v153 = [v167 isEqualToString:v141];
 
-          if ((v158 & 1) == 0)
+          if ((v153 & 1) == 0)
           {
 LABEL_27:
-            v150 = 1;
+            v145 = 1;
             goto LABEL_28;
           }
         }
 
-        v148 = 0;
-        v150 = 1;
+        v143 = 0;
+        v145 = 1;
         goto LABEL_29;
       }
     }
 
-    v165 = 0;
+    v160 = 0;
     v17 = v4;
     goto LABEL_11;
   }
@@ -841,54 +837,54 @@ LABEL_27:
   v23 = 0;
 LABEL_87:
 
-  v123 = v187;
-  v124 = v123;
-  if (v123)
+  v119 = v182;
+  v120 = v119;
+  if (v119)
   {
-    v125 = v23;
+    v121 = v23;
   }
 
   else
   {
-    v125 = 1;
+    v121 = 1;
   }
 
-  if (v125)
+  if (v121)
   {
-    v126 = objc_loadWeakRetained((*(a1 + 32) + 8));
-    v127 = [v126 database];
-    v186 = v124;
-    v167 = [(HDHealthEntity *)HDSampleEntity maxRowIDForPredicate:0 healthDatabase:v127 error:&v186];
-    v169 = v186;
+    v122 = objc_loadWeakRetained((*(a1 + 32) + 8));
+    v123 = [v122 database];
+    v181 = v120;
+    v162 = [(HDHealthEntity *)HDSampleEntity maxRowIDForPredicate:0 healthDatabase:v123 error:&v181];
+    v164 = v181;
 
-    v128 = v167;
-    if (v167)
+    v124 = v162;
+    if (v162)
     {
-      v129 = 1;
+      v125 = 1;
     }
 
     else
     {
-      v129 = v169 == 0;
+      v125 = v164 == 0;
     }
 
-    v130 = v129;
-    if (v129)
+    v126 = v125;
+    if (v125)
     {
       if (*(a1 + 80))
       {
-        **(a1 + 80) = [v167 longLongValue];
+        **(a1 + 80) = [v162 longLongValue];
       }
     }
 
     else
     {
-      v133 = v169;
-      v134 = v133;
+      v129 = v164;
+      v130 = v129;
       if (a3)
       {
-        v135 = v133;
-        *a3 = v134;
+        v131 = v129;
+        *a3 = v130;
       }
 
       else
@@ -896,32 +892,31 @@ LABEL_87:
         _HKLogDroppedError();
       }
 
-      v128 = v167;
+      v124 = v162;
     }
   }
 
   else
   {
-    v131 = v123;
-    v128 = v131;
+    v127 = v119;
+    v124 = v127;
     if (a3)
     {
-      v132 = v131;
-      v130 = 0;
-      *a3 = v128;
+      v128 = v127;
+      v126 = 0;
+      *a3 = v124;
     }
 
     else
     {
       _HKLogDroppedError();
-      v130 = 0;
+      v126 = 0;
     }
 
-    v169 = v128;
+    v164 = v124;
   }
 
-  v136 = *MEMORY[0x277D85DE8];
-  return v130;
+  return v126;
 }
 
 uint64_t __101__HDSampleAggregateCacheStore__enumerateForInterval_cachedClass_nowDate_calendar_error_cacheHandler___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -1037,7 +1032,7 @@ LABEL_8:
 
 uint64_t __101__HDSampleAggregateCacheStore__enumerateForInterval_cachedClass_nowDate_calendar_error_cacheHandler___block_invoke_3(uint64_t a1, void *a2, uint64_t a3)
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   v5 = a2;
   if (*(a1 + 88) > a3 || *(a1 + 96) < a3)
   {
@@ -1049,106 +1044,105 @@ uint64_t __101__HDSampleAggregateCacheStore__enumerateForInterval_cachedClass_no
   {
     v7 = objc_autoreleasePoolPush();
     v8 = *(a1 + 48);
-    v9 = *(*(*(a1 + 72) + 8) + 24);
-    v10 = (*(*(a1 + 56) + 16))();
-    (*(v8 + 16))(v8, 0, v10, *(*(*(a1 + 72) + 8) + 24), 0);
+    v9 = (*(*(a1 + 56) + 16))();
+    (*(v8 + 16))(v8, 0, v9, *(*(*(a1 + 72) + 8) + 24), 0);
     objc_autoreleasePoolPop(v7);
     ++*(*(*(a1 + 72) + 8) + 24);
   }
 
-  v11 = *(a1 + 112);
-  v29 = 0;
-  v12 = [MEMORY[0x277CCAAC8] unarchivedObjectOfClass:v11 fromData:v5 error:&v29];
-  v13 = v29;
-  if (v12)
+  v10 = *(a1 + 112);
+  v27 = 0;
+  v11 = [MEMORY[0x277CCAAC8] unarchivedObjectOfClass:v10 fromData:v5 error:&v27];
+  v12 = v27;
+  if (v11)
   {
-    v14 = (*(*(a1 + 64) + 16))();
-    v15 = *(a1 + 48);
-    if (v14)
+    v13 = (*(*(a1 + 64) + 16))();
+    v14 = *(a1 + 48);
+    if (v13)
     {
       if (*(a1 + 120))
       {
-        v16 = v12;
+        v15 = v11;
       }
 
       else
       {
-        v16 = 0;
+        v15 = 0;
       }
 
-      (*(v15 + 16))(v15, v16, 1, a3, 0);
-      v17 = *(*(a1 + 80) + 8);
-      v18 = v17[7];
-      if (v18)
+      (*(v14 + 16))(v14, v15, 1, a3, 0);
+      v16 = *(*(a1 + 80) + 8);
+      v17 = v16[7];
+      if (v17)
       {
-        v19 = v17 + 7;
-        v20 = v17[7];
+        v18 = v16 + 7;
+        v19 = v16[7];
         do
         {
-          if (v20[4] >= a3)
+          if (v19[4] >= a3)
           {
-            v19 = v20;
+            v18 = v19;
           }
 
-          v20 = v20[v20[4] < a3];
+          v19 = v19[v19[4] < a3];
         }
 
-        while (v20);
-        if (v19 != v17 + 7 && v19[4] <= a3)
+        while (v19);
+        if (v18 != v16 + 7 && v18[4] <= a3)
         {
-          v21 = v19[1];
-          if (v21)
+          v20 = v18[1];
+          if (v20)
           {
             do
             {
-              v22 = v21;
-              v21 = *v21;
+              v21 = v20;
+              v20 = *v20;
             }
 
-            while (v21);
+            while (v20);
           }
 
           else
           {
-            v26 = v19;
+            v24 = v18;
             do
             {
-              v22 = v26[2];
-              v27 = *v22 == v26;
-              v26 = v22;
+              v21 = v24[2];
+              v25 = *v21 == v24;
+              v24 = v21;
             }
 
-            while (!v27);
+            while (!v25);
           }
 
-          if (v17[6] == v19)
+          if (v16[6] == v18)
           {
-            v17[6] = v22;
+            v16[6] = v21;
           }
 
-          --v17[8];
-          std::__tree_remove[abi:ne200100]<std::__tree_node_base<void *> *>(v18, v19);
-          operator delete(v19);
+          --v16[8];
+          std::__tree_remove[abi:ne200100]<std::__tree_node_base<void *> *>(v17, v18);
+          operator delete(v18);
         }
       }
     }
 
     else
     {
-      (*(v15 + 16))(v15, v12, 0, a3, 0);
+      (*(v14 + 16))(v14, v11, 0, a3, 0);
     }
   }
 
   else
   {
     _HKInitializeLogging();
-    v23 = *MEMORY[0x277CCC308];
+    v22 = *MEMORY[0x277CCC308];
     if (os_log_type_enabled(*MEMORY[0x277CCC308], OS_LOG_TYPE_ERROR))
     {
-      v28 = *(a1 + 40);
+      v26 = *(a1 + 40);
       *buf = 138412290;
-      v31 = v28;
-      _os_log_error_impl(&dword_228986000, v23, OS_LOG_TYPE_ERROR, "Failure to decode cache for query %@", buf, 0xCu);
+      v29 = v26;
+      _os_log_error_impl(&dword_228986000, v22, OS_LOG_TYPE_ERROR, "Failure to decode cache for query %@", buf, 0xCu);
     }
 
     (*(*(a1 + 48) + 16))();
@@ -1156,7 +1150,6 @@ uint64_t __101__HDSampleAggregateCacheStore__enumerateForInterval_cachedClass_no
 
   ++*(*(*(a1 + 72) + 8) + 24);
 
-  v24 = *MEMORY[0x277D85DE8];
   return 1;
 }
 

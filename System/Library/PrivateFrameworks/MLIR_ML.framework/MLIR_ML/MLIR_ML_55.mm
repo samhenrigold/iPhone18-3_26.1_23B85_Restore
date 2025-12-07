@@ -38,7 +38,7 @@ void mlir::anec::anonymous namespace::computeValueName(uint64_t a1@<X0>, uint64_
   if (mlir::Value::getDefiningOp(&v14))
   {
     DefiningOp = mlir::Value::getDefiningOp(&v14);
-    mlir::anec::computeOpKeyString(DefiningOp, a3);
+    mlir::anec::computeOpKeyString(a3, DefiningOp);
     return;
   }
 
@@ -121,7 +121,7 @@ LABEL_18:
   }
 }
 
-BOOL mlir::anec::RingBufferWriter::addOpToNetwork(mlir::Operation **a1, uint64_t a2)
+BOOL mlir::anec::RingBufferWriter::addOpToNetwork(mlir::Operation **a1, void *a2)
 {
   v23 = *MEMORY[0x277D85DE8];
   if (a2)
@@ -131,7 +131,7 @@ BOOL mlir::anec::RingBufferWriter::addOpToNetwork(mlir::Operation **a1, uint64_t
 
   v12 = "network should not be nullptr";
   v13 = 259;
-  mlir::OpState::emitError(a1, &v12, &v14);
+  mlir::OpState::emitError(&v14, a1, &v12);
   v2 = mlir::InFlightDiagnostic::operator llvm::LogicalResult(&v14);
   if (v14)
   {
@@ -270,7 +270,7 @@ uint64_t mlir::anec::RingBufferReader::inferPromotedReturnTypes(uint64_t a1, uin
   return 1;
 }
 
-BOOL mlir::anec::RingBufferReader::addOpToNetwork(mlir::Operation **a1, uint64_t a2)
+BOOL mlir::anec::RingBufferReader::addOpToNetwork(mlir::Operation **a1, void *a2)
 {
   v23 = *MEMORY[0x277D85DE8];
   if (a2)
@@ -280,7 +280,7 @@ BOOL mlir::anec::RingBufferReader::addOpToNetwork(mlir::Operation **a1, uint64_t
 
   v12 = "network should not be nullptr";
   v13 = 259;
-  mlir::OpState::emitError(a1, &v12, &v14);
+  mlir::OpState::emitError(&v14, a1, &v12);
   v2 = mlir::InFlightDiagnostic::operator llvm::LogicalResult(&v14);
   if (v14)
   {
@@ -410,16 +410,16 @@ uint64_t mlir::anec::getPromotedReturnTypeForTensorBuffer(uint64_t a1, uint64_t 
   if (a4)
   {
     *(v30 + v17) = v22 / v9;
-    v23 = v21[v19] * v9;
+    v23 = *(v21 + v19) * v9;
   }
 
   else
   {
     *(v30 + v17) = v22 * v9;
-    v23 = v21[v19] / v9;
+    v23 = *(v21 + v19) / v9;
   }
 
-  v21[v19] = v23;
+  *(v21 + v19) = v23;
   v24 = v31;
   ElementType = mlir::ShapedType::getElementType(v28);
   v26 = mlir::MemRefType::get(v21, v24, ElementType, 0, 0, 0);
@@ -661,7 +661,7 @@ float mlir::anec::ScaledDotProductAttention::getExecutionCost(uint64_t a1, uint6
   return v53 + v64;
 }
 
-BOOL mlir::anec::ScaledDotProductAttention::addOpToNetwork(mlir::Operation **a1, uint64_t a2)
+BOOL mlir::anec::ScaledDotProductAttention::addOpToNetwork(mlir::Operation **a1, void *a2)
 {
   v23 = *MEMORY[0x277D85DE8];
   if (a2)
@@ -671,7 +671,7 @@ BOOL mlir::anec::ScaledDotProductAttention::addOpToNetwork(mlir::Operation **a1,
 
   v12 = "network should not be nullptr";
   v13 = 259;
-  mlir::OpState::emitError(a1, &v12, v14);
+  mlir::OpState::emitError(v14, a1, &v12);
   v2 = mlir::InFlightDiagnostic::operator llvm::LogicalResult(v14);
   if (v14[0])
   {
@@ -760,24 +760,24 @@ uint64_t mlir::anec::A11Legacy::getFunctionType(mlir::Operation **this)
   return mlir::TypeAttr::getValue(&AttrDictionary);
 }
 
-void mlir::anec::A11Legacy::build(mlir::StringAttr **this, uint64_t a2, void *a3, void *a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, void *__src, uint64_t a18)
+void mlir::anec::A11Legacy::build(mlir::StringAttr **this, void *a2, void *a3, void *a4, mlir::IRMapping *a5, void *a6, uint64_t a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, mlir::Operation **a15, uint64_t a16, void *__src, uint64_t a18)
 {
   v36[4] = *MEMORY[0x277D85DE8];
-  *(a2 + 192) = 0;
-  v22 = *(a2 + 120);
+  a2[24] = 0;
+  v22 = *(a2 + 30);
   v23 = (a18 + v22);
-  if (a18 + v22 > *(a2 + 124))
+  if (a18 + v22 > *(a2 + 31))
   {
     llvm::SmallVectorBase<unsigned int>::grow_pod();
   }
 
   if (a18)
   {
-    memcpy((*(a2 + 112) + 16 * v22), __src, 16 * a18);
-    LODWORD(v22) = *(a2 + 120);
+    memcpy((a2[14] + 16 * v22), __src, 16 * a18);
+    LODWORD(v22) = *(a2 + 30);
   }
 
-  *(a2 + 120) = v22 + a18;
+  *(a2 + 30) = v22 + a18;
   v35 = 261;
   v34[0] = a3;
   v34[1] = a4;
@@ -788,16 +788,16 @@ void mlir::anec::A11Legacy::build(mlir::StringAttr **this, uint64_t a2, void *a3
   v32 = 8;
   v27 = mlir::StringAttr::get(Context, &v31, v26);
   mlir::NamedAttribute::NamedAttribute(v36, v27, StringAttr);
-  mlir::NamedAttrList::push_back(a2 + 112, v36[0], v36[1]);
+  mlir::NamedAttrList::push_back((a2 + 14), v36[0], v36[1]);
   v28 = mlir::FunctionType::get(*this, a9, a10, a13, a14);
-  v29 = *(*(*(a2 + 8) + 96) + 8);
+  v29 = *(*(a2[1] + 96) + 8);
   v30 = mlir::TypeAttr::get(v28);
   mlir::NamedAttribute::NamedAttribute(&v31, v29, v30);
-  mlir::NamedAttrList::push_back(a2 + 112, v31, v32);
+  mlir::NamedAttrList::push_back((a2 + 14), v31, v32);
   mlir::OperationState::addRegion(a2);
 }
 
-uint64_t mlir::OpBuilder::create<mlir::anec::RegionReturn,llvm::SmallVector<mlir::Value,6u> &>(mlir::OpBuilder *a1, uint64_t a2, uint64_t a3)
+char *mlir::OpBuilder::create<mlir::anec::RegionReturn,llvm::SmallVector<mlir::Value,6u> &>(mlir::OpBuilder *a1, uint64_t a2, uint64_t a3)
 {
   v15[5] = *MEMORY[0x277D85DE8];
   v12 = a2;
@@ -812,7 +812,7 @@ uint64_t mlir::OpBuilder::create<mlir::anec::RegionReturn,llvm::SmallVector<mlir
   mlir::ValueRange::ValueRange(v15, *a3, *(a3 + 8));
   mlir::OperationState::addOperands(v14, v15[0], v15[1]);
   v9 = mlir::OpBuilder::create(a1, v14);
-  if (*(*(v9 + 48) + 16) == &mlir::detail::TypeIDResolver<mlir::anec::RegionReturn,void>::id)
+  if (*(*(v9 + 6) + 16) == &mlir::detail::TypeIDResolver<mlir::anec::RegionReturn,void>::id)
   {
     v10 = v9;
   }
@@ -836,7 +836,7 @@ BOOL mlir::anec::A11Legacy::verifyInvariantsImpl(mlir::Operation **this)
 LABEL_7:
     v25[0] = "requires attribute 'function_type'";
     v26 = 259;
-    mlir::OpState::emitOpError(this, v25, v27);
+    mlir::OpState::emitOpError(v27, this, v25);
     v7 = mlir::InFlightDiagnostic::operator llvm::LogicalResult(v27);
     if (v27[0])
     {
@@ -933,7 +933,7 @@ LABEL_47:
 LABEL_29:
     v25[0] = "requires attribute 'sym_name'";
     v26 = 259;
-    mlir::OpState::emitOpError(this, v25, v27);
+    mlir::OpState::emitOpError(v27, this, v25);
     v7 = mlir::InFlightDiagnostic::operator llvm::LogicalResult(v27);
     if (v27[0])
     {
@@ -1015,18 +1015,10 @@ LABEL_29:
     }
   }
 
-  if (mlir::anec::__mlir_ods_local_attr_constraint_ANECOps1(*this, v4[1], "sym_name", 8) & 1) != 0 && (mlir::mpsx::__mlir_ods_local_attr_constraint_MPSXOps1(*this, v17, "function_type", 0xD) & 1) != 0 && (mlir::anec::__mlir_ods_local_attr_constraint_ANECOps3(*this, v5, "arg_attrs", 9) & 1) != 0 && (mlir::anec::__mlir_ods_local_attr_constraint_ANECOps3(*this, v16, "res_attrs", 9))
-  {
-    return mlir::mpsx::__mlir_ods_local_region_constraint_MPSXOps2(*this, ((*this + 16 * ((*(*this + 11) >> 23) & 1) + ((*(*this + 11) >> 21) & 0x7F8) + 71) & 0xFFFFFFFFFFFFFFF8) + 32 * *(*this + 10), "body", 4, 0) & 1;
-  }
-
-  else
-  {
-    return 0;
-  }
+  return mlir::anec::__mlir_ods_local_attr_constraint_ANECOps1(*this, v4[1], "sym_name", 8) && mlir::mpsx::__mlir_ods_local_attr_constraint_MPSXOps1(*this, v17, "function_type", 0xD) && mlir::anec::__mlir_ods_local_attr_constraint_ANECOps3(*this, v5, "arg_attrs", 9) && mlir::anec::__mlir_ods_local_attr_constraint_ANECOps3(*this, v16, "res_attrs", 9) && mlir::mpsx::__mlir_ods_local_region_constraint_MPSXOps2(*this, ((*this + 16 * ((*(*this + 11) >> 23) & 1) + ((*(*this + 11) >> 21) & 0x7F8) + 71) & 0xFFFFFFFFFFFFFFF8) + 32 * *(*this + 10), "body", 4, 0);
 }
 
-uint64_t mlir::anec::__mlir_ods_local_attr_constraint_ANECOps1(mlir::Operation *a1, uint64_t a2, uint64_t a3, uint64_t a4)
+BOOL mlir::anec::__mlir_ods_local_attr_constraint_ANECOps1(mlir::Operation *a1, uint64_t a2, uint64_t a3, const char *a4)
 {
   v34 = *MEMORY[0x277D85DE8];
   if (!a2 || *(*a2 + 136) == &mlir::detail::TypeIDResolver<mlir::StringAttr,void>::id)
@@ -1138,7 +1130,7 @@ uint64_t mlir::anec::__mlir_ods_local_attr_constraint_ANECOps1(mlir::Operation *
   return v12;
 }
 
-uint64_t mlir::anec::__mlir_ods_local_attr_constraint_ANECOps3(mlir::Operation *a1, uint64_t a2, uint64_t a3, uint64_t a4)
+BOOL mlir::anec::__mlir_ods_local_attr_constraint_ANECOps3(mlir::Operation *a1, uint64_t a2, uint64_t a3, const char *a4)
 {
   v39 = *MEMORY[0x277D85DE8];
   if (!a2)
@@ -1350,7 +1342,7 @@ BOOL mlir::anec::ArgMinMax::verifyInvariantsImpl(mlir::Operation **this)
 LABEL_5:
     *&v81 = "requires attribute 'axes'";
     v83 = 259;
-    mlir::OpState::emitOpError(this, &v81, &AttrDictionary);
+    mlir::OpState::emitOpError(&AttrDictionary, this, &v81);
     v6 = mlir::InFlightDiagnostic::operator llvm::LogicalResult(&AttrDictionary);
     if (AttrDictionary)
     {
@@ -1432,7 +1424,7 @@ LABEL_5:
 LABEL_25:
     *&v81 = "requires attribute 'kernel_size'";
     v83 = 259;
-    mlir::OpState::emitOpError(this, &v81, &AttrDictionary);
+    mlir::OpState::emitOpError(&AttrDictionary, this, &v81);
     v6 = mlir::InFlightDiagnostic::operator llvm::LogicalResult(&AttrDictionary);
     if (AttrDictionary)
     {
@@ -1520,7 +1512,7 @@ LABEL_25:
 LABEL_45:
     *&v81 = "requires attribute 'mode'";
     v83 = 259;
-    mlir::OpState::emitOpError(this, &v81, &AttrDictionary);
+    mlir::OpState::emitOpError(&AttrDictionary, this, &v81);
     v6 = mlir::InFlightDiagnostic::operator llvm::LogicalResult(&AttrDictionary);
     if (AttrDictionary)
     {
@@ -1603,7 +1595,7 @@ LABEL_81:
 LABEL_65:
     *&v81 = "requires attribute 'pad_values'";
     v83 = 259;
-    mlir::OpState::emitOpError(this, &v81, &AttrDictionary);
+    mlir::OpState::emitOpError(&AttrDictionary, this, &v81);
     v6 = mlir::InFlightDiagnostic::operator llvm::LogicalResult(&AttrDictionary);
     if (AttrDictionary)
     {
@@ -1869,7 +1861,7 @@ LABEL_105:
       }
     }
 
-    if (mlir::anec::__mlir_ods_local_attr_constraint_ANECOps5(*this, v33, "mode", 4) & 1) != 0 && (mlir::anec::__mlir_ods_local_attr_constraint_ANECOps6(*this, v25, "kernel_size", 11) & 1) != 0 && (mlir::anec::__mlir_ods_local_attr_constraint_ANECOps6(*this, v48, "stride_values", 13) & 1) != 0 && (mlir::anec::__mlir_ods_local_attr_constraint_ANECOps7(*this, v43, "pad_values", 10) & 1) != 0 && (mlir::anec::__mlir_ods_local_type_constraint_ANECOps1(*this, (*(*(*(*this + 9) + 24) + 8) & 0xFFFFFFFFFFFFFFF8), "operand", 7, 0))
+    if (mlir::anec::__mlir_ods_local_attr_constraint_ANECOps5(*this, v33, "mode", 4) && mlir::anec::__mlir_ods_local_attr_constraint_ANECOps6(*this, v25, "kernel_size", 11) && mlir::anec::__mlir_ods_local_attr_constraint_ANECOps6(*this, v48, "stride_values", 13) && mlir::anec::__mlir_ods_local_attr_constraint_ANECOps7(*this, v43, "pad_values", 10) && mlir::anec::__mlir_ods_local_type_constraint_ANECOps1(*this, (*(*(*(*this + 9) + 24) + 8) & 0xFFFFFFFFFFFFFFF8), "operand", 7, 0))
     {
       if (*(*this + 9))
       {
@@ -1882,7 +1874,7 @@ LABEL_105:
       }
 
       NextResultAtOffset = mlir::detail::OpResultImpl::getNextResultAtOffset(v73, 0);
-      return mlir::anec::__mlir_ods_local_type_constraint_ANECOps2(*this, (*(NextResultAtOffset + 8) & 0xFFFFFFFFFFFFFFF8), "result", 6, 0) & 1;
+      return mlir::anec::__mlir_ods_local_type_constraint_ANECOps2(*this, (*(NextResultAtOffset + 8) & 0xFFFFFFFFFFFFFFF8), "result", 6, 0);
     }
 
     else
@@ -1896,7 +1888,7 @@ LABEL_105:
 LABEL_90:
     *&v81 = "requires attribute 'stride_values'";
     v83 = 259;
-    mlir::OpState::emitOpError(this, &v81, &AttrDictionary);
+    mlir::OpState::emitOpError(&AttrDictionary, this, &v81);
     v6 = mlir::InFlightDiagnostic::operator llvm::LogicalResult(&AttrDictionary);
     if (AttrDictionary)
     {
@@ -1912,7 +1904,7 @@ LABEL_90:
   return v6;
 }
 
-uint64_t mlir::anec::__mlir_ods_local_attr_constraint_ANECOps5(mlir::Operation *a1, void **a2, void **a3, void **a4)
+BOOL mlir::anec::__mlir_ods_local_attr_constraint_ANECOps5(mlir::Operation *a1, const char *a2, const char *a3, const char *a4)
 {
   v36 = *MEMORY[0x277D85DE8];
   if (!a2)
@@ -1920,7 +1912,7 @@ uint64_t mlir::anec::__mlir_ods_local_attr_constraint_ANECOps5(mlir::Operation *
     return 1;
   }
 
-  if (*(*a2 + 17) == &mlir::detail::TypeIDResolver<mlir::IntegerAttr,void>::id)
+  if (*(*a2 + 136) == &mlir::detail::TypeIDResolver<mlir::IntegerAttr,void>::id)
   {
     v25[0] = a2;
     v6 = a1;
@@ -2027,7 +2019,7 @@ uint64_t mlir::anec::__mlir_ods_local_attr_constraint_ANECOps5(mlir::Operation *
   return v10;
 }
 
-uint64_t mlir::anec::__mlir_ods_local_attr_constraint_ANECOps6(mlir::Operation *a1, void **a2, void **a3, uint64_t a4)
+BOOL mlir::anec::__mlir_ods_local_attr_constraint_ANECOps6(mlir::Operation *a1, const char *a2, const char *a3, uint64_t a4)
 {
   v43 = *MEMORY[0x277D85DE8];
   if (!a2)
@@ -2149,7 +2141,7 @@ LABEL_9:
   return v14;
 }
 
-uint64_t mlir::anec::__mlir_ods_local_attr_constraint_ANECOps7(mlir::Operation *a1, void **a2, void **a3, uint64_t a4)
+BOOL mlir::anec::__mlir_ods_local_attr_constraint_ANECOps7(mlir::Operation *a1, const char *a2, const char *a3, uint64_t a4)
 {
   v43 = *MEMORY[0x277D85DE8];
   if (!a2)
@@ -2271,11 +2263,11 @@ LABEL_9:
   return v14;
 }
 
-uint64_t mlir::anec::__mlir_ods_local_type_constraint_ANECOps1(mlir::Operation *a1, void **a2, void **a3, uint64_t a4, unsigned int a5)
+BOOL mlir::anec::__mlir_ods_local_type_constraint_ANECOps1(mlir::Operation *a1, const char *a2, const char *a3, uint64_t a4, unsigned int a5)
 {
   v56 = *MEMORY[0x277D85DE8];
   v10 = *a2;
-  if (*(*a2 + 17) == &mlir::detail::TypeIDResolver<mlir::MemRefType,void>::id)
+  if (*(*a2 + 136) == &mlir::detail::TypeIDResolver<mlir::MemRefType,void>::id)
   {
     v47[0] = a2;
     v47[1] = mlir::detail::InterfaceMap::lookup<mlir::ShapedType>(v10 + 8);
@@ -2450,11 +2442,11 @@ uint64_t mlir::anec::__mlir_ods_local_type_constraint_ANECOps1(mlir::Operation *
   return v16;
 }
 
-uint64_t mlir::anec::__mlir_ods_local_type_constraint_ANECOps2(mlir::Operation *a1, void **a2, void **a3, uint64_t a4, unsigned int a5)
+BOOL mlir::anec::__mlir_ods_local_type_constraint_ANECOps2(mlir::Operation *a1, const char *a2, const char *a3, uint64_t a4, unsigned int a5)
 {
   v56 = *MEMORY[0x277D85DE8];
   v10 = *a2;
-  if (*(*a2 + 17) == &mlir::detail::TypeIDResolver<mlir::MemRefType,void>::id)
+  if (*(*a2 + 136) == &mlir::detail::TypeIDResolver<mlir::MemRefType,void>::id)
   {
     v47[0] = a2;
     v47[1] = mlir::detail::InterfaceMap::lookup<mlir::ShapedType>(v10 + 8);
@@ -2721,7 +2713,7 @@ BOOL mlir::anec::AveragePool::verifyInvariantsImpl(mlir::Operation **this)
 LABEL_7:
     v36[0] = "requires attribute 'ksize'";
     v37 = 259;
-    mlir::OpState::emitOpError(this, v36, v38);
+    mlir::OpState::emitOpError(v38, this, v36);
     v7 = mlir::InFlightDiagnostic::operator llvm::LogicalResult(v38);
     if (v38[0])
     {
@@ -2809,7 +2801,7 @@ LABEL_7:
 LABEL_27:
     v36[0] = "requires attribute 'padding'";
     v37 = 259;
-    mlir::OpState::emitOpError(this, v36, v38);
+    mlir::OpState::emitOpError(v38, this, v36);
     v7 = mlir::InFlightDiagnostic::operator llvm::LogicalResult(v38);
     if (v38[0])
     {
@@ -2899,7 +2891,7 @@ LABEL_63:
 LABEL_47:
     v36[0] = "requires attribute 'stride'";
     v37 = 259;
-    mlir::OpState::emitOpError(this, v36, v38);
+    mlir::OpState::emitOpError(v38, this, v36);
     v7 = mlir::InFlightDiagnostic::operator llvm::LogicalResult(v38);
     if (v38[0])
     {
@@ -2983,7 +2975,7 @@ LABEL_65:
     }
   }
 
-  if ((mlir::anec::__mlir_ods_local_attr_constraint_ANECOps8(*this, v18[1], "stride", 6) & 1) == 0 || (mlir::anec::__mlir_ods_local_attr_constraint_ANECOps9(*this, v26, "padding", 7) & 1) == 0 || (mlir::anec::__mlir_ods_local_attr_constraint_ANECOps8(*this, v17, "ksize", 5) & 1) == 0 || (mlir::mpsx::__mlir_ods_local_attr_constraint_MPSXOps3(*this, v5, "inc_pad", 7) & 1) == 0 || (mlir::anec::__mlir_ods_local_type_constraint_ANECOps1(*this, (*(*(*(*this + 9) + 24) + 8) & 0xFFFFFFFFFFFFFFF8), "operand", 7, 0) & 1) == 0)
+  if (!mlir::anec::__mlir_ods_local_attr_constraint_ANECOps8(*this, v18[1], "stride", 6) || !mlir::anec::__mlir_ods_local_attr_constraint_ANECOps9(*this, v26, "padding", 7) || !mlir::anec::__mlir_ods_local_attr_constraint_ANECOps8(*this, v17, "ksize", 5) || !mlir::mpsx::__mlir_ods_local_attr_constraint_MPSXOps3(*this, v5, "inc_pad", 7) || !mlir::anec::__mlir_ods_local_type_constraint_ANECOps1(*this, (*(*(*(*this + 9) + 24) + 8) & 0xFFFFFFFFFFFFFFF8), "operand", 7, 0))
   {
     return 0;
   }
@@ -2999,10 +2991,10 @@ LABEL_65:
   }
 
   NextResultAtOffset = mlir::detail::OpResultImpl::getNextResultAtOffset(v34, 0);
-  return mlir::anec::__mlir_ods_local_type_constraint_ANECOps1(*this, (*(NextResultAtOffset + 8) & 0xFFFFFFFFFFFFFFF8), "result", 6, 0) & 1;
+  return mlir::anec::__mlir_ods_local_type_constraint_ANECOps1(*this, (*(NextResultAtOffset + 8) & 0xFFFFFFFFFFFFFFF8), "result", 6, 0);
 }
 
-uint64_t mlir::anec::__mlir_ods_local_attr_constraint_ANECOps8(mlir::Operation *a1, void **a2, void **a3, uint64_t a4)
+BOOL mlir::anec::__mlir_ods_local_attr_constraint_ANECOps8(mlir::Operation *a1, const char *a2, const char *a3, uint64_t a4)
 {
   v43 = *MEMORY[0x277D85DE8];
   if (!a2)
@@ -3124,7 +3116,7 @@ LABEL_9:
   return v14;
 }
 
-uint64_t mlir::anec::__mlir_ods_local_attr_constraint_ANECOps9(mlir::Operation *a1, void **a2, void **a3, uint64_t a4)
+BOOL mlir::anec::__mlir_ods_local_attr_constraint_ANECOps9(mlir::Operation *a1, const char *a2, const char *a3, uint64_t a4)
 {
   v43 = *MEMORY[0x277D85DE8];
   if (!a2)
@@ -3329,7 +3321,7 @@ BOOL mlir::anec::BatchNorm::verifyInvariantsImpl(mlir::Operation **this)
       }
     }
 
-    if (mlir::anec::__mlir_ods_local_attr_constraint_ANECOps11(*this, v4[1], "epsilon", 7) & 1) != 0 && (mlir::anec::__mlir_ods_local_type_constraint_ANECOps1(*this, (*(*(*(*this + 9) + 24) + 8) & 0xFFFFFFFFFFFFFFF8), "operand", 7, 0) & 1) != 0 && (mlir::anec::__mlir_ods_local_type_constraint_ANECOps1(*this, (*(*(*(*this + 9) + 56) + 8) & 0xFFFFFFFFFFFFFFF8), "operand", 7, 1u) & 1) != 0 && (mlir::anec::__mlir_ods_local_type_constraint_ANECOps1(*this, (*(*(*(*this + 9) + 88) + 8) & 0xFFFFFFFFFFFFFFF8), "operand", 7, 2u) & 1) != 0 && (mlir::anec::__mlir_ods_local_type_constraint_ANECOps1(*this, (*(*(*(*this + 9) + 120) + 8) & 0xFFFFFFFFFFFFFFF8), "operand", 7, 3u) & 1) != 0 && (mlir::anec::__mlir_ods_local_type_constraint_ANECOps1(*this, (*(*(*(*this + 9) + 152) + 8) & 0xFFFFFFFFFFFFFFF8), "operand", 7, 4u))
+    if (mlir::anec::__mlir_ods_local_attr_constraint_ANECOps11(*this, v4[1], "epsilon", 7) && mlir::anec::__mlir_ods_local_type_constraint_ANECOps1(*this, (*(*(*(*this + 9) + 24) + 8) & 0xFFFFFFFFFFFFFFF8), "operand", 7, 0) && mlir::anec::__mlir_ods_local_type_constraint_ANECOps1(*this, (*(*(*(*this + 9) + 56) + 8) & 0xFFFFFFFFFFFFFFF8), "operand", 7, 1u) && mlir::anec::__mlir_ods_local_type_constraint_ANECOps1(*this, (*(*(*(*this + 9) + 88) + 8) & 0xFFFFFFFFFFFFFFF8), "operand", 7, 2u) && mlir::anec::__mlir_ods_local_type_constraint_ANECOps1(*this, (*(*(*(*this + 9) + 120) + 8) & 0xFFFFFFFFFFFFFFF8), "operand", 7, 3u) && mlir::anec::__mlir_ods_local_type_constraint_ANECOps1(*this, (*(*(*(*this + 9) + 152) + 8) & 0xFFFFFFFFFFFFFFF8), "operand", 7, 4u))
     {
       if (*(*this + 9))
       {
@@ -3342,7 +3334,7 @@ BOOL mlir::anec::BatchNorm::verifyInvariantsImpl(mlir::Operation **this)
       }
 
       NextResultAtOffset = mlir::detail::OpResultImpl::getNextResultAtOffset(v15, 0);
-      return mlir::anec::__mlir_ods_local_type_constraint_ANECOps3(*this, (*(NextResultAtOffset + 8) & 0xFFFFFFFFFFFFFFF8), "result", 6, 0) & 1;
+      return mlir::anec::__mlir_ods_local_type_constraint_ANECOps3(*this, (*(NextResultAtOffset + 8) & 0xFFFFFFFFFFFFFFF8), "result", 6, 0);
     }
 
     else
@@ -3356,7 +3348,7 @@ BOOL mlir::anec::BatchNorm::verifyInvariantsImpl(mlir::Operation **this)
 LABEL_5:
     v18 = "requires attribute 'epsilon'";
     v19 = 259;
-    mlir::OpState::emitOpError(this, &v18, v20);
+    mlir::OpState::emitOpError(v20, this, &v18);
     v6 = mlir::InFlightDiagnostic::operator llvm::LogicalResult(v20);
     if (v20[0])
     {
@@ -3426,7 +3418,7 @@ LABEL_5:
   return v6;
 }
 
-uint64_t mlir::anec::__mlir_ods_local_attr_constraint_ANECOps11(mlir::Operation *a1, void **a2, void **a3, void **a4)
+BOOL mlir::anec::__mlir_ods_local_attr_constraint_ANECOps11(mlir::Operation *a1, const char *a2, const char *a3, const char *a4)
 {
   v32 = *MEMORY[0x277D85DE8];
   if (!a2)
@@ -3434,7 +3426,7 @@ uint64_t mlir::anec::__mlir_ods_local_attr_constraint_ANECOps11(mlir::Operation 
     return 1;
   }
 
-  if (*(*a2 + 17) == &mlir::detail::TypeIDResolver<mlir::FloatAttr,void>::id)
+  if (*(*a2 + 136) == &mlir::detail::TypeIDResolver<mlir::FloatAttr,void>::id)
   {
     v21[0] = a2;
     v6 = a1;
@@ -3529,11 +3521,11 @@ uint64_t mlir::anec::__mlir_ods_local_attr_constraint_ANECOps11(mlir::Operation 
   return v8;
 }
 
-uint64_t mlir::anec::__mlir_ods_local_type_constraint_ANECOps3(mlir::Operation *a1, void **a2, void **a3, uint64_t a4, unsigned int a5)
+BOOL mlir::anec::__mlir_ods_local_type_constraint_ANECOps3(mlir::Operation *a1, const char *a2, const char *a3, uint64_t a4, unsigned int a5)
 {
   v55 = *MEMORY[0x277D85DE8];
   v9 = *a2;
-  if (*(*a2 + 17) == &mlir::detail::TypeIDResolver<mlir::MemRefType,void>::id)
+  if (*(*a2 + 136) == &mlir::detail::TypeIDResolver<mlir::MemRefType,void>::id)
   {
     v10 = a1;
     v46[0] = a2;
@@ -3776,7 +3768,7 @@ BOOL mlir::anec::BatchToSpace::verifyInvariantsImpl(mlir::Operation **this)
       }
     }
 
-    if (mlir::anec::__mlir_ods_local_attr_constraint_ANECOps8(*this, v4[1], "factors", 7) & 1) != 0 && (mlir::anec::__mlir_ods_local_type_constraint_ANECOps1(*this, (*(*(*(*this + 9) + 24) + 8) & 0xFFFFFFFFFFFFFFF8), "operand", 7, 0))
+    if (mlir::anec::__mlir_ods_local_attr_constraint_ANECOps8(*this, v4[1], "factors", 7) && mlir::anec::__mlir_ods_local_type_constraint_ANECOps1(*this, (*(*(*(*this + 9) + 24) + 8) & 0xFFFFFFFFFFFFFFF8), "operand", 7, 0))
     {
       if (*(*this + 9))
       {
@@ -3789,7 +3781,7 @@ BOOL mlir::anec::BatchToSpace::verifyInvariantsImpl(mlir::Operation **this)
       }
 
       NextResultAtOffset = mlir::detail::OpResultImpl::getNextResultAtOffset(v15, 0);
-      return mlir::anec::__mlir_ods_local_type_constraint_ANECOps1(*this, (*(NextResultAtOffset + 8) & 0xFFFFFFFFFFFFFFF8), "result", 6, 0) & 1;
+      return mlir::anec::__mlir_ods_local_type_constraint_ANECOps1(*this, (*(NextResultAtOffset + 8) & 0xFFFFFFFFFFFFFFF8), "result", 6, 0);
     }
 
     else
@@ -3803,7 +3795,7 @@ BOOL mlir::anec::BatchToSpace::verifyInvariantsImpl(mlir::Operation **this)
 LABEL_5:
     v18 = "requires attribute 'factors'";
     v19 = 259;
-    mlir::OpState::emitOpError(this, &v18, v20);
+    mlir::OpState::emitOpError(v20, this, &v18);
     v6 = mlir::InFlightDiagnostic::operator llvm::LogicalResult(v20);
     if (v20[0])
     {
@@ -3873,13 +3865,13 @@ LABEL_5:
   return v6;
 }
 
-uint64_t mlir::anec::Cast::verifyInvariantsImpl(mlir::Operation **this)
+BOOL mlir::anec::Cast::verifyInvariantsImpl(mlir::Operation **this)
 {
   v66 = *MEMORY[0x277D85DE8];
   v2 = *this;
   v3 = (*(*(*(*this + 9) + 24) + 8) & 0xFFFFFFFFFFFFFFF8);
   v4 = *v3;
-  if (*(*v3 + 17) != &mlir::detail::TypeIDResolver<mlir::MemRefType,void>::id || ((v57[0] = *(*(*(*this + 9) + 24) + 8) & 0xFFFFFFFFFFFFFFF8, v57[1] = mlir::detail::InterfaceMap::lookup<mlir::ShapedType>(v4 + 8), v5 = *(*mlir::ShapedType::getElementType(v57) + 136), v5 != &mlir::detail::TypeIDResolver<mlir::Float4E2M1FNType,void>::id) ? (v6 = v5 == &mlir::detail::TypeIDResolver<mlir::Float6E2M3FNType,void>::id) : (v6 = 1), !v6 ? (v7 = v5 == &mlir::detail::TypeIDResolver<mlir::Float6E3M2FNType,void>::id) : (v7 = 1), !v7 ? (v8 = v5 == &mlir::detail::TypeIDResolver<mlir::Float8E5M2Type,void>::id) : (v8 = 1), !v8 ? (v9 = v5 == &mlir::detail::TypeIDResolver<mlir::Float8E4M3Type,void>::id) : (v9 = 1), !v9 ? (v10 = v5 == &mlir::detail::TypeIDResolver<mlir::Float8E4M3FNType,void>::id) : (v10 = 1), !v10 ? (v11 = v5 == &mlir::detail::TypeIDResolver<mlir::Float8E5M2FNUZType,void>::id) : (v11 = 1), !v11 ? (v12 = v5 == &mlir::detail::TypeIDResolver<mlir::Float8E4M3FNUZType,void>::id) : (v12 = 1), !v12 ? (v13 = v5 == &mlir::detail::TypeIDResolver<mlir::Float8E4M3B11FNUZType,void>::id) : (v13 = 1), !v13 ? (v14 = v5 == &mlir::detail::TypeIDResolver<mlir::Float8E3M4Type,void>::id) : (v14 = 1), !v14 ? (v15 = v5 == &mlir::detail::TypeIDResolver<mlir::BFloat16Type,void>::id) : (v15 = 1), !v15 ? (v16 = v5 == &mlir::detail::TypeIDResolver<mlir::Float16Type,void>::id) : (v16 = 1), !v16 ? (v17 = v5 == &mlir::detail::TypeIDResolver<mlir::FloatTF32Type,void>::id) : (v17 = 1), !v17 ? (v18 = v5 == &mlir::detail::TypeIDResolver<mlir::Float32Type,void>::id) : (v18 = 1), !v18 ? (v19 = v5 == &mlir::detail::TypeIDResolver<mlir::Float64Type,void>::id) : (v19 = 1), !v19 ? (v20 = v5 == &mlir::detail::TypeIDResolver<mlir::IntegerType,void>::id) : (v20 = 1), !v20 ? (v21 = v5 == &mlir::detail::TypeIDResolver<mlir::Float80Type,void>::id) : (v21 = 1), !v21 ? (v22 = v5 == &mlir::detail::TypeIDResolver<mlir::Float128Type,void>::id) : (v22 = 1), !v22 || (v23 = mlir::detail::InterfaceMap::lookup<mlir::ShapedType>(*v3 + 8), v51 = v3, v52 = v23, !mlir::ShapedType::hasRank(&v51)) || (v24 = mlir::detail::InterfaceMap::lookup<mlir::ShapedType>(*v3 + 8), *&v55 = v3, *(&v55 + 1) = v24, mlir::ShapedType::getShape(&v55), v25 != 4) && (v26 = mlir::detail::InterfaceMap::lookup<mlir::ShapedType>(*v3 + 8), v54[0] = v3, v54[1] = v26, mlir::ShapedType::getShape(v54), v27 != 5)))
+  if (*(*v3 + 136) != &mlir::detail::TypeIDResolver<mlir::MemRefType,void>::id || ((v57[0] = *(*(*(*this + 9) + 24) + 8) & 0xFFFFFFFFFFFFFFF8, v57[1] = mlir::detail::InterfaceMap::lookup<mlir::ShapedType>(v4 + 8), v5 = *(*mlir::ShapedType::getElementType(v57) + 136), v5 != &mlir::detail::TypeIDResolver<mlir::Float4E2M1FNType,void>::id) ? (v6 = v5 == &mlir::detail::TypeIDResolver<mlir::Float6E2M3FNType,void>::id) : (v6 = 1), !v6 ? (v7 = v5 == &mlir::detail::TypeIDResolver<mlir::Float6E3M2FNType,void>::id) : (v7 = 1), !v7 ? (v8 = v5 == &mlir::detail::TypeIDResolver<mlir::Float8E5M2Type,void>::id) : (v8 = 1), !v8 ? (v9 = v5 == &mlir::detail::TypeIDResolver<mlir::Float8E4M3Type,void>::id) : (v9 = 1), !v9 ? (v10 = v5 == &mlir::detail::TypeIDResolver<mlir::Float8E4M3FNType,void>::id) : (v10 = 1), !v10 ? (v11 = v5 == &mlir::detail::TypeIDResolver<mlir::Float8E5M2FNUZType,void>::id) : (v11 = 1), !v11 ? (v12 = v5 == &mlir::detail::TypeIDResolver<mlir::Float8E4M3FNUZType,void>::id) : (v12 = 1), !v12 ? (v13 = v5 == &mlir::detail::TypeIDResolver<mlir::Float8E4M3B11FNUZType,void>::id) : (v13 = 1), !v13 ? (v14 = v5 == &mlir::detail::TypeIDResolver<mlir::Float8E3M4Type,void>::id) : (v14 = 1), !v14 ? (v15 = v5 == &mlir::detail::TypeIDResolver<mlir::BFloat16Type,void>::id) : (v15 = 1), !v15 ? (v16 = v5 == &mlir::detail::TypeIDResolver<mlir::Float16Type,void>::id) : (v16 = 1), !v16 ? (v17 = v5 == &mlir::detail::TypeIDResolver<mlir::FloatTF32Type,void>::id) : (v17 = 1), !v17 ? (v18 = v5 == &mlir::detail::TypeIDResolver<mlir::Float32Type,void>::id) : (v18 = 1), !v18 ? (v19 = v5 == &mlir::detail::TypeIDResolver<mlir::Float64Type,void>::id) : (v19 = 1), !v19 ? (v20 = v5 == &mlir::detail::TypeIDResolver<mlir::IntegerType,void>::id) : (v20 = 1), !v20 ? (v21 = v5 == &mlir::detail::TypeIDResolver<mlir::Float80Type,void>::id) : (v21 = 1), !v21 ? (v22 = v5 == &mlir::detail::TypeIDResolver<mlir::Float128Type,void>::id) : (v22 = 1), !v22 || (v23 = mlir::detail::InterfaceMap::lookup<mlir::ShapedType>(*v3 + 8), v51 = v3, v52 = v23, !mlir::ShapedType::hasRank(&v51)) || (v24 = mlir::detail::InterfaceMap::lookup<mlir::ShapedType>(*v3 + 8), *&v55 = v3, *(&v55 + 1) = v24, mlir::ShapedType::getShape(&v55), v25 != 4) && (v26 = mlir::detail::InterfaceMap::lookup<mlir::ShapedType>(*v3 + 8), v54[0] = v3, v54[1] = v26, mlir::ShapedType::getShape(v54), v27 != 5)))
   {
     v53 = 261;
     v51 = "operand";
@@ -4016,7 +4008,7 @@ uint64_t mlir::anec::Cast::verifyInvariantsImpl(mlir::Operation **this)
   }
 
   NextResultAtOffset = mlir::detail::OpResultImpl::getNextResultAtOffset(v48, 0);
-  return mlir::anec::__mlir_ods_local_type_constraint_ANECOps1(*this, (*(NextResultAtOffset + 8) & 0xFFFFFFFFFFFFFFF8), "result", 6, 0) & 1;
+  return mlir::anec::__mlir_ods_local_type_constraint_ANECOps1(*this, (*(NextResultAtOffset + 8) & 0xFFFFFFFFFFFFFFF8), "result", 6, 0);
 }
 
 uint64_t mlir::anec::detail::InferReturnTypesInterfaceTrait<mlir::anec::Ceil>::inferReturnTypes(uint64_t a1, uint64_t a2, char a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11)
@@ -4149,48 +4141,48 @@ LABEL_13:
 
 void mlir::anec::ClampedRelu::build(mlir::Float16Type **a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v30[2] = *MEMORY[0x277D85DE8];
-  v25 = a3;
-  mlir::OperationState::addOperands(a2, &v25, 1uLL);
+  v31[2] = *MEMORY[0x277D85DE8];
+  v26 = a3;
+  mlir::OperationState::addOperands(a2, &v26, 1uLL);
   v9 = *(*(*(a2 + 8) + 96) + 8);
   F16Type = mlir::Builder::getF16Type(a1, v10);
   FloatAttr = mlir::Builder::getFloatAttr(a1, F16Type, a4);
   mlir::NamedAttribute::NamedAttribute(&__src, v9, FloatAttr);
-  mlir::NamedAttrList::push_back(a2 + 112, __src, v29);
+  mlir::NamedAttrList::push_back(a2 + 112, __src, v30);
   v13 = **(*(a2 + 8) + 96);
   v15 = mlir::Builder::getF16Type(a1, v14);
   v16 = mlir::Builder::getFloatAttr(a1, v15, a5);
   mlir::NamedAttribute::NamedAttribute(&__src, v13, v16);
-  mlir::NamedAttrList::push_back(a2 + 112, __src, v29);
-  __src = v30;
-  v29 = 0x200000000;
+  mlir::NamedAttrList::push_back(a2 + 112, __src, v30);
+  __src = v31;
+  v30 = 0x200000000;
   v17 = *a1;
   v18 = *a2;
-  mlir::ValueRange::ValueRange(v27, *(a2 + 16), *(a2 + 24));
+  mlir::ValueRange::ValueRange(v28, *(a2 + 16), *(a2 + 24));
   Context = mlir::Attribute::getContext(a2);
   Dictionary = mlir::NamedAttrList::getDictionary((a2 + 112), Context);
   v21 = *(a2 + 256);
-  mlir::RegionRange::RegionRange(v26, *(a2 + 224), *(a2 + 232));
-  if ((mlir::anec::detail::InferReturnTypesInterfaceTrait<mlir::anec::Ceil>::inferReturnTypes(v17, v18, 1, v27[0], v27[1], Dictionary, v21, v22, v26[0], v26[1], &__src) & 1) == 0)
+  mlir::RegionRange::RegionRange(v27, *(a2 + 224), *(a2 + 232));
+  if ((mlir::anec::detail::InferReturnTypesInterfaceTrait<mlir::anec::Ceil>::inferReturnTypes(v17, v18, 1, v28[0], v28[1], Dictionary, v21, v22, v27[0], v27[1], &__src) & 1) == 0)
   {
-    llvm::report_fatal_error("Failed to infer result type(s).", 1);
+    llvm::report_fatal_error("Failed to infer result type(s).", 1, v23);
   }
 
-  v23 = v29;
-  v24 = *(a2 + 72);
-  if (v24 + v29 > *(a2 + 76))
+  v24 = v30;
+  v25 = *(a2 + 72);
+  if (v25 + v30 > *(a2 + 76))
   {
     llvm::SmallVectorBase<unsigned int>::grow_pod();
   }
 
-  if (v29)
+  if (v30)
   {
-    memcpy((*(a2 + 64) + 8 * v24), __src, 8 * v29);
-    LODWORD(v24) = *(a2 + 72);
+    memcpy((*(a2 + 64) + 8 * v25), __src, 8 * v30);
+    LODWORD(v25) = *(a2 + 72);
   }
 
-  *(a2 + 72) = v24 + v23;
-  if (__src != v30)
+  *(a2 + 72) = v25 + v24;
+  if (__src != v31)
   {
     free(__src);
   }
@@ -4206,7 +4198,7 @@ BOOL mlir::anec::ClampedRelu::verifyInvariantsImpl(mlir::Operation **this)
 LABEL_5:
     v25[0] = "requires attribute 'max_value'";
     v26 = 259;
-    mlir::OpState::emitOpError(this, v25, v27);
+    mlir::OpState::emitOpError(v27, this, v25);
     v6 = mlir::InFlightDiagnostic::operator llvm::LogicalResult(v27);
     if (v27[0])
     {
@@ -4297,7 +4289,7 @@ LABEL_43:
 LABEL_25:
     v25[0] = "requires attribute 'min_value'";
     v26 = 259;
-    mlir::OpState::emitOpError(this, v25, v27);
+    mlir::OpState::emitOpError(v27, this, v25);
     v6 = mlir::InFlightDiagnostic::operator llvm::LogicalResult(v27);
     if (v27[0])
     {
@@ -4373,7 +4365,7 @@ LABEL_25:
     }
   }
 
-  if ((mlir::anec::__mlir_ods_local_attr_constraint_ANECOps12(*this, v4[1], "min_value", 9) & 1) == 0 || (mlir::anec::__mlir_ods_local_attr_constraint_ANECOps12(*this, v15, "max_value", 9) & 1) == 0 || (mlir::anec::__mlir_ods_local_type_constraint_ANECOps1(*this, (*(*(*(*this + 9) + 24) + 8) & 0xFFFFFFFFFFFFFFF8), "operand", 7, 0) & 1) == 0)
+  if (!mlir::anec::__mlir_ods_local_attr_constraint_ANECOps12(*this, v4[1], "min_value", 9) || !mlir::anec::__mlir_ods_local_attr_constraint_ANECOps12(*this, v15, "max_value", 9) || !mlir::anec::__mlir_ods_local_type_constraint_ANECOps1(*this, (*(*(*(*this + 9) + 24) + 8) & 0xFFFFFFFFFFFFFFF8), "operand", 7, 0))
   {
     return 0;
   }
@@ -4389,10 +4381,10 @@ LABEL_25:
   }
 
   NextResultAtOffset = mlir::detail::OpResultImpl::getNextResultAtOffset(v22, 0);
-  return mlir::anec::__mlir_ods_local_type_constraint_ANECOps1(*this, (*(NextResultAtOffset + 8) & 0xFFFFFFFFFFFFFFF8), "result", 6, 0) & 1;
+  return mlir::anec::__mlir_ods_local_type_constraint_ANECOps1(*this, (*(NextResultAtOffset + 8) & 0xFFFFFFFFFFFFFFF8), "result", 6, 0);
 }
 
-uint64_t mlir::anec::__mlir_ods_local_attr_constraint_ANECOps12(mlir::Operation *a1, void **a2, void **a3, void **a4)
+BOOL mlir::anec::__mlir_ods_local_attr_constraint_ANECOps12(mlir::Operation *a1, const char *a2, const char *a3, const char *a4)
 {
   v32 = *MEMORY[0x277D85DE8];
   if (!a2)
@@ -4400,7 +4392,7 @@ uint64_t mlir::anec::__mlir_ods_local_attr_constraint_ANECOps12(mlir::Operation 
     return 1;
   }
 
-  if (*(*a2 + 17) == &mlir::detail::TypeIDResolver<mlir::FloatAttr,void>::id)
+  if (*(*a2 + 136) == &mlir::detail::TypeIDResolver<mlir::FloatAttr,void>::id)
   {
     v21[0] = a2;
     v6 = a1;
@@ -4513,7 +4505,7 @@ uint64_t mlir::anec::Concat::getInterleaveAttr(mlir::Operation **this)
   return result;
 }
 
-uint64_t mlir::anec::detail::InferReturnTypesInterfaceTrait<mlir::anec::Concat>::inferReturnTypes(mlir::UnknownLoc *a1, mlir::MLIRContext *a2, char a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11)
+BOOL mlir::anec::detail::InferReturnTypesInterfaceTrait<mlir::anec::Concat>::inferReturnTypes(mlir::UnknownLoc *a1, mlir::MLIRContext *a2, char a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11)
 {
   v29[6] = *MEMORY[0x277D85DE8];
   v26 = 0;
@@ -4616,7 +4608,7 @@ uint64_t mlir::anec::Concat::verifyInvariantsImpl(mlir::Operation **this)
       v4 = (v4 + 16);
     }
 
-    if (mlir::mpsx::__mlir_ods_local_attr_constraint_MPSXOps13(v7, v17, "axis", 4) & 1) != 0 && (mlir::mpsx::__mlir_ods_local_attr_constraint_MPSXOps3(*this, i, "interleave", 0xA))
+    if (mlir::mpsx::__mlir_ods_local_attr_constraint_MPSXOps13(v7, v17, "axis", 4) && mlir::mpsx::__mlir_ods_local_attr_constraint_MPSXOps3(*this, i, "interleave", 0xA))
     {
       v19 = *this;
       if ((*(*this + 46) & 0x80) == 0 || (v20 = *(v19 + 17), !v20))
@@ -4632,7 +4624,7 @@ LABEL_86:
       v24 = v71;
       while (1)
       {
-        if ((v26 = *this, v27 = (*(*(v22 + 32 * v21 + 24) + 8) & 0xFFFFFFFFFFFFFFF8), *(*v27 + 17) != &mlir::detail::TypeIDResolver<mlir::MemRefType,void>::id) || (v28 = mlir::detail::InterfaceMap::lookup<mlir::ShapedType>(*v27 + 8), v69[0] = v27, v69[1] = v28, ElementType = mlir::ShapedType::getElementType(v69), !mlir::Type::isF16(&ElementType)) && !mlir::Type::isSignedInteger(&ElementType, 8) && !mlir::Type::isUnsignedInteger(&ElementType, 8) && !mlir::Type::isSignedInteger(&ElementType, 4) || (v29 = mlir::detail::InterfaceMap::lookup<mlir::ShapedType>(*v27 + 8), v62 = v27, v63 = v29, !mlir::ShapedType::hasRank(&v62)) || (v30 = mlir::detail::InterfaceMap::lookup<mlir::ShapedType>(*v27 + 8), *&v67 = v27, *(&v67 + 1) = v30, mlir::ShapedType::getShape(&v67), v31 != 4) && (v32 = mlir::detail::InterfaceMap::lookup<mlir::ShapedType>(*v27 + 8), v65[0] = v27, v65[1] = v32, mlir::ShapedType::getShape(v65), v33 != 5))
+        if ((v26 = *this, v27 = (*(*(v22 + 32 * v21 + 24) + 8) & 0xFFFFFFFFFFFFFFF8), *(*v27 + 136) != &mlir::detail::TypeIDResolver<mlir::MemRefType,void>::id) || (v28 = mlir::detail::InterfaceMap::lookup<mlir::ShapedType>(*v27 + 8), v69[0] = v27, v69[1] = v28, ElementType = mlir::ShapedType::getElementType(v69), !mlir::Type::isF16(&ElementType)) && !mlir::Type::isSignedInteger(&ElementType, 8) && !mlir::Type::isUnsignedInteger(&ElementType, 8) && !mlir::Type::isSignedInteger(&ElementType, 4) || (v29 = mlir::detail::InterfaceMap::lookup<mlir::ShapedType>(*v27 + 8), v62 = v27, v63 = v29, !mlir::ShapedType::hasRank(&v62)) || (v30 = mlir::detail::InterfaceMap::lookup<mlir::ShapedType>(*v27 + 8), *&v67 = v27, *(&v67 + 1) = v30, mlir::ShapedType::getShape(&v67), v31 != 4) && (v32 = mlir::detail::InterfaceMap::lookup<mlir::ShapedType>(*v27 + 8), v65[0] = v27, v65[1] = v32, mlir::ShapedType::getShape(v65), v33 != 5))
         {
           v64 = 261;
           v62 = "operand";
@@ -4803,7 +4795,7 @@ LABEL_86:
 LABEL_5:
     v62 = "requires attribute 'axis'";
     v64 = 259;
-    mlir::OpState::emitOpError(this, &v62, v69);
+    mlir::OpState::emitOpError(v69, this, &v62);
     v8 = mlir::InFlightDiagnostic::operator llvm::LogicalResult(v69);
     if (v69[0])
     {
@@ -5023,7 +5015,7 @@ uint64_t mlir::anec::Convolution::getKernelMutablePalettized_LUTAttr(mlir::Opera
   return result;
 }
 
-uint64_t mlir::anec::detail::InferReturnTypesInterfaceTrait<mlir::anec::Convolution>::inferReturnTypes(mlir::UnknownLoc *a1, mlir::MLIRContext *a2, char a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11)
+uint64_t mlir::anec::detail::InferReturnTypesInterfaceTrait<mlir::anec::Convolution>::inferReturnTypes(mlir::UnknownLoc *a1, mlir::MLIRContext *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11)
 {
   v29[6] = *MEMORY[0x277D85DE8];
   v26 = 0;
@@ -5095,7 +5087,7 @@ uint64_t mlir::anec::Convolution::populateDefaultAttrs(mlir::anec::Convolution *
   if (!mlir::NamedAttrList::get(a2, v4[8]))
   {
     v6 = v4[8];
-    v7 = mlir::IntegerType::get(Context, 64, 0);
+    v7 = mlir::IntegerType::get(Context, 0x40u, 0);
     v8 = mlir::IntegerAttr::get(v7, 0);
     mlir::NamedAttribute::NamedAttribute(&v14, v6, v8);
     mlir::NamedAttrList::push_back(a2, v14, v15);
@@ -5106,7 +5098,7 @@ uint64_t mlir::anec::Convolution::populateDefaultAttrs(mlir::anec::Convolution *
   {
     v10 = v4[2];
     IntegerType = mlir::Builder::getIntegerType(&v13, 64, 0);
-    IntegerAttr = mlir::Builder::getIntegerAttr(&v13, IntegerType, 1uLL);
+    IntegerAttr = mlir::Builder::getIntegerAttr(&v13, IntegerType, 1);
     mlir::NamedAttribute::NamedAttribute(&v14, v10, IntegerAttr);
     return mlir::NamedAttrList::push_back(a2, v14, v15);
   }
@@ -5124,7 +5116,7 @@ BOOL mlir::anec::Convolution::verifyInvariantsImpl(mlir::Operation **this)
 LABEL_7:
     v42[0] = "requires attribute 'dilation'";
     v43 = 259;
-    mlir::OpState::emitOpError(this, v42, v44);
+    mlir::OpState::emitOpError(v44, this, v42);
     v7 = mlir::InFlightDiagnostic::operator llvm::LogicalResult(v44);
     if (v44[0])
     {
@@ -5212,7 +5204,7 @@ LABEL_7:
 LABEL_37:
     v42[0] = "requires attribute 'padding'";
     v43 = 259;
-    mlir::OpState::emitOpError(this, v42, v44);
+    mlir::OpState::emitOpError(v44, this, v42);
     v7 = mlir::InFlightDiagnostic::operator llvm::LogicalResult(v44);
     if (v44[0])
     {
@@ -5332,7 +5324,7 @@ LABEL_75:
 LABEL_59:
     v42[0] = "requires attribute 'stride'";
     v43 = 259;
-    mlir::OpState::emitOpError(this, v42, v44);
+    mlir::OpState::emitOpError(v44, this, v42);
     v7 = mlir::InFlightDiagnostic::operator llvm::LogicalResult(v44);
     if (v44[0])
     {
@@ -5422,7 +5414,7 @@ LABEL_77:
     }
   }
 
-  if ((mlir::anec::__mlir_ods_local_attr_constraint_ANECOps8(*this, v21[1], "stride", 6) & 1) == 0 || (mlir::anec::__mlir_ods_local_attr_constraint_ANECOps8(*this, v40, "dilation", 8) & 1) == 0 || (mlir::anec::__mlir_ods_local_attr_constraint_ANECOps9(*this, v30, "padding", 7) & 1) == 0 || (mlir::anec::__mlir_ods_local_attr_constraint_ANECOps14(*this, v29, "padding_mode", 0xC) & 1) == 0 || (mlir::mpsx::__mlir_ods_local_attr_constraint_MPSXOps13(*this, v17, "groups", 6) & 1) == 0 || (mlir::mpsx::__mlir_ods_local_attr_constraint_MPSXOps3(*this, v5, "channel_wise", 0xC) & 1) == 0 || (mlir::anec::__mlir_ods_local_attr_constraint_ANECOps15(*this, v20, "kernel_scale", 12) & 1) == 0 || (mlir::anec::__mlir_ods_local_attr_constraint_ANECOps16(*this, v41, "kernel_zero_point", 17) & 1) == 0 || (mlir::anec::__mlir_ods_local_attr_constraint_ANECOps17(*this, v19, "kernel_palettized_LUT", 21) & 1) == 0 || (mlir::anec::__mlir_ods_local_attr_constraint_ANECOps18(*this, v18, "kernel_mutable_palettized_LUT", 0x1D) & 1) == 0 || (mlir::anec::__mlir_ods_local_type_constraint_ANECOps1(*this, (*(*(*(*this + 9) + 24) + 8) & 0xFFFFFFFFFFFFFFF8), "operand", 7, 0) & 1) == 0 || (mlir::anec::__mlir_ods_local_type_constraint_ANECOps6(*this, (*(*(*(*this + 9) + 56) + 8) & 0xFFFFFFFFFFFFFFF8), "operand", 7, 1u) & 1) == 0)
+  if (!mlir::anec::__mlir_ods_local_attr_constraint_ANECOps8(*this, v21[1], "stride", 6) || !mlir::anec::__mlir_ods_local_attr_constraint_ANECOps8(*this, v40, "dilation", 8) || !mlir::anec::__mlir_ods_local_attr_constraint_ANECOps9(*this, v30, "padding", 7) || !mlir::anec::__mlir_ods_local_attr_constraint_ANECOps14(*this, v29, "padding_mode", 0xC) || !mlir::mpsx::__mlir_ods_local_attr_constraint_MPSXOps13(*this, v17, "groups", 6) || !mlir::mpsx::__mlir_ods_local_attr_constraint_MPSXOps3(*this, v5, "channel_wise", 0xC) || !mlir::anec::__mlir_ods_local_attr_constraint_ANECOps15(*this, v20, "kernel_scale", 12) || !mlir::anec::__mlir_ods_local_attr_constraint_ANECOps16(*this, v41, "kernel_zero_point", 17) || !mlir::anec::__mlir_ods_local_attr_constraint_ANECOps17(*this, v19, "kernel_palettized_LUT", 0x15) || !mlir::anec::__mlir_ods_local_attr_constraint_ANECOps18(*this, v18, "kernel_mutable_palettized_LUT", 0x1D) || !mlir::anec::__mlir_ods_local_type_constraint_ANECOps1(*this, (*(*(*(*this + 9) + 24) + 8) & 0xFFFFFFFFFFFFFFF8), "operand", 7, 0) || !mlir::anec::__mlir_ods_local_type_constraint_ANECOps6(*this, (*(*(*(*this + 9) + 56) + 8) & 0xFFFFFFFFFFFFFFF8), "operand", 7, 1u))
   {
     return 0;
   }
@@ -5438,10 +5430,10 @@ LABEL_77:
   }
 
   NextResultAtOffset = mlir::detail::OpResultImpl::getNextResultAtOffset(v38, 0);
-  return mlir::anec::__mlir_ods_local_type_constraint_ANECOps1(*this, (*(NextResultAtOffset + 8) & 0xFFFFFFFFFFFFFFF8), "result", 6, 0) & 1;
+  return mlir::anec::__mlir_ods_local_type_constraint_ANECOps1(*this, (*(NextResultAtOffset + 8) & 0xFFFFFFFFFFFFFFF8), "result", 6, 0);
 }
 
-uint64_t mlir::anec::__mlir_ods_local_attr_constraint_ANECOps14(mlir::Operation *a1, uint64_t a2, void **a3, void **a4)
+BOOL mlir::anec::__mlir_ods_local_attr_constraint_ANECOps14(mlir::Operation *a1, uint64_t a2, const char *a3, const char *a4)
 {
   v31 = *MEMORY[0x277D85DE8];
   if (!a2 || (mlir::anec::PaddingModeAttr::classof(a2) & 1) != 0)
@@ -5531,7 +5523,7 @@ uint64_t mlir::anec::__mlir_ods_local_attr_constraint_ANECOps14(mlir::Operation 
   return v7;
 }
 
-uint64_t mlir::anec::__mlir_ods_local_attr_constraint_ANECOps15(mlir::Operation *a1, void **a2, void **a3, uint64_t a4)
+BOOL mlir::anec::__mlir_ods_local_attr_constraint_ANECOps15(mlir::Operation *a1, const char *a2, const char *a3, uint64_t a4)
 {
   v57 = *MEMORY[0x277D85DE8];
   if (!a2)
@@ -5698,7 +5690,7 @@ LABEL_15:
   return v22;
 }
 
-uint64_t mlir::anec::__mlir_ods_local_attr_constraint_ANECOps16(mlir::Operation *a1, void **a2, void **a3, uint64_t a4)
+BOOL mlir::anec::__mlir_ods_local_attr_constraint_ANECOps16(mlir::Operation *a1, const char *a2, const char *a3, uint64_t a4)
 {
   v57 = *MEMORY[0x277D85DE8];
   if (!a2)
@@ -5865,7 +5857,7 @@ LABEL_15:
   return v22;
 }
 
-uint64_t mlir::anec::__mlir_ods_local_attr_constraint_ANECOps17(mlir::Operation *a1, void *a2, uint64_t a3, uint64_t a4)
+BOOL mlir::anec::__mlir_ods_local_attr_constraint_ANECOps17(mlir::Operation *a1, void *a2, void *a3, const char *a4)
 {
   v80 = *MEMORY[0x277D85DE8];
   if (!a2)
@@ -6117,7 +6109,7 @@ LABEL_26:
   return v37;
 }
 
-uint64_t mlir::anec::__mlir_ods_local_attr_constraint_ANECOps18(mlir::Operation *a1, uint64_t a2, void **a3, void **a4)
+BOOL mlir::anec::__mlir_ods_local_attr_constraint_ANECOps18(mlir::Operation *a1, uint64_t a2, const char *a3, const char *a4)
 {
   v30 = *MEMORY[0x277D85DE8];
   if (!a2 || *(*a2 + 136) == &mlir::detail::TypeIDResolver<mlir::DictionaryAttr,void>::id)
@@ -6207,11 +6199,11 @@ uint64_t mlir::anec::__mlir_ods_local_attr_constraint_ANECOps18(mlir::Operation 
   return v9;
 }
 
-uint64_t mlir::anec::__mlir_ods_local_type_constraint_ANECOps6(mlir::Operation *a1, void **a2, void **a3, uint64_t a4, unsigned int a5)
+BOOL mlir::anec::__mlir_ods_local_type_constraint_ANECOps6(mlir::Operation *a1, const char *a2, const char *a3, uint64_t a4, unsigned int a5)
 {
   v56 = *MEMORY[0x277D85DE8];
   v10 = *a2;
-  if (*(*a2 + 17) == &mlir::detail::TypeIDResolver<mlir::MemRefType,void>::id)
+  if (*(*a2 + 136) == &mlir::detail::TypeIDResolver<mlir::MemRefType,void>::id)
   {
     v47[0] = a2;
     v47[1] = mlir::detail::InterfaceMap::lookup<mlir::ShapedType>(v10 + 8);
@@ -6386,7 +6378,7 @@ uint64_t mlir::anec::__mlir_ods_local_type_constraint_ANECOps6(mlir::Operation *
   return v16;
 }
 
-uint64_t llvm::all_of<mlir::DenseIntElementsAttr,mlir::anec::CropResizeAdaptor::verify(mlir::Location)::$_0>(uint64_t *a1)
+uint64_t llvm::all_of<mlir::DenseIntElementsAttr,mlir::anec::CropResizeAdaptor::verify(mlir::Location)::$_0>(mlir::DenseElementsAttr *a1)
 {
   mlir::DenseElementsAttr::IntElementIterator::IntElementIterator(&v10, *a1, 0);
   v2 = *a1;
@@ -6450,7 +6442,7 @@ LABEL_7:
   return 0;
 }
 
-uint64_t llvm::all_of<mlir::DenseIntElementsAttr,mlir::anec::CropResizeAdaptor::verify(mlir::Location)::$_1>(uint64_t *a1)
+uint64_t llvm::all_of<mlir::DenseIntElementsAttr,mlir::anec::CropResizeAdaptor::verify(mlir::Location)::$_1>(mlir::DenseElementsAttr *a1)
 {
   mlir::DenseElementsAttr::IntElementIterator::IntElementIterator(&v10, *a1, 0);
   v2 = *a1;
@@ -6514,7 +6506,7 @@ LABEL_7:
   return 0;
 }
 
-uint64_t llvm::all_of<mlir::DenseIntElementsAttr,mlir::anec::CropResizeAdaptor::verify(mlir::Location)::$_2>(uint64_t *a1)
+uint64_t llvm::all_of<mlir::DenseIntElementsAttr,mlir::anec::CropResizeAdaptor::verify(mlir::Location)::$_2>(mlir::DenseElementsAttr *a1)
 {
   mlir::DenseElementsAttr::IntElementIterator::IntElementIterator(&v10, *a1, 0);
   v2 = *a1;
@@ -6578,7 +6570,7 @@ LABEL_7:
   return 0;
 }
 
-uint64_t llvm::all_of<mlir::DenseIntElementsAttr,mlir::anec::CropResizeAdaptor::verify(mlir::Location)::$_4>(uint64_t *a1)
+uint64_t llvm::all_of<mlir::DenseIntElementsAttr,mlir::anec::CropResizeAdaptor::verify(mlir::Location)::$_4>(mlir::DenseElementsAttr *a1)
 {
   mlir::DenseElementsAttr::IntElementIterator::IntElementIterator(&v10, *a1, 0);
   v2 = *a1;
@@ -6732,28 +6724,33 @@ LABEL_13:
 
 uint64_t mlir::anec::CropResize::populateDefaultAttrs(mlir::anec::CropResize *this, const mlir::OperationName *a2, mlir::NamedAttrList *a3)
 {
-  v13[1] = *MEMORY[0x277D85DE8];
+  v15[1] = *MEMORY[0x277D85DE8];
   v4 = *(*this + 96);
   Context = mlir::Attribute::getContext(v4);
   result = mlir::NamedAttrList::get(a2, v4[3]);
   if (!result)
   {
     v6 = v4[3];
-    v13[0] = 2;
+    v15[0] = 2;
     IntegerType = mlir::Builder::getIntegerType(&Context, 64, 0);
-    v8 = mlir::RankedTensorType::get(v13, 1, IntegerType, 0);
+    v8 = mlir::RankedTensorType::get(v15, 1, IntegerType, 0);
     if (v8)
     {
       v9 = v8;
-      mlir::detail::InterfaceMap::lookup<mlir::ShapedType>(*v8 + 8);
+      v10 = mlir::detail::InterfaceMap::lookup<mlir::ShapedType>(*v8 + 8);
       v8 = v9;
     }
 
-    v12[2] = 0;
-    v12[3] = 0;
-    RawIntOrFloat = mlir::DenseElementsAttr::getRawIntOrFloat(v8);
-    mlir::NamedAttribute::NamedAttribute(v12, v6, RawIntOrFloat);
-    return mlir::NamedAttrList::push_back(a2, v12[0], v12[1]);
+    else
+    {
+      v10 = 0;
+    }
+
+    v14[0] = 0;
+    v14[1] = 0;
+    RawIntOrFloat = mlir::DenseElementsAttr::getRawIntOrFloat(v8, v10, v14, 16);
+    mlir::NamedAttribute::NamedAttribute(v13, v6, RawIntOrFloat);
+    return mlir::NamedAttrList::push_back(a2, v13[0], v13[1]);
   }
 
   return result;
@@ -6769,7 +6766,7 @@ BOOL mlir::anec::CropResize::verifyInvariantsImpl(mlir::Operation **this)
 LABEL_5:
     v60[0] = "requires attribute 'background_value'";
     v61 = 259;
-    mlir::OpState::emitOpError(this, v60, &AttrDictionary);
+    mlir::OpState::emitOpError(&AttrDictionary, this, v60);
     v7 = mlir::InFlightDiagnostic::operator llvm::LogicalResult(&AttrDictionary);
     if (AttrDictionary)
     {
@@ -6852,7 +6849,7 @@ LABEL_5:
 LABEL_25:
     v60[0] = "requires attribute 'box_coordinate_mode'";
     v61 = 259;
-    mlir::OpState::emitOpError(this, v60, &AttrDictionary);
+    mlir::OpState::emitOpError(&AttrDictionary, this, v60);
     v7 = mlir::InFlightDiagnostic::operator llvm::LogicalResult(&AttrDictionary);
     if (AttrDictionary)
     {
@@ -6933,7 +6930,7 @@ LABEL_25:
 LABEL_45:
     v60[0] = "requires attribute 'coordinate_mode'";
     v61 = 259;
-    mlir::OpState::emitOpError(this, v60, &AttrDictionary);
+    mlir::OpState::emitOpError(&AttrDictionary, this, v60);
     v7 = mlir::InFlightDiagnostic::operator llvm::LogicalResult(&AttrDictionary);
     if (AttrDictionary)
     {
@@ -7017,7 +7014,7 @@ LABEL_83:
 LABEL_67:
     v60[0] = "requires attribute 'normalized_range'";
     v61 = 259;
-    mlir::OpState::emitOpError(this, v60, &AttrDictionary);
+    mlir::OpState::emitOpError(&AttrDictionary, this, v60);
     v7 = mlir::InFlightDiagnostic::operator llvm::LogicalResult(&AttrDictionary);
     if (AttrDictionary)
     {
@@ -7113,7 +7110,7 @@ LABEL_85:
 LABEL_92:
     v60[0] = "requires attribute 'output_dims'";
     v61 = 259;
-    mlir::OpState::emitOpError(this, v60, &AttrDictionary);
+    mlir::OpState::emitOpError(&AttrDictionary, this, v60);
     v7 = mlir::InFlightDiagnostic::operator llvm::LogicalResult(&AttrDictionary);
     if (AttrDictionary)
     {
@@ -7153,7 +7150,7 @@ LABEL_100:
 LABEL_111:
     v60[0] = v48;
     v61 = 259;
-    mlir::OpState::emitOpError(this, v60, &AttrDictionary);
+    mlir::OpState::emitOpError(&AttrDictionary, this, v60);
     v7 = mlir::InFlightDiagnostic::operator llvm::LogicalResult(&AttrDictionary);
     mlir::InFlightDiagnostic::~InFlightDiagnostic(&AttrDictionary);
     return v7;
@@ -7217,7 +7214,7 @@ LABEL_110:
   }
 
   v55 = *(v53 + 1);
-  if ((mlir::anec::__mlir_ods_local_attr_constraint_ANECOps6(*this, v59, "output_dims", 11) & 1) == 0 || (mlir::anec::__mlir_ods_local_attr_constraint_ANECOps6(*this, v33, "crop_dims", 9) & 1) == 0 || (mlir::anec::__mlir_ods_local_attr_constraint_ANECOps19(*this, v25, "box_coordinate_mode", 0x13) & 1) == 0 || (mlir::anec::__mlir_ods_local_attr_constraint_ANECOps20(*this, v34, "coordinate_mode", 15) & 1) == 0 || (mlir::anec::__mlir_ods_local_attr_constraint_ANECOps21(*this, v44, "normalized_range", 16) & 1) == 0 || (mlir::anec::__mlir_ods_local_attr_constraint_ANECOps22(*this, v55, "sampling_mode", 13) & 1) == 0 || (mlir::anec::__mlir_ods_local_attr_constraint_ANECOps23(*this, v52, "sampling_method", 15) & 1) == 0 || (mlir::anec::__mlir_ods_local_attr_constraint_ANECOps24(*this, v58, "padding_modes", 13) & 1) == 0 || (mlir::anec::__mlir_ods_local_attr_constraint_ANECOps12(*this, v17, "background_value", 0x10) & 1) == 0 || (mlir::anec::__mlir_ods_local_type_constraint_ANECOps7(*this, (*(*(*(*this + 9) + 24) + 8) & 0xFFFFFFFFFFFFFFF8), "operand", 7, 0) & 1) == 0 || (mlir::anec::__mlir_ods_local_type_constraint_ANECOps8(*this, (*(*(*(*this + 9) + 56) + 8) & 0xFFFFFFFFFFFFFFF8), "operand", 7, 1u) & 1) == 0)
+  if (!mlir::anec::__mlir_ods_local_attr_constraint_ANECOps6(*this, v59, "output_dims", 11) || !mlir::anec::__mlir_ods_local_attr_constraint_ANECOps6(*this, v33, "crop_dims", 9) || !mlir::anec::__mlir_ods_local_attr_constraint_ANECOps19(*this, v25, "box_coordinate_mode", 0x13) || !mlir::anec::__mlir_ods_local_attr_constraint_ANECOps20(*this, v34, "coordinate_mode", 15) || !mlir::anec::__mlir_ods_local_attr_constraint_ANECOps21(*this, v44, "normalized_range", 16) || !mlir::anec::__mlir_ods_local_attr_constraint_ANECOps22(*this, v55, "sampling_mode", 13) || !mlir::anec::__mlir_ods_local_attr_constraint_ANECOps23(*this, v52, "sampling_method", 15) || !mlir::anec::__mlir_ods_local_attr_constraint_ANECOps24(*this, v58, "padding_modes", 13) || !mlir::anec::__mlir_ods_local_attr_constraint_ANECOps12(*this, v17, "background_value", 0x10) || !mlir::anec::__mlir_ods_local_type_constraint_ANECOps7(*this, (*(*(*(*this + 9) + 24) + 8) & 0xFFFFFFFFFFFFFFF8), "operand", 7, 0) || !mlir::anec::__mlir_ods_local_type_constraint_ANECOps8(*this, (*(*(*(*this + 9) + 56) + 8) & 0xFFFFFFFFFFFFFFF8), "operand", 7, 1u))
   {
     return 0;
   }
@@ -7233,10 +7230,10 @@ LABEL_110:
   }
 
   NextResultAtOffset = mlir::detail::OpResultImpl::getNextResultAtOffset(v56, 0);
-  return mlir::anec::__mlir_ods_local_type_constraint_ANECOps1(*this, (*(NextResultAtOffset + 8) & 0xFFFFFFFFFFFFFFF8), "result", 6, 0) & 1;
+  return mlir::anec::__mlir_ods_local_type_constraint_ANECOps1(*this, (*(NextResultAtOffset + 8) & 0xFFFFFFFFFFFFFFF8), "result", 6, 0);
 }
 
-uint64_t mlir::anec::__mlir_ods_local_attr_constraint_ANECOps19(mlir::Operation *a1, uint64_t a2, void **a3, void **a4)
+BOOL mlir::anec::__mlir_ods_local_attr_constraint_ANECOps19(mlir::Operation *a1, uint64_t a2, const char *a3, const char *a4)
 {
   v31 = *MEMORY[0x277D85DE8];
   if (!a2 || (mlir::anec::BoxCoordinateModeAttr::classof(a2) & 1) != 0)
@@ -7326,7 +7323,7 @@ uint64_t mlir::anec::__mlir_ods_local_attr_constraint_ANECOps19(mlir::Operation 
   return v7;
 }
 
-uint64_t mlir::anec::__mlir_ods_local_attr_constraint_ANECOps20(mlir::Operation *a1, void *a2, uint64_t a3, uint64_t a4)
+BOOL mlir::anec::__mlir_ods_local_attr_constraint_ANECOps20(mlir::Operation *a1, void *a2, uint64_t a3, uint64_t a4)
 {
   v50 = *MEMORY[0x277D85DE8];
   if (!a2)
@@ -7353,7 +7350,7 @@ uint64_t mlir::anec::__mlir_ods_local_attr_constraint_ANECOps20(mlir::Operation 
     v30 = a2;
     mlir::DenseElementsAttr::IntElementIterator::IntElementIterator(&v37, a2, 0);
     NumElements = mlir::DenseElementsAttr::getNumElements(&v30);
-    mlir::DenseElementsAttr::IntElementIterator::IntElementIterator(&v33, a2, NumElements);
+    mlir::DenseElementsAttr::IntElementIterator::IntElementIterator(v33, a2, NumElements);
     v40 = v37;
     *v41 = v38;
     v26 = v34;
@@ -7489,7 +7486,7 @@ LABEL_35:
   return v16;
 }
 
-uint64_t mlir::anec::__mlir_ods_local_attr_constraint_ANECOps21(mlir::Operation *a1, void *a2, uint64_t a3, uint64_t a4)
+BOOL mlir::anec::__mlir_ods_local_attr_constraint_ANECOps21(mlir::Operation *a1, void *a2, uint64_t a3, uint64_t a4)
 {
   v50 = *MEMORY[0x277D85DE8];
   if (!a2)
@@ -7516,7 +7513,7 @@ uint64_t mlir::anec::__mlir_ods_local_attr_constraint_ANECOps21(mlir::Operation 
     v30 = a2;
     mlir::DenseElementsAttr::IntElementIterator::IntElementIterator(&v37, a2, 0);
     NumElements = mlir::DenseElementsAttr::getNumElements(&v30);
-    mlir::DenseElementsAttr::IntElementIterator::IntElementIterator(&v33, a2, NumElements);
+    mlir::DenseElementsAttr::IntElementIterator::IntElementIterator(v33, a2, NumElements);
     v40 = v37;
     *v41 = v38;
     v26 = v34;
@@ -7652,7 +7649,7 @@ LABEL_35:
   return v16;
 }
 
-uint64_t mlir::anec::__mlir_ods_local_attr_constraint_ANECOps22(mlir::Operation *a1, void *a2, uint64_t a3, uint64_t a4)
+BOOL mlir::anec::__mlir_ods_local_attr_constraint_ANECOps22(mlir::Operation *a1, void *a2, uint64_t a3, uint64_t a4)
 {
   v50 = *MEMORY[0x277D85DE8];
   if (!a2)
@@ -7679,7 +7676,7 @@ uint64_t mlir::anec::__mlir_ods_local_attr_constraint_ANECOps22(mlir::Operation 
     v30 = a2;
     mlir::DenseElementsAttr::IntElementIterator::IntElementIterator(&v37, a2, 0);
     NumElements = mlir::DenseElementsAttr::getNumElements(&v30);
-    mlir::DenseElementsAttr::IntElementIterator::IntElementIterator(&v33, a2, NumElements);
+    mlir::DenseElementsAttr::IntElementIterator::IntElementIterator(v33, a2, NumElements);
     v40 = v37;
     *v41 = v38;
     v26 = v34;
@@ -7815,7 +7812,7 @@ LABEL_35:
   return v16;
 }
 
-uint64_t mlir::anec::__mlir_ods_local_attr_constraint_ANECOps23(mlir::Operation *a1, void *a2, uint64_t a3, uint64_t a4)
+BOOL mlir::anec::__mlir_ods_local_attr_constraint_ANECOps23(mlir::Operation *a1, void *a2, uint64_t a3, uint64_t a4)
 {
   v50 = *MEMORY[0x277D85DE8];
   if (!a2)
@@ -7842,7 +7839,7 @@ uint64_t mlir::anec::__mlir_ods_local_attr_constraint_ANECOps23(mlir::Operation 
     v30 = a2;
     mlir::DenseElementsAttr::IntElementIterator::IntElementIterator(&v37, a2, 0);
     NumElements = mlir::DenseElementsAttr::getNumElements(&v30);
-    mlir::DenseElementsAttr::IntElementIterator::IntElementIterator(&v33, a2, NumElements);
+    mlir::DenseElementsAttr::IntElementIterator::IntElementIterator(v33, a2, NumElements);
     v40 = v37;
     *v41 = v38;
     v26 = v34;
@@ -7978,7 +7975,7 @@ LABEL_35:
   return v16;
 }
 
-uint64_t mlir::anec::__mlir_ods_local_attr_constraint_ANECOps24(mlir::Operation *a1, void *a2, uint64_t a3, uint64_t a4)
+BOOL mlir::anec::__mlir_ods_local_attr_constraint_ANECOps24(mlir::Operation *a1, void *a2, uint64_t a3, uint64_t a4)
 {
   v50 = *MEMORY[0x277D85DE8];
   if (!a2)
@@ -8005,7 +8002,7 @@ uint64_t mlir::anec::__mlir_ods_local_attr_constraint_ANECOps24(mlir::Operation 
     v30 = a2;
     mlir::DenseElementsAttr::IntElementIterator::IntElementIterator(&v37, a2, 0);
     NumElements = mlir::DenseElementsAttr::getNumElements(&v30);
-    mlir::DenseElementsAttr::IntElementIterator::IntElementIterator(&v33, a2, NumElements);
+    mlir::DenseElementsAttr::IntElementIterator::IntElementIterator(v33, a2, NumElements);
     v40 = v37;
     *v41 = v38;
     v26 = v34;
@@ -8141,11 +8138,11 @@ LABEL_35:
   return v16;
 }
 
-uint64_t mlir::anec::__mlir_ods_local_type_constraint_ANECOps7(mlir::Operation *a1, void **a2, void **a3, uint64_t a4, unsigned int a5)
+BOOL mlir::anec::__mlir_ods_local_type_constraint_ANECOps7(mlir::Operation *a1, const char *a2, const char *a3, uint64_t a4, unsigned int a5)
 {
   v53 = *MEMORY[0x277D85DE8];
   v10 = *a2;
-  if (*(*a2 + 17) == &mlir::detail::TypeIDResolver<mlir::MemRefType,void>::id)
+  if (*(*a2 + 136) == &mlir::detail::TypeIDResolver<mlir::MemRefType,void>::id)
   {
     v44[0] = a2;
     v44[1] = mlir::detail::InterfaceMap::lookup<mlir::ShapedType>(v10 + 8);
@@ -8311,11 +8308,11 @@ uint64_t mlir::anec::__mlir_ods_local_type_constraint_ANECOps7(mlir::Operation *
   return v14;
 }
 
-uint64_t mlir::anec::__mlir_ods_local_type_constraint_ANECOps8(mlir::Operation *a1, void **a2, void **a3, uint64_t a4, unsigned int a5)
+BOOL mlir::anec::__mlir_ods_local_type_constraint_ANECOps8(mlir::Operation *a1, const char *a2, const char *a3, uint64_t a4, unsigned int a5)
 {
   v52 = *MEMORY[0x277D85DE8];
   v9 = *a2;
-  if (*(*a2 + 17) == &mlir::detail::TypeIDResolver<mlir::MemRefType,void>::id)
+  if (*(*a2 + 136) == &mlir::detail::TypeIDResolver<mlir::MemRefType,void>::id)
   {
     v10 = a1;
     v43[0] = a2;
@@ -8476,7 +8473,7 @@ BOOL mlir::anec::DeQuant::verifyInvariantsImpl(mlir::Operation **this)
 LABEL_5:
     v26[0] = "requires attribute 'scale'";
     v27 = 259;
-    mlir::OpState::emitOpError(this, v26, v28);
+    mlir::OpState::emitOpError(v28, this, v26);
     v6 = mlir::InFlightDiagnostic::operator llvm::LogicalResult(v28);
     if (v28[0])
     {
@@ -8567,7 +8564,7 @@ LABEL_43:
 LABEL_25:
     v26[0] = "requires attribute 'zero_point'";
     v27 = 259;
-    mlir::OpState::emitOpError(this, v26, v28);
+    mlir::OpState::emitOpError(v28, this, v26);
     v6 = mlir::InFlightDiagnostic::operator llvm::LogicalResult(v28);
     if (v28[0])
     {
@@ -8644,7 +8641,7 @@ LABEL_25:
   }
 
   v22 = *(v4 + 1);
-  if ((mlir::anec::__mlir_ods_local_attr_constraint_ANECOps11(*this, v15, "scale", 5) & 1) == 0 || (mlir::mpsx::__mlir_ods_local_attr_constraint_MPSXOps12(*this, v22, "zero_point", 0xA) & 1) == 0 || (mlir::anec::__mlir_ods_local_type_constraint_ANECOps1(*this, (*(*(*(*this + 9) + 24) + 8) & 0xFFFFFFFFFFFFFFF8), "operand", 7, 0) & 1) == 0)
+  if (!mlir::anec::__mlir_ods_local_attr_constraint_ANECOps11(*this, v15, "scale", 5) || !mlir::mpsx::__mlir_ods_local_attr_constraint_MPSXOps12(*this, v22, "zero_point", 0xA) || !mlir::anec::__mlir_ods_local_type_constraint_ANECOps1(*this, (*(*(*(*this + 9) + 24) + 8) & 0xFFFFFFFFFFFFFFF8), "operand", 7, 0))
   {
     return 0;
   }
@@ -8660,7 +8657,7 @@ LABEL_25:
   }
 
   NextResultAtOffset = mlir::detail::OpResultImpl::getNextResultAtOffset(v23, 0);
-  return mlir::anec::__mlir_ods_local_type_constraint_ANECOps1(*this, (*(NextResultAtOffset + 8) & 0xFFFFFFFFFFFFFFF8), "result", 6, 0) & 1;
+  return mlir::anec::__mlir_ods_local_type_constraint_ANECOps1(*this, (*(NextResultAtOffset + 8) & 0xFFFFFFFFFFFFFFF8), "result", 6, 0);
 }
 
 uint64_t mlir::anec::detail::InferReturnTypesInterfaceTrait<mlir::anec::Deconvolution>::inferReturnTypes(mlir::UnknownLoc *a1, mlir::MLIRContext *a2, char a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11)
@@ -8727,9 +8724,9 @@ LABEL_13:
   return result;
 }
 
-uint64_t mlir::anec::ElementwiseAdd::verifyInvariantsImpl(mlir::Operation **this)
+BOOL mlir::anec::ElementwiseAdd::verifyInvariantsImpl(mlir::Operation **this)
 {
-  if ((mlir::anec::__mlir_ods_local_type_constraint_ANECOps1(*this, (*(*(*(*this + 9) + 24) + 8) & 0xFFFFFFFFFFFFFFF8), "operand", 7, 0) & 1) == 0 || (mlir::anec::__mlir_ods_local_type_constraint_ANECOps1(*this, (*(*(*(*this + 9) + 56) + 8) & 0xFFFFFFFFFFFFFFF8), "operand", 7, 1u) & 1) == 0)
+  if (!mlir::anec::__mlir_ods_local_type_constraint_ANECOps1(*this, (*(*(*(*this + 9) + 24) + 8) & 0xFFFFFFFFFFFFFFF8), "operand", 7, 0) || !mlir::anec::__mlir_ods_local_type_constraint_ANECOps1(*this, (*(*(*(*this + 9) + 56) + 8) & 0xFFFFFFFFFFFFFFF8), "operand", 7, 1u))
   {
     return 0;
   }
@@ -8745,7 +8742,7 @@ uint64_t mlir::anec::ElementwiseAdd::verifyInvariantsImpl(mlir::Operation **this
   }
 
   NextResultAtOffset = mlir::detail::OpResultImpl::getNextResultAtOffset(v2, 0);
-  return mlir::anec::__mlir_ods_local_type_constraint_ANECOps1(*this, (*(NextResultAtOffset + 8) & 0xFFFFFFFFFFFFFFF8), "result", 6, 0) & 1;
+  return mlir::anec::__mlir_ods_local_type_constraint_ANECOps1(*this, (*(NextResultAtOffset + 8) & 0xFFFFFFFFFFFFFFF8), "result", 6, 0);
 }
 
 uint64_t mlir::anec::detail::InferReturnTypesInterfaceTrait<mlir::anec::ElementwiseEqual>::inferReturnTypes(uint64_t *a1, uint64_t a2, char a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11)
@@ -8831,7 +8828,7 @@ BOOL mlir::anec::Elu::verifyInvariantsImpl(mlir::Operation **this)
       }
     }
 
-    if (mlir::anec::__mlir_ods_local_attr_constraint_ANECOps12(*this, v4[1], "alpha", 5) & 1) != 0 && (mlir::anec::__mlir_ods_local_type_constraint_ANECOps1(*this, (*(*(*(*this + 9) + 24) + 8) & 0xFFFFFFFFFFFFFFF8), "operand", 7, 0))
+    if (mlir::anec::__mlir_ods_local_attr_constraint_ANECOps12(*this, v4[1], "alpha", 5) && mlir::anec::__mlir_ods_local_type_constraint_ANECOps1(*this, (*(*(*(*this + 9) + 24) + 8) & 0xFFFFFFFFFFFFFFF8), "operand", 7, 0))
     {
       if (*(*this + 9))
       {
@@ -8844,7 +8841,7 @@ BOOL mlir::anec::Elu::verifyInvariantsImpl(mlir::Operation **this)
       }
 
       NextResultAtOffset = mlir::detail::OpResultImpl::getNextResultAtOffset(v15, 0);
-      return mlir::anec::__mlir_ods_local_type_constraint_ANECOps1(*this, (*(NextResultAtOffset + 8) & 0xFFFFFFFFFFFFFFF8), "result", 6, 0) & 1;
+      return mlir::anec::__mlir_ods_local_type_constraint_ANECOps1(*this, (*(NextResultAtOffset + 8) & 0xFFFFFFFFFFFFFFF8), "result", 6, 0);
     }
 
     else
@@ -8858,7 +8855,7 @@ BOOL mlir::anec::Elu::verifyInvariantsImpl(mlir::Operation **this)
 LABEL_5:
     v18 = "requires attribute 'alpha'";
     v19 = 259;
-    mlir::OpState::emitOpError(this, &v18, v20);
+    mlir::OpState::emitOpError(v20, this, &v18);
     v6 = mlir::InFlightDiagnostic::operator llvm::LogicalResult(v20);
     if (v20[0])
     {
@@ -8928,7 +8925,7 @@ LABEL_5:
   return v6;
 }
 
-uint64_t mlir::anec::detail::InferReturnTypesInterfaceTrait<mlir::anec::Flatten>::inferReturnTypes(mlir::UnknownLoc *a1, mlir::MLIRContext *a2, char a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11)
+BOOL mlir::anec::detail::InferReturnTypesInterfaceTrait<mlir::anec::Flatten>::inferReturnTypes(mlir::UnknownLoc *a1, mlir::MLIRContext *a2, char a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11)
 {
   v29[6] = *MEMORY[0x277D85DE8];
   v26 = 0;
@@ -9011,7 +9008,7 @@ BOOL mlir::anec::Flatten::verifyInvariantsImpl(mlir::Operation **this)
       }
     }
 
-    if (mlir::anec::__mlir_ods_local_attr_constraint_ANECOps26(*this, v4[1], "flatten_mode", 0xC) & 1) != 0 && (mlir::anec::__mlir_ods_local_type_constraint_ANECOps1(*this, (*(*(*(*this + 9) + 24) + 8) & 0xFFFFFFFFFFFFFFF8), "operand", 7, 0))
+    if (mlir::anec::__mlir_ods_local_attr_constraint_ANECOps26(*this, v4[1], "flatten_mode", 0xC) && mlir::anec::__mlir_ods_local_type_constraint_ANECOps1(*this, (*(*(*(*this + 9) + 24) + 8) & 0xFFFFFFFFFFFFFFF8), "operand", 7, 0))
     {
       if (*(*this + 9))
       {
@@ -9024,7 +9021,7 @@ BOOL mlir::anec::Flatten::verifyInvariantsImpl(mlir::Operation **this)
       }
 
       NextResultAtOffset = mlir::detail::OpResultImpl::getNextResultAtOffset(v15, 0);
-      return mlir::anec::__mlir_ods_local_type_constraint_ANECOps1(*this, (*(NextResultAtOffset + 8) & 0xFFFFFFFFFFFFFFF8), "result", 6, 0) & 1;
+      return mlir::anec::__mlir_ods_local_type_constraint_ANECOps1(*this, (*(NextResultAtOffset + 8) & 0xFFFFFFFFFFFFFFF8), "result", 6, 0);
     }
 
     else
@@ -9038,7 +9035,7 @@ BOOL mlir::anec::Flatten::verifyInvariantsImpl(mlir::Operation **this)
 LABEL_5:
     v18 = "requires attribute 'flatten_mode'";
     v19 = 259;
-    mlir::OpState::emitOpError(this, &v18, v20);
+    mlir::OpState::emitOpError(v20, this, &v18);
     v6 = mlir::InFlightDiagnostic::operator llvm::LogicalResult(v20);
     if (v20[0])
     {
@@ -9108,7 +9105,7 @@ LABEL_5:
   return v6;
 }
 
-uint64_t mlir::anec::__mlir_ods_local_attr_constraint_ANECOps26(mlir::Operation *a1, void **a2, void **a3, void **a4)
+BOOL mlir::anec::__mlir_ods_local_attr_constraint_ANECOps26(mlir::Operation *a1, const char *a2, const char *a3, const char *a4)
 {
   v36 = *MEMORY[0x277D85DE8];
   if (!a2)
@@ -9116,7 +9113,7 @@ uint64_t mlir::anec::__mlir_ods_local_attr_constraint_ANECOps26(mlir::Operation 
     return 1;
   }
 
-  if (*(*a2 + 17) == &mlir::detail::TypeIDResolver<mlir::IntegerAttr,void>::id)
+  if (*(*a2 + 136) == &mlir::detail::TypeIDResolver<mlir::IntegerAttr,void>::id)
   {
     v25[0] = a2;
     v6 = a1;
@@ -9242,9 +9239,9 @@ uint64_t mlir::anec::GOC::build(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t 
   return result;
 }
 
-uint64_t mlir::anec::GOC::verifyInvariantsImpl(mlir::Operation **this)
+BOOL mlir::anec::GOC::verifyInvariantsImpl(mlir::Operation **this)
 {
-  if ((mlir::anec::__mlir_ods_local_type_constraint_ANECOps2(*this, (*(*(*(*this + 9) + 24) + 8) & 0xFFFFFFFFFFFFFFF8), "operand", 7, 0) & 1) == 0 || (mlir::anec::__mlir_ods_local_type_constraint_ANECOps3(*this, (*(*(*(*this + 9) + 56) + 8) & 0xFFFFFFFFFFFFFFF8), "operand", 7, 1u) & 1) == 0 || (mlir::anec::__mlir_ods_local_type_constraint_ANECOps3(*this, (*(*(*(*this + 9) + 88) + 8) & 0xFFFFFFFFFFFFFFF8), "operand", 7, 2u) & 1) == 0)
+  if (!mlir::anec::__mlir_ods_local_type_constraint_ANECOps2(*this, (*(*(*(*this + 9) + 24) + 8) & 0xFFFFFFFFFFFFFFF8), "operand", 7, 0) || !mlir::anec::__mlir_ods_local_type_constraint_ANECOps3(*this, (*(*(*(*this + 9) + 56) + 8) & 0xFFFFFFFFFFFFFFF8), "operand", 7, 1u) || !mlir::anec::__mlir_ods_local_type_constraint_ANECOps3(*this, (*(*(*(*this + 9) + 88) + 8) & 0xFFFFFFFFFFFFFFF8), "operand", 7, 2u))
   {
     return 0;
   }
@@ -9260,10 +9257,10 @@ uint64_t mlir::anec::GOC::verifyInvariantsImpl(mlir::Operation **this)
   }
 
   NextResultAtOffset = mlir::detail::OpResultImpl::getNextResultAtOffset(v2, 0);
-  return mlir::anec::__mlir_ods_local_type_constraint_ANECOps2(*this, (*(NextResultAtOffset + 8) & 0xFFFFFFFFFFFFFFF8), "result", 6, 0) & 1;
+  return mlir::anec::__mlir_ods_local_type_constraint_ANECOps2(*this, (*(NextResultAtOffset + 8) & 0xFFFFFFFFFFFFFFF8), "result", 6, 0);
 }
 
-uint64_t mlir::anec::detail::InferReturnTypesInterfaceTrait<mlir::anec::GatherND>::inferReturnTypes(mlir::UnknownLoc *a1, mlir::MLIRContext *a2, char a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11)
+BOOL mlir::anec::detail::InferReturnTypesInterfaceTrait<mlir::anec::GatherND>::inferReturnTypes(mlir::UnknownLoc *a1, mlir::MLIRContext *a2, char a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11)
 {
   v29[6] = *MEMORY[0x277D85DE8];
   v26 = 0;
@@ -9485,7 +9482,7 @@ LABEL_29:
       }
     }
 
-    if (mlir::anec::__mlir_ods_local_type_constraint_ANECOps1(*this, (*(*(*(*this + 9) + 24) + 8) & 0xFFFFFFFFFFFFFFF8), "operand", 7, 0) & 1) != 0 && (mlir::anec::__mlir_ods_local_type_constraint_ANECOps1(*this, (*(*(*(*this + 9) + 56) + 8) & 0xFFFFFFFFFFFFFFF8), "operand", 7, 1u))
+    if (mlir::anec::__mlir_ods_local_type_constraint_ANECOps1(*this, (*(*(*(*this + 9) + 24) + 8) & 0xFFFFFFFFFFFFFFF8), "operand", 7, 0) && mlir::anec::__mlir_ods_local_type_constraint_ANECOps1(*this, (*(*(*(*this + 9) + 56) + 8) & 0xFFFFFFFFFFFFFFF8), "operand", 7, 1u))
     {
       if (*(*this + 9))
       {
@@ -9498,7 +9495,7 @@ LABEL_29:
       }
 
       NextResultAtOffset = mlir::detail::OpResultImpl::getNextResultAtOffset(v38, 0);
-      return mlir::anec::__mlir_ods_local_type_constraint_ANECOps1(*this, (*(NextResultAtOffset + 8) & 0xFFFFFFFFFFFFFFF8), "result", 6, 0) & 1;
+      return mlir::anec::__mlir_ods_local_type_constraint_ANECOps1(*this, (*(NextResultAtOffset + 8) & 0xFFFFFFFFFFFFFFF8), "result", 6, 0);
     }
 
     else
@@ -9512,7 +9509,7 @@ LABEL_29:
 LABEL_5:
     *&v45 = "requires attribute 'axes'";
     v47 = 259;
-    mlir::OpState::emitOpError(this, &v45, v48);
+    mlir::OpState::emitOpError(v48, this, &v45);
     v8 = mlir::InFlightDiagnostic::operator llvm::LogicalResult(v48);
     if (v48[0])
     {
@@ -9656,7 +9653,7 @@ BOOL mlir::anec::GlobalArgMinMax::verifyInvariantsImpl(mlir::Operation **this)
 LABEL_5:
     v40[0] = "requires attribute 'axis'";
     v41 = 259;
-    mlir::OpState::emitOpError(this, v40, v42);
+    mlir::OpState::emitOpError(v42, this, v40);
     v6 = mlir::InFlightDiagnostic::operator llvm::LogicalResult(v42);
     if (v42[0])
     {
@@ -9747,7 +9744,7 @@ LABEL_43:
 LABEL_25:
     v40[0] = "requires attribute 'mode'";
     v41 = 259;
-    mlir::OpState::emitOpError(this, v40, v42);
+    mlir::OpState::emitOpError(v42, this, v40);
     v6 = mlir::InFlightDiagnostic::operator llvm::LogicalResult(v42);
     if (v42[0])
     {
@@ -9833,7 +9830,7 @@ LABEL_25:
   v24 = *(v4 + 1);
   if (v15)
   {
-    if (*(*v15 + 17) != &mlir::detail::TypeIDResolver<mlir::IntegerAttr,void>::id || (v40[0] = v15, v42[0] = mlir::IntegerAttr::getType(v40), !mlir::Type::isUnsignedInteger(v42, 32)))
+    if (*(*v15 + 136) != &mlir::detail::TypeIDResolver<mlir::IntegerAttr,void>::id || (v40[0] = v15, v42[0] = mlir::IntegerAttr::getType(v40), !mlir::Type::isUnsignedInteger(v42, 32)))
     {
       v41 = 257;
       mlir::Operation::emitOpError(v42, v17, v40);
@@ -9921,7 +9918,7 @@ LABEL_25:
     }
   }
 
-  if ((mlir::anec::__mlir_ods_local_attr_constraint_ANECOps5(*this, v24, "mode", 4) & 1) == 0 || (mlir::anec::__mlir_ods_local_type_constraint_ANECOps1(*this, (*(*(*(*this + 9) + 24) + 8) & 0xFFFFFFFFFFFFFFF8), "operand", 7, 0) & 1) == 0)
+  if (!mlir::anec::__mlir_ods_local_attr_constraint_ANECOps5(*this, v24, "mode", 4) || !mlir::anec::__mlir_ods_local_type_constraint_ANECOps1(*this, (*(*(*(*this + 9) + 24) + 8) & 0xFFFFFFFFFFFFFFF8), "operand", 7, 0))
   {
     return 0;
   }
@@ -9937,5 +9934,5 @@ LABEL_25:
   }
 
   NextResultAtOffset = mlir::detail::OpResultImpl::getNextResultAtOffset(v37, 0);
-  return mlir::anec::__mlir_ods_local_type_constraint_ANECOps2(*this, (*(NextResultAtOffset + 8) & 0xFFFFFFFFFFFFFFF8), "result", 6, 0) & 1;
+  return mlir::anec::__mlir_ods_local_type_constraint_ANECOps2(*this, (*(NextResultAtOffset + 8) & 0xFFFFFFFFFFFFFFF8), "result", 6, 0);
 }

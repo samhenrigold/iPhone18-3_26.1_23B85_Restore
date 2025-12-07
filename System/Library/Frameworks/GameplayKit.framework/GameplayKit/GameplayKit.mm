@@ -6,14 +6,14 @@ void sub_238993334(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_238993668(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_238993668(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::vector<NSObject * {__strong}>::~vector[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-void **_ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEED1B8ne200100Ev(void **a1)
+id **_ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEED1B8ne200100Ev(id **a1)
 {
   v2 = *a1;
   if (*a1)
@@ -47,7 +47,7 @@ void _ZN12GKCRTreeNodeI8NSObjectDv2_fE12InsertObjectEPS0_S1_S1_21GKCRTreeSplitSt
   v21 = a4;
   v10 = a1[3];
   v11 = a1[4];
-  v12 = 0x6DB6DB6DB6DB6DB7 * ((*&v11 - v10) >> 3);
+  v12 = 0x6DB6DB6DB6DB6DB7 * ((*&v11 - *&v10) >> 3);
   if (v12 >= a1->u32[0])
   {
     _ZN12GKCRTreeNodeI8NSObjectDv2_fE9AddObjectEPS0_RKS1_S5_(a1, v9, &v21, &v20);
@@ -84,7 +84,7 @@ void _ZN12GKCRTreeNodeI8NSObjectDv2_fE12InsertObjectEPS0_S1_S1_21GKCRTreeSplitSt
     __assert_rtn("InsertObject", "GKCRTree.h", 217, "false");
   }
 
-  if (v11 == v10 || (v13 = v10[6], *&v13))
+  if (*&v11 == *&v10 || (v13 = *(*&v10 + 48)) != 0)
   {
     _ZN12GKCRTreeNodeI8NSObjectDv2_fE9AddObjectEPS0_RKS1_S5_(a1, v9, &v21, &v20);
   }
@@ -97,7 +97,7 @@ void _ZN12GKCRTreeNodeI8NSObjectDv2_fE12InsertObjectEPS0_S1_S1_21GKCRTreeSplitSt
       v12 = 1;
     }
 
-    v15 = v10 + 2;
+    v15 = (*&v10 + 16);
     v16 = 3.4028e38;
     do
     {
@@ -110,12 +110,12 @@ void _ZN12GKCRTreeNodeI8NSObjectDv2_fE12InsertObjectEPS0_S1_S1_21GKCRTreeSplitSt
         v13 = v14;
       }
 
-      ++*&v14;
+      ++v14;
       v15 += 7;
     }
 
-    while (v12 != *&v14);
-    _ZN12GKCRTreeNodeI8NSObjectDv2_fE12InsertObjectEPS0_S1_S1_21GKCRTreeSplitStrategy(&v10[7 * *&v13], v9, a3, *&a4, *&a5);
+    while (v12 != v14);
+    _ZN12GKCRTreeNodeI8NSObjectDv2_fE12InsertObjectEPS0_S1_S1_21GKCRTreeSplitStrategy((*&v10 + 56 * v13), v9, a3, a4, a5);
     v19 = vbsl_s8(vcgt_f32(a1[2], v20), a1[2], v20);
     a1[1] = vbsl_s8(vcgt_f32(v21, a1[1]), a1[1], v21);
     a1[2] = v19;
@@ -151,7 +151,7 @@ void _ZN12GKCRTreeNodeI8NSObjectDv2_fE9AddObjectEPS0_RKS1_S5_(float32x2_t *a1, v
     *(*&v12 + 32) = 0;
     *(*&v12 + 40) = 0;
     *(*&v12 + 24) = 0;
-    _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEE16__init_with_sizeB8ne200100IPS4_S9_EEvT_T0_m(*&v12 + 24, 0, 0, 0);
+    _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEE16__init_with_sizeB8ne200100IPS4_S9_EEvT_T0_m((*&v12 + 24), 0, 0, 0);
     v14 = v20;
     *(*&v12 + 48) = v14;
     v15 = *&v12 + 56;
@@ -386,12 +386,12 @@ void sub_238993F20(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
 void _ZN12GKCRTreeNodeI8NSObjectDv2_fE11SplitLinearEPS0_RKS1_S5_(uint64_t a1, void *a2)
 {
-  v78 = *MEMORY[0x277D85DE8];
-  v61 = a2;
+  v77 = *MEMORY[0x277D85DE8];
+  v60 = a2;
   v3 = (*a1 + 1);
   MEMORY[0x28223BE20]();
-  v5 = &v60 - v4;
-  bzero(&v60 - v4, v6);
+  v5 = &v59 - v4;
+  bzero(&v59 - v4, v6);
   v7 = *(a1 + 24);
   v8 = (a1 + 24);
   v9 = 0x6DB6DB6DB6DB6DB7 * ((*(a1 + 32) - v7) >> 3);
@@ -462,59 +462,59 @@ void _ZN12GKCRTreeNodeI8NSObjectDv2_fE11SplitLinearEPS0_RKS1_S5_(uint64_t a1, vo
   }
 
   v20 = v7[1];
-  v72 = *v7;
-  v73 = v20;
+  v71 = *v7;
+  v72 = v20;
+  v73 = 0;
   v74 = 0;
   v75 = 0;
-  v76 = 0;
   v21 = *(v7 + 3);
   v22 = *(v7 + 4);
-  v62 = &v74;
-  _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEE16__init_with_sizeB8ne200100IPS4_S9_EEvT_T0_m(&v74, v21, v22, 0x6DB6DB6DB6DB6DB7 * ((v22 - v21) >> 3));
-  v77 = *(v7 + 6);
+  v61 = &v73;
+  _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEE16__init_with_sizeB8ne200100IPS4_S9_EEvT_T0_m(&v73, v21, v22, 0x6DB6DB6DB6DB6DB7 * ((v22 - v21) >> 3));
+  v76 = *(v7 + 6);
   v23 = *v8;
-  v66 = *(*v8)[7].f32;
+  v65 = *(*v8)[7].f32;
   v24 = v23[10];
-  v67 = v23[9];
+  v66 = v23[9];
+  v67 = 0;
   v68 = 0;
   v69 = 0;
-  v70 = 0;
-  _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEE16__init_with_sizeB8ne200100IPS4_S9_EEvT_T0_m(&v68, v24, *&v23[11], 0x6DB6DB6DB6DB6DB7 * ((*&v23[11] - v24) >> 3));
-  v60 = &v60;
-  v71 = *&v23[13];
-  *v63 = *a1;
-  *&v63[8] = 0u;
+  _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEE16__init_with_sizeB8ne200100IPS4_S9_EEvT_T0_m(&v67, v24, *&v23[11], 0x6DB6DB6DB6DB6DB7 * ((*&v23[11] - v24) >> 3));
+  v59 = &v59;
+  v70 = *&v23[13];
+  *v62 = *a1;
+  *&v62[8] = 0u;
+  v63 = 0u;
   v64 = 0u;
-  v65 = 0u;
-  _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEE7reserveEm(&v64, (*v63 + 1));
+  _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEE7reserveEm(&v63, (*v62 + 1));
   v25 = *v8;
-  v26 = *v63;
-  v25[2] = *&v63[16];
+  v26 = *v62;
+  v25[2] = *&v62[16];
   *v25->f32 = v26;
-  if (v25 != v63)
+  if (v25 != v62)
   {
-    _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEE18__assign_with_sizeB8ne200100IPS4_S9_EEvT_T0_l(&v25[3], v64, *(&v64 + 1), 0x6DB6DB6DB6DB6DB7 * ((*(&v64 + 1) - v64) >> 3));
+    _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEE18__assign_with_sizeB8ne200100IPS4_S9_EEvT_T0_l(&v25[3], v63, *(&v63 + 1), 0x6DB6DB6DB6DB6DB7 * ((*(&v63 + 1) - v63) >> 3));
   }
 
-  objc_storeStrong(&v25[6], *(&v65 + 1));
+  objc_storeStrong(&v25[6], *(&v64 + 1));
 
-  _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEED1B8ne200100Ev(&v64);
-  *v63 = *a1;
-  *&v63[8] = 0u;
+  _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEED1B8ne200100Ev(&v63);
+  *v62 = *a1;
+  *&v62[8] = 0u;
+  v63 = 0u;
   v64 = 0u;
-  v65 = 0u;
-  _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEE7reserveEm(&v64, (*v63 + 1));
+  _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEE7reserveEm(&v63, (*v62 + 1));
   v27 = *v8;
-  *v27[7].f32 = *v63;
-  v27[9] = *&v63[16];
-  if (&v27[7] != v63)
+  *v27[7].f32 = *v62;
+  v27[9] = *&v62[16];
+  if (&v27[7] != v62)
   {
-    _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEE18__assign_with_sizeB8ne200100IPS4_S9_EEvT_T0_l(&v27[10], v64, *(&v64 + 1), 0x6DB6DB6DB6DB6DB7 * ((*(&v64 + 1) - v64) >> 3));
+    _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEE18__assign_with_sizeB8ne200100IPS4_S9_EEvT_T0_l(&v27[10], v63, *(&v63 + 1), 0x6DB6DB6DB6DB6DB7 * ((*(&v63 + 1) - v63) >> 3));
   }
 
-  objc_storeStrong(&v27[13], *(&v65 + 1));
+  objc_storeStrong(&v27[13], *(&v64 + 1));
 
-  _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEED1B8ne200100Ev(&v64);
+  _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEED1B8ne200100Ev(&v63);
   if (v18 <= v19)
   {
     v28 = 0;
@@ -529,9 +529,9 @@ void _ZN12GKCRTreeNodeI8NSObjectDv2_fE11SplitLinearEPS0_RKS1_S5_(uint64_t a1, vo
   v30 = *v8;
   if (*v29 == -1)
   {
-    _ZN12GKCRTreeNodeI8NSObjectDv2_fE9AddObjectEPS0_RKS1_S5_(v30, v77, &v72 + 1, &v73);
+    _ZN12GKCRTreeNodeI8NSObjectDv2_fE9AddObjectEPS0_RKS1_S5_(v30, v76, &v71 + 1, &v72);
     v31 = (*&(*v8)[4] - 32);
-    if (v31 == v62)
+    if (v31 == v61)
     {
       goto LABEL_30;
     }
@@ -539,21 +539,21 @@ void _ZN12GKCRTreeNodeI8NSObjectDv2_fE11SplitLinearEPS0_RKS1_S5_(uint64_t a1, vo
     goto LABEL_29;
   }
 
-  _ZN12GKCRTreeNodeI8NSObjectDv2_fE9AddObjectEPS0_RKS1_S5_(v30 + 7, v77, &v72 + 1, &v73);
+  _ZN12GKCRTreeNodeI8NSObjectDv2_fE9AddObjectEPS0_RKS1_S5_(v30 + 7, v76, &v71 + 1, &v72);
   v31 = (*&(*v8)[11] - 32);
-  if (v31 != v62)
+  if (v31 != v61)
   {
 LABEL_29:
-    _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEE18__assign_with_sizeB8ne200100IPS4_S9_EEvT_T0_l(v31, v74, v75, 0x6DB6DB6DB6DB6DB7 * ((v75 - v74) >> 3));
+    _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEE18__assign_with_sizeB8ne200100IPS4_S9_EEvT_T0_l(v31, v73, v74, 0x6DB6DB6DB6DB6DB7 * ((v74 - v73) >> 3));
   }
 
 LABEL_30:
   v32 = *v8;
   if (*(v29 + 1) == -1)
   {
-    _ZN12GKCRTreeNodeI8NSObjectDv2_fE9AddObjectEPS0_RKS1_S5_(v32, v71, &v66 + 1, &v67);
+    _ZN12GKCRTreeNodeI8NSObjectDv2_fE9AddObjectEPS0_RKS1_S5_(v32, v70, &v65 + 1, &v66);
     v33 = (*&(*v8)[4] - 32);
-    if (v33 == &v68)
+    if (v33 == &v67)
     {
       goto LABEL_35;
     }
@@ -561,12 +561,12 @@ LABEL_30:
     goto LABEL_34;
   }
 
-  _ZN12GKCRTreeNodeI8NSObjectDv2_fE9AddObjectEPS0_RKS1_S5_(v32 + 7, v71, &v66 + 1, &v67);
+  _ZN12GKCRTreeNodeI8NSObjectDv2_fE9AddObjectEPS0_RKS1_S5_(v32 + 7, v70, &v65 + 1, &v66);
   v33 = (*&(*v8)[11] - 32);
-  if (v33 != &v68)
+  if (v33 != &v67)
   {
 LABEL_34:
-    _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEE18__assign_with_sizeB8ne200100IPS4_S9_EEvT_T0_l(v33, v68, v69, 0x6DB6DB6DB6DB6DB7 * ((v69 - v68) >> 3));
+    _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEE18__assign_with_sizeB8ne200100IPS4_S9_EEvT_T0_l(v33, v67, v68, 0x6DB6DB6DB6DB6DB7 * ((v68 - v67) >> 3));
   }
 
 LABEL_35:
@@ -605,7 +605,7 @@ LABEL_35:
         }
       }
 
-      _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEE18__assign_with_sizeB8ne200100IPS4_S9_EEvT_T0_l(v43, *v42, *(v42 + 8), 0x6DB6DB6DB6DB6DB7 * ((*(v42 + 8) - *v42) >> 3));
+      _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEE18__assign_with_sizeB8ne200100IPS4_S9_EEvT_T0_l(v43, *v42, v42[1], 0x6DB6DB6DB6DB6DB7 * ((v42[1] - *v42) >> 3));
 LABEL_38:
       ++v38;
       v34 = *(a1 + 24);
@@ -678,10 +678,8 @@ LABEL_38:
     while (v50);
   }
 
-  _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEED1B8ne200100Ev(&v68);
-  _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEED1B8ne200100Ev(v62);
-
-  v59 = *MEMORY[0x277D85DE8];
+  _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEED1B8ne200100Ev(&v67);
+  _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEED1B8ne200100Ev(v61);
 }
 
 void sub_2389945D8(_Unwind_Exception *a1)
@@ -895,7 +893,7 @@ LABEL_28:
       {
         v55 = &(*v5)[7 * v46 + 3];
 LABEL_30:
-        _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEE18__assign_with_sizeB8ne200100IPS4_S9_EEvT_T0_l(v54, *v55, *(v55 + 8), 0x6DB6DB6DB6DB6DB7 * ((*(v55 + 8) - *v55) >> 3));
+        _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEE18__assign_with_sizeB8ne200100IPS4_S9_EEvT_T0_l(v54, *v55, v55[1], 0x6DB6DB6DB6DB6DB7 * ((v55[1] - *v55) >> 3));
       }
     }
 
@@ -1002,7 +1000,7 @@ void sub_238994CD4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 void _ZN12GKCRTreeNodeI8NSObjectDv2_fE18SplitReduceOverlapEPS0_RKS1_S5_(void *a1, void *a2)
 {
   v171 = a2;
-  v3 = a1 + 3;
+  v3 = (a1 + 3);
   v4 = *a1 / 2;
   if (*a1 < 6)
   {
@@ -1028,7 +1026,7 @@ void _ZN12GKCRTreeNodeI8NSObjectDv2_fE18SplitReduceOverlapEPS0_RKS1_S5_(void *a1
         v11 = v9;
         v12 = a1[3];
         v13 = a1[4];
-        v14 = 126 - 2 * __clz(0x6DB6DB6DB6DB6DB7 * ((v13 - v12) >> 3));
+        v14 = 126 - 2 * __clz(0x6DB6DB6DB6DB6DB7 * (v13 - v12));
         if (v13 == v12)
         {
           v15 = 0;
@@ -1058,7 +1056,7 @@ void _ZN12GKCRTreeNodeI8NSObjectDv2_fE18SplitReduceOverlapEPS0_RKS1_S5_(void *a1
           v22 = *v3;
           v189 = 0;
           v188 = 0uLL;
-          v23 = 56 * (v16 + v177) + v22;
+          v23 = &v22[56 * v16 + 56 * v177];
           if (v16 + v177)
           {
             operator new();
@@ -1253,7 +1251,7 @@ LABEL_41:
 
   v50 = a1[3];
   v51 = a1[4];
-  v52 = 126 - 2 * __clz(0x6DB6DB6DB6DB6DB7 * ((v51 - v50) >> 3));
+  v52 = 126 - 2 * __clz(0x6DB6DB6DB6DB6DB7 * (v51 - v50));
   LODWORD(v188) = 0;
   if (v51 == v50)
   {
@@ -1283,7 +1281,7 @@ LABEL_41:
   _ZNSt3__111__introsortINS_17_ClassicAlgPolicyERZN12GKCRTreeNodeI8NSObjectDv2_fE18SplitReduceOverlapEPS3_RKS4_S8_EUlS5_S5_E0_PS5_Lb0EEEvT1_SC_T0_NS_15iterator_traitsISC_E15difference_typeEb(v54, v55, &v188, v57, 1);
   v58 = a1[3];
   v59 = a1[4];
-  v60 = 126 - 2 * __clz(0x6DB6DB6DB6DB6DB7 * ((v59 - v58) >> 3));
+  v60 = 126 - 2 * __clz(0x6DB6DB6DB6DB6DB7 * (v59 - v58));
   LODWORD(v188) = 1;
   if (v59 == v58)
   {
@@ -1339,8 +1337,8 @@ LABEL_60:
     while (1)
     {
       v74 = 56 * (v70 + v177);
-      _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEEC2B8ne200100INS_11__wrap_iterIPS4_EELi0EEET_SC_(&v188, *v3, v74 + *v3);
-      _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEEC2B8ne200100INS_11__wrap_iterIPS4_EELi0EEET_SC_(&v183, v74 + v178[3], v178[4]);
+      _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEEC2B8ne200100INS_11__wrap_iterIPS4_EELi0EEET_SC_(&v188, *v3, &(*v3)[v74]);
+      _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEEC2B8ne200100INS_11__wrap_iterIPS4_EELi0EEET_SC_(&v183, (v74 + v178[3]), v178[4]);
       v75 = *(&v188 + 1);
       v76 = v188;
       v77 = 0x6DB6DB6DB6DB6DB7 * ((*(&v188 + 1) - v188) >> 3);
@@ -1618,8 +1616,8 @@ LABEL_106:
   v127 = 0;
 LABEL_120:
   v128 = v127 + 56 * v177;
-  _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEEC2B8ne200100INS_11__wrap_iterIPS4_EELi0EEET_SC_(&v195, *v3, v128 + *v3);
-  _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEEC2B8ne200100INS_11__wrap_iterIPS4_EELi0EEET_SC_(&v193, v128 + a1[3], a1[4]);
+  _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEEC2B8ne200100INS_11__wrap_iterIPS4_EELi0EEET_SC_(&v195, *v3, &(*v3)[v128]);
+  _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEEC2B8ne200100INS_11__wrap_iterIPS4_EELi0EEET_SC_(&v193, (v128 + a1[3]), a1[4]);
   v129 = *v3;
   v130 = *(*v3 + 16);
   v188 = **v3;
@@ -1627,17 +1625,17 @@ LABEL_120:
   v190 = 0;
   v191[0] = 0;
   v191[1] = 0;
-  _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEE16__init_with_sizeB8ne200100IPS4_S9_EEvT_T0_m(&v190, *(v129 + 24), *(v129 + 32), 0x6DB6DB6DB6DB6DB7 * ((*(v129 + 32) - *(v129 + 24)) >> 3));
-  v192 = *(v129 + 48);
+  _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEE16__init_with_sizeB8ne200100IPS4_S9_EEvT_T0_m(&v190, *(v129 + 3), *(v129 + 4), 0x6DB6DB6DB6DB6DB7 * ((*(v129 + 4) - *(v129 + 3)) >> 3));
+  v192 = *(v129 + 6);
   v131 = *v3;
   v183 = *(*v3 + 56);
-  v132 = *(v131 + 80);
+  v132 = *(v131 + 10);
   v184 = *(v131 + 72);
   v185 = 0;
   v186[0] = 0;
   v186[1] = 0;
-  _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEE16__init_with_sizeB8ne200100IPS4_S9_EEvT_T0_m(&v185, v132, *(v131 + 88), 0x6DB6DB6DB6DB6DB7 * ((*(v131 + 88) - v132) >> 3));
-  v187 = *(v131 + 104);
+  _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEE16__init_with_sizeB8ne200100IPS4_S9_EEvT_T0_m(&v185, v132, *(v131 + 11), 0x6DB6DB6DB6DB6DB7 * ((*(v131 + 11) - v132) >> 3));
+  v187 = *(v131 + 13);
   *v180 = *a1;
   *&v180[8] = 0u;
   v181 = 0u;
@@ -1645,14 +1643,14 @@ LABEL_120:
   _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEE7reserveEm(&v181, (*v180 + 1));
   v133 = *v3;
   v134 = *v180;
-  *(v133 + 16) = 0;
+  *(v133 + 2) = 0;
   *v133 = v134;
   if (v133 != v180)
   {
-    _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEE18__assign_with_sizeB8ne200100IPS4_S9_EEvT_T0_l((v133 + 24), v181, *(&v181 + 1), 0x6DB6DB6DB6DB6DB7 * ((*(&v181 + 1) - v181) >> 3));
+    _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEE18__assign_with_sizeB8ne200100IPS4_S9_EEvT_T0_l(v133 + 3, v181, *(&v181 + 1), 0x6DB6DB6DB6DB6DB7 * ((*(&v181 + 1) - v181) >> 3));
   }
 
-  objc_storeStrong((v133 + 48), obj[1]);
+  objc_storeStrong(v133 + 6, obj[1]);
 
   _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEED1B8ne200100Ev(&v181);
   *v180 = *v178;
@@ -1662,24 +1660,24 @@ LABEL_120:
   _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEE7reserveEm(&v181, (*v180 + 1));
   v135 = *v3;
   *(v135 + 56) = *v180;
-  *(v135 + 72) = *&v180[16];
-  if ((v135 + 56) != v180)
+  *(v135 + 9) = *&v180[16];
+  if (v135 + 56 != v180)
   {
-    _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEE18__assign_with_sizeB8ne200100IPS4_S9_EEvT_T0_l((v135 + 80), v181, *(&v181 + 1), 0x6DB6DB6DB6DB6DB7 * ((*(&v181 + 1) - v181) >> 3));
+    _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEE18__assign_with_sizeB8ne200100IPS4_S9_EEvT_T0_l(v135 + 10, v181, *(&v181 + 1), 0x6DB6DB6DB6DB6DB7 * ((*(&v181 + 1) - v181) >> 3));
   }
 
-  objc_storeStrong((v135 + 104), obj[1]);
+  objc_storeStrong(v135 + 13, obj[1]);
 
   _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEED1B8ne200100Ev(&v181);
   v136 = 0;
-  for (i = 24; ; i += 56)
+  for (i = 3; ; i += 7)
   {
     v141 = v195;
     v140 = j;
-    v142 = 0x6DB6DB6DB6DB6DB7 * ((j - v195) >> 3);
+    v142 = 0x6DB6DB6DB6DB6DB7 * (j - v195);
     v143 = v193;
     v144 = v194;
-    if (v136 >= v142 + 0x6DB6DB6DB6DB6DB7 * ((v194 - v193) >> 3))
+    if (v136 >= v142 + 0x6DB6DB6DB6DB6DB7 * (v194 - v193))
     {
       break;
     }
@@ -1690,7 +1688,7 @@ LABEL_120:
       if (v136 == 1)
       {
         _ZN12GKCRTreeNodeI8NSObjectDv2_fE9AddObjectEPS0_RKS1_S5_(v147 + 7, v187, &v183 + 1, &v184);
-        v146 = (*(*v3 + 88) - 32);
+        v146 = (*(*v3 + 11) - 32);
         if (v146 != &v185)
         {
           v138 = v185;
@@ -1702,9 +1700,9 @@ LABEL_126:
 
       else if (v136)
       {
-        _ZN12GKCRTreeNodeI8NSObjectDv2_fE9AddObjectEPS0_RKS1_S5_(v147 + 7, *&v193[i + 24 + -8 * ((j - v195) >> 3)], &v193[i - 16 + -8 * ((j - v195) >> 3)], &v193[i - 8 + -8 * ((j - v195) >> 3)]);
-        v150 = &v193[i + -56 * v142];
-        v146 = (*(*v3 + 88) - 32);
+        _ZN12GKCRTreeNodeI8NSObjectDv2_fE9AddObjectEPS0_RKS1_S5_(v147 + 7, *(&v193[i + 3] - (j - v195)), &v193[i - 2] - (j - v195), &v193[i - 1] - (j - v195));
+        v150 = &v193[i] - 7 * v142;
+        v146 = (*(*v3 + 11) - 32);
         if (v150 != v146)
         {
           v151 = *v150;
@@ -1717,7 +1715,7 @@ LABEL_126:
       else
       {
         _ZN12GKCRTreeNodeI8NSObjectDv2_fE9AddObjectEPS0_RKS1_S5_(v147 + 7, v192, &v188 + 1, &v189);
-        v146 = (*(*v3 + 88) - 32);
+        v146 = (*(*v3 + 11) - 32);
         if (v146 != &v190)
         {
           v138 = v190;
@@ -1733,7 +1731,7 @@ LABEL_126:
       if (v136 == 1)
       {
         _ZN12GKCRTreeNodeI8NSObjectDv2_fE9AddObjectEPS0_RKS1_S5_(v145, v187, &v183 + 1, &v184);
-        v146 = (*(*v3 + 32) - 32);
+        v146 = (*(*v3 + 4) - 32);
         if (v146 != &v185)
         {
           v138 = v185;
@@ -1744,13 +1742,13 @@ LABEL_126:
 
       else if (v136)
       {
-        _ZN12GKCRTreeNodeI8NSObjectDv2_fE9AddObjectEPS0_RKS1_S5_(v145, *&v195[i + 24], &v195[i - 16], &v195[i - 8]);
+        _ZN12GKCRTreeNodeI8NSObjectDv2_fE9AddObjectEPS0_RKS1_S5_(v145, v195[i + 3], &v195[i - 2], &v195[i - 1]);
         v148 = &v195[i];
-        v146 = (*(*v3 + 32) - 32);
+        v146 = (*(*v3 + 4) - 32);
         if (&v195[i] != v146)
         {
           v149 = *v148;
-          v139 = (v148 + 8);
+          v139 = (v148 + 1);
           v138 = v149;
           goto LABEL_126;
         }
@@ -1759,7 +1757,7 @@ LABEL_126:
       else
       {
         _ZN12GKCRTreeNodeI8NSObjectDv2_fE9AddObjectEPS0_RKS1_S5_(v145, v192, &v188 + 1, &v189);
-        v146 = (*(*v3 + 32) - 32);
+        v146 = (*(*v3 + 4) - 32);
         if (v146 != &v190)
         {
           v138 = v190;
@@ -1778,7 +1776,7 @@ LABEL_126:
     {
 
       _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEED1B8ne200100Ev(v140 - 4);
-      v140 -= 56;
+      v140 -= 7;
     }
 
     while (v140 != v141);
@@ -1786,7 +1784,7 @@ LABEL_126:
     v144 = v194;
   }
 
-  for (j = v141; v144 != v143; v144 -= 56)
+  for (j = v141; v144 != v143; v144 -= 7)
   {
 
     _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEED1B8ne200100Ev(v144 - 4);
@@ -1869,7 +1867,7 @@ LABEL_126:
   _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEED1B8ne200100Ev(&v195);
 }
 
-void sub_238995F00(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, void **a19, uint64_t a20, void **a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, void *__p, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, void *a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, void *a45)
+void sub_238995F00(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, id **a19, uint64_t a20, id **a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, void *__p, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, void *a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, void *a45)
 {
   _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEED1B8ne200100Ev(a19);
 
@@ -1880,21 +1878,21 @@ void sub_238995F00(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEE24__emplace_back_slow_pathIJS4_EEEPS4_DpOT_(uint64_t a1, uint64_t a2)
+uint64_t _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEE24__emplace_back_slow_pathIJS4_EEEPS4_DpOT_(void **a1, uint64_t a2)
 {
-  v2 = 0x6DB6DB6DB6DB6DB7 * ((*(a1 + 8) - *a1) >> 3);
+  v2 = 0x6DB6DB6DB6DB6DB7 * ((a1[1] - *a1) >> 3);
   v3 = v2 + 1;
   if ((v2 + 1) > 0x492492492492492)
   {
     _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEE20__throw_length_errorB8ne200100Ev();
   }
 
-  if (0xDB6DB6DB6DB6DB6ELL * ((*(a1 + 16) - *a1) >> 3) > v3)
+  if (0xDB6DB6DB6DB6DB6ELL * ((a1[2] - *a1) >> 3) > v3)
   {
-    v3 = 0xDB6DB6DB6DB6DB6ELL * ((*(a1 + 16) - *a1) >> 3);
+    v3 = 0xDB6DB6DB6DB6DB6ELL * ((a1[2] - *a1) >> 3);
   }
 
-  if ((0x6DB6DB6DB6DB6DB7 * ((*(a1 + 16) - *a1) >> 3)) >= 0x249249249249249)
+  if ((0x6DB6DB6DB6DB6DB7 * ((a1[2] - *a1) >> 3)) >= 0x249249249249249)
   {
     v6 = 0x492492492492492;
   }
@@ -1914,22 +1912,22 @@ uint64_t _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEE24__
     std::__throw_bad_array_new_length[abi:ne200100]();
   }
 
-  v12 = 8 * ((*(a1 + 8) - *a1) >> 3);
+  v12 = 8 * ((a1[1] - *a1) >> 3);
   *v12 = *a2;
   v7 = *(a2 + 24);
   *(v12 + 16) = *(a2 + 16);
   *(v12 + 32) = 0;
   *(v12 + 40) = 0;
   *(v12 + 24) = 0;
-  _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEE16__init_with_sizeB8ne200100IPS4_S9_EEvT_T0_m(56 * v2 + 24, v7, *(a2 + 32), 0x6DB6DB6DB6DB6DB7 * ((*(a2 + 32) - v7) >> 3));
+  _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEE16__init_with_sizeB8ne200100IPS4_S9_EEvT_T0_m((56 * v2 + 24), v7, *(a2 + 32), 0x6DB6DB6DB6DB6DB7 * ((*(a2 + 32) - v7) >> 3));
   *(v12 + 48) = *(a2 + 48);
-  v8 = *(a1 + 8);
-  v9 = 56 * v2 + *a1 - v8;
+  v8 = a1[1];
+  v9 = (56 * v2 + *a1 - v8);
   _ZNSt3__134__uninitialized_allocator_relocateB8ne200100INS_9allocatorI12GKCRTreeNodeI8NSObjectDv2_fEEEPS5_EEvRT_T0_SA_SA_(a1, *a1, v8, v9);
   v10 = *a1;
   *a1 = v9;
-  *(a1 + 8) = 56 * v2 + 56;
-  *(a1 + 16) = 0;
+  a1[1] = (56 * v2 + 56);
+  a1[2] = 0;
   if (v10)
   {
     operator delete(v10);
@@ -1938,14 +1936,14 @@ uint64_t _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEE24__
   return 56 * v2 + 56;
 }
 
-void sub_23899625C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23899625C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   _ZNSt3__114__split_bufferI12GKCRTreeNodeI8NSObjectDv2_fERNS_9allocatorIS4_EEED1Ev(va);
   _Unwind_Resume(a1);
 }
 
-void _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEE16__init_with_sizeB8ne200100IPS4_S9_EEvT_T0_m(uint64_t a1, uint64_t a2, uint64_t a3, unint64_t a4)
+void _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEE16__init_with_sizeB8ne200100IPS4_S9_EEvT_T0_m(void *result, __int128 *a2, __int128 *a3, unint64_t a4)
 {
   if (a4)
   {
@@ -1958,10 +1956,11 @@ void _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEE16__init
   }
 }
 
-void sub_2389963B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void **a9, uint64_t a10, char a11)
+void sub_2389963B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
 {
-  _ZNSt3__128__exception_guard_exceptionsINS_29_AllocatorDestroyRangeReverseINS_9allocatorI12GKCRTreeNodeI8NSObjectDv2_fEEEPS6_EEED1B8ne200100Ev(&a11);
-  *(v11 + 8) = v12;
+  va_start(va, a10);
+  _ZNSt3__128__exception_guard_exceptionsINS_29_AllocatorDestroyRangeReverseINS_9allocatorI12GKCRTreeNodeI8NSObjectDv2_fEEEPS6_EEED1B8ne200100Ev(va);
+  *(v10 + 8) = v11;
   _ZNSt3__128__exception_guard_exceptionsINS_6vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS5_EEE16__destroy_vectorEED1B8ne200100Ev(&a9);
   _Unwind_Resume(a1);
 }
@@ -2055,7 +2054,7 @@ uint64_t _ZNSt3__114__split_bufferI12GKCRTreeNodeI8NSObjectDv2_fERNS_9allocatorI
   return a1;
 }
 
-void **_ZNSt3__134__uninitialized_allocator_relocateB8ne200100INS_9allocatorI12GKCRTreeNodeI8NSObjectDv2_fEEEPS5_EEvRT_T0_SA_SA_(uint64_t a1, void **a2, void **a3, uint64_t a4)
+id **_ZNSt3__134__uninitialized_allocator_relocateB8ne200100INS_9allocatorI12GKCRTreeNodeI8NSObjectDv2_fEEEPS5_EEvRT_T0_SA_SA_(uint64_t a1, void **a2, void **a3, uint64_t a4)
 {
   v12 = a4;
   if (a2 != a3)
@@ -2070,7 +2069,7 @@ void **_ZNSt3__134__uninitialized_allocator_relocateB8ne200100INS_9allocatorI12G
       *(v4 + 24) = 0;
       *(v4 + 32) = 0;
       *(v4 + 40) = 0;
-      _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEE16__init_with_sizeB8ne200100IPS4_S9_EEvT_T0_m(v4 + 24, v7[3], v7[4], 0x6DB6DB6DB6DB6DB7 * ((v7[4] - v7[3]) >> 3));
+      _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEE16__init_with_sizeB8ne200100IPS4_S9_EEvT_T0_m((v4 + 24), v7[3], v7[4], 0x6DB6DB6DB6DB6DB7 * ((v7[4] - v7[3]) >> 3));
       *(v4 + 48) = v7[6];
       v7 += 7;
       v4 = v12 + 56;
@@ -2093,30 +2092,27 @@ void **_ZNSt3__134__uninitialized_allocator_relocateB8ne200100INS_9allocatorI12G
   return result;
 }
 
-void *_ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEE7reserveEm(void *result, unint64_t a2)
+void _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEE7reserveEm(void *a1, unint64_t a2)
 {
-  if (0x6DB6DB6DB6DB6DB7 * ((result[2] - *result) >> 3) < a2)
+  if (0x6DB6DB6DB6DB6DB7 * ((a1[2] - *a1) >> 3) < a2)
   {
     if (a2 < 0x492492492492493)
     {
-      v2 = result[1] - *result;
       operator new();
     }
 
     _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEE20__throw_length_errorB8ne200100Ev();
   }
-
-  return result;
 }
 
-void sub_238996834(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_238996834(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   _ZNSt3__114__split_bufferI12GKCRTreeNodeI8NSObjectDv2_fERNS_9allocatorIS4_EEED1Ev(va);
   _Unwind_Resume(a1);
 }
 
-void _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEE18__assign_with_sizeB8ne200100IPS4_S9_EEvT_T0_l(void **a1, uint64_t a2, __int128 *a3, unint64_t a4)
+void _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEE18__assign_with_sizeB8ne200100IPS4_S9_EEvT_T0_l(uint64_t *a1, char *a2, char *a3, unint64_t a4)
 {
   v6 = a1[2];
   v7 = *a1;
@@ -2132,8 +2128,8 @@ void _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEE18__assi
         do
         {
 
-          _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEED1B8ne200100Ev(v9 - 4);
-          v9 -= 7;
+          _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEED1B8ne200100Ev((v9 - 32));
+          v9 -= 56;
         }
 
         while (v9 != v7);
@@ -2178,37 +2174,35 @@ void _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEE18__assi
   }
 
   v14 = a1[1];
-  if (0x6DB6DB6DB6DB6DB7 * (v14 - v7) >= a4)
+  if (0x6DB6DB6DB6DB6DB7 * ((v14 - v7) >> 3) >= a4)
   {
     if (a2 != a3)
     {
-      v22 = (a2 + 32);
+      v20 = (a2 + 32);
       do
       {
-        v23 = v22 - 4;
-        v24 = *(v22 - 2);
-        v7[2] = *(v22 - 2);
-        *v7 = v24;
-        if (v7 != (v22 - 4))
+        v21 = v20 - 2;
+        v22 = *(v20 - 2);
+        *(v7 + 16) = *(v20 - 2);
+        *v7 = v22;
+        if (v7 != v20 - 2)
         {
-          v25 = *(v22 - 1);
-          v26 = *v22;
-          _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEE18__assign_with_sizeB8ne200100IPS4_S9_EEvT_T0_l(v7 + 3);
+          _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEE18__assign_with_sizeB8ne200100IPS4_S9_EEvT_T0_l((v7 + 24), *(v20 - 1), *v20, 0x6DB6DB6DB6DB6DB7 * ((*v20 - *(v20 - 1)) >> 3));
         }
 
-        objc_storeStrong(v7 + 6, v22[2]);
-        v7 += 7;
-        v22 += 7;
+        objc_storeStrong((v7 + 48), *(v20 + 2));
+        v7 += 56;
+        v20 = (v20 + 56);
       }
 
-      while (v23 + 7 != a3);
+      while (v21 + 56 != a3);
       v14 = a1[1];
     }
 
-    for (; v14 != v7; v14 -= 7)
+    for (; v14 != v7; v14 -= 56)
     {
 
-      _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEED1B8ne200100Ev(v14 - 4);
+      _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEED1B8ne200100Ev((v14 - 32));
     }
 
     a1[1] = v7;
@@ -2216,57 +2210,55 @@ void _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEE18__assi
 
   else
   {
-    v15 = (a2 + v14 - v7);
+    v15 = &a2[v14 - v7];
     if (v14 != v7)
     {
-      v16 = (v7 + 3);
+      v16 = v7 + 24;
       v17 = (a2 + 32);
       do
       {
-        v18 = v17 - 4;
+        v18 = v17 - 2;
         v19 = *(v17 - 2);
-        *(v16 - 1) = *(v17 - 2);
+        *(v16 - 8) = *(v17 - 2);
         *(v16 - 24) = v19;
-        if (v16 - 24 != (v17 - 4))
+        if ((v16 - 24) != v17 - 2)
         {
-          v20 = *(v17 - 1);
-          v21 = *v17;
-          _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEE18__assign_with_sizeB8ne200100IPS4_S9_EEvT_T0_l(v16);
+          _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEE18__assign_with_sizeB8ne200100IPS4_S9_EEvT_T0_l(v16, *(v17 - 1), *v17, 0x6DB6DB6DB6DB6DB7 * ((*v17 - *(v17 - 1)) >> 3));
         }
 
-        objc_storeStrong(v16 + 3, v17[2]);
+        objc_storeStrong((v16 + 24), *(v17 + 2));
         v16 += 56;
-        v17 += 7;
+        v17 = (v17 + 56);
       }
 
-      while (v18 + 7 != v15);
+      while (v18 + 56 != v15);
       v14 = a1[1];
     }
 
-    v29 = v14;
-    v27 = v14;
+    v25 = v14;
+    v23 = v14;
     if (v15 != a3)
     {
-      v27 = v14;
+      v23 = v14;
       do
       {
-        v28 = *v15;
-        v27[2] = *(v15 + 2);
-        *v27 = v28;
-        v27[3] = 0;
-        v27[4] = 0;
-        v27[5] = 0;
-        _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEE16__init_with_sizeB8ne200100IPS4_S9_EEvT_T0_m((v27 + 3), *(v15 + 3), *(v15 + 4), 0x6DB6DB6DB6DB6DB7 * ((*(v15 + 4) - *(v15 + 3)) >> 3));
-        v27[6] = *(v15 + 6);
-        v15 = (v15 + 56);
-        v27 = v29 + 7;
-        v29 += 7;
+        v24 = *v15;
+        *(v23 + 16) = *(v15 + 2);
+        *v23 = v24;
+        *(v23 + 24) = 0;
+        *(v23 + 32) = 0;
+        *(v23 + 40) = 0;
+        _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEE16__init_with_sizeB8ne200100IPS4_S9_EEvT_T0_m((v23 + 24), *(v15 + 3), *(v15 + 4), 0x6DB6DB6DB6DB6DB7 * ((*(v15 + 4) - *(v15 + 3)) >> 3));
+        *(v23 + 48) = *(v15 + 6);
+        v15 += 56;
+        v23 = v25 + 56;
+        v25 += 56;
       }
 
       while (v15 != a3);
     }
 
-    a1[1] = v27;
+    a1[1] = v23;
   }
 }
 
@@ -2371,14 +2363,14 @@ void _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEE8__appen
   }
 }
 
-void sub_238996DAC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_238996DAC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   _ZNSt3__114__split_bufferI12GKCRTreeNodeI8NSObjectDv2_fERNS_9allocatorIS4_EEED1Ev(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t _ZNSt3__111__introsortINS_17_ClassicAlgPolicyERZN12GKCRTreeNodeI8NSObjectDv2_fE18SplitReduceOverlapEPS3_RKS4_S8_EUlS5_S5_E_PS5_Lb0EEEvT1_SC_T0_NS_15iterator_traitsISC_E15difference_typeEb(uint64_t result, void **a2, _DWORD *a3, uint64_t a4, char a5)
+void **_ZNSt3__111__introsortINS_17_ClassicAlgPolicyERZN12GKCRTreeNodeI8NSObjectDv2_fE18SplitReduceOverlapEPS3_RKS4_S8_EUlS5_S5_E_PS5_Lb0EEEvT1_SC_T0_NS_15iterator_traitsISC_E15difference_typeEb(void **result, void **a2, _DWORD *a3, uint64_t a4, char a5)
 {
   v9 = result;
   while (2)
@@ -2392,17 +2384,17 @@ LABEL_3:
       v9 = v10;
       a4 = v11;
       v12 = a2 - v10;
-      v13 = 0x6DB6DB6DB6DB6DB7 * ((a2 - v10) >> 3);
+      v13 = 0x6DB6DB6DB6DB6DB7 * (a2 - v10);
       if (v13 > 2)
       {
         switch(v13)
         {
           case 3:
-            return _ZNSt3__17__sort3B8ne200100INS_17_ClassicAlgPolicyERZN12GKCRTreeNodeI8NSObjectDv2_fE18SplitReduceOverlapEPS3_RKS4_S8_EUlS5_S5_E_PS5_Li0EEEbT1_SC_SC_T0_(v10, v10 + 56, v33, a3);
+            return _ZNSt3__17__sort3B8ne200100INS_17_ClassicAlgPolicyERZN12GKCRTreeNodeI8NSObjectDv2_fE18SplitReduceOverlapEPS3_RKS4_S8_EUlS5_S5_E_PS5_Li0EEEbT1_SC_SC_T0_(v10, (v10 + 7), v33, a3);
           case 4:
-            return _ZNSt3__17__sort4B8ne200100INS_17_ClassicAlgPolicyERZN12GKCRTreeNodeI8NSObjectDv2_fE18SplitReduceOverlapEPS3_RKS4_S8_EUlS5_S5_E_PS5_Li0EEEvT1_SC_SC_SC_T0_(v10, v10 + 56, v10 + 112, v33, a3);
+            return _ZNSt3__17__sort4B8ne200100INS_17_ClassicAlgPolicyERZN12GKCRTreeNodeI8NSObjectDv2_fE18SplitReduceOverlapEPS3_RKS4_S8_EUlS5_S5_E_PS5_Li0EEEvT1_SC_SC_SC_T0_(v10, (v10 + 7), (v10 + 14), v33, a3);
           case 5:
-            return _ZNSt3__17__sort5B8ne200100INS_17_ClassicAlgPolicyERZN12GKCRTreeNodeI8NSObjectDv2_fE18SplitReduceOverlapEPS3_RKS4_S8_EUlS5_S5_E_PS5_Li0EEEvT1_SC_SC_SC_SC_T0_(v10, v10 + 56, v10 + 112, v10 + 168, v33, a3);
+            return _ZNSt3__17__sort5B8ne200100INS_17_ClassicAlgPolicyERZN12GKCRTreeNodeI8NSObjectDv2_fE18SplitReduceOverlapEPS3_RKS4_S8_EUlS5_S5_E_PS5_Li0EEEvT1_SC_SC_SC_SC_T0_(v10, (v10 + 7), (v10 + 14), (v10 + 21), v33, a3);
         }
       }
 
@@ -2421,12 +2413,12 @@ LABEL_3:
           memset(v46, 0, sizeof(v46));
           _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEE16__init_with_sizeB8ne200100IPS4_S9_EEvT_T0_m(v46, *(a2 - 4), *(a2 - 3), 0x6DB6DB6DB6DB6DB7 * ((*(a2 - 3) - *(a2 - 4)) >> 3));
           v47 = *(a2 - 1);
-          v25 = *(v10 + 16);
+          v25 = v10[2];
           v41 = *v10;
           v42 = v25;
           memset(v43, 0, 24);
-          _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEE16__init_with_sizeB8ne200100IPS4_S9_EEvT_T0_m(v43, *(v10 + 24), *(v10 + 32), 0x6DB6DB6DB6DB6DB7 * ((*(v10 + 32) - *(v10 + 24)) >> 3));
-          v43[3] = *(v10 + 48);
+          _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEE16__init_with_sizeB8ne200100IPS4_S9_EEvT_T0_m(v43, v10[3], v10[4], 0x6DB6DB6DB6DB6DB7 * ((v10[4] - v10[3]) >> 3));
+          v43[3] = v10[6];
           v26 = *((&v44 & 0xFFFFFFFFFFFFFFFBLL | (4 * (*a3 & 1))) + 8);
           v27 = *((&v41 & 0xFFFFFFFFFFFFFFFBLL | (4 * (*a3 & 1))) + 8);
           _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEED1B8ne200100Ev(v43);
@@ -2460,7 +2452,7 @@ LABEL_3:
         {
           v28 = (v13 - 2) >> 1;
           v29 = v28 + 1;
-          v30 = v10 + 56 * v28;
+          v30 = &v10[7 * v28];
           do
           {
             _ZNSt3__111__sift_downB8ne200100INS_17_ClassicAlgPolicyERZN12GKCRTreeNodeI8NSObjectDv2_fE18SplitReduceOverlapEPS3_RKS4_S8_EUlS5_S5_E_PS5_EEvT1_OT0_NS_15iterator_traitsISC_E15difference_typeESC_(v9, a3, v13, v30);
@@ -2483,14 +2475,14 @@ LABEL_3:
       }
 
       v14 = v13 >> 1;
-      v15 = (v10 + 56 * v14);
+      v15 = &v10[7 * v14];
       if (v12 >= 0x1C01)
       {
-        _ZNSt3__17__sort3B8ne200100INS_17_ClassicAlgPolicyERZN12GKCRTreeNodeI8NSObjectDv2_fE18SplitReduceOverlapEPS3_RKS4_S8_EUlS5_S5_E_PS5_Li0EEEbT1_SC_SC_T0_(v9, v9 + 56 * v14, v33, a3);
-        v16 = v9 + 56 * v14;
-        _ZNSt3__17__sort3B8ne200100INS_17_ClassicAlgPolicyERZN12GKCRTreeNodeI8NSObjectDv2_fE18SplitReduceOverlapEPS3_RKS4_S8_EUlS5_S5_E_PS5_Li0EEEbT1_SC_SC_T0_(v9 + 56, v16 - 56, (a2 - 14), a3);
-        _ZNSt3__17__sort3B8ne200100INS_17_ClassicAlgPolicyERZN12GKCRTreeNodeI8NSObjectDv2_fE18SplitReduceOverlapEPS3_RKS4_S8_EUlS5_S5_E_PS5_Li0EEEbT1_SC_SC_T0_(v9 + 112, v16 + 56, (a2 - 21), a3);
-        _ZNSt3__17__sort3B8ne200100INS_17_ClassicAlgPolicyERZN12GKCRTreeNodeI8NSObjectDv2_fE18SplitReduceOverlapEPS3_RKS4_S8_EUlS5_S5_E_PS5_Li0EEEbT1_SC_SC_T0_(v16 - 56, v15, v16 + 56, a3);
+        _ZNSt3__17__sort3B8ne200100INS_17_ClassicAlgPolicyERZN12GKCRTreeNodeI8NSObjectDv2_fE18SplitReduceOverlapEPS3_RKS4_S8_EUlS5_S5_E_PS5_Li0EEEbT1_SC_SC_T0_(v9, &v9[7 * v14], v33, a3);
+        v16 = &v9[7 * v14];
+        _ZNSt3__17__sort3B8ne200100INS_17_ClassicAlgPolicyERZN12GKCRTreeNodeI8NSObjectDv2_fE18SplitReduceOverlapEPS3_RKS4_S8_EUlS5_S5_E_PS5_Li0EEEbT1_SC_SC_T0_((v9 + 7), (v16 - 7), a2 - 7, a3);
+        _ZNSt3__17__sort3B8ne200100INS_17_ClassicAlgPolicyERZN12GKCRTreeNodeI8NSObjectDv2_fE18SplitReduceOverlapEPS3_RKS4_S8_EUlS5_S5_E_PS5_Li0EEEbT1_SC_SC_T0_(v9 + 7, (v16 + 7), (a2 - 21), a3);
+        _ZNSt3__17__sort3B8ne200100INS_17_ClassicAlgPolicyERZN12GKCRTreeNodeI8NSObjectDv2_fE18SplitReduceOverlapEPS3_RKS4_S8_EUlS5_S5_E_PS5_Li0EEEbT1_SC_SC_T0_((v16 - 7), v15, (v16 + 7), a3);
         _ZNSt3__14swapB8ne200100I12GKCRTreeNodeI8NSObjectDv2_fEEENS_9enable_ifIXaasr21is_move_constructibleIT_EE5valuesr18is_move_assignableIS6_EE5valueEvE4typeERS6_S9_(v9, v15);
         if (a5)
         {
@@ -2500,25 +2492,25 @@ LABEL_3:
 
       else
       {
-        _ZNSt3__17__sort3B8ne200100INS_17_ClassicAlgPolicyERZN12GKCRTreeNodeI8NSObjectDv2_fE18SplitReduceOverlapEPS3_RKS4_S8_EUlS5_S5_E_PS5_Li0EEEbT1_SC_SC_T0_(v9 + 56 * v14, v9, v33, a3);
+        _ZNSt3__17__sort3B8ne200100INS_17_ClassicAlgPolicyERZN12GKCRTreeNodeI8NSObjectDv2_fE18SplitReduceOverlapEPS3_RKS4_S8_EUlS5_S5_E_PS5_Li0EEEbT1_SC_SC_T0_(&v9[7 * v14], v9, v33, a3);
         if (a5)
         {
           goto LABEL_19;
         }
       }
 
-      v17 = *(v9 - 56);
-      v38 = *(v9 - 40);
+      v17 = *(v9 - 7);
+      v38 = *(v9 - 5);
       v37 = v17;
       memset(v39, 0, sizeof(v39));
-      _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEE16__init_with_sizeB8ne200100IPS4_S9_EEvT_T0_m(v39, *(v9 - 32), *(v9 - 24), 0x6DB6DB6DB6DB6DB7 * ((*(v9 - 24) - *(v9 - 32)) >> 3));
-      v40 = *(v9 - 8);
-      v18 = *(v9 + 16);
+      _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEE16__init_with_sizeB8ne200100IPS4_S9_EEvT_T0_m(v39, *(v9 - 4), *(v9 - 3), 0x6DB6DB6DB6DB6DB7 * ((*(v9 - 3) - *(v9 - 4)) >> 3));
+      v40 = *(v9 - 1);
+      v18 = v9[2];
       v34 = *v9;
       v35 = v18;
       memset(v36, 0, 24);
-      _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEE16__init_with_sizeB8ne200100IPS4_S9_EEvT_T0_m(v36, *(v9 + 24), *(v9 + 32), 0x6DB6DB6DB6DB6DB7 * ((*(v9 + 32) - *(v9 + 24)) >> 3));
-      v36[3] = *(v9 + 48);
+      _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEE16__init_with_sizeB8ne200100IPS4_S9_EEvT_T0_m(v36, v9[3], v9[4], 0x6DB6DB6DB6DB6DB7 * ((v9[4] - v9[3]) >> 3));
+      v36[3] = v9[6];
       v19 = *((&v37 & 0xFFFFFFFFFFFFFFFBLL | (4 * (*a3 & 1))) + 8);
       v20 = *((&v34 & 0xFFFFFFFFFFFFFFFBLL | (4 * (*a3 & 1))) + 8);
       _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEED1B8ne200100Ev(v36);
@@ -2540,7 +2532,7 @@ LABEL_19:
       }
 
       v23 = _ZNSt3__127__insertion_sort_incompleteB8ne200100INS_17_ClassicAlgPolicyERZN12GKCRTreeNodeI8NSObjectDv2_fE18SplitReduceOverlapEPS3_RKS4_S8_EUlS5_S5_E_PS5_EEbT1_SC_T0_(v9, v21, a3);
-      v10 = v21 + 56;
+      v10 = v21 + 7;
       result = _ZNSt3__127__insertion_sort_incompleteB8ne200100INS_17_ClassicAlgPolicyERZN12GKCRTreeNodeI8NSObjectDv2_fE18SplitReduceOverlapEPS3_RKS4_S8_EUlS5_S5_E_PS5_EEbT1_SC_T0_(v21 + 56, a2, a3);
       if (result)
       {
@@ -2553,7 +2545,7 @@ LABEL_19:
 LABEL_22:
         result = _ZNSt3__111__introsortINS_17_ClassicAlgPolicyERZN12GKCRTreeNodeI8NSObjectDv2_fE18SplitReduceOverlapEPS3_RKS4_S8_EUlS5_S5_E_PS5_Lb0EEEvT1_SC_T0_NS_15iterator_traitsISC_E15difference_typeEb(v9, v21, a3, a4, a5 & 1);
         a5 = 0;
-        v10 = v21 + 56;
+        v10 = v21 + 7;
         goto LABEL_3;
       }
     }
@@ -2568,21 +2560,21 @@ LABEL_22:
   }
 }
 
-uint64_t _ZNSt3__17__sort3B8ne200100INS_17_ClassicAlgPolicyERZN12GKCRTreeNodeI8NSObjectDv2_fE18SplitReduceOverlapEPS3_RKS4_S8_EUlS5_S5_E_PS5_Li0EEEbT1_SC_SC_T0_(uint64_t a1, uint64_t a2, uint64_t a3, _DWORD *a4)
+uint64_t _ZNSt3__17__sort3B8ne200100INS_17_ClassicAlgPolicyERZN12GKCRTreeNodeI8NSObjectDv2_fE18SplitReduceOverlapEPS3_RKS4_S8_EUlS5_S5_E_PS5_Li0EEEbT1_SC_SC_T0_(__int128 *a1, __int128 *a2, __int128 *a3, _DWORD *a4)
 {
   v63 = *a2;
-  v9 = *(a2 + 16);
-  v8 = *(a2 + 24);
+  v9 = *(a2 + 2);
+  v8 = *(a2 + 3);
   v64 = v9;
   memset(v65, 0, sizeof(v65));
-  _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEE16__init_with_sizeB8ne200100IPS4_S9_EEvT_T0_m(v65, v8, *(a2 + 32), 0x6DB6DB6DB6DB6DB7 * ((*(a2 + 32) - v8) >> 3));
-  v66 = *(a2 + 48);
+  _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEE16__init_with_sizeB8ne200100IPS4_S9_EEvT_T0_m(v65, v8, *(a2 + 4), 0x6DB6DB6DB6DB6DB7 * ((*(a2 + 4) - v8) >> 3));
+  v66 = *(a2 + 6);
   v60 = *a1;
-  v10 = *(a1 + 24);
-  v61 = *(a1 + 16);
+  v10 = *(a1 + 3);
+  v61 = *(a1 + 2);
   memset(v62, 0, 24);
-  _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEE16__init_with_sizeB8ne200100IPS4_S9_EEvT_T0_m(v62, v10, *(a1 + 32), 0x6DB6DB6DB6DB6DB7 * ((*(a1 + 32) - v10) >> 3));
-  v62[3] = *(a1 + 48);
+  _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEE16__init_with_sizeB8ne200100IPS4_S9_EEvT_T0_m(v62, v10, *(a1 + 4), 0x6DB6DB6DB6DB6DB7 * ((*(a1 + 4) - v10) >> 3));
+  v62[3] = *(a1 + 6);
   v11 = *((&v63 & 0xFFFFFFFFFFFFFFFBLL | (4 * (*a4 & 1))) + 8);
   v12 = *((&v60 & 0xFFFFFFFFFFFFFFFBLL | (4 * (*a4 & 1))) + 8);
   _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEED1B8ne200100Ev(v62);
@@ -2591,17 +2583,17 @@ uint64_t _ZNSt3__17__sort3B8ne200100INS_17_ClassicAlgPolicyERZN12GKCRTreeNodeI8N
   if (v11 < v12)
   {
     v42 = *a3;
-    v13 = *(a3 + 24);
-    v43 = *(a3 + 16);
+    v13 = *(a3 + 3);
+    v43 = *(a3 + 2);
     memset(v44, 0, sizeof(v44));
-    _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEE16__init_with_sizeB8ne200100IPS4_S9_EEvT_T0_m(v44, v13, *(a3 + 32), 0x6DB6DB6DB6DB6DB7 * ((*(a3 + 32) - v13) >> 3));
-    v45 = *(a3 + 48);
+    _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEE16__init_with_sizeB8ne200100IPS4_S9_EEvT_T0_m(v44, v13, *(a3 + 4), 0x6DB6DB6DB6DB6DB7 * ((*(a3 + 4) - v13) >> 3));
+    v45 = *(a3 + 6);
     v39 = *a2;
-    v14 = *(a2 + 24);
-    v40 = *(a2 + 16);
+    v14 = *(a2 + 3);
+    v40 = *(a2 + 2);
     memset(v41, 0, 24);
-    _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEE16__init_with_sizeB8ne200100IPS4_S9_EEvT_T0_m(v41, v14, *(a2 + 32), 0x6DB6DB6DB6DB6DB7 * ((*(a2 + 32) - v14) >> 3));
-    v41[3] = *(a2 + 48);
+    _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEE16__init_with_sizeB8ne200100IPS4_S9_EEvT_T0_m(v41, v14, *(a2 + 4), 0x6DB6DB6DB6DB6DB7 * ((*(a2 + 4) - v14) >> 3));
+    v41[3] = *(a2 + 6);
     v15 = *((&v42 & 0xFFFFFFFFFFFFFFFBLL | (4 * (*a4 & 1))) + 8);
     v16 = *((&v39 & 0xFFFFFFFFFFFFFFFBLL | (4 * (*a4 & 1))) + 8);
     _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEED1B8ne200100Ev(v41);
@@ -2619,17 +2611,17 @@ LABEL_9:
 
     _ZNSt3__14swapB8ne200100I12GKCRTreeNodeI8NSObjectDv2_fEEENS_9enable_ifIXaasr21is_move_constructibleIT_EE5valuesr18is_move_assignableIS6_EE5valueEvE4typeERS6_S9_(a1, a2);
     v35 = *a3;
-    v18 = *(a3 + 24);
-    v36 = *(a3 + 16);
+    v18 = *(a3 + 3);
+    v36 = *(a3 + 2);
     memset(v37, 0, sizeof(v37));
-    _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEE16__init_with_sizeB8ne200100IPS4_S9_EEvT_T0_m(v37, v18, *(a3 + 32), 0x6DB6DB6DB6DB6DB7 * ((*(a3 + 32) - v18) >> 3));
-    v38 = *(a3 + 48);
+    _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEE16__init_with_sizeB8ne200100IPS4_S9_EEvT_T0_m(v37, v18, *(a3 + 4), 0x6DB6DB6DB6DB6DB7 * ((*(a3 + 4) - v18) >> 3));
+    v38 = *(a3 + 6);
     v32 = *a2;
-    v19 = *(a2 + 24);
-    v33 = *(a2 + 16);
+    v19 = *(a2 + 3);
+    v33 = *(a2 + 2);
     memset(v34, 0, 24);
-    _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEE16__init_with_sizeB8ne200100IPS4_S9_EEvT_T0_m(v34, v19, *(a2 + 32), 0x6DB6DB6DB6DB6DB7 * ((*(a2 + 32) - v19) >> 3));
-    v34[3] = *(a2 + 48);
+    _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEE16__init_with_sizeB8ne200100IPS4_S9_EEvT_T0_m(v34, v19, *(a2 + 4), 0x6DB6DB6DB6DB6DB7 * ((*(a2 + 4) - v19) >> 3));
+    v34[3] = *(a2 + 6);
     v20 = *((&v35 & 0xFFFFFFFFFFFFFFFBLL | (4 * (*a4 & 1))) + 8);
     v21 = *((&v32 & 0xFFFFFFFFFFFFFFFBLL | (4 * (*a4 & 1))) + 8);
     _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEED1B8ne200100Ev(v34);
@@ -2645,17 +2637,17 @@ LABEL_9:
   }
 
   v56 = *a3;
-  v23 = *(a3 + 24);
-  v57 = *(a3 + 16);
+  v23 = *(a3 + 3);
+  v57 = *(a3 + 2);
   memset(v58, 0, sizeof(v58));
-  _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEE16__init_with_sizeB8ne200100IPS4_S9_EEvT_T0_m(v58, v23, *(a3 + 32), 0x6DB6DB6DB6DB6DB7 * ((*(a3 + 32) - v23) >> 3));
-  v59 = *(a3 + 48);
+  _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEE16__init_with_sizeB8ne200100IPS4_S9_EEvT_T0_m(v58, v23, *(a3 + 4), 0x6DB6DB6DB6DB6DB7 * ((*(a3 + 4) - v23) >> 3));
+  v59 = *(a3 + 6);
   v53 = *a2;
-  v24 = *(a2 + 24);
-  v54 = *(a2 + 16);
+  v24 = *(a2 + 3);
+  v54 = *(a2 + 2);
   memset(v55, 0, 24);
-  _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEE16__init_with_sizeB8ne200100IPS4_S9_EEvT_T0_m(v55, v24, *(a2 + 32), 0x6DB6DB6DB6DB6DB7 * ((*(a2 + 32) - v24) >> 3));
-  v55[3] = *(a2 + 48);
+  _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEE16__init_with_sizeB8ne200100IPS4_S9_EEvT_T0_m(v55, v24, *(a2 + 4), 0x6DB6DB6DB6DB6DB7 * ((*(a2 + 4) - v24) >> 3));
+  v55[3] = *(a2 + 6);
   v25 = *((&v56 & 0xFFFFFFFFFFFFFFFBLL | (4 * (*a4 & 1))) + 8);
   v26 = *((&v53 & 0xFFFFFFFFFFFFFFFBLL | (4 * (*a4 & 1))) + 8);
   _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEED1B8ne200100Ev(v55);
@@ -2665,17 +2657,17 @@ LABEL_9:
   {
     _ZNSt3__14swapB8ne200100I12GKCRTreeNodeI8NSObjectDv2_fEEENS_9enable_ifIXaasr21is_move_constructibleIT_EE5valuesr18is_move_assignableIS6_EE5valueEvE4typeERS6_S9_(a2, a3);
     v49 = *a2;
-    v27 = *(a2 + 24);
-    v50 = *(a2 + 16);
+    v27 = *(a2 + 3);
+    v50 = *(a2 + 2);
     memset(v51, 0, sizeof(v51));
-    _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEE16__init_with_sizeB8ne200100IPS4_S9_EEvT_T0_m(v51, v27, *(a2 + 32), 0x6DB6DB6DB6DB6DB7 * ((*(a2 + 32) - v27) >> 3));
-    v52 = *(a2 + 48);
+    _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEE16__init_with_sizeB8ne200100IPS4_S9_EEvT_T0_m(v51, v27, *(a2 + 4), 0x6DB6DB6DB6DB6DB7 * ((*(a2 + 4) - v27) >> 3));
+    v52 = *(a2 + 6);
     v46 = *a1;
-    v28 = *(a1 + 24);
-    v47 = *(a1 + 16);
+    v28 = *(a1 + 3);
+    v47 = *(a1 + 2);
     memset(v48, 0, 24);
-    _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEE16__init_with_sizeB8ne200100IPS4_S9_EEvT_T0_m(v48, v28, *(a1 + 32), 0x6DB6DB6DB6DB6DB7 * ((*(a1 + 32) - v28) >> 3));
-    v48[3] = *(a1 + 48);
+    _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEE16__init_with_sizeB8ne200100IPS4_S9_EEvT_T0_m(v48, v28, *(a1 + 4), 0x6DB6DB6DB6DB6DB7 * ((*(a1 + 4) - v28) >> 3));
+    v48[3] = *(a1 + 6);
     v29 = *((&v49 & 0xFFFFFFFFFFFFFFFBLL | (4 * (*a4 & 1))) + 8);
     v30 = *((&v46 & 0xFFFFFFFFFFFFFFFBLL | (4 * (*a4 & 1))) + 8);
     _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEED1B8ne200100Ev(v48);
@@ -2694,15 +2686,15 @@ LABEL_9:
   return 0;
 }
 
-void **_ZNSt3__17__sort4B8ne200100INS_17_ClassicAlgPolicyERZN12GKCRTreeNodeI8NSObjectDv2_fE18SplitReduceOverlapEPS3_RKS4_S8_EUlS5_S5_E_PS5_Li0EEEvT1_SC_SC_SC_T0_(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, _DWORD *a5)
+id **_ZNSt3__17__sort4B8ne200100INS_17_ClassicAlgPolicyERZN12GKCRTreeNodeI8NSObjectDv2_fE18SplitReduceOverlapEPS3_RKS4_S8_EUlS5_S5_E_PS5_Li0EEEvT1_SC_SC_SC_T0_(uint64_t a1, uint64_t a2, uint64_t a3, __int128 *a4, _DWORD *a5)
 {
   _ZNSt3__17__sort3B8ne200100INS_17_ClassicAlgPolicyERZN12GKCRTreeNodeI8NSObjectDv2_fE18SplitReduceOverlapEPS3_RKS4_S8_EUlS5_S5_E_PS5_Li0EEEbT1_SC_SC_T0_(a1, a2, a3, a5);
   v40 = *a4;
-  v10 = *(a4 + 24);
-  v41 = *(a4 + 16);
+  v10 = *(a4 + 3);
+  v41 = *(a4 + 2);
   memset(v42, 0, sizeof(v42));
-  _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEE16__init_with_sizeB8ne200100IPS4_S9_EEvT_T0_m(v42, v10, *(a4 + 32), 0x6DB6DB6DB6DB6DB7 * ((*(a4 + 32) - v10) >> 3));
-  v43 = *(a4 + 48);
+  _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEE16__init_with_sizeB8ne200100IPS4_S9_EEvT_T0_m(v42, v10, *(a4 + 4), 0x6DB6DB6DB6DB6DB7 * ((*(a4 + 4) - v10) >> 3));
+  v43 = *(a4 + 6);
   v37 = *a3;
   v11 = *(a3 + 24);
   v38 = *(a3 + 16);
@@ -2764,15 +2756,15 @@ void **_ZNSt3__17__sort4B8ne200100INS_17_ClassicAlgPolicyERZN12GKCRTreeNodeI8NSO
   return result;
 }
 
-void **_ZNSt3__17__sort5B8ne200100INS_17_ClassicAlgPolicyERZN12GKCRTreeNodeI8NSObjectDv2_fE18SplitReduceOverlapEPS3_RKS4_S8_EUlS5_S5_E_PS5_Li0EEEvT1_SC_SC_SC_SC_T0_(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, _DWORD *a6)
+id **_ZNSt3__17__sort5B8ne200100INS_17_ClassicAlgPolicyERZN12GKCRTreeNodeI8NSObjectDv2_fE18SplitReduceOverlapEPS3_RKS4_S8_EUlS5_S5_E_PS5_Li0EEEvT1_SC_SC_SC_SC_T0_(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, __int128 *a5, _DWORD *a6)
 {
   _ZNSt3__17__sort4B8ne200100INS_17_ClassicAlgPolicyERZN12GKCRTreeNodeI8NSObjectDv2_fE18SplitReduceOverlapEPS3_RKS4_S8_EUlS5_S5_E_PS5_Li0EEEvT1_SC_SC_SC_T0_(a1, a2, a3, a4, a6);
   v53 = *a5;
-  v11 = *(a5 + 24);
-  v54 = *(a5 + 16);
+  v11 = *(a5 + 3);
+  v54 = *(a5 + 2);
   memset(v55, 0, sizeof(v55));
-  _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEE16__init_with_sizeB8ne200100IPS4_S9_EEvT_T0_m(v55, v11, *(a5 + 32), 0x6DB6DB6DB6DB6DB7 * ((*(a5 + 32) - v11) >> 3));
-  v56 = *(a5 + 48);
+  _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEE16__init_with_sizeB8ne200100IPS4_S9_EEvT_T0_m(v55, v11, *(a5 + 4), 0x6DB6DB6DB6DB6DB7 * ((*(a5 + 4) - v11) >> 3));
+  v56 = *(a5 + 6);
   v50 = *a4;
   v12 = *(a4 + 24);
   v51 = *(a4 + 16);
@@ -3049,7 +3041,7 @@ void **_ZNSt3__126__insertion_sort_unguardedB8ne200100INS_17_ClassicAlgPolicyERZ
   return result;
 }
 
-unint64_t _ZNSt3__131__partition_with_equals_on_leftB8ne200100INS_17_ClassicAlgPolicyEP12GKCRTreeNodeI8NSObjectDv2_fERZNS5_18SplitReduceOverlapEPS3_RKS4_S9_EUlS5_S5_E_EET0_SC_SC_T1_(__int128 *a1, unint64_t a2, _DWORD *a3)
+__int128 *_ZNSt3__131__partition_with_equals_on_leftB8ne200100INS_17_ClassicAlgPolicyEP12GKCRTreeNodeI8NSObjectDv2_fERZNS5_18SplitReduceOverlapEPS3_RKS4_S9_EUlS5_S5_E_EET0_SC_SC_T1_(__int128 *a1, unint64_t a2, _DWORD *a3)
 {
   v76 = *a1;
   v7 = a1 + 3;
@@ -3104,7 +3096,7 @@ unint64_t _ZNSt3__131__partition_with_equals_on_leftB8ne200100INS_17_ClassicAlgP
       _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEED1B8ne200100Ev(v57);
 
       _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEED1B8ne200100Ev(v60);
-      v15 = v12 + 56;
+      v15 = (v12 + 56);
     }
 
     while (v17 >= v18);
@@ -3246,7 +3238,7 @@ void sub_238998A50(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-unint64_t _ZNSt3__132__partition_with_equals_on_rightB8ne200100INS_17_ClassicAlgPolicyEP12GKCRTreeNodeI8NSObjectDv2_fERZNS5_18SplitReduceOverlapEPS3_RKS4_S9_EUlS5_S5_E_EENS_4pairIT0_bEESD_SD_T1_(__int128 *a1, __int128 *a2, _DWORD *a3)
+__int128 *_ZNSt3__132__partition_with_equals_on_rightB8ne200100INS_17_ClassicAlgPolicyEP12GKCRTreeNodeI8NSObjectDv2_fERZNS5_18SplitReduceOverlapEPS3_RKS4_S9_EUlS5_S5_E_EENS_4pairIT0_bEESD_SD_T1_(__int128 *a1, __int128 *a2, _DWORD *a3)
 {
   v5 = a1;
   v68 = *a1;
@@ -3257,22 +3249,22 @@ unint64_t _ZNSt3__132__partition_with_equals_on_rightB8ne200100INS_17_ClassicAlg
   v71 = 0;
   v72 = 0;
   _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEE16__init_with_sizeB8ne200100IPS4_S9_EEvT_T0_m(&v70, v6, *(a1 + 4), 0x6DB6DB6DB6DB6DB7 * ((*(a1 + 4) - v6) >> 3));
-  location = (v5 + 48);
-  v73 = *(v5 + 48);
+  location = (v5 + 3);
+  v73 = *(v5 + 6);
   v32 = v5;
   do
   {
     v64 = *(v5 + 56);
-    v8 = *(v5 + 80);
-    v65 = *(v5 + 72);
+    v8 = *(v5 + 10);
+    v65 = *(v5 + 9);
     memset(v66, 0, sizeof(v66));
-    _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEE16__init_with_sizeB8ne200100IPS4_S9_EEvT_T0_m(v66, v8, *(v5 + 88), 0x6DB6DB6DB6DB6DB7 * ((*(v5 + 88) - v8) >> 3));
-    v67 = *(v5 + 104);
+    _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEE16__init_with_sizeB8ne200100IPS4_S9_EEvT_T0_m(v66, v8, *(v5 + 11), 0x6DB6DB6DB6DB6DB7 * ((*(v5 + 11) - v8) >> 3));
+    v67 = *(v5 + 13);
     v61 = v68;
     v62 = v69;
     memset(v63, 0, 24);
     _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEE16__init_with_sizeB8ne200100IPS4_S9_EEvT_T0_m(v63, v70, v71, 0x6DB6DB6DB6DB6DB7 * ((v71 - v70) >> 3));
-    v5 += 56;
+    v5 = (v5 + 56);
     v63[3] = v73;
     v9 = *((&v64 & 0xFFFFFFFFFFFFFFFBLL | (4 * (*a3 & 1))) + 8);
     v10 = *((&v61 & 0xFFFFFFFFFFFFFFFBLL | (4 * (*a3 & 1))) + 8);
@@ -3282,7 +3274,7 @@ unint64_t _ZNSt3__132__partition_with_equals_on_rightB8ne200100INS_17_ClassicAlg
   }
 
   while (v9 < v10);
-  if (v5 - 56 == v32)
+  if ((v5 - 56) == v32)
   {
     do
     {
@@ -3343,9 +3335,9 @@ unint64_t _ZNSt3__132__partition_with_equals_on_rightB8ne200100INS_17_ClassicAlg
   if (v5 >= a2)
   {
     v17 = v5;
-    v25 = v5 - 56;
+    v25 = (v5 - 56);
     v26 = v32;
-    if (v5 - 56 == v32)
+    if ((v5 - 56) == v32)
     {
       goto LABEL_18;
     }
@@ -3361,16 +3353,16 @@ unint64_t _ZNSt3__132__partition_with_equals_on_rightB8ne200100INS_17_ClassicAlg
       do
       {
         v43 = *(v17 + 56);
-        v19 = *(v17 + 80);
-        v44 = *(v17 + 72);
+        v19 = *(v17 + 10);
+        v44 = *(v17 + 9);
         memset(v45, 0, sizeof(v45));
-        _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEE16__init_with_sizeB8ne200100IPS4_S9_EEvT_T0_m(v45, v19, *(v17 + 88), 0x6DB6DB6DB6DB6DB7 * ((*(v17 + 88) - v19) >> 3));
-        v46 = *(v17 + 104);
+        _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEE16__init_with_sizeB8ne200100IPS4_S9_EEvT_T0_m(v45, v19, *(v17 + 11), 0x6DB6DB6DB6DB6DB7 * ((*(v17 + 11) - v19) >> 3));
+        v46 = *(v17 + 13);
         v40 = v68;
         v41 = v69;
         memset(v42, 0, 24);
         _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEE16__init_with_sizeB8ne200100IPS4_S9_EEvT_T0_m(v42, v70, v71, 0x6DB6DB6DB6DB6DB7 * ((v71 - v70) >> 3));
-        v17 += 56;
+        v17 = (v17 + 56);
         v42[3] = v73;
         v20 = *((&v43 & 0xFFFFFFFFFFFFFFFBLL | (4 * (*a3 & 1))) + 8);
         v21 = *((&v40 & 0xFFFFFFFFFFFFFFFBLL | (4 * (*a3 & 1))) + 8);
@@ -3405,29 +3397,29 @@ unint64_t _ZNSt3__132__partition_with_equals_on_rightB8ne200100INS_17_ClassicAlg
     }
 
     while (v17 < v18);
-    v25 = v17 - 56;
+    v25 = (v17 - 56);
     v26 = v32;
-    if (v17 - 56 == v32)
+    if ((v17 - 56) == v32)
     {
       goto LABEL_18;
     }
   }
 
   v27 = *v25;
-  *(v26 + 16) = *(v25 + 16);
+  *(v26 + 2) = *(v25 + 2);
   *v26 = v27;
-  _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEE18__assign_with_sizeB8ne200100IPS4_S9_EEvT_T0_l(v30, *(v17 - 32), *(v17 - 24), 0x6DB6DB6DB6DB6DB7 * ((*(v17 - 24) - *(v17 - 32)) >> 3));
-  objc_storeStrong(location, *(v17 - 8));
+  _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEE18__assign_with_sizeB8ne200100IPS4_S9_EEvT_T0_l(v30, *(v17 - 4), *(v17 - 3), 0x6DB6DB6DB6DB6DB7 * ((*(v17 - 3) - *(v17 - 4)) >> 3));
+  objc_storeStrong(location, *(v17 - 1));
 LABEL_18:
   v28 = v68;
-  *(v25 + 16) = v69;
+  *(v25 + 2) = v69;
   *v25 = v28;
   if (v25 != &v68)
   {
-    _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEE18__assign_with_sizeB8ne200100IPS4_S9_EEvT_T0_l((v17 - 32), v70, v71, 0x6DB6DB6DB6DB6DB7 * ((v71 - v70) >> 3));
+    _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEE18__assign_with_sizeB8ne200100IPS4_S9_EEvT_T0_l(v17 - 4, v70, v71, 0x6DB6DB6DB6DB6DB7 * ((v71 - v70) >> 3));
   }
 
-  objc_storeStrong((v17 - 8), v73);
+  objc_storeStrong(v17 - 1, v73);
 
   _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEED1B8ne200100Ev(&v70);
   return v25;
@@ -3442,13 +3434,13 @@ BOOL _ZNSt3__127__insertion_sort_incompleteB8ne200100INS_17_ClassicAlgPolicyERZN
     switch(v6)
     {
       case 3:
-        _ZNSt3__17__sort3B8ne200100INS_17_ClassicAlgPolicyERZN12GKCRTreeNodeI8NSObjectDv2_fE18SplitReduceOverlapEPS3_RKS4_S8_EUlS5_S5_E_PS5_Li0EEEbT1_SC_SC_T0_(a1, a1 + 56, a2 - 56, a3);
+        _ZNSt3__17__sort3B8ne200100INS_17_ClassicAlgPolicyERZN12GKCRTreeNodeI8NSObjectDv2_fE18SplitReduceOverlapEPS3_RKS4_S8_EUlS5_S5_E_PS5_Li0EEEbT1_SC_SC_T0_(a1, (a1 + 56), (a2 - 56), a3);
         return 1;
       case 4:
-        _ZNSt3__17__sort4B8ne200100INS_17_ClassicAlgPolicyERZN12GKCRTreeNodeI8NSObjectDv2_fE18SplitReduceOverlapEPS3_RKS4_S8_EUlS5_S5_E_PS5_Li0EEEvT1_SC_SC_SC_T0_(a1, a1 + 56, a1 + 112, a2 - 56, a3);
+        _ZNSt3__17__sort4B8ne200100INS_17_ClassicAlgPolicyERZN12GKCRTreeNodeI8NSObjectDv2_fE18SplitReduceOverlapEPS3_RKS4_S8_EUlS5_S5_E_PS5_Li0EEEvT1_SC_SC_SC_T0_(a1, a1 + 56, a1 + 112, (a2 - 56), a3);
         return 1;
       case 5:
-        _ZNSt3__17__sort5B8ne200100INS_17_ClassicAlgPolicyERZN12GKCRTreeNodeI8NSObjectDv2_fE18SplitReduceOverlapEPS3_RKS4_S8_EUlS5_S5_E_PS5_Li0EEEvT1_SC_SC_SC_SC_T0_(a1, a1 + 56, a1 + 112, a1 + 168, a2 - 56, a3);
+        _ZNSt3__17__sort5B8ne200100INS_17_ClassicAlgPolicyERZN12GKCRTreeNodeI8NSObjectDv2_fE18SplitReduceOverlapEPS3_RKS4_S8_EUlS5_S5_E_PS5_Li0EEEvT1_SC_SC_SC_SC_T0_(a1, a1 + 56, a1 + 112, a1 + 168, (a2 - 56), a3);
         return 1;
     }
 
@@ -3463,9 +3455,9 @@ BOOL _ZNSt3__127__insertion_sort_incompleteB8ne200100INS_17_ClassicAlgPolicyERZN
   if (v6 != 2)
   {
 LABEL_12:
-    v12 = a1 + 112;
-    _ZNSt3__17__sort3B8ne200100INS_17_ClassicAlgPolicyERZN12GKCRTreeNodeI8NSObjectDv2_fE18SplitReduceOverlapEPS3_RKS4_S8_EUlS5_S5_E_PS5_Li0EEEbT1_SC_SC_T0_(a1, a1 + 56, a1 + 112, a3);
-    v13 = a1 + 168;
+    v12 = (a1 + 112);
+    _ZNSt3__17__sort3B8ne200100INS_17_ClassicAlgPolicyERZN12GKCRTreeNodeI8NSObjectDv2_fE18SplitReduceOverlapEPS3_RKS4_S8_EUlS5_S5_E_PS5_Li0EEEbT1_SC_SC_T0_(a1, (a1 + 56), (a1 + 112), a3);
+    v13 = (a1 + 168);
     if (a1 + 168 == v4)
     {
       return 1;
@@ -3477,17 +3469,17 @@ LABEL_12:
     while (1)
     {
       v44 = *v13;
-      v15 = *(v13 + 24);
-      v45 = *(v13 + 16);
+      v15 = *(v13 + 3);
+      v45 = *(v13 + 2);
       memset(v46, 0, sizeof(v46));
-      _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEE16__init_with_sizeB8ne200100IPS4_S9_EEvT_T0_m(v46, v15, *(v13 + 32), 0x6DB6DB6DB6DB6DB7 * ((*(v13 + 32) - v15) >> 3));
-      v47 = *(v13 + 48);
-      v16 = *(v12 + 16);
+      _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEE16__init_with_sizeB8ne200100IPS4_S9_EEvT_T0_m(v46, v15, *(v13 + 4), 0x6DB6DB6DB6DB6DB7 * ((*(v13 + 4) - v15) >> 3));
+      v47 = *(v13 + 6);
+      v16 = *(v12 + 2);
       v41 = *v12;
       v42 = v16;
       memset(v43, 0, 24);
-      _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEE16__init_with_sizeB8ne200100IPS4_S9_EEvT_T0_m(v43, *(v12 + 24), *(v12 + 32), 0x6DB6DB6DB6DB6DB7 * ((*(v12 + 32) - *(v12 + 24)) >> 3));
-      v43[3] = *(v12 + 48);
+      _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEE16__init_with_sizeB8ne200100IPS4_S9_EEvT_T0_m(v43, *(v12 + 3), *(v12 + 4), 0x6DB6DB6DB6DB6DB7 * ((*(v12 + 4) - *(v12 + 3)) >> 3));
+      v43[3] = *(v12 + 6);
       v17 = *((&v44 & 0xFFFFFFFFFFFFFFFBLL | (4 * (*a3 & 1))) + 8);
       v18 = *((&v41 & 0xFFFFFFFFFFFFFFFBLL | (4 * (*a3 & 1))) + 8);
       _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEED1B8ne200100Ev(v43);
@@ -3496,13 +3488,13 @@ LABEL_12:
       if (v17 < v18)
       {
         v35 = *v13;
-        v19 = *(v13 + 24);
-        v36 = *(v13 + 16);
+        v19 = *(v13 + 3);
+        v36 = *(v13 + 2);
         v38 = 0;
         v39 = 0;
         v37 = 0;
-        _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEE16__init_with_sizeB8ne200100IPS4_S9_EEvT_T0_m(&v37, v19, *(v13 + 32), 0x6DB6DB6DB6DB6DB7 * ((*(v13 + 32) - v19) >> 3));
-        obj = *(v13 + 48);
+        _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEE16__init_with_sizeB8ne200100IPS4_S9_EEvT_T0_m(&v37, v19, *(v13 + 4), 0x6DB6DB6DB6DB6DB7 * ((*(v13 + 4) - v19) >> 3));
+        obj = *(v13 + 6);
         v20 = v14;
         while (1)
         {
@@ -3559,13 +3551,13 @@ LABEL_24:
         _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEED1B8ne200100Ev(&v37);
         if (++v27 == 8)
         {
-          return v13 + 56 == v26;
+          return (v13 + 56) == v26;
         }
       }
 
       v12 = v13;
       v14 += 56;
-      v13 += 56;
+      v13 = (v13 + 56);
       if (v13 == v4)
       {
         return 1;
@@ -3599,7 +3591,7 @@ LABEL_24:
   return 1;
 }
 
-void **_ZNSt3__14swapB8ne200100I12GKCRTreeNodeI8NSObjectDv2_fEEENS_9enable_ifIXaasr21is_move_constructibleIT_EE5valuesr18is_move_assignableIS6_EE5valueEvE4typeERS6_S9_(__int128 *a1, __int128 *a2)
+id **_ZNSt3__14swapB8ne200100I12GKCRTreeNodeI8NSObjectDv2_fEEENS_9enable_ifIXaasr21is_move_constructibleIT_EE5valuesr18is_move_assignableIS6_EE5valueEvE4typeERS6_S9_(__int128 *a1, __int128 *a2)
 {
   v8 = *a1;
   v5 = a1 + 3;
@@ -3631,7 +3623,7 @@ void **_ZNSt3__14swapB8ne200100I12GKCRTreeNodeI8NSObjectDv2_fEEENS_9enable_ifIXa
   return _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEED1B8ne200100Ev(&v10);
 }
 
-void **_ZNSt3__111__sift_downB8ne200100INS_17_ClassicAlgPolicyERZN12GKCRTreeNodeI8NSObjectDv2_fE18SplitReduceOverlapEPS3_RKS4_S8_EUlS5_S5_E_PS5_EEvT1_OT0_NS_15iterator_traitsISC_E15difference_typeESC_(void **result, _DWORD *a2, uint64_t a3, uint64_t a4)
+id **_ZNSt3__111__sift_downB8ne200100INS_17_ClassicAlgPolicyERZN12GKCRTreeNodeI8NSObjectDv2_fE18SplitReduceOverlapEPS3_RKS4_S8_EUlS5_S5_E_PS5_EEvT1_OT0_NS_15iterator_traitsISC_E15difference_typeESC_(id **result, _DWORD *a2, uint64_t a3, uint64_t a4)
 {
   v4 = a3 - 2;
   if (a3 >= 2)
@@ -3651,13 +3643,13 @@ void **_ZNSt3__111__sift_downB8ne200100INS_17_ClassicAlgPolicyERZN12GKCRTreeNode
         v64 = result[2 * ((a4 - result) >> 3) + 9];
         memset(v65, 0, sizeof(v65));
         _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEE16__init_with_sizeB8ne200100IPS4_S9_EEvT_T0_m(v65, v12, result[2 * ((a4 - result) >> 3) + 11], 0x6DB6DB6DB6DB6DB7 * ((result[2 * ((a4 - result) >> 3) + 11] - v12) >> 3));
-        v66 = *(v10 + 48);
-        v60 = *(v10 + 56);
-        v13 = *(v10 + 80);
-        v61 = *(v10 + 72);
+        v66 = v10[6];
+        v60 = *(v10 + 7);
+        v13 = v10[10];
+        v61 = v10[9];
         memset(v62, 0, 24);
-        _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEE16__init_with_sizeB8ne200100IPS4_S9_EEvT_T0_m(v62, v13, *(v10 + 88), 0x6DB6DB6DB6DB6DB7 * ((*(v10 + 88) - v13) >> 3));
-        v62[3] = *(v10 + 104);
+        _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEE16__init_with_sizeB8ne200100IPS4_S9_EEvT_T0_m(v62, v13, v10[11], 0x6DB6DB6DB6DB6DB7 * ((v10[11] - v13) >> 3));
+        v62[3] = v10[13];
         v14 = *((&v63 & 0xFFFFFFFFFFFFFFFBLL | (4 * (*a2 & 1))) + 8);
         v15 = *((&v60 & 0xFFFFFFFFFFFFFFFBLL | (4 * (*a2 & 1))) + 8);
         _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEED1B8ne200100Ev(v62);
@@ -3665,17 +3657,17 @@ void **_ZNSt3__111__sift_downB8ne200100INS_17_ClassicAlgPolicyERZN12GKCRTreeNode
         _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEED1B8ne200100Ev(v65);
         if (v14 < v15)
         {
-          v10 += 56;
+          v10 += 7;
           v8 = v11;
         }
       }
 
       v56 = *v10;
-      v16 = *(v10 + 24);
-      v57 = *(v10 + 16);
+      v16 = v10[3];
+      v57 = v10[2];
       memset(v58, 0, sizeof(v58));
-      _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEE16__init_with_sizeB8ne200100IPS4_S9_EEvT_T0_m(v58, v16, *(v10 + 32), 0x6DB6DB6DB6DB6DB7 * ((*(v10 + 32) - v16) >> 3));
-      v59 = *(v10 + 48);
+      _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEE16__init_with_sizeB8ne200100IPS4_S9_EEvT_T0_m(v58, v16, v10[4], 0x6DB6DB6DB6DB6DB7 * ((v10[4] - v16) >> 3));
+      v59 = v10[6];
       v53 = *v5;
       v17 = *(v5 + 24);
       v54 = *(v5 + 16);
@@ -3701,14 +3693,14 @@ void **_ZNSt3__111__sift_downB8ne200100INS_17_ClassicAlgPolicyERZN12GKCRTreeNode
         {
           v21 = v10;
           v22 = *v10;
-          *(v5 + 16) = *(v10 + 16);
+          *(v5 + 16) = v10[2];
           *v5 = v22;
           if (v5 != v10)
           {
-            _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEE18__assign_with_sizeB8ne200100IPS4_S9_EEvT_T0_l((v5 + 24), *(v10 + 24), *(v10 + 32), 0x6DB6DB6DB6DB6DB7 * ((*(v10 + 32) - *(v10 + 24)) >> 3));
+            _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEE18__assign_with_sizeB8ne200100IPS4_S9_EEvT_T0_l((v5 + 24), v10[3], v10[4], 0x6DB6DB6DB6DB6DB7 * ((v10[4] - v10[3]) >> 3));
           }
 
-          objc_storeStrong((v5 + 48), *(v10 + 48));
+          objc_storeStrong((v5 + 48), v10[6]);
           if (v6 < v8)
           {
             break;
@@ -3725,17 +3717,17 @@ void **_ZNSt3__111__sift_downB8ne200100INS_17_ClassicAlgPolicyERZN12GKCRTreeNode
           else
           {
             v43 = *v10;
-            v24 = *(v10 + 24);
-            v44 = *(v10 + 16);
+            v24 = v10[3];
+            v44 = v10[2];
             memset(v45, 0, sizeof(v45));
-            _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEE16__init_with_sizeB8ne200100IPS4_S9_EEvT_T0_m(v45, v24, *(v10 + 32), 0x6DB6DB6DB6DB6DB7 * ((*(v10 + 32) - v24) >> 3));
-            v46 = *(v10 + 48);
-            v40 = *(v10 + 56);
-            v25 = *(v10 + 80);
-            v41 = *(v10 + 72);
+            _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEE16__init_with_sizeB8ne200100IPS4_S9_EEvT_T0_m(v45, v24, v10[4], 0x6DB6DB6DB6DB6DB7 * ((v10[4] - v24) >> 3));
+            v46 = v10[6];
+            v40 = *(v10 + 7);
+            v25 = v10[10];
+            v41 = v10[9];
             memset(v42, 0, 24);
-            _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEE16__init_with_sizeB8ne200100IPS4_S9_EEvT_T0_m(v42, v25, *(v10 + 88), 0x6DB6DB6DB6DB6DB7 * ((*(v10 + 88) - v25) >> 3));
-            v42[3] = *(v10 + 104);
+            _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEE16__init_with_sizeB8ne200100IPS4_S9_EEvT_T0_m(v42, v25, v10[11], 0x6DB6DB6DB6DB6DB7 * ((v10[11] - v25) >> 3));
+            v42[3] = v10[13];
             v26 = *((&v43 & 0xFFFFFFFFFFFFFFFBLL | (4 * (*a2 & 1))) + 8);
             v27 = *((&v40 & 0xFFFFFFFFFFFFFFFBLL | (4 * (*a2 & 1))) + 8);
             _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEED1B8ne200100Ev(v42);
@@ -3748,16 +3740,16 @@ void **_ZNSt3__111__sift_downB8ne200100INS_17_ClassicAlgPolicyERZN12GKCRTreeNode
 
             else
             {
-              v10 += 56;
+              v10 += 7;
             }
           }
 
           v36 = *v10;
-          v28 = *(v10 + 24);
-          v37 = *(v10 + 16);
+          v28 = v10[3];
+          v37 = v10[2];
           memset(v38, 0, sizeof(v38));
-          _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEE16__init_with_sizeB8ne200100IPS4_S9_EEvT_T0_m(v38, v28, *(v10 + 32), 0x6DB6DB6DB6DB6DB7 * ((*(v10 + 32) - v28) >> 3));
-          v39 = *(v10 + 48);
+          _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEE16__init_with_sizeB8ne200100IPS4_S9_EEvT_T0_m(v38, v28, v10[4], 0x6DB6DB6DB6DB6DB7 * ((v10[4] - v28) >> 3));
+          v39 = v10[6];
           v33 = v47;
           v34 = v48;
           memset(v35, 0, 24);
@@ -3773,14 +3765,14 @@ void **_ZNSt3__111__sift_downB8ne200100INS_17_ClassicAlgPolicyERZN12GKCRTreeNode
 
         while (v29 >= v30);
         v31 = v47;
-        *(v21 + 16) = v48;
+        v21[2] = v48;
         *v21 = v31;
         if (v21 != &v47)
         {
-          _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEE18__assign_with_sizeB8ne200100IPS4_S9_EEvT_T0_l((v21 + 24), v49, v50, 0x6DB6DB6DB6DB6DB7 * ((v50 - v49) >> 3));
+          _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEE18__assign_with_sizeB8ne200100IPS4_S9_EEvT_T0_l(v21 + 3, v49, v50, 0x6DB6DB6DB6DB6DB7 * ((v50 - v49) >> 3));
         }
 
-        objc_storeStrong((v21 + 48), obj);
+        objc_storeStrong(v21 + 6, obj);
 
         return _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEED1B8ne200100Ev(&v49);
       }
@@ -3790,7 +3782,7 @@ void **_ZNSt3__111__sift_downB8ne200100INS_17_ClassicAlgPolicyERZN12GKCRTreeNode
   return result;
 }
 
-void **_ZNSt3__110__pop_heapB8ne200100INS_17_ClassicAlgPolicyEZN12GKCRTreeNodeI8NSObjectDv2_fE18SplitReduceOverlapEPS3_RKS4_S8_EUlS5_S5_E_PS5_EEvT1_SB_RT0_NS_15iterator_traitsISB_E15difference_typeE(void **result, uint64_t a2, _DWORD *a3, uint64_t a4)
+id **_ZNSt3__110__pop_heapB8ne200100INS_17_ClassicAlgPolicyEZN12GKCRTreeNodeI8NSObjectDv2_fE18SplitReduceOverlapEPS3_RKS4_S8_EUlS5_S5_E_PS5_EEvT1_SB_RT0_NS_15iterator_traitsISB_E15difference_typeE(id **result, uint64_t a2, _DWORD *a3, uint64_t a4)
 {
   if (a4 >= 2)
   {
@@ -3805,7 +3797,7 @@ void **_ZNSt3__110__pop_heapB8ne200100INS_17_ClassicAlgPolicyEZN12GKCRTreeNodeI8
     obj = v7[6];
     v9 = _ZNSt3__117__floyd_sift_downB8ne200100INS_17_ClassicAlgPolicyERZN12GKCRTreeNodeI8NSObjectDv2_fE18SplitReduceOverlapEPS3_RKS4_S8_EUlS5_S5_E_PS5_EET1_SC_OT0_NS_15iterator_traitsISC_E15difference_typeE(v7, a3, a4);
     v10 = v9;
-    v11 = a2 - 56;
+    v11 = (a2 - 56);
     if (v9 == (a2 - 56))
     {
       v16 = v17;
@@ -3830,14 +3822,14 @@ void **_ZNSt3__110__pop_heapB8ne200100INS_17_ClassicAlgPolicyEZN12GKCRTreeNodeI8
       v14 = (a2 - 8);
       objc_storeStrong(v10 + 6, v15);
       *v11 = v17;
-      *(v11 + 16) = v18;
+      *(v11 + 2) = v18;
       if (v11 != &v17)
       {
         _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEE18__assign_with_sizeB8ne200100IPS4_S9_EEvT_T0_l(v13, v19, v20, 0x6DB6DB6DB6DB6DB7 * ((v20 - v19) >> 3));
       }
 
       objc_storeStrong(v14, obj);
-      _ZNSt3__19__sift_upB8ne200100INS_17_ClassicAlgPolicyERZN12GKCRTreeNodeI8NSObjectDv2_fE18SplitReduceOverlapEPS3_RKS4_S8_EUlS5_S5_E_PS5_EEvT1_SC_OT0_NS_15iterator_traitsISC_E15difference_typeE(v7, v10 + 56, a3, 0x6DB6DB6DB6DB6DB7 * ((v10 + 56 - v7) >> 3));
+      _ZNSt3__19__sift_upB8ne200100INS_17_ClassicAlgPolicyERZN12GKCRTreeNodeI8NSObjectDv2_fE18SplitReduceOverlapEPS3_RKS4_S8_EUlS5_S5_E_PS5_EEvT1_SC_OT0_NS_15iterator_traitsISC_E15difference_typeE(v7, (v10 + 56), a3, 0x6DB6DB6DB6DB6DB7 * ((v10 + 56 - v7) >> 3));
     }
 
     return _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEED1B8ne200100Ev(&v19);
@@ -3846,31 +3838,31 @@ void **_ZNSt3__110__pop_heapB8ne200100INS_17_ClassicAlgPolicyEZN12GKCRTreeNodeI8
   return result;
 }
 
-__int128 *_ZNSt3__117__floyd_sift_downB8ne200100INS_17_ClassicAlgPolicyERZN12GKCRTreeNodeI8NSObjectDv2_fE18SplitReduceOverlapEPS3_RKS4_S8_EUlS5_S5_E_PS5_EET1_SC_OT0_NS_15iterator_traitsISC_E15difference_typeE(__int128 *a1, _DWORD *a2, uint64_t a3)
+char *_ZNSt3__117__floyd_sift_downB8ne200100INS_17_ClassicAlgPolicyERZN12GKCRTreeNodeI8NSObjectDv2_fE18SplitReduceOverlapEPS3_RKS4_S8_EUlS5_S5_E_PS5_EET1_SC_OT0_NS_15iterator_traitsISC_E15difference_typeE(__int128 *a1, _DWORD *a2, uint64_t a3)
 {
   v5 = 0;
   v6 = (a3 - 2) / 2;
   do
   {
     v7 = a1 + 56 * v5;
-    v8 = (v7 + 56);
+    v8 = v7 + 56;
     v9 = 2 * v5;
     v5 = (2 * v5) | 1;
     v10 = v9 + 2;
     if (v9 + 2 < a3)
     {
       v11 = *v8;
-      v22 = *(v7 + 72);
+      v22 = *(v7 + 9);
       v21 = v11;
       memset(v23, 0, sizeof(v23));
-      _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEE16__init_with_sizeB8ne200100IPS4_S9_EEvT_T0_m(v23, *(v7 + 80), *(v7 + 88), 0x6DB6DB6DB6DB6DB7 * ((*(v7 + 88) - *(v7 + 80)) >> 3));
-      v24 = *(v7 + 104);
-      v12 = *(v7 + 128);
-      v18 = *(v7 + 112);
+      _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEE16__init_with_sizeB8ne200100IPS4_S9_EEvT_T0_m(v23, *(v7 + 10), *(v7 + 11), 0x6DB6DB6DB6DB6DB7 * ((*(v7 + 11) - *(v7 + 10)) >> 3));
+      v24 = *(v7 + 13);
+      v12 = *(v7 + 16);
+      v18 = *(v7 + 7);
       v19 = v12;
       memset(v20, 0, 24);
-      _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEE16__init_with_sizeB8ne200100IPS4_S9_EEvT_T0_m(v20, *(v7 + 136), *(v7 + 144), 0x6DB6DB6DB6DB6DB7 * ((*(v7 + 144) - *(v7 + 136)) >> 3));
-      v20[3] = *(v7 + 160);
+      _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEE16__init_with_sizeB8ne200100IPS4_S9_EEvT_T0_m(v20, *(v7 + 17), *(v7 + 18), 0x6DB6DB6DB6DB6DB7 * ((*(v7 + 18) - *(v7 + 17)) >> 3));
+      v20[3] = *(v7 + 20);
       v13 = *((&v21 & 0xFFFFFFFFFFFFFFFBLL | (4 * (*a2 & 1))) + 8);
       v14 = *((&v18 & 0xFFFFFFFFFFFFFFFBLL | (4 * (*a2 & 1))) + 8);
       _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEED1B8ne200100Ev(v20);
@@ -3878,7 +3870,7 @@ __int128 *_ZNSt3__117__floyd_sift_downB8ne200100INS_17_ClassicAlgPolicyERZN12GKC
       _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEED1B8ne200100Ev(v23);
       if (v13 < v14)
       {
-        v8 = (v7 + 112);
+        v8 = v7 + 112;
         v5 = v10;
       }
     }
@@ -3899,7 +3891,7 @@ __int128 *_ZNSt3__117__floyd_sift_downB8ne200100INS_17_ClassicAlgPolicyERZN12GKC
   return v8;
 }
 
-void **_ZNSt3__19__sift_upB8ne200100INS_17_ClassicAlgPolicyERZN12GKCRTreeNodeI8NSObjectDv2_fE18SplitReduceOverlapEPS3_RKS4_S8_EUlS5_S5_E_PS5_EEvT1_SC_OT0_NS_15iterator_traitsISC_E15difference_typeE(void **result, uint64_t a2, _DWORD *a3, uint64_t a4)
+id **_ZNSt3__19__sift_upB8ne200100INS_17_ClassicAlgPolicyERZN12GKCRTreeNodeI8NSObjectDv2_fE18SplitReduceOverlapEPS3_RKS4_S8_EUlS5_S5_E_PS5_EEvT1_SC_OT0_NS_15iterator_traitsISC_E15difference_typeE(id **result, uint64_t a2, _DWORD *a3, uint64_t a4)
 {
   v4 = a4 - 2;
   if (a4 >= 2)
@@ -4003,17 +3995,17 @@ LABEL_3:
       v9 = v10;
       a4 = v11;
       v12 = a2 - v10;
-      v13 = 0x6DB6DB6DB6DB6DB7 * ((a2 - v10) >> 3);
+      v13 = 0x6DB6DB6DB6DB6DB7 * (a2 - v10);
       if (v13 > 2)
       {
         switch(v13)
         {
           case 3:
-            return _ZNSt3__17__sort3B8ne200100INS_17_ClassicAlgPolicyERZN12GKCRTreeNodeI8NSObjectDv2_fE18SplitReduceOverlapEPS3_RKS4_S8_EUlS5_S5_E0_PS5_Li0EEEbT1_SC_SC_T0_(v10, v10 + 56, v33, a3);
+            return _ZNSt3__17__sort3B8ne200100INS_17_ClassicAlgPolicyERZN12GKCRTreeNodeI8NSObjectDv2_fE18SplitReduceOverlapEPS3_RKS4_S8_EUlS5_S5_E0_PS5_Li0EEEbT1_SC_SC_T0_(v10, (v10 + 7), v33, a3);
           case 4:
-            return _ZNSt3__17__sort4B8ne200100INS_17_ClassicAlgPolicyERZN12GKCRTreeNodeI8NSObjectDv2_fE18SplitReduceOverlapEPS3_RKS4_S8_EUlS5_S5_E0_PS5_Li0EEEvT1_SC_SC_SC_T0_(v10, v10 + 56, v10 + 112, v33, a3);
+            return _ZNSt3__17__sort4B8ne200100INS_17_ClassicAlgPolicyERZN12GKCRTreeNodeI8NSObjectDv2_fE18SplitReduceOverlapEPS3_RKS4_S8_EUlS5_S5_E0_PS5_Li0EEEvT1_SC_SC_SC_T0_(v10, (v10 + 7), (v10 + 14), v33, a3);
           case 5:
-            return _ZNSt3__17__sort5B8ne200100INS_17_ClassicAlgPolicyERZN12GKCRTreeNodeI8NSObjectDv2_fE18SplitReduceOverlapEPS3_RKS4_S8_EUlS5_S5_E0_PS5_Li0EEEvT1_SC_SC_SC_SC_T0_(v10, v10 + 56, v10 + 112, v10 + 168, v33, a3);
+            return _ZNSt3__17__sort5B8ne200100INS_17_ClassicAlgPolicyERZN12GKCRTreeNodeI8NSObjectDv2_fE18SplitReduceOverlapEPS3_RKS4_S8_EUlS5_S5_E0_PS5_Li0EEEvT1_SC_SC_SC_SC_T0_(v10, (v10 + 7), (v10 + 14), (v10 + 21), v33, a3);
         }
       }
 
@@ -4032,12 +4024,12 @@ LABEL_3:
           memset(v46, 0, sizeof(v46));
           _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEE16__init_with_sizeB8ne200100IPS4_S9_EEvT_T0_m(v46, *(a2 - 4), *(a2 - 3), 0x6DB6DB6DB6DB6DB7 * ((*(a2 - 3) - *(a2 - 4)) >> 3));
           v47 = *(a2 - 1);
-          v25 = *(v10 + 16);
+          v25 = v10[2];
           v41 = *v10;
           v42 = v25;
           memset(v43, 0, 24);
-          _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEE16__init_with_sizeB8ne200100IPS4_S9_EEvT_T0_m(v43, *(v10 + 24), *(v10 + 32), 0x6DB6DB6DB6DB6DB7 * ((*(v10 + 32) - *(v10 + 24)) >> 3));
-          v43[3] = *(v10 + 48);
+          _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEE16__init_with_sizeB8ne200100IPS4_S9_EEvT_T0_m(v43, v10[3], v10[4], 0x6DB6DB6DB6DB6DB7 * ((v10[4] - v10[3]) >> 3));
+          v43[3] = v10[6];
           v26 = *((&v44 & 0xFFFFFFFFFFFFFFFBLL | (4 * (*a3 & 1))) + 0x10);
           v27 = *((&v41 & 0xFFFFFFFFFFFFFFFBLL | (4 * (*a3 & 1))) + 0x10);
           _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEED1B8ne200100Ev(v43);
@@ -4071,7 +4063,7 @@ LABEL_3:
         {
           v28 = (v13 - 2) >> 1;
           v29 = v28 + 1;
-          v30 = v10 + 56 * v28;
+          v30 = &v10[7 * v28];
           do
           {
             _ZNSt3__111__sift_downB8ne200100INS_17_ClassicAlgPolicyERZN12GKCRTreeNodeI8NSObjectDv2_fE18SplitReduceOverlapEPS3_RKS4_S8_EUlS5_S5_E0_PS5_EEvT1_OT0_NS_15iterator_traitsISC_E15difference_typeESC_(v9, a3, v13, v30);
@@ -4094,14 +4086,14 @@ LABEL_3:
       }
 
       v14 = v13 >> 1;
-      v15 = (v10 + 56 * v14);
+      v15 = &v10[7 * v14];
       if (v12 >= 0x1C01)
       {
-        _ZNSt3__17__sort3B8ne200100INS_17_ClassicAlgPolicyERZN12GKCRTreeNodeI8NSObjectDv2_fE18SplitReduceOverlapEPS3_RKS4_S8_EUlS5_S5_E0_PS5_Li0EEEbT1_SC_SC_T0_(v9, v9 + 56 * v14, v33, a3);
-        v16 = v9 + 56 * v14;
-        _ZNSt3__17__sort3B8ne200100INS_17_ClassicAlgPolicyERZN12GKCRTreeNodeI8NSObjectDv2_fE18SplitReduceOverlapEPS3_RKS4_S8_EUlS5_S5_E0_PS5_Li0EEEbT1_SC_SC_T0_(v9 + 56, v16 - 56, (a2 - 14), a3);
-        _ZNSt3__17__sort3B8ne200100INS_17_ClassicAlgPolicyERZN12GKCRTreeNodeI8NSObjectDv2_fE18SplitReduceOverlapEPS3_RKS4_S8_EUlS5_S5_E0_PS5_Li0EEEbT1_SC_SC_T0_(v9 + 112, v16 + 56, (a2 - 21), a3);
-        _ZNSt3__17__sort3B8ne200100INS_17_ClassicAlgPolicyERZN12GKCRTreeNodeI8NSObjectDv2_fE18SplitReduceOverlapEPS3_RKS4_S8_EUlS5_S5_E0_PS5_Li0EEEbT1_SC_SC_T0_(v16 - 56, v15, v16 + 56, a3);
+        _ZNSt3__17__sort3B8ne200100INS_17_ClassicAlgPolicyERZN12GKCRTreeNodeI8NSObjectDv2_fE18SplitReduceOverlapEPS3_RKS4_S8_EUlS5_S5_E0_PS5_Li0EEEbT1_SC_SC_T0_(v9, &v9[7 * v14], v33, a3);
+        v16 = &v9[7 * v14];
+        _ZNSt3__17__sort3B8ne200100INS_17_ClassicAlgPolicyERZN12GKCRTreeNodeI8NSObjectDv2_fE18SplitReduceOverlapEPS3_RKS4_S8_EUlS5_S5_E0_PS5_Li0EEEbT1_SC_SC_T0_((v9 + 7), (v16 - 7), (a2 - 14), a3);
+        _ZNSt3__17__sort3B8ne200100INS_17_ClassicAlgPolicyERZN12GKCRTreeNodeI8NSObjectDv2_fE18SplitReduceOverlapEPS3_RKS4_S8_EUlS5_S5_E0_PS5_Li0EEEbT1_SC_SC_T0_((v9 + 14), (v16 + 7), (a2 - 21), a3);
+        _ZNSt3__17__sort3B8ne200100INS_17_ClassicAlgPolicyERZN12GKCRTreeNodeI8NSObjectDv2_fE18SplitReduceOverlapEPS3_RKS4_S8_EUlS5_S5_E0_PS5_Li0EEEbT1_SC_SC_T0_((v16 - 7), v15, (v16 + 7), a3);
         _ZNSt3__14swapB8ne200100I12GKCRTreeNodeI8NSObjectDv2_fEEENS_9enable_ifIXaasr21is_move_constructibleIT_EE5valuesr18is_move_assignableIS6_EE5valueEvE4typeERS6_S9_(v9, v15);
         if (a5)
         {
@@ -4111,25 +4103,25 @@ LABEL_3:
 
       else
       {
-        _ZNSt3__17__sort3B8ne200100INS_17_ClassicAlgPolicyERZN12GKCRTreeNodeI8NSObjectDv2_fE18SplitReduceOverlapEPS3_RKS4_S8_EUlS5_S5_E0_PS5_Li0EEEbT1_SC_SC_T0_(v9 + 56 * v14, v9, v33, a3);
+        _ZNSt3__17__sort3B8ne200100INS_17_ClassicAlgPolicyERZN12GKCRTreeNodeI8NSObjectDv2_fE18SplitReduceOverlapEPS3_RKS4_S8_EUlS5_S5_E0_PS5_Li0EEEbT1_SC_SC_T0_(&v9[7 * v14], v9, v33, a3);
         if (a5)
         {
           goto LABEL_19;
         }
       }
 
-      v17 = *(v9 - 56);
-      v38 = *(v9 - 40);
+      v17 = *(v9 - 7);
+      v38 = *(v9 - 5);
       v37 = v17;
       memset(v39, 0, sizeof(v39));
-      _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEE16__init_with_sizeB8ne200100IPS4_S9_EEvT_T0_m(v39, *(v9 - 32), *(v9 - 24), 0x6DB6DB6DB6DB6DB7 * ((*(v9 - 24) - *(v9 - 32)) >> 3));
-      v40 = *(v9 - 8);
-      v18 = *(v9 + 16);
+      _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEE16__init_with_sizeB8ne200100IPS4_S9_EEvT_T0_m(v39, *(v9 - 4), *(v9 - 3), 0x6DB6DB6DB6DB6DB7 * ((*(v9 - 3) - *(v9 - 4)) >> 3));
+      v40 = *(v9 - 1);
+      v18 = v9[2];
       v34 = *v9;
       v35 = v18;
       memset(v36, 0, 24);
-      _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEE16__init_with_sizeB8ne200100IPS4_S9_EEvT_T0_m(v36, *(v9 + 24), *(v9 + 32), 0x6DB6DB6DB6DB6DB7 * ((*(v9 + 32) - *(v9 + 24)) >> 3));
-      v36[3] = *(v9 + 48);
+      _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEE16__init_with_sizeB8ne200100IPS4_S9_EEvT_T0_m(v36, v9[3], v9[4], 0x6DB6DB6DB6DB6DB7 * ((v9[4] - v9[3]) >> 3));
+      v36[3] = v9[6];
       v19 = *((&v37 & 0xFFFFFFFFFFFFFFFBLL | (4 * (*a3 & 1))) + 0x10);
       v20 = *((&v34 & 0xFFFFFFFFFFFFFFFBLL | (4 * (*a3 & 1))) + 0x10);
       _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEED1B8ne200100Ev(v36);
@@ -4151,7 +4143,7 @@ LABEL_19:
       }
 
       v23 = _ZNSt3__127__insertion_sort_incompleteB8ne200100INS_17_ClassicAlgPolicyERZN12GKCRTreeNodeI8NSObjectDv2_fE18SplitReduceOverlapEPS3_RKS4_S8_EUlS5_S5_E0_PS5_EEbT1_SC_T0_(v9, v21, a3);
-      v10 = v21 + 56;
+      v10 = v21 + 7;
       result = _ZNSt3__127__insertion_sort_incompleteB8ne200100INS_17_ClassicAlgPolicyERZN12GKCRTreeNodeI8NSObjectDv2_fE18SplitReduceOverlapEPS3_RKS4_S8_EUlS5_S5_E0_PS5_EEbT1_SC_T0_(v21 + 56, a2, a3);
       if (result)
       {
@@ -4164,7 +4156,7 @@ LABEL_19:
 LABEL_22:
         result = _ZNSt3__111__introsortINS_17_ClassicAlgPolicyERZN12GKCRTreeNodeI8NSObjectDv2_fE18SplitReduceOverlapEPS3_RKS4_S8_EUlS5_S5_E0_PS5_Lb0EEEvT1_SC_T0_NS_15iterator_traitsISC_E15difference_typeEb(v9, v21, a3, a4, a5 & 1);
         a5 = 0;
-        v10 = v21 + 56;
+        v10 = v21 + 7;
         goto LABEL_3;
       }
     }
@@ -4305,7 +4297,7 @@ LABEL_9:
   return 0;
 }
 
-void **_ZNSt3__17__sort4B8ne200100INS_17_ClassicAlgPolicyERZN12GKCRTreeNodeI8NSObjectDv2_fE18SplitReduceOverlapEPS3_RKS4_S8_EUlS5_S5_E0_PS5_Li0EEEvT1_SC_SC_SC_T0_(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, _DWORD *a5)
+id **_ZNSt3__17__sort4B8ne200100INS_17_ClassicAlgPolicyERZN12GKCRTreeNodeI8NSObjectDv2_fE18SplitReduceOverlapEPS3_RKS4_S8_EUlS5_S5_E0_PS5_Li0EEEvT1_SC_SC_SC_T0_(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, _DWORD *a5)
 {
   _ZNSt3__17__sort3B8ne200100INS_17_ClassicAlgPolicyERZN12GKCRTreeNodeI8NSObjectDv2_fE18SplitReduceOverlapEPS3_RKS4_S8_EUlS5_S5_E0_PS5_Li0EEEbT1_SC_SC_T0_(a1, a2, a3, a5);
   v40 = *a4;
@@ -4375,7 +4367,7 @@ void **_ZNSt3__17__sort4B8ne200100INS_17_ClassicAlgPolicyERZN12GKCRTreeNodeI8NSO
   return result;
 }
 
-void **_ZNSt3__17__sort5B8ne200100INS_17_ClassicAlgPolicyERZN12GKCRTreeNodeI8NSObjectDv2_fE18SplitReduceOverlapEPS3_RKS4_S8_EUlS5_S5_E0_PS5_Li0EEEvT1_SC_SC_SC_SC_T0_(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, _DWORD *a6)
+id **_ZNSt3__17__sort5B8ne200100INS_17_ClassicAlgPolicyERZN12GKCRTreeNodeI8NSObjectDv2_fE18SplitReduceOverlapEPS3_RKS4_S8_EUlS5_S5_E0_PS5_Li0EEEvT1_SC_SC_SC_SC_T0_(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, _DWORD *a6)
 {
   _ZNSt3__17__sort4B8ne200100INS_17_ClassicAlgPolicyERZN12GKCRTreeNodeI8NSObjectDv2_fE18SplitReduceOverlapEPS3_RKS4_S8_EUlS5_S5_E0_PS5_Li0EEEvT1_SC_SC_SC_T0_(a1, a2, a3, a4, a6);
   v53 = *a5;
@@ -4715,7 +4707,7 @@ unint64_t _ZNSt3__131__partition_with_equals_on_leftB8ne200100INS_17_ClassicAlgP
       _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEED1B8ne200100Ev(v57);
 
       _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEED1B8ne200100Ev(v60);
-      v15 = v12 + 56;
+      v15 = (v12 + 56);
     }
 
     while (v17 <= v18);
@@ -4857,7 +4849,7 @@ void sub_23899C074(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-unint64_t _ZNSt3__132__partition_with_equals_on_rightB8ne200100INS_17_ClassicAlgPolicyEP12GKCRTreeNodeI8NSObjectDv2_fERZNS5_18SplitReduceOverlapEPS3_RKS4_S9_EUlS5_S5_E0_EENS_4pairIT0_bEESD_SD_T1_(__int128 *a1, __int128 *a2, _DWORD *a3)
+__int128 *_ZNSt3__132__partition_with_equals_on_rightB8ne200100INS_17_ClassicAlgPolicyEP12GKCRTreeNodeI8NSObjectDv2_fERZNS5_18SplitReduceOverlapEPS3_RKS4_S9_EUlS5_S5_E0_EENS_4pairIT0_bEESD_SD_T1_(__int128 *a1, __int128 *a2, _DWORD *a3)
 {
   v5 = a1;
   v68 = *a1;
@@ -4868,22 +4860,22 @@ unint64_t _ZNSt3__132__partition_with_equals_on_rightB8ne200100INS_17_ClassicAlg
   v71 = 0;
   v72 = 0;
   _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEE16__init_with_sizeB8ne200100IPS4_S9_EEvT_T0_m(&v70, v6, *(a1 + 4), 0x6DB6DB6DB6DB6DB7 * ((*(a1 + 4) - v6) >> 3));
-  location = (v5 + 48);
-  v73 = *(v5 + 48);
+  location = (v5 + 3);
+  v73 = *(v5 + 6);
   v32 = v5;
   do
   {
     v64 = *(v5 + 56);
-    v8 = *(v5 + 80);
-    v65 = *(v5 + 72);
+    v8 = *(v5 + 10);
+    v65 = *(v5 + 9);
     memset(v66, 0, sizeof(v66));
-    _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEE16__init_with_sizeB8ne200100IPS4_S9_EEvT_T0_m(v66, v8, *(v5 + 88), 0x6DB6DB6DB6DB6DB7 * ((*(v5 + 88) - v8) >> 3));
-    v67 = *(v5 + 104);
+    _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEE16__init_with_sizeB8ne200100IPS4_S9_EEvT_T0_m(v66, v8, *(v5 + 11), 0x6DB6DB6DB6DB6DB7 * ((*(v5 + 11) - v8) >> 3));
+    v67 = *(v5 + 13);
     v61 = v68;
     v62 = v69;
     memset(v63, 0, 24);
     _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEE16__init_with_sizeB8ne200100IPS4_S9_EEvT_T0_m(v63, v70, v71, 0x6DB6DB6DB6DB6DB7 * ((v71 - v70) >> 3));
-    v5 += 56;
+    v5 = (v5 + 56);
     v63[3] = v73;
     v9 = *((&v64 & 0xFFFFFFFFFFFFFFFBLL | (4 * (*a3 & 1))) + 0x10);
     v10 = *((&v61 & 0xFFFFFFFFFFFFFFFBLL | (4 * (*a3 & 1))) + 0x10);
@@ -4893,7 +4885,7 @@ unint64_t _ZNSt3__132__partition_with_equals_on_rightB8ne200100INS_17_ClassicAlg
   }
 
   while (v9 > v10);
-  if (v5 - 56 == v32)
+  if ((v5 - 56) == v32)
   {
     do
     {
@@ -4954,9 +4946,9 @@ unint64_t _ZNSt3__132__partition_with_equals_on_rightB8ne200100INS_17_ClassicAlg
   if (v5 >= a2)
   {
     v17 = v5;
-    v25 = v5 - 56;
+    v25 = (v5 - 56);
     v26 = v32;
-    if (v5 - 56 == v32)
+    if ((v5 - 56) == v32)
     {
       goto LABEL_18;
     }
@@ -4972,16 +4964,16 @@ unint64_t _ZNSt3__132__partition_with_equals_on_rightB8ne200100INS_17_ClassicAlg
       do
       {
         v43 = *(v17 + 56);
-        v19 = *(v17 + 80);
-        v44 = *(v17 + 72);
+        v19 = *(v17 + 10);
+        v44 = *(v17 + 9);
         memset(v45, 0, sizeof(v45));
-        _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEE16__init_with_sizeB8ne200100IPS4_S9_EEvT_T0_m(v45, v19, *(v17 + 88), 0x6DB6DB6DB6DB6DB7 * ((*(v17 + 88) - v19) >> 3));
-        v46 = *(v17 + 104);
+        _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEE16__init_with_sizeB8ne200100IPS4_S9_EEvT_T0_m(v45, v19, *(v17 + 11), 0x6DB6DB6DB6DB6DB7 * ((*(v17 + 11) - v19) >> 3));
+        v46 = *(v17 + 13);
         v40 = v68;
         v41 = v69;
         memset(v42, 0, 24);
         _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEE16__init_with_sizeB8ne200100IPS4_S9_EEvT_T0_m(v42, v70, v71, 0x6DB6DB6DB6DB6DB7 * ((v71 - v70) >> 3));
-        v17 += 56;
+        v17 = (v17 + 56);
         v42[3] = v73;
         v20 = *((&v43 & 0xFFFFFFFFFFFFFFFBLL | (4 * (*a3 & 1))) + 0x10);
         v21 = *((&v40 & 0xFFFFFFFFFFFFFFFBLL | (4 * (*a3 & 1))) + 0x10);
@@ -5016,29 +5008,29 @@ unint64_t _ZNSt3__132__partition_with_equals_on_rightB8ne200100INS_17_ClassicAlg
     }
 
     while (v17 < v18);
-    v25 = v17 - 56;
+    v25 = (v17 - 56);
     v26 = v32;
-    if (v17 - 56 == v32)
+    if ((v17 - 56) == v32)
     {
       goto LABEL_18;
     }
   }
 
   v27 = *v25;
-  *(v26 + 16) = *(v25 + 16);
+  *(v26 + 2) = *(v25 + 2);
   *v26 = v27;
-  _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEE18__assign_with_sizeB8ne200100IPS4_S9_EEvT_T0_l(v30, *(v17 - 32), *(v17 - 24), 0x6DB6DB6DB6DB6DB7 * ((*(v17 - 24) - *(v17 - 32)) >> 3));
-  objc_storeStrong(location, *(v17 - 8));
+  _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEE18__assign_with_sizeB8ne200100IPS4_S9_EEvT_T0_l(v30, *(v17 - 4), *(v17 - 3), 0x6DB6DB6DB6DB6DB7 * ((*(v17 - 3) - *(v17 - 4)) >> 3));
+  objc_storeStrong(location, *(v17 - 1));
 LABEL_18:
   v28 = v68;
-  *(v25 + 16) = v69;
+  *(v25 + 2) = v69;
   *v25 = v28;
   if (v25 != &v68)
   {
-    _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEE18__assign_with_sizeB8ne200100IPS4_S9_EEvT_T0_l((v17 - 32), v70, v71, 0x6DB6DB6DB6DB6DB7 * ((v71 - v70) >> 3));
+    _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEE18__assign_with_sizeB8ne200100IPS4_S9_EEvT_T0_l(v17 - 4, v70, v71, 0x6DB6DB6DB6DB6DB7 * ((v71 - v70) >> 3));
   }
 
-  objc_storeStrong((v17 - 8), v73);
+  objc_storeStrong(v17 - 1, v73);
 
   _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEED1B8ne200100Ev(&v70);
   return v25;
@@ -5074,9 +5066,9 @@ BOOL _ZNSt3__127__insertion_sort_incompleteB8ne200100INS_17_ClassicAlgPolicyERZN
   if (v6 != 2)
   {
 LABEL_12:
-    v12 = a1 + 112;
+    v12 = (a1 + 112);
     _ZNSt3__17__sort3B8ne200100INS_17_ClassicAlgPolicyERZN12GKCRTreeNodeI8NSObjectDv2_fE18SplitReduceOverlapEPS3_RKS4_S8_EUlS5_S5_E0_PS5_Li0EEEbT1_SC_SC_T0_(a1, a1 + 56, a1 + 112, a3);
-    v13 = a1 + 168;
+    v13 = (a1 + 168);
     if (a1 + 168 == v4)
     {
       return 1;
@@ -5088,17 +5080,17 @@ LABEL_12:
     while (1)
     {
       v44 = *v13;
-      v15 = *(v13 + 24);
-      v45 = *(v13 + 16);
+      v15 = *(v13 + 3);
+      v45 = *(v13 + 2);
       memset(v46, 0, sizeof(v46));
-      _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEE16__init_with_sizeB8ne200100IPS4_S9_EEvT_T0_m(v46, v15, *(v13 + 32), 0x6DB6DB6DB6DB6DB7 * ((*(v13 + 32) - v15) >> 3));
-      v47 = *(v13 + 48);
-      v16 = *(v12 + 16);
+      _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEE16__init_with_sizeB8ne200100IPS4_S9_EEvT_T0_m(v46, v15, *(v13 + 4), 0x6DB6DB6DB6DB6DB7 * ((*(v13 + 4) - v15) >> 3));
+      v47 = *(v13 + 6);
+      v16 = *(v12 + 2);
       v41 = *v12;
       v42 = v16;
       memset(v43, 0, 24);
-      _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEE16__init_with_sizeB8ne200100IPS4_S9_EEvT_T0_m(v43, *(v12 + 24), *(v12 + 32), 0x6DB6DB6DB6DB6DB7 * ((*(v12 + 32) - *(v12 + 24)) >> 3));
-      v43[3] = *(v12 + 48);
+      _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEE16__init_with_sizeB8ne200100IPS4_S9_EEvT_T0_m(v43, *(v12 + 3), *(v12 + 4), 0x6DB6DB6DB6DB6DB7 * ((*(v12 + 4) - *(v12 + 3)) >> 3));
+      v43[3] = *(v12 + 6);
       v17 = *((&v44 & 0xFFFFFFFFFFFFFFFBLL | (4 * (*a3 & 1))) + 0x10);
       v18 = *((&v41 & 0xFFFFFFFFFFFFFFFBLL | (4 * (*a3 & 1))) + 0x10);
       _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEED1B8ne200100Ev(v43);
@@ -5107,13 +5099,13 @@ LABEL_12:
       if (v17 > v18)
       {
         v35 = *v13;
-        v19 = *(v13 + 24);
-        v36 = *(v13 + 16);
+        v19 = *(v13 + 3);
+        v36 = *(v13 + 2);
         v38 = 0;
         v39 = 0;
         v37 = 0;
-        _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEE16__init_with_sizeB8ne200100IPS4_S9_EEvT_T0_m(&v37, v19, *(v13 + 32), 0x6DB6DB6DB6DB6DB7 * ((*(v13 + 32) - v19) >> 3));
-        obj = *(v13 + 48);
+        _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEE16__init_with_sizeB8ne200100IPS4_S9_EEvT_T0_m(&v37, v19, *(v13 + 4), 0x6DB6DB6DB6DB6DB7 * ((*(v13 + 4) - v19) >> 3));
+        obj = *(v13 + 6);
         v20 = v14;
         while (1)
         {
@@ -5170,13 +5162,13 @@ LABEL_24:
         _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEED1B8ne200100Ev(&v37);
         if (++v27 == 8)
         {
-          return v13 + 56 == v26;
+          return (v13 + 56) == v26;
         }
       }
 
       v12 = v13;
       v14 += 56;
-      v13 += 56;
+      v13 = (v13 + 56);
       if (v13 == v4)
       {
         return 1;
@@ -5210,7 +5202,7 @@ LABEL_24:
   return 1;
 }
 
-void **_ZNSt3__111__sift_downB8ne200100INS_17_ClassicAlgPolicyERZN12GKCRTreeNodeI8NSObjectDv2_fE18SplitReduceOverlapEPS3_RKS4_S8_EUlS5_S5_E0_PS5_EEvT1_OT0_NS_15iterator_traitsISC_E15difference_typeESC_(void **result, _DWORD *a2, uint64_t a3, uint64_t a4)
+id **_ZNSt3__111__sift_downB8ne200100INS_17_ClassicAlgPolicyERZN12GKCRTreeNodeI8NSObjectDv2_fE18SplitReduceOverlapEPS3_RKS4_S8_EUlS5_S5_E0_PS5_EEvT1_OT0_NS_15iterator_traitsISC_E15difference_typeESC_(id **result, _DWORD *a2, uint64_t a3, uint64_t a4)
 {
   v4 = a3 - 2;
   if (a3 >= 2)
@@ -5230,13 +5222,13 @@ void **_ZNSt3__111__sift_downB8ne200100INS_17_ClassicAlgPolicyERZN12GKCRTreeNode
         v64 = result[2 * ((a4 - result) >> 3) + 9];
         memset(v65, 0, sizeof(v65));
         _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEE16__init_with_sizeB8ne200100IPS4_S9_EEvT_T0_m(v65, v12, result[2 * ((a4 - result) >> 3) + 11], 0x6DB6DB6DB6DB6DB7 * ((result[2 * ((a4 - result) >> 3) + 11] - v12) >> 3));
-        v66 = *(v10 + 48);
-        v60 = *(v10 + 56);
-        v13 = *(v10 + 80);
-        v61 = *(v10 + 72);
+        v66 = v10[6];
+        v60 = *(v10 + 7);
+        v13 = v10[10];
+        v61 = v10[9];
         memset(v62, 0, 24);
-        _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEE16__init_with_sizeB8ne200100IPS4_S9_EEvT_T0_m(v62, v13, *(v10 + 88), 0x6DB6DB6DB6DB6DB7 * ((*(v10 + 88) - v13) >> 3));
-        v62[3] = *(v10 + 104);
+        _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEE16__init_with_sizeB8ne200100IPS4_S9_EEvT_T0_m(v62, v13, v10[11], 0x6DB6DB6DB6DB6DB7 * ((v10[11] - v13) >> 3));
+        v62[3] = v10[13];
         v14 = *((&v63 & 0xFFFFFFFFFFFFFFFBLL | (4 * (*a2 & 1))) + 0x10);
         v15 = *((&v60 & 0xFFFFFFFFFFFFFFFBLL | (4 * (*a2 & 1))) + 0x10);
         _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEED1B8ne200100Ev(v62);
@@ -5244,17 +5236,17 @@ void **_ZNSt3__111__sift_downB8ne200100INS_17_ClassicAlgPolicyERZN12GKCRTreeNode
         _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEED1B8ne200100Ev(v65);
         if (v14 > v15)
         {
-          v10 += 56;
+          v10 += 7;
           v8 = v11;
         }
       }
 
       v56 = *v10;
-      v16 = *(v10 + 24);
-      v57 = *(v10 + 16);
+      v16 = v10[3];
+      v57 = v10[2];
       memset(v58, 0, sizeof(v58));
-      _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEE16__init_with_sizeB8ne200100IPS4_S9_EEvT_T0_m(v58, v16, *(v10 + 32), 0x6DB6DB6DB6DB6DB7 * ((*(v10 + 32) - v16) >> 3));
-      v59 = *(v10 + 48);
+      _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEE16__init_with_sizeB8ne200100IPS4_S9_EEvT_T0_m(v58, v16, v10[4], 0x6DB6DB6DB6DB6DB7 * ((v10[4] - v16) >> 3));
+      v59 = v10[6];
       v53 = *v5;
       v17 = *(v5 + 24);
       v54 = *(v5 + 16);
@@ -5280,14 +5272,14 @@ void **_ZNSt3__111__sift_downB8ne200100INS_17_ClassicAlgPolicyERZN12GKCRTreeNode
         {
           v21 = v10;
           v22 = *v10;
-          *(v5 + 16) = *(v10 + 16);
+          *(v5 + 16) = v10[2];
           *v5 = v22;
           if (v5 != v10)
           {
-            _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEE18__assign_with_sizeB8ne200100IPS4_S9_EEvT_T0_l((v5 + 24), *(v10 + 24), *(v10 + 32), 0x6DB6DB6DB6DB6DB7 * ((*(v10 + 32) - *(v10 + 24)) >> 3));
+            _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEE18__assign_with_sizeB8ne200100IPS4_S9_EEvT_T0_l((v5 + 24), v10[3], v10[4], 0x6DB6DB6DB6DB6DB7 * ((v10[4] - v10[3]) >> 3));
           }
 
-          objc_storeStrong((v5 + 48), *(v10 + 48));
+          objc_storeStrong((v5 + 48), v10[6]);
           if (v6 < v8)
           {
             break;
@@ -5304,17 +5296,17 @@ void **_ZNSt3__111__sift_downB8ne200100INS_17_ClassicAlgPolicyERZN12GKCRTreeNode
           else
           {
             v43 = *v10;
-            v24 = *(v10 + 24);
-            v44 = *(v10 + 16);
+            v24 = v10[3];
+            v44 = v10[2];
             memset(v45, 0, sizeof(v45));
-            _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEE16__init_with_sizeB8ne200100IPS4_S9_EEvT_T0_m(v45, v24, *(v10 + 32), 0x6DB6DB6DB6DB6DB7 * ((*(v10 + 32) - v24) >> 3));
-            v46 = *(v10 + 48);
-            v40 = *(v10 + 56);
-            v25 = *(v10 + 80);
-            v41 = *(v10 + 72);
+            _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEE16__init_with_sizeB8ne200100IPS4_S9_EEvT_T0_m(v45, v24, v10[4], 0x6DB6DB6DB6DB6DB7 * ((v10[4] - v24) >> 3));
+            v46 = v10[6];
+            v40 = *(v10 + 7);
+            v25 = v10[10];
+            v41 = v10[9];
             memset(v42, 0, 24);
-            _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEE16__init_with_sizeB8ne200100IPS4_S9_EEvT_T0_m(v42, v25, *(v10 + 88), 0x6DB6DB6DB6DB6DB7 * ((*(v10 + 88) - v25) >> 3));
-            v42[3] = *(v10 + 104);
+            _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEE16__init_with_sizeB8ne200100IPS4_S9_EEvT_T0_m(v42, v25, v10[11], 0x6DB6DB6DB6DB6DB7 * ((v10[11] - v25) >> 3));
+            v42[3] = v10[13];
             v26 = *((&v43 & 0xFFFFFFFFFFFFFFFBLL | (4 * (*a2 & 1))) + 0x10);
             v27 = *((&v40 & 0xFFFFFFFFFFFFFFFBLL | (4 * (*a2 & 1))) + 0x10);
             _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEED1B8ne200100Ev(v42);
@@ -5327,16 +5319,16 @@ void **_ZNSt3__111__sift_downB8ne200100INS_17_ClassicAlgPolicyERZN12GKCRTreeNode
 
             else
             {
-              v10 += 56;
+              v10 += 7;
             }
           }
 
           v36 = *v10;
-          v28 = *(v10 + 24);
-          v37 = *(v10 + 16);
+          v28 = v10[3];
+          v37 = v10[2];
           memset(v38, 0, sizeof(v38));
-          _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEE16__init_with_sizeB8ne200100IPS4_S9_EEvT_T0_m(v38, v28, *(v10 + 32), 0x6DB6DB6DB6DB6DB7 * ((*(v10 + 32) - v28) >> 3));
-          v39 = *(v10 + 48);
+          _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEE16__init_with_sizeB8ne200100IPS4_S9_EEvT_T0_m(v38, v28, v10[4], 0x6DB6DB6DB6DB6DB7 * ((v10[4] - v28) >> 3));
+          v39 = v10[6];
           v33 = v47;
           v34 = v48;
           memset(v35, 0, 24);
@@ -5352,14 +5344,14 @@ void **_ZNSt3__111__sift_downB8ne200100INS_17_ClassicAlgPolicyERZN12GKCRTreeNode
 
         while (v29 <= v30);
         v31 = v47;
-        *(v21 + 16) = v48;
+        v21[2] = v48;
         *v21 = v31;
         if (v21 != &v47)
         {
-          _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEE18__assign_with_sizeB8ne200100IPS4_S9_EEvT_T0_l((v21 + 24), v49, v50, 0x6DB6DB6DB6DB6DB7 * ((v50 - v49) >> 3));
+          _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEE18__assign_with_sizeB8ne200100IPS4_S9_EEvT_T0_l(v21 + 3, v49, v50, 0x6DB6DB6DB6DB6DB7 * ((v50 - v49) >> 3));
         }
 
-        objc_storeStrong((v21 + 48), obj);
+        objc_storeStrong(v21 + 6, obj);
 
         return _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEED1B8ne200100Ev(&v49);
       }
@@ -5369,7 +5361,7 @@ void **_ZNSt3__111__sift_downB8ne200100INS_17_ClassicAlgPolicyERZN12GKCRTreeNode
   return result;
 }
 
-void **_ZNSt3__110__pop_heapB8ne200100INS_17_ClassicAlgPolicyEZN12GKCRTreeNodeI8NSObjectDv2_fE18SplitReduceOverlapEPS3_RKS4_S8_EUlS5_S5_E0_PS5_EEvT1_SB_RT0_NS_15iterator_traitsISB_E15difference_typeE(void **result, uint64_t a2, _DWORD *a3, uint64_t a4)
+id **_ZNSt3__110__pop_heapB8ne200100INS_17_ClassicAlgPolicyEZN12GKCRTreeNodeI8NSObjectDv2_fE18SplitReduceOverlapEPS3_RKS4_S8_EUlS5_S5_E0_PS5_EEvT1_SB_RT0_NS_15iterator_traitsISB_E15difference_typeE(id **result, uint64_t a2, _DWORD *a3, uint64_t a4)
 {
   if (a4 >= 2)
   {
@@ -5384,7 +5376,7 @@ void **_ZNSt3__110__pop_heapB8ne200100INS_17_ClassicAlgPolicyEZN12GKCRTreeNodeI8
     obj = v7[6];
     v9 = _ZNSt3__117__floyd_sift_downB8ne200100INS_17_ClassicAlgPolicyERZN12GKCRTreeNodeI8NSObjectDv2_fE18SplitReduceOverlapEPS3_RKS4_S8_EUlS5_S5_E0_PS5_EET1_SC_OT0_NS_15iterator_traitsISC_E15difference_typeE(v7, a3, a4);
     v10 = v9;
-    v11 = a2 - 56;
+    v11 = (a2 - 56);
     if (v9 == (a2 - 56))
     {
       v16 = v17;
@@ -5409,14 +5401,14 @@ void **_ZNSt3__110__pop_heapB8ne200100INS_17_ClassicAlgPolicyEZN12GKCRTreeNodeI8
       v14 = (a2 - 8);
       objc_storeStrong(v10 + 6, v15);
       *v11 = v17;
-      *(v11 + 16) = v18;
+      *(v11 + 2) = v18;
       if (v11 != &v17)
       {
         _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEE18__assign_with_sizeB8ne200100IPS4_S9_EEvT_T0_l(v13, v19, v20, 0x6DB6DB6DB6DB6DB7 * ((v20 - v19) >> 3));
       }
 
       objc_storeStrong(v14, obj);
-      _ZNSt3__19__sift_upB8ne200100INS_17_ClassicAlgPolicyERZN12GKCRTreeNodeI8NSObjectDv2_fE18SplitReduceOverlapEPS3_RKS4_S8_EUlS5_S5_E0_PS5_EEvT1_SC_OT0_NS_15iterator_traitsISC_E15difference_typeE(v7, v10 + 56, a3, 0x6DB6DB6DB6DB6DB7 * ((v10 + 56 - v7) >> 3));
+      _ZNSt3__19__sift_upB8ne200100INS_17_ClassicAlgPolicyERZN12GKCRTreeNodeI8NSObjectDv2_fE18SplitReduceOverlapEPS3_RKS4_S8_EUlS5_S5_E0_PS5_EEvT1_SC_OT0_NS_15iterator_traitsISC_E15difference_typeE(v7, (v10 + 56), a3, 0x6DB6DB6DB6DB6DB7 * ((v10 + 56 - v7) >> 3));
     }
 
     return _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEED1B8ne200100Ev(&v19);
@@ -5425,31 +5417,31 @@ void **_ZNSt3__110__pop_heapB8ne200100INS_17_ClassicAlgPolicyEZN12GKCRTreeNodeI8
   return result;
 }
 
-__int128 *_ZNSt3__117__floyd_sift_downB8ne200100INS_17_ClassicAlgPolicyERZN12GKCRTreeNodeI8NSObjectDv2_fE18SplitReduceOverlapEPS3_RKS4_S8_EUlS5_S5_E0_PS5_EET1_SC_OT0_NS_15iterator_traitsISC_E15difference_typeE(__int128 *a1, _DWORD *a2, uint64_t a3)
+char *_ZNSt3__117__floyd_sift_downB8ne200100INS_17_ClassicAlgPolicyERZN12GKCRTreeNodeI8NSObjectDv2_fE18SplitReduceOverlapEPS3_RKS4_S8_EUlS5_S5_E0_PS5_EET1_SC_OT0_NS_15iterator_traitsISC_E15difference_typeE(__int128 *a1, _DWORD *a2, uint64_t a3)
 {
   v5 = 0;
   v6 = (a3 - 2) / 2;
   do
   {
     v7 = a1 + 56 * v5;
-    v8 = (v7 + 56);
+    v8 = v7 + 56;
     v9 = 2 * v5;
     v5 = (2 * v5) | 1;
     v10 = v9 + 2;
     if (v9 + 2 < a3)
     {
       v11 = *v8;
-      v22 = *(v7 + 72);
+      v22 = *(v7 + 9);
       v21 = v11;
       memset(v23, 0, sizeof(v23));
-      _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEE16__init_with_sizeB8ne200100IPS4_S9_EEvT_T0_m(v23, *(v7 + 80), *(v7 + 88), 0x6DB6DB6DB6DB6DB7 * ((*(v7 + 88) - *(v7 + 80)) >> 3));
-      v24 = *(v7 + 104);
-      v12 = *(v7 + 128);
-      v18 = *(v7 + 112);
+      _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEE16__init_with_sizeB8ne200100IPS4_S9_EEvT_T0_m(v23, *(v7 + 10), *(v7 + 11), 0x6DB6DB6DB6DB6DB7 * ((*(v7 + 11) - *(v7 + 10)) >> 3));
+      v24 = *(v7 + 13);
+      v12 = *(v7 + 16);
+      v18 = *(v7 + 7);
       v19 = v12;
       memset(v20, 0, 24);
-      _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEE16__init_with_sizeB8ne200100IPS4_S9_EEvT_T0_m(v20, *(v7 + 136), *(v7 + 144), 0x6DB6DB6DB6DB6DB7 * ((*(v7 + 144) - *(v7 + 136)) >> 3));
-      v20[3] = *(v7 + 160);
+      _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEE16__init_with_sizeB8ne200100IPS4_S9_EEvT_T0_m(v20, *(v7 + 17), *(v7 + 18), 0x6DB6DB6DB6DB6DB7 * ((*(v7 + 18) - *(v7 + 17)) >> 3));
+      v20[3] = *(v7 + 20);
       v13 = *((&v21 & 0xFFFFFFFFFFFFFFFBLL | (4 * (*a2 & 1))) + 0x10);
       v14 = *((&v18 & 0xFFFFFFFFFFFFFFFBLL | (4 * (*a2 & 1))) + 0x10);
       _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEED1B8ne200100Ev(v20);
@@ -5457,7 +5449,7 @@ __int128 *_ZNSt3__117__floyd_sift_downB8ne200100INS_17_ClassicAlgPolicyERZN12GKC
       _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEED1B8ne200100Ev(v23);
       if (v13 > v14)
       {
-        v8 = (v7 + 112);
+        v8 = v7 + 112;
         v5 = v10;
       }
     }
@@ -5478,7 +5470,7 @@ __int128 *_ZNSt3__117__floyd_sift_downB8ne200100INS_17_ClassicAlgPolicyERZN12GKC
   return v8;
 }
 
-void **_ZNSt3__19__sift_upB8ne200100INS_17_ClassicAlgPolicyERZN12GKCRTreeNodeI8NSObjectDv2_fE18SplitReduceOverlapEPS3_RKS4_S8_EUlS5_S5_E0_PS5_EEvT1_SC_OT0_NS_15iterator_traitsISC_E15difference_typeE(void **result, uint64_t a2, _DWORD *a3, uint64_t a4)
+id **_ZNSt3__19__sift_upB8ne200100INS_17_ClassicAlgPolicyERZN12GKCRTreeNodeI8NSObjectDv2_fE18SplitReduceOverlapEPS3_RKS4_S8_EUlS5_S5_E0_PS5_EEvT1_SC_OT0_NS_15iterator_traitsISC_E15difference_typeE(id **result, uint64_t a2, _DWORD *a3, uint64_t a4)
 {
   v4 = a4 - 2;
   if (a4 >= 2)
@@ -5568,11 +5560,11 @@ void **_ZNSt3__19__sift_upB8ne200100INS_17_ClassicAlgPolicyERZN12GKCRTreeNodeI8N
   return result;
 }
 
-void *_ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEEC2B8ne200100INS_11__wrap_iterIPS4_EELi0EEET_SC_(void *result, uint64_t a2, uint64_t a3)
+uint64_t *_ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEEC2B8ne200100INS_11__wrap_iterIPS4_EELi0EEET_SC_(uint64_t *a1, char *a2, char *a3)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a3 != a2)
   {
     if ((0x6DB6DB6DB6DB6DB7 * ((a3 - a2) >> 3)) < 0x492492492492493)
@@ -5583,13 +5575,14 @@ void *_ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEEC2B8ne2
     _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEE20__throw_length_errorB8ne200100Ev();
   }
 
-  return result;
+  return a1;
 }
 
-void sub_23899DA10(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void **a9, uint64_t a10, char a11)
+void sub_23899DA10(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void **a9, uint64_t a10, ...)
 {
-  _ZNSt3__128__exception_guard_exceptionsINS_29_AllocatorDestroyRangeReverseINS_9allocatorI12GKCRTreeNodeI8NSObjectDv2_fEEEPS6_EEED1B8ne200100Ev(&a11);
-  *(v11 + 8) = v12;
+  va_start(va, a10);
+  _ZNSt3__128__exception_guard_exceptionsINS_29_AllocatorDestroyRangeReverseINS_9allocatorI12GKCRTreeNodeI8NSObjectDv2_fEEEPS6_EEED1B8ne200100Ev(va);
+  *(v10 + 8) = v11;
   _ZNSt3__128__exception_guard_exceptionsINS_6vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS5_EEE16__destroy_vectorEED1B8ne200100Ev(&a9);
   _Unwind_Resume(a1);
 }
@@ -5608,17 +5601,17 @@ LABEL_3:
       v9 = v10;
       a4 = v11;
       v12 = a2 - v10;
-      v13 = 0x6DB6DB6DB6DB6DB7 * ((a2 - v10) >> 3);
+      v13 = 0x6DB6DB6DB6DB6DB7 * (a2 - v10);
       if (v13 > 2)
       {
         switch(v13)
         {
           case 3:
-            return _ZNSt3__17__sort3B8ne200100INS_17_ClassicAlgPolicyERZN12GKCRTreeNodeI8NSObjectDv2_fE18SplitReduceOverlapEPS3_RKS4_S8_EUlS5_S5_E1_PS5_Li0EEEbT1_SC_SC_T0_(v10, v10 + 56, v33, a3);
+            return _ZNSt3__17__sort3B8ne200100INS_17_ClassicAlgPolicyERZN12GKCRTreeNodeI8NSObjectDv2_fE18SplitReduceOverlapEPS3_RKS4_S8_EUlS5_S5_E1_PS5_Li0EEEbT1_SC_SC_T0_(v10, (v10 + 7), v33, a3);
           case 4:
-            return _ZNSt3__17__sort4B8ne200100INS_17_ClassicAlgPolicyERZN12GKCRTreeNodeI8NSObjectDv2_fE18SplitReduceOverlapEPS3_RKS4_S8_EUlS5_S5_E1_PS5_Li0EEEvT1_SC_SC_SC_T0_(v10, v10 + 56, v10 + 112, v33, a3);
+            return _ZNSt3__17__sort4B8ne200100INS_17_ClassicAlgPolicyERZN12GKCRTreeNodeI8NSObjectDv2_fE18SplitReduceOverlapEPS3_RKS4_S8_EUlS5_S5_E1_PS5_Li0EEEvT1_SC_SC_SC_T0_(v10, (v10 + 7), (v10 + 14), v33, a3);
           case 5:
-            return _ZNSt3__17__sort5B8ne200100INS_17_ClassicAlgPolicyERZN12GKCRTreeNodeI8NSObjectDv2_fE18SplitReduceOverlapEPS3_RKS4_S8_EUlS5_S5_E1_PS5_Li0EEEvT1_SC_SC_SC_SC_T0_(v10, v10 + 56, v10 + 112, v10 + 168, v33, a3);
+            return _ZNSt3__17__sort5B8ne200100INS_17_ClassicAlgPolicyERZN12GKCRTreeNodeI8NSObjectDv2_fE18SplitReduceOverlapEPS3_RKS4_S8_EUlS5_S5_E1_PS5_Li0EEEvT1_SC_SC_SC_SC_T0_(v10, (v10 + 7), (v10 + 14), (v10 + 21), v33, a3);
         }
       }
 
@@ -5637,12 +5630,12 @@ LABEL_3:
           memset(v46, 0, sizeof(v46));
           _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEE16__init_with_sizeB8ne200100IPS4_S9_EEvT_T0_m(v46, *(a2 - 4), *(a2 - 3), 0x6DB6DB6DB6DB6DB7 * ((*(a2 - 3) - *(a2 - 4)) >> 3));
           v47 = *(a2 - 1);
-          v25 = *(v10 + 16);
+          v25 = v10[2];
           v41 = *v10;
           v42 = v25;
           memset(v43, 0, 24);
-          _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEE16__init_with_sizeB8ne200100IPS4_S9_EEvT_T0_m(v43, *(v10 + 24), *(v10 + 32), 0x6DB6DB6DB6DB6DB7 * ((*(v10 + 32) - *(v10 + 24)) >> 3));
-          v43[3] = *(v10 + 48);
+          _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEE16__init_with_sizeB8ne200100IPS4_S9_EEvT_T0_m(v43, v10[3], v10[4], 0x6DB6DB6DB6DB6DB7 * ((v10[4] - v10[3]) >> 3));
+          v43[3] = v10[6];
           v26 = *((&v44 & 0xFFFFFFFFFFFFFFFBLL | (4 * (*a3 & 1))) + 8);
           v27 = *((&v41 & 0xFFFFFFFFFFFFFFFBLL | (4 * (*a3 & 1))) + 8);
           _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEED1B8ne200100Ev(v43);
@@ -5676,7 +5669,7 @@ LABEL_3:
         {
           v28 = (v13 - 2) >> 1;
           v29 = v28 + 1;
-          v30 = v10 + 56 * v28;
+          v30 = &v10[7 * v28];
           do
           {
             _ZNSt3__111__sift_downB8ne200100INS_17_ClassicAlgPolicyERZN12GKCRTreeNodeI8NSObjectDv2_fE18SplitReduceOverlapEPS3_RKS4_S8_EUlS5_S5_E1_PS5_EEvT1_OT0_NS_15iterator_traitsISC_E15difference_typeESC_(v9, a3, v13, v30);
@@ -5699,14 +5692,14 @@ LABEL_3:
       }
 
       v14 = v13 >> 1;
-      v15 = (v10 + 56 * v14);
+      v15 = &v10[7 * v14];
       if (v12 >= 0x1C01)
       {
-        _ZNSt3__17__sort3B8ne200100INS_17_ClassicAlgPolicyERZN12GKCRTreeNodeI8NSObjectDv2_fE18SplitReduceOverlapEPS3_RKS4_S8_EUlS5_S5_E1_PS5_Li0EEEbT1_SC_SC_T0_(v9, v9 + 56 * v14, v33, a3);
-        v16 = v9 + 56 * v14;
-        _ZNSt3__17__sort3B8ne200100INS_17_ClassicAlgPolicyERZN12GKCRTreeNodeI8NSObjectDv2_fE18SplitReduceOverlapEPS3_RKS4_S8_EUlS5_S5_E1_PS5_Li0EEEbT1_SC_SC_T0_(v9 + 56, v16 - 56, (a2 - 14), a3);
-        _ZNSt3__17__sort3B8ne200100INS_17_ClassicAlgPolicyERZN12GKCRTreeNodeI8NSObjectDv2_fE18SplitReduceOverlapEPS3_RKS4_S8_EUlS5_S5_E1_PS5_Li0EEEbT1_SC_SC_T0_(v9 + 112, v16 + 56, (a2 - 21), a3);
-        _ZNSt3__17__sort3B8ne200100INS_17_ClassicAlgPolicyERZN12GKCRTreeNodeI8NSObjectDv2_fE18SplitReduceOverlapEPS3_RKS4_S8_EUlS5_S5_E1_PS5_Li0EEEbT1_SC_SC_T0_(v16 - 56, v15, v16 + 56, a3);
+        _ZNSt3__17__sort3B8ne200100INS_17_ClassicAlgPolicyERZN12GKCRTreeNodeI8NSObjectDv2_fE18SplitReduceOverlapEPS3_RKS4_S8_EUlS5_S5_E1_PS5_Li0EEEbT1_SC_SC_T0_(v9, &v9[7 * v14], v33, a3);
+        v16 = &v9[7 * v14];
+        _ZNSt3__17__sort3B8ne200100INS_17_ClassicAlgPolicyERZN12GKCRTreeNodeI8NSObjectDv2_fE18SplitReduceOverlapEPS3_RKS4_S8_EUlS5_S5_E1_PS5_Li0EEEbT1_SC_SC_T0_((v9 + 7), (v16 - 7), (a2 - 14), a3);
+        _ZNSt3__17__sort3B8ne200100INS_17_ClassicAlgPolicyERZN12GKCRTreeNodeI8NSObjectDv2_fE18SplitReduceOverlapEPS3_RKS4_S8_EUlS5_S5_E1_PS5_Li0EEEbT1_SC_SC_T0_((v9 + 14), (v16 + 7), (a2 - 21), a3);
+        _ZNSt3__17__sort3B8ne200100INS_17_ClassicAlgPolicyERZN12GKCRTreeNodeI8NSObjectDv2_fE18SplitReduceOverlapEPS3_RKS4_S8_EUlS5_S5_E1_PS5_Li0EEEbT1_SC_SC_T0_((v16 - 7), v15, (v16 + 7), a3);
         _ZNSt3__14swapB8ne200100I12GKCRTreeNodeI8NSObjectDv2_fEEENS_9enable_ifIXaasr21is_move_constructibleIT_EE5valuesr18is_move_assignableIS6_EE5valueEvE4typeERS6_S9_(v9, v15);
         if (a5)
         {
@@ -5716,25 +5709,25 @@ LABEL_3:
 
       else
       {
-        _ZNSt3__17__sort3B8ne200100INS_17_ClassicAlgPolicyERZN12GKCRTreeNodeI8NSObjectDv2_fE18SplitReduceOverlapEPS3_RKS4_S8_EUlS5_S5_E1_PS5_Li0EEEbT1_SC_SC_T0_(v9 + 56 * v14, v9, v33, a3);
+        _ZNSt3__17__sort3B8ne200100INS_17_ClassicAlgPolicyERZN12GKCRTreeNodeI8NSObjectDv2_fE18SplitReduceOverlapEPS3_RKS4_S8_EUlS5_S5_E1_PS5_Li0EEEbT1_SC_SC_T0_(&v9[7 * v14], v9, v33, a3);
         if (a5)
         {
           goto LABEL_19;
         }
       }
 
-      v17 = *(v9 - 56);
-      v38 = *(v9 - 40);
+      v17 = *(v9 - 7);
+      v38 = *(v9 - 5);
       v37 = v17;
       memset(v39, 0, sizeof(v39));
-      _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEE16__init_with_sizeB8ne200100IPS4_S9_EEvT_T0_m(v39, *(v9 - 32), *(v9 - 24), 0x6DB6DB6DB6DB6DB7 * ((*(v9 - 24) - *(v9 - 32)) >> 3));
-      v40 = *(v9 - 8);
-      v18 = *(v9 + 16);
+      _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEE16__init_with_sizeB8ne200100IPS4_S9_EEvT_T0_m(v39, *(v9 - 4), *(v9 - 3), 0x6DB6DB6DB6DB6DB7 * ((*(v9 - 3) - *(v9 - 4)) >> 3));
+      v40 = *(v9 - 1);
+      v18 = v9[2];
       v34 = *v9;
       v35 = v18;
       memset(v36, 0, 24);
-      _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEE16__init_with_sizeB8ne200100IPS4_S9_EEvT_T0_m(v36, *(v9 + 24), *(v9 + 32), 0x6DB6DB6DB6DB6DB7 * ((*(v9 + 32) - *(v9 + 24)) >> 3));
-      v36[3] = *(v9 + 48);
+      _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEE16__init_with_sizeB8ne200100IPS4_S9_EEvT_T0_m(v36, v9[3], v9[4], 0x6DB6DB6DB6DB6DB7 * ((v9[4] - v9[3]) >> 3));
+      v36[3] = v9[6];
       v19 = *((&v37 & 0xFFFFFFFFFFFFFFFBLL | (4 * (*a3 & 1))) + 8);
       v20 = *((&v34 & 0xFFFFFFFFFFFFFFFBLL | (4 * (*a3 & 1))) + 8);
       _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEED1B8ne200100Ev(v36);
@@ -5756,7 +5749,7 @@ LABEL_19:
       }
 
       v23 = _ZNSt3__127__insertion_sort_incompleteB8ne200100INS_17_ClassicAlgPolicyERZN12GKCRTreeNodeI8NSObjectDv2_fE18SplitReduceOverlapEPS3_RKS4_S8_EUlS5_S5_E1_PS5_EEbT1_SC_T0_(v9, v21, a3);
-      v10 = v21 + 56;
+      v10 = v21 + 7;
       result = _ZNSt3__127__insertion_sort_incompleteB8ne200100INS_17_ClassicAlgPolicyERZN12GKCRTreeNodeI8NSObjectDv2_fE18SplitReduceOverlapEPS3_RKS4_S8_EUlS5_S5_E1_PS5_EEbT1_SC_T0_(v21 + 56, a2, a3);
       if (result)
       {
@@ -5769,7 +5762,7 @@ LABEL_19:
 LABEL_22:
         result = _ZNSt3__111__introsortINS_17_ClassicAlgPolicyERZN12GKCRTreeNodeI8NSObjectDv2_fE18SplitReduceOverlapEPS3_RKS4_S8_EUlS5_S5_E1_PS5_Lb0EEEvT1_SC_T0_NS_15iterator_traitsISC_E15difference_typeEb(v9, v21, a3, a4, a5 & 1);
         a5 = 0;
-        v10 = v21 + 56;
+        v10 = v21 + 7;
         goto LABEL_3;
       }
     }
@@ -5910,7 +5903,7 @@ LABEL_9:
   return 0;
 }
 
-void **_ZNSt3__17__sort4B8ne200100INS_17_ClassicAlgPolicyERZN12GKCRTreeNodeI8NSObjectDv2_fE18SplitReduceOverlapEPS3_RKS4_S8_EUlS5_S5_E1_PS5_Li0EEEvT1_SC_SC_SC_T0_(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, _DWORD *a5)
+id **_ZNSt3__17__sort4B8ne200100INS_17_ClassicAlgPolicyERZN12GKCRTreeNodeI8NSObjectDv2_fE18SplitReduceOverlapEPS3_RKS4_S8_EUlS5_S5_E1_PS5_Li0EEEvT1_SC_SC_SC_T0_(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, _DWORD *a5)
 {
   _ZNSt3__17__sort3B8ne200100INS_17_ClassicAlgPolicyERZN12GKCRTreeNodeI8NSObjectDv2_fE18SplitReduceOverlapEPS3_RKS4_S8_EUlS5_S5_E1_PS5_Li0EEEbT1_SC_SC_T0_(a1, a2, a3, a5);
   v40 = *a4;
@@ -5980,7 +5973,7 @@ void **_ZNSt3__17__sort4B8ne200100INS_17_ClassicAlgPolicyERZN12GKCRTreeNodeI8NSO
   return result;
 }
 
-void **_ZNSt3__17__sort5B8ne200100INS_17_ClassicAlgPolicyERZN12GKCRTreeNodeI8NSObjectDv2_fE18SplitReduceOverlapEPS3_RKS4_S8_EUlS5_S5_E1_PS5_Li0EEEvT1_SC_SC_SC_SC_T0_(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, _DWORD *a6)
+id **_ZNSt3__17__sort5B8ne200100INS_17_ClassicAlgPolicyERZN12GKCRTreeNodeI8NSObjectDv2_fE18SplitReduceOverlapEPS3_RKS4_S8_EUlS5_S5_E1_PS5_Li0EEEvT1_SC_SC_SC_SC_T0_(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, _DWORD *a6)
 {
   _ZNSt3__17__sort4B8ne200100INS_17_ClassicAlgPolicyERZN12GKCRTreeNodeI8NSObjectDv2_fE18SplitReduceOverlapEPS3_RKS4_S8_EUlS5_S5_E1_PS5_Li0EEEvT1_SC_SC_SC_T0_(a1, a2, a3, a4, a6);
   v53 = *a5;
@@ -6320,7 +6313,7 @@ unint64_t _ZNSt3__131__partition_with_equals_on_leftB8ne200100INS_17_ClassicAlgP
       _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEED1B8ne200100Ev(v57);
 
       _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEED1B8ne200100Ev(v60);
-      v15 = v12 + 56;
+      v15 = (v12 + 56);
     }
 
     while (v17 >= v18);
@@ -6462,7 +6455,7 @@ void sub_23899F6C0(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-unint64_t _ZNSt3__132__partition_with_equals_on_rightB8ne200100INS_17_ClassicAlgPolicyEP12GKCRTreeNodeI8NSObjectDv2_fERZNS5_18SplitReduceOverlapEPS3_RKS4_S9_EUlS5_S5_E1_EENS_4pairIT0_bEESD_SD_T1_(__int128 *a1, __int128 *a2, _DWORD *a3)
+__int128 *_ZNSt3__132__partition_with_equals_on_rightB8ne200100INS_17_ClassicAlgPolicyEP12GKCRTreeNodeI8NSObjectDv2_fERZNS5_18SplitReduceOverlapEPS3_RKS4_S9_EUlS5_S5_E1_EENS_4pairIT0_bEESD_SD_T1_(__int128 *a1, __int128 *a2, _DWORD *a3)
 {
   v5 = a1;
   v68 = *a1;
@@ -6473,22 +6466,22 @@ unint64_t _ZNSt3__132__partition_with_equals_on_rightB8ne200100INS_17_ClassicAlg
   v71 = 0;
   v72 = 0;
   _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEE16__init_with_sizeB8ne200100IPS4_S9_EEvT_T0_m(&v70, v6, *(a1 + 4), 0x6DB6DB6DB6DB6DB7 * ((*(a1 + 4) - v6) >> 3));
-  location = (v5 + 48);
-  v73 = *(v5 + 48);
+  location = (v5 + 3);
+  v73 = *(v5 + 6);
   v32 = v5;
   do
   {
     v64 = *(v5 + 56);
-    v8 = *(v5 + 80);
-    v65 = *(v5 + 72);
+    v8 = *(v5 + 10);
+    v65 = *(v5 + 9);
     memset(v66, 0, sizeof(v66));
-    _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEE16__init_with_sizeB8ne200100IPS4_S9_EEvT_T0_m(v66, v8, *(v5 + 88), 0x6DB6DB6DB6DB6DB7 * ((*(v5 + 88) - v8) >> 3));
-    v67 = *(v5 + 104);
+    _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEE16__init_with_sizeB8ne200100IPS4_S9_EEvT_T0_m(v66, v8, *(v5 + 11), 0x6DB6DB6DB6DB6DB7 * ((*(v5 + 11) - v8) >> 3));
+    v67 = *(v5 + 13);
     v61 = v68;
     v62 = v69;
     memset(v63, 0, 24);
     _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEE16__init_with_sizeB8ne200100IPS4_S9_EEvT_T0_m(v63, v70, v71, 0x6DB6DB6DB6DB6DB7 * ((v71 - v70) >> 3));
-    v5 += 56;
+    v5 = (v5 + 56);
     v63[3] = v73;
     v9 = *((&v64 & 0xFFFFFFFFFFFFFFFBLL | (4 * (*a3 & 1))) + 8);
     v10 = *((&v61 & 0xFFFFFFFFFFFFFFFBLL | (4 * (*a3 & 1))) + 8);
@@ -6498,7 +6491,7 @@ unint64_t _ZNSt3__132__partition_with_equals_on_rightB8ne200100INS_17_ClassicAlg
   }
 
   while (v9 < v10);
-  if (v5 - 56 == v32)
+  if ((v5 - 56) == v32)
   {
     do
     {
@@ -6559,9 +6552,9 @@ unint64_t _ZNSt3__132__partition_with_equals_on_rightB8ne200100INS_17_ClassicAlg
   if (v5 >= a2)
   {
     v17 = v5;
-    v25 = v5 - 56;
+    v25 = (v5 - 56);
     v26 = v32;
-    if (v5 - 56 == v32)
+    if ((v5 - 56) == v32)
     {
       goto LABEL_18;
     }
@@ -6577,16 +6570,16 @@ unint64_t _ZNSt3__132__partition_with_equals_on_rightB8ne200100INS_17_ClassicAlg
       do
       {
         v43 = *(v17 + 56);
-        v19 = *(v17 + 80);
-        v44 = *(v17 + 72);
+        v19 = *(v17 + 10);
+        v44 = *(v17 + 9);
         memset(v45, 0, sizeof(v45));
-        _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEE16__init_with_sizeB8ne200100IPS4_S9_EEvT_T0_m(v45, v19, *(v17 + 88), 0x6DB6DB6DB6DB6DB7 * ((*(v17 + 88) - v19) >> 3));
-        v46 = *(v17 + 104);
+        _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEE16__init_with_sizeB8ne200100IPS4_S9_EEvT_T0_m(v45, v19, *(v17 + 11), 0x6DB6DB6DB6DB6DB7 * ((*(v17 + 11) - v19) >> 3));
+        v46 = *(v17 + 13);
         v40 = v68;
         v41 = v69;
         memset(v42, 0, 24);
         _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEE16__init_with_sizeB8ne200100IPS4_S9_EEvT_T0_m(v42, v70, v71, 0x6DB6DB6DB6DB6DB7 * ((v71 - v70) >> 3));
-        v17 += 56;
+        v17 = (v17 + 56);
         v42[3] = v73;
         v20 = *((&v43 & 0xFFFFFFFFFFFFFFFBLL | (4 * (*a3 & 1))) + 8);
         v21 = *((&v40 & 0xFFFFFFFFFFFFFFFBLL | (4 * (*a3 & 1))) + 8);
@@ -6621,29 +6614,29 @@ unint64_t _ZNSt3__132__partition_with_equals_on_rightB8ne200100INS_17_ClassicAlg
     }
 
     while (v17 < v18);
-    v25 = v17 - 56;
+    v25 = (v17 - 56);
     v26 = v32;
-    if (v17 - 56 == v32)
+    if ((v17 - 56) == v32)
     {
       goto LABEL_18;
     }
   }
 
   v27 = *v25;
-  *(v26 + 16) = *(v25 + 16);
+  *(v26 + 2) = *(v25 + 2);
   *v26 = v27;
-  _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEE18__assign_with_sizeB8ne200100IPS4_S9_EEvT_T0_l(v30, *(v17 - 32), *(v17 - 24), 0x6DB6DB6DB6DB6DB7 * ((*(v17 - 24) - *(v17 - 32)) >> 3));
-  objc_storeStrong(location, *(v17 - 8));
+  _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEE18__assign_with_sizeB8ne200100IPS4_S9_EEvT_T0_l(v30, *(v17 - 4), *(v17 - 3), 0x6DB6DB6DB6DB6DB7 * ((*(v17 - 3) - *(v17 - 4)) >> 3));
+  objc_storeStrong(location, *(v17 - 1));
 LABEL_18:
   v28 = v68;
-  *(v25 + 16) = v69;
+  *(v25 + 2) = v69;
   *v25 = v28;
   if (v25 != &v68)
   {
-    _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEE18__assign_with_sizeB8ne200100IPS4_S9_EEvT_T0_l((v17 - 32), v70, v71, 0x6DB6DB6DB6DB6DB7 * ((v71 - v70) >> 3));
+    _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEE18__assign_with_sizeB8ne200100IPS4_S9_EEvT_T0_l(v17 - 4, v70, v71, 0x6DB6DB6DB6DB6DB7 * ((v71 - v70) >> 3));
   }
 
-  objc_storeStrong((v17 - 8), v73);
+  objc_storeStrong(v17 - 1, v73);
 
   _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEED1B8ne200100Ev(&v70);
   return v25;
@@ -6679,9 +6672,9 @@ BOOL _ZNSt3__127__insertion_sort_incompleteB8ne200100INS_17_ClassicAlgPolicyERZN
   if (v6 != 2)
   {
 LABEL_12:
-    v12 = a1 + 112;
+    v12 = (a1 + 112);
     _ZNSt3__17__sort3B8ne200100INS_17_ClassicAlgPolicyERZN12GKCRTreeNodeI8NSObjectDv2_fE18SplitReduceOverlapEPS3_RKS4_S8_EUlS5_S5_E1_PS5_Li0EEEbT1_SC_SC_T0_(a1, a1 + 56, a1 + 112, a3);
-    v13 = a1 + 168;
+    v13 = (a1 + 168);
     if (a1 + 168 == v4)
     {
       return 1;
@@ -6693,17 +6686,17 @@ LABEL_12:
     while (1)
     {
       v44 = *v13;
-      v15 = *(v13 + 24);
-      v45 = *(v13 + 16);
+      v15 = *(v13 + 3);
+      v45 = *(v13 + 2);
       memset(v46, 0, sizeof(v46));
-      _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEE16__init_with_sizeB8ne200100IPS4_S9_EEvT_T0_m(v46, v15, *(v13 + 32), 0x6DB6DB6DB6DB6DB7 * ((*(v13 + 32) - v15) >> 3));
-      v47 = *(v13 + 48);
-      v16 = *(v12 + 16);
+      _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEE16__init_with_sizeB8ne200100IPS4_S9_EEvT_T0_m(v46, v15, *(v13 + 4), 0x6DB6DB6DB6DB6DB7 * ((*(v13 + 4) - v15) >> 3));
+      v47 = *(v13 + 6);
+      v16 = *(v12 + 2);
       v41 = *v12;
       v42 = v16;
       memset(v43, 0, 24);
-      _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEE16__init_with_sizeB8ne200100IPS4_S9_EEvT_T0_m(v43, *(v12 + 24), *(v12 + 32), 0x6DB6DB6DB6DB6DB7 * ((*(v12 + 32) - *(v12 + 24)) >> 3));
-      v43[3] = *(v12 + 48);
+      _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEE16__init_with_sizeB8ne200100IPS4_S9_EEvT_T0_m(v43, *(v12 + 3), *(v12 + 4), 0x6DB6DB6DB6DB6DB7 * ((*(v12 + 4) - *(v12 + 3)) >> 3));
+      v43[3] = *(v12 + 6);
       v17 = *((&v44 & 0xFFFFFFFFFFFFFFFBLL | (4 * (*a3 & 1))) + 8);
       v18 = *((&v41 & 0xFFFFFFFFFFFFFFFBLL | (4 * (*a3 & 1))) + 8);
       _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEED1B8ne200100Ev(v43);
@@ -6712,13 +6705,13 @@ LABEL_12:
       if (v17 < v18)
       {
         v35 = *v13;
-        v19 = *(v13 + 24);
-        v36 = *(v13 + 16);
+        v19 = *(v13 + 3);
+        v36 = *(v13 + 2);
         v38 = 0;
         v39 = 0;
         v37 = 0;
-        _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEE16__init_with_sizeB8ne200100IPS4_S9_EEvT_T0_m(&v37, v19, *(v13 + 32), 0x6DB6DB6DB6DB6DB7 * ((*(v13 + 32) - v19) >> 3));
-        obj = *(v13 + 48);
+        _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEE16__init_with_sizeB8ne200100IPS4_S9_EEvT_T0_m(&v37, v19, *(v13 + 4), 0x6DB6DB6DB6DB6DB7 * ((*(v13 + 4) - v19) >> 3));
+        obj = *(v13 + 6);
         v20 = v14;
         while (1)
         {
@@ -6775,13 +6768,13 @@ LABEL_24:
         _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEED1B8ne200100Ev(&v37);
         if (++v27 == 8)
         {
-          return v13 + 56 == v26;
+          return (v13 + 56) == v26;
         }
       }
 
       v12 = v13;
       v14 += 56;
-      v13 += 56;
+      v13 = (v13 + 56);
       if (v13 == v4)
       {
         return 1;
@@ -6815,7 +6808,7 @@ LABEL_24:
   return 1;
 }
 
-void **_ZNSt3__111__sift_downB8ne200100INS_17_ClassicAlgPolicyERZN12GKCRTreeNodeI8NSObjectDv2_fE18SplitReduceOverlapEPS3_RKS4_S8_EUlS5_S5_E1_PS5_EEvT1_OT0_NS_15iterator_traitsISC_E15difference_typeESC_(void **result, _DWORD *a2, uint64_t a3, uint64_t a4)
+id **_ZNSt3__111__sift_downB8ne200100INS_17_ClassicAlgPolicyERZN12GKCRTreeNodeI8NSObjectDv2_fE18SplitReduceOverlapEPS3_RKS4_S8_EUlS5_S5_E1_PS5_EEvT1_OT0_NS_15iterator_traitsISC_E15difference_typeESC_(id **result, _DWORD *a2, uint64_t a3, uint64_t a4)
 {
   v4 = a3 - 2;
   if (a3 >= 2)
@@ -6835,13 +6828,13 @@ void **_ZNSt3__111__sift_downB8ne200100INS_17_ClassicAlgPolicyERZN12GKCRTreeNode
         v64 = result[2 * ((a4 - result) >> 3) + 9];
         memset(v65, 0, sizeof(v65));
         _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEE16__init_with_sizeB8ne200100IPS4_S9_EEvT_T0_m(v65, v12, result[2 * ((a4 - result) >> 3) + 11], 0x6DB6DB6DB6DB6DB7 * ((result[2 * ((a4 - result) >> 3) + 11] - v12) >> 3));
-        v66 = *(v10 + 48);
-        v60 = *(v10 + 56);
-        v13 = *(v10 + 80);
-        v61 = *(v10 + 72);
+        v66 = v10[6];
+        v60 = *(v10 + 7);
+        v13 = v10[10];
+        v61 = v10[9];
         memset(v62, 0, 24);
-        _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEE16__init_with_sizeB8ne200100IPS4_S9_EEvT_T0_m(v62, v13, *(v10 + 88), 0x6DB6DB6DB6DB6DB7 * ((*(v10 + 88) - v13) >> 3));
-        v62[3] = *(v10 + 104);
+        _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEE16__init_with_sizeB8ne200100IPS4_S9_EEvT_T0_m(v62, v13, v10[11], 0x6DB6DB6DB6DB6DB7 * ((v10[11] - v13) >> 3));
+        v62[3] = v10[13];
         v14 = *((&v63 & 0xFFFFFFFFFFFFFFFBLL | (4 * (*a2 & 1))) + 8);
         v15 = *((&v60 & 0xFFFFFFFFFFFFFFFBLL | (4 * (*a2 & 1))) + 8);
         _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEED1B8ne200100Ev(v62);
@@ -6849,17 +6842,17 @@ void **_ZNSt3__111__sift_downB8ne200100INS_17_ClassicAlgPolicyERZN12GKCRTreeNode
         _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEED1B8ne200100Ev(v65);
         if (v14 < v15)
         {
-          v10 += 56;
+          v10 += 7;
           v8 = v11;
         }
       }
 
       v56 = *v10;
-      v16 = *(v10 + 24);
-      v57 = *(v10 + 16);
+      v16 = v10[3];
+      v57 = v10[2];
       memset(v58, 0, sizeof(v58));
-      _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEE16__init_with_sizeB8ne200100IPS4_S9_EEvT_T0_m(v58, v16, *(v10 + 32), 0x6DB6DB6DB6DB6DB7 * ((*(v10 + 32) - v16) >> 3));
-      v59 = *(v10 + 48);
+      _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEE16__init_with_sizeB8ne200100IPS4_S9_EEvT_T0_m(v58, v16, v10[4], 0x6DB6DB6DB6DB6DB7 * ((v10[4] - v16) >> 3));
+      v59 = v10[6];
       v53 = *v5;
       v17 = *(v5 + 24);
       v54 = *(v5 + 16);
@@ -6885,14 +6878,14 @@ void **_ZNSt3__111__sift_downB8ne200100INS_17_ClassicAlgPolicyERZN12GKCRTreeNode
         {
           v21 = v10;
           v22 = *v10;
-          *(v5 + 16) = *(v10 + 16);
+          *(v5 + 16) = v10[2];
           *v5 = v22;
           if (v5 != v10)
           {
-            _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEE18__assign_with_sizeB8ne200100IPS4_S9_EEvT_T0_l((v5 + 24), *(v10 + 24), *(v10 + 32), 0x6DB6DB6DB6DB6DB7 * ((*(v10 + 32) - *(v10 + 24)) >> 3));
+            _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEE18__assign_with_sizeB8ne200100IPS4_S9_EEvT_T0_l((v5 + 24), v10[3], v10[4], 0x6DB6DB6DB6DB6DB7 * ((v10[4] - v10[3]) >> 3));
           }
 
-          objc_storeStrong((v5 + 48), *(v10 + 48));
+          objc_storeStrong((v5 + 48), v10[6]);
           if (v6 < v8)
           {
             break;
@@ -6909,17 +6902,17 @@ void **_ZNSt3__111__sift_downB8ne200100INS_17_ClassicAlgPolicyERZN12GKCRTreeNode
           else
           {
             v43 = *v10;
-            v24 = *(v10 + 24);
-            v44 = *(v10 + 16);
+            v24 = v10[3];
+            v44 = v10[2];
             memset(v45, 0, sizeof(v45));
-            _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEE16__init_with_sizeB8ne200100IPS4_S9_EEvT_T0_m(v45, v24, *(v10 + 32), 0x6DB6DB6DB6DB6DB7 * ((*(v10 + 32) - v24) >> 3));
-            v46 = *(v10 + 48);
-            v40 = *(v10 + 56);
-            v25 = *(v10 + 80);
-            v41 = *(v10 + 72);
+            _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEE16__init_with_sizeB8ne200100IPS4_S9_EEvT_T0_m(v45, v24, v10[4], 0x6DB6DB6DB6DB6DB7 * ((v10[4] - v24) >> 3));
+            v46 = v10[6];
+            v40 = *(v10 + 7);
+            v25 = v10[10];
+            v41 = v10[9];
             memset(v42, 0, 24);
-            _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEE16__init_with_sizeB8ne200100IPS4_S9_EEvT_T0_m(v42, v25, *(v10 + 88), 0x6DB6DB6DB6DB6DB7 * ((*(v10 + 88) - v25) >> 3));
-            v42[3] = *(v10 + 104);
+            _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEE16__init_with_sizeB8ne200100IPS4_S9_EEvT_T0_m(v42, v25, v10[11], 0x6DB6DB6DB6DB6DB7 * ((v10[11] - v25) >> 3));
+            v42[3] = v10[13];
             v26 = *((&v43 & 0xFFFFFFFFFFFFFFFBLL | (4 * (*a2 & 1))) + 8);
             v27 = *((&v40 & 0xFFFFFFFFFFFFFFFBLL | (4 * (*a2 & 1))) + 8);
             _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEED1B8ne200100Ev(v42);
@@ -6932,16 +6925,16 @@ void **_ZNSt3__111__sift_downB8ne200100INS_17_ClassicAlgPolicyERZN12GKCRTreeNode
 
             else
             {
-              v10 += 56;
+              v10 += 7;
             }
           }
 
           v36 = *v10;
-          v28 = *(v10 + 24);
-          v37 = *(v10 + 16);
+          v28 = v10[3];
+          v37 = v10[2];
           memset(v38, 0, sizeof(v38));
-          _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEE16__init_with_sizeB8ne200100IPS4_S9_EEvT_T0_m(v38, v28, *(v10 + 32), 0x6DB6DB6DB6DB6DB7 * ((*(v10 + 32) - v28) >> 3));
-          v39 = *(v10 + 48);
+          _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEE16__init_with_sizeB8ne200100IPS4_S9_EEvT_T0_m(v38, v28, v10[4], 0x6DB6DB6DB6DB6DB7 * ((v10[4] - v28) >> 3));
+          v39 = v10[6];
           v33 = v47;
           v34 = v48;
           memset(v35, 0, 24);
@@ -6957,14 +6950,14 @@ void **_ZNSt3__111__sift_downB8ne200100INS_17_ClassicAlgPolicyERZN12GKCRTreeNode
 
         while (v29 >= v30);
         v31 = v47;
-        *(v21 + 16) = v48;
+        v21[2] = v48;
         *v21 = v31;
         if (v21 != &v47)
         {
-          _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEE18__assign_with_sizeB8ne200100IPS4_S9_EEvT_T0_l((v21 + 24), v49, v50, 0x6DB6DB6DB6DB6DB7 * ((v50 - v49) >> 3));
+          _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEE18__assign_with_sizeB8ne200100IPS4_S9_EEvT_T0_l(v21 + 3, v49, v50, 0x6DB6DB6DB6DB6DB7 * ((v50 - v49) >> 3));
         }
 
-        objc_storeStrong((v21 + 48), obj);
+        objc_storeStrong(v21 + 6, obj);
 
         return _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEED1B8ne200100Ev(&v49);
       }
@@ -6974,7 +6967,7 @@ void **_ZNSt3__111__sift_downB8ne200100INS_17_ClassicAlgPolicyERZN12GKCRTreeNode
   return result;
 }
 
-void **_ZNSt3__110__pop_heapB8ne200100INS_17_ClassicAlgPolicyEZN12GKCRTreeNodeI8NSObjectDv2_fE18SplitReduceOverlapEPS3_RKS4_S8_EUlS5_S5_E1_PS5_EEvT1_SB_RT0_NS_15iterator_traitsISB_E15difference_typeE(void **result, uint64_t a2, _DWORD *a3, uint64_t a4)
+id **_ZNSt3__110__pop_heapB8ne200100INS_17_ClassicAlgPolicyEZN12GKCRTreeNodeI8NSObjectDv2_fE18SplitReduceOverlapEPS3_RKS4_S8_EUlS5_S5_E1_PS5_EEvT1_SB_RT0_NS_15iterator_traitsISB_E15difference_typeE(id **result, uint64_t a2, _DWORD *a3, uint64_t a4)
 {
   if (a4 >= 2)
   {
@@ -6989,7 +6982,7 @@ void **_ZNSt3__110__pop_heapB8ne200100INS_17_ClassicAlgPolicyEZN12GKCRTreeNodeI8
     obj = v7[6];
     v9 = _ZNSt3__117__floyd_sift_downB8ne200100INS_17_ClassicAlgPolicyERZN12GKCRTreeNodeI8NSObjectDv2_fE18SplitReduceOverlapEPS3_RKS4_S8_EUlS5_S5_E1_PS5_EET1_SC_OT0_NS_15iterator_traitsISC_E15difference_typeE(v7, a3, a4);
     v10 = v9;
-    v11 = a2 - 56;
+    v11 = (a2 - 56);
     if (v9 == (a2 - 56))
     {
       v16 = v17;
@@ -7014,14 +7007,14 @@ void **_ZNSt3__110__pop_heapB8ne200100INS_17_ClassicAlgPolicyEZN12GKCRTreeNodeI8
       v14 = (a2 - 8);
       objc_storeStrong(v10 + 6, v15);
       *v11 = v17;
-      *(v11 + 16) = v18;
+      *(v11 + 2) = v18;
       if (v11 != &v17)
       {
         _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEE18__assign_with_sizeB8ne200100IPS4_S9_EEvT_T0_l(v13, v19, v20, 0x6DB6DB6DB6DB6DB7 * ((v20 - v19) >> 3));
       }
 
       objc_storeStrong(v14, obj);
-      _ZNSt3__19__sift_upB8ne200100INS_17_ClassicAlgPolicyERZN12GKCRTreeNodeI8NSObjectDv2_fE18SplitReduceOverlapEPS3_RKS4_S8_EUlS5_S5_E1_PS5_EEvT1_SC_OT0_NS_15iterator_traitsISC_E15difference_typeE(v7, v10 + 56, a3, 0x6DB6DB6DB6DB6DB7 * ((v10 + 56 - v7) >> 3));
+      _ZNSt3__19__sift_upB8ne200100INS_17_ClassicAlgPolicyERZN12GKCRTreeNodeI8NSObjectDv2_fE18SplitReduceOverlapEPS3_RKS4_S8_EUlS5_S5_E1_PS5_EEvT1_SC_OT0_NS_15iterator_traitsISC_E15difference_typeE(v7, (v10 + 56), a3, 0x6DB6DB6DB6DB6DB7 * ((v10 + 56 - v7) >> 3));
     }
 
     return _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEED1B8ne200100Ev(&v19);
@@ -7030,31 +7023,31 @@ void **_ZNSt3__110__pop_heapB8ne200100INS_17_ClassicAlgPolicyEZN12GKCRTreeNodeI8
   return result;
 }
 
-__int128 *_ZNSt3__117__floyd_sift_downB8ne200100INS_17_ClassicAlgPolicyERZN12GKCRTreeNodeI8NSObjectDv2_fE18SplitReduceOverlapEPS3_RKS4_S8_EUlS5_S5_E1_PS5_EET1_SC_OT0_NS_15iterator_traitsISC_E15difference_typeE(__int128 *a1, _DWORD *a2, uint64_t a3)
+char *_ZNSt3__117__floyd_sift_downB8ne200100INS_17_ClassicAlgPolicyERZN12GKCRTreeNodeI8NSObjectDv2_fE18SplitReduceOverlapEPS3_RKS4_S8_EUlS5_S5_E1_PS5_EET1_SC_OT0_NS_15iterator_traitsISC_E15difference_typeE(__int128 *a1, _DWORD *a2, uint64_t a3)
 {
   v5 = 0;
   v6 = (a3 - 2) / 2;
   do
   {
     v7 = a1 + 56 * v5;
-    v8 = (v7 + 56);
+    v8 = v7 + 56;
     v9 = 2 * v5;
     v5 = (2 * v5) | 1;
     v10 = v9 + 2;
     if (v9 + 2 < a3)
     {
       v11 = *v8;
-      v22 = *(v7 + 72);
+      v22 = *(v7 + 9);
       v21 = v11;
       memset(v23, 0, sizeof(v23));
-      _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEE16__init_with_sizeB8ne200100IPS4_S9_EEvT_T0_m(v23, *(v7 + 80), *(v7 + 88), 0x6DB6DB6DB6DB6DB7 * ((*(v7 + 88) - *(v7 + 80)) >> 3));
-      v24 = *(v7 + 104);
-      v12 = *(v7 + 128);
-      v18 = *(v7 + 112);
+      _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEE16__init_with_sizeB8ne200100IPS4_S9_EEvT_T0_m(v23, *(v7 + 10), *(v7 + 11), 0x6DB6DB6DB6DB6DB7 * ((*(v7 + 11) - *(v7 + 10)) >> 3));
+      v24 = *(v7 + 13);
+      v12 = *(v7 + 16);
+      v18 = *(v7 + 7);
       v19 = v12;
       memset(v20, 0, 24);
-      _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEE16__init_with_sizeB8ne200100IPS4_S9_EEvT_T0_m(v20, *(v7 + 136), *(v7 + 144), 0x6DB6DB6DB6DB6DB7 * ((*(v7 + 144) - *(v7 + 136)) >> 3));
-      v20[3] = *(v7 + 160);
+      _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEE16__init_with_sizeB8ne200100IPS4_S9_EEvT_T0_m(v20, *(v7 + 17), *(v7 + 18), 0x6DB6DB6DB6DB6DB7 * ((*(v7 + 18) - *(v7 + 17)) >> 3));
+      v20[3] = *(v7 + 20);
       v13 = *((&v21 & 0xFFFFFFFFFFFFFFFBLL | (4 * (*a2 & 1))) + 8);
       v14 = *((&v18 & 0xFFFFFFFFFFFFFFFBLL | (4 * (*a2 & 1))) + 8);
       _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEED1B8ne200100Ev(v20);
@@ -7062,7 +7055,7 @@ __int128 *_ZNSt3__117__floyd_sift_downB8ne200100INS_17_ClassicAlgPolicyERZN12GKC
       _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEED1B8ne200100Ev(v23);
       if (v13 < v14)
       {
-        v8 = (v7 + 112);
+        v8 = v7 + 112;
         v5 = v10;
       }
     }
@@ -7083,7 +7076,7 @@ __int128 *_ZNSt3__117__floyd_sift_downB8ne200100INS_17_ClassicAlgPolicyERZN12GKC
   return v8;
 }
 
-void **_ZNSt3__19__sift_upB8ne200100INS_17_ClassicAlgPolicyERZN12GKCRTreeNodeI8NSObjectDv2_fE18SplitReduceOverlapEPS3_RKS4_S8_EUlS5_S5_E1_PS5_EEvT1_SC_OT0_NS_15iterator_traitsISC_E15difference_typeE(void **result, uint64_t a2, _DWORD *a3, uint64_t a4)
+id **_ZNSt3__19__sift_upB8ne200100INS_17_ClassicAlgPolicyERZN12GKCRTreeNodeI8NSObjectDv2_fE18SplitReduceOverlapEPS3_RKS4_S8_EUlS5_S5_E1_PS5_EEvT1_SC_OT0_NS_15iterator_traitsISC_E15difference_typeE(id **result, uint64_t a2, _DWORD *a3, uint64_t a4)
 {
   v4 = a4 - 2;
   if (a4 >= 2)
@@ -7219,7 +7212,7 @@ uint64_t _ZN12GKCRTreeNodeI8NSObjectDv2_fE12RemoveObjectEPS0_S1_S1_(void *a1, vo
           v15 = vcge_f32(v7[2], *&a4);
           if (v15.i8[0] & 1) != 0 && (vcge_f32(*&a3, v14).i32[1] & 1) != 0 && (v15.i8[4])
           {
-            _ZN12GKCRTreeNodeI8NSObjectDv2_fE12RemoveObjectEPS0_S1_S1_(a3, a4);
+            _ZN12GKCRTreeNodeI8NSObjectDv2_fE12RemoveObjectEPS0_S1_S1_(v7, v8, a3, a4);
             v10 = a1[3];
             v9 = a1[4];
             v7 = &v10[v11];
@@ -7338,7 +7331,7 @@ uint64_t _ZN12GKCRTreeNodeI8NSObjectDv2_fE12RemoveObjectEPS0_S1_S1_(void *a1, vo
         v24 = *v22;
         v22 += 7;
         v25 = v24.f32[0];
-        if ((vcgt_f32(v19, v24).u32[0] & 1) == 0)
+        if ((vcgt_f32(v19, v24).u8[0] & 1) == 0)
         {
           v25 = v19.f32[0];
         }
@@ -7427,7 +7420,7 @@ uint64_t _ZN12GKCRTreeNodeI8NSObjectDv2_fE12RemoveObjectEPS0_S1_S1_(void *a1, vo
   return MEMORY[0x2821F96F8](v7, v8);
 }
 
-void **std::vector<NSObject * {__strong}>::~vector[abi:ne200100](void **a1)
+char **std::vector<NSObject * {__strong}>::~vector[abi:ne200100](char **a1)
 {
   v2 = *a1;
   if (*a1)
@@ -7453,24 +7446,24 @@ void **std::vector<NSObject * {__strong}>::~vector[abi:ne200100](void **a1)
   return a1;
 }
 
-float32x2_t *_ZN12GKCRTreeNodeI8NSObjectDv2_fE5QueryES1_S1_RNSt3__16vectorIU8__strongPS0_NS3_9allocatorIS6_EEEE(float32x2_t *result, unint64_t *a2, float32x2_t a3, float32x2_t a4)
+float32x2_t *_ZN12GKCRTreeNodeI8NSObjectDv2_fE5QueryES1_S1_RNSt3__16vectorIU8__strongPS0_NS3_9allocatorIS6_EEEE(float32x2_t *result, uint64_t a2, float32x2_t a3, float32x2_t a4)
 {
   v7 = result;
   v8 = result[1];
-  if (vcgt_f32(a3, v8).u8[0] & 1) == 0 && (v15 = result[2], (vcge_f32(a4, v15).u32[0]) && (v16 = vcge_f32(vzip2_s32(a4, v8), vzip2_s32(v15, a3)), (v16.i8[4]) && (v16.i8[0] & 1) != 0 && (v17 = result[6]) != 0)
+  if (vcgt_f32(a3, v8).u8[0] & 1) == 0 && (v15 = result[2], (vcge_f32(a4, v15).u8[0]) && (v16 = vcge_f32(vzip2_s32(a4, v8), vzip2_s32(v15, a3)), (v16.i8[4]) && (v16.i8[0] & 1) != 0 && (v17 = result[6]) != 0)
   {
-    v18 = a2[1];
-    if (v18 >= a2[2])
+    v18 = *(a2 + 8);
+    if (v18 >= *(a2 + 16))
     {
       result = std::vector<NSObject * {__strong}>::__emplace_back_slow_path<NSObject * const {__strong}&>(a2, &result[6]);
-      a2[1] = result;
+      *(a2 + 8) = result;
     }
 
     else
     {
       result = v17;
       *v18 = result;
-      a2[1] = (v18 + 1);
+      *(a2 + 8) = v18 + 1;
     }
   }
 
@@ -7491,7 +7484,7 @@ float32x2_t *_ZN12GKCRTreeNodeI8NSObjectDv2_fE5QueryES1_S1_RNSt3__16vectorIU8__s
           v14 = vcge_f32(a4, result[1]);
           if (v14.i8[0] & 1) != 0 && (vcge_f32(v13, a3).i32[1] & 1) != 0 && (v14.i8[4])
           {
-            result = _ZN12GKCRTreeNodeI8NSObjectDv2_fE5QueryES1_S1_RNSt3__16vectorIU8__strongPS0_NS3_9allocatorIS6_EEEE(*&a3, *&a4);
+            result = _ZN12GKCRTreeNodeI8NSObjectDv2_fE5QueryES1_S1_RNSt3__16vectorIU8__strongPS0_NS3_9allocatorIS6_EEEE(result, a2, a3, a4);
             v10 = v7[3];
             v9 = v7[4];
           }
@@ -7508,7 +7501,7 @@ float32x2_t *_ZN12GKCRTreeNodeI8NSObjectDv2_fE5QueryES1_S1_RNSt3__16vectorIU8__s
   return result;
 }
 
-uint64_t std::vector<NSObject * {__strong}>::__emplace_back_slow_path<NSObject * const {__strong}&>(unint64_t *a1, id *a2)
+void *std::vector<NSObject * {__strong}>::__emplace_back_slow_path<NSObject * const {__strong}&>(void ***a1, id *a2)
 {
   v2 = a1[1] - *a1;
   v3 = v2 >> 3;
@@ -7613,14 +7606,14 @@ LABEL_30:
   }
 
   *a1 = v11;
-  a1[1] = 8 * v3 + 8;
+  a1[1] = (8 * v3 + 8);
   a1[2] = 0;
   if (v9)
   {
     operator delete(v9);
   }
 
-  return 8 * v3 + 8;
+  return (8 * v3 + 8);
 }
 
 float *lqCreateDatabase(int a1, int a2, int a3, float a4, float a5, float a6, float a7, float a8, float a9)
@@ -8269,25 +8262,16 @@ float OpenSteer::SimpleVehicle::SimpleVehicle(OpenSteer::SimpleVehicle *this)
 void OpenSteer::SimpleVehicle::adjustRawSteeringForce(OpenSteer::SimpleVehicle *this, float32x2_t *a2, float a3)
 {
   v5 = (*(*this + 240))(this, a3) * 0.2;
-  if ((*(*this + 200))(this) <= v5)
+  if ((*(*this + 200))(this) <= v5 && (a2->f32[0] != *&_static_vec3_zero || a2->f32[1] != *(&_static_vec3_zero + 1) || a2[1].f32[0] != *&dword_27DF48758))
   {
-    if (a2->f32[0] != *&_static_vec3_zero || a2->f32[1] != *(&_static_vec3_zero + 1) || a2[1].f32[0] != *&dword_27DF48758)
-    {
-      v8 = (*(*this + 200))(this);
-      v9 = (v8 / v5) * (v8 / v5);
-      *&v9 = v9 * v9 * (v9 * v9 * (v9 * v9) * (v9 * v9 * (v9 * v9)));
-      v10 = 1.0 - (*&v9 + *&v9);
-      v18.x = (*(*this + 32))(this);
-      v18.y = *&v11;
-      v18.z = *&v12;
-      OpenSteer::vecLimitDeviationAngleUtility(1, a2, &v18, v10, v13, v11, v12, v14, v15, v16, v17);
-    }
-  }
-
-  else
-  {
-    v6 = a2->f32[1];
-    v7 = a2[1].f32[0];
+    v6 = (*(*this + 200))(this);
+    v7 = (v6 / v5) * (v6 / v5);
+    *&v7 = v7 * v7 * (v7 * v7 * (v7 * v7) * (v7 * v7 * (v7 * v7)));
+    v8 = 1.0 - (*&v7 + *&v7);
+    v16.x = (*(*this + 32))(this);
+    v16.y = *&v9;
+    v16.z = *&v10;
+    OpenSteer::vecLimitDeviationAngleUtility(1, a2, &v16, v8, v11, v9, v10, v12, v13, v14, v15);
   }
 }
 
@@ -8473,27 +8457,11 @@ void OpenSteer::SimpleVehicle::regenerateLocalSpaceForBanking(OpenSteer::SimpleV
   }
 }
 
-float OpenSteer::LocalSpaceMixin<OpenSteer::AbstractVehicle>::side(uint64_t a1)
-{
-  result = *(a1 + 8);
-  v2 = *(a1 + 12);
-  v3 = *(a1 + 16);
-  return result;
-}
-
 float *OpenSteer::LocalSpaceMixin<OpenSteer::AbstractVehicle>::setSide(float *result, float a2, float a3, float a4)
 {
   result[2] = a2;
   result[3] = a3;
   result[4] = a4;
-  return result;
-}
-
-float OpenSteer::LocalSpaceMixin<OpenSteer::AbstractVehicle>::up(uint64_t a1)
-{
-  result = *(a1 + 20);
-  v2 = *(a1 + 24);
-  v3 = *(a1 + 28);
   return result;
 }
 
@@ -8505,27 +8473,11 @@ float *OpenSteer::LocalSpaceMixin<OpenSteer::AbstractVehicle>::setUp(float *resu
   return result;
 }
 
-float OpenSteer::LocalSpaceMixin<OpenSteer::AbstractVehicle>::forward(uint64_t a1)
-{
-  result = *(a1 + 32);
-  v2 = *(a1 + 36);
-  v3 = *(a1 + 40);
-  return result;
-}
-
 float *OpenSteer::LocalSpaceMixin<OpenSteer::AbstractVehicle>::setForward(float *result, float a2, float a3, float a4)
 {
   result[8] = a2;
   result[9] = a3;
   result[10] = a4;
-  return result;
-}
-
-float OpenSteer::LocalSpaceMixin<OpenSteer::AbstractVehicle>::position(uint64_t a1)
-{
-  result = *(a1 + 44);
-  v2 = *(a1 + 48);
-  v3 = *(a1 + 52);
   return result;
 }
 
@@ -8552,16 +8504,6 @@ double OpenSteer::LocalSpaceMixin<OpenSteer::AbstractVehicle>::resetLocalSpace(u
   return result;
 }
 
-float OpenSteer::LocalSpaceMixin<OpenSteer::AbstractVehicle>::localizeDirection(float *a1, float *a2)
-{
-  v2 = a2[1];
-  v3 = a2[2];
-  result = ((a1[2] * *a2) + (a1[3] * v2)) + (a1[4] * v3);
-  v5 = ((a1[5] * *a2) + (a1[6] * v2)) + (a1[7] * v3);
-  v6 = ((a1[8] * *a2) + (a1[9] * v2)) + (a1[10] * v3);
-  return result;
-}
-
 uint64_t OpenSteer::LocalSpaceMixin<OpenSteer::AbstractVehicle>::localizePosition(uint64_t a1, uint64_t a2, float32x4_t a3, float32x4_t a4)
 {
   a3.i64[0] = *a2;
@@ -8572,23 +8514,6 @@ uint64_t OpenSteer::LocalSpaceMixin<OpenSteer::AbstractVehicle>::localizePositio
   v7 = v4.i32[2];
   v6 = v4.i64[0];
   return (*(*a1 + 80))(a1, &v6);
-}
-
-float OpenSteer::LocalSpaceMixin<OpenSteer::AbstractVehicle>::globalizePosition(float *a1)
-{
-  result = (*(*a1 + 104))(a1) + a1[11];
-  v4 = a1[12] + v3;
-  v6 = a1[13] + v5;
-  return result;
-}
-
-float32x2_t OpenSteer::LocalSpaceMixin<OpenSteer::AbstractVehicle>::globalizeDirection(uint64_t a1, float *a2)
-{
-  v2 = a2[1];
-  v3 = a2[2];
-  result = vmla_n_f32(vmla_n_f32(vmul_n_f32(*(a1 + 8), *a2), *(a1 + 20), v2), *(a1 + 32), v3);
-  v5 = ((*(a1 + 16) * *a2) + (*(a1 + 28) * v2)) + (*(a1 + 40) * v3);
-  return result;
 }
 
 uint64_t OpenSteer::LocalSpaceMixin<OpenSteer::AbstractVehicle>::setUnitSideFromForwardAndUp(float *a1)
@@ -8719,7 +8644,7 @@ uint64_t OpenSteer::LocalSpaceMixin<OpenSteer::AbstractVehicle>::regenerateOrtho
 
   v14 = v3;
   v15 = v4;
-  v13 = a3.u32[2];
+  v13 = a3.i32[2];
   v12 = a3.i64[0];
   return (*(*a1 + 120))(a1, &v12);
 }
@@ -8742,21 +8667,20 @@ uint64_t OpenSteer::LocalSpaceMixin<OpenSteer::AbstractVehicle>::regenerateOrtho
 
   v16 = v4;
   v17 = v5;
-  v15 = a4.u32[2];
+  v15 = a4.i32[2];
   v14 = a4.i64[0];
   return (*(*a1 + 128))(a1, &v14);
 }
 
-uint64_t OpenSteer::LocalSpaceMixin<OpenSteer::AbstractVehicle>::localRotateForwardToSide(uint64_t a1, float *a2)
+float OpenSteer::LocalSpaceMixin<OpenSteer::AbstractVehicle>::localRotateForwardToSide(uint64_t a1, uint64_t a2)
 {
-  result = (*(*a1 + 64))(a1);
-  if (result)
+  v3 = (*(*a1 + 64))(a1);
+  result = *(a2 + 8);
+  if (v3)
   {
-    v4 = -a2[2];
+    return -result;
   }
 
-  v6 = *a2;
-  v5 = *(a2 + 1);
   return result;
 }
 
@@ -8771,20 +8695,17 @@ uint64_t OpenSteer::LocalSpaceMixin<OpenSteer::AbstractVehicle>::globalRotateFor
   return (*(*a1 + 104))(a1, v7);
 }
 
-void *std::vector<GKPolygonObstacle * {__strong}>::reserve(void *result, unint64_t a2)
+void std::vector<GKPolygonObstacle * {__strong}>::reserve(void ***a1, unint64_t a2)
 {
-  if (a2 > (result[2] - *result) >> 3)
+  if (a2 > a1[2] - *a1)
   {
     if (!(a2 >> 61))
     {
-      v2 = result[1] - *result;
       operator new();
     }
 
     _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEE20__throw_length_errorB8ne200100Ev();
   }
-
-  return result;
 }
 
 void std::vector<GKCPolygonObstacle *>::push_back[abi:ne200100](uint64_t a1, void *a2)
@@ -8868,12 +8789,12 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
   while (1)
   {
     v2 = a2[2];
-    if (v2[3])
+    if (*(v2 + 24))
     {
       return result;
     }
 
-    v3 = v2[2];
+    v3 = *(v2 + 16);
     v4 = *v3;
     if (*v3 != v2)
     {
@@ -8885,10 +8806,9 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
     {
       if (*v2 == a2)
       {
-        v20 = a2[2];
         *(v2 + 24) = 1;
         *(v3 + 24) = 0;
-        v13 = v4[1];
+        v13 = *(v4 + 8);
         *v3 = v13;
         if (v13)
         {
@@ -8898,26 +8818,26 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
 
       else
       {
-        v10 = v2[1];
+        v10 = *(v2 + 8);
         v11 = *v10;
-        v2[1] = *v10;
+        *(v2 + 8) = *v10;
         v12 = v2;
         if (v11)
         {
-          v11[2] = v2;
-          v3 = v2[2];
+          *(v11 + 16) = v2;
+          v3 = *(v2 + 16);
           v12 = *v3;
         }
 
-        v10[2] = v3;
+        *(v10 + 16) = v3;
         v3[v12 != v2] = v10;
         *v10 = v2;
-        v2[2] = v10;
-        v3 = v10[2];
+        *(v2 + 16) = v10;
+        v3 = *(v10 + 16);
         v4 = *v3;
         *(v10 + 24) = 1;
         *(v3 + 24) = 0;
-        v13 = v4[1];
+        v13 = *(v4 + 8);
         *v3 = v13;
         if (v13)
         {
@@ -8928,8 +8848,8 @@ LABEL_15:
 
       v14 = v3[2];
       v14[*v14 != v3] = v4;
-      v4[1] = v3;
-      v4[2] = v14;
+      *(v4 + 8) = v3;
+      *(v4 + 16) = v14;
       v3[2] = v4;
       return result;
     }
@@ -8948,7 +8868,7 @@ LABEL_3:
   if (v4)
   {
     v6 = *(v4 + 24);
-    v5 = v4 + 3;
+    v5 = (v4 + 24);
     if (v6 != 1)
     {
       v7 = v5;
@@ -8959,19 +8879,19 @@ LABEL_3:
   v15 = *v2;
   if (*v2 == a2)
   {
-    v16 = *(v15 + 8);
+    v16 = v15[1];
     *v2 = v16;
     if (v16)
     {
       *(v16 + 16) = v2;
-      v3 = v2[2];
+      v3 = *(v2 + 16);
     }
 
     v3[*v3 != v2] = v15;
-    *(v15 + 8) = v2;
-    *(v15 + 16) = v3;
-    v2[2] = v15;
-    v3 = *(v15 + 16);
+    v15[1] = v2;
+    v15[2] = v3;
+    *(v2 + 16) = v15;
+    v3 = v15[2];
   }
 
   else
@@ -9004,26 +8924,24 @@ void sub_2389A7AD0(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-id GKCMinmaxStrategist::findBestMoveForPlayer(uint64_t a1, void *a2, int a3)
+id GKCMinmaxStrategist::findBestMoveForPlayer(uint64_t *a1, void *a2, int a3)
 {
   v6 = a2;
   v7 = 0;
-  if (v6 && *(a1 + 72))
+  if (v6 && a1[9])
   {
     *(a1 + 184) = objc_opt_respondsToSelector() & 1;
-    v8 = *(a1 + 72);
     *(a1 + 185) = objc_opt_respondsToSelector() & 1;
-    v9 = *(a1 + 72);
     *(a1 + 186) = objc_opt_respondsToSelector() & 1;
-    v10 = [*(a1 + 72) players];
+    v8 = [a1[9] players];
 
-    if (v10)
+    if (v8)
     {
-      v11 = [*(a1 + 72) players];
-      *(a1 + 120) = [v11 count];
+      v9 = [a1[9] players];
+      a1[15] = [v9 count];
 
-      objc_storeStrong((a1 + 80), a2);
-      if (*(a1 + 120) < 1)
+      objc_storeStrong(a1 + 10, a2);
+      if (a1[15] < 1)
       {
         goto LABEL_12;
       }
@@ -9031,410 +8949,410 @@ id GKCMinmaxStrategist::findBestMoveForPlayer(uint64_t a1, void *a2, int a3)
 
     else
     {
-      *(a1 + 120) = 0;
-      objc_storeStrong((a1 + 80), a2);
-      if (*(a1 + 120) < 1)
+      a1[15] = 0;
+      objc_storeStrong(a1 + 10, a2);
+      if (a1[15] < 1)
       {
         goto LABEL_12;
       }
     }
 
-    v12 = [*(a1 + 72) players];
-    v13 = [v12 containsObject:v6];
+    v10 = [a1[9] players];
+    v11 = [v10 containsObject:v6];
 
-    if (v13)
+    if (v11)
     {
-      if (*(a1 + 104) <= 0)
+      if (a1[13] <= 0)
       {
-        *(a1 + 104) = 1;
-        v14 = *(a1 + 96);
-        if (v14 > 0)
+        a1[13] = 1;
+        v12 = a1[12];
+        if (v12 > 0)
         {
 LABEL_10:
+          v13 = *a1;
+          v14 = a1[1];
           v15 = *a1;
-          v16 = *(a1 + 8);
-          v17 = *a1;
-          if (v16 == *a1)
+          if (v14 == *a1)
           {
 LABEL_21:
-            *(a1 + 8) = v15;
-            v24 = (v15 - v17) >> 3;
-            v20 = v14 >= v24;
-            v21 = v14 - v24;
-            if (v14 > v24)
+            a1[1] = v13;
+            v22 = (v13 - v15) >> 3;
+            v18 = v12 >= v22;
+            v19 = v12 - v22;
+            if (v12 > v22)
             {
 LABEL_22:
-              std::vector<objc_object  {objcproto11GKGameModel}* {__strong}>::__append(a1, v21);
+              std::vector<objc_object  {objcproto11GKGameModel}* {__strong}>::__append(a1, v19);
               goto LABEL_23;
             }
 
 LABEL_17:
-            if (!v20)
+            if (!v18)
             {
-              v22 = v17 + 8 * v14;
-              while (v15 != v22)
+              v20 = v15 + 8 * v12;
+              while (v13 != v20)
               {
-                v23 = *(v15 - 8);
-                v15 -= 8;
+                v21 = *(v13 - 8);
+                v13 -= 8;
               }
 
-              *(a1 + 8) = v22;
+              a1[1] = v20;
             }
 
 LABEL_23:
-            if (*(a1 + 96) >= 1)
+            if (a1[12] >= 1)
             {
-              v25 = 0;
+              v23 = 0;
               do
               {
-                v26 = [*(a1 + 72) copyWithZone:0];
-                v27 = *(*a1 + 8 * v25);
-                *(*a1 + 8 * v25) = v26;
+                v24 = [a1[9] copyWithZone:0];
+                v25 = *(*a1 + 8 * v23);
+                *(*a1 + 8 * v23) = v24;
 
-                ++v25;
+                ++v23;
               }
 
-              while (v25 < *(a1 + 96));
+              while (v23 < a1[12]);
             }
 
-            v94 = 0;
-            v95 = 0;
-            v28 = *(a1 + 72);
+            v92 = 0;
+            v93 = 0;
+            v26 = a1[9];
             if (*(a1 + 186))
             {
-              v29 = [*(a1 + 72) copyWithZone:0];
+              v27 = [a1[9] copyWithZone:0];
 
-              v28 = v29;
+              v26 = v27;
             }
 
-            if (*(a1 + 120) == 2)
+            if (a1[15] == 2)
             {
-              GKCMinmaxStrategist::findBestMove2Player(a1, v28, *(a1 + 96), 0x8000000000000000, 0x7FFFFFFFFFFFFFFFLL, &v95, &v94);
+              GKCMinmaxStrategist::findBestMove2Player(a1, v26, a1[12], 0x8000000000000000, 0x7FFFFFFFFFFFFFFFLL, &v93, &v92);
             }
 
             else
             {
-              v31 = (a1 + 48);
-              v30 = *(a1 + 48);
-              v32 = *(a1 + 96);
-              v33 = *(a1 + 56);
-              v34 = 0xAAAAAAAAAAAAAAABLL * ((v33 - v30) >> 3);
-              if (v32 + 1 <= v34)
+              v29 = a1 + 6;
+              v28 = a1[6];
+              v30 = a1[12];
+              v31 = a1[7];
+              v32 = 0xAAAAAAAAAAAAAAABLL * ((v31 - v28) >> 3);
+              if (v30 + 1 <= v32)
               {
-                if (v32 + 1 < v34)
+                if (v30 + 1 < v32)
                 {
-                  v35 = v30 + 24 * v32 + 24;
-                  if (v33 != v35)
+                  v33 = v28 + 24 * v30 + 24;
+                  if (v31 != v33)
                   {
-                    v36 = *(a1 + 56);
+                    v34 = a1[7];
                     do
                     {
-                      v38 = *(v36 - 24);
-                      v36 -= 24;
-                      v37 = v38;
-                      if (v38)
+                      v36 = *(v34 - 24);
+                      v34 -= 24;
+                      v35 = v36;
+                      if (v36)
                       {
-                        *(v33 - 16) = v37;
-                        operator delete(v37);
+                        *(v31 - 16) = v35;
+                        operator delete(v35);
                       }
 
-                      v33 = v36;
+                      v31 = v34;
                     }
 
-                    while (v36 != v35);
+                    while (v34 != v33);
                   }
 
-                  *(a1 + 56) = v35;
+                  a1[7] = v33;
                 }
               }
 
               else
               {
-                std::vector<std::vector<long>>::__append(a1 + 48, v32 + 1 - v34);
+                std::vector<std::vector<long>>::__append((a1 + 6), v30 + 1 - v32);
               }
 
-              v39 = *(a1 + 96);
-              if ((v39 & 0x8000000000000000) == 0)
+              v37 = a1[12];
+              if ((v37 & 0x8000000000000000) == 0)
               {
-                v40 = 0;
-                v41 = *(a1 + 120);
+                v38 = 0;
+                v39 = a1[15];
                 do
                 {
-                  v42 = (*v31 + 24 * v40);
-                  v43 = (v42[1] - *v42) >> 3;
-                  if (v41 <= v43)
+                  v40 = (*v29 + 24 * v38);
+                  v41 = (v40[1] - *v40) >> 3;
+                  if (v39 <= v41)
                   {
-                    if (v41 < v43)
+                    if (v39 < v41)
                     {
-                      v42[1] = *v42 + 8 * v41;
+                      v40[1] = *v40 + 8 * v39;
                     }
                   }
 
                   else
                   {
-                    std::vector<long>::__append(v42, v41 - v43);
-                    v41 = *(a1 + 120);
+                    std::vector<long>::__append(v40, v39 - v41);
+                    v39 = a1[15];
                   }
 
-                  if (v41 >= 1)
+                  if (v39 >= 1)
                   {
-                    v44 = 0;
-                    v45 = *(*v31 + 24 * v40);
+                    v42 = 0;
+                    v43 = *(*v29 + 24 * v38);
                     do
                     {
-                      *(v45 + 8 * v44++) = 0;
-                      v41 = *(a1 + 120);
+                      *(v43 + 8 * v42++) = 0;
+                      v39 = a1[15];
                     }
 
-                    while (v44 < v41);
+                    while (v42 < v39);
                   }
 
-                  v39 = *(a1 + 96);
-                  v70 = v40++ < v39;
+                  v37 = a1[12];
+                  v68 = v38++ < v37;
                 }
 
-                while (v70);
+                while (v68);
               }
 
-              GKCMinmaxStrategist::findBestMoveNPlayer(a1, v28, v39, &v95, &v94);
+              GKCMinmaxStrategist::findBestMoveNPlayer(a1, v26, v37, &v93, &v92);
             }
 
-            v46 = *(a1 + 40);
-            if (!v46)
+            v44 = a1[5];
+            if (!v44)
             {
               goto LABEL_104;
             }
 
-            v47 = (a1 + 24);
-            std::list<GKCMoveData>::__sort<GKCMinmaxStrategist::findBestMoveForPlayer(objc_object  {objcproto17GKGameModelPlayer}*,BOOL)::{lambda(GKCMoveData const&,GKCMoveData const)#1}>(*(a1 + 32), (a1 + 24), v46);
-            v48 = *(a1 + 32);
-            v49 = *(v48 + 4);
-            if (v49 == -1)
+            v45 = a1 + 3;
+            std::list<GKCMoveData>::__sort<GKCMinmaxStrategist::findBestMoveForPlayer(objc_object  {objcproto17GKGameModelPlayer}*,BOOL)::{lambda(GKCMoveData const&,GKCMoveData const)#1}>(a1[4], a1 + 3, v44, &__p);
+            v46 = a1[4];
+            v47 = *(v46 + 32);
+            if (v47 == -1)
             {
-              std::list<GKCMoveData>::__sort<GKCMinmaxStrategist::findBestMoveForPlayer(objc_object  {objcproto17GKGameModelPlayer}*,BOOL)::{lambda(GKCMoveData const&,GKCMoveData const)#3}>(*(a1 + 32), (a1 + 24), *(a1 + 40));
-              v50 = *(a1 + 32);
-              if (v50 != v47)
+              std::list<GKCMoveData>::__sort<GKCMinmaxStrategist::findBestMoveForPlayer(objc_object  {objcproto17GKGameModelPlayer}*,BOOL)::{lambda(GKCMoveData const&,GKCMoveData const)#3}>(a1[4], a1 + 3, a1[5], &__p);
+              v48 = a1[4];
+              if (v48 != v45)
               {
-                v51 = *(v50 + 5);
-                while (*(v50 + 5) >= v51)
+                v49 = v48[5];
+                while (v48[5] >= v49)
                 {
-                  v50 = *(v50 + 1);
-                  if (v50 == v47)
+                  v48 = v48[1];
+                  if (v48 == v45)
                   {
                     goto LABEL_92;
                   }
                 }
 
-                if (v50 != v47)
+                if (v48 != v45)
                 {
-                  for (i = *(v50 + 1); i != v47; i = *(i + 8))
+                  for (i = v48[1]; i != v45; i = *(i + 8))
                   {
-                    if (*(i + 40) >= v51)
+                    if (*(i + 40) >= v49)
                     {
-                      objc_storeStrong(v50 + 2, *(i + 16));
-                      v87 = *(i + 24);
-                      *(v50 + 5) = *(i + 40);
-                      *(v50 + 24) = v87;
-                      v50 = *(v50 + 1);
+                      objc_storeStrong(v48 + 2, *(i + 16));
+                      v85 = *(i + 24);
+                      v48[5] = *(i + 40);
+                      *(v48 + 3) = v85;
+                      v48 = v48[1];
                     }
                   }
                 }
 
-                if (v50 != v47)
+                if (v48 != v45)
                 {
-                  v88 = *(*v47 + 8);
-                  v89 = *v50;
-                  *(v89 + 8) = v88;
-                  *v88 = v89;
+                  v86 = *(*v45 + 8);
+                  v87 = *v48;
+                  *(v87 + 8) = v86;
+                  *v86 = v87;
                   do
                   {
-                    v90 = *(v50 + 1);
-                    --*(a1 + 40);
+                    v88 = v48[1];
+                    --a1[5];
 
-                    operator delete(v50);
-                    v50 = v90;
+                    operator delete(v48);
+                    v48 = v88;
                   }
 
-                  while (v90 != v47);
+                  while (v88 != v45);
                 }
               }
             }
 
-            else if (v49 == 1)
+            else if (v47 == 1)
             {
-              if (v48 != v47)
+              if (v46 != v45)
               {
-                while (*(v48 + 4) >= 1)
+                while (*(v46 + 32) >= 1)
                 {
-                  v48 = *(v48 + 1);
-                  if (v48 == v47)
+                  v46 = *(v46 + 8);
+                  if (v46 == v45)
                   {
                     goto LABEL_77;
                   }
                 }
 
-                if (v48 != v47)
+                if (v46 != v45)
                 {
-                  for (j = *(v48 + 1); j != v47; j = *(j + 8))
+                  for (j = *(v46 + 8); j != v45; j = *(j + 8))
                   {
                     if (*(j + 32) >= 1)
                     {
-                      objc_storeStrong(v48 + 2, *(j + 16));
-                      v53 = *(j + 24);
-                      *(v48 + 5) = *(j + 40);
-                      *(v48 + 24) = v53;
-                      v48 = *(v48 + 1);
+                      objc_storeStrong((v46 + 16), *(j + 16));
+                      v51 = *(j + 24);
+                      *(v46 + 40) = *(j + 40);
+                      *(v46 + 24) = v51;
+                      v46 = *(v46 + 8);
                     }
                   }
                 }
 
-                if (v48 != v47)
+                if (v46 != v45)
                 {
-                  v54 = *(*v47 + 8);
-                  v55 = *v48;
-                  v55[1] = v54;
-                  *v54 = v55;
+                  v52 = *(*v45 + 8);
+                  v53 = *v46;
+                  *(v53 + 8) = v52;
+                  *v52 = v53;
                   do
                   {
-                    v56 = *(v48 + 1);
-                    --*(a1 + 40);
+                    v54 = *(v46 + 8);
+                    --a1[5];
 
-                    operator delete(v48);
-                    v48 = v56;
+                    operator delete(v46);
+                    v46 = v54;
                   }
 
-                  while (v56 != v47);
+                  while (v54 != v45);
                 }
               }
 
 LABEL_77:
-              std::list<GKCMoveData>::__sort<GKCMinmaxStrategist::findBestMoveForPlayer(objc_object  {objcproto17GKGameModelPlayer}*,BOOL)::{lambda(GKCMoveData const&,GKCMoveData const)#2}>(*(a1 + 32), (a1 + 24), *(a1 + 40));
-              v57 = *(a1 + 32);
-              if (v57 != v47)
+              std::list<GKCMoveData>::__sort<GKCMinmaxStrategist::findBestMoveForPlayer(objc_object  {objcproto17GKGameModelPlayer}*,BOOL)::{lambda(GKCMoveData const&,GKCMoveData const)#2}>(a1[4], a1 + 3, a1[5], &__p);
+              v55 = a1[4];
+              if (v55 != v45)
               {
-                v58 = *(v57 + 5);
-                while (*(v57 + 5) <= v58)
+                v56 = v55[5];
+                while (v55[5] <= v56)
                 {
-                  v57 = *(v57 + 1);
-                  if (v57 == v47)
+                  v55 = v55[1];
+                  if (v55 == v45)
                   {
                     goto LABEL_92;
                   }
                 }
 
-                if (v57 != v47)
+                if (v55 != v45)
                 {
-                  for (k = *(v57 + 1); k != v47; k = *(k + 8))
+                  for (k = v55[1]; k != v45; k = *(k + 8))
                   {
-                    if (*(k + 40) <= v58)
+                    if (*(k + 40) <= v56)
                     {
-                      objc_storeStrong(v57 + 2, *(k + 16));
-                      v82 = *(k + 24);
-                      *(v57 + 5) = *(k + 40);
-                      *(v57 + 24) = v82;
-                      v57 = *(v57 + 1);
+                      objc_storeStrong(v55 + 2, *(k + 16));
+                      v80 = *(k + 24);
+                      v55[5] = *(k + 40);
+                      *(v55 + 3) = v80;
+                      v55 = v55[1];
                     }
                   }
                 }
 
-                if (v57 != v47)
+                if (v55 != v45)
                 {
-                  v83 = *(*v47 + 8);
-                  v84 = *v57;
-                  *(v84 + 8) = v83;
-                  *v83 = v84;
+                  v81 = *(*v45 + 8);
+                  v82 = *v55;
+                  *(v82 + 8) = v81;
+                  *v81 = v82;
                   do
                   {
-                    v85 = *(v57 + 1);
-                    --*(a1 + 40);
+                    v83 = v55[1];
+                    --a1[5];
 
-                    operator delete(v57);
-                    v57 = v85;
+                    operator delete(v55);
+                    v55 = v83;
                   }
 
-                  while (v85 != v47);
+                  while (v83 != v45);
                 }
               }
             }
 
             else
             {
-              while (v48 != v47)
+              while (v46 != v45)
               {
-                if ((*(v48 + 4) & 0x8000000000000000) != 0)
+                if ((*(v46 + 32) & 0x8000000000000000) != 0)
                 {
-                  if (v48 != v47)
+                  if (v46 != v45)
                   {
-                    for (m = *(v48 + 1); m != v47; m = *(m + 8))
+                    for (m = *(v46 + 8); m != v45; m = *(m + 8))
                     {
                       if ((*(m + 32) & 0x8000000000000000) == 0)
                       {
-                        objc_storeStrong(v48 + 2, *(m + 16));
-                        v60 = *(m + 24);
-                        *(v48 + 5) = *(m + 40);
-                        *(v48 + 24) = v60;
-                        v48 = *(v48 + 1);
+                        objc_storeStrong((v46 + 16), *(m + 16));
+                        v58 = *(m + 24);
+                        *(v46 + 40) = *(m + 40);
+                        *(v46 + 24) = v58;
+                        v46 = *(v46 + 8);
                       }
                     }
                   }
 
-                  if (v48 != v47)
+                  if (v46 != v45)
                   {
-                    v61 = *(*v47 + 8);
-                    v62 = *v48;
-                    v62[1] = v61;
-                    *v61 = v62;
+                    v59 = *(*v45 + 8);
+                    v60 = *v46;
+                    *(v60 + 8) = v59;
+                    *v59 = v60;
                     do
                     {
-                      v63 = *(v48 + 1);
-                      --*(a1 + 40);
+                      v61 = *(v46 + 8);
+                      --a1[5];
 
-                      operator delete(v48);
-                      v48 = v63;
+                      operator delete(v46);
+                      v46 = v61;
                     }
 
-                    while (v63 != v47);
+                    while (v61 != v45);
                   }
 
                   break;
                 }
 
-                v48 = *(v48 + 1);
+                v46 = *(v46 + 8);
               }
 
-              std::list<GKCMoveData>::__sort<GKCMinmaxStrategist::findBestMoveForPlayer(objc_object  {objcproto17GKGameModelPlayer}*,BOOL)::{lambda(GKCMoveData const&,GKCMoveData const)#3}>(*(a1 + 32), (a1 + 24), *(a1 + 40));
+              std::list<GKCMoveData>::__sort<GKCMinmaxStrategist::findBestMoveForPlayer(objc_object  {objcproto17GKGameModelPlayer}*,BOOL)::{lambda(GKCMoveData const&,GKCMoveData const)#3}>(a1[4], a1 + 3, a1[5], &__p);
             }
 
 LABEL_92:
-            std::list<GKCMoveData>::__sort<GKCMinmaxStrategist::findBestMoveForPlayer(objc_object  {objcproto17GKGameModelPlayer}*,BOOL)::{lambda(GKCMoveData const&,GKCMoveData const)#5}>(*(a1 + 32), (a1 + 24), *(a1 + 40));
-            v64 = *(a1 + 88);
+            std::list<GKCMoveData>::__sort<GKCMinmaxStrategist::findBestMoveForPlayer(objc_object  {objcproto17GKGameModelPlayer}*,BOOL)::{lambda(GKCMoveData const&,GKCMoveData const)#5}>(a1[4], a1 + 3, a1[5], &__p);
+            v62 = a1[11];
             if (a3)
             {
-              if (v64)
+              if (v62)
               {
-                v65 = *(a1 + 40);
-                if (*(a1 + 104) < v65)
+                v63 = a1[5];
+                if (a1[13] < v63)
                 {
-                  v65 = *(a1 + 104);
+                  v63 = a1[13];
                 }
 
-                v66 = [v64 nextIntWithUpperBound:v65];
-                v67 = *(a1 + 32);
-                v68 = v67 != v47;
-                if (v67 != v47 && v66 >= 1)
+                v64 = [v62 nextIntWithUpperBound:v63];
+                v65 = a1[4];
+                v66 = v65 != v45;
+                if (v65 != v45 && v64 >= 1)
                 {
-                  v69 = 1;
+                  v67 = 1;
                   do
                   {
-                    v67 = *(v67 + 1);
-                    v68 = v67 != v47;
-                    v70 = v67 != v47 && v69++ < v66;
+                    v65 = *(v65 + 8);
+                    v66 = v65 != v45;
+                    v68 = v65 != v45 && v67++ < v64;
                   }
 
-                  while (v70);
+                  while (v68);
                 }
 
-                if (!v68)
+                if (!v66)
                 {
 LABEL_104:
                   v7 = 0;
@@ -9445,35 +9363,35 @@ LABEL_121:
                 }
 
 LABEL_114:
-                v7 = *(v67 + 2);
+                v7 = *(v65 + 16);
                 goto LABEL_121;
               }
             }
 
-            else if (v64)
+            else if (v62)
             {
-              v71 = *(a1 + 32);
-              v72 = *(v71 + 24);
+              v69 = a1[4];
+              v70 = *(v69 + 24);
               __p = 0;
-              v92 = 0;
-              v93 = 0;
-              if (v71 == v47)
+              v90 = 0;
+              v91 = 0;
+              if (v69 == v45)
               {
-                v74 = 0;
+                v72 = 0;
               }
 
               else
               {
-                v73 = 0;
-                while (*(v71 + 24) >= v72)
+                v71 = 0;
+                while (*(v69 + 24) >= v70)
                 {
-                  if (v73 < v93)
+                  if (v71 < v91)
                   {
-                    *v73 = *(v71 + 16);
-                    v73 += 8;
-                    v92 = v73;
-                    v71 = *(v71 + 8);
-                    if (v71 == v47)
+                    *v71 = *(v69 + 16);
+                    v71 += 8;
+                    v90 = v71;
+                    v69 = *(v69 + 8);
+                    if (v69 == v45)
                     {
                       break;
                     }
@@ -9481,65 +9399,65 @@ LABEL_114:
 
                   else
                   {
-                    v73 = std::vector<NSObject * {__strong}>::__emplace_back_slow_path<NSObject * const {__strong}&>(&__p, (v71 + 16));
-                    v92 = v73;
-                    v71 = *(v71 + 8);
-                    if (v71 == v47)
+                    v71 = std::vector<NSObject * {__strong}>::__emplace_back_slow_path<NSObject * const {__strong}&>(&__p, (v69 + 16));
+                    v90 = v71;
+                    v69 = *(v69 + 8);
+                    if (v69 == v45)
                     {
                       break;
                     }
                   }
                 }
 
-                v64 = *(a1 + 88);
-                v74 = ((v73 - __p) >> 3);
+                v62 = a1[11];
+                v72 = ((v71 - __p) >> 3);
               }
 
-              v75 = [v64 nextIntWithUpperBound:v74];
-              v76 = __p;
-              v7 = *(__p + v75);
-              if (v76)
+              v73 = [v62 nextIntWithUpperBound:v72];
+              v74 = __p;
+              v7 = *(__p + v73);
+              if (v74)
               {
-                v77 = v92;
-                v78 = v76;
-                if (v92 != v76)
+                v75 = v90;
+                v76 = v74;
+                if (v90 != v74)
                 {
                   do
                   {
-                    v79 = *(v77 - 1);
-                    v77 -= 8;
+                    v77 = *(v75 - 1);
+                    v75 -= 8;
                   }
 
-                  while (v77 != v76);
-                  v78 = __p;
+                  while (v75 != v74);
+                  v76 = __p;
                 }
 
-                v92 = v76;
-                operator delete(v78);
+                v90 = v74;
+                operator delete(v76);
               }
 
               goto LABEL_121;
             }
 
-            v67 = *(a1 + 32);
+            v65 = a1[4];
             goto LABEL_114;
           }
 
           do
           {
 LABEL_15:
-            v18 = *(v16 - 8);
-            v16 -= 8;
+            v16 = *(v14 - 8);
+            v14 -= 8;
           }
 
-          while (v16 != v15);
-          v14 = *(a1 + 96);
-          v17 = *a1;
-          *(a1 + 8) = v15;
-          v19 = (v15 - v17) >> 3;
-          v20 = v14 >= v19;
-          v21 = v14 - v19;
-          if (v14 > v19)
+          while (v14 != v13);
+          v12 = a1[12];
+          v15 = *a1;
+          a1[1] = v13;
+          v17 = (v13 - v15) >> 3;
+          v18 = v12 >= v17;
+          v19 = v12 - v17;
+          if (v12 > v17)
           {
             goto LABEL_22;
           }
@@ -9550,19 +9468,19 @@ LABEL_15:
 
       else
       {
-        v14 = *(a1 + 96);
-        if (v14 > 0)
+        v12 = a1[12];
+        if (v12 > 0)
         {
           goto LABEL_10;
         }
       }
 
-      v14 = 1;
-      *(a1 + 96) = 1;
+      v12 = 1;
+      a1[12] = 1;
+      v13 = *a1;
+      v14 = a1[1];
       v15 = *a1;
-      v16 = *(a1 + 8);
-      v17 = *a1;
-      if (v16 == *a1)
+      if (v14 == *a1)
       {
         goto LABEL_21;
       }
@@ -9579,9 +9497,9 @@ LABEL_122:
   return v7;
 }
 
-void sub_2389A8598(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2389A8598(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::vector<NSObject * {__strong}>::~vector[abi:ne200100](va);
 
   _Unwind_Resume(a1);
@@ -9624,20 +9542,20 @@ void GKCMinmaxStrategist::~GKCMinmaxStrategist(id *this)
     v8 = this[4];
     v9 = *(this[3] + 1);
     v10 = *v8;
-    *(v10 + 8) = v9;
+    v10[1] = v9;
     *v9 = v10;
     this[5] = 0;
-    if (v8 != (this + 3))
+    if (v8 != this + 3)
     {
       do
       {
-        v11 = *(v8 + 1);
+        v11 = v8[1];
 
         operator delete(v8);
         v8 = v11;
       }
 
-      while (v11 != (this + 3));
+      while (v11 != this + 3);
     }
   }
 
@@ -9735,7 +9653,7 @@ double GKCMinmaxStrategist::clearData(GKCMinmaxStrategist *this)
   return result;
 }
 
-uint64_t GKCMinmaxStrategist::findBestMove2Player(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t *a6, void *a7)
+int64_t GKCMinmaxStrategist::findBestMove2Player(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t *a6, uint64_t *a7)
 {
   v13 = a2;
   v14 = v13;
@@ -9867,7 +9785,7 @@ LABEL_30:
 LABEL_37:
           if (*(a1 + 96) == a3)
           {
-            GKCMinmaxStrategist::addMoveToConsideredMoves(a1, v22);
+            GKCMinmaxStrategist::addMoveToConsideredMoves(a1, v22, BestMove2Player, v35, v34);
           }
 
           if (a5 <= a4)

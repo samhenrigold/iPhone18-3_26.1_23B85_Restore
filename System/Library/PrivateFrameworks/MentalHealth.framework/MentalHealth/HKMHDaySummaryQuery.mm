@@ -104,34 +104,28 @@ void __86__HKMHDaySummaryQuery_client_deliverDaySummaries_clearPending_isFinalBa
 
 uint64_t __86__HKMHDaySummaryQuery_client_deliverDaySummaries_clearPending_isFinalBatch_queryUUID___block_invoke_292(void *a1)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   _HKInitializeLogging();
   v2 = *MEMORY[0x277CCC2F0];
   if (os_log_type_enabled(*MEMORY[0x277CCC2F0], OS_LOG_TYPE_DEFAULT))
   {
-    v3 = a1[4];
-    v4 = v2;
-    v5 = objc_opt_class();
-    v6 = MEMORY[0x277CCABB0];
-    v7 = a1[5];
-    v8 = v5;
-    v9 = [v6 numberWithUnsignedInteger:{objc_msgSend(v7, "count")}];
-    v10 = a1[5];
-    v11 = HKSensitiveLogItem();
-    v16 = 138543874;
-    v17 = v5;
-    v18 = 2112;
-    v19 = v9;
-    v20 = 2112;
-    v21 = v11;
-    _os_log_impl(&dword_25895E000, v4, OS_LOG_TYPE_DEFAULT, "[%{public}@] Delivering %@ summaries: %@", &v16, 0x20u);
+    v3 = v2;
+    v4 = objc_opt_class();
+    v5 = MEMORY[0x277CCABB0];
+    v6 = a1[5];
+    v7 = v4;
+    v8 = [v5 numberWithUnsignedInteger:{objc_msgSend(v6, "count")}];
+    v9 = HKSensitiveLogItem();
+    v11 = 138543874;
+    v12 = v4;
+    v13 = 2112;
+    v14 = v8;
+    v15 = 2112;
+    v16 = v9;
+    _os_log_impl(&dword_25895E000, v3, OS_LOG_TYPE_DEFAULT, "[%{public}@] Delivering %@ summaries: %@", &v11, 0x20u);
   }
 
-  v12 = a1[5];
-  v13 = a1[4];
-  result = (*(a1[6] + 16))();
-  v15 = *MEMORY[0x277D85DE8];
-  return result;
+  return (*(a1[6] + 16))();
 }
 
 - (void)queue_populateConfiguration:(id)configuration
@@ -204,37 +198,34 @@ uint64_t __86__HKMHDaySummaryQuery_client_deliverDaySummaries_clearPending_isFin
 
 void __86__HKMHDaySummaryQuery_client_deliverDaySummaries_clearPending_isFinalBatch_queryUUID___block_invoke_cold_1(uint64_t a1, void *a2)
 {
-  v31 = *MEMORY[0x277D85DE8];
-  v3 = *(a1 + 32);
-  v4 = a2;
-  v5 = objc_opt_class();
-  v6 = MEMORY[0x277CCABB0];
-  v7 = *(a1 + 40);
-  v18 = v5;
-  v8 = [v6 numberWithUnsignedInteger:{objc_msgSend(v7, "count")}];
-  v9 = MEMORY[0x277CCABB0];
-  v10 = [*(a1 + 40) firstObject];
-  v11 = [v9 numberWithInteger:{objc_msgSend(v10, "dayIndex")}];
-  v12 = MEMORY[0x277CCABB0];
-  v13 = [*(a1 + 40) lastObject];
-  v14 = [v12 numberWithInteger:{objc_msgSend(v13, "dayIndex")}];
-  v15 = [MEMORY[0x277CCABB0] numberWithBool:*(a1 + 56)];
-  v16 = [MEMORY[0x277CCABB0] numberWithBool:*(a1 + 57)];
+  v29 = *MEMORY[0x277D85DE8];
+  v3 = a2;
+  v4 = objc_opt_class();
+  v5 = MEMORY[0x277CCABB0];
+  v6 = *(a1 + 40);
+  v16 = v4;
+  v7 = [v5 numberWithUnsignedInteger:{objc_msgSend(v6, "count")}];
+  v8 = MEMORY[0x277CCABB0];
+  v9 = [*(a1 + 40) firstObject];
+  v10 = [v8 numberWithInteger:{objc_msgSend(v9, "dayIndex")}];
+  v11 = MEMORY[0x277CCABB0];
+  v12 = [*(a1 + 40) lastObject];
+  v13 = [v11 numberWithInteger:{objc_msgSend(v12, "dayIndex")}];
+  v14 = [MEMORY[0x277CCABB0] numberWithBool:*(a1 + 56)];
+  v15 = [MEMORY[0x277CCABB0] numberWithBool:*(a1 + 57)];
   *buf = 138544642;
-  v20 = v5;
+  v18 = v4;
+  v19 = 2112;
+  v20 = v7;
   v21 = 2112;
-  v22 = v8;
+  v22 = v10;
   v23 = 2112;
-  v24 = v11;
+  v24 = v13;
   v25 = 2112;
   v26 = v14;
   v27 = 2112;
   v28 = v15;
-  v29 = 2112;
-  v30 = v16;
-  _os_log_debug_impl(&dword_25895E000, v4, OS_LOG_TYPE_DEBUG, "[%{public}@] Received batch of %@ summaries (%@ - %@), clear pending: %@, is final: %@", buf, 0x3Eu);
-
-  v17 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(&dword_25895E000, v3, OS_LOG_TYPE_DEBUG, "[%{public}@] Received batch of %@ summaries (%@ - %@), clear pending: %@, is final: %@", buf, 0x3Eu);
 }
 
 @end

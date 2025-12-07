@@ -27,7 +27,7 @@
 
 - (id)debugDescription
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   if ((self[1].super.isa & 0x2000000) != 0)
   {
     v3 = self[3].super.isa + 16;
@@ -90,55 +90,53 @@ LABEL_14:
   }
 
   CFStringAppendFormat(Mutable, 0, @"<%s: %p>\n signature: %s", Name, self, v10);
-  memset(&v19, 0, sizeof(v19));
-  if (isa && dladdr(isa, &v19))
+  memset(&v18, 0, sizeof(v18));
+  if (isa && dladdr(isa, &v18))
   {
     dli_fname = "<unknown invoke library>";
-    if (v19.dli_fname)
+    if (v18.dli_fname)
     {
-      dli_fname = v19.dli_fname;
+      dli_fname = v18.dli_fname;
     }
 
     dli_sname = "<unknown invoke symbol>";
-    if (v19.dli_sname)
+    if (v18.dli_sname)
     {
-      dli_sname = v19.dli_sname;
+      dli_sname = v18.dli_sname;
     }
   }
 
-  if (v6 && dladdr(v6, &v19))
+  if (v6 && dladdr(v6, &v18))
   {
     v13 = "<unknown copy library>";
-    if (v19.dli_fname)
+    if (v18.dli_fname)
     {
-      v13 = v19.dli_fname;
+      v13 = v18.dli_fname;
     }
 
     v14 = "<unknown copy symbol>";
-    if (v19.dli_sname)
+    if (v18.dli_sname)
     {
-      v14 = v19.dli_sname;
+      v14 = v18.dli_sname;
     }
   }
 
-  if (v3 && dladdr(v3, &v19))
+  if (v3 && dladdr(v3, &v18))
   {
     v15 = "<unknown dispose library>";
-    if (v19.dli_fname)
+    if (v18.dli_fname)
     {
-      v15 = v19.dli_fname;
+      v15 = v18.dli_fname;
     }
 
     v16 = "<unknown dispose symbol>";
-    if (v19.dli_sname)
+    if (v18.dli_sname)
     {
-      v16 = v19.dli_sname;
+      v16 = v18.dli_sname;
     }
   }
 
-  result = Mutable;
-  v18 = *MEMORY[0x1E69E9840];
-  return result;
+  return Mutable;
 }
 
 @end

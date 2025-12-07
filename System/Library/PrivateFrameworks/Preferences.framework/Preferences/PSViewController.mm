@@ -130,16 +130,16 @@
 
   if (!WeakRetained)
   {
-    v4 = _PSLoggingFacility();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = _PSLoggingFacility(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      [PSViewController rootController];
+      [(PSViewController *)self rootController];
     }
   }
 
-  v5 = objc_loadWeakRetained(&self->_rootController);
+  v6 = objc_loadWeakRetained(&self->_rootController);
 
-  return v5;
+  return v6;
 }
 
 - (BOOL)_isUndoSupportedInCurrentEnvironment
@@ -200,32 +200,36 @@
 
 - (void)handleCanBeShownFromSuspendedState:(id)state
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   navigationController = [(PSViewController *)self navigationController];
   viewControllers = [navigationController viewControllers];
   v6 = [viewControllers containsObject:self];
 
-  if (v6 && ![(PSViewController *)self canBeShownFromSuspendedState])
+  if (v6)
   {
-    v7 = _PSLoggingFacility();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    canBeShownFromSuspendedState = [(PSViewController *)self canBeShownFromSuspendedState];
+    if ((canBeShownFromSuspendedState & 1) == 0)
     {
-      v8 = objc_opt_class();
-      v9 = NSStringFromClass(v8);
-      v14 = 136315394;
-      v15 = "[PSViewController handleCanBeShownFromSuspendedState:]";
-      v16 = 2112;
-      v17 = v9;
-      _os_log_impl(&dword_18B008000, v7, OS_LOG_TYPE_DEFAULT, "%s: %@ canBeShownFromSuspendedState is NO, popping/dismissing controller.", &v14, 0x16u);
+      v8 = _PSLoggingFacility(canBeShownFromSuspendedState);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+      {
+        v9 = objc_opt_class();
+        v10 = NSStringFromClass(v9);
+        v15 = 136315394;
+        v16 = "[PSViewController handleCanBeShownFromSuspendedState:]";
+        v17 = 2112;
+        v18 = v10;
+        _os_log_impl(&dword_18B008000, v8, OS_LOG_TYPE_DEFAULT, "%s: %@ canBeShownFromSuspendedState is NO, popping/dismissing controller.", &v15, 0x16u);
+      }
+
+      navigationController2 = [(PSViewController *)self navigationController];
+      v12 = [navigationController2 popToViewController:self animated:0];
+
+      navigationController3 = [(PSViewController *)self navigationController];
+      v14 = [navigationController3 popViewControllerAnimated:0];
+
+      [(PSViewController *)self dismissViewControllerAnimated:0 completion:0];
     }
-
-    navigationController2 = [(PSViewController *)self navigationController];
-    v11 = [navigationController2 popToViewController:self animated:0];
-
-    navigationController3 = [(PSViewController *)self navigationController];
-    v13 = [navigationController3 popViewControllerAnimated:0];
-
-    [(PSViewController *)self dismissViewControllerAnimated:0 completion:0];
   }
 }
 
@@ -254,27 +258,28 @@
 - (void)showController:(id)controller animate:(BOOL)animate
 {
   animateCopy = animate;
-  v33 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   controllerCopy = controller;
   navigationController = [(PSViewController *)self navigationController];
   childViewControllers = [navigationController childViewControllers];
 
-  if ([childViewControllers containsObject:controllerCopy])
+  v10 = [childViewControllers containsObject:controllerCopy];
+  if (v10)
   {
-    v10 = _PSLoggingFacility();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v11 = _PSLoggingFacility(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      [PSViewController showController:v10 animate:?];
+      [PSViewController showController:v11 animate:?];
     }
 
-    v11 = _PSLoggingFacility();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v13 = _PSLoggingFacility(v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       [PSListController showController:animate:];
     }
 
-    v12 = _PSLoggingFacility();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v15 = _PSLoggingFacility(v14);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       [PSListController showController:animate:];
     }
@@ -282,26 +287,26 @@
 
   navigationController2 = [(PSViewController *)self navigationController];
 
-  v14 = PKLogForCategory(3);
-  v15 = os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT);
+  v17 = PKLogForCategory(3);
+  v18 = os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT);
   if (navigationController2)
   {
-    if (v15)
+    if (v18)
     {
-      v16 = objc_opt_class();
-      v17 = NSStringFromClass(v16);
-      v18 = NSStringFromSelector(a2);
-      v23 = 138544386;
-      v24 = v17;
-      v25 = 2114;
-      v26 = v18;
-      v27 = 2160;
-      v28 = 1752392040;
-      v29 = 2112;
-      v30 = controllerCopy;
-      v31 = 1024;
-      v32 = animateCopy;
-      _os_log_impl(&dword_18B008000, v14, OS_LOG_TYPE_DEFAULT, "%{public}@: %{public}@ called with %{mask.hash}@, %{BOOL}d", &v23, 0x30u);
+      v19 = objc_opt_class();
+      v20 = NSStringFromClass(v19);
+      v21 = NSStringFromSelector(a2);
+      v26 = 138544386;
+      v27 = v20;
+      v28 = 2114;
+      v29 = v21;
+      v30 = 2160;
+      v31 = 1752392040;
+      v32 = 2112;
+      v33 = controllerCopy;
+      v34 = 1024;
+      v35 = animateCopy;
+      _os_log_impl(&dword_18B008000, v17, OS_LOG_TYPE_DEFAULT, "%{public}@: %{public}@ called with %{mask.hash}@, %{BOOL}d", &v26, 0x30u);
     }
 
     [(PSViewController *)self _showController:controllerCopy animate:animateCopy];
@@ -309,26 +314,26 @@
 
   else
   {
-    if (v15)
+    if (v18)
     {
-      v19 = objc_opt_class();
-      v20 = NSStringFromClass(v19);
-      v21 = NSStringFromSelector(a2);
-      v23 = 138544386;
-      v24 = v20;
-      v25 = 2114;
-      v26 = v21;
-      v27 = 2160;
-      v28 = 1752392040;
-      v29 = 2112;
-      v30 = controllerCopy;
-      v31 = 1024;
-      v32 = animateCopy;
-      _os_log_impl(&dword_18B008000, v14, OS_LOG_TYPE_DEFAULT, "%{public}@: %{public}@ called with %{mask.hash}@, %{BOOL}d but navigationController is nil, stashing.", &v23, 0x30u);
+      v22 = objc_opt_class();
+      v23 = NSStringFromClass(v22);
+      v24 = NSStringFromSelector(a2);
+      v26 = 138544386;
+      v27 = v23;
+      v28 = 2114;
+      v29 = v24;
+      v30 = 2160;
+      v31 = 1752392040;
+      v32 = 2112;
+      v33 = controllerCopy;
+      v34 = 1024;
+      v35 = animateCopy;
+      _os_log_impl(&dword_18B008000, v17, OS_LOG_TYPE_DEFAULT, "%{public}@: %{public}@ called with %{mask.hash}@, %{BOOL}d but navigationController is nil, stashing.", &v26, 0x30u);
     }
 
-    v22 = [[_PSPendingShowControllerPayload alloc] initWithViewControllerToPresent:controllerCopy animate:animateCopy];
-    [(PSViewController *)self setPendingShowControllerPayload:v22];
+    v25 = [[_PSPendingShowControllerPayload alloc] initWithViewControllerToPresent:controllerCopy animate:animateCopy];
+    [(PSViewController *)self setPendingShowControllerPayload:v25];
   }
 }
 
@@ -679,10 +684,10 @@ uint64_t __34__PSViewController_viewDidAppear___block_invoke(uint64_t a1)
 
 - (void)rootController
 {
-  v0 = objc_opt_class();
-  v6 = NSStringFromClass(v0);
+  v1 = objc_opt_class();
+  v7 = NSStringFromClass(v1);
   OUTLINED_FUNCTION_4();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
+  _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
 }
 
 - (void)showController:(os_log_t)log animate:.cold.1(os_log_t log)

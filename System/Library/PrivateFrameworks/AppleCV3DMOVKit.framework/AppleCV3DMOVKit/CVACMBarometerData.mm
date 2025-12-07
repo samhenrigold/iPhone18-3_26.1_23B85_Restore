@@ -84,26 +84,24 @@
 
 - (id)dictionary
 {
-  v13[5] = *MEMORY[0x277D85DE8];
-  v12[0] = @"pr";
+  v12[5] = *MEMORY[0x277D85DE8];
+  v11[0] = @"pr";
   *&v2 = self->_pressure;
   v4 = [MEMORY[0x277CCABB0] numberWithFloat:v2];
-  v13[0] = v4;
-  v12[1] = @"t";
+  v12[0] = v4;
+  v11[1] = @"t";
   v5 = [MEMORY[0x277CCABB0] numberWithDouble:self->_timestamp];
-  v13[1] = v5;
-  v12[2] = @"st";
+  v12[1] = v5;
+  v11[2] = @"st";
   v6 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:self->_syncTimestamp];
-  v13[2] = v6;
-  v12[3] = @"sn";
+  v12[2] = v6;
+  v11[3] = @"sn";
   v7 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:self->_sequenceNumber];
-  v13[3] = v7;
-  v12[4] = @"fi";
+  v12[3] = v7;
+  v11[4] = @"fi";
   v8 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:self->_frameId];
-  v13[4] = v8;
-  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:5];
-
-  v10 = *MEMORY[0x277D85DE8];
+  v12[4] = v8;
+  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:5];
 
   return v9;
 }

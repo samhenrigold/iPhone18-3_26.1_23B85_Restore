@@ -13,38 +13,48 @@
 
   if (v2)
   {
-    v10 = 0;
-    v3 = [objc_alloc(MEMORY[0x277CC1E70]) initWithBundleIdentifier:@"com.apple.facetime" allowPlaceholder:1 error:&v10];
-    v4 = v10;
+    v12 = 0;
+    v3 = [objc_alloc(MEMORY[0x277CC1E70]) initWithBundleIdentifier:@"com.apple.facetime" allowPlaceholder:1 error:&v12];
+    v4 = v12;
+    v5 = v4;
     if (v3)
     {
       applicationState = [v3 applicationState];
-      if (-[NSObject isInstalled](applicationState, "isInstalled") && (-[NSObject isRestricted](applicationState, "isRestricted") & 1) == 0 && ([MEMORY[0x277D42590] isFaceTimeSupported] & 1) != 0)
+      isInstalled = [applicationState isInstalled];
+      if (isInstalled)
       {
-        v6 = 1;
+        isInstalled = [applicationState isRestricted];
+        if ((isInstalled & 1) == 0)
+        {
+          isInstalled = [MEMORY[0x277D42590] isFaceTimeSupported];
+          if (isInstalled)
+          {
+            v8 = 1;
 LABEL_14:
 
-        return v6;
+            return v8;
+          }
+        }
       }
 
-      v7 = __atxlog_handle_default();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+      v9 = __atxlog_handle_default(isInstalled);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
-        *v9 = 0;
-        _os_log_impl(&dword_226368000, v7, OS_LOG_TYPE_DEFAULT, "isOpenableFaceTimeURL: not allowed", v9, 2u);
+        *v11 = 0;
+        _os_log_impl(&dword_226368000, v9, OS_LOG_TYPE_DEFAULT, "isOpenableFaceTimeURL: not allowed", v11, 2u);
       }
     }
 
     else
     {
-      applicationState = __atxlog_handle_default();
+      applicationState = __atxlog_handle_default(v4);
       if (os_log_type_enabled(applicationState, OS_LOG_TYPE_ERROR))
       {
-        [(NSURL(ATX) *)v4 atx_isOpenableFaceTimeURL];
+        [(NSURL(ATX) *)v5 atx_isOpenableFaceTimeURL];
       }
     }
 
-    v6 = 0;
+    v8 = 0;
     goto LABEL_14;
   }
 
@@ -66,11 +76,10 @@ LABEL_14:
 
 - (void)atx_isOpenableFaceTimeURL
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
   selfCopy = self;
-  _os_log_error_impl(&dword_226368000, a2, OS_LOG_TYPE_ERROR, "isOpenableFaceTimeURL: could not obtain record: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_226368000, a2, OS_LOG_TYPE_ERROR, "isOpenableFaceTimeURL: could not obtain record: %@", &v2, 0xCu);
 }
 
 @end

@@ -30,12 +30,12 @@
   return v8;
 }
 
-uint64_t __55__PRRenderingSession_initWithReason_invalidationBlock___block_invoke(uint64_t a1)
+void *__55__PRRenderingSession_initWithReason_invalidationBlock___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) isValid];
   if (result)
   {
-    v3 = PRLogRendering();
+    v3 = PRLogRendering(result);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       __55__PRRenderingSession_initWithReason_invalidationBlock___block_invoke_cold_1(a1, v3);

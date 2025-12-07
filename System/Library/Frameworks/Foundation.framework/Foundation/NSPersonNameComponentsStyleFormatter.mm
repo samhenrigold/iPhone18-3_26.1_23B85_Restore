@@ -29,18 +29,18 @@ id __62___NSPersonNameComponentsStyleFormatter_orderedKeysOfInterest__block_invo
   return result;
 }
 
-uint64_t __76___NSPersonNameComponentsStyleFormatter__orderedNonEmptyKeysFromComponents___block_invoke(uint64_t a1, uint64_t a2)
+void *__76___NSPersonNameComponentsStyleFormatter__orderedNonEmptyKeysFromComponents___block_invoke(uint64_t a1, uint64_t a2)
 {
   result = [*(a1 + 32) valueForKeyPath:a2];
   if (result)
   {
-    return [objc_msgSend(*(a1 + 32) valueForKeyPath:{a2), "length"}] != 0;
+    return ([objc_msgSend(*(a1 + 32) valueForKeyPath:{a2), "length"}] != 0);
   }
 
   return result;
 }
 
-uint64_t __102___NSPersonNameComponentsStyleFormatter__formattedStringFromOrderedKeys_components_attributesByRange___block_invoke(uint64_t a1, void *a2, char *a3)
+void *__102___NSPersonNameComponentsStyleFormatter__formattedStringFromOrderedKeys_components_attributesByRange___block_invoke(uint64_t a1, void *a2, char *a3)
 {
   v4 = a2;
   v6 = [*(a1 + 32) valueForKeyPath:a2];

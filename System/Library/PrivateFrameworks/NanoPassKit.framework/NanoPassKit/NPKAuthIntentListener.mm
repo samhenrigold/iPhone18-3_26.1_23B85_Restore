@@ -28,7 +28,6 @@
   hidSystemClient = self->_hidSystemClient;
   if (hidSystemClient)
   {
-    v4 = self->_hidSystemClient;
     IOHIDEventSystemClientUnregisterEventBlock();
     handlerQueue = [(NPKButtonListener *)self handlerQueue];
     MEMORY[0x25F8669F0](hidSystemClient, handlerQueue);
@@ -37,27 +36,26 @@
     self->_hidSystemClient = 0;
   }
 
-  v6.receiver = self;
-  v6.super_class = NPKAuthIntentListener;
-  [(NPKAuthIntentListener *)&v6 dealloc];
+  v5.receiver = self;
+  v5.super_class = NPKAuthIntentListener;
+  [(NPKAuthIntentListener *)&v5 dealloc];
 }
 
 - (void)_initializeHIDClient
 {
-  v3 = pk_Payment_log();
+  v3 = pk_Payment_log(self);
   v4 = os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT);
 
   if (v4)
   {
-    v5 = pk_Payment_log();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = pk_Payment_log(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       LOWORD(buf[0]) = 0;
-      _os_log_impl(&dword_25B300000, v5, OS_LOG_TYPE_DEFAULT, "Notice: initializing HID client", buf, 2u);
+      _os_log_impl(&dword_25B300000, v6, OS_LOG_TYPE_DEFAULT, "Notice: initializing HID client", buf, 2u);
     }
   }
 
-  v6 = *MEMORY[0x277CBECE8];
   v7 = IOHIDEventSystemClientCreate();
   if (v7)
   {
@@ -67,25 +65,25 @@
     IOHIDEventSystemClientScheduleWithDispatchQueue();
 
     objc_initWeak(buf, self);
-    objc_copyWeak(&v13, buf);
+    objc_copyWeak(&v14, buf);
     IOHIDEventSystemClientRegisterEventBlock();
     [(NPKAuthIntentListener *)self setHidSystemClient:v8];
-    objc_destroyWeak(&v13);
+    objc_destroyWeak(&v14);
     objc_destroyWeak(buf);
   }
 
   else
   {
-    v10 = pk_Payment_log();
+    v10 = pk_Payment_log(0);
     v11 = os_log_type_enabled(v10, OS_LOG_TYPE_ERROR);
 
     if (v11)
     {
-      v12 = pk_Payment_log();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      v13 = pk_Payment_log(v12);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
         LOWORD(buf[0]) = 0;
-        _os_log_impl(&dword_25B300000, v12, OS_LOG_TYPE_ERROR, "Error: ButtonController:IOHIDEventSystemClientCreate create failed\n", buf, 2u);
+        _os_log_impl(&dword_25B300000, v13, OS_LOG_TYPE_ERROR, "Error: ButtonController:IOHIDEventSystemClientCreate create failed\n", buf, 2u);
       }
     }
   }

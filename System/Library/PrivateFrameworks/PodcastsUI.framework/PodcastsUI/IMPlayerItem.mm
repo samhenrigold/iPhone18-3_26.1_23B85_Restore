@@ -185,7 +185,7 @@
   v6 = asset2;
   if (asset2)
   {
-    [asset2 duration];
+    objc_msgSend_duration(asset2);
   }
 
   else
@@ -504,7 +504,7 @@ BOOL __30__IMPlayerItem_chapterAtTime___block_invoke(uint64_t a1, void *a2)
     v6 = *(a1 + 32);
     [v3 time];
     v8 = v7;
-    [v3 duration];
+    objc_msgSend_duration(v3);
     if (v6 < v8 + v9 && [v3 metadataType] == 3)
     {
       v10 = 1;
@@ -814,14 +814,14 @@ void __28__IMPlayerItem_loadChapters__block_invoke_3(uint64_t a1)
   v20 = *(a1 + 40);
   if (v20)
   {
-    [v20 timeRange];
+    objc_msgSend_timeRange(v20);
   }
 
   time = *(v37 + 8);
   v34 = v36;
   v35 = *&v37[0];
   [v3 setDuration:CMTimeGetSeconds(&time)];
-  [v3 duration];
+  objc_msgSend_duration(v3);
   if (v21 >= 0.05)
   {
     if ([v3 metadataType] != 1 || (objc_msgSend(v3, "title"), v22 = objc_claimAutoreleasedReturnValue(), v23 = objc_msgSend(v22, "length"), v22, v23))
@@ -848,7 +848,7 @@ LABEL_16:
   objc_autoreleasePoolPop(v2);
 }
 
-uint64_t __28__IMPlayerItem_loadChapters__block_invoke_4(uint64_t a1)
+void *__28__IMPlayerItem_loadChapters__block_invoke_4(uint64_t a1)
 {
   result = [*(a1 + 32) containsObject:*(a1 + 40)];
   if ((result & 1) == 0)
@@ -915,14 +915,14 @@ void __28__IMPlayerItem_loadChapters__block_invoke_5(uint64_t a1)
       [v8 setType:0];
       [v12 time];
       [v8 setTime:?];
-      [v12 duration];
+      objc_msgSend_duration(v12);
       [v8 setDuration:?];
       if (v12)
       {
-        [v12 mediaTimeRange];
+        objc_msgSend_mediaTimeRange(v12);
         lhs[0] = lhs[1];
         [v8 setMediaTimeRange:lhs];
-        [v12 assetTimeRange];
+        objc_msgSend_assetTimeRange(v12);
       }
 
       else
@@ -942,7 +942,7 @@ void __28__IMPlayerItem_loadChapters__block_invoke_5(uint64_t a1)
         memset(&start, 0, sizeof(start));
         if (v12)
         {
-          [v12 mediaTimeRange];
+          objc_msgSend_mediaTimeRange(v12);
         }
 
         else
@@ -954,12 +954,12 @@ void __28__IMPlayerItem_loadChapters__block_invoke_5(uint64_t a1)
 
         *&lhs[0].start.value = v34;
         lhs[0].start.epoch = v35;
-        [v11 mediaTimeRange];
+        objc_msgSend_mediaTimeRange(v11);
         rhs = v33;
         CMTimeSubtract(&start, &lhs[0].start, &rhs);
         lhs[0].start = start;
         [v11 setDuration:CMTimeGetSeconds(&lhs[0].start)];
-        [v11 mediaTimeRange];
+        objc_msgSend_mediaTimeRange(v11);
         *&lhs[0].start.value = v30;
         lhs[0].start.epoch = v31;
         rhs = start;
@@ -980,14 +980,14 @@ void __28__IMPlayerItem_loadChapters__block_invoke_5(uint64_t a1)
 
         [v8 time];
         v16 = v15;
-        [v8 duration];
+        objc_msgSend_duration(v8);
         [v8 setDuration:v16 + v17];
         [v8 setTime:0.0];
         if (v8)
         {
-          [v8 mediaTimeRange];
+          objc_msgSend_mediaTimeRange(v8);
           start = *&v42[1];
-          [v8 mediaTimeRange];
+          objc_msgSend_mediaTimeRange(v8);
         }
 
         else
@@ -1023,11 +1023,11 @@ LABEL_20:
 LABEL_24:
 
   memset(&start, 0, sizeof(start));
-  [*(a1 + 40) duration];
+  objc_msgSend_duration(*(a1 + 40));
   CMTimeMakeWithSeconds(&lhs[0].start, v19, 1);
   if (v8)
   {
-    [v8 mediaTimeRange];
+    objc_msgSend_mediaTimeRange(v8);
   }
 
   else
@@ -1044,7 +1044,7 @@ LABEL_24:
   [v8 setDuration:CMTimeGetSeconds(&lhs[0].start)];
   if (v8)
   {
-    [v8 mediaTimeRange];
+    objc_msgSend_mediaTimeRange(v8);
   }
 
   else
@@ -1104,7 +1104,7 @@ uint64_t __28__IMPlayerItem_loadChapters__block_invoke_7(uint64_t a1, void *a2, 
   v5 = a3;
   if (v4)
   {
-    [v4 mediaTimeRange];
+    objc_msgSend_mediaTimeRange(v4);
   }
 
   else
@@ -1118,7 +1118,7 @@ uint64_t __28__IMPlayerItem_loadChapters__block_invoke_7(uint64_t a1, void *a2, 
   time1.epoch = v11;
   if (v5)
   {
-    [v5 mediaTimeRange];
+    objc_msgSend_mediaTimeRange(v5);
   }
 
   else
@@ -1136,7 +1136,7 @@ uint64_t __28__IMPlayerItem_loadChapters__block_invoke_7(uint64_t a1, void *a2, 
   {
     if (v4)
     {
-      [v4 mediaTimeRange];
+      objc_msgSend_mediaTimeRange(v4);
     }
 
     else
@@ -1147,7 +1147,7 @@ uint64_t __28__IMPlayerItem_loadChapters__block_invoke_7(uint64_t a1, void *a2, 
     time1 = v8[2];
     if (v5)
     {
-      [v5 mediaTimeRange];
+      objc_msgSend_mediaTimeRange(v5);
     }
 
     else

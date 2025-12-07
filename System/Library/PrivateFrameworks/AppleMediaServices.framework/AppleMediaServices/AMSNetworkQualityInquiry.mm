@@ -33,28 +33,28 @@
   return v2;
 }
 
-void __42__AMSNetworkQualityInquiry_sharedInstance__block_invoke()
+void __42__AMSNetworkQualityInquiry_sharedInstance__block_invoke(uint64_t a1)
 {
-  v7 = *MEMORY[0x1E69E9840];
-  v0 = objc_alloc_init(AMSNetworkQualityInquiry);
-  v1 = _MergedGlobals_139;
-  _MergedGlobals_139 = v0;
+  v8 = *MEMORY[0x1E69E9840];
+  v1 = objc_alloc_init(AMSNetworkQualityInquiry);
+  v2 = _MergedGlobals_139;
+  _MergedGlobals_139 = v1;
 
   if (!_MergedGlobals_139)
   {
-    v2 = +[AMSLogConfig sharedConfig];
-    if (!v2)
+    v3 = +[AMSLogConfig sharedConfig];
+    if (!v3)
     {
-      v2 = +[AMSLogConfig sharedConfig];
+      v3 = +[AMSLogConfig sharedConfig];
     }
 
-    v3 = [v2 OSLogObject];
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    v4 = [v3 OSLogObject];
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v5 = 138543362;
-      v6 = objc_opt_class();
-      v4 = v6;
-      _os_log_impl(&dword_192869000, v3, OS_LOG_TYPE_DEFAULT, "%{public}@: The network quality inquiry failed to initialize.", &v5, 0xCu);
+      v6 = 138543362;
+      v7 = objc_opt_class();
+      v5 = v7;
+      _os_log_impl(&dword_192869000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@: The network quality inquiry failed to initialize.", &v6, 0xCu);
     }
   }
 }

@@ -150,7 +150,7 @@ void __35___UIButtonBar_itemAtPoint_inView___block_invoke(uint64_t a1, void *a2,
   }
 }
 
-uint64_t __46___UIButtonBar__forwardEnumerateVisibleItems___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
+void *__46___UIButtonBar__forwardEnumerateVisibleItems___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
   result = [a2 enumerateVisibleItems:*(a1 + 32)];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -158,7 +158,7 @@ uint64_t __46___UIButtonBar__forwardEnumerateVisibleItems___block_invoke(uint64_
   return result;
 }
 
-uint64_t __46___UIButtonBar__forwardEnumerateVisibleItems___block_invoke_2(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
+void *__46___UIButtonBar__forwardEnumerateVisibleItems___block_invoke_2(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
   result = [a2 enumerateVisibleItems:*(a1 + 32)];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -166,14 +166,14 @@ uint64_t __46___UIButtonBar__forwardEnumerateVisibleItems___block_invoke_2(uint6
   return result;
 }
 
-uint64_t __46___UIButtonBar__forwardEnumerateVisibleItems___block_invoke_3(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
+void *__46___UIButtonBar__forwardEnumerateVisibleItems___block_invoke_3(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
   result = [a2 enumerateVisibleItems:*(a1 + 32)];
   *a4 = result;
   return result;
 }
 
-uint64_t __46___UIButtonBar__reverseEnumerateVisibleItems___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
+void *__46___UIButtonBar__reverseEnumerateVisibleItems___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
   result = [a2 reverseEnumerateVisibleItems:*(a1 + 32)];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -181,7 +181,7 @@ uint64_t __46___UIButtonBar__reverseEnumerateVisibleItems___block_invoke(uint64_
   return result;
 }
 
-uint64_t __46___UIButtonBar__reverseEnumerateVisibleItems___block_invoke_2(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
+void *__46___UIButtonBar__reverseEnumerateVisibleItems___block_invoke_2(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
   result = [a2 reverseEnumerateVisibleItems:*(a1 + 32)];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -189,7 +189,7 @@ uint64_t __46___UIButtonBar__reverseEnumerateVisibleItems___block_invoke_2(uint6
   return result;
 }
 
-uint64_t __46___UIButtonBar__reverseEnumerateVisibleItems___block_invoke_3(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
+void *__46___UIButtonBar__reverseEnumerateVisibleItems___block_invoke_3(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
   result = [a2 reverseEnumerateVisibleItems:*(a1 + 32)];
   *a4 = result;

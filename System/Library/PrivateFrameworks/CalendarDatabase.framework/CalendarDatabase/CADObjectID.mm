@@ -51,11 +51,11 @@
 
 - (CADObjectID)initWithCoder:(id)coder
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   coderCopy = coder;
-  v12.receiver = self;
-  v12.super_class = CADObjectID;
-  v5 = [(CADObjectID *)&v12 init];
+  v11.receiver = self;
+  v11.super_class = CADObjectID;
+  v5 = [(CADObjectID *)&v11 init];
   if (!v5)
   {
     goto LABEL_4;
@@ -78,14 +78,13 @@ LABEL_4:
   {
     entityType = v5->_entityType;
     *buf = 67109120;
-    v14 = entityType;
+    v13 = entityType;
     _os_log_impl(&dword_1DEBB1000, v8, OS_LOG_TYPE_ERROR, "Unknown entity type (%i) in [CADObjectID initWithCoder:]", buf, 8u);
   }
 
   v7 = 0;
 LABEL_8:
 
-  v10 = *MEMORY[0x1E69E9840];
   return v7;
 }
 
@@ -129,22 +128,20 @@ LABEL_8:
 
 - (id)dictionaryRepresentation
 {
-  v11[4] = *MEMORY[0x1E69E9840];
-  v10[0] = @"entityType";
+  v10[4] = *MEMORY[0x1E69E9840];
+  v9[0] = @"entityType";
   v3 = [MEMORY[0x1E696AD98] numberWithInt:self->_entityType];
-  v11[0] = v3;
-  v10[1] = @"rowID";
+  v10[0] = v3;
+  v9[1] = @"rowID";
   v4 = [MEMORY[0x1E696AD98] numberWithInt:self->_entityID];
-  v11[1] = v4;
-  v10[2] = @"dbID";
+  v10[1] = v4;
+  v9[2] = @"dbID";
   v5 = [MEMORY[0x1E696AD98] numberWithInt:self->_databaseID];
-  v11[2] = v5;
-  v10[3] = @"temporary";
+  v10[2] = v5;
+  v9[3] = @"temporary";
   v6 = [MEMORY[0x1E696AD98] numberWithBool:self->_temporary];
-  v11[3] = v6;
-  v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:v10 count:4];
-
-  v8 = *MEMORY[0x1E69E9840];
+  v10[3] = v6;
+  v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:v9 count:4];
 
   return v7;
 }

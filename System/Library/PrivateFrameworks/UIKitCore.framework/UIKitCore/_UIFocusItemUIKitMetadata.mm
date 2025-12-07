@@ -28,7 +28,7 @@
   if ((*&self->_flags & 1) == 0)
   {
     item = [(_UIFocusItemUIKitMetadata *)self item];
-    if (_UIFocusItemIsViewOrRespondsToSelector(item))
+    if (_UIFocusItemIsViewOrRespondsToSelector(item, sel__focusTouchSensitivityStyle))
     {
       _focusTouchSensitivityStyle = [item _focusTouchSensitivityStyle];
     }

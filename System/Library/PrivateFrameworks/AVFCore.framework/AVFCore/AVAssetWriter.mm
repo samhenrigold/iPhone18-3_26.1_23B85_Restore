@@ -277,10 +277,10 @@ LABEL_8:
   if (v3)
   {
     self->_internal->weakReference = [[AVWeakReference alloc] initWithReferencedObject:self];
-    v6.receiver = self;
-    v6.super_class = AVAssetWriter;
-    v4 = [objc_msgSend(MEMORY[0x1E696AEC0] stringWithFormat:@"%@ helper read/write queue", -[AVAssetWriter description](&v6, sel_description)), "UTF8String"];
-    self->_internal->helperReadWriteQueue = av_readwrite_dispatch_queue_create(v4);
+    v7.receiver = self;
+    v7.super_class = AVAssetWriter;
+    v4 = [objc_msgSend(MEMORY[0x1E696AEC0] stringWithFormat:@"%@ helper read/write queue", -[AVAssetWriter description](&v7, sel_description)), "UTF8String"];
+    self->_internal->helperReadWriteQueue = av_readwrite_dispatch_queue_create(v4, v5);
     self->_internal->keyPathDependencyManager = [[AVKeyPathDependencyManager alloc] initWithDependencyHost:self];
     [(AVKeyPathDependencyManager *)self->_internal->keyPathDependencyManager dependencyHostIsFullyInitialized];
   }
@@ -487,7 +487,7 @@ void *__54__AVAssetWriter__setHelper_ifCurrentHelper_withBlock___block_invoke(ui
   if (result)
   {
 
-    return [(CMTime *)result movieFragmentInterval];
+    return objc_msgSend_movieFragmentInterval(result);
   }
 
   else
@@ -521,7 +521,7 @@ void *__54__AVAssetWriter__setHelper_ifCurrentHelper_withBlock___block_invoke(ui
   if (result)
   {
 
-    return [(CMTime *)result initialMovieFragmentInterval];
+    return objc_msgSend_initialMovieFragmentInterval(result);
   }
 
   else
@@ -555,7 +555,7 @@ void *__54__AVAssetWriter__setHelper_ifCurrentHelper_withBlock___block_invoke(ui
   if (result)
   {
 
-    return [(CMTime *)result overallDurationHint];
+    return objc_msgSend_overallDurationHint(result);
   }
 
   else
@@ -651,7 +651,7 @@ LABEL_5:
   if (result)
   {
 
-    return [(CGAffineTransform *)result preferredTransform];
+    return objc_msgSend_preferredTransform(result);
   }
 
   else
@@ -712,7 +712,7 @@ LABEL_5:
   if (result)
   {
 
-    return [(CMTime *)result preferredOutputSegmentInterval];
+    return objc_msgSend_preferredOutputSegmentInterval(result);
   }
 
   else
@@ -738,7 +738,7 @@ LABEL_5:
   if (result)
   {
 
-    return [(CMTime *)result initialSegmentStartTime];
+    return objc_msgSend_initialSegmentStartTime(result);
   }
 
   else
@@ -1021,7 +1021,7 @@ LABEL_8:
   {
     v4 = *MEMORY[0x1E696A278];
     v5[0] = [MEMORY[0x1E696AEC0] stringWithFormat:@"Cannot append tagged buffer group due to mismatch between video layer IDs in tagged buffer group and value of kVTCompressionPropertyKey_MVHEVCVideoLayerIDs in the AVVideoCompressionPropertiesKey sub-dictionary of the input's outputSettings"];
-    return AVLocalizedErrorWithUnderlyingOSStatus(-17698, [MEMORY[0x1E695DF20] dictionaryWithObjects:v5 forKeys:&v4 count:1]);
+    return AVLocalizedErrorWithUnderlyingOSStatus(4294949598, [MEMORY[0x1E695DF20] dictionaryWithObjects:v5 forKeys:&v4 count:1]);
   }
 
   else if (status)
@@ -1035,7 +1035,7 @@ LABEL_8:
     else
     {
 
-      return AVLocalizedErrorWithUnderlyingOSStatus(status, 0);
+      return AVLocalizedErrorWithUnderlyingOSStatus(*&status, 0);
     }
   }
 
@@ -1075,7 +1075,7 @@ LABEL_9:
   memset(&v15, 0, sizeof(v15));
   if (self)
   {
-    [(AVAssetWriter *)self preferredOutputSegmentInterval];
+    objc_msgSend_preferredOutputSegmentInterval(self);
   }
 
   time1 = v15;

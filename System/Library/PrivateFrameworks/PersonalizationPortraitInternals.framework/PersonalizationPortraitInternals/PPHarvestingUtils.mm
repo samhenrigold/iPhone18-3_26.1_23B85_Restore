@@ -21,7 +21,7 @@
 
 + (id)scoredEntitiesFromMapsIntent:(id)intent
 {
-  v84 = *MEMORY[0x277D85DE8];
+  v83 = *MEMORY[0x277D85DE8];
   intentCopy = intent;
   backingStore = [intentCopy backingStore];
   if (objc_opt_respondsToSelector())
@@ -38,52 +38,52 @@
       if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
       {
         *buf = 134217984;
-        v83 = [parameters2 count];
+        v82 = [parameters2 count];
         _os_log_impl(&dword_23224A000, v9, OS_LOG_TYPE_INFO, "PPNamedEntityPlugin: Maps intent parameter count: %tu", buf, 0xCu);
       }
 
-      v67 = v5;
-      v68 = backingStore;
-      v69 = intentCopy;
+      v66 = v5;
+      v67 = backingStore;
+      v68 = intentCopy;
 
-      v75 = objc_opt_new();
+      v74 = objc_opt_new();
       currentLocale = [MEMORY[0x277CBEAF8] currentLocale];
       languageCode = [currentLocale languageCode];
 
-      v79 = 0u;
-      v80 = 0u;
-      v77 = 0u;
       v78 = 0u;
+      v79 = 0u;
+      v76 = 0u;
+      v77 = 0u;
       v11 = parameters2;
-      v12 = [v11 countByEnumeratingWithState:&v77 objects:v81 count:16];
+      v12 = [v11 countByEnumeratingWithState:&v76 objects:v80 count:16];
       if (!v12)
       {
+        v69 = 0;
         v70 = 0;
         v71 = 0;
         v72 = 0;
         v73 = 0;
-        v74 = 0;
         goto LABEL_48;
       }
 
       v13 = v12;
+      v69 = 0;
       v70 = 0;
       v71 = 0;
       v72 = 0;
       v73 = 0;
-      v74 = 0;
-      v14 = *v78;
+      v14 = *v77;
       while (1)
       {
         v15 = 0;
         do
         {
-          if (*v78 != v14)
+          if (*v77 != v14)
           {
             objc_enumerationMutation(v11);
           }
 
-          v16 = *(*(&v77 + 1) + 8 * v15);
+          v16 = *(*(&v76 + 1) + 8 * v15);
           if ((objc_opt_respondsToSelector() & 1) == 0 || (objc_opt_respondsToSelector() & 1) == 0)
           {
             value2 = pp_default_log_handle();
@@ -118,15 +118,15 @@
             {
               value2 = [objc_alloc(MEMORY[0x277D3A420]) initWithName:value category:8 language:languageCode];
               v31 = [objc_alloc(MEMORY[0x277D3A498]) initWithItem:value2 score:0.5];
-              [v75 addObject:v31];
+              [v74 addObject:v31];
 
-              v74 = value;
+              v73 = value;
 LABEL_17:
 
               goto LABEL_18;
             }
 
-            v74 = value;
+            v73 = value;
           }
 
           else
@@ -146,7 +146,7 @@ LABEL_13:
               {
                 v23 = [objc_alloc(MEMORY[0x277D3A420]) initWithName:value2 category:3 language:languageCode];
                 v24 = [objc_alloc(MEMORY[0x277D3A498]) initWithItem:v23 score:0.5];
-                [v75 addObject:v24];
+                [v74 addObject:v24];
               }
 
               goto LABEL_17;
@@ -166,13 +166,13 @@ LABEL_13:
               {
                 value2 = [objc_alloc(MEMORY[0x277D3A420]) initWithName:value3 category:9 language:languageCode];
                 v40 = [objc_alloc(MEMORY[0x277D3A498]) initWithItem:value2 score:0.5];
-                [v75 addObject:v40];
+                [v74 addObject:v40];
 
-                v73 = value3;
+                v72 = value3;
                 goto LABEL_17;
               }
 
-              v73 = value3;
+              v72 = value3;
             }
 
             else
@@ -187,7 +187,7 @@ LABEL_13:
                 firstObject4 = [payloadStringValues4 firstObject];
                 value4 = [firstObject4 value];
 
-                v72 = value4;
+                v71 = value4;
                 goto LABEL_17;
               }
 
@@ -205,13 +205,13 @@ LABEL_13:
                 {
                   value2 = [objc_alloc(MEMORY[0x277D3A420]) initWithName:value5 category:10 language:languageCode];
                   v52 = [objc_alloc(MEMORY[0x277D3A498]) initWithItem:value2 score:0.5];
-                  [v75 addObject:v52];
+                  [v74 addObject:v52];
 
-                  v71 = value5;
+                  v70 = value5;
                   goto LABEL_17;
                 }
 
-                v71 = value5;
+                v70 = value5;
               }
 
               else
@@ -230,13 +230,13 @@ LABEL_13:
                   {
                     value2 = [objc_alloc(MEMORY[0x277D3A420]) initWithName:value6 category:11 language:languageCode];
                     v59 = [objc_alloc(MEMORY[0x277D3A498]) initWithItem:value2 score:0.5];
-                    [v75 addObject:v59];
+                    [v74 addObject:v59];
 
-                    v70 = value6;
+                    v69 = value6;
                     goto LABEL_17;
                   }
 
-                  v70 = value6;
+                  v69 = value6;
                 }
               }
             }
@@ -247,25 +247,25 @@ LABEL_18:
         }
 
         while (v13 != v15);
-        v60 = [v11 countByEnumeratingWithState:&v77 objects:v81 count:16];
+        v60 = [v11 countByEnumeratingWithState:&v76 objects:v80 count:16];
         v13 = v60;
         if (!v60)
         {
 LABEL_48:
 
-          v62 = [PPNamedEntitySupport fullAddressForStreetAddress:v74 city:v73 state:v71 postalCode:v72 country:v70];
-          backingStore = v68;
+          v62 = [PPNamedEntitySupport fullAddressForStreetAddress:v73 city:v72 state:v70 postalCode:v71 country:v69];
+          backingStore = v67;
           if ([v62 length])
           {
             v63 = [objc_alloc(MEMORY[0x277D3A420]) initWithName:v62 category:12 language:languageCode];
             v64 = [objc_alloc(MEMORY[0x277D3A498]) initWithItem:v63 score:0.5];
-            [v75 addObject:v64];
+            [v74 addObject:v64];
           }
 
-          v61 = v75;
+          v61 = v74;
 
-          intentCopy = v69;
-          v5 = v67;
+          intentCopy = v68;
+          v5 = v66;
           goto LABEL_51;
         }
       }
@@ -293,8 +293,6 @@ LABEL_51:
 
     v61 = MEMORY[0x277CBEBF8];
   }
-
-  v65 = *MEMORY[0x277D85DE8];
 
   return v61;
 }
@@ -422,31 +420,31 @@ LABEL_25:
 
 + (id)contactHandlesForSearchableItem:(id)item
 {
-  v55 = *MEMORY[0x277D85DE8];
+  v54 = *MEMORY[0x277D85DE8];
   itemCopy = item;
   v4 = objc_opt_new();
+  v47 = 0u;
   v48 = 0u;
   v49 = 0u;
   v50 = 0u;
-  v51 = 0u;
   attributeSet = [itemCopy attributeSet];
   authors = [attributeSet authors];
 
-  v7 = [authors countByEnumeratingWithState:&v48 objects:v54 count:16];
+  v7 = [authors countByEnumeratingWithState:&v47 objects:v53 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v49;
+    v9 = *v48;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v49 != v9)
+        if (*v48 != v9)
         {
           objc_enumerationMutation(authors);
         }
 
-        v11 = *(*(&v48 + 1) + 8 * i);
+        v11 = *(*(&v47 + 1) + 8 * i);
         v12 = objc_autoreleasePoolPush();
         v13 = MEMORY[0x277D41E30];
         handles = [v11 handles];
@@ -456,34 +454,34 @@ LABEL_25:
         objc_autoreleasePoolPop(v12);
       }
 
-      v8 = [authors countByEnumeratingWithState:&v48 objects:v54 count:16];
+      v8 = [authors countByEnumeratingWithState:&v47 objects:v53 count:16];
     }
 
     while (v8);
   }
 
-  v46 = 0u;
-  v47 = 0u;
-  v44 = 0u;
   v45 = 0u;
+  v46 = 0u;
+  v43 = 0u;
+  v44 = 0u;
   attributeSet2 = [itemCopy attributeSet];
   primaryRecipients = [attributeSet2 primaryRecipients];
 
-  v18 = [primaryRecipients countByEnumeratingWithState:&v44 objects:v53 count:16];
+  v18 = [primaryRecipients countByEnumeratingWithState:&v43 objects:v52 count:16];
   if (v18)
   {
     v19 = v18;
-    v20 = *v45;
+    v20 = *v44;
     do
     {
       for (j = 0; j != v19; ++j)
       {
-        if (*v45 != v20)
+        if (*v44 != v20)
         {
           objc_enumerationMutation(primaryRecipients);
         }
 
-        v22 = *(*(&v44 + 1) + 8 * j);
+        v22 = *(*(&v43 + 1) + 8 * j);
         v23 = objc_autoreleasePoolPush();
         v24 = MEMORY[0x277D41E30];
         handles2 = [v22 handles];
@@ -493,34 +491,34 @@ LABEL_25:
         objc_autoreleasePoolPop(v23);
       }
 
-      v19 = [primaryRecipients countByEnumeratingWithState:&v44 objects:v53 count:16];
+      v19 = [primaryRecipients countByEnumeratingWithState:&v43 objects:v52 count:16];
     }
 
     while (v19);
   }
 
-  v42 = 0u;
-  v43 = 0u;
-  v40 = 0u;
   v41 = 0u;
+  v42 = 0u;
+  v39 = 0u;
+  v40 = 0u;
   attributeSet3 = [itemCopy attributeSet];
   additionalRecipients = [attributeSet3 additionalRecipients];
 
-  v29 = [additionalRecipients countByEnumeratingWithState:&v40 objects:v52 count:16];
+  v29 = [additionalRecipients countByEnumeratingWithState:&v39 objects:v51 count:16];
   if (v29)
   {
     v30 = v29;
-    v31 = *v41;
+    v31 = *v40;
     do
     {
       for (k = 0; k != v30; ++k)
       {
-        if (*v41 != v31)
+        if (*v40 != v31)
         {
           objc_enumerationMutation(additionalRecipients);
         }
 
-        v33 = *(*(&v40 + 1) + 8 * k);
+        v33 = *(*(&v39 + 1) + 8 * k);
         v34 = objc_autoreleasePoolPush();
         v35 = MEMORY[0x277D41E30];
         handles3 = [v33 handles];
@@ -530,13 +528,11 @@ LABEL_25:
         objc_autoreleasePoolPop(v34);
       }
 
-      v30 = [additionalRecipients countByEnumeratingWithState:&v40 objects:v52 count:16];
+      v30 = [additionalRecipients countByEnumeratingWithState:&v39 objects:v51 count:16];
     }
 
     while (v30);
   }
-
-  v38 = *MEMORY[0x277D85DE8];
 
   return v4;
 }

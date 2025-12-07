@@ -81,19 +81,19 @@ void __34__MFMessageAttachmentMigrator_log__block_invoke(uint64_t a1)
 
 void __56__MFMessageAttachmentMigrator_startMigratingAttachments__block_invoke(uint64_t a1)
 {
-  v27 = *MEMORY[0x1E69E9840];
-  v16 = [MEMORY[0x1E699B810] indexSet];
+  v24 = *MEMORY[0x1E69E9840];
+  v13 = [MEMORY[0x1E699B810] indexSet];
   v2 = [*(a1 + 32) library];
-  v17 = [v2 database];
+  v14 = [v2 database];
 
   v3 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[MFMessageAttachmentMigrator startMigratingAttachments]_block_invoke"];
-  v22[0] = MEMORY[0x1E69E9820];
-  v22[1] = 3221225472;
-  v22[2] = __56__MFMessageAttachmentMigrator_startMigratingAttachments__block_invoke_2;
-  v22[3] = &unk_1E7AA43C8;
-  v4 = v16;
-  v23 = v4;
-  [v17 __performReadWithCaller:v3 usingBlock:v22];
+  v19[0] = MEMORY[0x1E69E9820];
+  v19[1] = 3221225472;
+  v19[2] = __56__MFMessageAttachmentMigrator_startMigratingAttachments__block_invoke_2;
+  v19[3] = &unk_1E7AA43C8;
+  v4 = v13;
+  v20 = v4;
+  [v14 __performReadWithCaller:v3 usingBlock:v19];
 
   v5 = +[MFMessageAttachmentMigrator log];
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
@@ -104,44 +104,41 @@ void __56__MFMessageAttachmentMigrator_startMigratingAttachments__block_invoke(u
     _os_log_impl(&dword_1B0389000, v5, OS_LOG_TYPE_DEFAULT, "Found %lu messages to migrate", &buf, 0xCu);
   }
 
-  v7 = *(*(a1 + 32) + 32);
   EFRegisterContentProtectionObserver();
   *&buf = 0;
   *(&buf + 1) = &buf;
-  v25 = 0x2020000000;
-  v26 = 0;
+  v22 = 0x2020000000;
+  v23 = 0;
   [*(a1 + 32) _checkContentProtectionState];
   [*(a1 + 32) _setMigratingAttachmentsOnThread:1];
   do
   {
+    v7 = [*(a1 + 32) migrationState];
+    [v7 lockWhenCondition:0];
+
     v8 = [*(a1 + 32) migrationState];
-    [v8 lockWhenCondition:0];
+    [v8 unlock];
 
-    v9 = [*(a1 + 32) migrationState];
-    [v9 unlock];
-
-    v10 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[MFMessageAttachmentMigrator startMigratingAttachments]_block_invoke"];
-    v18[0] = MEMORY[0x1E69E9820];
-    v18[1] = 3221225472;
-    v18[2] = __56__MFMessageAttachmentMigrator_startMigratingAttachments__block_invoke_2_25;
-    v18[3] = &unk_1E7AA3FC8;
+    v9 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[MFMessageAttachmentMigrator startMigratingAttachments]_block_invoke"];
+    v15[0] = MEMORY[0x1E69E9820];
+    v15[1] = 3221225472;
+    v15[2] = __56__MFMessageAttachmentMigrator_startMigratingAttachments__block_invoke_2_25;
+    v15[3] = &unk_1E7AA3FC8;
     p_buf = &buf;
-    v11 = v4;
-    v12 = *(a1 + 32);
-    v19 = v11;
-    v20 = v12;
-    [v17 __performWriteWithCaller:v10 usingBlock:v18];
+    v10 = v4;
+    v11 = *(a1 + 32);
+    v16 = v10;
+    v17 = v11;
+    [v14 __performWriteWithCaller:v9 usingBlock:v15];
   }
 
   while (*(*(&buf + 1) + 24) != 0x7FFFFFFFFFFFFFFFLL);
   [*(a1 + 32) _setMigratingAttachmentsOnThread:0];
-  v13 = *(a1 + 32);
   EFUnregisterContentProtectionObserver();
-  v14 = [*(a1 + 32) library];
-  [v14 attachmentMigrationFinished];
+  v12 = [*(a1 + 32) library];
+  [v12 attachmentMigrationFinished];
 
   _Block_object_dispose(&buf, 8);
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __56__MFMessageAttachmentMigrator_startMigratingAttachments__block_invoke_2(uint64_t a1, void *a2)
@@ -168,7 +165,7 @@ void __56__MFMessageAttachmentMigrator_startMigratingAttachments__block_invoke_3
 
 uint64_t __56__MFMessageAttachmentMigrator_startMigratingAttachments__block_invoke_2_25(uint64_t a1, void *a2)
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = 0;
   v5 = 1;
@@ -239,14 +236,13 @@ LABEL_13:
       v14 = @"successful";
     }
 
-    v17 = 134218242;
-    v18 = v4;
-    v19 = 2112;
-    v20 = v14;
-    _os_log_impl(&dword_1B0389000, v13, OS_LOG_TYPE_DEFAULT, "Migration for %lu messages was %@", &v17, 0x16u);
+    v16 = 134218242;
+    v17 = v4;
+    v18 = 2112;
+    v19 = v14;
+    _os_log_impl(&dword_1B0389000, v13, OS_LOG_TYPE_DEFAULT, "Migration for %lu messages was %@", &v16, 0x16u);
   }
 
-  v15 = *MEMORY[0x1E69E9840];
   return v5 & 1;
 }
 
@@ -276,21 +272,20 @@ LABEL_13:
 
 uint64_t __71__MFMessageAttachmentMigrator_migrateAttachmentsForMessageIfNecessary___block_invoke(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = [*(a1 + 32) _migrateAttachmentsForMessage:*(a1 + 40) connection:v3];
   v5 = +[MFMessageAttachmentMigrator log];
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = [*(a1 + 40) ef_publicDescription];
-    v9 = 138543618;
-    v10 = v6;
-    v11 = 1024;
-    v12 = v4;
-    _os_log_impl(&dword_1B0389000, v5, OS_LOG_TYPE_DEFAULT, "Did on demand migration for message %{public}@, success = %d", &v9, 0x12u);
+    v8 = 138543618;
+    v9 = v6;
+    v10 = 1024;
+    v11 = v4;
+    _os_log_impl(&dword_1B0389000, v5, OS_LOG_TYPE_DEFAULT, "Did on demand migration for message %{public}@, success = %d", &v8, 0x12u);
   }
 
-  v7 = *MEMORY[0x1E69E9840];
   return v4;
 }
 
@@ -316,72 +311,72 @@ uint64_t __71__MFMessageAttachmentMigrator_migrateAttachmentsForMessageIfNecessa
 
 - (BOOL)_migrateAttachmentsForMessage:(id)message connection:(id)connection
 {
-  v77 = *MEMORY[0x1E69E9840];
+  v76 = *MEMORY[0x1E69E9840];
   messageCopy = message;
   library = [(MFMessageAttachmentMigrator *)self library];
-  v62 = messageCopy;
+  v61 = messageCopy;
   account = [messageCopy account];
-  v56 = [library messageBasePathForAccount:account];
+  v55 = [library messageBasePathForAccount:account];
 
   v8 = MEMORY[0x1E699B5B0];
   globalMessageID = [messageCopy globalMessageID];
   account2 = [messageCopy account];
-  v11 = [v8 messageDataDirectoryURLForGlobalMessageID:globalMessageID basePath:v56 purgeable:{objc_msgSend(account2, "supportsPurge")}];
+  v11 = [v8 messageDataDirectoryURLForGlobalMessageID:globalMessageID basePath:v55 purgeable:{objc_msgSend(account2, "supportsPurge")}];
 
-  v53 = v11;
-  v59 = [v11 URLByAppendingPathComponent:@"Attachments"];
-  v54 = +[MFAttachmentManager defaultManager];
+  v52 = v11;
+  v58 = [v11 URLByAppendingPathComponent:@"Attachments"];
+  v53 = +[MFAttachmentManager defaultManager];
   library2 = [(MFMessageAttachmentMigrator *)self library];
   persistence = [library2 persistence];
   attachmentPersistenceManager = [persistence attachmentPersistenceManager];
 
-  [v54 attachmentsForMessage:messageCopy withSchemes:0];
+  [v53 attachmentsForMessage:messageCopy withSchemes:0];
+  v67 = 0u;
   v68 = 0u;
-  v69 = 0u;
-  v66 = 0u;
-  obj = v67 = 0u;
-  v14 = [obj countByEnumeratingWithState:&v66 objects:v76 count:16];
+  v65 = 0u;
+  obj = v66 = 0u;
+  v14 = [obj countByEnumeratingWithState:&v65 objects:v75 count:16];
   if (v14)
   {
-    v57 = *v67;
+    v56 = *v66;
     do
     {
-      v60 = v14;
-      for (i = 0; i != v60; ++i)
+      v59 = v14;
+      for (i = 0; i != v59; ++i)
       {
-        if (*v67 != v57)
+        if (*v66 != v56)
         {
           objc_enumerationMutation(obj);
         }
 
-        v16 = *(*(&v66 + 1) + 8 * i);
+        v16 = *(*(&v65 + 1) + 8 * i);
         v17 = _os_activity_create(&dword_1B0389000, "Migrate message attachment", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
         state.opaque[0] = 0xAAAAAAAAAAAAAAAALL;
         state.opaque[1] = 0xAAAAAAAAAAAAAAAALL;
-        v61 = v17;
+        v60 = v17;
         os_activity_scope_enter(v17, &state);
         v18 = +[MFMessageAttachmentMigrator log];
         if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
         {
-          ef_publicDescription = [v62 ef_publicDescription];
+          ef_publicDescription = [v61 ef_publicDescription];
           ef_publicDescription2 = [v16 ef_publicDescription];
           *buf = 138412546;
-          v71 = ef_publicDescription;
-          v72 = 2112;
-          v73 = ef_publicDescription2;
+          v70 = ef_publicDescription;
+          v71 = 2112;
+          v72 = ef_publicDescription2;
           _os_log_impl(&dword_1B0389000, v18, OS_LOG_TYPE_DEFAULT, "Migrating message %@ attachment %@", buf, 0x16u);
         }
 
         v21 = objc_alloc(MEMORY[0x1E699B590]);
-        globalMessageID2 = [v62 globalMessageID];
+        globalMessageID2 = [v61 globalMessageID];
         fileName = [v16 fileName];
         part = [v16 part];
         partNumber = [part partNumber];
         mailDropMetadata = [v16 mailDropMetadata];
         directUrl = [mailDropMetadata directUrl];
-        v63 = [v21 initWithGlobalMessageID:globalMessageID2 name:fileName mimePart:partNumber attachmentID:0 remoteURL:directUrl];
+        v62 = [v21 initWithGlobalMessageID:globalMessageID2 name:fileName mimePart:partNumber attachmentID:0 remoteURL:directUrl];
 
-        v28 = v59;
+        v28 = v58;
         part2 = [v16 part];
         partNumber2 = [part2 partNumber];
 
@@ -402,10 +397,10 @@ uint64_t __71__MFMessageAttachmentMigrator_migrateAttachmentsForMessageIfNecessa
         if (firstObject)
         {
           v38 = [v28 URLByAppendingPathComponent:firstObject];
-          v39 = [MEMORY[0x1E695DFF8] fileURLWithPath:v56];
-          v64 = 0;
-          v40 = [attachmentPersistenceManager persistAttachmentWithURL:v38 attachmentMetadata:v63 basePath:v39 error:&v64];
-          v41 = v64;
+          v39 = [MEMORY[0x1E695DFF8] fileURLWithPath:v55];
+          v63 = 0;
+          v40 = [attachmentPersistenceManager persistAttachmentWithURL:v38 attachmentMetadata:v62 basePath:v39 error:&v63];
+          v41 = v63;
 
           if (v40)
           {
@@ -414,7 +409,7 @@ uint64_t __71__MFMessageAttachmentMigrator_migrateAttachmentsForMessageIfNecessa
 
             [v16 updatePath];
             defaultCenter = [MEMORY[0x1E696AD88] defaultCenter];
-            [defaultCenter postNotificationName:@"LibraryMessageAttachmentDataBecameAvailableNotification" object:v62];
+            [defaultCenter postNotificationName:@"LibraryMessageAttachmentDataBecameAvailableNotification" object:v61];
           }
         }
 
@@ -423,16 +418,16 @@ uint64_t __71__MFMessageAttachmentMigrator_migrateAttachmentsForMessageIfNecessa
           v44 = +[MFMessageAttachmentMigrator log];
           if (os_log_type_enabled(v44, OS_LOG_TYPE_DEFAULT))
           {
-            ef_publicDescription3 = [v62 ef_publicDescription];
+            ef_publicDescription3 = [v61 ef_publicDescription];
             ef_publicDescription4 = [v16 ef_publicDescription];
             *buf = 138412546;
-            v71 = ef_publicDescription3;
-            v72 = 2112;
-            v73 = ef_publicDescription4;
+            v70 = ef_publicDescription3;
+            v71 = 2112;
+            v72 = ef_publicDescription4;
             _os_log_impl(&dword_1B0389000, v44, OS_LOG_TYPE_DEFAULT, "No attachment file for message %@ attachment %@. Persisting attachment metadata", buf, 0x16u);
           }
 
-          v40 = [attachmentPersistenceManager persistAttachmentMetadata:v63];
+          v40 = [attachmentPersistenceManager persistAttachmentMetadata:v62];
           v41 = 0;
         }
 
@@ -449,21 +444,21 @@ uint64_t __71__MFMessageAttachmentMigrator_migrateAttachmentsForMessageIfNecessa
             v48 = @"Unsuccessfully";
           }
 
-          ef_publicDescription5 = [v62 ef_publicDescription];
+          ef_publicDescription5 = [v61 ef_publicDescription];
           ef_publicDescription6 = [v16 ef_publicDescription];
           *buf = 138412802;
-          v71 = v48;
-          v72 = 2112;
-          v73 = ef_publicDescription5;
-          v74 = 2112;
-          v75 = ef_publicDescription6;
+          v70 = v48;
+          v71 = 2112;
+          v72 = ef_publicDescription5;
+          v73 = 2112;
+          v74 = ef_publicDescription6;
           _os_log_impl(&dword_1B0389000, v47, OS_LOG_TYPE_DEFAULT, "%@ migrated message %@ attachment %@", buf, 0x20u);
         }
 
         os_activity_scope_leave(&state);
       }
 
-      v14 = [obj countByEnumeratingWithState:&v66 objects:v76 count:16];
+      v14 = [obj countByEnumeratingWithState:&v65 objects:v75 count:16];
     }
 
     while (v14);
@@ -474,7 +469,6 @@ uint64_t __71__MFMessageAttachmentMigrator_migrateAttachmentsForMessageIfNecessa
     LOBYTE(v40) = 1;
   }
 
-  v51 = *MEMORY[0x1E69E9840];
   return v40;
 }
 
@@ -550,23 +544,23 @@ uint64_t __59__MFMessageAttachmentMigrator__checkContentProtectionState__block_i
 
 + (BOOL)migrateMaildropFileForMessage:(id)message mailDropMetadata:(id)metadata
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   messageCopy = message;
   metadataCopy = metadata;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
     v7 = messageCopy;
-    v36 = +[MFMailMessageLibrary defaultInstance];
+    v35 = +[MFMailMessageLibrary defaultInstance];
     account = [v7 account];
-    v35 = [v36 messageBasePathForAccount:account];
+    v34 = [v35 messageBasePathForAccount:account];
 
     v9 = MEMORY[0x1E699B5B0];
     globalMessageID = [v7 globalMessageID];
     account2 = [v7 account];
-    v12 = [v9 messageDataDirectoryURLForGlobalMessageID:globalMessageID basePath:v35 purgeable:{objc_msgSend(account2, "supportsPurge")}];
+    v12 = [v9 messageDataDirectoryURLForGlobalMessageID:globalMessageID basePath:v34 purgeable:{objc_msgSend(account2, "supportsPurge")}];
 
-    v34 = v12;
+    v33 = v12;
     v13 = [v12 URLByAppendingPathComponent:@"Attachments"];
     fileName = [metadataCopy fileName];
     ef_sanitizedFileName = [fileName ef_sanitizedFileName];
@@ -578,7 +572,7 @@ uint64_t __59__MFMessageAttachmentMigrator__checkContentProtectionState__block_i
 
     if (v9)
     {
-      persistence = [v36 persistence];
+      persistence = [v35 persistence];
       attachmentPersistenceManager = [persistence attachmentPersistenceManager];
 
       v21 = objc_alloc(MEMORY[0x1E699B590]);
@@ -587,7 +581,7 @@ uint64_t __59__MFMessageAttachmentMigrator__checkContentProtectionState__block_i
       directUrl = [metadataCopy directUrl];
       v25 = [v21 initWithGlobalMessageID:globalMessageID2 name:fileName2 mimePart:0 attachmentID:0 remoteURL:directUrl];
 
-      v26 = [MEMORY[0x1E695DFF8] fileURLWithPath:v35];
+      v26 = [MEMORY[0x1E695DFF8] fileURLWithPath:v34];
       v27 = [attachmentPersistenceManager persistAttachmentWithURL:v16 attachmentMetadata:v25 basePath:v26 error:0];
 
       if (v27)
@@ -603,7 +597,7 @@ uint64_t __59__MFMessageAttachmentMigrator__checkContentProtectionState__block_i
       if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v38 = v16;
+        v37 = v16;
         _os_log_impl(&dword_1B0389000, v31, OS_LOG_TYPE_DEFAULT, "No file exists at this path to persist legacy file url: %@", buf, 0xCu);
       }
 
@@ -619,14 +613,13 @@ uint64_t __59__MFMessageAttachmentMigrator__checkContentProtectionState__block_i
       v29 = objc_opt_class();
       v30 = NSStringFromClass(v29);
       *buf = 138543362;
-      v38 = v30;
+      v37 = v30;
       _os_log_impl(&dword_1B0389000, v7, OS_LOG_TYPE_DEFAULT, "Unable to migrateMaildropFileForMessage since current message with class %{public}@ is not MFLibraryMessage", buf, 0xCu);
     }
 
     LOBYTE(v27) = 0;
   }
 
-  v32 = *MEMORY[0x1E69E9840];
   return v27;
 }
 

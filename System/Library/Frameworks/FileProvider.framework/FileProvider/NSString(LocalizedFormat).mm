@@ -8,29 +8,29 @@
 - (id)fp_localizedFormatWithKeys:()LocalizedFormat fromDictionary:error:
 {
   selfCopy = self;
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   v6 = a3;
   v7 = a4;
   v8 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(v6, "count")}];
-  v23 = 0u;
-  v24 = 0u;
-  v21 = 0u;
   v22 = 0u;
+  v23 = 0u;
+  v20 = 0u;
+  v21 = 0u;
   v9 = v6;
-  v10 = [v9 countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v10)
   {
-    v11 = *v22;
+    v11 = *v21;
     while (2)
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v22 != v11)
+        if (*v21 != v11)
         {
           objc_enumerationMutation(v9);
         }
 
-        v13 = [v7 fp_valueForKeyPath:{*(*(&v21 + 1) + 8 * i), selfCopy}];
+        v13 = [v7 fp_valueForKeyPath:{*(*(&v20 + 1) + 8 * i), selfCopy}];
         if (!v13)
         {
           if (a5)
@@ -64,7 +64,7 @@ LABEL_17:
         [v8 addObject:v15];
       }
 
-      v10 = [v9 countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v10 = [v9 countByEnumeratingWithState:&v20 objects:v24 count:16];
       if (v10)
       {
         continue;
@@ -76,8 +76,6 @@ LABEL_17:
 
   v16 = [selfCopy fp_formatStringWithValues:v8 error:a5];
 LABEL_18:
-
-  v17 = *MEMORY[0x1E69E9840];
 
   return v16;
 }

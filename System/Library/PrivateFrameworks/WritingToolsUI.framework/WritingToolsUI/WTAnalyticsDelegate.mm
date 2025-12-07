@@ -25,28 +25,27 @@
 {
   editableCopy = editable;
   boolCopy = bool;
-  v48[3] = *MEMORY[0x1E69E9840];
+  v49[3] = *MEMORY[0x1E69E9840];
   configCopy = config;
   dCopy = d;
-  v37.receiver = self;
-  v37.super_class = WTAnalyticsDelegate;
-  v14 = [(WTAnalyticsDelegate *)&v37 init];
+  v38.receiver = self;
+  v38.super_class = WTAnalyticsDelegate;
+  v14 = [(WTAnalyticsDelegate *)&v38 init];
   v15 = v14;
   if (v14)
   {
     [(WTAnalyticsDelegate *)v14 setFromSmartReply:boolCopy];
-    [(WTAnalyticsDelegate *)v15 setIsEditableText:editableCopy];
-    v16 = WTIATextAssistantLog();
+    v16 = WTIATextAssistantLog([(WTAnalyticsDelegate *)v15 setIsEditableText:editableCopy]);
     if (os_signpost_enabled(v16))
     {
       *buf = 0;
       _os_signpost_emit_with_name_impl(&dword_1D451D000, v16, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "WTPanelBringup", &unk_1D455D3B5, buf, 2u);
     }
 
-    v17 = WTIATextAssistantLog();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
+    v18 = WTIATextAssistantLog(v17);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
     {
-      [WTAnalyticsDelegate initWithSmartReplyBool:v17 smartReplyConfig:? analyticsUUID:? requestedTool:? isEditable:?];
+      [WTAnalyticsDelegate initWithSmartReplyBool:v18 smartReplyConfig:? analyticsUUID:? requestedTool:? isEditable:?];
     }
 
     if (configCopy)
@@ -64,73 +63,73 @@
     }
 
     objc_storeStrong(&v15->_analyticsUUID, d);
-    v43 = 0;
-    v44 = &v43;
-    v45 = 0x2020000000;
-    v21 = getIASignalWritingToolsPanelAppearedSymbolLoc_ptr;
-    v46 = getIASignalWritingToolsPanelAppearedSymbolLoc_ptr;
+    v44 = 0;
+    v45 = &v44;
+    v46 = 0x2020000000;
+    v22 = getIASignalWritingToolsPanelAppearedSymbolLoc_ptr;
+    v47 = getIASignalWritingToolsPanelAppearedSymbolLoc_ptr;
     if (!getIASignalWritingToolsPanelAppearedSymbolLoc_ptr)
     {
       *buf = MEMORY[0x1E69E9820];
-      v39 = 3221225472;
-      v40 = __getIASignalWritingToolsPanelAppearedSymbolLoc_block_invoke;
-      v41 = &unk_1E8480B48;
-      v42 = &v43;
-      v22 = InputAnalyticsLibrary();
-      v23 = dlsym(v22, "IASignalWritingToolsPanelAppeared");
-      *(v42[1] + 24) = v23;
-      getIASignalWritingToolsPanelAppearedSymbolLoc_ptr = *(v42[1] + 24);
-      v21 = v44[3];
+      v40 = 3221225472;
+      v41 = __getIASignalWritingToolsPanelAppearedSymbolLoc_block_invoke;
+      v42 = &unk_1E8480B48;
+      v43 = &v44;
+      v23 = InputAnalyticsLibrary();
+      v24 = dlsym(v23, "IASignalWritingToolsPanelAppeared");
+      *(v43[1] + 24) = v24;
+      getIASignalWritingToolsPanelAppearedSymbolLoc_ptr = *(v43[1] + 24);
+      v22 = v45[3];
     }
 
-    _Block_object_dispose(&v43, 8);
-    if (!v21)
+    _Block_object_dispose(&v44, 8);
+    if (!v22)
     {
       goto LABEL_17;
     }
 
-    v24 = *v21;
-    v25 = getIAPayloadKeyWritingToolsFeatureDetails();
-    v47[0] = v25;
-    v26 = [(WTAnalyticsDelegate *)v15 getWritingToolsFeatureDetailsForRequestedTool:tool];
+    v25 = *v22;
+    v26 = getIAPayloadKeyWritingToolsFeatureDetails();
     v48[0] = v26;
-    v43 = 0;
-    v44 = &v43;
-    v45 = 0x2020000000;
-    v27 = getIAPayloadKeyWritingToolsUISymbolLoc_ptr;
-    v46 = getIAPayloadKeyWritingToolsUISymbolLoc_ptr;
+    v27 = [(WTAnalyticsDelegate *)v15 getWritingToolsFeatureDetailsForRequestedTool:tool];
+    v49[0] = v27;
+    v44 = 0;
+    v45 = &v44;
+    v46 = 0x2020000000;
+    v28 = getIAPayloadKeyWritingToolsUISymbolLoc_ptr;
+    v47 = getIAPayloadKeyWritingToolsUISymbolLoc_ptr;
     if (!getIAPayloadKeyWritingToolsUISymbolLoc_ptr)
     {
       *buf = MEMORY[0x1E69E9820];
-      v39 = 3221225472;
-      v40 = __getIAPayloadKeyWritingToolsUISymbolLoc_block_invoke;
-      v41 = &unk_1E8480B48;
-      v42 = &v43;
-      v28 = InputAnalyticsLibrary();
-      v29 = dlsym(v28, "IAPayloadKeyWritingToolsUI");
-      *(v42[1] + 24) = v29;
-      getIAPayloadKeyWritingToolsUISymbolLoc_ptr = *(v42[1] + 24);
-      v27 = v44[3];
+      v40 = 3221225472;
+      v41 = __getIAPayloadKeyWritingToolsUISymbolLoc_block_invoke;
+      v42 = &unk_1E8480B48;
+      v43 = &v44;
+      v29 = InputAnalyticsLibrary();
+      v30 = dlsym(v29, "IAPayloadKeyWritingToolsUI");
+      *(v43[1] + 24) = v30;
+      getIAPayloadKeyWritingToolsUISymbolLoc_ptr = *(v43[1] + 24);
+      v28 = v45[3];
     }
 
-    _Block_object_dispose(&v43, 8);
-    if (!v27)
+    _Block_object_dispose(&v44, 8);
+    if (!v28)
     {
 LABEL_17:
       [WTAnalyticsDelegate initWithSmartReplyBool:smartReplyConfig:analyticsUUID:requestedTool:isEditable:];
       __break(1u);
     }
 
-    v30 = *v27;
-    v48[1] = @"Unspecified";
-    v47[1] = v30;
-    v47[2] = @"IsEditable";
-    v31 = MEMORY[0x1E696AD98];
-    v32 = v30;
-    v33 = [v31 numberWithBool:{-[WTAnalyticsDelegate isEditableText](v15, "isEditableText")}];
-    v48[2] = v33;
-    v34 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v48 forKeys:v47 count:3];
-    [(WTAnalyticsDelegate *)v15 sendWritingToolsOnlySignal:v24 withPayload:v34];
+    v31 = *v28;
+    v49[1] = @"Unspecified";
+    v48[1] = v31;
+    v48[2] = @"IsEditable";
+    v32 = MEMORY[0x1E696AD98];
+    v33 = v31;
+    v34 = [v32 numberWithBool:{-[WTAnalyticsDelegate isEditableText](v15, "isEditableText")}];
+    v49[2] = v34;
+    v35 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v49 forKeys:v48 count:3];
+    [(WTAnalyticsDelegate *)v15 sendWritingToolsOnlySignal:v25 withPayload:v35];
 
     defaultCenter = [MEMORY[0x1E696AD88] defaultCenter];
     [defaultCenter addObserver:v15 selector:sel_applicationDidEnterBackground name:*MEMORY[0x1E69DDAC8] object:0];
@@ -157,26 +156,26 @@ LABEL_17:
           v3 = @"SmartReply";
           break;
         case 12:
-          v3 = getIAPayloadValueWritingToolsFeatureDetailsProofreadingReview();
+          v3 = getIAPayloadValueWritingToolsFeatureDetailsProofreadingReview(@"SummaryTransform", a2);
           break;
       }
     }
 
     else if (type == 7)
     {
-      v3 = getIAPayloadValueWritingToolsFeatureDetailsTakeawaysTransform();
+      v3 = getIAPayloadValueWritingToolsFeatureDetailsTakeawaysTransform(@"SummaryTransform", a2);
     }
 
     else
     {
       if (type == 8)
       {
-        getIAPayloadValueWritingToolsFeatureDetailsBulletsTransform();
+        getIAPayloadValueWritingToolsFeatureDetailsBulletsTransform(@"SummaryTransform", a2);
       }
 
       else
       {
-        getIAPayloadValueWritingToolsFeatureDetailsTablesTransform();
+        getIAPayloadValueWritingToolsFeatureDetailsTablesTransform(@"SummaryTransform", a2);
       }
       v3 = ;
     }
@@ -187,13 +186,13 @@ LABEL_17:
     switch(type)
     {
       case 3:
-        v3 = getIAPayloadValueWritingToolsFeatureDetailsProfessionalTone();
+        v3 = getIAPayloadValueWritingToolsFeatureDetailsProfessionalTone(@"SummaryTransform", a2);
         break;
       case 4:
-        v3 = getIAPayloadValueWritingToolsFeatureDetailsConciseTone();
+        v3 = getIAPayloadValueWritingToolsFeatureDetailsConciseTone(@"SummaryTransform", a2);
         break;
       case 5:
-        v3 = getIAPayloadValueWritingToolsFeatureDetailsOpenEndedTone();
+        v3 = getIAPayloadValueWritingToolsFeatureDetailsOpenEndedTone(@"SummaryTransform", a2);
         break;
     }
   }
@@ -202,36 +201,37 @@ LABEL_17:
   {
     if (type == 1)
     {
-      v3 = getIAPayloadValueWritingToolsFeatureDetailsMagicRewrite();
+      v3 = getIAPayloadValueWritingToolsFeatureDetailsMagicRewrite(@"SummaryTransform", a2);
     }
 
     else if (type == 2)
     {
-      v3 = getIAPayloadValueWritingToolsFeatureDetailsFriendlyTone();
+      v3 = getIAPayloadValueWritingToolsFeatureDetailsFriendlyTone(@"SummaryTransform", a2);
     }
   }
 
   else
   {
-    v8 = 0;
-    v9 = &v8;
-    v10 = 0x2020000000;
+    v9 = 0;
+    v10 = &v9;
+    v11 = 0x2020000000;
     v4 = getIAPayloadValueWritingToolsFeatureDetailsGenericSymbolLoc_ptr;
-    v11 = getIAPayloadValueWritingToolsFeatureDetailsGenericSymbolLoc_ptr;
+    v12 = getIAPayloadValueWritingToolsFeatureDetailsGenericSymbolLoc_ptr;
     if (!getIAPayloadValueWritingToolsFeatureDetailsGenericSymbolLoc_ptr)
     {
       v5 = InputAnalyticsLibrary();
-      v9[3] = dlsym(v5, "IAPayloadValueWritingToolsFeatureDetailsGeneric");
-      getIAPayloadValueWritingToolsFeatureDetailsGenericSymbolLoc_ptr = v9[3];
-      v4 = v9[3];
+      v10[3] = dlsym(v5, "IAPayloadValueWritingToolsFeatureDetailsGeneric");
+      getIAPayloadValueWritingToolsFeatureDetailsGenericSymbolLoc_ptr = v10[3];
+      v4 = v10[3];
     }
 
-    _Block_object_dispose(&v8, 8);
+    _Block_object_dispose(&v9, 8);
     if (!v4)
     {
-      v7 = [WTAnalyticsDelegate initWithSmartReplyBool:smartReplyConfig:analyticsUUID:requestedTool:isEditable:];
-      _Block_object_dispose(&v8, 8);
-      _Unwind_Resume(v7);
+      [WTAnalyticsDelegate initWithSmartReplyBool:smartReplyConfig:analyticsUUID:requestedTool:isEditable:];
+      v8 = v7;
+      _Block_object_dispose(&v9, 8);
+      _Unwind_Resume(v8);
     }
 
     v3 = *v4;
@@ -251,7 +251,7 @@ LABEL_17:
       {
         if (tool == 2)
         {
-          v3 = getIAPayloadValueWritingToolsFeatureDetailsMagicRewrite();
+          v3 = getIAPayloadValueWritingToolsFeatureDetailsMagicRewrite(@"Index", a2);
           goto LABEL_31;
         }
 
@@ -261,20 +261,20 @@ LABEL_17:
         }
       }
 
-      v3 = getIAPayloadValueWritingToolsFeatureDetailsProofreadingReview();
+      v3 = getIAPayloadValueWritingToolsFeatureDetailsProofreadingReview(@"Index", a2);
       goto LABEL_31;
     }
 
     switch(tool)
     {
       case 11:
-        v3 = getIAPayloadValueWritingToolsFeatureDetailsFriendlyTone();
+        v3 = getIAPayloadValueWritingToolsFeatureDetailsFriendlyTone(@"Index", a2);
         break;
       case 12:
-        v3 = getIAPayloadValueWritingToolsFeatureDetailsProfessionalTone();
+        v3 = getIAPayloadValueWritingToolsFeatureDetailsProfessionalTone(@"Index", a2);
         break;
       case 13:
-        v3 = getIAPayloadValueWritingToolsFeatureDetailsConciseTone();
+        v3 = getIAPayloadValueWritingToolsFeatureDetailsConciseTone(@"Index", a2);
         break;
     }
   }
@@ -284,13 +284,13 @@ LABEL_17:
     switch(tool)
     {
       case 19:
-        v3 = getIAPayloadValueWritingToolsFeatureDetailsOpenEndedTone();
+        v3 = getIAPayloadValueWritingToolsFeatureDetailsOpenEndedTone(@"Index", a2);
         break;
       case 21:
         v3 = @"SummaryTransform";
         break;
       case 22:
-        v3 = getIAPayloadValueWritingToolsFeatureDetailsTakeawaysTransform();
+        v3 = getIAPayloadValueWritingToolsFeatureDetailsTakeawaysTransform(@"Index", a2);
         break;
     }
   }
@@ -316,12 +316,12 @@ LABEL_17:
 
   else if (tool == 23)
   {
-    v3 = getIAPayloadValueWritingToolsFeatureDetailsBulletsTransform();
+    v3 = getIAPayloadValueWritingToolsFeatureDetailsBulletsTransform(@"Index", a2);
   }
 
   else if (tool == 24)
   {
-    v3 = getIAPayloadValueWritingToolsFeatureDetailsTablesTransform();
+    v3 = getIAPayloadValueWritingToolsFeatureDetailsTablesTransform(@"Index", a2);
   }
 
 LABEL_31:
@@ -336,9 +336,9 @@ LABEL_31:
   if (![(WTAnalyticsDelegate *)self fromSmartReply])
   {
     IASignalAnalyticsClass = getIASignalAnalyticsClass();
-    v8 = getIAChannelWritingTools();
+    v9 = getIAChannelWritingTools(IASignalAnalyticsClass, v8);
     uUIDString = [(NSUUID *)self->_analyticsUUID UUIDString];
-    [IASignalAnalyticsClass sendSignal:signalCopy toChannel:v8 withUniqueStringID:uUIDString withPayload:payloadCopy];
+    [IASignalAnalyticsClass sendSignal:signalCopy toChannel:v9 withUniqueStringID:uUIDString withPayload:payloadCopy];
   }
 }
 
@@ -346,38 +346,40 @@ LABEL_31:
 {
   signalCopy = signal;
   payloadCopy = payload;
-  if ([(WTAnalyticsDelegate *)self fromSmartReply])
+  fromSmartReply = [(WTAnalyticsDelegate *)self fromSmartReply];
+  if (fromSmartReply)
   {
-    v16 = 0;
-    v17 = &v16;
-    v18 = 0x2020000000;
-    v8 = getIAChannelSmartRepliesSymbolLoc_ptr;
-    v19 = getIAChannelSmartRepliesSymbolLoc_ptr;
+    v19 = 0;
+    v20 = &v19;
+    v21 = 0x2020000000;
+    v10 = getIAChannelSmartRepliesSymbolLoc_ptr;
+    v22 = getIAChannelSmartRepliesSymbolLoc_ptr;
     if (!getIAChannelSmartRepliesSymbolLoc_ptr)
     {
-      v9 = InputAnalyticsLibrary();
-      v17[3] = dlsym(v9, "IAChannelSmartReplies");
-      getIAChannelSmartRepliesSymbolLoc_ptr = v17[3];
-      v8 = v17[3];
+      v11 = InputAnalyticsLibrary();
+      v20[3] = dlsym(v11, "IAChannelSmartReplies");
+      getIAChannelSmartRepliesSymbolLoc_ptr = v20[3];
+      v10 = v20[3];
     }
 
-    _Block_object_dispose(&v16, 8);
-    if (!v8)
+    _Block_object_dispose(&v19, 8);
+    if (!v10)
     {
-      v15 = [WTAnalyticsDelegate initWithSmartReplyBool:smartReplyConfig:analyticsUUID:requestedTool:isEditable:];
-      _Block_object_dispose(&v16, 8);
-      _Unwind_Resume(v15);
+      [WTAnalyticsDelegate initWithSmartReplyBool:smartReplyConfig:analyticsUUID:requestedTool:isEditable:];
+      v18 = v17;
+      _Block_object_dispose(&v19, 8);
+      _Unwind_Resume(v18);
     }
 
-    v10 = *v8;
+    v12 = *v10;
   }
 
   else
   {
-    v10 = getIAChannelWritingTools();
+    v12 = getIAChannelWritingTools(fromSmartReply, v9);
   }
 
-  v11 = v10;
+  v13 = v12;
   if ([(WTAnalyticsDelegate *)self fromSmartReply]&& (threadIdentifier = self->_threadIdentifier) != 0)
   {
     uUIDString = [(NSString *)threadIdentifier copy];
@@ -388,31 +390,32 @@ LABEL_31:
     uUIDString = [(NSUUID *)self->_analyticsUUID UUIDString];
   }
 
-  v14 = uUIDString;
-  [getIASignalAnalyticsClass() sendSignal:signalCopy toChannel:v11 withUniqueStringID:uUIDString withPayload:payloadCopy];
+  v16 = uUIDString;
+  [getIASignalAnalyticsClass() sendSignal:signalCopy toChannel:v13 withUniqueStringID:uUIDString withPayload:payloadCopy];
 }
 
 - (void)applicationDidEnterBackground
 {
-  v6 = 0;
-  v7 = &v6;
-  v8 = 0x2020000000;
+  v7 = 0;
+  v8 = &v7;
+  v9 = 0x2020000000;
   v3 = getIASignalWritingToolsUISuspendedSymbolLoc_ptr;
-  v9 = getIASignalWritingToolsUISuspendedSymbolLoc_ptr;
+  v10 = getIASignalWritingToolsUISuspendedSymbolLoc_ptr;
   if (!getIASignalWritingToolsUISuspendedSymbolLoc_ptr)
   {
     v4 = InputAnalyticsLibrary();
-    v7[3] = dlsym(v4, "IASignalWritingToolsUISuspended");
-    getIASignalWritingToolsUISuspendedSymbolLoc_ptr = v7[3];
-    v3 = v7[3];
+    v8[3] = dlsym(v4, "IASignalWritingToolsUISuspended");
+    getIASignalWritingToolsUISuspendedSymbolLoc_ptr = v8[3];
+    v3 = v8[3];
   }
 
-  _Block_object_dispose(&v6, 8);
+  _Block_object_dispose(&v7, 8);
   if (!v3)
   {
-    v5 = [WTAnalyticsDelegate initWithSmartReplyBool:smartReplyConfig:analyticsUUID:requestedTool:isEditable:];
-    _Block_object_dispose(&v6, 8);
-    _Unwind_Resume(v5);
+    [WTAnalyticsDelegate initWithSmartReplyBool:smartReplyConfig:analyticsUUID:requestedTool:isEditable:];
+    v6 = v5;
+    _Block_object_dispose(&v7, 8);
+    _Unwind_Resume(v6);
   }
 
   [(WTAnalyticsDelegate *)self sendWritingToolsOrSmartReplySignal:*v3 withPayload:0];
@@ -420,12 +423,12 @@ LABEL_31:
 
 - (void)applicationDidBecomeActive
 {
-  if (InputAnalyticsLibraryCore() && getIASignalWritingToolsUIResumedSymbolLoc())
+  if (InputAnalyticsLibraryCore(0) && getIASignalWritingToolsUIResumedSymbolLoc())
   {
     IASignalWritingToolsUIResumedSymbolLoc = getIASignalWritingToolsUIResumedSymbolLoc();
     if (!IASignalWritingToolsUIResumedSymbolLoc)
     {
-      v5 = [WTAnalyticsDelegate initWithSmartReplyBool:smartReplyConfig:analyticsUUID:requestedTool:isEditable:];
+      [WTAnalyticsDelegate initWithSmartReplyBool:smartReplyConfig:analyticsUUID:requestedTool:isEditable:];
       [(WTAnalyticsDelegate *)v5 applicationWillTerminate];
       return;
     }
@@ -444,25 +447,26 @@ LABEL_31:
 
 - (void)applicationWillTerminate
 {
-  v6 = 0;
-  v7 = &v6;
-  v8 = 0x2020000000;
+  v7 = 0;
+  v8 = &v7;
+  v9 = 0x2020000000;
   v3 = getIASignalWritingToolsUITerminatedSymbolLoc_ptr;
-  v9 = getIASignalWritingToolsUITerminatedSymbolLoc_ptr;
+  v10 = getIASignalWritingToolsUITerminatedSymbolLoc_ptr;
   if (!getIASignalWritingToolsUITerminatedSymbolLoc_ptr)
   {
     v4 = InputAnalyticsLibrary();
-    v7[3] = dlsym(v4, "IASignalWritingToolsUITerminated");
-    getIASignalWritingToolsUITerminatedSymbolLoc_ptr = v7[3];
-    v3 = v7[3];
+    v8[3] = dlsym(v4, "IASignalWritingToolsUITerminated");
+    getIASignalWritingToolsUITerminatedSymbolLoc_ptr = v8[3];
+    v3 = v8[3];
   }
 
-  _Block_object_dispose(&v6, 8);
+  _Block_object_dispose(&v7, 8);
   if (!v3)
   {
-    v5 = [WTAnalyticsDelegate initWithSmartReplyBool:smartReplyConfig:analyticsUUID:requestedTool:isEditable:];
-    _Block_object_dispose(&v6, 8);
-    _Unwind_Resume(v5);
+    [WTAnalyticsDelegate initWithSmartReplyBool:smartReplyConfig:analyticsUUID:requestedTool:isEditable:];
+    v6 = v5;
+    _Block_object_dispose(&v7, 8);
+    _Unwind_Resume(v6);
   }
 
   [(WTAnalyticsDelegate *)self sendWritingToolsOrSmartReplySignal:*v3 withPayload:0];
@@ -483,32 +487,32 @@ LABEL_31:
 
 - (void)didBeginWritingToolsSession:(id)session contexts:(id)contexts
 {
-  v63 = *MEMORY[0x1E69E9840];
+  v66 = *MEMORY[0x1E69E9840];
   sessionCopy = session;
   contextsCopy = contexts;
-  v45 = sessionCopy;
+  v48 = sessionCopy;
   type = [sessionCopy type];
   compositionSessionType = [sessionCopy compositionSessionType];
-  v49 = 0u;
-  v50 = 0u;
-  v51 = 0u;
   v52 = 0u;
+  v53 = 0u;
+  v54 = 0u;
+  v55 = 0u;
   obj = contextsCopy;
-  v7 = [obj countByEnumeratingWithState:&v49 objects:v59 count:16];
+  v7 = [obj countByEnumeratingWithState:&v52 objects:v62 count:16];
   if (v7)
   {
-    v8 = *v50;
+    v8 = *v53;
     v9 = &stru_1F4FC5520;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v50 != v8)
+        if (*v53 != v8)
         {
           objc_enumerationMutation(obj);
         }
 
-        v11 = *(*(&v49 + 1) + 8 * i);
+        v11 = *(*(&v52 + 1) + 8 * i);
         range = [v11 range];
         [v11 range];
         v14 = v13;
@@ -521,21 +525,21 @@ LABEL_31:
         if (range)
         {
 
-          attributedText2 = WTIAWritingToolsLog();
+          attributedText2 = WTIAWritingToolsLog(v19);
           if (os_log_type_enabled(attributedText2, OS_LOG_TYPE_ERROR))
           {
             range2 = [v11 range];
             [v11 range];
-            v21 = v20;
+            v22 = v21;
             attributedText3 = [v11 attributedText];
             string3 = [attributedText3 string];
-            v24 = [string3 length];
+            v25 = [string3 length];
             *buf = 134218496;
             *&buf[4] = range2;
             *&buf[12] = 2048;
-            *&buf[14] = v21;
+            *&buf[14] = v22;
             *&buf[22] = 2048;
-            v61 = v24;
+            v64 = v25;
             _os_log_error_impl(&dword_1D451D000, attributedText2, OS_LOG_TYPE_ERROR, "context.range (%lu, %lu) out of bounds (%lu)!", buf, 0x20u);
           }
         }
@@ -543,20 +547,20 @@ LABEL_31:
         else
         {
           range3 = [v11 range];
-          v27 = [string2 substringWithRange:{range3, v26}];
+          v28 = [string2 substringWithRange:{range3, v27}];
 
-          string2 = v27;
+          string2 = v28;
         }
 
         if (string2)
         {
-          v28 = [(__CFString *)v9 stringByAppendingString:string2];
+          v29 = [(__CFString *)v9 stringByAppendingString:string2];
 
-          v9 = v28;
+          v9 = v29;
         }
       }
 
-      v7 = [obj countByEnumeratingWithState:&v49 objects:v59 count:16];
+      v7 = [obj countByEnumeratingWithState:&v52 objects:v62 count:16];
     }
 
     while (v7);
@@ -569,15 +573,15 @@ LABEL_31:
 
   if (type == 2)
   {
-    v29 = [(WTAnalyticsDelegate *)self getWritingToolsFeatureDetailsForCompositionSessionType:compositionSessionType];
+    v32 = [(WTAnalyticsDelegate *)self getWritingToolsFeatureDetailsForCompositionSessionType:compositionSessionType];
   }
 
   else
   {
     if (type != 1)
     {
-      v30 = WTIAWritingToolsLog();
-      if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+      v33 = WTIAWritingToolsLog(v30);
+      if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
       {
         [WTAnalyticsDelegate didBeginWritingToolsSession:contexts:];
       }
@@ -585,78 +589,78 @@ LABEL_31:
       goto LABEL_30;
     }
 
-    v29 = getIAPayloadValueWritingToolsFeatureDetailsProofreadingReview();
+    v32 = getIAPayloadValueWritingToolsFeatureDetailsProofreadingReview(v30, v31);
   }
 
-  v30 = v29;
-  if (v29)
+  v33 = v32;
+  if (v32)
   {
-    v53 = 0;
-    v54 = &v53;
-    v55 = 0x2020000000;
-    v31 = getIASignalWritingToolsActionSelectedSymbolLoc_ptr;
-    v56 = getIASignalWritingToolsActionSelectedSymbolLoc_ptr;
+    v56 = 0;
+    v57 = &v56;
+    v58 = 0x2020000000;
+    v34 = getIASignalWritingToolsActionSelectedSymbolLoc_ptr;
+    v59 = getIASignalWritingToolsActionSelectedSymbolLoc_ptr;
     if (!getIASignalWritingToolsActionSelectedSymbolLoc_ptr)
     {
       *buf = MEMORY[0x1E69E9820];
       *&buf[8] = 3221225472;
       *&buf[16] = __getIASignalWritingToolsActionSelectedSymbolLoc_block_invoke;
-      v61 = &unk_1E8480B48;
-      v62 = &v53;
-      v32 = InputAnalyticsLibrary();
-      v33 = dlsym(v32, "IASignalWritingToolsActionSelected");
-      *(v62[1] + 24) = v33;
-      getIASignalWritingToolsActionSelectedSymbolLoc_ptr = *(v62[1] + 24);
-      v31 = v54[3];
+      v64 = &unk_1E8480B48;
+      v65 = &v56;
+      v35 = InputAnalyticsLibrary();
+      v36 = dlsym(v35, "IASignalWritingToolsActionSelected");
+      *(v65[1] + 24) = v36;
+      getIASignalWritingToolsActionSelectedSymbolLoc_ptr = *(v65[1] + 24);
+      v34 = v57[3];
     }
 
-    _Block_object_dispose(&v53, 8);
-    if (!v31)
+    _Block_object_dispose(&v56, 8);
+    if (!v34)
     {
       goto LABEL_32;
     }
 
-    v34 = *v31;
-    v35 = getIAPayloadKeyWritingToolsFeatureDetails();
-    v58[0] = v30;
-    v53 = 0;
-    v54 = &v53;
-    v55 = 0x2020000000;
-    v36 = getIAPayloadKeyWritingToolsInputTextSymbolLoc_ptr;
-    v56 = getIAPayloadKeyWritingToolsInputTextSymbolLoc_ptr;
-    v57[0] = v35;
+    v37 = *v34;
+    v38 = getIAPayloadKeyWritingToolsFeatureDetails();
+    v61[0] = v33;
+    v56 = 0;
+    v57 = &v56;
+    v58 = 0x2020000000;
+    v39 = getIAPayloadKeyWritingToolsInputTextSymbolLoc_ptr;
+    v59 = getIAPayloadKeyWritingToolsInputTextSymbolLoc_ptr;
+    v60[0] = v38;
     if (!getIAPayloadKeyWritingToolsInputTextSymbolLoc_ptr)
     {
       *buf = MEMORY[0x1E69E9820];
       *&buf[8] = 3221225472;
       *&buf[16] = __getIAPayloadKeyWritingToolsInputTextSymbolLoc_block_invoke;
-      v61 = &unk_1E8480B48;
-      v62 = &v53;
-      v37 = InputAnalyticsLibrary();
-      v38 = dlsym(v37, "IAPayloadKeyWritingToolsInputText");
-      *(v62[1] + 24) = v38;
-      getIAPayloadKeyWritingToolsInputTextSymbolLoc_ptr = *(v62[1] + 24);
-      v36 = v54[3];
+      v64 = &unk_1E8480B48;
+      v65 = &v56;
+      v40 = InputAnalyticsLibrary();
+      v41 = dlsym(v40, "IAPayloadKeyWritingToolsInputText");
+      *(v65[1] + 24) = v41;
+      getIAPayloadKeyWritingToolsInputTextSymbolLoc_ptr = *(v65[1] + 24);
+      v39 = v57[3];
     }
 
-    _Block_object_dispose(&v53, 8);
-    if (!v36)
+    _Block_object_dispose(&v56, 8);
+    if (!v39)
     {
 LABEL_32:
       [WTAnalyticsDelegate initWithSmartReplyBool:smartReplyConfig:analyticsUUID:requestedTool:isEditable:];
       __break(1u);
     }
 
-    v39 = *v36;
-    v58[1] = v9;
-    v57[1] = v39;
-    v57[2] = @"IsEditable";
-    v40 = MEMORY[0x1E696AD98];
-    v41 = v39;
-    v42 = [v40 numberWithBool:{-[WTAnalyticsDelegate isEditableText](self, "isEditableText")}];
-    v58[2] = v42;
-    v43 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v58 forKeys:v57 count:3];
-    [(WTAnalyticsDelegate *)self sendWritingToolsOnlySignal:v34 withPayload:v43];
+    v42 = *v39;
+    v61[1] = v9;
+    v60[1] = v42;
+    v60[2] = @"IsEditable";
+    v43 = MEMORY[0x1E696AD98];
+    v44 = v42;
+    v45 = [v43 numberWithBool:{-[WTAnalyticsDelegate isEditableText](self, "isEditableText")}];
+    v61[2] = v45;
+    v46 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v61 forKeys:v60 count:3];
+    [(WTAnalyticsDelegate *)self sendWritingToolsOnlySignal:v37 withPayload:v46];
 
 LABEL_30:
   }
@@ -664,67 +668,67 @@ LABEL_30:
 
 - (void)writingToolsSession:(id)session didReceiveAction:(int64_t)action
 {
-  v33[1] = *MEMORY[0x1E69E9840];
+  v40[1] = *MEMORY[0x1E69E9840];
   sessionCopy = session;
   if ([sessionCopy type] == 2)
   {
-    v7 = getIAPayloadValueWritingToolsUIRewritingView();
+    v8 = getIAPayloadValueWritingToolsUIRewritingView(2, v7);
   }
 
   else
   {
-    v26 = 0;
-    v27 = &v26;
-    v28 = 0x2020000000;
-    v8 = getIAPayloadValueWritingToolsUIProofreadingViewSymbolLoc_ptr;
-    v29 = getIAPayloadValueWritingToolsUIProofreadingViewSymbolLoc_ptr;
+    v33 = 0;
+    v34 = &v33;
+    v35 = 0x2020000000;
+    v10 = getIAPayloadValueWritingToolsUIProofreadingViewSymbolLoc_ptr;
+    v36 = getIAPayloadValueWritingToolsUIProofreadingViewSymbolLoc_ptr;
     if (!getIAPayloadValueWritingToolsUIProofreadingViewSymbolLoc_ptr)
     {
-      v9 = InputAnalyticsLibrary();
-      v27[3] = dlsym(v9, "IAPayloadValueWritingToolsUIProofreadingView");
-      getIAPayloadValueWritingToolsUIProofreadingViewSymbolLoc_ptr = v27[3];
-      v8 = v27[3];
+      v11 = InputAnalyticsLibrary();
+      v34[3] = dlsym(v11, "IAPayloadValueWritingToolsUIProofreadingView");
+      getIAPayloadValueWritingToolsUIProofreadingViewSymbolLoc_ptr = v34[3];
+      v10 = v34[3];
     }
 
-    _Block_object_dispose(&v26, 8);
-    if (!v8)
+    _Block_object_dispose(&v33, 8);
+    if (!v10)
     {
       goto LABEL_25;
     }
 
-    v7 = *v8;
+    v8 = *v10;
   }
 
-  v10 = v7;
+  v12 = v8;
   if (action != 3)
   {
     if (action == 2)
     {
-      v11 = getIASignalWritingToolsButtonTapped();
-      v18 = getIAPayloadKeyWritingToolsInteractionType();
-      v26 = 0;
-      v27 = &v26;
-      v28 = 0x2020000000;
-      v19 = getIAPayloadValueWritingToolsInteractionTypeShowRewrittenSymbolLoc_ptr;
-      v29 = getIAPayloadValueWritingToolsInteractionTypeShowRewrittenSymbolLoc_ptr;
-      v30 = v18;
+      v13 = getIASignalWritingToolsButtonTapped(v8, v9);
+      v22 = getIAPayloadKeyWritingToolsInteractionType(v13, v21);
+      v33 = 0;
+      v34 = &v33;
+      v35 = 0x2020000000;
+      v23 = getIAPayloadValueWritingToolsInteractionTypeShowRewrittenSymbolLoc_ptr;
+      v36 = getIAPayloadValueWritingToolsInteractionTypeShowRewrittenSymbolLoc_ptr;
+      v37 = v22;
       if (!getIAPayloadValueWritingToolsInteractionTypeShowRewrittenSymbolLoc_ptr)
       {
-        v20 = InputAnalyticsLibrary();
-        v27[3] = dlsym(v20, "IAPayloadValueWritingToolsInteractionTypeShowRewritten");
-        getIAPayloadValueWritingToolsInteractionTypeShowRewrittenSymbolLoc_ptr = v27[3];
-        v19 = v27[3];
+        v24 = InputAnalyticsLibrary();
+        v34[3] = dlsym(v24, "IAPayloadValueWritingToolsInteractionTypeShowRewritten");
+        getIAPayloadValueWritingToolsInteractionTypeShowRewrittenSymbolLoc_ptr = v34[3];
+        v23 = v34[3];
       }
 
-      _Block_object_dispose(&v26, 8);
-      if (v19)
+      _Block_object_dispose(&v33, 8);
+      if (v23)
       {
-        v31 = *v19;
-        v21 = MEMORY[0x1E695DF20];
-        v22 = v31;
-        v23 = [v21 dictionaryWithObjects:&v31 forKeys:&v30 count:1];
+        v38 = *v23;
+        v25 = MEMORY[0x1E695DF20];
+        v26 = v38;
+        v27 = [v25 dictionaryWithObjects:&v38 forKeys:&v37 count:1];
 
-        [(WTAnalyticsDelegate *)self sendWritingToolsOnlySignal:v11 withPayload:v23];
+        [(WTAnalyticsDelegate *)self sendWritingToolsOnlySignal:v13 withPayload:v27];
         goto LABEL_23;
       }
     }
@@ -733,8 +737,8 @@ LABEL_30:
     {
       if (action != 1)
       {
-        v11 = WTIAWritingToolsLog();
-        if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+        v13 = WTIAWritingToolsLog(v8);
+        if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
         {
           [WTAnalyticsDelegate writingToolsSession:didReceiveAction:];
         }
@@ -742,31 +746,31 @@ LABEL_30:
         goto LABEL_23;
       }
 
-      v11 = getIASignalWritingToolsButtonTapped();
-      v12 = getIAPayloadKeyWritingToolsInteractionType();
-      v32 = v12;
-      v26 = 0;
-      v27 = &v26;
-      v28 = 0x2020000000;
-      v13 = getIAPayloadValueWritingToolsInteractionTypeShowOriginalSymbolLoc_ptr;
-      v29 = getIAPayloadValueWritingToolsInteractionTypeShowOriginalSymbolLoc_ptr;
+      v13 = getIASignalWritingToolsButtonTapped(v8, v9);
+      v15 = getIAPayloadKeyWritingToolsInteractionType(v13, v14);
+      v39 = v15;
+      v33 = 0;
+      v34 = &v33;
+      v35 = 0x2020000000;
+      v16 = getIAPayloadValueWritingToolsInteractionTypeShowOriginalSymbolLoc_ptr;
+      v36 = getIAPayloadValueWritingToolsInteractionTypeShowOriginalSymbolLoc_ptr;
       if (!getIAPayloadValueWritingToolsInteractionTypeShowOriginalSymbolLoc_ptr)
       {
-        v14 = InputAnalyticsLibrary();
-        v27[3] = dlsym(v14, "IAPayloadValueWritingToolsInteractionTypeShowOriginal");
-        getIAPayloadValueWritingToolsInteractionTypeShowOriginalSymbolLoc_ptr = v27[3];
-        v13 = v27[3];
+        v17 = InputAnalyticsLibrary();
+        v34[3] = dlsym(v17, "IAPayloadValueWritingToolsInteractionTypeShowOriginal");
+        getIAPayloadValueWritingToolsInteractionTypeShowOriginalSymbolLoc_ptr = v34[3];
+        v16 = v34[3];
       }
 
-      _Block_object_dispose(&v26, 8);
-      if (v13)
+      _Block_object_dispose(&v33, 8);
+      if (v16)
       {
-        v33[0] = *v13;
-        v15 = MEMORY[0x1E695DF20];
-        v16 = v33[0];
-        v17 = [v15 dictionaryWithObjects:v33 forKeys:&v32 count:1];
+        v40[0] = *v16;
+        v18 = MEMORY[0x1E695DF20];
+        v19 = v40[0];
+        v20 = [v18 dictionaryWithObjects:v40 forKeys:&v39 count:1];
 
-        [(WTAnalyticsDelegate *)self sendWritingToolsOnlySignal:v11 withPayload:v17];
+        [(WTAnalyticsDelegate *)self sendWritingToolsOnlySignal:v13 withPayload:v20];
 LABEL_23:
 
         goto LABEL_24;
@@ -779,16 +783,16 @@ LABEL_25:
   }
 
   [(WTAnalyticsDelegate *)self setNumDrafts:[(WTAnalyticsDelegate *)self numDrafts]+ 1];
-  [(WTAnalyticsDelegate *)self setCurrentDraftNumber:[(WTAnalyticsDelegate *)self numDrafts]];
-  v24 = getIAPayloadValueWritingToolsUIRewritingView();
-  v25 = v10 == v24;
+  v28 = [(WTAnalyticsDelegate *)self setCurrentDraftNumber:[(WTAnalyticsDelegate *)self numDrafts]];
+  v30 = getIAPayloadValueWritingToolsUIRewritingView(v28, v29);
+  v31 = v12 == v30;
 
-  if (!v25)
+  if (!v31)
   {
-    v11 = WTIAWritingToolsLog();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v13 = WTIAWritingToolsLog(v32);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      [WTAnalyticsDelegate writingToolsSession:v10 didReceiveAction:v11];
+      [WTAnalyticsDelegate writingToolsSession:v12 didReceiveAction:v13];
     }
 
     goto LABEL_23;
@@ -800,11 +804,11 @@ LABEL_24:
 - (void)didEndWritingToolsSession:(id)session accepted:(BOOL)accepted
 {
   acceptedCopy = accepted;
-  v71 = *MEMORY[0x1E69E9840];
+  v91 = *MEMORY[0x1E69E9840];
   sessionCopy = session;
   if ([sessionCopy type] == 1)
   {
-    v56 = sessionCopy;
+    v76 = sessionCopy;
     v7 = objc_alloc_init(MEMORY[0x1E695DF70]);
     v8 = objc_alloc_init(MEMORY[0x1E695DF70]);
     proofreadingSuggestions = [(WTAnalyticsDelegate *)self proofreadingSuggestions];
@@ -824,126 +828,130 @@ LABEL_24:
 
           if (state == 3)
           {
-            v16 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:v12];
-            v18 = v8;
+            v17 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:v12];
+            v19 = v8;
             goto LABEL_13;
           }
 
           if (state == 1)
           {
-            v16 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:v12];
-            v18 = v7;
+            v17 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:v12];
+            v19 = v7;
 LABEL_13:
-            [v18 addObject:v16];
+            [v19 addObject:v17];
             v11 = 1;
             goto LABEL_16;
           }
 
           if (state)
           {
-            v16 = WTIAWritingToolsLog();
-            if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+            v17 = WTIAWritingToolsLog(v16);
+            if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
             {
               proofreadingSuggestions3 = [(WTAnalyticsDelegate *)self proofreadingSuggestions];
-              v22 = [proofreadingSuggestions3 objectAtIndexedSubscript:v12];
-              state2 = [v22 state];
+              v23 = [proofreadingSuggestions3 objectAtIndexedSubscript:v12];
+              state2 = [v23 state];
               *buf = 134218240;
-              v68 = state2;
-              v69 = 2048;
-              v70 = v12;
-              _os_log_error_impl(&dword_1D451D000, v16, OS_LOG_TYPE_ERROR, "didEndWritingToolsSession: Unexpected proofreading suggestion state %lu for index %lu", buf, 0x16u);
+              v88 = state2;
+              v89 = 2048;
+              v90 = v12;
+              _os_log_error_impl(&dword_1D451D000, v17, OS_LOG_TYPE_ERROR, "didEndWritingToolsSession: Unexpected proofreading suggestion state %lu for index %lu", buf, 0x16u);
             }
 
             goto LABEL_16;
           }
 
-          v16 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:v12];
-          v17 = v7;
+          v17 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:v12];
+          v18 = v7;
         }
 
         else
         {
-          v16 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:v12];
-          v17 = v8;
+          v17 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:v12];
+          v18 = v8;
         }
 
-        [v17 addObject:v16];
+        [v18 addObject:v17];
 LABEL_16:
 
         ++v12;
         proofreadingSuggestions4 = [(WTAnalyticsDelegate *)self proofreadingSuggestions];
-        v20 = [proofreadingSuggestions4 count];
+        v21 = [proofreadingSuggestions4 count];
       }
 
-      while (v12 < v20);
+      while (v12 < v21);
     }
 
     if ([v7 count])
     {
-      if (InputAnalyticsLibraryCore() && getIAPayloadValueWritingToolsInteractionTypeUnspecifiedSymbolLoc())
+      IAPayloadValueWritingToolsInteractionTypeUnspecifiedSymbolLoc = InputAnalyticsLibraryCore(0);
+      if (IAPayloadValueWritingToolsInteractionTypeUnspecifiedSymbolLoc && (IAPayloadValueWritingToolsInteractionTypeUnspecifiedSymbolLoc = getIAPayloadValueWritingToolsInteractionTypeUnspecifiedSymbolLoc()) != 0)
       {
-        v25 = getIAPayloadValueWritingToolsInteractionTypeUnspecified();
+        IAPayloadValueWritingToolsInteractionTypeUnspecifiedSymbolLoc = getIAPayloadValueWritingToolsInteractionTypeUnspecified();
+        v31 = IAPayloadValueWritingToolsInteractionTypeUnspecifiedSymbolLoc;
       }
 
       else
       {
-        v25 = @"Unspecified";
+        v31 = @"Unspecified";
       }
 
-      v55 = getIASignalWritingToolsResultsAccepted();
-      v54 = getIAPayloadKeyWritingToolsAcceptedAll();
-      v65[0] = v54;
-      v26 = MEMORY[0x1E696AD98];
+      v75 = getIASignalWritingToolsResultsAccepted(IAPayloadValueWritingToolsInteractionTypeUnspecifiedSymbolLoc, v30);
+      v74 = getIAPayloadKeyWritingToolsAcceptedAll(v75, v32);
+      v85[0] = v74;
+      v33 = MEMORY[0x1E696AD98];
       if (v11)
       {
-        v27 = 0;
+        v34 = 0;
       }
 
       else
       {
-        v28 = [v7 count];
+        v35 = [v7 count];
         proofreadingSuggestions5 = [(WTAnalyticsDelegate *)self proofreadingSuggestions];
-        v27 = v28 == [proofreadingSuggestions5 count];
+        v34 = v35 == [proofreadingSuggestions5 count];
       }
 
-      v29 = [v26 numberWithInt:v27];
-      v66[0] = v29;
-      v30 = getIAPayloadKeyWritingToolsResultIndices();
-      v65[1] = v30;
-      v66[1] = v7;
-      v31 = getIAPayloadKeyWritingToolsInteractionType();
-      v65[2] = v31;
-      v32 = v25;
-      v66[2] = v25;
-      v33 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v66 forKeys:v65 count:3];
-      [(WTAnalyticsDelegate *)self sendWritingToolsOnlySignal:v55 withPayload:v33];
+      v36 = [v33 numberWithInt:v34];
+      v86[0] = v36;
+      v38 = getIAPayloadKeyWritingToolsResultIndices(v36, v37);
+      v85[1] = v38;
+      v86[1] = v7;
+      v40 = getIAPayloadKeyWritingToolsInteractionType(v38, v39);
+      v85[2] = v40;
+      v41 = v31;
+      v86[2] = v31;
+      v42 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v86 forKeys:v85 count:3];
+      [(WTAnalyticsDelegate *)self sendWritingToolsOnlySignal:v75 withPayload:v42];
 
       if ((v11 & 1) == 0)
       {
       }
     }
 
-    if ([v8 count])
+    v43 = [v8 count];
+    if (v43)
     {
-      v34 = getIASignalWritingToolsResultsRejected();
-      v35 = getIAPayloadKeyWritingToolsRejectedAll();
-      v63[0] = v35;
-      v36 = [MEMORY[0x1E696AD98] numberWithInt:!acceptedCopy];
-      v64[0] = v36;
-      v37 = getIAPayloadKeyWritingToolsResultIndices();
-      v63[1] = v37;
-      v64[1] = v8;
-      v38 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v64 forKeys:v63 count:2];
-      [(WTAnalyticsDelegate *)self sendWritingToolsOnlySignal:v34 withPayload:v38];
+      v45 = getIASignalWritingToolsResultsRejected(v43, v44);
+      v47 = getIAPayloadKeyWritingToolsRejectedAll(v45, v46);
+      v83[0] = v47;
+      v48 = [MEMORY[0x1E696AD98] numberWithInt:!acceptedCopy];
+      v84[0] = v48;
+      v50 = getIAPayloadKeyWritingToolsResultIndices(v48, v49);
+      v83[1] = v50;
+      v84[1] = v8;
+      v51 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v84 forKeys:v83 count:2];
+      [(WTAnalyticsDelegate *)self sendWritingToolsOnlySignal:v45 withPayload:v51];
     }
 
-    sessionCopy = v56;
+    sessionCopy = v76;
     goto LABEL_39;
   }
 
-  if ([sessionCopy type] != 2)
+  type = [sessionCopy type];
+  if (type != 2)
   {
-    v7 = WTIAWritingToolsLog();
+    v7 = WTIAWritingToolsLog(type);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       [WTAnalyticsDelegate didEndWritingToolsSession:sessionCopy accepted:v7];
@@ -954,56 +962,59 @@ LABEL_16:
 
   if (acceptedCopy)
   {
-    if (InputAnalyticsLibraryCore() && getIAPayloadValueWritingToolsInteractionTypeUnspecifiedSymbolLoc())
+    v26 = InputAnalyticsLibraryCore(0);
+    if (v26 && (v26 = getIAPayloadValueWritingToolsInteractionTypeUnspecifiedSymbolLoc()) != 0)
     {
-      v24 = sessionCopy;
-      v7 = getIAPayloadValueWritingToolsInteractionTypeUnspecified();
+      v28 = sessionCopy;
+      v26 = getIAPayloadValueWritingToolsInteractionTypeUnspecified();
+      v7 = v26;
     }
 
     else
     {
-      v24 = sessionCopy;
+      v28 = sessionCopy;
       v7 = @"Unspecified";
     }
 
-    v46 = getIASignalWritingToolsResultsAccepted();
-    v47 = getIAPayloadKeyWritingToolsAcceptedAll();
-    v61[0] = v47;
-    v62[0] = MEMORY[0x1E695E110];
-    v48 = getIAPayloadKeyWritingToolsResultIndices();
-    v61[1] = v48;
-    v49 = [MEMORY[0x1E696AD98] numberWithInteger:{-[WTAnalyticsDelegate currentDraftNumber](self, "currentDraftNumber")}];
-    v60 = v49;
-    v50 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v60 count:1];
-    v62[1] = v50;
-    v51 = getIAPayloadKeyWritingToolsInteractionType();
-    v61[2] = v51;
-    v62[2] = v7;
-    v52 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v62 forKeys:v61 count:3];
-    [(WTAnalyticsDelegate *)self sendWritingToolsOrSmartReplySignal:v46 withPayload:v52];
+    v63 = getIASignalWritingToolsResultsAccepted(v26, v27);
+    v65 = getIAPayloadKeyWritingToolsAcceptedAll(v63, v64);
+    v81[0] = v65;
+    v82[0] = MEMORY[0x1E695E110];
+    v67 = getIAPayloadKeyWritingToolsResultIndices(v65, v66);
+    v81[1] = v67;
+    v68 = [MEMORY[0x1E696AD98] numberWithInteger:{-[WTAnalyticsDelegate currentDraftNumber](self, "currentDraftNumber")}];
+    v80 = v68;
+    v69 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v80 count:1];
+    v82[1] = v69;
+    v71 = getIAPayloadKeyWritingToolsInteractionType(v69, v70);
+    v81[2] = v71;
+    v82[2] = v7;
+    v72 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v82 forKeys:v81 count:3];
+    [(WTAnalyticsDelegate *)self sendWritingToolsOrSmartReplySignal:v63 withPayload:v72];
 
-    sessionCopy = v24;
+    sessionCopy = v28;
     goto LABEL_39;
   }
 
-  if ([sessionCopy requestedTool] != 201 || -[WTAnalyticsDelegate currentDraftNumber](self, "currentDraftNumber") >= 1)
+  requestedTool = [sessionCopy requestedTool];
+  if (requestedTool != 201 || (requestedTool = [(WTAnalyticsDelegate *)self currentDraftNumber], requestedTool >= 1))
   {
-    v7 = getIASignalWritingToolsResultsRejected();
-    getIAPayloadKeyWritingToolsRejectedAll();
-    v40 = v39 = sessionCopy;
-    v58[0] = v40;
-    v41 = [MEMORY[0x1E696AD98] numberWithInt:1];
-    v59[0] = v41;
-    v42 = getIAPayloadKeyWritingToolsResultIndices();
-    v58[1] = v42;
-    v43 = [MEMORY[0x1E696AD98] numberWithInteger:{-[WTAnalyticsDelegate currentDraftNumber](self, "currentDraftNumber")}];
-    v57 = v43;
-    v44 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v57 count:1];
-    v59[1] = v44;
-    v45 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v59 forKeys:v58 count:2];
-    [(WTAnalyticsDelegate *)self sendWritingToolsOrSmartReplySignal:v7 withPayload:v45];
+    v7 = getIASignalWritingToolsResultsRejected(requestedTool, v53);
+    getIAPayloadKeyWritingToolsRejectedAll(v7, v54);
+    v56 = v55 = sessionCopy;
+    v78[0] = v56;
+    v57 = [MEMORY[0x1E696AD98] numberWithInt:1];
+    v79[0] = v57;
+    v59 = getIAPayloadKeyWritingToolsResultIndices(v57, v58);
+    v78[1] = v59;
+    v60 = [MEMORY[0x1E696AD98] numberWithInteger:{-[WTAnalyticsDelegate currentDraftNumber](self, "currentDraftNumber")}];
+    v77 = v60;
+    v61 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v77 count:1];
+    v79[1] = v61;
+    v62 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v79 forKeys:v78 count:2];
+    [(WTAnalyticsDelegate *)self sendWritingToolsOrSmartReplySignal:v7 withPayload:v62];
 
-    sessionCopy = v39;
+    sessionCopy = v55;
 LABEL_39:
   }
 
@@ -1014,7 +1025,7 @@ LABEL_39:
 - (void)proofreadingSession:(id)session didReceiveSuggestions:(id)suggestions processedRange:(_NSRange)range inContext:(id)context finished:(BOOL)finished
 {
   finishedCopy = finished;
-  v31[1] = *MEMORY[0x1E69E9840];
+  v34[1] = *MEMORY[0x1E69E9840];
   suggestionsCopy = suggestions;
   proofreadingSuggestions = [(WTAnalyticsDelegate *)self proofreadingSuggestions];
   [proofreadingSuggestions addObjectsFromArray:suggestionsCopy];
@@ -1024,48 +1035,48 @@ LABEL_39:
     proofreadingSuggestions2 = [(WTAnalyticsDelegate *)self proofreadingSuggestions];
     v12 = [proofreadingSuggestions2 count];
 
-    v13 = getIASignalWritingToolsResultsOffered();
-    v14 = getIAPayloadKeyWritingToolsNumResultsOffered();
-    v30 = v14;
-    v15 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:v12];
-    v31[0] = v15;
-    v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v31 forKeys:&v30 count:1];
-    [(WTAnalyticsDelegate *)self sendWritingToolsOnlySignal:v13 withPayload:v16];
+    v15 = getIASignalWritingToolsResultsOffered(v13, v14);
+    v17 = getIAPayloadKeyWritingToolsNumResultsOffered(v15, v16);
+    v33 = v17;
+    v18 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:v12];
+    v34[0] = v18;
+    v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v34 forKeys:&v33 count:1];
+    [(WTAnalyticsDelegate *)self sendWritingToolsOnlySignal:v15 withPayload:v19];
   }
 
-  v27 = 0u;
+  v30 = 0u;
+  v31 = 0u;
   v28 = 0u;
-  v25 = 0u;
-  v26 = 0u;
-  v17 = suggestionsCopy;
-  v18 = [v17 countByEnumeratingWithState:&v25 objects:v29 count:16];
-  if (v18)
+  v29 = 0u;
+  v20 = suggestionsCopy;
+  v21 = [v20 countByEnumeratingWithState:&v28 objects:v32 count:16];
+  if (v21)
   {
-    v19 = v18;
-    v20 = *v26;
+    v22 = v21;
+    v23 = *v29;
     do
     {
-      v21 = 0;
+      v24 = 0;
       do
       {
-        if (*v26 != v20)
+        if (*v29 != v23)
         {
-          objc_enumerationMutation(v17);
+          objc_enumerationMutation(v20);
         }
 
-        v22 = *(*(&v25 + 1) + 8 * v21);
+        v25 = *(*(&v28 + 1) + 8 * v24);
         uuidSuggestionMapping = [(WTAnalyticsDelegate *)self uuidSuggestionMapping];
-        uuid = [v22 uuid];
-        [uuidSuggestionMapping setObject:v22 forKeyedSubscript:uuid];
+        uuid = [v25 uuid];
+        [uuidSuggestionMapping setObject:v25 forKeyedSubscript:uuid];
 
-        ++v21;
+        ++v24;
       }
 
-      while (v19 != v21);
-      v19 = [v17 countByEnumeratingWithState:&v25 objects:v29 count:16];
+      while (v22 != v24);
+      v22 = [v20 countByEnumeratingWithState:&v28 objects:v32 count:16];
     }
 
-    while (v19);
+    while (v22);
   }
 }
 
@@ -1081,69 +1092,70 @@ LABEL_39:
 - (void)compositionSession:(id)session didReceiveText:(id)text replacementRange:(_NSRange)range inContext:(id)context finished:(BOOL)finished
 {
   finishedCopy = finished;
-  v30[2] = *MEMORY[0x1E69E9840];
+  v32[2] = *MEMORY[0x1E69E9840];
   sessionCopy = session;
   textCopy = text;
   contextCopy = context;
   if (finishedCopy)
   {
     numDrafts = [(WTAnalyticsDelegate *)self numDrafts];
-    v15 = getIASignalWritingToolsResultsOffered();
-    v16 = getIAPayloadKeyWritingToolsNumResultsOffered();
-    v28 = v16;
-    v17 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:1];
-    v30[0] = v17;
-    v24 = 0;
-    v25 = &v24;
-    v26 = 0x2020000000;
-    v18 = getIAPayloadKeyWritingToolsResultIndexSymbolLoc_ptr;
-    v27 = getIAPayloadKeyWritingToolsResultIndexSymbolLoc_ptr;
+    v16 = getIASignalWritingToolsResultsOffered(numDrafts, v15);
+    v18 = getIAPayloadKeyWritingToolsNumResultsOffered(v16, v17);
+    v30 = v18;
+    v19 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:1];
+    v32[0] = v19;
+    v26 = 0;
+    v27 = &v26;
+    v28 = 0x2020000000;
+    v20 = getIAPayloadKeyWritingToolsResultIndexSymbolLoc_ptr;
+    v29 = getIAPayloadKeyWritingToolsResultIndexSymbolLoc_ptr;
     if (!getIAPayloadKeyWritingToolsResultIndexSymbolLoc_ptr)
     {
-      v19 = InputAnalyticsLibrary();
-      v25[3] = dlsym(v19, "IAPayloadKeyWritingToolsResultIndex");
-      getIAPayloadKeyWritingToolsResultIndexSymbolLoc_ptr = v25[3];
-      v18 = v25[3];
+      v21 = InputAnalyticsLibrary();
+      v27[3] = dlsym(v21, "IAPayloadKeyWritingToolsResultIndex");
+      getIAPayloadKeyWritingToolsResultIndexSymbolLoc_ptr = v27[3];
+      v20 = v27[3];
     }
 
-    _Block_object_dispose(&v24, 8);
-    if (!v18)
+    _Block_object_dispose(&v26, 8);
+    if (!v20)
     {
       [WTAnalyticsDelegate initWithSmartReplyBool:smartReplyConfig:analyticsUUID:requestedTool:isEditable:];
       __break(1u);
     }
 
-    v29 = *v18;
-    v20 = MEMORY[0x1E696AD98];
-    v21 = v29;
-    v22 = [v20 numberWithUnsignedInteger:numDrafts];
-    v30[1] = v22;
-    v23 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v30 forKeys:&v28 count:2];
-    [(WTAnalyticsDelegate *)self sendWritingToolsOnlySignal:v15 withPayload:v23];
+    v31 = *v20;
+    v22 = MEMORY[0x1E696AD98];
+    v23 = v31;
+    v24 = [v22 numberWithUnsignedInteger:numDrafts];
+    v32[1] = v24;
+    v25 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v32 forKeys:&v30 count:2];
+    [(WTAnalyticsDelegate *)self sendWritingToolsOnlySignal:v16 withPayload:v25];
   }
 }
 
 - (void)endWritingTools
 {
-  v6 = 0;
-  v7 = &v6;
-  v8 = 0x2020000000;
+  v7 = 0;
+  v8 = &v7;
+  v9 = 0x2020000000;
   v3 = getIASignalWritingToolsPanelDismissedSymbolLoc_ptr;
-  v9 = getIASignalWritingToolsPanelDismissedSymbolLoc_ptr;
+  v10 = getIASignalWritingToolsPanelDismissedSymbolLoc_ptr;
   if (!getIASignalWritingToolsPanelDismissedSymbolLoc_ptr)
   {
     v4 = InputAnalyticsLibrary();
-    v7[3] = dlsym(v4, "IASignalWritingToolsPanelDismissed");
-    getIASignalWritingToolsPanelDismissedSymbolLoc_ptr = v7[3];
-    v3 = v7[3];
+    v8[3] = dlsym(v4, "IASignalWritingToolsPanelDismissed");
+    getIASignalWritingToolsPanelDismissedSymbolLoc_ptr = v8[3];
+    v3 = v8[3];
   }
 
-  _Block_object_dispose(&v6, 8);
+  _Block_object_dispose(&v7, 8);
   if (!v3)
   {
-    v5 = [WTAnalyticsDelegate initWithSmartReplyBool:smartReplyConfig:analyticsUUID:requestedTool:isEditable:];
-    _Block_object_dispose(&v6, 8);
-    _Unwind_Resume(v5);
+    [WTAnalyticsDelegate initWithSmartReplyBool:smartReplyConfig:analyticsUUID:requestedTool:isEditable:];
+    v6 = v5;
+    _Block_object_dispose(&v7, 8);
+    _Unwind_Resume(v6);
   }
 
   [(WTAnalyticsDelegate *)self sendWritingToolsOnlySignal:*v3 withPayload:0];
@@ -1178,11 +1190,11 @@ LABEL_39:
   [(WTAnalyticsDelegate *)self setCurrentDraftNumber:v5];
 }
 
-- (uint64_t)initWithSmartReplyBool:smartReplyConfig:analyticsUUID:requestedTool:isEditable:.cold.2()
+- (void)initWithSmartReplyBool:smartReplyConfig:analyticsUUID:requestedTool:isEditable:.cold.2()
 {
-  dlerror();
-  v0 = abort_report_np();
-  return [WTAnalyticsDelegate didBeginWritingToolsSession:v0 contexts:?];
+  v0 = dlerror();
+  abort_report_np("%s", v0);
+  [WTAnalyticsDelegate didBeginWritingToolsSession:contexts:];
 }
 
 - (void)didBeginWritingToolsSession:contexts:.cold.3()
@@ -1195,7 +1207,7 @@ LABEL_39:
 - (void)writingToolsSession:(uint64_t)a1 didReceiveAction:(NSObject *)a2 .cold.2(uint64_t a1, NSObject *a2)
 {
   v8 = *MEMORY[0x1E69E9840];
-  v4 = getIAPayloadValueWritingToolsUIRewritingView();
+  v4 = getIAPayloadValueWritingToolsUIRewritingView(a1, a2);
   OUTLINED_FUNCTION_0();
   v6 = 2048;
   v7 = a1;

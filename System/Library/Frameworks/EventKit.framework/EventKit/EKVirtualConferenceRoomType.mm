@@ -27,43 +27,42 @@
 
 + (void)virtualConferenceRoomTypesWithCompletion:(id)completion queue:(id)queue
 {
-  v23[2] = *MEMORY[0x1E69E9840];
+  v22[2] = *MEMORY[0x1E69E9840];
   completionCopy = completion;
   queueCopy = queue;
-  v20[0] = 0;
-  v20[1] = v20;
-  v20[2] = 0x3032000000;
-  v20[3] = __Block_byref_object_copy__21;
-  v20[4] = __Block_byref_object_dispose__21;
-  v21 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v19[0] = 0;
+  v19[1] = v19;
+  v19[2] = 0x3032000000;
+  v19[3] = __Block_byref_object_copy__21;
+  v19[4] = __Block_byref_object_dispose__21;
+  v20 = objc_alloc_init(MEMORY[0x1E695DF70]);
   v7 = dispatch_group_create();
   v8 = *MEMORY[0x1E696A2F8];
-  v22[0] = @"LS:ExtensionPlatforms";
-  v22[1] = v8;
-  v23[0] = &unk_1F1B6B218;
-  v23[1] = @"com.apple.calendar.virtualconference";
-  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v23 forKeys:v22 count:2];
+  v21[0] = @"LS:ExtensionPlatforms";
+  v21[1] = v8;
+  v22[0] = &unk_1F1B6B218;
+  v22[1] = @"com.apple.calendar.virtualconference";
+  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v22 forKeys:v21 count:2];
   v10 = MEMORY[0x1E696ABD0];
-  v15[0] = MEMORY[0x1E69E9820];
-  v15[1] = 3221225472;
-  v15[2] = __78__EKVirtualConferenceRoomType_virtualConferenceRoomTypesWithCompletion_queue___block_invoke;
-  v15[3] = &unk_1E78000D0;
-  v19 = v20;
+  v14[0] = MEMORY[0x1E69E9820];
+  v14[1] = 3221225472;
+  v14[2] = __78__EKVirtualConferenceRoomType_virtualConferenceRoomTypesWithCompletion_queue___block_invoke;
+  v14[3] = &unk_1E78000D0;
+  v18 = v19;
   v11 = v7;
-  v16 = v11;
+  v15 = v11;
   v12 = queueCopy;
-  v17 = v12;
+  v16 = v12;
   v13 = completionCopy;
-  v18 = v13;
-  [v10 extensionsWithMatchingAttributes:v9 completion:v15];
+  v17 = v13;
+  [v10 extensionsWithMatchingAttributes:v9 completion:v14];
 
-  _Block_object_dispose(v20, 8);
-  v14 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(v19, 8);
 }
 
 void __78__EKVirtualConferenceRoomType_virtualConferenceRoomTypesWithCompletion_queue___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v41 = *MEMORY[0x1E69E9840];
+  v40 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   if (v6)
@@ -76,61 +75,61 @@ void __78__EKVirtualConferenceRoomType_virtualConferenceRoomTypesWithCompletion_
 
   else
   {
-    v35 = 0u;
-    v36 = 0u;
-    v33 = 0u;
     v34 = 0u;
-    v7 = [v5 countByEnumeratingWithState:&v33 objects:v40 count:16];
+    v35 = 0u;
+    v32 = 0u;
+    v33 = 0u;
+    v7 = [v5 countByEnumeratingWithState:&v32 objects:v39 count:16];
     if (v7)
     {
       v8 = v7;
-      v20 = *v34;
+      v19 = *v33;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v34 != v20)
+          if (*v33 != v19)
           {
             objc_enumerationMutation(v5);
           }
 
-          v10 = *(*(&v33 + 1) + 8 * i);
+          v10 = *(*(&v32 + 1) + 8 * i);
           v11 = [v10 identifier];
-          v29[0] = MEMORY[0x1E69E9820];
-          v29[1] = 3221225472;
-          v29[2] = __78__EKVirtualConferenceRoomType_virtualConferenceRoomTypesWithCompletion_queue___block_invoke_101;
-          v29[3] = &unk_1E7800010;
+          v28[0] = MEMORY[0x1E69E9820];
+          v28[1] = 3221225472;
+          v28[2] = __78__EKVirtualConferenceRoomType_virtualConferenceRoomTypesWithCompletion_queue___block_invoke_101;
+          v28[3] = &unk_1E7800010;
           v12 = *(a1 + 56);
-          v30 = v11;
-          v32 = v12;
-          v31 = *(a1 + 32);
+          v29 = v11;
+          v31 = v12;
+          v30 = *(a1 + 32);
           v13 = v11;
-          [v10 setRequestCompletionBlock:v29];
+          [v10 setRequestCompletionBlock:v28];
           [v10 setRequestCancellationBlock:&__block_literal_global_67];
-          v27[0] = MEMORY[0x1E69E9820];
-          v27[1] = 3221225472;
-          v27[2] = __78__EKVirtualConferenceRoomType_virtualConferenceRoomTypesWithCompletion_queue___block_invoke_108;
-          v27[3] = &unk_1E7800058;
-          v28 = 0;
-          [v10 setRequestInterruptionBlock:v27];
+          v26[0] = MEMORY[0x1E69E9820];
+          v26[1] = 3221225472;
+          v26[2] = __78__EKVirtualConferenceRoomType_virtualConferenceRoomTypesWithCompletion_queue___block_invoke_108;
+          v26[3] = &unk_1E7800058;
+          v27 = 0;
+          [v10 setRequestInterruptionBlock:v26];
           v14 = objc_alloc_init(MEMORY[0x1E696ABE0]);
-          v38 = @"_EKVirtualConferenceRequestTypeKey";
-          v39 = @"_EKVirtualConferenceRequestTypeRoomTypes";
-          v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v39 forKeys:&v38 count:1];
+          v37 = @"_EKVirtualConferenceRequestTypeKey";
+          v38 = @"_EKVirtualConferenceRequestTypeRoomTypes";
+          v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v38 forKeys:&v37 count:1];
           [v14 setUserInfo:v15];
 
           dispatch_group_enter(*(a1 + 32));
-          v37 = v14;
-          v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v37 count:1];
-          v26[0] = MEMORY[0x1E69E9820];
-          v26[1] = 3221225472;
-          v26[2] = __78__EKVirtualConferenceRoomType_virtualConferenceRoomTypesWithCompletion_queue___block_invoke_110;
-          v26[3] = &unk_1E7800080;
-          v26[4] = v10;
-          [v10 beginExtensionRequestWithOptions:1 inputItems:v16 completion:v26];
+          v36 = v14;
+          v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v36 count:1];
+          v25[0] = MEMORY[0x1E69E9820];
+          v25[1] = 3221225472;
+          v25[2] = __78__EKVirtualConferenceRoomType_virtualConferenceRoomTypesWithCompletion_queue___block_invoke_110;
+          v25[3] = &unk_1E7800080;
+          v25[4] = v10;
+          [v10 beginExtensionRequestWithOptions:1 inputItems:v16 completion:v25];
         }
 
-        v8 = [v5 countByEnumeratingWithState:&v33 objects:v40 count:16];
+        v8 = [v5 countByEnumeratingWithState:&v32 objects:v39 count:16];
       }
 
       while (v8);
@@ -141,42 +140,40 @@ void __78__EKVirtualConferenceRoomType_virtualConferenceRoomTypesWithCompletion_
     block[1] = 3221225472;
     block[2] = __78__EKVirtualConferenceRoomType_virtualConferenceRoomTypesWithCompletion_queue___block_invoke_111;
     block[3] = &unk_1E78000A8;
-    v23 = *(a1 + 32);
-    v24 = *(a1 + 40);
-    v21 = *(a1 + 48);
-    v18 = v21;
-    v25 = v21;
+    v22 = *(a1 + 32);
+    v23 = *(a1 + 40);
+    v20 = *(a1 + 48);
+    v18 = v20;
+    v24 = v20;
     dispatch_async(v17, block);
 
     v6 = 0;
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 void __78__EKVirtualConferenceRoomType_virtualConferenceRoomTypesWithCompletion_queue___block_invoke_101(uint64_t a1, void *a2, void *a3)
 {
-  v38 = *MEMORY[0x1E69E9840];
-  v24 = a2;
+  v37 = *MEMORY[0x1E69E9840];
+  v23 = a2;
+  v26 = 0u;
   v27 = 0u;
   v28 = 0u;
   v29 = 0u;
-  v30 = 0u;
   obj = a3;
-  v5 = [obj countByEnumeratingWithState:&v27 objects:v37 count:16];
+  v5 = [obj countByEnumeratingWithState:&v26 objects:v36 count:16];
   if (v5)
   {
-    v26 = *v28;
+    v25 = *v27;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v28 != v26)
+        if (*v27 != v25)
         {
           objc_enumerationMutation(obj);
         }
 
-        v7 = *(*(&v27 + 1) + 8 * i);
+        v7 = *(*(&v26 + 1) + 8 * i);
         v8 = [v7 userInfo];
         v9 = [v8 objectForKey:@"_EKVirtualConferenceRoomTypeTitleKey"];
 
@@ -235,16 +232,16 @@ void __78__EKVirtualConferenceRoomType_virtualConferenceRoomTypesWithCompletion_
             }
 
             *buf = 138412802;
-            v32 = v7;
+            v31 = v7;
             if (v13)
             {
               v19 = v13;
             }
 
-            v33 = 2112;
-            v34 = v20;
-            v35 = 2112;
-            v36 = v19;
+            v32 = 2112;
+            v33 = v20;
+            v34 = 2112;
+            v35 = v19;
             _os_log_error_impl(&dword_1A805E000, v18, OS_LOG_TYPE_ERROR, "Skipping extension room type %@ because it has insufficient information. Identifier = %@ title = %@", buf, 0x20u);
           }
         }
@@ -259,14 +256,13 @@ void __78__EKVirtualConferenceRoomType_virtualConferenceRoomTypesWithCompletion_
         }
       }
 
-      v5 = [obj countByEnumeratingWithState:&v27 objects:v37 count:16];
+      v5 = [obj countByEnumeratingWithState:&v26 objects:v36 count:16];
     }
 
     while (v5);
   }
 
   dispatch_group_leave(*(a1 + 40));
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 void __78__EKVirtualConferenceRoomType_virtualConferenceRoomTypesWithCompletion_queue___block_invoke_106(uint64_t a1, void *a2, void *a3)
@@ -281,16 +277,16 @@ void __78__EKVirtualConferenceRoomType_virtualConferenceRoomTypesWithCompletion_
 
 void __78__EKVirtualConferenceRoomType_virtualConferenceRoomTypesWithCompletion_queue___block_invoke_108(uint64_t a1, void *a2)
 {
-  v3 = a2;
+  v2 = a2;
   if (os_log_type_enabled(EKLogHandle, OS_LOG_TYPE_ERROR))
   {
-    __78__EKVirtualConferenceRoomType_virtualConferenceRoomTypesWithCompletion_queue___block_invoke_108_cold_1(v3, a1);
+    __78__EKVirtualConferenceRoomType_virtualConferenceRoomTypesWithCompletion_queue___block_invoke_108_cold_1();
   }
 }
 
 void __78__EKVirtualConferenceRoomType_virtualConferenceRoomTypesWithCompletion_queue___block_invoke_110(uint64_t a1, void *a2, void *a3)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   if (v6)
@@ -298,18 +294,16 @@ void __78__EKVirtualConferenceRoomType_virtualConferenceRoomTypesWithCompletion_
     v7 = EKLogHandle;
     if (os_log_type_enabled(EKLogHandle, OS_LOG_TYPE_ERROR))
     {
-      v9 = *(a1 + 32);
-      v10 = 138412802;
-      v11 = v9;
-      v12 = 2112;
-      v13 = v5;
-      v14 = 2112;
-      v15 = v6;
-      _os_log_error_impl(&dword_1A805E000, v7, OS_LOG_TYPE_ERROR, "Request for virtual conference room types failed, extension = %@ request = %@ error = %@", &v10, 0x20u);
+      v8 = *(a1 + 32);
+      v9 = 138412802;
+      v10 = v8;
+      v11 = 2112;
+      v12 = v5;
+      v13 = 2112;
+      v14 = v6;
+      _os_log_error_impl(&dword_1A805E000, v7, OS_LOG_TYPE_ERROR, "Request for virtual conference room types failed, extension = %@ request = %@ error = %@", &v9, 0x20u);
     }
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __78__EKVirtualConferenceRoomType_virtualConferenceRoomTypesWithCompletion_queue___block_invoke_111(uint64_t a1)
@@ -338,14 +332,10 @@ void __78__EKVirtualConferenceRoomType_virtualConferenceRoomTypesWithCompletion_
 
 uint64_t __78__EKVirtualConferenceRoomType_virtualConferenceRoomTypesWithCompletion_queue___block_invoke_112(uint64_t a1)
 {
-  if ([*(*(*(a1 + 40) + 8) + 40) count])
-  {
-    v2 = *(*(*(a1 + 40) + 8) + 40);
-  }
+  [*(*(*(a1 + 40) + 8) + 40) count];
+  v2 = *(*(a1 + 32) + 16);
 
-  v3 = *(*(a1 + 32) + 16);
-
-  return v3();
+  return v2();
 }
 
 - (BOOL)isEqual:(id)equal
@@ -398,27 +388,9 @@ uint64_t __78__EKVirtualConferenceRoomType_virtualConferenceRoomTypesWithComplet
 
 void __78__EKVirtualConferenceRoomType_virtualConferenceRoomTypesWithCompletion_queue___block_invoke_cold_1()
 {
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  _os_log_error_impl(&dword_1A805E000, v0, OS_LOG_TYPE_ERROR, "Failed to find virtual conference extensions. Error = %@", v2, 0xCu);
-  v1 = *MEMORY[0x1E69E9840];
-}
-
-void __78__EKVirtualConferenceRoomType_virtualConferenceRoomTypesWithCompletion_queue___block_invoke_106_cold_1()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_9(&dword_1A805E000, v0, v1, "Request for virtual conference room type cancelled, request = %@ error = %@");
   v2 = *MEMORY[0x1E69E9840];
-}
-
-void __78__EKVirtualConferenceRoomType_virtualConferenceRoomTypesWithCompletion_queue___block_invoke_108_cold_1(uint64_t a1, uint64_t a2)
-{
-  v6 = *MEMORY[0x1E69E9840];
-  v2 = *(a2 + 32);
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_9(&dword_1A805E000, v3, v4, "Request for virtual conference room interrupted, request = %@ error = %@");
-  v5 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(&dword_1A805E000, v0, OS_LOG_TYPE_ERROR, "Failed to find virtual conference extensions. Error = %@", v1, 0xCu);
 }
 
 @end

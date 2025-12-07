@@ -150,7 +150,7 @@
     v26 = v25;
     if (locationCopy)
     {
-      [locationCopy clientLocation];
+      objc_msgSend_clientLocation(locationCopy);
       v27 = v63;
     }
 
@@ -225,9 +225,9 @@ LABEL_40:
   v28 = MEMORY[0x1E69A1918];
   self->_maxTravelledCoordinate = *MEMORY[0x1E69A1918];
   self->_isProjectedPositionBehind = 1;
-  [locationCopy coordinate];
+  objc_msgSend_coordinate(locationCopy);
   v30 = v29;
-  [locationCopy coordinate];
+  objc_msgSend_coordinate(locationCopy);
   v54 = v31;
   v32 = tan(v30 * 0.00872664626 + 0.785398163);
   v33 = log(v32);
@@ -281,7 +281,7 @@ LABEL_41:
     v5 = +[VKDebugSettings sharedSettings];
     if ([v5 enablePuckRouteLineSnapping])
     {
-      [matchCopy snapRouteMatch:self->_projectedRouteMatch];
+      objc_msgSend_snapRouteMatch_(matchCopy);
     }
 
     else

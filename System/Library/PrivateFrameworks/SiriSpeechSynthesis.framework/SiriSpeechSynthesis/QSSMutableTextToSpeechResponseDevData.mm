@@ -2,6 +2,7 @@
 - (BOOL)has_click;
 - (QSSMutableTextToSpeechResponseDevData)init;
 - (id)copyWithZone:(_NSZone *)zone;
+- (void)setHas_click:(BOOL)has_click;
 - (void)setLog:(id)log;
 - (void)setServer_info:(id)server_info;
 - (void)setWorker_process_type:(id)worker_process_type;
@@ -12,6 +13,12 @@
 - (void)setWorker_process_type:(id)worker_process_type
 {
   v4 = [worker_process_type copy];
+  [NSMutableDictionary setObject:"setObject:forKeyedSubscript:" forKeyedSubscript:?];
+}
+
+- (void)setHas_click:(BOOL)has_click
+{
+  v4 = [objc_alloc(MEMORY[0x277CCABB0]) initWithBool:has_click];
   [NSMutableDictionary setObject:"setObject:forKeyedSubscript:" forKeyedSubscript:?];
 }
 

@@ -12,7 +12,7 @@
   v3 = swift_allocObject();
   *(v3 + 16) = xmmword_1C3D5F370;
   v4 = *(&self->super.isa + OBJC_IVAR____TtC8HealthUIP33_2A1C24F28D3D74C6BE1A5464632B356C37AudiogramAverageSensitivityChartPoint_yCoord);
-  *(v3 + 56) = sub_1C3C27CB4(0, &qword_1EC0855F0);
+  *(v3 + 56) = sub_1C3C27CB4(0, &qword_1EC0855F0, 0x1E696AD98);
   *(v3 + 32) = v4;
   v5 = v4;
   v6 = sub_1C3D202A4();

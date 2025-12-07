@@ -1,8 +1,15 @@
 @interface PDControllerType4
++ (id)createWithDeviceAddress:(unsigned __int8)address userClient:(id)client;
 - (BOOL)isSPIMaster;
+- (PDControllerType4)initWithAddress:(unsigned __int8)address userClient:(id)client;
 - (id)dpmrSubCommandFormatterHexDumpWithBuffer:(void *)buffer length:(unint64_t)length inputBuffer:(void *)inputBuffer andInputLength:(unint64_t)inputLength;
+- (id)getDeviceInfoNameWithConfigOnly:(BOOL)only;
 - (id)readFullVersion;
+- (id)stringForTitle:(id)title value:(unsigned int)value table:(id)table;
+- (id)stringForTitle:(id)title value:(unsigned int)value table:(id)table prefixString:(id)string;
 - (id)stringForTitle:(id)title valueString:(id)string;
+- (id)stringForValue:(unsigned int)value table:(id)table;
+- (id)stringForValue:(unsigned int)value table:(id)table prefixString:(id)string;
 - (int)dataBuffer:(char *)buffer fromHexString:(id)string ofLengthString:(id)lengthString;
 - (int)printAll;
 - (int)printAllDPMrSubcommands;
@@ -21,6 +28,24 @@
 @end
 
 @implementation PDControllerType4
+
++ (id)createWithDeviceAddress:(unsigned __int8)address userClient:(id)client
+{
+  addressCopy = address;
+  clientCopy = client;
+  v7 = [[self alloc] initWithAddress:addressCopy userClient:clientCopy];
+
+  return v7;
+}
+
+- (PDControllerType4)initWithAddress:(unsigned __int8)address userClient:(id)client
+{
+  v6.receiver = self;
+  v6.super_class = PDControllerType4;
+  v4 = [(PDControllerType2 *)&v6 initWithAddress:address userClient:client];
+  [(PDControllerType4 *)v4 setDPMrConfigs];
+  return v4;
+}
 
 - (int)printIECSStandardInfo
 {
@@ -573,6 +598,42 @@ LABEL_22:
   return v6;
 }
 
+- (id)stringForValue:(unsigned int)value table:(id)table
+{
+  v4 = *&value;
+  tableCopy = table;
+  v6 = [NSNumber numberWithUnsignedInt:v4];
+  v7 = [tableCopy objectForKeyedSubscript:v6];
+
+  if (!v7)
+  {
+    v7 = [NSString stringWithFormat:@"Unknown (0x%x)", v4];
+  }
+
+  return v7;
+}
+
+- (id)stringForValue:(unsigned int)value table:(id)table prefixString:(id)string
+{
+  v6 = *&value;
+  stringCopy = string;
+  tableCopy = table;
+  v9 = [NSNumber numberWithUnsignedInt:v6];
+  v10 = [tableCopy objectForKeyedSubscript:v9];
+
+  if (v10)
+  {
+    v11 = [NSString stringWithFormat:@"%@%@", stringCopy, v10];
+  }
+
+  else
+  {
+    v11 = [NSString stringWithFormat:@"Unknown (0x%x)", v6];
+  }
+
+  return v11;
+}
+
 - (id)stringForTitle:(id)title valueString:(id)string
 {
   titleCopy = title;
@@ -580,6 +641,26 @@ LABEL_22:
   v8 = +[NSString stringWithFormat:](NSString, "stringWithFormat:", @"%-22s %@", [title UTF8String], stringCopy);
 
   return v8;
+}
+
+- (id)stringForTitle:(id)title value:(unsigned int)value table:(id)table
+{
+  v6 = *&value;
+  titleCopy = title;
+  v9 = [(PDControllerType4 *)self stringForValue:v6 table:table];
+  v10 = [(PDControllerType4 *)self stringForTitle:titleCopy valueString:v9];
+
+  return v10;
+}
+
+- (id)stringForTitle:(id)title value:(unsigned int)value table:(id)table prefixString:(id)string
+{
+  v8 = *&value;
+  titleCopy = title;
+  v11 = [(PDControllerType4 *)self stringForValue:v8 table:table prefixString:string];
+  v12 = [(PDControllerType4 *)self stringForTitle:titleCopy valueString:v11];
+
+  return v12;
 }
 
 - (unsigned)chrisTracy:(id)tracy
@@ -686,6 +767,80 @@ LABEL_22:
   v4 = v3;
   [(PDController *)self registerRead:v3 ofLength:64 atAddress:45 andOutReadLength:&v6];
   return *v4 < 0;
+}
+
+- (id)getDeviceInfoNameWithConfigOnly:(BOOL)only
+{
+  onlyCopy = only;
+  v19 = 0;
+  v5 = malloc_type_malloc(0x40uLL, 0x9CE7483FuLL);
+  if (v5)
+  {
+    v6 = v5;
+    [(PDController *)self registerRead:v5 ofLength:64 atAddress:47 andOutReadLength:&v19];
+    if (v19)
+    {
+      v7 = 0;
+      v8 = 0;
+      v9 = 0;
+      while (1)
+      {
+        if (v6[v7] == 32)
+        {
+          v10 = v8;
+          v8 -= 2;
+          do
+          {
+            v11 = v6[v10] == 32 && v19 > v10;
+            ++v10;
+            ++v8;
+          }
+
+          while (v11);
+          if (++v9 == 3)
+          {
+            break;
+          }
+        }
+
+        v7 = ++v8;
+        if (v19 <= v8)
+        {
+          goto LABEL_12;
+        }
+      }
+
+      v13 = &v6[v8];
+      if (onlyCopy)
+      {
+        v14 = v13 + 7;
+      }
+
+      else
+      {
+        v14 = v13 + 1;
+      }
+
+      v15 = [NSString stringWithUTF8String:v14];
+      v16 = +[NSCharacterSet whitespaceAndNewlineCharacterSet];
+      v12 = [v15 stringByTrimmingCharactersInSet:v16];
+    }
+
+    else
+    {
+LABEL_12:
+      v12 = 0;
+    }
+  }
+
+  else
+  {
+    v18.receiver = self;
+    v18.super_class = PDControllerType4;
+    v12 = [(PDControllerType2 *)&v18 getDeviceInfoNameWithConfigOnly:onlyCopy];
+  }
+
+  return v12;
 }
 
 - (int)printDPMrSubCommand:(id)command withDeviceConfig:(id)config writeBuffer:(void *)buffer writeLength:(unint64_t)length readBuffer:(void *)readBuffer readLength:(unint64_t)readLength

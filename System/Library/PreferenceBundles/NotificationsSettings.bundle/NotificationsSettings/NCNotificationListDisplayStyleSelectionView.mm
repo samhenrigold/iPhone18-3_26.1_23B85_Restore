@@ -234,9 +234,11 @@
     v4 = 0;
   }
 
-  *p_selectionLabel = [(NCNotificationListDisplayStyleSelectionView *)self _newSelectionLabelIsEncapsulated:v4];
+  v5 = [(NCNotificationListDisplayStyleSelectionView *)self _newSelectionLabelIsEncapsulated:v4];
+  v6 = *p_selectionLabel;
+  *p_selectionLabel = v5;
 
-  _objc_release_x1();
+  _objc_release_x1(v5, v6);
 }
 
 - (id)_newSelectionLabelIsEncapsulated:(BOOL)encapsulated

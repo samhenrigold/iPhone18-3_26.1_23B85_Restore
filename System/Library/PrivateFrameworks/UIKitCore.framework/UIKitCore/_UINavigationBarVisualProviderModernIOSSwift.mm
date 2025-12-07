@@ -317,21 +317,22 @@
 
 - (void)setStaticLeadingItemGroups:(id)groups trailingItemGroups:(id)itemGroups animated:(BOOL)animated
 {
+  animatedCopy = animated;
   groupsCopy = groups;
   if (groups)
   {
-    sub_188A34624(0, &unk_1ED48DBD0);
+    sub_188A34624(0, &unk_1ED48DBD0, off_1E70E94E8);
     groupsCopy = sub_18A4A7548();
   }
 
   if (itemGroups)
   {
-    sub_188A34624(0, &unk_1ED48DBD0);
+    sub_188A34624(0, &unk_1ED48DBD0, off_1E70E94E8);
     itemGroups = sub_18A4A7548();
   }
 
   selfCopy = self;
-  sub_188BB458C(groupsCopy, itemGroups, animated);
+  sub_188BB458C(groupsCopy, itemGroups, animatedCopy);
 }
 
 - (void)navigationItemUpdatedSearchController:(id)controller oldSearchController:(id)searchController
@@ -717,7 +718,7 @@
   selfCopy = self;
   sub_1890CED0C();
 
-  sub_188A34624(0, &qword_1ED48FD80);
+  sub_188A34624(0, &qword_1ED48FD80, 0x1E696AD98);
   v3 = sub_18A4A7518();
 
   return v3;
@@ -901,7 +902,7 @@
   swift_getObjCClassMetadata();
   sub_1890D0D68(v10, v7, v9);
 
-  sub_188A3F5FC(v10, &qword_1EA934050);
+  sub_188A3F5FC(v10, &qword_1EA934050, qword_18A64CA10);
 }
 
 - (id)_immediatelyFinishRunningTransition
@@ -944,7 +945,7 @@
 
 - (void)_didEncounterFirstTitleWithExcessiveHeightChanged:(id)changed
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EA93C6E8);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EA93C6E8, &unk_18A665560);
   MEMORY[0x1EEE9AC00](v5 - 8);
   v7 = &v11 - v6;
   if (changed)
@@ -963,7 +964,7 @@
   selfCopy = self;
   sub_1890D58E0();
 
-  sub_188A3F5FC(v7, &unk_1EA93C6E8);
+  sub_188A3F5FC(v7, &unk_1EA93C6E8, &unk_18A665560);
 }
 
 - (_TtC5UIKit44_UINavigationBarVisualProviderModernIOSSwift)init
@@ -1038,7 +1039,7 @@
 {
   marginsCopy = margins;
   selfCopy = self;
-  sub_1890D6B88();
+  sub_1890D6B88(marginsCopy);
 }
 
 - (void)navigationItemUpdatedSearchBarPlacementAllowsToolbarIntegration:(id)integration
@@ -1147,11 +1148,12 @@
 
 - (BOOL)titleRenamer:(id)renamer session:(id)session shouldEndRenamingWithTitle:(id)title
 {
-  sub_18A4A7288();
+  v8 = sub_18A4A7288();
+  v10 = v9;
   renamerCopy = renamer;
   sessionCopy = session;
   selfCopy = self;
-  LOBYTE(self) = sub_1890DA2E8(sessionCopy);
+  LOBYTE(self) = sub_1890DA2E8(sessionCopy, v8, v10);
 
   return self & 1;
 }
@@ -1193,7 +1195,7 @@
   sessionCopy = session;
   failCopy = fail;
   selfCopy = self;
-  sub_1890DA970(sessionCopy);
+  sub_1890DA970(sessionCopy, failCopy);
 }
 
 @end

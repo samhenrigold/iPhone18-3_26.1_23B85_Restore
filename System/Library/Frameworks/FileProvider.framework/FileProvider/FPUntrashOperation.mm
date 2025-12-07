@@ -78,7 +78,7 @@
 
 void __54__FPUntrashOperation_subclassPreflightWithCompletion___block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = v5;
   if (a3)
@@ -88,45 +88,45 @@ void __54__FPUntrashOperation_subclassPreflightWithCompletion___block_invoke(uin
 
   else
   {
-    v23 = 0u;
-    v24 = 0u;
-    v21 = 0u;
     v22 = 0u;
+    v23 = 0u;
+    v20 = 0u;
+    v21 = 0u;
     v8 = v5;
-    v9 = [v8 countByEnumeratingWithState:&v21 objects:v25 count:16];
+    v9 = [v8 countByEnumeratingWithState:&v20 objects:v24 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v22;
+      v11 = *v21;
       while (2)
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v22 != v11)
+          if (*v21 != v11)
           {
             objc_enumerationMutation(v8);
           }
 
-          if ([*(*(&v21 + 1) + 8 * i) isTrashed])
+          if ([*(*(&v20 + 1) + 8 * i) isTrashed])
           {
 
             v13 = [*(a1 + 32) itemManager];
             v14 = *(a1 + 40);
-            v17[0] = MEMORY[0x1E69E9820];
-            v17[1] = 3221225472;
-            v17[2] = __54__FPUntrashOperation_subclassPreflightWithCompletion___block_invoke_2;
-            v17[3] = &unk_1E793B640;
-            v18 = v14;
+            v16[0] = MEMORY[0x1E69E9820];
+            v16[1] = 3221225472;
+            v16[2] = __54__FPUntrashOperation_subclassPreflightWithCompletion___block_invoke_2;
+            v16[3] = &unk_1E793B640;
+            v17 = v14;
             v15 = *(a1 + 48);
-            v19 = *(a1 + 32);
-            v20 = v15;
-            [v13 fetchRootItemForProviderDomain:v18 completionHandler:v17];
+            v18 = *(a1 + 32);
+            v19 = v15;
+            [v13 fetchRootItemForProviderDomain:v17 completionHandler:v16];
 
             goto LABEL_14;
           }
         }
 
-        v10 = [v8 countByEnumeratingWithState:&v21 objects:v25 count:16];
+        v10 = [v8 countByEnumeratingWithState:&v20 objects:v24 count:16];
         if (v10)
         {
           continue;
@@ -141,8 +141,6 @@ void __54__FPUntrashOperation_subclassPreflightWithCompletion___block_invoke(uin
 
   v7();
 LABEL_14:
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 void __54__FPUntrashOperation_subclassPreflightWithCompletion___block_invoke_2(uint64_t a1, void *a2, void *a3)
@@ -240,35 +238,22 @@ void __54__FPUntrashOperation_subclassPreflightWithCompletion___block_invoke_2(u
   return v6;
 }
 
-- (void)subclassPreflightWithCompletion:(uint64_t *)a1 .cold.1(uint64_t *a1, void *a2)
+- (void)subclassPreflightWithCompletion:(uint64_t)a1 .cold.1(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v2 = *a1;
-  v3 = [a2 fp_prettyDescription];
+  v2 = [a2 fp_prettyDescription];
   OUTLINED_FUNCTION_10_4();
   OUTLINED_FUNCTION_3_3();
   OUTLINED_FUNCTION_15();
-  _os_log_error_impl(v4, v5, v6, v7, v8, 0x16u);
-
-  v9 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v3, v4, v5, v6, v7, 0x16u);
 }
 
 void __54__FPUntrashOperation_subclassPreflightWithCompletion___block_invoke_2_cold_1(uint64_t a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 32);
-  v4 = 138412290;
-  v5 = v2;
-  _os_log_error_impl(&dword_1AAAE1000, a2, OS_LOG_TYPE_ERROR, "[ERROR] untrash operation preflight failed because of failed fetch root item for domain %@", &v4, 0xCu);
-  v3 = *MEMORY[0x1E69E9840];
-}
-
-- (void)transformItem:atIndex:.cold.1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_3(&dword_1AAAE1000, v0, v1, "[DEBUG] Untrash moving item %@ to root because restore directory is trashed", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
+  v3 = 138412290;
+  v4 = v2;
+  _os_log_error_impl(&dword_1AAAE1000, a2, OS_LOG_TYPE_ERROR, "[ERROR] untrash operation preflight failed because of failed fetch root item for domain %@", &v3, 0xCu);
 }
 
 @end

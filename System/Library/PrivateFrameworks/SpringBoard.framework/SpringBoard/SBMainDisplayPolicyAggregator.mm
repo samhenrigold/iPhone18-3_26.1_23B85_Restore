@@ -229,7 +229,7 @@
   return v10;
 }
 
-uint64_t __66__SBMainDisplayPolicyAggregator_initWithDefaults_displayIdentity___block_invoke(uint64_t a1)
+void *__66__SBMainDisplayPolicyAggregator_initWithDefaults_displayIdentity___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 40) isStoreDemoApplicationLockEnabled];
   *(*(a1 + 32) + 128) = result;
@@ -259,7 +259,7 @@ void __66__SBMainDisplayPolicyAggregator_initWithDefaults_displayIdentity___bloc
   v6 = [a2 userInfo];
   v3 = [v6 objectForKey:@"SBInstalledApplicationsAddedBundleIDs"];
   v4 = [v6 objectForKey:@"SBInstalledApplicationsRemovedBundleIDs"];
-  if (([v3 containsObject:@"com.apple.mobilenotes"] & 1) != 0 || objc_msgSend(v4, "containsObject:", @"com.apple.mobilenotes"))
+  if ((objc_msgSend_containsObject_(v3) & 1) != 0 || objc_msgSend_containsObject_(v4))
   {
     v5 = [MEMORY[0x277CCAB98] defaultCenter];
     [v5 postNotificationName:@"SBPolicyAggregatorCapabilitiesChangedNotification" object:*(a1 + 32)];

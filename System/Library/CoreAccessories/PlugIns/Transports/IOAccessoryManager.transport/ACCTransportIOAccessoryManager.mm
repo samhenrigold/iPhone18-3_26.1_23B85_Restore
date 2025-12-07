@@ -1,10 +1,12 @@
 @interface ACCTransportIOAccessoryManager
+- (ACCTransportIOAccessoryManager)initWithIOService:(unsigned int)service;
 - (BOOL)isBatteryPackModeEnabled;
 - (BOOL)isPowerDuringSleepEnabled;
 - (BOOL)isPowerDuringSleepSupported;
 - (BOOL)resetAccessoryBaseCurrent;
 - (BOOL)setAccessoryRequestedCurrent:(unsigned int)current;
 - (BOOL)setAccessoryUsedCurrent:(unsigned int)current;
+- (BOOL)setBatteryPackMode:(BOOL)mode forceResponse:(BOOL)response;
 - (BOOL)setFeaturesFromAuthStatus:(int)status authCert:(id)cert certType:(int)type;
 - (BOOL)setPowerDuringSleepEnabled:(BOOL)enabled;
 - (BOOL)setUSBCurrentLimitBase:(unsigned int)base forceResponse:(BOOL)response;
@@ -44,6 +46,7 @@
 - (void)_handleNotificationUarpStagingStatusForModel:(id)model state:(unint64_t)state;
 - (void)_handleNotificationUarpStartUpdateForModel:(id)model;
 - (void)_handleRegisterationForUarpActivityForModel:(id)model shouldRegister:(BOOL)register;
+- (void)_handleResistorIDChangeNotification:(int)notification;
 - (void)_handleUartActivityTimeout;
 - (void)_kickTimerForUarpActivityForModel:(id)model;
 - (void)_pokeResistorID;
@@ -56,7 +59,6 @@
 - (void)_stopTimerForUarpActivityForModel:(id)model;
 - (void)_updateInductiveInfo:(BOOL)info;
 - (void)addIOAccessoryChildPort:(id)port;
-- (void)cableType;
 - (void)dealloc;
 - (void)getUSBMode;
 - (void)notifyDriverOfInductiveActivity:(BOOL)activity paused:(BOOL)paused;
@@ -75,13 +77,10 @@
 
 - (void)_processAccessoryInfo
 {
-  v8 = *MEMORY[0x277D85DE8];
-  *self;
   [a2 ioService];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_3();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0x12u);
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (int)_connectionTypeForPrimaryPort
@@ -143,7 +142,7 @@
 
 - (id)_connectionUUIDsForNotification
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   v3 = objc_alloc_init(MEMORY[0x277CBEB58]);
   connectionUUID = [(ACCTransportIOAccessoryManager *)self connectionUUID];
   if (connectionUUID)
@@ -153,7 +152,7 @@
 
   if ([(ACCTransportIOAccessoryManager *)self isRootPort]&& [(ACCTransportIOAccessoryManager *)self _connectionTypeForPrimaryPort]!= 3)
   {
-    v27 = connectionUUID;
+    v26 = connectionUUID;
     if (gLogObjects && gNumLogObjects >= 4)
     {
       v5 = *(gLogObjects + 24);
@@ -201,26 +200,26 @@
 
     [delegate startSafeConnectionTransaction];
     [delegate allEndpointsUUIDs];
+    v28 = 0u;
     v29 = 0u;
     v30 = 0u;
-    v31 = 0u;
-    obj = v32 = 0u;
-    v11 = [obj countByEnumeratingWithState:&v29 objects:v33 count:16];
+    obj = v31 = 0u;
+    v11 = [obj countByEnumeratingWithState:&v28 objects:v32 count:16];
     if (v11)
     {
       v12 = v11;
-      v13 = *v30;
+      v13 = *v29;
       v14 = MEMORY[0x277D86220];
       do
       {
         for (i = 0; i != v12; ++i)
         {
-          if (*v30 != v13)
+          if (*v29 != v13)
           {
             objc_enumerationMutation(obj);
           }
 
-          v16 = [delegate connectionUUIDForEndpointWithUUID:*(*(&v29 + 1) + 8 * i)];
+          v16 = [delegate connectionUUIDForEndpointWithUUID:*(*(&v28 + 1) + 8 * i)];
           v17 = [delegate connectionTypeForConnectionWithUUID:v16];
           if (v17 == 6 || v17 == 1)
           {
@@ -242,9 +241,9 @@
               if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
               {
                 *buf = 134218240;
-                *v35 = v20;
-                *&v35[8] = 1024;
-                *&v35[10] = v21;
+                *v34 = v20;
+                *&v34[8] = 1024;
+                *&v34[10] = v21;
                 _os_log_error_impl(&dword_233656000, v14, OS_LOG_TYPE_ERROR, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", buf, 0x12u);
               }
 
@@ -260,9 +259,9 @@
             if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 67109378;
-              *v35 = v19;
-              *&v35[4] = 2112;
-              *&v35[6] = v16;
+              *v34 = v19;
+              *&v34[4] = 2112;
+              *&v34[6] = v16;
               _os_log_impl(&dword_233656000, v24, OS_LOG_TYPE_DEFAULT, "Found %{coreacc:ACCConnection_Type_t}d connectionType, need to send notification for connectionUUID %@", buf, 0x12u);
             }
 
@@ -270,7 +269,7 @@
           }
         }
 
-        v12 = [obj countByEnumeratingWithState:&v29 objects:v33 count:16];
+        v12 = [obj countByEnumeratingWithState:&v28 objects:v32 count:16];
       }
 
       while (v12);
@@ -278,10 +277,8 @@
 
     [delegate stopSafeConnectionTransaction];
 
-    connectionUUID = v27;
+    connectionUUID = v26;
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
@@ -304,9 +301,297 @@
   return v3;
 }
 
+- (ACCTransportIOAccessoryManager)initWithIOService:(unsigned int)service
+{
+  v74 = *MEMORY[0x277D85DE8];
+  v67.receiver = self;
+  v67.super_class = ACCTransportIOAccessoryManager;
+  v4 = [(ACCTransportIOAccessoryBase *)&v67 initWithIOAccessoryClass:0 ioService:*&service];
+  if (v4)
+  {
+    v5 = [MEMORY[0x277CBEB58] set];
+    v6 = *(v4 + 38);
+    *(v4 + 38) = v5;
+
+    v7 = [MEMORY[0x277CBEB58] set];
+    v8 = *(v4 + 39);
+    *(v4 + 39) = v7;
+
+    v9 = [MEMORY[0x277CBEB58] set];
+    v10 = *(v4 + 40);
+    *(v4 + 40) = v9;
+
+    v11 = [MEMORY[0x277CBEB58] set];
+    v12 = *(v4 + 41);
+    *(v4 + 41) = v11;
+
+    v13 = [MEMORY[0x277CBEB58] set];
+    v14 = *(v4 + 42);
+    *(v4 + 42) = v13;
+
+    v15 = objc_alloc_init(MEMORY[0x277CCAAF8]);
+    v16 = *(v4 + 16);
+    *(v4 + 16) = v15;
+
+    *(v4 + 44) = 0;
+    v4[145] = 0;
+    v4[146] = 0;
+    v4[147] = 0;
+    v17 = *(v4 + 45);
+    *(v4 + 45) = 0;
+
+    v18 = *(v4 + 46);
+    *(v4 + 46) = 0;
+
+    v19 = *(v4 + 47);
+    *(v4 + 47) = 0;
+
+    v20 = *(v4 + 48);
+    *(v4 + 48) = 0;
+
+    v4[148] = 0;
+    v4[149] = 0;
+    v4[72] = 0;
+    *(v4 + 12) = 0;
+    v4[136] = [v4 primaryPortNumber] == 257;
+    v4[137] = 0;
+    v4[138] = 0;
+    v21 = *(v4 + 8);
+    *(v4 + 8) = 0;
+
+    v4[141] = 0;
+    *(v4 + 40) = 100;
+    v4[150] = MGGetSInt32Answer() == 6;
+    v22 = (IOAccessoryManagerGetType() & 0xF) == 5;
+    v4[142] = v22;
+    v4[142] = v4[150] | v22;
+    *(v4 + 43) = 0;
+    *(v4 + 41) = 0;
+    v4[144] = 0;
+    v23 = objc_alloc_init(MEMORY[0x277CCAC60]);
+    v24 = *(v4 + 24);
+    *(v4 + 24) = v23;
+
+    *(v4 + 44) = 0;
+    *(v4 + 43) = 0;
+    [v4 _clearAccessoryInfo];
+    v4[139] = [v4 upstreamManagerService] == 0;
+    if (gLogObjects && gNumLogObjects >= 4)
+    {
+      v25 = *(gLogObjects + 24);
+    }
+
+    else
+    {
+      if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+      {
+        [ACCTransportIOAccessoryOOBPairing dealloc];
+      }
+
+      v25 = MEMORY[0x277D86220];
+      v26 = MEMORY[0x277D86220];
+    }
+
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
+    {
+      [ACCTransportIOAccessoryManager initWithIOService:];
+    }
+
+    ioService = [v4 ioService];
+    if (IOServiceOpen(ioService, *MEMORY[0x277D85F48], 0, v4 + 2))
+    {
+      if (gLogObjects && gNumLogObjects >= 4)
+      {
+        v28 = *(gLogObjects + 24);
+      }
+
+      else
+      {
+        if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+        {
+          [ACCTransportIOAccessoryOOBPairing dealloc];
+        }
+
+        v28 = MEMORY[0x277D86220];
+        v29 = MEMORY[0x277D86220];
+      }
+
+      if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+      {
+        [ACCTransportIOAccessoryManager initWithIOService:];
+      }
+    }
+
+    else
+    {
+      [v4 _registerForIOAccessoryManagerInterestNotifications];
+    }
+
+    v30 = *(v4 + 37);
+    *(v4 + 37) = 0;
+
+    ioService2 = [v4 ioService];
+    v32 = *MEMORY[0x277CBECE8];
+    v33 = IORegistryEntrySearchCFProperty(ioService2, "IOService", @"IOProviderClass", *MEMORY[0x277CBECE8], 0);
+    if (v33)
+    {
+      v34 = v33;
+      if (CFStringCompare(v33, @"AppleUVDMEndpoint", 0))
+      {
+        v4[140] = 0;
+      }
+
+      else
+      {
+        v4[140] = 1;
+        parent = 0;
+        if (!IORegistryEntryGetParentEntry([v4 ioService], "IOAccessory", &parent))
+        {
+          CFProperty = IORegistryEntryCreateCFProperty(parent, @"Description", v32, 0);
+          if (CFProperty || (v72 = 0u, v73 = 0u, v70 = 0u, v71 = 0u, v69 = 0u, memset(cStr, 0, sizeof(cStr)), !MEMORY[0x2383A94F0](parent, cStr)) && (CFProperty = CFStringCreateWithCString(v32, cStr, 0x8000100u)) != 0)
+          {
+            v59 = CFProperty;
+            if (gLogObjects && gNumLogObjects >= 1)
+            {
+              v36 = *gLogObjects;
+            }
+
+            else
+            {
+              if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+              {
+                [ACCTransportIOAccessoryOOBPairing dealloc];
+              }
+
+              v36 = MEMORY[0x277D86220];
+              v37 = MEMORY[0x277D86220];
+            }
+
+            if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
+            {
+              v38 = *(v4 + 37);
+              *cStr = 136316162;
+              *&cStr[4] = "[ACCTransportIOAccessoryManager initWithIOService:]";
+              *&cStr[12] = 1024;
+              *&cStr[14] = 1086;
+              *&cStr[18] = 1024;
+              *&cStr[20] = service;
+              *&cStr[24] = 2112;
+              *&cStr[26] = v38;
+              *&cStr[34] = 2112;
+              *&cStr[36] = v59;
+              _os_log_impl(&dword_233656000, v36, OS_LOG_TYPE_DEFAULT, "%s:%d service %d, _managerParent %@ -> %@ ", cStr, 0x2Cu);
+            }
+
+            v39 = *(v4 + 37);
+            *(v4 + 37) = v59;
+          }
+        }
+      }
+
+      CFRelease(v34);
+    }
+
+    else
+    {
+      v4[140] = 0;
+    }
+
+    _connectionTypeForPrimaryPort = [v4 _connectionTypeForPrimaryPort];
+    *(v4 + 39) = _connectionTypeForPrimaryPort;
+    v4[143] = _connectionTypeForPrimaryPort == 8;
+    if (gLogObjects && gNumLogObjects >= 4)
+    {
+      v41 = *(gLogObjects + 24);
+    }
+
+    else
+    {
+      if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+      {
+        [ACCTransportIOAccessoryOOBPairing dealloc];
+      }
+
+      v41 = MEMORY[0x277D86220];
+      v42 = MEMORY[0x277D86220];
+    }
+
+    if (os_log_type_enabled(v41, OS_LOG_TYPE_INFO))
+    {
+      v43 = v4[139];
+      v44 = v4[140];
+      v45 = *(v4 + 39);
+      v46 = v4[142];
+      v47 = v4[143];
+      v48 = *(v4 + 37);
+      *cStr = 67110402;
+      *&cStr[4] = v43;
+      *&cStr[8] = 1024;
+      *&cStr[10] = v44;
+      *&cStr[14] = 1024;
+      *&cStr[16] = v45;
+      *&cStr[20] = 1024;
+      *&cStr[22] = v46;
+      *&cStr[26] = 1024;
+      *&cStr[28] = v47;
+      *&cStr[32] = 2112;
+      *&cStr[34] = v48;
+      _os_log_impl(&dword_233656000, v41, OS_LOG_TYPE_INFO, "IOAccessoryManager added,  isRootPort = %d, isAdapter = %d, _connectionType = %{coreacc:ACCConnection_Type_t}d, _bIsInductive = %d, _bIsInductivePowerToAccessory = %d, _managerParent = %@", cStr, 0x2Au);
+    }
+
+    if (v4[142] == 1 && v4[143] != 1 || (v49 = dispatch_source_create(MEMORY[0x277D85D38], 0, 0, MEMORY[0x277D85CD0]), v50 = *(v4 + 23), *(v4 + 23) = v49, v50, objc_initWeak(cStr, v4), v51 = *(v4 + 23), handler[0] = MEMORY[0x277D85DD0], handler[1] = 3221225472, handler[2] = __52__ACCTransportIOAccessoryManager_initWithIOService___block_invoke, handler[3] = &unk_2789E8FF0, objc_copyWeak(&v64, cStr), v65 = service, v63 = v4, dispatch_source_set_event_handler(v51, handler), dispatch_source_set_timer(*(v4 + 23), 0xFFFFFFFFFFFFFFFFLL, 0xFFFFFFFFFFFFFFFFLL, 0), dispatch_resume(*(v4 + 23)), v63, objc_destroyWeak(&v64), objc_destroyWeak(cStr), (v4[142] & 1) != 0))
+    {
+      if (gLogObjects && gNumLogObjects >= 4)
+      {
+        v52 = *(gLogObjects + 24);
+      }
+
+      else
+      {
+        if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+        {
+          [ACCTransportIOAccessoryOOBPairing dealloc];
+        }
+
+        v52 = MEMORY[0x277D86220];
+        v53 = MEMORY[0x277D86220];
+      }
+
+      if (os_log_type_enabled(v52, OS_LOG_TYPE_DEFAULT))
+      {
+        v54 = v4[142];
+        *cStr = 136315394;
+        *&cStr[4] = "[ACCTransportIOAccessoryManager initWithIOService:]";
+        *&cStr[12] = 1024;
+        *&cStr[14] = v54;
+        _os_log_impl(&dword_233656000, v52, OS_LOG_TYPE_DEFAULT, "%s: _bIsInductive %d, create uarpStagingStatusActivityTimer", cStr, 0x12u);
+      }
+
+      v55 = dispatch_source_create(MEMORY[0x277D85D38], 0, 0, MEMORY[0x277D85CD0]);
+      v56 = *(v4 + 11);
+      *(v4 + 11) = v55;
+
+      objc_initWeak(cStr, v4);
+      v57 = *(v4 + 11);
+      v60[0] = MEMORY[0x277D85DD0];
+      v60[1] = 3221225472;
+      v60[2] = __52__ACCTransportIOAccessoryManager_initWithIOService___block_invoke_48;
+      v60[3] = &unk_2789E9018;
+      objc_copyWeak(&v61, cStr);
+      dispatch_source_set_event_handler(v57, v60);
+      dispatch_source_set_timer(*(v4 + 11), 0xFFFFFFFFFFFFFFFFLL, 0xFFFFFFFFFFFFFFFFLL, 0);
+      dispatch_resume(*(v4 + 11));
+      objc_destroyWeak(&v61);
+      objc_destroyWeak(cStr);
+    }
+  }
+
+  return v4;
+}
+
 void __52__ACCTransportIOAccessoryManager_initWithIOService___block_invoke(uint64_t a1)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
 
   if (WeakRetained)
@@ -335,9 +620,9 @@ void __52__ACCTransportIOAccessoryManager_initWithIOService___block_invoke(uint6
       v7 = *(a1 + 48);
       v8 = *(*(a1 + 32) + 156);
       *buf = 67109376;
-      v21 = v7;
-      v22 = 1024;
-      v23 = v8;
+      v20 = v7;
+      v21 = 1024;
+      v22 = v8;
       _os_log_impl(&dword_233656000, v5, OS_LOG_TYPE_DEFAULT, "AppleIDBus auth timeout completed for IOAccMgr service:%d, connectionType:%{coreacc:ACCConnection_Type_t}d", buf, 0xEu);
     }
 
@@ -383,13 +668,11 @@ void __52__ACCTransportIOAccessoryManager_initWithIOService___block_invoke(uint6
       [v18 presentNotification:v16 completionHandler:0];
     }
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 void __52__ACCTransportIOAccessoryManager_initWithIOService___block_invoke_48(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   if (gLogObjects)
   {
     v2 = gNumLogObjects < 4;
@@ -418,20 +701,18 @@ void __52__ACCTransportIOAccessoryManager_initWithIOService___block_invoke_48(ui
 
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 136315138;
-    v8 = "[ACCTransportIOAccessoryManager initWithIOService:]_block_invoke";
-    _os_log_impl(&dword_233656000, v4, OS_LOG_TYPE_DEFAULT, "%s: uarpStagingStatusActivityTimer fired!", &v7, 0xCu);
+    v6 = 136315138;
+    v7 = "[ACCTransportIOAccessoryManager initWithIOService:]_block_invoke";
+    _os_log_impl(&dword_233656000, v4, OS_LOG_TYPE_DEFAULT, "%s: uarpStagingStatusActivityTimer fired!", &v6, 0xCu);
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   [WeakRetained _handleUartActivityTimeout];
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dealloc
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   if (gLogObjects)
   {
     v3 = gNumLogObjects < 4;
@@ -509,15 +790,14 @@ void __52__ACCTransportIOAccessoryManager_initWithIOService___block_invoke_48(ui
   propertyLock = self->_propertyLock;
   self->_propertyLock = 0;
 
-  v17.receiver = self;
-  v17.super_class = ACCTransportIOAccessoryManager;
-  [(ACCTransportIOAccessoryBase *)&v17 dealloc];
-  v16 = *MEMORY[0x277D85DE8];
+  v16.receiver = self;
+  v16.super_class = ACCTransportIOAccessoryManager;
+  [(ACCTransportIOAccessoryBase *)&v16 dealloc];
 }
 
 - (void)transportClassTerminated
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   if (self->_authTimerAccessory)
   {
     if (gLogObjects)
@@ -568,10 +848,9 @@ void __52__ACCTransportIOAccessoryManager_initWithIOService___block_invoke_48(ui
     self->_notificationUarpStagingStatusActivityTimer = 0;
   }
 
-  v10.receiver = self;
-  v10.super_class = ACCTransportIOAccessoryManager;
-  [(ACCTransportIOAccessoryBase *)&v10 transportClassTerminated];
-  v9 = *MEMORY[0x277D85DE8];
+  v9.receiver = self;
+  v9.super_class = ACCTransportIOAccessoryManager;
+  [(ACCTransportIOAccessoryBase *)&v9 transportClassTerminated];
 }
 
 - (void)addIOAccessoryChildPort:(id)port
@@ -640,7 +919,7 @@ void __52__ACCTransportIOAccessoryManager_initWithIOService___block_invoke_48(ui
 
 - (void)removeIOAccessoryChildPort:(id)port
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   portCopy = port;
   if (gLogObjects)
   {
@@ -705,9 +984,9 @@ void __52__ACCTransportIOAccessoryManager_initWithIOService___block_invoke_48(ui
 
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
-      v16[0] = 67109120;
-      v16[1] = [(ACCTransportIOAccessoryBase *)self ioService];
-      _os_log_impl(&dword_233656000, v11, OS_LOG_TYPE_DEFAULT, "Stop auth timer on AuthCP service removal, for IOAccessoryManager service %d", v16, 8u);
+      v15[0] = 67109120;
+      v15[1] = [(ACCTransportIOAccessoryBase *)self ioService];
+      _os_log_impl(&dword_233656000, v11, OS_LOG_TYPE_DEFAULT, "Stop auth timer on AuthCP service removal, for IOAccessoryManager service %d", v15, 8u);
     }
 
     [(ACCTransportIOAccessoryManager *)self _stopAuthTimer];
@@ -724,13 +1003,11 @@ void __52__ACCTransportIOAccessoryManager_initWithIOService___block_invoke_48(ui
     mutableioAccessoryConfigStreamChildPorts = [(ACCTransportIOAccessoryManager *)self mutableioAccessoryConfigStreamChildPorts];
     [mutableioAccessoryConfigStreamChildPorts removeObject:portCopy];
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)setFeaturesFromAuthStatus:(int)status authCert:(id)cert certType:(int)type
 {
-  v131 = *MEMORY[0x277D85DE8];
+  v130 = *MEMORY[0x277D85DE8];
   certCopy = cert;
   ioService = [(ACCTransportIOAccessoryBase *)self ioService];
   CFProperty = IORegistryEntryCreateCFProperty(ioService, @"IOAccessoryManagerInductiveFwMode", *MEMORY[0x277CBECE8], 0);
@@ -766,7 +1043,7 @@ void __52__ACCTransportIOAccessoryManager_initWithIOService___block_invoke_48(ui
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109120;
-    *v120 = type;
+    *v119 = type;
     _os_log_impl(&dword_233656000, v11, OS_LOG_TYPE_DEFAULT, "setFeaturesFromAuthStatus: certType %d", buf, 8u);
   }
 
@@ -781,11 +1058,11 @@ void __52__ACCTransportIOAccessoryManager_initWithIOService___block_invoke_48(ui
   }
 
   v14 = v13;
-  v114 = MFAACertificateAuthVersionNumber();
-  v115 = certCopy;
+  v113 = MFAACertificateAuthVersionNumber();
+  v114 = certCopy;
   if (v14)
   {
-    v113 = *v14;
+    v112 = *v14;
   }
 
   else
@@ -809,11 +1086,11 @@ void __52__ACCTransportIOAccessoryManager_initWithIOService___block_invoke_48(ui
     if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109120;
-      *v120 = type;
+      *v119 = type;
       _os_log_impl(&dword_233656000, v15, OS_LOG_TYPE_DEFAULT, "setFeaturesFromAuthStatus: certType %d, certCaps: NONE", buf, 8u);
     }
 
-    v113 = 0;
+    v112 = 0;
   }
 
   v17 = MFAACanReceiveInductivePower();
@@ -841,11 +1118,11 @@ void __52__ACCTransportIOAccessoryManager_initWithIOService___block_invoke_48(ui
     if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
     {
       *buf = 136315650;
-      *v120 = "[ACCTransportIOAccessoryManager setFeaturesFromAuthStatus:authCert:certType:]";
-      *&v120[8] = 1024;
-      *v121 = -1;
-      *&v121[4] = 1024;
-      *v122 = type;
+      *v119 = "[ACCTransportIOAccessoryManager setFeaturesFromAuthStatus:authCert:certType:]";
+      *&v119[8] = 1024;
+      *v120 = -1;
+      *&v120[4] = 1024;
+      *v121 = type;
       _os_log_impl(&dword_233656000, v20, OS_LOG_TYPE_INFO, "%s: certType %d -> %d", buf, 0x18u);
     }
   }
@@ -874,27 +1151,27 @@ void __52__ACCTransportIOAccessoryManager_initWithIOService___block_invoke_48(ui
     bIsInductivePowerToAccessory = self->_bIsInductivePowerToAccessory;
     bIsInductive = self->_bIsInductive;
     *buf = 67111680;
-    *v120 = primaryPortNumber;
-    *&v120[4] = 1024;
-    *&v120[6] = status;
+    *v119 = primaryPortNumber;
+    *&v119[4] = 1024;
+    *&v119[6] = status;
+    *v120 = 1024;
+    *&v120[2] = type;
     *v121 = 1024;
-    *&v121[2] = type;
+    *&v121[2] = ioService2;
     *v122 = 1024;
-    *&v122[2] = ioService2;
-    *v123 = 1024;
-    *&v123[2] = bAccConnected;
-    LOWORD(v124) = 1024;
-    *(&v124 + 2) = bIsInductivePowerToAccessory;
-    HIWORD(v124) = 1024;
-    *v125 = bIsInductive;
+    *&v122[2] = bAccConnected;
+    LOWORD(v123) = 1024;
+    *(&v123 + 2) = bIsInductivePowerToAccessory;
+    HIWORD(v123) = 1024;
+    *v124 = bIsInductive;
+    *&v124[4] = 1024;
+    *v125 = valuePtr;
     *&v125[4] = 1024;
-    *v126 = valuePtr;
+    *v126 = v17;
     *&v126[4] = 1024;
-    *v127 = v17;
-    *&v127[4] = 1024;
-    v128 = v18;
-    v129 = 1024;
-    v130 = v19;
+    v127 = v18;
+    v128 = 1024;
+    v129 = v19;
     _os_log_impl(&dword_233656000, v22, OS_LOG_TYPE_DEFAULT, "setFeaturesFromAuthStatus: [%d] authStatus %d, certType %d, ioService %d, bAccConnected %d, _bIsInductivePowerToAccessory %d, _bIsInductive %d, inductiveFwMode %d, certAllowPowerOut %d, override %d, supportInductivePowerTX %d", buf, 0x44u);
   }
 
@@ -937,9 +1214,9 @@ LABEL_81:
           primaryPortNumber2 = [(ACCTransportIOAccessoryBase *)self primaryPortNumber];
           ioService3 = [(ACCTransportIOAccessoryBase *)self ioService];
           *buf = 67109376;
-          *v120 = primaryPortNumber2;
-          *&v120[4] = 1024;
-          *&v120[6] = ioService3;
+          *v119 = primaryPortNumber2;
+          *&v119[4] = 1024;
+          *&v119[6] = ioService3;
           _os_log_impl(&dword_233656000, v33, OS_LOG_TYPE_DEFAULT, "[%d] bAccConnected for service %d is false, but auth has passed", buf, 0xEu);
         }
 
@@ -974,7 +1251,7 @@ LABEL_80:
           {
             if (gLogObjects && gNumLogObjects >= 4)
             {
-              v99 = *(gLogObjects + 24);
+              v98 = *(gLogObjects + 24);
             }
 
             else
@@ -984,11 +1261,11 @@ LABEL_80:
                 [ACCTransportIOAccessoryOOBPairing dealloc];
               }
 
-              v99 = MEMORY[0x277D86220];
-              v111 = MEMORY[0x277D86220];
+              v98 = MEMORY[0x277D86220];
+              v110 = MEMORY[0x277D86220];
             }
 
-            if (os_log_type_enabled(v99, OS_LOG_TYPE_ERROR))
+            if (os_log_type_enabled(v98, OS_LOG_TYPE_ERROR))
             {
               [ACCTransportIOAccessoryManager setFeaturesFromAuthStatus:? authCert:? certType:?];
             }
@@ -999,7 +1276,7 @@ LABEL_80:
           }
         }
 
-        v112 = type == 2;
+        v111 = type == 2;
         if (type == 2)
         {
           v36 = v88 | 0x100;
@@ -1010,7 +1287,7 @@ LABEL_80:
           v36 = v88;
         }
 
-        if (v112)
+        if (v111)
         {
           v30 = v87 & 0xD1;
         }
@@ -1029,15 +1306,15 @@ LABEL_80:
         goto LABEL_80;
       }
 
-      if (v114 == 2)
+      if (v113 == 2)
       {
-        v93 = MFAACertificateAuthV2Class();
+        v92 = MFAACertificateAuthV2Class();
         v34 = 0x2812FE000uLL;
-        if (v93 == 4)
+        if (v92 == 4)
         {
           if (gLogObjects && gNumLogObjects >= 4)
           {
-            v94 = *(gLogObjects + 24);
+            v93 = *(gLogObjects + 24);
           }
 
           else
@@ -1047,43 +1324,43 @@ LABEL_80:
               [ACCTransportIOAccessoryOOBPairing dealloc];
             }
 
-            v94 = MEMORY[0x277D86220];
-            v100 = MEMORY[0x277D86220];
+            v93 = MEMORY[0x277D86220];
+            v99 = MEMORY[0x277D86220];
           }
 
-          if (os_log_type_enabled(v94, OS_LOG_TYPE_DEFAULT))
+          if (os_log_type_enabled(v93, OS_LOG_TYPE_DEFAULT))
           {
             primaryPortNumber3 = [(ACCTransportIOAccessoryBase *)self primaryPortNumber];
             *buf = 67109120;
-            *v120 = primaryPortNumber3;
-            _os_log_impl(&dword_233656000, v94, OS_LOG_TYPE_DEFAULT, "[%d] V2.0 Class4, don't revoke nor allow AdvancedCharging !", buf, 8u);
+            *v119 = primaryPortNumber3;
+            _os_log_impl(&dword_233656000, v93, OS_LOG_TYPE_DEFAULT, "[%d] V2.0 Class4, don't revoke nor allow AdvancedCharging !", buf, 8u);
           }
 
-          v98 = 449;
+          v97 = 449;
           v31 = 4;
           v32 = 0x2812FE000uLL;
         }
 
         else
         {
-          v31 = v93;
-          v98 = 465;
+          v31 = v92;
+          v97 = 465;
         }
       }
 
       else
       {
-        v98 = 465;
+        v97 = 465;
         v31 = 0x7FFFFFFF;
         v34 = 0x2812FE000;
       }
 
       if (MFAACanChargeHighVoltage())
       {
-        v102 = *(v34 + 3720);
-        if (v102 && gNumLogObjects >= 4)
+        v101 = *(v34 + 3720);
+        if (v101 && gNumLogObjects >= 4)
         {
-          v103 = *(v102 + 24);
+          v102 = *(v101 + 24);
         }
 
         else
@@ -1093,37 +1370,37 @@ LABEL_80:
             [ACCTransportIOAccessoryOOBPairing dealloc];
           }
 
-          v103 = MEMORY[0x277D86220];
-          v105 = MEMORY[0x277D86220];
+          v102 = MEMORY[0x277D86220];
+          v104 = MEMORY[0x277D86220];
         }
 
-        if (os_log_type_enabled(v103, OS_LOG_TYPE_DEFAULT))
+        if (os_log_type_enabled(v102, OS_LOG_TYPE_DEFAULT))
         {
           primaryPortNumber4 = [(ACCTransportIOAccessoryBase *)self primaryPortNumber];
           *buf = 67109120;
-          *v120 = primaryPortNumber4;
-          _os_log_impl(&dword_233656000, v103, OS_LOG_TYPE_DEFAULT, "[%d] HVC capable, allow AdvancedCharging !", buf, 8u);
+          *v119 = primaryPortNumber4;
+          _os_log_impl(&dword_233656000, v102, OS_LOG_TYPE_DEFAULT, "[%d] HVC capable, allow AdvancedCharging !", buf, 8u);
         }
 
-        v104 = 65086;
+        v103 = 65086;
       }
 
       else
       {
         if (acc_userDefaults_BOOLForKey(@"DisableIAPHVCFixForAuth"))
         {
-          v104 = 65070;
+          v103 = 65070;
 LABEL_248:
-          v110 = MFAACanUseAccPwrUHPM();
-          v36 = v104 | v110;
-          if (v110)
+          v109 = MFAACanUseAccPwrUHPM();
+          v36 = v103 | v109;
+          if (v109)
           {
-            v30 = v98 & 0x1FE;
+            v30 = v97 & 0x1FE;
           }
 
           else
           {
-            v30 = v98;
+            v30 = v97;
           }
 
           if (MFAACanUseAccPwrLoV())
@@ -1137,10 +1414,10 @@ LABEL_248:
           goto LABEL_82;
         }
 
-        v107 = *(v34 + 3720);
-        if (v107 && gNumLogObjects >= 4)
+        v106 = *(v34 + 3720);
+        if (v106 && gNumLogObjects >= 4)
         {
-          v103 = *(v107 + 24);
+          v102 = *(v106 + 24);
         }
 
         else
@@ -1150,22 +1427,22 @@ LABEL_248:
             [ACCTransportIOAccessoryOOBPairing dealloc];
           }
 
-          v103 = MEMORY[0x277D86220];
-          v108 = MEMORY[0x277D86220];
+          v102 = MEMORY[0x277D86220];
+          v107 = MEMORY[0x277D86220];
         }
 
-        if (os_log_type_enabled(v103, OS_LOG_TYPE_DEFAULT))
+        if (os_log_type_enabled(v102, OS_LOG_TYPE_DEFAULT))
         {
           primaryPortNumber5 = [(ACCTransportIOAccessoryBase *)self primaryPortNumber];
           *buf = 67109120;
-          *v120 = primaryPortNumber5;
-          _os_log_impl(&dword_233656000, v103, OS_LOG_TYPE_DEFAULT, "[%d] override caps and don't revoke nor allow AdvancedCharging !", buf, 8u);
+          *v119 = primaryPortNumber5;
+          _os_log_impl(&dword_233656000, v102, OS_LOG_TYPE_DEFAULT, "[%d] override caps and don't revoke nor allow AdvancedCharging !", buf, 8u);
         }
 
-        v104 = 65070;
+        v103 = 65070;
       }
 
-      v98 = 449;
+      v97 = 449;
       v32 = 0x2812FE000;
       goto LABEL_248;
     }
@@ -1222,19 +1499,19 @@ LABEL_248:
       primaryPortNumber6 = [(ACCTransportIOAccessoryBase *)self primaryPortNumber];
       v39 = self->_bIsInductive;
       *buf = 67110656;
-      *v120 = primaryPortNumber6;
-      *&v120[4] = 1024;
-      *&v120[6] = v39;
+      *v119 = primaryPortNumber6;
+      *&v119[4] = 1024;
+      *&v119[6] = v39;
+      *v120 = 1024;
+      *&v120[2] = valuePtr;
       *v121 = 1024;
-      *&v121[2] = valuePtr;
+      *&v121[2] = 1;
       *v122 = 1024;
-      *&v122[2] = 1;
-      *v123 = 1024;
-      *&v123[2] = 0;
-      LOWORD(v124) = 1024;
-      *(&v124 + 2) = status;
-      HIWORD(v124) = 1024;
-      *v125 = 1;
+      *&v122[2] = 0;
+      LOWORD(v123) = 1024;
+      *(&v123 + 2) = status;
+      HIWORD(v123) = 1024;
+      *v124 = 1;
       _os_log_impl(&dword_233656000, v35, OS_LOG_TYPE_DEFAULT, "setFeaturesFromAuthStatus: [%d] _bIsInductive %d, inductiveFwMode %d (TX %d), supportInductivePowerTX %d, force AuthStatus to Failed! %d -> %d", buf, 0x2Cu);
     }
 
@@ -1279,22 +1556,22 @@ LABEL_82:
     primaryPortNumber7 = [(ACCTransportIOAccessoryBase *)self primaryPortNumber];
     ioService4 = [(ACCTransportIOAccessoryBase *)self ioService];
     *buf = 136316930;
-    *v120 = v48;
+    *v119 = v48;
     v32 = 0x2812FE000uLL;
-    *&v120[8] = 1024;
-    *v121 = primaryPortNumber7;
+    *&v119[8] = 1024;
+    *v120 = primaryPortNumber7;
+    *&v120[4] = 1024;
+    *v121 = v113;
     *&v121[4] = 1024;
-    *v122 = v114;
-    *&v122[4] = 1024;
-    *v123 = v31;
-    *&v123[4] = 2048;
-    v124 = v113;
+    *v122 = v31;
+    *&v122[4] = 2048;
+    v123 = v112;
+    *v124 = 1024;
+    *&v124[2] = v30;
     *v125 = 1024;
-    *&v125[2] = v30;
+    *&v125[2] = v36;
     *v126 = 1024;
-    *&v126[2] = v36;
-    *v127 = 1024;
-    *&v127[2] = ioService4;
+    *&v126[2] = ioService4;
     _os_log_impl(&dword_233656000, v46, OS_LOG_TYPE_DEFAULT, "AUTH [%s], [%d] ver %d / %x, authCertCaps0:%08llX -> ioAccFeatMaskRevoke:%08X, ioAccFeatMaskAllow:%08X, self.ioService %d\n", buf, 0x3Au);
   }
 
@@ -1303,7 +1580,7 @@ LABEL_82:
   v52 = IOServiceOpen(ioService5, *MEMORY[0x277D85F48], 0, &connect);
   if (!v52 && connect)
   {
-    v53 = v115;
+    v53 = v114;
     if (v30 && IOAccessoryManagerRevokeFeatures())
     {
       v54 = *(v34 + 3720);
@@ -1378,7 +1655,7 @@ LABEL_127:
   }
 
   v56 = *(v34 + 3720);
-  v53 = v115;
+  v53 = v114;
   if (v56 && *(v32 + 3704) >= 7)
   {
     v57 = *(v56 + 48);
@@ -1398,17 +1675,17 @@ LABEL_127:
   if (os_log_type_enabled(v57, OS_LOG_TYPE_ERROR))
   {
     primaryPortNumber8 = [(ACCTransportIOAccessoryBase *)self primaryPortNumber];
-    v96 = connect;
+    v95 = connect;
     ioService6 = [(ACCTransportIOAccessoryBase *)self ioService];
     *buf = 67109888;
-    *v120 = primaryPortNumber8;
-    *&v120[4] = 1024;
-    *&v120[6] = v52;
-    *v121 = 1024;
-    *&v121[2] = v96;
+    *v119 = primaryPortNumber8;
+    *&v119[4] = 1024;
+    *&v119[6] = v52;
+    *v120 = 1024;
+    *&v120[2] = v95;
     v32 = 0x2812FE000;
-    *v122 = 1024;
-    *&v122[2] = ioService6;
+    *v121 = 1024;
+    *&v121[2] = ioService6;
     _os_log_error_impl(&dword_233656000, v57, OS_LOG_TYPE_ERROR, "[%d] IOServiceOpen fail kernStatus:%02X, ioConnForService:%04X ioService:%d", buf, 0x1Au);
   }
 
@@ -1459,13 +1736,13 @@ LABEL_128:
       primaryPortNumber9 = [(ACCTransportIOAccessoryBase *)self primaryPortNumber];
       ioService7 = [(ACCTransportIOAccessoryBase *)self ioService];
       *buf = 136315906;
-      *v120 = v68;
-      *&v120[8] = 1024;
-      *v121 = primaryPortNumber9;
+      *v119 = v68;
+      *&v119[8] = 1024;
+      *v120 = primaryPortNumber9;
+      *&v120[4] = 1024;
+      *v121 = v64;
       *&v121[4] = 1024;
-      *v122 = v64;
-      *&v122[4] = 1024;
-      *v123 = ioService7;
+      *v122 = ioService7;
       _os_log_impl(&dword_233656000, v66, OS_LOG_TYPE_DEFAULT, "AUTH [%s], for AWC [%d], setting power mode %d, self.ioService %d", buf, 0x1Eu);
     }
 
@@ -1535,7 +1812,7 @@ LABEL_128:
     if (os_log_type_enabled(v81, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      *v120 = "[ACCTransportIOAccessoryManager setFeaturesFromAuthStatus:authCert:certType:]";
+      *v119 = "[ACCTransportIOAccessoryManager setFeaturesFromAuthStatus:authCert:certType:]";
       _os_log_impl(&dword_233656000, v81, OS_LOG_TYPE_DEFAULT, "IOAccessoryManager:%s Skipped auth TTR!!!", buf, 0xCu);
     }
 
@@ -1645,33 +1922,31 @@ LABEL_207:
 
 LABEL_208:
 
-  v91 = *MEMORY[0x277D85DE8];
   return v58;
 }
 
 - (BOOL)setUSBMode:(int)mode
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v5 = [(ACCTransportIOAccessoryManager *)self _IOAccUSBModeTypeForSetUSBMode:?];
-  ioConnect = self->super._ioConnect;
-  v7 = IOAccessoryManagerConfigureUSBMode();
-  v8 = v7;
+  v6 = IOAccessoryManagerConfigureUSBMode();
+  v7 = v6;
   if (gLogObjects)
   {
-    v9 = gNumLogObjects <= 3;
+    v8 = gNumLogObjects <= 3;
   }
 
   else
   {
-    v9 = 1;
+    v8 = 1;
   }
 
-  v10 = !v9;
-  if (v7)
+  v9 = !v8;
+  if (v6)
   {
-    if (v10)
+    if (v9)
     {
-      v11 = *(gLogObjects + 24);
+      v10 = *(gLogObjects + 24);
     }
 
     else
@@ -1681,59 +1956,58 @@ LABEL_208:
         [ACCTransportIOAccessoryOOBPairing dealloc];
       }
 
+      v10 = MEMORY[0x277D86220];
       v11 = MEMORY[0x277D86220];
+    }
+
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    {
+      v14 = 67109632;
+      modeCopy2 = mode;
+      v16 = 1024;
+      v17 = v5;
+      v18 = 1024;
+      ioService = v7;
+      _os_log_error_impl(&dword_233656000, v10, OS_LOG_TYPE_ERROR, "ERROR - IOAccessoryManagerConfigureUSBMode usbMode=%d usbModeType (IOAccessoryUSBModeType) %d failed 0x%X", &v14, 0x14u);
+    }
+  }
+
+  else
+  {
+    if (v9)
+    {
+      v10 = *(gLogObjects + 24);
+    }
+
+    else
+    {
+      if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+      {
+        [ACCTransportIOAccessoryOOBPairing dealloc];
+      }
+
+      v10 = MEMORY[0x277D86220];
       v12 = MEMORY[0x277D86220];
     }
 
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
     {
-      v16 = 67109632;
+      v14 = 67109632;
       modeCopy2 = mode;
+      v16 = 1024;
+      v17 = v5;
       v18 = 1024;
-      v19 = v5;
-      v20 = 1024;
-      ioService = v8;
-      _os_log_error_impl(&dword_233656000, v11, OS_LOG_TYPE_ERROR, "ERROR - IOAccessoryManagerConfigureUSBMode usbMode=%d usbModeType (IOAccessoryUSBModeType) %d failed 0x%X", &v16, 0x14u);
-    }
-  }
-
-  else
-  {
-    if (v10)
-    {
-      v11 = *(gLogObjects + 24);
-    }
-
-    else
-    {
-      if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
-      {
-        [ACCTransportIOAccessoryOOBPairing dealloc];
-      }
-
-      v11 = MEMORY[0x277D86220];
-      v13 = MEMORY[0x277D86220];
-    }
-
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
-    {
-      v16 = 67109632;
-      modeCopy2 = mode;
-      v18 = 1024;
-      v19 = v5;
-      v20 = 1024;
       ioService = [(ACCTransportIOAccessoryBase *)self ioService];
-      _os_log_debug_impl(&dword_233656000, v11, OS_LOG_TYPE_DEBUG, "successfully set USB Mode %d (IOAccessoryUSBModeType %d) for service %d", &v16, 0x14u);
+      _os_log_debug_impl(&dword_233656000, v10, OS_LOG_TYPE_DEBUG, "successfully set USB Mode %d (IOAccessoryUSBModeType %d) for service %d", &v14, 0x14u);
     }
   }
 
-  v14 = *MEMORY[0x277D85DE8];
-  return v8 == 0;
+  return v7 == 0;
 }
 
 - (int)getUSBMode
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   [(ACCTransportIOAccessoryBase *)self ioService];
   USBConnectType = IOAccessoryManagerGetUSBConnectType();
   if (gLogObjects)
@@ -1792,10 +2066,10 @@ LABEL_208:
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
       *buf = 67109632;
-      v15 = -1;
-      v16 = 1024;
-      v17 = 0;
-      v18 = 1024;
+      v14 = -1;
+      v15 = 1024;
+      v16 = 0;
+      v17 = 1024;
       ioService = [(ACCTransportIOAccessoryBase *)self ioService];
       _os_log_debug_impl(&dword_233656000, v6, OS_LOG_TYPE_DEBUG, "USB Connect %d, usbConnectActive %d, for service %d", buf, 0x14u);
     }
@@ -1823,31 +2097,29 @@ LABEL_208:
     [ACCTransportIOAccessoryManager getUSBMode];
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
 - (BOOL)setUSBCurrentOffset:(int)offset
 {
-  ioConnect = self->super._ioConnect;
-  v4 = IOAccessoryManagerSetUSBCurrentOffset();
-  v5 = v4;
+  v3 = IOAccessoryManagerSetUSBCurrentOffset();
+  v4 = v3;
   if (gLogObjects)
   {
-    v6 = gNumLogObjects <= 3;
+    v5 = gNumLogObjects <= 3;
   }
 
   else
   {
-    v6 = 1;
+    v5 = 1;
   }
 
-  v7 = !v6;
-  if (v4)
+  v6 = !v5;
+  if (v3)
   {
-    if (v7)
+    if (v6)
     {
-      v8 = *(gLogObjects + 24);
+      v7 = *(gLogObjects + 24);
     }
 
     else
@@ -1857,66 +2129,65 @@ LABEL_208:
         [ACCTransportIOAccessoryOOBPairing dealloc];
       }
 
+      v7 = MEMORY[0x277D86220];
       v8 = MEMORY[0x277D86220];
+    }
+
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    {
+      [ACCTransportIOAccessoryManager setUSBCurrentOffset:];
+    }
+  }
+
+  else
+  {
+    if (v6)
+    {
+      v7 = *(gLogObjects + 24);
+    }
+
+    else
+    {
+      if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+      {
+        [ACCTransportIOAccessoryOOBPairing dealloc];
+      }
+
+      v7 = MEMORY[0x277D86220];
       v9 = MEMORY[0x277D86220];
     }
 
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
       [ACCTransportIOAccessoryManager setUSBCurrentOffset:];
     }
   }
 
-  else
-  {
-    if (v7)
-    {
-      v8 = *(gLogObjects + 24);
-    }
-
-    else
-    {
-      if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
-      {
-        [ACCTransportIOAccessoryOOBPairing dealloc];
-      }
-
-      v8 = MEMORY[0x277D86220];
-      v10 = MEMORY[0x277D86220];
-    }
-
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
-    {
-      [ACCTransportIOAccessoryManager setUSBCurrentOffset:];
-    }
-  }
-
-  return v5 == 0;
+  return v4 == 0;
 }
 
 - (BOOL)setUSBCurrentLimitBase:(unsigned int)base forceResponse:(BOOL)response
 {
   responseCopy = response;
-  v35 = *MEMORY[0x277D85DE8];
-  ioConnect = self->super._ioConnect;
-  v8 = IOAccessoryManagerSetUSBCurrentLimitBase();
-  v9 = v8;
+  v33 = *MEMORY[0x277D85DE8];
+  v7 = IOAccessoryManagerSetUSBCurrentLimitBase();
+  v8 = v7;
   if (gLogObjects)
   {
-    v10 = gNumLogObjects <= 3;
+    v9 = gNumLogObjects <= 3;
   }
 
   else
   {
-    v10 = 1;
+    v9 = 1;
   }
 
-  v11 = !v10;
-  if (v8)
+  v10 = !v9;
+  if (v7)
   {
-    if (v11)
+    if (v10)
     {
-      v12 = *(gLogObjects + 24);
+      v11 = *(gLogObjects + 24);
     }
 
     else
@@ -1926,11 +2197,11 @@ LABEL_208:
         [ACCTransportIOAccessoryOOBPairing dealloc];
       }
 
+      v11 = MEMORY[0x277D86220];
       v12 = MEMORY[0x277D86220];
-      v13 = MEMORY[0x277D86220];
     }
 
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       [ACCTransportIOAccessoryManager setUSBCurrentLimitBase:forceResponse:];
     }
@@ -1938,9 +2209,9 @@ LABEL_208:
 
   else
   {
-    if (v11)
+    if (v10)
     {
-      v12 = *(gLogObjects + 24);
+      v11 = *(gLogObjects + 24);
     }
 
     else
@@ -1950,11 +2221,11 @@ LABEL_208:
         [ACCTransportIOAccessoryOOBPairing dealloc];
       }
 
-      v12 = MEMORY[0x277D86220];
-      v14 = MEMORY[0x277D86220];
+      v11 = MEMORY[0x277D86220];
+      v13 = MEMORY[0x277D86220];
     }
 
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
     {
       [ACCTransportIOAccessoryManager setUSBCurrentLimitBase:forceResponse:];
     }
@@ -1964,7 +2235,7 @@ LABEL_208:
   {
     if (gLogObjects && gNumLogObjects >= 4)
     {
-      v15 = *(gLogObjects + 24);
+      v14 = *(gLogObjects + 24);
     }
 
     else
@@ -1974,25 +2245,25 @@ LABEL_208:
         [ACCTransportIOAccessoryOOBPairing dealloc];
       }
 
+      v14 = MEMORY[0x277D86220];
       v15 = MEMORY[0x277D86220];
-      v16 = MEMORY[0x277D86220];
     }
 
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
       currentLimitBaseInmA = self->_currentLimitBaseInmA;
       currentLimitBaseInmAValid = self->_currentLimitBaseInmAValid;
       *buf = 67110144;
-      v26 = currentLimitBaseInmA;
-      v27 = 1024;
+      v24 = currentLimitBaseInmA;
+      v25 = 1024;
       baseCopy = base;
+      v27 = 1024;
+      v28 = currentLimitBaseInmAValid;
       v29 = 1024;
-      v30 = currentLimitBaseInmAValid;
+      v30 = 1;
       v31 = 1024;
-      v32 = 1;
-      v33 = 1024;
-      v34 = responseCopy;
-      _os_log_impl(&dword_233656000, v15, OS_LOG_TYPE_DEFAULT, "setUSBCurrentLimitBase: not lightning device, currentLimitBaseInmA %d -> %d, valid %d -> %d, forceResponse %d", buf, 0x20u);
+      v32 = responseCopy;
+      _os_log_impl(&dword_233656000, v14, OS_LOG_TYPE_DEFAULT, "setUSBCurrentLimitBase: not lightning device, currentLimitBaseInmA %d -> %d, valid %d -> %d, forceResponse %d", buf, 0x20u);
     }
 
     if (responseCopy || self->_currentLimitBaseInmA != base)
@@ -2003,28 +2274,25 @@ LABEL_208:
 
     else
     {
-      v19 = self->_currentLimitBaseInmAValid;
+      v18 = self->_currentLimitBaseInmAValid;
       self->_currentLimitBaseInmAValid = 1;
-      if (v19)
+      if (v18)
       {
-        goto LABEL_37;
+        return v8 == 0;
       }
     }
 
-    v20 = dispatch_time(0, 10000000);
+    v19 = dispatch_time(0, 10000000);
     notificationPortQueue = self->super._notificationPortQueue;
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
     block[2] = __71__ACCTransportIOAccessoryManager_setUSBCurrentLimitBase_forceResponse___block_invoke;
     block[3] = &unk_2789E8690;
     block[4] = self;
-    dispatch_after(v20, notificationPortQueue, block);
+    dispatch_after(v19, notificationPortQueue, block);
   }
 
-LABEL_37:
-  result = v9 == 0;
-  v23 = *MEMORY[0x277D85DE8];
-  return result;
+  return v8 == 0;
 }
 
 uint64_t __71__ACCTransportIOAccessoryManager_setUSBCurrentLimitBase_forceResponse___block_invoke(uint64_t a1)
@@ -2066,13 +2334,13 @@ uint64_t __71__ACCTransportIOAccessoryManager_setUSBCurrentLimitBase_forceRespon
 
 - (unsigned)USBCurrentLimitInmA
 {
-  v29 = *MEMORY[0x277D85DE8];
-  v21 = 0;
+  v28 = *MEMORY[0x277D85DE8];
+  v20 = 0;
   [(ACCTransportIOAccessoryBase *)self ioService];
   USBCurrentLimit = IOAccessoryManagerGetUSBCurrentLimit();
   if (USBCurrentLimit)
   {
-    v21 = 0;
+    v20 = 0;
     if (gLogObjects)
     {
       v4 = gNumLogObjects < 4;
@@ -2103,12 +2371,12 @@ uint64_t __71__ACCTransportIOAccessoryManager_setUSBCurrentLimitBase_forceRespon
     {
       connectionUUID = [(ACCTransportIOAccessoryManager *)self connectionUUID];
       *buf = 67109890;
-      *v23 = v21;
-      *&v23[4] = 1024;
-      *&v23[6] = USBCurrentLimit;
-      *v24 = 2112;
-      *&v24[2] = connectionUUID;
-      v25 = 1024;
+      *v22 = v20;
+      *&v22[4] = 1024;
+      *&v22[6] = USBCurrentLimit;
+      *v23 = 2112;
+      *&v23[2] = connectionUUID;
+      v24 = 1024;
       ioService = [(ACCTransportIOAccessoryBase *)self ioService];
       _os_log_error_impl(&dword_233656000, v8, OS_LOG_TYPE_ERROR, "ERROR - IOAccessoryManagerGetUSBCurrentLimit currentLimitBaseInmA=%d failed 0x%X for connectionUUID %@, self.ioService %d", buf, 0x1Eu);
     }
@@ -2135,13 +2403,13 @@ uint64_t __71__ACCTransportIOAccessoryManager_setUSBCurrentLimitBase_forceRespon
       {
         currentLimitBaseInmA = self->_currentLimitBaseInmA;
         *buf = 67109376;
-        *v23 = v21;
-        *&v23[4] = 1024;
-        *&v23[6] = currentLimitBaseInmA;
+        *v22 = v20;
+        *&v22[4] = 1024;
+        *&v22[6] = currentLimitBaseInmA;
         _os_log_impl(&dword_233656000, v9, OS_LOG_TYPE_INFO, "USBCurrentLimitInmA: not lightning device and _currentLimitBaseInmAValid, usbCurrentLimitInmA %d -> %d", buf, 0xEu);
       }
 
-      v21 = self->_currentLimitBaseInmA;
+      v20 = self->_currentLimitBaseInmA;
     }
   }
 
@@ -2175,7 +2443,7 @@ uint64_t __71__ACCTransportIOAccessoryManager_setUSBCurrentLimitBase_forceRespon
 
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
     {
-      [(ACCTransportIOAccessoryManager *)&v21 USBCurrentLimitInmA];
+      [(ACCTransportIOAccessoryManager *)&v20 USBCurrentLimitInmA];
     }
 
     platform_systemInfo_isLightning();
@@ -2199,36 +2467,34 @@ uint64_t __71__ACCTransportIOAccessoryManager_setUSBCurrentLimitBase_forceRespon
 
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
-    v15 = v21;
+    v15 = v20;
     ioService2 = [(ACCTransportIOAccessoryBase *)self ioService];
     currentLimitBaseInmAValid = self->_currentLimitBaseInmAValid;
     *buf = 136316162;
-    *v23 = "[ACCTransportIOAccessoryManager USBCurrentLimitInmA]";
-    *&v23[8] = 1024;
-    *v24 = USBCurrentLimit;
-    *&v24[4] = 1024;
-    *&v24[6] = v15;
-    v25 = 1024;
+    *v22 = "[ACCTransportIOAccessoryManager USBCurrentLimitInmA]";
+    *&v22[8] = 1024;
+    *v23 = USBCurrentLimit;
+    *&v23[4] = 1024;
+    *&v23[6] = v15;
+    v24 = 1024;
     ioService = ioService2;
-    v27 = 1024;
-    v28 = currentLimitBaseInmAValid;
+    v26 = 1024;
+    v27 = currentLimitBaseInmAValid;
     _os_log_impl(&dword_233656000, v13, OS_LOG_TYPE_DEFAULT, "%s: status %x, IOAccessoryManagerGetUSBCurrentLimit -> %d for service %d, _currentLimitBaseInmAValid %d", buf, 0x24u);
   }
 
-  result = v21;
-  v19 = *MEMORY[0x277D85DE8];
-  return result;
+  return v20;
 }
 
 - (unsigned)USBCurrentLimitBaseInmA
 {
-  v29 = *MEMORY[0x277D85DE8];
-  v21 = 0;
+  v28 = *MEMORY[0x277D85DE8];
+  v20 = 0;
   [(ACCTransportIOAccessoryBase *)self ioService];
   USBCurrentLimitBase = IOAccessoryManagerGetUSBCurrentLimitBase();
   if (USBCurrentLimitBase)
   {
-    v21 = 0;
+    v20 = 0;
     if (gLogObjects)
     {
       v4 = gNumLogObjects < 4;
@@ -2259,12 +2525,12 @@ uint64_t __71__ACCTransportIOAccessoryManager_setUSBCurrentLimitBase_forceRespon
     {
       connectionUUID = [(ACCTransportIOAccessoryManager *)self connectionUUID];
       *buf = 67109890;
-      *v23 = v21;
-      *&v23[4] = 1024;
-      *&v23[6] = USBCurrentLimitBase;
-      *v24 = 2112;
-      *&v24[2] = connectionUUID;
-      v25 = 1024;
+      *v22 = v20;
+      *&v22[4] = 1024;
+      *&v22[6] = USBCurrentLimitBase;
+      *v23 = 2112;
+      *&v23[2] = connectionUUID;
+      v24 = 1024;
       ioService = [(ACCTransportIOAccessoryBase *)self ioService];
       _os_log_error_impl(&dword_233656000, v8, OS_LOG_TYPE_ERROR, "ERROR - IOAccessoryManagerGetUSBCurrentLimitBase currentLimitBaseInmA=%d failed 0x%X for connectionUUID %@, self.ioService %d", buf, 0x1Eu);
     }
@@ -2291,13 +2557,13 @@ uint64_t __71__ACCTransportIOAccessoryManager_setUSBCurrentLimitBase_forceRespon
       {
         currentLimitBaseInmA = self->_currentLimitBaseInmA;
         *buf = 67109376;
-        *v23 = v21;
-        *&v23[4] = 1024;
-        *&v23[6] = currentLimitBaseInmA;
+        *v22 = v20;
+        *&v22[4] = 1024;
+        *&v22[6] = currentLimitBaseInmA;
         _os_log_impl(&dword_233656000, v9, OS_LOG_TYPE_INFO, "USBCurrentLimitBaseInmA: not lightning device and _currentLimitBaseInmAValid, usbCurrentLimitBaseInmA %d -> %d", buf, 0xEu);
       }
 
-      v21 = self->_currentLimitBaseInmA;
+      v20 = self->_currentLimitBaseInmA;
     }
   }
 
@@ -2331,7 +2597,7 @@ uint64_t __71__ACCTransportIOAccessoryManager_setUSBCurrentLimitBase_forceRespon
 
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
     {
-      [(ACCTransportIOAccessoryManager *)&v21 USBCurrentLimitBaseInmA];
+      [(ACCTransportIOAccessoryManager *)&v20 USBCurrentLimitBaseInmA];
     }
 
     platform_systemInfo_isLightning();
@@ -2355,36 +2621,34 @@ uint64_t __71__ACCTransportIOAccessoryManager_setUSBCurrentLimitBase_forceRespon
 
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
-    v15 = v21;
+    v15 = v20;
     ioService2 = [(ACCTransportIOAccessoryBase *)self ioService];
     currentLimitBaseInmAValid = self->_currentLimitBaseInmAValid;
     *buf = 136316162;
-    *v23 = "[ACCTransportIOAccessoryManager USBCurrentLimitBaseInmA]";
-    *&v23[8] = 1024;
-    *v24 = USBCurrentLimitBase;
-    *&v24[4] = 1024;
-    *&v24[6] = v15;
-    v25 = 1024;
+    *v22 = "[ACCTransportIOAccessoryManager USBCurrentLimitBaseInmA]";
+    *&v22[8] = 1024;
+    *v23 = USBCurrentLimitBase;
+    *&v23[4] = 1024;
+    *&v23[6] = v15;
+    v24 = 1024;
     ioService = ioService2;
-    v27 = 1024;
-    v28 = currentLimitBaseInmAValid;
+    v26 = 1024;
+    v27 = currentLimitBaseInmAValid;
     _os_log_impl(&dword_233656000, v13, OS_LOG_TYPE_DEFAULT, "%s: status %x, IOAccessoryManagerGetUSBCurrentLimitBase -> %d for service %d, _currentLimitBaseInmAValid %d", buf, 0x24u);
   }
 
-  result = v21;
-  v19 = *MEMORY[0x277D85DE8];
-  return result;
+  return v20;
 }
 
 - (int)USBCurrentLimitOffsetInmA
 {
-  v24 = *MEMORY[0x277D85DE8];
-  v15 = 0;
+  v23 = *MEMORY[0x277D85DE8];
+  v14 = 0;
   [(ACCTransportIOAccessoryBase *)self ioService];
   USBCurrentLimitOffset = IOAccessoryManagerGetUSBCurrentLimitOffset();
   if (USBCurrentLimitOffset)
   {
-    v15 = 0;
+    v14 = 0;
     if (gLogObjects)
     {
       v4 = gNumLogObjects < 4;
@@ -2413,7 +2677,7 @@ uint64_t __71__ACCTransportIOAccessoryManager_setUSBCurrentLimitBase_forceRespon
 
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      [(ACCTransportIOAccessoryManager *)&v15 USBCurrentLimitOffsetInmA];
+      [ACCTransportIOAccessoryManager USBCurrentLimitOffsetInmA];
     }
   }
 
@@ -2447,7 +2711,7 @@ uint64_t __71__ACCTransportIOAccessoryManager_setUSBCurrentLimitBase_forceRespon
 
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
-      [(ACCTransportIOAccessoryManager *)&v15 USBCurrentLimitOffsetInmA];
+      [(ACCTransportIOAccessoryManager *)&v14 USBCurrentLimitOffsetInmA];
     }
   }
 
@@ -2469,33 +2733,31 @@ uint64_t __71__ACCTransportIOAccessoryManager_setUSBCurrentLimitBase_forceRespon
 
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = v15;
+    v11 = v14;
     ioService = [(ACCTransportIOAccessoryBase *)self ioService];
     *buf = 136315906;
-    v17 = "[ACCTransportIOAccessoryManager USBCurrentLimitOffsetInmA]";
-    v18 = 1024;
-    v19 = USBCurrentLimitOffset;
-    v20 = 1024;
-    v21 = v11;
-    v22 = 1024;
-    v23 = ioService;
+    v16 = "[ACCTransportIOAccessoryManager USBCurrentLimitOffsetInmA]";
+    v17 = 1024;
+    v18 = USBCurrentLimitOffset;
+    v19 = 1024;
+    v20 = v11;
+    v21 = 1024;
+    v22 = ioService;
     _os_log_impl(&dword_233656000, v9, OS_LOG_TYPE_DEFAULT, "%s: status %x, IOAccessoryManagerGetUSBCurrentLimitOffset -> %d for service %d", buf, 0x1Eu);
   }
 
-  result = v15;
-  v14 = *MEMORY[0x277D85DE8];
-  return result;
+  return v14;
 }
 
 - (unsigned)USBChargingVoltageInmV
 {
-  v24 = *MEMORY[0x277D85DE8];
-  v15 = 0;
+  v23 = *MEMORY[0x277D85DE8];
+  v14 = 0;
   [(ACCTransportIOAccessoryBase *)self ioService];
   USBChargingVoltage = IOAccessoryManagerGetUSBChargingVoltage();
   if (USBChargingVoltage)
   {
-    v15 = 0;
+    v14 = 0;
     if (gLogObjects)
     {
       v4 = gNumLogObjects < 4;
@@ -2524,7 +2786,7 @@ uint64_t __71__ACCTransportIOAccessoryManager_setUSBCurrentLimitBase_forceRespon
 
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      [(ACCTransportIOAccessoryManager *)&v15 USBChargingVoltageInmV];
+      [ACCTransportIOAccessoryManager USBChargingVoltageInmV];
     }
   }
 
@@ -2558,7 +2820,7 @@ uint64_t __71__ACCTransportIOAccessoryManager_setUSBCurrentLimitBase_forceRespon
 
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
-      [(ACCTransportIOAccessoryManager *)&v15 USBChargingVoltageInmV];
+      [(ACCTransportIOAccessoryManager *)&v14 USBChargingVoltageInmV];
     }
   }
 
@@ -2580,28 +2842,25 @@ uint64_t __71__ACCTransportIOAccessoryManager_setUSBCurrentLimitBase_forceRespon
 
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = v15;
+    v11 = v14;
     ioService = [(ACCTransportIOAccessoryBase *)self ioService];
     *buf = 136315906;
-    v17 = "[ACCTransportIOAccessoryManager USBChargingVoltageInmV]";
-    v18 = 1024;
-    v19 = USBChargingVoltage;
-    v20 = 1024;
-    v21 = v11;
-    v22 = 1024;
-    v23 = ioService;
+    v16 = "[ACCTransportIOAccessoryManager USBChargingVoltageInmV]";
+    v17 = 1024;
+    v18 = USBChargingVoltage;
+    v19 = 1024;
+    v20 = v11;
+    v21 = 1024;
+    v22 = ioService;
     _os_log_impl(&dword_233656000, v9, OS_LOG_TYPE_DEFAULT, "%s: status %x, IOAccessoryManagerGetUSBChargingVoltage -> %d for service %d", buf, 0x1Eu);
   }
 
-  result = v15;
-  v14 = *MEMORY[0x277D85DE8];
-  return result;
+  return v14;
 }
 
 - (int)cableType
 {
-  v20 = *MEMORY[0x277D85DE8];
-  v13 = -1;
+  v18 = *MEMORY[0x277D85DE8];
   [(ACCTransportIOAccessoryBase *)self ioService];
   USBConnectType = IOAccessoryManagerGetUSBConnectType();
   if (gLogObjects)
@@ -2660,10 +2919,10 @@ uint64_t __71__ACCTransportIOAccessoryManager_setUSBCurrentLimitBase_forceRespon
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
       *buf = 67109632;
-      v15 = v13;
+      v13 = -1;
+      v14 = 1024;
+      v15 = 0;
       v16 = 1024;
-      v17 = 0;
-      v18 = 1024;
       ioService = [(ACCTransportIOAccessoryBase *)self ioService];
       _os_log_debug_impl(&dword_233656000, v6, OS_LOG_TYPE_DEBUG, "CableType: %d, usbConnectActive %d, for service %d", buf, 0x14u);
     }
@@ -2687,12 +2946,10 @@ uint64_t __71__ACCTransportIOAccessoryManager_setUSBCurrentLimitBase_forceRespon
 
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
   {
-    [(ACCTransportIOAccessoryManager *)&v13 cableType];
+    [ACCTransportIOAccessoryManager cableType];
   }
 
-  result = v13;
-  v12 = *MEMORY[0x277D85DE8];
-  return result;
+  return -1;
 }
 
 - (unsigned)sleepPowerCurrentLimitInmA
@@ -2704,7 +2961,7 @@ uint64_t __71__ACCTransportIOAccessoryManager_setUSBCurrentLimitBase_forceRespon
 
 - (BOOL)isPowerDuringSleepSupported
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   [(ACCTransportIOAccessoryBase *)self ioService];
   IsSupported = IOAccessoryManagerPowerDuringSleepIsSupported();
   if (gLogObjects)
@@ -2735,9 +2992,9 @@ uint64_t __71__ACCTransportIOAccessoryManager_setUSBCurrentLimitBase_forceRespon
 
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
-    v12 = 67109120;
-    LODWORD(v13) = IsSupported != 0;
-    _os_log_impl(&dword_233656000, v6, OS_LOG_TYPE_INFO, "powerDuringSleepIsSupported = %d", &v12, 8u);
+    v11 = 67109120;
+    LODWORD(v12) = IsSupported != 0;
+    _os_log_impl(&dword_233656000, v6, OS_LOG_TYPE_INFO, "powerDuringSleepIsSupported = %d", &v11, 8u);
   }
 
   if (gLogObjects && gNumLogObjects >= 4)
@@ -2759,42 +3016,40 @@ uint64_t __71__ACCTransportIOAccessoryManager_setUSBCurrentLimitBase_forceRespon
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     ioService = [(ACCTransportIOAccessoryBase *)self ioService];
-    v12 = 136315650;
-    v13 = "[ACCTransportIOAccessoryManager isPowerDuringSleepSupported]";
-    v14 = 1024;
-    v15 = IsSupported != 0;
-    v16 = 1024;
-    v17 = ioService;
-    _os_log_impl(&dword_233656000, v7, OS_LOG_TYPE_DEFAULT, "%s: IOAccessoryManagerPowerDuringSleepIsSupported -> %d for service %d", &v12, 0x18u);
+    v11 = 136315650;
+    v12 = "[ACCTransportIOAccessoryManager isPowerDuringSleepSupported]";
+    v13 = 1024;
+    v14 = IsSupported != 0;
+    v15 = 1024;
+    v16 = ioService;
+    _os_log_impl(&dword_233656000, v7, OS_LOG_TYPE_DEFAULT, "%s: IOAccessoryManagerPowerDuringSleepIsSupported -> %d for service %d", &v11, 0x18u);
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return IsSupported != 0;
 }
 
 - (BOOL)setPowerDuringSleepEnabled:(BOOL)enabled
 {
   enabledCopy = enabled;
-  v18 = *MEMORY[0x277D85DE8];
-  ioConnect = self->super._ioConnect;
-  v6 = IOAccessoryManagerSetPowerDuringSleep();
-  v7 = v6;
+  v16 = *MEMORY[0x277D85DE8];
+  v5 = IOAccessoryManagerSetPowerDuringSleep();
+  v6 = v5;
   if (gLogObjects)
   {
-    v8 = gNumLogObjects <= 3;
+    v7 = gNumLogObjects <= 3;
   }
 
   else
   {
-    v8 = 1;
+    v7 = 1;
   }
 
-  v9 = !v8;
-  if (v6)
+  v8 = !v7;
+  if (v5)
   {
-    if (v9)
+    if (v8)
     {
-      v10 = *(gLogObjects + 24);
+      v9 = *(gLogObjects + 24);
     }
 
     else
@@ -2804,11 +3059,11 @@ uint64_t __71__ACCTransportIOAccessoryManager_setUSBCurrentLimitBase_forceRespon
         [ACCTransportIOAccessoryOOBPairing dealloc];
       }
 
+      v9 = MEMORY[0x277D86220];
       v10 = MEMORY[0x277D86220];
-      v11 = MEMORY[0x277D86220];
     }
 
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       [ACCTransportIOAccessoryManager setPowerDuringSleepEnabled:];
     }
@@ -2816,9 +3071,9 @@ uint64_t __71__ACCTransportIOAccessoryManager_setUSBCurrentLimitBase_forceRespon
 
   else
   {
-    if (v9)
+    if (v8)
     {
-      v10 = *(gLogObjects + 24);
+      v9 = *(gLogObjects + 24);
     }
 
     else
@@ -2828,27 +3083,26 @@ uint64_t __71__ACCTransportIOAccessoryManager_setUSBCurrentLimitBase_forceRespon
         [ACCTransportIOAccessoryOOBPairing dealloc];
       }
 
-      v10 = MEMORY[0x277D86220];
-      v12 = MEMORY[0x277D86220];
+      v9 = MEMORY[0x277D86220];
+      v11 = MEMORY[0x277D86220];
     }
 
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
-      v15[0] = 67109376;
-      v15[1] = enabledCopy;
-      v16 = 1024;
+      v13[0] = 67109376;
+      v13[1] = enabledCopy;
+      v14 = 1024;
       ioService = [(ACCTransportIOAccessoryBase *)self ioService];
-      _os_log_impl(&dword_233656000, v10, OS_LOG_TYPE_INFO, "successfully set IOAccessoryManagerSetPowerDuringSleep enabled %d for service %d", v15, 0xEu);
+      _os_log_impl(&dword_233656000, v9, OS_LOG_TYPE_INFO, "successfully set IOAccessoryManagerSetPowerDuringSleep enabled %d for service %d", v13, 0xEu);
     }
   }
 
-  v13 = *MEMORY[0x277D85DE8];
-  return v7 == 0;
+  return v6 == 0;
 }
 
 - (BOOL)isPowerDuringSleepEnabled
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   [(ACCTransportIOAccessoryBase *)self ioService];
   PowerDuringSleep = IOAccessoryManagerGetPowerDuringSleep();
   if (gLogObjects)
@@ -2879,13 +3133,142 @@ uint64_t __71__ACCTransportIOAccessoryManager_setUSBCurrentLimitBase_forceRespon
 
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
-    v8[0] = 67109120;
-    v8[1] = PowerDuringSleep != 0;
-    _os_log_impl(&dword_233656000, v5, OS_LOG_TYPE_INFO, "powerDuringSleepIsEnabled = %d", v8, 8u);
+    v7[0] = 67109120;
+    v7[1] = PowerDuringSleep != 0;
+    _os_log_impl(&dword_233656000, v5, OS_LOG_TYPE_INFO, "powerDuringSleepIsEnabled = %d", v7, 8u);
   }
 
-  v6 = *MEMORY[0x277D85DE8];
   return PowerDuringSleep != 0;
+}
+
+- (BOOL)setBatteryPackMode:(BOOL)mode forceResponse:(BOOL)response
+{
+  responseCopy = response;
+  modeCopy = mode;
+  v33 = *MEMORY[0x277D85DE8];
+  v7 = IOAccessoryManagerSetBatteryPackMode();
+  v8 = v7;
+  if (gLogObjects)
+  {
+    v9 = gNumLogObjects <= 3;
+  }
+
+  else
+  {
+    v9 = 1;
+  }
+
+  v10 = !v9;
+  if (v7)
+  {
+    if (v10)
+    {
+      v11 = *(gLogObjects + 24);
+    }
+
+    else
+    {
+      if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+      {
+        [ACCTransportIOAccessoryOOBPairing dealloc];
+      }
+
+      v11 = MEMORY[0x277D86220];
+      v12 = MEMORY[0x277D86220];
+    }
+
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    {
+      [ACCTransportIOAccessoryManager setBatteryPackMode:forceResponse:];
+    }
+  }
+
+  else
+  {
+    if (v10)
+    {
+      v11 = *(gLogObjects + 24);
+    }
+
+    else
+    {
+      if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+      {
+        [ACCTransportIOAccessoryOOBPairing dealloc];
+      }
+
+      v11 = MEMORY[0x277D86220];
+      v13 = MEMORY[0x277D86220];
+    }
+
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+    {
+      [ACCTransportIOAccessoryManager setBatteryPackMode:modeCopy forceResponse:self];
+    }
+  }
+
+  if ((platform_systemInfo_isLightning() & 1) == 0)
+  {
+    if (gLogObjects && gNumLogObjects >= 4)
+    {
+      v14 = *(gLogObjects + 24);
+    }
+
+    else
+    {
+      if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+      {
+        [ACCTransportIOAccessoryOOBPairing dealloc];
+      }
+
+      v14 = MEMORY[0x277D86220];
+      v15 = MEMORY[0x277D86220];
+    }
+
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    {
+      batteryPackModeEnabled = self->_batteryPackModeEnabled;
+      batteryPackModeEnabledValid = self->_batteryPackModeEnabledValid;
+      *buf = 67110144;
+      v24 = batteryPackModeEnabled;
+      v25 = 1024;
+      v26 = modeCopy;
+      v27 = 1024;
+      v28 = batteryPackModeEnabledValid;
+      v29 = 1024;
+      v30 = 1;
+      v31 = 1024;
+      v32 = responseCopy;
+      _os_log_impl(&dword_233656000, v14, OS_LOG_TYPE_DEFAULT, "setBatteryPackMode: not lightning device, batteryPackModeEnabled %d -> %d, valid %d -> %d, forceResponse %d", buf, 0x20u);
+    }
+
+    if (responseCopy || self->_batteryPackModeEnabled != modeCopy)
+    {
+      self->_batteryPackModeEnabled = modeCopy;
+      self->_batteryPackModeEnabledValid = 1;
+    }
+
+    else
+    {
+      v18 = self->_batteryPackModeEnabledValid;
+      self->_batteryPackModeEnabledValid = 1;
+      if (v18)
+      {
+        return v8 == 0;
+      }
+    }
+
+    v19 = dispatch_time(0, 10000000);
+    notificationPortQueue = self->super._notificationPortQueue;
+    block[0] = MEMORY[0x277D85DD0];
+    block[1] = 3221225472;
+    block[2] = __67__ACCTransportIOAccessoryManager_setBatteryPackMode_forceResponse___block_invoke;
+    block[3] = &unk_2789E8690;
+    block[4] = self;
+    dispatch_after(v19, notificationPortQueue, block);
+  }
+
+  return v8 == 0;
 }
 
 uint64_t __67__ACCTransportIOAccessoryManager_setBatteryPackMode_forceResponse___block_invoke(uint64_t a1)
@@ -2927,7 +3310,7 @@ uint64_t __67__ACCTransportIOAccessoryManager_setBatteryPackMode_forceResponse__
 
 - (BOOL)isBatteryPackModeEnabled
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   [(ACCTransportIOAccessoryBase *)self ioService];
   BatteryPackMode = IOAccessoryManagerGetBatteryPackMode();
   v4 = BatteryPackMode != 0;
@@ -2952,11 +3335,11 @@ uint64_t __67__ACCTransportIOAccessoryManager_setBatteryPackMode_forceResponse__
     if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
       batteryPackModeEnabled = self->_batteryPackModeEnabled;
-      v14 = 67109376;
-      *v15 = BatteryPackMode != 0;
-      *&v15[4] = 1024;
-      *&v15[6] = batteryPackModeEnabled;
-      _os_log_impl(&dword_233656000, v5, OS_LOG_TYPE_INFO, "setBatteryPackMode: not lightning device and batteryPackModeEnabledValid, batteryPackModeEnabled %d -> %d", &v14, 0xEu);
+      v13 = 67109376;
+      *v14 = BatteryPackMode != 0;
+      *&v14[4] = 1024;
+      *&v14[6] = batteryPackModeEnabled;
+      _os_log_impl(&dword_233656000, v5, OS_LOG_TYPE_INFO, "setBatteryPackMode: not lightning device and batteryPackModeEnabledValid, batteryPackModeEnabled %d -> %d", &v13, 0xEu);
     }
 
     v4 = self->_batteryPackModeEnabled;
@@ -2991,40 +3374,38 @@ uint64_t __67__ACCTransportIOAccessoryManager_setBatteryPackMode_forceResponse__
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     batteryPackModeEnabledValid = self->_batteryPackModeEnabledValid;
-    v14 = 136315650;
-    *v15 = "[ACCTransportIOAccessoryManager isBatteryPackModeEnabled]";
-    *&v15[8] = 1024;
-    v16 = v4;
-    v17 = 1024;
-    v18 = batteryPackModeEnabledValid;
-    _os_log_impl(&dword_233656000, v10, OS_LOG_TYPE_DEFAULT, "%s: batteryPackModeIsEnabled = %d, _batteryPackModeEnabledValid %d", &v14, 0x18u);
+    v13 = 136315650;
+    *v14 = "[ACCTransportIOAccessoryManager isBatteryPackModeEnabled]";
+    *&v14[8] = 1024;
+    v15 = v4;
+    v16 = 1024;
+    v17 = batteryPackModeEnabledValid;
+    _os_log_impl(&dword_233656000, v10, OS_LOG_TYPE_DEFAULT, "%s: batteryPackModeIsEnabled = %d, _batteryPackModeEnabledValid %d", &v13, 0x18u);
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return v4;
 }
 
 - (BOOL)setAccessoryRequestedCurrent:(unsigned int)current
 {
-  ioConnect = self->super._ioConnect;
-  v4 = IOAccessoryManagerSetAccessoryRequestedCurrent();
-  v5 = v4;
+  v3 = IOAccessoryManagerSetAccessoryRequestedCurrent();
+  v4 = v3;
   if (gLogObjects)
   {
-    v6 = gNumLogObjects <= 3;
+    v5 = gNumLogObjects <= 3;
   }
 
   else
   {
-    v6 = 1;
+    v5 = 1;
   }
 
-  v7 = !v6;
-  if (v4)
+  v6 = !v5;
+  if (v3)
   {
-    if (v7)
+    if (v6)
     {
-      v8 = *(gLogObjects + 24);
+      v7 = *(gLogObjects + 24);
     }
 
     else
@@ -3034,64 +3415,63 @@ uint64_t __67__ACCTransportIOAccessoryManager_setBatteryPackMode_forceResponse__
         [ACCTransportIOAccessoryOOBPairing dealloc];
       }
 
+      v7 = MEMORY[0x277D86220];
       v8 = MEMORY[0x277D86220];
+    }
+
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    {
+      [ACCTransportIOAccessoryManager setAccessoryRequestedCurrent:];
+    }
+  }
+
+  else
+  {
+    if (v6)
+    {
+      v7 = *(gLogObjects + 24);
+    }
+
+    else
+    {
+      if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+      {
+        [ACCTransportIOAccessoryOOBPairing dealloc];
+      }
+
+      v7 = MEMORY[0x277D86220];
       v9 = MEMORY[0x277D86220];
     }
 
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
       [ACCTransportIOAccessoryManager setAccessoryRequestedCurrent:];
     }
   }
 
-  else
-  {
-    if (v7)
-    {
-      v8 = *(gLogObjects + 24);
-    }
-
-    else
-    {
-      if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
-      {
-        [ACCTransportIOAccessoryOOBPairing dealloc];
-      }
-
-      v8 = MEMORY[0x277D86220];
-      v10 = MEMORY[0x277D86220];
-    }
-
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
-    {
-      [ACCTransportIOAccessoryManager setAccessoryRequestedCurrent:];
-    }
-  }
-
-  return v5 == 0;
+  return v4 == 0;
 }
 
 - (BOOL)setAccessoryUsedCurrent:(unsigned int)current
 {
-  ioConnect = self->super._ioConnect;
-  v4 = IOAccessoryManagerSetAccessoryUsedCurrent();
-  v5 = v4;
+  v3 = IOAccessoryManagerSetAccessoryUsedCurrent();
+  v4 = v3;
   if (gLogObjects)
   {
-    v6 = gNumLogObjects <= 3;
+    v5 = gNumLogObjects <= 3;
   }
 
   else
   {
-    v6 = 1;
+    v5 = 1;
   }
 
-  v7 = !v6;
-  if (v4)
+  v6 = !v5;
+  if (v3)
   {
-    if (v7)
+    if (v6)
     {
-      v8 = *(gLogObjects + 24);
+      v7 = *(gLogObjects + 24);
     }
 
     else
@@ -3101,64 +3481,63 @@ uint64_t __67__ACCTransportIOAccessoryManager_setBatteryPackMode_forceResponse__
         [ACCTransportIOAccessoryOOBPairing dealloc];
       }
 
+      v7 = MEMORY[0x277D86220];
       v8 = MEMORY[0x277D86220];
+    }
+
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    {
+      [ACCTransportIOAccessoryManager setAccessoryUsedCurrent:];
+    }
+  }
+
+  else
+  {
+    if (v6)
+    {
+      v7 = *(gLogObjects + 24);
+    }
+
+    else
+    {
+      if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+      {
+        [ACCTransportIOAccessoryOOBPairing dealloc];
+      }
+
+      v7 = MEMORY[0x277D86220];
       v9 = MEMORY[0x277D86220];
     }
 
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
       [ACCTransportIOAccessoryManager setAccessoryUsedCurrent:];
     }
   }
 
-  else
-  {
-    if (v7)
-    {
-      v8 = *(gLogObjects + 24);
-    }
-
-    else
-    {
-      if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
-      {
-        [ACCTransportIOAccessoryOOBPairing dealloc];
-      }
-
-      v8 = MEMORY[0x277D86220];
-      v10 = MEMORY[0x277D86220];
-    }
-
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
-    {
-      [ACCTransportIOAccessoryManager setAccessoryUsedCurrent:];
-    }
-  }
-
-  return v5 == 0;
+  return v4 == 0;
 }
 
 - (BOOL)resetAccessoryBaseCurrent
 {
-  ioConnect = self->super._ioConnect;
-  v4 = IOAccessoryManagerRestoreUSBCurrentLimitBase();
-  v5 = v4;
+  v3 = IOAccessoryManagerRestoreUSBCurrentLimitBase();
+  v4 = v3;
   if (gLogObjects)
   {
-    v6 = gNumLogObjects <= 3;
+    v5 = gNumLogObjects <= 3;
   }
 
   else
   {
-    v6 = 1;
+    v5 = 1;
   }
 
-  v7 = !v6;
-  if (v4)
+  v6 = !v5;
+  if (v3)
   {
-    if (v7)
+    if (v6)
     {
-      v8 = *(gLogObjects + 24);
+      v7 = *(gLogObjects + 24);
     }
 
     else
@@ -3168,11 +3547,11 @@ uint64_t __67__ACCTransportIOAccessoryManager_setBatteryPackMode_forceResponse__
         [ACCTransportIOAccessoryOOBPairing dealloc];
       }
 
+      v7 = MEMORY[0x277D86220];
       v8 = MEMORY[0x277D86220];
-      v9 = MEMORY[0x277D86220];
     }
 
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       [ACCTransportIOAccessoryManager resetAccessoryBaseCurrent];
     }
@@ -3180,9 +3559,9 @@ uint64_t __67__ACCTransportIOAccessoryManager_setBatteryPackMode_forceResponse__
 
   else
   {
-    if (v7)
+    if (v6)
     {
-      v8 = *(gLogObjects + 24);
+      v7 = *(gLogObjects + 24);
     }
 
     else
@@ -3192,22 +3571,22 @@ uint64_t __67__ACCTransportIOAccessoryManager_setBatteryPackMode_forceResponse__
         [ACCTransportIOAccessoryOOBPairing dealloc];
       }
 
-      v8 = MEMORY[0x277D86220];
-      v10 = MEMORY[0x277D86220];
+      v7 = MEMORY[0x277D86220];
+      v9 = MEMORY[0x277D86220];
     }
 
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
       [(ACCTransportIOAccessoryManager *)self resetAccessoryBaseCurrent];
     }
   }
 
-  return v5 == 0;
+  return v4 == 0;
 }
 
 - (unsigned)accessoryChargingCurrentInmA
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   [(ACCTransportIOAccessoryBase *)self ioService];
   ActivePowerMode = IOAccessoryManagerGetActivePowerMode();
   v4 = [(ACCTransportIOAccessoryManager *)self accessoryPowerModeCurrentLimitInmA:ActivePowerMode];
@@ -3239,22 +3618,21 @@ uint64_t __67__ACCTransportIOAccessoryManager_setBatteryPackMode_forceResponse__
 
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
-    v10[0] = 67109632;
-    v10[1] = v4;
-    v11 = 1024;
-    v12 = ActivePowerMode;
-    v13 = 1024;
+    v9[0] = 67109632;
+    v9[1] = v4;
+    v10 = 1024;
+    v11 = ActivePowerMode;
+    v12 = 1024;
     ioService = [(ACCTransportIOAccessoryBase *)self ioService];
-    _os_log_debug_impl(&dword_233656000, v7, OS_LOG_TYPE_DEBUG, "successfully get accessoryChargingCurrentInmA %d with IOAccessoryPowerMode %d for service %d", v10, 0x14u);
+    _os_log_debug_impl(&dword_233656000, v7, OS_LOG_TYPE_DEBUG, "successfully get accessoryChargingCurrentInmA %d with IOAccessoryPowerMode %d for service %d", v9, 0x14u);
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return v4;
 }
 
 - (unsigned)accessoryPowerModeCurrentLimitInmA:(int)a
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   [(ACCTransportIOAccessoryBase *)self ioService];
   v5 = IOAccessoryManagerPowerModeCurrentLimit();
   if (gLogObjects)
@@ -3285,16 +3663,15 @@ uint64_t __67__ACCTransportIOAccessoryManager_setBatteryPackMode_forceResponse__
 
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
-    v11[0] = 67109632;
-    v11[1] = v5;
-    v12 = 1024;
+    v10[0] = 67109632;
+    v10[1] = v5;
+    v11 = 1024;
     aCopy = a;
-    v14 = 1024;
+    v13 = 1024;
     ioService = [(ACCTransportIOAccessoryBase *)self ioService];
-    _os_log_debug_impl(&dword_233656000, v8, OS_LOG_TYPE_DEBUG, "successfully get IOAccessoryManagerPowerModeCurrentLimit %d with ACCPlatform_Power_Mode_t %d for service %d", v11, 0x14u);
+    _os_log_debug_impl(&dword_233656000, v8, OS_LOG_TYPE_DEBUG, "successfully get IOAccessoryManagerPowerModeCurrentLimit %d with ACCPlatform_Power_Mode_t %d for service %d", v10, 0x14u);
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -3347,20 +3724,16 @@ uint64_t __67__ACCTransportIOAccessoryManager_setBatteryPackMode_forceResponse__
 
 - (void)_registerForIOAccessoryManagerInterestNotifications
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_9();
   OUTLINED_FUNCTION_1_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_registerForBatteryNotifications
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_9();
   OUTLINED_FUNCTION_1_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_registerForIOAccessoryIDBusHIDDevice
@@ -3559,9 +3932,195 @@ uint64_t __67__ACCTransportIOAccessoryManager_setBatteryPackMode_forceResponse__
   return v3;
 }
 
+- (void)_handleResistorIDChangeNotification:(int)notification
+{
+  v3 = *&notification;
+  v40[1] = *MEMORY[0x277D85DE8];
+  if ([(ACCTransportIOAccessoryManager *)self resistorID]== notification)
+  {
+    if (gLogObjects)
+    {
+      v5 = gNumLogObjects < 4;
+    }
+
+    else
+    {
+      v5 = 1;
+    }
+
+    if (v5)
+    {
+      if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+      {
+        [ACCTransportIOAccessoryOOBPairing dealloc];
+      }
+
+      v9 = MEMORY[0x277D86220];
+      v6 = MEMORY[0x277D86220];
+    }
+
+    else
+    {
+      v9 = *(gLogObjects + 24);
+    }
+
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+    {
+      [ACCTransportIOAccessoryManager _handleResistorIDChangeNotification:];
+    }
+
+    connectionUUID = [(ACCTransportIOAccessoryManager *)self connectionUUID];
+
+    if (v3 != 100 && !connectionUUID)
+    {
+      v11 = dispatch_get_global_queue(0, 0);
+      v12 = v11;
+      v29[0] = MEMORY[0x277D85DD0];
+      v29[1] = 3221225472;
+      v29[2] = __70__ACCTransportIOAccessoryManager__handleResistorIDChangeNotification___block_invoke_76;
+      v29[3] = &unk_2789E9040;
+      v30 = v3;
+      v29[4] = self;
+      v13 = v29;
+LABEL_41:
+      dispatch_async(v11, v13);
+    }
+  }
+
+  else
+  {
+    [(ACCTransportIOAccessoryManager *)self setResistorID:v3];
+    if (gLogObjects)
+    {
+      v7 = gNumLogObjects < 4;
+    }
+
+    else
+    {
+      v7 = 1;
+    }
+
+    if (v7)
+    {
+      if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+      {
+        [ACCTransportIOAccessoryOOBPairing dealloc];
+      }
+
+      v14 = MEMORY[0x277D86220];
+      v8 = MEMORY[0x277D86220];
+    }
+
+    else
+    {
+      v14 = *(gLogObjects + 24);
+    }
+
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 67109120;
+      LODWORD(v36) = [(ACCTransportIOAccessoryManager *)self resistorID];
+      _os_log_impl(&dword_233656000, v14, OS_LOG_TYPE_DEFAULT, "Manager: New resistorID value %d", buf, 8u);
+    }
+
+    if (v3 != 100)
+    {
+      v15 = MEMORY[0x277CBEB38];
+      v39 = @"resistorID";
+      v16 = [MEMORY[0x277CCABB0] numberWithInt:{-[ACCTransportIOAccessoryManager resistorID](self, "resistorID")}];
+      v40[0] = v16;
+      v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v40 forKeys:&v39 count:1];
+      v18 = [v15 dictionaryWithDictionary:v17];
+
+      if (gLogObjects && gNumLogObjects >= 4)
+      {
+        v19 = *(gLogObjects + 24);
+      }
+
+      else
+      {
+        if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+        {
+          [ACCTransportIOAccessoryOOBPairing dealloc];
+        }
+
+        v19 = MEMORY[0x277D86220];
+        v20 = MEMORY[0x277D86220];
+      }
+
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 138412546;
+        v36 = @"com.apple.accessories.resistor.idChanged";
+        v37 = 2112;
+        v38 = v18;
+        _os_log_impl(&dword_233656000, v19, OS_LOG_TYPE_DEFAULT, "CoreAnalytics event: %@\neventDict: %@", buf, 0x16u);
+      }
+
+      AnalyticsSendEvent();
+    }
+
+    connectionUUID2 = [(ACCTransportIOAccessoryManager *)self connectionUUID];
+
+    if (!connectionUUID2)
+    {
+      if (v3 == 100)
+      {
+        return;
+      }
+
+      v11 = dispatch_get_global_queue(0, 0);
+      v12 = v11;
+      block[0] = MEMORY[0x277D85DD0];
+      block[1] = 3221225472;
+      block[2] = __70__ACCTransportIOAccessoryManager__handleResistorIDChangeNotification___block_invoke;
+      block[3] = &unk_2789E9040;
+      v32 = v3;
+      block[4] = self;
+      v13 = block;
+      goto LABEL_41;
+    }
+
+    if (gLogObjects && gNumLogObjects >= 4)
+    {
+      v22 = *(gLogObjects + 24);
+    }
+
+    else
+    {
+      if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+      {
+        [ACCTransportIOAccessoryOOBPairing dealloc];
+      }
+
+      v22 = MEMORY[0x277D86220];
+      v23 = MEMORY[0x277D86220];
+    }
+
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+    {
+      connectionUUID3 = [(ACCTransportIOAccessoryManager *)self connectionUUID];
+      *buf = 138412290;
+      v36 = connectionUUID3;
+      _os_log_impl(&dword_233656000, v22, OS_LOG_TYPE_DEFAULT, "Manager: Have a connection UUID %@, sending resistorID notification", buf, 0xCu);
+    }
+
+    v25 = [MEMORY[0x277CCABB0] numberWithInteger:v3];
+    v33[0] = *MEMORY[0x277CFD178];
+    connectionUUID4 = [(ACCTransportIOAccessoryManager *)self connectionUUID];
+    v33[1] = *MEMORY[0x277CFD190];
+    v34[0] = connectionUUID4;
+    v34[1] = v25;
+    v27 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v34 forKeys:v33 count:2];
+
+    defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
+    [defaultCenter postNotificationName:*MEMORY[0x277CFD198] object:0 userInfo:v27];
+  }
+}
+
 void __70__ACCTransportIOAccessoryManager__handleResistorIDChangeNotification___block_invoke(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   if (gLogObjects)
   {
     v2 = gNumLogObjects < 4;
@@ -3591,9 +4150,9 @@ void __70__ACCTransportIOAccessoryManager__handleResistorIDChangeNotification___
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = *(a1 + 40);
-    v8[0] = 67109120;
-    v8[1] = v5;
-    _os_log_impl(&dword_233656000, v4, OS_LOG_TYPE_DEFAULT, "Manager: Have no connection UUID for valid resistorID %d on resistor ID change notification. Tell shared Manager", v8, 8u);
+    v7[0] = 67109120;
+    v7[1] = v5;
+    _os_log_impl(&dword_233656000, v4, OS_LOG_TYPE_DEFAULT, "Manager: Have no connection UUID for valid resistorID %d on resistor ID change notification. Tell shared Manager", v7, 8u);
   }
 
   v6 = +[ACCTransportIOAccessorySharedManager sharedManager];
@@ -3601,13 +4160,11 @@ void __70__ACCTransportIOAccessoryManager__handleResistorIDChangeNotification___
   {
     [v6 IOAccessoryManagerResistorIDChanged:*(a1 + 40) forManager:*(a1 + 32)];
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __70__ACCTransportIOAccessoryManager__handleResistorIDChangeNotification___block_invoke_76(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   if (gLogObjects)
   {
     v2 = gNumLogObjects < 4;
@@ -3637,9 +4194,9 @@ void __70__ACCTransportIOAccessoryManager__handleResistorIDChangeNotification___
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = *(a1 + 40);
-    v8[0] = 67109120;
-    v8[1] = v5;
-    _os_log_impl(&dword_233656000, v4, OS_LOG_TYPE_DEFAULT, "Manager: Still have no connection UUID for a valid resistorID %d that should have a connectionUUID. Tell shared Manager", v8, 8u);
+    v7[0] = 67109120;
+    v7[1] = v5;
+    _os_log_impl(&dword_233656000, v4, OS_LOG_TYPE_DEFAULT, "Manager: Still have no connection UUID for a valid resistorID %d that should have a connectionUUID. Tell shared Manager", v7, 8u);
   }
 
   v6 = +[ACCTransportIOAccessorySharedManager sharedManager];
@@ -3647,13 +4204,11 @@ void __70__ACCTransportIOAccessoryManager__handleResistorIDChangeNotification___
   {
     [v6 IOAccessoryManagerResistorIDChanged:*(a1 + 40) forManager:*(a1 + 32)];
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_sendNotification:(id)notification
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   notificationCopy = notification;
   v5 = +[ACCTransportIOAccessorySharedManager sharedManager];
   [v5 lockAccessoryPorts];
@@ -3682,32 +4237,32 @@ void __70__ACCTransportIOAccessoryManager__handleResistorIDChangeNotification___
       [(ACCTransportIOAccessoryManager *)notificationCopy _sendNotification:_connectionUUIDsForNotification, v7];
     }
 
-    v29 = 0u;
-    v30 = 0u;
-    v27 = 0u;
     v28 = 0u;
-    v25 = _connectionUUIDsForNotification;
+    v29 = 0u;
+    v26 = 0u;
+    v27 = 0u;
+    v24 = _connectionUUIDsForNotification;
     obj = _connectionUUIDsForNotification;
-    v9 = [obj countByEnumeratingWithState:&v27 objects:v37 count:16];
+    v9 = [obj countByEnumeratingWithState:&v26 objects:v36 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v28;
+      v11 = *v27;
       v12 = *MEMORY[0x277CFD1B8];
       v13 = MEMORY[0x277D86220];
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v28 != v11)
+          if (*v27 != v11)
           {
             objc_enumerationMutation(obj);
           }
 
-          v15 = *(*(&v27 + 1) + 8 * i);
-          v35 = v12;
-          v36 = v15;
-          v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v36 forKeys:&v35 count:1];
+          v15 = *(*(&v26 + 1) + 8 * i);
+          v34 = v12;
+          v35 = v15;
+          v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v35 forKeys:&v34 count:1];
           v17 = gLogObjects;
           v18 = gNumLogObjects;
           if (gLogObjects)
@@ -3725,9 +4280,9 @@ void __70__ACCTransportIOAccessoryManager__handleResistorIDChangeNotification___
             if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
             {
               *buf = 134218240;
-              v32 = v17;
-              v33 = 1024;
-              LODWORD(v34) = v18;
+              v31 = v17;
+              v32 = 1024;
+              LODWORD(v33) = v18;
               _os_log_error_impl(&dword_233656000, v13, OS_LOG_TYPE_ERROR, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", buf, 0x12u);
             }
 
@@ -3743,9 +4298,9 @@ void __70__ACCTransportIOAccessoryManager__handleResistorIDChangeNotification___
           if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
           {
             *buf = 138412546;
-            v32 = notificationCopy;
-            v33 = 2112;
-            v34 = v16;
+            v31 = notificationCopy;
+            v32 = 2112;
+            v33 = v16;
             _os_log_debug_impl(&dword_233656000, v21, OS_LOG_TYPE_DEBUG, "Sending %@ notification, notificationDict=%@", buf, 0x16u);
           }
 
@@ -3753,25 +4308,23 @@ void __70__ACCTransportIOAccessoryManager__handleResistorIDChangeNotification___
           [defaultCenter postNotificationName:notificationCopy object:0 userInfo:v16];
         }
 
-        v10 = [obj countByEnumeratingWithState:&v27 objects:v37 count:16];
+        v10 = [obj countByEnumeratingWithState:&v26 objects:v36 count:16];
       }
 
       while (v10);
     }
 
-    _connectionUUIDsForNotification = v25;
+    _connectionUUIDsForNotification = v24;
   }
 
   v23 = +[ACCTransportIOAccessorySharedManager sharedManager];
   [v23 unlockAccessoryPorts];
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_updateInductiveInfo:(BOOL)info
 {
   infoCopy = info;
-  *&v59[5] = *MEMORY[0x277D85DE8];
+  *&v58[5] = *MEMORY[0x277D85DE8];
   if (gLogObjects)
   {
     v5 = gNumLogObjects < 4;
@@ -3802,11 +4355,11 @@ void __70__ACCTransportIOAccessoryManager__handleResistorIDChangeNotification___
   {
     bIsInductive = self->_bIsInductive;
     *buf = 136315650;
-    v57 = "[ACCTransportIOAccessoryManager _updateInductiveInfo:]";
-    v58 = 1024;
-    *v59 = bIsInductive;
-    v59[2] = 1024;
-    *&v59[3] = infoCopy;
+    v56 = "[ACCTransportIOAccessoryManager _updateInductiveInfo:]";
+    v57 = 1024;
+    *v58 = bIsInductive;
+    v58[2] = 1024;
+    *&v58[3] = infoCopy;
     _os_log_impl(&dword_233656000, v7, OS_LOG_TYPE_DEFAULT, "%s: _bIsInductive %d, force %d", buf, 0x18u);
   }
 
@@ -3814,7 +4367,7 @@ void __70__ACCTransportIOAccessoryManager__handleResistorIDChangeNotification___
   {
     [(NSRecursiveLock *)self->_accessoryInfoLock lock];
     valuePtr = 0;
-    v50 = 0;
+    v49 = 0;
     if (infoCopy || ([(ACCTransportIOAccessoryManager *)self regionCode], v9 = objc_claimAutoreleasedReturnValue(), v9, !v9))
     {
       ioService = [(ACCTransportIOAccessoryBase *)self ioService];
@@ -3839,9 +4392,9 @@ void __70__ACCTransportIOAccessoryManager__handleResistorIDChangeNotification___
       if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315394;
-        v57 = "[ACCTransportIOAccessoryManager _updateInductiveInfo:]";
-        v58 = 2112;
-        *v59 = CFProperty;
+        v56 = "[ACCTransportIOAccessoryManager _updateInductiveInfo:]";
+        v57 = 2112;
+        *v58 = CFProperty;
         _os_log_impl(&dword_233656000, v13, OS_LOG_TYPE_DEFAULT, "%s: cfRegionCode = %@", buf, 0x16u);
       }
 
@@ -3898,9 +4451,9 @@ LABEL_29:
     if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315394;
-      v57 = "[ACCTransportIOAccessoryManager _updateInductiveInfo:]";
-      v58 = 2112;
-      *v59 = v17;
+      v56 = "[ACCTransportIOAccessoryManager _updateInductiveInfo:]";
+      v57 = 2112;
+      *v58 = v17;
       _os_log_impl(&dword_233656000, v18, OS_LOG_TYPE_DEFAULT, "%s: cfInductiveDeviceType = %@", buf, 0x16u);
     }
 
@@ -3956,15 +4509,15 @@ LABEL_43:
     if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315394;
-      v57 = "[ACCTransportIOAccessoryManager _updateInductiveInfo:]";
-      v58 = 2112;
-      *v59 = v22;
+      v56 = "[ACCTransportIOAccessoryManager _updateInductiveInfo:]";
+      v57 = 2112;
+      *v58 = v22;
       _os_log_impl(&dword_233656000, v23, OS_LOG_TYPE_DEFAULT, "%s: cfInductiveDeviceID = %@", buf, 0x16u);
     }
 
     if (v22)
     {
-      CFNumberGetValue(v22, kCFNumberSInt32Type, &v50);
+      CFNumberGetValue(v22, kCFNumberSInt32Type, &v49);
       v25 = [(__CFNumber *)v22 copy];
       [(ACCTransportIOAccessoryManager *)self setInductiveDeviceID:v25];
 
@@ -3989,7 +4542,7 @@ LABEL_56:
 
           if (inductiveDeviceID2)
           {
-            v29 = [MEMORY[0x277CCACA8] stringWithFormat:@"%03X-%06X", valuePtr, v50];
+            v29 = [MEMORY[0x277CCACA8] stringWithFormat:@"%03X-%06X", valuePtr, v49];
             [(NSLock *)self->_propertyLock lock];
             inductiveDeviceUID = self->_inductiveDeviceUID;
             if (!inductiveDeviceUID || ![(NSString *)inductiveDeviceUID isEqualToString:v29])
@@ -4025,9 +4578,9 @@ LABEL_64:
           if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 136315394;
-            v57 = "[ACCTransportIOAccessoryManager _updateInductiveInfo:]";
-            v58 = 2112;
-            *v59 = v33;
+            v56 = "[ACCTransportIOAccessoryManager _updateInductiveInfo:]";
+            v57 = 2112;
+            *v58 = v33;
             _os_log_impl(&dword_233656000, v34, OS_LOG_TYPE_DEFAULT, "%s: cfInductiveLocalDeviceID = %@", buf, 0x16u);
           }
 
@@ -4055,10 +4608,10 @@ LABEL_64:
             {
             }
 
-            v54 = *MEMORY[0x277CFD2A8];
+            v53 = *MEMORY[0x277CFD2A8];
             inductiveLocalDeviceID4 = [(ACCTransportIOAccessoryManager *)self inductiveLocalDeviceID];
-            v55 = inductiveLocalDeviceID4;
-            v43 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v55 forKeys:&v54 count:1];
+            v54 = inductiveLocalDeviceID4;
+            v43 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v54 forKeys:&v53 count:1];
 
             v44 = +[ACCTransportIOAccessorySharedManager sharedManager];
             [v44 setProperties:v43 forManager:self];
@@ -4073,17 +4626,17 @@ LABEL_81:
 
           if (inductiveDeviceType3)
           {
-            v52 = *MEMORY[0x277CFD2A0];
+            v51 = *MEMORY[0x277CFD2A0];
             inductiveDeviceType4 = [(ACCTransportIOAccessoryManager *)self inductiveDeviceType];
-            v53 = inductiveDeviceType4;
-            v47 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v53 forKeys:&v52 count:1];
+            v52 = inductiveDeviceType4;
+            v47 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v52 forKeys:&v51 count:1];
 
             v48 = +[ACCTransportIOAccessorySharedManager sharedManager];
             [v48 setProperties:v47 forManager:self];
           }
 
           [(NSRecursiveLock *)self->_accessoryInfoLock unlock];
-          goto LABEL_84;
+          return;
         }
 
 LABEL_63:
@@ -4106,14 +4659,11 @@ LABEL_55:
 
     goto LABEL_56;
   }
-
-LABEL_84:
-  v49 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_clearAccessoryInfo
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   [(NSRecursiveLock *)self->_accessoryInfoLock lock];
   if ([(ACCTransportIOAccessoryManager *)self bIsInductive])
   {
@@ -4156,9 +4706,9 @@ LABEL_84:
 
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v9[0] = 67109120;
-      v9[1] = [(ACCTransportIOAccessoryBase *)self ioService];
-      _os_log_impl(&dword_233656000, v7, OS_LOG_TYPE_DEFAULT, "Clearing accessory info for manager %d", v9, 8u);
+      v8[0] = 67109120;
+      v8[1] = [(ACCTransportIOAccessoryBase *)self ioService];
+      _os_log_impl(&dword_233656000, v7, OS_LOG_TYPE_DEFAULT, "Clearing accessory info for manager %d", v8, 8u);
     }
 
     self->_allAccessoryInfoFieldsAreValid = 0;
@@ -4176,12 +4726,11 @@ LABEL_84:
   }
 
   [(NSRecursiveLock *)self->_accessoryInfoLock unlock];
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_pokeResistorID
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   if ([(ACCTransportIOAccessoryManager *)self resistorID]== 100 && [(ACCTransportIOAccessoryBase *)self primaryPortNumber]!= 1)
   {
     if (!gLogObjects || gNumLogObjects < 4)
@@ -4202,9 +4751,9 @@ LABEL_84:
 
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v16 = 67109120;
+      v15 = 67109120;
       ioService = [(ACCTransportIOAccessoryBase *)self ioService];
-      _os_log_impl(&dword_233656000, v5, OS_LOG_TYPE_DEFAULT, "Poking resistorID for service (%d) for rear-port IOAccessoryManager", &v16, 8u);
+      _os_log_impl(&dword_233656000, v5, OS_LOG_TYPE_DEFAULT, "Poking resistorID for service (%d) for rear-port IOAccessoryManager", &v15, 8u);
     }
 
     [(ACCTransportIOAccessoryBase *)self ioService];
@@ -4231,16 +4780,16 @@ LABEL_84:
       if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
         ioService2 = [(ACCTransportIOAccessoryBase *)self ioService];
-        v16 = 67109376;
+        v15 = 67109376;
         ioService = resistorID2;
-        v18 = 1024;
-        v19 = ioService2;
-        _os_log_impl(&dword_233656000, v8, OS_LOG_TYPE_DEFAULT, "Have a resistorID to update from poke, %d, from service %d", &v16, 0xEu);
+        v17 = 1024;
+        v18 = ioService2;
+        _os_log_impl(&dword_233656000, v8, OS_LOG_TYPE_DEFAULT, "Have a resistorID to update from poke, %d, from service %d", &v15, 0xEu);
       }
 
 LABEL_34:
       [(ACCTransportIOAccessoryManager *)self _handleResistorIDChangeNotification:resistorID2];
-      goto LABEL_35;
+      return;
     }
   }
 
@@ -4266,24 +4815,21 @@ LABEL_34:
     {
       resistorID = [(ACCTransportIOAccessoryManager *)self resistorID];
       ioService3 = [(ACCTransportIOAccessoryBase *)self ioService];
-      v16 = 67109376;
+      v15 = 67109376;
       ioService = resistorID;
-      v18 = 1024;
-      v19 = ioService3;
-      _os_log_impl(&dword_233656000, v9, OS_LOG_TYPE_DEFAULT, "Already have a resistorID to update from poke, %d, from service %d. Checking if we need to advertise connection", &v16, 0xEu);
+      v17 = 1024;
+      v18 = ioService3;
+      _os_log_impl(&dword_233656000, v9, OS_LOG_TYPE_DEFAULT, "Already have a resistorID to update from poke, %d, from service %d. Checking if we need to advertise connection", &v15, 0xEu);
     }
 
     resistorID2 = [(ACCTransportIOAccessoryManager *)self resistorID];
     goto LABEL_34;
   }
-
-LABEL_35:
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_stopAuthTimer
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   if (gLogObjects)
   {
     v3 = gNumLogObjects < 4;
@@ -4312,9 +4858,9 @@ LABEL_35:
 
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
-    v8[0] = 67109120;
-    v8[1] = [(ACCTransportIOAccessoryBase *)self ioService];
-    _os_log_impl(&dword_233656000, v5, OS_LOG_TYPE_INFO, "Stopping auth timer for service %d", v8, 8u);
+    v7[0] = 67109120;
+    v7[1] = [(ACCTransportIOAccessoryBase *)self ioService];
+    _os_log_impl(&dword_233656000, v5, OS_LOG_TYPE_INFO, "Stopping auth timer for service %d", v7, 8u);
   }
 
   authTimerAccessory = self->_authTimerAccessory;
@@ -4324,13 +4870,12 @@ LABEL_35:
   }
 
   self->_isAuthTimedOut = 0;
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleRegisterationForUarpActivityForModel:(id)model shouldRegister:(BOOL)register
 {
   registerCopy = register;
-  v90 = *MEMORY[0x277D85DE8];
+  v89 = *MEMORY[0x277D85DE8];
   modelCopy = model;
   if (gLogObjects)
   {
@@ -4363,15 +4908,15 @@ LABEL_35:
     primaryPortNumber = [(ACCTransportIOAccessoryBase *)self primaryPortNumber];
     connectionUUID = [(ACCTransportIOAccessoryManager *)self connectionUUID];
     *buf = 136316162;
-    v73 = "[ACCTransportIOAccessoryManager _handleRegisterationForUarpActivityForModel:shouldRegister:]";
-    v74 = 1024;
-    v75 = primaryPortNumber;
-    v76 = 2112;
-    v77 = connectionUUID;
-    v78 = 2112;
-    v79 = modelCopy;
-    v80 = 1024;
-    v81 = registerCopy;
+    v72 = "[ACCTransportIOAccessoryManager _handleRegisterationForUarpActivityForModel:shouldRegister:]";
+    v73 = 1024;
+    v74 = primaryPortNumber;
+    v75 = 2112;
+    v76 = connectionUUID;
+    v77 = 2112;
+    v78 = modelCopy;
+    v79 = 1024;
+    v80 = registerCopy;
     _os_log_impl(&dword_233656000, v9, OS_LOG_TYPE_DEFAULT, "%s: [%d] %@, accessoryModel %@, shouldRegister %d", buf, 0x2Cu);
   }
 
@@ -4402,15 +4947,15 @@ LABEL_35:
         primaryPortNumber2 = [(ACCTransportIOAccessoryBase *)selfCopy primaryPortNumber];
         connectionUUID2 = [(ACCTransportIOAccessoryManager *)selfCopy connectionUUID];
         *buf = 136316162;
-        v73 = "[ACCTransportIOAccessoryManager _handleRegisterationForUarpActivityForModel:shouldRegister:]";
-        v74 = 1024;
-        v75 = primaryPortNumber2;
-        v76 = 2112;
-        v77 = connectionUUID2;
-        v78 = 2112;
-        v79 = modelCopy;
-        v80 = 1024;
-        v81 = 1;
+        v72 = "[ACCTransportIOAccessoryManager _handleRegisterationForUarpActivityForModel:shouldRegister:]";
+        v73 = 1024;
+        v74 = primaryPortNumber2;
+        v75 = 2112;
+        v76 = connectionUUID2;
+        v77 = 2112;
+        v78 = modelCopy;
+        v79 = 1024;
+        v80 = 1;
         _os_log_impl(&dword_233656000, v13, OS_LOG_TYPE_DEFAULT, "%s: [%d] %@, accessoryModel '%@', shouldRegister=%d, Already registered!!!", buf, 0x2Cu);
       }
 
@@ -4426,7 +4971,7 @@ LABEL_39:
       v18 = 0;
     }
 
-    v71 = v18;
+    v70 = v18;
     modelCopy = [MEMORY[0x277CCACA8] stringWithFormat:@"%@%@", @"com.apple.uarp.startupdate.", modelCopy];
     notificationUarpStartUpdateName = selfCopy->_notificationUarpStartUpdateName;
     selfCopy->_notificationUarpStartUpdateName = modelCopy;
@@ -4471,23 +5016,23 @@ LABEL_39:
       v58 = selfCopy->_notificationUarpStagingStatusName;
       v59 = selfCopy->_notificationUarpStagingStatusName2;
       *buf = 136317186;
-      v73 = "[ACCTransportIOAccessoryManager _handleRegisterationForUarpActivityForModel:shouldRegister:]";
-      v74 = 1024;
-      v75 = primaryPortNumber3;
-      v76 = 2112;
-      v77 = connectionUUID3;
-      v78 = 2112;
-      v79 = modelCopy;
-      v80 = 1024;
-      v81 = 1;
-      v82 = 2112;
-      v83 = v56;
-      v84 = 2112;
-      v85 = v57;
-      v86 = 2112;
-      v87 = v58;
-      v88 = 2112;
-      v89 = v59;
+      v72 = "[ACCTransportIOAccessoryManager _handleRegisterationForUarpActivityForModel:shouldRegister:]";
+      v73 = 1024;
+      v74 = primaryPortNumber3;
+      v75 = 2112;
+      v76 = connectionUUID3;
+      v77 = 2112;
+      v78 = modelCopy;
+      v79 = 1024;
+      v80 = 1;
+      v81 = 2112;
+      v82 = v56;
+      v83 = 2112;
+      v84 = v57;
+      v85 = 2112;
+      v86 = v58;
+      v87 = 2112;
+      v88 = v59;
       _os_log_impl(&dword_233656000, v27, OS_LOG_TYPE_DEFAULT, "%s: [%d] %@, accessoryModel '%@', shouldRegister=%d, Register %@ / %@ / %@ / %@", buf, 0x54u);
     }
 
@@ -4560,15 +5105,15 @@ LABEL_39:
         primaryPortNumber4 = [(ACCTransportIOAccessoryBase *)selfCopy primaryPortNumber];
         connectionUUID4 = [(ACCTransportIOAccessoryManager *)selfCopy connectionUUID];
         *buf = 136316162;
-        v73 = "[ACCTransportIOAccessoryManager _handleRegisterationForUarpActivityForModel:shouldRegister:]";
-        v74 = 1024;
-        v75 = primaryPortNumber4;
-        v76 = 2112;
-        v77 = connectionUUID4;
-        v78 = 2112;
-        v79 = modelCopy;
-        v80 = 1024;
-        v81 = 0;
+        v72 = "[ACCTransportIOAccessoryManager _handleRegisterationForUarpActivityForModel:shouldRegister:]";
+        v73 = 1024;
+        v74 = primaryPortNumber4;
+        v75 = 2112;
+        v76 = connectionUUID4;
+        v77 = 2112;
+        v78 = modelCopy;
+        v79 = 1024;
+        v80 = 0;
         _os_log_impl(&dword_233656000, v13, OS_LOG_TYPE_DEFAULT, "%s: [%d] %@, accessoryModel '%@', shouldRegister=%d, Already unregistered!!!", buf, 0x2Cu);
       }
 
@@ -4600,23 +5145,23 @@ LABEL_39:
       v36 = selfCopy->_notificationUarpStagingStatusName;
       v37 = selfCopy->_notificationUarpStagingStatusName2;
       *buf = 136317186;
-      v73 = "[ACCTransportIOAccessoryManager _handleRegisterationForUarpActivityForModel:shouldRegister:]";
-      v74 = 1024;
-      v75 = primaryPortNumber5;
-      v76 = 2112;
-      v77 = connectionUUID5;
-      v78 = 2112;
-      v79 = modelCopy;
-      v80 = 1024;
-      v81 = 0;
-      v82 = 2112;
-      v83 = v34;
-      v84 = 2112;
-      v85 = v35;
-      v86 = 2112;
-      v87 = v36;
-      v88 = 2112;
-      v89 = v37;
+      v72 = "[ACCTransportIOAccessoryManager _handleRegisterationForUarpActivityForModel:shouldRegister:]";
+      v73 = 1024;
+      v74 = primaryPortNumber5;
+      v75 = 2112;
+      v76 = connectionUUID5;
+      v77 = 2112;
+      v78 = modelCopy;
+      v79 = 1024;
+      v80 = 0;
+      v81 = 2112;
+      v82 = v34;
+      v83 = 2112;
+      v84 = v35;
+      v85 = 2112;
+      v86 = v36;
+      v87 = 2112;
+      v88 = v37;
       _os_log_impl(&dword_233656000, v16, OS_LOG_TYPE_DEFAULT, "%s: [%d] %@, accessoryModel '%@', shouldRegister=%d, Unregister %@ / %@ / %@ / %@", buf, 0x54u);
     }
 
@@ -4657,13 +5202,11 @@ LABEL_39:
 
 LABEL_64:
   objc_sync_exit(selfCopy);
-
-  v70 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_kickTimerForUarpActivityForModel:(id)model
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   modelCopy = model;
   if (gLogObjects)
   {
@@ -4696,17 +5239,17 @@ LABEL_64:
     primaryPortNumber = [(ACCTransportIOAccessoryBase *)self primaryPortNumber];
     connectionUUID = [(ACCTransportIOAccessoryManager *)self connectionUUID];
     v10 = self->_notificationUarpStagingStatusActivityTimer != 0;
-    v24 = 136316162;
-    v25 = "[ACCTransportIOAccessoryManager _kickTimerForUarpActivityForModel:]";
-    v26 = 1024;
-    v27 = primaryPortNumber;
-    v28 = 2112;
-    v29 = connectionUUID;
-    v30 = 2112;
-    v31 = modelCopy;
-    v32 = 1024;
-    LODWORD(v33) = v10;
-    _os_log_impl(&dword_233656000, v7, OS_LOG_TYPE_DEFAULT, "%s: [%d] %@, accessoryModel '%@', (timer exist %d)", &v24, 0x2Cu);
+    v23 = 136316162;
+    v24 = "[ACCTransportIOAccessoryManager _kickTimerForUarpActivityForModel:]";
+    v25 = 1024;
+    v26 = primaryPortNumber;
+    v27 = 2112;
+    v28 = connectionUUID;
+    v29 = 2112;
+    v30 = modelCopy;
+    v31 = 1024;
+    LODWORD(v32) = v10;
+    _os_log_impl(&dword_233656000, v7, OS_LOG_TYPE_DEFAULT, "%s: [%d] %@, accessoryModel '%@', (timer exist %d)", &v23, 0x2Cu);
   }
 
   if (self->_notificationUarpStagingStatusActivityTimer)
@@ -4780,19 +5323,19 @@ LABEL_64:
       {
         primaryPortNumber2 = [(ACCTransportIOAccessoryBase *)self primaryPortNumber];
         connectionUUID2 = [(ACCTransportIOAccessoryManager *)self connectionUUID];
-        v24 = 136316418;
-        v25 = "[ACCTransportIOAccessoryManager _kickTimerForUarpActivityForModel:]";
-        v26 = 1024;
-        v27 = primaryPortNumber2;
-        v28 = 2112;
-        v29 = connectionUUID2;
-        v30 = 2112;
-        v31 = modelCopy;
-        v32 = 2048;
-        v33 = v12;
-        v34 = 2048;
-        v35 = v13;
-        _os_log_impl(&dword_233656000, v14, OS_LOG_TYPE_DEFAULT, "%s: [%d] %@, accessoryModel '%@', start check timer. (%ld / %llu)", &v24, 0x3Au);
+        v23 = 136316418;
+        v24 = "[ACCTransportIOAccessoryManager _kickTimerForUarpActivityForModel:]";
+        v25 = 1024;
+        v26 = primaryPortNumber2;
+        v27 = 2112;
+        v28 = connectionUUID2;
+        v29 = 2112;
+        v30 = modelCopy;
+        v31 = 2048;
+        v32 = v12;
+        v33 = 2048;
+        v34 = v13;
+        _os_log_impl(&dword_233656000, v14, OS_LOG_TYPE_DEFAULT, "%s: [%d] %@, accessoryModel '%@', start check timer. (%ld / %llu)", &v23, 0x3Au);
       }
 
       notificationUarpStagingStatusActivityTimer = self->_notificationUarpStagingStatusActivityTimer;
@@ -4802,13 +5345,11 @@ LABEL_64:
       self->_notificationUarpStagingStatusAlternateActive = [v21 isEqualToString:modelCopy];
     }
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_stopTimerForUarpActivityForModel:(id)model
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   modelCopy = model;
   if (gLogObjects)
   {
@@ -4841,17 +5382,17 @@ LABEL_64:
     primaryPortNumber = [(ACCTransportIOAccessoryBase *)self primaryPortNumber];
     connectionUUID = [(ACCTransportIOAccessoryManager *)self connectionUUID];
     v10 = self->_notificationUarpStagingStatusActivityTimer != 0;
-    v13 = 136316162;
-    v14 = "[ACCTransportIOAccessoryManager _stopTimerForUarpActivityForModel:]";
-    v15 = 1024;
-    v16 = primaryPortNumber;
-    v17 = 2112;
-    v18 = connectionUUID;
-    v19 = 2112;
-    v20 = modelCopy;
-    v21 = 1024;
-    v22 = v10;
-    _os_log_impl(&dword_233656000, v7, OS_LOG_TYPE_DEFAULT, "%s: [%d] %@, accessoryModel '%@', stop check timer. (timer exist %d)", &v13, 0x2Cu);
+    v12 = 136316162;
+    v13 = "[ACCTransportIOAccessoryManager _stopTimerForUarpActivityForModel:]";
+    v14 = 1024;
+    v15 = primaryPortNumber;
+    v16 = 2112;
+    v17 = connectionUUID;
+    v18 = 2112;
+    v19 = modelCopy;
+    v20 = 1024;
+    v21 = v10;
+    _os_log_impl(&dword_233656000, v7, OS_LOG_TYPE_DEFAULT, "%s: [%d] %@, accessoryModel '%@', stop check timer. (timer exist %d)", &v12, 0x2Cu);
   }
 
   notificationUarpStagingStatusActivityTimer = self->_notificationUarpStagingStatusActivityTimer;
@@ -4859,13 +5400,11 @@ LABEL_64:
   {
     dispatch_source_set_timer(notificationUarpStagingStatusActivityTimer, 0xFFFFFFFFFFFFFFFFLL, 0xFFFFFFFFFFFFFFFFLL, 0);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleNotificationUarpStartUpdateForModel:(id)model
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   modelCopy = model;
   if (gLogObjects)
   {
@@ -4897,24 +5436,23 @@ LABEL_64:
   {
     primaryPortNumber = [(ACCTransportIOAccessoryBase *)self primaryPortNumber];
     connectionUUID = [(ACCTransportIOAccessoryManager *)self connectionUUID];
-    v11 = 136315906;
-    v12 = "[ACCTransportIOAccessoryManager _handleNotificationUarpStartUpdateForModel:]";
-    v13 = 1024;
-    v14 = primaryPortNumber;
-    v15 = 2112;
-    v16 = connectionUUID;
-    v17 = 2112;
-    v18 = modelCopy;
-    _os_log_impl(&dword_233656000, v7, OS_LOG_TYPE_DEFAULT, "%s: [%d] %@, accessoryModel %@", &v11, 0x26u);
+    v10 = 136315906;
+    v11 = "[ACCTransportIOAccessoryManager _handleNotificationUarpStartUpdateForModel:]";
+    v12 = 1024;
+    v13 = primaryPortNumber;
+    v14 = 2112;
+    v15 = connectionUUID;
+    v16 = 2112;
+    v17 = modelCopy;
+    _os_log_impl(&dword_233656000, v7, OS_LOG_TYPE_DEFAULT, "%s: [%d] %@, accessoryModel %@", &v10, 0x26u);
   }
 
   [(ACCTransportIOAccessoryManager *)self notifyDriverOfInductiveActivity:1 paused:0];
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleNotificationUarpEndUpdateForModel:(id)model
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   modelCopy = model;
   if (gLogObjects)
   {
@@ -4946,24 +5484,23 @@ LABEL_64:
   {
     primaryPortNumber = [(ACCTransportIOAccessoryBase *)self primaryPortNumber];
     connectionUUID = [(ACCTransportIOAccessoryManager *)self connectionUUID];
-    v11 = 136315906;
-    v12 = "[ACCTransportIOAccessoryManager _handleNotificationUarpEndUpdateForModel:]";
-    v13 = 1024;
-    v14 = primaryPortNumber;
-    v15 = 2112;
-    v16 = connectionUUID;
-    v17 = 2112;
-    v18 = modelCopy;
-    _os_log_impl(&dword_233656000, v7, OS_LOG_TYPE_DEFAULT, "%s: [%d] %@, accessoryModel %@", &v11, 0x26u);
+    v10 = 136315906;
+    v11 = "[ACCTransportIOAccessoryManager _handleNotificationUarpEndUpdateForModel:]";
+    v12 = 1024;
+    v13 = primaryPortNumber;
+    v14 = 2112;
+    v15 = connectionUUID;
+    v16 = 2112;
+    v17 = modelCopy;
+    _os_log_impl(&dword_233656000, v7, OS_LOG_TYPE_DEFAULT, "%s: [%d] %@, accessoryModel %@", &v10, 0x26u);
   }
 
   [(ACCTransportIOAccessoryManager *)self notifyDriverOfInductiveActivity:0 paused:0];
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleNotificationUarpStagingStatusForModel:(id)model state:(unint64_t)state
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   modelCopy = model;
   if (gLogObjects)
   {
@@ -4996,19 +5533,19 @@ LABEL_64:
     primaryPortNumber = [(ACCTransportIOAccessoryBase *)self primaryPortNumber];
     connectionUUID = [(ACCTransportIOAccessoryManager *)self connectionUUID];
     notificationUarpStagingStatus = self->_notificationUarpStagingStatus;
-    v14 = 136316418;
-    v15 = "[ACCTransportIOAccessoryManager _handleNotificationUarpStagingStatusForModel:state:]";
-    v16 = 1024;
-    v17 = primaryPortNumber;
-    v18 = 2112;
-    v19 = connectionUUID;
-    v20 = 2112;
-    v21 = modelCopy;
-    v22 = 2048;
-    v23 = notificationUarpStagingStatus;
-    v24 = 2048;
+    v13 = 136316418;
+    v14 = "[ACCTransportIOAccessoryManager _handleNotificationUarpStagingStatusForModel:state:]";
+    v15 = 1024;
+    v16 = primaryPortNumber;
+    v17 = 2112;
+    v18 = connectionUUID;
+    v19 = 2112;
+    v20 = modelCopy;
+    v21 = 2048;
+    v22 = notificationUarpStagingStatus;
+    v23 = 2048;
     stateCopy = state;
-    _os_log_impl(&dword_233656000, v9, OS_LOG_TYPE_DEFAULT, "%s: [%d] %@, accessoryModel %@, state %llu -> %llu", &v14, 0x3Au);
+    _os_log_impl(&dword_233656000, v9, OS_LOG_TYPE_DEFAULT, "%s: [%d] %@, accessoryModel %@, state %llu -> %llu", &v13, 0x3Au);
   }
 
   if (self->_notificationUarpStagingStatus != state)
@@ -5027,13 +5564,11 @@ LABEL_64:
   {
     [(ACCTransportIOAccessoryManager *)self _stopTimerForUarpActivityForModel:modelCopy];
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleUartActivityTimeout
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   if (self->_deviceModelNumber)
   {
     self->_notificationUarpStagingActivityTimedOut = 1;
@@ -5062,24 +5597,21 @@ LABEL_64:
       }
 
       v9 = *p_notificationUarpStagingStatusName2;
-      v12 = 136315394;
-      v13 = "[ACCTransportIOAccessoryManager _handleUartActivityTimeout]";
-      v14 = 2112;
-      v15 = v9;
+      v11 = 136315394;
+      v12 = "[ACCTransportIOAccessoryManager _handleUartActivityTimeout]";
+      v13 = 2112;
+      v14 = v9;
       v7 = "%s: uarpStagingStatusTimer, handle alternate %@, force Inactive";
-LABEL_21:
-      _os_log_impl(&dword_233656000, v4, OS_LOG_TYPE_DEFAULT, v7, &v12, 0x16u);
-LABEL_22:
-
-      v10 = __copyModelFromUarpNotificationName(*p_notificationUarpStagingStatusName2);
-      [(ACCTransportIOAccessoryManager *)self _handleNotificationUarpStagingStatusForModel:v10 state:0];
-
-      goto LABEL_23;
     }
 
-    p_notificationUarpStagingStatusName2 = &self->_notificationUarpStagingStatusName;
-    if (self->_notificationUarpStagingStatusName)
+    else
     {
+      p_notificationUarpStagingStatusName2 = &self->_notificationUarpStagingStatusName;
+      if (!self->_notificationUarpStagingStatusName)
+      {
+        return;
+      }
+
       if (gLogObjects && gNumLogObjects >= 4)
       {
         v4 = *(gLogObjects + 24);
@@ -5102,24 +5634,26 @@ LABEL_22:
       }
 
       v6 = *p_notificationUarpStagingStatusName2;
-      v12 = 136315394;
-      v13 = "[ACCTransportIOAccessoryManager _handleUartActivityTimeout]";
-      v14 = 2112;
-      v15 = v6;
+      v11 = 136315394;
+      v12 = "[ACCTransportIOAccessoryManager _handleUartActivityTimeout]";
+      v13 = 2112;
+      v14 = v6;
       v7 = "%s: uarpStagingStatusTimer, handle %@, force Inactive";
-      goto LABEL_21;
     }
-  }
 
-LABEL_23:
-  v11 = *MEMORY[0x277D85DE8];
+    _os_log_impl(&dword_233656000, v4, OS_LOG_TYPE_DEFAULT, v7, &v11, 0x16u);
+LABEL_22:
+
+    v10 = __copyModelFromUarpNotificationName(*p_notificationUarpStagingStatusName2);
+    [(ACCTransportIOAccessoryManager *)self _handleNotificationUarpStagingStatusForModel:v10 state:0];
+  }
 }
 
 - (void)notifyDriverOfInductiveActivity:(BOOL)activity paused:(BOOL)paused
 {
   pausedCopy = paused;
   activityCopy = activity;
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   if (gLogObjects)
   {
     v7 = gNumLogObjects < 4;
@@ -5151,16 +5685,16 @@ LABEL_23:
     primaryPortNumber = [(ACCTransportIOAccessoryBase *)self primaryPortNumber];
     connectionUUID = [(ACCTransportIOAccessoryManager *)self connectionUUID];
     *buf = 136316418;
-    v28 = "[ACCTransportIOAccessoryManager notifyDriverOfInductiveActivity:paused:]";
-    v29 = 1024;
-    v30 = primaryPortNumber;
-    v31 = 2112;
-    *v32 = connectionUUID;
-    *&v32[8] = 1024;
-    v33 = activityCopy;
-    v34 = 1024;
-    v35 = pausedCopy;
-    v36 = 1024;
+    v27 = "[ACCTransportIOAccessoryManager notifyDriverOfInductiveActivity:paused:]";
+    v28 = 1024;
+    v29 = primaryPortNumber;
+    v30 = 2112;
+    *v31 = connectionUUID;
+    *&v31[8] = 1024;
+    v32 = activityCopy;
+    v33 = 1024;
+    v34 = pausedCopy;
+    v35 = 1024;
     ioService = [(ACCTransportIOAccessoryBase *)self ioService];
     _os_log_impl(&dword_233656000, v9, OS_LOG_TYPE_DEFAULT, "%s: [%d] %@, active %d, paused %d, service %d", buf, 0x2Eu);
   }
@@ -5198,16 +5732,16 @@ LABEL_23:
 
     if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
-      v24 = connect;
+      v23 = connect;
       ioService3 = [(ACCTransportIOAccessoryBase *)self ioService];
       *buf = 136315906;
-      v28 = "[ACCTransportIOAccessoryManager notifyDriverOfInductiveActivity:paused:]";
-      v29 = 1024;
-      v30 = v13;
-      v31 = 1024;
-      *v32 = v24;
-      *&v32[4] = 1024;
-      *&v32[6] = ioService3;
+      v27 = "[ACCTransportIOAccessoryManager notifyDriverOfInductiveActivity:paused:]";
+      v28 = 1024;
+      v29 = v13;
+      v30 = 1024;
+      *v31 = v23;
+      *&v31[4] = 1024;
+      *&v31[6] = ioService3;
       _os_log_error_impl(&dword_233656000, v15, OS_LOG_TYPE_ERROR, "%s: IOServiceOpen fail kernStatus:%02X, ioConnForService:%04X ioService:%d", buf, 0x1Eu);
     }
   }
@@ -5284,8 +5818,6 @@ LABEL_23:
 
     IOServiceClose(connect);
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (NSSet)ioAccessoryChildPorts
@@ -5362,7 +5894,7 @@ LABEL_23:
 
 - (void)setAccessoryPowerMode:(int)mode
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   if (gLogObjects)
   {
     v5 = gNumLogObjects < 4;
@@ -5391,21 +5923,20 @@ LABEL_23:
 
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v15 = 67109632;
+    v13 = 67109632;
     primaryPortNumber = [(ACCTransportIOAccessoryBase *)self primaryPortNumber];
-    v17 = 1024;
+    v15 = 1024;
     ioService = [(ACCTransportIOAccessoryBase *)self ioService];
-    v19 = 1024;
+    v17 = 1024;
     modeCopy = mode;
-    _os_log_impl(&dword_233656000, v7, OS_LOG_TYPE_DEFAULT, "setAccessoryPowerMode: primaryPort %d, ioService %d, accessoryPowerMode: %d", &v15, 0x14u);
+    _os_log_impl(&dword_233656000, v7, OS_LOG_TYPE_DEFAULT, "setAccessoryPowerMode: primaryPort %d, ioService %d, accessoryPowerMode: %d", &v13, 0x14u);
   }
 
-  ioConnect = self->super._ioConnect;
   if (IOAccessoryManagerConfigurePower())
   {
     if (gLogObjects && gNumLogObjects >= 4)
     {
-      v9 = *(gLogObjects + 24);
+      v8 = *(gLogObjects + 24);
     }
 
     else
@@ -5415,11 +5946,11 @@ LABEL_23:
         [ACCTransportIOAccessoryOOBPairing dealloc];
       }
 
+      v8 = MEMORY[0x277D86220];
       v9 = MEMORY[0x277D86220];
-      v10 = MEMORY[0x277D86220];
     }
 
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       [ACCTransportIOAccessoryManager setAccessoryPowerMode:];
     }
@@ -5430,7 +5961,7 @@ LABEL_23:
     self->_accessoryPowerMode = mode;
     if (gLogObjects && gNumLogObjects >= 4)
     {
-      v9 = *(gLogObjects + 24);
+      v8 = *(gLogObjects + 24);
     }
 
     else
@@ -5440,23 +5971,21 @@ LABEL_23:
         [ACCTransportIOAccessoryOOBPairing dealloc];
       }
 
-      v9 = MEMORY[0x277D86220];
-      v11 = MEMORY[0x277D86220];
+      v8 = MEMORY[0x277D86220];
+      v10 = MEMORY[0x277D86220];
     }
 
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       accessoryPowerMode = [(ACCTransportIOAccessoryManager *)self accessoryPowerMode];
       ioService2 = [(ACCTransportIOAccessoryBase *)self ioService];
-      v15 = 67109376;
+      v13 = 67109376;
       primaryPortNumber = accessoryPowerMode;
-      v17 = 1024;
+      v15 = 1024;
       ioService = ioService2;
-      _os_log_impl(&dword_233656000, v9, OS_LOG_TYPE_DEFAULT, "Successfully set acc. power mode to %u for service %u", &v15, 0xEu);
+      _os_log_impl(&dword_233656000, v8, OS_LOG_TYPE_DEFAULT, "Successfully set acc. power mode to %u for service %u", &v13, 0xEu);
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setConnectionUUID:(id)d
@@ -5519,22 +6048,11 @@ LABEL_23:
   [(NSLock *)v8 unlock];
 }
 
-- (void)initWithIOService:(unsigned __int8 *)a1 .cold.2(unsigned __int8 *a1)
-{
-  v8 = *MEMORY[0x277D85DE8];
-  v7 = *a1;
-  OUTLINED_FUNCTION_10();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 8u);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
 - (void)initWithIOService:.cold.4()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_9();
   OUTLINED_FUNCTION_1_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __52__ACCTransportIOAccessoryManager_initWithIOService___block_invoke_cold_3()
@@ -5546,324 +6064,233 @@ void __52__ACCTransportIOAccessoryManager_initWithIOService___block_invoke_cold_
 
 - (void)addIOAccessoryChildPort:(void *)a1 .cold.2(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   [a1 ioService];
   [a1 ioServiceClassType];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_3();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0x18u);
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removeIOAccessoryChildPort:(void *)a1 .cold.2(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   [a1 ioService];
   [a1 ioServiceClassType];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_3();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0x18u);
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setFeaturesFromAuthStatus:(void *)a1 authCert:certType:.cold.11(void *a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
   [a1 primaryPortNumber];
   OUTLINED_FUNCTION_9();
   OUTLINED_FUNCTION_5_0();
   _os_log_error_impl(v1, v2, v3, v4, v5, 8u);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setFeaturesFromAuthStatus:authCert:certType:.cold.13()
 {
   OUTLINED_FUNCTION_11();
-  v7 = *MEMORY[0x277D85DE8];
   [v0 primaryPortNumber];
   OUTLINED_FUNCTION_2_1();
   OUTLINED_FUNCTION_5_0();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0x14u);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setFeaturesFromAuthStatus:authCert:certType:.cold.17()
 {
   OUTLINED_FUNCTION_11();
-  v7 = *MEMORY[0x277D85DE8];
   [v0 primaryPortNumber];
   OUTLINED_FUNCTION_2_1();
   OUTLINED_FUNCTION_5_0();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0xEu);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setFeaturesFromAuthStatus:authCert:certType:.cold.19()
 {
   OUTLINED_FUNCTION_11();
-  v7 = *MEMORY[0x277D85DE8];
   [v0 primaryPortNumber];
   OUTLINED_FUNCTION_2_1();
   OUTLINED_FUNCTION_5_0();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0xEu);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)setFeaturesFromAuthStatus:authCert:certType:.cold.23()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_10();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)setFeaturesFromAuthStatus:authCert:certType:.cold.25()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_10();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)setFeaturesFromAuthStatus:authCert:certType:.cold.27()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_10();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)getUSBMode
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_9();
   OUTLINED_FUNCTION_10();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setUSBCurrentOffset:.cold.2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2_1();
   OUTLINED_FUNCTION_4_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xEu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setUSBCurrentOffset:.cold.4()
 {
   OUTLINED_FUNCTION_11();
-  v7 = *MEMORY[0x277D85DE8];
   [v0 ioService];
   OUTLINED_FUNCTION_1_1();
   OUTLINED_FUNCTION_3();
   _os_log_debug_impl(v1, v2, v3, v4, v5, 0xEu);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setUSBCurrentLimitBase:forceResponse:.cold.2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2_1();
   OUTLINED_FUNCTION_4_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xEu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setUSBCurrentLimitBase:forceResponse:.cold.4()
 {
   OUTLINED_FUNCTION_11();
-  v7 = *MEMORY[0x277D85DE8];
   [v0 ioService];
   OUTLINED_FUNCTION_1_1();
   OUTLINED_FUNCTION_3();
   _os_log_debug_impl(v1, v2, v3, v4, v5, 0xEu);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)USBCurrentLimitInmA
 {
-  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_13(self, a2);
   OUTLINED_FUNCTION_1_1();
   OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v3, v4, v5, v6, v7, 0xEu);
-  v8 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v2, v3, v4, v5, v6, 0xEu);
 }
 
 - (void)USBCurrentLimitBaseInmA
 {
-  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_13(self, a2);
   OUTLINED_FUNCTION_1_1();
   OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v3, v4, v5, v6, v7, 0xEu);
-  v8 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v2, v3, v4, v5, v6, 0xEu);
 }
 
 - (void)USBCurrentLimitOffsetInmA
 {
-  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_13(self, a2);
   OUTLINED_FUNCTION_1_1();
   OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v3, v4, v5, v6, v7, 0xEu);
-  v8 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v2, v3, v4, v5, v6, 0xEu);
 }
 
 - (void)USBChargingVoltageInmV
 {
-  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_13(self, a2);
   OUTLINED_FUNCTION_1_1();
   OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v3, v4, v5, v6, v7, 0xEu);
-  v8 = *MEMORY[0x277D85DE8];
-}
-
-- (void)cableType
-{
-  v8 = *MEMORY[0x277D85DE8];
-  v7 = *self;
-  OUTLINED_FUNCTION_10();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 8u);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v2, v3, v4, v5, v6, 0xEu);
 }
 
 - (void)setPowerDuringSleepEnabled:.cold.2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_9();
   OUTLINED_FUNCTION_1_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setBatteryPackMode:forceResponse:.cold.2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_9();
   OUTLINED_FUNCTION_1_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setBatteryPackMode:(uint64_t)a1 forceResponse:(void *)a2 .cold.4(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
   [a2 ioService];
   OUTLINED_FUNCTION_1_1();
   OUTLINED_FUNCTION_3();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0xEu);
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setAccessoryRequestedCurrent:.cold.2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2_1();
   OUTLINED_FUNCTION_4_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xEu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setAccessoryRequestedCurrent:.cold.4()
 {
   OUTLINED_FUNCTION_11();
-  v7 = *MEMORY[0x277D85DE8];
   [v0 ioService];
   OUTLINED_FUNCTION_1_1();
   OUTLINED_FUNCTION_3();
   _os_log_debug_impl(v1, v2, v3, v4, v5, 0xEu);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setAccessoryUsedCurrent:.cold.2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2_1();
   OUTLINED_FUNCTION_4_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xEu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setAccessoryUsedCurrent:.cold.4()
 {
   OUTLINED_FUNCTION_11();
-  v7 = *MEMORY[0x277D85DE8];
   [v0 ioService];
   OUTLINED_FUNCTION_1_1();
   OUTLINED_FUNCTION_3();
   _os_log_debug_impl(v1, v2, v3, v4, v5, 0xEu);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)resetAccessoryBaseCurrent
 {
-  v7 = *MEMORY[0x277D85DE8];
   [self ioService];
   OUTLINED_FUNCTION_9();
   OUTLINED_FUNCTION_3();
   _os_log_debug_impl(v1, v2, v3, v4, v5, 8u);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)supervisedTransportsRestricted
 {
-  v9 = *MEMORY[0x277D85DE8];
   connectionUUID = [a2 connectionUUID];
   OUTLINED_FUNCTION_3();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_IOAccUSBModeTypeForSetUSBMode:.cold.2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_9();
   OUTLINED_FUNCTION_1_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_IOAccUSBModeTypeForSetUSBMode:.cold.4()
 {
-  v5 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2_1();
-  v4 = v0;
-  _os_log_debug_impl(&dword_233656000, v1, OS_LOG_TYPE_DEBUG, "returning %d for IOAccessoryUSBModeType, ACCPlatform_USB_ModeSet_t %d", v3, 0xEu);
-  v2 = *MEMORY[0x277D85DE8];
+  v3 = v0;
+  _os_log_debug_impl(&dword_233656000, v1, OS_LOG_TYPE_DEBUG, "returning %d for IOAccessoryUSBModeType, ACCPlatform_USB_ModeSet_t %d", v2, 0xEu);
 }
 
 - (void)_ACCPlatformUSBModeForIOAccessoryUSBConnectType:.cold.2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_9();
   OUTLINED_FUNCTION_1_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_ACCPlatformUSBModeForIOAccessoryUSBConnectType:.cold.4()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_9();
   OUTLINED_FUNCTION_10();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_connectionTypeForPrimaryPort
 {
   OUTLINED_FUNCTION_11();
-  v7 = *MEMORY[0x277D85DE8];
   [v0 primaryPortNumber];
   OUTLINED_FUNCTION_1_1();
   OUTLINED_FUNCTION_3();
   _os_log_debug_impl(v1, v2, v3, v4, v5, 0xEu);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_connectionUUIDsForNotification
@@ -5875,61 +6302,49 @@ void __52__ACCTransportIOAccessoryManager_initWithIOService___block_invoke_cold_
 
 - (void)_handleResistorIDChangeNotification:.cold.5()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_9();
   OUTLINED_FUNCTION_10();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_sendNotification:(os_log_t)log .cold.2(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v4 = 138412546;
-  v5 = a1;
-  v6 = 2112;
-  v7 = a2;
-  _os_log_debug_impl(&dword_233656000, log, OS_LOG_TYPE_DEBUG, "Sending %@ notification for ConnectionUUIDs %@", &v4, 0x16u);
-  v3 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = 138412546;
+  v4 = a1;
+  v5 = 2112;
+  v6 = a2;
+  _os_log_debug_impl(&dword_233656000, log, OS_LOG_TYPE_DEBUG, "Sending %@ notification for ConnectionUUIDs %@", &v3, 0x16u);
 }
 
 - (void)_kickTimerForUarpActivityForModel:(void *)a1 .cold.3(void *a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
   [a1 primaryPortNumber];
   v2 = [a1 connectionUUID];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_3();
   _os_log_debug_impl(v3, v4, v5, v6, v7, 0x26u);
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)notifyDriverOfInductiveActivity:paused:.cold.4()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_4_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x18u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)notifyDriverOfInductiveActivity:paused:.cold.6()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_4_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x18u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setAccessoryPowerMode:.cold.3()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2_1();
   OUTLINED_FUNCTION_4_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xEu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

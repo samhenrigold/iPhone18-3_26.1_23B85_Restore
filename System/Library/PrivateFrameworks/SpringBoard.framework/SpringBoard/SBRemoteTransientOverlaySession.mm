@@ -591,7 +591,7 @@ uint64_t __55__SBRemoteTransientOverlaySession_activateWithContext___block_invok
             v18 = SBLogTransientOverlay();
             if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
             {
-              __55__SBRemoteTransientOverlaySession_activateWithContext___block_invoke_3_cold_1(a1 + 64, v18, v19, v20, v21, v22, v23, v24);
+              __55__SBRemoteTransientOverlaySession_activateWithContext___block_invoke_3_cold_1((a1 + 64), v18, v19, v20, v21, v22, v23, v24);
             }
 
             v10 = 0;
@@ -1158,10 +1158,10 @@ void __67__SBRemoteTransientOverlaySession_prepareWithConfigurationContext___blo
   return v12;
 }
 
-void __66__SBRemoteTransientOverlaySession__actionForHandlingButtonEvents___block_invoke(uint64_t a1, void *a2)
+void __66__SBRemoteTransientOverlaySession__actionForHandlingButtonEvents___block_invoke(void *a1, void *a2)
 {
   v3 = a2;
-  v5 = *(a1 + 40);
+  v5 = a1[5];
   v4 = v3;
   BSDispatchMain();
 }
@@ -1546,6 +1546,20 @@ void __68__SBRemoteTransientOverlaySession__registerObserversForTransaction___bl
 {
   v4 = [MEMORY[0x277CCA890] currentHandler];
   [v4 handleFailureInMethod:a1 object:a2 file:@"SBRemoteTransientOverlaySession.m" lineNumber:122 description:@"Session must be prepared before it can be activated."];
+}
+
+void __55__SBRemoteTransientOverlaySession_activateWithContext___block_invoke_3_cold_1(void *a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = *a1;
+  OUTLINED_FUNCTION_0_5(&dword_21ED4E000, a2, a3, "%{public}@: activateWithContext: can't perform secondary presentation, view controller is nil", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void __55__SBRemoteTransientOverlaySession_activateWithContext___block_invoke_3_cold_2(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = *(a1 + 64);
+  OUTLINED_FUNCTION_0_5(&dword_21ED4E000, a2, a3, "%{public}@: activateWithContext: can't perform presentation, primary container view controller is nil", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

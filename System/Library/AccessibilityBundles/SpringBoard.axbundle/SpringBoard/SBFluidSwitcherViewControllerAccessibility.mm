@@ -302,7 +302,7 @@ void __78__SBFluidSwitcherViewControllerAccessibility__axScrollToAppLayout_compl
   }
 }
 
-uint64_t __84__SBFluidSwitcherViewControllerAccessibility_handleReopenClosedWindowsButtonTapped___block_invoke(uint64_t a1)
+void *__84__SBFluidSwitcherViewControllerAccessibility_handleReopenClosedWindowsButtonTapped___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) numberOfHiddenAppLayoutsForBundleIdentifier:*(a1 + 40)];
   *(*(*(a1 + 48) + 8) + 24) = result;
@@ -897,7 +897,7 @@ LABEL_2:
   return index;
 }
 
-uint64_t __62__SBFluidSwitcherViewControllerAccessibility__axPageForIndex___block_invoke(uint64_t a1)
+void *__62__SBFluidSwitcherViewControllerAccessibility__axPageForIndex___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _columnForIndex:*(a1 + 48) - 1];
   *(*(*(a1 + 40) + 8) + 24) = result;

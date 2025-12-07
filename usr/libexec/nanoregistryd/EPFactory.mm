@@ -90,15 +90,15 @@
 
 - (void)killBluetoothDaemon
 {
-  v2 = sub_1000A98C0();
+  v2 = sub_1000A98C0(self);
   v3 = os_log_type_enabled(v2, OS_LOG_TYPE_ERROR);
 
   if (v3)
   {
-    v4 = sub_1000A98C0();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = sub_1000A98C0(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      sub_10010368C(v4);
+      sub_10010368C(v5);
     }
   }
 }
@@ -112,32 +112,33 @@
 + (BOOL)signalProcessNamed:(id)named withSignal:(int)signal
 {
   namedCopy = named;
-  *v45 = xmmword_100126498;
-  v46 = 0;
+  *v55 = xmmword_100126498;
+  v56 = 0;
   size = 0;
-  if (sysctl(v45, 3u, 0, &size, 0, 0) == -1)
+  v6 = sysctl(v55, 3u, 0, &size, 0, 0);
+  if (v6 == -1)
   {
-    v14 = sub_1000A98C0();
-    v15 = os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT);
+    v17 = sub_1000A98C0(v6);
+    v18 = os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT);
 
-    if (!v15)
+    if (!v18)
     {
       goto LABEL_32;
     }
 
-    v16 = sub_1000A98C0();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+    v20 = sub_1000A98C0(v19);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
     {
-      v17 = *__error();
+      v21 = *__error();
       *buf = 138412546;
-      v40 = namedCopy;
-      v41 = 1024;
-      LODWORD(v42) = v17;
-      v18 = "Error calling sysctl, trying to kill process %@ error %d";
-      v19 = v16;
-      v20 = 18;
+      v50 = namedCopy;
+      v51 = 1024;
+      LODWORD(v52) = v21;
+      v22 = "Error calling sysctl, trying to kill process %@ error %d";
+      v23 = v20;
+      v24 = 18;
 LABEL_24:
-      _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, v18, buf, v20);
+      _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEFAULT, v22, buf, v24);
     }
 
 LABEL_25:
@@ -145,27 +146,27 @@ LABEL_25:
     goto LABEL_32;
   }
 
-  v6 = malloc_type_malloc(size, 0xBE14A793uLL);
-  if (!v6)
+  v7 = malloc_type_malloc(size, 0xBE14A793uLL);
+  if (!v7)
   {
-    v21 = sub_1000A98C0();
-    v22 = os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT);
+    v25 = sub_1000A98C0(0);
+    v26 = os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT);
 
-    if (!v22)
+    if (!v26)
     {
       goto LABEL_32;
     }
 
-    v16 = sub_1000A98C0();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+    v20 = sub_1000A98C0(v27);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134218242;
-      v40 = size;
-      v41 = 2112;
-      v42 = namedCopy;
-      v18 = "Failed to allocate memory, %zu bytes trying to kill process %@";
-      v19 = v16;
-      v20 = 22;
+      v50 = size;
+      v51 = 2112;
+      v52 = namedCopy;
+      v22 = "Failed to allocate memory, %zu bytes trying to kill process %@";
+      v23 = v20;
+      v24 = 22;
       goto LABEL_24;
     }
 
@@ -174,61 +175,62 @@ LABEL_25:
 
   while (1)
   {
-    v7 = v6;
-    if (sysctl(v45, 3u, v6, &size, 0, 0) != -1)
+    v8 = v7;
+    if (sysctl(v55, 3u, v7, &size, 0, 0) != -1)
     {
       break;
     }
 
-    if (*__error() != 12)
+    v9 = __error();
+    if (*v9 != 12)
     {
-      v30 = sub_1000A98C0();
-      v31 = os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT);
+      v37 = sub_1000A98C0(v9);
+      v38 = os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT);
 
-      if (v31)
+      if (v38)
       {
-        v10 = sub_1000A98C0();
-        if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+        v13 = sub_1000A98C0(v39);
+        if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
         {
-          v32 = *__error();
+          v40 = *__error();
           *buf = 138412546;
-          v40 = namedCopy;
-          v41 = 1024;
-          LODWORD(v42) = v32;
-          v11 = "Error calling sysctl, trying to kill process %@ error %d";
-          v12 = v10;
-          v13 = 18;
+          v50 = namedCopy;
+          v51 = 1024;
+          LODWORD(v52) = v40;
+          v14 = "Error calling sysctl, trying to kill process %@ error %d";
+          v15 = v13;
+          v16 = 18;
 LABEL_29:
-          _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, v11, buf, v13);
+          _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, v14, buf, v16);
         }
 
 LABEL_30:
       }
 
 LABEL_31:
-      free(v7);
+      free(v8);
       goto LABEL_32;
     }
 
     size += size / 0xA;
-    v6 = malloc_type_realloc(v7, size, 0x5E904C92uLL);
-    if (!v6)
+    v7 = malloc_type_realloc(v8, size, 0x5E904C92uLL);
+    if (!v7)
     {
-      v8 = sub_1000A98C0();
-      v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
+      v10 = sub_1000A98C0(0);
+      v11 = os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT);
 
-      if (v9)
+      if (v11)
       {
-        v10 = sub_1000A98C0();
-        if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+        v13 = sub_1000A98C0(v12);
+        if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 134218242;
-          v40 = size;
-          v41 = 2112;
-          v42 = namedCopy;
-          v11 = "Failed to reallocate memory, %zu bytes trying to kill process %@";
-          v12 = v10;
-          v13 = 22;
+          v50 = size;
+          v51 = 2112;
+          v52 = namedCopy;
+          v14 = "Failed to reallocate memory, %zu bytes trying to kill process %@";
+          v15 = v13;
+          v16 = 22;
           goto LABEL_29;
         }
 
@@ -243,92 +245,93 @@ LABEL_31:
   if (size < 0x288)
   {
 LABEL_20:
-    free(v7);
+    free(v8);
     goto LABEL_21;
   }
 
-  v24 = uTF8String;
-  v25 = size / 0x288;
-  v26 = v7 + 243;
+  v29 = uTF8String;
+  v30 = size / 0x288;
+  v31 = v8 + 243;
   while (1)
   {
-    v27 = *(v26 - 203);
-    if (v27)
+    v32 = *(v31 - 203);
+    if (v32)
     {
-      if (!strncmp(v24, v26, 0x10uLL))
+      if (!strncmp(v29, v31, 0x10uLL))
       {
         break;
       }
     }
 
-    v26 += 648;
-    if (!--v25)
+    v31 += 648;
+    if (!--v30)
     {
       goto LABEL_20;
     }
   }
 
-  free(v7);
-  if (v27 == -1)
+  free(v8);
+  if (v32 == -1)
   {
 LABEL_21:
-    v28 = sub_1000A98C0();
-    v29 = os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT);
+    v34 = sub_1000A98C0(v33);
+    v35 = os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT);
 
-    if (!v29)
+    if (!v35)
     {
       goto LABEL_32;
     }
 
-    v16 = sub_1000A98C0();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+    v20 = sub_1000A98C0(v36);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v40 = namedCopy;
-      v18 = "Did not find process named %@";
-      v19 = v16;
-      v20 = 12;
+      v50 = namedCopy;
+      v22 = "Did not find process named %@";
+      v23 = v20;
+      v24 = 12;
       goto LABEL_24;
     }
 
     goto LABEL_25;
   }
 
-  if (kill(v27, signal) != -1)
+  v43 = kill(v32, signal);
+  if (v43 != -1)
   {
-    v33 = 1;
+    v41 = 1;
     goto LABEL_33;
   }
 
-  v35 = sub_1000A98C0();
-  v36 = os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT);
+  v44 = sub_1000A98C0(v43);
+  v45 = os_log_type_enabled(v44, OS_LOG_TYPE_DEFAULT);
 
-  if (v36)
+  if (v45)
   {
-    v16 = sub_1000A98C0();
-    if (!os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+    v20 = sub_1000A98C0(v46);
+    if (!os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
     {
       goto LABEL_25;
     }
 
-    v37 = *__error();
+    v47 = *__error();
     *buf = 134218498;
-    v40 = v27;
-    v41 = 2112;
-    v42 = namedCopy;
-    v43 = 1024;
-    v44 = v37;
-    v18 = "Failed to kill pid %lu for process named %@, error %d";
-    v19 = v16;
-    v20 = 28;
+    v50 = v32;
+    v51 = 2112;
+    v52 = namedCopy;
+    v53 = 1024;
+    v54 = v47;
+    v22 = "Failed to kill pid %lu for process named %@, error %d";
+    v23 = v20;
+    v24 = 28;
     goto LABEL_24;
   }
 
 LABEL_32:
-  v33 = 0;
+  v41 = 0;
 LABEL_33:
 
-  return v33;
+  return v41;
 }
 
 - (id)newKeyGeneratorWithDelegate:(id)delegate

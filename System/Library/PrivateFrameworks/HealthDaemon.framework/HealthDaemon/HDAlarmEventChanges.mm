@@ -16,11 +16,11 @@
   v8 = [(HDAlarmEventChanges *)&v14 init];
   if (v8)
   {
-    v9 = [eventsCopy copy];
+    v9 = objc_msgSend_copy(eventsCopy);
     oldEvents = v8->_oldEvents;
     v8->_oldEvents = v9;
 
-    v11 = [scheduledEventsCopy copy];
+    v11 = objc_msgSend_copy(scheduledEventsCopy);
     scheduledEvents = v8->_scheduledEvents;
     v8->_scheduledEvents = v11;
   }
@@ -34,7 +34,7 @@
   v4 = [MEMORY[0x277CBEB98] setWithArray:self->_scheduledEvents];
   [v3 minusSet:v4];
 
-  v5 = [v3 copy];
+  v5 = objc_msgSend_copy(v3);
 
   return v5;
 }
@@ -45,7 +45,7 @@
   v4 = [MEMORY[0x277CBEB98] setWithArray:self->_oldEvents];
   [v3 minusSet:v4];
 
-  v5 = [v3 copy];
+  v5 = objc_msgSend_copy(v3);
 
   return v5;
 }

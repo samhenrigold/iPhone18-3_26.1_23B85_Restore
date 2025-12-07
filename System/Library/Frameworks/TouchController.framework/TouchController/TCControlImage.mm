@@ -41,14 +41,13 @@
 {
   height = size.height;
   width = size.width;
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   textureCopy = texture;
   DeviceRGB = CGColorSpaceCreateDeviceRGB();
-  v12[0] = xmmword_23AAEDFD0;
-  v12[1] = unk_23AAEDFE0;
-  v9 = [(TCControlImage *)self initWithTexture:textureCopy size:0 highlightTexture:CGColorCreate(DeviceRGB offset:v12) tintColor:width, height, 0.0, 0.0];
+  v11[0] = xmmword_23AAEDFD0;
+  v11[1] = unk_23AAEDFE0;
+  v9 = [(TCControlImage *)self initWithTexture:textureCopy size:0 highlightTexture:CGColorCreate(DeviceRGB offset:v11) tintColor:width, height, 0.0, 0.0];
 
-  v10 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
@@ -67,27 +66,27 @@
   v21 = 0;
   v13 = [v11 newTextureWithCGImage:image options:v12 error:&v21];
   v14 = v21;
+  v15 = v14;
   if (v13)
   {
     GenericRGB = CGColorCreateGenericRGB(1.0, 1.0, 1.0, 1.0);
-    v16 = [(TCControlImage *)self initWithTexture:v13 size:0 highlightTexture:GenericRGB offset:width tintColor:height, *MEMORY[0x277CBF348], *(MEMORY[0x277CBF348] + 8)];
+    v17 = [(TCControlImage *)self initWithTexture:v13 size:0 highlightTexture:GenericRGB offset:width tintColor:height, *MEMORY[0x277CBF348], *(MEMORY[0x277CBF348] + 8)];
     CGColorRelease(GenericRGB);
-    self = v16;
+    self = v17;
     selfCopy = self;
   }
 
   else
   {
-    v18 = getTCLogger();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+    v19 = getTCLogger(v14);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
-      [TCControlImage initWithCGImage:v14 size:v18 device:?];
+      [TCControlImage initWithCGImage:v15 size:v19 device:?];
     }
 
     selfCopy = 0;
   }
 
-  v19 = *MEMORY[0x277D85DE8];
   return selfCopy;
 }
 
@@ -105,7 +104,7 @@
 
   else
   {
-    v12 = getTCLogger();
+    v12 = getTCLogger(0);
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       [TCControlImage initWithUIImage:v12 size:? device:?];
@@ -145,11 +144,10 @@
 
 - (void)initWithCGImage:(uint64_t)a1 size:(NSObject *)a2 device:.cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_23AADD000, a2, OS_LOG_TYPE_ERROR, "Error creating texture from CGImage: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_23AADD000, a2, OS_LOG_TYPE_ERROR, "Error creating texture from CGImage: %@", &v2, 0xCu);
 }
 
 @end

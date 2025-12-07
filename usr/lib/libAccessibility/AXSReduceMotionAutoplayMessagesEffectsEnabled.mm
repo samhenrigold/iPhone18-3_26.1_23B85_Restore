@@ -3,7 +3,7 @@
 
 @implementation AXSReduceMotionAutoplayMessagesEffectsEnabled
 
-uint64_t ___AXSReduceMotionAutoplayMessagesEffectsEnabled_block_invoke()
+unint64_t ___AXSReduceMotionAutoplayMessagesEffectsEnabled_block_invoke()
 {
   DarwinNotifyCenter = CFNotificationCenterGetDarwinNotifyCenter();
   CFNotificationCenterAddObserver(DarwinNotifyCenter, 0, _axsHandlePrefChanged, @"com.apple.accessibility.cache.reduce.motion.autoplay.messages.effects", 0, CFNotificationSuspensionBehaviorDeliverImmediately);

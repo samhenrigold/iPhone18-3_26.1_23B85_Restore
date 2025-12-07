@@ -1,4 +1,4 @@
-double NTKKuiperMaximumTypographicSize()
+double NTKKuiperMaximumTypographicSize(uint64_t a1, uint64_t a2)
 {
   if (qword_16CE0 != -1)
   {
@@ -8,7 +8,7 @@ double NTKKuiperMaximumTypographicSize()
   return *&qword_16CD0;
 }
 
-double NTKKuiperMaximumOverscrollTypographicSize()
+double NTKKuiperMaximumOverscrollTypographicSize(uint64_t a1, uint64_t a2)
 {
   if (qword_16CF8 != -1)
   {
@@ -202,31 +202,31 @@ void sub_4208(id a1)
   _objc_release_x1();
 }
 
-id sub_459C()
+CALayer *sub_459C()
 {
   v0 = objc_opt_new();
   v1 = +[UIColor whiteColor];
   [v0 setBackgroundColor:{objc_msgSend(v1, "CGColor")}];
 
-  v2 = sub_4624();
-  [v0 setActions:v2];
+  v3 = sub_4624(v2);
+  [v0 setActions:v3];
 
   return v0;
 }
 
-id sub_4624()
+id sub_4624(uint64_t a1)
 {
   if (qword_16D60 != -1)
   {
     sub_7990();
   }
 
-  v1 = qword_16D58;
+  v2 = qword_16D58;
 
-  return v1;
+  return v2;
 }
 
-id sub_4668(uint64_t a1, unint64_t a2)
+CAReplicatorLayer *sub_4668(uint64_t a1, unint64_t a2)
 {
   v3 = objc_opt_new();
   [v3 setFillMode:kCAFillModeBoth];

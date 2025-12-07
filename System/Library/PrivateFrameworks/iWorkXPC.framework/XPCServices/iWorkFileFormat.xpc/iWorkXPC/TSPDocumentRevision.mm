@@ -1,6 +1,7 @@
 @interface TSPDocumentRevision
 + (id)documentRevisionAtURL:(id)l passphrase:(id)passphrase error:(id *)error;
 + (id)revisionWithRevisionString:(id)string;
++ (id)revisionWithSequence:(int)sequence identifier:(id)identifier;
 - (BOOL)isEqual:(id)equal;
 - (NSString)revisionString;
 - (TSPDocumentRevision)init;
@@ -95,6 +96,15 @@
   return selfCopy;
 }
 
++ (id)revisionWithSequence:(int)sequence identifier:(id)identifier
+{
+  v4 = *&sequence;
+  identifierCopy = identifier;
+  v7 = [[self alloc] initWithSequence:v4 identifier:identifierCopy];
+
+  return v7;
+}
+
 - (TSPDocumentRevision)initWithRevisionString:(id)string
 {
   stringCopy = string;
@@ -160,10 +170,10 @@
             sub_100152688();
           }
 
-          TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d Should be able to create UUID from base UUID string.", v20, v21, v22, v23, v24, v25, v26, "[TSPDocumentRevision initWithRevisionString:]");
-          v27 = [NSString stringWithUTF8String:"[TSPDocumentRevision initWithRevisionString:]"];
-          v28 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkXPC/shared/persistence/src/TSPDocumentRevision.mm"];
-          [TSUAssertionHandler handleFailureInFunction:v27 file:v28 lineNumber:69 isFatal:1 description:"Should be able to create UUID from base UUID string."];
+          TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d Should be able to create UUID from base UUID string.", "[TSPDocumentRevision initWithRevisionString:]", "/Library/Caches/com.apple.xbs/Sources/iWorkXPC/shared/persistence/src/TSPDocumentRevision.mm", 69);
+          v20 = [NSString stringWithUTF8String:"[TSPDocumentRevision initWithRevisionString:]"];
+          v21 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkXPC/shared/persistence/src/TSPDocumentRevision.mm"];
+          [TSUAssertionHandler handleFailureInFunction:v20 file:v21 lineNumber:69 isFatal:1 description:"Should be able to create UUID from base UUID string."];
 
           TSUCrashBreakpoint();
           abort();
@@ -177,9 +187,9 @@
 
     else
     {
-      v29[0] = 0;
-      v29[1] = 0;
-      v11 = [[NSUUID alloc] initWithUUIDBytes:v29];
+      v22[0] = 0;
+      v22[1] = 0;
+      v11 = [[NSUUID alloc] initWithUUIDBytes:v22];
     }
 
     self = [(TSPDocumentRevision *)self initWithSequence:longLongValue identifier:v11];

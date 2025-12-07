@@ -8,6 +8,7 @@
 - (void)_addGestureRecognizers;
 - (void)_centerImageIfNeeded;
 - (void)_doubleTapGestureRecognized:(id)recognized;
+- (void)_fitImageIfNeeded:(BOOL)needed;
 - (void)_imagePreviewViewControllerSetupUI;
 - (void)_pinchGestureRecognized:(id)recognized;
 - (void)_removeGestureRecognizers;
@@ -16,10 +17,13 @@
 - (void)_toggleManualZoomMode;
 - (void)_viewShouldExpand;
 - (void)_zoomImage:(double)image withContentOffset:(CGPoint)offset animated:(BOOL)animated;
+- (void)_zoomImageToBestScaleIfNeeded:(BOOL)needed;
 - (void)scrollViewDidScroll:(id)scroll;
 - (void)scrollViewDidZoom:(id)zoom;
 - (void)setEdgeInsets:(UIEdgeInsets)insets;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
+- (void)viewWillDisappear:(BOOL)disappear;
 - (void)viewWillLayoutSubviews;
 @end
 
@@ -74,6 +78,22 @@
   v3.super_class = AXSSImagePreviewViewController;
   [(AXSSImagePreviewViewController *)&v3 viewDidLoad];
   [(AXSSImagePreviewViewController *)self _imagePreviewViewControllerSetupUI];
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = AXSSImagePreviewViewController;
+  [(AXSSImagePreviewViewController *)&v4 viewWillAppear:appear];
+  [(AXSSImagePreviewViewController *)self _addGestureRecognizers];
+}
+
+- (void)viewWillDisappear:(BOOL)disappear
+{
+  v4.receiver = self;
+  v4.super_class = AXSSImagePreviewViewController;
+  [(AXSSImagePreviewViewController *)&v4 viewWillDisappear:disappear];
+  [(AXSSImagePreviewViewController *)self _removeGestureRecognizers];
 }
 
 - (void)setEdgeInsets:(UIEdgeInsets)insets
@@ -258,6 +278,152 @@ LABEL_5:
   result.height = v13;
   result.width = v14;
   return result;
+}
+
+- (void)_fitImageIfNeeded:(BOOL)needed
+{
+  neededCopy = needed;
+  if (![(AXSSImagePreviewViewController *)self isManualZoomActive]&& [(AXSSImagePreviewViewController *)self _isSnapshotViewAttached])
+  {
+    [(AXSSImagePreviewViewController *)self _scrollViewClippedSize];
+    v6 = v5;
+    v8 = v7;
+    contentSnapshot = [(AXSSImagePreviewViewController *)self contentSnapshot];
+    [contentSnapshot bounds];
+    v11 = v10;
+    v13 = v12;
+
+    v14 = floor(v8) < 1.0 || v13 < 1.0;
+    if (!v14 && v11 >= 1.0)
+    {
+      [(AXSSImagePreviewViewController *)self edgeInsets];
+      v18 = -v17;
+      v19 = v13 * (v6 / v11);
+      if (v19 <= v8)
+      {
+        v20 = (v19 - v8) * 0.5;
+      }
+
+      else
+      {
+        v20 = v19 - v8;
+      }
+
+      v21 = (v11 - v6) * 0.5;
+      v22 = (v13 - v8) * 0.5;
+      if (v13 > v8)
+      {
+        v22 = v13 - v8;
+      }
+
+      v23 = v11 > v6;
+      if (v11 <= v6)
+      {
+        v24 = 1.0;
+      }
+
+      else
+      {
+        v24 = v6 / v11;
+      }
+
+      if (v23)
+      {
+        v25 = v20;
+      }
+
+      else
+      {
+        v18 = v21;
+        v25 = v22;
+      }
+
+      v26 = ceil(v18);
+      v27 = floor(v25 - v16);
+      scrollView = [(AXSSImagePreviewViewController *)self scrollView];
+      [scrollView setMinimumZoomScale:v24];
+
+      scrollView2 = [(AXSSImagePreviewViewController *)self scrollView];
+      [scrollView2 setMaximumZoomScale:v24];
+
+      [(AXSSImagePreviewViewController *)self _zoomImage:neededCopy withContentOffset:v24 animated:v26, v27];
+    }
+  }
+}
+
+- (void)_zoomImageToBestScaleIfNeeded:(BOOL)needed
+{
+  neededCopy = needed;
+  if ([(AXSSImagePreviewViewController *)self isManualZoomActive]&& [(AXSSImagePreviewViewController *)self _isSnapshotViewAttached])
+  {
+    contentSnapshot = [(AXSSImagePreviewViewController *)self contentSnapshot];
+    [contentSnapshot bounds];
+    v7 = v6;
+    v9 = v8;
+
+    [(AXSSImagePreviewViewController *)self _scrollViewClippedSize];
+    v12 = v10;
+    v13 = v11;
+    v14 = floor(v11) < 1.0 || v9 < 1.0;
+    if (!v14 && v7 >= 1.0)
+    {
+      v16 = v7 > v10;
+      v17 = v9 > v11;
+      v18 = v10 / v7;
+      if (v10 / v7 >= v13 / v9)
+      {
+        v19 = v10 / v7;
+      }
+
+      else
+      {
+        v19 = v13 / v9;
+      }
+
+      if (v10 / v7 >= v13 / v9)
+      {
+        v18 = v13 / v9;
+      }
+
+      v20 = 2.5;
+      if (v19 <= 2.5)
+      {
+        v20 = v19;
+      }
+
+      if (v16 && v17)
+      {
+        v21 = 1.0;
+      }
+
+      else
+      {
+        v21 = v20;
+      }
+
+      if (v16 && v17)
+      {
+        v22 = v18;
+      }
+
+      else
+      {
+        v22 = 1.0;
+      }
+
+      [(AXSSImagePreviewViewController *)self edgeInsets];
+      v25 = -(v13 - v21 * v9) * 0.5 - v24;
+      v26 = ceil(-(v12 - v21 * v7) * 0.5 - v23);
+      v27 = floor(v25);
+      scrollView = [(AXSSImagePreviewViewController *)self scrollView];
+      [scrollView setMinimumZoomScale:v22];
+
+      scrollView2 = [(AXSSImagePreviewViewController *)self scrollView];
+      [scrollView2 setMaximumZoomScale:2.5];
+
+      [(AXSSImagePreviewViewController *)self _zoomImage:neededCopy withContentOffset:v21 animated:v26, v27];
+    }
+  }
 }
 
 - (void)_centerImageIfNeeded

@@ -48,24 +48,23 @@
 
     else
     {
-      account = self->account;
       v22 = SOSLastKeyParametersPushedKeyCreateWithAccountGestalt();
     }
 
-    v31 = v22;
-    v32 = sub_10001104C(kCFAllocatorDefault, v23, v24, v25, v26, v27, v28, v29, kSOSKVSKeyParametersKey, data);
+    v30 = v22;
+    v31 = sub_10001104C(kCFAllocatorDefault, v23, v24, v25, v26, v27, v28, v29, kSOSKVSKeyParametersKey, data);
+    if (v30)
+    {
+      CFRelease(v30);
+    }
+
+    v32 = dispatch_get_global_queue(-2, 0);
+    SOSCloudKeychainPutObjectsInCloud();
+
+    sub_100246DB4(v33);
     if (v31)
     {
       CFRelease(v31);
-    }
-
-    v33 = dispatch_get_global_queue(-2, 0);
-    SOSCloudKeychainPutObjectsInCloud();
-
-    sub_100246DB4();
-    if (v32)
-    {
-      CFRelease(v32);
     }
 
     if (ExternalRepresentation)
@@ -130,6 +129,7 @@
 
 - (BOOL)SOSTransportKeyParameterHandleKeyParameterChanges:(id)changes data:(__CFData *)data err:(__CFError *)err
 {
+  errCopy = err;
   v6 = self->account;
   v7 = v6;
   if (v6)
@@ -144,201 +144,203 @@
       }
 
       v9 = 1;
-      goto LABEL_60;
+      goto LABEL_62;
     }
 
+    cf = 0;
     cf2 = 0;
-    if (!sub_100215D20(&cf2, data))
+    if (!sub_100215D20(&cf2, data, &cf, &errCopy))
     {
       goto LABEL_17;
     }
-  }
 
-  else
-  {
-    cf2 = 0;
-    if (!sub_100215D20(&cf2, data))
+LABEL_7:
+    sub_100214900(@"SOSAccountHandleParametersChange got new user key parameters:", cf);
+    v10 = SOSCopyIDOfKeyWithLength();
+    v11 = sub_100006274("circleOps");
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
-LABEL_17:
-      v9 = 0;
+      *buf = 138412290;
+      v38 = v10;
+      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "SOSAccountHandleParametersChange got new public key: %@", buf, 0xCu);
+    }
+
+    if (v10)
+    {
+      CFRelease(v10);
+    }
+
+    accountKey = [(SOSAccount *)v7 accountKey];
+    if (accountKey && cf2)
+    {
+      if (CFEqual(accountKey, cf2))
+      {
+        goto LABEL_14;
+      }
+    }
+
+    else if (accountKey == cf2)
+    {
+LABEL_14:
+      v13 = sub_100006274("circleOps");
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 0;
+        v14 = "Got same public key sent our way. Ignoring.";
+LABEL_45:
+        _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, v14, buf, 2u);
+        goto LABEL_46;
+      }
+
+      goto LABEL_46;
+    }
+
+    previousAccountKey = [(SOSAccount *)v7 previousAccountKey];
+    v16 = cf2;
+    if (previousAccountKey && cf2)
+    {
+      if (!CFEqual(previousAccountKey, cf2))
+      {
+        v16 = cf2;
+        goto LABEL_24;
+      }
+    }
+
+    else if (previousAccountKey != cf2)
+    {
+LABEL_24:
+      v17 = v7;
+      if ([(SOSAccount *)v17 accountKeyIsTrusted]&& [(SOSAccount *)v17 accountKey])
+      {
+        v18 = sub_100006274("circleOps");
+        if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+        {
+          accountKey2 = [(SOSAccount *)v17 accountKey];
+          *buf = 138412290;
+          v38 = accountKey2;
+          _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "Moving : %@ to previousAccountKey", buf, 0xCu);
+        }
+
+        [(SOSAccount *)v17 setPreviousAccountKey:[(SOSAccount *)v17 accountKey]];
+      }
+
+      [(SOSAccount *)v17 setAccountKey:v16];
+      [(SOSAccount *)v17 setAccountKeyIsTrusted:0];
+      if (![(SOSAccount *)v17 previousAccountKey])
+      {
+        [(SOSAccount *)v17 setPreviousAccountKey:[(SOSAccount *)v17 accountKey]];
+      }
+
+      [(SOSAccount *)v17 accountKey];
+      v20 = SOSCopyIDOfKeyWithLength();
+      v21 = sub_100006274("circleOps");
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 138412290;
+        v38 = v20;
+        _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "not trusting new public key: %@", buf, 0xCu);
+      }
+
+      if (v20)
+      {
+        CFRelease(v20);
+      }
+
+      v22 = cf2;
+      if (cf2)
+      {
+        cf2 = 0;
+        CFRelease(v22);
+      }
+
+      [(SOSAccount *)v17 setAccountKeyDerivationParameters:cf];
+      v23 = v17;
+      _password_tmp = [(SOSAccount *)v23 _password_tmp];
+
+      if (!_password_tmp)
+      {
+        v25 = sub_100006274("circleOps");
+        if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+        {
+          *buf = 0;
+          _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_DEFAULT, "Password cache expired", buf, 2u);
+        }
+      }
+
+      _password_tmp2 = [(SOSAccount *)v23 _password_tmp];
+
+      if (_password_tmp2)
+      {
+        CFRetain(_password_tmp2);
+        v27 = sub_100219108(v23, 0, _password_tmp2, 0);
+        CFRelease(_password_tmp2);
+      }
+
+      else
+      {
+        v27 = 0;
+      }
+
+      v28 = sub_100006274("circleOps");
+      v29 = os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT);
+      if (v27)
+      {
+        if (v29)
+        {
+          *buf = 0;
+          _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_DEFAULT, "Successfully used cached password with new parameters", buf, 2u);
+        }
+
+        sub_100217C70(v23, &errCopy);
+      }
+
+      else
+      {
+        if (v29)
+        {
+          *buf = 0;
+          _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_DEFAULT, "Got new parameters for public key - could not find or use cached password", buf, 2u);
+        }
+
+        sub_100217D3C(v23);
+      }
+
+      v30 = sub_100006274("circleop");
+      if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 0;
+        _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_DEFAULT, "Setting account.key_interests_need_updating to true in SOSAccountHandleParametersChange", buf, 2u);
+      }
+
+      v9 = 1;
+      [(SOSAccount *)v23 setCircle_rings_retirements_need_attention:1];
+      [(SOSAccount *)v23 setKey_interests_need_updating:1];
       goto LABEL_58;
     }
-  }
 
-  sub_100214900(@"SOSAccountHandleParametersChange got new user key parameters:", 0);
-  v10 = SOSCopyIDOfKeyWithLength();
-  v11 = sub_100006274("circleOps");
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
-  {
-    *buf = 138412290;
-    v35 = v10;
-    _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "SOSAccountHandleParametersChange got new public key: %@", buf, 0xCu);
-  }
-
-  if (v10)
-  {
-    CFRelease(v10);
-  }
-
-  accountKey = [(SOSAccount *)v7 accountKey];
-  if (accountKey && cf2)
-  {
-    if (CFEqual(accountKey, cf2))
-    {
-      goto LABEL_14;
-    }
-  }
-
-  else if (accountKey == cf2)
-  {
-LABEL_14:
     v13 = sub_100006274("circleOps");
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      v14 = "Got same public key sent our way. Ignoring.";
-LABEL_45:
-      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, v14, buf, 2u);
-      goto LABEL_46;
+      v14 = "Got previous public key repeated. Ignoring.";
+      goto LABEL_45;
     }
-
-    goto LABEL_46;
-  }
-
-  previousAccountKey = [(SOSAccount *)v7 previousAccountKey];
-  v16 = cf2;
-  if (previousAccountKey && cf2)
-  {
-    if (!CFEqual(previousAccountKey, cf2))
-    {
-      v16 = cf2;
-      goto LABEL_24;
-    }
-  }
-
-  else if (previousAccountKey != cf2)
-  {
-LABEL_24:
-    v17 = v7;
-    if ([(SOSAccount *)v17 accountKeyIsTrusted]&& [(SOSAccount *)v17 accountKey])
-    {
-      v18 = sub_100006274("circleOps");
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
-      {
-        accountKey2 = [(SOSAccount *)v17 accountKey];
-        *buf = 138412290;
-        v35 = accountKey2;
-        _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "Moving : %@ to previousAccountKey", buf, 0xCu);
-      }
-
-      [(SOSAccount *)v17 setPreviousAccountKey:[(SOSAccount *)v17 accountKey]];
-    }
-
-    [(SOSAccount *)v17 setAccountKey:v16];
-    [(SOSAccount *)v17 setAccountKeyIsTrusted:0];
-    if (![(SOSAccount *)v17 previousAccountKey])
-    {
-      [(SOSAccount *)v17 setPreviousAccountKey:[(SOSAccount *)v17 accountKey]];
-    }
-
-    [(SOSAccount *)v17 accountKey];
-    v20 = SOSCopyIDOfKeyWithLength();
-    v21 = sub_100006274("circleOps");
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
-    {
-      *buf = 138412290;
-      v35 = v20;
-      _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "not trusting new public key: %@", buf, 0xCu);
-    }
-
-    if (v20)
-    {
-      CFRelease(v20);
-    }
-
-    v22 = cf2;
-    if (cf2)
-    {
-      cf2 = 0;
-      CFRelease(v22);
-    }
-
-    [(SOSAccount *)v17 setAccountKeyDerivationParameters:0];
-    v23 = v17;
-    _password_tmp = [(SOSAccount *)v23 _password_tmp];
-
-    if (!_password_tmp)
-    {
-      v25 = sub_100006274("circleOps");
-      if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
-      {
-        *buf = 0;
-        _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_DEFAULT, "Password cache expired", buf, 2u);
-      }
-    }
-
-    _password_tmp2 = [(SOSAccount *)v23 _password_tmp];
-
-    if (_password_tmp2)
-    {
-      CFRetain(_password_tmp2);
-      v27 = sub_100219108(v23, 0, _password_tmp2, 0);
-      CFRelease(_password_tmp2);
-    }
-
-    else
-    {
-      v27 = 0;
-    }
-
-    v28 = sub_100006274("circleOps");
-    v29 = os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT);
-    if (v27)
-    {
-      if (v29)
-      {
-        *buf = 0;
-        _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_DEFAULT, "Successfully used cached password with new parameters", buf, 2u);
-      }
-
-      sub_100217C70(v23);
-    }
-
-    else
-    {
-      if (v29)
-      {
-        *buf = 0;
-        _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_DEFAULT, "Got new parameters for public key - could not find or use cached password", buf, 2u);
-      }
-
-      sub_100217D3C(v23);
-    }
-
-    v30 = sub_100006274("circleop");
-    if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
-    {
-      *buf = 0;
-      _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_DEFAULT, "Setting account.key_interests_need_updating to true in SOSAccountHandleParametersChange", buf, 2u);
-    }
-
-    v9 = 1;
-    [(SOSAccount *)v23 setCircle_rings_retirements_need_attention:1];
-    [(SOSAccount *)v23 setKey_interests_need_updating:1];
-    goto LABEL_58;
-  }
-
-  v13 = sub_100006274("circleOps");
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
-  {
-    *buf = 0;
-    v14 = "Got previous public key repeated. Ignoring.";
-    goto LABEL_45;
-  }
 
 LABEL_46:
 
-  v9 = 1;
+    v9 = 1;
+    goto LABEL_58;
+  }
+
+  cf = 0;
+  cf2 = 0;
+  if (sub_100215D20(&cf2, data, &cf, &errCopy))
+  {
+    goto LABEL_7;
+  }
+
+LABEL_17:
+  v9 = 0;
 LABEL_58:
   v31 = cf2;
   if (cf2)
@@ -347,7 +349,14 @@ LABEL_58:
     CFRelease(v31);
   }
 
-LABEL_60:
+  v32 = cf;
+  if (cf)
+  {
+    cf = 0;
+    CFRelease(v32);
+  }
+
+LABEL_62:
 
   return v9;
 }

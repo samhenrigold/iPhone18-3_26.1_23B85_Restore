@@ -199,10 +199,10 @@
 
   else if (reason)
   {
-    v6 = _AAUILogSystem();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
+    v7 = _AAUILogSystem(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
     {
-      [AAUISignInController serviceSignInController:reason didSkipWithReason:v6];
+      [AAUISignInController serviceSignInController:reason didSkipWithReason:v7];
     }
   }
 

@@ -3,7 +3,9 @@
 - (PPTopicDissector)init;
 - (PPTopicDissector)initWithContextClient:(id)client;
 - (id)extractionsFromContextKitWithText:(id)text isPlainText:(BOOL)plainText bundleId:(id)id language:(id)language weight:(double)weight;
+- (id)topicsInText:(id)text isPlainText:(BOOL)plainText source:(id)source cloudSync:(BOOL)sync language:(id)language topicAlgorithms:(id)algorithms namedEntityAlgorithms:(id)entityAlgorithms weight:(double)self0;
 - (void)_collectHighLevelTopicsWithText:(id)text bundleId:(id)id addTopic:(id)topic weight:(double)weight;
+- (void)_collectResultsFromContextKitWithText:(id)text isPlainText:(BOOL)plainText bundleId:(id)id language:(id)language useContextKitTopics:(BOOL)topics useContextKitNamedEntities:(BOOL)entities addTopic:(id)topic addNamedEntity:(id)self0 weight:(double)self1;
 @end
 
 @implementation PPTopicDissector
@@ -38,17 +40,17 @@
 
 void __77__PPTopicDissector__collectHighLevelTopicsWithText_bundleId_addTopic_weight___block_invoke(uint64_t a1, void *a2, float a3)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = pp_default_log_handle();
   v7 = a3;
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
-    v12 = 138740227;
-    v13 = v5;
-    v14 = 2048;
-    v15 = v7;
-    _os_log_debug_impl(&dword_23224A000, v6, OS_LOG_TYPE_DEBUG, "topicId: %{sensitive}@, score: %f", &v12, 0x16u);
+    v11 = 138740227;
+    v12 = v5;
+    v13 = 2048;
+    v14 = v7;
+    _os_log_debug_impl(&dword_23224A000, v6, OS_LOG_TYPE_DEBUG, "topicId: %{sensitive}@, score: %f", &v11, 0x16u);
   }
 
   v8 = objc_alloc(MEMORY[0x277D3A498]);
@@ -56,7 +58,83 @@ void __77__PPTopicDissector__collectHighLevelTopicsWithText_bundleId_addTopic_we
   v10 = [v8 initWithItem:v9 score:v7];
 
   (*(*(a1 + 32) + 16))();
-  v11 = *MEMORY[0x277D85DE8];
+}
+
+- (void)_collectResultsFromContextKitWithText:(id)text isPlainText:(BOOL)plainText bundleId:(id)id language:(id)language useContextKitTopics:(BOOL)topics useContextKitNamedEntities:(BOOL)entities addTopic:(id)topic addNamedEntity:(id)self0 weight:(double)self1
+{
+  entitiesCopy = entities;
+  topicsCopy = topics;
+  plainTextCopy = plainText;
+  v41 = *MEMORY[0x277D85DE8];
+  topicCopy = topic;
+  entityCopy = entity;
+  v21 = [(PPTopicDissector *)self extractionsFromContextKitWithText:text isPlainText:plainTextCopy bundleId:id language:language weight:weight];
+  v22 = v21;
+  if (topicsCopy)
+  {
+    if (v21)
+    {
+      v23 = *(v21 + 8);
+      v24 = v22[3];
+    }
+
+    else
+    {
+      v23 = 0;
+      v24 = 0;
+    }
+
+    v25 = v24;
+    v37[0] = MEMORY[0x277D85DD0];
+    v37[1] = 3221225472;
+    v37[2] = __166__PPTopicDissector__collectResultsFromContextKitWithText_isPlainText_bundleId_language_useContextKitTopics_useContextKitNamedEntities_addTopic_addNamedEntity_weight___block_invoke;
+    v37[3] = &unk_2789722A8;
+    v38 = v25;
+    v39 = topicCopy;
+    v26 = v25;
+    [v23 enumerateObjectsUsingBlock:v37];
+  }
+
+  if (entitiesCopy)
+  {
+    v35 = 0u;
+    v36 = 0u;
+    v33 = 0u;
+    v34 = 0u;
+    if (v22)
+    {
+      v27 = v22[2];
+    }
+
+    else
+    {
+      v27 = 0;
+    }
+
+    v28 = v27;
+    v29 = [v28 countByEnumeratingWithState:&v33 objects:v40 count:16];
+    if (v29)
+    {
+      v30 = v29;
+      v31 = *v34;
+      do
+      {
+        for (i = 0; i != v30; ++i)
+        {
+          if (*v34 != v31)
+          {
+            objc_enumerationMutation(v28);
+          }
+
+          entityCopy[2](entityCopy, *(*(&v33 + 1) + 8 * i), 15);
+        }
+
+        v30 = [v28 countByEnumeratingWithState:&v33 objects:v40 count:16];
+      }
+
+      while (v30);
+    }
+  }
 }
 
 void __166__PPTopicDissector__collectResultsFromContextKitWithText_isPlainText_bundleId_language_useContextKitTopics_useContextKitNamedEntities_addTopic_addNamedEntity_weight___block_invoke(uint64_t a1, void *a2, uint64_t a3)
@@ -66,6 +144,252 @@ void __166__PPTopicDissector__collectResultsFromContextKitWithText_isPlainText_b
   v6 = a2;
   v7 = [v5 objectAtIndexedSubscript:a3];
   (*(v4 + 16))(v4, v6, v7, 1);
+}
+
+- (id)topicsInText:(id)text isPlainText:(BOOL)plainText source:(id)source cloudSync:(BOOL)sync language:(id)language topicAlgorithms:(id)algorithms namedEntityAlgorithms:(id)entityAlgorithms weight:(double)self0
+{
+  plainTextCopy = plainText;
+  v114 = *MEMORY[0x277D85DE8];
+  textCopy = text;
+  sourceCopy = source;
+  languageCopy = language;
+  algorithmsCopy = algorithms;
+  entityAlgorithmsCopy = entityAlgorithms;
+  v21 = objc_opt_new();
+  v22 = 0.0;
+  if (plainTextCopy)
+  {
+    bundleId = [sourceCopy bundleId];
+    if ([*MEMORY[0x277D3A658] isEqualToString:bundleId])
+    {
+
+LABEL_5:
+      v25 = +[PPSentiment sharedInstance];
+      [v25 sentimentScoreForText:textCopy];
+      v22 = v26;
+
+      goto LABEL_6;
+    }
+
+    v24 = [*MEMORY[0x277D3A648] isEqualToString:bundleId];
+
+    if (v24)
+    {
+      goto LABEL_5;
+    }
+  }
+
+LABEL_6:
+  aBlock[0] = MEMORY[0x277D85DD0];
+  aBlock[1] = 3221225472;
+  aBlock[2] = __116__PPTopicDissector_topicsInText_isPlainText_source_cloudSync_language_topicAlgorithms_namedEntityAlgorithms_weight___block_invoke;
+  aBlock[3] = &unk_278972258;
+  v27 = v21;
+  v103 = v27;
+  v28 = sourceCopy;
+  v104 = v28;
+  syncCopy = sync;
+  v105 = v22;
+  v79 = _Block_copy(aBlock);
+  v97[0] = MEMORY[0x277D85DD0];
+  v97[1] = 3221225472;
+  v97[2] = __116__PPTopicDissector_topicsInText_isPlainText_source_cloudSync_language_topicAlgorithms_namedEntityAlgorithms_weight___block_invoke_2;
+  v97[3] = &unk_278972280;
+  v77 = v27;
+  v98 = v77;
+  v29 = v28;
+  v99 = v29;
+  syncCopy2 = sync;
+  v100 = v22;
+  v76 = _Block_copy(v97);
+  v30 = [algorithmsCopy containsObject:&unk_284783A80];
+  v31 = [entityAlgorithmsCopy containsObject:&unk_284783A98];
+  v32 = v31;
+  if ((v30 & 1) != 0 || v31)
+  {
+    bundleId2 = [v29 bundleId];
+    [(PPTopicDissector *)self _collectResultsFromContextKitWithText:textCopy isPlainText:plainTextCopy bundleId:bundleId2 language:languageCopy useContextKitTopics:v30 useContextKitNamedEntities:v32 addTopic:weight addNamedEntity:v79 weight:v76];
+  }
+
+  v74 = algorithmsCopy;
+  if ([algorithmsCopy containsObject:&unk_284783AB0])
+  {
+    bundleId3 = [v29 bundleId];
+    [(PPTopicDissector *)self _collectHighLevelTopicsWithText:textCopy bundleId:bundleId3 addTopic:v79 weight:weight];
+  }
+
+  v75 = textCopy;
+  if (languageCopy)
+  {
+    userLanguagesWithoutCanonicalSuffixes = [MEMORY[0x277D3A248] userLanguagesWithoutCanonicalSuffixes];
+    v36 = [userLanguagesWithoutCanonicalSuffixes containsObject:languageCopy];
+
+    if ((v36 & 1) == 0)
+    {
+      languageStringToLanguageTopicQIDMapping = [MEMORY[0x277D3A248] languageStringToLanguageTopicQIDMapping];
+      v38 = [MEMORY[0x277D3A248] languageForLocaleIdentifier:languageCopy];
+      v39 = [languageStringToLanguageTopicQIDMapping objectForKeyedSubscript:v38];
+
+      if (v39)
+      {
+        v40 = objc_alloc(MEMORY[0x277D3A498]);
+        v41 = [objc_alloc(MEMORY[0x277D3A530]) initWithTopicIdentifier:v39];
+        v42 = [v40 initWithItem:v41 score:1.0];
+
+        v79[2](v79, v42, MEMORY[0x277CBEC28], 12);
+        v43 = pp_default_log_handle();
+        if (os_log_type_enabled(v43, OS_LOG_TYPE_DEBUG))
+        {
+          *buf = 138412290;
+          v110 = languageCopy;
+          _os_log_debug_impl(&dword_23224A000, v43, OS_LOG_TYPE_DEBUG, "PPTopicDissector tagging topicRecord with %@ language.", buf, 0xCu);
+        }
+      }
+    }
+  }
+
+  v73 = v29;
+  [v77 allValues];
+  v93 = 0u;
+  v94 = 0u;
+  v95 = 0u;
+  obj = v96 = 0u;
+  v82 = [obj countByEnumeratingWithState:&v93 objects:v113 count:16];
+  if (v82)
+  {
+    v81 = *v94;
+    do
+    {
+      v44 = 0;
+      do
+      {
+        if (*v94 != v81)
+        {
+          objc_enumerationMutation(obj);
+        }
+
+        v84 = v44;
+        v45 = *(*(&v93 + 1) + 8 * v44);
+        v46 = pp_default_log_handle();
+        if (os_log_type_enabled(v46, OS_LOG_TYPE_DEFAULT))
+        {
+          topics = [v45 topics];
+          v48 = [topics count];
+          v49 = [MEMORY[0x277D3A548] describeAlgorithm:{objc_msgSend(v45, "topicAlgorithm")}];
+          *buf = 134218242;
+          v110 = v48;
+          v111 = 2112;
+          v112 = v49;
+          _os_log_impl(&dword_23224A000, v46, OS_LOG_TYPE_DEFAULT, "PPTopicDissector detected %lu topics with algorithm %@.", buf, 0x16u);
+        }
+
+        v91 = 0u;
+        v92 = 0u;
+        v89 = 0u;
+        v90 = 0u;
+        v83 = v45;
+        topics2 = [v45 topics];
+        v51 = [topics2 countByEnumeratingWithState:&v89 objects:v108 count:16];
+        if (v51)
+        {
+          v52 = v51;
+          v53 = *v90;
+          do
+          {
+            v54 = 0;
+            do
+            {
+              if (*v90 != v53)
+              {
+                objc_enumerationMutation(topics2);
+              }
+
+              v55 = *(*(&v89 + 1) + 8 * v54);
+              v56 = pp_default_log_handle();
+              if (os_log_type_enabled(v56, OS_LOG_TYPE_DEBUG))
+              {
+                item = [v55 item];
+                topicIdentifier = [item topicIdentifier];
+                *buf = 138739971;
+                v110 = topicIdentifier;
+                _os_log_debug_impl(&dword_23224A000, v56, OS_LOG_TYPE_DEBUG, "  QID: %{sensitive}@", buf, 0xCu);
+              }
+
+              ++v54;
+            }
+
+            while (v52 != v54);
+            v52 = [topics2 countByEnumeratingWithState:&v89 objects:v108 count:16];
+          }
+
+          while (v52);
+        }
+
+        v59 = pp_default_log_handle();
+        if (os_log_type_enabled(v59, OS_LOG_TYPE_DEFAULT))
+        {
+          entities = [v83 entities];
+          v61 = [entities count];
+          v62 = [MEMORY[0x277D3A438] describeAlgorithm:{objc_msgSend(v83, "entityAlgorithm")}];
+          *buf = 134218242;
+          v110 = v61;
+          v111 = 2112;
+          v112 = v62;
+          _os_log_impl(&dword_23224A000, v59, OS_LOG_TYPE_DEFAULT, "PPTopicDissector detected %lu named entities with algorithm %@.", buf, 0x16u);
+        }
+
+        v87 = 0u;
+        v88 = 0u;
+        v85 = 0u;
+        v86 = 0u;
+        entities2 = [v83 entities];
+        v64 = [entities2 countByEnumeratingWithState:&v85 objects:v107 count:16];
+        if (v64)
+        {
+          v65 = v64;
+          v66 = *v86;
+          do
+          {
+            v67 = 0;
+            do
+            {
+              if (*v86 != v66)
+              {
+                objc_enumerationMutation(entities2);
+              }
+
+              v68 = *(*(&v85 + 1) + 8 * v67);
+              v69 = pp_default_log_handle();
+              if (os_log_type_enabled(v69, OS_LOG_TYPE_DEBUG))
+              {
+                item2 = [v68 item];
+                name = [item2 name];
+                *buf = 138739971;
+                v110 = name;
+                _os_log_debug_impl(&dword_23224A000, v69, OS_LOG_TYPE_DEBUG, "  QID: %{sensitive}@", buf, 0xCu);
+              }
+
+              ++v67;
+            }
+
+            while (v65 != v67);
+            v65 = [entities2 countByEnumeratingWithState:&v85 objects:v107 count:16];
+          }
+
+          while (v65);
+        }
+
+        v44 = v84 + 1;
+      }
+
+      while (v84 + 1 != v82);
+      v82 = [obj countByEnumeratingWithState:&v93 objects:v113 count:16];
+    }
+
+    while (v82);
+  }
+
+  return obj;
 }
 
 void __116__PPTopicDissector_topicsInText_isPlainText_source_cloudSync_language_topicAlgorithms_namedEntityAlgorithms_weight___block_invoke(uint64_t a1, void *a2, void *a3, uint64_t a4)
@@ -212,12 +536,12 @@ void __116__PPTopicDissector_topicsInText_isPlainText_source_cloudSync_language_
 
 void __91__PPTopicDissector_extractionsFromContextKitWithText_isPlainText_bundleId_language_weight___block_invoke(uint64_t a1, void *a2)
 {
-  v49 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v43 = 0;
-  v44 = &v43;
-  v45 = 0x2020000000;
-  v46 = 0;
+  v42 = 0;
+  v43 = &v42;
+  v44 = 0x2020000000;
+  v45 = 0;
   v4 = [v3 error];
 
   if (v4)
@@ -225,9 +549,9 @@ void __91__PPTopicDissector_extractionsFromContextKitWithText_isPlainText_bundle
     v5 = pp_default_log_handle();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      v34 = [v3 error];
+      v33 = [v3 error];
       *buf = 138412290;
-      v48 = v34;
+      v47 = v33;
       _os_log_error_impl(&dword_23224A000, v5, OS_LOG_TYPE_ERROR, "ContextKit error: %@", buf, 0xCu);
     }
 
@@ -299,16 +623,16 @@ LABEL_25:
     v13 = [v3 results];
     v14 = [v13 count];
     *buf = 134217984;
-    v48 = v14;
+    v47 = v14;
     _os_log_impl(&dword_23224A000, v12, OS_LOG_TYPE_DEFAULT, "got %lu results from ContextKit", buf, 0xCu);
   }
 
   v15 = pp_default_log_handle();
   if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
   {
-    v35 = [v3 debug];
+    v34 = [v3 debug];
     *buf = 138739971;
-    v48 = v35;
+    v47 = v34;
     _os_log_debug_impl(&dword_23224A000, v15, OS_LOG_TYPE_DEBUG, "ContextKit debug info: %{sensitive}@", buf, 0xCu);
   }
 
@@ -327,44 +651,42 @@ LABEL_25:
 
   else
   {
-    v25 = [v3 results];
-    v26 = [v25 count];
+    v24 = [v3 results];
+    v25 = [v24 count];
 
-    v27 = +[PPConfiguration sharedInstance];
-    [v27 halfValuePosition];
-    v29 = v28;
+    v26 = +[PPConfiguration sharedInstance];
+    [v26 halfValuePosition];
+    v28 = v27;
 
-    v30 = *(a1 + 40);
-    v36[0] = MEMORY[0x277D85DD0];
-    v36[1] = 3221225472;
-    v36[2] = __91__PPTopicDissector_extractionsFromContextKitWithText_isPlainText_bundleId_language_weight___block_invoke_129;
-    v36[3] = &unk_2789721E0;
-    v37 = v3;
-    v39 = &v43;
-    v31 = *(a1 + 64);
-    v40 = v29;
-    v41 = v31;
-    v42 = v26;
-    v38 = *(a1 + 48);
-    [v30 runWithLockAcquired:v36];
-    v32 = pp_default_log_handle();
-    if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
+    v29 = *(a1 + 40);
+    v35[0] = MEMORY[0x277D85DD0];
+    v35[1] = 3221225472;
+    v35[2] = __91__PPTopicDissector_extractionsFromContextKitWithText_isPlainText_bundleId_language_weight___block_invoke_129;
+    v35[3] = &unk_2789721E0;
+    v36 = v3;
+    v38 = &v42;
+    v30 = *(a1 + 64);
+    v39 = v28;
+    v40 = v30;
+    v41 = v25;
+    v37 = *(a1 + 48);
+    [v29 runWithLockAcquired:v35];
+    v31 = pp_default_log_handle();
+    if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
     {
-      v33 = *(v44 + 12);
+      v32 = *(v43 + 12);
       *buf = 134217984;
-      v48 = v33;
-      _os_log_impl(&dword_23224A000, v32, OS_LOG_TYPE_DEFAULT, "processed %lu results from ContextKit", buf, 0xCu);
+      v47 = v32;
+      _os_log_impl(&dword_23224A000, v31, OS_LOG_TYPE_DEFAULT, "processed %lu results from ContextKit", buf, 0xCu);
     }
 
-    v18 = v37;
+    v18 = v36;
   }
 
 LABEL_27:
 
   dispatch_semaphore_signal(*(a1 + 56));
-  _Block_object_dispose(&v43, 8);
-
-  v24 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v42, 8);
 }
 
 void __91__PPTopicDissector_extractionsFromContextKitWithText_isPlainText_bundleId_language_weight___block_invoke_141(uint64_t a1, _BYTE *a2)
@@ -372,9 +694,9 @@ void __91__PPTopicDissector_extractionsFromContextKitWithText_isPlainText_bundle
   a2[8] = 1;
   v3 = a2;
   v4 = [PPContextKitResultContainer alloc];
-  v6 = v3[2];
-  v5 = v3[3];
-  v7 = v3[4];
+  v6 = *(v3 + 2);
+  v5 = *(v3 + 3);
+  v7 = *(v3 + 4);
 
   v8 = v6;
   v9 = v5;
@@ -398,19 +720,19 @@ void __91__PPTopicDissector_extractionsFromContextKitWithText_isPlainText_bundle
   *(v12 + 40) = v4;
 }
 
-void __91__PPTopicDissector_extractionsFromContextKitWithText_isPlainText_bundleId_language_weight___block_invoke_138()
+void __91__PPTopicDissector_extractionsFromContextKitWithText_isPlainText_bundleId_language_weight___block_invoke_138(uint64_t a1)
 {
-  v0 = pp_default_log_handle();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+  v1 = pp_default_log_handle();
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
-    *v1 = 0;
-    _os_log_error_impl(&dword_23224A000, v0, OS_LOG_TYPE_ERROR, "Timeout waiting for ContextKit response.", v1, 2u);
+    *v2 = 0;
+    _os_log_error_impl(&dword_23224A000, v1, OS_LOG_TYPE_ERROR, "Timeout waiting for ContextKit response.", v2, 2u);
   }
 }
 
 void __91__PPTopicDissector_extractionsFromContextKitWithText_isPlainText_bundleId_language_weight___block_invoke_129(uint64_t a1, void *a2)
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (*(v3 + 8) == 1)
   {
@@ -424,28 +746,28 @@ void __91__PPTopicDissector_extractionsFromContextKitWithText_isPlainText_bundle
 
   else
   {
-    v29 = 0u;
-    v30 = 0u;
-    v27 = 0u;
     v28 = 0u;
+    v29 = 0u;
+    v26 = 0u;
+    v27 = 0u;
     v4 = [*(a1 + 32) results];
-    v5 = [v4 countByEnumeratingWithState:&v27 objects:v37 count:16];
+    v5 = [v4 countByEnumeratingWithState:&v26 objects:v36 count:16];
     if (v5)
     {
       v6 = v5;
-      v7 = *v28;
+      v7 = *v27;
       obj = v4;
       do
       {
         v8 = 0;
         do
         {
-          if (*v28 != v7)
+          if (*v27 != v7)
           {
             objc_enumerationMutation(obj);
           }
 
-          v9 = *(*(&v27 + 1) + 8 * v8);
+          v9 = *(*(&v26 + 1) + 8 * v8);
           v10 = pp_default_log_handle();
           if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
           {
@@ -453,11 +775,11 @@ void __91__PPTopicDissector_extractionsFromContextKitWithText_isPlainText_bundle
             v23 = [v9 topicId];
             v24 = [v9 category];
             *buf = 138740483;
-            v32 = v22;
-            v33 = 2117;
-            v34 = v23;
-            v35 = 2117;
-            v36 = v24;
+            v31 = v22;
+            v32 = 2117;
+            v33 = v23;
+            v34 = 2117;
+            v35 = v24;
             _os_log_debug_impl(&dword_23224A000, v10, OS_LOG_TYPE_DEBUG, "ContextKit title: %{sensitive}@, qid: %{sensitive}@, category: %{sensitive}@", buf, 0x20u);
           }
 
@@ -494,14 +816,12 @@ void __91__PPTopicDissector_extractionsFromContextKitWithText_isPlainText_bundle
 
         while (v6 != v8);
         v4 = obj;
-        v6 = [obj countByEnumeratingWithState:&v27 objects:v37 count:16];
+        v6 = [obj countByEnumeratingWithState:&v26 objects:v36 count:16];
       }
 
       while (v6);
     }
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 - (PPTopicDissector)init

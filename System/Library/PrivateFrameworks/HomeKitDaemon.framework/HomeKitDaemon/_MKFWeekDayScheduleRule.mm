@@ -19,22 +19,20 @@
 
 - (id)dictionaryRepresentation
 {
-  v11[4] = *MEMORY[0x277D85DE8];
-  v10[0] = @"mi";
+  v10[4] = *MEMORY[0x277D85DE8];
+  v9[0] = @"mi";
   modelID = [(_MKFWeekDayScheduleRule *)self modelID];
-  v11[0] = modelID;
-  v10[1] = @"st";
+  v10[0] = modelID;
+  v9[1] = @"st";
   startTime = [(_MKFWeekDayScheduleRule *)self startTime];
-  v11[1] = startTime;
-  v10[2] = @"et";
+  v10[1] = startTime;
+  v9[2] = @"et";
   endTime = [(_MKFWeekDayScheduleRule *)self endTime];
-  v11[2] = endTime;
-  v10[3] = @"dow";
+  v10[2] = endTime;
+  v9[3] = @"dow";
   daysOfTheWeek = [(_MKFWeekDayScheduleRule *)self daysOfTheWeek];
-  v11[3] = daysOfTheWeek;
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:v10 count:4];
-
-  v8 = *MEMORY[0x277D85DE8];
+  v10[3] = daysOfTheWeek;
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:v9 count:4];
 
   return v7;
 }
@@ -107,7 +105,7 @@
 
 + (id)populateWeekDayScheduleRuleFromDictionary:(id)dictionary existingLocalModels:(id)models context:(id)context
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   dictionaryCopy = dictionary;
   modelsCopy = models;
   contextCopy = context;
@@ -202,7 +200,7 @@
 
   else
   {
-    v37 = modelsCopy;
+    v36 = modelsCopy;
     v30 = contextCopy;
     v31 = objc_autoreleasePoolPush();
     selfCopy = self;
@@ -211,19 +209,17 @@
     {
       v34 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v39 = v34;
-      v40 = 2112;
-      v41 = dictionaryCopy;
+      v38 = v34;
+      v39 = 2112;
+      v40 = dictionaryCopy;
       _os_log_impl(&dword_229538000, v33, OS_LOG_TYPE_ERROR, "%{public}@Cannot create week day schedule rule from dictionary : %@", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v31);
     v23 = 0;
     contextCopy = v30;
-    modelsCopy = v37;
+    modelsCopy = v36;
   }
-
-  v35 = *MEMORY[0x277D85DE8];
 
   return v23;
 }

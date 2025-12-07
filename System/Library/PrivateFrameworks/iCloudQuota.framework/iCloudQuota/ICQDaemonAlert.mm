@@ -41,13 +41,13 @@
 
 - (ICQDaemonAlert)initWithDaemonOffer:(id)offer
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   offerCopy = offer;
   if ([objc_opt_class() shouldShowForDaemonOffer:offerCopy])
   {
-    v18.receiver = self;
-    v18.super_class = ICQDaemonAlert;
-    v6 = [(ICQDaemonAlert *)&v18 init];
+    v17.receiver = self;
+    v17.super_class = ICQDaemonAlert;
+    v6 = [(ICQDaemonAlert *)&v17 init];
     v7 = v6;
     if (v6)
     {
@@ -77,14 +77,13 @@
     if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v20 = offerCopy;
+      v19 = offerCopy;
       _os_log_impl(&dword_275572000, v15, OS_LOG_TYPE_DEFAULT, "attempt to create alert for invalid daemonOffer %@", buf, 0xCu);
     }
 
     v7 = 0;
   }
 
-  v16 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
@@ -172,7 +171,7 @@ LABEL_13:
 
 void __42__ICQDaemonAlert_showAlertWithCompletion___block_invoke(uint64_t a1)
 {
-  v54 = *MEMORY[0x277D85DE8];
+  v53 = *MEMORY[0x277D85DE8];
   *(*(a1 + 32) + 16) = 1;
   v2 = *(a1 + 32);
   if (_ICQDaemonAlertMemoryInitOnce_onceToken != -1)
@@ -199,7 +198,7 @@ void __42__ICQDaemonAlert_showAlertWithCompletion___block_invoke(uint64_t a1)
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v53 = v7;
+    v52 = v7;
     _os_log_impl(&dword_275572000, v8, OS_LOG_TYPE_DEFAULT, "remember alert for notification %@", buf, 0xCu);
   }
 
@@ -212,7 +211,7 @@ void __42__ICQDaemonAlert_showAlertWithCompletion___block_invoke(uint64_t a1)
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v53 = v7;
+      v52 = v7;
       _os_log_impl(&dword_275572000, v10, OS_LOG_TYPE_DEFAULT, "dismissing old alert for notification %@", buf, 0xCu);
     }
 
@@ -238,7 +237,7 @@ void __42__ICQDaemonAlert_showAlertWithCompletion___block_invoke(uint64_t a1)
     }
 
     *buf = 138412290;
-    v53 = v16;
+    v52 = v16;
     _os_log_impl(&dword_275572000, v14, OS_LOG_TYPE_DEFAULT, "showing alert for daemonOffer%@", buf, 0xCu);
   }
 
@@ -339,18 +338,16 @@ void __42__ICQDaemonAlert_showAlertWithCompletion___block_invoke(uint64_t a1)
   v43 = *(a1 + 32);
   v42 = *(a1 + 40);
   v44 = *(v43 + 40);
-  v47[0] = MEMORY[0x277D85DD0];
-  v47[1] = 3221225472;
-  v47[2] = __42__ICQDaemonAlert_showAlertWithCompletion___block_invoke_15;
-  v47[3] = &unk_27A6527F0;
-  v51 = v41;
-  v48 = v13;
-  v49 = v43;
-  v50 = v42;
+  v46[0] = MEMORY[0x277D85DD0];
+  v46[1] = 3221225472;
+  v46[2] = __42__ICQDaemonAlert_showAlertWithCompletion___block_invoke_15;
+  v46[3] = &unk_27A6527F0;
+  v50 = v41;
+  v47 = v13;
+  v48 = v43;
+  v49 = v42;
   v45 = v13;
-  dispatch_async(v44, v47);
-
-  v46 = *MEMORY[0x277D85DE8];
+  dispatch_async(v44, v46);
 }
 
 void __42__ICQDaemonAlert_showAlertWithCompletion___block_invoke_15(uint64_t a1)
@@ -407,14 +404,14 @@ void __42__ICQDaemonAlert_showAlertWithCompletion___block_invoke_15(uint64_t a1)
 
 - (void)dismissAlert
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v3 = _ICQGetLogSystem();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     daemonOffer = [(ICQDaemonAlert *)self daemonOffer];
-    v19 = 138412290;
-    v20 = daemonOffer;
-    _os_log_impl(&dword_275572000, v3, OS_LOG_TYPE_DEFAULT, "dismissing alert for daemonOffer %@", &v19, 0xCu);
+    v18 = 138412290;
+    v19 = daemonOffer;
+    _os_log_impl(&dword_275572000, v3, OS_LOG_TYPE_DEFAULT, "dismissing alert for daemonOffer %@", &v18, 0xCu);
   }
 
   [(NSLock *)self->_alertLock lock];
@@ -441,9 +438,9 @@ void __42__ICQDaemonAlert_showAlertWithCompletion___block_invoke_15(uint64_t a1)
     v11 = _ICQGetLogSystem();
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
-      v19 = 138412290;
-      v20 = v10;
-      _os_log_impl(&dword_275572000, v11, OS_LOG_TYPE_DEFAULT, "forget alert for notification %@", &v19, 0xCu);
+      v18 = 138412290;
+      v19 = v10;
+      _os_log_impl(&dword_275572000, v11, OS_LOG_TYPE_DEFAULT, "forget alert for notification %@", &v18, 0xCu);
     }
 
     [_ICQDaemonAlertMemoryLock lock];
@@ -460,22 +457,22 @@ void __42__ICQDaemonAlert_showAlertWithCompletion___block_invoke_15(uint64_t a1)
     v13 = _ICQGetLogSystem();
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
-      v19 = 138412290;
-      v20 = selfCopy;
-      _os_log_impl(&dword_275572000, v13, OS_LOG_TYPE_DEFAULT, "waiting for alert %@ to dismiss", &v19, 0xCu);
+      v18 = 138412290;
+      v19 = selfCopy;
+      _os_log_impl(&dword_275572000, v13, OS_LOG_TYPE_DEFAULT, "waiting for alert %@ to dismiss", &v18, 0xCu);
     }
 
     dispatch_semaphore_wait(selfCopy->_alertSema, 0xFFFFFFFFFFFFFFFFLL);
     v14 = _ICQGetLogSystem();
     if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
-      v19 = 138412290;
-      v20 = selfCopy;
+      v18 = 138412290;
+      v19 = selfCopy;
       v15 = "finished waiting for alert %@ to dismiss";
       v16 = v14;
       v17 = 12;
 LABEL_18:
-      _os_log_impl(&dword_275572000, v16, OS_LOG_TYPE_DEFAULT, v15, &v19, v17);
+      _os_log_impl(&dword_275572000, v16, OS_LOG_TYPE_DEFAULT, v15, &v18, v17);
     }
   }
 
@@ -485,20 +482,18 @@ LABEL_18:
     v14 = _ICQGetLogSystem();
     if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v19) = 0;
+      LOWORD(v18) = 0;
       v15 = "alert not showing; skipping dismiss";
       v16 = v14;
       v17 = 2;
       goto LABEL_18;
     }
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 + (void)dismissAlertsWithNotificationID:(id)d
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   dCopy = d;
   v4 = dCopy;
   if (_ICQDaemonAlertMemoryInitOnce_onceToken != -1)
@@ -513,8 +508,8 @@ LABEL_14:
     v11 = _ICQGetLogSystem();
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v13) = 0;
-      _os_log_impl(&dword_275572000, v11, OS_LOG_TYPE_DEFAULT, "dismissing all alerts", &v13, 2u);
+      LOWORD(v12) = 0;
+      _os_log_impl(&dword_275572000, v11, OS_LOG_TYPE_DEFAULT, "dismissing all alerts", &v12, 2u);
     }
 
     [_ICQDaemonAlertMemoryLock lock];
@@ -539,19 +534,19 @@ LABEL_8:
     v8 = _ICQGetLogSystem();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      LODWORD(v13) = 138412290;
-      *(&v13 + 4) = v4;
-      _os_log_impl(&dword_275572000, v8, OS_LOG_TYPE_DEFAULT, "dismissing alert for notification %@", &v13, 0xCu);
+      LODWORD(v12) = 138412290;
+      *(&v12 + 4) = v4;
+      _os_log_impl(&dword_275572000, v8, OS_LOG_TYPE_DEFAULT, "dismissing alert for notification %@", &v12, 0xCu);
     }
 
     v9 = dispatch_get_global_queue(0, 0);
-    *&v13 = MEMORY[0x277D85DD0];
-    *(&v13 + 1) = 3221225472;
-    v14 = ___ICQDismissAlertsWithNotificationID_block_invoke;
-    v15 = &unk_27A651BB8;
-    v16 = v5;
+    *&v12 = MEMORY[0x277D85DD0];
+    *(&v12 + 1) = 3221225472;
+    v13 = ___ICQDismissAlertsWithNotificationID_block_invoke;
+    v14 = &unk_27A651BB8;
+    v15 = v5;
     v10 = v5;
-    dispatch_async(v9, &v13);
+    dispatch_async(v9, &v12);
 
     goto LABEL_17;
   }
@@ -563,9 +558,9 @@ LABEL_8:
     v7 = _ICQGetLogSystem();
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      LODWORD(v13) = 138412290;
-      *(&v13 + 4) = v4;
-      _os_log_impl(&dword_275572000, v7, OS_LOG_TYPE_DEFAULT, "Could not find alert for notification %@, dismissing unlabeled alert", &v13, 0xCu);
+      LODWORD(v12) = 138412290;
+      *(&v12 + 4) = v4;
+      _os_log_impl(&dword_275572000, v7, OS_LOG_TYPE_DEFAULT, "Could not find alert for notification %@, dismissing unlabeled alert", &v12, 0xCu);
     }
 
     goto LABEL_8;
@@ -575,14 +570,12 @@ LABEL_8:
   v10 = _ICQGetLogSystem();
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
-    LODWORD(v13) = 138412290;
-    *(&v13 + 4) = v4;
-    _os_log_impl(&dword_275572000, v10, OS_LOG_TYPE_DEFAULT, "Could not find alert for notification %@", &v13, 0xCu);
+    LODWORD(v12) = 138412290;
+    *(&v12 + 4) = v4;
+    _os_log_impl(&dword_275572000, v10, OS_LOG_TYPE_DEFAULT, "Could not find alert for notification %@", &v12, 0xCu);
   }
 
 LABEL_17:
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 @end

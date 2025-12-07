@@ -31,21 +31,8 @@
   v12.receiver = self;
   v12.super_class = TetraPublicSigningKeyWrapper;
   v5 = [(TetraPublicSigningKeyWrapper *)&v12 init];
-  if (!v5)
+  if (!v5 || (v11 = 0, v6 = [[SigningPublicKey alloc] initWithData:representationCopy error:&v11], v7 = v11, signingKey = v5->_signingKey, v5->_signingKey = v6, signingKey, v9 = v5->_signingKey, v7, v9))
   {
-    goto LABEL_3;
-  }
-
-  v11 = 0;
-  v6 = [[SigningPublicKey alloc] initWithData:representationCopy error:&v11];
-  v7 = v11;
-  signingKey = v5->_signingKey;
-  v5->_signingKey = v6;
-
-  v9 = v5->_signingKey;
-  if (v9)
-  {
-LABEL_3:
     v9 = v5;
   }
 

@@ -32,10 +32,10 @@
 
 - (id)_subclass_updateWithOptions:(id)options
 {
-  v57 = *MEMORY[0x277D85DE8];
+  v56 = *MEMORY[0x277D85DE8];
   v4 = objc_alloc_init(HFMutableItemUpdateOutcome);
-  home = [(HFNoRemoteAccessStatusDetailsItem *)self home];
-  hf_remoteAccessState = [home hf_remoteAccessState];
+  v5 = objc_msgSend_home(self);
+  hf_remoteAccessState = [v5 hf_remoteAccessState];
 
   v7 = +[HFHomeKitDispatcher sharedDispatcher];
   homeManager = [v7 homeManager];
@@ -79,7 +79,7 @@ LABEL_21:
 
   if ((residentProvisioningStatus & 2) == 0 || hf_remoteAccessState != 1)
   {
-    if (hf_remoteAccessState != 1 || (-[HFNoRemoteAccessStatusDetailsItem home](self, "home"), v39 = objc_claimAutoreleasedReturnValue(), v40 = [v39 hf_isCurrentLocationHome], v39, v40))
+    if (hf_remoteAccessState != 1 || (objc_msgSend_home(self), v39 = objc_claimAutoreleasedReturnValue(), v40 = [v39 hf_isCurrentLocationHome], v39, v40))
     {
       [(HFMutableItemUpdateOutcome *)v4 setObject:MEMORY[0x277CBEC38] forKeyedSubscript:@"hidden"];
       goto LABEL_22;
@@ -98,9 +98,9 @@ LABEL_21:
 
     v44 = objc_alloc(MEMORY[0x277CCA898]);
     v45 = _HFLocalizedStringWithDefaultValue(@"HFStatusDetailsNoRemoteAccessLearnMoreLink", @"HFStatusDetailsNoRemoteAccessLearnMoreLink", 1);
-    v53 = *MEMORY[0x277D740E8];
-    v54 = v19;
-    v46 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v54 forKeys:&v53 count:1];
+    v52 = *MEMORY[0x277D740E8];
+    v53 = v19;
+    v46 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v53 forKeys:&v52 count:1];
     v47 = [v44 initWithString:v45 attributes:v46];
     [v26 appendAttributedString:v47];
 
@@ -113,11 +113,11 @@ LABEL_21:
   v10 = _HFLocalizedStringWithDefaultValue(@"HFStatusDetailsNoRemoteAccessNotAtHomeTitle", @"HFStatusDetailsNoRemoteAccessNotAtHomeTitle", 1);
   [(HFMutableItemUpdateOutcome *)v4 setObject:v10 forKeyedSubscript:@"title"];
 
-  home2 = [(HFNoRemoteAccessStatusDetailsItem *)self home];
-  hf_hasAppleTVs = [home2 hf_hasAppleTVs];
+  v11 = objc_msgSend_home(self);
+  hf_hasAppleTVs = [v11 hf_hasAppleTVs];
 
-  home3 = [(HFNoRemoteAccessStatusDetailsItem *)self home];
-  hf_hasHomePods = [home3 hf_hasHomePods];
+  v13 = objc_msgSend_home(self);
+  hf_hasHomePods = [v13 hf_hasHomePods];
 
   if (hf_hasAppleTVs && hf_hasHomePods)
   {
@@ -140,12 +140,12 @@ LABEL_20:
     goto LABEL_20;
   }
 
-  v52 = HFLogForCategory(0x2CuLL);
-  if (os_log_type_enabled(v52, OS_LOG_TYPE_ERROR))
+  v51 = HFLogForCategory(0x2CuLL);
+  if (os_log_type_enabled(v51, OS_LOG_TYPE_ERROR))
   {
     *buf = 138412290;
     selfCopy = self;
-    _os_log_error_impl(&dword_20D9BF000, v52, OS_LOG_TYPE_ERROR, "%@ Asked to show 'No Remote Access' but there are no HomePods or Apple TVs in the home.", buf, 0xCu);
+    _os_log_error_impl(&dword_20D9BF000, v51, OS_LOG_TYPE_ERROR, "%@ Asked to show 'No Remote Access' but there are no HomePods or Apple TVs in the home.", buf, 0xCu);
   }
 
 LABEL_22:
@@ -153,8 +153,6 @@ LABEL_22:
   [(HFMutableItemUpdateOutcome *)v4 setObject:MEMORY[0x277CBEC38] forKeyedSubscript:@"remoteAccessDependency"];
   [(HFMutableItemUpdateOutcome *)v4 setObject:v48 forKeyedSubscript:@"currentHomeDependency"];
   v49 = [MEMORY[0x277D2C900] futureWithResult:v4];
-
-  v50 = *MEMORY[0x277D85DE8];
 
   return v49;
 }

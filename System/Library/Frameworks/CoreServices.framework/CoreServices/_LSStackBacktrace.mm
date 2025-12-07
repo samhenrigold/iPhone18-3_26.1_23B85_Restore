@@ -113,10 +113,9 @@
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v4 = [_LSStackBacktrace alloc];
-  v5 = self->_frames.__end_ - self->_frames.__begin_;
+  v3 = [_LSStackBacktrace alloc];
 
-  return [_LSStackBacktrace initWithFrames:v4 count:"initWithFrames:count:"];
+  return [_LSStackBacktrace initWithFrames:v3 count:"initWithFrames:count:"];
 }
 
 - (void)encodeWithCoder:(id)coder

@@ -14,7 +14,7 @@
   v8 = [(PKBankConnectProvisioningFlowManager *)&v12 init];
   if (v8)
   {
-    v9 = [objc_alloc(getFKBankConnectProvisioningFlowManagerClass[0]()) initWithPaymentPass:passCopy institution:institutionCopy];
+    v9 = [objc_alloc(getFKBankConnectProvisioningFlowManagerClass()) initWithPaymentPass:passCopy institution:institutionCopy];
     manager = v8->_manager;
     v8->_manager = v9;
   }

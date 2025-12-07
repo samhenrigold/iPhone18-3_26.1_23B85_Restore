@@ -400,7 +400,7 @@ uint64_t __46__SKUICircleProgressIndicator_didMoveToWindow__block_invoke(uint64_
   if (!_borderImage_image)
   {
     v3 = MEMORY[0x277D755B8];
-    v4 = SKUIBundle();
+    v4 = SKUIBundle(0, a2);
     v5 = [v3 imageNamed:@"DownloadProgressBorderThin" inBundle:v4];
     v6 = _borderImage_image;
     _borderImage_image = v5;
@@ -417,7 +417,7 @@ uint64_t __46__SKUICircleProgressIndicator_didMoveToWindow__block_invoke(uint64_
   if (!_fillImage_image)
   {
     v3 = MEMORY[0x277D755B8];
-    v4 = SKUIBundle();
+    v4 = SKUIBundle(0, a2);
     v5 = [v3 imageNamed:@"DownloadProgressBorderThick" inBundle:v4];
     v6 = _fillImage_image;
     _fillImage_image = v5;
@@ -434,7 +434,7 @@ uint64_t __46__SKUICircleProgressIndicator_didMoveToWindow__block_invoke(uint64_
   if (!_indeterminateImage_image)
   {
     v3 = MEMORY[0x277D755B8];
-    v4 = SKUIBundle();
+    v4 = SKUIBundle(0, a2);
     v5 = [v3 imageNamed:@"DownloadProgressBorderIndeterminate" inBundle:v4];
     v6 = _indeterminateImage_image;
     _indeterminateImage_image = v5;
@@ -479,7 +479,7 @@ uint64_t __46__SKUICircleProgressIndicator_didMoveToWindow__block_invoke(uint64_
   [MEMORY[0x277D75D18] animateKeyframesWithDuration:196616 delay:v4 options:0 animations:1.0 completion:0.0];
 }
 
-uint64_t __59__SKUICircleProgressIndicator__startIndeterminateAnimation__block_invoke(uint64_t a1)
+void *__59__SKUICircleProgressIndicator__startIndeterminateAnimation__block_invoke(uint64_t a1)
 {
   v2 = 0;
   v3 = MEMORY[0x277D85DD0];

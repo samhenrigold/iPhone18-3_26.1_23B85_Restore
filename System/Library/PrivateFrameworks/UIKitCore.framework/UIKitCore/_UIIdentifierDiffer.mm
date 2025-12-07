@@ -4,7 +4,7 @@
 - (id)description;
 - (id)initWithBeforeIdentifiers:(void *)identifiers afterIdentifiers:;
 - (id)initWithBeforeIdentifiers:(void *)identifiers afterIdentifiers:(void *)afterIdentifiers collectionDifference:;
-- (void)_performDiffWithOptions:(uint64_t)options;
+- (void)_performDiffWithOptions:(uint64_t)result;
 - (void)_performFoundationDiffWithOptions:(uint64_t)options;
 - (void)_prepareDiffResultsFromCollectionDifference:(void *)difference;
 - (void)deletedIndexes;
@@ -231,18 +231,18 @@
   return v8;
 }
 
-- (void)_performDiffWithOptions:(uint64_t)options
+- (void)_performDiffWithOptions:(uint64_t)result
 {
-  if (options)
+  if (result)
   {
-    if (*(options + 48))
+    if (*(result + 48))
     {
-      [(_UIIdentifierDiffer *)options _prepareDiffResultsFromCollectionDifference:?];
+      [(_UIIdentifierDiffer *)result _prepareDiffResultsFromCollectionDifference:?];
     }
 
     else
     {
-      [(_UIIdentifierDiffer *)options _performFoundationDiffWithOptions:a2];
+      [(_UIIdentifierDiffer *)result _performFoundationDiffWithOptions:a2];
     }
   }
 }
@@ -294,8 +294,8 @@
               v11 = v10;
               if (v10)
               {
-                *(v10 + 1) = index;
-                *(v10 + 2) = associatedIndex;
+                v10[1] = index;
+                v10[2] = associatedIndex;
               }
             }
 

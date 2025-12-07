@@ -171,16 +171,14 @@ LABEL_18:
 
 - (id)shortSharingTokenFromFullToken:(id)token
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   tokenCopy = token;
   v6 = objc_msgSend_UTF8String(tokenCopy, v4, v5, 0, 0, 0, 0);
   v8 = objc_msgSend_lengthOfBytesUsingEncoding_(tokenCopy, v7, 4);
 
-  CC_SHA256(v6, v8, &v16);
-  v10 = objc_msgSend_dataWithBytes_length_(MEMORY[0x277CBEA90], v9, &v16, 16);
+  CC_SHA256(v6, v8, &v15);
+  v10 = objc_msgSend_dataWithBytes_length_(MEMORY[0x277CBEA90], v9, &v15, 16);
   v13 = objc_msgSend_CKBase64URLSafeString(v10, v11, v12);
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v13;
 }
@@ -230,7 +228,7 @@ LABEL_18:
 
 - (void)_performAuthKitVerification
 {
-  v47 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   if (*MEMORY[0x277CBC880] != -1)
   {
     dispatch_once(MEMORY[0x277CBC880], *MEMORY[0x277CBC878]);
@@ -254,10 +252,10 @@ LABEL_18:
   *buf = 0;
   *&buf[8] = buf;
   *&buf[16] = 0x3032000000;
-  v44 = sub_2250740A0;
-  v45 = sub_2250735DC;
+  v43 = sub_2250740A0;
+  v44 = sub_2250735DC;
   selfCopy = self;
-  v46 = selfCopy;
+  v45 = selfCopy;
   v21 = objc_msgSend_stateTransitionGroup(selfCopy, v19, v20);
   dispatch_group_enter(v21);
 
@@ -267,22 +265,21 @@ LABEL_18:
   v33 = objc_msgSend_vettingEmail(selfCopy, v31, v32);
   v36 = objc_msgSend_vettingPhone(selfCopy, v34, v35);
   v39 = objc_msgSend_container(selfCopy, v37, v38);
-  v42[0] = MEMORY[0x277D85DD0];
-  v42[1] = 3221225472;
-  v42[2] = sub_22522B288;
-  v42[3] = &unk_27854A858;
-  v42[4] = selfCopy;
-  v42[5] = buf;
-  v42[6] = a2;
-  objc_msgSend_validateVettingToken_vettingEmail_vettingPhone_container_completionHandler_(v27, v40, v30, v33, v36, v39, v42);
+  v41[0] = MEMORY[0x277D85DD0];
+  v41[1] = 3221225472;
+  v41[2] = sub_22522B288;
+  v41[3] = &unk_27854A858;
+  v41[4] = selfCopy;
+  v41[5] = buf;
+  v41[6] = a2;
+  objc_msgSend_validateVettingToken_vettingEmail_vettingPhone_container_completionHandler_(v27, v40, v30, v33, v36, v39, v41);
 
   _Block_object_dispose(buf, 8);
-  v41 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_forceFetchShareMetadata
 {
-  v25[1] = *MEMORY[0x277D85DE8];
+  v24[1] = *MEMORY[0x277D85DE8];
   v3 = objc_opt_new();
   v4 = MEMORY[0x277CBEBC0];
   v5 = MEMORY[0x277CCACA8];
@@ -292,20 +289,18 @@ LABEL_18:
   v14 = objc_msgSend_stringWithFormat_(v5, v13, @"https://%@/share/%@%@", v6, v9, v12);
   v16 = objc_msgSend_URLWithString_(v4, v15, v14);
 
-  v25[0] = v16;
-  v18 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v17, v25, 1);
+  v24[0] = v16;
+  v18 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v17, v24, 1);
   objc_msgSend_setShareURLsToFetch_(v3, v19, v18);
 
   objc_msgSend_setShouldFetchRootRecord_(v3, v20, 0);
   v21 = objc_opt_class();
-  v24[0] = MEMORY[0x277D85DD0];
-  v24[1] = 3221225472;
-  v24[2] = sub_22522B650;
-  v24[3] = &unk_278548B60;
-  v24[4] = self;
-  objc_msgSend_spawnAndRunOperationOfClass_operationInfo_operationConfigurationBlock_(self, v22, v21, v3, v24);
-
-  v23 = *MEMORY[0x277D85DE8];
+  v23[0] = MEMORY[0x277D85DD0];
+  v23[1] = 3221225472;
+  v23[2] = sub_22522B650;
+  v23[3] = &unk_278548B60;
+  v23[4] = self;
+  objc_msgSend_spawnAndRunOperationOfClass_operationInfo_operationConfigurationBlock_(self, v22, v21, v3, v23);
 }
 
 - (void)_reconstructShareURL
@@ -339,24 +334,14 @@ LABEL_18:
 
 - (void)_verifyOONParticipant
 {
-  v105 = *MEMORY[0x277D85DE8];
+  v104 = *MEMORY[0x277D85DE8];
   v5 = objc_msgSend_shareMetadata(self, a2, v2);
   v8 = objc_msgSend_callingParticipant(v5, v6, v7);
   v11 = objc_msgSend_privateToken(v5, v9, v10);
-  if (!v11)
+  if (v11 && (v14 = v11, objc_msgSend_callingParticipant(v5, v12, v13), v15 = objc_claimAutoreleasedReturnValue(), objc_msgSend_userIdentity(v15, v16, v17), v18 = objc_claimAutoreleasedReturnValue(), objc_msgSend_outOfNetworkPrivateKey(v18, v19, v20), v21 = objc_claimAutoreleasedReturnValue(), v21, v18, v15, v14, v21))
   {
-    goto LABEL_5;
-  }
-
-  v14 = v11;
-  v15 = objc_msgSend_callingParticipant(v5, v12, v13);
-  v18 = objc_msgSend_userIdentity(v15, v16, v17);
-  v21 = objc_msgSend_outOfNetworkPrivateKey(v18, v19, v20);
-
-  if (v21)
-  {
-    v90 = a2;
-    v93 = v8;
+    v89 = a2;
+    v92 = v8;
     v24 = objc_msgSend_container(self, v22, v23);
     v27 = objc_msgSend_pcsManager(v24, v25, v26);
     v30 = objc_msgSend_callingParticipant(v5, v28, v29);
@@ -365,42 +350,42 @@ LABEL_18:
     v39 = objc_msgSend_privateToken(v5, v37, v38);
     v42 = objc_msgSend_callingParticipant(v5, v40, v41);
     objc_msgSend_protectionInfo(v42, v43, v44);
-    v45 = v91 = self;
-    v98 = 0;
-    v47 = objc_msgSend_createProtectionInfoFromOONPrivateKey_privateToken_OONProtectionInfo_error_(v27, v46, v36, v39, v45, &v98);
-    v92 = v98;
+    v45 = v90 = self;
+    v97 = 0;
+    v47 = objc_msgSend_createProtectionInfoFromOONPrivateKey_privateToken_OONProtectionInfo_error_(v27, v46, v36, v39, v45, &v97);
+    v91 = v97;
 
     if (v47)
     {
-      v50 = objc_msgSend_stateTransitionGroup(v91, v48, v49);
+      v50 = objc_msgSend_stateTransitionGroup(v90, v48, v49);
       dispatch_group_enter(v50);
 
-      v53 = objc_msgSend_container(v91, v51, v52);
+      v53 = objc_msgSend_container(v90, v51, v52);
       v56 = objc_msgSend_pcsManager(v53, v54, v55);
       v59 = objc_msgSend_share(v5, v57, v58);
       v62 = objc_msgSend_invitedProtectionData(v59, v60, v61);
-      v94[0] = MEMORY[0x277D85DD0];
-      v94[1] = 3221225472;
-      v94[2] = sub_22522C1C0;
-      v94[3] = &unk_27854A8A8;
-      v97 = v90;
-      v94[4] = v91;
-      v8 = v93;
-      v95 = v93;
-      v96 = v5;
-      objc_msgSend_canDecryptInvitedProtectionData_participantProtectionInfo_serviceType_completionHandler_(v56, v63, v62, v47, 2, v94);
+      v93[0] = MEMORY[0x277D85DD0];
+      v93[1] = 3221225472;
+      v93[2] = sub_22522C1C0;
+      v93[3] = &unk_27854A8A8;
+      v96 = v89;
+      v93[4] = v90;
+      v8 = v92;
+      v94 = v92;
+      v95 = v5;
+      objc_msgSend_canDecryptInvitedProtectionData_participantProtectionInfo_serviceType_completionHandler_(v56, v63, v62, v47, 2, v93);
 
-      v64 = v92;
+      v64 = v91;
     }
 
     else
     {
-      v64 = v92;
-      v8 = v93;
-      if (!v92)
+      v64 = v91;
+      v8 = v92;
+      if (!v91)
       {
-        v88 = objc_msgSend_currentHandler(MEMORY[0x277CCA890], v48, v49);
-        objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v88, v89, v90, v91, @"CKDCompleteParticipantVettingOperation.m", 290, @"OON key-swap failed, but without error");
+        v87 = objc_msgSend_currentHandler(MEMORY[0x277CCA890], v48, v49);
+        objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v87, v88, v89, v90, @"CKDCompleteParticipantVettingOperation.m", 290, @"OON key-swap failed, but without error");
       }
 
       if (*MEMORY[0x277CBC880] != -1)
@@ -408,30 +393,29 @@ LABEL_18:
         dispatch_once(MEMORY[0x277CBC880], *MEMORY[0x277CBC878]);
       }
 
-      v74 = *MEMORY[0x277CBC830];
+      v73 = *MEMORY[0x277CBC830];
       if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_ERROR))
       {
-        v78 = v74;
-        v81 = objc_msgSend_participantID(v93, v79, v80);
-        v84 = objc_msgSend_share(v5, v82, v83);
-        v87 = objc_msgSend_recordID(v84, v85, v86);
+        v77 = v73;
+        v80 = objc_msgSend_participantID(v92, v78, v79);
+        v83 = objc_msgSend_share(v5, v81, v82);
+        v86 = objc_msgSend_recordID(v83, v84, v85);
         *buf = 138412802;
-        v100 = v81;
-        v101 = 2112;
-        v102 = v87;
-        v103 = 2112;
-        v104 = v92;
-        _os_log_error_impl(&dword_22506F000, v78, OS_LOG_TYPE_ERROR, "Failed to create protection info in OON key-swap for participantID: %@, recordID: %@, error: %@", buf, 0x20u);
+        v99 = v80;
+        v100 = 2112;
+        v101 = v86;
+        v102 = 2112;
+        v103 = v91;
+        _os_log_error_impl(&dword_22506F000, v77, OS_LOG_TYPE_ERROR, "Failed to create protection info in OON key-swap for participantID: %@, recordID: %@, error: %@", buf, 0x20u);
       }
 
-      v76 = objc_msgSend_errorWithDomain_code_error_format_(MEMORY[0x277CBC560], v75, *MEMORY[0x277CBC120], 8009, v92, @"Dryrun OON keyswap failed");
-      objc_msgSend_setError_(v91, v77, v76);
+      v75 = objc_msgSend_errorWithDomain_code_error_format_(MEMORY[0x277CBC560], v74, *MEMORY[0x277CBC120], 8009, v91, @"Dryrun OON keyswap failed");
+      objc_msgSend_setError_(v90, v76, v75);
     }
   }
 
   else
   {
-LABEL_5:
     if (*MEMORY[0x277CBC880] != -1)
     {
       dispatch_once(MEMORY[0x277CBC880], *MEMORY[0x277CBC878]);
@@ -449,15 +433,13 @@ LABEL_5:
       }
 
       *buf = 136315138;
-      v100 = v71;
+      v99 = v71;
       _os_log_impl(&dword_22506F000, v67, OS_LOG_TYPE_INFO, "OON keyswap: Not swapping OON keys as %s is missing", buf, 0xCu);
     }
 
     v64 = objc_msgSend_errorWithDomain_code_format_(MEMORY[0x277CBC560], v66, *MEMORY[0x277CBC120], 8009, @"We don't have the necessary keys to perform an OON key swap");
     objc_msgSend_setError_(self, v72, v64);
   }
-
-  v73 = *MEMORY[0x277D85DE8];
 }
 
 - (void)main

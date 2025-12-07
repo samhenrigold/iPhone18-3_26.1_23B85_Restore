@@ -59,19 +59,19 @@
 
 - (void)_queue_start
 {
-  v38 = *MEMORY[0x277D85DE8];
-  v32.receiver = self;
-  v32.super_class = HDMHValenceDistributionSummaryQueryServer;
-  [(HDQueryServer *)&v32 _queue_start];
+  v37 = *MEMORY[0x277D85DE8];
+  v31.receiver = self;
+  v31.super_class = HDMHValenceDistributionSummaryQueryServer;
+  [(HDQueryServer *)&v31 _queue_start];
   clientProxy = [(HDQueryServer *)self clientProxy];
   remoteObjectProxy = [clientProxy remoteObjectProxy];
 
   client = [(HDQueryServer *)self client];
   authorizationOracle = [client authorizationOracle];
   objectTypes = [(HDMHValenceDistributionSummaryQueryServer *)self objectTypes];
-  v31 = 0;
-  v8 = [authorizationOracle authorizationStatusRecordsForTypes:objectTypes error:&v31];
-  v9 = v31;
+  v30 = 0;
+  v8 = [authorizationOracle authorizationStatusRecordsForTypes:objectTypes error:&v30];
+  v9 = v30;
 
   if (!v8)
   {
@@ -80,12 +80,12 @@
     goto LABEL_19;
   }
 
-  v29 = 0u;
-  v30 = 0u;
-  v27 = 0u;
   v28 = 0u;
+  v29 = 0u;
+  v26 = 0u;
+  v27 = 0u;
   allValues = [v8 allValues];
-  v11 = [allValues countByEnumeratingWithState:&v27 objects:v37 count:16];
+  v11 = [allValues countByEnumeratingWithState:&v26 objects:v36 count:16];
   if (!v11)
   {
 
@@ -93,34 +93,34 @@ LABEL_18:
     queryUUID = [MEMORY[0x277D106B8] contextForReadingProtectedData];
     profile = [(HDQueryServer *)self profile];
     database = [profile database];
-    v25[4] = self;
-    v26 = v9;
-    v25[0] = MEMORY[0x277D85DD0];
-    v25[1] = 3221225472;
-    v25[2] = __57__HDMHValenceDistributionSummaryQueryServer__queue_start__block_invoke;
-    v25[3] = &unk_2798AABE8;
-    [database performTransactionWithContext:queryUUID error:&v26 block:v25 inaccessibilityHandler:0];
-    v23 = v26;
+    v24[4] = self;
+    v25 = v9;
+    v24[0] = MEMORY[0x277D85DD0];
+    v24[1] = 3221225472;
+    v24[2] = __57__HDMHValenceDistributionSummaryQueryServer__queue_start__block_invoke;
+    v24[3] = &unk_2798AABE8;
+    [database performTransactionWithContext:queryUUID error:&v25 block:v24 inaccessibilityHandler:0];
+    v23 = v25;
 
     v9 = v23;
     goto LABEL_19;
   }
 
   v12 = v11;
-  v13 = *v28;
+  v13 = *v27;
   canRead = 1;
   do
   {
     for (i = 0; i != v12; ++i)
     {
-      if (*v28 != v13)
+      if (*v27 != v13)
       {
         objc_enumerationMutation(allValues);
       }
 
       if (canRead)
       {
-        canRead = [*(*(&v27 + 1) + 8 * i) canRead];
+        canRead = [*(*(&v26 + 1) + 8 * i) canRead];
       }
 
       else
@@ -129,7 +129,7 @@ LABEL_18:
       }
     }
 
-    v12 = [allValues countByEnumeratingWithState:&v27 objects:v37 count:16];
+    v12 = [allValues countByEnumeratingWithState:&v26 objects:v36 count:16];
   }
 
   while (v12);
@@ -146,9 +146,9 @@ LABEL_18:
     v17 = v16;
     v18 = objc_opt_class();
     *buf = 138543618;
-    v34 = v18;
-    v35 = 2114;
-    v36 = v8;
+    v33 = v18;
+    v34 = 2114;
+    v35 = v8;
     v19 = v18;
     _os_log_impl(&dword_258977000, v17, OS_LOG_TYPE_DEFAULT, "[%{public}@] Avoiding exposing health data due to missing authorization: %{public}@", buf, 0x16u);
   }
@@ -156,8 +156,6 @@ LABEL_18:
   queryUUID = [(HDQueryServer *)self queryUUID];
   [remoteObjectProxy client_deliverValenceDistributionSummaries:MEMORY[0x277CBEBF8] clearPending:0 isFinalBatch:1 queryUUID:queryUUID];
 LABEL_19:
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_queue_surfaceValenceDistributionSummariesWithError:(id *)error

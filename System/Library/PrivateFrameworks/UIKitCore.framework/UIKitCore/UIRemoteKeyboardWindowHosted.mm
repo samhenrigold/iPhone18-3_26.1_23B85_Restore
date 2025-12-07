@@ -37,7 +37,7 @@
 void __57__UIRemoteKeyboardWindowHosted__isHostedInAnotherProcess__block_invoke()
 {
   v0 = _UIMainBundleIdentifier();
-  byte_1ED499712 = [v0 isEqualToString:@"com.apple.InCallService"];
+  byte_1ED499712 = objc_msgSend_isEqualToString_(v0);
 }
 
 - (double)_adjustedWindowLevelFromLevel:(double)level

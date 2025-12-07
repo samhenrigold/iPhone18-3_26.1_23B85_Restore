@@ -60,7 +60,7 @@ void __74__ICQDelayedOfferFailsafeActivityController__runWithDaemon_errorCallbac
 
 + (void)startActivityWithDelaySecs:(int64_t)secs completion:(id)completion
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   v7 = _ICQGetLogSystem();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
@@ -70,16 +70,14 @@ void __74__ICQDelayedOfferFailsafeActivityController__runWithDaemon_errorCallbac
     _os_log_impl(&dword_275572000, v7, OS_LOG_TYPE_DEFAULT, "[SUBD] Delayed offer failsafe will trigger in [%lld secs].", buf, 0xCu);
   }
 
-  v10[0] = MEMORY[0x277D85DD0];
-  v10[1] = 3221225472;
-  v10[2] = __83__ICQDelayedOfferFailsafeActivityController_startActivityWithDelaySecs_completion___block_invoke;
-  v10[3] = &unk_27A652EB8;
-  v11 = completionCopy;
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v9[2] = __83__ICQDelayedOfferFailsafeActivityController_startActivityWithDelaySecs_completion___block_invoke;
+  v9[3] = &unk_27A652EB8;
+  v10 = completionCopy;
   secsCopy2 = secs;
   v8 = completionCopy;
-  [self _runWithDaemon:v10 errorCallback:v8];
-
-  v9 = *MEMORY[0x277D85DE8];
+  [self _runWithDaemon:v9 errorCallback:v8];
 }
 
 void __83__ICQDelayedOfferFailsafeActivityController_startActivityWithDelaySecs_completion___block_invoke(uint64_t a1, void *a2)
@@ -96,7 +94,7 @@ void __83__ICQDelayedOfferFailsafeActivityController_startActivityWithDelaySecs_
 
 void __83__ICQDelayedOfferFailsafeActivityController_startActivityWithDelaySecs_completion___block_invoke_2(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = _ICQGetLogSystem();
   v5 = v4;
@@ -111,13 +109,12 @@ void __83__ICQDelayedOfferFailsafeActivityController_startActivityWithDelaySecs_
   else if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v6 = *(a1 + 40);
-    v8 = 134217984;
-    v9 = v6;
-    _os_log_impl(&dword_275572000, v5, OS_LOG_TYPE_DEFAULT, "[SUBD] Successfully installed failsafe activity with delaySecs=[%lld].", &v8, 0xCu);
+    v7 = 134217984;
+    v8 = v6;
+    _os_log_impl(&dword_275572000, v5, OS_LOG_TYPE_DEFAULT, "[SUBD] Successfully installed failsafe activity with delaySecs=[%lld].", &v7, 0xCu);
   }
 
   (*(*(a1 + 32) + 16))();
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 + (void)stopActivityWithCompletion:(id)completion
@@ -173,32 +170,29 @@ void __72__ICQDelayedOfferFailsafeActivityController_stopActivityWithCompletion_
 
 void __74__ICQDelayedOfferFailsafeActivityController__runWithDaemon_errorCallback___block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_275572000, a2, OS_LOG_TYPE_ERROR, "[SUBD] XPC Error while fetching daemon for failsafe activity. error=[%@]", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_275572000, a2, OS_LOG_TYPE_ERROR, "[SUBD] XPC Error while fetching daemon for failsafe activity. error=[%@]", &v2, 0xCu);
 }
 
 void __83__ICQDelayedOfferFailsafeActivityController_startActivityWithDelaySecs_completion___block_invoke_2_cold_1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = *(a1 + 40);
-  v5 = 134218242;
-  v6 = v3;
-  v7 = 2112;
-  v8 = a2;
-  _os_log_error_impl(&dword_275572000, log, OS_LOG_TYPE_ERROR, "[SUBD] Failed to install failsafe activity with delaySecs=[%lld] with error=[%@]", &v5, 0x16u);
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 134218242;
+  v5 = v3;
+  v6 = 2112;
+  v7 = a2;
+  _os_log_error_impl(&dword_275572000, log, OS_LOG_TYPE_ERROR, "[SUBD] Failed to install failsafe activity with delaySecs=[%lld] with error=[%@]", &v4, 0x16u);
 }
 
 void __72__ICQDelayedOfferFailsafeActivityController_stopActivityWithCompletion___block_invoke_2_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_275572000, a2, OS_LOG_TYPE_ERROR, "[SUBD] Failed to stop the failsafe activity with error=[%@].", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_275572000, a2, OS_LOG_TYPE_ERROR, "[SUBD] Failed to stop the failsafe activity with error=[%@].", &v2, 0xCu);
 }
 
 @end

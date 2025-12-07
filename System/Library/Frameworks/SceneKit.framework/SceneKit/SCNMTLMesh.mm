@@ -4,7 +4,6 @@
 - (uint64_t)buffers;
 - (uint64_t)elements;
 - (uint64_t)setMutabilityTimestamp:(uint64_t)result;
-- (uint64_t)setVertexDescriptor:(uint64_t)result;
 - (uint64_t)setVerticesCount:(uint64_t)result;
 - (uint64_t)setVolatileOffset:(uint64_t)result;
 - (uint64_t)setVolatileSize:(uint64_t)result;
@@ -18,6 +17,7 @@
 - (void)dealloc;
 - (void)setBuffers:(void *)buffers;
 - (void)setElements:(void *)elements;
+- (void)setVertexDescriptor:(void *)result;
 - (void)setVolatileBuffer:(void *)buffer;
 - (void)tessellationVertexDescriptor;
 - (void)tessellationVertexDescriptorHash;
@@ -27,29 +27,9 @@
 
 - (void)buildTessellationVertexDescriptorIfNeeded
 {
-  if (!self->_tessellationVertexDescriptor)
-  {
-    v16 = v3;
-    v17 = v2;
-    if (!self->_vertexDescriptor)
-    {
-      v7 = scn_default_log();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
-      {
-        [(SCNMTLMesh *)v7 buildTessellationVertexDescriptorIfNeeded:v8];
-      }
-    }
-
-    v15 = 0;
-    self->_tessellationVertexDescriptor = [(MTLVertexDescriptor *)self->_vertexDescriptor copy:v16];
-    do
-    {
-      [[(MTLVertexBufferLayoutDescriptorArray *)[(MTLVertexDescriptor *)self->_tessellationVertexDescriptor layouts] objectAtIndexedSubscript:v15++] setStepFunction:4];
-    }
-
-    while (v15 != 31);
-    self->_tessellationVertexDescriptorHash = [(MTLVertexDescriptor *)self->_tessellationVertexDescriptor hash];
-  }
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "_vertexDescriptor";
+  OUTLINED_FUNCTION_0(&dword_21BEF7000, self, a3, "Assertion '%s' failed. Null argument", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (id)description
@@ -135,18 +115,18 @@
   [(SCNMTLMesh *)&v3 dealloc];
 }
 
-- (uint64_t)setVertexDescriptor:(uint64_t)result
+- (void)setVertexDescriptor:(void *)result
 {
   if (result)
   {
     v3 = result;
-    v4 = *(result + 16);
+    v4 = result[2];
     if (v4 != a2)
     {
 
-      *(v3 + 16) = [a2 copy];
+      v3[2] = [a2 copy];
       result = [a2 hash];
-      *(v3 + 32) = result;
+      v3[4] = result;
     }
   }
 
@@ -157,17 +137,19 @@
 {
   if (result)
   {
-    v1 = result;
+    v2 = result;
     if (!*(result + 16))
     {
-      v2 = scn_default_log();
-      if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
+      v3 = scn_default_log(result, a2);
+      if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
       {
-        OUTLINED_FUNCTION_4_2(&dword_21BEF7000, v3, v4, "Assertion '%s' failed. Null argument", v5, v6, v7, v8, 2u);
+        LODWORD(v10) = 136315138;
+        *(&v10 + 4) = "_vertexDescriptor";
+        OUTLINED_FUNCTION_4_2(&dword_21BEF7000, v4, v5, "Assertion '%s' failed. Null argument", v6, v7, v8, v9, v10, DWORD2(v10));
       }
     }
 
-    return *(v1 + 32);
+    return *(v2 + 32);
   }
 
   return result;

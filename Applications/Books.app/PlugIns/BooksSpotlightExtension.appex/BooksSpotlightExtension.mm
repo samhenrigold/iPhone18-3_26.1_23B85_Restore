@@ -1,6 +1,6 @@
-void sub_100001428(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_100001428(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -57,23 +57,23 @@ id sub_100001440(void *a1, void *a2)
   return v13;
 }
 
-void sub_10000172C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_10000172C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
+  va_start(va, a22);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-id sub_100001864()
+id sub_100001864(uint64_t a1)
 {
   if (qword_100008248 != -1)
   {
     sub_100001E04();
   }
 
-  v1 = qword_100008240;
+  v2 = qword_100008240;
 
-  return v1;
+  return v2;
 }
 
 void sub_1000018A8(id a1)
@@ -93,12 +93,13 @@ uint64_t sub_1000018EC(uint64_t result, uint64_t a2)
 intptr_t sub_100001910(uint64_t a1)
 {
   v2 = (a1 + 32);
-  if (![*(a1 + 32) count] || objc_msgSend(*v2, "count") >= 2)
+  v3 = [*(a1 + 32) count];
+  if (!v3 || (v3 = [*v2 count], v3 >= 2))
   {
-    v3 = sub_100001864();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
+    v4 = sub_100001864(v3);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
     {
-      sub_100001E18(v2, v3);
+      sub_100001E18(v2, v4);
     }
   }
 
@@ -107,84 +108,84 @@ intptr_t sub_100001910(uint64_t a1)
     return dispatch_semaphore_signal(*(a1 + 40));
   }
 
-  v4 = [*(a1 + 32) firstObject];
-  v5 = *(*(a1 + 48) + 8);
-  v6 = *(v5 + 40);
-  *(v5 + 40) = v4;
+  v5 = [*(a1 + 32) firstObject];
+  v6 = *(*(a1 + 48) + 8);
+  v7 = *(v6 + 40);
+  *(v6 + 40) = v5;
 
   if ([*(a1 + 32) count] < 2)
   {
     return dispatch_semaphore_signal(*(a1 + 40));
   }
 
-  v24 = 0u;
   v25 = 0u;
-  v22 = 0u;
+  v26 = 0u;
   v23 = 0u;
+  v24 = 0u;
   obj = *v2;
-  v7 = [obj countByEnumeratingWithState:&v22 objects:v26 count:16];
-  if (!v7)
+  v8 = [obj countByEnumeratingWithState:&v23 objects:v27 count:16];
+  if (!v8)
   {
     goto LABEL_26;
   }
 
-  v8 = v7;
-  v9 = *v23;
+  v9 = v8;
+  v10 = *v24;
   while (2)
   {
-    for (i = 0; i != v8; i = i + 1)
+    for (i = 0; i != v9; i = i + 1)
     {
-      if (*v23 != v9)
+      if (*v24 != v10)
       {
         objc_enumerationMutation(obj);
       }
 
-      v11 = *(*(&v22 + 1) + 8 * i);
-      v12 = [v11 attributeSet];
-      v13 = [v12 contentType];
-      if ([v13 length])
+      v12 = *(*(&v23 + 1) + 8 * i);
+      v13 = [v12 attributeSet];
+      v14 = [v13 contentType];
+      if ([v14 length])
       {
         goto LABEL_24;
       }
 
-      v14 = [v12 attributeForKey:@"com_apple_iBooks_storeURL"];
-      if (v14)
+      v15 = [v13 attributeForKey:@"com_apple_iBooks_storeURL"];
+      if (v15)
       {
-        v15 = v14;
+        v16 = v15;
 LABEL_23:
 
 LABEL_24:
 LABEL_25:
-        objc_storeStrong((*(*(a1 + 48) + 8) + 40), v11);
+        objc_storeStrong((*(*(a1 + 48) + 8) + 40), v12);
 
         goto LABEL_26;
       }
 
-      v15 = [v12 attributeForKey:@"com_apple_iBooks_localFileURL"];
-      if (v15)
-      {
-        goto LABEL_23;
-      }
-
-      v16 = [v12 contentURL];
+      v16 = [v13 attributeForKey:@"com_apple_iBooks_localFileURL"];
       if (v16)
       {
+        goto LABEL_23;
+      }
+
+      v17 = [v13 contentURL];
+      if (v17)
+      {
 
         goto LABEL_23;
       }
 
-      v17 = [v12 fileSize];
-      [v17 doubleValue];
-      v19 = v18;
+      v18 = [v13 fileSize];
+      [v18 doubleValue];
+      v20 = v19;
 
-      if (v19 > 0.0)
+      if (v20 > 0.0)
       {
         goto LABEL_25;
       }
     }
 
-    v8 = [obj countByEnumeratingWithState:&v22 objects:v26 count:16];
-    if (v8)
+    v9 = [obj countByEnumeratingWithState:&v23 objects:v27 count:16];
+    if (v9)
     {
       continue;
     }

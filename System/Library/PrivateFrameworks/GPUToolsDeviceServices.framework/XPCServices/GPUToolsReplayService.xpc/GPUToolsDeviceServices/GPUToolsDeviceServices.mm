@@ -106,10 +106,7 @@ uint64_t sub_100000D14(uint64_t a1)
   {
   }
 
-  v5 = os_log_create(*v2, v2[1]);
-  v6 = *(a1 + 32);
-  v7 = *(v6 + 16);
-  *(v6 + 16) = v5;
+  *(*(a1 + 32) + 16) = os_log_create(*v2, v2[1]);
 
   return _objc_release_x1();
 }
@@ -154,7 +151,7 @@ uint64_t **sub_100000DE8(unint64_t *a1, unint64_t a2)
     pthread_mutex_lock((v8 + 8));
   }
 
-  v10 = (a1 + 5);
+  v10 = a1 + 5;
   v9 = *a1;
   if (v5 <= *a1)
   {
@@ -226,7 +223,7 @@ uint64_t **sub_100000DE8(unint64_t *a1, unint64_t a2)
       *a1 = v9;
     }
 
-    v12 = (*(v6 + 4) + 1);
+    v12 = (*(v6 + 16) + 1);
 LABEL_41:
     v25 = a1[2] + v12;
     if (v25 >= a1[1])
@@ -250,7 +247,7 @@ LABEL_41:
     goto LABEL_28;
   }
 
-  v11 = *(v6 + 4);
+  v11 = *(v6 + 16);
   if (v5 <= v11)
   {
 LABEL_17:
@@ -268,7 +265,7 @@ LABEL_17:
       break;
     }
 
-    v11 = *(v6 + 4);
+    v11 = *(v6 + 16);
     if (v5 <= v11)
     {
       goto LABEL_17;
@@ -290,7 +287,7 @@ LABEL_28:
     *(v20 + 32) = v20 + v2;
 LABEL_45:
     *v6 = 0;
-    v6[3] = (v6 + 5);
+    *(v6 + 24) = v6 + 40;
   }
 
   return v6;
@@ -467,7 +464,7 @@ uint64_t *sub_1000011C4(uint64_t *result, uint64_t a2, uint64_t a3, uint64_t a4)
     result = result[5];
     if (result)
     {
-      *(v7 + 40) = *result;
+      v7[5] = *result;
     }
 
     else
@@ -477,9 +474,9 @@ uint64_t *sub_1000011C4(uint64_t *result, uint64_t a2, uint64_t a3, uint64_t a4)
 
     result[2] = a3;
     result[3] = a4;
-    *result = *(v7 + 32);
+    *result = v7[4];
     result[1] = a2;
-    *(v7 + 32) = result;
+    v7[4] = result;
   }
 
   return result;

@@ -390,14 +390,14 @@ void __36__OKProducer__continueLiveAuthoring__block_invoke(id *a1)
   }
 }
 
-uint64_t __36__OKProducer__continueLiveAuthoring__block_invoke_2(uint64_t a1, _BYTE *a2)
+void *__36__OKProducer__continueLiveAuthoring__block_invoke_2(uint64_t a1, _BYTE *a2)
 {
   result = [*(a1 + 32) isCancelled];
   *a2 = result;
   return result;
 }
 
-uint64_t __36__OKProducer__continueLiveAuthoring__block_invoke_3(uint64_t a1)
+void *__36__OKProducer__continueLiveAuthoring__block_invoke_3(uint64_t a1)
 {
   result = [*(a1 + 32) isCancelled];
   if ((result & 1) == 0)

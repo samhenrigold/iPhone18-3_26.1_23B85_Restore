@@ -46,20 +46,19 @@
 
 - (BOOL)respondsToSelector:(SEL)selector
 {
-  target = self->_target;
   if (objc_opt_respondsToSelector())
   {
     return 1;
   }
 
-  v7.receiver = self;
-  v7.super_class = FPExceptionToErrorProxy;
-  return [(FPExceptionToErrorProxy *)&v7 respondsToSelector:selector];
+  v6.receiver = self;
+  v6.super_class = FPExceptionToErrorProxy;
+  return [(FPExceptionToErrorProxy *)&v6 respondsToSelector:selector];
 }
 
 - (id)errorFromException:(id)exception whileSendingToSelector:(SEL)selector
 {
-  v25[1] = *MEMORY[0x1E69E9840];
+  v24[1] = *MEMORY[0x1E69E9840];
   exceptionCopy = exception;
   v7 = [exceptionCopy debugDescription];
   newlineCharacterSet = [MEMORY[0x1E696AB08] newlineCharacterSet];
@@ -85,23 +84,18 @@
 
   v18 = MEMORY[0x1E696ABC0];
   v19 = *MEMORY[0x1E696A250];
-  v24 = *MEMORY[0x1E696A278];
-  v25[0] = v17;
-  v20 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v25 forKeys:&v24 count:1];
+  v23 = *MEMORY[0x1E696A278];
+  v24[0] = v17;
+  v20 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v24 forKeys:&v23 count:1];
   v21 = [v18 errorWithDomain:v19 code:4099 userInfo:v20];
-
-  v22 = *MEMORY[0x1E69E9840];
 
   return v21;
 }
 
 - (void)forwardInvocation:(id)invocation
 {
-  v6 = *MEMORY[0x1E69E9840];
   invocationCopy = invocation;
   __FP_EXCEPTION_TO_ERROR_PROXY_CALLING_OUT__(invocationCopy, self->_target);
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __45__FPExceptionToErrorProxy_forwardInvocation___block_invoke()

@@ -11,7 +11,7 @@
   recognizerCopy = recognizer;
   gestureRecognizerCopy = gestureRecognizer;
   selfCopy = self;
-  v9 = sub_21ED27784();
+  v9 = sub_21ED27784(recognizerCopy, gestureRecognizerCopy);
 
   return v9 & 1;
 }

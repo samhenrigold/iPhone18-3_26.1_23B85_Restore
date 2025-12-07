@@ -349,7 +349,7 @@
   v55 = view3;
   if (view3)
   {
-    [view3 transform];
+    objc_msgSend_transform(view3);
   }
 
   else
@@ -465,12 +465,12 @@
 
     if (v16 <= 0.0)
     {
-      v18 = BCCardModelLog();
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+      v19 = BCCardModelLog(v17);
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
       {
-        v62 = 134217984;
-        v63 = v16;
-        _os_log_impl(&dword_0, v18, OS_LOG_TYPE_DEFAULT, "In updateCardSize, addExtra:YES. Resulting height (%f) is <= 0, so not adjusting frame.", &v62, 0xCu);
+        v63 = 134217984;
+        v64 = v16;
+        _os_log_impl(&dword_0, v19, OS_LOG_TYPE_DEFAULT, "In updateCardSize, addExtra:YES. Resulting height (%f) is <= 0, so not adjusting frame.", &v63, 0xCu);
       }
     }
 
@@ -482,20 +482,20 @@
   }
 
   CGRectGetCenterNoRounding();
-  v21 = v19;
   v22 = v20;
+  v23 = v21;
   cardView = [sizeCopy cardView];
-  [cardView setCenter:{v21, v22}];
+  [cardView setCenter:{v22, v23}];
 
   cardView2 = [sizeCopy cardView];
   [cardView2 bounds];
   CGRectMakeWithOriginSize();
-  v26 = v25;
-  v28 = v27;
-  v30 = v29;
-  v32 = v31;
+  v27 = v26;
+  v29 = v28;
+  v31 = v30;
+  v33 = v32;
   cardView3 = [sizeCopy cardView];
-  [cardView3 setBounds:{v26, v28, v30, v32}];
+  [cardView3 setBounds:{v27, v29, v31, v33}];
 
   configuration4 = [sizeCopy configuration];
   if (![configuration4 cardsCanExpand])
@@ -514,11 +514,11 @@ LABEL_15:
     CGRectMakeWithSize();
 
     CGRectGetCenterNoRounding();
-    v47 = v46;
-    v49 = v48;
+    v48 = v47;
+    v50 = v49;
     cardNavigationController = [sizeCopy cardNavigationController];
     view3 = [cardNavigationController view];
-    [view3 setCenter:{v47, v49}];
+    [view3 setCenter:{v48, v50}];
 
     cardNavigationController2 = [sizeCopy cardNavigationController];
     view4 = [cardNavigationController2 view];
@@ -530,24 +530,24 @@ LABEL_15:
   [cardSetViewController2 scaledContractedOffset];
 
   CGRectGetCenterNoRounding();
-  v38 = v37;
-  v40 = v39;
+  v39 = v38;
+  v41 = v40;
   cardNavigationController3 = [sizeCopy cardNavigationController];
   view5 = [cardNavigationController3 view];
-  [view5 setCenter:{v38, v40}];
+  [view5 setCenter:{v39, v41}];
 
   cardNavigationController2 = [sizeCopy cardNavigationController];
   view4 = [cardNavigationController2 view];
   [view4 bounds];
 LABEL_16:
   CGRectMakeWithOriginSize();
-  v53 = v52;
-  v55 = v54;
-  v57 = v56;
-  v59 = v58;
+  v54 = v53;
+  v56 = v55;
+  v58 = v57;
+  v60 = v59;
   cardNavigationController4 = [sizeCopy cardNavigationController];
   view6 = [cardNavigationController4 view];
-  [view6 setBounds:{v53, v55, v57, v59}];
+  [view6 setBounds:{v54, v56, v58, v60}];
 }
 
 - (void)adjustScrollView:(id)view newContentOffset:(double)offset allowRecursion:(BOOL)recursion cardData:(id)data

@@ -16,7 +16,7 @@ void specialized Set.subscript.getter(unint64_t a1, uint64_t a2, char a3, uint64
       }
 
       MEMORY[0x245D0D8B0](a1, a2, v7);
-      type metadata accessor for OS_os_log(0, &lazy cache variable for type metadata for CAFAutomakerSetting);
+      type metadata accessor for OS_os_log(0, &lazy cache variable for type metadata for CAFAutomakerSetting, 0x277CF8328);
       swift_dynamicCast();
       return;
     }
@@ -28,7 +28,7 @@ LABEL_26:
 
   if (a3)
   {
-    type metadata accessor for OS_os_log(0, &lazy cache variable for type metadata for CAFAutomakerSetting);
+    type metadata accessor for OS_os_log(0, &lazy cache variable for type metadata for CAFAutomakerSetting, 0x277CF8328);
     if (__CocoaSet.Index.age.getter() != *(a4 + 36))
     {
       __break(1u);
@@ -115,42 +115,42 @@ LABEL_5:
   return result;
 }
 
-id specialized static CAFUITileViewController.compositionalLayout(isRHD:dataSource:)(char a1)
+id specialized static CAFUITileViewController.compositionalLayout(isRHD:dataSource:)(char a1, uint64_t a2)
 {
   type metadata accessor for CAFUITileViewCollectionViewData();
-  v2 = swift_allocObject();
-  *(v2 + 16) = 0;
-  *(v2 + 24) = 0;
+  v3 = swift_allocObject();
+  *(v3 + 16) = 0;
+  *(v3 + 24) = 0;
   swift_unknownObjectWeakInit();
   swift_unknownObjectWeakAssign();
-  v3 = swift_allocObject();
-  swift_unknownObjectWeakInit();
   v4 = swift_allocObject();
-  *(v4 + 16) = v3;
-  *(v4 + 24) = v2;
-  *(v4 + 32) = a1;
-  v5 = objc_allocWithZone(MEMORY[0x277D752C0]);
+  swift_unknownObjectWeakInit();
+  v5 = swift_allocObject();
+  *(v5 + 16) = v4;
+  *(v5 + 24) = v3;
+  *(v5 + 32) = a1;
+  v6 = objc_allocWithZone(MEMORY[0x277D752C0]);
 
-  v6 = [v5 init];
-  [v6 setInterSectionSpacing_];
-  [v6 setContentInsetsReference_];
-  v7 = type metadata accessor for CAFUITileViewCompositionalLayout();
-  v8 = objc_allocWithZone(v7);
-  *&v8[OBJC_IVAR____TtC5CAFUIP33_81CEDCC541A633F7CC5FD11DB3C3FABC32CAFUITileViewCompositionalLayout_data] = v2;
+  v7 = [v6 init];
+  [v7 setInterSectionSpacing_];
+  [v7 setContentInsetsReference_];
+  v8 = type metadata accessor for CAFUITileViewCompositionalLayout();
+  v9 = objc_allocWithZone(v8);
+  *&v9[OBJC_IVAR____TtC5CAFUIP33_81CEDCC541A633F7CC5FD11DB3C3FABC32CAFUITileViewCompositionalLayout_data] = v3;
   aBlock[4] = partial apply for closure #1 in static CAFUITileViewController.compositionalLayout(isRHD:dataSource:);
-  aBlock[5] = v4;
+  aBlock[5] = v5;
   aBlock[0] = MEMORY[0x277D85DD0];
   aBlock[1] = 1107296256;
   aBlock[2] = thunk for @escaping @callee_guaranteed (@unowned Int, @guaranteed NSCollectionLayoutEnvironment) -> (@owned NSCollectionLayoutSection?);
   aBlock[3] = &block_descriptor_120_0;
-  v9 = _Block_copy(aBlock);
+  v10 = _Block_copy(aBlock);
 
-  v12.receiver = v8;
-  v12.super_class = v7;
-  v10 = objc_msgSendSuper2(&v12, sel_initWithSectionProvider_configuration_, v9, v6);
+  v13.receiver = v9;
+  v13.super_class = v8;
+  v11 = objc_msgSendSuper2(&v13, sel_initWithSectionProvider_configuration_, v10, v7);
 
-  _Block_release(v9);
-  return v10;
+  _Block_release(v10);
+  return v11;
 }
 
 uint64_t sub_242403008()
@@ -160,11 +160,13 @@ uint64_t sub_242403008()
   return MEMORY[0x2821FE8E8](v0, 24, 7);
 }
 
-uint64_t block_copy_helper_7(uint64_t a1, uint64_t a2)
+double block_copy_helper_7(uint64_t a1, uint64_t a2)
 {
   v2 = *(a2 + 40);
   *(a1 + 32) = *(a2 + 32);
   *(a1 + 40) = v2;
+
+  return result;
 }
 
 uint64_t specialized CAFUITileViewController.collectionView(_:shouldHighlightItemAt:)(uint64_t a1)
@@ -206,7 +208,7 @@ uint64_t specialized CAFUITileViewController.collectionView(_:shouldHighlightIte
   return v12 & 1;
 }
 
-uint64_t _s8Dispatch0A13WorkItemFlagsVACs10SetAlgebraAAWlTm_0(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t _s8Dispatch0A13WorkItemFlagsVACs10SetAlgebraAAWlTm_0(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -387,12 +389,14 @@ uint64_t sub_24240392C@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X8>)
   return result;
 }
 
-uint64_t sub_242403984@<X0>(uint64_t *a1@<X0>, void *a2@<X8>)
+double sub_242403984@<D0>(uint64_t *a1@<X0>, void *a2@<X8>)
 {
   v3 = *a1;
   v4 = OBJC_IVAR____TtC5CAFUI23CAFUITileViewController_assetManager;
   swift_beginAccess();
   *a2 = *(v3 + v4);
+
+  return result;
 }
 
 id sub_2424039E4@<X0>(uint64_t *a1@<X0>, void *a2@<X8>)
@@ -672,6 +676,13 @@ uint64_t key path setter for CAFUIDevicePickerViewController.delegate : CAFUIDev
   return swift_unknownObjectRelease();
 }
 
+double CAFUIDevicePickerViewController.delegate.getter()
+{
+  swift_beginAccess();
+  swift_unknownObjectRetain();
+  return result;
+}
+
 uint64_t CAFUIDevicePickerViewController.delegate.setter(uint64_t a1, uint64_t a2)
 {
   v5 = (v2 + OBJC_IVAR____TtC5CAFUI31CAFUIDevicePickerViewController_delegate);
@@ -898,12 +909,12 @@ LABEL_12:
 Swift::Void __swiftcall CAFUIDevicePickerViewController.viewDidAppear(_:)(Swift::Bool a1)
 {
   v3.receiver = v1;
-  v3.super_class = type metadata accessor for CAFUIDevicePickerViewController();
+  v3.super_class = type metadata accessor for CAFUIDevicePickerViewController(0);
   objc_msgSendSuper2(&v3, sel_viewDidAppear_, a1);
   CAFUIDevicePickerViewController.updatePTButton()();
 }
 
-uint64_t type metadata accessor for CAFUIDevicePickerViewController()
+uint64_t type metadata accessor for CAFUIDevicePickerViewController(uint64_t a1)
 {
   result = type metadata singleton initialization cache for CAFUIDevicePickerViewController;
   if (!type metadata singleton initialization cache for CAFUIDevicePickerViewController)
@@ -952,13 +963,13 @@ char *CAFUIDevicePickerViewController.init(requestContentManager:pairedDevices:c
   return v5;
 }
 
-void closure #1 in CAFUIDevicePickerViewController.init(requestContentManager:pairedDevices:carSession:)()
+void closure #1 in CAFUIDevicePickerViewController.init(requestContentManager:pairedDevices:carSession:)(uint64_t a1, uint64_t a2)
 {
   swift_beginAccess();
   Strong = swift_unknownObjectWeakLoadStrong();
   if (Strong)
   {
-    v1 = Strong;
+    v3 = Strong;
     CAFUIDevicePickerViewController.updateDevicePickerLimitedUI()();
   }
 }
@@ -1092,25 +1103,25 @@ LABEL_32:
 LABEL_23:
 }
 
-uint64_t thunk for @escaping @callee_guaranteed @Sendable (@in_guaranteed Notification) -> ()(uint64_t a1)
+uint64_t thunk for @escaping @callee_guaranteed @Sendable (@in_guaranteed Notification) -> ()(uint64_t a1, uint64_t a2)
 {
-  v2 = type metadata accessor for Notification();
-  v3 = *(v2 - 8);
-  MEMORY[0x28223BE20](v2);
-  v5 = &v8 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v6 = *(a1 + 32);
+  v3 = type metadata accessor for Notification();
+  v4 = *(v3 - 8);
+  MEMORY[0x28223BE20](v3);
+  v6 = &v9 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = *(a1 + 32);
   static Notification._unconditionallyBridgeFromObjectiveC(_:)();
 
-  v6(v5);
+  v7(v6);
 
-  return (*(v3 + 8))(v5, v2);
+  return (*(v4 + 8))(v6, v3);
 }
 
 uint64_t CAFUIDevicePickerViewController.__ivar_destroyer()
 {
   swift_unknownObjectRelease();
 
-  outlined destroy of RequestTemporaryContentModel?(v0 + OBJC_IVAR____TtC5CAFUI31CAFUIDevicePickerViewController_spinningCellIndexPath, &_s10Foundation9IndexPathVSgMd);
+  outlined destroy of RequestTemporaryContentModel?(v0 + OBJC_IVAR____TtC5CAFUI31CAFUIDevicePickerViewController_spinningCellIndexPath, &_s10Foundation9IndexPathVSgMd, &_s10Foundation9IndexPathVSgMR);
 }
 
 id CAFUIDevicePickerViewController.__deallocating_deinit()
@@ -1119,14 +1130,14 @@ id CAFUIDevicePickerViewController.__deallocating_deinit()
   [v1 removeObserver_];
 
   v3.receiver = v0;
-  v3.super_class = type metadata accessor for CAFUIDevicePickerViewController();
+  v3.super_class = type metadata accessor for CAFUIDevicePickerViewController(0);
   return objc_msgSendSuper2(&v3, sel_dealloc);
 }
 
 Swift::Void __swiftcall CAFUIDevicePickerViewController.viewDidLoad()()
 {
   v33.receiver = v0;
-  v33.super_class = type metadata accessor for CAFUIDevicePickerViewController();
+  v33.super_class = type metadata accessor for CAFUIDevicePickerViewController(0);
   objc_msgSendSuper2(&v33, sel_viewDidLoad);
   v1 = [v0 collectionView];
   if (!v1)
@@ -1182,7 +1193,7 @@ LABEL_20:
 
   objc_opt_self();
   v13 = swift_dynamicCastObjCClassUnconditional();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys11AnyHashableV_yptGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys11AnyHashableV_yptGMd, &_ss23_ContiguousArrayStorageCys11AnyHashableV_yptGMR);
   inited = swift_initStackObject();
   *(inited + 16) = xmmword_2424235A0;
   static String._unconditionallyBridgeFromObjectiveC(_:)();
@@ -1191,7 +1202,7 @@ LABEL_20:
   *(inited + 72) = 0;
   _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfCs11AnyHashableV_ypTt0g5Tf4g_n(inited);
   swift_setDeallocating();
-  outlined destroy of RequestTemporaryContentModel?(inited + 32, &_ss11AnyHashableV_yptMd);
+  outlined destroy of RequestTemporaryContentModel?(inited + 32, &_ss11AnyHashableV_yptMd, &_ss11AnyHashableV_yptMR);
   isa = Dictionary._bridgeToObjectiveC()().super.isa;
 
   [v13 _setRowAlignmentsOptions_];
@@ -1288,32 +1299,32 @@ LABEL_14:
 
 Swift::Void __swiftcall CAFUIDevicePickerViewController.viewDidLayoutSubviews()()
 {
-  v1.receiver = v0;
-  v1.super_class = type metadata accessor for CAFUIDevicePickerViewController();
-  objc_msgSendSuper2(&v1, sel_viewDidLayoutSubviews);
-  CAFUIDevicePickerViewController.updateFlowLayout()();
-  CAFUIDevicePickerViewController.updatePageControl()();
+  v3.receiver = v0;
+  v3.super_class = type metadata accessor for CAFUIDevicePickerViewController(0);
+  v1 = objc_msgSendSuper2(&v3, sel_viewDidLayoutSubviews);
+  CAFUIDevicePickerViewController.updateFlowLayout()(v1);
+  CAFUIDevicePickerViewController.updatePageControl()(v2);
 }
 
-void CAFUIDevicePickerViewController.updateFlowLayout()()
+void CAFUIDevicePickerViewController.updateFlowLayout()(uint64_t a1)
 {
   if (one-time initialization token for default != -1)
   {
     swift_once();
   }
 
-  v1 = static OS_os_log.default;
-  v2 = static os_log_type_t.default.getter();
-  if (os_log_type_enabled(v1, v2))
+  v2 = static OS_os_log.default;
+  v3 = static os_log_type_t.default.getter();
+  if (os_log_type_enabled(v2, v3))
   {
-    v3 = swift_slowAlloc();
-    *v3 = 0;
-    _os_log_impl(&dword_24234D000, v1, v2, "Updating flow layout", v3, 2u);
-    MEMORY[0x245D0E5A0](v3, -1, -1);
+    v4 = swift_slowAlloc();
+    *v4 = 0;
+    _os_log_impl(&dword_24234D000, v2, v3, "Updating flow layout", v4, 2u);
+    MEMORY[0x245D0E5A0](v4, -1, -1);
   }
 
-  v4 = [v0 collectionView];
-  if (!v4)
+  v5 = [v1 collectionView];
+  if (!v5)
   {
     __break(1u);
 LABEL_83:
@@ -1323,223 +1334,223 @@ LABEL_84:
     goto LABEL_85;
   }
 
-  v5 = v4;
-  v6 = [v4 collectionViewLayout];
+  v6 = v5;
+  v7 = [v5 collectionViewLayout];
 
   objc_opt_self();
   [swift_dynamicCastObjCClassUnconditional() minimumInteritemSpacing];
-  v8 = v7;
+  v9 = v8;
 
   if ((CAFUIDevicePickerViewController.isPortraitLayout.getter() & 1) == 0)
   {
-    if (v8 != 20.0)
+    if (v9 != 20.0)
     {
       goto LABEL_8;
     }
 
 LABEL_18:
-    v22 = 0;
+    v23 = 0;
     goto LABEL_19;
   }
 
-  if (v8 == 60.0)
+  if (v9 == 60.0)
   {
     goto LABEL_18;
   }
 
 LABEL_8:
-  v9 = static os_log_type_t.default.getter();
-  if (os_log_type_enabled(v1, v9))
+  v10 = static os_log_type_t.default.getter();
+  if (os_log_type_enabled(v2, v10))
   {
-    v10 = swift_slowAlloc();
-    *v10 = 134218240;
-    v11 = [v0 collectionView];
-    if (!v11)
+    v11 = swift_slowAlloc();
+    *v11 = 134218240;
+    v12 = [v1 collectionView];
+    if (!v12)
     {
 LABEL_89:
       __break(1u);
       return;
     }
 
-    v12 = v11;
-    v13 = [v11 collectionViewLayout];
+    v13 = v12;
+    v14 = [v12 collectionViewLayout];
 
     objc_opt_self();
     [swift_dynamicCastObjCClassUnconditional() minimumInteritemSpacing];
-    v15 = v14;
+    v16 = v15;
 
-    *(v10 + 4) = v15;
-    *(v10 + 12) = 2048;
-    v16 = 60.0;
-    if ((v0[OBJC_IVAR____TtC5CAFUI31CAFUIDevicePickerViewController____lazy_storage___isPortraitLayout] & 1) == 0)
+    *(v11 + 4) = v16;
+    *(v11 + 12) = 2048;
+    v17 = 60.0;
+    if ((v1[OBJC_IVAR____TtC5CAFUI31CAFUIDevicePickerViewController____lazy_storage___isPortraitLayout] & 1) == 0)
     {
-      v16 = 20.0;
+      v17 = 20.0;
     }
 
-    *(v10 + 14) = v16;
-    _os_log_impl(&dword_24234D000, v1, v9, "Interitem spacing updated from: %f to %f", v10, 0x16u);
-    MEMORY[0x245D0E5A0](v10, -1, -1);
+    *(v11 + 14) = v17;
+    _os_log_impl(&dword_24234D000, v2, v10, "Interitem spacing updated from: %f to %f", v11, 0x16u);
+    MEMORY[0x245D0E5A0](v11, -1, -1);
   }
 
-  v17 = [v0 collectionView];
-  if (!v17)
+  v18 = [v1 collectionView];
+  if (!v18)
   {
     goto LABEL_87;
   }
 
-  v18 = v17;
-  v19 = [v17 collectionViewLayout];
+  v19 = v18;
+  v20 = [v18 collectionViewLayout];
 
   objc_opt_self();
-  v20 = swift_dynamicCastObjCClassUnconditional();
-  v21 = 60.0;
-  if ((v0[OBJC_IVAR____TtC5CAFUI31CAFUIDevicePickerViewController____lazy_storage___isPortraitLayout] & 1) == 0)
+  v21 = swift_dynamicCastObjCClassUnconditional();
+  v22 = 60.0;
+  if ((v1[OBJC_IVAR____TtC5CAFUI31CAFUIDevicePickerViewController____lazy_storage___isPortraitLayout] & 1) == 0)
   {
-    v21 = 20.0;
+    v22 = 20.0;
   }
 
-  [v20 setMinimumInteritemSpacing_];
+  [v21 setMinimumInteritemSpacing_];
 
-  v22 = 1;
+  v23 = 1;
 LABEL_19:
-  v23 = CAFUIDevicePickerViewController.calculateLayoutStyle()();
-  v24 = CAFUIDevicePickerViewController.layoutStyle.getter();
-  if ((specialized == infix<A>(_:_:)(v23, v24) & 1) == 0)
+  v24 = CAFUIDevicePickerViewController.calculateLayoutStyle()();
+  v25 = CAFUIDevicePickerViewController.layoutStyle.getter();
+  if ((specialized == infix<A>(_:_:)(v24, v25) & 1) == 0)
   {
-    v25 = static os_log_type_t.default.getter();
-    if (os_log_type_enabled(v1, v25))
+    v26 = static os_log_type_t.default.getter();
+    if (os_log_type_enabled(v2, v26))
     {
-      v26 = swift_slowAlloc();
       v27 = swift_slowAlloc();
-      v100 = v27;
-      *v26 = 136315394;
-      if (v0[OBJC_IVAR____TtC5CAFUI31CAFUIDevicePickerViewController____lazy_storage___layoutStyle] > 1u)
+      v28 = swift_slowAlloc();
+      v101 = v28;
+      *v27 = 136315394;
+      if (v1[OBJC_IVAR____TtC5CAFUI31CAFUIDevicePickerViewController____lazy_storage___layoutStyle] > 1u)
       {
-        if (v0[OBJC_IVAR____TtC5CAFUI31CAFUIDevicePickerViewController____lazy_storage___layoutStyle] == 2)
+        if (v1[OBJC_IVAR____TtC5CAFUI31CAFUIDevicePickerViewController____lazy_storage___layoutStyle] == 2)
         {
-          v28 = 0xE500000000000000;
-          v29 = 0x656772616CLL;
+          v29 = 0xE500000000000000;
+          v30 = 0x656772616CLL;
         }
 
         else
         {
-          v28 = 0xE800000000000000;
-          v29 = 0x7469617274726F70;
+          v29 = 0xE800000000000000;
+          v30 = 0x7469617274726F70;
         }
       }
 
-      else if (v0[OBJC_IVAR____TtC5CAFUI31CAFUIDevicePickerViewController____lazy_storage___layoutStyle])
+      else if (v1[OBJC_IVAR____TtC5CAFUI31CAFUIDevicePickerViewController____lazy_storage___layoutStyle])
       {
-        v28 = 0xE600000000000000;
-        v29 = 0x6D756964656DLL;
+        v29 = 0xE600000000000000;
+        v30 = 0x6D756964656DLL;
       }
 
       else
       {
-        v28 = 0xE500000000000000;
-        v29 = 0x6C6C616D73;
+        v29 = 0xE500000000000000;
+        v30 = 0x6C6C616D73;
       }
 
-      v30 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v29, v28, &v100);
+      v31 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v30, v29, &v101);
 
-      *(v26 + 4) = v30;
-      *(v26 + 12) = 2080;
-      v31 = 0xE500000000000000;
+      *(v27 + 4) = v31;
+      *(v27 + 12) = 2080;
       v32 = 0xE500000000000000;
-      v33 = 0x656772616CLL;
-      if (v23 != 2)
+      v33 = 0xE500000000000000;
+      v34 = 0x656772616CLL;
+      if (v24 != 2)
       {
-        v33 = 0x7469617274726F70;
-        v32 = 0xE800000000000000;
+        v34 = 0x7469617274726F70;
+        v33 = 0xE800000000000000;
       }
 
-      v34 = 0x6D756964656DLL;
-      if (v23)
+      v35 = 0x6D756964656DLL;
+      if (v24)
       {
-        v31 = 0xE600000000000000;
-      }
-
-      else
-      {
-        v34 = 0x6C6C616D73;
-      }
-
-      if (v23 <= 1u)
-      {
-        v35 = v34;
+        v32 = 0xE600000000000000;
       }
 
       else
       {
-        v35 = v33;
+        v35 = 0x6C6C616D73;
       }
 
-      if (v23 <= 1u)
+      if (v24 <= 1u)
       {
-        v36 = v31;
+        v36 = v35;
       }
 
       else
       {
-        v36 = v32;
+        v36 = v34;
       }
 
-      v37 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v35, v36, &v100);
+      if (v24 <= 1u)
+      {
+        v37 = v32;
+      }
 
-      *(v26 + 14) = v37;
-      _os_log_impl(&dword_24234D000, v1, v25, "Layout style updated from: %s to %s", v26, 0x16u);
+      else
+      {
+        v37 = v33;
+      }
+
+      v38 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v36, v37, &v101);
+
+      *(v27 + 14) = v38;
+      _os_log_impl(&dword_24234D000, v2, v26, "Layout style updated from: %s to %s", v27, 0x16u);
       swift_arrayDestroy();
+      MEMORY[0x245D0E5A0](v28, -1, -1);
       MEMORY[0x245D0E5A0](v27, -1, -1);
-      MEMORY[0x245D0E5A0](v26, -1, -1);
     }
 
-    v0[OBJC_IVAR____TtC5CAFUI31CAFUIDevicePickerViewController____lazy_storage___layoutStyle] = v23;
-    v22 = 1;
+    v1[OBJC_IVAR____TtC5CAFUI31CAFUIDevicePickerViewController____lazy_storage___layoutStyle] = v24;
+    v23 = 1;
   }
 
-  v38 = CAFUIDevicePickerViewController.checkIfIsPortraitLayout()();
-  v39 = OBJC_IVAR____TtC5CAFUI31CAFUIDevicePickerViewController____lazy_storage___isPortraitLayout;
-  if ((v38 & 1) != (v0[OBJC_IVAR____TtC5CAFUI31CAFUIDevicePickerViewController____lazy_storage___isPortraitLayout] & 1))
+  v39 = CAFUIDevicePickerViewController.checkIfIsPortraitLayout()();
+  v40 = OBJC_IVAR____TtC5CAFUI31CAFUIDevicePickerViewController____lazy_storage___isPortraitLayout;
+  if ((v39 & 1) != (v1[OBJC_IVAR____TtC5CAFUI31CAFUIDevicePickerViewController____lazy_storage___isPortraitLayout] & 1))
   {
-    v40 = v38;
-    v41 = v0;
-    v42 = static os_log_type_t.default.getter();
-    if (os_log_type_enabled(v1, v42))
+    v41 = v39;
+    v42 = v1;
+    v43 = static os_log_type_t.default.getter();
+    if (os_log_type_enabled(v2, v43))
     {
-      v43 = swift_slowAlloc();
-      *v43 = 67109376;
-      *(v43 + 4) = v0[v39] & 1;
+      v44 = swift_slowAlloc();
+      *v44 = 67109376;
+      *(v44 + 4) = v1[v40] & 1;
 
-      *(v43 + 8) = 1024;
-      *(v43 + 10) = v40 & 1;
-      _os_log_impl(&dword_24234D000, v1, v42, "Is portrait layout updated from: %{BOOL}d to %{BOOL}d", v43, 0xEu);
-      MEMORY[0x245D0E5A0](v43, -1, -1);
+      *(v44 + 8) = 1024;
+      *(v44 + 10) = v41 & 1;
+      _os_log_impl(&dword_24234D000, v2, v43, "Is portrait layout updated from: %{BOOL}d to %{BOOL}d", v44, 0xEu);
+      MEMORY[0x245D0E5A0](v44, -1, -1);
     }
 
     else
     {
     }
 
-    v0[v39] = v40 & 1;
-    v22 = 1;
-    if (v40)
+    v1[v40] = v41 & 1;
+    v23 = 1;
+    if (v41)
     {
       goto LABEL_48;
     }
 
 LABEL_45:
-    v44 = 1;
+    v45 = 1;
     goto LABEL_52;
   }
 
-  if ((v0[OBJC_IVAR____TtC5CAFUI31CAFUIDevicePickerViewController____lazy_storage___isPortraitLayout] & 1) == 0)
+  if ((v1[OBJC_IVAR____TtC5CAFUI31CAFUIDevicePickerViewController____lazy_storage___isPortraitLayout] & 1) == 0)
   {
     goto LABEL_45;
   }
 
 LABEL_48:
-  v45 = [v0 collectionView];
-  if (!v45)
+  v46 = [v1 collectionView];
+  if (!v46)
   {
 LABEL_85:
     __break(1u);
@@ -1550,110 +1561,110 @@ LABEL_87:
     goto LABEL_88;
   }
 
-  v46 = v45;
-  [v45 bounds];
-  v48 = v47;
-  v50 = v49;
-  v52 = v51;
-  v54 = v53;
+  v47 = v46;
+  [v46 bounds];
+  v49 = v48;
+  v51 = v50;
+  v53 = v52;
+  v55 = v54;
 
-  v104.origin.x = v48;
-  v104.origin.y = v50;
-  v104.size.width = v52;
-  v104.size.height = v54;
-  if (CGRectGetHeight(v104) >= 636.0)
+  v105.origin.x = v49;
+  v105.origin.y = v51;
+  v105.size.width = v53;
+  v105.size.height = v55;
+  if (CGRectGetHeight(v105) >= 636.0)
   {
-    v44 = 3;
+    v45 = 3;
   }
 
   else
   {
-    v44 = 2;
+    v45 = 2;
   }
 
 LABEL_52:
-  if (v44 != CAFUIDevicePickerViewController.rows.getter())
+  if (v45 != CAFUIDevicePickerViewController.rows.getter())
   {
-    v55 = v0;
-    v56 = static os_log_type_t.default.getter();
-    if (os_log_type_enabled(v1, v56))
+    v56 = v1;
+    v57 = static os_log_type_t.default.getter();
+    if (os_log_type_enabled(v2, v57))
     {
-      v57 = swift_slowAlloc();
-      *v57 = 134218240;
-      *(v57 + 4) = *&v55[OBJC_IVAR____TtC5CAFUI31CAFUIDevicePickerViewController____lazy_storage___rows];
+      v58 = swift_slowAlloc();
+      *v58 = 134218240;
+      *(v58 + 4) = *&v56[OBJC_IVAR____TtC5CAFUI31CAFUIDevicePickerViewController____lazy_storage___rows];
 
-      *(v57 + 12) = 2048;
-      *(v57 + 14) = v44;
-      _os_log_impl(&dword_24234D000, v1, v56, "Amount of rows updated from: %ld to %ld", v57, 0x16u);
-      MEMORY[0x245D0E5A0](v57, -1, -1);
+      *(v58 + 12) = 2048;
+      *(v58 + 14) = v45;
+      _os_log_impl(&dword_24234D000, v2, v57, "Amount of rows updated from: %ld to %ld", v58, 0x16u);
+      MEMORY[0x245D0E5A0](v58, -1, -1);
     }
 
     else
     {
     }
 
-    v58 = &v55[OBJC_IVAR____TtC5CAFUI31CAFUIDevicePickerViewController____lazy_storage___rows];
-    *v58 = v44;
-    v58[8] = 0;
-    v22 = 1;
+    v59 = &v56[OBJC_IVAR____TtC5CAFUI31CAFUIDevicePickerViewController____lazy_storage___rows];
+    *v59 = v45;
+    v59[8] = 0;
+    v23 = 1;
   }
 
-  v59 = OBJC_IVAR____TtC5CAFUI31CAFUIDevicePickerViewController____lazy_storage___layoutStyle;
-  v60 = v0[OBJC_IVAR____TtC5CAFUI31CAFUIDevicePickerViewController____lazy_storage___layoutStyle];
-  if (v60 == 3 || v60 == 0)
+  v60 = OBJC_IVAR____TtC5CAFUI31CAFUIDevicePickerViewController____lazy_storage___layoutStyle;
+  v61 = v1[OBJC_IVAR____TtC5CAFUI31CAFUIDevicePickerViewController____lazy_storage___layoutStyle];
+  if (v61 == 3 || v61 == 0)
   {
-    v62 = 2;
+    v63 = 2;
   }
 
   else
   {
-    v62 = 3;
+    v63 = 3;
   }
 
-  if (v62 != CAFUIDevicePickerViewController.columns.getter())
+  if (v63 != CAFUIDevicePickerViewController.columns.getter())
   {
-    v63 = v0;
-    v64 = static os_log_type_t.default.getter();
-    if (os_log_type_enabled(v1, v64))
+    v64 = v1;
+    v65 = static os_log_type_t.default.getter();
+    if (os_log_type_enabled(v2, v65))
     {
-      v65 = swift_slowAlloc();
-      *v65 = 134218240;
-      *(v65 + 4) = *&v63[OBJC_IVAR____TtC5CAFUI31CAFUIDevicePickerViewController____lazy_storage___columns];
+      v66 = swift_slowAlloc();
+      *v66 = 134218240;
+      *(v66 + 4) = *&v64[OBJC_IVAR____TtC5CAFUI31CAFUIDevicePickerViewController____lazy_storage___columns];
 
-      *(v65 + 12) = 2048;
-      *(v65 + 14) = v62;
-      _os_log_impl(&dword_24234D000, v1, v64, "Amount of columns updated from: %ld to %ld", v65, 0x16u);
-      MEMORY[0x245D0E5A0](v65, -1, -1);
+      *(v66 + 12) = 2048;
+      *(v66 + 14) = v63;
+      _os_log_impl(&dword_24234D000, v2, v65, "Amount of columns updated from: %ld to %ld", v66, 0x16u);
+      MEMORY[0x245D0E5A0](v66, -1, -1);
     }
 
     else
     {
     }
 
-    v66 = &v63[OBJC_IVAR____TtC5CAFUI31CAFUIDevicePickerViewController____lazy_storage___columns];
-    *v66 = v62;
-    v66[8] = 0;
-    v22 = 1;
+    v67 = &v64[OBJC_IVAR____TtC5CAFUI31CAFUIDevicePickerViewController____lazy_storage___columns];
+    *v67 = v63;
+    v67[8] = 0;
+    v23 = 1;
   }
 
-  v67 = dbl_242427D18[v0[v59]];
-  v68 = [v0 collectionView];
-  if (!v68)
+  v68 = dbl_242427D18[v1[v60]];
+  v69 = [v1 collectionView];
+  if (!v69)
   {
     goto LABEL_83;
   }
 
-  v69 = v68;
-  v70 = [v68 &selRef_mainBundle + 2];
+  v70 = v69;
+  v71 = [v69 &selRef_mainBundle + 2];
 
   objc_opt_self();
   [swift_dynamicCastObjCClassUnconditional() itemSize];
-  v72 = v71;
-  v74 = v73;
+  v73 = v72;
+  v75 = v74;
 
-  if (v72 == v67 && v74 == 172.0)
+  if (v73 == v68 && v75 == 172.0)
   {
-    if (!v22)
+    if (!v23)
     {
       return;
     }
@@ -1661,128 +1672,128 @@ LABEL_52:
 
   else
   {
-    v75 = static os_log_type_t.default.getter();
-    if (os_log_type_enabled(v1, v75))
+    v76 = static os_log_type_t.default.getter();
+    if (os_log_type_enabled(v2, v76))
     {
-      v76 = swift_slowAlloc();
       v77 = swift_slowAlloc();
-      v100 = v77;
-      *v76 = 136315394;
-      v78 = [v0 collectionView];
-      if (!v78)
+      v78 = swift_slowAlloc();
+      v101 = v78;
+      *v77 = 136315394;
+      v79 = [v1 collectionView];
+      if (!v79)
       {
 LABEL_88:
         __break(1u);
         goto LABEL_89;
       }
 
-      v79 = v78;
-      v80 = [v78 &selRef_mainBundle + 2];
+      v80 = v79;
+      v81 = [v79 &selRef_mainBundle + 2];
 
       objc_opt_self();
       [swift_dynamicCastObjCClassUnconditional() itemSize];
-      v82 = v81;
-      v84 = v83;
+      v83 = v82;
+      v85 = v84;
 
-      v102.width = v82;
-      v102.height = v84;
-      v85 = NSStringFromCGSize(v102);
-      v86 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-      v88 = v87;
+      v103.width = v83;
+      v103.height = v85;
+      v86 = NSStringFromCGSize(v103);
+      v87 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+      v89 = v88;
 
-      v89 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v86, v88, &v100);
+      v90 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v87, v89, &v101);
 
-      *(v76 + 4) = v89;
-      *(v76 + 12) = 2080;
-      v103.height = 172.0;
-      v103.width = v67;
-      v90 = NSStringFromCGSize(v103);
-      v91 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-      v93 = v92;
+      *(v77 + 4) = v90;
+      *(v77 + 12) = 2080;
+      v104.height = 172.0;
+      v104.width = v68;
+      v91 = NSStringFromCGSize(v104);
+      v92 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+      v94 = v93;
 
-      v94 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v91, v93, &v100);
+      v95 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v92, v94, &v101);
 
-      *(v76 + 14) = v94;
-      _os_log_impl(&dword_24234D000, v1, v75, "Flow layout item size updated from: %s to: %s", v76, 0x16u);
+      *(v77 + 14) = v95;
+      _os_log_impl(&dword_24234D000, v2, v76, "Flow layout item size updated from: %s to: %s", v77, 0x16u);
       swift_arrayDestroy();
+      MEMORY[0x245D0E5A0](v78, -1, -1);
       MEMORY[0x245D0E5A0](v77, -1, -1);
-      MEMORY[0x245D0E5A0](v76, -1, -1);
     }
 
-    v95 = [v0 collectionView];
-    if (!v95)
+    v96 = [v1 collectionView];
+    if (!v96)
     {
       goto LABEL_86;
     }
 
-    v96 = v95;
-    v97 = [v95 &selRef_mainBundle + 2];
+    v97 = v96;
+    v98 = [v96 &selRef_mainBundle + 2];
 
     objc_opt_self();
     [swift_dynamicCastObjCClassUnconditional() setItemSize_];
   }
 
-  v98 = [v0 collectionView];
-  if (!v98)
+  v99 = [v1 collectionView];
+  if (!v99)
   {
     goto LABEL_84;
   }
 
-  v99 = v98;
-  [v98 reloadData];
+  v100 = v99;
+  [v99 reloadData];
 }
 
-uint64_t CAFUIDevicePickerViewController.updatePageControl()()
+uint64_t CAFUIDevicePickerViewController.updatePageControl()(uint64_t a1)
 {
   if (one-time initialization token for default != -1)
   {
     swift_once();
   }
 
-  v1 = static OS_os_log.default;
-  v2 = static os_log_type_t.default.getter();
-  if (os_log_type_enabled(v1, v2))
+  v2 = static OS_os_log.default;
+  v3 = static os_log_type_t.default.getter();
+  if (os_log_type_enabled(v2, v3))
   {
-    v3 = swift_slowAlloc();
-    *v3 = 0;
-    _os_log_impl(&dword_24234D000, v1, v2, "Updating page control", v3, 2u);
-    MEMORY[0x245D0E5A0](v3, -1, -1);
+    v4 = swift_slowAlloc();
+    *v4 = 0;
+    _os_log_impl(&dword_24234D000, v2, v3, "Updating page control", v4, 2u);
+    MEMORY[0x245D0E5A0](v4, -1, -1);
   }
 
-  result = [v0 collectionView];
+  result = [v1 collectionView];
   if (!result)
   {
     goto LABEL_51;
   }
 
-  v5 = result;
-  v6 = OBJC_IVAR____TtC5CAFUI29CAFUICollectionViewController_items;
+  v6 = result;
+  v7 = OBJC_IVAR____TtC5CAFUI29CAFUICollectionViewController_items;
   swift_beginAccess();
-  v7 = *(*&v0[v6] + 16);
-  v8 = CAFUIDevicePickerViewController.rows.getter();
+  v8 = *(*&v1[v7] + 16);
+  v9 = CAFUIDevicePickerViewController.rows.getter();
   result = CAFUIDevicePickerViewController.columns.getter();
-  if ((v8 * result) >> 64 != (v8 * result) >> 63)
+  if ((v9 * result) >> 64 != (v9 * result) >> 63)
   {
     __break(1u);
     goto LABEL_36;
   }
 
-  v9 = ceil(v7 / (v8 * result));
-  if ((*&v9 & 0x7FFFFFFFFFFFFFFFuLL) > 0x7FEFFFFFFFFFFFFFLL)
+  v10 = ceil(v8 / (v9 * result));
+  if ((*&v10 & 0x7FFFFFFFFFFFFFFFuLL) > 0x7FEFFFFFFFFFFFFFLL)
   {
 LABEL_36:
     __break(1u);
     goto LABEL_37;
   }
 
-  if (v9 <= -9.22337204e18)
+  if (v10 <= -9.22337204e18)
   {
 LABEL_37:
     __break(1u);
     goto LABEL_38;
   }
 
-  if (v9 >= 9.22337204e18)
+  if (v10 >= 9.22337204e18)
   {
 LABEL_38:
     __break(1u);
@@ -1791,37 +1802,37 @@ LABEL_39:
     goto LABEL_40;
   }
 
-  [v5 setScrollEnabled_];
+  [v6 setScrollEnabled_];
 
-  v10 = OBJC_IVAR____TtC5CAFUI31CAFUIDevicePickerViewController_pageControl;
-  result = *&v0[OBJC_IVAR____TtC5CAFUI31CAFUIDevicePickerViewController_pageControl];
+  v11 = OBJC_IVAR____TtC5CAFUI31CAFUIDevicePickerViewController_pageControl;
+  result = *&v1[OBJC_IVAR____TtC5CAFUI31CAFUIDevicePickerViewController_pageControl];
   if (result)
   {
-    v11 = *&v0[OBJC_IVAR____TtC5CAFUI31CAFUIDevicePickerViewController____lazy_storage___rows];
-    v12 = *&v0[OBJC_IVAR____TtC5CAFUI31CAFUIDevicePickerViewController____lazy_storage___columns];
-    if ((v11 * v12) >> 64 != (v11 * v12) >> 63)
+    v12 = *&v1[OBJC_IVAR____TtC5CAFUI31CAFUIDevicePickerViewController____lazy_storage___rows];
+    v13 = *&v1[OBJC_IVAR____TtC5CAFUI31CAFUIDevicePickerViewController____lazy_storage___columns];
+    if ((v12 * v13) >> 64 != (v12 * v13) >> 63)
     {
 LABEL_43:
       __break(1u);
       goto LABEL_44;
     }
 
-    v13 = ceil(*(*&v0[v6] + 16) / (v11 * v12));
-    if ((*&v13 & 0x7FFFFFFFFFFFFFFFuLL) > 0x7FEFFFFFFFFFFFFFLL)
+    v14 = ceil(*(*&v1[v7] + 16) / (v12 * v13));
+    if ((*&v14 & 0x7FFFFFFFFFFFFFFFuLL) > 0x7FEFFFFFFFFFFFFFLL)
     {
 LABEL_44:
       __break(1u);
       goto LABEL_45;
     }
 
-    if (v13 <= -9.22337204e18)
+    if (v14 <= -9.22337204e18)
     {
 LABEL_45:
       __break(1u);
       goto LABEL_46;
     }
 
-    if (v13 >= 9.22337204e18)
+    if (v14 >= 9.22337204e18)
     {
 LABEL_46:
       __break(1u);
@@ -1831,60 +1842,60 @@ LABEL_46:
     result = [result setHidden_];
   }
 
-  v14 = OBJC_IVAR____TtC5CAFUI31CAFUIDevicePickerViewController____lazy_storage___rows;
-  v15 = *&v0[OBJC_IVAR____TtC5CAFUI31CAFUIDevicePickerViewController____lazy_storage___rows];
-  v16 = OBJC_IVAR____TtC5CAFUI31CAFUIDevicePickerViewController____lazy_storage___columns;
-  v17 = *&v0[OBJC_IVAR____TtC5CAFUI31CAFUIDevicePickerViewController____lazy_storage___columns];
-  v18 = v15 * v17;
-  v19 = (v15 * v17) >> 64;
-  v20 = v19 == v18 >> 63;
-  v21 = v19 != v18 >> 63;
-  if (!v20)
+  v15 = OBJC_IVAR____TtC5CAFUI31CAFUIDevicePickerViewController____lazy_storage___rows;
+  v16 = *&v1[OBJC_IVAR____TtC5CAFUI31CAFUIDevicePickerViewController____lazy_storage___rows];
+  v17 = OBJC_IVAR____TtC5CAFUI31CAFUIDevicePickerViewController____lazy_storage___columns;
+  v18 = *&v1[OBJC_IVAR____TtC5CAFUI31CAFUIDevicePickerViewController____lazy_storage___columns];
+  v19 = v16 * v18;
+  v20 = (v16 * v18) >> 64;
+  v21 = v20 == v19 >> 63;
+  v22 = v20 != v19 >> 63;
+  if (!v21)
   {
     goto LABEL_39;
   }
 
-  v22 = ceil(*(*&v0[v6] + 16) / v18);
-  if ((*&v22 & 0x7FFFFFFFFFFFFFFFuLL) > 0x7FEFFFFFFFFFFFFFLL)
+  v23 = ceil(*(*&v1[v7] + 16) / v19);
+  if ((*&v23 & 0x7FFFFFFFFFFFFFFFuLL) > 0x7FEFFFFFFFFFFFFFLL)
   {
 LABEL_40:
     __break(1u);
     goto LABEL_41;
   }
 
-  if (v22 <= -9.22337204e18)
+  if (v23 <= -9.22337204e18)
   {
 LABEL_41:
     __break(1u);
     goto LABEL_42;
   }
 
-  if (v22 >= 9.22337204e18)
+  if (v23 >= 9.22337204e18)
   {
 LABEL_42:
     __break(1u);
     goto LABEL_43;
   }
 
-  if (v22 >= 2)
+  if (v23 >= 2)
   {
-    result = *&v0[v10];
+    result = *&v1[v11];
     if (!result)
     {
-      v23 = [objc_allocWithZone(MEMORY[0x277D757E0]) init];
-      v24 = objc_opt_self();
-      v25 = [v24 labelColor];
-      [v23 setCurrentPageIndicatorTintColor_];
+      v24 = [objc_allocWithZone(MEMORY[0x277D757E0]) init];
+      v25 = objc_opt_self();
+      v26 = [v25 labelColor];
+      [v24 setCurrentPageIndicatorTintColor_];
 
-      v26 = [v24 labelColor];
-      v27 = [v26 colorWithAlphaComponent_];
+      v27 = [v25 labelColor];
+      v28 = [v27 colorWithAlphaComponent_];
 
-      [v23 setPageIndicatorTintColor_];
-      v28 = v23;
-      [v28 setUserInteractionEnabled_];
-      [v28 setTranslatesAutoresizingMaskIntoConstraints_];
-      [v28 setBackgroundStyle_];
-      result = [v0 view];
+      [v24 setPageIndicatorTintColor_];
+      v29 = v24;
+      [v29 setUserInteractionEnabled_];
+      [v29 setTranslatesAutoresizingMaskIntoConstraints_];
+      [v29 setBackgroundStyle_];
+      result = [v1 view];
       if (!result)
       {
 LABEL_52:
@@ -1892,8 +1903,8 @@ LABEL_52:
         goto LABEL_53;
       }
 
-      v29 = result;
-      result = [v0 collectionView];
+      v30 = result;
+      result = [v1 collectionView];
       if (!result)
       {
 LABEL_53:
@@ -1901,20 +1912,20 @@ LABEL_53:
         goto LABEL_54;
       }
 
-      v30 = result;
-      v49 = v16;
-      v50 = v14;
-      [v29 insertSubview:v28 belowSubview:result];
+      v31 = result;
+      v50 = v17;
+      v51 = v15;
+      [v30 insertSubview:v29 belowSubview:result];
 
-      v31 = *&v0[v10];
-      *&v0[v10] = v28;
-      v32 = v28;
+      v32 = *&v1[v11];
+      *&v1[v11] = v29;
+      v33 = v29;
 
-      __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyyXlGMd);
-      v33 = swift_allocObject();
-      *(v33 + 16) = xmmword_242423B80;
-      v34 = [v32 centerXAnchor];
-      result = [v0 view];
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyyXlGMd, &_ss23_ContiguousArrayStorageCyyXlGMR);
+      v34 = swift_allocObject();
+      *(v34 + 16) = xmmword_242423B80;
+      v35 = [v33 centerXAnchor];
+      result = [v1 view];
       if (!result)
       {
 LABEL_54:
@@ -1922,16 +1933,16 @@ LABEL_54:
         goto LABEL_55;
       }
 
-      v35 = result;
-      v36 = [result safeAreaLayoutGuide];
+      v36 = result;
+      v37 = [result safeAreaLayoutGuide];
 
-      v37 = [v36 centerXAnchor];
-      v38 = [v34 constraintEqualToAnchor_];
+      v38 = [v37 centerXAnchor];
+      v39 = [v35 constraintEqualToAnchor_];
 
-      *(v33 + 32) = v38;
-      v39 = [v32 bottomAnchor];
+      *(v34 + 32) = v39;
+      v40 = [v33 bottomAnchor];
 
-      result = [v0 view];
+      result = [v1 view];
       if (!result)
       {
 LABEL_55:
@@ -1939,54 +1950,54 @@ LABEL_55:
         return result;
       }
 
-      v40 = result;
-      v41 = objc_opt_self();
-      v42 = [v40 safeAreaLayoutGuide];
+      v41 = result;
+      v42 = objc_opt_self();
+      v43 = [v41 safeAreaLayoutGuide];
 
-      v43 = [v42 bottomAnchor];
-      v44 = [v39 constraintEqualToAnchor:v43 constant:-6.0];
+      v44 = [v43 bottomAnchor];
+      v45 = [v40 constraintEqualToAnchor:v44 constant:-6.0];
 
-      *(v33 + 40) = v44;
-      type metadata accessor for OS_os_log(0, &lazy cache variable for type metadata for NSLayoutConstraint);
+      *(v34 + 40) = v45;
+      type metadata accessor for OS_os_log(0, &lazy cache variable for type metadata for NSLayoutConstraint, 0x277CCAAD0);
       isa = Array._bridgeToObjectiveC()().super.isa;
 
-      [v41 activateConstraints_];
+      [v42 activateConstraints_];
 
-      result = *&v0[v10];
+      result = *&v1[v11];
       if (!result)
       {
         return result;
       }
 
-      v46 = *&v0[v50];
-      v47 = *&v0[v49];
-      v18 = v46 * v47;
-      v21 = (v46 * v47) >> 64 != (v46 * v47) >> 63;
+      v47 = *&v1[v51];
+      v48 = *&v1[v50];
+      v19 = v47 * v48;
+      v22 = (v47 * v48) >> 64 != (v47 * v48) >> 63;
     }
 
-    if (v21)
+    if (v22)
     {
 LABEL_47:
       __break(1u);
       goto LABEL_48;
     }
 
-    v48 = ceil(*(*&v0[v6] + 16) / v18);
-    if ((*&v48 & 0x7FFFFFFFFFFFFFFFuLL) > 0x7FEFFFFFFFFFFFFFLL)
+    v49 = ceil(*(*&v1[v7] + 16) / v19);
+    if ((*&v49 & 0x7FFFFFFFFFFFFFFFuLL) > 0x7FEFFFFFFFFFFFFFLL)
     {
 LABEL_48:
       __break(1u);
       goto LABEL_49;
     }
 
-    if (v48 <= -9.22337204e18)
+    if (v49 <= -9.22337204e18)
     {
 LABEL_49:
       __break(1u);
       goto LABEL_50;
     }
 
-    if (v48 >= 9.22337204e18)
+    if (v49 >= 9.22337204e18)
     {
 LABEL_50:
       __break(1u);
@@ -2026,7 +2037,7 @@ double CAFUIDevicePickerViewController.collectionView(_:layout:minimumInteritemS
   return result;
 }
 
-uint64_t CAFUIDevicePickerViewController.collectionView(_:cellForItemAt:)(void *a1, uint64_t a2)
+char *CAFUIDevicePickerViewController.collectionView(_:cellForItemAt:)(void *a1, uint64_t a2)
 {
   v3 = v2;
   v110 = type metadata accessor for IndexPath();
@@ -2037,7 +2048,7 @@ uint64_t CAFUIDevicePickerViewController.collectionView(_:cellForItemAt:)(void *
   v12 = &v106 - v11;
   MEMORY[0x28223BE20](v10);
   v109 = (&v106 - v13);
-  v14 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation9IndexPathVSgMd);
+  v14 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation9IndexPathVSgMd, &_s10Foundation9IndexPathVSgMR);
   MEMORY[0x28223BE20](v14 - 8);
   v108 = &v106 - v15;
   type metadata accessor for CAFUIDevicePickerViewCell();
@@ -2075,7 +2086,7 @@ LABEL_14:
           v49 = swift_slowAlloc();
           v115[0] = v49;
           *v48 = 136315394;
-          lazy protocol witness table accessor for type IndexPath and conformance IndexPath(&lazy protocol witness table cache variable for type IndexPath and conformance IndexPath, MEMORY[0x277CC9AF8]);
+          lazy protocol witness table accessor for type IndexPath and conformance IndexPath(&lazy protocol witness table cache variable for type IndexPath and conformance IndexPath, MEMORY[0x277CC9AF8], MEMORY[0x277CC9B38]);
           v50 = dispatch thunk of CustomStringConvertible.description.getter();
           v51 = v46;
           v53 = v52;
@@ -2170,7 +2181,7 @@ LABEL_16:
 
             *(v59 + 4) = v75;
             *(v59 + 12) = 2080;
-            lazy protocol witness table accessor for type IndexPath and conformance IndexPath(&lazy protocol witness table cache variable for type IndexPath and conformance IndexPath, MEMORY[0x277CC9AF8]);
+            lazy protocol witness table accessor for type IndexPath and conformance IndexPath(&lazy protocol witness table cache variable for type IndexPath and conformance IndexPath, MEMORY[0x277CC9AF8], MEMORY[0x277CC9B38]);
             v76 = v110;
             v77 = dispatch thunk of CustomStringConvertible.description.getter();
             v79 = v78;
@@ -2279,7 +2290,7 @@ LABEL_40:
                 v92 = swift_slowAlloc();
                 v111 = v92;
                 *v91 = 136315650;
-                lazy protocol witness table accessor for type IndexPath and conformance IndexPath(&lazy protocol witness table cache variable for type IndexPath and conformance IndexPath, MEMORY[0x277CC9AF8]);
+                lazy protocol witness table accessor for type IndexPath and conformance IndexPath(&lazy protocol witness table cache variable for type IndexPath and conformance IndexPath, MEMORY[0x277CC9AF8], MEMORY[0x277CC9B38]);
                 v93 = dispatch thunk of CustomStringConvertible.description.getter();
                 v94 = v44;
                 v95 = v93;
@@ -2486,7 +2497,7 @@ LABEL_18:
     *v29 = 134218498;
     *(v29 + 4) = v20;
     *(v29 + 12) = 2080;
-    lazy protocol witness table accessor for type IndexPath and conformance IndexPath(&lazy protocol witness table cache variable for type IndexPath and conformance IndexPath, MEMORY[0x277CC9AF8]);
+    lazy protocol witness table accessor for type IndexPath and conformance IndexPath(&lazy protocol witness table cache variable for type IndexPath and conformance IndexPath, MEMORY[0x277CC9AF8], MEMORY[0x277CC9B38]);
     v31 = dispatch thunk of CustomStringConvertible.description.getter();
     v32 = v3;
     v34 = v33;
@@ -2513,13 +2524,13 @@ LABEL_18:
   return v20;
 }
 
-uint64_t CAFUIDevicePickerViewController.device(at:)(unint64_t a1)
+id CAFUIDevicePickerViewController.device(at:)(unint64_t a1)
 {
   v3 = [*(v1 + OBJC_IVAR____TtC5CAFUI31CAFUIDevicePickerViewController_pairedDevices) pairedDevicesInformation];
   v4 = [v3 pairedDeviceList];
   v5 = [v4 pairedDevices];
 
-  type metadata accessor for OS_os_log(0, &lazy cache variable for type metadata for CAFPairedDevice);
+  type metadata accessor for OS_os_log(0, &lazy cache variable for type metadata for CAFPairedDevice, 0x277CF8570);
   static Array._unconditionallyBridgeFromObjectiveC(_:)();
 
   v10 = specialized Array._copyToContiguousArray()(v6);
@@ -2574,7 +2585,7 @@ void CAFUIDevicePickerViewController.collectionView(_:didSelectItemAt:)(id a1, u
     aBlock[0] = v13;
     v14 = v13;
     *v12 = 136315138;
-    lazy protocol witness table accessor for type IndexPath and conformance IndexPath(&lazy protocol witness table cache variable for type IndexPath and conformance IndexPath, MEMORY[0x277CC9AF8]);
+    lazy protocol witness table accessor for type IndexPath and conformance IndexPath(&lazy protocol witness table cache variable for type IndexPath and conformance IndexPath, MEMORY[0x277CC9AF8], MEMORY[0x277CC9B38]);
     v15 = a2;
     v16 = v3;
     v17 = dispatch thunk of CustomStringConvertible.description.getter();
@@ -2745,7 +2756,7 @@ LABEL_23:
 id CAFUIDevicePickerViewController.setProcessingUI(for:with:at:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   v5 = v4;
-  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation9IndexPathVSgMd);
+  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation9IndexPathVSgMd, &_s10Foundation9IndexPathVSgMR);
   MEMORY[0x28223BE20](v10 - 8);
   v12 = &v20 - v11;
   result = [v5 collectionView];
@@ -2802,7 +2813,7 @@ void CAFUIDevicePickerViewController.pairedDevicesInformationService(_:didUpdate
     *(v7 + 12) = 2080;
     v10 = a2;
     v11 = CAFPairedDevicesInformation.items.getter();
-    v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s5CAFUI35CAFUIImageRepresentableItemProtocol_pMd);
+    v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s5CAFUI35CAFUIImageRepresentableItemProtocol_pMd, &_s5CAFUI35CAFUIImageRepresentableItemProtocol_pMR);
     v13 = MEMORY[0x245D0D320](v11, v12);
     v15 = v14;
 
@@ -2810,7 +2821,7 @@ void CAFUIDevicePickerViewController.pairedDevicesInformationService(_:didUpdate
 
     *(v7 + 14) = v16;
     _os_log_impl(&dword_24234D000, v5, v6, "Paired device list updated: %@, items: %s", v7, 0x16u);
-    outlined destroy of RequestTemporaryContentModel?(v8, &_sSo8NSObjectCSgMd);
+    outlined destroy of RequestTemporaryContentModel?(v8, &_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
     MEMORY[0x245D0E5A0](v8, -1, -1);
     __swift_destroy_boxed_opaque_existential_0(v9);
     MEMORY[0x245D0E5A0](v9, -1, -1);
@@ -2910,7 +2921,7 @@ Swift::Void __swiftcall CAFUIDevicePickerViewController.devicePickerButtonTapped
   }
 }
 
-BOOL closure #1 in CAFUIDevicePickerViewController.devicePickerButtonTapped()(char a1, uint64_t a2)
+BOOL closure #1 in CAFUIDevicePickerViewController.devicePickerButtonTapped()(uint64_t a1, uint64_t a2)
 {
   if (a1)
   {
@@ -2958,7 +2969,7 @@ LABEL_10:
   return result;
 }
 
-void closure #1 in CAFUIDevicePickerViewController.updateDevicePickerLimitedUI()(char a1)
+void closure #1 in CAFUIDevicePickerViewController.updateDevicePickerLimitedUI()(uint64_t a1)
 {
   if (a1)
   {
@@ -2970,7 +2981,7 @@ void closure #1 in CAFUIDevicePickerViewController.updateDevicePickerLimitedUI()
     static os_log_type_t.error.getter();
   }
 
-  type metadata accessor for OS_os_log(0, &lazy cache variable for type metadata for OS_os_log);
+  type metadata accessor for OS_os_log(0, &lazy cache variable for type metadata for OS_os_log, 0x277D86200);
   v1 = static OS_os_log.default.getter();
   os_log(_:dso:log:_:_:)();
 }
@@ -2985,7 +2996,7 @@ Swift::Void __swiftcall CAFUIDevicePickerViewController.resetSpinningCellAndUser
   v5 = *(v4 - 8);
   MEMORY[0x28223BE20](v4);
   v7 = aBlock - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  type metadata accessor for OS_os_log(0, &lazy cache variable for type metadata for OS_dispatch_queue);
+  type metadata accessor for OS_os_log(0, &lazy cache variable for type metadata for OS_dispatch_queue, 0x277D85C78);
   v8 = static OS_dispatch_queue.main.getter();
   v9 = swift_allocObject();
   swift_unknownObjectWeakInit();
@@ -2999,8 +3010,8 @@ Swift::Void __swiftcall CAFUIDevicePickerViewController.resetSpinningCellAndUser
 
   static DispatchQoS.unspecified.getter();
   aBlock[0] = MEMORY[0x277D84F90];
-  lazy protocol witness table accessor for type IndexPath and conformance IndexPath(&lazy protocol witness table cache variable for type DispatchWorkItemFlags and conformance DispatchWorkItemFlags, MEMORY[0x277D85198]);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay8Dispatch0A13WorkItemFlagsVGMd);
+  lazy protocol witness table accessor for type IndexPath and conformance IndexPath(&lazy protocol witness table cache variable for type DispatchWorkItemFlags and conformance DispatchWorkItemFlags, MEMORY[0x277D85198], MEMORY[0x277D851A0]);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay8Dispatch0A13WorkItemFlagsVGMd, &_sSay8Dispatch0A13WorkItemFlagsVGMR);
   lazy protocol witness table accessor for type [DispatchWorkItemFlags] and conformance [A]();
   dispatch thunk of SetAlgebra.init<A>(_:)();
   MEMORY[0x245D0D520](0, v7, v3, v10);
@@ -3010,61 +3021,61 @@ Swift::Void __swiftcall CAFUIDevicePickerViewController.resetSpinningCellAndUser
   (*(v5 + 8))(v7, v4);
 }
 
-void closure #1 in CAFUIDevicePickerViewController.resetSpinningCellAndUserInteraction()()
+void closure #1 in CAFUIDevicePickerViewController.resetSpinningCellAndUserInteraction()(uint64_t a1)
 {
-  v0 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation9IndexPathVSgMd);
-  v1 = MEMORY[0x28223BE20](v0 - 8);
-  v3 = &v20 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v1);
-  v5 = &v20 - v4;
-  v6 = type metadata accessor for IndexPath();
-  v7 = *(v6 - 8);
-  MEMORY[0x28223BE20](v6);
-  v9 = &v20 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation9IndexPathVSgMd, &_s10Foundation9IndexPathVSgMR);
+  v2 = MEMORY[0x28223BE20](v1 - 8);
+  v4 = &v21 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v2);
+  v6 = &v21 - v5;
+  v7 = type metadata accessor for IndexPath();
+  v8 = *(v7 - 8);
+  MEMORY[0x28223BE20](v7);
+  v10 = &v21 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
   swift_beginAccess();
   Strong = swift_unknownObjectWeakLoadStrong();
   if (Strong)
   {
-    v11 = Strong;
-    v12 = [v11 collectionView];
-    if (v12)
+    v12 = Strong;
+    v13 = [v12 collectionView];
+    if (v13)
     {
-      v13 = v12;
-      [v12 setUserInteractionEnabled_];
+      v14 = v13;
+      [v13 setUserInteractionEnabled_];
 
-      v14 = &v11[OBJC_IVAR____TtC5CAFUI31CAFUIDevicePickerViewController_deviceIDInProcess];
-      *v14 = 0;
-      *(v14 + 1) = 0;
+      v15 = &v12[OBJC_IVAR____TtC5CAFUI31CAFUIDevicePickerViewController_deviceIDInProcess];
+      *v15 = 0;
+      *(v15 + 1) = 0;
 
-      v15 = OBJC_IVAR____TtC5CAFUI31CAFUIDevicePickerViewController_spinningCellIndexPath;
+      v16 = OBJC_IVAR____TtC5CAFUI31CAFUIDevicePickerViewController_spinningCellIndexPath;
       swift_beginAccess();
-      outlined init with copy of IndexPath?(&v11[v15], v5);
-      if ((*(v7 + 48))(v5, 1, v6) == 1)
+      outlined init with copy of IndexPath?(&v12[v16], v6);
+      if ((*(v8 + 48))(v6, 1, v7) == 1)
       {
 
-        outlined destroy of RequestTemporaryContentModel?(v5, &_s10Foundation9IndexPathVSgMd);
+        outlined destroy of RequestTemporaryContentModel?(v6, &_s10Foundation9IndexPathVSgMd, &_s10Foundation9IndexPathVSgMR);
         return;
       }
 
-      (*(v7 + 32))(v9, v5, v6);
-      (*(v7 + 56))(v3, 1, 1, v6);
+      (*(v8 + 32))(v10, v6, v7);
+      (*(v8 + 56))(v4, 1, 1, v7);
       swift_beginAccess();
-      outlined assign with take of IndexPath?(v3, &v11[v15]);
+      outlined assign with take of IndexPath?(v4, &v12[v16]);
       swift_endAccess();
-      v16 = [v11 collectionView];
+      v17 = [v12 collectionView];
 
-      if (v16)
+      if (v17)
       {
-        __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy10Foundation9IndexPathVGMd);
-        v17 = (*(v7 + 80) + 32) & ~*(v7 + 80);
-        v18 = swift_allocObject();
-        *(v18 + 16) = xmmword_2424235A0;
-        (*(v7 + 16))(v18 + v17, v9, v6);
+        __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy10Foundation9IndexPathVGMd, &_ss23_ContiguousArrayStorageCy10Foundation9IndexPathVGMR);
+        v18 = (*(v8 + 80) + 32) & ~*(v8 + 80);
+        v19 = swift_allocObject();
+        *(v19 + 16) = xmmword_2424235A0;
+        (*(v8 + 16))(v19 + v18, v10, v7);
         isa = Array._bridgeToObjectiveC()().super.isa;
 
-        [v16 reconfigureItemsAtIndexPaths_];
+        [v17 reconfigureItemsAtIndexPaths_];
 
-        (*(v7 + 8))(v9, v6);
+        (*(v8 + 8))(v10, v7);
         return;
       }
     }
@@ -3121,7 +3132,7 @@ Swift::Void __swiftcall CAFUIDevicePickerViewController.shouldRequest(action:for
       v19 = v18;
       v20 = [v18 visibleCells];
 
-      type metadata accessor for OS_os_log(0, &lazy cache variable for type metadata for UICollectionViewCell);
+      type metadata accessor for OS_os_log(0, &lazy cache variable for type metadata for UICollectionViewCell, 0x277D752A8);
       v21 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
 
       if (v21 >> 62)
@@ -3221,7 +3232,7 @@ LABEL_29:
 
 LABEL_30:
       v35 = static os_log_type_t.error.getter();
-      type metadata accessor for OS_os_log(0, &lazy cache variable for type metadata for OS_os_log);
+      type metadata accessor for OS_os_log(0, &lazy cache variable for type metadata for OS_os_log, 0x277D86200);
       v36 = static OS_os_log.default.getter();
       if (os_log_type_enabled(v36, v35))
       {
@@ -3258,12 +3269,14 @@ Swift::Int protocol witness for Hashable.hashValue.getter in conformance CAFUIDe
   return Hasher._finalize()();
 }
 
-uint64_t protocol witness for Hashable.hash(into:) in conformance CAFUIDevicePickerViewController.LayoutStyle()
+double protocol witness for Hashable.hash(into:) in conformance CAFUIDevicePickerViewController.LayoutStyle(uint64_t a1)
 {
   String.hash(into:)();
+
+  return result;
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance CAFUIDevicePickerViewController.LayoutStyle()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance CAFUIDevicePickerViewController.LayoutStyle(uint64_t a1)
 {
   Hasher.init(_seed:)();
   String.hash(into:)();
@@ -3317,7 +3330,7 @@ void protocol witness for RawRepresentable.rawValue.getter in conformance CAFUID
 
 void closure #1 in OSLogArguments.append(_:)(void **a1, void **a2, uint64_t a3, uint64_t (*a4)(void))
 {
-  v6 = a4();
+  v6 = (a4)(a1, a2, a3);
   v7 = *a1;
   *v7 = v6;
   *a1 = v7 + 1;
@@ -3533,7 +3546,7 @@ void specialized CAFUIDevicePickerViewController.init(coder:)()
 
 uint64_t outlined assign with take of IndexPath?(uint64_t a1, uint64_t a2)
 {
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation9IndexPathVSgMd);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation9IndexPathVSgMd, &_s10Foundation9IndexPathVSgMR);
   (*(*(v4 - 8) + 40))(a2, a1, v4);
   return a2;
 }
@@ -3545,11 +3558,13 @@ uint64_t sub_24240AC00()
   return MEMORY[0x2821FE8E8](v0, 24, 7);
 }
 
-uint64_t block_copy_helper_8(uint64_t a1, uint64_t a2)
+double block_copy_helper_8(uint64_t a1, uint64_t a2)
 {
   v2 = *(a2 + 40);
   *(a1 + 32) = *(a2 + 32);
   *(a1 + 40) = v2;
+
+  return result;
 }
 
 void specialized CAFUIDevicePickerViewController.collectionView(_:layout:insetForSectionAt:)(void *a1)
@@ -3944,7 +3959,7 @@ LABEL_17:
             *v41 = v42;
             v43 = v42;
             _os_log_impl(&dword_24234D000, v33, v35, "Early exit scroll view did scroll method. isPaginationActive: %{BOOL}d, pageControl: %@", v36, 0x12u);
-            outlined destroy of RequestTemporaryContentModel?(v41, &_sSo8NSObjectCSgMd);
+            outlined destroy of RequestTemporaryContentModel?(v41, &_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
             MEMORY[0x245D0E5A0](v41, -1, -1);
             MEMORY[0x245D0E5A0](v36, -1, -1);
             return;
@@ -4064,7 +4079,7 @@ LABEL_38:
   __break(1u);
 }
 
-uint64_t lazy protocol witness table accessor for type IndexPath and conformance IndexPath(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t lazy protocol witness table accessor for type IndexPath and conformance IndexPath(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -4135,33 +4150,34 @@ LABEL_8:
   }
 }
 
-uint64_t sub_24240BE30@<X0>(uint64_t *a1@<X0>, _OWORD *a2@<X8>)
+double sub_24240BE30@<D0>(uint64_t *a1@<X0>, _OWORD *a2@<X8>)
 {
   v3 = *a1;
   v4 = OBJC_IVAR____TtC5CAFUI31CAFUIDevicePickerViewController_delegate;
   swift_beginAccess();
   *a2 = *(v3 + v4);
-  return swift_unknownObjectRetain();
+  swift_unknownObjectRetain();
+  return result;
 }
 
-void type metadata completion function for CAFUIDevicePickerViewController()
+void type metadata completion function for CAFUIDevicePickerViewController(uint64_t a1)
 {
-  type metadata accessor for IndexPath?();
-  if (v0 <= 0x3F)
+  type metadata accessor for IndexPath?(319);
+  if (v1 <= 0x3F)
   {
     swift_updateClassMetadata2();
   }
 }
 
-void type metadata accessor for IndexPath?()
+void type metadata accessor for IndexPath?(uint64_t a1)
 {
   if (!lazy cache variable for type metadata for IndexPath?)
   {
     type metadata accessor for IndexPath();
-    v0 = type metadata accessor for Optional();
-    if (!v1)
+    v1 = type metadata accessor for Optional();
+    if (!v2)
     {
-      atomic_store(v0, &lazy cache variable for type metadata for IndexPath?);
+      atomic_store(v1, &lazy cache variable for type metadata for IndexPath?);
     }
   }
 }
@@ -4328,7 +4344,7 @@ LABEL_20:
   return result;
 }
 
-unint64_t lazy protocol witness table accessor for type CAFUIDevicePickerViewController.LayoutStyle and conformance CAFUIDevicePickerViewController.LayoutStyle()
+unint64_t lazy protocol witness table accessor for type CAFUIDevicePickerViewController.LayoutStyle and conformance CAFUIDevicePickerViewController.LayoutStyle(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   result = lazy protocol witness table cache variable for type CAFUIDevicePickerViewController.LayoutStyle and conformance CAFUIDevicePickerViewController.LayoutStyle;
   if (!lazy protocol witness table cache variable for type CAFUIDevicePickerViewController.LayoutStyle and conformance CAFUIDevicePickerViewController.LayoutStyle)
@@ -4366,12 +4382,12 @@ uint64_t sub_24240C3F8()
 
 uint64_t outlined init with copy of IndexPath?(uint64_t a1, uint64_t a2)
 {
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation9IndexPathVSgMd);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation9IndexPathVSgMd, &_s10Foundation9IndexPathVSgMR);
   (*(*(v4 - 8) + 16))(a2, a1, v4);
   return a2;
 }
 
-size_t CAFUIPickerRepresentable.toggle(index:)(unint64_t a1, uint64_t a2, uint64_t a3)
+void *CAFUIPickerRepresentable.toggle(index:)(unint64_t a1, uint64_t a2, uint64_t a3)
 {
   v6 = type metadata accessor for IndexPath();
   v7 = *(v6 - 8);
@@ -4524,20 +4540,20 @@ LABEL_30:
         v31 = v67;
         MEMORY[0x245D0BE30](a1, 0);
         v21 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, 1, 1, MEMORY[0x277D84F90]);
-        a1 = *(v21 + 16);
-        v57 = *(v21 + 24);
+        a1 = v21[2];
+        v57 = v21[3];
         v33 = (a1 + 1);
         v34 = v69;
         if (a1 < v57 >> 1)
         {
 LABEL_31:
-          *(v21 + 16) = v33;
+          v21[2] = v33;
           (*(v34 + 4))(v21 + ((v34[80] + 32) & ~v34[80]) + *(v34 + 9) * a1, v31);
           return v21;
         }
 
 LABEL_49:
-        v21 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(v57 > 1, v33, 1, v21);
+        v21 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v57 > 1), v33, 1, v21);
         goto LABEL_31;
       }
 
@@ -4560,16 +4576,16 @@ LABEL_17:
       (v21)(&v70, 0);
       MEMORY[0x245D0BE30](a1, 0);
       v21 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, 1, 1, MEMORY[0x277D84F90]);
-      v45 = *(v21 + 16);
-      v44 = *(v21 + 24);
+      v45 = v21[2];
+      v44 = v21[3];
       if (v45 >= v44 >> 1)
       {
-        v21 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(v44 > 1, v45 + 1, 1, v21);
+        v21 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v44 > 1), v45 + 1, 1, v21);
       }
 
       v46 = v68;
       v47 = v69;
-      *(v21 + 16) = v45 + 1;
+      v21[2] = v45 + 1;
       (*(v47 + 32))(v21 + ((*(v47 + 80) + 32) & ~*(v47 + 80)) + *(v47 + 72) * v45, v41, v46);
       return v21;
     }
@@ -4597,14 +4613,14 @@ LABEL_17:
 
     MEMORY[0x245D0BE30](v49, 0);
     v21 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, 1, 1, MEMORY[0x277D84F90]);
-    v51 = *(v21 + 16);
-    v50 = *(v21 + 24);
+    v51 = v21[2];
+    v50 = v21[3];
     if (v51 >= v50 >> 1)
     {
-      v21 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(v50 > 1, v51 + 1, 1, v21);
+      v21 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v50 > 1), v51 + 1, 1, v21);
     }
 
-    *(v21 + 16) = v51 + 1;
+    v21[2] = v51 + 1;
     v52 = v21 + ((*(v69 + 80) + 32) & ~*(v69 + 80)) + *(v69 + 72) * v51;
     v53 = v68;
     (*(v69 + 32))(v52, v12, v68);
@@ -4617,7 +4633,7 @@ LABEL_17:
     v53 = v68;
   }
 
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySiGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySiGMd, &_ss23_ContiguousArrayStorageCySiGMR);
   v58 = swift_allocObject();
   *(v58 + 16) = xmmword_2424235A0;
   *(v58 + 32) = a1;
@@ -4626,24 +4642,24 @@ LABEL_17:
   MEMORY[0x245D0BE30](a1, 0);
   if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
   {
-    v21 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v21 + 16) + 1, 1, v21);
+    v21 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, v21[2] + 1, 1, v21);
   }
 
-  v61 = *(v21 + 16);
-  v60 = *(v21 + 24);
+  v61 = v21[2];
+  v60 = v21[3];
   if (v61 >= v60 >> 1)
   {
-    v21 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(v60 > 1, v61 + 1, 1, v21);
+    v21 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v60 > 1), v61 + 1, 1, v21);
   }
 
-  *(v21 + 16) = v61 + 1;
+  v21[2] = v61 + 1;
   (*(v69 + 32))(v21 + ((*(v69 + 80) + 32) & ~*(v69 + 80)) + *(v69 + 72) * v61, v59, v53);
   return v21;
 }
 
 uint64_t CAFUIPickerRepresentable.configureCell(_:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s5CAFUI26CAFUITileCellConfigurationVSgMd);
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s5CAFUI26CAFUITileCellConfigurationVSgMd, &_s5CAFUI26CAFUITileCellConfigurationVSgMR);
   v8 = MEMORY[0x28223BE20](v7 - 8);
   v64 = v54 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x28223BE20](v8);
@@ -4767,7 +4783,7 @@ uint64_t CAFUIPickerRepresentable.configureCell(_:)(uint64_t a1, uint64_t a2, ui
 uint64_t CAFUIButtonRepresentable.configureCell(_:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v37 = a1;
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s5CAFUI26CAFUITileCellConfigurationVSgMd);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s5CAFUI26CAFUITileCellConfigurationVSgMd, &_s5CAFUI26CAFUITileCellConfigurationVSgMR);
   v6 = MEMORY[0x28223BE20](v5 - 8);
   v42 = &v35 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x28223BE20](v6);
@@ -4862,13 +4878,13 @@ double CAFUIButtonRepresentable.cellSelected()@<D0>(uint64_t a1@<X0>, uint64_t a
   return result;
 }
 
-void closure #2 in CAFUIPickerViewController.init(pickerRepresentable:)()
+void closure #2 in CAFUIPickerViewController.init(pickerRepresentable:)(uint64_t a1, uint64_t a2)
 {
   swift_beginAccess();
   Strong = swift_unknownObjectWeakLoadStrong();
   if (Strong)
   {
-    v1 = Strong;
+    v3 = Strong;
     [*(Strong + OBJC_IVAR____TtC5CAFUI24CAFUITableViewController_tableView) reloadData];
   }
 }
@@ -4906,7 +4922,7 @@ LABEL_35:
   v8 = v7;
   [v7 addSubview_];
 
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyyXlGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyyXlGMd, &_ss23_ContiguousArrayStorageCyyXlGMR);
   v9 = swift_allocObject();
   *(v9 + 16) = xmmword_242423B90;
   v10 = [v1 topAnchor];
@@ -5174,14 +5190,14 @@ uint64_t CAFUIPickerViewController.tableView(_:cellForRowAt:)(void *a1, uint64_t
   return result;
 }
 
-uint64_t @objc CAFUIPickerViewController.tableView(_:canMoveRowAt:)()
+uint64_t @objc CAFUIPickerViewController.tableView(_:canMoveRowAt:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v0 = type metadata accessor for IndexPath();
-  v1 = *(v0 - 8);
-  MEMORY[0x28223BE20](v0);
-  v3 = &v5 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v4 = type metadata accessor for IndexPath();
+  v5 = *(v4 - 8);
+  MEMORY[0x28223BE20](v4);
+  v7 = &v9 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   static IndexPath._unconditionallyBridgeFromObjectiveC(_:)();
-  (*(v1 + 8))(v3, v0);
+  (*(v5 + 8))(v7, v4);
   return 0;
 }
 
@@ -5227,9 +5243,11 @@ LABEL_12:
   }
 }
 
-uint64_t CAFUIPickerViewController.__ivar_destroyer()
+double CAFUIPickerViewController.__ivar_destroyer()
 {
   swift_unknownObjectRelease();
+
+  return result;
 }
 
 id CAFUIPickerViewController.__deallocating_deinit()
@@ -5870,7 +5888,7 @@ void CAFUIProminentSettingCell.configButtonColorForBooleanSetting(_:)(void *a1)
 {
   v2 = v1;
   v111 = a1;
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8UIButtonC5UIKitE13ConfigurationVSgMd);
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8UIButtonC5UIKitE13ConfigurationVSgMd, &_sSo8UIButtonC5UIKitE13ConfigurationVSgMR);
   v4 = MEMORY[0x28223BE20](v3 - 8);
   v6 = &v103 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
   v7 = MEMORY[0x28223BE20](v4);
@@ -5933,9 +5951,9 @@ LABEL_17:
     v54 = type metadata accessor for UIButton.Configuration();
     if ((*(*(v54 - 8) + 48))(v6, 1, v54))
     {
-      outlined init with copy of NotificationModel.Symbol?(v6, v20, &_sSo8UIButtonC5UIKitE13ConfigurationVSgMd);
+      outlined init with copy of NotificationModel.Symbol?(v6, v20, &_sSo8UIButtonC5UIKitE13ConfigurationVSgMd, &_sSo8UIButtonC5UIKitE13ConfigurationVSgMR);
       UIButton.configuration.setter();
-      outlined destroy of RequestTemporaryContentModel?(v6, &_sSo8UIButtonC5UIKitE13ConfigurationVSgMd);
+      outlined destroy of RequestTemporaryContentModel?(v6, &_sSo8UIButtonC5UIKitE13ConfigurationVSgMd, &_sSo8UIButtonC5UIKitE13ConfigurationVSgMR);
 LABEL_31:
       v73 = v112;
       v74 = [objc_opt_self() clearColor];
@@ -6041,11 +6059,11 @@ LABEL_38:
             goto LABEL_61;
           }
 
-          outlined init with copy of NotificationModel.Symbol?(v87, v20, &_sSo8UIButtonC5UIKitE13ConfigurationVSgMd);
+          outlined init with copy of NotificationModel.Symbol?(v87, v20, &_sSo8UIButtonC5UIKitE13ConfigurationVSgMd, &_sSo8UIButtonC5UIKitE13ConfigurationVSgMR);
           UIButton.configuration.setter();
           v71 = v87;
 LABEL_56:
-          outlined destroy of RequestTemporaryContentModel?(v71, &_sSo8UIButtonC5UIKitE13ConfigurationVSgMd);
+          outlined destroy of RequestTemporaryContentModel?(v71, &_sSo8UIButtonC5UIKitE13ConfigurationVSgMd, &_sSo8UIButtonC5UIKitE13ConfigurationVSgMR);
           return;
         }
 
@@ -6099,7 +6117,7 @@ LABEL_50:
         }
       }
 
-      outlined init with copy of NotificationModel.Symbol?(v91, v20, &_sSo8UIButtonC5UIKitE13ConfigurationVSgMd);
+      outlined init with copy of NotificationModel.Symbol?(v91, v20, &_sSo8UIButtonC5UIKitE13ConfigurationVSgMd, &_sSo8UIButtonC5UIKitE13ConfigurationVSgMR);
       UIButton.configuration.setter();
       v71 = v91;
       goto LABEL_56;
@@ -6144,7 +6162,7 @@ LABEL_12:
     v70 = type metadata accessor for UIButton.Configuration();
     if ((*(*(v70 - 8) + 48))(v69, 1, v70))
     {
-      outlined init with copy of NotificationModel.Symbol?(v69, v20, &_sSo8UIButtonC5UIKitE13ConfigurationVSgMd);
+      outlined init with copy of NotificationModel.Symbol?(v69, v20, &_sSo8UIButtonC5UIKitE13ConfigurationVSgMd, &_sSo8UIButtonC5UIKitE13ConfigurationVSgMR);
       UIButton.configuration.setter();
       v71 = v69;
       goto LABEL_56;
@@ -6210,7 +6228,7 @@ LABEL_54:
   v100 = type metadata accessor for UIButton.Configuration();
   if ((*(*(v100 - 8) + 48))(v11, 1, v100))
   {
-    outlined init with copy of NotificationModel.Symbol?(v11, v20, &_sSo8UIButtonC5UIKitE13ConfigurationVSgMd);
+    outlined init with copy of NotificationModel.Symbol?(v11, v20, &_sSo8UIButtonC5UIKitE13ConfigurationVSgMd, &_sSo8UIButtonC5UIKitE13ConfigurationVSgMR);
     UIButton.configuration.setter();
     v71 = v11;
     goto LABEL_56;
@@ -6225,7 +6243,7 @@ LABEL_61:
 void CAFUIProminentSettingCell.configButtonColorFor1stChildBooleanSetting(_:)(char *a1)
 {
   v2 = v1;
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8UIButtonC5UIKitE13ConfigurationVSgMd);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8UIButtonC5UIKitE13ConfigurationVSgMd, &_sSo8UIButtonC5UIKitE13ConfigurationVSgMR);
   v5 = MEMORY[0x28223BE20](v4 - 8);
   v7 = &v130 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   v8 = MEMORY[0x28223BE20](v5);
@@ -6289,9 +6307,9 @@ LABEL_13:
     v50 = type metadata accessor for UIButton.Configuration();
     if ((*(*(v50 - 8) + 48))(v7, 1, v50))
     {
-      outlined init with copy of NotificationModel.Symbol?(v7, v139, &_sSo8UIButtonC5UIKitE13ConfigurationVSgMd);
+      outlined init with copy of NotificationModel.Symbol?(v7, v139, &_sSo8UIButtonC5UIKitE13ConfigurationVSgMd, &_sSo8UIButtonC5UIKitE13ConfigurationVSgMR);
       UIButton.configuration.setter();
-      outlined destroy of RequestTemporaryContentModel?(v7, &_sSo8UIButtonC5UIKitE13ConfigurationVSgMd);
+      outlined destroy of RequestTemporaryContentModel?(v7, &_sSo8UIButtonC5UIKitE13ConfigurationVSgMd, &_sSo8UIButtonC5UIKitE13ConfigurationVSgMR);
       return;
     }
 
@@ -6402,9 +6420,9 @@ LABEL_31:
         if ((*(*(v67 - 8) + 48))(v78, 1, v67))
         {
 LABEL_46:
-          outlined init with copy of NotificationModel.Symbol?(v78, v139, &_sSo8UIButtonC5UIKitE13ConfigurationVSgMd);
+          outlined init with copy of NotificationModel.Symbol?(v78, v139, &_sSo8UIButtonC5UIKitE13ConfigurationVSgMd, &_sSo8UIButtonC5UIKitE13ConfigurationVSgMR);
           UIButton.configuration.setter();
-          outlined destroy of RequestTemporaryContentModel?(v78, &_sSo8UIButtonC5UIKitE13ConfigurationVSgMd);
+          outlined destroy of RequestTemporaryContentModel?(v78, &_sSo8UIButtonC5UIKitE13ConfigurationVSgMd, &_sSo8UIButtonC5UIKitE13ConfigurationVSgMR);
 LABEL_59:
           [v23 setOverrideUserInterfaceStyle_];
           if (!*v133)
@@ -6462,9 +6480,9 @@ LABEL_99:
       v82 = type metadata accessor for UIButton.Configuration();
       if ((*(*(v82 - 8) + 48))(v81, 1, v82))
       {
-        outlined init with copy of NotificationModel.Symbol?(v81, v139, &_sSo8UIButtonC5UIKitE13ConfigurationVSgMd);
+        outlined init with copy of NotificationModel.Symbol?(v81, v139, &_sSo8UIButtonC5UIKitE13ConfigurationVSgMd, &_sSo8UIButtonC5UIKitE13ConfigurationVSgMR);
         UIButton.configuration.setter();
-        outlined destroy of RequestTemporaryContentModel?(v81, &_sSo8UIButtonC5UIKitE13ConfigurationVSgMd);
+        outlined destroy of RequestTemporaryContentModel?(v81, &_sSo8UIButtonC5UIKitE13ConfigurationVSgMd, &_sSo8UIButtonC5UIKitE13ConfigurationVSgMR);
 LABEL_98:
         v95 = [objc_opt_self() systemBlackColor];
         v96 = [v95 colorWithAlphaComponent_];
@@ -6506,9 +6524,9 @@ LABEL_97:
     v71 = type metadata accessor for UIButton.Configuration();
     if ((*(*(v71 - 8) + 48))(v70, 1, v71))
     {
-      outlined init with copy of NotificationModel.Symbol?(v70, v139, &_sSo8UIButtonC5UIKitE13ConfigurationVSgMd);
+      outlined init with copy of NotificationModel.Symbol?(v70, v139, &_sSo8UIButtonC5UIKitE13ConfigurationVSgMd, &_sSo8UIButtonC5UIKitE13ConfigurationVSgMR);
       UIButton.configuration.setter();
-      outlined destroy of RequestTemporaryContentModel?(v70, &_sSo8UIButtonC5UIKitE13ConfigurationVSgMd);
+      outlined destroy of RequestTemporaryContentModel?(v70, &_sSo8UIButtonC5UIKitE13ConfigurationVSgMd, &_sSo8UIButtonC5UIKitE13ConfigurationVSgMR);
 LABEL_94:
       v95 = [objc_opt_self() systemBlackColor];
       v96 = [v95 colorWithAlphaComponent_];
@@ -6549,9 +6567,9 @@ LABEL_29:
     v63 = type metadata accessor for UIButton.Configuration();
     if ((*(*(v63 - 8) + 48))(v62, 1, v63))
     {
-      outlined init with copy of NotificationModel.Symbol?(v62, v139, &_sSo8UIButtonC5UIKitE13ConfigurationVSgMd);
+      outlined init with copy of NotificationModel.Symbol?(v62, v139, &_sSo8UIButtonC5UIKitE13ConfigurationVSgMd, &_sSo8UIButtonC5UIKitE13ConfigurationVSgMR);
       UIButton.configuration.setter();
-      outlined destroy of RequestTemporaryContentModel?(v62, &_sSo8UIButtonC5UIKitE13ConfigurationVSgMd);
+      outlined destroy of RequestTemporaryContentModel?(v62, &_sSo8UIButtonC5UIKitE13ConfigurationVSgMd, &_sSo8UIButtonC5UIKitE13ConfigurationVSgMR);
 LABEL_77:
       if ([a1 on])
       {
@@ -6640,7 +6658,7 @@ LABEL_21:
     v86 = type metadata accessor for UIButton.Configuration();
     if ((*(*(v86 - 8) + 48))(v85, 1, v86))
     {
-      outlined init with copy of NotificationModel.Symbol?(v85, v139, &_sSo8UIButtonC5UIKitE13ConfigurationVSgMd);
+      outlined init with copy of NotificationModel.Symbol?(v85, v139, &_sSo8UIButtonC5UIKitE13ConfigurationVSgMd, &_sSo8UIButtonC5UIKitE13ConfigurationVSgMR);
       UIButton.configuration.setter();
       v60 = v85;
       goto LABEL_52;
@@ -6691,11 +6709,11 @@ LABEL_105:
   v59 = type metadata accessor for UIButton.Configuration();
   if ((*(*(v59 - 8) + 48))(v58, 1, v59))
   {
-    outlined init with copy of NotificationModel.Symbol?(v58, v139, &_sSo8UIButtonC5UIKitE13ConfigurationVSgMd);
+    outlined init with copy of NotificationModel.Symbol?(v58, v139, &_sSo8UIButtonC5UIKitE13ConfigurationVSgMd, &_sSo8UIButtonC5UIKitE13ConfigurationVSgMR);
     UIButton.configuration.setter();
     v60 = v58;
 LABEL_52:
-    outlined destroy of RequestTemporaryContentModel?(v60, &_sSo8UIButtonC5UIKitE13ConfigurationVSgMd);
+    outlined destroy of RequestTemporaryContentModel?(v60, &_sSo8UIButtonC5UIKitE13ConfigurationVSgMd, &_sSo8UIButtonC5UIKitE13ConfigurationVSgMR);
     goto LABEL_107;
   }
 
@@ -6823,7 +6841,7 @@ id CAFUIProminentSettingCell.__allocating_init(frame:)(double a1, double a2, dou
 char *CAFUIProminentSettingCell.init(frame:)(double a1, double a2, double a3, double a4)
 {
   v5 = v4;
-  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8UIButtonC5UIKitE13ConfigurationVSgMd);
+  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8UIButtonC5UIKitE13ConfigurationVSgMd, &_sSo8UIButtonC5UIKitE13ConfigurationVSgMR);
   MEMORY[0x28223BE20](v10 - 8);
   v12 = aBlock - v11;
   v13 = &v5[OBJC_IVAR____TtC5CAFUI25CAFUIProminentSettingCell_representable];
@@ -6961,7 +6979,7 @@ char *CAFUIProminentSettingCell.init(frame:)(double a1, double a2, double a3, do
   [v74 setAllowsGroupBlending_];
   v75 = v60;
   v76 = [v75 contentView];
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy5UIKit17UITraitDefinition_pXpGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy5UIKit17UITraitDefinition_pXpGMd, &_ss23_ContiguousArrayStorageCy5UIKit17UITraitDefinition_pXpGMR);
   v77 = swift_allocObject();
   *(v77 + 16) = xmmword_2424235A0;
   v78 = type metadata accessor for UITraitUserInterfaceStyle();
@@ -6970,13 +6988,13 @@ char *CAFUIProminentSettingCell.init(frame:)(double a1, double a2, double a3, do
   *(v77 + 40) = v79;
   swift_allocObject();
   swift_unknownObjectWeakInit();
-  type metadata accessor for OS_os_log(0, &lazy cache variable for type metadata for UIView);
+  type metadata accessor for OS_os_log(0, &lazy cache variable for type metadata for UIView, 0x277D75D18);
   UIView.registerForTraitChanges<A>(_:handler:)();
   swift_unknownObjectRelease();
 
   [*&v60[v69] setNumberOfLines_];
   [*&v60[v67] setNumberOfLines_];
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyyXlGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyyXlGMd, &_ss23_ContiguousArrayStorageCyyXlGMR);
   v80 = swift_allocObject();
   *(v80 + 16) = xmmword_242423BD0;
   v81 = [*&v60[v67] centerYAnchor];
@@ -6989,7 +7007,7 @@ char *CAFUIProminentSettingCell.init(frame:)(double a1, double a2, double a3, do
   *&v75[OBJC_IVAR____TtC5CAFUI25CAFUIProminentSettingCell_titleCenterYConstaint] = v80;
 
   v85 = objc_opt_self();
-  type metadata accessor for OS_os_log(0, &lazy cache variable for type metadata for NSLayoutConstraint);
+  type metadata accessor for OS_os_log(0, &lazy cache variable for type metadata for NSLayoutConstraint, 0x277CCAAD0);
 
   isa = Array._bridgeToObjectiveC()().super.isa;
 
@@ -7016,40 +7034,40 @@ char *CAFUIProminentSettingCell.init(frame:)(double a1, double a2, double a3, do
   return v75;
 }
 
-void closure #1 in CAFUIProminentSettingCell.init(frame:)()
+void closure #1 in CAFUIProminentSettingCell.init(frame:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v0 = type metadata accessor for UICellConfigurationState();
-  v1 = *(v0 - 8);
-  MEMORY[0x28223BE20](v0);
-  v3 = &v8 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v3 = type metadata accessor for UICellConfigurationState();
+  v4 = *(v3 - 8);
+  MEMORY[0x28223BE20](v3);
+  v6 = &v11 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
   swift_beginAccess();
   Strong = swift_unknownObjectWeakLoadStrong();
   if (Strong)
   {
-    v5 = Strong;
-    v6 = [Strong _bridgedConfigurationState];
+    v8 = Strong;
+    v9 = [Strong _bridgedConfigurationState];
     static UICellConfigurationState._unconditionallyBridgeFromObjectiveC(_:)();
 
     isa = UICellConfigurationState._bridgeToObjectiveC()().super.super.isa;
-    (*(v1 + 8))(v3, v0);
-    [v5 _bridgedUpdateConfigurationUsingState_];
+    (*(v4 + 8))(v6, v3);
+    [v8 _bridgedUpdateConfigurationUsingState_];
   }
 }
 
-void closure #2 in CAFUIProminentSettingCell.init(frame:)(id a1)
+void closure #2 in CAFUIProminentSettingCell.init(frame:)(id a1, uint64_t a2)
 {
-  v2 = type metadata accessor for UICellConfigurationState();
-  v3 = *(v2 - 8);
-  v4 = MEMORY[0x28223BE20](v2);
-  v6 = &v32 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v4);
-  v8 = &v32 - v7;
+  v3 = type metadata accessor for UICellConfigurationState();
+  v4 = *(v3 - 8);
+  v5 = MEMORY[0x28223BE20](v3);
+  v7 = &v33 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v5);
+  v9 = &v33 - v8;
   swift_beginAccess();
   Strong = swift_unknownObjectWeakLoadStrong();
   if (Strong)
   {
-    v10 = Strong;
-    v11 = (Strong + OBJC_IVAR____TtC5CAFUI25CAFUIProminentSettingCell_representable);
+    v11 = Strong;
+    v12 = (Strong + OBJC_IVAR____TtC5CAFUI25CAFUIProminentSettingCell_representable);
     if (!*(Strong + OBJC_IVAR____TtC5CAFUI25CAFUIProminentSettingCell_representable))
     {
       goto LABEL_23;
@@ -7059,85 +7077,85 @@ void closure #2 in CAFUIProminentSettingCell.init(frame:)(id a1)
     if (swift_dynamicCastObjCClass())
     {
       swift_unknownObjectRetain();
-      v12 = CAFStaticSetting.firstChild.getter();
-      if (v12)
+      v13 = CAFStaticSetting.firstChild.getter();
+      if (v13)
       {
-        v13 = v12;
+        v14 = v13;
         objc_opt_self();
-        v14 = swift_dynamicCastObjCClass();
-        if (v14)
+        v15 = swift_dynamicCastObjCClass();
+        if (v15)
         {
-          v15 = v14;
-          v34 = a1;
-          v16 = v13;
-          if (([v15 hasHidden] & 1) == 0)
+          v16 = v15;
+          v35 = a1;
+          v17 = v14;
+          if (([v16 hasHidden] & 1) == 0)
           {
 
             swift_unknownObjectRelease();
             goto LABEL_13;
           }
 
-          v17 = [v15 hidden];
+          v18 = [v16 hidden];
 
           swift_unknownObjectRelease();
-          if ((v17 & 1) == 0)
+          if ((v18 & 1) == 0)
           {
 LABEL_13:
             objc_opt_self();
-            if (!swift_dynamicCastObjCClass() || *(v10 + OBJC_IVAR____TtC5CAFUI25CAFUIProminentSettingCell_isDisabledByAncestor) == 1 || (v18 = *v11, v33 = v3, v18) && (v19 = v11[1], ObjectType = swift_getObjectType(), v32 = v19[5], swift_unknownObjectRetain(), v21 = v32(ObjectType, v19), swift_unknownObjectRelease(), (v21 & 1) == 0))
+            if (!swift_dynamicCastObjCClass() || *(v11 + OBJC_IVAR____TtC5CAFUI25CAFUIProminentSettingCell_isDisabledByAncestor) == 1 || (v19 = *v12, v34 = v4, v19) && (v20 = v12[1], ObjectType = swift_getObjectType(), v33 = v20[5], swift_unknownObjectRetain(), v22 = v33(ObjectType, v20), swift_unknownObjectRelease(), (v22 & 1) == 0))
             {
 
               swift_unknownObjectRelease();
               return;
             }
 
-            v22 = [v10 _bridgedConfigurationState];
+            v23 = [v11 _bridgedConfigurationState];
             static UICellConfigurationState._unconditionallyBridgeFromObjectiveC(_:)();
 
-            v23 = CAFUIProminentSettingCell.effectiveRepresentable.getter();
-            v24 = *v11;
-            if (v23)
+            v24 = CAFUIProminentSettingCell.effectiveRepresentable.getter();
+            v25 = *v12;
+            if (v24)
             {
-              if (!v24)
+              if (!v25)
               {
                 swift_unknownObjectRetain();
                 swift_unknownObjectRelease();
                 goto LABEL_32;
               }
 
-              v25 = v23;
+              v26 = v24;
               swift_unknownObjectRelease();
-              if (v25 != v24)
+              if (v26 != v25)
               {
 LABEL_32:
                 if (CAFUIProminentSettingCell.effectiveRepresentable.getter())
                 {
                   objc_opt_self();
-                  v27 = swift_dynamicCastObjCClass();
-                  if (v27)
+                  v28 = swift_dynamicCastObjCClass();
+                  if (v28)
                   {
-                    v28 = v27;
-                    v29 = CAFUIProminentSettingCell.effectiveRepresentable.getter();
-                    v30 = *v11;
-                    if (v29)
+                    v29 = v28;
+                    v30 = CAFUIProminentSettingCell.effectiveRepresentable.getter();
+                    v31 = *v12;
+                    if (v30)
                     {
-                      if (v30)
+                      if (v31)
                       {
-                        v31 = v29;
+                        v32 = v30;
                         swift_unknownObjectRelease();
-                        if (v31 != v30)
+                        if (v32 != v31)
                         {
                           goto LABEL_42;
                         }
 
 LABEL_40:
-                        CAFUIProminentSettingCell.configButtonColorForBooleanSetting(_:)(v28);
+                        CAFUIProminentSettingCell.configButtonColorForBooleanSetting(_:)(v29);
 LABEL_43:
                         swift_unknownObjectRelease();
-                        CAFUIProminentSettingCell.configurePlatterColorsForBoolean(using:)(v8);
+                        CAFUIProminentSettingCell.configurePlatterColorsForBoolean(using:)(v9);
                         swift_unknownObjectRelease();
 
-                        (*(v33 + 8))(v8, v2);
+                        (*(v34 + 8))(v9, v3);
                         return;
                       }
 
@@ -7145,14 +7163,14 @@ LABEL_43:
                       swift_unknownObjectRelease();
                     }
 
-                    else if (!v30)
+                    else if (!v31)
                     {
                       swift_unknownObjectRetain();
                       goto LABEL_40;
                     }
 
 LABEL_42:
-                    CAFUIProminentSettingCell.configButtonColorFor1stChildBooleanSetting(_:)(v28);
+                    CAFUIProminentSettingCell.configButtonColorFor1stChildBooleanSetting(_:)(v29);
                     goto LABEL_43;
                   }
 
@@ -7167,7 +7185,7 @@ LABEL_42:
 
             else
             {
-              if (v24)
+              if (v25)
               {
                 goto LABEL_32;
               }
@@ -7175,36 +7193,36 @@ LABEL_42:
               swift_unknownObjectRetain();
             }
 
-            if (([v34 state] & 1) == 0)
+            if (([v35 state] & 1) == 0)
             {
-              v26 = [v10 _bridgedConfigurationState];
+              v27 = [v11 _bridgedConfigurationState];
               static UICellConfigurationState._unconditionallyBridgeFromObjectiveC(_:)();
 
               UICellConfigurationState.isHighlighted.getter();
-              (*(v33 + 8))(v6, v2);
+              (*(v34 + 8))(v7, v3);
             }
 
-            [v34 state];
+            [v35 state];
             UICellConfigurationState.isHighlighted.setter();
             UICellConfigurationState.isSelected.setter();
             goto LABEL_32;
           }
 
-          a1 = v34;
-          if (!*v11)
+          a1 = v35;
+          if (!*v12)
           {
             goto LABEL_23;
           }
 
 LABEL_12:
-          v34 = a1;
+          v35 = a1;
           swift_unknownObjectRetain();
           goto LABEL_13;
         }
 
         swift_unknownObjectRelease();
 
-        if (*v11)
+        if (*v12)
         {
           goto LABEL_12;
         }
@@ -7217,7 +7235,7 @@ LABEL_23:
       swift_unknownObjectRelease();
     }
 
-    if (*v11)
+    if (*v12)
     {
       goto LABEL_12;
     }
@@ -7242,25 +7260,25 @@ Swift::Void __swiftcall CAFUIProminentSettingCell.prepareForReuse()()
 uint64_t CAFUIProminentSettingCell.configureCell(for:isDisabledByAncestor:)(uint64_t a1, uint64_t a2, char a3)
 {
   v4 = v3;
-  v230 = type metadata accessor for UICellConfigurationState();
-  v229 = *(v230 - 8);
-  MEMORY[0x28223BE20](v230);
-  v9 = &v221 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v223 = type metadata accessor for CharacterSet();
-  v222 = *(v223 - 8);
-  MEMORY[0x28223BE20](v223);
-  v221 = &v221 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8UIButtonC5UIKitE13ConfigurationVSgMd);
+  v236 = type metadata accessor for UICellConfigurationState();
+  v235 = *(v236 - 8);
+  MEMORY[0x28223BE20](v236);
+  v9 = &v227 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v229 = type metadata accessor for CharacterSet();
+  v228 = *(v229 - 8);
+  MEMORY[0x28223BE20](v229);
+  v227 = &v227 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8UIButtonC5UIKitE13ConfigurationVSgMd, &_sSo8UIButtonC5UIKitE13ConfigurationVSgMR);
   v12 = MEMORY[0x28223BE20](v11 - 8);
-  v232 = &v221 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v238 = &v227 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x28223BE20](v12);
-  v15 = &v221 - v14;
+  v15 = &v227 - v14;
   v16 = &v4[OBJC_IVAR____TtC5CAFUI25CAFUIProminentSettingCell_representable];
   *v16 = a1;
   v16[1] = a2;
   swift_unknownObjectRetain_n();
   swift_unknownObjectRelease();
-  v233 = OBJC_IVAR____TtC5CAFUI25CAFUIProminentSettingCell_isDisabledByAncestor;
+  v239 = OBJC_IVAR____TtC5CAFUI25CAFUIProminentSettingCell_isDisabledByAncestor;
   v4[OBJC_IVAR____TtC5CAFUI25CAFUIProminentSettingCell_isDisabledByAncestor] = a3;
   v17 = CAFUIProminentSettingCell.effectiveRepresentable.getter();
   if (!v17)
@@ -7274,24 +7292,24 @@ LABEL_74:
   v19 = objc_opt_self();
   v20 = OBJC_IVAR____TtC5CAFUI25CAFUIProminentSettingCell_modifiableContstraints;
   swift_beginAccess();
-  v237 = v20;
-  v21 = type metadata accessor for OS_os_log(0, &lazy cache variable for type metadata for NSLayoutConstraint);
+  v243 = v20;
+  v21 = type metadata accessor for OS_os_log(0, &lazy cache variable for type metadata for NSLayoutConstraint, 0x277CCAAD0);
 
-  v225 = v21;
+  v231 = v21;
   isa = Array._bridgeToObjectiveC()().super.isa;
 
-  v226 = v19;
+  v232 = v19;
   [v19 deactivateConstraints_];
 
   ObjectType = swift_getObjectType();
   v24 = (*(a2 + 72))(ObjectType, a2);
-  v239 = a1;
-  v238 = v4;
-  v227 = v18;
-  v231 = v16;
-  v234 = a2;
-  v235 = ObjectType;
-  v228 = v9;
+  v245 = a1;
+  v244 = v4;
+  v233 = v18;
+  v237 = v16;
+  v240 = a2;
+  v241 = ObjectType;
+  v234 = v9;
   if (!v24)
   {
     (*(a2 + 64))(ObjectType, a2);
@@ -7326,33 +7344,33 @@ LABEL_74:
 
     if (v34)
     {
-      v236 = v34;
+      v242 = v34;
       v24 = 0;
-      v16 = v231;
+      v16 = v237;
       goto LABEL_10;
     }
 
 LABEL_26:
-    v232 = *&v4[OBJC_IVAR____TtC5CAFUI25CAFUIProminentSettingCell_buttonSymbolView];
-    [v232 setHidden_];
+    v238 = *&v4[OBJC_IVAR____TtC5CAFUI25CAFUIProminentSettingCell_buttonSymbolView];
+    [v238 setHidden_];
     [*&v4[OBJC_IVAR____TtC5CAFUI25CAFUIProminentSettingCell_buttonCircleView] setHidden_];
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyyXlGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyyXlGMd, &_ss23_ContiguousArrayStorageCyyXlGMR);
     v49 = swift_allocObject();
     *(v49 + 16) = xmmword_242423BD0;
-    v240 = *&v4[OBJC_IVAR____TtC5CAFUI25CAFUIProminentSettingCell_titleLabel];
-    v122 = [v240 leadingAnchor];
-    v123 = [v4 contentView];
-    v124 = [v123 leadingAnchor];
+    v246 = *&v4[OBJC_IVAR____TtC5CAFUI25CAFUIProminentSettingCell_titleLabel];
+    v125 = [v246 leadingAnchor];
+    v126 = [v4 contentView];
+    v127 = [v126 leadingAnchor];
 
-    v125 = [v122 constraintEqualToAnchor:v124 constant:12.0];
-    v236 = 0;
-    *(v49 + 32) = v125;
+    v128 = [v125 constraintEqualToAnchor:v127 constant:12.0];
+    v242 = 0;
+    *(v49 + 32) = v128;
     v55 = &selRef__systemImageNamed_withConfiguration_;
     v89 = &selRef__systemImageNamed_withConfiguration_;
     goto LABEL_19;
   }
 
-  v236 = v24;
+  v242 = v24;
 LABEL_10:
   v35 = *&v4[OBJC_IVAR____TtC5CAFUI25CAFUIProminentSettingCell_buttonCircleView];
   v36 = v24;
@@ -7363,21 +7381,21 @@ LABEL_10:
   v38 = type metadata accessor for UIButton.Configuration();
   if ((*(*(v38 - 8) + 48))(v15, 1, v38))
   {
-    outlined init with copy of NotificationModel.Symbol?(v15, v232, &_sSo8UIButtonC5UIKitE13ConfigurationVSgMd);
+    outlined init with copy of NotificationModel.Symbol?(v15, v238, &_sSo8UIButtonC5UIKitE13ConfigurationVSgMd, &_sSo8UIButtonC5UIKitE13ConfigurationVSgMR);
     UIButton.configuration.setter();
-    outlined destroy of RequestTemporaryContentModel?(v15, &_sSo8UIButtonC5UIKitE13ConfigurationVSgMd);
+    outlined destroy of RequestTemporaryContentModel?(v15, &_sSo8UIButtonC5UIKitE13ConfigurationVSgMd, &_sSo8UIButtonC5UIKitE13ConfigurationVSgMR);
   }
 
   else
   {
-    v39 = v236;
+    v39 = v242;
     UIButton.Configuration.image.setter();
     UIButton.configuration.setter();
   }
 
   [v37 setHidden_];
-  v40 = v4[v233];
-  v240 = v35;
+  v40 = v4[v239];
+  v246 = v35;
   if ((v40 & 1) != 0 || *v16 && (v41 = v16[1], v42 = swift_getObjectType(), v43 = v37, v44 = *(v41 + 40), swift_unknownObjectRetain(), v45 = v44(v42, v41), v37 = v43, LOBYTE(v41) = v45, swift_unknownObjectRelease(), (v41 & 1) == 0))
   {
     v46 = 0.3;
@@ -7392,7 +7410,7 @@ LABEL_10:
   *&v48 = v46;
   [v47 setOpacity_];
 
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyyXlGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyyXlGMd, &_ss23_ContiguousArrayStorageCyyXlGMR);
   v49 = swift_allocObject();
   *(v49 + 16) = xmmword_242427E30;
   v50 = *&v4[OBJC_IVAR____TtC5CAFUI25CAFUIProminentSettingCell_buttonLayoutGuide];
@@ -7437,9 +7455,9 @@ LABEL_10:
   v74 = [v73 constraintEqualToConstant_];
 
   *(v49 + 88) = v74;
-  v75 = v240;
-  v76 = [v240 centerXAnchor];
-  v4 = v238;
+  v75 = v246;
+  v76 = [v246 centerXAnchor];
+  v4 = v244;
   v77 = [v52 centerXAnchor];
   v78 = [v76 constraintEqualToAnchor_];
 
@@ -7455,22 +7473,22 @@ LABEL_10:
 
   *(v49 + 112) = v84;
   v85 = [v75 heightAnchor];
-  v232 = v52;
+  v238 = v52;
   v86 = [v52 heightAnchor];
   v87 = [v85 constraintEqualToAnchor_];
 
   *(v49 + 120) = v87;
-  v240 = *&v4[OBJC_IVAR____TtC5CAFUI25CAFUIProminentSettingCell_titleLabel];
-  v88 = [v240 leadingAnchor];
+  v246 = *&v4[OBJC_IVAR____TtC5CAFUI25CAFUIProminentSettingCell_titleLabel];
+  v88 = [v246 leadingAnchor];
   v89 = &selRef__systemImageNamed_withConfiguration_;
   v90 = [v50 trailingAnchor];
   v91 = [v88 constraintEqualToAnchor_];
 
   *(v49 + 128) = v91;
 LABEL_19:
-  *&v4[v237] = v49;
+  *&v4[v243] = v49;
 
-  v224 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyyXlGMd);
+  v230 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyyXlGMd, &_ss23_ContiguousArrayStorageCyyXlGMR);
   inited = swift_initStackObject();
   *(inited + 16) = xmmword_2424244E0;
   v93 = *&v4[OBJC_IVAR____TtC5CAFUI25CAFUIProminentSettingCell_accessoryView];
@@ -7486,7 +7504,7 @@ LABEL_19:
 
   v101 = [v98 constraintEqualToAnchor:v100 constant:-12.0];
   *(inited + 40) = v101;
-  v102 = [v240 v89[119]];
+  v102 = [v246 v89[119]];
   v103 = [v4 contentView];
   v104 = [v103 v89[119]];
 
@@ -7496,11 +7514,11 @@ LABEL_19:
   specialized Array.append<A>(contentsOf:)(inited);
   swift_endAccess();
   [v93 setHidden_];
-  v106 = v234;
-  v107 = *(v234 + 104);
-  v108 = v239;
-  v109 = v235;
-  v110 = v107(v235, v234);
+  v106 = v240;
+  v107 = *(v240 + 104);
+  v108 = v245;
+  v109 = v241;
+  v110 = v107(v241, v240);
   if (v110)
   {
     v111 = v110;
@@ -7512,28 +7530,28 @@ LABEL_19:
       v116 = v115;
 
       rawValue = v114;
-      v242 = v116;
-      v117 = v221;
-      static CharacterSet.whitespaces.getter();
-      lazy protocol witness table accessor for type String and conformance String();
-      v118 = StringProtocol.trimmingCharacters(in:)();
-      v120 = v119;
+      v248 = v116;
+      v117 = v227;
+      v118 = static CharacterSet.whitespaces.getter();
+      lazy protocol witness table accessor for type String and conformance String(v118, v119, v120);
+      v121 = StringProtocol.trimmingCharacters(in:)();
+      v123 = v122;
 
-      (*(v222 + 8))(v117, v223);
+      (*(v228 + 8))(v117, v229);
 
-      v121 = HIBYTE(v120) & 0xF;
-      if ((v120 & 0x2000000000000000) == 0)
+      v124 = HIBYTE(v123) & 0xF;
+      if ((v123 & 0x2000000000000000) == 0)
       {
-        v121 = v118 & 0xFFFFFFFFFFFFLL;
+        v124 = v121 & 0xFFFFFFFFFFFFLL;
       }
 
-      if (v121)
+      if (v124)
       {
-        v109 = v235;
+        v109 = v241;
         goto LABEL_29;
       }
 
-      v109 = v235;
+      v109 = v241;
     }
 
     else
@@ -7541,86 +7559,86 @@ LABEL_19:
     }
   }
 
-  v118 = (*(v106 + 16))(v109, v106);
-  v120 = v126;
+  v121 = (*(v106 + 16))(v109, v106);
+  v123 = v129;
 LABEL_29:
   if (CAFListContentRepresentable.isLimitedUI.getter(v109, v106))
   {
-    v127 = objc_allocWithZone(MEMORY[0x277CCAB48]);
-    v128 = MEMORY[0x245D0D180](v118, v120);
+    v130 = objc_allocWithZone(MEMORY[0x277CCAB48]);
+    v131 = MEMORY[0x245D0D180](v121, v123);
 
-    v129 = [v127 initWithString_];
+    v132 = [v130 initWithString_];
 
-    v130 = CAFUIProminentSettingCell.primaryTextColor.getter();
-    v131 = [objc_opt_self() configurationWithHierarchicalColor_];
+    v133 = CAFUIProminentSettingCell.primaryTextColor.getter();
+    v134 = [objc_opt_self() configurationWithHierarchicalColor_];
 
-    v132 = MEMORY[0x245D0D180](0x676E697265657473, 0xED00006C65656877);
-    v133 = CAFUIImageForSymbolNameWithConfiguration(v132, v131);
+    v135 = MEMORY[0x245D0D180](0x676E697265657473, 0xED00006C65656877);
+    v136 = CAFUIImageForSymbolNameWithConfiguration(v135, v134);
 
-    if (v133)
+    if (v136)
     {
-      v134 = [objc_opt_self() textAttachmentWithImage_];
-      v135 = objc_allocWithZone(MEMORY[0x277CCA898]);
-      v136 = MEMORY[0x245D0D180](8224, 0xE200000000000000);
-      v137 = [v135 initWithString_];
+      v137 = [objc_opt_self() textAttachmentWithImage_];
+      v138 = objc_allocWithZone(MEMORY[0x277CCA898]);
+      v139 = MEMORY[0x245D0D180](8224, 0xE200000000000000);
+      v140 = [v138 initWithString_];
 
-      [v129 appendAttributedString_];
-      v108 = v239;
-      v138 = [objc_opt_self() attributedStringWithAttachment_];
-      [v129 appendAttributedString_];
+      [v132 appendAttributedString_];
+      v108 = v245;
+      v141 = [objc_opt_self() attributedStringWithAttachment_];
+      [v132 appendAttributedString_];
     }
 
-    v139 = v240;
-    [v240 setLineBreakMode_];
-    [v139 setAttributedText_];
+    v142 = v246;
+    [v246 setLineBreakMode_];
+    [v142 setAttributedText_];
 
-    v106 = v234;
-    v109 = v235;
+    v106 = v240;
+    v109 = v241;
   }
 
   else
   {
-    v140 = v240;
-    [v240 setLineBreakMode_];
-    v131 = MEMORY[0x245D0D180](v118, v120);
+    v143 = v246;
+    [v246 setLineBreakMode_];
+    v134 = MEMORY[0x245D0D180](v121, v123);
 
-    [v140 setText_];
+    [v143 setText_];
   }
 
-  v141 = v107(v109, v106);
-  v142 = v238;
-  v143 = v240;
-  if (v141)
+  v144 = v107(v109, v106);
+  v145 = v244;
+  v146 = v246;
+  if (v144)
   {
-    v144 = v141;
-    v145 = [v141 userVisibleValue];
-    if (v145)
+    v147 = v144;
+    v148 = [v144 userVisibleValue];
+    if (v148)
     {
-      v146 = v145;
-      v147 = static String._unconditionallyBridgeFromObjectiveC(_:)();
       v149 = v148;
+      v150 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+      v152 = v151;
 
-      rawValue = v147;
-      v242 = v149;
-      v150 = v221;
-      static CharacterSet.whitespaces.getter();
-      lazy protocol witness table accessor for type String and conformance String();
-      v151 = StringProtocol.trimmingCharacters(in:)();
-      v153 = v152;
-      (*(v222 + 8))(v150, v223);
+      rawValue = v150;
+      v248 = v152;
+      v153 = v227;
+      v154 = static CharacterSet.whitespaces.getter();
+      lazy protocol witness table accessor for type String and conformance String(v154, v155, v156);
+      v157 = StringProtocol.trimmingCharacters(in:)();
+      v159 = v158;
+      (*(v228 + 8))(v153, v229);
 
-      v154 = HIBYTE(v153) & 0xF;
-      if ((v153 & 0x2000000000000000) == 0)
+      v160 = HIBYTE(v159) & 0xF;
+      if ((v159 & 0x2000000000000000) == 0)
       {
-        v154 = v151 & 0xFFFFFFFFFFFFLL;
+        v160 = v157 & 0xFFFFFFFFFFFFLL;
       }
 
-      if (v154)
+      if (v160)
       {
-        v155 = *&v142[OBJC_IVAR____TtC5CAFUI25CAFUIProminentSettingCell_subtitleLabel];
-        v156 = MEMORY[0x245D0D180](v151, v153);
+        v161 = *&v145[OBJC_IVAR____TtC5CAFUI25CAFUIProminentSettingCell_subtitleLabel];
+        v162 = MEMORY[0x245D0D180](v157, v159);
 
-        [v155 setText_];
+        [v161 setText_];
 
         goto LABEL_53;
       }
@@ -7632,206 +7650,206 @@ LABEL_29:
   }
 
   swift_getObjectType();
-  v157 = swift_conformsToProtocol2();
-  v155 = *&v142[OBJC_IVAR____TtC5CAFUI25CAFUIProminentSettingCell_subtitleLabel];
-  if (!v157 || !v108)
+  v163 = swift_conformsToProtocol2();
+  v161 = *&v145[OBJC_IVAR____TtC5CAFUI25CAFUIProminentSettingCell_subtitleLabel];
+  if (!v163 || !v108)
   {
-    [*&v142[OBJC_IVAR____TtC5CAFUI25CAFUIProminentSettingCell_subtitleLabel] setText_];
-    [v143 setNumberOfLines_];
-    [v155 setHidden_];
-    v170 = swift_initStackObject();
-    *(v170 + 16) = xmmword_242423B80;
-    v171 = [v143 topAnchor];
-    v172 = [v142 contentView];
-    v173 = [v172 topAnchor];
+    [*&v145[OBJC_IVAR____TtC5CAFUI25CAFUIProminentSettingCell_subtitleLabel] setText_];
+    [v146 setNumberOfLines_];
+    [v161 setHidden_];
+    v176 = swift_initStackObject();
+    *(v176 + 16) = xmmword_242423B80;
+    v177 = [v146 topAnchor];
+    v178 = [v145 contentView];
+    v179 = [v178 topAnchor];
 
-    v174 = [v171 constraintEqualToAnchor_];
-    *(v170 + 32) = v174;
-    v175 = [v143 bottomAnchor];
-    v176 = [v142 contentView];
-    v177 = [v176 bottomAnchor];
+    v180 = [v177 constraintEqualToAnchor_];
+    *(v176 + 32) = v180;
+    v181 = [v146 bottomAnchor];
+    v182 = [v145 contentView];
+    v183 = [v182 bottomAnchor];
 
-    v178 = [v175 constraintEqualToAnchor_];
-    *(v170 + 40) = v178;
+    v184 = [v181 constraintEqualToAnchor_];
+    *(v176 + 40) = v184;
     swift_beginAccess();
-    specialized Array.append<A>(contentsOf:)(v170);
+    specialized Array.append<A>(contentsOf:)(v176);
     swift_endAccess();
     goto LABEL_54;
   }
 
-  v158 = v157;
-  v159 = swift_getObjectType();
-  v160 = *(v158 + 16);
+  v164 = v163;
+  v165 = swift_getObjectType();
+  v166 = *(v164 + 16);
   swift_unknownObjectRetain();
-  v161 = v160(v159, v158);
-  v162 = *(v161 + 16);
-  if (v162)
+  v167 = v166(v165, v164);
+  v168 = *(v167 + 16);
+  if (v168)
   {
-    v234 = v159;
-    v235 = v155;
+    v240 = v165;
+    v241 = v161;
     rawValue = MEMORY[0x277D84F90];
-    specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v162, 0);
-    v163._rawValue = rawValue;
-    v164 = (v161 + 40);
+    specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v168, 0);
+    v169._rawValue = rawValue;
+    v170 = (v167 + 40);
     do
     {
-      v165 = *(v164 - 1);
-      v166 = *v164;
-      rawValue = v163._rawValue;
-      v168 = *(v163._rawValue + 2);
-      v167 = *(v163._rawValue + 3);
+      v171 = *(v170 - 1);
+      v172 = *v170;
+      rawValue = v169._rawValue;
+      v174 = *(v169._rawValue + 2);
+      v173 = *(v169._rawValue + 3);
 
-      if (v168 >= v167 >> 1)
+      if (v174 >= v173 >> 1)
       {
-        specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v167 > 1), v168 + 1, 1);
-        v163._rawValue = rawValue;
+        specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v173 > 1), v174 + 1, 1);
+        v169._rawValue = rawValue;
       }
 
-      *(v163._rawValue + 2) = v168 + 1;
-      v169 = v163._rawValue + 16 * v168;
-      *(v169 + 4) = v165;
-      *(v169 + 5) = v166;
-      v164 += 5;
-      --v162;
+      *(v169._rawValue + 2) = v174 + 1;
+      v175 = v169._rawValue + 16 * v174;
+      *(v175 + 4) = v171;
+      *(v175 + 5) = v172;
+      v170 += 5;
+      --v168;
     }
 
-    while (v162);
+    while (v168);
 
-    v143 = v240;
-    v155 = v235;
-    v159 = v234;
+    v146 = v246;
+    v161 = v241;
+    v165 = v240;
   }
 
   else
   {
 
-    v163._rawValue = MEMORY[0x277D84F90];
+    v169._rawValue = MEMORY[0x277D84F90];
   }
 
-  v179._rawValue = (*(v158 + 24))(v159, v158);
-  v180 = CAFUILocalizedValues(for:selectedValues:)(v163, v179);
+  v185._rawValue = (*(v164 + 24))(v165, v164);
+  v186 = CAFUILocalizedValues(for:selectedValues:)(v169, v185);
 
-  v181 = MEMORY[0x245D0D180](v180._countAndFlagsBits, v180._object);
+  v187 = MEMORY[0x245D0D180](v186._countAndFlagsBits, v186._object);
 
-  [v155 setText_];
+  [v161 setText_];
 
   swift_unknownObjectRelease();
-  v142 = v238;
+  v145 = v244;
 LABEL_53:
-  [v143 setNumberOfLines_];
-  [v155 setHidden_];
-  v182 = swift_initStackObject();
-  *(v182 + 16) = xmmword_242423BE0;
-  v183 = [v143 topAnchor];
-  v184 = [v142 contentView];
-  v185 = [v184 &selRef_tableView_didHighlightRowAtIndexPath_];
+  [v146 setNumberOfLines_];
+  [v161 setHidden_];
+  v188 = swift_initStackObject();
+  *(v188 + 16) = xmmword_242423BE0;
+  v189 = [v146 topAnchor];
+  v190 = [v145 contentView];
+  v191 = [v190 &selRef_tableView_didHighlightRowAtIndexPath_];
 
-  v186 = [v183 constraintEqualToAnchor_];
-  *(v182 + 32) = v186;
-  v187 = [v143 bottomAnchor];
-  v188 = [v142 contentView];
-  v189 = [v188 centerYAnchor];
+  v192 = [v189 constraintEqualToAnchor_];
+  *(v188 + 32) = v192;
+  v193 = [v146 bottomAnchor];
+  v194 = [v145 contentView];
+  v195 = [v194 centerYAnchor];
 
-  v190 = [v187 constraintEqualToAnchor:v189 constant:7.0];
-  *(v182 + 40) = v190;
-  v191 = [v155 topAnchor];
-  v192 = [v142 contentView];
-  v193 = [v192 centerYAnchor];
+  v196 = [v193 constraintEqualToAnchor:v195 constant:7.0];
+  *(v188 + 40) = v196;
+  v197 = [v161 topAnchor];
+  v198 = [v145 contentView];
+  v199 = [v198 centerYAnchor];
 
-  v194 = [v191 constraintEqualToAnchor:v193 constant:-7.0];
-  *(v182 + 48) = v194;
-  v195 = [v155 leadingAnchor];
-  v196 = [v143 leadingAnchor];
-  v197 = [v195 constraintEqualToAnchor_];
+  v200 = [v197 constraintEqualToAnchor:v199 constant:-7.0];
+  *(v188 + 48) = v200;
+  v201 = [v161 leadingAnchor];
+  v202 = [v146 leadingAnchor];
+  v203 = [v201 constraintEqualToAnchor_];
 
-  *(v182 + 56) = v197;
-  v198 = [v155 trailingAnchor];
-  v199 = [v143 trailingAnchor];
-  v200 = [v198 constraintEqualToAnchor_];
+  *(v188 + 56) = v203;
+  v204 = [v161 trailingAnchor];
+  v205 = [v146 trailingAnchor];
+  v206 = [v204 constraintEqualToAnchor_];
 
-  *(v182 + 64) = v200;
-  v201 = [v155 bottomAnchor];
-  v202 = [v142 contentView];
-  v203 = [v202 bottomAnchor];
+  *(v188 + 64) = v206;
+  v207 = [v161 bottomAnchor];
+  v208 = [v145 contentView];
+  v209 = [v208 bottomAnchor];
 
-  v204 = [v201 constraintEqualToAnchor_];
-  *(v182 + 72) = v204;
+  v210 = [v207 constraintEqualToAnchor_];
+  *(v188 + 72) = v210;
   swift_beginAccess();
-  specialized Array.append<A>(contentsOf:)(v182);
+  specialized Array.append<A>(contentsOf:)(v188);
   swift_endAccess();
 LABEL_54:
-  v205 = v228;
+  v211 = v234;
 
-  v206 = Array._bridgeToObjectiveC()().super.isa;
+  v212 = Array._bridgeToObjectiveC()().super.isa;
 
-  [v226 activateConstraints_];
+  [v232 activateConstraints_];
 
-  v207 = [v142 _bridgedConfigurationState];
+  v213 = [v145 _bridgedConfigurationState];
   static UICellConfigurationState._unconditionallyBridgeFromObjectiveC(_:)();
 
   objc_opt_self();
-  v208 = swift_dynamicCastObjCClass();
-  v209 = v232;
-  if (!v208)
+  v214 = swift_dynamicCastObjCClass();
+  v215 = v238;
+  if (!v214)
   {
-    [v232 setUserInteractionEnabled_];
+    [v238 setUserInteractionEnabled_];
     CAFUIProminentSettingCell.configureButtonColorsForNonBoolean()();
-    CAFUIProminentSettingCell.configurePlatterColorsForNonBoolean(using:)(v205);
+    CAFUIProminentSettingCell.configurePlatterColorsForNonBoolean(using:)(v211);
 LABEL_73:
 
     swift_unknownObjectRelease();
     swift_unknownObjectRelease();
-    return (*(v229 + 8))(v205, v230);
+    return (*(v235 + 8))(v211, v236);
   }
 
-  if (v142[v233])
+  if (v145[v239])
   {
-    v210 = 0;
+    v216 = 0;
   }
 
-  else if (*v231)
+  else if (*v237)
   {
-    v211 = v231[1];
-    v212 = swift_getObjectType();
-    v213 = *(v211 + 40);
+    v217 = v237[1];
+    v218 = swift_getObjectType();
+    v219 = *(v217 + 40);
     swift_unknownObjectRetain();
-    v214 = v213(v212, v211);
-    v209 = v232;
-    v210 = v214;
+    v220 = v219(v218, v217);
+    v215 = v238;
+    v216 = v220;
     swift_unknownObjectRelease();
   }
 
   else
   {
-    v210 = 1;
+    v216 = 1;
   }
 
-  [v209 setUserInteractionEnabled_];
+  [v215 setUserInteractionEnabled_];
   if (CAFUIProminentSettingCell.effectiveRepresentable.getter())
   {
     objc_opt_self();
-    v215 = swift_dynamicCastObjCClass();
-    if (v215)
+    v221 = swift_dynamicCastObjCClass();
+    if (v221)
     {
-      v216 = v215;
-      v217 = CAFUIProminentSettingCell.effectiveRepresentable.getter();
-      v218 = *v231;
-      if (v217)
+      v222 = v221;
+      v223 = CAFUIProminentSettingCell.effectiveRepresentable.getter();
+      v224 = *v237;
+      if (v223)
       {
-        if (v218)
+        if (v224)
         {
-          v219 = v217;
+          v225 = v223;
           swift_unknownObjectRelease();
-          if (v219 != v218)
+          if (v225 != v224)
           {
             goto LABEL_71;
           }
 
 LABEL_69:
-          CAFUIProminentSettingCell.configButtonColorForBooleanSetting(_:)(v216);
+          CAFUIProminentSettingCell.configButtonColorForBooleanSetting(_:)(v222);
 LABEL_72:
           swift_unknownObjectRelease();
-          CAFUIProminentSettingCell.configurePlatterColorsForBoolean(using:)(v205);
+          CAFUIProminentSettingCell.configurePlatterColorsForBoolean(using:)(v211);
           goto LABEL_73;
         }
 
@@ -7839,14 +7857,14 @@ LABEL_72:
         swift_unknownObjectRelease();
       }
 
-      else if (!v218)
+      else if (!v224)
       {
         swift_unknownObjectRetain();
         goto LABEL_69;
       }
 
 LABEL_71:
-      CAFUIProminentSettingCell.configButtonColorFor1stChildBooleanSetting(_:)(v216);
+      CAFUIProminentSettingCell.configButtonColorFor1stChildBooleanSetting(_:)(v222);
       goto LABEL_72;
     }
 
@@ -8035,7 +8053,7 @@ void CAFUIProminentSettingCell.configurePlatterColorsForBoolean(using:)(char *a1
 {
   v2 = v1;
   v60 = a1;
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s5UIKit25UIBackgroundConfigurationVSgMd);
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s5UIKit25UIBackgroundConfigurationVSgMd, &_s5UIKit25UIBackgroundConfigurationVSgMR);
   v4 = MEMORY[0x28223BE20](v3 - 8);
   v6 = &v52 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
   v7 = MEMORY[0x28223BE20](v4);
@@ -8072,7 +8090,7 @@ LABEL_23:
   v58 = v12;
   if (v19 == 1)
   {
-    outlined destroy of RequestTemporaryContentModel?(v11, &_s5UIKit25UIBackgroundConfigurationVSgMd);
+    outlined destroy of RequestTemporaryContentModel?(v11, &_s5UIKit25UIBackgroundConfigurationVSgMd, &_s5UIKit25UIBackgroundConfigurationVSgMR);
   }
 
   else
@@ -8153,11 +8171,11 @@ LABEL_19:
   MEMORY[0x245D0D540](v50);
   if (v55(v6, 1, v49))
   {
-    outlined init with copy of NotificationModel.Symbol?(v6, v9, &_s5UIKit25UIBackgroundConfigurationVSgMd);
+    outlined init with copy of NotificationModel.Symbol?(v6, v9, &_s5UIKit25UIBackgroundConfigurationVSgMd, &_s5UIKit25UIBackgroundConfigurationVSgMR);
     MEMORY[0x245D0D550](v9);
     swift_unknownObjectRelease();
 
-    outlined destroy of RequestTemporaryContentModel?(v6, &_s5UIKit25UIBackgroundConfigurationVSgMd);
+    outlined destroy of RequestTemporaryContentModel?(v6, &_s5UIKit25UIBackgroundConfigurationVSgMd, &_s5UIKit25UIBackgroundConfigurationVSgMR);
   }
 
   else
@@ -8172,7 +8190,7 @@ LABEL_19:
 void CAFUIProminentSettingCell.configureButtonColorsForNonBoolean()()
 {
   v1 = v0;
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8UIButtonC5UIKitE13ConfigurationVSgMd);
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8UIButtonC5UIKitE13ConfigurationVSgMd, &_sSo8UIButtonC5UIKitE13ConfigurationVSgMR);
   v3 = MEMORY[0x28223BE20](v2 - 8);
   v31 = &v30 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x28223BE20](v3);
@@ -8229,9 +8247,9 @@ LABEL_17:
   v22 = type metadata accessor for UIButton.Configuration();
   if ((*(*(v22 - 8) + 48))(v6, 1, v22))
   {
-    outlined init with copy of NotificationModel.Symbol?(v6, v31, &_sSo8UIButtonC5UIKitE13ConfigurationVSgMd);
+    outlined init with copy of NotificationModel.Symbol?(v6, v31, &_sSo8UIButtonC5UIKitE13ConfigurationVSgMd, &_sSo8UIButtonC5UIKitE13ConfigurationVSgMR);
     UIButton.configuration.setter();
-    outlined destroy of RequestTemporaryContentModel?(v6, &_sSo8UIButtonC5UIKitE13ConfigurationVSgMd);
+    outlined destroy of RequestTemporaryContentModel?(v6, &_sSo8UIButtonC5UIKitE13ConfigurationVSgMd, &_sSo8UIButtonC5UIKitE13ConfigurationVSgMR);
   }
 
   else
@@ -8263,7 +8281,7 @@ id CAFUIProminentSettingCell.configurePlatterColorsForNonBoolean(using:)(void *a
 {
   v2 = v1;
   v115 = a1;
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s5UIKit25UIBackgroundConfigurationVSgMd);
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s5UIKit25UIBackgroundConfigurationVSgMd, &_s5UIKit25UIBackgroundConfigurationVSgMR);
   v4 = MEMORY[0x28223BE20](v3 - 8);
   v113 = &v103 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x28223BE20](v4);
@@ -8296,7 +8314,7 @@ id CAFUIProminentSettingCell.configurePlatterColorsForNonBoolean(using:)(void *a
   if ((*(v9 + 48))(v7, 1, v8) == 1)
   {
 
-    return outlined destroy of RequestTemporaryContentModel?(v7, &_s5UIKit25UIBackgroundConfigurationVSgMd);
+    return outlined destroy of RequestTemporaryContentModel?(v7, &_s5UIKit25UIBackgroundConfigurationVSgMd, &_s5UIKit25UIBackgroundConfigurationVSgMR);
   }
 
   v106 = v22;
@@ -8339,33 +8357,35 @@ id CAFUIProminentSettingCell.configurePlatterColorsForNonBoolean(using:)(void *a
       UIBackgroundConfiguration.backgroundColor.setter();
 LABEL_21:
       v61 = 0;
+      v62 = 0;
       v39 = v111;
 LABEL_25:
 
-      v65 = v108;
-      v66 = v113;
+      v66 = v108;
+      v67 = v113;
       (*(v108 + 16))(v113, v28, v36);
-      (*(v65 + 56))(v66, 0, 1, v36);
-      MEMORY[0x245D0D550](v66);
+      (*(v66 + 56))(v67, 0, 1, v36);
+      MEMORY[0x245D0D550](v67);
 
-      v67 = *(v65 + 8);
-      v67(v28, v36);
-      v67(v39, v36);
-      return outlined consume of (@escaping @callee_guaranteed (@guaranteed UIGraphicsImageRendererContext) -> ())?(v61);
+      v68 = *(v66 + 8);
+      v68(v28, v36);
+      v68(v39, v36);
+      return outlined consume of (@escaping @callee_guaranteed (@guaranteed UIGraphicsImageRendererContext) -> ())?(v61, v62);
     }
 
-    v62 = [objc_opt_self() clearColor];
+    v63 = [objc_opt_self() clearColor];
     UIBackgroundConfiguration.backgroundColor.setter();
-    v63 = UIBackgroundConfiguration.customView.getter();
+    v64 = UIBackgroundConfiguration.customView.getter();
     v39 = v111;
-    if (v63)
+    if (v64)
     {
-      v64 = v63;
-      [v63 &selRef:0 initWithCollectionViewLayout:?];
+      v65 = v64;
+      [v64 &selRef:0 initWithCollectionViewLayout:?];
     }
 
 LABEL_24:
     v61 = 0;
+    v62 = 0;
     goto LABEL_25;
   }
 
@@ -8400,6 +8420,7 @@ LABEL_24:
   if ((v42 & 1) == 0)
   {
     v61 = 0;
+    v62 = 0;
     v39 = v111;
 LABEL_29:
     v28 = v114;
@@ -8413,14 +8434,14 @@ LABEL_29:
   {
 LABEL_26:
 
-    v68 = v108;
+    v69 = v108;
     (*(v108 + 16))(v41, v28, v36);
-    (*(v68 + 56))(v41, 0, 1, v36);
+    (*(v69 + 56))(v41, 0, 1, v36);
     MEMORY[0x245D0D550](v41);
 
-    v69 = *(v68 + 8);
-    v69(v28, v36);
-    return (v69)(v39, v36);
+    v70 = *(v69 + 8);
+    v70(v28, v36);
+    return (v70)(v39, v36);
   }
 
   v46 = v40[1];
@@ -8433,17 +8454,17 @@ LABEL_26:
   {
 
     swift_unknownObjectRelease();
-    v70 = v108;
-    v71 = v114;
+    v71 = v108;
+    v72 = v114;
     (*(v108 + 16))(v41, v114, v36);
-    (*(v70 + 56))(v41, 0, 1, v36);
-    v72 = v41;
+    (*(v71 + 56))(v41, 0, 1, v36);
+    v73 = v41;
 LABEL_43:
-    MEMORY[0x245D0D550](v72);
+    MEMORY[0x245D0D550](v73);
 
-    v69 = *(v70 + 8);
-    v69(v71, v36);
-    return (v69)(v39, v36);
+    v70 = *(v71 + 8);
+    v70(v72, v36);
+    return (v70)(v39, v36);
   }
 
   if (LOBYTE(aBlock[0]) == 1)
@@ -8490,11 +8511,11 @@ LABEL_43:
     v60 = 0;
   }
 
-  v73 = v106;
+  v74 = v106;
   [v106 setImage_];
 
-  [v73 setHidden_];
-  v74 = v110;
+  [v74 setHidden_];
+  v75 = v110;
   [v110 bounds];
   Width = CGRectGetWidth(v121);
   if (Width <= 0.0)
@@ -8502,38 +8523,38 @@ LABEL_43:
 
     swift_unknownObjectRelease();
 
-    v81 = v108;
-    v82 = v114;
+    v82 = v108;
+    v83 = v114;
     (*(v108 + 16))(v41, v114, v36);
-    (*(v81 + 56))(v41, 0, 1, v36);
+    (*(v82 + 56))(v41, 0, 1, v36);
     MEMORY[0x245D0D550](v41);
 
-    v69 = *(v81 + 8);
-    v69(v82, v36);
-    return (v69)(v39, v36);
+    v70 = *(v82 + 8);
+    v70(v83, v36);
+    return (v70)(v39, v36);
   }
 
-  v76 = Width;
-  v77 = [v73 image];
-  if (v77)
+  v77 = Width;
+  v78 = [v74 image];
+  if (v78)
   {
-    v78 = v77;
-    [v77 size];
-    v80 = v79;
+    v79 = v78;
+    [v78 size];
+    v81 = v80;
 
-    v74 = v110;
+    v75 = v110;
   }
 
   else
   {
-    v80 = 0.0;
+    v81 = 0.0;
   }
 
   v106 = v57;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyyXlGMd);
-  v83 = swift_allocObject();
-  *(v83 + 16) = xmmword_2424244E0;
-  result = [v74 textColor];
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyyXlGMd, &_ss23_ContiguousArrayStorageCyyXlGMR);
+  v84 = swift_allocObject();
+  *(v84 + 16) = xmmword_2424244E0;
+  result = [v75 textColor];
   if (!result)
   {
 LABEL_45:
@@ -8541,39 +8562,39 @@ LABEL_45:
     goto LABEL_46;
   }
 
-  v84 = v74;
-  v85 = result;
-  v86 = [result CGColor];
+  v85 = v75;
+  v86 = result;
+  v87 = [result CGColor];
 
-  *(v83 + 32) = v86;
-  result = [v84 textColor];
+  *(v84 + 32) = v87;
+  result = [v85 textColor];
   if (result)
   {
-    v87 = result;
+    v88 = result;
 
-    v88 = [v87 CGColor];
+    v89 = [v88 CGColor];
 
-    *(v83 + 40) = v88;
-    *(v83 + 48) = [v35 CGColor];
+    *(v84 + 40) = v89;
+    *(v84 + 48) = [v35 CGColor];
     type metadata accessor for CGColorRef(0);
-    v89.super.isa = Array._bridgeToObjectiveC()().super.isa;
+    v90.super.isa = Array._bridgeToObjectiveC()().super.isa;
 
     v120[0] = 0.0;
-    v120[1] = (v76 - v80 + -12.0 + -12.0) / v76;
-    v120[2] = (v76 - v80) / v76;
+    v120[1] = (v77 - v81 + -12.0 + -12.0) / v77;
+    v120[2] = (v77 - v81) / v77;
     DeviceRGB = CGColorSpaceCreateDeviceRGB();
-    v91 = CGGradientCreateWithColors(DeviceRGB, v89.super.isa, v120);
+    v92 = CGGradientCreateWithColors(DeviceRGB, v90.super.isa, v120);
 
-    if (v91)
+    if (v92)
     {
       [v115 bounds];
-      v94 = [objc_allocWithZone(MEMORY[0x277D75560]) initWithSize_];
-      v95 = swift_allocObject();
-      *(v95 + 16) = v91;
-      *(v95 + 24) = v76;
+      v95 = [objc_allocWithZone(MEMORY[0x277D75560]) initWithSize_];
+      v62 = swift_allocObject();
+      *(v62 + 16) = v92;
+      *(v62 + 24) = v77;
       v96 = swift_allocObject();
       *(v96 + 16) = partial apply for closure #1 in CAFUIProminentSettingCell.configurePlatterColorsForNonBoolean(using:);
-      *(v96 + 24) = v95;
+      *(v96 + 24) = v62;
       v118 = _sSo30UIGraphicsImageRendererContextCIgg_ABIegg_TRTA_0;
       v119 = v96;
       aBlock[0] = MEMORY[0x277D85DD0];
@@ -8581,10 +8602,10 @@ LABEL_45:
       aBlock[2] = thunk for @escaping @callee_guaranteed (@guaranteed UIGraphicsImageRendererContext) -> ();
       v117 = &block_descriptor_36_1;
       v97 = _Block_copy(aBlock);
-      v103 = v91;
+      v103 = v92;
 
-      v104 = v94;
-      v98 = [v94 imageWithActions_];
+      v104 = v95;
+      v98 = [v95 imageWithActions_];
       _Block_release(v97);
       isEscapingClosureAtFileLocation = swift_isEscapingClosureAtFileLocation();
 
@@ -8606,12 +8627,12 @@ LABEL_45:
     }
 
     swift_unknownObjectRelease();
-    v70 = v108;
+    v71 = v108;
     v102 = v113;
-    v71 = v114;
+    v72 = v114;
     (*(v108 + 16))(v113, v114, v36);
-    (*(v70 + 56))(v102, 0, 1, v36);
-    v72 = v102;
+    (*(v71 + 56))(v102, 0, 1, v36);
+    v73 = v102;
     goto LABEL_43;
   }
 
@@ -8633,7 +8654,7 @@ void closure #1 in CAFUIProminentSettingCell.configurePlatterColorsForNonBoolean
 id CAFUIProminentSettingCell.setupDefaultBackground()()
 {
   v1 = v0;
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s5UIKit25UIBackgroundConfigurationVSgMd);
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s5UIKit25UIBackgroundConfigurationVSgMd, &_s5UIKit25UIBackgroundConfigurationVSgMR);
   MEMORY[0x28223BE20](v2 - 8);
   v4 = &v19 - v3;
   v5 = type metadata accessor for UIBackgroundConfiguration();
@@ -8722,11 +8743,13 @@ uint64_t sub_2424176A4()
   return MEMORY[0x2821FE8E8](v0, 24, 7);
 }
 
-uint64_t block_copy_helper_9(uint64_t a1, uint64_t a2)
+double block_copy_helper_9(uint64_t a1, uint64_t a2)
 {
   v2 = *(a2 + 40);
   *(a1 + 32) = *(a2 + 32);
   *(a1 + 40) = v2;
+
+  return result;
 }
 
 id sub_242417704@<X0>(uint64_t *a1@<X0>, void *a2@<X8>)
@@ -8768,7 +8791,7 @@ void static CAFUIAppLayoutConfiguration.appStyle(size:)(BOOL *a1@<X8>, double a2
   }
 }
 
-unint64_t lazy protocol witness table accessor for type CAFUIAppPresentationMode and conformance CAFUIAppPresentationMode()
+unint64_t lazy protocol witness table accessor for type CAFUIAppPresentationMode and conformance CAFUIAppPresentationMode(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   result = lazy protocol witness table cache variable for type CAFUIAppPresentationMode and conformance CAFUIAppPresentationMode;
   if (!lazy protocol witness table cache variable for type CAFUIAppPresentationMode and conformance CAFUIAppPresentationMode)
@@ -8780,7 +8803,7 @@ unint64_t lazy protocol witness table accessor for type CAFUIAppPresentationMode
   return result;
 }
 
-unint64_t lazy protocol witness table accessor for type CAFUIAppSubStyle and conformance CAFUIAppSubStyle()
+unint64_t lazy protocol witness table accessor for type CAFUIAppSubStyle and conformance CAFUIAppSubStyle(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   result = lazy protocol witness table cache variable for type CAFUIAppSubStyle and conformance CAFUIAppSubStyle;
   if (!lazy protocol witness table cache variable for type CAFUIAppSubStyle and conformance CAFUIAppSubStyle)
@@ -8968,31 +8991,31 @@ uint64_t one-time initialization function for default()
   return result;
 }
 
-uint64_t static CAFUILogger.fault(_:function:file:line:)(uint64_t a1, unint64_t a2, uint64_t a3, unint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
+uint64_t static CAFUILogger.fault(_:function:file:line:)(uint64_t a1, unint64_t a2, uint64_t a3, unint64_t a4, __n128 a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v12 = static os_log_type_t.fault.getter();
+  v13 = static os_log_type_t.fault.getter();
   if (one-time initialization token for default != -1)
   {
     swift_once();
   }
 
-  v13 = static OS_os_log.default;
-  result = os_log_type_enabled(static OS_os_log.default, v12);
+  v14 = static OS_os_log.default;
+  result = os_log_type_enabled(static OS_os_log.default, v13);
   if (result)
   {
-    v15 = swift_slowAlloc();
     v16 = swift_slowAlloc();
-    v17 = v16;
-    *v15 = 136315650;
-    *(v15 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(a3, a4, &v17);
-    *(v15 + 12) = 2048;
-    *(v15 + 14) = a7;
-    *(v15 + 22) = 2080;
-    *(v15 + 24) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(a1, a2, &v17);
-    _os_log_impl(&dword_24234D000, v13, v12, "%s: %ld  %s", v15, 0x20u);
+    v17 = swift_slowAlloc();
+    v18 = v17;
+    *v16 = 136315650;
+    *(v16 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(a3, a4, &v18);
+    *(v16 + 12) = 2048;
+    *(v16 + 14) = a8;
+    *(v16 + 22) = 2080;
+    *(v16 + 24) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(a1, a2, &v18);
+    _os_log_impl(&dword_24234D000, v14, v13, "%s: %ld  %s", v16, 0x20u);
     swift_arrayDestroy();
-    MEMORY[0x245D0E5A0](v16, -1, -1);
-    return MEMORY[0x245D0E5A0](v15, -1, -1);
+    MEMORY[0x245D0E5A0](v17, -1, -1);
+    return MEMORY[0x245D0E5A0](v16, -1, -1);
   }
 
   return result;
@@ -9051,7 +9074,7 @@ void CAFVolume.ancillaryButton.getter()
   v6 = &v45 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x28223BE20](v4);
   v8 = &v45 - v7;
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8UIButtonC5UIKitE13ConfigurationVSgMd);
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8UIButtonC5UIKitE13ConfigurationVSgMd, &_sSo8UIButtonC5UIKitE13ConfigurationVSgMR);
   v10 = MEMORY[0x28223BE20](v9 - 8);
   v12 = &v45 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x28223BE20](v10);
@@ -9116,7 +9139,7 @@ LABEL_29:
   if (!*(&v54 + 1))
   {
 
-    outlined destroy of RequestTemporaryContentModel?(&aBlock, &_sypSgMd);
+    outlined destroy of RequestTemporaryContentModel?(&aBlock, &_sypSgMd, &_sypSgMR);
 LABEL_24:
     static UIButton.Configuration.filled()();
     v34 = [v23 imageWithRenderingMode_];
@@ -9201,7 +9224,7 @@ LABEL_24:
   {
     outlined init with copy of UIButton.Configuration?(v14, v12);
     UIButton.configuration.setter();
-    outlined destroy of RequestTemporaryContentModel?(v14, &_sSo8UIButtonC5UIKitE13ConfigurationVSgMd);
+    outlined destroy of RequestTemporaryContentModel?(v14, &_sSo8UIButtonC5UIKitE13ConfigurationVSgMd, &_sSo8UIButtonC5UIKitE13ConfigurationVSgMR);
   }
 
   else
@@ -9235,97 +9258,99 @@ uint64_t sub_242418ACC()
   return MEMORY[0x2821FE8E8](v0, 24, 7);
 }
 
-uint64_t closure #1 in CAFVolume.ancillaryButton.getter(void *a1)
+void *closure #1 in CAFVolume.ancillaryButton.getter(void *a1, uint64_t a2)
 {
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8UIButtonC5UIKitE13ConfigurationVSgMd);
-  v3 = MEMORY[0x28223BE20](v2 - 8);
-  v5 = &v22 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v3);
-  v7 = &v22 - v6;
-  v8 = type metadata accessor for UIButton.Configuration();
-  v9 = *(v8 - 8);
-  MEMORY[0x28223BE20](v8);
-  v11 = &v22 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8UIButtonC5UIKitE13ConfigurationVSgMd, &_sSo8UIButtonC5UIKitE13ConfigurationVSgMR);
+  v4 = MEMORY[0x28223BE20](v3 - 8);
+  v6 = &v23 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v4);
+  v8 = &v23 - v7;
+  v9 = type metadata accessor for UIButton.Configuration();
+  v10 = *(v9 - 8);
+  MEMORY[0x28223BE20](v9);
+  v12 = &v23 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
   swift_beginAccess();
   result = swift_unknownObjectWeakLoadStrong();
   if (result)
   {
-    v13 = result;
+    v14 = result;
     UIButton.configuration.getter();
-    if ((*(v9 + 48))(v7, 1, v8) == 1)
+    if ((*(v10 + 48))(v8, 1, v9) == 1)
     {
 
-      return outlined destroy of RequestTemporaryContentModel?(v7, &_sSo8UIButtonC5UIKitE13ConfigurationVSgMd);
+      return outlined destroy of RequestTemporaryContentModel?(v8, &_sSo8UIButtonC5UIKitE13ConfigurationVSgMd, &_sSo8UIButtonC5UIKitE13ConfigurationVSgMR);
     }
 
-    (*(v9 + 32))(v11, v7, v8);
+    (*(v10 + 32))(v12, v8, v9);
     if ([a1 isEnabled])
     {
-      v14 = [v13 mute];
-      v15 = [a1 isSelected];
-      if (v14)
+      v15 = [v14 mute];
+      v16 = [a1 isSelected];
+      if (v15)
       {
-        if ((v15 & 1) == 0 && ([a1 isHighlighted] & 1) == 0)
+        if ((v16 & 1) == 0 && ([a1 isHighlighted] & 1) == 0)
         {
-          v16 = &selRef_systemWhiteColor;
-          v17 = &selRef_systemBlackColor;
+          v17 = &selRef_systemWhiteColor;
+          v18 = &selRef_systemBlackColor;
           goto LABEL_14;
         }
       }
 
-      else if ((v15 & 1) == 0 && ([a1 isHighlighted] & 1) == 0)
+      else if ((v16 & 1) == 0 && ([a1 isHighlighted] & 1) == 0)
       {
-        v16 = &selRef_secondarySystemFillColor;
-        v17 = &selRef__carSystemPrimaryColor;
+        v17 = &selRef_secondarySystemFillColor;
+        v18 = &selRef__carSystemPrimaryColor;
 LABEL_14:
         if ([a1 isFocused])
         {
-          v17 = &selRef__carSystemFocusLabelColor;
-          v18 = &selRef__carSystemFocusColor;
+          v18 = &selRef__carSystemFocusLabelColor;
+          v19 = &selRef__carSystemFocusColor;
         }
 
         else
         {
-          v18 = v16;
+          v19 = v17;
         }
 
         goto LABEL_17;
       }
 
-      v18 = &selRef__carSystemFocusColor;
-      v17 = &selRef__carSystemFocusLabelColor;
+      v19 = &selRef__carSystemFocusColor;
+      v18 = &selRef__carSystemFocusLabelColor;
     }
 
     else
     {
-      v18 = &selRef_secondarySystemFillColor;
-      v17 = &selRef_secondaryLabelColor;
+      v19 = &selRef_secondarySystemFillColor;
+      v18 = &selRef_secondaryLabelColor;
     }
 
 LABEL_17:
-    v19 = objc_opt_self();
-    v20 = [v19 *v17];
+    v20 = objc_opt_self();
+    v21 = [v20 *v18];
     UIButton.Configuration.baseForegroundColor.setter();
-    v21 = [v19 *v18];
+    v22 = [v20 *v19];
     UIButton.Configuration.baseBackgroundColor.setter();
-    (*(v9 + 16))(v5, v11, v8);
-    (*(v9 + 56))(v5, 0, 1, v8);
+    (*(v10 + 16))(v6, v12, v9);
+    (*(v10 + 56))(v6, 0, 1, v9);
     UIButton.configuration.setter();
 
-    return (*(v9 + 8))(v11, v8);
+    return (*(v10 + 8))(v12, v9);
   }
 
   return result;
 }
 
-uint64_t block_copy_helper_10(uint64_t a1, uint64_t a2)
+double block_copy_helper_10(uint64_t a1, uint64_t a2)
 {
   v2 = *(a2 + 40);
   *(a1 + 32) = *(a2 + 32);
   *(a1 + 40) = v2;
+
+  return result;
 }
 
-unint64_t lazy protocol witness table accessor for type UInt8 and conformance UInt8()
+unint64_t lazy protocol witness table accessor for type UInt8 and conformance UInt8(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   result = lazy protocol witness table cache variable for type UInt8 and conformance UInt8;
   if (!lazy protocol witness table cache variable for type UInt8 and conformance UInt8)
@@ -9500,6 +9525,13 @@ void CAFUIMulticastLabel.forceDark.modify(uint64_t *a1, char a2)
   free(v3);
 }
 
+char *CAFUIMulticastLabel.__allocating_init(multicast:signalLocked:badgeSize:)(uint64_t a1, uint64_t a2, uint64_t a3, char *a4)
+{
+  v6 = a3;
+  v9 = objc_allocWithZone(v4);
+  return CAFUIMulticastLabel.init(multicast:signalLocked:badgeSize:)(a1, a2, v6, a4);
+}
+
 char *CAFUIMulticastLabel.init(multicast:signalLocked:badgeSize:)(uint64_t a1, uint64_t a2, char a3, char *a4)
 {
   ObjectType = swift_getObjectType();
@@ -9523,7 +9555,7 @@ char *CAFUIMulticastLabel.init(multicast:signalLocked:badgeSize:)(uint64_t a1, u
   v17 = [v15 _preferredFontForTextStyle_variant_];
   [v16 setFont_];
 
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy5UIKit17UITraitDefinition_pXpGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy5UIKit17UITraitDefinition_pXpGMd, &_ss23_ContiguousArrayStorageCy5UIKit17UITraitDefinition_pXpGMR);
   v18 = swift_allocObject();
   *(v18 + 16) = xmmword_2424235A0;
   v19 = type metadata accessor for UITraitUserInterfaceStyle();
@@ -9557,27 +9589,27 @@ char *CAFUIMulticastLabel.init(multicast:signalLocked:badgeSize:)(uint64_t a1, u
   return v16;
 }
 
-void closure #1 in CAFUIMulticastLabel.init(multicast:signalLocked:badgeSize:)()
+void closure #1 in CAFUIMulticastLabel.init(multicast:signalLocked:badgeSize:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   swift_beginAccess();
   Strong = swift_unknownObjectWeakLoadStrong();
   if (Strong)
   {
-    v1 = Strong;
-    v2 = OBJC_IVAR____TtC5CAFUI19CAFUIMulticastLabel_forceDark;
+    v4 = Strong;
+    v5 = OBJC_IVAR____TtC5CAFUI19CAFUIMulticastLabel_forceDark;
     swift_beginAccess();
-    if ((v1[v2] & 1) == 0)
+    if ((v4[v5] & 1) == 0)
     {
-      v3 = [v1 traitCollection];
-      [v3 userInterfaceStyle];
+      v6 = [v4 traitCollection];
+      [v6 userInterfaceStyle];
     }
 
-    v4 = v1[OBJC_IVAR____TtC5CAFUI19CAFUIMulticastLabel_signalLocked];
-    v5 = *&v1[OBJC_IVAR____TtC5CAFUI19CAFUIMulticastLabel_multicast];
-    v6 = *&v1[OBJC_IVAR____TtC5CAFUI19CAFUIMulticastLabel_multicast + 8];
-    v8 = v1[OBJC_IVAR____TtC5CAFUI19CAFUIMulticastLabel_badgeSize];
-    v7 = specialized String.attributedMulticastString(dark:signalLocked:badgeSize:)(v4, &v8, v5, v6);
-    [v1 setAttributedText_];
+    v7 = v4[OBJC_IVAR____TtC5CAFUI19CAFUIMulticastLabel_signalLocked];
+    v8 = *&v4[OBJC_IVAR____TtC5CAFUI19CAFUIMulticastLabel_multicast];
+    v9 = *&v4[OBJC_IVAR____TtC5CAFUI19CAFUIMulticastLabel_multicast + 8];
+    v11 = v4[OBJC_IVAR____TtC5CAFUI19CAFUIMulticastLabel_badgeSize];
+    v10 = specialized String.attributedMulticastString(dark:signalLocked:badgeSize:)(v7, &v11, v8, v9);
+    [v4 setAttributedText_];
   }
 }
 
@@ -9663,12 +9695,12 @@ id specialized String.attributedMulticastString(dark:signalLocked:badgeSize:)(ch
   if (result)
   {
     v16 = result;
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySo21NSAttributedStringKeya_yptGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySo21NSAttributedStringKeya_yptGMd, &_ss23_ContiguousArrayStorageCySo21NSAttributedStringKeya_yptGMR);
     inited = swift_initStackObject();
     *(inited + 16) = xmmword_2424235A0;
     v18 = *MEMORY[0x277D740A8];
     *(inited + 32) = *MEMORY[0x277D740A8];
-    *(inited + 64) = type metadata accessor for OS_os_log(0, &lazy cache variable for type metadata for UIFont);
+    *(inited + 64) = type metadata accessor for OS_os_log(0, &lazy cache variable for type metadata for UIFont, 0x277D74300);
     *(inited + 40) = v16;
     v19 = v18;
     v30 = v16;
@@ -9688,7 +9720,7 @@ id specialized String.attributedMulticastString(dark:signalLocked:badgeSize:)(ch
     *(v24 + 16) = xmmword_2424235A0;
     v25 = *MEMORY[0x277D740C0];
     *(v24 + 32) = *MEMORY[0x277D740C0];
-    *(v24 + 64) = type metadata accessor for OS_os_log(0, &lazy cache variable for type metadata for UIColor);
+    *(v24 + 64) = type metadata accessor for OS_os_log(0, &lazy cache variable for type metadata for UIColor, 0x277D75348);
     *(v24 + 40) = v31;
     v26 = v25;
     v27 = v31;
@@ -9724,7 +9756,7 @@ uint64_t sub_24241A2FC()
   return MEMORY[0x2821FE8E8](v0, 32, 7);
 }
 
-unint64_t lazy protocol witness table accessor for type MulticastBadgeSize and conformance MulticastBadgeSize()
+unint64_t lazy protocol witness table accessor for type MulticastBadgeSize and conformance MulticastBadgeSize(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   result = lazy protocol witness table cache variable for type MulticastBadgeSize and conformance MulticastBadgeSize;
   if (!lazy protocol witness table cache variable for type MulticastBadgeSize and conformance MulticastBadgeSize)
@@ -9747,7 +9779,7 @@ uint64_t sub_24241A394@<X0>(uint64_t *a1@<X0>, _BYTE *a2@<X8>)
 
 uint64_t outlined destroy of (NSAttributedStringKey, Any)(uint64_t a1)
 {
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo21NSAttributedStringKeya_yptMd);
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo21NSAttributedStringKeya_yptMd, &_sSo21NSAttributedStringKeya_yptMR);
   (*(*(v2 - 8) + 8))(a1, v2);
   return a1;
 }
@@ -9767,7 +9799,7 @@ unint64_t lazy protocol witness table accessor for type NSAttributedStringKey an
 
 id CAFListContentRepresentable.symbolImage.getter(uint64_t a1, uint64_t a2)
 {
-  v2 = (*(a2 + 64))();
+  v2 = (*(a2 + 64))(a1);
   v4 = v3;
   if (v3)
   {
@@ -9817,7 +9849,7 @@ void *CAFListContentRepresentable.isInfoButtonLimitedUI.getter()
 
 void *CAFListContentRepresentable.isLimitedUI.getter(uint64_t a1, uint64_t a2)
 {
-  if ((*(a2 + 48))())
+  if ((*(a2 + 48))(a1))
   {
     result = CAFListContentRepresentable.session.getter();
     if (!result)
@@ -9862,7 +9894,7 @@ id CAFListContentRepresentable.isRHD.getter()
   return v3;
 }
 
-void CAFListContentRepresentable.session.setter(void *a1)
+void CAFListContentRepresentable.session.setter(void *a1, uint64_t a2, uint64_t a3)
 {
   specialized CAFListContentRepresentable.session.setter(a1);
 }
@@ -9915,14 +9947,14 @@ uint64_t CAFListContentRepresentable.session.getter()
   }
 }
 
-void key path setter for CAFListContentRepresentable.session : <A>A(id *a1)
+void key path setter for CAFListContentRepresentable.session : <A>A(id *a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v1 = *a1;
-  v2 = *a1;
-  specialized CAFListContentRepresentable.session.setter(v1);
+  v4 = *a1;
+  v5 = *a1;
+  specialized CAFListContentRepresentable.session.setter(v4);
 }
 
-void (*CAFListContentRepresentable.session.modify(uint64_t *a1, uint64_t a2, uint64_t a3))(void **a1, char a2)
+void (*CAFListContentRepresentable.session.modify(uint64_t *a1, uint64_t a2, uint64_t a3))(id *a1, char a2)
 {
   a1[2] = a3;
   a1[3] = v3;
@@ -9931,7 +9963,7 @@ void (*CAFListContentRepresentable.session.modify(uint64_t *a1, uint64_t a2, uin
   return CAFListContentRepresentable.session.modify;
 }
 
-void CAFListContentRepresentable.session.modify(void **a1, char a2)
+void CAFListContentRepresentable.session.modify(id *a1, char a2)
 {
   v4 = *a1;
   if (a2)
@@ -9969,7 +10001,7 @@ unint64_t type metadata accessor for CARSession()
   return result;
 }
 
-unint64_t lazy protocol witness table accessor for type CAFListContentAccessoryType and conformance CAFListContentAccessoryType()
+unint64_t lazy protocol witness table accessor for type CAFListContentAccessoryType and conformance CAFListContentAccessoryType(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   result = lazy protocol witness table cache variable for type CAFListContentAccessoryType and conformance CAFListContentAccessoryType;
   if (!lazy protocol witness table cache variable for type CAFListContentAccessoryType and conformance CAFListContentAccessoryType)
@@ -10084,21 +10116,21 @@ uint64_t destructiveInjectEnumTag for CAFUICellSelectionAction(uint64_t result, 
   return result;
 }
 
-id UIStackView.init(axis:spacing:arrangedSubviews:)(uint64_t a1, double a2)
+id UIStackView.init(axis:spacing:arrangedSubviews:)(uint64_t a1, uint64_t a2, double a3)
 {
-  v4 = objc_allocWithZone(swift_getObjCClassFromMetadata());
+  v5 = objc_allocWithZone(swift_getObjCClassFromMetadata());
   type metadata accessor for UIView();
   isa = Array._bridgeToObjectiveC()().super.isa;
 
-  v6 = [v4 initWithArrangedSubviews_];
+  v7 = [v5 initWithArrangedSubviews_];
 
-  v7 = v6;
-  [v7 setSpacing_];
-  [v7 setAxis_];
-  [v7 setContentMode_];
-  [v7 setTranslatesAutoresizingMaskIntoConstraints_];
+  v8 = v7;
+  [v8 setSpacing_];
+  [v8 setAxis_];
+  [v8 setContentMode_];
+  [v8 setTranslatesAutoresizingMaskIntoConstraints_];
 
-  return v7;
+  return v8;
 }
 
 unint64_t type metadata accessor for UIView()
@@ -10125,7 +10157,7 @@ char *_s5CAFUI27CAFUIDevicePickerControllerPAAE013presentDeviceC9LimitedUI3for01
   v14 = CAFUIDevicePickerLimitedUIView.init(presentedAction:dismissAction:)(a5, v10, a6, v11);
   [a1 addSubview_];
   v15 = objc_opt_self();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyyXlGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyyXlGMd, &_ss23_ContiguousArrayStorageCyyXlGMR);
   v16 = swift_allocObject();
   *(v16 + 16) = xmmword_242423B90;
   v17 = [v14 leadingAnchor];
@@ -10203,7 +10235,7 @@ unint64_t CAFDeviceAction.rawValue.getter()
   }
 }
 
-unint64_t lazy protocol witness table accessor for type CAFDeviceAction and conformance CAFDeviceAction()
+unint64_t lazy protocol witness table accessor for type CAFDeviceAction and conformance CAFDeviceAction(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   result = lazy protocol witness table cache variable for type CAFDeviceAction and conformance CAFDeviceAction;
   if (!lazy protocol witness table cache variable for type CAFDeviceAction and conformance CAFDeviceAction)
@@ -10223,12 +10255,14 @@ Swift::Int protocol witness for Hashable.hashValue.getter in conformance CAFDevi
   return Hasher._finalize()();
 }
 
-uint64_t protocol witness for Hashable.hash(into:) in conformance CAFDeviceAction()
+double protocol witness for Hashable.hash(into:) in conformance CAFDeviceAction(uint64_t a1)
 {
   String.hash(into:)();
+
+  return result;
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance CAFDeviceAction()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance CAFDeviceAction(uint64_t a1)
 {
   Hasher.init(_seed:)();
   String.hash(into:)();
@@ -10278,7 +10312,7 @@ unint64_t lazy protocol witness table accessor for type [CAFDeviceAction] and co
   result = lazy protocol witness table cache variable for type [CAFDeviceAction] and conformance [A];
   if (!lazy protocol witness table cache variable for type [CAFDeviceAction] and conformance [A])
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSay5CAFUI15CAFDeviceActionOGMd);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSay5CAFUI15CAFDeviceActionOGMd, &_sSay5CAFUI15CAFDeviceActionOGMR);
     result = swift_getWitnessTable();
     atomic_store(result, &lazy protocol witness table cache variable for type [CAFDeviceAction] and conformance [A]);
   }
@@ -10286,13 +10320,13 @@ unint64_t lazy protocol witness table accessor for type [CAFDeviceAction] and co
   return result;
 }
 
-void closure #1 in CAFUIDevicePickerDetailViewController.init(device:pairedDevices:actions:carSession:delegate:)()
+void closure #1 in CAFUIDevicePickerDetailViewController.init(device:pairedDevices:actions:carSession:delegate:)(uint64_t a1, uint64_t a2)
 {
   swift_beginAccess();
   Strong = swift_unknownObjectWeakLoadStrong();
   if (Strong)
   {
-    v1 = Strong;
+    v3 = Strong;
     CAFUIDevicePickerDetailViewController.updateDevicePickerLimitedUI()();
   }
 }
@@ -10488,7 +10522,7 @@ uint64_t CAFUIDevicePickerDetailViewController.tableView(_:cellForRowAt:)(void *
 
 uint64_t CAFUIDevicePickerDetailViewController.setup(cell:forAction:)(uint64_t a1, unsigned __int8 *a2)
 {
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s5UIKit25UIBackgroundConfigurationVSgMd);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s5UIKit25UIBackgroundConfigurationVSgMd, &_s5UIKit25UIBackgroundConfigurationVSgMR);
   MEMORY[0x28223BE20](v4 - 8);
   v39 = &v38 - v5;
   v6 = type metadata accessor for UIBackgroundConfiguration();
@@ -10496,7 +10530,7 @@ uint64_t CAFUIDevicePickerDetailViewController.setup(cell:forAction:)(uint64_t a
   v43 = v6;
   MEMORY[0x28223BE20](v6);
   v8 = &v38 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s5UIKit31UIConfigurationColorTransformerVSgMd);
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s5UIKit31UIConfigurationColorTransformerVSgMd, &_s5UIKit31UIConfigurationColorTransformerVSgMR);
   MEMORY[0x28223BE20](v9 - 8);
   v11 = &v38 - v10;
   v41 = type metadata accessor for UIListContentConfiguration();
@@ -10589,30 +10623,30 @@ LABEL_12:
   return result;
 }
 
-void CAFUIDevicePickerDetailViewController.tableView(_:didSelectRowAt:)(void *a1)
+void CAFUIDevicePickerDetailViewController.tableView(_:didSelectRowAt:)(void *a1, uint64_t a2)
 {
   isa = IndexPath._bridgeToObjectiveC()().super.isa;
-  v5 = [a1 cellForRowAtIndexPath_];
+  v6 = [a1 cellForRowAtIndexPath_];
 
-  if (v5)
+  if (v6)
   {
     type metadata accessor for CAFUIDevicePickerDetailTableCell();
-    v6 = swift_dynamicCastClass();
-    if (v6)
+    v7 = swift_dynamicCastClass();
+    if (v7)
     {
-      v7 = v6;
-      v8 = *(v1 + OBJC_IVAR____TtC5CAFUI37CAFUIDevicePickerDetailViewController_actions);
-      if (IndexPath.row.getter() < *(v8 + 16))
+      v8 = v7;
+      v9 = *(v2 + OBJC_IVAR____TtC5CAFUI37CAFUIDevicePickerDetailViewController_actions);
+      if (IndexPath.row.getter() < *(v9 + 16))
       {
-        v9 = IndexPath.row.getter();
-        if ((v9 & 0x8000000000000000) != 0)
+        v10 = IndexPath.row.getter();
+        if ((v10 & 0x8000000000000000) != 0)
         {
           __break(1u);
         }
 
-        else if (v9 < *(v8 + 16))
+        else if (v10 < *(v9 + 16))
         {
-          v2 = *(v8 + v9 + 32);
+          v3 = *(v9 + v10 + 32);
           if (one-time initialization token for default == -1)
           {
             goto LABEL_7;
@@ -10625,121 +10659,121 @@ void CAFUIDevicePickerDetailViewController.tableView(_:didSelectRowAt:)(void *a1
 LABEL_28:
         swift_once();
 LABEL_7:
-        v10 = static OS_os_log.default;
-        v11 = static os_log_type_t.default.getter();
-        if (os_log_type_enabled(v10, v11))
+        v11 = static OS_os_log.default;
+        v12 = static os_log_type_t.default.getter();
+        if (os_log_type_enabled(v11, v12))
         {
-          v35 = v7;
-          v36 = a1;
-          v12 = swift_slowAlloc();
+          v36 = v8;
+          v37 = a1;
           v13 = swift_slowAlloc();
-          aBlock[0] = v13;
-          *v12 = 136315138;
-          if (v2 > 1)
+          v14 = swift_slowAlloc();
+          aBlock[0] = v14;
+          *v13 = 136315138;
+          if (v3 > 1)
           {
-            if (v2 == 2)
+            if (v3 == 2)
             {
-              v14 = 0x8000000242428BB0;
-              v15 = 0xD000000000000011;
+              v15 = 0x8000000242428BB0;
+              v16 = 0xD000000000000011;
             }
 
             else
             {
-              v14 = 0x8000000242428BD0;
-              v15 = 0xD000000000000012;
+              v15 = 0x8000000242428BD0;
+              v16 = 0xD000000000000012;
             }
           }
 
-          else if (v2)
+          else if (v3)
           {
-            v15 = 0x527463656E6E6F43;
-            v14 = 0xEE00747365757165;
+            v16 = 0x527463656E6E6F43;
+            v15 = 0xEE00747365757165;
           }
 
           else
           {
-            v14 = 0xE500000000000000;
-            v15 = 0x7964616552;
+            v15 = 0xE500000000000000;
+            v16 = 0x7964616552;
           }
 
-          v16 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v15, v14, aBlock);
+          v17 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v16, v15, aBlock);
 
-          *(v12 + 4) = v16;
-          _os_log_impl(&dword_24234D000, v10, v11, "Did select action: %s.", v12, 0xCu);
-          __swift_destroy_boxed_opaque_existential_0(v13);
+          *(v13 + 4) = v17;
+          _os_log_impl(&dword_24234D000, v11, v12, "Did select action: %s.", v13, 0xCu);
+          __swift_destroy_boxed_opaque_existential_0(v14);
+          MEMORY[0x245D0E5A0](v14, -1, -1);
           MEMORY[0x245D0E5A0](v13, -1, -1);
-          MEMORY[0x245D0E5A0](v12, -1, -1);
-          v7 = v35;
-          a1 = v36;
+          v8 = v36;
+          a1 = v37;
         }
 
-        if (v2 > 2)
+        if (v3 > 2)
         {
         }
 
         else
         {
-          v17 = _stringCompareWithSmolCheck(_:_:expecting:)();
+          v18 = _stringCompareWithSmolCheck(_:_:expecting:)();
 
-          if ((v17 & 1) == 0)
+          if ((v18 & 1) == 0)
           {
-            LOBYTE(aBlock[0]) = v2;
+            LOBYTE(aBlock[0]) = v3;
             specialized CAFUIDevicePickerDetailViewController.prepareRequest(for:action:)(aBlock);
 LABEL_25:
-            v34 = IndexPath._bridgeToObjectiveC()().super.isa;
-            [a1 deselectRowAtIndexPath:v34 animated:1];
+            v35 = IndexPath._bridgeToObjectiveC()().super.isa;
+            [a1 deselectRowAtIndexPath:v35 animated:1];
 
             return;
           }
         }
 
-        v18 = MEMORY[0x245D0D180](0x544547524F46, 0xE600000000000000);
-        v19 = CAFUILocalizedStringForKey(v18);
+        v19 = MEMORY[0x245D0D180](0x544547524F46, 0xE600000000000000);
+        v20 = CAFUILocalizedStringForKey(v19);
 
-        if (!v19)
+        if (!v20)
         {
-          v20 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-          v19 = MEMORY[0x245D0D180](v20);
+          v21 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+          v20 = MEMORY[0x245D0D180](v21);
         }
 
-        v21 = swift_allocObject();
-        swift_unknownObjectWeakInit();
         v22 = swift_allocObject();
-        *(v22 + 16) = v21;
-        *(v22 + 24) = v7;
-        *(v22 + 32) = v2;
+        swift_unknownObjectWeakInit();
+        v23 = swift_allocObject();
+        *(v23 + 16) = v22;
+        *(v23 + 24) = v8;
+        *(v23 + 32) = v3;
         aBlock[4] = partial apply for closure #1 in CAFUIDevicePickerDetailViewController.tableView(_:didSelectRowAt:);
-        aBlock[5] = v22;
+        aBlock[5] = v23;
         aBlock[0] = MEMORY[0x277D85DD0];
         aBlock[1] = 1107296256;
         aBlock[2] = thunk for @escaping @callee_guaranteed (@guaranteed UIButton) -> ();
         aBlock[3] = &block_descriptor_11;
-        v23 = _Block_copy(aBlock);
+        v24 = _Block_copy(aBlock);
 
-        v24 = v5;
+        v25 = v6;
 
-        v25 = objc_opt_self();
-        v26 = [v25 actionWithTitle:v19 style:2 handler:v23];
-        _Block_release(v23);
+        v26 = objc_opt_self();
+        v27 = [v26 actionWithTitle:v20 style:2 handler:v24];
+        _Block_release(v24);
 
-        v27 = MEMORY[0x245D0D180](0x4C45434E4143, 0xE600000000000000);
-        v28 = CAFUILocalizedStringForKey(v27);
+        v28 = MEMORY[0x245D0D180](0x4C45434E4143, 0xE600000000000000);
+        v29 = CAFUILocalizedStringForKey(v28);
 
-        if (!v28)
+        if (!v29)
         {
-          v29 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-          v28 = MEMORY[0x245D0D180](v29);
+          v30 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+          v29 = MEMORY[0x245D0D180](v30);
         }
 
-        v30 = [v25 actionWithTitle:v28 style:1 handler:0];
+        v31 = [v26 actionWithTitle:v29 style:1 handler:0];
 
-        __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyyXlGMd);
+        __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyyXlGMd, &_ss23_ContiguousArrayStorageCyyXlGMR);
         inited = swift_initStackObject();
         *(inited + 16) = xmmword_242423B80;
-        *(inited + 32) = v26;
-        *(inited + 40) = v30;
-        v32 = v26;
-        v33 = v30;
+        *(inited + 32) = v27;
+        *(inited + 40) = v31;
+        v33 = v27;
+        v34 = v31;
         CAFUIDevicePickerDetailViewController.displayAlert(actions:)(inited);
 
         swift_setDeallocating();
@@ -10857,43 +10891,43 @@ LABEL_13:
   return v10;
 }
 
-id closure #2 in CAFUIDevicePickerDetailViewController.setup(cell:forAction:)()
+id closure #2 in CAFUIDevicePickerDetailViewController.setup(cell:forAction:)(uint64_t a1, uint64_t a2)
 {
   swift_beginAccess();
   Strong = swift_unknownObjectWeakLoadStrong();
   if (Strong)
   {
-    v1 = Strong;
-    if ([v1 isHighlighted])
+    v3 = Strong;
+    if ([v3 isHighlighted])
     {
 
 LABEL_6:
-      v3 = [objc_opt_self() _carSystemFocusColor];
+      v5 = [objc_opt_self() _carSystemFocusColor];
 
-      return v3;
+      return v5;
     }
 
-    v2 = [v1 isSelected];
+    v4 = [v3 isSelected];
 
-    if ((v2 & 1) != 0 || [v1 isFocused])
+    if ((v4 & 1) != 0 || [v3 isFocused])
     {
       goto LABEL_6;
     }
   }
 
-  v5 = [objc_opt_self() clearColor];
+  v7 = [objc_opt_self() clearColor];
 
-  return v5;
+  return v7;
 }
 
-id CAFUIDevicePickerDetailTableCell.__deallocating_deinit()
+id CAFUIDevicePickerDetailTableCell.__deallocating_deinit(uint64_t a1)
 {
-  v2.receiver = v0;
-  v2.super_class = type metadata accessor for CAFUIDevicePickerDetailTableCell();
-  return objc_msgSendSuper2(&v2, sel_dealloc);
+  v3.receiver = v1;
+  v3.super_class = type metadata accessor for CAFUIDevicePickerDetailTableCell();
+  return objc_msgSendSuper2(&v3, sel_dealloc);
 }
 
-uint64_t specialized CAFUIDevicePickerDetailViewController.prepareRequest(for:action:)(char *a1)
+void specialized CAFUIDevicePickerDetailViewController.prepareRequest(for:action:)(char *a1)
 {
   v2 = *a1;
   v3 = *(v1 + OBJC_IVAR____TtC5CAFUI37CAFUIDevicePickerDetailViewController_device);
@@ -10918,15 +10952,17 @@ uint64_t specialized CAFUIDevicePickerDetailViewController.prepareRequest(for:ac
       {
         v11 = *(v10 + 8);
         ObjectType = swift_getObjectType();
-        v24 = v2;
-        (*(v11 + 8))(&v24, v6, v8, ObjectType, v11);
+        v23 = v2;
+        (*(v11 + 8))(&v23, v6, v8, ObjectType, v11);
 
-        return swift_unknownObjectRelease();
+        swift_unknownObjectRelease();
       }
 
       else
       {
       }
+
+      return;
     }
   }
 
@@ -10935,39 +10971,36 @@ uint64_t specialized CAFUIDevicePickerDetailViewController.prepareRequest(for:ac
     swift_once();
   }
 
-  v14 = static OS_os_log.default;
-  v15 = static os_log_type_t.default.getter();
-  result = os_log_type_enabled(v14, v15);
-  if (result)
+  v13 = static OS_os_log.default;
+  v14 = static os_log_type_t.default.getter();
+  if (os_log_type_enabled(v13, v14))
   {
+    v15 = swift_slowAlloc();
     v16 = swift_slowAlloc();
-    v17 = swift_slowAlloc();
-    v25 = v17;
-    *v16 = 136315138;
-    v18 = [v3 identifier];
-    if (v18)
+    v24 = v16;
+    *v15 = 136315138;
+    v17 = [v3 identifier];
+    if (v17)
     {
-      v19 = v18;
-      v20 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-      v22 = v21;
+      v18 = v17;
+      v19 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+      v21 = v20;
     }
 
     else
     {
-      v22 = 0xE300000000000000;
-      v20 = 7104878;
+      v21 = 0xE300000000000000;
+      v19 = 7104878;
     }
 
-    v23 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v20, v22, &v25);
+    v22 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v19, v21, &v24);
 
-    *(v16 + 4) = v23;
-    _os_log_impl(&dword_24234D000, v14, v15, "Unable to perform request, missing deviceIdentifier: %s.", v16, 0xCu);
-    __swift_destroy_boxed_opaque_existential_0(v17);
-    MEMORY[0x245D0E5A0](v17, -1, -1);
-    return MEMORY[0x245D0E5A0](v16, -1, -1);
+    *(v15 + 4) = v22;
+    _os_log_impl(&dword_24234D000, v13, v14, "Unable to perform request, missing deviceIdentifier: %s.", v15, 0xCu);
+    __swift_destroy_boxed_opaque_existential_0(v16);
+    MEMORY[0x245D0E5A0](v16, -1, -1);
+    MEMORY[0x245D0E5A0](v15, -1, -1);
   }
-
-  return result;
 }
 
 uint64_t sub_24241D6A0()
@@ -10983,11 +11016,13 @@ uint64_t sub_24241D6D8()
   return MEMORY[0x2821FE8E8](v0, 33, 7);
 }
 
-uint64_t block_copy_helper_11(uint64_t a1, uint64_t a2)
+double block_copy_helper_11(uint64_t a1, uint64_t a2)
 {
   v2 = *(a2 + 40);
   *(a1 + 32) = *(a2 + 32);
   *(a1 + 40) = v2;
+
+  return result;
 }
 
 uint64_t sub_24241D73C()
@@ -11022,17 +11057,17 @@ Swift::String __swiftcall CAFUILocalizedValues(for:selectedValues:)(Swift::Opaqu
     v12 = CAFUILocalizedStringForKey(v11);
 
     static String._unconditionallyBridgeFromObjectiveC(_:)();
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys7CVarArg_pGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys7CVarArg_pGMd, &_ss23_ContiguousArrayStorageCys7CVarArg_pGMR);
     v13 = swift_allocObject();
     *(v13 + 16) = xmmword_2424235A0;
     v14 = dispatch thunk of CustomStringConvertible.description.getter();
     v16 = v15;
     *(v13 + 56) = MEMORY[0x277D837D0];
-    *(v13 + 64) = lazy protocol witness table accessor for type String and conformance String();
+    *(v13 + 64) = lazy protocol witness table accessor for type String and conformance String(v14, v15, v17);
     *(v13 + 32) = v14;
     *(v13 + 40) = v16;
     v6 = String.init(format:_:)();
-    v7 = v17;
+    v7 = v18;
 
     goto LABEL_8;
   }
@@ -11056,10 +11091,10 @@ LABEL_6:
   }
 
 LABEL_8:
-  v18 = v6;
-  v19 = v7;
-  result._object = v19;
-  result._countAndFlagsBits = v18;
+  v19 = v6;
+  v20 = v7;
+  result._object = v20;
+  result._countAndFlagsBits = v19;
   return result;
 }
 

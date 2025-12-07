@@ -11,9 +11,9 @@
     +[CATOperationQueue(CRKAdditions) crk_backgroundQueue];
   }
 
-  v1 = crk_backgroundQueue_backgroundQueue;
+  v2 = crk_backgroundQueue_backgroundQueue;
 
-  return v1;
+  return v2;
 }
 
 @end

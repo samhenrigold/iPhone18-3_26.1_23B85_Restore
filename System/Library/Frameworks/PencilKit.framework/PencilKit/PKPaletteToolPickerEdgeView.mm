@@ -142,7 +142,7 @@
     v17 = *(self + 408);
     if (v17)
     {
-      [v17 transform];
+      objc_msgSend_transform(v17);
     }
 
     else

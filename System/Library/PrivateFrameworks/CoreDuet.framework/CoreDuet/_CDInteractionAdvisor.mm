@@ -92,7 +92,7 @@
 
 - (id)adviseInteractionsUsingSettings:(id)settings
 {
-  v26[1] = *MEMORY[0x1E69E9840];
+  v25[1] = *MEMORY[0x1E69E9840];
   settingsCopy = settings;
   v5 = _os_activity_create(&dword_191750000, "CoreDuet: adviseInteractionsUsingSettings", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
   state.opaque[0] = 0;
@@ -102,35 +102,35 @@
 
   state.opaque[0] = 0;
   state.opaque[1] = &state;
-  v20 = 0x3032000000;
-  v21 = __Block_byref_object_copy__2;
-  v22 = __Block_byref_object_dispose__2;
-  v23 = 0;
+  v19 = 0x3032000000;
+  v20 = __Block_byref_object_copy__2;
+  v21 = __Block_byref_object_dispose__2;
+  v22 = 0;
   [(_CDInteractionAdvisor *)self setError:0];
   connection = self->_connection;
-  v18[0] = MEMORY[0x1E69E9820];
-  v18[1] = 3221225472;
-  v18[2] = __57___CDInteractionAdvisor_adviseInteractionsUsingSettings___block_invoke;
-  v18[3] = &unk_1E73675F8;
-  v18[4] = self;
-  v7 = [(NSXPCConnection *)connection synchronousRemoteObjectProxyWithErrorHandler:v18];
+  v17[0] = MEMORY[0x1E69E9820];
+  v17[1] = 3221225472;
+  v17[2] = __57___CDInteractionAdvisor_adviseInteractionsUsingSettings___block_invoke;
+  v17[3] = &unk_1E73675F8;
+  v17[4] = self;
+  v7 = [(NSXPCConnection *)connection synchronousRemoteObjectProxyWithErrorHandler:v17];
   v8 = v7;
   if (settingsCopy)
   {
-    v17[0] = MEMORY[0x1E69E9820];
-    v17[1] = 3221225472;
-    v17[2] = __57___CDInteractionAdvisor_adviseInteractionsUsingSettings___block_invoke_9;
-    v17[3] = &unk_1E7367760;
-    v17[4] = &state;
-    [v7 adviseInteractionsUsingSettings:settingsCopy reply:v17];
+    v16[0] = MEMORY[0x1E69E9820];
+    v16[1] = 3221225472;
+    v16[2] = __57___CDInteractionAdvisor_adviseInteractionsUsingSettings___block_invoke_9;
+    v16[3] = &unk_1E7367760;
+    v16[4] = &state;
+    [v7 adviseInteractionsUsingSettings:settingsCopy reply:v16];
   }
 
   else
   {
     v9 = MEMORY[0x1E696ABC0];
-    v25 = *MEMORY[0x1E696A578];
-    v26[0] = @"Settings cannot be nil";
-    v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v26 forKeys:&v25 count:1];
+    v24 = *MEMORY[0x1E696A578];
+    v25[0] = @"Settings cannot be nil";
+    v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v25 forKeys:&v24 count:1];
     v11 = [v9 errorWithDomain:@"_CDInteractionAdvisor" code:1 userInfo:v10];
 
     v12 = +[_CDLogging interactionChannel];
@@ -146,7 +146,6 @@
   v14 = *(state.opaque[1] + 40);
 
   _Block_object_dispose(&state, 8);
-  v15 = *MEMORY[0x1E69E9840];
 
   return v14;
 }

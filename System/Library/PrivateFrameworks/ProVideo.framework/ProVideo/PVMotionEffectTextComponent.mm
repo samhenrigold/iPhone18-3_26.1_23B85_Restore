@@ -358,86 +358,81 @@ LABEL_9:
 
 void __122__PVMotionEffectTextComponent_textEditingBoundsAtTime_forcePosterFrame_useParagraphBounds_includeDropShadow_includeMasks___block_invoke(uint64_t a1, uint64_t *a2)
 {
-  if (*(a1 + 72))
+  if ((*(a1 + 72) & 1) == 0)
   {
-    v4 = 1;
+    v4 = [*(a1 + 32) motionEffect];
+    v5 = [v4 timelineComponent];
+    [v5 isForceRenderAtPosterFrameEnabled];
   }
 
-  else
-  {
-    v5 = [*(a1 + 32) motionEffect];
-    v6 = [v5 timelineComponent];
-    v4 = [v6 isForceRenderAtPosterFrameEnabled];
-  }
-
+  v30 = 0;
   v31 = 0;
   v32 = 0;
-  v33 = 0;
-  v7 = [*(a1 + 32) motionEffect];
-  v8 = [v7 timelineComponent];
-  v9 = v8;
-  v29 = *(a1 + 48);
-  v30 = *(a1 + 64);
-  if (v8)
+  v6 = [*(a1 + 32) motionEffect];
+  v7 = [v6 timelineComponent];
+  v8 = v7;
+  v28 = *(a1 + 48);
+  v29 = *(a1 + 64);
+  if (v7)
   {
-    [v8 timelineTimeFromComponentTime_NoLock:&v29 forcePosterFrame:v4 documentInfo:a2];
+    objc_msgSend_timelineTimeFromComponentTime_NoLock_forcePosterFrame_documentInfo_(v7);
   }
 
   else
   {
+    v30 = 0;
     v31 = 0;
     v32 = 0;
-    v33 = 0;
   }
 
-  v10 = [*(a1 + 32) _textObjectIDs_NoLock:a2];
-  v11 = *v10;
-  v12 = *(v10 + 8);
-  if (*v10 != v12)
+  v9 = [*(a1 + 32) _textObjectIDs_NoLock:a2];
+  v10 = *v9;
+  v11 = *(v9 + 8);
+  if (*v9 != v11)
   {
     __asm { FMOV            V0.2D, #-1.0 }
 
-    v25 = _Q0;
+    v24 = _Q0;
     do
     {
       if (*(a1 + 73))
       {
-        v18 = 2;
+        v17 = 2;
       }
 
       else
       {
-        v18 = 0;
+        v17 = 0;
       }
 
       if (*(a1 + 74))
       {
-        v18 |= 4u;
+        v17 |= 4u;
       }
 
-      v19 = *(a1 + 75);
+      v18 = *(a1 + 75);
+      v25 = 0.0;
       v26 = 0.0;
-      v27 = 0.0;
-      v28 = v25;
-      OZXGetObjectBounds(*a2, &v31, *v11, v18 | v19, &v26);
-      v20 = *(*(*(a1 + 40) + 8) + 40);
-      if (!v20)
+      v27 = v24;
+      OZXGetObjectBounds(*a2, &v30, *v10, v17 | v18, &v25);
+      v19 = *(*(*(a1 + 40) + 8) + 40);
+      if (!v19)
       {
-        v21 = objc_opt_new();
-        v22 = *(*(a1 + 40) + 8);
-        v23 = *(v22 + 40);
-        *(v22 + 40) = v21;
+        v20 = objc_opt_new();
+        v21 = *(*(a1 + 40) + 8);
+        v22 = *(v21 + 40);
+        *(v21 + 40) = v20;
 
-        v20 = *(*(*(a1 + 40) + 8) + 40);
+        v19 = *(*(*(a1 + 40) + 8) + 40);
       }
 
-      v24 = [MEMORY[0x277CCAE60] valueWithCGRect:{v26, v27, v28, v25}];
-      [v20 addObject:v24];
+      v23 = [MEMORY[0x277CCAE60] valueWithCGRect:{v25, v26, v27, v24}];
+      [v19 addObject:v23];
 
-      ++v11;
+      ++v10;
     }
 
-    while (v11 != v12);
+    while (v10 != v11);
   }
 }
 
@@ -510,55 +505,50 @@ void __122__PVMotionEffectTextComponent_textEditingBoundsAtTime_forcePosterFrame
 
 void __142__PVMotionEffectTextComponent_textTransformsAtTime_forcePosterFrame_includeTransformAnimation_includePlayableAspectScale_viewSize_viewOrigin___block_invoke(uint64_t a1, uint64_t a2)
 {
-  if (*(a1 + 112))
+  if ((*(a1 + 112) & 1) == 0)
   {
-    v4 = 1;
+    v4 = [*(a1 + 32) motionEffect];
+    v5 = [v4 timelineComponent];
+    [v5 isForceRenderAtPosterFrameEnabled];
+  }
+
+  v26 = 0uLL;
+  v27 = 0;
+  v6 = [*(a1 + 32) motionEffect];
+  v7 = [v6 timelineComponent];
+  v8 = v7;
+  v24 = *(a1 + 80);
+  v25 = *(a1 + 96);
+  if (v7)
+  {
+    objc_msgSend_timelineTimeFromComponentTime_NoLock_forcePosterFrame_documentInfo_(v7);
   }
 
   else
   {
-    v5 = [*(a1 + 32) motionEffect];
-    v6 = [v5 timelineComponent];
-    v4 = [v6 isForceRenderAtPosterFrameEnabled];
+    v26 = 0uLL;
+    v27 = 0;
   }
 
-  v27 = 0uLL;
-  v28 = 0;
-  v7 = [*(a1 + 32) motionEffect];
-  v8 = [v7 timelineComponent];
-  v9 = v8;
-  v25 = *(a1 + 80);
-  v26 = *(a1 + 96);
-  if (v8)
-  {
-    [v8 timelineTimeFromComponentTime_NoLock:&v25 forcePosterFrame:v4 documentInfo:a2];
-  }
-
-  else
-  {
-    v27 = 0uLL;
-    v28 = 0;
-  }
-
-  v10 = [*(a1 + 32) motionEffect];
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = *"";
-  v11 = *(a1 + 48);
-  v14 = *(a1 + 32);
-  v12 = *(a1 + 64);
-  v20 = *(a1 + 80);
-  v16 = v11;
-  v22 = *(a1 + 104);
-  v13[2] = __142__PVMotionEffectTextComponent_textTransformsAtTime_forcePosterFrame_includeTransformAnimation_includePlayableAspectScale_viewSize_viewOrigin___block_invoke_2;
-  v13[3] = &unk_279AA5350;
-  v15 = a2;
-  v19 = v28;
-  v21 = *(a1 + 96);
-  v23 = *(a1 + 113);
-  v24 = *(a1 + 114);
-  v17 = v12;
+  v9 = [*(a1 + 32) motionEffect];
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = *"";
+  v10 = *(a1 + 48);
+  v13 = *(a1 + 32);
+  v11 = *(a1 + 64);
+  v19 = *(a1 + 80);
+  v15 = v10;
+  v21 = *(a1 + 104);
+  v12[2] = __142__PVMotionEffectTextComponent_textTransformsAtTime_forcePosterFrame_includeTransformAnimation_includePlayableAspectScale_viewSize_viewOrigin___block_invoke_2;
+  v12[3] = &unk_279AA5350;
+  v14 = a2;
   v18 = v27;
-  [v10 runWithInspectableProperties:v13];
+  v20 = *(a1 + 96);
+  v22 = *(a1 + 113);
+  v23 = *(a1 + 114);
+  v16 = v11;
+  v17 = v26;
+  [v9 runWithInspectableProperties:v12];
 }
 
 - (PVCGPointQuad)textCornersAtTime:(SEL)time index:(id *)index forcePosterFrame:(unint64_t)frame includeDropShadow:(BOOL)shadow scale:(BOOL)scale viewSize:(CGPoint)size viewOrigin:(CGSize)origin
@@ -588,7 +578,7 @@ void __142__PVMotionEffectTextComponent_textTransformsAtTime_forcePosterFrame_in
   v51 = &unk_260C3B1FE;
   memset(v52, 0, 64);
   [v29 CGRectValue];
-  PVCGPointQuad_from_CGRect(v53, v52);
+  PVCGPointQuad_from_CGRect(v52, v53);
   v30 = *(*&v48.var1 + 64);
   v46.a = *(*&v48.var1 + 48);
   v46.b = v30;
@@ -597,7 +587,7 @@ void __142__PVMotionEffectTextComponent_textTransformsAtTime_forcePosterFrame_in
   v46.d = v31;
   v31.x = x;
   v30.x = y;
-  PVCGPointQuad_scale(&v46, *(&v30 - 8), v47);
+  PVCGPointQuad_scale(v47, &v46, *(&v30 - 8));
   v32 = *&v48.var1;
   v33 = v47[1];
   v35 = v47[2];
@@ -646,67 +636,62 @@ double __116__PVMotionEffectTextComponent_textCornersAtTime_index_forcePosterFra
   }
 
   v6 = *(*v4 + 4 * v5);
-  if (*(a1 + 120))
+  if ((*(a1 + 120) & 1) == 0)
   {
-    v7 = 1;
+    v7 = [*(a1 + 32) motionEffect];
+    v8 = [v7 timelineComponent];
+    [v8 isForceRenderAtPosterFrameEnabled];
+  }
+
+  v33 = 0uLL;
+  v34 = 0;
+  v9 = [*(a1 + 32) motionEffect];
+  v10 = [v9 timelineComponent];
+  v11 = v10;
+  v31 = *(a1 + 88);
+  v32 = *(a1 + 104);
+  if (v10)
+  {
+    objc_msgSend_timelineTimeFromComponentTime_NoLock_forcePosterFrame_documentInfo_(v10);
   }
 
   else
   {
-    v8 = [*(a1 + 32) motionEffect];
-    v9 = [v8 timelineComponent];
-    v7 = [v9 isForceRenderAtPosterFrameEnabled];
+    v33 = 0uLL;
+    v34 = 0;
   }
 
-  v34 = 0uLL;
-  v35 = 0;
-  v10 = [*(a1 + 32) motionEffect];
-  v11 = [v10 timelineComponent];
-  v12 = v11;
-  v32 = *(a1 + 88);
-  v33 = *(a1 + 104);
-  if (v11)
-  {
-    [v11 timelineTimeFromComponentTime_NoLock:&v32 forcePosterFrame:v7 documentInfo:a2];
-  }
-
-  else
-  {
-    v34 = 0uLL;
-    v35 = 0;
-  }
-
-  v13 = [*(a1 + 32) motionEffect];
-  v24[0] = MEMORY[0x277D85DD0];
-  v24[1] = *"";
-  v24[2] = __116__PVMotionEffectTextComponent_textCornersAtTime_index_forcePosterFrame_includeDropShadow_scale_viewSize_viewOrigin___block_invoke_2;
-  v24[3] = &unk_279AA53A0;
-  v25 = *(a1 + 32);
-  v27 = v6;
+  v12 = [*(a1 + 32) motionEffect];
+  v23[0] = MEMORY[0x277D85DD0];
+  v23[1] = *"";
+  v23[2] = __116__PVMotionEffectTextComponent_textCornersAtTime_index_forcePosterFrame_includeDropShadow_scale_viewSize_viewOrigin___block_invoke_2;
+  v23[3] = &unk_279AA53A0;
+  v24 = *(a1 + 32);
+  v26 = v6;
+  v27 = v33;
   v28 = v34;
-  v29 = v35;
-  v30 = *(a1 + 88);
-  v31 = *(a1 + 104);
-  v26 = a2;
-  [v13 runWithInspectableProperties:v24];
+  v29 = *(a1 + 88);
+  v30 = *(a1 + 104);
+  v25 = a2;
+  [v12 runWithInspectableProperties:v23];
 
-  v14 = *(*(a1 + 40) + 8);
-  v15 = v14[4];
-  v22[0] = v14[3];
-  v22[1] = v15;
-  v16 = v14[6];
-  v22[2] = v14[5];
-  v22[3] = v16;
-  pv_transform_PVCGPointQuad_between_coordinate_systems(v22, *(a1 + 112), *(a1 + 116), v23, *(a1 + 56), *(a1 + 64), *(a1 + 72), *(a1 + 80));
-  v17 = *(*(a1 + 40) + 8);
-  result = *v23;
-  v19 = v23[1];
-  v21 = v23[2];
-  v20 = v23[3];
-  v17[3] = v23[0];
-  v17[4] = v19;
-  v17[5] = v21;
-  v17[6] = v20;
+  v13 = *(*(a1 + 40) + 8);
+  v14 = v13[4];
+  v21[0] = v13[3];
+  v21[1] = v14;
+  v15 = v13[6];
+  v21[2] = v13[5];
+  v21[3] = v15;
+  pv_transform_PVCGPointQuad_between_coordinate_systems(v21, *(a1 + 112), *(a1 + 116), v22, *(a1 + 56), *(a1 + 64), *(a1 + 72), *(a1 + 80));
+  v16 = *(*(a1 + 40) + 8);
+  result = *v22;
+  v18 = v22[1];
+  v20 = v22[2];
+  v19 = v22[3];
+  v16[3] = v22[0];
+  v16[4] = v18;
+  v16[5] = v20;
+  v16[6] = v19;
   return result;
 }
 
@@ -717,38 +702,24 @@ void __116__PVMotionEffectTextComponent_textCornersAtTime_index_forcePosterFrame
   v5 = [v4 transformComponent];
   v6 = v5;
   v7 = *(*(a1 + 40) + 8);
-  v8 = v7[4];
-  v18[0] = v7[3];
-  v18[1] = v8;
-  v9 = v7[6];
-  v18[2] = v7[5];
-  v18[3] = v9;
-  v10 = *(a1 + 56);
-  v16 = *(a1 + 60);
-  v17 = *(a1 + 76);
-  v14 = *(a1 + 84);
-  v15 = *(a1 + 100);
   if (v5)
   {
-    [v5 transformObjectCornersToImage_NoLock:v18 objectID:v10 timelineTime:&v16 componentTime:&v14 flatten:0 documentInfo:*(a1 + 48) properties:v3];
+    objc_msgSend_transformObjectCornersToImage_NoLock_objectID_timelineTime_componentTime_flatten_documentInfo_properties_(v5, v3);
     v7 = *(*(a1 + 40) + 8);
   }
 
   else
   {
-    v21 = 0u;
-    v22 = 0u;
-    v19 = 0u;
-    v20 = 0u;
+    v10 = 0u;
+    v11 = 0u;
+    v8 = 0u;
+    v9 = 0u;
   }
 
-  v11 = v20;
-  v13 = v21;
-  v12 = v22;
-  v7[3] = v19;
-  v7[4] = v11;
-  v7[5] = v13;
-  v7[6] = v12;
+  v7[3] = v8;
+  v7[4] = v9;
+  v7[5] = v10;
+  v7[6] = v11;
 }
 
 - (id)textObjectIDs_NoLock:(const void *)lock

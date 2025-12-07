@@ -32,7 +32,6 @@
 
 uint64_t __36__CALNUNIconProvider_sharedInstance__block_invoke(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   sharedInstance_sharedInstance_11 = objc_opt_new();
 
   return MEMORY[0x2821F96F8]();
@@ -161,7 +160,7 @@ void __58__CALNUNIconProvider__identifierEncodingAllowedCharacters__block_invoke
 
 - (id)_identifierForIconWithDateComponents:(id)components type:(int64_t)type inCalendar:(id)calendar
 {
-  v28[6] = *MEMORY[0x277D85DE8];
+  v27[6] = *MEMORY[0x277D85DE8];
   calendarCopy = calendar;
   componentsCopy = components;
   v9 = componentsCopy;
@@ -175,7 +174,7 @@ void __58__CALNUNIconProvider__identifierEncodingAllowedCharacters__block_invoke
     month = [componentsCopy weekday];
   }
 
-  v27 = month;
+  v26 = month;
   v11 = [v9 day];
 
   v12 = [MEMORY[0x277CCACA8] stringWithFormat:@"%d", 5];
@@ -190,18 +189,16 @@ void __58__CALNUNIconProvider__identifierEncodingAllowedCharacters__block_invoke
   v19 = [localeIdentifier stringByAddingPercentEncodingWithAllowedCharacters:_identifierEncodingAllowedCharacters2];
 
   type = [MEMORY[0x277CCACA8] stringWithFormat:@"%d", type];
-  v21 = [MEMORY[0x277CCACA8] stringWithFormat:@"%d", v27];
+  v21 = [MEMORY[0x277CCACA8] stringWithFormat:@"%d", v26];
   v22 = [MEMORY[0x277CCACA8] stringWithFormat:@"%d", v11];
-  v28[0] = v12;
-  v28[1] = v15;
-  v28[2] = v19;
-  v28[3] = type;
-  v28[4] = v21;
-  v28[5] = v22;
-  v23 = [MEMORY[0x277CBEA60] arrayWithObjects:v28 count:6];
+  v27[0] = v12;
+  v27[1] = v15;
+  v27[2] = v19;
+  v27[3] = type;
+  v27[4] = v21;
+  v27[5] = v22;
+  v23 = [MEMORY[0x277CBEA60] arrayWithObjects:v27 count:6];
   v24 = [v23 componentsJoinedByString:@"-"];
-
-  v25 = *MEMORY[0x277D85DE8];
 
   return v24;
 }
@@ -357,11 +354,10 @@ LABEL_26:
 
 + (void)_unDateFormatTypeFromCalIconDateFormatType:(int)a1 .cold.1(int a1, NSObject *a2)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v3[0] = 67109120;
-  v3[1] = a1;
-  _os_log_fault_impl(&dword_242909000, a2, OS_LOG_TYPE_FAULT, "Unexpected icon format type: %d", v3, 8u);
-  v2 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v2[0] = 67109120;
+  v2[1] = a1;
+  _os_log_fault_impl(&dword_242909000, a2, OS_LOG_TYPE_FAULT, "Unexpected icon format type: %d", v2, 8u);
 }
 
 @end

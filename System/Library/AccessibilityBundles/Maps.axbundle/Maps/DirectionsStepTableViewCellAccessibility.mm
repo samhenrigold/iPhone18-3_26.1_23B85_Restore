@@ -4,6 +4,7 @@
 - (id)accessibilityLabel;
 - (void)_accessibilityLoadAccessibilityInformation;
 - (void)_axAnnotateRoadDescriptionListView;
+- (void)setRoute:(id)route step:(id)step stepIndex:(unint64_t)index alignToLeftEdgeIfNoManeuverSign:(BOOL)sign size:(int64_t)size;
 @end
 
 @implementation DirectionsStepTableViewCellAccessibility
@@ -37,6 +38,14 @@
   accessibilityLabel = [v2 accessibilityLabel];
 
   return accessibilityLabel;
+}
+
+- (void)setRoute:(id)route step:(id)step stepIndex:(unint64_t)index alignToLeftEdgeIfNoManeuverSign:(BOOL)sign size:(int64_t)size
+{
+  v8.receiver = self;
+  v8.super_class = DirectionsStepTableViewCellAccessibility;
+  [(DirectionsStepTableViewCellAccessibility *)&v8 setRoute:route step:step stepIndex:index alignToLeftEdgeIfNoManeuverSign:sign size:size];
+  [(DirectionsStepTableViewCellAccessibility *)self _axAnnotateRoadDescriptionListView];
 }
 
 - (id)accessibilityLabel

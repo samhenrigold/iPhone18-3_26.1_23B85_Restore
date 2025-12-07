@@ -89,36 +89,36 @@
 
 - (BOOL)report
 {
-  v10[1] = *MEMORY[0x1E69E9840];
+  v11[1] = *MEMORY[0x1E69E9840];
   emoji = [(EMFDPRecorder *)self emoji];
   string = [emoji string];
 
-  v5 = emf_logging_get_default_log();
-  delegate = v5;
+  v6 = emf_logging_get_default_log(v5);
+  delegate = v6;
   if (string)
   {
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
       [(EMFDPEmojiUsageRecorder *)string report];
     }
 
     delegate = [(EMFDPEmojiUsageRecorder *)self delegate];
-    v10[0] = string;
-    v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:1];
-    v8 = [delegate record:v7];
+    v11[0] = string;
+    v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:1];
+    v9 = [delegate record:v8];
   }
 
   else
   {
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       [(EMFDPEmojiUsageRecorder *)self report];
     }
 
-    v8 = 0;
+    v9 = 0;
   }
 
-  return v8;
+  return v9;
 }
 
 + (id)_defaultUsageModeIdentifier

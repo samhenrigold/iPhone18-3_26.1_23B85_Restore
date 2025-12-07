@@ -61,27 +61,26 @@ void __56__ITIdleTimerStateServer_initWithCalloutQueue_delegate___block_invoke(u
 
 - (BOOL)clientConfiguration:(id)configuration handleIdleEvent:(unint64_t)event
 {
-  calloutQueue = self->_calloutQueue;
   configurationCopy = configuration;
   BSDispatchQueueAssert();
   _identifier = [configurationCopy _identifier];
 
   os_unfair_lock_assert_not_owner(&self->_accessLock);
   os_unfair_lock_lock(&self->_accessLock);
-  v9 = [(NSMutableDictionary *)self->_clientTargetsByConfigIdentifier objectForKey:_identifier];
+  v8 = [(NSMutableDictionary *)self->_clientTargetsByConfigIdentifier objectForKey:_identifier];
   os_unfair_lock_unlock(&self->_accessLock);
-  if (v9)
+  if (v8)
   {
-    v10 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:event];
-    v11 = [v9 handleIdleEvent:v10 usingConfigurationWithIdentifier:_identifier];
+    v9 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:event];
+    v10 = [v8 handleIdleEvent:v9 usingConfigurationWithIdentifier:_identifier];
   }
 
   else
   {
-    v11 = 0;
+    v10 = 0;
   }
 
-  return v11;
+  return v10;
 }
 
 - (void)addIdleTimerServiceOnBehalfOfSceneWithPID:(id)d withConfiguration:(id)configuration forReason:(id)reason error:(id *)error
@@ -93,9 +92,10 @@ void __56__ITIdleTimerStateServer_initWithCalloutQueue_delegate___block_invoke(u
   currentContext = [MEMORY[0x277CF3280] currentContext];
   remoteProcess = [currentContext remoteProcess];
 
-  if (![(ITIdleTimerStateServer *)self _hasIdleTimerServicesEntitlementForProcess:remoteProcess missingEntitlementError:error])
+  v15 = [(ITIdleTimerStateServer *)self _hasIdleTimerServicesEntitlementForProcess:remoteProcess missingEntitlementError:error];
+  if ((v15 & 1) == 0)
   {
-    _identifier = ITLogIdleTimer();
+    _identifier = ITLogIdleTimer(v15);
     if (os_log_type_enabled(_identifier, OS_LOG_TYPE_ERROR))
     {
       v25 = objc_opt_class();
@@ -113,9 +113,9 @@ void __56__ITIdleTimerStateServer_initWithCalloutQueue_delegate___block_invoke(u
   }
 
   delegate = [(ITIdleTimerStateServer *)self delegate];
-  v16 = [delegate addIdleTimerOnBehalfOfSceneWithPID:objc_msgSend(dCopy fromProcess:"intValue") withConfiguration:remoteProcess forReason:{configurationCopy, reasonCopy}];
+  v17 = [delegate addIdleTimerOnBehalfOfSceneWithPID:objc_msgSend(dCopy fromProcess:"intValue") withConfiguration:remoteProcess forReason:{configurationCopy, reasonCopy}];
 
-  if (v16)
+  if (v17)
   {
     if ([configurationCopy _idleEventMask])
     {
@@ -139,8 +139,6 @@ LABEL_7:
     v24 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v28 forKeys:v27 count:2];
     *error = [v22 errorWithDomain:@"ITIdleTimerConfigurationErrorDomain" code:3 userInfo:v24];
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addIdleTimerServiceConfiguration:(id)configuration forReason:(id)reason error:(id *)error
@@ -151,9 +149,10 @@ LABEL_7:
   currentContext = [MEMORY[0x277CF3280] currentContext];
   remoteProcess = [currentContext remoteProcess];
 
-  if (![(ITIdleTimerStateServer *)self _hasIdleTimerServicesEntitlementForProcess:remoteProcess missingEntitlementError:error])
+  v12 = [(ITIdleTimerStateServer *)self _hasIdleTimerServicesEntitlementForProcess:remoteProcess missingEntitlementError:error];
+  if ((v12 & 1) == 0)
   {
-    _identifier = ITLogIdleTimer();
+    _identifier = ITLogIdleTimer(v12);
     if (os_log_type_enabled(_identifier, OS_LOG_TYPE_ERROR))
     {
       v22 = objc_opt_class();
@@ -171,9 +170,9 @@ LABEL_7:
   }
 
   delegate = [(ITIdleTimerStateServer *)self delegate];
-  v13 = [delegate addIdleTimerConfiguration:configurationCopy fromProcess:remoteProcess forReason:reasonCopy];
+  v14 = [delegate addIdleTimerConfiguration:configurationCopy fromProcess:remoteProcess forReason:reasonCopy];
 
-  if (v13)
+  if (v14)
   {
     if ([configurationCopy _idleEventMask])
     {
@@ -197,8 +196,6 @@ LABEL_7:
     v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:v24 count:2];
     *error = [v19 errorWithDomain:@"ITIdleTimerConfigurationErrorDomain" code:3 userInfo:v21];
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removeIdleTimerServiceConfiguration:(id)configuration forReason:(id)reason error:(id *)error
@@ -209,7 +206,8 @@ LABEL_7:
   currentContext = [MEMORY[0x277CF3280] currentContext];
   remoteProcess = [currentContext remoteProcess];
 
-  if ([(ITIdleTimerStateServer *)self _hasIdleTimerServicesEntitlementForProcess:remoteProcess missingEntitlementError:error])
+  v12 = [(ITIdleTimerStateServer *)self _hasIdleTimerServicesEntitlementForProcess:remoteProcess missingEntitlementError:error];
+  if (v12)
   {
     delegate = [(ITIdleTimerStateServer *)self delegate];
     [delegate removeIdleTimerConfigurationFromProcess:remoteProcess forReason:reasonCopy];
@@ -220,7 +218,7 @@ LABEL_7:
 
   else
   {
-    _identifier = ITLogIdleTimer();
+    _identifier = ITLogIdleTimer(v12);
     if (os_log_type_enabled(_identifier, OS_LOG_TYPE_ERROR))
     {
       v15 = objc_opt_class();
@@ -234,8 +232,6 @@ LABEL_7:
       _os_log_error_impl(&dword_254ABE000, _identifier, OS_LOG_TYPE_ERROR, "%{public}@ - Missing entitlement. Rejecting unauthorized access from %{public}@ to remove a configuration: %{public}@.", &v17, 0x20u);
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)listener:(id)listener didReceiveConnection:(id)connection withContext:(id)context
@@ -243,18 +239,19 @@ LABEL_7:
   connectionCopy = connection;
   remoteProcess = [connectionCopy remoteProcess];
   v8 = [remoteProcess pid];
-  v9 = ITLogIdleTimer();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+  v9 = v8;
+  v10 = ITLogIdleTimer(v8);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
   {
-    [ITIdleTimerStateServer listener:connectionCopy didReceiveConnection:v8 withContext:v9];
+    [ITIdleTimerStateServer listener:connectionCopy didReceiveConnection:v9 withContext:v10];
   }
 
-  if (v8 <= 0)
+  if (v9 <= 0)
   {
-    v10 = ITLogIdleTimer();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v12 = ITLogIdleTimer(v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      [ITIdleTimerStateServer listener:connectionCopy didReceiveConnection:v8 withContext:v10];
+      [ITIdleTimerStateServer listener:connectionCopy didReceiveConnection:v9 withContext:v12];
     }
 
     [connectionCopy invalidate];
@@ -262,14 +259,14 @@ LABEL_7:
 
   else
   {
-    v11[0] = MEMORY[0x277D85DD0];
-    v11[1] = 3221225472;
-    v11[2] = __68__ITIdleTimerStateServer_listener_didReceiveConnection_withContext___block_invoke;
-    v11[3] = &unk_2797A5390;
-    v14 = v8;
-    v12 = remoteProcess;
+    v13[0] = MEMORY[0x277D85DD0];
+    v13[1] = 3221225472;
+    v13[2] = __68__ITIdleTimerStateServer_listener_didReceiveConnection_withContext___block_invoke;
+    v13[3] = &unk_2797A5390;
+    v16 = v9;
+    v14 = remoteProcess;
     selfCopy = self;
-    [connectionCopy configureConnection:v11];
+    [connectionCopy configureConnection:v13];
     [(ITIdleTimerStateServer *)self _addConnection:connectionCopy];
     [connectionCopy activate];
   }
@@ -277,17 +274,17 @@ LABEL_7:
 
 void __68__ITIdleTimerStateServer_listener_didReceiveConnection_withContext___block_invoke(uint64_t a1, void *a2)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v4 = ITLogIdleTimer();
+  v4 = ITLogIdleTimer(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = [*(a1 + 32) bundleIdentifier];
     v6 = *(a1 + 48);
     *buf = 138543618;
-    v21 = v5;
-    v22 = 1024;
-    v23 = v6;
+    v20 = v5;
+    v21 = 1024;
+    v22 = v6;
     _os_log_impl(&dword_254ABE000, v4, OS_LOG_TYPE_DEFAULT, "configuring connection from client bundleID: %{public}@, pid:%d", buf, 0x12u);
   }
 
@@ -301,33 +298,31 @@ void __68__ITIdleTimerStateServer_listener_didReceiveConnection_withContext___bl
   [v3 setInterfaceTarget:*(a1 + 40)];
   [v3 setTargetQueue:*(*(a1 + 40) + 16)];
   objc_initWeak(buf, *(a1 + 40));
-  v16[0] = MEMORY[0x277D85DD0];
-  v16[1] = 3221225472;
-  v16[2] = __68__ITIdleTimerStateServer_listener_didReceiveConnection_withContext___block_invoke_65;
-  v16[3] = &unk_2797A5368;
-  v17 = *(a1 + 32);
-  v19 = *(a1 + 48);
-  objc_copyWeak(&v18, buf);
-  [v3 setInterruptionHandler:v16];
-  v12[0] = MEMORY[0x277D85DD0];
-  v12[1] = 3221225472;
-  v12[2] = __68__ITIdleTimerStateServer_listener_didReceiveConnection_withContext___block_invoke_67;
-  v12[3] = &unk_2797A5368;
-  v13 = *(a1 + 32);
-  v15 = *(a1 + 48);
-  objc_copyWeak(&v14, buf);
-  [v3 setInvalidationHandler:v12];
-  objc_destroyWeak(&v14);
+  v15[0] = MEMORY[0x277D85DD0];
+  v15[1] = 3221225472;
+  v15[2] = __68__ITIdleTimerStateServer_listener_didReceiveConnection_withContext___block_invoke_65;
+  v15[3] = &unk_2797A5368;
+  v16 = *(a1 + 32);
+  v18 = *(a1 + 48);
+  objc_copyWeak(&v17, buf);
+  [v3 setInterruptionHandler:v15];
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = __68__ITIdleTimerStateServer_listener_didReceiveConnection_withContext___block_invoke_67;
+  v11[3] = &unk_2797A5368;
+  v12 = *(a1 + 32);
+  v14 = *(a1 + 48);
+  objc_copyWeak(&v13, buf);
+  [v3 setInvalidationHandler:v11];
+  objc_destroyWeak(&v13);
 
-  objc_destroyWeak(&v18);
+  objc_destroyWeak(&v17);
   objc_destroyWeak(buf);
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __68__ITIdleTimerStateServer_listener_didReceiveConnection_withContext___block_invoke_65(uint64_t a1)
 {
-  v2 = ITLogIdleTimer();
+  v2 = ITLogIdleTimer(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     __68__ITIdleTimerStateServer_listener_didReceiveConnection_withContext___block_invoke_65_cold_1(a1);
@@ -345,7 +340,7 @@ void __68__ITIdleTimerStateServer_listener_didReceiveConnection_withContext___bl
 void __68__ITIdleTimerStateServer_listener_didReceiveConnection_withContext___block_invoke_67(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = ITLogIdleTimer();
+  v4 = ITLogIdleTimer(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __68__ITIdleTimerStateServer_listener_didReceiveConnection_withContext___block_invoke_67_cold_1(a1);
@@ -384,7 +379,7 @@ void __68__ITIdleTimerStateServer_listener_didReceiveConnection_withContext___bl
 
 - (BOOL)_hasIdleTimerServicesEntitlementForProcess:(id)process missingEntitlementError:(id *)error
 {
-  v14[2] = *MEMORY[0x277D85DE8];
+  v13[2] = *MEMORY[0x277D85DE8];
   v5 = [process hasEntitlement:@"com.apple.idle-timer-services"];
   v6 = v5;
   if (error && (v5 & 1) == 0)
@@ -392,15 +387,14 @@ void __68__ITIdleTimerStateServer_listener_didReceiveConnection_withContext___bl
     v7 = [MEMORY[0x277CCACA8] stringWithFormat:@"Missing <%@> Entitlement", @"com.apple.idle-timer-services"];
     v8 = MEMORY[0x277CCA9B8];
     v9 = *MEMORY[0x277CCA470];
-    v13[0] = *MEMORY[0x277CCA450];
-    v13[1] = v9;
-    v14[0] = v7;
-    v14[1] = @"Missing Entitlement";
-    v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:2];
+    v12[0] = *MEMORY[0x277CCA450];
+    v12[1] = v9;
+    v13[0] = v7;
+    v13[1] = @"Missing Entitlement";
+    v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:2];
     *error = [v8 errorWithDomain:@"ITIdleTimerConfigurationErrorDomain" code:2 userInfo:v10];
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
@@ -413,46 +407,36 @@ void __68__ITIdleTimerStateServer_listener_didReceiveConnection_withContext___bl
 
 - (void)listener:(uint64_t)a1 didReceiveConnection:(int)a2 withContext:(os_log_t)log .cold.1(uint64_t a1, int a2, os_log_t log)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v4 = 138543618;
-  v5 = a1;
-  v6 = 1024;
-  v7 = a2;
-  _os_log_debug_impl(&dword_254ABE000, log, OS_LOG_TYPE_DEBUG, "got a connection! -- %{public}@ pid:%d", &v4, 0x12u);
-  v3 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = 138543618;
+  v4 = a1;
+  v5 = 1024;
+  v6 = a2;
+  _os_log_debug_impl(&dword_254ABE000, log, OS_LOG_TYPE_DEBUG, "got a connection! -- %{public}@ pid:%d", &v3, 0x12u);
 }
 
 - (void)listener:(uint64_t)a1 didReceiveConnection:(int)a2 withContext:(os_log_t)log .cold.2(uint64_t a1, int a2, os_log_t log)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v4[0] = 67109378;
-  v4[1] = a2;
-  v5 = 2114;
-  v6 = a1;
-  _os_log_error_impl(&dword_254ABE000, log, OS_LOG_TYPE_ERROR, "dropping connection with junk pid (%d) -- %{public}@, ", v4, 0x12u);
-  v3 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
+  v3[0] = 67109378;
+  v3[1] = a2;
+  v4 = 2114;
+  v5 = a1;
+  _os_log_error_impl(&dword_254ABE000, log, OS_LOG_TYPE_ERROR, "dropping connection with junk pid (%d) -- %{public}@, ", v3, 0x12u);
 }
 
 void __68__ITIdleTimerStateServer_listener_didReceiveConnection_withContext___block_invoke_65_cold_1(uint64_t a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
-  v2 = [*(a1 + 32) bundleIdentifier];
-  v3 = *(a1 + 48);
+  v1 = [*(a1 + 32) bundleIdentifier];
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_254ABE000, v4, v5, "interrupted connection from client bundleID: %{public}@, pid:%d", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1(&dword_254ABE000, v2, v3, "interrupted connection from client bundleID: %{public}@, pid:%d", v4, v5, v6, v7);
 }
 
 void __68__ITIdleTimerStateServer_listener_didReceiveConnection_withContext___block_invoke_67_cold_1(uint64_t a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
-  v2 = [*(a1 + 32) bundleIdentifier];
-  v3 = *(a1 + 48);
+  v1 = [*(a1 + 32) bundleIdentifier];
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_254ABE000, v4, v5, "invalidated connection from client bundleID: %{public}@, pid:%d", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1(&dword_254ABE000, v2, v3, "invalidated connection from client bundleID: %{public}@, pid:%d", v4, v5, v6, v7);
 }
 
 @end

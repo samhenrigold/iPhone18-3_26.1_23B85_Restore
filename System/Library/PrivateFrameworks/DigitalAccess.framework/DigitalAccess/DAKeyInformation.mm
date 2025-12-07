@@ -10,19 +10,20 @@
 
 - (DAKeyInformation)initWithEndpoint:(id)endpoint
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   endpointCopy = endpoint;
   if (endpointCopy)
   {
-    v20.receiver = self;
-    v20.super_class = DAKeyInformation;
-    self = [(DAKeyInformation *)&v20 init];
-    if (self)
+    v19.receiver = self;
+    v19.super_class = DAKeyInformation;
+    endPointType = [(DAKeyInformation *)&v19 init];
+    self = endPointType;
+    if (endPointType)
     {
       publicKeyIdentifier = [endpointCopy publicKeyIdentifier];
-      v6 = kmlUtilHexStringFromData(publicKeyIdentifier);
+      v7 = kmlUtilHexStringFromData(publicKeyIdentifier);
       publicKeyIdentifier = self->_publicKeyIdentifier;
-      self->_publicKeyIdentifier = v6;
+      self->_publicKeyIdentifier = v7;
 
       endPointType = [endpointCopy endPointType];
       if (endPointType <= 2)
@@ -77,16 +78,16 @@ LABEL_20:
     }
 
 LABEL_12:
-    v12 = KmlLogger();
+    v12 = KmlLogger(endPointType);
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       endPointType2 = [endpointCopy endPointType];
       *buf = 136315650;
-      v22 = "[DAKeyInformation initWithEndpoint:]";
-      v23 = 1024;
-      v24 = 75;
-      v25 = 1024;
-      v26 = endPointType2;
+      v21 = "[DAKeyInformation initWithEndpoint:]";
+      v22 = 1024;
+      v23 = 75;
+      v24 = 1024;
+      v25 = endPointType2;
       _os_log_impl(&dword_248BF3000, v12, OS_LOG_TYPE_ERROR, "%s : %i : Invalid EP type %d", buf, 0x18u);
     }
   }
@@ -94,7 +95,6 @@ LABEL_12:
   selfCopy = 0;
 LABEL_21:
 
-  v18 = *MEMORY[0x277D85DE8];
   return selfCopy;
 }
 

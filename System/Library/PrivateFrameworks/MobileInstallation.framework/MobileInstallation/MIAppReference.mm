@@ -100,22 +100,7 @@
       referenceUUID2 = [(MIAppReference *)v5 referenceUUID];
       v8 = MICompareObjects(referenceUUID, referenceUUID2);
 
-      if (!v8)
-      {
-        goto LABEL_9;
-      }
-
-      identity = [(MIAppReference *)self identity];
-      identity2 = [(MIAppReference *)v5 identity];
-      v11 = MICompareObjects(identity, identity2);
-
-      if (!v11)
-      {
-        goto LABEL_9;
-      }
-
-      domain = [(MIAppReference *)self domain];
-      if (domain == [(MIAppReference *)v5 domain])
+      if (v8 && ([(MIAppReference *)self identity], v9 = objc_claimAutoreleasedReturnValue(), [(MIAppReference *)v5 identity], v10 = objc_claimAutoreleasedReturnValue(), v11 = MICompareObjects(v9, v10), v10, v9, v11) && (v12 = [(MIAppReference *)self domain], v12 == [(MIAppReference *)v5 domain]))
       {
         v13 = [(MIAppReference *)self uid];
         v14 = v13 == [(MIAppReference *)v5 uid];
@@ -123,7 +108,6 @@
 
       else
       {
-LABEL_9:
         v14 = 0;
       }
     }

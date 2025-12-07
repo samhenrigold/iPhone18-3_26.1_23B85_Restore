@@ -20,7 +20,7 @@
 - (void)layoutSubviews
 {
   v11.receiver = self;
-  v11.super_class = type metadata accessor for InAppPurchaseShowcaseCollectionViewCell();
+  v11.super_class = type metadata accessor for InAppPurchaseShowcaseCollectionViewCell(0);
   v2 = v11.receiver;
   [(InAppPurchaseShowcaseCollectionViewCell *)&v11 layoutSubviews];
   v3 = OBJC_IVAR____TtC20ProductPageExtension39InAppPurchaseShowcaseCollectionViewCell_lockupView;

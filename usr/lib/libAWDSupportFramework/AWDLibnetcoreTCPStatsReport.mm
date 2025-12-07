@@ -240,7 +240,6 @@ LABEL_9:
   has = self->_has;
   if ((has & 4) != 0)
   {
-    tcpIPv4AvgRTT = self->_tcpIPv4AvgRTT;
     PBDataWriterWriteUint64Field();
     has = self->_has;
     if ((has & 8) == 0)
@@ -260,7 +259,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  tcpIPv6AvgRTT = self->_tcpIPv6AvgRTT;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 0x20) == 0)
@@ -275,7 +273,6 @@ LABEL_4:
   }
 
 LABEL_12:
-  tcpSendPLR = self->_tcpSendPLR;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 0x10) == 0)
@@ -290,7 +287,6 @@ LABEL_5:
   }
 
 LABEL_13:
-  tcpRecvPLR = self->_tcpRecvPLR;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 0x80) == 0)
@@ -305,7 +301,6 @@ LABEL_6:
   }
 
 LABEL_14:
-  tcpSendTLRTO = self->_tcpSendTLRTO;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 0x40) == 0)
@@ -317,7 +312,6 @@ LABEL_7:
     }
 
 LABEL_16:
-    tcpConnectionAttempts = self->_tcpConnectionAttempts;
     PBDataWriterWriteUint64Field();
     if ((*&self->_has & 1) == 0)
     {
@@ -328,7 +322,6 @@ LABEL_16:
   }
 
 LABEL_15:
-  tcpSendReorderRate = self->_tcpSendReorderRate;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 2) != 0)
@@ -343,7 +336,6 @@ LABEL_8:
   }
 
 LABEL_17:
-  tcpConnectionAccepts = self->_tcpConnectionAccepts;
 
   PBDataWriterWriteUint64Field();
 }

@@ -64,45 +64,46 @@ void __65___SFReloadOptionsController__requestDesktopSiteWithFallbackURL___block
 {
   v5 = a2;
   v6 = a3;
+  v8 = v6;
   if (v6)
   {
-    v7 = WBS_LOG_CHANNEL_PREFIXRequestDesktopSite();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v9 = WBS_LOG_CHANNEL_PREFIXRequestDesktopSite(v6, v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      __65___SFReloadOptionsController__requestDesktopSiteWithFallbackURL___block_invoke_cold_1(v7);
+      __65___SFReloadOptionsController__requestDesktopSiteWithFallbackURL___block_invoke_cold_1(v9);
     }
   }
 
-  v8 = [v5 objectForKeyedSubscript:@"desktopLinkURLString"];
-  v20 = v6;
-  v22 = v5;
-  if ([v8 length])
+  v10 = [v5 objectForKeyedSubscript:@"desktopLinkURLString"];
+  v22 = v8;
+  v24 = v5;
+  if ([v10 length])
   {
-    v9 = v8;
+    v11 = v10;
   }
 
   else
   {
-    v9 = [v5 objectForKeyedSubscript:{@"canonicalURLString", v6, v5}];
+    v11 = [v5 objectForKeyedSubscript:{@"canonicalURLString", v8, v5}];
   }
 
-  v10 = v9;
-  v11 = [MEMORY[0x1E695DFF8] safari_URLWithUserTypedString:{v9, v20}];
-  v12 = [v11 safari_highLevelDomainFromHostFallingBackToHostOrAbsoluteString];
+  v12 = v11;
+  v13 = [MEMORY[0x1E695DFF8] safari_URLWithUserTypedString:{v11, v22}];
+  v14 = [v13 safari_highLevelDomainFromHostFallingBackToHostOrAbsoluteString];
   WeakRetained = objc_loadWeakRetained((*(a1 + 32) + 48));
-  v14 = [WeakRetained backForwardList];
-  v15 = [v14 currentItem];
-  v16 = [v15 initialURL];
-  v17 = [v16 safari_highLevelDomainFromHostFallingBackToHostOrAbsoluteString];
+  v16 = [WeakRetained backForwardList];
+  v17 = [v16 currentItem];
+  v18 = [v17 initialURL];
+  v19 = [v18 safari_highLevelDomainFromHostFallingBackToHostOrAbsoluteString];
 
-  v18 = [v17 isEqualToString:v12];
-  v19 = v11;
-  if ((v18 & 1) == 0)
+  v20 = [v19 isEqualToString:v14];
+  v21 = v13;
+  if ((v20 & 1) == 0)
   {
-    v19 = *(a1 + 40);
+    v21 = *(a1 + 40);
   }
 
-  [*(a1 + 32) requestDesktopSiteWithURL:v19];
+  [*(a1 + 32) requestDesktopSiteWithURL:v21];
 }
 
 void __65___SFReloadOptionsController__requestDesktopSiteWithFallbackURL___block_invoke_cold_1(void *a1)

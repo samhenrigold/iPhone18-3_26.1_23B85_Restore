@@ -1,6 +1,7 @@
 @interface UIImage(TelephonyUI)
 + (BOOL)cappedSizedImagesAreValid;
 + (BOOL)isIPad;
++ (NSObject)systemImageNameForModelIdSync:()TelephonyUI;
 + (__CFString)systemImageNameForSymbolType:()TelephonyUI;
 + (id)TTYActionImage;
 + (id)_modelSymbolCache;
@@ -31,7 +32,6 @@
 + (id)routeGlyphWithSymbolType:()TelephonyUI displayStyle:;
 + (id)routeGlyphWithSymbolType:()TelephonyUI displayStyle:color:;
 + (id)symbolNameForCurrentDevice;
-+ (id)systemImageNameForModelIdSync:()TelephonyUI;
 + (id)telephonyUIActionButtonGlyphImage;
 + (id)telephonyUIImageNamed:()TelephonyUI;
 + (id)telephonyUIInfoButtonGlyphImage;
@@ -181,9 +181,9 @@
     +[UIImage(TelephonyUI) telephonyUIUnreadIndicatorGlyphImage];
   }
 
-  v1 = telephonyUIUnreadIndicatorGlyphImage___sGlyphImage;
+  v2 = telephonyUIUnreadIndicatorGlyphImage___sGlyphImage;
 
-  return v1;
+  return v2;
 }
 
 + (id)favoritesAudioGlyphImage
@@ -460,16 +460,14 @@
 
 + (id)actionGlyphForSymbolType:()TelephonyUI
 {
-  v11[2] = *MEMORY[0x1E69E9840];
+  v10[2] = *MEMORY[0x1E69E9840];
   v4 = MEMORY[0x1E69DCAB8];
   systemBlueColor = [MEMORY[0x1E69DC888] systemBlueColor];
-  v11[0] = systemBlueColor;
+  v10[0] = systemBlueColor;
   quaternarySystemFillColor = [MEMORY[0x1E69DC888] quaternarySystemFillColor];
-  v11[1] = quaternarySystemFillColor;
-  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:2];
+  v10[1] = quaternarySystemFillColor;
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:2];
   v8 = [v4 tpImageForSymbolType:a3 scale:2 paletteColors:v7];
-
-  v9 = *MEMORY[0x1E69E9840];
 
   return v8;
 }
@@ -646,29 +644,9 @@
 
 + (id)voicemailGlyphForSymbolType:()TelephonyUI
 {
-  if ((a3 - 25) > 1)
-  {
-    v3 = MEMORY[0x1E69DCAB8];
-    if (a3 == 35)
-    {
-      v5 = *MEMORY[0x1E69DDD28];
-    }
+  v0 = [MEMORY[0x1E69DCAB8] tpImageForSymbolType:? textStyle:? scale:? isStaticSize:?];
 
-    else
-    {
-      v6 = *MEMORY[0x1E69DDCF8];
-    }
-  }
-
-  else
-  {
-    v3 = MEMORY[0x1E69DCAB8];
-    v4 = *MEMORY[0x1E69DDDC0];
-  }
-
-  v7 = [v3 tpImageForSymbolType:? textStyle:? scale:? isStaticSize:?];
-
-  return v7;
+  return v0;
 }
 
 + (id)videoMessageRecordGlyphImage
@@ -700,7 +678,7 @@
   else
   {
     fallbackSymbolTypeForCurrentDevice = [self fallbackSymbolTypeForCurrentDevice];
-    v9 = TPDefaultLog();
+    v9 = TPDefaultLog(fallbackSymbolTypeForCurrentDevice);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       [(UIImage(TelephonyUI) *)self currentDeviceRouteGlyphForDisplayStyle:fallbackSymbolTypeForCurrentDevice, v9];
@@ -817,19 +795,19 @@ LABEL_14:
   if (v7)
   {
     v9 = [self customImageNameForSymbolType:a3];
-    v10 = TelephonyUIBundle();
-    v11 = [v8 imageNamed:v9 inBundle:v10 withConfiguration:v6];
-    v12 = [v11 imageWithRenderingMode:2];
+    v11 = TelephonyUIBundle(v9, v10);
+    v12 = [v8 imageNamed:v9 inBundle:v11 withConfiguration:v6];
+    v13 = [v12 imageWithRenderingMode:2];
   }
 
   else
   {
     v9 = [self systemImageNameForSymbolType:a3];
-    v10 = [v8 _systemImageNamed:v9 withConfiguration:v6];
-    v12 = [v10 imageWithRenderingMode:2];
+    v11 = [v8 _systemImageNamed:v9 withConfiguration:v6];
+    v13 = [v11 imageWithRenderingMode:2];
   }
 
-  return v12;
+  return v13;
 }
 
 + (id)routeGlyphForDeviceType:()TelephonyUI displayStyle:
@@ -864,37 +842,38 @@ LABEL_14:
 {
   v8 = a3;
   v9 = a5;
+  v10 = v9;
   if (v9)
   {
-    if (v8 && [v8 length])
+    if (v8 && (v9 = [v8 length]) != 0)
     {
-      v12[0] = MEMORY[0x1E69E9820];
-      v12[1] = 3221225472;
-      v12[2] = __69__UIImage_TelephonyUI__routeGlyphForModelId_displayStyle_completion___block_invoke;
-      v12[3] = &unk_1E7C0C230;
-      v13 = v8;
-      v14 = v9;
-      v15 = a4;
+      v13[0] = MEMORY[0x1E69E9820];
+      v13[1] = 3221225472;
+      v13[2] = __69__UIImage_TelephonyUI__routeGlyphForModelId_displayStyle_completion___block_invoke;
+      v13[3] = &unk_1E7C0C230;
+      v14 = v8;
+      v15 = v10;
+      v16 = a4;
       selfCopy = self;
-      [self systemImageNameForModelId:v13 completion:v12];
+      [self systemImageNameForModelId:v14 completion:v13];
     }
 
     else
     {
-      v10 = TPDefaultLog();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+      v11 = TPDefaultLog(v9);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
       {
         +[UIImage(TelephonyUI) routeGlyphForModelId:displayStyle:completion:];
       }
 
-      (*(v9 + 2))(v9, 0);
+      v10[2](v10, 0);
     }
   }
 
   else
   {
-    v11 = TPDefaultLog();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v12 = TPDefaultLog(0);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       +[UIImage(TelephonyUI) routeGlyphForModelId:displayStyle:completion:];
     }
@@ -937,19 +916,20 @@ LABEL_14:
     +[UIImage(TelephonyUI) _modelSymbolCache];
   }
 
-  v1 = _modelSymbolCache__symbolCache;
+  v2 = _modelSymbolCache__symbolCache;
 
-  return v1;
+  return v2;
 }
 
 + (void)systemImageNameForModelId:()TelephonyUI completion:
 {
   v6 = a3;
   v7 = a4;
+  v8 = v7;
   if (!v7)
   {
-    v9 = TPDefaultLog();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v10 = TPDefaultLog(0);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       +[UIImage(TelephonyUI) routeGlyphForModelId:displayStyle:completion:];
     }
@@ -957,49 +937,53 @@ LABEL_14:
     goto LABEL_12;
   }
 
-  if (v6 && [v6 length])
+  if (v6)
   {
-    _modelSymbolCache = [self _modelSymbolCache];
-    v9 = [_modelSymbolCache objectForKey:v6];
-
-    if (v9)
+    v7 = [v6 length];
+    if (v7)
     {
-      v7[2](v7, v9);
-    }
+      _modelSymbolCache = [self _modelSymbolCache];
+      v10 = [_modelSymbolCache objectForKey:v6];
 
-    else
-    {
-      v11 = dispatch_get_global_queue(0, 0);
-      block[0] = MEMORY[0x1E69E9820];
-      block[1] = 3221225472;
-      block[2] = __61__UIImage_TelephonyUI__systemImageNameForModelId_completion___block_invoke;
-      block[3] = &unk_1E7C0C2A0;
-      v13 = v6;
-      selfCopy = self;
-      v14 = v7;
-      dispatch_async(v11, block);
-    }
+      if (v10)
+      {
+        (v8)[2](v8, v10);
+      }
+
+      else
+      {
+        v12 = dispatch_get_global_queue(0, 0);
+        block[0] = MEMORY[0x1E69E9820];
+        block[1] = 3221225472;
+        block[2] = __61__UIImage_TelephonyUI__systemImageNameForModelId_completion___block_invoke;
+        block[3] = &unk_1E7C0C2A0;
+        v14 = v6;
+        selfCopy = self;
+        v15 = v8;
+        dispatch_async(v12, block);
+      }
 
 LABEL_12:
 
-    goto LABEL_13;
+      goto LABEL_13;
+    }
   }
 
-  v10 = TPDefaultLog();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+  v11 = TPDefaultLog(v7);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
   {
     +[UIImage(TelephonyUI) routeGlyphForModelId:displayStyle:completion:];
   }
 
-  v7[2](v7, 0);
+  v8[2](v8, 0);
 LABEL_13:
 }
 
-+ (id)systemImageNameForModelIdSync:()TelephonyUI
++ (NSObject)systemImageNameForModelIdSync:()TelephonyUI
 {
   v4 = a3;
   v5 = v4;
-  if (v4 && [v4 length])
+  if (v4 && (v4 = [v4 length]) != 0)
   {
     _modelSymbolCache = [self _modelSymbolCache];
     v7 = [_modelSymbolCache objectForKey:v5];
@@ -1018,14 +1002,14 @@ LABEL_13:
       {
         v12 = MEMORY[0x1E69A8A40];
         identifier = [v10 identifier];
-        v18 = 0;
-        v14 = [v12 symbolForTypeIdentifier:identifier withResolutionStrategy:1 variantOptions:1 error:&v18];
-        v15 = v18;
+        v20 = 0;
+        v14 = [v12 symbolForTypeIdentifier:identifier withResolutionStrategy:1 variantOptions:1 error:&v20];
+        v15 = v20;
 
         if (v15 || !v14)
         {
-          v17 = TPDefaultLog();
-          if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
+          v19 = TPDefaultLog(v16);
+          if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
           {
             +[UIImage(TelephonyUI) systemImageNameForModelIdSync:];
           }
@@ -1039,8 +1023,8 @@ LABEL_13:
           _modelSymbolCache2 = [self _modelSymbolCache];
           [_modelSymbolCache2 setObject:name forKey:v5];
 
-          v17 = TPDefaultLog();
-          if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
+          v19 = TPDefaultLog(v18);
+          if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
           {
             +[UIImage(TelephonyUI) systemImageNameForModelIdSync:];
           }
@@ -1057,7 +1041,7 @@ LABEL_13:
 
   else
   {
-    v7 = TPDefaultLog();
+    v7 = TPDefaultLog(v4);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
       +[UIImage(TelephonyUI) routeGlyphForModelId:displayStyle:completion:];
@@ -1305,19 +1289,19 @@ LABEL_13:
   {
     v7 = [self customImageNameForSymbolType:a3];
     v8 = MEMORY[0x1E69DCAB8];
-    v9 = TelephonyUIBundle();
-    [v8 imageNamed:v7 inBundle:v9 withConfiguration:v6];
+    v10 = TelephonyUIBundle(v7, v9);
+    [v8 imageNamed:v7 inBundle:v10 withConfiguration:v6];
   }
 
   else
   {
     v7 = [self systemImageNameForSymbolType:a3];
-    v9 = [MEMORY[0x1E69DCAB8] _systemImageNamed:v7];
-    [v9 imageWithConfiguration:v6];
+    v10 = [MEMORY[0x1E69DCAB8] _systemImageNamed:v7];
+    [v10 imageWithConfiguration:v6];
   }
-  v10 = ;
+  v11 = ;
 
-  return v10;
+  return v11;
 }
 
 + (__CFString)systemImageNameForSymbolType:()TelephonyUI
@@ -1756,55 +1740,33 @@ LABEL_83:
     +[UIImage(TelephonyUI) genericBusinessLogo];
   }
 
-  v1 = genericBusinessLogo___businessLogo;
+  v2 = genericBusinessLogo___businessLogo;
 
-  return v1;
+  return v2;
 }
 
 + (void)currentDeviceRouteGlyphForDisplayStyle:()TelephonyUI .cold.1(void *a1, uint64_t a2, NSObject *a3)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v5 = [a1 symbolNameForCurrentDevice];
   OUTLINED_FUNCTION_0();
-  v8 = 2048;
-  v9 = a2;
-  _os_log_error_impl(&dword_1B4894000, a3, OS_LOG_TYPE_ERROR, "Failed to find current device route glyph with symbol name %@. Using fallback symbol type %zd.", v7, 0x16u);
-
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-+ (void)routeGlyphForModelId:()TelephonyUI displayStyle:completion:.cold.1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_1B4894000, v0, v1, "Invalid modelIdentifier: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-+ (void)routeGlyphForModelId:()TelephonyUI displayStyle:completion:.cold.2()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_4(&dword_1B4894000, v0, v1, "No completion block provided for modelIdentifier: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
+  v7 = 2048;
+  v8 = a2;
+  _os_log_error_impl(&dword_1B4894000, a3, OS_LOG_TYPE_ERROR, "Failed to find current device route glyph with symbol name %@. Using fallback symbol type %zd.", v6, 0x16u);
 }
 
 + (void)systemImageNameForModelIdSync:()TelephonyUI .cold.1()
 {
-  v3 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_2(&dword_1B4894000, v0, v1, "Sync IconServices failed for model: %@, error: %@");
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 + (void)systemImageNameForModelIdSync:()TelephonyUI .cold.2()
 {
-  v3 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_2(&dword_1B4894000, v0, v1, "Sync resolved and cached symbol '%@' for model: %@");
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 @end

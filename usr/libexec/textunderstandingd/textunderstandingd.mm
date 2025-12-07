@@ -25,7 +25,7 @@ void sub_100001650(uint64_t a1, uint64_t a2)
   (*(a2 + 16))(a2);
 }
 
-uint64_t sub_100001704(int a1, int a2, void *aBlock, uint64_t a4, void (*a5)(uint64_t, void *))
+uint64_t sub_100001704(uint64_t a1, int a2, void *aBlock, uint64_t a4, void (*a5)(uint64_t, void *))
 {
   v7 = _Block_copy(aBlock);
   v9[2] = v7;
@@ -58,16 +58,16 @@ char *sub_100001890()
   v4 = swift_allocObject();
   *(v4 + 16) = v3;
   *&v1[OBJC_IVAR____TtC18textunderstandingd23TextUnderstandingDaemon_server] = v4;
-  v10.receiver = v1;
-  v10.super_class = type metadata accessor for TextUnderstandingDaemon();
+  v12.receiver = v1;
+  v12.super_class = type metadata accessor for TextUnderstandingDaemon();
   v5 = v3;
-  v6 = objc_msgSendSuper2(&v10, "init");
+  v6 = objc_msgSendSuper2(&v12, "init");
   sub_100001C9C(0, &qword_1000086B0, NSXPCListener_ptr);
   v7 = v6;
-  sub_100001D50();
-  v8 = sub_1000019EC();
-  [v8 setDelegate:{v7, v10.receiver, v10.super_class}];
-  [v8 resume];
+  v8 = sub_100001D50();
+  v10 = sub_1000019EC(v8, v9);
+  [v10 setDelegate:{v7, v12.receiver, v12.super_class}];
+  [v10 resume];
   sub_100001D40();
   sub_100001D30();
   [objc_opt_self() registerDUXPCListenersWithManager:*&v7[OBJC_IVAR____TtC18textunderstandingd23TextUnderstandingDaemon_manager]];
@@ -76,14 +76,14 @@ char *sub_100001890()
   return v7;
 }
 
-id sub_1000019EC()
+id sub_1000019EC(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_allocWithZone(swift_getObjCClassFromMetadata());
-  v1 = sub_100001DF0();
+  v2 = objc_allocWithZone(swift_getObjCClassFromMetadata());
+  v3 = sub_100001DF0();
 
-  v2 = [v0 initWithMachServiceName:v1];
+  v4 = [v2 initWithMachServiceName:v3];
 
-  return v2;
+  return v4;
 }
 
 id sub_100001A84(uint64_t a1, void *a2)
@@ -105,19 +105,18 @@ id sub_100001A84(uint64_t a1, void *a2)
   return v7;
 }
 
-id sub_100001BD8()
+id sub_100001BD8(uint64_t a1)
 {
-  v2.receiver = v0;
-  v2.super_class = type metadata accessor for TextUnderstandingDaemon();
-  return objc_msgSendSuper2(&v2, "dealloc");
+  v3.receiver = v1;
+  v3.super_class = type metadata accessor for TextUnderstandingDaemon();
+  return objc_msgSendSuper2(&v3, "dealloc");
 }
 
-uint64_t sub_100001C9C(uint64_t a1, unint64_t *a2, uint64_t *a3)
+uint64_t sub_100001C9C(uint64_t a1, unint64_t *a2, void *a3)
 {
   result = *a2;
   if (!*a2)
   {
-    v5 = *a3;
     objc_opt_self();
     result = swift_getObjCClassMetadata();
     atomic_store(result, a2);

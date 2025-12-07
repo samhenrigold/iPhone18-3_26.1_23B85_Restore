@@ -93,7 +93,7 @@ void __51__MKMapSnapshotter__performSnapshotOnSnapshotQueue__block_invoke(uint64
       goto LABEL_10;
     }
 
-    [*(*(a1 + 32) + 8) region];
+    objc_msgSend_region(*(*(a1 + 32) + 8));
     v6 = v5;
     v8 = v7;
     v9 = MEMORY[0x1E696AEC0];
@@ -727,7 +727,7 @@ void __53__MKMapSnapshotter_startWithQueue_completionHandler___block_invoke(uint
 
 - (BOOL)_isWidget
 {
-  if (!ChronoServicesLibraryCore() || !getCHSIsWidgetExtensionPointSymbolLoc())
+  if (!ChronoServicesLibraryCore(0) || !getCHSIsWidgetExtensionPointSymbolLoc())
   {
     return 0;
   }
@@ -750,9 +750,9 @@ LABEL_8:
     return v6;
   }
 
-  dlerror();
-  abort_report_np();
-  return ChronoServicesLibraryCore();
+  v8 = dlerror();
+  v9 = abort_report_np("%s", v8);
+  return ChronoServicesLibraryCore(v9);
 }
 
 - (void)_deliverSnapshot:(id)snapshot

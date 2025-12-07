@@ -18,9 +18,9 @@
 
 - (LARightStore)init
 {
-  v10.receiver = self;
-  v10.super_class = LARightStore;
-  v2 = [(LARightStore *)&v10 init];
+  v11.receiver = self;
+  v11.super_class = LARightStore;
+  v2 = [(LARightStore *)&v11 init];
   if (v2)
   {
     v3 = +[LAKeyStoreBuilder buildKeyStore];
@@ -34,8 +34,8 @@
     mEMORY[0x1E696EE90] = [MEMORY[0x1E696EE90] sharedInstance];
     v2->_instanceID = [mEMORY[0x1E696EE90] nextInstanceIDInDomain:@"LARightStore"];
 
-    v8 = LA_LOG_0();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+    v9 = LA_LOG_0(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
     {
       [(LARightStore *)v2 init];
     }
@@ -46,11 +46,10 @@
 
 - (void)dealloc
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138543362;
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138543362;
   selfCopy = self;
-  _os_log_debug_impl(&dword_1A784E000, a2, OS_LOG_TYPE_DEBUG, "%{public}@ deallocated", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(&dword_1A784E000, a2, OS_LOG_TYPE_DEBUG, "%{public}@ deallocated", &v2, 0xCu);
 }
 
 + (LARightStore)sharedStore
@@ -116,13 +115,13 @@ void __46__LARightStore_rightForIdentifier_completion___block_invoke(uint64_t a1
 
 void __46__LARightStore_rightForIdentifier_completion___block_invoke_2(uint64_t a1)
 {
-  v22 = *MEMORY[0x1E69E9840];
-  v2 = LA_LOG_0();
+  v21 = *MEMORY[0x1E69E9840];
+  v2 = LA_LOG_0(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
     *buf = 138543362;
-    v21 = v3;
+    v20 = v3;
     _os_log_impl(&dword_1A784E000, v2, OS_LOG_TYPE_DEFAULT, "%{public}@ rightForIdentifier started", buf, 0xCu);
   }
 
@@ -133,24 +132,24 @@ void __46__LARightStore_rightForIdentifier_completion___block_invoke_2(uint64_t 
     v6 = [LAKeyIdentifier defaultAccessKeyIdentifierForRightWithIdentifier:*(a1 + 40)];
     v7 = [LAKeyIdentifier domainForRightWithIdentifier:*(a1 + 40)];
     v8 = WeakRetained[1];
-    v14[0] = MEMORY[0x1E69E9820];
-    v14[1] = 3221225472;
-    v14[2] = __46__LARightStore_rightForIdentifier_completion___block_invoke_12;
-    v14[3] = &unk_1E77CB478;
-    v15 = *(a1 + 48);
-    objc_copyWeak(&v19, (a1 + 64));
-    v18 = *(a1 + 56);
+    v13[0] = MEMORY[0x1E69E9820];
+    v13[1] = 3221225472;
+    v13[2] = __46__LARightStore_rightForIdentifier_completion___block_invoke_12;
+    v13[3] = &unk_1E77CB478;
+    v14 = *(a1 + 48);
+    objc_copyWeak(&v18, (a1 + 64));
+    v17 = *(a1 + 56);
     v9 = v7;
-    v16 = v9;
-    v17 = *v5;
-    [v8 fetchKeyWithIdentifier:v6 domain:v9 completion:v14];
+    v15 = v9;
+    v16 = *v5;
+    [v8 fetchKeyWithIdentifier:v6 domain:v9 completion:v13];
 
-    objc_destroyWeak(&v19);
+    objc_destroyWeak(&v18);
   }
 
   else
   {
-    v10 = LA_LOG_0();
+    v10 = LA_LOG_0(0);
     v11 = LALogTypeForInternalError();
     if (os_log_type_enabled(v10, v11))
     {
@@ -162,8 +161,6 @@ void __46__LARightStore_rightForIdentifier_completion___block_invoke_2(uint64_t 
     v6 = [LAAuthorizationError genericErrorWithMessage:@"Operation interrupted"];
     (*(v12 + 16))(v12, 0, v6);
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 void __46__LARightStore_rightForIdentifier_completion___block_invoke_12(id *a1, void *a2, void *a3)
@@ -196,10 +193,10 @@ void __46__LARightStore_rightForIdentifier_completion___block_invoke_12(id *a1, 
 
 void __46__LARightStore_rightForIdentifier_completion___block_invoke_2_13(uint64_t a1)
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   if (*(a1 + 32))
   {
-    v2 = LA_LOG_0();
+    v2 = LA_LOG_0(a1);
     if (*(a1 + 32))
     {
       v3 = LALogTypeForInternalError();
@@ -225,16 +222,15 @@ void __46__LARightStore_rightForIdentifier_completion___block_invoke_2_13(uint64
       }
 
       *buf = 138543618;
-      v26 = WeakRetained;
-      v27 = 2114;
-      v28 = v12;
+      v24 = WeakRetained;
+      v25 = 2114;
+      v26 = v12;
       _os_log_impl(&dword_1A784E000, v2, v3, "%{public}@ rightForIdentifier finished %{public}@", buf, 0x16u);
       if (v11)
       {
       }
     }
 
-    v16 = *(a1 + 32);
     (*(*(a1 + 72) + 16))();
   }
 
@@ -251,26 +247,26 @@ void __46__LARightStore_rightForIdentifier_completion___block_invoke_2_13(uint64
     if (v5)
     {
       v7 = *(v5 + 1);
-      v18[0] = MEMORY[0x1E69E9820];
-      v18[1] = 3221225472;
-      v18[2] = __46__LARightStore_rightForIdentifier_completion___block_invoke_24;
-      v18[3] = &unk_1E77CB428;
+      v16[0] = MEMORY[0x1E69E9820];
+      v16[1] = 3221225472;
+      v16[2] = __46__LARightStore_rightForIdentifier_completion___block_invoke_24;
+      v16[3] = &unk_1E77CB428;
       v8 = *(a1 + 48);
-      v19 = *(a1 + 56);
-      objc_copyWeak(&v24, (a1 + 80));
-      v23 = *(a1 + 72);
-      v20 = *(a1 + 48);
-      v21 = *(a1 + 64);
-      v22 = v4;
-      [v7 fetchGenericPasswordsWithDomain:v8 completion:v18];
+      v17 = *(a1 + 56);
+      objc_copyWeak(&v22, (a1 + 80));
+      v21 = *(a1 + 72);
+      v18 = *(a1 + 48);
+      v19 = *(a1 + 64);
+      v20 = v4;
+      [v7 fetchGenericPasswordsWithDomain:v8 completion:v16];
 
-      objc_destroyWeak(&v24);
-      v9 = v19;
+      objc_destroyWeak(&v22);
+      v9 = v17;
     }
 
     else
     {
-      v13 = LA_LOG_0();
+      v13 = LA_LOG_0(0);
       v14 = LALogTypeForInternalError();
       if (os_log_type_enabled(v13, v14))
       {
@@ -283,8 +279,6 @@ void __46__LARightStore_rightForIdentifier_completion___block_invoke_2_13(uint64
       (*(v15 + 16))(v15, 0, v9);
     }
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 void __46__LARightStore_rightForIdentifier_completion___block_invoke_24(id *a1, void *a2, void *a3)
@@ -319,49 +313,49 @@ void __46__LARightStore_rightForIdentifier_completion___block_invoke_24(id *a1, 
 
 void __46__LARightStore_rightForIdentifier_completion___block_invoke_2_25(uint64_t a1)
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   if (*(a1 + 32))
   {
-    if (![LAAuthorizationError isResourceNotFoundError:?])
+    v2 = [LAAuthorizationError isResourceNotFoundError:?];
+    if ((v2 & 1) == 0)
     {
-      v2 = LA_LOG_0();
+      v3 = LA_LOG_0(v2);
       if (*(a1 + 32))
       {
-        v3 = LALogTypeForInternalError();
+        v4 = LALogTypeForInternalError();
       }
 
       else
       {
-        v3 = OS_LOG_TYPE_DEFAULT;
+        v4 = OS_LOG_TYPE_DEFAULT;
       }
 
-      if (os_log_type_enabled(v2, v3))
+      if (os_log_type_enabled(v3, v4))
       {
         WeakRetained = objc_loadWeakRetained((a1 + 88));
-        v19 = *(a1 + 32);
-        if (v19)
+        v20 = *(a1 + 32);
+        if (v20)
         {
-          v20 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(err:%@)", *(a1 + 32)];
+          v21 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(err:%@)", *(a1 + 32)];
         }
 
         else
         {
-          v20 = @"successfully";
+          v21 = @"successfully";
         }
 
         *buf = 138543618;
-        v33 = WeakRetained;
-        v34 = 2114;
-        v35 = v20;
-        _os_log_impl(&dword_1A784E000, v2, v3, "%{public}@ rightForIdentifier finished %{public}@", buf, 0x16u);
-        if (v19)
+        v32 = WeakRetained;
+        v33 = 2114;
+        v34 = v21;
+        _os_log_impl(&dword_1A784E000, v3, v4, "%{public}@ rightForIdentifier finished %{public}@", buf, 0x16u);
+        if (v20)
         {
         }
       }
 
-      v21 = *(a1 + 32);
       (*(*(a1 + 80) + 16))();
-      goto LABEL_23;
+      return;
     }
   }
 
@@ -370,62 +364,59 @@ void __46__LARightStore_rightForIdentifier_completion___block_invoke_2_25(uint64
     __46__LARightStore_rightForIdentifier_completion___block_invoke_2_25_cold_1();
   }
 
-  v4 = [MEMORY[0x1E695E0F0] mutableCopy];
-  v5 = *(a1 + 40);
-  v30[0] = MEMORY[0x1E69E9820];
-  v30[1] = 3221225472;
-  v30[2] = __46__LARightStore_rightForIdentifier_completion___block_invoke_27;
-  v30[3] = &unk_1E77CB3B0;
-  v6 = v4;
-  v31 = v6;
-  [v5 enumerateObjectsUsingBlock:v30];
-  if (![v6 count])
+  v5 = [MEMORY[0x1E695E0F0] mutableCopy];
+  v6 = *(a1 + 40);
+  v29[0] = MEMORY[0x1E69E9820];
+  v29[1] = 3221225472;
+  v29[2] = __46__LARightStore_rightForIdentifier_completion___block_invoke_27;
+  v29[3] = &unk_1E77CB3B0;
+  v7 = v5;
+  v30 = v7;
+  [v6 enumerateObjectsUsingBlock:v29];
+  if (![v7 count])
   {
-    v7 = [LASecret alloc];
-    v8 = +[LAKeyStoreItemBuilder buildNullGenericPassword];
-    v9 = [(LASecret *)v7 initWithGenericPassword:v8];
-    [v6 addObject:v9];
+    v8 = [LASecret alloc];
+    v9 = +[LAKeyStoreItemBuilder buildNullGenericPassword];
+    v10 = [(LASecret *)v8 initWithGenericPassword:v9];
+    [v7 addObject:v10];
   }
 
-  v10 = objc_loadWeakRetained((a1 + 88));
-  v11 = v10;
-  if (v10)
+  v11 = objc_loadWeakRetained((a1 + 88));
+  v12 = v11;
+  if (v11)
   {
-    v12 = *(v10 + 1);
-    v23[0] = MEMORY[0x1E69E9820];
-    v23[1] = 3221225472;
-    v23[2] = __46__LARightStore_rightForIdentifier_completion___block_invoke_31;
-    v23[3] = &unk_1E77CB428;
-    v13 = *(a1 + 48);
-    v24 = *(a1 + 56);
-    objc_copyWeak(&v29, (a1 + 88));
-    v28 = *(a1 + 80);
-    v25 = *(a1 + 64);
-    v26 = *(a1 + 72);
-    v27 = v6;
-    [v12 fetchKeysWithDomain:v13 completion:v23];
+    v13 = *(v11 + 1);
+    v22[0] = MEMORY[0x1E69E9820];
+    v22[1] = 3221225472;
+    v22[2] = __46__LARightStore_rightForIdentifier_completion___block_invoke_31;
+    v22[3] = &unk_1E77CB428;
+    v14 = *(a1 + 48);
+    v23 = *(a1 + 56);
+    objc_copyWeak(&v28, (a1 + 88));
+    v27 = *(a1 + 80);
+    v24 = *(a1 + 64);
+    v25 = *(a1 + 72);
+    v26 = v7;
+    [v13 fetchKeysWithDomain:v14 completion:v22];
 
-    objc_destroyWeak(&v29);
-    v14 = v24;
+    objc_destroyWeak(&v28);
+    v15 = v23;
   }
 
   else
   {
-    v15 = LA_LOG_0();
-    v16 = LALogTypeForInternalError();
-    if (os_log_type_enabled(v15, v16))
+    v16 = LA_LOG_0(0);
+    v17 = LALogTypeForInternalError();
+    if (os_log_type_enabled(v16, v17))
     {
       *buf = 0;
-      _os_log_impl(&dword_1A784E000, v15, v16, "Operation interrupted", buf, 2u);
+      _os_log_impl(&dword_1A784E000, v16, v17, "Operation interrupted", buf, 2u);
     }
 
-    v17 = *(a1 + 80);
-    v14 = [LAAuthorizationError genericErrorWithMessage:@"Operation interrupted"];
-    (*(v17 + 16))(v17, 0, v14);
+    v18 = *(a1 + 80);
+    v15 = [LAAuthorizationError genericErrorWithMessage:@"Operation interrupted"];
+    (*(v18 + 16))(v18, 0, v15);
   }
-
-LABEL_23:
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 void __46__LARightStore_rightForIdentifier_completion___block_invoke_27(uint64_t a1, void *a2)
@@ -467,10 +458,10 @@ void __46__LARightStore_rightForIdentifier_completion___block_invoke_31(uint64_t
 
 void __46__LARightStore_rightForIdentifier_completion___block_invoke_2_32(uint64_t a1)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   if (*(a1 + 32))
   {
-    v2 = LA_LOG_0();
+    v2 = LA_LOG_0(a1);
     if (*(a1 + 32))
     {
       v3 = LALogTypeForInternalError();
@@ -496,16 +487,15 @@ void __46__LARightStore_rightForIdentifier_completion___block_invoke_2_32(uint64
       }
 
       *buf = 138543618;
-      v19 = WeakRetained;
-      v20 = 2114;
-      v21 = v13;
+      v17 = WeakRetained;
+      v18 = 2114;
+      v19 = v13;
       _os_log_impl(&dword_1A784E000, v2, v3, "%{public}@ rightForIdentifier finished %{public}@", buf, 0x16u);
       if (v12)
       {
       }
     }
 
-    v14 = *(a1 + 32);
     (*(*(a1 + 72) + 16))();
   }
 
@@ -518,19 +508,18 @@ void __46__LARightStore_rightForIdentifier_completion___block_invoke_2_32(uint64
 
     v4 = [MEMORY[0x1E695E0F0] mutableCopy];
     v5 = *(a1 + 40);
-    v16[0] = MEMORY[0x1E69E9820];
-    v16[1] = 3221225472;
-    v16[2] = __46__LARightStore_rightForIdentifier_completion___block_invoke_34;
-    v16[3] = &unk_1E77CB3D8;
-    v17 = v4;
+    v14[0] = MEMORY[0x1E69E9820];
+    v14[1] = 3221225472;
+    v14[2] = __46__LARightStore_rightForIdentifier_completion___block_invoke_34;
+    v14[3] = &unk_1E77CB3D8;
+    v15 = v4;
     v6 = v4;
-    [v5 enumerateObjectsUsingBlock:v16];
-    v7 = LA_LOG_0();
+    v7 = LA_LOG_0([v5 enumerateObjectsUsingBlock:v14]);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       v8 = objc_loadWeakRetained((a1 + 80));
       *buf = 138543362;
-      v19 = v8;
+      v17 = v8;
       _os_log_impl(&dword_1A784E000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@ rightForIdentifier finished successfully", buf, 0xCu);
     }
 
@@ -538,8 +527,6 @@ void __46__LARightStore_rightForIdentifier_completion___block_invoke_2_32(uint64
     v10 = [[LAPersistedRight alloc] initWithIdentifier:*(a1 + 48) accessKey:*(a1 + 56) privateKeys:v6 secrets:*(a1 + 64)];
     (*(v9 + 16))(v9, v10, 0);
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 void __46__LARightStore_rightForIdentifier_completion___block_invoke_34(uint64_t a1, void *a2)
@@ -573,13 +560,13 @@ void __46__LARightStore_rightForIdentifier_completion___block_invoke_34(uint64_t
 
 void __48__LARightStore_saveRight_identifier_completion___block_invoke(uint64_t a1)
 {
-  v13 = *MEMORY[0x1E69E9840];
-  v2 = LA_LOG_0();
+  v12 = *MEMORY[0x1E69E9840];
+  v2 = LA_LOG_0(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
     *buf = 138543362;
-    v12 = v3;
+    v11 = v3;
     _os_log_impl(&dword_1A784E000, v2, OS_LOG_TYPE_DEFAULT, "%{public}@ saveRight started", buf, 0xCu);
   }
 
@@ -587,25 +574,24 @@ void __48__LARightStore_saveRight_identifier_completion___block_invoke(uint64_t 
   v4 = *(a1 + 32);
   v5 = *(a1 + 40);
   v6 = *(a1 + 48);
-  v8[0] = MEMORY[0x1E69E9820];
-  v8[1] = 3221225472;
-  v8[2] = __48__LARightStore_saveRight_identifier_completion___block_invoke_40;
-  v8[3] = &unk_1E77CB4F0;
-  objc_copyWeak(&v10, buf);
-  v9 = *(a1 + 56);
-  [(LARightStore *)v4 _saveRight:v5 identifier:v6 secret:0 completion:v8];
+  v7[0] = MEMORY[0x1E69E9820];
+  v7[1] = 3221225472;
+  v7[2] = __48__LARightStore_saveRight_identifier_completion___block_invoke_40;
+  v7[3] = &unk_1E77CB4F0;
+  objc_copyWeak(&v9, buf);
+  v8 = *(a1 + 56);
+  [(LARightStore *)v4 _saveRight:v5 identifier:v6 secret:0 completion:v7];
 
-  objc_destroyWeak(&v10);
+  objc_destroyWeak(&v9);
   objc_destroyWeak(buf);
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void __48__LARightStore_saveRight_identifier_completion___block_invoke_40(uint64_t a1, void *a2, void *a3)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v5 = a3;
   v6 = a2;
-  v7 = LA_LOG_0();
+  v7 = LA_LOG_0(v6);
   v8 = v7;
   if (v5)
   {
@@ -632,9 +618,9 @@ void __48__LARightStore_saveRight_identifier_completion___block_invoke_40(uint64
   }
 
   *buf = 138543618;
-  v14 = WeakRetained;
-  v15 = 2114;
-  v16 = v11;
+  v13 = WeakRetained;
+  v14 = 2114;
+  v15 = v11;
   _os_log_impl(&dword_1A784E000, v8, v9, "%{public}@ saveRight finished %{public}@", buf, 0x16u);
   if (v5)
   {
@@ -642,8 +628,6 @@ void __48__LARightStore_saveRight_identifier_completion___block_invoke_40(uint64
 
 LABEL_9:
   (*(*(a1 + 32) + 16))();
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)saveRight:(LARight *)right identifier:(NSString *)identifier secret:(NSData *)secret completion:(void *)handler
@@ -671,10 +655,10 @@ LABEL_9:
 
 void __55__LARightStore_saveRight_identifier_secret_completion___block_invoke_42(uint64_t a1, void *a2, void *a3)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v5 = a3;
   v6 = a2;
-  v7 = LA_LOG_0();
+  v7 = LA_LOG_0(v6);
   v8 = v7;
   if (v5)
   {
@@ -701,9 +685,9 @@ void __55__LARightStore_saveRight_identifier_secret_completion___block_invoke_42
   }
 
   *buf = 138543618;
-  v14 = WeakRetained;
-  v15 = 2114;
-  v16 = v11;
+  v13 = WeakRetained;
+  v14 = 2114;
+  v15 = v11;
   _os_log_impl(&dword_1A784E000, v8, v9, "%{public}@ saveRightWithSecret finished %{public}@", buf, 0x16u);
   if (v5)
   {
@@ -711,8 +695,6 @@ void __55__LARightStore_saveRight_identifier_secret_completion___block_invoke_42
 
 LABEL_9:
   (*(*(a1 + 32) + 16))();
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)removeRight:(LAPersistedRight *)right completion:(void *)handler
@@ -734,37 +716,36 @@ LABEL_9:
 
 void __39__LARightStore_removeRight_completion___block_invoke(id *a1)
 {
-  v12 = *MEMORY[0x1E69E9840];
-  v2 = LA_LOG_0();
+  v11 = *MEMORY[0x1E69E9840];
+  v2 = LA_LOG_0(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = a1[4];
     *buf = 138543362;
-    v11 = v3;
+    v10 = v3;
     _os_log_impl(&dword_1A784E000, v2, OS_LOG_TYPE_DEFAULT, "%{public}@ removeRight started", buf, 0xCu);
   }
 
   objc_initWeak(buf, a1[4]);
   v4 = a1[4];
   v5 = [a1[5] identifier];
-  v7[0] = MEMORY[0x1E69E9820];
-  v7[1] = 3221225472;
-  v7[2] = __39__LARightStore_removeRight_completion___block_invoke_43;
-  v7[3] = &unk_1E77CB0A8;
-  objc_copyWeak(&v9, buf);
-  v8 = a1[6];
-  [v4 removeRightForIdentifier:v5 completion:v7];
+  v6[0] = MEMORY[0x1E69E9820];
+  v6[1] = 3221225472;
+  v6[2] = __39__LARightStore_removeRight_completion___block_invoke_43;
+  v6[3] = &unk_1E77CB0A8;
+  objc_copyWeak(&v8, buf);
+  v7 = a1[6];
+  [v4 removeRightForIdentifier:v5 completion:v6];
 
-  objc_destroyWeak(&v9);
+  objc_destroyWeak(&v8);
   objc_destroyWeak(buf);
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void __39__LARightStore_removeRight_completion___block_invoke_43(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = LA_LOG_0();
+  v4 = LA_LOG_0(v3);
   v5 = v4;
   if (v3)
   {
@@ -791,9 +772,9 @@ void __39__LARightStore_removeRight_completion___block_invoke_43(uint64_t a1, vo
   }
 
   *buf = 138543618;
-  v11 = WeakRetained;
-  v12 = 2114;
-  v13 = v8;
+  v10 = WeakRetained;
+  v11 = 2114;
+  v12 = v8;
   _os_log_impl(&dword_1A784E000, v5, v6, "%{public}@ removeRight finished %{public}@", buf, 0x16u);
   if (v3)
   {
@@ -801,8 +782,6 @@ void __39__LARightStore_removeRight_completion___block_invoke_43(uint64_t a1, vo
 
 LABEL_9:
   (*(*(a1 + 32) + 16))();
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)removeRightForIdentifier:(NSString *)identifier completion:(void *)handler
@@ -845,13 +824,13 @@ void __52__LARightStore_removeRightForIdentifier_completion___block_invoke(uint6
 
 void __52__LARightStore_removeRightForIdentifier_completion___block_invoke_2(uint64_t a1)
 {
-  v16 = *MEMORY[0x1E69E9840];
-  v2 = LA_LOG_0();
+  v15 = *MEMORY[0x1E69E9840];
+  v2 = LA_LOG_0(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
     *buf = 138543362;
-    v15 = v3;
+    v14 = v3;
     _os_log_impl(&dword_1A784E000, v2, OS_LOG_TYPE_DEFAULT, "%{public}@ removeRightForIdentifier started", buf, 0xCu);
   }
 
@@ -860,20 +839,20 @@ void __52__LARightStore_removeRightForIdentifier_completion___block_invoke_2(uin
   {
     v5 = [LAKeyIdentifier domainForRightWithIdentifier:*(a1 + 40)];
     v6 = WeakRetained[1];
-    v11[0] = MEMORY[0x1E69E9820];
-    v11[1] = 3221225472;
-    v11[2] = __52__LARightStore_removeRightForIdentifier_completion___block_invoke_45;
-    v11[3] = &unk_1E77CB0A8;
-    objc_copyWeak(&v13, (a1 + 56));
-    v12 = *(a1 + 48);
-    [v6 removeItemsWithDomain:v5 completion:v11];
+    v10[0] = MEMORY[0x1E69E9820];
+    v10[1] = 3221225472;
+    v10[2] = __52__LARightStore_removeRightForIdentifier_completion___block_invoke_45;
+    v10[3] = &unk_1E77CB0A8;
+    objc_copyWeak(&v12, (a1 + 56));
+    v11 = *(a1 + 48);
+    [v6 removeItemsWithDomain:v5 completion:v10];
 
-    objc_destroyWeak(&v13);
+    objc_destroyWeak(&v12);
   }
 
   else
   {
-    v7 = LA_LOG_0();
+    v7 = LA_LOG_0(0);
     v8 = LALogTypeForInternalError();
     if (os_log_type_enabled(v7, v8))
     {
@@ -885,15 +864,13 @@ void __52__LARightStore_removeRightForIdentifier_completion___block_invoke_2(uin
     v5 = [LAAuthorizationError genericErrorWithMessage:@"Operation interrupted"];
     (*(v9 + 16))(v9, v5);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 void __52__LARightStore_removeRightForIdentifier_completion___block_invoke_45(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = LA_LOG_0();
+  v4 = LA_LOG_0(v3);
   v5 = v4;
   if (v3)
   {
@@ -920,9 +897,9 @@ void __52__LARightStore_removeRightForIdentifier_completion___block_invoke_45(ui
   }
 
   *buf = 138543618;
-  v11 = WeakRetained;
-  v12 = 2114;
-  v13 = v8;
+  v10 = WeakRetained;
+  v11 = 2114;
+  v12 = v8;
   _os_log_impl(&dword_1A784E000, v5, v6, "%{public}@ removeRightForIdentifier finished %{public}@", buf, 0x16u);
   if (v3)
   {
@@ -930,8 +907,6 @@ void __52__LARightStore_removeRightForIdentifier_completion___block_invoke_45(ui
 
 LABEL_9:
   (*(*(a1 + 32) + 16))();
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)removeAllRightsWithCompletion:(void *)handler
@@ -970,13 +945,13 @@ void __46__LARightStore_removeAllRightsWithCompletion___block_invoke(uint64_t a1
 
 void __46__LARightStore_removeAllRightsWithCompletion___block_invoke_2(uint64_t a1)
 {
-  v17 = *MEMORY[0x1E69E9840];
-  v2 = LA_LOG_0();
+  v16 = *MEMORY[0x1E69E9840];
+  v2 = LA_LOG_0(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
     *buf = 138543362;
-    v16 = v3;
+    v15 = v3;
     _os_log_impl(&dword_1A784E000, v2, OS_LOG_TYPE_DEFAULT, "%{public}@ removeAllRights started", buf, 0xCu);
   }
 
@@ -985,20 +960,20 @@ void __46__LARightStore_removeAllRightsWithCompletion___block_invoke_2(uint64_t 
   if (WeakRetained)
   {
     v6 = *(WeakRetained + 1);
-    v12[0] = MEMORY[0x1E69E9820];
-    v12[1] = 3221225472;
-    v12[2] = __46__LARightStore_removeAllRightsWithCompletion___block_invoke_46;
-    v12[3] = &unk_1E77CB0A8;
-    objc_copyWeak(&v14, (a1 + 48));
-    v13 = *(a1 + 40);
-    [v6 removeItemsWithCompletion:v12];
+    v11[0] = MEMORY[0x1E69E9820];
+    v11[1] = 3221225472;
+    v11[2] = __46__LARightStore_removeAllRightsWithCompletion___block_invoke_46;
+    v11[3] = &unk_1E77CB0A8;
+    objc_copyWeak(&v13, (a1 + 48));
+    v12 = *(a1 + 40);
+    [v6 removeItemsWithCompletion:v11];
 
-    objc_destroyWeak(&v14);
+    objc_destroyWeak(&v13);
   }
 
   else
   {
-    v7 = LA_LOG_0();
+    v7 = LA_LOG_0(0);
     v8 = LALogTypeForInternalError();
     if (os_log_type_enabled(v7, v8))
     {
@@ -1010,15 +985,13 @@ void __46__LARightStore_removeAllRightsWithCompletion___block_invoke_2(uint64_t 
     v10 = [LAAuthorizationError genericErrorWithMessage:@"Operation interrupted"];
     (*(v9 + 16))(v9, v10);
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 void __46__LARightStore_removeAllRightsWithCompletion___block_invoke_46(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = LA_LOG_0();
+  v4 = LA_LOG_0(v3);
   v5 = v4;
   if (v3)
   {
@@ -1045,9 +1018,9 @@ void __46__LARightStore_removeAllRightsWithCompletion___block_invoke_46(uint64_t
   }
 
   *buf = 138543618;
-  v11 = WeakRetained;
-  v12 = 2114;
-  v13 = v8;
+  v10 = WeakRetained;
+  v11 = 2114;
+  v12 = v8;
   _os_log_impl(&dword_1A784E000, v5, v6, "%{public}@ removeAllRights finished %{public}@", buf, 0x16u);
   if (v3)
   {
@@ -1055,8 +1028,6 @@ void __46__LARightStore_removeAllRightsWithCompletion___block_invoke_46(uint64_t
 
 LABEL_9:
   (*(*(a1 + 32) + 16))();
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 void __56__LARightStore__saveRight_identifier_secret_completion___block_invoke(uint64_t a1)
@@ -1081,13 +1052,13 @@ void __56__LARightStore__saveRight_identifier_secret_completion___block_invoke(u
 
 void __56__LARightStore__saveRight_identifier_secret_completion___block_invoke_2(uint64_t a1)
 {
-  v25 = *MEMORY[0x1E69E9840];
-  v2 = LA_LOG_0();
+  v24 = *MEMORY[0x1E69E9840];
+  v2 = LA_LOG_0(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
     *buf = 138543362;
-    v24 = v3;
+    v23 = v3;
     _os_log_impl(&dword_1A784E000, v2, OS_LOG_TYPE_DEFAULT, "%{public}@ _saveRight started", buf, 0xCu);
   }
 
@@ -1100,25 +1071,25 @@ void __56__LARightStore__saveRight_identifier_secret_completion___block_invoke_2
     v8 = [*(a1 + 48) accessKey];
     v9 = [v8 acl];
     v10 = [v9 data];
-    v16[0] = MEMORY[0x1E69E9820];
-    v16[1] = 3221225472;
-    v16[2] = __56__LARightStore__saveRight_identifier_secret_completion___block_invoke_47;
-    v16[3] = &unk_1E77CB608;
-    v17 = *(a1 + 56);
-    objc_copyWeak(&v22, (a1 + 80));
-    v21 = *(a1 + 72);
-    v18 = *(a1 + 64);
-    v19 = *(a1 + 40);
+    v15[0] = MEMORY[0x1E69E9820];
+    v15[1] = 3221225472;
+    v15[2] = __56__LARightStore__saveRight_identifier_secret_completion___block_invoke_47;
+    v15[3] = &unk_1E77CB608;
+    v16 = *(a1 + 56);
+    objc_copyWeak(&v21, (a1 + 80));
+    v20 = *(a1 + 72);
+    v17 = *(a1 + 64);
+    v18 = *(a1 + 40);
     v11 = v6;
-    v20 = v11;
-    [v7 storeKeyWithIdentifier:v5 domain:v11 protectedBy:v10 completion:v16];
+    v19 = v11;
+    [v7 storeKeyWithIdentifier:v5 domain:v11 protectedBy:v10 completion:v15];
 
-    objc_destroyWeak(&v22);
+    objc_destroyWeak(&v21);
   }
 
   else
   {
-    v12 = LA_LOG_0();
+    v12 = LA_LOG_0(0);
     v13 = LALogTypeForInternalError();
     if (os_log_type_enabled(v12, v13))
     {
@@ -1130,8 +1101,6 @@ void __56__LARightStore__saveRight_identifier_secret_completion___block_invoke_2
     v5 = [LAAuthorizationError genericErrorWithMessage:@"Operation interrupted"];
     (*(v14 + 16))(v14, 0, v5);
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 void __56__LARightStore__saveRight_identifier_secret_completion___block_invoke_47(id *a1, void *a2, void *a3)
@@ -1160,10 +1129,10 @@ void __56__LARightStore__saveRight_identifier_secret_completion___block_invoke_4
 
 void __56__LARightStore__saveRight_identifier_secret_completion___block_invoke_2_48(uint64_t a1)
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   if (*(a1 + 32))
   {
-    v2 = LA_LOG_0();
+    v2 = LA_LOG_0(a1);
     if (*(a1 + 32))
     {
       v3 = LALogTypeForInternalError();
@@ -1189,16 +1158,15 @@ void __56__LARightStore__saveRight_identifier_secret_completion___block_invoke_2
       }
 
       *buf = 138543618;
-      v28 = WeakRetained;
-      v29 = 2114;
-      v30 = v13;
+      v26 = WeakRetained;
+      v27 = 2114;
+      v28 = v13;
       _os_log_impl(&dword_1A784E000, v2, v3, "%{public}@ _saveRight finished %{public}@", buf, 0x16u);
       if (v12)
       {
       }
     }
 
-    v18 = *(a1 + 32);
     (*(*(a1 + 80) + 16))();
   }
 
@@ -1215,19 +1183,19 @@ void __56__LARightStore__saveRight_identifier_secret_completion___block_invoke_2
         v8 = *(a1 + 56);
         v9 = *(a1 + 40);
         v10 = [*(a1 + 64) publicKeyHash];
-        v20[0] = MEMORY[0x1E69E9820];
-        v20[1] = 3221225472;
-        v20[2] = __56__LARightStore__saveRight_identifier_secret_completion___block_invoke_49;
-        v20[3] = &unk_1E77CB5B8;
-        v21 = *(a1 + 72);
-        objc_copyWeak(&v26, (a1 + 88));
-        v25 = *(a1 + 80);
-        v22 = *(a1 + 32);
-        v23 = *(a1 + 56);
-        v24 = *(a1 + 48);
-        [v7 storeGenericPassword:v9 identifier:v6 domain:v8 protectedBy:v10 completion:v20];
+        v18[0] = MEMORY[0x1E69E9820];
+        v18[1] = 3221225472;
+        v18[2] = __56__LARightStore__saveRight_identifier_secret_completion___block_invoke_49;
+        v18[3] = &unk_1E77CB5B8;
+        v19 = *(a1 + 72);
+        objc_copyWeak(&v24, (a1 + 88));
+        v23 = *(a1 + 80);
+        v20 = *(a1 + 32);
+        v21 = *(a1 + 56);
+        v22 = *(a1 + 48);
+        [v7 storeGenericPassword:v9 identifier:v6 domain:v8 protectedBy:v10 completion:v18];
 
-        objc_destroyWeak(&v26);
+        objc_destroyWeak(&v24);
       }
 
       else
@@ -1238,7 +1206,7 @@ void __56__LARightStore__saveRight_identifier_secret_completion___block_invoke_2
 
     else
     {
-      v14 = LA_LOG_0();
+      v14 = LA_LOG_0(0);
       v15 = LALogTypeForInternalError();
       if (os_log_type_enabled(v14, v15))
       {
@@ -1251,8 +1219,6 @@ void __56__LARightStore__saveRight_identifier_secret_completion___block_invoke_2
       (*(v16 + 16))(v16, 0, v17);
     }
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 void __56__LARightStore__saveRight_identifier_secret_completion___block_invoke_49(id *a1, uint64_t a2, void *a3)
@@ -1286,56 +1252,57 @@ void __56__LARightStore__saveRight_identifier_secret_completion___block_invoke_2
 {
   v27 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 80));
+  v3 = WeakRetained;
   if (WeakRetained)
   {
     if (*(a1 + 32))
     {
-      v3 = LA_LOG_0();
+      v4 = LA_LOG_0(WeakRetained);
       if (*(a1 + 40))
       {
-        v4 = LALogTypeForInternalError();
+        v5 = LALogTypeForInternalError();
       }
 
       else
       {
-        v4 = OS_LOG_TYPE_DEFAULT;
+        v5 = OS_LOG_TYPE_DEFAULT;
       }
 
-      if (os_log_type_enabled(v3, v4))
+      if (os_log_type_enabled(v4, v5))
       {
-        v10 = objc_loadWeakRetained((a1 + 80));
-        v11 = *(a1 + 40);
-        if (v11)
+        v11 = objc_loadWeakRetained((a1 + 80));
+        v12 = *(a1 + 40);
+        if (v12)
         {
-          v12 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(err:%@)", *(a1 + 40)];
+          v13 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(err:%@)", *(a1 + 40)];
         }
 
         else
         {
-          v12 = @"successfully";
+          v13 = @"successfully";
         }
 
         *buf = 138543618;
-        v24 = v10;
+        v24 = v11;
         v25 = 2114;
-        v26 = v12;
-        _os_log_impl(&dword_1A784E000, v3, v4, "%{public}@ _saveRight finished %{public}@", buf, 0x16u);
-        if (v11)
+        v26 = v13;
+        _os_log_impl(&dword_1A784E000, v4, v5, "%{public}@ _saveRight finished %{public}@", buf, 0x16u);
+        if (v12)
         {
         }
       }
 
-      v13 = WeakRetained[1];
-      v14 = *(a1 + 48);
+      v14 = v3[1];
+      v15 = *(a1 + 48);
       v20[0] = MEMORY[0x1E69E9820];
       v20[1] = 3221225472;
       v20[2] = __56__LARightStore__saveRight_identifier_secret_completion___block_invoke_51;
       v20[3] = &unk_1E77CB298;
       v22 = *(a1 + 72);
       v21 = *(a1 + 32);
-      [v13 removeItemsWithDomain:v14 completion:v20];
+      [v14 removeItemsWithDomain:v15 completion:v20];
 
-      v8 = v22;
+      v9 = v22;
     }
 
     else
@@ -1344,38 +1311,36 @@ void __56__LARightStore__saveRight_identifier_secret_completion___block_invoke_2
       v16[1] = 3221225472;
       v16[2] = __56__LARightStore__saveRight_identifier_secret_completion___block_invoke_2_55;
       v16[3] = &unk_1E77CB568;
-      v9 = *(a1 + 56);
+      v10 = *(a1 + 56);
       v17 = *(a1 + 64);
       objc_copyWeak(&v19, (a1 + 80));
       v18 = *(a1 + 72);
-      [WeakRetained rightForIdentifier:v9 completion:v16];
+      [v3 rightForIdentifier:v10 completion:v16];
 
       objc_destroyWeak(&v19);
-      v8 = v17;
+      v9 = v17;
     }
   }
 
   else
   {
-    v5 = LA_LOG_0();
-    v6 = LALogTypeForInternalError();
-    if (os_log_type_enabled(v5, v6))
+    v6 = LA_LOG_0(0);
+    v7 = LALogTypeForInternalError();
+    if (os_log_type_enabled(v6, v7))
     {
       *buf = 0;
-      _os_log_impl(&dword_1A784E000, v5, v6, "Operation interrupted", buf, 2u);
+      _os_log_impl(&dword_1A784E000, v6, v7, "Operation interrupted", buf, 2u);
     }
 
-    v7 = *(a1 + 72);
-    v8 = [LAAuthorizationError genericErrorWithMessage:@"Operation interrupted"];
-    (*(v7 + 16))(v7, 0, v8);
+    v8 = *(a1 + 72);
+    v9 = [LAAuthorizationError genericErrorWithMessage:@"Operation interrupted"];
+    (*(v8 + 16))(v8, 0, v9);
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 void __56__LARightStore__saveRight_identifier_secret_completion___block_invoke_51(uint64_t a1, void *a2)
 {
-  v12[2] = *MEMORY[0x1E69E9840];
+  v11[2] = *MEMORY[0x1E69E9840];
   v3 = a2;
   v5 = *(a1 + 32);
   v4 = *(a1 + 40);
@@ -1386,15 +1351,15 @@ void __56__LARightStore__saveRight_identifier_secret_completion___block_invoke_5
     v7 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v12[0] = v7;
+  v11[0] = v7;
   v8 = v3;
   if (!v3)
   {
     v8 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v12[1] = v8;
-  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:2];
+  v11[1] = v8;
+  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:2];
   v10 = [v6 errorWithCode:-1008 withUnderlyingErrors:v9];
   (*(v4 + 16))(v4, 0, v10);
 
@@ -1417,8 +1382,6 @@ LABEL_9:
   }
 
 LABEL_7:
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 void __56__LARightStore__saveRight_identifier_secret_completion___block_invoke_2_55(uint64_t a1, void *a2, void *a3)
@@ -1444,9 +1407,9 @@ void __56__LARightStore__saveRight_identifier_secret_completion___block_invoke_2
 
 uint64_t __56__LARightStore__saveRight_identifier_secret_completion___block_invoke_3(uint64_t a1)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 32);
-  v3 = LA_LOG_0();
+  v3 = LA_LOG_0(a1);
   v4 = v3;
   if (v2)
   {
@@ -1463,48 +1426,37 @@ uint64_t __56__LARightStore__saveRight_identifier_secret_completion___block_invo
     if (os_log_type_enabled(v4, v5))
     {
       WeakRetained = objc_loadWeakRetained((a1 + 56));
-      v10 = *(a1 + 32);
-      if (v10)
+      v8 = *(a1 + 32);
+      if (v8)
       {
-        v11 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(err:%@)", *(a1 + 32)];
+        v9 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(err:%@)", *(a1 + 32)];
       }
 
       else
       {
-        v11 = @"successfully";
+        v9 = @"successfully";
       }
 
       *buf = 138543618;
-      v16 = WeakRetained;
-      v17 = 2114;
-      v18 = v11;
+      v12 = WeakRetained;
+      v13 = 2114;
+      v14 = v9;
       _os_log_impl(&dword_1A784E000, v4, v5, "%{public}@ _saveRight finished %{public}@", buf, 0x16u);
-      if (v10)
+      if (v8)
       {
       }
     }
-
-    v12 = *(a1 + 32);
-    v8 = *(*(a1 + 48) + 16);
   }
 
-  else
+  else if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
-    {
-      v6 = objc_loadWeakRetained((a1 + 56));
-      *buf = 138543362;
-      v16 = v6;
-      _os_log_impl(&dword_1A784E000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@ _saveRight finished successfully", buf, 0xCu);
-    }
-
-    v7 = *(a1 + 40);
-    v8 = *(*(a1 + 48) + 16);
+    v6 = objc_loadWeakRetained((a1 + 56));
+    *buf = 138543362;
+    v12 = v6;
+    _os_log_impl(&dword_1A784E000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@ _saveRight finished successfully", buf, 0xCu);
   }
 
-  result = v8();
-  v14 = *MEMORY[0x1E69E9840];
-  return result;
+  return (*(*(a1 + 48) + 16))();
 }
 
 - (void)_saveRight:(void *)right identifier:(void *)identifier secret:(void *)secret completion:
@@ -1536,13 +1488,13 @@ uint64_t __56__LARightStore__saveRight_identifier_secret_completion___block_invo
 
 void __55__LARightStore_saveRight_identifier_secret_completion___block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x1E69E9840];
-  v2 = LA_LOG_0();
+  v13 = *MEMORY[0x1E69E9840];
+  v2 = LA_LOG_0(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
     *buf = 138543362;
-    v13 = v3;
+    v12 = v3;
     _os_log_impl(&dword_1A784E000, v2, OS_LOG_TYPE_DEFAULT, "%{public}@ saveRightWithSecret started", buf, 0xCu);
   }
 
@@ -1551,17 +1503,16 @@ void __55__LARightStore_saveRight_identifier_secret_completion___block_invoke(ui
   v5 = *(a1 + 40);
   v6 = *(a1 + 48);
   v7 = *(a1 + 56);
-  v9[0] = MEMORY[0x1E69E9820];
-  v9[1] = 3221225472;
-  v9[2] = __55__LARightStore_saveRight_identifier_secret_completion___block_invoke_42;
-  v9[3] = &unk_1E77CB4F0;
-  objc_copyWeak(&v11, buf);
-  v10 = *(a1 + 64);
-  [(LARightStore *)v4 _saveRight:v5 identifier:v6 secret:v7 completion:v9];
+  v8[0] = MEMORY[0x1E69E9820];
+  v8[1] = 3221225472;
+  v8[2] = __55__LARightStore_saveRight_identifier_secret_completion___block_invoke_42;
+  v8[3] = &unk_1E77CB4F0;
+  objc_copyWeak(&v10, buf);
+  v9 = *(a1 + 64);
+  [(LARightStore *)v4 _saveRight:v5 identifier:v6 secret:v7 completion:v8];
 
-  objc_destroyWeak(&v11);
+  objc_destroyWeak(&v10);
   objc_destroyWeak(buf);
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (id)keyStore
@@ -1586,11 +1537,10 @@ void __55__LARightStore_saveRight_identifier_secret_completion___block_invoke(ui
 
 - (void)init
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138543362;
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138543362;
   selfCopy = self;
-  _os_log_debug_impl(&dword_1A784E000, a2, OS_LOG_TYPE_DEBUG, "%{public}@ initialized", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(&dword_1A784E000, a2, OS_LOG_TYPE_DEBUG, "%{public}@ initialized", &v2, 0xCu);
 }
 
 @end

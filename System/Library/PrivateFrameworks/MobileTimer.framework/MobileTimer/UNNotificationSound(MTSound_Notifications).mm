@@ -7,14 +7,14 @@
 
 - (id)mtSound
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v2 = MTLogForCategory(0);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     mt_Description = [self mt_Description];
-    v18 = 138412290;
-    v19 = mt_Description;
-    _os_log_impl(&dword_1B1F9F000, v2, OS_LOG_TYPE_DEFAULT, "[Sound] Converting %@ to MTSound", &v18, 0xCu);
+    v17 = 138412290;
+    v18 = mt_Description;
+    _os_log_impl(&dword_1B1F9F000, v2, OS_LOG_TYPE_DEFAULT, "[Sound] Converting %@ to MTSound", &v17, 0xCu);
   }
 
   toneIdentifier = [self toneIdentifier];
@@ -41,40 +41,38 @@ LABEL_7:
   }
 
   alertTopic = [self alertTopic];
-  v14 = [alertTopic isEqualToString:*MEMORY[0x1E69DA908]];
+  v13 = [alertTopic isEqualToString:*MEMORY[0x1E69DA908]];
 
-  if (v14)
+  if (v13)
   {
-    v15 = 2;
+    v14 = 2;
   }
 
   else
   {
     alertTopic2 = [self alertTopic];
-    v17 = [alertTopic2 isEqualToString:*MEMORY[0x1E69DA910]];
+    v16 = [alertTopic2 isEqualToString:*MEMORY[0x1E69DA910]];
 
-    if (v17)
+    if (v16)
     {
-      v15 = 3;
+      v14 = 3;
     }
 
     else
     {
-      v15 = 4 * ([self alertType] == 17);
+      v14 = 4 * ([self alertType] == 17);
     }
   }
 
-  v9 = [MTSound defaultSoundForCategory:v15];
+  v9 = [MTSound defaultSoundForCategory:v14];
 LABEL_8:
   v10 = MTLogForCategory(0);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
-    v18 = 138412290;
-    v19 = v9;
-    _os_log_impl(&dword_1B1F9F000, v10, OS_LOG_TYPE_DEFAULT, "[Sound] Made %@", &v18, 0xCu);
+    v17 = 138412290;
+    v18 = v9;
+    _os_log_impl(&dword_1B1F9F000, v10, OS_LOG_TYPE_DEFAULT, "[Sound] Made %@", &v17, 0xCu);
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v9;
 }

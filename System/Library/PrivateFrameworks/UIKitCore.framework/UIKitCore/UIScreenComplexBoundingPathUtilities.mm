@@ -3,7 +3,7 @@
 
 @implementation UIScreenComplexBoundingPathUtilities
 
-uint64_t __67___UIScreenComplexBoundingPathUtilities__loadBitmapForScreen_type___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
+uint64_t __67___UIScreenComplexBoundingPathUtilities__loadBitmapForScreen_type___block_invoke(uint64_t a1, const char *a2, uint64_t a3)
 {
   result = *(*(a1 + 32) + 24);
   if (!result)
@@ -13,7 +13,7 @@ uint64_t __67___UIScreenComplexBoundingPathUtilities__loadBitmapForScreen_type__
 
   v7 = *(a1 + 40);
   v8 = *(a1 + 48);
-  [result bitmapData];
+  objc_msgSend_bitmapData(result);
   if (!v23)
   {
     return 0;

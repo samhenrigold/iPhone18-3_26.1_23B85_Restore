@@ -1,18 +1,18 @@
-uint64_t ODIE::Kernels::Core::CPU::valueInferenceElementwiseSub(uint64_t a1, uint64_t **a2, uint64_t a3, uint64_t **a4)
+uint64_t ODIE::Kernels::Core::CPU::valueInferenceElementwiseSub(__int128 *a1, uint64_t **a2, uint64_t a3, uint64_t **a4)
 {
   v4 = a2[1][1];
   v5 = **a2;
   if (*(v5 + 8) != 2)
   {
     odie_log(1, "/Library/Caches/com.apple.xbs/Sources/OnDeviceInferenceEngine/CoreKernels/Types/Type.hpp", "as", "Mismatch in Type.");
-    ODIE::Platform::abort(v174);
+    ODIE::Platform::abort(v172);
   }
 
   v6 = *(v5 + 24);
   if (*(v6 + 8) != 1)
   {
     odie_log(1, "/Library/Caches/com.apple.xbs/Sources/OnDeviceInferenceEngine/CoreKernels/Types/Type.hpp", "as", "Mismatch in Type.");
-    ODIE::Platform::abort(v175);
+    ODIE::Platform::abort(v173);
   }
 
   v7 = *(v6 + 24);
@@ -20,14 +20,14 @@ uint64_t ODIE::Kernels::Core::CPU::valueInferenceElementwiseSub(uint64_t a1, uin
   if (*(v8 + 8) != 2)
   {
     odie_log(1, "/Library/Caches/com.apple.xbs/Sources/OnDeviceInferenceEngine/CoreKernels/Types/Type.hpp", "as", "Mismatch in Type.");
-    ODIE::Platform::abort(v176);
+    ODIE::Platform::abort(v174);
   }
 
   v9 = *(v8 + 24);
   if (*(v9 + 8) != 1)
   {
     odie_log(1, "/Library/Caches/com.apple.xbs/Sources/OnDeviceInferenceEngine/CoreKernels/Types/Type.hpp", "as", "Mismatch in Type.");
-    ODIE::Platform::abort(v177);
+    ODIE::Platform::abort(v175);
   }
 
   v10 = *(v9 + 24);
@@ -41,26 +41,26 @@ uint64_t ODIE::Kernels::Core::CPU::valueInferenceElementwiseSub(uint64_t a1, uin
   if (*(v11 + 8) != 2)
   {
     odie_log(1, "/Library/Caches/com.apple.xbs/Sources/OnDeviceInferenceEngine/CoreKernels/Types/Type.hpp", "as", "Mismatch in Type.");
-    ODIE::Platform::abort(v178);
+    ODIE::Platform::abort(v176);
   }
 
-  v180 = (*a2)[1];
-  v181 = (*a4)[1];
+  v178 = (*a2)[1];
+  v179 = (*a4)[1];
   v12 = *a2[1];
   if (*(v12 + 8) != 2)
   {
-    odie_log(1, "/Library/Caches/com.apple.xbs/Sources/OnDeviceInferenceEngine/CoreKernels/Types/Type.hpp", "as", "Mismatch in Type.", v180);
-    ODIE::Platform::abort(v179);
+    odie_log(1, "/Library/Caches/com.apple.xbs/Sources/OnDeviceInferenceEngine/CoreKernels/Types/Type.hpp", "as", "Mismatch in Type.", v178);
+    ODIE::Platform::abort(v177);
   }
 
   v13 = *(v11 + 40);
   v14 = *(v11 + 32);
   v15 = *(v12 + 40);
   v16 = *(v12 + 32);
-  v17 = *(a1 + 16);
-  v197 = *a1;
-  v198 = v17;
-  v199 = *(a1 + 32);
+  v17 = a1[1];
+  v195 = *a1;
+  v196 = v17;
+  v197 = *(a1 + 4);
   if (v14 <= v16)
   {
     v18 = v16;
@@ -72,32 +72,32 @@ uint64_t ODIE::Kernels::Core::CPU::valueInferenceElementwiseSub(uint64_t a1, uin
   }
 
   v19 = v18;
-  v20 = *(a1 + 16);
-  v192 = *a1;
-  *v193 = v20;
-  *&v193[16] = *(a1 + 32);
+  v20 = a1[1];
+  v190 = *a1;
+  *v191 = v20;
+  *&v191[16] = *(a1 + 4);
+  v192 = 0;
+  v193 = 0;
   v194 = 0;
-  v195 = 0;
-  v196 = 0;
-  v187 = v192;
-  *v188 = v20;
-  *&v188[16] = *(a1 + 32);
+  v185 = v190;
+  *v186 = v20;
+  *&v186[16] = *(a1 + 4);
+  v187 = 0;
+  v188 = 0;
   v189 = 0;
-  v190 = 0;
-  v191 = 0;
-  ODIE::Kernels::Core::CPU::Utils::equalizeRanks(v13, v14, v18, &v192);
-  ODIE::Kernels::Core::CPU::Utils::equalizeRanks(v15, v16, v19, &v187);
-  v182 = v197;
-  *v183 = v198;
-  *&v183[16] = v199;
+  ODIE::Kernels::Core::CPU::Utils::equalizeRanks(v13, v14, v18, &v190);
+  ODIE::Kernels::Core::CPU::Utils::equalizeRanks(v15, v16, v19, &v185);
+  v180 = v195;
+  *v181 = v196;
+  *&v181[16] = v197;
+  v182 = 0;
+  v183 = 0;
   v184 = 0;
-  v185 = 0;
-  v186 = 0;
-  ODIE::Kernels::Core::CPU::Utils::broadcastShapes(&v192, &v187, &v182);
-  if (v185)
+  ODIE::Kernels::Core::CPU::Utils::broadcastShapes(&v190, &v185, &v180);
+  if (v183)
   {
-    v21 = v184;
-    v22 = 4 * v185;
+    v21 = v182;
+    v22 = 4 * v183;
     v23 = 1;
     do
     {
@@ -132,66 +132,66 @@ uint64_t ODIE::Kernels::Core::CPU::valueInferenceElementwiseSub(uint64_t a1, uin
 
         if (v10 == 68)
         {
-          v231 = v197;
-          *v232 = v198;
-          *&v232[16] = v199;
+          v229 = v195;
+          *v230 = v196;
+          *&v230[16] = v197;
+          v231 = 0;
+          v232 = 0;
           v233 = 0;
-          v234 = 0;
-          v235 = 0;
-          v226 = v197;
-          *v227 = v198;
-          *&v227[16] = v199;
+          v224 = v195;
+          *v225 = v196;
+          *&v225[16] = v197;
+          v226 = 0;
+          v227 = 0;
           v228 = 0;
-          v229 = 0;
-          v230 = 0;
-          ODIE::Kernels::Core::CPU::Utils::equalizeRanks(v13, v14, v25, &v231);
-          ODIE::Kernels::Core::CPU::Utils::equalizeRanks(v15, v16, v25, &v226);
-          v221 = v197;
-          *v222 = v198;
-          *&v222[16] = v199;
+          ODIE::Kernels::Core::CPU::Utils::equalizeRanks(v13, v14, v25, &v229);
+          ODIE::Kernels::Core::CPU::Utils::equalizeRanks(v15, v16, v25, &v224);
+          v219 = v195;
+          *v220 = v196;
+          *&v220[16] = v197;
+          v221 = 0;
           v223 = 0;
-          v225 = 0;
-          v224 = 0;
-          ODIE::Kernels::Core::CPU::Utils::broadcastShapes(&v231, &v226, &v221);
+          v222 = 0;
+          ODIE::Kernels::Core::CPU::Utils::broadcastShapes(&v229, &v224, &v219);
+          v201 = v195;
+          v202 = v196;
           v203 = v197;
-          v204 = v198;
-          v205 = v199;
-          _ZN4ODIE7Kernels4Core3CPU5Utils14TensorIteratorIDF16_EC2ENS_6Common9AllocatorEPKDF16_RNS6_6VectorIiEESC_(&v212, &v203, v180, &v231, &v221);
+          _ZN4ODIE7Kernels4Core3CPU5Utils14TensorIteratorIDF16_EC2ENS_6Common9AllocatorEPKDF16_RNS6_6VectorIiEESC_(&v210, &v201, v178, &v229, &v219);
+          v198 = v195;
+          v199 = v196;
           v200 = v197;
-          v201 = v198;
-          v202 = v199;
-          _ZN4ODIE7Kernels4Core3CPU5Utils14TensorIteratorIDF16_EC2ENS_6Common9AllocatorEPKDF16_RNS6_6VectorIiEESC_(&v203, &v200, v4, &v226, &v221);
-          if (v219)
+          _ZN4ODIE7Kernels4Core3CPU5Utils14TensorIteratorIDF16_EC2ENS_6Common9AllocatorEPKDF16_RNS6_6VectorIiEESC_(&v201, &v198, v4, &v224, &v219);
+          if (v217)
           {
-            bzero(v218, 4 * v219);
+            bzero(v216, 4 * v217);
           }
 
-          if (v210)
+          if (v208)
           {
-            bzero(v209, 4 * v210);
+            bzero(v207, 4 * v208);
           }
 
           if (v23 < 1)
           {
-            goto LABEL_181;
+            goto LABEL_180;
           }
 
           v26 = 0;
           while (1)
           {
-            v27 = v219;
-            if (!v219)
+            v27 = v217;
+            if (!v217)
             {
 LABEL_37:
-              v34 = (v215 + 2 * v27);
+              v34 = (v213 + 2 * v27);
               goto LABEL_39;
             }
 
             v28 = 0;
-            v29 = v216;
-            v30 = v217;
-            v31 = v218;
-            v32 = v220;
+            v29 = v214;
+            v30 = v215;
+            v31 = v216;
+            v32 = v218;
             while (1)
             {
               v33 = *v29++;
@@ -218,14 +218,14 @@ LABEL_35:
 
             v34 = 0;
 LABEL_39:
-            v35 = v210;
-            if (v210)
+            v35 = v208;
+            if (v208)
             {
               v36 = 0;
-              v37 = v207;
-              v38 = v208;
-              v39 = v209;
-              v40 = v211;
+              v37 = v205;
+              v38 = v206;
+              v39 = v207;
+              v40 = v209;
               do
               {
                 v41 = *v37++;
@@ -233,7 +233,7 @@ LABEL_39:
                 {
                   if (*v39 >= *v38)
                   {
-                    goto LABEL_181;
+                    goto LABEL_180;
                   }
 
                   v36 += *v40 * *v39;
@@ -251,7 +251,7 @@ LABEL_39:
 
             if (v34)
             {
-              _ZF = v206 == 0;
+              _ZF = v204 == 0;
             }
 
             else
@@ -261,81 +261,81 @@ LABEL_39:
 
             if (!_ZF)
             {
-              *(v181 + 2 * v26) = *v34 - *(v206 + 2 * v35);
-              _ZN4ODIE7Kernels4Core3CPU5Utils14TensorIteratorIDF16_E4nextEv(&v212);
-              _ZN4ODIE7Kernels4Core3CPU5Utils14TensorIteratorIDF16_E4nextEv(&v203);
+              *(v179 + 2 * v26) = *v34 - *(v204 + 2 * v35);
+              _ZN4ODIE7Kernels4Core3CPU5Utils14TensorIteratorIDF16_E4nextEv(&v210);
+              _ZN4ODIE7Kernels4Core3CPU5Utils14TensorIteratorIDF16_E4nextEv(&v201);
               if (++v26 != v23)
               {
                 continue;
               }
             }
 
-            goto LABEL_181;
+            goto LABEL_180;
           }
 
           v28 += *v32 * *v31;
           goto LABEL_35;
         }
 
-        v231 = v197;
-        *v232 = v198;
-        *&v232[16] = v199;
+        v229 = v195;
+        *v230 = v196;
+        *&v230[16] = v197;
+        v231 = 0;
+        v232 = 0;
         v233 = 0;
-        v234 = 0;
-        v235 = 0;
-        v226 = v197;
-        *v227 = v198;
-        *&v227[16] = v199;
+        v224 = v195;
+        *v225 = v196;
+        *&v225[16] = v197;
+        v226 = 0;
+        v227 = 0;
         v228 = 0;
-        v229 = 0;
-        v230 = 0;
-        ODIE::Kernels::Core::CPU::Utils::equalizeRanks(v13, v14, v25, &v231);
-        ODIE::Kernels::Core::CPU::Utils::equalizeRanks(v15, v16, v25, &v226);
-        v221 = v197;
-        *v222 = v198;
-        *&v222[16] = v199;
+        ODIE::Kernels::Core::CPU::Utils::equalizeRanks(v13, v14, v25, &v229);
+        ODIE::Kernels::Core::CPU::Utils::equalizeRanks(v15, v16, v25, &v224);
+        v219 = v195;
+        *v220 = v196;
+        *&v220[16] = v197;
+        v221 = 0;
         v223 = 0;
-        v225 = 0;
-        v224 = 0;
-        ODIE::Kernels::Core::CPU::Utils::broadcastShapes(&v231, &v226, &v221);
+        v222 = 0;
+        ODIE::Kernels::Core::CPU::Utils::broadcastShapes(&v229, &v224, &v219);
+        v201 = v195;
+        v202 = v196;
         v203 = v197;
-        v204 = v198;
-        v205 = v199;
-        _ZN4ODIE7Kernels4Core3CPU5Utils14TensorIteratorIDF16_EC2ENS_6Common9AllocatorEPKDF16_RNS6_6VectorIiEESC_(&v212, &v203, v180, &v231, &v221);
+        _ZN4ODIE7Kernels4Core3CPU5Utils14TensorIteratorIDF16_EC2ENS_6Common9AllocatorEPKDF16_RNS6_6VectorIiEESC_(&v210, &v201, v178, &v229, &v219);
+        v198 = v195;
+        v199 = v196;
         v200 = v197;
-        v201 = v198;
-        v202 = v199;
-        _ZN4ODIE7Kernels4Core3CPU5Utils14TensorIteratorIDF16_EC2ENS_6Common9AllocatorEPKDF16_RNS6_6VectorIiEESC_(&v203, &v200, v4, &v226, &v221);
-        if (v219)
+        _ZN4ODIE7Kernels4Core3CPU5Utils14TensorIteratorIDF16_EC2ENS_6Common9AllocatorEPKDF16_RNS6_6VectorIiEESC_(&v201, &v198, v4, &v224, &v219);
+        if (v217)
         {
-          bzero(v218, 4 * v219);
+          bzero(v216, 4 * v217);
         }
 
-        if (v210)
+        if (v208)
         {
-          bzero(v209, 4 * v210);
+          bzero(v207, 4 * v208);
         }
 
         if (v23 < 1)
         {
-          goto LABEL_181;
+          goto LABEL_180;
         }
 
         v98 = 0;
 LABEL_157:
-        v99 = v219;
-        if (!v219)
+        v99 = v217;
+        if (!v217)
         {
 LABEL_164:
-          v106 = (v215 + 2 * v99);
+          v106 = v213 + 2 * v99;
           goto LABEL_166;
         }
 
         v100 = 0;
-        v101 = v216;
-        v102 = v217;
-        v103 = v218;
-        v104 = v220;
+        v101 = v214;
+        v102 = v215;
+        v103 = v216;
+        v104 = v218;
         while (1)
         {
           v105 = *v101++;
@@ -345,14 +345,14 @@ LABEL_164:
             {
               v106 = 0;
 LABEL_166:
-              v107 = v210;
-              if (v210)
+              v107 = v208;
+              if (v208)
               {
                 v108 = 0;
-                v109 = v207;
-                v110 = v208;
-                v111 = v209;
-                v112 = v211;
+                v109 = v205;
+                v110 = v206;
+                v111 = v207;
+                v112 = v209;
                 do
                 {
                   v113 = *v109++;
@@ -360,7 +360,7 @@ LABEL_166:
                   {
                     if (*v111 >= *v110)
                     {
-                      goto LABEL_181;
+                      goto LABEL_180;
                     }
 
                     v108 += *v112 * *v111;
@@ -373,12 +373,11 @@ LABEL_166:
                 }
 
                 while (v107);
-                v107 = v108;
               }
 
               if (v106)
               {
-                v114 = v206 == 0;
+                v114 = v204 == 0;
               }
 
               else
@@ -388,23 +387,21 @@ LABEL_166:
 
               if (v114)
               {
-                goto LABEL_181;
+                goto LABEL_180;
               }
 
-              v115 = *(v206 + 2 * v107);
-              v116 = *v106;
               __asm { FCMP            H0, #0 }
 
-              v121 = !_ZF;
-              *(v181 + v98) = v121;
-              _ZN4ODIE7Kernels4Core3CPU5Utils14TensorIteratorIDF16_E4nextEv(&v212);
-              _ZN4ODIE7Kernels4Core3CPU5Utils14TensorIteratorIDF16_E4nextEv(&v203);
+              v119 = !_ZF;
+              *(v179 + v98) = v119;
+              _ZN4ODIE7Kernels4Core3CPU5Utils14TensorIteratorIDF16_E4nextEv(&v210);
+              _ZN4ODIE7Kernels4Core3CPU5Utils14TensorIteratorIDF16_E4nextEv(&v201);
               if (++v98 == v23)
               {
-LABEL_181:
-                _ZN4ODIE7Kernels4Core3CPU5Utils14TensorIteratorIDF16_ED2Ev(&v203);
-                _ZN4ODIE7Kernels4Core3CPU5Utils14TensorIteratorIDF16_ED2Ev(&v212);
-                goto LABEL_266;
+LABEL_180:
+                _ZN4ODIE7Kernels4Core3CPU5Utils14TensorIteratorIDF16_ED2Ev(&v201);
+                _ZN4ODIE7Kernels4Core3CPU5Utils14TensorIteratorIDF16_ED2Ev(&v210);
+                goto LABEL_265;
               }
 
               goto LABEL_157;
@@ -425,9 +422,9 @@ LABEL_181:
       }
 
 LABEL_86:
-      odie_log(1, "/Library/Caches/com.apple.xbs/Sources/OnDeviceInferenceEngine/CoreKernels/ElementwiseBinary.cpp", "valueInferenceElementwiseBinary", "Unexpected data type encountered.", v180);
+      odie_log(1, "/Library/Caches/com.apple.xbs/Sources/OnDeviceInferenceEngine/CoreKernels/ElementwiseBinary.cpp", "valueInferenceElementwiseBinary", "Unexpected data type encountered.", v178);
       v61 = 3;
-      goto LABEL_273;
+      goto LABEL_272;
     }
 
     if (v14 <= v16)
@@ -442,66 +439,66 @@ LABEL_86:
 
     if (v10 == 25)
     {
-      v231 = v197;
-      *v232 = v198;
-      *&v232[16] = v199;
+      v229 = v195;
+      *v230 = v196;
+      *&v230[16] = v197;
+      v231 = 0;
+      v232 = 0;
       v233 = 0;
-      v234 = 0;
-      v235 = 0;
-      v226 = v197;
-      *v227 = v198;
-      *&v227[16] = v199;
+      v224 = v195;
+      *v225 = v196;
+      *&v225[16] = v197;
+      v226 = 0;
+      v227 = 0;
       v228 = 0;
-      v229 = 0;
-      v230 = 0;
-      ODIE::Kernels::Core::CPU::Utils::equalizeRanks(v13, v14, v62, &v231);
-      ODIE::Kernels::Core::CPU::Utils::equalizeRanks(v15, v16, v62, &v226);
-      v221 = v197;
-      *v222 = v198;
-      *&v222[16] = v199;
+      ODIE::Kernels::Core::CPU::Utils::equalizeRanks(v13, v14, v62, &v229);
+      ODIE::Kernels::Core::CPU::Utils::equalizeRanks(v15, v16, v62, &v224);
+      v219 = v195;
+      *v220 = v196;
+      *&v220[16] = v197;
+      v221 = 0;
       v223 = 0;
-      v225 = 0;
-      v224 = 0;
-      ODIE::Kernels::Core::CPU::Utils::broadcastShapes(&v231, &v226, &v221);
+      v222 = 0;
+      ODIE::Kernels::Core::CPU::Utils::broadcastShapes(&v229, &v224, &v219);
+      v201 = v195;
+      v202 = v196;
       v203 = v197;
-      v204 = v198;
-      v205 = v199;
-      ODIE::Kernels::Core::CPU::Utils::TensorIterator<int>::TensorIterator(&v212, &v203, v180, &v231, &v221);
+      ODIE::Kernels::Core::CPU::Utils::TensorIterator<int>::TensorIterator(&v210, &v201, v178, &v229, &v219);
+      v198 = v195;
+      v199 = v196;
       v200 = v197;
-      v201 = v198;
-      v202 = v199;
-      ODIE::Kernels::Core::CPU::Utils::TensorIterator<int>::TensorIterator(&v203, &v200, v4, &v226, &v221);
-      if (v219)
+      ODIE::Kernels::Core::CPU::Utils::TensorIterator<int>::TensorIterator(&v201, &v198, v4, &v224, &v219);
+      if (v217)
       {
-        bzero(v218, 4 * v219);
+        bzero(v216, 4 * v217);
       }
 
-      if (v210)
+      if (v208)
       {
-        bzero(v209, 4 * v210);
+        bzero(v207, 4 * v208);
       }
 
       if (v23 < 1)
       {
-        goto LABEL_237;
+        goto LABEL_236;
       }
 
       v63 = 0;
       while (1)
       {
-        v64 = v219;
-        if (!v219)
+        v64 = v217;
+        if (!v217)
         {
 LABEL_104:
-          v71 = (v215 + 4 * v64);
+          v71 = (v213 + 4 * v64);
           goto LABEL_106;
         }
 
         v65 = 0;
-        v66 = v216;
-        v67 = v217;
-        v68 = v218;
-        v69 = v220;
+        v66 = v214;
+        v67 = v215;
+        v68 = v216;
+        v69 = v218;
         while (1)
         {
           v70 = *v66++;
@@ -528,14 +525,14 @@ LABEL_102:
 
         v71 = 0;
 LABEL_106:
-        v72 = v210;
-        if (v210)
+        v72 = v208;
+        if (v208)
         {
           v73 = 0;
-          v74 = v207;
-          v75 = v208;
-          v76 = v209;
-          v77 = v211;
+          v74 = v205;
+          v75 = v206;
+          v76 = v207;
+          v77 = v209;
           do
           {
             v78 = *v74++;
@@ -543,7 +540,7 @@ LABEL_106:
             {
               if (*v76 >= *v75)
               {
-                goto LABEL_237;
+                goto LABEL_236;
               }
 
               v73 += *v77 * *v76;
@@ -561,7 +558,7 @@ LABEL_106:
 
         if (v71)
         {
-          v79 = v206 == 0;
+          v79 = v204 == 0;
         }
 
         else
@@ -571,152 +568,152 @@ LABEL_106:
 
         if (!v79)
         {
-          *(v181 + 4 * v63) = *v71 - *(v206 + 4 * v72);
-          ODIE::Kernels::Core::CPU::Utils::TensorIterator<int>::next(&v212);
-          ODIE::Kernels::Core::CPU::Utils::TensorIterator<int>::next(&v203);
+          *(v179 + 4 * v63) = *v71 - *(v204 + 4 * v72);
+          ODIE::Kernels::Core::CPU::Utils::TensorIterator<int>::next(&v210);
+          ODIE::Kernels::Core::CPU::Utils::TensorIterator<int>::next(&v201);
           if (++v63 != v23)
           {
             continue;
           }
         }
 
-        goto LABEL_237;
+        goto LABEL_236;
       }
 
       v65 += *v69 * *v68;
       goto LABEL_102;
     }
 
-    v231 = v197;
-    *v232 = v198;
-    *&v232[16] = v199;
+    v229 = v195;
+    *v230 = v196;
+    *&v230[16] = v197;
+    v231 = 0;
+    v232 = 0;
     v233 = 0;
-    v234 = 0;
-    v235 = 0;
-    v226 = v197;
-    *v227 = v198;
-    *&v227[16] = v199;
+    v224 = v195;
+    *v225 = v196;
+    *&v225[16] = v197;
+    v226 = 0;
+    v227 = 0;
     v228 = 0;
-    v229 = 0;
-    v230 = 0;
-    ODIE::Kernels::Core::CPU::Utils::equalizeRanks(v13, v14, v62, &v231);
-    ODIE::Kernels::Core::CPU::Utils::equalizeRanks(v15, v16, v62, &v226);
-    v221 = v197;
-    *v222 = v198;
-    *&v222[16] = v199;
+    ODIE::Kernels::Core::CPU::Utils::equalizeRanks(v13, v14, v62, &v229);
+    ODIE::Kernels::Core::CPU::Utils::equalizeRanks(v15, v16, v62, &v224);
+    v219 = v195;
+    *v220 = v196;
+    *&v220[16] = v197;
+    v221 = 0;
     v223 = 0;
-    v225 = 0;
-    v224 = 0;
-    ODIE::Kernels::Core::CPU::Utils::broadcastShapes(&v231, &v226, &v221);
+    v222 = 0;
+    ODIE::Kernels::Core::CPU::Utils::broadcastShapes(&v229, &v224, &v219);
+    v201 = v195;
+    v202 = v196;
     v203 = v197;
-    v204 = v198;
-    v205 = v199;
-    ODIE::Kernels::Core::CPU::Utils::TensorIterator<int>::TensorIterator(&v212, &v203, v180, &v231, &v221);
+    ODIE::Kernels::Core::CPU::Utils::TensorIterator<int>::TensorIterator(&v210, &v201, v178, &v229, &v219);
+    v198 = v195;
+    v199 = v196;
     v200 = v197;
-    v201 = v198;
-    v202 = v199;
-    ODIE::Kernels::Core::CPU::Utils::TensorIterator<int>::TensorIterator(&v203, &v200, v4, &v226, &v221);
-    if (v219)
+    ODIE::Kernels::Core::CPU::Utils::TensorIterator<int>::TensorIterator(&v201, &v198, v4, &v224, &v219);
+    if (v217)
     {
-      bzero(v218, 4 * v219);
+      bzero(v216, 4 * v217);
     }
 
-    if (v210)
+    if (v208)
     {
-      bzero(v209, 4 * v210);
+      bzero(v207, 4 * v208);
     }
 
     if (v23 < 1)
     {
-      goto LABEL_237;
+      goto LABEL_236;
+    }
+
+    v137 = 0;
+LABEL_215:
+    v138 = v217;
+    if (!v217)
+    {
+LABEL_222:
+      v145 = (v213 + 4 * v138);
+      goto LABEL_224;
     }
 
     v139 = 0;
-LABEL_216:
-    v140 = v219;
-    if (!v219)
-    {
-LABEL_223:
-      v147 = (v215 + 4 * v140);
-      goto LABEL_225;
-    }
-
-    v141 = 0;
+    v140 = v214;
+    v141 = v215;
     v142 = v216;
-    v143 = v217;
-    v144 = v218;
-    v145 = v220;
+    v143 = v218;
     while (1)
     {
-      v146 = *v142++;
-      if (v146 != 1)
+      v144 = *v140++;
+      if (v144 != 1)
       {
-        if (*v144 >= *v143)
+        if (*v142 >= *v141)
         {
-          v147 = 0;
-LABEL_225:
-          v148 = v210;
-          if (v210)
+          v145 = 0;
+LABEL_224:
+          v146 = v208;
+          if (v208)
           {
-            v149 = 0;
+            v147 = 0;
+            v148 = v205;
+            v149 = v206;
             v150 = v207;
-            v151 = v208;
-            v152 = v209;
-            v153 = v211;
+            v151 = v209;
             do
             {
-              v154 = *v150++;
-              if (v154 != 1)
+              v152 = *v148++;
+              if (v152 != 1)
               {
-                if (*v152 >= *v151)
+                if (*v150 >= *v149)
                 {
-                  goto LABEL_237;
+                  goto LABEL_236;
                 }
 
-                v149 += *v153 * *v152;
+                v147 += *v151 * *v150;
               }
 
-              ++v153;
               ++v151;
-              ++v152;
-              --v148;
+              ++v149;
+              ++v150;
+              --v146;
             }
 
-            while (v148);
-            v148 = v149;
+            while (v146);
+            v146 = v147;
           }
 
-          if (v147)
+          if (v145)
           {
-            v155 = v206 == 0;
+            v153 = v204 == 0;
           }
 
           else
           {
-            v155 = 1;
+            v153 = 1;
           }
 
-          if (v155 || (*(v181 + v139) = *v147 != *(v206 + 4 * v148), ODIE::Kernels::Core::CPU::Utils::TensorIterator<int>::next(&v212), ODIE::Kernels::Core::CPU::Utils::TensorIterator<int>::next(&v203), ++v139, v139 == v23))
+          if (v153 || (*(v179 + v137) = *v145 != *(v204 + 4 * v146), ODIE::Kernels::Core::CPU::Utils::TensorIterator<int>::next(&v210), ODIE::Kernels::Core::CPU::Utils::TensorIterator<int>::next(&v201), ++v137, v137 == v23))
           {
-LABEL_237:
-            ODIE::Kernels::Core::CPU::Utils::TensorIterator<int>::~TensorIterator(&v203);
-            ODIE::Kernels::Core::CPU::Utils::TensorIterator<int>::~TensorIterator(&v212);
-            goto LABEL_266;
+LABEL_236:
+            ODIE::Kernels::Core::CPU::Utils::TensorIterator<int>::~TensorIterator(&v201);
+            ODIE::Kernels::Core::CPU::Utils::TensorIterator<int>::~TensorIterator(&v210);
+            goto LABEL_265;
           }
 
-          goto LABEL_216;
+          goto LABEL_215;
         }
 
-        v141 += *v145 * *v144;
+        v139 += *v143 * *v142;
       }
 
-      ++v145;
       ++v143;
-      ++v144;
-      if (!--v140)
+      ++v141;
+      ++v142;
+      if (!--v138)
       {
-        v140 = v141;
-        goto LABEL_223;
+        v138 = v139;
+        goto LABEL_222;
       }
     }
   }
@@ -737,60 +734,60 @@ LABEL_237:
 
       if (v10 == 69)
       {
-        v231 = v197;
-        *v232 = v198;
-        *&v232[16] = v199;
+        v229 = v195;
+        *v230 = v196;
+        *&v230[16] = v197;
+        v231 = 0;
+        v232 = 0;
         v233 = 0;
-        v234 = 0;
-        v235 = 0;
-        v226 = v197;
-        *v227 = v198;
-        *&v227[16] = v199;
+        v224 = v195;
+        *v225 = v196;
+        *&v225[16] = v197;
+        v226 = 0;
+        v227 = 0;
         v228 = 0;
-        v229 = 0;
-        v230 = 0;
-        ODIE::Kernels::Core::CPU::Utils::equalizeRanks(v13, v14, v43, &v231);
-        ODIE::Kernels::Core::CPU::Utils::equalizeRanks(v15, v16, v43, &v226);
-        v221 = v197;
-        *v222 = v198;
-        *&v222[16] = v199;
+        ODIE::Kernels::Core::CPU::Utils::equalizeRanks(v13, v14, v43, &v229);
+        ODIE::Kernels::Core::CPU::Utils::equalizeRanks(v15, v16, v43, &v224);
+        v219 = v195;
+        *v220 = v196;
+        *&v220[16] = v197;
+        v221 = 0;
         v223 = 0;
-        v225 = 0;
-        v224 = 0;
-        ODIE::Kernels::Core::CPU::Utils::broadcastShapes(&v231, &v226, &v221);
+        v222 = 0;
+        ODIE::Kernels::Core::CPU::Utils::broadcastShapes(&v229, &v224, &v219);
+        v201 = v195;
+        v202 = v196;
         v203 = v197;
-        v204 = v198;
-        v205 = v199;
-        ODIE::Kernels::Core::CPU::Utils::TensorIterator<float>::TensorIterator(&v212, &v203, v180, &v231, &v221);
+        ODIE::Kernels::Core::CPU::Utils::TensorIterator<float>::TensorIterator(&v210, &v201, v178, &v229, &v219);
+        v198 = v195;
+        v199 = v196;
         v200 = v197;
-        v201 = v198;
-        v202 = v199;
-        ODIE::Kernels::Core::CPU::Utils::TensorIterator<float>::TensorIterator(&v203, &v200, v4, &v226, &v221);
-        if (v219)
+        ODIE::Kernels::Core::CPU::Utils::TensorIterator<float>::TensorIterator(&v201, &v198, v4, &v224, &v219);
+        if (v217)
         {
-          bzero(v218, 4 * v219);
+          bzero(v216, 4 * v217);
         }
 
-        if (v210)
+        if (v208)
         {
-          bzero(v209, 4 * v210);
+          bzero(v207, 4 * v208);
         }
 
         if (v23 >= 1)
         {
           for (i = 0; i != v23; ++i)
           {
-            v45 = v219;
-            if (!v219)
+            v45 = v217;
+            if (!v217)
             {
               goto LABEL_71;
             }
 
             v46 = 0;
-            v47 = v216;
-            v48 = v217;
-            v49 = v218;
-            v50 = v220;
+            v47 = v214;
+            v48 = v215;
+            v49 = v216;
+            v50 = v218;
             do
             {
               v51 = *v47++;
@@ -814,16 +811,16 @@ LABEL_237:
             while (v45);
             v45 = v46;
 LABEL_71:
-            v52 = (v215 + 4 * v45);
+            v52 = (v213 + 4 * v45);
 LABEL_73:
-            v53 = v210;
-            if (v210)
+            v53 = v208;
+            if (v208)
             {
               v54 = 0;
-              v55 = v207;
-              v56 = v208;
-              v57 = v209;
-              v58 = v211;
+              v55 = v205;
+              v56 = v206;
+              v57 = v207;
+              v58 = v209;
               do
               {
                 v59 = *v55++;
@@ -831,7 +828,7 @@ LABEL_73:
                 {
                   if (*v57 >= *v56)
                   {
-                    goto LABEL_209;
+                    goto LABEL_208;
                   }
 
                   v54 += *v58 * *v57;
@@ -849,7 +846,7 @@ LABEL_73:
 
             if (v52)
             {
-              v60 = v206 == 0;
+              v60 = v204 == 0;
             }
 
             else
@@ -862,151 +859,151 @@ LABEL_73:
               break;
             }
 
-            *(v181 + 4 * i) = *v52 - *(v206 + 4 * v53);
-            ODIE::Kernels::Core::CPU::Utils::TensorIterator<float>::next(&v212);
-            ODIE::Kernels::Core::CPU::Utils::TensorIterator<float>::next(&v203);
+            *(v179 + 4 * i) = *v52 - *(v204 + 4 * v53);
+            ODIE::Kernels::Core::CPU::Utils::TensorIterator<float>::next(&v210);
+            ODIE::Kernels::Core::CPU::Utils::TensorIterator<float>::next(&v201);
           }
         }
       }
 
       else
       {
-        v231 = v197;
-        *v232 = v198;
-        *&v232[16] = v199;
+        v229 = v195;
+        *v230 = v196;
+        *&v230[16] = v197;
+        v231 = 0;
+        v232 = 0;
         v233 = 0;
-        v234 = 0;
-        v235 = 0;
-        v226 = v197;
-        *v227 = v198;
-        *&v227[16] = v199;
+        v224 = v195;
+        *v225 = v196;
+        *&v225[16] = v197;
+        v226 = 0;
+        v227 = 0;
         v228 = 0;
-        v229 = 0;
-        v230 = 0;
-        ODIE::Kernels::Core::CPU::Utils::equalizeRanks(v13, v14, v43, &v231);
-        ODIE::Kernels::Core::CPU::Utils::equalizeRanks(v15, v16, v43, &v226);
-        v221 = v197;
-        *v222 = v198;
-        *&v222[16] = v199;
+        ODIE::Kernels::Core::CPU::Utils::equalizeRanks(v13, v14, v43, &v229);
+        ODIE::Kernels::Core::CPU::Utils::equalizeRanks(v15, v16, v43, &v224);
+        v219 = v195;
+        *v220 = v196;
+        *&v220[16] = v197;
+        v221 = 0;
         v223 = 0;
-        v225 = 0;
-        v224 = 0;
-        ODIE::Kernels::Core::CPU::Utils::broadcastShapes(&v231, &v226, &v221);
+        v222 = 0;
+        ODIE::Kernels::Core::CPU::Utils::broadcastShapes(&v229, &v224, &v219);
+        v201 = v195;
+        v202 = v196;
         v203 = v197;
-        v204 = v198;
-        v205 = v199;
-        ODIE::Kernels::Core::CPU::Utils::TensorIterator<float>::TensorIterator(&v212, &v203, v180, &v231, &v221);
+        ODIE::Kernels::Core::CPU::Utils::TensorIterator<float>::TensorIterator(&v210, &v201, v178, &v229, &v219);
+        v198 = v195;
+        v199 = v196;
         v200 = v197;
-        v201 = v198;
-        v202 = v199;
-        ODIE::Kernels::Core::CPU::Utils::TensorIterator<float>::TensorIterator(&v203, &v200, v4, &v226, &v221);
-        if (v219)
+        ODIE::Kernels::Core::CPU::Utils::TensorIterator<float>::TensorIterator(&v201, &v198, v4, &v224, &v219);
+        if (v217)
         {
-          bzero(v218, 4 * v219);
+          bzero(v216, 4 * v217);
         }
 
-        if (v210)
+        if (v208)
         {
-          bzero(v209, 4 * v210);
+          bzero(v207, 4 * v208);
         }
 
         if (v23 >= 1)
         {
           for (j = 0; j != v23; ++j)
           {
-            v123 = v219;
-            if (!v219)
+            v121 = v217;
+            if (!v217)
             {
-              goto LABEL_195;
+              goto LABEL_194;
             }
 
-            v124 = 0;
+            v122 = 0;
+            v123 = v214;
+            v124 = v215;
             v125 = v216;
-            v126 = v217;
-            v127 = v218;
-            v128 = v220;
+            v126 = v218;
             do
             {
-              v129 = *v125++;
-              if (v129 != 1)
+              v127 = *v123++;
+              if (v127 != 1)
               {
-                if (*v127 >= *v126)
+                if (*v125 >= *v124)
                 {
-                  v130 = 0;
-                  goto LABEL_197;
+                  v128 = 0;
+                  goto LABEL_196;
                 }
 
-                v124 += *v128 * *v127;
+                v122 += *v126 * *v125;
               }
 
-              ++v128;
               ++v126;
-              ++v127;
-              --v123;
+              ++v124;
+              ++v125;
+              --v121;
             }
 
-            while (v123);
-            v123 = v124;
-LABEL_195:
-            v130 = (v215 + 4 * v123);
-LABEL_197:
-            v131 = v210;
-            if (v210)
+            while (v121);
+            v121 = v122;
+LABEL_194:
+            v128 = (v213 + 4 * v121);
+LABEL_196:
+            v129 = v208;
+            if (v208)
             {
-              v132 = 0;
+              v130 = 0;
+              v131 = v205;
+              v132 = v206;
               v133 = v207;
-              v134 = v208;
-              v135 = v209;
-              v136 = v211;
+              v134 = v209;
               do
               {
-                v137 = *v133++;
-                if (v137 != 1)
+                v135 = *v131++;
+                if (v135 != 1)
                 {
-                  if (*v135 >= *v134)
+                  if (*v133 >= *v132)
                   {
-                    goto LABEL_209;
+                    goto LABEL_208;
                   }
 
-                  v132 += *v136 * *v135;
+                  v130 += *v134 * *v133;
                 }
 
-                ++v136;
                 ++v134;
-                ++v135;
-                --v131;
+                ++v132;
+                ++v133;
+                --v129;
               }
 
-              while (v131);
-              v131 = v132;
+              while (v129);
+              v129 = v130;
             }
 
-            if (v130)
+            if (v128)
             {
-              v138 = v206 == 0;
+              v136 = v204 == 0;
             }
 
             else
             {
-              v138 = 1;
+              v136 = 1;
             }
 
-            if (v138)
+            if (v136)
             {
               break;
             }
 
-            *(v181 + j) = (*v130 - *(v206 + 4 * v131)) != 0.0;
-            ODIE::Kernels::Core::CPU::Utils::TensorIterator<float>::next(&v212);
-            ODIE::Kernels::Core::CPU::Utils::TensorIterator<float>::next(&v203);
+            *(v179 + j) = (*v128 - *(v204 + 4 * v129)) != 0.0;
+            ODIE::Kernels::Core::CPU::Utils::TensorIterator<float>::next(&v210);
+            ODIE::Kernels::Core::CPU::Utils::TensorIterator<float>::next(&v201);
           }
         }
       }
 
-LABEL_209:
-      ODIE::Kernels::Core::CPU::Utils::TensorIterator<float>::~TensorIterator(&v203);
-      ODIE::Kernels::Core::CPU::Utils::TensorIterator<float>::~TensorIterator(&v212);
-      goto LABEL_266;
+LABEL_208:
+      ODIE::Kernels::Core::CPU::Utils::TensorIterator<float>::~TensorIterator(&v201);
+      ODIE::Kernels::Core::CPU::Utils::TensorIterator<float>::~TensorIterator(&v210);
+      goto LABEL_265;
     }
 
     goto LABEL_86;
@@ -1024,204 +1021,204 @@ LABEL_209:
 
   if (v10 != 70)
   {
-    v231 = v197;
-    *v232 = v198;
-    *&v232[16] = v199;
+    v229 = v195;
+    *v230 = v196;
+    *&v230[16] = v197;
+    v231 = 0;
+    v232 = 0;
     v233 = 0;
-    v234 = 0;
-    v235 = 0;
-    v226 = v197;
-    *v227 = v198;
-    *&v227[16] = v199;
+    v224 = v195;
+    *v225 = v196;
+    *&v225[16] = v197;
+    v226 = 0;
+    v227 = 0;
     v228 = 0;
-    v229 = 0;
-    v230 = 0;
-    ODIE::Kernels::Core::CPU::Utils::equalizeRanks(v13, v14, v80, &v231);
-    ODIE::Kernels::Core::CPU::Utils::equalizeRanks(v15, v16, v80, &v226);
-    v221 = v197;
-    *v222 = v198;
-    *&v222[16] = v199;
+    ODIE::Kernels::Core::CPU::Utils::equalizeRanks(v13, v14, v80, &v229);
+    ODIE::Kernels::Core::CPU::Utils::equalizeRanks(v15, v16, v80, &v224);
+    v219 = v195;
+    *v220 = v196;
+    *&v220[16] = v197;
+    v221 = 0;
     v223 = 0;
-    v225 = 0;
-    v224 = 0;
-    ODIE::Kernels::Core::CPU::Utils::broadcastShapes(&v231, &v226, &v221);
+    v222 = 0;
+    ODIE::Kernels::Core::CPU::Utils::broadcastShapes(&v229, &v224, &v219);
+    v201 = v195;
+    v202 = v196;
     v203 = v197;
-    v204 = v198;
-    v205 = v199;
-    ODIE::Kernels::Core::CPU::Utils::TensorIterator<double>::TensorIterator(&v212, &v203, v180, &v231, &v221);
+    ODIE::Kernels::Core::CPU::Utils::TensorIterator<double>::TensorIterator(&v210, &v201, v178, &v229, &v219);
+    v198 = v195;
+    v199 = v196;
     v200 = v197;
-    v201 = v198;
-    v202 = v199;
-    ODIE::Kernels::Core::CPU::Utils::TensorIterator<double>::TensorIterator(&v203, &v200, v4, &v226, &v221);
-    if (v219)
+    ODIE::Kernels::Core::CPU::Utils::TensorIterator<double>::TensorIterator(&v201, &v198, v4, &v224, &v219);
+    if (v217)
     {
-      bzero(v218, 4 * v219);
+      bzero(v216, 4 * v217);
     }
 
-    if (v210)
+    if (v208)
     {
-      bzero(v209, 4 * v210);
+      bzero(v207, 4 * v208);
     }
 
     if (v23 < 1)
     {
-      goto LABEL_265;
+      goto LABEL_264;
     }
 
-    v156 = 0;
+    v154 = 0;
     while (1)
     {
-      v157 = v219;
-      if (!v219)
+      v155 = v217;
+      if (!v217)
       {
-        goto LABEL_251;
+        goto LABEL_250;
       }
 
-      v158 = 0;
+      v156 = 0;
+      v157 = v214;
+      v158 = v215;
       v159 = v216;
-      v160 = v217;
-      v161 = v218;
-      v162 = v220;
+      v160 = v218;
       do
       {
-        v163 = *v159++;
-        if (v163 != 1)
+        v161 = *v157++;
+        if (v161 != 1)
         {
-          if (*v161 >= *v160)
+          if (*v159 >= *v158)
           {
-            v164 = 0;
-            goto LABEL_253;
+            v162 = 0;
+            goto LABEL_252;
           }
 
-          v158 += *v162 * *v161;
+          v156 += *v160 * *v159;
         }
 
-        ++v162;
         ++v160;
-        ++v161;
-        --v157;
+        ++v158;
+        ++v159;
+        --v155;
       }
 
-      while (v157);
-      v157 = v158;
-LABEL_251:
-      v164 = (v215 + 8 * v157);
-LABEL_253:
-      v165 = v210;
-      if (v210)
+      while (v155);
+      v155 = v156;
+LABEL_250:
+      v162 = (v213 + 8 * v155);
+LABEL_252:
+      v163 = v208;
+      if (v208)
       {
-        v166 = 0;
+        v164 = 0;
+        v165 = v205;
+        v166 = v206;
         v167 = v207;
-        v168 = v208;
-        v169 = v209;
-        v170 = v211;
+        v168 = v209;
         do
         {
-          v171 = *v167++;
-          if (v171 != 1)
+          v169 = *v165++;
+          if (v169 != 1)
           {
-            if (*v169 >= *v168)
+            if (*v167 >= *v166)
             {
-              goto LABEL_265;
+              goto LABEL_264;
             }
 
-            v166 += *v170 * *v169;
+            v164 += *v168 * *v167;
           }
 
-          ++v170;
           ++v168;
-          ++v169;
-          --v165;
+          ++v166;
+          ++v167;
+          --v163;
         }
 
-        while (v165);
-        v165 = v166;
+        while (v163);
+        v163 = v164;
       }
 
-      if (v164)
+      if (v162)
       {
-        v172 = v206 == 0;
+        v170 = v204 == 0;
       }
 
       else
       {
-        v172 = 1;
+        v170 = 1;
       }
 
-      if (!v172)
+      if (!v170)
       {
-        *(v181 + v156) = *v164 - *(v206 + 8 * v165) != 0.0;
-        ODIE::Kernels::Core::CPU::Utils::TensorIterator<double>::next(&v212);
-        ODIE::Kernels::Core::CPU::Utils::TensorIterator<double>::next(&v203);
-        if (++v156 != v23)
+        *(v179 + v154) = *v162 - *(v204 + 8 * v163) != 0.0;
+        ODIE::Kernels::Core::CPU::Utils::TensorIterator<double>::next(&v210);
+        ODIE::Kernels::Core::CPU::Utils::TensorIterator<double>::next(&v201);
+        if (++v154 != v23)
         {
           continue;
         }
       }
 
-      goto LABEL_265;
+      goto LABEL_264;
     }
   }
 
-  v231 = v197;
-  *v232 = v198;
-  *&v232[16] = v199;
+  v229 = v195;
+  *v230 = v196;
+  *&v230[16] = v197;
+  v231 = 0;
+  v232 = 0;
   v233 = 0;
-  v234 = 0;
-  v235 = 0;
-  v226 = v197;
-  *v227 = v198;
-  *&v227[16] = v199;
+  v224 = v195;
+  *v225 = v196;
+  *&v225[16] = v197;
+  v226 = 0;
+  v227 = 0;
   v228 = 0;
-  v229 = 0;
-  v230 = 0;
-  ODIE::Kernels::Core::CPU::Utils::equalizeRanks(v13, v14, v80, &v231);
-  ODIE::Kernels::Core::CPU::Utils::equalizeRanks(v15, v16, v80, &v226);
-  v221 = v197;
-  *v222 = v198;
-  *&v222[16] = v199;
+  ODIE::Kernels::Core::CPU::Utils::equalizeRanks(v13, v14, v80, &v229);
+  ODIE::Kernels::Core::CPU::Utils::equalizeRanks(v15, v16, v80, &v224);
+  v219 = v195;
+  *v220 = v196;
+  *&v220[16] = v197;
+  v221 = 0;
   v223 = 0;
-  v225 = 0;
-  v224 = 0;
-  ODIE::Kernels::Core::CPU::Utils::broadcastShapes(&v231, &v226, &v221);
+  v222 = 0;
+  ODIE::Kernels::Core::CPU::Utils::broadcastShapes(&v229, &v224, &v219);
+  v201 = v195;
+  v202 = v196;
   v203 = v197;
-  v204 = v198;
-  v205 = v199;
-  ODIE::Kernels::Core::CPU::Utils::TensorIterator<double>::TensorIterator(&v212, &v203, v180, &v231, &v221);
+  ODIE::Kernels::Core::CPU::Utils::TensorIterator<double>::TensorIterator(&v210, &v201, v178, &v229, &v219);
+  v198 = v195;
+  v199 = v196;
   v200 = v197;
-  v201 = v198;
-  v202 = v199;
-  ODIE::Kernels::Core::CPU::Utils::TensorIterator<double>::TensorIterator(&v203, &v200, v4, &v226, &v221);
-  if (v219)
+  ODIE::Kernels::Core::CPU::Utils::TensorIterator<double>::TensorIterator(&v201, &v198, v4, &v224, &v219);
+  if (v217)
   {
-    bzero(v218, 4 * v219);
+    bzero(v216, 4 * v217);
   }
 
-  if (v210)
+  if (v208)
   {
-    bzero(v209, 4 * v210);
+    bzero(v207, 4 * v208);
   }
 
   if (v23 < 1)
   {
-    goto LABEL_265;
+    goto LABEL_264;
   }
 
   for (k = 0; k != v23; ++k)
   {
-    v82 = v219;
-    if (!v219)
+    v82 = v217;
+    if (!v217)
     {
 LABEL_136:
-      v89 = (v215 + 8 * v82);
+      v89 = (v213 + 8 * v82);
       goto LABEL_138;
     }
 
     v83 = 0;
-    v84 = v216;
-    v85 = v217;
-    v86 = v218;
-    v87 = v220;
+    v84 = v214;
+    v85 = v215;
+    v86 = v216;
+    v87 = v218;
     while (1)
     {
       v88 = *v84++;
@@ -1249,14 +1246,14 @@ LABEL_134:
 
     v89 = 0;
 LABEL_138:
-    v90 = v210;
-    if (v210)
+    v90 = v208;
+    if (v208)
     {
       v91 = 0;
-      v92 = v207;
-      v93 = v208;
-      v94 = v209;
-      v95 = v211;
+      v92 = v205;
+      v93 = v206;
+      v94 = v207;
+      v95 = v209;
       do
       {
         v96 = *v92++;
@@ -1264,7 +1261,7 @@ LABEL_138:
         {
           if (*v94 >= *v93)
           {
-            goto LABEL_265;
+            goto LABEL_264;
           }
 
           v91 += *v95 * *v94;
@@ -1282,7 +1279,7 @@ LABEL_138:
 
     if (v89)
     {
-      v97 = v206 == 0;
+      v97 = v204 == 0;
     }
 
     else
@@ -1295,21 +1292,21 @@ LABEL_138:
       break;
     }
 
-    *(v181 + 8 * k) = *v89 - *(v206 + 8 * v90);
-    ODIE::Kernels::Core::CPU::Utils::TensorIterator<double>::next(&v212);
-    ODIE::Kernels::Core::CPU::Utils::TensorIterator<double>::next(&v203);
+    *(v179 + 8 * k) = *v89 - *(v204 + 8 * v90);
+    ODIE::Kernels::Core::CPU::Utils::TensorIterator<double>::next(&v210);
+    ODIE::Kernels::Core::CPU::Utils::TensorIterator<double>::next(&v201);
   }
 
+LABEL_264:
+  ODIE::Kernels::Core::CPU::Utils::TensorIterator<double>::~TensorIterator(&v201);
+  ODIE::Kernels::Core::CPU::Utils::TensorIterator<double>::~TensorIterator(&v210);
 LABEL_265:
-  ODIE::Kernels::Core::CPU::Utils::TensorIterator<double>::~TensorIterator(&v203);
-  ODIE::Kernels::Core::CPU::Utils::TensorIterator<double>::~TensorIterator(&v212);
-LABEL_266:
-  if (*v222)
+  if (*v220)
   {
-    v212 = v221;
-    v213 = *v222;
-    v214 = *&v222[8];
-    (*v222)(&v212, v223);
+    v210 = v219;
+    v211 = *v220;
+    v212 = *&v220[8];
+    (*v220)(&v210, v221);
   }
 
   else
@@ -1317,12 +1314,12 @@ LABEL_266:
     odie_log(1, "/Library/Caches/com.apple.xbs/Sources/OnDeviceInferenceEngine/Common/CAPI/memory_allocator.cpp", "odie_dealloc", "Invalid dealloc callback");
   }
 
-  if (*v227)
+  if (*v225)
   {
-    v212 = v226;
-    v213 = *v227;
-    v214 = *&v227[8];
-    (*v227)(&v212, v228);
+    v210 = v224;
+    v211 = *v225;
+    v212 = *&v225[8];
+    (*v225)(&v210, v226);
   }
 
   else
@@ -1330,12 +1327,12 @@ LABEL_266:
     odie_log(1, "/Library/Caches/com.apple.xbs/Sources/OnDeviceInferenceEngine/Common/CAPI/memory_allocator.cpp", "odie_dealloc", "Invalid dealloc callback");
   }
 
-  if (*v232)
+  if (*v230)
   {
-    v212 = v231;
-    v213 = *v232;
-    v214 = *&v232[8];
-    (*v232)(&v212, v233);
+    v210 = v229;
+    v211 = *v230;
+    v212 = *&v230[8];
+    (*v230)(&v210, v231);
   }
 
   else
@@ -1344,13 +1341,13 @@ LABEL_266:
   }
 
   v61 = 0;
-LABEL_273:
-  if (*v183)
+LABEL_272:
+  if (*v181)
   {
-    v212 = v182;
-    v213 = *v183;
-    v214 = *&v183[8];
-    (*v183)(&v212, v184);
+    v210 = v180;
+    v211 = *v181;
+    v212 = *&v181[8];
+    (*v181)(&v210, v182);
   }
 
   else
@@ -1358,12 +1355,12 @@ LABEL_273:
     odie_log(1, "/Library/Caches/com.apple.xbs/Sources/OnDeviceInferenceEngine/Common/CAPI/memory_allocator.cpp", "odie_dealloc", "Invalid dealloc callback");
   }
 
-  if (*v188)
+  if (*v186)
   {
-    v212 = v187;
-    v213 = *v188;
-    v214 = *&v188[8];
-    (*v188)(&v212, v189);
+    v210 = v185;
+    v211 = *v186;
+    v212 = *&v186[8];
+    (*v186)(&v210, v187);
   }
 
   else
@@ -1371,12 +1368,12 @@ LABEL_273:
     odie_log(1, "/Library/Caches/com.apple.xbs/Sources/OnDeviceInferenceEngine/Common/CAPI/memory_allocator.cpp", "odie_dealloc", "Invalid dealloc callback");
   }
 
-  if (*v193)
+  if (*v191)
   {
-    v212 = v192;
-    v213 = *v193;
-    v214 = *&v193[8];
-    (*v193)(&v212, v194);
+    v210 = v190;
+    v211 = *v191;
+    v212 = *&v191[8];
+    (*v191)(&v210, v192);
   }
 
   else
@@ -1387,7 +1384,7 @@ LABEL_273:
   return v61;
 }
 
-uint64_t ODIE::Kernels::Core::CPU::valueInferenceElementwiseFloorDivide(uint64_t a1, uint64_t **a2, uint64_t a3, uint64_t **a4)
+uint64_t ODIE::Kernels::Core::CPU::valueInferenceElementwiseFloorDivide(__int128 *a1, uint64_t **a2, uint64_t a3, uint64_t **a4)
 {
   v4 = a2[1][1];
   v5 = **a2;
@@ -1446,10 +1443,10 @@ uint64_t ODIE::Kernels::Core::CPU::valueInferenceElementwiseFloorDivide(uint64_t
   v14 = *(v11 + 32);
   v15 = *(v12 + 40);
   v16 = *(v12 + 32);
-  v17 = *(a1 + 16);
+  v17 = a1[1];
   v206 = *a1;
   v207 = v17;
-  v208 = *(a1 + 32);
+  v208 = *(a1 + 4);
   if (v14 <= v16)
   {
     v18 = v16;
@@ -1461,16 +1458,16 @@ uint64_t ODIE::Kernels::Core::CPU::valueInferenceElementwiseFloorDivide(uint64_t
   }
 
   v19 = v18;
-  v20 = *(a1 + 16);
+  v20 = a1[1];
   v201 = *a1;
   *v202 = v20;
-  *&v202[16] = *(a1 + 32);
+  *&v202[16] = *(a1 + 4);
   v203 = 0;
   v204 = 0;
   v205 = 0;
   v196 = v201;
   *v197 = v20;
-  *&v197[16] = *(a1 + 32);
+  *&v197[16] = *(a1 + 4);
   v198 = 0;
   v199 = 0;
   v200 = 0;
@@ -2800,21 +2797,21 @@ LABEL_273:
   return v70;
 }
 
-uint64_t ODIE::Kernels::Core::CPU::valueInferenceElementwiseDivide(uint64_t a1, uint64_t **a2, uint64_t a3, uint64_t **a4)
+uint64_t ODIE::Kernels::Core::CPU::valueInferenceElementwiseDivide(__int128 *a1, uint64_t **a2, uint64_t a3, uint64_t **a4)
 {
   v4 = a2[1][1];
   v5 = **a2;
   if (*(v5 + 8) != 2)
   {
     odie_log(1, "/Library/Caches/com.apple.xbs/Sources/OnDeviceInferenceEngine/CoreKernels/Types/Type.hpp", "as", "Mismatch in Type.");
-    ODIE::Platform::abort(v174);
+    ODIE::Platform::abort(v172);
   }
 
   v6 = *(v5 + 24);
   if (*(v6 + 8) != 1)
   {
     odie_log(1, "/Library/Caches/com.apple.xbs/Sources/OnDeviceInferenceEngine/CoreKernels/Types/Type.hpp", "as", "Mismatch in Type.");
-    ODIE::Platform::abort(v175);
+    ODIE::Platform::abort(v173);
   }
 
   v7 = *(v6 + 24);
@@ -2822,14 +2819,14 @@ uint64_t ODIE::Kernels::Core::CPU::valueInferenceElementwiseDivide(uint64_t a1, 
   if (*(v8 + 8) != 2)
   {
     odie_log(1, "/Library/Caches/com.apple.xbs/Sources/OnDeviceInferenceEngine/CoreKernels/Types/Type.hpp", "as", "Mismatch in Type.");
-    ODIE::Platform::abort(v176);
+    ODIE::Platform::abort(v174);
   }
 
   v9 = *(v8 + 24);
   if (*(v9 + 8) != 1)
   {
     odie_log(1, "/Library/Caches/com.apple.xbs/Sources/OnDeviceInferenceEngine/CoreKernels/Types/Type.hpp", "as", "Mismatch in Type.");
-    ODIE::Platform::abort(v177);
+    ODIE::Platform::abort(v175);
   }
 
   v10 = *(v9 + 24);
@@ -2843,26 +2840,26 @@ uint64_t ODIE::Kernels::Core::CPU::valueInferenceElementwiseDivide(uint64_t a1, 
   if (*(v11 + 8) != 2)
   {
     odie_log(1, "/Library/Caches/com.apple.xbs/Sources/OnDeviceInferenceEngine/CoreKernels/Types/Type.hpp", "as", "Mismatch in Type.");
-    ODIE::Platform::abort(v178);
+    ODIE::Platform::abort(v176);
   }
 
-  v180 = (*a2)[1];
-  v181 = (*a4)[1];
+  v178 = (*a2)[1];
+  v179 = (*a4)[1];
   v12 = *a2[1];
   if (*(v12 + 8) != 2)
   {
-    odie_log(1, "/Library/Caches/com.apple.xbs/Sources/OnDeviceInferenceEngine/CoreKernels/Types/Type.hpp", "as", "Mismatch in Type.", v180);
-    ODIE::Platform::abort(v179);
+    odie_log(1, "/Library/Caches/com.apple.xbs/Sources/OnDeviceInferenceEngine/CoreKernels/Types/Type.hpp", "as", "Mismatch in Type.", v178);
+    ODIE::Platform::abort(v177);
   }
 
   v13 = *(v11 + 40);
   v14 = *(v11 + 32);
   v15 = *(v12 + 40);
   v16 = *(v12 + 32);
-  v17 = *(a1 + 16);
-  v197 = *a1;
-  v198 = v17;
-  v199 = *(a1 + 32);
+  v17 = a1[1];
+  v195 = *a1;
+  v196 = v17;
+  v197 = *(a1 + 4);
   if (v14 <= v16)
   {
     v18 = v16;
@@ -2874,32 +2871,32 @@ uint64_t ODIE::Kernels::Core::CPU::valueInferenceElementwiseDivide(uint64_t a1, 
   }
 
   v19 = v18;
-  v20 = *(a1 + 16);
-  v192 = *a1;
-  *v193 = v20;
-  *&v193[16] = *(a1 + 32);
+  v20 = a1[1];
+  v190 = *a1;
+  *v191 = v20;
+  *&v191[16] = *(a1 + 4);
+  v192 = 0;
+  v193 = 0;
   v194 = 0;
-  v195 = 0;
-  v196 = 0;
-  v187 = v192;
-  *v188 = v20;
-  *&v188[16] = *(a1 + 32);
+  v185 = v190;
+  *v186 = v20;
+  *&v186[16] = *(a1 + 4);
+  v187 = 0;
+  v188 = 0;
   v189 = 0;
-  v190 = 0;
-  v191 = 0;
-  ODIE::Kernels::Core::CPU::Utils::equalizeRanks(v13, v14, v18, &v192);
-  ODIE::Kernels::Core::CPU::Utils::equalizeRanks(v15, v16, v19, &v187);
-  v182 = v197;
-  *v183 = v198;
-  *&v183[16] = v199;
+  ODIE::Kernels::Core::CPU::Utils::equalizeRanks(v13, v14, v18, &v190);
+  ODIE::Kernels::Core::CPU::Utils::equalizeRanks(v15, v16, v19, &v185);
+  v180 = v195;
+  *v181 = v196;
+  *&v181[16] = v197;
+  v182 = 0;
+  v183 = 0;
   v184 = 0;
-  v185 = 0;
-  v186 = 0;
-  ODIE::Kernels::Core::CPU::Utils::broadcastShapes(&v192, &v187, &v182);
-  if (v185)
+  ODIE::Kernels::Core::CPU::Utils::broadcastShapes(&v190, &v185, &v180);
+  if (v183)
   {
-    v21 = v184;
-    v22 = 4 * v185;
+    v21 = v182;
+    v22 = 4 * v183;
     v23 = 1;
     do
     {
@@ -2934,66 +2931,66 @@ uint64_t ODIE::Kernels::Core::CPU::valueInferenceElementwiseDivide(uint64_t a1, 
 
         if (v10 == 68)
         {
-          v231 = v197;
-          *v232 = v198;
-          *&v232[16] = v199;
+          v229 = v195;
+          *v230 = v196;
+          *&v230[16] = v197;
+          v231 = 0;
+          v232 = 0;
           v233 = 0;
-          v234 = 0;
-          v235 = 0;
-          v226 = v197;
-          *v227 = v198;
-          *&v227[16] = v199;
+          v224 = v195;
+          *v225 = v196;
+          *&v225[16] = v197;
+          v226 = 0;
+          v227 = 0;
           v228 = 0;
-          v229 = 0;
-          v230 = 0;
-          ODIE::Kernels::Core::CPU::Utils::equalizeRanks(v13, v14, v25, &v231);
-          ODIE::Kernels::Core::CPU::Utils::equalizeRanks(v15, v16, v25, &v226);
-          v221 = v197;
-          *v222 = v198;
-          *&v222[16] = v199;
+          ODIE::Kernels::Core::CPU::Utils::equalizeRanks(v13, v14, v25, &v229);
+          ODIE::Kernels::Core::CPU::Utils::equalizeRanks(v15, v16, v25, &v224);
+          v219 = v195;
+          *v220 = v196;
+          *&v220[16] = v197;
+          v221 = 0;
           v223 = 0;
-          v225 = 0;
-          v224 = 0;
-          ODIE::Kernels::Core::CPU::Utils::broadcastShapes(&v231, &v226, &v221);
+          v222 = 0;
+          ODIE::Kernels::Core::CPU::Utils::broadcastShapes(&v229, &v224, &v219);
+          v201 = v195;
+          v202 = v196;
           v203 = v197;
-          v204 = v198;
-          v205 = v199;
-          _ZN4ODIE7Kernels4Core3CPU5Utils14TensorIteratorIDF16_EC2ENS_6Common9AllocatorEPKDF16_RNS6_6VectorIiEESC_(&v212, &v203, v180, &v231, &v221);
+          _ZN4ODIE7Kernels4Core3CPU5Utils14TensorIteratorIDF16_EC2ENS_6Common9AllocatorEPKDF16_RNS6_6VectorIiEESC_(&v210, &v201, v178, &v229, &v219);
+          v198 = v195;
+          v199 = v196;
           v200 = v197;
-          v201 = v198;
-          v202 = v199;
-          _ZN4ODIE7Kernels4Core3CPU5Utils14TensorIteratorIDF16_EC2ENS_6Common9AllocatorEPKDF16_RNS6_6VectorIiEESC_(&v203, &v200, v4, &v226, &v221);
-          if (v219)
+          _ZN4ODIE7Kernels4Core3CPU5Utils14TensorIteratorIDF16_EC2ENS_6Common9AllocatorEPKDF16_RNS6_6VectorIiEESC_(&v201, &v198, v4, &v224, &v219);
+          if (v217)
           {
-            bzero(v218, 4 * v219);
+            bzero(v216, 4 * v217);
           }
 
-          if (v210)
+          if (v208)
           {
-            bzero(v209, 4 * v210);
+            bzero(v207, 4 * v208);
           }
 
           if (v23 < 1)
           {
-            goto LABEL_181;
+            goto LABEL_180;
           }
 
           v26 = 0;
           while (1)
           {
-            v27 = v219;
-            if (!v219)
+            v27 = v217;
+            if (!v217)
             {
 LABEL_37:
-              v34 = (v215 + 2 * v27);
+              v34 = (v213 + 2 * v27);
               goto LABEL_39;
             }
 
             v28 = 0;
-            v29 = v216;
-            v30 = v217;
-            v31 = v218;
-            v32 = v220;
+            v29 = v214;
+            v30 = v215;
+            v31 = v216;
+            v32 = v218;
             while (1)
             {
               v33 = *v29++;
@@ -3020,14 +3017,14 @@ LABEL_35:
 
             v34 = 0;
 LABEL_39:
-            v35 = v210;
-            if (v210)
+            v35 = v208;
+            if (v208)
             {
               v36 = 0;
-              v37 = v207;
-              v38 = v208;
-              v39 = v209;
-              v40 = v211;
+              v37 = v205;
+              v38 = v206;
+              v39 = v207;
+              v40 = v209;
               do
               {
                 v41 = *v37++;
@@ -3035,7 +3032,7 @@ LABEL_39:
                 {
                   if (*v39 >= *v38)
                   {
-                    goto LABEL_181;
+                    goto LABEL_180;
                   }
 
                   v36 += *v40 * *v39;
@@ -3053,7 +3050,7 @@ LABEL_39:
 
             if (v34)
             {
-              _ZF = v206 == 0;
+              _ZF = v204 == 0;
             }
 
             else
@@ -3063,81 +3060,81 @@ LABEL_39:
 
             if (!_ZF)
             {
-              *(v181 + 2 * v26) = *v34 / *(v206 + 2 * v35);
-              _ZN4ODIE7Kernels4Core3CPU5Utils14TensorIteratorIDF16_E4nextEv(&v212);
-              _ZN4ODIE7Kernels4Core3CPU5Utils14TensorIteratorIDF16_E4nextEv(&v203);
+              *(v179 + 2 * v26) = *v34 / *(v204 + 2 * v35);
+              _ZN4ODIE7Kernels4Core3CPU5Utils14TensorIteratorIDF16_E4nextEv(&v210);
+              _ZN4ODIE7Kernels4Core3CPU5Utils14TensorIteratorIDF16_E4nextEv(&v201);
               if (++v26 != v23)
               {
                 continue;
               }
             }
 
-            goto LABEL_181;
+            goto LABEL_180;
           }
 
           v28 += *v32 * *v31;
           goto LABEL_35;
         }
 
-        v231 = v197;
-        *v232 = v198;
-        *&v232[16] = v199;
+        v229 = v195;
+        *v230 = v196;
+        *&v230[16] = v197;
+        v231 = 0;
+        v232 = 0;
         v233 = 0;
-        v234 = 0;
-        v235 = 0;
-        v226 = v197;
-        *v227 = v198;
-        *&v227[16] = v199;
+        v224 = v195;
+        *v225 = v196;
+        *&v225[16] = v197;
+        v226 = 0;
+        v227 = 0;
         v228 = 0;
-        v229 = 0;
-        v230 = 0;
-        ODIE::Kernels::Core::CPU::Utils::equalizeRanks(v13, v14, v25, &v231);
-        ODIE::Kernels::Core::CPU::Utils::equalizeRanks(v15, v16, v25, &v226);
-        v221 = v197;
-        *v222 = v198;
-        *&v222[16] = v199;
+        ODIE::Kernels::Core::CPU::Utils::equalizeRanks(v13, v14, v25, &v229);
+        ODIE::Kernels::Core::CPU::Utils::equalizeRanks(v15, v16, v25, &v224);
+        v219 = v195;
+        *v220 = v196;
+        *&v220[16] = v197;
+        v221 = 0;
         v223 = 0;
-        v225 = 0;
-        v224 = 0;
-        ODIE::Kernels::Core::CPU::Utils::broadcastShapes(&v231, &v226, &v221);
+        v222 = 0;
+        ODIE::Kernels::Core::CPU::Utils::broadcastShapes(&v229, &v224, &v219);
+        v201 = v195;
+        v202 = v196;
         v203 = v197;
-        v204 = v198;
-        v205 = v199;
-        _ZN4ODIE7Kernels4Core3CPU5Utils14TensorIteratorIDF16_EC2ENS_6Common9AllocatorEPKDF16_RNS6_6VectorIiEESC_(&v212, &v203, v180, &v231, &v221);
+        _ZN4ODIE7Kernels4Core3CPU5Utils14TensorIteratorIDF16_EC2ENS_6Common9AllocatorEPKDF16_RNS6_6VectorIiEESC_(&v210, &v201, v178, &v229, &v219);
+        v198 = v195;
+        v199 = v196;
         v200 = v197;
-        v201 = v198;
-        v202 = v199;
-        _ZN4ODIE7Kernels4Core3CPU5Utils14TensorIteratorIDF16_EC2ENS_6Common9AllocatorEPKDF16_RNS6_6VectorIiEESC_(&v203, &v200, v4, &v226, &v221);
-        if (v219)
+        _ZN4ODIE7Kernels4Core3CPU5Utils14TensorIteratorIDF16_EC2ENS_6Common9AllocatorEPKDF16_RNS6_6VectorIiEESC_(&v201, &v198, v4, &v224, &v219);
+        if (v217)
         {
-          bzero(v218, 4 * v219);
+          bzero(v216, 4 * v217);
         }
 
-        if (v210)
+        if (v208)
         {
-          bzero(v209, 4 * v210);
+          bzero(v207, 4 * v208);
         }
 
         if (v23 < 1)
         {
-          goto LABEL_181;
+          goto LABEL_180;
         }
 
         v98 = 0;
 LABEL_157:
-        v99 = v219;
-        if (!v219)
+        v99 = v217;
+        if (!v217)
         {
 LABEL_164:
-          v106 = (v215 + 2 * v99);
+          v106 = v213 + 2 * v99;
           goto LABEL_166;
         }
 
         v100 = 0;
-        v101 = v216;
-        v102 = v217;
-        v103 = v218;
-        v104 = v220;
+        v101 = v214;
+        v102 = v215;
+        v103 = v216;
+        v104 = v218;
         while (1)
         {
           v105 = *v101++;
@@ -3147,14 +3144,14 @@ LABEL_164:
             {
               v106 = 0;
 LABEL_166:
-              v107 = v210;
-              if (v210)
+              v107 = v208;
+              if (v208)
               {
                 v108 = 0;
-                v109 = v207;
-                v110 = v208;
-                v111 = v209;
-                v112 = v211;
+                v109 = v205;
+                v110 = v206;
+                v111 = v207;
+                v112 = v209;
                 do
                 {
                   v113 = *v109++;
@@ -3162,7 +3159,7 @@ LABEL_166:
                   {
                     if (*v111 >= *v110)
                     {
-                      goto LABEL_181;
+                      goto LABEL_180;
                     }
 
                     v108 += *v112 * *v111;
@@ -3175,12 +3172,11 @@ LABEL_166:
                 }
 
                 while (v107);
-                v107 = v108;
               }
 
               if (v106)
               {
-                v114 = v206 == 0;
+                v114 = v204 == 0;
               }
 
               else
@@ -3190,23 +3186,21 @@ LABEL_166:
 
               if (v114)
               {
-                goto LABEL_181;
+                goto LABEL_180;
               }
 
-              v115 = *(v206 + 2 * v107);
-              v116 = *v106;
               __asm { FCMP            H0, #0 }
 
-              v121 = !_ZF;
-              *(v181 + v98) = v121;
-              _ZN4ODIE7Kernels4Core3CPU5Utils14TensorIteratorIDF16_E4nextEv(&v212);
-              _ZN4ODIE7Kernels4Core3CPU5Utils14TensorIteratorIDF16_E4nextEv(&v203);
+              v119 = !_ZF;
+              *(v179 + v98) = v119;
+              _ZN4ODIE7Kernels4Core3CPU5Utils14TensorIteratorIDF16_E4nextEv(&v210);
+              _ZN4ODIE7Kernels4Core3CPU5Utils14TensorIteratorIDF16_E4nextEv(&v201);
               if (++v98 == v23)
               {
-LABEL_181:
-                _ZN4ODIE7Kernels4Core3CPU5Utils14TensorIteratorIDF16_ED2Ev(&v203);
-                _ZN4ODIE7Kernels4Core3CPU5Utils14TensorIteratorIDF16_ED2Ev(&v212);
-                goto LABEL_266;
+LABEL_180:
+                _ZN4ODIE7Kernels4Core3CPU5Utils14TensorIteratorIDF16_ED2Ev(&v201);
+                _ZN4ODIE7Kernels4Core3CPU5Utils14TensorIteratorIDF16_ED2Ev(&v210);
+                goto LABEL_265;
               }
 
               goto LABEL_157;
@@ -3227,9 +3221,9 @@ LABEL_181:
       }
 
 LABEL_86:
-      odie_log(1, "/Library/Caches/com.apple.xbs/Sources/OnDeviceInferenceEngine/CoreKernels/ElementwiseBinary.cpp", "valueInferenceElementwiseBinary", "Unexpected data type encountered.", v180);
+      odie_log(1, "/Library/Caches/com.apple.xbs/Sources/OnDeviceInferenceEngine/CoreKernels/ElementwiseBinary.cpp", "valueInferenceElementwiseBinary", "Unexpected data type encountered.", v178);
       v61 = 3;
-      goto LABEL_273;
+      goto LABEL_272;
     }
 
     if (v14 <= v16)
@@ -3244,66 +3238,66 @@ LABEL_86:
 
     if (v10 == 25)
     {
-      v231 = v197;
-      *v232 = v198;
-      *&v232[16] = v199;
+      v229 = v195;
+      *v230 = v196;
+      *&v230[16] = v197;
+      v231 = 0;
+      v232 = 0;
       v233 = 0;
-      v234 = 0;
-      v235 = 0;
-      v226 = v197;
-      *v227 = v198;
-      *&v227[16] = v199;
+      v224 = v195;
+      *v225 = v196;
+      *&v225[16] = v197;
+      v226 = 0;
+      v227 = 0;
       v228 = 0;
-      v229 = 0;
-      v230 = 0;
-      ODIE::Kernels::Core::CPU::Utils::equalizeRanks(v13, v14, v62, &v231);
-      ODIE::Kernels::Core::CPU::Utils::equalizeRanks(v15, v16, v62, &v226);
-      v221 = v197;
-      *v222 = v198;
-      *&v222[16] = v199;
+      ODIE::Kernels::Core::CPU::Utils::equalizeRanks(v13, v14, v62, &v229);
+      ODIE::Kernels::Core::CPU::Utils::equalizeRanks(v15, v16, v62, &v224);
+      v219 = v195;
+      *v220 = v196;
+      *&v220[16] = v197;
+      v221 = 0;
       v223 = 0;
-      v225 = 0;
-      v224 = 0;
-      ODIE::Kernels::Core::CPU::Utils::broadcastShapes(&v231, &v226, &v221);
+      v222 = 0;
+      ODIE::Kernels::Core::CPU::Utils::broadcastShapes(&v229, &v224, &v219);
+      v201 = v195;
+      v202 = v196;
       v203 = v197;
-      v204 = v198;
-      v205 = v199;
-      ODIE::Kernels::Core::CPU::Utils::TensorIterator<int>::TensorIterator(&v212, &v203, v180, &v231, &v221);
+      ODIE::Kernels::Core::CPU::Utils::TensorIterator<int>::TensorIterator(&v210, &v201, v178, &v229, &v219);
+      v198 = v195;
+      v199 = v196;
       v200 = v197;
-      v201 = v198;
-      v202 = v199;
-      ODIE::Kernels::Core::CPU::Utils::TensorIterator<int>::TensorIterator(&v203, &v200, v4, &v226, &v221);
-      if (v219)
+      ODIE::Kernels::Core::CPU::Utils::TensorIterator<int>::TensorIterator(&v201, &v198, v4, &v224, &v219);
+      if (v217)
       {
-        bzero(v218, 4 * v219);
+        bzero(v216, 4 * v217);
       }
 
-      if (v210)
+      if (v208)
       {
-        bzero(v209, 4 * v210);
+        bzero(v207, 4 * v208);
       }
 
       if (v23 < 1)
       {
-        goto LABEL_237;
+        goto LABEL_236;
       }
 
       v63 = 0;
       while (1)
       {
-        v64 = v219;
-        if (!v219)
+        v64 = v217;
+        if (!v217)
         {
 LABEL_104:
-          v71 = (v215 + 4 * v64);
+          v71 = (v213 + 4 * v64);
           goto LABEL_106;
         }
 
         v65 = 0;
-        v66 = v216;
-        v67 = v217;
-        v68 = v218;
-        v69 = v220;
+        v66 = v214;
+        v67 = v215;
+        v68 = v216;
+        v69 = v218;
         while (1)
         {
           v70 = *v66++;
@@ -3330,14 +3324,14 @@ LABEL_102:
 
         v71 = 0;
 LABEL_106:
-        v72 = v210;
-        if (v210)
+        v72 = v208;
+        if (v208)
         {
           v73 = 0;
-          v74 = v207;
-          v75 = v208;
-          v76 = v209;
-          v77 = v211;
+          v74 = v205;
+          v75 = v206;
+          v76 = v207;
+          v77 = v209;
           do
           {
             v78 = *v74++;
@@ -3345,7 +3339,7 @@ LABEL_106:
             {
               if (*v76 >= *v75)
               {
-                goto LABEL_237;
+                goto LABEL_236;
               }
 
               v73 += *v77 * *v76;
@@ -3363,7 +3357,7 @@ LABEL_106:
 
         if (v71)
         {
-          v79 = v206 == 0;
+          v79 = v204 == 0;
         }
 
         else
@@ -3373,152 +3367,152 @@ LABEL_106:
 
         if (!v79)
         {
-          *(v181 + 4 * v63) = *v71 / *(v206 + 4 * v72);
-          ODIE::Kernels::Core::CPU::Utils::TensorIterator<int>::next(&v212);
-          ODIE::Kernels::Core::CPU::Utils::TensorIterator<int>::next(&v203);
+          *(v179 + 4 * v63) = *v71 / *(v204 + 4 * v72);
+          ODIE::Kernels::Core::CPU::Utils::TensorIterator<int>::next(&v210);
+          ODIE::Kernels::Core::CPU::Utils::TensorIterator<int>::next(&v201);
           if (++v63 != v23)
           {
             continue;
           }
         }
 
-        goto LABEL_237;
+        goto LABEL_236;
       }
 
       v65 += *v69 * *v68;
       goto LABEL_102;
     }
 
-    v231 = v197;
-    *v232 = v198;
-    *&v232[16] = v199;
+    v229 = v195;
+    *v230 = v196;
+    *&v230[16] = v197;
+    v231 = 0;
+    v232 = 0;
     v233 = 0;
-    v234 = 0;
-    v235 = 0;
-    v226 = v197;
-    *v227 = v198;
-    *&v227[16] = v199;
+    v224 = v195;
+    *v225 = v196;
+    *&v225[16] = v197;
+    v226 = 0;
+    v227 = 0;
     v228 = 0;
-    v229 = 0;
-    v230 = 0;
-    ODIE::Kernels::Core::CPU::Utils::equalizeRanks(v13, v14, v62, &v231);
-    ODIE::Kernels::Core::CPU::Utils::equalizeRanks(v15, v16, v62, &v226);
-    v221 = v197;
-    *v222 = v198;
-    *&v222[16] = v199;
+    ODIE::Kernels::Core::CPU::Utils::equalizeRanks(v13, v14, v62, &v229);
+    ODIE::Kernels::Core::CPU::Utils::equalizeRanks(v15, v16, v62, &v224);
+    v219 = v195;
+    *v220 = v196;
+    *&v220[16] = v197;
+    v221 = 0;
     v223 = 0;
-    v225 = 0;
-    v224 = 0;
-    ODIE::Kernels::Core::CPU::Utils::broadcastShapes(&v231, &v226, &v221);
+    v222 = 0;
+    ODIE::Kernels::Core::CPU::Utils::broadcastShapes(&v229, &v224, &v219);
+    v201 = v195;
+    v202 = v196;
     v203 = v197;
-    v204 = v198;
-    v205 = v199;
-    ODIE::Kernels::Core::CPU::Utils::TensorIterator<int>::TensorIterator(&v212, &v203, v180, &v231, &v221);
+    ODIE::Kernels::Core::CPU::Utils::TensorIterator<int>::TensorIterator(&v210, &v201, v178, &v229, &v219);
+    v198 = v195;
+    v199 = v196;
     v200 = v197;
-    v201 = v198;
-    v202 = v199;
-    ODIE::Kernels::Core::CPU::Utils::TensorIterator<int>::TensorIterator(&v203, &v200, v4, &v226, &v221);
-    if (v219)
+    ODIE::Kernels::Core::CPU::Utils::TensorIterator<int>::TensorIterator(&v201, &v198, v4, &v224, &v219);
+    if (v217)
     {
-      bzero(v218, 4 * v219);
+      bzero(v216, 4 * v217);
     }
 
-    if (v210)
+    if (v208)
     {
-      bzero(v209, 4 * v210);
+      bzero(v207, 4 * v208);
     }
 
     if (v23 < 1)
     {
-      goto LABEL_237;
+      goto LABEL_236;
+    }
+
+    v137 = 0;
+LABEL_215:
+    v138 = v217;
+    if (!v217)
+    {
+LABEL_222:
+      v145 = (v213 + 4 * v138);
+      goto LABEL_224;
     }
 
     v139 = 0;
-LABEL_216:
-    v140 = v219;
-    if (!v219)
-    {
-LABEL_223:
-      v147 = (v215 + 4 * v140);
-      goto LABEL_225;
-    }
-
-    v141 = 0;
+    v140 = v214;
+    v141 = v215;
     v142 = v216;
-    v143 = v217;
-    v144 = v218;
-    v145 = v220;
+    v143 = v218;
     while (1)
     {
-      v146 = *v142++;
-      if (v146 != 1)
+      v144 = *v140++;
+      if (v144 != 1)
       {
-        if (*v144 >= *v143)
+        if (*v142 >= *v141)
         {
-          v147 = 0;
-LABEL_225:
-          v148 = v210;
-          if (v210)
+          v145 = 0;
+LABEL_224:
+          v146 = v208;
+          if (v208)
           {
-            v149 = 0;
+            v147 = 0;
+            v148 = v205;
+            v149 = v206;
             v150 = v207;
-            v151 = v208;
-            v152 = v209;
-            v153 = v211;
+            v151 = v209;
             do
             {
-              v154 = *v150++;
-              if (v154 != 1)
+              v152 = *v148++;
+              if (v152 != 1)
               {
-                if (*v152 >= *v151)
+                if (*v150 >= *v149)
                 {
-                  goto LABEL_237;
+                  goto LABEL_236;
                 }
 
-                v149 += *v153 * *v152;
+                v147 += *v151 * *v150;
               }
 
-              ++v153;
               ++v151;
-              ++v152;
-              --v148;
+              ++v149;
+              ++v150;
+              --v146;
             }
 
-            while (v148);
-            v148 = v149;
+            while (v146);
+            v146 = v147;
           }
 
-          if (v147)
+          if (v145)
           {
-            v155 = v206 == 0;
+            v153 = v204 == 0;
           }
 
           else
           {
-            v155 = 1;
+            v153 = 1;
           }
 
-          if (v155 || (*(v181 + v139) = *v147 / *(v206 + 4 * v148) != 0, ODIE::Kernels::Core::CPU::Utils::TensorIterator<int>::next(&v212), ODIE::Kernels::Core::CPU::Utils::TensorIterator<int>::next(&v203), ++v139, v139 == v23))
+          if (v153 || (*(v179 + v137) = *v145 / *(v204 + 4 * v146) != 0, ODIE::Kernels::Core::CPU::Utils::TensorIterator<int>::next(&v210), ODIE::Kernels::Core::CPU::Utils::TensorIterator<int>::next(&v201), ++v137, v137 == v23))
           {
-LABEL_237:
-            ODIE::Kernels::Core::CPU::Utils::TensorIterator<int>::~TensorIterator(&v203);
-            ODIE::Kernels::Core::CPU::Utils::TensorIterator<int>::~TensorIterator(&v212);
-            goto LABEL_266;
+LABEL_236:
+            ODIE::Kernels::Core::CPU::Utils::TensorIterator<int>::~TensorIterator(&v201);
+            ODIE::Kernels::Core::CPU::Utils::TensorIterator<int>::~TensorIterator(&v210);
+            goto LABEL_265;
           }
 
-          goto LABEL_216;
+          goto LABEL_215;
         }
 
-        v141 += *v145 * *v144;
+        v139 += *v143 * *v142;
       }
 
-      ++v145;
       ++v143;
-      ++v144;
-      if (!--v140)
+      ++v141;
+      ++v142;
+      if (!--v138)
       {
-        v140 = v141;
-        goto LABEL_223;
+        v138 = v139;
+        goto LABEL_222;
       }
     }
   }
@@ -3539,60 +3533,60 @@ LABEL_237:
 
       if (v10 == 69)
       {
-        v231 = v197;
-        *v232 = v198;
-        *&v232[16] = v199;
+        v229 = v195;
+        *v230 = v196;
+        *&v230[16] = v197;
+        v231 = 0;
+        v232 = 0;
         v233 = 0;
-        v234 = 0;
-        v235 = 0;
-        v226 = v197;
-        *v227 = v198;
-        *&v227[16] = v199;
+        v224 = v195;
+        *v225 = v196;
+        *&v225[16] = v197;
+        v226 = 0;
+        v227 = 0;
         v228 = 0;
-        v229 = 0;
-        v230 = 0;
-        ODIE::Kernels::Core::CPU::Utils::equalizeRanks(v13, v14, v43, &v231);
-        ODIE::Kernels::Core::CPU::Utils::equalizeRanks(v15, v16, v43, &v226);
-        v221 = v197;
-        *v222 = v198;
-        *&v222[16] = v199;
+        ODIE::Kernels::Core::CPU::Utils::equalizeRanks(v13, v14, v43, &v229);
+        ODIE::Kernels::Core::CPU::Utils::equalizeRanks(v15, v16, v43, &v224);
+        v219 = v195;
+        *v220 = v196;
+        *&v220[16] = v197;
+        v221 = 0;
         v223 = 0;
-        v225 = 0;
-        v224 = 0;
-        ODIE::Kernels::Core::CPU::Utils::broadcastShapes(&v231, &v226, &v221);
+        v222 = 0;
+        ODIE::Kernels::Core::CPU::Utils::broadcastShapes(&v229, &v224, &v219);
+        v201 = v195;
+        v202 = v196;
         v203 = v197;
-        v204 = v198;
-        v205 = v199;
-        ODIE::Kernels::Core::CPU::Utils::TensorIterator<float>::TensorIterator(&v212, &v203, v180, &v231, &v221);
+        ODIE::Kernels::Core::CPU::Utils::TensorIterator<float>::TensorIterator(&v210, &v201, v178, &v229, &v219);
+        v198 = v195;
+        v199 = v196;
         v200 = v197;
-        v201 = v198;
-        v202 = v199;
-        ODIE::Kernels::Core::CPU::Utils::TensorIterator<float>::TensorIterator(&v203, &v200, v4, &v226, &v221);
-        if (v219)
+        ODIE::Kernels::Core::CPU::Utils::TensorIterator<float>::TensorIterator(&v201, &v198, v4, &v224, &v219);
+        if (v217)
         {
-          bzero(v218, 4 * v219);
+          bzero(v216, 4 * v217);
         }
 
-        if (v210)
+        if (v208)
         {
-          bzero(v209, 4 * v210);
+          bzero(v207, 4 * v208);
         }
 
         if (v23 >= 1)
         {
           for (i = 0; i != v23; ++i)
           {
-            v45 = v219;
-            if (!v219)
+            v45 = v217;
+            if (!v217)
             {
               goto LABEL_71;
             }
 
             v46 = 0;
-            v47 = v216;
-            v48 = v217;
-            v49 = v218;
-            v50 = v220;
+            v47 = v214;
+            v48 = v215;
+            v49 = v216;
+            v50 = v218;
             do
             {
               v51 = *v47++;
@@ -3616,16 +3610,16 @@ LABEL_237:
             while (v45);
             v45 = v46;
 LABEL_71:
-            v52 = (v215 + 4 * v45);
+            v52 = (v213 + 4 * v45);
 LABEL_73:
-            v53 = v210;
-            if (v210)
+            v53 = v208;
+            if (v208)
             {
               v54 = 0;
-              v55 = v207;
-              v56 = v208;
-              v57 = v209;
-              v58 = v211;
+              v55 = v205;
+              v56 = v206;
+              v57 = v207;
+              v58 = v209;
               do
               {
                 v59 = *v55++;
@@ -3633,7 +3627,7 @@ LABEL_73:
                 {
                   if (*v57 >= *v56)
                   {
-                    goto LABEL_209;
+                    goto LABEL_208;
                   }
 
                   v54 += *v58 * *v57;
@@ -3651,7 +3645,7 @@ LABEL_73:
 
             if (v52)
             {
-              v60 = v206 == 0;
+              v60 = v204 == 0;
             }
 
             else
@@ -3664,151 +3658,151 @@ LABEL_73:
               break;
             }
 
-            *(v181 + 4 * i) = *v52 / *(v206 + 4 * v53);
-            ODIE::Kernels::Core::CPU::Utils::TensorIterator<float>::next(&v212);
-            ODIE::Kernels::Core::CPU::Utils::TensorIterator<float>::next(&v203);
+            *(v179 + 4 * i) = *v52 / *(v204 + 4 * v53);
+            ODIE::Kernels::Core::CPU::Utils::TensorIterator<float>::next(&v210);
+            ODIE::Kernels::Core::CPU::Utils::TensorIterator<float>::next(&v201);
           }
         }
       }
 
       else
       {
-        v231 = v197;
-        *v232 = v198;
-        *&v232[16] = v199;
+        v229 = v195;
+        *v230 = v196;
+        *&v230[16] = v197;
+        v231 = 0;
+        v232 = 0;
         v233 = 0;
-        v234 = 0;
-        v235 = 0;
-        v226 = v197;
-        *v227 = v198;
-        *&v227[16] = v199;
+        v224 = v195;
+        *v225 = v196;
+        *&v225[16] = v197;
+        v226 = 0;
+        v227 = 0;
         v228 = 0;
-        v229 = 0;
-        v230 = 0;
-        ODIE::Kernels::Core::CPU::Utils::equalizeRanks(v13, v14, v43, &v231);
-        ODIE::Kernels::Core::CPU::Utils::equalizeRanks(v15, v16, v43, &v226);
-        v221 = v197;
-        *v222 = v198;
-        *&v222[16] = v199;
+        ODIE::Kernels::Core::CPU::Utils::equalizeRanks(v13, v14, v43, &v229);
+        ODIE::Kernels::Core::CPU::Utils::equalizeRanks(v15, v16, v43, &v224);
+        v219 = v195;
+        *v220 = v196;
+        *&v220[16] = v197;
+        v221 = 0;
         v223 = 0;
-        v225 = 0;
-        v224 = 0;
-        ODIE::Kernels::Core::CPU::Utils::broadcastShapes(&v231, &v226, &v221);
+        v222 = 0;
+        ODIE::Kernels::Core::CPU::Utils::broadcastShapes(&v229, &v224, &v219);
+        v201 = v195;
+        v202 = v196;
         v203 = v197;
-        v204 = v198;
-        v205 = v199;
-        ODIE::Kernels::Core::CPU::Utils::TensorIterator<float>::TensorIterator(&v212, &v203, v180, &v231, &v221);
+        ODIE::Kernels::Core::CPU::Utils::TensorIterator<float>::TensorIterator(&v210, &v201, v178, &v229, &v219);
+        v198 = v195;
+        v199 = v196;
         v200 = v197;
-        v201 = v198;
-        v202 = v199;
-        ODIE::Kernels::Core::CPU::Utils::TensorIterator<float>::TensorIterator(&v203, &v200, v4, &v226, &v221);
-        if (v219)
+        ODIE::Kernels::Core::CPU::Utils::TensorIterator<float>::TensorIterator(&v201, &v198, v4, &v224, &v219);
+        if (v217)
         {
-          bzero(v218, 4 * v219);
+          bzero(v216, 4 * v217);
         }
 
-        if (v210)
+        if (v208)
         {
-          bzero(v209, 4 * v210);
+          bzero(v207, 4 * v208);
         }
 
         if (v23 >= 1)
         {
           for (j = 0; j != v23; ++j)
           {
-            v123 = v219;
-            if (!v219)
+            v121 = v217;
+            if (!v217)
             {
-              goto LABEL_195;
+              goto LABEL_194;
             }
 
-            v124 = 0;
+            v122 = 0;
+            v123 = v214;
+            v124 = v215;
             v125 = v216;
-            v126 = v217;
-            v127 = v218;
-            v128 = v220;
+            v126 = v218;
             do
             {
-              v129 = *v125++;
-              if (v129 != 1)
+              v127 = *v123++;
+              if (v127 != 1)
               {
-                if (*v127 >= *v126)
+                if (*v125 >= *v124)
                 {
-                  v130 = 0;
-                  goto LABEL_197;
+                  v128 = 0;
+                  goto LABEL_196;
                 }
 
-                v124 += *v128 * *v127;
+                v122 += *v126 * *v125;
               }
 
-              ++v128;
               ++v126;
-              ++v127;
-              --v123;
+              ++v124;
+              ++v125;
+              --v121;
             }
 
-            while (v123);
-            v123 = v124;
-LABEL_195:
-            v130 = (v215 + 4 * v123);
-LABEL_197:
-            v131 = v210;
-            if (v210)
+            while (v121);
+            v121 = v122;
+LABEL_194:
+            v128 = (v213 + 4 * v121);
+LABEL_196:
+            v129 = v208;
+            if (v208)
             {
-              v132 = 0;
+              v130 = 0;
+              v131 = v205;
+              v132 = v206;
               v133 = v207;
-              v134 = v208;
-              v135 = v209;
-              v136 = v211;
+              v134 = v209;
               do
               {
-                v137 = *v133++;
-                if (v137 != 1)
+                v135 = *v131++;
+                if (v135 != 1)
                 {
-                  if (*v135 >= *v134)
+                  if (*v133 >= *v132)
                   {
-                    goto LABEL_209;
+                    goto LABEL_208;
                   }
 
-                  v132 += *v136 * *v135;
+                  v130 += *v134 * *v133;
                 }
 
-                ++v136;
                 ++v134;
-                ++v135;
-                --v131;
+                ++v132;
+                ++v133;
+                --v129;
               }
 
-              while (v131);
-              v131 = v132;
+              while (v129);
+              v129 = v130;
             }
 
-            if (v130)
+            if (v128)
             {
-              v138 = v206 == 0;
+              v136 = v204 == 0;
             }
 
             else
             {
-              v138 = 1;
+              v136 = 1;
             }
 
-            if (v138)
+            if (v136)
             {
               break;
             }
 
-            *(v181 + j) = (*v130 / *(v206 + 4 * v131)) != 0.0;
-            ODIE::Kernels::Core::CPU::Utils::TensorIterator<float>::next(&v212);
-            ODIE::Kernels::Core::CPU::Utils::TensorIterator<float>::next(&v203);
+            *(v179 + j) = (*v128 / *(v204 + 4 * v129)) != 0.0;
+            ODIE::Kernels::Core::CPU::Utils::TensorIterator<float>::next(&v210);
+            ODIE::Kernels::Core::CPU::Utils::TensorIterator<float>::next(&v201);
           }
         }
       }
 
-LABEL_209:
-      ODIE::Kernels::Core::CPU::Utils::TensorIterator<float>::~TensorIterator(&v203);
-      ODIE::Kernels::Core::CPU::Utils::TensorIterator<float>::~TensorIterator(&v212);
-      goto LABEL_266;
+LABEL_208:
+      ODIE::Kernels::Core::CPU::Utils::TensorIterator<float>::~TensorIterator(&v201);
+      ODIE::Kernels::Core::CPU::Utils::TensorIterator<float>::~TensorIterator(&v210);
+      goto LABEL_265;
     }
 
     goto LABEL_86;
@@ -3826,204 +3820,204 @@ LABEL_209:
 
   if (v10 != 70)
   {
-    v231 = v197;
-    *v232 = v198;
-    *&v232[16] = v199;
+    v229 = v195;
+    *v230 = v196;
+    *&v230[16] = v197;
+    v231 = 0;
+    v232 = 0;
     v233 = 0;
-    v234 = 0;
-    v235 = 0;
-    v226 = v197;
-    *v227 = v198;
-    *&v227[16] = v199;
+    v224 = v195;
+    *v225 = v196;
+    *&v225[16] = v197;
+    v226 = 0;
+    v227 = 0;
     v228 = 0;
-    v229 = 0;
-    v230 = 0;
-    ODIE::Kernels::Core::CPU::Utils::equalizeRanks(v13, v14, v80, &v231);
-    ODIE::Kernels::Core::CPU::Utils::equalizeRanks(v15, v16, v80, &v226);
-    v221 = v197;
-    *v222 = v198;
-    *&v222[16] = v199;
+    ODIE::Kernels::Core::CPU::Utils::equalizeRanks(v13, v14, v80, &v229);
+    ODIE::Kernels::Core::CPU::Utils::equalizeRanks(v15, v16, v80, &v224);
+    v219 = v195;
+    *v220 = v196;
+    *&v220[16] = v197;
+    v221 = 0;
     v223 = 0;
-    v225 = 0;
-    v224 = 0;
-    ODIE::Kernels::Core::CPU::Utils::broadcastShapes(&v231, &v226, &v221);
+    v222 = 0;
+    ODIE::Kernels::Core::CPU::Utils::broadcastShapes(&v229, &v224, &v219);
+    v201 = v195;
+    v202 = v196;
     v203 = v197;
-    v204 = v198;
-    v205 = v199;
-    ODIE::Kernels::Core::CPU::Utils::TensorIterator<double>::TensorIterator(&v212, &v203, v180, &v231, &v221);
+    ODIE::Kernels::Core::CPU::Utils::TensorIterator<double>::TensorIterator(&v210, &v201, v178, &v229, &v219);
+    v198 = v195;
+    v199 = v196;
     v200 = v197;
-    v201 = v198;
-    v202 = v199;
-    ODIE::Kernels::Core::CPU::Utils::TensorIterator<double>::TensorIterator(&v203, &v200, v4, &v226, &v221);
-    if (v219)
+    ODIE::Kernels::Core::CPU::Utils::TensorIterator<double>::TensorIterator(&v201, &v198, v4, &v224, &v219);
+    if (v217)
     {
-      bzero(v218, 4 * v219);
+      bzero(v216, 4 * v217);
     }
 
-    if (v210)
+    if (v208)
     {
-      bzero(v209, 4 * v210);
+      bzero(v207, 4 * v208);
     }
 
     if (v23 < 1)
     {
-      goto LABEL_265;
+      goto LABEL_264;
     }
 
-    v156 = 0;
+    v154 = 0;
     while (1)
     {
-      v157 = v219;
-      if (!v219)
+      v155 = v217;
+      if (!v217)
       {
-        goto LABEL_251;
+        goto LABEL_250;
       }
 
-      v158 = 0;
+      v156 = 0;
+      v157 = v214;
+      v158 = v215;
       v159 = v216;
-      v160 = v217;
-      v161 = v218;
-      v162 = v220;
+      v160 = v218;
       do
       {
-        v163 = *v159++;
-        if (v163 != 1)
+        v161 = *v157++;
+        if (v161 != 1)
         {
-          if (*v161 >= *v160)
+          if (*v159 >= *v158)
           {
-            v164 = 0;
-            goto LABEL_253;
+            v162 = 0;
+            goto LABEL_252;
           }
 
-          v158 += *v162 * *v161;
+          v156 += *v160 * *v159;
         }
 
-        ++v162;
         ++v160;
-        ++v161;
-        --v157;
+        ++v158;
+        ++v159;
+        --v155;
       }
 
-      while (v157);
-      v157 = v158;
-LABEL_251:
-      v164 = (v215 + 8 * v157);
-LABEL_253:
-      v165 = v210;
-      if (v210)
+      while (v155);
+      v155 = v156;
+LABEL_250:
+      v162 = (v213 + 8 * v155);
+LABEL_252:
+      v163 = v208;
+      if (v208)
       {
-        v166 = 0;
+        v164 = 0;
+        v165 = v205;
+        v166 = v206;
         v167 = v207;
-        v168 = v208;
-        v169 = v209;
-        v170 = v211;
+        v168 = v209;
         do
         {
-          v171 = *v167++;
-          if (v171 != 1)
+          v169 = *v165++;
+          if (v169 != 1)
           {
-            if (*v169 >= *v168)
+            if (*v167 >= *v166)
             {
-              goto LABEL_265;
+              goto LABEL_264;
             }
 
-            v166 += *v170 * *v169;
+            v164 += *v168 * *v167;
           }
 
-          ++v170;
           ++v168;
-          ++v169;
-          --v165;
+          ++v166;
+          ++v167;
+          --v163;
         }
 
-        while (v165);
-        v165 = v166;
+        while (v163);
+        v163 = v164;
       }
 
-      if (v164)
+      if (v162)
       {
-        v172 = v206 == 0;
+        v170 = v204 == 0;
       }
 
       else
       {
-        v172 = 1;
+        v170 = 1;
       }
 
-      if (!v172)
+      if (!v170)
       {
-        *(v181 + v156) = *v164 / *(v206 + 8 * v165) != 0.0;
-        ODIE::Kernels::Core::CPU::Utils::TensorIterator<double>::next(&v212);
-        ODIE::Kernels::Core::CPU::Utils::TensorIterator<double>::next(&v203);
-        if (++v156 != v23)
+        *(v179 + v154) = *v162 / *(v204 + 8 * v163) != 0.0;
+        ODIE::Kernels::Core::CPU::Utils::TensorIterator<double>::next(&v210);
+        ODIE::Kernels::Core::CPU::Utils::TensorIterator<double>::next(&v201);
+        if (++v154 != v23)
         {
           continue;
         }
       }
 
-      goto LABEL_265;
+      goto LABEL_264;
     }
   }
 
-  v231 = v197;
-  *v232 = v198;
-  *&v232[16] = v199;
+  v229 = v195;
+  *v230 = v196;
+  *&v230[16] = v197;
+  v231 = 0;
+  v232 = 0;
   v233 = 0;
-  v234 = 0;
-  v235 = 0;
-  v226 = v197;
-  *v227 = v198;
-  *&v227[16] = v199;
+  v224 = v195;
+  *v225 = v196;
+  *&v225[16] = v197;
+  v226 = 0;
+  v227 = 0;
   v228 = 0;
-  v229 = 0;
-  v230 = 0;
-  ODIE::Kernels::Core::CPU::Utils::equalizeRanks(v13, v14, v80, &v231);
-  ODIE::Kernels::Core::CPU::Utils::equalizeRanks(v15, v16, v80, &v226);
-  v221 = v197;
-  *v222 = v198;
-  *&v222[16] = v199;
+  ODIE::Kernels::Core::CPU::Utils::equalizeRanks(v13, v14, v80, &v229);
+  ODIE::Kernels::Core::CPU::Utils::equalizeRanks(v15, v16, v80, &v224);
+  v219 = v195;
+  *v220 = v196;
+  *&v220[16] = v197;
+  v221 = 0;
   v223 = 0;
-  v225 = 0;
-  v224 = 0;
-  ODIE::Kernels::Core::CPU::Utils::broadcastShapes(&v231, &v226, &v221);
+  v222 = 0;
+  ODIE::Kernels::Core::CPU::Utils::broadcastShapes(&v229, &v224, &v219);
+  v201 = v195;
+  v202 = v196;
   v203 = v197;
-  v204 = v198;
-  v205 = v199;
-  ODIE::Kernels::Core::CPU::Utils::TensorIterator<double>::TensorIterator(&v212, &v203, v180, &v231, &v221);
+  ODIE::Kernels::Core::CPU::Utils::TensorIterator<double>::TensorIterator(&v210, &v201, v178, &v229, &v219);
+  v198 = v195;
+  v199 = v196;
   v200 = v197;
-  v201 = v198;
-  v202 = v199;
-  ODIE::Kernels::Core::CPU::Utils::TensorIterator<double>::TensorIterator(&v203, &v200, v4, &v226, &v221);
-  if (v219)
+  ODIE::Kernels::Core::CPU::Utils::TensorIterator<double>::TensorIterator(&v201, &v198, v4, &v224, &v219);
+  if (v217)
   {
-    bzero(v218, 4 * v219);
+    bzero(v216, 4 * v217);
   }
 
-  if (v210)
+  if (v208)
   {
-    bzero(v209, 4 * v210);
+    bzero(v207, 4 * v208);
   }
 
   if (v23 < 1)
   {
-    goto LABEL_265;
+    goto LABEL_264;
   }
 
   for (k = 0; k != v23; ++k)
   {
-    v82 = v219;
-    if (!v219)
+    v82 = v217;
+    if (!v217)
     {
 LABEL_136:
-      v89 = (v215 + 8 * v82);
+      v89 = (v213 + 8 * v82);
       goto LABEL_138;
     }
 
     v83 = 0;
-    v84 = v216;
-    v85 = v217;
-    v86 = v218;
-    v87 = v220;
+    v84 = v214;
+    v85 = v215;
+    v86 = v216;
+    v87 = v218;
     while (1)
     {
       v88 = *v84++;
@@ -4051,14 +4045,14 @@ LABEL_134:
 
     v89 = 0;
 LABEL_138:
-    v90 = v210;
-    if (v210)
+    v90 = v208;
+    if (v208)
     {
       v91 = 0;
-      v92 = v207;
-      v93 = v208;
-      v94 = v209;
-      v95 = v211;
+      v92 = v205;
+      v93 = v206;
+      v94 = v207;
+      v95 = v209;
       do
       {
         v96 = *v92++;
@@ -4066,7 +4060,7 @@ LABEL_138:
         {
           if (*v94 >= *v93)
           {
-            goto LABEL_265;
+            goto LABEL_264;
           }
 
           v91 += *v95 * *v94;
@@ -4084,7 +4078,7 @@ LABEL_138:
 
     if (v89)
     {
-      v97 = v206 == 0;
+      v97 = v204 == 0;
     }
 
     else
@@ -4097,21 +4091,21 @@ LABEL_138:
       break;
     }
 
-    *(v181 + 8 * k) = *v89 / *(v206 + 8 * v90);
-    ODIE::Kernels::Core::CPU::Utils::TensorIterator<double>::next(&v212);
-    ODIE::Kernels::Core::CPU::Utils::TensorIterator<double>::next(&v203);
+    *(v179 + 8 * k) = *v89 / *(v204 + 8 * v90);
+    ODIE::Kernels::Core::CPU::Utils::TensorIterator<double>::next(&v210);
+    ODIE::Kernels::Core::CPU::Utils::TensorIterator<double>::next(&v201);
   }
 
+LABEL_264:
+  ODIE::Kernels::Core::CPU::Utils::TensorIterator<double>::~TensorIterator(&v201);
+  ODIE::Kernels::Core::CPU::Utils::TensorIterator<double>::~TensorIterator(&v210);
 LABEL_265:
-  ODIE::Kernels::Core::CPU::Utils::TensorIterator<double>::~TensorIterator(&v203);
-  ODIE::Kernels::Core::CPU::Utils::TensorIterator<double>::~TensorIterator(&v212);
-LABEL_266:
-  if (*v222)
+  if (*v220)
   {
-    v212 = v221;
-    v213 = *v222;
-    v214 = *&v222[8];
-    (*v222)(&v212, v223);
+    v210 = v219;
+    v211 = *v220;
+    v212 = *&v220[8];
+    (*v220)(&v210, v221);
   }
 
   else
@@ -4119,12 +4113,12 @@ LABEL_266:
     odie_log(1, "/Library/Caches/com.apple.xbs/Sources/OnDeviceInferenceEngine/Common/CAPI/memory_allocator.cpp", "odie_dealloc", "Invalid dealloc callback");
   }
 
-  if (*v227)
+  if (*v225)
   {
-    v212 = v226;
-    v213 = *v227;
-    v214 = *&v227[8];
-    (*v227)(&v212, v228);
+    v210 = v224;
+    v211 = *v225;
+    v212 = *&v225[8];
+    (*v225)(&v210, v226);
   }
 
   else
@@ -4132,12 +4126,12 @@ LABEL_266:
     odie_log(1, "/Library/Caches/com.apple.xbs/Sources/OnDeviceInferenceEngine/Common/CAPI/memory_allocator.cpp", "odie_dealloc", "Invalid dealloc callback");
   }
 
-  if (*v232)
+  if (*v230)
   {
-    v212 = v231;
-    v213 = *v232;
-    v214 = *&v232[8];
-    (*v232)(&v212, v233);
+    v210 = v229;
+    v211 = *v230;
+    v212 = *&v230[8];
+    (*v230)(&v210, v231);
   }
 
   else
@@ -4146,13 +4140,13 @@ LABEL_266:
   }
 
   v61 = 0;
-LABEL_273:
-  if (*v183)
+LABEL_272:
+  if (*v181)
   {
-    v212 = v182;
-    v213 = *v183;
-    v214 = *&v183[8];
-    (*v183)(&v212, v184);
+    v210 = v180;
+    v211 = *v181;
+    v212 = *&v181[8];
+    (*v181)(&v210, v182);
   }
 
   else
@@ -4160,12 +4154,12 @@ LABEL_273:
     odie_log(1, "/Library/Caches/com.apple.xbs/Sources/OnDeviceInferenceEngine/Common/CAPI/memory_allocator.cpp", "odie_dealloc", "Invalid dealloc callback");
   }
 
-  if (*v188)
+  if (*v186)
   {
-    v212 = v187;
-    v213 = *v188;
-    v214 = *&v188[8];
-    (*v188)(&v212, v189);
+    v210 = v185;
+    v211 = *v186;
+    v212 = *&v186[8];
+    (*v186)(&v210, v187);
   }
 
   else
@@ -4173,12 +4167,12 @@ LABEL_273:
     odie_log(1, "/Library/Caches/com.apple.xbs/Sources/OnDeviceInferenceEngine/Common/CAPI/memory_allocator.cpp", "odie_dealloc", "Invalid dealloc callback");
   }
 
-  if (*v193)
+  if (*v191)
   {
-    v212 = v192;
-    v213 = *v193;
-    v214 = *&v193[8];
-    (*v193)(&v212, v194);
+    v210 = v190;
+    v211 = *v191;
+    v212 = *&v191[8];
+    (*v191)(&v210, v192);
   }
 
   else
@@ -4189,7 +4183,7 @@ LABEL_273:
   return v61;
 }
 
-uint64_t ODIE::Kernels::Core::CPU::valueInferenceElementwisePow(uint64_t a1, uint64_t **a2, uint64_t a3, uint64_t **a4)
+uint64_t ODIE::Kernels::Core::CPU::valueInferenceElementwisePow(__int128 *a1, uint64_t **a2, uint64_t a3, uint64_t **a4)
 {
   v4 = a2[1][1];
   v5 = **a2;
@@ -4248,10 +4242,10 @@ uint64_t ODIE::Kernels::Core::CPU::valueInferenceElementwisePow(uint64_t a1, uin
   v14 = *(v11 + 32);
   v15 = *(v12 + 40);
   v16 = *(v12 + 32);
-  v17 = *(a1 + 16);
+  v17 = a1[1];
   v206 = *a1;
   v207 = v17;
-  v208 = *(a1 + 32);
+  v208 = *(a1 + 4);
   if (v14 <= v16)
   {
     v18 = v16;
@@ -4263,16 +4257,16 @@ uint64_t ODIE::Kernels::Core::CPU::valueInferenceElementwisePow(uint64_t a1, uin
   }
 
   v19 = v18;
-  v20 = *(a1 + 16);
+  v20 = a1[1];
   v201 = *a1;
   *v202 = v20;
-  *&v202[16] = *(a1 + 32);
+  *&v202[16] = *(a1 + 4);
   v203 = 0;
   v204 = 0;
   v205 = 0;
   v196 = v201;
   *v197 = v20;
-  *&v197[16] = *(a1 + 32);
+  *&v197[16] = *(a1 + 4);
   v198 = 0;
   v199 = 0;
   v200 = 0;
@@ -5602,7 +5596,7 @@ LABEL_273:
   return v70;
 }
 
-uint64_t ODIE::Kernels::Core::CPU::valueInferenceElementwiseEqual(uint64_t a1, uint64_t **a2, uint64_t a3, uint64_t **a4)
+uint64_t ODIE::Kernels::Core::CPU::valueInferenceElementwiseEqual(__int128 *a1, uint64_t **a2, uint64_t a3, uint64_t **a4)
 {
   v4 = a2[1][1];
   v5 = **a2;
@@ -5661,10 +5655,10 @@ uint64_t ODIE::Kernels::Core::CPU::valueInferenceElementwiseEqual(uint64_t a1, u
   v14 = *(v11 + 32);
   v15 = *(v12 + 40);
   v16 = *(v12 + 32);
-  v17 = *(a1 + 16);
+  v17 = a1[1];
   v210 = *a1;
   v211 = v17;
-  v212 = *(a1 + 32);
+  v212 = *(a1 + 4);
   if (v14 <= v16)
   {
     v18 = v16;
@@ -5676,16 +5670,16 @@ uint64_t ODIE::Kernels::Core::CPU::valueInferenceElementwiseEqual(uint64_t a1, u
   }
 
   v19 = v18;
-  v20 = *(a1 + 16);
+  v20 = a1[1];
   v205 = *a1;
   *v206 = v20;
-  *&v206[16] = *(a1 + 32);
+  *&v206[16] = *(a1 + 4);
   v207 = 0;
   v208 = 0;
   v209 = 0;
   v200 = v205;
   *v201 = v20;
-  *&v201[16] = *(a1 + 32);
+  *&v201[16] = *(a1 + 4);
   v202 = 0;
   v203 = 0;
   v204 = 0;
@@ -7151,7 +7145,7 @@ LABEL_309:
   return v66;
 }
 
-uint64_t ODIE::Kernels::Core::CPU::valueInferenceElementwiseGreater(uint64_t a1, uint64_t **a2, uint64_t a3, uint64_t **a4)
+uint64_t ODIE::Kernels::Core::CPU::valueInferenceElementwiseGreater(__int128 *a1, uint64_t **a2, uint64_t a3, uint64_t **a4)
 {
   v4 = a2[1][1];
   v5 = **a2;
@@ -7210,10 +7204,10 @@ uint64_t ODIE::Kernels::Core::CPU::valueInferenceElementwiseGreater(uint64_t a1,
   v14 = *(v11 + 32);
   v15 = *(v12 + 40);
   v16 = *(v12 + 32);
-  v17 = *(a1 + 16);
+  v17 = a1[1];
   v193 = *a1;
   v194 = v17;
-  v195 = *(a1 + 32);
+  v195 = *(a1 + 4);
   if (v14 <= v16)
   {
     v18 = v16;
@@ -7225,16 +7219,16 @@ uint64_t ODIE::Kernels::Core::CPU::valueInferenceElementwiseGreater(uint64_t a1,
   }
 
   v19 = v18;
-  v20 = *(a1 + 16);
+  v20 = a1[1];
   v188 = *a1;
   *v189 = v20;
-  *&v189[16] = *(a1 + 32);
+  *&v189[16] = *(a1 + 4);
   v190 = 0;
   v191 = 0;
   v192 = 0;
   v183 = v188;
   *v184 = v20;
-  *&v184[16] = *(a1 + 32);
+  *&v184[16] = *(a1 + 4);
   v185 = 0;
   v186 = 0;
   v187 = 0;
@@ -8539,7 +8533,7 @@ LABEL_279:
   return v63;
 }
 
-uint64_t ODIE::Kernels::Core::CPU::valueInferenceElementwiseNotEqual(uint64_t a1, uint64_t **a2, uint64_t a3, uint64_t **a4)
+uint64_t ODIE::Kernels::Core::CPU::valueInferenceElementwiseNotEqual(__int128 *a1, uint64_t **a2, uint64_t a3, uint64_t **a4)
 {
   v4 = a2[1][1];
   v5 = **a2;
@@ -8598,10 +8592,10 @@ uint64_t ODIE::Kernels::Core::CPU::valueInferenceElementwiseNotEqual(uint64_t a1
   v14 = *(v11 + 32);
   v15 = *(v12 + 40);
   v16 = *(v12 + 32);
-  v17 = *(a1 + 16);
+  v17 = a1[1];
   v210 = *a1;
   v211 = v17;
-  v212 = *(a1 + 32);
+  v212 = *(a1 + 4);
   if (v14 <= v16)
   {
     v18 = v16;
@@ -8613,16 +8607,16 @@ uint64_t ODIE::Kernels::Core::CPU::valueInferenceElementwiseNotEqual(uint64_t a1
   }
 
   v19 = v18;
-  v20 = *(a1 + 16);
+  v20 = a1[1];
   v205 = *a1;
   *v206 = v20;
-  *&v206[16] = *(a1 + 32);
+  *&v206[16] = *(a1 + 4);
   v207 = 0;
   v208 = 0;
   v209 = 0;
   v200 = v205;
   *v201 = v20;
-  *&v201[16] = *(a1 + 32);
+  *&v201[16] = *(a1 + 4);
   v202 = 0;
   v203 = 0;
   v204 = 0;

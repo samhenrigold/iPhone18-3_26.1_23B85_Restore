@@ -5,6 +5,7 @@
 - (void)requestAttributionDetails:(id)details;
 - (void)requestAttributionDetailsWithBlock:(id)block;
 - (void)setServerToTest:(int64_t)test;
+- (void)setStocksAdEnabled:(BOOL)enabled;
 @end
 
 @implementation ADAttributionRequester
@@ -95,22 +96,21 @@ void __68__ADAttributionRequester_initWithConnection_bundleID_transactionID___bl
 
 - (BOOL)_isAppTrackingAuthorized
 {
-  v2 = *MEMORY[0x277D6C238];
   connection = [(ADAttributionRequester *)self connection];
-  v4 = connection;
+  v3 = connection;
   if (connection)
   {
-    [connection auditToken];
+    objc_msgSend_auditToken(connection);
   }
 
-  v5 = TCCAccessPreflightWithAuditToken();
+  v4 = TCCAccessPreflightWithAuditToken();
 
-  return v5 == 0;
+  return v4 == 0;
 }
 
 - (void)requestAttributionDetails:(id)details
 {
-  v25[1] = *MEMORY[0x277D85DE8];
+  v24[1] = *MEMORY[0x277D85DE8];
   detailsCopy = details;
   mEMORY[0x277CE9638] = [MEMORY[0x277CE9638] sharedInstance];
   isAccountRestricted = [mEMORY[0x277CE9638] isAccountRestricted];
@@ -120,11 +120,11 @@ void __68__ADAttributionRequester_initWithConnection_bundleID_transactionID___bl
 
   if ((isAccountRestricted & 1) != 0 || v8)
   {
-    v24 = *MEMORY[0x277CCA450];
+    v23 = *MEMORY[0x277CCA450];
     mainBundle = [MEMORY[0x277CCA8D8] mainBundle];
     v13 = [mainBundle localizedStringForKey:@"The app is not authorized for ad tracking" value:&stru_28510D178 table:0];
-    v25[0] = v13;
-    v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:&v24 count:1];
+    v24[0] = v13;
+    v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v24 forKeys:&v23 count:1];
 
     v15 = [MEMORY[0x277CCA9B8] errorWithDomain:@"ADClientErrorDomain" code:1 userInfo:v14];
     v16 = MEMORY[0x277CCACA8];
@@ -148,11 +148,11 @@ void __68__ADAttributionRequester_initWithConnection_bundleID_transactionID___bl
       goto LABEL_11;
     }
 
-    v22 = *MEMORY[0x277CCA450];
+    v21 = *MEMORY[0x277CCA450];
     mainBundle2 = [MEMORY[0x277CCA8D8] mainBundle];
     v19 = [mainBundle2 localizedStringForKey:@"The app is not authorized for ad tracking" value:&stru_28510D178 table:0];
-    v23 = v19;
-    v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v23 forKeys:&v22 count:1];
+    v22 = v19;
+    v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v22 forKeys:&v21 count:1];
 
     v15 = [MEMORY[0x277CCA9B8] errorWithDomain:@"ADClientErrorDomain" code:1 userInfo:v14];
     v16 = MEMORY[0x277CCACA8];
@@ -168,7 +168,6 @@ void __68__ADAttributionRequester_initWithConnection_bundleID_transactionID___bl
   }
 
 LABEL_11:
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)beginAttributionRequest:(id)request reason:(id)reason completionHandler:(id)handler
@@ -192,7 +191,7 @@ LABEL_11:
 
 void __75__ADAttributionRequester_beginAttributionRequest_reason_completionHandler___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v11 = a2;
+  v10 = a2;
   v5 = a3;
   v6 = [MEMORY[0x277CE96E8] sharedInstance];
   [v6 removeWatchdogWithToken:*(a1 + 32)];
@@ -200,27 +199,26 @@ void __75__ADAttributionRequester_beginAttributionRequest_reason_completionHandl
   v7 = *(a1 + 56);
   if (v7)
   {
-    (*(v7 + 16))(v7, v11, v5);
+    (*(v7 + 16))(v7, v10, v5);
   }
 
-  v8 = *(a1 + 40);
   releaseXPCTransaction();
-  v9 = +[ADAttributionService sharedInstance];
-  v10 = [*(a1 + 48) transactionToken];
-  [v9 removeClientForToken:v10];
+  v8 = +[ADAttributionService sharedInstance];
+  v9 = [*(a1 + 48) transactionToken];
+  [v8 removeClientForToken:v9];
 }
 
 - (void)requestAttributionDetailsWithBlock:(id)block
 {
-  v18[1] = *MEMORY[0x277D85DE8];
+  v17[1] = *MEMORY[0x277D85DE8];
   blockCopy = block;
   v5 = [MEMORY[0x277CCACA8] stringWithFormat:@"Handling Attribution Request."];
   _ADLog();
 
-  v17 = @"AttributingBundleID";
+  v16 = @"AttributingBundleID";
   bundleID = [(ADAttributionRequester *)self bundleID];
-  v18[0] = bundleID;
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:&v17 count:1];
+  v17[0] = bundleID;
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:&v16 count:1];
   AnalyticsSendEvent();
 
   if (blockCopy)
@@ -230,16 +228,16 @@ void __75__ADAttributionRequester_beginAttributionRequest_reason_completionHandl
     v9 = [mEMORY[0x277CE96E8] createNewWatchdog:@"Attribution Request in progress" withTimer:1800];
 
     workQueue = [MEMORY[0x277CE96B8] workQueue];
-    v13[0] = MEMORY[0x277D85DD0];
-    v13[1] = 3221225472;
-    v13[2] = __61__ADAttributionRequester_requestAttributionDetailsWithBlock___block_invoke;
-    v13[3] = &unk_278C5A6E0;
-    v13[4] = self;
-    v14 = v9;
-    v15 = @"com.apple.adprivacyd Attribution Request in Progress";
-    v16 = blockCopy;
+    v12[0] = MEMORY[0x277D85DD0];
+    v12[1] = 3221225472;
+    v12[2] = __61__ADAttributionRequester_requestAttributionDetailsWithBlock___block_invoke;
+    v12[3] = &unk_278C5A6E0;
+    v12[4] = self;
+    v13 = v9;
+    v14 = @"com.apple.adprivacyd Attribution Request in Progress";
+    v15 = blockCopy;
     v11 = v9;
-    [workQueue addOperationWithBlock:v13];
+    [workQueue addOperationWithBlock:v12];
   }
 
   else
@@ -247,8 +245,6 @@ void __75__ADAttributionRequester_beginAttributionRequest_reason_completionHandl
     v11 = [MEMORY[0x277CCACA8] stringWithFormat:@"ERROR: A completionHandler was not passed in on the attribution request."];
     _ADLog();
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __61__ADAttributionRequester_requestAttributionDetailsWithBlock___block_invoke(uint64_t a1)
@@ -320,6 +316,42 @@ void __61__ADAttributionRequester_requestAttributionDetailsWithBlock___block_inv
     v18 = v16;
     v19 = v15;
     [v9 setDSID:v11 completionHandler:v17];
+  }
+}
+
+- (void)setStocksAdEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  v4 = [(NSXPCConnection *)self->_connection valueForEntitlement:@"com.apple.private.iad.news-client"];
+  bOOLValue = [v4 BOOLValue];
+
+  if ((bOOLValue & 1) == 0)
+  {
+    mEMORY[0x277CE9658] = [MEMORY[0x277CCACA8] stringWithFormat:@"ERROR: A request to change Stocks Ad enablement was made from a non-entitled caller."];
+    _ADLog();
+    goto LABEL_7;
+  }
+
+  v6 = @"disable";
+  if (enabledCopy)
+  {
+    v6 = @"enable";
+  }
+
+  v7 = [MEMORY[0x277CCACA8] stringWithFormat:@"Received request to %@ Ads in Stocks.", v6];
+  _ADLog();
+
+  mEMORY[0x277CE9630] = [MEMORY[0x277CE9630] sharedInstance];
+  [mEMORY[0x277CE9630] setBool:enabledCopy forKey:@"StocksEnabled"];
+
+  if (enabledCopy)
+  {
+    mEMORY[0x277CE9658] = [MEMORY[0x277CE9658] sharedInstance];
+    mEMORY[0x277CE9638] = [MEMORY[0x277CE9638] sharedInstance];
+    iTunesAccountDSID = [mEMORY[0x277CE9638] iTunesAccountDSID];
+    [mEMORY[0x277CE9658] setDSID:iTunesAccountDSID completionHandler:&__block_literal_global];
+
+LABEL_7:
   }
 }
 

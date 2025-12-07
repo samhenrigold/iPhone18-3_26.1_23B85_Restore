@@ -42,6 +42,7 @@
 - (double)safariMostRecent;
 - (double)subscriptionTTL;
 - (double)timeoutIntervalForRequest;
+- (id)_bag_objectOfClass:(Class)class forKey:(id)key override:(BOOL)override;
 - (id)bag_URLForKey:(id)key;
 - (id)bag_arrayForKey:(id)key;
 - (id)bag_dictionaryForKey:(id)key;
@@ -145,7 +146,7 @@
 
 - (NSDictionary)rawBag
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   if (PARLogHandleForCategory_onceToken_105 != -1)
   {
     dispatch_once(&PARLogHandleForCategory_onceToken_105, &__block_literal_global_106);
@@ -158,10 +159,10 @@
     _os_log_impl(&dword_1B1064000, v3, OS_LOG_TYPE_DEFAULT, "Please use member accessors on PARBag, do not access rawBag dictionary", buf, 2u);
   }
 
+  v10 = 0;
   v11 = 0;
-  v12 = 0;
-  v4 = [MEMORY[0x1E696AE40] propertyListWithData:self->_bagData options:0 format:&v12 error:&v11];
-  v5 = v11;
+  v4 = [MEMORY[0x1E696AE40] propertyListWithData:self->_bagData options:0 format:&v11 error:&v10];
+  v5 = v10;
   if (v5)
   {
     if (PARLogHandleForCategory_onceToken_105 != -1)
@@ -176,7 +177,7 @@
     }
 
     *buf = 138412290;
-    v14 = v5;
+    v13 = v5;
     v7 = "Bag property list unable to be deserialized: %@";
     goto LABEL_16;
   }
@@ -197,7 +198,7 @@
   if (os_log_type_enabled(PARLogHandleForCategory_logHandles_3_107, OS_LOG_TYPE_ERROR))
   {
     *buf = 138412290;
-    v14 = v4;
+    v13 = v4;
     v7 = "Bag property list is not an NSDictionary: %@";
 LABEL_16:
     _os_log_error_impl(&dword_1B1064000, v6, OS_LOG_TYPE_ERROR, v7, buf, 0xCu);
@@ -206,8 +207,6 @@ LABEL_16:
 LABEL_17:
   v8 = 0;
 LABEL_18:
-
-  v9 = *MEMORY[0x1E69E9840];
 
   return v8;
 }
@@ -693,7 +692,7 @@ LABEL_18:
 
 - (NSString)firstUseContinueText
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v3 = [(PARBag *)self bag_stringForKey:@"first_use_continue"];
   if (PARLogHandleForCategory_onceToken_105 != -1)
   {
@@ -705,21 +704,19 @@ LABEL_18:
   {
     userAgent = self->_userAgent;
     v6 = v4;
-    v9 = 138412546;
-    v10 = userAgent;
-    v11 = 2048;
-    v12 = [v3 length];
-    _os_log_impl(&dword_1B1064000, v6, OS_LOG_TYPE_DEFAULT, "FTE continue lookup for %@, returning FTE of length %lu", &v9, 0x16u);
+    v8 = 138412546;
+    v9 = userAgent;
+    v10 = 2048;
+    v11 = [v3 length];
+    _os_log_impl(&dword_1B1064000, v6, OS_LOG_TYPE_DEFAULT, "FTE continue lookup for %@, returning FTE of length %lu", &v8, 0x16u);
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 
   return v3;
 }
 
 - (NSString)firstUseLearnMoreText
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v3 = [(PARBag *)self bag_stringForKey:@"first_use_learn_more"];
   if (PARLogHandleForCategory_onceToken_105 != -1)
   {
@@ -731,21 +728,19 @@ LABEL_18:
   {
     userAgent = self->_userAgent;
     v6 = v4;
-    v9 = 138412546;
-    v10 = userAgent;
-    v11 = 2048;
-    v12 = [v3 length];
-    _os_log_impl(&dword_1B1064000, v6, OS_LOG_TYPE_DEFAULT, "FTE learn more lookup for %@, returning FTE of length %lu", &v9, 0x16u);
+    v8 = 138412546;
+    v9 = userAgent;
+    v10 = 2048;
+    v11 = [v3 length];
+    _os_log_impl(&dword_1B1064000, v6, OS_LOG_TYPE_DEFAULT, "FTE learn more lookup for %@, returning FTE of length %lu", &v8, 0x16u);
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 
   return v3;
 }
 
 - (NSString)firstUseDescriptionText
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v3 = [(PARBag *)self bag_stringForKey:@"first_use_description"];
   if (PARLogHandleForCategory_onceToken_105 != -1)
   {
@@ -757,14 +752,12 @@ LABEL_18:
   {
     userAgent = self->_userAgent;
     v6 = v4;
-    v9 = 138412546;
-    v10 = userAgent;
-    v11 = 2048;
-    v12 = [v3 length];
-    _os_log_impl(&dword_1B1064000, v6, OS_LOG_TYPE_DEFAULT, "FTE description lookup for %@, returning FTE of length %lu", &v9, 0x16u);
+    v8 = 138412546;
+    v9 = userAgent;
+    v10 = 2048;
+    v11 = [v3 length];
+    _os_log_impl(&dword_1B1064000, v6, OS_LOG_TYPE_DEFAULT, "FTE description lookup for %@, returning FTE of length %lu", &v8, 0x16u);
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 
   return v3;
 }
@@ -949,9 +942,25 @@ LABEL_18:
   return v5;
 }
 
+- (id)_bag_objectOfClass:(Class)class forKey:(id)key override:(BOOL)override
+{
+  v5 = [(PARBag *)self valueForKey:key override:override];
+  if (objc_opt_isKindOfClass())
+  {
+    v6 = v5;
+  }
+
+  else
+  {
+    v6 = 0;
+  }
+
+  return v6;
+}
+
 - (id)valueForKey:(id)key override:(BOOL)override
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   keyCopy = key;
   if ([keyCopy length])
   {
@@ -970,11 +979,11 @@ LABEL_18:
       {
         userDefaults = self->_userDefaults;
         *buf = 138412802;
-        v19 = v8;
+        v17 = v8;
+        v18 = 2112;
+        v19 = v6;
         v20 = 2112;
-        v21 = v6;
-        v22 = 2112;
-        v23 = userDefaults;
+        v21 = userDefaults;
         _os_log_debug_impl(&dword_1B1064000, v9, OS_LOG_TYPE_DEBUG, "value: %@ key: %@ userDefaults: %@", buf, 0x20u);
       }
 
@@ -985,18 +994,17 @@ LABEL_18:
     else
     {
       v12 = [objc_alloc(MEMORY[0x1E695DFD8]) initWithObjects:{keyCopy, @"overrides", 0}];
-      bagData = self->_bagData;
       _CFPropertyListCreateFiltered();
       if (PARLogHandleForCategory_onceToken_105 != -1)
       {
         dispatch_once(&PARLogHandleForCategory_onceToken_105, &__block_literal_global_106);
       }
 
-      v14 = PARLogHandleForCategory_logHandles_3_107;
+      v13 = PARLogHandleForCategory_logHandles_3_107;
       if (os_log_type_enabled(PARLogHandleForCategory_logHandles_3_107, OS_LOG_TYPE_ERROR))
       {
         *buf = 0;
-        _os_log_error_impl(&dword_1B1064000, v14, OS_LOG_TYPE_ERROR, "Could not parse mapped plist", buf, 2u);
+        _os_log_error_impl(&dword_1B1064000, v13, OS_LOG_TYPE_ERROR, "Could not parse mapped plist", buf, 2u);
       }
 
       v10 = 0;
@@ -1008,8 +1016,6 @@ LABEL_18:
   {
     v11 = 0;
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 
   return v11;
 }
@@ -1077,13 +1083,13 @@ LABEL_18:
 
 - (PARBag)initWithURL:(id)l userAgent:(id)agent userDefaults:(id)defaults
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   lCopy = l;
   agentCopy = agent;
   defaultsCopy = defaults;
-  v17 = 0;
-  v11 = [MEMORY[0x1E695DEF0] dataWithContentsOfURL:lCopy options:8 error:&v17];
-  v12 = v17;
+  v16 = 0;
+  v11 = [MEMORY[0x1E695DEF0] dataWithContentsOfURL:lCopy options:8 error:&v16];
+  v12 = v16;
   if (v12)
   {
     if (PARLogHandleForCategory_onceToken_105 != -1)
@@ -1095,9 +1101,9 @@ LABEL_18:
     if (os_log_type_enabled(PARLogHandleForCategory_logHandles_3_107, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412546;
-      v19 = lCopy;
-      v20 = 2112;
-      v21 = v12;
+      v18 = lCopy;
+      v19 = 2112;
+      v20 = v12;
       _os_log_error_impl(&dword_1B1064000, v13, OS_LOG_TYPE_ERROR, "Could not read bag plist from %@: %@", buf, 0x16u);
     }
 
@@ -1110,7 +1116,6 @@ LABEL_18:
     selfCopy = self;
   }
 
-  v15 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 

@@ -29,13 +29,12 @@
 
 - (NSString)requestIdentifier
 {
-  v2 = *(*(self + OBJC_IVAR____TtC17proximitycontrold31HintViewControllerDynamicIsland_viewModel) + 16);
   selfCopy = self;
   UUID.uuidString.getter();
 
-  v4 = String._bridgeToObjectiveC()();
+  v3 = String._bridgeToObjectiveC()();
 
-  return v4;
+  return v3;
 }
 
 - (NSString)description
@@ -51,7 +50,7 @@
 - (void)viewDidLoad
 {
   selfCopy = self;
-  sub_100206988();
+  sub_100206988(selfCopy);
 }
 
 - (void)viewDidMoveToWindow:(id)window shouldAppearOrDisappear:(BOOL)disappear

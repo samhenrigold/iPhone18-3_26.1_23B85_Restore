@@ -165,11 +165,11 @@ void __33__VCPTrimAnalyzer_printSegments___block_invoke(uint64_t a1, void *a2)
   v3 = v2;
   if (v2)
   {
-    [v2 timeRange];
+    objc_msgSend_timeRange(v2);
     *&time.start.value = v9;
     time.start.epoch = v10;
     Seconds = CMTimeGetSeconds(&time.start);
-    [v3 timeRange];
+    objc_msgSend_timeRange(v3);
   }
 
   else
@@ -253,7 +253,7 @@ void __33__VCPTrimAnalyzer_printSegments___block_invoke(uint64_t a1, void *a2)
     v8 = v7;
     if (v7)
     {
-      [v7 timeRange];
+      objc_msgSend_timeRange(v7);
     }
 
     else
@@ -275,7 +275,7 @@ void __33__VCPTrimAnalyzer_printSegments___block_invoke(uint64_t a1, void *a2)
     [(VCPSegment *)v11 copyFrom:self->_activeSegment];
     if (v11)
     {
-      [(VCPSegment *)v11 timeRange];
+      objc_msgSend_timeRange(v11);
     }
 
     else
@@ -294,7 +294,7 @@ void __33__VCPTrimAnalyzer_printSegments___block_invoke(uint64_t a1, void *a2)
       CMTimeMakeWithSeconds(&time.start, Seconds + 0.300000012, time->var1);
       if (v11)
       {
-        [(VCPSegment *)v11 timeRange];
+        objc_msgSend_timeRange(v11);
       }
 
       else
@@ -323,7 +323,7 @@ void __33__VCPTrimAnalyzer_printSegments___block_invoke(uint64_t a1, void *a2)
     v14 = v13;
     if (v13)
     {
-      [v13 timeRange];
+      objc_msgSend_timeRange(v13);
     }
 
     else
@@ -340,7 +340,7 @@ void __33__VCPTrimAnalyzer_printSegments___block_invoke(uint64_t a1, void *a2)
     v17 = lastObject;
     if (lastObject)
     {
-      [lastObject timeRange];
+      objc_msgSend_timeRange(lastObject);
     }
 
     else
@@ -509,7 +509,7 @@ void __33__VCPTrimAnalyzer_printSegments___block_invoke(uint64_t a1, void *a2)
     v15 = v14;
     if (v14)
     {
-      [v14 timeRange];
+      objc_msgSend_timeRange(v14);
     }
 
     else
@@ -526,7 +526,7 @@ void __33__VCPTrimAnalyzer_printSegments___block_invoke(uint64_t a1, void *a2)
     v18 = lastObject;
     if (lastObject)
     {
-      [lastObject timeRange];
+      objc_msgSend_timeRange(lastObject);
     }
 
     else
@@ -550,7 +550,7 @@ void __59__VCPTrimAnalyzer_prepareTrimmingWithTrimStart_andTrimEnd___block_invok
   v6 = v5;
   if (v5)
   {
-    [v5 timeRange];
+    objc_msgSend_timeRange(v5);
   }
 
   else
@@ -566,7 +566,7 @@ void __59__VCPTrimAnalyzer_prepareTrimmingWithTrimStart_andTrimEnd___block_invok
 
   if (v6)
   {
-    [v6 timeRange];
+    objc_msgSend_timeRange(v6);
   }
 
   else
@@ -589,7 +589,7 @@ void __59__VCPTrimAnalyzer_prepareTrimmingWithTrimStart_andTrimEnd___block_invok
   v13 = v12;
   if (v11)
   {
-    [v11 timeRange];
+    objc_msgSend_timeRange(v11);
   }
 
   else
@@ -608,7 +608,7 @@ void __59__VCPTrimAnalyzer_prepareTrimmingWithTrimStart_andTrimEnd___block_invok
   v19 = v18;
   if (v11)
   {
-    [v11 timeRange];
+    objc_msgSend_timeRange(v11);
   }
 
   else
@@ -624,7 +624,7 @@ void __59__VCPTrimAnalyzer_prepareTrimmingWithTrimStart_andTrimEnd___block_invok
   v21 = CMTimeGetSeconds(&time.start);
   if (v11)
   {
-    [v11 timeRange];
+    objc_msgSend_timeRange(v11);
   }
 
   else
@@ -650,7 +650,7 @@ void __59__VCPTrimAnalyzer_prepareTrimmingWithTrimStart_andTrimEnd___block_invok
       v30 = v29;
       if (v11)
       {
-        [v11 timeRange];
+        objc_msgSend_timeRange(v11);
       }
 
       else
@@ -665,7 +665,7 @@ void __59__VCPTrimAnalyzer_prepareTrimmingWithTrimStart_andTrimEnd___block_invok
       {
         if (v11)
         {
-          [v11 timeRange];
+          objc_msgSend_timeRange(v11);
         }
 
         else
@@ -698,7 +698,7 @@ void __59__VCPTrimAnalyzer_prepareTrimmingWithTrimStart_andTrimEnd___block_invok
       v36 = [(NSMutableArray *)self->_internalResults objectAtIndexedSubscript:idx];
       if (v35)
       {
-        [v35 timeRange];
+        objc_msgSend_timeRange(v35);
       }
 
       else
@@ -710,7 +710,7 @@ void __59__VCPTrimAnalyzer_prepareTrimmingWithTrimStart_andTrimEnd___block_invok
       v37 = CMTimeRangeContainsTime(&time, &start);
       if (v36)
       {
-        [v36 timeRange];
+        objc_msgSend_timeRange(v36);
       }
 
       else
@@ -728,7 +728,7 @@ void __59__VCPTrimAnalyzer_prepareTrimmingWithTrimStart_andTrimEnd___block_invok
           v40 = v33 + -1.5;
           if (v36)
           {
-            [v36 timeRange];
+            objc_msgSend_timeRange(v36);
           }
 
           else
@@ -743,7 +743,7 @@ void __59__VCPTrimAnalyzer_prepareTrimmingWithTrimStart_andTrimEnd___block_invok
           {
             if (v36)
             {
-              [v36 timeRange];
+              objc_msgSend_timeRange(v36);
             }
 
             else
@@ -800,7 +800,7 @@ LABEL_69:
           v43 = (v24 - v22) + -1.5;
           if (v35)
           {
-            [v35 timeRange];
+            objc_msgSend_timeRange(v35);
           }
 
           else
@@ -815,7 +815,7 @@ LABEL_69:
           {
             if (v35)
             {
-              [v35 timeRange];
+              objc_msgSend_timeRange(v35);
             }
 
             else
@@ -848,7 +848,7 @@ LABEL_69:
           v44 = (v24 - v22) + -1.5;
           if (v36)
           {
-            [v36 timeRange];
+            objc_msgSend_timeRange(v36);
           }
 
           else
@@ -864,7 +864,7 @@ LABEL_69:
           {
             if (v36)
             {
-              [v36 timeRange];
+              objc_msgSend_timeRange(v36);
             }
 
             else
@@ -1010,7 +1010,7 @@ LABEL_70:
 
     if (v7)
     {
-      [v7 timeRange];
+      objc_msgSend_timeRange(v7);
     }
 
     else
@@ -1029,7 +1029,7 @@ LABEL_70:
     Seconds = CMTimeGetSeconds(&range.start);
     if (v7)
     {
-      [v7 timeRange];
+      objc_msgSend_timeRange(v7);
     }
 
     else
@@ -1047,7 +1047,7 @@ LABEL_70:
   v9 = CMTimeGetSeconds(&range.start);
   if (v7)
   {
-    [v7 timeRange];
+    objc_msgSend_timeRange(v7);
   }
 
   else
@@ -1068,7 +1068,7 @@ LABEL_70:
   v11 = CMTimeGetSeconds(&range.start);
   if (v7)
   {
-    [v7 timeRange];
+    objc_msgSend_timeRange(v7);
   }
 
   else
@@ -1126,7 +1126,7 @@ LABEL_23:
     activeSegment = self->_activeSegment;
     if (activeSegment)
     {
-      [(VCPSegment *)activeSegment timeRange];
+      objc_msgSend_timeRange(activeSegment);
     }
 
     else

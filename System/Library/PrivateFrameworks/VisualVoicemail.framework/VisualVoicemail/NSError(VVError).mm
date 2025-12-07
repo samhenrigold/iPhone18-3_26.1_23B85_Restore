@@ -223,7 +223,7 @@ LABEL_10:
 - (BOOL)isConnectivityError
 {
   domain = [self domain];
-  v3 = streamDomains();
+  v3 = streamDomains(domain);
   v4 = [v3 containsObject:domain];
 
   if (v4)

@@ -1,9 +1,27 @@
 @interface VOTImageExplorerElement
 - (CGRect)accessibilityFrame;
+- (VOTImageExplorerElement)initWithImageView:(id)view forFeature:(id)feature hasFlippedYAxis:(BOOL)axis;
 - (id)_accessibilityScrollStatus;
 @end
 
 @implementation VOTImageExplorerElement
+
+- (VOTImageExplorerElement)initWithImageView:(id)view forFeature:(id)feature hasFlippedYAxis:(BOOL)axis
+{
+  axisCopy = axis;
+  featureCopy = feature;
+  v13.receiver = self;
+  v13.super_class = VOTImageExplorerElement;
+  v10 = [(VOTImageExplorerElement *)&v13 initWithAccessibilityContainer:view];
+  v11 = v10;
+  if (v10)
+  {
+    objc_storeStrong(&v10->_feature, feature);
+    [(VOTImageExplorerElement *)v11 setFlippedYAxis:axisCopy];
+  }
+
+  return v11;
+}
 
 - (CGRect)accessibilityFrame
 {

@@ -255,13 +255,13 @@ void __63__CKAnimatedImageAttachmentItem_generatePreviewWithCompletion___block_i
 
 void __63__CKAnimatedImageAttachmentItem_generatePreviewWithCompletion___block_invoke_5(uint64_t a1)
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   v2 = IMLogHandleForCategory();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     v3 = *(a1 + 32);
     *buf = 138412290;
-    v20 = v3;
+    v29 = v3;
     _os_log_impl(&dword_19020E000, v2, OS_LOG_TYPE_INFO, "Perform save: %@", buf, 0xCu);
   }
 
@@ -286,27 +286,24 @@ void __63__CKAnimatedImageAttachmentItem_generatePreviewWithCompletion___block_i
     if (IMOSLoggingEnabled())
     {
       CKLogCStringForType(2);
-      v13 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+      v19 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
       {
-        v14 = *(a1 + 32);
-        v15 = *(a1 + 40);
+        v20 = *(a1 + 32);
+        v21 = *(a1 + 40);
         *buf = 138412802;
-        v20 = v14;
-        v21 = 2112;
-        v22 = v4;
-        v23 = 2112;
-        v24 = v15;
-        _os_log_impl(&dword_19020E000, v13, OS_LOG_TYPE_DEBUG, "%@ animated preview NOT saved to %@ because %@ isn't a CKAnimatedImage.", buf, 0x20u);
+        v29 = v20;
+        v30 = 2112;
+        v31 = v4;
+        v32 = 2112;
+        v33 = v21;
+        _os_log_impl(&dword_19020E000, v19, OS_LOG_TYPE_DEBUG, "%@ animated preview NOT saved to %@ because %@ isn't a CKAnimatedImage.", buf, 0x20u);
       }
     }
 
     if (os_log_shim_legacy_logging_enabled() && _CKShouldLog())
     {
-      v17 = v4;
-      v18 = *(a1 + 40);
-      v16 = *(a1 + 32);
-      _CKLog();
+      _CKLog(2u, @"%@ animated preview NOT saved to %@ because %@ isn't a CKAnimatedImage.", v22, v23, v24, v25, v26, v27, *(a1 + 32));
     }
 
     goto LABEL_5;
@@ -323,18 +320,16 @@ void __63__CKAnimatedImageAttachmentItem_generatePreviewWithCompletion___block_i
     {
       v12 = *(a1 + 32);
       *buf = 138412546;
-      v20 = v12;
-      v21 = 2112;
-      v22 = v4;
+      v29 = v12;
+      v30 = 2112;
+      v31 = v4;
       _os_log_impl(&dword_19020E000, v11, OS_LOG_TYPE_DEBUG, "%@ animated preview saved to %@.", buf, 0x16u);
     }
   }
 
   if (os_log_shim_legacy_logging_enabled() && _CKShouldLog())
   {
-    v16 = *(a1 + 32);
-    v17 = v4;
-    _CKLog();
+    _CKLog(2u, @"%@ animated preview saved to %@.", v13, v14, v15, v16, v17, v18, *(a1 + 32));
   }
 
   if ((v10 & 1) == 0)
@@ -366,7 +361,7 @@ LABEL_5:
 
 - (id)thumbnailAtIndex:(unint64_t)index forWidth:(double)width withImageData:(id)data
 {
-  v50 = *MEMORY[0x1E69E9840];
+  v56 = *MEMORY[0x1E69E9840];
   dataCopy = data;
   v8 = +[CKUIBehavior sharedBehaviors];
   [dataCopy ptSize];
@@ -427,38 +422,38 @@ LABEL_5:
         v35 = OSLogHandleForIMFoundationCategory();
         if (os_log_type_enabled(v35, OS_LOG_TYPE_DEBUG))
         {
-          v52.width = v17;
-          v52.height = v19;
-          v36 = NSStringFromCGSize(v52);
-          v53.width = v22;
-          v53.height = v24;
-          v37 = NSStringFromCGSize(v53);
+          v58.width = v17;
+          v58.height = v19;
+          v36 = NSStringFromCGSize(v58);
+          v59.width = v22;
+          v59.height = v24;
+          v37 = NSStringFromCGSize(v59);
           *buf = 138412802;
-          v45 = v36;
-          v46 = 2048;
-          v47 = v32;
-          v48 = 2112;
-          v49 = v37;
+          v51 = v36;
+          v52 = 2048;
+          v53 = v32;
+          v54 = 2112;
+          v55 = v37;
           _os_log_impl(&dword_19020E000, v35, OS_LOG_TYPE_DEBUG, "Scale thumbnail of size (%@) by with image scale %f to try to fill target (%@)", buf, 0x20u);
         }
       }
 
       if (os_log_shim_legacy_logging_enabled() && _CKShouldLog())
       {
-        v54.width = v17;
-        v54.height = v19;
-        v38 = NSStringFromCGSize(v54);
-        v55.width = v22;
-        v55.height = v24;
-        v43 = NSStringFromCGSize(v55);
-        _CKLog();
+        v60.width = v17;
+        v60.height = v19;
+        v38 = NSStringFromCGSize(v60);
+        v61.width = v22;
+        v61.height = v24;
+        v49 = NSStringFromCGSize(v61);
+        _CKLog(2u, @"Scale thumbnail of size (%@) by with image scale %f to try to fill target (%@)", v39, v40, v41, v42, v43, v44, v38);
       }
 
-      v39 = objc_alloc(MEMORY[0x1E69DCAB8]);
-      v40 = v15;
-      v41 = [v39 initWithCGImage:objc_msgSend(v15 scale:"CGImage") orientation:{objc_msgSend(v15, "imageOrientation"), v32}];
+      v45 = objc_alloc(MEMORY[0x1E69DCAB8]);
+      v46 = v15;
+      v47 = [v45 initWithCGImage:objc_msgSend(v15 scale:"CGImage") orientation:{objc_msgSend(v15, "imageOrientation"), v32}];
 
-      v15 = v41;
+      v15 = v47;
     }
   }
 
@@ -467,7 +462,7 @@ LABEL_5:
 
 - (id)generatePreviewFromThumbnail:(id)thumbnail width:(double)width
 {
-  v61 = *MEMORY[0x1E69E9840];
+  v71 = *MEMORY[0x1E69E9840];
   thumbnailCopy = thumbnail;
   if (thumbnailCopy)
   {
@@ -531,77 +526,75 @@ LABEL_5:
         v31 = OSLogHandleForIMFoundationCategory();
         if (os_log_type_enabled(v31, OS_LOG_TYPE_DEBUG))
         {
-          v63.width = v24;
-          v63.height = v25;
-          v32 = NSStringFromCGSize(v63);
-          v64.width = v13;
-          v64.height = v15;
-          v33 = NSStringFromCGSize(v64);
+          v73.width = v24;
+          v73.height = v25;
+          v32 = NSStringFromCGSize(v73);
+          v74.width = v13;
+          v74.height = v15;
+          v33 = NSStringFromCGSize(v74);
           *buf = 138412802;
-          v56 = v32;
-          v57 = 2048;
-          v58 = v30;
-          v59 = 2112;
-          v60 = v33;
+          v66 = v32;
+          v67 = 2048;
+          v68 = v30;
+          v69 = 2112;
+          v70 = v33;
           _os_log_impl(&dword_19020E000, v31, OS_LOG_TYPE_DEBUG, "Scale thumbnail of size (%@) by a factor of %f to fill minimum (%@)", buf, 0x20u);
         }
       }
 
       if (os_log_shim_legacy_logging_enabled() && _CKShouldLog())
       {
-        v65.width = v24;
-        v65.height = v25;
-        v34 = NSStringFromCGSize(v65);
-        v66.width = v13;
-        v66.height = v15;
-        v54 = NSStringFromCGSize(v66);
-        v53 = v30;
-        v52 = v34;
-        _CKLog();
+        v75.width = v24;
+        v75.height = v25;
+        v34 = NSStringFromCGSize(v75);
+        v76.width = v13;
+        v76.height = v15;
+        v64 = NSStringFromCGSize(v76);
+        _CKLog(2u, @"Scale thumbnail of size (%@) by a factor of %f to fill minimum (%@)", v35, v36, v37, v38, v39, v40, v34);
       }
 
       mainScreen2 = [MEMORY[0x1E69DCEB0] mainScreen];
       [mainScreen2 scale];
-      v37 = v36;
+      v43 = v42;
 
-      v38 = [objc_alloc(MEMORY[0x1E69DCAB8]) initWithCGImage:v18 scale:objc_msgSend(v6 orientation:{"imageOrientation"), v37 / v30}];
-      [v38 size];
-      v8 = v39;
-      v10 = v40;
+      v44 = [objc_alloc(MEMORY[0x1E69DCAB8]) initWithCGImage:v18 scale:objc_msgSend(v6 orientation:{"imageOrientation"), v43 / v30}];
+      [v44 size];
+      v8 = v45;
+      v10 = v46;
     }
 
     else
     {
-      v38 = v6;
+      v44 = v6;
     }
 
-    v41 = +[CKUIBehavior sharedBehaviors];
-    [v41 thumbnailFillSizeForWidth:width imageSize:{v8, v10}];
-    v43 = v42;
-    v45 = v44;
+    v47 = +[CKUIBehavior sharedBehaviors];
+    [v47 thumbnailFillSizeForWidth:width imageSize:{v8, v10}];
+    v49 = v48;
+    v51 = v50;
 
     if (CKMainScreenScale_once_5 != -1)
     {
       [CKAnimatedImageAttachmentItem generatePreviewFromThumbnail:width:];
     }
 
-    v46 = fmin(v8, v43);
-    v47 = fmin(v10, v45);
+    v52 = fmin(v8, v49);
+    v53 = fmin(v10, v51);
     if (*&CKMainScreenScale_sMainScreenScale_5 == 0.0)
     {
-      v48 = 1.0;
+      v54 = 1.0;
     }
 
     else
     {
-      v48 = *&CKMainScreenScale_sMainScreenScale_5;
+      v54 = *&CKMainScreenScale_sMainScreenScale_5;
     }
 
-    v67.width = v46;
-    v67.height = v47;
-    UIGraphicsBeginImageContextWithOptions(v67, 0, 0.0);
-    [v38 drawAtPoint:{floor((*MEMORY[0x1E695EFF8] + (v46 - v8) * 0.5) * v48) / v48, floor((*(MEMORY[0x1E695EFF8] + 8) + (v47 - v10) * 0.5) * v48) / v48}];
-    v49 = UIGraphicsGetImageFromCurrentImageContext();
+    v77.width = v52;
+    v77.height = v53;
+    UIGraphicsBeginImageContextWithOptions(v77, 0, 0.0);
+    [v44 drawAtPoint:{floor((*MEMORY[0x1E695EFF8] + (v52 - v8) * 0.5) * v54) / v54, floor((*(MEMORY[0x1E695EFF8] + 8) + (v53 - v10) * 0.5) * v54) / v54}];
+    v55 = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
   }
 
@@ -610,25 +603,25 @@ LABEL_5:
     if (IMOSLoggingEnabled())
     {
       CKLogCStringForType(2);
-      v50 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v50, OS_LOG_TYPE_DEBUG))
+      v56 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v56, OS_LOG_TYPE_DEBUG))
       {
         *buf = 136315138;
-        v56 = "[CKAnimatedImageAttachmentItem generatePreviewFromThumbnail:width:]";
-        _os_log_impl(&dword_19020E000, v50, OS_LOG_TYPE_DEBUG, "passed %s a nil thumbnail", buf, 0xCu);
+        v66 = "[CKAnimatedImageAttachmentItem generatePreviewFromThumbnail:width:]";
+        _os_log_impl(&dword_19020E000, v56, OS_LOG_TYPE_DEBUG, "passed %s a nil thumbnail", buf, 0xCu);
       }
     }
 
     if (os_log_shim_legacy_logging_enabled() && _CKShouldLog())
     {
-      _CKLog();
+      _CKLog(2u, @"passed %s a nil thumbnail", v57, v58, v59, v60, v61, v62, "[CKAnimatedImageAttachmentItem generatePreviewFromThumbnail:width:]");
     }
 
-    v49 = 0;
-    v38 = 0;
+    v55 = 0;
+    v44 = 0;
   }
 
-  return v49;
+  return v55;
 }
 
 - (CGSize)imageSize

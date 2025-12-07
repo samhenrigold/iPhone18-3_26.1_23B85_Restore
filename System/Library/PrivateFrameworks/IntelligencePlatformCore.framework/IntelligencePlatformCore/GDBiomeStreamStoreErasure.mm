@@ -21,12 +21,12 @@
 
 + (id)_streamWithIdentifier:(id)identifier error:(id *)error
 {
-  v41[2] = *MEMORY[0x1E69E9840];
+  v40[2] = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   v6 = BiomeLibrary();
-  v34 = 0;
-  v8 = objc_msgSend_streamWithIdentifier_error_(v6, v7, identifierCopy, &v34);
-  v9 = v34;
+  v33 = 0;
+  v8 = objc_msgSend_streamWithIdentifier_error_(v6, v7, identifierCopy, &v33);
+  v9 = v33;
 
   if (v8)
   {
@@ -34,7 +34,7 @@
     goto LABEL_22;
   }
 
-  if (!sub_1C4EF2BB0())
+  if (!sub_1C4EF2BB0(0))
   {
     v10 = 0;
     v8 = 0;
@@ -46,37 +46,37 @@
     goto LABEL_10;
   }
 
-  v36 = 0;
-  v37 = &v36;
-  v38 = 0x2020000000;
+  v35 = 0;
+  v36 = &v35;
+  v37 = 0x2020000000;
   v11 = off_1EC151B08;
-  v39 = off_1EC151B08;
+  v38 = off_1EC151B08;
   if (!off_1EC151B08)
   {
-    v35[0] = MEMORY[0x1E69E9820];
-    v35[1] = 3221225472;
-    v35[2] = sub_1C4EF2C80;
-    v35[3] = &unk_1E81EFA70;
-    v35[4] = &v36;
-    sub_1C4EF2C80(v35);
-    v11 = v37[3];
+    v34[0] = MEMORY[0x1E69E9820];
+    v34[1] = 3221225472;
+    v34[2] = sub_1C4EF2C80;
+    v34[3] = &unk_1E81EFA70;
+    v34[4] = &v35;
+    sub_1C4EF2C80(v34);
+    v11 = v36[3];
   }
 
-  _Block_object_dispose(&v36, 8);
+  _Block_object_dispose(&v35, 8);
   if (!v11)
   {
-    v27 = objc_msgSend_currentHandler(MEMORY[0x1E696AAA8], v12, v13, v14);
-    v30 = objc_msgSend_stringWithUTF8String_(MEMORY[0x1E696AEC0], v28, "id<BMIRootLibrary> _GDBiomeLibraryInternal(void)", v29);
-    v31 = dlerror();
-    objc_msgSend_handleFailureInFunction_file_lineNumber_description_(v27, v32, v30, @"GDBiomeStreamStoreErasure.m", 30, @"%s", v31);
+    v26 = objc_msgSend_currentHandler(MEMORY[0x1E696AAA8], v12, v13, v14);
+    v29 = objc_msgSend_stringWithUTF8String_(MEMORY[0x1E696AEC0], v27, "id<BMIRootLibrary> _GDBiomeLibraryInternal(void)", v28);
+    v30 = dlerror();
+    objc_msgSend_handleFailureInFunction_file_lineNumber_description_(v26, v31, v29, @"GDBiomeStreamStoreErasure.m", 30, @"%s", v30);
 
     __break(1u);
   }
 
   v15 = v11();
-  v33 = 0;
-  v8 = objc_msgSend_streamWithIdentifier_error_(v15, v16, identifierCopy, &v33);
-  v10 = v33;
+  v32 = 0;
+  v8 = objc_msgSend_streamWithIdentifier_error_(v15, v16, identifierCopy, &v32);
+  v10 = v32;
 
   if (error)
   {
@@ -84,7 +84,7 @@ LABEL_10:
     if (!v8)
     {
       v20 = objc_alloc(MEMORY[0x1E696ABC0]);
-      v40[0] = @"libraryError";
+      v39[0] = @"libraryError";
       if (v9)
       {
         v21 = objc_msgSend_localizedDescription(v9, v17, v18, v19);
@@ -95,8 +95,8 @@ LABEL_10:
         v21 = &stru_1F4416138;
       }
 
-      v41[0] = v21;
-      v40[1] = @"internalError";
+      v40[0] = v21;
+      v39[1] = @"internalError";
       if (v10)
       {
         v22 = objc_msgSend_localizedDescription(v10, v17, v18, v19);
@@ -107,8 +107,8 @@ LABEL_10:
         v22 = &stru_1F4416138;
       }
 
-      v41[1] = v22;
-      v23 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v17, v41, v40, 2);
+      v40[1] = v22;
+      v23 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v17, v40, v39, 2);
       *error = objc_msgSend_initWithDomain_code_userInfo_(v20, v24, *MEMORY[0x1E69A9E30], 1, v23);
 
       if (v10)
@@ -125,19 +125,17 @@ LABEL_10:
 
 LABEL_22:
 
-  v25 = *MEMORY[0x1E69E9840];
-
   return v8;
 }
 
 + (id)_createOrLookupStreamWithIdentifier:(id)identifier
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   v4 = sub_1C4447514();
-  v12 = 0;
-  v6 = objc_msgSend_getLibraryStreamWithIdentifier_error_(v4, v5, identifierCopy, &v12);
-  v7 = v12;
+  v11 = 0;
+  v6 = objc_msgSend_getLibraryStreamWithIdentifier_error_(v4, v5, identifierCopy, &v11);
+  v7 = v11;
 
   if (v6)
   {
@@ -150,14 +148,12 @@ LABEL_22:
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412546;
-      v14 = identifierCopy;
-      v15 = 2112;
-      v16 = v7;
+      v13 = identifierCopy;
+      v14 = 2112;
+      v15 = v7;
       _os_log_error_impl(&dword_1C43F8000, v9, OS_LOG_TYPE_ERROR, "GDBiomeStreamStoreErasure: _streamWithIdentifier: failed to retrieve stream %@. Error: %@", buf, 0x16u);
     }
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return v6;
 }
@@ -333,7 +329,7 @@ LABEL_5:
 
 + (BOOL)validateBookmark:(id)bookmark publisher:(id)publisher error:(id *)error
 {
-  v25[1] = *MEMORY[0x1E69E9840];
+  v24[1] = *MEMORY[0x1E69E9840];
   bookmarkCopy = bookmark;
   publisherCopy = publisher;
   objc_opt_class();
@@ -353,18 +349,17 @@ LABEL_5:
   {
     v12 = MEMORY[0x1E696ABC0];
     v13 = *MEMORY[0x1E69A9E30];
-    v24 = *MEMORY[0x1E696A578];
+    v23 = *MEMORY[0x1E696A578];
     v14 = objc_alloc(MEMORY[0x1E696AEC0]);
     v15 = objc_opt_class();
-    v18 = objc_msgSend_initWithFormat_(v14, v16, @"Bookmark of unexpected type: %@", v17, v15, v24);
-    v25[0] = v18;
-    v20 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v19, v25, &v24, 1);
+    v18 = objc_msgSend_initWithFormat_(v14, v16, @"Bookmark of unexpected type: %@", v17, v15, v23);
+    v24[0] = v18;
+    v20 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v19, v24, &v23, 1);
     *error = objc_msgSend_errorWithDomain_code_userInfo_(v12, v21, v13, 15, v20);
 
     LOBYTE(error) = 0;
   }
 
-  v22 = *MEMORY[0x1E69E9840];
   return error;
 }
 

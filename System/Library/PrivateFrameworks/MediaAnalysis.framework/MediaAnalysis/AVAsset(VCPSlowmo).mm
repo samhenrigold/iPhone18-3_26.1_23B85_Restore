@@ -10,28 +10,28 @@
 {
   v7 = a4;
   v8 = a5;
-  memset(v15, 0, sizeof(v15));
-  v14 = 0u;
-  v9 = *(a3 + 16);
-  v13[0] = *a3;
-  v13[1] = v9;
-  v13[2] = *(a3 + 32);
+  memset(v17, 0, sizeof(v17));
+  v16 = 0u;
+  v9 = a3[1];
+  v13 = *a3;
+  v14 = v9;
+  v15 = a3[2];
   if (v7)
   {
-    [v7 vcp_convertToOriginalTimerangeFromScaledTimerange:v13];
+    objc_msgSend_vcp_convertToOriginalTimerangeFromScaledTimerange_(v7);
   }
 
   else
   {
-    memset(v15, 0, sizeof(v15));
-    v14 = 0uLL;
+    memset(v17, 0, sizeof(v17));
+    v16 = 0uLL;
   }
 
-  *&start.value = v14;
-  start.epoch = *&v15[0];
-  v10 = *(a3 + 24);
+  *&start.value = v16;
+  start.epoch = *&v17[0];
+  v10 = *(a3 + 1);
   CMTimeRangeMake(&v12, &start, &v10);
-  start = *(v15 + 8);
+  start = *(v17 + 8);
   [v8 scaleTimeRange:&v12 toDuration:&start];
 }
 
@@ -102,7 +102,7 @@
         v11 = MEMORY[0x1E6960CC0];
         *&start.start.value = *MEMORY[0x1E6960CC0];
         start.start.epoch = *(MEMORY[0x1E6960CC0] + 16);
-        [self duration];
+        objc_msgSend_duration(self);
         CMTimeRangeFromTimeToTime(&v53, &start.start, &end.start);
         start = v53;
         *&end.start.value = *&v11->value;
@@ -125,11 +125,11 @@
           v27 = v49;
           v28 = v48;
           memset(&start, 0, sizeof(start));
-          [v33 slowMotionRampInRangeForExport:1];
+          objc_msgSend_slowMotionRampInRangeForExport_(v33);
           memset(&end, 0, sizeof(end));
-          [v33 slowMotionRampOutRangeForExport:1];
+          objc_msgSend_slowMotionRampOutRangeForExport_(v33);
           memset(&v46, 0, sizeof(v46));
-          [v9 slowMotionTimeRange];
+          objc_msgSend_slowMotionTimeRange(v9);
           CMTimeRangeGetEnd(&v46, &range);
           *&range.start.value = *&start.start.value;
           range.start.epoch = start.start.epoch;
@@ -174,7 +174,7 @@
           memset(&v42, 0, sizeof(v42));
           *&v41.start.value = *&range.start.value;
           v41.start.epoch = range.start.epoch;
-          [v33 convertToOriginalTimeFromScaledTime:&v41 forExport:1];
+          objc_msgSend_convertToOriginalTimeFromScaledTime_forExport_(v33);
           v40 = v42;
           duration = range.duration;
           CMTimeRangeMake(&v41, &v40, &duration);

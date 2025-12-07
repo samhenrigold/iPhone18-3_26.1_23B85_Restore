@@ -1,4 +1,5 @@
 @interface WiFiWatchdogMonitor
+- (WiFiWatchdogMonitor)initWithIOService:(unsigned int)service;
 - (WiFiWatchdogMonitor)initWithServiceName:(id)name;
 - (id)description;
 - (void)checkForTimeout;
@@ -17,6 +18,81 @@
   MatchingService = IOServiceGetMatchingService(kIOMainPortDefault, v4);
 
   return [(WiFiWatchdogMonitor *)self initWithIOService:MatchingService];
+}
+
+- (WiFiWatchdogMonitor)initWithIOService:(unsigned int)service
+{
+  v20.receiver = self;
+  v20.super_class = WiFiWatchdogMonitor;
+  v3 = [(WiFiWatchdogMonitor *)&v20 init];
+  v4 = IOServiceNameMatching("AppleWLANDriver");
+  MatchingService = IOServiceGetMatchingService(kIOMainPortDefault, v4);
+  v3->_driverService = MatchingService;
+  v6 = IOServiceOpen(MatchingService, mach_task_self_, 1u, &v3->_driverConnectHandle);
+  if (v6)
+  {
+    sub_1001AA8AC(v6, &reference);
+LABEL_12:
+    v7 = reference;
+    goto LABEL_13;
+  }
+
+  v7 = dispatch_queue_attr_make_with_qos_class(0, QOS_CLASS_USER_INITIATED, 0);
+  v8 = dispatch_queue_create("com.apple.wifid.watchdog-monitor", v7);
+  [(WiFiWatchdogMonitor *)v3 setInternalQ:v8];
+
+  v9 = IONotificationPortCreate(kIOMainPortDefault);
+  v3->_notificationPort = v9;
+  internalQ = [(WiFiWatchdogMonitor *)v3 internalQ];
+  IONotificationPortSetDispatchQueue(v9, internalQ);
+
+  v25 = 0xAAAAAAAAAAAAAAAALL;
+  *&v11 = 0xAAAAAAAAAAAAAAAALL;
+  *(&v11 + 1) = 0xAAAAAAAAAAAAAAAALL;
+  v24 = v11;
+  v23 = v11;
+  *&reference = IONotificationPortGetMachPort(v3->_notificationPort);
+  *(&reference + 1) = sub_100108DEC;
+  v22 = v3;
+  LODWORD(v9) = v3->_driverConnectHandle;
+  MachPort = IONotificationPortGetMachPort(v3->_notificationPort);
+  if (IOConnectCallAsyncMethod(v9, 0, MachPort, &reference, 8u, 0, 0, 0, 0, 0, 0, 0, 0))
+  {
+    sub_1001AA960();
+LABEL_13:
+
+    v3 = 0;
+    goto LABEL_7;
+  }
+
+  notificationPort = v3->_notificationPort;
+  v14 = CFRetain(&off_100282970);
+  v15 = IOServiceAddMatchingNotification(notificationPort, "IOServiceMatched", v14, sub_100109118, v3, &v3->_wdTriggeredIterator);
+  if (v15)
+  {
+    sub_1001AAA0C(v15, v7, &reference);
+    goto LABEL_12;
+  }
+
+  v16 = v3->_notificationPort;
+  v17 = CFRetain(&off_1002829C0);
+  v18 = IOServiceAddMatchingNotification(v16, "IOServiceMatched", v17, sub_100109220, v3, &v3->_crashIDIterator);
+  if (v18)
+  {
+    sub_1001AAAD4(v18, v7, &reference);
+    goto LABEL_12;
+  }
+
+  if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
+  {
+    LODWORD(reference) = 136315138;
+    *(&reference + 4) = "[WiFiWatchdogMonitor initWithIOService:]";
+    _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "%s: initialized", &reference, 0xCu);
+  }
+
+LABEL_7:
+
+  return v3;
 }
 
 - (void)dealloc

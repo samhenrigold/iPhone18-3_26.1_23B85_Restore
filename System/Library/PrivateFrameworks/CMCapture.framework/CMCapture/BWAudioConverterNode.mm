@@ -74,29 +74,41 @@
 
 - (void)renderSampleBuffer:(opaqueCMSampleBuffer *)buffer forInput:(id)input
 {
+  selfCopy = self;
   v6 = MEMORY[0x1E695FF58];
   if (*MEMORY[0x1E695FF58] == 1)
   {
-    kdebug_trace();
+    self = kdebug_trace();
   }
 
   cf = 0;
   if (!buffer)
   {
-    [BWAudioConverterNode renderSampleBuffer:forInput:];
+    [BWAudioConverterNode renderSampleBuffer:? forInput:?];
     goto LABEL_9;
   }
 
   if (CMSampleBufferGetDataBuffer(buffer) || CMSampleBufferGetImageBuffer(buffer))
   {
-    audioCompressionSBP = self->_audioCompressionSBP;
+    audioCompressionSBP = selfCopy->_audioCompressionSBP;
     if (audioCompressionSBP)
     {
       v8 = *(*(CMBaseObjectGetVTable() + 16) + 16);
-      if (!v8 || v8(audioCompressionSBP, buffer))
+      if (v8)
       {
-        [BWAudioConverterNode renderSampleBuffer:forInput:];
+        v9 = v8(audioCompressionSBP, buffer);
+        if (!v9)
+        {
+          goto LABEL_9;
+        }
       }
+
+      else
+      {
+        v9 = 4294954514;
+      }
+
+      [BWAudioConverterNode renderSampleBuffer:v9 forInput:?];
     }
 
     else
@@ -107,37 +119,37 @@
 
   else
   {
-    v9 = CMGetAttachment(buffer, @"FileWriterAction", 0);
-    if (([v9 isEqualToString:0x1F21A9C50] & 1) != 0 || objc_msgSend(v9, "isEqualToString:", 0x1F21A9CB0))
+    v10 = CMGetAttachment(buffer, @"FileWriterAction", 0);
+    if ((objc_msgSend_isEqualToString_(v10) & 1) != 0 || objc_msgSend_isEqualToString_(v10))
     {
-      v10 = self->_audioCompressionSBP;
-      if (v10)
+      v11 = selfCopy->_audioCompressionSBP;
+      if (v11)
       {
-        v11 = *(*(CMBaseObjectGetVTable() + 16) + 24);
-        if (v11)
+        v12 = *(*(CMBaseObjectGetVTable() + 16) + 24);
+        if (v12)
         {
-          v11(v10);
+          v12(v11);
         }
 
-        if (self->_cinematicAudioCapture && [(BWAudioConverterNode *)self _isAPACConversion])
+        if (selfCopy->_cinematicAudioCapture && [(BWAudioConverterNode *)selfCopy _isAPACConversion])
         {
-          if (FigSampleBufferProcessorCopyProperty(self->_audioCompressionSBP, *MEMORY[0x1E69736D0], &cf))
+          if (FigSampleBufferProcessorCopyProperty(selfCopy->_audioCompressionSBP, *MEMORY[0x1E69736D0], &cf))
           {
             [BWAudioConverterNode renderSampleBuffer:forInput:];
             goto LABEL_9;
           }
 
           CMSetAttachment(buffer, @"TrackFormatDescription", cf, 1u);
-          [(BWAudioConverterNode *)self _resetAudioCompressionSBP];
+          [(BWAudioConverterNode *)selfCopy _resetAudioCompressionSBP];
         }
       }
     }
 
-    [(BWNodeOutput *)self->super._output emitSampleBuffer:buffer];
-    v12 = CMGetAttachment(buffer, @"RecordingSettings", 0);
-    if (v12)
+    [(BWNodeOutput *)selfCopy->super._output emitSampleBuffer:buffer];
+    v13 = CMGetAttachment(buffer, @"RecordingSettings", 0);
+    if (v13)
     {
-      [(BWAudioConverterNode *)self _handleUpdatedRecordingSettings:v12];
+      [(BWAudioConverterNode *)selfCopy _handleUpdatedRecordingSettings:v13];
     }
   }
 
@@ -234,13 +246,12 @@ LABEL_9:
     return 0;
   }
 
-  desc = 0;
+  desc[0] = 0;
   if (*(format + 136))
   {
     fig_log_get_emitter();
     OUTLINED_FUNCTION_0_45();
-    LODWORD(v18) = 0;
-    FigDebugAssert3();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", 0, v19, v20, cf, sizeOut, desc[0], desc[1], v24);
   }
 
   format = [*(format + 16) format];
@@ -252,14 +263,18 @@ LABEL_9:
   formatDescription2 = [a2 formatDescription];
   if (*(format + 144) == 1)
   {
-    v13 = [(BWAudioConverterNode *)format createFormatDescriptionWithAudioExtension:formatDescription2 withMagicCookie:0 outputFormatDescription:&desc];
-    v8 = desc;
-    if (v13 || !desc)
+    v13 = [(BWAudioConverterNode *)format createFormatDescriptionWithAudioExtension:formatDescription2 withMagicCookie:0 outputFormatDescription:desc];
+    v8 = desc[0];
+    if (v13 || !desc[0])
     {
-      goto LABEL_12;
+      fig_log_get_emitter();
+      OUTLINED_FUNCTION_0_45();
+      LODWORD(v18) = 0;
+      FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v18);
+      goto LABEL_13;
     }
 
-    CMAudioFormatDescriptionGetChannelLayout(desc, &sizeOut);
+    CMAudioFormatDescriptionGetChannelLayout(desc[0], &sizeOut);
     [v6 setObject:&unk_1F2243C00 forKeyedSubscript:*MEMORY[0x1E6971650]];
     if ([(BWAudioConverterNode *)format _isAPACConversion])
     {
@@ -279,6 +294,8 @@ LABEL_9:
     v13 = v9;
     fig_log_get_emitter();
     OUTLINED_FUNCTION_0_45();
+    LODWORD(v18) = 0;
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v18);
     goto LABEL_13;
   }
 
@@ -290,6 +307,8 @@ LABEL_9:
 LABEL_12:
     fig_log_get_emitter();
     OUTLINED_FUNCTION_0_45();
+    LODWORD(v18) = v13;
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v18);
     goto LABEL_13;
   }
 
@@ -304,7 +323,7 @@ LABEL_12:
   {
 LABEL_10:
     v13 = 0;
-    goto LABEL_14;
+    goto LABEL_13;
   }
 
   cf = 0;
@@ -334,9 +353,9 @@ LABEL_10:
 
   fig_log_get_emitter();
   OUTLINED_FUNCTION_0_45();
+  LODWORD(v18) = v13;
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v18);
 LABEL_13:
-  FigDebugAssert3();
-LABEL_14:
 
   if (v8)
   {
@@ -396,7 +415,7 @@ LABEL_14:
     return;
   }
 
-  v15 = 0;
+  v24 = 0;
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
@@ -418,7 +437,7 @@ LABEL_6:
 
   audioSettings = [a2 cinematicAudioSettings];
 LABEL_7:
-  v5 = audioSettings;
+  v6 = audioSettings;
   if (audioSettings)
   {
     if (*(settings + 128) && ([audioSettings isEqual:?] & 1) == 0)
@@ -432,8 +451,8 @@ LABEL_7:
     {
       if (*(settings + 128))
       {
-        v14 = 0;
-        v13 = 0;
+        v23 = 0;
+        v22 = 0;
         os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
         os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
         fig_log_call_emit_and_clean_up_after_send_and_compose();
@@ -444,18 +463,20 @@ LABEL_7:
 
     if (!*(settings + 128))
     {
-      *(settings + 128) = v5;
+      *(settings + 128) = v6;
       format = [*(settings + 8) format];
-      v8 = [BWAudioFormat formatForAVAudioSettings:*(settings + 128) inputFormat:format];
-      v9 = v8;
+      v9 = [BWAudioFormat formatForAVAudioSettings:*(settings + 128) inputFormat:format];
+      v10 = v9;
       if (*(settings + 144) == 1)
       {
-        if ([(BWAudioConverterNode *)settings createFormatDescriptionWithAudioExtension:0 withMagicCookie:&v15 outputFormatDescription:?])
+        v11 = [(BWAudioConverterNode *)settings createFormatDescriptionWithAudioExtension:0 withMagicCookie:&v24 outputFormatDescription:?];
+        if (v11)
         {
+          v13 = v11;
           fig_log_get_emitter();
-          FigDebugAssert3();
-          v10 = v15;
-          if (!v15)
+          FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v13, v2, v16, v17, v18, v19, v20, v21);
+          v12 = v24;
+          if (!v24)
           {
             return;
           }
@@ -463,24 +484,24 @@ LABEL_7:
           goto LABEL_22;
         }
 
-        v10 = v15;
-        v9 = [BWAudioFormat formatWithAudioFormatDescription:v15];
+        v12 = v24;
+        v10 = [BWAudioFormat formatWithAudioFormatDescription:v24];
       }
 
       else
       {
-        v10 = 0;
+        v12 = 0;
       }
 
-      [*(settings + 16) setFormat:v9, v11, v12];
+      [*(settings + 16) setFormat:v10, v14, v15];
       [(BWAudioConverterNode *)settings _setupAudioCompressionSBPForInputFormat:format];
-      if (!v10)
+      if (!v12)
       {
         return;
       }
 
 LABEL_22:
-      CFRelease(v10);
+      CFRelease(v12);
     }
   }
 }
@@ -492,7 +513,7 @@ LABEL_22:
     return 0;
   }
 
-  formatDescriptionOut = 0;
+  formatDescriptionOut[0] = 0;
   Extensions = CMFormatDescriptionGetExtensions(desc);
   v9 = CFGetAllocator(desc);
   sizeOut = 0;
@@ -577,18 +598,18 @@ LABEL_38:
         Length = 0;
       }
 
-      v34 = CMAudioFormatDescriptionCreate(v9, StreamBasicDescription, sizeOut, ChannelLayout, Length, extension, v26, &formatDescriptionOut);
+      v34 = CMAudioFormatDescriptionCreate(v9, StreamBasicDescription, sizeOut, ChannelLayout, Length, extension, v26, formatDescriptionOut);
       if (v34)
       {
         fig_log_get_emitter();
-        FigDebugAssert3();
+        FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v34, v56, v55, v56, sizeOut, formatDescriptionOut[0], formatDescriptionOut[1], v59);
         if (!v39)
         {
 LABEL_44:
           CFRelease(v26);
-          if (formatDescriptionOut)
+          if (formatDescriptionOut[0])
           {
-            CFRelease(formatDescriptionOut);
+            CFRelease(formatDescriptionOut[0]);
           }
 
           return v34;
@@ -597,8 +618,8 @@ LABEL_44:
 
       else
       {
-        *cookie = formatDescriptionOut;
-        formatDescriptionOut = 0;
+        *cookie = formatDescriptionOut[0];
+        formatDescriptionOut[0] = 0;
         if (!v39)
         {
           goto LABEL_44;
@@ -674,34 +695,6 @@ LABEL_35:
   v34 = 0;
   *cookie = v23;
   return v34;
-}
-
-- (uint64_t)renderSampleBuffer:forInput:.cold.1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_6();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)renderSampleBuffer:forInput:.cold.2()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_6();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)renderSampleBuffer:forInput:.cold.3()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_6();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)renderSampleBuffer:forInput:.cold.4()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_6();
-  return FigDebugAssert3();
 }
 
 @end

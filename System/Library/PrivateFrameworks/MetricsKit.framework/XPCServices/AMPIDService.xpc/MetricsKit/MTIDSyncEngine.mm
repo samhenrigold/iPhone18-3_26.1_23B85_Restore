@@ -80,11 +80,11 @@
 
   if (environment == 2)
   {
-    v13 = MTMetricsKitOSLog();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+    v14 = MTMetricsKitOSLog(v13);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
     {
-      *v14 = 0;
-      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEBUG, "MetricsKit: AMPIDService is using iCloud container in the sandbox environment", v14, 2u);
+      *v15 = 0;
+      _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEBUG, "MetricsKit: AMPIDService is using iCloud container in the sandbox environment", v15, 2u);
     }
   }
 }
@@ -96,7 +96,7 @@
   objc_sync_enter(selfCopy);
   if ([(MTIDSyncEngine *)selfCopy state]== 2)
   {
-    v6 = MTMetricsKitOSLog();
+    v6 = MTMetricsKitOSLog(2);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
       *v7 = 0;
@@ -161,7 +161,7 @@
 {
   dsCopy = ds;
   v5 = objc_alloc_init(MTPromise);
-  v6 = MTMetricsKitOSLog();
+  v6 = MTMetricsKitOSLog(v5);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
     *buf = 0;
@@ -196,38 +196,38 @@
   {
     objc_sync_exit(selfCopy);
 
-    v6 = MTMetricsKitOSLog();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+    v7 = MTMetricsKitOSLog(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
       recordName = [dCopy recordName];
       *buf = 138412290;
-      v20 = recordName;
-      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEBUG, "MetricsKit: Started fetching record with ID %@", buf, 0xCu);
+      v21 = recordName;
+      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEBUG, "MetricsKit: Started fetching record with ID %@", buf, 0xCu);
     }
 
     [(MTIDSyncEngine *)selfCopy addPendingRecordID:dCopy];
-    v8 = [CKFetchRecordsOperation alloc];
-    v18 = dCopy;
-    v9 = [NSArray arrayWithObjects:&v18 count:1];
-    v10 = [v8 initWithRecordIDs:v9];
+    v9 = [CKFetchRecordsOperation alloc];
+    v19 = dCopy;
+    v10 = [NSArray arrayWithObjects:&v19 count:1];
+    v11 = [v9 initWithRecordIDs:v10];
 
     applicationBundleIdentifierOverrideForNetworkAttribution = [(MTIDSyncEngine *)selfCopy applicationBundleIdentifierOverrideForNetworkAttribution];
-    configuration = [v10 configuration];
+    configuration = [v11 configuration];
     [configuration setApplicationBundleIdentifierOverrideForNetworkAttribution:applicationBundleIdentifierOverrideForNetworkAttribution];
 
     objc_initWeak(buf, selfCopy);
-    v15[0] = _NSConcreteStackBlock;
-    v15[1] = 3221225472;
-    v15[2] = sub_10000681C;
-    v15[3] = &unk_1000208F0;
-    v16 = dCopy;
-    objc_copyWeak(&v17, buf);
-    [v10 setFetchRecordsCompletionBlock:v15];
+    v16[0] = _NSConcreteStackBlock;
+    v16[1] = 3221225472;
+    v16[2] = sub_10000681C;
+    v16[3] = &unk_1000208F0;
+    v17 = dCopy;
+    objc_copyWeak(&v18, buf);
+    [v11 setFetchRecordsCompletionBlock:v16];
     container = [(MTIDSyncEngine *)selfCopy container];
     privateCloudDatabase = [container privateCloudDatabase];
-    [privateCloudDatabase addOperation:v10];
+    [privateCloudDatabase addOperation:v11];
 
-    objc_destroyWeak(&v17);
+    objc_destroyWeak(&v18);
     objc_destroyWeak(buf);
   }
 
@@ -246,56 +246,56 @@
   {
     objc_sync_exit(obj);
 
-    v2 = MTMetricsKitOSLog();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
+    v3 = MTMetricsKitOSLog(v2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
     {
       LOWORD(buf[0]) = 0;
-      _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEBUG, "MetricsKit: Started fetching all record changes", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEBUG, "MetricsKit: Started fetching all record changes", buf, 2u);
     }
 
-    v3 = objc_alloc_init(CKFetchRecordZoneChangesConfiguration);
+    v4 = objc_alloc_init(CKFetchRecordZoneChangesConfiguration);
     zoneID = [(MTIDSyncEngine *)obj zoneID];
-    v23 = zoneID;
-    v24 = v3;
-    v5 = [NSDictionary dictionaryWithObjects:&v24 forKeys:&v23 count:1];
+    v24 = zoneID;
+    v25 = v4;
+    v6 = [NSDictionary dictionaryWithObjects:&v25 forKeys:&v24 count:1];
 
-    v6 = [CKFetchRecordZoneChangesOperation alloc];
+    v7 = [CKFetchRecordZoneChangesOperation alloc];
     zoneID2 = [(MTIDSyncEngine *)obj zoneID];
-    v22 = zoneID2;
-    v8 = [NSArray arrayWithObjects:&v22 count:1];
-    v9 = [v6 initWithRecordZoneIDs:v8 configurationsByRecordZoneID:v5];
+    v23 = zoneID2;
+    v9 = [NSArray arrayWithObjects:&v23 count:1];
+    v10 = [v7 initWithRecordZoneIDs:v9 configurationsByRecordZoneID:v6];
 
     applicationBundleIdentifierOverrideForNetworkAttribution = [(MTIDSyncEngine *)obj applicationBundleIdentifierOverrideForNetworkAttribution];
-    configuration = [v9 configuration];
+    configuration = [v10 configuration];
     [configuration setApplicationBundleIdentifierOverrideForNetworkAttribution:applicationBundleIdentifierOverrideForNetworkAttribution];
 
     objc_initWeak(buf, obj);
-    v19[0] = _NSConcreteStackBlock;
-    v19[1] = 3221225472;
-    v19[2] = sub_100006D08;
-    v19[3] = &unk_100020918;
-    objc_copyWeak(&v20, buf);
-    [v9 setRecordChangedBlock:v19];
-    v17[0] = _NSConcreteStackBlock;
-    v17[1] = 3221225472;
-    v17[2] = sub_100006DB4;
-    v17[3] = &unk_100020940;
-    objc_copyWeak(&v18, buf);
-    [v9 setRecordWithIDWasDeletedBlock:v17];
-    v15[0] = _NSConcreteStackBlock;
-    v15[1] = 3221225472;
-    v15[2] = sub_100006E14;
-    v15[3] = &unk_100020968;
-    objc_copyWeak(&v16, buf);
-    [v9 setRecordZoneFetchCompletionBlock:v15];
+    v20[0] = _NSConcreteStackBlock;
+    v20[1] = 3221225472;
+    v20[2] = sub_100006D08;
+    v20[3] = &unk_100020918;
+    objc_copyWeak(&v21, buf);
+    [v10 setRecordChangedBlock:v20];
+    v18[0] = _NSConcreteStackBlock;
+    v18[1] = 3221225472;
+    v18[2] = sub_100006DB4;
+    v18[3] = &unk_100020940;
+    objc_copyWeak(&v19, buf);
+    [v10 setRecordWithIDWasDeletedBlock:v18];
+    v16[0] = _NSConcreteStackBlock;
+    v16[1] = 3221225472;
+    v16[2] = sub_100006E14;
+    v16[3] = &unk_100020968;
+    objc_copyWeak(&v17, buf);
+    [v10 setRecordZoneFetchCompletionBlock:v16];
     [(MTIDSyncEngine *)obj _beginTransaction];
     container = [(MTIDSyncEngine *)obj container];
     privateCloudDatabase = [container privateCloudDatabase];
-    [privateCloudDatabase addOperation:v9];
+    [privateCloudDatabase addOperation:v10];
 
-    objc_destroyWeak(&v16);
-    objc_destroyWeak(&v18);
-    objc_destroyWeak(&v20);
+    objc_destroyWeak(&v17);
+    objc_destroyWeak(&v19);
+    objc_destroyWeak(&v21);
     objc_destroyWeak(buf);
   }
 
@@ -368,16 +368,17 @@
   [(MTIDSyncEngine *)selfCopy setQualityOfService:17];
   objc_sync_exit(selfCopy);
 
-  if ([allObjects count])
+  v7 = [allObjects count];
+  if (v7)
   {
-    v7 = MTMetricsKitOSLog();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+    v8 = MTMetricsKitOSLog(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
-      v8 = 134218240;
-      v9 = [allObjects count];
-      v10 = 2048;
-      v11 = qualityOfService;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEBUG, "MetricsKit: Started saving %ld records with qos %ld", &v8, 0x16u);
+      v9 = 134218240;
+      v10 = [allObjects count];
+      v11 = 2048;
+      v12 = qualityOfService;
+      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEBUG, "MetricsKit: Started saving %ld records with qos %ld", &v9, 0x16u);
     }
 
     [(MTIDSyncEngine *)selfCopy addRecordIDsToSave:allObjects recordIDsToDelete:0 qualityOfService:qualityOfService];
@@ -599,19 +600,19 @@
 
       if (delegate)
       {
-        v12 = MTMetricsKitOSLog();
-        if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+        v13 = MTMetricsKitOSLog(v12);
+        if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
         {
           recordID = [recordCopy recordID];
           recordName = [recordID recordName];
           *buf = 138412290;
-          v27 = recordName;
-          _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEBUG, "MetricsKit: Server has a newer version of record with ID %@, use server record instead", buf, 0xCu);
+          v28 = recordName;
+          _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEBUG, "MetricsKit: Server has a newer version of record with ID %@, use server record instead", buf, 0xCu);
         }
 
-        v15 = delegate;
+        v16 = delegate;
         errorCopy = 0;
-        recordCopy = v15;
+        recordCopy = v16;
       }
 
       goto LABEL_11;
@@ -646,11 +647,11 @@ LABEL_13:
   block[1] = 3221225472;
   block[2] = sub_100007F54;
   block[3] = &unk_100020A08;
-  v23 = errorCopy;
+  v24 = errorCopy;
   selfCopy = self;
-  v25 = recordCopy;
-  v20 = recordCopy;
-  v21 = errorCopy;
+  v26 = recordCopy;
+  v21 = recordCopy;
+  v22 = errorCopy;
   dispatch_async(queue, block);
 }
 
@@ -658,47 +659,15 @@ LABEL_13:
 {
   recordsCopy = records;
   errorCopy = error;
+  v8 = errorCopy;
   if (errorCopy)
   {
-    v8 = MTMetricsKitOSLog();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = MTMetricsKitOSLog(errorCopy);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v14 = errorCopy;
-      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_ERROR, "MetricsKit: Failed to fetch records with error %@", buf, 0xCu);
-    }
-  }
-
-  else
-  {
-    queue = [(MTIDSyncEngine *)self queue];
-    v10[0] = _NSConcreteStackBlock;
-    v10[1] = 3221225472;
-    v10[2] = sub_1000081F0;
-    v10[3] = &unk_1000209E0;
-    v11 = recordsCopy;
-    selfCopy = self;
-    dispatch_async(queue, v10);
-
-    v8 = v11;
-  }
-}
-
-- (void)handleDeletedRecordID:(id)d error:(id)error
-{
-  dCopy = d;
-  errorCopy = error;
-  if (errorCopy)
-  {
-    v8 = MTMetricsKitOSLog();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
-    {
-      recordName = [dCopy recordName];
-      *buf = 138412546;
-      v14 = recordName;
-      v15 = 2112;
-      v16 = errorCopy;
-      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_ERROR, "MetricsKit: Failed to delete record with ID %@ error %@", buf, 0x16u);
+      v15 = v8;
+      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_ERROR, "MetricsKit: Failed to fetch records with error %@", buf, 0xCu);
     }
   }
 
@@ -707,11 +676,45 @@ LABEL_13:
     queue = [(MTIDSyncEngine *)self queue];
     v11[0] = _NSConcreteStackBlock;
     v11[1] = 3221225472;
-    v11[2] = sub_100008468;
+    v11[2] = sub_1000081F0;
     v11[3] = &unk_1000209E0;
-    v11[4] = self;
-    v12 = dCopy;
+    v12 = recordsCopy;
+    selfCopy = self;
     dispatch_async(queue, v11);
+
+    v9 = v12;
+  }
+}
+
+- (void)handleDeletedRecordID:(id)d error:(id)error
+{
+  dCopy = d;
+  errorCopy = error;
+  v8 = errorCopy;
+  if (errorCopy)
+  {
+    v9 = MTMetricsKitOSLog(errorCopy);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    {
+      recordName = [dCopy recordName];
+      *buf = 138412546;
+      v15 = recordName;
+      v16 = 2112;
+      v17 = v8;
+      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_ERROR, "MetricsKit: Failed to delete record with ID %@ error %@", buf, 0x16u);
+    }
+  }
+
+  else
+  {
+    queue = [(MTIDSyncEngine *)self queue];
+    v12[0] = _NSConcreteStackBlock;
+    v12[1] = 3221225472;
+    v12[2] = sub_100008468;
+    v12[3] = &unk_1000209E0;
+    v12[4] = self;
+    v13 = dCopy;
+    dispatch_async(queue, v12);
   }
 }
 

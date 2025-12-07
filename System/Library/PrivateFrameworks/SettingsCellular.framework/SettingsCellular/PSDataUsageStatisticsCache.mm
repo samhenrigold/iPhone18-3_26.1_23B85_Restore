@@ -178,7 +178,7 @@ uint64_t __44__PSDataUsageStatisticsCache_sharedInstance__block_invoke()
 
 void __50__PSDataUsageStatisticsCache_fetchDeviceDataUsage__block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   [*(a1 + 32) setRefreshInProgress:0];
@@ -188,9 +188,9 @@ void __50__PSDataUsageStatisticsCache_fetchDeviceDataUsage__block_invoke(uint64_
   {
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      v16 = 138543362;
-      v17 = v6;
-      _os_log_error_impl(&dword_2658CA000, v8, OS_LOG_TYPE_ERROR, "Fetch failed: %{public}@", &v16, 0xCu);
+      v15 = 138543362;
+      v16 = v6;
+      _os_log_error_impl(&dword_2658CA000, v8, OS_LOG_TYPE_ERROR, "Fetch failed: %{public}@", &v15, 0xCu);
     }
   }
 
@@ -198,9 +198,9 @@ void __50__PSDataUsageStatisticsCache_fetchDeviceDataUsage__block_invoke(uint64_
   {
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v16 = 138543362;
-      v17 = v5;
-      _os_log_impl(&dword_2658CA000, v8, OS_LOG_TYPE_DEFAULT, "Fetch succeeded: %{public}@", &v16, 0xCu);
+      v15 = 138543362;
+      v16 = v5;
+      _os_log_impl(&dword_2658CA000, v8, OS_LOG_TYPE_DEFAULT, "Fetch succeeded: %{public}@", &v15, 0xCu);
     }
 
     [*(a1 + 32) setCachedDeviceDataUsage:v5];
@@ -221,8 +221,8 @@ void __50__PSDataUsageStatisticsCache_fetchDeviceDataUsage__block_invoke(uint64_
       v12 = [v10 getLogger];
       if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
-        LOWORD(v16) = 0;
-        _os_log_error_impl(&dword_2658CA000, v12, OS_LOG_TYPE_ERROR, "Missing completion handler for fetch", &v16, 2u);
+        LOWORD(v15) = 0;
+        _os_log_error_impl(&dword_2658CA000, v12, OS_LOG_TYPE_ERROR, "Missing completion handler for fetch", &v15, 2u);
       }
     }
 
@@ -230,18 +230,16 @@ void __50__PSDataUsageStatisticsCache_fetchDeviceDataUsage__block_invoke(uint64_
     v13 = [*(a1 + 32) getLogger];
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
-      v16 = 136315394;
-      v17 = "[PSDataUsageStatisticsCache fetchDeviceDataUsage]_block_invoke";
-      v18 = 2112;
-      v19 = @"PSWirelessDataUsageCacheRefreshedNotification";
-      _os_log_impl(&dword_2658CA000, v13, OS_LOG_TYPE_DEFAULT, "%s posting notification %@ from main thread", &v16, 0x16u);
+      v15 = 136315394;
+      v16 = "[PSDataUsageStatisticsCache fetchDeviceDataUsage]_block_invoke";
+      v17 = 2112;
+      v18 = @"PSWirelessDataUsageCacheRefreshedNotification";
+      _os_log_impl(&dword_2658CA000, v13, OS_LOG_TYPE_DEFAULT, "%s posting notification %@ from main thread", &v15, 0x16u);
     }
 
     v14 = [MEMORY[0x277CCAB98] defaultCenter];
     [v14 performSelectorOnMainThread:sel_postNotification_ withObject:v8 waitUntilDone:0];
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)fetchDeviceDataUsageWithCompletion:(id)completion
@@ -262,25 +260,24 @@ void __50__PSDataUsageStatisticsCache_fetchDeviceDataUsage__block_invoke(uint64_
 
 - (void)fetchHotspotClientsUsage
 {
-  v13 = *MEMORY[0x277D85DE8];
-  v3 = *MEMORY[0x277CBECE8];
-  v4 = WiFiManagerClientCreate();
-  if (v4)
+  v11 = *MEMORY[0x277D85DE8];
+  v3 = WiFiManagerClientCreate();
+  if (v3)
   {
-    v5 = v4;
-    v6 = WiFiManagerClientCopyProperty();
-    [(PSDataUsageStatisticsCache *)self setHotspotClientsUsage:v6];
+    v4 = v3;
+    v5 = WiFiManagerClientCopyProperty();
+    [(PSDataUsageStatisticsCache *)self setHotspotClientsUsage:v5];
 
     getLogger = [(PSDataUsageStatisticsCache *)self getLogger];
     if (os_log_type_enabled(getLogger, OS_LOG_TYPE_DEBUG))
     {
       hotspotClientsUsage = [(PSDataUsageStatisticsCache *)self hotspotClientsUsage];
-      v11 = 138543362;
-      v12 = hotspotClientsUsage;
-      _os_log_debug_impl(&dword_2658CA000, getLogger, OS_LOG_TYPE_DEBUG, "Hotspot usage: %{public}@", &v11, 0xCu);
+      v9 = 138543362;
+      v10 = hotspotClientsUsage;
+      _os_log_debug_impl(&dword_2658CA000, getLogger, OS_LOG_TYPE_DEBUG, "Hotspot usage: %{public}@", &v9, 0xCu);
     }
 
-    CFRelease(v5);
+    CFRelease(v4);
   }
 
   else
@@ -288,17 +285,15 @@ void __50__PSDataUsageStatisticsCache_fetchDeviceDataUsage__block_invoke(uint64_
     getLogger2 = [(PSDataUsageStatisticsCache *)self getLogger];
     if (os_log_type_enabled(getLogger2, OS_LOG_TYPE_ERROR))
     {
-      LOWORD(v11) = 0;
-      _os_log_error_impl(&dword_2658CA000, getLogger2, OS_LOG_TYPE_ERROR, "Could not create WiFiManagerClient", &v11, 2u);
+      LOWORD(v9) = 0;
+      _os_log_error_impl(&dword_2658CA000, getLogger2, OS_LOG_TYPE_ERROR, "Could not create WiFiManagerClient", &v9, 2u);
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (id)bundleIDsForAppType:(unint64_t)type
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   [(PSDataUsageStatisticsCache *)self refreshCacheIfNeeded];
   v5 = objc_opt_new();
   v6 = 0;
@@ -356,29 +351,29 @@ LABEL_15:
   }
 
   selfCopy = self;
-  v28 = 0u;
-  v29 = 0u;
-  v26 = 0u;
   v27 = 0u;
+  v28 = 0u;
+  v25 = 0u;
+  v26 = 0u;
   v12 = v6;
-  v13 = [v12 countByEnumeratingWithState:&v26 objects:v30 count:16];
+  v13 = [v12 countByEnumeratingWithState:&v25 objects:v29 count:16];
   if (v13)
   {
     v14 = v13;
-    v15 = *v27;
+    v15 = *v26;
     do
     {
       for (i = 0; i != v14; ++i)
       {
-        if (*v27 != v15)
+        if (*v26 != v15)
         {
           objc_enumerationMutation(v12);
         }
 
-        v17 = *(*(&v26 + 1) + 8 * i);
+        v17 = *(*(&v25 + 1) + 8 * i);
         if (type == 3)
         {
-          bundleId = [*(*(&v26 + 1) + 8 * i) bundleId];
+          bundleId = [*(*(&v25 + 1) + 8 * i) bundleId];
           v19 = [bundleId isEqualToString:@"com.apple.datausage.personalhotspot"];
 
           if (v19)
@@ -396,7 +391,7 @@ LABEL_15:
         [v5 addObject:bundleId2];
       }
 
-      v14 = [v12 countByEnumeratingWithState:&v26 objects:v30 count:16];
+      v14 = [v12 countByEnumeratingWithState:&v25 objects:v29 count:16];
     }
 
     while (v14);
@@ -405,19 +400,18 @@ LABEL_15:
   allObjects = [v5 allObjects];
 
 LABEL_28:
-  v23 = *MEMORY[0x277D85DE8];
 
   return allObjects;
 }
 
 - (id)displayNamesForBundleIDs:(id)ds appType:(unint64_t)type
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   dsCopy = ds;
   selfCopy = self;
   [(PSDataUsageStatisticsCache *)self refreshCacheIfNeeded];
   v7 = [objc_alloc(MEMORY[0x277CBEB38]) initWithCapacity:{objc_msgSend(dsCopy, "count")}];
-  v32 = 0;
+  v31 = 0;
   if (type <= 1)
   {
     if (type)
@@ -465,61 +459,61 @@ LABEL_28:
   }
 
   v11 = v10;
-  v32 = [v8 arrayWithArray:v10];
+  v31 = [v8 arrayWithArray:v10];
 
 LABEL_13:
-  v40 = 0u;
-  v41 = 0u;
-  v38 = 0u;
   v39 = 0u;
+  v40 = 0u;
+  v37 = 0u;
+  v38 = 0u;
   obj = dsCopy;
-  v12 = [obj countByEnumeratingWithState:&v38 objects:v43 count:16];
+  v12 = [obj countByEnumeratingWithState:&v37 objects:v42 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v39;
-    v28 = *v39;
+    v14 = *v38;
+    v27 = *v38;
     typeCopy = type;
     do
     {
       v15 = 0;
-      v30 = v13;
+      v29 = v13;
       do
       {
-        if (*v39 != v14)
+        if (*v38 != v14)
         {
           objc_enumerationMutation(obj);
         }
 
-        v16 = *(*(&v38 + 1) + 8 * v15);
+        v16 = *(*(&v37 + 1) + 8 * v15);
         if (type == 4)
         {
-          v17 = [(PSDataUsageStatisticsCache *)selfCopy displayNameForHotspotClientID:*(*(&v38 + 1) + 8 * v15)];
+          v17 = [(PSDataUsageStatisticsCache *)selfCopy displayNameForHotspotClientID:*(*(&v37 + 1) + 8 * v15)];
           [v7 setObject:v17 forKey:v16];
         }
 
         else
         {
-          v36 = 0u;
-          v37 = 0u;
-          v34 = 0u;
           v35 = 0u;
-          v17 = v32;
-          v18 = [v17 countByEnumeratingWithState:&v34 objects:v42 count:16];
+          v36 = 0u;
+          v33 = 0u;
+          v34 = 0u;
+          v17 = v31;
+          v18 = [v17 countByEnumeratingWithState:&v33 objects:v41 count:16];
           if (v18)
           {
             v19 = v18;
-            v20 = *v35;
+            v20 = *v34;
             do
             {
               for (i = 0; i != v19; ++i)
               {
-                if (*v35 != v20)
+                if (*v34 != v20)
                 {
                   objc_enumerationMutation(v17);
                 }
 
-                v22 = *(*(&v34 + 1) + 8 * i);
+                v22 = *(*(&v33 + 1) + 8 * i);
                 bundleId = [v22 bundleId];
                 v24 = [v16 isEqualToString:bundleId];
 
@@ -530,13 +524,13 @@ LABEL_13:
                 }
               }
 
-              v19 = [v17 countByEnumeratingWithState:&v34 objects:v42 count:16];
+              v19 = [v17 countByEnumeratingWithState:&v33 objects:v41 count:16];
             }
 
             while (v19);
-            v14 = v28;
+            v14 = v27;
             type = typeCopy;
-            v13 = v30;
+            v13 = v29;
           }
         }
 
@@ -544,13 +538,11 @@ LABEL_13:
       }
 
       while (v15 != v13);
-      v13 = [obj countByEnumeratingWithState:&v38 objects:v43 count:16];
+      v13 = [obj countByEnumeratingWithState:&v37 objects:v42 count:16];
     }
 
     while (v13);
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
@@ -584,7 +576,7 @@ LABEL_13:
 
 - (id)hotspotClientIDsForPeriod:(unint64_t)period
 {
-  v48 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
   v5 = [(PSDataUsageStatisticsCache *)self totalHotspotClientUsageForPeriod:?];
   hotspotClientsUsage = [(PSDataUsageStatisticsCache *)self hotspotClientsUsage];
 
@@ -601,80 +593,80 @@ LABEL_13:
 
   if (v11 && [v11 count])
   {
-    v28 = v11;
-    v29 = v5;
-    v44 = 0u;
-    v45 = 0u;
-    v42 = 0u;
+    v27 = v11;
+    v28 = v5;
     v43 = 0u;
+    v44 = 0u;
+    v41 = 0u;
+    v42 = 0u;
     obj = v11;
-    v33 = [obj countByEnumeratingWithState:&v42 objects:v47 count:16];
+    v32 = [obj countByEnumeratingWithState:&v41 objects:v46 count:16];
     v12 = 0;
-    if (v33)
+    if (v32)
     {
-      v32 = *v43;
-      v31 = *MEMORY[0x277D29940];
-      v37 = *MEMORY[0x277D29948];
-      v36 = *MEMORY[0x277D29928];
+      v31 = *v42;
+      v30 = *MEMORY[0x277D29940];
+      v36 = *MEMORY[0x277D29948];
+      v35 = *MEMORY[0x277D29928];
       v13 = *MEMORY[0x277D29908];
       do
       {
         v14 = 0;
         do
         {
-          if (*v43 != v32)
+          if (*v42 != v31)
           {
             objc_enumerationMutation(obj);
           }
 
-          v34 = v14;
-          v15 = [*(*(&v42 + 1) + 8 * v14) objectForKey:{v31, v28, v29}];
+          v33 = v14;
+          v15 = [*(*(&v41 + 1) + 8 * v14) objectForKey:{v30, v27, v28}];
+          v37 = 0u;
           v38 = 0u;
           v39 = 0u;
           v40 = 0u;
-          v41 = 0u;
-          v35 = v15;
-          v16 = [v15 countByEnumeratingWithState:&v38 objects:v46 count:16];
+          v34 = v15;
+          v16 = [v15 countByEnumeratingWithState:&v37 objects:v45 count:16];
           if (v16)
           {
             v17 = v16;
-            v18 = *v39;
+            v18 = *v38;
             do
             {
               for (i = 0; i != v17; ++i)
               {
-                if (*v39 != v18)
+                if (*v38 != v18)
                 {
-                  objc_enumerationMutation(v35);
+                  objc_enumerationMutation(v34);
                 }
 
-                v20 = *(*(&v38 + 1) + 8 * i);
-                v21 = [v20 objectForKey:v37];
-                v22 = [v20 objectForKey:v36];
+                v20 = *(*(&v37 + 1) + 8 * i);
+                v21 = [v20 objectForKey:v36];
+                v22 = [v20 objectForKey:v35];
                 unsignedIntegerValue = [v22 unsignedIntegerValue];
                 v12 += unsignedIntegerValue + [v21 unsignedIntegerValue];
                 v24 = [v20 objectForKey:v13];
                 [v7 addObject:v24];
               }
 
-              v17 = [v35 countByEnumeratingWithState:&v38 objects:v46 count:16];
+              v17 = [v34 countByEnumeratingWithState:&v37 objects:v45 count:16];
             }
 
             while (v17);
           }
 
-          v14 = v34 + 1;
+          v14 = v33 + 1;
         }
 
-        while (v34 + 1 != v33);
-        v33 = [obj countByEnumeratingWithState:&v42 objects:v47 count:16];
+        while (v33 + 1 != v32);
+        v32 = [obj countByEnumeratingWithState:&v41 objects:v46 count:16];
       }
 
-      while (v33);
+      while (v32);
     }
 
-    v11 = v28;
-    v5 = v29;
+    v11 = v27;
+    v5 = v28;
   }
 
   else
@@ -697,14 +689,12 @@ LABEL_13:
     allObjects = 0;
   }
 
-  v26 = *MEMORY[0x277D85DE8];
-
   return allObjects;
 }
 
 - (id)displayNameForHotspotClientID:(id)d
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   dCopy = d;
   hotspotClientsUsage = [(PSDataUsageStatisticsCache *)self hotspotClientsUsage];
 
@@ -720,61 +710,61 @@ LABEL_13:
 
   if (v9 && [v9 count])
   {
-    v38 = 0u;
-    v39 = 0u;
-    v36 = 0u;
     v37 = 0u;
-    v26 = v9;
+    v38 = 0u;
+    v35 = 0u;
+    v36 = 0u;
+    v25 = v9;
     obj = v9;
-    v31 = [obj countByEnumeratingWithState:&v36 objects:v41 count:16];
+    v30 = [obj countByEnumeratingWithState:&v35 objects:v40 count:16];
     v10 = 0;
-    if (v31)
+    if (v30)
     {
-      v30 = *v37;
-      v29 = *MEMORY[0x277D29940];
+      v29 = *v36;
+      v28 = *MEMORY[0x277D29940];
       v11 = *MEMORY[0x277D29908];
-      v28 = *MEMORY[0x277D29920];
+      v27 = *MEMORY[0x277D29920];
       do
       {
-        for (i = 0; i != v31; ++i)
+        for (i = 0; i != v30; ++i)
         {
-          if (*v37 != v30)
+          if (*v36 != v29)
           {
             objc_enumerationMutation(obj);
           }
 
-          v13 = [*(*(&v36 + 1) + 8 * i) objectForKey:{v29, v26}];
+          v13 = [*(*(&v35 + 1) + 8 * i) objectForKey:{v28, v25}];
+          v31 = 0u;
           v32 = 0u;
           v33 = 0u;
           v34 = 0u;
-          v35 = 0u;
           v14 = v13;
-          v15 = [v14 countByEnumeratingWithState:&v32 objects:v40 count:16];
+          v15 = [v14 countByEnumeratingWithState:&v31 objects:v39 count:16];
           if (v15)
           {
             v16 = v15;
-            v17 = *v33;
+            v17 = *v32;
             while (2)
             {
               for (j = 0; j != v16; ++j)
               {
-                if (*v33 != v17)
+                if (*v32 != v17)
                 {
                   objc_enumerationMutation(v14);
                 }
 
-                v19 = *(*(&v32 + 1) + 8 * j);
+                v19 = *(*(&v31 + 1) + 8 * j);
                 v20 = [v19 objectForKey:v11];
                 if ([v20 isEqualToString:dCopy])
                 {
-                  v21 = [v19 objectForKey:v28];
+                  v21 = [v19 objectForKey:v27];
 
                   v10 = v21;
                   goto LABEL_20;
                 }
               }
 
-              v16 = [v14 countByEnumeratingWithState:&v32 objects:v40 count:16];
+              v16 = [v14 countByEnumeratingWithState:&v31 objects:v39 count:16];
               if (v16)
               {
                 continue;
@@ -787,13 +777,13 @@ LABEL_13:
 LABEL_20:
         }
 
-        v31 = [obj countByEnumeratingWithState:&v36 objects:v41 count:16];
+        v30 = [obj countByEnumeratingWithState:&v35 objects:v40 count:16];
       }
 
-      while (v31);
+      while (v30);
     }
 
-    v9 = v26;
+    v9 = v25;
   }
 
   else
@@ -813,7 +803,6 @@ LABEL_20:
 
   v23 = v22;
 
-  v24 = *MEMORY[0x277D85DE8];
   return v22;
 }
 
@@ -844,7 +833,7 @@ LABEL_20:
 
 - (unint64_t)usageForHotspotClientID:(id)d inPeriod:(unint64_t)period
 {
-  v51 = *MEMORY[0x277D85DE8];
+  v50 = *MEMORY[0x277D85DE8];
   dCopy = d;
   v6 = [(PSDataUsageStatisticsCache *)self totalHotspotClientUsageForPeriod:period];
   hotspotClientsUsage = [(PSDataUsageStatisticsCache *)self hotspotClientsUsage];
@@ -861,69 +850,69 @@ LABEL_20:
 
   if (v11 && [v11 count])
   {
-    v30 = v11;
-    v31 = v6;
-    v47 = 0u;
-    v48 = 0u;
-    v45 = 0u;
+    v29 = v11;
+    v30 = v6;
     v46 = 0u;
+    v47 = 0u;
+    v44 = 0u;
+    v45 = 0u;
     obj = v11;
-    v35 = [obj countByEnumeratingWithState:&v45 objects:v50 count:16];
+    v34 = [obj countByEnumeratingWithState:&v44 objects:v49 count:16];
     v12 = 0;
-    if (v35)
+    if (v34)
     {
-      v36 = 0;
-      v34 = *v46;
-      v33 = *MEMORY[0x277D29940];
-      v39 = *MEMORY[0x277D29908];
-      v38 = *MEMORY[0x277D29948];
+      v35 = 0;
+      v33 = *v45;
+      v32 = *MEMORY[0x277D29940];
+      v38 = *MEMORY[0x277D29908];
+      v37 = *MEMORY[0x277D29948];
       v13 = *MEMORY[0x277D29928];
       do
       {
-        for (i = 0; i != v35; ++i)
+        for (i = 0; i != v34; ++i)
         {
-          if (*v46 != v34)
+          if (*v45 != v33)
           {
             objc_enumerationMutation(obj);
           }
 
-          v15 = [*(*(&v45 + 1) + 8 * i) objectForKey:v33];
+          v15 = [*(*(&v44 + 1) + 8 * i) objectForKey:v32];
+          v40 = 0u;
           v41 = 0u;
           v42 = 0u;
           v43 = 0u;
-          v44 = 0u;
           v16 = v15;
-          v17 = [v16 countByEnumeratingWithState:&v41 objects:v49 count:16];
+          v17 = [v16 countByEnumeratingWithState:&v40 objects:v48 count:16];
           if (v17)
           {
             v18 = v17;
-            v37 = i;
-            v19 = *v42;
+            v36 = i;
+            v19 = *v41;
             while (2)
             {
               for (j = 0; j != v18; ++j)
               {
-                if (*v42 != v19)
+                if (*v41 != v19)
                 {
                   objc_enumerationMutation(v16);
                 }
 
-                v21 = *(*(&v41 + 1) + 8 * j);
-                v22 = [v21 objectForKey:v39];
-                v23 = [v21 objectForKey:v38];
+                v21 = *(*(&v40 + 1) + 8 * j);
+                v22 = [v21 objectForKey:v38];
+                v23 = [v21 objectForKey:v37];
                 v24 = [v21 objectForKey:v13];
                 unsignedIntegerValue = [v24 unsignedIntegerValue];
                 v12 += unsignedIntegerValue + [v23 unsignedIntegerValue];
                 if ([v22 isEqualToString:dCopy])
                 {
                   unsignedIntegerValue2 = [v24 unsignedIntegerValue];
-                  v36 += unsignedIntegerValue2 + [v23 unsignedIntegerValue];
+                  v35 += unsignedIntegerValue2 + [v23 unsignedIntegerValue];
 
                   goto LABEL_20;
                 }
               }
 
-              v18 = [v16 countByEnumeratingWithState:&v41 objects:v49 count:16];
+              v18 = [v16 countByEnumeratingWithState:&v40 objects:v48 count:16];
               if (v18)
               {
                 continue;
@@ -933,24 +922,24 @@ LABEL_20:
             }
 
 LABEL_20:
-            i = v37;
+            i = v36;
           }
         }
 
-        v35 = [obj countByEnumeratingWithState:&v45 objects:v50 count:16];
+        v34 = [obj countByEnumeratingWithState:&v44 objects:v49 count:16];
       }
 
-      while (v35);
+      while (v34);
     }
 
     else
     {
-      v36 = 0;
+      v35 = 0;
     }
 
-    v11 = v30;
-    v6 = v31;
-    v27 = v36;
+    v11 = v29;
+    v6 = v30;
+    v27 = v35;
   }
 
   else
@@ -964,7 +953,6 @@ LABEL_20:
     v27 = v6 - v12;
   }
 
-  v28 = *MEMORY[0x277D85DE8];
   return v27;
 }
 
@@ -979,32 +967,32 @@ LABEL_20:
 
 - (id)usageForBundleID:(id)d inPeriod:(unint64_t)period
 {
-  v87 = *MEMORY[0x277D85DE8];
+  v86 = *MEMORY[0x277D85DE8];
   dCopy = d;
   [(PSDataUsageStatisticsCache *)self refreshCacheIfNeeded];
   cachedDeviceDataUsage = [(PSDataUsageStatisticsCache *)self cachedDeviceDataUsage];
   v8 = [cachedDeviceDataUsage appDataUsageForPeriod:period];
 
-  v80 = 0u;
-  v81 = 0u;
-  v78 = 0u;
   v79 = 0u;
+  v80 = 0u;
+  v77 = 0u;
+  v78 = 0u;
   v9 = v8;
-  v10 = [v9 countByEnumeratingWithState:&v78 objects:v86 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v77 objects:v85 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v79;
+    v12 = *v78;
     while (2)
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v79 != v12)
+        if (*v78 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        v14 = *(*(&v78 + 1) + 8 * i);
+        v14 = *(*(&v77 + 1) + 8 * i);
         bundleId = [v14 bundleId];
         v16 = [dCopy isEqualToString:bundleId];
 
@@ -1016,7 +1004,7 @@ LABEL_20:
         }
       }
 
-      v11 = [v9 countByEnumeratingWithState:&v78 objects:v86 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v77 objects:v85 count:16];
       if (v11)
       {
         continue;
@@ -1030,26 +1018,26 @@ LABEL_20:
   periodCopy = period;
   v18 = [cachedDeviceDataUsage2 proxiedOnlyAppDataUsageForPeriod:period];
 
-  v76 = 0u;
-  v77 = 0u;
-  v74 = 0u;
   v75 = 0u;
+  v76 = 0u;
+  v73 = 0u;
+  v74 = 0u;
   v19 = v18;
-  v20 = [v19 countByEnumeratingWithState:&v74 objects:v85 count:16];
+  v20 = [v19 countByEnumeratingWithState:&v73 objects:v84 count:16];
   if (v20)
   {
     v21 = v20;
-    v22 = *v75;
+    v22 = *v74;
     while (2)
     {
       for (j = 0; j != v21; ++j)
       {
-        if (*v75 != v22)
+        if (*v74 != v22)
         {
           objc_enumerationMutation(v19);
         }
 
-        v24 = *(*(&v74 + 1) + 8 * j);
+        v24 = *(*(&v73 + 1) + 8 * j);
         bundleId2 = [v24 bundleId];
         v26 = [dCopy isEqualToString:bundleId2];
 
@@ -1061,7 +1049,7 @@ LABEL_20:
         }
       }
 
-      v21 = [v19 countByEnumeratingWithState:&v74 objects:v85 count:16];
+      v21 = [v19 countByEnumeratingWithState:&v73 objects:v84 count:16];
       if (v21)
       {
         continue;
@@ -1074,27 +1062,27 @@ LABEL_20:
   cachedDeviceDataUsage3 = [(PSDataUsageStatisticsCache *)self cachedDeviceDataUsage];
   v28 = [cachedDeviceDataUsage3 systemServiceDataUsageForPeriod:periodCopy];
 
-  v72 = 0u;
-  v73 = 0u;
-  v70 = 0u;
   v71 = 0u;
+  v72 = 0u;
+  v69 = 0u;
+  v70 = 0u;
   v29 = v28;
-  v30 = [v29 countByEnumeratingWithState:&v70 objects:v84 count:16];
+  v30 = [v29 countByEnumeratingWithState:&v69 objects:v83 count:16];
   obj = v29;
   if (v30)
   {
     v31 = v30;
-    v32 = *v71;
+    v32 = *v70;
     while (2)
     {
       for (k = 0; k != v31; ++k)
       {
-        if (*v71 != v32)
+        if (*v70 != v32)
         {
           objc_enumerationMutation(obj);
         }
 
-        v34 = *(*(&v70 + 1) + 8 * k);
+        v34 = *(*(&v69 + 1) + 8 * k);
         bundleId3 = [v34 bundleId];
         v36 = [dCopy isEqualToString:bundleId3];
 
@@ -1108,7 +1096,7 @@ LABEL_20:
       }
 
       v29 = obj;
-      v31 = [obj countByEnumeratingWithState:&v70 objects:v84 count:16];
+      v31 = [obj countByEnumeratingWithState:&v69 objects:v83 count:16];
       if (v31)
       {
         continue;
@@ -1121,39 +1109,39 @@ LABEL_20:
   cachedDeviceDataUsage4 = [(PSDataUsageStatisticsCache *)self cachedDeviceDataUsage];
   v38 = [cachedDeviceDataUsage4 uninstalledAppDataUsageForPeriod:periodCopy];
 
-  v68 = 0u;
-  v69 = 0u;
-  v66 = 0u;
   v67 = 0u;
-  v60 = v38;
-  v39 = [v60 countByEnumeratingWithState:&v66 objects:v83 count:16];
+  v68 = 0u;
+  v65 = 0u;
+  v66 = 0u;
+  v59 = v38;
+  v39 = [v59 countByEnumeratingWithState:&v65 objects:v82 count:16];
   if (v39)
   {
     v40 = v39;
-    v41 = *v67;
+    v41 = *v66;
     while (2)
     {
       for (m = 0; m != v40; ++m)
       {
-        if (*v67 != v41)
+        if (*v66 != v41)
         {
-          objc_enumerationMutation(v60);
+          objc_enumerationMutation(v59);
         }
 
-        v43 = *(*(&v66 + 1) + 8 * m);
+        v43 = *(*(&v65 + 1) + 8 * m);
         bundleId4 = [v43 bundleId];
         v45 = [dCopy isEqualToString:bundleId4];
 
         if (v45)
         {
           used = [v43 used];
-          v46 = v60;
-          v49 = v60;
+          v46 = v59;
+          v49 = v59;
           goto LABEL_49;
         }
       }
 
-      v40 = [v60 countByEnumeratingWithState:&v66 objects:v83 count:16];
+      v40 = [v59 countByEnumeratingWithState:&v65 objects:v82 count:16];
       if (v40)
       {
         continue;
@@ -1163,30 +1151,30 @@ LABEL_20:
     }
   }
 
-  v46 = v60;
+  v46 = v59;
 
   cachedDeviceDataUsage5 = [(PSDataUsageStatisticsCache *)self cachedDeviceDataUsage];
   v48 = [cachedDeviceDataUsage5 hiddenAppDataUsageForPeriod:periodCopy];
 
-  v64 = 0u;
-  v65 = 0u;
-  v62 = 0u;
   v63 = 0u;
+  v64 = 0u;
+  v61 = 0u;
+  v62 = 0u;
   v49 = v48;
-  used = [v49 countByEnumeratingWithState:&v62 objects:v82 count:16];
+  used = [v49 countByEnumeratingWithState:&v61 objects:v81 count:16];
   if (used)
   {
-    v51 = *v63;
+    v51 = *v62;
     while (2)
     {
       for (n = 0; n != used; n = n + 1)
       {
-        if (*v63 != v51)
+        if (*v62 != v51)
         {
           objc_enumerationMutation(v49);
         }
 
-        v53 = *(*(&v62 + 1) + 8 * n);
+        v53 = *(*(&v61 + 1) + 8 * n);
         bundleId5 = [v53 bundleId];
         v55 = [dCopy isEqualToString:bundleId5];
 
@@ -1197,7 +1185,7 @@ LABEL_20:
         }
       }
 
-      used = [v49 countByEnumeratingWithState:&v62 objects:v82 count:16];
+      used = [v49 countByEnumeratingWithState:&v61 objects:v81 count:16];
       if (used)
       {
         continue;
@@ -1207,7 +1195,7 @@ LABEL_20:
     }
 
 LABEL_47:
-    v46 = v60;
+    v46 = v59;
   }
 
 LABEL_49:
@@ -1217,7 +1205,6 @@ LABEL_50:
 LABEL_51:
 
 LABEL_52:
-  v57 = *MEMORY[0x277D85DE8];
 
   return used;
 }
@@ -1279,7 +1266,7 @@ LABEL_52:
 
 - (void)fetchWorkspaceInfo
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   getLogger = [(PSDataUsageStatisticsCache *)self getLogger];
   if (os_log_type_enabled(getLogger, OS_LOG_TYPE_DEBUG))
   {
@@ -1288,16 +1275,16 @@ LABEL_52:
   }
 
   client = self->_client;
-  v9 = 0;
-  v5 = [(CoreTelephonyClient *)client getCellularUsageWorkspaceInfo:&v9];
-  v6 = v9;
+  v8 = 0;
+  v5 = [(CoreTelephonyClient *)client getCellularUsageWorkspaceInfo:&v8];
+  v6 = v8;
   if (v6)
   {
     selfCopy = [(PSDataUsageStatisticsCache *)self getLogger];
     if (os_log_type_enabled(&selfCopy->super, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v11 = v6;
+      v10 = v6;
       _os_log_error_impl(&dword_2658CA000, &selfCopy->super, OS_LOG_TYPE_ERROR, "Failed to get the data usage workspace information with error: %@", buf, 0xCu);
     }
   }
@@ -1309,8 +1296,6 @@ LABEL_52:
     [(PSDataUsageStatisticsCache *)selfCopy setWorkspaceInfo:v5];
     objc_sync_exit(selfCopy);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)billingCycleSupported
@@ -1395,23 +1380,21 @@ LABEL_52:
 
 - (void)_handleUsageOrInfoChanged
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   [(PSDataUsageStatisticsCache *)self _clearCache];
   v3 = [MEMORY[0x277CCAB88] notificationWithName:@"PSWirelessDataUsageChangedNotification" object:0];
   getLogger = [(PSDataUsageStatisticsCache *)self getLogger];
   if (os_log_type_enabled(getLogger, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 136315394;
-    v8 = "[PSDataUsageStatisticsCache _handleUsageOrInfoChanged]";
-    v9 = 2112;
-    v10 = @"PSWirelessDataUsageChangedNotification";
-    _os_log_impl(&dword_2658CA000, getLogger, OS_LOG_TYPE_DEFAULT, "%s posting notification %@ from main thread", &v7, 0x16u);
+    v6 = 136315394;
+    v7 = "[PSDataUsageStatisticsCache _handleUsageOrInfoChanged]";
+    v8 = 2112;
+    v9 = @"PSWirelessDataUsageChangedNotification";
+    _os_log_impl(&dword_2658CA000, getLogger, OS_LOG_TYPE_DEFAULT, "%s posting notification %@ from main thread", &v6, 0x16u);
   }
 
   defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
   [defaultCenter performSelectorOnMainThread:sel_postNotification_ withObject:v3 waitUntilDone:0];
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)refreshDataUsageUINotification

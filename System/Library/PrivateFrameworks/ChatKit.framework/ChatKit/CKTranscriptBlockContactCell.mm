@@ -16,13 +16,13 @@
 {
   animatedCopy = animated;
   itemCopy = item;
-  v15.receiver = self;
-  v15.super_class = CKTranscriptBlockContactCell;
-  [(CKTranscriptStampCell *)&v15 configureForChatItem:itemCopy context:context animated:animatedCopy animationDuration:curve animationCurve:duration];
+  v16.receiver = self;
+  v16.super_class = CKTranscriptBlockContactCell;
+  [(CKTranscriptStampCell *)&v16 configureForChatItem:itemCopy context:context animated:animatedCopy animationDuration:curve animationCurve:duration];
   transcriptText = [itemCopy transcriptText];
   [(CKTranscriptLabelCell *)self setAttributedText:transcriptText];
 
-  if (!CKIsRunningInMessagesNotificationExtension() && (objc_opt_respondsToSelector() & 1) != 0)
+  if (!CKIsRunningInMessagesNotificationExtension(v14) && (objc_opt_respondsToSelector() & 1) != 0)
   {
     transcriptButtonText = [itemCopy transcriptButtonText];
     [(CKTranscriptBlockContactCell *)self setAttributedButtonText:transcriptButtonText];

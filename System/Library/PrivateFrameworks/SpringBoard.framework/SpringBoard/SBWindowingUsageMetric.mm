@@ -173,7 +173,7 @@ id __64__SBWindowingUsageMetric__flushStageWithItems_multitaskingMode___block_in
   return v7;
 }
 
-uint64_t __64__SBWindowingUsageMetric__flushStageWithItems_multitaskingMode___block_invoke_2(uint64_t a1, void *a2)
+void *__64__SBWindowingUsageMetric__flushStageWithItems_multitaskingMode___block_invoke_2(uint64_t a1, void *a2)
 {
   result = [a2 isMaximized];
   v4 = 40;

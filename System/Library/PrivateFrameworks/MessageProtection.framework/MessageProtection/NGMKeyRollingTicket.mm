@@ -9,9 +9,9 @@
 - (id)initTicketWithSigningKey:(id)key error:(id *)error
 {
   keyCopy = key;
-  v19.receiver = self;
-  v19.super_class = NGMKeyRollingTicket;
-  v7 = [(NGMKeyRollingTicket *)&v19 init];
+  v20.receiver = self;
+  v20.super_class = NGMKeyRollingTicket;
+  v7 = [(NGMKeyRollingTicket *)&v20 init];
   if (!v7)
   {
     goto LABEL_4;
@@ -23,36 +23,36 @@
 
   if (!v7->_prekey)
   {
-    v17 = MessageProtectionLog();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    v18 = MessageProtectionLog(v10);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
-      [NGMKeyRollingTicket initTicketWithSigningKey:v17 error:?];
+      [NGMKeyRollingTicket initTicketWithSigningKey:v18 error:?];
     }
 
     goto LABEL_9;
   }
 
-  v10 = [NGMPublicDeviceIdentity alloc];
+  v11 = [NGMPublicDeviceIdentity alloc];
   publicPrekey = [(NGMFullPrekey *)v7->_prekey publicPrekey];
   tetraRegistration = [(NGMFullPrekey *)v7->_prekey tetraRegistration];
   publicKey = [keyCopy publicKey];
-  v14 = [(NGMPublicDeviceIdentity *)v10 initWithEchnidaRegistration:publicPrekey tetraRegistration:tetraRegistration signingKey:publicKey];
+  v15 = [(NGMPublicDeviceIdentity *)v11 initWithEchnidaRegistration:publicPrekey tetraRegistration:tetraRegistration signingKey:publicKey];
   registrationInfo = v7->_registrationInfo;
-  v7->_registrationInfo = v14;
+  v7->_registrationInfo = v15;
 
   if (!v7->_registrationInfo)
   {
     MPLogAndAssignError(700, error, @"Failed to initialize the public identity.");
 LABEL_9:
-    v16 = 0;
+    v17 = 0;
     goto LABEL_10;
   }
 
 LABEL_4:
-  v16 = v7;
+  v17 = v7;
 LABEL_10:
 
-  return v16;
+  return v17;
 }
 
 - (id)identityData

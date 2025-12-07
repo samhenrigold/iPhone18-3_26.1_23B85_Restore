@@ -154,7 +154,7 @@
 
 - (int64_t)performActionWithManagedObjectContext:(id)context error:(id *)error
 {
-  v151 = *MEMORY[0x1E69E9840];
+  v158 = *MEMORY[0x1E69E9840];
   contextCopy = context;
   v6 = MEMORY[0x1E695D5E0];
   v7 = +[PLCloudSharedAlbum entityName];
@@ -165,16 +165,16 @@
   v10 = objc_initWeak(location, self);
 
   v11 = objc_alloc(MEMORY[0x1E69BF270]);
-  v113[0] = MEMORY[0x1E69E9820];
-  v113[1] = 3221225472;
-  v113[2] = __111__PLModelMigrationAction_MigrateCloudSharedAlbumToCollectionShare_performActionWithManagedObjectContext_error___block_invoke;
-  v113[3] = &unk_1E7573318;
-  objc_copyWeak(&v115, location);
-  v84 = systemLibraryURL;
-  v114 = v84;
-  v12 = [v11 initWithBlock:v113];
+  v120[0] = MEMORY[0x1E69E9820];
+  v120[1] = 3221225472;
+  v120[2] = __111__PLModelMigrationAction_MigrateCloudSharedAlbumToCollectionShare_performActionWithManagedObjectContext_error___block_invoke;
+  v120[3] = &unk_1E7573318;
+  objc_copyWeak(&v122, location);
+  v91 = systemLibraryURL;
+  v121 = v91;
+  v12 = [v11 initWithBlock:v120];
 
-  objc_destroyWeak(&v115);
+  objc_destroyWeak(&v122);
   objc_destroyWeak(location);
   v13 = [PLPersonInfoManager alloc];
   pathManager = [(PLModelMigrationActionCore *)self pathManager];
@@ -184,69 +184,69 @@
   pathManager2 = [(PLModelMigrationActionCore *)self pathManager];
   v18 = [(PLEmailAddressManager *)v16 initWithPathManager:pathManager2 lazyAssetsdClient:v12];
 
-  v107 = 0;
-  v108 = &v107;
-  v109 = 0x3032000000;
-  v110 = __Block_byref_object_copy__16168;
-  v111 = __Block_byref_object_dispose__16169;
-  v112 = 0;
-  v103 = 0;
-  v104 = &v103;
-  v105 = 0x2020000000;
-  v106 = 1;
-  v97 = 0;
-  v98 = &v97;
-  v99 = 0x3032000000;
-  v100 = __Block_byref_object_copy__16168;
-  v101 = __Block_byref_object_dispose__16169;
-  v102 = 0;
+  v114 = 0;
+  v115 = &v114;
+  v116 = 0x3032000000;
+  v117 = __Block_byref_object_copy__16168;
+  v118 = __Block_byref_object_dispose__16169;
+  v119 = 0;
+  v110 = 0;
+  v111 = &v110;
+  v112 = 0x2020000000;
+  v113 = 1;
+  v104 = 0;
+  v105 = &v104;
+  v106 = 0x3032000000;
+  v107 = __Block_byref_object_copy__16168;
+  v108 = __Block_byref_object_dispose__16169;
+  v109 = 0;
   v19 = [PLEnumerateAndSaveController alloc];
   v20 = objc_opt_class();
   v21 = NSStringFromClass(v20);
-  v95[0] = MEMORY[0x1E69E9820];
-  v95[1] = 3221225472;
-  v95[2] = __111__PLModelMigrationAction_MigrateCloudSharedAlbumToCollectionShare_performActionWithManagedObjectContext_error___block_invoke_130;
-  v95[3] = &unk_1E7575B30;
-  v96 = contextCopy;
+  v102[0] = MEMORY[0x1E69E9820];
+  v102[1] = 3221225472;
+  v102[2] = __111__PLModelMigrationAction_MigrateCloudSharedAlbumToCollectionShare_performActionWithManagedObjectContext_error___block_invoke_130;
+  v102[3] = &unk_1E7575B30;
+  v103 = contextCopy;
+  v101[0] = MEMORY[0x1E69E9820];
+  v101[1] = 3221225472;
+  v101[2] = __111__PLModelMigrationAction_MigrateCloudSharedAlbumToCollectionShare_performActionWithManagedObjectContext_error___block_invoke_2;
+  v101[3] = &unk_1E7572E50;
+  v101[4] = self;
+  v101[5] = &v104;
   v94[0] = MEMORY[0x1E69E9820];
   v94[1] = 3221225472;
-  v94[2] = __111__PLModelMigrationAction_MigrateCloudSharedAlbumToCollectionShare_performActionWithManagedObjectContext_error___block_invoke_2;
-  v94[3] = &unk_1E7572E50;
+  v94[2] = __111__PLModelMigrationAction_MigrateCloudSharedAlbumToCollectionShare_performActionWithManagedObjectContext_error___block_invoke_3;
+  v94[3] = &unk_1E7567E60;
   v94[4] = self;
-  v94[5] = &v97;
-  v87[0] = MEMORY[0x1E69E9820];
-  v87[1] = 3221225472;
-  v87[2] = __111__PLModelMigrationAction_MigrateCloudSharedAlbumToCollectionShare_performActionWithManagedObjectContext_error___block_invoke_3;
-  v87[3] = &unk_1E7567E60;
-  v87[4] = self;
-  v91 = &v107;
-  v92 = &v103;
-  v22 = v96;
-  v88 = v22;
-  v83 = v18;
-  v89 = v83;
-  v82 = v15;
-  v90 = v82;
-  v93 = &v97;
-  v23 = [(PLEnumerateAndSaveController *)v19 initWithName:v21 fetchRequest:v8 context:v22 options:4 generateContextBlock:v95 didFetchObjectIDsBlock:v94 processResultBlock:v87];
+  v98 = &v114;
+  v99 = &v110;
+  v22 = v103;
+  v95 = v22;
+  v90 = v18;
+  v96 = v90;
+  v89 = v15;
+  v97 = v89;
+  v100 = &v104;
+  v23 = [(PLEnumerateAndSaveController *)v19 initWithName:v21 fetchRequest:v8 context:v22 options:4 generateContextBlock:v102 didFetchObjectIDsBlock:v101 processResultBlock:v94];
 
-  v24 = (v108 + 5);
-  obj = v108[5];
+  v24 = (v115 + 5);
+  obj = v115[5];
   LODWORD(v16) = [(PLEnumerateAndSaveController *)v23 processObjectsWithError:&obj];
   objc_storeStrong(v24, obj);
   if (v16)
   {
     if ([(PLEnumerateAndSaveController *)v23 isCancelled])
     {
-      v25 = v108[5];
-      v108[5] = 0;
+      v25 = v115[5];
+      v115[5] = 0;
 
       v26 = PLMigrationGetLog();
       v27 = os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT);
 
       if (!v27)
       {
-        goto LABEL_24;
+        goto LABEL_33;
       }
 
       logger = [(PLModelMigrationActionCore *)self logger];
@@ -254,393 +254,436 @@
 
       if (!v29)
       {
-        v149 = 0u;
+        v156 = 0u;
+        v157 = 0u;
+        v154 = 0u;
+        v155 = 0u;
+        v152 = 0u;
+        v153 = 0u;
         v150 = 0u;
-        v147 = 0u;
+        v151 = 0u;
         v148 = 0u;
-        v145 = 0u;
+        v149 = 0u;
         v146 = 0u;
-        v143 = 0u;
+        v147 = 0u;
         v144 = 0u;
-        v141 = 0u;
+        v145 = 0u;
         v142 = 0u;
-        v139 = 0u;
+        v143 = 0u;
         v140 = 0u;
-        v137 = 0u;
+        v141 = 0u;
         v138 = 0u;
-        v135 = 0u;
+        v139 = 0u;
         v136 = 0u;
-        v133 = 0u;
+        v137 = 0u;
         v134 = 0u;
-        v131 = 0u;
+        v135 = 0u;
         v132 = 0u;
-        v129 = 0u;
+        v133 = 0u;
         v130 = 0u;
-        v127 = 0u;
+        v131 = 0u;
         v128 = 0u;
-        v125 = 0u;
-        v126 = 0u;
-        v123 = 0u;
-        v124 = 0u;
-        v121 = 0u;
-        v122 = 0u;
+        v129 = 0u;
         memset(location, 0, sizeof(location));
         v30 = PLMigrationGetLog();
-        os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT);
-        completedUnitCount = [v98[5] completedUnitCount];
-        v32 = v108[5];
-        v116 = 134218242;
-        v117 = completedUnitCount;
-        v118 = 2112;
-        v119 = v32;
-        LODWORD(v81) = 22;
-        v33 = _os_log_send_and_compose_impl();
+        v31 = os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT);
+        completedUnitCount = [v105[5] completedUnitCount];
+        if (v31)
+        {
+          v33 = 3;
+        }
 
-        v34 = [(PLModelMigrationActionCore *)self logger:&v116];
-        [v34 logWithMessage:v33 fromCodeLocation:"PLModelMigrationActions_19000.m" type:{278, 0}];
+        else
+        {
+          v33 = 2;
+        }
 
-        goto LABEL_13;
+        v34 = v115[5];
+        v123 = 134218242;
+        v124 = completedUnitCount;
+        v125 = 2112;
+        v126 = v34;
+        v35 = _os_log_send_and_compose_impl(v33, 0, location, 512, &dword_19BF1F000, v30, 0, "Cancelled operation after update of %lld objects. Error: %@", &v123, 22);
+
+        logger2 = [(PLModelMigrationActionCore *)self logger];
+        [logger2 logWithMessage:v35 fromCodeLocation:"PLModelMigrationActions_19000.m" type:{278, 0}];
+
+        goto LABEL_22;
       }
 
-      v51 = PLMigrationGetLog();
-      if (os_log_type_enabled(v51, OS_LOG_TYPE_DEFAULT))
+      v56 = PLMigrationGetLog();
+      if (os_log_type_enabled(v56, OS_LOG_TYPE_DEFAULT))
       {
-        completedUnitCount2 = [v98[5] completedUnitCount];
-        v57 = v108[5];
+        completedUnitCount2 = [v105[5] completedUnitCount];
+        v62 = v115[5];
         LODWORD(location[0]) = 134218242;
         *(location + 4) = completedUnitCount2;
         WORD2(location[1]) = 2112;
-        *(&location[1] + 6) = v57;
-        _os_log_impl(&dword_19BF1F000, v51, OS_LOG_TYPE_DEFAULT, "Cancelled operation after update of %lld objects. Error: %@", location, 0x16u);
+        *(&location[1] + 6) = v62;
+        _os_log_impl(&dword_19BF1F000, v56, OS_LOG_TYPE_DEFAULT, "Cancelled operation after update of %lld objects. Error: %@", location, 0x16u);
       }
 
-LABEL_23:
+LABEL_32:
 
-      goto LABEL_24;
+      goto LABEL_33;
     }
 
-    v44 = PLMigrationGetLog();
-    v45 = os_log_type_enabled(v44, OS_LOG_TYPE_DEFAULT);
+    v47 = PLMigrationGetLog();
+    v48 = os_log_type_enabled(v47, OS_LOG_TYPE_DEFAULT);
 
-    if (!v45)
+    if (!v48)
     {
-      goto LABEL_24;
-    }
-
-    logger2 = [(PLModelMigrationActionCore *)self logger];
-    v47 = logger2 == 0;
-
-    if (v47)
-    {
-      v51 = PLMigrationGetLog();
-      if (os_log_type_enabled(v51, OS_LOG_TYPE_DEFAULT))
-      {
-        totalUnitCount = [v98[5] totalUnitCount];
-        LODWORD(location[0]) = 134217984;
-        *(location + 4) = totalUnitCount;
-        _os_log_impl(&dword_19BF1F000, v51, OS_LOG_TYPE_DEFAULT, "Migrated %lld CloudSharedAlbums to CollectionShares.", location, 0xCu);
-      }
-
-      goto LABEL_23;
-    }
-
-    v149 = 0u;
-    v150 = 0u;
-    v147 = 0u;
-    v148 = 0u;
-    v145 = 0u;
-    v146 = 0u;
-    v143 = 0u;
-    v144 = 0u;
-    v141 = 0u;
-    v142 = 0u;
-    v139 = 0u;
-    v140 = 0u;
-    v137 = 0u;
-    v138 = 0u;
-    v135 = 0u;
-    v136 = 0u;
-    v133 = 0u;
-    v134 = 0u;
-    v131 = 0u;
-    v132 = 0u;
-    v129 = 0u;
-    v130 = 0u;
-    v127 = 0u;
-    v128 = 0u;
-    v125 = 0u;
-    v126 = 0u;
-    v123 = 0u;
-    v124 = 0u;
-    v121 = 0u;
-    v122 = 0u;
-    memset(location, 0, sizeof(location));
-    v48 = PLMigrationGetLog();
-    os_log_type_enabled(v48, OS_LOG_TYPE_DEFAULT);
-    totalUnitCount2 = [v98[5] totalUnitCount];
-    v116 = 134217984;
-    v117 = totalUnitCount2;
-    LODWORD(v81) = 12;
-    v33 = _os_log_send_and_compose_impl();
-
-    v50 = [(PLModelMigrationActionCore *)self logger:&v116];
-    [v50 logWithMessage:v33 fromCodeLocation:"PLModelMigrationActions_19000.m" type:{280, 0}];
-  }
-
-  else
-  {
-    if (v104[3] == 2)
-    {
-      goto LABEL_24;
-    }
-
-    v104[3] = 3;
-    v35 = PLMigrationGetLog();
-    v36 = os_log_type_enabled(v35, OS_LOG_TYPE_ERROR);
-
-    if (!v36)
-    {
-      goto LABEL_24;
+      goto LABEL_33;
     }
 
     logger3 = [(PLModelMigrationActionCore *)self logger];
-    v38 = logger3 == 0;
+    v50 = logger3 == 0;
 
-    if (v38)
+    if (v50)
     {
-      v51 = PLMigrationGetLog();
-      if (os_log_type_enabled(v51, OS_LOG_TYPE_ERROR))
+      v56 = PLMigrationGetLog();
+      if (os_log_type_enabled(v56, OS_LOG_TYPE_DEFAULT))
       {
-        v52 = objc_opt_class();
-        v53 = NSStringFromClass(v52);
-        v54 = v108[5];
-        LODWORD(location[0]) = 138543618;
-        *(location + 4) = v53;
-        WORD2(location[1]) = 2112;
-        *(&location[1] + 6) = v54;
-        _os_log_impl(&dword_19BF1F000, v51, OS_LOG_TYPE_ERROR, "Failed to process %{public}@. Error: %@", location, 0x16u);
+        totalUnitCount = [v105[5] totalUnitCount];
+        LODWORD(location[0]) = 134217984;
+        *(location + 4) = totalUnitCount;
+        _os_log_impl(&dword_19BF1F000, v56, OS_LOG_TYPE_DEFAULT, "Migrated %lld CloudSharedAlbums to CollectionShares.", location, 0xCu);
       }
 
-      goto LABEL_23;
+      goto LABEL_32;
     }
 
-    v149 = 0u;
+    v156 = 0u;
+    v157 = 0u;
+    v154 = 0u;
+    v155 = 0u;
+    v152 = 0u;
+    v153 = 0u;
     v150 = 0u;
-    v147 = 0u;
+    v151 = 0u;
     v148 = 0u;
-    v145 = 0u;
+    v149 = 0u;
     v146 = 0u;
-    v143 = 0u;
+    v147 = 0u;
     v144 = 0u;
-    v141 = 0u;
+    v145 = 0u;
     v142 = 0u;
-    v139 = 0u;
+    v143 = 0u;
     v140 = 0u;
-    v137 = 0u;
+    v141 = 0u;
     v138 = 0u;
-    v135 = 0u;
+    v139 = 0u;
     v136 = 0u;
-    v133 = 0u;
+    v137 = 0u;
     v134 = 0u;
-    v131 = 0u;
+    v135 = 0u;
     v132 = 0u;
-    v129 = 0u;
+    v133 = 0u;
     v130 = 0u;
-    v127 = 0u;
+    v131 = 0u;
     v128 = 0u;
-    v125 = 0u;
-    v126 = 0u;
-    v123 = 0u;
-    v124 = 0u;
-    v121 = 0u;
-    v122 = 0u;
+    v129 = 0u;
     memset(location, 0, sizeof(location));
-    v39 = PLMigrationGetLog();
-    os_log_type_enabled(v39, OS_LOG_TYPE_ERROR);
-    v40 = objc_opt_class();
-    v41 = NSStringFromClass(v40);
-    v42 = v108[5];
-    v116 = 138543618;
-    v117 = v41;
-    v118 = 2112;
-    v119 = v42;
-    LODWORD(v81) = 22;
-    v33 = _os_log_send_and_compose_impl();
-
-    v43 = [(PLModelMigrationActionCore *)self logger:&v116];
-    [v43 logWithMessage:v33 fromCodeLocation:"PLModelMigrationActions_19000.m" type:{284, 16}];
-  }
-
-LABEL_13:
-  if (v33 != location)
-  {
-    free(v33);
-  }
-
-LABEL_24:
-  v58 = MEMORY[0x1E695D5E0];
-  v59 = +[PLCloudSharedAlbum entityName];
-  v60 = [v58 fetchRequestWithEntityName:v59];
-
-  v61 = [v22 countForFetchRequest:v60 error:0];
-  if (v61)
-  {
-    v104[3] = 3;
-    v62 = PLMigrationGetLog();
-    v63 = os_log_type_enabled(v62, OS_LOG_TYPE_ERROR);
-
-    if (!v63)
+    v51 = PLMigrationGetLog();
+    v52 = os_log_type_enabled(v51, OS_LOG_TYPE_DEFAULT);
+    totalUnitCount2 = [v105[5] totalUnitCount];
+    if (v52)
     {
-      goto LABEL_39;
+      v54 = 3;
     }
+
+    else
+    {
+      v54 = 2;
+    }
+
+    v123 = 134217984;
+    v124 = totalUnitCount2;
+    v35 = _os_log_send_and_compose_impl(v54, 0, location, 512, &dword_19BF1F000, v51, 0, "Migrated %lld CloudSharedAlbums to CollectionShares.", &v123);
 
     logger4 = [(PLModelMigrationActionCore *)self logger];
-    v65 = logger4 == 0;
+    [logger4 logWithMessage:v35 fromCodeLocation:"PLModelMigrationActions_19000.m" type:{280, 0}];
+  }
 
-    if (!v65)
+  else
+  {
+    if (v111[3] == 2)
     {
-      v149 = 0u;
-      v150 = 0u;
-      v147 = 0u;
-      v148 = 0u;
-      v145 = 0u;
-      v146 = 0u;
-      v143 = 0u;
-      v144 = 0u;
-      v141 = 0u;
-      v142 = 0u;
-      v139 = 0u;
-      v140 = 0u;
-      v137 = 0u;
-      v138 = 0u;
-      v135 = 0u;
-      v136 = 0u;
-      v133 = 0u;
-      v134 = 0u;
-      v131 = 0u;
-      v132 = 0u;
-      v129 = 0u;
-      v130 = 0u;
-      v127 = 0u;
-      v128 = 0u;
-      v125 = 0u;
-      v126 = 0u;
-      v123 = 0u;
-      v124 = 0u;
-      v121 = 0u;
-      v122 = 0u;
-      memset(location, 0, sizeof(location));
-      v66 = PLMigrationGetLog();
-      os_log_type_enabled(v66, OS_LOG_TYPE_ERROR);
-      v116 = 134217984;
-      v117 = v61;
-      LODWORD(v81) = 12;
-      v67 = _os_log_send_and_compose_impl();
-
-      v68 = [(PLModelMigrationActionCore *)self logger:&v116];
-      [v68 logWithMessage:v67 fromCodeLocation:"PLModelMigrationActions_19000.m" type:{292, 16}];
-
-      goto LABEL_31;
+      goto LABEL_33;
     }
 
-    v75 = PLMigrationGetLog();
-    if (os_log_type_enabled(v75, OS_LOG_TYPE_ERROR))
+    v111[3] = 3;
+    v37 = PLMigrationGetLog();
+    v38 = os_log_type_enabled(v37, OS_LOG_TYPE_ERROR);
+
+    if (!v38)
+    {
+      goto LABEL_33;
+    }
+
+    logger5 = [(PLModelMigrationActionCore *)self logger];
+    v40 = logger5 == 0;
+
+    if (v40)
+    {
+      v56 = PLMigrationGetLog();
+      if (os_log_type_enabled(v56, OS_LOG_TYPE_ERROR))
+      {
+        v57 = objc_opt_class();
+        v58 = NSStringFromClass(v57);
+        v59 = v115[5];
+        LODWORD(location[0]) = 138543618;
+        *(location + 4) = v58;
+        WORD2(location[1]) = 2112;
+        *(&location[1] + 6) = v59;
+        _os_log_impl(&dword_19BF1F000, v56, OS_LOG_TYPE_ERROR, "Failed to process %{public}@. Error: %@", location, 0x16u);
+      }
+
+      goto LABEL_32;
+    }
+
+    v156 = 0u;
+    v157 = 0u;
+    v154 = 0u;
+    v155 = 0u;
+    v152 = 0u;
+    v153 = 0u;
+    v150 = 0u;
+    v151 = 0u;
+    v148 = 0u;
+    v149 = 0u;
+    v146 = 0u;
+    v147 = 0u;
+    v144 = 0u;
+    v145 = 0u;
+    v142 = 0u;
+    v143 = 0u;
+    v140 = 0u;
+    v141 = 0u;
+    v138 = 0u;
+    v139 = 0u;
+    v136 = 0u;
+    v137 = 0u;
+    v134 = 0u;
+    v135 = 0u;
+    v132 = 0u;
+    v133 = 0u;
+    v130 = 0u;
+    v131 = 0u;
+    v128 = 0u;
+    v129 = 0u;
+    memset(location, 0, sizeof(location));
+    v41 = PLMigrationGetLog();
+    if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
+    {
+      v42 = 3;
+    }
+
+    else
+    {
+      v42 = 2;
+    }
+
+    v43 = objc_opt_class();
+    v44 = NSStringFromClass(v43);
+    v45 = v115[5];
+    v123 = 138543618;
+    v124 = v44;
+    v125 = 2112;
+    v126 = v45;
+    v35 = _os_log_send_and_compose_impl(v42, 0, location, 512, &dword_19BF1F000, v41, 16, "Failed to process %{public}@. Error: %@", &v123, 22);
+
+    logger6 = [(PLModelMigrationActionCore *)self logger];
+    [logger6 logWithMessage:v35 fromCodeLocation:"PLModelMigrationActions_19000.m" type:{284, 16}];
+  }
+
+LABEL_22:
+  if (v35 != location)
+  {
+    free(v35);
+  }
+
+LABEL_33:
+  v63 = MEMORY[0x1E695D5E0];
+  v64 = +[PLCloudSharedAlbum entityName];
+  v65 = [v63 fetchRequestWithEntityName:v64];
+
+  v66 = [v22 countForFetchRequest:v65 error:0];
+  if (v66)
+  {
+    v111[3] = 3;
+    v67 = PLMigrationGetLog();
+    v68 = os_log_type_enabled(v67, OS_LOG_TYPE_ERROR);
+
+    if (!v68)
+    {
+      goto LABEL_54;
+    }
+
+    logger7 = [(PLModelMigrationActionCore *)self logger];
+    v70 = logger7 == 0;
+
+    if (!v70)
+    {
+      v156 = 0u;
+      v157 = 0u;
+      v154 = 0u;
+      v155 = 0u;
+      v152 = 0u;
+      v153 = 0u;
+      v150 = 0u;
+      v151 = 0u;
+      v148 = 0u;
+      v149 = 0u;
+      v146 = 0u;
+      v147 = 0u;
+      v144 = 0u;
+      v145 = 0u;
+      v142 = 0u;
+      v143 = 0u;
+      v140 = 0u;
+      v141 = 0u;
+      v138 = 0u;
+      v139 = 0u;
+      v136 = 0u;
+      v137 = 0u;
+      v134 = 0u;
+      v135 = 0u;
+      v132 = 0u;
+      v133 = 0u;
+      v130 = 0u;
+      v131 = 0u;
+      v128 = 0u;
+      v129 = 0u;
+      memset(location, 0, sizeof(location));
+      v71 = PLMigrationGetLog();
+      if (os_log_type_enabled(v71, OS_LOG_TYPE_ERROR))
+      {
+        v72 = 3;
+      }
+
+      else
+      {
+        v72 = 2;
+      }
+
+      v123 = 134217984;
+      v124 = v66;
+      v73 = _os_log_send_and_compose_impl(v72, 0, location, 512, &dword_19BF1F000, v71, 16, "Failed to remove %llu CloudSharedAlbums.", &v123);
+
+      logger8 = [(PLModelMigrationActionCore *)self logger];
+      [logger8 logWithMessage:v73 fromCodeLocation:"PLModelMigrationActions_19000.m" type:{292, 16}];
+
+      goto LABEL_46;
+    }
+
+    v82 = PLMigrationGetLog();
+    if (os_log_type_enabled(v82, OS_LOG_TYPE_ERROR))
     {
       LODWORD(location[0]) = 134217984;
-      *(location + 4) = v61;
-      _os_log_impl(&dword_19BF1F000, v75, OS_LOG_TYPE_ERROR, "Failed to remove %llu CloudSharedAlbums.", location, 0xCu);
+      *(location + 4) = v66;
+      _os_log_impl(&dword_19BF1F000, v82, OS_LOG_TYPE_ERROR, "Failed to remove %llu CloudSharedAlbums.", location, 0xCu);
     }
   }
 
   else
   {
-    v69 = PLMigrationGetLog();
-    v70 = os_log_type_enabled(v69, OS_LOG_TYPE_DEFAULT);
+    v75 = PLMigrationGetLog();
+    v76 = os_log_type_enabled(v75, OS_LOG_TYPE_DEFAULT);
 
-    if (!v70)
+    if (!v76)
     {
-      goto LABEL_39;
+      goto LABEL_54;
     }
 
-    logger5 = [(PLModelMigrationActionCore *)self logger];
-    v72 = logger5 == 0;
+    logger9 = [(PLModelMigrationActionCore *)self logger];
+    v78 = logger9 == 0;
 
-    if (!v72)
+    if (!v78)
     {
-      v149 = 0u;
+      v156 = 0u;
+      v157 = 0u;
+      v154 = 0u;
+      v155 = 0u;
+      v152 = 0u;
+      v153 = 0u;
       v150 = 0u;
-      v147 = 0u;
+      v151 = 0u;
       v148 = 0u;
-      v145 = 0u;
+      v149 = 0u;
       v146 = 0u;
-      v143 = 0u;
+      v147 = 0u;
       v144 = 0u;
-      v141 = 0u;
+      v145 = 0u;
       v142 = 0u;
-      v139 = 0u;
+      v143 = 0u;
       v140 = 0u;
-      v137 = 0u;
+      v141 = 0u;
       v138 = 0u;
-      v135 = 0u;
+      v139 = 0u;
       v136 = 0u;
-      v133 = 0u;
+      v137 = 0u;
       v134 = 0u;
-      v131 = 0u;
+      v135 = 0u;
       v132 = 0u;
-      v129 = 0u;
+      v133 = 0u;
       v130 = 0u;
-      v127 = 0u;
+      v131 = 0u;
       v128 = 0u;
-      v125 = 0u;
-      v126 = 0u;
-      v123 = 0u;
-      v124 = 0u;
-      v121 = 0u;
-      v122 = 0u;
+      v129 = 0u;
       memset(location, 0, sizeof(location));
-      v73 = PLMigrationGetLog();
-      os_log_type_enabled(v73, OS_LOG_TYPE_DEFAULT);
-      LOWORD(v116) = 0;
-      LODWORD(v81) = 2;
-      v67 = _os_log_send_and_compose_impl();
-
-      v74 = [(PLModelMigrationActionCore *)self logger:&v116];
-      [v74 logWithMessage:v67 fromCodeLocation:"PLModelMigrationActions_19000.m" type:{294, 0}];
-
-LABEL_31:
-      if (v67 != location)
+      v79 = PLMigrationGetLog();
+      if (os_log_type_enabled(v79, OS_LOG_TYPE_DEFAULT))
       {
-        free(v67);
+        v80 = 3;
       }
 
-      goto LABEL_39;
+      else
+      {
+        v80 = 2;
+      }
+
+      LOWORD(v123) = 0;
+      LODWORD(v88) = 2;
+      v73 = _os_log_send_and_compose_impl(v80, 0, location, 512, &dword_19BF1F000, v79, 0, "Successfully removed all CloudSharedAlbum objects from the DB", &v123, v88);
+
+      logger10 = [(PLModelMigrationActionCore *)self logger];
+      [logger10 logWithMessage:v73 fromCodeLocation:"PLModelMigrationActions_19000.m" type:{294, 0}];
+
+LABEL_46:
+      if (v73 != location)
+      {
+        free(v73);
+      }
+
+      goto LABEL_54;
     }
 
-    v76 = PLMigrationGetLog();
-    if (os_log_type_enabled(v76, OS_LOG_TYPE_DEFAULT))
+    v83 = PLMigrationGetLog();
+    if (os_log_type_enabled(v83, OS_LOG_TYPE_DEFAULT))
     {
       LOWORD(location[0]) = 0;
-      _os_log_impl(&dword_19BF1F000, v76, OS_LOG_TYPE_DEFAULT, "Successfully removed all CloudSharedAlbum objects from the DB", location, 2u);
+      _os_log_impl(&dword_19BF1F000, v83, OS_LOG_TYPE_DEFAULT, "Successfully removed all CloudSharedAlbum objects from the DB", location, 2u);
     }
   }
 
-LABEL_39:
+LABEL_54:
   [(PLModelMigrationActionCore *)self finalizeProgress];
-  v77 = v104[3];
-  v78 = v108[5];
-  if (v77 != 1 && error)
+  v84 = v111[3];
+  v85 = v115[5];
+  if (v84 != 1 && error)
   {
-    v78 = v78;
-    *error = v78;
+    v85 = v85;
+    *error = v85;
   }
 
-  v79 = v104[3];
-  _Block_object_dispose(&v97, 8);
+  v86 = v111[3];
+  _Block_object_dispose(&v104, 8);
 
-  _Block_object_dispose(&v103, 8);
-  _Block_object_dispose(&v107, 8);
+  _Block_object_dispose(&v110, 8);
+  _Block_object_dispose(&v114, 8);
 
-  return v79;
+  return v86;
 }
 
 + (void)insertParticipantForCloudSharedAlbumInvitationRecord:(id)record collectionShare:(id)share personInfoManager:(id)manager moc:(id)moc

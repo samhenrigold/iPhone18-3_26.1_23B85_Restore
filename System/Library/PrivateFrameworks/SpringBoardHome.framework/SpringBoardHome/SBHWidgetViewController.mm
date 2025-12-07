@@ -43,23 +43,24 @@
 void __69__SBHWidgetViewController_waitForContentReadyWithTimeout_completion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
+  v4 = v3;
   if (v3)
   {
-    v4 = SBLogWidgets();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = SBLogWidgets(v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      __69__SBHWidgetViewController_waitForContentReadyWithTimeout_completion___block_invoke_cold_1(a1, v3, v4);
+      __69__SBHWidgetViewController_waitForContentReadyWithTimeout_completion___block_invoke_cold_1(a1, v4, v5);
     }
 
-    v5 = *(*(a1 + 40) + 16);
+    v6 = *(*(a1 + 40) + 16);
   }
 
   else
   {
-    v5 = *(*(a1 + 40) + 16);
+    v6 = *(*(a1 + 40) + 16);
   }
 
-  v5();
+  v6();
 }
 
 - (void)sbh_addObserver:(id)observer

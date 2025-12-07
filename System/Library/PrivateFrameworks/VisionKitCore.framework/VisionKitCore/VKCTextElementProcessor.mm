@@ -39,44 +39,44 @@
   regionCopy = region;
   v7 = [MEMORY[0x1E695DF00] now];
   v8 = objc_alloc_init(MEMORY[0x1E695DF70]);
-  v27 = 0;
-  v28 = &v27;
-  v29 = 0x2050000000;
+  v29 = 0;
+  v30 = &v29;
+  v31 = 0x2050000000;
   v9 = getDDDetectionControllerClass_softClass;
-  v30 = getDDDetectionControllerClass_softClass;
+  v32 = getDDDetectionControllerClass_softClass;
   if (!getDDDetectionControllerClass_softClass)
   {
-    v26[0] = MEMORY[0x1E69E9820];
-    v26[1] = 3221225472;
-    v26[2] = __getDDDetectionControllerClass_block_invoke;
-    v26[3] = &unk_1E7BE3F48;
-    v26[4] = &v27;
-    __getDDDetectionControllerClass_block_invoke(v26);
-    v9 = v28[3];
+    v28[0] = MEMORY[0x1E69E9820];
+    v28[1] = 3221225472;
+    v28[2] = __getDDDetectionControllerClass_block_invoke;
+    v28[3] = &unk_1E7BE3F48;
+    v28[4] = &v29;
+    __getDDDetectionControllerClass_block_invoke(v28);
+    v9 = v30[3];
   }
 
   v10 = v9;
-  _Block_object_dispose(&v27, 8);
-  v17 = MEMORY[0x1E69E9820];
-  v18 = 3221225472;
-  v19 = __80__VKCTextElementProcessor_dataDetectorsFromCRDocumentOutputRegion_shouldFilter___block_invoke;
-  v20 = &unk_1E7BE4B08;
+  _Block_object_dispose(&v29, 8);
+  v19 = MEMORY[0x1E69E9820];
+  v20 = 3221225472;
+  v21 = __80__VKCTextElementProcessor_dataDetectorsFromCRDocumentOutputRegion_shouldFilter___block_invoke;
+  v22 = &unk_1E7BE4B08;
   filterCopy = filter;
-  v24 = v9;
-  v21 = v7;
+  v26 = v9;
+  v23 = v7;
   v11 = v8;
-  v22 = v11;
+  v24 = v11;
   v12 = regionCopy;
-  v23 = v12;
+  v25 = v12;
   v13 = v7;
-  [v12 enumerateContentsWithTypes:2048 usingBlock:&v17];
-  if (vk_supportsContextAwareDataDetectors())
+  v14 = [v12 enumerateContentsWithTypes:2048 usingBlock:&v19];
+  if (vk_supportsContextAwareDataDetectors(v14, v15))
   {
-    [self addGroupingToDataDetectors:v11 parentDocument:{v12, v17, v18, v19, v20, v21, v22}];
+    [self addGroupingToDataDetectors:v11 parentDocument:{v12, v19, v20, v21, v22, v23, v24}];
   }
 
-  v14 = v23;
-  v15 = v11;
+  v16 = v25;
+  v17 = v11;
 
   return v11;
 }
@@ -101,25 +101,25 @@ void __80__VKCTextElementProcessor_dataDetectorsFromCRDocumentOutputRegion_shoul
   detectorsCopy = detectors;
   documentCopy = document;
   v7 = objc_alloc_init(MEMORY[0x1E696AD18]);
-  v42 = 0;
-  v43 = &v42;
-  v44 = 0x2020000000;
+  v43 = 0;
+  v44 = &v43;
+  v45 = 0x2020000000;
   v8 = getkDataDetectorsGroupAllResultsKeySymbolLoc_ptr;
-  v45 = getkDataDetectorsGroupAllResultsKeySymbolLoc_ptr;
+  v46 = getkDataDetectorsGroupAllResultsKeySymbolLoc_ptr;
   if (!getkDataDetectorsGroupAllResultsKeySymbolLoc_ptr)
   {
-    v37 = MEMORY[0x1E69E9820];
-    v38 = 3221225472;
-    v39 = __getkDataDetectorsGroupAllResultsKeySymbolLoc_block_invoke;
-    v40 = &unk_1E7BE3F48;
-    v41 = &v42;
+    v38 = MEMORY[0x1E69E9820];
+    v39 = 3221225472;
+    v40 = __getkDataDetectorsGroupAllResultsKeySymbolLoc_block_invoke;
+    v41 = &unk_1E7BE3F48;
+    v42 = &v43;
     v9 = DataDetectorsUILibrary_0();
-    v43[3] = dlsym(v9, "kDataDetectorsGroupAllResultsKey");
-    getkDataDetectorsGroupAllResultsKeySymbolLoc_ptr = *(v41[1] + 24);
-    v8 = v43[3];
+    v44[3] = dlsym(v9, "kDataDetectorsGroupAllResultsKey");
+    getkDataDetectorsGroupAllResultsKeySymbolLoc_ptr = *(v42[1] + 24);
+    v8 = v44[3];
   }
 
-  _Block_object_dispose(&v42, 8);
+  _Block_object_dispose(&v43, 8);
   if (!v8)
   {
     getkDDRVInteractionDidFinishNotification_cold_1();
@@ -131,108 +131,109 @@ LABEL_16:
   }
 
   v10 = *v8;
-  v42 = 0;
-  v43 = &v42;
-  v44 = 0x2020000000;
+  v43 = 0;
+  v44 = &v43;
+  v45 = 0x2020000000;
   v11 = getkDataDetectorsGroupTranscriptKeySymbolLoc_ptr;
-  v45 = getkDataDetectorsGroupTranscriptKeySymbolLoc_ptr;
+  v46 = getkDataDetectorsGroupTranscriptKeySymbolLoc_ptr;
   if (!getkDataDetectorsGroupTranscriptKeySymbolLoc_ptr)
   {
-    v37 = MEMORY[0x1E69E9820];
-    v38 = 3221225472;
-    v39 = __getkDataDetectorsGroupTranscriptKeySymbolLoc_block_invoke;
-    v40 = &unk_1E7BE3F48;
-    v41 = &v42;
+    v38 = MEMORY[0x1E69E9820];
+    v39 = 3221225472;
+    v40 = __getkDataDetectorsGroupTranscriptKeySymbolLoc_block_invoke;
+    v41 = &unk_1E7BE3F48;
+    v42 = &v43;
     v12 = DataDetectorsUILibrary_0();
-    v43[3] = dlsym(v12, "kDataDetectorsGroupTranscriptKey");
-    getkDataDetectorsGroupTranscriptKeySymbolLoc_ptr = *(v41[1] + 24);
-    v11 = v43[3];
+    v44[3] = dlsym(v12, "kDataDetectorsGroupTranscriptKey");
+    getkDataDetectorsGroupTranscriptKeySymbolLoc_ptr = *(v42[1] + 24);
+    v11 = v44[3];
   }
 
-  _Block_object_dispose(&v42, 8);
+  _Block_object_dispose(&v43, 8);
   if (!v11)
   {
     goto LABEL_15;
   }
 
   v13 = *v11;
-  v42 = 0;
-  v43 = &v42;
-  v44 = 0x2020000000;
+  v43 = 0;
+  v44 = &v43;
+  v45 = 0x2020000000;
   v14 = getkDataDetectorsGroupCategoryKeySymbolLoc_ptr;
-  v45 = getkDataDetectorsGroupCategoryKeySymbolLoc_ptr;
+  v46 = getkDataDetectorsGroupCategoryKeySymbolLoc_ptr;
   if (!getkDataDetectorsGroupCategoryKeySymbolLoc_ptr)
   {
-    v37 = MEMORY[0x1E69E9820];
-    v38 = 3221225472;
-    v39 = __getkDataDetectorsGroupCategoryKeySymbolLoc_block_invoke;
-    v40 = &unk_1E7BE3F48;
-    v41 = &v42;
+    v38 = MEMORY[0x1E69E9820];
+    v39 = 3221225472;
+    v40 = __getkDataDetectorsGroupCategoryKeySymbolLoc_block_invoke;
+    v41 = &unk_1E7BE3F48;
+    v42 = &v43;
     v15 = DataDetectorsUILibrary_0();
-    v43[3] = dlsym(v15, "kDataDetectorsGroupCategoryKey");
-    getkDataDetectorsGroupCategoryKeySymbolLoc_ptr = *(v41[1] + 24);
-    v14 = v43[3];
+    v44[3] = dlsym(v15, "kDataDetectorsGroupCategoryKey");
+    getkDataDetectorsGroupCategoryKeySymbolLoc_ptr = *(v42[1] + 24);
+    v14 = v44[3];
   }
 
-  _Block_object_dispose(&v42, 8);
+  _Block_object_dispose(&v43, 8);
   if (!v14)
   {
     goto LABEL_16;
   }
 
   v16 = *v14;
-  v42 = 0;
-  v43 = &v42;
-  v44 = 0x2020000000;
+  v43 = 0;
+  v44 = &v43;
+  v45 = 0x2020000000;
   v17 = getkDataDetectorsDocumentLanguageKeySymbolLoc_ptr;
-  v45 = getkDataDetectorsDocumentLanguageKeySymbolLoc_ptr;
+  v46 = getkDataDetectorsDocumentLanguageKeySymbolLoc_ptr;
   if (!getkDataDetectorsDocumentLanguageKeySymbolLoc_ptr)
   {
-    v37 = MEMORY[0x1E69E9820];
-    v38 = 3221225472;
-    v39 = __getkDataDetectorsDocumentLanguageKeySymbolLoc_block_invoke;
-    v40 = &unk_1E7BE3F48;
-    v41 = &v42;
+    v38 = MEMORY[0x1E69E9820];
+    v39 = 3221225472;
+    v40 = __getkDataDetectorsDocumentLanguageKeySymbolLoc_block_invoke;
+    v41 = &unk_1E7BE3F48;
+    v42 = &v43;
     v18 = DataDetectorsUILibrary_0();
-    v43[3] = dlsym(v18, "kDataDetectorsDocumentLanguageKey");
-    getkDataDetectorsDocumentLanguageKeySymbolLoc_ptr = *(v41[1] + 24);
-    v17 = v43[3];
+    v44[3] = dlsym(v18, "kDataDetectorsDocumentLanguageKey");
+    getkDataDetectorsDocumentLanguageKeySymbolLoc_ptr = *(v42[1] + 24);
+    v17 = v44[3];
   }
 
-  _Block_object_dispose(&v42, 8);
+  _Block_object_dispose(&v43, 8);
   if (!v17)
   {
 LABEL_17:
-    v27 = getkDDRVInteractionDidFinishNotification_cold_1();
-    _Block_object_dispose(&v42, 8);
-    _Unwind_Resume(v27);
+    getkDDRVInteractionDidFinishNotification_cold_1();
+    v28 = v27;
+    _Block_object_dispose(&v43, 8);
+    _Unwind_Resume(v28);
   }
 
   v19 = *v17;
-  v30[0] = MEMORY[0x1E69E9820];
-  v30[1] = 3221225472;
-  v30[2] = __69__VKCTextElementProcessor_addGroupingToDataDetectors_parentDocument___block_invoke;
-  v30[3] = &unk_1E7BE4B78;
-  v31 = v10;
-  v32 = v13;
-  v33 = v16;
-  v34 = documentCopy;
-  v35 = v19;
+  v31[0] = MEMORY[0x1E69E9820];
+  v31[1] = 3221225472;
+  v31[2] = __69__VKCTextElementProcessor_addGroupingToDataDetectors_parentDocument___block_invoke;
+  v31[3] = &unk_1E7BE4B78;
+  v32 = v10;
+  v33 = v13;
+  v34 = v16;
+  v35 = documentCopy;
+  v36 = v19;
   v20 = v7;
-  v36 = v20;
+  v37 = v20;
   v21 = v19;
   v22 = documentCopy;
   v23 = v16;
   v24 = v13;
   v25 = v10;
-  [v22 enumerateContentsWithTypes:4096 usingBlock:v30];
-  v28[0] = MEMORY[0x1E69E9820];
-  v28[1] = 3221225472;
-  v28[2] = __69__VKCTextElementProcessor_addGroupingToDataDetectors_parentDocument___block_invoke_4;
-  v28[3] = &unk_1E7BE4BA0;
-  v29 = v20;
+  [v22 enumerateContentsWithTypes:4096 usingBlock:v31];
+  v29[0] = MEMORY[0x1E69E9820];
+  v29[1] = 3221225472;
+  v29[2] = __69__VKCTextElementProcessor_addGroupingToDataDetectors_parentDocument___block_invoke_4;
+  v29[3] = &unk_1E7BE4BA0;
+  v30 = v20;
   v26 = v20;
-  [detectorsCopy enumerateObjectsUsingBlock:v28];
+  [detectorsCopy enumerateObjectsUsingBlock:v29];
 }
 
 void __69__VKCTextElementProcessor_addGroupingToDataDetectors_parentDocument___block_invoke(uint64_t a1, void *a2)

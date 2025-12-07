@@ -1,4 +1,5 @@
 @interface ASEventDataHandler
+- (BOOL)closeDBAndSave:(BOOL)save;
 - (BOOL)saveContainer;
 - (BOOL)wipeServerIds;
 - (id)copyOfAllLocalObjectsInContainer;
@@ -31,38 +32,37 @@
 
 - (id)copyOfAllLocalObjectsInContainer
 {
-  v2 = *&self->super.ESDataHandler_opaque[OBJC_IVAR___ESDataHandler__container];
-  v3 = CalCalendarCopyEvents();
-  if (v3)
+  v2 = CalCalendarCopyEvents();
+  if (v2)
   {
-    v4 = objc_opt_new();
-    if ([v3 count])
+    v3 = objc_opt_new();
+    if ([v2 count])
     {
-      v5 = 0;
-      v6 = kCalDateInvalid;
+      v4 = 0;
+      v5 = kCalDateInvalid;
       do
       {
-        v7 = [v3 objectAtIndexedSubscript:v5];
+        v6 = [v2 objectAtIndexedSubscript:v4];
 
         CalEventGetOriginalStartDate();
-        if (v8 == v6)
+        if (v7 == v5)
         {
-          [v4 addObject:v7];
+          [v3 addObject:v6];
         }
 
-        ++v5;
+        ++v4;
       }
 
-      while (v5 < [v3 count]);
+      while (v4 < [v2 count]);
     }
   }
 
   else
   {
-    v4 = 0;
+    v3 = 0;
   }
 
-  return v4;
+  return v3;
 }
 
 - (BOOL)wipeServerIds
@@ -72,32 +72,31 @@
     return 0;
   }
 
-  v3 = *&self->super.ESDataHandler_opaque[OBJC_IVAR___ESDataHandler__container];
-  v4 = CalCalendarCopyEvents();
-  v5 = 0;
-  if ([v4 count])
+  v2 = CalCalendarCopyEvents();
+  v3 = 0;
+  if ([v2 count])
   {
-    v6 = 0;
+    v4 = 0;
     do
     {
-      [v4 objectAtIndexedSubscript:v6];
+      [v2 objectAtIndexedSubscript:v4];
 
-      v7 = CalCalendarItemCopyExternalID();
-      if (v7)
+      v5 = CalCalendarItemCopyExternalID();
+      if (v5)
       {
-        v8 = v7;
+        v6 = v5;
         CalCalendarItemSetExternalID();
-        CFRelease(v8);
-        v5 = 1;
+        CFRelease(v6);
+        v3 = 1;
       }
 
-      ++v6;
+      ++v4;
     }
 
-    while (v6 < [v4 count]);
+    while (v4 < [v2 count]);
   }
 
-  return v5;
+  return v3;
 }
 
 - (void)drainContainer
@@ -108,34 +107,22 @@
 
   if ([(ASEventDataHandler *)self _containerHasItems])
   {
-    v5 = OBJC_IVAR___ESDataHandler__container;
-    v6 = *&self->super.ESDataHandler_opaque[OBJC_IVAR___ESDataHandler__container];
     cf = CalCalendarCopyTitle();
-    v7 = *&self->super.ESDataHandler_opaque[v5];
-    HIDWORD(v27) = CalCalendarIsReadOnly();
-    v8 = *&self->super.ESDataHandler_opaque[v5];
-    LODWORD(v27) = CalCalendarIsHidden();
-    v9 = *&self->super.ESDataHandler_opaque[v5];
-    v10 = CalCalendarCopyType();
-    v11 = *&self->super.ESDataHandler_opaque[v5];
+    HIDWORD(v15) = CalCalendarIsReadOnly();
+    LODWORD(v15) = CalCalendarIsHidden();
+    v5 = CalCalendarCopyType();
     ColorString = CalCalendarGetColorString();
-    v13 = ColorString;
+    v7 = ColorString;
     if (ColorString)
     {
       CFRetain(ColorString);
     }
 
-    v14 = *&self->super.ESDataHandler_opaque[v5];
-    v15 = CalCalendarCopyExternalID();
-    v16 = *&self->super.ESDataHandler_opaque[v5];
-    v17 = CalCalendarCopyExternalIdentificationTag();
-    v18 = *&self->super.ESDataHandler_opaque[v5];
-    v19 = CalCalendarCopyExternalModificationTag();
-    v20 = *&self->super.ESDataHandler_opaque[v5];
-    v21 = CalCalendarCopyExternalRepresentation();
-    v22 = *&self->super.ESDataHandler_opaque[v5];
-    v23 = CalCalendarCopyStore();
-    v24 = *&self->super.ESDataHandler_opaque[v5];
+    v8 = CalCalendarCopyExternalID();
+    v9 = CalCalendarCopyExternalIdentificationTag();
+    v10 = CalCalendarCopyExternalModificationTag();
+    v11 = CalCalendarCopyExternalRepresentation();
+    v12 = CalCalendarCopyStore();
     CalRemoveCalendar();
     [(ASEventDataHandler *)self _newCalendarEntityType];
     CalendarForEntityType = CalDatabaseCreateCalendarForEntityType();
@@ -143,10 +130,10 @@
     CalCalendarSetReadOnly();
     CalCalendarSetHidden();
     CalCalendarSetType();
-    if (v13)
+    if (v7)
     {
       CalCalendarSetColorString();
-      CFRelease(v13);
+      CFRelease(v7);
     }
 
     CalCalendarSetExternalID();
@@ -159,33 +146,33 @@
       CFRelease(cf);
     }
 
+    if (v5)
+    {
+      CFRelease(v5);
+    }
+
+    if (v8)
+    {
+      CFRelease(v8);
+    }
+
+    if (v9)
+    {
+      CFRelease(v9);
+    }
+
     if (v10)
     {
       CFRelease(v10);
     }
 
-    if (v15)
+    if (v11)
     {
-      CFRelease(v15);
-    }
-
-    if (v17)
-    {
-      CFRelease(v17);
-    }
-
-    if (v19)
-    {
-      CFRelease(v19);
-    }
-
-    if (v21)
-    {
-      CFRelease(v21);
+      CFRelease(v11);
     }
 
     CFRelease(CalendarForEntityType);
-    CFRelease(v23);
+    CFRelease(v12);
     cfa = +[ASLocalDBHelper sharedInstance];
     accountID2 = [(ASEventDataHandler *)self accountID];
     [cfa calSaveDatabaseForAccountID:accountID2];
@@ -200,7 +187,6 @@
   accountID = [(ASEventDataHandler *)self accountID];
   [v4 calDatabaseForAccountID:accountID];
 
-  v6 = *&self->super.ESDataHandler_opaque[OBJC_IVAR___ESDataHandler__container];
   CalDatabaseCopyRecurrenceChangesInCalendar();
 
   return 0;
@@ -212,6 +198,16 @@
   accountID = [(ASEventDataHandler *)self accountID];
   changeTrackingID = [(ASEventDataHandler *)self changeTrackingID];
   [v5 calOpenDatabaseForAccountID:accountID clientID:changeTrackingID];
+}
+
+- (BOOL)closeDBAndSave:(BOOL)save
+{
+  saveCopy = save;
+  v5 = +[ASLocalDBHelper sharedInstance];
+  accountID = [(ASEventDataHandler *)self accountID];
+  LOBYTE(saveCopy) = [v5 calCloseDatabaseForAccountID:accountID save:saveCopy];
+
+  return saveCopy;
 }
 
 @end

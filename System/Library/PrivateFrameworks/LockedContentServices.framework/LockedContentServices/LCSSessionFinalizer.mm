@@ -7,13 +7,13 @@
 
 + (id)finalizeTemporarySessionAtURL:(id)l forBundleProvider:(id)provider
 {
-  v49 = *MEMORY[0x277D85DE8];
+  v51 = *MEMORY[0x277D85DE8];
   lCopy = l;
   providerCopy = provider;
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
-  v42 = 0;
-  v8 = [defaultManager contentsOfDirectoryAtURL:lCopy includingPropertiesForKeys:MEMORY[0x277CBEBF8] options:0 error:&v42];
-  v9 = v42;
+  v44 = 0;
+  v8 = [defaultManager contentsOfDirectoryAtURL:lCopy includingPropertiesForKeys:MEMORY[0x277CBEBF8] options:0 error:&v44];
+  v9 = v44;
   v10 = 0;
   if ([v8 count])
   {
@@ -36,13 +36,13 @@ LABEL_43:
       goto LABEL_44;
     }
 
-    v37 = [pathComponents objectAtIndex:{objc_msgSend(pathComponents, "count") - 2}];
-    v13 = [[LCSSessionURLBuilder alloc] initWithTypeIdentifier:v37];
+    v39 = [pathComponents objectAtIndex:{objc_msgSend(pathComponents, "count") - 2}];
+    v13 = [[LCSSessionURLBuilder alloc] initWithTypeIdentifier:v39];
     v14 = [(LCSSessionURLBuilder *)v13 finalizationStagingSessionURLForBundleProvider:providerCopy fromTemporaryURL:lCopy];
     v15 = v14;
     if (!v14)
     {
-      uRLByDeletingLastPathComponent = LCSLogCommon();
+      uRLByDeletingLastPathComponent = LCSLogCommon(0);
       if (os_log_type_enabled(uRLByDeletingLastPathComponent, OS_LOG_TYPE_ERROR))
       {
         +[LCSSessionFinalizer finalizeTemporarySessionAtURL:forBundleProvider:];
@@ -53,13 +53,14 @@ LABEL_43:
     }
 
     uRLByDeletingLastPathComponent = [v14 URLByDeletingLastPathComponent];
-    v41 = 0;
-    v17 = [defaultManager createDirectoryAtURL:uRLByDeletingLastPathComponent withIntermediateDirectories:1 attributes:0 error:&v41];
-    v36 = v41;
+    v43 = 0;
+    v17 = [defaultManager createDirectoryAtURL:uRLByDeletingLastPathComponent withIntermediateDirectories:1 attributes:0 error:&v43];
+    v18 = v43;
+    v38 = v18;
     if ((v17 & 1) == 0)
     {
-      v35 = LCSLogCommon();
-      if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
+      v37 = LCSLogCommon(v18);
+      if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
       {
         +[LCSSessionFinalizer finalizeTemporarySessionAtURL:forBundleProvider:];
       }
@@ -68,13 +69,14 @@ LABEL_43:
       goto LABEL_41;
     }
 
-    v40 = 0;
-    v18 = [defaultManager copyItemAtURL:lCopy toURL:v15 error:&v40];
-    v35 = v40;
-    if ((v18 & 1) == 0)
+    v42 = 0;
+    v19 = [defaultManager copyItemAtURL:lCopy toURL:v15 error:&v42];
+    v20 = v42;
+    v37 = v20;
+    if ((v19 & 1) == 0)
     {
-      v34 = LCSLogCommon();
-      if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
+      v36 = LCSLogCommon(v20);
+      if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
       {
         +[LCSSessionFinalizer finalizeTemporarySessionAtURL:forBundleProvider:];
       }
@@ -83,20 +85,20 @@ LABEL_43:
       goto LABEL_40;
     }
 
-    v19 = [(LCSSessionURLBuilder *)v13 finalizedSessionURLForBundleProvider:providerCopy fromSessionURL:v15];
-    v34 = v19;
-    if (!v19)
+    v21 = [(LCSSessionURLBuilder *)v13 finalizedSessionURLForBundleProvider:providerCopy fromSessionURL:v15];
+    v36 = v21;
+    if (!v21)
     {
-      v23 = LCSLogCommon();
-      if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+      v26 = LCSLogCommon(0);
+      if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
       {
         +[LCSSessionFinalizer finalizeTemporarySessionAtURL:forBundleProvider:];
       }
 
-      v39 = 0;
-      v33 = [defaultManager removeItemAtURL:v15 error:&v39];
-      v24 = v39;
-      if (v33)
+      v41 = 0;
+      v35 = [defaultManager removeItemAtURL:v15 error:&v41];
+      v27 = v41;
+      if (v35)
       {
         v10 = 0;
 LABEL_39:
@@ -108,9 +110,9 @@ LABEL_42:
         goto LABEL_43;
       }
 
-      v32 = v24;
-      v31 = LCSLogCommon();
-      if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
+      v34 = v27;
+      v33 = LCSLogCommon(v27);
+      if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
       {
         +[LCSSessionFinalizer finalizeTemporarySessionAtURL:forBundleProvider:];
       }
@@ -118,55 +120,56 @@ LABEL_42:
       v10 = 0;
 LABEL_38:
 
-      v24 = v32;
+      v27 = v34;
       goto LABEL_39;
     }
 
-    [v19 URLByDeletingLastPathComponent];
-    v32 = v38[1] = 0;
-    v20 = [defaultManager createDirectoryAtURL:? withIntermediateDirectories:? attributes:? error:?];
-    v31 = 0;
-    if (v20)
+    [v21 URLByDeletingLastPathComponent];
+    v34 = v40[1] = 0;
+    v22 = [defaultManager createDirectoryAtURL:? withIntermediateDirectories:? attributes:? error:?];
+    v23 = 0;
+    v33 = v23;
+    if (v22)
     {
-      v38[0] = 0;
-      v21 = [defaultManager moveItemAtURL:v15 toURL:v34 error:v38];
-      v30 = v38[0];
-      v22 = LCSLogCommon();
-      if (v21)
+      v40[0] = 0;
+      v24 = [defaultManager moveItemAtURL:v15 toURL:v36 error:v40];
+      v32 = v40[0];
+      v25 = LCSLogCommon(v32);
+      if (v24)
       {
-        v29 = v22;
-        if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
+        v31 = v25;
+        if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
         {
           +[LCSSessionFinalizer finalizeTemporarySessionAtURL:forBundleProvider:];
         }
 
-        v10 = v34;
+        v10 = v36;
         goto LABEL_37;
       }
 
-      v25 = v22;
-      if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+      v28 = v25;
+      if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
       {
-        v28 = @"no error returned";
+        v30 = @"no error returned";
         *buf = 138412802;
-        if (v30)
+        if (v32)
         {
-          v28 = v30;
+          v30 = v32;
         }
 
-        v44 = v15;
-        v45 = 2112;
-        v46 = v34;
+        v46 = v15;
         v47 = 2112;
-        v48 = v28;
-        _os_log_error_impl(&dword_256175000, v25, OS_LOG_TYPE_ERROR, "Failed moving from %@ to %@: %@", buf, 0x20u);
+        v48 = v36;
+        v49 = 2112;
+        v50 = v30;
+        _os_log_error_impl(&dword_256175000, v28, OS_LOG_TYPE_ERROR, "Failed moving from %@ to %@: %@", buf, 0x20u);
       }
     }
 
     else
     {
-      v30 = LCSLogCommon();
-      if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+      v32 = LCSLogCommon(v23);
+      if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
       {
         +[LCSSessionFinalizer finalizeTemporarySessionAtURL:forBundleProvider:];
       }
@@ -180,8 +183,6 @@ LABEL_37:
 
 LABEL_44:
 
-  v26 = *MEMORY[0x277D85DE8];
-
   return v10;
 }
 
@@ -194,20 +195,21 @@ LABEL_44:
 
   v7 = [objc_alloc(MEMORY[0x277D47010]) initWithExplanation:@"LockedContentServices deleting contents of extension data container"];
   v8 = [objc_alloc(MEMORY[0x277D47020]) initWithPredicate:v6 context:v7];
-  v17 = 0;
-  v9 = [v8 acquireWithError:&v17];
-  v10 = v17;
+  v19 = 0;
+  v9 = [v8 acquireWithError:&v19];
+  v10 = v19;
+  v11 = v10;
   if (v9)
   {
     bundleIdentifier2 = [providerCopy bundleIdentifier];
     [bundleIdentifier2 cStringUsingEncoding:4];
-    v12 = container_delete_all_data_container_content_for_current_user();
+    v13 = container_delete_all_data_container_content_for_current_user();
 
-    v13 = v12 == 1;
-    if (v12 != 1)
+    v15 = v13 == 1;
+    if (v13 != 1)
     {
-      v14 = LCSLogCommon();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+      v16 = LCSLogCommon(v14);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
         +[LCSSessionFinalizer removeContentsOfExtensionDataContainerForBundleProvider:];
       }
@@ -218,76 +220,33 @@ LABEL_44:
 
   else
   {
-    v15 = LCSLogCommon();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v17 = LCSLogCommon(v10);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
-      [(LCSSessionFinalizer *)providerCopy removeContentsOfExtensionDataContainerForBundleProvider:v10, v15];
+      [(LCSSessionFinalizer *)providerCopy removeContentsOfExtensionDataContainerForBundleProvider:v11, v17];
     }
 
-    v13 = 0;
+    v15 = 0;
   }
 
-  return v13;
-}
-
-+ (void)finalizeTemporarySessionAtURL:forBundleProvider:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_3(&dword_256175000, v0, v1, "Failed creating staging container directory %@:%@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-+ (void)finalizeTemporarySessionAtURL:forBundleProvider:.cold.2()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-+ (void)finalizeTemporarySessionAtURL:forBundleProvider:.cold.3()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_3(&dword_256175000, v0, v1, "Failed creating finalized Library container directory %@:%@");
-  v2 = *MEMORY[0x277D85DE8];
+  return v15;
 }
 
 + (void)finalizeTemporarySessionAtURL:forBundleProvider:.cold.4()
 {
-  v5 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2_1();
-  v4 = v0;
-  _os_log_debug_impl(&dword_256175000, v1, OS_LOG_TYPE_DEBUG, "Finalized %@ to %@", v3, 0x16u);
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-+ (void)finalizeTemporarySessionAtURL:forBundleProvider:.cold.6()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
+  v3 = v0;
+  _os_log_debug_impl(&dword_256175000, v1, OS_LOG_TYPE_DEBUG, "Finalized %@ to %@", v2, 0x16u);
 }
 
 + (void)removeContentsOfExtensionDataContainerForBundleProvider:(NSObject *)a3 .cold.1(void *a1, uint64_t a2, NSObject *a3)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v5 = [a1 bundleIdentifier];
   OUTLINED_FUNCTION_2_1();
-  v8 = a2;
-  _os_log_error_impl(&dword_256175000, a3, OS_LOG_TYPE_ERROR, "Unable to acquire termination assertion for %@: %@", v7, 0x16u);
-
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-+ (void)removeContentsOfExtensionDataContainerForBundleProvider:.cold.2()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
+  v7 = a2;
+  _os_log_error_impl(&dword_256175000, a3, OS_LOG_TYPE_ERROR, "Unable to acquire termination assertion for %@: %@", v6, 0x16u);
 }
 
 @end

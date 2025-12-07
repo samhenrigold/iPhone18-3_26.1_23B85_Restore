@@ -421,46 +421,46 @@
 
 + (id)descriptorForIdentifier:(id)identifier version:(id)version error:(id *)error
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   versionCopy = version;
-  v8 = +[VisionCoreInferenceNetworkDescriptor _registeredNetworkDescriptors];
-  v9 = [v8 objectForKey:identifierCopy];
+  v9 = +[(VisionCoreInferenceNetworkDescriptor *)self];
+  v10 = [v9 objectForKey:identifierCopy];
 
-  if (v9)
+  if (v10)
   {
-    v23 = 0u;
     v24 = 0u;
-    v21 = 0u;
+    v25 = 0u;
     v22 = 0u;
-    v10 = v9;
-    v11 = [v10 countByEnumeratingWithState:&v21 objects:v25 count:16];
-    if (v11)
+    v23 = 0u;
+    v11 = v10;
+    v12 = [v11 countByEnumeratingWithState:&v22 objects:v26 count:16];
+    if (v12)
     {
-      v12 = *v22;
+      v13 = *v23;
       while (2)
       {
-        for (i = 0; i != v11; ++i)
+        for (i = 0; i != v12; ++i)
         {
-          if (*v22 != v12)
+          if (*v23 != v13)
           {
-            objc_enumerationMutation(v10);
+            objc_enumerationMutation(v11);
           }
 
-          v14 = *(*(&v21 + 1) + 8 * i);
-          version = [v14 version];
-          v16 = [version isEqualToResourceVersion:versionCopy];
+          v15 = *(*(&v22 + 1) + 8 * i);
+          version = [v15 version];
+          v17 = [version isEqualToResourceVersion:versionCopy];
 
-          if (v16)
+          if (v17)
           {
-            v18 = v14;
+            v19 = v15;
 
             goto LABEL_16;
           }
         }
 
-        v11 = [v10 countByEnumeratingWithState:&v21 objects:v25 count:16];
-        if (v11)
+        v12 = [v11 countByEnumeratingWithState:&v22 objects:v26 count:16];
+        if (v12)
         {
           continue;
         }
@@ -479,14 +479,14 @@
   else if (error)
   {
     [MEMORY[0x1E696ABC0] VisionCoreErrorForUnknownProcessingDescriptorIdentifier:identifierCopy];
-    *error = v18 = 0;
+    *error = v19 = 0;
     goto LABEL_16;
   }
 
-  v18 = 0;
+  v19 = 0;
 LABEL_16:
 
-  return v18;
+  return v19;
 }
 
 + (id)_registeredNetworkDescriptors
@@ -497,9 +497,9 @@ LABEL_16:
     dispatch_once(&+[VisionCoreInferenceNetworkDescriptor _registeredNetworkDescriptors]::onceToken, &__block_literal_global_421);
   }
 
-  v0 = +[VisionCoreInferenceNetworkDescriptor _registeredNetworkDescriptors]::ourDescriptors;
+  v1 = +[VisionCoreInferenceNetworkDescriptor _registeredNetworkDescriptors]::ourDescriptors;
 
-  return v0;
+  return v1;
 }
 
 void __69__VisionCoreInferenceNetworkDescriptor__registeredNetworkDescriptors__block_invoke()
@@ -532,35 +532,35 @@ void __69__VisionCoreInferenceNetworkDescriptor__registeredNetworkDescriptors__b
 + (id)descriptorsForIdentifier:(id)identifier error:(id *)error
 {
   identifierCopy = identifier;
-  v6 = +[VisionCoreInferenceNetworkDescriptor _registeredNetworkDescriptors];
-  v7 = [v6 objectForKey:identifierCopy];
+  v7 = +[(VisionCoreInferenceNetworkDescriptor *)self];
+  v8 = [v7 objectForKey:identifierCopy];
 
-  if (v7)
+  if (v8)
   {
-    v8 = +[VisionCoreResourceVersion newerFirstComparator];
-    v13[0] = MEMORY[0x1E69E9820];
-    v13[1] = 3221225472;
-    v13[2] = __71__VisionCoreInferenceNetworkDescriptor_descriptorsForIdentifier_error___block_invoke;
-    v13[3] = &unk_1E8698658;
-    v14 = v8;
-    v9 = v8;
-    v10 = [v7 sortedArrayWithOptions:16 usingComparator:v13];
+    v9 = +[VisionCoreResourceVersion newerFirstComparator];
+    v14[0] = MEMORY[0x1E69E9820];
+    v14[1] = 3221225472;
+    v14[2] = __71__VisionCoreInferenceNetworkDescriptor_descriptorsForIdentifier_error___block_invoke;
+    v14[3] = &unk_1E8698658;
+    v15 = v9;
+    v10 = v9;
+    v11 = [v8 sortedArrayWithOptions:16 usingComparator:v14];
 
-    v11 = v10;
+    v12 = v11;
   }
 
   else if (error)
   {
     [MEMORY[0x1E696ABC0] VisionCoreErrorForUnknownProcessingDescriptorIdentifier:identifierCopy];
-    *error = v11 = 0;
+    *error = v12 = 0;
   }
 
   else
   {
-    v11 = 0;
+    v12 = 0;
   }
 
-  return v11;
+  return v12;
 }
 
 uint64_t __71__VisionCoreInferenceNetworkDescriptor_descriptorsForIdentifier_error___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -577,33 +577,33 @@ uint64_t __71__VisionCoreInferenceNetworkDescriptor_descriptorsForIdentifier_err
 + (id)availableVersionsForIdentifier:(id)identifier error:(id *)error
 {
   identifierCopy = identifier;
-  v6 = +[VisionCoreInferenceNetworkDescriptor _registeredNetworkDescriptors];
-  v7 = [v6 objectForKey:identifierCopy];
+  v7 = +[(VisionCoreInferenceNetworkDescriptor *)self];
+  v8 = [v7 objectForKey:identifierCopy];
 
-  if (v7)
+  if (v8)
   {
-    v8 = [v7 valueForKey:@"version"];
-    v9 = +[VisionCoreResourceVersion newerFirstComparator];
-    v10 = [v8 sortedArrayUsingComparator:v9];
+    v9 = [v8 valueForKey:@"version"];
+    v10 = +[VisionCoreResourceVersion newerFirstComparator];
+    v11 = [v9 sortedArrayUsingComparator:v10];
   }
 
   else if (error)
   {
     [MEMORY[0x1E696ABC0] VisionCoreErrorForUnknownProcessingDescriptorIdentifier:identifierCopy];
-    *error = v10 = 0;
+    *error = v11 = 0;
   }
 
   else
   {
-    v10 = 0;
+    v11 = 0;
   }
 
-  return v10;
+  return v11;
 }
 
 + (id)availableIdentifiers
 {
-  v3 = +[VisionCoreInferenceNetworkDescriptor _registeredNetworkDescriptors];
+  v3 = +[(VisionCoreInferenceNetworkDescriptor *)self];
   allKeys = [v3 allKeys];
   if (objc_opt_class() != self)
   {

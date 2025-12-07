@@ -10,7 +10,6 @@
 - (NSString)extensionIdentifier;
 - (_UNNotificationContentExtensionHostContainerViewController)initWithExtension:(id)extension notification:(id)notification actions:(id)actions;
 - (_UNNotificationContentExtensionHostContainerViewControllerDelegate)delegate;
-- (uint64_t)_teardownExtension;
 - (void)_addExtensionViewFromViewController:(id)controller;
 - (void)_flushQueuedRequests;
 - (void)_loadExtensionViewController;
@@ -655,13 +654,9 @@ LABEL_13:
 
 - (void)_teardownExtension
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v2 = *(self + 1016);
-  v3 = a2;
-  identifier = [v2 identifier];
-  v5 = 138412290;
-  v6 = identifier;
-  _os_log_error_impl(&dword_23AB78000, v3, OS_LOG_TYPE_ERROR, "Killing the process of a remote view controller that failed to load, %@", &v5, 0xCu);
+  v0 = dlerror();
+  v1 = abort_report_np("%s", v0);
+  __90___UNNotificationContentExtensionHostContainerViewController__loadExtensionViewController__block_invoke_cold_2(v1, v2, v3);
 }
 
 - (void)_addExtensionViewFromViewController:(id)controller
@@ -770,13 +765,6 @@ LABEL_13:
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
 
   return WeakRetained;
-}
-
-- (uint64_t)_teardownExtension
-{
-  dlerror();
-  v0 = abort_report_np();
-  return __90___UNNotificationContentExtensionHostContainerViewController__loadExtensionViewController__block_invoke_cold_2(v0);
 }
 
 @end

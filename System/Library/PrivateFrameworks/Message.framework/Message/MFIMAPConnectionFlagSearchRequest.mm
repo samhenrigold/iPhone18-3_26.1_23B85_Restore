@@ -1,8 +1,18 @@
 @interface MFIMAPConnectionFlagSearchRequest
++ (id)requestWithMask:(unint64_t)mask searchTerms:(id)terms positiveMatch:(BOOL)match;
 - (MFIMAPConnectionFlagSearchRequest)initWithMask:(unint64_t)mask searchTerms:(id)terms positiveMatch:(BOOL)match;
 @end
 
 @implementation MFIMAPConnectionFlagSearchRequest
+
++ (id)requestWithMask:(unint64_t)mask searchTerms:(id)terms positiveMatch:(BOOL)match
+{
+  matchCopy = match;
+  termsCopy = terms;
+  v9 = [[self alloc] initWithMask:mask searchTerms:termsCopy positiveMatch:matchCopy];
+
+  return v9;
+}
 
 - (MFIMAPConnectionFlagSearchRequest)initWithMask:(unint64_t)mask searchTerms:(id)terms positiveMatch:(BOOL)match
 {

@@ -17,7 +17,7 @@
 
   v11 = swift_allocObject();
   *(v11 + 16) = v6;
-  sub_254F24464(v8, v10, sub_254F22830, v11);
+  sub_254F24464(v8, v10, sub_254F22830, v11, &unk_286726B78, &unk_286726BA0, sub_254F273E0, &unk_254F2D158);
 
   sub_254EF278C(v8, v10);
 }
@@ -32,7 +32,7 @@
 
   v11 = swift_allocObject();
   *(v11 + 16) = v6;
-  sub_254F24464(v8, v10, sub_254F22830, v11);
+  sub_254F24464(v8, v10, sub_254F22830, v11, &unk_286726B00, &unk_286726B28, sub_254F273E0, &unk_254F2D140);
 
   sub_254EF278C(v8, v10);
 }
@@ -57,7 +57,7 @@
 
   v11 = swift_allocObject();
   *(v11 + 16) = v6;
-  sub_254F24464(v8, v10, sub_254F21FB0, v11);
+  sub_254F24464(v8, v10, sub_254F21FB0, v11, &unk_286726A10, &unk_286726A38, sub_254F26C44, &unk_254F2D118);
 
   sub_254EF278C(v8, v10);
 }

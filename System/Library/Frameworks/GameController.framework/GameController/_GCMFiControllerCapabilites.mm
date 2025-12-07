@@ -1,5 +1,6 @@
 @interface _GCMFiControllerCapabilites
 + (BOOL)isServiceAuthenticated:(id)authenticated;
+- (BOOL)isExtendedGamepad;
 - (char)initWithGamepadElements:(void *)elements keyboardElements:;
 - (char)initWithServiceInfo:(char *)info;
 - (id)description;
@@ -7,7 +8,6 @@
 - (uint64_t)b;
 - (uint64_t)dpad;
 - (uint64_t)home;
-- (uint64_t)isExtendedGamepad;
 - (uint64_t)isStandardGamepad;
 - (uint64_t)l1;
 - (uint64_t)l2;
@@ -135,39 +135,39 @@
 
 - (char)initWithGamepadElements:(void *)elements keyboardElements:
 {
-  v54 = *MEMORY[0x1E69E9840];
+  v51 = *MEMORY[0x1E69E9840];
   v5 = a2;
   elementsCopy = elements;
   if (self)
   {
-    v51.receiver = self;
-    v51.super_class = _GCMFiControllerCapabilites;
-    self = objc_msgSendSuper2(&v51, sel_init);
+    v48.receiver = self;
+    v48.super_class = _GCMFiControllerCapabilites;
+    self = objc_msgSendSuper2(&v48, sel_init);
     objc_opt_class();
-    v39 = elementsCopy;
-    v40 = v5;
+    v36 = elementsCopy;
+    v37 = v5;
     if (objc_opt_isKindOfClass())
     {
-      v49 = 0u;
-      v50 = 0u;
+      v46 = 0u;
       v47 = 0u;
-      v48 = 0u;
+      v44 = 0u;
+      v45 = 0u;
       obj = v5;
-      v7 = [obj countByEnumeratingWithState:&v47 objects:v53 count:16];
+      v7 = [obj countByEnumeratingWithState:&v44 objects:v50 count:16];
       if (v7)
       {
         v8 = v7;
-        v9 = *v48;
+        v9 = *v45;
         do
         {
           for (i = 0; i != v8; ++i)
           {
-            if (*v48 != v9)
+            if (*v45 != v9)
             {
               objc_enumerationMutation(obj);
             }
 
-            v11 = *(*(&v47 + 1) + 8 * i);
+            v11 = *(*(&v44 + 1) + 8 * i);
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
@@ -202,52 +202,50 @@
             }
           }
 
-          v8 = [obj countByEnumeratingWithState:&v47 objects:v53 count:16];
+          v8 = [obj countByEnumeratingWithState:&v44 objects:v50 count:16];
         }
 
         while (v8);
       }
 
-      elementsCopy = v39;
+      elementsCopy = v36;
     }
 
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v45 = 0u;
-      v46 = 0u;
+      v42 = 0u;
       v43 = 0u;
-      v44 = 0u;
+      v40 = 0u;
+      v41 = 0u;
       v19 = elementsCopy;
-      v20 = [v19 countByEnumeratingWithState:&v43 objects:v52 count:16];
-      v21 = 0x1E695D000uLL;
+      v20 = [v19 countByEnumeratingWithState:&v40 objects:v49 count:16];
       if (!v20)
       {
         goto LABEL_53;
       }
 
-      v22 = v20;
-      v23 = *v44;
+      v21 = v20;
+      v22 = *v41;
       obja = v19;
       while (1)
       {
-        v24 = 0;
+        v23 = 0;
         do
         {
-          if (*v44 != v23)
+          if (*v41 != v22)
           {
             objc_enumerationMutation(v19);
           }
 
-          v25 = *(*(&v43 + 1) + 8 * v24);
-          v26 = *(v21 + 3872);
+          v24 = *(*(&v40 + 1) + 8 * v23);
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            v27 = [v25 objectForKeyedSubscript:@"UsagePage"];
-            v28 = [v25 objectForKeyedSubscript:@"Usage"];
-            unsignedShortValue3 = [v27 unsignedShortValue];
-            unsignedShortValue4 = [v28 unsignedShortValue];
+            v25 = [v24 objectForKeyedSubscript:@"UsagePage"];
+            v26 = [v24 objectForKeyedSubscript:@"Usage"];
+            unsignedShortValue3 = [v25 unsignedShortValue];
+            unsignedShortValue4 = [v26 unsignedShortValue];
             if (unsignedShortValue3 != 12)
             {
               goto LABEL_48;
@@ -255,10 +253,10 @@
 
             if (unsignedShortValue4 == 101)
             {
-              v31 = -3;
-              v32 = 2;
-              v33 = 1;
-              v34 = self + 24;
+              v29 = -3;
+              v30 = 2;
+              v31 = 1;
+              v32 = self + 24;
             }
 
             else
@@ -266,24 +264,24 @@
               switch(unsignedShortValue4)
               {
                 case 0xB2:
-                  v31 = 127;
-                  v32 = 0x80;
-                  v33 = 64;
+                  v29 = 127;
+                  v30 = 0x80;
+                  v31 = 64;
                   break;
                 case 0x204:
-                  v31 = -9;
-                  v32 = 8;
-                  v33 = 4;
+                  v29 = -9;
+                  v30 = 8;
+                  v31 = 4;
                   break;
                 case 0x223:
-                  v31 = -3;
-                  v32 = 2;
-                  v33 = 1;
+                  v29 = -3;
+                  v30 = 2;
+                  v31 = 1;
                   break;
                 case 0x209:
-                  v31 = -33;
-                  v32 = 32;
-                  v33 = 16;
+                  v29 = -33;
+                  v30 = 32;
+                  v31 = 16;
                   break;
                 default:
 LABEL_48:
@@ -291,46 +289,44 @@ LABEL_48:
                   goto LABEL_49;
               }
 
-              v34 = self + 23;
+              v32 = self + 23;
             }
 
-            *v34 |= v33;
-            if (__73___GCMFiControllerProfile_determineCapabilitiesWithServiceInfo_initInfo___block_invoke(unsignedShortValue4, v25))
+            *v32 |= v31;
+            if (__73___GCMFiControllerProfile_determineCapabilitiesWithServiceInfo_initInfo___block_invoke(unsignedShortValue4, v24))
             {
-              v35 = v32;
+              v33 = v30;
             }
 
             else
             {
-              v35 = 0;
+              v33 = 0;
             }
 
-            *v34 = *v34 & v31 | v35;
-            v21 = 0x1E695D000;
+            *v32 = *v32 & v29 | v33;
             v19 = obja;
             goto LABEL_48;
           }
 
 LABEL_49:
-          ++v24;
+          ++v23;
         }
 
-        while (v22 != v24);
-        v36 = [v19 countByEnumeratingWithState:&v43 objects:v52 count:16];
-        v22 = v36;
-        if (!v36)
+        while (v21 != v23);
+        v34 = [v19 countByEnumeratingWithState:&v40 objects:v49 count:16];
+        v21 = v34;
+        if (!v34)
         {
 LABEL_53:
 
-          elementsCopy = v39;
-          v5 = v40;
+          elementsCopy = v36;
+          v5 = v37;
           break;
         }
       }
     }
   }
 
-  v37 = *MEMORY[0x1E69E9840];
   return self;
 }
 
@@ -387,7 +383,7 @@ LABEL_53:
   return infoCopy;
 }
 
-- (uint64_t)isExtendedGamepad
+- (BOOL)isExtendedGamepad
 {
   if (result)
   {
@@ -468,35 +464,41 @@ LABEL_53:
 
 - (uint64_t)r2
 {
-  if (!self)
+  if (self)
+  {
+    return OUTLINED_FUNCTION_1_25(*(self + 12) >> 7);
+  }
+
+  else
   {
     return OUTLINED_FUNCTION_1_25(0);
   }
-
-  v1 = *(self + 16) >> 7;
-  return OUTLINED_FUNCTION_1_25(*(self + 12) >> 7);
 }
 
 - (uint64_t)leftThumbstick
 {
-  if (!self)
+  if (self)
+  {
+    return OUTLINED_FUNCTION_1_25((~*(self + 21) & 3) == 0);
+  }
+
+  else
   {
     return OUTLINED_FUNCTION_1_25(0);
   }
-
-  v1 = (~*(self + 22) & 3) == 0;
-  return OUTLINED_FUNCTION_1_25((~*(self + 21) & 3) == 0);
 }
 
 - (uint64_t)rightThumbstick
 {
-  if (!self)
+  if (self)
+  {
+    return OUTLINED_FUNCTION_1_25((~*(self + 21) & 0x24) == 0);
+  }
+
+  else
   {
     return OUTLINED_FUNCTION_1_25(0);
   }
-
-  v1 = (~*(self + 22) & 0x24) == 0;
-  return OUTLINED_FUNCTION_1_25((~*(self + 21) & 0x24) == 0);
 }
 
 - (uint64_t)dpad
@@ -514,13 +516,15 @@ LABEL_53:
 
 - (uint64_t)a
 {
-  if (!self)
+  if (self)
+  {
+    return OUTLINED_FUNCTION_1_25(*(self + 12) & 1);
+  }
+
+  else
   {
     return OUTLINED_FUNCTION_1_25(0);
   }
-
-  v1 = *(self + 16) & 1;
-  return OUTLINED_FUNCTION_1_25(*(self + 12) & 1);
 }
 
 - (uint64_t)b
@@ -642,90 +646,106 @@ LABEL_53:
 
 - (uint64_t)l3
 {
-  if (!self)
+  if (self)
+  {
+    return OUTLINED_FUNCTION_1_25(*(self + 13) & 1);
+  }
+
+  else
   {
     return OUTLINED_FUNCTION_1_25(0);
   }
-
-  v1 = *(self + 17) & 1;
-  return OUTLINED_FUNCTION_1_25(*(self + 13) & 1);
 }
 
 - (uint64_t)r3
 {
-  if (!self)
+  if (self)
+  {
+    return OUTLINED_FUNCTION_2_18((*(self + 16) >> 9) & 1);
+  }
+
+  else
   {
     return OUTLINED_FUNCTION_2_18(0);
   }
-
-  v1 = (*(self + 12) >> 9) & 1;
-  return OUTLINED_FUNCTION_2_18((*(self + 16) >> 9) & 1);
 }
 
 - (uint64_t)l4
 {
-  if (!self)
+  if (self)
+  {
+    return OUTLINED_FUNCTION_2_18((*(self + 16) >> 10) & 1);
+  }
+
+  else
   {
     return OUTLINED_FUNCTION_2_18(0);
   }
-
-  v1 = (*(self + 12) >> 10) & 1;
-  return OUTLINED_FUNCTION_2_18((*(self + 16) >> 10) & 1);
 }
 
 - (uint64_t)r4
 {
-  if (!self)
+  if (self)
+  {
+    return OUTLINED_FUNCTION_2_18((*(self + 16) >> 11) & 1);
+  }
+
+  else
   {
     return OUTLINED_FUNCTION_2_18(0);
   }
-
-  v1 = (*(self + 12) >> 11) & 1;
-  return OUTLINED_FUNCTION_2_18((*(self + 16) >> 11) & 1);
 }
 
 - (uint64_t)m1
 {
-  if (!self)
+  if (self)
+  {
+    return OUTLINED_FUNCTION_2_18((*(self + 16) >> 12) & 1);
+  }
+
+  else
   {
     return OUTLINED_FUNCTION_2_18(0);
   }
-
-  v1 = (*(self + 12) >> 12) & 1;
-  return OUTLINED_FUNCTION_2_18((*(self + 16) >> 12) & 1);
 }
 
 - (uint64_t)m2
 {
-  if (!self)
+  if (self)
+  {
+    return OUTLINED_FUNCTION_2_18((*(self + 16) >> 13) & 1);
+  }
+
+  else
   {
     return OUTLINED_FUNCTION_2_18(0);
   }
-
-  v1 = (*(self + 12) >> 13) & 1;
-  return OUTLINED_FUNCTION_2_18((*(self + 16) >> 13) & 1);
 }
 
 - (uint64_t)m3
 {
-  if (!self)
+  if (self)
+  {
+    return OUTLINED_FUNCTION_2_18((*(self + 16) >> 14) & 1);
+  }
+
+  else
   {
     return OUTLINED_FUNCTION_2_18(0);
   }
-
-  v1 = (*(self + 12) >> 14) & 1;
-  return OUTLINED_FUNCTION_2_18((*(self + 16) >> 14) & 1);
 }
 
 - (uint64_t)m4
 {
-  if (!self)
+  if (self)
+  {
+    return OUTLINED_FUNCTION_2_18((*(self + 16) >> 15) & 1);
+  }
+
+  else
   {
     return OUTLINED_FUNCTION_2_18(0);
   }
-
-  v1 = (*(self + 12) >> 15) & 1;
-  return OUTLINED_FUNCTION_2_18((*(self + 16) >> 15) & 1);
 }
 
 @end

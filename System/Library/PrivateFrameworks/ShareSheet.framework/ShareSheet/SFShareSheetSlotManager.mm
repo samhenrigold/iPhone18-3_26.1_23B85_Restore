@@ -979,9 +979,9 @@ void __44__SFShareSheetSlotManager_remoteObjectProxy__block_invoke(uint64_t a1, 
   [v2 setClass:objc_opt_class() forSelector:sel_createSharingURLForCollaborationRequest_completionHandler_ argumentIndex:0 ofReply:0];
   [v2 setClass:objc_opt_class() forSelector:sel_createSharingURLForCollaborationRequest_completionHandler_ argumentIndex:0 ofReply:1];
   [v2 setClass:objc_opt_class() forSelector:sel_requestSharedURLForCollaborationRequest_completionHandler_ argumentIndex:0 ofReply:0];
-  [v2 setClass:objc_opt_class() forSelector:sel_requestSharedURLForCollaborationRequest_completionHandler_ argumentIndex:0 ofReply:1];
-  [v2 setClass:getCKContainerSetupInfoClass() forSelector:sel_deleteSharingURL_containerSetupInfo_completionHandler_ argumentIndex:1 ofReply:0];
-  [v2 setClass:getCKShareClass() forSelector:sel_requestAddParticipantsAllowedForURL_share_completionHandler_ argumentIndex:1 ofReply:0];
+  v17 = [v2 setClass:objc_opt_class() forSelector:sel_requestSharedURLForCollaborationRequest_completionHandler_ argumentIndex:0 ofReply:1];
+  v18 = [v2 setClass:getCKContainerSetupInfoClass(v17) forSelector:sel_deleteSharingURL_containerSetupInfo_completionHandler_ argumentIndex:1 ofReply:0];
+  [v2 setClass:getCKShareClass(v18) forSelector:sel_requestAddParticipantsAllowedForURL_share_completionHandler_ argumentIndex:1 ofReply:0];
 
   return v2;
 }

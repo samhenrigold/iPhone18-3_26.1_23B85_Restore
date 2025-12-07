@@ -1,6 +1,4 @@
 @interface _UIInteractivePageControlVisualProvider
-- (BOOL)_indicatorModeForPage:(id *)page;
-- (BOOL)_isPageWithinPermittedDisplayedRange:(_BOOL8)result;
 - (BOOL)_isPageWithinValidJoggingOffset:(uint64_t)offset;
 - (BOOL)_supportsExpandedIndicator;
 - (BOOL)gestureRecognizer:(id)recognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(id)gestureRecognizer;
@@ -23,6 +21,7 @@
 - (id)_indicatorColorForEnabled:(id *)enabled;
 - (id)_numberOfVisibleIndicatorsFittingContentLengthForStartIndex:(id *)result;
 - (id)_resolvedVisualEffect;
+- (id)_updateCurrentPlatterMode;
 - (id)_updateIndicatorMode;
 - (id)_visibleLeftIndicator;
 - (id)_visibleRightIndicator;
@@ -32,10 +31,11 @@
 - (id)preferredActiveIndicatorImage;
 - (id)preferredIndicatorImage;
 - (uint64_t)_allowsPreciseTargetPageForTap:(uint64_t)tap;
-- (uint64_t)_hasContentScaling;
+- (uint64_t)_isPageWithinPermittedDisplayedRange:(uint64_t)result;
 - (uint64_t)_pageForExpandedIndicator;
-- (uint64_t)_updateCurrentPlatterMode;
+- (unint64_t)_indicatorModeForPage:(id *)page;
 - (unint64_t)maxVisibleIndicators;
+- (void)_hasContentScaling;
 - (void)_installBackgroundViewIfNeeded;
 - (void)_setDisplayedPage:(void *)page completion:;
 - (void)_transitionIndicatorForPage:(uint64_t)page toEnabled:;
@@ -609,9 +609,9 @@ LABEL_22:
       image = [v152 image];
       indicatorStore7 = [(_UIInteractivePageControlVisualProvider *)self indicatorStore];
       indicatorImage = [indicatorStore7 indicatorImage];
-      v156 = [image isEqual:indicatorImage];
+      isEqual = objc_msgSend_isEqual_(image);
 
-      if ((v156 & 1) == 0)
+      if ((isEqual & 1) == 0)
       {
         if (v261)
         {
@@ -1642,9 +1642,9 @@ LABEL_94:
         }
 
         v24 = v21 + v23;
-        hasContent = [(_UIInteractivePageControlVisualProvider *)&self->super.super.isa _hasContentScaling];
+        _hasContentScaling = [(_UIInteractivePageControlVisualProvider *)&self->super.super.isa _hasContentScaling];
         v26 = 1.05;
-        if (!hasContent)
+        if (!_hasContentScaling)
         {
           v26 = 1.0;
         }
@@ -1762,11 +1762,11 @@ LABEL_94:
 {
   if (a2)
   {
-    hasContent = [(_UIInteractivePageControlVisualProvider *)a2 _hasContentScaling];
+    _hasContentScaling = [(_UIInteractivePageControlVisualProvider *)a2 _hasContentScaling];
     if (state)
     {
       v6 = 1.05;
-      if (!hasContent)
+      if (!_hasContentScaling)
       {
         v6 = 1.0;
       }
@@ -1805,12 +1805,12 @@ LABEL_94:
     pageCopy = page;
     self->_preciseTouchedPage = page;
     memset(&v48, 0, sizeof(v48));
-    [(_UIPageControlVisualProvider *)self activeTransformForTouchedPage];
+    objc_msgSend_activeTransformForTouchedPage(self, a2);
     v47 = v48;
     if (!CGAffineTransformIsIdentity(&v47))
     {
       memset(&v47, 0, sizeof(v47));
-      [(_UIPageControlVisualProvider *)self targetTransformForTouchedPage];
+      objc_msgSend_targetTransformForTouchedPage(self);
       v46 = v47;
       IsIdentity = CGAffineTransformIsIdentity(&v46);
       v7 = floor(pageCopy);
@@ -2083,19 +2083,19 @@ LABEL_14:
 
 - (void)didUpdateBackgroundStyle
 {
-  [(_UIInteractivePageControlVisualProvider *)self _updateCurrentPlatterMode];
+  [(_UIInteractivePageControlVisualProvider *)&self->super.super.isa _updateCurrentPlatterMode];
   [(UIView *)self->super._pageControl invalidateIntrinsicContentSize];
   pageControl = self->super._pageControl;
 
   [(UIView *)pageControl setNeedsLayout];
 }
 
-- (uint64_t)_updateCurrentPlatterMode
+- (id)_updateCurrentPlatterMode
 {
   if (result)
   {
     v1 = result;
-    result = [*(result + 8) backgroundStyle];
+    result = [result[1] backgroundStyle];
     if (result == 2)
     {
       isScrubbing = 0;
@@ -2329,14 +2329,14 @@ LABEL_13:
         v16 = [(_UIInteractivePageControlVisualProvider *)self _indicatorColorForEnabled:?];
         [v14 setIndicatorColor:v16];
 
-        [self pageIndicatorVibrantColorMatrix];
+        objc_msgSend_pageIndicatorVibrantColorMatrix(self);
         v24 = v29;
         v25 = v30;
         v26 = v31;
         v22 = v27;
         v23 = v28;
         [v14 setVibrantColorMatrix:&v22];
-        [self activePageIndicatorVibrantColorMatrix];
+        objc_msgSend_activePageIndicatorVibrantColorMatrix(self);
         v24 = v19;
         v25 = v20;
         v26 = v21;
@@ -2460,7 +2460,7 @@ LABEL_13:
   }
 }
 
-- (BOOL)_indicatorModeForPage:(id *)page
+- (unint64_t)_indicatorModeForPage:(id *)page
 {
   pageCopy = page;
   if (page)
@@ -2536,7 +2536,7 @@ LABEL_30:
     v17 = v4;
     if (fmax(fmin((v6 - ((numberOfPages - v4) + -1.0)) / ((numberOfPages - v4) - ((numberOfPages - v4) + -1.0)), 1.0), 0.0) > 0.0)
     {
-      if ([*(page + 8) numberOfPages] - 1 == a2 && v5 >= 1)
+      if (([*(page + 8) numberOfPages] - 1) == a2 && v5 >= 1)
       {
         v18 = v4 - 1;
 LABEL_28:
@@ -2544,7 +2544,7 @@ LABEL_28:
         goto LABEL_29;
       }
 
-      if ([*(page + 8) numberOfPages] - 2 == a2 && v5 >= 2)
+      if (([*(page + 8) numberOfPages] - 2) == a2 && v5 >= 2)
       {
         v19 = v17 + -1.5;
 LABEL_29:
@@ -2641,7 +2641,7 @@ LABEL_32:
   [(UIView *)pageControl setNeedsLayout];
 }
 
-- (BOOL)_isPageWithinPermittedDisplayedRange:(_BOOL8)result
+- (uint64_t)_isPageWithinPermittedDisplayedRange:(uint64_t)result
 {
   if (result)
   {
@@ -2903,12 +2903,12 @@ LABEL_14:
   v9 = [(_UIInteractivePageControlVisualProvider *)&self->super.super.isa _indicatorColorForEnabled:?];
   [indicatorCopy setIndicatorColor:v9];
 
-  [(_UIPageControlVisualProvider *)self pageIndicatorVibrantColorMatrix];
+  objc_msgSend_pageIndicatorVibrantColorMatrix(self);
   v18 = v21;
   v19 = v22;
   v20 = v23;
   [indicatorCopy setVibrantColorMatrix:&v18];
-  [(_UIPageControlVisualProvider *)self activePageIndicatorVibrantColorMatrix];
+  objc_msgSend_activePageIndicatorVibrantColorMatrix(self);
   v18 = v15;
   v19 = v16;
   v20 = v17;
@@ -2953,9 +2953,9 @@ LABEL_14:
   imageCopy = image;
   indicatorStore = [(_UIInteractivePageControlVisualProvider *)self indicatorStore];
   v7 = [indicatorStore customIndicatorImageForPage:page];
-  v8 = [v7 isEqual:imageCopy];
+  isEqual = objc_msgSend_isEqual_(v7);
 
-  if ((v8 & 1) == 0)
+  if ((isEqual & 1) == 0)
   {
     indicatorStore2 = [(_UIInteractivePageControlVisualProvider *)self indicatorStore];
     [indicatorStore2 updateImage:imageCopy forPage:page];
@@ -2978,9 +2978,9 @@ LABEL_14:
   imageCopy = image;
   indicatorStore = [(_UIInteractivePageControlVisualProvider *)self indicatorStore];
   preferredImage = [indicatorStore preferredImage];
-  v6 = [preferredImage isEqual:imageCopy];
+  isEqual = objc_msgSend_isEqual_(preferredImage);
 
-  if ((v6 & 1) == 0)
+  if ((isEqual & 1) == 0)
   {
     indicatorStore2 = [(_UIInteractivePageControlVisualProvider *)self indicatorStore];
     [indicatorStore2 setPreferredImage:imageCopy];
@@ -3010,9 +3010,9 @@ LABEL_14:
   imageCopy = image;
   indicatorStore = [(_UIInteractivePageControlVisualProvider *)self indicatorStore];
   v7 = [indicatorStore customActiveIndicatorImageForPage:page];
-  v8 = [v7 isEqual:imageCopy];
+  isEqual = objc_msgSend_isEqual_(v7);
 
-  if ((v8 & 1) == 0)
+  if ((isEqual & 1) == 0)
   {
     indicatorStore2 = [(_UIInteractivePageControlVisualProvider *)self indicatorStore];
     [indicatorStore2 updateActiveImage:imageCopy forPage:page];
@@ -3035,9 +3035,9 @@ LABEL_14:
   imageCopy = image;
   indicatorStore = [(_UIInteractivePageControlVisualProvider *)self indicatorStore];
   preferredActiveImage = [indicatorStore preferredActiveImage];
-  v6 = [preferredActiveImage isEqual:imageCopy];
+  isEqual = objc_msgSend_isEqual_(preferredActiveImage);
 
-  if ((v6 & 1) == 0)
+  if ((isEqual & 1) == 0)
   {
     indicatorStore2 = [(_UIInteractivePageControlVisualProvider *)self indicatorStore];
     [indicatorStore2 setPreferredActiveImage:imageCopy];
@@ -3867,10 +3867,10 @@ LABEL_35:
       currentPage = [(UIPageControl *)self->super._pageControl currentPage];
       numberOfPages = [(UIPageControl *)self->super._pageControl numberOfPages];
       numberOfPages2 = [(UIPageControl *)self->super._pageControl numberOfPages];
-      if (v44 || !v45)
+      if ((v44 & 1) != 0 || !v45)
       {
         v49 = fmax(fmin(v25, (numberOfPages2 - 1)), 0.0);
-        if (v45 || !v44 || currentPage == v49)
+        if (v45 & 1 | ((v44 & 1) == 0) || currentPage == v49)
         {
           goto LABEL_62;
         }
@@ -4082,7 +4082,7 @@ LABEL_86:
 {
   v4 = *(offset + 312);
   v5 = *(offset + 320);
-  if ([(_UIInteractivePageControlVisualProvider *)offset _isPageWithinPermittedDisplayedRange:a2])
+  if (([(_UIInteractivePageControlVisualProvider *)offset _isPageWithinPermittedDisplayedRange:a2]& 1) != 0)
   {
     return 0;
   }
@@ -4105,7 +4105,7 @@ LABEL_86:
     *&self->_state = *&self->_state & 0xFE | scrubbingCopy;
     self->_targetPage = [(UIPageControl *)self->super._pageControl currentPage];
     self->_tickThreshold = 0;
-    [(_UIInteractivePageControlVisualProvider *)self _updateCurrentPlatterMode];
+    [(_UIInteractivePageControlVisualProvider *)&self->super.super.isa _updateCurrentPlatterMode];
     if (scrubbingCopy)
     {
       v5 = 2;
@@ -4145,12 +4145,12 @@ LABEL_86:
   }
 }
 
-- (uint64_t)_hasContentScaling
+- (void)_hasContentScaling
 {
   result = [self[1] backgroundStyle];
   if (result)
   {
-    [self activeTransformForTouchedPage];
+    objc_msgSend_activeTransformForTouchedPage(self);
     return CGAffineTransformIsIdentity(&v3);
   }
 

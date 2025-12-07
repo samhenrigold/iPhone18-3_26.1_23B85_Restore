@@ -131,46 +131,46 @@
 + (id)deserializeSessionInfoMetadata:(id)metadata
 {
   metadataCopy = metadata;
-  v32 = -86;
-  v31 = 0xAAAAAAAAAAAAAAAALL;
-  v30 = -21846;
-  v29 = 0xAAAAAAAAAAAAAAAALL;
+  v50 = -86;
+  v49 = 0xAAAAAAAAAAAAAAAALL;
+  v48 = -21846;
+  v47 = 0xAAAAAAAAAAAAAAAALL;
   *&v4 = 0xAAAAAAAAAAAAAAAALL;
   *(&v4 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  v28[0] = v4;
-  v28[1] = v4;
+  v46[0] = v4;
+  v46[1] = v4;
   v5 = objc_alloc_init(MEMORY[0x1E695DF90]);
   _CUTDecompressData = [metadataCopy _CUTDecompressData];
-  IDSByteBufferInitForRead(v28, [_CUTDecompressData bytes], objc_msgSend(_CUTDecompressData, "length"));
-  if (!IDSByteBufferReadField(v28, &v32, &v31, &v30))
+  IDSByteBufferInitForRead(v46, [_CUTDecompressData bytes], objc_msgSend(_CUTDecompressData, "length"));
+  if (!IDSByteBufferReadField(v46, &v50, &v49, &v48))
   {
     v8 = &stru_1F1AC8480;
 LABEL_39:
-    IDSByteBufferRelease(v28);
+    IDSByteBufferRelease(v46);
     v23 = v5;
     goto LABEL_40;
   }
 
   v7 = 0x1E696A000uLL;
   v8 = &stru_1F1AC8480;
-  while (v32 > 2u)
+  while (v50 > 2u)
   {
-    if (v32 == 3)
+    if (v50 == 3)
     {
-      v10 = [IDSSessionInfoMetadataSerializer _readArrayFromByteArray:v31 fieldByteSize:v30 byteBuffer:v28];
+      v10 = [IDSSessionInfoMetadataSerializer _readArrayFromByteArray:v49 fieldByteSize:v48 byteBuffer:v46];
       if (!v10)
       {
 LABEL_43:
-        IDSByteBufferRelease(v28);
+        IDSByteBufferRelease(v46);
         goto LABEL_44;
       }
 
       goto LABEL_20;
     }
 
-    if (v32 == 4)
+    if (v50 == 4)
     {
-      v10 = [IDSSessionInfoMetadataSerializer _readDictionaryFromByteArray:v31 fieldByteSize:v30 byteBuffer:v28];
+      v10 = [IDSSessionInfoMetadataSerializer _readDictionaryFromByteArray:v49 fieldByteSize:v48 byteBuffer:v46];
       if (!v10)
       {
         goto LABEL_43;
@@ -180,17 +180,17 @@ LABEL_43:
     }
 
 LABEL_22:
-    if (!IDSByteBufferReadField(v28, &v32, &v31, &v30))
+    if (!IDSByteBufferReadField(v46, &v50, &v49, &v48))
     {
       goto LABEL_39;
     }
   }
 
-  if (v32 != 1)
+  if (v50 != 1)
   {
-    if (v32 == 2)
+    if (v50 == 2)
     {
-      v9 = bswap64(*v31++);
+      v9 = bswap64(*v49++);
       v10 = [*(v7 + 3480) numberWithUnsignedLongLong:v9];
 LABEL_20:
       v16 = v10;
@@ -203,13 +203,13 @@ LABEL_20:
   }
 
   v11 = [(__CFString *)v8 isEqualToString:&stru_1F1AC8480];
-  v12 = v30 - 2;
+  v12 = v48 - 2;
   if (v11)
   {
-    if (v30 >= 2u)
+    if (v48 >= 2u)
     {
-      v13 = v31 + 2;
-      v14 = __rev16(*v31);
+      v13 = v49 + 2;
+      v14 = __rev16(*v49);
       if (v14)
       {
         v15 = v12 >= v14;
@@ -226,21 +226,21 @@ LABEL_20:
 
         if (!v21)
         {
-          v26 = OSLogHandleForTransportCategory();
-          if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+          v35 = OSLogHandleForTransportCategory();
+          if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
           {
-            *v27 = 0;
-            _os_log_impl(&dword_1A7AD9000, v26, OS_LOG_TYPE_DEFAULT, "Could not read NSString from byte array", v27, 2u);
+            LOWORD(v45[0]) = 0;
+            _os_log_impl(&dword_1A7AD9000, v35, OS_LOG_TYPE_DEFAULT, "Could not read NSString from byte array", v45, 2u);
           }
 
           if (os_log_shim_legacy_logging_enabled())
           {
             if (_IDSShouldLogTransport())
             {
-              _IDSLogTransport(@"IDSNetworking", @"IDS", @"Could not read NSString from byte array");
-              if (_IDSShouldLog())
+              _IDSLogTransport(@"IDSNetworking", @"IDS", @"Could not read NSString from byte array", v36, v37, v38, v39, v40, v45[0]);
+              if (_IDSShouldLog(0))
               {
-                _IDSLogV(0, @"IDSFoundation", @"IDSNetworking", @"Could not read NSString from byte array");
+                _IDSLogV(0, @"IDSFoundation", @"IDSNetworking", @"Could not read NSString from byte array", v41, v42, v43, v44, v45[0]);
               }
             }
           }
@@ -249,8 +249,8 @@ LABEL_20:
           goto LABEL_44;
         }
 
-        v31 = &v13[v14];
-        v30 = v12 - v14;
+        v49 = &v13[v14];
+        v48 = v12 - v14;
         v8 = v21;
       }
 
@@ -272,14 +272,14 @@ LABEL_20:
     goto LABEL_22;
   }
 
-  if (v30 < 2u)
+  if (v48 < 2u)
   {
     v20 = 0;
     goto LABEL_37;
   }
 
-  v17 = v31 + 2;
-  v18 = __rev16(*v31);
+  v17 = v49 + 2;
+  v18 = __rev16(*v49);
   if (v18)
   {
     v19 = v12 >= v18;
@@ -307,26 +307,26 @@ LABEL_21:
   if (v22)
   {
     v20 = v22;
-    v31 = &v17[v18];
-    v30 = v12 - v18;
+    v49 = &v17[v18];
+    v48 = v12 - v18;
     goto LABEL_36;
   }
 
   v25 = OSLogHandleForTransportCategory();
   if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
   {
-    *v27 = 0;
-    _os_log_impl(&dword_1A7AD9000, v25, OS_LOG_TYPE_DEFAULT, "Could not read NSString from byte array", v27, 2u);
+    LOWORD(v45[0]) = 0;
+    _os_log_impl(&dword_1A7AD9000, v25, OS_LOG_TYPE_DEFAULT, "Could not read NSString from byte array", v45, 2u);
   }
 
   if (os_log_shim_legacy_logging_enabled())
   {
     if (_IDSShouldLogTransport())
     {
-      _IDSLogTransport(@"IDSNetworking", @"IDS", @"Could not read NSString from byte array");
-      if (_IDSShouldLog())
+      _IDSLogTransport(@"IDSNetworking", @"IDS", @"Could not read NSString from byte array", v26, v27, v28, v29, v30, v45[0]);
+      if (_IDSShouldLog(0))
       {
-        _IDSLogV(0, @"IDSFoundation", @"IDSNetworking", @"Could not read NSString from byte array");
+        _IDSLogV(0, @"IDSFoundation", @"IDSNetworking", @"Could not read NSString from byte array", v31, v32, v33, v34, v45[0]);
       }
     }
   }
@@ -392,7 +392,7 @@ LABEL_7:
   sizeCopy = size;
   arrayCopy = array;
   sizeCopy2 = size;
-  v35 = -86;
+  v53 = -86;
   dictionary = [MEMORY[0x1E695DF90] dictionary];
   if (sizeCopy < 2)
   {
@@ -412,17 +412,17 @@ LABEL_37:
   v10 = 0;
   while (1)
   {
-    if (!IDSByteBufferReadField(buffer, &v35, &arrayCopy, &sizeCopy2))
+    if (!IDSByteBufferReadField(buffer, &v53, &arrayCopy, &sizeCopy2))
     {
       goto LABEL_40;
     }
 
-    if (v35 == 1)
+    if (v53 == 1)
     {
       break;
     }
 
-    if (v35 != 2)
+    if (v53 != 2)
     {
       goto LABEL_14;
     }
@@ -438,12 +438,12 @@ LABEL_37:
     arrayCopy += 8;
     v12 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:v11];
 LABEL_15:
-    if (!IDSByteBufferReadField(buffer, &v35, &arrayCopy, &sizeCopy2))
+    if (!IDSByteBufferReadField(buffer, &v53, &arrayCopy, &sizeCopy2))
     {
       goto LABEL_39;
     }
 
-    if (v35 == 3)
+    if (v53 == 3)
     {
       if (sizeCopy2 < 2u)
       {
@@ -458,7 +458,7 @@ LABEL_15:
       if (v24 | (v23 << 8))
       {
         v25 = (v23 << 8) + v24;
-        while (IDSByteBufferReadField(buffer, &v35, &arrayCopy, &sizeCopy2) && sizeCopy2 > 7u)
+        while (IDSByteBufferReadField(buffer, &v53, &arrayCopy, &sizeCopy2) && sizeCopy2 > 7u)
         {
           v26 = bswap64(*arrayCopy);
           arrayCopy += 8;
@@ -477,7 +477,7 @@ LABEL_15:
       goto LABEL_30;
     }
 
-    if (v35 == 1 && (v17 = sizeCopy2 - 2, sizeCopy2 >= 2u))
+    if (v53 == 1 && (v17 = sizeCopy2 - 2, sizeCopy2 >= 2u))
     {
       array = 0;
       v19 = arrayCopy + 2;
@@ -502,21 +502,21 @@ LABEL_30:
             goto LABEL_33;
           }
 
-          v32 = OSLogHandleForTransportCategory();
-          if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
+          v41 = OSLogHandleForTransportCategory();
+          if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
           {
-            *v33 = 0;
-            _os_log_impl(&dword_1A7AD9000, v32, OS_LOG_TYPE_DEFAULT, "Could not read NSString from byte array", v33, 2u);
+            LOWORD(v51) = 0;
+            _os_log_impl(&dword_1A7AD9000, v41, OS_LOG_TYPE_DEFAULT, "Could not read NSString from byte array", &v51, 2u);
           }
 
           if (os_log_shim_legacy_logging_enabled())
           {
             if (_IDSShouldLogTransport())
             {
-              _IDSLogTransport(@"IDSNetworking", @"IDS", @"Could not read NSString from byte array");
-              if (_IDSShouldLog())
+              _IDSLogTransport(@"IDSNetworking", @"IDS", @"Could not read NSString from byte array", v42, v43, v44, v45, v46, v51);
+              if (_IDSShouldLog(0))
               {
-                _IDSLogV(0, @"IDSFoundation", @"IDSNetworking", @"Could not read NSString from byte array");
+                _IDSLogV(0, @"IDSFoundation", @"IDSNetworking", @"Could not read NSString from byte array", v47, v48, v49, v50, v51);
               }
             }
           }
@@ -569,10 +569,10 @@ LABEL_14:
   {
     if (_IDSShouldLogTransport())
     {
-      _IDSLogTransport(@"IDSNetworking", @"IDS", @"Could not read NSString from byte array");
-      if (_IDSShouldLog())
+      _IDSLogTransport(@"IDSNetworking", @"IDS", @"Could not read NSString from byte array", v32, v33, v34, v35, v36, v51);
+      if (_IDSShouldLog(0))
       {
-        _IDSLogV(0, @"IDSFoundation", @"IDSNetworking", @"Could not read NSString from byte array");
+        _IDSLogV(0, @"IDSFoundation", @"IDSNetworking", @"Could not read NSString from byte array", v37, v38, v39, v40, v51);
       }
     }
   }

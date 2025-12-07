@@ -631,11 +631,11 @@ id __53__PUSidebarDataController__makeLegacySectionManagers__block_invoke_3(uint
   return v2;
 }
 
-uint64_t __53__PUSidebarDataController__makeLegacySectionManagers__block_invoke_4(uint64_t a1)
+uint64_t __53__PUSidebarDataController__makeLegacySectionManagers__block_invoke_4(void *a1)
 {
   v2 = objc_opt_class();
-  v3 = *(a1 + 40);
-  v4 = *(a1 + 48);
+  v3 = a1[5];
+  v4 = a1[6];
 
   return [v2 fromMyMacAlbumsDataSectionManagerWithPhotoLibrary:v3 context:v4];
 }

@@ -5,6 +5,8 @@
 - (BOOL)suspend;
 - (UALoggingAdvertiser)initWithManager:(id)manager;
 - (id)statusString;
+- (void)log:(int)log format:(id)format;
+- (void)log:(int)log format:(id)format args:(char *)args;
 - (void)logItem:(id)item;
 - (void)setAdvertisableItems:(id)items;
 @end
@@ -184,6 +186,42 @@
   outputFile = [(UALoggingAdvertiser *)self outputFile];
 
   return log < 7 && outputFile != 0;
+}
+
+- (void)log:(int)log format:(id)format args:(char *)args
+{
+  v6 = *&log;
+  formatCopy = format;
+  if (formatCopy)
+  {
+    if (args)
+    {
+      v13 = formatCopy;
+      formatCopy = [(UALoggingAdvertiser *)self shouldLog:v6];
+      if (formatCopy)
+      {
+        v9 = objc_autoreleasePoolPush();
+        v10 = [[NSString alloc] initWithFormat:v13 arguments:args];
+        outputFile = [(UALoggingAdvertiser *)self outputFile];
+        v12 = [v10 dataUsingEncoding:4];
+        [outputFile writeData:v12];
+
+        objc_autoreleasePoolPop(v9);
+      }
+    }
+  }
+
+  _objc_release_x1(formatCopy);
+}
+
+- (void)log:(int)log format:(id)format
+{
+  v4 = *&log;
+  formatCopy = format;
+  if (formatCopy && [(UALoggingAdvertiser *)self shouldLog:v4])
+  {
+    [(UALoggingAdvertiser *)self log:v4 format:formatCopy args:&v7];
+  }
 }
 
 @end

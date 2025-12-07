@@ -44,7 +44,7 @@
       v15 = attribution2;
       if (attribution2)
       {
-        [attribution2 auditToken];
+        objc_msgSend_auditToken(attribution2);
       }
 
       else

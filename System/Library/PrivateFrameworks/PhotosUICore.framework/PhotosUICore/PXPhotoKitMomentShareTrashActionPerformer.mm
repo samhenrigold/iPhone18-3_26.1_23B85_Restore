@@ -65,7 +65,7 @@ LABEL_3:
   goto LABEL_3;
 }
 
-void __66__PXPhotoKitMomentShareTrashActionPerformer_performBackgroundTask__block_invoke(uint64_t a1, uint64_t a2, void *a3)
+void __66__PXPhotoKitMomentShareTrashActionPerformer_performBackgroundTask__block_invoke(uint64_t a1, char a2, void *a3)
 {
   v4 = a3;
   v5 = PLSharingGetLog();
@@ -84,7 +84,7 @@ void __66__PXPhotoKitMomentShareTrashActionPerformer_performBackgroundTask__bloc
   px_dispatch_on_main_queue();
 }
 
-void __66__PXPhotoKitMomentShareTrashActionPerformer_performBackgroundTask__block_invoke_2(uint64_t a1, uint64_t a2, void *a3)
+void __66__PXPhotoKitMomentShareTrashActionPerformer_performBackgroundTask__block_invoke_2(uint64_t a1, char a2, void *a3)
 {
   v4 = a3;
   v5 = PLSharingGetLog();

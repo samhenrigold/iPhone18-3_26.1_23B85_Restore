@@ -11,28 +11,13 @@
   path = [lCopy path];
   v8 = [v6 fileExistsAtPath:path];
 
-  if (v8)
-  {
-    path2 = [lCopy path];
-    v10 = [v6 removeItemAtPath:path2 error:error];
-
-    if (!v10)
-    {
-      goto LABEL_5;
-    }
-  }
-
-  path3 = [lCopy path];
-  v12 = [v6 createFileAtPath:path3 contents:0 attributes:0];
-
-  if (v12)
+  if ((!v8 || ([lCopy path], v9 = objc_claimAutoreleasedReturnValue(), v10 = objc_msgSend(v6, "removeItemAtPath:error:", v9, error), v9, v10)) && (objc_msgSend(lCopy, "path"), v11 = objc_claimAutoreleasedReturnValue(), v12 = objc_msgSend(v6, "createFileAtPath:contents:attributes:", v11, 0, 0), v11, v12))
   {
     v13 = [NSFileHandle fileHandleForWritingToURL:lCopy error:error];
   }
 
   else
   {
-LABEL_5:
     v13 = 0;
   }
 

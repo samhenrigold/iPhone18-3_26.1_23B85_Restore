@@ -37,26 +37,26 @@
 
 - (id)requestBody
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   v3 = objc_alloc_init(MEMORY[0x277CFDCA0]);
   v4 = [(NSArray *)self->_languages count];
   v5 = *MEMORY[0x277CFDD90];
   v6 = *MEMORY[0x277CFDE90];
   if (v4)
   {
-    v23 = *MEMORY[0x277CFDD90];
+    v22 = *MEMORY[0x277CFDD90];
     [v3 startElement:v5 inNamespace:v6 withAttributeNamesAndValues:{*MEMORY[0x277CFDDB8], *MEMORY[0x277CFDD70], 0}];
-    v28 = 0u;
-    v29 = 0u;
-    v26 = 0u;
     v27 = 0u;
+    v28 = 0u;
+    v25 = 0u;
+    v26 = 0u;
     selfCopy = self;
     obj = self->_languages;
-    v7 = [(NSArray *)obj countByEnumeratingWithState:&v26 objects:v30 count:16];
+    v7 = [(NSArray *)obj countByEnumeratingWithState:&v25 objects:v29 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v27;
+      v9 = *v26;
       v10 = *MEMORY[0x277CFDE18];
       v11 = *MEMORY[0x277CFDE38];
       v12 = *MEMORY[0x277CFDE58];
@@ -65,12 +65,12 @@
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v27 != v9)
+          if (*v26 != v9)
           {
             objc_enumerationMutation(obj);
           }
 
-          v15 = *(*(&v26 + 1) + 8 * i);
+          v15 = *(*(&v25 + 1) + 8 * i);
           [v3 startElement:v10 inNamespace:v6 withAttributeNamesAndValues:0];
           [v3 appendElement:v11 inNamespace:v6 withStringContent:v15 withAttributeNamesAndValues:0];
           [v3 appendElement:v12 inNamespace:v6 withStringContent:selfCopy->_location withAttributeNamesAndValues:0];
@@ -78,13 +78,13 @@
           [v3 endElement:v10 inNamespace:v6];
         }
 
-        v8 = [(NSArray *)obj countByEnumeratingWithState:&v26 objects:v30 count:16];
+        v8 = [(NSArray *)obj countByEnumeratingWithState:&v25 objects:v29 count:16];
       }
 
       while (v8);
     }
 
-    v5 = v23;
+    v5 = v22;
     self = selfCopy;
   }
 
@@ -111,8 +111,6 @@
   [v3 endElement:v5 inNamespace:v6];
   data = [v3 data];
 
-  v21 = *MEMORY[0x277D85DE8];
-
   return data;
 }
 
@@ -130,30 +128,30 @@
 
 - (void)finishCoreDAVTaskWithError:(id)error
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   responseBodyParser = [(CalDAVCalendarSearchTask *)self responseBodyParser];
   [responseBodyParser rootElement];
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
-  v18 = v25 = 0u;
-  responses = [v18 responses];
-  v5 = [responses countByEnumeratingWithState:&v22 objects:v26 count:16];
+  v17 = v24 = 0u;
+  responses = [v17 responses];
+  v5 = [responses countByEnumeratingWithState:&v21 objects:v25 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v23;
+    v7 = *v22;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v23 != v7)
+        if (*v22 != v7)
         {
           objc_enumerationMutation(responses);
         }
 
-        v9 = *(*(&v22 + 1) + 8 * i);
+        v9 = *(*(&v21 + 1) + 8 * i);
         matchResults = [v9 matchResults];
 
         if (matchResults)
@@ -176,17 +174,15 @@
         }
       }
 
-      v6 = [responses countByEnumeratingWithState:&v22 objects:v26 count:16];
+      v6 = [responses countByEnumeratingWithState:&v21 objects:v25 count:16];
     }
 
     while (v6);
   }
 
-  v21.receiver = self;
-  v21.super_class = CalDAVCalendarSearchTask;
-  [(CalDAVCalendarSearchTask *)&v21 finishCoreDAVTaskWithError:errorCopy];
-
-  v17 = *MEMORY[0x277D85DE8];
+  v20.receiver = self;
+  v20.super_class = CalDAVCalendarSearchTask;
+  [(CalDAVCalendarSearchTask *)&v20 finishCoreDAVTaskWithError:errorCopy];
 }
 
 - (id)additionalHeaderValues
@@ -216,9 +212,7 @@
 
 - (void)setAdditionalAuthenticationHeaders:(id)headers
 {
-  v4 = [headers copy];
-  additionalAuthenticationHeaders = self->_additionalAuthenticationHeaders;
-  self->_additionalAuthenticationHeaders = v4;
+  self->_additionalAuthenticationHeaders = [headers copy];
 
   MEMORY[0x2821F96F8]();
 }

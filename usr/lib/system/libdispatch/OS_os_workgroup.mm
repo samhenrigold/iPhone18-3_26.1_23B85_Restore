@@ -32,16 +32,15 @@
 
 - (id)debugDescription
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   result = objc_lookUpClass("NSString");
   if (result)
   {
     v4 = result;
     _os_workgroup_debug(self, __str, 0x800uLL);
-    result = [v4 stringWithUTF8String:__str];
+    return [v4 stringWithUTF8String:__str];
   }
 
-  v5 = *MEMORY[0x1E69E9840];
   return result;
 }
 

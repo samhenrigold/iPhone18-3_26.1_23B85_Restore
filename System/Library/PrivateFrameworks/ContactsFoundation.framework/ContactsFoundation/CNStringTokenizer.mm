@@ -1,4 +1,5 @@
 @interface CNStringTokenizer
++ (BOOL)isCharacterNonBreaking:(unsigned __int16)breaking;
 + (id)adjustRanges:(id)ranges toIncludeNonBreakingCharactersInString:(id)string;
 + (id)tokenizeString:(id)string;
 - (CNStringTokenizer)init;
@@ -217,6 +218,19 @@ LABEL_7:
   }
 
   return array;
+}
+
++ (BOOL)isCharacterNonBreaking:(unsigned __int16)breaking
+{
+  breakingCopy = breaking;
+  if (isCharacterNonBreaking__cn_once_token_1 != -1)
+  {
+    +[CNStringTokenizer isCharacterNonBreaking:];
+  }
+
+  v4 = isCharacterNonBreaking__cn_once_object_1;
+
+  return [v4 characterIsMember:breakingCopy];
 }
 
 uint64_t __44__CNStringTokenizer_isCharacterNonBreaking___block_invoke()

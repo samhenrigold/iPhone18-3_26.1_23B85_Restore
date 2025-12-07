@@ -955,7 +955,7 @@ LABEL_14:
   v4 = a2;
   v5 = NSStringFromSelector(a3);
   OUTLINED_FUNCTION_0_9();
-  OUTLINED_FUNCTION_1_5(&dword_1C3942000, v6, v7, "using fallback icon for %@ in %@", v8, v9, v10, v11, v12);
+  OUTLINED_FUNCTION_1_5(&dword_1C3942000, v6, v7, "using fallback icon for %@ in %@", v8, v9, v10, v11);
 }
 
 @end

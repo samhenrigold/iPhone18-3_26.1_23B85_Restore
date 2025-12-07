@@ -26,69 +26,65 @@
 
 void __27__CPLPullScopesTask_launch__block_invoke(uint64_t a1)
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) isCancelled];
   v3 = *(a1 + 32);
   if (v2)
   {
-    v21 = +[CPLErrors operationCancelledError];
+    v18 = +[CPLErrors operationCancelledError];
     [v3 taskDidFinishWithError:?];
-    v4 = *MEMORY[0x1E69E9840];
   }
 
   else
   {
-    v5 = [v3[12] shouldSyncScopeList];
-    v6 = *(a1 + 32);
-    if (v5)
+    v4 = [v3[12] shouldSyncScopeList];
+    v5 = *(a1 + 32);
+    if (v4)
     {
-      v7 = [v6[12] clientCacheIdentifier];
-      v8 = *(a1 + 32);
-      v9 = *(v8 + 112);
-      *(v8 + 112) = v7;
+      v6 = [v5[12] clientCacheIdentifier];
+      v7 = *(a1 + 32);
+      v8 = *(v7 + 112);
+      *(v7 + 112) = v6;
 
-      v10 = [*(*(a1 + 32) + 104) scopeListSyncAnchor];
-      v11 = [*(a1 + 32) engineLibrary];
-      v12 = [v11 transport];
+      v9 = [*(*(a1 + 32) + 104) scopeListSyncAnchor];
+      v10 = [*(a1 + 32) engineLibrary];
+      v11 = [v10 transport];
 
-      v23[0] = MEMORY[0x1E69E9820];
-      v23[1] = 3221225472;
-      v23[2] = __27__CPLPullScopesTask_launch__block_invoke_2;
-      v23[3] = &unk_1E861BEF8;
-      v24 = *(a1 + 32);
-      v22[0] = MEMORY[0x1E69E9820];
-      v22[1] = 3221225472;
-      v22[2] = __27__CPLPullScopesTask_launch__block_invoke_3;
-      v22[3] = &unk_1E861BF20;
-      v22[4] = v24;
-      v13 = [v12 fetchScopeListChangesForScopeListSyncAnchor:v10 progressHandler:v23 completionHandler:v22];
-      v14 = *(a1 + 32);
-      v15 = *(v14 + 120);
-      *(v14 + 120) = v13;
+      v20[0] = MEMORY[0x1E69E9820];
+      v20[1] = 3221225472;
+      v20[2] = __27__CPLPullScopesTask_launch__block_invoke_2;
+      v20[3] = &unk_1E861BEF8;
+      v21 = *(a1 + 32);
+      v19[0] = MEMORY[0x1E69E9820];
+      v19[1] = 3221225472;
+      v19[2] = __27__CPLPullScopesTask_launch__block_invoke_3;
+      v19[3] = &unk_1E861BF20;
+      v19[4] = v21;
+      v12 = [v11 fetchScopeListChangesForScopeListSyncAnchor:v9 progressHandler:v20 completionHandler:v19];
+      v13 = *(a1 + 32);
+      v14 = *(v13 + 120);
+      *(v13 + 120) = v12;
 
-      v16 = [v12 createGroupForFetchScopeListChanges];
+      v15 = [v11 createGroupForFetchScopeListChanges];
       if ((_CPLSilentLogging & 1) == 0)
       {
-        v17 = __CPLTaskOSLogDomain_2598();
-        if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+        v16 = __CPLTaskOSLogDomain_2598();
+        if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
         {
-          v18 = *(*(a1 + 32) + 120);
+          v17 = *(*(a1 + 32) + 120);
           *buf = 138412290;
-          v26 = v18;
-          _os_log_impl(&dword_1DC05A000, v17, OS_LOG_TYPE_DEFAULT, "Launching %@", buf, 0xCu);
+          v23 = v17;
+          _os_log_impl(&dword_1DC05A000, v16, OS_LOG_TYPE_DEFAULT, "Launching %@", buf, 0xCu);
         }
       }
 
-      [*(a1 + 32) launchTransportTask:*(*(a1 + 32) + 120) withTransportGroup:v16];
-
-      v19 = *MEMORY[0x1E69E9840];
+      [*(a1 + 32) launchTransportTask:*(*(a1 + 32) + 120) withTransportGroup:v15];
     }
 
     else
     {
-      v20 = *MEMORY[0x1E69E9840];
 
-      [v6 taskDidFinishWithError:0];
+      [v5 taskDidFinishWithError:0];
     }
   }
 }
@@ -147,7 +143,7 @@ void __59__CPLPullScopesTask__handleFinalScopeListSyncAnchor_error___block_invok
 
 void __59__CPLPullScopesTask__handleFinalScopeListSyncAnchor_error___block_invoke_3(uint64_t a1, void *a2)
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = [v3 error];
 
@@ -161,9 +157,9 @@ void __59__CPLPullScopesTask__handleFinalScopeListSyncAnchor_error___block_invok
 
     else
     {
-      v12 = [*(a1 + 32) isCancelled];
+      v11 = [*(a1 + 32) isCancelled];
       v5 = *(a1 + 32);
-      if (v12)
+      if (v11)
       {
         v6 = +[CPLErrors operationCancelledError];
         goto LABEL_3;
@@ -171,20 +167,20 @@ void __59__CPLPullScopesTask__handleFinalScopeListSyncAnchor_error___block_invok
 
       if (v5[18] + v5[17] + v5[19] && (_CPLSilentLogging & 1) == 0)
       {
-        v13 = __CPLTaskOSLogDomain_2598();
-        if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+        v12 = __CPLTaskOSLogDomain_2598();
+        if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
         {
-          v14 = *(a1 + 32);
-          v15 = v14[18];
-          v16 = v14[17];
-          v17 = v14[19];
-          v18 = 134218496;
-          v19 = v15;
-          v20 = 2048;
-          v21 = v16;
-          v22 = 2048;
-          v23 = v17;
-          _os_log_impl(&dword_1DC05A000, v13, OS_LOG_TYPE_DEFAULT, "Finishing updating scope list with %lu new scopes, %lu deletes scopes and %lu modified scopes", &v18, 0x20u);
+          v13 = *(a1 + 32);
+          v14 = v13[18];
+          v15 = v13[17];
+          v16 = v13[19];
+          v17 = 134218496;
+          v18 = v14;
+          v19 = 2048;
+          v20 = v15;
+          v21 = 2048;
+          v22 = v16;
+          _os_log_impl(&dword_1DC05A000, v12, OS_LOG_TYPE_DEFAULT, "Finishing updating scope list with %lu new scopes, %lu deletes scopes and %lu modified scopes", &v17, 0x20u);
         }
 
         v5 = *(a1 + 32);
@@ -206,8 +202,6 @@ LABEL_8:
   v9 = *(a1 + 32);
   v10 = *(v9 + 120);
   *(v9 + 120) = 0;
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_handleChangedOrNewScopes:(id)scopes deletedScopeIdentifiers:(id)identifiers newScopeListSyncAnchor:(id)anchor
@@ -279,7 +273,7 @@ void __94__CPLPullScopesTask__handleChangedOrNewScopes_deletedScopeIdentifiers_n
 
 void __94__CPLPullScopesTask__handleChangedOrNewScopes_deletedScopeIdentifiers_newScopeListSyncAnchor___block_invoke_12(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = [v3 error];
 
@@ -296,32 +290,30 @@ void __94__CPLPullScopesTask__handleChangedOrNewScopes_deletedScopeIdentifiers_n
       if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
         v9 = [v3 error];
-        v11 = 138412290;
-        v12 = v9;
-        _os_log_impl(&dword_1DC05A000, v8, OS_LOG_TYPE_ERROR, "Failed to handle scope list changes: %@", &v11, 0xCu);
+        v10 = 138412290;
+        v11 = v9;
+        _os_log_impl(&dword_1DC05A000, v8, OS_LOG_TYPE_ERROR, "Failed to handle scope list changes: %@", &v10, 0xCu);
       }
     }
 
     [*(*(a1 + 32) + 120) cancel];
     *(*(a1 + 32) + 88) = 1;
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
-uint64_t __94__CPLPullScopesTask__handleChangedOrNewScopes_deletedScopeIdentifiers_newScopeListSyncAnchor___block_invoke_2(uint64_t result, uint64_t a2)
+id *__94__CPLPullScopesTask__handleChangedOrNewScopes_deletedScopeIdentifiers_newScopeListSyncAnchor___block_invoke_2(id *result, uint64_t a2)
 {
   if (!a2)
   {
     v8[7] = v2;
     v8[8] = v3;
     v4 = result;
-    v5 = [*(result + 32) count];
-    result = [*(v4 + 40) count];
+    v5 = [result[4] count];
+    result = [v4[5] count];
     v6 = result + v5;
-    if (result + v5)
+    if ((result + v5))
     {
-      v7 = *(v4 + 48);
+      v7 = v4[6];
       v8[0] = MEMORY[0x1E69E9820];
       v8[1] = 3221225472;
       v8[2] = __94__CPLPullScopesTask__handleChangedOrNewScopes_deletedScopeIdentifiers_newScopeListSyncAnchor___block_invoke_3;
@@ -336,33 +328,33 @@ uint64_t __94__CPLPullScopesTask__handleChangedOrNewScopes_deletedScopeIdentifie
 
 uint64_t __94__CPLPullScopesTask__handleChangedOrNewScopes_deletedScopeIdentifiers_newScopeListSyncAnchor___block_invoke_4(uint64_t a1, void *a2)
 {
-  v33 = *MEMORY[0x1E69E9840];
-  v23 = 0;
-  v24 = &v23;
-  v25 = 0x2020000000;
-  v26 = 1;
+  v32 = *MEMORY[0x1E69E9840];
+  v22 = 0;
+  v23 = &v22;
+  v24 = 0x2020000000;
+  v25 = 1;
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   v3 = *(a1 + 32);
-  v4 = [v3 countByEnumeratingWithState:&v19 objects:v32 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v18 objects:v31 count:16];
   if (v4)
   {
-    v6 = *v20;
+    v6 = *v19;
     *&v5 = 138412290;
-    v16 = v5;
+    v15 = v5;
     while (2)
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v20 != v6)
+        if (*v19 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = *(*(&v19 + 1) + 8 * i);
-        v9 = [*(*(a1 + 40) + 104) scopeWithIdentifier:{v8, v16}];
+        v8 = *(*(&v18 + 1) + 8 * i);
+        v9 = [*(*(a1 + 40) + 104) scopeWithIdentifier:{v8, v15}];
         if (v9)
         {
           if ((_CPLSilentLogging & 1) == 0)
@@ -370,14 +362,14 @@ uint64_t __94__CPLPullScopesTask__handleChangedOrNewScopes_deletedScopeIdentifie
             v10 = __CPLTaskOSLogDomain_2598();
             if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
             {
-              LODWORD(buf) = v16;
+              LODWORD(buf) = v15;
               *(&buf + 4) = v8;
               _os_log_impl(&dword_1DC05A000, v10, OS_LOG_TYPE_DEFAULT, "Scope %@ has been deleted according to server - we will need to check that", &buf, 0xCu);
             }
           }
 
           v11 = [*(*(a1 + 40) + 104) setScopeNeedsUpdateFromTransport:v9 error:a2];
-          *(v24 + 24) = v11;
+          *(v23 + 24) = v11;
           if (!v11)
           {
 
@@ -388,7 +380,7 @@ uint64_t __94__CPLPullScopesTask__handleChangedOrNewScopes_deletedScopeIdentifie
         }
       }
 
-      v4 = [v3 countByEnumeratingWithState:&v19 objects:v32 count:16];
+      v4 = [v3 countByEnumeratingWithState:&v18 objects:v31 count:16];
       if (v4)
       {
         continue;
@@ -400,31 +392,31 @@ uint64_t __94__CPLPullScopesTask__handleChangedOrNewScopes_deletedScopeIdentifie
 
 LABEL_17:
 
-  if (*(v24 + 24) == 1)
+  if (*(v23 + 24) == 1)
   {
     *&buf = 0;
     *(&buf + 1) = &buf;
-    v28 = 0x3032000000;
-    v29 = __Block_byref_object_copy__2613;
-    v30 = __Block_byref_object_dispose__2614;
-    v31 = 0;
-    v18[0] = MEMORY[0x1E69E9820];
-    v18[1] = 3221225472;
-    v18[2] = __94__CPLPullScopesTask__handleChangedOrNewScopes_deletedScopeIdentifiers_newScopeListSyncAnchor___block_invoke_8;
-    v18[3] = &unk_1E861BED0;
+    v27 = 0x3032000000;
+    v28 = __Block_byref_object_copy__2613;
+    v29 = __Block_byref_object_dispose__2614;
+    v30 = 0;
+    v17[0] = MEMORY[0x1E69E9820];
+    v17[1] = 3221225472;
+    v17[2] = __94__CPLPullScopesTask__handleChangedOrNewScopes_deletedScopeIdentifiers_newScopeListSyncAnchor___block_invoke_8;
+    v17[3] = &unk_1E861BED0;
     v12 = *(a1 + 48);
-    v18[4] = *(a1 + 40);
-    v18[5] = &v23;
-    v18[6] = &buf;
-    [v12 enumerateKeysAndObjectsUsingBlock:v18];
-    if (a2 && (v24[3] & 1) == 0)
+    v17[4] = *(a1 + 40);
+    v17[5] = &v22;
+    v17[6] = &buf;
+    [v12 enumerateKeysAndObjectsUsingBlock:v17];
+    if (a2 && (v23[3] & 1) == 0)
     {
       *a2 = *(*(&buf + 1) + 40);
     }
 
     _Block_object_dispose(&buf, 8);
 
-    v13 = *(v24 + 24);
+    v13 = *(v23 + 24);
   }
 
   else
@@ -432,14 +424,13 @@ LABEL_17:
     v13 = 0;
   }
 
-  _Block_object_dispose(&v23, 8);
-  v14 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v22, 8);
   return v13 & 1;
 }
 
 void __94__CPLPullScopesTask__handleChangedOrNewScopes_deletedScopeIdentifiers_newScopeListSyncAnchor___block_invoke_8(void *a1, void *a2, void *a3, _BYTE *a4)
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
   v7 = a2;
   v8 = a3;
   v9 = [*(a1[4] + 104) scopeWithIdentifier:v7];
@@ -451,7 +442,7 @@ void __94__CPLPullScopesTask__handleChangedOrNewScopes_deletedScopeIdentifiers_n
       if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v37 = v7;
+        v36 = v7;
         _os_log_impl(&dword_1DC05A000, v10, OS_LOG_TYPE_DEFAULT, "Scope %@ has changes to pull from the server", buf, 0xCu);
       }
     }
@@ -471,9 +462,9 @@ void __94__CPLPullScopesTask__handleChangedOrNewScopes_deletedScopeIdentifiers_n
     v14 = *(a1[4] + 104);
     v15 = [v8 updatedTransportScope];
     v16 = *(a1[6] + 8);
-    v34 = *(v16 + 40);
-    LOBYTE(v14) = [v14 setTransportScope:v15 forScope:v9 error:&v34];
-    objc_storeStrong((v16 + 40), v34);
+    v33 = *(v16 + 40);
+    LOBYTE(v14) = [v14 setTransportScope:v15 forScope:v9 error:&v33];
+    objc_storeStrong((v16 + 40), v33);
     *(*(a1[5] + 8) + 24) = v14;
 
     if ((*(*(a1[5] + 8) + 24) & 1) == 0)
@@ -490,18 +481,18 @@ void __94__CPLPullScopesTask__handleChangedOrNewScopes_deletedScopeIdentifiers_n
         if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412546;
-          v37 = v9;
-          v38 = 2112;
-          v39 = v17;
+          v36 = v9;
+          v37 = 2112;
+          v38 = v17;
           _os_log_impl(&dword_1DC05A000, v18, OS_LOG_TYPE_DEFAULT, "Updating scope change for %@ to %@", buf, 0x16u);
         }
       }
 
       v19 = *(a1[4] + 104);
       v20 = *(a1[6] + 8);
-      v33 = *(v20 + 40);
-      v21 = [v19 storeScopeChange:v17 forScope:v9 error:&v33];
-      objc_storeStrong((v20 + 40), v33);
+      v32 = *(v20 + 40);
+      v21 = [v19 storeScopeChange:v17 forScope:v9 error:&v32];
+      objc_storeStrong((v20 + 40), v32);
       *(*(a1[5] + 8) + 24) = v21;
     }
   }
@@ -512,9 +503,9 @@ void __94__CPLPullScopesTask__handleChangedOrNewScopes_deletedScopeIdentifiers_n
     v22 = *(a1[4] + 104);
     v23 = [v8 updatedTransportScope];
     v24 = *(a1[6] + 8);
-    v32 = *(v24 + 40);
-    v17 = [v22 createScopeWithIdentifier:v7 scopeType:0 flags:16 transportScope:v23 error:&v32];
-    objc_storeStrong((v24 + 40), v32);
+    v31 = *(v24 + 40);
+    v17 = [v22 createScopeWithIdentifier:v7 scopeType:0 flags:16 transportScope:v23 error:&v31];
+    objc_storeStrong((v24 + 40), v31);
 
     *(*(a1[5] + 8) + 24) = v17 != 0;
     if (*(*(a1[5] + 8) + 24) == 1)
@@ -524,9 +515,9 @@ void __94__CPLPullScopesTask__handleChangedOrNewScopes_deletedScopeIdentifiers_n
       {
         v26 = *(a1[4] + 104);
         v27 = *(a1[6] + 8);
-        v31 = *(v27 + 40);
-        v28 = [v26 storeScopeChange:v25 forScope:v17 error:&v31];
-        objc_storeStrong((v27 + 40), v31);
+        v30 = *(v27 + 40);
+        v28 = [v26 storeScopeChange:v25 forScope:v17 error:&v30];
+        objc_storeStrong((v27 + 40), v30);
         *(*(a1[5] + 8) + 24) = v28;
       }
 
@@ -536,9 +527,9 @@ void __94__CPLPullScopesTask__handleChangedOrNewScopes_deletedScopeIdentifiers_n
         if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412546;
-          v37 = v7;
-          v38 = 2112;
-          v39 = v25;
+          v36 = v7;
+          v37 = 2112;
+          v38 = v25;
           _os_log_impl(&dword_1DC05A000, v29, OS_LOG_TYPE_DEFAULT, "Scope %@ is new - will try to identify it. Initial scope change is %@", buf, 0x16u);
         }
       }
@@ -550,8 +541,6 @@ void __94__CPLPullScopesTask__handleChangedOrNewScopes_deletedScopeIdentifiers_n
 LABEL_23:
     *a4 = 1;
   }
-
-  v30 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)_checkShouldHandleBatchInTransaction:(id)transaction

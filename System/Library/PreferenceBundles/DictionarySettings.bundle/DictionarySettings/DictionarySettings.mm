@@ -46,10 +46,9 @@ void sub_2698(uint64_t a1, uint64_t a2)
 uint64_t sub_2720(uint64_t a1)
 {
   NSLog(@"DictionaryUI: Catalog download finished with result = %ld", *(a1 + 40));
-  v2 = *(a1 + 40);
-  v3 = *(*(a1 + 32) + 16);
+  v2 = *(*(a1 + 32) + 16);
 
-  return v3();
+  return v2();
 }
 
 void sub_2778(uint64_t a1)
@@ -280,13 +279,12 @@ uint64_t sub_6148()
 
 uint64_t sub_61EC()
 {
-  v0 = *(*(sub_6EE4() - 8) + 64);
+  sub_6EE4();
   __chkstk_darwin();
-  v1 = sub_6EC4();
-  v2 = *(v1 - 8);
-  v3 = *(v2 + 64);
+  v0 = sub_6EC4();
+  v1 = *(v0 - 8);
   __chkstk_darwin();
-  v5 = &v13 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v3 = &v11 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_6F74();
   sub_6F64();
   sub_6F54();
@@ -302,17 +300,17 @@ uint64_t sub_61EC()
   sub_66A8(0, &qword_10FE0, NSBundle_ptr);
   if (!sub_6F84())
   {
-    v6 = [objc_opt_self() mainBundle];
+    v4 = [objc_opt_self() mainBundle];
   }
 
-  v7 = sub_6F24();
+  v5 = sub_6F24();
+  v7 = v6;
   v9 = v8;
-  v11 = v10;
   sub_64F4();
   sub_6F34();
-  sub_66F0(v7, v9, v11 & 1);
+  sub_66F0(v5, v7, v9 & 1);
 
-  (*(v2 + 8))(v5, v1);
+  (*(v1 + 8))(v3, v0);
 }
 
 uint64_t sub_64AC(uint64_t *a1, uint64_t *a2)
@@ -320,7 +318,6 @@ uint64_t sub_64AC(uint64_t *a1, uint64_t *a2)
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContext2();
     *a1 = result;
   }
@@ -371,7 +368,6 @@ uint64_t sub_6660(uint64_t *a1, uint64_t *a2)
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContextInMetadataState2();
     *a1 = result;
   }
@@ -379,12 +375,11 @@ uint64_t sub_6660(uint64_t *a1, uint64_t *a2)
   return result;
 }
 
-uint64_t sub_66A8(uint64_t a1, unint64_t *a2, uint64_t *a3)
+uint64_t sub_66A8(uint64_t a1, unint64_t *a2, void *a3)
 {
   result = *a2;
   if (!*a2)
   {
-    v5 = *a3;
     objc_opt_self();
     result = swift_getObjCClassMetadata();
     atomic_store(result, a2);
@@ -507,42 +502,39 @@ uint64_t sub_6C3C()
   return sub_6EF4();
 }
 
-uint64_t sub_6D08(void *a1, uint64_t a2)
+uint64_t sub_6D08(void *a1, uint64_t a2, uint64_t a3)
 {
   if (*a1 != -1)
   {
     swift_once();
   }
 
-  v3 = sub_6F04();
+  v4 = sub_6F04();
 
-  return sub_6820(v3, a2);
+  return sub_6820(v4, a2);
 }
 
-uint64_t sub_6D80@<X0>(void *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
+uint64_t sub_6D80@<X0>(void *a1@<X0>, uint64_t a2@<X1>, uint64_t a4@<X8>)
 {
   if (*a1 != -1)
   {
     swift_once();
   }
 
-  v5 = sub_6F04();
-  v6 = sub_6820(v5, a2);
-  v7 = *(*(v5 - 8) + 16);
+  v6 = sub_6F04();
+  v7 = sub_6820(v6, a2);
+  v8 = *(*(v6 - 8) + 16);
 
-  return v7(a3, v6, v5);
+  return v8(a4, v7, v6);
 }
 
 uint64_t *sub_6E3C(uint64_t a1, uint64_t *a2)
 {
-  v3 = *(a1 - 8);
-  if ((*(v3 + 80) & 0x20000) != 0)
+  if ((*(*(a1 - 8) + 80) & 0x20000) != 0)
   {
-    v4 = *(v3 + 64);
-    v5 = *(v3 + 80);
-    v6 = swift_slowAlloc();
-    *a2 = v6;
-    return v6;
+    v3 = swift_slowAlloc();
+    *a2 = v3;
+    return v3;
   }
 
   return a2;

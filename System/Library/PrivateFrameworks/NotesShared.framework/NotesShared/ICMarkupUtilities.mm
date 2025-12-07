@@ -171,7 +171,7 @@ void __67__ICMarkupUtilities_createProcessingMarkupViewControllerOutWindow___blo
   _Block_object_dispose(&v19, 8);
 }
 
-uint64_t __71__ICMarkupUtilities_applyReturnedMarkupURL_attachment_completionBlock___block_invoke(uint64_t a1)
+void *__71__ICMarkupUtilities_applyReturnedMarkupURL_attachment_completionBlock___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) shouldEmbedMarkupDataInMedia];
   *(*(*(a1 + 40) + 8) + 24) = result;

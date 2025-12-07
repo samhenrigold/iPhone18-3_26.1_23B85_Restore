@@ -53,10 +53,7 @@
 
 uint64_t __70__TiltedTabViewControllerAccessibility__axPrepareDockedLabelForIndex___block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 32) objectAtIndex:*(a1 + 48)];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(a1 + 32) objectAtIndex:*(a1 + 48)];
 
   return MEMORY[0x2A1C71028]();
 }
@@ -201,31 +198,29 @@ double __103__TiltedTabViewControllerAccessibility__accessibilityUpdateDraftLabe
 
 id __103__TiltedTabViewControllerAccessibility__accessibilityUpdateDraftLabelForBorrowedView_withActorAtIndex___block_invoke_2(uint64_t a1)
 {
-  v2 = [*(a1 + 32) safeUIViewForKey:@"contentShadowView"];
-  v3 = [v2 layer];
-  v4 = v3;
-  v13 = 0u;
-  v14 = 0u;
+  v1 = [*(a1 + 32) safeUIViewForKey:@"contentShadowView"];
+  v2 = [v1 layer];
+  v3 = v2;
+  v11 = 0u;
   v12 = 0u;
-  if (v3)
+  v10 = 0u;
+  if (v2)
   {
-    [v3 affineTransform];
+    objc_msgSend_affineTransform(v2);
   }
 
-  LOBYTE(v11[0]) = 0;
   objc_opt_class();
-  v5 = *(a1 + 32);
-  v6 = __UIAccessibilityCastAsClass();
-  v7 = MEMORY[0x29EDC7948];
-  [(UIView *)v6 bounds];
-  v8 = [v7 bezierPathWithRect:?];
-  v11[0] = v12;
-  v11[1] = v13;
-  v11[2] = v14;
-  [(UIBezierPath *)v8 applyTransform:v11];
-  v9 = UIAccessibilityConvertPathToScreenCoordinates(v8, v6);
+  v4 = __UIAccessibilityCastAsClass();
+  v5 = MEMORY[0x29EDC7948];
+  [(UIView *)v4 bounds];
+  v6 = [v5 bezierPathWithRect:?];
+  v9[0] = v10;
+  v9[1] = v11;
+  v9[2] = v12;
+  [(UIBezierPath *)v6 applyTransform:v9];
+  v7 = UIAccessibilityConvertPathToScreenCoordinates(v6, v4);
 
-  return v9;
+  return v7;
 }
 
 @end

@@ -142,7 +142,7 @@
   return v8 & 1;
 }
 
-uint64_t __56__DYMTLDeviceProfile_supportsCapabilitiesOfGraphicsAPI___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4)
+void *__56__DYMTLDeviceProfile_supportsCapabilitiesOfGraphicsAPI___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4)
 {
   result = [*(*(a1 + 32) + 24) containsObject:a2];
   if ((result & 1) == 0)
@@ -154,7 +154,7 @@ uint64_t __56__DYMTLDeviceProfile_supportsCapabilitiesOfGraphicsAPI___block_invo
   return result;
 }
 
-uint64_t __56__DYMTLDeviceProfile_supportsCapabilitiesOfGraphicsAPI___block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4)
+void *__56__DYMTLDeviceProfile_supportsCapabilitiesOfGraphicsAPI___block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4)
 {
   result = [*(*(a1 + 32) + 16) containsObject:a2];
   if ((result & 1) == 0)
@@ -265,34 +265,34 @@ uint64_t __56__DYMTLDeviceProfile_supportsCapabilitiesOfGraphicsAPI___block_invo
 
 - (NSString)description
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277CCACA8];
-  v32.receiver = self;
-  v32.super_class = DYMTLDeviceProfile;
-  v4 = [(DYMTLDeviceProfile *)&v32 description];
+  v31.receiver = self;
+  v31.super_class = DYMTLDeviceProfile;
+  v4 = [(DYMTLDeviceProfile *)&v31 description];
   v5 = [v3 stringWithFormat:@"%@ name=%@ featureProfile=", v4, self->_name];
 
-  v30 = 0u;
-  v31 = 0u;
-  v28 = 0u;
   v29 = 0u;
+  v30 = 0u;
+  v27 = 0u;
+  v28 = 0u;
   v6 = self->_supportedFeatureSets;
-  v7 = [(NSArray *)v6 countByEnumeratingWithState:&v28 objects:v34 count:16];
+  v7 = [(NSArray *)v6 countByEnumeratingWithState:&v27 objects:v33 count:16];
   if (v7)
   {
-    v8 = *v29;
+    v8 = *v28;
     do
     {
       v9 = 0;
       v10 = v5;
       do
       {
-        if (*v29 != v8)
+        if (*v28 != v8)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = [MEMORY[0x277CCACA8] stringWithFormat:@"%lu ", objc_msgSend(*(*(&v28 + 1) + 8 * v9), "unsignedLongValue")];
+        v11 = [MEMORY[0x277CCACA8] stringWithFormat:@"%lu ", objc_msgSend(*(*(&v27 + 1) + 8 * v9), "unsignedLongValue")];
         v5 = [v10 stringByAppendingString:v11];
 
         ++v9;
@@ -300,37 +300,37 @@ uint64_t __56__DYMTLDeviceProfile_supportsCapabilitiesOfGraphicsAPI___block_invo
       }
 
       while (v7 != v9);
-      v7 = [(NSArray *)v6 countByEnumeratingWithState:&v28 objects:v34 count:16];
+      v7 = [(NSArray *)v6 countByEnumeratingWithState:&v27 objects:v33 count:16];
     }
 
     while (v7);
   }
 
-  v23 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@", v5];
+  v22 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@", v5];
   if (self->_supportedGPUFamilies)
   {
     v12 = [MEMORY[0x277CCACA8] stringWithFormat:@"GPUFamilies="];
-    v26 = 0u;
-    v27 = 0u;
-    v24 = 0u;
     v25 = 0u;
+    v26 = 0u;
+    v23 = 0u;
+    v24 = 0u;
     v13 = self->_supportedGPUFamilies;
-    v14 = [(NSArray *)v13 countByEnumeratingWithState:&v24 objects:v33 count:16];
+    v14 = [(NSArray *)v13 countByEnumeratingWithState:&v23 objects:v32 count:16];
     if (v14)
     {
-      v15 = *v25;
+      v15 = *v24;
       do
       {
         v16 = 0;
         v17 = v12;
         do
         {
-          if (*v25 != v15)
+          if (*v24 != v15)
           {
             objc_enumerationMutation(v13);
           }
 
-          v18 = [MEMORY[0x277CCACA8] stringWithFormat:@"%lu ", objc_msgSend(*(*(&v24 + 1) + 8 * v16), "unsignedLongValue")];
+          v18 = [MEMORY[0x277CCACA8] stringWithFormat:@"%lu ", objc_msgSend(*(*(&v23 + 1) + 8 * v16), "unsignedLongValue")];
           v12 = [v17 stringByAppendingString:v18];
 
           ++v16;
@@ -338,61 +338,57 @@ uint64_t __56__DYMTLDeviceProfile_supportsCapabilitiesOfGraphicsAPI___block_invo
         }
 
         while (v14 != v16);
-        v14 = [(NSArray *)v13 countByEnumeratingWithState:&v24 objects:v33 count:16];
+        v14 = [(NSArray *)v13 countByEnumeratingWithState:&v23 objects:v32 count:16];
       }
 
       while (v14);
     }
 
     v19 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@", v12];
-    v20 = [v23 stringByAppendingString:v19];
+    v20 = [v22 stringByAppendingString:v19];
 
-    v23 = v20;
+    v22 = v20;
   }
 
-  v21 = *MEMORY[0x277D85DE8];
-
-  return v23;
+  return v22;
 }
 
 - (NSString)descriptionForBugReport
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v3 = objc_alloc_init(MEMORY[0x277CCAB68]);
   [v3 appendFormat:@"Metal device: %@\n", self->_name];
   if (self->_supportedGPUFamilies)
   {
     [v3 appendString:@"    Supported GPU families:"];
-    v13 = 0u;
-    v14 = 0u;
-    v11 = 0u;
     v12 = 0u;
+    v13 = 0u;
+    v10 = 0u;
+    v11 = 0u;
     v4 = self->_supportedGPUFamilies;
-    v5 = [(NSArray *)v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
+    v5 = [(NSArray *)v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
     if (v5)
     {
-      v6 = *v12;
+      v6 = *v11;
       do
       {
         for (i = 0; i != v5; ++i)
         {
-          if (*v12 != v6)
+          if (*v11 != v6)
           {
             objc_enumerationMutation(v4);
           }
 
-          v8 = [MEMORY[0x277CCACA8] stringWithUTF8String:{GPUTools::MTL::GetMTLGPUFamilyAsString(objc_msgSend(*(*(&v11 + 1) + 8 * i), "unsignedLongLongValue"), 1)}];
+          v8 = [MEMORY[0x277CCACA8] stringWithUTF8String:{GPUTools::MTL::GetMTLGPUFamilyAsString(objc_msgSend(*(*(&v10 + 1) + 8 * i), "unsignedLongLongValue"), 1)}];
           [v3 appendFormat:@" %@", v8];
         }
 
-        v5 = [(NSArray *)v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
+        v5 = [(NSArray *)v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
       }
 
       while (v5);
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v3;
 }

@@ -18,19 +18,18 @@
 
 - (BOOL)run:(id)run deform:(id)deform weight:(id)weight outputMesh:(id)mesh
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   runCopy = run;
   deformCopy = deform;
   weightCopy = weight;
   meshCopy = mesh;
   if (GESSEnvMLXAvailable_0())
   {
-    strcpy(v16, "*kNKZ^C\\Oi_HO");
-    v15 = sub_24BCBD2F0(v16);
+    strcpy(v15, "*kNKZ^C\\Oi_HO");
+    v14 = sub_24BCBD2F0(v15);
     sub_24BE73EB8();
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return 0;
 }
 

@@ -14,11 +14,12 @@
     v4 = *(v3 + 32);
     if (v4)
     {
+      v5 = *(v3 + 40);
       selfCopy = self;
-      v6 = sub_20B584050(v4);
-      v4(v6);
+      v7 = sub_20B584050(v4, v5);
+      v4(v7);
 
-      sub_20B583ECC(v4);
+      sub_20B583ECC(v4, v5);
     }
   }
 }
@@ -31,11 +32,12 @@
     v4 = *(v3 + 48);
     if (v4)
     {
+      v5 = *(v3 + 56);
       selfCopy = self;
-      v6 = sub_20B584050(v4);
-      v4(v6);
+      v7 = sub_20B584050(v4, v5);
+      v4(v7);
 
-      sub_20B583ECC(v4);
+      sub_20B583ECC(v4, v5);
     }
   }
 }

@@ -22,62 +22,66 @@
 
 - (void)stream:(id)stream didStart:(BOOL)start error:(id)error
 {
+  startCopy = start;
   streamCopy = stream;
   selfCopy = self;
   errorCopy = error;
-  VideoStream.stream(_:didStart:error:)();
+  VideoStream.stream(_:didStart:error:)(streamCopy, startCopy, error);
 }
 
 - (void)streamDidStop:(id)stop
 {
   stopCopy = stop;
   selfCopy = self;
-  VideoStream.streamDidStop(_:)();
+  VideoStream.streamDidStop(_:)(stopCopy, selfCopy);
 }
 
 - (void)streamDidServerDie:(id)die
 {
   dieCopy = die;
   selfCopy = self;
-  VideoStream.streamDidServerDie(_:)();
+  VideoStream.streamDidServerDie(_:)(dieCopy, selfCopy);
 }
 
 - (void)stream:(id)stream didPause:(BOOL)pause error:(id)error
 {
+  pauseCopy = pause;
   streamCopy = stream;
   selfCopy = self;
   errorCopy = error;
-  VideoStream.stream(_:didPause:error:)();
+  VideoStream.stream(_:didPause:error:)(streamCopy, pauseCopy, error);
 }
 
 - (void)stream:(id)stream didResume:(BOOL)resume error:(id)error
 {
+  resumeCopy = resume;
   streamCopy = stream;
   selfCopy = self;
   errorCopy = error;
-  VideoStream.stream(_:didResume:error:)();
+  VideoStream.stream(_:didResume:error:)(streamCopy, resumeCopy, error);
 }
 
 - (void)stream:(id)stream didUpdateVideoConfiguration:(BOOL)configuration error:(id)error
 {
+  configurationCopy = configuration;
   streamCopy = stream;
   selfCopy = self;
   errorCopy = error;
-  VideoStream.stream(_:didUpdateVideoConfiguration:error:)();
+  VideoStream.stream(_:didUpdateVideoConfiguration:error:)(streamCopy, configurationCopy, error);
 }
 
 - (void)streamDidRTPTimeOut:(id)out
 {
   outCopy = out;
   selfCopy = self;
-  VideoStream.streamDidRTPTimeOut(_:)();
+  VideoStream.streamDidRTPTimeOut(_:)(outCopy, selfCopy);
 }
 
 - (void)streamDidRTCPTimeOut:(id)out
 {
   outCopy = out;
   selfCopy = self;
-  VideoStream.streamDidRTCPTimeOut(_:)();
+  VideoStream.streamDidRTCPTimeOut(_:)(outCopy, selfCopy);
 }
 
 @end

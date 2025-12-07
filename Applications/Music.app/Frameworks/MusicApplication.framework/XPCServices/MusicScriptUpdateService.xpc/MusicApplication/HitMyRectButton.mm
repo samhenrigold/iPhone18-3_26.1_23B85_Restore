@@ -13,19 +13,19 @@
 - (CGRect)hitRect
 {
   selfCopy = self;
-  v3 = HitMyRectButton.hitRect()();
-  v5 = v4;
-  v7 = v6;
-  v9 = v8;
+  v4 = HitMyRectButton.hitRect()(selfCopy, v3);
+  v6 = v5;
+  v8 = v7;
+  v10 = v9;
 
-  v10 = v3;
-  v11 = v5;
-  v12 = v7;
-  v13 = v9;
-  result.size.height = v13;
-  result.size.width = v12;
-  result.origin.y = v11;
-  result.origin.x = v10;
+  v11 = v4;
+  v12 = v6;
+  v13 = v8;
+  v14 = v10;
+  result.size.height = v14;
+  result.size.width = v13;
+  result.origin.y = v12;
+  result.origin.x = v11;
   return result;
 }
 
@@ -73,7 +73,7 @@ LABEL_5:
 - (unint64_t)accessibilityTraits
 {
   v7.receiver = self;
-  v7.super_class = type metadata accessor for HitMyRectButton();
+  v7.super_class = type metadata accessor for HitMyRectButton(self, a2);
   v2 = v7.receiver;
   accessibilityTraits = [(HitMyRectButton *)&v7 accessibilityTraits];
   v4 = UIAccessibilityTraitButton;
@@ -94,7 +94,7 @@ LABEL_5:
 - (void)setAccessibilityTraits:(unint64_t)traits
 {
   v4.receiver = self;
-  v4.super_class = type metadata accessor for HitMyRectButton();
+  v4.super_class = type metadata accessor for HitMyRectButton(self, a2);
   [(HitMyRectButton *)&v4 setAccessibilityTraits:traits];
 }
 
@@ -109,7 +109,7 @@ LABEL_5:
   *(v7 + 1) = 0u;
   v7[32] = -1;
   v9.receiver = self;
-  v9.super_class = type metadata accessor for HitMyRectButton();
+  v9.super_class = type metadata accessor for HitMyRectButton(self, a2);
   return [(HitMyRectButton *)&v9 initWithFrame:x, y, width, height];
 }
 
@@ -120,7 +120,7 @@ LABEL_5:
   *(v4 + 1) = 0u;
   v4[32] = -1;
   v8.receiver = self;
-  v8.super_class = type metadata accessor for HitMyRectButton();
+  v8.super_class = type metadata accessor for HitMyRectButton(self, a2);
   coderCopy = coder;
   v6 = [(HitMyRectButton *)&v8 initWithCoder:coderCopy];
 

@@ -161,16 +161,16 @@ id __50__CHSControlDescriptor_succinctDescriptionBuilder__block_invoke(uint64_t 
 - (BOOL)isEqual:(id)equal
 {
   equalCopy = equal;
-  v16.receiver = self;
-  v16.super_class = CHSControlDescriptor;
-  if (![(CHSBaseDescriptor *)&v16 isEqual:equalCopy])
+  v8.receiver = self;
+  v8.super_class = CHSControlDescriptor;
+  if (![(CHSBaseDescriptor *)&v8 isEqual:equalCopy])
   {
     goto LABEL_18;
   }
 
   if (self == equalCopy)
   {
-    v14 = 1;
+    v6 = 1;
     goto LABEL_22;
   }
 
@@ -178,30 +178,26 @@ id __50__CHSControlDescriptor_succinctDescriptionBuilder__block_invoke(uint64_t 
   if (objc_opt_isKindOfClass())
   {
     v5 = equalCopy;
-    kind = self->_kind;
-    v7 = v5->_kind;
-    if (BSEqualObjects() && self->_controlType == v5->_controlType && self->_preferredControlSize == v5->_preferredControlSize && self->_supportsPush == v5->_supportsPush && self->_controlVersion == v5->_controlVersion && self->_disfavoredLocations == v5->_disfavoredLocations && (intentType = self->_intentType, v9 = v5->_intentType, BSEqualObjects()) && (defaultIntentReference = self->_defaultIntentReference, v11 = v5->_defaultIntentReference, BSEqualObjects()) && self->_hiddenControl == v5->_hiddenControl && self->_supportsForwardingToRemoteDevices == v5->_supportsForwardingToRemoteDevices && self->_showsContextualMenu == v5->_showsContextualMenu && self->_disablesControlStateCaching == v5->_disablesControlStateCaching && self->_visibility == v5->_visibility)
+    if (BSEqualObjects() && self->_controlType == v5->_controlType && self->_preferredControlSize == v5->_preferredControlSize && self->_supportsPush == v5->_supportsPush && self->_controlVersion == v5->_controlVersion && self->_disfavoredLocations == v5->_disfavoredLocations && BSEqualObjects() && BSEqualObjects() && self->_hiddenControl == v5->_hiddenControl && self->_supportsForwardingToRemoteDevices == v5->_supportsForwardingToRemoteDevices && self->_showsContextualMenu == v5->_showsContextualMenu && self->_disablesControlStateCaching == v5->_disablesControlStateCaching && self->_visibility == v5->_visibility)
     {
-      actionMetadata = self->_actionMetadata;
-      v13 = v5->_actionMetadata;
-      v14 = BSEqualObjects();
+      v6 = BSEqualObjects();
     }
 
     else
     {
-      v14 = 0;
+      v6 = 0;
     }
   }
 
   else
   {
 LABEL_18:
-    v14 = 0;
+    v6 = 0;
   }
 
 LABEL_22:
 
-  return v14;
+  return v6;
 }
 
 - (unint64_t)hash
@@ -460,11 +456,10 @@ id __62__CHSControlDescriptor_descriptionBuilderWithMultilinePrefix___block_invo
 
 - (void)initWithCoder:(os_log_t)log .cold.1(os_log_t log)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v2 = 138543362;
-  v3 = @"actionMetadata";
-  _os_log_error_impl(&dword_195EB2000, log, OS_LOG_TYPE_ERROR, "CHSControlDescriptor: failed to decode %{public}@", &v2, 0xCu);
-  v1 = *MEMORY[0x1E69E9840];
+  v3 = *MEMORY[0x1E69E9840];
+  v1 = 138543362;
+  v2 = @"actionMetadata";
+  _os_log_error_impl(&dword_195EB2000, log, OS_LOG_TYPE_ERROR, "CHSControlDescriptor: failed to decode %{public}@", &v1, 0xCu);
 }
 
 @end

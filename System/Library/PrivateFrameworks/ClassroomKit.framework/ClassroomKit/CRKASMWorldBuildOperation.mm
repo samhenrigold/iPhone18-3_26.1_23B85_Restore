@@ -69,14 +69,14 @@ void __33__CRKASMWorldBuildOperation_main__block_invoke(uint64_t a1)
   {
     if (accountState == 1)
     {
-      v6 = _CRKLogASM_12();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+      v7 = _CRKLogASM_12(v5);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
-        v10 = 0;
-        v7 = "ASM World Build: Account is transitioning. Nothing to build right now.";
-        v8 = &v10;
+        v11 = 0;
+        v8 = "ASM World Build: Account is transitioning. Nothing to build right now.";
+        v9 = &v11;
 LABEL_14:
-        _os_log_impl(&dword_243550000, v6, OS_LOG_TYPE_DEFAULT, v7, v8, 2u);
+        _os_log_impl(&dword_243550000, v7, OS_LOG_TYPE_DEFAULT, v8, v9, 2u);
       }
     }
 
@@ -84,23 +84,23 @@ LABEL_14:
     {
       if (!accountState)
       {
-        v5 = _CRKLogASM_12();
-        if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+        v6 = _CRKLogASM_12(v5);
+        if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
-          _os_log_impl(&dword_243550000, v5, OS_LOG_TYPE_DEFAULT, "ASM World Build: No eligible ASM account signed in", buf, 2u);
+          _os_log_impl(&dword_243550000, v6, OS_LOG_TYPE_DEFAULT, "ASM World Build: No eligible ASM account signed in", buf, 2u);
         }
 
         [(CRKASMWorldBuildOperation *)self housekeepKeychain];
         goto LABEL_16;
       }
 
-      v6 = _CRKLogASM_12();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+      v7 = _CRKLogASM_12(v5);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v9) = 0;
-        v7 = "ASM World Build: Unknown account state. Doing nothing out of fear.";
-        v8 = &v9;
+        LOWORD(v10) = 0;
+        v8 = "ASM World Build: Unknown account state. Doing nothing out of fear.";
+        v9 = &v10;
         goto LABEL_14;
       }
     }
@@ -163,7 +163,7 @@ void __53__CRKASMWorldBuildOperation_buildCurrentClassKitUser__block_invoke_2(ui
 
       else
       {
-        v6 = _CRKLogASM_12();
+        v6 = _CRKLogASM_12(v3);
         if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
         {
           *v7 = 0;
@@ -203,7 +203,7 @@ void __49__CRKASMWorldBuildOperation_buildClassKitClasses__block_invoke(uint64_t
   dispatch_async(MEMORY[0x277D85CD0], block);
 }
 
-uint64_t __49__CRKASMWorldBuildOperation_buildClassKitClasses__block_invoke_2(uint64_t a1)
+void *__49__CRKASMWorldBuildOperation_buildClassKitClasses__block_invoke_2(uint64_t a1)
 {
   result = [*(a1 + 32) isExecuting];
   if (result)
@@ -236,8 +236,8 @@ BOOL __49__CRKASMWorldBuildOperation_buildClassKitClasses__block_invoke_3(uint64
 
   if (!v3)
   {
-    v4 = _CRKLogASM_12();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = _CRKLogASM_12(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       __49__CRKASMWorldBuildOperation_buildClassKitClasses__block_invoke_3_cold_1(v2);
     }
@@ -278,7 +278,7 @@ void __63__CRKASMWorldBuildOperation_buildClassKitLocationsByLocationID__block_i
   dispatch_async(MEMORY[0x277D85CD0], block);
 }
 
-uint64_t __63__CRKASMWorldBuildOperation_buildClassKitLocationsByLocationID__block_invoke_3(uint64_t a1)
+void *__63__CRKASMWorldBuildOperation_buildClassKitLocationsByLocationID__block_invoke_3(uint64_t a1)
 {
   result = [*(a1 + 32) isExecuting];
   if (result)
@@ -673,25 +673,25 @@ CRKASMConcreteCourse *__42__CRKASMWorldBuildOperation_compileResult__block_invok
 
   if (v6)
   {
-    v13 = [CRKASMConcreteCourse alloc];
-    v14 = *(a1 + 40);
-    v15 = [*(a1 + 32) manageableLocationIDs];
-    v16 = [*(a1 + 32) environment];
-    v17 = [(CRKASMConcreteCourse *)v13 initWithBackingClass:v3 location:v6 persons:v9 trustedPersons:v12 identityVendor:v14 manageableLocationIDs:v15 environment:v16];
+    v14 = [CRKASMConcreteCourse alloc];
+    v15 = *(a1 + 40);
+    v16 = [*(a1 + 32) manageableLocationIDs];
+    v17 = [*(a1 + 32) environment];
+    v18 = [(CRKASMConcreteCourse *)v14 initWithBackingClass:v3 location:v6 persons:v9 trustedPersons:v12 identityVendor:v15 manageableLocationIDs:v16 environment:v17];
   }
 
   else
   {
-    v18 = _CRKLogASM_12();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+    v19 = _CRKLogASM_12(v13);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
       __42__CRKASMWorldBuildOperation_compileResult__block_invoke_cold_1(v3);
     }
 
-    v17 = 0;
+    v18 = 0;
   }
 
-  return v17;
+  return v18;
 }
 
 CRKASMConcreteLocation *__42__CRKASMWorldBuildOperation_compileResult__block_invoke_27(uint64_t a1, void *a2)
@@ -757,13 +757,17 @@ CRKASMConcreteLocation *__42__CRKASMWorldBuildOperation_compileResult__block_inv
 void __49__CRKASMWorldBuildOperation_buildClassKitClasses__block_invoke_3_cold_1(void *a1)
 {
   v1 = [a1 className];
-  OUTLINED_FUNCTION_0_3(&dword_243550000, v2, v3, "Not vending class with name %@ because it has a nil object ID", v4, v5, v6, v7, 2u);
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = v1;
+  OUTLINED_FUNCTION_0_3(&dword_243550000, v2, v3, "Not vending class with name %@ because it has a nil object ID", v4, v5, v6, v7, v8, DWORD2(v8));
 }
 
 void __42__CRKASMWorldBuildOperation_compileResult__block_invoke_cold_1(void *a1)
 {
   v1 = [a1 className];
-  OUTLINED_FUNCTION_0_3(&dword_243550000, v2, v3, "Not vending class with name %@ because it is missing a location", v4, v5, v6, v7, 2u);
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = v1;
+  OUTLINED_FUNCTION_0_3(&dword_243550000, v2, v3, "Not vending class with name %@ because it is missing a location", v4, v5, v6, v7, v8, DWORD2(v8));
 }
 
 @end

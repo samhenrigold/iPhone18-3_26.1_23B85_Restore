@@ -52,7 +52,7 @@
       if (os_log_type_enabled(v8, v9))
       {
         *buf = 138543362;
-        v147 = v11;
+        v145 = v11;
         _os_log_impl(&dword_0, v8, v9, "%{public}@", buf, 0xCu);
       }
     }
@@ -70,28 +70,28 @@
         [(MSCROHIMSBrailleDriver *)self unloadDriver];
       }
 
-      v138 = v12;
+      v136 = v12;
       infoDictionary = [v12 infoDictionary];
       [infoDictionary objectForKey:kSCROBrailleDriverModels];
-      v140 = v139 = elementCopy;
+      v138 = v137 = elementCopy;
       bluetoothAddress = [elementCopy bluetoothAddress];
       *&__nbyte[1] = 0u;
+      v140 = 0u;
+      v141 = 0u;
       v142 = 0u;
-      v143 = 0u;
-      v144 = 0u;
       v15 = +[BluetoothManager sharedInstance];
       pairedDevices = [v15 pairedDevices];
 
-      v17 = [pairedDevices countByEnumeratingWithState:&__nbyte[1] objects:v148 count:16];
+      v17 = [pairedDevices countByEnumeratingWithState:&__nbyte[1] objects:v146 count:16];
       if (v17)
       {
         v18 = v17;
-        v19 = *v142;
+        v19 = *v140;
 LABEL_14:
         v20 = 0;
         while (1)
         {
-          if (*v142 != v19)
+          if (*v140 != v19)
           {
             objc_enumerationMutation(pairedDevices);
           }
@@ -107,7 +107,7 @@ LABEL_14:
 
           if (v18 == ++v20)
           {
-            v18 = [pairedDevices countByEnumeratingWithState:&__nbyte[1] objects:v148 count:16];
+            v18 = [pairedDevices countByEnumeratingWithState:&__nbyte[1] objects:v146 count:16];
             if (v18)
             {
               goto LABEL_14;
@@ -126,7 +126,7 @@ LABEL_14:
 
         v32 = +[NSNotificationCenter defaultCenter];
         [v32 addObserver:self selector:"removeDeviceNotification:" name:BluetoothDeviceDisconnectSuccessNotification object:0];
-        v136 = v32;
+        v134 = v32;
         [v32 addObserver:self selector:"removeDeviceNotification:" name:BluetoothDeviceDisconnectFailedNotification object:0];
         if (([v31 connected]& 1) != 0)
         {
@@ -151,9 +151,9 @@ LABEL_14:
                 v41 = _AXStringForArgs();
                 if (os_log_type_enabled(v38, v39))
                 {
-                  *v145 = 138543362;
-                  *&v145[4] = v41;
-                  _os_log_impl(&dword_0, v38, v39, "%{public}@", v145, 0xCu);
+                  *v143 = 138543362;
+                  *&v143[4] = v41;
+                  _os_log_impl(&dword_0, v38, v39, "%{public}@", v143, 0xCu);
                 }
               }
             }
@@ -179,9 +179,9 @@ LABEL_14:
                   v65 = _AXStringForArgs();
                   if (os_log_type_enabled(v62, v63))
                   {
-                    *v145 = 138543362;
-                    *&v145[4] = v65;
-                    _os_log_impl(&dword_0, v62, v63, "%{public}@", v145, 0xCu);
+                    *v143 = 138543362;
+                    *&v143[4] = v65;
+                    _os_log_impl(&dword_0, v62, v63, "%{public}@", v143, 0xCu);
                   }
                 }
               }
@@ -192,8 +192,8 @@ LABEL_14:
             if ((v66 & 0x80000000) == 0)
             {
               objc_storeStrong(&self->_device, v21);
-              v135 = [objc_allocWithZone(NSFileHandle) initWithFileDescriptor:self->_comPort closeOnDealloc:1];
-              v67 = [objc_allocWithZone(SCRDFileReader) initWithDelegate:self fileHandle:v135];
+              v133 = [objc_allocWithZone(NSFileHandle) initWithFileDescriptor:self->_comPort closeOnDealloc:1];
+              v67 = [objc_allocWithZone(SCRDFileReader) initWithDelegate:self fileHandle:v133];
               readerThread = self->_readerThread;
               self->_readerThread = v67;
 
@@ -208,7 +208,7 @@ LABEL_14:
               readBufferLock = self->_readBufferLock;
               self->_readBufferLock = v70;
 
-              v48 = v136;
+              v48 = v134;
               if (self->_readBufferLock && (v72 = CFDataCreateMutable(kCFAllocatorDefault, 0), (self->_readBuffer = v72) != 0))
               {
                 [(SCRDFileReader *)self->_readerThread start];
@@ -224,41 +224,41 @@ LABEL_14:
                     v76 = v75;
                     if (self->_bluetoothChannelIsLost || self->_hasBeenUnloaded || v75 == kCFRunLoopRunStopped)
                     {
-                      v96 = +[AXSubsystemBrailleHardware sharedInstance];
-                      ignoreLogging4 = [v96 ignoreLogging];
+                      v94 = +[AXSubsystemBrailleHardware sharedInstance];
+                      ignoreLogging4 = [v94 ignoreLogging];
 
                       if (ignoreLogging4)
                       {
                         goto LABEL_117;
                       }
 
-                      v98 = +[AXSubsystemBrailleHardware identifier];
-                      v99 = AXLoggerForFacility();
+                      v96 = +[AXSubsystemBrailleHardware identifier];
+                      v97 = AXLoggerForFacility();
 
-                      v100 = AXOSLogLevelFromAXLogLevel();
-                      if (!os_log_type_enabled(v99, v100))
+                      v98 = AXOSLogLevelFromAXLogLevel();
+                      if (!os_log_type_enabled(v97, v98))
                       {
-                        v30 = v140;
-                        v48 = v136;
+                        v30 = v138;
+                        v48 = v134;
                         goto LABEL_143;
                       }
 
-                      v101 = AXColorizeFormatLog();
+                      v99 = AXColorizeFormatLog();
                       hasBeenUnloaded = self->_hasBeenUnloaded;
-                      v134 = v76;
+                      v132 = v76;
                       bluetoothChannelIsLost = self->_bluetoothChannelIsLost;
-                      v102 = _AXStringForArgs();
-                      if (!os_log_type_enabled(v99, v100))
+                      v100 = _AXStringForArgs();
+                      if (!os_log_type_enabled(v97, v98))
                       {
                         goto LABEL_106;
                       }
 
-                      *v145 = 138543362;
-                      *&v145[4] = v102;
-                      v103 = v99;
-                      v104 = v100;
+                      *v143 = 138543362;
+                      *&v143[4] = v100;
+                      v101 = v97;
+                      v102 = v98;
 LABEL_105:
-                      _os_log_impl(&dword_0, v103, v104, "%{public}@", v145, 0xCu);
+                      _os_log_impl(&dword_0, v101, v102, "%{public}@", v143, 0xCu);
                       goto LABEL_106;
                     }
 
@@ -273,38 +273,36 @@ LABEL_105:
                       v82 = safeReadBuffer;
                       v74 = v79;
                       CFDataAppendBytes(v82, BytePtr, v78);
-                      v149.location = 0;
-                      v149.length = v78;
-                      CFDataDeleteBytes(self->_readBuffer, v149);
+                      v147.location = 0;
+                      v147.length = v78;
+                      CFDataDeleteBytes(self->_readBuffer, v147);
                     }
 
                     [(NSLock *)self->_readBufferLock unlock];
-                    v83 = self->_safeReadBuffer;
                     SCRDAdvanceBufferToPacketStart();
                     if (CFDataGetLength(self->_safeReadBuffer) < 10)
                     {
 LABEL_80:
-                      v86 = 0;
+                      v84 = 0;
                     }
 
                     else
                     {
                       while (1)
                       {
-                        *&v145[8] = 0;
-                        *v145 = 0;
+                        *&v143[8] = 0;
+                        *v143 = 0;
                         CFDataGetBytePtr(self->_safeReadBuffer);
                         SCRDHIMSFillPacket();
-                        v21 = v21 & 0xFFFFFFFFFFFF0000 | *&v145[8];
-                        if (SCRDHIMSIsPacketValid() && v145[1] == 2)
+                        v21 = v21 & 0xFFFFFFFFFFFF0000 | *&v143[8];
+                        if (SCRDHIMSIsPacketValid() && v143[1] == 2)
                         {
                           break;
                         }
 
-                        v150.location = 0;
-                        v150.length = 1;
-                        CFDataDeleteBytes(self->_safeReadBuffer, v150);
-                        v85 = self->_safeReadBuffer;
+                        v148.location = 0;
+                        v148.length = 1;
+                        CFDataDeleteBytes(self->_safeReadBuffer, v148);
                         SCRDAdvanceBufferToPacketStart();
                         if (CFDataGetLength(self->_safeReadBuffer) <= 9)
                         {
@@ -312,65 +310,65 @@ LABEL_80:
                         }
                       }
 
-                      v86 = v145[3];
-                      v151.location = 0;
-                      v151.length = 1;
-                      CFDataDeleteBytes(self->_safeReadBuffer, v151);
+                      v84 = v143[3];
+                      v149.location = 0;
+                      v149.length = 1;
+                      CFDataDeleteBytes(self->_safeReadBuffer, v149);
                     }
 
                     if (v74 <= 3)
                     {
                       ++v74;
-                      if (!v86)
+                      if (!v84)
                       {
                         continue;
                       }
                     }
 
                     free(v73);
-                    if (v86 != 40)
+                    if (v84 != 40)
                     {
-                      if (v86 == 20)
+                      if (v84 == 20)
                       {
-                        v87 = @"com.apple.scrod.braille.driver.hims.braille.edge.20";
+                        v85 = @"com.apple.scrod.braille.driver.hims.braille.edge.20";
                         goto LABEL_109;
                       }
 
-                      v115 = +[AXSubsystemBrailleHardware sharedInstance];
-                      ignoreLogging5 = [v115 ignoreLogging];
+                      v113 = +[AXSubsystemBrailleHardware sharedInstance];
+                      ignoreLogging5 = [v113 ignoreLogging];
 
                       if (ignoreLogging5)
                       {
                         goto LABEL_116;
                       }
 
-                      v117 = +[AXSubsystemBrailleHardware identifier];
-                      v118 = AXLoggerForFacility();
+                      v115 = +[AXSubsystemBrailleHardware identifier];
+                      v116 = AXLoggerForFacility();
 
-                      v119 = AXOSLogLevelFromAXLogLevel();
-                      v110 = v118;
-                      if (os_log_type_enabled(v118, v119))
+                      v117 = AXOSLogLevelFromAXLogLevel();
+                      v108 = v116;
+                      if (os_log_type_enabled(v116, v117))
                       {
-                        v101 = AXColorizeFormatLog();
+                        v99 = AXColorizeFormatLog();
                         bluetoothChannelIsLost = self->_modelIdentifier;
-                        v102 = _AXStringForArgs();
-                        if (os_log_type_enabled(v118, v119))
+                        v100 = _AXStringForArgs();
+                        if (os_log_type_enabled(v116, v117))
                         {
-                          *v145 = 138543362;
-                          *&v145[4] = v102;
+                          *v143 = 138543362;
+                          *&v143[4] = v100;
                           goto LABEL_137;
                         }
 
 LABEL_140:
                         v73 = 0;
 LABEL_141:
-                        v30 = v140;
-                        v48 = v136;
-                        v99 = v110;
+                        v30 = v138;
+                        v48 = v134;
+                        v97 = v108;
 LABEL_142:
 
 LABEL_143:
-                        v95 = v135;
+                        v93 = v133;
 LABEL_144:
 
                         goto LABEL_118;
@@ -379,108 +377,108 @@ LABEL_144:
 LABEL_138:
                       v73 = 0;
 LABEL_139:
-                      v30 = v140;
-                      v95 = v135;
-                      v48 = v136;
-                      v99 = v110;
+                      v30 = v138;
+                      v93 = v133;
+                      v48 = v134;
+                      v97 = v108;
                       goto LABEL_144;
                     }
 
-                    v87 = @"com.apple.scrod.braille.driver.hims.braille.edge.40";
+                    v85 = @"com.apple.scrod.braille.driver.hims.braille.edge.40";
 LABEL_109:
                     modelIdentifier = self->_modelIdentifier;
-                    self->_modelIdentifier = &v87->isa;
+                    self->_modelIdentifier = &v85->isa;
 
-                    v112 = [v140 objectForKey:self->_modelIdentifier];
-                    if (v112)
+                    v110 = [v138 objectForKey:self->_modelIdentifier];
+                    if (v110)
                     {
-                      v113 = v112;
-                      v114 = [(NSLock *)v112 objectForKey:kSCROBrailleDriverMainDisplaySize];
-                      self->_mainSize = [v114 unsignedCharValue];
+                      v111 = v110;
+                      v112 = [(NSLock *)v110 objectForKey:kSCROBrailleDriverMainDisplaySize];
+                      self->_mainSize = [v112 unsignedCharValue];
 
                       v26 = 0;
                       self->_isDriverLoaded = 1;
-                      v30 = v140;
-                      v95 = v135;
-                      v48 = v136;
+                      v30 = v138;
+                      v93 = v133;
+                      v48 = v134;
                       goto LABEL_125;
                     }
 
-                    v120 = +[AXSubsystemBrailleHardware sharedInstance];
-                    ignoreLogging6 = [v120 ignoreLogging];
+                    v118 = +[AXSubsystemBrailleHardware sharedInstance];
+                    ignoreLogging6 = [v118 ignoreLogging];
 
                     if (ignoreLogging6)
                     {
 LABEL_116:
                       v73 = 0;
 LABEL_117:
-                      v30 = v140;
-                      v95 = v135;
-                      v48 = v136;
+                      v30 = v138;
+                      v93 = v133;
+                      v48 = v134;
                       goto LABEL_118;
                     }
 
-                    v129 = +[AXSubsystemBrailleHardware identifier];
-                    v130 = AXLoggerForFacility();
+                    v127 = +[AXSubsystemBrailleHardware identifier];
+                    v128 = AXLoggerForFacility();
 
-                    v119 = AXOSLogLevelFromAXLogLevel();
-                    v110 = v130;
-                    if (!os_log_type_enabled(v130, v119))
+                    v117 = AXOSLogLevelFromAXLogLevel();
+                    v108 = v128;
+                    if (!os_log_type_enabled(v128, v117))
                     {
                       goto LABEL_138;
                     }
 
-                    v101 = AXColorizeFormatLog();
+                    v99 = AXColorizeFormatLog();
                     bluetoothChannelIsLost = self->_modelIdentifier;
-                    v102 = _AXStringForArgs();
-                    if (!os_log_type_enabled(v130, v119))
+                    v100 = _AXStringForArgs();
+                    if (!os_log_type_enabled(v128, v117))
                     {
                       goto LABEL_140;
                     }
 
-                    *v145 = 138543362;
-                    *&v145[4] = v102;
+                    *v143 = 138543362;
+                    *&v143[4] = v100;
 LABEL_137:
-                    v131 = v119;
-                    v99 = v110;
-                    _os_log_impl(&dword_0, v110, v131, "%{public}@", v145, 0xCu);
+                    v129 = v117;
+                    v97 = v108;
+                    _os_log_impl(&dword_0, v108, v129, "%{public}@", v143, 0xCu);
                     v73 = 0;
 LABEL_106:
-                    v30 = v140;
-                    v48 = v136;
+                    v30 = v138;
+                    v48 = v134;
                     goto LABEL_142;
                   }
 
-                  v105 = +[AXSubsystemBrailleHardware sharedInstance];
-                  ignoreLogging7 = [v105 ignoreLogging];
+                  v103 = +[AXSubsystemBrailleHardware sharedInstance];
+                  ignoreLogging7 = [v103 ignoreLogging];
 
                   if (ignoreLogging7)
                   {
                     goto LABEL_117;
                   }
 
-                  v107 = +[AXSubsystemBrailleHardware identifier];
-                  v108 = AXLoggerForFacility();
+                  v105 = +[AXSubsystemBrailleHardware identifier];
+                  v106 = AXLoggerForFacility();
 
-                  v109 = AXOSLogLevelFromAXLogLevel();
-                  v110 = v108;
-                  if (!os_log_type_enabled(v108, v109))
+                  v107 = AXOSLogLevelFromAXLogLevel();
+                  v108 = v106;
+                  if (!os_log_type_enabled(v106, v107))
                   {
                     goto LABEL_139;
                   }
 
-                  v101 = AXColorizeFormatLog();
-                  v102 = _AXStringForArgs();
-                  if (!os_log_type_enabled(v108, v109))
+                  v99 = AXColorizeFormatLog();
+                  v100 = _AXStringForArgs();
+                  if (!os_log_type_enabled(v106, v107))
                   {
                     goto LABEL_141;
                   }
 
-                  *v145 = 138543362;
-                  *&v145[4] = v102;
-                  v103 = v108;
-                  v104 = v109;
-                  v99 = v108;
+                  *v143 = 138543362;
+                  *&v143[4] = v100;
+                  v101 = v106;
+                  v102 = v107;
+                  v97 = v106;
                   goto LABEL_105;
                 }
               }
@@ -490,17 +488,17 @@ LABEL_106:
                 v73 = 0;
               }
 
-              v30 = v140;
-              v95 = v135;
+              v30 = v138;
+              v93 = v133;
 LABEL_118:
               [(SCRDFileReader *)self->_readerThread invalidate:bluetoothChannelIsLost];
-              v122 = self->_readerThread;
+              v120 = self->_readerThread;
               self->_readerThread = 0;
 
-              v123 = self->_safeReadBuffer;
-              if (v123)
+              v121 = self->_safeReadBuffer;
+              if (v121)
               {
-                CFRelease(v123);
+                CFRelease(v121);
                 self->_safeReadBuffer = 0;
               }
 
@@ -513,11 +511,11 @@ LABEL_118:
                 self->_readBuffer = 0;
               }
 
-              v113 = self->_readBufferLock;
-              v125 = self->_readBufferLock;
+              v111 = self->_readBufferLock;
+              v123 = self->_readBufferLock;
               self->_readBufferLock = 0;
 
-              [(NSLock *)v113 unlock];
+              [(NSLock *)v111 unlock];
               device = self->_device;
               self->_device = 0;
 
@@ -527,7 +525,7 @@ LABEL_118:
               }
 
               self->_comPort = -1;
-              v127 = self->_modelIdentifier;
+              v125 = self->_modelIdentifier;
               self->_modelIdentifier = 0;
 
               self->_mainSize = 0;
@@ -537,25 +535,25 @@ LABEL_125:
               goto LABEL_126;
             }
 
-            v88 = +[AXSubsystemBrailleHardware sharedInstance];
-            ignoreLogging8 = [v88 ignoreLogging];
+            v86 = +[AXSubsystemBrailleHardware sharedInstance];
+            ignoreLogging8 = [v86 ignoreLogging];
 
             if ((ignoreLogging8 & 1) == 0)
             {
-              v90 = +[AXSubsystemBrailleHardware identifier];
-              v91 = AXLoggerForFacility();
+              v88 = +[AXSubsystemBrailleHardware identifier];
+              v89 = AXLoggerForFacility();
 
-              v92 = AXOSLogLevelFromAXLogLevel();
-              if (os_log_type_enabled(v91, v92))
+              v90 = AXOSLogLevelFromAXLogLevel();
+              if (os_log_type_enabled(v89, v90))
               {
-                v93 = AXColorizeFormatLog();
+                v91 = AXColorizeFormatLog();
                 bluetoothChannelIsLost = self->_comPort;
-                v94 = _AXStringForArgs();
-                if (os_log_type_enabled(v91, v92))
+                v92 = _AXStringForArgs();
+                if (os_log_type_enabled(v89, v90))
                 {
-                  *v145 = 138543362;
-                  *&v145[4] = v94;
-                  _os_log_impl(&dword_0, v91, v92, "%{public}@", v145, 0xCu);
+                  *v143 = 138543362;
+                  *&v143[4] = v92;
+                  _os_log_impl(&dword_0, v89, v90, "%{public}@", v143, 0xCu);
                 }
               }
             }
@@ -563,13 +561,13 @@ LABEL_125:
             self->_comPort = -1;
           }
 
-          v48 = v136;
-          [v136 removeObserver:{self, bluetoothChannelIsLost}];
+          v48 = v134;
+          [v134 removeObserver:{self, bluetoothChannelIsLost}];
           v26 = 1;
-          v30 = v140;
+          v30 = v138;
 LABEL_126:
-          v12 = v138;
-          elementCopy = v139;
+          v12 = v136;
+          elementCopy = v137;
           v29 = infoDictionary;
           goto LABEL_127;
         }
@@ -590,7 +588,7 @@ LABEL_126:
             if (os_log_type_enabled(v55, v56))
             {
               *buf = 138543362;
-              v147 = v58;
+              v145 = v58;
               _os_log_impl(&dword_0, v55, v56, "%{public}@", buf, 0xCu);
             }
           }
@@ -599,8 +597,8 @@ LABEL_126:
         v48 = v32;
         [v32 removeObserver:self];
         v26 = 1;
-        v12 = v138;
-        elementCopy = v139;
+        v12 = v136;
+        elementCopy = v137;
         v29 = infoDictionary;
       }
 
@@ -615,10 +613,10 @@ LABEL_35:
         if (ignoreLogging10)
         {
           v26 = 1;
-          v12 = v138;
-          elementCopy = v139;
+          v12 = v136;
+          elementCopy = v137;
           v29 = infoDictionary;
-          v30 = v140;
+          v30 = v138;
 LABEL_129:
 
 LABEL_130:
@@ -633,9 +631,9 @@ LABEL_130:
         v29 = infoDictionary;
         if (!os_log_type_enabled(v31, v47))
         {
-          v12 = v138;
-          elementCopy = v139;
-          v30 = v140;
+          v12 = v136;
+          elementCopy = v137;
+          v30 = v138;
 LABEL_128:
 
           goto LABEL_129;
@@ -646,15 +644,15 @@ LABEL_128:
         if (os_log_type_enabled(v31, v47))
         {
           *buf = 138543362;
-          v147 = v49;
+          v145 = v49;
           _os_log_impl(&dword_0, v31, v47, "%{public}@", buf, 0xCu);
         }
 
-        v12 = v138;
-        elementCopy = v139;
+        v12 = v136;
+        elementCopy = v137;
       }
 
-      v30 = v140;
+      v30 = v138;
 LABEL_127:
 
       goto LABEL_128;
@@ -682,7 +680,7 @@ LABEL_131:
       if (os_log_type_enabled(v29, v51))
       {
         *buf = 138543362;
-        v147 = bluetoothAddress;
+        v145 = bluetoothAddress;
         _os_log_impl(&dword_0, v29, v51, "%{public}@", buf, 0xCu);
       }
 
@@ -714,7 +712,7 @@ LABEL_132:
       if (os_log_type_enabled(v12, v28))
       {
         *buf = 138543362;
-        v147 = v30;
+        v145 = v30;
         _os_log_impl(&dword_0, v12, v28, "%{public}@", buf, 0xCu);
       }
 
@@ -828,18 +826,17 @@ LABEL_133:
 
 - (BOOL)setMainCells:(const char *)cells length:(int64_t)length
 {
-  mainSize_low = LOBYTE(self->_mainSize);
-  v6 = SCRDHIMSCreateRequest();
-  if (!v6)
+  v5 = SCRDHIMSCreateRequest();
+  if (!v5)
   {
     return 0;
   }
 
-  v7 = v6;
+  v6 = v5;
   comPort = self->_comPort;
-  v9 = comPort != -1 && write(comPort, v7, 0) == 0;
-  free(v7);
-  return v9;
+  v8 = comPort != -1 && write(comPort, v6, 0) == 0;
+  free(v6);
+  return v8;
 }
 
 - (void)fileReader:(id)reader data:(const void *)data length:(unint64_t)length

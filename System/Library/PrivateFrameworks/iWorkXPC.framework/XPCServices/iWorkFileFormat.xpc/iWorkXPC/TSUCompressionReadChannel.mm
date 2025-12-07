@@ -1,10 +1,31 @@
 @interface TSUCompressionReadChannel
+- (TSUCompressionReadChannel)initWithReadChannel:(id)channel compressionAlgorithm:(int)algorithm operation:(int)operation;
 - (void)close;
 - (void)dealloc;
 - (void)readWithHandler:(id)handler;
 @end
 
 @implementation TSUCompressionReadChannel
+
+- (TSUCompressionReadChannel)initWithReadChannel:(id)channel compressionAlgorithm:(int)algorithm operation:(int)operation
+{
+  v5 = *&operation;
+  v6 = *&algorithm;
+  channelCopy = channel;
+  v15.receiver = self;
+  v15.super_class = TSUCompressionReadChannel;
+  v10 = [(TSUCompressionReadChannel *)&v15 init];
+  v11 = v10;
+  if (v10)
+  {
+    objc_storeStrong(&v10->_readChannel, channel);
+    v12 = [[TSUStreamCompression alloc] initWithAlgorithm:v6 operation:v5];
+    compressor = v11->_compressor;
+    v11->_compressor = v12;
+  }
+
+  return v11;
+}
 
 - (void)dealloc
 {

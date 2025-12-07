@@ -1,10 +1,10 @@
 @interface FigCameraViewfinderSessionRemote
 - ($115C4C562B26FF47E01F9F4EA65B5887)clientAuditToken;
 - (id)_initWithRemoteViewfinderSession:(id)session clientAuditToken:(id *)token usesPhotoOutput:(BOOL)output usesMovieFileOutput:(BOOL)fileOutput delegateStorage:(id)storage;
-- (uint64_t)_setupStateMachine;
 - (void)_movieRecordingDidFinish;
 - (void)_movieRecordingDidStart;
 - (void)_serverDied;
+- (void)_setupStateMachine;
 - (void)closePreviewStream;
 - (void)dealloc;
 - (void)openPreviewStreamWithOptions:(id)options;
@@ -12,13 +12,13 @@
 
 @implementation FigCameraViewfinderSessionRemote
 
-- (uint64_t)_setupStateMachine
+- (void)_setupStateMachine
 {
   if (result)
   {
     v1 = result;
     v2 = [[FigStateMachine alloc] initWithLabel:@"FigCameraViewfinderSessionRemoteStateMachine" stateCount:4 initialState:1 owner:result];
-    *(v1 + 64) = v2;
+    v1[8] = v2;
     [(FigStateMachine *)v2 setLabel:@"Idle" forState:1];
     [OUTLINED_FUNCTION_0_28() setLabel:@"OpeningPreviewStream" forState:2];
     [OUTLINED_FUNCTION_0_28() setLabel:@"StreamingPreview" forState:4];
@@ -98,7 +98,7 @@
   }
 }
 
-uint64_t __54__FigCameraViewfinderSessionRemote__setupStateMachine__block_invoke(uint64_t a1, uint64_t a2, int a3, uint64_t a4, int a5)
+void *__54__FigCameraViewfinderSessionRemote__setupStateMachine__block_invoke(uint64_t a1, uint64_t a2, int a3, uint64_t a4, int a5)
 {
   if (a3 != 1)
   {
@@ -111,7 +111,7 @@ uint64_t __54__FigCameraViewfinderSessionRemote__setupStateMachine__block_invoke
     v9[3] = &unk_1E79908B8;
     v9[4] = a2;
     v10 = a5;
-    return [v7 invokeDelegateCallbackWithBlock:v9];
+    return [v7 invokeDelegateCallbackWithBlock:{v9, a4}];
   }
 
   return result;
@@ -168,7 +168,7 @@ uint64_t __54__FigCameraViewfinderSessionRemote__setupStateMachine__block_invoke
   return result;
 }
 
-uint64_t __54__FigCameraViewfinderSessionRemote__setupStateMachine__block_invoke_165(uint64_t a1, uint64_t a2, int a3)
+void *__54__FigCameraViewfinderSessionRemote__setupStateMachine__block_invoke_165(uint64_t a1, uint64_t a2, int a3)
 {
   if (a3 == 8)
   {

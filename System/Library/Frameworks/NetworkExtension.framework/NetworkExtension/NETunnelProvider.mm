@@ -1,6 +1,7 @@
 @interface NETunnelProvider
 - (NETunnelProviderRoutingMethod)routingMethod;
 - (void)handleAppMessage:(NSData *)messageData completionHandler:(void *)completionHandler;
+- (void)setReasserting:(BOOL)reasserting;
 - (void)setTunnelNetworkSettings:(NETunnelNetworkSettings *)tunnelNetworkSettings completionHandler:(void *)completionHandler;
 @end
 
@@ -66,26 +67,44 @@
 
 - (void)handleAppMessage:(NSData *)messageData completionHandler:(void *)completionHandler
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v6 = messageData;
   v7 = completionHandler;
   v8 = ne_log_obj();
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
-    v10 = 138412546;
+    v9 = 138412546;
     selfCopy = self;
-    v12 = 2112;
-    v13 = v6;
-    _os_log_impl(&dword_1BA83C000, v8, OS_LOG_TYPE_INFO, "%@: Handle App Message with %@", &v10, 0x16u);
+    v11 = 2112;
+    v12 = v6;
+    _os_log_impl(&dword_1BA83C000, v8, OS_LOG_TYPE_INFO, "%@: Handle App Message with %@", &v9, 0x16u);
   }
 
   v7[2](v7, 0);
-  v9 = *MEMORY[0x1E69E9840];
+}
+
+- (void)setReasserting:(BOOL)reasserting
+{
+  v3 = reasserting;
+  v11 = *MEMORY[0x1E69E9840];
+  v5 = ne_log_obj();
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  {
+    v7 = 138412546;
+    selfCopy = self;
+    v9 = 1024;
+    v10 = v3;
+    _os_log_impl(&dword_1BA83C000, v5, OS_LOG_TYPE_DEFAULT, "%@: setting reasserting %d", &v7, 0x12u);
+  }
+
+  self->_reasserting = v3;
+  context = [(NEProvider *)self context];
+  [context didSetReasserting:v3];
 }
 
 - (void)setTunnelNetworkSettings:(NETunnelNetworkSettings *)tunnelNetworkSettings completionHandler:(void *)completionHandler
 {
-  v26[1] = *MEMORY[0x1E69E9840];
+  v25[1] = *MEMORY[0x1E69E9840];
   v6 = tunnelNetworkSettings;
   v7 = completionHandler;
   v8 = objc_alloc_init(MEMORY[0x1E695DF70]);
@@ -101,11 +120,11 @@
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
       v9 = MEMORY[0x1E696ABC0];
-      v25 = *MEMORY[0x1E696A578];
-      v26[0] = @"NEPacketTunnelNetworkSettings can only be used with NEPacketTunnelProvider";
+      v24 = *MEMORY[0x1E696A578];
+      v25[0] = @"NEPacketTunnelNetworkSettings can only be used with NEPacketTunnelProvider";
       v10 = MEMORY[0x1E695DF20];
-      v11 = v26;
-      v12 = &v25;
+      v11 = v25;
+      v12 = &v24;
       goto LABEL_14;
     }
   }
@@ -117,11 +136,11 @@
     if (objc_opt_isKindOfClass())
     {
       v9 = MEMORY[0x1E696ABC0];
-      v23 = *MEMORY[0x1E696A578];
-      v24 = @"NEPacketTunnelNetworkSettings must be used with NEPacketTunnelProvider";
+      v22 = *MEMORY[0x1E696A578];
+      v23 = @"NEPacketTunnelNetworkSettings must be used with NEPacketTunnelProvider";
       v10 = MEMORY[0x1E695DF20];
-      v11 = &v24;
-      v12 = &v23;
+      v11 = &v23;
+      v12 = &v22;
 LABEL_14:
       v16 = [v10 dictionaryWithObjects:v11 forKeys:v12 count:1];
       context = [v9 errorWithDomain:@"NETunnelProviderErrorDomain" code:1 userInfo:v16];
@@ -144,8 +163,8 @@ LABEL_14:
     if ([v8 count])
     {
       v15 = [v8 componentsJoinedByString:{@"\n", *MEMORY[0x1E696A578]}];
-      v20 = v15;
-      context = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v20 forKeys:&v19 count:1];
+      v19 = v15;
+      context = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v19 forKeys:&v18 count:1];
     }
 
     else
@@ -165,8 +184,6 @@ LABEL_8:
   }
 
 LABEL_17:
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 @end

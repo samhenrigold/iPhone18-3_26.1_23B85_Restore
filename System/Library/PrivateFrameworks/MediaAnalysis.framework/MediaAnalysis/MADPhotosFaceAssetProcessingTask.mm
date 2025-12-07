@@ -43,7 +43,7 @@
 
 + (unint64_t)_concurrentQueueCount
 {
-  if ((atomic_load_explicit(&qword_1002B83A8, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(byte_1002B83A8, memory_order_acquire) & 1) == 0)
   {
     sub_1000DCB0C();
   }

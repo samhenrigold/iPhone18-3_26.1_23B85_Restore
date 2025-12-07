@@ -8,61 +8,46 @@
 
 + (BOOL)isOnenessAssertionActive
 {
-  v7 = *MEMORY[0x1E69E9840];
   extended_device_state = aks_get_extended_device_state(0);
-  if (extended_device_state)
+  if (!extended_device_state)
   {
-    v3 = extended_device_state;
-    v4 = LACLogABM();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
-    {
-      +[(LACAKSHelper *)v3];
-    }
-
-    result = 0;
+    return 0;
   }
 
-  else
+  v3 = extended_device_state;
+  v4 = LACLogABM(extended_device_state);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    result = 0;
+    +[(LACAKSHelper *)v3];
   }
 
-  v6 = *MEMORY[0x1E69E9840];
-  return result;
+  return 0;
 }
 
 + (int64_t)deviceLockState
 {
-  v7 = *MEMORY[0x1E69E9840];
   device_state = aks_get_device_state(0);
-  if (device_state)
+  if (!device_state)
   {
-    v3 = device_state;
-    v4 = LACLogABM();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
-    {
-      +[(LACAKSHelper *)v3];
-    }
-
-    result = 0;
+    return 0;
   }
 
-  else
+  v3 = device_state;
+  v4 = LACLogABM(device_state);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    result = 0;
+    +[(LACAKSHelper *)v3];
   }
 
-  v6 = *MEMORY[0x1E69E9840];
-  return result;
+  return 0;
 }
 
 + (void)deviceLockState
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v3[0] = 67109120;
-  v3[1] = self;
-  _os_log_error_impl(&dword_1B0233000, a2, OS_LOG_TYPE_ERROR, "AKS get device state returned non-zero result: %d", v3, 8u);
-  v2 = *MEMORY[0x1E69E9840];
+  v3 = *MEMORY[0x1E69E9840];
+  v2[0] = 67109120;
+  v2[1] = self;
+  _os_log_error_impl(&dword_1B0233000, a2, OS_LOG_TYPE_ERROR, "AKS get device state returned non-zero result: %d", v2, 8u);
 }
 
 @end

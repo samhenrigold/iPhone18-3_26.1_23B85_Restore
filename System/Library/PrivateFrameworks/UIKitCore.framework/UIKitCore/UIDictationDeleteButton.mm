@@ -52,7 +52,7 @@
   [v12 setButtonSize:3];
   [(UIButton *)self->_button setConfiguration:v12];
   [(UIView *)self->_button setTranslatesAutoresizingMaskIntoConstraints:0];
-  v15 = +[UIColor blackColor];
+  v15 = objc_msgSend_blackColor(UIColor);
   cGColor = [v15 CGColor];
   layer = [(UIView *)self->_button layer];
   [layer setShadowColor:cGColor];

@@ -139,7 +139,7 @@
 
 - (void)configureWithDelegate:(id)delegate nearbyPlayers:(id)players
 {
-  sub_24DF88A8C(0, &qword_27F1DF028);
+  sub_24DF88A8C(0, &qword_27F1DF028, 0x277D0C170);
   v6 = sub_24E347F08();
   swift_unknownObjectRetain();
   selfCopy = self;
@@ -149,7 +149,7 @@
 
 - (void)updateNearbyPlayers:(id)players
 {
-  sub_24DF88A8C(0, &qword_27F1DF028);
+  sub_24DF88A8C(0, &qword_27F1DF028, 0x277D0C170);
   v4 = sub_24E347F08();
   selfCopy = self;
   GKSuggestionsContainerCell.updateNearbyPlayers(_:)(v4);
@@ -227,7 +227,7 @@
   sub_24E343498();
   viewCopy = view;
   selfCopy = self;
-  LOBYTE(self) = GKSuggestionsContainerCell.collectionView(_:shouldSelectItemAt:)();
+  LOBYTE(self) = GKSuggestionsContainerCell.collectionView(_:shouldSelectItemAt:)(selfCopy, v9);
 
   (*(v7 + 8))(v9, v6);
   return self & 1;
@@ -257,10 +257,10 @@
 
 - (void)updateVisibleItemsWithPlayers:(id)players excludedIndexPath:(id)path
 {
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27F1E6C80);
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27F1E6C80, qword_24E3715F0);
   MEMORY[0x28223BE20](v6 - 8);
   v8 = &v12 - v7;
-  sub_24DF88A8C(0, &qword_27F1DF028);
+  sub_24DF88A8C(0, &qword_27F1DF028, 0x277D0C170);
   sub_24E347F08();
   if (path)
   {
@@ -279,7 +279,7 @@
   selfCopy = self;
   GKSuggestionsContainerCell.updateVisibleItems(players:excludedIndexPath:)();
 
-  sub_24DF8C95C(v8, &unk_27F1E6C80);
+  sub_24DF8C95C(v8, &unk_27F1E6C80, qword_24E3715F0);
 }
 
 - (void)handleLongPressGesture:(id)gesture
@@ -330,7 +330,7 @@
   groupCopy = group;
   selfCopy = self;
   GKSuggestionsContainerCell.didSelectPlayerGroup(_:indexPath:dataSourceIdentifier:completion:)(groupCopy, v12, v14, v16, v13, v17);
-  sub_24DE73FA0(v13);
+  sub_24DE73FA0(v13, v17);
 
   (*(v10 + 8))(v12, v9);
 }
@@ -342,7 +342,7 @@
   MEMORY[0x28223BE20](v8);
   v11 = &v19 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
   v12 = _Block_copy(completion);
-  sub_24DF88A8C(0, &qword_27F1DF028);
+  sub_24DF88A8C(0, &qword_27F1DF028, 0x277D0C170);
   v13 = sub_24E347F08();
   sub_24E343498();
   v14 = sub_24E347CF8();
@@ -361,7 +361,7 @@
 
   selfCopy = self;
   GKSuggestionsContainerCell.didSelectPlayers(_:indexPath:dataSourceIdentifier:completion:)(v13, v11, v14, v16, v12, v17);
-  sub_24DE73FA0(v12);
+  sub_24DE73FA0(v12, v17);
 
   (*(v9 + 8))(v11, v8);
 }
@@ -391,7 +391,7 @@
   groupCopy = group;
   selfCopy = self;
   GKSuggestionsContainerCell.didDeselectPlayerGroup(_:indexPath:dataSourceIdentifier:completion:)(groupCopy, v12, v14, v16, v13, v17);
-  sub_24DE73FA0(v13);
+  sub_24DE73FA0(v13, v17);
 
   (*(v10 + 8))(v12, v9);
 }
@@ -403,7 +403,7 @@
   MEMORY[0x28223BE20](v8);
   v11 = &v19 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
   v12 = _Block_copy(completion);
-  sub_24DF88A8C(0, &qword_27F1DF028);
+  sub_24DF88A8C(0, &qword_27F1DF028, 0x277D0C170);
   v13 = sub_24E347F08();
   sub_24E343498();
   v14 = sub_24E347CF8();
@@ -422,7 +422,7 @@
 
   selfCopy = self;
   GKSuggestionsContainerCell.didDeselectPlayers(_:indexPath:dataSourceIdentifier:completion:)(v13, v11, v14, v16, v12, v17);
-  sub_24DE73FA0(v12);
+  sub_24DE73FA0(v12, v17);
 
   (*(v9 + 8))(v11, v8);
 }
@@ -471,7 +471,7 @@
 
 - (void)didAttemptSelectingAlreadySelectedPlayers:(id)players inGroup:(id)group
 {
-  sub_24DF88A8C(0, &qword_27F1DF028);
+  sub_24DF88A8C(0, &qword_27F1DF028, 0x277D0C170);
   v6 = sub_24E347F08();
   groupCopy = group;
   selfCopy = self;

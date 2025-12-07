@@ -1,4 +1,5 @@
 @interface ISImageDescriptor
++ (ISImageDescriptor)imageDescriptorWithIconVariant:(int)variant options:(int)options;
 + (id)imageDescriptorNamed:(id)named;
 - (BOOL)digest:(void *)digest size:(unint64_t)size;
 - (BOOL)isEqual:(id)equal;
@@ -11,6 +12,7 @@
 - (NSString)description;
 - (NSUUID)digest;
 - (double)continuousCornerRadius;
+- (id)_recipePreferRichRecipe:(BOOL)recipe;
 - (id)copyWithZone:(_NSZone *)zone;
 - (int64_t)appearance;
 - (int64_t)appearanceVariant;
@@ -47,17 +49,15 @@
 
 - (NSUUID)digest
 {
-  v6[2] = *MEMORY[0x1E69E9840];
-  v6[0] = 0;
-  v6[1] = 0;
-  v2 = [(ISImageDescriptor *)self digest:v6 size:16];
+  v5[2] = *MEMORY[0x1E69E9840];
+  v5[0] = 0;
+  v5[1] = 0;
+  v2 = [(ISImageDescriptor *)self digest:v5 size:16];
   v3 = 0;
   if (v2)
   {
-    v3 = [MEMORY[0x1E696AFB0] _IF_UUIDWithDigestBytes:v6 size:16];
+    v3 = [MEMORY[0x1E696AFB0] _IF_UUIDWithDigestBytes:v5 size:16];
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 
   return v3;
 }
@@ -165,6 +165,113 @@
   MGGetFloat32Answer();
 
   return [(ISImageDescriptor *)self initWithSize:60.0 scale:60.0, v3];
+}
+
+- (id)_recipePreferRichRecipe:(BOOL)recipe
+{
+  recipeCopy = recipe;
+  shape = [(ISImageDescriptor *)self shape];
+  if (shape > 3)
+  {
+    if (shape == 4)
+    {
+      v7 = objc_alloc_init(ISMessagesAppRecipe);
+      [(ISMessagesAppRecipe *)v7 setShouldDrawBorder:[(ISImageDescriptor *)self drawBorder]];
+      goto LABEL_17;
+    }
+
+    if (shape != 5)
+    {
+      if (shape == 6)
+      {
+        v7 = objc_opt_new();
+        [(ISMessagesAppRecipe *)v7 setShouldOnlyDrawBorder:1];
+        goto LABEL_17;
+      }
+
+      goto LABEL_12;
+    }
+
+    v10 = objc_opt_new();
+  }
+
+  else
+  {
+    switch(shape)
+    {
+      case 1:
+        v8 = 4;
+        break;
+      case 2:
+        v8 = 8;
+        break;
+      case 3:
+        v6 = +[ISPlatformInfo sharedInstance];
+        v7 = +[ISRecipeInfo documentRecipeForPlatform:descriptor:](ISRecipeInfo, "documentRecipeForPlatform:descriptor:", [v6 nativePlatform], self);
+
+        goto LABEL_17;
+      default:
+LABEL_12:
+        v9 = +[ISPlatformInfo sharedInstance];
+        v7 = +[ISRecipeInfo appRecipeForPlatform:descriptor:preferRichRecipe:](ISRecipeInfo, "appRecipeForPlatform:descriptor:preferRichRecipe:", [v9 nativePlatform], self, recipeCopy);
+
+        goto LABEL_17;
+    }
+
+    v10 = [ISRecipeInfo appRecipeForPlatform:v8 descriptor:self preferRichRecipe:recipeCopy];
+  }
+
+  v7 = v10;
+LABEL_17:
+
+  return v7;
+}
+
++ (ISImageDescriptor)imageDescriptorWithIconVariant:(int)variant options:(int)options
+{
+  v5 = *&variant;
+  v18 = *MEMORY[0x1E69E9840];
+  LIIconOutputSizeForVariant();
+  v8 = [[ISImageDescriptor alloc] initWithSize:v6 scale:v7, MEMORY[0x1AC55B080](v5)];
+  if ([ISIcon variant:v5 isMemberOfSet:4])
+  {
+    v9 = [(ISImageDescriptor *)v8 setShape:4];
+    if ((options & 0x10000) != 0)
+    {
+      goto LABEL_8;
+    }
+
+LABEL_7:
+    v9 = [(ISImageDescriptor *)v8 setDrawBorder:1];
+    goto LABEL_8;
+  }
+
+  if ([ISIcon variant:v5 isMemberOfSet:3])
+  {
+    v9 = [(ISImageDescriptor *)v8 setShape:2];
+    goto LABEL_8;
+  }
+
+  v9 = [ISIcon variant:v5 isMemberOfSet:1];
+  if (v9)
+  {
+    goto LABEL_7;
+  }
+
+LABEL_8:
+  v10 = _ISDefaultLog(v9);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+  {
+    v12 = 138412802;
+    v13 = v8;
+    v14 = 1024;
+    v15 = v5;
+    v16 = 1024;
+    optionsCopy = options;
+    _os_log_debug_impl(&dword_1A77B8000, v10, OS_LOG_TYPE_DEBUG, "Created image descriptor: %@ from variant: %d options: %x", &v12, 0x18u);
+  }
+
+  return v8;
 }
 
 - (ISImageDescriptor)initWithSize:(CGSize)size scale:(double)scale
@@ -522,23 +629,23 @@
   v5 = !v4;
   if (!v4)
   {
-    memset(&v23, 0, sizeof(v23));
-    CC_SHA256_Init(&v23);
+    memset(&v22, 0, sizeof(v22));
+    CC_SHA256_Init(&v22);
     [(ISImageDescriptor *)self scale];
     data[0] = v9;
-    CC_SHA256_Update(&v23, data, 8u);
+    CC_SHA256_Update(&v22, data, 8u);
     data[0] = [(ISImageDescriptor *)self variantOptions];
-    CC_SHA256_Update(&v23, data, 8u);
+    CC_SHA256_Update(&v22, data, 8u);
     data[0] = [(ISImageDescriptor *)self layoutDirection];
-    CC_SHA256_Update(&v23, data, 8u);
+    CC_SHA256_Update(&v22, data, 8u);
     data[0] = [(ISImageDescriptor *)self appearance];
-    CC_SHA256_Update(&v23, data, 8u);
+    CC_SHA256_Update(&v22, data, 8u);
     data[0] = [(ISImageDescriptor *)self contrast];
-    CC_SHA256_Update(&v23, data, 8u);
+    CC_SHA256_Update(&v22, data, 8u);
     data[0] = [(ISImageDescriptor *)self vibrancy];
-    CC_SHA256_Update(&v23, data, 8u);
+    CC_SHA256_Update(&v22, data, 8u);
     data[0] = [(ISImageDescriptor *)self appearanceVariant];
-    CC_SHA256_Update(&v23, data, 8u);
+    CC_SHA256_Update(&v22, data, 8u);
     tintColor = [(ISImageDescriptor *)self tintColor];
 
     if (tintColor)
@@ -549,16 +656,16 @@
       digest = [tintColor2 digest];
       [digest getUUIDBytes:data];
 
-      CC_SHA256_Update(&v23, data, 0x10u);
+      CC_SHA256_Update(&v22, data, 0x10u);
     }
 
     data[0] = [(ISImageDescriptor *)self background];
-    CC_SHA256_Update(&v23, data, 8u);
+    CC_SHA256_Update(&v22, data, 8u);
     data[0] = [(ISImageDescriptor *)self specialIconOptions];
-    CC_SHA256_Update(&v23, data, 8u);
+    CC_SHA256_Update(&v22, data, 8u);
     data[0] = [(ISImageDescriptor *)self platformStyle];
-    CC_SHA256_Update(&v23, data, 8u);
-    CC_SHA256_Final(data, &v23);
+    CC_SHA256_Update(&v22, data, 8u);
+    CC_SHA256_Final(data, &v22);
     v13 = 0;
     v14 = 31 - size;
     if (size > 0x1F)
@@ -600,7 +707,6 @@
     }
   }
 
-  v21 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
@@ -849,8 +955,7 @@ LABEL_30:
 
 LABEL_17:
   v17 = [[ISImageDescriptor alloc] initWithSize:v11 scale:v10, v8];
-  [(ISImageDescriptor *)v17 setShape:v9];
-  v18 = _ISDefaultLog();
+  v18 = _ISDefaultLog([(ISImageDescriptor *)v17 setShape:v9]);
   if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
   {
     [(ISImageDescriptor(iOSConvenience) *)namedCopy imageDescriptorNamed:v17, v18];

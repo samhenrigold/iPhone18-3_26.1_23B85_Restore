@@ -220,17 +220,17 @@ LABEL_19:
 
 - (id)onboardingEligibilityForCountryCode:(id)code error:(id *)error
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   v1FeatureAvailabilityManager = self->_v1FeatureAvailabilityManager;
-  v33 = 0;
-  codeCopy = code;
-  v8 = [(HDFeatureAvailabilityExtension *)v1FeatureAvailabilityManager onboardingEligibilityForCountryCode:codeCopy error:&v33];
-  v9 = v33;
-  v2FeatureAvailabilityManager = self->_v2FeatureAvailabilityManager;
   v32 = 0;
-  v11 = [(HDFeatureAvailabilityExtension *)v2FeatureAvailabilityManager onboardingEligibilityForCountryCode:codeCopy error:&v32];
+  codeCopy = code;
+  v8 = [(HDFeatureAvailabilityExtension *)v1FeatureAvailabilityManager onboardingEligibilityForCountryCode:codeCopy error:&v32];
+  v9 = v32;
+  v2FeatureAvailabilityManager = self->_v2FeatureAvailabilityManager;
+  v31 = 0;
+  v11 = [(HDFeatureAvailabilityExtension *)v2FeatureAvailabilityManager onboardingEligibilityForCountryCode:codeCopy error:&v31];
 
-  v12 = v32;
+  v12 = v31;
   v13 = v12;
   if (v8)
   {
@@ -266,18 +266,18 @@ LABEL_23:
         v23 = *MEMORY[0x277CCC2D8];
         if (os_log_type_enabled(*MEMORY[0x277CCC2D8], OS_LOG_TYPE_ERROR))
         {
-          v27 = v23;
-          v28 = objc_opt_class();
-          v29 = v28;
+          v26 = v23;
+          v27 = objc_opt_class();
+          v28 = v27;
           ineligibilityReasonsDescription = [v8 ineligibilityReasonsDescription];
           ineligibilityReasonsDescription2 = [v11 ineligibilityReasonsDescription];
           *buf = 138543874;
-          v35 = v28;
-          v36 = 2114;
-          v37 = ineligibilityReasonsDescription;
-          v38 = 2114;
-          v39 = ineligibilityReasonsDescription2;
-          _os_log_error_impl(&dword_229486000, v27, OS_LOG_TYPE_ERROR, "[%{public}@] No intersection of unavailability reasons for IRN1 and IRN2: %{public}@ (v1) | %{public}@ (v2)", buf, 0x20u);
+          v34 = v27;
+          v35 = 2114;
+          v36 = ineligibilityReasonsDescription;
+          v37 = 2114;
+          v38 = ineligibilityReasonsDescription2;
+          _os_log_error_impl(&dword_229486000, v26, OS_LOG_TYPE_ERROR, "[%{public}@] No intersection of unavailability reasons for IRN1 and IRN2: %{public}@ (v1) | %{public}@ (v2)", buf, 0x20u);
         }
       }
 
@@ -319,8 +319,6 @@ LABEL_23:
 
   v18 = 0;
 LABEL_24:
-
-  v25 = *MEMORY[0x277D85DE8];
 
   return v18;
 }
@@ -598,21 +596,16 @@ void __112__HDHRIrregularRhythmNotificationsFeatureAvailabilityManager_isCurrent
       v3 = [*(*(a1[6] + 8) + 40) BOOLValue];
     }
 
-    v6 = a1[4];
-    v7 = [MEMORY[0x277CCABB0] numberWithBool:v3];
-    (*(v6 + 16))(v6, v7, 0);
+    v5 = a1[4];
+    v6 = [MEMORY[0x277CCABB0] numberWithBool:v3];
+    (*(v5 + 16))(v5, v6, 0);
   }
 
   else
   {
-    if (!*(*(a1[7] + 8) + 40))
-    {
-      v4 = *(*(a1[8] + 8) + 40);
-    }
+    v4 = *(a1[4] + 16);
 
-    v5 = *(a1[4] + 16);
-
-    v5();
+    v4();
   }
 }
 
@@ -1115,77 +1108,68 @@ void __160__HDHRIrregularRhythmNotificationsFeatureAvailabilityManager_setCurren
   dispatch_group_leave(*(a1 + 32));
 }
 
-uint64_t __160__HDHRIrregularRhythmNotificationsFeatureAvailabilityManager_setCurrentOnboardingVersionCompletedForCountryCode_countryCodeProvenance_date_settings_completion___block_invoke_2(uint64_t a1)
+uint64_t __160__HDHRIrregularRhythmNotificationsFeatureAvailabilityManager_setCurrentOnboardingVersionCompletedForCountryCode_countryCodeProvenance_date_settings_completion___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   if (*(*(*(a1 + 40) + 8) + 24))
   {
 LABEL_5:
     if ((*(*(*(a1 + 48) + 8) + 24) & 1) == 0)
     {
       _HKInitializeLogging();
-      v9 = MEMORY[0x277CCC2D8];
-      v10 = *MEMORY[0x277CCC2D8];
+      v10 = MEMORY[0x277CCC2D8];
+      v11 = *MEMORY[0x277CCC2D8];
       if (os_log_type_enabled(*MEMORY[0x277CCC2D8], OS_LOG_TYPE_INFO))
       {
-        v11 = *(a1 + 72);
-        v25[0] = 67240192;
-        v25[1] = v11;
-        _os_log_impl(&dword_229486000, v10, OS_LOG_TYPE_INFO, "Completed onboarding for IRN 1.0, but did not complete onboarding for 2.0 with expectation: %{public}d", v25, 8u);
+        v12 = *(a1 + 72);
+        v22[0] = 67240192;
+        v22[1] = v12;
+        _os_log_impl(&dword_229486000, v11, OS_LOG_TYPE_INFO, "Completed onboarding for IRN 1.0, but did not complete onboarding for 2.0 with expectation: %{public}d", v22, 8u);
       }
 
       if (*(a1 + 72) == 1)
       {
         _HKInitializeLogging();
-        v12 = *v9;
-        if (os_log_type_enabled(*v9, OS_LOG_TYPE_ERROR))
+        v13 = *v10;
+        if (os_log_type_enabled(*v10, OS_LOG_TYPE_ERROR))
         {
-          __160__HDHRIrregularRhythmNotificationsFeatureAvailabilityManager_setCurrentOnboardingVersionCompletedForCountryCode_countryCodeProvenance_date_settings_completion___block_invoke_2_cold_2(a1, v12, v13, v14, v15, v16, v17, v18);
+          __160__HDHRIrregularRhythmNotificationsFeatureAvailabilityManager_setCurrentOnboardingVersionCompletedForCountryCode_countryCodeProvenance_date_settings_completion___block_invoke_2_cold_2(a1, v13, v14, v15, v16, v17, v18, v19);
         }
       }
     }
 
-    result = (*(*(a1 + 32) + 16))();
-    v20 = *MEMORY[0x277D85DE8];
-    return result;
+    return (*(*(a1 + 32) + 16))();
   }
 
   if (*(*(*(a1 + 48) + 8) + 24))
   {
     _HKInitializeLogging();
-    v2 = *MEMORY[0x277CCC2D8];
+    v3 = *MEMORY[0x277CCC2D8];
     if (os_log_type_enabled(*MEMORY[0x277CCC2D8], OS_LOG_TYPE_ERROR))
     {
-      __160__HDHRIrregularRhythmNotificationsFeatureAvailabilityManager_setCurrentOnboardingVersionCompletedForCountryCode_countryCodeProvenance_date_settings_completion___block_invoke_2_cold_1(a1, v2, v3, v4, v5, v6, v7, v8);
+      __160__HDHRIrregularRhythmNotificationsFeatureAvailabilityManager_setCurrentOnboardingVersionCompletedForCountryCode_countryCodeProvenance_date_settings_completion___block_invoke_2_cold_1(a1, v3, v4, v5, v6, v7, v8, v9);
     }
 
     goto LABEL_5;
   }
 
-  v21 = *(a1 + 32);
-  if (!*(*(*(a1 + 56) + 8) + 40))
-  {
-    v22 = *(*(*(a1 + 64) + 8) + 40);
-  }
+  v21 = *(*(a1 + 32) + 16);
 
-  v23 = *(v21 + 16);
-  v24 = *MEMORY[0x277D85DE8];
-
-  return v23();
+  return v21();
 }
 
 - (void)saveOnboardingCompletion:(id)completion settings:(id)settings completion:(id)a5
 {
-  v5 = a5;
+  v6 = a5;
   _HKInitializeLogging();
-  v6 = *MEMORY[0x277CCC2D8];
+  v7 = *MEMORY[0x277CCC2D8];
   if (os_log_type_enabled(*MEMORY[0x277CCC2D8], OS_LOG_TYPE_ERROR))
   {
-    [HDHRIrregularRhythmNotificationsFeatureAvailabilityManager saveOnboardingCompletion:v6 settings:? completion:?];
+    [HDHRIrregularRhythmNotificationsFeatureAvailabilityManager saveOnboardingCompletion:v7 settings:self completion:?];
   }
 
-  v7 = [MEMORY[0x277CCA9B8] hk_error:3 description:@"Saving HKOnboardingCompletion directly is not supported for IRN's combined feature identifier"];
-  v5[2](v5, 0, v7);
+  v8 = [MEMORY[0x277CCA9B8] hk_error:3 description:@"Saving HKOnboardingCompletion directly is not supported for IRN's combined feature identifier"];
+  v6[2](v6, 0, v8);
 }
 
 - (void)setFeatureSettingData:(id)data forKey:(id)key completion:(id)completion
@@ -1218,40 +1202,40 @@ LABEL_5:
 
 - (void)setFeatureSettingNumber:(id)number forKey:(id)key completion:(id)completion
 {
-  v61 = *MEMORY[0x277D85DE8];
+  v60 = *MEMORY[0x277D85DE8];
   numberCopy = number;
   keyCopy = key;
   completionCopy = completion;
   v11 = dispatch_group_create();
   v1FeatureAvailabilityManager = self->_v1FeatureAvailabilityManager;
-  v58 = 0;
-  v13 = [(HDFeatureAvailabilityExtension *)v1FeatureAvailabilityManager onboardedCountryCodeSupportedStateWithError:&v58];
-  v14 = v58;
-  v56[0] = 0;
-  v56[1] = v56;
-  v56[2] = 0x2020000000;
-  v57 = 1;
-  v54[0] = 0;
-  v54[1] = v54;
-  v54[2] = 0x3032000000;
-  v54[3] = __Block_byref_object_copy__8;
-  v54[4] = __Block_byref_object_dispose__8;
-  v55 = 0;
+  v57 = 0;
+  v13 = [(HDFeatureAvailabilityExtension *)v1FeatureAvailabilityManager onboardedCountryCodeSupportedStateWithError:&v57];
+  v14 = v57;
+  v55[0] = 0;
+  v55[1] = v55;
+  v55[2] = 0x2020000000;
+  v56 = 1;
+  v53[0] = 0;
+  v53[1] = v53;
+  v53[2] = 0x3032000000;
+  v53[3] = __Block_byref_object_copy__8;
+  v53[4] = __Block_byref_object_dispose__8;
+  v54 = 0;
   if (v13)
   {
     if ([v13 integerValue] != 1)
     {
       dispatch_group_enter(v11);
       v15 = self->_v1FeatureAvailabilityManager;
-      v50[0] = MEMORY[0x277D85DD0];
-      v50[1] = 3221225472;
-      v50[2] = __104__HDHRIrregularRhythmNotificationsFeatureAvailabilityManager_setFeatureSettingNumber_forKey_completion___block_invoke;
-      v50[3] = &unk_278661050;
-      v50[4] = self;
-      v52 = v56;
-      v53 = v54;
-      v51 = v11;
-      [(HDFeatureAvailabilityExtension *)v15 setFeatureSettingNumber:numberCopy forKey:keyCopy completion:v50];
+      v49[0] = MEMORY[0x277D85DD0];
+      v49[1] = 3221225472;
+      v49[2] = __104__HDHRIrregularRhythmNotificationsFeatureAvailabilityManager_setFeatureSettingNumber_forKey_completion___block_invoke;
+      v49[3] = &unk_278661050;
+      v49[4] = self;
+      v51 = v55;
+      v52 = v53;
+      v50 = v11;
+      [(HDFeatureAvailabilityExtension *)v15 setFeatureSettingNumber:numberCopy forKey:keyCopy completion:v49];
     }
   }
 
@@ -1262,39 +1246,39 @@ LABEL_5:
     if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
       v17 = objc_opt_class();
-      [HDHRIrregularRhythmNotificationsFeatureAvailabilityManager setFeatureSettingNumber:v17 forKey:v14 completion:v60];
+      [HDHRIrregularRhythmNotificationsFeatureAvailabilityManager setFeatureSettingNumber:v17 forKey:v14 completion:v59];
     }
   }
 
   v2FeatureAvailabilityManager = self->_v2FeatureAvailabilityManager;
-  v49 = 0;
-  v19 = [(HDFeatureAvailabilityExtension *)v2FeatureAvailabilityManager onboardedCountryCodeSupportedStateWithError:&v49];
-  v20 = v49;
-  v47[0] = 0;
-  v47[1] = v47;
-  v47[2] = 0x2020000000;
-  v48 = 1;
-  v45[0] = 0;
-  v45[1] = v45;
-  v45[2] = 0x3032000000;
-  v45[3] = __Block_byref_object_copy__8;
-  v45[4] = __Block_byref_object_dispose__8;
-  v46 = 0;
+  v48 = 0;
+  v19 = [(HDFeatureAvailabilityExtension *)v2FeatureAvailabilityManager onboardedCountryCodeSupportedStateWithError:&v48];
+  v20 = v48;
+  v46[0] = 0;
+  v46[1] = v46;
+  v46[2] = 0x2020000000;
+  v47 = 1;
+  v44[0] = 0;
+  v44[1] = v44;
+  v44[2] = 0x3032000000;
+  v44[3] = __Block_byref_object_copy__8;
+  v44[4] = __Block_byref_object_dispose__8;
+  v45 = 0;
   if (v19)
   {
     if ([v19 integerValue] != 1)
     {
       dispatch_group_enter(v11);
       v21 = self->_v2FeatureAvailabilityManager;
-      v41[0] = MEMORY[0x277D85DD0];
-      v41[1] = 3221225472;
-      v41[2] = __104__HDHRIrregularRhythmNotificationsFeatureAvailabilityManager_setFeatureSettingNumber_forKey_completion___block_invoke_320;
-      v41[3] = &unk_278661050;
-      v41[4] = self;
-      v43 = v47;
-      v44 = v45;
-      v42 = v11;
-      [(HDFeatureAvailabilityExtension *)v21 setFeatureSettingNumber:numberCopy forKey:keyCopy completion:v41];
+      v40[0] = MEMORY[0x277D85DD0];
+      v40[1] = 3221225472;
+      v40[2] = __104__HDHRIrregularRhythmNotificationsFeatureAvailabilityManager_setFeatureSettingNumber_forKey_completion___block_invoke_320;
+      v40[3] = &unk_278661050;
+      v40[4] = self;
+      v42 = v46;
+      v43 = v44;
+      v41 = v11;
+      [(HDFeatureAvailabilityExtension *)v21 setFeatureSettingNumber:numberCopy forKey:keyCopy completion:v40];
     }
   }
 
@@ -1305,38 +1289,36 @@ LABEL_5:
     if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
     {
       v23 = objc_opt_class();
-      [HDHRIrregularRhythmNotificationsFeatureAvailabilityManager setFeatureSettingNumber:v23 forKey:v20 completion:v59];
+      [HDHRIrregularRhythmNotificationsFeatureAvailabilityManager setFeatureSettingNumber:v23 forKey:v20 completion:v58];
     }
   }
 
-  v30[0] = MEMORY[0x277D85DD0];
-  v30[1] = 3221225472;
-  v30[2] = __104__HDHRIrregularRhythmNotificationsFeatureAvailabilityManager_setFeatureSettingNumber_forKey_completion___block_invoke_321;
-  v30[3] = &unk_278661078;
-  v31 = v13;
-  v32 = v19;
-  v33 = v14;
-  v34 = v20;
-  v37 = v56;
-  v38 = v47;
-  v39 = v54;
-  v40 = v45;
+  v29[0] = MEMORY[0x277D85DD0];
+  v29[1] = 3221225472;
+  v29[2] = __104__HDHRIrregularRhythmNotificationsFeatureAvailabilityManager_setFeatureSettingNumber_forKey_completion___block_invoke_321;
+  v29[3] = &unk_278661078;
+  v30 = v13;
+  v31 = v19;
+  v32 = v14;
+  v33 = v20;
+  v36 = v55;
+  v37 = v46;
+  v38 = v53;
+  v39 = v44;
   selfCopy = self;
-  v36 = completionCopy;
+  v35 = completionCopy;
   v24 = v20;
   v25 = v14;
   v26 = completionCopy;
   v27 = v19;
   v28 = v13;
-  dispatch_group_notify(v11, MEMORY[0x277D85CD0], v30);
+  dispatch_group_notify(v11, MEMORY[0x277D85CD0], v29);
 
-  _Block_object_dispose(v45, 8);
-  _Block_object_dispose(v47, 8);
+  _Block_object_dispose(v44, 8);
+  _Block_object_dispose(v46, 8);
 
-  _Block_object_dispose(v54, 8);
-  _Block_object_dispose(v56, 8);
-
-  v29 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(v53, 8);
+  _Block_object_dispose(v55, 8);
 }
 
 void __104__HDHRIrregularRhythmNotificationsFeatureAvailabilityManager_setFeatureSettingNumber_forKey_completion___block_invoke(uint64_t a1, char a2, void *a3)
@@ -1388,25 +1370,15 @@ void __104__HDHRIrregularRhythmNotificationsFeatureAvailabilityManager_setFeatur
   if (!*(a1 + 32) || (v2 = *(a1 + 40)) == 0)
   {
     v6 = *(a1 + 72);
-    if (!*(a1 + 48))
-    {
-      v7 = *(a1 + 56);
-    }
-
-    goto LABEL_14;
+LABEL_12:
+    v7 = *(v6 + 16);
+    goto LABEL_13;
   }
 
   if (*(*(*(a1 + 80) + 8) + 24) != 1 || (*(*(*(a1 + 88) + 8) + 24) & 1) == 0)
   {
     v6 = *(a1 + 72);
-    if (!*(*(*(a1 + 96) + 8) + 40))
-    {
-      v8 = *(*(*(a1 + 104) + 8) + 40);
-    }
-
-LABEL_14:
-    v9 = *(v6 + 16);
-    goto LABEL_15;
+    goto LABEL_12;
   }
 
   if ([v2 integerValue] == 1 && objc_msgSend(*(a1 + 32), "integerValue") == 1)
@@ -1425,10 +1397,10 @@ LABEL_14:
     return;
   }
 
-  v9 = *(*(a1 + 72) + 16);
-LABEL_15:
+  v7 = *(*(a1 + 72) + 16);
+LABEL_13:
 
-  v9();
+  v7();
 }
 
 - (void)removeFeatureSettingValueForKey:(id)key completion:(id)completion
@@ -1669,10 +1641,9 @@ uint64_t __92__HDHRIrregularRhythmNotificationsFeatureAvailabilityManager_resetO
 
 void __85__HDHRIrregularRhythmNotificationsFeatureAvailabilityManager_registerObserver_queue___block_invoke(uint64_t a1)
 {
-  v2 = *(a1 + 32);
-  v3 = HKCreateSerialDispatchQueue();
-  [*(*(a1 + 32) + 8) registerObserver:*(a1 + 32) queue:v3];
-  [*(*(a1 + 32) + 16) registerObserver:*(a1 + 32) queue:v3];
+  v2 = HKCreateSerialDispatchQueue();
+  [*(*(a1 + 32) + 8) registerObserver:*(a1 + 32) queue:v2];
+  [*(*(a1 + 32) + 16) registerObserver:*(a1 + 32) queue:v2];
 }
 
 - (void)unregisterObserver:(id)observer
@@ -1788,101 +1759,61 @@ void __122__HDHRIrregularRhythmNotificationsFeatureAvailabilityManager_featureAv
 - (void)featureOnboardingRecordWithError:.cold.1()
 {
   OUTLINED_FUNCTION_4();
-  v13 = *MEMORY[0x277D85DE8];
   v2 = v1;
-  v3 = OUTLINED_FUNCTION_5();
-  v4 = OUTLINED_FUNCTION_2(v3);
-  OUTLINED_FUNCTION_3(&dword_229486000, v5, v6, "[%{public}@] Failed to retrieve onboarding record for IRN1: %{public}@", v7, v8, v9, v10, v12);
-
-  v11 = *MEMORY[0x277D85DE8];
+  v4 = OUTLINED_FUNCTION_5(v2, v3);
+  v5 = OUTLINED_FUNCTION_2(v4);
+  OUTLINED_FUNCTION_3(&dword_229486000, v6, v7, "[%{public}@] Failed to retrieve onboarding record for IRN1: %{public}@", v8, v9, v10, v11);
 }
 
 - (void)featureOnboardingRecordWithError:.cold.2()
 {
   OUTLINED_FUNCTION_4();
-  v13 = *MEMORY[0x277D85DE8];
   v2 = v1;
-  v3 = OUTLINED_FUNCTION_5();
-  v4 = OUTLINED_FUNCTION_2(v3);
-  OUTLINED_FUNCTION_3(&dword_229486000, v5, v6, "[%{public}@] Failed to retrieve onboarding record for IRN2: %{public}@", v7, v8, v9, v10, v12);
-
-  v11 = *MEMORY[0x277D85DE8];
-}
-
-- (void)onboardedCountryCodeSupportedStateWithError:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2_0();
-  OUTLINED_FUNCTION_0_4(&dword_229486000, v0, v1, "Error checking onboarded country code supported state for IRN 2.0, returning supported state for 1.0: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)onboardedCountryCodeSupportedStateWithError:.cold.2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2_0();
-  OUTLINED_FUNCTION_0_4(&dword_229486000, v0, v1, "Error checking onboarded country code supported state for IRN 1.0, returning supported state for 2.0: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)setCurrentOnboardingVersionCompletedForCountryCode:countryCodeProvenance:date:settings:completion:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2_0();
-  OUTLINED_FUNCTION_0_4(&dword_229486000, v0, v1, "Could not validate IRN 2.0 eligibility with error: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  v4 = OUTLINED_FUNCTION_5(v2, v3);
+  v5 = OUTLINED_FUNCTION_2(v4);
+  OUTLINED_FUNCTION_3(&dword_229486000, v6, v7, "[%{public}@] Failed to retrieve onboarding record for IRN2: %{public}@", v8, v9, v10, v11);
 }
 
 void __160__HDHRIrregularRhythmNotificationsFeatureAvailabilityManager_setCurrentOnboardingVersionCompletedForCountryCode_countryCodeProvenance_date_settings_completion___block_invoke_2_cold_1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v9 = HIDWORD(*(*(*(a1 + 56) + 8) + 40));
-  OUTLINED_FUNCTION_0_4(&dword_229486000, a2, a3, "Completed onboarding for IRN 2.0, but failed to complete for 1.0: %{public}@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = *(*(*(a1 + 56) + 8) + 40);
+  OUTLINED_FUNCTION_0_4(&dword_229486000, a2, a3, "Completed onboarding for IRN 2.0, but failed to complete for 1.0: %{public}@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void __160__HDHRIrregularRhythmNotificationsFeatureAvailabilityManager_setCurrentOnboardingVersionCompletedForCountryCode_countryCodeProvenance_date_settings_completion___block_invoke_2_cold_2(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v9 = HIDWORD(*(*(*(a1 + 64) + 8) + 40));
-  OUTLINED_FUNCTION_0_4(&dword_229486000, a2, a3, "Failed to complete onboarding for IRN 2.0 with error: %{public}@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = *(*(*(a1 + 64) + 8) + 40);
+  OUTLINED_FUNCTION_0_4(&dword_229486000, a2, a3, "Failed to complete onboarding for IRN 2.0 with error: %{public}@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
-- (void)saveOnboardingCompletion:(void *)a1 settings:completion:.cold.1(void *a1)
+- (void)saveOnboardingCompletion:(void *)a1 settings:(uint64_t)a2 completion:.cold.1(void *a1, uint64_t a2)
 {
   v6 = *MEMORY[0x277D85DE8];
-  v1 = a1;
+  v2 = a1;
   objc_opt_class();
   OUTLINED_FUNCTION_2_0();
-  v3 = v2;
-  _os_log_error_impl(&dword_229486000, v1, OS_LOG_TYPE_ERROR, "[%{public}@] Saving HKOnboardingCompletion directly is not supported for IRN's combined feature identifier", v5, 0xCu);
-
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = v3;
+  _os_log_error_impl(&dword_229486000, v2, OS_LOG_TYPE_ERROR, "[%{public}@] Saving HKOnboardingCompletion directly is not supported for IRN's combined feature identifier", v5, 0xCu);
 }
 
 - (void)setFeatureSettingData:forKey:completion:.cold.1()
 {
   OUTLINED_FUNCTION_4();
-  v13 = *MEMORY[0x277D85DE8];
   v2 = v1;
-  v3 = OUTLINED_FUNCTION_5();
-  v4 = OUTLINED_FUNCTION_2(v3);
-  OUTLINED_FUNCTION_3(&dword_229486000, v5, v6, "[%{public}@] Unknown data setting for IRN: %{public}@", v7, v8, v9, v10, v12);
-
-  v11 = *MEMORY[0x277D85DE8];
+  v4 = OUTLINED_FUNCTION_5(v2, v3);
+  v5 = OUTLINED_FUNCTION_2(v4);
+  OUTLINED_FUNCTION_3(&dword_229486000, v6, v7, "[%{public}@] Unknown data setting for IRN: %{public}@", v8, v9, v10, v11);
 }
 
 - (void)setFeatureSettingString:forKey:completion:.cold.1()
 {
   OUTLINED_FUNCTION_4();
-  v13 = *MEMORY[0x277D85DE8];
   v2 = v1;
-  v3 = OUTLINED_FUNCTION_5();
-  v4 = OUTLINED_FUNCTION_2(v3);
-  OUTLINED_FUNCTION_3(&dword_229486000, v5, v6, "[%{public}@] Unknown string setting for IRN: %{public}@", v7, v8, v9, v10, v12);
-
-  v11 = *MEMORY[0x277D85DE8];
+  v4 = OUTLINED_FUNCTION_5(v2, v3);
+  v5 = OUTLINED_FUNCTION_2(v4);
+  OUTLINED_FUNCTION_3(&dword_229486000, v6, v7, "[%{public}@] Unknown string setting for IRN: %{public}@", v8, v9, v10, v11);
 }
 
 - (void)setFeatureSettingNumber:(void *)a1 forKey:(uint64_t)a2 completion:(uint64_t)a3 .cold.1(void *a1, uint64_t a2, uint64_t a3)
@@ -1899,59 +1830,44 @@ void __160__HDHRIrregularRhythmNotificationsFeatureAvailabilityManager_setCurren
 
 void __104__HDHRIrregularRhythmNotificationsFeatureAvailabilityManager_setFeatureSettingNumber_forKey_completion___block_invoke_cold_1(uint64_t a1, void *a2)
 {
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_8(a1, a2);
-  v4 = OUTLINED_FUNCTION_5();
-  v5 = OUTLINED_FUNCTION_2(v4);
-  OUTLINED_FUNCTION_3(&dword_229486000, v6, v7, "[%{public}@] Failed to update feature setting for IRN1: %{public}@", v8, v9, v10, v11, v13);
-
-  v12 = *MEMORY[0x277D85DE8];
+  v3 = OUTLINED_FUNCTION_8(a1, a2);
+  v5 = OUTLINED_FUNCTION_5(v3, v4);
+  v6 = OUTLINED_FUNCTION_2(v5);
+  OUTLINED_FUNCTION_3(&dword_229486000, v7, v8, "[%{public}@] Failed to update feature setting for IRN1: %{public}@", v9, v10, v11, v12);
 }
 
 void __104__HDHRIrregularRhythmNotificationsFeatureAvailabilityManager_setFeatureSettingNumber_forKey_completion___block_invoke_320_cold_1(uint64_t a1, void *a2)
 {
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_8(a1, a2);
-  v4 = OUTLINED_FUNCTION_5();
-  v5 = OUTLINED_FUNCTION_2(v4);
-  OUTLINED_FUNCTION_3(&dword_229486000, v6, v7, "[%{public}@] Failed to update feature setting for IRN2: %{public}@", v8, v9, v10, v11, v13);
-
-  v12 = *MEMORY[0x277D85DE8];
+  v3 = OUTLINED_FUNCTION_8(a1, a2);
+  v5 = OUTLINED_FUNCTION_5(v3, v4);
+  v6 = OUTLINED_FUNCTION_2(v5);
+  OUTLINED_FUNCTION_3(&dword_229486000, v7, v8, "[%{public}@] Failed to update feature setting for IRN2: %{public}@", v9, v10, v11, v12);
 }
 
 void __104__HDHRIrregularRhythmNotificationsFeatureAvailabilityManager_setFeatureSettingNumber_forKey_completion___block_invoke_321_cold_1(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v2 = *(a1 + 64);
-  v3 = a2;
+  v6 = *MEMORY[0x277D85DE8];
+  v2 = a2;
   objc_opt_class();
   OUTLINED_FUNCTION_2_0();
-  v5 = v4;
-  _os_log_fault_impl(&dword_229486000, v3, OS_LOG_TYPE_FAULT, "[%{public}@] Attempt to update setting failed; neither version of IRN is onboarded", v7, 0xCu);
-
-  v6 = *MEMORY[0x277D85DE8];
+  v4 = v3;
+  _os_log_fault_impl(&dword_229486000, v2, OS_LOG_TYPE_FAULT, "[%{public}@] Attempt to update setting failed; neither version of IRN is onboarded", v5, 0xCu);
 }
 
 void __105__HDHRIrregularRhythmNotificationsFeatureAvailabilityManager_removeFeatureSettingValueForKey_completion___block_invoke_cold_1(uint64_t a1, void *a2)
 {
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_8(a1, a2);
-  v4 = OUTLINED_FUNCTION_5();
-  v5 = OUTLINED_FUNCTION_2(v4);
-  OUTLINED_FUNCTION_3(&dword_229486000, v6, v7, "[%{public}@] Failed to remove feature setting for IRN1: %{public}@", v8, v9, v10, v11, v13);
-
-  v12 = *MEMORY[0x277D85DE8];
+  v3 = OUTLINED_FUNCTION_8(a1, a2);
+  v5 = OUTLINED_FUNCTION_5(v3, v4);
+  v6 = OUTLINED_FUNCTION_2(v5);
+  OUTLINED_FUNCTION_3(&dword_229486000, v7, v8, "[%{public}@] Failed to remove feature setting for IRN1: %{public}@", v9, v10, v11, v12);
 }
 
 void __105__HDHRIrregularRhythmNotificationsFeatureAvailabilityManager_removeFeatureSettingValueForKey_completion___block_invoke_325_cold_1(uint64_t a1, void *a2)
 {
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_8(a1, a2);
-  v4 = OUTLINED_FUNCTION_5();
-  v5 = OUTLINED_FUNCTION_2(v4);
-  OUTLINED_FUNCTION_3(&dword_229486000, v6, v7, "[%{public}@] Failed to remove feature setting for IRN2: %{public}@", v8, v9, v10, v11, v13);
-
-  v12 = *MEMORY[0x277D85DE8];
+  v3 = OUTLINED_FUNCTION_8(a1, a2);
+  v5 = OUTLINED_FUNCTION_5(v3, v4);
+  v6 = OUTLINED_FUNCTION_2(v5);
+  OUTLINED_FUNCTION_3(&dword_229486000, v7, v8, "[%{public}@] Failed to remove feature setting for IRN2: %{public}@", v9, v10, v11, v12);
 }
 
 @end

@@ -44,6 +44,7 @@
 - (int)disconnectedReason;
 - (int)service;
 - (int)status;
+- (void)disconnectWithReason:(int)reason fromSource:(id)source;
 - (void)logWithReason:(id)reason indented:(BOOL)indented;
 - (void)resumeCallFromSource:(id)source;
 @end
@@ -122,10 +123,10 @@
 {
   if (NPHDeviceOSIsInternalInstall() && (-[NPHCall TUCalls](self, "TUCalls"), v3 = objc_claimAutoreleasedReturnValue(), v4 = [v3 count], v3, v4 != 1))
   {
-    v6 = sub_100001C24();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
+    v7 = sub_100001C24(v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
     {
-      sub_1000099F0(v6);
+      sub_1000099F0(v7);
     }
 
     _firstTUCall = 0;
@@ -760,15 +761,16 @@ LABEL_7:
     v8 = *v14;
     do
     {
-      for (i = 0; i != v7; i = i + 1)
+      v9 = 0;
+      do
       {
         if (*v14 != v8)
         {
           objc_enumerationMutation(tUCalls);
         }
 
-        v10 = *(*(&v13 + 1) + 8 * i);
-        v11 = sub_100001C24();
+        v10 = *(*(&v13 + 1) + 8 * v9);
+        v11 = sub_100001C24(v6);
         if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412546;
@@ -780,12 +782,68 @@ LABEL_7:
 
         v12 = +[TUCallCenter sharedInstance];
         [v12 unholdCall:v10];
+
+        v9 = v9 + 1;
       }
 
-      v7 = [tUCalls countByEnumeratingWithState:&v13 objects:v21 count:16];
+      while (v7 != v9);
+      v6 = [tUCalls countByEnumeratingWithState:&v13 objects:v21 count:16];
+      v7 = v6;
     }
 
-    while (v7);
+    while (v6);
+  }
+}
+
+- (void)disconnectWithReason:(int)reason fromSource:(id)source
+{
+  v4 = *&reason;
+  sourceCopy = source;
+  v15 = 0u;
+  v16 = 0u;
+  v17 = 0u;
+  v18 = 0u;
+  tUCalls = [(NPHCall *)self TUCalls];
+  v8 = [tUCalls countByEnumeratingWithState:&v15 objects:v25 count:16];
+  if (v8)
+  {
+    v9 = v8;
+    v10 = *v16;
+    do
+    {
+      v11 = 0;
+      do
+      {
+        if (*v16 != v10)
+        {
+          objc_enumerationMutation(tUCalls);
+        }
+
+        v12 = *(*(&v15 + 1) + 8 * v11);
+        v13 = sub_100001C24(v8);
+        if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+        {
+          *buf = 138412802;
+          v20 = sourceCopy;
+          v21 = 2112;
+          v22 = v12;
+          v23 = 1024;
+          v24 = v4;
+          _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "%@: [call callCenter] disconnectCall: %@ withReason: %d", buf, 0x1Cu);
+        }
+
+        v14 = +[TUCallCenter sharedInstance];
+        [v14 disconnectCall:v12 withReason:v4];
+
+        v11 = v11 + 1;
+      }
+
+      while (v9 != v11);
+      v8 = [tUCalls countByEnumeratingWithState:&v15 objects:v25 count:16];
+      v9 = v8;
+    }
+
+    while (v8);
   }
 }
 
@@ -885,7 +943,7 @@ LABEL_9:
 
   v8 = v7;
   v9 = [objc_opt_class() descriptionForCallStatus:{-[NPHCall status](self, "status")}];
-  v10 = sub_100001C24();
+  v10 = sub_100001C24(v9);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138413058;
@@ -914,15 +972,16 @@ LABEL_9:
     v14 = *v22;
     do
     {
-      for (i = 0; i != v13; i = i + 1)
+      v15 = 0;
+      do
       {
         if (*v22 != v14)
         {
           objc_enumerationMutation(tUCalls);
         }
 
-        v16 = *(*(&v21 + 1) + 8 * i);
-        v17 = sub_100001C24();
+        v16 = *(*(&v21 + 1) + 8 * v15);
+        v17 = sub_100001C24(v12);
         if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
         {
           nph_description = [v16 nph_description];
@@ -932,12 +991,16 @@ LABEL_9:
           v29 = nph_description;
           _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "%@\t%@", buf, 0x16u);
         }
+
+        v15 = v15 + 1;
       }
 
-      v13 = [tUCalls countByEnumeratingWithState:&v21 objects:v25 count:16];
+      while (v13 != v15);
+      v12 = [tUCalls countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v13 = v12;
     }
 
-    while (v13);
+    while (v12);
   }
 }
 

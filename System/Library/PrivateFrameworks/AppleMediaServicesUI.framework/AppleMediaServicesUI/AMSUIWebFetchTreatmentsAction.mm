@@ -16,35 +16,33 @@
 
 + (id)dictionaryRepresentationForTreatment:(id)treatment
 {
-  v15[3] = *MEMORY[0x1E69E9840];
+  v14[3] = *MEMORY[0x1E69E9840];
   treatmentCopy = treatment;
   dateFormatter = [self dateFormatter];
-  v14[0] = @"endDate";
+  v13[0] = @"endDate";
   endDate = [treatmentCopy endDate];
   v7 = [dateFormatter stringFromDate:endDate];
-  v15[0] = v7;
-  v14[1] = @"identifier";
+  v14[0] = v7;
+  v13[1] = @"identifier";
   identifier = [treatmentCopy identifier];
-  v15[1] = identifier;
-  v14[2] = @"startDate";
+  v14[1] = identifier;
+  v13[2] = @"startDate";
   startDate = [treatmentCopy startDate];
 
   v10 = [dateFormatter stringFromDate:startDate];
-  v15[2] = v10;
-  v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:v14 count:3];
-
-  v12 = *MEMORY[0x1E69E9840];
+  v14[2] = v10;
+  v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:v13 count:3];
 
   return v11;
 }
 
 - (AMSUIWebFetchTreatmentsAction)initWithJSObject:(id)object context:(id)context
 {
-  v48 = *MEMORY[0x1E69E9840];
+  v47 = *MEMORY[0x1E69E9840];
   objectCopy = object;
-  v39.receiver = self;
-  v39.super_class = AMSUIWebFetchTreatmentsAction;
-  v7 = [(AMSUIWebAction *)&v39 initWithJSObject:objectCopy context:context];
+  v38.receiver = self;
+  v38.super_class = AMSUIWebFetchTreatmentsAction;
+  v7 = [(AMSUIWebAction *)&v38 initWithJSObject:objectCopy context:context];
   if (v7)
   {
     v8 = [objectCopy objectForKeyedSubscript:@"areaIds"];
@@ -98,13 +96,13 @@
           v21 = AMSHashIfNeeded();
           v22 = AMSHashIfNeeded();
           *buf = 138544130;
-          v41 = v19;
-          v42 = 2114;
-          v43 = v20;
-          v44 = 2114;
-          v45 = v21;
-          v46 = 2114;
-          v47 = v22;
+          v40 = v19;
+          v41 = 2114;
+          v42 = v20;
+          v43 = 2114;
+          v44 = v21;
+          v45 = 2114;
+          v46 = v22;
           _os_log_impl(&dword_1BB036000, oSLogObject, OS_LOG_TYPE_ERROR, "%{public}@: [%{public}@] Wrong '%{public}@' format (%{public}@)", buf, 0x2Au);
         }
       }
@@ -163,34 +161,33 @@
         oSLogObject2 = [mEMORY[0x1E698C968]2 OSLogObject];
         if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_ERROR))
         {
-          v38 = objc_opt_class();
+          v37 = objc_opt_class();
           v33 = AMSLogKey();
           v34 = AMSHashIfNeeded();
           v35 = AMSHashIfNeeded();
           *buf = 138544130;
-          v41 = v38;
-          v42 = 2114;
-          v43 = v33;
-          v44 = 2114;
-          v45 = v34;
-          v46 = 2114;
-          v47 = v35;
+          v40 = v37;
+          v41 = 2114;
+          v42 = v33;
+          v43 = 2114;
+          v44 = v34;
+          v45 = 2114;
+          v46 = v35;
           _os_log_impl(&dword_1BB036000, oSLogObject2, OS_LOG_TYPE_ERROR, "%{public}@: [%{public}@] Wrong '%{public}@' format (%{public}@)", buf, 0x2Au);
         }
       }
     }
   }
 
-  v36 = *MEMORY[0x1E69E9840];
   return v7;
 }
 
 - (id)runAction
 {
-  v81 = *MEMORY[0x1E69E9840];
-  v70.receiver = self;
-  v70.super_class = AMSUIWebFetchTreatmentsAction;
-  runAction = [(AMSUIWebAction *)&v70 runAction];
+  v80 = *MEMORY[0x1E69E9840];
+  v69.receiver = self;
+  v69.super_class = AMSUIWebFetchTreatmentsAction;
+  runAction = [(AMSUIWebAction *)&v69 runAction];
   areaIds = [(AMSUIWebFetchTreatmentsAction *)self areaIds];
   if (areaIds)
   {
@@ -209,11 +206,11 @@
       v9 = AMSLogKey();
       v10 = AMSHashIfNeeded();
       *buf = 138543874;
-      v72 = v8;
-      v73 = 2114;
-      v74 = v9;
-      v75 = 2114;
-      v76 = v10;
+      v71 = v8;
+      v72 = 2114;
+      v73 = v9;
+      v74 = 2114;
+      v75 = v10;
       _os_log_impl(&dword_1BB036000, oSLogObject, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Fetching treatments (areas: %{public}@)", buf, 0x20u);
     }
 
@@ -233,11 +230,11 @@
         v15 = AMSLogKey();
         v16 = AMSHashIfNeeded();
         *buf = 138543874;
-        v72 = v14;
-        v73 = 2114;
-        v74 = v15;
-        v75 = 2114;
-        v76 = v16;
+        v71 = v14;
+        v72 = 2114;
+        v73 = v15;
+        v74 = 2114;
+        v75 = v16;
         _os_log_impl(&dword_1BB036000, oSLogObject2, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Fetching experiment data (areas: %{public}@)", buf, 0x20u);
       }
 
@@ -263,11 +260,11 @@
         v23 = AMSLogKey();
         v24 = AMSHashIfNeeded();
         *buf = 138543874;
-        v72 = v22;
-        v73 = 2114;
-        v74 = v23;
-        v75 = 2114;
-        v76 = v24;
+        v71 = v22;
+        v72 = 2114;
+        v73 = v23;
+        v74 = 2114;
+        v75 = v24;
         _os_log_impl(&dword_1BB036000, oSLogObject3, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Fetching payload (areas: %{public}@)", buf, 0x20u);
       }
 
@@ -280,11 +277,11 @@
 
     startDate = [(AMSUIWebFetchTreatmentsAction *)self startDate];
     endDate = [(AMSUIWebFetchTreatmentsAction *)self endDate];
-    v64 = v11;
+    v63 = v11;
     if (startDate | endDate)
     {
-      v60 = areaIds;
-      v61 = +[AMSUIWebFetchTreatmentsAction dateFormatter];
+      v59 = areaIds;
+      v60 = +[AMSUIWebFetchTreatmentsAction dateFormatter];
       mEMORY[0x1E698C968]4 = [MEMORY[0x1E698C968] sharedWebUIConfig];
       if (!mEMORY[0x1E698C968]4)
       {
@@ -294,44 +291,44 @@
       oSLogObject4 = [mEMORY[0x1E698C968]4 OSLogObject];
       if (os_log_type_enabled(oSLogObject4, OS_LOG_TYPE_DEFAULT))
       {
-        v57 = objc_opt_class();
-        v58 = AMSLogKey();
+        v56 = objc_opt_class();
+        v57 = AMSLogKey();
         AMSHashIfNeeded();
-        v46 = v59 = endDate;
-        [v61 stringFromDate:startDate];
-        v47 = v63 = startDate;
+        v46 = v58 = endDate;
+        [v60 stringFromDate:startDate];
+        v47 = v62 = startDate;
         v48 = AMSHashIfNeeded();
-        v49 = [v61 stringFromDate:v59];
+        v49 = [v60 stringFromDate:v58];
         v50 = AMSHashIfNeeded();
         *buf = 138544386;
-        v72 = v57;
-        v73 = 2114;
-        v74 = v58;
-        v75 = 2114;
-        v76 = v46;
-        v77 = 2114;
-        v78 = v48;
-        v79 = 2114;
-        v80 = v50;
+        v71 = v56;
+        v72 = 2114;
+        v73 = v57;
+        v74 = 2114;
+        v75 = v46;
+        v76 = 2114;
+        v77 = v48;
+        v78 = 2114;
+        v79 = v50;
         _os_log_impl(&dword_1BB036000, oSLogObject4, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Fetching treatments (areas: %{public}@, startDate: %{public}@, endDate: %{public}@)", buf, 0x34u);
 
-        startDate = v63;
-        endDate = v59;
+        startDate = v62;
+        endDate = v58;
       }
 
       defaultTreatmentStore4 = [MEMORY[0x1E698CB68] defaultTreatmentStore];
       v52 = [defaultTreatmentStore4 treatmentsForAreas:v5 startDate:startDate endDate:endDate];
-      v68[0] = MEMORY[0x1E69E9820];
-      v68[1] = 3221225472;
-      v68[2] = __42__AMSUIWebFetchTreatmentsAction_runAction__block_invoke_55;
-      v68[3] = &unk_1E7F262A0;
-      v68[4] = self;
-      v53 = [v52 thenWithBlock:v68];
+      v67[0] = MEMORY[0x1E69E9820];
+      v67[1] = 3221225472;
+      v67[2] = __42__AMSUIWebFetchTreatmentsAction_runAction__block_invoke_55;
+      v67[3] = &unk_1E7F262A0;
+      v67[4] = self;
+      v53 = [v52 thenWithBlock:v67];
 
-      v40 = v64;
-      [v64 addObject:v53];
+      v40 = v63;
+      [v63 addObject:v53];
 
-      areaIds = v60;
+      areaIds = v59;
       v36 = defaultTreatmentStore;
       v41 = startDate;
       v37 = v5;
@@ -339,7 +336,7 @@
 
     else
     {
-      v62 = startDate;
+      v61 = startDate;
       v30 = v5;
       mEMORY[0x1E698C968]5 = [MEMORY[0x1E698C968] sharedWebUIConfig];
       if (!mEMORY[0x1E698C968]5)
@@ -354,45 +351,45 @@
         v34 = AMSLogKey();
         v35 = AMSHashIfNeeded();
         *buf = 138543874;
-        v72 = v33;
-        v73 = 2114;
-        v74 = v34;
-        v75 = 2114;
-        v76 = v35;
+        v71 = v33;
+        v72 = 2114;
+        v73 = v34;
+        v74 = 2114;
+        v75 = v35;
         _os_log_impl(&dword_1BB036000, oSLogObject5, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Fetching active treatments (areas: %{public}@)", buf, 0x20u);
       }
 
       v36 = defaultTreatmentStore;
       v37 = v30;
       v38 = [defaultTreatmentStore activeTreatmentsForAreas:v30];
-      v69[0] = MEMORY[0x1E69E9820];
-      v69[1] = 3221225472;
-      v69[2] = __42__AMSUIWebFetchTreatmentsAction_runAction__block_invoke_52;
-      v69[3] = &unk_1E7F262A0;
-      v69[4] = self;
-      v39 = [v38 thenWithBlock:v69];
+      v68[0] = MEMORY[0x1E69E9820];
+      v68[1] = 3221225472;
+      v68[2] = __42__AMSUIWebFetchTreatmentsAction_runAction__block_invoke_52;
+      v68[3] = &unk_1E7F262A0;
+      v68[4] = self;
+      v39 = [v38 thenWithBlock:v68];
 
-      v40 = v64;
-      [v64 addObject:v39];
+      v40 = v63;
+      [v63 addObject:v39];
 
-      v41 = v62;
+      v41 = v61;
     }
 
-    v54 = [MEMORY[0x1E698CAD0] promiseWithAll:{v40, v57}];
+    v54 = [MEMORY[0x1E698CAD0] promiseWithAll:{v40, v56}];
     v43 = [v54 thenWithBlock:&__block_literal_global_59];
 
-    v67[0] = MEMORY[0x1E69E9820];
-    v67[1] = 3221225472;
-    v67[2] = __42__AMSUIWebFetchTreatmentsAction_runAction__block_invoke_5;
-    v67[3] = &unk_1E7F24410;
-    v67[4] = self;
-    [v43 addErrorBlock:v67];
     v66[0] = MEMORY[0x1E69E9820];
     v66[1] = 3221225472;
-    v66[2] = __42__AMSUIWebFetchTreatmentsAction_runAction__block_invoke_64;
-    v66[3] = &unk_1E7F261F0;
+    v66[2] = __42__AMSUIWebFetchTreatmentsAction_runAction__block_invoke_5;
+    v66[3] = &unk_1E7F24410;
     v66[4] = self;
-    [v43 addSuccessBlock:v66];
+    [v43 addErrorBlock:v66];
+    v65[0] = MEMORY[0x1E69E9820];
+    v65[1] = 3221225472;
+    v65[2] = __42__AMSUIWebFetchTreatmentsAction_runAction__block_invoke_64;
+    v65[3] = &unk_1E7F261F0;
+    v65[4] = self;
+    [v43 addSuccessBlock:v65];
   }
 
   else
@@ -402,130 +399,116 @@
     v43 = [v42 promiseWithError:v36];
   }
 
-  v55 = *MEMORY[0x1E69E9840];
-
   return v43;
 }
 
 id __42__AMSUIWebFetchTreatmentsAction_runAction__block_invoke(uint64_t a1, void *a2)
 {
-  v10[1] = *MEMORY[0x1E69E9840];
+  v9[1] = *MEMORY[0x1E69E9840];
   v2 = MEMORY[0x1E698CAD0];
-  v9 = @"experimentData";
-  v10[0] = a2;
+  v8 = @"experimentData";
+  v9[0] = a2;
   v3 = MEMORY[0x1E695DF20];
   v4 = a2;
-  v5 = [v3 dictionaryWithObjects:v10 forKeys:&v9 count:1];
+  v5 = [v3 dictionaryWithObjects:v9 forKeys:&v8 count:1];
   v6 = [v2 promiseWithResult:v5];
-
-  v7 = *MEMORY[0x1E69E9840];
 
   return v6;
 }
 
 id __42__AMSUIWebFetchTreatmentsAction_runAction__block_invoke_48(uint64_t a1, void *a2)
 {
-  v10[1] = *MEMORY[0x1E69E9840];
+  v9[1] = *MEMORY[0x1E69E9840];
   v2 = MEMORY[0x1E698CAD0];
-  v9 = @"payload";
-  v10[0] = a2;
+  v8 = @"payload";
+  v9[0] = a2;
   v3 = MEMORY[0x1E695DF20];
   v4 = a2;
-  v5 = [v3 dictionaryWithObjects:v10 forKeys:&v9 count:1];
+  v5 = [v3 dictionaryWithObjects:v9 forKeys:&v8 count:1];
   v6 = [v2 promiseWithResult:v5];
-
-  v7 = *MEMORY[0x1E69E9840];
 
   return v6;
 }
 
 id __42__AMSUIWebFetchTreatmentsAction_runAction__block_invoke_52(uint64_t a1, void *a2)
 {
-  v10[1] = *MEMORY[0x1E69E9840];
-  v8[0] = MEMORY[0x1E69E9820];
-  v8[1] = 3221225472;
-  v8[2] = __42__AMSUIWebFetchTreatmentsAction_runAction__block_invoke_2;
-  v8[3] = &unk_1E7F26278;
-  v8[4] = *(a1 + 32);
-  v2 = [a2 ams_compactMapValues:v8];
+  v9[1] = *MEMORY[0x1E69E9840];
+  v7[0] = MEMORY[0x1E69E9820];
+  v7[1] = 3221225472;
+  v7[2] = __42__AMSUIWebFetchTreatmentsAction_runAction__block_invoke_2;
+  v7[3] = &unk_1E7F26278;
+  v7[4] = *(a1 + 32);
+  v2 = [a2 ams_compactMapValues:v7];
   v3 = MEMORY[0x1E698CAD0];
-  v9 = @"treatments";
-  v10[0] = v2;
-  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:&v9 count:1];
+  v8 = @"treatments";
+  v9[0] = v2;
+  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:&v8 count:1];
   v5 = [v3 promiseWithResult:v4];
-
-  v6 = *MEMORY[0x1E69E9840];
 
   return v5;
 }
 
 id __42__AMSUIWebFetchTreatmentsAction_runAction__block_invoke_2(uint64_t a1, void *a2)
 {
-  v2 = *(a1 + 32);
-  v3 = a2;
-  v4 = [objc_opt_class() dictionaryRepresentationForTreatment:v3];
+  v2 = a2;
+  v3 = [objc_opt_class() dictionaryRepresentationForTreatment:v2];
 
-  return v4;
+  return v3;
 }
 
 id __42__AMSUIWebFetchTreatmentsAction_runAction__block_invoke_55(uint64_t a1, void *a2)
 {
-  v10[1] = *MEMORY[0x1E69E9840];
-  v8[0] = MEMORY[0x1E69E9820];
-  v8[1] = 3221225472;
-  v8[2] = __42__AMSUIWebFetchTreatmentsAction_runAction__block_invoke_2_56;
-  v8[3] = &unk_1E7F262C8;
-  v8[4] = *(a1 + 32);
-  v2 = [a2 ams_compactMapValues:v8];
+  v9[1] = *MEMORY[0x1E69E9840];
+  v7[0] = MEMORY[0x1E69E9820];
+  v7[1] = 3221225472;
+  v7[2] = __42__AMSUIWebFetchTreatmentsAction_runAction__block_invoke_2_56;
+  v7[3] = &unk_1E7F262C8;
+  v7[4] = *(a1 + 32);
+  v2 = [a2 ams_compactMapValues:v7];
   v3 = MEMORY[0x1E698CAD0];
-  v9 = @"treatmentSets";
-  v10[0] = v2;
-  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:&v9 count:1];
+  v8 = @"treatmentSets";
+  v9[0] = v2;
+  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:&v8 count:1];
   v5 = [v3 promiseWithResult:v4];
-
-  v6 = *MEMORY[0x1E69E9840];
 
   return v5;
 }
 
 id __42__AMSUIWebFetchTreatmentsAction_runAction__block_invoke_2_56(uint64_t a1, void *a2)
 {
-  v19 = *MEMORY[0x1E69E9840];
-  v3 = a2;
-  v4 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(v3, "count")}];
+  v16 = *MEMORY[0x1E69E9840];
+  v2 = a2;
+  v3 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(v2, "count")}];
+  v11 = 0u;
+  v12 = 0u;
+  v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
-  v16 = 0u;
-  v17 = 0u;
-  v5 = v3;
-  v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
-  if (v6)
+  v4 = v2;
+  v5 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  if (v5)
   {
-    v7 = v6;
-    v8 = *v15;
+    v6 = v5;
+    v7 = *v12;
     do
     {
-      for (i = 0; i != v7; ++i)
+      for (i = 0; i != v6; ++i)
       {
-        if (*v15 != v8)
+        if (*v12 != v7)
         {
-          objc_enumerationMutation(v5);
+          objc_enumerationMutation(v4);
         }
 
-        v10 = *(a1 + 32);
-        v11 = [objc_opt_class() dictionaryRepresentationForTreatment:{*(*(&v14 + 1) + 8 * i), v14}];
-        [v4 addObject:v11];
+        v9 = [objc_opt_class() dictionaryRepresentationForTreatment:{*(*(&v11 + 1) + 8 * i), v11}];
+        [v3 addObject:v9];
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
-    while (v7);
+    while (v6);
   }
 
-  v12 = *MEMORY[0x1E69E9840];
-
-  return v4;
+  return v3;
 }
 
 id __42__AMSUIWebFetchTreatmentsAction_runAction__block_invoke_3(uint64_t a1, void *a2)
@@ -538,59 +521,53 @@ id __42__AMSUIWebFetchTreatmentsAction_runAction__block_invoke_3(uint64_t a1, vo
 
 void __42__AMSUIWebFetchTreatmentsAction_runAction__block_invoke_5(uint64_t a1, void *a2)
 {
-  v17 = *MEMORY[0x1E69E9840];
-  v3 = a2;
-  v4 = [MEMORY[0x1E698C968] sharedWebUIConfig];
-  if (!v4)
+  v14 = *MEMORY[0x1E69E9840];
+  v2 = a2;
+  v3 = [MEMORY[0x1E698C968] sharedWebUIConfig];
+  if (!v3)
   {
-    v4 = [MEMORY[0x1E698C968] sharedConfig];
+    v3 = [MEMORY[0x1E698C968] sharedConfig];
   }
 
-  v5 = [v4 OSLogObject];
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+  v4 = [v3 OSLogObject];
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    v6 = *(a1 + 32);
-    v7 = objc_opt_class();
-    v8 = AMSLogKey();
-    v9 = AMSHashIfNeeded();
-    v11 = 138543874;
-    v12 = v7;
-    v13 = 2114;
-    v14 = v8;
-    v15 = 2114;
-    v16 = v9;
-    _os_log_impl(&dword_1BB036000, v5, OS_LOG_TYPE_ERROR, "%{public}@: [%{public}@] Failure (error: %{public}@)", &v11, 0x20u);
+    v5 = objc_opt_class();
+    v6 = AMSLogKey();
+    v7 = AMSHashIfNeeded();
+    v8 = 138543874;
+    v9 = v5;
+    v10 = 2114;
+    v11 = v6;
+    v12 = 2114;
+    v13 = v7;
+    _os_log_impl(&dword_1BB036000, v4, OS_LOG_TYPE_ERROR, "%{public}@: [%{public}@] Failure (error: %{public}@)", &v8, 0x20u);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 void __42__AMSUIWebFetchTreatmentsAction_runAction__block_invoke_64(uint64_t a1, void *a2)
 {
-  v16 = *MEMORY[0x1E69E9840];
-  v3 = a2;
-  v4 = [MEMORY[0x1E698C968] sharedWebUIConfig];
-  if (!v4)
+  v13 = *MEMORY[0x1E69E9840];
+  v2 = a2;
+  v3 = [MEMORY[0x1E698C968] sharedWebUIConfig];
+  if (!v3)
   {
-    v4 = [MEMORY[0x1E698C968] sharedConfig];
+    v3 = [MEMORY[0x1E698C968] sharedConfig];
   }
 
-  v5 = [v4 OSLogObject];
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v4 = [v3 OSLogObject];
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = *(a1 + 32);
-    v7 = objc_opt_class();
-    v8 = AMSLogKey();
-    v10 = 138543874;
-    v11 = v7;
-    v12 = 2114;
-    v13 = v8;
-    v14 = 2114;
-    v15 = v3;
-    _os_log_impl(&dword_1BB036000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Success (result: %{public}@)", &v10, 0x20u);
+    v5 = objc_opt_class();
+    v6 = AMSLogKey();
+    v7 = 138543874;
+    v8 = v5;
+    v9 = 2114;
+    v10 = v6;
+    v11 = 2114;
+    v12 = v2;
+    _os_log_impl(&dword_1BB036000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Success (result: %{public}@)", &v7, 0x20u);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 @end

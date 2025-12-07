@@ -3,6 +3,7 @@
 - (__n128)setMachTimer:(uint64_t)timer;
 - (double)machTimer;
 - (id)_nextMinuteDateWithContinuousTime:(unint64_t *)time machContinuousTimeForNextMinute:;
+- (id)_updateTimerEnablement;
 - (id)observeMinuteUpdatesWithHandler:(id)handler;
 - (id)referenceView;
 - (id)setReferenceView:(id *)result;
@@ -10,7 +11,6 @@
 - (uint64_t)_setupMachTimer;
 - (uint64_t)_tearDownClockSetNotification;
 - (uint64_t)_tearDownMachTimer;
-- (uint64_t)_updateTimerEnablement;
 - (uint64_t)clockSetNotifyToken;
 - (uint64_t)setClockSetNotifyToken:(uint64_t)result;
 - (void)_onMachTimer;
@@ -54,7 +54,7 @@
   v10 = MEMORY[0x1BFB4D9B0]();
   [(NSMutableDictionary *)self->_minuteHandlers setObject:v10 forKeyedSubscript:v8];
 
-  [(SBFMachNextMinuteDateProvider *)self _updateTimerEnablement];
+  [(SBFMachNextMinuteDateProvider *)&self->super.isa _updateTimerEnablement];
 
   return v8;
 }
@@ -102,7 +102,8 @@
     v3 = SBLogStatusBarish();
     if (OUTLINED_FUNCTION_1_4(v3))
     {
-      OUTLINED_FUNCTION_0_6(&dword_1BEA11000, v4, v5, "Tear down timer", v6, v7, v8, v9, 0);
+      v11 = 0;
+      OUTLINED_FUNCTION_0_6(&dword_1BEA11000, v4, v5, "Tear down timer", v6, v7, v8, v9, v11);
     }
 
     _SBFMachTimerCancel((v2 + 40), 1);
@@ -193,7 +194,7 @@
   return v16;
 }
 
-- (uint64_t)_updateTimerEnablement
+- (id)_updateTimerEnablement
 {
   if (!result)
   {
@@ -201,10 +202,10 @@
   }
 
   v1 = result;
-  result = [*(result + 32) count];
+  result = [result[4] count];
   if (result)
   {
-    if ((*(v1 + 16) & 1) == 0)
+    if ((v1[2] & 1) == 0)
     {
       *(v1 + 16) = 1;
       [(SBFMachNextMinuteDateProvider *)v1 _setupMachTimer];
@@ -213,17 +214,17 @@
     }
   }
 
-  else if ((*(v1 + 16) & 1) == 0)
+  else if ((v1[2] & 1) == 0)
   {
     return result;
   }
 
-  result = [*(v1 + 32) count];
+  result = [v1[4] count];
   if (!result)
   {
     *(v1 + 16) = 0;
     [(SBFMachNextMinuteDateProvider *)v1 _tearDownMachTimer];
-    v2 = *(v1 + 20);
+    v2 = *(v1 + 5);
 
     return notify_cancel(v2);
   }
@@ -235,7 +236,7 @@
 {
   [(NSMutableDictionary *)self->_minuteHandlers removeObjectForKey:handler];
 
-  [(SBFMachNextMinuteDateProvider *)self _updateTimerEnablement];
+  [(SBFMachNextMinuteDateProvider *)&self->super.isa _updateTimerEnablement];
 }
 
 - (uint64_t)_setupMachTimer
@@ -244,7 +245,7 @@
   if (result)
   {
     v2 = result;
-    _SBFMachTimerInit(result + 40, machTimerCallback, result, 0);
+    _SBFMachTimerInit((result + 40), machTimerCallback, result, 0);
     Main = CFRunLoopGetMain();
     _SBFMachTimerAddToRunLoop(v2 + 40, Main, *MEMORY[0x1E695E8D0]);
     v6 = 0;
@@ -312,7 +313,8 @@
   v4 = SBLogStatusBarish();
   if (OUTLINED_FUNCTION_1_4(v4))
   {
-    OUTLINED_FUNCTION_0_6(&dword_1BEA11000, v5, v6, "Handle mach timer callback", v7, v8, v9, v10, 0);
+    v11 = 0;
+    OUTLINED_FUNCTION_0_6(&dword_1BEA11000, v5, v6, "Handle mach timer callback", v7, v8, v9, v10, v11);
   }
 
   [(SBFMachNextMinuteDateProvider *)self _updateHandlers];
@@ -325,7 +327,8 @@
     v3 = SBLogStatusBarish();
     if (OUTLINED_FUNCTION_1_4(v3))
     {
-      OUTLINED_FUNCTION_0_6(&dword_1BEA11000, v4, v5, "Handle clock change notification", v6, v7, v8, v9, 0);
+      v10 = 0;
+      OUTLINED_FUNCTION_0_6(&dword_1BEA11000, v4, v5, "Handle clock change notification", v6, v7, v8, v9, v10);
     }
 
     [(SBFMachNextMinuteDateProvider *)self _updateHandlers];

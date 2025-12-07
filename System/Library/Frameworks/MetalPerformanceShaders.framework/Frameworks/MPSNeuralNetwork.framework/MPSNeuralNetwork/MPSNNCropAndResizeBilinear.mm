@@ -43,9 +43,9 @@
 
 - (MPSNNCropAndResizeBilinear)initWithDevice:(id)device resizeWidth:(NSUInteger)resizeWidth resizeHeight:(NSUInteger)resizeHeight numberOfRegions:(NSUInteger)numberOfRegions regions:(const MPSRegion *)regions
 {
-  v23.receiver = self;
-  v23.super_class = MPSNNCropAndResizeBilinear;
-  v11 = [(MPSCNNKernel *)&v23 initWithDevice:device];
+  v29.receiver = self;
+  v29.super_class = MPSNNCropAndResizeBilinear;
+  v11 = [(MPSCNNKernel *)&v29 initWithDevice:device];
   v12 = v11;
   if (v11)
   {
@@ -53,40 +53,52 @@
     {
       if (!MTLReportFailureTypeEnabled())
       {
-        goto LABEL_20;
+        goto LABEL_21;
       }
 
-      goto LABEL_19;
+      v27 = @"resize width (%lu) must be > 0";
+      v28 = 215;
+LABEL_20:
+      MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSNNCropAndResize.mm", v28, v27, v23, v24, v25, v26);
+LABEL_21:
+
+      return 0;
     }
 
     if (!resizeHeight)
     {
       if (!MTLReportFailureTypeEnabled())
       {
-        goto LABEL_20;
+        goto LABEL_21;
       }
 
-      goto LABEL_19;
+      v27 = @"resize height (%lu) must be > 0";
+      v28 = 216;
+      goto LABEL_20;
     }
 
     if (!numberOfRegions)
     {
       if (!MTLReportFailureTypeEnabled())
       {
-        goto LABEL_20;
+        goto LABEL_21;
       }
 
-      goto LABEL_19;
+      v27 = @"Number of regions (%lu) must be > 0";
+      v28 = 217;
+      goto LABEL_20;
     }
 
     if (!regions)
     {
       if (!MTLReportFailureTypeEnabled())
       {
-        goto LABEL_20;
+        goto LABEL_21;
       }
 
-      goto LABEL_19;
+      v27 = @"regions argument cannot be a nil value";
+      v28 = 218;
+      goto LABEL_20;
     }
 
     v13 = v11->_numberOfRegions;
@@ -99,10 +111,12 @@
         {
           if (!MTLReportFailureTypeEnabled())
           {
-            goto LABEL_20;
+            goto LABEL_21;
           }
 
-          goto LABEL_19;
+          v27 = @"MPSRegion origin.z must be 0";
+          v28 = 222;
+          goto LABEL_20;
         }
 
         if (*p_depth != 0.0)
@@ -119,14 +133,12 @@
 
       if (!MTLReportFailureTypeEnabled())
       {
-        goto LABEL_20;
+        goto LABEL_21;
       }
 
-LABEL_19:
-      MTLReportFailure();
-LABEL_20:
-
-      return 0;
+      v27 = @"MPSRegion size.depth must be 0";
+      v28 = 223;
+      goto LABEL_20;
     }
 
 LABEL_11:
@@ -170,9 +182,9 @@ LABEL_11:
 
 - (MPSNNCropAndResizeBilinear)initWithCoder:(NSCoder *)aDecoder device:(id)device
 {
-  v49.receiver = self;
-  v49.super_class = MPSNNCropAndResizeBilinear;
-  result = [(MPSCNNKernel *)&v49 initWithCoder:aDecoder device:device];
+  v56.receiver = self;
+  v56.super_class = MPSNNCropAndResizeBilinear;
+  result = [(MPSCNNKernel *)&v56 initWithCoder:aDecoder device:device];
   if (!result)
   {
     return result;
@@ -190,8 +202,11 @@ LABEL_14:
 
     v39 = objc_opt_class();
     NSStringFromClass(v39);
+    v44 = @"[%@ initWithCoder:device:] Failed: unsupported file version.";
+    v45 = 1;
+    v46 = 257;
 LABEL_13:
-    MTLReportFailure();
+    MTLReportFailure(v45, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSNNCropAndResize.mm", v46, v44, v40, v41, v42, v43);
     goto LABEL_14;
   }
 
@@ -207,9 +222,12 @@ LABEL_13:
       goto LABEL_14;
     }
 
-    v40 = objc_opt_class();
-    v41 = NSStringFromClass(v40);
-    objc_msgSend_cStringUsingEncoding_(v41, v42, 1, v43, v44, v45, v46, v47);
+    v47 = objc_opt_class();
+    v48 = NSStringFromClass(v47);
+    objc_msgSend_cStringUsingEncoding_(v48, v49, 1, v50, v51, v52, v53, v54);
+    v44 = @"[%s initWithCoder:device:] failed. Regions array size mismatch\n";
+    v45 = 0;
+    v46 = 268;
     goto LABEL_13;
   }
 

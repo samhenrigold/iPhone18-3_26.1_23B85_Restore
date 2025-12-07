@@ -34,22 +34,22 @@
 
 + (void)installProfileWithData:(id)data error:(id *)error
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   v6 = +[SDSeedingLogging profileHandle];
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;
-    v26 = [dataCopy length];
+    v25 = [dataCopy length];
     _os_log_impl(&dword_22E41E000, v6, OS_LOG_TYPE_DEFAULT, "Will install profile with data.length [%lu]", buf, 0xCu);
   }
 
-  v23 = *MEMORY[0x277D263E8];
-  v24 = &unk_284250A68;
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v24 forKeys:&v23 count:1];
-  v22 = 0;
-  v8 = [MEMORY[0x277D26290] profileWithData:dataCopy outError:&v22];
-  v9 = v22;
+  v22 = *MEMORY[0x277D263E8];
+  v23 = &unk_284250A68;
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v23 forKeys:&v22 count:1];
+  v21 = 0;
+  v8 = [MEMORY[0x277D26290] profileWithData:dataCopy outError:&v21];
+  v9 = v21;
   if (v9)
   {
     v10 = v9;
@@ -76,9 +76,9 @@ LABEL_8:
   if (v14)
   {
     mEMORY[0x277D262A0] = [MEMORY[0x277D262A0] sharedConnection];
-    v21 = 0;
-    v16 = [mEMORY[0x277D262A0] installProfileData:dataCopy options:v7 outError:&v21];
-    v10 = v21;
+    v20 = 0;
+    v16 = [mEMORY[0x277D262A0] installProfileData:dataCopy options:v7 outError:&v20];
+    v10 = v20;
 
     if (v10)
     {
@@ -117,8 +117,6 @@ LABEL_8:
   }
 
 LABEL_21:
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 + (BOOL)removeSeedingProfile
@@ -202,7 +200,7 @@ LABEL_21:
 
 void __42__SDProfileUtilities_removeSeedingProfile__block_invoke(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
@@ -220,19 +218,18 @@ void __42__SDProfileUtilities_removeSeedingProfile__block_invoke(uint64_t a1, vo
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       v5 = [*(a1 + 32) identifier];
-      v7 = 138412290;
-      v8 = v5;
-      _os_log_impl(&dword_22E41E000, v4, OS_LOG_TYPE_DEFAULT, "Deleted profile %@", &v7, 0xCu);
+      v6 = 138412290;
+      v7 = v5;
+      _os_log_impl(&dword_22E41E000, v4, OS_LOG_TYPE_DEFAULT, "Deleted profile %@", &v6, 0xCu);
     }
   }
 
   dispatch_group_leave(*(a1 + 40));
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __42__SDProfileUtilities_removeSeedingProfile__block_invoke_10(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
@@ -250,14 +247,13 @@ void __42__SDProfileUtilities_removeSeedingProfile__block_invoke_10(uint64_t a1,
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       v5 = [*(a1 + 32) identifier];
-      v7 = 138412290;
-      v8 = v5;
-      _os_log_impl(&dword_22E41E000, v4, OS_LOG_TYPE_DEFAULT, "Deleted second profile %@", &v7, 0xCu);
+      v6 = 138412290;
+      v7 = v5;
+      _os_log_impl(&dword_22E41E000, v4, OS_LOG_TYPE_DEFAULT, "Deleted second profile %@", &v6, 0xCu);
     }
   }
 
   dispatch_group_leave(*(a1 + 40));
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 + (BOOL)isProfileInstallationAllowed
@@ -270,7 +266,7 @@ void __42__SDProfileUtilities_removeSeedingProfile__block_invoke_10(uint64_t a1,
 
 + (id)getAssetAudienceIDForInstalledProfile:(id *)profile
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   getInstalledSeedProfile = [self getInstalledSeedProfile];
   v5 = getInstalledSeedProfile;
   if (!getInstalledSeedProfile)
@@ -287,12 +283,12 @@ LABEL_25:
     goto LABEL_26;
   }
 
-  v26 = 0u;
-  v27 = 0u;
-  v24 = 0u;
   v25 = 0u;
+  v26 = 0u;
+  v23 = 0u;
+  v24 = 0u;
   payloads = [getInstalledSeedProfile payloads];
-  v7 = [payloads countByEnumeratingWithState:&v24 objects:v30 count:16];
+  v7 = [payloads countByEnumeratingWithState:&v23 objects:v29 count:16];
   if (!v7)
   {
 
@@ -301,19 +297,19 @@ LABEL_25:
 
   v8 = v7;
   profileCopy = profile;
-  v23 = v5;
+  v22 = v5;
   v9 = 0;
-  v10 = *v25;
+  v10 = *v24;
   do
   {
     for (i = 0; i != v8; ++i)
     {
-      if (*v25 != v10)
+      if (*v24 != v10)
       {
         objc_enumerationMutation(payloads);
       }
 
-      v12 = *(*(&v24 + 1) + 8 * i);
+      v12 = *(*(&v23 + 1) + 8 * i);
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
@@ -329,7 +325,7 @@ LABEL_25:
       }
     }
 
-    v8 = [payloads countByEnumeratingWithState:&v24 objects:v30 count:16];
+    v8 = [payloads countByEnumeratingWithState:&v23 objects:v29 count:16];
   }
 
   while (v8);
@@ -358,12 +354,11 @@ LABEL_21:
   if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
   {
     *buf = 138543362;
-    v29 = v9;
+    v28 = v9;
     _os_log_impl(&dword_22E41E000, v17, OS_LOG_TYPE_INFO, "Found beta profile with Asset Audience ID [%{public}@]", buf, 0xCu);
   }
 
 LABEL_26:
-  v20 = *MEMORY[0x277D85DE8];
 
   return v9;
 }
@@ -406,42 +401,30 @@ LABEL_26:
 
 + (void)installProfileWithData:(void *)a1 error:.cold.1(void *a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
   v1 = [a1 MCVerboseDescription];
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_1(&dword_22E41E000, v2, v3, "Can't parse profile. Error: [%{public}@]", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_1(&dword_22E41E000, v2, v3, "Can't parse profile. Error: [%{public}@]", v4, v5, v6, v7);
 }
 
 + (void)installProfileWithData:(void *)a1 error:.cold.3(void *a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
   v1 = [a1 MCVerboseDescription];
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_1(&dword_22E41E000, v2, v3, "Installation failed. Error: [%{public}@]", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_1(&dword_22E41E000, v2, v3, "Installation failed. Error: [%{public}@]", v4, v5, v6, v7);
 }
 
 void __42__SDProfileUtilities_removeSeedingProfile__block_invoke_cold_1(void *a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
   v1 = [a1 MCVerboseDescription];
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_1(&dword_22E41E000, v2, v3, "Removal of beta profile failed. Error: [%{public}@]", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_1(&dword_22E41E000, v2, v3, "Removal of beta profile failed. Error: [%{public}@]", v4, v5, v6, v7);
 }
 
 void __42__SDProfileUtilities_removeSeedingProfile__block_invoke_10_cold_1(void *a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
   v1 = [a1 MCVerboseDescription];
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_1(&dword_22E41E000, v2, v3, "Removal of second beta profile failed. Error: [%{public}@]", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_1(&dword_22E41E000, v2, v3, "Removal of second beta profile failed. Error: [%{public}@]", v4, v5, v6, v7);
 }
 
 @end

@@ -84,7 +84,7 @@
 
 - (void)clearChangeHistoryToSyncAnchor:(id)anchor
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   anchorCopy = anchor;
   v5 = objc_alloc(MEMORY[0x277CBDA38]);
   v8 = objc_msgSend_sequenceNumber(anchorCopy, v6, v7);
@@ -95,31 +95,29 @@
 
   objc_msgSend_setToChangeAnchor_(v16, v17, v10);
   v20 = objc_msgSend_contactStore(self, v18, v19);
-  v32 = 0;
-  objc_msgSend_executeChangeHistoryClearRequest_error_(v20, v21, v16, &v32);
-  v22 = v32;
+  v31 = 0;
+  objc_msgSend_executeChangeHistoryClearRequest_error_(v20, v21, v16, &v31);
+  v22 = v31;
 
   if (v22)
   {
     v23 = *MEMORY[0x277CEF0D0];
     if (os_log_type_enabled(*MEMORY[0x277CEF0D0], OS_LOG_TYPE_DEBUG))
     {
-      v25 = v23;
-      v28 = objc_msgSend_changeHistoryClientIdentifier(self, v26, v27);
-      v31 = objc_msgSend_sequenceNumber(anchorCopy, v29, v30);
+      v24 = v23;
+      v27 = objc_msgSend_changeHistoryClientIdentifier(self, v25, v26);
+      v30 = objc_msgSend_sequenceNumber(anchorCopy, v28, v29);
       *buf = 136315906;
-      v34 = "[ABAssistantSyncPeople clearChangeHistoryToSyncAnchor:]";
-      v35 = 2112;
-      v36 = v28;
-      v37 = 2048;
-      v38 = v31;
-      v39 = 2112;
-      v40 = v22;
-      _os_log_debug_impl(&dword_2334BB000, v25, OS_LOG_TYPE_DEBUG, "%s Failed to get clear change history for %@ to sequence number = %li, error = %@", buf, 0x2Au);
+      v33 = "[ABAssistantSyncPeople clearChangeHistoryToSyncAnchor:]";
+      v34 = 2112;
+      v35 = v27;
+      v36 = 2048;
+      v37 = v30;
+      v38 = 2112;
+      v39 = v22;
+      _os_log_debug_impl(&dword_2334BB000, v24, OS_LOG_TYPE_DEBUG, "%s Failed to get clear change history for %@ to sequence number = %li, error = %@", buf, 0x2Au);
     }
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)hasContactsForFullSync
@@ -197,34 +195,34 @@
 
 - (id)newSADomainObjectFromCNContactWithIdentifier:(id)identifier
 {
-  v37[1] = *MEMORY[0x277D85DE8];
+  v36[1] = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
-  v31 = 0;
-  v32 = &v31;
-  v33 = 0x3032000000;
-  v34 = sub_2334BCCA8;
-  v35 = sub_2334BCCB8;
-  v36 = 0;
+  v30 = 0;
+  v31 = &v30;
+  v32 = 0x3032000000;
+  v33 = sub_2334BCCA8;
+  v34 = sub_2334BCCB8;
+  v35 = 0;
   v5 = objc_alloc(MEMORY[0x277CBDA70]);
   v7 = objc_msgSend_descriptorsForRequiredKeysForConversionType_(MEMORY[0x277CFBC48], v6, 2);
   v9 = objc_msgSend_initWithKeysToFetch_(v5, v8, v7);
 
   objc_msgSend_setUnifyResults_(v9, v10, 0);
   v11 = MEMORY[0x277CBDA58];
-  v37[0] = identifierCopy;
-  v13 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v12, v37, 1);
+  v36[0] = identifierCopy;
+  v13 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v12, v36, 1);
   v15 = objc_msgSend_predicateForContactsWithIdentifiers_(v11, v14, v13);
   objc_msgSend_setPredicate_(v9, v16, v15);
 
   v19 = objc_msgSend_contactStore(self, v17, v18);
-  v29[0] = MEMORY[0x277D85DD0];
-  v29[1] = 3221225472;
-  v29[2] = sub_2334BCCC0;
-  v29[3] = &unk_2789D8DE8;
-  v29[4] = &v31;
-  v30 = 0;
-  Request_error_usingBlock = objc_msgSend_enumerateContactsWithFetchRequest_error_usingBlock_(v19, v20, v9, &v30, v29);
-  v22 = v30;
+  v28[0] = MEMORY[0x277D85DD0];
+  v28[1] = 3221225472;
+  v28[2] = sub_2334BCCC0;
+  v28[3] = &unk_2789D8DE8;
+  v28[4] = &v30;
+  v29 = 0;
+  Request_error_usingBlock = objc_msgSend_enumerateContactsWithFetchRequest_error_usingBlock_(v19, v20, v9, &v29, v28);
+  v22 = v29;
 
   v24 = MEMORY[0x277CEF0D0];
   if ((Request_error_usingBlock & 1) == 0 && os_log_type_enabled(*MEMORY[0x277CEF0D0], OS_LOG_TYPE_DEBUG))
@@ -237,7 +235,7 @@
     sub_2334C2C78();
   }
 
-  v25 = v32[5];
+  v25 = v31[5];
   if (v25)
   {
     v26 = objc_msgSend_newSADomainObjectFromCNContact_(self, v23, v25);
@@ -248,8 +246,7 @@
     v26 = 0;
   }
 
-  _Block_object_dispose(&v31, 8);
-  v27 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v30, 8);
   return v26;
 }
 

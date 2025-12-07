@@ -7,7 +7,7 @@
 
 - (void)main
 {
-  v46[1] = *MEMORY[0x277D85DE8];
+  v44[1] = *MEMORY[0x277D85DE8];
   if (self && (v3 = self->super._transport) != 0)
   {
     val = v3;
@@ -15,27 +15,27 @@
     operationQueue = [(HAP2AccessoryServerTransportBase *)val operationQueue];
     [operationQueue assertCurrentQueue];
 
-    v33 = 0;
-    v34 = &v33;
-    v35 = 0x3032000000;
-    v36 = __Block_byref_object_copy__6734;
-    v37 = __Block_byref_object_dispose__6735;
-    v38 = 0;
-    v29 = 0;
-    v30 = &v29;
-    v31 = 0x2020000000;
-    v32 = 0;
+    v31 = 0;
+    v32 = &v31;
+    v33 = 0x3032000000;
+    v34 = __Block_byref_object_copy__6734;
+    v35 = __Block_byref_object_dispose__6735;
+    v36 = 0;
+    v27 = 0;
+    v28 = &v27;
+    v29 = 0x2020000000;
+    v30 = 0;
     propertyLock = [(HAP2AccessoryServerTransportBase *)val propertyLock];
-    v28[0] = MEMORY[0x277D85DD0];
-    v28[1] = 3221225472;
-    v28[2] = __55__HAP2AccessoryServerTransportBase__openWithOperation___block_invoke;
-    v28[3] = &unk_2786D4688;
-    v28[4] = val;
-    v28[5] = &v33;
-    v28[6] = &v29;
-    [propertyLock performWritingBlock:v28];
+    v26[0] = MEMORY[0x277D85DD0];
+    v26[1] = 3221225472;
+    v26[2] = __55__HAP2AccessoryServerTransportBase__openWithOperation___block_invoke;
+    v26[3] = &unk_2786D4688;
+    v26[4] = val;
+    v26[5] = &v31;
+    v26[6] = &v27;
+    [propertyLock performWritingBlock:v26];
 
-    if (v34[5])
+    if (v32[5])
     {
       if (hap2LogInitialize_onceToken != -1)
       {
@@ -50,22 +50,22 @@
         _os_log_error_impl(&dword_22AADC000, v7, OS_LOG_TYPE_ERROR, "%@ (Base) Not opening while a close is enqueued", &buf, 0xCu);
       }
 
-      [(HAP2AsynchronousOperation *)selfCopy cancelWithError:v34[5]];
+      [(HAP2AsynchronousOperation *)selfCopy cancelWithError:v32[5]];
     }
 
-    else if (v30[3] == 2)
+    else if (v28[3] == 2)
     {
       if (hap2LogInitialize_onceToken != -1)
       {
         dispatch_once(&hap2LogInitialize_onceToken, &__block_literal_global_1996);
       }
 
-      v9 = hap2Log_accessory;
+      v8 = hap2Log_accessory;
       if (os_log_type_enabled(hap2Log_accessory, OS_LOG_TYPE_DEBUG))
       {
         LODWORD(buf) = 138412290;
         *(&buf + 4) = val;
-        _os_log_debug_impl(&dword_22AADC000, v9, OS_LOG_TYPE_DEBUG, "%@ (Base) Already open", &buf, 0xCu);
+        _os_log_debug_impl(&dword_22AADC000, v8, OS_LOG_TYPE_DEBUG, "%@ (Base) Already open", &buf, 0xCu);
       }
 
       [(HAP2AsynchronousOperation *)selfCopy finish];
@@ -78,31 +78,31 @@
         dispatch_once(&hap2LogInitialize_onceToken, &__block_literal_global_1996);
       }
 
-      v10 = hap2Log_accessory;
+      v9 = hap2Log_accessory;
       if (os_log_type_enabled(hap2Log_accessory, OS_LOG_TYPE_DEFAULT))
       {
         LODWORD(buf) = 138412290;
         *(&buf + 4) = val;
-        _os_log_impl(&dword_22AADC000, v10, OS_LOG_TYPE_DEFAULT, "%@ (Base) Opening", &buf, 0xCu);
+        _os_log_impl(&dword_22AADC000, v9, OS_LOG_TYPE_DEFAULT, "%@ (Base) Opening", &buf, 0xCu);
       }
 
       [(HAP2AccessoryServerTransportBase *)val didChangeStateWithError:0];
-      v11 = MEMORY[0x277CCACA8];
-      v12 = objc_opt_class();
-      v13 = NSStringFromClass(v12);
-      v14 = [v11 stringWithFormat:@"%@ Open Transport", v13];
+      v10 = MEMORY[0x277CCACA8];
+      v11 = objc_opt_class();
+      v12 = NSStringFromClass(v11);
+      v13 = [v10 stringWithFormat:@"%@ Open Transport", v12];
 
-      v15 = [objc_alloc(MEMORY[0x277D0F8B8]) initWithName:@"Open Transport" timeout:60.0];
-      v27 = 0;
-      if (v15)
+      v14 = [objc_alloc(MEMORY[0x277D0F8B8]) initWithName:@"Open Transport" timeout:60.0];
+      v25 = 0;
+      if (v14)
       {
-        v16 = objc_alloc(MEMORY[0x277D0F770]);
+        v15 = objc_alloc(MEMORY[0x277D0F770]);
         uUID = [MEMORY[0x277CCAD78] UUID];
-        v46[0] = v15;
-        v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v46 count:1];
-        v19 = [v16 initWithIdentifier:uUID name:v14 parent:0 assertions:v18];
-        v20 = v27;
-        v27 = v19;
+        v44[0] = v14;
+        v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v44 count:1];
+        v18 = [v15 initWithIdentifier:uUID name:v13 parent:0 assertions:v17];
+        v19 = v25;
+        v25 = v18;
       }
 
       else
@@ -112,46 +112,43 @@
           dispatch_once(&hap2LogInitialize_onceToken, &__block_literal_global_1996);
         }
 
-        v21 = hap2Log_accessory;
+        v20 = hap2Log_accessory;
         if (os_log_type_enabled(hap2Log_accessory, OS_LOG_TYPE_ERROR))
         {
           LODWORD(buf) = 138412290;
           *(&buf + 4) = val;
-          _os_log_error_impl(&dword_22AADC000, v21, OS_LOG_TYPE_ERROR, "%@ Failed to create power assertion", &buf, 0xCu);
+          _os_log_error_impl(&dword_22AADC000, v20, OS_LOG_TYPE_ERROR, "%@ Failed to create power assertion", &buf, 0xCu);
         }
 
-        v22 = objc_alloc(MEMORY[0x277D0F770]);
+        v21 = objc_alloc(MEMORY[0x277D0F770]);
         uUID = [MEMORY[0x277CCAD78] UUID];
-        v23 = [v22 initWithIdentifier:uUID name:v14 parent:0 options:0];
-        v18 = v27;
-        v27 = v23;
+        v22 = [v21 initWithIdentifier:uUID name:v13 parent:0 options:0];
+        v17 = v25;
+        v25 = v22;
       }
 
       objc_initWeak(&location, val);
       *&buf = MEMORY[0x277D85DD0];
       *(&buf + 1) = 3221225472;
-      v40 = __55__HAP2AccessoryServerTransportBase__openWithOperation___block_invoke_23;
-      v41 = &unk_2786D3D78;
-      v42 = selfCopy;
-      v43 = val;
-      v44 = v27;
-      objc_copyWeak(&v45, &location);
+      v38 = __55__HAP2AccessoryServerTransportBase__openWithOperation___block_invoke_23;
+      v39 = &unk_2786D3D78;
+      v40 = selfCopy;
+      v41 = val;
+      v42 = v25;
+      objc_copyWeak(&v43, &location);
       [(HAP2AccessoryServerTransportBase *)val doOpenWithCompletion:&buf];
-      objc_destroyWeak(&v45);
+      objc_destroyWeak(&v43);
 
       objc_destroyWeak(&location);
       __HMFActivityScopeLeave();
     }
 
-    _Block_object_dispose(&v29, 8);
-    _Block_object_dispose(&v33, 8);
-
-    v24 = *MEMORY[0x277D85DE8];
+    _Block_object_dispose(&v27, 8);
+    _Block_object_dispose(&v31, 8);
   }
 
   else
   {
-    v8 = *MEMORY[0x277D85DE8];
 
     [(HAP2AsynchronousOperation *)self cancel];
   }

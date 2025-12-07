@@ -126,17 +126,15 @@
 
 - (void)logOptions
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v3 = _MAClientLog(@"V2");
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = [(MADownloadOptions *)self description];
-    v6 = 138543362;
-    v7 = v4;
-    _os_log_impl(&dword_197AD5000, v3, OS_LOG_TYPE_DEFAULT, "The download options are %{public}@", &v6, 0xCu);
+    v5 = 138543362;
+    v6 = v4;
+    _os_log_impl(&dword_197AD5000, v3, OS_LOG_TYPE_DEFAULT, "The download options are %{public}@", &v5, 0xCu);
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (id)description
@@ -188,11 +186,11 @@
 
 - (MADownloadOptions)initWithCoder:(id)coder
 {
-  v37[8] = *MEMORY[0x1E69E9840];
+  v36[8] = *MEMORY[0x1E69E9840];
   coderCopy = coder;
-  v36.receiver = self;
-  v36.super_class = MADownloadOptions;
-  v5 = [(MADownloadOptions *)&v36 init];
+  v35.receiver = self;
+  v35.super_class = MADownloadOptions;
+  v5 = [(MADownloadOptions *)&v35 init];
   if (v5)
   {
     v6 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"SessionId"];
@@ -200,7 +198,7 @@
 
     v7 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"AdditionalServerParams"];
     v8 = [objc_alloc(MEMORY[0x1E696ACD0]) initForReadingFromData:v7 error:0];
-    v9 = plistDecodeClasses();
+    v9 = plistDecodeClasses(v8);
     v10 = [v8 decodeObjectOfClasses:v9 forKey:*MEMORY[0x1E696A508]];
 
     if (v10 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
@@ -208,8 +206,8 @@
       v11 = _MAClientLog(@"V2");
       if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
-        *v35 = 0;
-        _os_log_impl(&dword_197AD5000, v11, OS_LOG_TYPE_DEFAULT, "Invalid additionalServerParams; not a dictionary. Leaving as nil.", v35, 2u);
+        *v34 = 0;
+        _os_log_impl(&dword_197AD5000, v11, OS_LOG_TYPE_DEFAULT, "Invalid additionalServerParams; not a dictionary. Leaving as nil.", v34, 2u);
       }
     }
 
@@ -267,22 +265,21 @@
     [(MADownloadOptions *)v5 setDownloadAuthorizationHeader:v28];
 
     v29 = MEMORY[0x1E695DFD8];
-    v37[0] = objc_opt_class();
-    v37[1] = objc_opt_class();
-    v37[2] = objc_opt_class();
-    v37[3] = objc_opt_class();
-    v37[4] = objc_opt_class();
-    v37[5] = objc_opt_class();
-    v37[6] = objc_opt_class();
-    v37[7] = objc_opt_class();
-    v30 = [MEMORY[0x1E695DEC8] arrayWithObjects:v37 count:8];
+    v36[0] = objc_opt_class();
+    v36[1] = objc_opt_class();
+    v36[2] = objc_opt_class();
+    v36[3] = objc_opt_class();
+    v36[4] = objc_opt_class();
+    v36[5] = objc_opt_class();
+    v36[6] = objc_opt_class();
+    v36[7] = objc_opt_class();
+    v30 = [MEMORY[0x1E695DEC8] arrayWithObjects:v36 count:8];
     v31 = [v29 setWithArray:v30];
 
     v32 = [coderCopy decodeObjectOfClasses:v31 forKey:@"AnalyticsData"];
     [(MADownloadOptions *)v5 setAnalyticsData:v32];
   }
 
-  v33 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
@@ -299,7 +296,7 @@
 
     v7 = getPlistData(plistCopy, @"AdditionalServerParams");
     v8 = [objc_alloc(MEMORY[0x1E696ACD0]) initForReadingFromData:v7 error:0];
-    v9 = plistDecodeClasses();
+    v9 = plistDecodeClasses(v8);
     v10 = [v8 decodeObjectOfClasses:v9 forKey:*MEMORY[0x1E696A508]];
 
     if (v10 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
@@ -510,28 +507,13 @@
   }
 
   v12 = [v28 stringWithFormat:@"disc:%@, cell:%@, expen:%@, power:%@, cache:%@, pwifi:%@, live:%@, retry:%@", v4, v5, v6, v7, v8, v9, v10, v11];
-  if (!additionalCopy)
-  {
-    goto LABEL_31;
-  }
-
-  additionalServerParams = [(MADownloadOptions *)self additionalServerParams];
-  if (!additionalServerParams)
-  {
-    goto LABEL_31;
-  }
-
-  v14 = additionalServerParams;
-  additionalServerParams2 = [(MADownloadOptions *)self additionalServerParams];
-  v16 = [additionalServerParams2 count];
-
-  if (v16)
+  if (additionalCopy && (-[MADownloadOptions additionalServerParams](self, "additionalServerParams"), (v13 = objc_claimAutoreleasedReturnValue()) != 0) && (v14 = v13, -[MADownloadOptions additionalServerParams](self, "additionalServerParams"), v15 = objc_claimAutoreleasedReturnValue(), v16 = [v15 count], v15, v14, v16))
   {
     sessionId = [(MADownloadOptions *)self sessionId];
 
     v18 = MEMORY[0x1E696AEC0];
-    additionalServerParams3 = [(MADownloadOptions *)self additionalServerParams];
-    v20 = stringWithoutNewlines(additionalServerParams3);
+    additionalServerParams = [(MADownloadOptions *)self additionalServerParams];
+    v20 = stringWithoutNewlines(additionalServerParams);
     v21 = v20;
     if (sessionId)
     {
@@ -551,7 +533,6 @@
 
   else
   {
-LABEL_31:
     sessionId3 = [(MADownloadOptions *)self sessionId];
 
     if (!sessionId3)
@@ -560,8 +541,8 @@ LABEL_31:
     }
 
     v25 = MEMORY[0x1E696AEC0];
-    additionalServerParams3 = [(MADownloadOptions *)self sessionId];
-    [v25 stringWithFormat:@"%@, ssn:%@", v12, additionalServerParams3];
+    additionalServerParams = [(MADownloadOptions *)self sessionId];
+    [v25 stringWithFormat:@"%@, ssn:%@", v12, additionalServerParams];
     v12 = v21 = v12;
   }
 

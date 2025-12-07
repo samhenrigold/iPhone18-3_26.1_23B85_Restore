@@ -679,7 +679,6 @@ LABEL_23:
   has = self->_has;
   if ((*&has & 0x80) != 0)
   {
-    sessionLengthInSeconds = self->_sessionLengthInSeconds;
     PBDataWriterWriteUint32Field();
     has = self->_has;
     if ((*&has & 0x10) == 0)
@@ -699,7 +698,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  numEngagementsInSpotlightApps = self->_numEngagementsInSpotlightApps;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 8) == 0)
@@ -714,7 +712,6 @@ LABEL_4:
   }
 
 LABEL_28:
-  numEngagementsInSpotlightActions = self->_numEngagementsInSpotlightActions;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x20) == 0)
@@ -729,7 +726,6 @@ LABEL_5:
   }
 
 LABEL_29:
-  numEngagementsInSuggestionsWidget = self->_numEngagementsInSuggestionsWidget;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 2) == 0)
@@ -744,7 +740,6 @@ LABEL_6:
   }
 
 LABEL_30:
-  numEngagementsInAppPredictionPanel = self->_numEngagementsInAppPredictionPanel;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 1) == 0)
@@ -759,7 +754,6 @@ LABEL_7:
   }
 
 LABEL_31:
-  numEngagementsInAppLibrary = self->_numEngagementsInAppLibrary;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x10000) == 0)
@@ -774,7 +768,6 @@ LABEL_8:
   }
 
 LABEL_32:
-  spotlightEnabled = self->_spotlightEnabled;
   PBDataWriterWriteBOOLField();
   has = self->_has;
   if ((*&has & 0x20000) == 0)
@@ -789,7 +782,6 @@ LABEL_9:
   }
 
 LABEL_33:
-  suggestionsWidgetEnabled = self->_suggestionsWidgetEnabled;
   PBDataWriterWriteBOOLField();
   has = self->_has;
   if ((*&has & 0x400) == 0)
@@ -804,7 +796,6 @@ LABEL_10:
   }
 
 LABEL_34:
-  appPredictionPanelEnabled = self->_appPredictionPanelEnabled;
   PBDataWriterWriteBOOLField();
   has = self->_has;
   if ((*&has & 0x100) == 0)
@@ -819,7 +810,6 @@ LABEL_11:
   }
 
 LABEL_35:
-  appLibraryEnabled = self->_appLibraryEnabled;
   PBDataWriterWriteBOOLField();
   has = self->_has;
   if ((*&has & 0x8000) == 0)
@@ -834,7 +824,6 @@ LABEL_12:
   }
 
 LABEL_36:
-  spotlightAppsViewed = self->_spotlightAppsViewed;
   PBDataWriterWriteBOOLField();
   has = self->_has;
   if ((*&has & 0x4000) == 0)
@@ -849,7 +838,6 @@ LABEL_13:
   }
 
 LABEL_37:
-  spotlightActionsViewed = self->_spotlightActionsViewed;
   PBDataWriterWriteBOOLField();
   has = self->_has;
   if ((*&has & 0x100000) == 0)
@@ -864,7 +852,6 @@ LABEL_14:
   }
 
 LABEL_38:
-  suggestionsWidgetViewed = self->_suggestionsWidgetViewed;
   PBDataWriterWriteBOOLField();
   has = self->_has;
   if ((*&has & 0x2000) == 0)
@@ -879,7 +866,6 @@ LABEL_15:
   }
 
 LABEL_39:
-  appPredictionPanelViewed = self->_appPredictionPanelViewed;
   PBDataWriterWriteBOOLField();
   has = self->_has;
   if ((*&has & 0x200) == 0)
@@ -894,7 +880,6 @@ LABEL_16:
   }
 
 LABEL_40:
-  appLibraryViewed = self->_appLibraryViewed;
   PBDataWriterWriteBOOLField();
   has = self->_has;
   if ((*&has & 0x80000) == 0)
@@ -909,7 +894,6 @@ LABEL_17:
   }
 
 LABEL_41:
-  suggestionsWidgetTodayPageViewed = self->_suggestionsWidgetTodayPageViewed;
   PBDataWriterWriteBOOLField();
   has = self->_has;
   if ((*&has & 0x1000) == 0)
@@ -924,7 +908,6 @@ LABEL_18:
   }
 
 LABEL_42:
-  appPredictionPanelTodayPageViewed = self->_appPredictionPanelTodayPageViewed;
   PBDataWriterWriteBOOLField();
   has = self->_has;
   if ((*&has & 0x40) == 0)
@@ -939,7 +922,6 @@ LABEL_19:
   }
 
 LABEL_43:
-  numEngagementsInSuggestionsWidgetTodayPage = self->_numEngagementsInSuggestionsWidgetTodayPage;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 4) == 0)
@@ -954,7 +936,6 @@ LABEL_20:
   }
 
 LABEL_44:
-  numEngagementsInAppPredictionPanelTodayPage = self->_numEngagementsInAppPredictionPanelTodayPage;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x40000) == 0)
@@ -969,12 +950,10 @@ LABEL_21:
   }
 
 LABEL_45:
-  suggestionsWidgetTodayPageEnabled = self->_suggestionsWidgetTodayPageEnabled;
   PBDataWriterWriteBOOLField();
   if ((*&self->_has & 0x800) != 0)
   {
 LABEL_22:
-    appPredictionPanelTodayPageEnabled = self->_appPredictionPanelTodayPageEnabled;
     PBDataWriterWriteBOOLField();
   }
 
@@ -1693,7 +1672,6 @@ LABEL_22:
       goto LABEL_145;
     }
 
-    v7 = *(equalCopy + 48);
     if (self->_spotlightEnabled)
     {
       if ((*(equalCopy + 48) & 1) == 0)
@@ -1720,7 +1698,6 @@ LABEL_22:
       goto LABEL_145;
     }
 
-    v8 = *(equalCopy + 49);
     if (self->_suggestionsWidgetEnabled)
     {
       if ((*(equalCopy + 49) & 1) == 0)
@@ -1747,7 +1724,6 @@ LABEL_22:
       goto LABEL_145;
     }
 
-    v9 = *(equalCopy + 42);
     if (self->_appPredictionPanelEnabled)
     {
       if ((*(equalCopy + 42) & 1) == 0)
@@ -1774,7 +1750,6 @@ LABEL_22:
       goto LABEL_145;
     }
 
-    v10 = *(equalCopy + 40);
     if (self->_appLibraryEnabled)
     {
       if ((*(equalCopy + 40) & 1) == 0)
@@ -1801,7 +1776,6 @@ LABEL_22:
       goto LABEL_145;
     }
 
-    v11 = *(equalCopy + 47);
     if (self->_spotlightAppsViewed)
     {
       if ((*(equalCopy + 47) & 1) == 0)
@@ -1828,7 +1802,6 @@ LABEL_22:
       goto LABEL_145;
     }
 
-    v12 = *(equalCopy + 46);
     if (self->_spotlightActionsViewed)
     {
       if ((*(equalCopy + 46) & 1) == 0)
@@ -1855,7 +1828,6 @@ LABEL_22:
       goto LABEL_145;
     }
 
-    v13 = *(equalCopy + 52);
     if (self->_suggestionsWidgetViewed)
     {
       if ((*(equalCopy + 52) & 1) == 0)
@@ -1882,7 +1854,6 @@ LABEL_22:
       goto LABEL_145;
     }
 
-    v14 = *(equalCopy + 45);
     if (self->_appPredictionPanelViewed)
     {
       if ((*(equalCopy + 45) & 1) == 0)
@@ -1909,7 +1880,6 @@ LABEL_22:
       goto LABEL_145;
     }
 
-    v15 = *(equalCopy + 41);
     if (self->_appLibraryViewed)
     {
       if ((*(equalCopy + 41) & 1) == 0)
@@ -1936,7 +1906,6 @@ LABEL_22:
       goto LABEL_145;
     }
 
-    v16 = *(equalCopy + 51);
     if (self->_suggestionsWidgetTodayPageViewed)
     {
       if ((*(equalCopy + 51) & 1) == 0)
@@ -1963,7 +1932,6 @@ LABEL_22:
       goto LABEL_145;
     }
 
-    v17 = *(equalCopy + 44);
     if (self->_appPredictionPanelTodayPageViewed)
     {
       if ((*(equalCopy + 44) & 1) == 0)
@@ -2016,7 +1984,6 @@ LABEL_22:
       goto LABEL_145;
     }
 
-    v19 = *(equalCopy + 50);
     if (self->_suggestionsWidgetTodayPageEnabled)
     {
       if ((*(equalCopy + 50) & 1) == 0)
@@ -2051,20 +2018,20 @@ LABEL_22:
       else if (!*(equalCopy + 43))
       {
 LABEL_147:
-        v18 = 1;
+        v7 = 1;
         goto LABEL_146;
       }
     }
 
 LABEL_145:
-    v18 = 0;
+    v7 = 0;
     goto LABEL_146;
   }
 
-  v18 = (*(equalCopy + 14) & 0x800) == 0;
+  v7 = (*(equalCopy + 14) & 0x800) == 0;
 LABEL_146:
 
-  return v18;
+  return v7;
 }
 
 - (unint64_t)hash

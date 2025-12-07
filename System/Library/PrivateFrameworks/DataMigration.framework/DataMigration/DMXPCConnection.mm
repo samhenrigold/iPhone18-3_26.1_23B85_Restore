@@ -39,66 +39,64 @@
 - (DMXPCConnection)initWithServiceName:(id)name
 {
   nameCopy = name;
-  v23.receiver = self;
-  v23.super_class = DMXPCConnection;
-  v6 = [(DMXPCConnection *)&v23 init];
+  v32.receiver = self;
+  v32.super_class = DMXPCConnection;
+  v6 = [(DMXPCConnection *)&v32 init];
   if (v6)
   {
     v7 = v6;
     nameCopy = [MEMORY[0x277CCACA8] stringWithFormat:@"com.apple.dmxpcservice.%@", nameCopy];
-    nameCopy2 = [MEMORY[0x277CCACA8] stringWithFormat:@"com.apple.dmxpcservice.reply.%@", nameCopy];
+    v9 = [MEMORY[0x277CCACA8] stringWithFormat:@"com.apple.dmxpcservice.reply.%@"];
     v10 = dispatch_queue_create([nameCopy UTF8String], 0);
     queue = v7->_queue;
     v7->_queue = v10;
 
-    v12 = dispatch_queue_create([nameCopy2 UTF8String], 0);
+    v12 = dispatch_queue_create([v9 UTF8String], 0);
     replyQueue = v7->_replyQueue;
     v7->_replyQueue = v12;
 
-    _DMLogFunc(v3, 7, @"DMXPCConnection calling xpc_init_services");
+    _DMLogFunc(v3, 7, @"DMXPCConnection calling xpc_init_services", v14, v15, v16, v17, v18, nameCopy);
     MEMORY[0x2318EDE10]();
     mach_service = xpc_connection_create_mach_service([nameCopy UTF8String], v7->_queue, 0);
     connection = v7->_connection;
     v7->_connection = mach_service;
 
-    v20 = v7->_connection;
-    _DMLogFunc(v3, 7, @"DMXPCConnection created connection %p");
-    v16 = v7->_connection;
-    if (v16)
+    _DMLogFunc(v3, 7, @"DMXPCConnection created connection %p", v21, v22, v23, v24, v25, v7->_connection);
+    v26 = v7->_connection;
+    if (v26)
     {
-      xpc_connection_set_target_queue(v16, v7->_queue);
-      v17 = v7->_connection;
+      xpc_connection_set_target_queue(v26, v7->_queue);
+      v27 = v7->_connection;
       handler[0] = MEMORY[0x277D85DD0];
       handler[1] = 3221225472;
       handler[2] = __39__DMXPCConnection_initWithServiceName___block_invoke;
       handler[3] = &unk_2788551E8;
-      v18 = v7;
-      v22 = v18;
-      xpc_connection_set_event_handler(v17, handler);
-      v7 = v22;
+      v28 = v7;
+      v31 = v28;
+      xpc_connection_set_event_handler(v27, handler);
+      v7 = v31;
     }
 
     else
     {
-      v18 = 0;
+      v28 = 0;
     }
   }
 
   else
   {
-    v18 = 0;
+    v28 = 0;
   }
 
-  return v18;
+  return v28;
 }
 
 - (void)targetForegroundUserSessionIfNecessary
 {
   if (xpc_user_sessions_enabled())
   {
-    xpc_user_sessions_get_foreground_uid();
-    _DMLogFunc(v2, 7, @"targeting foreground user session for uid %d");
-    connection = self->_connection;
+    foreground_uid = xpc_user_sessions_get_foreground_uid();
+    _DMLogFunc(v2, 7, @"targeting foreground user session for uid %d", v4, v5, v6, v7, v8, foreground_uid);
     xpc_connection_set_target_user_session_uid();
   }
 }
@@ -177,8 +175,8 @@ LABEL_11:
 - (BOOL)hasEntitlement:(id)entitlement
 {
   entitlementCopy = entitlement;
-  v15 = 0u;
-  v16 = 0u;
+  v30 = 0u;
+  v31 = 0u;
   connection = [(DMXPCConnection *)self connection];
   xpc_connection_get_audit_token();
 
@@ -187,37 +185,37 @@ LABEL_11:
   v8 = SecTaskCreateWithAuditToken(v7, &token);
   if (v8)
   {
-    v9 = v8;
+    v14 = v8;
     *token.val = 0;
-    v10 = SecTaskCopyValueForEntitlement(v8, entitlementCopy, &token);
+    v20 = SecTaskCopyValueForEntitlement(v8, entitlementCopy, &token);
     if (*token.val)
     {
-      _DMLogFunc(v3, 3, @"hasEntitlement: %@ did fail to copy value with error %@");
+      _DMLogFunc(v3, 3, @"hasEntitlement: %@ did fail to copy value with error %@", v15, v16, v17, v18, v19, entitlementCopy);
     }
 
-    if (v10)
+    if (v20)
     {
-      v11 = CFGetTypeID(v10);
-      v12 = v11 == CFBooleanGetTypeID() && CFBooleanGetValue(v10) != 0;
-      CFRelease(v10);
-      _DMLogFunc(v3, 7, @"hasEntitlement: %@ did get value %d");
+      v21 = CFGetTypeID(v20);
+      v22 = v21 == CFBooleanGetTypeID() && CFBooleanGetValue(v20) != 0;
+      CFRelease(v20);
+      _DMLogFunc(v3, 7, @"hasEntitlement: %@ did get value %d", v23, v24, v25, v26, v27, entitlementCopy);
     }
 
     else
     {
-      v12 = 0;
+      v22 = 0;
     }
 
-    CFRelease(v9);
+    CFRelease(v14);
   }
 
   else
   {
-    _DMLogFunc(v3, 3, @"hasEntitlement: %@ did fail to create SecTask");
-    v12 = 0;
+    _DMLogFunc(v3, 3, @"hasEntitlement: %@ did fail to create SecTask", v9, v10, v11, v12, v13, entitlementCopy);
+    v22 = 0;
   }
 
-  return v12;
+  return v22;
 }
 
 @end

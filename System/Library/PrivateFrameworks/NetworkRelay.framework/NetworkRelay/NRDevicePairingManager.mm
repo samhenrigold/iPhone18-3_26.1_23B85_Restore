@@ -81,11 +81,11 @@ LABEL_9:
   if ((sNRCopyLogToStdErr & 1) != 0 || os_log_type_enabled(nrCopyLogObj_sNRLogObj_1535, OS_LOG_TYPE_DEFAULT))
   {
     v5 = nrCopyLogObj_sNRLogObj_1535;
-    v11 = NRCreateStringFromInternalManagerState(v3);
-    v12 = NRCreateStringFromInternalManagerState(a2);
-    _NRLogWithArgs(v5, 0, "%s%.30s:%-4d %@: State change: %@ -> %@", v6, v7, v8, v9, v10, "");
+    v6 = NRCreateStringFromInternalManagerState(v3);
+    v7 = NRCreateStringFromInternalManagerState(a2);
+    _NRLogWithArgs(v5, 0, "%s%.30s:%-4d %@: State change: %@ -> %@", ", "[NRDevicePairingManager setInternalManagerState:]"", 559, stateCopy, v6, v7);
 
-    v4 = v11;
+    v4 = v6;
     goto LABEL_9;
   }
 }
@@ -131,32 +131,32 @@ void __36__NRDevicePairingManager_invalidate__block_invoke_2(uint64_t a1, void *
 
       if ((sNRCopyLogToStdErr & 1) != 0 || os_log_type_enabled(nrCopyLogObj_sNRLogObj_1535, OS_LOG_TYPE_ERROR))
       {
-        _NRLogWithArgs(nrCopyLogObj_sNRLogObj_1535, 16, "%s%.30s:%-4d %@: Unregistering pairing manager failed: %@", v7, v8, v9, v10, v11, "");
+        _NRLogWithArgs(nrCopyLogObj_sNRLogObj_1535, 16, "%s%.30s:%-4d %@: Unregistering pairing manager failed: %@", ", "[NRDevicePairingManager invalidate]_block_invoke_2"", 965, v5, v3);
       }
     }
 
-    v12 = v5[7];
+    v7 = v5[7];
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
     block[2] = __36__NRDevicePairingManager_invalidate__block_invoke_3;
     block[3] = &unk_27996B248;
-    v14 = v5;
-    v15 = v3;
-    dispatch_async(v12, block);
+    v9 = v5;
+    v10 = v3;
+    dispatch_async(v7, block);
   }
 }
 
 void __36__NRDevicePairingManager_invalidate__block_invoke_3(uint64_t a1)
 {
-  v13[1] = *MEMORY[0x277D85DE8];
+  v12[1] = *MEMORY[0x277D85DE8];
   [*(a1 + 32) setManagerState:5];
   v3 = *(a1 + 32);
   if (v3 && objc_getProperty(v3, v2, 80, 1))
   {
     v4 = objc_alloc(MEMORY[0x277CCA9B8]);
-    v12 = *MEMORY[0x277CCA450];
-    v13[0] = @"Pairing manager was invalidated";
-    v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:&v12 count:1];
+    v11 = *MEMORY[0x277CCA450];
+    v12[0] = @"Pairing manager was invalidated";
+    v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:&v11 count:1];
     v6 = [v4 initWithDomain:@"NRDevicePairingErrorDomain" code:-3002 userInfo:v5];
 
     Property = *(a1 + 32);
@@ -175,8 +175,6 @@ void __36__NRDevicePairingManager_invalidate__block_invoke_3(uint64_t a1)
     v10 = [*(a1 + 32) invalidationHandler];
     v10[2](v10, *(a1 + 40));
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)cancelPairing
@@ -226,13 +224,13 @@ void __39__NRDevicePairingManager_cancelPairing__block_invoke(uint64_t a1)
 
 void __39__NRDevicePairingManager_cancelPairing__block_invoke_2(uint64_t a1, void *a2)
 {
-  v37[1] = *MEMORY[0x277D85DE8];
+  v26[1] = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
-  v10 = WeakRetained;
+  v5 = WeakRetained;
   if (!WeakRetained)
   {
-    v13 = v3;
+    v8 = v3;
     goto LABEL_25;
   }
 
@@ -245,28 +243,28 @@ void __39__NRDevicePairingManager_cancelPairing__block_invoke_2(uint64_t a1, voi
 
     if ((sNRCopyLogToStdErr & 1) != 0 || os_log_type_enabled(nrCopyLogObj_sNRLogObj_1535, OS_LOG_TYPE_ERROR))
     {
-      _NRLogWithArgs(nrCopyLogObj_sNRLogObj_1535, 16, "%s%.30s:%-4d %@: Stopping pairing failed: %@", v5, v6, v7, v8, v9, "");
+      _NRLogWithArgs(nrCopyLogObj_sNRLogObj_1535, 16, "%s%.30s:%-4d %@: Stopping pairing failed: %@", ", "[NRDevicePairingManager cancelPairing]_block_invoke_2"", 875, v5, v3);
     }
 
-    v12 = 0;
-    v13 = v3;
+    v7 = 0;
+    v8 = v3;
   }
 
   else
   {
-    v14 = WeakRetained;
-    objc_sync_enter(v14);
-    v15 = v14[1];
-    objc_sync_exit(v14);
+    v9 = WeakRetained;
+    objc_sync_enter(v9);
+    v10 = v9[1];
+    objc_sync_exit(v9);
 
-    if (v15 == 9)
+    if (v10 == 9)
     {
-      v21 = objc_alloc(MEMORY[0x277CCA9B8]);
-      v34 = *MEMORY[0x277CCA450];
-      v35 = @"Pairing operation was cancelled";
-      v12 = 1;
-      v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v35 forKeys:&v34 count:1];
-      v13 = [v21 initWithDomain:@"NRDevicePairingErrorDomain" code:-3002 userInfo:v22];
+      v11 = objc_alloc(MEMORY[0x277CCA9B8]);
+      v23 = *MEMORY[0x277CCA450];
+      v24 = @"Pairing operation was cancelled";
+      v7 = 1;
+      v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v24 forKeys:&v23 count:1];
+      v8 = [v11 initWithDomain:@"NRDevicePairingErrorDomain" code:-3002 userInfo:v12];
     }
 
     else
@@ -278,41 +276,41 @@ void __39__NRDevicePairingManager_cancelPairing__block_invoke_2(uint64_t a1, voi
 
       if ((sNRCopyLogToStdErr & 1) != 0 || os_log_type_enabled(nrCopyLogObj_sNRLogObj_1535, OS_LOG_TYPE_ERROR))
       {
-        _NRLogWithArgs(nrCopyLogObj_sNRLogObj_1535, 16, "%s%.30s:%-4d %@: State changed while stopping pairing", v16, v17, v18, v19, v20, "");
+        _NRLogWithArgs(nrCopyLogObj_sNRLogObj_1535, 16, "%s%.30s:%-4d %@: State changed while stopping pairing", ", "[NRDevicePairingManager cancelPairing]_block_invoke_2"", 879, v9);
       }
 
       objc_opt_self();
-      v23 = objc_alloc(MEMORY[0x277CCA9B8]);
-      v36 = *MEMORY[0x277CCA450];
-      v37[0] = @"Manager is in invalid state for this operation";
-      v24 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v37 forKeys:&v36 count:1];
-      v13 = [v23 initWithDomain:@"NRDevicePairingErrorDomain" code:-3001 userInfo:v24];
+      v13 = objc_alloc(MEMORY[0x277CCA9B8]);
+      v25 = *MEMORY[0x277CCA450];
+      v26[0] = @"Manager is in invalid state for this operation";
+      v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v26 forKeys:&v25 count:1];
+      v8 = [v13 initWithDomain:@"NRDevicePairingErrorDomain" code:-3001 userInfo:v14];
 
-      v12 = 0;
+      v7 = 0;
     }
   }
 
-  v25 = objc_getProperty(v10, v11, 80, 1);
-  objc_setProperty_atomic_copy(v10, v26, 0, 80);
-  if (v12)
+  v15 = objc_getProperty(v5, v6, 80, 1);
+  objc_setProperty_atomic_copy(v5, v16, 0, 80);
+  if (v7)
   {
-    [(NRDevicePairingManager *)v10 setInternalManagerState:?];
+    [(NRDevicePairingManager *)v5 setInternalManagerState:?];
 LABEL_21:
-    v27 = v10[7];
+    v17 = v5[7];
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
     block[2] = __39__NRDevicePairingManager_cancelPairing__block_invoke_3;
     block[3] = &unk_27996B108;
-    v33 = v12;
-    v30 = v10;
-    v32 = v25;
-    v31 = v13;
-    dispatch_async(v27, block);
+    v22 = v7;
+    v19 = v5;
+    v21 = v15;
+    v20 = v8;
+    dispatch_async(v17, block);
 
     goto LABEL_22;
   }
 
-  if (v25)
+  if (v15)
   {
     goto LABEL_21;
   }
@@ -320,11 +318,10 @@ LABEL_21:
 LABEL_22:
   if (v3)
   {
-    [(NRDevicePairingManager *)v10 invalidateWithError:v13];
+    [(NRDevicePairingManager *)v5 invalidateWithError:v8];
   }
 
 LABEL_25:
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __39__NRDevicePairingManager_cancelPairing__block_invoke_3(uint64_t a1)
@@ -337,10 +334,9 @@ uint64_t __39__NRDevicePairingManager_cancelPairing__block_invoke_3(uint64_t a1)
   result = *(a1 + 48);
   if (result)
   {
-    v3 = *(a1 + 40);
-    v4 = *(result + 16);
+    v3 = *(result + 16);
 
-    return v4();
+    return v3();
   }
 
   return result;
@@ -405,12 +401,37 @@ void __46__NRDevicePairingManager_invalidateWithError___block_invoke(uint64_t a1
 
 - (void)startPairingDevice:(id)device withCompletion:(id)completion resultBlock:(id)block
 {
-  v41[1] = *MEMORY[0x277D85DE8];
+  v30[1] = *MEMORY[0x277D85DE8];
   deviceCopy = device;
   completionCopy = completion;
   blockCopy = block;
   v11 = blockCopy;
   if (!completionCopy)
+  {
+    v19 = nrCopyLogObj_1529();
+    if (sNRCopyLogToStdErr == 1)
+    {
+    }
+
+    else
+    {
+      v21 = v19;
+      v22 = os_log_type_enabled(v19, OS_LOG_TYPE_FAULT);
+
+      if (!v22)
+      {
+        goto LABEL_7;
+      }
+    }
+
+    v23 = nrCopyLogObj_1529();
+    _NRLogWithArgs(v23, 17, "%s called with null completionBlock");
+LABEL_16:
+
+    goto LABEL_7;
+  }
+
+  if (!blockCopy)
   {
     v20 = nrCopyLogObj_1529();
     if (sNRCopyLogToStdErr == 1)
@@ -419,42 +440,17 @@ void __46__NRDevicePairingManager_invalidateWithError___block_invoke(uint64_t a1
 
     else
     {
-      v22 = v20;
-      v23 = os_log_type_enabled(v20, OS_LOG_TYPE_FAULT);
+      v24 = v20;
+      v25 = os_log_type_enabled(v20, OS_LOG_TYPE_FAULT);
 
-      if (!v23)
+      if (!v25)
       {
         goto LABEL_7;
       }
     }
 
-    v24 = nrCopyLogObj_1529();
-    _NRLogWithArgs(v24, 17, "%s called with null completionBlock", v25, v26, v27, v28, v29, "[NRDevicePairingManager startPairingDevice:withCompletion:resultBlock:]");
-LABEL_16:
-
-    goto LABEL_7;
-  }
-
-  if (!blockCopy)
-  {
-    v21 = nrCopyLogObj_1529();
-    if (sNRCopyLogToStdErr == 1)
-    {
-    }
-
-    else
-    {
-      v30 = v21;
-      v31 = os_log_type_enabled(v21, OS_LOG_TYPE_FAULT);
-
-      if (!v31)
-      {
-        goto LABEL_7;
-      }
-    }
-
-    v24 = nrCopyLogObj_1529();
-    _NRLogWithArgs(v24, 17, "%s called with null resultBlock", v32, v33, v34, v35, v36, "[NRDevicePairingManager startPairingDevice:withCompletion:resultBlock:]");
+    v23 = nrCopyLogObj_1529();
+    _NRLogWithArgs(v23, 17, "%s called with null resultBlock");
     goto LABEL_16;
   }
 
@@ -468,8 +464,8 @@ LABEL_16:
     block[2] = __72__NRDevicePairingManager_startPairingDevice_withCompletion_resultBlock___block_invoke;
     block[3] = &unk_27996B298;
     block[4] = v12;
-    v38 = deviceCopy;
-    v39 = completionCopy;
+    v27 = deviceCopy;
+    v28 = completionCopy;
     dispatch_async(operationQueue, block);
   }
 
@@ -477,17 +473,15 @@ LABEL_16:
   {
     objc_opt_self();
     v14 = objc_alloc(MEMORY[0x277CCA9B8]);
-    v40 = *MEMORY[0x277CCA450];
-    v41[0] = @"Manager is in invalid state for this operation";
-    v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v41 forKeys:&v40 count:1];
+    v29 = *MEMORY[0x277CCA450];
+    v30[0] = @"Manager is in invalid state for this operation";
+    v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v30 forKeys:&v29 count:1];
     v16 = [v14 initWithDomain:@"NRDevicePairingErrorDomain" code:-3001 userInfo:v15];
 
     [(NRDevicePairingManager *)self callCompletionBlock:completionCopy withError:v16];
   }
 
 LABEL_7:
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)callCompletionBlock:(void *)block withError:
@@ -533,10 +527,10 @@ void __72__NRDevicePairingManager_startPairingDevice_withCompletion_resultBlock_
 
 void __72__NRDevicePairingManager_startPairingDevice_withCompletion_resultBlock___block_invoke_2(uint64_t a1, void *a2, int a3)
 {
-  v32[1] = *MEMORY[0x277D85DE8];
+  v21[1] = *MEMORY[0x277D85DE8];
   v5 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
-  v12 = WeakRetained;
+  v7 = WeakRetained;
   if (WeakRetained)
   {
     if (v5)
@@ -548,26 +542,26 @@ void __72__NRDevicePairingManager_startPairingDevice_withCompletion_resultBlock_
 
       if ((sNRCopyLogToStdErr & 1) != 0 || os_log_type_enabled(nrCopyLogObj_sNRLogObj_1535, OS_LOG_TYPE_ERROR))
       {
-        _NRLogWithArgs(nrCopyLogObj_sNRLogObj_1535, 16, "%s%.30s:%-4d %@: Starting pairing failed: %@", v7, v8, v9, v10, v11, "");
+        _NRLogWithArgs(nrCopyLogObj_sNRLogObj_1535, 16, "%s%.30s:%-4d %@: Starting pairing failed: %@", ", "[NRDevicePairingManager startPairingDevice:withCompletion:resultBlock:]_block_invoke_2"", 827, v7, v5);
       }
 
-      objc_setProperty_atomic_copy(v12, v13, 0, 80);
+      objc_setProperty_atomic_copy(v7, v8, 0, 80);
       if ((a3 & 1) == 0)
       {
-        [(NRDevicePairingManager *)v12 setInternalManagerState:?];
+        [(NRDevicePairingManager *)v7 setInternalManagerState:?];
       }
     }
 
     else
     {
-      v14 = WeakRetained;
-      objc_sync_enter(v14);
-      v15 = v14[1];
-      objc_sync_exit(v14);
+      v9 = WeakRetained;
+      objc_sync_enter(v9);
+      v10 = v9[1];
+      objc_sync_exit(v9);
 
-      if (v15 == 7)
+      if (v10 == 7)
       {
-        [(NRDevicePairingManager *)v14 setInternalManagerState:?];
+        [(NRDevicePairingManager *)v9 setInternalManagerState:?];
         v5 = 0;
       }
 
@@ -580,38 +574,36 @@ void __72__NRDevicePairingManager_startPairingDevice_withCompletion_resultBlock_
 
         if ((sNRCopyLogToStdErr & 1) != 0 || os_log_type_enabled(nrCopyLogObj_sNRLogObj_1535, OS_LOG_TYPE_ERROR))
         {
-          _NRLogWithArgs(nrCopyLogObj_sNRLogObj_1535, 16, "%s%.30s:%-4d %@: State changed while starting pairing", v16, v17, v18, v19, v20, "");
+          _NRLogWithArgs(nrCopyLogObj_sNRLogObj_1535, 16, "%s%.30s:%-4d %@: State changed while starting pairing", ", "[NRDevicePairingManager startPairingDevice:withCompletion:resultBlock:]_block_invoke_2"", 834, v9);
         }
 
         objc_opt_self();
-        v21 = objc_alloc(MEMORY[0x277CCA9B8]);
-        v31 = *MEMORY[0x277CCA450];
-        v32[0] = @"Manager is in invalid state for this operation";
-        v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v32 forKeys:&v31 count:1];
-        v5 = [v21 initWithDomain:@"NRDevicePairingErrorDomain" code:-3001 userInfo:v22];
+        v11 = objc_alloc(MEMORY[0x277CCA9B8]);
+        v20 = *MEMORY[0x277CCA450];
+        v21[0] = @"Manager is in invalid state for this operation";
+        v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:&v20 count:1];
+        v5 = [v11 initWithDomain:@"NRDevicePairingErrorDomain" code:-3001 userInfo:v12];
 
-        objc_setProperty_atomic_copy(v14, v23, 0, 80);
+        objc_setProperty_atomic_copy(v9, v13, 0, 80);
       }
     }
 
-    v24 = v12[7];
+    v14 = v7[7];
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
     block[2] = __72__NRDevicePairingManager_startPairingDevice_withCompletion_resultBlock___block_invoke_3;
     block[3] = &unk_27996B298;
     v5 = v5;
-    v28 = v5;
-    v25 = v12;
-    v29 = v25;
-    v30 = *(a1 + 32);
-    dispatch_async(v24, block);
+    v17 = v5;
+    v15 = v7;
+    v18 = v15;
+    v19 = *(a1 + 32);
+    dispatch_async(v14, block);
     if (a3)
     {
-      [(NRDevicePairingManager *)v25 invalidateWithError:v5];
+      [(NRDevicePairingManager *)v15 invalidateWithError:v5];
     }
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __72__NRDevicePairingManager_startPairingDevice_withCompletion_resultBlock___block_invoke_3(uint64_t a1)
@@ -619,12 +611,11 @@ uint64_t __72__NRDevicePairingManager_startPairingDevice_withCompletion_resultBl
   if (!*(a1 + 32))
   {
     [*(a1 + 40) setManagerState:4];
-    v2 = *(a1 + 32);
   }
 
-  v3 = *(*(a1 + 48) + 16);
+  v2 = *(*(a1 + 48) + 16);
 
-  return v3();
+  return v2();
 }
 
 - (void)getDataForAuthMethod:(unint64_t)method withCompletion:(id)completion
@@ -650,7 +641,7 @@ uint64_t __72__NRDevicePairingManager_startPairingDevice_withCompletion_resultBl
     }
 
     v10 = nrCopyLogObj_1529();
-    _NRLogWithArgs(v10, 17, "%s called with null completionBlock", v11, v12, v13, v14, v15, "[NRDevicePairingManager getDataForAuthMethod:withCompletion:]");
+    _NRLogWithArgs(v10, 17, "%s called with null completionBlock", "[NRDevicePairingManager getDataForAuthMethod:withCompletion:]");
 
     goto LABEL_5;
   }
@@ -664,7 +655,7 @@ uint64_t __72__NRDevicePairingManager_startPairingDevice_withCompletion_resultBl
   block[1] = 3221225472;
   block[2] = __62__NRDevicePairingManager_getDataForAuthMethod_withCompletion___block_invoke;
   block[3] = &unk_27996B870;
-  v17 = completionCopy;
+  v12 = completionCopy;
   dispatch_async(&self->super, block);
 
 LABEL_5:
@@ -672,26 +663,50 @@ LABEL_5:
 
 void __62__NRDevicePairingManager_getDataForAuthMethod_withCompletion___block_invoke(uint64_t a1)
 {
-  v7[1] = *MEMORY[0x277D85DE8];
+  v6[1] = *MEMORY[0x277D85DE8];
   v1 = *(a1 + 32);
   objc_opt_self();
   v2 = objc_alloc(MEMORY[0x277CCA9B8]);
-  v6 = *MEMORY[0x277CCA450];
-  v7[0] = @"Unimplemented method";
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:&v6 count:1];
+  v5 = *MEMORY[0x277CCA450];
+  v6[0] = @"Unimplemented method";
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:&v5 count:1];
   v4 = [v2 initWithDomain:@"NRDevicePairingErrorDomain" code:-9999 userInfo:v3];
 
   (*(v1 + 16))(v1, v4, 0);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)requestAuthMethodForDevice:(id)device authMethod:(unint64_t)method withCompletion:(id)completion
 {
-  v40[1] = *MEMORY[0x277D85DE8];
+  v29[1] = *MEMORY[0x277D85DE8];
   deviceCopy = device;
   completionCopy = completion;
   v10 = completionCopy;
   if (!deviceCopy)
+  {
+    v17 = nrCopyLogObj_1529();
+    if (sNRCopyLogToStdErr == 1)
+    {
+    }
+
+    else
+    {
+      v19 = v17;
+      v20 = os_log_type_enabled(v17, OS_LOG_TYPE_FAULT);
+
+      if (!v20)
+      {
+        goto LABEL_7;
+      }
+    }
+
+    v21 = nrCopyLogObj_1529();
+    _NRLogWithArgs(v21, 17, "%s called with null device");
+LABEL_16:
+
+    goto LABEL_7;
+  }
+
+  if (!completionCopy)
   {
     v18 = nrCopyLogObj_1529();
     if (sNRCopyLogToStdErr == 1)
@@ -700,42 +715,17 @@ void __62__NRDevicePairingManager_getDataForAuthMethod_withCompletion___block_in
 
     else
     {
-      v20 = v18;
-      v21 = os_log_type_enabled(v18, OS_LOG_TYPE_FAULT);
+      v22 = v18;
+      v23 = os_log_type_enabled(v18, OS_LOG_TYPE_FAULT);
 
-      if (!v21)
+      if (!v23)
       {
         goto LABEL_7;
       }
     }
 
-    v22 = nrCopyLogObj_1529();
-    _NRLogWithArgs(v22, 17, "%s called with null device", v23, v24, v25, v26, v27, "[NRDevicePairingManager requestAuthMethodForDevice:authMethod:withCompletion:]");
-LABEL_16:
-
-    goto LABEL_7;
-  }
-
-  if (!completionCopy)
-  {
-    v19 = nrCopyLogObj_1529();
-    if (sNRCopyLogToStdErr == 1)
-    {
-    }
-
-    else
-    {
-      v28 = v19;
-      v29 = os_log_type_enabled(v19, OS_LOG_TYPE_FAULT);
-
-      if (!v29)
-      {
-        goto LABEL_7;
-      }
-    }
-
-    v22 = nrCopyLogObj_1529();
-    _NRLogWithArgs(v22, 17, "%s called with null completionBlock", v30, v31, v32, v33, v34, "[NRDevicePairingManager requestAuthMethodForDevice:authMethod:withCompletion:]");
+    v21 = nrCopyLogObj_1529();
+    _NRLogWithArgs(v21, 17, "%s called with null completionBlock");
     goto LABEL_16;
   }
 
@@ -747,9 +737,9 @@ LABEL_16:
     block[2] = __79__NRDevicePairingManager_requestAuthMethodForDevice_authMethod_withCompletion___block_invoke;
     block[3] = &unk_27996B1F8;
     block[4] = v11;
-    v36 = deviceCopy;
+    v25 = deviceCopy;
     methodCopy = method;
-    v37 = v10;
+    v26 = v10;
     dispatch_async(operationQueue, block);
   }
 
@@ -757,17 +747,15 @@ LABEL_16:
   {
     objc_opt_self();
     v13 = objc_alloc(MEMORY[0x277CCA9B8]);
-    v39 = *MEMORY[0x277CCA450];
-    v40[0] = @"Manager is in invalid state for this operation";
-    v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v40 forKeys:&v39 count:1];
+    v28 = *MEMORY[0x277CCA450];
+    v29[0] = @"Manager is in invalid state for this operation";
+    v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v29 forKeys:&v28 count:1];
     v15 = [v13 initWithDomain:@"NRDevicePairingErrorDomain" code:-3001 userInfo:v14];
 
     [(NRDevicePairingManager *)self callCompletionBlock:v10 withError:v15];
   }
 
 LABEL_7:
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 void __79__NRDevicePairingManager_requestAuthMethodForDevice_authMethod_withCompletion___block_invoke(uint64_t a1)
@@ -812,9 +800,7 @@ void __79__NRDevicePairingManager_requestAuthMethodForDevice_authMethod_withComp
 
       if ((sNRCopyLogToStdErr & 1) != 0 || os_log_type_enabled(nrCopyLogObj_sNRLogObj_1535, OS_LOG_TYPE_ERROR))
       {
-        v13 = *(a1 + 32);
-        v11 = *(a1 + 56);
-        _NRLogWithArgs(nrCopyLogObj_sNRLogObj_1535, 16, "%s%.30s:%-4d %@: Requesting auth method %zu for %@ failed: %@", v4, v5, v6, v7, v8, "");
+        _NRLogWithArgs(nrCopyLogObj_sNRLogObj_1535, 16, "%s%.30s:%-4d %@: Requesting auth method %zu for %@ failed: %@", ", "[NRDevicePairingManager requestAuthMethodForDevice:authMethod:withCompletion:]_block_invoke_2"", 745, WeakRetained, *(a1 + 56), *(a1 + 32), v3);
       }
     }
 
@@ -827,20 +813,18 @@ void __79__NRDevicePairingManager_requestAuthMethodForDevice_authMethod_withComp
 
       if ((sNRCopyLogToStdErr & 1) != 0 || os_log_type_enabled(nrCopyLogObj_sNRLogObj_1535, OS_LOG_TYPE_INFO))
       {
-        v12 = *(a1 + 56);
-        v14 = *(a1 + 32);
-        _NRLogWithArgs(nrCopyLogObj_sNRLogObj_1535, 1, "%s%.30s:%-4d %@: Requesting auth method %zu for %@ succeeded", v4, v5, v6, v7, v8, "");
+        _NRLogWithArgs(nrCopyLogObj_sNRLogObj_1535, 1, "%s%.30s:%-4d %@: Requesting auth method %zu for %@ succeeded", ", "[NRDevicePairingManager requestAuthMethodForDevice:authMethod:withCompletion:]_block_invoke_2"", 747, WeakRetained, *(a1 + 56), *(a1 + 32));
       }
     }
 
-    v10 = WeakRetained[7];
+    v5 = WeakRetained[7];
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
     block[2] = __79__NRDevicePairingManager_requestAuthMethodForDevice_authMethod_withCompletion___block_invoke_3;
     block[3] = &unk_27996B158;
-    v17 = *(a1 + 40);
-    v16 = v3;
-    dispatch_async(v10, block);
+    v8 = *(a1 + 40);
+    v7 = v3;
+    dispatch_async(v5, block);
   }
 }
 
@@ -893,7 +877,7 @@ void __41__NRDevicePairingManager_cancelDiscovery__block_invoke_2(uint64_t a1, v
 {
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
-  v10 = WeakRetained;
+  v5 = WeakRetained;
   if (WeakRetained)
   {
     if (v3)
@@ -905,29 +889,29 @@ void __41__NRDevicePairingManager_cancelDiscovery__block_invoke_2(uint64_t a1, v
 
       if ((sNRCopyLogToStdErr & 1) != 0 || os_log_type_enabled(nrCopyLogObj_sNRLogObj_1535, OS_LOG_TYPE_ERROR))
       {
-        _NRLogWithArgs(nrCopyLogObj_sNRLogObj_1535, 16, "%s%.30s:%-4d %@: Stopping pairing discovery failed: %@", v5, v6, v7, v8, v9, "");
+        _NRLogWithArgs(nrCopyLogObj_sNRLogObj_1535, 16, "%s%.30s:%-4d %@: Stopping pairing discovery failed: %@", ", "[NRDevicePairingManager cancelDiscovery]_block_invoke_2"", 692, v5, v3);
       }
 
-      [(NRDevicePairingManager *)v10 invalidateWithError:v3];
+      [(NRDevicePairingManager *)v5 invalidateWithError:v3];
     }
 
     else
     {
-      v11 = WeakRetained;
-      objc_sync_enter(v11);
-      v12 = v11[1];
-      objc_sync_exit(v11);
+      v6 = WeakRetained;
+      objc_sync_enter(v6);
+      v7 = v6[1];
+      objc_sync_exit(v6);
 
-      if (v12 == 6)
+      if (v7 == 6)
       {
-        [(NRDevicePairingManager *)v11 setInternalManagerState:?];
-        v18 = v11[7];
+        [(NRDevicePairingManager *)v6 setInternalManagerState:?];
+        v8 = v6[7];
         block[0] = MEMORY[0x277D85DD0];
         block[1] = 3221225472;
         block[2] = __41__NRDevicePairingManager_cancelDiscovery__block_invoke_3;
         block[3] = &unk_27996B180;
-        v20 = v11;
-        dispatch_async(v18, block);
+        v10 = v6;
+        dispatch_async(v8, block);
       }
 
       else
@@ -939,7 +923,7 @@ void __41__NRDevicePairingManager_cancelDiscovery__block_invoke_2(uint64_t a1, v
 
         if ((sNRCopyLogToStdErr & 1) != 0 || os_log_type_enabled(nrCopyLogObj_sNRLogObj_1535, OS_LOG_TYPE_ERROR))
         {
-          _NRLogWithArgs(nrCopyLogObj_sNRLogObj_1535, 16, "%s%.30s:%-4d %@: State changed while stopping pairing discovery", v13, v14, v15, v16, v17, "");
+          _NRLogWithArgs(nrCopyLogObj_sNRLogObj_1535, 16, "%s%.30s:%-4d %@: State changed while stopping pairing discovery", ", "[NRDevicePairingManager cancelDiscovery]_block_invoke_2"", 696, v6);
         }
       }
     }
@@ -948,28 +932,28 @@ void __41__NRDevicePairingManager_cancelDiscovery__block_invoke_2(uint64_t a1, v
 
 - (void)startDiscoveryWithCompletion:(id)completion
 {
-  v24[1] = *MEMORY[0x277D85DE8];
+  v18[1] = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   if (!completionCopy)
   {
-    v12 = nrCopyLogObj_1529();
+    v11 = nrCopyLogObj_1529();
     if (sNRCopyLogToStdErr == 1)
     {
     }
 
     else
     {
-      v13 = v12;
-      v14 = os_log_type_enabled(v12, OS_LOG_TYPE_FAULT);
+      v12 = v11;
+      v13 = os_log_type_enabled(v11, OS_LOG_TYPE_FAULT);
 
-      if (!v14)
+      if (!v13)
       {
         goto LABEL_6;
       }
     }
 
-    v15 = nrCopyLogObj_1529();
-    _NRLogWithArgs(v15, 17, "%s called with null completionBlock", v16, v17, v18, v19, v20, "[NRDevicePairingManager startDiscoveryWithCompletion:]");
+    v14 = nrCopyLogObj_1529();
+    _NRLogWithArgs(v14, 17, "%s called with null completionBlock", "[NRDevicePairingManager startDiscoveryWithCompletion:]");
 
     goto LABEL_6;
   }
@@ -983,7 +967,7 @@ void __41__NRDevicePairingManager_cancelDiscovery__block_invoke_2(uint64_t a1, v
     block[2] = __55__NRDevicePairingManager_startDiscoveryWithCompletion___block_invoke;
     block[3] = &unk_27996B158;
     block[4] = v5;
-    v22 = completionCopy;
+    v16 = completionCopy;
     dispatch_async(operationQueue, block);
   }
 
@@ -991,17 +975,15 @@ void __41__NRDevicePairingManager_cancelDiscovery__block_invoke_2(uint64_t a1, v
   {
     objc_opt_self();
     v8 = objc_alloc(MEMORY[0x277CCA9B8]);
-    v23 = *MEMORY[0x277CCA450];
-    v24[0] = @"Manager is in invalid state for this operation";
-    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v24 forKeys:&v23 count:1];
+    v17 = *MEMORY[0x277CCA450];
+    v18[0] = @"Manager is in invalid state for this operation";
+    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:&v17 count:1];
     v10 = [v8 initWithDomain:@"NRDevicePairingErrorDomain" code:-3001 userInfo:v9];
 
     [(NRDevicePairingManager *)self callCompletionBlock:completionCopy withError:v10];
   }
 
 LABEL_6:
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __55__NRDevicePairingManager_startDiscoveryWithCompletion___block_invoke(uint64_t a1)
@@ -1029,10 +1011,10 @@ void __55__NRDevicePairingManager_startDiscoveryWithCompletion___block_invoke(ui
 
 void __55__NRDevicePairingManager_startDiscoveryWithCompletion___block_invoke_2(uint64_t a1, void *a2)
 {
-  v32[1] = *MEMORY[0x277D85DE8];
+  v21[1] = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
-  v10 = WeakRetained;
+  v5 = WeakRetained;
   if (WeakRetained)
   {
     if (v3)
@@ -1044,25 +1026,25 @@ void __55__NRDevicePairingManager_startDiscoveryWithCompletion___block_invoke_2(
 
       if ((sNRCopyLogToStdErr & 1) != 0 || os_log_type_enabled(nrCopyLogObj_sNRLogObj_1535, OS_LOG_TYPE_ERROR))
       {
-        _NRLogWithArgs(nrCopyLogObj_sNRLogObj_1535, 16, "%s%.30s:%-4d %@: Starting pairing discovery failed: %@", v5, v6, v7, v8, v9, "");
+        _NRLogWithArgs(nrCopyLogObj_sNRLogObj_1535, 16, "%s%.30s:%-4d %@: Starting pairing discovery failed: %@", ", "[NRDevicePairingManager startDiscoveryWithCompletion:]_block_invoke_2"", 644, v5, v3);
       }
 
-      v11 = 0;
-      v12 = v3;
+      v6 = 0;
+      v7 = v3;
     }
 
     else
     {
-      v14 = WeakRetained;
-      objc_sync_enter(v14);
-      v15 = v14[1];
-      objc_sync_exit(v14);
+      v9 = WeakRetained;
+      objc_sync_enter(v9);
+      v10 = v9[1];
+      objc_sync_exit(v9);
 
-      if (v15 == 4)
+      if (v10 == 4)
       {
-        [(NRDevicePairingManager *)v14 setInternalManagerState:?];
-        v12 = 0;
-        v11 = 1;
+        [(NRDevicePairingManager *)v9 setInternalManagerState:?];
+        v7 = 0;
+        v6 = 1;
       }
 
       else
@@ -1074,44 +1056,42 @@ void __55__NRDevicePairingManager_startDiscoveryWithCompletion___block_invoke_2(
 
         if ((sNRCopyLogToStdErr & 1) != 0 || os_log_type_enabled(nrCopyLogObj_sNRLogObj_1535, OS_LOG_TYPE_ERROR))
         {
-          _NRLogWithArgs(nrCopyLogObj_sNRLogObj_1535, 16, "%s%.30s:%-4d %@: State changed while starting pairing discovery", v16, v17, v18, v19, v20, "");
+          _NRLogWithArgs(nrCopyLogObj_sNRLogObj_1535, 16, "%s%.30s:%-4d %@: State changed while starting pairing discovery", ", "[NRDevicePairingManager startDiscoveryWithCompletion:]_block_invoke_2"", 648, v9);
         }
 
         objc_opt_self();
-        v21 = objc_alloc(MEMORY[0x277CCA9B8]);
-        v31 = *MEMORY[0x277CCA450];
-        v32[0] = @"Manager is in invalid state for this operation";
-        v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v32 forKeys:&v31 count:1];
-        v12 = [v21 initWithDomain:@"NRDevicePairingErrorDomain" code:-3001 userInfo:v22];
+        v11 = objc_alloc(MEMORY[0x277CCA9B8]);
+        v20 = *MEMORY[0x277CCA450];
+        v21[0] = @"Manager is in invalid state for this operation";
+        v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:&v20 count:1];
+        v7 = [v11 initWithDomain:@"NRDevicePairingErrorDomain" code:-3001 userInfo:v12];
 
-        v11 = 0;
+        v6 = 0;
       }
     }
 
-    v23 = v10[7];
+    v13 = v5[7];
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
     block[2] = __55__NRDevicePairingManager_startDiscoveryWithCompletion___block_invoke_3;
     block[3] = &unk_27996B108;
-    v30 = v11;
-    v24 = v10;
-    v27 = v24;
-    v29 = *(a1 + 32);
-    v13 = v12;
-    v28 = v13;
-    dispatch_async(v23, block);
+    v19 = v6;
+    v14 = v5;
+    v16 = v14;
+    v18 = *(a1 + 32);
+    v8 = v7;
+    v17 = v8;
+    dispatch_async(v13, block);
     if (v3)
     {
-      [(NRDevicePairingManager *)v24 invalidateWithError:v13];
+      [(NRDevicePairingManager *)v14 invalidateWithError:v8];
     }
   }
 
   else
   {
-    v13 = v3;
+    v8 = v3;
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __55__NRDevicePairingManager_startDiscoveryWithCompletion___block_invoke_3(uint64_t a1)
@@ -1121,36 +1101,35 @@ uint64_t __55__NRDevicePairingManager_startDiscoveryWithCompletion___block_invok
     [*(a1 + 32) setManagerState:3];
   }
 
-  v2 = *(a1 + 40);
-  v3 = *(*(a1 + 48) + 16);
+  v2 = *(*(a1 + 48) + 16);
 
-  return v3();
+  return v2();
 }
 
 - (void)activateWithCompletion:(id)completion
 {
-  v24[1] = *MEMORY[0x277D85DE8];
+  v18[1] = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   if (!completionCopy)
   {
-    v12 = nrCopyLogObj_1529();
+    v11 = nrCopyLogObj_1529();
     if (sNRCopyLogToStdErr == 1)
     {
     }
 
     else
     {
-      v13 = v12;
-      v14 = os_log_type_enabled(v12, OS_LOG_TYPE_FAULT);
+      v12 = v11;
+      v13 = os_log_type_enabled(v11, OS_LOG_TYPE_FAULT);
 
-      if (!v14)
+      if (!v13)
       {
         goto LABEL_6;
       }
     }
 
-    v15 = nrCopyLogObj_1529();
-    _NRLogWithArgs(v15, 17, "%s called with null completionBlock", v16, v17, v18, v19, v20, "[NRDevicePairingManager activateWithCompletion:]");
+    v14 = nrCopyLogObj_1529();
+    _NRLogWithArgs(v14, 17, "%s called with null completionBlock", "[NRDevicePairingManager activateWithCompletion:]");
 
     goto LABEL_6;
   }
@@ -1164,7 +1143,7 @@ uint64_t __55__NRDevicePairingManager_startDiscoveryWithCompletion___block_invok
     block[2] = __49__NRDevicePairingManager_activateWithCompletion___block_invoke;
     block[3] = &unk_27996B158;
     block[4] = v5;
-    v22 = completionCopy;
+    v16 = completionCopy;
     dispatch_async(operationQueue, block);
   }
 
@@ -1172,17 +1151,15 @@ uint64_t __55__NRDevicePairingManager_startDiscoveryWithCompletion___block_invok
   {
     objc_opt_self();
     v8 = objc_alloc(MEMORY[0x277CCA9B8]);
-    v23 = *MEMORY[0x277CCA450];
-    v24[0] = @"Manager is in invalid state for this operation";
-    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v24 forKeys:&v23 count:1];
+    v17 = *MEMORY[0x277CCA450];
+    v18[0] = @"Manager is in invalid state for this operation";
+    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:&v17 count:1];
     v10 = [v8 initWithDomain:@"NRDevicePairingErrorDomain" code:-3001 userInfo:v9];
 
     [(NRDevicePairingManager *)self callCompletionBlock:completionCopy withError:v10];
   }
 
 LABEL_6:
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __49__NRDevicePairingManager_activateWithCompletion___block_invoke(uint64_t a1)
@@ -1210,10 +1187,10 @@ void __49__NRDevicePairingManager_activateWithCompletion___block_invoke(uint64_t
 
 void __49__NRDevicePairingManager_activateWithCompletion___block_invoke_2(uint64_t a1, void *a2)
 {
-  v32[1] = *MEMORY[0x277D85DE8];
+  v21[1] = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
-  v10 = WeakRetained;
+  v5 = WeakRetained;
   if (WeakRetained)
   {
     if (v3)
@@ -1225,25 +1202,25 @@ void __49__NRDevicePairingManager_activateWithCompletion___block_invoke_2(uint64
 
       if ((sNRCopyLogToStdErr & 1) != 0 || os_log_type_enabled(nrCopyLogObj_sNRLogObj_1535, OS_LOG_TYPE_ERROR))
       {
-        _NRLogWithArgs(nrCopyLogObj_sNRLogObj_1535, 16, "%s%.30s:%-4d %@: Registering pairing manager failed: %@", v5, v6, v7, v8, v9, "");
+        _NRLogWithArgs(nrCopyLogObj_sNRLogObj_1535, 16, "%s%.30s:%-4d %@: Registering pairing manager failed: %@", ", "[NRDevicePairingManager activateWithCompletion:]_block_invoke_2"", 592, v5, v3);
       }
 
-      v11 = 0;
-      v12 = v3;
+      v6 = 0;
+      v7 = v3;
     }
 
     else
     {
-      v14 = WeakRetained;
-      objc_sync_enter(v14);
-      v15 = v14[1];
-      objc_sync_exit(v14);
+      v9 = WeakRetained;
+      objc_sync_enter(v9);
+      v10 = v9[1];
+      objc_sync_exit(v9);
 
-      if (v15 == 2)
+      if (v10 == 2)
       {
-        [(NRDevicePairingManager *)v14 setInternalManagerState:?];
-        v12 = 0;
-        v11 = 1;
+        [(NRDevicePairingManager *)v9 setInternalManagerState:?];
+        v7 = 0;
+        v6 = 1;
       }
 
       else
@@ -1255,44 +1232,42 @@ void __49__NRDevicePairingManager_activateWithCompletion___block_invoke_2(uint64
 
         if ((sNRCopyLogToStdErr & 1) != 0 || os_log_type_enabled(nrCopyLogObj_sNRLogObj_1535, OS_LOG_TYPE_ERROR))
         {
-          _NRLogWithArgs(nrCopyLogObj_sNRLogObj_1535, 16, "%s%.30s:%-4d %@: State changed while registering pairing manager", v16, v17, v18, v19, v20, "");
+          _NRLogWithArgs(nrCopyLogObj_sNRLogObj_1535, 16, "%s%.30s:%-4d %@: State changed while registering pairing manager", ", "[NRDevicePairingManager activateWithCompletion:]_block_invoke_2"", 596, v9);
         }
 
         objc_opt_self();
-        v21 = objc_alloc(MEMORY[0x277CCA9B8]);
-        v31 = *MEMORY[0x277CCA450];
-        v32[0] = @"Manager is in invalid state for this operation";
-        v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v32 forKeys:&v31 count:1];
-        v12 = [v21 initWithDomain:@"NRDevicePairingErrorDomain" code:-3001 userInfo:v22];
+        v11 = objc_alloc(MEMORY[0x277CCA9B8]);
+        v20 = *MEMORY[0x277CCA450];
+        v21[0] = @"Manager is in invalid state for this operation";
+        v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:&v20 count:1];
+        v7 = [v11 initWithDomain:@"NRDevicePairingErrorDomain" code:-3001 userInfo:v12];
 
-        v11 = 0;
+        v6 = 0;
       }
     }
 
-    v23 = v10[7];
+    v13 = v5[7];
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
     block[2] = __49__NRDevicePairingManager_activateWithCompletion___block_invoke_3;
     block[3] = &unk_27996B108;
-    v30 = v11;
-    v24 = v10;
-    v27 = v24;
-    v29 = *(a1 + 32);
-    v13 = v12;
-    v28 = v13;
-    dispatch_async(v23, block);
+    v19 = v6;
+    v14 = v5;
+    v16 = v14;
+    v18 = *(a1 + 32);
+    v8 = v7;
+    v17 = v8;
+    dispatch_async(v13, block);
     if (v3)
     {
-      [(NRDevicePairingManager *)v24 invalidateWithError:v13];
+      [(NRDevicePairingManager *)v14 invalidateWithError:v8];
     }
   }
 
   else
   {
-    v13 = v3;
+    v8 = v3;
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __49__NRDevicePairingManager_activateWithCompletion___block_invoke_3(uint64_t a1)
@@ -1302,10 +1277,9 @@ uint64_t __49__NRDevicePairingManager_activateWithCompletion___block_invoke_3(ui
     [*(a1 + 32) setManagerState:2];
   }
 
-  v2 = *(a1 + 40);
-  v3 = *(*(a1 + 48) + 16);
+  v2 = *(*(a1 + 48) + 16);
 
-  return v3();
+  return v2();
 }
 
 - (NSString)fullDescription
@@ -1343,17 +1317,17 @@ uint64_t __49__NRDevicePairingManager_activateWithCompletion___block_invoke_3(ui
 
   if ((sNRCopyLogToStdErr & 1) != 0 || os_log_type_enabled(nrCopyLogObj_sNRLogObj_1535, OS_LOG_TYPE_DEFAULT))
   {
-    _NRLogWithArgs(nrCopyLogObj_sNRLogObj_1535, 0, "%s%.30s:%-4d %@: Dealloc", v2, v3, v4, v5, v6, "");
+    _NRLogWithArgs(nrCopyLogObj_sNRLogObj_1535, 0, "%s%.30s:%-4d %@: Dealloc", ", "[NRDevicePairingManager dealloc]"", 524, self);
   }
 
-  v8.receiver = self;
-  v8.super_class = NRDevicePairingManager;
-  [(NRDevicePairingManager *)&v8 dealloc];
+  v3.receiver = self;
+  v3.super_class = NRDevicePairingManager;
+  [(NRDevicePairingManager *)&v3 dealloc];
 }
 
 - (NRDevicePairingManager)initWithIdentifier:(id)identifier pairingCriteria:(id)criteria metadata:(id)metadata queue:(id)queue
 {
-  v68 = *MEMORY[0x277D85DE8];
+  v49 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   criteriaCopy = criteria;
   metadataCopy = metadata;
@@ -1361,24 +1335,24 @@ uint64_t __49__NRDevicePairingManager_activateWithCompletion___block_invoke_3(ui
   v14 = queueCopy;
   if (!criteriaCopy)
   {
-    v27 = nrCopyLogObj_1529();
+    v26 = nrCopyLogObj_1529();
     if (sNRCopyLogToStdErr == 1)
     {
     }
 
     else
     {
-      v31 = v27;
-      v32 = os_log_type_enabled(v27, OS_LOG_TYPE_FAULT);
+      v30 = v26;
+      v31 = os_log_type_enabled(v26, OS_LOG_TYPE_FAULT);
 
-      if (!v32)
+      if (!v31)
       {
         goto LABEL_25;
       }
     }
 
-    v33 = nrCopyLogObj_1529();
-    _NRLogWithArgs(v33, 17, "%s called with null pairingCriteria", v34, v35, v36, v37, v38, "[NRDevicePairingManager initWithIdentifier:pairingCriteria:metadata:queue:]");
+    v32 = nrCopyLogObj_1529();
+    _NRLogWithArgs(v32, 17, "%s called with null pairingCriteria");
 LABEL_24:
 
     selfCopy = 0;
@@ -1387,20 +1361,20 @@ LABEL_24:
 
   if (!queueCopy)
   {
-    v28 = nrCopyLogObj_1529();
+    v27 = nrCopyLogObj_1529();
     if (sNRCopyLogToStdErr == 1)
     {
 
 LABEL_23:
-      v33 = nrCopyLogObj_1529();
-      _NRLogWithArgs(v33, 17, "%s called with null queue", v41, v42, v43, v44, v45, "[NRDevicePairingManager initWithIdentifier:pairingCriteria:metadata:queue:]");
+      v32 = nrCopyLogObj_1529();
+      _NRLogWithArgs(v32, 17, "%s called with null queue");
       goto LABEL_24;
     }
 
-    v39 = v28;
-    v40 = os_log_type_enabled(v28, OS_LOG_TYPE_FAULT);
+    v33 = v27;
+    v34 = os_log_type_enabled(v27, OS_LOG_TYPE_FAULT);
 
-    if (v40)
+    if (v34)
     {
       goto LABEL_23;
     }
@@ -1426,9 +1400,9 @@ LABEL_25:
   if (v16)
   {
 LABEL_6:
-    v67.receiver = self;
-    v67.super_class = NRDevicePairingManager;
-    v17 = [(NRDevicePairingManager *)&v67 init];
+    v48.receiver = self;
+    v48.super_class = NRDevicePairingManager;
+    v17 = [(NRDevicePairingManager *)&v48 init];
     if (v17)
     {
       p_isa = &v17->super.isa;
@@ -1460,51 +1434,51 @@ LABEL_6:
       goto LABEL_10;
     }
 
-    v30 = nrCopyLogObj_1529();
+    v29 = nrCopyLogObj_1529();
     if (sNRCopyLogToStdErr == 1)
     {
     }
 
     else
     {
-      v54 = v30;
-      v55 = os_log_type_enabled(v30, OS_LOG_TYPE_ERROR);
+      v38 = v29;
+      v39 = os_log_type_enabled(v29, OS_LOG_TYPE_ERROR);
 
-      if (!v55)
+      if (!v39)
       {
         goto LABEL_31;
       }
     }
 
-    v56 = nrCopyLogObj_1529();
-    _NRLogWithArgs(v56, 16, "%s%.30s:%-4d ABORTING: [super init] failed", v57, v58, v59, v60, v61, "");
+    v40 = nrCopyLogObj_1529();
+    _NRLogWithArgs(v40, 16, "%s%.30s:%-4d ABORTING: [super init] failed", ", "[NRDevicePairingManager initWithIdentifier:pairingCriteria:metadata:queue:]"", 509);
 
 LABEL_31:
-    v62 = _os_log_pack_size();
-    MEMORY[0x28223BE20](v62, v63);
-    v64 = *__error();
-    v65 = _os_log_pack_fill();
-    *v65 = 136446210;
-    *(v65 + 4) = "[NRDevicePairingManager initWithIdentifier:pairingCriteria:metadata:queue:]";
-    v66 = nrCopyLogObj_1529();
-    _NRLogAbortWithPack(v66);
+    v41 = _os_log_pack_size();
+    v43 = &v47 - ((MEMORY[0x28223BE20](v41, v42) + 15) & 0xFFFFFFFFFFFFFFF0);
+    v44 = __error();
+    v45 = _os_log_pack_fill(v43, v41, *v44, &dword_25B98C000, "%{public}s [super init] failed");
+    *v45 = 136446210;
+    *(v45 + 4) = "[NRDevicePairingManager initWithIdentifier:pairingCriteria:metadata:queue:]";
+    v46 = nrCopyLogObj_1529();
+    _NRLogAbortWithPack(v46, v43);
   }
 
-  v29 = nrCopyLogObj_1529();
+  v28 = nrCopyLogObj_1529();
   if (sNRCopyLogToStdErr == 1)
   {
 
 LABEL_27:
-    v48 = nrCopyLogObj_1529();
-    _NRLogWithArgs(v48, 17, "%s called with null pairingManagerMux", v49, v50, v51, v52, v53, "[NRDevicePairingManager initWithIdentifier:pairingCriteria:metadata:queue:]");
+    v37 = nrCopyLogObj_1529();
+    _NRLogWithArgs(v37, 17, "%s called with null pairingManagerMux", "[NRDevicePairingManager initWithIdentifier:pairingCriteria:metadata:queue:]");
 
     goto LABEL_28;
   }
 
-  v46 = v29;
-  v47 = os_log_type_enabled(v29, OS_LOG_TYPE_FAULT);
+  v35 = v28;
+  v36 = os_log_type_enabled(v28, OS_LOG_TYPE_FAULT);
 
-  if (v47)
+  if (v36)
   {
     goto LABEL_27;
   }
@@ -1515,7 +1489,6 @@ LABEL_28:
 LABEL_10:
 
 LABEL_11:
-  v25 = *MEMORY[0x277D85DE8];
   return selfCopy;
 }
 
@@ -1533,14 +1506,14 @@ LABEL_11:
       {
         v11 = [deviceCopy copy];
         nrDeviceIdentifier = [v11 nrDeviceIdentifier];
-        v38[0] = MEMORY[0x277D85DD0];
-        v38[1] = 3221225472;
-        v38[2] = __60__NRDevicePairingManager_unpairDevice_queue_withCompletion___block_invoke;
-        v38[3] = &unk_27996B3D0;
-        v39 = v11;
-        v40 = v10;
+        v23[0] = MEMORY[0x277D85DD0];
+        v23[1] = 3221225472;
+        v23[2] = __60__NRDevicePairingManager_unpairDevice_queue_withCompletion___block_invoke;
+        v23[3] = &unk_27996B3D0;
+        v24 = v11;
+        v25 = v10;
         v13 = v11;
-        nrXPCUnpairDeviceByNRUUID(nrDeviceIdentifier, queueCopy, v38);
+        nrXPCUnpairDeviceByNRUUID(nrDeviceIdentifier, queueCopy, v23);
       }
 
       else
@@ -1552,17 +1525,17 @@ LABEL_11:
 
         else
         {
-          v31 = v16;
-          v32 = os_log_type_enabled(v16, OS_LOG_TYPE_FAULT);
+          v21 = v16;
+          v22 = os_log_type_enabled(v16, OS_LOG_TYPE_FAULT);
 
-          if (!v32)
+          if (!v22)
           {
             goto LABEL_6;
           }
         }
 
         v13 = nrCopyLogObj_1529();
-        _NRLogWithArgs(v13, 17, "%s called with null completionBlock", v33, v34, v35, v36, v37, "+[NRDevicePairingManager unpairDevice:queue:withCompletion:]");
+        _NRLogWithArgs(v13, 17, "%s called with null completionBlock");
       }
     }
 
@@ -1575,17 +1548,17 @@ LABEL_11:
 
       else
       {
-        v24 = v15;
-        v25 = os_log_type_enabled(v15, OS_LOG_TYPE_FAULT);
+        v19 = v15;
+        v20 = os_log_type_enabled(v15, OS_LOG_TYPE_FAULT);
 
-        if (!v25)
+        if (!v20)
         {
           goto LABEL_6;
         }
       }
 
       v13 = nrCopyLogObj_1529();
-      _NRLogWithArgs(v13, 17, "%s called with null queue", v26, v27, v28, v29, v30, "+[NRDevicePairingManager unpairDevice:queue:withCompletion:]");
+      _NRLogWithArgs(v13, 17, "%s called with null queue");
     }
   }
 
@@ -1608,7 +1581,7 @@ LABEL_11:
     }
 
     v13 = nrCopyLogObj_1529();
-    _NRLogWithArgs(v13, 17, "%s called with null nrDeviceIdentifier", v19, v20, v21, v22, v23, "+[NRDevicePairingManager unpairDevice:queue:withCompletion:]");
+    _NRLogWithArgs(v13, 17, "%s called with null nrDeviceIdentifier");
   }
 
 LABEL_6:
@@ -1616,16 +1589,16 @@ LABEL_6:
 
 void __60__NRDevicePairingManager_unpairDevice_queue_withCompletion___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v22[1] = *MEMORY[0x277D85DE8];
+  v16[1] = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = v5;
   if (a2)
   {
     if (v5)
     {
-      v21 = *MEMORY[0x277CCA450];
-      v22[0] = v5;
-      v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:&v21 count:1];
+      v15 = *MEMORY[0x277CCA450];
+      v16[0] = v5;
+      v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:&v15 count:1];
     }
 
     else
@@ -1656,15 +1629,13 @@ LABEL_10:
 
     v13 = [*(a1 + 32) nrDeviceIdentifier];
     v14 = _NRCopyLogObjectForNRUUID(v13);
-    _NRLogWithArgs(v14, 16, "%s%.30s:%-4d Unpairing failed: %@", v15, v16, v17, v18, v19, "");
+    _NRLogWithArgs(v14, 16, "%s%.30s:%-4d Unpairing failed: %@", ", "+[NRDevicePairingManager unpairDevice:queue:withCompletion:]_block_invoke"", 942, v8);
 
     goto LABEL_10;
   }
 
   (*(*(a1 + 40) + 16))();
 LABEL_11:
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 + (void)unpairDevice:(id)device withCompletion:(id)completion
@@ -1684,14 +1655,13 @@ LABEL_11:
 {
   v6[1] = *MEMORY[0x277D85DE8];
   objc_opt_self();
-  v0 = objc_alloc(MEMORY[0x277CCA9B8]);
+  v1 = objc_alloc(MEMORY[0x277CCA9B8]);
   v5 = *MEMORY[0x277CCA450];
   v6[0] = @"An XPC connection error occurred";
-  v1 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:&v5 count:1];
-  v2 = [v0 initWithDomain:@"NRDevicePairingErrorDomain" code:-2019 userInfo:v1];
+  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:&v5 count:1];
+  v3 = [v1 initWithDomain:@"NRDevicePairingErrorDomain" code:-2019 userInfo:v2];
 
-  v3 = *MEMORY[0x277D85DE8];
-  return v2;
+  return v3;
 }
 
 + (uint64_t)copyErrorForCode:(void *)code userInfo:
@@ -1744,10 +1714,9 @@ uint64_t __59__NRDevicePairingManager_pairingSucceededWithPairedDevice___block_i
   result = *(a1 + 48);
   if (result)
   {
-    v3 = *(a1 + 40);
-    v4 = *(result + 16);
+    v3 = *(result + 16);
 
-    return v4();
+    return v3();
   }
 
   return result;
@@ -1788,10 +1757,9 @@ uint64_t __49__NRDevicePairingManager_pairingFailedWithError___block_invoke(uint
   result = *(a1 + 48);
   if (result)
   {
-    v3 = *(a1 + 40);
-    v4 = *(result + 16);
+    v3 = *(result + 16);
 
-    return v4();
+    return v3();
   }
 
   return result;

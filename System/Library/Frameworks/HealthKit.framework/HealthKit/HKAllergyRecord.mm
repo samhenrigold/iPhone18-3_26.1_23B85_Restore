@@ -1,6 +1,7 @@
 @interface HKAllergyRecord
 + (id)_newAllergyRecordWithType:(id)type note:(id)note enteredInError:(BOOL)error modifiedDate:(id)date originIdentifier:(id)identifier locale:(id)locale extractionVersion:(int64_t)version device:(id)self0 metadata:(id)self1 sortDate:(id)self2 country:(id)self3 state:(unint64_t)self4 allergyCodingCollection:(id)self5 onsetDate:(id)self6 asserter:(id)self7 reactions:(id)self8 criticalityCoding:(id)self9 lastOccurrenceDate:(id)occurrenceDate recordedDate:(id)recordedDate verificationStatusCoding:(id)statusCoding clinicalStatusCoding:(id)clinicalStatusCoding allergyTypeCoding:(id)typeCoding categoryCoding:(id)categoryCoding config:(id)config;
 + (id)allergyRecordWithType:(id)type note:(id)note enteredInError:(BOOL)error modifiedDate:(id)date originIdentifier:(id)identifier locale:(id)locale extractionVersion:(int64_t)version device:(id)self0 metadata:(id)self1 country:(id)self2 state:(unint64_t)self3 allergyCodingCollection:(id)self4 onsetDate:(id)self5 asserter:(id)self6 reactions:(id)self7 criticalityCoding:(id)self8 lastOccurrenceDate:(id)self9 recordedDate:(id)recordedDate verificationStatusCoding:(id)statusCoding clinicalStatusCoding:(id)clinicalStatusCoding allergyTypeCoding:(id)typeCoding categoryCoding:(id)categoryCoding;
++ (id)allergyRecordWithType:(id)type note:(id)note enteredInError:(BOOL)error modifiedDate:(id)date originIdentifier:(id)identifier locale:(id)locale extractionVersion:(int64_t)version device:(id)self0 metadata:(id)self1 sortDate:(id)self2 country:(id)self3 state:(unint64_t)self4 allergyCodingCollection:(id)self5 onsetDate:(id)self6 asserter:(id)self7 reactions:(id)self8 criticalityCoding:(id)self9 lastOccurrenceDate:(id)occurrenceDate recordedDate:(id)recordedDate verificationStatusCoding:(id)statusCoding clinicalStatusCoding:(id)clinicalStatusCoding allergyTypeCoding:(id)typeCoding categoryCoding:(id)categoryCoding;
 + (id)cachedConceptRelationshipKeyPaths;
 + (id)defaultDisplayString;
 + (id)indexableConceptKeyPaths;
@@ -159,7 +160,7 @@
 
 - (id)codingsForKeyPath:(id)path error:(id *)error
 {
-  v32[1] = *MEMORY[0x1E69E9840];
+  v31[1] = *MEMORY[0x1E69E9840];
   pathCopy = path;
   v7 = [HKConceptIndexUtilities firstComponentForKeyPath:pathCopy error:error];
   v8 = v7;
@@ -173,8 +174,8 @@
   {
     allergyCodingCollection = [(HKAllergyRecord *)self allergyCodingCollection];
     v10 = [HKIndexableObject indexableObjectWithObject:allergyCodingCollection];
-    v32[0] = v10;
-    v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v32 count:1];
+    v31[0] = v10;
+    v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v31 count:1];
 
 LABEL_4:
     goto LABEL_28;
@@ -213,9 +214,9 @@ LABEL_4:
       criticalityCoding2 = [(HKAllergyRecord *)self criticalityCoding];
       v16 = [HKMedicalCodingCollection collectionWithCoding:criticalityCoding2];
       v17 = [HKIndexableObject indexableObjectWithObject:v16];
-      v31 = v17;
+      v30 = v17;
       v18 = MEMORY[0x1E695DEC8];
-      v19 = &v31;
+      v19 = &v30;
 LABEL_26:
       v11 = [v18 arrayWithObjects:v19 count:1];
 
@@ -234,9 +235,9 @@ LABEL_26:
       criticalityCoding2 = [(HKAllergyRecord *)self verificationStatusCoding];
       v16 = [HKMedicalCodingCollection collectionWithCoding:criticalityCoding2];
       v17 = [HKIndexableObject indexableObjectWithObject:v16];
-      v30 = v17;
+      v29 = v17;
       v18 = MEMORY[0x1E695DEC8];
-      v19 = &v30;
+      v19 = &v29;
       goto LABEL_26;
     }
 
@@ -254,9 +255,9 @@ LABEL_27:
       criticalityCoding2 = [(HKAllergyRecord *)self clinicalStatusCoding];
       v16 = [HKMedicalCodingCollection collectionWithCoding:criticalityCoding2];
       v17 = [HKIndexableObject indexableObjectWithObject:v16];
-      v29 = v17;
+      v28 = v17;
       v18 = MEMORY[0x1E695DEC8];
-      v19 = &v29;
+      v19 = &v28;
       goto LABEL_26;
     }
 
@@ -272,9 +273,9 @@ LABEL_27:
       criticalityCoding2 = [(HKAllergyRecord *)self allergyTypeCoding];
       v16 = [HKMedicalCodingCollection collectionWithCoding:criticalityCoding2];
       v17 = [HKIndexableObject indexableObjectWithObject:v16];
-      v28 = v17;
+      v27 = v17;
       v18 = MEMORY[0x1E695DEC8];
-      v19 = &v28;
+      v19 = &v27;
       goto LABEL_26;
     }
 
@@ -290,21 +291,19 @@ LABEL_27:
       criticalityCoding2 = [(HKAllergyRecord *)self categoryCoding];
       v16 = [HKMedicalCodingCollection collectionWithCoding:criticalityCoding2];
       v17 = [HKIndexableObject indexableObjectWithObject:v16];
-      v27 = v17;
+      v26 = v17;
       v18 = MEMORY[0x1E695DEC8];
-      v19 = &v27;
+      v19 = &v26;
       goto LABEL_26;
     }
 
     goto LABEL_27;
   }
 
-  v26.receiver = self;
-  v26.super_class = HKAllergyRecord;
-  v11 = [(HKMedicalRecord *)&v26 codingsForKeyPath:pathCopy error:error];
+  v25.receiver = self;
+  v25.super_class = HKAllergyRecord;
+  v11 = [(HKMedicalRecord *)&v25 codingsForKeyPath:pathCopy error:error];
 LABEL_28:
-
-  v24 = *MEMORY[0x1E69E9840];
 
   return v11;
 }
@@ -452,6 +451,13 @@ LABEL_29:
   return v14;
 }
 
++ (id)allergyRecordWithType:(id)type note:(id)note enteredInError:(BOOL)error modifiedDate:(id)date originIdentifier:(id)identifier locale:(id)locale extractionVersion:(int64_t)version device:(id)self0 metadata:(id)self1 sortDate:(id)self2 country:(id)self3 state:(unint64_t)self4 allergyCodingCollection:(id)self5 onsetDate:(id)self6 asserter:(id)self7 reactions:(id)self8 criticalityCoding:(id)self9 lastOccurrenceDate:(id)occurrenceDate recordedDate:(id)recordedDate verificationStatusCoding:(id)statusCoding clinicalStatusCoding:(id)clinicalStatusCoding allergyTypeCoding:(id)typeCoding categoryCoding:(id)categoryCoding
+{
+  v25 = [self _newAllergyRecordWithType:type note:note enteredInError:error modifiedDate:date originIdentifier:identifier locale:locale extractionVersion:version device:device metadata:metadata sortDate:sortDate country:country state:state allergyCodingCollection:collection onsetDate:onsetDate asserter:asserter reactions:reactions criticalityCoding:coding lastOccurrenceDate:occurrenceDate recordedDate:recordedDate verificationStatusCoding:statusCoding clinicalStatusCoding:clinicalStatusCoding allergyTypeCoding:typeCoding categoryCoding:categoryCoding config:0];
+
+  return v25;
+}
+
 + (id)_newAllergyRecordWithType:(id)type note:(id)note enteredInError:(BOOL)error modifiedDate:(id)date originIdentifier:(id)identifier locale:(id)locale extractionVersion:(int64_t)version device:(id)self0 metadata:(id)self1 sortDate:(id)self2 country:(id)self3 state:(unint64_t)self4 allergyCodingCollection:(id)self5 onsetDate:(id)self6 asserter:(id)self7 reactions:(id)self8 criticalityCoding:(id)self9 lastOccurrenceDate:(id)occurrenceDate recordedDate:(id)recordedDate verificationStatusCoding:(id)statusCoding clinicalStatusCoding:(id)clinicalStatusCoding allergyTypeCoding:(id)typeCoding categoryCoding:(id)categoryCoding config:(id)config
 {
   errorCopy = error;
@@ -581,13 +587,12 @@ void __348__HKAllergyRecord__newAllergyRecordWithType_note_enteredInError_modifi
   v3 = MEMORY[0x1E696AEC0];
   v4 = objc_opt_class();
   v5 = NSStringFromClass(v4);
-  v10.receiver = self;
-  v10.super_class = HKAllergyRecord;
-  v6 = [(HKSample *)&v10 description];
-  allergyTypeCoding = self->_allergyTypeCoding;
-  v8 = [v3 stringWithFormat:@"<%@:%p super=%@allergyCodingCollection = %@onsetDate = %@asserter = %@reactions = %@criticalityCoding = %@lastOccurrenceDate = %@recordedDate = %@verificationStatusCoding = %@clinicalStatusCoding = %@allergyTypeCoding = %@categoryCoding = %@>", v5, self, v6, self->_allergyCodingCollection, self->_onsetDate, self->_asserter, self->_reactions, self->_criticalityCoding, self->_lastOccurrenceDate, self->_recordedDate, self->_verificationStatusCoding, self->_clinicalStatusCoding, allergyTypeCoding, self->_categoryCoding];
+  v9.receiver = self;
+  v9.super_class = HKAllergyRecord;
+  v6 = [(HKSample *)&v9 description];
+  v7 = [v3 stringWithFormat:@"<%@:%p super=%@allergyCodingCollection = %@onsetDate = %@asserter = %@reactions = %@criticalityCoding = %@lastOccurrenceDate = %@recordedDate = %@verificationStatusCoding = %@clinicalStatusCoding = %@allergyTypeCoding = %@categoryCoding = %@>", v5, self, v6, self->_allergyCodingCollection, self->_onsetDate, self->_asserter, self->_reactions, self->_criticalityCoding, self->_lastOccurrenceDate, self->_recordedDate, self->_verificationStatusCoding, self->_clinicalStatusCoding, self->_allergyTypeCoding, self->_categoryCoding];
 
-  return v8;
+  return v7;
 }
 
 - (void)encodeWithCoder:(id)coder
@@ -1452,17 +1457,17 @@ LABEL_91:
   allergyCopy = allergy;
   if (!allergyCopy)
   {
-    _HKInitializeLogging();
-    v5 = HKLogHealthRecords;
+    _HKInitializeLogging(0, v4);
+    v6 = HKLogHealthRecords;
     if (os_log_type_enabled(HKLogHealthRecords, OS_LOG_TYPE_FAULT))
     {
-      [HKAllergyRecord _setAllergy:v5];
+      [HKAllergyRecord _setAllergy:v6];
     }
   }
 
-  v6 = [allergyCopy copy];
+  v7 = [allergyCopy copy];
   allergy = self->_allergy;
-  self->_allergy = v6;
+  self->_allergy = v7;
 }
 
 - (HKConcept)criticality

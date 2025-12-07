@@ -10,7 +10,7 @@
   {
     if (withId)
     {
-      if (([JavaLangComparable_class_() isInstance:id] & 1) == 0)
+      if (([JavaLangComparable_class_(self a2)] & 1) == 0)
       {
         JreThrowClassCastException();
       }

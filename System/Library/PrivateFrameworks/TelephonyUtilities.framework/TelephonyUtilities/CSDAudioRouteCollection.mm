@@ -199,37 +199,37 @@
   aaDeviceManager = [routeManager aaDeviceManager];
   discoveredDevices = [aaDeviceManager discoveredDevices];
 
-  v29 = 0u;
   v30 = 0u;
-  v27 = 0u;
+  v31 = 0u;
   v28 = 0u;
+  v29 = 0u;
   obj = dictionariesCopy;
-  v9 = [obj countByEnumeratingWithState:&v27 objects:v35 count:16];
+  v9 = [obj countByEnumeratingWithState:&v28 objects:v36 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v28;
+    v11 = *v29;
     do
     {
       for (i = 0; i != v10; i = i + 1)
       {
-        if (*v28 != v11)
+        if (*v29 != v11)
         {
           objc_enumerationMutation(obj);
         }
 
-        v13 = *(*(&v27 + 1) + 8 * i);
+        v13 = *(*(&v28 + 1) + 8 * i);
         v14 = [[TUAudioRoute alloc] initWithDictionary:v13];
         v15 = v14;
         if (v14)
         {
-          v25[0] = _NSConcreteStackBlock;
-          v25[1] = 3221225472;
-          v25[2] = sub_1001A79EC;
-          v25[3] = &unk_10061D870;
+          v26[0] = _NSConcreteStackBlock;
+          v26[1] = 3221225472;
+          v26[2] = sub_1001A79EC;
+          v26[3] = &unk_10061D870;
           v16 = v14;
-          v26 = v16;
-          v17 = [discoveredDevices tu_firstObjectPassingTest:v25];
+          v27 = v16;
+          v17 = [discoveredDevices tu_firstObjectPassingTest:v26];
           v18 = v17;
           if (v17)
           {
@@ -242,17 +242,17 @@
 
         else
         {
-          v18 = sub_100004778();
+          v18 = sub_100004778(0);
           if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412290;
-            v32 = v13;
+            v33 = v13;
             _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "[WARN] Unable to create audio route from route dictionary: %@", buf, 0xCu);
           }
         }
       }
 
-      v10 = [obj countByEnumeratingWithState:&v27 objects:v35 count:16];
+      v10 = [obj countByEnumeratingWithState:&v28 objects:v36 count:16];
     }
 
     while (v10);
@@ -263,14 +263,14 @@
 
   if ((v20 & 1) == 0)
   {
-    v21 = sub_100004778();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+    v22 = sub_100004778(v21);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315394;
-      v32 = "[CSDAudioRouteCollection _setRoutesFromRouteDictionaries:]";
-      v33 = 2112;
-      v34 = v5;
-      _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "%s: %@", buf, 0x16u);
+      v33 = "[CSDAudioRouteCollection _setRoutesFromRouteDictionaries:]";
+      v34 = 2112;
+      v35 = v5;
+      _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "%s: %@", buf, 0x16u);
     }
 
     [(CSDAudioRouteCollection *)selfCopy setRoutes:v5];

@@ -1,9 +1,27 @@
 @interface BlastDoorHWEncoding
 + (id)dataRepresentation:(id)representation frame:(CGRect)frame bound:(CGRect)bound uuid:(id)uuid date:(id)date;
 + (id)decodeHandwritingFromData:(id)data;
++ (id)encodeHandwriting:(id)handwriting compress:(BOOL)compress;
 @end
 
 @implementation BlastDoorHWEncoding
+
++ (id)encodeHandwriting:(id)handwriting compress:(BOOL)compress
+{
+  compressCopy = compress;
+  handwritingCopy = handwriting;
+  if (getHWEncodingClass())
+  {
+    v6 = [getHWEncodingClass() encodeHandwriting:handwritingCopy compress:compressCopy];
+  }
+
+  else
+  {
+    v6 = 0;
+  }
+
+  return v6;
+}
 
 + (id)decodeHandwritingFromData:(id)data
 {

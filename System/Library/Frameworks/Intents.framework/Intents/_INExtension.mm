@@ -7,21 +7,19 @@
 
 - (void)beginRequestWithExtensionContext:(id)context
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   contextCopy = context;
   v5 = INSiriLogContextIntents;
   if (os_log_type_enabled(INSiriLogContextIntents, OS_LOG_TYPE_INFO))
   {
-    v9 = 136315138;
-    v10 = "[_INExtension beginRequestWithExtensionContext:]";
-    _os_log_impl(&dword_18E991000, v5, OS_LOG_TYPE_INFO, "%s Extension bring-up", &v9, 0xCu);
+    v8 = 136315138;
+    v9 = "[_INExtension beginRequestWithExtensionContext:]";
+    _os_log_impl(&dword_18E991000, v5, OS_LOG_TYPE_INFO, "%s Extension bring-up", &v8, 0xCu);
   }
 
   v6 = _INExtensionContextWithContext(contextCopy);
   extensionContext = self->_extensionContext;
   self->_extensionContext = v6;
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 + (void)initialize

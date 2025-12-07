@@ -6,16 +6,16 @@
 - (__CFString)executableTypeAsString:(__CFString *)string;
 - (double)dateEngaged;
 - (double)eventDate;
+- (id)clearClientModelIds;
 - (id)clientModelIdAtIndex:(id *)index;
+- (id)clientModelIdsCount;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
 - (uint64_t)StringAsEventType:(uint64_t)type;
 - (uint64_t)StringAsExecutableType:(uint64_t)type;
 - (uint64_t)addClientModelId:(uint64_t)id;
-- (uint64_t)clearClientModelIds;
 - (uint64_t)clientModelIds;
-- (uint64_t)clientModelIdsCount;
 - (uint64_t)engagementType;
 - (uint64_t)eventType;
 - (uint64_t)executable;
@@ -943,11 +943,11 @@ LABEL_4:
   return result;
 }
 
-- (uint64_t)clearClientModelIds
+- (id)clearClientModelIds
 {
   if (result)
   {
-    return [*(result + 32) removeAllObjects];
+    return [result[4] removeAllObjects];
   }
 
   return result;
@@ -977,11 +977,11 @@ LABEL_4:
   return MEMORY[0x1EEE66BB8](v3, v4);
 }
 
-- (uint64_t)clientModelIdsCount
+- (id)clientModelIdsCount
 {
   if (result)
   {
-    return [*(result + 32) count];
+    return [result[4] count];
   }
 
   return result;

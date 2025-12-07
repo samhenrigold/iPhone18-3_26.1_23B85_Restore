@@ -12,7 +12,7 @@
 
 - (UAFAssetSetExperiment)initWithExperimentId:(id)id assetSpecifiers:(id)specifiers
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   idCopy = id;
   specifiersCopy = specifiers;
   if (!+[UAFCommonUtilities isTrialAvailable])
@@ -21,7 +21,7 @@
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315138;
-      v17 = "[UAFAssetSetExperiment initWithExperimentId:assetSpecifiers:]";
+      v16 = "[UAFAssetSetExperiment initWithExperimentId:assetSpecifiers:]";
       _os_log_error_impl(&dword_1BCF2C000, v12, OS_LOG_TYPE_ERROR, "%s This system doesn't support Trial. Returning nil.", buf, 0xCu);
     }
 
@@ -29,9 +29,9 @@
     goto LABEL_7;
   }
 
-  v15.receiver = self;
-  v15.super_class = UAFAssetSetExperiment;
-  v9 = [(UAFAssetSetExperiment *)&v15 init];
+  v14.receiver = self;
+  v14.super_class = UAFAssetSetExperiment;
+  v9 = [(UAFAssetSetExperiment *)&v14 init];
   v10 = v9;
   if (v9)
   {
@@ -42,13 +42,12 @@
 LABEL_7:
   }
 
-  v13 = *MEMORY[0x1E69E9840];
   return v10;
 }
 
 - (UAFAssetSetExperiment)initWithConfiguration:(id)configuration uuid:(id)uuid
 {
-  v65 = *MEMORY[0x1E69E9840];
+  v64 = *MEMORY[0x1E69E9840];
   configurationCopy = configuration;
   uuidCopy = uuid;
   v8 = [(UAFAssetSetExperiment *)self initWithExperimentId:0 assetSpecifiers:0];
@@ -98,7 +97,7 @@ LABEL_20:
   {
     v20 = v8->_uuid;
     *buf = 138543362;
-    v60 = v20;
+    v59 = v20;
     _os_signpost_emit_with_name_impl(&dword_1BCF2C000, v18, OS_SIGNPOST_INTERVAL_BEGIN, v16, "Experiment AutoAssets", "%{public}@", buf, 0xCu);
   }
 
@@ -116,21 +115,21 @@ LABEL_20:
       v26 = [MEMORY[0x1E695DFF8] fileURLWithPath:v25 isDirectory:1];
       v27 = [v26 URLByAppendingPathComponent:@"experiment.plist"];
 
-      v58 = 0;
-      v28 = [UAFAssetSetExperimentConfiguration fromContentsOfURL:v27 error:&v58];
-      v57 = v58;
-      if (v57)
+      v57 = 0;
+      v28 = [UAFAssetSetExperimentConfiguration fromContentsOfURL:v27 error:&v57];
+      v56 = v57;
+      if (v56)
       {
         v29 = v28;
         v30 = UAFGetLogCategory(&UAFLogContextClient);
         if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
         {
           *buf = 136315650;
-          v60 = "[UAFAssetSetExperiment initWithConfiguration:uuid:]";
-          v61 = 2112;
-          v62 = v27;
-          v63 = 2114;
-          v64 = v57;
+          v59 = "[UAFAssetSetExperiment initWithConfiguration:uuid:]";
+          v60 = 2112;
+          v61 = v27;
+          v62 = 2114;
+          v63 = v56;
           _os_log_error_impl(&dword_1BCF2C000, v30, OS_LOG_TYPE_ERROR, "%s Could not load asset set experiment at %@: %{public}@", buf, 0x20u);
         }
 
@@ -140,7 +139,7 @@ LABEL_20:
         {
           v33 = v8->_uuid;
           *buf = 138543362;
-          v60 = v33;
+          v59 = v33;
           _os_signpost_emit_with_name_impl(&dword_1BCF2C000, v32, OS_SIGNPOST_INTERVAL_END, v16, "Experiment AutoAssets", "%{public}@", buf, 0xCu);
         }
 
@@ -149,8 +148,8 @@ LABEL_20:
 
       else
       {
-        v55 = v28;
-        v56 = v27;
+        v54 = v28;
+        v55 = v27;
         assetSpecifiers = [v28 assetSpecifiers];
         assetSpecifiers = v8->_assetSpecifiers;
         v8->_assetSpecifiers = assetSpecifiers;
@@ -162,62 +161,62 @@ LABEL_20:
         experimentId = v8->_experimentId;
         v8->_experimentId = experimentId;
 
-        v47 = v8->_experimentId;
-        v48 = UAFGetLogCategory(&UAFLogContextClient);
-        v49 = v48;
-        if (v47)
+        v46 = v8->_experimentId;
+        v47 = UAFGetLogCategory(&UAFLogContextClient);
+        v48 = v47;
+        if (v46)
         {
-          if (v19 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v48))
+          if (v19 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v47))
           {
-            v50 = v8->_uuid;
+            v49 = v8->_uuid;
             *buf = 138543362;
-            v60 = v50;
-            _os_signpost_emit_with_name_impl(&dword_1BCF2C000, v49, OS_SIGNPOST_INTERVAL_END, v16, "Experiment AutoAssets", "%{public}@", buf, 0xCu);
+            v59 = v49;
+            _os_signpost_emit_with_name_impl(&dword_1BCF2C000, v48, OS_SIGNPOST_INTERVAL_END, v16, "Experiment AutoAssets", "%{public}@", buf, 0xCu);
           }
 
           trialProject = v8;
-          v27 = v56;
+          v27 = v55;
         }
 
         else
         {
-          v27 = v56;
-          if (os_log_type_enabled(v48, OS_LOG_TYPE_ERROR))
+          v27 = v55;
+          if (os_log_type_enabled(v47, OS_LOG_TYPE_ERROR))
           {
             *buf = 136315394;
-            v60 = "[UAFAssetSetExperiment initWithConfiguration:uuid:]";
-            v61 = 2112;
-            v62 = v56;
-            _os_log_error_impl(&dword_1BCF2C000, v49, OS_LOG_TYPE_ERROR, "%s Could use asset set experiment at %@: experiment id is nil", buf, 0x16u);
+            v59 = "[UAFAssetSetExperiment initWithConfiguration:uuid:]";
+            v60 = 2112;
+            v61 = v55;
+            _os_log_error_impl(&dword_1BCF2C000, v48, OS_LOG_TYPE_ERROR, "%s Could use asset set experiment at %@: experiment id is nil", buf, 0x16u);
           }
 
-          v51 = UAFGetLogCategory(&UAFLogContextClient);
-          v52 = v51;
-          if (v19 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v51))
+          v50 = UAFGetLogCategory(&UAFLogContextClient);
+          v51 = v50;
+          if (v19 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v50))
           {
-            v53 = v8->_uuid;
+            v52 = v8->_uuid;
             *buf = 138543362;
-            v60 = v53;
-            _os_signpost_emit_with_name_impl(&dword_1BCF2C000, v52, OS_SIGNPOST_INTERVAL_END, v16, "Experiment AutoAssets", "%{public}@", buf, 0xCu);
+            v59 = v52;
+            _os_signpost_emit_with_name_impl(&dword_1BCF2C000, v51, OS_SIGNPOST_INTERVAL_END, v16, "Experiment AutoAssets", "%{public}@", buf, 0xCu);
           }
 
           trialProject = 0;
         }
 
-        v29 = v55;
+        v29 = v54;
       }
     }
 
     else
     {
-      v39 = UAFGetLogCategory(&UAFLogContextClient);
-      v40 = v39;
-      if (v19 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v39))
+      v38 = UAFGetLogCategory(&UAFLogContextClient);
+      v39 = v38;
+      if (v19 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v38))
       {
-        v41 = v8->_uuid;
+        v40 = v8->_uuid;
         *buf = 138543362;
-        v60 = v41;
-        _os_signpost_emit_with_name_impl(&dword_1BCF2C000, v40, OS_SIGNPOST_INTERVAL_END, v16, "Experiment AutoAssets", "%{public}@", buf, 0xCu);
+        v59 = v40;
+        _os_signpost_emit_with_name_impl(&dword_1BCF2C000, v39, OS_SIGNPOST_INTERVAL_END, v16, "Experiment AutoAssets", "%{public}@", buf, 0xCu);
       }
 
       trialProject = v8;
@@ -227,24 +226,24 @@ LABEL_20:
 
   else
   {
-    v36 = UAFGetLogCategory(&UAFLogContextClient);
-    if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
+    v35 = UAFGetLogCategory(&UAFLogContextClient);
+    if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
     {
       trialProject3 = [configurationCopy trialProject];
       *buf = 136315394;
-      v60 = "[UAFAssetSetExperiment initWithConfiguration:uuid:]";
-      v61 = 2114;
-      v62 = trialProject3;
-      _os_log_error_impl(&dword_1BCF2C000, v36, OS_LOG_TYPE_ERROR, "%s Could not create trial client for project %{public}@", buf, 0x16u);
+      v59 = "[UAFAssetSetExperiment initWithConfiguration:uuid:]";
+      v60 = 2114;
+      v61 = trialProject3;
+      _os_log_error_impl(&dword_1BCF2C000, v35, OS_LOG_TYPE_ERROR, "%s Could not create trial client for project %{public}@", buf, 0x16u);
     }
 
-    v37 = UAFGetLogCategory(&UAFLogContextClient);
-    v25 = v37;
-    if (v19 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v37))
+    v36 = UAFGetLogCategory(&UAFLogContextClient);
+    v25 = v36;
+    if (v19 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v36))
     {
-      v38 = v8->_uuid;
+      v37 = v8->_uuid;
       *buf = 138543362;
-      v60 = v38;
+      v59 = v37;
       _os_signpost_emit_with_name_impl(&dword_1BCF2C000, v25, OS_SIGNPOST_INTERVAL_END, v16, "Experiment AutoAssets", "%{public}@", buf, 0xCu);
     }
 
@@ -252,7 +251,6 @@ LABEL_20:
   }
 
 LABEL_21:
-  v34 = *MEMORY[0x1E69E9840];
   return trialProject;
 }
 

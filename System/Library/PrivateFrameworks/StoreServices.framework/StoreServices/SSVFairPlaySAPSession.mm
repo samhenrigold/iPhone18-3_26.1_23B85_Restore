@@ -266,20 +266,20 @@ void __44__SSVFairPlaySAPSession_setCertificateData___block_invoke(uint64_t a1)
 
 void __50__SSVFairPlaySAPSession_signData_completionBlock___block_invoke(uint64_t a1)
 {
-  v55 = *MEMORY[0x1E69E9840];
+  v54 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 32);
   v3 = *(a1 + 40);
-  v50 = 0;
-  v4 = [v2 _signData:v3 error:&v50];
-  v5 = v50;
+  v49 = 0;
+  v4 = [v2 _signData:v3 error:&v49];
+  v5 = v49;
   if (v4)
   {
-    goto LABEL_27;
+    goto LABEL_29;
   }
 
   if (![*(a1 + 32) _shouldRetrySAPOperationForError:v5])
   {
-    goto LABEL_15;
+    goto LABEL_16;
   }
 
   v6 = +[SSLogConfig sharedStoreServicesConfig];
@@ -291,16 +291,21 @@ void __50__SSVFairPlaySAPSession_signData_completionBlock___block_invoke(uint64_
   v7 = [v6 shouldLog];
   if ([v6 shouldLogToDisk])
   {
-    v8 = v7 | 2;
+    LODWORD(v8) = v7 | 2;
   }
 
   else
   {
-    v8 = v7;
+    LODWORD(v8) = v7;
   }
 
   v9 = [v6 OSLogObject];
-  if (!os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  {
+    v8 = v8;
+  }
+
+  else
   {
     v8 &= 2u;
   }
@@ -308,38 +313,36 @@ void __50__SSVFairPlaySAPSession_signData_completionBlock___block_invoke(uint64_
   if (v8)
   {
     v10 = objc_opt_class();
-    v51 = 138412290;
-    v52 = v10;
+    v50 = 138412290;
+    v51 = v10;
     v11 = v10;
-    LODWORD(v44) = 12;
-    v43 = &v51;
-    v12 = _os_log_send_and_compose_impl();
+    v12 = _os_log_send_and_compose_impl(v8, 0, 0, 0, &dword_1D48BA000, v9, 0, "%@: SAP signature failed with bad session, attempting to sign again", &v50, 12);
 
     if (!v12)
     {
-      goto LABEL_14;
+      goto LABEL_15;
     }
 
-    v9 = [MEMORY[0x1E696AEC0] stringWithCString:v12 encoding:{4, &v51, v44}];
+    v9 = [MEMORY[0x1E696AEC0] stringWithCString:v12 encoding:4];
     free(v12);
     SSFileLog(v6, @"%@", v13, v14, v15, v16, v17, v18, v9);
   }
 
-LABEL_14:
+LABEL_15:
   v19 = *(a1 + 32);
   v20 = *(v19 + 32);
   *(v19 + 32) = 0;
 
   v21 = *(a1 + 32);
   v22 = *(a1 + 40);
-  v49 = v5;
-  v4 = [v21 _signData:v22 error:&v49];
-  v23 = v49;
+  v48 = v5;
+  v4 = [v21 _signData:v22 error:&v48];
+  v23 = v48;
 
   v5 = v23;
   if (!v4)
   {
-LABEL_15:
+LABEL_16:
     v24 = +[SSLogConfig sharedStoreServicesConfig];
     if (!v24)
     {
@@ -349,16 +352,21 @@ LABEL_15:
     v25 = [v24 shouldLog];
     if ([v24 shouldLogToDisk])
     {
-      v26 = v25 | 2;
+      LODWORD(v26) = v25 | 2;
     }
 
     else
     {
-      v26 = v25;
+      LODWORD(v26) = v25;
     }
 
     v27 = [v24 OSLogObject];
-    if (!os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
+    {
+      v26 = v26;
+    }
+
+    else
     {
       v26 &= 2u;
     }
@@ -366,17 +374,17 @@ LABEL_15:
     if (v26)
     {
       v28 = objc_opt_class();
-      v51 = 138412546;
-      v52 = v28;
-      v53 = 2112;
-      v54 = v5;
+      v50 = 138412546;
+      v51 = v28;
+      v52 = 2112;
+      v53 = v5;
       v29 = v28;
-      LODWORD(v44) = 22;
-      v30 = _os_log_send_and_compose_impl();
+      LODWORD(v43) = 22;
+      v30 = _os_log_send_and_compose_impl(v26, 0, 0, 0, &dword_1D48BA000, v27, 0, "%@: SAP signature failed with error: %@", &v50, v43);
 
       if (!v30)
       {
-LABEL_26:
+LABEL_28:
 
         v37 = *(a1 + 32);
         v38 = *(v37 + 32);
@@ -384,27 +392,27 @@ LABEL_26:
 
         v4 = 0;
         *(*(a1 + 32) + 48) = 0;
-        goto LABEL_27;
+        goto LABEL_29;
       }
 
-      v27 = [MEMORY[0x1E696AEC0] stringWithCString:v30 encoding:{4, &v51, v44}];
+      v27 = [MEMORY[0x1E696AEC0] stringWithCString:v30 encoding:4];
       free(v30);
       SSFileLog(v24, @"%@", v31, v32, v33, v34, v35, v36, v27);
     }
 
-    goto LABEL_26;
+    goto LABEL_28;
   }
 
-LABEL_27:
+LABEL_29:
   v39 = *(*(a1 + 32) + 16);
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 3221225472;
   block[2] = __50__SSVFairPlaySAPSession_signData_completionBlock___block_invoke_14;
   block[3] = &unk_1E84ABEC8;
   v40 = *(a1 + 48);
-  v47 = v5;
-  v48 = v40;
-  v46 = v4;
+  v46 = v5;
+  v47 = v40;
+  v45 = v4;
   v41 = v5;
   v42 = v4;
   dispatch_async(v39, block);
@@ -432,19 +440,19 @@ LABEL_27:
 
 void __65__SSVFairPlaySAPSession_verifySignature_forData_completionBlock___block_invoke(uint64_t a1)
 {
-  v57 = *MEMORY[0x1E69E9840];
+  v56 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 32);
   v3 = *(a1 + 40);
   v4 = *(a1 + 48);
-  v52 = 0;
-  v5 = [v2 _verifySignature:v3 forData:v4 error:&v52];
-  v6 = v52;
+  v51 = 0;
+  v5 = [v2 _verifySignature:v3 forData:v4 error:&v51];
+  v6 = v51;
   if ((v5 & 1) == 0)
   {
     if (![*(a1 + 32) _shouldRetrySAPOperationForError:v6])
     {
       v7 = 0;
-      goto LABEL_18;
+      goto LABEL_19;
     }
 
     v8 = +[SSLogConfig sharedStoreServicesConfig];
@@ -456,16 +464,21 @@ void __65__SSVFairPlaySAPSession_verifySignature_forData_completionBlock___block
     v9 = [v8 shouldLog];
     if ([v8 shouldLogToDisk])
     {
-      v10 = v9 | 2;
+      LODWORD(v10) = v9 | 2;
     }
 
     else
     {
-      v10 = v9;
+      LODWORD(v10) = v9;
     }
 
     v11 = [v8 OSLogObject];
-    if (!os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    {
+      v10 = v10;
+    }
+
+    else
     {
       v10 &= 2u;
     }
@@ -473,24 +486,22 @@ void __65__SSVFairPlaySAPSession_verifySignature_forData_completionBlock___block
     if (v10)
     {
       v12 = objc_opt_class();
-      v53 = 138412290;
-      v54 = v12;
+      v52 = 138412290;
+      v53 = v12;
       v13 = v12;
-      LODWORD(v46) = 12;
-      v45 = &v53;
-      v14 = _os_log_send_and_compose_impl();
+      v14 = _os_log_send_and_compose_impl(v10, 0, 0, 0, &dword_1D48BA000, v11, 0, "%@: SAP signature verification failed with bad session, attempting to verify signature again", &v52, 12);
 
       if (!v14)
       {
-        goto LABEL_15;
+        goto LABEL_16;
       }
 
-      v11 = [MEMORY[0x1E696AEC0] stringWithCString:v14 encoding:{4, &v53, v46}];
+      v11 = [MEMORY[0x1E696AEC0] stringWithCString:v14 encoding:4];
       free(v14);
       SSFileLog(v8, @"%@", v15, v16, v17, v18, v19, v20, v11);
     }
 
-LABEL_15:
+LABEL_16:
     v21 = *(a1 + 32);
     v22 = *(v21 + 32);
     *(v21 + 32) = 0;
@@ -498,20 +509,20 @@ LABEL_15:
     v23 = *(a1 + 32);
     v24 = *(a1 + 40);
     v25 = *(a1 + 48);
-    v51 = v6;
-    v7 = [v23 _verifySignature:v24 forData:v25 error:&v51];
-    v26 = v51;
+    v50 = v6;
+    v7 = [v23 _verifySignature:v24 forData:v25 error:&v50];
+    v26 = v50;
 
     v6 = v26;
     if (v7)
     {
-      goto LABEL_31;
+      goto LABEL_33;
     }
 
-LABEL_18:
+LABEL_19:
     if (!v6)
     {
-      goto LABEL_31;
+      goto LABEL_33;
     }
 
     v27 = +[SSLogConfig sharedStoreServicesConfig];
@@ -523,16 +534,21 @@ LABEL_18:
     v28 = [v27 shouldLog];
     if ([v27 shouldLogToDisk])
     {
-      v29 = v28 | 2;
+      LODWORD(v29) = v28 | 2;
     }
 
     else
     {
-      v29 = v28;
+      LODWORD(v29) = v28;
     }
 
     v30 = [v27 OSLogObject];
-    if (!os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
+    {
+      v29 = v29;
+    }
+
+    else
     {
       v29 &= 2u;
     }
@@ -540,45 +556,45 @@ LABEL_18:
     if (v29)
     {
       v31 = objc_opt_class();
-      v53 = 138412546;
-      v54 = v31;
-      v55 = 2112;
-      v56 = v6;
+      v52 = 138412546;
+      v53 = v31;
+      v54 = 2112;
+      v55 = v6;
       v32 = v31;
-      LODWORD(v46) = 22;
-      v33 = _os_log_send_and_compose_impl();
+      LODWORD(v45) = 22;
+      v33 = _os_log_send_and_compose_impl(v29, 0, 0, 0, &dword_1D48BA000, v30, 0, "%@: SAP signature verification failed with error: %@", &v52, v45);
 
       if (!v33)
       {
-LABEL_30:
+LABEL_32:
 
         v40 = *(a1 + 32);
         v41 = *(v40 + 32);
         *(v40 + 32) = 0;
 
         v7 = 0;
-        goto LABEL_31;
+        goto LABEL_33;
       }
 
-      v30 = [MEMORY[0x1E696AEC0] stringWithCString:v33 encoding:{4, &v53, v46}];
+      v30 = [MEMORY[0x1E696AEC0] stringWithCString:v33 encoding:4];
       free(v33);
       SSFileLog(v27, @"%@", v34, v35, v36, v37, v38, v39, v30);
     }
 
-    goto LABEL_30;
+    goto LABEL_32;
   }
 
   v7 = 1;
-LABEL_31:
+LABEL_33:
   v42 = *(*(a1 + 32) + 16);
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 3221225472;
   block[2] = __65__SSVFairPlaySAPSession_verifySignature_forData_completionBlock___block_invoke_15;
   block[3] = &unk_1E84B08A8;
   v43 = *(a1 + 56);
-  v50 = v7;
-  v48 = v6;
-  v49 = v43;
+  v49 = v7;
+  v47 = v6;
+  v48 = v43;
   v44 = v6;
   dispatch_async(v42, block);
 }
@@ -685,20 +701,20 @@ void __56__SSVFairPlaySAPSession_verifyData_withSignature_error___block_invoke(u
 
 - (id)_establishContext
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   context = self->_context;
   if (context)
   {
-    goto LABEL_29;
+    goto LABEL_30;
   }
 
   _loadCertificateData = [(SSVFairPlaySAPSession *)self _loadCertificateData];
   if (_loadCertificateData)
   {
     v5 = [[SSVFairPlaySAPContext alloc] initWithSAPVersion:self->_version];
-    v29 = 0;
-    v6 = [(SSVFairPlaySAPContext *)v5 exchangeData:_loadCertificateData error:&v29];
-    v7 = v29;
+    v28 = 0;
+    v6 = [(SSVFairPlaySAPContext *)v5 exchangeData:_loadCertificateData error:&v28];
+    v7 = v28;
     if (v6)
     {
       while (![(SSVFairPlaySAPContext *)v5 isComplete])
@@ -710,9 +726,9 @@ void __56__SSVFairPlaySAPSession_verifyData_withSignature_error___block_invoke(u
           goto LABEL_12;
         }
 
-        v28 = 0;
-        v9 = [(SSVFairPlaySAPContext *)v5 exchangeData:certificateData error:&v28];
-        v10 = v28;
+        v27 = 0;
+        v9 = [(SSVFairPlaySAPContext *)v5 exchangeData:certificateData error:&v27];
+        v10 = v27;
 
         if (!v7)
         {
@@ -741,9 +757,9 @@ LABEL_12:
       v11 = v5;
       v12 = self->_context;
       self->_context = v11;
-LABEL_26:
+LABEL_27:
 
-      goto LABEL_27;
+      goto LABEL_28;
     }
 
     v12 = +[SSLogConfig sharedConfig];
@@ -755,16 +771,21 @@ LABEL_26:
     shouldLog = [v12 shouldLog];
     if ([v12 shouldLogToDisk])
     {
-      v14 = shouldLog | 2;
+      LODWORD(v14) = shouldLog | 2;
     }
 
     else
     {
-      v14 = shouldLog;
+      LODWORD(v14) = shouldLog;
     }
 
     oSLogObject = [v12 OSLogObject];
-    if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+    {
+      v14 = v14;
+    }
+
+    else
     {
       v14 &= 2u;
     }
@@ -772,28 +793,27 @@ LABEL_26:
     if (v14)
     {
       v16 = objc_opt_class();
-      v30 = 138543618;
-      v31 = v16;
-      v32 = 2112;
-      v33 = v7;
+      v29 = 138543618;
+      v30 = v16;
+      v31 = 2112;
+      v32 = v7;
       v17 = v16;
-      LODWORD(v27) = 22;
-      v18 = _os_log_send_and_compose_impl();
+      v18 = _os_log_send_and_compose_impl(v14, 0, 0, 0, &dword_1D48BA000, oSLogObject, 16, "%{public}@: Failed to complete mescal context setup. Error = %@", &v29, 22);
 
       if (!v18)
       {
-        goto LABEL_26;
+        goto LABEL_27;
       }
 
-      oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v18 encoding:{4, &v30, v27}];
+      oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v18 encoding:4];
       free(v18);
       SSFileLog(v12, @"%@", v19, v20, v21, v22, v23, v24, oSLogObject);
     }
 
-    goto LABEL_26;
+    goto LABEL_27;
   }
 
-LABEL_27:
+LABEL_28:
 
   context = self->_context;
   if (!context)
@@ -804,14 +824,14 @@ LABEL_27:
     context = self->_context;
   }
 
-LABEL_29:
+LABEL_30:
 
   return context;
 }
 
 - (id)_loadCertificateData
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   certificateData = self->_certificateData;
   if (!certificateData)
   {
@@ -826,12 +846,12 @@ LABEL_29:
 
       [(SSVLoadURLOperation *)v6 setITunesStoreRequest:1];
       [(SSVLoadURLOperation *)v6 setBag:self->_bag];
-      v23[0] = MEMORY[0x1E69E9820];
-      v23[1] = 3221225472;
-      v23[2] = __45__SSVFairPlaySAPSession__loadCertificateData__block_invoke;
-      v23[3] = &unk_1E84B3740;
-      v23[4] = self;
-      [(SSVLoadURLOperation *)v6 setOutputBlock:v23];
+      v22[0] = MEMORY[0x1E69E9820];
+      v22[1] = 3221225472;
+      v22[2] = __45__SSVFairPlaySAPSession__loadCertificateData__block_invoke;
+      v22[3] = &unk_1E84B3740;
+      v22[4] = self;
+      [(SSVLoadURLOperation *)v6 setOutputBlock:v22];
       [(SSVLoadURLOperation *)v6 main];
     }
 
@@ -847,16 +867,21 @@ LABEL_29:
       shouldLog = [v8 shouldLog];
       if ([v8 shouldLogToDisk])
       {
-        v10 = shouldLog | 2;
+        LODWORD(v10) = shouldLog | 2;
       }
 
       else
       {
-        v10 = shouldLog;
+        LODWORD(v10) = shouldLog;
       }
 
       oSLogObject = [v8 OSLogObject];
-      if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+      {
+        v10 = v10;
+      }
+
+      else
       {
         v10 &= 2u;
       }
@@ -864,30 +889,29 @@ LABEL_29:
       if (v10)
       {
         v12 = objc_opt_class();
-        v24 = 138543362;
-        v25 = v12;
+        v23 = 138543362;
+        v24 = v12;
         v13 = v12;
-        LODWORD(v22) = 12;
-        v14 = _os_log_send_and_compose_impl();
+        v14 = _os_log_send_and_compose_impl(v10, 0, 0, 0, &dword_1D48BA000, oSLogObject, 16, "%{public}@: Failed to load certificate data.", &v23, 12);
 
         if (!v14)
         {
-LABEL_16:
+LABEL_17:
 
           certificateData = self->_certificateData;
-          goto LABEL_17;
+          goto LABEL_18;
         }
 
-        oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v14 encoding:{4, &v24, v22}];
+        oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v14 encoding:4];
         free(v14);
         SSFileLog(v8, @"%@", v15, v16, v17, v18, v19, v20, oSLogObject);
       }
 
-      goto LABEL_16;
+      goto LABEL_17;
     }
   }
 
-LABEL_17:
+LABEL_18:
 
   return certificateData;
 }
@@ -913,14 +937,14 @@ void __45__SSVFairPlaySAPSession__loadCertificateData__block_invoke(uint64_t a1,
 
 - (id)_postExchangeData:(id)data
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   dataCopy = data;
-  v28 = 0;
-  v29 = &v28;
-  v30 = 0x3032000000;
-  v31 = __Block_byref_object_copy__79;
-  v32 = __Block_byref_object_dispose__79;
-  v33 = 0;
+  v27 = 0;
+  v28 = &v27;
+  v29 = 0x3032000000;
+  v30 = __Block_byref_object_copy__79;
+  v31 = __Block_byref_object_dispose__79;
+  v32 = 0;
   _urlBagInterpreter = [(SSVFairPlaySAPSession *)self _urlBagInterpreter];
   v6 = [_urlBagInterpreter URLForURLBagKey:@"sign-sap-setup"];
   if (v6)
@@ -938,12 +962,12 @@ void __45__SSVFairPlaySAPSession__loadCertificateData__block_invoke(uint64_t a1,
 
     [(SSVLoadURLOperation *)v10 setITunesStoreRequest:1];
     [(SSVLoadURLOperation *)v10 setBag:self->_bag];
-    v27[0] = MEMORY[0x1E69E9820];
-    v27[1] = 3221225472;
-    v27[2] = __43__SSVFairPlaySAPSession__postExchangeData___block_invoke;
-    v27[3] = &unk_1E84B3768;
-    v27[4] = &v28;
-    [(SSVLoadURLOperation *)v10 setOutputBlock:v27];
+    v26[0] = MEMORY[0x1E69E9820];
+    v26[1] = 3221225472;
+    v26[2] = __43__SSVFairPlaySAPSession__postExchangeData___block_invoke;
+    v26[3] = &unk_1E84B3768;
+    v26[4] = &v27;
+    [(SSVLoadURLOperation *)v10 setOutputBlock:v26];
     [(SSVLoadURLOperation *)v10 main];
 
 LABEL_3:
@@ -956,35 +980,39 @@ LABEL_3:
     v7 = +[SSLogConfig sharedConfig];
   }
 
-  shouldLog = [v7 shouldLog];
+  LODWORD(v14) = [v7 shouldLog];
   shouldLogToDisk = [v7 shouldLogToDisk];
   oSLogObject = [v7 OSLogObject];
   v8 = oSLogObject;
   if (shouldLogToDisk)
   {
-    shouldLog |= 2u;
+    LODWORD(v14) = v14 | 2;
   }
 
-  if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
   {
-    shouldLog &= 2u;
+    v14 = v14;
   }
 
-  if (!shouldLog)
+  else
+  {
+    v14 &= 2u;
+  }
+
+  if (!v14)
   {
     goto LABEL_3;
   }
 
   v17 = objc_opt_class();
-  v34 = 138543362;
-  v35 = v17;
+  v33 = 138543362;
+  v34 = v17;
   v18 = v17;
-  LODWORD(v26) = 12;
-  v19 = _os_log_send_and_compose_impl();
+  v19 = _os_log_send_and_compose_impl(v14, 0, 0, 0, &dword_1D48BA000, v8, 16, "%{public}@: Unable to find mescal setup url in the bag", &v33, 12);
 
   if (v19)
   {
-    v8 = [MEMORY[0x1E696AEC0] stringWithCString:v19 encoding:{4, &v34, v26}];
+    v8 = [MEMORY[0x1E696AEC0] stringWithCString:v19 encoding:4];
     free(v19);
     SSFileLog(v7, @"%@", v20, v21, v22, v23, v24, v25, v8);
     goto LABEL_3;
@@ -992,8 +1020,8 @@ LABEL_3:
 
 LABEL_4:
 
-  v12 = v29[5];
-  _Block_object_dispose(&v28, 8);
+  v12 = v28[5];
+  _Block_object_dispose(&v27, 8);
 
   return v12;
 }
@@ -1139,15 +1167,15 @@ void __44__SSVFairPlaySAPSession__primeTheConnection__block_invoke_2(uint64_t a1
 
 - (id)_signData:(id)data error:(id *)error
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   dataCopy = data;
   _establishContext = [(SSVFairPlaySAPSession *)self _establishContext];
   v8 = _establishContext;
   if (_establishContext)
   {
-    v26 = 0;
-    v9 = [_establishContext signData:dataCopy error:&v26];
-    v10 = v26;
+    v25 = 0;
+    v9 = [_establishContext signData:dataCopy error:&v25];
+    v10 = v25;
     if (!error)
     {
       goto LABEL_4;
@@ -1165,39 +1193,43 @@ void __44__SSVFairPlaySAPSession__primeTheConnection__block_invoke_2(uint64_t a1
   shouldLog = [v13 shouldLog];
   if ([v13 shouldLogToDisk])
   {
-    v15 = shouldLog | 2;
+    LODWORD(v15) = shouldLog | 2;
   }
 
   else
   {
-    v15 = shouldLog;
+    LODWORD(v15) = shouldLog;
   }
 
   oSLogObject = [v13 OSLogObject];
-  if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+  {
+    v15 = v15;
+  }
+
+  else
   {
     v15 &= 2u;
   }
 
   if (v15)
   {
-    v27 = 138412290;
-    v28 = objc_opt_class();
-    v17 = v28;
-    LODWORD(v25) = 12;
-    v18 = _os_log_send_and_compose_impl();
+    v26 = 138412290;
+    v27 = objc_opt_class();
+    v17 = v27;
+    v18 = _os_log_send_and_compose_impl(v15, 0, 0, 0, &dword_1D48BA000, oSLogObject, 0, "%@: Failed to obtain SAP context for signing", &v26, 12);
 
     if (!v18)
     {
-      goto LABEL_18;
+      goto LABEL_19;
     }
 
-    oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v18 encoding:{4, &v27, v25}];
+    oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v18 encoding:4];
     free(v18);
     SSFileLog(v13, @"%@", v19, v20, v21, v22, v23, v24, oSLogObject);
   }
 
-LABEL_18:
+LABEL_19:
   v10 = SSError(@"SSErrorDomain", 122, @"No SAP context for signing", 0);
   v9 = 0;
   if (error)
@@ -1239,7 +1271,7 @@ LABEL_4:
 
 - (BOOL)_verifyPrimeResponse:(id)response
 {
-  v44 = *MEMORY[0x1E69E9840];
+  v43 = *MEMORY[0x1E69E9840];
   responseCopy = response;
   self->_primed = 0;
   allHeaderFields = [responseCopy allHeaderFields];
@@ -1254,9 +1286,9 @@ LABEL_4:
   {
     v8 = [objc_alloc(MEMORY[0x1E695DEF0]) initWithBase64EncodedString:v6 options:0];
     context = self->_context;
-    v39 = 0;
-    v10 = [(SSVFairPlaySAPContext *)context verifyPrimeSignature:v8 error:&v39];
-    v38 = v39;
+    v38 = 0;
+    v10 = [(SSVFairPlaySAPContext *)context verifyPrimeSignature:v8 error:&v38];
+    v37 = v38;
     v11 = +[SSLogConfig sharedStoreServicesConfig];
     v12 = v11;
     if (v10)
@@ -1291,29 +1323,28 @@ LABEL_4:
 
       if (v17)
       {
-        v37 = v8;
+        v36 = v8;
         v18 = objc_opt_class();
         v19 = v18;
         v20 = [responseCopy URL];
-        v40 = 138412546;
-        v41 = v18;
-        v42 = 2112;
-        v43 = v20;
-        LODWORD(v36) = 22;
+        v39 = 138412546;
+        v40 = v18;
+        v41 = 2112;
+        v42 = v20;
         v16 = 1;
-        v21 = _os_log_send_and_compose_impl();
+        v21 = _os_log_send_and_compose_impl(v17, 0, 0, 0, &dword_1D48BA000, oSLogObject, 1, "%@: Verify prime finished: %@", &v39, 22);
 
         if (!v21)
         {
-          v8 = v37;
-          v22 = v38;
+          v8 = v36;
+          v22 = v37;
           goto LABEL_30;
         }
 
-        v8 = v37;
-        v22 = v38;
+        v8 = v36;
+        v22 = v37;
 LABEL_26:
-        oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v21 encoding:{4, &v40, v36}];
+        oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v21 encoding:4];
         free(v21);
         SSFileLog(v12, @"%@", v28, v29, v30, v31, v32, v33, oSLogObject);
 LABEL_29:
@@ -1354,14 +1385,13 @@ LABEL_29:
       if (v25)
       {
         v26 = objc_opt_class();
-        v40 = 138412546;
-        v41 = v26;
-        v42 = 2112;
-        v22 = v38;
-        v43 = v38;
+        v39 = 138412546;
+        v40 = v26;
+        v41 = 2112;
+        v22 = v37;
+        v42 = v37;
         v27 = v26;
-        LODWORD(v36) = 22;
-        v21 = _os_log_send_and_compose_impl();
+        v21 = _os_log_send_and_compose_impl(v25, 0, 0, 0, &dword_1D48BA000, oSLogObject, 0, "%@: Verify prime failed: %@", &v39, 22);
 
         v16 = 0;
         if (!v21)
@@ -1378,7 +1408,7 @@ LABEL_30:
       v16 = 0;
     }
 
-    v22 = v38;
+    v22 = v37;
     goto LABEL_29;
   }
 
@@ -1390,7 +1420,7 @@ LABEL_31:
 
 - (BOOL)_verifySignature:(id)signature forData:(id)data error:(id *)error
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   signatureCopy = signature;
   dataCopy = data;
   _establishContext = [(SSVFairPlaySAPSession *)self _establishContext];
@@ -1406,39 +1436,43 @@ LABEL_31:
     shouldLog = [v16 shouldLog];
     if ([v16 shouldLogToDisk])
     {
-      v18 = shouldLog | 2;
+      LODWORD(v18) = shouldLog | 2;
     }
 
     else
     {
-      v18 = shouldLog;
+      LODWORD(v18) = shouldLog;
     }
 
     oSLogObject = [v16 OSLogObject];
-    if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+    {
+      v18 = v18;
+    }
+
+    else
     {
       v18 &= 2u;
     }
 
     if (v18)
     {
-      v30 = 138412290;
-      v31 = objc_opt_class();
-      v20 = v31;
-      LODWORD(v28) = 12;
-      v21 = _os_log_send_and_compose_impl();
+      v29 = 138412290;
+      v30 = objc_opt_class();
+      v20 = v30;
+      v21 = _os_log_send_and_compose_impl(v18, 0, 0, 0, &dword_1D48BA000, oSLogObject, 0, "%@: Failed to obtain SAP context for signature verification", &v29, 12);
 
       if (!v21)
       {
-        goto LABEL_16;
+        goto LABEL_17;
       }
 
-      oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v21 encoding:{4, &v30, v28}];
+      oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v21 encoding:4];
       free(v21);
       SSFileLog(v16, @"%@", v22, v23, v24, v25, v26, v27, oSLogObject);
     }
 
-LABEL_16:
+LABEL_17:
     v13 = SSError(@"SSErrorDomain", 122, @"No SAP context for signature verification", 0);
     v12 = 0;
     if (!error)
@@ -1449,9 +1483,9 @@ LABEL_16:
     goto LABEL_3;
   }
 
-  v29 = 0;
-  v12 = [_establishContext verifySignature:signatureCopy forData:dataCopy error:&v29];
-  v13 = v29;
+  v28 = 0;
+  v12 = [_establishContext verifySignature:signatureCopy forData:dataCopy error:&v28];
+  v13 = v28;
   if (error)
   {
 LABEL_3:

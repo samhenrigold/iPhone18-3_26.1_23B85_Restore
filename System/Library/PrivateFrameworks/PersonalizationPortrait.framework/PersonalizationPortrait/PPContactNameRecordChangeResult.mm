@@ -1,4 +1,5 @@
 @interface PPContactNameRecordChangeResult
++ (id)contactNameRecordChangeResultWithChanges:(id)changes changesTruncated:(BOOL)truncated;
 - (BOOL)isEqual:(id)equal;
 - (BOOL)isEqualToContactNameRecordChangeResult:(id)result;
 - (PPContactNameRecordChangeResult)initWithChanges:(id)changes changesTruncated:(BOOL)truncated;
@@ -111,6 +112,15 @@ LABEL_7:
   }
 
   return v9;
+}
+
++ (id)contactNameRecordChangeResultWithChanges:(id)changes changesTruncated:(BOOL)truncated
+{
+  truncatedCopy = truncated;
+  changesCopy = changes;
+  v6 = [[PPContactNameRecordChangeResult alloc] initWithChanges:changesCopy changesTruncated:truncatedCopy];
+
+  return v6;
 }
 
 @end

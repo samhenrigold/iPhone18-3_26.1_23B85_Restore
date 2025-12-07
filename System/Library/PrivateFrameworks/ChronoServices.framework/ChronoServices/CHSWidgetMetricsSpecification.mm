@@ -56,40 +56,39 @@
 
 - (unint64_t)families
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   metricsByFamily = [(CHSWidgetMetricsSpecification *)self metricsByFamily];
   keyEnumerator = [metricsByFamily keyEnumerator];
 
   v4 = 0;
-  v5 = [keyEnumerator countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v5 = [keyEnumerator countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v5)
   {
-    v6 = *v11;
+    v6 = *v10;
     do
     {
       v7 = 0;
       do
       {
-        if (*v11 != v6)
+        if (*v10 != v6)
         {
           objc_enumerationMutation(keyEnumerator);
         }
 
-        v4 |= CHSWidgetFamilyMaskFromWidgetFamily([*(*(&v10 + 1) + 8 * v7++) integerValue]);
+        v4 |= CHSWidgetFamilyMaskFromWidgetFamily([*(*(&v9 + 1) + 8 * v7++) integerValue]);
       }
 
       while (v5 != v7);
-      v5 = [keyEnumerator countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v5 = [keyEnumerator countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v5);
   }
 
-  v8 = *MEMORY[0x1E69E9840];
   return v4;
 }
 
@@ -247,7 +246,8 @@ void __71__CHSWidgetMetricsSpecification_descriptionBuilderWithMultilinePrefix__
   v8 = a2;
   v5 = *(a1 + 32);
   v6 = [a3 description];
-  v7 = CHSWidgetFamilyDescription([v8 integerValue]);
+  [v8 integerValue];
+  v7 = CHSWidgetFamilyDescription();
   [v5 appendString:v6 withName:v7];
 }
 
@@ -289,16 +289,16 @@ void __49__CHSWidgetMetricsSpecification_encodeWithCoder___block_invoke(uint64_t
 
 - (CHSWidgetMetricsSpecification)initWithCoder:(id)coder
 {
-  v28[4] = *MEMORY[0x1E69E9840];
+  v27[4] = *MEMORY[0x1E69E9840];
   coderCopy = coder;
   v5 = objc_opt_class();
   v6 = [coderCopy decodeDictionaryWithKeysOfClass:v5 objectsOfClass:objc_opt_class() forKey:@"metricsByFamily"];
   v7 = MEMORY[0x1E695DFA8];
-  v28[0] = objc_opt_class();
-  v28[1] = objc_opt_class();
-  v28[2] = objc_opt_class();
-  v28[3] = objc_opt_class();
-  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v28 count:4];
+  v27[0] = objc_opt_class();
+  v27[1] = objc_opt_class();
+  v27[2] = objc_opt_class();
+  v27[3] = objc_opt_class();
+  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v27 count:4];
   v9 = [v7 setWithArray:v8];
 
   v10 = [v9 setByAddingObject:objc_opt_class()];
@@ -323,13 +323,13 @@ void __49__CHSWidgetMetricsSpecification_encodeWithCoder___block_invoke(uint64_t
   if (isKindOfClass)
   {
     v17 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:{objc_msgSend(v13, "count")}];
-    v23 = MEMORY[0x1E69E9820];
-    v24 = 3221225472;
-    v25 = __47__CHSWidgetMetricsSpecification_initWithCoder___block_invoke;
-    v26 = &unk_1E7454368;
+    v22 = MEMORY[0x1E69E9820];
+    v23 = 3221225472;
+    v24 = __47__CHSWidgetMetricsSpecification_initWithCoder___block_invoke;
+    v25 = &unk_1E7454368;
     v18 = v17;
-    v27 = v18;
-    [v13 enumerateKeysAndObjectsUsingBlock:&v23];
+    v26 = v18;
+    [v13 enumerateKeysAndObjectsUsingBlock:&v22];
     v19 = [v18 copy];
   }
 
@@ -345,7 +345,6 @@ void __49__CHSWidgetMetricsSpecification_encodeWithCoder___block_invoke(uint64_t
     selfCopy = self;
   }
 
-  v21 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 

@@ -40,7 +40,7 @@ LABEL_11:
   v9 = sub_2956B0E54(dataCopy, deviceCopy, qword_2A18BA2C0);
   if (!v9)
   {
-    v10 = uni_activity();
+    v10 = uni_activity(0);
     v11 = _os_activity_create(&dword_295691000, "create buffer", v10, OS_ACTIVITY_FLAG_DEFAULT);
 
     v12 = dataCopy;
@@ -141,9 +141,10 @@ LABEL_12:
         {
           if (!objc_msgSend_isEqualToString_(v12, v26, @"MPSImageAreaMax"))
           {
-            if (!objc_msgSend_isEqualToString_(v12, v32, @"MPSImageSpatioTemporalGuidedFilter"))
+            isEqualToString = objc_msgSend_isEqualToString_(v12, v32, @"MPSImageSpatioTemporalGuidedFilter");
+            if (!isEqualToString)
             {
-              v38 = uni_logger_api();
+              v38 = uni_logger_api(isEqualToString);
               if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
               {
                 sub_2956CD42C(v12, v38);
@@ -153,125 +154,125 @@ LABEL_12:
               goto LABEL_21;
             }
 
-            v101 = v12;
-            v102 = objc_msgSend_setWithArray_(MEMORY[0x29EDB8E50], v50, &unk_2A1C95590);
-            v104 = 0u;
+            v102 = v12;
+            v103 = objc_msgSend_setWithArray_(MEMORY[0x29EDB8E50], v51, &unk_2A1C95590);
             v105 = 0u;
             v106 = 0u;
             v107 = 0u;
-            v51 = kernelCopy;
-            v53 = objc_msgSend_countByEnumeratingWithState_objects_count_(v51, v52, &v104, v103, 16);
-            if (v53)
+            v108 = 0u;
+            v52 = kernelCopy;
+            v54 = objc_msgSend_countByEnumeratingWithState_objects_count_(v52, v53, &v105, v104, 16);
+            if (v54)
             {
-              v55 = v53;
-              v56 = *v105;
+              v56 = v54;
+              v57 = *v106;
               do
               {
-                for (i = 0; i != v55; ++i)
+                for (i = 0; i != v56; ++i)
                 {
-                  if (*v105 != v56)
+                  if (*v106 != v57)
                   {
-                    objc_enumerationMutation(v51);
+                    objc_enumerationMutation(v52);
                   }
 
-                  v58 = *(*(&v104 + 1) + 8 * i);
-                  if ((objc_msgSend_isEqualToString_(v58, v54, @"name") & 1) == 0 && (objc_msgSend_isEqualToString_(v58, v54, @"imageExtents") & 1) == 0 && (objc_msgSend_isEqualToString_(v58, v54, @"iterations") & 1) == 0 && (objc_msgSend_containsObject_(v102, v54, v58) & 1) == 0)
+                  v59 = *(*(&v105 + 1) + 8 * i);
+                  if ((objc_msgSend_isEqualToString_(v59, v55, @"name") & 1) == 0 && (objc_msgSend_isEqualToString_(v59, v55, @"imageExtents") & 1) == 0 && (objc_msgSend_isEqualToString_(v59, v55, @"iterations") & 1) == 0 && (objc_msgSend_containsObject_(v103, v55, v59) & 1) == 0)
                   {
                     sub_2956CD4CC();
                   }
                 }
 
-                v55 = objc_msgSend_countByEnumeratingWithState_objects_count_(v51, v54, &v104, v103, 16);
+                v56 = objc_msgSend_countByEnumeratingWithState_objects_count_(v52, v55, &v105, v104, 16);
               }
 
-              while (v55);
+              while (v56);
             }
 
-            v60 = objc_msgSend_objectForKeyedSubscript_(v51, v59, @"subsampleFactor");
+            v61 = objc_msgSend_objectForKeyedSubscript_(v52, v60, @"subsampleFactor");
 
-            if (v60)
+            if (v61)
             {
-              v62 = objc_msgSend_objectForKeyedSubscript_(v51, v61, @"subsampleFactor");
-              v65 = objc_msgSend_unsignedIntegerValue(v62, v63, v64);
+              v63 = objc_msgSend_objectForKeyedSubscript_(v52, v62, @"subsampleFactor");
+              v66 = objc_msgSend_unsignedIntegerValue(v63, v64, v65);
             }
 
             else
             {
-              v65 = 8;
+              v66 = 8;
             }
 
-            v66 = objc_msgSend_objectForKeyedSubscript_(v51, v61, @"width");
+            v67 = objc_msgSend_objectForKeyedSubscript_(v52, v62, @"width");
 
-            if (v66)
+            if (v67)
             {
-              v68 = objc_msgSend_objectForKeyedSubscript_(v51, v67, @"width");
-              v71 = objc_msgSend_unsignedIntegerValue(v68, v69, v70) / v65;
+              v69 = objc_msgSend_objectForKeyedSubscript_(v52, v68, @"width");
+              v72 = objc_msgSend_unsignedIntegerValue(v69, v70, v71) / v66;
             }
 
             else
             {
-              v71 = 252;
+              v72 = 252;
             }
 
-            v72 = objc_msgSend_objectForKeyedSubscript_(v51, v67, @"height");
+            v73 = objc_msgSend_objectForKeyedSubscript_(v52, v68, @"height");
 
-            if (v72)
+            if (v73)
             {
-              v74 = objc_msgSend_objectForKeyedSubscript_(v51, v73, @"height");
-              v77 = objc_msgSend_unsignedIntegerValue(v74, v75, v76) / v65;
+              v75 = objc_msgSend_objectForKeyedSubscript_(v52, v74, @"height");
+              v78 = objc_msgSend_unsignedIntegerValue(v75, v76, v77) / v66;
             }
 
             else
             {
-              v77 = 189;
+              v78 = 189;
             }
 
-            v78 = objc_msgSend_objectForKeyedSubscript_(v51, v73, @"spatialDiameter");
+            v79 = objc_msgSend_objectForKeyedSubscript_(v52, v74, @"spatialDiameter");
 
-            if (v78)
+            if (v79)
             {
-              v80 = objc_msgSend_objectForKeyedSubscript_(v51, v79, @"spatialDiameter");
-              v83 = objc_msgSend_unsignedIntegerValue(v80, v81, v82);
+              v81 = objc_msgSend_objectForKeyedSubscript_(v52, v80, @"spatialDiameter");
+              v84 = objc_msgSend_unsignedIntegerValue(v81, v82, v83);
             }
 
             else
             {
-              v83 = 5;
+              v84 = 5;
             }
 
-            v84 = objc_msgSend_objectForKeyedSubscript_(v51, v79, @"epsilon");
+            v85 = objc_msgSend_objectForKeyedSubscript_(v52, v80, @"epsilon");
 
-            if (v84)
+            if (v85)
             {
-              v87 = objc_msgSend_objectForKeyedSubscript_(v51, v85, @"epsilon");
-              objc_msgSend_floatValue(v87, v88, v89);
-              v91 = v90;
+              v88 = objc_msgSend_objectForKeyedSubscript_(v52, v86, @"epsilon");
+              objc_msgSend_floatValue(v88, v89, v90);
+              v92 = v91;
             }
 
             else
             {
-              v91 = 953267991;
+              v92 = 953267991;
             }
 
-            LODWORD(v86) = v91;
-            v92 = objc_msgSend_filterDescriptorWithWidth_height_arrayLength_kernelSpatialDiameter_kernelTemporalDiameter_epsilon_sourceChannels_guideChannels_preallocateIntermediates_(MEMORY[0x29EDBB800], v85, v71, v77, 1, v83, 1, 1, v86, 4, 1);
-            if (!v92)
+            LODWORD(v87) = v92;
+            v93 = objc_msgSend_filterDescriptorWithWidth_height_arrayLength_kernelSpatialDiameter_kernelTemporalDiameter_epsilon_sourceChannels_guideChannels_preallocateIntermediates_(MEMORY[0x29EDBB800], v86, v72, v78, 1, v84, 1, 1, v87, 4, 1);
+            if (!v93)
             {
               sub_2956CD524();
             }
 
-            v93 = v92;
-            v94 = objc_alloc(MEMORY[0x29EDBB7F8]);
-            v96 = objc_msgSend_initWithDevice_filterDescriptor_(v94, v95, deviceCopy, v93);
-            v12 = v101;
-            if (!v96)
+            v94 = v93;
+            v95 = objc_alloc(MEMORY[0x29EDBB7F8]);
+            v97 = objc_msgSend_initWithDevice_filterDescriptor_(v95, v96, deviceCopy, v94);
+            v12 = v102;
+            if (!v97)
             {
               sub_2956CD4F8();
             }
 
-            v9 = v96;
-            v99 = objc_msgSend_options(v96, v97, v98);
-            objc_msgSend_setOptions_(v9, v100, v99 | 1);
+            v9 = v97;
+            v100 = objc_msgSend_options(v97, v98, v99);
+            objc_msgSend_setOptions_(v9, v101, v100 | 1);
 
             v13 = 0x2A1388000;
 LABEL_19:
@@ -331,7 +332,7 @@ LABEL_23:
   kernelCopy = kernel;
   contextCopy = context;
   constantsCopy = constants;
-  v10 = sub_2956B182C();
+  v10 = sub_2956B182C(constantsCopy);
   v11 = qword_2A18BA340;
   qword_2A18BA340 = v10;
 
@@ -389,56 +390,56 @@ LABEL_23:
   v12 = objc_msgSend_metalContext(libraryCopy, v10, v11);
   v15 = objc_msgSend_device(v12, v13, v14);
 
-  v16 = sub_2956B182C();
-  v17 = qword_2A18BA340;
-  qword_2A18BA340 = v16;
+  v17 = sub_2956B182C(v16);
+  v18 = qword_2A18BA340;
+  qword_2A18BA340 = v17;
 
-  v37 = @"name";
-  v38 = @"constants";
-  v19 = MEMORY[0x29EDB8EA0];
+  v38 = @"name";
+  v39 = @"constants";
+  v20 = MEMORY[0x29EDB8EA0];
   if (constantsCopy)
   {
-    v19 = constantsCopy;
+    v20 = constantsCopy;
   }
 
-  v39[0] = kernelCopy;
-  v39[1] = v19;
-  v20 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x29EDB8DC0], v18, v39, &v37, 2);
-  v21 = sub_2956B0E54(v20, v15, qword_2A18BA340);
-  if (!v21)
+  v40[0] = kernelCopy;
+  v40[1] = v20;
+  v21 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x29EDB8DC0], v19, v40, &v38, 2);
+  v22 = sub_2956B0E54(v21, v15, qword_2A18BA340);
+  if (!v22)
   {
-    v22 = [UniKernel alloc];
-    v24 = objc_msgSend_initWithName_library_constants_(v22, v23, kernelCopy, libraryCopy, constantsCopy, v37, v38);
-    if (!v24)
+    v23 = [UniKernel alloc];
+    v25 = objc_msgSend_initWithName_library_constants_(v23, v24, kernelCopy, libraryCopy, constantsCopy, v38, v39);
+    if (!v25)
     {
       sub_2956CD614();
     }
 
-    v21 = v24;
-    v25 = qword_2A18BA340;
-    objc_sync_enter(v25);
+    v22 = v25;
     v26 = qword_2A18BA340;
-    v27 = MEMORY[0x29EDBA070];
-    v30 = objc_msgSend_registryID(v15, v28, v29);
-    v32 = objc_msgSend_numberWithUnsignedLongLong_(v27, v31, v30);
-    v34 = objc_msgSend_objectForKeyedSubscript_(v26, v33, v32);
+    objc_sync_enter(v26);
+    v27 = qword_2A18BA340;
+    v28 = MEMORY[0x29EDBA070];
+    v31 = objc_msgSend_registryID(v15, v29, v30);
+    v33 = objc_msgSend_numberWithUnsignedLongLong_(v28, v32, v31);
+    v35 = objc_msgSend_objectForKeyedSubscript_(v27, v34, v33);
 
-    if (!v34)
+    if (!v35)
     {
       __assert_rtn("+[UniDeviceCache findComputeKernel:library:constants:]", "UniDeviceCache.m", 242, "deviceDict");
     }
 
-    objc_msgSend_setObject_forKeyedSubscript_(v34, v35, v21, v20);
+    objc_msgSend_setObject_forKeyedSubscript_(v35, v36, v22, v21);
 
-    objc_sync_exit(v25);
+    objc_sync_exit(v26);
   }
 
-  return v21;
+  return v22;
 }
 
 + (void)clearAllCaches
 {
-  v2 = uni_activity();
+  v2 = uni_activity(self);
   v3 = _os_activity_create(&dword_295691000, "clearAllCaches", v2, OS_ACTIVITY_FLAG_DEFAULT);
 
   v48 = 0u;

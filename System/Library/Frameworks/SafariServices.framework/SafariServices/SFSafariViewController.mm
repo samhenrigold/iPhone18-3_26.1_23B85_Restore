@@ -11,11 +11,10 @@
 - (id)_defaultPreviewActionItems;
 - (id)_fetchCustomActivitiesForURL:(void *)l title:;
 - (id)_fetchExcludedActivityTypesForURL:(id)l title:(id)title;
+- (id)_removeRemoteViewController;
 - (id)delegate;
 - (id)previewActionItems;
-- (uint64_t)_addLaunchPlaceholderView;
 - (uint64_t)_addRemoteViewControllerIfNeeded;
-- (uint64_t)_removeRemoteViewController;
 - (uint64_t)_updatePreviewViewControllerWithLinkPreviewEnabled:(int)enabled animated:;
 - (void)_addLaunchPlaceholderView;
 - (void)_addRemoteView;
@@ -138,10 +137,10 @@
       [*(self + 1096) setDelegate:self];
     }
 
-    *(self + 1120) = invalidScrollViewInsets;
-    *(self + 1136) = unk_1D47DE7C0;
-    *(self + 1152) = invalidScrollViewInsets;
-    *(self + 1168) = unk_1D47DE7C0;
+    *(self + 1120) = *invalidScrollViewInsets;
+    *(self + 1136) = *&invalidScrollViewInsets[16];
+    *(self + 1152) = *invalidScrollViewInsets;
+    *(self + 1168) = *&invalidScrollViewInsets[16];
     v16 = [[SFQueueingServiceViewControllerProxy alloc] initWithProtocol:&unk_1F50801E0];
     v17 = *(self + 1048);
     *(self + 1048) = v16;
@@ -369,10 +368,10 @@ void __43__SFSafariViewController__connectToService__block_invoke(uint64_t a1, v
 
   else
   {
-    v9 = WBS_LOG_CHANNEL_PREFIXViewService();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v11 = WBS_LOG_CHANNEL_PREFIXViewService(v9, v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      __43__SFSafariViewController__connectToService__block_invoke_cold_1(v9);
+      __43__SFSafariViewController__connectToService__block_invoke_cold_1(v11);
     }
   }
 }
@@ -754,7 +753,7 @@ void __52__SFSafariViewController__defaultPreviewActionItems__block_invoke_2(uin
   errorCopy = error;
   objc_initWeak(&location, self);
   [(SFServiceViewControllerProtocol *)self->_serviceProxy setTarget:0];
-  [(SFSafariViewController *)self _removeRemoteViewController];
+  [(SFSafariViewController *)&self->super.super.super.isa _removeRemoteViewController];
   remoteViewController = self->_remoteViewController;
   self->_remoteViewController = 0;
 
@@ -1120,18 +1119,18 @@ LABEL_9:
   }
 }
 
-- (uint64_t)_removeRemoteViewController
+- (id)_removeRemoteViewController
 {
   if (result)
   {
     v1 = result;
     if (*(result + 1056) == 1)
     {
-      [result removeChildViewController:*(result + 1032)];
-      view = [*(v1 + 1032) view];
+      [result removeChildViewController:result[129]];
+      view = [v1[129] view];
       [view removeFromSuperview];
 
-      result = [*(v1 + 1032) didMoveToParentViewController:0];
+      result = [v1[129] didMoveToParentViewController:0];
       *(v1 + 1056) = 0;
     }
   }
@@ -1443,7 +1442,7 @@ void __51__SFSafariViewController__addLaunchPlaceholderView__block_invoke(uint64
 
     if (windowScene2)
     {
-      if ((a2 & 1) != 0 || (performViewWillAppearInLoadView() & 1) != 0 || (eligibleForSlideInPresentation() & 1) != 0 || SFViewControllerViewIsVisible(check, 0))
+      if ((a2 & 1) != 0 || (performViewWillAppearInLoadView() & 1) != 0 || (eligibleForSlideInPresentation() & 1) != 0 || (IsVisible = SFViewControllerViewIsVisible(check, 0)))
       {
         *(check + 1008) = 1;
         OUTLINED_FUNCTION_0_2();
@@ -1454,29 +1453,29 @@ LABEL_14:
         return;
       }
 
-      v12 = WBS_LOG_CHANNEL_PREFIXViewService();
-      if (!os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      v16 = WBS_LOG_CHANNEL_PREFIXViewService(IsVisible, v15);
+      if (!os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
         goto LABEL_14;
       }
 
       *buf = 0;
-      v13 = "Ignoring call to handle URL externally because SFSafariViewController is not visible.";
+      v17 = "Ignoring call to handle URL externally because SFSafariViewController is not visible.";
     }
 
     else
     {
-      v12 = WBS_LOG_CHANNEL_PREFIXViewService();
-      if (!os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      v16 = WBS_LOG_CHANNEL_PREFIXViewService(v12, v13);
+      if (!os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
         goto LABEL_14;
       }
 
       *buf = 0;
-      v13 = "Ignoring call to handle URL externally because there was no window to present from.";
+      v17 = "Ignoring call to handle URL externally because there was no window to present from.";
     }
 
-    _os_log_error_impl(&dword_1D4644000, v12, OS_LOG_TYPE_ERROR, v13, buf, 2u);
+    _os_log_error_impl(&dword_1D4644000, v16, OS_LOG_TYPE_ERROR, v17, buf, 2u);
     goto LABEL_14;
   }
 }
@@ -1647,20 +1646,6 @@ LABEL_14:
   }
 
   return v10;
-}
-
-- (uint64_t)_addLaunchPlaceholderView
-{
-  v2 = +[SFSafariLaunchPlaceholderView blankPlaceholder];
-  OUTLINED_FUNCTION_35(v2, 1016);
-  if ([self _showingLinkPreview] & 1) != 0 || (objc_msgSend(self, "_showingLinkPreviewWithMinimalUI") & 1) != 0 || (result = objc_msgSend(*(self + 992), "BOOLValue"), (result) && (*(self + 1025) & 1) == 0)
-  {
-    v3 = *(self + 1016);
-
-    return [v3 setHidden:1];
-  }
-
-  return result;
 }
 
 void __43__SFSafariViewController__connectToService__block_invoke_cold_1(void *a1)

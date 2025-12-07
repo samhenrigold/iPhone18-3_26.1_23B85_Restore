@@ -3,6 +3,7 @@
 - (void)clearTouches;
 - (void)iterateTouchesWithBlock:(id)block;
 - (void)rotateTouchesByAngle:(float)angle;
+- (void)startWaveAtX:(float)x y:(float)y atTime:(double)time;
 @end
 
 @implementation NTKParameciumTouchHandler
@@ -20,6 +21,18 @@
   }
 
   return v3;
+}
+
+- (void)startWaveAtX:(float)x y:(float)y atTime:(double)time
+{
+  v5 = (self->_touchIndex + 1) % 0xA;
+  if (time - self->_touchTimes[v5] > 1.75)
+  {
+    self->_touchIndex = v5;
+    v6 = time + 0.05;
+    self->_touchTimes[v5] = v6;
+    *&self->_touchCoords[8 * v5] = *&x;
+  }
 }
 
 - (void)clearTouches

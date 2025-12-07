@@ -46,7 +46,7 @@
 
 - (id)configurationForCollector:(id)collector
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   collectorCopy = collector;
   allCollectors = [(HDDataAggregator *)self allCollectors];
   configuration = [(HDDataAggregator *)self configuration];
@@ -74,28 +74,28 @@
 
   else
   {
-    v27 = 0u;
-    v28 = 0u;
-    v25 = 0u;
     v26 = 0u;
+    v27 = 0u;
+    v24 = 0u;
+    v25 = 0u;
     v13 = allCollectors;
-    v14 = [v13 countByEnumeratingWithState:&v25 objects:v29 count:16];
+    v14 = [v13 countByEnumeratingWithState:&v24 objects:v28 count:16];
     if (v14)
     {
       v15 = v14;
-      v16 = *v26;
+      v16 = *v25;
       v10 = 2;
-      v24 = allCollectors;
+      v23 = allCollectors;
       while (2)
       {
         for (i = 0; i != v15; ++i)
         {
-          if (*v26 != v16)
+          if (*v25 != v16)
           {
             objc_enumerationMutation(v13);
           }
 
-          v18 = *(*(&v25 + 1) + 8 * i);
+          v18 = *(*(&v24 + 1) + 8 * i);
           collector = [v18 collector];
 
           if (collector == collectorCopy)
@@ -110,13 +110,13 @@
           {
             v10 = 1;
 LABEL_18:
-            allCollectors = v24;
+            allCollectors = v23;
             goto LABEL_19;
           }
         }
 
-        v15 = [v13 countByEnumeratingWithState:&v25 objects:v29 count:16];
-        allCollectors = v24;
+        v15 = [v13 countByEnumeratingWithState:&v24 objects:v28 count:16];
+        allCollectors = v23;
         if (v15)
         {
           continue;
@@ -142,16 +142,14 @@ LABEL_19:
 LABEL_21:
     *buf = 138543874;
     selfCopy = self;
-    v32 = 2114;
-    v33 = collectorCopy;
-    v34 = 2114;
-    v35 = v11;
+    v31 = 2114;
+    v32 = collectorCopy;
+    v33 = 2114;
+    v34 = v11;
     _os_log_impl(&dword_228986000, v12, OS_LOG_TYPE_DEFAULT, "%{public}@: Configuration for collector %{public}@: %{public}@", buf, 0x20u);
   }
 
 LABEL_22:
-
-  v22 = *MEMORY[0x277D85DE8];
 
   return v11;
 }
@@ -221,11 +219,11 @@ LABEL_15:
 - (void)dataCollector:(id)collector didCollectSensorData:(id)data device:(id)device options:(unint64_t)options
 {
   optionsCopy = options;
-  v94[1] = *MEMORY[0x277D85DE8];
+  v93[1] = *MEMORY[0x277D85DE8];
   collectorCopy = collector;
   dataCopy = data;
-  v89.receiver = self;
-  v89.super_class = HDHeartRateDataAggregator;
+  v88.receiver = self;
+  v88.super_class = HDHeartRateDataAggregator;
   deviceCopy = device;
   [HDDataAggregator dataCollector:sel_dataCollector_didCollectSensorData_device_options_ didCollectSensorData:collectorCopy device:dataCopy options:?];
   if ((optionsCopy & 1) == 0)
@@ -234,18 +232,18 @@ LABEL_15:
     v13 = v12;
     if (v12)
     {
-      v55 = v12;
-      v57 = collectorCopy;
-      v64 = [MEMORY[0x277CCD720] quantityTypeForIdentifier:*MEMORY[0x277CCCB90]];
-      canonicalUnit = [v64 canonicalUnit];
-      v63 = objc_alloc_init(MEMORY[0x277CBEB18]);
+      v54 = v12;
+      v56 = collectorCopy;
+      v63 = [MEMORY[0x277CCD720] quantityTypeForIdentifier:*MEMORY[0x277CCCB90]];
+      canonicalUnit = [v63 canonicalUnit];
+      v62 = objc_alloc_init(MEMORY[0x277CBEB18]);
+      v84 = 0u;
       v85 = 0u;
       v86 = 0u;
       v87 = 0u;
-      v88 = 0u;
-      v56 = dataCopy;
+      v55 = dataCopy;
       v15 = dataCopy;
-      v16 = [v15 countByEnumeratingWithState:&v85 objects:v93 count:16];
+      v16 = [v15 countByEnumeratingWithState:&v84 objects:v92 count:16];
       if (!v16)
       {
         LOBYTE(v18) = 0;
@@ -254,25 +252,25 @@ LABEL_15:
 
       v17 = v16;
       v18 = 0;
-      v19 = *v86;
-      v67 = *MEMORY[0x277CCE030];
-      v58 = *MEMORY[0x277CCE028];
-      v59 = canonicalUnit;
-      v60 = *v86;
-      v61 = v15;
+      v19 = *v85;
+      v66 = *MEMORY[0x277CCE030];
+      v57 = *MEMORY[0x277CCE028];
+      v58 = canonicalUnit;
+      v59 = *v85;
+      v60 = v15;
       selfCopy = self;
       while (1)
       {
         v20 = 0;
-        v66 = v17;
+        v65 = v17;
         do
         {
-          if (*v86 != v19)
+          if (*v85 != v19)
           {
             objc_enumerationMutation(v15);
           }
 
-          v21 = *(*(&v85 + 1) + 8 * v20);
+          v21 = *(*(&v84 + 1) + 8 * v20);
           if (![(HDDataAggregator *)self doesDatumPredateDatabaseObliteration:v21])
           {
             quantity = [v21 quantity];
@@ -281,13 +279,13 @@ LABEL_15:
               [quantity doubleValueForUnit:canonicalUnit];
               if (v24 >= 0.0)
               {
-                v75 = v18;
+                v74 = v18;
                 metadata = [v21 metadata];
-                v31 = [metadata valueForKey:v67];
+                v31 = [metadata valueForKey:v66];
 
-                v74 = v31;
-                v73 = [v31 integerValue] == 10;
-                v68 = MEMORY[0x277CCD800];
+                v73 = v31;
+                v72 = [v31 integerValue] == 10;
+                v67 = MEMORY[0x277CCD800];
                 quantity2 = [v21 quantity];
                 dateInterval = [v21 dateInterval];
                 startDate = [dateInterval startDate];
@@ -299,8 +297,8 @@ LABEL_15:
                   metadata2 = [v21 metadata];
                   v35 = [v33 dictionaryWithDictionary:metadata2];
 
-                  [v35 removeObjectForKey:v58];
-                  v36 = [v35 valueForKey:v67];
+                  [v35 removeObjectForKey:v57];
+                  v36 = [v35 valueForKey:v66];
                   v37 = v36;
                   if (v36)
                   {
@@ -320,13 +318,13 @@ LABEL_15:
 
                   if (currentWorkoutConfiguration && v38)
                   {
-                    v94[0] = v67;
+                    v93[0] = v66;
                     *buf = &unk_283CB4278;
-                    v43 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:buf forKeys:v94 count:1];
+                    v43 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:buf forKeys:v93 count:1];
                     [v35 addEntriesFromDictionary:v43];
                   }
 
-                  canonicalUnit = v59;
+                  canonicalUnit = v58;
                 }
 
                 else
@@ -334,10 +332,10 @@ LABEL_15:
                   v35 = 0;
                 }
 
-                v44 = [v68 _quantitySamplesEnforcingDurationWithType:v64 quantity:quantity2 startDate:startDate endDate:endDate device:deviceCopy metadata:v35];
+                v44 = [v67 _quantitySamplesEnforcingDurationWithType:v63 quantity:quantity2 startDate:startDate endDate:endDate device:deviceCopy metadata:v35];
 
                 datumIdentifier = [v21 datumIdentifier];
-                v15 = v61;
+                v15 = v60;
                 self = selfCopy;
                 if (datumIdentifier)
                 {
@@ -352,11 +350,11 @@ LABEL_15:
                   }
                 }
 
-                v18 = v73 | v75;
-                [v63 addObjectsFromArray:v44];
+                v18 = v72 | v74;
+                [v62 addObjectsFromArray:v44];
 
-                v19 = v60;
-                v17 = v66;
+                v19 = v59;
+                v17 = v65;
               }
 
               else
@@ -368,8 +366,8 @@ LABEL_15:
                 {
                   *buf = 138412546;
                   *&buf[4] = quantity;
-                  v91 = 2048;
-                  v92 = v25;
+                  v90 = 2048;
+                  v91 = v25;
                   v27 = v26;
                   v28 = "Rejecting heart rate quantity %@ because it's value (%f) is less than 0.0";
                   goto LABEL_17;
@@ -385,8 +383,8 @@ LABEL_15:
               {
                 *buf = 138412546;
                 *&buf[4] = quantity;
-                v91 = 2114;
-                v92 = *&canonicalUnit;
+                v90 = 2114;
+                v91 = *&canonicalUnit;
                 v27 = v29;
                 v28 = "Rejecting heart rate quantity %@ because it is not compatible with canonical unit %{public}@";
 LABEL_17:
@@ -411,36 +409,36 @@ LABEL_31:
         }
 
         while (v17 != v20);
-        v50 = [v15 countByEnumeratingWithState:&v85 objects:v93 count:16];
+        v50 = [v15 countByEnumeratingWithState:&v84 objects:v92 count:16];
         v17 = v50;
         if (!v50)
         {
 LABEL_39:
 
-          v13 = v55;
-          [(HDDataCollectionForwarder *)self->_dataForwarder insertSamples:v63 device:deviceCopy source:v55];
+          v13 = v54;
+          [(HDDataCollectionForwarder *)self->_dataForwarder insertSamples:v62 device:deviceCopy source:v54];
           dataCollectionManager2 = [(HDDataAggregator *)self dataCollectionManager];
-          v78[0] = MEMORY[0x277D85DD0];
-          v78[1] = 3221225472;
-          v78[2] = __79__HDHeartRateDataAggregator_dataCollector_didCollectSensorData_device_options___block_invoke;
-          v78[3] = &unk_27862FC38;
-          v78[4] = self;
-          v79 = v63;
-          v80 = v15;
-          collectorCopy = v57;
-          v81 = v57;
-          v82 = v55;
-          v83 = deviceCopy;
-          v84 = v18 & 1;
-          v76[0] = MEMORY[0x277D85DD0];
-          v76[1] = 3221225472;
-          v76[2] = __79__HDHeartRateDataAggregator_dataCollector_didCollectSensorData_device_options___block_invoke_2;
-          v76[3] = &unk_2786130B0;
-          v77 = v79;
-          v53 = v79;
-          [dataCollectionManager2 performSaveWithMaximumLatency:v78 block:v76 completion:1.0];
+          v77[0] = MEMORY[0x277D85DD0];
+          v77[1] = 3221225472;
+          v77[2] = __79__HDHeartRateDataAggregator_dataCollector_didCollectSensorData_device_options___block_invoke;
+          v77[3] = &unk_27862FC38;
+          v77[4] = self;
+          v78 = v62;
+          v79 = v15;
+          collectorCopy = v56;
+          v80 = v56;
+          v81 = v54;
+          v82 = deviceCopy;
+          v83 = v18 & 1;
+          v75[0] = MEMORY[0x277D85DD0];
+          v75[1] = 3221225472;
+          v75[2] = __79__HDHeartRateDataAggregator_dataCollector_didCollectSensorData_device_options___block_invoke_2;
+          v75[3] = &unk_2786130B0;
+          v76 = v78;
+          v53 = v78;
+          [dataCollectionManager2 performSaveWithMaximumLatency:v77 block:v75 completion:1.0];
 
-          dataCopy = v56;
+          dataCopy = v55;
           goto LABEL_40;
         }
       }
@@ -457,13 +455,11 @@ LABEL_39:
 
 LABEL_40:
   }
-
-  v54 = *MEMORY[0x277D85DE8];
 }
 
 void __79__HDHeartRateDataAggregator_dataCollector_didCollectSensorData_device_options___block_invoke_2(uint64_t a1, char a2, void *a3)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v5 = a3;
   if ((a2 & 1) == 0)
   {
@@ -471,21 +467,19 @@ void __79__HDHeartRateDataAggregator_dataCollector_didCollectSensorData_device_o
     v6 = *MEMORY[0x277CCC298];
     if (os_log_type_enabled(*MEMORY[0x277CCC298], OS_LOG_TYPE_ERROR))
     {
-      v8 = *(a1 + 32);
-      v9 = 138412546;
-      v10 = v8;
-      v11 = 2114;
-      v12 = v5;
-      _os_log_error_impl(&dword_228986000, v6, OS_LOG_TYPE_ERROR, "Failed to persist heart rate samples '%@': %{public}@", &v9, 0x16u);
+      v7 = *(a1 + 32);
+      v8 = 138412546;
+      v9 = v7;
+      v10 = 2114;
+      v11 = v5;
+      _os_log_error_impl(&dword_228986000, v6, OS_LOG_TYPE_ERROR, "Failed to persist heart rate samples '%@': %{public}@", &v8, 0x16u);
     }
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setConfiguration:(id)configuration
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   configurationCopy = configuration;
   _HKInitializeLogging();
   v5 = *MEMORY[0x277CCC298];
@@ -493,8 +487,8 @@ void __79__HDHeartRateDataAggregator_dataCollector_didCollectSensorData_device_o
   {
     *buf = 138543618;
     selfCopy = self;
-    v17 = 2114;
-    v18 = configurationCopy;
+    v16 = 2114;
+    v17 = configurationCopy;
     _os_log_impl(&dword_228986000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@: Requesting configuration update to %{public}@", buf, 0x16u);
   }
 
@@ -524,11 +518,9 @@ void __79__HDHeartRateDataAggregator_dataCollector_didCollectSensorData_device_o
   }
 
 LABEL_9:
-  v14.receiver = self;
-  v14.super_class = HDHeartRateDataAggregator;
-  [(HDDataAggregator *)&v14 setConfiguration:configurationCopy];
-
-  v13 = *MEMORY[0x277D85DE8];
+  v13.receiver = self;
+  v13.super_class = HDHeartRateDataAggregator;
+  [(HDDataAggregator *)&v13 setConfiguration:configurationCopy];
 }
 
 @end

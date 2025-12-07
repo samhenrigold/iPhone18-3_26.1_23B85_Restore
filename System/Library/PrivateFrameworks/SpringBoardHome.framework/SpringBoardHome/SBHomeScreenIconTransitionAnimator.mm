@@ -314,11 +314,11 @@ LABEL_16:
   }
 }
 
-uint64_t __56__SBHomeScreenIconTransitionAnimator_animateTransition___block_invoke(uint64_t result)
+id *__56__SBHomeScreenIconTransitionAnimator_animateTransition___block_invoke(id *result)
 {
-  if (*(result + 48) == *(*(result + 32) + 16))
+  if (result[6] == *(result[4] + 2))
   {
-    return [*(result + 40) completeTransition:1];
+    return [result[5] completeTransition:1];
   }
 
   return result;
@@ -363,11 +363,11 @@ uint64_t __56__SBHomeScreenIconTransitionAnimator_animateTransition___block_invo
   }
 }
 
-uint64_t __91__SBHomeScreenIconTransitionAnimator_cancelTransition_withCompletionSpeed_completionCurve___block_invoke(uint64_t result)
+id *__91__SBHomeScreenIconTransitionAnimator_cancelTransition_withCompletionSpeed_completionCurve___block_invoke(id *result)
 {
-  if (*(result + 48) == *(*(result + 32) + 16))
+  if (result[6] == *(result[4] + 2))
   {
-    return [*(result + 40) completeTransition:0];
+    return [result[5] completeTransition:0];
   }
 
   return result;
@@ -457,11 +457,11 @@ uint64_t __91__SBHomeScreenIconTransitionAnimator_cancelTransition_withCompletio
   }
 }
 
-uint64_t __102__SBHomeScreenIconTransitionAnimator_finishInteractiveTransition_withCompletionSpeed_completionCurve___block_invoke(uint64_t result)
+id *__102__SBHomeScreenIconTransitionAnimator_finishInteractiveTransition_withCompletionSpeed_completionCurve___block_invoke(id *result)
 {
-  if (*(result + 48) == *(*(result + 32) + 16))
+  if (result[6] == *(result[4] + 2))
   {
-    return [*(result + 40) completeTransition:1];
+    return [result[5] completeTransition:1];
   }
 
   return result;

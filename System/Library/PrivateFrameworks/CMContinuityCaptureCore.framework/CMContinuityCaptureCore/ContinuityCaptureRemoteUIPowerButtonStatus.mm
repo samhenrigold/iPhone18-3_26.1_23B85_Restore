@@ -22,8 +22,7 @@
 
 uint64_t __60__ContinuityCaptureRemoteUIPowerButtonStatus_sharedInstance__block_invoke()
 {
-  v0 = [ContinuityCaptureRemoteUIPowerButtonStatus alloc];
-  _powerButtonStatus = [(ContinuityCaptureRemoteUIPowerButtonStatus *)v0 initWithQueue:MEMORY[0x277D85CD0]];
+  _powerButtonStatus = [[ContinuityCaptureRemoteUIPowerButtonStatus alloc] initWithQueue:?];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -35,7 +34,7 @@ uint64_t __60__ContinuityCaptureRemoteUIPowerButtonStatus_sharedInstance__block_
     [_powerButtonStatus invalidate];
     v2 = _powerButtonStatus;
 
-    [v2 setInvalidated:1];
+    [v2 setInvalidated:?];
   }
 }
 
@@ -93,7 +92,7 @@ void __60__ContinuityCaptureRemoteUIPowerButtonStatus_initWithQueue___block_invo
   objc_initWeak(&location, self);
   if (!self->_hidEventSystemClient)
   {
-    v3 = [objc_alloc(MEMORY[0x277D0EEF0]) initWithType:1];
+    v3 = [objc_alloc(MEMORY[0x277D0EEF0]) initWithType:?];
     hidEventSystemClient = self->_hidEventSystemClient;
     self->_hidEventSystemClient = v3;
 
@@ -105,25 +104,25 @@ void __60__ContinuityCaptureRemoteUIPowerButtonStatus_initWithQueue___block_invo
         v6 = self->_hidEventSystemClient;
         *buf = 138412546;
         selfCopy2 = self;
-        v15 = 2112;
-        v16 = v6;
+        v18 = 2112;
+        v19 = v6;
         _os_log_impl(&dword_242545000, v5, OS_LOG_TYPE_DEFAULT, "%@ hidEventSystemClient: %@", buf, 0x16u);
       }
 
-      [(HIDEventSystemClient *)self->_hidEventSystemClient setMatching:&unk_2854ECD60];
+      [(HIDEventSystemClient *)self->_hidEventSystemClient setMatching:?];
       v7 = self->_hidEventSystemClient;
       v8 = dispatch_get_global_queue(0, 0);
-      [(HIDEventSystemClient *)v7 setDispatchQueue:v8];
+      [(HIDEventSystemClient *)v7 setDispatchQueue:?];
 
       v9 = self->_hidEventSystemClient;
-      v11[0] = MEMORY[0x277D85DD0];
-      v11[1] = 3221225472;
-      v11[2] = __69__ContinuityCaptureRemoteUIPowerButtonStatus_setupPowerButtonMonitor__block_invoke;
-      v11[3] = &unk_278D5CE78;
-      objc_copyWeak(&v12, &location);
-      [(HIDEventSystemClient *)v9 setEventHandler:v11];
+      v11 = MEMORY[0x277D85DD0];
+      v12 = 3221225472;
+      v13 = __69__ContinuityCaptureRemoteUIPowerButtonStatus_setupPowerButtonMonitor__block_invoke;
+      v14 = &unk_278D5CE78;
+      objc_copyWeak(&v15, &location);
+      [(HIDEventSystemClient *)v9 setEventHandler:?];
       [(HIDEventSystemClient *)self->_hidEventSystemClient activate];
-      objc_destroyWeak(&v12);
+      objc_destroyWeak(&v15);
     }
 
     else
@@ -146,9 +145,9 @@ void __69__ContinuityCaptureRemoteUIPowerButtonStatus_setupPowerButtonMonitor__b
   v4 = a3;
   if ([v4 type] == 3)
   {
-    v5 = [v4 integerValueForField:196608];
-    v6 = [v4 integerValueForField:196609];
-    v7 = [v4 integerValueForField:196610];
+    v5 = [v4 integerValueForField:?];
+    v6 = [v4 integerValueForField:?];
+    v7 = [v4 integerValueForField:?];
     WeakRetained = objc_loadWeakRetained((a1 + 32));
     if (WeakRetained)
     {
@@ -203,11 +202,11 @@ void __69__ContinuityCaptureRemoteUIPowerButtonStatus_setupPowerButtonMonitor__b
       _os_log_impl(&dword_242545000, v3, OS_LOG_TYPE_DEFAULT, "%@ Processing consumer HID event, _hidPowerButtonTracker %{public}@", &v7, 0x16u);
     }
 
-    [*(WeakRetained + 3) registerCordPress:*(a1 + 40) down:*(a1 + 48) != 0];
+    [*(WeakRetained + 3) registerCordPress:? down:?];
     v6 = !*(a1 + 48) && *(a1 + 40) == 48 && ([*(WeakRetained + 3) valid] & 1) != 0;
-    [WeakRetained willChangeValueForKey:@"powerButtonPressed"];
+    [WeakRetained willChangeValueForKey:?];
     *(WeakRetained + 32) = v6;
-    [WeakRetained didChangeValueForKey:@"powerButtonPressed"];
+    [WeakRetained didChangeValueForKey:?];
     if (!*(a1 + 48) && *(a1 + 40) == 48)
     {
       [*(WeakRetained + 3) clear];

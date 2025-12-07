@@ -950,7 +950,7 @@ LABEL_22:
 
 - (void)valueChangedForGEOConfigKey:(id)key
 {
-  if (key.var0 == 628 && key.var1 == &unk_101643798 || (key.var0 == GeoOfflineConfig_AutomaticUpdatesEnabled ? (v4 = key.var1 == *(&GeoOfflineConfig_AutomaticUpdatesEnabled + 1)) : (v4 = 0), v4 || (key.var0 == GeoOfflineConfig_OptimizeStorageEnabled ? (v5 = key.var1 == *(&GeoOfflineConfig_OptimizeStorageEnabled + 1)) : (v5 = 0), v5 || (key.var0 == GeoOfflineConfig_SyncToWatchEnabled ? (v6 = key.var1 == *(&GeoOfflineConfig_SyncToWatchEnabled + 1)) : (v6 = 0), v6 || key.var0 == 569 && key.var1 == &unk_101642C20))))
+  if (key.var0 == 628 && key.var1 == &unk_101643798 || (key.var0 == LODWORD(GeoOfflineConfig_AutomaticUpdatesEnabled[0]) ? (v4 = key.var1 == GeoOfflineConfig_AutomaticUpdatesEnabled[1]) : (v4 = 0), v4 || (key.var0 == LODWORD(GeoOfflineConfig_OptimizeStorageEnabled[0]) ? (v5 = key.var1 == GeoOfflineConfig_OptimizeStorageEnabled[1]) : (v5 = 0), v5 || (key.var0 == LODWORD(GeoOfflineConfig_SyncToWatchEnabled[0]) ? (v6 = key.var1 == GeoOfflineConfig_SyncToWatchEnabled[1]) : (v6 = 0), v6 || key.var0 == 569 && key.var1 == &unk_101642C20))))
   {
     if (self->_settingsSection && self->_forceOfflineSection)
     {

@@ -1,2093 +1,84 @@
-BOOL specialized PositionState.dispatchSubviewsChange<A>(context:layout:cache:)(_DWORD *__src, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
-{
-  memcpy(v41, __src, sizeof(v41));
-  type metadata accessor for ViewLayoutEngine<GeometryReaderLayout>(0, &lazy cache variable for type metadata for _LazyStack_Cache<LazyHStackLayout>, lazy protocol witness table accessor for type LazyHStackLayout and conformance LazyHStackLayout, &type metadata for LazyHStackLayout, type metadata accessor for _LazyStack_Cache);
-  v12 = v11;
-  MEMORY[0x1EEE9AC00](v11);
-  v14 = &v28 - v13;
-  type metadata accessor for AnyTrackedValue(0, &lazy cache variable for type metadata for ViewList);
-  AGGraphGetValue();
-  if ((v15 & 1) == 0)
-  {
-    return 0;
-  }
-
-  v16 = *(v5 + 160);
-  if (!v16)
-  {
-    return 0;
-  }
-
-  v31 = a3;
-  v29 = a2;
-  v30 = a4 & 0xFFFFFFFF00000000;
-  v28 = *(v5 + 152);
-  v17 = *(*a5 + 400);
-  v32 = v16;
-
-  v17(v12, v12);
-  LazyLayoutViewCache.subviews(context:)(*__src, v37);
-  v36 = MEMORY[0x1E69E7CC0];
-  memcpy(v40, v41, 0x129uLL);
-  LOBYTE(v33) = a4 & 1;
-  specialized LazyStack<>.estimatedPlacement(subviews:context:cache:in:)(v37, v40, v14, &v35, v29, v31, v30 | a4 & 1);
-  v18 = *(v5 + 144);
-  v38[8] = *(v5 + 128);
-  v38[9] = v18;
-  v39[0] = *(v5 + 160);
-  *(v39 + 9) = *(v5 + 169);
-  v19 = *(v5 + 80);
-  v38[4] = *(v5 + 64);
-  v38[5] = v19;
-  v20 = *(v5 + 112);
-  v38[6] = *(v5 + 96);
-  v38[7] = v20;
-  v21 = *(v5 + 16);
-  v38[0] = *v5;
-  v38[1] = v21;
-  v22 = *(v5 + 48);
-  v38[2] = *(v5 + 32);
-  v38[3] = v22;
-  v23 = v36;
-  outlined init with copy of PositionState(v38, &v33);
-  _s7SwiftUI13PositionState33_3D73F7C05789F75EB77CBB3485F8A0F0LLV6mainID8subviews7context6layoutAA010_ViewList_O0VSgSayAA25_LazyLayout_PlacedSubviewVG_AA01_uV17_PlacementContextVxtAA0uV0RzlFAA0u6HStackV0V_Tt2t3B5(v23, __src, &v33);
-
-  outlined destroy of PositionState(v38);
-  v24 = v34;
-  if (!v34)
-  {
-    outlined destroy of _LazyLayout_Subviews(v37);
-    outlined destroy of _LazyStack_Cache<LazyHStackLayout>(v14);
-
-    return 1;
-  }
-
-  v25 = v32;
-  if (v33 != v28)
-  {
-
-    outlined destroy of _LazyLayout_Subviews(v37);
-    outlined destroy of _LazyStack_Cache<LazyHStackLayout>(v14);
-
-    swift_bridgeObjectRelease_n();
-    return 1;
-  }
-
-  swift_bridgeObjectRetain_n();
-  v26 = _sSasSQRzlE2eeoiySbSayxG_ABtFZ7SwiftUI12_ViewList_IDV8ExplicitV_Tt1g5(v24, v25);
-
-  outlined destroy of _LazyLayout_Subviews(v37);
-  outlined destroy of _LazyStack_Cache<LazyHStackLayout>(v14);
-  swift_bridgeObjectRelease_n();
-
-  return (v26 & 1) == 0;
-}
-
-{
-  memcpy(v41, __src, sizeof(v41));
-  type metadata accessor for ViewLayoutEngine<GeometryReaderLayout>(0, &lazy cache variable for type metadata for _LazyStack_Cache<LazyVStackLayout>, lazy protocol witness table accessor for type LazyVStackLayout and conformance LazyVStackLayout, &type metadata for LazyVStackLayout, type metadata accessor for _LazyStack_Cache);
-  v12 = v11;
-  MEMORY[0x1EEE9AC00](v11);
-  v14 = &v28 - v13;
-  type metadata accessor for AnyTrackedValue(0, &lazy cache variable for type metadata for ViewList);
-  AGGraphGetValue();
-  if ((v15 & 1) == 0)
-  {
-    return 0;
-  }
-
-  v16 = *(v5 + 160);
-  if (!v16)
-  {
-    return 0;
-  }
-
-  v31 = a3;
-  v29 = a2;
-  v30 = a4 & 0xFFFFFFFF00000000;
-  v28 = *(v5 + 152);
-  v17 = *(*a5 + 400);
-  v32 = v16;
-
-  v17(v12, v12);
-  LazyLayoutViewCache.subviews(context:)(*__src, v37);
-  v36 = MEMORY[0x1E69E7CC0];
-  memcpy(v40, v41, 0x129uLL);
-  LOBYTE(v33) = a4 & 1;
-  specialized LazyStack<>.estimatedPlacement(subviews:context:cache:in:)(v37, v40, v14, &v35, v29, v31, v30 | a4 & 1);
-  v18 = *(v5 + 144);
-  v38[8] = *(v5 + 128);
-  v38[9] = v18;
-  v39[0] = *(v5 + 160);
-  *(v39 + 9) = *(v5 + 169);
-  v19 = *(v5 + 80);
-  v38[4] = *(v5 + 64);
-  v38[5] = v19;
-  v20 = *(v5 + 112);
-  v38[6] = *(v5 + 96);
-  v38[7] = v20;
-  v21 = *(v5 + 16);
-  v38[0] = *v5;
-  v38[1] = v21;
-  v22 = *(v5 + 48);
-  v38[2] = *(v5 + 32);
-  v38[3] = v22;
-  v23 = v36;
-  outlined init with copy of PositionState(v38, &v33);
-  _s7SwiftUI13PositionState33_3D73F7C05789F75EB77CBB3485F8A0F0LLV6mainID8subviews7context6layoutAA010_ViewList_O0VSgSayAA25_LazyLayout_PlacedSubviewVG_AA01_uV17_PlacementContextVxtAA0uV0RzlFAA0u6VStackV0V_Tt2t3B5(v23, __src, &v33);
-
-  outlined destroy of PositionState(v38);
-  v24 = v34;
-  if (!v34)
-  {
-    outlined destroy of _LazyLayout_Subviews(v37);
-    outlined destroy of _LazyStack_Cache<LazyVStackLayout>(v14);
-
-    return 1;
-  }
-
-  v25 = v32;
-  if (v33 != v28)
-  {
-
-    outlined destroy of _LazyLayout_Subviews(v37);
-    outlined destroy of _LazyStack_Cache<LazyVStackLayout>(v14);
-
-    swift_bridgeObjectRelease_n();
-    return 1;
-  }
-
-  swift_bridgeObjectRetain_n();
-  v26 = _sSasSQRzlE2eeoiySbSayxG_ABtFZ7SwiftUI12_ViewList_IDV8ExplicitV_Tt1g5(v24, v25);
-
-  outlined destroy of _LazyLayout_Subviews(v37);
-  outlined destroy of _LazyStack_Cache<LazyVStackLayout>(v14);
-  swift_bridgeObjectRelease_n();
-
-  return (v26 & 1) == 0;
-}
-
-uint64_t specialized LazySubviewPlacements.placedAnchorTranslation(axes:placementContext:placements:)(uint64_t a1, double *a2, uint64_t *a3, void (*a4)(float64x2_t *__return_ptr, uint64_t, __int128 *))
-{
-  v8 = *a3;
-  outlined init with copy of _LazyLayout_Placements(a3, v73);
-  specialized Sequence.min(by:)(v8, a4, &v67);
-  outlined destroy of _LazyLayout_Placements(a3);
-  v74 = v70;
-  v75 = v71;
-  v73[1] = v68;
-  v73[2] = v69;
-  v73[0] = v67;
-  v76 = v72;
-  v9 = *(&v67 + 1);
-  v77 = v68;
-  v78 = v69;
-  if (!*(&v67 + 1))
-  {
-    return 0;
-  }
-
-  v10 = *(v4 + 96);
-  v11 = *(v10 + 16);
-  if (!v11)
-  {
-LABEL_27:
-    outlined destroy of _VariadicView.Tree<_LayoutRoot<GeometryReaderLayout>, ModifiedContent<GlassContainerResolver<ModifiedContent<ZStack<ForEach<[GlassContainer.Effect], GlassContainer.DisplayMaterial.ID, ModifiedContent<GlassEffectView, _TraitWritingModifier<TransitionTraitKey>>>>, GlassContainerTintConfigModifier>>, _BackdropGroupEffect2>>(v73, type metadata accessor for (offset: Int, element: _LazyLayout_PlacedSubview)?);
-    return 0;
-  }
-
-  v46 = a2;
-  v12 = 0;
-  v13 = v74;
-  v14 = v75;
-  v15 = v10 + 32;
-  v47 = v4;
-  v48 = *(v4 + 104);
-  v49 = v72;
-  v51 = v10 + 32;
-  v52 = *(v10 + 16);
-  v50 = *(&v67 + 1);
-  while (1)
-  {
-    v16 = (v15 + 80 * v12);
-    v67 = *v16;
-    v17 = v16[1];
-    v18 = v16[2];
-    v19 = v16[4];
-    v70 = v16[3];
-    v71 = v19;
-    v68 = v17;
-    v69 = v18;
-    if ((*(v67 + 173) & 1) == 0 && (*(v67 + 174) & 1) == 0 && *(v67 + 144) == *(v9 + 144) && *(v67 + 148) == *(v9 + 148))
-    {
-      break;
-    }
-
-LABEL_6:
-    if (++v12 == v11)
-    {
-      goto LABEL_27;
-    }
-  }
-
-  v20 = *(v67 + 152);
-  v21 = *(v9 + 152);
-  v22 = *(v20 + 16);
-  if (v22 != *(v21 + 16))
-  {
-
-LABEL_5:
-
-    v15 = v51;
-    v11 = v52;
-    goto LABEL_6;
-  }
-
-  if (v22)
-  {
-    v23 = v20 == v21;
-  }
-
-  else
-  {
-    v23 = 1;
-  }
-
-  if (v23)
-  {
-
-LABEL_30:
-
-    v66[0] = *v16;
-    v35 = v16[1];
-    v36 = v16[2];
-    v37 = v16[4];
-    v66[3] = v16[3];
-    v66[4] = v37;
-    v66[1] = v35;
-    v66[2] = v36;
-    v60 = v9;
-    v61 = v77;
-    v62 = v78;
-    v63 = v13;
-    v64 = v14;
-    v65 = v49;
-    outlined init with copy of _LazyLayout_PlacedSubview(v66, v59);
-    _LazyLayout_PlacedSubview.size.getter();
-    v39 = v38;
-    v41 = v40;
-    v60 = v9;
-    v61 = v77;
-    v62 = v78;
-    v63 = v13;
-    v64 = v14;
-    v65 = v49;
-    result = _LazyLayout_PlacedSubview.size.getter();
-    if (v12 >= *(v48 + 16))
-    {
-      goto LABEL_42;
-    }
-
-    v42 = v48 + 32 * v12;
-    v43 = *&v14 - *&v13 * v39 - v46[31] - (*(v42 + 32) - v47[34]) - (v46[2] - v47[48]);
-    v44 = *(&v14 + 1) - *(&v13 + 1) * v41 - v46[32] - (*(v42 + 40) - v47[35]) - (v46[3] - v47[49]);
-    if (!Axis.Set.contains(_:)(SwiftUI_Axis_horizontal))
-    {
-      v43 = 0.0;
-    }
-
-    if (!Axis.Set.contains(_:)(SwiftUI_Axis_vertical))
-    {
-      v44 = 0.0;
-    }
-
-    if (v43 == 0.0 && v44 == 0.0)
-    {
-      outlined destroy of _VariadicView.Tree<_LayoutRoot<GeometryReaderLayout>, ModifiedContent<GlassContainerResolver<ModifiedContent<ZStack<ForEach<[GlassContainer.Effect], GlassContainer.DisplayMaterial.ID, ModifiedContent<GlassEffectView, _TraitWritingModifier<TransitionTraitKey>>>>, GlassContainerTintConfigModifier>>, _BackdropGroupEffect2>>(v73, type metadata accessor for (offset: Int, element: _LazyLayout_PlacedSubview)?);
-      outlined destroy of _LazyLayout_PlacedSubview(v66);
-    }
-
-    else
-    {
-      v45 = specialized LazySubviewPlacements.allowsContentOffsetAdjustments.getter();
-      outlined destroy of _VariadicView.Tree<_LayoutRoot<GeometryReaderLayout>, ModifiedContent<GlassContainerResolver<ModifiedContent<ZStack<ForEach<[GlassContainer.Effect], GlassContainer.DisplayMaterial.ID, ModifiedContent<GlassEffectView, _TraitWritingModifier<TransitionTraitKey>>>>, GlassContainerTintConfigModifier>>, _BackdropGroupEffect2>>(v73, type metadata accessor for (offset: Int, element: _LazyLayout_PlacedSubview)?);
-      outlined destroy of _LazyLayout_PlacedSubview(v66);
-      if ((v45 & 1) == 0)
-      {
-        v43 = 0.0;
-      }
-    }
-
-    return *&v43;
-  }
-
-  else
-  {
-    outlined init with copy of _LazyLayout_PlacedSubview(&v67, v66);
-
-    v25 = 0;
-    while (v22)
-    {
-      v27 = *(v20 + v25 + 32);
-      v26 = *(v20 + v25 + 40);
-      v28 = *(v20 + v25 + 48);
-      v29 = *(v20 + v25 + 52);
-      v30 = *(v21 + v25 + 40);
-      v31 = *(v21 + v25 + 48);
-      v32 = *(v21 + v25 + 52);
-      if (v27 != *(v21 + v25 + 32) && (v33 = *(*v27 + 112), v57 = *(v20 + v25 + 48), v58 = *(v20 + v25 + 52), v56 = *(v21 + v25 + 52), v55 = *(v20 + v25 + 40), v54 = *(v21 + v25 + 48), v53 = *(v21 + v25 + 40), , v34 = , LOBYTE(v33) = v33(v34), , result = , v30 = v53, v31 = v54, v26 = v55, v32 = v56, v28 = v57, v29 = v58, (v33 & 1) == 0) || v26 != v30 || v28 != v31 || v29 != v32)
-      {
-        outlined destroy of _LazyLayout_PlacedSubview(&v67);
-
-        v9 = v50;
-        goto LABEL_5;
-      }
-
-      v25 += 24;
-      if (!--v22)
-      {
-        outlined destroy of _LazyLayout_PlacedSubview(&v67);
-
-        v9 = v50;
-        goto LABEL_30;
-      }
-    }
-
-    __break(1u);
-LABEL_42:
-    __break(1u);
-  }
-
-  return result;
-}
-
-uint64_t _s7SwiftUI21LazySubviewPlacementsV20logAnchorTranslation33_3D73F7C05789F75EB77CBB3485F8A0F0LLyys12StaticStringVFAA0C12HStackLayoutV_Tt0g5Tm()
-{
-  type metadata accessor for ObservationTracking._AccessList?(0, &lazy cache variable for type metadata for Logger?, MEMORY[0x1E69E9420], MEMORY[0x1E69E6720]);
-  MEMORY[0x1EEE9AC00](v0);
-  v3 = &v16 - v2;
-  if (one-time initialization token for scroll != -1)
-  {
-    v15 = v1;
-    swift_once();
-    v1 = v15;
-  }
-
-  v4 = __swift_project_value_buffer(v1, static Log.scroll);
-  outlined init with copy of ObservationTracking._AccessList?(v4, v3, &lazy cache variable for type metadata for Logger?, MEMORY[0x1E69E9420], MEMORY[0x1E69E6720]);
-  v5 = type metadata accessor for Logger();
-  v6 = *(v5 - 8);
-  if ((*(v6 + 48))(v3, 1, v5) == 1)
-  {
-    return outlined destroy of ObservationTracking._AccessList?(v3, &lazy cache variable for type metadata for Logger?, MEMORY[0x1E69E9420], MEMORY[0x1E69E6720], type metadata accessor for ObservationTracking._AccessList?);
-  }
-
-  v8 = Logger.logObject.getter();
-  v9 = static os_log_type_t.default.getter();
-  if (os_log_type_enabled(v8, v9))
-  {
-    v10 = swift_slowAlloc();
-    v11 = swift_slowAlloc();
-    v17 = v11;
-    *v10 = 136315138;
-    v12 = StaticString.description.getter();
-    v14 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v12, v13, &v17);
-
-    *(v10 + 4) = v14;
-    _os_log_impl(&dword_18D018000, v8, v9, "Attempting anchor translation (%s).", v10, 0xCu);
-    __swift_destroy_boxed_opaque_existential_1(v11);
-    MEMORY[0x193AC4820](v11, -1, -1);
-    MEMORY[0x193AC4820](v10, -1, -1);
-  }
-
-  return (*(v6 + 8))(v3, v5);
-}
-
-uint64_t specialized LazySubviewPlacements.placedAnchorTranslation(oldSubview:oldIndex:axes:placementContext:placements:)(uint64_t *a1, unint64_t a2, uint64_t a3, double *a4, uint64_t a5)
-{
-  v5 = *(*a5 + 16);
-  if (!v5)
-  {
-    return 0;
-  }
-
-  v6 = 0;
-  v7 = *a5 + 32;
-  v8 = *a1;
-  while (1)
-  {
-    v9 = (v7 + 80 * v6);
-    v55 = *v9;
-    v10 = v9[1];
-    v11 = v9[2];
-    v12 = v9[4];
-    v58 = v9[3];
-    *v59 = v12;
-    v56 = v10;
-    v57 = v11;
-    if (*(v8 + 173) != 1 && *(v8 + 174) != 1 && *(v8 + 144) == *(v55 + 144) && *(v8 + 148) == *(v55 + 148))
-    {
-      v13 = *(v8 + 152);
-      v14 = *(v55 + 152);
-      v15 = *(v13 + 16);
-      if (v15 == *(v14 + 16))
-      {
-        break;
-      }
-    }
-
-LABEL_4:
-    if (++v6 == v5)
-    {
-      return 0;
-    }
-  }
-
-  if (!v15 || v13 == v14)
-  {
-    outlined init with copy of _LazyLayout_PlacedSubview(&v55, &v50);
-  }
-
-  else
-  {
-    v42 = v7;
-    v43 = v5;
-    outlined init with copy of _LazyLayout_PlacedSubview(&v55, &v50);
-
-    v16 = 0;
-    do
-    {
-      v18 = *(v13 + v16 + 32);
-      v17 = *(v13 + v16 + 40);
-      v19 = *(v13 + v16 + 48);
-      v20 = *(v13 + v16 + 52);
-      v21 = *(v14 + v16 + 40);
-      v22 = *(v14 + v16 + 48);
-      v23 = *(v14 + v16 + 52);
-      if (v18 != *(v14 + v16 + 32) && (v24 = *(*v18 + 112), v48 = *(v13 + v16 + 48), v49 = *(v13 + v16 + 52), v47 = *(v14 + v16 + 52), v46 = *(v13 + v16 + 40), v45 = *(v14 + v16 + 48), v44 = *(v14 + v16 + 40), , v25 = , LOBYTE(v24) = v24(v25), , , v21 = v44, v22 = v45, v17 = v46, v23 = v47, v19 = v48, v20 = v49, (v24 & 1) == 0) || v17 != v21 || v19 != v22 || v20 != v23)
-      {
-
-        outlined destroy of _LazyLayout_PlacedSubview(&v55);
-        v7 = v42;
-        v5 = v43;
-        goto LABEL_4;
-      }
-
-      v16 += 24;
-      --v15;
-    }
-
-    while (v15);
-  }
-
-  v27 = *(&v57 + 1);
-  v29 = v58;
-  v28 = v59[0];
-  v52 = v57;
-  v53 = v58;
-  v54 = *v59;
-  v50 = v55;
-  v51 = v56;
-  _LazyLayout_PlacedSubview.size.getter();
-  v31 = v30;
-  v33 = v32;
-  v52 = v57;
-  v53 = v58;
-  v54 = *v59;
-  v50 = v55;
-  v51 = v56;
-  result = _LazyLayout_PlacedSubview.size.getter();
-  if ((a2 & 0x8000000000000000) != 0)
-  {
-    __break(1u);
-    goto LABEL_35;
-  }
-
-  v34 = *(v41 + 104);
-  if (*(v34 + 16) <= a2)
-  {
-LABEL_35:
-    __break(1u);
-    return result;
-  }
-
-  v35 = v34 + 32 * a2;
-  v36 = *(&v29 + 1) - v27 * v31 - a4[31] - (*(v35 + 32) - *(v41 + 272)) - (a4[2] - *(v41 + 384));
-  v37 = v28 - *&v29 * v33 - a4[32] - (*(v35 + 40) - *(v41 + 280)) - (a4[3] - *(v41 + 392));
-  if (!Axis.Set.contains(_:)(SwiftUI_Axis_horizontal))
-  {
-    v36 = 0.0;
-  }
-
-  if (!Axis.Set.contains(_:)(SwiftUI_Axis_vertical))
-  {
-    v37 = 0.0;
-  }
-
-  if (v36 == 0.0 && v37 == 0.0)
-  {
-    outlined destroy of _LazyLayout_PlacedSubview(&v55);
-  }
-
-  else
-  {
-    v38 = specialized LazySubviewPlacements.allowsContentOffsetAdjustments.getter();
-    outlined destroy of _LazyLayout_PlacedSubview(&v55);
-    if ((v38 & 1) == 0)
-    {
-      v36 = 0.0;
-    }
-  }
-
-  return *&v36;
-}
-
-void _s7SwiftUI21LazySubviewPlacementsV26notPlacedAnchorTranslation33_3D73F7C05789F75EB77CBB3485F8A0F0LL03oldD00S5Index4axes16placementContext10placementsSo6CGSizeVSgAA01_c7Layout_gD0V_SiAA4AxisO3SetVAA01_cz10_PlacementW0VAA01_cz1_E0VtFAA0c6HStackZ0V_Tt3B5(uint64_t a1, unint64_t a2, int a3, double *a4)
-{
-  v5 = v4;
-  type metadata accessor for ViewLayoutEngine<GeometryReaderLayout>(0, &lazy cache variable for type metadata for _LazyStack_Cache<LazyHStackLayout>, lazy protocol witness table accessor for type LazyHStackLayout and conformance LazyHStackLayout, &type metadata for LazyHStackLayout, type metadata accessor for _LazyStack_Cache);
-  v11 = v10;
-  MEMORY[0x1EEE9AC00](v10);
-  v13 = v32 - v12;
-  type metadata accessor for LazyLayoutViewCache();
-  v14 = *(*AGGraphGetValue() + 280);
-  Value = AGGraphGetValue();
-  if ((v14 & 0x8000000000000000) != 0)
-  {
-    return;
-  }
-
-  v33 = a2;
-  v16 = *(*Value + 288);
-  v38 = 1;
-  v17 = 3;
-  if (v14 > 3)
-  {
-    v17 = v14;
-  }
-
-  v36 = v17 - 3;
-  v37 = 0;
-  v35 = v17 - 3;
-  v18 = v16 + 3;
-  if (__OFADD__(v16, 3))
-  {
-    __break(1u);
-    goto LABEL_22;
-  }
-
-  v32[1] = a3;
-  AGGraphGetValue();
-  CurrentAttribute = AGGraphGetCurrentAttribute();
-  if (CurrentAttribute == *MEMORY[0x1E698D3F8])
-  {
-LABEL_22:
-    __break(1u);
-LABEL_23:
-    __break(1u);
-    goto LABEL_24;
-  }
-
-  v20 = CurrentAttribute;
-
-  LazyLayoutViewCache.subviews(context:)(v20, v34);
-
-  MEMORY[0x1EEE9AC00](v21);
-  *&v32[-8] = &v35;
-  *&v32[-6] = a1;
-  *&v32[-4] = &v37;
-  *&v32[-2] = v18;
-  v39[0] = 2;
-  _LazyLayout_Subviews.apply(from:style:to:)(&v36, v39, closure #1 in LazySubviewPlacements.notPlacedAnchorTranslation(oldSubview:oldIndex:axes:placementContext:placements:)partial apply, &v32[-12]);
-  if (v38)
-  {
-LABEL_9:
-    outlined destroy of _LazyLayout_Subviews(v34);
-    return;
-  }
-
-  v22 = v37;
-  v23 = *(**AGGraphGetValue() + 400);
-
-  v23(v11, v11);
-
-  v24 = AGGraphGetValue();
-  v25 = *v24;
-  v26 = *(v24 + 8);
-  v27 = *(v24 + 20);
-  LOBYTE(v39[0]) = *(v24 + 16);
-  specialized LazyStack<>.boundingRect(at:subviews:context:cache:)(v22, v34, a4, v13, v25, v26, LOBYTE(v39[0]) | (v27 << 32), v39);
-  if (v40)
-  {
-    outlined destroy of _LazyStack_Cache<LazyHStackLayout>(v13);
-    goto LABEL_9;
-  }
-
-  if ((v33 & 0x8000000000000000) != 0)
-  {
-    goto LABEL_23;
-  }
-
-  v28 = *(v5 + 104);
-  if (*(v28 + 16) <= v33)
-  {
-LABEL_24:
-    __break(1u);
-    return;
-  }
-
-  v29 = v28 + 32 * v33;
-  v30 = *v39 - a4[31] - (*(v29 + 32) - *(v5 + 272)) - (a4[2] - *(v5 + 384));
-  v31 = *&v39[1] - a4[32] - (*(v29 + 40) - *(v5 + 280)) - (a4[3] - *(v5 + 392));
-  if (!Axis.Set.contains(_:)(SwiftUI_Axis_horizontal))
-  {
-    v30 = 0.0;
-  }
-
-  if (!Axis.Set.contains(_:)(SwiftUI_Axis_vertical))
-  {
-    v31 = 0.0;
-  }
-
-  if (v30 != 0.0 || v31 != 0.0)
-  {
-    specialized LazySubviewPlacements.allowsContentOffsetAdjustments.getter();
-  }
-
-  outlined destroy of _LazyStack_Cache<LazyHStackLayout>(v13);
-  outlined destroy of _LazyLayout_Subviews(v34);
-}
-
-void _s7SwiftUI21LazySubviewPlacementsV26notPlacedAnchorTranslation33_3D73F7C05789F75EB77CBB3485F8A0F0LL03oldD00S5Index4axes16placementContext10placementsSo6CGSizeVSgAA01_c7Layout_gD0V_SiAA4AxisO3SetVAA01_cz10_PlacementW0VAA01_cz1_E0VtFAA0c6VStackZ0V_Tt3B5(uint64_t a1, unint64_t a2, int a3, double *a4)
-{
-  v5 = v4;
-  type metadata accessor for ViewLayoutEngine<GeometryReaderLayout>(0, &lazy cache variable for type metadata for _LazyStack_Cache<LazyVStackLayout>, lazy protocol witness table accessor for type LazyVStackLayout and conformance LazyVStackLayout, &type metadata for LazyVStackLayout, type metadata accessor for _LazyStack_Cache);
-  v11 = v10;
-  MEMORY[0x1EEE9AC00](v10);
-  v13 = v32 - v12;
-  type metadata accessor for LazyLayoutViewCache();
-  v14 = *(*AGGraphGetValue() + 280);
-  Value = AGGraphGetValue();
-  if ((v14 & 0x8000000000000000) != 0)
-  {
-    return;
-  }
-
-  v33 = a2;
-  v16 = *(*Value + 288);
-  v38 = 1;
-  v17 = 3;
-  if (v14 > 3)
-  {
-    v17 = v14;
-  }
-
-  v36 = v17 - 3;
-  v37 = 0;
-  v35 = v17 - 3;
-  v18 = v16 + 3;
-  if (__OFADD__(v16, 3))
-  {
-    __break(1u);
-    goto LABEL_22;
-  }
-
-  v32[1] = a3;
-  AGGraphGetValue();
-  CurrentAttribute = AGGraphGetCurrentAttribute();
-  if (CurrentAttribute == *MEMORY[0x1E698D3F8])
-  {
-LABEL_22:
-    __break(1u);
-LABEL_23:
-    __break(1u);
-    goto LABEL_24;
-  }
-
-  v20 = CurrentAttribute;
-
-  LazyLayoutViewCache.subviews(context:)(v20, v34);
-
-  MEMORY[0x1EEE9AC00](v21);
-  *&v32[-8] = &v35;
-  *&v32[-6] = a1;
-  *&v32[-4] = &v37;
-  *&v32[-2] = v18;
-  v39[0] = 2;
-  _LazyLayout_Subviews.apply(from:style:to:)(&v36, v39, partial apply for closure #1 in LazySubviewPlacements.notPlacedAnchorTranslation(oldSubview:oldIndex:axes:placementContext:placements:), &v32[-12]);
-  if (v38)
-  {
-LABEL_9:
-    outlined destroy of _LazyLayout_Subviews(v34);
-    return;
-  }
-
-  v22 = v37;
-  v23 = *(**AGGraphGetValue() + 400);
-
-  v23(v11, v11);
-
-  v24 = AGGraphGetValue();
-  v25 = *v24;
-  v26 = *(v24 + 8);
-  v27 = *(v24 + 20);
-  LOBYTE(v39[0]) = *(v24 + 16);
-  specialized LazyStack<>.boundingRect(at:subviews:context:cache:)(v22, v34, a4, v13, v25, v26, LOBYTE(v39[0]) | (v27 << 32), v39);
-  if (v40)
-  {
-    outlined destroy of _LazyStack_Cache<LazyVStackLayout>(v13);
-    goto LABEL_9;
-  }
-
-  if ((v33 & 0x8000000000000000) != 0)
-  {
-    goto LABEL_23;
-  }
-
-  v28 = *(v5 + 104);
-  if (*(v28 + 16) <= v33)
-  {
-LABEL_24:
-    __break(1u);
-    return;
-  }
-
-  v29 = v28 + 32 * v33;
-  v30 = *v39 - a4[31] - (*(v29 + 32) - *(v5 + 272)) - (a4[2] - *(v5 + 384));
-  v31 = *&v39[1] - a4[32] - (*(v29 + 40) - *(v5 + 280)) - (a4[3] - *(v5 + 392));
-  if (!Axis.Set.contains(_:)(SwiftUI_Axis_horizontal))
-  {
-    v30 = 0.0;
-  }
-
-  if (!Axis.Set.contains(_:)(SwiftUI_Axis_vertical))
-  {
-    v31 = 0.0;
-  }
-
-  if (v30 != 0.0 || v31 != 0.0)
-  {
-    specialized LazySubviewPlacements.allowsContentOffsetAdjustments.getter();
-  }
-
-  outlined destroy of _LazyStack_Cache<LazyVStackLayout>(v13);
-  outlined destroy of _LazyLayout_Subviews(v34);
-}
-
-uint64_t _s7SwiftUI21LazySubviewPlacementsV19logDefaultPlacement33_3D73F7C05789F75EB77CBB3485F8A0F0LLyySSFAA0C12HStackLayoutV_Tt0g5(uint64_t a1, unint64_t a2)
-{
-  type metadata accessor for ObservationTracking._AccessList?(0, &lazy cache variable for type metadata for Logger?, MEMORY[0x1E69E9420], MEMORY[0x1E69E6720]);
-  MEMORY[0x1EEE9AC00](v4);
-  v7 = &v17 - v6;
-  if (one-time initialization token for scroll != -1)
-  {
-    v16 = v5;
-    swift_once();
-    v5 = v16;
-  }
-
-  v8 = __swift_project_value_buffer(v5, static Log.scroll);
-  outlined init with copy of ObservationTracking._AccessList?(v8, v7, &lazy cache variable for type metadata for Logger?, MEMORY[0x1E69E9420], MEMORY[0x1E69E6720]);
-  v9 = type metadata accessor for Logger();
-  v10 = *(v9 - 8);
-  if ((*(v10 + 48))(v7, 1, v9) == 1)
-  {
-    return outlined destroy of ObservationTracking._AccessList?(v7, &lazy cache variable for type metadata for Logger?, MEMORY[0x1E69E9420], MEMORY[0x1E69E6720], type metadata accessor for ObservationTracking._AccessList?);
-  }
-
-  v12 = Logger.logObject.getter();
-  v13 = static os_log_type_t.default.getter();
-
-  if (os_log_type_enabled(v12, v13))
-  {
-    v14 = swift_slowAlloc();
-    v15 = swift_slowAlloc();
-    v18 = v15;
-    *v14 = 136315394;
-    *(v14 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(0xD000000000000010, 0x800000018DD75AB0, &v18);
-    *(v14 + 12) = 2080;
-    *(v14 + 14) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(a1, a2, &v18);
-    _os_log_impl(&dword_18D018000, v12, v13, "%s: Placing default subviews %s", v14, 0x16u);
-    swift_arrayDestroy();
-    MEMORY[0x193AC4820](v15, -1, -1);
-    MEMORY[0x193AC4820](v14, -1, -1);
-  }
-
-  return (*(v10 + 8))(v7, v9);
-}
-
-uint64_t _s7SwiftUI21LazySubviewPlacementsV19logDefaultPlacement33_3D73F7C05789F75EB77CBB3485F8A0F0LLyySSFAA0C12VStackLayoutV_Tt0g5(uint64_t a1, unint64_t a2)
-{
-  type metadata accessor for ObservationTracking._AccessList?(0, &lazy cache variable for type metadata for Logger?, MEMORY[0x1E69E9420], MEMORY[0x1E69E6720]);
-  MEMORY[0x1EEE9AC00](v4);
-  v7 = &v17 - v6;
-  if (one-time initialization token for scroll != -1)
-  {
-    v16 = v5;
-    swift_once();
-    v5 = v16;
-  }
-
-  v8 = __swift_project_value_buffer(v5, static Log.scroll);
-  outlined init with copy of ObservationTracking._AccessList?(v8, v7, &lazy cache variable for type metadata for Logger?, MEMORY[0x1E69E9420], MEMORY[0x1E69E6720]);
-  v9 = type metadata accessor for Logger();
-  v10 = *(v9 - 8);
-  if ((*(v10 + 48))(v7, 1, v9) == 1)
-  {
-    return outlined destroy of ObservationTracking._AccessList?(v7, &lazy cache variable for type metadata for Logger?, MEMORY[0x1E69E9420], MEMORY[0x1E69E6720], type metadata accessor for ObservationTracking._AccessList?);
-  }
-
-  v12 = Logger.logObject.getter();
-  v13 = static os_log_type_t.default.getter();
-
-  if (os_log_type_enabled(v12, v13))
-  {
-    v14 = swift_slowAlloc();
-    v15 = swift_slowAlloc();
-    v18 = v15;
-    *v14 = 136315394;
-    *(v14 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(0xD000000000000010, 0x800000018DD758E0, &v18);
-    *(v14 + 12) = 2080;
-    *(v14 + 14) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(a1, a2, &v18);
-    _os_log_impl(&dword_18D018000, v12, v13, "%s: Placing default subviews %s", v14, 0x16u);
-    swift_arrayDestroy();
-    MEMORY[0x193AC4820](v15, -1, -1);
-    MEMORY[0x193AC4820](v14, -1, -1);
-  }
-
-  return (*(v10 + 8))(v7, v9);
-}
-
-uint64_t specialized lessThan #1 <A>(_:_:) in DynamicContainerInfo.updateValue()(uint64_t result, unsigned int a2, uint64_t a3)
-{
-  result = result;
-  v5 = *(a3 + 136);
-  if ((v5 & 0xC000000000000001) != 0)
-  {
-    v6 = MEMORY[0x193AC03C0]();
-  }
-
-  else
-  {
-    if (*((v5 & 0xFFFFFFFFFFFFFF8) + 0x10) <= result)
-    {
-      __break(1u);
-      goto LABEL_11;
-    }
-  }
-
-  v7 = *(v6 + 64);
-
-  result = a2;
-  v8 = *(a3 + 136);
-  if ((v8 & 0xC000000000000001) != 0)
-  {
-    v9 = MEMORY[0x193AC03C0](a2);
-    goto LABEL_7;
-  }
-
-  if (*((v8 & 0xFFFFFFFFFFFFFF8) + 0x10) > a2)
-  {
-
-LABEL_7:
-    v10 = *(v9 + 64);
-
-    return v7 < v10;
-  }
-
-LABEL_11:
-  __break(1u);
-  return result;
-}
-
-void specialized DynamicContainerInfo.unremoveItem(at:)(unint64_t a1)
-{
-  v3 = *(v1 + 136);
-  v4 = v3 + 8 * a1;
-  v5 = v3 & 0xC000000000000001;
-  if ((v3 & 0xC000000000000001) == 0)
-  {
-    if ((a1 & 0x8000000000000000) != 0)
-    {
-      __break(1u);
-    }
-
-    else if (*((v3 & 0xFFFFFFFFFFFFFF8) + 0x10) > a1)
-    {
-      v6 = *(v4 + 32);
-
-      goto LABEL_5;
-    }
-
-    __break(1u);
-    goto LABEL_38;
-  }
-
-  v6 = MEMORY[0x193AC03C0](a1, *(v1 + 136));
-LABEL_5:
-  swift_beginAccess();
-  v7 = *(v6 + 84);
-
-  if (v7 >= 2)
-  {
-    if (v7 == 2)
-    {
-      --*(v1 + 160);
-      if (v5)
-      {
-        v10 = MEMORY[0x193AC03C0](a1, v3);
-      }
-
-      else
-      {
-        if ((a1 & 0x8000000000000000) != 0)
-        {
-LABEL_42:
-          __break(1u);
-          goto LABEL_43;
-        }
-
-        if (*((v3 & 0xFFFFFFFFFFFFFF8) + 0x10) <= a1)
-        {
-LABEL_44:
-          __break(1u);
-          goto LABEL_45;
-        }
-      }
-
-      *(v10 + 72) = 0;
-
-      v13 = 1;
-      if (!v5)
-      {
-        goto LABEL_27;
-      }
-    }
-
-    else
-    {
-      --*(v1 + 168);
-      if (v5)
-      {
-        v11 = MEMORY[0x193AC03C0](a1, v3);
-      }
-
-      else
-      {
-        if ((a1 & 0x8000000000000000) != 0)
-        {
-LABEL_43:
-          __break(1u);
-          goto LABEL_44;
-        }
-
-        if (*((v3 & 0xFFFFFFFFFFFFFF8) + 0x10) <= a1)
-        {
-LABEL_45:
-          __break(1u);
-          return;
-        }
-
-        v11 = *(v4 + 32);
-      }
-
-      v16 = *(v11 + 16);
-
-      AGSubgraphAddChild();
-      AGSubgraphApply();
-
-      v13 = 0;
-      if (!v5)
-      {
-        goto LABEL_27;
-      }
-    }
-  }
-
-  else
-  {
-    if (v5)
-    {
-      v8 = MEMORY[0x193AC03C0](a1, v3);
-      v9 = MEMORY[0x193AC03C0](a1, v3);
-    }
-
-    else
-    {
-      if ((a1 & 0x8000000000000000) != 0)
-      {
-LABEL_40:
-        __break(1u);
-        goto LABEL_41;
-      }
-
-      if (*((v3 & 0xFFFFFFFFFFFFFF8) + 0x10) <= a1)
-      {
-LABEL_41:
-        __break(1u);
-        goto LABEL_42;
-      }
-
-      v9 = swift_retain_n();
-      v8 = v9;
-    }
-
-    v12 = *(v9 + 80);
-
-    *(v8 + 80) = v12 + 1;
-
-    v13 = 0;
-    if (!v5)
-    {
-LABEL_27:
-      if ((a1 & 0x8000000000000000) == 0)
-      {
-        if (*((v3 & 0xFFFFFFFFFFFFFF8) + 0x10) > a1)
-        {
-          v15 = *(v4 + 32);
-          v14 = *(v15 + 48);
-
-          goto LABEL_30;
-        }
-
-        goto LABEL_39;
-      }
-
-LABEL_38:
-      __break(1u);
-LABEL_39:
-      __break(1u);
-      goto LABEL_40;
-    }
-  }
-
-  v14 = *(MEMORY[0x193AC03C0](a1, v3) + 48);
-  swift_unknownObjectRelease();
-  v15 = MEMORY[0x193AC03C0](a1, v3);
-LABEL_30:
-  if (!v14)
-  {
-    v13 = 1;
-  }
-
-  swift_beginAccess();
-  *(v15 + 84) = v13;
-
-  if ((v13 & 1) == 0)
-  {
-    *(v1 + 196) = 1;
-    AGGraphGetCurrentAttribute();
-    v17 = AGCreateWeakAttribute();
-    specialized static GraphHost.currentHost.getter();
-    specialized GraphHost.continueTransaction<A>(_:)(v17);
-  }
-}
-
-uint64_t specialized GeometryReader.Child.updateValue()()
-{
-  v102 = *MEMORY[0x1E69E9840];
-  v1 = type metadata accessor for ObservationTracking._AccessList();
-  v2 = *(v1 - 8);
-  MEMORY[0x1EEE9AC00](v1);
-  v4 = &v56 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v5);
-  v67 = &v56 - v6;
-  MEMORY[0x1EEE9AC00](v7);
-  v9 = &v56 - v8;
-  type metadata accessor for ObservationTracking._AccessList?(0, &lazy cache variable for type metadata for ObservationTracking._AccessList?, MEMORY[0x1E69E81D0], MEMORY[0x1E69E6720]);
-  MEMORY[0x1EEE9AC00](v10 - 8);
-  v66 = &v56 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v12);
-  v14 = &v56 - v13;
-  MEMORY[0x1EEE9AC00](v15);
-  v17 = &v56 - v16;
-  v18 = *(v0 + 24) + 1;
-  *(v0 + 24) = v18;
-  if (AGGraphGetCurrentAttribute() == *MEMORY[0x1E698D3F8])
-  {
-    __break(1u);
-  }
-
-  else
-  {
-    LODWORD(v64) = *MEMORY[0x1E698D3F8];
-    v57 = v4;
-    v58 = v14;
-    v68 = v17;
-    v69 = v2;
-    v65 = v9;
-    v19 = v18;
-    v59 = v0;
-    v62 = *(v0 + 20);
-    v20 = AGCreateWeakAttribute();
-    v21 = v20;
-    v63 = HIDWORD(v20);
-    v22 = AGCreateWeakAttribute();
-    v61 = HIDWORD(v22);
-    v23 = AGCreateWeakAttribute();
-    v24 = v23;
-    v60 = HIDWORD(v23);
-    v25 = AGCreateWeakAttribute();
-    v26 = v25;
-    v27 = HIDWORD(v25);
-    v2 = AGCreateWeakAttribute();
-    v28 = AGCreateWeakAttribute();
-    *&v70 = __PAIR64__(v63, v21);
-    *(&v70 + 1) = __PAIR64__(v61, v22);
-    v71 = v24;
-    v72 = v60;
-    v73 = v26;
-    v74 = v27;
-    v75 = v2;
-    v76 = v28;
-    v77 = v19;
-    if (one-time initialization token for _current == -1)
-    {
-      goto LABEL_3;
-    }
-  }
-
-  swift_once();
-LABEL_3:
-  v29 = static ObservationCenter._current;
-  swift_beginAccess();
-  v30 = pthread_getspecific(v29[2]);
-  if (!v30)
-  {
-    v31 = swift_slowAlloc();
-    pthread_setspecific(v29[2], v31);
-    *(&v95 + 1) = type metadata accessor for ObservationCenter();
-    *&v94 = v29[3];
-    outlined init with take of Any(&v94, v31);
-
-    v30 = v31;
-  }
-
-  outlined init with copy of Any(v30, &v94);
-  type metadata accessor for ObservationCenter();
-  swift_dynamicCast();
-  v32 = v78;
-  CurrentAttribute = AGGraphGetCurrentAttribute();
-  v34 = v69;
-  v35 = v65;
-  if (CurrentAttribute == v64)
-  {
-    __break(1u);
-LABEL_20:
-    v29 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, v29[2] + 1, 1, v29);
-    *(v32 + 24) = v29;
-    goto LABEL_9;
-  }
-
-  v36 = v1;
-  LODWORD(v63) = CurrentAttribute;
-  swift_beginAccess();
-  v64 = *(v32 + 24);
-  *(v32 + 24) = MEMORY[0x1E69E7CC0];
-  v37 = v58;
-  (v34[7])(v58, 1, 1, v1);
-  StatusReg = _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
-  v39 = *(StatusReg + 848);
-  *(StatusReg + 848) = v37;
-  specialized closure #1 in GeometryReader.Child.updateValue()(&v70, &v94);
-  *(StatusReg + 848) = v39;
-  v90 = v98;
-  v91 = v99;
-  v92 = v100;
-  v93 = v101;
-  v86 = v94;
-  v87 = v95;
-  v88 = v96;
-  v89 = v97;
-  v40 = v68;
-  outlined init with take of ObservationTracking._AccessList?(v37, v68);
-  v41 = v66;
-  outlined init with copy of ObservationTracking._AccessList?(v40, v66, &lazy cache variable for type metadata for ObservationTracking._AccessList?, MEMORY[0x1E69E81D0], MEMORY[0x1E69E6720]);
-  if ((v34[6])(v41, 1, v1) == 1)
-  {
-    outlined destroy of ObservationTracking._AccessList?(v40, &lazy cache variable for type metadata for ObservationTracking._AccessList?, MEMORY[0x1E69E81D0], MEMORY[0x1E69E6720], type metadata accessor for ObservationTracking._AccessList?);
-    v42 = v41;
-    goto LABEL_12;
-  }
-
-  v2 = v34[4];
-  (v2)(v35, v41, v1);
-  (v34[2])(v67, v35, v1);
-  v29 = *(v32 + 24);
-  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  *(v32 + 24) = v29;
-  if ((isUniquelyReferenced_nonNull_native & 1) == 0)
-  {
-    goto LABEL_20;
-  }
-
-LABEL_9:
-  v45 = v29[2];
-  v44 = v29[3];
-  if (v45 >= v44 >> 1)
-  {
-    v29 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(v44 > 1, v45 + 1, 1, v29);
-  }
-
-  v29[2] = v45 + 1;
-  v46 = v29 + ((*(v69 + 80) + 32) & ~*(v69 + 80)) + v69[9] * v45;
-  v34 = v69;
-  (v2)(v46, v67, v1);
-  v36 = v1;
-  *(v32 + 24) = v29;
-  (v34[1])(v35, v1);
-  v42 = v68;
-LABEL_12:
-  outlined destroy of ObservationTracking._AccessList?(v42, &lazy cache variable for type metadata for ObservationTracking._AccessList?, MEMORY[0x1E69E81D0], MEMORY[0x1E69E6720], type metadata accessor for ObservationTracking._AccessList?);
-  v47 = *(v32 + 24);
-  v48 = *(v47 + 16);
-  if (v48)
-  {
-    v49 = v57;
-    v51 = v34[2];
-    v50 = v34 + 2;
-    v68 = *(v32 + 24);
-    v69 = v51;
-    v52 = v47 + ((*(v50 + 64) + 32) & ~*(v50 + 64));
-    v53 = v50[7];
-
-    v54 = v63;
-    do
-    {
-      (v69)(v49, v52, v36);
-      specialized ObservationCenter.invalidate<A>(_:onChangeIn:)(v54, v49);
-      (*(v50 - 1))(v49, v36);
-      v52 += v53;
-      --v48;
-    }
-
-    while (v48);
-  }
-
-  *(v32 + 24) = v64;
-
-  v82 = v90;
-  v83 = v91;
-  v84 = v92;
-  v85 = v93;
-  v78 = v86;
-  v79 = v87;
-  v80 = v88;
-  v81 = v89;
-  type metadata accessor for _VariadicView.Tree<_LayoutRoot<GeometryReaderLayout>, ModifiedContent<GlassContainerResolver<ModifiedContent<ZStack<ForEach<[GlassContainer.Effect], GlassContainer.DisplayMaterial.ID, ModifiedContent<GlassEffectView, _TraitWritingModifier<TransitionTraitKey>>>>, GlassContainerTintConfigModifier>>, _BackdropGroupEffect2>>();
-  AGGraphSetOutputValue();
-  v82 = v90;
-  v83 = v91;
-  v84 = v92;
-  v85 = v93;
-  v78 = v86;
-  v79 = v87;
-  v80 = v88;
-  v81 = v89;
-  return outlined destroy of _VariadicView.Tree<_LayoutRoot<GeometryReaderLayout>, ModifiedContent<GlassContainerResolver<ModifiedContent<ZStack<ForEach<[GlassContainer.Effect], GlassContainer.DisplayMaterial.ID, ModifiedContent<GlassEffectView, _TraitWritingModifier<TransitionTraitKey>>>>, GlassContainerTintConfigModifier>>, _BackdropGroupEffect2>>(&v78, type metadata accessor for _VariadicView.Tree<_LayoutRoot<GeometryReaderLayout>, ModifiedContent<GlassContainerResolver<ModifiedContent<ZStack<ForEach<[GlassContainer.Effect], GlassContainer.DisplayMaterial.ID, ModifiedContent<GlassEffectView, _TraitWritingModifier<TransitionTraitKey>>>>, GlassContainerTintConfigModifier>>, _BackdropGroupEffect2>>);
-}
-
-{
-  v87 = *MEMORY[0x1E69E9840];
-  v1 = type metadata accessor for ObservationTracking._AccessList();
-  v2 = *(v1 - 8);
-  MEMORY[0x1EEE9AC00](v1);
-  v4 = &v59 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v5);
-  v70 = &v59 - v6;
-  MEMORY[0x1EEE9AC00](v7);
-  v9 = &v59 - v8;
-  type metadata accessor for ObservationTracking._AccessList?(0, &lazy cache variable for type metadata for ObservationTracking._AccessList?, MEMORY[0x1E69E81D0], MEMORY[0x1E69E6720]);
-  MEMORY[0x1EEE9AC00](v10 - 8);
-  v69 = &v59 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v12);
-  v14 = &v59 - v13;
-  MEMORY[0x1EEE9AC00](v15);
-  v17 = &v59 - v16;
-  v18 = (*(v0 + 24) + 1);
-  *(v0 + 24) = v18;
-  CurrentAttribute = AGGraphGetCurrentAttribute();
-  v20 = *MEMORY[0x1E698D3F8];
-  if (CurrentAttribute == *MEMORY[0x1E698D3F8])
-  {
-    __break(1u);
-  }
-
-  else
-  {
-    v59 = v4;
-    v60 = v14;
-    LODWORD(v66) = v20;
-    v71 = v17;
-    v67 = v9;
-    v68 = v2;
-    v61 = v0;
-    v64 = *(v0 + 20);
-    v21 = v18;
-    v18 = AGCreateWeakAttribute();
-    v65 = HIDWORD(v18);
-    v22 = AGCreateWeakAttribute();
-    v23 = v22;
-    v63 = HIDWORD(v22);
-    v24 = AGCreateWeakAttribute();
-    v25 = v24;
-    v62 = HIDWORD(v24);
-    v26 = AGCreateWeakAttribute();
-    v27 = v26;
-    v28 = HIDWORD(v26);
-    v29 = AGCreateWeakAttribute();
-    v30 = v29;
-    v31 = HIDWORD(v29);
-    v32 = AGCreateWeakAttribute();
-    v72 = v18;
-    v73 = v65;
-    v74 = v23;
-    v75 = v63;
-    v76 = v25;
-    v77 = v62;
-    v78 = v27;
-    v79 = v28;
-    v80 = v30;
-    v81 = v31;
-    v82 = v32;
-    v83 = v21;
-    if (one-time initialization token for _current == -1)
-    {
-      goto LABEL_3;
-    }
-  }
-
-  swift_once();
-LABEL_3:
-  v33 = static ObservationCenter._current;
-  swift_beginAccess();
-  v34 = pthread_getspecific(v33[2]);
-  if (!v34)
-  {
-    v35 = swift_slowAlloc();
-    pthread_setspecific(v33[2], v35);
-    *&v86[24] = type metadata accessor for ObservationCenter();
-    *v86 = v33[3];
-    outlined init with take of Any(v86, v35);
-
-    v34 = v35;
-  }
-
-  outlined init with copy of Any(v34, v86);
-  type metadata accessor for ObservationCenter();
-  swift_dynamicCast();
-  v36 = v84[0];
-  v37 = AGGraphGetCurrentAttribute();
-  v39 = v67;
-  v38 = v68;
-  if (v37 == v66)
-  {
-    __break(1u);
-LABEL_20:
-    v33 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, v33[2] + 1, 1, v33);
-    *(v69 + 24) = v33;
-    goto LABEL_9;
-  }
-
-  v40 = v37;
-  swift_beginAccess();
-  v66 = *(v36 + 24);
-  *(v36 + 24) = MEMORY[0x1E69E7CC0];
-  v41 = v60;
-  (*(v38 + 56))(v60, 1, 1, v1);
-  StatusReg = _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
-  v43 = *(StatusReg + 848);
-  *(StatusReg + 848) = v41;
-  specialized closure #1 in GeometryReader.Child.updateValue()(v61);
-  *(StatusReg + 848) = v43;
-  LODWORD(v65) = v40;
-  memcpy(v85, v86, sizeof(v85));
-  v44 = v71;
-  outlined init with take of ObservationTracking._AccessList?(v41, v71);
-  v45 = v69;
-  outlined init with copy of ObservationTracking._AccessList?(v44, v69, &lazy cache variable for type metadata for ObservationTracking._AccessList?, MEMORY[0x1E69E81D0], MEMORY[0x1E69E6720]);
-  if ((*(v38 + 48))(v45, 1, v1) == 1)
-  {
-    outlined destroy of ObservationTracking._AccessList?(v44, &lazy cache variable for type metadata for ObservationTracking._AccessList?, MEMORY[0x1E69E81D0], MEMORY[0x1E69E6720], type metadata accessor for ObservationTracking._AccessList?);
-    v46 = v45;
-    goto LABEL_12;
-  }
-
-  v18 = *(v38 + 32);
-  (v18)(v39, v45, v1);
-  (*(v38 + 16))(v70, v39, v1);
-  v33 = *(v36 + 24);
-  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v69 = v36;
-  *(v36 + 24) = v33;
-  if ((isUniquelyReferenced_nonNull_native & 1) == 0)
-  {
-    goto LABEL_20;
-  }
-
-LABEL_9:
-  v49 = v33[2];
-  v48 = v33[3];
-  if (v49 >= v48 >> 1)
-  {
-    v33 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(v48 > 1, v49 + 1, 1, v33);
-  }
-
-  v33[2] = v49 + 1;
-  (v18)(v33 + ((*(v38 + 80) + 32) & ~*(v38 + 80)) + *(v38 + 72) * v49, v70, v1);
-  v36 = v69;
-  *(v69 + 24) = v33;
-  (*(v38 + 8))(v39, v1);
-  v46 = v71;
-LABEL_12:
-  outlined destroy of ObservationTracking._AccessList?(v46, &lazy cache variable for type metadata for ObservationTracking._AccessList?, MEMORY[0x1E69E81D0], MEMORY[0x1E69E6720], type metadata accessor for ObservationTracking._AccessList?);
-  v70 = *(v36 + 24);
-  v50 = *(v70 + 2);
-  if (v50)
-  {
-    v52 = *(v38 + 16);
-    v51 = v38 + 16;
-    v71 = v52;
-    v53 = v36;
-    v54 = &v70[(*(v51 + 64) + 32) & ~*(v51 + 64)];
-    v55 = *(v51 + 56);
-
-    v56 = v65;
-    v57 = v59;
-    do
-    {
-      v71(v57, v54, v1);
-      specialized ObservationCenter.invalidate<A>(_:onChangeIn:)(v56, v57);
-      (*(v51 - 8))(v57, v1);
-      v54 += v55;
-      --v50;
-    }
-
-    while (v50);
-
-    v70 = *(v53 + 24);
-    v36 = v53;
-  }
-
-  *(v36 + 24) = v66;
-
-  memcpy(v84, v85, sizeof(v84));
-  type metadata accessor for _VariadicView.Tree<_LayoutRoot<GeometryReaderLayout>, GlassEntryView>();
-  AGGraphSetOutputValue();
-  memcpy(v84, v85, sizeof(v84));
-  return outlined destroy of _VariadicView.Tree<_LayoutRoot<GeometryReaderLayout>, ModifiedContent<GlassContainerResolver<ModifiedContent<ZStack<ForEach<[GlassContainer.Effect], GlassContainer.DisplayMaterial.ID, ModifiedContent<GlassEffectView, _TraitWritingModifier<TransitionTraitKey>>>>, GlassContainerTintConfigModifier>>, _BackdropGroupEffect2>>(v84, type metadata accessor for _VariadicView.Tree<_LayoutRoot<GeometryReaderLayout>, GlassEntryView>);
-}
-
-uint64_t specialized closure #1 in GeometryReader.Child.updateValue()@<X0>(__int128 *a1@<X1>, _OWORD *a2@<X8>)
-{
-  v76 = *MEMORY[0x1E69E9840];
-  v33[2] = a1;
-  type metadata accessor for GeometryReader<ModifiedContent<GlassContainerResolver<ModifiedContent<ZStack<ForEach<[GlassContainer.Effect], GlassContainer.DisplayMaterial.ID, ModifiedContent<GlassEffectView, _TraitWritingModifier<TransitionTraitKey>>>>, GlassContainerTintConfigModifier>>, _BackdropGroupEffect2>>();
-  Value = AGGraphGetValue();
-  v6 = *Value;
-  v5 = *(Value + 8);
-  v32[0] = *Value;
-  v32[1] = v5;
-  if ((v7 & 2) != 0)
-  {
-    _s7SwiftUI36AccessibilityDataSeriesConfigurationV04AxisF0VSgWOi0_(&v68);
-    v64 = v72;
-    v65 = v73;
-    v66 = v74;
-    v67 = v75;
-    v60 = v68;
-    v61 = v69;
-    v62 = v70;
-    v63 = v71;
-    MEMORY[0x1EEE9AC00](v10);
-    v31[2] = &v60;
-    v31[3] = partial apply for specialized closure #1 in closure #1 in GeometryReader.Child.updateValue();
-    v31[4] = v33;
-    v31[5] = v32;
-    v11 = objc_opt_self();
-
-    if ([v11 isMainThread])
-    {
-      v12 = a1[1];
-      v52 = *a1;
-      v53 = v12;
-      v54 = a1[2];
-      LODWORD(v55) = *(a1 + 12);
-      v6(&v36, &v52);
-      _ViewInputs.base.modify(&v36, v13);
-      v56 = v64;
-      v57 = v65;
-      v58 = v66;
-      v59 = v67;
-      v52 = v60;
-      v53 = v61;
-      v54 = v62;
-      v55 = v63;
-      v62 = v38;
-      v63 = v39;
-      v60 = v36;
-      v61 = v37;
-      v66 = v42;
-      v67 = v43;
-      v64 = v40;
-      v65 = v41;
-      outlined destroy of ObservationTracking._AccessList?(&v52, &lazy cache variable for type metadata for ModifiedContent<GlassContainerResolver<ModifiedContent<ZStack<ForEach<[GlassContainer.Effect], GlassContainer.DisplayMaterial.ID, ModifiedContent<GlassEffectView, _TraitWritingModifier<TransitionTraitKey>>>>, GlassContainerTintConfigModifier>>, _BackdropGroupEffect2>?, type metadata accessor for ModifiedContent<GlassContainerResolver<ModifiedContent<ZStack<ForEach<[GlassContainer.Effect], GlassContainer.DisplayMaterial.ID, ModifiedContent<GlassEffectView, _TraitWritingModifier<TransitionTraitKey>>>>, GlassContainerTintConfigModifier>>, _BackdropGroupEffect2>, MEMORY[0x1E69E6720], type metadata accessor for ObservationTracking._AccessList?);
-    }
-
-    else
-    {
-      v14 = swift_allocObject();
-      *(v14 + 16) = partial apply for specialized closure #1 in Attribute.syncMainIfReferences<A>(do:);
-      *(v14 + 24) = v31;
-      v15 = AGSubgraphGetCurrent();
-      CurrentAttribute = AGGraphGetCurrentAttribute();
-      *&v52 = partial apply for thunk for @callee_guaranteed () -> ();
-      *(&v52 + 1) = v14;
-      *&v53 = v15;
-      DWORD2(v53) = CurrentAttribute;
-      v17 = one-time initialization token for _lock;
-
-      if (v17 != -1)
-      {
-        swift_once();
-      }
-
-      _MovableLockSyncMain(static Update._lock, &v52, @objc closure #1 in closure #1 in closure #1 in static Update.syncMain(_:));
-      v18 = v53;
-
-      LOBYTE(v18) = swift_isEscapingClosureAtFileLocation();
-
-      if (v18)
-      {
-        __break(1u);
-      }
-    }
-
-    v48 = v64;
-    v49 = v65;
-    v50 = v66;
-    v51 = v67;
-    v44 = v60;
-    v45 = v61;
-    v46 = v62;
-    v47 = v63;
-    v58 = v66;
-    v59 = v67;
-    v56 = v64;
-    v57 = v65;
-    v54 = v62;
-    v55 = v63;
-    v52 = v60;
-    v53 = v61;
-    result = _s7SwiftUI15ModifiedContentVyAA22GlassContainerResolverVyACyAA6ZStackVyAA7ForEachVySayAA0eF0O6EffectVGAK15DisplayMaterialV2IDVACyAA0eK4View33_D12F2F25A0BD65FFBD3A7636B60067DFLLVAA21_TraitWritingModifierVyAA010TransitionY3KeyVGGGGAA0eF18TintConfigModifier33_EC08899B622ECCACC85E95BA1EEBE316LLVGGAA21_BackdropGroupEffect2VGSgWOg(&v52);
-    if (result == 1)
-    {
-      __break(1u);
-    }
-
-    else
-    {
-      v19 = v49;
-      v20 = v48;
-      v21 = v49;
-      a2[4] = v48;
-      a2[5] = v19;
-      v22 = v51;
-      v23 = v50;
-      v24 = v51;
-      a2[6] = v50;
-      a2[7] = v22;
-      v25 = v45;
-      v26 = v44;
-      v27 = v45;
-      *a2 = v44;
-      a2[1] = v25;
-      v28 = v47;
-      v29 = v46;
-      v30 = v47;
-      a2[2] = v46;
-      a2[3] = v28;
-      v35[2] = v62;
-      v35[3] = v63;
-      v35[0] = v60;
-      v35[1] = v61;
-      v35[6] = v66;
-      v35[7] = v67;
-      v35[4] = v64;
-      v35[5] = v65;
-      v38 = v29;
-      v39 = v30;
-      v36 = v26;
-      v37 = v27;
-      v42 = v23;
-      v43 = v24;
-      v40 = v20;
-      v41 = v21;
-      outlined init with copy of ModifiedContent<GlassContainerResolver<ModifiedContent<ZStack<ForEach<[GlassContainer.Effect], GlassContainer.DisplayMaterial.ID, ModifiedContent<GlassEffectView, _TraitWritingModifier<TransitionTraitKey>>>>, GlassContainerTintConfigModifier>>, _BackdropGroupEffect2>(&v36, &v34, type metadata accessor for ModifiedContent<GlassContainerResolver<ModifiedContent<ZStack<ForEach<[GlassContainer.Effect], GlassContainer.DisplayMaterial.ID, ModifiedContent<GlassEffectView, _TraitWritingModifier<TransitionTraitKey>>>>, GlassContainerTintConfigModifier>>, _BackdropGroupEffect2>);
-      outlined destroy of ObservationTracking._AccessList?(v35, &lazy cache variable for type metadata for ModifiedContent<GlassContainerResolver<ModifiedContent<ZStack<ForEach<[GlassContainer.Effect], GlassContainer.DisplayMaterial.ID, ModifiedContent<GlassEffectView, _TraitWritingModifier<TransitionTraitKey>>>>, GlassContainerTintConfigModifier>>, _BackdropGroupEffect2>?, type metadata accessor for ModifiedContent<GlassContainerResolver<ModifiedContent<ZStack<ForEach<[GlassContainer.Effect], GlassContainer.DisplayMaterial.ID, ModifiedContent<GlassEffectView, _TraitWritingModifier<TransitionTraitKey>>>>, GlassContainerTintConfigModifier>>, _BackdropGroupEffect2>, MEMORY[0x1E69E6720], type metadata accessor for ObservationTracking._AccessList?);
-    }
-  }
-
-  else
-  {
-    v8 = a1[1];
-    v68 = *a1;
-    v69 = v8;
-    v70 = a1[2];
-    LODWORD(v71) = *(a1 + 12);
-
-    (v6)(&v68);
-  }
-
-  return result;
-}
-
-uint64_t specialized closure #1 in GeometryReader.Child.updateValue()(uint64_t a1)
-{
-  MEMORY[0x1EEE9AC00](a1);
-  v2 = v1;
-  v4 = v3;
-  v30 = *MEMORY[0x1E69E9840];
-  v22[2] = v1;
-  type metadata accessor for ViewLayoutEngine<GeometryReaderLayout>(0, &lazy cache variable for type metadata for GeometryReader<GlassEntryView>, lazy protocol witness table accessor for type GlassEntryView and conformance GlassEntryView, &type metadata for GlassEntryView, type metadata accessor for GeometryReader);
-  Value = AGGraphGetValue();
-  v7 = *Value;
-  v6 = *(Value + 8);
-  v21[0] = *Value;
-  v21[1] = v6;
-  if ((v8 & 2) != 0)
-  {
-    _s7SwiftUI14GlassEntryView33_D12F2F25A0BD65FFBD3A7636B60067DFLLVSgWOi0_(v29);
-    v11 = memcpy(v28, v29, sizeof(v28));
-    MEMORY[0x1EEE9AC00](v11);
-    v20[2] = v28;
-    v20[3] = partial apply for specialized closure #1 in closure #1 in GeometryReader.Child.updateValue();
-    v20[4] = v22;
-    v20[5] = v21;
-    v12 = objc_opt_self();
-
-    if ([v12 isMainThread])
-    {
-      v13 = *(v2 + 16);
-      *v27 = *v2;
-      *&v27[16] = v13;
-      *&v27[32] = *(v2 + 32);
-      *&v27[48] = *(v2 + 48);
-      (v7)(v25, v27);
-      _ViewInputs.base.modify(v25, v14);
-      memcpy(v27, v28, sizeof(v27));
-      memcpy(v28, v25, sizeof(v28));
-      outlined destroy of GlassEntryView?(v27, &lazy cache variable for type metadata for GlassEntryView?, &type metadata for GlassEntryView, MEMORY[0x1E69E6720]);
-    }
-
-    else
-    {
-      v15 = swift_allocObject();
-      *(v15 + 16) = partial apply for specialized closure #1 in Attribute.syncMainIfReferences<A>(do:);
-      *(v15 + 24) = v20;
-      v16 = AGSubgraphGetCurrent();
-      CurrentAttribute = AGGraphGetCurrentAttribute();
-      *v27 = thunk for @callee_guaranteed () -> ()partial apply;
-      *&v27[8] = v15;
-      *&v27[16] = v16;
-      *&v27[24] = CurrentAttribute;
-      v18 = one-time initialization token for _lock;
-
-      if (v18 != -1)
-      {
-        swift_once();
-      }
-
-      _MovableLockSyncMain(static Update._lock, v27, @objc closure #1 in closure #1 in closure #1 in static Update.syncMain(_:));
-      v19 = *&v27[16];
-
-      LOBYTE(v19) = swift_isEscapingClosureAtFileLocation();
-
-      if (v19)
-      {
-        __break(1u);
-      }
-    }
-
-    memcpy(v26, v28, sizeof(v26));
-    memcpy(v27, v28, sizeof(v27));
-    result = _s7SwiftUI14GlassContainerO5EntryVSgWOg(v27);
-    if (result == 1)
-    {
-      __break(1u);
-    }
-
-    else
-    {
-      memcpy(v4, v26, 0x2A8uLL);
-      memcpy(v24, v28, sizeof(v24));
-      memcpy(v25, v26, sizeof(v25));
-      outlined init with copy of GlassEntryView(v25, &v23);
-      outlined destroy of GlassEntryView?(v24, &lazy cache variable for type metadata for GlassEntryView?, &type metadata for GlassEntryView, MEMORY[0x1E69E6720]);
-    }
-  }
-
-  else
-  {
-    v9 = *(v2 + 16);
-    v29[0] = *v2;
-    v29[1] = v9;
-    v29[2] = *(v2 + 32);
-    LODWORD(v29[3]) = *(v2 + 48);
-
-    v7(v29);
-  }
-
-  return result;
-}
-
-uint64_t specialized StatefulRule<>.updateLayoutComputer<A>(layout:environment:attributes:)(const void *a1, int a2, uint64_t a3)
-{
-  result = AGGraphGetCurrentAttribute();
-  if (result == *MEMORY[0x1E698D3F8])
-  {
-    __break(1u);
-  }
-
-  else
-  {
-    v7 = result;
-    v8 = memcpy(v16, a1, sizeof(v16));
-    MEMORY[0x1EEE9AC00](v8);
-    v10[2] = v16;
-    v11 = v7;
-    v12 = v7;
-    v13 = a2;
-    v14 = v7;
-    v15 = a3;
-    MEMORY[0x1EEE9AC00](v9);
-
-    specialized StatefulRule<>.update<A>(modify:create:)(partial apply for specialized closure #1 in Layout.updateLayoutComputer<A>(rule:layoutContext:children:), v10, partial apply for specialized closure #2 in Layout.updateLayoutComputer<A>(rule:layoutContext:children:));
-  }
-
-  return result;
-}
-
-{
-  result = AGGraphGetCurrentAttribute();
-  if (result == *MEMORY[0x1E698D3F8])
-  {
-    __break(1u);
-  }
-
-  else
-  {
-    v7 = result;
-    v8 = memcpy(v16, a1, sizeof(v16));
-    MEMORY[0x1EEE9AC00](v8);
-    v10[2] = v16;
-    v11 = v7;
-    v12 = v7;
-    v13 = a2;
-    v14 = v7;
-    v15 = a3;
-    MEMORY[0x1EEE9AC00](v9);
-
-    specialized StatefulRule<>.update<A>(modify:create:)(partial apply for specialized closure #1 in Layout.updateLayoutComputer<A>(rule:layoutContext:children:), v10, partial apply for specialized closure #2 in Layout.updateLayoutComputer<A>(rule:layoutContext:children:));
-  }
-
-  return result;
-}
-
-uint64_t specialized StatefulRule<>.updateLayoutComputer<A>(layout:environment:attributes:)(char a1, Swift::UInt32 a2, uint64_t a3)
-{
-  result = AGGraphGetCurrentAttribute();
-  if (result == *MEMORY[0x1E698D3F8])
-  {
-    __break(1u);
-  }
-
-  else
-  {
-    v8 = result;
-    v9 = result | (result << 32);
-
-    specialized Layout.updateLayoutComputer<A>(rule:layoutContext:children:)(v3, v9, a2, v8, a3, a1);
-  }
-
-  return result;
-}
-
-{
-  result = AGGraphGetCurrentAttribute();
-  if (result == *MEMORY[0x1E698D3F8])
-  {
-    __break(1u);
-  }
-
-  else
-  {
-    v8 = result;
-    v9 = result | (result << 32);
-
-    specialized Layout.updateLayoutComputer<A>(rule:layoutContext:children:)(v3, v9, a2, v8, a3, a1);
-  }
-
-  return result;
-}
-
-uint64_t specialized Layout.updateLayoutComputer<A>(rule:layoutContext:children:)(uint64_t a1, uint64_t a2, Swift::UInt32 a3, int a4, uint64_t a5, char a6)
-{
-  v24[40] = *MEMORY[0x1E69E9840];
-  v18 = a6;
-  v19 = &v18;
-  v20 = a2;
-  v21 = a3;
-  v22 = a4;
-  v23 = a5;
-  OutputValue = AGGraphGetOutputValue();
-  if (OutputValue)
-  {
-    v11 = *OutputValue;
-    v12 = OutputValue[1];
-    MEMORY[0x1EEE9AC00](OutputValue);
-    v13 = one-time initialization token for lockAssertionsAreEnabled;
-    swift_retain_n();
-    if (v13 != -1)
-    {
-      swift_once();
-    }
-
-    if (!lockAssertionsAreEnabled)
-    {
-      goto LABEL_8;
-    }
-
-    if (one-time initialization token for _lock != -1)
-    {
-      swift_once();
-    }
-
-    if (!_MovableLockIsOwner(static Update._lock))
-    {
-      result = _assertionFailure(_:_:file:line:flags:)();
-      __break(1u);
-    }
-
-    else
-    {
-LABEL_8:
-      type metadata accessor for ViewLayoutEngine<GeometryReaderLayout>(0, &lazy cache variable for type metadata for ViewLayoutEngine<FlexibleButtonFrameLayout>, lazy protocol witness table accessor for type FlexibleButtonFrameLayout and conformance FlexibleButtonFrameLayout, &type metadata for FlexibleButtonFrameLayout, type metadata accessor for ViewLayoutEngine);
-      v15 = MEMORY[0x1EEE9AC00](v14);
-      (*(*v11 + 80))(v15);
-
-      v24[0] = v11;
-      v24[1] = v12 + 1;
-
-      AGGraphSetOutputValue();
-    }
-  }
-
-  else
-  {
-
-    _s7SwiftUI16ViewLayoutEngineV6layout7context8childrenACyxGx_AA21SizeAndSpacingContextVAA0D15ProxyCollectionVtcfCAA019FlexibleButtonFrameD0V_Tt3B5(a6, a3, a4, a5, v24);
-    _s7SwiftUI14LayoutComputerVyACxcAA0C6EngineRzlufCAA04ViewcE0VyAA019FlexibleButtonFrameC0VG_Tt1B5(v24, &v17);
-    AGGraphSetOutputValue();
-  }
-
-  return result;
-}
-
-{
-  v24[40] = *MEMORY[0x1E69E9840];
-  v18 = a6;
-  v19 = &v18;
-  v20 = a2;
-  v21 = a3;
-  v22 = a4;
-  v23 = a5;
-  OutputValue = AGGraphGetOutputValue();
-  if (OutputValue)
-  {
-    v11 = *OutputValue;
-    v12 = OutputValue[1];
-    MEMORY[0x1EEE9AC00](OutputValue);
-    v13 = one-time initialization token for lockAssertionsAreEnabled;
-    swift_retain_n();
-    if (v13 != -1)
-    {
-      swift_once();
-    }
-
-    if (!lockAssertionsAreEnabled)
-    {
-      goto LABEL_8;
-    }
-
-    if (one-time initialization token for _lock != -1)
-    {
-      swift_once();
-    }
-
-    if (!_MovableLockIsOwner(static Update._lock))
-    {
-      result = _assertionFailure(_:_:file:line:flags:)();
-      __break(1u);
-    }
-
-    else
-    {
-LABEL_8:
-      type metadata accessor for ViewLayoutEngine<GeometryReaderLayout>(0, &lazy cache variable for type metadata for ViewLayoutEngine<FlexibleButtonFrameLayout>, lazy protocol witness table accessor for type FlexibleButtonFrameLayout and conformance FlexibleButtonFrameLayout, &type metadata for FlexibleButtonFrameLayout, type metadata accessor for ViewLayoutEngine);
-      v15 = MEMORY[0x1EEE9AC00](v14);
-      (*(*v11 + 80))(v15);
-
-      v24[0] = v11;
-      v24[1] = v12 + 1;
-
-      AGGraphSetOutputValue();
-    }
-  }
-
-  else
-  {
-
-    _s7SwiftUI16ViewLayoutEngineV6layout7context8childrenACyxGx_AA21SizeAndSpacingContextVAA0D15ProxyCollectionVtcfCAA019FlexibleButtonFrameD0V_Tt3B5(a6, a3, a4, a5, v24);
-    _s7SwiftUI14LayoutComputerVyACxcAA0C6EngineRzlufCAA04ViewcE0VyAA019FlexibleButtonFrameC0VG_Tt1B5(v24, &v17);
-    AGGraphSetOutputValue();
-  }
-
-  return result;
-}
-
-void *specialized DynamicLayoutComputer.updateValue()()
-{
-  Value = AGGraphGetValue();
-  result = memcpy(__dst, Value, sizeof(__dst));
-  if (*(v0 + 8) == *MEMORY[0x1E698D3F8])
-  {
-    __break(1u);
-  }
-
-  else
-  {
-    v3 = *(v0 + 4);
-    outlined init with copy of GlassEntryLayout(__dst, v10);
-    v4 = AGGraphGetValue();
-    v5 = *(v4 + 8);
-    v6 = *(v4 + 32);
-    v7 = *(v4 + 40);
-    v8 = *(v4 + 44);
-    v10[0] = *v4;
-    v10[1] = v5;
-    v11 = *(v4 + 16);
-    v12 = v6;
-    v13 = v7;
-    v14 = v8;
-
-    v9 = specialized DynamicLayoutMap.attributes(info:)(v10);
-
-    specialized StatefulRule<>.updateLayoutComputer<A>(layout:environment:attributes:)(__dst, v3, v9);
-
-    return outlined destroy of GlassEntryLayout(__dst);
-  }
-
-  return result;
-}
-
-uint64_t *specialized DynamicLayoutComputer.updateValue()()
-{
-  result = AGGraphGetValue();
-  if (*(v0 + 8) == *MEMORY[0x1E698D3F8])
-  {
-    __break(1u);
-  }
-
-  else
-  {
-    v2 = *(v0 + 4);
-    v3 = *result;
-
-    Value = AGGraphGetValue();
-    v5 = *(Value + 8);
-    v6 = *(Value + 32);
-    v7 = *(Value + 40);
-    v8 = *(Value + 44);
-    v10[0] = *Value;
-    v10[1] = v5;
-    v11 = *(Value + 16);
-    v12 = v6;
-    v13 = v7;
-    v14 = v8;
-
-    v9 = specialized DynamicLayoutMap.attributes(info:)(v10);
-
-    specialized StatefulRule<>.updateLayoutComputer<A>(layout:environment:attributes:)(v3, v2, v9);
-  }
-
-  return result;
-}
-
-uint64_t specialized ViewLayoutEngine.update(layout:context:children:)(const void *a1, uint64_t a2, Swift::UInt32 a3, int a4, uint64_t a5)
+void specialized ViewLayoutEngine.update(layout:context:children:)(uint64_t a1, unint64_t a2, Swift::UInt32 a3, int a4, uint64_t a5)
 {
   v6 = v5;
-  v16 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
 
-  *(v6 + 488) = a4;
-  *(v6 + 496) = a5;
-  v13[0] = a3;
+  *(v6 + 88) = a4;
+  *(v6 + 96) = a5;
+  v16[0] = a3;
   KeyPath = swift_getKeyPath();
   type metadata accessor for EnvironmentFetch<LayoutDirection>(0, &lazy cache variable for type metadata for EnvironmentFetch<LayoutDirection>, &type metadata for LayoutDirection, type metadata accessor for EnvironmentFetch);
   Hasher.init(_seed:)();
   Hasher._combine(_:)(a3);
-  v12 = KeyPath;
+  v18 = KeyPath;
   type metadata accessor for KeyPath<EnvironmentValues, LayoutDirection>(0, &lazy cache variable for type metadata for KeyPath<EnvironmentValues, LayoutDirection>, &type metadata for EnvironmentValues, &type metadata for LayoutDirection, MEMORY[0x1E69E77A8]);
   dispatch thunk of Hashable.hash(into:)();
   Hasher._finalize()();
   lazy protocol witness table accessor for type EnvironmentFetch<LayoutDirection> and conformance EnvironmentFetch<A>();
-  __dst[0] = 0;
   lazy protocol witness table accessor for type EnvironmentFetch<LayoutDirection> and conformance EnvironmentFetch<A>();
+  LOBYTE(v19[0]) = 0;
   LOBYTE(a5) = *static Rule<>._cachedValue(options:owner:hashValue:bodyPtr:update:)();
 
-  *(v6 + 504) = a5;
-  memcpy(__dst, v6, sizeof(__dst));
-  outlined init with copy of GlassEntryLayout(a1, v13);
-  outlined destroy of GlassEntryLayout(__dst);
-  memcpy(v6, a1, 0x1E8uLL);
-  LOBYTE(v13[0]) = 1;
-  LOBYTE(v12) = 1;
-  *(v6 + 528) = 0u;
-  *(v6 + 544) = 0u;
-  *(v6 + 512) = 0u;
-  *(v6 + 560) = 1;
-  *(v6 + 568) = 0u;
-  *(v6 + 584) = 0u;
-  *(v6 + 600) = 0u;
-  *(v6 + 616) = 1;
-  *(v6 + 624) = 0u;
-  *(v6 + 640) = 0u;
-  *(v6 + 656) = 0u;
-  *(v6 + 672) = 1;
+  *(v6 + 104) = a5;
+  v11 = *(v6 + 48);
+  v19[2] = *(v6 + 32);
+  v19[3] = v11;
+  v19[4] = *(v6 + 64);
+  v20 = *(v6 + 80);
+  v12 = *(v6 + 16);
+  v19[0] = *v6;
+  v19[1] = v12;
+  outlined init with copy of GlassEffectLayout(a1, v16);
+  outlined destroy of GlassEffectLayout(v19);
+  v13 = *(a1 + 48);
+  *(v6 + 32) = *(a1 + 32);
+  *(v6 + 48) = v13;
+  *(v6 + 64) = *(a1 + 64);
+  *(v6 + 80) = *(a1 + 80);
+  v14 = *(a1 + 16);
+  *v6 = *a1;
+  *(v6 + 16) = v14;
+  LOBYTE(v16[0]) = 1;
+  LOBYTE(v18) = 1;
+  *(v6 + 128) = 0u;
+  *(v6 + 144) = 0u;
+  *(v6 + 112) = 0u;
+  *(v6 + 160) = 1;
+  *(v6 + 168) = 0u;
+  *(v6 + 184) = 0u;
+  *(v6 + 200) = 0u;
+  *(v6 + 216) = 1;
+  *(v6 + 224) = 0u;
+  *(v6 + 240) = 0u;
+  *(v6 + 256) = 0u;
+  *(v6 + 272) = 1;
 
-  *(v6 + 712) = MEMORY[0x1E69E7CC0];
-  *(v6 + 720) = 0u;
-  *(v6 + 736) = 0;
-  *(v6 + 737) = v13[0];
-  *(v6 + 740) = *(v13 + 3);
-  *(v6 + 744) = 0u;
-  *(v6 + 760) = 0;
-  *(v6 + 761) = v12;
-  *(v6 + 764) = *(&v12 + 3);
-  *(v6 + 784) = 0;
-  *(v6 + 768) = 0u;
+  v15 = MEMORY[0x1E69E7CC0];
+  *(v6 + 320) = 0;
+  *(v6 + 328) = 0;
+  *(v6 + 312) = v15;
+  *(v6 + 336) = 0;
+  *(v6 + 337) = v16[0];
+  *(v6 + 340) = *(v16 + 3);
+  *(v6 + 344) = 0;
+  *(v6 + 352) = 0;
+  *(v6 + 360) = 0;
+  *(v6 + 361) = v18;
+  *(v6 + 364) = *(&v18 + 3);
+  *(v6 + 384) = 0;
+  *(v6 + 368) = 0;
+  *(v6 + 376) = 0;
 
-  *(v6 + 792) = 0;
-  return result;
+  *(v6 + 392) = 0;
 }
 
-uint64_t specialized ViewLayoutEngine.update(layout:context:children:)(char a1, uint64_t a2, Swift::UInt32 a3, int a4, uint64_t a5)
+void specialized ViewLayoutEngine.update(layout:context:children:)(char a1, unint64_t a2, Swift::UInt32 a3, int a4, uint64_t a5)
 {
   v6 = v5;
 
   *(v6 + 8) = a4;
   *(v6 + 16) = a5;
-  *v14 = a3;
+  *v13 = a3;
   swift_getKeyPath();
   type metadata accessor for EnvironmentFetch<LayoutDirection>(0, &lazy cache variable for type metadata for EnvironmentFetch<LayoutDirection>, &type metadata for LayoutDirection, type metadata accessor for EnvironmentFetch);
   Hasher.init(_seed:)();
@@ -2101,8 +92,8 @@ uint64_t specialized ViewLayoutEngine.update(layout:context:children:)(char a1, 
 
   *(v6 + 24) = a5;
   *v6 = a1;
+  v12[0] = 1;
   v13[0] = 1;
-  v14[0] = 1;
   *(v6 + 48) = 0u;
   *(v6 + 64) = 0u;
   *(v6 + 32) = 0u;
@@ -2121,53 +112,156 @@ uint64_t specialized ViewLayoutEngine.update(layout:context:children:)(char a1, 
   *(v6 + 248) = 0;
   *(v6 + 232) = v11;
   *(v6 + 256) = 0;
-  *(v6 + 257) = *v13;
-  *(v6 + 260) = *&v13[3];
+  *(v6 + 257) = *v12;
+  *(v6 + 260) = *&v12[3];
   *(v6 + 264) = 0;
   *(v6 + 272) = 0;
   *(v6 + 280) = 0;
-  *(v6 + 281) = *v14;
-  *(v6 + 284) = *&v14[3];
+  *(v6 + 281) = *v13;
+  *(v6 + 284) = *&v13[3];
   *(v6 + 304) = 0;
   *(v6 + 288) = 0;
   *(v6 + 296) = 0;
 
   *(v6 + 312) = 0;
+}
+
+double _s7SwiftUI16ViewLayoutEngineV6layout7context8childrenACyxGx_AA21SizeAndSpacingContextVAA0D15ProxyCollectionVtcfCAA010GlassEntryD033_D12F2F25A0BD65FFBD3A7636B60067DFLLV_Tt3B5@<D0>(const void *a1@<X0>, Swift::UInt32 a3@<W2>, int a4@<W3>, uint64_t a5@<X4>, uint64_t a6@<X8>)
+{
+  *(a6 + 512) = 0u;
+  *(a6 + 528) = 0u;
+  *(a6 + 544) = 0u;
+  *(a6 + 560) = 1;
+  *(a6 + 568) = 0u;
+  *(a6 + 584) = 0u;
+  *(a6 + 600) = 0u;
+  *(a6 + 616) = 1;
+  *(a6 + 624) = 0u;
+  *(a6 + 640) = 0u;
+  *(a6 + 656) = 0u;
+  *(a6 + 672) = 1;
+  v8 = (a6 + 680);
+  v9 = MEMORY[0x1E69E7CC0];
+  *v8 = 0u;
+  v8[1] = 0u;
+  *(a6 + 712) = v9;
+  *(a6 + 792) = 0;
+  *(a6 + 720) = 0u;
+  *(a6 + 736) = 0;
+  *(a6 + 744) = 0u;
+  *(a6 + 760) = 0;
+  *(a6 + 768) = 0u;
+  *(a6 + 784) = 0;
+  *(a6 + 488) = a4;
+  *(a6 + 496) = a5;
+  swift_getKeyPath();
+  type metadata accessor for EnvironmentFetch<LayoutDirection>(0, &lazy cache variable for type metadata for EnvironmentFetch<LayoutDirection>, &type metadata for LayoutDirection, type metadata accessor for EnvironmentFetch);
+  Hasher.init(_seed:)();
+  Hasher._combine(_:)(a3);
+  type metadata accessor for KeyPath<EnvironmentValues, LayoutDirection>(0, &lazy cache variable for type metadata for KeyPath<EnvironmentValues, LayoutDirection>, &type metadata for EnvironmentValues, &type metadata for LayoutDirection, MEMORY[0x1E69E77A8]);
+
+  dispatch thunk of Hashable.hash(into:)();
+  Hasher._finalize()();
+  lazy protocol witness table accessor for type EnvironmentFetch<LayoutDirection> and conformance EnvironmentFetch<A>();
+  lazy protocol witness table accessor for type EnvironmentFetch<LayoutDirection> and conformance EnvironmentFetch<A>();
+  v10 = *static Rule<>._cachedValue(options:owner:hashValue:bodyPtr:update:)();
+
+  *(a6 + 504) = v10;
+  memcpy(a6, a1, 0x1E8uLL);
+
   return result;
 }
 
-uint64_t _s7SwiftUI16ViewLayoutEngineV6layout7context8childrenACyxGx_AA21SizeAndSpacingContextVAA0D15ProxyCollectionVtcfCAA010GlassEntryD033_D12F2F25A0BD65FFBD3A7636B60067DFLLV_Tt3B5@<X0>(const void *a1@<X0>, Swift::UInt32 a2@<W2>, int a3@<W3>, uint64_t a4@<X4>, uint64_t a5@<X8>)
+double _s7SwiftUI16ViewLayoutEngineV6layout7context8childrenACyxGx_AA21SizeAndSpacingContextVAA0D15ProxyCollectionVtcfCAA011GlassEffectD033_D12F2F25A0BD65FFBD3A7636B60067DFLLV_Tt3B5@<D0>(uint64_t a1@<X0>, Swift::UInt32 a3@<W2>, int a4@<W3>, uint64_t a5@<X4>, uint64_t a6@<X8>)
 {
-  *(a5 + 512) = 0u;
-  *(a5 + 528) = 0u;
-  *(a5 + 544) = 0u;
-  *(a5 + 560) = 1;
-  *(a5 + 568) = 0u;
-  *(a5 + 584) = 0u;
-  *(a5 + 600) = 0u;
-  *(a5 + 616) = 1;
-  *(a5 + 624) = 0u;
-  *(a5 + 640) = 0u;
-  *(a5 + 656) = 0u;
-  *(a5 + 672) = 1;
-  v7 = (a5 + 680);
-  v8 = MEMORY[0x1E69E7CC0];
-  *v7 = 0u;
-  v7[1] = 0u;
-  *(a5 + 712) = v8;
-  *(a5 + 792) = 0;
-  *(a5 + 720) = 0u;
-  *(a5 + 736) = 0;
-  *(a5 + 744) = 0u;
-  *(a5 + 760) = 0;
-  *(a5 + 768) = 0u;
-  *(a5 + 784) = 0;
-  *(a5 + 488) = a3;
-  *(a5 + 496) = a4;
+  *(a6 + 112) = 0u;
+  *(a6 + 128) = 0u;
+  *(a6 + 144) = 0u;
+  *(a6 + 160) = 1;
+  *(a6 + 168) = 0u;
+  *(a6 + 184) = 0u;
+  *(a6 + 200) = 0u;
+  *(a6 + 216) = 1;
+  *(a6 + 224) = 0u;
+  *(a6 + 240) = 0u;
+  *(a6 + 256) = 0u;
+  *(a6 + 272) = 1;
+  v8 = (a6 + 280);
+  *v8 = 0u;
+  v8[1] = 0u;
+  v9 = MEMORY[0x1E69E7CC0];
+  *(a6 + 392) = 0;
+  *(a6 + 320) = 0;
+  *(a6 + 328) = 0;
+  *(a6 + 312) = v9;
+  *(a6 + 336) = 0;
+  *(a6 + 344) = 0;
+  *(a6 + 352) = 0;
+  *(a6 + 360) = 0;
+  *(a6 + 368) = 0;
+  *(a6 + 376) = 0;
+  *(a6 + 384) = 0;
+  *(a6 + 88) = a4;
+  *(a6 + 96) = a5;
   swift_getKeyPath();
   type metadata accessor for EnvironmentFetch<LayoutDirection>(0, &lazy cache variable for type metadata for EnvironmentFetch<LayoutDirection>, &type metadata for LayoutDirection, type metadata accessor for EnvironmentFetch);
   Hasher.init(_seed:)();
-  Hasher._combine(_:)(a2);
+  Hasher._combine(_:)(a3);
+  type metadata accessor for KeyPath<EnvironmentValues, LayoutDirection>(0, &lazy cache variable for type metadata for KeyPath<EnvironmentValues, LayoutDirection>, &type metadata for EnvironmentValues, &type metadata for LayoutDirection, MEMORY[0x1E69E77A8]);
+
+  dispatch thunk of Hashable.hash(into:)();
+  Hasher._finalize()();
+  lazy protocol witness table accessor for type EnvironmentFetch<LayoutDirection> and conformance EnvironmentFetch<A>();
+  lazy protocol witness table accessor for type EnvironmentFetch<LayoutDirection> and conformance EnvironmentFetch<A>();
+  v10 = *static Rule<>._cachedValue(options:owner:hashValue:bodyPtr:update:)();
+
+  *(a6 + 104) = v10;
+  v11 = *(a1 + 48);
+  *(a6 + 32) = *(a1 + 32);
+  *(a6 + 48) = v11;
+  *(a6 + 64) = *(a1 + 64);
+  *(a6 + 80) = *(a1 + 80);
+  v12 = *(a1 + 16);
+  *a6 = *a1;
+  *(a6 + 16) = v12;
+
+  return result;
+}
+
+double _s7SwiftUI16ViewLayoutEngineV6layout7context8childrenACyxGx_AA21SizeAndSpacingContextVAA0D15ProxyCollectionVtcfCAA019FlexibleButtonFrameD0V_Tt3B5@<D0>(char a1@<W0>, Swift::UInt32 a3@<W2>, int a4@<W3>, uint64_t a5@<X4>, uint64_t a6@<X8>)
+{
+  *(a6 + 32) = 0u;
+  *(a6 + 48) = 0u;
+  *(a6 + 64) = 0u;
+  *(a6 + 80) = 1;
+  *(a6 + 88) = 0u;
+  *(a6 + 104) = 0u;
+  *(a6 + 120) = 0u;
+  *(a6 + 136) = 1;
+  *(a6 + 144) = 0u;
+  *(a6 + 160) = 0u;
+  *(a6 + 176) = 0u;
+  *(a6 + 192) = 1;
+  *(a6 + 216) = 0u;
+  *(a6 + 200) = 0u;
+  v8 = MEMORY[0x1E69E7CC0];
+  *(a6 + 312) = 0;
+  *(a6 + 240) = 0;
+  *(a6 + 248) = 0;
+  *(a6 + 232) = v8;
+  *(a6 + 256) = 0;
+  *(a6 + 264) = 0;
+  *(a6 + 272) = 0;
+  *(a6 + 280) = 0;
+  *(a6 + 288) = 0;
+  *(a6 + 296) = 0;
+  *(a6 + 304) = 0;
+  *(a6 + 8) = a4;
+  *(a6 + 16) = a5;
+  swift_getKeyPath();
+  type metadata accessor for EnvironmentFetch<LayoutDirection>(0, &lazy cache variable for type metadata for EnvironmentFetch<LayoutDirection>, &type metadata for LayoutDirection, type metadata accessor for EnvironmentFetch);
+  Hasher.init(_seed:)();
+  Hasher._combine(_:)(a3);
   type metadata accessor for KeyPath<EnvironmentValues, LayoutDirection>(0, &lazy cache variable for type metadata for KeyPath<EnvironmentValues, LayoutDirection>, &type metadata for EnvironmentValues, &type metadata for LayoutDirection, MEMORY[0x1E69E77A8]);
 
   dispatch thunk of Hashable.hash(into:)();
@@ -2176,113 +270,15 @@ uint64_t _s7SwiftUI16ViewLayoutEngineV6layout7context8childrenACyxGx_AA21SizeAnd
   lazy protocol witness table accessor for type EnvironmentFetch<LayoutDirection> and conformance EnvironmentFetch<A>();
   v9 = *static Rule<>._cachedValue(options:owner:hashValue:bodyPtr:update:)();
 
-  *(a5 + 504) = v9;
-  memcpy(a5, a1, 0x1E8uLL);
+  *(a6 + 24) = v9;
+  *a6 = a1;
+
+  return result;
 }
 
-uint64_t _s7SwiftUI16ViewLayoutEngineV6layout7context8childrenACyxGx_AA21SizeAndSpacingContextVAA0D15ProxyCollectionVtcfCAA011GlassEffectD033_D12F2F25A0BD65FFBD3A7636B60067DFLLV_Tt3B5@<X0>(uint64_t a1@<X0>, Swift::UInt32 a2@<W2>, int a3@<W3>, uint64_t a4@<X4>, uint64_t a5@<X8>)
+void specialized StatefulRule<>.update<A>(modify:create:)(uint64_t a1, uint64_t a2, void (*a3)(void *__return_ptr), uint64_t a4, void (*a5)(uint64_t *__return_ptr, void *), uint64_t (*a6)(void))
 {
-  *(a5 + 112) = 0u;
-  *(a5 + 128) = 0u;
-  *(a5 + 144) = 0u;
-  *(a5 + 160) = 1;
-  *(a5 + 168) = 0u;
-  *(a5 + 184) = 0u;
-  *(a5 + 200) = 0u;
-  *(a5 + 216) = 1;
-  *(a5 + 224) = 0u;
-  *(a5 + 240) = 0u;
-  *(a5 + 256) = 0u;
-  *(a5 + 272) = 1;
-  v7 = (a5 + 280);
-  *v7 = 0u;
-  v7[1] = 0u;
-  v8 = MEMORY[0x1E69E7CC0];
-  *(a5 + 392) = 0;
-  *(a5 + 320) = 0;
-  *(a5 + 328) = 0;
-  *(a5 + 312) = v8;
-  *(a5 + 336) = 0;
-  *(a5 + 344) = 0;
-  *(a5 + 352) = 0;
-  *(a5 + 360) = 0;
-  *(a5 + 368) = 0;
-  *(a5 + 376) = 0;
-  *(a5 + 384) = 0;
-  *(a5 + 88) = a3;
-  *(a5 + 96) = a4;
-  swift_getKeyPath();
-  type metadata accessor for EnvironmentFetch<LayoutDirection>(0, &lazy cache variable for type metadata for EnvironmentFetch<LayoutDirection>, &type metadata for LayoutDirection, type metadata accessor for EnvironmentFetch);
-  Hasher.init(_seed:)();
-  Hasher._combine(_:)(a2);
-  type metadata accessor for KeyPath<EnvironmentValues, LayoutDirection>(0, &lazy cache variable for type metadata for KeyPath<EnvironmentValues, LayoutDirection>, &type metadata for EnvironmentValues, &type metadata for LayoutDirection, MEMORY[0x1E69E77A8]);
-
-  dispatch thunk of Hashable.hash(into:)();
-  Hasher._finalize()();
-  lazy protocol witness table accessor for type EnvironmentFetch<LayoutDirection> and conformance EnvironmentFetch<A>();
-  lazy protocol witness table accessor for type EnvironmentFetch<LayoutDirection> and conformance EnvironmentFetch<A>();
-  v9 = *static Rule<>._cachedValue(options:owner:hashValue:bodyPtr:update:)();
-
-  *(a5 + 104) = v9;
-  v10 = *(a1 + 48);
-  *(a5 + 32) = *(a1 + 32);
-  *(a5 + 48) = v10;
-  *(a5 + 64) = *(a1 + 64);
-  *(a5 + 80) = *(a1 + 80);
-  v11 = *(a1 + 16);
-  *a5 = *a1;
-  *(a5 + 16) = v11;
-}
-
-uint64_t _s7SwiftUI16ViewLayoutEngineV6layout7context8childrenACyxGx_AA21SizeAndSpacingContextVAA0D15ProxyCollectionVtcfCAA019FlexibleButtonFrameD0V_Tt3B5@<X0>(char a1@<W0>, Swift::UInt32 a2@<W2>, int a3@<W3>, uint64_t a4@<X4>, uint64_t a5@<X8>)
-{
-  *(a5 + 32) = 0u;
-  *(a5 + 48) = 0u;
-  *(a5 + 64) = 0u;
-  *(a5 + 80) = 1;
-  *(a5 + 88) = 0u;
-  *(a5 + 104) = 0u;
-  *(a5 + 120) = 0u;
-  *(a5 + 136) = 1;
-  *(a5 + 144) = 0u;
-  *(a5 + 160) = 0u;
-  *(a5 + 176) = 0u;
-  *(a5 + 192) = 1;
-  *(a5 + 216) = 0u;
-  *(a5 + 200) = 0u;
-  v7 = MEMORY[0x1E69E7CC0];
-  *(a5 + 312) = 0;
-  *(a5 + 240) = 0;
-  *(a5 + 248) = 0;
-  *(a5 + 232) = v7;
-  *(a5 + 256) = 0;
-  *(a5 + 264) = 0;
-  *(a5 + 272) = 0;
-  *(a5 + 280) = 0;
-  *(a5 + 288) = 0;
-  *(a5 + 296) = 0;
-  *(a5 + 304) = 0;
-  *(a5 + 8) = a3;
-  *(a5 + 16) = a4;
-  swift_getKeyPath();
-  type metadata accessor for EnvironmentFetch<LayoutDirection>(0, &lazy cache variable for type metadata for EnvironmentFetch<LayoutDirection>, &type metadata for LayoutDirection, type metadata accessor for EnvironmentFetch);
-  Hasher.init(_seed:)();
-  Hasher._combine(_:)(a2);
-  type metadata accessor for KeyPath<EnvironmentValues, LayoutDirection>(0, &lazy cache variable for type metadata for KeyPath<EnvironmentValues, LayoutDirection>, &type metadata for EnvironmentValues, &type metadata for LayoutDirection, MEMORY[0x1E69E77A8]);
-
-  dispatch thunk of Hashable.hash(into:)();
-  Hasher._finalize()();
-  lazy protocol witness table accessor for type EnvironmentFetch<LayoutDirection> and conformance EnvironmentFetch<A>();
-  lazy protocol witness table accessor for type EnvironmentFetch<LayoutDirection> and conformance EnvironmentFetch<A>();
-  v8 = *static Rule<>._cachedValue(options:owner:hashValue:bodyPtr:update:)();
-
-  *(a5 + 24) = v8;
-  *a5 = a1;
-}
-
-uint64_t specialized StatefulRule<>.update<A>(modify:create:)(uint64_t a1, uint64_t a2, void (*a3)(void *__return_ptr), uint64_t a4, void (*a5)(uint64_t *__return_ptr, void *), uint64_t (*a6)(void))
-{
-  v17[27] = *MEMORY[0x1E69E9840];
+  v16[27] = *MEMORY[0x1E69E9840];
   OutputValue = AGGraphGetOutputValue();
   if (OutputValue)
   {
@@ -2308,7 +304,7 @@ uint64_t specialized StatefulRule<>.update<A>(modify:create:)(uint64_t a1, uint6
 
     if (!_MovableLockIsOwner(static Update._lock))
     {
-      result = _assertionFailure(_:_:file:line:flags:)();
+      _assertionFailure(_:_:file:line:flags:)();
       __break(1u);
     }
 
@@ -2319,8 +315,8 @@ LABEL_8:
       v14 = MEMORY[0x1EEE9AC00](v13);
       (*(*v10 + 80))(v14);
 
-      v17[0] = v10;
-      v17[1] = v11 + 1;
+      v16[0] = v10;
+      v16[1] = v11 + 1;
 
       AGGraphSetOutputValue();
     }
@@ -2328,15 +324,13 @@ LABEL_8:
 
   else
   {
-    a3(v17);
-    a5(&v16, v17);
+    a3(v16);
+    a5(&v15, v16);
     AGGraphSetOutputValue();
   }
-
-  return result;
 }
 
-uint64_t specialized HostPreferencesWriter.updateValue()()
+double specialized HostPreferencesWriter.updateValue()()
 {
   v1 = v0;
   if (*(v0 + 8) == *MEMORY[0x1E698D3F8])
@@ -2386,6 +380,8 @@ uint64_t specialized HostPreferencesWriter.updateValue()()
 
 LABEL_24:
         AGGraphSetOutputValue();
+
+        return result;
       }
 
       if (*(v0 + 12))
@@ -2422,7 +418,7 @@ LABEL_6:
     v8 = *(v1 + 16);
 LABEL_17:
     v13 = merge32(_:_:)(*(v1 + 20), v8);
-    _s7SwiftUI16PreferenceValuesVyAC5ValueVy_ADQzGxmcAA0C3KeyRzluisAA024ContentCaptureProtectioncF0V_Tt0B5(v6 | (v13 << 32));
+    _s7SwiftUI16PreferenceValuesVyAC5ValueVy_ADQzGxmcAA0C3KeyRzluisAA024ContentCaptureProtectioncF0V_Tt0B5(v6 | (v13 << 32), v14);
     goto LABEL_24;
   }
 
@@ -2431,55 +427,57 @@ LABEL_20:
   {
     goto LABEL_24;
   }
+
+  return result;
 }
 
-uint64_t _s7SwiftUI16PreferenceValuesVyAC5ValueVy_ADQzGxmcAA0C3KeyRzluisAA024ContentCaptureProtectioncF0V_Tt0B5(uint64_t result)
+uint64_t _s7SwiftUI16PreferenceValuesVyAC5ValueVy_ADQzGxmcAA0C3KeyRzluisAA024ContentCaptureProtectioncF0V_Tt0B5(uint64_t result, double a2)
 {
-  v7 = result;
-  v2 = *v1;
-  v3 = *(*v1 + 16);
-  if (v3)
+  v8 = result;
+  v3 = *v2;
+  v4 = *(*v2 + 16);
+  if (v4)
   {
-    v4 = 0;
+    v5 = 0;
     while (1)
     {
-      v5 = v4 + (v3 >> 1);
-      if (__OFADD__(v4, v3 >> 1))
+      v6 = v5 + (v4 >> 1);
+      if (__OFADD__(v5, v4 >> 1))
       {
         break;
       }
 
-      if ((v5 & 0x8000000000000000) != 0)
+      if ((v6 & 0x8000000000000000) != 0)
       {
         goto LABEL_16;
       }
 
-      if (v5 >= *(v2 + 16))
+      if (v6 >= *(v3 + 16))
       {
         goto LABEL_17;
       }
 
-      outlined init with copy of PreferenceValues.Entry(v2 + 32 + 56 * v5, v8);
-      v6 = v8[0];
-      result = outlined destroy of PreferenceValues.Entry(v8);
-      if (v6 >= &type metadata for ContentCaptureProtectionPreferenceKey)
+      outlined init with copy of PreferenceValues.Entry(v3 + 32 + 56 * v6, v9);
+      v7 = v9[0];
+      result = outlined destroy of PreferenceValues.Entry(v9);
+      if (v7 >= &type metadata for ContentCaptureProtectionPreferenceKey)
       {
-        v3 >>= 1;
+        v4 >>= 1;
       }
 
       else
       {
-        v3 += ~(v3 >> 1);
+        v4 += ~(v4 >> 1);
       }
 
-      if (v6 < &type metadata for ContentCaptureProtectionPreferenceKey)
+      if (v7 < &type metadata for ContentCaptureProtectionPreferenceKey)
       {
-        v4 = v5 + 1;
+        v5 = v6 + 1;
       }
 
-      if (v3 <= 0)
+      if (v4 <= 0)
       {
-        return specialized PreferenceValues.setValue<A>(_:of:at:)(v7 & 0xFFFFFFFF00000001, &type metadata for ContentCaptureProtectionPreferenceKey, &protocol witness table for ContentCaptureProtectionPreferenceKey, v4);
+        return specialized PreferenceValues.setValue<A>(_:of:at:)(v8 & 0xFFFFFFFF00000001, &type metadata for ContentCaptureProtectionPreferenceKey, &protocol witness table for ContentCaptureProtectionPreferenceKey, v5, a2);
       }
     }
 
@@ -2492,8 +490,8 @@ LABEL_17:
 
   else
   {
-    v4 = 0;
-    return specialized PreferenceValues.setValue<A>(_:of:at:)(v7 & 0xFFFFFFFF00000001, &type metadata for ContentCaptureProtectionPreferenceKey, &protocol witness table for ContentCaptureProtectionPreferenceKey, v4);
+    v5 = 0;
+    return specialized PreferenceValues.setValue<A>(_:of:at:)(v8 & 0xFFFFFFFF00000001, &type metadata for ContentCaptureProtectionPreferenceKey, &protocol witness table for ContentCaptureProtectionPreferenceKey, v5, a2);
   }
 
   return result;
@@ -2686,33 +684,6 @@ uint64_t specialized TranslationKickModifier.animate()()
 }
 
 {
-  v2 = *v1;
-  v2[33] = v0;
-
-  v3 = v2[22];
-  v4 = v2[21];
-  v5 = v2[20];
-  if (v0)
-  {
-
-    (*(v4 + 8))(v3, v5);
-    v6 = v2[29];
-    v7 = v2[30];
-    v8 = specialized TranslationKickModifier.animate();
-  }
-
-  else
-  {
-    (*(v4 + 8))(v3, v5);
-    v6 = v2[29];
-    v7 = v2[30];
-    v8 = specialized TranslationKickModifier.animate();
-  }
-
-  return MEMORY[0x1EEE6DFA0](v8, v6, v7);
-}
-
-{
   v18 = v0;
   v1 = *(v0 + 264);
   v3 = *(v0 + 200);
@@ -2852,10 +823,38 @@ uint64_t specialized TranslationKickModifier.animate()()
   return v14();
 }
 
+uint64_t specialized TranslationKickModifier.animate()(__n128 a1)
+{
+  v3 = *v2;
+  v3[33] = v1;
+
+  v4 = v3[22];
+  v5 = v3[21];
+  v6 = v3[20];
+  if (v1)
+  {
+
+    (*(v5 + 8))(v4, v6);
+    v7 = v3[29];
+    v8 = v3[30];
+    v9 = specialized TranslationKickModifier.animate();
+  }
+
+  else
+  {
+    (*(v5 + 8))(v4, v6);
+    v7 = v3[29];
+    v8 = v3[30];
+    v9 = specialized TranslationKickModifier.animate();
+  }
+
+  return MEMORY[0x1EEE6DFA0](v9, v7, v8);
+}
+
 uint64_t specialized closure #1 in Gesture.eventFilter<A>(_:allowOtherTypes:_:)(uint64_t a1, char a2, uint64_t (*a3)(__int128 *))
 {
   outlined init with copy of AnyTrackedValue(a1, v13);
-  type metadata accessor for AnyTrackedValue(0, &lazy cache variable for type metadata for EventType);
+  type metadata accessor for AnyTrackedValue(0, &lazy cache variable for type metadata for EventType, &protocol descriptor for EventType);
   if (swift_dynamicCast())
   {
     if (*(&v8 + 1) != 1)
@@ -2893,66 +892,66 @@ uint64_t specialized closure #1 in Gesture.eventFilter<A>(_:allowOtherTypes:_:)(
   return a2 & 1;
 }
 
-uint64_t specialized RepeatPhase.updateValue()()
+void specialized RepeatPhase.updateValue()()
 {
-  result = specialized ResettableGestureRule.resetIfNeeded()();
-  if ((result & 1) == 0)
+  if (!specialized ResettableGestureRule.resetIfNeeded()())
   {
-    return result;
+    return;
   }
 
   if ((*(v0 + 32) & 1) == 0)
   {
-    v2 = *(v0 + 24);
-    if (v2 < *AGGraphGetValue())
+    v1 = *(v0 + 24);
+    if (v1 < *AGGraphGetValue())
     {
       type metadata accessor for EnvironmentFetch<LayoutDirection>(0, &lazy cache variable for type metadata for GesturePhase<TappableEvent>, &type metadata for TappableEvent, type metadata accessor for GesturePhase);
-      return AGGraphSetOutputValue();
+      AGGraphSetOutputValue();
+      return;
     }
   }
 
   type metadata accessor for EnvironmentFetch<LayoutDirection>(0, &lazy cache variable for type metadata for GesturePhase<TappableEvent>, &type metadata for TappableEvent, type metadata accessor for GesturePhase);
   Value = AGGraphGetValue();
-  v4 = *Value;
-  v5 = *(Value + 16);
-  v6 = *(Value + 24);
-  v7 = *(Value + 32);
+  v3 = *Value;
+  v4 = *(Value + 16);
+  v5 = *(Value + 24);
+  v6 = *(Value + 32);
   if (*(Value + 33) <= 1u)
   {
     if (*(Value + 33))
     {
-      v25 = *(Value + 8);
+      v24 = *(Value + 8);
       *(v0 + 24) = 0;
       *(v0 + 32) = 1;
-      v8 = *(v0 + 36);
+      v7 = *(v0 + 36);
       type metadata accessor for EnvironmentFetch<LayoutDirection>(0, &lazy cache variable for type metadata for RepeatGesture<TappableEvent>, &type metadata for TappableEvent, type metadata accessor for RepeatGesture);
 
-      v9 = AGGraphGetValue();
-      if (__OFSUB__(*v9, 1))
+      v8 = AGGraphGetValue();
+      if (__OFSUB__(*v8, 1))
       {
         __break(1u);
       }
 
-      if (*v9 - 1 <= v8)
+      if (*v8 - 1 <= v7)
       {
-        v21 = AGGraphGetValue();
-        v22 = *v21;
-        v24 = v6;
-        v23 = *(v21 + 32);
-        v28 = *(v21 + 8);
-        v30 = *(v21 + 16);
-        v32 = *(v21 + 24);
-        v34 = *(v21 + 33);
-        outlined copy of GesturePhase<TappableEvent>(*v21, v28, v30, v32, v23, v34);
+        v20 = AGGraphGetValue();
+        v21 = *v20;
+        v23 = v5;
+        v22 = *(v20 + 32);
+        v27 = *(v20 + 8);
+        v29 = *(v20 + 16);
+        v31 = *(v20 + 24);
+        v33 = *(v20 + 33);
+        outlined copy of GesturePhase<TappableEvent>(*v20, v27, v29, v31, v22, v33);
         AGGraphSetOutputValue();
-        outlined consume of GesturePhase<TappableEvent>(v4, v25, v5, v24, v7, 1);
-        result = outlined consume of GesturePhase<TappableEvent>(v22, v28, v30, v32, v23, v34);
+        outlined consume of GesturePhase<TappableEvent>(v3, v24, v4, v23, v6, 1);
+        outlined consume of GesturePhase<TappableEvent>(v21, v27, v29, v31, v22, v33);
       }
 
       else
       {
         AGGraphSetOutputValue();
-        result = outlined consume of GesturePhase<TappableEvent>(v4, v25, v5, v6, v7, 1);
+        outlined consume of GesturePhase<TappableEvent>(v3, v24, v4, v5, v6, 1);
       }
 
       goto LABEL_14;
@@ -2965,78 +964,76 @@ uint64_t specialized RepeatPhase.updateValue()()
   {
 LABEL_13:
     AGGraphGetValue();
-    result = AGGraphSetOutputValue();
+    AGGraphSetOutputValue();
     goto LABEL_14;
   }
 
-  v26 = *(Value + 8);
-  v10 = (*(v0 + 36) + 1);
-  *(v0 + 36) = v10;
+  v25 = *(Value + 8);
+  v9 = (*(v0 + 36) + 1);
+  *(v0 + 36) = v9;
   type metadata accessor for EnvironmentFetch<LayoutDirection>(0, &lazy cache variable for type metadata for RepeatGesture<TappableEvent>, &type metadata for TappableEvent, type metadata accessor for RepeatGesture);
 
-  if (*AGGraphGetValue() <= v10)
+  if (*AGGraphGetValue() <= v9)
   {
     *(v0 + 24) = 0;
     *(v0 + 32) = 1;
-    v18 = AGGraphGetValue();
-    v19 = *v18;
-    v20 = *(v18 + 32);
-    v27 = *(v18 + 8);
-    v29 = *(v18 + 16);
-    v31 = *(v18 + 24);
-    v33 = *(v18 + 33);
-    outlined copy of GesturePhase<TappableEvent>(*v18, v27, v29, v31, v20, v33);
+    v17 = AGGraphGetValue();
+    v18 = *v17;
+    v19 = *(v17 + 32);
+    v26 = *(v17 + 8);
+    v28 = *(v17 + 16);
+    v30 = *(v17 + 24);
+    v32 = *(v17 + 33);
+    outlined copy of GesturePhase<TappableEvent>(*v17, v26, v28, v30, v19, v32);
     AGGraphSetOutputValue();
-    outlined consume of GesturePhase<TappableEvent>(v4, v26, v5, v6, v7, 2);
-    result = outlined consume of GesturePhase<TappableEvent>(v19, v27, v29, v31, v20, v33);
+    outlined consume of GesturePhase<TappableEvent>(v3, v25, v4, v5, v6, 2);
+    outlined consume of GesturePhase<TappableEvent>(v18, v26, v28, v30, v19, v32);
   }
 
   else
   {
-    v11 = *AGGraphGetValue();
-    *(v0 + 24) = v11 + *(AGGraphGetValue() + 8);
+    v10 = *AGGraphGetValue();
+    *(v0 + 24) = v10 + *(AGGraphGetValue() + 8);
     *(v0 + 32) = 0;
     AGGraphSetOutputValue();
     specialized static GraphHost.currentHost.getter();
-    specialized GraphHost.continueTransaction<A>(_:)(*(v0 + 16) | (v10 << 32));
-    outlined consume of GesturePhase<TappableEvent>(v4, v26, v5, v6, v7, 2);
+    specialized GraphHost.continueTransaction<A>(_:)(*(v0 + 16) | (v9 << 32));
+    outlined consume of GesturePhase<TappableEvent>(v3, v25, v4, v5, v6, 2);
   }
 
 LABEL_14:
   if ((*(v0 + 32) & 1) == 0)
   {
-    v12 = *(v0 + 24);
-    v13 = *(v0 + 20);
+    v11 = *(v0 + 24);
+    v12 = *(v0 + 20);
     specialized static GraphHost.currentHost.getter();
-    if (v13 == 1)
+    if (v12 == 1)
     {
       type metadata accessor for GestureGraph();
-      v14 = swift_dynamicCastClassUnconditional();
-      v15 = *(v14 + 272);
-      if (v12 < v15)
+      v13 = swift_dynamicCastClassUnconditional();
+      v14 = *(v13 + 272);
+      if (v11 < v14)
       {
-        v15 = v12;
+        v14 = v11;
       }
 
-      *(v14 + 272) = v15;
+      *(v13 + 272) = v14;
     }
 
     else
     {
       type metadata accessor for ViewGraph();
-      v16 = swift_dynamicCastClassUnconditional();
+      v15 = swift_dynamicCastClassUnconditional();
       swift_beginAccess();
-      v17 = *(v16 + 408);
-      if (v12 < v17)
+      v16 = *(v15 + 408);
+      if (v11 < v16)
       {
-        v17 = v12;
+        v16 = v11;
       }
 
-      *(v16 + 408) = v17;
+      *(v15 + 408) = v16;
     }
   }
-
-  return result;
 }
 
 void specialized AnyGestureInfo.updateValue()()
@@ -3228,7 +1225,7 @@ uint64_t specialized AnyGestureInfo.makeItem(_:uniqueId:)(uint64_t a1, unsigned 
   return a1;
 }
 
-uint64_t specialized _GestureOutputs.attachIndirectOutputs(_:)(unint64_t a1, uint64_t a2, int a3, unint64_t a4, uint64_t a5, int a6)
+double specialized _GestureOutputs.attachIndirectOutputs(_:)(unint64_t a1, uint64_t a2, int a3, unint64_t a4, uint64_t a5, int a6)
 {
   v10 = HIDWORD(a1);
   v11 = HIDWORD(a4);
@@ -3244,6 +1241,8 @@ uint64_t specialized _GestureOutputs.attachIndirectOutputs(_:)(unint64_t a1, uin
   v15 = a3;
 
   PreferencesOutputs.attachIndirectOutputs(to:)(&v14);
+
+  return result;
 }
 
 uint64_t specialized _GestureOutputs.detachIndirectOutputs()(unint64_t a1, uint64_t a2)
@@ -3273,11 +1272,10 @@ uint64_t specialized _GestureOutputs.detachIndirectOutputs()(unint64_t a1, uint6
   return result;
 }
 
-uint64_t specialized Map2Phase.updateValue()(unint64_t *a1, unint64_t *a2, uint64_t a3)
+double specialized Map2Phase.updateValue()(unint64_t *a1, unint64_t *a2, uint64_t a3)
 {
   v22 = *MEMORY[0x1E69E9840];
-  result = specialized ResettableGestureRule.resetIfNeeded()();
-  if (result)
+  if (specialized ResettableGestureRule.resetIfNeeded()())
   {
     type metadata accessor for (_:_:)(0, a1, a2, a3);
     v13 = *AGGraphGetValue();
@@ -3461,25 +1459,25 @@ uint64_t specialized State.wrappedValue.getter(uint64_t a1, uint64_t *a2)
   return a1;
 }
 
-unint64_t specialized PreferenceValues.setValue<A>(_:of:at:)(unint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+unint64_t specialized PreferenceValues.setValue<A>(_:of:at:)(unint64_t result, uint64_t a2, uint64_t a3, unint64_t a4, double a5)
 {
-  v7 = HIDWORD(result);
-  v8 = *v4;
-  v9 = *(*v4 + 16);
-  if (v9 == a4)
+  v8 = HIDWORD(result);
+  v9 = *v5;
+  v10 = *(*v5 + 16);
+  if (v10 == a4)
   {
     goto LABEL_5;
   }
 
-  if (v9 > a4)
+  if (v10 > a4)
   {
-    if (*(v8 + 56 * a4 + 32) == a2)
+    if (*(v9 + 56 * a4 + 32) == a2)
     {
-      if (v7)
+      if (v8)
       {
-        v5 = result;
+        v6 = result;
         result = swift_isUniquelyReferenced_nonNull_native();
-        *v4 = v8;
+        *v5 = v9;
         if (result)
         {
           goto LABEL_13;
@@ -3488,53 +1486,53 @@ unint64_t specialized PreferenceValues.setValue<A>(_:of:at:)(unint64_t result, u
         goto LABEL_16;
       }
 
-      specialized Array.remove(at:)(a4, &v12);
-      return outlined destroy of PreferenceValues.Entry(&v12);
+      specialized Array.remove(at:)(a4, &v13);
+      return outlined destroy of PreferenceValues.Entry(&v13);
     }
 
 LABEL_5:
-    if (!v7)
+    if (!v8)
     {
       return result;
     }
 
-    v15 = MEMORY[0x1E69E6370];
-    LOBYTE(v14) = result & 1;
-    *&v12 = a2;
-    *(&v12 + 1) = a3;
-    v13 = HIDWORD(result);
-    if (v9 < a4)
+    v16 = MEMORY[0x1E69E6370];
+    LOBYTE(v15) = result & 1;
+    *&v13 = a2;
+    *(&v13 + 1) = a3;
+    v14 = HIDWORD(result);
+    if (v10 < a4)
     {
       goto LABEL_15;
     }
 
-    outlined init with copy of PreferenceValues.Entry(&v12, v11);
-    specialized Array.replaceSubrange<A>(_:with:)(a4, a4, v11);
-    return outlined destroy of PreferenceValues.Entry(&v12);
+    outlined init with copy of PreferenceValues.Entry(&v13, v12);
+    specialized Array.replaceSubrange<A>(_:with:)(a4, a4, v12);
+    return outlined destroy of PreferenceValues.Entry(&v13);
   }
 
   __break(1u);
 LABEL_15:
   __break(1u);
 LABEL_16:
-  result = specialized _ArrayBuffer._consumeAndCreateNew()(v8);
-  v8 = result;
-  *v4 = result;
+  result = specialized _ArrayBuffer._consumeAndCreateNew()(v9);
+  v9 = result;
+  *v5 = result;
 LABEL_13:
-  if (*(v8 + 16) <= a4)
+  if (*(v9 + 16) <= a4)
   {
     __break(1u);
   }
 
   else
   {
-    v10 = v8 + 56 * a4;
-    v14 = MEMORY[0x1E69E6370];
-    LOBYTE(v12) = v5 & 1;
-    __swift_destroy_boxed_opaque_existential_1(v10 + 56);
-    result = outlined init with take of Any(&v12, (v10 + 56));
-    *(v10 + 48) = v7;
-    *v4 = v8;
+    v11 = v9 + 56 * a4;
+    v15 = MEMORY[0x1E69E6370];
+    LOBYTE(v13) = v6 & 1;
+    __swift_destroy_boxed_opaque_existential_1((v11 + 56));
+    result = outlined init with take of Any(&v13, (v11 + 56));
+    *(v11 + 48) = v8;
+    *v5 = v9;
   }
 
   return result;
@@ -3561,12 +1559,13 @@ uint64_t specialized PlatformItemRule.updateValue()()
     *&v40[24] = v68;
     *&v40[40] = v69;
     *&v40[56] = v70;
-    v39 = 0uLL;
+    v39 = 0;
+    v38 = 0;
     *v40 = 0;
     *&v40[200] = v2;
     LOBYTE(v41) = 0;
     *(&v41 + 1) = 0;
-    _ViewInputs.base.modify(&v39, v4);
+    _ViewInputs.base.modify();
     v93 = *&v40[176];
     v94 = *&v40[192];
     v95 = v41;
@@ -3578,7 +1577,7 @@ uint64_t specialized PlatformItemRule.updateValue()()
     v86 = *&v40[64];
     v88 = *&v40[96];
     v87 = *&v40[80];
-    v81 = v39;
+    v81 = 0u;
     v82 = *v40;
     v84 = *&v40[32];
     v83 = *&v40[16];
@@ -3604,56 +1603,56 @@ uint64_t specialized PlatformItemRule.updateValue()()
     v83 = v98;
   }
 
-  v5 = *AGGraphGetValue() >> 1;
-  if (v5 == *(v0 + 44) && (v6 = *(v0 + 40)) != 0)
+  v4 = *AGGraphGetValue() >> 1;
+  if (v4 == *(v0 + 44) && (v5 = *(v0 + 40)) != 0)
   {
-    v7 = 0;
+    v6 = 0;
   }
 
   else
   {
-    v6 = static ViewIdentity.nextSeed;
-    v7 = 1;
+    v5 = static ViewIdentity.nextSeed;
+    v6 = 1;
     if ((static ViewIdentity.nextSeed + 1) > 1)
     {
-      v8 = static ViewIdentity.nextSeed + 1;
+      v7 = static ViewIdentity.nextSeed + 1;
     }
 
     else
     {
-      v8 = 1;
+      v7 = 1;
     }
 
-    static ViewIdentity.nextSeed = v8;
-    *(v0 + 40) = v6;
-    *(v0 + 44) = v5;
+    static ViewIdentity.nextSeed = v7;
+    *(v0 + 40) = v5;
+    *(v0 + 44) = v4;
   }
 
   if (AGGraphGetOutputValue())
   {
-    v9 = v7;
+    v8 = v6;
   }
 
   else
   {
-    v9 = 1;
+    v8 = 1;
   }
 
-  if (((v9 | v1) & 1) == 0)
+  if (((v8 | v1) & 1) == 0)
   {
     return outlined destroy of GlassEntryView?(&v81, &lazy cache variable for type metadata for PlatformItem.PrimaryContent?, &type metadata for PlatformItem.PrimaryContent, MEMORY[0x1E69E6720]);
   }
 
-  v10 = *(v0 + 48) + 1;
-  *(v0 + 48) = v10;
-  v11 = MEMORY[0x1E69E6F90];
+  v9 = *(v0 + 48) + 1;
+  *(v0 + 48) = v9;
+  v10 = MEMORY[0x1E69E6F90];
   type metadata accessor for EnvironmentFetch<LayoutDirection>(0, &lazy cache variable for type metadata for _ContiguousArrayStorage<ViewIdentity>, &type metadata for ViewIdentity, MEMORY[0x1E69E6F90]);
-  v12 = swift_allocObject();
-  *(v12 + 16) = xmmword_18DDA6EB0;
-  *(v12 + 32) = v6;
-  v13 = *(v0 + 32);
-  v14 = *(v0 + 24);
-  v15 = *(v0 + 33);
+  v11 = swift_allocObject();
+  *(v11 + 16) = xmmword_18DDA6EB0;
+  *(v11 + 32) = v5;
+  v12 = *(v0 + 32);
+  v13 = *(v0 + 24);
+  v14 = *(v0 + 33);
   v44 = 0u;
   v45 = 0u;
   v46 = xmmword_18DD85500;
@@ -3676,15 +1675,15 @@ uint64_t specialized PlatformItemRule.updateValue()()
   v63 = 0u;
   v64 = 0u;
   memset(v65, 0, sizeof(v65));
-  *&v39 = v12;
-  type metadata accessor for EnvironmentFetch<LayoutDirection>(0, &lazy cache variable for type metadata for _ContiguousArrayStorage<PlatformItem.StaticKind>, &type metadata for PlatformItem.StaticKind, v11);
-  v16 = swift_allocObject();
-  *(v16 + 16) = xmmword_18DDA6EB0;
-  *(v16 + 32) = v13;
-  *(&v39 + 1) = v16;
-  *v40 = v14;
-  v40[8] = v15;
-  *&v40[12] = v10;
+  v38 = v11;
+  type metadata accessor for EnvironmentFetch<LayoutDirection>(0, &lazy cache variable for type metadata for _ContiguousArrayStorage<PlatformItem.StaticKind>, &type metadata for PlatformItem.StaticKind, v10);
+  v15 = swift_allocObject();
+  *(v15 + 16) = xmmword_18DDA6EB0;
+  *(v15 + 32) = v12;
+  v39 = v15;
+  *v40 = v13;
+  v40[8] = v14;
+  *&v40[12] = v9;
   v66[12] = v108;
   v66[13] = v109;
   v66[14] = v110;
@@ -3733,38 +1732,38 @@ uint64_t specialized PlatformItemRule.updateValue()()
   v69 = v83;
   if (_s7SwiftUI12PlatformItemV14PrimaryContentVSgWOg(&v67) != 1)
   {
-    v23[12] = v41;
-    v23[13] = v42;
-    v23[14] = v43;
-    v23[8] = *&v40[144];
-    v23[9] = *&v40[160];
-    v23[10] = *&v40[176];
-    v23[11] = *&v40[192];
-    v23[4] = *&v40[80];
-    v23[5] = *&v40[96];
-    v23[6] = *&v40[112];
-    v23[7] = *&v40[128];
-    v23[0] = *&v40[16];
-    v23[1] = *&v40[32];
-    v23[2] = *&v40[48];
-    v23[3] = *&v40[64];
-    v36 = v93;
-    v37 = v94;
-    v38 = v95;
-    v32 = v89;
-    v33 = v90;
-    v34 = v91;
-    v35 = v92;
-    v28 = v85;
-    v29 = v86;
-    v30 = v87;
-    v31 = v88;
-    v24 = v81;
-    v25 = v82;
-    v26 = v83;
-    v27 = v84;
-    outlined init with copy of PlatformItem.PrimaryContent(&v24, v22);
-    outlined destroy of GlassEntryView?(v23, &lazy cache variable for type metadata for PlatformItem.PrimaryContent?, &type metadata for PlatformItem.PrimaryContent, MEMORY[0x1E69E6720]);
+    v22[12] = v41;
+    v22[13] = v42;
+    v22[14] = v43;
+    v22[8] = *&v40[144];
+    v22[9] = *&v40[160];
+    v22[10] = *&v40[176];
+    v22[11] = *&v40[192];
+    v22[4] = *&v40[80];
+    v22[5] = *&v40[96];
+    v22[6] = *&v40[112];
+    v22[7] = *&v40[128];
+    v22[0] = *&v40[16];
+    v22[1] = *&v40[32];
+    v22[2] = *&v40[48];
+    v22[3] = *&v40[64];
+    v35 = v93;
+    v36 = v94;
+    v37 = v95;
+    v31 = v89;
+    v32 = v90;
+    v33 = v91;
+    v34 = v92;
+    v27 = v85;
+    v28 = v86;
+    v29 = v87;
+    v30 = v88;
+    v23 = v81;
+    v24 = v82;
+    v25 = v83;
+    v26 = v84;
+    outlined init with copy of PlatformItem.PrimaryContent(&v23, v21);
+    outlined destroy of GlassEntryView?(v22, &lazy cache variable for type metadata for PlatformItem.PrimaryContent?, &type metadata for PlatformItem.PrimaryContent, MEMORY[0x1E69E6720]);
     v41 = v93;
     v42 = v94;
     v43 = v95;
@@ -3784,126 +1783,127 @@ uint64_t specialized PlatformItemRule.updateValue()()
 
   if (*(v0 + 36) != *MEMORY[0x1E698D3F8])
   {
-    v17 = *AGGraphGetValue();
+    v16 = *AGGraphGetValue();
 
-    *&v44 = v17;
+    *&v44 = v16;
   }
 
-  v18 = *(v0 + 16);
-  v19 = *&v40[12];
+  v17 = *(v0 + 16);
+  v18 = *&v40[12];
   type metadata accessor for EnvironmentFetch<LayoutDirection>(0, &lazy cache variable for type metadata for _ContiguousArrayStorage<PlatformItem>, &type metadata for PlatformItem, MEMORY[0x1E69E6F90]);
-  v20 = swift_allocObject();
-  *(v20 + 16) = xmmword_18DDA6EB0;
-  outlined init with copy of PlatformItem(&v39, v20 + 32);
-  *&v24 = v18;
-  DWORD2(v24) = v19;
-  *&v25 = v20;
+  v19 = swift_allocObject();
+  *(v19 + 16) = xmmword_18DDA6EB0;
+  outlined init with copy of PlatformItem(&v38, v19 + 32);
+  *&v23 = v17;
+  DWORD2(v23) = v18;
+  *&v24 = v19;
   AGGraphSetOutputValue();
   outlined destroy of GlassEntryView?(&v81, &lazy cache variable for type metadata for PlatformItem.PrimaryContent?, &type metadata for PlatformItem.PrimaryContent, MEMORY[0x1E69E6720]);
 
-  return outlined destroy of PlatformItem(&v39);
+  return outlined destroy of PlatformItem(&v38);
 }
 
 {
-  v110 = *MEMORY[0x1E69E9840];
-  _s7SwiftUI12PlatformItemV14PrimaryContentVSgWOi0_(&v95);
+  v109 = *MEMORY[0x1E69E9840];
+  _s7SwiftUI12PlatformItemV14PrimaryContentVSgWOi0_(&v94);
   if ((*(v0 + 24) & 2) != 0)
   {
-    v1 = PlatformItemsTextRepresentable.PlatformItemContent.makeContent()(&v39);
-    _ViewInputs.base.modify(&v39, v4);
+    v1 = PlatformItemsTextRepresentable.PlatformItemContent.makeContent()(&v38);
+    _ViewInputs.base.modify();
+    v91 = v50;
     v92 = v51;
     v93 = v52;
-    v94 = v53;
-    v88 = v47;
-    v89 = v48;
-    v91 = v50;
-    v90 = v49;
-    v84 = v43;
-    v85 = v44;
     v87 = v46;
+    v88 = v47;
+    v90 = v49;
+    v89 = v48;
+    v83 = v42;
+    v84 = v43;
     v86 = v45;
+    v85 = v44;
+    v79 = v38;
     v80 = v39;
-    v81 = v40;
-    v3 = v41;
-    v2 = v42;
+    v3 = v40;
+    v2 = v41;
   }
 
   else
   {
     v1 = 0;
+    v91 = v106;
     v92 = v107;
     v93 = v108;
-    v94 = v109;
-    v88 = v103;
-    v89 = v104;
-    v91 = v106;
-    v90 = v105;
-    v2 = v98;
-    v84 = v99;
-    v85 = v100;
     v87 = v102;
+    v88 = v103;
+    v90 = v105;
+    v89 = v104;
+    v2 = v97;
+    v83 = v98;
+    v84 = v99;
     v86 = v101;
+    v85 = v100;
+    v79 = v94;
     v80 = v95;
-    v81 = v96;
-    v3 = v97;
+    v3 = v96;
   }
 
-  v83 = v2;
-  v82 = v3;
-  v5 = *AGGraphGetValue() >> 1;
-  if (v5 == *(v0 + 44) && (v6 = *(v0 + 40)) != 0)
+  v82 = v2;
+  v81 = v3;
+  v4 = *AGGraphGetValue() >> 1;
+  if (v4 == *(v0 + 44) && (v5 = *(v0 + 40)) != 0)
   {
-    v7 = 0;
+    v6 = 0;
   }
 
   else
   {
-    v6 = static ViewIdentity.nextSeed;
-    v7 = 1;
+    v5 = static ViewIdentity.nextSeed;
+    v6 = 1;
     if ((static ViewIdentity.nextSeed + 1) > 1)
     {
-      v8 = static ViewIdentity.nextSeed + 1;
+      v7 = static ViewIdentity.nextSeed + 1;
     }
 
     else
     {
-      v8 = 1;
+      v7 = 1;
     }
 
-    static ViewIdentity.nextSeed = v8;
-    *(v0 + 40) = v6;
-    *(v0 + 44) = v5;
+    static ViewIdentity.nextSeed = v7;
+    *(v0 + 40) = v5;
+    *(v0 + 44) = v4;
   }
 
   if (AGGraphGetOutputValue())
   {
-    v9 = v7;
+    v8 = v6;
   }
 
   else
   {
-    v9 = 1;
+    v8 = 1;
   }
 
-  if (((v9 | v1) & 1) == 0)
+  if (((v8 | v1) & 1) == 0)
   {
-    return outlined destroy of GlassEntryView?(&v80, &lazy cache variable for type metadata for PlatformItem.PrimaryContent?, &type metadata for PlatformItem.PrimaryContent, MEMORY[0x1E69E6720]);
+    return outlined destroy of GlassEntryView?(&v79, &lazy cache variable for type metadata for PlatformItem.PrimaryContent?, &type metadata for PlatformItem.PrimaryContent, MEMORY[0x1E69E6720]);
   }
 
-  v10 = *(v0 + 48) + 1;
-  *(v0 + 48) = v10;
-  v11 = MEMORY[0x1E69E6F90];
+  v9 = *(v0 + 48) + 1;
+  *(v0 + 48) = v9;
+  v10 = MEMORY[0x1E69E6F90];
   type metadata accessor for EnvironmentFetch<LayoutDirection>(0, &lazy cache variable for type metadata for _ContiguousArrayStorage<ViewIdentity>, &type metadata for ViewIdentity, MEMORY[0x1E69E6F90]);
-  v12 = swift_allocObject();
-  *(v12 + 16) = xmmword_18DDA6EB0;
-  *(v12 + 32) = v6;
-  v13 = *(v0 + 32);
-  v14 = *(v0 + 24);
-  v15 = *(v0 + 33);
+  v11 = swift_allocObject();
+  *(v11 + 16) = xmmword_18DDA6EB0;
+  *(v11 + 32) = v5;
+  v12 = *(v0 + 32);
+  v13 = *(v0 + 24);
+  v14 = *(v0 + 33);
+  v55 = 0u;
   v56 = 0u;
-  v57 = 0u;
-  v58 = xmmword_18DD85500;
-  v59 = 1;
+  v57 = xmmword_18DD85500;
+  v58 = 1;
+  v59 = 0u;
   v60 = 0u;
   v61 = 0u;
   v62 = 0u;
@@ -3920,332 +1920,333 @@ uint64_t specialized PlatformItemRule.updateValue()()
   v73 = 0u;
   v74 = 0u;
   v75 = 0u;
-  v76 = 0u;
-  memset(v77, 0, sizeof(v77));
-  *&v39 = v12;
-  type metadata accessor for EnvironmentFetch<LayoutDirection>(0, &lazy cache variable for type metadata for _ContiguousArrayStorage<PlatformItem.StaticKind>, &type metadata for PlatformItem.StaticKind, v11);
-  v16 = swift_allocObject();
-  *(v16 + 16) = xmmword_18DDA6EB0;
-  *(v16 + 32) = v13;
-  *(&v39 + 1) = v16;
-  *&v40 = v14;
-  BYTE8(v40) = v15;
-  HIDWORD(v40) = v10;
-  v78[12] = v107;
-  v78[13] = v108;
-  v78[14] = v109;
-  v78[8] = v103;
-  v78[9] = v104;
-  v78[11] = v106;
-  v78[10] = v105;
-  v78[4] = v99;
-  v78[5] = v100;
-  v78[7] = v102;
-  v78[6] = v101;
-  v78[0] = v95;
-  v78[1] = v96;
-  v78[3] = v98;
-  v78[2] = v97;
-  outlined destroy of GlassEntryView?(v78, &lazy cache variable for type metadata for PlatformItem.PrimaryContent?, &type metadata for PlatformItem.PrimaryContent, MEMORY[0x1E69E6720]);
+  memset(v76, 0, sizeof(v76));
+  *&v38 = v11;
+  type metadata accessor for EnvironmentFetch<LayoutDirection>(0, &lazy cache variable for type metadata for _ContiguousArrayStorage<PlatformItem.StaticKind>, &type metadata for PlatformItem.StaticKind, v10);
+  v15 = swift_allocObject();
+  *(v15 + 16) = xmmword_18DDA6EB0;
+  *(v15 + 32) = v12;
+  *(&v38 + 1) = v15;
+  *&v39 = v13;
+  BYTE8(v39) = v14;
+  HIDWORD(v39) = v9;
+  v77[12] = v106;
+  v77[13] = v107;
+  v77[14] = v108;
+  v77[8] = v102;
+  v77[9] = v103;
+  v77[11] = v105;
+  v77[10] = v104;
+  v77[4] = v98;
+  v77[5] = v99;
+  v77[7] = v101;
+  v77[6] = v100;
+  v77[0] = v94;
+  v77[1] = v95;
+  v77[3] = v97;
+  v77[2] = v96;
+  outlined destroy of GlassEntryView?(v77, &lazy cache variable for type metadata for PlatformItem.PrimaryContent?, &type metadata for PlatformItem.PrimaryContent, MEMORY[0x1E69E6720]);
+  v52 = v106;
   v53 = v107;
   v54 = v108;
-  v55 = v109;
+  v48 = v102;
   v49 = v103;
   v50 = v104;
   v51 = v105;
-  v52 = v106;
+  v44 = v98;
   v45 = v99;
   v46 = v100;
   v47 = v101;
-  v48 = v102;
+  v40 = v94;
   v41 = v95;
   v42 = v96;
   v43 = v97;
-  v44 = v98;
-  v79[12] = v92;
-  v79[13] = v93;
-  v79[14] = v94;
-  v79[8] = v88;
-  v79[9] = v89;
-  v79[11] = v91;
-  v79[10] = v90;
-  v79[4] = v84;
-  v79[5] = v85;
-  v79[7] = v87;
-  v79[6] = v86;
-  v79[0] = v80;
-  v79[1] = v81;
-  v79[3] = v83;
-  v79[2] = v82;
-  if (_s7SwiftUI12PlatformItemV14PrimaryContentVSgWOg(v79) != 1)
+  v78[12] = v91;
+  v78[13] = v92;
+  v78[14] = v93;
+  v78[8] = v87;
+  v78[9] = v88;
+  v78[11] = v90;
+  v78[10] = v89;
+  v78[4] = v83;
+  v78[5] = v84;
+  v78[7] = v86;
+  v78[6] = v85;
+  v78[0] = v79;
+  v78[1] = v80;
+  v78[3] = v82;
+  v78[2] = v81;
+  if (_s7SwiftUI12PlatformItemV14PrimaryContentVSgWOg(v78) != 1)
   {
-    v23[12] = v53;
-    v23[13] = v54;
-    v23[14] = v55;
-    v23[8] = v49;
-    v23[9] = v50;
-    v23[10] = v51;
-    v23[11] = v52;
-    v23[4] = v45;
-    v23[5] = v46;
-    v23[6] = v47;
-    v23[7] = v48;
-    v23[0] = v41;
-    v23[1] = v42;
-    v23[2] = v43;
-    v23[3] = v44;
+    v22[12] = v52;
+    v22[13] = v53;
+    v22[14] = v54;
+    v22[8] = v48;
+    v22[9] = v49;
+    v22[10] = v50;
+    v22[11] = v51;
+    v22[4] = v44;
+    v22[5] = v45;
+    v22[6] = v46;
+    v22[7] = v47;
+    v22[0] = v40;
+    v22[1] = v41;
+    v22[2] = v42;
+    v22[3] = v43;
+    v35 = v91;
     v36 = v92;
     v37 = v93;
-    v38 = v94;
+    v31 = v87;
     v32 = v88;
     v33 = v89;
     v34 = v90;
-    v35 = v91;
+    v27 = v83;
     v28 = v84;
     v29 = v85;
     v30 = v86;
-    v31 = v87;
+    v23 = v79;
     v24 = v80;
     v25 = v81;
     v26 = v82;
-    v27 = v83;
-    outlined init with copy of PlatformItem.PrimaryContent(&v24, v22);
-    outlined destroy of GlassEntryView?(v23, &lazy cache variable for type metadata for PlatformItem.PrimaryContent?, &type metadata for PlatformItem.PrimaryContent, MEMORY[0x1E69E6720]);
+    outlined init with copy of PlatformItem.PrimaryContent(&v23, v21);
+    outlined destroy of GlassEntryView?(v22, &lazy cache variable for type metadata for PlatformItem.PrimaryContent?, &type metadata for PlatformItem.PrimaryContent, MEMORY[0x1E69E6720]);
+    v52 = v91;
     v53 = v92;
     v54 = v93;
-    v55 = v94;
+    v48 = v87;
     v49 = v88;
     v50 = v89;
     v51 = v90;
-    v52 = v91;
+    v44 = v83;
     v45 = v84;
     v46 = v85;
     v47 = v86;
-    v48 = v87;
+    v40 = v79;
     v41 = v80;
     v42 = v81;
     v43 = v82;
-    v44 = v83;
   }
 
   if (*(v0 + 36) != *MEMORY[0x1E698D3F8])
   {
-    v17 = *AGGraphGetValue();
+    v16 = *AGGraphGetValue();
 
-    *&v56 = v17;
+    *&v55 = v16;
   }
 
-  v18 = *(v0 + 16);
-  v19 = HIDWORD(v40);
+  v17 = *(v0 + 16);
+  v18 = HIDWORD(v39);
   type metadata accessor for EnvironmentFetch<LayoutDirection>(0, &lazy cache variable for type metadata for _ContiguousArrayStorage<PlatformItem>, &type metadata for PlatformItem, MEMORY[0x1E69E6F90]);
-  v20 = swift_allocObject();
-  *(v20 + 16) = xmmword_18DDA6EB0;
-  outlined init with copy of PlatformItem(&v39, v20 + 32);
-  *&v24 = v18;
-  DWORD2(v24) = v19;
-  *&v25 = v20;
+  v19 = swift_allocObject();
+  *(v19 + 16) = xmmword_18DDA6EB0;
+  outlined init with copy of PlatformItem(&v38, v19 + 32);
+  *&v23 = v17;
+  DWORD2(v23) = v18;
+  *&v24 = v19;
   AGGraphSetOutputValue();
-  outlined destroy of GlassEntryView?(&v80, &lazy cache variable for type metadata for PlatformItem.PrimaryContent?, &type metadata for PlatformItem.PrimaryContent, MEMORY[0x1E69E6720]);
+  outlined destroy of GlassEntryView?(&v79, &lazy cache variable for type metadata for PlatformItem.PrimaryContent?, &type metadata for PlatformItem.PrimaryContent, MEMORY[0x1E69E6720]);
 
-  return outlined destroy of PlatformItem(&v39);
+  return outlined destroy of PlatformItem(&v38);
 }
 
 {
-  v170 = *MEMORY[0x1E69E9840];
-  _s7SwiftUI12PlatformItemV14PrimaryContentVSgWOi0_(&v155);
+  v168 = *MEMORY[0x1E69E9840];
+  _s7SwiftUI12PlatformItemV14PrimaryContentVSgWOi0_(&v153);
   if ((*(v0 + 24) & 4) != 0)
   {
     Value = AGGraphGetValue();
-    v126 = *Value;
+    v124 = *Value;
     v5 = Value[3];
     v7 = Value[1];
     v6 = Value[2];
-    v130 = Value[4];
-    v129 = v5;
-    v127 = v7;
-    v128 = v6;
+    v128 = Value[4];
+    v127 = v5;
+    v125 = v7;
+    v126 = v6;
     v8 = Value[7];
     v10 = Value[5];
     v9 = Value[6];
-    v134 = Value[8];
-    v133 = v8;
-    v131 = v10;
-    v132 = v9;
+    v132 = Value[8];
+    v131 = v8;
+    v129 = v10;
+    v130 = v9;
     v11 = Value[11];
     v13 = Value[9];
     v12 = Value[10];
-    v137 = Value[12];
-    *&v136[16] = v11;
-    v135 = v13;
-    *v136 = v12;
+    v135 = Value[12];
+    *&v134[16] = v11;
+    v133 = v13;
+    *v134 = v12;
     v1 = v14 & 1;
-    v15 = *(&v137 + 1);
-    _s7SwiftUI5ImageVAAE8ResolvedVSgWOi0_(&v57);
-    v51 = v65;
-    v53 = v66;
-    *v55 = *v67;
-    *&v55[11] = *&v67[11];
-    v43 = v61;
-    v45 = v62;
-    v47 = v63;
-    v49 = v64;
-    v35 = v57;
-    v37 = v58;
-    v39 = v59;
-    v41 = v60;
-    v79 = v134;
-    v80 = v135;
-    *v81 = *v136;
-    *&v81[11] = *&v136[11];
-    v75 = v130;
-    v76 = v131;
+    v15 = *(&v135 + 1);
+    _s7SwiftUI5ImageVAAE8ResolvedVSgWOi0_(&v55);
+    v49 = v63;
+    v51 = v64;
+    *v53 = *v65;
+    *&v53[11] = *&v65[11];
+    v41 = v59;
+    v43 = v60;
+    v45 = v61;
+    v47 = v62;
+    v33 = v55;
+    v35 = v56;
+    v37 = v57;
+    v39 = v58;
     v77 = v132;
     v78 = v133;
-    v71 = v126;
-    v72 = v127;
+    *v79 = *v134;
+    *&v79[11] = *&v134[11];
     v73 = v128;
     v74 = v129;
-    _ViewInputs.base.modify(&v71, v16);
-    v120 = v51;
-    v121 = v53;
-    *v122 = *v55;
-    *&v122[11] = *&v55[11];
-    v116 = v43;
-    v117 = v45;
-    v118 = v47;
-    v119 = v49;
-    v112 = v35;
-    v113 = v37;
-    v114 = v39;
-    v115 = v41;
-    outlined init with copy of PlatformImageRepresentableContext(&v126, &v85);
-    outlined init with copy of Image.Resolved(&v126, &v85);
-    outlined destroy of GlassEntryView?(&v112, &lazy cache variable for type metadata for Image.Resolved?, &type metadata for Image.Resolved, MEMORY[0x1E69E6720]);
-    v52 = v79;
-    v54 = v80;
-    *v55 = *v81;
-    *&v55[11] = *&v81[11];
-    v44 = v75;
-    v46 = v76;
-    v48 = v77;
-    v50 = v78;
-    v36 = v71;
-    v38 = v72;
-    v40 = v73;
-    v42 = v74;
+    v75 = v130;
+    v76 = v131;
+    v69 = v124;
+    v70 = v125;
+    v71 = v126;
+    v72 = v127;
+    _ViewInputs.base.modify();
+    v118 = v49;
+    v119 = v51;
+    *v120 = *v53;
+    *&v120[11] = *&v53[11];
+    v114 = v41;
+    v115 = v43;
+    v116 = v45;
+    v117 = v47;
+    v110 = v33;
+    v111 = v35;
+    v112 = v37;
+    v113 = v39;
+    outlined init with copy of PlatformImageRepresentableContext(&v124, &v83);
+    outlined init with copy of Image.Resolved(&v124, &v83);
+    outlined destroy of GlassEntryView?(&v110, &lazy cache variable for type metadata for Image.Resolved?, &type metadata for Image.Resolved, MEMORY[0x1E69E6720]);
+    v50 = v77;
+    v52 = v78;
+    *v53 = *v79;
+    *&v53[11] = *&v79[11];
+    v42 = v73;
+    v44 = v74;
+    v46 = v75;
+    v48 = v76;
+    v34 = v69;
+    v36 = v70;
+    v38 = v71;
+    v40 = v72;
 
-    outlined destroy of PlatformImageRepresentableContext(&v126);
-    *&v86[136] = v52;
-    *&v86[152] = v54;
-    *&v86[168] = *v55;
-    *&v86[179] = *&v55[11];
-    *&v86[72] = v44;
-    *&v86[88] = v46;
-    *&v86[104] = v48;
-    *&v86[120] = v50;
-    *&v86[8] = v36;
-    *&v86[24] = v38;
-    *&v86[40] = v40;
-    v85 = 0uLL;
-    *&v86[56] = v42;
-    *v86 = 0;
-    *&v86[200] = 0;
-    LOBYTE(v87) = 1;
-    *(&v87 + 1) = v15;
-    _ViewInputs.base.modify(&v85, v17);
-    v152 = *&v86[176];
-    v153 = *&v86[192];
-    v154 = v87;
-    v148 = *&v86[112];
-    v149 = *&v86[128];
-    v151 = *&v86[160];
-    v150 = *&v86[144];
-    v144 = *&v86[48];
-    v145 = *&v86[64];
-    v147 = *&v86[96];
-    v146 = *&v86[80];
-    v140 = v85;
-    v141 = *v86;
-    v3 = *&v86[16];
-    v2 = *&v86[32];
+    outlined destroy of PlatformImageRepresentableContext(&v124);
+    *&v84[136] = v50;
+    *&v84[152] = v52;
+    *&v84[168] = *v53;
+    *&v84[179] = *&v53[11];
+    *&v84[72] = v42;
+    *&v84[88] = v44;
+    *&v84[104] = v46;
+    *&v84[120] = v48;
+    *&v84[8] = v34;
+    *&v84[24] = v36;
+    *&v84[40] = v38;
+    v83 = 0uLL;
+    *&v84[56] = v40;
+    *v84 = 0;
+    *&v84[200] = 0;
+    LOBYTE(v85) = 1;
+    *(&v85 + 1) = v15;
+    _ViewInputs.base.modify();
+    v150 = *&v84[176];
+    v151 = *&v84[192];
+    v152 = v85;
+    v146 = *&v84[112];
+    v147 = *&v84[128];
+    v149 = *&v84[160];
+    v148 = *&v84[144];
+    v142 = *&v84[48];
+    v143 = *&v84[64];
+    v145 = *&v84[96];
+    v144 = *&v84[80];
+    v138 = v83;
+    v139 = *v84;
+    v3 = *&v84[16];
+    v2 = *&v84[32];
   }
 
   else
   {
     v1 = 0;
-    v152 = v167;
-    v153 = v168;
-    v154 = v169;
-    v148 = v163;
-    v149 = v164;
-    v151 = v166;
     v150 = v165;
-    v2 = v158;
-    v144 = v159;
-    v145 = v160;
-    v147 = v162;
+    v151 = v166;
+    v152 = v167;
     v146 = v161;
-    v140 = v155;
-    v141 = v156;
-    v3 = v157;
+    v147 = v162;
+    v149 = v164;
+    v148 = v163;
+    v2 = v156;
+    v142 = v157;
+    v143 = v158;
+    v145 = v160;
+    v144 = v159;
+    v138 = v153;
+    v139 = v154;
+    v3 = v155;
   }
 
-  v143 = v2;
-  v142 = v3;
-  v18 = *AGGraphGetValue() >> 1;
-  if (v18 == *(v0 + 44) && (v19 = *(v0 + 40)) != 0)
+  v141 = v2;
+  v140 = v3;
+  v16 = *AGGraphGetValue() >> 1;
+  if (v16 == *(v0 + 44) && (v17 = *(v0 + 40)) != 0)
   {
-    v20 = 0;
+    v18 = 0;
   }
 
   else
   {
-    v19 = static ViewIdentity.nextSeed;
-    v20 = 1;
+    v17 = static ViewIdentity.nextSeed;
+    v18 = 1;
     if ((static ViewIdentity.nextSeed + 1) > 1)
     {
-      v21 = static ViewIdentity.nextSeed + 1;
+      v19 = static ViewIdentity.nextSeed + 1;
     }
 
     else
     {
-      v21 = 1;
+      v19 = 1;
     }
 
-    static ViewIdentity.nextSeed = v21;
-    *(v0 + 40) = v19;
-    *(v0 + 44) = v18;
+    static ViewIdentity.nextSeed = v19;
+    *(v0 + 40) = v17;
+    *(v0 + 44) = v16;
   }
 
   if (AGGraphGetOutputValue())
   {
-    v22 = v20;
+    v20 = v18;
   }
 
   else
   {
-    v22 = 1;
+    v20 = 1;
   }
 
-  if (((v22 | v1) & 1) == 0)
+  if (((v20 | v1) & 1) == 0)
   {
-    return outlined destroy of GlassEntryView?(&v140, &lazy cache variable for type metadata for PlatformItem.PrimaryContent?, &type metadata for PlatformItem.PrimaryContent, MEMORY[0x1E69E6720]);
+    return outlined destroy of GlassEntryView?(&v138, &lazy cache variable for type metadata for PlatformItem.PrimaryContent?, &type metadata for PlatformItem.PrimaryContent, MEMORY[0x1E69E6720]);
   }
 
-  v23 = *(v0 + 48) + 1;
-  *(v0 + 48) = v23;
-  v24 = MEMORY[0x1E69E6F90];
+  v21 = *(v0 + 48) + 1;
+  *(v0 + 48) = v21;
+  v22 = MEMORY[0x1E69E6F90];
   type metadata accessor for EnvironmentFetch<LayoutDirection>(0, &lazy cache variable for type metadata for _ContiguousArrayStorage<ViewIdentity>, &type metadata for ViewIdentity, MEMORY[0x1E69E6F90]);
-  v25 = swift_allocObject();
-  *(v25 + 16) = xmmword_18DDA6EB0;
-  *(v25 + 32) = v19;
-  v26 = *(v0 + 32);
-  v27 = *(v0 + 24);
-  v28 = *(v0 + 33);
-  v90 = 0u;
-  v91 = 0u;
-  v92 = xmmword_18DD85500;
-  v93 = 1;
+  v23 = swift_allocObject();
+  *(v23 + 16) = xmmword_18DDA6EB0;
+  *(v23 + 32) = v17;
+  v24 = *(v0 + 32);
+  v25 = *(v0 + 24);
+  v26 = *(v0 + 33);
+  v88 = 0u;
+  v89 = 0u;
+  v90 = xmmword_18DD85500;
+  v91 = 1;
+  v92 = 0u;
+  v93 = 0u;
   v94 = 0u;
   v95 = 0u;
   v96 = 0u;
@@ -4261,135 +2262,226 @@ uint64_t specialized PlatformItemRule.updateValue()()
   v106 = 0u;
   v107 = 0u;
   v108 = 0u;
-  v109 = 0u;
-  v110 = 0u;
-  memset(v111, 0, sizeof(v111));
-  *&v85 = v25;
-  type metadata accessor for EnvironmentFetch<LayoutDirection>(0, &lazy cache variable for type metadata for _ContiguousArrayStorage<PlatformItem.StaticKind>, &type metadata for PlatformItem.StaticKind, v24);
-  v29 = swift_allocObject();
-  *(v29 + 16) = xmmword_18DDA6EB0;
-  *(v29 + 32) = v26;
-  *(&v85 + 1) = v29;
-  *v86 = v27;
-  v86[8] = v28;
-  *&v86[12] = v23;
+  memset(v109, 0, sizeof(v109));
+  *&v83 = v23;
+  type metadata accessor for EnvironmentFetch<LayoutDirection>(0, &lazy cache variable for type metadata for _ContiguousArrayStorage<PlatformItem.StaticKind>, &type metadata for PlatformItem.StaticKind, v22);
+  v27 = swift_allocObject();
+  *(v27 + 16) = xmmword_18DDA6EB0;
+  *(v27 + 32) = v24;
+  *(&v83 + 1) = v27;
+  *v84 = v25;
+  v84[8] = v26;
+  *&v84[12] = v21;
+  v121 = v165;
+  v122 = v166;
   v123 = v167;
-  v124 = v168;
-  v125 = v169;
-  v120 = v163;
-  v121 = v164;
-  *&v122[16] = v166;
-  *v122 = v165;
-  v116 = v159;
-  v117 = v160;
-  v119 = v162;
   v118 = v161;
-  v112 = v155;
-  v113 = v156;
-  v115 = v158;
+  v119 = v162;
+  *&v120[16] = v164;
+  *v120 = v163;
   v114 = v157;
-  outlined destroy of GlassEntryView?(&v112, &lazy cache variable for type metadata for PlatformItem.PrimaryContent?, &type metadata for PlatformItem.PrimaryContent, MEMORY[0x1E69E6720]);
+  v115 = v158;
+  v117 = v160;
+  v116 = v159;
+  v110 = v153;
+  v111 = v154;
+  v113 = v156;
+  v112 = v155;
+  outlined destroy of GlassEntryView?(&v110, &lazy cache variable for type metadata for PlatformItem.PrimaryContent?, &type metadata for PlatformItem.PrimaryContent, MEMORY[0x1E69E6720]);
+  v85 = v165;
+  v86 = v166;
   v87 = v167;
-  v88 = v168;
-  v89 = v169;
-  *&v86[144] = v163;
-  *&v86[160] = v164;
-  *&v86[176] = v165;
-  *&v86[192] = v166;
-  *&v86[80] = v159;
-  *&v86[96] = v160;
-  *&v86[112] = v161;
-  *&v86[128] = v162;
-  *&v86[16] = v155;
-  *&v86[32] = v156;
-  *&v86[48] = v157;
-  *&v86[64] = v158;
+  *&v84[144] = v161;
+  *&v84[160] = v162;
+  *&v84[176] = v163;
+  *&v84[192] = v164;
+  *&v84[80] = v157;
+  *&v84[96] = v158;
+  *&v84[112] = v159;
+  *&v84[128] = v160;
+  *&v84[16] = v153;
+  *&v84[32] = v154;
+  *&v84[48] = v155;
+  *&v84[64] = v156;
+  v135 = v150;
+  v136 = v151;
   v137 = v152;
-  v138 = v153;
-  v139 = v154;
-  v134 = v148;
-  v135 = v149;
-  *&v136[16] = v151;
-  *v136 = v150;
-  v130 = v144;
-  v131 = v145;
-  v133 = v147;
   v132 = v146;
-  v126 = v140;
-  v127 = v141;
-  v129 = v143;
+  v133 = v147;
+  *&v134[16] = v149;
+  *v134 = v148;
   v128 = v142;
-  if (_s7SwiftUI12PlatformItemV14PrimaryContentVSgWOg(&v126) != 1)
+  v129 = v143;
+  v131 = v145;
+  v130 = v144;
+  v124 = v138;
+  v125 = v139;
+  v127 = v141;
+  v126 = v140;
+  if (_s7SwiftUI12PlatformItemV14PrimaryContentVSgWOg(&v124) != 1)
   {
+    v66 = v85;
+    v67 = v86;
     v68 = v87;
-    v69 = v88;
-    v70 = v89;
-    v65 = *&v86[144];
-    v66 = *&v86[160];
-    *v67 = *&v86[176];
-    *&v67[16] = *&v86[192];
-    v61 = *&v86[80];
-    v62 = *&v86[96];
-    v63 = *&v86[112];
-    v64 = *&v86[128];
-    v57 = *&v86[16];
-    v58 = *&v86[32];
-    v59 = *&v86[48];
-    v60 = *&v86[64];
+    v63 = *&v84[144];
+    v64 = *&v84[160];
+    *v65 = *&v84[176];
+    *&v65[16] = *&v84[192];
+    v59 = *&v84[80];
+    v60 = *&v84[96];
+    v61 = *&v84[112];
+    v62 = *&v84[128];
+    v55 = *&v84[16];
+    v56 = *&v84[32];
+    v57 = *&v84[48];
+    v58 = *&v84[64];
+    v80 = v150;
+    v81 = v151;
     v82 = v152;
-    v83 = v153;
-    v84 = v154;
-    v79 = v148;
-    v80 = v149;
-    *v81 = v150;
-    *&v81[16] = v151;
-    v75 = v144;
-    v76 = v145;
     v77 = v146;
     v78 = v147;
-    v71 = v140;
-    v72 = v141;
+    *v79 = v148;
+    *&v79[16] = v149;
     v73 = v142;
     v74 = v143;
-    outlined init with copy of PlatformItem.PrimaryContent(&v71, v56);
-    outlined destroy of GlassEntryView?(&v57, &lazy cache variable for type metadata for PlatformItem.PrimaryContent?, &type metadata for PlatformItem.PrimaryContent, MEMORY[0x1E69E6720]);
+    v75 = v144;
+    v76 = v145;
+    v69 = v138;
+    v70 = v139;
+    v71 = v140;
+    v72 = v141;
+    outlined init with copy of PlatformItem.PrimaryContent(&v69, v54);
+    outlined destroy of GlassEntryView?(&v55, &lazy cache variable for type metadata for PlatformItem.PrimaryContent?, &type metadata for PlatformItem.PrimaryContent, MEMORY[0x1E69E6720]);
+    v85 = v150;
+    v86 = v151;
     v87 = v152;
-    v88 = v153;
-    v89 = v154;
-    *&v86[144] = v148;
-    *&v86[160] = v149;
-    *&v86[176] = v150;
-    *&v86[192] = v151;
-    *&v86[80] = v144;
-    *&v86[96] = v145;
-    *&v86[112] = v146;
-    *&v86[128] = v147;
-    *&v86[16] = v140;
-    *&v86[32] = v141;
-    *&v86[48] = v142;
-    *&v86[64] = v143;
+    *&v84[144] = v146;
+    *&v84[160] = v147;
+    *&v84[176] = v148;
+    *&v84[192] = v149;
+    *&v84[80] = v142;
+    *&v84[96] = v143;
+    *&v84[112] = v144;
+    *&v84[128] = v145;
+    *&v84[16] = v138;
+    *&v84[32] = v139;
+    *&v84[48] = v140;
+    *&v84[64] = v141;
   }
 
   if (*(v0 + 36) != *MEMORY[0x1E698D3F8])
   {
-    v30 = *AGGraphGetValue();
+    v28 = *AGGraphGetValue();
 
-    *&v90 = v30;
+    *&v88 = v28;
   }
 
-  v31 = *(v0 + 16);
-  v32 = *&v86[12];
+  v29 = *(v0 + 16);
+  v30 = *&v84[12];
   type metadata accessor for EnvironmentFetch<LayoutDirection>(0, &lazy cache variable for type metadata for _ContiguousArrayStorage<PlatformItem>, &type metadata for PlatformItem, MEMORY[0x1E69E6F90]);
-  v33 = swift_allocObject();
-  *(v33 + 16) = xmmword_18DDA6EB0;
-  outlined init with copy of PlatformItem(&v85, v33 + 32);
-  *&v71 = v31;
-  DWORD2(v71) = v32;
-  *&v72 = v33;
+  v31 = swift_allocObject();
+  *(v31 + 16) = xmmword_18DDA6EB0;
+  outlined init with copy of PlatformItem(&v83, v31 + 32);
+  *&v69 = v29;
+  DWORD2(v69) = v30;
+  *&v70 = v31;
   AGGraphSetOutputValue();
-  outlined destroy of GlassEntryView?(&v140, &lazy cache variable for type metadata for PlatformItem.PrimaryContent?, &type metadata for PlatformItem.PrimaryContent, MEMORY[0x1E69E6720]);
+  outlined destroy of GlassEntryView?(&v138, &lazy cache variable for type metadata for PlatformItem.PrimaryContent?, &type metadata for PlatformItem.PrimaryContent, MEMORY[0x1E69E6720]);
 
-  return outlined destroy of PlatformItem(&v85);
+  return outlined destroy of PlatformItem(&v83);
+}
+
+double specialized AnimatableAttribute.updateValue()()
+{
+  v9 = *MEMORY[0x1E69E9840];
+  Value = AGGraphGetValue();
+  v2 = *Value;
+  v3 = Value[1];
+  v7[0] = v2;
+  v7[1] = v3;
+  v8 = v4 & 1;
+  v5 = *(v0 + 4);
+
+  specialized AnimatableAttributeHelper.update(value:defaultAnimation:environment:sampleCollector:)(v7, 0, v5, (v0 + 8));
+  if ((v8 & 1) != 0 || !AGGraphGetOutputValue())
+  {
+    AGGraphSetOutputValue();
+  }
+
+  return result;
+}
+
+{
+  v11 = *MEMORY[0x1E69E9840];
+  Value = AGGraphGetValue();
+  v3 = Value[1];
+  v2 = Value[2];
+  v4 = Value[3];
+  v5 = Value[4];
+  v9[0] = *Value;
+  v9[1] = v3;
+  v9[2] = v2;
+  v9[3] = v4;
+  v9[4] = v5;
+  v10 = v6 & 1;
+  v7 = *(v0 + 4);
+
+  specialized AnimatableAttributeHelper.update(value:defaultAnimation:environment:sampleCollector:)(v9, 0, v7, v0 + 8);
+  if ((v10 & 1) != 0 || !AGGraphGetOutputValue())
+  {
+    AGGraphSetOutputValue();
+  }
+
+  else
+  {
+  }
+
+  return result;
+}
+
+{
+  v13 = *MEMORY[0x1E69E9840];
+  Value = AGGraphGetValue();
+  v2 = *(Value + 8);
+  v3 = *(Value + 12);
+  v4 = *(Value + 16);
+  v8 = *Value;
+  v9 = v2;
+  v10 = v3;
+  v11 = v4;
+  v12 = v5 & 1;
+  v6 = *(v0 + 4);
+
+  specialized AnimatableAttributeHelper.update(value:defaultAnimation:environment:sampleCollector:)(&v8, 0, v6, v0 + 8);
+  if ((v12 & 1) != 0 || !AGGraphGetOutputValue())
+  {
+    AGGraphSetOutputValue();
+  }
+
+  else
+  {
+  }
+
+  return result;
+}
+
+{
+  v6 = *MEMORY[0x1E69E9840];
+  v4 = *AGGraphGetValue();
+  v5 = v1 & 1;
+  v2 = *(v0 + 4);
+
+  specialized AnimatableAttributeHelper.update(value:defaultAnimation:environment:sampleCollector:)(&v4, 0, v2, v0 + 8);
+  if ((v5 & 1) != 0 || !AGGraphGetOutputValue())
+  {
+    AGGraphSetOutputValue();
+  }
+
+  else
+  {
+  }
+
+  return result;
 }
 
 void specialized AnimatableAttribute.updateValue()()
@@ -4403,7 +2495,7 @@ void specialized AnimatableAttribute.updateValue()()
   v10 = v3 & 1;
   v4 = *(v0 + 4);
   v5 = v7;
-  specialized AnimatableAttributeHelper.update(value:defaultAnimation:environment:sampleCollector:)(&v7, 0, v4, v0 + 8);
+  specialized AnimatableAttributeHelper.update(value:defaultAnimation:environment:sampleCollector:)(&v7, 0, v4, (v0 + 8));
   if ((v10 & 1) != 0 || !AGGraphGetOutputValue())
   {
     v6 = v7;
@@ -4416,49 +2508,7 @@ void specialized AnimatableAttribute.updateValue()()
   }
 }
 
-uint64_t specialized AnimatableAttribute.updateValue()(uint64_t a1, void (*a2)(__int128 *, void, void, uint64_t))
-{
-  v8 = *MEMORY[0x1E69E9840];
-  v6 = *AGGraphGetValue();
-  v7 = v4 & 1;
-  a2(&v6, 0, *(v2 + 4), v2 + 8);
-  if (v7)
-  {
-    return AGGraphSetOutputValue();
-  }
-
-  result = AGGraphGetOutputValue();
-  if (!result)
-  {
-    return AGGraphSetOutputValue();
-  }
-
-  return result;
-}
-
-{
-  v11 = *MEMORY[0x1E69E9840];
-  Value = AGGraphGetValue();
-  v5 = *(Value + 16);
-  v8 = *Value;
-  v9 = v5;
-  v10 = v6 & 1;
-  a2(&v8, 0, *(v2 + 4), v2 + 8);
-  if (v10)
-  {
-    return AGGraphSetOutputValue();
-  }
-
-  result = AGGraphGetOutputValue();
-  if (!result)
-  {
-    return AGGraphSetOutputValue();
-  }
-
-  return result;
-}
-
-uint64_t specialized AnimatableAttribute.updateValue()(uint64_t a1, void (*a2)(_OWORD *, __int128 *), void (*a3)(__int128 *, void, uint64_t, uint64_t), uint64_t (*a4)(__int128 *))
+uint64_t specialized AnimatableAttribute.updateValue()(uint64_t a1, void (*a2)(_OWORD *, __int128 *), void (*a3)(__int128 *, void, uint64_t, unsigned int *), uint64_t (*a4)(__int128 *))
 {
   v24 = *MEMORY[0x1E69E9840];
   Value = AGGraphGetValue();
@@ -4477,7 +2527,7 @@ uint64_t specialized AnimatableAttribute.updateValue()(uint64_t a1, void (*a2)(_
   v21[25] = v13 & 1;
   v14 = *(v4 + 4);
   a2(v22, &v16);
-  a3(&v19, 0, v14, v4 + 8);
+  a3(&v19, 0, v14, (v4 + 8));
   if ((v21[25] & 1) != 0 || !AGGraphGetOutputValue())
   {
     v16 = v19;
@@ -4512,7 +2562,7 @@ uint64_t specialized AnimatableAttribute.updateValue()(uint64_t a1, void (*a2)(_
   v21[25] = v13 & 1;
   v14 = *(v4 + 4);
   a2(v22, &v16);
-  a3(&v19, 0, v14, v4 + 8);
+  a3(&v19, 0, v14, (v4 + 8));
   if ((v21[25] & 1) != 0 || !AGGraphGetOutputValue())
   {
     v16 = v19;
@@ -4529,13 +2579,13 @@ uint64_t specialized AnimatableAttribute.updateValue()(uint64_t a1, void (*a2)(_
   return a4(&v16);
 }
 
-uint64_t specialized AnimatableAttribute.updateValue()(void (*a1)(void), void (*a2)(__int128 *, void, void, uint64_t))
+uint64_t specialized AnimatableAttribute.updateValue()(uint64_t (*a1)(void), void (*a2)(__int128 *, void, void, unsigned int *))
 {
   v8 = *MEMORY[0x1E69E9840];
   a1(0);
   v6 = *AGGraphGetValue();
   v7 = v4 & 1;
-  a2(&v6, 0, *(v2 + 4), v2 + 8);
+  a2(&v6, 0, *(v2 + 4), (v2 + 8));
   if (v7)
   {
     return AGGraphSetOutputValue();
@@ -4555,7 +2605,7 @@ double specialized ValueActionDispatcher.updateValue()()
   if (*(v0 + 32) != *AGGraphGetValue() >> 1)
   {
     *(v0 + 32) = *AGGraphGetValue() >> 1;
-    outlined consume of _ValueActionModifier2<Int>?(*(v0 + 8), *(v0 + 16));
+    outlined consume of _ValueActionModifier2<Int>?(*(v0 + 8), *(v0 + 16), *(v0 + 24));
     *(v0 + 24) = 0;
     *(v0 + 8) = 0u;
     *(v0 + 40) = 0xFFFFFFFFLL;
@@ -4576,7 +2626,7 @@ double specialized ValueActionDispatcher.updateValue()()
   v6 = *(v0 + 16);
   v7 = *(v0 + 24);
 
-  v8 = _sSq3mapyqd_0_Sgqd_0_xqd__YKXEqd__YKs5ErrorRd__Ri_d_0_r0_lF7SwiftUI21_ValueActionModifier2VySiG_s5NeverOSbTB5(partial apply for specialized closure #1 in ValueActionDispatcher.updateValue(), v19, v5, v6, v7);
+  _sSq3mapyqd_0_Sgqd_0_xqd__YKXEqd__YKs5ErrorRd__Ri_d_0_r0_lF7SwiftUI21_ValueActionModifier2VySiG_s5NeverOSbTB5(partial apply for specialized closure #1 in ValueActionDispatcher.updateValue(), v19, v5, v6, v7);
   if (v8 != 2 && (v8 & 1) != 0)
   {
     AGGraphClearUpdate();
@@ -4624,29 +2674,29 @@ double specialized ValueActionDispatcher.updateValue()()
     *(v17 + 48) = v13;
     *(v17 + 56) = v14;
 
-    outlined copy of _ValueActionModifier2<Int>?(v12, v13);
+    outlined copy of _ValueActionModifier2<Int>?(v12, v13, v14);
     static Update.enqueueAction(reason:_:)(&v20, partial apply for specialized closure #2 in ValueActionDispatcher.updateValue(), v17);
   }
 
 LABEL_12:
-  outlined consume of _ValueActionModifier2<Int>?(*(v0 + 8), *(v0 + 16));
+  outlined consume of _ValueActionModifier2<Int>?(*(v0 + 8), *(v0 + 16), *(v0 + 24));
   *(v0 + 8) = v22;
   result = *&v23;
   *(v0 + 16) = v23;
   return result;
 }
 
-uint64_t specialized closure #1 in GestureBodyAccessor.updateBody(of:changed:)(double a1, double a2)
+void specialized closure #1 in GestureBodyAccessor.updateBody(of:changed:)(double a1, double a2)
 {
-  v69 = *MEMORY[0x1E69E9840];
+  v70 = *MEMORY[0x1E69E9840];
   v4 = type metadata accessor for OSSignpostID();
   v5 = *(v4 - 8);
-  v54 = v4;
-  v55 = v5;
+  v55 = v4;
+  v56 = v5;
   MEMORY[0x1EEE9AC00](v4);
-  v56 = &v46[-((v6 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  v57 = &v47[-((v6 + 15) & 0xFFFFFFFFFFFFFFF0)];
   MEMORY[0x1EEE9AC00](v7);
-  v47 = &v46[-v8];
+  v48 = &v47[-v8];
   if (one-time initialization token for bodyInvoke != -1)
   {
     goto LABEL_37;
@@ -4668,8 +2718,8 @@ uint64_t specialized closure #1 in GestureBodyAccessor.updateBody(of:changed:)(d
       break;
     }
 
-    v53 = *(&v9 + 1);
-    LODWORD(v57) = v13;
+    v54 = *(&v9 + 1);
+    LODWORD(v58) = v13;
     static OSSignpostID.exclusive.getter();
     type metadata accessor for TappableEventType?(0, &lazy cache variable for type metadata for _ContiguousArrayStorage<CVarArg>, &lazy cache variable for type metadata for CVarArg, MEMORY[0x1E69E7740], MEMORY[0x1E69E6F90]);
     v14 = swift_allocObject();
@@ -4678,16 +2728,17 @@ uint64_t specialized closure #1 in GestureBodyAccessor.updateBody(of:changed:)(d
     v17 = v16;
     v18 = MEMORY[0x1E69E6158];
     *(v14 + 56) = MEMORY[0x1E69E6158];
-    v19 = lazy protocol witness table accessor for type String and conformance String();
+    lazy protocol witness table accessor for type String and conformance String();
+    v20 = v19;
     *(v14 + 64) = v19;
     *(v14 + 32) = v15;
     *(v14 + 40) = v17;
-    v20 = specialized static Tracing.libraryName(defining:)();
+    v21 = specialized static Tracing.libraryName(defining:)();
     *(v14 + 96) = v18;
-    *(v14 + 104) = v19;
-    *(v14 + 72) = v20;
-    *(v14 + 80) = v21;
-    v58 = v14;
+    *(v14 + 104) = v20;
+    *(v14 + 72) = v21;
+    *(v14 + 80) = v22;
+    v59 = v14;
     if (one-time initialization token for _signpostLog != -1)
     {
       swift_once();
@@ -4695,19 +2746,19 @@ uint64_t specialized closure #1 in GestureBodyAccessor.updateBody(of:changed:)(d
 
     if (v11)
     {
-      v65 = v57;
+      v65 = v58;
       v63 = _signpostLog;
       v64 = &dword_18D018000;
       *&v66 = v9;
-      *(&v66 + 1) = v53;
+      *(&v66 + 1) = v54;
       LOBYTE(v67) = v10;
-      v60 = "%{public}@.body [in %{public}@]";
-      v61 = 31;
+      v61[0] = "%{public}@.body [in %{public}@]";
+      v61[1] = 31;
       v62 = 2;
-      v59 = v58;
-      v22 = v47;
-      specialized thunk for @escaping @callee_guaranteed (@unowned os_signpost_type_t, @unowned UnsafeRawPointer, @guaranteed OS_os_log, @unowned StaticString, @in_guaranteed OSSignpostID, @unowned StaticString, @guaranteed [CVarArg]) -> ()();
-      (*(v55 + 8))(v22, v54);
+      v60 = v59;
+      v23 = v48;
+      specialized thunk for @escaping @callee_guaranteed (@unowned os_signpost_type_t, @unowned UnsafeRawPointer, @guaranteed OS_os_log, @unowned StaticString, @in_guaranteed OSSignpostID, @unowned StaticString, @guaranteed [CVarArg]) -> ()(&v65, &v64, &v63, &v66, v48, v61, &v60);
+      (*(v56 + 8))(v23, v55);
 LABEL_34:
 
       break;
@@ -4715,74 +2766,74 @@ LABEL_34:
 
     if (v9 == 20)
     {
-      v23 = 3;
+      v24 = 3;
     }
 
     else
     {
-      v23 = 4;
+      v24 = 4;
     }
 
-    v24 = bswap32(v9) | (4 * WORD1(v9));
-    v25 = v57;
-    v26 = v55 + 16;
-    v48 = *(v55 + 16);
-    v27 = v48(v56, v47, v54);
-    v28 = 0;
-    LOBYTE(v60) = 1;
-    v52 = 16 * *(&v9 + 1);
-    v55 = v26;
-    v53 = (v26 - 8);
-    v51 = v58 + 32;
-    v50 = v9;
-    v49 = *(&v9 + 1);
+    v25 = bswap32(v9) | (4 * WORD1(v9));
+    v26 = v58;
+    v27 = v56 + 16;
+    v49 = *(v56 + 16);
+    v28 = v49(v57, v48, v55);
+    v29 = 0;
+    LOBYTE(v61[0]) = 1;
+    v53 = 16 * *(&v9 + 1);
+    v56 = v27;
+    v54 = (v27 - 8);
+    v52 = v59 + 32;
+    v51 = v9;
+    v50 = *(&v9 + 1);
 LABEL_11:
-    v57 = v46;
-    MEMORY[0x1EEE9AC00](v27);
-    v30 = &v46[-((v29 + 15) & 0xFFFFFFFFFFFFFFF0)];
-    v31 = v30 + 8;
-    v32 = v23;
-    v33 = v30 + 8;
+    v58 = v47;
+    MEMORY[0x1EEE9AC00](v28);
+    v31 = &v47[-((v30 + 15) & 0xFFFFFFFFFFFFFFF0)];
+    v32 = v31 + 8;
+    v33 = v24;
+    v34 = v31 + 8;
     do
     {
-      *(v33 - 1) = 0;
-      *v33 = 0;
-      v33 += 16;
-      --v32;
+      *(v34 - 1) = 0;
+      *v34 = 0;
+      v34 += 16;
+      --v33;
     }
 
-    while (v32);
-    v34 = v51 + 40 * v28;
+    while (v33);
+    v35 = v52 + 40 * v29;
     while (1)
     {
-      v35 = *(v58 + 16);
-      if (v28 == v35)
+      v36 = *(v59 + 16);
+      if (v29 == v36)
       {
-        LOBYTE(v60) = 0;
+        LOBYTE(v61[0]) = 0;
 LABEL_19:
-        v38 = v50;
-        if (v50 == 20)
+        v40 = v51;
+        if (v51 == 20)
         {
           OSSignpostID.rawValue.getter();
         }
 
         kdebug_trace();
-        if (v30[8] == 1)
+        if (v31[8] == 1)
         {
           kdebug_trace_string();
         }
 
-        if (v30[24] == 1)
+        if (v31[24] == 1)
         {
           kdebug_trace_string();
         }
 
-        if (v30[40] == 1)
+        if (v31[40] == 1)
         {
           kdebug_trace_string();
         }
 
-        if (v38 != 20 && v30[56] == 1)
+        if (v40 != 20 && v31[56] == 1)
         {
           kdebug_trace_string();
         }
@@ -4792,39 +2843,40 @@ LABEL_19:
           swift_once();
         }
 
-        v39 = v54;
-        v40 = *v53;
-        v41 = v56;
-        (*v53)(v56, v54);
-        v42 = __swift_project_value_buffer(v39, static OSSignpostID.continuation);
-        v27 = v48(v41, v42, v39);
-        v23 = v49;
-        if ((v60 & 1) == 0)
+        v41 = v55;
+        v42 = *v54;
+        v43 = v57;
+        (*v54)(v57, v55);
+        v44 = __swift_project_value_buffer(v41, static OSSignpostID.continuation);
+        v28 = v49(v43, v44, v41);
+        v24 = v50;
+        if ((v61[0] & 1) == 0)
         {
-          v43 = v54;
-          v40(v56, v54);
-          v40(v47, v43);
+          v45 = v55;
+          v42(v57, v55);
+          v42(v48, v45);
           goto LABEL_34;
         }
 
         goto LABEL_11;
       }
 
-      if (v28 >= v35)
+      if (v29 >= v36)
       {
         break;
       }
 
-      ++v28;
-      outlined init with copy of AnyTrackedValue(v34, &v66);
-      v36 = v68;
+      ++v29;
+      outlined init with copy of AnyTrackedValue(v35, &v66);
+      v37 = v68;
+      v38 = v69;
       __swift_project_boxed_opaque_existential_1(&v66, v68);
-      *(v31 - 1) = CVarArg.kdebugValue(_:)(v24 | v25, v36);
-      *v31 = v37 & 1;
-      v31 += 16;
+      *(v32 - 1) = CVarArg.kdebugValue(_:)(v25 | v26, v37, v38);
+      *v32 = v39 & 1;
+      v32 += 16;
       __swift_destroy_boxed_opaque_existential_1(&v66);
-      v34 += 40;
-      if (!--v23)
+      v35 += 40;
+      if (!--v24)
       {
         goto LABEL_19;
       }
@@ -4836,27 +2888,27 @@ LABEL_37:
   }
 
   AGGraphClearUpdate();
-  v44 = swift_allocObject();
-  *(v44 + 16) = a2;
-  *(v44 + 24) = a1;
+  v46 = swift_allocObject();
+  *(v46 + 16) = a2;
+  *(v46 + 24) = a1;
   LOBYTE(v66) = 0;
   *(&v66 + 1) = partial apply for closure #1 in DistanceGesture.body.getter;
-  v67 = v44;
+  v67 = v46;
   AGGraphSetUpdate();
   $defer #1 <A>() in traceRuleBody<A>(_:body:)();
-  type metadata accessor for ModifierGesture<StateContainerGesture<DistanceGesture.StateType, SpatialEvent, CGFloat>, EventListener<SpatialEvent>>();
+  type metadata accessor for ModifierGesture<StateContainerGesture<DistanceGesture.StateType, SpatialEvent, CGFloat>, EventListener<SpatialEvent>>(0);
   AGGraphSetOutputValue();
 }
 
 uint64_t specialized closure #1 in GestureBodyAccessor.updateBody(of:changed:)()
 {
-  v64 = *MEMORY[0x1E69E9840];
-  v47 = type metadata accessor for OSSignpostID();
-  v48 = *(v47 - 8);
-  MEMORY[0x1EEE9AC00](v47);
-  v49 = &v39 - ((v0 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v66 = *MEMORY[0x1E69E9840];
+  v49 = type metadata accessor for OSSignpostID();
+  v50 = *(v49 - 8);
+  MEMORY[0x1EEE9AC00](v49);
+  v51 = &v41 - ((v0 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v1);
-  v40 = &v39 - v2;
+  v42 = &v41 - v2;
   if (one-time initialization token for bodyInvoke != -1)
   {
     goto LABEL_37;
@@ -4869,17 +2921,17 @@ uint64_t specialized closure #1 in GestureBodyAccessor.updateBody(of:changed:)()
     v5 = HIBYTE(word_1ED539040);
     v6 = byte_1ED539042;
     v7 = static os_signpost_type_t.begin.getter();
-    v59 = v3;
-    v60 = v4;
-    v61 = v5;
-    v62 = v6;
+    v60 = v3;
+    v61 = v4;
+    v62 = v5;
+    v63 = v6;
     if ((Signpost.isEnabled.getter() & 1) == 0)
     {
       break;
     }
 
-    v46 = *(&v3 + 1);
-    LODWORD(v50) = v7;
+    v48 = *(&v3 + 1);
+    LODWORD(v52) = v7;
     type metadata accessor for KeyPath<EnvironmentValues, LayoutDirection>(0, &lazy cache variable for type metadata for SingleTapGesture<TappableEvent>, &type metadata for TappableEvent, &protocol witness table for TappableEvent, type metadata accessor for SingleTapGesture);
     static OSSignpostID.exclusive.getter();
     type metadata accessor for TappableEventType?(0, &lazy cache variable for type metadata for _ContiguousArrayStorage<CVarArg>, &lazy cache variable for type metadata for CVarArg, MEMORY[0x1E69E7740], MEMORY[0x1E69E6F90]);
@@ -4889,16 +2941,17 @@ uint64_t specialized closure #1 in GestureBodyAccessor.updateBody(of:changed:)()
     v11 = v10;
     v12 = MEMORY[0x1E69E6158];
     *(v8 + 56) = MEMORY[0x1E69E6158];
-    v13 = lazy protocol witness table accessor for type String and conformance String();
+    lazy protocol witness table accessor for type String and conformance String();
+    v14 = v13;
     *(v8 + 64) = v13;
     *(v8 + 32) = v9;
     *(v8 + 40) = v11;
-    v14 = specialized static Tracing.libraryName(defining:)();
+    v15 = specialized static Tracing.libraryName(defining:)();
     *(v8 + 96) = v12;
-    *(v8 + 104) = v13;
-    *(v8 + 72) = v14;
-    *(v8 + 80) = v15;
-    v51 = v8;
+    *(v8 + 104) = v14;
+    *(v8 + 72) = v15;
+    *(v8 + 80) = v16;
+    v53 = v8;
     if (one-time initialization token for _signpostLog != -1)
     {
       swift_once();
@@ -4906,19 +2959,19 @@ uint64_t specialized closure #1 in GestureBodyAccessor.updateBody(of:changed:)()
 
     if (v5)
     {
-      v58 = v50;
-      v57 = &dword_18D018000;
-      v56 = _signpostLog;
-      *&v59 = v3;
-      *(&v59 + 1) = v46;
-      v60 = v4;
-      v53 = "%{public}@.body [in %{public}@]";
-      v54 = 31;
-      v55 = 2;
-      v52 = v51;
-      v16 = v40;
-      specialized thunk for @escaping @callee_guaranteed (@unowned os_signpost_type_t, @unowned UnsafeRawPointer, @guaranteed OS_os_log, @unowned StaticString, @in_guaranteed OSSignpostID, @unowned StaticString, @guaranteed [CVarArg]) -> ()();
-      (*(v48 + 8))(v16, v47);
+      v59 = v52;
+      v58 = &dword_18D018000;
+      v57 = _signpostLog;
+      *&v60 = v3;
+      *(&v60 + 1) = v48;
+      v61 = v4;
+      v55[0] = "%{public}@.body [in %{public}@]";
+      v55[1] = 31;
+      v56 = 2;
+      v54 = v53;
+      v17 = v42;
+      specialized thunk for @escaping @callee_guaranteed (@unowned os_signpost_type_t, @unowned UnsafeRawPointer, @guaranteed OS_os_log, @unowned StaticString, @in_guaranteed OSSignpostID, @unowned StaticString, @guaranteed [CVarArg]) -> ()(&v59, &v58, &v57, &v60, v42, v55, &v54);
+      (*(v50 + 8))(v17, v49);
 LABEL_34:
 
       break;
@@ -4926,74 +2979,74 @@ LABEL_34:
 
     if (v3 == 20)
     {
-      v17 = 3;
+      v18 = 3;
     }
 
     else
     {
-      v17 = 4;
+      v18 = 4;
     }
 
-    v18 = bswap32(v3) | (4 * WORD1(v3));
-    v19 = v50;
-    v20 = v48 + 16;
-    v41 = *(v48 + 16);
-    v21 = v41(v49, v40, v47);
-    v22 = 0;
-    LOBYTE(v53) = 1;
-    v45 = 16 * *(&v3 + 1);
-    v48 = v20;
-    v46 = (v20 - 8);
-    v44 = v51 + 32;
-    v43 = v3;
-    v42 = *(&v3 + 1);
+    v19 = bswap32(v3) | (4 * WORD1(v3));
+    v20 = v52;
+    v21 = v50 + 16;
+    v43 = *(v50 + 16);
+    v22 = v43(v51, v42, v49);
+    v23 = 0;
+    LOBYTE(v55[0]) = 1;
+    v47 = 16 * *(&v3 + 1);
+    v50 = v21;
+    v48 = (v21 - 8);
+    v46 = v53 + 32;
+    v45 = v3;
+    v44 = *(&v3 + 1);
 LABEL_11:
-    v50 = &v39;
-    MEMORY[0x1EEE9AC00](v21);
-    v24 = &v39 - ((v23 + 15) & 0xFFFFFFFFFFFFFFF0);
-    v25 = v24 + 8;
-    v26 = v17;
-    v27 = v24 + 8;
+    v52 = &v41;
+    MEMORY[0x1EEE9AC00](v22);
+    v25 = &v41 - ((v24 + 15) & 0xFFFFFFFFFFFFFFF0);
+    v26 = v25 + 8;
+    v27 = v18;
+    v28 = v25 + 8;
     do
     {
-      *(v27 - 1) = 0;
-      *v27 = 0;
-      v27 += 16;
-      --v26;
+      *(v28 - 1) = 0;
+      *v28 = 0;
+      v28 += 16;
+      --v27;
     }
 
-    while (v26);
-    v28 = v44 + 40 * v22;
+    while (v27);
+    v29 = v46 + 40 * v23;
     while (1)
     {
-      v29 = *(v51 + 16);
-      if (v22 == v29)
+      v30 = *(v53 + 16);
+      if (v23 == v30)
       {
-        LOBYTE(v53) = 0;
+        LOBYTE(v55[0]) = 0;
 LABEL_19:
-        v32 = v43;
-        if (v43 == 20)
+        v34 = v45;
+        if (v45 == 20)
         {
           OSSignpostID.rawValue.getter();
         }
 
         kdebug_trace();
-        if (v24[8] == 1)
+        if (v25[8] == 1)
         {
           kdebug_trace_string();
         }
 
-        if (v24[24] == 1)
+        if (v25[24] == 1)
         {
           kdebug_trace_string();
         }
 
-        if (v24[40] == 1)
+        if (v25[40] == 1)
         {
           kdebug_trace_string();
         }
 
-        if (v32 != 20 && v24[56] == 1)
+        if (v34 != 20 && v25[56] == 1)
         {
           kdebug_trace_string();
         }
@@ -5003,39 +3056,40 @@ LABEL_19:
           swift_once();
         }
 
-        v33 = *v46;
-        v34 = v49;
-        v35 = v47;
-        (*v46)(v49, v47);
-        v36 = __swift_project_value_buffer(v35, static OSSignpostID.continuation);
-        v21 = v41(v34, v36, v35);
-        v17 = v42;
-        if ((v53 & 1) == 0)
+        v35 = *v48;
+        v36 = v51;
+        v37 = v49;
+        (*v48)(v51, v49);
+        v38 = __swift_project_value_buffer(v37, static OSSignpostID.continuation);
+        v22 = v43(v36, v38, v37);
+        v18 = v44;
+        if ((v55[0] & 1) == 0)
         {
-          v37 = v47;
-          v33(v49, v47);
-          v33(v40, v37);
+          v39 = v49;
+          v35(v51, v49);
+          v35(v42, v39);
           goto LABEL_34;
         }
 
         goto LABEL_11;
       }
 
-      if (v22 >= v29)
+      if (v23 >= v30)
       {
         break;
       }
 
-      ++v22;
-      outlined init with copy of AnyTrackedValue(v28, &v59);
-      v30 = v63;
-      __swift_project_boxed_opaque_existential_1(&v59, v63);
-      *(v25 - 1) = CVarArg.kdebugValue(_:)(v18 | v19, v30);
-      *v25 = v31 & 1;
-      v25 += 16;
-      __swift_destroy_boxed_opaque_existential_1(&v59);
-      v28 += 40;
-      if (!--v17)
+      ++v23;
+      outlined init with copy of AnyTrackedValue(v29, &v60);
+      v31 = v64;
+      v32 = v65;
+      __swift_project_boxed_opaque_existential_1(&v60, v64);
+      *(v26 - 1) = CVarArg.kdebugValue(_:)(v19 | v20, v31, v32);
+      *v26 = v33 & 1;
+      v26 += 16;
+      __swift_destroy_boxed_opaque_existential_1(&v60);
+      v29 += 40;
+      if (!--v18)
       {
         goto LABEL_19;
       }
@@ -5047,21 +3101,21 @@ LABEL_37:
   }
 
   AGGraphClearUpdate();
-  specialized SingleTapGesture.body.getter(&v59);
+  specialized SingleTapGesture.body.getter(&v60);
   AGGraphSetUpdate();
   $defer #1 <A>() in traceRuleBody<A>(_:body:)();
-  type metadata accessor for ModifierGesture<EventFilter<TappableEvent>, ModifierGesture<Map2Gesture<TappableEvent, ModifierGesture<CoordinateSpaceGesture<CGFloat>, DistanceGesture>, TappableEvent>, ModifierGesture<Map2Gesture<TappableEvent, ModifierGesture<DurationGesture<TappableEvent>, EventListener<TappableEvent>>, TappableEvent>, ModifierGesture<DependentGesture<TappableEvent>, ModifierGesture<MapGesture<TappableEvent, TappableEvent>, EventListener<TappableEvent>>>>>>();
+  type metadata accessor for ModifierGesture<EventFilter<TappableEvent>, ModifierGesture<Map2Gesture<TappableEvent, ModifierGesture<CoordinateSpaceGesture<CGFloat>, DistanceGesture>, TappableEvent>, ModifierGesture<Map2Gesture<TappableEvent, ModifierGesture<DurationGesture<TappableEvent>, EventListener<TappableEvent>>, TappableEvent>, ModifierGesture<DependentGesture<TappableEvent>, ModifierGesture<MapGesture<TappableEvent, TappableEvent>, EventListener<TappableEvent>>>>>>(0);
   AGGraphSetOutputValue();
-  return outlined destroy of _VariadicView.Tree<_LayoutRoot<GeometryReaderLayout>, ModifiedContent<GlassContainerResolver<ModifiedContent<ZStack<ForEach<[GlassContainer.Effect], GlassContainer.DisplayMaterial.ID, ModifiedContent<GlassEffectView, _TraitWritingModifier<TransitionTraitKey>>>>, GlassContainerTintConfigModifier>>, _BackdropGroupEffect2>>(&v59, type metadata accessor for ModifierGesture<EventFilter<TappableEvent>, ModifierGesture<Map2Gesture<TappableEvent, ModifierGesture<CoordinateSpaceGesture<CGFloat>, DistanceGesture>, TappableEvent>, ModifierGesture<Map2Gesture<TappableEvent, ModifierGesture<DurationGesture<TappableEvent>, EventListener<TappableEvent>>, TappableEvent>, ModifierGesture<DependentGesture<TappableEvent>, ModifierGesture<MapGesture<TappableEvent, TappableEvent>, EventListener<TappableEvent>>>>>>);
+  return outlined destroy of _VariadicView.Tree<_LayoutRoot<GeometryReaderLayout>, ModifiedContent<GlassContainerResolver<ModifiedContent<ZStack<ForEach<[GlassContainer.Effect], GlassContainer.DisplayMaterial.ID, ModifiedContent<GlassEffectView, _TraitWritingModifier<TransitionTraitKey>>>>, GlassContainerTintConfigModifier>>, _BackdropGroupEffect2>>(&v60, type metadata accessor for ModifierGesture<EventFilter<TappableEvent>, ModifierGesture<Map2Gesture<TappableEvent, ModifierGesture<CoordinateSpaceGesture<CGFloat>, DistanceGesture>, TappableEvent>, ModifierGesture<Map2Gesture<TappableEvent, ModifierGesture<DurationGesture<TappableEvent>, EventListener<TappableEvent>>, TappableEvent>, ModifierGesture<DependentGesture<TappableEvent>, ModifierGesture<MapGesture<TappableEvent, TappableEvent>, EventListener<TappableEvent>>>>>>);
 }
 
-void *_s7SwiftUI14LayoutComputerVyACxcAA0C6EngineRzlufCAA05UnarycE033_1C3B77B617AD058A6802F719E38F5D79LLVyAA017ConcentricPaddingC033_7079FF89BCF97F81EB250A589B9A5CEDLLVG_Tt1g5@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X8>)
+void *_s7SwiftUI14LayoutComputerVyACxcAA0C6EngineRzlufCAA05UnarycE033_1C3B77B617AD058A6802F719E38F5D79LLVyAA017ConcentricPaddingC033_7079FF89BCF97F81EB250A589B9A5CEDLLVG_Tt1g5@<X0>(_BYTE *a1@<X0>, uint64_t *a2@<X8>)
 {
   swift_beginAccess();
   if (static LayoutTrace.recorder)
   {
     outlined init with copy of UnaryLayoutEngine<ConcentricPaddingLayout>(a1, v11);
-    type metadata accessor for TracingLayoutEngineBox<UnaryLayoutEngine<ConcentricPaddingLayout>>();
+    type metadata accessor for TracingLayoutEngineBox<UnaryLayoutEngine<ConcentricPaddingLayout>>(0);
     v4 = swift_allocObject();
     CurrentAttribute = AGGraphGetCurrentAttribute();
     v6 = *MEMORY[0x1E698D3F8];
@@ -5084,7 +3138,7 @@ void *_s7SwiftUI14LayoutComputerVyACxcAA0C6EngineRzlufCAA05UnarycE033_1C3B77B617
 
   else
   {
-    type metadata accessor for LayoutEngineBox<UnaryLayoutEngine<ConcentricPaddingLayout>>();
+    type metadata accessor for LayoutEngineBox<UnaryLayoutEngine<ConcentricPaddingLayout>>(0);
     v4 = swift_allocObject();
     v8 = (v4 + 16);
     v9 = a1;
@@ -5101,7 +3155,7 @@ void *_s7SwiftUI14LayoutComputerVyACxcAA0C6EngineRzlufCAA04ViewcE0VyAA010GlassEn
   swift_beginAccess();
   if (static LayoutTrace.recorder)
   {
-    type metadata accessor for TracingLayoutEngineBox<ViewLayoutEngine<GlassEntryLayout>>();
+    type metadata accessor for TracingLayoutEngineBox<ViewLayoutEngine<GlassEntryLayout>>(0);
     v4 = swift_allocObject();
     CurrentAttribute = AGGraphGetCurrentAttribute();
     v6 = CurrentAttribute == *MEMORY[0x1E698D3F8];
@@ -5121,7 +3175,7 @@ void *_s7SwiftUI14LayoutComputerVyACxcAA0C6EngineRzlufCAA04ViewcE0VyAA010GlassEn
 
   else
   {
-    type metadata accessor for LayoutEngineBox<ViewLayoutEngine<GlassEntryLayout>>();
+    type metadata accessor for LayoutEngineBox<ViewLayoutEngine<GlassEntryLayout>>(0);
     v4 = swift_allocObject();
   }
 
@@ -5136,7 +3190,7 @@ void *_s7SwiftUI14LayoutComputerVyACxcAA0C6EngineRzlufCAA04ViewcE0VyAA011GlassEf
   swift_beginAccess();
   if (static LayoutTrace.recorder)
   {
-    type metadata accessor for TracingLayoutEngineBox<ViewLayoutEngine<GlassEffectLayout>>();
+    type metadata accessor for TracingLayoutEngineBox<ViewLayoutEngine<GlassEffectLayout>>(0);
     v4 = swift_allocObject();
     CurrentAttribute = AGGraphGetCurrentAttribute();
     v6 = CurrentAttribute == *MEMORY[0x1E698D3F8];
@@ -5156,7 +3210,7 @@ void *_s7SwiftUI14LayoutComputerVyACxcAA0C6EngineRzlufCAA04ViewcE0VyAA011GlassEf
 
   else
   {
-    type metadata accessor for LayoutEngineBox<ViewLayoutEngine<GlassEffectLayout>>();
+    type metadata accessor for LayoutEngineBox<ViewLayoutEngine<GlassEffectLayout>>(0);
     v4 = swift_allocObject();
   }
 
@@ -5171,7 +3225,7 @@ void *_s7SwiftUI14LayoutComputerVyACxcAA0C6EngineRzlufCAA04LeafcE0VyAA5ImageVAAE
   swift_beginAccess();
   if (static LayoutTrace.recorder)
   {
-    type metadata accessor for TracingLayoutEngineBox<LeafLayoutEngine<Image.Resolved>>();
+    type metadata accessor for TracingLayoutEngineBox<LeafLayoutEngine<Image.Resolved>>(0);
     v4 = swift_allocObject();
     CurrentAttribute = AGGraphGetCurrentAttribute();
     v6 = CurrentAttribute == *MEMORY[0x1E698D3F8];
@@ -5191,7 +3245,7 @@ void *_s7SwiftUI14LayoutComputerVyACxcAA0C6EngineRzlufCAA04LeafcE0VyAA5ImageVAAE
 
   else
   {
-    type metadata accessor for LayoutEngineBox<LeafLayoutEngine<Image.Resolved>>();
+    type metadata accessor for LayoutEngineBox<LeafLayoutEngine<Image.Resolved>>(0);
     v4 = swift_allocObject();
   }
 
@@ -5254,12 +3308,12 @@ __n128 _s7SwiftUI14LayoutComputerVyACxcAA0C6EngineRzlufCAA05InsetcD0V0E0V_Tt1B5@
   return result;
 }
 
-void *_s7SwiftUI14LayoutComputerVyACxcAA0C6EngineRzlufCAA05UnarycE033_1C3B77B617AD058A6802F719E38F5D79LLVyAA09_PositionC0VG_Tt1B5Tm@<X0>(const void *a1@<X0>, void (*a2)(void)@<X1>, void (*a3)(void)@<X2>, uint64_t *a4@<X8>)
+void *_s7SwiftUI14LayoutComputerVyACxcAA0C6EngineRzlufCAA05UnarycE033_1C3B77B617AD058A6802F719E38F5D79LLVyAA09_PositionC0VG_Tt1B5Tm@<X0>(const void *a1@<X0>, uint64_t (*a2)(void, __n128)@<X1>, uint64_t (*a3)(void, __n128)@<X2>, uint64_t *a4@<X8>)
 {
   swift_beginAccess();
   if (static LayoutTrace.recorder)
   {
-    a2(0);
+    (a2)(0);
     v8 = swift_allocObject();
     CurrentAttribute = AGGraphGetCurrentAttribute();
     v10 = CurrentAttribute == *MEMORY[0x1E698D3F8];
@@ -5279,7 +3333,7 @@ void *_s7SwiftUI14LayoutComputerVyACxcAA0C6EngineRzlufCAA05UnarycE033_1C3B77B617
 
   else
   {
-    a3(0);
+    (a3)(0);
     v8 = swift_allocObject();
   }
 
@@ -5289,12 +3343,12 @@ void *_s7SwiftUI14LayoutComputerVyACxcAA0C6EngineRzlufCAA05UnarycE033_1C3B77B617
   return result;
 }
 
-__n128 _s7SwiftUI14LayoutComputerVyACxcAA0C6EngineRzlufCAA018UnaryPositionAwarecE033_1C3B77B617AD058A6802F719E38F5D79LLVyAA021ContainerCornerOffsetC033_1EB28CBBC8B70D90A6FD32242CBBC5E6LLVG_Tt1B5Tm@<Q0>(uint64_t a1@<X0>, void (*a2)(void)@<X1>, void (*a3)(void)@<X2>, uint64_t *a4@<X8>)
+__n128 _s7SwiftUI14LayoutComputerVyACxcAA0C6EngineRzlufCAA018UnaryPositionAwarecE033_1C3B77B617AD058A6802F719E38F5D79LLVyAA021ContainerCornerOffsetC033_1EB28CBBC8B70D90A6FD32242CBBC5E6LLVG_Tt1B5Tm@<Q0>(uint64_t a1@<X0>, uint64_t (*a2)(void, __n128)@<X1>, uint64_t (*a3)(void, __n128)@<X2>, uint64_t *a4@<X8>)
 {
   swift_beginAccess();
   if (static LayoutTrace.recorder)
   {
-    a2(0);
+    (a2)(0);
     v8 = swift_allocObject();
     CurrentAttribute = AGGraphGetCurrentAttribute();
     v10 = CurrentAttribute == *MEMORY[0x1E698D3F8];
@@ -5314,7 +3368,7 @@ __n128 _s7SwiftUI14LayoutComputerVyACxcAA0C6EngineRzlufCAA018UnaryPositionAwarec
 
   else
   {
-    a3(0);
+    (a3)(0);
     v8 = swift_allocObject();
   }
 
@@ -5342,12 +3396,12 @@ __n128 _s7SwiftUI14LayoutComputerVyACxcAA0C6EngineRzlufCAA018UnaryPositionAwarec
   return result;
 }
 
-__n128 _s7SwiftUI14LayoutComputerVyACxcAA0C6EngineRzlufCAA04LazycD0V0E0VyAA0f6HStackC0V_G_Tt1B5Tm@<Q0>(uint64_t a1@<X0>, void (*a2)(void)@<X1>, void (*a3)(void)@<X2>, uint64_t *a4@<X8>)
+__n128 _s7SwiftUI14LayoutComputerVyACxcAA0C6EngineRzlufCAA04LazycD0V0E0VyAA0f6HStackC0V_G_Tt1B5Tm@<Q0>(uint64_t a1@<X0>, uint64_t (*a2)(void, __n128)@<X1>, uint64_t (*a3)(void, __n128)@<X2>, uint64_t *a4@<X8>)
 {
   swift_beginAccess();
   if (static LayoutTrace.recorder)
   {
-    a2(0);
+    (a2)(0);
     v8 = swift_allocObject();
     CurrentAttribute = AGGraphGetCurrentAttribute();
     v10 = CurrentAttribute == *MEMORY[0x1E698D3F8];
@@ -5367,7 +3421,7 @@ __n128 _s7SwiftUI14LayoutComputerVyACxcAA0C6EngineRzlufCAA04LazycD0V0E0VyAA0f6HS
 
   else
   {
-    a3(0);
+    (a3)(0);
     v8 = swift_allocObject();
   }
 
@@ -5403,7 +3457,7 @@ void *_s7SwiftUI14LayoutComputerVyACxcAA0C6EngineRzlufCAA04ViewcE0VyAA019Flexibl
   swift_beginAccess();
   if (static LayoutTrace.recorder)
   {
-    type metadata accessor for TracingLayoutEngineBox<ViewLayoutEngine<FlexibleButtonFrameLayout>>();
+    type metadata accessor for TracingLayoutEngineBox<ViewLayoutEngine<FlexibleButtonFrameLayout>>(0);
     v4 = swift_allocObject();
     CurrentAttribute = AGGraphGetCurrentAttribute();
     v6 = CurrentAttribute == *MEMORY[0x1E698D3F8];
@@ -5423,7 +3477,7 @@ void *_s7SwiftUI14LayoutComputerVyACxcAA0C6EngineRzlufCAA04ViewcE0VyAA019Flexibl
 
   else
   {
-    type metadata accessor for LayoutEngineBox<ViewLayoutEngine<FlexibleButtonFrameLayout>>();
+    type metadata accessor for LayoutEngineBox<ViewLayoutEngine<FlexibleButtonFrameLayout>>(0);
     v4 = swift_allocObject();
   }
 
@@ -6493,37 +4547,6 @@ LABEL_8:
 }
 
 {
-  v2 = *v1;
-  v2[106] = v0;
-
-  v3 = v2[91];
-  v4 = v2[89];
-  v5 = v2[88];
-  if (v0)
-  {
-
-    v6 = *(v4 + 8);
-    v2[108] = v6;
-    v6(v3, v5);
-    v7 = v2[95];
-    v8 = v2[94];
-    v9 = specialized ScalePulseModifier.animate();
-  }
-
-  else
-  {
-    v10 = *(v4 + 8);
-    v2[107] = v10;
-    v10(v3, v5);
-    v7 = v2[95];
-    v8 = v2[94];
-    v9 = specialized ScalePulseModifier.animate();
-  }
-
-  return MEMORY[0x1EEE6DFA0](v9, v8, v7);
-}
-
-{
   v21 = v0;
   v1 = *(v0 + 848);
   *(v0 + 872) = *(v0 + 856);
@@ -6673,33 +4696,6 @@ LABEL_8:
   v17[1] = specialized ScalePulseModifier.animate();
 
   return specialized Clock.sleep(for:tolerance:)(v14, v16, 0, 0, 1);
-}
-
-{
-  v2 = *v1;
-  v2[111] = v0;
-
-  v3 = v2[109];
-  v4 = v2[90];
-  v5 = v2[88];
-  if (v0)
-  {
-
-    v3(v4, v5);
-    v6 = v2[95];
-    v7 = v2[94];
-    v8 = specialized ScalePulseModifier.animate();
-  }
-
-  else
-  {
-    v3(v4, v5);
-    v6 = v2[95];
-    v7 = v2[94];
-    v8 = specialized ScalePulseModifier.animate();
-  }
-
-  return MEMORY[0x1EEE6DFA0](v8, v7, v6);
 }
 
 {
@@ -6968,6 +4964,65 @@ LABEL_8:
   v29 = *(v0 + 8);
 
   return v29();
+}
+
+uint64_t specialized ScalePulseModifier.animate()(__n128 a1)
+{
+  v3 = *v2;
+  v3[106] = v1;
+
+  v4 = v3[91];
+  v5 = v3[89];
+  v6 = v3[88];
+  if (v1)
+  {
+
+    v7 = *(v5 + 8);
+    v3[108] = v7;
+    v7(v4, v6);
+    v8 = v3[95];
+    v9 = v3[94];
+    v10 = specialized ScalePulseModifier.animate();
+  }
+
+  else
+  {
+    v11 = *(v5 + 8);
+    v3[107] = v11;
+    v11(v4, v6);
+    v8 = v3[95];
+    v9 = v3[94];
+    v10 = specialized ScalePulseModifier.animate();
+  }
+
+  return MEMORY[0x1EEE6DFA0](v10, v9, v8);
+}
+
+{
+  v3 = *v2;
+  v3[111] = v1;
+
+  v4 = v3[109];
+  v5 = v3[90];
+  v6 = v3[88];
+  if (v1)
+  {
+
+    v4(v5, v6);
+    v7 = v3[95];
+    v8 = v3[94];
+    v9 = specialized ScalePulseModifier.animate();
+  }
+
+  else
+  {
+    v4(v5, v6);
+    v7 = v3[95];
+    v8 = v3[94];
+    v9 = specialized ScalePulseModifier.animate();
+  }
+
+  return MEMORY[0x1EEE6DFA0](v9, v8, v7);
 }
 
 uint64_t specialized closure #1 in ScalePulseModifier.animate()(uint64_t a1)
@@ -7570,14 +5625,14 @@ LABEL_6:
   return swift_task_create();
 }
 
-uint64_t specialized ForEachState.invalidateViewCounts()()
+void specialized ForEachState.invalidateViewCounts()()
 {
   v1 = v0;
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
   v3 = *(v0 + 256);
   if (isUniquelyReferenced_nonNull_native)
   {
-    result = specialized Array.replaceSubrange<A>(_:with:)(0, *(v3 + 16));
+    specialized Array.replaceSubrange<A>(_:with:)(0, *(v3 + 16));
   }
 
   else
@@ -7586,20 +5641,19 @@ uint64_t specialized ForEachState.invalidateViewCounts()()
   }
 
   *(v1 + 264) = 2;
-  return result;
 }
 
-uint64_t specialized SizeThatFitsRule.updateValue()()
+void specialized SizeThatFitsRule.updateValue()()
 {
   v104 = *MEMORY[0x1E69E9840];
   v1 = *(v0 + 56);
   if (!*(v1 + 16))
   {
-    type metadata accessor for [_ProposedSize : CGSize]();
-    result = AGGraphGetOutputValue();
-    if (result && !*(*result + 16))
+    type metadata accessor for [_ProposedSize : CGSize](0);
+    OutputValue = AGGraphGetOutputValue();
+    if (OutputValue && !*(*OutputValue + 16))
     {
-      return result;
+      return;
     }
 
     goto LABEL_12;
@@ -7609,16 +5663,16 @@ uint64_t specialized SizeThatFitsRule.updateValue()()
   if (!WeakValue)
   {
 LABEL_11:
-    type metadata accessor for [_ProposedSize : CGSize]();
-    result = AGGraphGetOutputValue();
-    if (result)
+    type metadata accessor for [_ProposedSize : CGSize](0);
+    if (AGGraphGetOutputValue())
     {
-      return result;
+      return;
     }
 
 LABEL_12:
     *&v94 = _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfC7SwiftUI13_ProposedSizeV_So6CGSizeVTt0g5Tf4g_n(MEMORY[0x1E69E7CC0]);
     AGGraphSetOutputValue();
+    goto LABEL_13;
   }
 
   v92 = *WeakValue;
@@ -7746,12 +5800,12 @@ LABEL_25:
     v27 = v25;
   }
 
-  type metadata accessor for [_ProposedSize : CGSize]();
-  OutputValue = AGGraphGetOutputValue();
+  type metadata accessor for [_ProposedSize : CGSize](0);
+  v28 = AGGraphGetOutputValue();
   v83 = v0;
-  if (OutputValue)
+  if (v28)
   {
-    v29 = *OutputValue;
+    v29 = *v28;
   }
 
   else
@@ -7854,7 +5908,8 @@ LABEL_91:
               }
 
               outlined consume of SafeAreaInsets.OptionalValue?(v82);
-              return outlined consume of SafeAreaInsets.OptionalValue?(v81);
+              outlined consume of SafeAreaInsets.OptionalValue?(v81);
+              return;
             }
           }
 
@@ -7872,6 +5927,9 @@ LABEL_91:
 
           outlined consume of SafeAreaInsets.OptionalValue?(v82);
           outlined consume of SafeAreaInsets.OptionalValue?(v81);
+LABEL_13:
+
+          return;
         }
 
         v33 = *(v30 + 8 * v40);
@@ -8056,9 +6114,8 @@ LABEL_82:
   }
 
 LABEL_102:
-  result = KEY_TYPE_OF_DICTIONARY_VIOLATES_HASHABLE_REQUIREMENTS(_:)();
+  KEY_TYPE_OF_DICTIONARY_VIOLATES_HASHABLE_REQUIREMENTS(_:)();
   __break(1u);
-  return result;
 }
 
 double specialized AnimatedShape.shape(in:)(uint64_t a1, __int16 a2, CGFloat a3, CGFloat a4, CGFloat a5)
@@ -8138,32 +6195,34 @@ uint64_t specialized Clock.sleep(for:tolerance:)()
   v2 = v0[8];
   v3 = v0[9];
   v4 = type metadata accessor for ContinuousClock();
-  v5 = lazy protocol witness table accessor for type TouchEvent and conformance TouchEvent(&lazy protocol witness table cache variable for type ContinuousClock and conformance ContinuousClock, MEMORY[0x1E69E8820]);
+  lazy protocol witness table accessor for type TouchEvent and conformance TouchEvent(&lazy protocol witness table cache variable for type ContinuousClock and conformance ContinuousClock, MEMORY[0x1E69E8820], MEMORY[0x1E69E8828]);
+  v6 = v5;
   dispatch thunk of Clock.now.getter();
-  lazy protocol witness table accessor for type TouchEvent and conformance TouchEvent(&lazy protocol witness table cache variable for type ContinuousClock.Instant and conformance ContinuousClock.Instant, MEMORY[0x1E69E87E8]);
+  lazy protocol witness table accessor for type TouchEvent and conformance TouchEvent(&lazy protocol witness table cache variable for type ContinuousClock.Instant and conformance ContinuousClock.Instant, MEMORY[0x1E69E87E8], MEMORY[0x1E69E8818]);
   dispatch thunk of InstantProtocol.advanced(by:)();
-  v6 = *(v3 + 8);
-  v0[12] = v6;
+  v7 = *(v3 + 8);
+  v0[12] = v7;
   v0[13] = (v3 + 8) & 0xFFFFFFFFFFFFLL | 0x4F8000000000000;
-  v6(v1, v2);
-  v7 = swift_task_alloc();
-  v0[14] = v7;
-  *v7 = v0;
-  v7[1] = specialized Clock.sleep(for:tolerance:);
-  v8 = v0[11];
+  v7(v1, v2);
+  v8 = swift_task_alloc();
+  v0[14] = v8;
+  *v8 = v0;
+  v8[1] = specialized Clock.sleep(for:tolerance:);
+  v9 = v0[11];
 
-  return MEMORY[0x1EEE6DE58](v8, v0 + 2, v4, v5);
+  return MEMORY[0x1EEE6DE58](v9, v0 + 2, v4, v6);
 }
 
+uint64_t specialized Clock.sleep(for:tolerance:)(__n128 a1)
 {
-  v2 = *(*v1 + 96);
-  v3 = *(*v1 + 88);
-  v4 = *(*v1 + 64);
-  v5 = *v1;
-  *(v5 + 120) = v0;
+  v3 = *(*v2 + 96);
+  v4 = *(*v2 + 88);
+  v5 = *(*v2 + 64);
+  v6 = *v2;
+  *(v6 + 120) = v1;
 
-  v2(v3, v4);
-  if (v0)
+  v3(v4, v5);
+  if (v1)
   {
 
     return MEMORY[0x1EEE6DFA0](specialized Clock.sleep(for:tolerance:), 0, 0);
@@ -8172,17 +6231,17 @@ uint64_t specialized Clock.sleep(for:tolerance:)()
   else
   {
 
-    v6 = *(v5 + 8);
+    v7 = *(v6 + 8);
 
-    return v6();
+    return v7();
   }
 }
 
 {
 
-  v1 = *(v0 + 8);
+  v2 = *(v1 + 8);
 
-  return v1();
+  return v2();
 }
 
 void (*specialized closure #1 in closure #1 in Attribute.init<A>(_:)())()
@@ -8195,11 +6254,51 @@ void (*specialized closure #1 in closure #1 in Attribute.init<A>(_:)())()
 }
 
 {
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI14LayoutComputerV_AK05UnaryiJ033_1C3B77B617AD058A6802F719E38F5D79LLVyAK023IgnoresAutomaticPaddingI033_47C1BD8C61550BB60F4F3D12F752D53DLLVGTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI14LayoutComputerV_AK05UnaryiJ033_1C3B77B617AD058A6802F719E38F5D79LLVyAK14MoveTransitionV0uI0VGTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI14LayoutComputerV_AK018UnaryPositionAwareiJ033_1C3B77B617AD058A6802F719E38F5D79LLVyAK021ContainerCornerOffsetI033_1EB28CBBC8B70D90A6FD32242CBBC5E6LLVGTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI14LayoutComputerV_AK05UnaryiJ033_1C3B77B617AD058A6802F719E38F5D79LLVyAK28AutomaticPaddingViewModifier33_47C1BD8C61550BB60F4F3D12F752D53DLLV0vI0V07WrappedI0VGTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI14LayoutComputerV_AK07DynamiciJ033_FF3C661D9D8317A1C8FE2B7FD4EDE12CLLVyAK014GeometryReaderI033_7D6D22DF7076CCC1FC5284D8E2D1B049LLVGTt1g5;
+}
+
+{
   return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_Say7SwiftUI21FocusableFillerBoundsVG_AK04LazyijK8ProviderVTt1g5;
 }
 
 {
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_Say7SwiftUI13ViewResponderCG_AK04LeafJ6FilterVyAK08BackdropI0VGTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI11DisplayListV_AK04LeafiJ033_65609C35608651F66D749EB1BD9D2226LLVyAK12BackdropViewVGTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI11DisplayListV_AK011ShapeStylediJ033_E1641985C375D8826E6966D4F238A1B8LLVyAK01_K3SetV7WrapperVGTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI14LayoutComputerV_AK06SpaceriJ033_81D5572A9475F8358655E25B09BAFBA9LLVyAK011ConditionalK0VGTt1g5;
+}
+
+{
   return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_Say7SwiftUI13ViewResponderCG_AK07OpacityJ6FilterVTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI11DisplayListV_AK08FillMaskiJ033_09A110AC5BACB75B719ABBC0079FF1BALLVTt1g5;
 }
 
 {
@@ -8211,11 +6310,51 @@ void (*specialized closure #1 in closure #1 in Attribute.init<A>(_:)())()
 }
 
 {
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI11DisplayListV_AK018GlassEffectContextiJ033_62A32D59B8A902A88963544196023CF7LLVTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI30GlassEffectContextResolvedData33_62A32D59B8A902A88963544196023CF7LLV0M0VSg_ANTt1g5;
+}
+
+{
   return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI24GlassMaterialContextDataV_AM4InitVTt1g5;
 }
 
 {
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI11DisplayListV_AK012DrawingGroupiJ033_13DB74067CC303A724F4EF8CA51D6069LLVTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_ySay7SwiftUI14GlassContainerO4ItemVGzc_AK15ZIndexTransform33_85C8E74E35AEC2A9A8FB7892C121E809LLVTt1g5;
+}
+
+{
   return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_yt_7SwiftUI16AppearanceEffectVTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI8MaterialVSg_AK015GlassEffectItemI008_3DF70D9N23D7473F4D189A049B764CFEFLLVTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_Say7SwiftUI13ViewResponderCG_AK04LeafJ6FilterVyAK05ColorI0VGTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_Say7SwiftUI13ViewResponderCG_AK011ShapeStyledJ6Filter33_E1641985C375D8826E6966D4F238A1B8LLVyAK01_kI0VyAK9RectangleVAKE17AsymmetricalInsetVAK15ForegroundStyleVGGTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI11DisplayListV_AK012InterpolatediJ033_7377A3587909D054D379011E12826F37LLVyAK5ImageVAKE8ResolvedVGTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_Say7SwiftUI13ViewResponderCG_AK011ShapeStyledJ6Filter33_E1641985C375D8826E6966D4F238A1B8LLVyAK5ImageVAKE8ResolvedVGTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI18ResolvedStyledTextC_AK0iK6Filter33_641995D812913A47B866B20B88782376LLVTt1g5;
 }
 
 {
@@ -8227,11 +6366,47 @@ void (*specialized closure #1 in closure #1 in Attribute.init<A>(_:)())()
 }
 
 {
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI17EnvironmentValuesV_AK05ChildI033_3B04936F6043A290A3E53AE94FE09355LLVySbGTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI14GlassContainerO7StorageV_AK07UpdatedjK033_0D94FA50AC33D329AB9E24A7FB1C1182LLVTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI14LayoutComputerV_AK05UnaryiJ033_1C3B77B617AD058A6802F719E38F5D79LLVyAK0i8PriorityI0VGTt1g5;
+}
+
+{
   return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI6ShaderV08ResolvedI0V_AK010AnimatableA0VyAOGTt1g5;
 }
 
 {
   return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI6ShaderV08ResolvedI0V_AK01_I12FilterEffectV0jL033_2BFAEFF753052DBF4DEF07051FF899A7LLVTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI11TransactionV_AK022GlassContainerResolvedI033_04178B540DC3B0BFBD7679A049CE48C7LLVTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI11DisplayListV_AK011ShapeStylediJ033_E1641985C375D8826E6966D4F238A1B8LLVyAK0L15TextContentViewVGTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI11DisplayListV_AK011ShapeStylediJ033_E1641985C375D8826E6966D4F238A1B8LLVyAK01_K4ViewVyAK015CombinedContentK033_6E67AD6866B38627EB183D41FF0BA80ALLVAK15ForegroundStyleVGGTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI15DynamicTextView33_641995D812913A47B866B20B88782376LLV0iJ6FilterVAEV_APTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI12GesturePhaseOyAK13TappableEventVG_AK06RepeatJ033_BECD07FC80B4CA0BF429B041392E806ALLVyAOGTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI9ViewFrameVSg_AA011AnyOptionalA0Vt_AK06SharedJ033_F035CBEF00D3D777B3359545F684D774LLVTt1g5;
 }
 
 {
@@ -8243,7 +6418,39 @@ void (*specialized closure #1 in closure #1 in Attribute.init<A>(_:)())()
 }
 
 {
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI11TransactionV_AK04LazyI033_EB2336F1CBB87914F55D10FF4F9B475ALLVTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_SDy7SwiftUI13_ProposedSizeVSo6CGSizeVG_AK0j8ThatFitsE0VyAK0jlM8MeasurerVGTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI14LayoutComputerV_AK05UnaryiJ033_1C3B77B617AD058A6802F719E38F5D79LLVyAK09_PositionI0VGTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI14LayoutComputerV_AK05UnaryiJ033_1C3B77B617AD058A6802F719E38F5D79LLVyAK010_AlignmentI0VGTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI14LayoutComputerV_AK05UnaryiJ033_1C3B77B617AD058A6802F719E38F5D79LLVyAK010_FixedSizeI0VGTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI14LayoutComputerV_AK05UnaryiJ033_1C3B77B617AD058A6802F719E38F5D79LLVyAK012_AspectRatioI0VGTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI14LayoutComputerV_AK018UnaryPositionAwareiJ033_1C3B77B617AD058A6802F719E38F5D79LLVyAK017_SafeAreaIgnoringI0VGTt1g5;
+}
+
+{
   return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_yt_7SwiftUI21LazySubviewPrefetcherVyAK0I12HStackLayoutVGTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_Say7SwiftUI25_LazyLayout_PlacedSubviewVG_AK0iL10PlacementsVyAK0i6HStackJ0VGTt1g5;
 }
 
 {
@@ -8251,7 +6458,135 @@ void (*specialized closure #1 in closure #1 in Attribute.init<A>(_:)())()
 }
 
 {
-  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA4RuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI32PlatformTextRepresentableContextV_AK0I0V04MakejK033_641995D812913A47B866B20B88782376LLVTt1g5;
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_Say7SwiftUI25_LazyLayout_PlacedSubviewVG_AK0iL10PlacementsVyAK0i6VStackJ0VGTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI14LayoutComputerV_AK07DynamiciJ033_FF3C661D9D8317A1C8FE2B7FD4EDE12CLLVyAK019FlexibleButtonFrameI0VGTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI9ColorViewV_AK013EnvironmentalJ5ChildVyAK0I0VGTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_Say7SwiftUI13ViewResponderCG_AK011ShapeStyledJ6Filter33_E1641985C375D8826E6966D4F238A1B8LLVyAK01_kI0VyAK9RectangleVAK15ForegroundStyleVGGTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_Say7SwiftUI13ViewResponderCG_AK011ShapeStyledJ6Filter33_E1641985C375D8826E6966D4F238A1B8LLVyAK08AnimatedK0VyAK9RectangleV6_InsetVGGTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI11DisplayListV_AK011ShapeStylediJ033_E1641985C375D8826E6966D4F238A1B8LLVyAK08AnimatedK0VyAK03AnyK0VGGTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_Say7SwiftUI13ViewResponderCG_AK011ShapeStyledJ6Filter33_E1641985C375D8826E6966D4F238A1B8LLVyAK01_kI0VyAK7EllipseVAK15ForegroundStyleVGGTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_Say7SwiftUI13ViewResponderCG_AK011ShapeStyledJ6Filter33_E1641985C375D8826E6966D4F238A1B8LLVyAK08AnimatedK0VyAK7EllipseV6_InsetVGGTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_Say7SwiftUI13ViewResponderCG_AK011ShapeStyledJ6Filter33_E1641985C375D8826E6966D4F238A1B8LLVyAK01_kI0VyAK7CapsuleVAK15ForegroundStyleVGGTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_Say7SwiftUI13ViewResponderCG_AK011ShapeStyledJ6Filter33_E1641985C375D8826E6966D4F238A1B8LLVyAK08AnimatedK0VyAK7CapsuleV6_InsetVGGTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_Say7SwiftUI13ViewResponderCG_AK011ShapeStyledJ6Filter33_E1641985C375D8826E6966D4F238A1B8LLVyAK01_kI0VyAK6CircleVAK15ForegroundStyleVGGTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_Say7SwiftUI13ViewResponderCG_AK011ShapeStyledJ6Filter33_E1641985C375D8826E6966D4F238A1B8LLVyAK08AnimatedK0VyAK6CircleV6_InsetVGGTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_Say7SwiftUI13ViewResponderCG_AK011ShapeStyledJ6Filter33_E1641985C375D8826E6966D4F238A1B8LLVyAK01_kI0VyAK4PathVAK15ForegroundStyleVGGTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI11DisplayListV_AK011ShapeStylediJ033_E1641985C375D8826E6966D4F238A1B8LLVyAK01_K4ViewVyAK4PathVAK15ForegroundStyleVGGTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_Say7SwiftUI13ViewResponderCG_AK011ShapeStyledJ6Filter33_E1641985C375D8826E6966D4F238A1B8LLVyAK08AnimatedK0VyAK024PartialContainerRelativeK0VGGTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_Say7SwiftUI13ViewResponderCG_AK011ShapeStyledJ6Filter33_E1641985C375D8826E6966D4F238A1B8LLVyAK01_kI0VyAK018DefaultGlassEffectK0VAK15ForegroundStyleVGGTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_Say7SwiftUI13ViewResponderCG_AK011ShapeStyledJ6Filter33_E1641985C375D8826E6966D4F238A1B8LLVyAK08AnimatedK0VyAK22UnevenRoundedRectangleVGGTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_Say7SwiftUI13ViewResponderCG_AK011ShapeStyledJ6Filter33_E1641985C375D8826E6966D4F238A1B8LLVyAK08AnimatedK0VyAK22UnevenRoundedRectangleV6_InsetVGGTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_Say7SwiftUI13ViewResponderCG_AK011ShapeStyledJ6Filter33_E1641985C375D8826E6966D4F238A1B8LLVyAK01_kI0VyAK017ImplicitContainerK0VAK15ForegroundStyleVGGTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_Say7SwiftUI13ViewResponderCG_AK011ShapeStyledJ6Filter33_E1641985C375D8826E6966D4F238A1B8LLVyAK01_kI0VyAK017ContainerRelativeK0VAK15ForegroundStyleVGGTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_Say7SwiftUI13ViewResponderCG_AK011ShapeStyledJ6Filter33_E1641985C375D8826E6966D4F238A1B8LLVyAK08AnimatedK0VyAK017ContainerRelativeK0V6_InsetVGGTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI17EnvironmentValuesV_AK05ChildI033_3B04936F6043A290A3E53AE94FE09355LLVyAK4FontVSgGTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_Say7SwiftUI13ViewResponderCG_AK011ShapeStyledJ6Filter33_E1641985C375D8826E6966D4F238A1B8LLVyAK08AnimatedK0VyAK19ConcentricRectangleVGGTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_Say7SwiftUI13ViewResponderCG_AK011ShapeStyledJ6Filter33_E1641985C375D8826E6966D4F238A1B8LLVyAK01_kI0VyAK9RectangleVAK18EllipticalGradientVGGTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_Say7SwiftUI13ViewResponderCG_AK011ShapeStyledJ6Filter33_E1641985C375D8826E6966D4F238A1B8LLVyAK08AnimatedK0VyAK16RoundedRectangleVGGTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_Say7SwiftUI13ViewResponderCG_AK011ShapeStyledJ6Filter33_E1641985C375D8826E6966D4F238A1B8LLVyAK08AnimatedK0VyAK16RoundedRectangleV6_InsetVGGTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_Say7SwiftUI13ViewResponderCG_AK011ShapeStyledJ6Filter33_E1641985C375D8826E6966D4F238A1B8LLVyAK01_kI0VyAK9RectangleVAK15AngularGradientVGGTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_Say7SwiftUI13ViewResponderCG_AK011ShapeStyledJ6Filter33_E1641985C375D8826E6966D4F238A1B8LLVyAK01_kI0VyAK9RectangleVAK14RadialGradientVGGTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_Say7SwiftUI13ViewResponderCG_AK011ShapeStyledJ6Filter33_E1641985C375D8826E6966D4F238A1B8LLVyAK01_kI0VyAK9RectangleVAK14LinearGradientVGGTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_Say7SwiftUI13ViewResponderCG_AK011ShapeStyledJ6Filter33_E1641985C375D8826E6966D4F238A1B8LLVyAK01_kI0VyAK9RectangleVAK12MeshGradientVGGTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI11DisplayListV_AK011ShapeStylediJ033_E1641985C375D8826E6966D4F238A1B8LLVyAK01_K4ViewVyAK9RectangleVAK12MeshGradientVGGTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI13_ShadowEffectV9_ResolvedV_AK10StaticBody33_A4C1D658B3717A3062FEFC91A812D6EBLLVyAK013EnvironmentalM8Accessor33_A1B6966B83442495FADFE75F475ECBE2LLVyAMGAK16AsyncThreadFlagsAQLLVGTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI14LayoutComputerV_AK07DynamiciJ033_FF3C661D9D8317A1C8FE2B7FD4EDE12CLLVyAK03AnyI0VGTt1g5;
 }
 
 uint64_t (*specialized closure #1 in closure #1 in Attribute.init<A>(_:)())()
@@ -8261,10 +6596,6 @@ uint64_t (*specialized closure #1 in closure #1 in Attribute.init<A>(_:)())()
 
 {
   return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI12KickModifier33_02B8A9C041E17C70E13F37D6E2D14302LLV_AK010AnimatableA0VyANGTt1g5;
-}
-
-{
-  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI13SummarySymbol33_5039765D26D33F565D3CDFCA69D19B23LLV_AK010AnimatableA0VyANGTt1g5;
 }
 
 {
@@ -8292,35 +6623,11 @@ uint64_t (*specialized closure #1 in closure #1 in Attribute.init<A>(_:)())()
 }
 
 {
-  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI14LayoutComputerV_AK05UnaryiJ033_1C3B77B617AD058A6802F719E38F5D79LLVyAK023IgnoresAutomaticPaddingI033_47C1BD8C61550BB60F4F3D12F752D53DLLVGTt1g5;
-}
-
-{
   return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI14LayoutComputerV_AK05UnaryiJ033_1C3B77B617AD058A6802F719E38F5D79LLVyAK07SpacingI0VGTt1g5;
 }
 
 {
-  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI14LayoutComputerV_AK05UnaryiJ033_1C3B77B617AD058A6802F719E38F5D79LLVyAK14MoveTransitionV0uI0VGTt1g5;
-}
-
-{
   return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI14LayoutComputerV_AK05UnaryiJ033_1C3B77B617AD058A6802F719E38F5D79LLVyAK017ConcentricPaddingI033_7079FF89BCF97F81EB250A589B9A5CEDLLVGTt1g5;
-}
-
-{
-  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI14LayoutComputerV_AK018UnaryPositionAwareiJ033_1C3B77B617AD058A6802F719E38F5D79LLVyAK021ContainerCornerOffsetI033_1EB28CBBC8B70D90A6FD32242CBBC5E6LLVGTt1g5;
-}
-
-{
-  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI14LayoutComputerV_AK05UnaryiJ033_1C3B77B617AD058A6802F719E38F5D79LLVyAK28AutomaticPaddingViewModifier33_47C1BD8C61550BB60F4F3D12F752D53DLLV0vI0V07WrappedI0VGTt1g5;
-}
-
-{
-  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI15PlaceholderInfo33_9B09D1820E97ECBB666F7560EA2A2D2CLLVAEV_ANTt1g5;
-}
-
-{
-  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI17EnvironmentValuesV_AK010LeafLayoutI033_6401BBC0F2663213443101ED0E1CE437LLVTt1g5;
 }
 
 {
@@ -8332,31 +6639,15 @@ uint64_t (*specialized closure #1 in closure #1 in Attribute.init<A>(_:)())()
 }
 
 {
-  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI14LayoutComputerV_AK07DynamiciJ033_FF3C661D9D8317A1C8FE2B7FD4EDE12CLLVyAK014GeometryReaderI033_7D6D22DF7076CCC1FC5284D8E2D1B049LLVGTt1g5;
-}
-
-{
   return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI14LayoutComputerV_AK07DynamiciJ033_FF3C661D9D8317A1C8FE2B7FD4EDE12CLLVyAK07_ZStackI0VGTt1g5;
 }
 
 {
-  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_Say7SwiftUI13ViewResponderCG_AK04LeafJ6FilterVyAK08BackdropI0VGTt1g5;
-}
-
-{
-  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI11DisplayListV_AK04LeafiJ033_65609C35608651F66D749EB1BD9D2226LLVyAK12BackdropViewVGTt1g5;
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI19LazyLayoutViewCacheC_AK06UpdatekL033_EB2336F1CBB87914F55D10FF4F9B475ALLVTt1g5;
 }
 
 {
   return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_Say7SwiftUI13ViewResponderCG_AK011ShapeStyledJ6Filter33_E1641985C375D8826E6966D4F238A1B8LLVyAK01_K3SetV7WrapperVGTt1g5;
-}
-
-{
-  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI11DisplayListV_AK011ShapeStylediJ033_E1641985C375D8826E6966D4F238A1B8LLVyAK01_K3SetV7WrapperVGTt1g5;
-}
-
-{
-  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI14LayoutComputerV_AK06SpaceriJ033_81D5572A9475F8358655E25B09BAFBA9LLVyAK011ConditionalK0VGTt1g5;
 }
 
 {
@@ -8384,15 +6675,7 @@ uint64_t (*specialized closure #1 in closure #1 in Attribute.init<A>(_:)())()
 }
 
 {
-  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI19MaterialEffectState33_E3B0FF576136F59061E5D7766373CC25LLVAEV_ANTt1g5;
-}
-
-{
   return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI14_OpacityEffectV_AK010AnimatableA0VyAMGTt1g5;
-}
-
-{
-  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI11DisplayListV_AK08FillMaskiJ033_09A110AC5BACB75B719ABBC0079FF1BALLVTt1g5;
 }
 
 {
@@ -8404,59 +6687,11 @@ uint64_t (*specialized closure #1 in closure #1 in Attribute.init<A>(_:)())()
 }
 
 {
-  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI11DisplayListV_AK018GlassEffectContextiJ033_62A32D59B8A902A88963544196023CF7LLVTt1g5;
-}
-
-{
-  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI30GlassEffectContextResolvedData33_62A32D59B8A902A88963544196023CF7LLV0M0VSg_ANTt1g5;
-}
-
-{
-  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI8MaterialVSg_AK011GlassEffectI033_62A32D59B8A902A88963544196023CF7LLVTt1g5;
-}
-
-{
-  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI11DisplayListV_AK012DrawingGroupiJ033_13DB74067CC303A724F4EF8CA51D6069LLVTt1g5;
-}
-
-{
-  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_ySay7SwiftUI14GlassContainerO4ItemVGzc_AK0K11IDTransform33_55D2462D268E3CDB724429AD260FBFB3LLVTt1g5;
-}
-
-{
   return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI21OpacityRendererEffectV_AK010AnimatableA0VyAMGTt1g5;
 }
 
 {
-  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_ySay7SwiftUI14GlassContainerO4ItemVGzc_AK0I19EffectGroupModifier33_ACD5779F0FE4442376126A709C92E700LLV0K9TransformVTt1g5;
-}
-
-{
-  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_ySay7SwiftUI14GlassContainerO4ItemVGzc_AK0I20EffectHiddenModifier08_3DF70D9P23D7473F4D189A049B764CFEFLLV9TransformVTt1g5;
-}
-
-{
-  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_ySay7SwiftUI14GlassContainerO4ItemVGzc_AK15ZIndexTransform33_85C8E74E35AEC2A9A8FB7892C121E809LLVTt1g5;
-}
-
-{
-  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI14LayoutComputerV_AK017AlignmentModifiediJ033_1A9A538762FDCD24410B0F017CAED17ALLVTt1g5;
-}
-
-{
-  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_Say7SwiftUI13ViewResponderCG_AK22AllowsHitTestingFilter33_0DA0B6FBFACBDA8275B06C3CD0F4D8CALLVTt1g5;
-}
-
-{
-  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_Say7SwiftUI14GlassContainerO4ItemVG_AK0i6EffectK4Init08_3DF70D9O23D7473F4D189A049B764CFEFLLVTt1g5;
-}
-
-{
   return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI12ViewIdentityV_AK17GlassEffectItemID08_3DF70D9P23D7473F4D189A049B764CFEFLLVTt1g5;
-}
-
-{
-  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI8MaterialVSg_AK015GlassEffectItemI008_3DF70D9N23D7473F4D189A049B764CFEFLLVTt1g5;
 }
 
 {
@@ -8468,31 +6703,7 @@ uint64_t (*specialized closure #1 in closure #1 in Attribute.init<A>(_:)())()
 }
 
 {
-  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI13GeometryProxyV_AK010ConcentricJ033_7079FF89BCF97F81EB250A589B9A5CEDLLVTt1g5;
-}
-
-{
   return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI13PlatformItemsV_AK011GlassEffectI12ItemModifier33_D12F2F25A0BD65FFBD3A7636B60067DFLLV0kimE0VTt1g5;
-}
-
-{
-  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI37GlassEffectContainerTintConfigurationV_AK0ik8ResolvedL6Config33_EC08899B622ECCACC85E95BA1EEBE316LLVTt1g5;
-}
-
-{
-  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_ySay7SwiftUI14GlassContainerO4ItemVGzc_AK22BackdropProxyTransform33_FD0C880ACFE431F75FFFB08913C85A9CLLVTt1g5;
-}
-
-{
-  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI17EnvironmentValuesV_AK013BackdropProxyI033_FD0C880ACFE431F75FFFB08913C85A9CLLVTt1g5;
-}
-
-{
-  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI11DisplayListV_AK015ForegroundLayeriJ033_BCBFDABE28FEE061FC04EF9B5F079DC4LLVTt1g5;
-}
-
-{
-  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI16PreferenceValuesV_AK21HostPreferencesWriter33_62AFEFEED1A7034F09E120B80AB01BF9LLVyAK024ContentCaptureProtectionI3KeyVGTt1g5;
 }
 
 {
@@ -8528,23 +6739,11 @@ uint64_t (*specialized closure #1 in closure #1 in Attribute.init<A>(_:)())()
 }
 
 {
-  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_Say7SwiftUI13ViewResponderCG_AK04LeafJ6FilterVyAK05ColorI0VGTt1g5;
-}
-
-{
   return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI11DisplayListV_AK04LeafiJ033_65609C35608651F66D749EB1BD9D2226LLVyAK9ColorViewVGTt1g5;
 }
 
 {
   return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI9ColorViewV_AK010AnimatableA0VyAMGTt1g5;
-}
-
-{
-  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI14LayoutComputerV_AK04LeafiJ033_65609C35608651F66D749EB1BD9D2226LLVyAK10_ShapeViewVyAK9RectangleVAKE17AsymmetricalInsetVAK15ForegroundStyleVGGTt1g5;
-}
-
-{
-  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_Say7SwiftUI13ViewResponderCG_AK011ShapeStyledJ6Filter33_E1641985C375D8826E6966D4F238A1B8LLVyAK01_kI0VyAK9RectangleVAKE17AsymmetricalInsetVAK15ForegroundStyleVGGTt1g5;
 }
 
 {
@@ -8716,23 +6915,7 @@ uint64_t (*specialized closure #1 in closure #1 in Attribute.init<A>(_:)())()
 }
 
 {
-  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_Say7SwiftUI13CanvasSymbols027_F41195D4CD7D6A29110580DFD3L4F891LLV5ChildVG_ANTt1g5;
-}
-
-{
   return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI14LayoutComputerV_AK04LeafiJ033_65609C35608651F66D749EB1BD9D2226LLVyAK5ImageVAKE8ResolvedVGTt1g5;
-}
-
-{
-  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI14LayoutComputerV_AK013ResolvedImageiJ033_A3C1DB6976F54697C11EFA754256BBD1LLVTt1g5;
-}
-
-{
-  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI11DisplayListV_AK012InterpolatediJ033_7377A3587909D054D379011E12826F37LLVyAK5ImageVAKE8ResolvedVGTt1g5;
-}
-
-{
-  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_Say7SwiftUI13ViewResponderCG_AK011ShapeStyledJ6Filter33_E1641985C375D8826E6966D4F238A1B8LLVyAK5ImageVAKE8ResolvedVGTt1g5;
 }
 
 {
@@ -8740,43 +6923,11 @@ uint64_t (*specialized closure #1 in closure #1 in Attribute.init<A>(_:)())()
 }
 
 {
-  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI18ResolvedStyledTextC_AK0iK6Filter33_641995D812913A47B866B20B88782376LLVTt1g5;
-}
-
-{
-  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI17EnvironmentValuesV_AK05ChildI033_3B04936F6043A290A3E53AE94FE09355LLVySbGTt1g5;
-}
-
-{
-  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI17EnvironmentValuesV_AK05ChildI033_3B04936F6043A290A3E53AE94FE09355LLVyAK16RedactionReasonsVGTt1g5;
-}
-
-{
   return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI11_BlurEffectV_AK010AnimatableA0VyAMGTt1g5;
 }
 
 {
-  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI20ContainerStorageView33_0D94FA50AC33D329AB9E24A7FB1C1182LLV_AN4InitVTt1g5;
-}
-
-{
-  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI14GlassContainerO7StorageV_AK07UpdatedjK033_0D94FA50AC33D329AB9E24A7FB1C1182LLVTt1g5;
-}
-
-{
-  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI14LayoutComputerV_AK05UnaryiJ033_1C3B77B617AD058A6802F719E38F5D79LLVyAK0i8PriorityI0VGTt1g5;
-}
-
-{
   return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI17VariableBlurStyleV_AK010AnimatableA0VyAMGTt1g5;
-}
-
-{
-  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_Say7SwiftUI13ViewResponderCG_AK13GestureFilter33_9DF46B4E935FF03A55FF3DDFB0B1FF2BLLVyAK03AddK8ModifierVyAK06_EndedK0VyAK03TapK0VGAK07DefaultK8CombinerVGGTt1g5;
-}
-
-{
-  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_Say7SwiftUI13ViewResponderCG_AK13GestureFilter33_08277CBBA2E58018469F76809601658CLLVy8Gestures12TapComponentVyAR10TouchEventVGGTt1g5;
 }
 
 {
@@ -8788,27 +6939,11 @@ uint64_t (*specialized closure #1 in closure #1 in Attribute.init<A>(_:)())()
 }
 
 {
-  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI11TransactionV_AK022GlassContainerResolvedI033_04178B540DC3B0BFBD7679A049CE48C7LLVTt1g5;
-}
-
-{
-  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI19ResolvedStorageData33_04178B540DC3B0BFBD7679A049CE48C7LLV_AK014GlassContaineriJ0AMLLVTt1g5;
-}
-
-{
-  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI14LayoutComputerV_AK010StyledTextiJ033_641995D812913A47B866B20B88782376LLVTt1g5;
-}
-
-{
   return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI11DisplayListV_AK012InterpolatediJ033_7377A3587909D054D379011E12826F37LLVyAK18ResolvedStyledTextCGTt1g5;
 }
 
 {
   return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_Say7SwiftUI13ViewResponderCG_AK011ShapeStyledJ6Filter33_E1641985C375D8826E6966D4F238A1B8LLVyAK0l11TextContentI0VGTt1g5;
-}
-
-{
-  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI11DisplayListV_AK011ShapeStylediJ033_E1641985C375D8826E6966D4F238A1B8LLVyAK0L15TextContentViewVGTt1g5;
 }
 
 {
@@ -8820,27 +6955,7 @@ uint64_t (*specialized closure #1 in closure #1 in Attribute.init<A>(_:)())()
 }
 
 {
-  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI11DisplayListV_AK011ShapeStylediJ033_E1641985C375D8826E6966D4F238A1B8LLVyAK01_K4ViewVyAK015CombinedContentK033_6E67AD6866B38627EB183D41FF0BA80ALLVAK15ForegroundStyleVGGTt1g5;
-}
-
-{
-  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI17EnvironmentValuesV_AK15DynamicTextView33_641995D812913A47B866B20B88782376LLV0klI0VTt1g5;
-}
-
-{
-  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI15DynamicTextView33_641995D812913A47B866B20B88782376LLV0iJ6FilterVAEV_APTt1g5;
-}
-
-{
   return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI13SubviewsPhase33_9DF46B4E935FF03A55FF3DDFB0B1FF2BLLVAEV_ANTt1g5;
-}
-
-{
-  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI12GesturePhaseOyAK13TappableEventVG_AK06RepeatJ033_BECD07FC80B4CA0BF429B041392E806ALLVyAOGTt1g5;
-}
-
-{
-  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI12GesturePhaseOyAK13TappableEventVG_AK04Map2J033_BE6C3883808EC258A2B6649DC967D317LLVyAO12CoreGraphics7CGFloatVAOGTt1g5;
 }
 
 {
@@ -8856,10 +6971,6 @@ uint64_t (*specialized closure #1 in closure #1 in Attribute.init<A>(_:)())()
 }
 
 {
-  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI12GesturePhaseOyAK13TappableEventVG_AK04Map2J033_BE6C3883808EC258A2B6649DC967D317LLVyAOSdAOGTt1g5;
-}
-
-{
   return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI12GesturePhaseOySdG_AK08DurationJ033_C4CC4B4F23572B057F5F0CA55A7B1301LLVyAK13TappableEventVGTt1g5;
 }
 
@@ -8868,23 +6979,11 @@ uint64_t (*specialized closure #1 in closure #1 in Attribute.init<A>(_:)())()
 }
 
 {
-  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI12GesturePhaseOyAK13TappableEventVG_AK03MapJ033_EA8BFBF553A9179E7F3A85C72F795A9FLLVyA2OGTt1g5;
-}
-
-{
   return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI15ModifierGestureVyAK11EventFilterVyAK08TappableK0VGAMyAK04Map2J0VyAqMyAK015CoordinateSpaceJ0Vy12CoreGraphics7CGFloatVGAK08DistanceJ0VGAQGAMyATyAqMyAK08DurationJ0VyAQGAK0K8ListenerVyAQGGAQGAMyAK09DependentJ033_8687835E41FEE17B108D67665C1D2D0BLLVyAQGAMyAK03MapJ0VyA2QGA8_GGGGG_AK10StaticBody33_A4C1D658B3717A3062FEFC91A812D6EBLLVyAK0J12BodyAccessor33_5DF390A778F4D193C5F92C06542566B0LLVyAK09SingleTapJ0VyAQGGAK16AsyncThreadFlagsA24_LLVGTt1g5;
 }
 
 {
   return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI15ModifierGestureVyAK11EventFilterVyAK08TappableK0VGAMyAK04Map2J0VyAqMyAK015CoordinateSpaceJ0Vy12CoreGraphics7CGFloatVGAK08DistanceJ0VGAQGAMyATyAqMyAK08DurationJ0VyAQGAK0K8ListenerVyAQGGAQGAMyAK09DependentJ033_8687835E41FEE17B108D67665C1D2D0BLLVyAQGAMyAK03MapJ0VyA2QGA8_GGGGG_AK11DynamicBody33_A4C1D658B3717A3062FEFC91A812D6EBLLVyAK0J12BodyAccessor33_5DF390A778F4D193C5F92C06542566B0LLVyAK09SingleTapJ0VyAQGGAK16AsyncThreadFlagsA24_LLVGTt1g5;
-}
-
-{
-  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI9ViewFrameVSg_AA011AnyOptionalA0Vt_AK06SharedJ033_F035CBEF00D3D777B3359545F684D774LLVTt1g5;
-}
-
-{
-  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_Say7SwiftUI13ViewResponderCG_AK20HitTestBindingFilter33_D16C83991EAE21A87411739F6DC01498LLVTt1g5;
 }
 
 {
@@ -8897,10 +6996,6 @@ uint64_t (*specialized closure #1 in closure #1 in Attribute.init<A>(_:)())()
 
 {
   return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI20HiddenForReuseEffect33_EB2336F1CBB87914F55D10FF4F9B475ALLV_AK22LazyDisplayListWrapperAMLLVTt1g5;
-}
-
-{
-  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_SDy7SwiftUI13_ProposedSizeVSo6CGSizeVG_AK0j8ThatFitsE0VyAK0jlM8MeasurerVGTt1g5;
 }
 
 {
@@ -8917,10 +7012,6 @@ uint64_t (*specialized closure #1 in closure #1 in Attribute.init<A>(_:)())()
 
 {
   return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI10EdgeInsetsV_AK010AnimatableA0VyAMGTt1g5;
-}
-
-{
-  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI11StrokeStyleV_AK010AnimatableA0VyAMGTt1g5;
 }
 
 {
@@ -8956,10 +7047,6 @@ uint64_t (*specialized closure #1 in closure #1 in Attribute.init<A>(_:)())()
 }
 
 {
-  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI16ResolvedGradientV_AK010AnimatableA0VyAMGTt1g5;
-}
-
-{
   return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI16RoundedRectangleV6_InsetV_AK010AnimatableA0VyAOGTt1g5;
 }
 
@@ -8985,10 +7072,6 @@ uint64_t (*specialized closure #1 in closure #1 in Attribute.init<A>(_:)())()
 
 {
   return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI16_ShapeStyle_PackV6EffectV_AK010AnimatableA0VyAOGTt1g5;
-}
-
-{
-  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI16_ShapeStyle_PackV_AK010AnimatableA0VyAMGTt1g5;
 }
 
 {
@@ -9092,19 +7175,11 @@ uint64_t (*specialized closure #1 in closure #1 in Attribute.init<A>(_:)())()
 }
 
 {
-  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI8AnyShapeV_AK010AnimatableA0VyAMGTt1g5;
-}
-
-{
   return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI8UnitRectV_AK010AnimatableA0VyAMGTt1g5;
 }
 
 {
   return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI8ViewSizeV_AK010AnimatableA0VyAMGTt1g5;
-}
-
-{
-  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI9AnyLayoutV_AK010AnimatableA0VyAMGTt1g5;
 }
 
 {
@@ -9140,42 +7215,6 @@ uint64_t (*specialized closure #1 in closure #1 in Attribute.init<A>(_:)())()
 }
 
 {
-  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI14LayoutComputerV_AK05UnaryiJ033_1C3B77B617AD058A6802F719E38F5D79LLVyAK06_FrameI0VGTt1g5;
-}
-
-{
-  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI14LayoutComputerV_AK05UnaryiJ033_1C3B77B617AD058A6802F719E38F5D79LLVyAK08_PaddingI0VGTt1g5;
-}
-
-{
-  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI14LayoutComputerV_AK05UnaryiJ033_1C3B77B617AD058A6802F719E38F5D79LLVyAK09_PositionI0VGTt1g5;
-}
-
-{
-  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI14LayoutComputerV_AK05UnaryiJ033_1C3B77B617AD058A6802F719E38F5D79LLVyAK010_AlignmentI0VGTt1g5;
-}
-
-{
-  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI14LayoutComputerV_AK05UnaryiJ033_1C3B77B617AD058A6802F719E38F5D79LLVyAK010_FixedSizeI0VGTt1g5;
-}
-
-{
-  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI14LayoutComputerV_AK05UnaryiJ033_1C3B77B617AD058A6802F719E38F5D79LLVyAK010_FlexFrameI0VGTt1g5;
-}
-
-{
-  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI14LayoutComputerV_AK05UnaryiJ033_1C3B77B617AD058A6802F719E38F5D79LLVyAK012_AspectRatioI0VGTt1g5;
-}
-
-{
-  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI14LayoutComputerV_AK018UnaryPositionAwareiJ033_1C3B77B617AD058A6802F719E38F5D79LLVyAK017_SafeAreaIgnoringI0VGTt1g5;
-}
-
-{
-  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI14LayoutComputerV_AK018UnaryPositionAwareiJ033_1C3B77B617AD058A6802F719E38F5D79LLVyAK024_SafeAreaRegionsIgnoringI0VGTt1g5;
-}
-
-{
   return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI14LayoutComputerV_AK07DynamiciJ033_FF3C661D9D8317A1C8FE2B7FD4EDE12CLLVyAK07_HStackI0VGTt1g5;
 }
 
@@ -9188,15 +7227,7 @@ uint64_t (*specialized closure #1 in closure #1 in Attribute.init<A>(_:)())()
 }
 
 {
-  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_Say7SwiftUI25_LazyLayout_PlacedSubviewVG_AK0iL10PlacementsVyAK0i6HStackJ0VGTt1g5;
-}
-
-{
   return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI14LayoutComputerV_AK04LazyiJ0VyAK0k6VStackI0VGTt1g5;
-}
-
-{
-  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_Say7SwiftUI25_LazyLayout_PlacedSubviewVG_AK0iL10PlacementsVyAK0i6VStackJ0VGTt1g5;
 }
 
 {
@@ -9205,10 +7236,6 @@ uint64_t (*specialized closure #1 in closure #1 in Attribute.init<A>(_:)())()
 
 {
   return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI15ModifiedContentVyAK014_ViewModifier_J0VyAK0j17CaptureProtectionkL0VGAK0jmN16PreferenceWriter33_0D6CD02499D969DD550B3CDDD0903EA3LLVG_AK10StaticBody029_A4C1D658B3717A3062FEFC91A812Q2EBLLVyAK0lY8Accessor33_2BA0A33A15B7F322F46AFB9D0D1A262DLLVyAQGAK16AsyncThreadFlagsAXLLVGTt1g5;
-}
-
-{
-  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI14LayoutComputerV_AK07DynamiciJ033_FF3C661D9D8317A1C8FE2B7FD4EDE12CLLVyAK019FlexibleButtonFrameI0VGTt1g5;
 }
 
 {
@@ -9225,10 +7252,6 @@ uint64_t (*specialized closure #1 in closure #1 in Attribute.init<A>(_:)())()
 
 {
   return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI15ModifiedContentVyAMyAMyAMyAK014_ViewModifier_J0VyAK015SafeAreaPaddingL0VGAK06_InsetkL0VyAMyAK5ColorVAK12_FrameLayoutVGGGAZGAZGAZG_AK10StaticBody33_A4C1D658B3717A3062FEFC91A812D6EBLLVyAK0lU8Accessor33_2BA0A33A15B7F322F46AFB9D0D1A262DLLVyAQGAK16AsyncThreadFlagsA4_LLVGTt1g5;
-}
-
-{
-  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI9ColorViewV_AK013EnvironmentalJ5ChildVyAK0I0VGTt1g5;
 }
 
 {
@@ -9256,23 +7279,11 @@ uint64_t (*specialized closure #1 in closure #1 in Attribute.init<A>(_:)())()
 }
 
 {
-  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_Say7SwiftUI13ViewResponderCG_AK011ShapeStyledJ6Filter33_E1641985C375D8826E6966D4F238A1B8LLVyAK01_kI0VyAK9RectangleVAK15ForegroundStyleVGGTt1g5;
-}
-
-{
   return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI11DisplayListV_AK011ShapeStylediJ033_E1641985C375D8826E6966D4F238A1B8LLVyAK01_K4ViewVyAK9RectangleVAK15ForegroundStyleVGGTt1g5;
 }
 
 {
   return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI10_ShapeViewVyAK9RectangleVAK15ForegroundStyleVG_AK11DynamicBody33_A4C1D658B3717A3062FEFC91A812D6EBLLVyAK0jO8AccessorVyAOGAK16AsyncThreadFlagsATLLVGTt1g5;
-}
-
-{
-  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI10_ShapeViewVyAK9RectangleVAK15ForegroundStyleVG_AK10StaticBody33_A4C1D658B3717A3062FEFC91A812D6EBLLVyAK0jO8AccessorVyAOGAK16AsyncThreadFlagsATLLVGTt1g5;
-}
-
-{
-  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_Say7SwiftUI13ViewResponderCG_AK011ShapeStyledJ6Filter33_E1641985C375D8826E6966D4F238A1B8LLVyAK08AnimatedK0VyAK9RectangleV6_InsetVGGTt1g5;
 }
 
 {
@@ -9304,19 +7315,7 @@ uint64_t (*specialized closure #1 in closure #1 in Attribute.init<A>(_:)())()
 }
 
 {
-  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI11DisplayListV_AK011ShapeStylediJ033_E1641985C375D8826E6966D4F238A1B8LLVyAK08AnimatedK0VyAK03AnyK0VGGTt1g5;
-}
-
-{
   return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI10_ShapeViewVyAK03AnyI0VAK15ForegroundStyleVG_AK11DynamicBody33_A4C1D658B3717A3062FEFC91A812D6EBLLVyAK0jO8AccessorVyAOGAK16AsyncThreadFlagsATLLVGTt1g5;
-}
-
-{
-  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI10_ShapeViewVyAK03AnyI0VAK15ForegroundStyleVG_AK10StaticBody33_A4C1D658B3717A3062FEFC91A812D6EBLLVyAK0jO8AccessorVyAOGAK16AsyncThreadFlagsATLLVGTt1g5;
-}
-
-{
-  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_Say7SwiftUI13ViewResponderCG_AK011ShapeStyledJ6Filter33_E1641985C375D8826E6966D4F238A1B8LLVyAK01_kI0VyAK7EllipseVAK15ForegroundStyleVGGTt1g5;
 }
 
 {
@@ -9325,14 +7324,6 @@ uint64_t (*specialized closure #1 in closure #1 in Attribute.init<A>(_:)())()
 
 {
   return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI10_ShapeViewVyAK7EllipseVAK15ForegroundStyleVG_AK11DynamicBody33_A4C1D658B3717A3062FEFC91A812D6EBLLVyAK0jO8AccessorVyAOGAK16AsyncThreadFlagsATLLVGTt1g5;
-}
-
-{
-  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI10_ShapeViewVyAK7EllipseVAK15ForegroundStyleVG_AK10StaticBody33_A4C1D658B3717A3062FEFC91A812D6EBLLVyAK0jO8AccessorVyAOGAK16AsyncThreadFlagsATLLVGTt1g5;
-}
-
-{
-  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_Say7SwiftUI13ViewResponderCG_AK011ShapeStyledJ6Filter33_E1641985C375D8826E6966D4F238A1B8LLVyAK08AnimatedK0VyAK7EllipseV6_InsetVGGTt1g5;
 }
 
 {
@@ -9348,14 +7339,6 @@ uint64_t (*specialized closure #1 in closure #1 in Attribute.init<A>(_:)())()
 }
 
 {
-  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI14LayoutComputerV_AK04LeafiJ033_65609C35608651F66D749EB1BD9D2226LLVyAK10_ShapeViewVyAK7CapsuleVAK15ForegroundStyleVGGTt1g5;
-}
-
-{
-  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_Say7SwiftUI13ViewResponderCG_AK011ShapeStyledJ6Filter33_E1641985C375D8826E6966D4F238A1B8LLVyAK01_kI0VyAK7CapsuleVAK15ForegroundStyleVGGTt1g5;
-}
-
-{
   return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI11DisplayListV_AK011ShapeStylediJ033_E1641985C375D8826E6966D4F238A1B8LLVyAK01_K4ViewVyAK7CapsuleVAK15ForegroundStyleVGGTt1g5;
 }
 
@@ -9365,10 +7348,6 @@ uint64_t (*specialized closure #1 in closure #1 in Attribute.init<A>(_:)())()
 
 {
   return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI10_ShapeViewVyAK7CapsuleVAK15ForegroundStyleVG_AK10StaticBody33_A4C1D658B3717A3062FEFC91A812D6EBLLVyAK0jO8AccessorVyAOGAK16AsyncThreadFlagsATLLVGTt1g5;
-}
-
-{
-  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_Say7SwiftUI13ViewResponderCG_AK011ShapeStyledJ6Filter33_E1641985C375D8826E6966D4F238A1B8LLVyAK08AnimatedK0VyAK7CapsuleV6_InsetVGGTt1g5;
 }
 
 {
@@ -9384,23 +7363,11 @@ uint64_t (*specialized closure #1 in closure #1 in Attribute.init<A>(_:)())()
 }
 
 {
-  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_Say7SwiftUI13ViewResponderCG_AK011ShapeStyledJ6Filter33_E1641985C375D8826E6966D4F238A1B8LLVyAK01_kI0VyAK6CircleVAK15ForegroundStyleVGGTt1g5;
-}
-
-{
   return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI11DisplayListV_AK011ShapeStylediJ033_E1641985C375D8826E6966D4F238A1B8LLVyAK01_K4ViewVyAK6CircleVAK15ForegroundStyleVGGTt1g5;
 }
 
 {
   return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI10_ShapeViewVyAK6CircleVAK15ForegroundStyleVG_AK11DynamicBody33_A4C1D658B3717A3062FEFC91A812D6EBLLVyAK0jO8AccessorVyAOGAK16AsyncThreadFlagsATLLVGTt1g5;
-}
-
-{
-  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI10_ShapeViewVyAK6CircleVAK15ForegroundStyleVG_AK10StaticBody33_A4C1D658B3717A3062FEFC91A812D6EBLLVyAK0jO8AccessorVyAOGAK16AsyncThreadFlagsATLLVGTt1g5;
-}
-
-{
-  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_Say7SwiftUI13ViewResponderCG_AK011ShapeStyledJ6Filter33_E1641985C375D8826E6966D4F238A1B8LLVyAK08AnimatedK0VyAK6CircleV6_InsetVGGTt1g5;
 }
 
 {
@@ -9420,27 +7387,7 @@ uint64_t (*specialized closure #1 in closure #1 in Attribute.init<A>(_:)())()
 }
 
 {
-  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_Say7SwiftUI13ViewResponderCG_AK011ShapeStyledJ6Filter33_E1641985C375D8826E6966D4F238A1B8LLVyAK01_kI0VyAK4PathVAK15ForegroundStyleVGGTt1g5;
-}
-
-{
-  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI11DisplayListV_AK011ShapeStylediJ033_E1641985C375D8826E6966D4F238A1B8LLVyAK01_K4ViewVyAK4PathVAK15ForegroundStyleVGGTt1g5;
-}
-
-{
   return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI10_ShapeViewVyAK4PathVAK15ForegroundStyleVG_AK11DynamicBody33_A4C1D658B3717A3062FEFC91A812D6EBLLVyAK0jO8AccessorVyAOGAK16AsyncThreadFlagsATLLVGTt1g5;
-}
-
-{
-  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI10_ShapeViewVyAK4PathVAK15ForegroundStyleVG_AK10StaticBody33_A4C1D658B3717A3062FEFC91A812D6EBLLVyAK0jO8AccessorVyAOGAK16AsyncThreadFlagsATLLVGTt1g5;
-}
-
-{
-  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI14LayoutComputerV_AK04LeafiJ033_65609C35608651F66D749EB1BD9D2226LLVyAK13AnimatedShapeVyAK024PartialContainerRelativeS0VGGTt1g5;
-}
-
-{
-  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_Say7SwiftUI13ViewResponderCG_AK011ShapeStyledJ6Filter33_E1641985C375D8826E6966D4F238A1B8LLVyAK08AnimatedK0VyAK024PartialContainerRelativeK0VGGTt1g5;
 }
 
 {
@@ -9456,14 +7403,6 @@ uint64_t (*specialized closure #1 in closure #1 in Attribute.init<A>(_:)())()
 }
 
 {
-  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI14LayoutComputerV_AK04LeafiJ033_65609C35608651F66D749EB1BD9D2226LLVyAK10_ShapeViewVyAK018DefaultGlassEffectR0VAK15ForegroundStyleVGGTt1g5;
-}
-
-{
-  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_Say7SwiftUI13ViewResponderCG_AK011ShapeStyledJ6Filter33_E1641985C375D8826E6966D4F238A1B8LLVyAK01_kI0VyAK018DefaultGlassEffectK0VAK15ForegroundStyleVGGTt1g5;
-}
-
-{
   return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI11DisplayListV_AK011ShapeStylediJ033_E1641985C375D8826E6966D4F238A1B8LLVyAK01_K4ViewVyAK018DefaultGlassEffectK0VAK15ForegroundStyleVGGTt1g5;
 }
 
@@ -9473,14 +7412,6 @@ uint64_t (*specialized closure #1 in closure #1 in Attribute.init<A>(_:)())()
 
 {
   return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI10_ShapeViewVyAK018DefaultGlassEffectI0VAK15ForegroundStyleVG_AK10StaticBody33_A4C1D658B3717A3062FEFC91A812D6EBLLVyAK0jQ8AccessorVyAOGAK16AsyncThreadFlagsATLLVGTt1g5;
-}
-
-{
-  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI14LayoutComputerV_AK04LeafiJ033_65609C35608651F66D749EB1BD9D2226LLVyAK13AnimatedShapeVyAK22UnevenRoundedRectangleVGGTt1g5;
-}
-
-{
-  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_Say7SwiftUI13ViewResponderCG_AK011ShapeStyledJ6Filter33_E1641985C375D8826E6966D4F238A1B8LLVyAK08AnimatedK0VyAK22UnevenRoundedRectangleVGGTt1g5;
 }
 
 {
@@ -9496,14 +7427,6 @@ uint64_t (*specialized closure #1 in closure #1 in Attribute.init<A>(_:)())()
 }
 
 {
-  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI14LayoutComputerV_AK04LeafiJ033_65609C35608651F66D749EB1BD9D2226LLVyAK13AnimatedShapeVyAK22UnevenRoundedRectangleV6_InsetVGGTt1g5;
-}
-
-{
-  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_Say7SwiftUI13ViewResponderCG_AK011ShapeStyledJ6Filter33_E1641985C375D8826E6966D4F238A1B8LLVyAK08AnimatedK0VyAK22UnevenRoundedRectangleV6_InsetVGGTt1g5;
-}
-
-{
   return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI11DisplayListV_AK011ShapeStylediJ033_E1641985C375D8826E6966D4F238A1B8LLVyAK08AnimatedK0VyAK22UnevenRoundedRectangleV6_InsetVGGTt1g5;
 }
 
@@ -9513,10 +7436,6 @@ uint64_t (*specialized closure #1 in closure #1 in Attribute.init<A>(_:)())()
 
 {
   return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI10_ShapeViewVyAK22UnevenRoundedRectangleV6_InsetVAK15ForegroundStyleVG_AK10StaticBody33_A4C1D658B3717A3062FEFC91A812D6EBLLVyAK0jR8AccessorVyAQGAK16AsyncThreadFlagsAVLLVGTt1g5;
-}
-
-{
-  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_Say7SwiftUI13ViewResponderCG_AK011ShapeStyledJ6Filter33_E1641985C375D8826E6966D4F238A1B8LLVyAK01_kI0VyAK017ImplicitContainerK0VAK15ForegroundStyleVGGTt1g5;
 }
 
 {
@@ -9532,23 +7451,11 @@ uint64_t (*specialized closure #1 in closure #1 in Attribute.init<A>(_:)())()
 }
 
 {
-  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_Say7SwiftUI13ViewResponderCG_AK011ShapeStyledJ6Filter33_E1641985C375D8826E6966D4F238A1B8LLVyAK01_kI0VyAK017ContainerRelativeK0VAK15ForegroundStyleVGGTt1g5;
-}
-
-{
   return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI11DisplayListV_AK011ShapeStylediJ033_E1641985C375D8826E6966D4F238A1B8LLVyAK01_K4ViewVyAK017ContainerRelativeK0VAK15ForegroundStyleVGGTt1g5;
 }
 
 {
   return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI10_ShapeViewVyAK017ContainerRelativeI0VAK15ForegroundStyleVG_AK11DynamicBody33_A4C1D658B3717A3062FEFC91A812D6EBLLVyAK0jP8AccessorVyAOGAK16AsyncThreadFlagsATLLVGTt1g5;
-}
-
-{
-  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI10_ShapeViewVyAK017ContainerRelativeI0VAK15ForegroundStyleVG_AK10StaticBody33_A4C1D658B3717A3062FEFC91A812D6EBLLVyAK0jP8AccessorVyAOGAK16AsyncThreadFlagsATLLVGTt1g5;
-}
-
-{
-  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_Say7SwiftUI13ViewResponderCG_AK011ShapeStyledJ6Filter33_E1641985C375D8826E6966D4F238A1B8LLVyAK08AnimatedK0VyAK017ContainerRelativeK0V6_InsetVGGTt1g5;
 }
 
 {
@@ -9561,10 +7468,6 @@ uint64_t (*specialized closure #1 in closure #1 in Attribute.init<A>(_:)())()
 
 {
   return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI10_ShapeViewVyAK017ContainerRelativeI0V6_InsetVAK15ForegroundStyleVG_AK10StaticBody33_A4C1D658B3717A3062FEFC91A812D6EBLLVyAK0jQ8AccessorVyAQGAK16AsyncThreadFlagsAVLLVGTt1g5;
-}
-
-{
-  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI17EnvironmentValuesV_AK05ChildI033_3B04936F6043A290A3E53AE94FE09355LLVyAK4FontVSgGTt1g5;
 }
 
 {
@@ -9588,14 +7491,6 @@ uint64_t (*specialized closure #1 in closure #1 in Attribute.init<A>(_:)())()
 }
 
 {
-  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI14LayoutComputerV_AK04LeafiJ033_65609C35608651F66D749EB1BD9D2226LLVyAK13AnimatedShapeVyAK19ConcentricRectangleVGGTt1g5;
-}
-
-{
-  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_Say7SwiftUI13ViewResponderCG_AK011ShapeStyledJ6Filter33_E1641985C375D8826E6966D4F238A1B8LLVyAK08AnimatedK0VyAK19ConcentricRectangleVGGTt1g5;
-}
-
-{
   return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI11DisplayListV_AK011ShapeStylediJ033_E1641985C375D8826E6966D4F238A1B8LLVyAK08AnimatedK0VyAK19ConcentricRectangleVGGTt1g5;
 }
 
@@ -9608,15 +7503,7 @@ uint64_t (*specialized closure #1 in closure #1 in Attribute.init<A>(_:)())()
 }
 
 {
-  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI16_ShapeStyle_PackV_AK0iJ8ResolverVyAK18EllipticalGradientVGTt1g5;
-}
-
-{
   return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI14LayoutComputerV_AK04LeafiJ033_65609C35608651F66D749EB1BD9D2226LLVyAK10_ShapeViewVyAK9RectangleVAK18EllipticalGradientVGGTt1g5;
-}
-
-{
-  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_Say7SwiftUI13ViewResponderCG_AK011ShapeStyledJ6Filter33_E1641985C375D8826E6966D4F238A1B8LLVyAK01_kI0VyAK9RectangleVAK18EllipticalGradientVGGTt1g5;
 }
 
 {
@@ -9624,19 +7511,7 @@ uint64_t (*specialized closure #1 in closure #1 in Attribute.init<A>(_:)())()
 }
 
 {
-  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI10_ShapeViewVyAK9RectangleVAK18EllipticalGradientVG_AK11DynamicBody33_A4C1D658B3717A3062FEFC91A812D6EBLLVyAK0jO8AccessorVyAQGAK16AsyncThreadFlagsATLLVGTt1g5;
-}
-
-{
   return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI10_ShapeViewVyAK9RectangleVAK18EllipticalGradientVG_AK10StaticBody33_A4C1D658B3717A3062FEFC91A812D6EBLLVyAK0jO8AccessorVyAQGAK16AsyncThreadFlagsATLLVGTt1g5;
-}
-
-{
-  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI14LayoutComputerV_AK04LeafiJ033_65609C35608651F66D749EB1BD9D2226LLVyAK13AnimatedShapeVyAK16RoundedRectangleVGGTt1g5;
-}
-
-{
-  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_Say7SwiftUI13ViewResponderCG_AK011ShapeStyledJ6Filter33_E1641985C375D8826E6966D4F238A1B8LLVyAK08AnimatedK0VyAK16RoundedRectangleVGGTt1g5;
 }
 
 {
@@ -9645,18 +7520,6 @@ uint64_t (*specialized closure #1 in closure #1 in Attribute.init<A>(_:)())()
 
 {
   return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI10_ShapeViewVyAK16RoundedRectangleVAK15ForegroundStyleVG_AK11DynamicBody33_A4C1D658B3717A3062FEFC91A812D6EBLLVyAK0jP8AccessorVyAOGAK16AsyncThreadFlagsATLLVGTt1g5;
-}
-
-{
-  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI10_ShapeViewVyAK16RoundedRectangleVAK15ForegroundStyleVG_AK10StaticBody33_A4C1D658B3717A3062FEFC91A812D6EBLLVyAK0jP8AccessorVyAOGAK16AsyncThreadFlagsATLLVGTt1g5;
-}
-
-{
-  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI14LayoutComputerV_AK04LeafiJ033_65609C35608651F66D749EB1BD9D2226LLVyAK13AnimatedShapeVyAK16RoundedRectangleV6_InsetVGGTt1g5;
-}
-
-{
-  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_Say7SwiftUI13ViewResponderCG_AK011ShapeStyledJ6Filter33_E1641985C375D8826E6966D4F238A1B8LLVyAK08AnimatedK0VyAK16RoundedRectangleV6_InsetVGGTt1g5;
 }
 
 {
@@ -9672,15 +7535,7 @@ uint64_t (*specialized closure #1 in closure #1 in Attribute.init<A>(_:)())()
 }
 
 {
-  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI16_ShapeStyle_PackV_AK0iJ8ResolverVyAK15AngularGradientVGTt1g5;
-}
-
-{
   return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI14LayoutComputerV_AK04LeafiJ033_65609C35608651F66D749EB1BD9D2226LLVyAK10_ShapeViewVyAK9RectangleVAK15AngularGradientVGGTt1g5;
-}
-
-{
-  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_Say7SwiftUI13ViewResponderCG_AK011ShapeStyledJ6Filter33_E1641985C375D8826E6966D4F238A1B8LLVyAK01_kI0VyAK9RectangleVAK15AngularGradientVGGTt1g5;
 }
 
 {
@@ -9688,15 +7543,7 @@ uint64_t (*specialized closure #1 in closure #1 in Attribute.init<A>(_:)())()
 }
 
 {
-  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI10_ShapeViewVyAK9RectangleVAK15AngularGradientVG_AK11DynamicBody33_A4C1D658B3717A3062FEFC91A812D6EBLLVyAK0jO8AccessorVyAQGAK16AsyncThreadFlagsATLLVGTt1g5;
-}
-
-{
   return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI10_ShapeViewVyAK9RectangleVAK15AngularGradientVG_AK10StaticBody33_A4C1D658B3717A3062FEFC91A812D6EBLLVyAK0jO8AccessorVyAQGAK16AsyncThreadFlagsATLLVGTt1g5;
-}
-
-{
-  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI16_ShapeStyle_PackV_AK0iJ8ResolverVyAK14RadialGradientVGTt1g5;
 }
 
 {
@@ -9704,15 +7551,7 @@ uint64_t (*specialized closure #1 in closure #1 in Attribute.init<A>(_:)())()
 }
 
 {
-  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_Say7SwiftUI13ViewResponderCG_AK011ShapeStyledJ6Filter33_E1641985C375D8826E6966D4F238A1B8LLVyAK01_kI0VyAK9RectangleVAK14RadialGradientVGGTt1g5;
-}
-
-{
   return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI11DisplayListV_AK011ShapeStylediJ033_E1641985C375D8826E6966D4F238A1B8LLVyAK01_K4ViewVyAK9RectangleVAK14RadialGradientVGGTt1g5;
-}
-
-{
-  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI10_ShapeViewVyAK9RectangleVAK14RadialGradientVG_AK11DynamicBody33_A4C1D658B3717A3062FEFC91A812D6EBLLVyAK0jO8AccessorVyAQGAK16AsyncThreadFlagsATLLVGTt1g5;
 }
 
 {
@@ -9728,10 +7567,6 @@ uint64_t (*specialized closure #1 in closure #1 in Attribute.init<A>(_:)())()
 }
 
 {
-  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_Say7SwiftUI13ViewResponderCG_AK011ShapeStyledJ6Filter33_E1641985C375D8826E6966D4F238A1B8LLVyAK01_kI0VyAK9RectangleVAK14LinearGradientVGGTt1g5;
-}
-
-{
   return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI11DisplayListV_AK011ShapeStylediJ033_E1641985C375D8826E6966D4F238A1B8LLVyAK01_K4ViewVyAK9RectangleVAK14LinearGradientVGGTt1g5;
 }
 
@@ -9744,19 +7579,7 @@ uint64_t (*specialized closure #1 in closure #1 in Attribute.init<A>(_:)())()
 }
 
 {
-  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI16_ShapeStyle_PackV_AK0iJ8ResolverVyAK12MeshGradientVGTt1g5;
-}
-
-{
   return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI14LayoutComputerV_AK04LeafiJ033_65609C35608651F66D749EB1BD9D2226LLVyAK10_ShapeViewVyAK9RectangleVAK12MeshGradientVGGTt1g5;
-}
-
-{
-  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_Say7SwiftUI13ViewResponderCG_AK011ShapeStyledJ6Filter33_E1641985C375D8826E6966D4F238A1B8LLVyAK01_kI0VyAK9RectangleVAK12MeshGradientVGGTt1g5;
-}
-
-{
-  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI11DisplayListV_AK011ShapeStylediJ033_E1641985C375D8826E6966D4F238A1B8LLVyAK01_K4ViewVyAK9RectangleVAK12MeshGradientVGGTt1g5;
 }
 
 {
@@ -9772,10 +7595,6 @@ uint64_t (*specialized closure #1 in closure #1 in Attribute.init<A>(_:)())()
 }
 
 {
-  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI13_ShadowEffectV9_ResolvedV_AK10StaticBody33_A4C1D658B3717A3062FEFC91A812D6EBLLVyAK013EnvironmentalM8Accessor33_A1B6966B83442495FADFE75F475ECBE2LLVyAMGAK16AsyncThreadFlagsAQLLVGTt1g5;
-}
-
-{
   return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI14LayoutComputerV_AK07DynamiciJ033_FF3C661D9D8317A1C8FE2B7FD4EDE12CLLVyAK06ZStackI0VGTt1g5;
 }
 
@@ -9788,6 +7607,280 @@ uint64_t (*specialized closure #1 in closure #1 in Attribute.init<A>(_:)())()
 }
 
 {
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA4RuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI12ViewGeometryV_AK010UnaryChildI033_1C3B77B617AD058A6802F719E38F5D79LLVyAK29IgnoresAutomaticPaddingLayout33_47C1BD8C61550BB60F4F3D12F752D53DLLVGTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA4RuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_ySDy7SwiftUI16ScrollTargetRoleV0J0OSayAK20ScrollableCollection_pGGzc_AM9SetLayoutVTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA4RuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI12ViewGeometryV_AK04RootI0VTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA4RuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI11TransactionV_AK05ChildH033_530459AF10BEFD7ED901D8CE93C1E289LLVTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA4RuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI17EnvironmentValuesV_AK014MaterialEffectH033_E3B0FF576136F59061E5D7766373CC25LLVTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA4RuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI11TransactionV_AK05ChildcH033_A1B10B5AB036C34AB7DD2EE8825FCA93LLVTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA4RuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI17EnvironmentValuesV_AK26_ContentTransitionModifierV05ChildH033_91D8F0C7DA490950AB41112E50631DCALLVTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA4RuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI17EnvironmentValuesV_AK25_ForegroundStyleModifier2V0jkH033_BEFE9363F68E039B4AB6422B8AA4535ALLVyAK15AngularGradientVAK5ColorV_GTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA4RuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_Say7SwiftUI18GlassMaterialShape33_62A32D59B8A902A88963544196023CF7LLVG_AK12AnchorWriter33_B89A89B33C45D9502AF2C3A074918EE9LLVySo6CGRectVAK0hiJ3KeyAMLLVGTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA4RuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI34GestureComponentAttachmentModifierVy8Gestures03TapI0VyAN10TouchEventVGG_AK0mhK033_067A6A2846A89ACCD702678B6B8D0D6FLLV0L14FrameworkChildVTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA4RuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_Say7SwiftUI4TextV9LayoutKeyV08AnchoredI0VG_AK0hI5Query33_641995D812913A47B866B20B88782376LLVTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA4RuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI17EnvironmentValuesV_AK21StyledTextContentViewV018ArchivedTransitionH033_641995D812913A47B866B20B88782376LLVTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA4RuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI12GestureDebugO4DataV_AK07DefaultD0VyAOGTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA4RuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI12ViewGeometryV_AK010UnaryChildI033_1C3B77B617AD058A6802F719E38F5D79LLVyAK14_PaddingLayoutVGTt1g5;
+}
+
+double (*specialized closure #1 in closure #1 in Attribute.init<A>(_:)())()
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI13SummarySymbol33_5039765D26D33F565D3CDFCA69D19B23LLV_AK010AnimatableA0VyANGTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI17EnvironmentValuesV_AK010LeafLayoutI033_6401BBC0F2663213443101ED0E1CE437LLVTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI19MaterialEffectState33_E3B0FF576136F59061E5D7766373CC25LLVAEV_ANTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_ySay7SwiftUI14GlassContainerO4ItemVGzc_AK0K11IDTransform33_55D2462D268E3CDB724429AD260FBFB3LLVTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_ySay7SwiftUI14GlassContainerO4ItemVGzc_AK0I19EffectGroupModifier33_ACD5779F0FE4442376126A709C92E700LLV0K9TransformVTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_ySay7SwiftUI14GlassContainerO4ItemVGzc_AK0I20EffectHiddenModifier08_3DF70D9P23D7473F4D189A049B764CFEFLLV9TransformVTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI14LayoutComputerV_AK017AlignmentModifiediJ033_1A9A538762FDCD24410B0F017CAED17ALLVTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_Say7SwiftUI13ViewResponderCG_AK22AllowsHitTestingFilter33_0DA0B6FBFACBDA8275B06C3CD0F4D8CALLVTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_Say7SwiftUI14GlassContainerO4ItemVG_AK0i6EffectK4Init08_3DF70D9O23D7473F4D189A049B764CFEFLLVTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI37GlassEffectContainerTintConfigurationV_AK0ik8ResolvedL6Config33_EC08899B622ECCACC85E95BA1EEBE316LLVTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_ySay7SwiftUI14GlassContainerO4ItemVGzc_AK22BackdropProxyTransform33_FD0C880ACFE431F75FFFB08913C85A9CLLVTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI17EnvironmentValuesV_AK013BackdropProxyI033_FD0C880ACFE431F75FFFB08913C85A9CLLVTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI11DisplayListV_AK015ForegroundLayeriJ033_BCBFDABE28FEE061FC04EF9B5F079DC4LLVTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI16PreferenceValuesV_AK21HostPreferencesWriter33_62AFEFEED1A7034F09E120B80AB01BF9LLVyAK024ContentCaptureProtectionI3KeyVGTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_yt_7SwiftUI0C16ActionDispatcherVyAK01_cI9Modifier2VySiGGTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_Say7SwiftUI13CanvasSymbols027_F41195D4CD7D6A29110580DFD3L4F891LLV5ChildVG_ANTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI17EnvironmentValuesV_AK05ChildI033_3B04936F6043A290A3E53AE94FE09355LLVyAK16RedactionReasonsVGTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI20ContainerStorageView33_0D94FA50AC33D329AB9E24A7FB1C1182LLV_AN4InitVTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_Say7SwiftUI13ViewResponderCG_AK13GestureFilter33_9DF46B4E935FF03A55FF3DDFB0B1FF2BLLVyAK03AddK8ModifierVyAK06_EndedK0VyAK03TapK0VGAK07DefaultK8CombinerVGGTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_Say7SwiftUI13ViewResponderCG_AK13GestureFilter33_08277CBBA2E58018469F76809601658CLLVy8Gestures12TapComponentVyAR10TouchEventVGGTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI12GesturePhaseOyAK13TappableEventVG_AK04Map2J033_BE6C3883808EC258A2B6649DC967D317LLVyAO12CoreGraphics7CGFloatVAOGTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI12GesturePhaseOyAK13TappableEventVG_AK04Map2J033_BE6C3883808EC258A2B6649DC967D317LLVyAOSdAOGTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_Say7SwiftUI13ViewResponderCG_AK20HitTestBindingFilter33_D16C83991EAE21A87411739F6DC01498LLVTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI11StrokeStyleV_AK010AnimatableA0VyAMGTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI16ResolvedGradientV_AK010AnimatableA0VyAMGTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI16_ShapeStyle_PackV_AK010AnimatableA0VyAMGTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI8AnyShapeV_AK010AnimatableA0VyAMGTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI9AnyLayoutV_AK010AnimatableA0VyAMGTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI10_ShapeViewVyAK9RectangleVAK15ForegroundStyleVG_AK10StaticBody33_A4C1D658B3717A3062FEFC91A812D6EBLLVyAK0jO8AccessorVyAOGAK16AsyncThreadFlagsATLLVGTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI10_ShapeViewVyAK03AnyI0VAK15ForegroundStyleVG_AK10StaticBody33_A4C1D658B3717A3062FEFC91A812D6EBLLVyAK0jO8AccessorVyAOGAK16AsyncThreadFlagsATLLVGTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI10_ShapeViewVyAK7EllipseVAK15ForegroundStyleVG_AK10StaticBody33_A4C1D658B3717A3062FEFC91A812D6EBLLVyAK0jO8AccessorVyAOGAK16AsyncThreadFlagsATLLVGTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI10_ShapeViewVyAK6CircleVAK15ForegroundStyleVG_AK10StaticBody33_A4C1D658B3717A3062FEFC91A812D6EBLLVyAK0jO8AccessorVyAOGAK16AsyncThreadFlagsATLLVGTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI10_ShapeViewVyAK4PathVAK15ForegroundStyleVG_AK10StaticBody33_A4C1D658B3717A3062FEFC91A812D6EBLLVyAK0jO8AccessorVyAOGAK16AsyncThreadFlagsATLLVGTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI10_ShapeViewVyAK017ContainerRelativeI0VAK15ForegroundStyleVG_AK10StaticBody33_A4C1D658B3717A3062FEFC91A812D6EBLLVyAK0jP8AccessorVyAOGAK16AsyncThreadFlagsATLLVGTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI16_ShapeStyle_PackV_AK0iJ8ResolverVyAK18EllipticalGradientVGTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI10_ShapeViewVyAK9RectangleVAK18EllipticalGradientVG_AK11DynamicBody33_A4C1D658B3717A3062FEFC91A812D6EBLLVyAK0jO8AccessorVyAQGAK16AsyncThreadFlagsATLLVGTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI10_ShapeViewVyAK16RoundedRectangleVAK15ForegroundStyleVG_AK10StaticBody33_A4C1D658B3717A3062FEFC91A812D6EBLLVyAK0jP8AccessorVyAOGAK16AsyncThreadFlagsATLLVGTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI16_ShapeStyle_PackV_AK0iJ8ResolverVyAK15AngularGradientVGTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI10_ShapeViewVyAK9RectangleVAK15AngularGradientVG_AK11DynamicBody33_A4C1D658B3717A3062FEFC91A812D6EBLLVyAK0jO8AccessorVyAQGAK16AsyncThreadFlagsATLLVGTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI16_ShapeStyle_PackV_AK0iJ8ResolverVyAK14RadialGradientVGTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI10_ShapeViewVyAK9RectangleVAK14RadialGradientVG_AK11DynamicBody33_A4C1D658B3717A3062FEFC91A812D6EBLLVyAK0jO8AccessorVyAQGAK16AsyncThreadFlagsATLLVGTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI16_ShapeStyle_PackV_AK0iJ8ResolverVyAK12MeshGradientVGTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA4RuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI11DisplayListV_AK04MaskhI033_54E6DAD00141A3A8A16D035537438F55LLVTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA4RuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_Say7SwiftUI12ViewGeometryVG_AK21LayoutChildGeometriesVTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA4RuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI14SafeAreaInsetsV_AK01_hiJ8ModifierV0J033_C4DC82F2A500E9B6DEA3064A36584B42LLVTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA4RuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI4PathV_AK012ContentShapeH0VTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA4RuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI14SafeAreaInsetsV_AK012InsetPrimaryH5AreasVTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA4RuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI13ViewTransformV_AK04RootI033_7D9EDEF832940A362646A6E979F296C8LLVTt1g5;
+}
+
+uint64_t (*specialized closure #1 in closure #1 in Attribute.init<A>(_:)())(unsigned int *a1)
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI14LayoutComputerV_AK06StaticiJ033_A7DFBD5AC47BCDAAE5525781FBD33CF6LLVyAK010GlassEntryI033_D12F2F25A0BD65FFBD3A7636B60067DFLLVGTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI14LayoutComputerV_AK06StaticiJ033_A7DFBD5AC47BCDAAE5525781FBD33CF6LLVyAK011GlassEffectI033_D12F2F25A0BD65FFBD3A7636B60067DFLLVGTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI14LayoutComputerV_AK06StaticiJ033_A7DFBD5AC47BCDAAE5525781FBD33CF6LLVyAK014GeometryReaderI033_7D6D22DF7076CCC1FC5284D8E2D1B049LLVGTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI14LayoutComputerV_AK013ResolvedImageiJ033_A3C1DB6976F54697C11EFA754256BBD1LLVTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI12GesturePhaseOy12CoreGraphics7CGFloatVG_AK014StateContainerJ033_EA62389F5A6356B5DBAFB6A6AFC6ECC7LLVyAK08DistanceI0V0N4TypeVApK12SpatialEventVGTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA4RuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_12CoreGraphics7CGFloatV_AA3MapVy7SwiftUI17EnvironmentValuesVAMGTt1g5;
+}
+
+{
   return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA4RuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI01_B6InputsV5PhaseV_AK18ResetDeltaModifier33_C38EF38637B6130AEFD462CBD5EAC727LLV05ChildI0VTt1g5;
 }
 
@@ -9796,11 +7889,15 @@ uint64_t (*specialized closure #1 in closure #1 in Attribute.init<A>(_:)())()
 }
 
 {
-  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA4RuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI13ViewTransformV_AK013ResetPositionI0VTt1g5;
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA4RuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_Sb_AA3MapVy7SwiftUI17EnvironmentValuesVSbGTt1g5;
 }
 
 {
-  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA4RuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI20ContentShapePathDataVSg_AK10ToOptional33_372497ED4F569296C4450147CA418CD0LLVyAMGTt1g5;
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA4RuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI4AxisO3SetV_AA3MapVyAK17EnvironmentValuesVAOGTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA4RuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI10EdgeInsetsV_AA3MapVyAK17EnvironmentValuesVAMGTt1g5;
 }
 
 {
@@ -9808,15 +7905,7 @@ uint64_t (*specialized closure #1 in closure #1 in Attribute.init<A>(_:)())()
 }
 
 {
-  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA4RuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI11DisplayListV_AK04MaskhI033_54E6DAD00141A3A8A16D035537438F55LLVTt1g5;
-}
-
-{
-  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA4RuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI17EnvironmentValuesV_AK21MaskDefaultForegroundVTt1g5;
-}
-
-{
-  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA4RuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_Say7SwiftUI12ViewGeometryVG_AK21LayoutChildGeometriesVTt1g5;
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA4RuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI8ViewList_p_AK01_hI7OutputsVAKE14ApplyModifiers33_E479C0E92CDD045BAF2EF653123E2E0BLLVTt1g5;
 }
 
 {
@@ -9824,43 +7913,7 @@ uint64_t (*specialized closure #1 in closure #1 in Attribute.init<A>(_:)())()
 }
 
 {
-  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA4RuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_Say7SwiftUI25_LazyLayout_PlacedSubviewVG_AK0H19CollectedPlacements33_EB2336F1CBB87914F55D10FF4F9B475ALLVTt1g5;
-}
-
-{
-  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA4RuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI9_ShapeSetV7WrapperV_AO4InitVTt1g5;
-}
-
-{
   return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA4RuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI12PlatformItemV_AK12_ViewOutputsVAKE05FirstI033_391C8788DFD73AA8AB21B496A57C73FFLLVTt1g5;
-}
-
-{
-  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA4RuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI11DisplayListV_AK20MountableViewOutputsV0hi5ProxyK0V04MakehI033_C0D10AA931311CA6CC13B4B7FD14DCB3LLVTt1g5;
-}
-
-{
-  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA4RuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI14LayoutComputerV_AK22PrimitiveGlassItemView33_D12F2F25A0BD65FFBD3A7636B60067DFLLV0lhI0VTt1g5;
-}
-
-{
-  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA4RuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI11DisplayListV_AK22PrimitiveGlassItemView33_D12F2F25A0BD65FFBD3A7636B60067DFLLV0lhI0VTt1g5;
-}
-
-{
-  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA4RuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_So7CGPointV_7SwiftUI14OffsetPosition33_72FB21917F353796516DFC9915156779LLVTt1g5;
-}
-
-{
-  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA4RuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI14MaterialEffectV4Fill33_E3B0FF576136F59061E5D7766373CC25LLV_AK0hi7UpdatedJ0AOLLVTt1g5;
-}
-
-{
-  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA4RuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI17EnvironmentValuesV_AK06UpdateH033_E370275CDB55AC7AD9ACF0420859A9E8LLVyAK17LineLimitModifierVGTt1g5;
-}
-
-{
-  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA4RuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI17EnvironmentValuesV_AK18TextSuffixModifier33_3A0E49913D84545BECD562BC22E4DF1CLLV05ChildH0VTt1g5;
 }
 
 {
@@ -9869,6 +7922,10 @@ uint64_t (*specialized closure #1 in closure #1 in Attribute.init<A>(_:)())()
 
 {
   return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA4RuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI9UnitPointVSg_AK29ScrollPositionBindingModifierV14AdjustedAnchorVTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA4RuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI24GestureConstantsProvider_pXpSg_AA3MapVyAK17EnvironmentValuesVAMGTt1g5;
 }
 
 {
@@ -9884,31 +7941,15 @@ uint64_t (*specialized closure #1 in closure #1 in Attribute.init<A>(_:)())()
 }
 
 {
-  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA4RuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI17EnvironmentValuesV_AK19_DrawingGroupEffectV05ChildH033_13DB74067CC303A724F4EF8CA51D6069LLVTt1g5;
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA4RuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI18TintAdjustmentModeV_AA3MapVyAK17EnvironmentValuesVAMGTt1g5;
 }
 
 {
-  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA4RuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI17EnvironmentValuesV_AK24_ForegroundColorModifierV05ChildH033_C468F93725C18A8D97E53626AB610118LLVTt1g5;
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA4RuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI16RedactionReasonsV_AA3MapVyAK17EnvironmentValuesVAMGTt1g5;
 }
 
 {
-  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA4RuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI14SafeAreaInsetsV_AK01_hiJ8ModifierV0J033_C4DC82F2A500E9B6DEA3064A36584B42LLVTt1g5;
-}
-
-{
-  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA4RuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI17EnvironmentValuesV_AK017GlassEffectHiddenH008_3DF70D9N23D7473F4D189A049B764CFEFLLVTt1g5;
-}
-
-{
-  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA4RuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI6AnchorVySo6CGRectVG_AK12PlatformItemV15GeometryContentV04InitH0VTt1g5;
-}
-
-{
-  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA4RuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI17EnvironmentValuesV_AK011GlassEffectH008_3DF70D9M23D7473F4D189A049B764CFEFLLVTt1g5;
-}
-
-{
-  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA4RuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI6_GlassV_AK0h10EffectItemH008_3DF70D9L23D7473F4D189A049B764CFEFLLVTt1g5;
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA4RuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI18ContainerShapeDataV_AA3MapVyAK17EnvironmentValuesVAMGTt1g5;
 }
 
 {
@@ -9920,31 +7961,11 @@ uint64_t (*specialized closure #1 in closure #1 in Attribute.init<A>(_:)())()
 }
 
 {
-  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA4RuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_ySay7SwiftUI14GlassContainerO4ItemVGzc_AK0H24EffectTransitionModifier33_44FBBCADDAFBB91038EC35E704B81E23LLV9TransformVTt1g5;
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA4RuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_Si_7SwiftUI15_ViewListInputsVAKE21ContentOffsetMutation022_0A5F33F1FD54F6946F5E3P9CF78D7A25LLVTt1g5;
 }
 
 {
-  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA4RuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI12PlatformItemV15GeometryContentV_AO4InitVTt1g5;
-}
-
-{
-  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA4RuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI17EnvironmentValuesV_AK018GlassContainerTintH033_EC08899B622ECCACC85E95BA1EEBE316LLVTt1g5;
-}
-
-{
-  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA4RuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_yt_7SwiftUI32ScrapeableAttachmentViewModifier010_0EC4D15D4N21D8FD0340271BA6BA4D1B4LLV0I0VTt1g5;
-}
-
-{
-  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA4RuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI4PathV_AK012ContentShapeH0VTt1g5;
-}
-
-{
-  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA4RuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_Say7SwiftUI16ScrollPhaseStateVG_AK0hI8ProviderVTt1g5;
-}
-
-{
-  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA4RuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI17EnvironmentValuesV_AK26_PreferenceWritingModifierVA2K23PreferredColorSchemeKeyVRszrlE0nO3Env33_E52508E85535897B9A366B470195B29DLLVyAQ_GTt1g5;
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA4RuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_Si_AA3MapVy7SwiftUI8ViewList_pSiGTt1g5;
 }
 
 {
@@ -9960,59 +7981,15 @@ uint64_t (*specialized closure #1 in closure #1 in Attribute.init<A>(_:)())()
 }
 
 {
-  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA4RuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI38PlatformNamedImageRepresentableContextV_AK0J0V04MakekL033_BE2D783904D422377BBEBAC3C942583CLLVTt1g5;
-}
-
-{
-  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA4RuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI13ViewTransformV_AK020CoreInteractionChildI033_03AF342AA286115256FF95C286FEA7E3LLVTt1g5;
-}
-
-{
-  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA4RuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI38_ForegroundLayerLevelColorMatrixEffectV_AA5FocusVyAK01_hiklM0VAMGTt1g5;
-}
-
-{
   return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA4RuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI23FlexInteractionModifierV_AK010GlassEntryhiJ033_D12F2F25A0BD65FFBD3A7636B60067DFLLV04InitJ0VTt1g5;
 }
 
 {
-  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA4RuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI15ModifiedContentVyAK30_EnvironmentKeyWritingModifierVyAK16RedactionReasonsVGAOySbGG_AK07Privacyn4ViewM033_7799685610985DBA9248562F2E4D5E6ELLV20WidgetAuxiliaryChildVTt1g5;
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA4RuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI11GestureMaskV_AA3MapVyAK03AddH8ModifierVyAK06_EndedH0VyAK03TapH0VGAK07DefaultH8CombinerVGAMGTt1g5;
 }
 
 {
-  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA4RuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI14SafeAreaInsetsV_AK012InsetPrimaryH5AreasVTt1g5;
-}
-
-{
-  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA4RuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI24GlassEffectLocalModifier08_3DF70D9M23D7473F4D189A049B764CFEFLLV_AN4InitVTt1g5;
-}
-
-{
-  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA4RuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI28GlassEffectContainerModifier08_3DF70D9M23D7473F4D189A049B764CFEFLLV_AN4InitVTt1g5;
-}
-
-{
-  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA4RuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI18AddGestureModifierVyAK06_EndedI0VyAK03TapI0VGAK07DefaultI8CombinerVG_AK0liJ033_067A6A2846A89ACCD702678B6B8D0D6FLLV0I5ChildVTt1g5;
-}
-
-{
-  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA4RuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI34GestureComponentAttachmentModifierVy8Gestures03TapI0VyAN10TouchEventVGG_AK0mhK033_067A6A2846A89ACCD702678B6B8D0D6FLLV0L14FrameworkChildVTt1g5;
-}
-
-{
-  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA4RuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI9ViewFrameV_AK011DynamicTextH033_641995D812913A47B866B20B88782376LLV0jkI0VTt1g5;
-}
-
-{
-  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA4RuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI14PreferenceKeysV_AK06SwitchD033_FA9894D0C4D7B26BF15DCFDACF212F4BLLVyAMGTt1g5;
-}
-
-{
-  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA4RuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI11TransactionV_AK06SwitchD033_FA9894D0C4D7B26BF15DCFDACF212F4BLLVyAMGTt1g5;
-}
-
-{
-  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA4RuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI17EnvironmentValuesV_AK06SwitchD033_FA9894D0C4D7B26BF15DCFDACF212F4BLLVyAMGTt1g5;
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA4RuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI26_GlassContainerStorageViewV_AM4InitVTt1g5;
 }
 
 {
@@ -10024,18 +8001,6 @@ uint64_t (*specialized closure #1 in closure #1 in Attribute.init<A>(_:)())()
 }
 
 {
-  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA4RuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI13ViewTransformV_AK06SwitchD033_FA9894D0C4D7B26BF15DCFDACF212F4BLLVyAMGTt1g5;
-}
-
-{
-  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA4RuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI12GestureDebugO4DataV_AK07DefaultD0VyAOGTt1g5;
-}
-
-{
-  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA4RuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI12GesturePhaseOyytG_AK07DefaultD0VyANGTt1g5;
-}
-
-{
   return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA4RuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_s6UInt32V_7SwiftUI15RepeatResetSeed33_BECD07FC80B4CA0BF429B041392E806ALLVTt1g5;
 }
 
@@ -10044,27 +8009,15 @@ uint64_t (*specialized closure #1 in closure #1 in Attribute.init<A>(_:)())()
 }
 
 {
-  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA4RuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_ySiSgzc_7SwiftUI22RequiredTapCountWriter33_7C0ADFDC1D38FCDDCFDE5CE8530A0B2ELLV5ChildVyAL13TappableEventV_GTt1g5;
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA4RuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI15GestureCategoryV_AK0iH0V8Combiner33_BD70527AFCE562B27D7DD6D56847C2B8LLVyAK13TappableEventV_ATGTt1g5;
 }
 
 {
-  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA4RuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI12GesturePhaseOyAK13TappableEventVG_AK0k6FilterI033_DE98B8F5384114B687077BAB0EFA27D9LLVyAOGTt1g5;
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA4RuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI16ArrayWith2InlineVySS_SStG_AA3MapVyAK18EventListenerPhase33_D4E5D14C6252B45A30FB249B3DBDFD35LLVAEVyAK07SpatialL0V_GANGTt1g5;
 }
 
 {
-  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA4RuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI12GesturePhaseOyAK13TappableEventVGAP_AMy12CoreGraphics7CGFloatVGtc_AA5FocusVyAK04Map2H0VyAoK08ModifierH0VyAK015CoordinateSpaceH0VyASGAK08DistanceH0VGAOGA2P_ATtcGTt1g5;
-}
-
-{
-  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA4RuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_SDy7SwiftUI7EventIDVAK0H4Type_pG_AK21CoordinateSpaceEvents33_8ECA7037C26636F2BB3D86159C23C2C5LLVy12CoreGraphics7CGFloatVGTt1g5;
-}
-
-{
-  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA4RuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI12GesturePhaseOyAK13TappableEventVGAP_AMySdGtc_AA5FocusVyAK04Map2H0VyAoK08ModifierH0VyAK08DurationH0VyAOGAK0K8ListenerVyAOGGAOGA2P_AQtcGTt1g5;
-}
-
-{
-  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA4RuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI12GesturePhaseOyAK13TappableEventVG_AK09DependentI033_8687835E41FEE17B108D67665C1D2D0BLLVyAOGTt1g5;
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA4RuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI16ArrayWith2InlineVySS_SStG_AA3MapVyAK18EventListenerPhase33_D4E5D14C6252B45A30FB249B3DBDFD35LLVAEVyAK08TappableL0V_GANGTt1g5;
 }
 
 {
@@ -10072,15 +8025,7 @@ uint64_t (*specialized closure #1 in closure #1 in Attribute.init<A>(_:)())()
 }
 
 {
-  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA4RuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI17EnvironmentValuesV_AK06UpdateH24CustomHoverEffectContext33_B2E20BEC96D7E01EE3D55A38320E6294LLVTt1g5;
-}
-
-{
-  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA4RuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI17EnvironmentValuesV_AK033ClearCustomHoverEffectContextFromH033_B2E20BEC96D7E01EE3D55A38320E6294LLVTt1g5;
-}
-
-{
-  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA4RuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI13ViewTransformV_AK04RootI033_7D9EDEF832940A362646A6E979F296C8LLVTt1g5;
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA4RuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI18HoverEffectContextVSg_AA3MapVyAK17EnvironmentValuesVANGTt1g5;
 }
 
 {
@@ -10088,11 +8033,11 @@ uint64_t (*specialized closure #1 in closure #1 in Attribute.init<A>(_:)())()
 }
 
 {
-  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA4RuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI20MountableViewOutputsV016DisplayListProxyI0V_AK04MakehikL033_C0D10AA931311CA6CC13B4B7FD14DCB3LLVTt1g5;
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA4RuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI16TimelineSchedule_pSg_AA3MapVyAK18ResolvedStyledTextCAMGTt1g5;
 }
 
 {
-  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA4RuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI20MountableViewOutputsV14LayoutComputerV_AK04MakehikL033_C0D10AA931311CA6CC13B4B7FD14DCB3LLVTt1g5;
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA4RuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI11ControlSizeO_AA3MapVyAK17EnvironmentValuesVAMGTt1g5;
 }
 
 {
@@ -10104,15 +8049,7 @@ uint64_t (*specialized closure #1 in closure #1 in Attribute.init<A>(_:)())()
 }
 
 {
-  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA4RuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI01_B6InputsV5PhaseV_AK06MergedI033_9FF97745734808976F608CE0DC13C39CLLVTt1g5;
-}
-
-{
-  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA4RuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI11TransactionV_AK06MergedH033_9FF97745734808976F608CE0DC13C39CLLVTt1g5;
-}
-
-{
-  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA4RuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI17EnvironmentValuesV_AK06MergedH033_9FF97745734808976F608CE0DC13C39CLLVTt1g5;
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA4RuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI12ViewGeometryV_AK011LayoutChildI033_A7DFBD5AC47BCDAAE5525781FBD33CF6LLVTt1g5;
 }
 
 {
@@ -10120,11 +8057,7 @@ uint64_t (*specialized closure #1 in closure #1 in Attribute.init<A>(_:)())()
 }
 
 {
-  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA4RuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI14PreferenceKeysV_AK05MergehI033_DF57A19C61B44C613EB77C1D47FC679ALLVTt1g5;
-}
-
-{
-  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA4RuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI13AnimatedShapeVyAK03AnyI0VG_AM4InitVyAO_GTt1g5;
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA4RuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI22UserInterfaceSizeClassOSg_AA3MapVyAK17EnvironmentValuesVANGTt1g5;
 }
 
 {
@@ -10149,4 +8082,1978 @@ uint64_t (*specialized closure #1 in closure #1 in Attribute.init<A>(_:)())()
 
 {
   return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA4RuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI13AnimatedShapeVyAK16RoundedRectangleV6_InsetVG_AM4InitVyAQ_GTt1g5;
+}
+
+uint64_t (*specialized closure #1 in closure #1 in Attribute.init<A>(_:)())(unsigned int *a1, uint64_t a2)
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI14LayoutComputerV_AK06StaticiJ033_A7DFBD5AC47BCDAAE5525781FBD33CF6LLVyAK07_ZStackI0VGTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI14LayoutComputerV_AK06StaticiJ033_A7DFBD5AC47BCDAAE5525781FBD33CF6LLVyAK07_HStackI0VGTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI14LayoutComputerV_AK06StaticiJ033_A7DFBD5AC47BCDAAE5525781FBD33CF6LLVyAK07_VStackI0VGTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI14LayoutComputerV_AK04LeafiJ033_65609C35608651F66D749EB1BD9D2226LLVyAK10_ShapeViewVyAK9RectangleVAK15ForegroundStyleVGGTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI14LayoutComputerV_AK04LeafiJ033_65609C35608651F66D749EB1BD9D2226LLVyAK13AnimatedShapeVyAK9RectangleV6_InsetVGGTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI14LayoutComputerV_AK04LeafiJ033_65609C35608651F66D749EB1BD9D2226LLVyAK10_ShapeViewVyAK7EllipseVAK15ForegroundStyleVGGTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI14LayoutComputerV_AK04LeafiJ033_65609C35608651F66D749EB1BD9D2226LLVyAK13AnimatedShapeVyAK7EllipseV6_InsetVGGTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI14LayoutComputerV_AK04LeafiJ033_65609C35608651F66D749EB1BD9D2226LLVyAK13AnimatedShapeVyAK7CapsuleV6_InsetVGGTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI14LayoutComputerV_AK04LeafiJ033_65609C35608651F66D749EB1BD9D2226LLVyAK10_ShapeViewVyAK6CircleVAK15ForegroundStyleVGGTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI14LayoutComputerV_AK04LeafiJ033_65609C35608651F66D749EB1BD9D2226LLVyAK13AnimatedShapeVyAK6CircleV6_InsetVGGTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI14LayoutComputerV_AK04LeafiJ033_65609C35608651F66D749EB1BD9D2226LLVyAK10_ShapeViewVyAK017ImplicitContainerR0VAK15ForegroundStyleVGGTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI14LayoutComputerV_AK04LeafiJ033_65609C35608651F66D749EB1BD9D2226LLVyAK10_ShapeViewVyAK017ContainerRelativeR0VAK15ForegroundStyleVGGTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI14LayoutComputerV_AK04LeafiJ033_65609C35608651F66D749EB1BD9D2226LLVyAK13AnimatedShapeVyAK017ContainerRelativeS0V6_InsetVGGTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI14LayoutComputerV_AK06StaticiJ033_A7DFBD5AC47BCDAAE5525781FBD33CF6LLVyAK06ZStackI0VGTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI14LayoutComputerV_AK06StaticiJ033_A7DFBD5AC47BCDAAE5525781FBD33CF6LLVyAK06VStackI0VGTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI14LayoutComputerV_AK06StaticiJ033_A7DFBD5AC47BCDAAE5525781FBD33CF6LLVyAK06HStackI0VGTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA4RuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI15LayoutDirectionO_AA3MapVyAK17EnvironmentValuesVAMGTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA4RuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI11ColorSchemeO_AA3MapVyAK17EnvironmentValuesVAMGTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA4RuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI13AnimatedShapeVyAK9RectangleV6_InsetVG_AM4InitVyAQ_GTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA4RuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI13AnimatedShapeVyAK7EllipseV6_InsetVG_AM4InitVyAQ_GTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA4RuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI13AnimatedShapeVyAK7CapsuleV6_InsetVG_AM4InitVyAQ_GTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA4RuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI13AnimatedShapeVyAK6CircleV6_InsetVG_AM4InitVyAQ_GTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA4RuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI13AnimatedShapeVyAK017ContainerRelativeI0V6_InsetVG_AM4InitVyAQ_GTt1g5;
+}
+
+uint64_t *(*specialized closure #1 in closure #1 in Attribute.init<A>(_:)())()
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI20DynamicViewContainer031_3FB6ABB0477B815AB3C89DD5EDC9F0S0LLVAEVyAK016DebugReplaceableJ0V_G_ANyAQGTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI20DynamicViewContainer031_3FB6ABB0477B815AB3C89DD5EDC9F0S0LLVAEVyAK03AnyJ0V_G_ANyAQGTt1g5;
+}
+
+uint64_t (*specialized closure #1 in closure #1 in Attribute.init<A>(_:)())(uint64_t a1)
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI13GeometryProxyV_AK010ConcentricJ033_7079FF89BCF97F81EB250A589B9A5CEDLLVTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI14LayoutComputerV_AK05UnaryiJ033_1C3B77B617AD058A6802F719E38F5D79LLVyAK06_FrameI0VGTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI14LayoutComputerV_AK05UnaryiJ033_1C3B77B617AD058A6802F719E38F5D79LLVyAK08_PaddingI0VGTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI14LayoutComputerV_AK05UnaryiJ033_1C3B77B617AD058A6802F719E38F5D79LLVyAK010_FlexFrameI0VGTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI14LayoutComputerV_AK018UnaryPositionAwareiJ033_1C3B77B617AD058A6802F719E38F5D79LLVyAK024_SafeAreaRegionsIgnoringI0VGTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA4RuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI8ViewList_p_AK04BasehI033_E479C0E92CDD045BAF2EF653123E2E0BLLV4InitVTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA4RuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI12ViewGeometryV_AK023UnaryPositionAwareChildI033_1C3B77B617AD058A6802F719E38F5D79LLVyAK27ContainerCornerOffsetLayout33_1EB28CBBC8B70D90A6FD32242CBBC5E6LLVGTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA4RuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_So7CGPointV_7SwiftUI14OffsetPosition33_72FB21917F353796516DFC9915156779LLVTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA4RuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_yt_7SwiftUI32ScrapeableAttachmentViewModifier010_0EC4D15D4N21D8FD0340271BA6BA4D1B4LLV0I0VTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA4RuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI12ViewGeometryV_AMt_AK010InsetChildI0VTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA4RuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI15ModifiedContentVyAK28AutomaticPaddingViewModifier33_47C1BD8C61550BB60F4F3D12F752D53DLLV0K6LayoutV07WrappedW0VAK015_SafeAreaInsetsM0VG_ARTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA4RuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI8ViewList_p_AK11MakeSection33_C1B8B6896BB94C69479F427820712D02LLVTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA4RuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI12ViewGeometryV_AK023UnaryPositionAwareChildI033_1C3B77B617AD058A6802F719E38F5D79LLVyAK30_SafeAreaRegionsIgnoringLayoutVGTt1g5;
+}
+
+void (*specialized closure #1 in closure #1 in Attribute.init<A>(_:)())(unsigned int *a1)
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI14LayoutComputerV_AK04LeafiJ033_65609C35608651F66D749EB1BD9D2226LLVyAK10_ShapeViewVyAK9RectangleVAKE17AsymmetricalInsetVAK15ForegroundStyleVGGTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI14LayoutComputerV_AK06StaticiJ033_A7DFBD5AC47BCDAAE5525781FBD33CF6LLVyAK019FlexibleButtonFrameI0VGTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI14LayoutComputerV_AK04LeafiJ033_65609C35608651F66D749EB1BD9D2226LLVyAK10_ShapeViewVyAK7CapsuleVAK15ForegroundStyleVGGTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI14LayoutComputerV_AK04LeafiJ033_65609C35608651F66D749EB1BD9D2226LLVyAK10_ShapeViewVyAK018DefaultGlassEffectR0VAK15ForegroundStyleVGGTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI14LayoutComputerV_AK04LeafiJ033_65609C35608651F66D749EB1BD9D2226LLVyAK13AnimatedShapeVyAK22UnevenRoundedRectangleVGGTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI14LayoutComputerV_AK04LeafiJ033_65609C35608651F66D749EB1BD9D2226LLVyAK13AnimatedShapeVyAK22UnevenRoundedRectangleV6_InsetVGGTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI14LayoutComputerV_AK04LeafiJ033_65609C35608651F66D749EB1BD9D2226LLVyAK13AnimatedShapeVyAK19ConcentricRectangleVGGTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI14LayoutComputerV_AK04LeafiJ033_65609C35608651F66D749EB1BD9D2226LLVyAK13AnimatedShapeVyAK16RoundedRectangleVGGTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA4RuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI13ViewTransformV_AK013ResetPositionI0VTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA4RuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI13ViewTransformV_AK014ContainerShapeI0VTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA4RuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI13ViewTransformV_AK020CoreInteractionChildI033_03AF342AA286115256FF95C286FEA7E3LLVTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA4RuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI13ViewTransformV_AK012InsetPrimaryI0VTt1g5;
+}
+
+double (*specialized closure #1 in closure #1 in Attribute.init<A>(_:)())(uint64_t *a1)
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_Say7SwiftUI13ViewResponderCG_AK010StyledTextJ6FilterVTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA4RuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI17EnvironmentValuesV_AK06MergedH033_9FF97745734808976F608CE0DC13C39CLLVTt1g5;
+}
+
+double (*specialized closure #1 in closure #1 in Attribute.init<A>(_:)())(unsigned int *a1)
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI14LayoutComputerV_AK010StyledTextiJ033_641995D812913A47B866B20B88782376LLVTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI12GesturePhaseOyAK13TappableEventVG_AK03MapJ033_EA8BFBF553A9179E7F3A85C72F795A9FLLVyA2OGTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI14LayoutComputerV_AK04LeafiJ033_65609C35608651F66D749EB1BD9D2226LLVyAK13AnimatedShapeVyAK16RoundedRectangleV6_InsetVGGTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI14LayoutComputerV_AK06StaticiJ033_A7DFBD5AC47BCDAAE5525781FBD33CF6LLVyAK03AnyI0VGTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA4RuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI20ContentShapePathDataVSg_AK10ToOptional33_372497ED4F569296C4450147CA418CD0LLVyAMGTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA4RuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI17EnvironmentValuesV_AK21MaskDefaultForegroundVTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA4RuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_Say7SwiftUI18ScrollStateRequest_pG_AK19PreferenceTransform33_D3405DB583003A73D556A7797845B7F4LLVyAK06UpdatehiJ3KeyVGTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA4RuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_SDy7SwiftUI16ScrollTargetRoleV0J0OSayAK20ScrollableCollection_pGG_AK19PreferenceTransform33_D3405DB583003A73D556A7797845B7F4LLVyAM10ContentKeyVGTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA4RuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_Say7SwiftUI25_LazyLayout_PlacedSubviewVG_AK0H26PreferencePrefetchSubviews33_EB2336F1CBB87914F55D10FF4F9B475ALLVTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA4RuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_Say7SwiftUI25_LazyLayout_PlacedSubviewVG_AK0H19CollectedPlacements33_EB2336F1CBB87914F55D10FF4F9B475ALLVTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA4RuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI9_ShapeSetV7WrapperV_AO4InitVTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA4RuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI11DisplayListV_AK20MountableViewOutputsV0hi5ProxyK0V04MakehI033_C0D10AA931311CA6CC13B4B7FD14DCB3LLVTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA4RuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI14LayoutComputerV_AK22PrimitiveGlassItemView33_D12F2F25A0BD65FFBD3A7636B60067DFLLV0lhI0VTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA4RuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI17EnvironmentValuesV_AK06UpdateH033_E370275CDB55AC7AD9ACF0420859A9E8LLVyAK17LineLimitModifierVGTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA4RuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI17EnvironmentValuesV_AK18TextSuffixModifier33_3A0E49913D84545BECD562BC22E4DF1CLLV05ChildH0VTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA4RuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI11TransactionV_AK05ChildH033_A1B10B5AB036C34AB7DD2EE8825FCA93LLVTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA4RuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI11TransactionV_AK018GlassEffectContextH033_62A32D59B8A902A88963544196023CF7LLVTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA4RuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI17EnvironmentValuesV_AK19_DrawingGroupEffectV05ChildH033_13DB74067CC303A724F4EF8CA51D6069LLVTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA4RuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_Say7SwiftUI14GlassContainerO4ItemVG_AK19PreferenceTransform33_D3405DB583003A73D556A7797845B7F4LLVyAO3KeyVGTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA4RuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI17EnvironmentValuesV_AK24_ForegroundColorModifierV05ChildH033_C468F93725C18A8D97E53626AB610118LLVTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA4RuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI20ContentShapePathDataVSg_AK19PreferenceTransform33_D3405DB583003A73D556A7797845B7F4LLVyAMGTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA4RuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI14PreferenceKeysV_AK14makeHiddenView07allowedI06inputs4bodyAK01_L7OutputsVAK07Allowedhi5WhileK0V_AK01_L6InputsVAsK01_B0V_AWtctF04HostI0L_VTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA4RuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI17EnvironmentValuesV_AK014ContainerShapeH033_E7F652304F78E63E0DE3A54ABB60E18ALLVTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA4RuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI23ContentTransitionEffectV_AA3MapVyAK17EnvironmentValuesVAMGTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA4RuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI17EnvironmentValuesV_AK017GlassEffectHiddenH008_3DF70D9N23D7473F4D189A049B764CFEFLLVTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA4RuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI27GlassEffectBackdropObserverCSg_AA3MapVyAK17EnvironmentValuesVANGTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA4RuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI6_GlassV_AK0h10EffectItemH008_3DF70D9L23D7473F4D189A049B764CFEFLLVTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA4RuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_ySay7SwiftUI14GlassContainerO4ItemVGzc_AK0H24EffectTransitionModifier33_44FBBCADDAFBB91038EC35E704B81E23LLV9TransformVTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA4RuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI12PlatformItemV15GeometryContentV_AO4InitVTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA4RuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI17EnvironmentValuesV_AK018GlassContainerTintH033_EC08899B622ECCACC85E95BA1EEBE316LLVTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA4RuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_Say7SwiftUI16ScrollPhaseStateVG_AK0hI8ProviderVTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA4RuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI17EnvironmentValuesV_AK26_PreferenceWritingModifierVA2K23PreferredColorSchemeKeyVRszrlE0nO3Env33_E52508E85535897B9A366B470195B29DLLVyAQ_GTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA4RuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI19ViewTraitCollectionV_AK26_PreferenceWritingModifierVA2K23PreferredColorSchemeKeyVRszrlE0opI033_E52508E85535897B9A366B470195B29DLLVyAQ_GTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA4RuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI12ForEachStateC4InfoVys5SliceVyAK18SubviewsCollectionVGAK7SubviewV2IDVAV_G_AO4InitVyAtxV__GTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA4RuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI12ForEachStateC4InfoVyAK22_VariadicView_ChildrenVs11AnyHashableVAQ7ElementV_G_AO4InitVyAqsU__GTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA4RuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI12ForEachStateC4InfoVySayAK14GlassContainerO5EntryVGAS8StableIDVAK15ModifiedContentVyAXyAK6ZStackVyAK0lnM4View33_D12F2F25A0BD65FFBD3A7636B60067DFLLVGAK21_TraitWritingModifierVyAK12_LayoutTraitVyAK0L12EffectLayoutA0_LLV3KeyVGGGA4_yAK18TransitionTraitKeyVGG_G_AO4InitVyAtVA17___GTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA4RuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI12ForEachStateC4InfoVySayAK14GlassContainerO4ItemVGAS2IDVAK0lN4View33_D12F2F25A0BD65FFBD3A7636B60067DFLLV_G_AO4InitVyAtvY__GTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA4RuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI19ViewTraitCollectionV_AK01_I15WritingModifierV03AddI033_48526BA25CDCBF890FA91D018A5421B4LLVyAK07_LayoutI0VyAK010GlassEntryT033_D12F2F25A0BD65FFBD3A7636B60067DFLLV3KeyVG_GTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA4RuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI19ViewTraitCollectionV_AK01_I15WritingModifierV03AddI033_48526BA25CDCBF890FA91D018A5421B4LLVyAK010TransitionI3KeyV_GTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA4RuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI38PlatformNamedImageRepresentableContextV_AK0J0V04MakekL033_BE2D783904D422377BBEBAC3C942583CLLVTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA4RuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI38_ForegroundLayerLevelColorMatrixEffectV_AA5FocusVyAK01_hiklM0VAMGTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA4RuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI18AddGestureModifierVyAK06_EndedI0VyAK03TapI0VGAK07DefaultI8CombinerVG_AK0liJ033_067A6A2846A89ACCD702678B6B8D0D6FLLV0I5ChildVTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA4RuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI14PreferenceKeysV_AK06SwitchD033_FA9894D0C4D7B26BF15DCFDACF212F4BLLVyAMGTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA4RuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI11TransactionV_AK06SwitchD033_FA9894D0C4D7B26BF15DCFDACF212F4BLLVyAMGTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA4RuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI17EnvironmentValuesV_AK06SwitchD033_FA9894D0C4D7B26BF15DCFDACF212F4BLLVyAMGTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA4RuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI13ViewTransformV_AK06SwitchD033_FA9894D0C4D7B26BF15DCFDACF212F4BLLVyAMGTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA4RuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_ySiSgzc_7SwiftUI22RequiredTapCountWriter33_7C0ADFDC1D38FCDDCFDE5CE8530A0B2ELLV5ChildVyAL13TappableEventV_GTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA4RuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI12GesturePhaseOyAK13TappableEventVG_AK0k6FilterI033_DE98B8F5384114B687077BAB0EFA27D9LLVyAOGTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA4RuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI14FilteredEvents33_DE98B8F5384114B687077BAB0EFA27D9LLV_AK011EventFilterI0AMLLVyAK08TappableQ0VGTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA4RuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI12GesturePhaseOyAK13TappableEventVGAP_AMy12CoreGraphics7CGFloatVGtc_AA5FocusVyAK04Map2H0VyAoK08ModifierH0VyAK015CoordinateSpaceH0VyASGAK08DistanceH0VGAOGA2P_ATtcGTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA4RuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI12GesturePhaseOyAK13TappableEventVGAP_AMySdGtc_AA5FocusVyAK04Map2H0VyAoK08ModifierH0VyAK08DurationH0VyAOGAK0K8ListenerVyAOGGAOGA2P_AQtcGTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA4RuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI12GesturePhaseOyAK13TappableEventVG_AK09DependentI033_8687835E41FEE17B108D67665C1D2D0BLLVyAOGTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA4RuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI17EnvironmentValuesV_AK06UpdateH24CustomHoverEffectContext33_B2E20BEC96D7E01EE3D55A38320E6294LLVTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA4RuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI17EnvironmentValuesV_AK033ClearCustomHoverEffectContextFromH033_B2E20BEC96D7E01EE3D55A38320E6294LLVTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA4RuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI19ViewTraitCollectionV_AK05DepthI0VTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA4RuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI25ViewListArchivedAnimation33_FF3C661D9D8317A1C8FE2B7FD4EDE12CLLV6EffectV_ANTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA4RuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI20MountableViewOutputsV016DisplayListProxyI0V_AK04MakehikL033_C0D10AA931311CA6CC13B4B7FD14DCB3LLVTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA4RuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI20MountableViewOutputsV14LayoutComputerV_AK04MakehikL033_C0D10AA931311CA6CC13B4B7FD14DCB3LLVTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA4RuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI10AnyGestureVyytG_AA3MapVyAK18ResolvedStyledTextCANGTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA4RuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI19ScrollAnchorStorageV_AA3MapVyAK17EnvironmentValuesVAMGTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA4RuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_Say7SwiftUI19LazyLayoutCacheItemCG_AK0H23PreferencePrefetchItems33_EB2336F1CBB87914F55D10FF4F9B475ALLVTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA4RuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI14PreferenceKeysV_AK05MergehI033_DF57A19C61B44C613EB77C1D47FC679ALLVTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA4RuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI11DisplayListV_AM7VersionVt_AK04RoothI033_7D9EDEF832940A362646A6E979F296C8LLVTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA4RuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI17EnvironmentValuesV_AK06UpdateH033_E370275CDB55AC7AD9ACF0420859A9E8LLVyAK25SystemColorSchemeModifierVGTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA4RuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI13AnimatedShapeVyAK03AnyI0VG_AM4InitVyAO_GTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA4RuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_y7SwiftUI11TransactionVzc_AA3MapVyAK01_cH8ModifierVySbGyAMzcGTt1g5;
+}
+
+{
+  return _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA4RuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI12ForEachStateC4InfoVySnySiGSiAK15ModifiedContentVyARyAK13SummarySymbol33_5039765D26D33F565D3CDFCA69D19B23LLVAK01_C19TransactionModifierVySdGGAK13_OffsetEffectVG_G_AO4InitVyAPSiA0___GTt1g5;
+}
+
+uint64_t _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI14LayoutComputerV_AK06StaticiJ033_A7DFBD5AC47BCDAAE5525781FBD33CF6LLVyAK010GlassEntryI033_D12F2F25A0BD65FFBD3A7636B60067DFLLVGTt1g5(unsigned int *a1)
+{
+  Value = AGGraphGetValue();
+  memcpy(__dst, Value, sizeof(__dst));
+  v3 = a1[1];
+  v4 = *(a1 + 1);
+  outlined init with copy of GlassEntryLayout(__dst, &v6);
+  specialized StatefulRule<>.updateLayoutComputer<A>(layout:environment:attributes:)(__dst, v3, v4);
+  return outlined destroy of GlassEntryLayout(__dst);
+}
+
+uint64_t _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI14LayoutComputerV_AK06StaticiJ033_A7DFBD5AC47BCDAAE5525781FBD33CF6LLVyAK011GlassEffectI033_D12F2F25A0BD65FFBD3A7636B60067DFLLVGTt1g5(unsigned int *a1)
+{
+  Value = AGGraphGetValue();
+  v3 = *(Value + 16);
+  v11[0] = *Value;
+  v11[1] = v3;
+  v5 = *(Value + 48);
+  v4 = *(Value + 64);
+  v6 = *(Value + 80);
+  v11[2] = *(Value + 32);
+  v12 = v6;
+  v11[3] = v5;
+  v11[4] = v4;
+  v7 = a1[1];
+  v8 = *(a1 + 1);
+  outlined init with copy of GlassEffectLayout(v11, v10);
+  specialized StatefulRule<>.updateLayoutComputer<A>(layout:environment:attributes:)(v11, v7, v8);
+  return outlined destroy of GlassEffectLayout(v11);
+}
+
+void _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_yt_7SwiftUI24ConcentricPaddingUpdater33_7079FF89BCF97F81EB250A589B9A5CEDLLVTt1g5(double *a1)
+{
+  Value = AGGraphGetValue();
+  v3 = *Value;
+  v4 = Value[1];
+  v5 = Value[2];
+  v6 = Value[3];
+  if (ConcentricPaddingUpdater.oldValue.getter() != v3 || v7 != v4 || v8 != v5 || v9 != v6)
+  {
+    v13 = AGCreateWeakAttribute();
+    specialized static GraphHost.currentHost.getter();
+    *&v14 = v13;
+    BYTE8(v14) = 0;
+    v15 = v3;
+    v16 = v4;
+    v17 = v5;
+    v18 = v6;
+    specialized GraphHost.continueTransaction<A>(_:)(&v14);
+  }
+
+  a1[2] = v3;
+  a1[3] = v4;
+  a1[4] = v5;
+  a1[5] = v6;
+  *(a1 + 48) = 0;
+}
+
+void _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI14LayoutComputerV_AK04LeafiJ033_65609C35608651F66D749EB1BD9D2226LLVyAK10_ShapeViewVyAK9RectangleVAKE17AsymmetricalInsetVAK15ForegroundStyleVGGTt1g5(unsigned int *a1)
+{
+  type metadata accessor for _ShapeView<Rectangle.AsymmetricalInset, ForegroundStyle>(0);
+  Value = AGGraphGetValue();
+  v2 = *(Value + 32);
+  v3 = *(Value + 33);
+  LOBYTE(v5[0]) = 1;
+  v4 = *(Value + 16);
+  v5[0] = *Value;
+  v5[1] = v4;
+  v6 = v2;
+  v7 = v3;
+  v10 = 0u;
+  v9 = 0u;
+  v8 = 0u;
+  v11 = 1;
+  v13 = 0u;
+  v14 = 0u;
+  v12 = 0u;
+  v15 = 1;
+  v18 = 0u;
+  v17 = 0u;
+  v16 = 0u;
+  v19 = 1;
+  specialized StatefulRule<>.update<A>(to:)(v5);
+}
+
+uint64_t _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI14LayoutComputerV_AK013ResolvedImageiJ033_A3C1DB6976F54697C11EFA754256BBD1LLVTt1g5(unsigned int *a1)
+{
+  Value = AGGraphGetValue();
+  v2 = Value[3];
+  v4 = *Value;
+  v3 = Value[1];
+  v22[2] = Value[2];
+  v22[3] = v2;
+  v22[0] = v4;
+  v22[1] = v3;
+  v5 = Value[7];
+  v7 = Value[4];
+  v6 = Value[5];
+  v22[6] = Value[6];
+  v22[7] = v5;
+  v22[4] = v7;
+  v22[5] = v6;
+  v9 = Value[9];
+  v8 = Value[10];
+  v10 = Value[8];
+  *(v23 + 11) = *(Value + 171);
+  v22[9] = v9;
+  v23[0] = v8;
+  v22[8] = v10;
+  v11 = Value[9];
+  v32 = Value[8];
+  v33 = v11;
+  v34[0] = Value[10];
+  *(v34 + 11) = *(Value + 171);
+  v12 = Value[5];
+  v28 = Value[4];
+  v29 = v12;
+  v13 = Value[7];
+  v30 = Value[6];
+  v31 = v13;
+  v14 = Value[1];
+  v24 = *Value;
+  v25 = v14;
+  v15 = Value[3];
+  v26 = Value[2];
+  v27 = v15;
+  v20[8] = v32;
+  v20[9] = v33;
+  v21[0] = v34[0];
+  *(v21 + 11) = *(v34 + 11);
+  v20[4] = v28;
+  v20[5] = v29;
+  v20[6] = v30;
+  v20[7] = v31;
+  v20[0] = v24;
+  v20[1] = v25;
+  v20[2] = v26;
+  v20[3] = v15;
+  v18 = v20;
+  outlined init with copy of Image.Resolved(v22, v19);
+  specialized StatefulRule<>.update<A>(modify:create:)(partial apply for specialized closure #1 in StatefulRule<>.update<A>(to:), v17, partial apply for specialized closure #2 in StatefulRule<>.update<A>(to:));
+  return outlined destroy of Image.Resolved(v22);
+}
+
+void _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI14LayoutComputerV_AK05InsetiJ0VTt1g5(__int128 *a1)
+{
+  CurrentAttribute = AGGraphGetCurrentAttribute();
+  if (CurrentAttribute == *MEMORY[0x1E698D3F8])
+  {
+    __break(1u);
+  }
+
+  else
+  {
+    v3 = *(a1 + 6);
+    LOBYTE(v4) = 1;
+    v4 = *a1;
+    v5 = *(a1 + 2);
+    v6 = v3;
+    v7 = CurrentAttribute;
+    v9 = 0u;
+    v10 = 0u;
+    v8 = 0u;
+    v11 = 1;
+    v14 = 0u;
+    v13 = 0u;
+    v12 = 0u;
+    v15 = 1;
+    v17 = 0u;
+    v18 = 0u;
+    v16 = 0u;
+    v19 = 1;
+    specialized StatefulRule<>.update<A>(to:)(&v4);
+  }
+}
+
+double _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_Say7SwiftUI13ViewResponderCG_AK010StyledTextJ6FilterVTt1g5(uint64_t *a1)
+{
+  v1 = *a1;
+  StyledTextResponder.update()();
+  type metadata accessor for ObservationTracking._AccessList?(0, &lazy cache variable for type metadata for [ViewResponder], type metadata accessor for ViewResponder, MEMORY[0x1E69E62F8]);
+  if (!AGGraphGetOutputValue())
+  {
+    type metadata accessor for EnvironmentFetch<LayoutDirection>(0, &lazy cache variable for type metadata for _ContiguousArrayStorage<Swift.AnyObject>, MEMORY[0x1E69E7C98] + 8, MEMORY[0x1E69E6F90]);
+    v3 = swift_allocObject();
+    *(v3 + 16) = xmmword_18DDAB4D0;
+    *(v3 + 32) = v1;
+
+    AGGraphSetOutputValue();
+  }
+
+  return result;
+}
+
+double _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI14LayoutComputerV_AK010StyledTextiJ033_641995D812913A47B866B20B88782376LLVTt1g5(unsigned int *a1)
+{
+  v1 = *AGGraphGetValue();
+
+  v2 = *(AGGraphGetValue() + 8);
+  v6[0] = v1;
+  v6[1] = v2;
+  v5 = v6;
+
+  specialized StatefulRule<>.update<A>(modify:create:)(partial apply for specialized closure #1 in StatefulRule<>.update<A>(to:), v4, partial apply for specialized closure #2 in StatefulRule<>.update<A>(to:));
+
+  return result;
+}
+
+uint64_t _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI12GesturePhaseOy12CoreGraphics7CGFloatVG_AK014StateContainerJ033_EA62389F5A6356B5DBAFB6A6AFC6ECC7LLVyAK08DistanceI0V0N4TypeVApK12SpatialEventVGTt1g5(unsigned int *a1)
+{
+  v25 = *MEMORY[0x1E69E9840];
+  result = specialized ResettableGestureRule.resetIfNeeded()();
+  if (result)
+  {
+    type metadata accessor for StateContainerGesture<DistanceGesture.StateType, SpatialEvent, CGFloat>();
+    v3 = *AGGraphGetValue();
+    type metadata accessor for EnvironmentFetch<LayoutDirection>(0, &lazy cache variable for type metadata for GesturePhase<SpatialEvent>, &type metadata for SpatialEvent, type metadata accessor for GesturePhase);
+
+    Value = AGGraphGetValue();
+    v5 = *(Value + 16);
+    v21[0] = *Value;
+    v21[1] = v5;
+    v6 = *(Value + 32);
+    v7 = *(Value + 48);
+    v8 = *(Value + 64);
+    v22 = *(Value + 80);
+    v21[3] = v7;
+    v21[4] = v8;
+    v21[2] = v6;
+    v9 = *(Value + 16);
+    v13 = *Value;
+    v14 = v9;
+    v10 = *(Value + 32);
+    v11 = *(Value + 48);
+    v12 = *(Value + 64);
+    v18 = *(Value + 80);
+    v16 = v11;
+    v17 = v12;
+    v15 = v10;
+    outlined init with copy of UncheckedSendable<GlassEffectShapeModifier>(v21, v23, &lazy cache variable for type metadata for GesturePhase<SpatialEvent>, &type metadata for SpatialEvent, type metadata accessor for GesturePhase);
+    v3(&v19, a1 + 4, &v13);
+
+    v23[2] = v15;
+    v23[3] = v16;
+    v23[4] = v17;
+    v24 = v18;
+    v23[0] = v13;
+    v23[1] = v14;
+    outlined destroy of GlassEntryView?(v23, &lazy cache variable for type metadata for GesturePhase<SpatialEvent>, &type metadata for SpatialEvent, type metadata accessor for GesturePhase);
+    *&v13 = v19;
+    WORD4(v13) = v20;
+    type metadata accessor for EnvironmentFetch<LayoutDirection>(0, &lazy cache variable for type metadata for GesturePhase<CGFloat>, MEMORY[0x1E69E7DE0], type metadata accessor for GesturePhase);
+    return AGGraphSetOutputValue();
+  }
+
+  return result;
+}
+
+double _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI12GesturePhaseOyAK13TappableEventVG_AK03MapJ033_EA8BFBF553A9179E7F3A85C72F795A9FLLVyA2OGTt1g5(unsigned int *a1)
+{
+  v14 = *MEMORY[0x1E69E9840];
+  if (specialized ResettableGestureRule.resetIfNeeded()())
+  {
+    type metadata accessor for KeyPath<EnvironmentValues, LayoutDirection>(0, &lazy cache variable for type metadata for MapGesture<TappableEvent, TappableEvent>, &type metadata for TappableEvent, &type metadata for TappableEvent, type metadata accessor for MapGesture);
+    v2 = *AGGraphGetValue();
+    type metadata accessor for EnvironmentFetch<LayoutDirection>(0, &lazy cache variable for type metadata for GesturePhase<TappableEvent>, &type metadata for TappableEvent, type metadata accessor for GesturePhase);
+
+    Value = AGGraphGetValue();
+    v4 = *(Value + 8);
+    v5 = *(Value + 16);
+    v6 = *(Value + 24);
+    *&v8 = *Value;
+    *(&v8 + 1) = v4;
+    *&v9 = v5;
+    *(&v9 + 1) = v6;
+    v10 = *(Value + 32);
+    v7 = outlined copy of GesturePhase<TappableEvent>(v8, v4, v5, v6, v10, SHIBYTE(v10));
+    v2(&v11, &v8, v7);
+
+    outlined consume of GesturePhase<TappableEvent>(v8, *(&v8 + 1), v9, *(&v9 + 1), v10, SHIBYTE(v10));
+    v8 = v11;
+    v9 = v12;
+    v10 = v13;
+    AGGraphSetOutputValue();
+    return outlined consume of GesturePhase<TappableEvent>(v11, *(&v11 + 1), v12, *(&v12 + 1), v13, SHIBYTE(v13));
+  }
+
+  return result;
+}
+
+uint64_t _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI14LayoutComputerV_AK04LeafiJ033_65609C35608651F66D749EB1BD9D2226LLVyAK10_ShapeViewVyAK9RectangleVAK15ForegroundStyleVGGTt1g5Tm(unsigned int *a1, uint64_t a2, uint64_t (*a3)(void), uint64_t (*a4)(_BYTE *))
+{
+  (a3)(0, a2);
+  Value = AGGraphGetValue();
+  v6 = Value[1];
+  v8[0] = *Value;
+  v8[1] = v6;
+  v11 = 0u;
+  v10 = 0u;
+  v9 = 0u;
+  v12 = 1;
+  v14 = 0u;
+  v15 = 0u;
+  v13 = 0u;
+  v16 = 1;
+  v19 = 0u;
+  v18 = 0u;
+  v17 = 0u;
+  v20 = 1;
+  return a4(v8);
+}
+
+uint64_t _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI14LayoutComputerV_AK04LeafiJ033_65609C35608651F66D749EB1BD9D2226LLVyAK13AnimatedShapeVyAK9RectangleV6_InsetVGGTt1g5Tm(unsigned int *a1, uint64_t a2, unint64_t *a3, uint64_t (*a4)(void), uint64_t a5, uint64_t (*a6)(uint64_t *))
+{
+  type metadata accessor for ViewLayoutEngine<GeometryReaderLayout>(0, a3, a4, a5, type metadata accessor for AnimatedShape);
+  Value = AGGraphGetValue();
+  v8 = *(Value + 8);
+  v9 = *(Value + 9);
+  v11 = *Value;
+  v12 = v8;
+  v13 = v9;
+  v16 = 0u;
+  v15 = 0u;
+  v14 = 0u;
+  v17 = 1;
+  v19 = 0u;
+  v20 = 0u;
+  v18 = 0u;
+  v21 = 1;
+  v24 = 0u;
+  v23 = 0u;
+  v22 = 0u;
+  v25 = 1;
+  return a6(&v11);
+}
+
+void _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI14LayoutComputerV_AK04LeafiJ033_65609C35608651F66D749EB1BD9D2226LLVyAK10_ShapeViewVyAK7CapsuleVAK15ForegroundStyleVGGTt1g5(unsigned int *a1)
+{
+  type metadata accessor for _ShapeView<Capsule, ForegroundStyle>(0);
+  Value = AGGraphGetValue();
+  v2 = Value[1];
+  v3 = Value[2];
+  v4[0] = *Value;
+  v4[1] = v2;
+  v4[2] = v3;
+  v7 = 0u;
+  v6 = 0u;
+  v5 = 0u;
+  v8 = 1;
+  v10 = 0u;
+  v11 = 0u;
+  v9 = 0u;
+  v12 = 1;
+  v15 = 0u;
+  v14 = 0u;
+  v13 = 0u;
+  v16 = 1;
+  specialized StatefulRule<>.update<A>(to:)(v4);
+}
+
+__n128 _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI14LayoutComputerV_AK04LeafiJ033_65609C35608651F66D749EB1BD9D2226LLVyAK13AnimatedShapeVyAK024PartialContainerRelativeS0VGGTt1g5(unsigned int *a1)
+{
+  type metadata accessor for ViewLayoutEngine<GeometryReaderLayout>(0, &lazy cache variable for type metadata for AnimatedShape<PartialContainerRelativeShape>, lazy protocol witness table accessor for type PartialContainerRelativeShape and conformance PartialContainerRelativeShape, &type metadata for PartialContainerRelativeShape, type metadata accessor for AnimatedShape);
+  Value = AGGraphGetValue();
+  v2 = *(Value + 192);
+  v3 = *(Value + 224);
+  __src[13] = *(Value + 208);
+  __src[14] = v3;
+  v4 = *(Value + 128);
+  v5 = *(Value + 160);
+  v6 = *(Value + 176);
+  __src[9] = *(Value + 144);
+  __src[10] = v5;
+  __src[11] = v6;
+  __src[12] = v2;
+  v7 = *(Value + 80);
+  __src[4] = *(Value + 64);
+  __src[5] = v7;
+  v8 = *(Value + 112);
+  __src[6] = *(Value + 96);
+  v13 = *(Value + 240);
+  __src[7] = v8;
+  __src[8] = v4;
+  v9 = *(Value + 16);
+  __src[0] = *Value;
+  __src[1] = v9;
+  v10 = *(Value + 48);
+  __src[2] = *(Value + 32);
+  __src[3] = v10;
+  v15 = 0u;
+  v16 = 0u;
+  v14 = 0u;
+  v17 = 1;
+  v18 = 0u;
+  v19 = 0u;
+  v20 = 0u;
+  v21 = 1;
+  v22 = 0u;
+  v23 = 0u;
+  v24 = 0u;
+  v25 = 1;
+  specialized StatefulRule<>.update<A>(to:)(__src);
+  return result;
+}
+
+void _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI14LayoutComputerV_AK04LeafiJ033_65609C35608651F66D749EB1BD9D2226LLVyAK10_ShapeViewVyAK018DefaultGlassEffectR0VAK15ForegroundStyleVGGTt1g5(unsigned int *a1)
+{
+  type metadata accessor for _ShapeView<DefaultGlassEffectShape, ForegroundStyle>(0);
+  Value = AGGraphGetValue();
+  v2 = Value[1];
+  v3 = Value[2];
+  v4[0] = *Value;
+  v4[1] = v2;
+  v4[2] = v3;
+  v7 = 0u;
+  v6 = 0u;
+  v5 = 0u;
+  v8 = 1;
+  v10 = 0u;
+  v11 = 0u;
+  v9 = 0u;
+  v12 = 1;
+  v15 = 0u;
+  v14 = 0u;
+  v13 = 0u;
+  v16 = 1;
+  specialized StatefulRule<>.update<A>(to:)(v4);
+}
+
+void _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI14LayoutComputerV_AK04LeafiJ033_65609C35608651F66D749EB1BD9D2226LLVyAK13AnimatedShapeVyAK22UnevenRoundedRectangleVGGTt1g5(unsigned int *a1)
+{
+  type metadata accessor for ViewLayoutEngine<GeometryReaderLayout>(0, &lazy cache variable for type metadata for AnimatedShape<UnevenRoundedRectangle>, lazy protocol witness table accessor for type UnevenRoundedRectangle and conformance UnevenRoundedRectangle, &type metadata for UnevenRoundedRectangle, type metadata accessor for AnimatedShape);
+  Value = AGGraphGetValue();
+  v2 = *(Value + 32);
+  v3 = *(Value + 33);
+  v4 = *(Value + 34);
+  LOBYTE(v6[0]) = 1;
+  v5 = *(Value + 16);
+  v6[0] = *Value;
+  v6[1] = v5;
+  v7 = v2;
+  v8 = v3;
+  v9 = v4;
+  v12 = 0u;
+  v11 = 0u;
+  v10 = 0u;
+  v13 = 1;
+  v15 = 0u;
+  v16 = 0u;
+  v14 = 0u;
+  v17 = 1;
+  v20 = 0u;
+  v19 = 0u;
+  v18 = 0u;
+  v21 = 1;
+  specialized StatefulRule<>.update<A>(to:)(v6);
+}
+
+void _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI14LayoutComputerV_AK04LeafiJ033_65609C35608651F66D749EB1BD9D2226LLVyAK13AnimatedShapeVyAK22UnevenRoundedRectangleV6_InsetVGGTt1g5(unsigned int *a1)
+{
+  type metadata accessor for ViewLayoutEngine<GeometryReaderLayout>(0, &lazy cache variable for type metadata for AnimatedShape<UnevenRoundedRectangle._Inset>, lazy protocol witness table accessor for type UnevenRoundedRectangle._Inset and conformance UnevenRoundedRectangle._Inset, &type metadata for UnevenRoundedRectangle._Inset, type metadata accessor for AnimatedShape);
+  Value = AGGraphGetValue();
+  v2 = *(Value + 16);
+  v3[0] = *Value;
+  v3[1] = v2;
+  v3[2] = *(Value + 32);
+  v4 = *(Value + 48);
+  v7 = 0u;
+  v6 = 0u;
+  v5 = 0u;
+  v8 = 1;
+  v10 = 0u;
+  v11 = 0u;
+  v9 = 0u;
+  v12 = 1;
+  v15 = 0u;
+  v14 = 0u;
+  v13 = 0u;
+  v16 = 1;
+  specialized StatefulRule<>.update<A>(to:)(v3);
+}
+
+unsigned __int8 *_s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_s6UInt32V_7SwiftUI0C15TransactionSeedVySbGTt1g5(unsigned int *a1)
+{
+  result = AGGraphGetValue();
+  v3 = *result;
+  v4 = *(a1 + 8);
+  if (v4 != 2)
+  {
+    if (((v3 ^ v4) & 1) == 0)
+    {
+      return result;
+    }
+
+    AGGraphClearUpdate();
+    AGGraphGetValue();
+    AGGraphSetUpdate();
+  }
+
+  result = AGGraphSetOutputValue();
+  *(a1 + 8) = v3;
+  return result;
+}
+
+void _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI14LayoutComputerV_AK04LeafiJ033_65609C35608651F66D749EB1BD9D2226LLVyAK13AnimatedShapeVyAK19ConcentricRectangleVGGTt1g5(unsigned int *a1)
+{
+  type metadata accessor for ViewLayoutEngine<GeometryReaderLayout>(0, &lazy cache variable for type metadata for AnimatedShape<ConcentricRectangle>, lazy protocol witness table accessor for type ConcentricRectangle and conformance ConcentricRectangle, &type metadata for ConcentricRectangle, type metadata accessor for AnimatedShape);
+  Value = AGGraphGetValue();
+  memcpy(__dst, Value, 0x182uLL);
+  v3 = 0u;
+  v4 = 0u;
+  v5 = 0u;
+  v6 = 1;
+  v7 = 0u;
+  v8 = 0u;
+  v9 = 0u;
+  v10 = 1;
+  v12 = 0u;
+  v13 = 0u;
+  v11 = 0u;
+  v14 = 1;
+  specialized StatefulRule<>.update<A>(to:)(__dst);
+}
+
+void _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI14LayoutComputerV_AK04LeafiJ033_65609C35608651F66D749EB1BD9D2226LLVyAK13AnimatedShapeVyAK16RoundedRectangleVGGTt1g5(unsigned int *a1)
+{
+  type metadata accessor for ViewLayoutEngine<GeometryReaderLayout>(0, &lazy cache variable for type metadata for AnimatedShape<RoundedRectangle>, lazy protocol witness table accessor for type RoundedRectangle and conformance RoundedRectangle, &type metadata for RoundedRectangle, type metadata accessor for AnimatedShape);
+  Value = AGGraphGetValue();
+  v2 = *(Value + 16);
+  v3 = *(Value + 17);
+  v4 = *(Value + 18);
+  LOBYTE(v5) = 1;
+  v5 = *Value;
+  v6 = v2;
+  v7 = v3;
+  v8 = v4;
+  v11 = 0u;
+  v10 = 0u;
+  v9 = 0u;
+  v12 = 1;
+  v14 = 0u;
+  v15 = 0u;
+  v13 = 0u;
+  v16 = 1;
+  v19 = 0u;
+  v18 = 0u;
+  v17 = 0u;
+  v20 = 1;
+  specialized StatefulRule<>.update<A>(to:)(&v5);
+}
+
+double _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI14LayoutComputerV_AK04LeafiJ033_65609C35608651F66D749EB1BD9D2226LLVyAK13AnimatedShapeVyAK16RoundedRectangleV6_InsetVGGTt1g5(unsigned int *a1)
+{
+  type metadata accessor for ViewLayoutEngine<GeometryReaderLayout>(0, &lazy cache variable for type metadata for AnimatedShape<RoundedRectangle._Inset>, lazy protocol witness table accessor for type RoundedRectangle._Inset and conformance RoundedRectangle._Inset, &type metadata for RoundedRectangle._Inset, type metadata accessor for AnimatedShape);
+  Value = AGGraphGetValue();
+  v2 = *(Value + 16);
+  v3 = *(Value + 24);
+  v4 = *(Value + 32);
+  v5 = *(Value + 33);
+  LOBYTE(v7) = 1;
+  v7 = *Value;
+  v8 = v2;
+  v9 = v3;
+  v10 = v4;
+  v11 = v5;
+  v14 = 0u;
+  v13 = 0u;
+  v12 = 0u;
+  v15 = 1;
+  v17 = 0u;
+  v18 = 0u;
+  v16 = 0u;
+  v19 = 1;
+  v22 = 0u;
+  v21 = 0u;
+  v20 = 0u;
+  v23 = 1;
+  specialized StatefulRule<>.update<A>(to:)(&v7);
+  return result;
+}
+
+double _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_ySv_So11AGAttributeatcyXEfU_ySv_AJtcfu_7SwiftUI14LayoutComputerV_AK06StaticiJ033_A7DFBD5AC47BCDAAE5525781FBD33CF6LLVyAK03AnyI0VGTt1g5(unsigned int *a1)
+{
+  AGGraphGetValue();
+  v2 = a1[1];
+  v3 = *(a1 + 1);
+
+  specialized StatefulRule<>.updateLayoutComputer<A>(layout:environment:attributes:)(v4, v2, v3);
+
+  return result;
+}
+
+void specialized UnsafeMutableBufferPointer._stableSortImpl(by:)(unsigned int **a1, uint64_t a2)
+{
+  v5 = a1[1];
+  v6 = _minimumMergeRunLength(_:)(v5);
+  if (v6 < v5)
+  {
+    if (v5 < -1)
+    {
+      goto LABEL_30;
+    }
+
+    v8 = v6;
+    v9 = v5 / 2;
+    if (v5 <= 1)
+    {
+      v10 = MEMORY[0x1E69E7CC0];
+    }
+
+    else
+    {
+      v10 = static Array._allocateBufferUninitialized(minimumCapacity:)();
+      *(v10 + 16) = v9;
+    }
+
+    v28[0] = (v10 + 32);
+    v28[1] = v9;
+    specialized closure #1 in UnsafeMutableBufferPointer._stableSortImpl(by:)(v28, v7, v29, a1, v8, a2);
+    *(v10 + 16) = 0;
+
+    return;
+  }
+
+  if (v5 < 0)
+  {
+    goto LABEL_31;
+  }
+
+  if (v5)
+  {
+    v27[0] = v27;
+    v27[1] = v2;
+    if (v5 != 1)
+    {
+      v11 = *a1;
+      v12 = -1;
+      v13 = 1;
+      v14 = *a1;
+LABEL_14:
+      v15 = *(v11 + 4 * v13);
+      v16 = v12;
+      v17 = v14;
+      while (1)
+      {
+        v18 = *v17;
+        v19 = *(a2 + 136);
+        if ((v19 & 0xC000000000000001) != 0)
+        {
+          v20 = MEMORY[0x193AC03C0](v15);
+        }
+
+        else
+        {
+          if (*((v19 & 0xFFFFFFFFFFFFFF8) + 0x10) <= v15)
+          {
+            __break(1u);
+LABEL_29:
+            __break(1u);
+LABEL_30:
+            __break(1u);
+LABEL_31:
+            __break(1u);
+LABEL_32:
+            __break(1u);
+            return;
+          }
+        }
+
+        v21 = *(v20 + 64);
+
+        v22 = *(a2 + 136);
+        if ((v22 & 0xC000000000000001) != 0)
+        {
+          v23 = MEMORY[0x193AC03C0](v18);
+        }
+
+        else
+        {
+          if (*((v22 & 0xFFFFFFFFFFFFFF8) + 0x10) <= v18)
+          {
+            goto LABEL_29;
+          }
+        }
+
+        v24 = *(v23 + 64);
+
+        if (v21 < v24)
+        {
+          if (!v11)
+          {
+            goto LABEL_32;
+          }
+
+          v25 = *v17;
+          v15 = v17[1];
+          *v17 = v15;
+          v17[1] = v25;
+          --v17;
+          if (!__CFADD__(v16++, 1))
+          {
+            continue;
+          }
+        }
+
+        ++v13;
+        v14 += 4;
+        --v12;
+        if (v13 == v5)
+        {
+          return;
+        }
+
+        goto LABEL_14;
+      }
+    }
+  }
+}
+
+void specialized closure #1 in UnsafeMutableBufferPointer._stableSortImpl(by:)(unsigned int **a1, __n128 a2, uint64_t a3, uint64_t *a4, uint64_t a5, uint64_t a6)
+{
+  v7 = a4[1];
+  if (v7 < 1)
+  {
+    v9 = MEMORY[0x1E69E7CC0];
+LABEL_104:
+    v10 = *a1;
+    if (!*a1)
+    {
+      goto LABEL_146;
+    }
+
+    v7 = v98;
+    if (swift_isUniquelyReferenced_nonNull_native())
+    {
+LABEL_106:
+      v89 = *(v9 + 2);
+      if (v89 >= 2)
+      {
+        while (*a4)
+        {
+          v90 = *&v9[16 * v89];
+          v91 = *&v9[16 * v89 + 24];
+          specialized _merge<A>(low:mid:high:buffer:by:)((*a4 + 4 * v90), (*a4 + 4 * *&v9[16 * v89 + 16]), (*a4 + 4 * v91), v10, a6);
+          if (v7)
+          {
+            goto LABEL_114;
+          }
+
+          if (v91 < v90)
+          {
+            goto LABEL_133;
+          }
+
+          if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
+          {
+            v9 = specialized _ArrayBuffer._consumeAndCreateNew()(v9);
+          }
+
+          if (v89 - 2 >= *(v9 + 2))
+          {
+            goto LABEL_134;
+          }
+
+          v92 = &v9[16 * v89];
+          *v92 = v90;
+          *(v92 + 1) = v91;
+          specialized Array.remove(at:)(v89 - 1);
+          v89 = *(v9 + 2);
+          if (v89 <= 1)
+          {
+            goto LABEL_114;
+          }
+        }
+
+        goto LABEL_144;
+      }
+
+LABEL_114:
+
+      return;
+    }
+
+LABEL_140:
+    v9 = specialized _ArrayBuffer._consumeAndCreateNew()(v9);
+    goto LABEL_106;
+  }
+
+  v8 = 0;
+  v9 = MEMORY[0x1E69E7CC0];
+  while (1)
+  {
+    v10 = v8++;
+    if (v8 < v7)
+    {
+      v11 = (*a4 + 4 * v10);
+      v13 = *v11;
+      v12 = v11 + 2;
+      v14 = specialized lessThan #1 <A>(_:_:) in DynamicContainerInfo.updateValue()(*(*a4 + 4 * v8), v13, a6);
+      v15 = (v10 + 2);
+      while (v7 != v15)
+      {
+        v17 = *(v12 - 1);
+        v16 = *v12;
+        v18 = *(a6 + 136);
+        if ((v18 & 0xC000000000000001) != 0)
+        {
+          v19 = MEMORY[0x193AC03C0](v16);
+        }
+
+        else
+        {
+          if (*((v18 & 0xFFFFFFFFFFFFFF8) + 0x10) <= v16)
+          {
+            goto LABEL_117;
+          }
+        }
+
+        v20 = *(v19 + 64);
+
+        v21 = *(a6 + 136);
+        if ((v21 & 0xC000000000000001) != 0)
+        {
+          v22 = MEMORY[0x193AC03C0](v17);
+        }
+
+        else
+        {
+          if (*((v21 & 0xFFFFFFFFFFFFFF8) + 0x10) <= v17)
+          {
+            goto LABEL_118;
+          }
+        }
+
+        v23 = *(v22 + 64);
+
+        ++v15;
+        ++v12;
+        if (((v14 ^ (v20 >= v23)) & 1) == 0)
+        {
+          v7 = (v15 - 1);
+          break;
+        }
+      }
+
+      if (v14)
+      {
+        if (v7 < v10)
+        {
+          goto LABEL_139;
+        }
+
+        if (v10 < v7)
+        {
+          v24 = v7 - 1;
+          v25 = v10;
+          do
+          {
+            if (v25 != v24)
+            {
+              v27 = *a4;
+              if (!*a4)
+              {
+                goto LABEL_143;
+              }
+
+              v28 = *(v27 + 4 * v25);
+              *(v27 + 4 * v25) = *(v27 + 4 * v24);
+              *(v27 + 4 * v24) = v28;
+            }
+          }
+
+          while (++v25 < v24--);
+        }
+      }
+
+      v8 = v7;
+    }
+
+    v29 = a4[1];
+    if (v8 < v29)
+    {
+      if (__OFSUB__(v8, v10))
+      {
+        goto LABEL_136;
+      }
+
+      if (v8 - v10 < a5)
+      {
+        v30 = v10 + a5;
+        if (__OFADD__(v10, a5))
+        {
+          goto LABEL_137;
+        }
+
+        if (v30 >= v29)
+        {
+          v30 = a4[1];
+        }
+
+        if (v30 < v10)
+        {
+          goto LABEL_138;
+        }
+
+        if (v8 != v30)
+        {
+          break;
+        }
+      }
+    }
+
+LABEL_52:
+    if (v8 < v10)
+    {
+      goto LABEL_135;
+    }
+
+    if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
+    {
+      v9 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v9 + 2) + 1, 1, v9);
+    }
+
+    v45 = *(v9 + 2);
+    v44 = *(v9 + 3);
+    v7 = v45 + 1;
+    if (v45 >= v44 >> 1)
+    {
+      v9 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v44 > 1), v45 + 1, 1, v9);
+    }
+
+    *(v9 + 2) = v7;
+    v46 = &v9[16 * v45];
+    *(v46 + 4) = v10;
+    *(v46 + 5) = v8;
+    v47 = *a1;
+    if (!*a1)
+    {
+      goto LABEL_145;
+    }
+
+    if (v45)
+    {
+      while (1)
+      {
+        v48 = v7 - 1;
+        if (v7 >= 4)
+        {
+          break;
+        }
+
+        if (v7 == 3)
+        {
+          v49 = *(v9 + 4);
+          v50 = *(v9 + 5);
+          v59 = __OFSUB__(v50, v49);
+          v51 = v50 - v49;
+          v52 = v59;
+LABEL_72:
+          if (v52)
+          {
+            goto LABEL_124;
+          }
+
+          v65 = &v9[16 * v7];
+          v67 = *v65;
+          v66 = *(v65 + 1);
+          v68 = __OFSUB__(v66, v67);
+          v69 = v66 - v67;
+          v70 = v68;
+          if (v68)
+          {
+            goto LABEL_127;
+          }
+
+          v71 = &v9[16 * v48 + 32];
+          v73 = *v71;
+          v72 = *(v71 + 1);
+          v59 = __OFSUB__(v72, v73);
+          v74 = v72 - v73;
+          if (v59)
+          {
+            goto LABEL_130;
+          }
+
+          if (__OFADD__(v69, v74))
+          {
+            goto LABEL_131;
+          }
+
+          if (v69 + v74 >= v51)
+          {
+            if (v51 < v74)
+            {
+              v48 = v7 - 2;
+            }
+
+            goto LABEL_93;
+          }
+
+          goto LABEL_86;
+        }
+
+        v75 = &v9[16 * v7];
+        v77 = *v75;
+        v76 = *(v75 + 1);
+        v59 = __OFSUB__(v76, v77);
+        v69 = v76 - v77;
+        v70 = v59;
+LABEL_86:
+        if (v70)
+        {
+          goto LABEL_126;
+        }
+
+        v78 = &v9[16 * v48];
+        v80 = *(v78 + 4);
+        v79 = *(v78 + 5);
+        v59 = __OFSUB__(v79, v80);
+        v81 = v79 - v80;
+        if (v59)
+        {
+          goto LABEL_129;
+        }
+
+        if (v81 < v69)
+        {
+          goto LABEL_3;
+        }
+
+LABEL_93:
+        v86 = v48 - 1;
+        if (v48 - 1 >= v7)
+        {
+          goto LABEL_119;
+        }
+
+        if (!*a4)
+        {
+          goto LABEL_142;
+        }
+
+        v87 = *&v9[16 * v86 + 32];
+        v10 = *&v9[16 * v48 + 40];
+        specialized _merge<A>(low:mid:high:buffer:by:)((*a4 + 4 * v87), (*a4 + 4 * *&v9[16 * v48 + 32]), (*a4 + 4 * v10), v47, a6);
+        v7 = v98;
+        if (v98)
+        {
+          goto LABEL_114;
+        }
+
+        if (v10 < v87)
+        {
+          goto LABEL_120;
+        }
+
+        if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
+        {
+          v9 = specialized _ArrayBuffer._consumeAndCreateNew()(v9);
+        }
+
+        if (v86 >= *(v9 + 2))
+        {
+          goto LABEL_121;
+        }
+
+        v98 = 0;
+        v88 = &v9[16 * v86];
+        *(v88 + 4) = v87;
+        *(v88 + 5) = v10;
+        specialized Array.remove(at:)(v48);
+        v7 = *(v9 + 2);
+        if (v7 <= 1)
+        {
+          goto LABEL_3;
+        }
+      }
+
+      v53 = &v9[16 * v7 + 32];
+      v54 = *(v53 - 64);
+      v55 = *(v53 - 56);
+      v59 = __OFSUB__(v55, v54);
+      v56 = v55 - v54;
+      if (v59)
+      {
+        goto LABEL_122;
+      }
+
+      v58 = *(v53 - 48);
+      v57 = *(v53 - 40);
+      v59 = __OFSUB__(v57, v58);
+      v51 = v57 - v58;
+      v52 = v59;
+      if (v59)
+      {
+        goto LABEL_123;
+      }
+
+      v60 = &v9[16 * v7];
+      v62 = *v60;
+      v61 = *(v60 + 1);
+      v59 = __OFSUB__(v61, v62);
+      v63 = v61 - v62;
+      if (v59)
+      {
+        goto LABEL_125;
+      }
+
+      v59 = __OFADD__(v51, v63);
+      v64 = v51 + v63;
+      if (v59)
+      {
+        goto LABEL_128;
+      }
+
+      if (v64 >= v56)
+      {
+        v82 = &v9[16 * v48 + 32];
+        v84 = *v82;
+        v83 = *(v82 + 1);
+        v59 = __OFSUB__(v83, v84);
+        v85 = v83 - v84;
+        if (v59)
+        {
+          goto LABEL_132;
+        }
+
+        if (v51 < v85)
+        {
+          v48 = v7 - 2;
+        }
+
+        goto LABEL_93;
+      }
+
+      goto LABEL_72;
+    }
+
+LABEL_3:
+    v7 = a4[1];
+    if (v8 >= v7)
+    {
+      goto LABEL_104;
+    }
+  }
+
+  v7 = *a4;
+  v31 = *a4 + 4 * v8 - 4;
+  v93 = v10;
+  v32 = (v10 - v8);
+  v96 = v30;
+LABEL_37:
+  v33 = *(v7 + 4 * v8);
+  v34 = v32;
+  v10 = v31;
+  while (1)
+  {
+    v35 = *v10;
+    v36 = *(a6 + 136);
+    if ((v36 & 0xC000000000000001) == 0)
+    {
+      if (*((v36 & 0xFFFFFFFFFFFFFF8) + 0x10) > v33)
+      {
+
+        goto LABEL_41;
+      }
+
+      __break(1u);
+LABEL_116:
+      __break(1u);
+LABEL_117:
+      __break(1u);
+LABEL_118:
+      __break(1u);
+LABEL_119:
+      __break(1u);
+LABEL_120:
+      __break(1u);
+LABEL_121:
+      __break(1u);
+LABEL_122:
+      __break(1u);
+LABEL_123:
+      __break(1u);
+LABEL_124:
+      __break(1u);
+LABEL_125:
+      __break(1u);
+LABEL_126:
+      __break(1u);
+LABEL_127:
+      __break(1u);
+LABEL_128:
+      __break(1u);
+LABEL_129:
+      __break(1u);
+LABEL_130:
+      __break(1u);
+LABEL_131:
+      __break(1u);
+LABEL_132:
+      __break(1u);
+LABEL_133:
+      __break(1u);
+LABEL_134:
+      __break(1u);
+LABEL_135:
+      __break(1u);
+LABEL_136:
+      __break(1u);
+LABEL_137:
+      __break(1u);
+LABEL_138:
+      __break(1u);
+LABEL_139:
+      __break(1u);
+      goto LABEL_140;
+    }
+
+    v37 = MEMORY[0x193AC03C0](v33);
+LABEL_41:
+    v38 = *(v37 + 64);
+
+    v39 = *(a6 + 136);
+    if ((v39 & 0xC000000000000001) != 0)
+    {
+      v40 = MEMORY[0x193AC03C0](v35);
+    }
+
+    else
+    {
+      if (*((v39 & 0xFFFFFFFFFFFFFF8) + 0x10) <= v35)
+      {
+        goto LABEL_116;
+      }
+    }
+
+    v41 = *(v40 + 64);
+
+    if (v38 >= v41)
+    {
+LABEL_36:
+      ++v8;
+      v31 += 4;
+      --v32;
+      if (v8 == v96)
+      {
+        v8 = v96;
+        v10 = v93;
+        goto LABEL_52;
+      }
+
+      goto LABEL_37;
+    }
+
+    if (!v7)
+    {
+      break;
+    }
+
+    v42 = *v10;
+    v33 = *(v10 + 4);
+    *v10 = v33;
+    *(v10 + 4) = v42;
+    v10 -= 4;
+    if (__CFADD__(v34++, 1))
+    {
+      goto LABEL_36;
+    }
+  }
+
+  __break(1u);
+LABEL_142:
+  __break(1u);
+LABEL_143:
+  __break(1u);
+LABEL_144:
+  __break(1u);
+LABEL_145:
+  __break(1u);
+LABEL_146:
+  __break(1u);
+}
+
+void specialized _merge<A>(low:mid:high:buffer:by:)(char *__dst, char *__src, char *a3, unsigned int *a4, uint64_t a5)
+{
+  v6 = a4;
+  v7 = a3;
+  v8 = __src;
+  v9 = __dst;
+  v10 = __src - __dst;
+  v11 = __src - __dst + 3;
+  if (__src - __dst >= 0)
+  {
+    v11 = __src - __dst;
+  }
+
+  v12 = v11 >> 2;
+  v13 = a3 - __src;
+  v14 = a3 - __src + 3;
+  if (a3 - __src >= 0)
+  {
+    v14 = a3 - __src;
+  }
+
+  v15 = v14 >> 2;
+  if (v12 < v14 >> 2)
+  {
+    if (a4 != __dst || &__dst[4 * v12] <= a4)
+    {
+      memmove(a4, __dst, 4 * v12);
+    }
+
+    v16 = &v6[v12];
+    if (v10 < 4)
+    {
+LABEL_10:
+      v8 = v9;
+LABEL_51:
+      if (v8 != v6 || v8 >= (v6 + ((v16 - v6 + (v16 - v6 < 0 ? 3uLL : 0)) & 0xFFFFFFFFFFFFFFFCLL)))
+      {
+        memmove(v8, v6, 4 * (v16 - v6));
+      }
+
+      return;
+    }
+
+    while (1)
+    {
+      if (v8 >= v7)
+      {
+        goto LABEL_10;
+      }
+
+      v19 = *v8;
+      v20 = *v6;
+      v21 = *(a5 + 136);
+      if ((v21 & 0xC000000000000001) != 0)
+      {
+        v22 = MEMORY[0x193AC03C0](v19);
+      }
+
+      else
+      {
+        if (*((v21 & 0xFFFFFFFFFFFFFF8) + 0x10) <= v19)
+        {
+          goto LABEL_56;
+        }
+      }
+
+      v23 = *(v22 + 64);
+
+      v24 = *(a5 + 136);
+      if ((v24 & 0xC000000000000001) != 0)
+      {
+        v25 = MEMORY[0x193AC03C0](v20);
+      }
+
+      else
+      {
+        if (*((v24 & 0xFFFFFFFFFFFFFF8) + 0x10) <= v20)
+        {
+          goto LABEL_58;
+        }
+      }
+
+      v26 = *(v25 + 64);
+
+      if (v23 < v26)
+      {
+        break;
+      }
+
+      v17 = v6;
+      v18 = v9 == v6++;
+      if (!v18)
+      {
+        goto LABEL_12;
+      }
+
+LABEL_13:
+      v9 += 4;
+      if (v6 >= v16)
+      {
+        goto LABEL_10;
+      }
+    }
+
+    v17 = v8;
+    v18 = v9 == v8++;
+    if (v18)
+    {
+      goto LABEL_13;
+    }
+
+LABEL_12:
+    *v9 = *v17;
+    goto LABEL_13;
+  }
+
+  if (a4 != __src || &__src[4 * v15] <= a4)
+  {
+    memmove(a4, __src, 4 * v15);
+  }
+
+  v16 = &v6[v15];
+  if (v13 < 4 || v8 <= v9)
+  {
+    goto LABEL_51;
+  }
+
+LABEL_32:
+  v27 = v8 - 1;
+  v7 -= 4;
+  v28 = v16;
+  while (1)
+  {
+    v30 = *--v28;
+    v29 = v30;
+    v31 = *v27;
+    v32 = *(a5 + 136);
+    if ((v32 & 0xC000000000000001) == 0)
+    {
+      break;
+    }
+
+    v33 = MEMORY[0x193AC03C0](v29);
+LABEL_37:
+    v34 = *(v33 + 64);
+
+    v35 = *(a5 + 136);
+    if ((v35 & 0xC000000000000001) != 0)
+    {
+      v36 = MEMORY[0x193AC03C0](v31);
+    }
+
+    else
+    {
+      if (*((v35 & 0xFFFFFFFFFFFFFF8) + 0x10) <= v31)
+      {
+        goto LABEL_57;
+      }
+    }
+
+    v37 = *(v36 + 64);
+
+    v38 = (v7 + 4);
+    if (v34 < v37)
+    {
+      if (v38 != v8)
+      {
+        *v7 = *v27;
+      }
+
+      if (v16 <= v6 || (--v8, v27 <= v9))
+      {
+        v8 = v27;
+        goto LABEL_51;
+      }
+
+      goto LABEL_32;
+    }
+
+    if (v38 != v16)
+    {
+      *v7 = *v28;
+    }
+
+    v7 -= 4;
+    v16 = v28;
+    if (v28 <= v6)
+    {
+      v16 = v28;
+      goto LABEL_51;
+    }
+  }
+
+  if (*((v32 & 0xFFFFFFFFFFFFFF8) + 0x10) > v29)
+  {
+
+    goto LABEL_37;
+  }
+
+  __break(1u);
+LABEL_56:
+  __break(1u);
+LABEL_57:
+  __break(1u);
+LABEL_58:
+  __break(1u);
 }

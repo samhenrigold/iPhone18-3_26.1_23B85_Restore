@@ -147,29 +147,27 @@ LABEL_23:
 
 - (id)descriptionDictionary
 {
-  v16[5] = *MEMORY[0x277D85DE8];
-  v15[0] = @"EventType";
+  v15[5] = *MEMORY[0x277D85DE8];
+  v14[0] = @"EventType";
   v3 = objc_opt_class();
   v4 = NSStringFromClass(v3);
-  v16[0] = v4;
-  v15[1] = @"uuid";
+  v15[0] = v4;
+  v14[1] = @"uuid";
   uuid = [(TAPlaySoundSuccess *)self uuid];
   uUIDString = [uuid UUIDString];
-  v16[1] = uUIDString;
-  v15[2] = @"add";
+  v15[1] = uUIDString;
+  v14[2] = @"add";
   address = [(TAPlaySoundSuccess *)self address];
   hexString = [address hexString];
-  v16[2] = hexString;
-  v15[3] = @"type";
+  v15[2] = hexString;
+  v14[3] = @"type";
   v9 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[TAPlaySoundSuccess successType](self, "successType")}];
-  v16[3] = v9;
-  v15[4] = @"date";
+  v15[3] = v9;
+  v14[4] = @"date";
   date = [(TAPlaySoundSuccess *)self date];
   getDateString = [date getDateString];
-  v16[4] = getDateString;
-  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:5];
-
-  v13 = *MEMORY[0x277D85DE8];
+  v15[4] = getDateString;
+  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:5];
 
   return v12;
 }

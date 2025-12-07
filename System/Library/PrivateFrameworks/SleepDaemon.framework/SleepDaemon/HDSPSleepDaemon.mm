@@ -19,11 +19,11 @@
 
 - (HDSPSleepDaemon)initWithBehavior:(id)behavior
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   behaviorCopy = behavior;
-  v20.receiver = self;
-  v20.super_class = HDSPSleepDaemon;
-  v5 = [(HDSPSleepDaemon *)&v20 init];
+  v19.receiver = self;
+  v19.super_class = HDSPSleepDaemon;
+  v5 = [(HDSPSleepDaemon *)&v19 init];
   if (v5)
   {
     v6 = HKSPLogForCategory();
@@ -31,9 +31,9 @@
     {
       v7 = objc_opt_class();
       *buf = 138543618;
-      v22 = v7;
-      v23 = 2048;
-      v24 = v5;
+      v21 = v7;
+      v22 = 2048;
+      v23 = v5;
       v8 = v7;
       _os_log_impl(&dword_269B11000, v6, OS_LOG_TYPE_DEFAULT, "[%{public}@.%p] initializing...", buf, 0x16u);
     }
@@ -84,7 +84,6 @@ LABEL_14:
     v17 = v5;
   }
 
-  v18 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -144,12 +143,11 @@ void __39__HDSPSleepDaemon__setupSigtermHandler__block_invoke(uint64_t a1)
 
 - (id)diagnosticInfo
 {
-  v7[1] = *MEMORY[0x277D85DE8];
+  v6[1] = *MEMORY[0x277D85DE8];
   launchDate = self->_launchDate;
-  v6 = @"Launched";
-  v7[0] = launchDate;
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:&v6 count:1];
-  v4 = *MEMORY[0x277D85DE8];
+  v5 = @"Launched";
+  v6[0] = launchDate;
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:&v5 count:1];
 
   return v3;
 }

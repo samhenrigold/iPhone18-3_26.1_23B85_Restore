@@ -29,7 +29,7 @@
 
   selfCopy = self;
   sub_21E792A60(interactive, sub_21E79E1A4, v15, v14, v16, tension, friction);
-  sub_21E792E48(v14);
+  sub_21E792E48(v14, v16);
 }
 
 - (void)performAnimationType:(unint64_t)type withoutAnimation:(id)animation
@@ -71,7 +71,7 @@
 
   selfCopy = self;
   sub_21E913A70(sub_21E79E1A4, v9, v8, v10);
-  sub_21E792E48(v8);
+  sub_21E792E48(v8, v10);
 }
 
 - (void)animateUsingSpringBehavior:(id)behavior tracking:(BOOL)tracking type:(unint64_t)type animations:(id)animations completion:(id)completion
@@ -95,7 +95,7 @@
   swift_unknownObjectRetain();
   selfCopy = self;
   sub_21E913BE8(behavior, tracking, sub_21E79E1A4, v13, v12, v14);
-  sub_21E792E48(v12);
+  sub_21E792E48(v12, v14);
   swift_unknownObjectRelease();
 }
 
@@ -118,7 +118,7 @@
 
   selfCopy = self;
   sub_21E913D78(v6, v5, v7);
-  sub_21E792E48(v5);
+  sub_21E792E48(v5, v7);
 }
 
 - (NCSimpleAnimator)init

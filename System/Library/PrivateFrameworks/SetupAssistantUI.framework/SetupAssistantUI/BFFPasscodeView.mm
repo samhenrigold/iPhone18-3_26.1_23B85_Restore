@@ -191,15 +191,15 @@
   [v34 animateWithDuration:v44 animations:v40 completion:v36];
 }
 
-uint64_t __62__BFFPasscodeView_animateTransitionToPasscodeInput_animation___block_invoke(uint64_t result)
+void *__62__BFFPasscodeView_animateTransitionToPasscodeInput_animation___block_invoke(void *result)
 {
   v1 = result;
-  v2 = *(result + 48);
+  v2 = *(result + 6);
   if ((v2 - 1) >= 2)
   {
     if (v2 == 3)
     {
-      [*(result + 32) setAlpha:0.0];
+      [*(result + 4) setAlpha:0.0];
       v10 = *(v1 + 5);
 
       return [v10 setAlpha:1.0];
@@ -208,7 +208,7 @@ uint64_t __62__BFFPasscodeView_animateTransitionToPasscodeInput_animation___bloc
 
   else
   {
-    v3 = *(result + 32);
+    v3 = *(result + 4);
     v4 = v2 == 2;
     v5 = 10;
     if (v4)

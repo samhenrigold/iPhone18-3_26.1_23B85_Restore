@@ -4,12 +4,16 @@
 - (BOOL)tsu_isEqualToDate:(id)date;
 - (BOOL)tsu_isEqualToFileModificationDateAccountingForTruncation:(id)truncation;
 - (id)dateFormatterFromTemplate12Hour:(id)hour template24Hour:(id)template24Hour withDateFormatter:(id)formatter;
+- (id)p_rule1To23HoursAgo:(int64_t)ago withDateFormatter:(id)formatter lowercase:(BOOL)lowercase;
+- (id)p_rule1To59MinutesAgo:(int64_t)ago withDateFormatter:(id)formatter lowercase:(BOOL)lowercase;
 - (id)p_ruleForOverAWeekAgoForDate:(id)date withDateFormatter:(id)formatter;
 - (id)p_ruleForOverAYearAgoForDate:(id)date withDateFormatter:(id)formatter;
 - (id)p_ruleForUpToSevenDaysAgoAndNotYesterdayForDate:(id)date withDateFormatter:(id)formatter;
+- (id)p_ruleForYesterday:(id)yesterday withDateFormatter:(id)formatter lowercase:(BOOL)lowercase;
 - (id)p_stringWithString:(id)string lowercase:(BOOL)lowercase dateFormatter:(id)formatter;
 - (id)tsu_fullFormattedDate;
 - (id)tsu_initWithDOSTime:(id)time;
+- (id)tsu_relativeAnnotationStringForEarlierDate:(id)date withDateFormatter:(id)formatter shortAsPossible:(BOOL)possible lowercaseIfNeeded:(BOOL)needed;
 - (id)tsu_shortFormattedDate;
 @end
 
@@ -38,18 +42,151 @@
 - ($201E9A47BE70A2B12CCA2F48B75AA2F7)tsu_DOSTime
 {
   [(NSDate *)self timeIntervalSince1970];
-  v9 = v2;
-  v3 = localtime(&v9);
+  v6 = v2;
+  v3 = localtime(&v6);
   tm_year = v3->tm_year;
   if (tm_year <= 81)
   {
     LOWORD(tm_year) = 81;
   }
 
-  tm_hour = v3->tm_hour;
-  v6 = v3->tm_sec >> 1;
-  v7 = (32 * v3->tm_min) | (tm_hour << 11) | v6;
-  return (((32 * v3->tm_mon + 32) | v3->tm_mday | ((tm_year << 9) + 24576)) | (((32 * LOWORD(v3->tm_min)) | (tm_hour << 11) | v6) << 16));
+  return (((32 * v3->tm_mon + 32) | v3->tm_mday | ((tm_year << 9) + 24576)) | (((32 * LOWORD(v3->tm_min)) | (v3->tm_hour << 11) | (v3->tm_sec >> 1)) << 16));
+}
+
+- (id)tsu_relativeAnnotationStringForEarlierDate:(id)date withDateFormatter:(id)formatter shortAsPossible:(BOOL)possible lowercaseIfNeeded:(BOOL)needed
+{
+  neededCopy = needed;
+  possibleCopy = possible;
+  dateCopy = date;
+  formatterCopy = formatter;
+  if (!dateCopy)
+  {
+    tsu_fullFormattedDate = @" ";
+    goto LABEL_22;
+  }
+
+  if ([(NSDate *)self compare:dateCopy]== NSOrderedAscending)
+  {
+    tsu_fullFormattedDate = [(NSDate *)self tsu_fullFormattedDate];
+    goto LABEL_22;
+  }
+
+  v12 = +[NSCalendar currentCalendar];
+  v13 = [v12 components:240 fromDate:dateCopy toDate:self options:0];
+  v14 = [v12 components:752 fromDate:dateCopy];
+  v15 = [v12 components:512 fromDate:self];
+  weekday = [v15 weekday];
+  v17 = weekday - [v14 weekday] == 1 || objc_msgSend(v14, "weekday") == 7 && objc_msgSend(v15, "weekday") == 1;
+  if ([v13 day] < 365)
+  {
+    if ([v13 day] < 8)
+    {
+      if ([v13 day] <= 1 && (objc_msgSend(v13, "day") != 1 || v17))
+      {
+        if ([v13 day] == 1 && v17)
+        {
+          if (!possibleCopy)
+          {
+            v19 = [(NSDate *)self p_ruleForYesterday:dateCopy withDateFormatter:formatterCopy lowercase:neededCopy];
+            goto LABEL_20;
+          }
+
+          v20 = SFUMainBundle();
+          v21 = v20;
+          v22 = @"Yesterday";
+        }
+
+        else
+        {
+          if ([v13 hour] >= 1)
+          {
+            v19 = -[NSDate p_rule1To23HoursAgo:withDateFormatter:lowercase:](self, "p_rule1To23HoursAgo:withDateFormatter:lowercase:", [v13 hour], formatterCopy, neededCopy);
+            goto LABEL_20;
+          }
+
+          if ([v13 minute] >= 1)
+          {
+            v19 = -[NSDate p_rule1To59MinutesAgo:withDateFormatter:lowercase:](self, "p_rule1To59MinutesAgo:withDateFormatter:lowercase:", [v13 minute], formatterCopy, neededCopy);
+            goto LABEL_20;
+          }
+
+          v20 = SFUMainBundle();
+          v21 = v20;
+          v22 = @"Just now";
+        }
+
+        v25 = [v20 localizedStringForKey:v22 value:&stru_1001D3878 table:@"TSUtility"];
+        v23 = [(NSDate *)self p_stringWithString:v25 lowercase:neededCopy dateFormatter:formatterCopy];
+
+        goto LABEL_21;
+      }
+
+      v19 = [(NSDate *)self p_ruleForUpToSevenDaysAgoAndNotYesterdayForDate:dateCopy withDateFormatter:formatterCopy];
+    }
+
+    else
+    {
+      v19 = [(NSDate *)self p_ruleForOverAWeekAgoForDate:dateCopy withDateFormatter:formatterCopy];
+    }
+  }
+
+  else
+  {
+    v19 = [(NSDate *)self p_ruleForOverAYearAgoForDate:dateCopy withDateFormatter:formatterCopy];
+  }
+
+LABEL_20:
+  v23 = v19;
+LABEL_21:
+  tsu_fullFormattedDate = v23;
+
+LABEL_22:
+
+  return tsu_fullFormattedDate;
+}
+
+- (id)p_rule1To59MinutesAgo:(int64_t)ago withDateFormatter:(id)formatter lowercase:(BOOL)lowercase
+{
+  lowercaseCopy = lowercase;
+  formatterCopy = formatter;
+  v9 = SFUMainBundle();
+  v10 = [v9 localizedStringForKey:@"%d min ago" value:&stru_1001D3878 table:@"TSUtility"];
+
+  v11 = [NSString localizedStringWithFormat:v10, ago];
+  v12 = [(NSDate *)self p_stringWithString:v11 lowercase:lowercaseCopy dateFormatter:formatterCopy];
+
+  return v12;
+}
+
+- (id)p_rule1To23HoursAgo:(int64_t)ago withDateFormatter:(id)formatter lowercase:(BOOL)lowercase
+{
+  lowercaseCopy = lowercase;
+  formatterCopy = formatter;
+  v9 = SFUMainBundle();
+  v10 = [v9 localizedStringForKey:@"%ld hour(s) ago" value:&stru_1001D3878 table:@"TSUtility"];
+  v11 = [NSString localizedStringWithFormat:v10, ago];
+
+  v12 = [(NSDate *)self p_stringWithString:v11 lowercase:lowercaseCopy dateFormatter:formatterCopy];
+
+  return v12;
+}
+
+- (id)p_ruleForYesterday:(id)yesterday withDateFormatter:(id)formatter lowercase:(BOOL)lowercase
+{
+  lowercaseCopy = lowercase;
+  formatterCopy = formatter;
+  yesterdayCopy = yesterday;
+  v10 = [(NSDate *)self dateFormatterFromTemplate12Hour:@"hhmma" template24Hour:@"HHmm" withDateFormatter:formatterCopy];
+  v11 = SFUMainBundle();
+  v12 = [v11 localizedStringForKey:@"Yesterday value:%@" table:{&stru_1001D3878, @"TSUtility"}];
+
+  v13 = [(NSDate *)self p_stringWithString:v12 lowercase:lowercaseCopy dateFormatter:formatterCopy];
+
+  v14 = [v10 stringFromDate:yesterdayCopy];
+
+  v15 = [NSString stringWithFormat:v13, v14];
+
+  return v15;
 }
 
 - (id)p_ruleForUpToSevenDaysAgoAndNotYesterdayForDate:(id)date withDateFormatter:(id)formatter

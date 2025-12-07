@@ -15,7 +15,7 @@
 
   if (v13)
   {
-    objc_msgSend_stageScale(v13, v14, v15, v16, v17);
+    objc_msgSend_stageScale(v13, v15, v16, v17);
     v18 = v24;
   }
 

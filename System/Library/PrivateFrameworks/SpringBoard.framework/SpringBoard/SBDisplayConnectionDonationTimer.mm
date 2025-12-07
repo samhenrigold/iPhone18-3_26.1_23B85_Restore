@@ -16,7 +16,7 @@ void __57___SBDisplayConnectionDonationTimer_resetTimerOnConnect___block_invoke(
   *(v3 + 8) = v2;
 }
 
-uint64_t __57___SBDisplayConnectionDonationTimer_resetTimerOnConnect___block_invoke_2(uint64_t a1)
+void *__57___SBDisplayConnectionDonationTimer_resetTimerOnConnect___block_invoke_2(uint64_t a1)
 {
   result = [*(a1 + 32) stateChanged];
   if (result)

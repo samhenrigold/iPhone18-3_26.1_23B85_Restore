@@ -95,7 +95,7 @@ LABEL_16:
 LABEL_17:
 }
 
-uint64_t __62__PLAccountingQualificationManager_addEnergyEstimate_withNow___block_invoke(uint64_t a1)
+void *__62__PLAccountingQualificationManager_addEnergyEstimate_withNow___block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   addEnergyEstimate_withNow__classDebugEnabled = result;
@@ -181,14 +181,14 @@ uint64_t __62__PLAccountingQualificationManager_addEnergyEstimate_withNow___bloc
   }
 }
 
-uint64_t __58__PLAccountingQualificationManager_addQualificationEvent___block_invoke(uint64_t a1)
+void *__58__PLAccountingQualificationManager_addQualificationEvent___block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   addQualificationEvent__classDebugEnabled = result;
   return result;
 }
 
-uint64_t __58__PLAccountingQualificationManager_addQualificationEvent___block_invoke_24(uint64_t a1)
+void *__58__PLAccountingQualificationManager_addQualificationEvent___block_invoke_24(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   addQualificationEvent__classDebugEnabled_23 = result;
@@ -272,14 +272,14 @@ uint64_t __58__PLAccountingQualificationManager_addQualificationEvent___block_in
   }
 }
 
-uint64_t __102__PLAccountingQualificationManager_closeLastQualificationEventForwardWithQualificationID_withEndDate___block_invoke(uint64_t a1)
+void *__102__PLAccountingQualificationManager_closeLastQualificationEventForwardWithQualificationID_withEndDate___block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   closeLastQualificationEventForwardWithQualificationID_withEndDate__classDebugEnabled = result;
   return result;
 }
 
-uint64_t __102__PLAccountingQualificationManager_closeLastQualificationEventForwardWithQualificationID_withEndDate___block_invoke_41(uint64_t a1)
+void *__102__PLAccountingQualificationManager_closeLastQualificationEventForwardWithQualificationID_withEndDate___block_invoke_41(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   closeLastQualificationEventForwardWithQualificationID_withEndDate__classDebugEnabled_40 = result;
@@ -304,7 +304,7 @@ uint64_t __102__PLAccountingQualificationManager_closeLastQualificationEventForw
   return v2;
 }
 
-uint64_t __53__PLAccountingQualificationManager_freeTimerInterval__block_invoke(uint64_t a1)
+void *__53__PLAccountingQualificationManager_freeTimerInterval__block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] doubleForKey:*(a1 + 32) ifNotSet:*(a1 + 40)];
   freeTimerInterval_objectForKey = v2;
@@ -313,20 +313,20 @@ uint64_t __53__PLAccountingQualificationManager_freeTimerInterval__block_invoke(
 
 - (void)reloadDependenciesNewerThanDate:(id)date
 {
-  v118 = *MEMORY[0x277D85DE8];
+  v117 = *MEMORY[0x277D85DE8];
   dateCopy = date;
   v4 = 0x277D3F000uLL;
   if ([MEMORY[0x277D3F180] debugEnabled])
   {
     v5 = objc_opt_class();
-    v113[0] = MEMORY[0x277D85DD0];
-    v113[1] = 3221225472;
-    v113[2] = __68__PLAccountingQualificationManager_reloadDependenciesNewerThanDate___block_invoke;
-    v113[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-    v113[4] = v5;
+    v112[0] = MEMORY[0x277D85DD0];
+    v112[1] = 3221225472;
+    v112[2] = __68__PLAccountingQualificationManager_reloadDependenciesNewerThanDate___block_invoke;
+    v112[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+    v112[4] = v5;
     if (reloadDependenciesNewerThanDate__defaultOnce != -1)
     {
-      dispatch_once(&reloadDependenciesNewerThanDate__defaultOnce, v113);
+      dispatch_once(&reloadDependenciesNewerThanDate__defaultOnce, v112);
     }
 
     if (reloadDependenciesNewerThanDate__classDebugEnabled == 1)
@@ -355,40 +355,40 @@ uint64_t __53__PLAccountingQualificationManager_freeTimerInterval__block_invoke(
     v12 = dateCopy;
     if ((v14 & 1) == 0)
     {
-      v111 = 0u;
-      v112 = 0u;
-      v109 = 0u;
       v110 = 0u;
+      v111 = 0u;
+      v108 = 0u;
+      v109 = 0u;
       obj = +[PLAccountingEngine allQualificationIDs];
-      v90 = [obj countByEnumeratingWithState:&v109 objects:v117 count:16];
-      if (v90)
+      v89 = [obj countByEnumeratingWithState:&v108 objects:v116 count:16];
+      if (v89)
       {
-        v89 = *v110;
-        v86 = *MEMORY[0x277D3F460];
-        v85 = *MEMORY[0x277D3F450];
+        v88 = *v109;
+        v85 = *MEMORY[0x277D3F460];
+        v84 = *MEMORY[0x277D3F450];
         v15 = 0x277CCA000uLL;
         do
         {
           v16 = 0;
           do
           {
-            if (*v110 != v89)
+            if (*v109 != v88)
             {
               objc_enumerationMutation(obj);
             }
 
-            v17 = *(*(&v109 + 1) + 8 * v16);
+            v17 = *(*(&v108 + 1) + 8 * v16);
             if ([*(v4 + 384) debugEnabled])
             {
               v18 = objc_opt_class();
-              v108[0] = MEMORY[0x277D85DD0];
-              v108[1] = 3221225472;
-              v108[2] = __68__PLAccountingQualificationManager_reloadDependenciesNewerThanDate___block_invoke_54;
-              v108[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-              v108[4] = v18;
+              v107[0] = MEMORY[0x277D85DD0];
+              v107[1] = 3221225472;
+              v107[2] = __68__PLAccountingQualificationManager_reloadDependenciesNewerThanDate___block_invoke_54;
+              v107[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+              v107[4] = v18;
               if (reloadDependenciesNewerThanDate__defaultOnce_52 != -1)
               {
-                dispatch_once(&reloadDependenciesNewerThanDate__defaultOnce_52, v108);
+                dispatch_once(&reloadDependenciesNewerThanDate__defaultOnce_52, v107);
               }
 
               if (reloadDependenciesNewerThanDate__classDebugEnabled_53 == 1)
@@ -404,7 +404,7 @@ uint64_t __53__PLAccountingQualificationManager_freeTimerInterval__block_invoke(
                 if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
                 {
                   *buf = 138412290;
-                  v116 = v19;
+                  v115 = v19;
                   _os_log_debug_impl(&dword_25EDCD000, v24, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
                 }
               }
@@ -413,14 +413,14 @@ uint64_t __53__PLAccountingQualificationManager_freeTimerInterval__block_invoke(
             if ([*(v4 + 384) debugEnabled])
             {
               v25 = objc_opt_class();
-              v107[0] = MEMORY[0x277D85DD0];
-              v107[1] = 3221225472;
-              v107[2] = __68__PLAccountingQualificationManager_reloadDependenciesNewerThanDate___block_invoke_60;
-              v107[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-              v107[4] = v25;
+              v106[0] = MEMORY[0x277D85DD0];
+              v106[1] = 3221225472;
+              v106[2] = __68__PLAccountingQualificationManager_reloadDependenciesNewerThanDate___block_invoke_60;
+              v106[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+              v106[4] = v25;
               if (reloadDependenciesNewerThanDate__defaultOnce_58 != -1)
               {
-                dispatch_once(&reloadDependenciesNewerThanDate__defaultOnce_58, v107);
+                dispatch_once(&reloadDependenciesNewerThanDate__defaultOnce_58, v106);
               }
 
               if (reloadDependenciesNewerThanDate__classDebugEnabled_59 == 1)
@@ -436,7 +436,7 @@ uint64_t __53__PLAccountingQualificationManager_freeTimerInterval__block_invoke(
                 if (os_log_type_enabled(v31, OS_LOG_TYPE_DEBUG))
                 {
                   *buf = 138412290;
-                  v116 = v26;
+                  v115 = v26;
                   _os_log_debug_impl(&dword_25EDCD000, v31, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
                 }
               }
@@ -445,18 +445,18 @@ uint64_t __53__PLAccountingQualificationManager_freeTimerInterval__block_invoke(
             v32 = [&unk_2870F87C8 objectAtIndexedSubscript:{objc_msgSend(v17, "intValue")}];
             selfCopy = [v32 intValue];
 
-            v96 = selfCopy;
+            v95 = selfCopy;
             if ([*(v4 + 384) debugEnabled])
             {
               v34 = objc_opt_class();
-              v106[0] = MEMORY[0x277D85DD0];
-              v106[1] = 3221225472;
-              v106[2] = __68__PLAccountingQualificationManager_reloadDependenciesNewerThanDate___block_invoke_72;
-              v106[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-              v106[4] = v34;
+              v105[0] = MEMORY[0x277D85DD0];
+              v105[1] = 3221225472;
+              v105[2] = __68__PLAccountingQualificationManager_reloadDependenciesNewerThanDate___block_invoke_72;
+              v105[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+              v105[4] = v34;
               if (reloadDependenciesNewerThanDate__defaultOnce_70 != -1)
               {
-                dispatch_once(&reloadDependenciesNewerThanDate__defaultOnce_70, v106);
+                dispatch_once(&reloadDependenciesNewerThanDate__defaultOnce_70, v105);
               }
 
               if (reloadDependenciesNewerThanDate__classDebugEnabled_71 == 1)
@@ -472,11 +472,11 @@ uint64_t __53__PLAccountingQualificationManager_freeTimerInterval__block_invoke(
                 if (os_log_type_enabled(v40, OS_LOG_TYPE_DEBUG))
                 {
                   *buf = 138412290;
-                  v116 = selfCopy;
+                  v115 = selfCopy;
                   _os_log_debug_impl(&dword_25EDCD000, v40, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
                 }
 
-                LODWORD(selfCopy) = v96;
+                LODWORD(selfCopy) = v95;
               }
             }
 
@@ -488,7 +488,7 @@ uint64_t __53__PLAccountingQualificationManager_freeTimerInterval__block_invoke(
                 v42 = +[PLAccountingQualificationEventIntervalEntry entryKey];
                 v49 = *(v15 + 3240);
                 [dateCopy timeIntervalSince1970];
-                [v49 stringWithFormat:@"(timestamp+%@) >= %f", v85, v50, v83];
+                [v49 stringWithFormat:@"(timestamp+%@) >= %f", v84, v50, v82];
               }
 
               else
@@ -502,7 +502,7 @@ uint64_t __53__PLAccountingQualificationManager_freeTimerInterval__block_invoke(
                 v42 = +[PLAccountingQualificationEventPointEntry entryKey];
                 v46 = *(v15 + 3240);
                 [dateCopy timeIntervalSince1970];
-                [v46 stringWithFormat:@"(timestamp+%@) >= %f", v86, v47, v83];
+                [v46 stringWithFormat:@"(timestamp+%@) >= %f", v85, v47, v82];
               }
             }
 
@@ -513,8 +513,8 @@ uint64_t __53__PLAccountingQualificationManager_freeTimerInterval__block_invoke(
                 v42 = +[PLAccountingQualificationEventForwardEntry entryKey];
                 v43 = *(v15 + 3240);
                 [dateCopy timeIntervalSince1970];
-                v84 = v48;
-                v45 = v86;
+                v83 = v48;
+                v45 = v85;
               }
 
               else
@@ -528,32 +528,32 @@ uint64_t __53__PLAccountingQualificationManager_freeTimerInterval__block_invoke(
                 v42 = +[PLAccountingQualificationEventBackwardEntry entryKey];
                 v43 = *(v15 + 3240);
                 [dateCopy timeIntervalSince1970];
-                v84 = v44;
-                v45 = v85;
+                v83 = v44;
+                v45 = v84;
               }
 
-              [v43 stringWithFormat:@"ID >= (SELECT MIN(ID)-1 FROM '%@' WHERE (timestamp+%@) >= %f)", v42, v45, v84];
+              [v43 stringWithFormat:@"ID >= (SELECT MIN(ID)-1 FROM '%@' WHERE (timestamp+%@) >= %f)", v42, v45, v83];
             }
             v41 = ;
 LABEL_47:
-            v91 = v41;
-            v94 = [*(v15 + 3240) stringWithFormat:@"SELECT * FROM '%@' WHERE (%@)", v42, v41];;
+            v90 = v41;
+            v93 = [*(v15 + 3240) stringWithFormat:@"SELECT * FROM '%@' WHERE (%@)", v42, v41];;
             if ([*(v4 + 384) debugEnabled])
             {
               v51 = objc_opt_class();
-              v105[0] = MEMORY[0x277D85DD0];
-              v105[1] = 3221225472;
-              v105[2] = __68__PLAccountingQualificationManager_reloadDependenciesNewerThanDate___block_invoke_91;
-              v105[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-              v105[4] = v51;
+              v104[0] = MEMORY[0x277D85DD0];
+              v104[1] = 3221225472;
+              v104[2] = __68__PLAccountingQualificationManager_reloadDependenciesNewerThanDate___block_invoke_91;
+              v104[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+              v104[4] = v51;
               if (reloadDependenciesNewerThanDate__defaultOnce_89 != -1)
               {
-                dispatch_once(&reloadDependenciesNewerThanDate__defaultOnce_89, v105);
+                dispatch_once(&reloadDependenciesNewerThanDate__defaultOnce_89, v104);
               }
 
               if (reloadDependenciesNewerThanDate__classDebugEnabled_90 == 1)
               {
-                v52 = [*(v15 + 3240) stringWithFormat:@"qualificationQuery=%@", v94];
+                v52 = [*(v15 + 3240) stringWithFormat:@"qualificationQuery=%@", v93];
                 v53 = MEMORY[0x277D3F178];
                 v54 = [*(v15 + 3240) stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices/PowerlogAccounting/Qualification/PLAccountingQualificationManager.m"];
                 lastPathComponent5 = [v54 lastPathComponent];
@@ -564,30 +564,30 @@ LABEL_47:
                 if (os_log_type_enabled(v57, OS_LOG_TYPE_DEBUG))
                 {
                   *buf = 138412290;
-                  v116 = v52;
+                  v115 = v52;
                   _os_log_debug_impl(&dword_25EDCD000, v57, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
                 }
 
-                LODWORD(selfCopy) = v96;
+                LODWORD(selfCopy) = v95;
               }
             }
 
             mEMORY[0x277D3F2A0] = [MEMORY[0x277D3F2A0] sharedCore];
             storage = [mEMORY[0x277D3F2A0] storage];
-            v60 = [storage entriesForKey:v42 withQuery:v94];
+            v60 = [storage entriesForKey:v42 withQuery:v93];
 
-            v93 = v16;
+            v92 = v16;
             if ([*(v4 + 384) debugEnabled])
             {
               v61 = objc_opt_class();
-              v104[0] = MEMORY[0x277D85DD0];
-              v104[1] = 3221225472;
-              v104[2] = __68__PLAccountingQualificationManager_reloadDependenciesNewerThanDate___block_invoke_98;
-              v104[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-              v104[4] = v61;
+              v103[0] = MEMORY[0x277D85DD0];
+              v103[1] = 3221225472;
+              v103[2] = __68__PLAccountingQualificationManager_reloadDependenciesNewerThanDate___block_invoke_98;
+              v103[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+              v103[4] = v61;
               if (reloadDependenciesNewerThanDate__defaultOnce_96 != -1)
               {
-                dispatch_once(&reloadDependenciesNewerThanDate__defaultOnce_96, v104);
+                dispatch_once(&reloadDependenciesNewerThanDate__defaultOnce_96, v103);
               }
 
               if (reloadDependenciesNewerThanDate__classDebugEnabled_97 == 1)
@@ -603,37 +603,37 @@ LABEL_47:
                 if (os_log_type_enabled(v67, OS_LOG_TYPE_DEBUG))
                 {
                   *buf = 138412290;
-                  v116 = v62;
+                  v115 = v62;
                   _os_log_debug_impl(&dword_25EDCD000, v67, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
                 }
 
-                LODWORD(selfCopy) = v96;
+                LODWORD(selfCopy) = v95;
               }
             }
 
-            v92 = v42;
-            v102 = 0u;
-            v103 = 0u;
-            v100 = 0u;
+            v91 = v42;
             v101 = 0u;
+            v102 = 0u;
+            v99 = 0u;
+            v100 = 0u;
             v68 = v60;
-            v98 = [v68 countByEnumeratingWithState:&v100 objects:v114 count:16];
+            v97 = [v68 countByEnumeratingWithState:&v99 objects:v113 count:16];
             v69 = 0;
-            if (v98)
+            if (v97)
             {
-              v97 = *v101;
-              v95 = v68;
+              v96 = *v100;
+              v94 = v68;
               do
               {
                 v70 = 0;
                 do
                 {
-                  if (*v101 != v97)
+                  if (*v100 != v96)
                   {
                     objc_enumerationMutation(v68);
                   }
 
-                  v71 = *(*(&v100 + 1) + 8 * v70);
+                  v71 = *(*(&v99 + 1) + 8 * v70);
                   if ([*(v4 + 384) debugEnabled])
                   {
                     v72 = objc_opt_class();
@@ -662,14 +662,14 @@ LABEL_47:
                       if (os_log_type_enabled(v79, OS_LOG_TYPE_DEBUG))
                       {
                         *buf = 138412290;
-                        v116 = v74;
+                        v115 = v74;
                         _os_log_debug_impl(&dword_25EDCD000, v79, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
                       }
 
                       self = selfCopy;
                       v4 = v73;
-                      v68 = v95;
-                      LODWORD(selfCopy) = v96;
+                      v68 = v94;
+                      LODWORD(selfCopy) = v95;
                     }
                   }
 
@@ -720,74 +720,72 @@ LABEL_84:
                   ++v70;
                 }
 
-                while (v98 != v70);
-                v98 = [v68 countByEnumeratingWithState:&v100 objects:v114 count:16];
+                while (v97 != v70);
+                v97 = [v68 countByEnumeratingWithState:&v99 objects:v113 count:16];
               }
 
-              while (v98);
+              while (v97);
             }
 
-            v16 = v93 + 1;
+            v16 = v92 + 1;
             v15 = 0x277CCA000;
           }
 
-          while (v93 + 1 != v90);
-          v90 = [obj countByEnumeratingWithState:&v109 objects:v117 count:16];
+          while (v92 + 1 != v89);
+          v89 = [obj countByEnumeratingWithState:&v108 objects:v116 count:16];
         }
 
-        while (v90);
+        while (v89);
       }
 
       v12 = dateCopy;
     }
   }
-
-  v82 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __68__PLAccountingQualificationManager_reloadDependenciesNewerThanDate___block_invoke(uint64_t a1)
+void *__68__PLAccountingQualificationManager_reloadDependenciesNewerThanDate___block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   reloadDependenciesNewerThanDate__classDebugEnabled = result;
   return result;
 }
 
-uint64_t __68__PLAccountingQualificationManager_reloadDependenciesNewerThanDate___block_invoke_54(uint64_t a1)
+void *__68__PLAccountingQualificationManager_reloadDependenciesNewerThanDate___block_invoke_54(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   reloadDependenciesNewerThanDate__classDebugEnabled_53 = result;
   return result;
 }
 
-uint64_t __68__PLAccountingQualificationManager_reloadDependenciesNewerThanDate___block_invoke_60(uint64_t a1)
+void *__68__PLAccountingQualificationManager_reloadDependenciesNewerThanDate___block_invoke_60(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   reloadDependenciesNewerThanDate__classDebugEnabled_59 = result;
   return result;
 }
 
-uint64_t __68__PLAccountingQualificationManager_reloadDependenciesNewerThanDate___block_invoke_72(uint64_t a1)
+void *__68__PLAccountingQualificationManager_reloadDependenciesNewerThanDate___block_invoke_72(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   reloadDependenciesNewerThanDate__classDebugEnabled_71 = result;
   return result;
 }
 
-uint64_t __68__PLAccountingQualificationManager_reloadDependenciesNewerThanDate___block_invoke_91(uint64_t a1)
+void *__68__PLAccountingQualificationManager_reloadDependenciesNewerThanDate___block_invoke_91(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   reloadDependenciesNewerThanDate__classDebugEnabled_90 = result;
   return result;
 }
 
-uint64_t __68__PLAccountingQualificationManager_reloadDependenciesNewerThanDate___block_invoke_98(uint64_t a1)
+void *__68__PLAccountingQualificationManager_reloadDependenciesNewerThanDate___block_invoke_98(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   reloadDependenciesNewerThanDate__classDebugEnabled_97 = result;
   return result;
 }
 
-uint64_t __68__PLAccountingQualificationManager_reloadDependenciesNewerThanDate___block_invoke_104(uint64_t a1)
+void *__68__PLAccountingQualificationManager_reloadDependenciesNewerThanDate___block_invoke_104(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   reloadDependenciesNewerThanDate__classDebugEnabled_103 = result;
@@ -856,7 +854,7 @@ uint64_t __68__PLAccountingQualificationManager_reloadDependenciesNewerThanDate_
   dispatch_async(workQueue, block);
 }
 
-uint64_t __93__PLAccountingQualificationManager_didQualifyEnergyEvent_withRootNodeID_withQualificationID___block_invoke(uint64_t a1)
+void *__93__PLAccountingQualificationManager_didQualifyEnergyEvent_withRootNodeID_withQualificationID___block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   didQualifyEnergyEvent_withRootNodeID_withQualificationID__classDebugEnabled = result;
@@ -871,7 +869,7 @@ void __93__PLAccountingQualificationManager_didQualifyEnergyEvent_withRootNodeID
 
 - (id)dependencyIDsForOwner:(id)owner
 {
-  v49 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   ownerCopy = owner;
   if ([MEMORY[0x277D3F180] debugEnabled])
   {
@@ -912,14 +910,14 @@ void __93__PLAccountingQualificationManager_didQualifyEnergyEvent_withRootNodeID
     if ([MEMORY[0x277D3F180] debugEnabled])
     {
       v14 = objc_opt_class();
-      v46[0] = MEMORY[0x277D85DD0];
-      v46[1] = 3221225472;
-      v46[2] = __58__PLAccountingQualificationManager_dependencyIDsForOwner___block_invoke_117;
-      v46[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-      v46[4] = v14;
+      v45[0] = MEMORY[0x277D85DD0];
+      v45[1] = 3221225472;
+      v45[2] = __58__PLAccountingQualificationManager_dependencyIDsForOwner___block_invoke_117;
+      v45[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+      v45[4] = v14;
       if (dependencyIDsForOwner__defaultOnce_115 != -1)
       {
-        dispatch_once(&dependencyIDsForOwner__defaultOnce_115, v46);
+        dispatch_once(&dependencyIDsForOwner__defaultOnce_115, v45);
       }
 
       if (dependencyIDsForOwner__classDebugEnabled_116 == 1)
@@ -942,30 +940,30 @@ void __93__PLAccountingQualificationManager_didQualifyEnergyEvent_withRootNodeID
     if (v13)
     {
       v21 = [MEMORY[0x277CBEB58] set];
+      v41 = 0u;
       v42 = 0u;
       v43 = 0u;
       v44 = 0u;
-      v45 = 0u;
       v22 = v13;
-      v23 = [v22 countByEnumeratingWithState:&v42 objects:v48 count:16];
+      v23 = [v22 countByEnumeratingWithState:&v41 objects:v47 count:16];
       if (v23)
       {
         v24 = v23;
-        v25 = *v43;
+        v25 = *v42;
         do
         {
           for (i = 0; i != v24; ++i)
           {
-            if (*v43 != v25)
+            if (*v42 != v25)
             {
               objc_enumerationMutation(v22);
             }
 
-            qualificationID = [*(*(&v42 + 1) + 8 * i) qualificationID];
+            qualificationID = [*(*(&v41 + 1) + 8 * i) qualificationID];
             [v21 addObject:qualificationID];
           }
 
-          v24 = [v22 countByEnumeratingWithState:&v42 objects:v48 count:16];
+          v24 = [v22 countByEnumeratingWithState:&v41 objects:v47 count:16];
         }
 
         while (v24);
@@ -974,19 +972,19 @@ void __93__PLAccountingQualificationManager_didQualifyEnergyEvent_withRootNodeID
       if ([MEMORY[0x277D3F180] debugEnabled])
       {
         v28 = objc_opt_class();
-        v37 = MEMORY[0x277D85DD0];
-        v38 = 3221225472;
-        v39 = __58__PLAccountingQualificationManager_dependencyIDsForOwner___block_invoke_121;
-        v40 = &__block_descriptor_40_e5_v8__0lu32l8;
-        v41 = v28;
+        v36 = MEMORY[0x277D85DD0];
+        v37 = 3221225472;
+        v38 = __58__PLAccountingQualificationManager_dependencyIDsForOwner___block_invoke_121;
+        v39 = &__block_descriptor_40_e5_v8__0lu32l8;
+        v40 = v28;
         if (dependencyIDsForOwner__defaultOnce_119 != -1)
         {
-          dispatch_once(&dependencyIDsForOwner__defaultOnce_119, &v37);
+          dispatch_once(&dependencyIDsForOwner__defaultOnce_119, &v36);
         }
 
         if (dependencyIDsForOwner__classDebugEnabled_120 == 1)
         {
-          v29 = [MEMORY[0x277CCACA8] stringWithFormat:@"qualificationIDs=%@", v21, v37, v38, v39, v40, v41, v42];
+          v29 = [MEMORY[0x277CCACA8] stringWithFormat:@"qualificationIDs=%@", v21, v36, v37, v38, v39, v40, v41];
           v30 = MEMORY[0x277D3F178];
           v31 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices/PowerlogAccounting/Qualification/PLAccountingQualificationManager.m"];
           lastPathComponent3 = [v31 lastPathComponent];
@@ -1013,26 +1011,24 @@ void __93__PLAccountingQualificationManager_didQualifyEnergyEvent_withRootNodeID
     v21 = 0;
   }
 
-  v35 = *MEMORY[0x277D85DE8];
-
   return v21;
 }
 
-uint64_t __58__PLAccountingQualificationManager_dependencyIDsForOwner___block_invoke(uint64_t a1)
+void *__58__PLAccountingQualificationManager_dependencyIDsForOwner___block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   dependencyIDsForOwner__classDebugEnabled = result;
   return result;
 }
 
-uint64_t __58__PLAccountingQualificationManager_dependencyIDsForOwner___block_invoke_117(uint64_t a1)
+void *__58__PLAccountingQualificationManager_dependencyIDsForOwner___block_invoke_117(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   dependencyIDsForOwner__classDebugEnabled_116 = result;
   return result;
 }
 
-uint64_t __58__PLAccountingQualificationManager_dependencyIDsForOwner___block_invoke_121(uint64_t a1)
+void *__58__PLAccountingQualificationManager_dependencyIDsForOwner___block_invoke_121(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   dependencyIDsForOwner__classDebugEnabled_120 = result;
@@ -1085,19 +1081,11 @@ uint64_t __58__PLAccountingQualificationManager_dependencyIDsForOwner___block_in
   return v11;
 }
 
-uint64_t __58__PLAccountingQualificationManager_ownerIDsForDependency___block_invoke(uint64_t a1)
+void *__58__PLAccountingQualificationManager_ownerIDsForDependency___block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   ownerIDsForDependency__classDebugEnabled = result;
   return result;
-}
-
-- (void)didQualifyEnergyEvent:withRootNodeID:withQualificationID:.cold.2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_25EDCD000, v0, v1, "didQualifyEnergyEvent=%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 @end

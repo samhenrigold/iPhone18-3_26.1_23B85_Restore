@@ -11,20 +11,20 @@
 
 - (void)dealloc
 {
-  swift_getKeyPath();
+  KeyPath = swift_getKeyPath();
   selfCopy = self;
-  sub_1BD9B5728(&qword_1EBD5AAD0, type metadata accessor for FinanceKitTransactionFoundInMailView.FoundInMailViewShieldObserver);
+  sub_1BD9B5728(&qword_1EBD5AAD0, type metadata accessor for FinanceKitTransactionFoundInMailView.FoundInMailViewShieldObserver, &unk_1BE10A5D4);
   selfCopy2 = self;
   sub_1BE04B594();
-
-  v4 = *(&selfCopy2->super.isa + OBJC_IVAR____TtCV9PassKitUI36FinanceKitTransactionFoundInMailView29FoundInMailViewShieldObserver__shieldCoordinator);
-  v5 = selfCopy2;
-  v6 = v4;
+  KeyPath, v5, v6, v7, v8, v9, v10, v11;
+  v12 = *(&selfCopy2->super.isa + OBJC_IVAR____TtCV9PassKitUI36FinanceKitTransactionFoundInMailView29FoundInMailViewShieldObserver__shieldCoordinator);
+  v13 = selfCopy2;
+  v14 = v12;
   sub_1BE04BE44();
 
-  v7.receiver = v5;
-  v7.super_class = type metadata accessor for FinanceKitTransactionFoundInMailView.FoundInMailViewShieldObserver(0);
-  [(FinanceKitTransactionFoundInMailView.FoundInMailViewShieldObserver *)&v7 dealloc];
+  v15.receiver = v13;
+  v15.super_class = type metadata accessor for FinanceKitTransactionFoundInMailView.FoundInMailViewShieldObserver(0);
+  [(FinanceKitTransactionFoundInMailView.FoundInMailViewShieldObserver *)&v15 dealloc];
 }
 
 - (void)appProtectionCoordinatorDidGainAccess:(id)access

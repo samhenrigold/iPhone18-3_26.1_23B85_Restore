@@ -16,11 +16,11 @@
 
 - (TokenizerRunnerObjC)initWithTokenizerPath:(id)path error:(id *)error
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   pathCopy = path;
-  v24.receiver = self;
-  v24.super_class = TokenizerRunnerObjC;
-  v7 = [(TokenizerRunnerObjC *)&v24 init];
+  v23.receiver = self;
+  v23.super_class = TokenizerRunnerObjC;
+  v7 = [(TokenizerRunnerObjC *)&v23 init];
   if (!v7)
   {
     goto LABEL_13;
@@ -34,16 +34,16 @@
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v28 = pathCopy;
+    v27 = pathCopy;
     _os_log_impl(&dword_1A8E85000, v10, OS_LOG_TYPE_DEFAULT, "Initializing tokenizer with path: %{public}@", buf, 0xCu);
   }
 
   v11 = pathCopy;
   strlen([pathCopy UTF8String]);
-  (*(*(v7 + 1) + 16))(&v23);
-  if (!v23)
+  (*(*(v7 + 1) + 16))(&v22);
+  if (!v22)
   {
-    sentencepiece::util::Status::~Status(&v23);
+    sentencepiece::util::Status::~Status(&v22);
 LABEL_13:
     v20 = v7;
     goto LABEL_14;
@@ -52,7 +52,7 @@ LABEL_13:
   v12 = *(v7 + 16);
   if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
   {
-    v13 = sentencepiece::util::Status::error_message(&v23);
+    v13 = sentencepiece::util::Status::error_message(&v22);
     [(TokenizerRunnerObjC *)v13 initWithTokenizerPath:buf error:v12];
   }
 
@@ -66,19 +66,18 @@ LABEL_13:
   {
     v15 = MEMORY[0x1E696ABC0];
     v16 = +[TokenizerRunnerObjC sentencePieceErrorDomain];
-    v17 = sentencepiece::util::Status::code(&v23);
-    v25 = *MEMORY[0x1E696A578];
+    v17 = sentencepiece::util::Status::code(&v22);
+    v24 = *MEMORY[0x1E696A578];
     v18 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Failed to load tokenizer."];
-    v26 = v18;
-    v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v26 forKeys:&v25 count:1];
+    v25 = v18;
+    v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v25 forKeys:&v24 count:1];
     *error = [v15 errorWithDomain:v16 code:v17 userInfo:v19];
   }
 
-  sentencepiece::util::Status::~Status(&v23);
+  sentencepiece::util::Status::~Status(&v22);
   v20 = 0;
 LABEL_14:
 
-  v21 = *MEMORY[0x1E69E9840];
   return v20;
 }
 
@@ -160,31 +159,31 @@ LABEL_14:
 
 - (id)tokenize:(id)tokenize error:(id *)error
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   tokenizeCopy = tokenize;
   __p = 0;
+  v21 = 0;
   v22 = 0;
-  v23 = 0;
   strlen([tokenizeCopy UTF8String]);
-  (*(self->_processor._vptr$SentencePieceProcessor + 18))(&v20);
-  if (v20)
+  (*(self->_processor._vptr$SentencePieceProcessor + 18))(&v19);
+  if (v19)
   {
     v7 = *&self->_processor.var0;
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      v8 = sentencepiece::util::Status::error_message(&v20);
-      [(TokenizerRunnerObjC *)v8 tokenize:v26 error:v7];
+      v8 = sentencepiece::util::Status::error_message(&v19);
+      [(TokenizerRunnerObjC *)v8 tokenize:v25 error:v7];
     }
 
     if (error)
     {
       v9 = MEMORY[0x1E696ABC0];
       v10 = +[TokenizerRunnerObjC sentencePieceErrorDomain];
-      v11 = sentencepiece::util::Status::code(&v20);
-      v24 = *MEMORY[0x1E696A578];
-      v12 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Failed to tokenize text: %{public}s", sentencepiece::util::Status::error_message(&v20)];
-      v25 = v12;
-      v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v25 forKeys:&v24 count:1];
+      v11 = sentencepiece::util::Status::code(&v19);
+      v23 = *MEMORY[0x1E696A578];
+      v12 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Failed to tokenize text: %{public}s", sentencepiece::util::Status::error_message(&v19)];
+      v24 = v12;
+      v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v24 forKeys:&v23 count:1];
       *error = [v9 errorWithDomain:v10 code:v11 userInfo:v13];
 
       error = 0;
@@ -194,9 +193,9 @@ LABEL_14:
   else
   {
     v14 = objc_alloc(MEMORY[0x1E695DF70]);
-    error = [v14 initWithCapacity:(v22 - __p) >> 2];
+    error = [v14 initWithCapacity:(v21 - __p) >> 2];
     v15 = __p;
-    if (v22 != __p)
+    if (v21 != __p)
     {
       v16 = 0;
       do
@@ -208,52 +207,50 @@ LABEL_14:
         v15 = __p;
       }
 
-      while (v16 < (v22 - __p) >> 2);
+      while (v16 < (v21 - __p) >> 2);
     }
   }
 
-  sentencepiece::util::Status::~Status(&v20);
+  sentencepiece::util::Status::~Status(&v19);
   if (__p)
   {
-    v22 = __p;
+    v21 = __p;
     operator delete(__p);
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 
   return error;
 }
 
 - (id)detokenize:(id)detokenize error:(id *)error
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   detokenizeCopy = detokenize;
-  memset(&v30, 0, sizeof(v30));
-  std::vector<int>::resize(&v30, [detokenizeCopy count]);
-  v28 = 0u;
-  v29 = 0u;
-  v26 = 0u;
+  memset(&v29, 0, sizeof(v29));
+  std::vector<int>::resize(&v29, [detokenizeCopy count]);
   v27 = 0u;
+  v28 = 0u;
+  v25 = 0u;
+  v26 = 0u;
   v7 = detokenizeCopy;
-  v8 = [v7 countByEnumeratingWithState:&v26 objects:v34 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v25 objects:v33 count:16];
   if (v8)
   {
     v9 = 0;
-    v10 = *v27;
+    v10 = *v26;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v27 != v10)
+        if (*v26 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        intValue = [*(*(&v26 + 1) + 8 * i) intValue];
-        v30.__begin_[v9++] = intValue;
+        intValue = [*(*(&v25 + 1) + 8 * i) intValue];
+        v29.__begin_[v9++] = intValue;
       }
 
-      v8 = [v7 countByEnumeratingWithState:&v26 objects:v34 count:16];
+      v8 = [v7 countByEnumeratingWithState:&v25 objects:v33 count:16];
     }
 
     while (v8);
@@ -261,26 +258,26 @@ LABEL_14:
 
   __p[0] = 0;
   __p[1] = 0;
-  v25 = 0;
-  (*(self->_processor._vptr$SentencePieceProcessor + 21))(&v23);
-  if (v23)
+  v24 = 0;
+  (*(self->_processor._vptr$SentencePieceProcessor + 21))(&v22);
+  if (v22)
   {
     v13 = *&self->_processor.var0;
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      v14 = sentencepiece::util::Status::error_message(&v23);
-      [(TokenizerRunnerObjC *)v14 detokenize:v33 error:v13];
+      v14 = sentencepiece::util::Status::error_message(&v22);
+      [(TokenizerRunnerObjC *)v14 detokenize:v32 error:v13];
     }
 
     if (error)
     {
       v15 = MEMORY[0x1E696ABC0];
       v16 = +[TokenizerRunnerObjC sentencePieceErrorDomain];
-      v17 = sentencepiece::util::Status::code(&v23);
-      v31 = *MEMORY[0x1E696A578];
-      v18 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Failed to detokenize tokens: %{public}s", sentencepiece::util::Status::error_message(&v23)];
-      v32 = v18;
-      v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v32 forKeys:&v31 count:1];
+      v17 = sentencepiece::util::Status::code(&v22);
+      v30 = *MEMORY[0x1E696A578];
+      v18 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Failed to detokenize tokens: %{public}s", sentencepiece::util::Status::error_message(&v22)];
+      v31 = v18;
+      v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v31 forKeys:&v30 count:1];
       *error = [v15 errorWithDomain:v16 code:v17 userInfo:v19];
 
       error = 0;
@@ -289,7 +286,7 @@ LABEL_14:
 
   else
   {
-    if (v25 >= 0)
+    if (v24 >= 0)
     {
       v20 = __p;
     }
@@ -302,19 +299,17 @@ LABEL_14:
     error = [MEMORY[0x1E696AEC0] stringWithUTF8String:v20];
   }
 
-  sentencepiece::util::Status::~Status(&v23);
-  if (SHIBYTE(v25) < 0)
+  sentencepiece::util::Status::~Status(&v22);
+  if (SHIBYTE(v24) < 0)
   {
     operator delete(__p[0]);
   }
 
-  if (v30.__begin_)
+  if (v29.__begin_)
   {
-    v30.__end_ = v30.__begin_;
-    operator delete(v30.__begin_);
+    v29.__end_ = v29.__begin_;
+    operator delete(v29.__begin_);
   }
-
-  v21 = *MEMORY[0x1E69E9840];
 
   return error;
 }

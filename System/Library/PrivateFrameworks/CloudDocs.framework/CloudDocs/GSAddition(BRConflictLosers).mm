@@ -13,7 +13,7 @@
 
 - (uint64_t)_br_markResolvedWithError:()BRConflictLosers
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v4 = [MEMORY[0x1E696ABC0] brc_errorMethodNotImplemented:sel__br_markResolvedWithError_];
   if (v4)
   {
@@ -21,21 +21,21 @@
     v6 = brc_default_log(0, 0);
     if (os_log_type_enabled(v6, 0x90u))
     {
-      v10 = "(passed to caller)";
-      v11 = 136315906;
-      v12 = "[GSAddition(BRConflictLosers) _br_markResolvedWithError:]";
-      v13 = 2080;
+      v9 = "(passed to caller)";
+      v10 = 136315906;
+      v11 = "[GSAddition(BRConflictLosers) _br_markResolvedWithError:]";
+      v12 = 2080;
       if (!a3)
       {
-        v10 = "(ignored by caller)";
+        v9 = "(ignored by caller)";
       }
 
-      v14 = v10;
-      v15 = 2112;
-      v16 = v4;
-      v17 = 2112;
-      v18 = v5;
-      _os_log_error_impl(&dword_1AE2A9000, v6, 0x90u, "[ERROR] %s: %s error: %@%@", &v11, 0x2Au);
+      v13 = v9;
+      v14 = 2112;
+      v15 = v4;
+      v16 = 2112;
+      v17 = v5;
+      _os_log_error_impl(&dword_1AE2A9000, v6, 0x90u, "[ERROR] %s: %s error: %@%@", &v10, 0x2Au);
     }
   }
 
@@ -45,13 +45,12 @@
     *a3 = v4;
   }
 
-  v8 = *MEMORY[0x1E69E9840];
   return 0;
 }
 
 - (uint64_t)br_markResolvedWithError:()BRConflictLosers
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v4 = [MEMORY[0x1E696ABC0] brc_errorMethodNotImplemented:sel_br_markResolvedWithError_];
   if (v4)
   {
@@ -59,21 +58,21 @@
     v6 = brc_default_log(0, 0);
     if (os_log_type_enabled(v6, 0x90u))
     {
-      v10 = "(passed to caller)";
-      v11 = 136315906;
-      v12 = "[GSAddition(BRConflictLosers) br_markResolvedWithError:]";
-      v13 = 2080;
+      v9 = "(passed to caller)";
+      v10 = 136315906;
+      v11 = "[GSAddition(BRConflictLosers) br_markResolvedWithError:]";
+      v12 = 2080;
       if (!a3)
       {
-        v10 = "(ignored by caller)";
+        v9 = "(ignored by caller)";
       }
 
-      v14 = v10;
-      v15 = 2112;
-      v16 = v4;
-      v17 = 2112;
-      v18 = v5;
-      _os_log_error_impl(&dword_1AE2A9000, v6, 0x90u, "[ERROR] %s: %s error: %@%@", &v11, 0x2Au);
+      v13 = v9;
+      v14 = 2112;
+      v15 = v4;
+      v16 = 2112;
+      v17 = v5;
+      _os_log_error_impl(&dword_1AE2A9000, v6, 0x90u, "[ERROR] %s: %s error: %@%@", &v10, 0x2Au);
     }
   }
 
@@ -83,7 +82,6 @@
     *a3 = v4;
   }
 
-  v8 = *MEMORY[0x1E69E9840];
   return 0;
 }
 
@@ -125,32 +123,23 @@
 
 - (void)br_lastEditorDeviceName
 {
-  v9 = *MEMORY[0x1E69E9840];
   v0 = NSStringFromSelector(sel_br_lastEditorDeviceName);
   OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_2_2(&dword_1AE2A9000, v1, v2, "[ERROR] method not implemented: %@%@", v3, v4, v5, v6, v8);
-
-  v7 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_2_2(&dword_1AE2A9000, v1, v2, "[ERROR] method not implemented: %@%@", v3, v4, v5, v6);
 }
 
 - (void)br_lastEditorName
 {
-  v9 = *MEMORY[0x1E69E9840];
   v0 = NSStringFromSelector(sel_br_lastEditorName);
   OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_2_2(&dword_1AE2A9000, v1, v2, "[ERROR] method not implemented: %@%@", v3, v4, v5, v6, v8);
-
-  v7 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_2_2(&dword_1AE2A9000, v1, v2, "[ERROR] method not implemented: %@%@", v3, v4, v5, v6);
 }
 
 - (void)br_lastEditorNameComponents
 {
-  v9 = *MEMORY[0x1E69E9840];
   v0 = NSStringFromSelector(sel_br_lastEditorNameComponents);
   OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_2_2(&dword_1AE2A9000, v1, v2, "[ERROR] method not implemented: %@%@", v3, v4, v5, v6, v8);
-
-  v7 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_2_2(&dword_1AE2A9000, v1, v2, "[ERROR] method not implemented: %@%@", v3, v4, v5, v6);
 }
 
 @end

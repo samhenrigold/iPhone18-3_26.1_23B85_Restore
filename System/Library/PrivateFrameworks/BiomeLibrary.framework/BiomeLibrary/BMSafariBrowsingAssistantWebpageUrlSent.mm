@@ -68,28 +68,28 @@ LABEL_12:
 
 - (id)jsonDictionary
 {
-  v12[2] = *MEMORY[0x1E69E9840];
+  v11[2] = *MEMORY[0x1E69E9840];
   webpageViewIdentifier = [(BMSafariBrowsingAssistantWebpageUrlSent *)self webpageViewIdentifier];
   v4 = [webpageViewIdentifier base64EncodedStringWithOptions:0];
 
   v5 = [(BMSafariBrowsingAssistantWebpageUrlSent *)self url];
-  v11[0] = @"webpageViewIdentifier";
+  v10[0] = @"webpageViewIdentifier";
   null = v4;
   if (!v4)
   {
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v11[1] = @"url";
-  v12[0] = null;
+  v10[1] = @"url";
+  v11[0] = null;
   null2 = v5;
   if (!v5)
   {
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v12[1] = null2;
-  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:v11 count:2];
+  v11[1] = null2;
+  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:v10 count:2];
   if (v5)
   {
     if (v4)
@@ -108,14 +108,13 @@ LABEL_12:
   }
 
 LABEL_7:
-  v9 = *MEMORY[0x1E69E9840];
 
   return v8;
 }
 
 - (BMSafariBrowsingAssistantWebpageUrlSent)initWithJSONDictionary:(id)dictionary error:(id *)error
 {
-  v29[1] = *MEMORY[0x1E69E9840];
+  v28[1] = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   v7 = [dictionaryCopy objectForKeyedSubscript:@"webpageViewIdentifier"];
   if (!v7 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
@@ -136,14 +135,14 @@ LABEL_7:
   {
     if (error)
     {
-      v14 = objc_alloc(MEMORY[0x1E696ABC0]);
-      v15 = *MEMORY[0x1E698F240];
-      v26 = *MEMORY[0x1E696A578];
+      v13 = objc_alloc(MEMORY[0x1E696ABC0]);
+      v14 = *MEMORY[0x1E698F240];
+      v25 = *MEMORY[0x1E696A578];
       v10 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type (%@) for value of field '%@', expected NSData or base64 encoded NSString", objc_opt_class(), @"webpageViewIdentifier"];
-      v27 = v10;
-      v16 = MEMORY[0x1E695DF20];
-      v17 = &v27;
-      v18 = &v26;
+      v26 = v10;
+      v15 = MEMORY[0x1E695DF20];
+      v16 = &v26;
+      v17 = &v25;
       goto LABEL_23;
     }
 
@@ -158,20 +157,20 @@ LABEL_24:
   {
     if (error)
     {
-      v14 = objc_alloc(MEMORY[0x1E696ABC0]);
-      v15 = *MEMORY[0x1E698F240];
-      v28 = *MEMORY[0x1E696A578];
+      v13 = objc_alloc(MEMORY[0x1E696ABC0]);
+      v14 = *MEMORY[0x1E698F240];
+      v27 = *MEMORY[0x1E696A578];
       v10 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected format for value of field '%@', expected base64 encoding", @"webpageViewIdentifier"];
-      v29[0] = v10;
-      v16 = MEMORY[0x1E695DF20];
-      v17 = v29;
-      v18 = &v28;
+      v28[0] = v10;
+      v15 = MEMORY[0x1E695DF20];
+      v16 = v28;
+      v17 = &v27;
 LABEL_23:
-      v9 = [v16 dictionaryWithObjects:v17 forKeys:v18 count:1];
-      v23 = [v14 initWithDomain:v15 code:2 userInfo:v9];
+      v9 = [v15 dictionaryWithObjects:v16 forKeys:v17 count:1];
+      v22 = [v13 initWithDomain:v14 code:2 userInfo:v9];
       v8 = 0;
       selfCopy = 0;
-      *error = v23;
+      *error = v22;
       goto LABEL_8;
     }
 
@@ -187,13 +186,13 @@ LABEL_4:
     {
       if (error)
       {
-        v19 = objc_alloc(MEMORY[0x1E696ABC0]);
-        v20 = *MEMORY[0x1E698F240];
-        v24 = *MEMORY[0x1E696A578];
-        v21 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"url"];
-        v25 = v21;
-        v22 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v25 forKeys:&v24 count:1];
-        *error = [v19 initWithDomain:v20 code:2 userInfo:v22];
+        v18 = objc_alloc(MEMORY[0x1E696ABC0]);
+        v19 = *MEMORY[0x1E698F240];
+        v23 = *MEMORY[0x1E696A578];
+        v20 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"url"];
+        v24 = v20;
+        v21 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v24 forKeys:&v23 count:1];
+        *error = [v18 initWithDomain:v19 code:2 userInfo:v21];
       }
 
       v10 = 0;
@@ -214,7 +213,6 @@ LABEL_4:
 LABEL_8:
 
 LABEL_9:
-  v12 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 
@@ -383,28 +381,24 @@ LABEL_27:
 
 + (id)protoFields
 {
-  v7[2] = *MEMORY[0x1E69E9840];
+  v6[2] = *MEMORY[0x1E69E9840];
   v2 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"webpageViewIdentifier" number:1 type:14 subMessageClass:0];
-  v7[0] = v2;
+  v6[0] = v2;
   v3 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"url" number:2 type:13 subMessageClass:0];
-  v7[1] = v3;
-  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:2];
-
-  v5 = *MEMORY[0x1E69E9840];
+  v6[1] = v3;
+  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v6 count:2];
 
   return v4;
 }
 
 + (id)columns
 {
-  v7[2] = *MEMORY[0x1E69E9840];
+  v6[2] = *MEMORY[0x1E69E9840];
   v2 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"webpageViewIdentifier" dataType:4 requestOnly:0 fieldNumber:1 protoDataType:14 convertedType:0];
   v3 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"url" dataType:2 requestOnly:0 fieldNumber:2 protoDataType:13 convertedType:0];
-  v7[0] = v2;
-  v7[1] = v3;
-  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:2];
-
-  v5 = *MEMORY[0x1E69E9840];
+  v6[0] = v2;
+  v6[1] = v3;
+  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v6 count:2];
 
   return v4;
 }

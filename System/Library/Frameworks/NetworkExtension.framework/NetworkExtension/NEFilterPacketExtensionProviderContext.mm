@@ -3,13 +3,70 @@
 + (id)_extensionAuxiliaryVendorProtocol;
 - (void)dealloc;
 - (void)startFilterWithOptions:(id)options completionHandler:(id)handler;
+- (void)stopWithReason:(int)reason;
 @end
 
 @implementation NEFilterPacketExtensionProviderContext
 
+- (void)stopWithReason:(int)reason
+{
+  v3 = *&reason;
+  v21 = *MEMORY[0x1E69E9840];
+  os_unfair_lock_lock(&self->_lock);
+  if (self)
+  {
+    if (objc_getProperty(self, v5, 112, 1))
+    {
+      objc_getProperty(self, v6, 112, 1);
+      nw_interpose_cancel();
+      objc_setProperty_atomic(self, v7, 0, 112);
+    }
+
+    if (objc_getProperty(self, v6, 120, 1))
+    {
+      v18 = 0u;
+      v19 = 0u;
+      v16 = 0u;
+      v17 = 0u;
+      v9 = [objc_getProperty(self v8];
+      v10 = [v9 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      if (v10)
+      {
+        v11 = v10;
+        v12 = *v17;
+        do
+        {
+          v13 = 0;
+          do
+          {
+            if (*v17 != v12)
+            {
+              objc_enumerationMutation(v9);
+            }
+
+            [(NEFilterPacketInterpose *)*(*(&v16 + 1) + 8 * v13++) close];
+          }
+
+          while (v11 != v13);
+          v11 = [v9 countByEnumeratingWithState:&v16 objects:v20 count:16];
+        }
+
+        while (v11);
+      }
+
+      objc_setProperty_atomic(self, v14, 0, 120);
+    }
+  }
+
+  os_unfair_lock_unlock(&self->_lock);
+  v15.receiver = self;
+  v15.super_class = NEFilterPacketExtensionProviderContext;
+  [(NEFilterExtensionProviderContext *)&v15 stopWithReason:v3];
+}
+
 - (void)dealloc
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v3 = ne_log_obj();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
@@ -18,10 +75,9 @@
     _os_log_debug_impl(&dword_1BA83C000, v3, OS_LOG_TYPE_DEBUG, "%@: dealloc", buf, 0xCu);
   }
 
-  v5.receiver = self;
-  v5.super_class = NEFilterPacketExtensionProviderContext;
-  [(NEExtensionProviderContext *)&v5 dealloc];
-  v4 = *MEMORY[0x1E69E9840];
+  v4.receiver = self;
+  v4.super_class = NEFilterPacketExtensionProviderContext;
+  [(NEExtensionProviderContext *)&v4 dealloc];
 }
 
 - (void)startFilterWithOptions:(id)options completionHandler:(id)handler
@@ -64,7 +120,7 @@ void __83__NEFilterPacketExtensionProviderContext_startFilterWithOptions_complet
 
 void __83__NEFilterPacketExtensionProviderContext_startFilterWithOptions_completionHandler___block_invoke_2(uint64_t a1, void *a2)
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   v3 = *(a1 + 32);
   v4 = a2;
   if (v3)
@@ -73,17 +129,17 @@ void __83__NEFilterPacketExtensionProviderContext_startFilterWithOptions_complet
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138412546;
-      v22 = v3;
-      v23 = 2112;
-      v24 = v4;
+      v20 = v3;
+      v21 = 2112;
+      v22 = v4;
       _os_log_debug_impl(&dword_1BA83C000, v5, OS_LOG_TYPE_DEBUG, " %@: necpClientClaimWithUUID <%@>", buf, 0x16u);
     }
 
     if (v4)
     {
-      v20[0] = 0;
-      v20[1] = 0;
-      [v4 getUUIDBytes:v20];
+      v18[0] = 0;
+      v18[1] = 0;
+      [v4 getUUIDBytes:v18];
       v6 = nw_interpose_client_claim();
       objc_setProperty_atomic(v3, v7, v6, 112);
 
@@ -102,40 +158,38 @@ void __83__NEFilterPacketExtensionProviderContext_startFilterWithOptions_complet
         nw_interpose_start();
 
         v14 = *(a1 + 32);
-        v15 = *MEMORY[0x1E69E9840];
 
         [v14 startedWithError:0];
         return;
       }
 
-      v16 = ne_log_obj();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+      v15 = ne_log_obj();
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412546;
-        v22 = v3;
-        v23 = 2112;
-        v24 = v4;
-        _os_log_error_impl(&dword_1BA83C000, v16, OS_LOG_TYPE_ERROR, "%@: necpClientClaimWithUUID <%@>: failed claim", buf, 0x16u);
+        v20 = v3;
+        v21 = 2112;
+        v22 = v4;
+        _os_log_error_impl(&dword_1BA83C000, v15, OS_LOG_TYPE_ERROR, "%@: necpClientClaimWithUUID <%@>: failed claim", buf, 0x16u);
       }
     }
   }
 
-  v17 = *(a1 + 32);
-  v19 = [objc_alloc(MEMORY[0x1E696ABC0]) initWithDomain:@"NEFilterErrorDomain" code:1 userInfo:0];
-  [v17 startedWithError:?];
-  v18 = *MEMORY[0x1E69E9840];
+  v16 = *(a1 + 32);
+  v17 = [objc_alloc(MEMORY[0x1E696ABC0]) initWithDomain:@"NEFilterErrorDomain" code:1 userInfo:0];
+  [v16 startedWithError:?];
 }
 
 void __65__NEFilterPacketExtensionProviderContext_interposeClaimWithUUID___block_invoke(uint64_t a1, int a2, void *a3, const unsigned __int8 *a4, const char *a5, unsigned int a6, void *a7, unsigned int a8)
 {
-  v103[2] = *MEMORY[0x1E69E9840];
+  v88[2] = *MEMORY[0x1E69E9840];
   v15 = *(a1 + 32);
   v16 = a3;
   if (v15)
   {
     os_unfair_lock_lock(v15 + 26);
-    v97 = v16;
-    v96 = [MEMORY[0x1E696AEC0] stringWithUTF8String:nw_interface_get_name(v16)];
+    v82 = v16;
+    v81 = [MEMORY[0x1E696AEC0] stringWithUTF8String:nw_interface_get_name(v16)];
     v18 = [objc_getProperty(v15 v17];
     v19 = v18;
     if (a2 == 1)
@@ -149,26 +203,26 @@ void __65__NEFilterPacketExtensionProviderContext_interposeClaimWithUUID___block
       if ([(NEFilterPacketInterpose *)v18 matchFlow:a5 flowId:a4])
       {
         v23 = ne_log_obj();
-        v24 = v96;
+        v24 = v81;
         if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
         {
-          *v98 = 138412290;
-          *&v98[4] = v19;
-          _os_log_debug_impl(&dword_1BA83C000, v23, OS_LOG_TYPE_DEBUG, "%@: interposeHandleFlowEvent: removing channel", v98, 0xCu);
+          *v83 = 138412290;
+          *&v83[4] = v19;
+          _os_log_debug_impl(&dword_1BA83C000, v23, OS_LOG_TYPE_DEBUG, "%@: interposeHandleFlowEvent: removing channel", v83, 0xCu);
         }
 
         [(NEFilterPacketInterpose *)v19 close];
         [objc_getProperty(v15 v25];
         v26 = v19;
-        v16 = v97;
+        v16 = v82;
         goto LABEL_40;
       }
 
 LABEL_17:
       v26 = v19;
 LABEL_18:
-      v24 = v96;
-      v16 = v97;
+      v24 = v81;
+      v16 = v82;
 LABEL_40:
       os_unfair_lock_unlock(v15 + 26);
 
@@ -180,11 +234,11 @@ LABEL_40:
       v27 = ne_log_obj();
       if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
       {
-        *v98 = 138412546;
-        *&v98[4] = v19;
-        *&v98[12] = 1024;
-        *&v98[14] = a2;
-        _os_log_error_impl(&dword_1BA83C000, v27, OS_LOG_TYPE_ERROR, "%@: interposeHandleFlowEvent: unsupported event %d", v98, 0x12u);
+        *v83 = 138412546;
+        *&v83[4] = v19;
+        *&v83[12] = 1024;
+        *&v83[14] = a2;
+        _os_log_error_impl(&dword_1BA83C000, v27, OS_LOG_TYPE_ERROR, "%@: interposeHandleFlowEvent: unsupported event %d", v83, 0x12u);
       }
 
       goto LABEL_17;
@@ -199,9 +253,9 @@ LABEL_40:
       {
         if (v22)
         {
-          *v98 = 138412290;
-          *&v98[4] = v19;
-          _os_log_debug_impl(&dword_1BA83C000, v21, OS_LOG_TYPE_DEBUG, "%@: interposeHandleFlowEvent: flow already exists", v98, 0xCu);
+          *v83 = 138412290;
+          *&v83[4] = v19;
+          _os_log_debug_impl(&dword_1BA83C000, v21, OS_LOG_TYPE_DEBUG, "%@: interposeHandleFlowEvent: flow already exists", v83, 0xCu);
         }
 
         goto LABEL_17;
@@ -209,9 +263,9 @@ LABEL_40:
 
       if (v22)
       {
-        *v98 = 138412290;
-        *&v98[4] = v19;
-        _os_log_debug_impl(&dword_1BA83C000, v21, OS_LOG_TYPE_DEBUG, "%@: interposeHandleFlowEvent: removing channel", v98, 0xCu);
+        *v83 = 138412290;
+        *&v83[4] = v19;
+        _os_log_debug_impl(&dword_1BA83C000, v21, OS_LOG_TYPE_DEBUG, "%@: interposeHandleFlowEvent: removing channel", v83, 0xCu);
       }
 
       [(NEFilterPacketInterpose *)v19 close];
@@ -220,13 +274,13 @@ LABEL_40:
 
     v29 = [(os_unfair_lock_s *)v15 _principalObject];
     v26 = [NEFilterPacketInterpose alloc];
-    v94 = v97;
-    v95 = v29;
+    v79 = v82;
+    v80 = v29;
     if (v26)
     {
-      *v98 = v26;
-      *&v98[8] = NEFilterPacketInterpose;
-      v30 = objc_msgSendSuper2(v98, sel_init);
+      *v83 = v26;
+      *&v83[8] = NEFilterPacketInterpose;
+      v30 = objc_msgSendSuper2(v83, sel_init);
       v26 = v30;
       if (v30)
       {
@@ -250,9 +304,9 @@ LABEL_40:
       }
     }
 
-    v37 = v95;
+    v37 = v80;
 
-    v24 = v96;
+    v24 = v81;
     if (!v26)
     {
       goto LABEL_36;
@@ -264,13 +318,13 @@ LABEL_40:
       channel = v26->_channel;
       v41 = ne_log_obj();
       v42 = os_log_type_enabled(v41, OS_LOG_TYPE_DEBUG);
-      v16 = v97;
+      v16 = v82;
       if (channel)
       {
         if (v42)
         {
           *buf = 138412290;
-          v100 = v26;
+          v85 = v26;
           _os_log_debug_impl(&dword_1BA83C000, v41, OS_LOG_TYPE_DEBUG, "%@: createChannel: channel already exists", buf, 0xCu);
         }
 
@@ -278,9 +332,9 @@ LABEL_40:
         v44 = ne_log_obj();
         if (os_log_type_enabled(v44, OS_LOG_TYPE_DEBUG))
         {
-          *v98 = 138412290;
-          *&v98[4] = v26;
-          _os_log_debug_impl(&dword_1BA83C000, v44, OS_LOG_TYPE_DEBUG, "%@: interposeHandleFlowEvent: added channel", v98, 0xCu);
+          *v83 = 138412290;
+          *&v83[4] = v26;
+          _os_log_debug_impl(&dword_1BA83C000, v44, OS_LOG_TYPE_DEBUG, "%@: interposeHandleFlowEvent: added channel", v83, 0xCu);
         }
 
 LABEL_39:
@@ -291,48 +345,45 @@ LABEL_39:
       if (v42)
       {
         *buf = 138412290;
-        v100 = v26;
+        v85 = v26;
         _os_log_debug_impl(&dword_1BA83C000, v41, OS_LOG_TYPE_DEBUG, "%@: Establishing channel", buf, 0xCu);
       }
 
       if (v26->_key && v26->_keyLength)
       {
-        v47 = os_channel_attr_create();
-        v26->_attributes = v47;
-        if (v47)
+        v46 = os_channel_attr_create();
+        v26->_attributes = v46;
+        if (v46)
         {
-          key = v26->_key;
-          keyLength = v26->_keyLength;
-          v50 = os_channel_attr_set_key();
-          if (v50)
+          v47 = os_channel_attr_set_key();
+          if (v47)
           {
-            v51 = v50;
+            v48 = v47;
             v45 = ne_log_obj();
             if (os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
             {
               *buf = 138412546;
-              v100 = v26;
-              v101 = 1024;
-              *v102 = v51;
-              v52 = "%@: createChannel failed to set key <err %d> ";
+              v85 = v26;
+              v86 = 1024;
+              *v87 = v48;
+              v49 = "%@: createChannel failed to set key <err %d> ";
 LABEL_63:
-              v53 = v45;
-              v54 = 18;
+              v50 = v45;
+              v51 = 18;
               goto LABEL_54;
             }
 
 LABEL_35:
 
 LABEL_36:
-            v16 = v97;
+            v16 = v82;
             goto LABEL_37;
           }
 
-          attributes = v26->_attributes;
-          v56 = os_channel_attr_set();
-          if (v56)
+          v52 = os_channel_attr_set();
+          if (v52)
           {
-            v57 = v56;
+            v53 = v52;
             v45 = ne_log_obj();
             if (!os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
             {
@@ -340,70 +391,66 @@ LABEL_36:
             }
 
             *buf = 138412546;
-            v100 = v26;
-            v101 = 1024;
-            *v102 = v57;
-            v52 = "%@: createChannel failed to set user-packet-pool attribute <err %d> ";
+            v85 = v26;
+            v86 = 1024;
+            *v87 = v53;
+            v49 = "%@: createChannel failed to set user-packet-pool attribute <err %d> ";
             goto LABEL_63;
           }
 
-          v58 = v26->_attributes;
-          v59 = os_channel_attr_set();
-          v60 = ne_log_obj();
-          v45 = v60;
-          if (v59)
+          v54 = os_channel_attr_set();
+          v55 = ne_log_obj();
+          v45 = v55;
+          if (v54)
           {
-            if (!os_log_type_enabled(v60, OS_LOG_TYPE_ERROR))
+            if (!os_log_type_enabled(v55, OS_LOG_TYPE_ERROR))
             {
               goto LABEL_35;
             }
 
             *buf = 138412546;
-            v100 = v26;
-            v101 = 1024;
-            *v102 = v59;
-            v52 = "%@: createChannel failed to set filter attribute <err %d>";
+            v85 = v26;
+            v86 = 1024;
+            *v87 = v54;
+            v49 = "%@: createChannel failed to set filter attribute <err %d>";
             goto LABEL_63;
           }
 
-          if (os_log_type_enabled(v60, OS_LOG_TYPE_DEBUG))
+          if (os_log_type_enabled(v55, OS_LOG_TYPE_DEBUG))
           {
-            Property = objc_getProperty(v26, v61, 176, 1);
+            Property = objc_getProperty(v26, v56, 176, 1);
             *buf = 138412546;
-            v100 = v26;
-            v101 = 2112;
-            *v102 = Property;
+            v85 = v26;
+            v86 = 2112;
+            *v87 = Property;
             _os_log_debug_impl(&dword_1BA83C000, v45, OS_LOG_TYPE_DEBUG, "%@ createChannel: nexusInstance %@", buf, 0x16u);
           }
 
-          v62 = ne_log_obj();
-          if (os_log_type_enabled(v62, OS_LOG_TYPE_DEBUG))
+          v57 = ne_log_obj();
+          if (os_log_type_enabled(v57, OS_LOG_TYPE_DEBUG))
           {
             nexusPort = v26->_nexusPort;
             *buf = 138412546;
-            v100 = v26;
-            v101 = 1024;
-            *v102 = nexusPort;
-            _os_log_debug_impl(&dword_1BA83C000, v62, OS_LOG_TYPE_DEBUG, "%@ createChannel: nexusPort %d", buf, 0x12u);
+            v85 = v26;
+            v86 = 1024;
+            *v87 = nexusPort;
+            _os_log_debug_impl(&dword_1BA83C000, v57, OS_LOG_TYPE_DEBUG, "%@ createChannel: nexusPort %d", buf, 0x12u);
           }
 
-          v103[0] = 0;
-          v103[1] = 0;
-          [objc_getProperty(v26 v63];
-          v64 = v26->_nexusPort;
-          v65 = v26->_attributes;
-          v66 = v26->_nexusPort;
+          v88[0] = 0;
+          v88[1] = 0;
+          [objc_getProperty(v26 v58];
           extended = os_channel_create_extended();
           v26->_channel = extended;
-          v16 = v97;
+          v16 = v82;
           if (!extended)
           {
-            v81 = ne_log_obj();
-            if (os_log_type_enabled(v81, OS_LOG_TYPE_ERROR))
+            v66 = ne_log_obj();
+            if (os_log_type_enabled(v66, OS_LOG_TYPE_ERROR))
             {
               *buf = 138412290;
-              v100 = v26;
-              _os_log_error_impl(&dword_1BA83C000, v81, OS_LOG_TYPE_ERROR, "%@: createChannel failed to create channel", buf, 0xCu);
+              v85 = v26;
+              _os_log_error_impl(&dword_1BA83C000, v66, OS_LOG_TYPE_ERROR, "%@: createChannel failed to create channel", buf, 0xCu);
             }
 
             goto LABEL_37;
@@ -411,81 +458,74 @@ LABEL_36:
 
           fd = os_channel_get_fd();
           v26->_channel_fd = fd;
-          v69 = ne_log_obj();
-          v70 = v69;
+          v61 = ne_log_obj();
+          v62 = v61;
           if (fd < 0)
           {
-            if (os_log_type_enabled(v69, OS_LOG_TYPE_ERROR))
+            if (os_log_type_enabled(v61, OS_LOG_TYPE_ERROR))
             {
               *buf = 138412290;
-              v100 = v26;
-              v84 = "%@: createChannel failed to get channel fd";
-              v85 = v70;
-              v86 = 12;
+              v85 = v26;
+              v69 = "%@: createChannel failed to get channel fd";
+              v70 = v62;
+              v71 = 12;
               goto LABEL_91;
             }
           }
 
           else
           {
-            if (os_log_type_enabled(v69, OS_LOG_TYPE_DEBUG))
+            if (os_log_type_enabled(v61, OS_LOG_TYPE_DEBUG))
             {
               *buf = 138412290;
-              v100 = v26;
-              _os_log_debug_impl(&dword_1BA83C000, v70, OS_LOG_TYPE_DEBUG, "%@: createChannel: created channel", buf, 0xCu);
+              v85 = v26;
+              _os_log_debug_impl(&dword_1BA83C000, v62, OS_LOG_TYPE_DEBUG, "%@: createChannel: created channel", buf, 0xCu);
             }
 
-            v71 = v26->_channel;
             v26->_rx_ring_ingress = os_channel_rx_ring();
-            v72 = v26->_channel;
             v26->_tx_ring_ingress = os_channel_tx_ring();
-            v73 = v26->_channel;
             v26->_rx_ring_egress = os_channel_rx_ring();
-            v74 = v26->_channel;
-            v75 = os_channel_tx_ring();
-            v26->_tx_ring_egress = v75;
+            v63 = os_channel_tx_ring();
+            v26->_tx_ring_egress = v63;
             if (v26->_rx_ring_ingress && v26->_tx_ring_ingress)
             {
-              if (v26->_rx_ring_egress && v75)
+              if (v26->_rx_ring_egress && v63)
               {
-                v76 = v26->_channel;
-                v77 = v26->_attributes;
                 os_channel_read_attr();
-                v78 = v26->_attributes;
                 os_channel_attr_get();
                 v26->_slot_size = 0;
-                v79 = ne_log_obj();
-                v80 = v79;
-                if (!os_log_type_enabled(v79, OS_LOG_TYPE_ERROR))
+                v64 = ne_log_obj();
+                v65 = v64;
+                if (!os_log_type_enabled(v64, OS_LOG_TYPE_ERROR))
                 {
                   goto LABEL_89;
                 }
 
                 *buf = 138412290;
-                v100 = v26;
-                v89 = "%@: createChannel: channel slot size 0, clean up channel";
-                v90 = v80;
-                v91 = 12;
+                v85 = v26;
+                v74 = "%@: createChannel: channel slot size 0, clean up channel";
+                v75 = v65;
+                v76 = 12;
               }
 
               else
               {
-                v80 = ne_log_obj();
-                if (!os_log_type_enabled(v80, OS_LOG_TYPE_ERROR))
+                v65 = ne_log_obj();
+                if (!os_log_type_enabled(v65, OS_LOG_TYPE_ERROR))
                 {
 LABEL_89:
 
                   [(NEFilterPacketInterpose *)v26 close:?];
-                  v24 = v96;
-                  v16 = v97;
-                  v37 = v95;
+                  v24 = v81;
+                  v16 = v82;
+                  v37 = v80;
 LABEL_37:
                   v44 = ne_log_obj();
                   if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
                   {
-                    *v98 = 138412290;
-                    *&v98[4] = v26;
-                    _os_log_error_impl(&dword_1BA83C000, v44, OS_LOG_TYPE_ERROR, "%@: interposeHandleFlowEvent: failed to create channel", v98, 0xCu);
+                    *v83 = 138412290;
+                    *&v83[4] = v26;
+                    _os_log_error_impl(&dword_1BA83C000, v44, OS_LOG_TYPE_ERROR, "%@: interposeHandleFlowEvent: failed to create channel", v83, 0xCu);
                   }
 
                   goto LABEL_39;
@@ -494,36 +534,36 @@ LABEL_37:
                 rx_ring_egress = v26->_rx_ring_egress;
                 tx_ring_egress = v26->_tx_ring_egress;
                 *buf = 138412802;
-                v100 = v26;
-                v101 = 1024;
-                *v102 = rx_ring_egress;
-                *&v102[4] = 1024;
-                *&v102[6] = tx_ring_egress;
-                v89 = "%@: createChannel failed to get Egress input / output rings (%X %X)";
-                v90 = v80;
-                v91 = 24;
+                v85 = v26;
+                v86 = 1024;
+                *v87 = rx_ring_egress;
+                *&v87[4] = 1024;
+                *&v87[6] = tx_ring_egress;
+                v74 = "%@: createChannel failed to get Egress input / output rings (%X %X)";
+                v75 = v65;
+                v76 = 24;
               }
 
-              _os_log_error_impl(&dword_1BA83C000, v90, OS_LOG_TYPE_ERROR, v89, buf, v91);
+              _os_log_error_impl(&dword_1BA83C000, v75, OS_LOG_TYPE_ERROR, v74, buf, v76);
               goto LABEL_89;
             }
 
-            v70 = ne_log_obj();
-            if (os_log_type_enabled(v70, OS_LOG_TYPE_ERROR))
+            v62 = ne_log_obj();
+            if (os_log_type_enabled(v62, OS_LOG_TYPE_ERROR))
             {
               rx_ring_ingress = v26->_rx_ring_ingress;
               tx_ring_ingress = v26->_tx_ring_ingress;
               *buf = 138412802;
-              v100 = v26;
-              v101 = 1024;
-              *v102 = rx_ring_ingress;
-              *&v102[4] = 1024;
-              *&v102[6] = tx_ring_ingress;
-              v84 = "%@: createChannel failed to get Ingress input / output rings (%X %X)";
-              v85 = v70;
-              v86 = 24;
+              v85 = v26;
+              v86 = 1024;
+              *v87 = rx_ring_ingress;
+              *&v87[4] = 1024;
+              *&v87[6] = tx_ring_ingress;
+              v69 = "%@: createChannel failed to get Ingress input / output rings (%X %X)";
+              v70 = v62;
+              v71 = 24;
 LABEL_91:
-              _os_log_error_impl(&dword_1BA83C000, v85, OS_LOG_TYPE_ERROR, v84, buf, v86);
+              _os_log_error_impl(&dword_1BA83C000, v70, OS_LOG_TYPE_ERROR, v69, buf, v71);
             }
           }
 
@@ -538,8 +578,8 @@ LABEL_91:
         }
 
         *buf = 138412290;
-        v100 = v26;
-        v52 = "%@: createChannel failed to create channel attributes";
+        v85 = v26;
+        v49 = "%@: createChannel failed to create channel attributes";
       }
 
       else
@@ -551,8 +591,8 @@ LABEL_91:
         }
 
         *buf = 138412290;
-        v100 = v26;
-        v52 = "%@: createChannel no key or 0 key length";
+        v85 = v26;
+        v49 = "%@: createChannel no key or 0 key length";
       }
     }
 
@@ -565,20 +605,18 @@ LABEL_91:
       }
 
       *buf = 138412290;
-      v100 = v26;
-      v52 = "%@: createChannel: no provider / packetHandler";
+      v85 = v26;
+      v49 = "%@: createChannel: no provider / packetHandler";
     }
 
-    v53 = v45;
-    v54 = 12;
+    v50 = v45;
+    v51 = 12;
 LABEL_54:
-    _os_log_error_impl(&dword_1BA83C000, v53, OS_LOG_TYPE_ERROR, v52, buf, v54);
+    _os_log_error_impl(&dword_1BA83C000, v50, OS_LOG_TYPE_ERROR, v49, buf, v51);
     goto LABEL_35;
   }
 
 LABEL_41:
-
-  v46 = *MEMORY[0x1E69E9840];
 }
 
 + (id)_extensionAuxiliaryHostProtocol

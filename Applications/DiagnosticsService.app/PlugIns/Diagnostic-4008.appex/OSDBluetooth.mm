@@ -1,6 +1,7 @@
 @interface OSDBluetooth
 - (BOOL)_setBluetoothPower:(BTLocalDeviceImpl *)power enabled:(BOOL)enabled timeout:(double)timeout;
 - (BOOL)_setupBluetoothSessionAndDevice:(id *)device;
+- (BOOL)setBluetoothPowerOn:(BOOL)on;
 - (OSDBluetooth)init;
 - (id)performBluetoothScanWithTimeout:(double)timeout foundDevices:(id)devices;
 - (int)_bluetoothPower:(BTLocalDeviceImpl *)power isEnabled:(BOOL *)enabled;
@@ -343,6 +344,15 @@ LABEL_19:
 
   objc_destroyWeak(v15);
   objc_destroyWeak(&location);
+}
+
+- (BOOL)setBluetoothPowerOn:(BOOL)on
+{
+  onCopy = on;
+  [(OSDBluetooth *)self _setupBluetoothSessionAndDevice:0];
+  LOBYTE(onCopy) = [(OSDBluetooth *)self _setBluetoothPower:self->_localDevice enabled:onCopy timeout:5.0];
+  [(OSDBluetooth *)self _teardownBluetoothSessionAndDevice];
+  return onCopy;
 }
 
 @end

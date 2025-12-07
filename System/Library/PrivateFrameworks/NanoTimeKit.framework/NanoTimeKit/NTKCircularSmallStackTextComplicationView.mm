@@ -47,7 +47,7 @@
     secondLineLabel = v4->_secondLineLabel;
     v4->_secondLineLabel = v8;
 
-    [(NTKCircularComplicationView *)v4 _layoutConstants];
+    objc_msgSend__layoutConstants(v4);
     [(CLKUIColoringLabel *)v4->_firstLineLabel setMaxWidth:v11];
     [(CLKUIColoringLabel *)v4->_secondLineLabel setMaxWidth:v11];
   }
@@ -64,9 +64,9 @@
   [(CLKUIColoringLabel *)self->_firstLineLabel sizeToFit];
   [(CLKUIColoringLabel *)self->_secondLineLabel sizeToFit];
   [(CLKUIColoringLabel *)self->_firstLineLabel frame];
-  [(NTKCircularComplicationView *)self _layoutConstants];
+  objc_msgSend__layoutConstants(self);
   [(CLKUIColoringLabel *)self->_firstLineLabel _lastLineBaseline];
-  [(NTKCircularComplicationView *)self _layoutConstants];
+  objc_msgSend__layoutConstants(self);
   device = [(NTKCircularComplicationView *)self device];
   CLKRectCenteredXInRectForDevice();
   v5 = v4;
@@ -76,8 +76,8 @@
 
   [(CLKUIColoringLabel *)self->_firstLineLabel setFrame:v5, v7, v9, v11];
   [(CLKUIColoringLabel *)self->_secondLineLabel frame];
-  [(NTKCircularComplicationView *)self _layoutConstants];
-  [(NTKCircularComplicationView *)self _layoutConstants];
+  objc_msgSend__layoutConstants(self);
+  objc_msgSend__layoutConstants(self);
   [(CLKUIColoringLabel *)self->_secondLineLabel _lastLineBaseline];
   device2 = [(NTKCircularComplicationView *)self device];
   CLKRectCenteredXInRectForDevice();
@@ -152,7 +152,7 @@
 
   [(CLKUIColoringLabel *)self->_firstLineLabel setFont:v4];
   [(CLKUIColoringLabel *)self->_secondLineLabel setFont:v6];
-  [(NTKCircularComplicationView *)self _layoutConstants];
+  objc_msgSend__layoutConstants(self);
   [(CLKUIColoringLabel *)self->_firstLineLabel setMaxWidth:v7];
   [(CLKUIColoringLabel *)self->_secondLineLabel setMaxWidth:v7];
 }

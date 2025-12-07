@@ -81,8 +81,8 @@ LABEL_9:
     if (self->_initialCompletionHandler.m_function.m_callableWrapper.__ptr_)
     {
       v5 = WebCore::Document::fullscreen(*(*(m_ptr + 6) + 8));
-      WebCore::DocumentFullscreen::willEnterFullscreen(v5, self->_element.m_ptr);
-      WTF::CompletionHandler<void ()(WebCore::ExceptionOr<void>)>::operator()(p_initialCompletionHandler, v8);
+      WebCore::DocumentFullscreen::willEnterFullscreen(&v8, v5, self->_element.m_ptr);
+      WTF::CompletionHandler<void ()(WebCore::ExceptionOr<void>)>::operator()(p_initialCompletionHandler, &v8);
       if (v10 == 1)
       {
         v7 = v9;

@@ -14,7 +14,7 @@
 
 - (STDynamicActivityAttributionXPCClientHandle)initWithXPCConnection:(id)connection serverHandle:(id)handle
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   connectionCopy = connection;
   handleCopy = handle;
   v9 = [connectionCopy valueForEntitlement:@"com.apple.systemstatus.activityattribution"];
@@ -22,9 +22,9 @@
 
   if (bOOLValue)
   {
-    v27.receiver = self;
-    v27.super_class = STDynamicActivityAttributionXPCClientHandle;
-    v11 = [(STDynamicActivityAttributionXPCClientHandle *)&v27 init];
+    v26.receiver = self;
+    v26.super_class = STDynamicActivityAttributionXPCClientHandle;
+    v11 = [(STDynamicActivityAttributionXPCClientHandle *)&v26 init];
     v12 = v11;
     if (v11)
     {
@@ -32,17 +32,17 @@
       objc_storeWeak(&v12->_serverHandle, handleCopy);
       if (connectionCopy)
       {
-        [connectionCopy auditToken];
+        objc_msgSend_auditToken(connectionCopy);
       }
 
       else
       {
         *location = 0u;
-        v29 = 0u;
+        v28 = 0u;
       }
 
       v15 = *location;
-      *&v12->_auditToken.val[4] = v29;
+      *&v12->_auditToken.val[4] = v28;
       *v12->_auditToken.val = v15;
       objc_initWeak(location, v12);
       v16 = STDynamicAttributionXPCClientInterface();
@@ -52,21 +52,21 @@
       [connectionCopy setExportedInterface:v17];
 
       [connectionCopy setExportedObject:v12];
-      v25[0] = MEMORY[0x1E69E9820];
-      v25[1] = 3221225472;
-      v25[2] = __82__STDynamicActivityAttributionXPCClientHandle_initWithXPCConnection_serverHandle___block_invoke;
-      v25[3] = &unk_1E85DDD78;
-      objc_copyWeak(&v26, location);
-      [connectionCopy setInterruptionHandler:v25];
-      v20 = MEMORY[0x1E69E9820];
-      v21 = 3221225472;
-      v22 = __82__STDynamicActivityAttributionXPCClientHandle_initWithXPCConnection_serverHandle___block_invoke_2;
-      v23 = &unk_1E85DDD78;
-      objc_copyWeak(&v24, location);
-      [connectionCopy setInvalidationHandler:&v20];
+      v24[0] = MEMORY[0x1E69E9820];
+      v24[1] = 3221225472;
+      v24[2] = __82__STDynamicActivityAttributionXPCClientHandle_initWithXPCConnection_serverHandle___block_invoke;
+      v24[3] = &unk_1E85DDD78;
+      objc_copyWeak(&v25, location);
+      [connectionCopy setInterruptionHandler:v24];
+      v19 = MEMORY[0x1E69E9820];
+      v20 = 3221225472;
+      v21 = __82__STDynamicActivityAttributionXPCClientHandle_initWithXPCConnection_serverHandle___block_invoke_2;
+      v22 = &unk_1E85DDD78;
+      objc_copyWeak(&v23, location);
+      [connectionCopy setInvalidationHandler:&v19];
       [connectionCopy resume];
-      objc_destroyWeak(&v24);
-      objc_destroyWeak(&v26);
+      objc_destroyWeak(&v23);
+      objc_destroyWeak(&v25);
       objc_destroyWeak(location);
     }
 
@@ -87,7 +87,6 @@
     selfCopy = 0;
   }
 
-  v18 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 

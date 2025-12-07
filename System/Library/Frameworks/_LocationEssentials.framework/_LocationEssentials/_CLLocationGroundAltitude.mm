@@ -44,55 +44,55 @@
 
 - (void)encodeWithCoder:(id)coder
 {
-  if (objc_msgSend_allowsKeyedCoding(coder, a2, v3, v4))
+  if (objc_msgSend_allowsKeyedCoding(coder, a2, coder))
   {
-    objc_msgSend_encodeDouble_forKey_(coder, v7, self->_estimate, v9, @"kCLLocationCodingKeyGroundAltitudeEstimate");
-    objc_msgSend_encodeDouble_forKey_(coder, v10, self->_uncertainty, v11, @"kCLLocationCodingKeyGroundAltitudeUncertainty");
-    objc_msgSend_encodeDouble_forKey_(coder, v12, self->_undulation, v13, @"kCLLocationCodingKeyGroundAltitudeUndulation");
+    objc_msgSend_encodeDouble_forKey_(coder, v5, @"kCLLocationCodingKeyGroundAltitudeEstimate", self->_estimate);
+    objc_msgSend_encodeDouble_forKey_(coder, v6, @"kCLLocationCodingKeyGroundAltitudeUncertainty", self->_uncertainty);
+    objc_msgSend_encodeDouble_forKey_(coder, v7, @"kCLLocationCodingKeyGroundAltitudeUndulation", self->_undulation);
     undulationModel = self->_undulationModel;
 
-    objc_msgSend_encodeInt_forKey_(coder, v14, v15, v16, undulationModel, @"kCLLocationCodingKeyGroundAltitudeUndulationModel");
+    objc_msgSend_encodeInt_forKey_(coder, v8, undulationModel, @"kCLLocationCodingKeyGroundAltitudeUndulationModel");
   }
 
   else
   {
-    objc_msgSend_encodeValueOfObjCType_at_(coder, v7, v8, v9, "d", &self->_estimate);
-    objc_msgSend_encodeValueOfObjCType_at_(coder, v18, v19, v20, "d", &self->_uncertainty);
-    objc_msgSend_encodeValueOfObjCType_at_(coder, v21, v22, v23, "d", &self->_undulation);
+    objc_msgSend_encodeValueOfObjCType_at_(coder, v5, "d", &self->_estimate);
+    objc_msgSend_encodeValueOfObjCType_at_(coder, v10, "d", &self->_uncertainty);
+    objc_msgSend_encodeValueOfObjCType_at_(coder, v11, "d", &self->_undulation);
 
-    objc_msgSend_encodeValueOfObjCType_at_(coder, v24, v25, v26, "i", &self->_undulationModel);
+    objc_msgSend_encodeValueOfObjCType_at_(coder, v12, "i", &self->_undulationModel);
   }
 }
 
 - (_CLLocationGroundAltitude)initWithCoder:(id)coder
 {
-  v37 = -1.0;
-  v38 = 0.0;
-  v36 = 0.0;
-  v35 = -1;
-  if (objc_msgSend_allowsKeyedCoding(coder, a2, v3, v4))
+  v24 = -1.0;
+  v25 = 0.0;
+  v23 = 0.0;
+  v22 = -1;
+  if (objc_msgSend_allowsKeyedCoding(coder, a2, coder))
   {
-    objc_msgSend_decodeDoubleForKey_(coder, v7, v8, v9, @"kCLLocationCodingKeyGroundAltitudeEstimate");
-    v11 = v10;
-    v38 = v10;
-    objc_msgSend_decodeDoubleForKey_(coder, v12, v10, v13, @"kCLLocationCodingKeyGroundAltitudeUncertainty");
-    v15 = v14;
-    v37 = v14;
-    objc_msgSend_decodeDoubleForKey_(coder, v16, v14, v17, @"kCLLocationCodingKeyGroundAltitudeUndulation");
-    v19 = v18;
-    v36 = v18;
-    v22 = objc_msgSend_decodeIntForKey_(coder, v20, v18, v21, @"kCLLocationCodingKeyGroundAltitudeUndulationModel");
-    v35 = v22;
-    return objc_msgSend_initWithEstimate_uncertainty_undulation_undulationModel_(self, v23, v11, v15, v22, v19);
+    objc_msgSend_decodeDoubleForKey_(coder, v5, @"kCLLocationCodingKeyGroundAltitudeEstimate");
+    v7 = v6;
+    v25 = v6;
+    objc_msgSend_decodeDoubleForKey_(coder, v8, @"kCLLocationCodingKeyGroundAltitudeUncertainty");
+    v10 = v9;
+    v24 = v9;
+    objc_msgSend_decodeDoubleForKey_(coder, v11, @"kCLLocationCodingKeyGroundAltitudeUndulation");
+    v13 = v12;
+    v23 = v12;
+    v15 = objc_msgSend_decodeIntForKey_(coder, v14, @"kCLLocationCodingKeyGroundAltitudeUndulationModel");
+    v22 = v15;
+    return objc_msgSend_initWithEstimate_uncertainty_undulation_undulationModel_(self, v16, v15, v7, v10, v13);
   }
 
   else
   {
-    objc_msgSend_decodeValueOfObjCType_at_(coder, v7, v8, v9, "d", &v38);
-    objc_msgSend_decodeValueOfObjCType_at_(coder, v25, v26, v27, "d", &v37);
-    objc_msgSend_decodeValueOfObjCType_at_(coder, v28, v29, v30, "d", &v36);
-    objc_msgSend_decodeValueOfObjCType_at_(coder, v31, v32, v33, "i", &v35);
-    return objc_msgSend_initWithEstimate_uncertainty_undulation_undulationModel_(self, v34, v38, v37, v35, v36);
+    objc_msgSend_decodeValueOfObjCType_at_(coder, v5, "d", &v25);
+    objc_msgSend_decodeValueOfObjCType_at_(coder, v18, "d", &v24);
+    objc_msgSend_decodeValueOfObjCType_at_(coder, v19, "d", &v23);
+    objc_msgSend_decodeValueOfObjCType_at_(coder, v20, "i", &v22);
+    return objc_msgSend_initWithEstimate_uncertainty_undulation_undulationModel_(self, v21, v22, v25, v24, v23);
   }
 }
 

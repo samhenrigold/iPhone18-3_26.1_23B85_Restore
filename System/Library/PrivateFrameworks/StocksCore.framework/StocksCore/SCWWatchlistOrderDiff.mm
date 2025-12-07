@@ -8,69 +8,69 @@
 
 - (SCWWatchlistOrderDiff)initWithOldWatchlistIDs:(id)ds newWatchlistIDs:(id)iDs
 {
-  v71 = *MEMORY[0x1E69E9840];
+  v70 = *MEMORY[0x1E69E9840];
   dsCopy = ds;
   iDsCopy = iDs;
-  v68.receiver = self;
-  v68.super_class = SCWWatchlistOrderDiff;
-  v8 = [(SCWWatchlistOrderDiff *)&v68 init];
+  v67.receiver = self;
+  v67.super_class = SCWWatchlistOrderDiff;
+  v8 = [(SCWWatchlistOrderDiff *)&v67 init];
   v9 = v8;
   if (v8)
   {
-    v58 = v8;
+    v57 = v8;
     v10 = [MEMORY[0x1E695DFB8] orderedSetWithArray:dsCopy];
     v11 = [MEMORY[0x1E695DFB8] orderedSetWithArray:iDsCopy];
-    v57 = [v10 mutableCopy];
-    [v57 minusOrderedSet:v11];
-    v54 = v11;
+    v56 = [v10 mutableCopy];
+    [v56 minusOrderedSet:v11];
+    v53 = v11;
     v12 = [v11 mutableCopy];
-    v55 = v10;
+    v54 = v10;
     [v12 minusOrderedSet:v10];
     dictionary = [MEMORY[0x1E695DF90] dictionary];
+    v63 = 0u;
     v64 = 0u;
     v65 = 0u;
     v66 = 0u;
-    v67 = 0u;
     obj = v12;
-    v14 = [obj countByEnumeratingWithState:&v64 objects:v70 count:16];
+    v14 = [obj countByEnumeratingWithState:&v63 objects:v69 count:16];
     if (v14)
     {
       v15 = v14;
-      v16 = *v65;
+      v16 = *v64;
       do
       {
         for (i = 0; i != v15; ++i)
         {
-          if (*v65 != v16)
+          if (*v64 != v16)
           {
             objc_enumerationMutation(obj);
           }
 
-          v18 = *(*(&v64 + 1) + 8 * i);
+          v18 = *(*(&v63 + 1) + 8 * i);
           v19 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(iDsCopy, "indexOfObject:", v18)}];
           [(NSDictionary *)dictionary setObject:v19 forKey:v18];
         }
 
-        v15 = [obj countByEnumeratingWithState:&v64 objects:v70 count:16];
+        v15 = [obj countByEnumeratingWithState:&v63 objects:v69 count:16];
       }
 
       while (v15);
     }
 
-    v56 = dsCopy;
+    v55 = dsCopy;
     v20 = [MEMORY[0x1E695DFA0] orderedSetWithArray:dsCopy];
-    [v20 minusOrderedSet:v57];
+    [v20 minusOrderedSet:v56];
     [v20 minusOrderedSet:obj];
     v21 = [MEMORY[0x1E695DFA0] orderedSetWithArray:iDsCopy];
-    [v21 minusOrderedSet:v57];
+    [v21 minusOrderedSet:v56];
     [v21 minusOrderedSet:obj];
     v22 = [objc_opt_class() reorderedWatchlistIDsFrom:v20 to:v21];
-    v52 = v21;
-    v53 = v20;
+    v51 = v21;
+    v52 = v20;
     v23 = [objc_opt_class() reorderedWatchlistIDsFrom:v21 to:v20];
     v24 = [v22 count];
-    v50 = v23;
-    v51 = v22;
+    v49 = v23;
+    v50 = v22;
     if (v24 >= [v23 count])
     {
       v25 = v23;
@@ -83,67 +83,66 @@
 
     v26 = v25;
     dictionary2 = [MEMORY[0x1E695DF90] dictionary];
+    v59 = 0u;
     v60 = 0u;
     v61 = 0u;
     v62 = 0u;
-    v63 = 0u;
     v28 = v26;
-    v29 = [v28 countByEnumeratingWithState:&v60 objects:v69 count:16];
+    v29 = [v28 countByEnumeratingWithState:&v59 objects:v68 count:16];
     if (v29)
     {
       v30 = v29;
-      v31 = *v61;
+      v31 = *v60;
       do
       {
         for (j = 0; j != v30; ++j)
         {
-          if (*v61 != v31)
+          if (*v60 != v31)
           {
             objc_enumerationMutation(v28);
           }
 
-          v33 = *(*(&v60 + 1) + 8 * j);
-          v34 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(iDsCopy, "indexOfObject:", v33, v50, v51)}];
+          v33 = *(*(&v59 + 1) + 8 * j);
+          v34 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(iDsCopy, "indexOfObject:", v33, v49, v50)}];
           [(NSDictionary *)dictionary2 setObject:v34 forKey:v33];
         }
 
-        v30 = [v28 countByEnumeratingWithState:&v60 objects:v69 count:16];
+        v30 = [v28 countByEnumeratingWithState:&v59 objects:v68 count:16];
       }
 
       while (v30);
     }
 
-    dsCopy = v56;
-    v35 = [v56 copy];
-    v9 = v58;
-    watchlistIDsPreDiff = v58->_watchlistIDsPreDiff;
-    v58->_watchlistIDsPreDiff = v35;
+    dsCopy = v55;
+    v35 = [v55 copy];
+    v9 = v57;
+    watchlistIDsPreDiff = v57->_watchlistIDsPreDiff;
+    v57->_watchlistIDsPreDiff = v35;
 
     v37 = [iDsCopy copy];
-    watchlistIDsPostDiff = v58->_watchlistIDsPostDiff;
-    v58->_watchlistIDsPostDiff = v37;
+    watchlistIDsPostDiff = v57->_watchlistIDsPostDiff;
+    v57->_watchlistIDsPostDiff = v37;
 
     array = [obj array];
-    addedWatchlistIDs = v58->_addedWatchlistIDs;
-    v58->_addedWatchlistIDs = array;
+    addedWatchlistIDs = v57->_addedWatchlistIDs;
+    v57->_addedWatchlistIDs = array;
 
-    indexesOfAddedWatchlistIDs = v58->_indexesOfAddedWatchlistIDs;
-    v58->_indexesOfAddedWatchlistIDs = dictionary;
+    indexesOfAddedWatchlistIDs = v57->_indexesOfAddedWatchlistIDs;
+    v57->_indexesOfAddedWatchlistIDs = dictionary;
     v42 = dictionary;
 
-    array2 = [v57 array];
-    removedWatchlistIDs = v58->_removedWatchlistIDs;
-    v58->_removedWatchlistIDs = array2;
+    array2 = [v56 array];
+    removedWatchlistIDs = v57->_removedWatchlistIDs;
+    v57->_removedWatchlistIDs = array2;
 
     allObjects = [v28 allObjects];
-    reorderedWatchlistIDs = v58->_reorderedWatchlistIDs;
-    v58->_reorderedWatchlistIDs = allObjects;
+    reorderedWatchlistIDs = v57->_reorderedWatchlistIDs;
+    v57->_reorderedWatchlistIDs = allObjects;
 
-    indexesOfReorderedWatchlistIDs = v58->_indexesOfReorderedWatchlistIDs;
-    v58->_indexesOfReorderedWatchlistIDs = dictionary2;
+    indexesOfReorderedWatchlistIDs = v57->_indexesOfReorderedWatchlistIDs;
+    v57->_indexesOfReorderedWatchlistIDs = dictionary2;
   }
 
-  v48 = *MEMORY[0x1E69E9840];
   return v9;
 }
 

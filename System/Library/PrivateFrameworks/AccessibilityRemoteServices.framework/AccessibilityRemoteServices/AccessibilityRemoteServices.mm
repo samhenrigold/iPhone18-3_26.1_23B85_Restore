@@ -1,6 +1,6 @@
-void sub_229530118(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_229530118(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -22,7 +22,7 @@ void sub_2295306A8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 id AXRDeviceRemoteActionsForCurrentDevice()
 {
-  v3[5] = *MEMORY[0x277D85DE8];
+  v2[5] = *MEMORY[0x277D85DE8];
   if (AXDeviceIsAudioAccessory())
   {
     v0 = AXRDeviceRemoteActionsForMediaForCurrentDevice();
@@ -30,78 +30,73 @@ id AXRDeviceRemoteActionsForCurrentDevice()
 
   else
   {
-    v3[0] = @"Home";
-    v3[1] = @"AppSwitcher";
-    v3[2] = @"NotificationCenter";
-    v3[3] = @"ControlCenter";
-    v3[4] = @"Siri";
-    v0 = [MEMORY[0x277CBEA60] arrayWithObjects:v3 count:5];
+    v2[0] = @"Home";
+    v2[1] = @"AppSwitcher";
+    v2[2] = @"NotificationCenter";
+    v2[3] = @"ControlCenter";
+    v2[4] = @"Siri";
+    v0 = [MEMORY[0x277CBEA60] arrayWithObjects:v2 count:5];
   }
-
-  v1 = *MEMORY[0x277D85DE8];
 
   return v0;
 }
 
 id AXRDeviceRemoteActionsForMediaForCurrentDevice()
 {
-  v3[5] = *MEMORY[0x277D85DE8];
-  v3[0] = @"MediaPlayPause";
-  v3[1] = @"MediaPreviousTrack";
-  v3[2] = @"MediaNextTrack";
-  v3[3] = @"MediaVolumeUp";
-  v3[4] = @"MediaVolumeDown";
-  v0 = [MEMORY[0x277CBEA60] arrayWithObjects:v3 count:5];
-  v1 = *MEMORY[0x277D85DE8];
+  v2[5] = *MEMORY[0x277D85DE8];
+  v2[0] = @"MediaPlayPause";
+  v2[1] = @"MediaPreviousTrack";
+  v2[2] = @"MediaNextTrack";
+  v2[3] = @"MediaVolumeUp";
+  v2[4] = @"MediaVolumeDown";
+  v0 = [MEMORY[0x277CBEA60] arrayWithObjects:v2 count:5];
 
   return v0;
 }
 
 id AXRDeviceRemoteActionsForSwitchControlForCurrentDevice()
 {
-  v3[7] = *MEMORY[0x277D85DE8];
-  v3[0] = @"SwitchControlCommandMovePrevious";
-  v3[1] = @"SwitchControlCommandMoveNext";
-  v3[2] = @"SwitchControlCommandSelect";
-  v3[3] = @"SwitchControlCommandMenu";
-  v3[4] = @"SwitchControlCommandStartScanning";
-  v3[5] = @"SwitchControlCommandStopScanning";
-  v3[6] = @"SwitchControlCommandActivate";
-  v0 = [MEMORY[0x277CBEA60] arrayWithObjects:v3 count:7];
-  v1 = *MEMORY[0x277D85DE8];
+  v2[7] = *MEMORY[0x277D85DE8];
+  v2[0] = @"SwitchControlCommandMovePrevious";
+  v2[1] = @"SwitchControlCommandMoveNext";
+  v2[2] = @"SwitchControlCommandSelect";
+  v2[3] = @"SwitchControlCommandMenu";
+  v2[4] = @"SwitchControlCommandStartScanning";
+  v2[5] = @"SwitchControlCommandStopScanning";
+  v2[6] = @"SwitchControlCommandActivate";
+  v0 = [MEMORY[0x277CBEA60] arrayWithObjects:v2 count:7];
 
   return v0;
 }
 
 id AXRDeviceRemoteActionsForVoiceOverForCurrentDevice()
 {
-  v3[11] = *MEMORY[0x277D85DE8];
-  v3[0] = @"VoiceOverCommandPreviousElement";
-  v3[1] = @"VoiceOverCommandNextElement";
-  v3[2] = @"VoiceOverCommandSimpleTap";
-  v3[3] = @"VoiceOverCommandPreviousRotorOption";
-  v3[4] = @"VoiceOverCommandNextRotorOption";
-  v3[5] = @"VoiceOverCommandPreviousRotorItem";
-  v3[6] = @"VoiceOverCommandNextRotorItem";
-  v3[7] = @"VoiceOverCommandScrollUpPage";
-  v3[8] = @"VoiceOverCommandScrollDownPage";
-  v3[9] = @"VoiceOverCommandScrollLeftPage";
-  v3[10] = @"VoiceOverCommandScrollRightPage";
-  v0 = [MEMORY[0x277CBEA60] arrayWithObjects:v3 count:11];
-  v1 = *MEMORY[0x277D85DE8];
+  v2[11] = *MEMORY[0x277D85DE8];
+  v2[0] = @"VoiceOverCommandPreviousElement";
+  v2[1] = @"VoiceOverCommandNextElement";
+  v2[2] = @"VoiceOverCommandSimpleTap";
+  v2[3] = @"VoiceOverCommandPreviousRotorOption";
+  v2[4] = @"VoiceOverCommandNextRotorOption";
+  v2[5] = @"VoiceOverCommandPreviousRotorItem";
+  v2[6] = @"VoiceOverCommandNextRotorItem";
+  v2[7] = @"VoiceOverCommandScrollUpPage";
+  v2[8] = @"VoiceOverCommandScrollDownPage";
+  v2[9] = @"VoiceOverCommandScrollLeftPage";
+  v2[10] = @"VoiceOverCommandScrollRightPage";
+  v0 = [MEMORY[0x277CBEA60] arrayWithObjects:v2 count:11];
 
   return v0;
 }
 
 id AXRDevicePreferredRemoteActionsForCurrentDevice()
 {
-  v3[3] = *MEMORY[0x277D85DE8];
+  v2[3] = *MEMORY[0x277D85DE8];
   if (AXDeviceIsAudioAccessory())
   {
-    v3[0] = @"MediaPreviousTrack";
-    v3[1] = @"MediaNextTrack";
-    v3[2] = @"MediaPlayPause";
-    v0 = [MEMORY[0x277CBEA60] arrayWithObjects:v3 count:3];
+    v2[0] = @"MediaPreviousTrack";
+    v2[1] = @"MediaNextTrack";
+    v2[2] = @"MediaPlayPause";
+    v0 = [MEMORY[0x277CBEA60] arrayWithObjects:v2 count:3];
   }
 
   else if (_AXSAssistiveTouchScannerEnabled())
@@ -119,71 +114,67 @@ id AXRDevicePreferredRemoteActionsForCurrentDevice()
     v0 = AXRDeviceRemoteActionsForCurrentDevice();
   }
 
-  v1 = *MEMORY[0x277D85DE8];
-
   return v0;
 }
 
 id AXRDeviceRemoteActionsPayloadForCurrentDevice()
 {
-  v29[1] = *MEMORY[0x277D85DE8];
+  v28[1] = *MEMORY[0x277D85DE8];
   v0 = MEMORY[0x277CBEB18];
-  v27[0] = @"title";
+  v26[0] = @"title";
   v1 = AXRLocalizedStringForKey(@"REMOTE_ACTION_SECTION_SYSTEM");
-  v28[0] = v1;
-  v28[1] = &unk_283CD5330;
-  v27[1] = @"preferredContextType";
-  v27[2] = @"actionsList";
+  v27[0] = v1;
+  v27[1] = &unk_283CD5330;
+  v26[1] = @"preferredContextType";
+  v26[2] = @"actionsList";
   v2 = AXRDeviceRemoteActionsForCurrentDevice();
-  v28[2] = v2;
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v28 forKeys:v27 count:3];
-  v29[0] = v3;
-  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v29 count:1];
+  v27[2] = v2;
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v27 forKeys:v26 count:3];
+  v28[0] = v3;
+  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v28 count:1];
   v5 = [v0 arrayWithArray:v4];
 
   if ((AXDeviceIsAudioAccessory() & 1) == 0)
   {
-    v25[0] = @"title";
+    v24[0] = @"title";
     v6 = AXRLocalizedStringForKey(@"REMOTE_ACTION_SECTION_MEDIA_CONTROL");
-    v26[0] = v6;
-    v26[1] = &unk_283CD5348;
-    v25[1] = @"preferredContextType";
-    v25[2] = @"actionsList";
+    v25[0] = v6;
+    v25[1] = &unk_283CD5348;
+    v24[1] = @"preferredContextType";
+    v24[2] = @"actionsList";
     v7 = AXRDeviceRemoteActionsForMediaForCurrentDevice();
-    v26[2] = v7;
-    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v26 forKeys:v25 count:3];
+    v25[2] = v7;
+    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:v24 count:3];
     [v5 addObject:v8];
 
     if (_AXSAssistiveTouchScannerEnabled())
     {
-      v23[0] = @"title";
+      v22[0] = @"title";
       v9 = AXRLocalizedStringForKey(@"REMOTE_ACTION_SECTION_SWITCH_CONTROL");
-      v24[0] = v9;
-      v24[1] = &unk_283CD5360;
-      v23[1] = @"preferredContextType";
-      v23[2] = @"actionsList";
+      v23[0] = v9;
+      v23[1] = &unk_283CD5360;
+      v22[1] = @"preferredContextType";
+      v22[2] = @"actionsList";
       v10 = AXRDeviceRemoteActionsForSwitchControlForCurrentDevice();
-      v24[2] = v10;
-      v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v24 forKeys:v23 count:3];
+      v23[2] = v10;
+      v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:v22 count:3];
       [v5 addObject:v11];
     }
 
     if (_AXSVoiceOverTouchEnabled())
     {
-      v17 = @"title";
+      v16 = @"title";
       v12 = AXRLocalizedStringForKey(@"REMOTE_ACTION_SECTION_VOICEOVER");
-      v20 = v12;
-      v21 = &unk_283CD5378;
-      v18 = @"preferredContextType";
-      v19 = @"actionsList";
+      v19 = v12;
+      v20 = &unk_283CD5378;
+      v17 = @"preferredContextType";
+      v18 = @"actionsList";
       v13 = AXRDeviceRemoteActionsForVoiceOverForCurrentDevice();
-      v22 = v13;
-      v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v20 forKeys:&v17 count:3];
-      [v5 addObject:{v14, v17, v18, v19, v20, v21}];
+      v21 = v13;
+      v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v19 forKeys:&v16 count:3];
+      [v5 addObject:{v14, v16, v17, v18, v19, v20}];
     }
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
@@ -433,16 +424,16 @@ void sub_229533474(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-id ax_remote_general_log()
+id ax_remote_general_log(uint64_t a1)
 {
   if (ax_remote_general_log_onceToken != -1)
   {
     ax_remote_general_log_cold_1();
   }
 
-  v1 = ax_remote_general_log___logger;
+  v2 = ax_remote_general_log___logger;
 
-  return v1;
+  return v2;
 }
 
 void __ax_remote_general_log_block_invoke()
@@ -454,16 +445,16 @@ void __ax_remote_general_log_block_invoke()
   ax_remote_general_log___logger = v1;
 }
 
-id ax_remote_connection_log()
+id ax_remote_connection_log(uint64_t a1)
 {
   if (ax_remote_connection_log_onceToken != -1)
   {
     ax_remote_connection_log_cold_1();
   }
 
-  v1 = ax_remote_connection_log___logger;
+  v2 = ax_remote_connection_log___logger;
 
-  return v1;
+  return v2;
 }
 
 void __ax_remote_connection_log_block_invoke()
@@ -475,16 +466,16 @@ void __ax_remote_connection_log_block_invoke()
   ax_remote_connection_log___logger = v1;
 }
 
-id ax_remote_daemon_log()
+id ax_remote_daemon_log(uint64_t a1)
 {
   if (ax_remote_daemon_log_onceToken != -1)
   {
     ax_remote_daemon_log_cold_1();
   }
 
-  v1 = ax_remote_daemon_log___logger;
+  v2 = ax_remote_daemon_log___logger;
 
-  return v1;
+  return v2;
 }
 
 void __ax_remote_daemon_log_block_invoke()
@@ -496,16 +487,16 @@ void __ax_remote_daemon_log_block_invoke()
   ax_remote_daemon_log___logger = v1;
 }
 
-id ax_remote_event_log()
+id ax_remote_event_log(uint64_t a1)
 {
   if (ax_remote_event_log_onceToken != -1)
   {
     ax_remote_event_log_cold_1();
   }
 
-  v1 = ax_remote_event_log___logger;
+  v2 = ax_remote_event_log___logger;
 
-  return v1;
+  return v2;
 }
 
 void __ax_remote_event_log_block_invoke()
@@ -517,16 +508,16 @@ void __ax_remote_event_log_block_invoke()
   ax_remote_event_log___logger = v1;
 }
 
-id _AXRBundle()
+id _AXRBundle(uint64_t a1)
 {
   if (_AXRBundle_onceToken != -1)
   {
     _AXRBundle_cold_1();
   }
 
-  v1 = _AXRBundle__AXRBundle;
+  v2 = _AXRBundle__AXRBundle;
 
-  return v1;
+  return v2;
 }
 
 id AXRLocalizedStringForKey(void *a1)
@@ -545,7 +536,7 @@ id AXRLocalizedStringForKeyWithDeviceType(void *a1, uint64_t a2)
   if ((a2 - 1) <= 5)
   {
     v5 = [v3 stringByAppendingString:off_278665B30[a2 - 1]];
-    v6 = _AXRBundle();
+    v6 = _AXRBundle(v5);
     v7 = [v6 localizedStringForKey:v5 value:&stru_283CD4BF0 table:@"Localizable"];
 
     if (![v7 isEqualToString:v5])
@@ -554,7 +545,7 @@ id AXRLocalizedStringForKeyWithDeviceType(void *a1, uint64_t a2)
     }
   }
 
-  v5 = _AXRBundle();
+  v5 = _AXRBundle(v3);
   v7 = [v5 localizedStringForKey:v4 value:&stru_283CD4BF0 table:@"Localizable"];
 LABEL_5:
 

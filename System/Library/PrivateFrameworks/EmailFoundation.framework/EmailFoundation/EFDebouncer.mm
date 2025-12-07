@@ -49,12 +49,12 @@ void __18__EFDebouncer_log__block_invoke(uint64_t a1)
 
 - (EFDebouncer)initWithTimeInterval:(double)interval scheduler:(id)scheduler startAfter:(unint64_t)after block:(id)block
 {
-  v40[2] = *MEMORY[0x1E69E9840];
+  v39[2] = *MEMORY[0x1E69E9840];
   schedulerCopy = scheduler;
   blockCopy = block;
-  v33.receiver = self;
-  v33.super_class = EFDebouncer;
-  v12 = [(EFDebouncer *)&v33 init];
+  v32.receiver = self;
+  v32.super_class = EFDebouncer;
+  v12 = [(EFDebouncer *)&v32 init];
   if (v12)
   {
     v13 = +[EFObservable observableObserver];
@@ -86,20 +86,20 @@ void __18__EFDebouncer_log__block_invoke(uint64_t a1)
       }
       v23 = ;
 
-      v40[0] = v17;
-      v40[1] = v23;
-      v24 = [MEMORY[0x1E695DEC8] arrayWithObjects:v40 count:2];
+      v39[0] = v17;
+      v39[1] = v23;
+      v24 = [MEMORY[0x1E695DEC8] arrayWithObjects:v39 count:2];
       v25 = [EFObservable merge:v24];
 
       v26 = +[EFDebouncer log];
       if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412802;
-        v35 = v17;
-        v36 = 2112;
-        v37 = v23;
-        v38 = 2112;
-        v39 = v25;
+        v34 = v17;
+        v35 = 2112;
+        v36 = v23;
+        v37 = 2112;
+        v38 = v25;
         _os_log_debug_impl(&dword_1C6152000, v26, OS_LOG_TYPE_DEBUG, "Merge [first %@, rest %@] to debouncedObservable: %@", buf, 0x20u);
       }
     }
@@ -126,17 +126,16 @@ void __18__EFDebouncer_log__block_invoke(uint64_t a1)
       }
     }
 
-    v31[0] = MEMORY[0x1E69E9820];
-    v31[1] = 3221225472;
-    v31[2] = __63__EFDebouncer_initWithTimeInterval_scheduler_startAfter_block___block_invoke;
-    v31[3] = &unk_1E8248620;
-    v32 = blockCopy;
-    v27 = [v25 subscribeWithResultBlock:v31];
+    v30[0] = MEMORY[0x1E69E9820];
+    v30[1] = 3221225472;
+    v30[2] = __63__EFDebouncer_initWithTimeInterval_scheduler_startAfter_block___block_invoke;
+    v30[3] = &unk_1E8248620;
+    v31 = blockCopy;
+    v27 = [v25 subscribeWithResultBlock:v30];
     cancelable = v12->_cancelable;
     v12->_cancelable = v27;
   }
 
-  v29 = *MEMORY[0x1E69E9840];
   return v12;
 }
 
@@ -160,17 +159,17 @@ void __63__EFDebouncer_initWithTimeInterval_scheduler_startAfter_block___block_i
 
 - (void)debounceResult:(id)result
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   resultCopy = result;
   v5 = +[EFDebouncer log];
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     observable = [(EFDebouncer *)self observable];
-    v10 = 138412546;
-    v11 = observable;
-    v12 = 2112;
-    v13 = resultCopy;
-    _os_log_impl(&dword_1C6152000, v5, OS_LOG_TYPE_DEFAULT, "Observer: %@ received result: %@", &v10, 0x16u);
+    v9 = 138412546;
+    v10 = observable;
+    v11 = 2112;
+    v12 = resultCopy;
+    _os_log_impl(&dword_1C6152000, v5, OS_LOG_TYPE_DEFAULT, "Observer: %@ received result: %@", &v9, 0x16u);
   }
 
   observable2 = [(EFDebouncer *)self observable];
@@ -184,20 +183,17 @@ void __63__EFDebouncer_initWithTimeInterval_scheduler_startAfter_block___block_i
   if (!resultCopy)
   {
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)initWithTimeInterval:(os_log_t)log scheduler:startAfter:block:.cold.1(uint64_t *a1, uint64_t a2, os_log_t log)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v3 = *a1;
-  v5 = 138412546;
-  v6 = v3;
-  v7 = 2112;
-  v8 = a2;
-  _os_log_debug_impl(&dword_1C6152000, log, OS_LOG_TYPE_DEBUG, "Subscribing to %@ with %@", &v5, 0x16u);
-  v4 = *MEMORY[0x1E69E9840];
+  v4 = 138412546;
+  v5 = v3;
+  v6 = 2112;
+  v7 = a2;
+  _os_log_debug_impl(&dword_1C6152000, log, OS_LOG_TYPE_DEBUG, "Subscribing to %@ with %@", &v4, 0x16u);
 }
 
 @end

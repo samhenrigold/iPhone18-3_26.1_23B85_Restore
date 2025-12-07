@@ -34,7 +34,7 @@
   v6 = self + OBJC_IVAR____TtC11MobilePhone26VoicemailDelegateDecorator_lastTask;
   selfCopy = self;
   os_unfair_lock_lock(v6);
-  _s11MobilePhone26VoicemailDelegateDecoratorC21onlineStatusDidChangeyyFyScTyyts5NeverOGSgzYuYTXEfU_Tm(v6 + 1, selfCopy, v7, "VoicemailDelegateDecorator: received voicemailsDidChange");
+  _s11MobilePhone26VoicemailDelegateDecoratorC21onlineStatusDidChangeyyFyScTyyts5NeverOGSgzYuYTXEfU_Tm(v6 + 1, selfCopy, v7, "VoicemailDelegateDecorator: received voicemailsDidChange", &unk_10028B140, &_s11MobilePhone26VoicemailDelegateDecoratorC26voicemailsDidChangeInitial_5added7deleted7updatedySb_SaySo11VMVoicemailCGSgA2KtFyScTyyts5NeverOGSgzYuYTXEfU_yyYaYbcfU_TATu);
   os_unfair_lock_unlock(v6);
 }
 

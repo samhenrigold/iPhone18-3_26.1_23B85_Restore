@@ -34,12 +34,14 @@
 - (void)activateAccounts:(id)accounts;
 - (void)addAccount:(id)account;
 - (void)deactivateAccount:(id)account;
+- (void)deactivateAccount:(id)account force:(BOOL)force;
 - (void)deactivateAccounts:(id)accounts force:(BOOL)force;
 - (void)dealloc;
 - (void)deferredSave;
 - (void)load;
 - (void)removeAccount:(id)account;
 - (void)save;
+- (void)setNetworkDataAvailable:(BOOL)available;
 @end
 
 @implementation IMDAccountController
@@ -80,28 +82,28 @@
 
 - (void)dealloc
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   v3 = self->_accounts;
-  v4 = [(NSMutableDictionary *)v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v4 = [(NSMutableDictionary *)v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v13;
+    v6 = *v12;
     do
     {
       v7 = 0;
       do
       {
-        if (*v13 != v6)
+        if (*v12 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = *(*(&v12 + 1) + 8 * v7);
+        v8 = *(*(&v11 + 1) + 8 * v7);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
@@ -113,21 +115,20 @@
       }
 
       while (v5 != v7);
-      v5 = [(NSMutableDictionary *)v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v5 = [(NSMutableDictionary *)v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v5);
   }
 
-  v11.receiver = self;
-  v11.super_class = IMDAccountController;
-  [(IMDAccountController *)&v11 dealloc];
-  v10 = *MEMORY[0x277D85DE8];
+  v10.receiver = self;
+  v10.super_class = IMDAccountController;
+  [(IMDAccountController *)&v10 dealloc];
 }
 
 - (void)load
 {
-  v111 = *MEMORY[0x277D85DE8];
+  v109 = *MEMORY[0x277D85DE8];
   self->_isLoading = 1;
   activeAccounts = self->_activeAccounts;
   self->_isFirstLoad = activeAccounts == 0;
@@ -155,234 +156,233 @@
 
       *buf = 138412546;
       selfCopy = v9;
-      v109 = 2112;
-      v110 = v11;
+      v107 = 2112;
+      v108 = v11;
       _os_log_impl(&dword_22B4CC000, v6, OS_LOG_TYPE_INFO, "Loading services: %@ (First load: %@)", buf, 0x16u);
     }
   }
 
-  v101 = 0u;
-  v102 = 0u;
   v99 = 0u;
   v100 = 0u;
+  v97 = 0u;
+  v98 = 0u;
   v12 = +[IMDServiceController sharedController];
   obj = [v12 allServices];
 
-  v81 = [obj countByEnumeratingWithState:&v99 objects:v106 count:16];
-  if (v81)
+  v79 = [obj countByEnumeratingWithState:&v97 objects:v104 count:16];
+  if (v79)
   {
-    v80 = *v100;
-    v76 = *MEMORY[0x277D193D0];
-    v75 = *MEMORY[0x277D19018];
-    v13 = *MEMORY[0x277D19418];
-    v77 = *MEMORY[0x277D19418];
-    v78 = *MEMORY[0x277D193E0];
+    v78 = *v98;
+    v74 = *MEMORY[0x277D193D0];
+    v73 = *MEMORY[0x277D19018];
+    v75 = *MEMORY[0x277D19418];
+    v76 = *MEMORY[0x277D193E0];
     do
     {
-      for (i = 0; i != v81; ++i)
+      for (i = 0; i != v79; ++i)
       {
-        if (*v100 != v80)
+        if (*v98 != v78)
         {
           objc_enumerationMutation(obj);
         }
 
-        v86 = *(*(&v99 + 1) + 8 * i);
+        v84 = *(*(&v97 + 1) + 8 * i);
         if (IMOSLoggingEnabled())
         {
-          v14 = OSLogHandleForIMFoundationCategory();
-          if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
+          v13 = OSLogHandleForIMFoundationCategory();
+          if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
           {
             *buf = 138412290;
-            selfCopy = v86;
-            _os_log_impl(&dword_22B4CC000, v14, OS_LOG_TYPE_INFO, "Loading service: %@", buf, 0xCu);
+            selfCopy = v84;
+            _os_log_impl(&dword_22B4CC000, v13, OS_LOG_TYPE_INFO, "Loading service: %@", buf, 0xCu);
           }
         }
 
-        if ([(IMDAccountController *)v86 isDiscontinued])
+        if ([(IMDAccountController *)v84 isDiscontinued])
         {
           if (IMOSLoggingEnabled())
           {
-            v15 = OSLogHandleForIMFoundationCategory();
-            if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
+            v14 = OSLogHandleForIMFoundationCategory();
+            if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
             {
               *buf = 138412290;
               selfCopy = self;
-              _os_log_impl(&dword_22B4CC000, v15, OS_LOG_TYPE_INFO, "service: %@ has been discontinued. Loading default disabled account", buf, 0xCu);
+              _os_log_impl(&dword_22B4CC000, v14, OS_LOG_TYPE_INFO, "service: %@ has been discontinued. Loading default disabled account", buf, 0xCu);
             }
           }
 
-          createDiscontinuedAccount = [(IMDAccountController *)v86 createDiscontinuedAccount];
+          createDiscontinuedAccount = [(IMDAccountController *)v84 createDiscontinuedAccount];
           [(IMDAccountController *)self addAccount:createDiscontinuedAccount];
           goto LABEL_123;
         }
 
-        isIDSBased = [(IMDAccountController *)v86 isIDSBased];
-        createDiscontinuedAccount = [(IMDAccountController *)v86 serviceDefaults];
+        isIDSBased = [(IMDAccountController *)v84 isIDSBased];
+        createDiscontinuedAccount = [(IMDAccountController *)v84 serviceDefaults];
         if (isIDSBased)
         {
           if (IMOSLoggingEnabled())
           {
-            v17 = OSLogHandleForIMFoundationCategory();
-            if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
+            v16 = OSLogHandleForIMFoundationCategory();
+            if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
             {
               *buf = 138412290;
-              selfCopy = v86;
-              _os_log_impl(&dword_22B4CC000, v17, OS_LOG_TYPE_INFO, " Not loading accounts from defaults, appears to be IDS Based: %@", buf, 0xCu);
+              selfCopy = v84;
+              _os_log_impl(&dword_22B4CC000, v16, OS_LOG_TYPE_INFO, " Not loading accounts from defaults, appears to be IDS Based: %@", buf, 0xCu);
             }
           }
 
-          accountsLoadedFromIdentityServices = [(IMDAccountController *)v86 accountsLoadedFromIdentityServices];
+          accountsLoadedFromIdentityServices = [(IMDAccountController *)v84 accountsLoadedFromIdentityServices];
           if (IMOSLoggingEnabled())
           {
-            v19 = OSLogHandleForIMFoundationCategory();
-            if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
+            v18 = OSLogHandleForIMFoundationCategory();
+            if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
             {
               *buf = 138412290;
               selfCopy = accountsLoadedFromIdentityServices;
-              _os_log_impl(&dword_22B4CC000, v19, OS_LOG_TYPE_INFO, " Found accounts: %@", buf, 0xCu);
+              _os_log_impl(&dword_22B4CC000, v18, OS_LOG_TYPE_INFO, " Found accounts: %@", buf, 0xCu);
             }
           }
 
-          v93 = 0u;
-          v94 = 0u;
           v91 = 0u;
           v92 = 0u;
+          v89 = 0u;
+          v90 = 0u;
           stringGUID = accountsLoadedFromIdentityServices;
-          v21 = [(IMDAccountController *)stringGUID countByEnumeratingWithState:&v91 objects:v104 count:16];
-          if (v21)
+          v20 = [(IMDAccountController *)stringGUID countByEnumeratingWithState:&v89 objects:v102 count:16];
+          if (v20)
           {
-            v22 = *v92;
+            v21 = *v90;
             do
             {
-              for (j = 0; j != v21; ++j)
+              for (j = 0; j != v20; ++j)
               {
-                if (*v92 != v22)
+                if (*v90 != v21)
                 {
                   objc_enumerationMutation(stringGUID);
                 }
 
-                v24 = *(*(&v91 + 1) + 8 * j);
+                v23 = *(*(&v89 + 1) + 8 * j);
+                if (IMOSLoggingEnabled())
+                {
+                  v24 = OSLogHandleForIMFoundationCategory();
+                  if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
+                  {
+                    *buf = 138412290;
+                    selfCopy = v23;
+                    _os_log_impl(&dword_22B4CC000, v24, OS_LOG_TYPE_INFO, " Loading: %@", buf, 0xCu);
+                  }
+                }
+
+                [(IMDAccountController *)v23 setLoading:1];
+                [(IMDAccountController *)self addAccount:v23];
+                [(IMDAccountController *)v23 setLoading:0];
                 if (IMOSLoggingEnabled())
                 {
                   v25 = OSLogHandleForIMFoundationCategory();
                   if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
                   {
-                    *buf = 138412290;
-                    selfCopy = v24;
-                    _os_log_impl(&dword_22B4CC000, v25, OS_LOG_TYPE_INFO, " Loading: %@", buf, 0xCu);
-                  }
-                }
-
-                [(IMDAccountController *)v24 setLoading:1];
-                [(IMDAccountController *)self addAccount:v24];
-                [(IMDAccountController *)v24 setLoading:0];
-                if (IMOSLoggingEnabled())
-                {
-                  v26 = OSLogHandleForIMFoundationCategory();
-                  if (os_log_type_enabled(v26, OS_LOG_TYPE_INFO))
-                  {
                     *buf = 0;
-                    _os_log_impl(&dword_22B4CC000, v26, OS_LOG_TYPE_INFO, " Done", buf, 2u);
+                    _os_log_impl(&dword_22B4CC000, v25, OS_LOG_TYPE_INFO, " Done", buf, 2u);
                   }
                 }
               }
 
-              v21 = [(IMDAccountController *)stringGUID countByEnumeratingWithState:&v91 objects:v104 count:16];
+              v20 = [(IMDAccountController *)stringGUID countByEnumeratingWithState:&v89 objects:v102 count:16];
             }
 
-            while (v21);
+            while (v20);
           }
 
-          activeAccountsFromIdentityServices = [(IMDAccountController *)v86 activeAccountsFromIdentityServices];
+          activeAccountsFromIdentityServices = [(IMDAccountController *)v84 activeAccountsFromIdentityServices];
           if ([activeAccountsFromIdentityServices count])
           {
             [(IMDAccountController *)self activateAccounts:activeAccountsFromIdentityServices];
           }
 
-          v85 = 0;
+          v83 = 0;
         }
 
         else
         {
-          v85 = [createDiscontinuedAccount objectForKey:v76];
+          v83 = [createDiscontinuedAccount objectForKey:v74];
 
-          v28 = [(IMDAccountController *)self accountsForService:v86];
-          v29 = [v28 count];
+          v27 = [(IMDAccountController *)self accountsForService:v84];
+          v28 = [v27 count];
 
-          requiresSingleAccount = [(IMDAccountController *)v86 requiresSingleAccount];
-          v97 = 0u;
-          v98 = 0u;
+          requiresSingleAccount = [(IMDAccountController *)v84 requiresSingleAccount];
           v95 = 0u;
           v96 = 0u;
-          allKeys = [v85 allKeys];
-          v32 = [allKeys countByEnumeratingWithState:&v95 objects:v105 count:16];
-          if (v32)
+          v93 = 0u;
+          v94 = 0u;
+          allKeys = [v83 allKeys];
+          v31 = [allKeys countByEnumeratingWithState:&v93 objects:v103 count:16];
+          if (v31)
           {
-            v33 = *v96;
+            v32 = *v94;
             do
             {
-              for (k = 0; k != v32; ++k)
+              for (k = 0; k != v31; ++k)
               {
-                if (*v96 != v33)
+                if (*v94 != v32)
                 {
                   objc_enumerationMutation(allKeys);
                 }
 
-                v35 = *(*(&v95 + 1) + 8 * k);
-                v36 = [(IMDAccountController *)self accountForAccountID:v35];
-                v37 = v36 != 0;
+                v34 = *(*(&v93 + 1) + 8 * k);
+                v35 = [(IMDAccountController *)self accountForAccountID:v34];
+                v36 = v35 != 0;
 
-                if (!(v37 | (v29 > 0) & requiresSingleAccount))
+                if (!(v36 | (v28 > 0) & requiresSingleAccount))
                 {
                   if (IMOSLoggingEnabled())
                   {
-                    v38 = OSLogHandleForIMFoundationCategory();
-                    if (os_log_type_enabled(v38, OS_LOG_TYPE_INFO))
+                    v37 = OSLogHandleForIMFoundationCategory();
+                    if (os_log_type_enabled(v37, OS_LOG_TYPE_INFO))
                     {
                       *buf = 138412290;
-                      selfCopy = v35;
-                      _os_log_impl(&dword_22B4CC000, v38, OS_LOG_TYPE_INFO, "   Creating account with ID: %@", buf, 0xCu);
+                      selfCopy = v34;
+                      _os_log_impl(&dword_22B4CC000, v37, OS_LOG_TYPE_INFO, "   Creating account with ID: %@", buf, 0xCu);
                     }
                   }
 
-                  v39 = [v85 objectForKey:v35];
-                  if (![v39 count])
+                  v38 = [v83 objectForKey:v34];
+                  if (![v38 count])
                   {
-                    defaultAccountSettings = [(IMDAccountController *)v86 defaultAccountSettings];
+                    defaultAccountSettings = [(IMDAccountController *)v84 defaultAccountSettings];
 
-                    v39 = defaultAccountSettings;
+                    v38 = defaultAccountSettings;
                   }
 
-                  v41 = [[IMDAccount alloc] initWithAccountID:v35 defaults:v39 service:v86];
-                  [(IMDAccount *)v41 setLoading:1];
-                  [(IMDAccountController *)self addAccount:v41];
-                  [(IMDAccount *)v41 setLoading:0];
+                  v40 = [[IMDAccount alloc] initWithAccountID:v34 defaults:v38 service:v84];
+                  [(IMDAccount *)v40 setLoading:1];
+                  [(IMDAccountController *)self addAccount:v40];
+                  [(IMDAccount *)v40 setLoading:0];
 
-                  ++v29;
+                  ++v28;
                 }
               }
 
-              v32 = [allKeys countByEnumeratingWithState:&v95 objects:v105 count:16];
+              v31 = [allKeys countByEnumeratingWithState:&v93 objects:v103 count:16];
             }
 
-            while (v32);
+            while (v31);
           }
 
-          if ([v85 count])
+          if ([v83 count])
           {
             goto LABEL_81;
           }
 
-          if (v29 > 0)
+          if (v28 > 0)
           {
             goto LABEL_81;
           }
 
-          serviceProperties = [(IMDAccountController *)v86 serviceProperties];
-          v43 = [serviceProperties objectForKey:v75];
-          v44 = [v43 intValue] == 0;
+          serviceProperties = [(IMDAccountController *)v84 serviceProperties];
+          v42 = [serviceProperties objectForKey:v73];
+          v43 = [v42 intValue] == 0;
 
-          if (v44)
+          if (v43)
           {
             goto LABEL_81;
           }
@@ -390,28 +390,28 @@
           stringGUID = [MEMORY[0x277CCACA8] stringGUID];
           if (IMOSLoggingEnabled())
           {
-            v45 = OSLogHandleForIMFoundationCategory();
-            if (os_log_type_enabled(v45, OS_LOG_TYPE_INFO))
+            v44 = OSLogHandleForIMFoundationCategory();
+            if (os_log_type_enabled(v44, OS_LOG_TYPE_INFO))
             {
               *buf = 138412290;
               selfCopy = stringGUID;
-              _os_log_impl(&dword_22B4CC000, v45, OS_LOG_TYPE_INFO, "   Creating persistent session with ID: %@", buf, 0xCu);
+              _os_log_impl(&dword_22B4CC000, v44, OS_LOG_TYPE_INFO, "   Creating persistent session with ID: %@", buf, 0xCu);
             }
           }
 
-          activeAccountsFromIdentityServices = [(IMDAccountController *)v86 defaultAccountSettings];
-          v46 = [[IMDAccount alloc] initWithAccountID:stringGUID defaults:activeAccountsFromIdentityServices service:v86];
-          [(IMDAccountController *)self addAccount:v46];
-          if ([(IMDAccountController *)v86 shouldCreateActiveAccounts])
+          activeAccountsFromIdentityServices = [(IMDAccountController *)v84 defaultAccountSettings];
+          v45 = [[IMDAccount alloc] initWithAccountID:stringGUID defaults:activeAccountsFromIdentityServices service:v84];
+          [(IMDAccountController *)self addAccount:v45];
+          if ([(IMDAccountController *)v84 shouldCreateActiveAccounts])
           {
             if (IMOSLoggingEnabled())
             {
-              v47 = OSLogHandleForIMFoundationCategory();
-              if (os_log_type_enabled(v47, OS_LOG_TYPE_INFO))
+              v46 = OSLogHandleForIMFoundationCategory();
+              if (os_log_type_enabled(v46, OS_LOG_TYPE_INFO))
               {
                 *buf = 138412290;
                 selfCopy = stringGUID;
-                _os_log_impl(&dword_22B4CC000, v47, OS_LOG_TYPE_INFO, "  Service wants new accounts active, setting active: %@", buf, 0xCu);
+                _os_log_impl(&dword_22B4CC000, v46, OS_LOG_TYPE_INFO, "  Service wants new accounts active, setting active: %@", buf, 0xCu);
               }
             }
 
@@ -420,146 +420,146 @@
         }
 
 LABEL_81:
-        v48 = [createDiscontinuedAccount objectForKey:v78];
-        v82 = [createDiscontinuedAccount objectForKey:v77];
+        v47 = [createDiscontinuedAccount objectForKey:v76];
+        v80 = [createDiscontinuedAccount objectForKey:v75];
         if (IMOSLoggingEnabled())
         {
-          v49 = OSLogHandleForIMFoundationCategory();
-          if (os_log_type_enabled(v49, OS_LOG_TYPE_INFO))
+          v48 = OSLogHandleForIMFoundationCategory();
+          if (os_log_type_enabled(v48, OS_LOG_TYPE_INFO))
           {
             *buf = 138412290;
-            selfCopy = v48;
-            _os_log_impl(&dword_22B4CC000, v49, OS_LOG_TYPE_INFO, "  Setting active accounts: %@", buf, 0xCu);
+            selfCopy = v47;
+            _os_log_impl(&dword_22B4CC000, v48, OS_LOG_TYPE_INFO, "  Setting active accounts: %@", buf, 0xCu);
           }
         }
 
-        if (v48)
+        if (v47)
         {
-          [(IMDAccountController *)self activateAccounts:v48];
+          [(IMDAccountController *)self activateAccounts:v47];
         }
 
-        if (((-[IMDAccountController disallowDeactivation](v86, "disallowDeactivation") & 1) != 0 || -[IMDAccountController shouldForceAccountsActive](v86, "shouldForceAccountsActive")) && [v85 count])
+        if (((-[IMDAccountController disallowDeactivation](v84, "disallowDeactivation") & 1) != 0 || -[IMDAccountController shouldForceAccountsActive](v84, "shouldForceAccountsActive")) && [v83 count])
         {
           if (IMOSLoggingEnabled())
           {
-            v50 = OSLogHandleForIMFoundationCategory();
-            if (os_log_type_enabled(v50, OS_LOG_TYPE_INFO))
+            v49 = OSLogHandleForIMFoundationCategory();
+            if (os_log_type_enabled(v49, OS_LOG_TYPE_INFO))
             {
-              allKeys2 = [v85 allKeys];
+              allKeys2 = [v83 allKeys];
               *buf = 138412290;
               selfCopy = allKeys2;
-              _os_log_impl(&dword_22B4CC000, v50, OS_LOG_TYPE_INFO, "  Service wants accounts always active, setting active: %@", buf, 0xCu);
+              _os_log_impl(&dword_22B4CC000, v49, OS_LOG_TYPE_INFO, "  Service wants accounts always active, setting active: %@", buf, 0xCu);
             }
           }
 
-          allKeys3 = [v85 allKeys];
+          allKeys3 = [v83 allKeys];
           [(IMDAccountController *)self activateAccounts:allKeys3];
         }
 
-        if (v82)
+        if (v80)
         {
           if (IMOSLoggingEnabled())
           {
-            v53 = OSLogHandleForIMFoundationCategory();
-            if (os_log_type_enabled(v53, OS_LOG_TYPE_INFO))
+            v52 = OSLogHandleForIMFoundationCategory();
+            if (os_log_type_enabled(v52, OS_LOG_TYPE_INFO))
             {
               *buf = 138412290;
-              selfCopy = v82;
-              _os_log_impl(&dword_22B4CC000, v53, OS_LOG_TYPE_INFO, "Logging in previously logged in accounts: %@", buf, 0xCu);
+              selfCopy = v80;
+              _os_log_impl(&dword_22B4CC000, v52, OS_LOG_TYPE_INFO, "Logging in previously logged in accounts: %@", buf, 0xCu);
             }
           }
 
-          v89 = 0u;
-          v90 = 0u;
           v87 = 0u;
           v88 = 0u;
-          v54 = v82;
-          v55 = [(IMDAccountController *)v54 countByEnumeratingWithState:&v87 objects:v103 count:16];
-          if (v55)
+          v85 = 0u;
+          v86 = 0u;
+          v53 = v80;
+          v54 = [(IMDAccountController *)v53 countByEnumeratingWithState:&v85 objects:v101 count:16];
+          if (v54)
           {
-            v56 = *v88;
+            v55 = *v86;
             do
             {
-              for (m = 0; m != v55; ++m)
+              for (m = 0; m != v54; ++m)
               {
-                if (*v88 != v56)
+                if (*v86 != v55)
                 {
-                  objc_enumerationMutation(v54);
+                  objc_enumerationMutation(v53);
                 }
 
-                v58 = *(*(&v87 + 1) + 8 * m);
-                v59 = [(IMDAccountController *)self accountForAccountID:v58];
-                v60 = IMOSLoggingEnabled();
-                if (v59)
+                v57 = *(*(&v85 + 1) + 8 * m);
+                v58 = [(IMDAccountController *)self accountForAccountID:v57];
+                v59 = IMOSLoggingEnabled();
+                if (v58)
                 {
-                  if (v60)
+                  if (v59)
                   {
-                    v61 = OSLogHandleForIMFoundationCategory();
-                    if (os_log_type_enabled(v61, OS_LOG_TYPE_INFO))
+                    v60 = OSLogHandleForIMFoundationCategory();
+                    if (os_log_type_enabled(v60, OS_LOG_TYPE_INFO))
                     {
                       *buf = 138412290;
-                      selfCopy = v59;
-                      _os_log_impl(&dword_22B4CC000, v61, OS_LOG_TYPE_INFO, "  * Logging in previously logged in account: %@", buf, 0xCu);
+                      selfCopy = v58;
+                      _os_log_impl(&dword_22B4CC000, v60, OS_LOG_TYPE_INFO, "  * Logging in previously logged in account: %@", buf, 0xCu);
                     }
                   }
 
-                  [(IMDAccountController *)v59 createSessionIfNecessary];
-                  session = [(IMDAccountController *)v59 session];
+                  [(IMDAccountController *)v58 createSessionIfNecessary];
+                  session = [(IMDAccountController *)v58 session];
                   [session login];
                 }
 
-                else if (v60)
+                else if (v59)
                 {
-                  v63 = OSLogHandleForIMFoundationCategory();
-                  if (os_log_type_enabled(v63, OS_LOG_TYPE_INFO))
+                  v62 = OSLogHandleForIMFoundationCategory();
+                  if (os_log_type_enabled(v62, OS_LOG_TYPE_INFO))
                   {
                     *buf = 138412290;
-                    selfCopy = v58;
-                    _os_log_impl(&dword_22B4CC000, v63, OS_LOG_TYPE_INFO, "  * No account found for account ID: %@", buf, 0xCu);
+                    selfCopy = v57;
+                    _os_log_impl(&dword_22B4CC000, v62, OS_LOG_TYPE_INFO, "  * No account found for account ID: %@", buf, 0xCu);
                   }
                 }
               }
 
-              v55 = [(IMDAccountController *)v54 countByEnumeratingWithState:&v87 objects:v103 count:16];
+              v54 = [(IMDAccountController *)v53 countByEnumeratingWithState:&v85 objects:v101 count:16];
             }
 
-            while (v55);
+            while (v54);
           }
         }
 
         if (IMOSLoggingEnabled())
         {
-          v64 = OSLogHandleForIMFoundationCategory();
-          if (os_log_type_enabled(v64, OS_LOG_TYPE_INFO))
+          v63 = OSLogHandleForIMFoundationCategory();
+          if (os_log_type_enabled(v63, OS_LOG_TYPE_INFO))
           {
             *buf = 138412290;
-            selfCopy = v86;
-            _os_log_impl(&dword_22B4CC000, v64, OS_LOG_TYPE_INFO, "Done loading service: %@", buf, 0xCu);
+            selfCopy = v84;
+            _os_log_impl(&dword_22B4CC000, v63, OS_LOG_TYPE_INFO, "Done loading service: %@", buf, 0xCu);
           }
         }
 
 LABEL_123:
       }
 
-      v81 = [obj countByEnumeratingWithState:&v99 objects:v106 count:16];
+      v79 = [obj countByEnumeratingWithState:&v97 objects:v104 count:16];
     }
 
-    while (v81);
+    while (v79);
   }
 
-  v65 = +[IMDServiceController sharedController];
-  v66 = [v65 serviceWithName:*MEMORY[0x277D1A620]];
+  v64 = +[IMDServiceController sharedController];
+  v65 = [v64 serviceWithName:*MEMORY[0x277D1A620]];
 
-  if (v66)
+  if (v65)
   {
-    registration5 = [(IMDAccountController *)self accountsForService:v66];
+    registration5 = [(IMDAccountController *)self accountsForService:v65];
     registration = [MEMORY[0x277D19298] registration];
     if (os_log_type_enabled(registration, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412546;
-      selfCopy = v66;
-      v109 = 2112;
-      v110 = registration5;
+      selfCopy = v65;
+      v107 = 2112;
+      v108 = registration5;
       _os_log_impl(&dword_22B4CC000, registration, OS_LOG_TYPE_DEFAULT, "iMessage service found: %@    accounts: %@", buf, 0x16u);
     }
 
@@ -575,7 +575,7 @@ LABEL_123:
       goto LABEL_142;
     }
 
-    registration2 = [[IMDAccount alloc] initWithAccountID:@"PlaceholderAccount" defaults:0 service:v66];
+    registration2 = [[IMDAccount alloc] initWithAccountID:@"PlaceholderAccount" defaults:0 service:v65];
     registration3 = [MEMORY[0x277D19298] registration];
     if (os_log_type_enabled(registration3, OS_LOG_TYPE_DEFAULT))
     {
@@ -591,9 +591,9 @@ LABEL_123:
       if (os_log_type_enabled(registration4, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        v72 = "   Added, and moving along";
+        v71 = "   Added, and moving along";
 LABEL_140:
-        _os_log_impl(&dword_22B4CC000, registration4, OS_LOG_TYPE_DEFAULT, v72, buf, 2u);
+        _os_log_impl(&dword_22B4CC000, registration4, OS_LOG_TYPE_DEFAULT, v71, buf, 2u);
       }
     }
 
@@ -603,7 +603,7 @@ LABEL_140:
       if (os_log_type_enabled(registration4, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        v72 = "   No account created";
+        v71 = "   No account created";
         goto LABEL_140;
       }
     }
@@ -623,18 +623,16 @@ LABEL_143:
 
   if (IMOSLoggingEnabled())
   {
-    v73 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v73, OS_LOG_TYPE_INFO))
+    v72 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v72, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      _os_log_impl(&dword_22B4CC000, v73, OS_LOG_TYPE_INFO, "Done loading all services", buf, 2u);
+      _os_log_impl(&dword_22B4CC000, v72, OS_LOG_TYPE_INFO, "Done loading all services", buf, 2u);
     }
   }
 
   *&self->_isLoading = 0;
   [(IMDAccountController *)self _checkPowerAssertion];
-
-  v74 = *MEMORY[0x277D85DE8];
 }
 
 - (void)deferredSave
@@ -646,44 +644,42 @@ LABEL_143:
 
 - (void)save
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   [MEMORY[0x277D82BB8] cancelPreviousPerformRequestsWithTarget:self selector:sel_save object:0];
   if (!self->_isLoading)
   {
-    v12 = 0u;
-    v13 = 0u;
-    v10 = 0u;
     v11 = 0u;
+    v12 = 0u;
+    v9 = 0u;
+    v10 = 0u;
     v3 = +[IMDServiceController sharedController];
     allServices = [v3 allServices];
 
-    v5 = [allServices countByEnumeratingWithState:&v10 objects:v14 count:16];
+    v5 = [allServices countByEnumeratingWithState:&v9 objects:v13 count:16];
     if (v5)
     {
       v6 = v5;
-      v7 = *v11;
+      v7 = *v10;
       do
       {
         v8 = 0;
         do
         {
-          if (*v11 != v7)
+          if (*v10 != v7)
           {
             objc_enumerationMutation(allServices);
           }
 
-          [*(*(&v10 + 1) + 8 * v8++) saveSettings];
+          [*(*(&v9 + 1) + 8 * v8++) saveSettings];
         }
 
         while (v6 != v8);
-        v6 = [allServices countByEnumeratingWithState:&v10 objects:v14 count:16];
+        v6 = [allServices countByEnumeratingWithState:&v9 objects:v13 count:16];
       }
 
       while (v6);
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)activateAccount:(id)account
@@ -697,16 +693,16 @@ LABEL_143:
 
 - (void)activateAccounts:(id)accounts
 {
-  v67 = *MEMORY[0x277D85DE8];
+  v66 = *MEMORY[0x277D85DE8];
   accountsCopy = accounts;
   if (self->_isFirstLoad)
   {
-    v48 = 0;
+    v47 = 0;
   }
 
   else
   {
-    v48 = objc_alloc_init(MEMORY[0x277CBEB58]);
+    v47 = objc_alloc_init(MEMORY[0x277CBEB58]);
   }
 
   registration = [MEMORY[0x277D19298] registration];
@@ -717,28 +713,28 @@ LABEL_143:
     _os_log_impl(&dword_22B4CC000, registration, OS_LOG_TYPE_DEFAULT, "Activating accounts: %@", buf, 0xCu);
   }
 
-  v59 = 0u;
-  v60 = 0u;
-  v57 = 0u;
   v58 = 0u;
+  v59 = 0u;
+  v56 = 0u;
+  v57 = 0u;
   obj = accountsCopy;
-  v6 = [(IMDAccountController *)obj countByEnumeratingWithState:&v57 objects:v66 count:16];
+  v6 = [(IMDAccountController *)obj countByEnumeratingWithState:&v56 objects:v65 count:16];
   if (v6)
   {
-    v50 = *v58;
+    v49 = *v57;
     *&v7 = 138412546;
-    v47 = v7;
+    v46 = v7;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v58 != v50)
+        if (*v57 != v49)
         {
           objc_enumerationMutation(obj);
         }
 
-        v9 = *(*(&v57 + 1) + 8 * i);
-        v10 = [(IMDAccountController *)self accountForAccountID:v9, v47];
+        v9 = *(*(&v56 + 1) + 8 * i);
+        v10 = [(IMDAccountController *)self accountForAccountID:v9, v46];
         if (IMOSLoggingEnabled())
         {
           v11 = OSLogHandleForIMFoundationCategory();
@@ -811,10 +807,10 @@ LABEL_143:
                   v20 = OSLogHandleForIMFoundationCategory();
                   if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
                   {
-                    *buf = v47;
+                    *buf = v46;
                     selfCopy = v9;
-                    v64 = 2112;
-                    v65 = v19;
+                    v63 = 2112;
+                    v64 = v19;
                     _os_log_impl(&dword_22B4CC000, v20, OS_LOG_TYPE_INFO, "      Adding account: %@ to active set: %@", buf, 0x16u);
                   }
                 }
@@ -864,7 +860,7 @@ LABEL_143:
                 }
 
                 [(IMDAccountController *)v19 addObject:v9];
-                [v48 addObject:service];
+                [v47 addObject:service];
                 if (IMOSLoggingEnabled())
                 {
                   v29 = OSLogHandleForIMFoundationCategory();
@@ -917,31 +913,31 @@ LABEL_143:
         }
       }
 
-      v6 = [(IMDAccountController *)obj countByEnumeratingWithState:&v57 objects:v66 count:16];
+      v6 = [(IMDAccountController *)obj countByEnumeratingWithState:&v56 objects:v65 count:16];
     }
 
     while (v6);
   }
 
-  v55 = 0u;
-  v56 = 0u;
-  v53 = 0u;
   v54 = 0u;
-  v51 = v48;
-  v36 = [v51 countByEnumeratingWithState:&v53 objects:v61 count:16];
+  v55 = 0u;
+  v52 = 0u;
+  v53 = 0u;
+  v50 = v47;
+  v36 = [v50 countByEnumeratingWithState:&v52 objects:v60 count:16];
   if (v36)
   {
-    v37 = *v54;
+    v37 = *v53;
     do
     {
       for (j = 0; j != v36; ++j)
       {
-        if (*v54 != v37)
+        if (*v53 != v37)
         {
-          objc_enumerationMutation(v51);
+          objc_enumerationMutation(v50);
         }
 
-        v39 = *(*(&v53 + 1) + 8 * j);
+        v39 = *(*(&v52 + 1) + 8 * j);
         v40 = +[IMDBroadcastController sharedProvider];
         v41 = [v40 broadcasterForListenersSupportingService:v39];
         v42 = [(IMDAccountController *)self activeAccountsForService:v39];
@@ -950,13 +946,13 @@ LABEL_143:
         [v41 activeAccountsChanged:v43 forService:internalName3];
       }
 
-      v36 = [v51 countByEnumeratingWithState:&v53 objects:v61 count:16];
+      v36 = [v50 countByEnumeratingWithState:&v52 objects:v60 count:16];
     }
 
     while (v36);
   }
 
-  if ([v51 count])
+  if ([v50 count])
   {
     [(IMDAccountController *)self _rebuildOperationalAccountsCache];
   }
@@ -969,54 +965,52 @@ LABEL_143:
   }
 
   [(IMDAccountController *)selfCopy3 _checkPowerAssertion];
-
-  v46 = *MEMORY[0x277D85DE8];
 }
 
 - (void)deactivateAccounts:(id)accounts force:(BOOL)force
 {
-  v53 = *MEMORY[0x277D85DE8];
+  v52 = *MEMORY[0x277D85DE8];
   accountsCopy = accounts;
   registration = [MEMORY[0x277D19298] registration];
   if (os_log_type_enabled(registration, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v52 = accountsCopy;
+    v51 = accountsCopy;
     _os_log_impl(&dword_22B4CC000, registration, OS_LOG_TYPE_DEFAULT, "Deactivating accounts: %@", buf, 0xCu);
   }
 
   if (self->_isFirstLoad)
   {
-    v37 = 0;
+    v36 = 0;
   }
 
   else
   {
-    v37 = objc_alloc_init(MEMORY[0x277CBEB58]);
+    v36 = objc_alloc_init(MEMORY[0x277CBEB58]);
   }
 
-  v47 = 0u;
-  v48 = 0u;
-  v45 = 0u;
   v46 = 0u;
+  v47 = 0u;
+  v44 = 0u;
+  v45 = 0u;
   obj = accountsCopy;
-  v7 = [obj countByEnumeratingWithState:&v45 objects:v50 count:16];
+  v7 = [obj countByEnumeratingWithState:&v44 objects:v49 count:16];
   if (v7)
   {
-    v9 = *v46;
+    v9 = *v45;
     *&v8 = 138412290;
-    v36 = v8;
+    v35 = v8;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v46 != v9)
+        if (*v45 != v9)
         {
           objc_enumerationMutation(obj);
         }
 
-        v11 = *(*(&v45 + 1) + 8 * i);
-        v12 = [(IMDAccountController *)self accountForAccountID:v11, v36];
+        v11 = *(*(&v44 + 1) + 8 * i);
+        v12 = [(IMDAccountController *)self accountForAccountID:v11, v35];
         service = [v12 service];
         v14 = service;
         if (!v12)
@@ -1029,8 +1023,8 @@ LABEL_143:
           v25 = OSLogHandleForIMFoundationCategory();
           if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
           {
-            *buf = v36;
-            v52 = v11;
+            *buf = v35;
+            v51 = v11;
             _os_log_impl(&dword_22B4CC000, v25, OS_LOG_TYPE_INFO, "Tried to deactivate an account, but found no account: %@", buf, 0xCu);
           }
 
@@ -1049,8 +1043,8 @@ LABEL_33:
           v25 = OSLogHandleForIMFoundationCategory();
           if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
           {
-            *buf = v36;
-            v52 = v11;
+            *buf = v35;
+            v51 = v11;
             _os_log_impl(&dword_22B4CC000, v25, OS_LOG_TYPE_INFO, "Tried to deactivate an account, but found no service; %@", buf, 0xCu);
           }
 
@@ -1072,7 +1066,7 @@ LABEL_33:
           if (([v18 containsObject:v11] & 1) != 0 || objc_msgSend(v12, "isAccountKeyCDPSyncingOrWaitingForUser"))
           {
             [v18 removeObject:v11];
-            [v37 addObject:v14];
+            [v36 addObject:v14];
             v19 = self->_activeAccounts;
             if (!v19)
             {
@@ -1102,31 +1096,31 @@ LABEL_33:
 LABEL_34:
       }
 
-      v7 = [obj countByEnumeratingWithState:&v45 objects:v50 count:16];
+      v7 = [obj countByEnumeratingWithState:&v44 objects:v49 count:16];
     }
 
     while (v7);
   }
 
-  v43 = 0u;
-  v44 = 0u;
-  v41 = 0u;
   v42 = 0u;
-  v39 = v37;
-  v26 = [v39 countByEnumeratingWithState:&v41 objects:v49 count:16];
+  v43 = 0u;
+  v40 = 0u;
+  v41 = 0u;
+  v38 = v36;
+  v26 = [v38 countByEnumeratingWithState:&v40 objects:v48 count:16];
   if (v26)
   {
-    v27 = *v42;
+    v27 = *v41;
     do
     {
       for (j = 0; j != v26; ++j)
       {
-        if (*v42 != v27)
+        if (*v41 != v27)
         {
-          objc_enumerationMutation(v39);
+          objc_enumerationMutation(v38);
         }
 
-        v29 = *(*(&v41 + 1) + 8 * j);
+        v29 = *(*(&v40 + 1) + 8 * j);
         v30 = +[IMDBroadcastController sharedProvider];
         v31 = [v30 broadcasterForListenersSupportingService:v29];
         v32 = [(IMDAccountController *)self activeAccountsForService:v29];
@@ -1135,13 +1129,13 @@ LABEL_34:
         [v31 activeAccountsChanged:v33 forService:internalName3];
       }
 
-      v26 = [v39 countByEnumeratingWithState:&v41 objects:v49 count:16];
+      v26 = [v38 countByEnumeratingWithState:&v40 objects:v48 count:16];
     }
 
     while (v26);
   }
 
-  if ([v39 count])
+  if ([v38 count])
   {
     [(IMDAccountController *)self _rebuildOperationalAccountsCache];
   }
@@ -1152,8 +1146,6 @@ LABEL_34:
   }
 
   [(IMDAccountController *)self _checkPowerAssertion];
-
-  v35 = *MEMORY[0x277D85DE8];
 }
 
 - (void)deactivateAccount:(id)account
@@ -1162,6 +1154,16 @@ LABEL_34:
   {
     v4 = IMSingleObjectArray();
     [(IMDAccountController *)self deactivateAccounts:v4];
+  }
+}
+
+- (void)deactivateAccount:(id)account force:(BOOL)force
+{
+  if (account)
+  {
+    forceCopy = force;
+    v6 = IMSingleObjectArray();
+    [(IMDAccountController *)self deactivateAccounts:v6 force:forceCopy];
   }
 }
 
@@ -1188,7 +1190,7 @@ LABEL_34:
 
 - (void)addAccount:(id)account
 {
-  v58 = *MEMORY[0x277D85DE8];
+  v57 = *MEMORY[0x277D85DE8];
   accountCopy = account;
   if (accountCopy)
   {
@@ -1198,19 +1200,19 @@ LABEL_34:
       if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
       {
         *buf = 138412290;
-        v57 = accountCopy;
+        v56 = accountCopy;
         _os_log_impl(&dword_22B4CC000, v5, OS_LOG_TYPE_INFO, "Add account: %@", buf, 0xCu);
       }
     }
 
     accountID = [accountCopy accountID];
-    v44 = [(IMDAccountController *)self accountForAccountID:accountID];
+    v43 = [(IMDAccountController *)self accountForAccountID:accountID];
 
-    if (v44)
+    if (v43)
     {
-      v45 = v44;
+      v44 = v43;
       accountDefaults = [accountCopy accountDefaults];
-      [v45 writeAccountDefaults:accountDefaults];
+      [v44 writeAccountDefaults:accountDefaults];
     }
 
     else
@@ -1228,7 +1230,7 @@ LABEL_34:
       accountID2 = [accountCopy accountID];
       [(NSMutableDictionary *)accounts setObject:accountCopy forKey:accountID2];
 
-      v45 = accountCopy;
+      v44 = accountCopy;
     }
 
     if (!self->_isFirstLoad)
@@ -1236,47 +1238,47 @@ LABEL_34:
       v12 = +[IMDBroadcastController sharedProvider];
       service = [accountCopy service];
       v14 = [v12 broadcasterForListenersSupportingService:service];
-      accountID3 = [v45 accountID];
-      accountDefaults2 = [v45 accountDefaults];
+      accountID3 = [v44 accountID];
+      accountDefaults2 = [v44 accountDefaults];
       service2 = [accountCopy service];
       internalName = [service2 internalName];
       [v14 accountAdded:accountID3 defaults:accountDefaults2 service:internalName];
 
       [(IMDAccountController *)self _rebuildOperationalAccountsCache];
-      [v45 writeAccountDefaults:0];
-      [v45 postAccountCapabilities];
+      [v44 writeAccountDefaults:0];
+      [v44 postAccountCapabilities];
       if (!self->_isFirstLoad && !self->_isLoading)
       {
         service3 = [accountCopy service];
         [service3 accountAdded:accountCopy];
 
         v20 = +[IMDServiceController sharedController];
-        v43 = [v20 serviceWithName:*MEMORY[0x277D1A620]];
+        v42 = [v20 serviceWithName:*MEMORY[0x277D1A620]];
 
         service4 = [accountCopy service];
-        LODWORD(v20) = service4 == v43;
+        LODWORD(v20) = service4 == v42;
 
         if (v20)
         {
-          [(IMDAccountController *)self accountsForService:v43];
+          [(IMDAccountController *)self accountsForService:v42];
+          v51 = 0u;
           v52 = 0u;
-          v53 = 0u;
-          v50 = 0u;
-          v22 = v51 = 0u;
-          v23 = [v22 countByEnumeratingWithState:&v50 objects:v55 count:16];
+          v49 = 0u;
+          v22 = v50 = 0u;
+          v23 = [v22 countByEnumeratingWithState:&v49 objects:v54 count:16];
           if (v23)
           {
-            v24 = *v51;
+            v24 = *v50;
             while (2)
             {
               for (i = 0; i != v23; ++i)
               {
-                if (*v51 != v24)
+                if (*v50 != v24)
                 {
                   objc_enumerationMutation(v22);
                 }
 
-                v26 = *(*(&v50 + 1) + 8 * i);
+                v26 = *(*(&v49 + 1) + 8 * i);
                 loginID = [v26 loginID];
                 if (![loginID length])
                 {
@@ -1300,7 +1302,7 @@ LABEL_26:
                     if (os_log_type_enabled(registration, OS_LOG_TYPE_DEFAULT))
                     {
                       *buf = 138412290;
-                      v57 = v30;
+                      v56 = v30;
                       _os_log_impl(&dword_22B4CC000, registration, OS_LOG_TYPE_DEFAULT, "*** Removing placeholder account: %@", buf, 0xCu);
                     }
 
@@ -1319,7 +1321,7 @@ LABEL_26:
                 }
               }
 
-              v23 = [v22 countByEnumeratingWithState:&v50 objects:v55 count:16];
+              v23 = [v22 countByEnumeratingWithState:&v49 objects:v54 count:16];
               if (v23)
               {
                 continue;
@@ -1333,26 +1335,26 @@ LABEL_26:
 LABEL_33:
         }
 
-        v48 = 0u;
-        v49 = 0u;
-        v46 = 0u;
         v47 = 0u;
+        v48 = 0u;
+        v45 = 0u;
+        v46 = 0u;
         accounts = [(IMDAccountController *)self accounts];
-        v34 = [accounts countByEnumeratingWithState:&v46 objects:v54 count:16];
+        v34 = [accounts countByEnumeratingWithState:&v45 objects:v53 count:16];
         if (v34)
         {
-          v35 = *v47;
+          v35 = *v46;
           v36 = MEMORY[0x277D85CD0];
           do
           {
             for (j = 0; j != v34; ++j)
             {
-              if (*v47 != v35)
+              if (*v46 != v35)
               {
                 objc_enumerationMutation(accounts);
               }
 
-              v38 = *(*(&v46 + 1) + 8 * j);
+              v38 = *(*(&v45 + 1) + 8 * j);
               objc_opt_class();
               if (objc_opt_isKindOfClass())
               {
@@ -1361,7 +1363,7 @@ LABEL_33:
               }
             }
 
-            v34 = [accounts countByEnumeratingWithState:&v46 objects:v54 count:16];
+            v34 = [accounts countByEnumeratingWithState:&v45 objects:v53 count:16];
           }
 
           while (v34);
@@ -1376,13 +1378,11 @@ LABEL_33:
       [(IMDAccountController *)self activateAccount:accountID5];
     }
   }
-
-  v42 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removeAccount:(id)account
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   accountCopy = account;
   if (IMOSLoggingEnabled())
   {
@@ -1390,7 +1390,7 @@ LABEL_33:
     if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v28 = accountCopy;
+      v27 = accountCopy;
       _os_log_impl(&dword_22B4CC000, v5, OS_LOG_TYPE_INFO, "Remove account: %@", buf, 0xCu);
     }
   }
@@ -1401,25 +1401,25 @@ LABEL_33:
     v7 = v6;
     if (v6)
     {
-      v24 = 0u;
-      v25 = 0u;
-      v22 = 0u;
       v23 = 0u;
-      v8 = [v6 countByEnumeratingWithState:&v22 objects:v26 count:16];
+      v24 = 0u;
+      v21 = 0u;
+      v22 = 0u;
+      v8 = [v6 countByEnumeratingWithState:&v21 objects:v25 count:16];
       if (v8)
       {
-        v9 = *v23;
+        v9 = *v22;
         do
         {
           v10 = 0;
           do
           {
-            if (*v23 != v9)
+            if (*v22 != v9)
             {
               objc_enumerationMutation(v7);
             }
 
-            v11 = *(*(&v22 + 1) + 8 * v10);
+            v11 = *(*(&v21 + 1) + 8 * v10);
             service = [accountCopy service];
             v13 = [(IMDAccountController *)self _isAccountActive:v11 forService:service];
 
@@ -1432,7 +1432,7 @@ LABEL_33:
           }
 
           while (v8 != v10);
-          v8 = [v7 countByEnumeratingWithState:&v22 objects:v26 count:16];
+          v8 = [v7 countByEnumeratingWithState:&v21 objects:v25 count:16];
         }
 
         while (v8);
@@ -1471,8 +1471,6 @@ LABEL_33:
   }
 
   [(IMDAccountController *)self _checkPowerAssertion];
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (id)accountsForLoginID:(id)d onService:(id)service
@@ -1495,29 +1493,29 @@ LABEL_33:
 
 - (id)accountForHandle:(id)handle
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   handleCopy = handle;
   [(IMDAccountController *)self activeAccounts];
+  v28 = 0u;
   v29 = 0u;
   v30 = 0u;
-  v31 = 0u;
-  v5 = v32 = 0u;
-  v6 = [v5 countByEnumeratingWithState:&v29 objects:v34 count:16];
+  v5 = v31 = 0u;
+  v6 = [v5 countByEnumeratingWithState:&v28 objects:v33 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v30;
+    v8 = *v29;
     v9 = MEMORY[0x277D1A620];
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v30 != v8)
+        if (*v29 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v11 = *(*(&v29 + 1) + 8 * i);
+        v11 = *(*(&v28 + 1) + 8 * i);
         service = [v11 service];
         internalName = [service internalName];
         v14 = [internalName isEqualToString:*v9];
@@ -1530,26 +1528,26 @@ LABEL_33:
             idsAccount = [v11 idsAccount];
             aliasStrings = [idsAccount aliasStrings];
 
-            v27 = 0u;
-            v28 = 0u;
-            v25 = 0u;
             v26 = 0u;
+            v27 = 0u;
+            v24 = 0u;
+            v25 = 0u;
             v17 = aliasStrings;
-            v18 = [v17 countByEnumeratingWithState:&v25 objects:v33 count:16];
+            v18 = [v17 countByEnumeratingWithState:&v24 objects:v32 count:16];
             if (v18)
             {
               v19 = v18;
-              v20 = *v26;
+              v20 = *v25;
               while (2)
               {
                 for (j = 0; j != v19; ++j)
                 {
-                  if (*v26 != v20)
+                  if (*v25 != v20)
                   {
                     objc_enumerationMutation(v17);
                   }
 
-                  if ([*(*(&v25 + 1) + 8 * j) isEqualToString:handleCopy])
+                  if ([*(*(&v24 + 1) + 8 * j) isEqualToString:handleCopy])
                   {
                     v22 = v11;
 
@@ -1557,7 +1555,7 @@ LABEL_33:
                   }
                 }
 
-                v19 = [v17 countByEnumeratingWithState:&v25 objects:v33 count:16];
+                v19 = [v17 countByEnumeratingWithState:&v24 objects:v32 count:16];
                 if (v19)
                 {
                   continue;
@@ -1572,7 +1570,7 @@ LABEL_33:
         }
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v29 objects:v34 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v28 objects:v33 count:16];
       v22 = 0;
     }
 
@@ -1585,8 +1583,6 @@ LABEL_33:
   }
 
 LABEL_22:
-
-  v23 = *MEMORY[0x277D85DE8];
 
   return v22;
 }
@@ -1678,27 +1674,27 @@ LABEL_22:
 
 - (id)accountForIDSAccountUniqueID:(id)d
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   dCopy = d;
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   accounts = [(IMDAccountController *)self accounts];
-  v6 = [accounts countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v6 = [accounts countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v6)
   {
-    v7 = *v16;
+    v7 = *v15;
     while (2)
     {
       for (i = 0; i != v6; i = i + 1)
       {
-        if (*v16 != v7)
+        if (*v15 != v7)
         {
           objc_enumerationMutation(accounts);
         }
 
-        v9 = *(*(&v15 + 1) + 8 * i);
+        v9 = *(*(&v14 + 1) + 8 * i);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
@@ -1714,7 +1710,7 @@ LABEL_22:
         }
       }
 
-      v6 = [accounts countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v6 = [accounts countByEnumeratingWithState:&v14 objects:v18 count:16];
       if (v6)
       {
         continue;
@@ -1726,14 +1722,12 @@ LABEL_22:
 
 LABEL_12:
 
-  v13 = *MEMORY[0x277D85DE8];
-
   return v6;
 }
 
 - (NSArray)activeSessions
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   activeAccounts = [(IMDAccountController *)self activeAccounts];
   v3 = [activeAccounts __imArrayByApplyingBlock:&unk_283F19348 filter:&unk_283F19368];
 
@@ -1742,9 +1736,9 @@ LABEL_12:
     v4 = OSLogHandleForIMFoundationCategory();
     if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
     {
-      v9 = 138412290;
-      v10 = v3;
-      _os_log_impl(&dword_22B4CC000, v4, OS_LOG_TYPE_INFO, "activeSessions = %@", &v9, 0xCu);
+      v8 = 138412290;
+      v9 = v3;
+      _os_log_impl(&dword_22B4CC000, v4, OS_LOG_TYPE_INFO, "activeSessions = %@", &v8, 0xCu);
     }
   }
 
@@ -1760,14 +1754,12 @@ LABEL_12:
 
   v6 = array;
 
-  v7 = *MEMORY[0x277D85DE8];
-
   return v6;
 }
 
 - (id)sessionForAccount:(id)account
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   accountCopy = account;
   v5 = [(IMDAccountController *)self accountForAccountID:accountCopy];
   session = [v5 session];
@@ -1784,13 +1776,13 @@ LABEL_12:
         if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
         {
           accounts = self->_accounts;
-          v13 = 138412802;
-          v14 = accountCopy;
-          v15 = 2112;
-          v16 = v5;
-          v17 = 2112;
-          v18 = accounts;
-          _os_log_impl(&dword_22B4CC000, v9, OS_LOG_TYPE_INFO, "Could not find a service session for string: %@, account: %@, allAccounts: %@", &v13, 0x20u);
+          v12 = 138412802;
+          v13 = accountCopy;
+          v14 = 2112;
+          v15 = v5;
+          v16 = 2112;
+          v17 = accounts;
+          _os_log_impl(&dword_22B4CC000, v9, OS_LOG_TYPE_INFO, "Could not find a service session for string: %@, account: %@, allAccounts: %@", &v12, 0x20u);
         }
       }
 
@@ -1798,14 +1790,12 @@ LABEL_12:
     }
   }
 
-  v11 = *MEMORY[0x277D85DE8];
-
   return session;
 }
 
 - (id)anySessionForServiceName:(id)name
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   v4 = +[IMDServiceController sharedController];
   v5 = [v4 serviceWithName:nameCopy];
@@ -1830,9 +1820,9 @@ LABEL_12:
         v18 = OSLogHandleForIMFoundationCategory();
         if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
         {
-          v21 = 138412290;
-          v22 = __imFirstObject;
-          _os_log_impl(&dword_22B4CC000, v18, OS_LOG_TYPE_INFO, "IMDAccountController: Could not find a session for account: %@", &v21, 0xCu);
+          v20 = 138412290;
+          v21 = __imFirstObject;
+          _os_log_impl(&dword_22B4CC000, v18, OS_LOG_TYPE_INFO, "IMDAccountController: Could not find a session for account: %@", &v20, 0xCu);
         }
       }
     }
@@ -1848,13 +1838,13 @@ LABEL_12:
           v15 = [v14 accountsForService:v5];
           v16 = +[IMDAccountController sharedInstance];
           accounts = [v16 accounts];
-          v21 = 138412802;
-          v22 = nameCopy;
-          v23 = 2112;
-          v24 = v15;
-          v25 = 2112;
-          v26 = accounts;
-          _os_log_impl(&dword_22B4CC000, v13, OS_LOG_TYPE_INFO, "IMDAccountController: Could not find an account for serviceString: %@, accountsForService: %@, accounts: %@", &v21, 0x20u);
+          v20 = 138412802;
+          v21 = nameCopy;
+          v22 = 2112;
+          v23 = v15;
+          v24 = 2112;
+          v25 = accounts;
+          _os_log_impl(&dword_22B4CC000, v13, OS_LOG_TYPE_INFO, "IMDAccountController: Could not find an account for serviceString: %@, accountsForService: %@, accounts: %@", &v20, 0x20u);
         }
       }
 
@@ -1869,73 +1859,71 @@ LABEL_12:
       v12 = OSLogHandleForIMFoundationCategory();
       if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
       {
-        v21 = 138412290;
-        v22 = nameCopy;
-        _os_log_impl(&dword_22B4CC000, v12, OS_LOG_TYPE_INFO, "IMDAccountController: Could not find a service for string: %@", &v21, 0xCu);
+        v20 = 138412290;
+        v21 = nameCopy;
+        _os_log_impl(&dword_22B4CC000, v12, OS_LOG_TYPE_INFO, "IMDAccountController: Could not find a service for string: %@", &v20, 0xCu);
       }
     }
 
     v10 = 0;
   }
 
-  v19 = *MEMORY[0x277D85DE8];
-
   return v10;
 }
 
 - (id)sessionForReplicationSourceServiceName:(id)name replicatingAccount:(id)account
 {
-  v47 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   accountCopy = account;
   v6 = +[IMDServiceController sharedController];
-  v31 = [v6 serviceWithName:nameCopy];
+  v30 = [v6 serviceWithName:nameCopy];
 
-  if (v31)
+  if (v30)
   {
-    [(IMDAccountController *)self activeAccountsForService:v31];
+    [(IMDAccountController *)self activeAccountsForService:v30];
+    v38 = 0u;
     v39 = 0u;
-    v40 = 0u;
-    v37 = 0u;
-    obj = v38 = 0u;
-    v28 = [obj countByEnumeratingWithState:&v37 objects:v46 count:16];
-    if (v28)
+    v36 = 0u;
+    obj = v37 = 0u;
+    v27 = [obj countByEnumeratingWithState:&v36 objects:v45 count:16];
+    if (v27)
     {
-      v7 = *v38;
-      v26 = *v38;
+      v7 = *v37;
+      v25 = *v37;
       do
       {
         v8 = 0;
         do
         {
-          if (*v38 != v7)
+          if (*v37 != v7)
           {
             v9 = v8;
             objc_enumerationMutation(obj);
             v8 = v9;
           }
 
-          v27 = v8;
-          v10 = *(*(&v37 + 1) + 8 * v8);
+          v26 = v8;
+          v10 = *(*(&v36 + 1) + 8 * v8);
+          v32 = 0u;
           v33 = 0u;
           v34 = 0u;
           v35 = 0u;
-          v36 = 0u;
           replicationSessions = [v10 replicationSessions];
-          v12 = [replicationSessions countByEnumeratingWithState:&v33 objects:v45 count:16];
+          v12 = [replicationSessions countByEnumeratingWithState:&v32 objects:v44 count:16];
           if (v12)
           {
-            v13 = *v34;
+            v13 = *v33;
             while (2)
             {
               for (i = 0; i != v12; ++i)
               {
-                if (*v34 != v13)
+                if (*v33 != v13)
                 {
                   objc_enumerationMutation(replicationSessions);
                 }
 
-                v15 = *(*(&v33 + 1) + 8 * i);
+                v15 = *(*(&v32 + 1) + 8 * i);
                 replicationService = [v15 replicationService];
                 internalName = [replicationService internalName];
                 service = [accountCopy service];
@@ -1950,9 +1938,9 @@ LABEL_12:
                     if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
                     {
                       *buf = 138412546;
-                      v42 = v15;
-                      v43 = 2112;
-                      v44 = accountCopy;
+                      v41 = v15;
+                      v42 = 2112;
+                      v43 = accountCopy;
                       _os_log_impl(&dword_22B4CC000, v23, OS_LOG_TYPE_INFO, "Found source session %@ for replicating account %@", buf, 0x16u);
                     }
                   }
@@ -1963,7 +1951,7 @@ LABEL_12:
                 }
               }
 
-              v12 = [replicationSessions countByEnumeratingWithState:&v33 objects:v45 count:16];
+              v12 = [replicationSessions countByEnumeratingWithState:&v32 objects:v44 count:16];
               if (v12)
               {
                 continue;
@@ -1973,16 +1961,16 @@ LABEL_12:
             }
           }
 
-          v8 = v27 + 1;
-          v7 = v26;
+          v8 = v26 + 1;
+          v7 = v25;
         }
 
-        while (v27 + 1 != v28);
-        v28 = [obj countByEnumeratingWithState:&v37 objects:v46 count:16];
-        v7 = v26;
+        while (v26 + 1 != v27);
+        v27 = [obj countByEnumeratingWithState:&v36 objects:v45 count:16];
+        v7 = v25;
       }
 
-      while (v28);
+      while (v27);
     }
   }
 
@@ -1992,9 +1980,9 @@ LABEL_12:
     if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
     {
       *buf = 138412546;
-      v42 = nameCopy;
-      v43 = 2112;
-      v44 = accountCopy;
+      v41 = nameCopy;
+      v42 = 2112;
+      v43 = accountCopy;
       _os_log_impl(&dword_22B4CC000, v21, OS_LOG_TYPE_INFO, "IMDAccountController: No source session on service %@ for replicating account %@", buf, 0x16u);
     }
   }
@@ -2002,14 +1990,12 @@ LABEL_12:
   v22 = 0;
 LABEL_28:
 
-  v24 = *MEMORY[0x277D85DE8];
-
   return v22;
 }
 
 - (void)_rebuildOperationalAccountsCache
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v3 = self->_operationalAccountsCache;
   operationalAccountsCache = self->_operationalAccountsCache;
   self->_operationalAccountsCache = 0;
@@ -2020,11 +2006,11 @@ LABEL_28:
     v6 = OSLogHandleForIMFoundationCategory();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
-      v12 = 138412546;
-      v13 = v3;
-      v14 = 2112;
-      v15 = _operationalAccounts;
-      _os_log_impl(&dword_22B4CC000, v6, OS_LOG_TYPE_INFO, "Rebuilding operational accounts, old: (%@)  new: (%@)", &v12, 0x16u);
+      v11 = 138412546;
+      v12 = v3;
+      v13 = 2112;
+      v14 = _operationalAccounts;
+      _os_log_impl(&dword_22B4CC000, v6, OS_LOG_TYPE_INFO, "Rebuilding operational accounts, old: (%@)  new: (%@)", &v11, 0x16u);
     }
   }
 
@@ -2036,8 +2022,8 @@ LABEL_28:
       v8 = OSLogHandleForIMFoundationCategory();
       if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
       {
-        LOWORD(v12) = 0;
-        _os_log_impl(&dword_22B4CC000, v8, OS_LOG_TYPE_INFO, "Removing replication sessions due to account rebuild", &v12, 2u);
+        LOWORD(v11) = 0;
+        _os_log_impl(&dword_22B4CC000, v8, OS_LOG_TYPE_INFO, "Removing replication sessions due to account rebuild", &v11, 2u);
       }
     }
 
@@ -2047,57 +2033,53 @@ LABEL_28:
       v9 = OSLogHandleForIMFoundationCategory();
       if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
       {
-        LOWORD(v12) = 0;
-        _os_log_impl(&dword_22B4CC000, v9, OS_LOG_TYPE_INFO, "Operational accounts changed", &v12, 2u);
+        LOWORD(v11) = 0;
+        _os_log_impl(&dword_22B4CC000, v9, OS_LOG_TYPE_INFO, "Operational accounts changed", &v11, 2u);
       }
     }
 
     DarwinNotifyCenter = CFNotificationCenterGetDarwinNotifyCenter();
     CFNotificationCenterPostNotification(DarwinNotifyCenter, @"__kIMDBadgeUtilitiesOperationalAccountsChangedNotification", 0, 0, 1u);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_resetAccountReplicationSessions
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
+  v7 = 0u;
   v8 = 0u;
   v9 = 0u;
   v10 = 0u;
-  v11 = 0u;
   activeAccounts = [(IMDAccountController *)self activeAccounts];
-  v3 = [activeAccounts countByEnumeratingWithState:&v8 objects:v12 count:16];
+  v3 = [activeAccounts countByEnumeratingWithState:&v7 objects:v11 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v9;
+    v5 = *v8;
     do
     {
       v6 = 0;
       do
       {
-        if (*v9 != v5)
+        if (*v8 != v5)
         {
           objc_enumerationMutation(activeAccounts);
         }
 
-        [*(*(&v8 + 1) + 8 * v6++) resetReplicationSessions];
+        [*(*(&v7 + 1) + 8 * v6++) resetReplicationSessions];
       }
 
       while (v4 != v6);
-      v4 = [activeAccounts countByEnumeratingWithState:&v8 objects:v12 count:16];
+      v4 = [activeAccounts countByEnumeratingWithState:&v7 objects:v11 count:16];
     }
 
     while (v4);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_operationalAccounts
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   p_operationalAccountsCache = &self->_operationalAccountsCache;
   operationalAccountsCache = self->_operationalAccountsCache;
   if (operationalAccountsCache)
@@ -2108,33 +2090,33 @@ LABEL_28:
   else
   {
     v4 = objc_alloc_init(MEMORY[0x277CBEB58]);
+    v13 = 0u;
     v14 = 0u;
     v15 = 0u;
     v16 = 0u;
-    v17 = 0u;
     activeAccounts = [(IMDAccountController *)self activeAccounts];
-    v7 = [activeAccounts countByEnumeratingWithState:&v14 objects:v18 count:16];
+    v7 = [activeAccounts countByEnumeratingWithState:&v13 objects:v17 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v15;
+      v9 = *v14;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v15 != v9)
+          if (*v14 != v9)
           {
             objc_enumerationMutation(activeAccounts);
           }
 
-          v11 = *(*(&v14 + 1) + 8 * i);
+          v11 = *(*(&v13 + 1) + 8 * i);
           if ([(IMDAccountController *)self _isOperationalForAccount:v11])
           {
             [(NSSet *)v4 addObject:v11];
           }
         }
 
-        v8 = [activeAccounts countByEnumeratingWithState:&v14 objects:v18 count:16];
+        v8 = [activeAccounts countByEnumeratingWithState:&v13 objects:v17 count:16];
       }
 
       while (v8);
@@ -2142,8 +2124,6 @@ LABEL_28:
 
     objc_storeStrong(p_operationalAccountsCache, v4);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
@@ -2169,7 +2149,7 @@ LABEL_28:
 - (void)account:(id)account isActiveChanged:(BOOL)changed
 {
   changedCopy = changed;
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   accountCopy = account;
   serviceName = [accountCopy serviceName];
   v8 = [serviceName isEqualToString:@"com.apple.madrid"];
@@ -2191,8 +2171,8 @@ LABEL_28:
         v12 = @"NO";
       }
 
-      *v18 = 138413058;
-      *&v18[4] = accountCopy;
+      *v17 = 138413058;
+      *&v17[4] = accountCopy;
       if (canSend)
       {
         v13 = @"YES";
@@ -2203,18 +2183,18 @@ LABEL_28:
         v13 = @"NO";
       }
 
-      *&v18[14] = v12;
-      *&v18[12] = 2112;
-      *&v18[22] = 2112;
+      *&v17[14] = v12;
+      *&v17[12] = 2112;
+      *&v17[22] = 2112;
       if (v8)
       {
         v11 = @"YES";
       }
 
-      v19 = v13;
-      v20 = 2112;
-      v21 = v11;
-      _os_log_impl(&dword_22B4CC000, v9, OS_LOG_TYPE_INFO, "IDS account %@ is active %@ can send %@ is madrid account %@", v18, 0x2Au);
+      v18 = v13;
+      v19 = 2112;
+      v20 = v11;
+      _os_log_impl(&dword_22B4CC000, v9, OS_LOG_TYPE_INFO, "IDS account %@ is active %@ can send %@ is madrid account %@", v17, 0x2Au);
     }
   }
 
@@ -2233,70 +2213,109 @@ LABEL_28:
     }
   }
 
-  v16 = [IMDBadgeUtilities sharedInstance:*v18];
+  v16 = [IMDBadgeUtilities sharedInstance:*v17];
   [v16 updateBadgeInCaseOfMistakenLoginInvalidation];
 
   [(IMDAccountController *)self _rebuildOperationalAccountsCache];
-  v17 = *MEMORY[0x277D85DE8];
+}
+
+- (void)setNetworkDataAvailable:(BOOL)available
+{
+  availableCopy = available;
+  v12 = *MEMORY[0x277D85DE8];
+  if (IMOSLoggingEnabled())
+  {
+    v5 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+    {
+      v6 = @"NO";
+      if (availableCopy)
+      {
+        v6 = @"YES";
+      }
+
+      v10 = 138412290;
+      v11 = v6;
+      _os_log_impl(&dword_22B4CC000, v5, OS_LOG_TYPE_INFO, "calling setNetwork %@", &v10, 0xCu);
+    }
+  }
+
+  if (self->_networkDataAvailable != availableCopy)
+  {
+    if (IMOSLoggingEnabled())
+    {
+      v7 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+      {
+        LOWORD(v10) = 0;
+        _os_log_impl(&dword_22B4CC000, v7, OS_LOG_TYPE_INFO, "  => broadcasting", &v10, 2u);
+      }
+    }
+
+    self->_networkDataAvailable = availableCopy;
+    v8 = +[IMDBroadcastController sharedProvider];
+    broadcasterForAllListeners = [v8 broadcasterForAllListeners];
+    [broadcasterForAllListeners networkDataAvailabilityChanged:availableCopy];
+  }
 }
 
 - (id)activeAliases
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   v3 = [MEMORY[0x277CBEB58] set];
   [(IMDAccountController *)self activeAccountsWithServiceCapability:*MEMORY[0x277D1A578]];
+  v24 = 0u;
   v25 = 0u;
   v26 = 0u;
-  v27 = 0u;
-  obj = v28 = 0u;
-  v4 = [obj countByEnumeratingWithState:&v25 objects:v30 count:16];
+  obj = v27 = 0u;
+  v4 = [obj countByEnumeratingWithState:&v24 objects:v29 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v26;
+    v6 = *v25;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v26 != v6)
+        if (*v25 != v6)
         {
           objc_enumerationMutation(obj);
         }
 
-        v8 = *(*(&v25 + 1) + 8 * i);
+        v8 = *(*(&v24 + 1) + 8 * i);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
           idsAccount = [v8 idsAccount];
           aliasStrings = [idsAccount aliasStrings];
 
-          v23 = 0u;
-          v24 = 0u;
-          v21 = 0u;
           v22 = 0u;
+          v23 = 0u;
+          v20 = 0u;
+          v21 = 0u;
           v11 = aliasStrings;
-          v12 = [v11 countByEnumeratingWithState:&v21 objects:v29 count:16];
+          v12 = [v11 countByEnumeratingWithState:&v20 objects:v28 count:16];
           if (v12)
           {
             v13 = v12;
-            v14 = *v22;
+            v14 = *v21;
             do
             {
               for (j = 0; j != v13; ++j)
               {
-                if (*v22 != v14)
+                if (*v21 != v14)
                 {
                   objc_enumerationMutation(v11);
                 }
 
-                v16 = *(*(&v21 + 1) + 8 * j);
+                v16 = *(*(&v20 + 1) + 8 * j);
                 if ([v16 length] && ((IMStringIsEmail() & 1) != 0 || MEMORY[0x231897A50](v16)))
                 {
                   [v3 addObject:v16];
                 }
               }
 
-              v13 = [v11 countByEnumeratingWithState:&v21 objects:v29 count:16];
+              v13 = [v11 countByEnumeratingWithState:&v20 objects:v28 count:16];
             }
 
             while (v13);
@@ -2304,7 +2323,7 @@ LABEL_28:
         }
       }
 
-      v5 = [obj countByEnumeratingWithState:&v25 objects:v30 count:16];
+      v5 = [obj countByEnumeratingWithState:&v24 objects:v29 count:16];
     }
 
     while (v5);
@@ -2312,39 +2331,37 @@ LABEL_28:
 
   allObjects = [v3 allObjects];
 
-  v18 = *MEMORY[0x277D85DE8];
-
   return allObjects;
 }
 
 - (BOOL)activeAccountsAreEligibleForFilterUnknownSendersByDefault
 {
-  v50 = *MEMORY[0x277D85DE8];
+  v49 = *MEMORY[0x277D85DE8];
   activeAccounts = [(IMDAccountController *)self activeAccounts];
   if ([activeAccounts count])
   {
-    v45 = 0u;
-    v46 = 0u;
-    v43 = 0u;
     v44 = 0u;
+    v45 = 0u;
+    v42 = 0u;
+    v43 = 0u;
     v3 = activeAccounts;
-    v4 = [v3 countByEnumeratingWithState:&v43 objects:v49 count:16];
+    v4 = [v3 countByEnumeratingWithState:&v42 objects:v48 count:16];
     if (v4)
     {
       v5 = v4;
-      v6 = *v44;
+      v6 = *v43;
       v7 = MEMORY[0x277D1A600];
-      v34 = activeAccounts;
+      v33 = activeAccounts;
       while (2)
       {
         for (i = 0; i != v5; ++i)
         {
-          if (*v44 != v6)
+          if (*v43 != v6)
           {
             objc_enumerationMutation(v3);
           }
 
-          v9 = *(*(&v43 + 1) + 8 * i);
+          v9 = *(*(&v42 + 1) + 8 * i);
           service = [v9 service];
           internalName = [service internalName];
           v12 = [internalName isEqualToString:*v7];
@@ -2364,36 +2381,36 @@ LABEL_28:
 
             if (v16)
             {
-              v41 = 0u;
-              v42 = 0u;
-              v39 = 0u;
               v40 = 0u;
+              v41 = 0u;
+              v38 = 0u;
+              v39 = 0u;
               aliases2 = [v9 aliases];
-              v18 = [aliases2 countByEnumeratingWithState:&v39 objects:v48 count:16];
+              v18 = [aliases2 countByEnumeratingWithState:&v38 objects:v47 count:16];
               if (v18)
               {
                 v19 = v18;
-                v20 = *v40;
-                v33 = v6;
+                v20 = *v39;
+                v32 = v6;
 LABEL_13:
                 v21 = 0;
                 while (1)
                 {
-                  if (*v40 != v20)
+                  if (*v39 != v20)
                   {
                     objc_enumerationMutation(aliases2);
                   }
 
-                  v22 = *(*(&v39 + 1) + 8 * v21);
-                  if ([MEMORY[0x277D1AC58] receiverIsCandidateForHawking:{v22, v33}] & 1) != 0 || (objc_msgSend(MEMORY[0x277D1AC58], "receiverIsCandidateForDefaultAppleSMSFilter:", v22))
+                  v22 = *(*(&v38 + 1) + 8 * v21);
+                  if ([MEMORY[0x277D1AC58] receiverIsCandidateForHawking:{v22, v32}] & 1) != 0 || (objc_msgSend(MEMORY[0x277D1AC58], "receiverIsCandidateForDefaultAppleSMSFilter:", v22))
                   {
                     break;
                   }
 
                   if (v19 == ++v21)
                   {
-                    v19 = [aliases2 countByEnumeratingWithState:&v39 objects:v48 count:16];
-                    v6 = v33;
+                    v19 = [aliases2 countByEnumeratingWithState:&v38 objects:v47 count:16];
+                    v6 = v32;
                     if (v19)
                     {
                       goto LABEL_13;
@@ -2404,7 +2421,7 @@ LABEL_13:
                 }
 
 LABEL_36:
-                activeAccounts = v34;
+                activeAccounts = v33;
 
                 v30 = 1;
                 goto LABEL_40;
@@ -2432,15 +2449,15 @@ LABEL_20:
               {
 LABEL_39:
                 v30 = 1;
-                activeAccounts = v34;
+                activeAccounts = v33;
                 goto LABEL_40;
               }
             }
           }
         }
 
-        v5 = [v3 countByEnumeratingWithState:&v43 objects:v49 count:16];
-        activeAccounts = v34;
+        v5 = [v3 countByEnumeratingWithState:&v42 objects:v48 count:16];
+        activeAccounts = v33;
         if (v5)
         {
           continue;
@@ -2451,32 +2468,32 @@ LABEL_39:
     }
 
     [MEMORY[0x277D1A8F8] IMPhoneNumbersEnabledForMultipleSubscriptionDevice];
+    v34 = 0u;
     v35 = 0u;
     v36 = 0u;
-    v37 = 0u;
-    regionID = v38 = 0u;
-    v26 = [regionID countByEnumeratingWithState:&v35 objects:v47 count:16];
+    regionID = v37 = 0u;
+    v26 = [regionID countByEnumeratingWithState:&v34 objects:v46 count:16];
     if (v26)
     {
       v27 = v26;
-      v28 = *v36;
+      v28 = *v35;
       while (2)
       {
         for (j = 0; j != v27; ++j)
         {
-          if (*v36 != v28)
+          if (*v35 != v28)
           {
             objc_enumerationMutation(regionID);
           }
 
-          if ([MEMORY[0x277D1AC58] receiverIsCandidateForDefaultAppleSMSFilter:*(*(&v35 + 1) + 8 * j)])
+          if ([MEMORY[0x277D1AC58] receiverIsCandidateForDefaultAppleSMSFilter:*(*(&v34 + 1) + 8 * j)])
           {
             v30 = 1;
             goto LABEL_38;
           }
         }
 
-        v27 = [regionID countByEnumeratingWithState:&v35 objects:v47 count:16];
+        v27 = [regionID countByEnumeratingWithState:&v34 objects:v46 count:16];
         if (v27)
         {
           continue;
@@ -2497,86 +2514,83 @@ LABEL_40:
     v30 = 0;
   }
 
-  v31 = *MEMORY[0x277D85DE8];
   return v30;
 }
 
 - (BOOL)activeAccountsAreEligibleForHawking
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   [(IMDAccountController *)self activeAccounts];
-  v29 = 0u;
-  v30 = 0u;
-  v31 = 0u;
-  v2 = v32 = 0u;
-  v3 = [v2 countByEnumeratingWithState:&v29 objects:v34 count:16];
+  v26 = 0u;
+  v27 = 0u;
+  v28 = 0u;
+  v2 = v29 = 0u;
+  v3 = [v2 countByEnumeratingWithState:&v26 objects:v31 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v30;
-    v6 = 0x2786FF000uLL;
+    v5 = *v27;
     while (2)
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v30 != v5)
+        if (*v27 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v8 = *(*(&v29 + 1) + 8 * i);
-        v9 = *(v6 + 2576);
+        v7 = *(*(&v26 + 1) + 8 * i);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          service = [v8 service];
+          service = [v7 service];
           internalName = [service internalName];
-          v12 = [internalName isEqualToString:*MEMORY[0x277D1A600]];
+          v10 = [internalName isEqualToString:*MEMORY[0x277D1A600]];
 
-          if ((v12 & 1) == 0)
+          if ((v10 & 1) == 0)
           {
-            idsAccount = [v8 idsAccount];
+            idsAccount = [v7 idsAccount];
             regionID = [idsAccount regionID];
 
             if ([MEMORY[0x277D1AC58] accountRegionIsCandidateForHawking:regionID])
             {
 LABEL_22:
 
-              v22 = 1;
+              v20 = 1;
               goto LABEL_24;
             }
 
-            idsAccount2 = [v8 idsAccount];
+            idsAccount2 = [v7 idsAccount];
             aliasStrings = [idsAccount2 aliasStrings];
 
-            v27 = 0u;
-            v28 = 0u;
+            v24 = 0u;
             v25 = 0u;
-            v26 = 0u;
-            v17 = aliasStrings;
-            v18 = [v17 countByEnumeratingWithState:&v25 objects:v33 count:16];
-            if (v18)
+            v22 = 0u;
+            v23 = 0u;
+            v15 = aliasStrings;
+            v16 = [v15 countByEnumeratingWithState:&v22 objects:v30 count:16];
+            if (v16)
             {
-              v19 = v18;
-              v20 = *v26;
+              v17 = v16;
+              v18 = *v23;
               while (2)
               {
-                for (j = 0; j != v19; ++j)
+                for (j = 0; j != v17; ++j)
                 {
-                  if (*v26 != v20)
+                  if (*v23 != v18)
                   {
-                    objc_enumerationMutation(v17);
+                    objc_enumerationMutation(v15);
                   }
 
-                  if ([MEMORY[0x277D1AC58] receiverIsCandidateForHawking:*(*(&v25 + 1) + 8 * j)])
+                  if ([MEMORY[0x277D1AC58] receiverIsCandidateForHawking:*(*(&v22 + 1) + 8 * j)])
                   {
 
                     goto LABEL_22;
                   }
                 }
 
-                v19 = [v17 countByEnumeratingWithState:&v25 objects:v33 count:16];
-                if (v19)
+                v17 = [v15 countByEnumeratingWithState:&v22 objects:v30 count:16];
+                if (v17)
                 {
                   continue;
                 }
@@ -2584,14 +2598,12 @@ LABEL_22:
                 break;
               }
             }
-
-            v6 = 0x2786FF000;
           }
         }
       }
 
-      v4 = [v2 countByEnumeratingWithState:&v29 objects:v34 count:16];
-      v22 = 0;
+      v4 = [v2 countByEnumeratingWithState:&v26 objects:v31 count:16];
+      v20 = 0;
       if (v4)
       {
         continue;
@@ -2603,18 +2615,17 @@ LABEL_22:
 
   else
   {
-    v22 = 0;
+    v20 = 0;
   }
 
 LABEL_24:
 
-  v23 = *MEMORY[0x277D85DE8];
-  return v22;
+  return v20;
 }
 
 - (BOOL)receiverIsCandidateForHawking:(id)hawking
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   hawkingCopy = hawking;
   if ([hawkingCopy length])
   {
@@ -2635,11 +2646,11 @@ LABEL_24:
           regionID = OSLogHandleForIMFoundationCategory();
           if (os_log_type_enabled(regionID, OS_LOG_TYPE_INFO))
           {
-            v19 = 138412546;
-            v20 = v7;
-            v21 = 2112;
-            v22 = v8;
-            _os_log_impl(&dword_22B4CC000, regionID, OS_LOG_TYPE_INFO, "Receiving id (%@) with country code (%@) is a candidate for spam filtering.", &v19, 0x16u);
+            v18 = 138412546;
+            v19 = v7;
+            v20 = 2112;
+            v21 = v8;
+            _os_log_impl(&dword_22B4CC000, regionID, OS_LOG_TYPE_INFO, "Receiving id (%@) with country code (%@) is a candidate for spam filtering.", &v18, 0x16u);
           }
 
           goto LABEL_30;
@@ -2651,11 +2662,11 @@ LABEL_24:
         regionID = OSLogHandleForIMFoundationCategory();
         if (os_log_type_enabled(regionID, OS_LOG_TYPE_INFO))
         {
-          v19 = 138412546;
-          v20 = v7;
-          v21 = 2112;
-          v22 = v8;
-          _os_log_impl(&dword_22B4CC000, regionID, OS_LOG_TYPE_INFO, "Receiving id (%@) with country code (%@) is not a candidate for spam filtering.", &v19, 0x16u);
+          v18 = 138412546;
+          v19 = v7;
+          v20 = 2112;
+          v21 = v8;
+          _os_log_impl(&dword_22B4CC000, regionID, OS_LOG_TYPE_INFO, "Receiving id (%@) with country code (%@) is not a candidate for spam filtering.", &v18, 0x16u);
         }
 
         goto LABEL_30;
@@ -2683,12 +2694,12 @@ LABEL_32:
         v15 = OSLogHandleForIMFoundationCategory();
         if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
         {
-          v19 = 138412546;
-          v20 = v8;
-          v21 = 2112;
-          v22 = objc_opt_class();
-          v16 = v22;
-          _os_log_impl(&dword_22B4CC000, v15, OS_LOG_TYPE_INFO, "Found an account (%@) that isn't IMDIDS (%@), can't determien region -- falling through.", &v19, 0x16u);
+          v18 = 138412546;
+          v19 = v8;
+          v20 = 2112;
+          v21 = objc_opt_class();
+          v16 = v21;
+          _os_log_impl(&dword_22B4CC000, v15, OS_LOG_TYPE_INFO, "Found an account (%@) that isn't IMDIDS (%@), can't determien region -- falling through.", &v18, 0x16u);
         }
       }
 
@@ -2708,11 +2719,11 @@ LABEL_32:
         v14 = OSLogHandleForIMFoundationCategory();
         if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
         {
-          v19 = 138412546;
-          v20 = v7;
-          v21 = 2112;
-          v22 = regionID;
-          _os_log_impl(&dword_22B4CC000, v14, OS_LOG_TYPE_INFO, "Receiving id (%@) with region (%@) is a candidate for spam filtering.", &v19, 0x16u);
+          v18 = 138412546;
+          v19 = v7;
+          v20 = 2112;
+          v21 = regionID;
+          _os_log_impl(&dword_22B4CC000, v14, OS_LOG_TYPE_INFO, "Receiving id (%@) with region (%@) is a candidate for spam filtering.", &v18, 0x16u);
         }
 
 LABEL_29:
@@ -2724,11 +2735,11 @@ LABEL_29:
       v14 = OSLogHandleForIMFoundationCategory();
       if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
       {
-        v19 = 138412546;
-        v20 = v7;
-        v21 = 2112;
-        v22 = regionID;
-        _os_log_impl(&dword_22B4CC000, v14, OS_LOG_TYPE_INFO, "Receiving id (%@) with region (%@) is not a candidate for spam filtering.", &v19, 0x16u);
+        v18 = 138412546;
+        v19 = v7;
+        v20 = 2112;
+        v21 = regionID;
+        _os_log_impl(&dword_22B4CC000, v14, OS_LOG_TYPE_INFO, "Receiving id (%@) with region (%@) is not a candidate for spam filtering.", &v18, 0x16u);
       }
 
       goto LABEL_29;
@@ -2742,34 +2753,33 @@ LABEL_30:
   LOBYTE(v9) = 0;
 LABEL_33:
 
-  v17 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
 - (BOOL)hasActivePhoneAccount
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   [(IMDAccountController *)self activeAccounts];
+  v25 = 0u;
   v26 = 0u;
   v27 = 0u;
-  v28 = 0u;
-  v2 = v29 = 0u;
-  v3 = [v2 countByEnumeratingWithState:&v26 objects:v31 count:16];
+  v2 = v28 = 0u;
+  v3 = [v2 countByEnumeratingWithState:&v25 objects:v30 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v27;
+    v5 = *v26;
     v6 = MEMORY[0x277D1A600];
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v27 != v5)
+        if (*v26 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v8 = *(*(&v26 + 1) + 8 * i);
+        v8 = *(*(&v25 + 1) + 8 * i);
         service = [v8 service];
         internalName = [service internalName];
         v11 = [internalName isEqualToString:*v6];
@@ -2782,26 +2792,26 @@ LABEL_33:
             idsAccount = [v8 idsAccount];
             aliasStrings = [idsAccount aliasStrings];
 
-            v24 = 0u;
-            v25 = 0u;
-            v22 = 0u;
             v23 = 0u;
+            v24 = 0u;
+            v21 = 0u;
+            v22 = 0u;
             v14 = aliasStrings;
-            v15 = [v14 countByEnumeratingWithState:&v22 objects:v30 count:16];
+            v15 = [v14 countByEnumeratingWithState:&v21 objects:v29 count:16];
             if (v15)
             {
               v16 = v15;
-              v17 = *v23;
+              v17 = *v22;
               while (2)
               {
                 for (j = 0; j != v16; ++j)
                 {
-                  if (*v23 != v17)
+                  if (*v22 != v17)
                   {
                     objc_enumerationMutation(v14);
                   }
 
-                  if (MEMORY[0x231897A50](*(*(&v22 + 1) + 8 * j)))
+                  if (MEMORY[0x231897A50](*(*(&v21 + 1) + 8 * j)))
                   {
 
                     v19 = 1;
@@ -2809,7 +2819,7 @@ LABEL_33:
                   }
                 }
 
-                v16 = [v14 countByEnumeratingWithState:&v22 objects:v30 count:16];
+                v16 = [v14 countByEnumeratingWithState:&v21 objects:v29 count:16];
                 if (v16)
                 {
                   continue;
@@ -2822,7 +2832,7 @@ LABEL_33:
         }
       }
 
-      v4 = [v2 countByEnumeratingWithState:&v26 objects:v31 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v25 objects:v30 count:16];
       v19 = 0;
     }
 
@@ -2836,13 +2846,12 @@ LABEL_33:
 
 LABEL_22:
 
-  v20 = *MEMORY[0x277D85DE8];
   return v19;
 }
 
 - (BOOL)receiverIsCandidateForJunk:(id)junk forAccount:(id)account
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   junkCopy = junk;
   accountCopy = account;
   if (accountCopy)
@@ -2858,32 +2867,32 @@ LABEL_22:
         if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
         {
           *buf = 138412546;
-          v38 = v8;
-          v39 = 2112;
-          v40 = v9;
+          v37 = v8;
+          v38 = 2112;
+          v39 = v9;
           _os_log_impl(&dword_22B4CC000, v10, OS_LOG_TYPE_INFO, "Receiving ID: %@ has country code: %@", buf, 0x16u);
         }
       }
 
-      v33 = 0u;
-      v34 = 0u;
-      v31 = 0u;
       v32 = 0u;
+      v33 = 0u;
+      v30 = 0u;
+      v31 = 0u;
       telephonyCountryCodesEligibleForJunkFiltering = [MEMORY[0x277D1AC58] telephonyCountryCodesEligibleForJunkFiltering];
-      v12 = [telephonyCountryCodesEligibleForJunkFiltering countByEnumeratingWithState:&v31 objects:v36 count:16];
+      v12 = [telephonyCountryCodesEligibleForJunkFiltering countByEnumeratingWithState:&v30 objects:v35 count:16];
       if (v12)
       {
-        v13 = *v32;
+        v13 = *v31;
         while (2)
         {
           for (i = 0; i != v12; ++i)
           {
-            if (*v32 != v13)
+            if (*v31 != v13)
             {
               objc_enumerationMutation(telephonyCountryCodesEligibleForJunkFiltering);
             }
 
-            if ([*(*(&v31 + 1) + 8 * i) isEqualToString:v9])
+            if ([*(*(&v30 + 1) + 8 * i) isEqualToString:v9])
             {
               if (IMOSLoggingEnabled())
               {
@@ -2891,9 +2900,9 @@ LABEL_22:
                 if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
                 {
                   *buf = 138412546;
-                  v38 = v8;
-                  v39 = 2112;
-                  v40 = v9;
+                  v37 = v8;
+                  v38 = 2112;
+                  v39 = v9;
                   _os_log_impl(&dword_22B4CC000, v21, OS_LOG_TYPE_INFO, "Receiving id (%@) with country code (%@) is a candidate for Oscar filtering.", buf, 0x16u);
                 }
               }
@@ -2903,7 +2912,7 @@ LABEL_22:
             }
           }
 
-          v12 = [telephonyCountryCodesEligibleForJunkFiltering countByEnumeratingWithState:&v31 objects:v36 count:16];
+          v12 = [telephonyCountryCodesEligibleForJunkFiltering countByEnumeratingWithState:&v30 objects:v35 count:16];
           if (v12)
           {
             continue;
@@ -2932,32 +2941,32 @@ LABEL_39:
             if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
             {
               *buf = 138412546;
-              v38 = v8;
-              v39 = 2112;
-              v40 = regionID;
+              v37 = v8;
+              v38 = 2112;
+              v39 = regionID;
               _os_log_impl(&dword_22B4CC000, v17, OS_LOG_TYPE_INFO, "Receiving ID: %@ has region: %@", buf, 0x16u);
             }
           }
 
-          v29 = 0u;
-          v30 = 0u;
-          v27 = 0u;
           v28 = 0u;
+          v29 = 0u;
+          v26 = 0u;
+          v27 = 0u;
           accountRegionsEligibleForJunkFiltering = [MEMORY[0x277D1AC58] accountRegionsEligibleForJunkFiltering];
-          v12 = [accountRegionsEligibleForJunkFiltering countByEnumeratingWithState:&v27 objects:v35 count:16];
+          v12 = [accountRegionsEligibleForJunkFiltering countByEnumeratingWithState:&v26 objects:v34 count:16];
           if (v12)
           {
-            v19 = *v28;
+            v19 = *v27;
             while (2)
             {
               for (j = 0; j != v12; ++j)
               {
-                if (*v28 != v19)
+                if (*v27 != v19)
                 {
                   objc_enumerationMutation(accountRegionsEligibleForJunkFiltering);
                 }
 
-                if ([*(*(&v27 + 1) + 8 * j) isEqualToString:regionID])
+                if ([*(*(&v26 + 1) + 8 * j) isEqualToString:regionID])
                 {
                   if (IMOSLoggingEnabled())
                   {
@@ -2965,7 +2974,7 @@ LABEL_39:
                     if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
                     {
                       *buf = 138412290;
-                      v38 = regionID;
+                      v37 = regionID;
                       _os_log_impl(&dword_22B4CC000, v24, OS_LOG_TYPE_INFO, "Region (%@) is a candidate for Oscar filtering.", buf, 0xCu);
                     }
                   }
@@ -2975,7 +2984,7 @@ LABEL_39:
                 }
               }
 
-              v12 = [accountRegionsEligibleForJunkFiltering countByEnumeratingWithState:&v27 objects:v35 count:16];
+              v12 = [accountRegionsEligibleForJunkFiltering countByEnumeratingWithState:&v26 objects:v34 count:16];
               if (v12)
               {
                 continue;
@@ -2996,10 +3005,10 @@ LABEL_50:
           if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
           {
             *buf = 138412546;
-            v38 = accountCopy;
-            v39 = 2112;
-            v40 = objc_opt_class();
-            v23 = v40;
+            v37 = accountCopy;
+            v38 = 2112;
+            v39 = objc_opt_class();
+            v23 = v39;
             _os_log_impl(&dword_22B4CC000, v22, OS_LOG_TYPE_INFO, "Found an account (%@) that isn't IMDIDS (%@), can't determine region -- falling through.", buf, 0x16u);
           }
         }
@@ -3022,7 +3031,6 @@ LABEL_51:
   LOBYTE(v12) = 0;
 LABEL_52:
 
-  v25 = *MEMORY[0x277D85DE8];
   return v12;
 }
 

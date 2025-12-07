@@ -122,7 +122,7 @@
   v19 = connCopy;
   if (connCopy)
   {
-    [connCopy auditToken];
+    objc_msgSend_auditToken(connCopy);
   }
 
   else
@@ -418,9 +418,9 @@ LABEL_3:
   }
 
   v11 = +[NSFileManager defaultManager];
-  v27 = 0;
-  v12 = [v11 contentsOfDirectoryAtPath:pathCopy error:&v27];
-  v13 = v27;
+  v28 = 0;
+  v12 = [v11 contentsOfDirectoryAtPath:pathCopy error:&v28];
+  v13 = v28;
   if (v13)
   {
     (completionCopy)[2](completionCopy, v13);
@@ -429,26 +429,26 @@ LABEL_3:
   else
   {
     v14 = +[NSMutableArray array];
-    v22[0] = _NSConcreteStackBlock;
-    v22[1] = 3221225472;
-    v22[2] = sub_1000099BC;
-    v22[3] = &unk_100115F70;
-    v23 = pathCopy;
-    v24 = v11;
-    v25 = v14;
+    v23[0] = _NSConcreteStackBlock;
+    v23[1] = 3221225472;
+    v23[2] = sub_1000099BC;
+    v23[3] = &unk_100115F70;
+    v24 = pathCopy;
+    v25 = v11;
+    v26 = v14;
     v15 = loggerCopy;
-    v26 = v15;
+    v27 = v15;
     v16 = v14;
-    [v12 enumerateObjectsUsingBlock:v22];
-    defaultManager = [(objc_class *)off_100127CB0() defaultManager];
-    v18 = [NSString stringWithUTF8String:kManagedAssetLogSubsystem];
-    v19[0] = _NSConcreteStackBlock;
-    v19[1] = 3221225472;
-    v19[2] = sub_100009B10;
-    v19[3] = &unk_100115F98;
-    v21 = completionCopy;
-    v20 = v15;
-    [defaultManager registerPaths:v16 forBundleID:v18 completionHandler:v19];
+    v17 = [v12 enumerateObjectsUsingBlock:v23];
+    defaultManager = [off_100127CB0(v17) defaultManager];
+    v19 = [NSString stringWithUTF8String:kManagedAssetLogSubsystem];
+    v20[0] = _NSConcreteStackBlock;
+    v20[1] = 3221225472;
+    v20[2] = sub_100009B10;
+    v20[3] = &unk_100115F98;
+    v22 = completionCopy;
+    v21 = v15;
+    [defaultManager registerPaths:v16 forBundleID:v19 completionHandler:v20];
   }
 
 LABEL_9:

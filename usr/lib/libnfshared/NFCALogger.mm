@@ -1,6 +1,7 @@
 @interface NFCALogger
 + (id)sharedCALogger;
 + (unint64_t)roundToSignificantDigit:(unint64_t)digit forValue:(unint64_t)value;
+- (BOOL)_incrementMiddlewareExceptionCountWithReset:(BOOL)reset;
 - (BOOL)restrictedMode;
 - (NFCALogger)init;
 - (id)generateDailyUUIDForCA;
@@ -12,6 +13,7 @@
 - (void)getCAUniversityCode:(id)code universityCodes:(unsigned int *)codes;
 - (void)postCAEventFor:(id)for eventInput:(id)input;
 - (void)removeRestrictedMode;
+- (void)setRestrictedMode:(BOOL)mode;
 @end
 
 @implementation NFCALogger
@@ -94,6 +96,21 @@
   }
 }
 
+- (void)setRestrictedMode:(BOOL)mode
+{
+  modeCopy = mode;
+  v4 = objc_msgSend_getCALoggerUserDefaults(self, a2, mode);
+  if (v4)
+  {
+    v10 = v4;
+    v6 = objc_msgSend_numberWithBool_(MEMORY[0x277CCABB0], v5, modeCopy);
+    objc_msgSend_setObject_forKey_(v10, v7, v6, @"eSEInRestrictedMode");
+
+    objc_msgSend_synchronize(v10, v8, v9);
+    v4 = v10;
+  }
+}
+
 - (BOOL)restrictedMode
 {
   v3 = objc_msgSend_getCALoggerUserDefaults(self, a2, v2);
@@ -123,7 +140,7 @@
 
 - (void)removeRestrictedMode
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   v5 = objc_msgSend_getCALoggerUserDefaults(self, a2, v2);
   v7 = v5;
   if (v5)
@@ -144,7 +161,7 @@
         __assert_rtn("NFLogGetLogger", "NFSharedLog.c", 230, "category < NFLogCategoryMax");
       }
 
-      v14 = *(&off_27DA9DE50 + specific);
+      v14 = off_27DA9DE50[specific];
       if (v14)
       {
         Class = object_getClass(self);
@@ -177,19 +194,17 @@
         }
 
         *buf = 67109890;
-        v26 = v22;
-        v27 = 2082;
-        v28 = object_getClassName(self);
-        v29 = 2082;
-        v30 = sel_getName(a2);
-        v31 = 1024;
-        v32 = 180;
+        v25 = v22;
+        v26 = 2082;
+        v27 = object_getClassName(self);
+        v28 = 2082;
+        v29 = sel_getName(a2);
+        v30 = 1024;
+        v31 = 180;
         _os_log_impl(&dword_22EEC4000, v20, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i Restricted mode for eSE is NOT set!", buf, 0x22u);
       }
     }
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (unsigned)getDurationFrom:(unint64_t)from
@@ -225,15 +240,14 @@
 
 - (id)generateUUID
 {
-  v10[2] = *MEMORY[0x277D85DE8];
-  v10[0] = 0;
-  v10[1] = 0;
+  v9[2] = *MEMORY[0x277D85DE8];
+  v9[0] = 0;
+  v9[1] = 0;
   v3 = objc_msgSend_UUID(MEMORY[0x277CCAD78], a2, v2);
-  objc_msgSend_getUUIDBytes_(v3, v4, v10);
+  objc_msgSend_getUUIDBytes_(v3, v4, v9);
 
   v5 = objc_alloc(MEMORY[0x277CBEA90]);
-  v7 = objc_msgSend_initWithBytes_length_(v5, v6, v10, 16);
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = objc_msgSend_initWithBytes_length_(v5, v6, v9, 16);
 
   return v7;
 }
@@ -302,6 +316,40 @@ LABEL_9:
   }
 
   return v6;
+}
+
+- (BOOL)_incrementMiddlewareExceptionCountWithReset:(BOOL)reset
+{
+  resetCopy = reset;
+  v5 = objc_msgSend_getCALoggerUserDefaults(self, a2, reset);
+  v8 = v5;
+  if (!v5)
+  {
+    goto LABEL_7;
+  }
+
+  if (!resetCopy)
+  {
+    MiddlewareExceptionCount = objc_msgSend_getMiddlewareExceptionCount(self, v6, v7);
+    if (MiddlewareExceptionCount <= 9)
+    {
+      v11 = objc_msgSend_numberWithUnsignedInteger_(MEMORY[0x277CCABB0], v10, MiddlewareExceptionCount + 1);
+      objc_msgSend_setObject_forKey_(v8, v12, v11, @"middlewareExceptionCount");
+
+      goto LABEL_6;
+    }
+
+LABEL_7:
+    v13 = 0;
+    goto LABEL_8;
+  }
+
+  objc_msgSend_setObject_forKey_(v5, v6, &unk_2843B4BC0, @"middlewareExceptionCount");
+LABEL_6:
+  v13 = 1;
+LABEL_8:
+
+  return v13;
 }
 
 @end

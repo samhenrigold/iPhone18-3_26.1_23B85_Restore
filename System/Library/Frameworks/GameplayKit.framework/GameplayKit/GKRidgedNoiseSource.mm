@@ -1,9 +1,84 @@
 @interface GKRidgedNoiseSource
++ (GKRidgedNoiseSource)ridgedNoiseSourceWithFrequency:(double)frequency octaveCount:(NSInteger)octaveCount lacunarity:(double)lacunarity seed:(int32_t)seed;
+- (GKRidgedNoiseSource)initWithFrequency:(double)frequency octaveCount:(NSInteger)octaveCount lacunarity:(double)lacunarity seed:(int32_t)seed;
 - (double)valueAt:(GKRidgedNoiseSource *)self;
 - (id)cloneModule;
 @end
 
 @implementation GKRidgedNoiseSource
+
++ (GKRidgedNoiseSource)ridgedNoiseSourceWithFrequency:(double)frequency octaveCount:(NSInteger)octaveCount lacunarity:(double)lacunarity seed:(int32_t)seed
+{
+  v6 = [objc_alloc(objc_opt_class()) initWithFrequency:octaveCount octaveCount:*&seed lacunarity:frequency seed:lacunarity];
+
+  return v6;
+}
+
+- (GKRidgedNoiseSource)initWithFrequency:(double)frequency octaveCount:(NSInteger)octaveCount lacunarity:(double)lacunarity seed:(int32_t)seed
+{
+  v6 = *&seed;
+  v21.receiver = self;
+  v21.super_class = GKRidgedNoiseSource;
+  v9 = [(GKRidgedNoiseSource *)&v21 init];
+  v10 = v9;
+  if (v9)
+  {
+    [(GKCoherentNoiseSource *)v9 setFrequency:frequency];
+    [(GKCoherentNoiseSource *)v10 setOctaveCount:octaveCount];
+    [(GKCoherentNoiseSource *)v10 setLacunarity:lacunarity];
+    [(GKCoherentNoiseSource *)v10 setSeed:v6];
+    v10->m_weights[0] = 1.0;
+    v11 = lacunarity;
+    v12.f64[0] = lacunarity;
+    v12.f64[1] = v11 * v11;
+    __asm { FMOV            V0.2D, #1.0 }
+
+    *&v10->m_weights[1] = vdivq_f64(_Q0, v12);
+    v18.f64[0] = v11 * v11 * v11;
+    v12.f64[0] = v18.f64[0] * lacunarity;
+    v18.f64[1] = v18.f64[0] * lacunarity;
+    *&v10->m_weights[3] = vdivq_f64(_Q0, v18);
+    v18.f64[0] = v18.f64[0] * lacunarity * lacunarity;
+    v18.f64[1] = v12.f64[0] * v11 * v11;
+    *&v10->m_weights[5] = vdivq_f64(_Q0, v18);
+    v18.f64[0] = v18.f64[1] * lacunarity;
+    v18.f64[1] = v18.f64[1] * v11 * v11;
+    *&v10->m_weights[7] = vdivq_f64(_Q0, v18);
+    v18.f64[0] = v18.f64[1] * lacunarity;
+    v18.f64[1] = v18.f64[1] * v11 * v11;
+    *&v10->m_weights[9] = vdivq_f64(_Q0, v18);
+    v18.f64[0] = v18.f64[1] * lacunarity;
+    v18.f64[1] = v18.f64[1] * v11 * v11;
+    *&v10->m_weights[11] = vdivq_f64(_Q0, v18);
+    v18.f64[0] = v18.f64[1] * lacunarity;
+    v18.f64[1] = v18.f64[1] * v11 * v11;
+    *&v10->m_weights[13] = vdivq_f64(_Q0, v18);
+    v18.f64[0] = v18.f64[1] * lacunarity;
+    v18.f64[1] = v18.f64[1] * v11 * v11;
+    *&v10->m_weights[15] = vdivq_f64(_Q0, v18);
+    v18.f64[0] = v18.f64[1] * lacunarity;
+    v18.f64[1] = v18.f64[1] * v11 * v11;
+    *&v10->m_weights[17] = vdivq_f64(_Q0, v18);
+    v18.f64[0] = v18.f64[1] * lacunarity;
+    v18.f64[1] = v18.f64[1] * v11 * v11;
+    *&v10->m_weights[19] = vdivq_f64(_Q0, v18);
+    v18.f64[0] = v18.f64[1] * lacunarity;
+    v18.f64[1] = v18.f64[1] * v11 * v11;
+    *&v10->m_weights[21] = vdivq_f64(_Q0, v18);
+    v18.f64[0] = v18.f64[1] * lacunarity;
+    v18.f64[1] = v18.f64[1] * v11 * v11;
+    *&v10->m_weights[23] = vdivq_f64(_Q0, v18);
+    v18.f64[0] = v18.f64[1] * lacunarity;
+    v18.f64[1] = v18.f64[1] * v11 * v11;
+    *&v10->m_weights[25] = vdivq_f64(_Q0, v18);
+    v18.f64[0] = v18.f64[1] * lacunarity;
+    v18.f64[1] = v18.f64[1] * v11 * v11;
+    *&v10->m_weights[27] = vdivq_f64(_Q0, v18);
+    v10->m_weights[29] = 1.0 / (v18.f64[1] * lacunarity);
+  }
+
+  return v10;
+}
 
 - (double)valueAt:(GKRidgedNoiseSource *)self
 {

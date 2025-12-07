@@ -49,10 +49,10 @@
 
 - (id)initInternal
 {
-  v14[1] = *MEMORY[0x277D85DE8];
-  v13.receiver = self;
-  v13.super_class = CKDClientInfo;
-  v2 = [(CKDClientInfo *)&v13 init];
+  v12[1] = *MEMORY[0x277D85DE8];
+  v11.receiver = self;
+  v11.super_class = CKDClientInfo;
+  v2 = [(CKDClientInfo *)&v11 init];
   if (v2)
   {
     v3 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
@@ -62,26 +62,23 @@
     v2->_hostCallbackQueue = v5;
 
     objc_initWeak(&location, v2);
-    v14[0] = @"UserAssignedDeviceName";
-    objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v7, v14, 1);
-    v8 = v2->_hostCallbackQueue;
-    objc_copyWeak(&v11, &location);
+    v12[0] = @"UserAssignedDeviceName";
+    objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v7, v12, 1);
+    objc_copyWeak(&v9, &location);
     v2->_hostNotificationToken = MGRegisterForUpdates();
-    objc_destroyWeak(&v11);
+    objc_destroyWeak(&v9);
     objc_destroyWeak(&location);
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return v2;
 }
 
 - (void)dealloc
 {
-  hostNotificationToken = self->_hostNotificationToken;
   MGCancelNotifications();
-  v4.receiver = self;
-  v4.super_class = CKDClientInfo;
-  [(CKDClientInfo *)&v4 dealloc];
+  v3.receiver = self;
+  v3.super_class = CKDClientInfo;
+  [(CKDClientInfo *)&v3 dealloc];
 }
 
 - (void)_refreshHostname

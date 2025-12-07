@@ -1,6 +1,7 @@
 @interface FBAOSLogTableViewCell
 - (UILabel)logLabel;
 - (void)awakeFromNib;
+- (void)setSelected:(BOOL)selected animated:(BOOL)animated;
 @end
 
 @implementation FBAOSLogTableViewCell
@@ -18,6 +19,13 @@
 
   logLabel2 = [(FBAOSLogTableViewCell *)self logLabel];
   [logLabel2 setAdjustsFontForContentSizeCategory:1];
+}
+
+- (void)setSelected:(BOOL)selected animated:(BOOL)animated
+{
+  v4.receiver = self;
+  v4.super_class = FBAOSLogTableViewCell;
+  [(FBAOSLogTableViewCell *)&v4 setSelected:selected animated:animated];
 }
 
 - (UILabel)logLabel

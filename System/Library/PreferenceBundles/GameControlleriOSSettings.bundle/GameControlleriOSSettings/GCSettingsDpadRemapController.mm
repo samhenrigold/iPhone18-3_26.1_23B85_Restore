@@ -22,9 +22,11 @@
 
 - (void)loadDevice
 {
-  self->_device = [*&self->PSListController_opaque[OBJC_IVAR___PSViewController__specifier] propertyForKey:@"Controller"];
+  v3 = [*&self->PSListController_opaque[OBJC_IVAR___PSViewController__specifier] propertyForKey:@"Controller"];
+  device = self->_device;
+  self->_device = v3;
 
-  _objc_release_x1();
+  _objc_release_x1(v3, device);
 }
 
 - (void)setCustomization:(id)customization toValue:(BOOL)value forDpad:(id)dpad

@@ -28,30 +28,30 @@
 
 + (uint64_t)mailQuickComposeBackgroundColor
 {
-  v0 = objc_opt_class();
+  v2 = objc_opt_class();
 
-  return [v0 mf_colorNamed:@"mailQuickComposeBackgroundColor"];
+  return [v2 mf_colorNamed:@"mailQuickComposeBackgroundColor"];
 }
 
 + (uint64_t)mailQuoteColorLevelOneCorona
 {
-  v0 = objc_opt_class();
+  v2 = objc_opt_class();
 
-  return [v0 mf_colorNamed:@"QuoteColorPurpleCorona"];
+  return [v2 mf_colorNamed:@"QuoteColorPurpleCorona"];
 }
 
 + (uint64_t)mailQuoteColorLevelTwoCorona
 {
-  v0 = objc_opt_class();
+  v2 = objc_opt_class();
 
-  return [v0 mf_colorNamed:@"QuoteColorTealCorona"];
+  return [v2 mf_colorNamed:@"QuoteColorTealCorona"];
 }
 
 + (uint64_t)mailQuoteColorLevelThreeCorona
 {
-  v0 = objc_opt_class();
+  v2 = objc_opt_class();
 
-  return [v0 mf_colorNamed:@"QuoteColorGreenCorona"];
+  return [v2 mf_colorNamed:@"QuoteColorGreenCorona"];
 }
 
 + (id)mailQuoteColorLevelOne
@@ -159,9 +159,9 @@ LABEL_7:
 
 + (uint64_t)mailPopoverBackgroundCellColor
 {
-  v0 = objc_opt_class();
+  v2 = objc_opt_class();
 
-  return [v0 mf_colorNamed:@"mailPopoverBackgroundCellColor"];
+  return [v2 mf_colorNamed:@"mailPopoverBackgroundCellColor"];
 }
 
 - (double)mf_luminance

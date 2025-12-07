@@ -73,14 +73,14 @@
   [v3 logInfo:v10];
 
   v11.receiver = selfCopy;
-  v11.super_class = type metadata accessor for SessionSceneDelegate();
+  v11.super_class = type metadata accessor for SessionSceneDelegate(0);
   [(SessionSceneDelegate *)&v11 dealloc];
 }
 
 - (id)scene:(id)scene handleActions:(id)actions
 {
   sub_10002BB3C(0, &qword_100115DD0, BSAction_ptr);
-  sub_10004DE88(&qword_100115DD8, &qword_100115DD0, BSAction_ptr);
+  sub_10004DE88(&qword_100115DD8, &qword_100115DD0, BSAction_ptr, &protocol conformance descriptor for NSObject);
   v6 = static Set._unconditionallyBridgeFromObjectiveC(_:)();
   sceneCopy = scene;
   selfCopy = self;

@@ -3,7 +3,7 @@
 
 @implementation MCTransformStateValue
 
-void ___MCTransformStateValue_block_invoke(uint64_t a1, void *a2, uint64_t a3)
+void ___MCTransformStateValue_block_invoke(uint64_t a1, void *a2, void *a3)
 {
   v5 = a2;
   v6 = _MCTransformStateValue(a3);

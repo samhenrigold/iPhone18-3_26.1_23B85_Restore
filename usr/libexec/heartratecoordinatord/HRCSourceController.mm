@@ -3,6 +3,8 @@
 - (HRCSourceController)initWithDelegate:(id)delegate onQueue:(id)queue analyticsReporter:(id)reporter internalVariant:(BOOL)variant;
 - (HRCSourceController)initWithDelegate:(id)delegate watchSource:(id)source aacpSource:(id)aacpSource bleSource:(id)bleSource onQueue:(id)queue analyticsReporter:(id)reporter internalVariant:(BOOL)variant;
 - (void)_enableWatchSource:(BOOL)source enableAacpSource:(BOOL)aacpSource;
+- (void)_handleAnalyticsReport:(unsigned __int8)report data:(id)data;
+- (void)_handleFitNotificationUpdateThreshold:(float)threshold minimumPacketCount:(unsigned int)count;
 - (void)_setupAppleSource:(id)source;
 - (void)_streamAppleHeartRates:(BOOL)rates;
 - (void)_updateActiveSources;
@@ -195,7 +197,7 @@
   dispatch_assert_queue_V2(self->_queue);
   if (self->_internalVariant && self->_activeSource == 2 && self->_streamingMode && [rateCopy sourceType] == 2 && objc_msgSend(rateCopy, "hrContext") == 2)
   {
-    v5 = sub_10000132C();
+    v5 = sub_10000132C(2);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
       uuid = [rateCopy uuid];
@@ -240,12 +242,12 @@
   dispatch_assert_queue_V2(self->_queue);
   if (self->_streamingMode != mode)
   {
-    v5 = sub_10000132C();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = sub_10000132C(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v6[0] = 67109120;
-      v6[1] = mode;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Source controller set streaming mode %d", v6, 8u);
+      v7[0] = 67109120;
+      v7[1] = mode;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Source controller set streaming mode %d", v7, 8u);
     }
 
     self->_streamingMode = mode;
@@ -261,12 +263,12 @@
   if (self->_opportunisticMode != modeCopy)
   {
     self->_opportunisticMode = modeCopy;
-    v5 = sub_10000132C();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = sub_10000132C(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v6[0] = 67109120;
-      v6[1] = modeCopy;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Source controller set opportunistic mode %{BOOL}u", v6, 8u);
+      v7[0] = 67109120;
+      v7[1] = modeCopy;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Source controller set opportunistic mode %{BOOL}u", v7, 8u);
     }
 
     [(HRCSourceController *)self _updateActiveSources];
@@ -280,12 +282,12 @@
   if (self->_enableBtLeSourceDiscovery != discoveryCopy)
   {
     self->_enableBtLeSourceDiscovery = discoveryCopy;
-    v5 = sub_10000132C();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+    v6 = sub_10000132C(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
-      v6[0] = 67109120;
-      v6[1] = discoveryCopy;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_INFO, "Source controller set bt source discovery to %{BOOL}u", v6, 8u);
+      v7[0] = 67109120;
+      v7[1] = discoveryCopy;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_INFO, "Source controller set bt source discovery to %{BOOL}u", v7, 8u);
     }
 
     [(HRCSource *)self->_bleSource setDiscoveryEnabled:self->_enableBtLeSourceDiscovery];
@@ -317,47 +319,48 @@
   dispatch_assert_queue_V2(self->_queue);
   activeSource = self->_activeSource;
   available = [(HRCSource *)self->_bleSource available];
-  v5 = sub_10000132C();
-  v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
-  if (available)
+  v5 = available;
+  v6 = sub_10000132C(available);
+  v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
+  if (v5)
   {
-    if (v6)
+    if (v7)
     {
       *buf = 0;
-      v7 = 2;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Source controller: 3P source available", buf, 2u);
+      v8 = 2;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Source controller: 3P source available", buf, 2u);
     }
 
     else
     {
-      v7 = 2;
+      v8 = 2;
     }
   }
 
   else
   {
-    if (v6)
+    if (v7)
     {
-      *v10 = 0;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Source controller: 3P source unavailable", v10, 2u);
+      *v11 = 0;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Source controller: 3P source unavailable", v11, 2u);
     }
 
-    v7 = 1;
+    v8 = 1;
   }
 
-  [(HRCSourceController *)self _streamAppleHeartRates:available ^ 1];
+  [(HRCSourceController *)self _streamAppleHeartRates:v5 ^ 1u];
   if (self->_streamingMode)
   {
-    v8 = v7;
+    v9 = v8;
   }
 
   else
   {
-    v8 = 0;
+    v9 = 0;
   }
 
-  self->_activeSource = v8;
-  if (activeSource != v8)
+  self->_activeSource = v9;
+  if (activeSource != v9)
   {
     delegate = [(HRCSourceController *)self delegate];
     [delegate activeSourceDidChange:self->_activeSource];
@@ -365,6 +368,24 @@
 
   [(HRCSource *)self->_watchSource setOpportunisticMode:self->_opportunisticMode];
   [(HRCSource *)self->_aacpSource setOpportunisticMode:self->_opportunisticMode];
+}
+
+- (void)_handleAnalyticsReport:(unsigned __int8)report data:(id)data
+{
+  reportCopy = report;
+  dataCopy = data;
+  dispatch_assert_queue_V2(self->_queue);
+  delegate = [(HRCSourceController *)self delegate];
+  [delegate handleAnalyticsReport:reportCopy data:dataCopy];
+}
+
+- (void)_handleFitNotificationUpdateThreshold:(float)threshold minimumPacketCount:(unsigned int)count
+{
+  v4 = *&count;
+  dispatch_assert_queue_V2(self->_queue);
+  delegate = [(HRCSourceController *)self delegate];
+  *&v7 = threshold;
+  [delegate handleFitNotificationUpdateThreshold:v4 minimumPacketCount:v7];
 }
 
 - (void)_enableWatchSource:(BOOL)source enableAacpSource:(BOOL)aacpSource

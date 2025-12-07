@@ -13,9 +13,9 @@
     dispatch_once(&qword_1ED49FFE0, &__block_literal_global_485);
   }
 
-  v0 = _MergedGlobals_1252;
+  v1 = _MergedGlobals_1252;
 
-  return v0;
+  return v1;
 }
 
 void __59__NSNotificationCenter_UIKitAdditions__uikitInternalCenter__block_invoke()

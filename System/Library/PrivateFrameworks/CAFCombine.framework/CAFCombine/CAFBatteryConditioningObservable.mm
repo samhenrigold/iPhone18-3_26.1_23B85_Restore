@@ -23,7 +23,7 @@
 {
   serviceCopy = service;
   selfCopy = self;
-  CAFBatteryConditioningObservable.batteryConditioningService(_:didUpdateBatteryConditioningState:)();
+  CAFBatteryConditioningObservable.batteryConditioningService(_:didUpdateBatteryConditioningState:)(selfCopy, state);
 }
 
 - (void)serviceDidUpdate:(id)update characteristic:(id)characteristic fromGroupUpdate:(BOOL)groupUpdate

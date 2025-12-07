@@ -69,7 +69,7 @@
     if (v14)
     {
       pathComponents3 = [(SSMenuItemResultBuilder *)v5 pathComponents];
-      v16 = [pathComponents3 count];
+      v16 = objc_msgSend_count(pathComponents3);
 
       pathComponents4 = [(SSMenuItemResultBuilder *)v5 pathComponents];
       lastObject = [pathComponents4 lastObject];
@@ -106,14 +106,14 @@
 
 - (id)buildDescriptions
 {
-  v16[2] = *MEMORY[0x1E69E9840];
+  v15[2] = *MEMORY[0x1E69E9840];
   pathComponents = [(SSMenuItemResultBuilder *)self pathComponents];
   v4 = [pathComponents mutableCopy];
 
   relatedAppBundleIdentifier = [(SSResultBuilder *)self relatedAppBundleIdentifier];
   v6 = SSAppNameForBundleId(relatedAppBundleIdentifier);
 
-  if ([v4 count])
+  if (objc_msgSend_count(v4))
   {
     if ([v6 length])
     {
@@ -127,8 +127,8 @@ LABEL_5:
     {
 LABEL_6:
       v9 = [MEMORY[0x1E69CA3A0] textWithString:v8];
-      v15 = v9;
-      path = [MEMORY[0x1E695DEC8] arrayWithObjects:&v15 count:1];
+      v14 = v9;
+      path = [MEMORY[0x1E695DEC8] arrayWithObjects:&v14 count:1];
 
       goto LABEL_11;
     }
@@ -149,10 +149,10 @@ LABEL_6:
     goto LABEL_5;
   }
 
-  v16[0] = v6;
+  v15[0] = v6;
   path3 = [(SSMenuItemResultBuilder *)self path];
-  v16[1] = path3;
-  v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v16 count:2];
+  v15[1] = path3;
+  v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v15 count:2];
   v8 = [v12 componentsJoinedByString:@" > "];
 
   if (v8)
@@ -163,8 +163,6 @@ LABEL_6:
 LABEL_10:
   path = 0;
 LABEL_11:
-
-  v13 = *MEMORY[0x1E69E9840];
 
   return path;
 }

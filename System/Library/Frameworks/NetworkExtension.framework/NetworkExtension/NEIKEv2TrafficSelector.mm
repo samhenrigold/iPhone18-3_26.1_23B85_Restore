@@ -66,22 +66,21 @@
 
 + (id)copyAllIPv4
 {
-  v8[2] = *MEMORY[0x1E69E9840];
-  v8[1] = 0;
-  v8[0] = 528;
+  v7[2] = *MEMORY[0x1E69E9840];
   v7[1] = 0;
-  v7[0] = -4294966768;
+  v7[0] = 528;
+  v6[1] = 0;
+  v6[0] = -4294966768;
   v2 = objc_alloc_init(NEIKEv2TrafficSelector);
-  v3 = [MEMORY[0x1E6977E08] endpointWithAddress:v8];
+  v3 = [MEMORY[0x1E6977E08] endpointWithAddress:v7];
   [(NEIKEv2TrafficSelector *)v2 setStartAddress:v3];
 
-  v4 = [MEMORY[0x1E6977E08] endpointWithAddress:v7];
+  v4 = [MEMORY[0x1E6977E08] endpointWithAddress:v6];
   [(NEIKEv2TrafficSelector *)v2 setEndAddress:v4];
 
   [(NEIKEv2TrafficSelector *)v2 setStartPort:0];
   [(NEIKEv2TrafficSelector *)v2 setEndPort:0xFFFFLL];
   [(NEIKEv2TrafficSelector *)v2 setIpProtocol:0];
-  v5 = *MEMORY[0x1E69E9840];
   return v2;
 }
 
@@ -156,13 +155,13 @@
 
 + (id)copyConstrainedTrafficSelectorsForRequest:(void *)request reply:
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   requestCopy = request;
   objc_opt_self();
   if (!a2)
   {
-    v8 = ne_log_obj();
-    if (!os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
+    v7 = ne_log_obj();
+    if (!os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
     {
 LABEL_8:
 
@@ -170,32 +169,31 @@ LABEL_8:
       goto LABEL_4;
     }
 
-    v10 = 136315138;
-    v11 = "+[NEIKEv2TrafficSelector copyConstrainedTrafficSelectorsForRequest:reply:]";
-    v9 = "%s called with null request";
+    v9 = 136315138;
+    v10 = "+[NEIKEv2TrafficSelector copyConstrainedTrafficSelectorsForRequest:reply:]";
+    v8 = "%s called with null request";
 LABEL_10:
-    _os_log_fault_impl(&dword_1BA83C000, v8, OS_LOG_TYPE_FAULT, v9, &v10, 0xCu);
+    _os_log_fault_impl(&dword_1BA83C000, v7, OS_LOG_TYPE_FAULT, v8, &v9, 0xCu);
     goto LABEL_8;
   }
 
   if (!requestCopy)
   {
-    v8 = ne_log_obj();
-    if (!os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
+    v7 = ne_log_obj();
+    if (!os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
     {
       goto LABEL_8;
     }
 
-    v10 = 136315138;
-    v11 = "+[NEIKEv2TrafficSelector copyConstrainedTrafficSelectorsForRequest:reply:]";
-    v9 = "%s called with null reply";
+    v9 = 136315138;
+    v10 = "+[NEIKEv2TrafficSelector copyConstrainedTrafficSelectorsForRequest:reply:]";
+    v8 = "%s called with null reply";
     goto LABEL_10;
   }
 
   v5 = requestCopy;
 LABEL_4:
 
-  v6 = *MEMORY[0x1E69E9840];
   return v5;
 }
 

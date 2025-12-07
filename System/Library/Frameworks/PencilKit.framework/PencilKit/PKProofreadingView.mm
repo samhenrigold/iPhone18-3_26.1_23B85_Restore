@@ -121,13 +121,13 @@ void __36__PKProofreadingView_startHideTimer__block_invoke(uint64_t a1)
   [MEMORY[0x1E69DD250] animateWithDuration:196608 delay:v3 options:v2 animations:1.0 completion:0.0];
 }
 
-uint64_t __29__PKProofreadingView_fadeOut__block_invoke_2(uint64_t result, int a2)
+id *__29__PKProofreadingView_fadeOut__block_invoke_2(id *result, int a2)
 {
   if (a2)
   {
     v2 = result;
-    [*(result + 32) setHidden:1];
-    v3 = *(v2 + 32);
+    [result[4] setHidden:1];
+    v3 = v2[4];
 
     return [v3 setAlpha:1.0];
   }

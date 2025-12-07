@@ -9,6 +9,7 @@
 - (void)selectMirrorSettingSpecifier;
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)path;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation HPRFSessionTrackerMirroringController
@@ -59,6 +60,14 @@
   v8 = v7;
 
   return v7;
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v3.receiver = self;
+  v3.super_class = HPRFSessionTrackerMirroringController;
+  [(HPRFSessionTrackerMirroringController *)&v3 viewWillAppear:appear];
+  +[HPRFSessionTrackerAppSettingsNavigationDonation donateUserVisitForMirroringSettings];
 }
 
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)path
@@ -127,20 +136,19 @@ LABEL_6:
 {
   mirrorSetting = [(HPRFSessionTrackerMirroringController *)self mirrorSetting];
   v4 = OBJC_IVAR___PSListController__specifiers;
-  v5 = *&self->BPSNotificationAppController_opaque[OBJC_IVAR___PSListController__specifiers];
   if (mirrorSetting == 1)
   {
-    v6 = @"LIVE_ACTIVITY_ALL_METRICS_ID";
+    v5 = @"LIVE_ACTIVITY_ALL_METRICS_ID";
   }
 
   else
   {
-    v6 = @"LIVE_ACTIVITY_TIME_ONLY_ID";
+    v5 = @"LIVE_ACTIVITY_TIME_ONLY_ID";
   }
 
-  v8 = [*&self->BPSNotificationAppController_opaque[OBJC_IVAR___PSListController__specifiers] specifierForID:v6];
-  v7 = [*&self->BPSNotificationAppController_opaque[v4] specifierForID:@"LIVE_ACTIVITY_GROUP_ID"];
-  [v7 setProperty:v8 forKey:PSRadioGroupCheckedSpecifierKey];
+  v7 = [*&self->BPSNotificationAppController_opaque[OBJC_IVAR___PSListController__specifiers] specifierForID:v5];
+  v6 = [*&self->BPSNotificationAppController_opaque[v4] specifierForID:@"LIVE_ACTIVITY_GROUP_ID"];
+  [v6 setProperty:v7 forKey:PSRadioGroupCheckedSpecifierKey];
 }
 
 @end

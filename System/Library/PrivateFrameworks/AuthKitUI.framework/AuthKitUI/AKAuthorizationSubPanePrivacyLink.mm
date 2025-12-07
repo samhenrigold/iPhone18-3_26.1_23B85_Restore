@@ -81,7 +81,6 @@
   MEMORY[0x277D82BD8](view);
   objc_storeStrong(&v20, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (id)_createPrivacyLinkWithType:(unint64_t)type

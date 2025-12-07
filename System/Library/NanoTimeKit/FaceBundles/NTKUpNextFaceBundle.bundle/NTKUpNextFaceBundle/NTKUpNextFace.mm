@@ -167,25 +167,17 @@
 
 - (Class)_optionClassForCustomEditMode:(int64_t)mode
 {
-  if (mode == 16)
+  if (mode == 16 || mode == 10)
   {
-    v4 = NTKUpNextDisabledDataSourcesEditOption_ptr;
-LABEL_5:
-    v5 = *v4;
-    v6 = objc_opt_class();
-
-    return v6;
+    v4 = objc_opt_class();
   }
 
-  if (mode == 10)
+  else
   {
-    v4 = off_18320;
-    goto LABEL_5;
+    v4 = 0;
   }
 
-  v6 = 0;
-
-  return v6;
+  return v4;
 }
 
 @end

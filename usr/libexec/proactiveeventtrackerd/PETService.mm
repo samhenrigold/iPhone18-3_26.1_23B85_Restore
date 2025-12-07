@@ -3,6 +3,7 @@
 + (void)updateMobileAssetMetadataWithXPCActivity:(id)activity;
 - (BOOL)_writeUploadForTransparency:(id)transparency;
 - (PETService)init;
+- (id)_createMetadataFrom:(id)from submissionId:(id)id messageName:(id)name typeId:(unsigned int)typeId;
 - (void)_uploadBatchedDataToPFA:(id)a schema:(id)schema messageGroup:(id)group;
 - (void)_uploadGMSDataToPFA:(id)a;
 - (void)_uploadToFBFv2WithUpload:(id)upload;
@@ -262,6 +263,65 @@ LABEL_27:
   [(PETService *)self _uploadBatchedDataToPFA:v6 schema:@"com.apple.proactive.gms.PetUploadEvent" messageGroup:messageGroup];
 }
 
+- (id)_createMetadataFrom:(id)from submissionId:(id)id messageName:(id)name typeId:(unsigned int)typeId
+{
+  v6 = *&typeId;
+  nameCopy = name;
+  idCopy = id;
+  fromCopy = from;
+  v12 = objc_opt_new();
+  metadata = [fromCopy metadata];
+  device = [metadata device];
+  [v12 setDevice:device];
+
+  metadata2 = [fromCopy metadata];
+  [v12 setIsInternal:{objc_msgSend(metadata2, "isInternal")}];
+
+  metadata3 = [fromCopy metadata];
+  [v12 setIsSeed:{objc_msgSend(metadata3, "isSeed")}];
+
+  metadata4 = [fromCopy metadata];
+  [v12 setIsGm:{objc_msgSend(metadata4, "isGm")}];
+
+  metadata5 = [fromCopy metadata];
+  [v12 setIsInternalCarry:{objc_msgSend(metadata5, "isInternalCarry")}];
+
+  metadata6 = [fromCopy metadata];
+  [v12 setUploadTime:{objc_msgSend(metadata6, "uploadTime")}];
+
+  metadata7 = [fromCopy metadata];
+  build = [metadata7 build];
+  [v12 setBuild:build];
+
+  metadata8 = [fromCopy metadata];
+  [v12 setConfigVersion:{objc_msgSend(metadata8, "configVersion")}];
+
+  metadata9 = [fromCopy metadata];
+  country = [metadata9 country];
+  [v12 setCountry:country];
+
+  metadata10 = [fromCopy metadata];
+  language = [metadata10 language];
+  [v12 setLanguage:language];
+
+  metadata11 = [fromCopy metadata];
+  messageGroup = [metadata11 messageGroup];
+  [v12 setMessageGroup:messageGroup];
+
+  metadata12 = [fromCopy metadata];
+
+  platform = [metadata12 platform];
+  [v12 setPlatform:platform];
+
+  [v12 setUploadService:3];
+  [v12 setPseudoDeviceId:idCopy];
+
+  [v12 setMessageName:nameCopy];
+  [v12 setTypeId:v6];
+
+  return v12;
+}
+
 - (void)_uploadToParsecWithUpload:(id)upload
 {
   uploadCopy = upload;
@@ -427,27 +487,13 @@ LABEL_27:
     while (v8);
   }
 
-  if (![v5 count])
-  {
-    goto LABEL_10;
-  }
-
-  v12 = [@"proactive_event_tracker-" stringByAppendingString:@"aggregated"];
-  v40 = _NSConcreteStackBlock;
-  v41 = 3221225472;
-  v42 = sub_100003FC0;
-  v43 = &unk_10000C480;
-  v44 = v5;
-  v13 = OSAWriteLogForSubmission();
-
-  if (!v13)
+  if ([v5 count] && (objc_msgSend(@"proactive_event_tracker-", "stringByAppendingString:", @"aggregated"), v12 = objc_claimAutoreleasedReturnValue(), v40 = _NSConcreteStackBlock, v41 = 3221225472, v42 = sub_100003FC0, v43 = &unk_10000C480, v44 = v5, v13 = OSAWriteLogForSubmission(), v12, v44, !v13))
   {
     v29 = 0;
   }
 
   else
   {
-LABEL_10:
     v14 = [PETServiceUploadAssembler alloc];
     rootDir = [(PETEventTracker2 *)self->_tracker rootDir];
     v16 = [(PETServiceUploadAssembler *)v14 initWithRootDir:rootDir];

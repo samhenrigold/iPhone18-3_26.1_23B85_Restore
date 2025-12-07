@@ -7,11 +7,10 @@
 
 - (NSSet)featureNames
 {
-  v2 = *(self + 5);
 
-  v3 = sub_222B027D8();
+  v2 = sub_222B027D8();
 
-  return v3;
+  return v2;
 }
 
 - (id)featureValueForName:(id)name

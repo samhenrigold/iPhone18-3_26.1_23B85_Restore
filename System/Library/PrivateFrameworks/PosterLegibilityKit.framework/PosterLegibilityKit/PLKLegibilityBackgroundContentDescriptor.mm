@@ -24,7 +24,7 @@
   {
     v4 = MEMORY[0x277CCACA8];
     shadows = [(PLKLegibilityBackgroundContentDescriptor *)self shadows];
-    v6 = [v4 plk_sha256HashForObject:shadows error:0];
+    v6 = [v4 plk_sha256HashForObject:? error:?];
     v7 = self->_cacheKey;
     self->_cacheKey = v6;
 
@@ -64,7 +64,7 @@ void __68__PLKLegibilityBackgroundContentDescriptor_defaultContentDescriptor__bl
 {
   v0 = [PLKLegibilityBackgroundContentDescriptor alloc];
   v1 = [MEMORY[0x277D75348] clearColor];
-  v2 = [(PLKLegibilityContentDescriptor *)v0 initWithContentColor:v1];
+  v2 = [(PLKLegibilityContentDescriptor *)v0 initWithContentColor:?];
   v3 = defaultContentDescriptor_defaultBackgroundContentDescriptor;
   defaultContentDescriptor_defaultBackgroundContentDescriptor = v2;
 
@@ -81,7 +81,6 @@ void __68__PLKLegibilityBackgroundContentDescriptor_defaultContentDescriptor__bl
 {
   height = size.height;
   width = size.width;
-  v49 = *MEMORY[0x277D85DE8];
   cachedMaxShadowRadius = self->_cachedMaxShadowRadius;
   if (cachedMaxShadowRadius)
   {
@@ -99,17 +98,13 @@ void __68__PLKLegibilityBackgroundContentDescriptor_defaultContentDescriptor__bl
 
   else
   {
-    v43 = size.height;
-    v46 = 0u;
-    v47 = 0u;
-    v44 = 0u;
-    v45 = 0u;
+    v42 = size.height;
     v17 = self->_shadows;
-    v18 = [(NSArray *)v17 countByEnumeratingWithState:&v44 objects:v48 count:16];
+    v18 = [NSArray countByEnumeratingWithState:v17 objects:"countByEnumeratingWithState:objects:count:" count:?];
     if (v18)
     {
       v19 = v18;
-      v20 = *v45;
+      v20 = MEMORY[0];
       v12 = 0.0;
       v16 = 0.0;
       v10 = 0.0;
@@ -117,14 +112,14 @@ void __68__PLKLegibilityBackgroundContentDescriptor_defaultContentDescriptor__bl
       v8 = 0.0;
       do
       {
-        for (i = 0; i != v19; ++i)
+        for (i = 0; i != v19; i = (i + 1))
         {
-          if (*v45 != v20)
+          if (MEMORY[0] != v20)
           {
             objc_enumerationMutation(v17);
           }
 
-          v22 = *(*(&v44 + 1) + 8 * i);
+          v22 = *(8 * i);
           [v22 radius];
           v24 = v23;
           [v22 offset];
@@ -137,7 +132,7 @@ void __68__PLKLegibilityBackgroundContentDescriptor_defaultContentDescriptor__bl
           v16 = fmin(v16, v27);
         }
 
-        v19 = [(NSArray *)v17 countByEnumeratingWithState:&v44 objects:v48 count:16];
+        v19 = [NSArray countByEnumeratingWithState:v17 objects:"countByEnumeratingWithState:objects:count:" count:?];
       }
 
       while (v19);
@@ -152,36 +147,35 @@ void __68__PLKLegibilityBackgroundContentDescriptor_defaultContentDescriptor__bl
       v8 = 0.0;
     }
 
-    v28 = [MEMORY[0x277CCABB0] numberWithDouble:v8];
+    v28 = [MEMORY[0x277CCABB0] numberWithDouble:?];
     v29 = self->_cachedMaxShadowRadius;
     self->_cachedMaxShadowRadius = v28;
 
-    v30 = [MEMORY[0x277CCABB0] numberWithDouble:v10];
+    v30 = [MEMORY[0x277CCABB0] numberWithDouble:?];
     cachedMaxXOffset = self->_cachedMaxXOffset;
     self->_cachedMaxXOffset = v30;
 
-    v32 = [MEMORY[0x277CCABB0] numberWithDouble:v12];
+    v32 = [MEMORY[0x277CCABB0] numberWithDouble:?];
     cachedMinXOffset = self->_cachedMinXOffset;
     self->_cachedMinXOffset = v32;
 
-    v34 = [MEMORY[0x277CCABB0] numberWithDouble:v14];
+    v34 = [MEMORY[0x277CCABB0] numberWithDouble:?];
     cachedMaxYOffset = self->_cachedMaxYOffset;
     self->_cachedMaxYOffset = v34;
 
-    v36 = [MEMORY[0x277CCABB0] numberWithDouble:v16];
+    v36 = [MEMORY[0x277CCABB0] numberWithDouble:?];
     cachedMinYOffset = self->_cachedMinYOffset;
     self->_cachedMinYOffset = v36;
 
-    height = v43;
+    height = v42;
   }
 
-  v38 = *MEMORY[0x277D85DE8];
-  v39 = v8 + fmax(fabs(v12), fabs(v10)) * 2.0 + 2.0;
-  v40 = width + ceilf(v39);
-  v41 = v8 + fmax(fabs(v16), fabs(v14)) * 2.0 + 2.0;
-  v42 = height + ceilf(v41);
-  result.height = v42;
-  result.width = v40;
+  v38 = v8 + fmax(fabs(v12), fabs(v10)) * 2.0 + 2.0;
+  v39 = width + ceilf(v38);
+  v40 = v8 + fmax(fabs(v16), fabs(v14)) * 2.0 + 2.0;
+  v41 = height + ceilf(v40);
+  result.height = v41;
+  result.width = v39;
   return result;
 }
 
@@ -195,9 +189,9 @@ void __68__PLKLegibilityBackgroundContentDescriptor_defaultContentDescriptor__bl
 
   else
   {
-    v20.receiver = self;
-    v20.super_class = PLKLegibilityBackgroundContentDescriptor;
-    if ([(PLKLegibilityContentDescriptor *)&v20 isEqual:equalCopy])
+    v14.receiver = self;
+    v14.super_class = PLKLegibilityBackgroundContentDescriptor;
+    if ([(PLKLegibilityContentDescriptor *)&v14 isEqual:equalCopy])
     {
       v5 = objc_opt_class();
       v6 = equalCopy;
@@ -225,10 +219,8 @@ void __68__PLKLegibilityBackgroundContentDescriptor_defaultContentDescriptor__bl
       contentColor2 = [(PLKLegibilityContentDescriptor *)self contentColor];
       v12 = BSEqualObjects();
 
-      if (v12 && (shadows = v9->_shadows, v14 = self->_shadows, BSEqualObjects()) && (colorMatrixValue = v9->_colorMatrixValue, v16 = self->_colorMatrixValue, BSEqualObjects()))
+      if (v12 && BSEqualObjects() && BSEqualObjects())
       {
-        shadowRenderScale = v9->_shadowRenderScale;
-        v18 = self->_shadowRenderScale;
         v8 = BSFloatEqualToFloat();
       }
 
@@ -250,13 +242,12 @@ void __68__PLKLegibilityBackgroundContentDescriptor_defaultContentDescriptor__bl
 + (id)contentDescriptorForVibrantColorMatrix:(CAColorMatrix *)matrix shadows:(id)shadows
 {
   v4 = *&matrix->var12;
-  v8[2] = *&matrix->var8;
-  v8[3] = v4;
-  v8[4] = *&matrix->var16;
+  v9 = *&matrix->var8;
+  v10 = v4;
+  v11 = *&matrix->var16;
   v5 = *&matrix->var4;
-  v8[0] = *&matrix->var0;
-  v8[1] = v5;
-  v6 = [self contentDescriptorForVibrantColorMatrix:v8 shadows:shadows renderScale:1.0];
+  v8 = *&matrix->var0;
+  v6 = [self contentDescriptorForVibrantColorMatrix:v8 shadows:v5 renderScale:{v9, v4, v11}];
 
   return v6;
 }
@@ -265,20 +256,13 @@ void __68__PLKLegibilityBackgroundContentDescriptor_defaultContentDescriptor__bl
 {
   shadowsCopy = shadows;
   v8 = objc_alloc_init(PLKLegibilityBackgroundContentDescriptor);
-  v9 = *&matrix->var12;
-  v16[2] = *&matrix->var8;
-  v16[3] = v9;
-  v16[4] = *&matrix->var16;
-  v10 = *&matrix->var4;
-  v16[0] = *&matrix->var0;
-  v16[1] = v10;
-  v11 = [MEMORY[0x277CCAE60] valueWithCAColorMatrix:v16];
+  v9 = [MEMORY[0x277CCAE60] valueWithCAColorMatrix:{*&matrix->var0, *&matrix->var4, *&matrix->var6, *&matrix->var8, *&matrix->var12, *&matrix->var14, *&matrix->var16}];
   colorMatrixValue = v8->_colorMatrixValue;
-  v8->_colorMatrixValue = v11;
+  v8->_colorMatrixValue = v9;
 
-  v13 = [shadowsCopy copy];
+  v11 = [shadowsCopy copy];
   shadows = v8->_shadows;
-  v8->_shadows = v13;
+  v8->_shadows = v11;
 
   v8->_shadowRenderScale = scale;
 
@@ -289,7 +273,7 @@ void __68__PLKLegibilityBackgroundContentDescriptor_defaultContentDescriptor__bl
 {
   shadowsCopy = shadows;
   colorCopy = color;
-  v9 = [(PLKLegibilityContentDescriptor *)[PLKLegibilityBackgroundContentDescriptor alloc] initWithContentColor:colorCopy];
+  v9 = [(PLKLegibilityContentDescriptor *)[PLKLegibilityBackgroundContentDescriptor alloc] initWithContentColor:?];
 
   v10 = [shadowsCopy copy];
   shadows = v9->_shadows;
@@ -303,7 +287,7 @@ void __68__PLKLegibilityBackgroundContentDescriptor_defaultContentDescriptor__bl
 + (id)contentDescriptorForColor:(id)color
 {
   colorCopy = color;
-  v4 = [(PLKLegibilityContentDescriptor *)[PLKLegibilityBackgroundContentDescriptor alloc] initWithContentColor:colorCopy];
+  v4 = [(PLKLegibilityContentDescriptor *)[PLKLegibilityBackgroundContentDescriptor alloc] initWithContentColor:?];
 
   return v4;
 }
@@ -312,14 +296,14 @@ void __68__PLKLegibilityBackgroundContentDescriptor_defaultContentDescriptor__bl
 {
   builder = [MEMORY[0x277CF0C40] builder];
   compositingFilter = [(PLKLegibilityContentDescriptor *)self compositingFilter];
-  v5 = [builder appendObject:compositingFilter];
+  v5 = [builder appendObject:?];
 
   contentColor = [(PLKLegibilityContentDescriptor *)self contentColor];
-  v7 = [builder appendObject:contentColor];
+  v7 = [builder appendObject:?];
 
-  v8 = [builder appendObject:self->_shadows];
-  v9 = [builder appendCGFloat:self->_shadowRenderScale];
-  v10 = [builder appendObject:self->_colorMatrixValue];
+  v8 = [builder appendObject:?];
+  v9 = [builder appendCGFloat:?];
+  v10 = [builder appendObject:?];
   v11 = [builder hash];
 
   return v11;
@@ -327,19 +311,18 @@ void __68__PLKLegibilityBackgroundContentDescriptor_defaultContentDescriptor__bl
 
 - (id)filtersForContextType:(int64_t)type options:(int64_t)options
 {
-  v12.receiver = self;
-  v12.super_class = PLKLegibilityBackgroundContentDescriptor;
-  v6 = [(PLKLegibilityContentDescriptor *)&v12 filtersForContextType:type options:?];
-  colorMatrixValue = self->_colorMatrixValue;
-  if (colorMatrixValue)
+  v10.receiver = self;
+  v10.super_class = PLKLegibilityBackgroundContentDescriptor;
+  v5 = [(PLKLegibilityContentDescriptor *)&v10 filtersForContextType:type options:?];
+  if (self->_colorMatrixValue)
   {
-    v8 = MEMORY[0x277CD9EA0];
-    [(NSValue *)colorMatrixValue CAColorMatrixValue];
-    v9 = [v8 plk_vibrantColorMatrixFilterWithVibrantColorMatrix:&v11 options:options];
-    [v6 bs_safeAddObject:v9];
+    v6 = MEMORY[0x277CD9EA0];
+    [&v9 CAColorMatrixValue];
+    v7 = [v6 plk_vibrantColorMatrixFilterWithVibrantColorMatrix:? options:?];
+    [v5 bs_safeAddObject:?];
   }
 
-  return v6;
+  return v5;
 }
 
 - (BOOL)allowsGroupOpacity
@@ -363,50 +346,31 @@ void __68__PLKLegibilityBackgroundContentDescriptor_defaultContentDescriptor__bl
   {
     format = [contextCopy format];
     [format scale];
-    v7 = v6;
 
     format2 = [contextCopy format];
-    v9 = +[PLKImageRendererFormat formatForContextType:scale:](PLKImageRendererFormat, "formatForContextType:scale:", [format2 contextType], v7);
+    [format2 contextType];
+    v7 = [PLKImageRendererFormat formatForContextType:"formatForContextType:scale:" scale:?];
 
     currentImage = [contextCopy currentImage];
     [currentImage size];
-    v12 = v11;
-    v14 = v13;
-    shadowRenderScale = self->_shadowRenderScale;
-    v16 = v12 * shadowRenderScale;
-    v17 = v13 * shadowRenderScale;
-    shadowRenderScale = [(UIGraphicsImageRenderer *)[PLKImageRenderer alloc] initWithSize:v9 format:v12 * shadowRenderScale, v13 * shadowRenderScale];
-    v28[0] = MEMORY[0x277D85DD0];
-    v28[1] = 3221225472;
-    v28[2] = __66__PLKLegibilityBackgroundContentDescriptor_plk_renderWithContext___block_invoke;
-    v28[3] = &unk_27835B228;
-    v29 = currentImage;
-    v30 = v16;
-    v31 = v17;
-    v19 = currentImage;
-    v20 = [(PLKImageRenderer *)shadowRenderScale imageWithActions:v28];
-    [(PLKLegibilityBackgroundContentDescriptor *)self sizeForContentSize:v12, v14];
-    v22 = v21;
-    v23 = self->_shadowRenderScale;
-    v25 = [(UIGraphicsImageRenderer *)[PLKLegibilityImageRenderer alloc] initWithSize:v9 format:v22 * v23, v24 * v23];
-    v27[0] = MEMORY[0x277D85DD0];
-    v27[1] = 3221225472;
-    v27[2] = __66__PLKLegibilityBackgroundContentDescriptor_plk_renderWithContext___block_invoke_2;
-    v27[3] = &unk_27835B6C8;
-    v27[4] = self;
-    v26 = [(PLKLegibilityImageRenderer *)v25 renderLegibilityImageDecoratingImage:v20 actions:v27];
+    v9 = [UIGraphicsImageRenderer initWithSize:"initWithSize:format:" format:?];
+    v14 = MEMORY[0x277D85DD0];
+    v15 = currentImage;
+    v10 = currentImage;
+    v11 = [(PLKImageRenderer *)v9 imageWithActions:?];
+    [(PLKLegibilityBackgroundContentDescriptor *)self sizeForContentSize:?];
+    v12 = [UIGraphicsImageRenderer initWithSize:"initWithSize:format:" format:?];
+    v13 = [(PLKLegibilityImageRenderer *)v12 renderLegibilityImageDecoratingImage:MEMORY[0x277D85DD0] actions:3221225472, __66__PLKLegibilityBackgroundContentDescriptor_plk_renderWithContext___block_invoke_2, &unk_27835B6C8, self, v14, 3221225472, __66__PLKLegibilityBackgroundContentDescriptor_plk_renderWithContext___block_invoke, &unk_27835B228];
     BSRectWithSize();
     [contextCopy contentRect];
     UIRectCenteredRect();
-    [v26 drawInRect:?];
+    [v13 drawInRect:?];
   }
 }
 
-uint64_t __66__PLKLegibilityBackgroundContentDescriptor_plk_renderWithContext___block_invoke(void *a1)
+void *__66__PLKLegibilityBackgroundContentDescriptor_plk_renderWithContext___block_invoke(uint64_t a1)
 {
-  v1 = a1[4];
-  v2 = a1[5];
-  v3 = a1[6];
+  v1 = *(a1 + 32);
   BSRectWithSize();
 
   return [v1 drawInRect:?];
@@ -414,28 +378,34 @@ uint64_t __66__PLKLegibilityBackgroundContentDescriptor_plk_renderWithContext___
 
 - (id)descriptionBuilderWithMultilinePrefix:(id)prefix
 {
-  v17.receiver = self;
-  v17.super_class = PLKLegibilityBackgroundContentDescriptor;
-  v4 = [(PLKLegibilityContentDescriptor *)&v17 descriptionBuilderWithMultilinePrefix:prefix];
-  v5 = [v4 appendObject:self->_shadows withName:@"shadows"];
-  v6 = [v4 appendFloat:@"renderScale" withName:self->_shadowRenderScale];
-  v7 = [v4 appendFloat:@"renderScale" withName:self->_shadowRenderScale];
-  v8 = [v4 appendBool:-[PLKLegibilityBackgroundContentDescriptor usesUILegibility](self withName:{"usesUILegibility"), @"usesUILegibility"}];
-  v9 = [v4 appendBool:-[PLKLegibilityBackgroundContentDescriptor isRenderable](self withName:{"isRenderable"), @"isRenderable"}];
+  v21.receiver = self;
+  v21.super_class = PLKLegibilityBackgroundContentDescriptor;
+  v4 = [(PLKLegibilityContentDescriptor *)&v21 descriptionBuilderWithMultilinePrefix:prefix];
+  v5 = [v4 appendObject:? withName:?];
+  v6 = [v4 appendFloat:? withName:?];
+  v7 = [v4 appendFloat:? withName:?];
+  [(PLKLegibilityBackgroundContentDescriptor *)self usesUILegibility];
+  v8 = [v4 appendBool:? withName:?];
+  [(PLKLegibilityBackgroundContentDescriptor *)self isRenderable];
+  v9 = [v4 appendBool:? withName:?];
   cacheKey = [(PLKLegibilityBackgroundContentDescriptor *)self cacheKey];
-  v11 = [v4 appendObject:cacheKey withName:@"cacheKey"];
+  v11 = [v4 appendObject:? withName:?];
 
-  colorMatrixValue = self->_colorMatrixValue;
-  if (colorMatrixValue)
+  if (self->_colorMatrixValue)
   {
-    [(NSValue *)colorMatrixValue CAColorMatrixValue];
-    v13 = [MEMORY[0x277CCACA8] stringWithFormat:@"m11:%.3f m15:%.3f m21:%.3f m25:%.3f", 0.0, 0.0, 0.0, 0.0];
-    v14 = [v4 appendObject:v13 withName:@"colorMatrix"];
+    v19 = 0u;
+    v20 = 0u;
+    v17 = 0u;
+    v18 = 0u;
+    v16 = 0u;
+    [&v16 CAColorMatrixValue];
+    v12 = [MEMORY[0x277CCACA8] stringWithFormat:*&v16, *&v17, *(&v17 + 1), *(&v18 + 1)];
+    v13 = [v4 appendObject:? withName:?];
   }
 
   else
   {
-    v15 = [v4 appendObject:@"(null)" withName:@"colorMatrix"];
+    v14 = [v4 appendObject:? withName:?];
   }
 
   return v4;

@@ -1,8 +1,13 @@
 @interface _bmFMDatabaseQueue
 + (id)databaseQueueWithPath:(id)path;
++ (id)databaseQueueWithPath:(id)path flags:(int)flags;
 + (id)databaseQueueWithURL:(id)l;
++ (id)databaseQueueWithURL:(id)l flags:(int)flags;
 - (BOOL)checkpoint:(int)checkpoint name:(id)name logFrameCount:(int *)count checkpointCount:(int *)checkpointCount error:(id *)error;
+- (_bmFMDatabaseQueue)initWithPath:(id)path flags:(int)flags vfs:(id)vfs;
 - (_bmFMDatabaseQueue)initWithURL:(id)l;
+- (_bmFMDatabaseQueue)initWithURL:(id)l flags:(int)flags;
+- (_bmFMDatabaseQueue)initWithURL:(id)l flags:(int)flags vfs:(id)vfs;
 - (id)database;
 - (id)inSavePoint:(id)point;
 - (void)beginTransaction:(int64_t)transaction withBlock:(id)block;
@@ -28,6 +33,83 @@
   v5 = [self databaseQueueWithPath:path];
 
   return v5;
+}
+
++ (id)databaseQueueWithPath:(id)path flags:(int)flags
+{
+  v4 = *&flags;
+  pathCopy = path;
+  v7 = [[self alloc] initWithPath:pathCopy flags:v4];
+
+  return v7;
+}
+
++ (id)databaseQueueWithURL:(id)l flags:(int)flags
+{
+  v4 = *&flags;
+  path = [l path];
+  v7 = [self databaseQueueWithPath:path flags:v4];
+
+  return v7;
+}
+
+- (_bmFMDatabaseQueue)initWithURL:(id)l flags:(int)flags vfs:(id)vfs
+{
+  v5 = *&flags;
+  vfsCopy = vfs;
+  path = [l path];
+  v10 = [(_bmFMDatabaseQueue *)self initWithPath:path flags:v5 vfs:vfsCopy];
+
+  return v10;
+}
+
+- (_bmFMDatabaseQueue)initWithPath:(id)path flags:(int)flags vfs:(id)vfs
+{
+  v6 = *&flags;
+  pathCopy = path;
+  vfsCopy = vfs;
+  v21.receiver = self;
+  v21.super_class = _bmFMDatabaseQueue;
+  v11 = [(_bmFMDatabaseQueue *)&v21 init];
+  if (v11)
+  {
+    v12 = [objc_msgSend(objc_opt_class() "databaseClass")];
+    v13 = *(v11 + 2);
+    *(v11 + 2) = v12;
+
+    if (![*(v11 + 2) openWithFlags:v6 vfs:vfsCopy])
+    {
+      NSLog(@"Could not create database queue for path %@", pathCopy);
+      v19 = 0;
+      goto LABEL_6;
+    }
+
+    objc_storeStrong(v11 + 4, path);
+    v14 = [[NSString alloc] initWithFormat:@"fmdb.%@", v11];
+    v15 = dispatch_queue_create([v14 UTF8String], 0);
+    v16 = *(v11 + 1);
+    *(v11 + 1) = v15;
+
+    dispatch_queue_set_specific(*(v11 + 1), &off_100079AB0, v11, 0);
+    *(v11 + 6) = v6;
+    v17 = [vfsCopy copy];
+    v18 = *(v11 + 5);
+    *(v11 + 5) = v17;
+  }
+
+  v19 = v11;
+LABEL_6:
+
+  return v19;
+}
+
+- (_bmFMDatabaseQueue)initWithURL:(id)l flags:(int)flags
+{
+  v4 = *&flags;
+  path = [l path];
+  v7 = [(_bmFMDatabaseQueue *)self initWithPath:path flags:v4 vfs:0];
+
+  return v7;
 }
 
 - (_bmFMDatabaseQueue)initWithURL:(id)l

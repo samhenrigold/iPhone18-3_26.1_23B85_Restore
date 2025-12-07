@@ -10,7 +10,7 @@
 
 - (BOOL)performMigration
 {
-  v3 = sub_100002830();
+  v3 = sub_100002830(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v9 = 0;
@@ -34,7 +34,7 @@
   v7 = [versionCopy compare:toVersionCopy];
   if (v7 == 1)
   {
-    v8 = sub_100002830();
+    v8 = sub_100002830(1);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       v10 = 138412546;
@@ -52,7 +52,7 @@ LABEL_8:
 
   if (v7 == -1)
   {
-    v8 = sub_100002830();
+    v8 = sub_100002830(-1);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       v10 = 138412546;

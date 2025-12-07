@@ -62,20 +62,21 @@ uint64_t __31__FKAddressBook_sharedInstance__block_invoke()
 void __21__FKAddressBook_init__block_invoke(uint64_t a1)
 {
   error = 0;
-  *(*(*(a1 + 40) + 8) + 24) = ABAddressBookCreateWithOptions(0, &error);
-  v2 = *(*(*(a1 + 40) + 8) + 24);
-  if (!v2)
+  v2 = ABAddressBookCreateWithOptions(0, &error);
+  *(*(*(a1 + 40) + 8) + 24) = v2;
+  v3 = *(*(*(a1 + 40) + 8) + 24);
+  if (!v3)
   {
-    v3 = _FKGetLogSystem();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v4 = _FKGetLogSystem(v2);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      __21__FKAddressBook_init__block_invoke_cold_1(&error, v3);
+      __21__FKAddressBook_init__block_invoke_cold_1(&error, v4);
     }
 
-    v2 = *(*(*(a1 + 40) + 8) + 24);
+    v3 = *(*(*(a1 + 40) + 8) + 24);
   }
 
-  *(*(a1 + 32) + 8) = v2;
+  *(*(a1 + 32) + 8) = v3;
 }
 
 - (void)dealloc
@@ -120,16 +121,15 @@ uint64_t __30__FKAddressBook_performBlock___block_invoke(uint64_t a1)
 
 void __21__FKAddressBook_init__block_invoke_cold_1(uint64_t *a1, NSObject *a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v2 = *a1;
-  v4 = 136315650;
-  v5 = "[FKAddressBook init]_block_invoke";
-  v6 = 1024;
-  v7 = 44;
-  v8 = 2112;
-  v9 = v2;
-  _os_log_error_impl(&dword_24BC19000, a2, OS_LOG_TYPE_ERROR, "%s (%d) FriendKit failed to create an address book instance: %@", &v4, 0x1Cu);
-  v3 = *MEMORY[0x277D85DE8];
+  v3 = 136315650;
+  v4 = "[FKAddressBook init]_block_invoke";
+  v5 = 1024;
+  v6 = 44;
+  v7 = 2112;
+  v8 = v2;
+  _os_log_error_impl(&dword_24BC19000, a2, OS_LOG_TYPE_ERROR, "%s (%d) FriendKit failed to create an address book instance: %@", &v3, 0x1Cu);
 }
 
 @end

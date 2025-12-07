@@ -7,6 +7,7 @@
 - (id)POST:(id)t headers:(id)headers body:(id)body withCompletionHandler:(id)handler;
 - (id)sendRequest:(id)request;
 - (void)cancelTaskWithCompletionHandler:(id)handler;
+- (void)invalidateSessionAndCancelTasks:(BOOL)tasks;
 @end
 
 @implementation APHTTPSession
@@ -50,9 +51,25 @@
   objc_msgSend_getTasksWithCompletionHandler_(v8, v10, v12, v11);
 }
 
+- (void)invalidateSessionAndCancelTasks:(BOOL)tasks
+{
+  tasksCopy = tasks;
+  v5 = objc_msgSend_session(self, a2, tasks, v3);
+  v9 = v5;
+  if (tasksCopy)
+  {
+    objc_msgSend_invalidateAndCancel(v5, v6, v7, v8);
+  }
+
+  else
+  {
+    objc_msgSend_finishTasksAndInvalidate(v5, v6, v7, v8);
+  }
+}
+
 - (id)sendRequest:(id)request
 {
-  v78 = *MEMORY[0x1E69E9840];
+  v77 = *MEMORY[0x1E69E9840];
   requestCopy = request;
   v5 = MEMORY[0x1E696AD68];
   v9 = objc_msgSend_URL(requestCopy, v6, v7, v8);
@@ -67,34 +84,34 @@
   else
   {
     objc_msgSend_setHTTPMethod_(v12, v17, off_1E7F1CD08[v16], v18);
-    v73 = 0u;
-    v74 = 0u;
-    v71 = 0u;
     v72 = 0u;
+    v73 = 0u;
+    v70 = 0u;
+    v71 = 0u;
     v22 = objc_msgSend_allHTTPHeaderFields(requestCopy, v19, v20, v21);
     v26 = objc_msgSend_keyEnumerator(v22, v23, v24, v25);
 
-    v28 = objc_msgSend_countByEnumeratingWithState_objects_count_(v26, v27, &v71, v77, 16);
+    v28 = objc_msgSend_countByEnumeratingWithState_objects_count_(v26, v27, &v70, v76, 16);
     if (v28)
     {
       v32 = v28;
-      v33 = *v72;
+      v33 = *v71;
       do
       {
         for (i = 0; i != v32; ++i)
         {
-          if (*v72 != v33)
+          if (*v71 != v33)
           {
             objc_enumerationMutation(v26);
           }
 
-          v35 = *(*(&v71 + 1) + 8 * i);
+          v35 = *(*(&v70 + 1) + 8 * i);
           v36 = objc_msgSend_allHTTPHeaderFields(requestCopy, v29, v30, v31);
           v39 = objc_msgSend_objectForKeyedSubscript_(v36, v37, v35, v38);
           objc_msgSend_addValue_forHTTPHeaderField_(v12, v40, v39, v35);
         }
 
-        v32 = objc_msgSend_countByEnumeratingWithState_objects_count_(v26, v29, &v71, v77, 16);
+        v32 = objc_msgSend_countByEnumeratingWithState_objects_count_(v26, v29, &v70, v76, 16);
       }
 
       while (v32);
@@ -109,7 +126,7 @@
       if (os_log_type_enabled(v52, OS_LOG_TYPE_INFO))
       {
         *buf = 138543362;
-        v76 = v12;
+        v75 = v12;
         _os_log_impl(&dword_1BADC1000, v52, OS_LOG_TYPE_INFO, "APHTTPRequest will not be sent (error code will be returned): %{public}@", buf, 0xCu);
       }
 
@@ -122,25 +139,23 @@
       if (os_log_type_enabled(v54, OS_LOG_TYPE_INFO))
       {
         *buf = 138543362;
-        v76 = v12;
+        v75 = v12;
         _os_log_impl(&dword_1BADC1000, v54, OS_LOG_TYPE_INFO, "APHTTPRequest is about to be sent: %{public}@", buf, 0xCu);
       }
 
       v58 = objc_msgSend_completionHandler(requestCopy, v55, v56, v57);
       v62 = objc_msgSend_session(self, v59, v60, v61);
-      v69[0] = MEMORY[0x1E69E9820];
-      v69[1] = 3221225472;
-      v69[2] = sub_1BAF05C48;
-      v69[3] = &unk_1E7F1CCC0;
-      v70 = v58;
+      v68[0] = MEMORY[0x1E69E9820];
+      v68[1] = 3221225472;
+      v68[2] = sub_1BAF05C48;
+      v68[3] = &unk_1E7F1CCC0;
+      v69 = v58;
       v52 = v58;
-      v53 = objc_msgSend_dataTaskWithRequest_completionHandler_(v62, v63, v12, v69);
+      v53 = objc_msgSend_dataTaskWithRequest_completionHandler_(v62, v63, v12, v68);
 
       objc_msgSend_resume(v53, v64, v65, v66);
     }
   }
-
-  v67 = *MEMORY[0x1E69E9840];
 
   return v53;
 }

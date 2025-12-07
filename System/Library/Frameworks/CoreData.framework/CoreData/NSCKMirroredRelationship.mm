@@ -4,7 +4,7 @@
 + (NSString)entityPath;
 + (id)fetchMirroredRelationshipsMatchingRelatingRecords:(void *)records andRelatingRecordIDs:(uint64_t)ds fromStore:(void *)store inManagedObjectContext:(void *)context error:;
 + (id)markRelationshipsForDeletedRecordIDs:(uint64_t)ds inStore:(void *)store withManagedObjectContext:(void *)context error:;
-+ (uint64_t)countMirroredRelationshipsInStore:(uint64_t)store matchingPredicate:(uint64_t)predicate withManagedObjectContext:(id *)context error:;
++ (uint64_t)countMirroredRelationshipsInStore:(uint64_t)store matchingPredicate:(unint64_t)predicate withManagedObjectContext:(id *)context error:;
 + (uint64_t)fetchMirroredRelationshipsMatchingPredicate:(uint64_t)predicate fromStore:(void *)store inManagedObjectContext:(uint64_t)context error:;
 + (uint64_t)fetchPendingMirroredRelationshipsInStore:(void *)store withManagedObjectContext:(void *)context error:;
 + (uint64_t)purgeMirroredRelationshipsWithRecordIDs:(uint64_t)ds fromStore:(void *)store withManagedObjectContext:(void *)context error:;
@@ -17,6 +17,9 @@
 - (void)createRecordIDForRecord;
 - (void)createRecordIDForRelatedRecord;
 - (void)destroySystemFieldsData;
+- (void)setIsPendingBool:(BOOL)bool;
+- (void)setIsUploadedBool:(BOOL)bool;
+- (void)setNeedsDeleteBool:(BOOL)bool;
 - (void)updateSystemFieldsWithData:(id)data;
 @end
 
@@ -29,6 +32,13 @@
   return [isPending BOOLValue];
 }
 
+- (void)setIsPendingBool:(BOOL)bool
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithBool:bool];
+
+  [(NSCKMirroredRelationship *)self setIsPending:v4];
+}
+
 - (BOOL)needsDeleteBool
 {
   needsDelete = [(NSCKMirroredRelationship *)self needsDelete];
@@ -36,11 +46,25 @@
   return [needsDelete BOOLValue];
 }
 
+- (void)setNeedsDeleteBool:(BOOL)bool
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithBool:bool];
+
+  [(NSCKMirroredRelationship *)self setNeedsDelete:v4];
+}
+
 - (BOOL)isUploadedBool
 {
   isUploaded = [(NSCKMirroredRelationship *)self isUploaded];
 
   return [isUploaded BOOLValue];
+}
+
+- (void)setIsUploadedBool:(BOOL)bool
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithBool:bool];
+
+  [(NSCKMirroredRelationship *)self setIsUploaded:v4];
 }
 
 - (void)createRecordID
@@ -51,7 +75,7 @@
     v2 = -[NSCKRecordZoneMetadata createRecordZoneID]([self recordZone]);
     if (v2)
     {
-      selfCopy = [objc_alloc(getCloudKitCKRecordIDClass[0]()) initWithRecordName:objc_msgSend(selfCopy zoneID:{"ckRecordID"), v2}];
+      selfCopy = [objc_alloc(getCloudKitCKRecordIDClass()) initWithRecordName:objc_msgSend(selfCopy zoneID:{"ckRecordID"), v2}];
     }
 
     else
@@ -71,7 +95,7 @@
     v2 = -[NSCKRecordZoneMetadata createRecordZoneID]([self recordZone]);
     if (v2)
     {
-      selfCopy = [objc_alloc(getCloudKitCKRecordIDClass[0]()) initWithRecordName:objc_msgSend(selfCopy zoneID:{"recordName"), v2}];
+      selfCopy = [objc_alloc(getCloudKitCKRecordIDClass()) initWithRecordName:objc_msgSend(selfCopy zoneID:{"recordName"), v2}];
     }
 
     else
@@ -91,7 +115,7 @@
     v2 = -[NSCKRecordZoneMetadata createRecordZoneID]([self recordZone]);
     if (v2)
     {
-      selfCopy = [objc_alloc(getCloudKitCKRecordIDClass[0]()) initWithRecordName:objc_msgSend(selfCopy zoneID:{"relatedRecordName"), v2}];
+      selfCopy = [objc_alloc(getCloudKitCKRecordIDClass()) initWithRecordName:objc_msgSend(selfCopy zoneID:{"relatedRecordName"), v2}];
     }
 
     else
@@ -105,10 +129,10 @@
 
 - (BOOL)updateRelationshipValueUsingImportContext:(void *)context andManagedObjectContext:(int)objectContext isDelete:(uint64_t *)delete error:
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   if (!result)
   {
-    goto LABEL_28;
+    return result;
   }
 
   v9 = result;
@@ -138,7 +162,8 @@
       {
         v19 = [context objectWithID:v15];
         v20 = [context objectWithID:v18];
-        v21 = [objc_msgSend(v19 valueForKey:{objc_msgSend(v11, "name")), "mutableCopy"}];
+        [v11 name];
+        v21 = [objc_msgSend_valueForKey_(v19) mutableCopy];
         if (!v21)
         {
           v21 = objc_alloc_init(MEMORY[0x1E695DFA8]);
@@ -187,8 +212,7 @@ LABEL_18:
 
   if (v23)
   {
-    result = 1;
-    goto LABEL_28;
+    return 1;
   }
 
   if (v22)
@@ -197,66 +221,62 @@ LABEL_18:
     {
       result = 0;
       *delete = v22;
-      goto LABEL_28;
+      return result;
     }
 
-LABEL_27:
-    result = 0;
-    goto LABEL_28;
+    return 0;
   }
 
   LogStream = _PFLogGetLogStream(17);
   if (os_log_type_enabled(LogStream, OS_LOG_TYPE_ERROR))
   {
-    v30 = 136315394;
-    v31 = "/Library/Caches/com.apple.xbs/Sources/Persistence/NSCKMirroredRelationship.m";
-    v32 = 1024;
-    v33 = 145;
-    _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, "CoreData: fault: Illegal attempt to return an error without one in %s:%d\n", &v30, 0x12u);
+    v29 = 136315394;
+    v30 = "/Library/Caches/com.apple.xbs/Sources/Persistence/NSCKMirroredRelationship.m";
+    v31 = 1024;
+    v32 = 145;
+    _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, "CoreData: fault: Illegal attempt to return an error without one in %s:%d\n", &v29, 0x12u);
   }
 
   v28 = _PFLogGetLogStream(17);
   result = os_log_type_enabled(v28, OS_LOG_TYPE_FAULT);
   if (result)
   {
-    v30 = 136315394;
-    v31 = "/Library/Caches/com.apple.xbs/Sources/Persistence/NSCKMirroredRelationship.m";
-    v32 = 1024;
-    v33 = 145;
-    _os_log_fault_impl(&dword_18565F000, v28, OS_LOG_TYPE_FAULT, "CoreData: Illegal attempt to return an error without one in %s:%d", &v30, 0x12u);
-    goto LABEL_27;
+    v29 = 136315394;
+    v30 = "/Library/Caches/com.apple.xbs/Sources/Persistence/NSCKMirroredRelationship.m";
+    v31 = 1024;
+    v32 = 145;
+    _os_log_fault_impl(&dword_18565F000, v28, OS_LOG_TYPE_FAULT, "CoreData: Illegal attempt to return an error without one in %s:%d", &v29, 0x12u);
+    return 0;
   }
 
-LABEL_28:
-  v29 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 + (id)fetchMirroredRelationshipsMatchingRelatingRecords:(void *)records andRelatingRecordIDs:(uint64_t)ds fromStore:(void *)store inManagedObjectContext:(void *)context error:
 {
-  v59 = *MEMORY[0x1E69E9840];
+  v58 = *MEMORY[0x1E69E9840];
   objc_opt_self();
-  v50 = 0;
-  v37 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v49 = 0;
+  v36 = objc_alloc_init(MEMORY[0x1E695DF70]);
   v8 = objc_alloc_init(MEMORY[0x1E695DF90]);
-  v48 = 0u;
-  v49 = 0u;
-  v46 = 0u;
   v47 = 0u;
-  v9 = [records countByEnumeratingWithState:&v46 objects:v58 count:16];
+  v48 = 0u;
+  v45 = 0u;
+  v46 = 0u;
+  v9 = [records countByEnumeratingWithState:&v45 objects:v57 count:16];
   if (v9)
   {
-    v10 = *v47;
+    v10 = *v46;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v47 != v10)
+        if (*v46 != v10)
         {
           objc_enumerationMutation(records);
         }
 
-        v12 = *(*(&v46 + 1) + 8 * i);
+        v12 = *(*(&v45 + 1) + 8 * i);
         v13 = [v8 objectForKey:{objc_msgSend(v12, "zoneID")}];
         if (!v13)
         {
@@ -267,30 +287,30 @@ LABEL_28:
         [v13 addObject:{objc_msgSend(v12, "recordName")}];
       }
 
-      v9 = [records countByEnumeratingWithState:&v46 objects:v58 count:16];
+      v9 = [records countByEnumeratingWithState:&v45 objects:v57 count:16];
     }
 
     while (v9);
   }
 
-  v44 = 0u;
-  v45 = 0u;
-  v42 = 0u;
   v43 = 0u;
-  v14 = [a2 countByEnumeratingWithState:&v42 objects:v57 count:16];
+  v44 = 0u;
+  v41 = 0u;
+  v42 = 0u;
+  v14 = [a2 countByEnumeratingWithState:&v41 objects:v56 count:16];
   if (v14)
   {
-    v15 = *v43;
+    v15 = *v42;
     do
     {
       for (j = 0; j != v14; ++j)
       {
-        if (*v43 != v15)
+        if (*v42 != v15)
         {
           objc_enumerationMutation(a2);
         }
 
-        v17 = *(*(&v42 + 1) + 8 * j);
+        v17 = *(*(&v41 + 1) + 8 * j);
         v18 = [v8 objectForKey:{objc_msgSend(objc_msgSend(v17, "recordID"), "zoneID")}];
         if (!v18)
         {
@@ -301,30 +321,30 @@ LABEL_28:
         [v18 addObject:{objc_msgSend(objc_msgSend(v17, "recordID"), "recordName")}];
       }
 
-      v14 = [a2 countByEnumeratingWithState:&v42 objects:v57 count:16];
+      v14 = [a2 countByEnumeratingWithState:&v41 objects:v56 count:16];
     }
 
     while (v14);
   }
 
-  v40 = 0u;
-  v41 = 0u;
-  v38 = 0u;
   v39 = 0u;
-  v19 = [v8 countByEnumeratingWithState:&v38 objects:v56 count:16];
+  v40 = 0u;
+  v37 = 0u;
+  v38 = 0u;
+  v19 = [v8 countByEnumeratingWithState:&v37 objects:v55 count:16];
   if (v19)
   {
-    v20 = *v39;
+    v20 = *v38;
 LABEL_21:
     v21 = 0;
     while (1)
     {
-      if (*v39 != v20)
+      if (*v38 != v20)
       {
         objc_enumerationMutation(v8);
       }
 
-      v22 = *(*(&v38 + 1) + 8 * v21);
+      v22 = *(*(&v37 + 1) + 8 * v21);
       v23 = objc_autoreleasePoolPush();
       v24 = +[NSFetchRequest fetchRequestWithEntityName:](NSFetchRequest, "fetchRequestWithEntityName:", +[NSCKMirroredRelationship entityPath]);
       v25 = [v8 objectForKey:v22];
@@ -333,17 +353,17 @@ LABEL_21:
       -[NSFetchRequest setAffectedStores:](v24, "setAffectedStores:", [MEMORY[0x1E695DEC8] arrayWithObjects:&dsCopy count:1]);
       [(NSFetchRequest *)v24 setRelationshipKeyPathsForPrefetching:&unk_1EF43D6C0];
       [(NSFetchRequest *)v24 setReturnsObjectsAsFaults:0];
-      v26 = [store executeFetchRequest:v24 error:&v50];
+      v26 = [store executeFetchRequest:v24 error:&v49];
       if (v26)
       {
-        [v37 addObjectsFromArray:v26];
+        [v36 addObjectsFromArray:v26];
       }
 
       else
       {
-        v27 = v50;
+        v27 = v49;
 
-        v37 = 0;
+        v36 = 0;
       }
 
       objc_autoreleasePoolPop(v23);
@@ -354,7 +374,7 @@ LABEL_21:
 
       if (v19 == ++v21)
       {
-        v19 = [v8 countByEnumeratingWithState:&v38 objects:v56 count:16];
+        v19 = [v8 countByEnumeratingWithState:&v37 objects:v55 count:16];
         if (v19)
         {
           goto LABEL_21;
@@ -365,14 +385,14 @@ LABEL_21:
     }
   }
 
-  if (!v37)
+  if (!v36)
   {
-    v28 = v50;
+    v28 = v49;
     if (v28)
     {
       if (context)
       {
-        v37 = 0;
+        v36 = 0;
         *context = v28;
         goto LABEL_39;
       }
@@ -384,9 +404,9 @@ LABEL_21:
       if (os_log_type_enabled(LogStream, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315394;
-        v52 = "/Library/Caches/com.apple.xbs/Sources/Persistence/NSCKMirroredRelationship.m";
-        v53 = 1024;
-        v54 = 203;
+        v51 = "/Library/Caches/com.apple.xbs/Sources/Persistence/NSCKMirroredRelationship.m";
+        v52 = 1024;
+        v53 = 203;
         _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, "CoreData: fault: Illegal attempt to return an error without one in %s:%d\n", buf, 0x12u);
       }
 
@@ -394,41 +414,40 @@ LABEL_21:
       if (os_log_type_enabled(v30, OS_LOG_TYPE_FAULT))
       {
         *buf = 136315394;
-        v52 = "/Library/Caches/com.apple.xbs/Sources/Persistence/NSCKMirroredRelationship.m";
-        v53 = 1024;
-        v54 = 203;
+        v51 = "/Library/Caches/com.apple.xbs/Sources/Persistence/NSCKMirroredRelationship.m";
+        v52 = 1024;
+        v53 = 203;
         _os_log_fault_impl(&dword_18565F000, v30, OS_LOG_TYPE_FAULT, "CoreData: Illegal attempt to return an error without one in %s:%d", buf, 0x12u);
       }
     }
 
-    v37 = 0;
+    v36 = 0;
   }
 
 LABEL_39:
 
-  v50 = 0;
-  v31 = v37;
-  v32 = *MEMORY[0x1E69E9840];
-  return v37;
+  v49 = 0;
+  v31 = v36;
+  return v36;
 }
 
 + (uint64_t)fetchPendingMirroredRelationshipsInStore:(void *)store withManagedObjectContext:(void *)context error:
 {
-  v18[1] = *MEMORY[0x1E69E9840];
+  v17[1] = *MEMORY[0x1E69E9840];
   objc_opt_self();
-  v13 = 0;
+  v12 = 0;
   v7 = +[NSFetchRequest fetchRequestWithEntityName:](NSFetchRequest, "fetchRequestWithEntityName:", +[NSCKMirroredRelationship entityPath]);
-  v18[0] = a2;
-  -[NSFetchRequest setAffectedStores:](v7, "setAffectedStores:", [MEMORY[0x1E695DEC8] arrayWithObjects:v18 count:1]);
+  v17[0] = a2;
+  -[NSFetchRequest setAffectedStores:](v7, "setAffectedStores:", [MEMORY[0x1E695DEC8] arrayWithObjects:v17 count:1]);
   -[NSFetchRequest setPredicate:](v7, "setPredicate:", [MEMORY[0x1E696AE18] predicateWithFormat:@"isPending == 1"]);
-  v8 = [store executeFetchRequest:v7 error:&v13];
+  v8 = [store executeFetchRequest:v7 error:&v12];
   if (!v8)
   {
-    if (v13)
+    if (v12)
     {
       if (context)
       {
-        *context = v13;
+        *context = v12;
       }
     }
 
@@ -438,35 +457,34 @@ LABEL_39:
       if (os_log_type_enabled(LogStream, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315394;
-        v15 = "/Library/Caches/com.apple.xbs/Sources/Persistence/NSCKMirroredRelationship.m";
-        v16 = 1024;
-        v17 = 224;
+        v14 = "/Library/Caches/com.apple.xbs/Sources/Persistence/NSCKMirroredRelationship.m";
+        v15 = 1024;
+        v16 = 224;
         _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, "CoreData: fault: Illegal attempt to return an error without one in %s:%d\n", buf, 0x12u);
       }
 
-      v12 = _PFLogGetLogStream(17);
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_FAULT))
+      v11 = _PFLogGetLogStream(17);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
       {
         *buf = 136315394;
-        v15 = "/Library/Caches/com.apple.xbs/Sources/Persistence/NSCKMirroredRelationship.m";
-        v16 = 1024;
-        v17 = 224;
-        _os_log_fault_impl(&dword_18565F000, v12, OS_LOG_TYPE_FAULT, "CoreData: Illegal attempt to return an error without one in %s:%d", buf, 0x12u);
+        v14 = "/Library/Caches/com.apple.xbs/Sources/Persistence/NSCKMirroredRelationship.m";
+        v15 = 1024;
+        v16 = 224;
+        _os_log_fault_impl(&dword_18565F000, v11, OS_LOG_TYPE_FAULT, "CoreData: Illegal attempt to return an error without one in %s:%d", buf, 0x12u);
       }
     }
   }
 
-  v9 = *MEMORY[0x1E69E9840];
   return v8;
 }
 
 + (void)mirroredRelationshipForManyToMany:(uint64_t)many inStore:(void *)store withManagedObjectContext:(uint64_t)context error:
 {
-  v20[1] = *MEMORY[0x1E69E9840];
+  v19[1] = *MEMORY[0x1E69E9840];
   objc_opt_self();
   v9 = +[NSFetchRequest fetchRequestWithEntityName:](NSFetchRequest, "fetchRequestWithEntityName:", +[NSCKMirroredRelationship entityPath]);
-  v20[0] = many;
-  -[NSFetchRequest setAffectedStores:](v9, "setAffectedStores:", [MEMORY[0x1E695DEC8] arrayWithObjects:v20 count:1]);
+  v19[0] = many;
+  -[NSFetchRequest setAffectedStores:](v9, "setAffectedStores:", [MEMORY[0x1E695DEC8] arrayWithObjects:v19 count:1]);
   if (a2)
   {
     v10 = *(a2 + 32);
@@ -488,9 +506,9 @@ LABEL_39:
       if (os_log_type_enabled(LogStream, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412546;
-        v17 = a2;
-        v18 = 2112;
-        v19 = v12;
+        v16 = a2;
+        v17 = 2112;
+        v18 = v12;
         _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, "CoreData: fault: Found more than one mirrored relationship matching a many to many: %@\n%@\n", buf, 0x16u);
       }
 
@@ -498,17 +516,16 @@ LABEL_39:
       if (os_log_type_enabled(v14, OS_LOG_TYPE_FAULT))
       {
         *buf = 138412546;
-        v17 = a2;
-        v18 = 2112;
-        v19 = v12;
+        v16 = a2;
+        v17 = 2112;
+        v18 = v12;
         _os_log_fault_impl(&dword_18565F000, v14, OS_LOG_TYPE_FAULT, "CoreData: Found more than one mirrored relationship matching a many to many: %@\n%@", buf, 0x16u);
       }
     }
 
-    result = [v12 lastObject];
+    return [v12 lastObject];
   }
 
-  v15 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -566,28 +583,28 @@ LABEL_39:
 
 + (uint64_t)purgeMirroredRelationshipsWithRecordIDs:(uint64_t)ds fromStore:(void *)store withManagedObjectContext:(void *)context error:
 {
-  v62 = *MEMORY[0x1E69E9840];
+  v61 = *MEMORY[0x1E69E9840];
   objc_opt_self();
-  v52 = 0;
+  v51 = 0;
   v8 = objc_alloc_init(MEMORY[0x1E695DF90]);
+  v47 = 0u;
   v48 = 0u;
   v49 = 0u;
   v50 = 0u;
-  v51 = 0u;
-  v9 = [a2 countByEnumeratingWithState:&v48 objects:v61 count:16];
+  v9 = [a2 countByEnumeratingWithState:&v47 objects:v60 count:16];
   if (v9)
   {
-    v10 = *v49;
+    v10 = *v48;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v49 != v10)
+        if (*v48 != v10)
         {
           objc_enumerationMutation(a2);
         }
 
-        v12 = *(*(&v48 + 1) + 8 * i);
+        v12 = *(*(&v47 + 1) + 8 * i);
         v13 = [v8 objectForKey:{objc_msgSend(v12, "zoneID")}];
         if (!v13)
         {
@@ -598,7 +615,7 @@ LABEL_39:
         [v13 addObject:{objc_msgSend(v12, "recordName")}];
       }
 
-      v9 = [a2 countByEnumeratingWithState:&v48 objects:v61 count:16];
+      v9 = [a2 countByEnumeratingWithState:&v47 objects:v60 count:16];
     }
 
     while (v9);
@@ -607,54 +624,54 @@ LABEL_39:
   v14 = +[NSFetchRequest fetchRequestWithEntityName:](NSFetchRequest, "fetchRequestWithEntityName:", +[NSCKMirroredRelationship entityPath]);
   dsCopy = ds;
   -[NSFetchRequest setAffectedStores:](v14, "setAffectedStores:", [MEMORY[0x1E695DEC8] arrayWithObjects:&dsCopy count:1]);
-  v46 = 0u;
-  v47 = 0u;
-  v44 = 0u;
   v45 = 0u;
-  v15 = [v8 countByEnumeratingWithState:&v44 objects:v59 count:16];
+  v46 = 0u;
+  v43 = 0u;
+  v44 = 0u;
+  v15 = [v8 countByEnumeratingWithState:&v43 objects:v58 count:16];
   if (v15)
   {
-    v16 = *v45;
+    v16 = *v44;
 LABEL_12:
     v17 = 0;
     while (1)
     {
-      if (*v45 != v16)
+      if (*v44 != v16)
       {
         objc_enumerationMutation(v8);
       }
 
-      v18 = *(*(&v44 + 1) + 8 * v17);
+      v18 = *(*(&v43 + 1) + 8 * v17);
       v19 = [v8 objectForKey:v18];
       -[NSFetchRequest setPredicate:](v14, "setPredicate:", [MEMORY[0x1E696AE18] predicateWithFormat:@"((recordZone.ckRecordZoneName = %@) AND (recordZone.ckOwnerName = %@) AND (ckRecordID IN %@))", objc_msgSend(v18, "zoneName"), objc_msgSend(v18, "ownerName"), v19]);
-      v20 = [store executeFetchRequest:v14 error:&v52];
+      v20 = [store executeFetchRequest:v14 error:&v51];
       v21 = v20;
       if (!v20)
       {
         goto LABEL_34;
       }
 
-      v42 = 0u;
-      v43 = 0u;
-      v40 = 0u;
       v41 = 0u;
-      v22 = [v20 countByEnumeratingWithState:&v40 objects:v58 count:16];
+      v42 = 0u;
+      v39 = 0u;
+      v40 = 0u;
+      v22 = [v20 countByEnumeratingWithState:&v39 objects:v57 count:16];
       if (v22)
       {
-        v23 = *v41;
+        v23 = *v40;
         do
         {
           for (j = 0; j != v22; ++j)
           {
-            if (*v41 != v23)
+            if (*v40 != v23)
             {
               objc_enumerationMutation(v21);
             }
 
-            [store deleteObject:*(*(&v40 + 1) + 8 * j)];
+            [store deleteObject:*(*(&v39 + 1) + 8 * j)];
           }
 
-          v22 = [v21 countByEnumeratingWithState:&v40 objects:v58 count:16];
+          v22 = [v21 countByEnumeratingWithState:&v39 objects:v57 count:16];
         }
 
         while (v22);
@@ -662,7 +679,7 @@ LABEL_12:
 
       if (++v17 == v15)
       {
-        v15 = [v8 countByEnumeratingWithState:&v44 objects:v59 count:16];
+        v15 = [v8 countByEnumeratingWithState:&v43 objects:v58 count:16];
         if (v15)
         {
           goto LABEL_12;
@@ -674,7 +691,7 @@ LABEL_12:
   }
 
   -[NSFetchRequest setPredicate:](v14, "setPredicate:", [MEMORY[0x1E696AE18] predicateWithFormat:@"(needsDelete = 1 AND isUploaded = 1)"]);
-  v25 = [store executeFetchRequest:v14 error:&v52];
+  v25 = [store executeFetchRequest:v14 error:&v51];
   v26 = v25;
   if (!v25)
   {
@@ -683,27 +700,27 @@ LABEL_34:
     goto LABEL_35;
   }
 
-  v38 = 0u;
-  v39 = 0u;
-  v36 = 0u;
   v37 = 0u;
-  v27 = [v25 countByEnumeratingWithState:&v36 objects:v57 count:16];
+  v38 = 0u;
+  v35 = 0u;
+  v36 = 0u;
+  v27 = [v25 countByEnumeratingWithState:&v35 objects:v56 count:16];
   if (v27)
   {
-    v28 = *v37;
+    v28 = *v36;
     do
     {
       for (k = 0; k != v27; ++k)
       {
-        if (*v37 != v28)
+        if (*v36 != v28)
         {
           objc_enumerationMutation(v26);
         }
 
-        [store deleteObject:*(*(&v36 + 1) + 8 * k)];
+        [store deleteObject:*(*(&v35 + 1) + 8 * k)];
       }
 
-      v27 = [v26 countByEnumeratingWithState:&v36 objects:v57 count:16];
+      v27 = [v26 countByEnumeratingWithState:&v35 objects:v56 count:16];
     }
 
     while (v27);
@@ -714,11 +731,11 @@ LABEL_35:
 
   if ((v30 & 1) == 0)
   {
-    if (v52)
+    if (v51)
     {
       if (context)
       {
-        *context = v52;
+        *context = v51;
       }
     }
 
@@ -728,9 +745,9 @@ LABEL_35:
       if (os_log_type_enabled(LogStream, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315394;
-        v54 = "/Library/Caches/com.apple.xbs/Sources/Persistence/NSCKMirroredRelationship.m";
-        v55 = 1024;
-        v56 = 363;
+        v53 = "/Library/Caches/com.apple.xbs/Sources/Persistence/NSCKMirroredRelationship.m";
+        v54 = 1024;
+        v55 = 363;
         _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, "CoreData: fault: Illegal attempt to return an error without one in %s:%d\n", buf, 0x12u);
       }
 
@@ -738,46 +755,45 @@ LABEL_35:
       if (os_log_type_enabled(v32, OS_LOG_TYPE_FAULT))
       {
         *buf = 136315394;
-        v54 = "/Library/Caches/com.apple.xbs/Sources/Persistence/NSCKMirroredRelationship.m";
-        v55 = 1024;
-        v56 = 363;
+        v53 = "/Library/Caches/com.apple.xbs/Sources/Persistence/NSCKMirroredRelationship.m";
+        v54 = 1024;
+        v55 = 363;
         _os_log_fault_impl(&dword_18565F000, v32, OS_LOG_TYPE_FAULT, "CoreData: Illegal attempt to return an error without one in %s:%d", buf, 0x12u);
       }
     }
   }
 
-  v33 = *MEMORY[0x1E69E9840];
   return v30;
 }
 
 + (id)markRelationshipsForDeletedRecordIDs:(uint64_t)ds inStore:(void *)store withManagedObjectContext:(void *)context error:
 {
-  v63 = *MEMORY[0x1E69E9840];
+  v61 = *MEMORY[0x1E69E9840];
   objc_opt_self();
-  v54 = 0;
+  v52 = 0;
   if ([a2 count])
   {
     contextCopy = context;
     v8 = objc_alloc_init(MEMORY[0x1E695DFA8]);
     v9 = objc_alloc_init(MEMORY[0x1E695DF90]);
+    v48 = 0u;
+    v49 = 0u;
     v50 = 0u;
     v51 = 0u;
-    v52 = 0u;
-    v53 = 0u;
-    v10 = [a2 countByEnumeratingWithState:&v50 objects:v62 count:16];
+    v10 = [a2 countByEnumeratingWithState:&v48 objects:v60 count:16];
     if (v10)
     {
-      v11 = *v51;
+      v11 = *v49;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v51 != v11)
+          if (*v49 != v11)
           {
             objc_enumerationMutation(a2);
           }
 
-          v13 = *(*(&v50 + 1) + 8 * i);
+          v13 = *(*(&v48 + 1) + 8 * i);
           v14 = [v9 objectForKey:{objc_msgSend(v13, "zoneID")}];
           if (!v14)
           {
@@ -788,7 +804,7 @@ LABEL_35:
           [v14 addObject:{objc_msgSend(v13, "recordName")}];
         }
 
-        v10 = [a2 countByEnumeratingWithState:&v50 objects:v62 count:16];
+        v10 = [a2 countByEnumeratingWithState:&v48 objects:v60 count:16];
       }
 
       while (v10);
@@ -797,56 +813,56 @@ LABEL_35:
     v15 = +[NSFetchRequest fetchRequestWithEntityName:](NSFetchRequest, "fetchRequestWithEntityName:", +[NSCKMirroredRelationship entityPath]);
     dsCopy = ds;
     -[NSFetchRequest setAffectedStores:](v15, "setAffectedStores:", [MEMORY[0x1E695DEC8] arrayWithObjects:&dsCopy count:1]);
-    v48 = 0u;
-    v49 = 0u;
     v46 = 0u;
     v47 = 0u;
-    v16 = [v9 countByEnumeratingWithState:&v46 objects:v60 count:16];
+    v44 = 0u;
+    v45 = 0u;
+    v16 = [v9 countByEnumeratingWithState:&v44 objects:v58 count:16];
     if (v16)
     {
-      v39 = *v47;
+      v37 = *v45;
       v17 = MEMORY[0x1E695E118];
       v18 = MEMORY[0x1E695E110];
-      v37 = v15;
+      v35 = v15;
 LABEL_13:
       v19 = 0;
-      v38 = v16;
+      v36 = v16;
       while (1)
       {
-        if (*v47 != v39)
+        if (*v45 != v37)
         {
           objc_enumerationMutation(v9);
         }
 
-        v41 = v19;
-        v20 = *(*(&v46 + 1) + 8 * v19);
+        v39 = v19;
+        v20 = *(*(&v44 + 1) + 8 * v19);
         v21 = [v9 objectForKey:v20];
         -[NSFetchRequest setPredicate:](v15, "setPredicate:", [MEMORY[0x1E696AE18] predicateWithFormat:@"((recordZone.ckRecordZoneName = %@) AND (recordZone.ckOwnerName = %@) AND ((recordName IN %@) OR (relatedRecordName IN %@))) OR needsDelete = 1", objc_msgSend(v20, "zoneName"), objc_msgSend(v20, "ownerName"), v21, v21]);
-        v22 = [store executeFetchRequest:v15 error:&v54];
+        v22 = [store executeFetchRequest:v15 error:&v52];
         v23 = v22;
         if (!v22)
         {
           break;
         }
 
-        v44 = 0u;
-        v45 = 0u;
         v42 = 0u;
         v43 = 0u;
-        v24 = [v22 countByEnumeratingWithState:&v42 objects:v59 count:16];
+        v40 = 0u;
+        v41 = 0u;
+        v24 = [v22 countByEnumeratingWithState:&v40 objects:v57 count:16];
         if (v24)
         {
-          v25 = *v43;
+          v25 = *v41;
           do
           {
             for (j = 0; j != v24; ++j)
             {
-              if (*v43 != v25)
+              if (*v41 != v25)
               {
                 objc_enumerationMutation(v23);
               }
 
-              v27 = *(*(&v42 + 1) + 8 * j);
+              v27 = *(*(&v40 + 1) + 8 * j);
               createRecordID = [(NSCKMirroredRelationship *)v27 createRecordID];
               [v8 addObject:createRecordID];
 
@@ -854,17 +870,17 @@ LABEL_13:
               [v27 setIsUploaded:v18];
             }
 
-            v24 = [v23 countByEnumeratingWithState:&v42 objects:v59 count:16];
+            v24 = [v23 countByEnumeratingWithState:&v40 objects:v57 count:16];
           }
 
           while (v24);
         }
 
-        v19 = v41 + 1;
-        v15 = v37;
-        if (v41 + 1 == v38)
+        v19 = v39 + 1;
+        v15 = v35;
+        if (v39 + 1 == v36)
         {
-          v16 = [v9 countByEnumeratingWithState:&v46 objects:v60 count:16];
+          v16 = [v9 countByEnumeratingWithState:&v44 objects:v58 count:16];
           if (v16)
           {
             goto LABEL_13;
@@ -874,12 +890,12 @@ LABEL_13:
         }
       }
 
-      if (v54)
+      if (v52)
       {
         if (contextCopy)
         {
           v29 = 0;
-          *contextCopy = v54;
+          *contextCopy = v52;
           goto LABEL_38;
         }
       }
@@ -890,20 +906,20 @@ LABEL_13:
         if (os_log_type_enabled(LogStream, OS_LOG_TYPE_ERROR))
         {
           *buf = 136315394;
-          v56 = "/Library/Caches/com.apple.xbs/Sources/Persistence/NSCKMirroredRelationship.m";
-          v57 = 1024;
-          v58 = 417;
+          v54 = "/Library/Caches/com.apple.xbs/Sources/Persistence/NSCKMirroredRelationship.m";
+          v55 = 1024;
+          v56 = 417;
           _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, "CoreData: fault: Illegal attempt to return an error without one in %s:%d\n", buf, 0x12u);
         }
 
-        v34 = _PFLogGetLogStream(17);
-        if (os_log_type_enabled(v34, OS_LOG_TYPE_FAULT))
+        v33 = _PFLogGetLogStream(17);
+        if (os_log_type_enabled(v33, OS_LOG_TYPE_FAULT))
         {
           *buf = 136315394;
-          v56 = "/Library/Caches/com.apple.xbs/Sources/Persistence/NSCKMirroredRelationship.m";
-          v57 = 1024;
-          v58 = 417;
-          _os_log_fault_impl(&dword_18565F000, v34, OS_LOG_TYPE_FAULT, "CoreData: Illegal attempt to return an error without one in %s:%d", buf, 0x12u);
+          v54 = "/Library/Caches/com.apple.xbs/Sources/Persistence/NSCKMirroredRelationship.m";
+          v55 = 1024;
+          v56 = 417;
+          _os_log_fault_impl(&dword_18565F000, v33, OS_LOG_TYPE_FAULT, "CoreData: Illegal attempt to return an error without one in %s:%d", buf, 0x12u);
         }
       }
 
@@ -918,14 +934,12 @@ LABEL_26:
 
 LABEL_38:
 
-    v35 = *MEMORY[0x1E69E9840];
     return v29;
   }
 
   else
   {
     v30 = NSSet_EmptySet;
-    v31 = *MEMORY[0x1E69E9840];
 
     return v30;
   }
@@ -933,20 +947,20 @@ LABEL_38:
 
 + (BOOL)updateMirroredRelationshipsMatchingRecords:(uint64_t)records forStore:(void *)store withManagedObjectContext:(uint64_t)context usingBlock:(void *)block error:
 {
-  v60 = *MEMORY[0x1E69E9840];
+  v59 = *MEMORY[0x1E69E9840];
   objc_opt_self();
-  v52 = 0;
-  obj = [NSCKMirroredRelationship fetchMirroredRelationshipsMatchingRelatingRecords:a2 andRelatingRecordIDs:MEMORY[0x1E695E0F0] fromStore:records inManagedObjectContext:store error:&v52];
+  v51 = 0;
+  obj = [NSCKMirroredRelationship fetchMirroredRelationshipsMatchingRelatingRecords:a2 andRelatingRecordIDs:MEMORY[0x1E695E0F0] fromStore:records inManagedObjectContext:store error:&v51];
   if (!obj)
   {
 LABEL_32:
-    if (v52)
+    if (v51)
     {
       if (block)
       {
         result = 0;
-        *block = v52;
-        goto LABEL_40;
+        *block = v51;
+        return result;
       }
     }
 
@@ -956,9 +970,9 @@ LABEL_32:
       if (os_log_type_enabled(LogStream, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315394;
-        v54 = "/Library/Caches/com.apple.xbs/Sources/Persistence/NSCKMirroredRelationship.m";
-        v55 = 1024;
-        v56 = 487;
+        v53 = "/Library/Caches/com.apple.xbs/Sources/Persistence/NSCKMirroredRelationship.m";
+        v54 = 1024;
+        v55 = 487;
         _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, "CoreData: fault: Illegal attempt to return an error without one in %s:%d\n", buf, 0x12u);
       }
 
@@ -966,43 +980,42 @@ LABEL_32:
       result = os_log_type_enabled(v34, OS_LOG_TYPE_FAULT);
       if (!result)
       {
-        goto LABEL_40;
+        return result;
       }
 
       *buf = 136315394;
-      v54 = "/Library/Caches/com.apple.xbs/Sources/Persistence/NSCKMirroredRelationship.m";
-      v55 = 1024;
-      v56 = 487;
+      v53 = "/Library/Caches/com.apple.xbs/Sources/Persistence/NSCKMirroredRelationship.m";
+      v54 = 1024;
+      v55 = 487;
       _os_log_fault_impl(&dword_18565F000, v34, OS_LOG_TYPE_FAULT, "CoreData: Illegal attempt to return an error without one in %s:%d", buf, 0x12u);
     }
 
-    result = 0;
-    goto LABEL_40;
+    return 0;
   }
 
   blockCopy = block;
   contextCopy = context;
   v11 = objc_alloc_init(MEMORY[0x1E695DFA8]);
   v12 = objc_alloc_init(MEMORY[0x1E695DF90]);
+  v47 = 0u;
   v48 = 0u;
   v49 = 0u;
   v50 = 0u;
-  v51 = 0u;
-  v13 = [a2 countByEnumeratingWithState:&v48 objects:v59 count:16];
+  v13 = [a2 countByEnumeratingWithState:&v47 objects:v58 count:16];
   if (v13)
   {
     v14 = v13;
-    v15 = *v49;
+    v15 = *v48;
     do
     {
       for (i = 0; i != v14; ++i)
       {
-        if (*v49 != v15)
+        if (*v48 != v15)
         {
           objc_enumerationMutation(a2);
         }
 
-        v17 = *(*(&v48 + 1) + 8 * i);
+        v17 = *(*(&v47 + 1) + 8 * i);
         if ([objc_msgSend(v17 recordType])
         {
           [v12 setObject:v17 forKey:{objc_msgSend(v17, "recordID")}];
@@ -1015,7 +1028,7 @@ LABEL_32:
           if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
           {
             *buf = 138412290;
-            v54 = v17;
+            v53 = v17;
             _os_log_error_impl(&dword_18565F000, v18, OS_LOG_TYPE_ERROR, "CoreData: fault: Attempted to update a mirrored relationship with a non-mirrored-relationship record: %@\n", buf, 0xCu);
           }
 
@@ -1023,77 +1036,77 @@ LABEL_32:
           if (os_log_type_enabled(v19, OS_LOG_TYPE_FAULT))
           {
             *buf = 138412290;
-            v54 = v17;
+            v53 = v17;
             _os_log_fault_impl(&dword_18565F000, v19, OS_LOG_TYPE_FAULT, "CoreData: Attempted to update a mirrored relationship with a non-mirrored-relationship record: %@", buf, 0xCu);
           }
         }
       }
 
-      v14 = [a2 countByEnumeratingWithState:&v48 objects:v59 count:16];
+      v14 = [a2 countByEnumeratingWithState:&v47 objects:v58 count:16];
     }
 
     while (v14);
   }
 
   v20 = objc_alloc_init(MEMORY[0x1E695DF90]);
+  v43 = 0u;
   v44 = 0u;
   v45 = 0u;
   v46 = 0u;
-  v47 = 0u;
-  v21 = [obj countByEnumeratingWithState:&v44 objects:v58 count:16];
+  v21 = [obj countByEnumeratingWithState:&v43 objects:v57 count:16];
   if (v21)
   {
     v22 = v21;
-    v23 = *v45;
+    v23 = *v44;
     do
     {
       for (j = 0; j != v22; ++j)
       {
-        if (*v45 != v23)
+        if (*v44 != v23)
         {
           objc_enumerationMutation(obj);
         }
 
-        v25 = *(*(&v44 + 1) + 8 * j);
+        v25 = *(*(&v43 + 1) + 8 * j);
         v26 = [objc_alloc(getCloudKitCKRecordZoneIDClass[0]()) initWithZoneName:objc_msgSend(objc_msgSend(v25 ownerName:{"recordZone"), "ckRecordZoneName"), objc_msgSend(objc_msgSend(v25, "recordZone"), "ckOwnerName")}];
-        v27 = [objc_alloc(getCloudKitCKRecordIDClass[0]()) initWithRecordName:objc_msgSend(v25 zoneID:{"ckRecordID"), v26}];
+        v27 = [objc_alloc(getCloudKitCKRecordIDClass()) initWithRecordName:objc_msgSend(v25 zoneID:{"ckRecordID"), v26}];
         [v20 setObject:v25 forKey:v27];
         [v11 addObject:v27];
       }
 
-      v22 = [obj countByEnumeratingWithState:&v44 objects:v58 count:16];
+      v22 = [obj countByEnumeratingWithState:&v43 objects:v57 count:16];
     }
 
     while (v22);
   }
 
-  v42 = 0u;
-  v43 = 0u;
-  v40 = 0u;
   v41 = 0u;
-  v28 = [v11 countByEnumeratingWithState:&v40 objects:v57 count:{16, blockCopy}];
+  v42 = 0u;
+  v39 = 0u;
+  v40 = 0u;
+  v28 = [v11 countByEnumeratingWithState:&v39 objects:v56 count:{16, blockCopy}];
   if (v28)
   {
     v29 = v28;
-    v30 = *v41;
+    v30 = *v40;
     while (2)
     {
       for (k = 0; k != v29; ++k)
       {
-        if (*v41 != v30)
+        if (*v40 != v30)
         {
           objc_enumerationMutation(v11);
         }
 
-        if (!(*(contextCopy + 16))(contextCopy, [v20 objectForKey:*(*(&v40 + 1) + 8 * k)], objc_msgSend(v12, "objectForKey:", *(*(&v40 + 1) + 8 * k)), &v52))
+        if (!(*(contextCopy + 16))(contextCopy, [v20 objectForKey:*(*(&v39 + 1) + 8 * k)], objc_msgSend(v12, "objectForKey:", *(*(&v39 + 1) + 8 * k)), &v51))
         {
 
-          block = v37;
+          block = v36;
           goto LABEL_32;
         }
       }
 
-      v29 = [v11 countByEnumeratingWithState:&v40 objects:v57 count:16];
+      v29 = [v11 countByEnumeratingWithState:&v39 objects:v56 count:16];
       if (v29)
       {
         continue;
@@ -1103,24 +1116,19 @@ LABEL_32:
     }
   }
 
-  result = 1;
-LABEL_40:
-  v35 = *MEMORY[0x1E69E9840];
-  return result;
+  return 1;
 }
 
 + (uint64_t)fetchMirroredRelationshipsMatchingPredicate:(uint64_t)predicate fromStore:(void *)store inManagedObjectContext:(uint64_t)context error:
 {
-  v12[1] = *MEMORY[0x1E69E9840];
+  v11[1] = *MEMORY[0x1E69E9840];
   objc_opt_self();
   v9 = +[NSFetchRequest fetchRequestWithEntityName:](NSFetchRequest, "fetchRequestWithEntityName:", +[NSCKMirroredRelationship entityPath]);
-  v12[0] = predicate;
-  -[NSFetchRequest setAffectedStores:](v9, "setAffectedStores:", [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:1]);
+  v11[0] = predicate;
+  -[NSFetchRequest setAffectedStores:](v9, "setAffectedStores:", [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:1]);
   [(NSFetchRequest *)v9 setFetchBatchSize:1000];
   [(NSFetchRequest *)v9 setPredicate:a2];
-  result = [store executeFetchRequest:v9 error:context];
-  v11 = *MEMORY[0x1E69E9840];
-  return result;
+  return [store executeFetchRequest:v9 error:context];
 }
 
 + (NSString)entityPath
@@ -1128,36 +1136,34 @@ LABEL_40:
   v2 = MEMORY[0x1E696AEC0];
   v3 = +[PFCloudKitMetadataModel ancillaryModelNamespace];
   v4 = objc_opt_class();
-  return [v2 stringWithFormat:@"%@/%@", v3, NSStringFromClass(v4)];
+  v5 = NSStringFromClass(v4);
+  return objc_msgSend_stringWithFormat_(v2, v3, v5);
 }
 
-+ (uint64_t)countMirroredRelationshipsInStore:(uint64_t)store matchingPredicate:(uint64_t)predicate withManagedObjectContext:(id *)context error:
++ (uint64_t)countMirroredRelationshipsInStore:(uint64_t)store matchingPredicate:(unint64_t)predicate withManagedObjectContext:(id *)context error:
 {
-  v13[1] = *MEMORY[0x1E69E9840];
+  v12[1] = *MEMORY[0x1E69E9840];
   objc_opt_self();
   v9 = +[NSFetchRequest fetchRequestWithEntityName:](NSFetchRequest, "fetchRequestWithEntityName:", +[NSCKMirroredRelationship entityPath]);
   [(NSFetchRequest *)v9 setPredicate:store];
   [(NSFetchRequest *)v9 setResultType:4];
-  v13[0] = a2;
-  -[NSFetchRequest setAffectedStores:](v9, "setAffectedStores:", [MEMORY[0x1E695DEC8] arrayWithObjects:v13 count:1]);
-  if (!predicate)
+  v12[0] = a2;
+  -[NSFetchRequest setAffectedStores:](v9, "setAffectedStores:", [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:1]);
+  if (predicate)
+  {
+    v10 = [(NSManagedObjectContext *)predicate _countForFetchRequest_:v9 error:context];
+    if (v10 == 0x7FFFFFFFFFFFFFFFLL)
+    {
+      return 0;
+    }
+  }
+
+  else
   {
     v10 = 0;
-    goto LABEL_5;
   }
 
-  v10 = [(NSManagedObjectContext *)predicate _countForFetchRequest_:v9 error:context];
-  if (v10 != 0x7FFFFFFFFFFFFFFFLL)
-  {
-LABEL_5:
-    result = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:v10];
-    goto LABEL_6;
-  }
-
-  result = 0;
-LABEL_6:
-  v12 = *MEMORY[0x1E69E9840];
-  return result;
+  return [MEMORY[0x1E696AD98] numberWithUnsignedInteger:v10];
 }
 
 - (void)updateSystemFieldsWithData:(id)data

@@ -35,9 +35,9 @@
 
 - (BCReadingStatisticsSyncManager)init
 {
-  v17.receiver = self;
-  v17.super_class = BCReadingStatisticsSyncManager;
-  v2 = [(BCReadingStatisticsSyncManager *)&v17 init];
+  v18.receiver = self;
+  v18.super_class = BCReadingStatisticsSyncManager;
+  v2 = [(BCReadingStatisticsSyncManager *)&v18 init];
   if (v2)
   {
     v3 = +[NSMapTable strongToWeakObjectsMapTable];
@@ -57,16 +57,16 @@
 
     v11 = +[NSFileManager defaultManager];
     v12 = *(v2 + 9);
-    v16 = 0;
-    [v11 createDirectoryAtURL:v12 withIntermediateDirectories:1 attributes:0 error:&v16];
-    v13 = v16;
+    v17 = 0;
+    [v11 createDirectoryAtURL:v12 withIntermediateDirectories:1 attributes:0 error:&v17];
+    v13 = v17;
 
     if (v13)
     {
-      v14 = BCReadingStatisticsLog();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+      v15 = BCReadingStatisticsLog(v14);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
-        sub_1E90F8(v2 + 9, v13, v14);
+        sub_1E90F8(v2 + 9, v13, v15);
       }
     }
   }
@@ -164,12 +164,12 @@
       return;
     }
 
-    v4 = BCReadingStatisticsLog();
+    v4 = BCReadingStatisticsLog(self);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v17 = 0;
+      v19 = 0;
       v5 = "Request to disable CloudSync, but already disabled";
-      v6 = &v17;
+      v6 = &v19;
 LABEL_10:
       _os_log_impl(&dword_0, v4, OS_LOG_TYPE_DEFAULT, v5, v6, 2u);
     }
@@ -195,12 +195,12 @@ LABEL_10:
       syncManager2 = [(BCReadingStatisticsSyncManager *)self syncManager];
       [transactionManager signalSyncToCKTransactionForEntityName:entityName syncManager:syncManager2];
 
-      v4 = BCReadingStatisticsLog();
+      v4 = BCReadingStatisticsLog(v17);
       if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
       {
-        v19 = 0;
+        v21 = 0;
         v5 = "Enabling CloudSync";
-        v6 = &v19;
+        v6 = &v21;
         goto LABEL_10;
       }
     }
@@ -209,7 +209,7 @@ LABEL_10:
     {
       [privateCloudDatabaseController removeObserver:syncManager recordType:@"assetReadingStatistics"];
 
-      v4 = BCReadingStatisticsLog();
+      v4 = BCReadingStatisticsLog(v18);
       if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
@@ -308,14 +308,15 @@ LABEL_10:
   managerCopy = manager;
   completionCopy = completion;
   enableCloudSync = [(BCReadingStatisticsSyncManager *)self enableCloudSync];
-  v9 = BCReadingStatisticsLog();
-  v10 = os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT);
-  if (enableCloudSync)
+  v9 = enableCloudSync;
+  v10 = BCReadingStatisticsLog(enableCloudSync);
+  v11 = os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT);
+  if (v9)
   {
-    if (v10)
+    if (v11)
     {
       *buf = 0;
-      _os_log_impl(&dword_0, v9, OS_LOG_TYPE_DEFAULT, "Attempting sync of data to CK", buf, 2u);
+      _os_log_impl(&dword_0, v10, OS_LOG_TYPE_DEFAULT, "Attempting sync of data to CK", buf, 2u);
     }
 
     dataManager = [(BCReadingStatisticsSyncManager *)self dataManager];
@@ -324,10 +325,10 @@ LABEL_10:
 
   else
   {
-    if (v10)
+    if (v11)
     {
-      *v12 = 0;
-      _os_log_impl(&dword_0, v9, OS_LOG_TYPE_DEFAULT, "Skipping sync of data to CK - cloudSync not enabled", v12, 2u);
+      *v13 = 0;
+      _os_log_impl(&dword_0, v10, OS_LOG_TYPE_DEFAULT, "Skipping sync of data to CK - cloudSync not enabled", v13, 2u);
     }
 
     dataManager = objc_retainBlock(completionCopy);
@@ -396,40 +397,41 @@ LABEL_10:
   recordsCopy = records;
   completionCopy = completion;
   enableCloudSync = [(BCReadingStatisticsSyncManager *)self enableCloudSync];
-  v10 = BCReadingStatisticsLog();
-  v11 = os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT);
-  if (enableCloudSync)
+  v10 = enableCloudSync;
+  v11 = BCReadingStatisticsLog(enableCloudSync);
+  v12 = os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT);
+  if (v10)
   {
-    if (v11)
+    if (v12)
     {
       *buf = 138412290;
-      v18 = recordsCopy;
-      _os_log_impl(&dword_0, v10, OS_LOG_TYPE_DEFAULT, "Resolving conflicts for records:%@", buf, 0xCu);
+      v19 = recordsCopy;
+      _os_log_impl(&dword_0, v11, OS_LOG_TYPE_DEFAULT, "Resolving conflicts for records:%@", buf, 0xCu);
     }
 
     dataManager = [(BCReadingStatisticsSyncManager *)self dataManager];
-    v15[0] = _NSConcreteStackBlock;
-    v15[1] = 3221225472;
-    v15[2] = sub_BA210;
-    v15[3] = &unk_2CC840;
-    v15[4] = self;
-    v16 = completionCopy;
-    [dataManager resolveConflictsForRecords:recordsCopy completion:v15];
+    v16[0] = _NSConcreteStackBlock;
+    v16[1] = 3221225472;
+    v16[2] = sub_BA210;
+    v16[3] = &unk_2CC840;
+    v16[4] = self;
+    v17 = completionCopy;
+    [dataManager resolveConflictsForRecords:recordsCopy completion:v16];
   }
 
   else
   {
-    if (v11)
+    if (v12)
     {
       *buf = 0;
-      _os_log_impl(&dword_0, v10, OS_LOG_TYPE_DEFAULT, "Skipping resolution of records from CK - cloudSync not enabled", buf, 2u);
+      _os_log_impl(&dword_0, v11, OS_LOG_TYPE_DEFAULT, "Skipping resolution of records from CK - cloudSync not enabled", buf, 2u);
     }
 
-    v13 = objc_retainBlock(completionCopy);
-    v14 = v13;
-    if (v13)
+    v14 = objc_retainBlock(completionCopy);
+    v15 = v14;
+    if (v14)
     {
-      (*(v13 + 2))(v13, 0, 0);
+      (*(v14 + 2))(v14, 0, 0);
     }
   }
 }

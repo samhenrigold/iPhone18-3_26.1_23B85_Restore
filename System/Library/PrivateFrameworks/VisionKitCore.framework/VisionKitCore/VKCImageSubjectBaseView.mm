@@ -411,7 +411,7 @@ void __46__VKCImageSubjectBaseView_setGlowLayerActive___block_invoke(uint64_t a1
   _Block_object_dispose(v42, 8);
 }
 
-uint64_t __66__VKCImageSubjectBaseView_updateGlowLayerForActiveSubjectIndexSet__block_invoke(uint64_t a1, uint64_t a2)
+void *__66__VKCImageSubjectBaseView_updateGlowLayerForActiveSubjectIndexSet__block_invoke(uint64_t a1, uint64_t a2)
 {
   v4 = [*(a1 + 32) containsIndex:a2];
   result = [*(a1 + 40) containsIndex:a2];
@@ -797,7 +797,7 @@ id __64__VKCImageSubjectBaseView_configurePulseAnimationWithViewScale___block_in
   v24 = imageHighlightLayer2;
   if (imageHighlightLayer2)
   {
-    [imageHighlightLayer2 affineTransform];
+    objc_msgSend_affineTransform(imageHighlightLayer2);
   }
 
   else

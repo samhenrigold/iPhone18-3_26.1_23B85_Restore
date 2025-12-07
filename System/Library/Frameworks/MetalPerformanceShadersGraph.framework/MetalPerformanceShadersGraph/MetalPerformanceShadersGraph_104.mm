@@ -254,7 +254,7 @@ uint64_t mlir::anonymous namespace::ConvertSoftmax::matchAndRewriteWithStaticSha
   return matched;
 }
 
-uint64_t mlir::OpBuilder::create<mlir::anec::Softmax,mlir::Value,mlir::DenseIntElementsAttr &,BOOL &>(mlir::UnitAttr **a1, uint64_t a2, uint64_t *a3, uint64_t *a4, unsigned __int8 *a5)
+char *mlir::OpBuilder::create<mlir::anec::Softmax,mlir::Value,mlir::DenseIntElementsAttr &,BOOL &>(mlir::UnitAttr **a1, uint64_t a2, uint64_t *a3, uint64_t *a4, unsigned __int8 *a5)
 {
   v19[38] = *MEMORY[0x1E69E9840];
   v16 = a2;
@@ -268,7 +268,7 @@ uint64_t mlir::OpBuilder::create<mlir::anec::Softmax,mlir::Value,mlir::DenseIntE
   mlir::OperationState::OperationState(v19, a2, v11);
   mlir::anec::Softmax::build(a1, v19, *a3, *a4, *a5);
   v13 = mlir::OpBuilder::create(a1, v19);
-  if (*(*(v13 + 48) + 16) == &mlir::detail::TypeIDResolver<mlir::anec::Softmax,void>::id)
+  if (*(*(v13 + 6) + 16) == &mlir::detail::TypeIDResolver<mlir::anec::Softmax,void>::id)
   {
     v14 = v13;
   }
@@ -1272,32 +1272,32 @@ LABEL_96:
   return matched;
 }
 
-uint64_t mlir::OpBuilder::create<mlir::anec::InputView,mlir::Value,long long const&,unsigned long long &,long long &>(uint64_t **a1, uint64_t a2, uint64_t *a3, uint64_t *a4, uint64_t *a5, uint64_t *a6)
+char *mlir::OpBuilder::create<mlir::anec::InputView,mlir::Value,long long const&,unsigned long long &,long long &>(uint64_t **a1, uint64_t a2, uint64_t *a3, uint64_t *a4, uint64_t *a5, uint64_t *a6)
 {
-  v21[38] = *MEMORY[0x1E69E9840];
-  v18 = a2;
-  Context = mlir::Attribute::getContext(&v18);
+  v22[38] = *MEMORY[0x1E69E9840];
+  v19 = a2;
+  Context = mlir::Attribute::getContext(&v19);
   v13 = mlir::RegisteredOperationName::lookup(&mlir::detail::TypeIDResolver<mlir::anec::InputView,void>::id, Context);
   if ((v14 & 1) == 0)
   {
-    mlir::OpBuilder::create<mlir::anec::InputView,mlir::Value &,unsigned long long &,int,int>(v21, v20, v19);
+    mlir::OpBuilder::create<mlir::anec::InputView,mlir::Value &,unsigned long long &,int,int>(v22, v21, v20);
   }
 
-  mlir::OperationState::OperationState(v21, a2, v13);
-  mlir::anec::InputView::build(a1, v21, *a3, *a4, *a5, *a6);
-  v15 = mlir::OpBuilder::create(a1, v21);
-  if (*(*(v15 + 48) + 16) == &mlir::detail::TypeIDResolver<mlir::anec::InputView,void>::id)
+  v15 = mlir::OperationState::OperationState(v22, a2, v13);
+  mlir::anec::InputView::build(a1, v22, *a3, *a4, *a5, *a6, v15);
+  v16 = mlir::OpBuilder::create(a1, v22);
+  if (*(*(v16 + 6) + 16) == &mlir::detail::TypeIDResolver<mlir::anec::InputView,void>::id)
   {
-    v16 = v15;
+    v17 = v16;
   }
 
   else
   {
-    v16 = 0;
+    v17 = 0;
   }
 
-  mlir::OperationState::~OperationState(v21);
-  return v16;
+  mlir::OperationState::~OperationState(v22);
+  return v17;
 }
 
 void *mlir::anonymous namespace::ConvertResize<(mlir::anec::Family)0>::~ConvertResize(void *a1)
@@ -1509,26 +1509,26 @@ LABEL_34:
   return result;
 }
 
-uint64_t mlir::anonymous namespace::ConvertResizeGeneric<(mlir::anec::Family)0>::matchAndRewriteWithStaticShapes(uint64_t a1, uint64_t *a2, __int128 *a3, uint64_t **a4)
+uint64_t mlir::anonymous namespace::ConvertResizeGeneric<(mlir::anec::Family)0>::matchAndRewriteWithStaticShapes(uint64_t a1, mlir::mps *a2, __int128 *a3, uint64_t **a4)
 {
-  v194[3] = *MEMORY[0x1E69E9840];
+  v200[3] = *MEMORY[0x1E69E9840];
   v6 = a3[5];
-  v169 = a3[4];
-  v170 = v6;
-  *v171 = *(a3 + 12);
+  v175 = a3[4];
+  v176 = v6;
+  *v177 = *(a3 + 12);
   v7 = a3[1];
-  v165 = *a3;
-  v166 = v7;
+  v171 = *a3;
+  v172 = v7;
   v8 = a3[3];
-  v167 = a3[2];
-  v168 = v8;
-  v161 = a2;
-  v192[0] = *(&v170 + 1);
-  v192[1] = *v171;
-  v9 = a2[3];
-  v160 = mlir::ValueRange::dereference_iterator(v192, 0);
-  ODSOperandIndexAndLength = mlir::pdl_interp::RecordMatchOp::getODSOperandIndexAndLength(&v161, 0);
-  v11 = (*(*(*(v161 + 9) + 32 * ODSOperandIndexAndLength + 24) + 8) & 0xFFFFFFFFFFFFFFF8);
+  v173 = a3[2];
+  v174 = v8;
+  v167 = a2;
+  v198[0] = *(&v176 + 1);
+  v198[1] = *v177;
+  v9 = *(a2 + 3);
+  v166 = mlir::ValueRange::dereference_iterator(v198, 0);
+  ODSOperandIndexAndLength = mlir::pdl_interp::RecordMatchOp::getODSOperandIndexAndLength(&v167, 0);
+  v11 = (*(*(*(v167 + 9) + 32 * ODSOperandIndexAndLength + 24) + 8) & 0xFFFFFFFFFFFFFFF8);
   if (v11)
   {
     v12 = mlir::detail::InterfaceMap::lookup<mlir::ShapedType>(*v11 + 8);
@@ -1539,11 +1539,11 @@ uint64_t mlir::anonymous namespace::ConvertResizeGeneric<(mlir::anec::Family)0>:
     v12 = 0;
   }
 
-  v159[0] = v11;
-  v159[1] = v12;
-  v13 = mlir::mps::detail::ResizeOpGenericAdaptorBase::getODSOperandIndexAndLength(&v165, 0);
-  v14 = *(&v170 + 1);
-  *__p = *(&v170 + 1);
+  v165[0] = v11;
+  v165[1] = v12;
+  v13 = mlir::mps::detail::ResizeOpGenericAdaptorBase::getODSOperandIndexAndLength(&v171, 0);
+  v14 = *(&v176 + 1);
+  *__p = *(&v176 + 1);
   *&__p[8] = v13;
   if (v13)
   {
@@ -1571,20 +1571,20 @@ uint64_t mlir::anonymous namespace::ConvertResizeGeneric<(mlir::anec::Family)0>:
   v20 = mlir::anec::getIndexFromDim(1, v18);
   v21 = mlir::anec::getIndexFromDim(3, v18);
   v22 = mlir::anec::getIndexFromDim(4, v18);
-  mlir::CallableOpInterface::getArgAttrsAttr(v159);
+  mlir::CallableOpInterface::getArgAttrsAttr(v165);
   if (v23 <= 3)
   {
     *__p = &__p[16];
     *&__p[16] = IndexFromDim;
     *&__p[24] = v20;
-    *&v173 = v20;
-    *(&v173 + 1) = v21;
-    *&v174 = v21;
-    *(&v174 + 1) = IndexFromDim;
+    *&v179 = v20;
+    *(&v179 + 1) = v21;
+    *&v180 = v21;
+    *(&v180 + 1) = IndexFromDim;
     *&__p[8] = 0x600000006;
-    v190 = xmmword_1E0982820;
+    v196 = xmmword_1E0982820;
     IntegerType = mlir::Builder::getIntegerType(a4 + 1, 64, 0);
-    v25 = mlir::RankedTensorType::get(&v190, 2, IntegerType, 0);
+    v25 = mlir::RankedTensorType::get(&v196, 2, IntegerType, 0);
     if (v25)
     {
       v26 = v25;
@@ -1597,17 +1597,17 @@ uint64_t mlir::anonymous namespace::ConvertResizeGeneric<(mlir::anec::Family)0>:
       v27 = 0;
     }
 
-    *&v193 = mlir::DenseElementsAttr::getFromRawBuffer(v25, v27, *__p, 8 * *&__p[8], 8, 1, 0);
-    v160 = mlir::OpBuilder::create<mlir::anec::Transpose,mlir::Value &,mlir::DenseIntElementsAttr &>(a4 + 1, v9, &v160, &v193) - 16;
+    *&v199 = mlir::DenseElementsAttr::getFromRawBuffer(v25, v27, *__p, 8 * *&__p[8]);
+    v166 = mlir::OpBuilder::create<mlir::anec::Transpose,mlir::Value &,mlir::DenseIntElementsAttr &>(a4 + 1, v9, &v166, &v199) - 16;
     if (*__p != &__p[16])
     {
       free(*__p);
     }
   }
 
-  if (*(v161 + 9))
+  if (*(v167 + 9))
   {
-    v28 = v161 - 16;
+    v28 = v167 - 16;
   }
 
   else
@@ -1626,18 +1626,18 @@ uint64_t mlir::anonymous namespace::ConvertResizeGeneric<(mlir::anec::Family)0>:
     v30 = 0;
   }
 
-  v158[0] = v29;
-  v158[1] = v30;
-  ArgAttrsAttr = mlir::CallableOpInterface::getArgAttrsAttr(v158);
+  v164[0] = v29;
+  v164[1] = v30;
+  ArgAttrsAttr = mlir::CallableOpInterface::getArgAttrsAttr(v164);
   v33 = v32;
-  *&v190 = v191;
-  *(&v190 + 1) = 0x400000000;
+  *&v196 = v197;
+  *(&v196 + 1) = 0x400000000;
   v34 = (8 * v32) >> 3;
-  v154 = v22;
+  v160 = v22;
   if (v34 < 5)
   {
     v35 = 0;
-    v36 = v191;
+    v36 = v197;
     v37 = 8 * v33;
     if (!v33)
     {
@@ -1647,41 +1647,41 @@ uint64_t mlir::anonymous namespace::ConvertResizeGeneric<(mlir::anec::Family)0>:
     goto LABEL_25;
   }
 
-  llvm::SmallVectorBase<unsigned int>::grow_pod(&v190, v191, v34, 8);
-  v35 = DWORD2(v190);
-  v36 = v190;
+  llvm::SmallVectorBase<unsigned int>::grow_pod(&v196, v197, v34, 8);
+  v35 = DWORD2(v196);
+  v36 = v196;
   v37 = 8 * v33;
   if (v33)
   {
 LABEL_25:
     memcpy(v36 + 8 * v35, ArgAttrsAttr, v37);
-    v35 = DWORD2(v190);
-    v36 = v190;
+    v35 = DWORD2(v196);
+    v36 = v196;
   }
 
 LABEL_26:
   v38 = v35 + (v37 >> 3);
-  DWORD2(v190) = v38;
+  DWORD2(v196) = v38;
   if (v38 <= 3)
   {
-    llvm::SmallVectorImpl<unsigned long long>::insert(&v190, v36, 4 - v38, 1uLL);
-    v36 = v190;
+    llvm::SmallVectorImpl<unsigned long long>::insert(&v196, v36, 4 - v38, 1uLL);
+    v36 = v196;
   }
 
   v39 = *(v36 + v21);
-  v40 = *(v36 + v154);
-  v187 = v189;
-  v189[0] = v39;
-  v189[1] = v40;
-  v188 = 0x200000002;
-  ResizeLayout = mlir::mps::getResizeLayout(v161, v36);
+  v40 = *(v36 + v160);
+  v193 = v195;
+  v195[0] = v39;
+  v195[1] = v40;
+  v194 = 0x200000002;
+  ResizeLayout = mlir::mps::getResizeLayout(v167, v36);
   if ((ResizeLayout & 0x100000000) == 0)
   {
     *__p = operator new(0x20uLL);
     *&__p[8] = xmmword_1E0982800;
     strcpy(*__p, "Resize layout not supported");
 LABEL_41:
-    mlir::logMatchFailure(__p, *(v161 + 3), a4);
+    mlir::logMatchFailure(__p, *(v167 + 3), a4);
     if ((__p[23] & 0x80000000) != 0)
     {
       operator delete(*__p);
@@ -1698,14 +1698,14 @@ LABEL_41:
     *__p = &__p[16];
     *&__p[16] = v20;
     *&__p[24] = v21;
-    *&v173 = v21;
-    *(&v173 + 1) = v154;
-    *&v174 = v154;
-    *(&v174 + 1) = v20;
+    *&v179 = v21;
+    *(&v179 + 1) = v160;
+    *&v180 = v160;
+    *(&v180 + 1) = v20;
     *&__p[8] = 0x600000006;
-    v193 = xmmword_1E0982820;
+    v199 = xmmword_1E0982820;
     v43 = mlir::Builder::getIntegerType(a4 + 1, 64, 0);
-    v44 = mlir::RankedTensorType::get(&v193, 2, v43, 0);
+    v44 = mlir::RankedTensorType::get(&v199, 2, v43, 0);
     if (v44)
     {
       v45 = v9;
@@ -1720,11 +1720,11 @@ LABEL_41:
       v47 = 0;
     }
 
-    v184 = mlir::DenseElementsAttr::getFromRawBuffer(v44, v47, *__p, 8 * *&__p[8], 8, 1, 0);
-    v160 = mlir::OpBuilder::create<mlir::anec::Transpose,mlir::Value &,mlir::DenseIntElementsAttr &>(a4 + 1, v9, &v160, &v184) - 16;
-    v48 = v190;
-    v49 = v187;
-    *v187 = *(v190 + 8 * v20);
+    v190 = mlir::DenseElementsAttr::getFromRawBuffer(v44, v47, *__p, 8 * *&__p[8]);
+    v166 = mlir::OpBuilder::create<mlir::anec::Transpose,mlir::Value &,mlir::DenseIntElementsAttr &>(a4 + 1, v9, &v166, &v190) - 16;
+    v48 = v196;
+    v49 = v193;
+    *v193 = *(v196 + 8 * v20);
     v49[1] = *(v48 + 8 * v21);
     if (*__p != &__p[16])
     {
@@ -1732,14 +1732,14 @@ LABEL_41:
     }
   }
 
-  v157[0] = 0;
-  v157[1] = 0;
-  v50 = mlir::pdl_interp::RecordMatchOp::getODSOperandIndexAndLength(&v161, 1u);
-  v51 = *(*(v161 + 9) + 32 * v50 + 24);
-  *&v193 = v157;
+  v163[0] = 0;
+  v163[1] = 0;
+  v50 = mlir::pdl_interp::RecordMatchOp::getODSOperandIndexAndLength(&v167, 1u);
+  v51 = *(*(v167 + 9) + 32 * v50 + 24);
+  *&v199 = v163;
   *__p = v51;
   DefiningOp = mlir::Value::getDefiningOp(__p);
-  if (!DefiningOp || (mlir::detail::constant_op_binder<mlir::ElementsAttr>::match(&v193, DefiningOp) & 1) == 0)
+  if (!DefiningOp || (mlir::detail::constant_op_binder<mlir::ElementsAttr>::match(&v199, DefiningOp) & 1) == 0)
   {
     *__p = operator new(0x28uLL);
     *&__p[8] = xmmword_1E0982850;
@@ -1747,16 +1747,16 @@ LABEL_41:
     goto LABEL_41;
   }
 
-  v151 = v42;
-  v152 = v9;
-  v184 = v186;
-  v186[1] = 0;
-  v186[0] = 0;
-  v185 = 0x200000002;
-  v181 = v183;
-  memset_pattern16(v183, &unk_1E096FAE0, 0x10uLL);
-  v182 = 0x200000002;
-  GateLayout = mlir::mps::LSTMOp::getGateLayout(&v161);
+  v157 = v42;
+  v158 = v9;
+  v190 = v192;
+  v192[1] = 0;
+  v192[0] = 0;
+  v191 = 0x200000002;
+  v187 = v189;
+  memset_pattern16(v189, &unk_1E096FAE0, 0x10uLL);
+  v188 = 0x200000002;
+  GateLayout = mlir::mps::LSTMOp::getGateLayout(&v167);
   *__p = 2;
   v54 = mlir::Builder::getIntegerType(a4 + 1, 64, 0);
   v55 = mlir::RankedTensorType::get(__p, 1, v54, 0);
@@ -1774,31 +1774,31 @@ LABEL_41:
 
   if (GateLayout == 1)
   {
-    v62 = &v184;
+    v62 = &v190;
   }
 
   else
   {
-    v62 = &v181;
+    v62 = &v187;
   }
 
   v63 = *v62;
-  v64 = &v185;
+  v64 = &v191;
   if (GateLayout != 1)
   {
-    v64 = &v182;
+    v64 = &v188;
   }
 
-  v156 = mlir::DenseElementsAttr::getFromRawBuffer(v55, v57, v63, 8 * *v64, 8, 1, 0);
-  v178 = v180;
-  v179 = 0x200000000;
-  InferredResultTypes = mlir::pdl_interp::CreateOperationOp::getInferredResultTypes(&v161);
-  IsSize = mlir::mps::StridedSliceOp::getEndIsSize(&v161);
-  v67 = mlir::pdl_interp::RecordMatchOp::getODSOperandIndexAndLength(&v161, 2u);
-  v69 = v161;
-  if ((*(v161 + 46) & 0x80) != 0)
+  v162 = mlir::DenseElementsAttr::getFromRawBuffer(v55, v57, v63, 8 * *v64);
+  v184 = v186;
+  v185 = 0x200000000;
+  InferredResultTypes = mlir::pdl_interp::CreateOperationOp::getInferredResultTypes(&v167);
+  IsSize = mlir::mps::StridedSliceOp::getEndIsSize(&v167);
+  v67 = mlir::pdl_interp::RecordMatchOp::getODSOperandIndexAndLength(&v167, 2u);
+  v69 = v167;
+  if ((*(v167 + 46) & 0x80) != 0)
   {
-    v70 = *(v161 + 9);
+    v70 = *(v167 + 9);
   }
 
   else
@@ -1806,12 +1806,12 @@ LABEL_41:
     v70 = 0;
   }
 
-  v71 = v152;
+  v71 = v158;
   if (HIDWORD(v67) + v67 == v67 || !*(v70 + 32 * v67 + 24))
   {
-    v72 = mlir::pdl_interp::RecordMatchOp::getODSOperandIndexAndLength(&v161, 3u);
-    v69 = v161;
-    v73 = (*(v161 + 46) & 0x80) != 0 ? *(v161 + 9) : 0;
+    v72 = mlir::pdl_interp::RecordMatchOp::getODSOperandIndexAndLength(&v167, 3u);
+    v69 = v167;
+    v73 = (*(v167 + 46) & 0x80) != 0 ? *(v167 + 9) : 0;
     if (HIDWORD(v72) + v72 == v72 || !*(v73 + 32 * v72 + 24))
     {
       if (InferredResultTypes)
@@ -1837,7 +1837,7 @@ LABEL_119:
         memset_pattern16(&__p[16], v80, 0x10uLL);
 LABEL_121:
         *&__p[8] = 0x600000002;
-        llvm::SmallVectorImpl<unsigned long long>::operator=(&v178, __p);
+        llvm::SmallVectorImpl<unsigned long long>::operator=(&v184, __p);
         if (*__p != &__p[16])
         {
           free(*__p);
@@ -1858,30 +1858,30 @@ LABEL_121:
           v123 = 0;
         }
 
-        v162 = mlir::DenseElementsAttr::getFromRawBuffer(v121, v123, v178, 8 * v179, 8, 1, 0);
-        v124 = v187;
-        v125 = llvm::detail::IEEEFloat::IEEEFloat(&v193, -1.0);
-        v126 = llvm::APFloatBase::IEEEsingle(v125);
-        llvm::APFloat::Storage::Storage(&__p[8], &v193, v126);
-        llvm::detail::IEEEFloat::~IEEEFloat(&v193);
-        llvm::detail::IEEEFloat::IEEEFloat(&v163, -1.0);
-        llvm::APFloat::Storage::Storage(&v193 + 8, &v163, v126);
-        llvm::detail::IEEEFloat::~IEEEFloat(&v163);
-        v163 = mlir::OpBuilder::create<mlir::anec::Resize,mlir::Value &,unsigned long long &,unsigned long long &,llvm::APFloat,llvm::APFloat,mlir::DenseIntElementsAttr &,mlir::DenseIntElementsAttr &>(a4 + 1, v71, &v160, v124, v124 + 1, __p, &v193, &v156, &v162);
-        v127 = *(&v193 + 1);
-        v128 = llvm::APFloatBase::PPCDoubleDouble(v163);
-        if (v128 == v127)
+        v168 = mlir::DenseElementsAttr::getFromRawBuffer(v121, v123, v184, 8 * v185);
+        v124 = v193;
+        v128 = llvm::detail::IEEEFloat::IEEEFloat(&v199, -1.0, v125, v126, v127);
+        v129 = llvm::APFloatBase::IEEEsingle(v128);
+        llvm::APFloat::Storage::Storage(&__p[8], &v199, v129);
+        llvm::detail::IEEEFloat::~IEEEFloat(&v199);
+        llvm::detail::IEEEFloat::IEEEFloat(&v169, -1.0, v130, v131, v132);
+        llvm::APFloat::Storage::Storage(&v199 + 8, &v169, v129);
+        llvm::detail::IEEEFloat::~IEEEFloat(&v169);
+        v169 = mlir::OpBuilder::create<mlir::anec::Resize,mlir::Value &,unsigned long long &,unsigned long long &,llvm::APFloat,llvm::APFloat,mlir::DenseIntElementsAttr &,mlir::DenseIntElementsAttr &>(a4 + 1, v71, &v166, v124, v124 + 1, __p, &v199, &v162, &v168);
+        v133 = *(&v199 + 1);
+        v134 = llvm::APFloatBase::PPCDoubleDouble(v169);
+        if (v134 == v133)
         {
-          llvm::detail::DoubleAPFloat::~DoubleAPFloat((&v193 + 8));
+          llvm::detail::DoubleAPFloat::~DoubleAPFloat((&v199 + 8));
         }
 
         else
         {
-          llvm::detail::IEEEFloat::~IEEEFloat((&v193 + 8));
+          llvm::detail::IEEEFloat::~IEEEFloat((&v199 + 8));
         }
 
-        v129 = v152;
-        if (v128 == *&__p[8])
+        v135 = v158;
+        if (v134 == *&__p[8])
         {
           llvm::detail::DoubleAPFloat::~DoubleAPFloat(&__p[8]);
         }
@@ -1891,73 +1891,73 @@ LABEL_121:
           llvm::detail::IEEEFloat::~IEEEFloat(&__p[8]);
         }
 
-        v59 = mlir::anec::Resize::verifyAttributesWithFamily(&v163, 0);
-        v58 = v163;
+        v59 = mlir::anec::Resize::verifyAttributesWithFamily(&v169, 0);
+        v58 = v169;
         if (v59)
         {
-          if (v151 == 1)
+          if (v157 == 1)
           {
             *__p = &__p[16];
             *&__p[16] = v20;
-            *&__p[24] = v154;
-            *&v173 = v21;
-            *(&v173 + 1) = v20;
-            *&v174 = v154;
-            *(&v174 + 1) = v21;
+            *&__p[24] = v160;
+            *&v179 = v21;
+            *(&v179 + 1) = v20;
+            *&v180 = v160;
+            *(&v180 + 1) = v21;
             *&__p[8] = 0x600000006;
-            v193 = xmmword_1E0982820;
-            v130 = mlir::Builder::getIntegerType(a4 + 1, 64, 0);
-            v131 = mlir::RankedTensorType::get(&v193, 2, v130, 0);
-            if (v131)
+            v199 = xmmword_1E0982820;
+            v136 = mlir::Builder::getIntegerType(a4 + 1, 64, 0);
+            v137 = mlir::RankedTensorType::get(&v199, 2, v136, 0);
+            if (v137)
             {
-              v132 = v131;
-              v133 = mlir::detail::InterfaceMap::lookup<mlir::ShapedType>(*v131 + 8);
-              v131 = v132;
-              v129 = v152;
+              v138 = v137;
+              v139 = mlir::detail::InterfaceMap::lookup<mlir::ShapedType>(*v137 + 8);
+              v137 = v138;
+              v135 = v158;
             }
 
             else
             {
-              v133 = 0;
+              v139 = 0;
             }
 
-            v155 = mlir::DenseElementsAttr::getFromRawBuffer(v131, v133, *__p, 8 * *&__p[8], 8, 1, 0);
-            v58 = mlir::OpBuilder::create<mlir::anec::Transpose,mlir::anec::Resize &,mlir::DenseIntElementsAttr &>(a4 + 1, v129, &v163, &v155);
+            v161 = mlir::DenseElementsAttr::getFromRawBuffer(v137, v139, *__p, 8 * *&__p[8]);
+            v58 = mlir::OpBuilder::create<mlir::anec::Transpose,mlir::anec::Resize &,mlir::DenseIntElementsAttr &>(a4 + 1, v135, &v169, &v161);
             if (*__p != &__p[16])
             {
               free(*__p);
             }
           }
 
-          mlir::CallableOpInterface::getArgAttrsAttr(v159);
-          if (v134 <= 3)
+          mlir::CallableOpInterface::getArgAttrsAttr(v165);
+          if (v140 <= 3)
           {
             *__p = &__p[16];
             *&__p[16] = v20;
             *&__p[24] = IndexFromDim;
-            *&v173 = v21;
-            *(&v173 + 1) = v20;
-            *&v174 = IndexFromDim;
-            *(&v174 + 1) = v21;
+            *&v179 = v21;
+            *(&v179 + 1) = v20;
+            *&v180 = IndexFromDim;
+            *(&v180 + 1) = v21;
             *&__p[8] = 0x600000006;
-            v193 = xmmword_1E0982820;
-            v135 = mlir::Builder::getIntegerType(a4 + 1, 64, 0);
-            v136 = mlir::RankedTensorType::get(&v193, 2, v135, 0);
-            if (v136)
+            v199 = xmmword_1E0982820;
+            v141 = mlir::Builder::getIntegerType(a4 + 1, 64, 0);
+            v142 = mlir::RankedTensorType::get(&v199, 2, v141, 0);
+            if (v142)
             {
-              v137 = v136;
-              v138 = mlir::detail::InterfaceMap::lookup<mlir::ShapedType>(*v136 + 8);
-              v136 = v137;
+              v143 = v142;
+              v144 = mlir::detail::InterfaceMap::lookup<mlir::ShapedType>(*v142 + 8);
+              v142 = v143;
             }
 
             else
             {
-              v138 = 0;
+              v144 = 0;
             }
 
-            v155 = mlir::DenseElementsAttr::getFromRawBuffer(v136, v138, *__p, 8 * *&__p[8], 8, 1, 0);
-            *&v193 = v58 - 16;
-            v58 = mlir::OpBuilder::create<mlir::anec::Transpose,mlir::Value &,mlir::DenseIntElementsAttr &>(a4 + 1, v152, &v193, &v155);
+            v161 = mlir::DenseElementsAttr::getFromRawBuffer(v142, v144, *__p, 8 * *&__p[8]);
+            *&v199 = v58 - 16;
+            v58 = mlir::OpBuilder::create<mlir::anec::Transpose,mlir::Value &,mlir::DenseIntElementsAttr &>(a4 + 1, v158, &v199, &v161);
             if (*__p != &__p[16])
             {
               free(*__p);
@@ -1967,11 +1967,11 @@ LABEL_121:
 
         else
         {
-          mlir::ConversionPatternRewriter::eraseOp(a4, v163);
+          mlir::ConversionPatternRewriter::eraseOp(a4, v169);
           *__p = operator new(0x48uLL);
           *&__p[8] = xmmword_1E0982840;
           strcpy(*__p, "requested attributes are not compatible with hardware requirements");
-          mlir::logMatchFailure(__p, *(v161 + 3), a4);
+          mlir::logMatchFailure(__p, *(v167 + 3), a4);
           if ((__p[23] & 0x80000000) != 0)
           {
             operator delete(*__p);
@@ -1990,26 +1990,26 @@ LABEL_118:
     }
   }
 
-  v175 = v169;
-  v176 = v170;
-  *v177 = *v171;
-  *__p = v165;
-  *&__p[16] = v166;
-  v173 = v167;
-  v174 = v168;
+  v181 = v175;
+  v182 = v176;
+  *v183 = *v177;
+  *__p = v171;
+  *&__p[16] = v172;
+  v179 = v173;
+  v180 = v174;
   v74 = mlir::mps::getResizeLayout(v69, v68);
   if ((v74 & 0x100000000) != 0)
   {
     v76 = qword_1E0982BB8[v74];
-    v150 = qword_1E0982BF0[v74];
+    v156 = qword_1E0982BF0[v74];
     v77 = mlir::mps::detail::ResizeOpGenericAdaptorBase::getODSOperandIndexAndLength(__p, 2u);
-    v78 = *(&v176 + 1);
-    *&v193 = *(&v176 + 1);
-    *(&v193 + 1) = v77;
+    v78 = *(&v182 + 1);
+    *&v199 = *(&v182 + 1);
+    *(&v199 + 1) = v77;
     if (v77)
     {
-      v78 = mlir::ValueRange::offset_base(&v193, v77);
-      v79 = *(&v193 + 1);
+      v78 = mlir::ValueRange::offset_base(&v199, v77);
+      v79 = *(&v199 + 1);
     }
 
     else
@@ -2017,7 +2017,7 @@ LABEL_118:
       v79 = 0;
     }
 
-    if (HIDWORD(v77) + v77 == v79 || (v193 = v78, !mlir::ValueRange::dereference_iterator(&v193, 0)))
+    if (HIDWORD(v77) + v77 == v79 || (v199 = v78, !mlir::ValueRange::dereference_iterator(&v199, 0)))
     {
       v84 = 1.0;
       v85 = 1.0;
@@ -2025,16 +2025,16 @@ LABEL_118:
 
     else
     {
-      v163 = 0;
-      v164 = 0;
+      v169 = 0;
+      v170 = 0;
       v81 = mlir::mps::detail::ResizeOpGenericAdaptorBase::getODSOperandIndexAndLength(__p, 2u);
-      v82 = *(&v176 + 1);
-      *&v193 = *(&v176 + 1);
-      *(&v193 + 1) = v81;
+      v82 = *(&v182 + 1);
+      *&v199 = *(&v182 + 1);
+      *(&v199 + 1) = v81;
       if (v81)
       {
-        v82 = mlir::ValueRange::offset_base(&v193, v81);
-        v83 = *(&v193 + 1);
+        v82 = mlir::ValueRange::offset_base(&v199, v81);
+        v83 = *(&v199 + 1);
       }
 
       else
@@ -2044,58 +2044,58 @@ LABEL_118:
 
       if (HIDWORD(v81) + v81 == v83)
       {
-        v139 = 0;
+        v145 = 0;
       }
 
       else
       {
-        v193 = v82;
-        v139 = mlir::ValueRange::dereference_iterator(&v193, 0);
+        v199 = v82;
+        v145 = mlir::ValueRange::dereference_iterator(&v199, 0);
       }
 
-      v162 = &v163;
-      *&v193 = v139;
-      v140 = mlir::Value::getDefiningOp(&v193);
-      if (!v140 || !mlir::detail::constant_op_binder<mlir::ElementsAttr>::match(&v162, v140))
+      v168 = &v169;
+      *&v199 = v145;
+      v146 = mlir::Value::getDefiningOp(&v199);
+      if (!v146 || !mlir::detail::constant_op_binder<mlir::ElementsAttr>::match(&v168, v146))
       {
         goto LABEL_68;
       }
 
-      *&v193 = v194;
-      *(&v193 + 1) = 0x400000000;
-      mlir::getFloatValues<float>(v163, v164, &v193, 1);
-      v141 = v76;
-      v142 = DWORD2(v193);
+      *&v199 = v200;
+      *(&v199 + 1) = 0x400000000;
+      mlir::getFloatValues<float>(v169, v170, &v199, 1);
+      v147 = v76;
+      v148 = DWORD2(v199);
       v84 = 1.0;
       v85 = 1.0;
-      v143 = v141;
-      if (v141 < DWORD2(v193))
+      v149 = v147;
+      if (v147 < DWORD2(v199))
       {
-        v85 = *(v193 + 4 * v141);
-        v84 = *(v193 + 4 * v150);
+        v85 = *(v199 + 4 * v147);
+        v84 = *(v199 + 4 * v156);
       }
 
-      if (v193 != v194)
+      if (v199 != v200)
       {
-        free(v193);
+        free(v199);
       }
 
-      v144 = v143 >= v142;
-      v76 = v143;
-      if (v144)
+      v150 = v149 >= v148;
+      v76 = v149;
+      if (v150)
       {
         goto LABEL_68;
       }
     }
 
     v86 = mlir::mps::detail::ResizeOpGenericAdaptorBase::getODSOperandIndexAndLength(__p, 3u);
-    v87 = *(&v176 + 1);
-    *&v193 = *(&v176 + 1);
-    *(&v193 + 1) = v86;
+    v87 = *(&v182 + 1);
+    *&v199 = *(&v182 + 1);
+    *(&v199 + 1) = v86;
     if (v86)
     {
-      v87 = mlir::ValueRange::offset_base(&v193, v86);
-      v88 = *(&v193 + 1);
+      v87 = mlir::ValueRange::offset_base(&v199, v86);
+      v88 = *(&v199 + 1);
     }
 
     else
@@ -2103,7 +2103,7 @@ LABEL_118:
       v88 = 0;
     }
 
-    if (HIDWORD(v86) + v86 == v88 || (v193 = v87, !mlir::ValueRange::dereference_iterator(&v193, 0)))
+    if (HIDWORD(v86) + v86 == v88 || (v199 = v87, !mlir::ValueRange::dereference_iterator(&v199, 0)))
     {
       v92 = 0.0;
       v93 = 0.0;
@@ -2111,16 +2111,16 @@ LABEL_118:
 
     else
     {
-      v163 = 0;
-      v164 = 0;
+      v169 = 0;
+      v170 = 0;
       v89 = mlir::mps::detail::ResizeOpGenericAdaptorBase::getODSOperandIndexAndLength(__p, 3u);
-      v90 = *(&v176 + 1);
-      *&v193 = *(&v176 + 1);
-      *(&v193 + 1) = v89;
+      v90 = *(&v182 + 1);
+      *&v199 = *(&v182 + 1);
+      *(&v199 + 1) = v89;
       if (v89)
       {
-        v90 = mlir::ValueRange::offset_base(&v193, v89);
-        v91 = *(&v193 + 1);
+        v90 = mlir::ValueRange::offset_base(&v199, v89);
+        v91 = *(&v199 + 1);
       }
 
       else
@@ -2130,59 +2130,59 @@ LABEL_118:
 
       if (HIDWORD(v89) + v89 == v91)
       {
-        v145 = 0;
+        v151 = 0;
       }
 
       else
       {
-        v193 = v90;
-        v145 = mlir::ValueRange::dereference_iterator(&v193, 0);
+        v199 = v90;
+        v151 = mlir::ValueRange::dereference_iterator(&v199, 0);
       }
 
-      v162 = &v163;
-      *&v193 = v145;
-      v146 = mlir::Value::getDefiningOp(&v193);
-      if (!v146 || !mlir::detail::constant_op_binder<mlir::ElementsAttr>::match(&v162, v146))
+      v168 = &v169;
+      *&v199 = v151;
+      v152 = mlir::Value::getDefiningOp(&v199);
+      if (!v152 || !mlir::detail::constant_op_binder<mlir::ElementsAttr>::match(&v168, v152))
       {
         goto LABEL_68;
       }
 
-      *&v193 = v194;
-      *(&v193 + 1) = 0x400000000;
-      mlir::getFloatValues<float>(v163, v164, &v193, 1);
-      v147 = v76;
-      v148 = DWORD2(v193);
+      *&v199 = v200;
+      *(&v199 + 1) = 0x400000000;
+      mlir::getFloatValues<float>(v169, v170, &v199, 1);
+      v153 = v76;
+      v154 = DWORD2(v199);
       v92 = 0.0;
       v93 = 0.0;
-      v149 = v147;
-      if (v147 < DWORD2(v193))
+      v155 = v153;
+      if (v153 < DWORD2(v199))
       {
-        v93 = *(v193 + 4 * v147);
-        v92 = *(v193 + 4 * v150);
+        v93 = *(v199 + 4 * v153);
+        v92 = *(v199 + 4 * v156);
       }
 
-      if (v193 != v194)
+      if (v199 != v200)
       {
-        free(v193);
+        free(v199);
       }
 
-      if (v149 >= v148)
+      if (v155 >= v154)
       {
         goto LABEL_68;
       }
     }
 
     v94 = mlir::mps::detail::ResizeOpGenericAdaptorBase::getODSOperandIndexAndLength(__p, 0);
-    v95 = *(&v176 + 1);
-    *&v193 = *(&v176 + 1);
-    *(&v193 + 1) = v94;
+    v95 = *(&v182 + 1);
+    *&v199 = *(&v182 + 1);
+    *(&v199 + 1) = v94;
     if (v94)
     {
-      v95 = mlir::ValueRange::offset_base(&v193, v94);
+      v95 = mlir::ValueRange::offset_base(&v199, v94);
     }
 
-    v193 = v95;
-    v96 = (*(mlir::ValueRange::dereference_iterator(&v193, 0) + 8) & 0xFFFFFFFFFFFFFFF8);
+    v199 = v95;
+    v96 = (*(mlir::ValueRange::dereference_iterator(&v199, 0) + 8) & 0xFFFFFFFFFFFFFFF8);
     if (v96)
     {
       v97 = mlir::detail::InterfaceMap::lookup<mlir::ShapedType>(*v96 + 8);
@@ -2193,9 +2193,9 @@ LABEL_118:
       v97 = 0;
     }
 
-    *&v193 = v96;
-    *(&v193 + 1) = v97;
-    v98 = mlir::CallableOpInterface::getArgAttrsAttr(&v193);
+    *&v199 = v96;
+    *(&v199 + 1) = v97;
+    v98 = mlir::CallableOpInterface::getArgAttrsAttr(&v199);
     v100 = v99;
     v101 = *(a1 + 96);
     if (*(v69 + 9))
@@ -2216,9 +2216,9 @@ LABEL_118:
       v104 = mlir::detail::InterfaceMap::lookup<mlir::ShapedType>(*v104 + 8);
     }
 
-    *&v193 = v105;
-    *(&v193 + 1) = v104;
-    v106 = mlir::CallableOpInterface::getArgAttrsAttr(&v193);
+    *&v199 = v105;
+    *(&v199 + 1) = v104;
+    v106 = mlir::CallableOpInterface::getArgAttrsAttr(&v199);
     v108 = v107;
     v109 = mlir::anec::getIndexFromDim(3, v100);
     v110 = mlir::anec::getIndexFromDim(4, v108);
@@ -2232,7 +2232,7 @@ LABEL_118:
     }
 
     v115 = (v85 + -1.0) * 0.5 != v93 || (v84 + -1.0) * 0.5 != v92;
-    v71 = v152;
+    v71 = v158;
     v116 = v112;
     v117 = *(v106 + 8 * v110);
     v118 = v85 != (v113 / v111) || v84 != (v117 / v116);
@@ -2262,7 +2262,7 @@ LABEL_68:
   *__p = operator new(0x48uLL);
   *&__p[8] = xmmword_1E0982670;
   strcpy(*__p, "Resize with custom scale and offset values not supported on ANE.");
-  v75 = *(v161 + 3);
+  v75 = *(v167 + 3);
 LABEL_72:
   mlir::logMatchFailure(__p, v75, a4);
   if ((__p[23] & 0x80000000) != 0)
@@ -2273,37 +2273,37 @@ LABEL_72:
   v58 = 0;
   v59 = 0;
 LABEL_148:
-  if (v178 != v180)
-  {
-    free(v178);
-  }
-
-  if (v181 != v183)
-  {
-    free(v181);
-  }
-
   if (v184 != v186)
   {
     free(v184);
   }
 
-LABEL_44:
   if (v187 != v189)
   {
     free(v187);
   }
 
-  if (v190 != v191)
+  if (v190 != v192)
   {
     free(v190);
   }
 
+LABEL_44:
+  if (v193 != v195)
+  {
+    free(v193);
+  }
+
+  if (v196 != v197)
+  {
+    free(v196);
+  }
+
   if (v59)
   {
-    *&v165 = v58 - 16;
+    *&v171 = v58 - 16;
     matched = 1;
-    mlir::ValueRange::ValueRange(__p, &v165, 1uLL);
+    mlir::ValueRange::ValueRange(__p, &v171, 1uLL);
     mlir::ConversionPatternRewriter::replaceOp(a4, a2, *__p, *&__p[8]);
   }
 
@@ -2312,7 +2312,7 @@ LABEL_44:
     *__p = operator new(0x60uLL);
     *&__p[8] = xmmword_1E0982860;
     strcpy(*__p, "Conversion did not match a valid resize or a valid transformation supported by the hardware.");
-    matched = mlir::logMatchFailure(__p, a2[3], a4);
+    matched = mlir::logMatchFailure(__p, *(a2 + 3), a4);
     if ((__p[23] & 0x80000000) != 0)
     {
       operator delete(*__p);
@@ -2322,7 +2322,7 @@ LABEL_44:
   return matched;
 }
 
-uint64_t mlir::OpBuilder::create<mlir::anec::Transpose,mlir::Value &,mlir::DenseIntElementsAttr &>(mlir::UnknownLoc **a1, uint64_t a2, uint64_t *a3, uint64_t *a4)
+char *mlir::OpBuilder::create<mlir::anec::Transpose,mlir::Value &,mlir::DenseIntElementsAttr &>(mlir::UnknownLoc **a1, uint64_t a2, uint64_t *a3, uint64_t *a4)
 {
   v17[38] = *MEMORY[0x1E69E9840];
   v14 = a2;
@@ -2336,7 +2336,7 @@ uint64_t mlir::OpBuilder::create<mlir::anec::Transpose,mlir::Value &,mlir::Dense
   mlir::OperationState::OperationState(v17, a2, v9);
   mlir::anec::Transpose::build(a1, v17, *a3, *a4);
   v11 = mlir::OpBuilder::create(a1, v17);
-  if (*(*(v11 + 48) + 16) == &mlir::detail::TypeIDResolver<mlir::anec::Transpose,void>::id)
+  if (*(*(v11 + 6) + 16) == &mlir::detail::TypeIDResolver<mlir::anec::Transpose,void>::id)
   {
     v12 = v11;
   }
@@ -2350,7 +2350,7 @@ uint64_t mlir::OpBuilder::create<mlir::anec::Transpose,mlir::Value &,mlir::Dense
   return v12;
 }
 
-uint64_t mlir::OpBuilder::create<mlir::anec::Resize,mlir::Value &,unsigned long long &,unsigned long long &,llvm::APFloat,llvm::APFloat,mlir::DenseIntElementsAttr &,mlir::DenseIntElementsAttr &>(uint64_t **a1, uint64_t a2, uint64_t *a3, uint64_t *a4, uint64_t *a5, uint64_t a6, uint64_t a7, uint64_t *a8, uint64_t *a9)
+char *mlir::OpBuilder::create<mlir::anec::Resize,mlir::Value &,unsigned long long &,unsigned long long &,llvm::APFloat,llvm::APFloat,mlir::DenseIntElementsAttr &,mlir::DenseIntElementsAttr &>(uint64_t **a1, uint64_t a2, uint64_t *a3, uint64_t *a4, uint64_t *a5, uint64_t a6, uint64_t a7, uint64_t *a8, uint64_t *a9)
 {
   v38[38] = *MEMORY[0x1E69E9840];
   v31 = a2;
@@ -2411,7 +2411,7 @@ uint64_t mlir::OpBuilder::create<mlir::anec::Resize,mlir::Value &,unsigned long 
   }
 
   v28 = mlir::OpBuilder::create(a1, v38);
-  if (*(*(v28 + 48) + 16) == &mlir::detail::TypeIDResolver<mlir::anec::Resize,void>::id)
+  if (*(*(v28 + 6) + 16) == &mlir::detail::TypeIDResolver<mlir::anec::Resize,void>::id)
   {
     v29 = v28;
   }
@@ -2425,7 +2425,7 @@ uint64_t mlir::OpBuilder::create<mlir::anec::Resize,mlir::Value &,unsigned long 
   return v29;
 }
 
-uint64_t mlir::OpBuilder::create<mlir::anec::Transpose,mlir::anec::Resize &,mlir::DenseIntElementsAttr &>(mlir::UnknownLoc **a1, uint64_t a2, void *a3, uint64_t *a4)
+char *mlir::OpBuilder::create<mlir::anec::Transpose,mlir::anec::Resize &,mlir::DenseIntElementsAttr &>(mlir::UnknownLoc **a1, uint64_t a2, void *a3, uint64_t *a4)
 {
   v17[38] = *MEMORY[0x1E69E9840];
   v14 = a2;
@@ -2439,7 +2439,7 @@ uint64_t mlir::OpBuilder::create<mlir::anec::Transpose,mlir::anec::Resize &,mlir
   mlir::OperationState::OperationState(v17, a2, v9);
   mlir::anec::Transpose::build(a1, v17, *a3 - 16, *a4);
   v11 = mlir::OpBuilder::create(a1, v17);
-  if (*(*(v11 + 48) + 16) == &mlir::detail::TypeIDResolver<mlir::anec::Transpose,void>::id)
+  if (*(*(v11 + 6) + 16) == &mlir::detail::TypeIDResolver<mlir::anec::Transpose,void>::id)
   {
     v12 = v11;
   }
@@ -2487,26 +2487,26 @@ void mlir::anonymous namespace::ConvertResize<(mlir::anec::Family)1>::~ConvertRe
   operator delete(__p);
 }
 
-uint64_t mlir::anonymous namespace::ConvertResizeGeneric<(mlir::anec::Family)1>::matchAndRewriteWithStaticShapes(uint64_t a1, uint64_t *a2, __int128 *a3, uint64_t **a4)
+uint64_t mlir::anonymous namespace::ConvertResizeGeneric<(mlir::anec::Family)1>::matchAndRewriteWithStaticShapes(uint64_t a1, mlir::mps *a2, __int128 *a3, uint64_t **a4)
 {
-  v194[3] = *MEMORY[0x1E69E9840];
+  v200[3] = *MEMORY[0x1E69E9840];
   v6 = a3[5];
-  v169 = a3[4];
-  v170 = v6;
-  *v171 = *(a3 + 12);
+  v175 = a3[4];
+  v176 = v6;
+  *v177 = *(a3 + 12);
   v7 = a3[1];
-  v165 = *a3;
-  v166 = v7;
+  v171 = *a3;
+  v172 = v7;
   v8 = a3[3];
-  v167 = a3[2];
-  v168 = v8;
-  v161 = a2;
-  v192[0] = *(&v170 + 1);
-  v192[1] = *v171;
-  v9 = a2[3];
-  v160 = mlir::ValueRange::dereference_iterator(v192, 0);
-  ODSOperandIndexAndLength = mlir::pdl_interp::RecordMatchOp::getODSOperandIndexAndLength(&v161, 0);
-  v11 = (*(*(*(v161 + 9) + 32 * ODSOperandIndexAndLength + 24) + 8) & 0xFFFFFFFFFFFFFFF8);
+  v173 = a3[2];
+  v174 = v8;
+  v167 = a2;
+  v198[0] = *(&v176 + 1);
+  v198[1] = *v177;
+  v9 = *(a2 + 3);
+  v166 = mlir::ValueRange::dereference_iterator(v198, 0);
+  ODSOperandIndexAndLength = mlir::pdl_interp::RecordMatchOp::getODSOperandIndexAndLength(&v167, 0);
+  v11 = (*(*(*(v167 + 9) + 32 * ODSOperandIndexAndLength + 24) + 8) & 0xFFFFFFFFFFFFFFF8);
   if (v11)
   {
     v12 = mlir::detail::InterfaceMap::lookup<mlir::ShapedType>(*v11 + 8);
@@ -2517,11 +2517,11 @@ uint64_t mlir::anonymous namespace::ConvertResizeGeneric<(mlir::anec::Family)1>:
     v12 = 0;
   }
 
-  v159[0] = v11;
-  v159[1] = v12;
-  v13 = mlir::mps::detail::ResizeOpGenericAdaptorBase::getODSOperandIndexAndLength(&v165, 0);
-  v14 = *(&v170 + 1);
-  *__p = *(&v170 + 1);
+  v165[0] = v11;
+  v165[1] = v12;
+  v13 = mlir::mps::detail::ResizeOpGenericAdaptorBase::getODSOperandIndexAndLength(&v171, 0);
+  v14 = *(&v176 + 1);
+  *__p = *(&v176 + 1);
   *&__p[8] = v13;
   if (v13)
   {
@@ -2549,20 +2549,20 @@ uint64_t mlir::anonymous namespace::ConvertResizeGeneric<(mlir::anec::Family)1>:
   v20 = mlir::anec::getIndexFromDim(1, v18);
   v21 = mlir::anec::getIndexFromDim(3, v18);
   v22 = mlir::anec::getIndexFromDim(4, v18);
-  mlir::CallableOpInterface::getArgAttrsAttr(v159);
+  mlir::CallableOpInterface::getArgAttrsAttr(v165);
   if (v23 <= 3)
   {
     *__p = &__p[16];
     *&__p[16] = IndexFromDim;
     *&__p[24] = v20;
-    *&v173 = v20;
-    *(&v173 + 1) = v21;
-    *&v174 = v21;
-    *(&v174 + 1) = IndexFromDim;
+    *&v179 = v20;
+    *(&v179 + 1) = v21;
+    *&v180 = v21;
+    *(&v180 + 1) = IndexFromDim;
     *&__p[8] = 0x600000006;
-    v190 = xmmword_1E0982820;
+    v196 = xmmword_1E0982820;
     IntegerType = mlir::Builder::getIntegerType(a4 + 1, 64, 0);
-    v25 = mlir::RankedTensorType::get(&v190, 2, IntegerType, 0);
+    v25 = mlir::RankedTensorType::get(&v196, 2, IntegerType, 0);
     if (v25)
     {
       v26 = v25;
@@ -2575,17 +2575,17 @@ uint64_t mlir::anonymous namespace::ConvertResizeGeneric<(mlir::anec::Family)1>:
       v27 = 0;
     }
 
-    *&v193 = mlir::DenseElementsAttr::getFromRawBuffer(v25, v27, *__p, 8 * *&__p[8], 8, 1, 0);
-    v160 = mlir::OpBuilder::create<mlir::anec::Transpose,mlir::Value &,mlir::DenseIntElementsAttr &>(a4 + 1, v9, &v160, &v193) - 16;
+    *&v199 = mlir::DenseElementsAttr::getFromRawBuffer(v25, v27, *__p, 8 * *&__p[8]);
+    v166 = mlir::OpBuilder::create<mlir::anec::Transpose,mlir::Value &,mlir::DenseIntElementsAttr &>(a4 + 1, v9, &v166, &v199) - 16;
     if (*__p != &__p[16])
     {
       free(*__p);
     }
   }
 
-  if (*(v161 + 9))
+  if (*(v167 + 9))
   {
-    v28 = v161 - 16;
+    v28 = v167 - 16;
   }
 
   else
@@ -2604,18 +2604,18 @@ uint64_t mlir::anonymous namespace::ConvertResizeGeneric<(mlir::anec::Family)1>:
     v30 = 0;
   }
 
-  v158[0] = v29;
-  v158[1] = v30;
-  ArgAttrsAttr = mlir::CallableOpInterface::getArgAttrsAttr(v158);
+  v164[0] = v29;
+  v164[1] = v30;
+  ArgAttrsAttr = mlir::CallableOpInterface::getArgAttrsAttr(v164);
   v33 = v32;
-  *&v190 = v191;
-  *(&v190 + 1) = 0x400000000;
+  *&v196 = v197;
+  *(&v196 + 1) = 0x400000000;
   v34 = (8 * v32) >> 3;
-  v154 = v22;
+  v160 = v22;
   if (v34 < 5)
   {
     v35 = 0;
-    v36 = v191;
+    v36 = v197;
     v37 = 8 * v33;
     if (!v33)
     {
@@ -2625,41 +2625,41 @@ uint64_t mlir::anonymous namespace::ConvertResizeGeneric<(mlir::anec::Family)1>:
     goto LABEL_25;
   }
 
-  llvm::SmallVectorBase<unsigned int>::grow_pod(&v190, v191, v34, 8);
-  v35 = DWORD2(v190);
-  v36 = v190;
+  llvm::SmallVectorBase<unsigned int>::grow_pod(&v196, v197, v34, 8);
+  v35 = DWORD2(v196);
+  v36 = v196;
   v37 = 8 * v33;
   if (v33)
   {
 LABEL_25:
     memcpy(v36 + 8 * v35, ArgAttrsAttr, v37);
-    v35 = DWORD2(v190);
-    v36 = v190;
+    v35 = DWORD2(v196);
+    v36 = v196;
   }
 
 LABEL_26:
   v38 = v35 + (v37 >> 3);
-  DWORD2(v190) = v38;
+  DWORD2(v196) = v38;
   if (v38 <= 3)
   {
-    llvm::SmallVectorImpl<unsigned long long>::insert(&v190, v36, 4 - v38, 1uLL);
-    v36 = v190;
+    llvm::SmallVectorImpl<unsigned long long>::insert(&v196, v36, 4 - v38, 1uLL);
+    v36 = v196;
   }
 
   v39 = *(v36 + v21);
-  v40 = *(v36 + v154);
-  v187 = v189;
-  v189[0] = v39;
-  v189[1] = v40;
-  v188 = 0x200000002;
-  ResizeLayout = mlir::mps::getResizeLayout(v161, v36);
+  v40 = *(v36 + v160);
+  v193 = v195;
+  v195[0] = v39;
+  v195[1] = v40;
+  v194 = 0x200000002;
+  ResizeLayout = mlir::mps::getResizeLayout(v167, v36);
   if ((ResizeLayout & 0x100000000) == 0)
   {
     *__p = operator new(0x20uLL);
     *&__p[8] = xmmword_1E0982800;
     strcpy(*__p, "Resize layout not supported");
 LABEL_41:
-    mlir::logMatchFailure(__p, *(v161 + 3), a4);
+    mlir::logMatchFailure(__p, *(v167 + 3), a4);
     if ((__p[23] & 0x80000000) != 0)
     {
       operator delete(*__p);
@@ -2676,14 +2676,14 @@ LABEL_41:
     *__p = &__p[16];
     *&__p[16] = v20;
     *&__p[24] = v21;
-    *&v173 = v21;
-    *(&v173 + 1) = v154;
-    *&v174 = v154;
-    *(&v174 + 1) = v20;
+    *&v179 = v21;
+    *(&v179 + 1) = v160;
+    *&v180 = v160;
+    *(&v180 + 1) = v20;
     *&__p[8] = 0x600000006;
-    v193 = xmmword_1E0982820;
+    v199 = xmmword_1E0982820;
     v43 = mlir::Builder::getIntegerType(a4 + 1, 64, 0);
-    v44 = mlir::RankedTensorType::get(&v193, 2, v43, 0);
+    v44 = mlir::RankedTensorType::get(&v199, 2, v43, 0);
     if (v44)
     {
       v45 = v9;
@@ -2698,11 +2698,11 @@ LABEL_41:
       v47 = 0;
     }
 
-    v184 = mlir::DenseElementsAttr::getFromRawBuffer(v44, v47, *__p, 8 * *&__p[8], 8, 1, 0);
-    v160 = mlir::OpBuilder::create<mlir::anec::Transpose,mlir::Value &,mlir::DenseIntElementsAttr &>(a4 + 1, v9, &v160, &v184) - 16;
-    v48 = v190;
-    v49 = v187;
-    *v187 = *(v190 + 8 * v20);
+    v190 = mlir::DenseElementsAttr::getFromRawBuffer(v44, v47, *__p, 8 * *&__p[8]);
+    v166 = mlir::OpBuilder::create<mlir::anec::Transpose,mlir::Value &,mlir::DenseIntElementsAttr &>(a4 + 1, v9, &v166, &v190) - 16;
+    v48 = v196;
+    v49 = v193;
+    *v193 = *(v196 + 8 * v20);
     v49[1] = *(v48 + 8 * v21);
     if (*__p != &__p[16])
     {
@@ -2710,14 +2710,14 @@ LABEL_41:
     }
   }
 
-  v157[0] = 0;
-  v157[1] = 0;
-  v50 = mlir::pdl_interp::RecordMatchOp::getODSOperandIndexAndLength(&v161, 1u);
-  v51 = *(*(v161 + 9) + 32 * v50 + 24);
-  *&v193 = v157;
+  v163[0] = 0;
+  v163[1] = 0;
+  v50 = mlir::pdl_interp::RecordMatchOp::getODSOperandIndexAndLength(&v167, 1u);
+  v51 = *(*(v167 + 9) + 32 * v50 + 24);
+  *&v199 = v163;
   *__p = v51;
   DefiningOp = mlir::Value::getDefiningOp(__p);
-  if (!DefiningOp || (mlir::detail::constant_op_binder<mlir::ElementsAttr>::match(&v193, DefiningOp) & 1) == 0)
+  if (!DefiningOp || (mlir::detail::constant_op_binder<mlir::ElementsAttr>::match(&v199, DefiningOp) & 1) == 0)
   {
     *__p = operator new(0x28uLL);
     *&__p[8] = xmmword_1E0982850;
@@ -2725,16 +2725,16 @@ LABEL_41:
     goto LABEL_41;
   }
 
-  v151 = v42;
-  v152 = v9;
-  v184 = v186;
-  v186[1] = 0;
-  v186[0] = 0;
-  v185 = 0x200000002;
-  v181 = v183;
-  memset_pattern16(v183, &unk_1E096FAE0, 0x10uLL);
-  v182 = 0x200000002;
-  GateLayout = mlir::mps::LSTMOp::getGateLayout(&v161);
+  v157 = v42;
+  v158 = v9;
+  v190 = v192;
+  v192[1] = 0;
+  v192[0] = 0;
+  v191 = 0x200000002;
+  v187 = v189;
+  memset_pattern16(v189, &unk_1E096FAE0, 0x10uLL);
+  v188 = 0x200000002;
+  GateLayout = mlir::mps::LSTMOp::getGateLayout(&v167);
   *__p = 2;
   v54 = mlir::Builder::getIntegerType(a4 + 1, 64, 0);
   v55 = mlir::RankedTensorType::get(__p, 1, v54, 0);
@@ -2752,31 +2752,31 @@ LABEL_41:
 
   if (GateLayout == 1)
   {
-    v62 = &v184;
+    v62 = &v190;
   }
 
   else
   {
-    v62 = &v181;
+    v62 = &v187;
   }
 
   v63 = *v62;
-  v64 = &v185;
+  v64 = &v191;
   if (GateLayout != 1)
   {
-    v64 = &v182;
+    v64 = &v188;
   }
 
-  v156 = mlir::DenseElementsAttr::getFromRawBuffer(v55, v57, v63, 8 * *v64, 8, 1, 0);
-  v178 = v180;
-  v179 = 0x200000000;
-  InferredResultTypes = mlir::pdl_interp::CreateOperationOp::getInferredResultTypes(&v161);
-  IsSize = mlir::mps::StridedSliceOp::getEndIsSize(&v161);
-  v67 = mlir::pdl_interp::RecordMatchOp::getODSOperandIndexAndLength(&v161, 2u);
-  v69 = v161;
-  if ((*(v161 + 46) & 0x80) != 0)
+  v162 = mlir::DenseElementsAttr::getFromRawBuffer(v55, v57, v63, 8 * *v64);
+  v184 = v186;
+  v185 = 0x200000000;
+  InferredResultTypes = mlir::pdl_interp::CreateOperationOp::getInferredResultTypes(&v167);
+  IsSize = mlir::mps::StridedSliceOp::getEndIsSize(&v167);
+  v67 = mlir::pdl_interp::RecordMatchOp::getODSOperandIndexAndLength(&v167, 2u);
+  v69 = v167;
+  if ((*(v167 + 46) & 0x80) != 0)
   {
-    v70 = *(v161 + 9);
+    v70 = *(v167 + 9);
   }
 
   else
@@ -2784,12 +2784,12 @@ LABEL_41:
     v70 = 0;
   }
 
-  v71 = v152;
+  v71 = v158;
   if (HIDWORD(v67) + v67 == v67 || !*(v70 + 32 * v67 + 24))
   {
-    v72 = mlir::pdl_interp::RecordMatchOp::getODSOperandIndexAndLength(&v161, 3u);
-    v69 = v161;
-    v73 = (*(v161 + 46) & 0x80) != 0 ? *(v161 + 9) : 0;
+    v72 = mlir::pdl_interp::RecordMatchOp::getODSOperandIndexAndLength(&v167, 3u);
+    v69 = v167;
+    v73 = (*(v167 + 46) & 0x80) != 0 ? *(v167 + 9) : 0;
     if (HIDWORD(v72) + v72 == v72 || !*(v73 + 32 * v72 + 24))
     {
       if (InferredResultTypes)
@@ -2815,7 +2815,7 @@ LABEL_119:
         memset_pattern16(&__p[16], v80, 0x10uLL);
 LABEL_121:
         *&__p[8] = 0x600000002;
-        llvm::SmallVectorImpl<unsigned long long>::operator=(&v178, __p);
+        llvm::SmallVectorImpl<unsigned long long>::operator=(&v184, __p);
         if (*__p != &__p[16])
         {
           free(*__p);
@@ -2836,30 +2836,30 @@ LABEL_121:
           v123 = 0;
         }
 
-        v162 = mlir::DenseElementsAttr::getFromRawBuffer(v121, v123, v178, 8 * v179, 8, 1, 0);
-        v124 = v187;
-        v125 = llvm::detail::IEEEFloat::IEEEFloat(&v193, -1.0);
-        v126 = llvm::APFloatBase::IEEEsingle(v125);
-        llvm::APFloat::Storage::Storage(&__p[8], &v193, v126);
-        llvm::detail::IEEEFloat::~IEEEFloat(&v193);
-        llvm::detail::IEEEFloat::IEEEFloat(&v163, -1.0);
-        llvm::APFloat::Storage::Storage(&v193 + 8, &v163, v126);
-        llvm::detail::IEEEFloat::~IEEEFloat(&v163);
-        v163 = mlir::OpBuilder::create<mlir::anec::Resize,mlir::Value &,unsigned long long &,unsigned long long &,llvm::APFloat,llvm::APFloat,mlir::DenseIntElementsAttr &,mlir::DenseIntElementsAttr &>(a4 + 1, v71, &v160, v124, v124 + 1, __p, &v193, &v156, &v162);
-        v127 = *(&v193 + 1);
-        v128 = llvm::APFloatBase::PPCDoubleDouble(v163);
-        if (v128 == v127)
+        v168 = mlir::DenseElementsAttr::getFromRawBuffer(v121, v123, v184, 8 * v185);
+        v124 = v193;
+        v128 = llvm::detail::IEEEFloat::IEEEFloat(&v199, -1.0, v125, v126, v127);
+        v129 = llvm::APFloatBase::IEEEsingle(v128);
+        llvm::APFloat::Storage::Storage(&__p[8], &v199, v129);
+        llvm::detail::IEEEFloat::~IEEEFloat(&v199);
+        llvm::detail::IEEEFloat::IEEEFloat(&v169, -1.0, v130, v131, v132);
+        llvm::APFloat::Storage::Storage(&v199 + 8, &v169, v129);
+        llvm::detail::IEEEFloat::~IEEEFloat(&v169);
+        v169 = mlir::OpBuilder::create<mlir::anec::Resize,mlir::Value &,unsigned long long &,unsigned long long &,llvm::APFloat,llvm::APFloat,mlir::DenseIntElementsAttr &,mlir::DenseIntElementsAttr &>(a4 + 1, v71, &v166, v124, v124 + 1, __p, &v199, &v162, &v168);
+        v133 = *(&v199 + 1);
+        v134 = llvm::APFloatBase::PPCDoubleDouble(v169);
+        if (v134 == v133)
         {
-          llvm::detail::DoubleAPFloat::~DoubleAPFloat((&v193 + 8));
+          llvm::detail::DoubleAPFloat::~DoubleAPFloat((&v199 + 8));
         }
 
         else
         {
-          llvm::detail::IEEEFloat::~IEEEFloat((&v193 + 8));
+          llvm::detail::IEEEFloat::~IEEEFloat((&v199 + 8));
         }
 
-        v129 = v152;
-        if (v128 == *&__p[8])
+        v135 = v158;
+        if (v134 == *&__p[8])
         {
           llvm::detail::DoubleAPFloat::~DoubleAPFloat(&__p[8]);
         }
@@ -2869,73 +2869,73 @@ LABEL_121:
           llvm::detail::IEEEFloat::~IEEEFloat(&__p[8]);
         }
 
-        v59 = mlir::anec::Resize::verifyAttributesWithFamily(&v163, 1);
-        v58 = v163;
+        v59 = mlir::anec::Resize::verifyAttributesWithFamily(&v169, 1);
+        v58 = v169;
         if (v59)
         {
-          if (v151 == 1)
+          if (v157 == 1)
           {
             *__p = &__p[16];
             *&__p[16] = v20;
-            *&__p[24] = v154;
-            *&v173 = v21;
-            *(&v173 + 1) = v20;
-            *&v174 = v154;
-            *(&v174 + 1) = v21;
+            *&__p[24] = v160;
+            *&v179 = v21;
+            *(&v179 + 1) = v20;
+            *&v180 = v160;
+            *(&v180 + 1) = v21;
             *&__p[8] = 0x600000006;
-            v193 = xmmword_1E0982820;
-            v130 = mlir::Builder::getIntegerType(a4 + 1, 64, 0);
-            v131 = mlir::RankedTensorType::get(&v193, 2, v130, 0);
-            if (v131)
+            v199 = xmmword_1E0982820;
+            v136 = mlir::Builder::getIntegerType(a4 + 1, 64, 0);
+            v137 = mlir::RankedTensorType::get(&v199, 2, v136, 0);
+            if (v137)
             {
-              v132 = v131;
-              v133 = mlir::detail::InterfaceMap::lookup<mlir::ShapedType>(*v131 + 8);
-              v131 = v132;
-              v129 = v152;
+              v138 = v137;
+              v139 = mlir::detail::InterfaceMap::lookup<mlir::ShapedType>(*v137 + 8);
+              v137 = v138;
+              v135 = v158;
             }
 
             else
             {
-              v133 = 0;
+              v139 = 0;
             }
 
-            v155 = mlir::DenseElementsAttr::getFromRawBuffer(v131, v133, *__p, 8 * *&__p[8], 8, 1, 0);
-            v58 = mlir::OpBuilder::create<mlir::anec::Transpose,mlir::anec::Resize &,mlir::DenseIntElementsAttr &>(a4 + 1, v129, &v163, &v155);
+            v161 = mlir::DenseElementsAttr::getFromRawBuffer(v137, v139, *__p, 8 * *&__p[8]);
+            v58 = mlir::OpBuilder::create<mlir::anec::Transpose,mlir::anec::Resize &,mlir::DenseIntElementsAttr &>(a4 + 1, v135, &v169, &v161);
             if (*__p != &__p[16])
             {
               free(*__p);
             }
           }
 
-          mlir::CallableOpInterface::getArgAttrsAttr(v159);
-          if (v134 <= 3)
+          mlir::CallableOpInterface::getArgAttrsAttr(v165);
+          if (v140 <= 3)
           {
             *__p = &__p[16];
             *&__p[16] = v20;
             *&__p[24] = IndexFromDim;
-            *&v173 = v21;
-            *(&v173 + 1) = v20;
-            *&v174 = IndexFromDim;
-            *(&v174 + 1) = v21;
+            *&v179 = v21;
+            *(&v179 + 1) = v20;
+            *&v180 = IndexFromDim;
+            *(&v180 + 1) = v21;
             *&__p[8] = 0x600000006;
-            v193 = xmmword_1E0982820;
-            v135 = mlir::Builder::getIntegerType(a4 + 1, 64, 0);
-            v136 = mlir::RankedTensorType::get(&v193, 2, v135, 0);
-            if (v136)
+            v199 = xmmword_1E0982820;
+            v141 = mlir::Builder::getIntegerType(a4 + 1, 64, 0);
+            v142 = mlir::RankedTensorType::get(&v199, 2, v141, 0);
+            if (v142)
             {
-              v137 = v136;
-              v138 = mlir::detail::InterfaceMap::lookup<mlir::ShapedType>(*v136 + 8);
-              v136 = v137;
+              v143 = v142;
+              v144 = mlir::detail::InterfaceMap::lookup<mlir::ShapedType>(*v142 + 8);
+              v142 = v143;
             }
 
             else
             {
-              v138 = 0;
+              v144 = 0;
             }
 
-            v155 = mlir::DenseElementsAttr::getFromRawBuffer(v136, v138, *__p, 8 * *&__p[8], 8, 1, 0);
-            *&v193 = v58 - 16;
-            v58 = mlir::OpBuilder::create<mlir::anec::Transpose,mlir::Value &,mlir::DenseIntElementsAttr &>(a4 + 1, v152, &v193, &v155);
+            v161 = mlir::DenseElementsAttr::getFromRawBuffer(v142, v144, *__p, 8 * *&__p[8]);
+            *&v199 = v58 - 16;
+            v58 = mlir::OpBuilder::create<mlir::anec::Transpose,mlir::Value &,mlir::DenseIntElementsAttr &>(a4 + 1, v158, &v199, &v161);
             if (*__p != &__p[16])
             {
               free(*__p);
@@ -2945,11 +2945,11 @@ LABEL_121:
 
         else
         {
-          mlir::ConversionPatternRewriter::eraseOp(a4, v163);
+          mlir::ConversionPatternRewriter::eraseOp(a4, v169);
           *__p = operator new(0x48uLL);
           *&__p[8] = xmmword_1E0982840;
           strcpy(*__p, "requested attributes are not compatible with hardware requirements");
-          mlir::logMatchFailure(__p, *(v161 + 3), a4);
+          mlir::logMatchFailure(__p, *(v167 + 3), a4);
           if ((__p[23] & 0x80000000) != 0)
           {
             operator delete(*__p);
@@ -2968,26 +2968,26 @@ LABEL_118:
     }
   }
 
-  v175 = v169;
-  v176 = v170;
-  *v177 = *v171;
-  *__p = v165;
-  *&__p[16] = v166;
-  v173 = v167;
-  v174 = v168;
+  v181 = v175;
+  v182 = v176;
+  *v183 = *v177;
+  *__p = v171;
+  *&__p[16] = v172;
+  v179 = v173;
+  v180 = v174;
   v74 = mlir::mps::getResizeLayout(v69, v68);
   if ((v74 & 0x100000000) != 0)
   {
     v76 = qword_1E0982BB8[v74];
-    v150 = qword_1E0982BF0[v74];
+    v156 = qword_1E0982BF0[v74];
     v77 = mlir::mps::detail::ResizeOpGenericAdaptorBase::getODSOperandIndexAndLength(__p, 2u);
-    v78 = *(&v176 + 1);
-    *&v193 = *(&v176 + 1);
-    *(&v193 + 1) = v77;
+    v78 = *(&v182 + 1);
+    *&v199 = *(&v182 + 1);
+    *(&v199 + 1) = v77;
     if (v77)
     {
-      v78 = mlir::ValueRange::offset_base(&v193, v77);
-      v79 = *(&v193 + 1);
+      v78 = mlir::ValueRange::offset_base(&v199, v77);
+      v79 = *(&v199 + 1);
     }
 
     else
@@ -2995,7 +2995,7 @@ LABEL_118:
       v79 = 0;
     }
 
-    if (HIDWORD(v77) + v77 == v79 || (v193 = v78, !mlir::ValueRange::dereference_iterator(&v193, 0)))
+    if (HIDWORD(v77) + v77 == v79 || (v199 = v78, !mlir::ValueRange::dereference_iterator(&v199, 0)))
     {
       v84 = 1.0;
       v85 = 1.0;
@@ -3003,16 +3003,16 @@ LABEL_118:
 
     else
     {
-      v163 = 0;
-      v164 = 0;
+      v169 = 0;
+      v170 = 0;
       v81 = mlir::mps::detail::ResizeOpGenericAdaptorBase::getODSOperandIndexAndLength(__p, 2u);
-      v82 = *(&v176 + 1);
-      *&v193 = *(&v176 + 1);
-      *(&v193 + 1) = v81;
+      v82 = *(&v182 + 1);
+      *&v199 = *(&v182 + 1);
+      *(&v199 + 1) = v81;
       if (v81)
       {
-        v82 = mlir::ValueRange::offset_base(&v193, v81);
-        v83 = *(&v193 + 1);
+        v82 = mlir::ValueRange::offset_base(&v199, v81);
+        v83 = *(&v199 + 1);
       }
 
       else
@@ -3022,58 +3022,58 @@ LABEL_118:
 
       if (HIDWORD(v81) + v81 == v83)
       {
-        v139 = 0;
+        v145 = 0;
       }
 
       else
       {
-        v193 = v82;
-        v139 = mlir::ValueRange::dereference_iterator(&v193, 0);
+        v199 = v82;
+        v145 = mlir::ValueRange::dereference_iterator(&v199, 0);
       }
 
-      v162 = &v163;
-      *&v193 = v139;
-      v140 = mlir::Value::getDefiningOp(&v193);
-      if (!v140 || !mlir::detail::constant_op_binder<mlir::ElementsAttr>::match(&v162, v140))
+      v168 = &v169;
+      *&v199 = v145;
+      v146 = mlir::Value::getDefiningOp(&v199);
+      if (!v146 || !mlir::detail::constant_op_binder<mlir::ElementsAttr>::match(&v168, v146))
       {
         goto LABEL_68;
       }
 
-      *&v193 = v194;
-      *(&v193 + 1) = 0x400000000;
-      mlir::getFloatValues<float>(v163, v164, &v193, 1);
-      v141 = v76;
-      v142 = DWORD2(v193);
+      *&v199 = v200;
+      *(&v199 + 1) = 0x400000000;
+      mlir::getFloatValues<float>(v169, v170, &v199, 1);
+      v147 = v76;
+      v148 = DWORD2(v199);
       v84 = 1.0;
       v85 = 1.0;
-      v143 = v141;
-      if (v141 < DWORD2(v193))
+      v149 = v147;
+      if (v147 < DWORD2(v199))
       {
-        v85 = *(v193 + 4 * v141);
-        v84 = *(v193 + 4 * v150);
+        v85 = *(v199 + 4 * v147);
+        v84 = *(v199 + 4 * v156);
       }
 
-      if (v193 != v194)
+      if (v199 != v200)
       {
-        free(v193);
+        free(v199);
       }
 
-      v144 = v143 >= v142;
-      v76 = v143;
-      if (v144)
+      v150 = v149 >= v148;
+      v76 = v149;
+      if (v150)
       {
         goto LABEL_68;
       }
     }
 
     v86 = mlir::mps::detail::ResizeOpGenericAdaptorBase::getODSOperandIndexAndLength(__p, 3u);
-    v87 = *(&v176 + 1);
-    *&v193 = *(&v176 + 1);
-    *(&v193 + 1) = v86;
+    v87 = *(&v182 + 1);
+    *&v199 = *(&v182 + 1);
+    *(&v199 + 1) = v86;
     if (v86)
     {
-      v87 = mlir::ValueRange::offset_base(&v193, v86);
-      v88 = *(&v193 + 1);
+      v87 = mlir::ValueRange::offset_base(&v199, v86);
+      v88 = *(&v199 + 1);
     }
 
     else
@@ -3081,7 +3081,7 @@ LABEL_118:
       v88 = 0;
     }
 
-    if (HIDWORD(v86) + v86 == v88 || (v193 = v87, !mlir::ValueRange::dereference_iterator(&v193, 0)))
+    if (HIDWORD(v86) + v86 == v88 || (v199 = v87, !mlir::ValueRange::dereference_iterator(&v199, 0)))
     {
       v92 = 0.0;
       v93 = 0.0;
@@ -3089,16 +3089,16 @@ LABEL_118:
 
     else
     {
-      v163 = 0;
-      v164 = 0;
+      v169 = 0;
+      v170 = 0;
       v89 = mlir::mps::detail::ResizeOpGenericAdaptorBase::getODSOperandIndexAndLength(__p, 3u);
-      v90 = *(&v176 + 1);
-      *&v193 = *(&v176 + 1);
-      *(&v193 + 1) = v89;
+      v90 = *(&v182 + 1);
+      *&v199 = *(&v182 + 1);
+      *(&v199 + 1) = v89;
       if (v89)
       {
-        v90 = mlir::ValueRange::offset_base(&v193, v89);
-        v91 = *(&v193 + 1);
+        v90 = mlir::ValueRange::offset_base(&v199, v89);
+        v91 = *(&v199 + 1);
       }
 
       else
@@ -3108,59 +3108,59 @@ LABEL_118:
 
       if (HIDWORD(v89) + v89 == v91)
       {
-        v145 = 0;
+        v151 = 0;
       }
 
       else
       {
-        v193 = v90;
-        v145 = mlir::ValueRange::dereference_iterator(&v193, 0);
+        v199 = v90;
+        v151 = mlir::ValueRange::dereference_iterator(&v199, 0);
       }
 
-      v162 = &v163;
-      *&v193 = v145;
-      v146 = mlir::Value::getDefiningOp(&v193);
-      if (!v146 || !mlir::detail::constant_op_binder<mlir::ElementsAttr>::match(&v162, v146))
+      v168 = &v169;
+      *&v199 = v151;
+      v152 = mlir::Value::getDefiningOp(&v199);
+      if (!v152 || !mlir::detail::constant_op_binder<mlir::ElementsAttr>::match(&v168, v152))
       {
         goto LABEL_68;
       }
 
-      *&v193 = v194;
-      *(&v193 + 1) = 0x400000000;
-      mlir::getFloatValues<float>(v163, v164, &v193, 1);
-      v147 = v76;
-      v148 = DWORD2(v193);
+      *&v199 = v200;
+      *(&v199 + 1) = 0x400000000;
+      mlir::getFloatValues<float>(v169, v170, &v199, 1);
+      v153 = v76;
+      v154 = DWORD2(v199);
       v92 = 0.0;
       v93 = 0.0;
-      v149 = v147;
-      if (v147 < DWORD2(v193))
+      v155 = v153;
+      if (v153 < DWORD2(v199))
       {
-        v93 = *(v193 + 4 * v147);
-        v92 = *(v193 + 4 * v150);
+        v93 = *(v199 + 4 * v153);
+        v92 = *(v199 + 4 * v156);
       }
 
-      if (v193 != v194)
+      if (v199 != v200)
       {
-        free(v193);
+        free(v199);
       }
 
-      if (v149 >= v148)
+      if (v155 >= v154)
       {
         goto LABEL_68;
       }
     }
 
     v94 = mlir::mps::detail::ResizeOpGenericAdaptorBase::getODSOperandIndexAndLength(__p, 0);
-    v95 = *(&v176 + 1);
-    *&v193 = *(&v176 + 1);
-    *(&v193 + 1) = v94;
+    v95 = *(&v182 + 1);
+    *&v199 = *(&v182 + 1);
+    *(&v199 + 1) = v94;
     if (v94)
     {
-      v95 = mlir::ValueRange::offset_base(&v193, v94);
+      v95 = mlir::ValueRange::offset_base(&v199, v94);
     }
 
-    v193 = v95;
-    v96 = (*(mlir::ValueRange::dereference_iterator(&v193, 0) + 8) & 0xFFFFFFFFFFFFFFF8);
+    v199 = v95;
+    v96 = (*(mlir::ValueRange::dereference_iterator(&v199, 0) + 8) & 0xFFFFFFFFFFFFFFF8);
     if (v96)
     {
       v97 = mlir::detail::InterfaceMap::lookup<mlir::ShapedType>(*v96 + 8);
@@ -3171,9 +3171,9 @@ LABEL_118:
       v97 = 0;
     }
 
-    *&v193 = v96;
-    *(&v193 + 1) = v97;
-    v98 = mlir::CallableOpInterface::getArgAttrsAttr(&v193);
+    *&v199 = v96;
+    *(&v199 + 1) = v97;
+    v98 = mlir::CallableOpInterface::getArgAttrsAttr(&v199);
     v100 = v99;
     v101 = *(a1 + 96);
     if (*(v69 + 9))
@@ -3194,9 +3194,9 @@ LABEL_118:
       v104 = mlir::detail::InterfaceMap::lookup<mlir::ShapedType>(*v104 + 8);
     }
 
-    *&v193 = v105;
-    *(&v193 + 1) = v104;
-    v106 = mlir::CallableOpInterface::getArgAttrsAttr(&v193);
+    *&v199 = v105;
+    *(&v199 + 1) = v104;
+    v106 = mlir::CallableOpInterface::getArgAttrsAttr(&v199);
     v108 = v107;
     v109 = mlir::anec::getIndexFromDim(3, v100);
     v110 = mlir::anec::getIndexFromDim(4, v108);
@@ -3210,7 +3210,7 @@ LABEL_118:
     }
 
     v115 = (v85 + -1.0) * 0.5 != v93 || (v84 + -1.0) * 0.5 != v92;
-    v71 = v152;
+    v71 = v158;
     v116 = v112;
     v117 = *(v106 + 8 * v110);
     v118 = v85 != (v113 / v111) || v84 != (v117 / v116);
@@ -3240,7 +3240,7 @@ LABEL_68:
   *__p = operator new(0x48uLL);
   *&__p[8] = xmmword_1E0982670;
   strcpy(*__p, "Resize with custom scale and offset values not supported on ANE.");
-  v75 = *(v161 + 3);
+  v75 = *(v167 + 3);
 LABEL_72:
   mlir::logMatchFailure(__p, v75, a4);
   if ((__p[23] & 0x80000000) != 0)
@@ -3251,37 +3251,37 @@ LABEL_72:
   v58 = 0;
   v59 = 0;
 LABEL_148:
-  if (v178 != v180)
-  {
-    free(v178);
-  }
-
-  if (v181 != v183)
-  {
-    free(v181);
-  }
-
   if (v184 != v186)
   {
     free(v184);
   }
 
-LABEL_44:
   if (v187 != v189)
   {
     free(v187);
   }
 
-  if (v190 != v191)
+  if (v190 != v192)
   {
     free(v190);
   }
 
+LABEL_44:
+  if (v193 != v195)
+  {
+    free(v193);
+  }
+
+  if (v196 != v197)
+  {
+    free(v196);
+  }
+
   if (v59)
   {
-    *&v165 = v58 - 16;
+    *&v171 = v58 - 16;
     matched = 1;
-    mlir::ValueRange::ValueRange(__p, &v165, 1uLL);
+    mlir::ValueRange::ValueRange(__p, &v171, 1uLL);
     mlir::ConversionPatternRewriter::replaceOp(a4, a2, *__p, *&__p[8]);
   }
 
@@ -3290,7 +3290,7 @@ LABEL_44:
     *__p = operator new(0x60uLL);
     *&__p[8] = xmmword_1E0982860;
     strcpy(*__p, "Conversion did not match a valid resize or a valid transformation supported by the hardware.");
-    matched = mlir::logMatchFailure(__p, a2[3], a4);
+    matched = mlir::logMatchFailure(__p, *(a2 + 3), a4);
     if ((__p[23] & 0x80000000) != 0)
     {
       operator delete(*__p);
@@ -3334,26 +3334,26 @@ void mlir::anonymous namespace::ConvertResize<(mlir::anec::Family)2>::~ConvertRe
   operator delete(__p);
 }
 
-uint64_t mlir::anonymous namespace::ConvertResizeGeneric<(mlir::anec::Family)2>::matchAndRewriteWithStaticShapes(uint64_t a1, uint64_t *a2, __int128 *a3, uint64_t **a4)
+uint64_t mlir::anonymous namespace::ConvertResizeGeneric<(mlir::anec::Family)2>::matchAndRewriteWithStaticShapes(uint64_t a1, mlir::mps *a2, __int128 *a3, uint64_t **a4)
 {
-  v193[2] = *MEMORY[0x1E69E9840];
+  v199[2] = *MEMORY[0x1E69E9840];
   v6 = a3[5];
-  v165 = a3[4];
-  v166 = v6;
-  *v167 = *(a3 + 12);
+  v171 = a3[4];
+  v172 = v6;
+  *v173 = *(a3 + 12);
   v7 = a3[1];
-  v161 = *a3;
-  v162 = v7;
+  v167 = *a3;
+  v168 = v7;
   v8 = a3[3];
-  v163 = a3[2];
-  v164 = v8;
-  v157 = a2;
-  v193[0] = *(&v166 + 1);
-  v193[1] = *v167;
-  v9 = a2[3];
-  v156 = mlir::ValueRange::dereference_iterator(v193, 0);
-  ODSOperandIndexAndLength = mlir::pdl_interp::RecordMatchOp::getODSOperandIndexAndLength(&v157, 0);
-  v11 = (*(*(*(v157 + 9) + 32 * ODSOperandIndexAndLength + 24) + 8) & 0xFFFFFFFFFFFFFFF8);
+  v169 = a3[2];
+  v170 = v8;
+  v163 = a2;
+  v199[0] = *(&v172 + 1);
+  v199[1] = *v173;
+  v9 = *(a2 + 3);
+  v162 = mlir::ValueRange::dereference_iterator(v199, 0);
+  ODSOperandIndexAndLength = mlir::pdl_interp::RecordMatchOp::getODSOperandIndexAndLength(&v163, 0);
+  v11 = (*(*(*(v163 + 9) + 32 * ODSOperandIndexAndLength + 24) + 8) & 0xFFFFFFFFFFFFFFF8);
   if (v11)
   {
     v12 = mlir::detail::InterfaceMap::lookup<mlir::ShapedType>(*v11 + 8);
@@ -3364,11 +3364,11 @@ uint64_t mlir::anonymous namespace::ConvertResizeGeneric<(mlir::anec::Family)2>:
     v12 = 0;
   }
 
-  v155[0] = v11;
-  v155[1] = v12;
-  v13 = mlir::mps::detail::ResizeOpGenericAdaptorBase::getODSOperandIndexAndLength(&v161, 0);
-  v14 = *(&v166 + 1);
-  *__p = *(&v166 + 1);
+  v161[0] = v11;
+  v161[1] = v12;
+  v13 = mlir::mps::detail::ResizeOpGenericAdaptorBase::getODSOperandIndexAndLength(&v167, 0);
+  v14 = *(&v172 + 1);
+  *__p = *(&v172 + 1);
   *&__p[8] = v13;
   if (v13)
   {
@@ -3396,20 +3396,20 @@ uint64_t mlir::anonymous namespace::ConvertResizeGeneric<(mlir::anec::Family)2>:
   v20 = mlir::anec::getIndexFromDim(1, v18);
   v21 = mlir::anec::getIndexFromDim(3, v18);
   v22 = mlir::anec::getIndexFromDim(4, v18);
-  mlir::CallableOpInterface::getArgAttrsAttr(v155);
+  mlir::CallableOpInterface::getArgAttrsAttr(v161);
   if (v23 <= 3)
   {
     *__p = &__p[16];
     *&__p[16] = IndexFromDim;
     *&__p[24] = v20;
-    *&v174 = v20;
-    *(&v174 + 1) = v21;
-    *&v175 = v21;
-    *(&v175 + 1) = IndexFromDim;
+    *&v180 = v20;
+    *(&v180 + 1) = v21;
+    *&v181 = v21;
+    *(&v181 + 1) = IndexFromDim;
     *&__p[8] = 0x600000006;
-    v191 = xmmword_1E0982820;
+    v197 = xmmword_1E0982820;
     IntegerType = mlir::Builder::getIntegerType(a4 + 1, 64, 0);
-    v25 = mlir::RankedTensorType::get(&v191, 2, IntegerType, 0);
+    v25 = mlir::RankedTensorType::get(&v197, 2, IntegerType, 0);
     if (v25)
     {
       v26 = v25;
@@ -3422,17 +3422,17 @@ uint64_t mlir::anonymous namespace::ConvertResizeGeneric<(mlir::anec::Family)2>:
       v27 = 0;
     }
 
-    v168[0] = mlir::DenseElementsAttr::getFromRawBuffer(v25, v27, *__p, 8 * *&__p[8], 8, 1, 0);
-    v156 = mlir::OpBuilder::create<mlir::anec::Transpose,mlir::Value &,mlir::DenseIntElementsAttr &>(a4 + 1, v9, &v156, v168) - 16;
+    v174[0] = mlir::DenseElementsAttr::getFromRawBuffer(v25, v27, *__p, 8 * *&__p[8]);
+    v162 = mlir::OpBuilder::create<mlir::anec::Transpose,mlir::Value &,mlir::DenseIntElementsAttr &>(a4 + 1, v9, &v162, v174) - 16;
     if (*__p != &__p[16])
     {
       free(*__p);
     }
   }
 
-  if (*(v157 + 9))
+  if (*(v163 + 9))
   {
-    v28 = v157 - 16;
+    v28 = v163 - 16;
   }
 
   else
@@ -3441,7 +3441,7 @@ uint64_t mlir::anonymous namespace::ConvertResizeGeneric<(mlir::anec::Family)2>:
   }
 
   v29 = (*(mlir::detail::OpResultImpl::getNextResultAtOffset(v28, 0) + 8) & 0xFFFFFFFFFFFFFFF8);
-  v148 = IndexFromDim;
+  v154 = IndexFromDim;
   if (v29)
   {
     v30 = mlir::detail::InterfaceMap::lookup<mlir::ShapedType>(*v29 + 8);
@@ -3452,17 +3452,17 @@ uint64_t mlir::anonymous namespace::ConvertResizeGeneric<(mlir::anec::Family)2>:
     v30 = 0;
   }
 
-  v154[0] = v29;
-  v154[1] = v30;
-  ArgAttrsAttr = mlir::CallableOpInterface::getArgAttrsAttr(v154);
+  v160[0] = v29;
+  v160[1] = v30;
+  ArgAttrsAttr = mlir::CallableOpInterface::getArgAttrsAttr(v160);
   v33 = v32;
-  *&v191 = v192;
-  *(&v191 + 1) = 0x400000000;
+  *&v197 = v198;
+  *(&v197 + 1) = 0x400000000;
   v34 = (8 * v32) >> 3;
   if (v34 < 5)
   {
     v35 = 0;
-    v36 = v192;
+    v36 = v198;
     v37 = 8 * v33;
     if (!v33)
     {
@@ -3472,42 +3472,42 @@ uint64_t mlir::anonymous namespace::ConvertResizeGeneric<(mlir::anec::Family)2>:
     goto LABEL_25;
   }
 
-  llvm::SmallVectorBase<unsigned int>::grow_pod(&v191, v192, v34, 8);
-  v35 = DWORD2(v191);
-  v36 = v191;
+  llvm::SmallVectorBase<unsigned int>::grow_pod(&v197, v198, v34, 8);
+  v35 = DWORD2(v197);
+  v36 = v197;
   v37 = 8 * v33;
   if (v33)
   {
 LABEL_25:
     memcpy(v36 + 8 * v35, ArgAttrsAttr, v37);
-    v35 = DWORD2(v191);
-    v36 = v191;
+    v35 = DWORD2(v197);
+    v36 = v197;
   }
 
 LABEL_26:
   v38 = v35 + (v37 >> 3);
-  DWORD2(v191) = v38;
-  v150 = v9;
+  DWORD2(v197) = v38;
+  v156 = v9;
   if (v38 <= 3)
   {
-    llvm::SmallVectorImpl<unsigned long long>::insert(&v191, v36, 4 - v38, 1uLL);
-    v36 = v191;
+    llvm::SmallVectorImpl<unsigned long long>::insert(&v197, v36, 4 - v38, 1uLL);
+    v36 = v197;
   }
 
   v39 = *(v36 + v21);
   v40 = *(v36 + v22);
-  v188 = v190;
-  v190[0] = v39;
-  v190[1] = v40;
-  v189 = 0x200000002;
-  ResizeLayout = mlir::mps::getResizeLayout(v157, v36);
+  v194 = v196;
+  v196[0] = v39;
+  v196[1] = v40;
+  v195 = 0x200000002;
+  ResizeLayout = mlir::mps::getResizeLayout(v163, v36);
   if ((ResizeLayout & 0x100000000) == 0)
   {
     *__p = operator new(0x20uLL);
     *&__p[8] = xmmword_1E0982800;
     strcpy(*__p, "Resize layout not supported");
 LABEL_41:
-    mlir::logMatchFailure(__p, *(v157 + 3), a4);
+    mlir::logMatchFailure(__p, *(v163 + 3), a4);
     if ((__p[23] & 0x80000000) != 0)
     {
       operator delete(*__p);
@@ -3524,14 +3524,14 @@ LABEL_41:
     *__p = &__p[16];
     *&__p[16] = v20;
     *&__p[24] = v21;
-    *&v174 = v21;
-    *(&v174 + 1) = v22;
-    *&v175 = v22;
-    *(&v175 + 1) = v20;
+    *&v180 = v21;
+    *(&v180 + 1) = v22;
+    *&v181 = v22;
+    *(&v181 + 1) = v20;
     *&__p[8] = 0x600000006;
-    *v168 = xmmword_1E0982820;
+    *v174 = xmmword_1E0982820;
     v43 = mlir::Builder::getIntegerType(a4 + 1, 64, 0);
-    v44 = mlir::RankedTensorType::get(v168, 2, v43, 0);
+    v44 = mlir::RankedTensorType::get(v174, 2, v43, 0);
     if (v44)
     {
       v45 = v44;
@@ -3544,11 +3544,11 @@ LABEL_41:
       v46 = 0;
     }
 
-    v185 = mlir::DenseElementsAttr::getFromRawBuffer(v44, v46, *__p, 8 * *&__p[8], 8, 1, 0);
-    v156 = mlir::OpBuilder::create<mlir::anec::Transpose,mlir::Value &,mlir::DenseIntElementsAttr &>(a4 + 1, v150, &v156, &v185) - 16;
-    v47 = v191;
-    v48 = v188;
-    *v188 = *(v191 + 8 * v20);
+    v191 = mlir::DenseElementsAttr::getFromRawBuffer(v44, v46, *__p, 8 * *&__p[8]);
+    v162 = mlir::OpBuilder::create<mlir::anec::Transpose,mlir::Value &,mlir::DenseIntElementsAttr &>(a4 + 1, v156, &v162, &v191) - 16;
+    v47 = v197;
+    v48 = v194;
+    *v194 = *(v197 + 8 * v20);
     v48[1] = *(v47 + 8 * v21);
     if (*__p != &__p[16])
     {
@@ -3556,14 +3556,14 @@ LABEL_41:
     }
   }
 
-  v153[0] = 0;
-  v153[1] = 0;
-  v49 = mlir::pdl_interp::RecordMatchOp::getODSOperandIndexAndLength(&v157, 1u);
-  v50 = *(*(v157 + 9) + 32 * v49 + 24);
-  v168[0] = v153;
+  v159[0] = 0;
+  v159[1] = 0;
+  v49 = mlir::pdl_interp::RecordMatchOp::getODSOperandIndexAndLength(&v163, 1u);
+  v50 = *(*(v163 + 9) + 32 * v49 + 24);
+  v174[0] = v159;
   *__p = v50;
   DefiningOp = mlir::Value::getDefiningOp(__p);
-  if (!DefiningOp || (mlir::detail::constant_op_binder<mlir::ElementsAttr>::match(v168, DefiningOp) & 1) == 0)
+  if (!DefiningOp || (mlir::detail::constant_op_binder<mlir::ElementsAttr>::match(v174, DefiningOp) & 1) == 0)
   {
     *__p = operator new(0x28uLL);
     *&__p[8] = xmmword_1E0982850;
@@ -3571,15 +3571,15 @@ LABEL_41:
     goto LABEL_41;
   }
 
-  v147 = v42;
-  v185 = v187;
-  v187[1] = 0;
-  v187[0] = 0;
-  v186 = 0x200000002;
-  v182 = v184;
-  memset_pattern16(v184, &unk_1E096FAE0, 0x10uLL);
-  v183 = 0x200000002;
-  GateLayout = mlir::mps::LSTMOp::getGateLayout(&v157);
+  v153 = v42;
+  v191 = v193;
+  v193[1] = 0;
+  v193[0] = 0;
+  v192 = 0x200000002;
+  v188 = v190;
+  memset_pattern16(v190, &unk_1E096FAE0, 0x10uLL);
+  v189 = 0x200000002;
+  GateLayout = mlir::mps::LSTMOp::getGateLayout(&v163);
   *__p = 2;
   v53 = mlir::Builder::getIntegerType(a4 + 1, 64, 0);
   v54 = mlir::RankedTensorType::get(__p, 1, v53, 0);
@@ -3597,31 +3597,31 @@ LABEL_41:
 
   if (GateLayout == 1)
   {
-    v61 = &v185;
+    v61 = &v191;
   }
 
   else
   {
-    v61 = &v182;
+    v61 = &v188;
   }
 
   v62 = *v61;
-  v63 = &v186;
+  v63 = &v192;
   if (GateLayout != 1)
   {
-    v63 = &v183;
+    v63 = &v189;
   }
 
-  v152 = mlir::DenseElementsAttr::getFromRawBuffer(v54, v56, v62, 8 * *v63, 8, 1, 0);
-  v179 = v181;
-  v180 = 0x200000000;
-  InferredResultTypes = mlir::pdl_interp::CreateOperationOp::getInferredResultTypes(&v157);
-  IsSize = mlir::mps::StridedSliceOp::getEndIsSize(&v157);
-  v66 = mlir::pdl_interp::RecordMatchOp::getODSOperandIndexAndLength(&v157, 2u);
-  v68 = v157;
-  if ((*(v157 + 46) & 0x80) != 0)
+  v158 = mlir::DenseElementsAttr::getFromRawBuffer(v54, v56, v62, 8 * *v63);
+  v185 = v187;
+  v186 = 0x200000000;
+  InferredResultTypes = mlir::pdl_interp::CreateOperationOp::getInferredResultTypes(&v163);
+  IsSize = mlir::mps::StridedSliceOp::getEndIsSize(&v163);
+  v66 = mlir::pdl_interp::RecordMatchOp::getODSOperandIndexAndLength(&v163, 2u);
+  v68 = v163;
+  if ((*(v163 + 46) & 0x80) != 0)
   {
-    v69 = *(v157 + 9);
+    v69 = *(v163 + 9);
   }
 
   else
@@ -3631,9 +3631,9 @@ LABEL_41:
 
   if (HIDWORD(v66) + v66 == v66 || !*(v69 + 32 * v66 + 24))
   {
-    v70 = mlir::pdl_interp::RecordMatchOp::getODSOperandIndexAndLength(&v157, 3u);
-    v68 = v157;
-    v71 = (*(v157 + 46) & 0x80) != 0 ? *(v157 + 9) : 0;
+    v70 = mlir::pdl_interp::RecordMatchOp::getODSOperandIndexAndLength(&v163, 3u);
+    v68 = v163;
+    v71 = (*(v163 + 46) & 0x80) != 0 ? *(v163 + 9) : 0;
     if (HIDWORD(v70) + v70 == v70 || !*(v71 + 32 * v70 + 24))
     {
       if (InferredResultTypes)
@@ -3658,7 +3658,7 @@ LABEL_78:
 LABEL_119:
         memset_pattern16(&__p[16], v78, 0x10uLL);
         *&__p[8] = 0x600000002;
-        llvm::SmallVectorImpl<unsigned long long>::operator=(&v179, __p);
+        llvm::SmallVectorImpl<unsigned long long>::operator=(&v185, __p);
         if (*__p != &__p[16])
         {
           free(*__p);
@@ -3679,29 +3679,29 @@ LABEL_119:
           v119 = 0;
         }
 
-        v158 = mlir::DenseElementsAttr::getFromRawBuffer(v117, v119, v179, 8 * v180, 8, 1, 0);
-        v120 = v188;
-        v121 = llvm::detail::IEEEFloat::IEEEFloat(v168, -1.0);
-        v122 = llvm::APFloatBase::IEEEsingle(v121);
-        llvm::APFloat::Storage::Storage(&__p[8], v168, v122);
-        llvm::detail::IEEEFloat::~IEEEFloat(v168);
-        llvm::detail::IEEEFloat::IEEEFloat(&v159, -1.0);
-        llvm::APFloat::Storage::Storage(&v168[1], &v159, v122);
-        llvm::detail::IEEEFloat::~IEEEFloat(&v159);
-        v159 = mlir::OpBuilder::create<mlir::anec::Resize,mlir::Value &,unsigned long long &,unsigned long long &,llvm::APFloat,llvm::APFloat,mlir::DenseIntElementsAttr &,mlir::DenseIntElementsAttr &>(a4 + 1, v150, &v156, v120, v120 + 1, __p, v168, &v152, &v158);
-        v123 = v168[1];
-        v124 = llvm::APFloatBase::PPCDoubleDouble(v159);
-        if (v124 == v123)
+        v164 = mlir::DenseElementsAttr::getFromRawBuffer(v117, v119, v185, 8 * v186);
+        v120 = v194;
+        v124 = llvm::detail::IEEEFloat::IEEEFloat(v174, -1.0, v121, v122, v123);
+        v125 = llvm::APFloatBase::IEEEsingle(v124);
+        llvm::APFloat::Storage::Storage(&__p[8], v174, v125);
+        llvm::detail::IEEEFloat::~IEEEFloat(v174);
+        llvm::detail::IEEEFloat::IEEEFloat(&v165, -1.0, v126, v127, v128);
+        llvm::APFloat::Storage::Storage(&v174[1], &v165, v125);
+        llvm::detail::IEEEFloat::~IEEEFloat(&v165);
+        v165 = mlir::OpBuilder::create<mlir::anec::Resize,mlir::Value &,unsigned long long &,unsigned long long &,llvm::APFloat,llvm::APFloat,mlir::DenseIntElementsAttr &,mlir::DenseIntElementsAttr &>(a4 + 1, v156, &v162, v120, v120 + 1, __p, v174, &v158, &v164);
+        v129 = v174[1];
+        v130 = llvm::APFloatBase::PPCDoubleDouble(v165);
+        if (v130 == v129)
         {
-          llvm::detail::DoubleAPFloat::~DoubleAPFloat(&v168[1]);
+          llvm::detail::DoubleAPFloat::~DoubleAPFloat(&v174[1]);
         }
 
         else
         {
-          llvm::detail::IEEEFloat::~IEEEFloat(&v168[1]);
+          llvm::detail::IEEEFloat::~IEEEFloat(&v174[1]);
         }
 
-        if (v124 == *&__p[8])
+        if (v130 == *&__p[8])
         {
           llvm::detail::DoubleAPFloat::~DoubleAPFloat(&__p[8]);
         }
@@ -3711,70 +3711,70 @@ LABEL_119:
           llvm::detail::IEEEFloat::~IEEEFloat(&__p[8]);
         }
 
-        v58 = mlir::anec::Resize::verifyAttributesWithFamily(&v159, 2);
-        v57 = v159;
+        v58 = mlir::anec::Resize::verifyAttributesWithFamily(&v165, 2);
+        v57 = v165;
         if (v58)
         {
-          if (v147 == 1)
+          if (v153 == 1)
           {
-            v168[0] = v20;
-            v168[1] = v22;
-            v169 = v21;
-            v170 = v20;
-            v171 = v22;
-            v172 = v21;
-            llvm::SmallVector<long long,6u>::SmallVector(__p, v168, 6);
-            *v168 = xmmword_1E0982820;
-            v125 = mlir::Builder::getIntegerType(a4 + 1, 64, 0);
-            v126 = mlir::RankedTensorType::get(v168, 2, v125, 0);
-            if (v126)
+            v174[0] = v20;
+            v174[1] = v22;
+            v175 = v21;
+            v176 = v20;
+            v177 = v22;
+            v178 = v21;
+            llvm::SmallVector<long long,6u>::SmallVector(__p, v174, 6);
+            *v174 = xmmword_1E0982820;
+            v131 = mlir::Builder::getIntegerType(a4 + 1, 64, 0);
+            v132 = mlir::RankedTensorType::get(v174, 2, v131, 0);
+            if (v132)
             {
-              v127 = v126;
-              v128 = mlir::detail::InterfaceMap::lookup<mlir::ShapedType>(*v126 + 8);
-              v126 = v127;
+              v133 = v132;
+              v134 = mlir::detail::InterfaceMap::lookup<mlir::ShapedType>(*v132 + 8);
+              v132 = v133;
             }
 
             else
             {
-              v128 = 0;
+              v134 = 0;
             }
 
-            v151 = mlir::DenseElementsAttr::getFromRawBuffer(v126, v128, *__p, 8 * *&__p[8], 8, 1, 0);
-            v57 = mlir::OpBuilder::create<mlir::anec::Transpose,mlir::anec::Resize &,mlir::DenseIntElementsAttr &>(a4 + 1, v150, &v159, &v151);
+            v157 = mlir::DenseElementsAttr::getFromRawBuffer(v132, v134, *__p, 8 * *&__p[8]);
+            v57 = mlir::OpBuilder::create<mlir::anec::Transpose,mlir::anec::Resize &,mlir::DenseIntElementsAttr &>(a4 + 1, v156, &v165, &v157);
             if (*__p != &__p[16])
             {
               free(*__p);
             }
           }
 
-          mlir::CallableOpInterface::getArgAttrsAttr(v155);
-          if (v135 <= 3)
+          mlir::CallableOpInterface::getArgAttrsAttr(v161);
+          if (v141 <= 3)
           {
-            v168[0] = v20;
-            v168[1] = v148;
-            v169 = v21;
-            v170 = v20;
-            v171 = v148;
-            v172 = v21;
-            llvm::SmallVector<long long,6u>::SmallVector(__p, v168, 6);
-            *v168 = xmmword_1E0982820;
-            v136 = mlir::Builder::getIntegerType(a4 + 1, 64, 0);
-            v137 = mlir::RankedTensorType::get(v168, 2, v136, 0);
-            if (v137)
+            v174[0] = v20;
+            v174[1] = v154;
+            v175 = v21;
+            v176 = v20;
+            v177 = v154;
+            v178 = v21;
+            llvm::SmallVector<long long,6u>::SmallVector(__p, v174, 6);
+            *v174 = xmmword_1E0982820;
+            v142 = mlir::Builder::getIntegerType(a4 + 1, 64, 0);
+            v143 = mlir::RankedTensorType::get(v174, 2, v142, 0);
+            if (v143)
             {
-              v138 = v137;
-              v139 = mlir::detail::InterfaceMap::lookup<mlir::ShapedType>(*v137 + 8);
-              v137 = v138;
+              v144 = v143;
+              v145 = mlir::detail::InterfaceMap::lookup<mlir::ShapedType>(*v143 + 8);
+              v143 = v144;
             }
 
             else
             {
-              v139 = 0;
+              v145 = 0;
             }
 
-            v151 = mlir::DenseElementsAttr::getFromRawBuffer(v137, v139, *__p, 8 * *&__p[8], 8, 1, 0);
-            v168[0] = (v57 - 16);
-            v57 = mlir::OpBuilder::create<mlir::anec::Transpose,mlir::Value &,mlir::DenseIntElementsAttr &>(a4 + 1, v150, v168, &v151);
+            v157 = mlir::DenseElementsAttr::getFromRawBuffer(v143, v145, *__p, 8 * *&__p[8]);
+            v174[0] = v57 - 16;
+            v57 = mlir::OpBuilder::create<mlir::anec::Transpose,mlir::Value &,mlir::DenseIntElementsAttr &>(a4 + 1, v156, v174, &v157);
             if (*__p != &__p[16])
             {
               free(*__p);
@@ -3784,11 +3784,11 @@ LABEL_119:
 
         else
         {
-          mlir::ConversionPatternRewriter::eraseOp(a4, v159);
+          mlir::ConversionPatternRewriter::eraseOp(a4, v165);
           *__p = operator new(0x48uLL);
           *&__p[8] = xmmword_1E0982840;
           strcpy(*__p, "requested attributes are not compatible with hardware requirements");
-          mlir::logMatchFailure(__p, *(v157 + 3), a4);
+          mlir::logMatchFailure(__p, *(v163 + 3), a4);
           if ((__p[23] & 0x80000000) != 0)
           {
             operator delete(*__p);
@@ -3807,26 +3807,26 @@ LABEL_118:
     }
   }
 
-  v176 = v165;
-  v177 = v166;
-  *v178 = *v167;
-  *__p = v161;
-  *&__p[16] = v162;
-  v174 = v163;
-  v175 = v164;
+  v182 = v171;
+  v183 = v172;
+  *v184 = *v173;
+  *__p = v167;
+  *&__p[16] = v168;
+  v180 = v169;
+  v181 = v170;
   v72 = mlir::mps::getResizeLayout(v68, v67);
   if ((v72 & 0x100000000) != 0)
   {
     v74 = qword_1E0982BB8[v72];
-    v145 = qword_1E0982BF0[v72];
+    v151 = qword_1E0982BF0[v72];
     v75 = mlir::mps::detail::ResizeOpGenericAdaptorBase::getODSOperandIndexAndLength(__p, 2u);
-    v76 = *(&v177 + 1);
-    v168[0] = *(&v177 + 1);
-    v168[1] = v75;
+    v76 = *(&v183 + 1);
+    v174[0] = *(&v183 + 1);
+    v174[1] = v75;
     if (v75)
     {
-      v76 = mlir::ValueRange::offset_base(v168, v75);
-      v77 = v168[1];
+      v76 = mlir::ValueRange::offset_base(v174, v75);
+      v77 = v174[1];
     }
 
     else
@@ -3834,7 +3834,7 @@ LABEL_118:
       v77 = 0;
     }
 
-    if ((HIDWORD(v75) + v75) == v77 || (v168[0] = v76, v168[1] = 0, !mlir::ValueRange::dereference_iterator(v168, 0)))
+    if ((HIDWORD(v75) + v75) == v77 || (v174[0] = v76, v174[1] = 0, !mlir::ValueRange::dereference_iterator(v174, 0)))
     {
       v82 = 1.0;
       v83 = 1.0;
@@ -3842,16 +3842,16 @@ LABEL_118:
 
     else
     {
-      v159 = 0;
-      v160 = 0;
+      v165 = 0;
+      v166 = 0;
       v79 = mlir::mps::detail::ResizeOpGenericAdaptorBase::getODSOperandIndexAndLength(__p, 2u);
-      v80 = *(&v177 + 1);
-      v168[0] = *(&v177 + 1);
-      v168[1] = v79;
+      v80 = *(&v183 + 1);
+      v174[0] = *(&v183 + 1);
+      v174[1] = v79;
       if (v79)
       {
-        v80 = mlir::ValueRange::offset_base(v168, v79);
-        v81 = v168[1];
+        v80 = mlir::ValueRange::offset_base(v174, v79);
+        v81 = v174[1];
       }
 
       else
@@ -3861,59 +3861,59 @@ LABEL_118:
 
       if ((HIDWORD(v79) + v79) == v81)
       {
-        v129 = 0;
+        v135 = 0;
       }
 
       else
       {
-        v168[0] = v80;
-        v168[1] = 0;
-        v129 = mlir::ValueRange::dereference_iterator(v168, 0);
+        v174[0] = v80;
+        v174[1] = 0;
+        v135 = mlir::ValueRange::dereference_iterator(v174, 0);
       }
 
-      v158 = &v159;
-      v168[0] = v129;
-      v130 = mlir::Value::getDefiningOp(v168);
-      if (!v130 || !mlir::detail::constant_op_binder<mlir::ElementsAttr>::match(&v158, v130))
+      v164 = &v165;
+      v174[0] = v135;
+      v136 = mlir::Value::getDefiningOp(v174);
+      if (!v136 || !mlir::detail::constant_op_binder<mlir::ElementsAttr>::match(&v164, v136))
       {
         goto LABEL_68;
       }
 
-      v168[0] = &v169;
-      v168[1] = 0x400000000;
-      mlir::getFloatValues<float>(v159, v160, v168, 1);
-      v131 = v74;
-      v132 = LODWORD(v168[1]);
+      v174[0] = &v175;
+      v174[1] = 0x400000000;
+      mlir::getFloatValues<float>(v165, v166, v174, 1);
+      v137 = v74;
+      v138 = LODWORD(v174[1]);
       v82 = 1.0;
       v83 = 1.0;
-      v133 = v131;
-      if (v131 < LODWORD(v168[1]))
+      v139 = v137;
+      if (v137 < LODWORD(v174[1]))
       {
-        v83 = *(v168[0] + v131);
-        v82 = *(v168[0] + v145);
+        v83 = *(v174[0] + v137);
+        v82 = *(v174[0] + v151);
       }
 
-      if (v168[0] != &v169)
+      if (v174[0] != &v175)
       {
-        free(v168[0]);
+        free(v174[0]);
       }
 
-      v134 = v133 >= v132;
-      v74 = v133;
-      if (v134)
+      v140 = v139 >= v138;
+      v74 = v139;
+      if (v140)
       {
         goto LABEL_68;
       }
     }
 
     v84 = mlir::mps::detail::ResizeOpGenericAdaptorBase::getODSOperandIndexAndLength(__p, 3u);
-    v85 = *(&v177 + 1);
-    v168[0] = *(&v177 + 1);
-    v168[1] = v84;
+    v85 = *(&v183 + 1);
+    v174[0] = *(&v183 + 1);
+    v174[1] = v84;
     if (v84)
     {
-      v85 = mlir::ValueRange::offset_base(v168, v84);
-      v86 = v168[1];
+      v85 = mlir::ValueRange::offset_base(v174, v84);
+      v86 = v174[1];
     }
 
     else
@@ -3921,7 +3921,7 @@ LABEL_118:
       v86 = 0;
     }
 
-    if ((HIDWORD(v84) + v84) == v86 || (v168[0] = v85, v168[1] = 0, !mlir::ValueRange::dereference_iterator(v168, 0)))
+    if ((HIDWORD(v84) + v84) == v86 || (v174[0] = v85, v174[1] = 0, !mlir::ValueRange::dereference_iterator(v174, 0)))
     {
       v90 = 0.0;
       v91 = 0.0;
@@ -3929,16 +3929,16 @@ LABEL_118:
 
     else
     {
-      v159 = 0;
-      v160 = 0;
+      v165 = 0;
+      v166 = 0;
       v87 = mlir::mps::detail::ResizeOpGenericAdaptorBase::getODSOperandIndexAndLength(__p, 3u);
-      v88 = *(&v177 + 1);
-      v168[0] = *(&v177 + 1);
-      v168[1] = v87;
+      v88 = *(&v183 + 1);
+      v174[0] = *(&v183 + 1);
+      v174[1] = v87;
       if (v87)
       {
-        v88 = mlir::ValueRange::offset_base(v168, v87);
-        v89 = v168[1];
+        v88 = mlir::ValueRange::offset_base(v174, v87);
+        v89 = v174[1];
       }
 
       else
@@ -3948,61 +3948,61 @@ LABEL_118:
 
       if ((HIDWORD(v87) + v87) == v89)
       {
-        v140 = 0;
+        v146 = 0;
       }
 
       else
       {
-        v168[0] = v88;
-        v168[1] = 0;
-        v140 = mlir::ValueRange::dereference_iterator(v168, 0);
+        v174[0] = v88;
+        v174[1] = 0;
+        v146 = mlir::ValueRange::dereference_iterator(v174, 0);
       }
 
-      v158 = &v159;
-      v168[0] = v140;
-      v141 = mlir::Value::getDefiningOp(v168);
-      if (!v141 || !mlir::detail::constant_op_binder<mlir::ElementsAttr>::match(&v158, v141))
+      v164 = &v165;
+      v174[0] = v146;
+      v147 = mlir::Value::getDefiningOp(v174);
+      if (!v147 || !mlir::detail::constant_op_binder<mlir::ElementsAttr>::match(&v164, v147))
       {
         goto LABEL_68;
       }
 
-      v168[0] = &v169;
-      v168[1] = 0x400000000;
-      mlir::getFloatValues<float>(v159, v160, v168, 1);
-      v142 = v74;
-      v143 = LODWORD(v168[1]);
+      v174[0] = &v175;
+      v174[1] = 0x400000000;
+      mlir::getFloatValues<float>(v165, v166, v174, 1);
+      v148 = v74;
+      v149 = LODWORD(v174[1]);
       v90 = 0.0;
       v91 = 0.0;
-      v144 = v142;
-      if (v142 < LODWORD(v168[1]))
+      v150 = v148;
+      if (v148 < LODWORD(v174[1]))
       {
-        v91 = *(v168[0] + v142);
-        v90 = *(v168[0] + v145);
+        v91 = *(v174[0] + v148);
+        v90 = *(v174[0] + v151);
       }
 
-      if (v168[0] != &v169)
+      if (v174[0] != &v175)
       {
-        free(v168[0]);
+        free(v174[0]);
       }
 
-      if (v144 >= v143)
+      if (v150 >= v149)
       {
         goto LABEL_68;
       }
     }
 
     v92 = mlir::mps::detail::ResizeOpGenericAdaptorBase::getODSOperandIndexAndLength(__p, 0);
-    v93 = *(&v177 + 1);
-    v168[0] = *(&v177 + 1);
-    v168[1] = v92;
+    v93 = *(&v183 + 1);
+    v174[0] = *(&v183 + 1);
+    v174[1] = v92;
     if (v92)
     {
-      v93 = mlir::ValueRange::offset_base(v168, v92);
+      v93 = mlir::ValueRange::offset_base(v174, v92);
     }
 
-    v168[0] = v93;
-    v168[1] = 0;
-    v94 = (*(mlir::ValueRange::dereference_iterator(v168, 0) + 8) & 0xFFFFFFFFFFFFFFF8);
+    v174[0] = v93;
+    v174[1] = 0;
+    v94 = (*(mlir::ValueRange::dereference_iterator(v174, 0) + 8) & 0xFFFFFFFFFFFFFFF8);
     if (v94)
     {
       v95 = mlir::detail::InterfaceMap::lookup<mlir::ShapedType>(*v94 + 8);
@@ -4013,9 +4013,9 @@ LABEL_118:
       v95 = 0;
     }
 
-    v168[0] = v94;
-    v168[1] = v95;
-    v146 = mlir::CallableOpInterface::getArgAttrsAttr(v168);
+    v174[0] = v94;
+    v174[1] = v95;
+    v152 = mlir::CallableOpInterface::getArgAttrsAttr(v174);
     v97 = v96;
     v98 = *(a1 + 96);
     if (*(v68 + 9))
@@ -4036,13 +4036,13 @@ LABEL_118:
       v101 = mlir::detail::InterfaceMap::lookup<mlir::ShapedType>(*v101 + 8);
     }
 
-    v168[0] = v102;
-    v168[1] = v101;
-    v103 = mlir::CallableOpInterface::getArgAttrsAttr(v168);
+    v174[0] = v102;
+    v174[1] = v101;
+    v103 = mlir::CallableOpInterface::getArgAttrsAttr(v174);
     v105 = v104;
     v106 = mlir::anec::getIndexFromDim(3, v97);
     v107 = mlir::anec::getIndexFromDim(4, v105);
-    v108 = *(v146 + 8 * v106);
+    v108 = *(v152 + 8 * v106);
     v109 = *(v103 + 8 * v106);
     v110 = v91 != 0.0;
     if (v90 != 0.0)
@@ -4051,7 +4051,7 @@ LABEL_118:
     }
 
     v111 = (v83 + -1.0) * 0.5 != v91 || (v82 + -1.0) * 0.5 != v90;
-    v112 = *(v146 + 8 * v107);
+    v112 = *(v152 + 8 * v107);
     v113 = *(v103 + 8 * v107);
     v114 = v83 != (v109 / v108) || v82 != (v113 / v112);
     v115 = v83 != ((v109 + -1.0) / (v108 + -1.0)) || v82 != ((v113 + -1.0) / (v112 + -1.0));
@@ -4067,7 +4067,7 @@ LABEL_118:
         goto LABEL_78;
       }
 
-      v68 = v157;
+      v68 = v163;
 LABEL_138:
       *__p = operator new(0x50uLL);
       *&__p[8] = xmmword_1E09827D0;
@@ -4090,7 +4090,7 @@ LABEL_68:
   *__p = operator new(0x48uLL);
   *&__p[8] = xmmword_1E0982670;
   strcpy(*__p, "Resize with custom scale and offset values not supported on ANE.");
-  v73 = *(v157 + 3);
+  v73 = *(v163 + 3);
 LABEL_72:
   mlir::logMatchFailure(__p, v73, a4);
   if ((__p[23] & 0x80000000) != 0)
@@ -4101,37 +4101,37 @@ LABEL_72:
   v57 = 0;
   v58 = 0;
 LABEL_163:
-  if (v179 != v181)
-  {
-    free(v179);
-  }
-
-  if (v182 != v184)
-  {
-    free(v182);
-  }
-
   if (v185 != v187)
   {
     free(v185);
   }
 
-LABEL_44:
   if (v188 != v190)
   {
     free(v188);
   }
 
-  if (v191 != v192)
+  if (v191 != v193)
   {
     free(v191);
   }
 
+LABEL_44:
+  if (v194 != v196)
+  {
+    free(v194);
+  }
+
+  if (v197 != v198)
+  {
+    free(v197);
+  }
+
   if (v58)
   {
-    *&v161 = v57 - 16;
+    *&v167 = v57 - 16;
     matched = 1;
-    mlir::ValueRange::ValueRange(__p, &v161, 1uLL);
+    mlir::ValueRange::ValueRange(__p, &v167, 1uLL);
     mlir::ConversionPatternRewriter::replaceOp(a4, a2, *__p, *&__p[8]);
   }
 
@@ -4140,7 +4140,7 @@ LABEL_44:
     *__p = operator new(0x60uLL);
     *&__p[8] = xmmword_1E0982860;
     strcpy(*__p, "Conversion did not match a valid resize or a valid transformation supported by the hardware.");
-    matched = mlir::logMatchFailure(__p, a2[3], a4);
+    matched = mlir::logMatchFailure(__p, *(a2 + 3), a4);
     if ((__p[23] & 0x80000000) != 0)
     {
       operator delete(*__p);
@@ -4184,26 +4184,26 @@ void mlir::anonymous namespace::ConvertResize<(mlir::anec::Family)3>::~ConvertRe
   operator delete(__p);
 }
 
-uint64_t mlir::anonymous namespace::ConvertResizeGeneric<(mlir::anec::Family)3>::matchAndRewriteWithStaticShapes(uint64_t a1, uint64_t *a2, __int128 *a3, uint64_t **a4)
+uint64_t mlir::anonymous namespace::ConvertResizeGeneric<(mlir::anec::Family)3>::matchAndRewriteWithStaticShapes(uint64_t a1, mlir::mps *a2, __int128 *a3, uint64_t **a4)
 {
-  v194[3] = *MEMORY[0x1E69E9840];
+  v200[3] = *MEMORY[0x1E69E9840];
   v6 = a3[5];
-  v169 = a3[4];
-  v170 = v6;
-  *v171 = *(a3 + 12);
+  v175 = a3[4];
+  v176 = v6;
+  *v177 = *(a3 + 12);
   v7 = a3[1];
-  v165 = *a3;
-  v166 = v7;
+  v171 = *a3;
+  v172 = v7;
   v8 = a3[3];
-  v167 = a3[2];
-  v168 = v8;
-  v161 = a2;
-  v192[0] = *(&v170 + 1);
-  v192[1] = *v171;
-  v9 = a2[3];
-  v160 = mlir::ValueRange::dereference_iterator(v192, 0);
-  ODSOperandIndexAndLength = mlir::pdl_interp::RecordMatchOp::getODSOperandIndexAndLength(&v161, 0);
-  v11 = (*(*(*(v161 + 9) + 32 * ODSOperandIndexAndLength + 24) + 8) & 0xFFFFFFFFFFFFFFF8);
+  v173 = a3[2];
+  v174 = v8;
+  v167 = a2;
+  v198[0] = *(&v176 + 1);
+  v198[1] = *v177;
+  v9 = *(a2 + 3);
+  v166 = mlir::ValueRange::dereference_iterator(v198, 0);
+  ODSOperandIndexAndLength = mlir::pdl_interp::RecordMatchOp::getODSOperandIndexAndLength(&v167, 0);
+  v11 = (*(*(*(v167 + 9) + 32 * ODSOperandIndexAndLength + 24) + 8) & 0xFFFFFFFFFFFFFFF8);
   if (v11)
   {
     v12 = mlir::detail::InterfaceMap::lookup<mlir::ShapedType>(*v11 + 8);
@@ -4214,11 +4214,11 @@ uint64_t mlir::anonymous namespace::ConvertResizeGeneric<(mlir::anec::Family)3>:
     v12 = 0;
   }
 
-  v159[0] = v11;
-  v159[1] = v12;
-  v13 = mlir::mps::detail::ResizeOpGenericAdaptorBase::getODSOperandIndexAndLength(&v165, 0);
-  v14 = *(&v170 + 1);
-  *__p = *(&v170 + 1);
+  v165[0] = v11;
+  v165[1] = v12;
+  v13 = mlir::mps::detail::ResizeOpGenericAdaptorBase::getODSOperandIndexAndLength(&v171, 0);
+  v14 = *(&v176 + 1);
+  *__p = *(&v176 + 1);
   *&__p[8] = v13;
   if (v13)
   {
@@ -4246,20 +4246,20 @@ uint64_t mlir::anonymous namespace::ConvertResizeGeneric<(mlir::anec::Family)3>:
   v20 = mlir::anec::getIndexFromDim(1, v18);
   v21 = mlir::anec::getIndexFromDim(3, v18);
   v22 = mlir::anec::getIndexFromDim(4, v18);
-  mlir::CallableOpInterface::getArgAttrsAttr(v159);
+  mlir::CallableOpInterface::getArgAttrsAttr(v165);
   if (v23 <= 3)
   {
     *__p = &__p[16];
     *&__p[16] = IndexFromDim;
     *&__p[24] = v20;
-    *&v173 = v20;
-    *(&v173 + 1) = v21;
-    *&v174 = v21;
-    *(&v174 + 1) = IndexFromDim;
+    *&v179 = v20;
+    *(&v179 + 1) = v21;
+    *&v180 = v21;
+    *(&v180 + 1) = IndexFromDim;
     *&__p[8] = 0x600000006;
-    v190 = xmmword_1E0982820;
+    v196 = xmmword_1E0982820;
     IntegerType = mlir::Builder::getIntegerType(a4 + 1, 64, 0);
-    v25 = mlir::RankedTensorType::get(&v190, 2, IntegerType, 0);
+    v25 = mlir::RankedTensorType::get(&v196, 2, IntegerType, 0);
     if (v25)
     {
       v26 = v25;
@@ -4272,17 +4272,17 @@ uint64_t mlir::anonymous namespace::ConvertResizeGeneric<(mlir::anec::Family)3>:
       v27 = 0;
     }
 
-    *&v193 = mlir::DenseElementsAttr::getFromRawBuffer(v25, v27, *__p, 8 * *&__p[8], 8, 1, 0);
-    v160 = mlir::OpBuilder::create<mlir::anec::Transpose,mlir::Value &,mlir::DenseIntElementsAttr &>(a4 + 1, v9, &v160, &v193) - 16;
+    *&v199 = mlir::DenseElementsAttr::getFromRawBuffer(v25, v27, *__p, 8 * *&__p[8]);
+    v166 = mlir::OpBuilder::create<mlir::anec::Transpose,mlir::Value &,mlir::DenseIntElementsAttr &>(a4 + 1, v9, &v166, &v199) - 16;
     if (*__p != &__p[16])
     {
       free(*__p);
     }
   }
 
-  if (*(v161 + 9))
+  if (*(v167 + 9))
   {
-    v28 = v161 - 16;
+    v28 = v167 - 16;
   }
 
   else
@@ -4301,18 +4301,18 @@ uint64_t mlir::anonymous namespace::ConvertResizeGeneric<(mlir::anec::Family)3>:
     v30 = 0;
   }
 
-  v158[0] = v29;
-  v158[1] = v30;
-  ArgAttrsAttr = mlir::CallableOpInterface::getArgAttrsAttr(v158);
+  v164[0] = v29;
+  v164[1] = v30;
+  ArgAttrsAttr = mlir::CallableOpInterface::getArgAttrsAttr(v164);
   v33 = v32;
-  *&v190 = v191;
-  *(&v190 + 1) = 0x400000000;
+  *&v196 = v197;
+  *(&v196 + 1) = 0x400000000;
   v34 = (8 * v32) >> 3;
-  v154 = v22;
+  v160 = v22;
   if (v34 < 5)
   {
     v35 = 0;
-    v36 = v191;
+    v36 = v197;
     v37 = 8 * v33;
     if (!v33)
     {
@@ -4322,41 +4322,41 @@ uint64_t mlir::anonymous namespace::ConvertResizeGeneric<(mlir::anec::Family)3>:
     goto LABEL_25;
   }
 
-  llvm::SmallVectorBase<unsigned int>::grow_pod(&v190, v191, v34, 8);
-  v35 = DWORD2(v190);
-  v36 = v190;
+  llvm::SmallVectorBase<unsigned int>::grow_pod(&v196, v197, v34, 8);
+  v35 = DWORD2(v196);
+  v36 = v196;
   v37 = 8 * v33;
   if (v33)
   {
 LABEL_25:
     memcpy(v36 + 8 * v35, ArgAttrsAttr, v37);
-    v35 = DWORD2(v190);
-    v36 = v190;
+    v35 = DWORD2(v196);
+    v36 = v196;
   }
 
 LABEL_26:
   v38 = v35 + (v37 >> 3);
-  DWORD2(v190) = v38;
+  DWORD2(v196) = v38;
   if (v38 <= 3)
   {
-    llvm::SmallVectorImpl<unsigned long long>::insert(&v190, v36, 4 - v38, 1uLL);
-    v36 = v190;
+    llvm::SmallVectorImpl<unsigned long long>::insert(&v196, v36, 4 - v38, 1uLL);
+    v36 = v196;
   }
 
   v39 = *(v36 + v21);
-  v40 = *(v36 + v154);
-  v187 = v189;
-  v189[0] = v39;
-  v189[1] = v40;
-  v188 = 0x200000002;
-  ResizeLayout = mlir::mps::getResizeLayout(v161, v36);
+  v40 = *(v36 + v160);
+  v193 = v195;
+  v195[0] = v39;
+  v195[1] = v40;
+  v194 = 0x200000002;
+  ResizeLayout = mlir::mps::getResizeLayout(v167, v36);
   if ((ResizeLayout & 0x100000000) == 0)
   {
     *__p = operator new(0x20uLL);
     *&__p[8] = xmmword_1E0982800;
     strcpy(*__p, "Resize layout not supported");
 LABEL_41:
-    mlir::logMatchFailure(__p, *(v161 + 3), a4);
+    mlir::logMatchFailure(__p, *(v167 + 3), a4);
     if ((__p[23] & 0x80000000) != 0)
     {
       operator delete(*__p);
@@ -4373,14 +4373,14 @@ LABEL_41:
     *__p = &__p[16];
     *&__p[16] = v20;
     *&__p[24] = v21;
-    *&v173 = v21;
-    *(&v173 + 1) = v154;
-    *&v174 = v154;
-    *(&v174 + 1) = v20;
+    *&v179 = v21;
+    *(&v179 + 1) = v160;
+    *&v180 = v160;
+    *(&v180 + 1) = v20;
     *&__p[8] = 0x600000006;
-    v193 = xmmword_1E0982820;
+    v199 = xmmword_1E0982820;
     v43 = mlir::Builder::getIntegerType(a4 + 1, 64, 0);
-    v44 = mlir::RankedTensorType::get(&v193, 2, v43, 0);
+    v44 = mlir::RankedTensorType::get(&v199, 2, v43, 0);
     if (v44)
     {
       v45 = v9;
@@ -4395,11 +4395,11 @@ LABEL_41:
       v47 = 0;
     }
 
-    v184 = mlir::DenseElementsAttr::getFromRawBuffer(v44, v47, *__p, 8 * *&__p[8], 8, 1, 0);
-    v160 = mlir::OpBuilder::create<mlir::anec::Transpose,mlir::Value &,mlir::DenseIntElementsAttr &>(a4 + 1, v9, &v160, &v184) - 16;
-    v48 = v190;
-    v49 = v187;
-    *v187 = *(v190 + 8 * v20);
+    v190 = mlir::DenseElementsAttr::getFromRawBuffer(v44, v47, *__p, 8 * *&__p[8]);
+    v166 = mlir::OpBuilder::create<mlir::anec::Transpose,mlir::Value &,mlir::DenseIntElementsAttr &>(a4 + 1, v9, &v166, &v190) - 16;
+    v48 = v196;
+    v49 = v193;
+    *v193 = *(v196 + 8 * v20);
     v49[1] = *(v48 + 8 * v21);
     if (*__p != &__p[16])
     {
@@ -4407,14 +4407,14 @@ LABEL_41:
     }
   }
 
-  v157[0] = 0;
-  v157[1] = 0;
-  v50 = mlir::pdl_interp::RecordMatchOp::getODSOperandIndexAndLength(&v161, 1u);
-  v51 = *(*(v161 + 9) + 32 * v50 + 24);
-  *&v193 = v157;
+  v163[0] = 0;
+  v163[1] = 0;
+  v50 = mlir::pdl_interp::RecordMatchOp::getODSOperandIndexAndLength(&v167, 1u);
+  v51 = *(*(v167 + 9) + 32 * v50 + 24);
+  *&v199 = v163;
   *__p = v51;
   DefiningOp = mlir::Value::getDefiningOp(__p);
-  if (!DefiningOp || (mlir::detail::constant_op_binder<mlir::ElementsAttr>::match(&v193, DefiningOp) & 1) == 0)
+  if (!DefiningOp || (mlir::detail::constant_op_binder<mlir::ElementsAttr>::match(&v199, DefiningOp) & 1) == 0)
   {
     *__p = operator new(0x28uLL);
     *&__p[8] = xmmword_1E0982850;
@@ -4422,16 +4422,16 @@ LABEL_41:
     goto LABEL_41;
   }
 
-  v151 = v42;
-  v152 = v9;
-  v184 = v186;
-  v186[1] = 0;
-  v186[0] = 0;
-  v185 = 0x200000002;
-  v181 = v183;
-  memset_pattern16(v183, &unk_1E096FAE0, 0x10uLL);
-  v182 = 0x200000002;
-  GateLayout = mlir::mps::LSTMOp::getGateLayout(&v161);
+  v157 = v42;
+  v158 = v9;
+  v190 = v192;
+  v192[1] = 0;
+  v192[0] = 0;
+  v191 = 0x200000002;
+  v187 = v189;
+  memset_pattern16(v189, &unk_1E096FAE0, 0x10uLL);
+  v188 = 0x200000002;
+  GateLayout = mlir::mps::LSTMOp::getGateLayout(&v167);
   *__p = 2;
   v54 = mlir::Builder::getIntegerType(a4 + 1, 64, 0);
   v55 = mlir::RankedTensorType::get(__p, 1, v54, 0);
@@ -4449,31 +4449,31 @@ LABEL_41:
 
   if (GateLayout == 1)
   {
-    v62 = &v184;
+    v62 = &v190;
   }
 
   else
   {
-    v62 = &v181;
+    v62 = &v187;
   }
 
   v63 = *v62;
-  v64 = &v185;
+  v64 = &v191;
   if (GateLayout != 1)
   {
-    v64 = &v182;
+    v64 = &v188;
   }
 
-  v156 = mlir::DenseElementsAttr::getFromRawBuffer(v55, v57, v63, 8 * *v64, 8, 1, 0);
-  v178 = v180;
-  v179 = 0x200000000;
-  InferredResultTypes = mlir::pdl_interp::CreateOperationOp::getInferredResultTypes(&v161);
-  IsSize = mlir::mps::StridedSliceOp::getEndIsSize(&v161);
-  v67 = mlir::pdl_interp::RecordMatchOp::getODSOperandIndexAndLength(&v161, 2u);
-  v69 = v161;
-  if ((*(v161 + 46) & 0x80) != 0)
+  v162 = mlir::DenseElementsAttr::getFromRawBuffer(v55, v57, v63, 8 * *v64);
+  v184 = v186;
+  v185 = 0x200000000;
+  InferredResultTypes = mlir::pdl_interp::CreateOperationOp::getInferredResultTypes(&v167);
+  IsSize = mlir::mps::StridedSliceOp::getEndIsSize(&v167);
+  v67 = mlir::pdl_interp::RecordMatchOp::getODSOperandIndexAndLength(&v167, 2u);
+  v69 = v167;
+  if ((*(v167 + 46) & 0x80) != 0)
   {
-    v70 = *(v161 + 9);
+    v70 = *(v167 + 9);
   }
 
   else
@@ -4481,12 +4481,12 @@ LABEL_41:
     v70 = 0;
   }
 
-  v71 = v152;
+  v71 = v158;
   if (HIDWORD(v67) + v67 == v67 || !*(v70 + 32 * v67 + 24))
   {
-    v72 = mlir::pdl_interp::RecordMatchOp::getODSOperandIndexAndLength(&v161, 3u);
-    v69 = v161;
-    v73 = (*(v161 + 46) & 0x80) != 0 ? *(v161 + 9) : 0;
+    v72 = mlir::pdl_interp::RecordMatchOp::getODSOperandIndexAndLength(&v167, 3u);
+    v69 = v167;
+    v73 = (*(v167 + 46) & 0x80) != 0 ? *(v167 + 9) : 0;
     if (HIDWORD(v72) + v72 == v72 || !*(v73 + 32 * v72 + 24))
     {
       if (InferredResultTypes)
@@ -4512,7 +4512,7 @@ LABEL_119:
         memset_pattern16(&__p[16], v80, 0x10uLL);
 LABEL_121:
         *&__p[8] = 0x600000002;
-        llvm::SmallVectorImpl<unsigned long long>::operator=(&v178, __p);
+        llvm::SmallVectorImpl<unsigned long long>::operator=(&v184, __p);
         if (*__p != &__p[16])
         {
           free(*__p);
@@ -4533,30 +4533,30 @@ LABEL_121:
           v123 = 0;
         }
 
-        v162 = mlir::DenseElementsAttr::getFromRawBuffer(v121, v123, v178, 8 * v179, 8, 1, 0);
-        v124 = v187;
-        v125 = llvm::detail::IEEEFloat::IEEEFloat(&v193, -1.0);
-        v126 = llvm::APFloatBase::IEEEsingle(v125);
-        llvm::APFloat::Storage::Storage(&__p[8], &v193, v126);
-        llvm::detail::IEEEFloat::~IEEEFloat(&v193);
-        llvm::detail::IEEEFloat::IEEEFloat(&v163, -1.0);
-        llvm::APFloat::Storage::Storage(&v193 + 8, &v163, v126);
-        llvm::detail::IEEEFloat::~IEEEFloat(&v163);
-        v163 = mlir::OpBuilder::create<mlir::anec::Resize,mlir::Value &,unsigned long long &,unsigned long long &,llvm::APFloat,llvm::APFloat,mlir::DenseIntElementsAttr &,mlir::DenseIntElementsAttr &>(a4 + 1, v71, &v160, v124, v124 + 1, __p, &v193, &v156, &v162);
-        v127 = *(&v193 + 1);
-        v128 = llvm::APFloatBase::PPCDoubleDouble(v163);
-        if (v128 == v127)
+        v168 = mlir::DenseElementsAttr::getFromRawBuffer(v121, v123, v184, 8 * v185);
+        v124 = v193;
+        v128 = llvm::detail::IEEEFloat::IEEEFloat(&v199, -1.0, v125, v126, v127);
+        v129 = llvm::APFloatBase::IEEEsingle(v128);
+        llvm::APFloat::Storage::Storage(&__p[8], &v199, v129);
+        llvm::detail::IEEEFloat::~IEEEFloat(&v199);
+        llvm::detail::IEEEFloat::IEEEFloat(&v169, -1.0, v130, v131, v132);
+        llvm::APFloat::Storage::Storage(&v199 + 8, &v169, v129);
+        llvm::detail::IEEEFloat::~IEEEFloat(&v169);
+        v169 = mlir::OpBuilder::create<mlir::anec::Resize,mlir::Value &,unsigned long long &,unsigned long long &,llvm::APFloat,llvm::APFloat,mlir::DenseIntElementsAttr &,mlir::DenseIntElementsAttr &>(a4 + 1, v71, &v166, v124, v124 + 1, __p, &v199, &v162, &v168);
+        v133 = *(&v199 + 1);
+        v134 = llvm::APFloatBase::PPCDoubleDouble(v169);
+        if (v134 == v133)
         {
-          llvm::detail::DoubleAPFloat::~DoubleAPFloat((&v193 + 8));
+          llvm::detail::DoubleAPFloat::~DoubleAPFloat((&v199 + 8));
         }
 
         else
         {
-          llvm::detail::IEEEFloat::~IEEEFloat((&v193 + 8));
+          llvm::detail::IEEEFloat::~IEEEFloat((&v199 + 8));
         }
 
-        v129 = v152;
-        if (v128 == *&__p[8])
+        v135 = v158;
+        if (v134 == *&__p[8])
         {
           llvm::detail::DoubleAPFloat::~DoubleAPFloat(&__p[8]);
         }
@@ -4566,73 +4566,73 @@ LABEL_121:
           llvm::detail::IEEEFloat::~IEEEFloat(&__p[8]);
         }
 
-        v59 = mlir::anec::Resize::verifyAttributesWithFamily(&v163, 3);
-        v58 = v163;
+        v59 = mlir::anec::Resize::verifyAttributesWithFamily(&v169, 3);
+        v58 = v169;
         if (v59)
         {
-          if (v151 == 1)
+          if (v157 == 1)
           {
             *__p = &__p[16];
             *&__p[16] = v20;
-            *&__p[24] = v154;
-            *&v173 = v21;
-            *(&v173 + 1) = v20;
-            *&v174 = v154;
-            *(&v174 + 1) = v21;
+            *&__p[24] = v160;
+            *&v179 = v21;
+            *(&v179 + 1) = v20;
+            *&v180 = v160;
+            *(&v180 + 1) = v21;
             *&__p[8] = 0x600000006;
-            v193 = xmmword_1E0982820;
-            v130 = mlir::Builder::getIntegerType(a4 + 1, 64, 0);
-            v131 = mlir::RankedTensorType::get(&v193, 2, v130, 0);
-            if (v131)
+            v199 = xmmword_1E0982820;
+            v136 = mlir::Builder::getIntegerType(a4 + 1, 64, 0);
+            v137 = mlir::RankedTensorType::get(&v199, 2, v136, 0);
+            if (v137)
             {
-              v132 = v131;
-              v133 = mlir::detail::InterfaceMap::lookup<mlir::ShapedType>(*v131 + 8);
-              v131 = v132;
-              v129 = v152;
+              v138 = v137;
+              v139 = mlir::detail::InterfaceMap::lookup<mlir::ShapedType>(*v137 + 8);
+              v137 = v138;
+              v135 = v158;
             }
 
             else
             {
-              v133 = 0;
+              v139 = 0;
             }
 
-            v155 = mlir::DenseElementsAttr::getFromRawBuffer(v131, v133, *__p, 8 * *&__p[8], 8, 1, 0);
-            v58 = mlir::OpBuilder::create<mlir::anec::Transpose,mlir::anec::Resize &,mlir::DenseIntElementsAttr &>(a4 + 1, v129, &v163, &v155);
+            v161 = mlir::DenseElementsAttr::getFromRawBuffer(v137, v139, *__p, 8 * *&__p[8]);
+            v58 = mlir::OpBuilder::create<mlir::anec::Transpose,mlir::anec::Resize &,mlir::DenseIntElementsAttr &>(a4 + 1, v135, &v169, &v161);
             if (*__p != &__p[16])
             {
               free(*__p);
             }
           }
 
-          mlir::CallableOpInterface::getArgAttrsAttr(v159);
-          if (v134 <= 3)
+          mlir::CallableOpInterface::getArgAttrsAttr(v165);
+          if (v140 <= 3)
           {
             *__p = &__p[16];
             *&__p[16] = v20;
             *&__p[24] = IndexFromDim;
-            *&v173 = v21;
-            *(&v173 + 1) = v20;
-            *&v174 = IndexFromDim;
-            *(&v174 + 1) = v21;
+            *&v179 = v21;
+            *(&v179 + 1) = v20;
+            *&v180 = IndexFromDim;
+            *(&v180 + 1) = v21;
             *&__p[8] = 0x600000006;
-            v193 = xmmword_1E0982820;
-            v135 = mlir::Builder::getIntegerType(a4 + 1, 64, 0);
-            v136 = mlir::RankedTensorType::get(&v193, 2, v135, 0);
-            if (v136)
+            v199 = xmmword_1E0982820;
+            v141 = mlir::Builder::getIntegerType(a4 + 1, 64, 0);
+            v142 = mlir::RankedTensorType::get(&v199, 2, v141, 0);
+            if (v142)
             {
-              v137 = v136;
-              v138 = mlir::detail::InterfaceMap::lookup<mlir::ShapedType>(*v136 + 8);
-              v136 = v137;
+              v143 = v142;
+              v144 = mlir::detail::InterfaceMap::lookup<mlir::ShapedType>(*v142 + 8);
+              v142 = v143;
             }
 
             else
             {
-              v138 = 0;
+              v144 = 0;
             }
 
-            v155 = mlir::DenseElementsAttr::getFromRawBuffer(v136, v138, *__p, 8 * *&__p[8], 8, 1, 0);
-            *&v193 = v58 - 16;
-            v58 = mlir::OpBuilder::create<mlir::anec::Transpose,mlir::Value &,mlir::DenseIntElementsAttr &>(a4 + 1, v152, &v193, &v155);
+            v161 = mlir::DenseElementsAttr::getFromRawBuffer(v142, v144, *__p, 8 * *&__p[8]);
+            *&v199 = v58 - 16;
+            v58 = mlir::OpBuilder::create<mlir::anec::Transpose,mlir::Value &,mlir::DenseIntElementsAttr &>(a4 + 1, v158, &v199, &v161);
             if (*__p != &__p[16])
             {
               free(*__p);
@@ -4642,11 +4642,11 @@ LABEL_121:
 
         else
         {
-          mlir::ConversionPatternRewriter::eraseOp(a4, v163);
+          mlir::ConversionPatternRewriter::eraseOp(a4, v169);
           *__p = operator new(0x48uLL);
           *&__p[8] = xmmword_1E0982840;
           strcpy(*__p, "requested attributes are not compatible with hardware requirements");
-          mlir::logMatchFailure(__p, *(v161 + 3), a4);
+          mlir::logMatchFailure(__p, *(v167 + 3), a4);
           if ((__p[23] & 0x80000000) != 0)
           {
             operator delete(*__p);
@@ -4665,26 +4665,26 @@ LABEL_118:
     }
   }
 
-  v175 = v169;
-  v176 = v170;
-  *v177 = *v171;
-  *__p = v165;
-  *&__p[16] = v166;
-  v173 = v167;
-  v174 = v168;
+  v181 = v175;
+  v182 = v176;
+  *v183 = *v177;
+  *__p = v171;
+  *&__p[16] = v172;
+  v179 = v173;
+  v180 = v174;
   v74 = mlir::mps::getResizeLayout(v69, v68);
   if ((v74 & 0x100000000) != 0)
   {
     v76 = qword_1E0982BB8[v74];
-    v150 = qword_1E0982BF0[v74];
+    v156 = qword_1E0982BF0[v74];
     v77 = mlir::mps::detail::ResizeOpGenericAdaptorBase::getODSOperandIndexAndLength(__p, 2u);
-    v78 = *(&v176 + 1);
-    *&v193 = *(&v176 + 1);
-    *(&v193 + 1) = v77;
+    v78 = *(&v182 + 1);
+    *&v199 = *(&v182 + 1);
+    *(&v199 + 1) = v77;
     if (v77)
     {
-      v78 = mlir::ValueRange::offset_base(&v193, v77);
-      v79 = *(&v193 + 1);
+      v78 = mlir::ValueRange::offset_base(&v199, v77);
+      v79 = *(&v199 + 1);
     }
 
     else
@@ -4692,7 +4692,7 @@ LABEL_118:
       v79 = 0;
     }
 
-    if (HIDWORD(v77) + v77 == v79 || (v193 = v78, !mlir::ValueRange::dereference_iterator(&v193, 0)))
+    if (HIDWORD(v77) + v77 == v79 || (v199 = v78, !mlir::ValueRange::dereference_iterator(&v199, 0)))
     {
       v84 = 1.0;
       v85 = 1.0;
@@ -4700,16 +4700,16 @@ LABEL_118:
 
     else
     {
-      v163 = 0;
-      v164 = 0;
+      v169 = 0;
+      v170 = 0;
       v81 = mlir::mps::detail::ResizeOpGenericAdaptorBase::getODSOperandIndexAndLength(__p, 2u);
-      v82 = *(&v176 + 1);
-      *&v193 = *(&v176 + 1);
-      *(&v193 + 1) = v81;
+      v82 = *(&v182 + 1);
+      *&v199 = *(&v182 + 1);
+      *(&v199 + 1) = v81;
       if (v81)
       {
-        v82 = mlir::ValueRange::offset_base(&v193, v81);
-        v83 = *(&v193 + 1);
+        v82 = mlir::ValueRange::offset_base(&v199, v81);
+        v83 = *(&v199 + 1);
       }
 
       else
@@ -4719,58 +4719,58 @@ LABEL_118:
 
       if (HIDWORD(v81) + v81 == v83)
       {
-        v139 = 0;
+        v145 = 0;
       }
 
       else
       {
-        v193 = v82;
-        v139 = mlir::ValueRange::dereference_iterator(&v193, 0);
+        v199 = v82;
+        v145 = mlir::ValueRange::dereference_iterator(&v199, 0);
       }
 
-      v162 = &v163;
-      *&v193 = v139;
-      v140 = mlir::Value::getDefiningOp(&v193);
-      if (!v140 || !mlir::detail::constant_op_binder<mlir::ElementsAttr>::match(&v162, v140))
+      v168 = &v169;
+      *&v199 = v145;
+      v146 = mlir::Value::getDefiningOp(&v199);
+      if (!v146 || !mlir::detail::constant_op_binder<mlir::ElementsAttr>::match(&v168, v146))
       {
         goto LABEL_68;
       }
 
-      *&v193 = v194;
-      *(&v193 + 1) = 0x400000000;
-      mlir::getFloatValues<float>(v163, v164, &v193, 1);
-      v141 = v76;
-      v142 = DWORD2(v193);
+      *&v199 = v200;
+      *(&v199 + 1) = 0x400000000;
+      mlir::getFloatValues<float>(v169, v170, &v199, 1);
+      v147 = v76;
+      v148 = DWORD2(v199);
       v84 = 1.0;
       v85 = 1.0;
-      v143 = v141;
-      if (v141 < DWORD2(v193))
+      v149 = v147;
+      if (v147 < DWORD2(v199))
       {
-        v85 = *(v193 + 4 * v141);
-        v84 = *(v193 + 4 * v150);
+        v85 = *(v199 + 4 * v147);
+        v84 = *(v199 + 4 * v156);
       }
 
-      if (v193 != v194)
+      if (v199 != v200)
       {
-        free(v193);
+        free(v199);
       }
 
-      v144 = v143 >= v142;
-      v76 = v143;
-      if (v144)
+      v150 = v149 >= v148;
+      v76 = v149;
+      if (v150)
       {
         goto LABEL_68;
       }
     }
 
     v86 = mlir::mps::detail::ResizeOpGenericAdaptorBase::getODSOperandIndexAndLength(__p, 3u);
-    v87 = *(&v176 + 1);
-    *&v193 = *(&v176 + 1);
-    *(&v193 + 1) = v86;
+    v87 = *(&v182 + 1);
+    *&v199 = *(&v182 + 1);
+    *(&v199 + 1) = v86;
     if (v86)
     {
-      v87 = mlir::ValueRange::offset_base(&v193, v86);
-      v88 = *(&v193 + 1);
+      v87 = mlir::ValueRange::offset_base(&v199, v86);
+      v88 = *(&v199 + 1);
     }
 
     else
@@ -4778,7 +4778,7 @@ LABEL_118:
       v88 = 0;
     }
 
-    if (HIDWORD(v86) + v86 == v88 || (v193 = v87, !mlir::ValueRange::dereference_iterator(&v193, 0)))
+    if (HIDWORD(v86) + v86 == v88 || (v199 = v87, !mlir::ValueRange::dereference_iterator(&v199, 0)))
     {
       v92 = 0.0;
       v93 = 0.0;
@@ -4786,16 +4786,16 @@ LABEL_118:
 
     else
     {
-      v163 = 0;
-      v164 = 0;
+      v169 = 0;
+      v170 = 0;
       v89 = mlir::mps::detail::ResizeOpGenericAdaptorBase::getODSOperandIndexAndLength(__p, 3u);
-      v90 = *(&v176 + 1);
-      *&v193 = *(&v176 + 1);
-      *(&v193 + 1) = v89;
+      v90 = *(&v182 + 1);
+      *&v199 = *(&v182 + 1);
+      *(&v199 + 1) = v89;
       if (v89)
       {
-        v90 = mlir::ValueRange::offset_base(&v193, v89);
-        v91 = *(&v193 + 1);
+        v90 = mlir::ValueRange::offset_base(&v199, v89);
+        v91 = *(&v199 + 1);
       }
 
       else
@@ -4805,59 +4805,59 @@ LABEL_118:
 
       if (HIDWORD(v89) + v89 == v91)
       {
-        v145 = 0;
+        v151 = 0;
       }
 
       else
       {
-        v193 = v90;
-        v145 = mlir::ValueRange::dereference_iterator(&v193, 0);
+        v199 = v90;
+        v151 = mlir::ValueRange::dereference_iterator(&v199, 0);
       }
 
-      v162 = &v163;
-      *&v193 = v145;
-      v146 = mlir::Value::getDefiningOp(&v193);
-      if (!v146 || !mlir::detail::constant_op_binder<mlir::ElementsAttr>::match(&v162, v146))
+      v168 = &v169;
+      *&v199 = v151;
+      v152 = mlir::Value::getDefiningOp(&v199);
+      if (!v152 || !mlir::detail::constant_op_binder<mlir::ElementsAttr>::match(&v168, v152))
       {
         goto LABEL_68;
       }
 
-      *&v193 = v194;
-      *(&v193 + 1) = 0x400000000;
-      mlir::getFloatValues<float>(v163, v164, &v193, 1);
-      v147 = v76;
-      v148 = DWORD2(v193);
+      *&v199 = v200;
+      *(&v199 + 1) = 0x400000000;
+      mlir::getFloatValues<float>(v169, v170, &v199, 1);
+      v153 = v76;
+      v154 = DWORD2(v199);
       v92 = 0.0;
       v93 = 0.0;
-      v149 = v147;
-      if (v147 < DWORD2(v193))
+      v155 = v153;
+      if (v153 < DWORD2(v199))
       {
-        v93 = *(v193 + 4 * v147);
-        v92 = *(v193 + 4 * v150);
+        v93 = *(v199 + 4 * v153);
+        v92 = *(v199 + 4 * v156);
       }
 
-      if (v193 != v194)
+      if (v199 != v200)
       {
-        free(v193);
+        free(v199);
       }
 
-      if (v149 >= v148)
+      if (v155 >= v154)
       {
         goto LABEL_68;
       }
     }
 
     v94 = mlir::mps::detail::ResizeOpGenericAdaptorBase::getODSOperandIndexAndLength(__p, 0);
-    v95 = *(&v176 + 1);
-    *&v193 = *(&v176 + 1);
-    *(&v193 + 1) = v94;
+    v95 = *(&v182 + 1);
+    *&v199 = *(&v182 + 1);
+    *(&v199 + 1) = v94;
     if (v94)
     {
-      v95 = mlir::ValueRange::offset_base(&v193, v94);
+      v95 = mlir::ValueRange::offset_base(&v199, v94);
     }
 
-    v193 = v95;
-    v96 = (*(mlir::ValueRange::dereference_iterator(&v193, 0) + 8) & 0xFFFFFFFFFFFFFFF8);
+    v199 = v95;
+    v96 = (*(mlir::ValueRange::dereference_iterator(&v199, 0) + 8) & 0xFFFFFFFFFFFFFFF8);
     if (v96)
     {
       v97 = mlir::detail::InterfaceMap::lookup<mlir::ShapedType>(*v96 + 8);
@@ -4868,9 +4868,9 @@ LABEL_118:
       v97 = 0;
     }
 
-    *&v193 = v96;
-    *(&v193 + 1) = v97;
-    v98 = mlir::CallableOpInterface::getArgAttrsAttr(&v193);
+    *&v199 = v96;
+    *(&v199 + 1) = v97;
+    v98 = mlir::CallableOpInterface::getArgAttrsAttr(&v199);
     v100 = v99;
     v101 = *(a1 + 96);
     if (*(v69 + 9))
@@ -4891,9 +4891,9 @@ LABEL_118:
       v104 = mlir::detail::InterfaceMap::lookup<mlir::ShapedType>(*v104 + 8);
     }
 
-    *&v193 = v105;
-    *(&v193 + 1) = v104;
-    v106 = mlir::CallableOpInterface::getArgAttrsAttr(&v193);
+    *&v199 = v105;
+    *(&v199 + 1) = v104;
+    v106 = mlir::CallableOpInterface::getArgAttrsAttr(&v199);
     v108 = v107;
     v109 = mlir::anec::getIndexFromDim(3, v100);
     v110 = mlir::anec::getIndexFromDim(4, v108);
@@ -4907,7 +4907,7 @@ LABEL_118:
     }
 
     v115 = (v85 + -1.0) * 0.5 != v93 || (v84 + -1.0) * 0.5 != v92;
-    v71 = v152;
+    v71 = v158;
     v116 = v112;
     v117 = *(v106 + 8 * v110);
     v118 = v85 != (v113 / v111) || v84 != (v117 / v116);
@@ -4937,7 +4937,7 @@ LABEL_68:
   *__p = operator new(0x48uLL);
   *&__p[8] = xmmword_1E0982670;
   strcpy(*__p, "Resize with custom scale and offset values not supported on ANE.");
-  v75 = *(v161 + 3);
+  v75 = *(v167 + 3);
 LABEL_72:
   mlir::logMatchFailure(__p, v75, a4);
   if ((__p[23] & 0x80000000) != 0)
@@ -4948,37 +4948,37 @@ LABEL_72:
   v58 = 0;
   v59 = 0;
 LABEL_148:
-  if (v178 != v180)
-  {
-    free(v178);
-  }
-
-  if (v181 != v183)
-  {
-    free(v181);
-  }
-
   if (v184 != v186)
   {
     free(v184);
   }
 
-LABEL_44:
   if (v187 != v189)
   {
     free(v187);
   }
 
-  if (v190 != v191)
+  if (v190 != v192)
   {
     free(v190);
   }
 
+LABEL_44:
+  if (v193 != v195)
+  {
+    free(v193);
+  }
+
+  if (v196 != v197)
+  {
+    free(v196);
+  }
+
   if (v59)
   {
-    *&v165 = v58 - 16;
+    *&v171 = v58 - 16;
     matched = 1;
-    mlir::ValueRange::ValueRange(__p, &v165, 1uLL);
+    mlir::ValueRange::ValueRange(__p, &v171, 1uLL);
     mlir::ConversionPatternRewriter::replaceOp(a4, a2, *__p, *&__p[8]);
   }
 
@@ -4987,7 +4987,7 @@ LABEL_44:
     *__p = operator new(0x60uLL);
     *&__p[8] = xmmword_1E0982860;
     strcpy(*__p, "Conversion did not match a valid resize or a valid transformation supported by the hardware.");
-    matched = mlir::logMatchFailure(__p, a2[3], a4);
+    matched = mlir::logMatchFailure(__p, *(a2 + 3), a4);
     if ((__p[23] & 0x80000000) != 0)
     {
       operator delete(*__p);
@@ -5031,26 +5031,26 @@ void mlir::anonymous namespace::ConvertResize<(mlir::anec::Family)4>::~ConvertRe
   operator delete(__p);
 }
 
-uint64_t mlir::anonymous namespace::ConvertResizeGeneric<(mlir::anec::Family)4>::matchAndRewriteWithStaticShapes(uint64_t a1, uint64_t *a2, __int128 *a3, uint64_t **a4)
+uint64_t mlir::anonymous namespace::ConvertResizeGeneric<(mlir::anec::Family)4>::matchAndRewriteWithStaticShapes(uint64_t a1, mlir::mps *a2, __int128 *a3, uint64_t **a4)
 {
-  v194[3] = *MEMORY[0x1E69E9840];
+  v200[3] = *MEMORY[0x1E69E9840];
   v6 = a3[5];
-  v169 = a3[4];
-  v170 = v6;
-  *v171 = *(a3 + 12);
+  v175 = a3[4];
+  v176 = v6;
+  *v177 = *(a3 + 12);
   v7 = a3[1];
-  v165 = *a3;
-  v166 = v7;
+  v171 = *a3;
+  v172 = v7;
   v8 = a3[3];
-  v167 = a3[2];
-  v168 = v8;
-  v161 = a2;
-  v192[0] = *(&v170 + 1);
-  v192[1] = *v171;
-  v9 = a2[3];
-  v160 = mlir::ValueRange::dereference_iterator(v192, 0);
-  ODSOperandIndexAndLength = mlir::pdl_interp::RecordMatchOp::getODSOperandIndexAndLength(&v161, 0);
-  v11 = (*(*(*(v161 + 9) + 32 * ODSOperandIndexAndLength + 24) + 8) & 0xFFFFFFFFFFFFFFF8);
+  v173 = a3[2];
+  v174 = v8;
+  v167 = a2;
+  v198[0] = *(&v176 + 1);
+  v198[1] = *v177;
+  v9 = *(a2 + 3);
+  v166 = mlir::ValueRange::dereference_iterator(v198, 0);
+  ODSOperandIndexAndLength = mlir::pdl_interp::RecordMatchOp::getODSOperandIndexAndLength(&v167, 0);
+  v11 = (*(*(*(v167 + 9) + 32 * ODSOperandIndexAndLength + 24) + 8) & 0xFFFFFFFFFFFFFFF8);
   if (v11)
   {
     v12 = mlir::detail::InterfaceMap::lookup<mlir::ShapedType>(*v11 + 8);
@@ -5061,11 +5061,11 @@ uint64_t mlir::anonymous namespace::ConvertResizeGeneric<(mlir::anec::Family)4>:
     v12 = 0;
   }
 
-  v159[0] = v11;
-  v159[1] = v12;
-  v13 = mlir::mps::detail::ResizeOpGenericAdaptorBase::getODSOperandIndexAndLength(&v165, 0);
-  v14 = *(&v170 + 1);
-  *__p = *(&v170 + 1);
+  v165[0] = v11;
+  v165[1] = v12;
+  v13 = mlir::mps::detail::ResizeOpGenericAdaptorBase::getODSOperandIndexAndLength(&v171, 0);
+  v14 = *(&v176 + 1);
+  *__p = *(&v176 + 1);
   *&__p[8] = v13;
   if (v13)
   {
@@ -5093,20 +5093,20 @@ uint64_t mlir::anonymous namespace::ConvertResizeGeneric<(mlir::anec::Family)4>:
   v20 = mlir::anec::getIndexFromDim(1, v18);
   v21 = mlir::anec::getIndexFromDim(3, v18);
   v22 = mlir::anec::getIndexFromDim(4, v18);
-  mlir::CallableOpInterface::getArgAttrsAttr(v159);
+  mlir::CallableOpInterface::getArgAttrsAttr(v165);
   if (v23 <= 3)
   {
     *__p = &__p[16];
     *&__p[16] = IndexFromDim;
     *&__p[24] = v20;
-    *&v173 = v20;
-    *(&v173 + 1) = v21;
-    *&v174 = v21;
-    *(&v174 + 1) = IndexFromDim;
+    *&v179 = v20;
+    *(&v179 + 1) = v21;
+    *&v180 = v21;
+    *(&v180 + 1) = IndexFromDim;
     *&__p[8] = 0x600000006;
-    v190 = xmmword_1E0982820;
+    v196 = xmmword_1E0982820;
     IntegerType = mlir::Builder::getIntegerType(a4 + 1, 64, 0);
-    v25 = mlir::RankedTensorType::get(&v190, 2, IntegerType, 0);
+    v25 = mlir::RankedTensorType::get(&v196, 2, IntegerType, 0);
     if (v25)
     {
       v26 = v25;
@@ -5119,17 +5119,17 @@ uint64_t mlir::anonymous namespace::ConvertResizeGeneric<(mlir::anec::Family)4>:
       v27 = 0;
     }
 
-    *&v193 = mlir::DenseElementsAttr::getFromRawBuffer(v25, v27, *__p, 8 * *&__p[8], 8, 1, 0);
-    v160 = mlir::OpBuilder::create<mlir::anec::Transpose,mlir::Value &,mlir::DenseIntElementsAttr &>(a4 + 1, v9, &v160, &v193) - 16;
+    *&v199 = mlir::DenseElementsAttr::getFromRawBuffer(v25, v27, *__p, 8 * *&__p[8]);
+    v166 = mlir::OpBuilder::create<mlir::anec::Transpose,mlir::Value &,mlir::DenseIntElementsAttr &>(a4 + 1, v9, &v166, &v199) - 16;
     if (*__p != &__p[16])
     {
       free(*__p);
     }
   }
 
-  if (*(v161 + 9))
+  if (*(v167 + 9))
   {
-    v28 = v161 - 16;
+    v28 = v167 - 16;
   }
 
   else
@@ -5148,18 +5148,18 @@ uint64_t mlir::anonymous namespace::ConvertResizeGeneric<(mlir::anec::Family)4>:
     v30 = 0;
   }
 
-  v158[0] = v29;
-  v158[1] = v30;
-  ArgAttrsAttr = mlir::CallableOpInterface::getArgAttrsAttr(v158);
+  v164[0] = v29;
+  v164[1] = v30;
+  ArgAttrsAttr = mlir::CallableOpInterface::getArgAttrsAttr(v164);
   v33 = v32;
-  *&v190 = v191;
-  *(&v190 + 1) = 0x400000000;
+  *&v196 = v197;
+  *(&v196 + 1) = 0x400000000;
   v34 = (8 * v32) >> 3;
-  v154 = v22;
+  v160 = v22;
   if (v34 < 5)
   {
     v35 = 0;
-    v36 = v191;
+    v36 = v197;
     v37 = 8 * v33;
     if (!v33)
     {
@@ -5169,41 +5169,41 @@ uint64_t mlir::anonymous namespace::ConvertResizeGeneric<(mlir::anec::Family)4>:
     goto LABEL_25;
   }
 
-  llvm::SmallVectorBase<unsigned int>::grow_pod(&v190, v191, v34, 8);
-  v35 = DWORD2(v190);
-  v36 = v190;
+  llvm::SmallVectorBase<unsigned int>::grow_pod(&v196, v197, v34, 8);
+  v35 = DWORD2(v196);
+  v36 = v196;
   v37 = 8 * v33;
   if (v33)
   {
 LABEL_25:
     memcpy(v36 + 8 * v35, ArgAttrsAttr, v37);
-    v35 = DWORD2(v190);
-    v36 = v190;
+    v35 = DWORD2(v196);
+    v36 = v196;
   }
 
 LABEL_26:
   v38 = v35 + (v37 >> 3);
-  DWORD2(v190) = v38;
+  DWORD2(v196) = v38;
   if (v38 <= 3)
   {
-    llvm::SmallVectorImpl<unsigned long long>::insert(&v190, v36, 4 - v38, 1uLL);
-    v36 = v190;
+    llvm::SmallVectorImpl<unsigned long long>::insert(&v196, v36, 4 - v38, 1uLL);
+    v36 = v196;
   }
 
   v39 = *(v36 + v21);
-  v40 = *(v36 + v154);
-  v187 = v189;
-  v189[0] = v39;
-  v189[1] = v40;
-  v188 = 0x200000002;
-  ResizeLayout = mlir::mps::getResizeLayout(v161, v36);
+  v40 = *(v36 + v160);
+  v193 = v195;
+  v195[0] = v39;
+  v195[1] = v40;
+  v194 = 0x200000002;
+  ResizeLayout = mlir::mps::getResizeLayout(v167, v36);
   if ((ResizeLayout & 0x100000000) == 0)
   {
     *__p = operator new(0x20uLL);
     *&__p[8] = xmmword_1E0982800;
     strcpy(*__p, "Resize layout not supported");
 LABEL_41:
-    mlir::logMatchFailure(__p, *(v161 + 3), a4);
+    mlir::logMatchFailure(__p, *(v167 + 3), a4);
     if ((__p[23] & 0x80000000) != 0)
     {
       operator delete(*__p);
@@ -5220,14 +5220,14 @@ LABEL_41:
     *__p = &__p[16];
     *&__p[16] = v20;
     *&__p[24] = v21;
-    *&v173 = v21;
-    *(&v173 + 1) = v154;
-    *&v174 = v154;
-    *(&v174 + 1) = v20;
+    *&v179 = v21;
+    *(&v179 + 1) = v160;
+    *&v180 = v160;
+    *(&v180 + 1) = v20;
     *&__p[8] = 0x600000006;
-    v193 = xmmword_1E0982820;
+    v199 = xmmword_1E0982820;
     v43 = mlir::Builder::getIntegerType(a4 + 1, 64, 0);
-    v44 = mlir::RankedTensorType::get(&v193, 2, v43, 0);
+    v44 = mlir::RankedTensorType::get(&v199, 2, v43, 0);
     if (v44)
     {
       v45 = v9;
@@ -5242,11 +5242,11 @@ LABEL_41:
       v47 = 0;
     }
 
-    v184 = mlir::DenseElementsAttr::getFromRawBuffer(v44, v47, *__p, 8 * *&__p[8], 8, 1, 0);
-    v160 = mlir::OpBuilder::create<mlir::anec::Transpose,mlir::Value &,mlir::DenseIntElementsAttr &>(a4 + 1, v9, &v160, &v184) - 16;
-    v48 = v190;
-    v49 = v187;
-    *v187 = *(v190 + 8 * v20);
+    v190 = mlir::DenseElementsAttr::getFromRawBuffer(v44, v47, *__p, 8 * *&__p[8]);
+    v166 = mlir::OpBuilder::create<mlir::anec::Transpose,mlir::Value &,mlir::DenseIntElementsAttr &>(a4 + 1, v9, &v166, &v190) - 16;
+    v48 = v196;
+    v49 = v193;
+    *v193 = *(v196 + 8 * v20);
     v49[1] = *(v48 + 8 * v21);
     if (*__p != &__p[16])
     {
@@ -5254,14 +5254,14 @@ LABEL_41:
     }
   }
 
-  v157[0] = 0;
-  v157[1] = 0;
-  v50 = mlir::pdl_interp::RecordMatchOp::getODSOperandIndexAndLength(&v161, 1u);
-  v51 = *(*(v161 + 9) + 32 * v50 + 24);
-  *&v193 = v157;
+  v163[0] = 0;
+  v163[1] = 0;
+  v50 = mlir::pdl_interp::RecordMatchOp::getODSOperandIndexAndLength(&v167, 1u);
+  v51 = *(*(v167 + 9) + 32 * v50 + 24);
+  *&v199 = v163;
   *__p = v51;
   DefiningOp = mlir::Value::getDefiningOp(__p);
-  if (!DefiningOp || (mlir::detail::constant_op_binder<mlir::ElementsAttr>::match(&v193, DefiningOp) & 1) == 0)
+  if (!DefiningOp || (mlir::detail::constant_op_binder<mlir::ElementsAttr>::match(&v199, DefiningOp) & 1) == 0)
   {
     *__p = operator new(0x28uLL);
     *&__p[8] = xmmword_1E0982850;
@@ -5269,16 +5269,16 @@ LABEL_41:
     goto LABEL_41;
   }
 
-  v151 = v42;
-  v152 = v9;
-  v184 = v186;
-  v186[1] = 0;
-  v186[0] = 0;
-  v185 = 0x200000002;
-  v181 = v183;
-  memset_pattern16(v183, &unk_1E096FAE0, 0x10uLL);
-  v182 = 0x200000002;
-  GateLayout = mlir::mps::LSTMOp::getGateLayout(&v161);
+  v157 = v42;
+  v158 = v9;
+  v190 = v192;
+  v192[1] = 0;
+  v192[0] = 0;
+  v191 = 0x200000002;
+  v187 = v189;
+  memset_pattern16(v189, &unk_1E096FAE0, 0x10uLL);
+  v188 = 0x200000002;
+  GateLayout = mlir::mps::LSTMOp::getGateLayout(&v167);
   *__p = 2;
   v54 = mlir::Builder::getIntegerType(a4 + 1, 64, 0);
   v55 = mlir::RankedTensorType::get(__p, 1, v54, 0);
@@ -5296,31 +5296,31 @@ LABEL_41:
 
   if (GateLayout == 1)
   {
-    v62 = &v184;
+    v62 = &v190;
   }
 
   else
   {
-    v62 = &v181;
+    v62 = &v187;
   }
 
   v63 = *v62;
-  v64 = &v185;
+  v64 = &v191;
   if (GateLayout != 1)
   {
-    v64 = &v182;
+    v64 = &v188;
   }
 
-  v156 = mlir::DenseElementsAttr::getFromRawBuffer(v55, v57, v63, 8 * *v64, 8, 1, 0);
-  v178 = v180;
-  v179 = 0x200000000;
-  InferredResultTypes = mlir::pdl_interp::CreateOperationOp::getInferredResultTypes(&v161);
-  IsSize = mlir::mps::StridedSliceOp::getEndIsSize(&v161);
-  v67 = mlir::pdl_interp::RecordMatchOp::getODSOperandIndexAndLength(&v161, 2u);
-  v69 = v161;
-  if ((*(v161 + 46) & 0x80) != 0)
+  v162 = mlir::DenseElementsAttr::getFromRawBuffer(v55, v57, v63, 8 * *v64);
+  v184 = v186;
+  v185 = 0x200000000;
+  InferredResultTypes = mlir::pdl_interp::CreateOperationOp::getInferredResultTypes(&v167);
+  IsSize = mlir::mps::StridedSliceOp::getEndIsSize(&v167);
+  v67 = mlir::pdl_interp::RecordMatchOp::getODSOperandIndexAndLength(&v167, 2u);
+  v69 = v167;
+  if ((*(v167 + 46) & 0x80) != 0)
   {
-    v70 = *(v161 + 9);
+    v70 = *(v167 + 9);
   }
 
   else
@@ -5328,12 +5328,12 @@ LABEL_41:
     v70 = 0;
   }
 
-  v71 = v152;
+  v71 = v158;
   if (HIDWORD(v67) + v67 == v67 || !*(v70 + 32 * v67 + 24))
   {
-    v72 = mlir::pdl_interp::RecordMatchOp::getODSOperandIndexAndLength(&v161, 3u);
-    v69 = v161;
-    v73 = (*(v161 + 46) & 0x80) != 0 ? *(v161 + 9) : 0;
+    v72 = mlir::pdl_interp::RecordMatchOp::getODSOperandIndexAndLength(&v167, 3u);
+    v69 = v167;
+    v73 = (*(v167 + 46) & 0x80) != 0 ? *(v167 + 9) : 0;
     if (HIDWORD(v72) + v72 == v72 || !*(v73 + 32 * v72 + 24))
     {
       if (InferredResultTypes)
@@ -5359,7 +5359,7 @@ LABEL_119:
         memset_pattern16(&__p[16], v80, 0x10uLL);
 LABEL_121:
         *&__p[8] = 0x600000002;
-        llvm::SmallVectorImpl<unsigned long long>::operator=(&v178, __p);
+        llvm::SmallVectorImpl<unsigned long long>::operator=(&v184, __p);
         if (*__p != &__p[16])
         {
           free(*__p);
@@ -5380,30 +5380,30 @@ LABEL_121:
           v123 = 0;
         }
 
-        v162 = mlir::DenseElementsAttr::getFromRawBuffer(v121, v123, v178, 8 * v179, 8, 1, 0);
-        v124 = v187;
-        v125 = llvm::detail::IEEEFloat::IEEEFloat(&v193, -1.0);
-        v126 = llvm::APFloatBase::IEEEsingle(v125);
-        llvm::APFloat::Storage::Storage(&__p[8], &v193, v126);
-        llvm::detail::IEEEFloat::~IEEEFloat(&v193);
-        llvm::detail::IEEEFloat::IEEEFloat(&v163, -1.0);
-        llvm::APFloat::Storage::Storage(&v193 + 8, &v163, v126);
-        llvm::detail::IEEEFloat::~IEEEFloat(&v163);
-        v163 = mlir::OpBuilder::create<mlir::anec::Resize,mlir::Value &,unsigned long long &,unsigned long long &,llvm::APFloat,llvm::APFloat,mlir::DenseIntElementsAttr &,mlir::DenseIntElementsAttr &>(a4 + 1, v71, &v160, v124, v124 + 1, __p, &v193, &v156, &v162);
-        v127 = *(&v193 + 1);
-        v128 = llvm::APFloatBase::PPCDoubleDouble(v163);
-        if (v128 == v127)
+        v168 = mlir::DenseElementsAttr::getFromRawBuffer(v121, v123, v184, 8 * v185);
+        v124 = v193;
+        v128 = llvm::detail::IEEEFloat::IEEEFloat(&v199, -1.0, v125, v126, v127);
+        v129 = llvm::APFloatBase::IEEEsingle(v128);
+        llvm::APFloat::Storage::Storage(&__p[8], &v199, v129);
+        llvm::detail::IEEEFloat::~IEEEFloat(&v199);
+        llvm::detail::IEEEFloat::IEEEFloat(&v169, -1.0, v130, v131, v132);
+        llvm::APFloat::Storage::Storage(&v199 + 8, &v169, v129);
+        llvm::detail::IEEEFloat::~IEEEFloat(&v169);
+        v169 = mlir::OpBuilder::create<mlir::anec::Resize,mlir::Value &,unsigned long long &,unsigned long long &,llvm::APFloat,llvm::APFloat,mlir::DenseIntElementsAttr &,mlir::DenseIntElementsAttr &>(a4 + 1, v71, &v166, v124, v124 + 1, __p, &v199, &v162, &v168);
+        v133 = *(&v199 + 1);
+        v134 = llvm::APFloatBase::PPCDoubleDouble(v169);
+        if (v134 == v133)
         {
-          llvm::detail::DoubleAPFloat::~DoubleAPFloat((&v193 + 8));
+          llvm::detail::DoubleAPFloat::~DoubleAPFloat((&v199 + 8));
         }
 
         else
         {
-          llvm::detail::IEEEFloat::~IEEEFloat((&v193 + 8));
+          llvm::detail::IEEEFloat::~IEEEFloat((&v199 + 8));
         }
 
-        v129 = v152;
-        if (v128 == *&__p[8])
+        v135 = v158;
+        if (v134 == *&__p[8])
         {
           llvm::detail::DoubleAPFloat::~DoubleAPFloat(&__p[8]);
         }
@@ -5413,73 +5413,73 @@ LABEL_121:
           llvm::detail::IEEEFloat::~IEEEFloat(&__p[8]);
         }
 
-        v59 = mlir::anec::Resize::verifyAttributesWithFamily(&v163, 4);
-        v58 = v163;
+        v59 = mlir::anec::Resize::verifyAttributesWithFamily(&v169, 4);
+        v58 = v169;
         if (v59)
         {
-          if (v151 == 1)
+          if (v157 == 1)
           {
             *__p = &__p[16];
             *&__p[16] = v20;
-            *&__p[24] = v154;
-            *&v173 = v21;
-            *(&v173 + 1) = v20;
-            *&v174 = v154;
-            *(&v174 + 1) = v21;
+            *&__p[24] = v160;
+            *&v179 = v21;
+            *(&v179 + 1) = v20;
+            *&v180 = v160;
+            *(&v180 + 1) = v21;
             *&__p[8] = 0x600000006;
-            v193 = xmmword_1E0982820;
-            v130 = mlir::Builder::getIntegerType(a4 + 1, 64, 0);
-            v131 = mlir::RankedTensorType::get(&v193, 2, v130, 0);
-            if (v131)
+            v199 = xmmword_1E0982820;
+            v136 = mlir::Builder::getIntegerType(a4 + 1, 64, 0);
+            v137 = mlir::RankedTensorType::get(&v199, 2, v136, 0);
+            if (v137)
             {
-              v132 = v131;
-              v133 = mlir::detail::InterfaceMap::lookup<mlir::ShapedType>(*v131 + 8);
-              v131 = v132;
-              v129 = v152;
+              v138 = v137;
+              v139 = mlir::detail::InterfaceMap::lookup<mlir::ShapedType>(*v137 + 8);
+              v137 = v138;
+              v135 = v158;
             }
 
             else
             {
-              v133 = 0;
+              v139 = 0;
             }
 
-            v155 = mlir::DenseElementsAttr::getFromRawBuffer(v131, v133, *__p, 8 * *&__p[8], 8, 1, 0);
-            v58 = mlir::OpBuilder::create<mlir::anec::Transpose,mlir::anec::Resize &,mlir::DenseIntElementsAttr &>(a4 + 1, v129, &v163, &v155);
+            v161 = mlir::DenseElementsAttr::getFromRawBuffer(v137, v139, *__p, 8 * *&__p[8]);
+            v58 = mlir::OpBuilder::create<mlir::anec::Transpose,mlir::anec::Resize &,mlir::DenseIntElementsAttr &>(a4 + 1, v135, &v169, &v161);
             if (*__p != &__p[16])
             {
               free(*__p);
             }
           }
 
-          mlir::CallableOpInterface::getArgAttrsAttr(v159);
-          if (v134 <= 3)
+          mlir::CallableOpInterface::getArgAttrsAttr(v165);
+          if (v140 <= 3)
           {
             *__p = &__p[16];
             *&__p[16] = v20;
             *&__p[24] = IndexFromDim;
-            *&v173 = v21;
-            *(&v173 + 1) = v20;
-            *&v174 = IndexFromDim;
-            *(&v174 + 1) = v21;
+            *&v179 = v21;
+            *(&v179 + 1) = v20;
+            *&v180 = IndexFromDim;
+            *(&v180 + 1) = v21;
             *&__p[8] = 0x600000006;
-            v193 = xmmword_1E0982820;
-            v135 = mlir::Builder::getIntegerType(a4 + 1, 64, 0);
-            v136 = mlir::RankedTensorType::get(&v193, 2, v135, 0);
-            if (v136)
+            v199 = xmmword_1E0982820;
+            v141 = mlir::Builder::getIntegerType(a4 + 1, 64, 0);
+            v142 = mlir::RankedTensorType::get(&v199, 2, v141, 0);
+            if (v142)
             {
-              v137 = v136;
-              v138 = mlir::detail::InterfaceMap::lookup<mlir::ShapedType>(*v136 + 8);
-              v136 = v137;
+              v143 = v142;
+              v144 = mlir::detail::InterfaceMap::lookup<mlir::ShapedType>(*v142 + 8);
+              v142 = v143;
             }
 
             else
             {
-              v138 = 0;
+              v144 = 0;
             }
 
-            v155 = mlir::DenseElementsAttr::getFromRawBuffer(v136, v138, *__p, 8 * *&__p[8], 8, 1, 0);
-            *&v193 = v58 - 16;
-            v58 = mlir::OpBuilder::create<mlir::anec::Transpose,mlir::Value &,mlir::DenseIntElementsAttr &>(a4 + 1, v152, &v193, &v155);
+            v161 = mlir::DenseElementsAttr::getFromRawBuffer(v142, v144, *__p, 8 * *&__p[8]);
+            *&v199 = v58 - 16;
+            v58 = mlir::OpBuilder::create<mlir::anec::Transpose,mlir::Value &,mlir::DenseIntElementsAttr &>(a4 + 1, v158, &v199, &v161);
             if (*__p != &__p[16])
             {
               free(*__p);
@@ -5489,11 +5489,11 @@ LABEL_121:
 
         else
         {
-          mlir::ConversionPatternRewriter::eraseOp(a4, v163);
+          mlir::ConversionPatternRewriter::eraseOp(a4, v169);
           *__p = operator new(0x48uLL);
           *&__p[8] = xmmword_1E0982840;
           strcpy(*__p, "requested attributes are not compatible with hardware requirements");
-          mlir::logMatchFailure(__p, *(v161 + 3), a4);
+          mlir::logMatchFailure(__p, *(v167 + 3), a4);
           if ((__p[23] & 0x80000000) != 0)
           {
             operator delete(*__p);
@@ -5512,26 +5512,26 @@ LABEL_118:
     }
   }
 
-  v175 = v169;
-  v176 = v170;
-  *v177 = *v171;
-  *__p = v165;
-  *&__p[16] = v166;
-  v173 = v167;
-  v174 = v168;
+  v181 = v175;
+  v182 = v176;
+  *v183 = *v177;
+  *__p = v171;
+  *&__p[16] = v172;
+  v179 = v173;
+  v180 = v174;
   v74 = mlir::mps::getResizeLayout(v69, v68);
   if ((v74 & 0x100000000) != 0)
   {
     v76 = qword_1E0982BB8[v74];
-    v150 = qword_1E0982BF0[v74];
+    v156 = qword_1E0982BF0[v74];
     v77 = mlir::mps::detail::ResizeOpGenericAdaptorBase::getODSOperandIndexAndLength(__p, 2u);
-    v78 = *(&v176 + 1);
-    *&v193 = *(&v176 + 1);
-    *(&v193 + 1) = v77;
+    v78 = *(&v182 + 1);
+    *&v199 = *(&v182 + 1);
+    *(&v199 + 1) = v77;
     if (v77)
     {
-      v78 = mlir::ValueRange::offset_base(&v193, v77);
-      v79 = *(&v193 + 1);
+      v78 = mlir::ValueRange::offset_base(&v199, v77);
+      v79 = *(&v199 + 1);
     }
 
     else
@@ -5539,7 +5539,7 @@ LABEL_118:
       v79 = 0;
     }
 
-    if (HIDWORD(v77) + v77 == v79 || (v193 = v78, !mlir::ValueRange::dereference_iterator(&v193, 0)))
+    if (HIDWORD(v77) + v77 == v79 || (v199 = v78, !mlir::ValueRange::dereference_iterator(&v199, 0)))
     {
       v84 = 1.0;
       v85 = 1.0;
@@ -5547,16 +5547,16 @@ LABEL_118:
 
     else
     {
-      v163 = 0;
-      v164 = 0;
+      v169 = 0;
+      v170 = 0;
       v81 = mlir::mps::detail::ResizeOpGenericAdaptorBase::getODSOperandIndexAndLength(__p, 2u);
-      v82 = *(&v176 + 1);
-      *&v193 = *(&v176 + 1);
-      *(&v193 + 1) = v81;
+      v82 = *(&v182 + 1);
+      *&v199 = *(&v182 + 1);
+      *(&v199 + 1) = v81;
       if (v81)
       {
-        v82 = mlir::ValueRange::offset_base(&v193, v81);
-        v83 = *(&v193 + 1);
+        v82 = mlir::ValueRange::offset_base(&v199, v81);
+        v83 = *(&v199 + 1);
       }
 
       else
@@ -5566,58 +5566,58 @@ LABEL_118:
 
       if (HIDWORD(v81) + v81 == v83)
       {
-        v139 = 0;
+        v145 = 0;
       }
 
       else
       {
-        v193 = v82;
-        v139 = mlir::ValueRange::dereference_iterator(&v193, 0);
+        v199 = v82;
+        v145 = mlir::ValueRange::dereference_iterator(&v199, 0);
       }
 
-      v162 = &v163;
-      *&v193 = v139;
-      v140 = mlir::Value::getDefiningOp(&v193);
-      if (!v140 || !mlir::detail::constant_op_binder<mlir::ElementsAttr>::match(&v162, v140))
+      v168 = &v169;
+      *&v199 = v145;
+      v146 = mlir::Value::getDefiningOp(&v199);
+      if (!v146 || !mlir::detail::constant_op_binder<mlir::ElementsAttr>::match(&v168, v146))
       {
         goto LABEL_68;
       }
 
-      *&v193 = v194;
-      *(&v193 + 1) = 0x400000000;
-      mlir::getFloatValues<float>(v163, v164, &v193, 1);
-      v141 = v76;
-      v142 = DWORD2(v193);
+      *&v199 = v200;
+      *(&v199 + 1) = 0x400000000;
+      mlir::getFloatValues<float>(v169, v170, &v199, 1);
+      v147 = v76;
+      v148 = DWORD2(v199);
       v84 = 1.0;
       v85 = 1.0;
-      v143 = v141;
-      if (v141 < DWORD2(v193))
+      v149 = v147;
+      if (v147 < DWORD2(v199))
       {
-        v85 = *(v193 + 4 * v141);
-        v84 = *(v193 + 4 * v150);
+        v85 = *(v199 + 4 * v147);
+        v84 = *(v199 + 4 * v156);
       }
 
-      if (v193 != v194)
+      if (v199 != v200)
       {
-        free(v193);
+        free(v199);
       }
 
-      v144 = v143 >= v142;
-      v76 = v143;
-      if (v144)
+      v150 = v149 >= v148;
+      v76 = v149;
+      if (v150)
       {
         goto LABEL_68;
       }
     }
 
     v86 = mlir::mps::detail::ResizeOpGenericAdaptorBase::getODSOperandIndexAndLength(__p, 3u);
-    v87 = *(&v176 + 1);
-    *&v193 = *(&v176 + 1);
-    *(&v193 + 1) = v86;
+    v87 = *(&v182 + 1);
+    *&v199 = *(&v182 + 1);
+    *(&v199 + 1) = v86;
     if (v86)
     {
-      v87 = mlir::ValueRange::offset_base(&v193, v86);
-      v88 = *(&v193 + 1);
+      v87 = mlir::ValueRange::offset_base(&v199, v86);
+      v88 = *(&v199 + 1);
     }
 
     else
@@ -5625,7 +5625,7 @@ LABEL_118:
       v88 = 0;
     }
 
-    if (HIDWORD(v86) + v86 == v88 || (v193 = v87, !mlir::ValueRange::dereference_iterator(&v193, 0)))
+    if (HIDWORD(v86) + v86 == v88 || (v199 = v87, !mlir::ValueRange::dereference_iterator(&v199, 0)))
     {
       v92 = 0.0;
       v93 = 0.0;
@@ -5633,16 +5633,16 @@ LABEL_118:
 
     else
     {
-      v163 = 0;
-      v164 = 0;
+      v169 = 0;
+      v170 = 0;
       v89 = mlir::mps::detail::ResizeOpGenericAdaptorBase::getODSOperandIndexAndLength(__p, 3u);
-      v90 = *(&v176 + 1);
-      *&v193 = *(&v176 + 1);
-      *(&v193 + 1) = v89;
+      v90 = *(&v182 + 1);
+      *&v199 = *(&v182 + 1);
+      *(&v199 + 1) = v89;
       if (v89)
       {
-        v90 = mlir::ValueRange::offset_base(&v193, v89);
-        v91 = *(&v193 + 1);
+        v90 = mlir::ValueRange::offset_base(&v199, v89);
+        v91 = *(&v199 + 1);
       }
 
       else
@@ -5652,59 +5652,59 @@ LABEL_118:
 
       if (HIDWORD(v89) + v89 == v91)
       {
-        v145 = 0;
+        v151 = 0;
       }
 
       else
       {
-        v193 = v90;
-        v145 = mlir::ValueRange::dereference_iterator(&v193, 0);
+        v199 = v90;
+        v151 = mlir::ValueRange::dereference_iterator(&v199, 0);
       }
 
-      v162 = &v163;
-      *&v193 = v145;
-      v146 = mlir::Value::getDefiningOp(&v193);
-      if (!v146 || !mlir::detail::constant_op_binder<mlir::ElementsAttr>::match(&v162, v146))
+      v168 = &v169;
+      *&v199 = v151;
+      v152 = mlir::Value::getDefiningOp(&v199);
+      if (!v152 || !mlir::detail::constant_op_binder<mlir::ElementsAttr>::match(&v168, v152))
       {
         goto LABEL_68;
       }
 
-      *&v193 = v194;
-      *(&v193 + 1) = 0x400000000;
-      mlir::getFloatValues<float>(v163, v164, &v193, 1);
-      v147 = v76;
-      v148 = DWORD2(v193);
+      *&v199 = v200;
+      *(&v199 + 1) = 0x400000000;
+      mlir::getFloatValues<float>(v169, v170, &v199, 1);
+      v153 = v76;
+      v154 = DWORD2(v199);
       v92 = 0.0;
       v93 = 0.0;
-      v149 = v147;
-      if (v147 < DWORD2(v193))
+      v155 = v153;
+      if (v153 < DWORD2(v199))
       {
-        v93 = *(v193 + 4 * v147);
-        v92 = *(v193 + 4 * v150);
+        v93 = *(v199 + 4 * v153);
+        v92 = *(v199 + 4 * v156);
       }
 
-      if (v193 != v194)
+      if (v199 != v200)
       {
-        free(v193);
+        free(v199);
       }
 
-      if (v149 >= v148)
+      if (v155 >= v154)
       {
         goto LABEL_68;
       }
     }
 
     v94 = mlir::mps::detail::ResizeOpGenericAdaptorBase::getODSOperandIndexAndLength(__p, 0);
-    v95 = *(&v176 + 1);
-    *&v193 = *(&v176 + 1);
-    *(&v193 + 1) = v94;
+    v95 = *(&v182 + 1);
+    *&v199 = *(&v182 + 1);
+    *(&v199 + 1) = v94;
     if (v94)
     {
-      v95 = mlir::ValueRange::offset_base(&v193, v94);
+      v95 = mlir::ValueRange::offset_base(&v199, v94);
     }
 
-    v193 = v95;
-    v96 = (*(mlir::ValueRange::dereference_iterator(&v193, 0) + 8) & 0xFFFFFFFFFFFFFFF8);
+    v199 = v95;
+    v96 = (*(mlir::ValueRange::dereference_iterator(&v199, 0) + 8) & 0xFFFFFFFFFFFFFFF8);
     if (v96)
     {
       v97 = mlir::detail::InterfaceMap::lookup<mlir::ShapedType>(*v96 + 8);
@@ -5715,9 +5715,9 @@ LABEL_118:
       v97 = 0;
     }
 
-    *&v193 = v96;
-    *(&v193 + 1) = v97;
-    v98 = mlir::CallableOpInterface::getArgAttrsAttr(&v193);
+    *&v199 = v96;
+    *(&v199 + 1) = v97;
+    v98 = mlir::CallableOpInterface::getArgAttrsAttr(&v199);
     v100 = v99;
     v101 = *(a1 + 96);
     if (*(v69 + 9))
@@ -5738,9 +5738,9 @@ LABEL_118:
       v104 = mlir::detail::InterfaceMap::lookup<mlir::ShapedType>(*v104 + 8);
     }
 
-    *&v193 = v105;
-    *(&v193 + 1) = v104;
-    v106 = mlir::CallableOpInterface::getArgAttrsAttr(&v193);
+    *&v199 = v105;
+    *(&v199 + 1) = v104;
+    v106 = mlir::CallableOpInterface::getArgAttrsAttr(&v199);
     v108 = v107;
     v109 = mlir::anec::getIndexFromDim(3, v100);
     v110 = mlir::anec::getIndexFromDim(4, v108);
@@ -5754,7 +5754,7 @@ LABEL_118:
     }
 
     v115 = (v85 + -1.0) * 0.5 != v93 || (v84 + -1.0) * 0.5 != v92;
-    v71 = v152;
+    v71 = v158;
     v116 = v112;
     v117 = *(v106 + 8 * v110);
     v118 = v85 != (v113 / v111) || v84 != (v117 / v116);
@@ -5784,7 +5784,7 @@ LABEL_68:
   *__p = operator new(0x48uLL);
   *&__p[8] = xmmword_1E0982670;
   strcpy(*__p, "Resize with custom scale and offset values not supported on ANE.");
-  v75 = *(v161 + 3);
+  v75 = *(v167 + 3);
 LABEL_72:
   mlir::logMatchFailure(__p, v75, a4);
   if ((__p[23] & 0x80000000) != 0)
@@ -5795,37 +5795,37 @@ LABEL_72:
   v58 = 0;
   v59 = 0;
 LABEL_148:
-  if (v178 != v180)
-  {
-    free(v178);
-  }
-
-  if (v181 != v183)
-  {
-    free(v181);
-  }
-
   if (v184 != v186)
   {
     free(v184);
   }
 
-LABEL_44:
   if (v187 != v189)
   {
     free(v187);
   }
 
-  if (v190 != v191)
+  if (v190 != v192)
   {
     free(v190);
   }
 
+LABEL_44:
+  if (v193 != v195)
+  {
+    free(v193);
+  }
+
+  if (v196 != v197)
+  {
+    free(v196);
+  }
+
   if (v59)
   {
-    *&v165 = v58 - 16;
+    *&v171 = v58 - 16;
     matched = 1;
-    mlir::ValueRange::ValueRange(__p, &v165, 1uLL);
+    mlir::ValueRange::ValueRange(__p, &v171, 1uLL);
     mlir::ConversionPatternRewriter::replaceOp(a4, a2, *__p, *&__p[8]);
   }
 
@@ -5834,7 +5834,7 @@ LABEL_44:
     *__p = operator new(0x60uLL);
     *&__p[8] = xmmword_1E0982860;
     strcpy(*__p, "Conversion did not match a valid resize or a valid transformation supported by the hardware.");
-    matched = mlir::logMatchFailure(__p, a2[3], a4);
+    matched = mlir::logMatchFailure(__p, *(a2 + 3), a4);
     if ((__p[23] & 0x80000000) != 0)
     {
       operator delete(*__p);
@@ -5878,26 +5878,26 @@ void mlir::anonymous namespace::ConvertResize<(mlir::anec::Family)5>::~ConvertRe
   operator delete(__p);
 }
 
-uint64_t mlir::anonymous namespace::ConvertResizeGeneric<(mlir::anec::Family)5>::matchAndRewriteWithStaticShapes(uint64_t a1, uint64_t *a2, __int128 *a3, uint64_t **a4)
+uint64_t mlir::anonymous namespace::ConvertResizeGeneric<(mlir::anec::Family)5>::matchAndRewriteWithStaticShapes(uint64_t a1, mlir::mps *a2, __int128 *a3, uint64_t **a4)
 {
-  v194[3] = *MEMORY[0x1E69E9840];
+  v200[3] = *MEMORY[0x1E69E9840];
   v6 = a3[5];
-  v169 = a3[4];
-  v170 = v6;
-  *v171 = *(a3 + 12);
+  v175 = a3[4];
+  v176 = v6;
+  *v177 = *(a3 + 12);
   v7 = a3[1];
-  v165 = *a3;
-  v166 = v7;
+  v171 = *a3;
+  v172 = v7;
   v8 = a3[3];
-  v167 = a3[2];
-  v168 = v8;
-  v161 = a2;
-  v192[0] = *(&v170 + 1);
-  v192[1] = *v171;
-  v9 = a2[3];
-  v160 = mlir::ValueRange::dereference_iterator(v192, 0);
-  ODSOperandIndexAndLength = mlir::pdl_interp::RecordMatchOp::getODSOperandIndexAndLength(&v161, 0);
-  v11 = (*(*(*(v161 + 9) + 32 * ODSOperandIndexAndLength + 24) + 8) & 0xFFFFFFFFFFFFFFF8);
+  v173 = a3[2];
+  v174 = v8;
+  v167 = a2;
+  v198[0] = *(&v176 + 1);
+  v198[1] = *v177;
+  v9 = *(a2 + 3);
+  v166 = mlir::ValueRange::dereference_iterator(v198, 0);
+  ODSOperandIndexAndLength = mlir::pdl_interp::RecordMatchOp::getODSOperandIndexAndLength(&v167, 0);
+  v11 = (*(*(*(v167 + 9) + 32 * ODSOperandIndexAndLength + 24) + 8) & 0xFFFFFFFFFFFFFFF8);
   if (v11)
   {
     v12 = mlir::detail::InterfaceMap::lookup<mlir::ShapedType>(*v11 + 8);
@@ -5908,11 +5908,11 @@ uint64_t mlir::anonymous namespace::ConvertResizeGeneric<(mlir::anec::Family)5>:
     v12 = 0;
   }
 
-  v159[0] = v11;
-  v159[1] = v12;
-  v13 = mlir::mps::detail::ResizeOpGenericAdaptorBase::getODSOperandIndexAndLength(&v165, 0);
-  v14 = *(&v170 + 1);
-  *__p = *(&v170 + 1);
+  v165[0] = v11;
+  v165[1] = v12;
+  v13 = mlir::mps::detail::ResizeOpGenericAdaptorBase::getODSOperandIndexAndLength(&v171, 0);
+  v14 = *(&v176 + 1);
+  *__p = *(&v176 + 1);
   *&__p[8] = v13;
   if (v13)
   {
@@ -5940,20 +5940,20 @@ uint64_t mlir::anonymous namespace::ConvertResizeGeneric<(mlir::anec::Family)5>:
   v20 = mlir::anec::getIndexFromDim(1, v18);
   v21 = mlir::anec::getIndexFromDim(3, v18);
   v22 = mlir::anec::getIndexFromDim(4, v18);
-  mlir::CallableOpInterface::getArgAttrsAttr(v159);
+  mlir::CallableOpInterface::getArgAttrsAttr(v165);
   if (v23 <= 3)
   {
     *__p = &__p[16];
     *&__p[16] = IndexFromDim;
     *&__p[24] = v20;
-    *&v173 = v20;
-    *(&v173 + 1) = v21;
-    *&v174 = v21;
-    *(&v174 + 1) = IndexFromDim;
+    *&v179 = v20;
+    *(&v179 + 1) = v21;
+    *&v180 = v21;
+    *(&v180 + 1) = IndexFromDim;
     *&__p[8] = 0x600000006;
-    v190 = xmmword_1E0982820;
+    v196 = xmmword_1E0982820;
     IntegerType = mlir::Builder::getIntegerType(a4 + 1, 64, 0);
-    v25 = mlir::RankedTensorType::get(&v190, 2, IntegerType, 0);
+    v25 = mlir::RankedTensorType::get(&v196, 2, IntegerType, 0);
     if (v25)
     {
       v26 = v25;
@@ -5966,17 +5966,17 @@ uint64_t mlir::anonymous namespace::ConvertResizeGeneric<(mlir::anec::Family)5>:
       v27 = 0;
     }
 
-    *&v193 = mlir::DenseElementsAttr::getFromRawBuffer(v25, v27, *__p, 8 * *&__p[8], 8, 1, 0);
-    v160 = mlir::OpBuilder::create<mlir::anec::Transpose,mlir::Value &,mlir::DenseIntElementsAttr &>(a4 + 1, v9, &v160, &v193) - 16;
+    *&v199 = mlir::DenseElementsAttr::getFromRawBuffer(v25, v27, *__p, 8 * *&__p[8]);
+    v166 = mlir::OpBuilder::create<mlir::anec::Transpose,mlir::Value &,mlir::DenseIntElementsAttr &>(a4 + 1, v9, &v166, &v199) - 16;
     if (*__p != &__p[16])
     {
       free(*__p);
     }
   }
 
-  if (*(v161 + 9))
+  if (*(v167 + 9))
   {
-    v28 = v161 - 16;
+    v28 = v167 - 16;
   }
 
   else
@@ -5995,18 +5995,18 @@ uint64_t mlir::anonymous namespace::ConvertResizeGeneric<(mlir::anec::Family)5>:
     v30 = 0;
   }
 
-  v158[0] = v29;
-  v158[1] = v30;
-  ArgAttrsAttr = mlir::CallableOpInterface::getArgAttrsAttr(v158);
+  v164[0] = v29;
+  v164[1] = v30;
+  ArgAttrsAttr = mlir::CallableOpInterface::getArgAttrsAttr(v164);
   v33 = v32;
-  *&v190 = v191;
-  *(&v190 + 1) = 0x400000000;
+  *&v196 = v197;
+  *(&v196 + 1) = 0x400000000;
   v34 = (8 * v32) >> 3;
-  v154 = v22;
+  v160 = v22;
   if (v34 < 5)
   {
     v35 = 0;
-    v36 = v191;
+    v36 = v197;
     v37 = 8 * v33;
     if (!v33)
     {
@@ -6016,41 +6016,41 @@ uint64_t mlir::anonymous namespace::ConvertResizeGeneric<(mlir::anec::Family)5>:
     goto LABEL_25;
   }
 
-  llvm::SmallVectorBase<unsigned int>::grow_pod(&v190, v191, v34, 8);
-  v35 = DWORD2(v190);
-  v36 = v190;
+  llvm::SmallVectorBase<unsigned int>::grow_pod(&v196, v197, v34, 8);
+  v35 = DWORD2(v196);
+  v36 = v196;
   v37 = 8 * v33;
   if (v33)
   {
 LABEL_25:
     memcpy(v36 + 8 * v35, ArgAttrsAttr, v37);
-    v35 = DWORD2(v190);
-    v36 = v190;
+    v35 = DWORD2(v196);
+    v36 = v196;
   }
 
 LABEL_26:
   v38 = v35 + (v37 >> 3);
-  DWORD2(v190) = v38;
+  DWORD2(v196) = v38;
   if (v38 <= 3)
   {
-    llvm::SmallVectorImpl<unsigned long long>::insert(&v190, v36, 4 - v38, 1uLL);
-    v36 = v190;
+    llvm::SmallVectorImpl<unsigned long long>::insert(&v196, v36, 4 - v38, 1uLL);
+    v36 = v196;
   }
 
   v39 = *(v36 + v21);
-  v40 = *(v36 + v154);
-  v187 = v189;
-  v189[0] = v39;
-  v189[1] = v40;
-  v188 = 0x200000002;
-  ResizeLayout = mlir::mps::getResizeLayout(v161, v36);
+  v40 = *(v36 + v160);
+  v193 = v195;
+  v195[0] = v39;
+  v195[1] = v40;
+  v194 = 0x200000002;
+  ResizeLayout = mlir::mps::getResizeLayout(v167, v36);
   if ((ResizeLayout & 0x100000000) == 0)
   {
     *__p = operator new(0x20uLL);
     *&__p[8] = xmmword_1E0982800;
     strcpy(*__p, "Resize layout not supported");
 LABEL_41:
-    mlir::logMatchFailure(__p, *(v161 + 3), a4);
+    mlir::logMatchFailure(__p, *(v167 + 3), a4);
     if ((__p[23] & 0x80000000) != 0)
     {
       operator delete(*__p);
@@ -6067,14 +6067,14 @@ LABEL_41:
     *__p = &__p[16];
     *&__p[16] = v20;
     *&__p[24] = v21;
-    *&v173 = v21;
-    *(&v173 + 1) = v154;
-    *&v174 = v154;
-    *(&v174 + 1) = v20;
+    *&v179 = v21;
+    *(&v179 + 1) = v160;
+    *&v180 = v160;
+    *(&v180 + 1) = v20;
     *&__p[8] = 0x600000006;
-    v193 = xmmword_1E0982820;
+    v199 = xmmword_1E0982820;
     v43 = mlir::Builder::getIntegerType(a4 + 1, 64, 0);
-    v44 = mlir::RankedTensorType::get(&v193, 2, v43, 0);
+    v44 = mlir::RankedTensorType::get(&v199, 2, v43, 0);
     if (v44)
     {
       v45 = v9;
@@ -6089,11 +6089,11 @@ LABEL_41:
       v47 = 0;
     }
 
-    v184 = mlir::DenseElementsAttr::getFromRawBuffer(v44, v47, *__p, 8 * *&__p[8], 8, 1, 0);
-    v160 = mlir::OpBuilder::create<mlir::anec::Transpose,mlir::Value &,mlir::DenseIntElementsAttr &>(a4 + 1, v9, &v160, &v184) - 16;
-    v48 = v190;
-    v49 = v187;
-    *v187 = *(v190 + 8 * v20);
+    v190 = mlir::DenseElementsAttr::getFromRawBuffer(v44, v47, *__p, 8 * *&__p[8]);
+    v166 = mlir::OpBuilder::create<mlir::anec::Transpose,mlir::Value &,mlir::DenseIntElementsAttr &>(a4 + 1, v9, &v166, &v190) - 16;
+    v48 = v196;
+    v49 = v193;
+    *v193 = *(v196 + 8 * v20);
     v49[1] = *(v48 + 8 * v21);
     if (*__p != &__p[16])
     {
@@ -6101,14 +6101,14 @@ LABEL_41:
     }
   }
 
-  v157[0] = 0;
-  v157[1] = 0;
-  v50 = mlir::pdl_interp::RecordMatchOp::getODSOperandIndexAndLength(&v161, 1u);
-  v51 = *(*(v161 + 9) + 32 * v50 + 24);
-  *&v193 = v157;
+  v163[0] = 0;
+  v163[1] = 0;
+  v50 = mlir::pdl_interp::RecordMatchOp::getODSOperandIndexAndLength(&v167, 1u);
+  v51 = *(*(v167 + 9) + 32 * v50 + 24);
+  *&v199 = v163;
   *__p = v51;
   DefiningOp = mlir::Value::getDefiningOp(__p);
-  if (!DefiningOp || (mlir::detail::constant_op_binder<mlir::ElementsAttr>::match(&v193, DefiningOp) & 1) == 0)
+  if (!DefiningOp || (mlir::detail::constant_op_binder<mlir::ElementsAttr>::match(&v199, DefiningOp) & 1) == 0)
   {
     *__p = operator new(0x28uLL);
     *&__p[8] = xmmword_1E0982850;
@@ -6116,16 +6116,16 @@ LABEL_41:
     goto LABEL_41;
   }
 
-  v151 = v42;
-  v152 = v9;
-  v184 = v186;
-  v186[1] = 0;
-  v186[0] = 0;
-  v185 = 0x200000002;
-  v181 = v183;
-  memset_pattern16(v183, &unk_1E096FAE0, 0x10uLL);
-  v182 = 0x200000002;
-  GateLayout = mlir::mps::LSTMOp::getGateLayout(&v161);
+  v157 = v42;
+  v158 = v9;
+  v190 = v192;
+  v192[1] = 0;
+  v192[0] = 0;
+  v191 = 0x200000002;
+  v187 = v189;
+  memset_pattern16(v189, &unk_1E096FAE0, 0x10uLL);
+  v188 = 0x200000002;
+  GateLayout = mlir::mps::LSTMOp::getGateLayout(&v167);
   *__p = 2;
   v54 = mlir::Builder::getIntegerType(a4 + 1, 64, 0);
   v55 = mlir::RankedTensorType::get(__p, 1, v54, 0);
@@ -6143,31 +6143,31 @@ LABEL_41:
 
   if (GateLayout == 1)
   {
-    v62 = &v184;
+    v62 = &v190;
   }
 
   else
   {
-    v62 = &v181;
+    v62 = &v187;
   }
 
   v63 = *v62;
-  v64 = &v185;
+  v64 = &v191;
   if (GateLayout != 1)
   {
-    v64 = &v182;
+    v64 = &v188;
   }
 
-  v156 = mlir::DenseElementsAttr::getFromRawBuffer(v55, v57, v63, 8 * *v64, 8, 1, 0);
-  v178 = v180;
-  v179 = 0x200000000;
-  InferredResultTypes = mlir::pdl_interp::CreateOperationOp::getInferredResultTypes(&v161);
-  IsSize = mlir::mps::StridedSliceOp::getEndIsSize(&v161);
-  v67 = mlir::pdl_interp::RecordMatchOp::getODSOperandIndexAndLength(&v161, 2u);
-  v69 = v161;
-  if ((*(v161 + 46) & 0x80) != 0)
+  v162 = mlir::DenseElementsAttr::getFromRawBuffer(v55, v57, v63, 8 * *v64);
+  v184 = v186;
+  v185 = 0x200000000;
+  InferredResultTypes = mlir::pdl_interp::CreateOperationOp::getInferredResultTypes(&v167);
+  IsSize = mlir::mps::StridedSliceOp::getEndIsSize(&v167);
+  v67 = mlir::pdl_interp::RecordMatchOp::getODSOperandIndexAndLength(&v167, 2u);
+  v69 = v167;
+  if ((*(v167 + 46) & 0x80) != 0)
   {
-    v70 = *(v161 + 9);
+    v70 = *(v167 + 9);
   }
 
   else
@@ -6175,12 +6175,12 @@ LABEL_41:
     v70 = 0;
   }
 
-  v71 = v152;
+  v71 = v158;
   if (HIDWORD(v67) + v67 == v67 || !*(v70 + 32 * v67 + 24))
   {
-    v72 = mlir::pdl_interp::RecordMatchOp::getODSOperandIndexAndLength(&v161, 3u);
-    v69 = v161;
-    v73 = (*(v161 + 46) & 0x80) != 0 ? *(v161 + 9) : 0;
+    v72 = mlir::pdl_interp::RecordMatchOp::getODSOperandIndexAndLength(&v167, 3u);
+    v69 = v167;
+    v73 = (*(v167 + 46) & 0x80) != 0 ? *(v167 + 9) : 0;
     if (HIDWORD(v72) + v72 == v72 || !*(v73 + 32 * v72 + 24))
     {
       if (InferredResultTypes)
@@ -6206,7 +6206,7 @@ LABEL_119:
         memset_pattern16(&__p[16], v80, 0x10uLL);
 LABEL_121:
         *&__p[8] = 0x600000002;
-        llvm::SmallVectorImpl<unsigned long long>::operator=(&v178, __p);
+        llvm::SmallVectorImpl<unsigned long long>::operator=(&v184, __p);
         if (*__p != &__p[16])
         {
           free(*__p);
@@ -6227,30 +6227,30 @@ LABEL_121:
           v123 = 0;
         }
 
-        v162 = mlir::DenseElementsAttr::getFromRawBuffer(v121, v123, v178, 8 * v179, 8, 1, 0);
-        v124 = v187;
-        v125 = llvm::detail::IEEEFloat::IEEEFloat(&v193, -1.0);
-        v126 = llvm::APFloatBase::IEEEsingle(v125);
-        llvm::APFloat::Storage::Storage(&__p[8], &v193, v126);
-        llvm::detail::IEEEFloat::~IEEEFloat(&v193);
-        llvm::detail::IEEEFloat::IEEEFloat(&v163, -1.0);
-        llvm::APFloat::Storage::Storage(&v193 + 8, &v163, v126);
-        llvm::detail::IEEEFloat::~IEEEFloat(&v163);
-        v163 = mlir::OpBuilder::create<mlir::anec::Resize,mlir::Value &,unsigned long long &,unsigned long long &,llvm::APFloat,llvm::APFloat,mlir::DenseIntElementsAttr &,mlir::DenseIntElementsAttr &>(a4 + 1, v71, &v160, v124, v124 + 1, __p, &v193, &v156, &v162);
-        v127 = *(&v193 + 1);
-        v128 = llvm::APFloatBase::PPCDoubleDouble(v163);
-        if (v128 == v127)
+        v168 = mlir::DenseElementsAttr::getFromRawBuffer(v121, v123, v184, 8 * v185);
+        v124 = v193;
+        v128 = llvm::detail::IEEEFloat::IEEEFloat(&v199, -1.0, v125, v126, v127);
+        v129 = llvm::APFloatBase::IEEEsingle(v128);
+        llvm::APFloat::Storage::Storage(&__p[8], &v199, v129);
+        llvm::detail::IEEEFloat::~IEEEFloat(&v199);
+        llvm::detail::IEEEFloat::IEEEFloat(&v169, -1.0, v130, v131, v132);
+        llvm::APFloat::Storage::Storage(&v199 + 8, &v169, v129);
+        llvm::detail::IEEEFloat::~IEEEFloat(&v169);
+        v169 = mlir::OpBuilder::create<mlir::anec::Resize,mlir::Value &,unsigned long long &,unsigned long long &,llvm::APFloat,llvm::APFloat,mlir::DenseIntElementsAttr &,mlir::DenseIntElementsAttr &>(a4 + 1, v71, &v166, v124, v124 + 1, __p, &v199, &v162, &v168);
+        v133 = *(&v199 + 1);
+        v134 = llvm::APFloatBase::PPCDoubleDouble(v169);
+        if (v134 == v133)
         {
-          llvm::detail::DoubleAPFloat::~DoubleAPFloat((&v193 + 8));
+          llvm::detail::DoubleAPFloat::~DoubleAPFloat((&v199 + 8));
         }
 
         else
         {
-          llvm::detail::IEEEFloat::~IEEEFloat((&v193 + 8));
+          llvm::detail::IEEEFloat::~IEEEFloat((&v199 + 8));
         }
 
-        v129 = v152;
-        if (v128 == *&__p[8])
+        v135 = v158;
+        if (v134 == *&__p[8])
         {
           llvm::detail::DoubleAPFloat::~DoubleAPFloat(&__p[8]);
         }
@@ -6260,73 +6260,73 @@ LABEL_121:
           llvm::detail::IEEEFloat::~IEEEFloat(&__p[8]);
         }
 
-        v59 = mlir::anec::Resize::verifyAttributesWithFamily(&v163, 5);
-        v58 = v163;
+        v59 = mlir::anec::Resize::verifyAttributesWithFamily(&v169, 5);
+        v58 = v169;
         if (v59)
         {
-          if (v151 == 1)
+          if (v157 == 1)
           {
             *__p = &__p[16];
             *&__p[16] = v20;
-            *&__p[24] = v154;
-            *&v173 = v21;
-            *(&v173 + 1) = v20;
-            *&v174 = v154;
-            *(&v174 + 1) = v21;
+            *&__p[24] = v160;
+            *&v179 = v21;
+            *(&v179 + 1) = v20;
+            *&v180 = v160;
+            *(&v180 + 1) = v21;
             *&__p[8] = 0x600000006;
-            v193 = xmmword_1E0982820;
-            v130 = mlir::Builder::getIntegerType(a4 + 1, 64, 0);
-            v131 = mlir::RankedTensorType::get(&v193, 2, v130, 0);
-            if (v131)
+            v199 = xmmword_1E0982820;
+            v136 = mlir::Builder::getIntegerType(a4 + 1, 64, 0);
+            v137 = mlir::RankedTensorType::get(&v199, 2, v136, 0);
+            if (v137)
             {
-              v132 = v131;
-              v133 = mlir::detail::InterfaceMap::lookup<mlir::ShapedType>(*v131 + 8);
-              v131 = v132;
-              v129 = v152;
+              v138 = v137;
+              v139 = mlir::detail::InterfaceMap::lookup<mlir::ShapedType>(*v137 + 8);
+              v137 = v138;
+              v135 = v158;
             }
 
             else
             {
-              v133 = 0;
+              v139 = 0;
             }
 
-            v155 = mlir::DenseElementsAttr::getFromRawBuffer(v131, v133, *__p, 8 * *&__p[8], 8, 1, 0);
-            v58 = mlir::OpBuilder::create<mlir::anec::Transpose,mlir::anec::Resize &,mlir::DenseIntElementsAttr &>(a4 + 1, v129, &v163, &v155);
+            v161 = mlir::DenseElementsAttr::getFromRawBuffer(v137, v139, *__p, 8 * *&__p[8]);
+            v58 = mlir::OpBuilder::create<mlir::anec::Transpose,mlir::anec::Resize &,mlir::DenseIntElementsAttr &>(a4 + 1, v135, &v169, &v161);
             if (*__p != &__p[16])
             {
               free(*__p);
             }
           }
 
-          mlir::CallableOpInterface::getArgAttrsAttr(v159);
-          if (v134 <= 3)
+          mlir::CallableOpInterface::getArgAttrsAttr(v165);
+          if (v140 <= 3)
           {
             *__p = &__p[16];
             *&__p[16] = v20;
             *&__p[24] = IndexFromDim;
-            *&v173 = v21;
-            *(&v173 + 1) = v20;
-            *&v174 = IndexFromDim;
-            *(&v174 + 1) = v21;
+            *&v179 = v21;
+            *(&v179 + 1) = v20;
+            *&v180 = IndexFromDim;
+            *(&v180 + 1) = v21;
             *&__p[8] = 0x600000006;
-            v193 = xmmword_1E0982820;
-            v135 = mlir::Builder::getIntegerType(a4 + 1, 64, 0);
-            v136 = mlir::RankedTensorType::get(&v193, 2, v135, 0);
-            if (v136)
+            v199 = xmmword_1E0982820;
+            v141 = mlir::Builder::getIntegerType(a4 + 1, 64, 0);
+            v142 = mlir::RankedTensorType::get(&v199, 2, v141, 0);
+            if (v142)
             {
-              v137 = v136;
-              v138 = mlir::detail::InterfaceMap::lookup<mlir::ShapedType>(*v136 + 8);
-              v136 = v137;
+              v143 = v142;
+              v144 = mlir::detail::InterfaceMap::lookup<mlir::ShapedType>(*v142 + 8);
+              v142 = v143;
             }
 
             else
             {
-              v138 = 0;
+              v144 = 0;
             }
 
-            v155 = mlir::DenseElementsAttr::getFromRawBuffer(v136, v138, *__p, 8 * *&__p[8], 8, 1, 0);
-            *&v193 = v58 - 16;
-            v58 = mlir::OpBuilder::create<mlir::anec::Transpose,mlir::Value &,mlir::DenseIntElementsAttr &>(a4 + 1, v152, &v193, &v155);
+            v161 = mlir::DenseElementsAttr::getFromRawBuffer(v142, v144, *__p, 8 * *&__p[8]);
+            *&v199 = v58 - 16;
+            v58 = mlir::OpBuilder::create<mlir::anec::Transpose,mlir::Value &,mlir::DenseIntElementsAttr &>(a4 + 1, v158, &v199, &v161);
             if (*__p != &__p[16])
             {
               free(*__p);
@@ -6336,11 +6336,11 @@ LABEL_121:
 
         else
         {
-          mlir::ConversionPatternRewriter::eraseOp(a4, v163);
+          mlir::ConversionPatternRewriter::eraseOp(a4, v169);
           *__p = operator new(0x48uLL);
           *&__p[8] = xmmword_1E0982840;
           strcpy(*__p, "requested attributes are not compatible with hardware requirements");
-          mlir::logMatchFailure(__p, *(v161 + 3), a4);
+          mlir::logMatchFailure(__p, *(v167 + 3), a4);
           if ((__p[23] & 0x80000000) != 0)
           {
             operator delete(*__p);
@@ -6359,26 +6359,26 @@ LABEL_118:
     }
   }
 
-  v175 = v169;
-  v176 = v170;
-  *v177 = *v171;
-  *__p = v165;
-  *&__p[16] = v166;
-  v173 = v167;
-  v174 = v168;
+  v181 = v175;
+  v182 = v176;
+  *v183 = *v177;
+  *__p = v171;
+  *&__p[16] = v172;
+  v179 = v173;
+  v180 = v174;
   v74 = mlir::mps::getResizeLayout(v69, v68);
   if ((v74 & 0x100000000) != 0)
   {
     v76 = qword_1E0982BB8[v74];
-    v150 = qword_1E0982BF0[v74];
+    v156 = qword_1E0982BF0[v74];
     v77 = mlir::mps::detail::ResizeOpGenericAdaptorBase::getODSOperandIndexAndLength(__p, 2u);
-    v78 = *(&v176 + 1);
-    *&v193 = *(&v176 + 1);
-    *(&v193 + 1) = v77;
+    v78 = *(&v182 + 1);
+    *&v199 = *(&v182 + 1);
+    *(&v199 + 1) = v77;
     if (v77)
     {
-      v78 = mlir::ValueRange::offset_base(&v193, v77);
-      v79 = *(&v193 + 1);
+      v78 = mlir::ValueRange::offset_base(&v199, v77);
+      v79 = *(&v199 + 1);
     }
 
     else
@@ -6386,7 +6386,7 @@ LABEL_118:
       v79 = 0;
     }
 
-    if (HIDWORD(v77) + v77 == v79 || (v193 = v78, !mlir::ValueRange::dereference_iterator(&v193, 0)))
+    if (HIDWORD(v77) + v77 == v79 || (v199 = v78, !mlir::ValueRange::dereference_iterator(&v199, 0)))
     {
       v84 = 1.0;
       v85 = 1.0;
@@ -6394,16 +6394,16 @@ LABEL_118:
 
     else
     {
-      v163 = 0;
-      v164 = 0;
+      v169 = 0;
+      v170 = 0;
       v81 = mlir::mps::detail::ResizeOpGenericAdaptorBase::getODSOperandIndexAndLength(__p, 2u);
-      v82 = *(&v176 + 1);
-      *&v193 = *(&v176 + 1);
-      *(&v193 + 1) = v81;
+      v82 = *(&v182 + 1);
+      *&v199 = *(&v182 + 1);
+      *(&v199 + 1) = v81;
       if (v81)
       {
-        v82 = mlir::ValueRange::offset_base(&v193, v81);
-        v83 = *(&v193 + 1);
+        v82 = mlir::ValueRange::offset_base(&v199, v81);
+        v83 = *(&v199 + 1);
       }
 
       else
@@ -6413,58 +6413,58 @@ LABEL_118:
 
       if (HIDWORD(v81) + v81 == v83)
       {
-        v139 = 0;
+        v145 = 0;
       }
 
       else
       {
-        v193 = v82;
-        v139 = mlir::ValueRange::dereference_iterator(&v193, 0);
+        v199 = v82;
+        v145 = mlir::ValueRange::dereference_iterator(&v199, 0);
       }
 
-      v162 = &v163;
-      *&v193 = v139;
-      v140 = mlir::Value::getDefiningOp(&v193);
-      if (!v140 || !mlir::detail::constant_op_binder<mlir::ElementsAttr>::match(&v162, v140))
+      v168 = &v169;
+      *&v199 = v145;
+      v146 = mlir::Value::getDefiningOp(&v199);
+      if (!v146 || !mlir::detail::constant_op_binder<mlir::ElementsAttr>::match(&v168, v146))
       {
         goto LABEL_68;
       }
 
-      *&v193 = v194;
-      *(&v193 + 1) = 0x400000000;
-      mlir::getFloatValues<float>(v163, v164, &v193, 1);
-      v141 = v76;
-      v142 = DWORD2(v193);
+      *&v199 = v200;
+      *(&v199 + 1) = 0x400000000;
+      mlir::getFloatValues<float>(v169, v170, &v199, 1);
+      v147 = v76;
+      v148 = DWORD2(v199);
       v84 = 1.0;
       v85 = 1.0;
-      v143 = v141;
-      if (v141 < DWORD2(v193))
+      v149 = v147;
+      if (v147 < DWORD2(v199))
       {
-        v85 = *(v193 + 4 * v141);
-        v84 = *(v193 + 4 * v150);
+        v85 = *(v199 + 4 * v147);
+        v84 = *(v199 + 4 * v156);
       }
 
-      if (v193 != v194)
+      if (v199 != v200)
       {
-        free(v193);
+        free(v199);
       }
 
-      v144 = v143 >= v142;
-      v76 = v143;
-      if (v144)
+      v150 = v149 >= v148;
+      v76 = v149;
+      if (v150)
       {
         goto LABEL_68;
       }
     }
 
     v86 = mlir::mps::detail::ResizeOpGenericAdaptorBase::getODSOperandIndexAndLength(__p, 3u);
-    v87 = *(&v176 + 1);
-    *&v193 = *(&v176 + 1);
-    *(&v193 + 1) = v86;
+    v87 = *(&v182 + 1);
+    *&v199 = *(&v182 + 1);
+    *(&v199 + 1) = v86;
     if (v86)
     {
-      v87 = mlir::ValueRange::offset_base(&v193, v86);
-      v88 = *(&v193 + 1);
+      v87 = mlir::ValueRange::offset_base(&v199, v86);
+      v88 = *(&v199 + 1);
     }
 
     else
@@ -6472,7 +6472,7 @@ LABEL_118:
       v88 = 0;
     }
 
-    if (HIDWORD(v86) + v86 == v88 || (v193 = v87, !mlir::ValueRange::dereference_iterator(&v193, 0)))
+    if (HIDWORD(v86) + v86 == v88 || (v199 = v87, !mlir::ValueRange::dereference_iterator(&v199, 0)))
     {
       v92 = 0.0;
       v93 = 0.0;
@@ -6480,16 +6480,16 @@ LABEL_118:
 
     else
     {
-      v163 = 0;
-      v164 = 0;
+      v169 = 0;
+      v170 = 0;
       v89 = mlir::mps::detail::ResizeOpGenericAdaptorBase::getODSOperandIndexAndLength(__p, 3u);
-      v90 = *(&v176 + 1);
-      *&v193 = *(&v176 + 1);
-      *(&v193 + 1) = v89;
+      v90 = *(&v182 + 1);
+      *&v199 = *(&v182 + 1);
+      *(&v199 + 1) = v89;
       if (v89)
       {
-        v90 = mlir::ValueRange::offset_base(&v193, v89);
-        v91 = *(&v193 + 1);
+        v90 = mlir::ValueRange::offset_base(&v199, v89);
+        v91 = *(&v199 + 1);
       }
 
       else
@@ -6499,59 +6499,59 @@ LABEL_118:
 
       if (HIDWORD(v89) + v89 == v91)
       {
-        v145 = 0;
+        v151 = 0;
       }
 
       else
       {
-        v193 = v90;
-        v145 = mlir::ValueRange::dereference_iterator(&v193, 0);
+        v199 = v90;
+        v151 = mlir::ValueRange::dereference_iterator(&v199, 0);
       }
 
-      v162 = &v163;
-      *&v193 = v145;
-      v146 = mlir::Value::getDefiningOp(&v193);
-      if (!v146 || !mlir::detail::constant_op_binder<mlir::ElementsAttr>::match(&v162, v146))
+      v168 = &v169;
+      *&v199 = v151;
+      v152 = mlir::Value::getDefiningOp(&v199);
+      if (!v152 || !mlir::detail::constant_op_binder<mlir::ElementsAttr>::match(&v168, v152))
       {
         goto LABEL_68;
       }
 
-      *&v193 = v194;
-      *(&v193 + 1) = 0x400000000;
-      mlir::getFloatValues<float>(v163, v164, &v193, 1);
-      v147 = v76;
-      v148 = DWORD2(v193);
+      *&v199 = v200;
+      *(&v199 + 1) = 0x400000000;
+      mlir::getFloatValues<float>(v169, v170, &v199, 1);
+      v153 = v76;
+      v154 = DWORD2(v199);
       v92 = 0.0;
       v93 = 0.0;
-      v149 = v147;
-      if (v147 < DWORD2(v193))
+      v155 = v153;
+      if (v153 < DWORD2(v199))
       {
-        v93 = *(v193 + 4 * v147);
-        v92 = *(v193 + 4 * v150);
+        v93 = *(v199 + 4 * v153);
+        v92 = *(v199 + 4 * v156);
       }
 
-      if (v193 != v194)
+      if (v199 != v200)
       {
-        free(v193);
+        free(v199);
       }
 
-      if (v149 >= v148)
+      if (v155 >= v154)
       {
         goto LABEL_68;
       }
     }
 
     v94 = mlir::mps::detail::ResizeOpGenericAdaptorBase::getODSOperandIndexAndLength(__p, 0);
-    v95 = *(&v176 + 1);
-    *&v193 = *(&v176 + 1);
-    *(&v193 + 1) = v94;
+    v95 = *(&v182 + 1);
+    *&v199 = *(&v182 + 1);
+    *(&v199 + 1) = v94;
     if (v94)
     {
-      v95 = mlir::ValueRange::offset_base(&v193, v94);
+      v95 = mlir::ValueRange::offset_base(&v199, v94);
     }
 
-    v193 = v95;
-    v96 = (*(mlir::ValueRange::dereference_iterator(&v193, 0) + 8) & 0xFFFFFFFFFFFFFFF8);
+    v199 = v95;
+    v96 = (*(mlir::ValueRange::dereference_iterator(&v199, 0) + 8) & 0xFFFFFFFFFFFFFFF8);
     if (v96)
     {
       v97 = mlir::detail::InterfaceMap::lookup<mlir::ShapedType>(*v96 + 8);
@@ -6562,9 +6562,9 @@ LABEL_118:
       v97 = 0;
     }
 
-    *&v193 = v96;
-    *(&v193 + 1) = v97;
-    v98 = mlir::CallableOpInterface::getArgAttrsAttr(&v193);
+    *&v199 = v96;
+    *(&v199 + 1) = v97;
+    v98 = mlir::CallableOpInterface::getArgAttrsAttr(&v199);
     v100 = v99;
     v101 = *(a1 + 96);
     if (*(v69 + 9))
@@ -6585,9 +6585,9 @@ LABEL_118:
       v104 = mlir::detail::InterfaceMap::lookup<mlir::ShapedType>(*v104 + 8);
     }
 
-    *&v193 = v105;
-    *(&v193 + 1) = v104;
-    v106 = mlir::CallableOpInterface::getArgAttrsAttr(&v193);
+    *&v199 = v105;
+    *(&v199 + 1) = v104;
+    v106 = mlir::CallableOpInterface::getArgAttrsAttr(&v199);
     v108 = v107;
     v109 = mlir::anec::getIndexFromDim(3, v100);
     v110 = mlir::anec::getIndexFromDim(4, v108);
@@ -6601,7 +6601,7 @@ LABEL_118:
     }
 
     v115 = (v85 + -1.0) * 0.5 != v93 || (v84 + -1.0) * 0.5 != v92;
-    v71 = v152;
+    v71 = v158;
     v116 = v112;
     v117 = *(v106 + 8 * v110);
     v118 = v85 != (v113 / v111) || v84 != (v117 / v116);
@@ -6631,7 +6631,7 @@ LABEL_68:
   *__p = operator new(0x48uLL);
   *&__p[8] = xmmword_1E0982670;
   strcpy(*__p, "Resize with custom scale and offset values not supported on ANE.");
-  v75 = *(v161 + 3);
+  v75 = *(v167 + 3);
 LABEL_72:
   mlir::logMatchFailure(__p, v75, a4);
   if ((__p[23] & 0x80000000) != 0)
@@ -6642,37 +6642,37 @@ LABEL_72:
   v58 = 0;
   v59 = 0;
 LABEL_148:
-  if (v178 != v180)
-  {
-    free(v178);
-  }
-
-  if (v181 != v183)
-  {
-    free(v181);
-  }
-
   if (v184 != v186)
   {
     free(v184);
   }
 
-LABEL_44:
   if (v187 != v189)
   {
     free(v187);
   }
 
-  if (v190 != v191)
+  if (v190 != v192)
   {
     free(v190);
   }
 
+LABEL_44:
+  if (v193 != v195)
+  {
+    free(v193);
+  }
+
+  if (v196 != v197)
+  {
+    free(v196);
+  }
+
   if (v59)
   {
-    *&v165 = v58 - 16;
+    *&v171 = v58 - 16;
     matched = 1;
-    mlir::ValueRange::ValueRange(__p, &v165, 1uLL);
+    mlir::ValueRange::ValueRange(__p, &v171, 1uLL);
     mlir::ConversionPatternRewriter::replaceOp(a4, a2, *__p, *&__p[8]);
   }
 
@@ -6681,7 +6681,7 @@ LABEL_44:
     *__p = operator new(0x60uLL);
     *&__p[8] = xmmword_1E0982860;
     strcpy(*__p, "Conversion did not match a valid resize or a valid transformation supported by the hardware.");
-    matched = mlir::logMatchFailure(__p, a2[3], a4);
+    matched = mlir::logMatchFailure(__p, *(a2 + 3), a4);
     if ((__p[23] & 0x80000000) != 0)
     {
       operator delete(*__p);
@@ -6725,26 +6725,26 @@ void mlir::anonymous namespace::ConvertResize<(mlir::anec::Family)6>::~ConvertRe
   operator delete(__p);
 }
 
-uint64_t mlir::anonymous namespace::ConvertResizeGeneric<(mlir::anec::Family)6>::matchAndRewriteWithStaticShapes(uint64_t a1, uint64_t *a2, __int128 *a3, uint64_t **a4)
+uint64_t mlir::anonymous namespace::ConvertResizeGeneric<(mlir::anec::Family)6>::matchAndRewriteWithStaticShapes(uint64_t a1, mlir::mps *a2, __int128 *a3, uint64_t **a4)
 {
-  v194[3] = *MEMORY[0x1E69E9840];
+  v200[3] = *MEMORY[0x1E69E9840];
   v6 = a3[5];
-  v169 = a3[4];
-  v170 = v6;
-  *v171 = *(a3 + 12);
+  v175 = a3[4];
+  v176 = v6;
+  *v177 = *(a3 + 12);
   v7 = a3[1];
-  v165 = *a3;
-  v166 = v7;
+  v171 = *a3;
+  v172 = v7;
   v8 = a3[3];
-  v167 = a3[2];
-  v168 = v8;
-  v161 = a2;
-  v192[0] = *(&v170 + 1);
-  v192[1] = *v171;
-  v9 = a2[3];
-  v160 = mlir::ValueRange::dereference_iterator(v192, 0);
-  ODSOperandIndexAndLength = mlir::pdl_interp::RecordMatchOp::getODSOperandIndexAndLength(&v161, 0);
-  v11 = (*(*(*(v161 + 9) + 32 * ODSOperandIndexAndLength + 24) + 8) & 0xFFFFFFFFFFFFFFF8);
+  v173 = a3[2];
+  v174 = v8;
+  v167 = a2;
+  v198[0] = *(&v176 + 1);
+  v198[1] = *v177;
+  v9 = *(a2 + 3);
+  v166 = mlir::ValueRange::dereference_iterator(v198, 0);
+  ODSOperandIndexAndLength = mlir::pdl_interp::RecordMatchOp::getODSOperandIndexAndLength(&v167, 0);
+  v11 = (*(*(*(v167 + 9) + 32 * ODSOperandIndexAndLength + 24) + 8) & 0xFFFFFFFFFFFFFFF8);
   if (v11)
   {
     v12 = mlir::detail::InterfaceMap::lookup<mlir::ShapedType>(*v11 + 8);
@@ -6755,11 +6755,11 @@ uint64_t mlir::anonymous namespace::ConvertResizeGeneric<(mlir::anec::Family)6>:
     v12 = 0;
   }
 
-  v159[0] = v11;
-  v159[1] = v12;
-  v13 = mlir::mps::detail::ResizeOpGenericAdaptorBase::getODSOperandIndexAndLength(&v165, 0);
-  v14 = *(&v170 + 1);
-  *__p = *(&v170 + 1);
+  v165[0] = v11;
+  v165[1] = v12;
+  v13 = mlir::mps::detail::ResizeOpGenericAdaptorBase::getODSOperandIndexAndLength(&v171, 0);
+  v14 = *(&v176 + 1);
+  *__p = *(&v176 + 1);
   *&__p[8] = v13;
   if (v13)
   {
@@ -6787,20 +6787,20 @@ uint64_t mlir::anonymous namespace::ConvertResizeGeneric<(mlir::anec::Family)6>:
   v20 = mlir::anec::getIndexFromDim(1, v18);
   v21 = mlir::anec::getIndexFromDim(3, v18);
   v22 = mlir::anec::getIndexFromDim(4, v18);
-  mlir::CallableOpInterface::getArgAttrsAttr(v159);
+  mlir::CallableOpInterface::getArgAttrsAttr(v165);
   if (v23 <= 3)
   {
     *__p = &__p[16];
     *&__p[16] = IndexFromDim;
     *&__p[24] = v20;
-    *&v173 = v20;
-    *(&v173 + 1) = v21;
-    *&v174 = v21;
-    *(&v174 + 1) = IndexFromDim;
+    *&v179 = v20;
+    *(&v179 + 1) = v21;
+    *&v180 = v21;
+    *(&v180 + 1) = IndexFromDim;
     *&__p[8] = 0x600000006;
-    v190 = xmmword_1E0982820;
+    v196 = xmmword_1E0982820;
     IntegerType = mlir::Builder::getIntegerType(a4 + 1, 64, 0);
-    v25 = mlir::RankedTensorType::get(&v190, 2, IntegerType, 0);
+    v25 = mlir::RankedTensorType::get(&v196, 2, IntegerType, 0);
     if (v25)
     {
       v26 = v25;
@@ -6813,17 +6813,17 @@ uint64_t mlir::anonymous namespace::ConvertResizeGeneric<(mlir::anec::Family)6>:
       v27 = 0;
     }
 
-    *&v193 = mlir::DenseElementsAttr::getFromRawBuffer(v25, v27, *__p, 8 * *&__p[8], 8, 1, 0);
-    v160 = mlir::OpBuilder::create<mlir::anec::Transpose,mlir::Value &,mlir::DenseIntElementsAttr &>(a4 + 1, v9, &v160, &v193) - 16;
+    *&v199 = mlir::DenseElementsAttr::getFromRawBuffer(v25, v27, *__p, 8 * *&__p[8]);
+    v166 = mlir::OpBuilder::create<mlir::anec::Transpose,mlir::Value &,mlir::DenseIntElementsAttr &>(a4 + 1, v9, &v166, &v199) - 16;
     if (*__p != &__p[16])
     {
       free(*__p);
     }
   }
 
-  if (*(v161 + 9))
+  if (*(v167 + 9))
   {
-    v28 = v161 - 16;
+    v28 = v167 - 16;
   }
 
   else
@@ -6842,18 +6842,18 @@ uint64_t mlir::anonymous namespace::ConvertResizeGeneric<(mlir::anec::Family)6>:
     v30 = 0;
   }
 
-  v158[0] = v29;
-  v158[1] = v30;
-  ArgAttrsAttr = mlir::CallableOpInterface::getArgAttrsAttr(v158);
+  v164[0] = v29;
+  v164[1] = v30;
+  ArgAttrsAttr = mlir::CallableOpInterface::getArgAttrsAttr(v164);
   v33 = v32;
-  *&v190 = v191;
-  *(&v190 + 1) = 0x400000000;
+  *&v196 = v197;
+  *(&v196 + 1) = 0x400000000;
   v34 = (8 * v32) >> 3;
-  v154 = v22;
+  v160 = v22;
   if (v34 < 5)
   {
     v35 = 0;
-    v36 = v191;
+    v36 = v197;
     v37 = 8 * v33;
     if (!v33)
     {
@@ -6863,41 +6863,41 @@ uint64_t mlir::anonymous namespace::ConvertResizeGeneric<(mlir::anec::Family)6>:
     goto LABEL_25;
   }
 
-  llvm::SmallVectorBase<unsigned int>::grow_pod(&v190, v191, v34, 8);
-  v35 = DWORD2(v190);
-  v36 = v190;
+  llvm::SmallVectorBase<unsigned int>::grow_pod(&v196, v197, v34, 8);
+  v35 = DWORD2(v196);
+  v36 = v196;
   v37 = 8 * v33;
   if (v33)
   {
 LABEL_25:
     memcpy(v36 + 8 * v35, ArgAttrsAttr, v37);
-    v35 = DWORD2(v190);
-    v36 = v190;
+    v35 = DWORD2(v196);
+    v36 = v196;
   }
 
 LABEL_26:
   v38 = v35 + (v37 >> 3);
-  DWORD2(v190) = v38;
+  DWORD2(v196) = v38;
   if (v38 <= 3)
   {
-    llvm::SmallVectorImpl<unsigned long long>::insert(&v190, v36, 4 - v38, 1uLL);
-    v36 = v190;
+    llvm::SmallVectorImpl<unsigned long long>::insert(&v196, v36, 4 - v38, 1uLL);
+    v36 = v196;
   }
 
   v39 = *(v36 + v21);
-  v40 = *(v36 + v154);
-  v187 = v189;
-  v189[0] = v39;
-  v189[1] = v40;
-  v188 = 0x200000002;
-  ResizeLayout = mlir::mps::getResizeLayout(v161, v36);
+  v40 = *(v36 + v160);
+  v193 = v195;
+  v195[0] = v39;
+  v195[1] = v40;
+  v194 = 0x200000002;
+  ResizeLayout = mlir::mps::getResizeLayout(v167, v36);
   if ((ResizeLayout & 0x100000000) == 0)
   {
     *__p = operator new(0x20uLL);
     *&__p[8] = xmmword_1E0982800;
     strcpy(*__p, "Resize layout not supported");
 LABEL_41:
-    mlir::logMatchFailure(__p, *(v161 + 3), a4);
+    mlir::logMatchFailure(__p, *(v167 + 3), a4);
     if ((__p[23] & 0x80000000) != 0)
     {
       operator delete(*__p);
@@ -6914,14 +6914,14 @@ LABEL_41:
     *__p = &__p[16];
     *&__p[16] = v20;
     *&__p[24] = v21;
-    *&v173 = v21;
-    *(&v173 + 1) = v154;
-    *&v174 = v154;
-    *(&v174 + 1) = v20;
+    *&v179 = v21;
+    *(&v179 + 1) = v160;
+    *&v180 = v160;
+    *(&v180 + 1) = v20;
     *&__p[8] = 0x600000006;
-    v193 = xmmword_1E0982820;
+    v199 = xmmword_1E0982820;
     v43 = mlir::Builder::getIntegerType(a4 + 1, 64, 0);
-    v44 = mlir::RankedTensorType::get(&v193, 2, v43, 0);
+    v44 = mlir::RankedTensorType::get(&v199, 2, v43, 0);
     if (v44)
     {
       v45 = v9;
@@ -6936,11 +6936,11 @@ LABEL_41:
       v47 = 0;
     }
 
-    v184 = mlir::DenseElementsAttr::getFromRawBuffer(v44, v47, *__p, 8 * *&__p[8], 8, 1, 0);
-    v160 = mlir::OpBuilder::create<mlir::anec::Transpose,mlir::Value &,mlir::DenseIntElementsAttr &>(a4 + 1, v9, &v160, &v184) - 16;
-    v48 = v190;
-    v49 = v187;
-    *v187 = *(v190 + 8 * v20);
+    v190 = mlir::DenseElementsAttr::getFromRawBuffer(v44, v47, *__p, 8 * *&__p[8]);
+    v166 = mlir::OpBuilder::create<mlir::anec::Transpose,mlir::Value &,mlir::DenseIntElementsAttr &>(a4 + 1, v9, &v166, &v190) - 16;
+    v48 = v196;
+    v49 = v193;
+    *v193 = *(v196 + 8 * v20);
     v49[1] = *(v48 + 8 * v21);
     if (*__p != &__p[16])
     {
@@ -6948,14 +6948,14 @@ LABEL_41:
     }
   }
 
-  v157[0] = 0;
-  v157[1] = 0;
-  v50 = mlir::pdl_interp::RecordMatchOp::getODSOperandIndexAndLength(&v161, 1u);
-  v51 = *(*(v161 + 9) + 32 * v50 + 24);
-  *&v193 = v157;
+  v163[0] = 0;
+  v163[1] = 0;
+  v50 = mlir::pdl_interp::RecordMatchOp::getODSOperandIndexAndLength(&v167, 1u);
+  v51 = *(*(v167 + 9) + 32 * v50 + 24);
+  *&v199 = v163;
   *__p = v51;
   DefiningOp = mlir::Value::getDefiningOp(__p);
-  if (!DefiningOp || (mlir::detail::constant_op_binder<mlir::ElementsAttr>::match(&v193, DefiningOp) & 1) == 0)
+  if (!DefiningOp || (mlir::detail::constant_op_binder<mlir::ElementsAttr>::match(&v199, DefiningOp) & 1) == 0)
   {
     *__p = operator new(0x28uLL);
     *&__p[8] = xmmword_1E0982850;
@@ -6963,16 +6963,16 @@ LABEL_41:
     goto LABEL_41;
   }
 
-  v151 = v42;
-  v152 = v9;
-  v184 = v186;
-  v186[1] = 0;
-  v186[0] = 0;
-  v185 = 0x200000002;
-  v181 = v183;
-  memset_pattern16(v183, &unk_1E096FAE0, 0x10uLL);
-  v182 = 0x200000002;
-  GateLayout = mlir::mps::LSTMOp::getGateLayout(&v161);
+  v157 = v42;
+  v158 = v9;
+  v190 = v192;
+  v192[1] = 0;
+  v192[0] = 0;
+  v191 = 0x200000002;
+  v187 = v189;
+  memset_pattern16(v189, &unk_1E096FAE0, 0x10uLL);
+  v188 = 0x200000002;
+  GateLayout = mlir::mps::LSTMOp::getGateLayout(&v167);
   *__p = 2;
   v54 = mlir::Builder::getIntegerType(a4 + 1, 64, 0);
   v55 = mlir::RankedTensorType::get(__p, 1, v54, 0);
@@ -6990,31 +6990,31 @@ LABEL_41:
 
   if (GateLayout == 1)
   {
-    v62 = &v184;
+    v62 = &v190;
   }
 
   else
   {
-    v62 = &v181;
+    v62 = &v187;
   }
 
   v63 = *v62;
-  v64 = &v185;
+  v64 = &v191;
   if (GateLayout != 1)
   {
-    v64 = &v182;
+    v64 = &v188;
   }
 
-  v156 = mlir::DenseElementsAttr::getFromRawBuffer(v55, v57, v63, 8 * *v64, 8, 1, 0);
-  v178 = v180;
-  v179 = 0x200000000;
-  InferredResultTypes = mlir::pdl_interp::CreateOperationOp::getInferredResultTypes(&v161);
-  IsSize = mlir::mps::StridedSliceOp::getEndIsSize(&v161);
-  v67 = mlir::pdl_interp::RecordMatchOp::getODSOperandIndexAndLength(&v161, 2u);
-  v69 = v161;
-  if ((*(v161 + 46) & 0x80) != 0)
+  v162 = mlir::DenseElementsAttr::getFromRawBuffer(v55, v57, v63, 8 * *v64);
+  v184 = v186;
+  v185 = 0x200000000;
+  InferredResultTypes = mlir::pdl_interp::CreateOperationOp::getInferredResultTypes(&v167);
+  IsSize = mlir::mps::StridedSliceOp::getEndIsSize(&v167);
+  v67 = mlir::pdl_interp::RecordMatchOp::getODSOperandIndexAndLength(&v167, 2u);
+  v69 = v167;
+  if ((*(v167 + 46) & 0x80) != 0)
   {
-    v70 = *(v161 + 9);
+    v70 = *(v167 + 9);
   }
 
   else
@@ -7022,12 +7022,12 @@ LABEL_41:
     v70 = 0;
   }
 
-  v71 = v152;
+  v71 = v158;
   if (HIDWORD(v67) + v67 == v67 || !*(v70 + 32 * v67 + 24))
   {
-    v72 = mlir::pdl_interp::RecordMatchOp::getODSOperandIndexAndLength(&v161, 3u);
-    v69 = v161;
-    v73 = (*(v161 + 46) & 0x80) != 0 ? *(v161 + 9) : 0;
+    v72 = mlir::pdl_interp::RecordMatchOp::getODSOperandIndexAndLength(&v167, 3u);
+    v69 = v167;
+    v73 = (*(v167 + 46) & 0x80) != 0 ? *(v167 + 9) : 0;
     if (HIDWORD(v72) + v72 == v72 || !*(v73 + 32 * v72 + 24))
     {
       if (InferredResultTypes)
@@ -7053,7 +7053,7 @@ LABEL_119:
         memset_pattern16(&__p[16], v80, 0x10uLL);
 LABEL_121:
         *&__p[8] = 0x600000002;
-        llvm::SmallVectorImpl<unsigned long long>::operator=(&v178, __p);
+        llvm::SmallVectorImpl<unsigned long long>::operator=(&v184, __p);
         if (*__p != &__p[16])
         {
           free(*__p);
@@ -7074,30 +7074,30 @@ LABEL_121:
           v123 = 0;
         }
 
-        v162 = mlir::DenseElementsAttr::getFromRawBuffer(v121, v123, v178, 8 * v179, 8, 1, 0);
-        v124 = v187;
-        v125 = llvm::detail::IEEEFloat::IEEEFloat(&v193, -1.0);
-        v126 = llvm::APFloatBase::IEEEsingle(v125);
-        llvm::APFloat::Storage::Storage(&__p[8], &v193, v126);
-        llvm::detail::IEEEFloat::~IEEEFloat(&v193);
-        llvm::detail::IEEEFloat::IEEEFloat(&v163, -1.0);
-        llvm::APFloat::Storage::Storage(&v193 + 8, &v163, v126);
-        llvm::detail::IEEEFloat::~IEEEFloat(&v163);
-        v163 = mlir::OpBuilder::create<mlir::anec::Resize,mlir::Value &,unsigned long long &,unsigned long long &,llvm::APFloat,llvm::APFloat,mlir::DenseIntElementsAttr &,mlir::DenseIntElementsAttr &>(a4 + 1, v71, &v160, v124, v124 + 1, __p, &v193, &v156, &v162);
-        v127 = *(&v193 + 1);
-        v128 = llvm::APFloatBase::PPCDoubleDouble(v163);
-        if (v128 == v127)
+        v168 = mlir::DenseElementsAttr::getFromRawBuffer(v121, v123, v184, 8 * v185);
+        v124 = v193;
+        v128 = llvm::detail::IEEEFloat::IEEEFloat(&v199, -1.0, v125, v126, v127);
+        v129 = llvm::APFloatBase::IEEEsingle(v128);
+        llvm::APFloat::Storage::Storage(&__p[8], &v199, v129);
+        llvm::detail::IEEEFloat::~IEEEFloat(&v199);
+        llvm::detail::IEEEFloat::IEEEFloat(&v169, -1.0, v130, v131, v132);
+        llvm::APFloat::Storage::Storage(&v199 + 8, &v169, v129);
+        llvm::detail::IEEEFloat::~IEEEFloat(&v169);
+        v169 = mlir::OpBuilder::create<mlir::anec::Resize,mlir::Value &,unsigned long long &,unsigned long long &,llvm::APFloat,llvm::APFloat,mlir::DenseIntElementsAttr &,mlir::DenseIntElementsAttr &>(a4 + 1, v71, &v166, v124, v124 + 1, __p, &v199, &v162, &v168);
+        v133 = *(&v199 + 1);
+        v134 = llvm::APFloatBase::PPCDoubleDouble(v169);
+        if (v134 == v133)
         {
-          llvm::detail::DoubleAPFloat::~DoubleAPFloat((&v193 + 8));
+          llvm::detail::DoubleAPFloat::~DoubleAPFloat((&v199 + 8));
         }
 
         else
         {
-          llvm::detail::IEEEFloat::~IEEEFloat((&v193 + 8));
+          llvm::detail::IEEEFloat::~IEEEFloat((&v199 + 8));
         }
 
-        v129 = v152;
-        if (v128 == *&__p[8])
+        v135 = v158;
+        if (v134 == *&__p[8])
         {
           llvm::detail::DoubleAPFloat::~DoubleAPFloat(&__p[8]);
         }
@@ -7107,73 +7107,73 @@ LABEL_121:
           llvm::detail::IEEEFloat::~IEEEFloat(&__p[8]);
         }
 
-        v59 = mlir::anec::Resize::verifyAttributesWithFamily(&v163, 6);
-        v58 = v163;
+        v59 = mlir::anec::Resize::verifyAttributesWithFamily(&v169, 6);
+        v58 = v169;
         if (v59)
         {
-          if (v151 == 1)
+          if (v157 == 1)
           {
             *__p = &__p[16];
             *&__p[16] = v20;
-            *&__p[24] = v154;
-            *&v173 = v21;
-            *(&v173 + 1) = v20;
-            *&v174 = v154;
-            *(&v174 + 1) = v21;
+            *&__p[24] = v160;
+            *&v179 = v21;
+            *(&v179 + 1) = v20;
+            *&v180 = v160;
+            *(&v180 + 1) = v21;
             *&__p[8] = 0x600000006;
-            v193 = xmmword_1E0982820;
-            v130 = mlir::Builder::getIntegerType(a4 + 1, 64, 0);
-            v131 = mlir::RankedTensorType::get(&v193, 2, v130, 0);
-            if (v131)
+            v199 = xmmword_1E0982820;
+            v136 = mlir::Builder::getIntegerType(a4 + 1, 64, 0);
+            v137 = mlir::RankedTensorType::get(&v199, 2, v136, 0);
+            if (v137)
             {
-              v132 = v131;
-              v133 = mlir::detail::InterfaceMap::lookup<mlir::ShapedType>(*v131 + 8);
-              v131 = v132;
-              v129 = v152;
+              v138 = v137;
+              v139 = mlir::detail::InterfaceMap::lookup<mlir::ShapedType>(*v137 + 8);
+              v137 = v138;
+              v135 = v158;
             }
 
             else
             {
-              v133 = 0;
+              v139 = 0;
             }
 
-            v155 = mlir::DenseElementsAttr::getFromRawBuffer(v131, v133, *__p, 8 * *&__p[8], 8, 1, 0);
-            v58 = mlir::OpBuilder::create<mlir::anec::Transpose,mlir::anec::Resize &,mlir::DenseIntElementsAttr &>(a4 + 1, v129, &v163, &v155);
+            v161 = mlir::DenseElementsAttr::getFromRawBuffer(v137, v139, *__p, 8 * *&__p[8]);
+            v58 = mlir::OpBuilder::create<mlir::anec::Transpose,mlir::anec::Resize &,mlir::DenseIntElementsAttr &>(a4 + 1, v135, &v169, &v161);
             if (*__p != &__p[16])
             {
               free(*__p);
             }
           }
 
-          mlir::CallableOpInterface::getArgAttrsAttr(v159);
-          if (v134 <= 3)
+          mlir::CallableOpInterface::getArgAttrsAttr(v165);
+          if (v140 <= 3)
           {
             *__p = &__p[16];
             *&__p[16] = v20;
             *&__p[24] = IndexFromDim;
-            *&v173 = v21;
-            *(&v173 + 1) = v20;
-            *&v174 = IndexFromDim;
-            *(&v174 + 1) = v21;
+            *&v179 = v21;
+            *(&v179 + 1) = v20;
+            *&v180 = IndexFromDim;
+            *(&v180 + 1) = v21;
             *&__p[8] = 0x600000006;
-            v193 = xmmword_1E0982820;
-            v135 = mlir::Builder::getIntegerType(a4 + 1, 64, 0);
-            v136 = mlir::RankedTensorType::get(&v193, 2, v135, 0);
-            if (v136)
+            v199 = xmmword_1E0982820;
+            v141 = mlir::Builder::getIntegerType(a4 + 1, 64, 0);
+            v142 = mlir::RankedTensorType::get(&v199, 2, v141, 0);
+            if (v142)
             {
-              v137 = v136;
-              v138 = mlir::detail::InterfaceMap::lookup<mlir::ShapedType>(*v136 + 8);
-              v136 = v137;
+              v143 = v142;
+              v144 = mlir::detail::InterfaceMap::lookup<mlir::ShapedType>(*v142 + 8);
+              v142 = v143;
             }
 
             else
             {
-              v138 = 0;
+              v144 = 0;
             }
 
-            v155 = mlir::DenseElementsAttr::getFromRawBuffer(v136, v138, *__p, 8 * *&__p[8], 8, 1, 0);
-            *&v193 = v58 - 16;
-            v58 = mlir::OpBuilder::create<mlir::anec::Transpose,mlir::Value &,mlir::DenseIntElementsAttr &>(a4 + 1, v152, &v193, &v155);
+            v161 = mlir::DenseElementsAttr::getFromRawBuffer(v142, v144, *__p, 8 * *&__p[8]);
+            *&v199 = v58 - 16;
+            v58 = mlir::OpBuilder::create<mlir::anec::Transpose,mlir::Value &,mlir::DenseIntElementsAttr &>(a4 + 1, v158, &v199, &v161);
             if (*__p != &__p[16])
             {
               free(*__p);
@@ -7183,11 +7183,11 @@ LABEL_121:
 
         else
         {
-          mlir::ConversionPatternRewriter::eraseOp(a4, v163);
+          mlir::ConversionPatternRewriter::eraseOp(a4, v169);
           *__p = operator new(0x48uLL);
           *&__p[8] = xmmword_1E0982840;
           strcpy(*__p, "requested attributes are not compatible with hardware requirements");
-          mlir::logMatchFailure(__p, *(v161 + 3), a4);
+          mlir::logMatchFailure(__p, *(v167 + 3), a4);
           if ((__p[23] & 0x80000000) != 0)
           {
             operator delete(*__p);
@@ -7206,26 +7206,26 @@ LABEL_118:
     }
   }
 
-  v175 = v169;
-  v176 = v170;
-  *v177 = *v171;
-  *__p = v165;
-  *&__p[16] = v166;
-  v173 = v167;
-  v174 = v168;
+  v181 = v175;
+  v182 = v176;
+  *v183 = *v177;
+  *__p = v171;
+  *&__p[16] = v172;
+  v179 = v173;
+  v180 = v174;
   v74 = mlir::mps::getResizeLayout(v69, v68);
   if ((v74 & 0x100000000) != 0)
   {
     v76 = qword_1E0982BB8[v74];
-    v150 = qword_1E0982BF0[v74];
+    v156 = qword_1E0982BF0[v74];
     v77 = mlir::mps::detail::ResizeOpGenericAdaptorBase::getODSOperandIndexAndLength(__p, 2u);
-    v78 = *(&v176 + 1);
-    *&v193 = *(&v176 + 1);
-    *(&v193 + 1) = v77;
+    v78 = *(&v182 + 1);
+    *&v199 = *(&v182 + 1);
+    *(&v199 + 1) = v77;
     if (v77)
     {
-      v78 = mlir::ValueRange::offset_base(&v193, v77);
-      v79 = *(&v193 + 1);
+      v78 = mlir::ValueRange::offset_base(&v199, v77);
+      v79 = *(&v199 + 1);
     }
 
     else
@@ -7233,7 +7233,7 @@ LABEL_118:
       v79 = 0;
     }
 
-    if (HIDWORD(v77) + v77 == v79 || (v193 = v78, !mlir::ValueRange::dereference_iterator(&v193, 0)))
+    if (HIDWORD(v77) + v77 == v79 || (v199 = v78, !mlir::ValueRange::dereference_iterator(&v199, 0)))
     {
       v84 = 1.0;
       v85 = 1.0;
@@ -7241,16 +7241,16 @@ LABEL_118:
 
     else
     {
-      v163 = 0;
-      v164 = 0;
+      v169 = 0;
+      v170 = 0;
       v81 = mlir::mps::detail::ResizeOpGenericAdaptorBase::getODSOperandIndexAndLength(__p, 2u);
-      v82 = *(&v176 + 1);
-      *&v193 = *(&v176 + 1);
-      *(&v193 + 1) = v81;
+      v82 = *(&v182 + 1);
+      *&v199 = *(&v182 + 1);
+      *(&v199 + 1) = v81;
       if (v81)
       {
-        v82 = mlir::ValueRange::offset_base(&v193, v81);
-        v83 = *(&v193 + 1);
+        v82 = mlir::ValueRange::offset_base(&v199, v81);
+        v83 = *(&v199 + 1);
       }
 
       else
@@ -7260,58 +7260,58 @@ LABEL_118:
 
       if (HIDWORD(v81) + v81 == v83)
       {
-        v139 = 0;
+        v145 = 0;
       }
 
       else
       {
-        v193 = v82;
-        v139 = mlir::ValueRange::dereference_iterator(&v193, 0);
+        v199 = v82;
+        v145 = mlir::ValueRange::dereference_iterator(&v199, 0);
       }
 
-      v162 = &v163;
-      *&v193 = v139;
-      v140 = mlir::Value::getDefiningOp(&v193);
-      if (!v140 || !mlir::detail::constant_op_binder<mlir::ElementsAttr>::match(&v162, v140))
+      v168 = &v169;
+      *&v199 = v145;
+      v146 = mlir::Value::getDefiningOp(&v199);
+      if (!v146 || !mlir::detail::constant_op_binder<mlir::ElementsAttr>::match(&v168, v146))
       {
         goto LABEL_68;
       }
 
-      *&v193 = v194;
-      *(&v193 + 1) = 0x400000000;
-      mlir::getFloatValues<float>(v163, v164, &v193, 1);
-      v141 = v76;
-      v142 = DWORD2(v193);
+      *&v199 = v200;
+      *(&v199 + 1) = 0x400000000;
+      mlir::getFloatValues<float>(v169, v170, &v199, 1);
+      v147 = v76;
+      v148 = DWORD2(v199);
       v84 = 1.0;
       v85 = 1.0;
-      v143 = v141;
-      if (v141 < DWORD2(v193))
+      v149 = v147;
+      if (v147 < DWORD2(v199))
       {
-        v85 = *(v193 + 4 * v141);
-        v84 = *(v193 + 4 * v150);
+        v85 = *(v199 + 4 * v147);
+        v84 = *(v199 + 4 * v156);
       }
 
-      if (v193 != v194)
+      if (v199 != v200)
       {
-        free(v193);
+        free(v199);
       }
 
-      v144 = v143 >= v142;
-      v76 = v143;
-      if (v144)
+      v150 = v149 >= v148;
+      v76 = v149;
+      if (v150)
       {
         goto LABEL_68;
       }
     }
 
     v86 = mlir::mps::detail::ResizeOpGenericAdaptorBase::getODSOperandIndexAndLength(__p, 3u);
-    v87 = *(&v176 + 1);
-    *&v193 = *(&v176 + 1);
-    *(&v193 + 1) = v86;
+    v87 = *(&v182 + 1);
+    *&v199 = *(&v182 + 1);
+    *(&v199 + 1) = v86;
     if (v86)
     {
-      v87 = mlir::ValueRange::offset_base(&v193, v86);
-      v88 = *(&v193 + 1);
+      v87 = mlir::ValueRange::offset_base(&v199, v86);
+      v88 = *(&v199 + 1);
     }
 
     else
@@ -7319,7 +7319,7 @@ LABEL_118:
       v88 = 0;
     }
 
-    if (HIDWORD(v86) + v86 == v88 || (v193 = v87, !mlir::ValueRange::dereference_iterator(&v193, 0)))
+    if (HIDWORD(v86) + v86 == v88 || (v199 = v87, !mlir::ValueRange::dereference_iterator(&v199, 0)))
     {
       v92 = 0.0;
       v93 = 0.0;
@@ -7327,16 +7327,16 @@ LABEL_118:
 
     else
     {
-      v163 = 0;
-      v164 = 0;
+      v169 = 0;
+      v170 = 0;
       v89 = mlir::mps::detail::ResizeOpGenericAdaptorBase::getODSOperandIndexAndLength(__p, 3u);
-      v90 = *(&v176 + 1);
-      *&v193 = *(&v176 + 1);
-      *(&v193 + 1) = v89;
+      v90 = *(&v182 + 1);
+      *&v199 = *(&v182 + 1);
+      *(&v199 + 1) = v89;
       if (v89)
       {
-        v90 = mlir::ValueRange::offset_base(&v193, v89);
-        v91 = *(&v193 + 1);
+        v90 = mlir::ValueRange::offset_base(&v199, v89);
+        v91 = *(&v199 + 1);
       }
 
       else
@@ -7346,59 +7346,59 @@ LABEL_118:
 
       if (HIDWORD(v89) + v89 == v91)
       {
-        v145 = 0;
+        v151 = 0;
       }
 
       else
       {
-        v193 = v90;
-        v145 = mlir::ValueRange::dereference_iterator(&v193, 0);
+        v199 = v90;
+        v151 = mlir::ValueRange::dereference_iterator(&v199, 0);
       }
 
-      v162 = &v163;
-      *&v193 = v145;
-      v146 = mlir::Value::getDefiningOp(&v193);
-      if (!v146 || !mlir::detail::constant_op_binder<mlir::ElementsAttr>::match(&v162, v146))
+      v168 = &v169;
+      *&v199 = v151;
+      v152 = mlir::Value::getDefiningOp(&v199);
+      if (!v152 || !mlir::detail::constant_op_binder<mlir::ElementsAttr>::match(&v168, v152))
       {
         goto LABEL_68;
       }
 
-      *&v193 = v194;
-      *(&v193 + 1) = 0x400000000;
-      mlir::getFloatValues<float>(v163, v164, &v193, 1);
-      v147 = v76;
-      v148 = DWORD2(v193);
+      *&v199 = v200;
+      *(&v199 + 1) = 0x400000000;
+      mlir::getFloatValues<float>(v169, v170, &v199, 1);
+      v153 = v76;
+      v154 = DWORD2(v199);
       v92 = 0.0;
       v93 = 0.0;
-      v149 = v147;
-      if (v147 < DWORD2(v193))
+      v155 = v153;
+      if (v153 < DWORD2(v199))
       {
-        v93 = *(v193 + 4 * v147);
-        v92 = *(v193 + 4 * v150);
+        v93 = *(v199 + 4 * v153);
+        v92 = *(v199 + 4 * v156);
       }
 
-      if (v193 != v194)
+      if (v199 != v200)
       {
-        free(v193);
+        free(v199);
       }
 
-      if (v149 >= v148)
+      if (v155 >= v154)
       {
         goto LABEL_68;
       }
     }
 
     v94 = mlir::mps::detail::ResizeOpGenericAdaptorBase::getODSOperandIndexAndLength(__p, 0);
-    v95 = *(&v176 + 1);
-    *&v193 = *(&v176 + 1);
-    *(&v193 + 1) = v94;
+    v95 = *(&v182 + 1);
+    *&v199 = *(&v182 + 1);
+    *(&v199 + 1) = v94;
     if (v94)
     {
-      v95 = mlir::ValueRange::offset_base(&v193, v94);
+      v95 = mlir::ValueRange::offset_base(&v199, v94);
     }
 
-    v193 = v95;
-    v96 = (*(mlir::ValueRange::dereference_iterator(&v193, 0) + 8) & 0xFFFFFFFFFFFFFFF8);
+    v199 = v95;
+    v96 = (*(mlir::ValueRange::dereference_iterator(&v199, 0) + 8) & 0xFFFFFFFFFFFFFFF8);
     if (v96)
     {
       v97 = mlir::detail::InterfaceMap::lookup<mlir::ShapedType>(*v96 + 8);
@@ -7409,9 +7409,9 @@ LABEL_118:
       v97 = 0;
     }
 
-    *&v193 = v96;
-    *(&v193 + 1) = v97;
-    v98 = mlir::CallableOpInterface::getArgAttrsAttr(&v193);
+    *&v199 = v96;
+    *(&v199 + 1) = v97;
+    v98 = mlir::CallableOpInterface::getArgAttrsAttr(&v199);
     v100 = v99;
     v101 = *(a1 + 96);
     if (*(v69 + 9))
@@ -7432,9 +7432,9 @@ LABEL_118:
       v104 = mlir::detail::InterfaceMap::lookup<mlir::ShapedType>(*v104 + 8);
     }
 
-    *&v193 = v105;
-    *(&v193 + 1) = v104;
-    v106 = mlir::CallableOpInterface::getArgAttrsAttr(&v193);
+    *&v199 = v105;
+    *(&v199 + 1) = v104;
+    v106 = mlir::CallableOpInterface::getArgAttrsAttr(&v199);
     v108 = v107;
     v109 = mlir::anec::getIndexFromDim(3, v100);
     v110 = mlir::anec::getIndexFromDim(4, v108);
@@ -7448,7 +7448,7 @@ LABEL_118:
     }
 
     v115 = (v85 + -1.0) * 0.5 != v93 || (v84 + -1.0) * 0.5 != v92;
-    v71 = v152;
+    v71 = v158;
     v116 = v112;
     v117 = *(v106 + 8 * v110);
     v118 = v85 != (v113 / v111) || v84 != (v117 / v116);
@@ -7478,7 +7478,7 @@ LABEL_68:
   *__p = operator new(0x48uLL);
   *&__p[8] = xmmword_1E0982670;
   strcpy(*__p, "Resize with custom scale and offset values not supported on ANE.");
-  v75 = *(v161 + 3);
+  v75 = *(v167 + 3);
 LABEL_72:
   mlir::logMatchFailure(__p, v75, a4);
   if ((__p[23] & 0x80000000) != 0)
@@ -7489,37 +7489,37 @@ LABEL_72:
   v58 = 0;
   v59 = 0;
 LABEL_148:
-  if (v178 != v180)
-  {
-    free(v178);
-  }
-
-  if (v181 != v183)
-  {
-    free(v181);
-  }
-
   if (v184 != v186)
   {
     free(v184);
   }
 
-LABEL_44:
   if (v187 != v189)
   {
     free(v187);
   }
 
-  if (v190 != v191)
+  if (v190 != v192)
   {
     free(v190);
   }
 
+LABEL_44:
+  if (v193 != v195)
+  {
+    free(v193);
+  }
+
+  if (v196 != v197)
+  {
+    free(v196);
+  }
+
   if (v59)
   {
-    *&v165 = v58 - 16;
+    *&v171 = v58 - 16;
     matched = 1;
-    mlir::ValueRange::ValueRange(__p, &v165, 1uLL);
+    mlir::ValueRange::ValueRange(__p, &v171, 1uLL);
     mlir::ConversionPatternRewriter::replaceOp(a4, a2, *__p, *&__p[8]);
   }
 
@@ -7528,7 +7528,7 @@ LABEL_44:
     *__p = operator new(0x60uLL);
     *&__p[8] = xmmword_1E0982860;
     strcpy(*__p, "Conversion did not match a valid resize or a valid transformation supported by the hardware.");
-    matched = mlir::logMatchFailure(__p, a2[3], a4);
+    matched = mlir::logMatchFailure(__p, *(a2 + 3), a4);
     if ((__p[23] & 0x80000000) != 0)
     {
       operator delete(*__p);
@@ -7572,26 +7572,26 @@ void mlir::anonymous namespace::ConvertResize<(mlir::anec::Family)7>::~ConvertRe
   operator delete(__p);
 }
 
-uint64_t mlir::anonymous namespace::ConvertResizeGeneric<(mlir::anec::Family)7>::matchAndRewriteWithStaticShapes(uint64_t a1, uint64_t *a2, __int128 *a3, uint64_t **a4)
+uint64_t mlir::anonymous namespace::ConvertResizeGeneric<(mlir::anec::Family)7>::matchAndRewriteWithStaticShapes(uint64_t a1, mlir::mps *a2, __int128 *a3, uint64_t **a4)
 {
-  v194[3] = *MEMORY[0x1E69E9840];
+  v200[3] = *MEMORY[0x1E69E9840];
   v6 = a3[5];
-  v169 = a3[4];
-  v170 = v6;
-  *v171 = *(a3 + 12);
+  v175 = a3[4];
+  v176 = v6;
+  *v177 = *(a3 + 12);
   v7 = a3[1];
-  v165 = *a3;
-  v166 = v7;
+  v171 = *a3;
+  v172 = v7;
   v8 = a3[3];
-  v167 = a3[2];
-  v168 = v8;
-  v161 = a2;
-  v192[0] = *(&v170 + 1);
-  v192[1] = *v171;
-  v9 = a2[3];
-  v160 = mlir::ValueRange::dereference_iterator(v192, 0);
-  ODSOperandIndexAndLength = mlir::pdl_interp::RecordMatchOp::getODSOperandIndexAndLength(&v161, 0);
-  v11 = (*(*(*(v161 + 9) + 32 * ODSOperandIndexAndLength + 24) + 8) & 0xFFFFFFFFFFFFFFF8);
+  v173 = a3[2];
+  v174 = v8;
+  v167 = a2;
+  v198[0] = *(&v176 + 1);
+  v198[1] = *v177;
+  v9 = *(a2 + 3);
+  v166 = mlir::ValueRange::dereference_iterator(v198, 0);
+  ODSOperandIndexAndLength = mlir::pdl_interp::RecordMatchOp::getODSOperandIndexAndLength(&v167, 0);
+  v11 = (*(*(*(v167 + 9) + 32 * ODSOperandIndexAndLength + 24) + 8) & 0xFFFFFFFFFFFFFFF8);
   if (v11)
   {
     v12 = mlir::detail::InterfaceMap::lookup<mlir::ShapedType>(*v11 + 8);
@@ -7602,11 +7602,11 @@ uint64_t mlir::anonymous namespace::ConvertResizeGeneric<(mlir::anec::Family)7>:
     v12 = 0;
   }
 
-  v159[0] = v11;
-  v159[1] = v12;
-  v13 = mlir::mps::detail::ResizeOpGenericAdaptorBase::getODSOperandIndexAndLength(&v165, 0);
-  v14 = *(&v170 + 1);
-  *__p = *(&v170 + 1);
+  v165[0] = v11;
+  v165[1] = v12;
+  v13 = mlir::mps::detail::ResizeOpGenericAdaptorBase::getODSOperandIndexAndLength(&v171, 0);
+  v14 = *(&v176 + 1);
+  *__p = *(&v176 + 1);
   *&__p[8] = v13;
   if (v13)
   {
@@ -7634,20 +7634,20 @@ uint64_t mlir::anonymous namespace::ConvertResizeGeneric<(mlir::anec::Family)7>:
   v20 = mlir::anec::getIndexFromDim(1, v18);
   v21 = mlir::anec::getIndexFromDim(3, v18);
   v22 = mlir::anec::getIndexFromDim(4, v18);
-  mlir::CallableOpInterface::getArgAttrsAttr(v159);
+  mlir::CallableOpInterface::getArgAttrsAttr(v165);
   if (v23 <= 3)
   {
     *__p = &__p[16];
     *&__p[16] = IndexFromDim;
     *&__p[24] = v20;
-    *&v173 = v20;
-    *(&v173 + 1) = v21;
-    *&v174 = v21;
-    *(&v174 + 1) = IndexFromDim;
+    *&v179 = v20;
+    *(&v179 + 1) = v21;
+    *&v180 = v21;
+    *(&v180 + 1) = IndexFromDim;
     *&__p[8] = 0x600000006;
-    v190 = xmmword_1E0982820;
+    v196 = xmmword_1E0982820;
     IntegerType = mlir::Builder::getIntegerType(a4 + 1, 64, 0);
-    v25 = mlir::RankedTensorType::get(&v190, 2, IntegerType, 0);
+    v25 = mlir::RankedTensorType::get(&v196, 2, IntegerType, 0);
     if (v25)
     {
       v26 = v25;
@@ -7660,17 +7660,17 @@ uint64_t mlir::anonymous namespace::ConvertResizeGeneric<(mlir::anec::Family)7>:
       v27 = 0;
     }
 
-    *&v193 = mlir::DenseElementsAttr::getFromRawBuffer(v25, v27, *__p, 8 * *&__p[8], 8, 1, 0);
-    v160 = mlir::OpBuilder::create<mlir::anec::Transpose,mlir::Value &,mlir::DenseIntElementsAttr &>(a4 + 1, v9, &v160, &v193) - 16;
+    *&v199 = mlir::DenseElementsAttr::getFromRawBuffer(v25, v27, *__p, 8 * *&__p[8]);
+    v166 = mlir::OpBuilder::create<mlir::anec::Transpose,mlir::Value &,mlir::DenseIntElementsAttr &>(a4 + 1, v9, &v166, &v199) - 16;
     if (*__p != &__p[16])
     {
       free(*__p);
     }
   }
 
-  if (*(v161 + 9))
+  if (*(v167 + 9))
   {
-    v28 = v161 - 16;
+    v28 = v167 - 16;
   }
 
   else
@@ -7689,18 +7689,18 @@ uint64_t mlir::anonymous namespace::ConvertResizeGeneric<(mlir::anec::Family)7>:
     v30 = 0;
   }
 
-  v158[0] = v29;
-  v158[1] = v30;
-  ArgAttrsAttr = mlir::CallableOpInterface::getArgAttrsAttr(v158);
+  v164[0] = v29;
+  v164[1] = v30;
+  ArgAttrsAttr = mlir::CallableOpInterface::getArgAttrsAttr(v164);
   v33 = v32;
-  *&v190 = v191;
-  *(&v190 + 1) = 0x400000000;
+  *&v196 = v197;
+  *(&v196 + 1) = 0x400000000;
   v34 = (8 * v32) >> 3;
-  v154 = v22;
+  v160 = v22;
   if (v34 < 5)
   {
     v35 = 0;
-    v36 = v191;
+    v36 = v197;
     v37 = 8 * v33;
     if (!v33)
     {
@@ -7710,41 +7710,41 @@ uint64_t mlir::anonymous namespace::ConvertResizeGeneric<(mlir::anec::Family)7>:
     goto LABEL_25;
   }
 
-  llvm::SmallVectorBase<unsigned int>::grow_pod(&v190, v191, v34, 8);
-  v35 = DWORD2(v190);
-  v36 = v190;
+  llvm::SmallVectorBase<unsigned int>::grow_pod(&v196, v197, v34, 8);
+  v35 = DWORD2(v196);
+  v36 = v196;
   v37 = 8 * v33;
   if (v33)
   {
 LABEL_25:
     memcpy(v36 + 8 * v35, ArgAttrsAttr, v37);
-    v35 = DWORD2(v190);
-    v36 = v190;
+    v35 = DWORD2(v196);
+    v36 = v196;
   }
 
 LABEL_26:
   v38 = v35 + (v37 >> 3);
-  DWORD2(v190) = v38;
+  DWORD2(v196) = v38;
   if (v38 <= 3)
   {
-    llvm::SmallVectorImpl<unsigned long long>::insert(&v190, v36, 4 - v38, 1uLL);
-    v36 = v190;
+    llvm::SmallVectorImpl<unsigned long long>::insert(&v196, v36, 4 - v38, 1uLL);
+    v36 = v196;
   }
 
   v39 = *(v36 + v21);
-  v40 = *(v36 + v154);
-  v187 = v189;
-  v189[0] = v39;
-  v189[1] = v40;
-  v188 = 0x200000002;
-  ResizeLayout = mlir::mps::getResizeLayout(v161, v36);
+  v40 = *(v36 + v160);
+  v193 = v195;
+  v195[0] = v39;
+  v195[1] = v40;
+  v194 = 0x200000002;
+  ResizeLayout = mlir::mps::getResizeLayout(v167, v36);
   if ((ResizeLayout & 0x100000000) == 0)
   {
     *__p = operator new(0x20uLL);
     *&__p[8] = xmmword_1E0982800;
     strcpy(*__p, "Resize layout not supported");
 LABEL_41:
-    mlir::logMatchFailure(__p, *(v161 + 3), a4);
+    mlir::logMatchFailure(__p, *(v167 + 3), a4);
     if ((__p[23] & 0x80000000) != 0)
     {
       operator delete(*__p);
@@ -7761,14 +7761,14 @@ LABEL_41:
     *__p = &__p[16];
     *&__p[16] = v20;
     *&__p[24] = v21;
-    *&v173 = v21;
-    *(&v173 + 1) = v154;
-    *&v174 = v154;
-    *(&v174 + 1) = v20;
+    *&v179 = v21;
+    *(&v179 + 1) = v160;
+    *&v180 = v160;
+    *(&v180 + 1) = v20;
     *&__p[8] = 0x600000006;
-    v193 = xmmword_1E0982820;
+    v199 = xmmword_1E0982820;
     v43 = mlir::Builder::getIntegerType(a4 + 1, 64, 0);
-    v44 = mlir::RankedTensorType::get(&v193, 2, v43, 0);
+    v44 = mlir::RankedTensorType::get(&v199, 2, v43, 0);
     if (v44)
     {
       v45 = v9;
@@ -7783,11 +7783,11 @@ LABEL_41:
       v47 = 0;
     }
 
-    v184 = mlir::DenseElementsAttr::getFromRawBuffer(v44, v47, *__p, 8 * *&__p[8], 8, 1, 0);
-    v160 = mlir::OpBuilder::create<mlir::anec::Transpose,mlir::Value &,mlir::DenseIntElementsAttr &>(a4 + 1, v9, &v160, &v184) - 16;
-    v48 = v190;
-    v49 = v187;
-    *v187 = *(v190 + 8 * v20);
+    v190 = mlir::DenseElementsAttr::getFromRawBuffer(v44, v47, *__p, 8 * *&__p[8]);
+    v166 = mlir::OpBuilder::create<mlir::anec::Transpose,mlir::Value &,mlir::DenseIntElementsAttr &>(a4 + 1, v9, &v166, &v190) - 16;
+    v48 = v196;
+    v49 = v193;
+    *v193 = *(v196 + 8 * v20);
     v49[1] = *(v48 + 8 * v21);
     if (*__p != &__p[16])
     {
@@ -7795,14 +7795,14 @@ LABEL_41:
     }
   }
 
-  v157[0] = 0;
-  v157[1] = 0;
-  v50 = mlir::pdl_interp::RecordMatchOp::getODSOperandIndexAndLength(&v161, 1u);
-  v51 = *(*(v161 + 9) + 32 * v50 + 24);
-  *&v193 = v157;
+  v163[0] = 0;
+  v163[1] = 0;
+  v50 = mlir::pdl_interp::RecordMatchOp::getODSOperandIndexAndLength(&v167, 1u);
+  v51 = *(*(v167 + 9) + 32 * v50 + 24);
+  *&v199 = v163;
   *__p = v51;
   DefiningOp = mlir::Value::getDefiningOp(__p);
-  if (!DefiningOp || (mlir::detail::constant_op_binder<mlir::ElementsAttr>::match(&v193, DefiningOp) & 1) == 0)
+  if (!DefiningOp || (mlir::detail::constant_op_binder<mlir::ElementsAttr>::match(&v199, DefiningOp) & 1) == 0)
   {
     *__p = operator new(0x28uLL);
     *&__p[8] = xmmword_1E0982850;
@@ -7810,16 +7810,16 @@ LABEL_41:
     goto LABEL_41;
   }
 
-  v151 = v42;
-  v152 = v9;
-  v184 = v186;
-  v186[1] = 0;
-  v186[0] = 0;
-  v185 = 0x200000002;
-  v181 = v183;
-  memset_pattern16(v183, &unk_1E096FAE0, 0x10uLL);
-  v182 = 0x200000002;
-  GateLayout = mlir::mps::LSTMOp::getGateLayout(&v161);
+  v157 = v42;
+  v158 = v9;
+  v190 = v192;
+  v192[1] = 0;
+  v192[0] = 0;
+  v191 = 0x200000002;
+  v187 = v189;
+  memset_pattern16(v189, &unk_1E096FAE0, 0x10uLL);
+  v188 = 0x200000002;
+  GateLayout = mlir::mps::LSTMOp::getGateLayout(&v167);
   *__p = 2;
   v54 = mlir::Builder::getIntegerType(a4 + 1, 64, 0);
   v55 = mlir::RankedTensorType::get(__p, 1, v54, 0);
@@ -7837,31 +7837,31 @@ LABEL_41:
 
   if (GateLayout == 1)
   {
-    v62 = &v184;
+    v62 = &v190;
   }
 
   else
   {
-    v62 = &v181;
+    v62 = &v187;
   }
 
   v63 = *v62;
-  v64 = &v185;
+  v64 = &v191;
   if (GateLayout != 1)
   {
-    v64 = &v182;
+    v64 = &v188;
   }
 
-  v156 = mlir::DenseElementsAttr::getFromRawBuffer(v55, v57, v63, 8 * *v64, 8, 1, 0);
-  v178 = v180;
-  v179 = 0x200000000;
-  InferredResultTypes = mlir::pdl_interp::CreateOperationOp::getInferredResultTypes(&v161);
-  IsSize = mlir::mps::StridedSliceOp::getEndIsSize(&v161);
-  v67 = mlir::pdl_interp::RecordMatchOp::getODSOperandIndexAndLength(&v161, 2u);
-  v69 = v161;
-  if ((*(v161 + 46) & 0x80) != 0)
+  v162 = mlir::DenseElementsAttr::getFromRawBuffer(v55, v57, v63, 8 * *v64);
+  v184 = v186;
+  v185 = 0x200000000;
+  InferredResultTypes = mlir::pdl_interp::CreateOperationOp::getInferredResultTypes(&v167);
+  IsSize = mlir::mps::StridedSliceOp::getEndIsSize(&v167);
+  v67 = mlir::pdl_interp::RecordMatchOp::getODSOperandIndexAndLength(&v167, 2u);
+  v69 = v167;
+  if ((*(v167 + 46) & 0x80) != 0)
   {
-    v70 = *(v161 + 9);
+    v70 = *(v167 + 9);
   }
 
   else
@@ -7869,12 +7869,12 @@ LABEL_41:
     v70 = 0;
   }
 
-  v71 = v152;
+  v71 = v158;
   if (HIDWORD(v67) + v67 == v67 || !*(v70 + 32 * v67 + 24))
   {
-    v72 = mlir::pdl_interp::RecordMatchOp::getODSOperandIndexAndLength(&v161, 3u);
-    v69 = v161;
-    v73 = (*(v161 + 46) & 0x80) != 0 ? *(v161 + 9) : 0;
+    v72 = mlir::pdl_interp::RecordMatchOp::getODSOperandIndexAndLength(&v167, 3u);
+    v69 = v167;
+    v73 = (*(v167 + 46) & 0x80) != 0 ? *(v167 + 9) : 0;
     if (HIDWORD(v72) + v72 == v72 || !*(v73 + 32 * v72 + 24))
     {
       if (InferredResultTypes)
@@ -7900,7 +7900,7 @@ LABEL_119:
         memset_pattern16(&__p[16], v80, 0x10uLL);
 LABEL_121:
         *&__p[8] = 0x600000002;
-        llvm::SmallVectorImpl<unsigned long long>::operator=(&v178, __p);
+        llvm::SmallVectorImpl<unsigned long long>::operator=(&v184, __p);
         if (*__p != &__p[16])
         {
           free(*__p);
@@ -7921,30 +7921,30 @@ LABEL_121:
           v123 = 0;
         }
 
-        v162 = mlir::DenseElementsAttr::getFromRawBuffer(v121, v123, v178, 8 * v179, 8, 1, 0);
-        v124 = v187;
-        v125 = llvm::detail::IEEEFloat::IEEEFloat(&v193, -1.0);
-        v126 = llvm::APFloatBase::IEEEsingle(v125);
-        llvm::APFloat::Storage::Storage(&__p[8], &v193, v126);
-        llvm::detail::IEEEFloat::~IEEEFloat(&v193);
-        llvm::detail::IEEEFloat::IEEEFloat(&v163, -1.0);
-        llvm::APFloat::Storage::Storage(&v193 + 8, &v163, v126);
-        llvm::detail::IEEEFloat::~IEEEFloat(&v163);
-        v163 = mlir::OpBuilder::create<mlir::anec::Resize,mlir::Value &,unsigned long long &,unsigned long long &,llvm::APFloat,llvm::APFloat,mlir::DenseIntElementsAttr &,mlir::DenseIntElementsAttr &>(a4 + 1, v71, &v160, v124, v124 + 1, __p, &v193, &v156, &v162);
-        v127 = *(&v193 + 1);
-        v128 = llvm::APFloatBase::PPCDoubleDouble(v163);
-        if (v128 == v127)
+        v168 = mlir::DenseElementsAttr::getFromRawBuffer(v121, v123, v184, 8 * v185);
+        v124 = v193;
+        v128 = llvm::detail::IEEEFloat::IEEEFloat(&v199, -1.0, v125, v126, v127);
+        v129 = llvm::APFloatBase::IEEEsingle(v128);
+        llvm::APFloat::Storage::Storage(&__p[8], &v199, v129);
+        llvm::detail::IEEEFloat::~IEEEFloat(&v199);
+        llvm::detail::IEEEFloat::IEEEFloat(&v169, -1.0, v130, v131, v132);
+        llvm::APFloat::Storage::Storage(&v199 + 8, &v169, v129);
+        llvm::detail::IEEEFloat::~IEEEFloat(&v169);
+        v169 = mlir::OpBuilder::create<mlir::anec::Resize,mlir::Value &,unsigned long long &,unsigned long long &,llvm::APFloat,llvm::APFloat,mlir::DenseIntElementsAttr &,mlir::DenseIntElementsAttr &>(a4 + 1, v71, &v166, v124, v124 + 1, __p, &v199, &v162, &v168);
+        v133 = *(&v199 + 1);
+        v134 = llvm::APFloatBase::PPCDoubleDouble(v169);
+        if (v134 == v133)
         {
-          llvm::detail::DoubleAPFloat::~DoubleAPFloat((&v193 + 8));
+          llvm::detail::DoubleAPFloat::~DoubleAPFloat((&v199 + 8));
         }
 
         else
         {
-          llvm::detail::IEEEFloat::~IEEEFloat((&v193 + 8));
+          llvm::detail::IEEEFloat::~IEEEFloat((&v199 + 8));
         }
 
-        v129 = v152;
-        if (v128 == *&__p[8])
+        v135 = v158;
+        if (v134 == *&__p[8])
         {
           llvm::detail::DoubleAPFloat::~DoubleAPFloat(&__p[8]);
         }
@@ -7954,73 +7954,73 @@ LABEL_121:
           llvm::detail::IEEEFloat::~IEEEFloat(&__p[8]);
         }
 
-        v59 = mlir::anec::Resize::verifyAttributesWithFamily(&v163, 7);
-        v58 = v163;
+        v59 = mlir::anec::Resize::verifyAttributesWithFamily(&v169, 7);
+        v58 = v169;
         if (v59)
         {
-          if (v151 == 1)
+          if (v157 == 1)
           {
             *__p = &__p[16];
             *&__p[16] = v20;
-            *&__p[24] = v154;
-            *&v173 = v21;
-            *(&v173 + 1) = v20;
-            *&v174 = v154;
-            *(&v174 + 1) = v21;
+            *&__p[24] = v160;
+            *&v179 = v21;
+            *(&v179 + 1) = v20;
+            *&v180 = v160;
+            *(&v180 + 1) = v21;
             *&__p[8] = 0x600000006;
-            v193 = xmmword_1E0982820;
-            v130 = mlir::Builder::getIntegerType(a4 + 1, 64, 0);
-            v131 = mlir::RankedTensorType::get(&v193, 2, v130, 0);
-            if (v131)
+            v199 = xmmword_1E0982820;
+            v136 = mlir::Builder::getIntegerType(a4 + 1, 64, 0);
+            v137 = mlir::RankedTensorType::get(&v199, 2, v136, 0);
+            if (v137)
             {
-              v132 = v131;
-              v133 = mlir::detail::InterfaceMap::lookup<mlir::ShapedType>(*v131 + 8);
-              v131 = v132;
-              v129 = v152;
+              v138 = v137;
+              v139 = mlir::detail::InterfaceMap::lookup<mlir::ShapedType>(*v137 + 8);
+              v137 = v138;
+              v135 = v158;
             }
 
             else
             {
-              v133 = 0;
+              v139 = 0;
             }
 
-            v155 = mlir::DenseElementsAttr::getFromRawBuffer(v131, v133, *__p, 8 * *&__p[8], 8, 1, 0);
-            v58 = mlir::OpBuilder::create<mlir::anec::Transpose,mlir::anec::Resize &,mlir::DenseIntElementsAttr &>(a4 + 1, v129, &v163, &v155);
+            v161 = mlir::DenseElementsAttr::getFromRawBuffer(v137, v139, *__p, 8 * *&__p[8]);
+            v58 = mlir::OpBuilder::create<mlir::anec::Transpose,mlir::anec::Resize &,mlir::DenseIntElementsAttr &>(a4 + 1, v135, &v169, &v161);
             if (*__p != &__p[16])
             {
               free(*__p);
             }
           }
 
-          mlir::CallableOpInterface::getArgAttrsAttr(v159);
-          if (v134 <= 3)
+          mlir::CallableOpInterface::getArgAttrsAttr(v165);
+          if (v140 <= 3)
           {
             *__p = &__p[16];
             *&__p[16] = v20;
             *&__p[24] = IndexFromDim;
-            *&v173 = v21;
-            *(&v173 + 1) = v20;
-            *&v174 = IndexFromDim;
-            *(&v174 + 1) = v21;
+            *&v179 = v21;
+            *(&v179 + 1) = v20;
+            *&v180 = IndexFromDim;
+            *(&v180 + 1) = v21;
             *&__p[8] = 0x600000006;
-            v193 = xmmword_1E0982820;
-            v135 = mlir::Builder::getIntegerType(a4 + 1, 64, 0);
-            v136 = mlir::RankedTensorType::get(&v193, 2, v135, 0);
-            if (v136)
+            v199 = xmmword_1E0982820;
+            v141 = mlir::Builder::getIntegerType(a4 + 1, 64, 0);
+            v142 = mlir::RankedTensorType::get(&v199, 2, v141, 0);
+            if (v142)
             {
-              v137 = v136;
-              v138 = mlir::detail::InterfaceMap::lookup<mlir::ShapedType>(*v136 + 8);
-              v136 = v137;
+              v143 = v142;
+              v144 = mlir::detail::InterfaceMap::lookup<mlir::ShapedType>(*v142 + 8);
+              v142 = v143;
             }
 
             else
             {
-              v138 = 0;
+              v144 = 0;
             }
 
-            v155 = mlir::DenseElementsAttr::getFromRawBuffer(v136, v138, *__p, 8 * *&__p[8], 8, 1, 0);
-            *&v193 = v58 - 16;
-            v58 = mlir::OpBuilder::create<mlir::anec::Transpose,mlir::Value &,mlir::DenseIntElementsAttr &>(a4 + 1, v152, &v193, &v155);
+            v161 = mlir::DenseElementsAttr::getFromRawBuffer(v142, v144, *__p, 8 * *&__p[8]);
+            *&v199 = v58 - 16;
+            v58 = mlir::OpBuilder::create<mlir::anec::Transpose,mlir::Value &,mlir::DenseIntElementsAttr &>(a4 + 1, v158, &v199, &v161);
             if (*__p != &__p[16])
             {
               free(*__p);
@@ -8030,11 +8030,11 @@ LABEL_121:
 
         else
         {
-          mlir::ConversionPatternRewriter::eraseOp(a4, v163);
+          mlir::ConversionPatternRewriter::eraseOp(a4, v169);
           *__p = operator new(0x48uLL);
           *&__p[8] = xmmword_1E0982840;
           strcpy(*__p, "requested attributes are not compatible with hardware requirements");
-          mlir::logMatchFailure(__p, *(v161 + 3), a4);
+          mlir::logMatchFailure(__p, *(v167 + 3), a4);
           if ((__p[23] & 0x80000000) != 0)
           {
             operator delete(*__p);
@@ -8053,26 +8053,26 @@ LABEL_118:
     }
   }
 
-  v175 = v169;
-  v176 = v170;
-  *v177 = *v171;
-  *__p = v165;
-  *&__p[16] = v166;
-  v173 = v167;
-  v174 = v168;
+  v181 = v175;
+  v182 = v176;
+  *v183 = *v177;
+  *__p = v171;
+  *&__p[16] = v172;
+  v179 = v173;
+  v180 = v174;
   v74 = mlir::mps::getResizeLayout(v69, v68);
   if ((v74 & 0x100000000) != 0)
   {
     v76 = qword_1E0982BB8[v74];
-    v150 = qword_1E0982BF0[v74];
+    v156 = qword_1E0982BF0[v74];
     v77 = mlir::mps::detail::ResizeOpGenericAdaptorBase::getODSOperandIndexAndLength(__p, 2u);
-    v78 = *(&v176 + 1);
-    *&v193 = *(&v176 + 1);
-    *(&v193 + 1) = v77;
+    v78 = *(&v182 + 1);
+    *&v199 = *(&v182 + 1);
+    *(&v199 + 1) = v77;
     if (v77)
     {
-      v78 = mlir::ValueRange::offset_base(&v193, v77);
-      v79 = *(&v193 + 1);
+      v78 = mlir::ValueRange::offset_base(&v199, v77);
+      v79 = *(&v199 + 1);
     }
 
     else
@@ -8080,7 +8080,7 @@ LABEL_118:
       v79 = 0;
     }
 
-    if (HIDWORD(v77) + v77 == v79 || (v193 = v78, !mlir::ValueRange::dereference_iterator(&v193, 0)))
+    if (HIDWORD(v77) + v77 == v79 || (v199 = v78, !mlir::ValueRange::dereference_iterator(&v199, 0)))
     {
       v84 = 1.0;
       v85 = 1.0;
@@ -8088,16 +8088,16 @@ LABEL_118:
 
     else
     {
-      v163 = 0;
-      v164 = 0;
+      v169 = 0;
+      v170 = 0;
       v81 = mlir::mps::detail::ResizeOpGenericAdaptorBase::getODSOperandIndexAndLength(__p, 2u);
-      v82 = *(&v176 + 1);
-      *&v193 = *(&v176 + 1);
-      *(&v193 + 1) = v81;
+      v82 = *(&v182 + 1);
+      *&v199 = *(&v182 + 1);
+      *(&v199 + 1) = v81;
       if (v81)
       {
-        v82 = mlir::ValueRange::offset_base(&v193, v81);
-        v83 = *(&v193 + 1);
+        v82 = mlir::ValueRange::offset_base(&v199, v81);
+        v83 = *(&v199 + 1);
       }
 
       else
@@ -8107,58 +8107,58 @@ LABEL_118:
 
       if (HIDWORD(v81) + v81 == v83)
       {
-        v139 = 0;
+        v145 = 0;
       }
 
       else
       {
-        v193 = v82;
-        v139 = mlir::ValueRange::dereference_iterator(&v193, 0);
+        v199 = v82;
+        v145 = mlir::ValueRange::dereference_iterator(&v199, 0);
       }
 
-      v162 = &v163;
-      *&v193 = v139;
-      v140 = mlir::Value::getDefiningOp(&v193);
-      if (!v140 || !mlir::detail::constant_op_binder<mlir::ElementsAttr>::match(&v162, v140))
+      v168 = &v169;
+      *&v199 = v145;
+      v146 = mlir::Value::getDefiningOp(&v199);
+      if (!v146 || !mlir::detail::constant_op_binder<mlir::ElementsAttr>::match(&v168, v146))
       {
         goto LABEL_68;
       }
 
-      *&v193 = v194;
-      *(&v193 + 1) = 0x400000000;
-      mlir::getFloatValues<float>(v163, v164, &v193, 1);
-      v141 = v76;
-      v142 = DWORD2(v193);
+      *&v199 = v200;
+      *(&v199 + 1) = 0x400000000;
+      mlir::getFloatValues<float>(v169, v170, &v199, 1);
+      v147 = v76;
+      v148 = DWORD2(v199);
       v84 = 1.0;
       v85 = 1.0;
-      v143 = v141;
-      if (v141 < DWORD2(v193))
+      v149 = v147;
+      if (v147 < DWORD2(v199))
       {
-        v85 = *(v193 + 4 * v141);
-        v84 = *(v193 + 4 * v150);
+        v85 = *(v199 + 4 * v147);
+        v84 = *(v199 + 4 * v156);
       }
 
-      if (v193 != v194)
+      if (v199 != v200)
       {
-        free(v193);
+        free(v199);
       }
 
-      v144 = v143 >= v142;
-      v76 = v143;
-      if (v144)
+      v150 = v149 >= v148;
+      v76 = v149;
+      if (v150)
       {
         goto LABEL_68;
       }
     }
 
     v86 = mlir::mps::detail::ResizeOpGenericAdaptorBase::getODSOperandIndexAndLength(__p, 3u);
-    v87 = *(&v176 + 1);
-    *&v193 = *(&v176 + 1);
-    *(&v193 + 1) = v86;
+    v87 = *(&v182 + 1);
+    *&v199 = *(&v182 + 1);
+    *(&v199 + 1) = v86;
     if (v86)
     {
-      v87 = mlir::ValueRange::offset_base(&v193, v86);
-      v88 = *(&v193 + 1);
+      v87 = mlir::ValueRange::offset_base(&v199, v86);
+      v88 = *(&v199 + 1);
     }
 
     else
@@ -8166,7 +8166,7 @@ LABEL_118:
       v88 = 0;
     }
 
-    if (HIDWORD(v86) + v86 == v88 || (v193 = v87, !mlir::ValueRange::dereference_iterator(&v193, 0)))
+    if (HIDWORD(v86) + v86 == v88 || (v199 = v87, !mlir::ValueRange::dereference_iterator(&v199, 0)))
     {
       v92 = 0.0;
       v93 = 0.0;
@@ -8174,16 +8174,16 @@ LABEL_118:
 
     else
     {
-      v163 = 0;
-      v164 = 0;
+      v169 = 0;
+      v170 = 0;
       v89 = mlir::mps::detail::ResizeOpGenericAdaptorBase::getODSOperandIndexAndLength(__p, 3u);
-      v90 = *(&v176 + 1);
-      *&v193 = *(&v176 + 1);
-      *(&v193 + 1) = v89;
+      v90 = *(&v182 + 1);
+      *&v199 = *(&v182 + 1);
+      *(&v199 + 1) = v89;
       if (v89)
       {
-        v90 = mlir::ValueRange::offset_base(&v193, v89);
-        v91 = *(&v193 + 1);
+        v90 = mlir::ValueRange::offset_base(&v199, v89);
+        v91 = *(&v199 + 1);
       }
 
       else
@@ -8193,59 +8193,59 @@ LABEL_118:
 
       if (HIDWORD(v89) + v89 == v91)
       {
-        v145 = 0;
+        v151 = 0;
       }
 
       else
       {
-        v193 = v90;
-        v145 = mlir::ValueRange::dereference_iterator(&v193, 0);
+        v199 = v90;
+        v151 = mlir::ValueRange::dereference_iterator(&v199, 0);
       }
 
-      v162 = &v163;
-      *&v193 = v145;
-      v146 = mlir::Value::getDefiningOp(&v193);
-      if (!v146 || !mlir::detail::constant_op_binder<mlir::ElementsAttr>::match(&v162, v146))
+      v168 = &v169;
+      *&v199 = v151;
+      v152 = mlir::Value::getDefiningOp(&v199);
+      if (!v152 || !mlir::detail::constant_op_binder<mlir::ElementsAttr>::match(&v168, v152))
       {
         goto LABEL_68;
       }
 
-      *&v193 = v194;
-      *(&v193 + 1) = 0x400000000;
-      mlir::getFloatValues<float>(v163, v164, &v193, 1);
-      v147 = v76;
-      v148 = DWORD2(v193);
+      *&v199 = v200;
+      *(&v199 + 1) = 0x400000000;
+      mlir::getFloatValues<float>(v169, v170, &v199, 1);
+      v153 = v76;
+      v154 = DWORD2(v199);
       v92 = 0.0;
       v93 = 0.0;
-      v149 = v147;
-      if (v147 < DWORD2(v193))
+      v155 = v153;
+      if (v153 < DWORD2(v199))
       {
-        v93 = *(v193 + 4 * v147);
-        v92 = *(v193 + 4 * v150);
+        v93 = *(v199 + 4 * v153);
+        v92 = *(v199 + 4 * v156);
       }
 
-      if (v193 != v194)
+      if (v199 != v200)
       {
-        free(v193);
+        free(v199);
       }
 
-      if (v149 >= v148)
+      if (v155 >= v154)
       {
         goto LABEL_68;
       }
     }
 
     v94 = mlir::mps::detail::ResizeOpGenericAdaptorBase::getODSOperandIndexAndLength(__p, 0);
-    v95 = *(&v176 + 1);
-    *&v193 = *(&v176 + 1);
-    *(&v193 + 1) = v94;
+    v95 = *(&v182 + 1);
+    *&v199 = *(&v182 + 1);
+    *(&v199 + 1) = v94;
     if (v94)
     {
-      v95 = mlir::ValueRange::offset_base(&v193, v94);
+      v95 = mlir::ValueRange::offset_base(&v199, v94);
     }
 
-    v193 = v95;
-    v96 = (*(mlir::ValueRange::dereference_iterator(&v193, 0) + 8) & 0xFFFFFFFFFFFFFFF8);
+    v199 = v95;
+    v96 = (*(mlir::ValueRange::dereference_iterator(&v199, 0) + 8) & 0xFFFFFFFFFFFFFFF8);
     if (v96)
     {
       v97 = mlir::detail::InterfaceMap::lookup<mlir::ShapedType>(*v96 + 8);
@@ -8256,9 +8256,9 @@ LABEL_118:
       v97 = 0;
     }
 
-    *&v193 = v96;
-    *(&v193 + 1) = v97;
-    v98 = mlir::CallableOpInterface::getArgAttrsAttr(&v193);
+    *&v199 = v96;
+    *(&v199 + 1) = v97;
+    v98 = mlir::CallableOpInterface::getArgAttrsAttr(&v199);
     v100 = v99;
     v101 = *(a1 + 96);
     if (*(v69 + 9))
@@ -8279,9 +8279,9 @@ LABEL_118:
       v104 = mlir::detail::InterfaceMap::lookup<mlir::ShapedType>(*v104 + 8);
     }
 
-    *&v193 = v105;
-    *(&v193 + 1) = v104;
-    v106 = mlir::CallableOpInterface::getArgAttrsAttr(&v193);
+    *&v199 = v105;
+    *(&v199 + 1) = v104;
+    v106 = mlir::CallableOpInterface::getArgAttrsAttr(&v199);
     v108 = v107;
     v109 = mlir::anec::getIndexFromDim(3, v100);
     v110 = mlir::anec::getIndexFromDim(4, v108);
@@ -8295,7 +8295,7 @@ LABEL_118:
     }
 
     v115 = (v85 + -1.0) * 0.5 != v93 || (v84 + -1.0) * 0.5 != v92;
-    v71 = v152;
+    v71 = v158;
     v116 = v112;
     v117 = *(v106 + 8 * v110);
     v118 = v85 != (v113 / v111) || v84 != (v117 / v116);
@@ -8325,7 +8325,7 @@ LABEL_68:
   *__p = operator new(0x48uLL);
   *&__p[8] = xmmword_1E0982670;
   strcpy(*__p, "Resize with custom scale and offset values not supported on ANE.");
-  v75 = *(v161 + 3);
+  v75 = *(v167 + 3);
 LABEL_72:
   mlir::logMatchFailure(__p, v75, a4);
   if ((__p[23] & 0x80000000) != 0)
@@ -8336,37 +8336,37 @@ LABEL_72:
   v58 = 0;
   v59 = 0;
 LABEL_148:
-  if (v178 != v180)
-  {
-    free(v178);
-  }
-
-  if (v181 != v183)
-  {
-    free(v181);
-  }
-
   if (v184 != v186)
   {
     free(v184);
   }
 
-LABEL_44:
   if (v187 != v189)
   {
     free(v187);
   }
 
-  if (v190 != v191)
+  if (v190 != v192)
   {
     free(v190);
   }
 
+LABEL_44:
+  if (v193 != v195)
+  {
+    free(v193);
+  }
+
+  if (v196 != v197)
+  {
+    free(v196);
+  }
+
   if (v59)
   {
-    *&v165 = v58 - 16;
+    *&v171 = v58 - 16;
     matched = 1;
-    mlir::ValueRange::ValueRange(__p, &v165, 1uLL);
+    mlir::ValueRange::ValueRange(__p, &v171, 1uLL);
     mlir::ConversionPatternRewriter::replaceOp(a4, a2, *__p, *&__p[8]);
   }
 
@@ -8375,7 +8375,7 @@ LABEL_44:
     *__p = operator new(0x60uLL);
     *&__p[8] = xmmword_1E0982860;
     strcpy(*__p, "Conversion did not match a valid resize or a valid transformation supported by the hardware.");
-    matched = mlir::logMatchFailure(__p, a2[3], a4);
+    matched = mlir::logMatchFailure(__p, *(a2 + 3), a4);
     if ((__p[23] & 0x80000000) != 0)
     {
       operator delete(*__p);
@@ -8676,7 +8676,7 @@ uint64_t mlir::anonymous namespace::ConvertInstanceNorm::matchAndRewriteWithStat
   *&v40 = mlir::ValueRange::dereference_iterator(&v40, 0);
   v35 = mlir::OpBuilder::create<mlir::anec::Cast,mlir::ShapedType &,mlir::Value>((a4 + 8), v24, v34, &v40) - 16;
   v27 = *(a2 + 24);
-  mlir::mps::detail::InstanceNormOpGenericAdaptorBase::getEpsilon(a3, &v40);
+  mlir::mps::detail::InstanceNormOpGenericAdaptorBase::getEpsilon(&v40, a3);
   if (v19)
   {
     v28 = mlir::OpBuilder::create<mlir::anec::LayerNorm,mlir::Value &,mlir::DenseIntElementsAttr &,llvm::APFloat>((a4 + 8), v27, &v35, &v37, &v40);
@@ -8717,7 +8717,7 @@ uint64_t mlir::anonymous namespace::ConvertInstanceNorm::matchAndRewriteWithStat
   return 1;
 }
 
-uint64_t mlir::OpBuilder::create<mlir::anec::LayerNorm,mlir::Value &,mlir::DenseIntElementsAttr &,llvm::APFloat>(mlir::Float32Type **a1, uint64_t a2, uint64_t *a3, uint64_t *a4, uint64_t a5)
+char *mlir::OpBuilder::create<mlir::anec::LayerNorm,mlir::Value &,mlir::DenseIntElementsAttr &,llvm::APFloat>(mlir::Float32Type **a1, uint64_t a2, uint64_t *a3, uint64_t *a4, uint64_t a5)
 {
   v27[38] = *MEMORY[0x1E69E9840];
   v22 = a2;
@@ -8756,7 +8756,7 @@ uint64_t mlir::OpBuilder::create<mlir::anec::LayerNorm,mlir::Value &,mlir::Dense
   }
 
   v19 = mlir::OpBuilder::create(a1, v27);
-  if (*(*(v19 + 48) + 16) == &mlir::detail::TypeIDResolver<mlir::anec::LayerNorm,void>::id)
+  if (*(*(v19 + 6) + 16) == &mlir::detail::TypeIDResolver<mlir::anec::LayerNorm,void>::id)
   {
     v20 = v19;
   }
@@ -8770,7 +8770,7 @@ uint64_t mlir::OpBuilder::create<mlir::anec::LayerNorm,mlir::Value &,mlir::Dense
   return v20;
 }
 
-uint64_t mlir::OpBuilder::create<mlir::anec::InstanceNorm,mlir::Value &,mlir::DenseIntElementsAttr &,llvm::APFloat>(mlir::Float32Type **a1, uint64_t a2, uint64_t *a3, uint64_t *a4, uint64_t a5)
+char *mlir::OpBuilder::create<mlir::anec::InstanceNorm,mlir::Value &,mlir::DenseIntElementsAttr &,llvm::APFloat>(mlir::Float32Type **a1, uint64_t a2, uint64_t *a3, uint64_t *a4, uint64_t a5)
 {
   v27[38] = *MEMORY[0x1E69E9840];
   v22 = a2;
@@ -8809,7 +8809,7 @@ uint64_t mlir::OpBuilder::create<mlir::anec::InstanceNorm,mlir::Value &,mlir::De
   }
 
   v19 = mlir::OpBuilder::create(a1, v27);
-  if (*(*(v19 + 48) + 16) == &mlir::detail::TypeIDResolver<mlir::anec::InstanceNorm,void>::id)
+  if (*(*(v19 + 6) + 16) == &mlir::detail::TypeIDResolver<mlir::anec::InstanceNorm,void>::id)
   {
     v20 = v19;
   }
@@ -9362,7 +9362,7 @@ LABEL_43:
   v38 = mlir::ValueRange::dereference_iterator(v47, 0);
   v48[0] = v49;
   v48[1] = 0x100000000;
-  mlir::OpBuilder::createOrFold<mlir::anec::Transpose,mlir::Value,llvm::SmallVector<std::pair<unsigned long long,unsigned long long>,5u> &>(a6 + 8, v48, v35, &v38, &v40);
+  mlir::OpBuilder::createOrFold<mlir::anec::Transpose,mlir::Value,llvm::SmallVector<std::pair<unsigned long long,unsigned long long>,5u> &>((a6 + 8), v48, v35, &v38, &v40);
   v36 = *v48[0];
   if (v48[0] != v49)
   {
@@ -9382,92 +9382,92 @@ LABEL_43:
   return v36;
 }
 
-void mlir::OpBuilder::createOrFold<mlir::anec::Transpose,mlir::Value,llvm::SmallVector<std::pair<unsigned long long,unsigned long long>,5u> &>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4, uint64_t a5)
+void mlir::OpBuilder::createOrFold<mlir::anec::Transpose,mlir::Value,llvm::SmallVector<std::pair<unsigned long long,unsigned long long>,5u> &>(uint64_t **a1, _DWORD *a2, uint64_t a3, uint64_t *a4, uint64_t a5)
 {
-  v31[38] = *MEMORY[0x1E69E9840];
-  v28 = a3;
-  Context = mlir::Attribute::getContext(&v28);
+  v30[38] = *MEMORY[0x1E69E9840];
+  v27 = a3;
+  Context = mlir::Attribute::getContext(&v27);
   v11 = mlir::RegisteredOperationName::lookup(&mlir::detail::TypeIDResolver<mlir::anec::Transpose,void>::id, Context);
   if ((v12 & 1) == 0)
   {
-    mlir::OpBuilder::create<mlir::anec::Transpose,mlir::Value &,unsigned long long &,unsigned long long &>(v31, v30, v29);
+    mlir::OpBuilder::create<mlir::anec::Transpose,mlir::Value &,unsigned long long &,unsigned long long &>(v30, v29, v28);
   }
 
-  mlir::OperationState::OperationState(v31, a3, v11);
-  mlir::anec::Transpose::build(a1, v31, *a4, *a5, *(a5 + 8));
-  v14 = mlir::Operation::create(v31, v13);
-  v15 = *(a1 + 16);
+  mlir::OperationState::OperationState(v30, a3, v11);
+  mlir::anec::Transpose::build(a1, v30, *a4, *a5, *(a5 + 8));
+  v14 = mlir::Operation::create(v30, v13);
+  v15 = a1[2];
   if (v15)
   {
-    v16 = *(a1 + 24);
-    llvm::ilist_traits<mlir::Operation>::addNodeToList(v15 + 32, v14);
-    v18 = MPSGraphDelegateCompiler.precompilationDescriptor.modify(v14, v17);
-    v19 = *v16;
+    v16 = a1[3];
+    llvm::ilist_traits<mlir::Operation>::addNodeToList((v15 + 4), v14);
+    MPSGraphDelegateCompiler.precompilationDescriptor.modify();
+    v17 = *v16;
     *v18 = *v16;
     v18[1] = v16;
-    *(v19 + 8) = v18;
+    *(v17 + 8) = v18;
     *v16 = v18;
-    MPSGraphDelegateCompiler.precompilationDescriptor.modify(v14, v20);
+    MPSGraphDelegateCompiler.precompilationDescriptor.modify();
   }
 
-  if ((mlir::OpBuilder::tryFold(a1, v14, a2) & 1) != 0 && *(a2 + 8))
+  if ((mlir::OpBuilder::tryFold(a1, v14, a2) & 1) != 0 && a2[2])
   {
-    mlir::Operation::erase(v14);
+    mlir::Operation::erase(v14, v19);
     goto LABEL_20;
   }
 
-  v21 = v14[9];
-  if (v21)
+  v20 = v14[9];
+  if (v20)
   {
-    v22 = (v14 - 4);
+    v21 = (v14 - 4);
   }
 
   else
   {
-    v22 = 0;
+    v21 = 0;
   }
 
-  *(a2 + 8) = 0;
-  if (v21 <= *(a2 + 12))
+  a2[2] = 0;
+  if (v20 <= a2[3])
   {
-    if (!v21)
+    if (!v20)
     {
-      v26 = 0;
+      v25 = 0;
       goto LABEL_17;
     }
 
-    v23 = 0;
+    v22 = 0;
   }
 
   else
   {
-    llvm::SmallVectorBase<unsigned int>::grow_pod(a2, a2 + 16, v21, 8);
-    v23 = *(a2 + 8);
+    llvm::SmallVectorBase<unsigned int>::grow_pod(a2, a2 + 4, v20, 8);
+    v22 = a2[2];
   }
 
-  v24 = 0;
-  v25 = *a2 + 8 * v23;
+  v23 = 0;
+  v24 = *a2 + 8 * v22;
   do
   {
-    *(v25 + 8 * v24) = mlir::detail::OpResultImpl::getNextResultAtOffset(v22, v24);
-    ++v24;
+    *(v24 + 8 * v23) = mlir::detail::OpResultImpl::getNextResultAtOffset(v21, v23);
+    ++v23;
   }
 
-  while (v21 != v24);
-  v26 = *(a2 + 8);
+  while (v20 != v23);
+  v25 = a2[2];
 LABEL_17:
-  *(a2 + 8) = v26 + v21;
-  if (*(a1 + 16))
+  a2[2] = v25 + v20;
+  if (a1[2])
   {
-    v27 = *(a1 + 8);
-    if (v27)
+    v26 = a1[1];
+    if (v26)
     {
-      (*(*v27 + 16))(v27, v14, 0, 0);
+      (*(*v26 + 16))(v26, v14, 0, 0);
     }
   }
 
 LABEL_20:
-  mlir::OperationState::~OperationState(v31);
+  mlir::OperationState::~OperationState(v30);
 }
 
 void mlir::anonymous namespace::ConvertGatherND::~ConvertGatherND(mlir::_anonymous_namespace_::ConvertGatherND *this)
@@ -9750,10 +9750,10 @@ uint64_t mlir::anonymous namespace::ConvertGatherND::matchAndRewriteWithStaticSh
   }
 
   v113 = mlir::ValueRange::dereference_iterator(&v126, 1);
-  ElementTypeOrSelf = mlir::getElementTypeOrSelf((*(v113 + 8) & 0xFFFFFFFFFFFFFFF8));
+  ElementTypeOrSelf = mlir::getElementTypeOrSelf((*(v113 + 1) & 0xFFFFFFFFFFFFFFF8));
   if (mlir::Type::getIntOrFloatBitWidth(&ElementTypeOrSelf) >= 9 && !mlir::Type::isF16(&ElementTypeOrSelf))
   {
-    v24 = (*(v113 + 8) & 0xFFFFFFFFFFFFFFF8);
+    v24 = (*(v113 + 1) & 0xFFFFFFFFFFFFFFF8);
     if (v24)
     {
       v25 = mlir::detail::InterfaceMap::lookup<mlir::ShapedType>(*v24 + 8);
@@ -9774,7 +9774,7 @@ uint64_t mlir::anonymous namespace::ConvertGatherND::matchAndRewriteWithStaticSh
     *&v122 = mlir::Builder::getF16Type(a4 + 1, v28);
     v124 = v125 + 8;
     *&v125[0] = 0x100000000;
-    mlir::OpBuilder::createOrFold<mlir::mps::CastOp,mlir::Value &,mlir::FloatType>((a4 + 1), &v124, v27, &v113, &v122);
+    mlir::OpBuilder::createOrFold<mlir::mps::CastOp,mlir::Value &,mlir::FloatType>(a4 + 1, &v124, v27, &v113, &v122);
     v29 = *v124;
     if (v124 != v125 + 8)
     {
@@ -10027,7 +10027,7 @@ LABEL_108:
     v120.__r_.__value_.__l.__size_ = 0x500000000;
     if (*&v74[8 * v61 - 8] > 2uLL)
     {
-      v75 = (*(v113 + 8) & 0xFFFFFFFFFFFFFFF8);
+      v75 = (*(v113 + 1) & 0xFFFFFFFFFFFFFFF8);
       if (v75)
       {
         v76 = mlir::detail::InterfaceMap::lookup<mlir::ShapedType>(*v75 + 8);
@@ -10099,7 +10099,7 @@ LABEL_108:
       v90 = 0;
     }
 
-    v111 = mlir::DenseElementsAttr::getFromRawBuffer(v88, v90, v121.__r_.__value_.__r.__words[0], 8 * LODWORD(v121.__r_.__value_.__r.__words[1]), 8, 1, 0);
+    v111 = mlir::DenseElementsAttr::getFromRawBuffer(v88, v90, v121.__r_.__value_.__l.__data_, 8 * LODWORD(v121.__r_.__value_.__r.__words[1]));
     v91 = v124;
     v92 = LODWORD(v125[0]);
     isSplat = mlir::ElementsAttr::isSplat(v116);

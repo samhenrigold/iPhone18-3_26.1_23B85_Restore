@@ -39,7 +39,7 @@ void __34__RPAutoBugCapture_sharedReporter__block_invoke()
     dispatchQueue = v2->_dispatchQueue;
     v2->_dispatchQueue = v5;
 
-    v7 = [objc_alloc(getSDRDiagnosticReporterClass[0]()) initWithQueue:v2->_dispatchQueue];
+    v7 = [objc_alloc(getSDRDiagnosticReporterClass()) initWithQueue:v2->_dispatchQueue];
     reporter = v2->_reporter;
     v2->_reporter = v7;
   }
@@ -86,26 +86,23 @@ void __86__RPAutoBugCapture_reportIssueOfType_issueContext_processName_triggerTh
   v6 = [v2 signatureWithDomain:@"Rapport" type:v5 subType:*(a1 + 40) detectedProcess:*(a1 + 48) triggerThresholdValues:*(a1 + 56)];
 
   v7 = *(*(a1 + 32) + 16);
-  v11[0] = MEMORY[0x1E69E9820];
-  v11[1] = 3221225472;
-  v11[2] = __86__RPAutoBugCapture_reportIssueOfType_issueContext_processName_triggerThresholdValues___block_invoke_2;
-  v11[3] = &unk_1E7C94870;
+  v8 = MEMORY[0x1E69E9820];
+  v9 = 3221225472;
+  v10 = __86__RPAutoBugCapture_reportIssueOfType_issueContext_processName_triggerThresholdValues___block_invoke_2;
+  v11 = &unk_1E7C94870;
   v14 = *(a1 + 64);
   v12 = *(a1 + 40);
   v13 = *(a1 + 48);
-  if (([v7 snapshotWithSignature:v6 delay:0 events:0 payload:0 actions:v11 reply:0.0] & 1) == 0 && gLogCategory_RPAutoBugCapture <= 90 && (gLogCategory_RPAutoBugCapture != -1 || _LogCategory_Initialize()))
+  if (([v7 snapshotWithSignature:v6 delay:0 events:0 payload:0 actions:&v8 reply:0.0] & 1) == 0 && gLogCategory_RPAutoBugCapture <= 90 && (gLogCategory_RPAutoBugCapture != -1 || _LogCategory_Initialize()))
   {
-    v9 = *(a1 + 40);
-    v10 = *(a1 + 48);
-    v8 = *(a1 + 64);
-    LogPrintF();
+    LogPrintF(&gLogCategory_RPAutoBugCapture, "[RPAutoBugCapture reportIssueOfType:issueContext:processName:triggerThresholdValues:]_block_invoke", 90, "Failed to send report of type %d (context %@) for process %@", *(a1 + 64), *(a1 + 40), *(a1 + 48), v8, v9, v10, v11, v12);
   }
 }
 
 void __86__RPAutoBugCapture_reportIssueOfType_issueContext_processName_triggerThresholdValues___block_invoke_2(void *a1, void *a2)
 {
-  v9 = a2;
-  getkSymptomDiagnosticReplySuccess();
+  v7 = a2;
+  getkSymptomDiagnosticReplySuccess(v7);
   if (CFDictionaryGetInt64())
   {
     if (gLogCategory_RPAutoBugCapture <= 30 && (gLogCategory_RPAutoBugCapture != -1 || _LogCategory_Initialize()))
@@ -116,28 +113,17 @@ void __86__RPAutoBugCapture_reportIssueOfType_issueContext_processName_triggerTh
 
   else
   {
-    v3 = getkSymptomDiagnosticReplyReason();
+    v3 = getkSymptomDiagnosticReplyReason(0);
     v4 = NSDictionaryGetNSNumber();
 
-    getkSymptomDiagnosticReplyReasonString();
+    getkSymptomDiagnosticReplyReasonString(v5);
     CFStringGetTypeID();
-    v5 = CFDictionaryGetTypedValue();
+    v6 = CFDictionaryGetTypedValue();
     if (gLogCategory_RPAutoBugCapture <= 90 && (gLogCategory_RPAutoBugCapture != -1 || _LogCategory_Initialize()))
     {
-      v7 = a1[4];
-      v8 = a1[5];
-      v6 = a1[6];
-      LogPrintF();
+      LogPrintF(&gLogCategory_RPAutoBugCapture, "[RPAutoBugCapture reportIssueOfType:issueContext:processName:triggerThresholdValues:]_block_invoke_2", 90, "Failed to report issue of type %d (context %@) for process %@: error %@ (%@)", a1[6], a1[4], a1[5], v4, v6);
     }
   }
-}
-
-uint64_t __86__RPAutoBugCapture_reportIssueOfType_issueContext_processName_triggerThresholdValues___block_invoke_2_cold_1(void *a1)
-{
-  v3 = a1[4];
-  v4 = a1[5];
-  v2 = a1[6];
-  return LogPrintF();
 }
 
 @end

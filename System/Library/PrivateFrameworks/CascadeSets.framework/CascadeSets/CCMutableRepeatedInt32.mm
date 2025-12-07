@@ -2,6 +2,7 @@
 + (id)new;
 - (CCMutableRepeatedInt32)init;
 - (id)copyWithZone:(_NSZone *)zone;
+- (void)appendInt32Value:(int)value;
 @end
 
 @implementation CCMutableRepeatedInt32
@@ -18,6 +19,14 @@
   v3.receiver = self;
   v3.super_class = &OBJC_METACLASS___CCMutableRepeatedInt32;
   return objc_msgSendSuper2(&v3, sel__new);
+}
+
+- (void)appendInt32Value:(int)value
+{
+  v3 = *&value;
+  values = [(CCRepeatedFieldValue *)self values];
+  v4 = [objc_alloc(MEMORY[0x1E696AD98]) initWithInt:v3];
+  [values addObject:v4];
 }
 
 - (id)copyWithZone:(_NSZone *)zone

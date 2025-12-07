@@ -7,6 +7,7 @@
 - (int64_t)liveVoicemailUnavailableReason;
 - (void)answeringMachine:(id)machine didFinishAnnouncement:(BOOL)announcement error:(id)error;
 - (void)answeringMachine:(id)machine didStart:(BOOL)start error:(id)error;
+- (void)answeringMachine:(id)machine didStop:(BOOL)stop messageRecordingURL:(id)l error:(id)error;
 - (void)captionsClient:(id)client didDetectGibberish:(BOOL)gibberish;
 - (void)captionsClient:(id)client didDisableCaptions:(BOOL)captions error:(id)error;
 - (void)captionsClient:(id)client didEnableCaptions:(BOOL)captions error:(id)error;
@@ -64,93 +65,88 @@
 {
   v5 = type metadata accessor for UUID();
   v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
-  __chkstk_darwin(v5, v8);
-  v10 = &v18 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v11 = type metadata accessor for URL();
-  v12 = *(v11 - 8);
-  v13 = *(v12 + 64);
-  __chkstk_darwin(v11, v14);
-  v16 = &v18 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v5);
+  v8 = &v14 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = type metadata accessor for URL();
+  v10 = *(v9 - 8);
+  __chkstk_darwin(v9);
+  v12 = &v14 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
   static URL._unconditionallyBridgeFromObjectiveC(_:)();
   static UUID._unconditionallyBridgeFromObjectiveC(_:)();
   selfCopy = self;
-  sub_10030B314();
+  sub_10030B314(v12, v8);
 
-  (*(v6 + 8))(v10, v5);
-  (*(v12 + 8))(v16, v11);
+  (*(v6 + 8))(v8, v5);
+  (*(v10 + 8))(v12, v9);
 }
 
 - (void)deleteCustomGreetingFor:(id)for
 {
   v4 = type metadata accessor for UUID();
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
-  __chkstk_darwin(v4, v7);
-  v9 = &v11 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v4);
+  v7 = &v9 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   static UUID._unconditionallyBridgeFromObjectiveC(_:)();
   selfCopy = self;
-  sub_10030B500();
+  sub_10030B500(v7);
 
-  (*(v5 + 8))(v9, v4);
+  (*(v5 + 8))(v7, v4);
 }
 
 - (id)customGreetingFor:(id)for
 {
   v4 = type metadata accessor for UUID();
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
-  __chkstk_darwin(v4, v7);
-  v9 = &v21 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v10 = sub_10026D814(&unk_1006A52C0, &unk_10057D930);
-  v11 = *(*(v10 - 8) + 64);
-  __chkstk_darwin(v10 - 8, v12);
-  v14 = &v21 - v13;
+  __chkstk_darwin(v4);
+  v7 = &v17 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = sub_10026D814(&unk_1006A52C0, &unk_10057D930);
+  __chkstk_darwin(v8 - 8);
+  v10 = &v17 - v9;
   static UUID._unconditionallyBridgeFromObjectiveC(_:)();
   selfCopy = self;
-  sub_10030B628();
+  sub_10030B628(v7);
 
-  (*(v5 + 8))(v9, v4);
-  v16 = type metadata accessor for URL();
-  v18 = 0;
-  if (sub_100015468(v14, 1, v16) != 1)
+  (*(v5 + 8))(v7, v4);
+  v12 = type metadata accessor for URL();
+  v14 = 0;
+  if (sub_100015468(v10, 1, v12) != 1)
   {
-    URL._bridgeToObjectiveC()(v17);
-    v18 = v19;
-    (*(*(v16 - 8) + 8))(v14, v16);
+    URL._bridgeToObjectiveC()(v13);
+    v14 = v15;
+    (*(*(v12 - 8) + 8))(v10, v12);
   }
 
-  return v18;
+  return v14;
 }
 
 - (NSURL)defaultGreeting
 {
   v3 = sub_10026D814(&unk_1006A52C0, &unk_10057D930);
-  v4 = *(*(v3 - 8) + 64);
-  __chkstk_darwin(v3 - 8, v5);
-  v7 = &v14 - v6;
+  __chkstk_darwin(v3 - 8);
+  v5 = &v12 - v4;
   selfCopy = self;
-  sub_10030B92C();
+  sub_10030B92C(selfCopy);
 
-  v9 = type metadata accessor for URL();
-  v11 = 0;
-  if (sub_100015468(v7, 1, v9) != 1)
+  v7 = type metadata accessor for URL();
+  v9 = 0;
+  if (sub_100015468(v5, 1, v7) != 1)
   {
-    URL._bridgeToObjectiveC()(v10);
-    v11 = v12;
-    (*(*(v9 - 8) + 8))(v7, v9);
+    URL._bridgeToObjectiveC()(v8);
+    v9 = v10;
+    (*(*(v7 - 8) + 8))(v5, v7);
   }
 
-  return v11;
+  return v9;
 }
 
 - (BOOL)hasCustomGreetingFor:(id)for
 {
-  static String._unconditionallyBridgeFromObjectiveC(_:)();
+  v4 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+  v6 = v5;
   selfCopy = self;
-  v5 = sub_10030B96C();
+  LOBYTE(v4) = sub_10030B96C(v4, v6);
 
-  return v5 & 1;
+  return v4 & 1;
 }
 
 - (void)answeringMachine:(id)machine didStart:(BOOL)start error:(id)error
@@ -159,6 +155,34 @@
   selfCopy = self;
   errorCopy = error;
   sub_10030C284();
+}
+
+- (void)answeringMachine:(id)machine didStop:(BOOL)stop messageRecordingURL:(id)l error:(id)error
+{
+  stopCopy = stop;
+  v11 = sub_10026D814(&unk_1006A52C0, &unk_10057D930);
+  __chkstk_darwin(v11 - 8);
+  v13 = (&v19 - v12);
+  if (l)
+  {
+    static URL._unconditionallyBridgeFromObjectiveC(_:)();
+    v14 = type metadata accessor for URL();
+    v15 = 0;
+  }
+
+  else
+  {
+    v14 = type metadata accessor for URL();
+    v15 = 1;
+  }
+
+  sub_10000AF74(v13, v15, 1, v14);
+  machineCopy = machine;
+  errorCopy = error;
+  selfCopy = self;
+  sub_10030C860(selfCopy, stopCopy, v13, error);
+
+  sub_100009A04(v13, &unk_1006A52C0, &unk_10057D930);
 }
 
 - (void)answeringMachine:(id)machine didFinishAnnouncement:(BOOL)announcement error:(id)error

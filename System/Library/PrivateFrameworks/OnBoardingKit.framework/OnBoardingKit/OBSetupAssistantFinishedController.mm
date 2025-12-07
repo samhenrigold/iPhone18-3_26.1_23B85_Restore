@@ -86,10 +86,10 @@
 
 - (void)viewDidLoad
 {
-  v103[12] = *MEMORY[0x1E69E9840];
-  v100.receiver = self;
-  v100.super_class = OBSetupAssistantFinishedController;
-  [(OBBaseWelcomeController *)&v100 viewDidLoad];
+  v102[12] = *MEMORY[0x1E69E9840];
+  v99.receiver = self;
+  v99.super_class = OBSetupAssistantFinishedController;
+  [(OBBaseWelcomeController *)&v99 viewDidLoad];
   contentView = [(OBSetupAssistantFinishedController *)self contentView];
 
   if (contentView)
@@ -113,88 +113,88 @@
   instructionalLabel = [(OBSetupAssistantFinishedController *)self instructionalLabel];
   [view3 addSubview:instructionalLabel];
 
-  v66 = MEMORY[0x1E696ACD8];
+  v65 = MEMORY[0x1E696ACD8];
   view4 = [(OBSetupAssistantFinishedController *)self view];
   layoutMarginsGuide = [view4 layoutMarginsGuide];
   leftAnchor = [layoutMarginsGuide leftAnchor];
   leftAnchor2 = [v4 leftAnchor];
-  v89 = [leftAnchor constraintEqualToAnchor:leftAnchor2];
-  v103[0] = v89;
+  v88 = [leftAnchor constraintEqualToAnchor:leftAnchor2];
+  v102[0] = v88;
   view5 = [(OBSetupAssistantFinishedController *)self view];
   layoutMarginsGuide2 = [view5 layoutMarginsGuide];
   rightAnchor = [layoutMarginsGuide2 rightAnchor];
   rightAnchor2 = [v4 rightAnchor];
-  v82 = [rightAnchor constraintEqualToAnchor:rightAnchor2];
-  v103[1] = v82;
+  v81 = [rightAnchor constraintEqualToAnchor:rightAnchor2];
+  v102[1] = v81;
   view6 = [(OBSetupAssistantFinishedController *)self view];
   layoutMarginsGuide3 = [view6 layoutMarginsGuide];
   centerXAnchor = [layoutMarginsGuide3 centerXAnchor];
   centerXAnchor2 = [v4 centerXAnchor];
-  v77 = [centerXAnchor constraintEqualToAnchor:centerXAnchor2];
-  v103[2] = v77;
+  v76 = [centerXAnchor constraintEqualToAnchor:centerXAnchor2];
+  v102[2] = v76;
   view7 = [(OBSetupAssistantFinishedController *)self view];
   centerYAnchor = [view7 centerYAnchor];
   bottomAnchor = [v4 bottomAnchor];
-  v73 = [centerYAnchor constraintEqualToAnchor:bottomAnchor];
-  v103[3] = v73;
+  v72 = [centerYAnchor constraintEqualToAnchor:bottomAnchor];
+  v102[3] = v72;
   topAnchor = [v4 topAnchor];
   view8 = [(OBSetupAssistantFinishedController *)self view];
   layoutMarginsGuide4 = [view8 layoutMarginsGuide];
   topAnchor2 = [layoutMarginsGuide4 topAnchor];
-  v68 = [topAnchor constraintGreaterThanOrEqualToSystemSpacingBelowAnchor:topAnchor2 multiplier:1.0];
-  v103[4] = v68;
+  v67 = [topAnchor constraintGreaterThanOrEqualToSystemSpacingBelowAnchor:topAnchor2 multiplier:1.0];
+  v102[4] = v67;
   buttonTray2 = [(OBSetupAssistantFinishedController *)self buttonTray];
   bottomAnchor2 = [buttonTray2 bottomAnchor];
   view9 = [(OBSetupAssistantFinishedController *)self view];
   bottomAnchor3 = [view9 bottomAnchor];
-  v62 = [bottomAnchor2 constraintEqualToAnchor:bottomAnchor3 constant:0.0];
-  v103[5] = v62;
+  v61 = [bottomAnchor2 constraintEqualToAnchor:bottomAnchor3 constant:0.0];
+  v102[5] = v61;
   buttonTray3 = [(OBSetupAssistantFinishedController *)self buttonTray];
   leadingAnchor = [buttonTray3 leadingAnchor];
   view10 = [(OBSetupAssistantFinishedController *)self view];
   leadingAnchor2 = [view10 leadingAnchor];
-  v57 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2 constant:0.0];
-  v103[6] = v57;
+  v56 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2 constant:0.0];
+  v102[6] = v56;
   buttonTray4 = [(OBSetupAssistantFinishedController *)self buttonTray];
   trailingAnchor = [buttonTray4 trailingAnchor];
   view11 = [(OBSetupAssistantFinishedController *)self view];
   trailingAnchor2 = [view11 trailingAnchor];
-  v52 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2 constant:0.0];
-  v103[7] = v52;
+  v51 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2 constant:0.0];
+  v102[7] = v51;
   view12 = [(OBSetupAssistantFinishedController *)self view];
   layoutMarginsGuide5 = [view12 layoutMarginsGuide];
   leftAnchor3 = [layoutMarginsGuide5 leftAnchor];
   instructionalLabel2 = [(OBSetupAssistantFinishedController *)self instructionalLabel];
   leftAnchor4 = [instructionalLabel2 leftAnchor];
-  v46 = [leftAnchor3 constraintEqualToAnchor:leftAnchor4];
-  v103[8] = v46;
+  v45 = [leftAnchor3 constraintEqualToAnchor:leftAnchor4];
+  v102[8] = v45;
   view13 = [(OBSetupAssistantFinishedController *)self view];
   layoutMarginsGuide6 = [view13 layoutMarginsGuide];
   rightAnchor3 = [layoutMarginsGuide6 rightAnchor];
   instructionalLabel3 = [(OBSetupAssistantFinishedController *)self instructionalLabel];
   rightAnchor4 = [instructionalLabel3 rightAnchor];
-  v40 = [rightAnchor3 constraintEqualToAnchor:rightAnchor4];
-  v103[9] = v40;
+  v39 = [rightAnchor3 constraintEqualToAnchor:rightAnchor4];
+  v102[9] = v39;
   view14 = [(OBSetupAssistantFinishedController *)self view];
   layoutMarginsGuide7 = [view14 layoutMarginsGuide];
   bottomAnchor4 = [layoutMarginsGuide7 bottomAnchor];
   instructionalLabel4 = [(OBSetupAssistantFinishedController *)self instructionalLabel];
   bottomAnchor5 = [instructionalLabel4 bottomAnchor];
   v13 = [bottomAnchor4 constraintEqualToAnchor:bottomAnchor5];
-  v103[10] = v13;
+  v102[10] = v13;
   instructionalLabel5 = [(OBSetupAssistantFinishedController *)self instructionalLabel];
   topAnchor3 = [instructionalLabel5 topAnchor];
-  v99 = v4;
+  v98 = v4;
   bottomAnchor6 = [v4 bottomAnchor];
   v17 = [topAnchor3 constraintGreaterThanOrEqualToSystemSpacingBelowAnchor:bottomAnchor6 multiplier:1.0];
-  v103[11] = v17;
-  v18 = [MEMORY[0x1E695DEC8] arrayWithObjects:v103 count:12];
-  [v66 activateConstraints:v18];
+  v102[11] = v17;
+  v18 = [MEMORY[0x1E695DEC8] arrayWithObjects:v102 count:12];
+  [v65 activateConstraints:v18];
 
   v19 = +[OBDevice currentDevice];
   type = [v19 type];
 
-  v96 = MEMORY[0x1E696ACD8];
+  v95 = MEMORY[0x1E696ACD8];
   buttonTray5 = [(OBSetupAssistantFinishedController *)self buttonTray];
   buttonLayoutGuide = [buttonTray5 buttonLayoutGuide];
   v23 = buttonLayoutGuide;
@@ -202,17 +202,17 @@
   {
     widthAnchor = [buttonLayoutGuide widthAnchor];
     v25 = [widthAnchor constraintEqualToConstant:360.0];
-    v102[0] = v25;
+    v101[0] = v25;
     buttonTray6 = [(OBSetupAssistantFinishedController *)self buttonTray];
     buttonLayoutGuide2 = [buttonTray6 buttonLayoutGuide];
     centerXAnchor3 = [buttonLayoutGuide2 centerXAnchor];
     view15 = [(OBSetupAssistantFinishedController *)self view];
     centerXAnchor4 = [view15 centerXAnchor];
-    v94 = centerXAnchor3;
+    v93 = centerXAnchor3;
     trailingAnchor3 = [centerXAnchor3 constraintEqualToAnchor:centerXAnchor4];
-    v102[1] = trailingAnchor3;
-    view17 = [MEMORY[0x1E695DEC8] arrayWithObjects:v102 count:2];
-    [v96 activateConstraints:view17];
+    v101[1] = trailingAnchor3;
+    view17 = [MEMORY[0x1E695DEC8] arrayWithObjects:v101 count:2];
+    [v95 activateConstraints:view17];
   }
 
   else
@@ -221,20 +221,20 @@
     view16 = [(OBSetupAssistantFinishedController *)self view];
     layoutMarginsGuide8 = [view16 layoutMarginsGuide];
     buttonLayoutGuide2 = [layoutMarginsGuide8 leadingAnchor];
-    v94 = [leadingAnchor3 constraintEqualToAnchor:?];
-    v101[0] = v94;
+    v93 = [leadingAnchor3 constraintEqualToAnchor:?];
+    v100[0] = v93;
     view15 = [(OBSetupAssistantFinishedController *)self buttonTray];
     centerXAnchor4 = [view15 buttonLayoutGuide];
     trailingAnchor3 = [centerXAnchor4 trailingAnchor];
     view17 = [(OBSetupAssistantFinishedController *)self view];
     [view17 layoutMarginsGuide];
-    v32 = v92 = v23;
+    v32 = v91 = v23;
     [v32 trailingAnchor];
     v34 = v33 = buttonTray5;
     v35 = [trailingAnchor3 constraintEqualToAnchor:v34];
-    v101[1] = v35;
-    v36 = [MEMORY[0x1E695DEC8] arrayWithObjects:v101 count:2];
-    [v96 activateConstraints:v36];
+    v100[1] = v35;
+    v36 = [MEMORY[0x1E695DEC8] arrayWithObjects:v100 count:2];
+    [v95 activateConstraints:v36];
 
     v25 = view16;
     widthAnchor = leadingAnchor3;
@@ -242,11 +242,10 @@
     buttonTray5 = v33;
     buttonTray6 = layoutMarginsGuide8;
 
-    v23 = v92;
+    v23 = v91;
   }
 
   [(OBBaseWelcomeController *)self setTemplateType:2];
-  v37 = *MEMORY[0x1E69E9840];
 }
 
 - (void)viewDidLayoutSubviews

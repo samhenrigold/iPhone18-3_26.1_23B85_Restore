@@ -13,18 +13,16 @@
 {
   if (*(self + OBJC_IVAR____TtC30CompanionInternationalSettings17DateFormatSetting__dateFormat + 8))
   {
-    v2 = *(self + OBJC_IVAR____TtC30CompanionInternationalSettings17DateFormatSetting__dateFormat);
-    v3 = *(self + OBJC_IVAR____TtC30CompanionInternationalSettings17DateFormatSetting__dateFormat + 8);
 
-    v4 = sub_1ABC8();
+    v2 = sub_1ABC8();
   }
 
   else
   {
-    v4 = 0;
+    v2 = 0;
   }
 
-  return v4;
+  return v2;
 }
 
 - (void)set_dateFormat:(id)format
@@ -41,7 +39,6 @@
   }
 
   v6 = (self + OBJC_IVAR____TtC30CompanionInternationalSettings17DateFormatSetting__dateFormat);
-  v7 = *(self + OBJC_IVAR____TtC30CompanionInternationalSettings17DateFormatSetting__dateFormat + 8);
   *v6 = v4;
   v6[1] = v5;
 }
@@ -49,24 +46,23 @@
 - (NSString)dateFormat
 {
   swift_getKeyPath();
-  sub_12640(&qword_30118, type metadata accessor for DateFormatSetting);
+  sub_12640(&qword_30118, type metadata accessor for DateFormatSetting, &unk_26AF8);
   selfCopy = self;
   sub_1AB48();
 
-  v5 = *(selfCopy + OBJC_IVAR____TtC30CompanionInternationalSettings17DateFormatSetting__dateFormat);
   v4 = *(selfCopy + OBJC_IVAR____TtC30CompanionInternationalSettings17DateFormatSetting__dateFormat + 8);
 
   if (v4)
   {
-    v6 = sub_1ABC8();
+    v5 = sub_1ABC8();
   }
 
   else
   {
-    v6 = 0;
+    v5 = 0;
   }
 
-  return v6;
+  return v5;
 }
 
 - (void)setDateFormat:(id)format

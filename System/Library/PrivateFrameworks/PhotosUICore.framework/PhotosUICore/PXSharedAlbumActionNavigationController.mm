@@ -44,54 +44,54 @@
   }
 
   bundleCopy = bundle;
-  sub_1A440E070(v5, v7, bundle);
+  sub_1A440E070(v5, v7, bundle, v9);
 }
 
 - (PXSharedAlbumActionNavigationController)initWithAssets:(id)assets batchComment:(id)comment perAssetCreationOptions:(id)options
 {
-  sub_1A3C52C70(0, &qword_1EB126660);
+  sub_1A3C52C70(0, &qword_1EB126660, 0x1E6978630);
   v6 = sub_1A524CA34();
   sub_1A524C674();
-  v8 = v7;
+  v9 = v7;
   if (options)
   {
-    sub_1A3C52C70(0, &qword_1EB12B618);
-    v9 = sub_1A524C3E4();
+    sub_1A3C52C70(0, &qword_1EB12B618, 0x1E6978690);
+    v10 = sub_1A524C3E4();
   }
 
   else
   {
-    v9 = 0;
+    v10 = 0;
   }
 
-  PXSharedAlbumActionNavigationController.init(assets:batchComment:perAssetCreationOptions:)(v6, v7, v8, v9);
+  PXSharedAlbumActionNavigationController.init(assets:batchComment:perAssetCreationOptions:)(v6, v8, v7, v9, v10);
 }
 
 - (PXSharedAlbumActionNavigationController)initWithAssets:(id)assets batchComment:(id)comment perAssetCreationOptions:(id)options selectedPostToAlbumUUID:(id)d
 {
-  sub_1A3C52C70(0, &qword_1EB126660);
+  sub_1A3C52C70(0, &qword_1EB126660, 0x1E6978630);
   v8 = sub_1A524CA34();
   sub_1A524C674();
-  v10 = v9;
+  v11 = v9;
   if (options)
   {
-    sub_1A3C52C70(0, &qword_1EB12B618);
+    sub_1A3C52C70(0, &qword_1EB12B618, 0x1E6978690);
     options = sub_1A524C3E4();
   }
 
   if (d)
   {
-    v11 = sub_1A524C674();
-    v12 = v9;
+    v12 = sub_1A524C674();
+    v13 = v9;
   }
 
   else
   {
-    v11 = 0;
     v12 = 0;
+    v13 = 0;
   }
 
-  PXSharedAlbumActionNavigationController.init(assets:batchComment:perAssetCreationOptions:selectedPostToAlbumUUID:)(v8, v9, v10, options, v11, v12);
+  PXSharedAlbumActionNavigationController.init(assets:batchComment:perAssetCreationOptions:selectedPostToAlbumUUID:)(v8, v10, v9, v11, options, v12, v13);
 }
 
 - (PXSharedAlbumActionNavigationController)initWithCoder:(id)coder
@@ -132,7 +132,7 @@
 
 - (void)setAssets:(id)assets
 {
-  sub_1A3C52C70(0, &qword_1EB126660);
+  sub_1A3C52C70(0, &qword_1EB126660, 0x1E6978630);
   v4 = sub_1A524CA34();
   selfCopy = self;
   PXSharedAlbumActionNavigationController.setAssets(_:)(v4);

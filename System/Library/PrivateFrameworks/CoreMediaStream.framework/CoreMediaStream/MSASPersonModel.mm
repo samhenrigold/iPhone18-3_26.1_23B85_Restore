@@ -1,12 +1,14 @@
 @interface MSASPersonModel
 - (BOOL)dbQueueIsAssetCollectionWithGUIDPending:(id)pending;
 - (BOOL)dbQueueIsGUIDQueued:(id)queued inQueue:(id)queue;
+- (BOOL)dbQueueUpgradeFromDatabaseVersion:(int)version currentVersion:(int)currentVersion;
 - (BOOL)hasItemsForDownloadCountFocusAlbumGUID:(id)d focusAssetCollectionGUID:(id)iD;
 - (BOOL)isAssetCollectionWithGUIDPending:(id)pending;
 - (MSASPersonModel)initWithPersonID:(id)d;
 - (id)_commandWithMinimumIdentifier:(id)identifier outParams:(id *)params outCommandIdentifier:(int64_t *)commandIdentifier outPersonID:(id *)d outAlbumGUID:(id *)iD outAssetCollectionGUID:(id *)uID;
 - (id)commandWithMinimumIdentifier:(int64_t)identifier outParams:(id *)params outCommandIdentifier:(int64_t *)commandIdentifier outPersonID:(id *)d outAlbumGUID:(id *)iD outAssetCollectionGUID:(id *)uID;
 - (id)itemsForUpload;
+- (id)nextItemsForDownloadFocusAlbumGUID:(id)d focusAssetCollectionGUID:(id)iD maxCount:(int)count;
 - (id)nextItemsForDownloadFocusAlbumGUID:(id)d focusAssetCollectionGUID:(id)iD thumbnails:(BOOL)thumbnails maxCount:(int)count isInflight:(BOOL)inflight;
 - (id)nextItemsForUploadAlbumGUID:(id)d maxPriority:(int)priority maxCount:(int)count;
 - (int)assetCollectionsInUploadQueue;
@@ -66,45 +68,43 @@
 
 uint64_t __57__MSASPersonModel_removeAssetCollectionsFromUploadQueue___block_invoke(uint64_t a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   [*(a1 + 32) dbQueueBeginTransaction];
-  v13 = 0u;
-  v14 = 0u;
-  v11 = 0u;
   v12 = 0u;
+  v13 = 0u;
+  v10 = 0u;
+  v11 = 0u;
   v2 = *(a1 + 40);
-  v3 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v12;
+    v5 = *v11;
     do
     {
       v6 = 0;
       do
       {
-        if (*v12 != v5)
+        if (*v11 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
         v7 = *(a1 + 32);
-        v8 = [*(*(&v11 + 1) + 8 * v6) GUID];
+        v8 = [*(*(&v10 + 1) + 8 * v6) GUID];
         [v7 dbQueueRemoveGUID:v8 fromQueue:@"UploadQueue"];
 
         ++v6;
       }
 
       while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v4);
   }
 
-  result = [*(a1 + 32) dbQueueEndTransaction];
-  v10 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 32) dbQueueEndTransaction];
 }
 
 - (void)setErrorCount:(int)count forAssetCollectionInUploadQueue:(id)queue
@@ -160,19 +160,19 @@ void __65__MSASPersonModel_setErrorCount_forAssetCollectionInUploadQueue___block
 
 void __68__MSASPersonModel_nextItemsForUploadAlbumGUID_maxPriority_maxCount___block_invoke(uint64_t a1)
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
   {
-    v30 = *(a1 + 32);
-    v31 = *(a1 + 40);
-    v32 = *(a1 + 56);
-    v37 = 138543874;
-    v38 = v30;
-    v39 = 2114;
-    v40 = v31;
-    v41 = 1024;
-    v42 = v32;
-    _os_log_debug_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%{public}@: Querying for next items to upload. Album GUID: %{public}@. Max: %d.", &v37, 0x1Cu);
+    v29 = *(a1 + 32);
+    v30 = *(a1 + 40);
+    v31 = *(a1 + 56);
+    v36 = 138543874;
+    v37 = v29;
+    v38 = 2114;
+    v39 = v30;
+    v40 = 1024;
+    v41 = v31;
+    _os_log_debug_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%{public}@: Querying for next items to upload. Album GUID: %{public}@. Max: %d.", &v36, 0x1Cu);
   }
 
   if (*(a1 + 40))
@@ -196,72 +196,72 @@ void __68__MSASPersonModel_nextItemsForUploadAlbumGUID_maxPriority_maxCount___bl
 
   if (*(a1 + 40))
   {
-    v9 = sqlite3_bind_parameter_index(v3, ":alb");
-    v10 = sqlite3_bind_text(v3, v9, [*(a1 + 40) UTF8String], -1, 0);
-    v11 = v10;
-    MSSqliteTrapForDBLockError(v10);
-    if (v11)
+    v8 = sqlite3_bind_parameter_index(v3, ":alb");
+    v9 = sqlite3_bind_text(v3, v8, [*(a1 + 40) UTF8String], -1, 0);
+    v10 = v9;
+    MSSqliteTrapForDBLockError(v9);
+    if (v10)
     {
       goto LABEL_7;
     }
   }
 
-  v12 = sqlite3_bind_parameter_index(v3, ":lim");
-  v13 = sqlite3_bind_int(v3, v12, *(a1 + 56));
-  v14 = v13;
-  MSSqliteTrapForDBLockError(v13);
-  if (v14)
+  v11 = sqlite3_bind_parameter_index(v3, ":lim");
+  v12 = sqlite3_bind_int(v3, v11, *(a1 + 56));
+  v13 = v12;
+  MSSqliteTrapForDBLockError(v12);
+  if (v13)
   {
     goto LABEL_7;
   }
 
-  v15 = sqlite3_bind_parameter_index(v3, ":priority");
-  v16 = sqlite3_bind_int(v3, v15, *(a1 + 60));
-  v17 = v16;
-  MSSqliteTrapForDBLockError(v16);
-  if (v17)
+  v14 = sqlite3_bind_parameter_index(v3, ":priority");
+  v15 = sqlite3_bind_int(v3, v14, *(a1 + 60));
+  v16 = v15;
+  MSSqliteTrapForDBLockError(v15);
+  if (v16)
   {
     goto LABEL_7;
   }
 
   while (1)
   {
-    v18 = sqlite3_step(v3);
-    if (v18 != 100)
+    v17 = sqlite3_step(v3);
+    if (v17 != 100)
     {
       break;
     }
 
-    v19 = objc_opt_new();
-    v20 = sqlite3_column_blob(v3, 0);
-    v21 = sqlite3_column_bytes(v3, 0);
-    v22 = MEMORY[0x277CCAAC8];
-    v23 = [MEMORY[0x277CBEA90] dataWithBytesNoCopy:v20 length:v21 freeWhenDone:0];
-    v24 = [v22 MSSafeUnarchiveObjectWithData:v23 outError:0];
+    v18 = objc_opt_new();
+    v19 = sqlite3_column_blob(v3, 0);
+    v20 = sqlite3_column_bytes(v3, 0);
+    v21 = MEMORY[0x277CCAAC8];
+    v22 = [MEMORY[0x277CBEA90] dataWithBytesNoCopy:v19 length:v20 freeWhenDone:0];
+    v23 = [v21 MSSafeUnarchiveObjectWithData:v22 outError:0];
 
-    [v19 setObject:v24];
-    v25 = sqlite3_column_blob(v3, 1);
-    v26 = sqlite3_column_bytes(v3, 1);
-    v27 = MEMORY[0x277CCAAC8];
-    v28 = [MEMORY[0x277CBEA90] dataWithBytesNoCopy:v25 length:v26 freeWhenDone:0];
-    v29 = [v27 MSSafeUnarchiveObjectWithData:v28 outError:0];
+    [v18 setObject:v23];
+    v24 = sqlite3_column_blob(v3, 1);
+    v25 = sqlite3_column_bytes(v3, 1);
+    v26 = MEMORY[0x277CCAAC8];
+    v27 = [MEMORY[0x277CBEA90] dataWithBytesNoCopy:v24 length:v25 freeWhenDone:0];
+    v28 = [v26 MSSafeUnarchiveObjectWithData:v27 outError:0];
 
-    [v19 setAlbum:v29];
-    [v19 setErrorCount:{sqlite3_column_int(v3, 2)}];
-    [*(*(*(a1 + 48) + 8) + 40) addObject:v19];
+    [v18 setAlbum:v28];
+    [v18 setErrorCount:{sqlite3_column_int(v3, 2)}];
+    [*(*(*(a1 + 48) + 8) + 40) addObject:v18];
   }
 
-  if (v18 != 101)
+  if (v17 != 101)
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      v35 = *(a1 + 32);
-      v36 = sqlite3_errmsg([v35 dbQueueDB]);
-      v37 = 138543618;
-      v38 = v35;
-      v39 = 2082;
-      v40 = v36;
-      _os_log_error_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%{public}@: Error retrieving items for upload. Error: %{public}s", &v37, 0x16u);
+      v34 = *(a1 + 32);
+      v35 = sqlite3_errmsg([v34 dbQueueDB]);
+      v36 = 138543618;
+      v37 = v34;
+      v38 = 2082;
+      v39 = v35;
+      _os_log_error_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%{public}@: Error retrieving items for upload. Error: %{public}s", &v36, 0x16u);
     }
 
 LABEL_7:
@@ -270,23 +270,20 @@ LABEL_7:
     v7 = *(v6 + 40);
     *(v6 + 40) = 0;
 
-    goto LABEL_8;
+    return;
   }
 
   sqlite3_reset(v3);
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
   {
-    v33 = *(a1 + 32);
-    v34 = [*(*(*(a1 + 48) + 8) + 40) count];
-    v37 = 138543618;
-    v38 = v33;
-    v39 = 2048;
-    v40 = v34;
-    _os_log_debug_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%{public}@: ...found %ld items.", &v37, 0x16u);
+    v32 = *(a1 + 32);
+    v33 = [*(*(*(a1 + 48) + 8) + 40) count];
+    v36 = 138543618;
+    v37 = v32;
+    v38 = 2048;
+    v39 = v33;
+    _os_log_debug_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%{public}@: ...found %ld items.", &v36, 0x16u);
   }
-
-LABEL_8:
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (id)itemsForUpload
@@ -322,7 +319,7 @@ void __33__MSASPersonModel_itemsForUpload__block_invoke(uint64_t a1)
   *(v4 + 40) = v3;
 }
 
-id __33__MSASPersonModel_itemsForUpload__block_invoke_2(uint64_t a1, sqlite3_stmt *a2)
+MSASPersonModelItem *__33__MSASPersonModel_itemsForUpload__block_invoke_2(uint64_t a1, sqlite3_stmt *a2)
 {
   v3 = objc_opt_new();
   v4 = sqlite3_column_blob(a2, 0);
@@ -367,7 +364,7 @@ id __33__MSASPersonModel_itemsForUpload__block_invoke_2(uint64_t a1, sqlite3_stm
   return dCopy;
 }
 
-uint64_t __58__MSASPersonModel_assetCollectionsInUploadQueueAlbumGUID___block_invoke(uint64_t a1)
+void *__58__MSASPersonModel_assetCollectionsInUploadQueueAlbumGUID___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) dbQueueAssetCountAlbumGUID:*(a1 + 40) inQueue:@"UploadQueue"];
   *(*(*(a1 + 48) + 8) + 24) = result;
@@ -395,7 +392,7 @@ uint64_t __58__MSASPersonModel_assetCollectionsInUploadQueueAlbumGUID___block_in
   return selfCopy;
 }
 
-uint64_t __48__MSASPersonModel_assetCollectionsInUploadQueue__block_invoke(uint64_t a1)
+void *__48__MSASPersonModel_assetCollectionsInUploadQueue__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) dbQueueAssetCountAlbumGUID:0 inQueue:@"UploadQueue"];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -421,18 +418,18 @@ uint64_t __48__MSASPersonModel_assetCollectionsInUploadQueue__block_invoke(uint6
 
 void __57__MSASPersonModel_enqueueAssetCollectionForUpload_album___block_invoke(id *a1)
 {
-  v54 = *MEMORY[0x277D85DE8];
+  v53 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
   {
     v24 = a1[4];
     v25 = a1[5];
     v26 = [a1[6] GUID];
     *buf = 138543874;
-    v49 = v24;
-    v50 = 2114;
-    v51 = v25;
-    v52 = 2114;
-    v53 = v26;
+    v48 = v24;
+    v49 = 2114;
+    v50 = v25;
+    v51 = 2114;
+    v52 = v26;
     _os_log_debug_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%{public}@: Enqueueing upload for asset collection: %{public}@\n In album with GUID: %{public}@", buf, 0x20u);
   }
 
@@ -447,9 +444,9 @@ void __57__MSASPersonModel_enqueueAssetCollectionForUpload_album___block_invoke(
       v4 = a1[4];
       v5 = a1[5];
       *buf = 138543618;
-      v49 = v4;
-      v50 = 2114;
-      v51 = v5;
+      v48 = v4;
+      v49 = 2114;
+      v50 = v5;
       _os_log_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%{public}@: Attempting to re-enqueue asset collection %{public}@ for upload. Ignoring.", buf, 0x16u);
     }
   }
@@ -471,9 +468,9 @@ void __57__MSASPersonModel_enqueueAssetCollectionForUpload_album___block_invoke(
       if (!v12)
       {
         v13 = a1[5];
-        v47 = 0;
-        v14 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:v13 requiringSecureCoding:1 error:&v47];
-        v15 = v47;
+        v46 = 0;
+        v14 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:v13 requiringSecureCoding:1 error:&v46];
+        v15 = v46;
         v16 = v15;
         if (!v14)
         {
@@ -484,7 +481,7 @@ void __57__MSASPersonModel_enqueueAssetCollectionForUpload_album___block_invoke(
           if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138543362;
-            v49 = v19;
+            v48 = v19;
             _os_log_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%{public}@", buf, 0xCu);
           }
         }
@@ -506,9 +503,9 @@ void __57__MSASPersonModel_enqueueAssetCollectionForUpload_album___block_invoke(
         else
         {
           v27 = a1[6];
-          v46 = v16;
-          v28 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:v27 requiringSecureCoding:1 error:&v46];
-          v23 = v46;
+          v45 = v16;
+          v28 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:v27 requiringSecureCoding:1 error:&v45];
+          v23 = v45;
 
           if (!v28)
           {
@@ -519,7 +516,7 @@ void __57__MSASPersonModel_enqueueAssetCollectionForUpload_album___block_invoke(
             if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
             {
               *buf = 138543362;
-              v49 = v31;
+              v48 = v31;
               _os_log_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%{public}@", buf, 0xCu);
             }
           }
@@ -549,7 +546,16 @@ void __57__MSASPersonModel_enqueueAssetCollectionForUpload_album___block_invoke(
 
               if (!v40)
               {
-                v41 = [a1[5] isVideo] ? 10 : 0;
+                if ([a1[5] isVideo])
+                {
+                  v41 = 10;
+                }
+
+                else
+                {
+                  v41 = 0;
+                }
+
                 v42 = sqlite3_bind_int(v6, 6, v41);
                 v43 = v42;
                 MSSqliteTrapForDBLockError(v42);
@@ -567,8 +573,6 @@ void __57__MSASPersonModel_enqueueAssetCollectionForUpload_album___block_invoke(
 
     sqlite3_reset(v6);
   }
-
-  v45 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removeAssetsFromDownloadQueue:(id)queue
@@ -587,137 +591,133 @@ void __57__MSASPersonModel_enqueueAssetCollectionForUpload_album___block_invoke(
 
 uint64_t __49__MSASPersonModel_removeAssetsFromDownloadQueue___block_invoke(uint64_t a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   [*(a1 + 32) dbQueueBeginTransaction];
-  v13 = 0u;
-  v14 = 0u;
-  v11 = 0u;
   v12 = 0u;
+  v13 = 0u;
+  v10 = 0u;
+  v11 = 0u;
   v2 = *(a1 + 40);
-  v3 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v12;
+    v5 = *v11;
     do
     {
       v6 = 0;
       do
       {
-        if (*v12 != v5)
+        if (*v11 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
         v7 = *(a1 + 32);
-        v8 = [*(*(&v11 + 1) + 8 * v6) GUID];
+        v8 = [*(*(&v10 + 1) + 8 * v6) GUID];
         [v7 dbQueueRemoveGUID:v8 fromQueue:@"DownloadQueue"];
 
         ++v6;
       }
 
       while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v4);
   }
 
-  result = [*(a1 + 32) dbQueueEndTransaction];
-  v10 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 32) dbQueueEndTransaction];
 }
 
 - (void)setInFlightAssets:(id)assets
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   assetsCopy = assets;
   if ([assetsCopy count])
   {
     v5 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(assetsCopy, "count")}];
+    v16 = 0u;
     v17 = 0u;
     v18 = 0u;
     v19 = 0u;
-    v20 = 0u;
     v6 = assetsCopy;
-    v7 = [v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v18;
+      v9 = *v17;
       do
       {
         v10 = 0;
         do
         {
-          if (*v18 != v9)
+          if (*v17 != v9)
           {
             objc_enumerationMutation(v6);
           }
 
-          gUID = [*(*(&v17 + 1) + 8 * v10) GUID];
+          gUID = [*(*(&v16 + 1) + 8 * v10) GUID];
           [v5 addObject:gUID];
 
           ++v10;
         }
 
         while (v8 != v10);
-        v8 = [v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
+        v8 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
       }
 
       while (v8);
     }
 
     dbQueue = [(MSASModelBase *)self dbQueue];
-    v15[0] = MEMORY[0x277D85DD0];
-    v15[1] = 3221225472;
-    v15[2] = __37__MSASPersonModel_setInFlightAssets___block_invoke;
-    v15[3] = &unk_278E927C8;
-    v15[4] = self;
-    v16 = v5;
+    v14[0] = MEMORY[0x277D85DD0];
+    v14[1] = 3221225472;
+    v14[2] = __37__MSASPersonModel_setInFlightAssets___block_invoke;
+    v14[3] = &unk_278E927C8;
+    v14[4] = self;
+    v15 = v5;
     v13 = v5;
-    dispatch_async(dbQueue, v15);
+    dispatch_async(dbQueue, v14);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __37__MSASPersonModel_setInFlightAssets___block_invoke(uint64_t a1)
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
   {
-    v17 = *(a1 + 32);
-    v18 = *(a1 + 40);
+    v16 = *(a1 + 32);
+    v17 = *(a1 + 40);
     *buf = 138543618;
-    v27 = v17;
-    v28 = 2114;
-    v29 = v18;
+    v26 = v16;
+    v27 = 2114;
+    v28 = v17;
     _os_log_debug_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%{public}@: Setting inflight for assets with GUIDs %{public}@ in DownloadQueue.", buf, 0x16u);
   }
 
   v2 = [*(a1 + 32) statementForString:@"update or ignore DownloadQueue set isInflight = 1 where GUID = ?;"];
+  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
   v3 = *(a1 + 40);
-  v4 = [v3 countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v22;
+    v6 = *v21;
     while (2)
     {
       v7 = 0;
       do
       {
-        if (*v22 != v6)
+        if (*v21 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = *(*(&v21 + 1) + 8 * v7);
+        v8 = *(*(&v20 + 1) + 8 * v7);
         v9 = sqlite3_reset(v2);
         v10 = v9;
         MSSqliteTrapForDBLockError(v9);
@@ -726,23 +726,23 @@ void __37__MSASPersonModel_setInFlightAssets___block_invoke(uint64_t a1)
 
           if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
           {
-            v19 = *(a1 + 32);
-            v20 = *(a1 + 40);
+            v18 = *(a1 + 32);
+            v19 = *(a1 + 40);
             *buf = 138543618;
-            v27 = v19;
-            v28 = 2114;
-            v29 = v20;
+            v26 = v18;
+            v27 = 2114;
+            v28 = v19;
             _os_log_error_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%{public}@: Failed to set inflight for assets with GUIDs %{public}@ in DownloadQueue.", buf, 0x16u);
           }
 
-          goto LABEL_16;
+          return;
         }
 
         ++v7;
       }
 
       while (v5 != v7);
-      v5 = [v3 countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v20 objects:v24 count:16];
       if (v5)
       {
         continue;
@@ -751,9 +751,6 @@ void __37__MSASPersonModel_setInFlightAssets___block_invoke(uint64_t a1)
       break;
     }
   }
-
-LABEL_16:
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setErrorCount:(int)count forAssetInDownloadQueue:(id)queue
@@ -807,19 +804,19 @@ void __57__MSASPersonModel_setErrorCount_forAssetInDownloadQueue___block_invoke(
 
 void __80__MSASPersonModel_itemsForDownloadCountFocusAlbumGUID_focusAssetCollectionGUID___block_invoke(void *a1)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
   {
-    v15 = a1[4];
-    v16 = a1[5];
-    v17 = a1[6];
-    v20 = 138543874;
-    v21 = v15;
-    v22 = 2114;
-    v23 = v16;
-    v24 = 2114;
-    v25 = v17;
-    _os_log_debug_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%{public}@: Counting number of assets to download using criteria: focus album GUID: %{public}@ focus asset collection GUID: %{public}@", &v20, 0x20u);
+    v14 = a1[4];
+    v15 = a1[5];
+    v16 = a1[6];
+    v19 = 138543874;
+    v20 = v14;
+    v21 = 2114;
+    v22 = v15;
+    v23 = 2114;
+    v24 = v16;
+    _os_log_debug_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%{public}@: Counting number of assets to download using criteria: focus album GUID: %{public}@ focus asset collection GUID: %{public}@", &v19, 0x20u);
   }
 
   if (a1[6])
@@ -875,7 +872,7 @@ void __80__MSASPersonModel_itemsForDownloadCountFocusAlbumGUID_focusAssetCollect
   {
 LABEL_22:
     sqlite3_reset(v4);
-    goto LABEL_23;
+    return;
   }
 
 LABEL_16:
@@ -894,13 +891,13 @@ LABEL_16:
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      v18 = a1[4];
-      v19 = sqlite3_errmsg([v18 dbQueueDB]);
-      v20 = 138543618;
-      v21 = v18;
-      v22 = 2082;
-      v23 = v19;
-      _os_log_error_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%{public}@: Error counting items for download. Error: %{public}s", &v20, 0x16u);
+      v17 = a1[4];
+      v18 = sqlite3_errmsg([v17 dbQueueDB]);
+      v19 = 138543618;
+      v20 = v17;
+      v21 = 2082;
+      v22 = v18;
+      _os_log_error_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%{public}@: Error counting items for download. Error: %{public}s", &v19, 0x16u);
     }
 
     goto LABEL_22;
@@ -911,15 +908,12 @@ LABEL_16:
   {
     v12 = a1[4];
     v13 = *(*(a1[7] + 8) + 24);
-    v20 = 138543618;
-    v21 = v12;
-    v22 = 1024;
-    LODWORD(v23) = v13;
-    _os_log_debug_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%{public}@: ...found %d assets.", &v20, 0x12u);
+    v19 = 138543618;
+    v20 = v12;
+    v21 = 1024;
+    LODWORD(v22) = v13;
+    _os_log_debug_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%{public}@: ...found %d assets.", &v19, 0x12u);
   }
-
-LABEL_23:
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)hasItemsForDownloadCountFocusAlbumGUID:(id)d focusAssetCollectionGUID:(id)iD
@@ -950,19 +944,19 @@ LABEL_23:
 
 void __83__MSASPersonModel_hasItemsForDownloadCountFocusAlbumGUID_focusAssetCollectionGUID___block_invoke(void *a1)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
   {
-    v15 = a1[4];
-    v16 = a1[5];
-    v17 = a1[6];
-    v20 = 138543874;
-    v21 = v15;
-    v22 = 2114;
-    v23 = v16;
-    v24 = 2114;
-    v25 = v17;
-    _os_log_debug_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%{public}@: Checking if there are assets to download using criteria: focus album GUID: %{public}@ focus asset collection GUID: %{public}@", &v20, 0x20u);
+    v14 = a1[4];
+    v15 = a1[5];
+    v16 = a1[6];
+    v19 = 138543874;
+    v20 = v14;
+    v21 = 2114;
+    v22 = v15;
+    v23 = 2114;
+    v24 = v16;
+    _os_log_debug_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%{public}@: Checking if there are assets to download using criteria: focus album GUID: %{public}@ focus asset collection GUID: %{public}@", &v19, 0x20u);
   }
 
   if (a1[6])
@@ -1018,7 +1012,7 @@ void __83__MSASPersonModel_hasItemsForDownloadCountFocusAlbumGUID_focusAssetColl
   {
 LABEL_21:
     sqlite3_reset(v4);
-    goto LABEL_22;
+    return;
   }
 
 LABEL_14:
@@ -1037,13 +1031,13 @@ LABEL_14:
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      v18 = a1[4];
-      v19 = sqlite3_errmsg([v18 dbQueueDB]);
-      v20 = 138543618;
-      v21 = v18;
-      v22 = 2082;
-      v23 = v19;
-      _os_log_error_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%{public}@: Error checking for assets to download. Error: %{public}s", &v20, 0x16u);
+      v17 = a1[4];
+      v18 = sqlite3_errmsg([v17 dbQueueDB]);
+      v19 = 138543618;
+      v20 = v17;
+      v21 = 2082;
+      v22 = v18;
+      _os_log_error_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%{public}@: Error checking for assets to download. Error: %{public}s", &v19, 0x16u);
     }
 
     goto LABEL_21;
@@ -1054,15 +1048,42 @@ LABEL_14:
   {
     v12 = a1[4];
     v13 = *(*(a1[7] + 8) + 24);
-    v20 = 138543618;
-    v21 = v12;
-    v22 = 1024;
-    LODWORD(v23) = v13;
-    _os_log_debug_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%{public}@: result: %d", &v20, 0x12u);
+    v19 = 138543618;
+    v20 = v12;
+    v21 = 1024;
+    LODWORD(v22) = v13;
+    _os_log_debug_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%{public}@: result: %d", &v19, 0x12u);
+  }
+}
+
+- (id)nextItemsForDownloadFocusAlbumGUID:(id)d focusAssetCollectionGUID:(id)iD maxCount:(int)count
+{
+  v5 = *&count;
+  dCopy = d;
+  iDCopy = iD;
+  v10 = [(MSASPersonModel *)self nextItemsForDownloadFocusAlbumGUID:dCopy focusAssetCollectionGUID:iDCopy thumbnails:1 maxCount:v5 isInflight:1];
+  if (![v10 count])
+  {
+    v11 = [(MSASPersonModel *)self nextItemsForDownloadFocusAlbumGUID:dCopy focusAssetCollectionGUID:iDCopy thumbnails:1 maxCount:v5 isInflight:0];
+
+    v10 = v11;
   }
 
-LABEL_22:
-  v14 = *MEMORY[0x277D85DE8];
+  if (![v10 count])
+  {
+    v12 = [(MSASPersonModel *)self nextItemsForDownloadFocusAlbumGUID:dCopy focusAssetCollectionGUID:iDCopy thumbnails:0 maxCount:v5 isInflight:1];
+
+    v10 = v12;
+  }
+
+  if (![v10 count])
+  {
+    v13 = [(MSASPersonModel *)self nextItemsForDownloadFocusAlbumGUID:dCopy focusAssetCollectionGUID:iDCopy thumbnails:0 maxCount:v5 isInflight:0];
+
+    v10 = v13;
+  }
+
+  return v10;
 }
 
 - (id)nextItemsForDownloadFocusAlbumGUID:(id)d focusAssetCollectionGUID:(id)iD thumbnails:(BOOL)thumbnails maxCount:(int)count isInflight:(BOOL)inflight
@@ -1099,7 +1120,7 @@ LABEL_22:
 
 void __110__MSASPersonModel_nextItemsForDownloadFocusAlbumGUID_focusAssetCollectionGUID_thumbnails_maxCount_isInflight___block_invoke(uint64_t a1)
 {
-  v54 = *MEMORY[0x277D85DE8];
+  v53 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
   {
     v36 = *(a1 + 68);
@@ -1116,17 +1137,17 @@ void __110__MSASPersonModel_nextItemsForDownloadFocusAlbumGUID_focusAssetCollect
       v40 = @"0";
     }
 
-    v46 = 138544386;
-    v47 = v37;
-    v48 = 1024;
-    *v49 = v36;
-    *&v49[4] = 2114;
-    *&v49[6] = v38;
-    v50 = 2114;
-    v51 = v39;
-    v52 = 2114;
-    v53 = v40;
-    _os_log_debug_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%{public}@: Querying for the next assets to download using criteria: thumbnail: %d focus album GUID: %{public}@ focus asset collection GUID: %{public}@ isInflight: %{public}@", &v46, 0x30u);
+    v45 = 138544386;
+    v46 = v37;
+    v47 = 1024;
+    *v48 = v36;
+    *&v48[4] = 2114;
+    *&v48[6] = v38;
+    v49 = 2114;
+    v50 = v39;
+    v51 = 2114;
+    v52 = v40;
+    _os_log_debug_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%{public}@: Querying for the next assets to download using criteria: thumbnail: %d focus album GUID: %{public}@ focus asset collection GUID: %{public}@ isInflight: %{public}@", &v45, 0x30u);
   }
 
   v2 = [MEMORY[0x277CBEB18] array];
@@ -1211,7 +1232,7 @@ void __110__MSASPersonModel_nextItemsForDownloadFocusAlbumGUID_focusAssetCollect
   {
 LABEL_39:
     sqlite3_reset(v10);
-    goto LABEL_40;
+    return;
   }
 
 LABEL_19:
@@ -1279,13 +1300,13 @@ LABEL_19:
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      v44 = *(a1 + 32);
-      v45 = sqlite3_errmsg([v44 dbQueueDB]);
-      v46 = 138543618;
-      v47 = v44;
-      v48 = 2082;
-      *v49 = v45;
-      _os_log_error_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%{public}@: Error retrieving items for download. Error: %{public}s", &v46, 0x16u);
+      v43 = *(a1 + 32);
+      v44 = sqlite3_errmsg([v43 dbQueueDB]);
+      v45 = 138543618;
+      v46 = v43;
+      v47 = 2082;
+      *v48 = v44;
+      _os_log_error_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%{public}@: Error retrieving items for download. Error: %{public}s", &v45, 0x16u);
     }
 
     goto LABEL_39;
@@ -1296,15 +1317,12 @@ LABEL_19:
   {
     v41 = *(a1 + 32);
     v42 = [*(*(*(a1 + 56) + 8) + 40) count];
-    v46 = 138543618;
-    v47 = v41;
-    v48 = 2048;
-    *v49 = v42;
-    _os_log_debug_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%{public}@: ...found %ld assets.", &v46, 0x16u);
+    v45 = 138543618;
+    v46 = v41;
+    v47 = 2048;
+    *v48 = v42;
+    _os_log_debug_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%{public}@: ...found %ld assets.", &v45, 0x16u);
   }
-
-LABEL_40:
-  v43 = *MEMORY[0x277D85DE8];
 }
 
 - (int)assetsInDownloadQueueAlbumGUID:(id)d
@@ -1330,7 +1348,7 @@ LABEL_40:
   return dCopy;
 }
 
-uint64_t __50__MSASPersonModel_assetsInDownloadQueueAlbumGUID___block_invoke(uint64_t a1)
+void *__50__MSASPersonModel_assetsInDownloadQueueAlbumGUID___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) dbQueueAssetCountAlbumGUID:*(a1 + 40) inQueue:@"DownloadQueue"];
   *(*(*(a1 + 48) + 8) + 24) = result;
@@ -1358,7 +1376,7 @@ uint64_t __50__MSASPersonModel_assetsInDownloadQueueAlbumGUID___block_invoke(uin
   return selfCopy;
 }
 
-uint64_t __40__MSASPersonModel_assetsInDownloadQueue__block_invoke(uint64_t a1)
+void *__40__MSASPersonModel_assetsInDownloadQueue__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) dbQueueAssetCountAlbumGUID:0 inQueue:@"DownloadQueue"];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -1384,7 +1402,7 @@ uint64_t __40__MSASPersonModel_assetsInDownloadQueue__block_invoke(uint64_t a1)
 
 void __59__MSASPersonModel_enqueueAssetForDownload_inAlbumWithGUID___block_invoke(id *a1)
 {
-  v68 = *MEMORY[0x277D85DE8];
+  v67 = *MEMORY[0x277D85DE8];
   v2 = a1[4];
   v3 = [a1[5] GUID];
   LODWORD(v2) = [v2 dbQueueIsGUIDQueued:v3 inQueue:@"DownloadQueue"];
@@ -1397,11 +1415,11 @@ void __59__MSASPersonModel_enqueueAssetForDownload_inAlbumWithGUID___block_invok
       v5 = [a1[5] GUID];
       v6 = [a1[5] assetCollectionGUID];
       *buf = 138543874;
-      v61 = v4;
-      v62 = 2114;
-      v63 = v5;
-      v64 = 2114;
-      v65 = v6;
+      v60 = v4;
+      v61 = 2114;
+      v62 = v5;
+      v63 = 2114;
+      v64 = v6;
       _os_log_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%{public}@: Attempting to re-enqueue asset (GUID: %{public}@ collectionGUID: %{public}@) for download. Ignoring.", buf, 0x20u);
     }
   }
@@ -1415,13 +1433,13 @@ void __59__MSASPersonModel_enqueueAssetForDownload_inAlbumWithGUID___block_invok
       v43 = [a1[5] assetCollectionGUID];
       v44 = a1[6];
       *buf = 138544130;
-      v61 = v41;
-      v62 = 2114;
-      v63 = v42;
-      v64 = 2114;
-      v65 = v43;
-      v66 = 2114;
-      v67 = v44;
+      v60 = v41;
+      v61 = 2114;
+      v62 = v42;
+      v63 = 2114;
+      v64 = v43;
+      v65 = 2114;
+      v66 = v44;
       _os_log_debug_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%{public}@: Enqueueing download for asset (GUID: %{public}@ collectionGUID: %{public}@) in album with GUID: %{public}@.", buf, 0x2Au);
     }
 
@@ -1440,9 +1458,9 @@ void __59__MSASPersonModel_enqueueAssetForDownload_inAlbumWithGUID___block_invok
       if (!v13)
       {
         v14 = a1[5];
-        v59 = 0;
-        v15 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:v14 requiringSecureCoding:1 error:&v59];
-        v16 = v59;
+        v58 = 0;
+        v15 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:v14 requiringSecureCoding:1 error:&v58];
+        v16 = v58;
         v17 = v16;
         if (!v15)
         {
@@ -1453,7 +1471,7 @@ void __59__MSASPersonModel_enqueueAssetForDownload_inAlbumWithGUID___block_invok
           if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138543362;
-            v61 = v20;
+            v60 = v20;
             _os_log_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%{public}@", buf, 0xCu);
           }
         }
@@ -1508,16 +1526,16 @@ void __59__MSASPersonModel_enqueueAssetForDownload_inAlbumWithGUID___block_invok
                 MSSqliteTrapForDBLockError(v45);
                 if (!v46)
                 {
-                  v48 = [a1[5] batchCreationDate];
+                  v47 = [a1[5] batchCreationDate];
 
-                  if (!v48 || ([a1[5] batchCreationDate], v49 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v49, "timeIntervalSinceReferenceDate"), v51 = sqlite3_bind_double(v7, 7, v50), v52 = v51, MSSqliteTrapForDBLockError(v51), v49, !v52))
+                  if (!v47 || ([a1[5] batchCreationDate], v48 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v48, "timeIntervalSinceReferenceDate"), v50 = sqlite3_bind_double(v7, 7, v49), v51 = v50, MSSqliteTrapForDBLockError(v50), v48, !v51))
                   {
-                    v53 = [a1[5] photoCreationDate];
+                    v52 = [a1[5] photoCreationDate];
 
-                    if (!v53 || ([a1[5] photoCreationDate], v54 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v54, "timeIntervalSinceReferenceDate"), v56 = sqlite3_bind_double(v7, 8, v55), v57 = v56, MSSqliteTrapForDBLockError(v56), v54, !v57))
+                    if (!v52 || ([a1[5] photoCreationDate], v53 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v53, "timeIntervalSinceReferenceDate"), v55 = sqlite3_bind_double(v7, 8, v54), v56 = v55, MSSqliteTrapForDBLockError(v55), v53, !v56))
                     {
-                      v58 = sqlite3_step(v7);
-                      MSSqliteTrapForDBLockError(v58);
+                      v57 = sqlite3_step(v7);
+                      MSSqliteTrapForDBLockError(v57);
                     }
                   }
                 }
@@ -1530,8 +1548,6 @@ void __59__MSASPersonModel_enqueueAssetForDownload_inAlbumWithGUID___block_invok
 
     sqlite3_reset(v7);
   }
-
-  v47 = *MEMORY[0x277D85DE8];
 }
 
 - (int64_t)nextMMCSItemID
@@ -1566,7 +1582,7 @@ void __33__MSASPersonModel_nextMMCSItemID__block_invoke(uint64_t a1)
 
 - (BOOL)dbQueueIsGUIDQueued:(id)queued inQueue:(id)queue
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   queuedCopy = queued;
   queueCopy = queue;
   queueCopy = [MEMORY[0x277CCACA8] stringWithFormat:@"select GUID from %@ where GUID = ? limit 1", queueCopy];;
@@ -1583,24 +1599,24 @@ void __33__MSASPersonModel_nextMMCSItemID__block_invoke(uint64_t a1)
 
   else
   {
-    v16 = sqlite3_step(v9);
-    if (v16 == 100)
+    v15 = sqlite3_step(v9);
+    if (v15 == 100)
     {
       v13 = 1;
     }
 
     else
     {
-      if (v16 != 101 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+      if (v15 != 101 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
       {
         *buf = 138544130;
         selfCopy = self;
-        v19 = 2114;
-        v20 = queuedCopy;
-        v21 = 2114;
-        v22 = queueCopy;
-        v23 = 2082;
-        v24 = sqlite3_errmsg([(MSASModelBase *)self dbQueueDB]);
+        v18 = 2114;
+        v19 = queuedCopy;
+        v20 = 2114;
+        v21 = queueCopy;
+        v22 = 2082;
+        v23 = sqlite3_errmsg([(MSASModelBase *)self dbQueueDB]);
         _os_log_error_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%{public}@: Cannot check if GUID %{public}@ is in %{public}@. Error: %{public}s", buf, 0x2Au);
       }
 
@@ -1610,23 +1626,22 @@ void __33__MSASPersonModel_nextMMCSItemID__block_invoke(uint64_t a1)
     sqlite3_reset(v9);
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return v13;
 }
 
 - (void)dbQueueRemoveGUID:(id)d fromQueue:(id)queue
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   dCopy = d;
   queueCopy = queue;
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
   {
     *buf = 138543874;
     selfCopy = self;
-    v17 = 2114;
-    v18 = dCopy;
-    v19 = 2114;
-    v20 = queueCopy;
+    v16 = 2114;
+    v17 = dCopy;
+    v18 = 2114;
+    v19 = queueCopy;
     _os_log_debug_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%{public}@: Removing GUID %{public}@ from %{public}@.", buf, 0x20u);
   }
 
@@ -1649,24 +1664,22 @@ void __33__MSASPersonModel_nextMMCSItemID__block_invoke(uint64_t a1)
   }
 
   sqlite3_reset(v9);
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dbQueueSetErrorCount:(int)count forGUID:(id)d inQueue:(id)queue
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   dCopy = d;
   queueCopy = queue;
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
   {
     *buf = 138544130;
     selfCopy = self;
-    v21 = 2114;
-    v22 = dCopy;
-    v23 = 2114;
-    v24 = queueCopy;
-    v25 = 1024;
+    v20 = 2114;
+    v21 = dCopy;
+    v22 = 2114;
+    v23 = queueCopy;
+    v24 = 1024;
     countCopy = count;
     _os_log_debug_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%{public}@: Setting error count for GUID %{public}@ in %{public}@ to %d.", buf, 0x26u);
   }
@@ -1696,13 +1709,11 @@ void __33__MSASPersonModel_nextMMCSItemID__block_invoke(uint64_t a1)
   }
 
   sqlite3_reset(v11);
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (int)dbQueueAssetCountAlbumGUID:(id)d inQueue:(id)queue
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   dCopy = d;
   queueCopy = queue;
   if (dCopy)
@@ -1743,10 +1754,10 @@ void __33__MSASPersonModel_nextMMCSItemID__block_invoke(uint64_t a1)
     {
       *buf = 138543874;
       selfCopy3 = self;
-      v23 = 2114;
-      *v24 = queueCopy;
-      *&v24[8] = 2082;
-      *&v24[10] = sqlite3_errmsg([(MSASModelBase *)self dbQueueDB]);
+      v22 = 2114;
+      *v23 = queueCopy;
+      *&v23[8] = 2082;
+      *&v23[10] = sqlite3_errmsg([(MSASModelBase *)self dbQueueDB]);
       _os_log_error_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%{public}@: Cannot count number of assets enqueued in %{public}@. Error: %{public}s", buf, 0x20u);
     }
 
@@ -1775,12 +1786,12 @@ LABEL_7:
     {
       *buf = 138544130;
       selfCopy3 = self;
-      v23 = 1024;
-      *v24 = v12;
-      *&v24[4] = 2114;
-      *&v24[6] = queueCopy;
-      *&v24[14] = 2114;
-      *&v24[16] = dCopy;
+      v22 = 1024;
+      *v23 = v12;
+      *&v23[4] = 2114;
+      *&v23[6] = queueCopy;
+      *&v23[14] = 2114;
+      *&v23[16] = dCopy;
       v14 = MEMORY[0x277D86220];
       v15 = "%{public}@: Found %d assets enqueued in %{public}@ for album GUID %{public}@.";
       v16 = 38;
@@ -1793,17 +1804,16 @@ LABEL_20:
   {
     *buf = 138543874;
     selfCopy3 = self;
-    v23 = 1024;
-    *v24 = v12;
-    *&v24[4] = 2114;
-    *&v24[6] = queueCopy;
+    v22 = 1024;
+    *v23 = v12;
+    *&v23[4] = 2114;
+    *&v23[6] = queueCopy;
     v14 = MEMORY[0x277D86220];
     v15 = "%{public}@: Found %d assets enqueued in %{public}@.";
     v16 = 28;
     goto LABEL_20;
   }
 
-  v19 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
@@ -1823,16 +1833,16 @@ LABEL_20:
 
 uint64_t __63__MSASPersonModel_requeuePendingAssetCollectionsWithAlbumGUID___block_invoke(uint64_t a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
   {
-    v10 = *(a1 + 32);
-    v11 = *(a1 + 40);
-    v12 = 138543618;
-    v13 = v10;
-    v14 = 2114;
-    v15 = v11;
-    _os_log_debug_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%{public}@: Removing asset collections from album with GUID %{public}@ from pending list.", &v12, 0x16u);
+    v9 = *(a1 + 32);
+    v10 = *(a1 + 40);
+    v11 = 138543618;
+    v12 = v9;
+    v13 = 2114;
+    v14 = v10;
+    _os_log_debug_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%{public}@: Removing asset collections from album with GUID %{public}@ from pending list.", &v11, 0x16u);
   }
 
   v2 = [*(a1 + 32) statementForString:@"delete from PendingAssetCollections where albumGUID = ?;"];
@@ -1864,9 +1874,7 @@ LABEL_8:
     sqlite3_reset(v2);
   }
 
-  result = [*(a1 + 32) dbQueueRequeuePendingCommandsWithAlbumGUID:*(a1 + 40)];
-  v9 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 32) dbQueueRequeuePendingCommandsWithAlbumGUID:*(a1 + 40)];
 }
 
 - (void)requeuePendingAssetCollectionGUID:(id)d
@@ -1885,16 +1893,16 @@ LABEL_8:
 
 uint64_t __53__MSASPersonModel_requeuePendingAssetCollectionGUID___block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
   {
-    v8 = *(a1 + 32);
-    v9 = *(a1 + 40);
-    v10 = 138543618;
-    v11 = v8;
-    v12 = 2114;
-    v13 = v9;
-    _os_log_debug_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%{public}@: Removing asset collection GUID %{public}@ from pending list.", &v10, 0x16u);
+    v7 = *(a1 + 32);
+    v8 = *(a1 + 40);
+    v9 = 138543618;
+    v10 = v7;
+    v11 = 2114;
+    v12 = v8;
+    _os_log_debug_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%{public}@: Removing asset collection GUID %{public}@ from pending list.", &v9, 0x16u);
   }
 
   v2 = [*(a1 + 32) statementForString:@"delete from PendingAssetCollections where assetCollectionGUID = ?;"];
@@ -1912,9 +1920,7 @@ uint64_t __53__MSASPersonModel_requeuePendingAssetCollectionGUID___block_invoke(
     sqlite3_reset(v2);
   }
 
-  result = [*(a1 + 32) dbQueueRequeuePendingCommandsWithAssetCollectionGUID:*(a1 + 40)];
-  v7 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 32) dbQueueRequeuePendingCommandsWithAssetCollectionGUID:*(a1 + 40)];
 }
 
 - (void)addPendingAssetCollectionGUID:(id)d albumGUID:(id)iD
@@ -1936,19 +1942,19 @@ uint64_t __53__MSASPersonModel_requeuePendingAssetCollectionGUID___block_invoke(
 
 uint64_t __59__MSASPersonModel_addPendingAssetCollectionGUID_albumGUID___block_invoke(id *a1)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
   {
-    v10 = a1[4];
-    v11 = a1[5];
-    v12 = a1[6];
-    v13 = 138543874;
-    v14 = v10;
-    v15 = 2114;
-    v16 = v11;
-    v17 = 2114;
-    v18 = v12;
-    _os_log_debug_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%{public}@: Adding asset collection GUID %{public}@ in album GUID %{public}@ as pending.", &v13, 0x20u);
+    v9 = a1[4];
+    v10 = a1[5];
+    v11 = a1[6];
+    v12 = 138543874;
+    v13 = v9;
+    v14 = 2114;
+    v15 = v10;
+    v16 = 2114;
+    v17 = v11;
+    _os_log_debug_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%{public}@: Adding asset collection GUID %{public}@ in album GUID %{public}@ as pending.", &v12, 0x20u);
   }
 
   v2 = [a1[4] statementForString:{@"insert or ignore into PendingAssetCollections (assetCollectionGUID, albumGUID) values (?, ?);"}];
@@ -1969,10 +1975,9 @@ uint64_t __59__MSASPersonModel_addPendingAssetCollectionGUID_albumGUID___block_i
 
   if (v2)
   {
-    result = sqlite3_reset(v2);
+    return sqlite3_reset(v2);
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -2036,7 +2041,7 @@ LABEL_3:
   return pendingCopy;
 }
 
-uint64_t __52__MSASPersonModel_isAssetCollectionWithGUIDPending___block_invoke(uint64_t a1)
+void *__52__MSASPersonModel_isAssetCollectionWithGUIDPending___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) dbQueueIsAssetCollectionWithGUIDPending:*(a1 + 40)];
   *(*(*(a1 + 48) + 8) + 24) = result;
@@ -2065,13 +2070,13 @@ uint64_t __52__MSASPersonModel_isAssetCollectionWithGUIDPending___block_invoke(u
 
 void __42__MSASPersonModel_countOfEnqueuedCommands__block_invoke(uint64_t a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
   {
-    v9 = *(a1 + 32);
-    v12 = 138543362;
-    v13 = v9;
-    _os_log_debug_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%{public}@: Counting number of commands queued", &v12, 0xCu);
+    v8 = *(a1 + 32);
+    v11 = 138543362;
+    v12 = v8;
+    _os_log_debug_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%{public}@: Counting number of commands queued", &v11, 0xCu);
   }
 
   v2 = [*(a1 + 32) statementForString:@"select count(*) from CommandQueue;"];
@@ -2090,19 +2095,19 @@ void __42__MSASPersonModel_countOfEnqueuedCommands__block_invoke(uint64_t a1)
     {
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
       {
-        v7 = *(a1 + 32);
-        v8 = sqlite3_errmsg([v7 dbQueueDB]);
-        v12 = 138543618;
-        v13 = v7;
-        v14 = 2082;
-        v15 = v8;
-        _os_log_error_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%{public}@: Error counting number of commands enqueued.sqlite error: %{public}s", &v12, 0x16u);
+        v6 = *(a1 + 32);
+        v7 = sqlite3_errmsg([v6 dbQueueDB]);
+        v11 = 138543618;
+        v12 = v6;
+        v13 = 2082;
+        v14 = v7;
+        _os_log_error_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%{public}@: Error counting number of commands enqueued.sqlite error: %{public}s", &v11, 0x16u);
       }
 
 LABEL_4:
       sqlite3_reset(v2);
       *(*(*(a1 + 40) + 8) + 24) = 0;
-      goto LABEL_10;
+      return;
     }
 
     *(*(*(a1 + 40) + 8) + 24) = sqlite3_column_int64(v2, 0);
@@ -2111,17 +2116,14 @@ LABEL_4:
   sqlite3_reset(v2);
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
   {
-    v10 = *(a1 + 32);
-    v11 = *(*(*(a1 + 40) + 8) + 24);
-    v12 = 138543618;
-    v13 = v10;
-    v14 = 2048;
-    v15 = v11;
-    _os_log_debug_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%{public}@: ...found %lld commands in the queue.", &v12, 0x16u);
+    v9 = *(a1 + 32);
+    v10 = *(*(*(a1 + 40) + 8) + 24);
+    v11 = 138543618;
+    v12 = v9;
+    v13 = 2048;
+    v14 = v10;
+    _os_log_debug_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%{public}@: ...found %lld commands in the queue.", &v11, 0x16u);
   }
-
-LABEL_10:
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (int64_t)countOfEnqueuedCommand:(id)command
@@ -2149,16 +2151,16 @@ LABEL_10:
 
 void __42__MSASPersonModel_countOfEnqueuedCommand___block_invoke(uint64_t a1)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
   {
-    v11 = *(a1 + 32);
-    v12 = *(a1 + 40);
-    v16 = 138543618;
-    v17 = v11;
-    v18 = 2114;
-    v19 = v12;
-    _os_log_debug_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%{public}@: Counting number of queued command %{public}@", &v16, 0x16u);
+    v10 = *(a1 + 32);
+    v11 = *(a1 + 40);
+    v15 = 138543618;
+    v16 = v10;
+    v17 = 2114;
+    v18 = v11;
+    _os_log_debug_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%{public}@: Counting number of queued command %{public}@", &v15, 0x16u);
   }
 
   v2 = [*(a1 + 32) statementForString:@"select count(*) from CommandQueue where command = ?;"];
@@ -2178,29 +2180,29 @@ void __42__MSASPersonModel_countOfEnqueuedCommand___block_invoke(uint64_t a1)
     goto LABEL_5;
   }
 
-  v8 = sqlite3_step(v2);
-  if (v8 != 101)
+  v7 = sqlite3_step(v2);
+  if (v7 != 101)
   {
-    if (v8 != 100)
+    if (v7 != 100)
     {
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
       {
-        v13 = *(a1 + 32);
-        v14 = *(a1 + 40);
-        v15 = sqlite3_errmsg([v13 dbQueueDB]);
-        v16 = 138543874;
-        v17 = v13;
-        v18 = 2114;
-        v19 = v14;
-        v20 = 2082;
-        v21 = v15;
-        _os_log_error_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%{public}@: Error counting number of “%{public}@” commands enqueued.sqlite error: %{public}s", &v16, 0x20u);
+        v12 = *(a1 + 32);
+        v13 = *(a1 + 40);
+        v14 = sqlite3_errmsg([v12 dbQueueDB]);
+        v15 = 138543874;
+        v16 = v12;
+        v17 = 2114;
+        v18 = v13;
+        v19 = 2082;
+        v20 = v14;
+        _os_log_error_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%{public}@: Error counting number of “%{public}@” commands enqueued.sqlite error: %{public}s", &v15, 0x20u);
       }
 
 LABEL_5:
       sqlite3_reset(v2);
       *(*(*(a1 + 48) + 8) + 24) = 0;
-      goto LABEL_6;
+      return;
     }
 
     *(*(*(a1 + 48) + 8) + 24) = sqlite3_column_int64(v2, 0);
@@ -2209,17 +2211,14 @@ LABEL_5:
   sqlite3_reset(v2);
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
   {
-    v9 = *(a1 + 32);
-    v10 = *(*(*(a1 + 48) + 8) + 24);
-    v16 = 138543618;
-    v17 = v9;
-    v18 = 2048;
-    v19 = v10;
-    _os_log_debug_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%{public}@: ...found %lld instances.", &v16, 0x16u);
+    v8 = *(a1 + 32);
+    v9 = *(*(*(a1 + 48) + 8) + 24);
+    v15 = 138543618;
+    v16 = v8;
+    v17 = 2048;
+    v18 = v9;
+    _os_log_debug_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%{public}@: ...found %lld instances.", &v15, 0x16u);
   }
-
-LABEL_6:
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)purgeCompletionBlock:(id)block
@@ -2255,14 +2254,14 @@ void __40__MSASPersonModel_purgeCompletionBlock___block_invoke(uint64_t a1)
 
 - (void)dbQueueRemoveAllEntriesFromTable:(id)table
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   tableCopy = table;
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
   {
     *buf = 138543618;
     selfCopy = self;
-    v11 = 2114;
-    v12 = tableCopy;
+    v10 = 2114;
+    v11 = tableCopy;
     _os_log_debug_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%{public}@: Removing all entries from table %{public}@.", buf, 0x16u);
   }
 
@@ -2281,20 +2280,18 @@ void __40__MSASPersonModel_purgeCompletionBlock___block_invoke(uint64_t a1)
   {
     sqlite3_reset(v6);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dbQueueRemoveCommandIdentifier:(int64_t)identifier
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
   {
-    v12 = 138543618;
+    v11 = 138543618;
     selfCopy = self;
-    v14 = 2048;
+    v13 = 2048;
     identifierCopy = identifier;
-    _os_log_debug_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%{public}@: Removing command at order %lld.", &v12, 0x16u);
+    _os_log_debug_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%{public}@: Removing command at order %lld.", &v11, 0x16u);
   }
 
   v5 = [(MSASModelBase *)self statementForString:@"delete from CommandQueue where ord = ?;"];
@@ -2314,7 +2311,6 @@ void __40__MSASPersonModel_purgeCompletionBlock___block_invoke(uint64_t a1)
   }
 
   sqlite3_reset(v5);
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removeCommandIdentifier:(int64_t)identifier
@@ -2365,15 +2361,15 @@ uint64_t __52__MSASPersonModel_dbQueueRemoveCommandAtHeadOfQueue__block_invoke(u
 
 void __54__MSASPersonModel_setParams_forCommandWithIdentifier___block_invoke(uint64_t a1)
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
   {
-    v18 = *(a1 + 32);
-    v19 = *(a1 + 48);
+    v17 = *(a1 + 32);
+    v18 = *(a1 + 48);
     *buf = 138543618;
-    v25 = v18;
-    v26 = 2048;
-    v27 = v19;
+    v24 = v17;
+    v25 = 2048;
+    v26 = v18;
     _os_log_debug_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%{public}@: Setting parameters for command at sequence number %lld.", buf, 0x16u);
   }
 
@@ -2387,9 +2383,9 @@ void __54__MSASPersonModel_setParams_forCommandWithIdentifier___block_invoke(uin
   }
 
   v5 = *(a1 + 40);
-  v23 = 0;
-  v6 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:v5 requiringSecureCoding:1 error:&v23];
-  v7 = v23;
+  v22 = 0;
+  v6 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:v5 requiringSecureCoding:1 error:&v22];
+  v7 = v22;
   v8 = v7;
   if (!v6)
   {
@@ -2400,7 +2396,7 @@ void __54__MSASPersonModel_setParams_forCommandWithIdentifier___block_invoke(uin
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v25 = v11;
+      v24 = v11;
       _os_log_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%{public}@", buf, 0xCu);
     }
   }
@@ -2419,24 +2415,21 @@ void __54__MSASPersonModel_setParams_forCommandWithIdentifier___block_invoke(uin
 
 LABEL_12:
     sqlite3_reset(v2);
-    goto LABEL_13;
+    return;
   }
 
-  v20 = sqlite3_step(v2);
-  v21 = v20;
-  MSSqliteTrapForDBLockError(v20);
+  v19 = sqlite3_step(v2);
+  v20 = v19;
+  MSSqliteTrapForDBLockError(v19);
 
   sqlite3_reset(v2);
-  if (v21 == 101 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
+  if (v20 == 101 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
   {
-    v22 = *(a1 + 32);
+    v21 = *(a1 + 32);
     *buf = 138543362;
-    v25 = v22;
+    v24 = v21;
     _os_log_debug_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%{public}@: ...done.", buf, 0xCu);
   }
-
-LABEL_13:
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (id)commandWithMinimumIdentifier:(int64_t)identifier outParams:(id *)params outCommandIdentifier:(int64_t *)commandIdentifier outPersonID:(id *)d outAlbumGUID:(id *)iD outAssetCollectionGUID:(id *)uID
@@ -2541,19 +2534,19 @@ LABEL_13:
 
 void __128__MSASPersonModel__commandWithMinimumIdentifier_outParams_outCommandIdentifier_outPersonID_outAlbumGUID_outAssetCollectionGUID___block_invoke(uint64_t a1)
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   v3 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG);
   if (v2)
   {
     if (v3)
     {
-      v25 = *(a1 + 40);
-      v28 = 138543618;
-      v29 = v25;
-      v30 = 2114;
-      v31 = v2;
-      _os_log_debug_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%{public}@: Retrieving command with minimum identifier %{public}@.", &v28, 0x16u);
+      v24 = *(a1 + 40);
+      v27 = 138543618;
+      v28 = v24;
+      v29 = 2114;
+      v30 = v2;
+      _os_log_debug_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%{public}@: Retrieving command with minimum identifier %{public}@.", &v27, 0x16u);
     }
 
     v4 = [*(a1 + 40) statementForString:{@"select ord, command, params, personID, albumGUID, assetCollectionGUID from CommandQueue where ord >= ? order by ord limit 1;"}];
@@ -2570,10 +2563,10 @@ void __128__MSASPersonModel__commandWithMinimumIdentifier_outParams_outCommandId
   {
     if (v3)
     {
-      v26 = *(a1 + 40);
-      v28 = 138543362;
-      v29 = v26;
-      _os_log_debug_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%{public}@: Retrieving command at the head of the queue.", &v28, 0xCu);
+      v25 = *(a1 + 40);
+      v27 = 138543362;
+      v28 = v25;
+      _os_log_debug_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%{public}@: Retrieving command at the head of the queue.", &v27, 0xCu);
     }
 
     v4 = [*(a1 + 40) statementForString:{@"select ord, command, params, personID, albumGUID, assetCollectionGUID from CommandQueue order by ord limit 1;"}];
@@ -2604,13 +2597,13 @@ void __128__MSASPersonModel__commandWithMinimumIdentifier_outParams_outCommandId
     {
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
       {
-        v23 = *(a1 + 40);
-        v24 = sqlite3_errmsg([v23 dbQueueDB]);
-        v28 = 138543618;
-        v29 = v23;
-        v30 = 2082;
-        v31 = v24;
-        _os_log_error_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%{public}@: Error retrieving command at the head of the queue. sqlite error: %{public}s", &v28, 0x16u);
+        v22 = *(a1 + 40);
+        v23 = sqlite3_errmsg([v22 dbQueueDB]);
+        v27 = 138543618;
+        v28 = v22;
+        v29 = 2082;
+        v30 = v23;
+        _os_log_error_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%{public}@: Error retrieving command at the head of the queue. sqlite error: %{public}s", &v27, 0x16u);
       }
 
 LABEL_10:
@@ -2644,24 +2637,23 @@ LABEL_10:
 
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
   {
-    v27 = *(a1 + 40);
-    v28 = 138544642;
-    v29 = v27;
-    v30 = 2114;
-    v31 = v10;
-    v32 = 2048;
-    v33 = v12;
-    v34 = 2112;
-    v35 = v16;
-    v36 = 2114;
-    v37 = v17;
-    v38 = 2112;
-    v39 = v21;
-    _os_log_debug_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%{public}@: ...retrieved command %{public}@ at sequence number %lld for personID %@, album GUID %{public}@,  asset collection GUID %@", &v28, 0x3Eu);
+    v26 = *(a1 + 40);
+    v27 = 138544642;
+    v28 = v26;
+    v29 = 2114;
+    v30 = v10;
+    v31 = 2048;
+    v32 = v12;
+    v33 = 2112;
+    v34 = v16;
+    v35 = 2114;
+    v36 = v17;
+    v37 = 2112;
+    v38 = v21;
+    _os_log_debug_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%{public}@: ...retrieved command %{public}@ at sequence number %lld for personID %@, album GUID %{public}@,  asset collection GUID %@", &v27, 0x3Eu);
   }
 
 LABEL_18:
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dbQueueRequeuePendingCommandsWithAlbumGUID:(id)d
@@ -2762,7 +2754,7 @@ LABEL_7:
 
 - (void)dbQueueRequeuePendingCommandsWithQueryStatement:(sqlite3_stmt *)statement deleteStatement:(sqlite3_stmt *)deleteStatement
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   [(MSASModelBase *)self beginTransaction];
   dbQueueNextCommandSequenceNumber = [(MSASPersonModel *)self dbQueueNextCommandSequenceNumber];
   v6 = [(MSASModelBase *)self statementForString:@"insert into CommandQueue (ord, command, params, personID, albumGUID, assetCollectionGUID) values (?, ?, ?, ?, ?, ?);"];
@@ -2778,10 +2770,10 @@ LABEL_7:
     {
       *buf = 138543874;
       selfCopy = self;
-      v40 = 2114;
-      v41 = v8;
-      v42 = 2048;
-      v43 = dbQueueNextCommandSequenceNumber;
+      v39 = 2114;
+      v40 = v8;
+      v41 = 2048;
+      v42 = dbQueueNextCommandSequenceNumber;
       _os_log_debug_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%{public}@: Requeueing pended command: %{public}@ at position %lld", buf, 0x20u);
     }
 
@@ -2903,7 +2895,6 @@ LABEL_27:
   }
 
   [(MSASModelBase *)self endTransaction];
-  v35 = *MEMORY[0x277D85DE8];
 }
 
 - (void)enqueueCommand:(id)command params:(id)params personID:(id)d albumGUID:(id)iD pendingOnAssetCollectionGUID:(id)uID
@@ -2934,17 +2925,17 @@ LABEL_27:
 
 void __89__MSASPersonModel_enqueueCommand_params_personID_albumGUID_pendingOnAssetCollectionGUID___block_invoke(uint64_t a1)
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   if ([*(a1 + 32) dbQueueIsAssetCollectionWithGUIDPending:*(a1 + 40)])
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
     {
-      v23 = *(a1 + 32);
-      v24 = *(a1 + 48);
+      v21 = *(a1 + 32);
+      v22 = *(a1 + 48);
       *buf = 138543618;
-      v39 = v23;
-      v40 = 2114;
-      v41 = v24;
+      v37 = v21;
+      v38 = 2114;
+      v39 = v22;
       _os_log_debug_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%{public}@: Enqueueing pending command “%{public}@”.", buf, 0x16u);
     }
 
@@ -2983,9 +2974,9 @@ LABEL_8:
           if (!v8)
           {
             v9 = *(a1 + 56);
-            v37 = 0;
-            v10 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:v9 requiringSecureCoding:1 error:&v37];
-            v11 = v37;
+            v35 = 0;
+            v10 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:v9 requiringSecureCoding:1 error:&v35];
+            v11 = v35;
             v12 = v11;
             if (v10)
             {
@@ -2995,14 +2986,14 @@ LABEL_8:
 
             else
             {
-              v25 = MEMORY[0x277CCACA8];
-              v26 = [v11 userInfo];
-              v27 = [v25 stringWithFormat:@"Failed to archive params object. Error: %@ Info: %@", v12, v26];
+              v23 = MEMORY[0x277CCACA8];
+              v24 = [v11 userInfo];
+              v25 = [v23 stringWithFormat:@"Failed to archive params object. Error: %@ Info: %@", v12, v24];
 
               if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
               {
                 *buf = 138543362;
-                v39 = v27;
+                v37 = v25;
                 _os_log_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%{public}@", buf, 0xCu);
               }
 
@@ -3010,28 +3001,28 @@ LABEL_8:
               v14 = 0;
             }
 
-            v28 = MSSqliteBindDataOrNull(v13, 3, v14);
-            v29 = v28;
-            MSSqliteTrapForDBLockError(v28);
-            if (!v29)
+            v26 = MSSqliteBindDataOrNull(v13, 3, v14);
+            v27 = v26;
+            MSSqliteTrapForDBLockError(v26);
+            if (!v27)
             {
-              v30 = MSSqliteBindStringOrNull(v2, 4, *(a1 + 64));
-              v31 = v30;
-              MSSqliteTrapForDBLockError(v30);
-              if (!v31)
+              v28 = MSSqliteBindStringOrNull(v2, 4, *(a1 + 64));
+              v29 = v28;
+              MSSqliteTrapForDBLockError(v28);
+              if (!v29)
               {
-                v32 = MSSqliteBindStringOrNull(v2, 5, *(a1 + 72));
-                v33 = v32;
-                MSSqliteTrapForDBLockError(v32);
-                if (!v33)
+                v30 = MSSqliteBindStringOrNull(v2, 5, *(a1 + 72));
+                v31 = v30;
+                MSSqliteTrapForDBLockError(v30);
+                if (!v31)
                 {
-                  v34 = MSSqliteBindStringOrNull(v2, 6, *(a1 + 40));
-                  v35 = v34;
-                  MSSqliteTrapForDBLockError(v34);
-                  if (!v35)
+                  v32 = MSSqliteBindStringOrNull(v2, 6, *(a1 + 40));
+                  v33 = v32;
+                  MSSqliteTrapForDBLockError(v32);
+                  if (!v33)
                   {
-                    v36 = sqlite3_step(v2);
-                    MSSqliteTrapForDBLockError(v36);
+                    v34 = sqlite3_step(v2);
+                    MSSqliteTrapForDBLockError(v34);
                   }
                 }
               }
@@ -3039,24 +3030,22 @@ LABEL_8:
 
             if (!v2)
             {
-              goto LABEL_20;
+              return;
             }
 
-            goto LABEL_19;
+LABEL_19:
+            sqlite3_reset(v2);
+            return;
           }
         }
 
 LABEL_18:
         if (!v2)
         {
-LABEL_20:
-          v22 = *MEMORY[0x277D85DE8];
           return;
         }
 
-LABEL_19:
-        sqlite3_reset(v2);
-        goto LABEL_20;
+        goto LABEL_19;
       }
     }
 
@@ -3070,14 +3059,13 @@ LABEL_19:
   v18 = *(a1 + 72);
   v19 = *(a1 + 32);
   v20 = *(a1 + 40);
-  v21 = *MEMORY[0x277D85DE8];
 
   [v19 dbQueueEnqueueCommand:v15 params:v16 personID:v17 albumGUID:v18 assetCollectionGUID:v20];
 }
 
 - (void)dbQueueEnqueueCommand:(id)command params:(id)params personID:(id)d albumGUID:(id)iD assetCollectionGUID:(id)uID sequenceNumber:(int64_t)number
 {
-  v47 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   commandCopy = command;
   paramsCopy = params;
   dCopy = d;
@@ -3087,9 +3075,9 @@ LABEL_19:
   {
     *buf = 138543874;
     selfCopy = self;
-    v43 = 2114;
-    v44 = commandCopy;
-    v45 = 2048;
+    v42 = 2114;
+    v43 = commandCopy;
+    v44 = 2048;
     numberCopy = number;
     _os_log_debug_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%{public}@: Enqueueing command %{public}@ at sequence number %lld.", buf, 0x20u);
   }
@@ -3105,9 +3093,9 @@ LABEL_19:
     MSSqliteTrapForDBLockError(v22);
     if (!v23)
     {
-      v40 = 0;
-      v24 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:paramsCopy requiringSecureCoding:1 error:&v40];
-      v25 = v40;
+      v39 = 0;
+      v24 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:paramsCopy requiringSecureCoding:1 error:&v39];
+      v25 = v39;
       v26 = v25;
       if (v24)
       {
@@ -3162,8 +3150,6 @@ LABEL_19:
   {
     sqlite3_reset(v19);
   }
-
-  v39 = *MEMORY[0x277D85DE8];
 }
 
 - (void)enqueueCommandAtHeadOfQueue:(id)queue params:(id)params personID:(id)d albumGUID:(id)iD assetCollectionGUID:(id)uID
@@ -3245,7 +3231,7 @@ uint64_t __93__MSASPersonModel_enqueueCommandAtHeadOfQueue_params_personID_album
 
 - (int64_t)dbQueueSmallestCommandSequenceNumber
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = [(MSASModelBase *)self statementForString:@"select min(ord) from CommandQueue;"];
   v4 = sqlite3_reset(v3);
   v5 = v4;
@@ -3254,8 +3240,7 @@ uint64_t __93__MSASPersonModel_enqueueCommandAtHeadOfQueue_params_personID_album
   {
 LABEL_2:
     sqlite3_reset(v3);
-    v6 = 0;
-    goto LABEL_9;
+    return 0;
   }
 
   v7 = sqlite3_step(v3);
@@ -3270,11 +3255,11 @@ LABEL_2:
     {
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
       {
-        v10 = 138543618;
+        v9 = 138543618;
         selfCopy2 = self;
-        v12 = 2082;
-        v13 = sqlite3_errmsg([(MSASModelBase *)self dbQueueDB]);
-        _os_log_error_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%{public}@: Could not retrieve next command sequence number. sqlite error: %{public}s", &v10, 0x16u);
+        v11 = 2082;
+        v12 = sqlite3_errmsg([(MSASModelBase *)self dbQueueDB]);
+        _os_log_error_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%{public}@: Could not retrieve next command sequence number. sqlite error: %{public}s", &v9, 0x16u);
       }
 
       goto LABEL_2;
@@ -3286,21 +3271,19 @@ LABEL_2:
   sqlite3_reset(v3);
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
   {
-    v10 = 138543618;
+    v9 = 138543618;
     selfCopy2 = self;
-    v12 = 2048;
-    v13 = v6;
-    _os_log_debug_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%{public}@: ...smallest command number: %lld", &v10, 0x16u);
+    v11 = 2048;
+    v12 = v6;
+    _os_log_debug_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%{public}@: ...smallest command number: %lld", &v9, 0x16u);
   }
 
-LABEL_9:
-  v8 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
 - (int64_t)dbQueueNextCommandSequenceNumber
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = [(MSASModelBase *)self statementForString:@"select max(ord) from CommandQueue;"];
   v4 = sqlite3_reset(v3);
   v5 = v4;
@@ -3309,8 +3292,7 @@ LABEL_9:
   {
 LABEL_2:
     sqlite3_reset(v3);
-    v6 = 0;
-    goto LABEL_9;
+    return 0;
   }
 
   v7 = sqlite3_step(v3);
@@ -3325,11 +3307,11 @@ LABEL_2:
     {
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
       {
-        v10 = 138543618;
+        v9 = 138543618;
         selfCopy2 = self;
-        v12 = 2082;
-        v13 = sqlite3_errmsg([(MSASModelBase *)self dbQueueDB]);
-        _os_log_error_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%{public}@: Could not retrieve next command sequence number. sqlite error: %{public}s", &v10, 0x16u);
+        v11 = 2082;
+        v12 = sqlite3_errmsg([(MSASModelBase *)self dbQueueDB]);
+        _os_log_error_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%{public}@: Could not retrieve next command sequence number. sqlite error: %{public}s", &v9, 0x16u);
       }
 
       goto LABEL_2;
@@ -3341,15 +3323,503 @@ LABEL_2:
   sqlite3_reset(v3);
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
   {
-    v10 = 138543618;
+    v9 = 138543618;
     selfCopy2 = self;
-    v12 = 2048;
-    v13 = v6;
-    _os_log_debug_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%{public}@: ...next command sequence: %lld", &v10, 0x16u);
+    v11 = 2048;
+    v12 = v6;
+    _os_log_debug_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%{public}@: ...next command sequence: %lld", &v9, 0x16u);
   }
 
-LABEL_9:
-  v8 = *MEMORY[0x277D85DE8];
+  return v6;
+}
+
+- (BOOL)dbQueueUpgradeFromDatabaseVersion:(int)version currentVersion:(int)currentVersion
+{
+  v16 = *MEMORY[0x277D85DE8];
+  v11.receiver = self;
+  v11.super_class = MSASPersonModel;
+  v6 = [(MSASModelBase *)&v11 dbQueueUpgradeFromDatabaseVersion:*&version currentVersion:*&currentVersion];
+  if (v6)
+  {
+    if (version < 0)
+    {
+      errmsg = 0;
+      if (sqlite3_exec([(MSASModelBase *)self dbQueueDB], "create table if not exists CommandQueue (\n   ord                   integer,\n   command               text,\n   params                blob,\n   personID              text,\n   albumGUID             text,\n   assetCollectionGUID   text\n);", 0, 0, &errmsg))
+      {
+        if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+        {
+          *buf = 138543618;
+          selfCopy24 = self;
+          v14 = 2082;
+          v15 = errmsg;
+          v7 = MEMORY[0x277D86220];
+          v8 = "%{public}@: Could not create person model command queue. Error: %{public}s";
+          goto LABEL_99;
+        }
+
+        goto LABEL_100;
+      }
+
+      if (sqlite3_exec([(MSASModelBase *)self dbQueueDB], "create index if not exists CommandQueueByOrder on CommandQueue (ord asc);", 0, 0, &errmsg))
+      {
+        if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+        {
+          *buf = 138543618;
+          selfCopy24 = self;
+          v14 = 2082;
+          v15 = errmsg;
+          v7 = MEMORY[0x277D86220];
+          v8 = "%{public}@: Could not create command queueindex. Error: %{public}s";
+          goto LABEL_99;
+        }
+
+        goto LABEL_100;
+      }
+
+      if (sqlite3_exec([(MSASModelBase *)self dbQueueDB], "create table if not exists PendingCommandQueue (\n   ord                   integer,\n   command               text,\n   params                blob,\n   personID              text,\n   albumGUID             text,\n   assetCollectionGUID   text\n);", 0, 0, &errmsg))
+      {
+        if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+        {
+          *buf = 138543618;
+          selfCopy24 = self;
+          v14 = 2082;
+          v15 = errmsg;
+          v7 = MEMORY[0x277D86220];
+          v8 = "%{public}@: Could not create person model pending command queue. Error: %{public}s";
+          goto LABEL_99;
+        }
+
+        goto LABEL_100;
+      }
+
+      if (sqlite3_exec([(MSASModelBase *)self dbQueueDB], "create index if not exists PendingCommandQueueByOrder on PendingCommandQueue (ord asc);", 0, 0, &errmsg))
+      {
+        if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+        {
+          *buf = 138543618;
+          selfCopy24 = self;
+          v14 = 2082;
+          v15 = errmsg;
+          v7 = MEMORY[0x277D86220];
+          v8 = "%{public}@: Could not create pending command queue index. Error: %{public}s";
+          goto LABEL_99;
+        }
+
+        goto LABEL_100;
+      }
+
+      if (sqlite3_exec([(MSASModelBase *)self dbQueueDB], "create table if not exists PendingAssetCollections (\n   assetCollectionGUID   text unique,\n   albumGUID             text\n);", 0, 0, &errmsg))
+      {
+        if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+        {
+          *buf = 138543618;
+          selfCopy24 = self;
+          v14 = 2082;
+          v15 = errmsg;
+          v7 = MEMORY[0x277D86220];
+          v8 = "%{public}@: Could not create person model pending asset collections table. Error: %{public}s";
+          goto LABEL_99;
+        }
+
+        goto LABEL_100;
+      }
+
+      if (sqlite3_exec([(MSASModelBase *)self dbQueueDB], "create table if not exists DownloadQueue (\n  ord                  integer,\n  isThumbnail          integer default 0,\n  isInflight           integer default 0,\n  GUID                 text,\n  albumGUID            text,\n  assetCollectionGUID  text,\n  batchCreationDate    real,\n  photoCreationDate    real,\n  errorCount           integer default 0,\n  album                blob,\n  object               blob\n);", 0, 0, &errmsg))
+      {
+        if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+        {
+          *buf = 138543618;
+          selfCopy24 = self;
+          v14 = 2082;
+          v15 = errmsg;
+          v7 = MEMORY[0x277D86220];
+          v8 = "%{public}@: Could not create download queue tables. Error: %{public}s";
+          goto LABEL_99;
+        }
+
+        goto LABEL_100;
+      }
+
+      if (sqlite3_exec([(MSASModelBase *)self dbQueueDB], "create index if not exists DownloadQueueGeneralOrder on DownloadQueue (isThumbnail asc, albumGUID asc, batchCreationDate asc, photoCreationDate asc);", 0, 0, &errmsg))
+      {
+        if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+        {
+          goto LABEL_100;
+        }
+
+        goto LABEL_46;
+      }
+
+      if (sqlite3_exec([(MSASModelBase *)self dbQueueDB], "create index if not exists DownloadQueueGeneralReverseOrder on DownloadQueue (isThumbnail asc, albumGUID asc, batchCreationDate desc, photoCreationDate asc);", 0, 0, &errmsg))
+      {
+        if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+        {
+          goto LABEL_100;
+        }
+
+        goto LABEL_13;
+      }
+
+      if (sqlite3_exec([(MSASModelBase *)self dbQueueDB], "create table if not exists UploadQueue (\n  ord                  integer,\n  uploadPriority       integer default 0,\n  GUID                 text,\n  albumGUID            text,\n  errorCount           integer default 0,\n  album                blob,\n  object               blob\n);", 0, 0, &errmsg))
+      {
+        if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+        {
+          *buf = 138543618;
+          selfCopy24 = self;
+          v14 = 2082;
+          v15 = errmsg;
+          v7 = MEMORY[0x277D86220];
+          v8 = "%{public}@: Could not create upload queue tables. Error: %{public}s";
+          goto LABEL_99;
+        }
+
+        goto LABEL_100;
+      }
+
+      if (sqlite3_exec([(MSASModelBase *)self dbQueueDB], "create index if not exists UploadQueueByOrder on UploadQueue (ord asc);", 0, 0, &errmsg))
+      {
+        if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+        {
+          *buf = 138543618;
+          selfCopy24 = self;
+          v14 = 2082;
+          v15 = errmsg;
+          v7 = MEMORY[0x277D86220];
+          v8 = "%{public}@: Could not create upload queue order index. Error: %{public}s";
+          goto LABEL_99;
+        }
+
+        goto LABEL_100;
+      }
+
+      if (sqlite3_exec([(MSASModelBase *)self dbQueueDB], "create index if not exists UploadQueueByGUID on UploadQueue (GUID asc);", 0, 0, &errmsg))
+      {
+        if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+        {
+          goto LABEL_100;
+        }
+
+        goto LABEL_40;
+      }
+
+      if (sqlite3_exec([(MSASModelBase *)self dbQueueDB], "create index if not exists DownloadQueueByGUID on DownloadQueue (GUID asc);", 0, 0, &errmsg))
+      {
+        if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+        {
+          goto LABEL_100;
+        }
+
+        goto LABEL_98;
+      }
+
+      if (sqlite3_exec([(MSASModelBase *)self dbQueueDB], "analyze;", 0, 0, &errmsg))
+      {
+        if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+        {
+          *buf = 138543618;
+          selfCopy24 = self;
+          v14 = 2082;
+          v15 = errmsg;
+          _os_log_error_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%{public}@: Could not analyze database. Ignoring. Error: %{public}s", buf, 0x16u);
+        }
+
+        sqlite3_free(errmsg);
+      }
+
+      goto LABEL_107;
+    }
+
+    if (version <= 2)
+    {
+      errmsg = 0;
+      if (sqlite3_exec([(MSASModelBase *)self dbQueueDB], "alter table DownloadQueue add column batchCreationDate real;", 0, 0, &errmsg))
+      {
+        if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+        {
+LABEL_6:
+          *buf = 138543618;
+          selfCopy24 = self;
+          v14 = 2082;
+          v15 = errmsg;
+          v7 = MEMORY[0x277D86220];
+          v8 = "%{public}@: Could not add download queue column. Error: %{public}s";
+LABEL_99:
+          _os_log_error_impl(&dword_245B99000, v7, OS_LOG_TYPE_ERROR, v8, buf, 0x16u);
+        }
+
+LABEL_100:
+        sqlite3_free(errmsg);
+        goto LABEL_101;
+      }
+
+      if (sqlite3_exec([(MSASModelBase *)self dbQueueDB], "alter table DownloadQueue add column photoCreationDate real;", 0, 0, &errmsg))
+      {
+        if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+        {
+          goto LABEL_6;
+        }
+
+        goto LABEL_100;
+      }
+
+      if (sqlite3_exec([(MSASModelBase *)self dbQueueDB], "create index if not exists DownloadQueueGeneralOrder on DownloadQueue (isThumbnail asc, albumGUID asc, batchCreationDate asc, photoCreationDate asc);", 0, 0, &errmsg))
+      {
+        if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+        {
+          goto LABEL_100;
+        }
+
+LABEL_46:
+        *buf = 138543618;
+        selfCopy24 = self;
+        v14 = 2082;
+        v15 = errmsg;
+        v7 = MEMORY[0x277D86220];
+        v8 = "%{public}@: Could not create download queue index. Error: %{public}s";
+        goto LABEL_99;
+      }
+
+      if (sqlite3_exec([(MSASModelBase *)self dbQueueDB], "analyze;", 0, 0, &errmsg))
+      {
+        if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+        {
+          *buf = 138543618;
+          selfCopy24 = self;
+          v14 = 2082;
+          v15 = errmsg;
+          _os_log_error_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%{public}@: Could not analyze database. Ignoring. Error: %{public}s", buf, 0x16u);
+        }
+
+        sqlite3_free(errmsg);
+      }
+
+      goto LABEL_11;
+    }
+
+    if (version == 3)
+    {
+LABEL_11:
+      errmsg = 0;
+      if (sqlite3_exec([(MSASModelBase *)self dbQueueDB], "create index if not exists DownloadQueueGeneralReverseOrder on DownloadQueue (isThumbnail asc, albumGUID asc, batchCreationDate desc, photoCreationDate asc);", 0, 0, &errmsg))
+      {
+        if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+        {
+          goto LABEL_100;
+        }
+
+LABEL_13:
+        *buf = 138543618;
+        selfCopy24 = self;
+        v14 = 2082;
+        v15 = errmsg;
+        v7 = MEMORY[0x277D86220];
+        v8 = "%{public}@: Could not create download queue reverse index. Error: %{public}s";
+        goto LABEL_99;
+      }
+
+      if (sqlite3_exec([(MSASModelBase *)self dbQueueDB], "analyze;", 0, 0, &errmsg))
+      {
+        if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+        {
+          *buf = 138543618;
+          selfCopy24 = self;
+          v14 = 2082;
+          v15 = errmsg;
+          _os_log_error_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%{public}@: Could not analyze database. Ignoring. Error: %{public}s", buf, 0x16u);
+        }
+
+        sqlite3_free(errmsg);
+      }
+
+      goto LABEL_31;
+    }
+
+    if (version <= 4)
+    {
+LABEL_31:
+      errmsg = 0;
+      if (sqlite3_exec([(MSASModelBase *)self dbQueueDB], "alter table PendingAssetCollections add column albumGUID text;", 0, 0, &errmsg))
+      {
+        if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+        {
+          *buf = 138543618;
+          selfCopy24 = self;
+          v14 = 2082;
+          v15 = errmsg;
+          v7 = MEMORY[0x277D86220];
+          v8 = "%{public}@: Could not add albumGUID column to pending asset collections queue. Error: %{public}s";
+          goto LABEL_99;
+        }
+
+        goto LABEL_100;
+      }
+
+      if (sqlite3_exec([(MSASModelBase *)self dbQueueDB], "analyze;", 0, 0, &errmsg))
+      {
+        if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+        {
+          *buf = 138543618;
+          selfCopy24 = self;
+          v14 = 2082;
+          v15 = errmsg;
+          _os_log_error_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%{public}@: Could not analyze database. Ignoring. Error: %{public}s", buf, 0x16u);
+        }
+
+        sqlite3_free(errmsg);
+      }
+
+      goto LABEL_38;
+    }
+
+    if (version == 5)
+    {
+LABEL_38:
+      errmsg = 0;
+      if (sqlite3_exec([(MSASModelBase *)self dbQueueDB], "create index if not exists UploadQueueByGUID on UploadQueue (GUID asc);", 0, 0, &errmsg))
+      {
+        if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+        {
+          goto LABEL_100;
+        }
+
+LABEL_40:
+        *buf = 138543618;
+        selfCopy24 = self;
+        v14 = 2082;
+        v15 = errmsg;
+        v7 = MEMORY[0x277D86220];
+        v8 = "%{public}@: Could not create upload queue GUID index. Error: %{public}s";
+        goto LABEL_99;
+      }
+
+      if (sqlite3_exec([(MSASModelBase *)self dbQueueDB], "create index if not exists DownloadQueueByGUID on DownloadQueue (GUID asc);", 0, 0, &errmsg))
+      {
+        if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+        {
+          goto LABEL_100;
+        }
+
+LABEL_98:
+        *buf = 138543618;
+        selfCopy24 = self;
+        v14 = 2082;
+        v15 = errmsg;
+        v7 = MEMORY[0x277D86220];
+        v8 = "%{public}@: Could not create download queue GUID index. Error: %{public}s";
+        goto LABEL_99;
+      }
+
+      if (sqlite3_exec([(MSASModelBase *)self dbQueueDB], "analyze;", 0, 0, &errmsg))
+      {
+        if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+        {
+          *buf = 138543618;
+          selfCopy24 = self;
+          v14 = 2082;
+          v15 = errmsg;
+          _os_log_error_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%{public}@: Could not analyze database. Ignoring. Error: %{public}s", buf, 0x16u);
+        }
+
+        sqlite3_free(errmsg);
+      }
+
+      goto LABEL_61;
+    }
+
+    if (version <= 6)
+    {
+LABEL_61:
+      errmsg = 0;
+      if (sqlite3_exec([(MSASModelBase *)self dbQueueDB], "alter table UploadQueue add column uploadPriority integer", 0, 0, &errmsg))
+      {
+        if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+        {
+          *buf = 138543618;
+          selfCopy24 = self;
+          v14 = 2082;
+          v15 = errmsg;
+          v7 = MEMORY[0x277D86220];
+          v8 = "%{public}@: Could not add uploadPriority column to UploadQueue. Error: %{public}s";
+          goto LABEL_99;
+        }
+
+        goto LABEL_100;
+      }
+
+      if (sqlite3_exec([(MSASModelBase *)self dbQueueDB], "alter table DownloadQueue drop column album", 0, 0, &errmsg))
+      {
+        if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+        {
+          *buf = 138543618;
+          selfCopy24 = self;
+          v14 = 2082;
+          v15 = errmsg;
+          _os_log_error_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%{public}@: Could not drop album column in DownloadQueue. Ignoring. Error: %{public}s", buf, 0x16u);
+        }
+
+        sqlite3_free(errmsg);
+      }
+
+      if (sqlite3_exec([(MSASModelBase *)self dbQueueDB], "analyze;", 0, 0, &errmsg))
+      {
+        if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+        {
+          *buf = 138543618;
+          selfCopy24 = self;
+          v14 = 2082;
+          v15 = errmsg;
+          _os_log_error_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%{public}@: Could not analyze database. Ignoring. Error: %{public}s", buf, 0x16u);
+        }
+
+        sqlite3_free(errmsg);
+      }
+
+      goto LABEL_72;
+    }
+
+    if (version == 8)
+    {
+LABEL_107:
+      LOBYTE(v6) = 1;
+      return v6;
+    }
+
+    if (version == 7)
+    {
+LABEL_72:
+      errmsg = 0;
+      if (sqlite3_exec([(MSASModelBase *)self dbQueueDB], "alter table DownloadQueue add column isInflight integer", 0, 0, &errmsg))
+      {
+        if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+        {
+          *buf = 138543618;
+          selfCopy24 = self;
+          v14 = 2082;
+          v15 = errmsg;
+          v7 = MEMORY[0x277D86220];
+          v8 = "%{public}@: Could not add isInflight column to DownloadQueue. Error: %{public}s";
+          goto LABEL_99;
+        }
+
+        goto LABEL_100;
+      }
+
+      goto LABEL_107;
+    }
+
+    v6 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR);
+    if (v6)
+    {
+      *buf = 138543618;
+      selfCopy24 = self;
+      v14 = 1024;
+      LODWORD(v15) = version;
+      _os_log_error_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%{public}@: Not supporting migration from version %d. Recreating database.", buf, 0x12u);
+LABEL_101:
+      LOBYTE(v6) = 0;
+    }
+  }
+
   return v6;
 }
 

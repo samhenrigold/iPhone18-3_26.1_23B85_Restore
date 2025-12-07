@@ -19,13 +19,14 @@
 - (void)viewDidLoad
 {
   selfCopy = self;
-  sub_100313E54();
+  sub_100313E54(selfCopy);
 }
 
 - (void)viewDidAppear:(BOOL)appear
 {
+  appearCopy = appear;
   selfCopy = self;
-  sub_100313FD8(appear);
+  sub_100313FD8(appearCopy);
 }
 
 - (void)didReceiveMemoryWarning

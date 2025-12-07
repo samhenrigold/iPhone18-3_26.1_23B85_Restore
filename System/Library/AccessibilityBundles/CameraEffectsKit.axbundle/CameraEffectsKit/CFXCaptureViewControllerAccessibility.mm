@@ -2,6 +2,7 @@
 + (void)_accessibilityPerformValidations:(id)validations;
 - (BOOL)_axFaceTimeLocalViewExpanded;
 - (BOOL)_axIsFaceTime;
+- (void)CFX_addEffect:(id)effect allowImmediateTextEditing:(BOOL)editing;
 - (void)_accessibilityLoadAccessibilityInformation;
 - (void)_axRemoveEffectFromView:(id)view;
 - (void)effectEditorView:(id)view didRemoveEffect:(id)effect;
@@ -84,20 +85,20 @@ uint64_t __83__CFXCaptureViewControllerAccessibility__accessibilityLoadAccessibi
 
 id __83__CFXCaptureViewControllerAccessibility__accessibilityLoadAccessibilityInformation__block_invoke_2(uint64_t a1)
 {
-  v49 = *MEMORY[0x29EDCA608];
-  v47 = 0;
+  v48 = *MEMORY[0x29EDCA608];
+  v46 = 0;
   objc_opt_class();
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v3 = [WeakRetained safeValueForKeyPath:@"composition.jtEffects"];
   v4 = __UIAccessibilityCastAsClass();
 
+  v42 = 0u;
   v43 = 0u;
   v44 = 0u;
   v45 = 0u;
-  v46 = 0u;
   v5 = v4;
-  v6 = [v5 countByEnumeratingWithState:&v43 objects:v48 count:16];
-  v38 = v5;
+  v6 = [v5 countByEnumeratingWithState:&v42 objects:v47 count:16];
+  v37 = v5;
   if (!v6)
   {
     v27 = v5;
@@ -109,22 +110,22 @@ id __83__CFXCaptureViewControllerAccessibility__accessibilityLoadAccessibilityIn
     goto LABEL_40;
   }
 
-  v37 = 0;
-  v39 = 0;
+  v36 = 0;
+  v38 = 0;
   v7 = 0;
   v8 = 0;
   v9 = 0;
-  v10 = *v44;
+  v10 = *v43;
   do
   {
     for (i = 0; i != v6; i = i + 1)
     {
-      if (*v44 != v10)
+      if (*v43 != v10)
       {
         objc_enumerationMutation(v5);
       }
 
-      v12 = *(*(&v43 + 1) + 8 * i);
+      v12 = *(*(&v42 + 1) + 8 * i);
       v13 = [v12 safeIntForKey:@"type"];
       if (v13 <= 6)
       {
@@ -155,9 +156,9 @@ id __83__CFXCaptureViewControllerAccessibility__accessibilityLoadAccessibilityIn
 
       if (v13 == 7)
       {
-        v40 = v8;
-        v41 = v7;
-        v42 = v9;
+        v39 = v8;
+        v40 = v7;
+        v41 = v9;
         v14 = [v12 safeValueForKey:@"effectID"];
         v15 = objc_alloc_init(MEMORY[0x29EDBFBB0]);
         v16 = [MEMORY[0x29EDBFBA0] requestForAvatarWithIdentifier:v14];
@@ -184,16 +185,16 @@ id __83__CFXCaptureViewControllerAccessibility__accessibilityLoadAccessibilityIn
         if (objc_opt_isKindOfClass())
         {
           v20 = [MEMORY[0x29EDBDE08] descriptionForMemoji:v19];
-          v37 = 1;
+          v36 = 1;
 LABEL_22:
 
-          v39 = v20;
-          v5 = v38;
+          v38 = v20;
+          v5 = v37;
         }
 
-        v7 = v41;
-        v9 = v42;
-        v8 = v40;
+        v7 = v40;
+        v9 = v41;
+        v8 = v39;
         goto LABEL_24;
       }
 
@@ -208,7 +209,7 @@ LABEL_14:
 LABEL_24:
     }
 
-    v6 = [v5 countByEnumeratingWithState:&v43 objects:v48 count:16];
+    v6 = [v5 countByEnumeratingWithState:&v42 objects:v47 count:16];
   }
 
   while (v6);
@@ -253,10 +254,10 @@ LABEL_34:
 LABEL_30:
   v26 = 0;
 LABEL_35:
-  if (v39)
+  if (v38)
   {
     v32 = MEMORY[0x29EDBA0F8];
-    if (v37)
+    if (v36)
     {
       v33 = @"memoji.name";
     }
@@ -267,8 +268,8 @@ LABEL_35:
     }
 
     v27 = accessibilityLocalizedString(v33);
-    v29 = [v32 localizedStringWithFormat:v27, v39];
-    v28 = v39;
+    v29 = [v32 localizedStringWithFormat:v27, v38];
+    v28 = v38;
 LABEL_40:
   }
 
@@ -280,8 +281,6 @@ LABEL_40:
 
   v34 = __UIAXStringForVariables();
 
-  v35 = *MEMORY[0x29EDCA608];
-
   return v34;
 }
 
@@ -291,6 +290,40 @@ LABEL_40:
   v3.super_class = CFXCaptureViewControllerAccessibility;
   [(CFXCaptureViewControllerAccessibility *)&v3 viewDidLoad];
   [(CFXCaptureViewControllerAccessibility *)self _accessibilityLoadAccessibilityInformation];
+}
+
+- (void)CFX_addEffect:(id)effect allowImmediateTextEditing:(BOOL)editing
+{
+  editingCopy = editing;
+  effectCopy = effect;
+  v18.receiver = self;
+  v18.super_class = CFXCaptureViewControllerAccessibility;
+  [(CFXCaptureViewControllerAccessibility *)&v18 CFX_addEffect:effectCopy allowImmediateTextEditing:editingCopy];
+  v7 = [(CFXCaptureViewControllerAccessibility *)self safeUIViewForKey:@"view"];
+  v8 = [effectCopy safeValueForKey:@"jtEffect"];
+  v9 = +[AXCFXElementUtilities sharedInstance];
+  objc_opt_class();
+  v10 = __UIAccessibilityCastAsClass();
+  v11 = [v9 axElementForJTEffect:v8 vc:v10];
+
+  _axEffectToElement = [(CFXCaptureViewControllerAccessibility *)self _axEffectToElement];
+
+  if (!_axEffectToElement)
+  {
+    dictionary = [MEMORY[0x29EDB8E00] dictionary];
+    [(CFXCaptureViewControllerAccessibility *)self _axSetEffectToElement:dictionary];
+  }
+
+  if (v11)
+  {
+    v14 = [MEMORY[0x29EDBA168] valueWithNonretainedObject:v8];
+    _axEffectToElement2 = [(CFXCaptureViewControllerAccessibility *)self _axEffectToElement];
+    [_axEffectToElement2 setObject:v11 forKey:v14];
+  }
+
+  _axEffectToElement3 = [(CFXCaptureViewControllerAccessibility *)self _axEffectToElement];
+  allValues = [_axEffectToElement3 allValues];
+  [v7 _accessibilitySetAdditionalElements:allValues];
 }
 
 - (void)_axRemoveEffectFromView:(id)view

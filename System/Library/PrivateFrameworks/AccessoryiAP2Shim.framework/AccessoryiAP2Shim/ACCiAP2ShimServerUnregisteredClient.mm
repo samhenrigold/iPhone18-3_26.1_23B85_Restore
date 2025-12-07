@@ -17,7 +17,7 @@
 
 - (void)takeProcessAssertion:(id)assertion
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   assertionCopy = assertion;
   if (!self->_processAssertion)
   {
@@ -51,14 +51,13 @@ LABEL_7:
     if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
     {
       bundleId = self->_bundleId;
-      v17 = 138412546;
-      v18 = bundleId;
-      v19 = 1024;
+      v15 = 138412546;
+      v16 = bundleId;
+      v17 = 1024;
       _getProcessId = [(ACCiAP2ShimServerUnregisteredClient *)self _getProcessId];
-      _os_log_impl(&dword_23DC47000, v10, OS_LOG_TYPE_INFO, "[#ServerClient] creating process assertion - appId=%@ pid=%d", &v17, 0x12u);
+      _os_log_impl(&dword_23DC47000, v10, OS_LOG_TYPE_INFO, "[#ServerClient] creating process assertion - appId=%@ pid=%d", &v15, 0x12u);
     }
 
-    v12 = *MEMORY[0x277CBECE8];
     [(ACCiAP2ShimServerUnregisteredClient *)self _getProcessId];
     self->_processAssertion = SBSProcessAssertionCreateForPID();
     self->_processAssertionStartTime = time(0);
@@ -82,17 +81,17 @@ LABEL_7:
         }
 
         v5 = MEMORY[0x277D86220];
-        v14 = MEMORY[0x277D86220];
+        v13 = MEMORY[0x277D86220];
       }
 
       if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
       {
-        v15 = self->_bundleId;
-        v17 = 138412546;
-        v18 = v15;
-        v19 = 1024;
+        v14 = self->_bundleId;
+        v15 = 138412546;
+        v16 = v14;
+        v17 = 1024;
         _getProcessId = [(ACCiAP2ShimServerUnregisteredClient *)self _getProcessId];
-        _os_log_impl(&dword_23DC47000, v5, OS_LOG_TYPE_INFO, "[#ServerClient] renewing process assertion - appId=%@ pid=%d", &v17, 0x12u);
+        _os_log_impl(&dword_23DC47000, v5, OS_LOG_TYPE_INFO, "[#ServerClient] renewing process assertion - appId=%@ pid=%d", &v15, 0x12u);
       }
 
       self->_processAssertionStartTime = 0;
@@ -119,23 +118,22 @@ LABEL_7:
       [ACCiAP2ShimServerUnregisteredClient takeProcessAssertion:];
     }
 
-    v13 = MEMORY[0x277D86220];
+    v12 = MEMORY[0x277D86220];
     v9 = MEMORY[0x277D86220];
   }
 
   else
   {
-    v13 = *gLogObjects;
+    v12 = *gLogObjects;
   }
 
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
   {
-    LOWORD(v17) = 0;
-    _os_log_impl(&dword_23DC47000, v13, OS_LOG_TYPE_INFO, "[#ServerClient] using ea process hysteresis", &v17, 2u);
+    LOWORD(v15) = 0;
+    _os_log_impl(&dword_23DC47000, v12, OS_LOG_TYPE_INFO, "[#ServerClient] using ea process hysteresis", &v15, 2u);
   }
 
 LABEL_35:
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)releaseProcessAssertion
@@ -153,7 +151,7 @@ LABEL_35:
 - (id)_applicationInfoForBundleIDSync:(id)sync
 {
   syncCopy = sync;
-  v4 = _getApplicationStateMonitor();
+  v4 = _getApplicationStateMonitor(syncCopy);
   v5 = [v4 applicationInfoForApplication:syncCopy];
 
   return v5;
@@ -182,14 +180,6 @@ LABEL_35:
   }
 
   return result;
-}
-
-- (void)takeProcessAssertion:.cold.1()
-{
-  v7 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1(&dword_23DC47000, MEMORY[0x277D86220], v0, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", v1, v2, v3, v4, v6);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -29,7 +29,7 @@
 
 - (Offset<siri::speech::schema_fb::BatchTranslationResponse_::TranslationPhrase>)addObjectToBuffer:(void *)buffer
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   [(QSSBatchTranslationResponse_TranslationPhrase *)self confidence];
   v6 = v5;
   translation_phrase = [(QSSBatchTranslationResponse_TranslationPhrase *)self translation_phrase];
@@ -55,50 +55,50 @@
   v16 = flatbuffers::FlatBufferBuilder::CreateString(buffer, uTF8String2, v15);
 
   low_confidence = [(QSSBatchTranslationResponse_TranslationPhrase *)self low_confidence];
-  memset(&v37, 0, sizeof(v37));
+  memset(&v36, 0, sizeof(v36));
   repeated_spans = [(QSSBatchTranslationResponse_TranslationPhrase *)self repeated_spans];
-  std::vector<flatbuffers::Offset<siri::speech::schema_fb::RecognitionToken>>::reserve(&v37, [repeated_spans count]);
+  std::vector<flatbuffers::Offset<siri::speech::schema_fb::RecognitionToken>>::reserve(&v36, [repeated_spans count]);
 
-  v35 = 0u;
-  v36 = 0u;
-  v33 = 0u;
   v34 = 0u;
+  v35 = 0u;
+  v32 = 0u;
+  v33 = 0u;
   repeated_spans2 = [(QSSBatchTranslationResponse_TranslationPhrase *)self repeated_spans];
-  v20 = [repeated_spans2 countByEnumeratingWithState:&v33 objects:v38 count:16];
+  v20 = [repeated_spans2 countByEnumeratingWithState:&v32 objects:v37 count:16];
   if (v20)
   {
-    v21 = *v34;
+    v21 = *v33;
     do
     {
       for (i = 0; i != v20; ++i)
       {
-        if (*v34 != v21)
+        if (*v33 != v21)
         {
           objc_enumerationMutation(repeated_spans2);
         }
 
-        v32 = [*(*(&v33 + 1) + 8 * i) addObjectToBuffer:buffer];
-        std::vector<flatbuffers::Offset<siri::speech::schema_fb::RecognitionToken>>::push_back[abi:ne200100](&v37, &v32);
+        v31 = [*(*(&v32 + 1) + 8 * i) addObjectToBuffer:buffer];
+        std::vector<flatbuffers::Offset<siri::speech::schema_fb::RecognitionToken>>::push_back[abi:ne200100](&v36, &v31);
       }
 
-      v20 = [repeated_spans2 countByEnumeratingWithState:&v33 objects:v38 count:16];
+      v20 = [repeated_spans2 countByEnumeratingWithState:&v32 objects:v37 count:16];
     }
 
     while (v20);
   }
 
-  begin = v37.__begin_;
-  if (v37.__end_ == v37.__begin_)
+  begin = v36.__begin_;
+  if (v36.__end_ == v36.__begin_)
   {
     v24 = &flatbuffers::data<flatbuffers::Offset<siri::speech::schema_fb::RepeatedSpan>,std::allocator<flatbuffers::Offset<siri::speech::schema_fb::RepeatedSpan>>>(std::vector<flatbuffers::Offset<siri::speech::schema_fb::RepeatedSpan>> const&)::t;
   }
 
   else
   {
-    v24 = v37.__begin_;
+    v24 = v36.__begin_;
   }
 
-  v25 = flatbuffers::FlatBufferBuilder::CreateVector<flatbuffers::String>(buffer, v24, v37.__end_ - v37.__begin_);
+  v25 = flatbuffers::FlatBufferBuilder::CreateVector<flatbuffers::String>(buffer, v24, v36.__end_ - v36.__begin_);
   flatbuffers::FlatBufferBuilder::NotNested(buffer);
   *(buffer + 70) = 1;
   v26 = *(buffer + 8);
@@ -115,7 +115,6 @@
     operator delete(begin);
   }
 
-  v30 = *MEMORY[0x277D85DE8];
   return v29;
 }
 

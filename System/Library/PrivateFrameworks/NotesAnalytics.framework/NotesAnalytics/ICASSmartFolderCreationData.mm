@@ -28,8 +28,8 @@
 
 - (id)toDict
 {
-  v19[4] = *MEMORY[0x277D85DE8];
-  v18[0] = @"folderCreationApproach";
+  v18[4] = *MEMORY[0x277D85DE8];
+  v17[0] = @"folderCreationApproach";
   folderCreationApproach = [(ICASSmartFolderCreationData *)self folderCreationApproach];
   if (folderCreationApproach)
   {
@@ -42,8 +42,8 @@
   }
 
   v5 = folderCreationApproach2;
-  v19[0] = folderCreationApproach2;
-  v18[1] = @"countOfTags";
+  v18[0] = folderCreationApproach2;
+  v17[1] = @"countOfTags";
   countOfTags = [(ICASSmartFolderCreationData *)self countOfTags];
   if (countOfTags)
   {
@@ -56,8 +56,8 @@
   }
 
   v8 = countOfTags2;
-  v19[1] = countOfTags2;
-  v18[2] = @"filterCondition";
+  v18[1] = countOfTags2;
+  v17[2] = @"filterCondition";
   filterCondition = [(ICASSmartFolderCreationData *)self filterCondition];
   if (filterCondition)
   {
@@ -70,8 +70,8 @@
   }
 
   v11 = filterCondition2;
-  v19[2] = filterCondition2;
-  v18[3] = @"enabledFiltersArray";
+  v18[2] = filterCondition2;
+  v17[3] = @"enabledFiltersArray";
   enabledFiltersArray = [(ICASSmartFolderCreationData *)self enabledFiltersArray];
   if (enabledFiltersArray)
   {
@@ -84,10 +84,8 @@
   }
 
   v14 = enabledFiltersArray2;
-  v19[3] = enabledFiltersArray2;
-  v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:v18 count:4];
-
-  v16 = *MEMORY[0x277D85DE8];
+  v18[3] = enabledFiltersArray2;
+  v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:4];
 
   return v15;
 }

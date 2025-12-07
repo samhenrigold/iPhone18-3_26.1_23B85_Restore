@@ -223,133 +223,123 @@
 {
   toCopy = to;
   has = self->_has;
-  v25 = toCopy;
+  v15 = toCopy;
   if (has)
   {
-    elapsedMs = self->_elapsedMs;
     PBDataWriterWriteUint32Field();
-    toCopy = v25;
+    toCopy = v15;
     has = self->_has;
   }
 
   if ((has & 2) != 0)
   {
-    wakeupMs = self->_wakeupMs;
     PBDataWriterWriteUint32Field();
-    toCopy = v25;
+    toCopy = v15;
   }
 
   if (self->_sfScheduledByStates.count)
   {
-    v8 = 0;
+    v6 = 0;
     do
     {
-      v9 = self->_sfScheduledByStates.list[v8];
       PBDataWriterWriteUint32Field();
-      toCopy = v25;
-      ++v8;
+      toCopy = v15;
+      ++v6;
     }
 
-    while (v8 < self->_sfScheduledByStates.count);
+    while (v6 < self->_sfScheduledByStates.count);
   }
 
   if (self->_sizeTbTotalByStates.count)
   {
-    v10 = 0;
+    v7 = 0;
     do
     {
-      v11 = self->_sizeTbTotalByStates.list[v10];
       PBDataWriterWriteUint64Field();
-      toCopy = v25;
-      ++v10;
+      toCopy = v15;
+      ++v7;
     }
 
-    while (v10 < self->_sizeTbTotalByStates.count);
+    while (v7 < self->_sizeTbTotalByStates.count);
   }
 
   if (self->_sfScheduledByTypes.count)
   {
-    v12 = 0;
+    v8 = 0;
     do
     {
-      v13 = self->_sfScheduledByTypes.list[v12];
       PBDataWriterWriteUint32Field();
-      toCopy = v25;
-      ++v12;
+      toCopy = v15;
+      ++v8;
     }
 
-    while (v12 < self->_sfScheduledByTypes.count);
+    while (v8 < self->_sfScheduledByTypes.count);
   }
 
   if (self->_sizeTbTotalByTypes.count)
   {
-    v14 = 0;
+    v9 = 0;
     do
     {
-      v15 = self->_sizeTbTotalByTypes.list[v14];
       PBDataWriterWriteUint64Field();
-      toCopy = v25;
-      ++v14;
+      toCopy = v15;
+      ++v9;
     }
 
-    while (v14 < self->_sizeTbTotalByTypes.count);
+    while (v9 < self->_sizeTbTotalByTypes.count);
   }
 
   if (self->_ulSfScheduledByStates.count)
   {
-    v16 = 0;
+    v10 = 0;
     do
     {
-      v17 = self->_ulSfScheduledByStates.list[v16];
       PBDataWriterWriteUint32Field();
-      toCopy = v25;
-      ++v16;
+      toCopy = v15;
+      ++v10;
     }
 
-    while (v16 < self->_ulSfScheduledByStates.count);
+    while (v10 < self->_ulSfScheduledByStates.count);
   }
 
   if (self->_ulSizeTbTotalByStates.count)
   {
-    v18 = 0;
+    v11 = 0;
     do
     {
-      v19 = self->_ulSizeTbTotalByStates.list[v18];
       PBDataWriterWriteUint64Field();
-      toCopy = v25;
-      ++v18;
+      toCopy = v15;
+      ++v11;
     }
 
-    while (v18 < self->_ulSizeTbTotalByStates.count);
+    while (v11 < self->_ulSizeTbTotalByStates.count);
   }
 
   if (self->_ulSfScheduledByTypes.count)
   {
-    v20 = 0;
+    v12 = 0;
     do
     {
-      v21 = self->_ulSfScheduledByTypes.list[v20];
       PBDataWriterWriteUint32Field();
-      toCopy = v25;
-      ++v20;
+      toCopy = v15;
+      ++v12;
     }
 
-    while (v20 < self->_ulSfScheduledByTypes.count);
+    while (v12 < self->_ulSfScheduledByTypes.count);
   }
 
   p_ulSizeTbTotalByTypes = &self->_ulSizeTbTotalByTypes;
   if (p_ulSizeTbTotalByTypes->count)
   {
-    v23 = 0;
+    v14 = 0;
     do
     {
-      v24 = p_ulSizeTbTotalByTypes->list[v23];
       PBDataWriterWriteUint64Field();
-      toCopy = v25;
-      ++v23;
+      toCopy = v15;
+      ++v14;
     }
 
-    while (v23 < p_ulSizeTbTotalByTypes->count);
+    while (v14 < p_ulSizeTbTotalByTypes->count);
   }
 }
 
@@ -521,7 +511,6 @@
     goto LABEL_20;
   }
 
-  v5 = *(equalCopy + 208);
   if (*&self->_has)
   {
     if ((*(equalCopy + 208) & 1) == 0 || self->_elapsedMs != *(equalCopy + 50))

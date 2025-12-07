@@ -89,7 +89,7 @@
 + (void)getValuesWithMessage:(id)message connection:(id)connection
 {
   v6 = +[KeyValueStore defaultKeyValueStore];
-  if (sub_100207C8C())
+  if (sub_100207C8C(connection))
   {
 
     [v6 _getValuesWithMessage:message connection:connection];

@@ -745,41 +745,41 @@ void __39__AVPlayerItem__copyStateDispatchQueue__block_invoke(uint64_t a1)
   return v2;
 }
 
-void __31__AVPlayerItem__updateTimebase__block_invoke_2(uint64_t a1)
+void __31__AVPlayerItem__updateTimebase__block_invoke_2(uint64_t a1, const char *a2)
 {
-  v32 = 0u;
   v33 = 0u;
-  v31 = 0u;
-  v2 = *(a1 + 32);
-  if (v2)
+  v34 = 0u;
+  v32 = 0u;
+  v3 = *(a1 + 32);
+  if (v3)
   {
-    [v2 loopTimeRange];
+    objc_msgSend_loopTimeRange(v3, a2);
   }
 
-  v30 = 0;
-  if (*(a1 + 40) && (BYTE12(v31) & 1) != 0 && (BYTE4(v33) & 1) != 0 && !*(&v33 + 1) && (*(&v32 + 1) & 0x8000000000000000) == 0)
+  v31 = 0;
+  if (*(a1 + 40) && (BYTE12(v32) & 1) != 0 && (BYTE4(v34) & 1) != 0 && !*(&v34 + 1) && (*(&v33 + 1) & 0x8000000000000000) == 0)
   {
-    *timebaseOut = v31;
-    v28 = v32;
+    *timebaseOut = v32;
     v29 = v33;
+    v30 = v34;
     CMTimebaseCreateLoopingTimebase();
   }
 
   [*(a1 + 32) willChangeValueForKey:@"timebase"];
-  v25[0] = MEMORY[0x1E69E9820];
-  v3 = *(a1 + 32);
-  v4 = *(*(*(a1 + 32) + 8) + 16);
-  v25[1] = 3221225472;
-  v25[2] = __31__AVPlayerItem__updateTimebase__block_invoke_3;
-  v25[3] = &unk_1E7460FA8;
-  v26 = v3;
-  av_readwrite_dispatch_queue_write(v4, v25);
+  v26[0] = MEMORY[0x1E69E9820];
+  v4 = *(a1 + 32);
+  v5 = *(*(*(a1 + 32) + 8) + 16);
+  v26[1] = 3221225472;
+  v26[2] = __31__AVPlayerItem__updateTimebase__block_invoke_3;
+  v26[3] = &unk_1E7460FA8;
+  v27 = v4;
+  av_readwrite_dispatch_queue_write(v5, v26);
   if (!*(a1 + 40))
   {
     timebaseOut[0] = 0;
-    v8 = *MEMORY[0x1E695E480];
+    v9 = *MEMORY[0x1E695E480];
     HostTimeClock = CMClockGetHostTimeClock();
-    CMTimebaseCreateWithSourceClock(v8, HostTimeClock, timebaseOut);
+    CMTimebaseCreateWithSourceClock(v9, HostTimeClock, timebaseOut);
     FigReadOnlyTimebaseSetTargetTimebase();
     FigReadOnlyTimebaseSetTargetTimebase();
     if (timebaseOut[0])
@@ -788,57 +788,57 @@ void __31__AVPlayerItem__updateTimebase__block_invoke_2(uint64_t a1)
     }
 
     [*(a1 + 32) _removeFoldedTBListeners];
-    v10 = *(a1 + 32);
-    v6 = *(*(v10 + 8) + 16);
-    v14 = MEMORY[0x1E69E9820];
-    v15 = 3221225472;
-    v16 = __31__AVPlayerItem__updateTimebase__block_invoke_6;
-    v17 = &unk_1E7460C00;
-    v18 = v10;
-    v7 = &v14;
+    v11 = *(a1 + 32);
+    v7 = *(*(v11 + 8) + 16);
+    v15 = MEMORY[0x1E69E9820];
+    v16 = 3221225472;
+    v17 = __31__AVPlayerItem__updateTimebase__block_invoke_6;
+    v18 = &unk_1E7460C00;
+    v19 = v11;
+    v8 = &v15;
     goto LABEL_15;
   }
 
   FigReadOnlyTimebaseSetTargetTimebase();
-  if ((BYTE12(v31) & 1) == 0 || (BYTE4(v33) & 1) == 0 || *(&v33 + 1) || (*(&v32 + 1) & 0x8000000000000000) != 0)
+  if ((BYTE12(v32) & 1) == 0 || (BYTE4(v34) & 1) == 0 || *(&v34 + 1) || (*(&v33 + 1) & 0x8000000000000000) != 0)
   {
     FigReadOnlyTimebaseSetTargetTimebase();
     [*(a1 + 32) _removeFoldedTBListeners];
-    v5 = *(a1 + 32);
-    v6 = *(*(v5 + 8) + 16);
-    v19 = MEMORY[0x1E69E9820];
-    v20 = 3221225472;
-    v21 = __31__AVPlayerItem__updateTimebase__block_invoke_5;
-    v22 = &unk_1E7460C00;
-    v23 = v5;
-    v7 = &v19;
+    v6 = *(a1 + 32);
+    v7 = *(*(v6 + 8) + 16);
+    v20 = MEMORY[0x1E69E9820];
+    v21 = 3221225472;
+    v22 = __31__AVPlayerItem__updateTimebase__block_invoke_5;
+    v23 = &unk_1E7460C00;
+    v24 = v6;
+    v8 = &v20;
 LABEL_15:
-    av_readwrite_dispatch_queue_write(v6, v7);
+    av_readwrite_dispatch_queue_write(v7, v8);
     goto LABEL_16;
   }
 
   [*(a1 + 32) _removeFoldedTBListeners];
-  v12 = *(a1 + 32);
-  v13 = *(*(v12 + 8) + 16);
-  v24[0] = MEMORY[0x1E69E9820];
-  v24[1] = 3221225472;
-  v24[2] = __31__AVPlayerItem__updateTimebase__block_invoke_4;
-  v24[3] = &unk_1E7460FA8;
-  v24[4] = v12;
-  v24[5] = v30;
-  av_readwrite_dispatch_queue_write(v13, v24);
-  if (v30)
+  v13 = *(a1 + 32);
+  v14 = *(*(v13 + 8) + 16);
+  v25[0] = MEMORY[0x1E69E9820];
+  v25[1] = 3221225472;
+  v25[2] = __31__AVPlayerItem__updateTimebase__block_invoke_4;
+  v25[3] = &unk_1E7460FA8;
+  v25[4] = v13;
+  v25[5] = v31;
+  av_readwrite_dispatch_queue_write(v14, v25);
+  if (v31)
   {
     [*(a1 + 32) _addFoldedTBListeners];
   }
 
   FigReadOnlyTimebaseSetTargetTimebase();
 LABEL_16:
-  [*(a1 + 32) didChangeValueForKey:{@"timebase", v14, v15, v16, v17, v18, v19, v20, v21, v22, v23}];
-  v11 = *(a1 + 48);
-  if (v11)
+  [*(a1 + 32) didChangeValueForKey:{@"timebase", v15, v16, v17, v18, v19, v20, v21, v22, v23, v24}];
+  v12 = *(a1 + 48);
+  if (v12)
   {
-    CFRelease(v11);
+    CFRelease(v12);
   }
 }
 
@@ -926,7 +926,7 @@ LABEL_24:
 
     if (v7 && (v10 = *(*(CMBaseObjectGetVTable() + 16) + 16)) != 0 && !v10(v7, retstr))
     {
-      if ((~retstr->var2 & 5) != 0 || !self || ([(AVPlayerItem *)self loopTimeRange], (v15 & 1) == 0) || ([(AVPlayerItem *)self loopTimeRange], (v14 & 1) == 0) || ([(AVPlayerItem *)self loopTimeRange], v13) || ([(AVPlayerItem *)self loopTimeRange], v12 < 0))
+      if ((~retstr->var2 & 5) != 0 || !self || (objc_msgSend_loopTimeRange(self), (v15 & 1) == 0) || (objc_msgSend_loopTimeRange(self), (v14 & 1) == 0) || (objc_msgSend_loopTimeRange(self), v13) || (objc_msgSend_loopTimeRange(self), v12 < 0))
       {
 LABEL_25:
         CFRelease(v7);
@@ -951,7 +951,7 @@ LABEL_25:
       }
     }
 
-    result = [($3CC8671D27C23BF42ADDB32F2B5E48AE *)result duration];
+    result = objc_msgSend_duration(result);
 LABEL_22:
     *&retstr->var0 = v16;
     retstr->var3 = v17;
@@ -967,22 +967,22 @@ LABEL_22:
       {
         if (self)
         {
-          [(AVPlayerItem *)self loopTimeRange];
+          objc_msgSend_loopTimeRange(self);
           if (v21)
           {
-            [(AVPlayerItem *)self loopTimeRange];
+            objc_msgSend_loopTimeRange(self);
             if (v20)
             {
-              [(AVPlayerItem *)self loopTimeRange];
+              objc_msgSend_loopTimeRange(self);
               if (!v19)
               {
-                [(AVPlayerItem *)self loopTimeRange];
+                objc_msgSend_loopTimeRange(self);
                 if ((v18 & 0x8000000000000000) == 0)
                 {
                   asset = self->_playerItem->asset;
                   if (asset)
                   {
-                    [(AVAsset *)asset duration];
+                    objc_msgSend_duration(asset);
                     *&retstr->var0 = v16;
                     retstr->var3 = v17;
                   }
@@ -1001,7 +1001,7 @@ LABEL_22:
   if (result)
   {
 
-    return [($3CC8671D27C23BF42ADDB32F2B5E48AE *)result duration];
+    return objc_msgSend_duration(result);
   }
 
   return result;
@@ -1133,7 +1133,7 @@ void __67__AVPlayerItem__updateAllowedAudioSpatializationFormatsFromFigItem__blo
   }
 }
 
-uint64_t __40__AVPlayerItem__tracksFromAssetTrackIDs__block_invoke(uint64_t a1)
+void *__40__AVPlayerItem__tracksFromAssetTrackIDs__block_invoke(uint64_t a1)
 {
   v19 = *MEMORY[0x1E69E9840];
   v2 = [*(*(*(a1 + 32) + 8) + 120) tracks];
@@ -1224,7 +1224,7 @@ uint64_t __40__AVPlayerItem__tracksFromAssetTrackIDs__block_invoke(uint64_t a1)
   return v6;
 }
 
-uint64_t __22__AVPlayerItem_tracks__block_invoke(uint64_t a1)
+void *__22__AVPlayerItem_tracks__block_invoke(uint64_t a1)
 {
   result = [*(*(*(a1 + 32) + 8) + 152) copy];
   *(*(*(a1 + 40) + 8) + 40) = result;
@@ -1722,7 +1722,7 @@ void __31__AVPlayerItem__updateTimebase__block_invoke_4(uint64_t a1)
 
 - (AVPlayerItem)initWithAsset:(AVAsset *)asset automaticallyLoadedAssetKeys:(NSArray *)automaticallyLoadedAssetKeys
 {
-  v46 = [[AVTelemetryInterval alloc] initAndStartWith:1];
+  v47 = [[AVTelemetryInterval alloc] initAndStartWith:1];
   AVTelemetryGenerateID();
   v8 = objc_alloc_init(AVPlayerItemInternal);
   self->_playerItem = v8;
@@ -1754,11 +1754,11 @@ LABEL_11:
   if (([objc_opt_class() supportsPlayerItems] & 1) == 0)
   {
     selfCopy = self;
-    v35 = MEMORY[0x1E695DF30];
-    v36 = objc_opt_class();
-    v37 = NSStringFromClass(v36);
-    v43 = [v35 exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector(self userInfo:{a2, @"%@ does not support playback via AVPlayer", v38, v39, v40, v41, v42, v37), 0}];
-    objc_exception_throw(v43);
+    v36 = MEMORY[0x1E695DF30];
+    v37 = objc_opt_class();
+    v38 = NSStringFromClass(v37);
+    v44 = [v36 exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector(self userInfo:{a2, @"%@ does not support playback via AVPlayer", v39, v40, v41, v42, v43, v38), 0}];
+    objc_exception_throw(v44);
   }
 
   self->_playerItem->weakReference = [[AVWeakReference alloc] initWithReferencedObject:self];
@@ -1774,8 +1774,8 @@ LABEL_11:
   *&playerItem->recommendedTimeOffsetFromLive.epoch = *v12;
   self->_playerItem->initialTime.timescale = AVPlayerItemGetFigPlayerSetTimeFlagsForTolerances(MEMORY[0x1E6960C88], MEMORY[0x1E6960C88]);
   v13 = self->_playerItem;
-  v45 = *(&v13->timeJumpedNotificationIncludesExtendedDiagnosticPayload + 4);
-  AVPlayerItemGetFigPlayerSnapTimesForTimeAndTolerances(&v45, MEMORY[0x1E6960C88], MEMORY[0x1E6960C88], &v13->initialTime.flags, (&v13->initialMinSnapTime.value + 4));
+  v46 = *(&v13->timeJumpedNotificationIncludesExtendedDiagnosticPayload + 4);
+  AVPlayerItemGetFigPlayerSnapTimesForTimeAndTolerances(&v46, MEMORY[0x1E6960C88], MEMORY[0x1E6960C88], &v13->initialTime.flags, (&v13->initialMinSnapTime.value + 4));
   *&self->_playerItem->preferredMinimumResolution.height = *MEMORY[0x1E695F060];
   LOBYTE(self->_playerItem->presentationSize.width) = 1;
   BYTE2(self->_playerItem->initialDate) = 1;
@@ -1808,14 +1808,14 @@ LABEL_11:
   *&v23->overlappedPlaybackEndTimeWasSet = v17;
   *&v23->configuredTimeOffsetFromLive.timescale = v16;
   v24 = self->_playerItem;
-  v44 = v17;
+  v45 = v17;
   *&v24->configuredTimeOffsetFromLive.epoch = v17;
   *&v24->recommendedTimeOffsetFromLive.timescale = v16;
   BYTE6(self->_playerItem->mediaKind) = 1;
   HIBYTE(self->_playerItem->mediaKind) = 1;
   v25 = self->_playerItem;
-  CMTimeMake(&v45, 1, 10);
-  *&v25->decodesAllFramesDuringOrdinaryPlayback = v45;
+  CMTimeMake(&v46, 1, 10);
+  *&v25->decodesAllFramesDuringOrdinaryPlayback = v46;
   LODWORD(self->_playerItem->minimumIntervalForIFrameOnlyPlayback.epoch) = 0x40000000;
   LOBYTE(self->_playerItem->figAudioTimePitchAlgorithm) = sCanUseExtraNetworkingByDefault;
   BYTE3(self->_playerItem->presentationSize.height) = 1;
@@ -1831,8 +1831,8 @@ LABEL_11:
   }
 
   self->_playerItem->initialEstimatedDate = v26;
-  playerItem_createDefaultProxyTimebase();
-  playerItem_createDefaultProxyTimebase();
+  playerItem_createDefaultProxyTimebase(&self->_playerItem->proxyUnfoldedTimebase);
+  playerItem_createDefaultProxyTimebase(&self->_playerItem->proxyFoldedTimebase);
   LODWORD(self->_playerItem->gaplessInfo) = 0;
   HIDWORD(self->_playerItem->gaplessInfo) = 1065353216;
   LOBYTE(self->_playerItem->audioProcessingTap) = 0;
@@ -1840,14 +1840,14 @@ LABEL_11:
   self->_playerItem->mediaOptionsSelectedByClient = objc_alloc_init(MEMORY[0x1E695DF70]);
   *&self->_playerItem->adjustCompressionProfileWasSet = 0;
   self->_playerItem->seekIDMutex = FigSimpleMutexCreate();
-  self->_playerItem->ivarAccessQueue = av_readwrite_dispatch_queue_create("com.apple.avplayeritem.ivars");
+  self->_playerItem->ivarAccessQueue = av_readwrite_dispatch_queue_create("com.apple.avplayeritem.ivars", v27);
   self->_playerItem->figConfigurationQueue = dispatch_queue_create("com.apple.avplayeritem.figplaybackitem", 0);
-  v27 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
-  self->_playerItem->figPlaybackItemAccessorQueue = dispatch_queue_create("com.apple.avplayeritem.figplaybackitem.accessor", v27);
   v28 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
-  self->_playerItem->figPlaybackItemSetterQueue = dispatch_queue_create("com.apple.avplayeritem.figplaybackitem.setter", v28);
+  self->_playerItem->figPlaybackItemAccessorQueue = dispatch_queue_create("com.apple.avplayeritem.figplaybackitem.accessor", v28);
   v29 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
-  self->_playerItem->seekQueue = dispatch_queue_create("com.apple.avplayeritem.seek", v29);
+  self->_playerItem->figPlaybackItemSetterQueue = dispatch_queue_create("com.apple.avplayeritem.figplaybackitem.setter", v29);
+  v30 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
+  self->_playerItem->seekQueue = dispatch_queue_create("com.apple.avplayeritem.seek", v30);
   self->_playerItem->itemOutputs = objc_alloc_init(MEMORY[0x1E695DEC8]);
   self->_playerItem->itemVideoOutputs = objc_alloc_init(MEMORY[0x1E695DF70]);
   self->_playerItem->itemLegibleOutputsForKeys = objc_alloc_init(MEMORY[0x1E695DF90]);
@@ -1872,11 +1872,11 @@ LABEL_12:
 
   VTPixelBufferAttributesMediatorSetProperty();
   p_flags = &self->_playerItem->maximumForwardBufferDuration.flags;
-  *p_flags = v44;
+  *p_flags = v45;
   *(p_flags + 2) = v16;
-  v32 = &self->_playerItem->figAudioTimePitchAlgorithm + 4;
-  *v32 = v44;
-  *(v32 + 2) = v16;
+  v33 = &self->_playerItem->figAudioTimePitchAlgorithm + 4;
+  *v33 = v45;
+  *(v33 + 2) = v16;
   self->_playerItem->haveInitialSamples = 1;
   self->_playerItem->haveCPEProtector = 0;
   self->_playerItem->mostRecentlyAppliedAudioMix = 4;
@@ -1907,16 +1907,16 @@ LABEL_12:
 
   *&self->_playerItem->speedRamp.wasSet = objc_alloc_init(AVPlayerItemAudioTrackInfoCache);
 LABEL_13:
-  AVTelemetryIntervalEnd(&v46);
+  AVTelemetryIntervalEnd(&v47);
   return self;
 }
 
 - (void)dealloc
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   if (dword_1ED5AC298)
   {
-    v38 = 0;
+    v36 = 0;
     type = OS_LOG_TYPE_DEFAULT;
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
@@ -1927,14 +1927,14 @@ LABEL_13:
   {
     if (dword_1ED5AC298)
     {
-      v38 = 0;
+      v36 = 0;
       type = OS_LOG_TYPE_DEFAULT;
       v4 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
       os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
       fig_log_call_emit_and_clean_up_after_send_and_compose();
     }
 
-    [(AVPlayerItem *)self _removeFAListeners:v34];
+    [(AVPlayerItem *)self _removeFAListeners];
     [(AVPlayerItem *)self _removeFPListeners];
     [(AVPlayerItem *)self _removeFoldedTBListeners];
     [(NSMutableArray *)self->_playerItem->itemMetadataCollectors _detatchFromPlayerItem];
@@ -2116,9 +2116,9 @@ LABEL_13:
     }
   }
 
-  v36.receiver = self;
-  v36.super_class = AVPlayerItem;
-  [(AVPlayerItem *)&v36 dealloc];
+  v34.receiver = self;
+  v34.super_class = AVPlayerItem;
+  [(AVPlayerItem *)&v34 dealloc];
 }
 
 - (id)copyWithZone:(_NSZone *)zone newAssetOptions:(id)options
@@ -2167,21 +2167,21 @@ LABEL_13:
     [v11 setAudioTimePitchAlgorithm:{-[AVPlayerItem audioTimePitchAlgorithm](self, "audioTimePitchAlgorithm")}];
     [v11 setSuppressesAudioOnlyVariants:{-[AVPlayerItem suppressesAudioOnlyVariants](self, "suppressesAudioOnlyVariants")}];
     [v11 setPrefersOfflinePlayableVariants:{-[AVPlayerItem prefersOfflinePlayableVariants](self, "prefersOfflinePlayableVariants")}];
-    [(AVPlayerItem *)self forwardPlaybackEndTime];
+    objc_msgSend_forwardPlaybackEndTime(self);
     [v11 setForwardPlaybackEndTime:&v21];
-    [(AVPlayerItem *)self reversePlaybackEndTime];
+    objc_msgSend_reversePlaybackEndTime(self);
     [v11 setReversePlaybackEndTime:&v21];
-    [(AVPlayerItem *)self timeToPauseBuffering];
+    objc_msgSend_timeToPauseBuffering(self);
     if (v30)
     {
-      [(AVPlayerItem *)self timeToPauseBuffering];
+      objc_msgSend_timeToPauseBuffering(self);
       [v11 setTimeToPauseBuffering:&v21];
     }
 
-    [(AVPlayerItem *)self timeToPausePlayback];
+    objc_msgSend_timeToPausePlayback(self);
     if (v29)
     {
-      [(AVPlayerItem *)self timeToPausePlayback];
+      objc_msgSend_timeToPausePlayback(self);
       [v11 setTimeToPausePlayback:&v21];
     }
 
@@ -2192,13 +2192,13 @@ LABEL_13:
 
     if ([(AVPlayerItem *)self advanceTimeForOverlappedPlaybackWasSet])
     {
-      [(AVPlayerItem *)self advanceTimeForOverlappedPlayback];
+      objc_msgSend_advanceTimeForOverlappedPlayback(self);
       [v11 setAdvanceTimeForOverlappedPlayback:&v21];
     }
 
     if ([(AVPlayerItem *)self overlappedPlaybackEndTimeWasSet])
     {
-      [(AVPlayerItem *)self overlappedPlaybackEndTime];
+      objc_msgSend_overlappedPlaybackEndTime(self);
       [v11 setOverlappedPlaybackEndTime:&v21];
     }
 
@@ -2207,7 +2207,7 @@ LABEL_13:
       [v11 setAutomaticallyPreservesTimeOffsetFromLive:1];
     }
 
-    [(AVPlayerItem *)self configuredTimeOffsetFromLive];
+    objc_msgSend_configuredTimeOffsetFromLive(self);
     [v11 setConfiguredTimeOffsetFromLive:&v21];
     if ([(AVPlayerItem *)self imageQueueInterpolationCurveWasSet])
     {
@@ -2271,7 +2271,7 @@ LABEL_13:
 
     if ([(AVPlayerItem *)self minimumIntervalForIFrameOnlyPlaybackWasSet])
     {
-      [(AVPlayerItem *)self minimumIntervalForIFrameOnlyPlayback];
+      objc_msgSend_minimumIntervalForIFrameOnlyPlayback(self);
       [v11 setMinimumIntervalForIFrameOnlyPlayback:&v21];
     }
 
@@ -2463,7 +2463,7 @@ LABEL_13:
   return v3;
 }
 
-uint64_t __26__AVPlayerItem_identifier__block_invoke(uint64_t a1)
+void *__26__AVPlayerItem_identifier__block_invoke(uint64_t a1)
 {
   result = [*(*(*(a1 + 32) + 8) + 1112) copy];
   *(*(*(a1 + 40) + 8) + 40) = result;
@@ -2729,16 +2729,16 @@ CFTypeRef __43__AVPlayerItem__copyFigPlaybackItemLocked___block_invoke(uint64_t 
       }
     }
 
-    [(AVPlayerItem *)self loopTimeRange];
+    objc_msgSend_loopTimeRange(self);
     if (v49)
     {
-      [(AVPlayerItem *)self loopTimeRange];
+      objc_msgSend_loopTimeRange(self);
       if (v48)
       {
-        [(AVPlayerItem *)self loopTimeRange];
+        objc_msgSend_loopTimeRange(self);
         if (!v47)
         {
-          [(AVPlayerItem *)self loopTimeRange];
+          objc_msgSend_loopTimeRange(self);
           if ((v46 & 0x8000000000000000) == 0)
           {
             [(AVPlayerItem *)self _updateLoopTimeRangeOnFigPlaybackItem];
@@ -2747,25 +2747,25 @@ CFTypeRef __43__AVPlayerItem__copyFigPlaybackItemLocked___block_invoke(uint64_t 
       }
     }
 
-    [(AVPlayerItem *)self forwardPlaybackEndTime];
+    objc_msgSend_forwardPlaybackEndTime(self);
     if (v45)
     {
       [(AVPlayerItem *)self _updateForwardPlaybackEndTimeOnFigPlaybackItem];
     }
 
-    [(AVPlayerItem *)self reversePlaybackEndTime];
+    objc_msgSend_reversePlaybackEndTime(self);
     if (v44)
     {
       [(AVPlayerItem *)self _updateReversePlaybackEndTimeOnFigPlaybackItem];
     }
 
-    [(AVPlayerItem *)self _timeToPauseBuffering];
+    objc_msgSend__timeToPauseBuffering(self);
     if (v43)
     {
       [(AVPlayerItem *)self _updateTimeToPauseBufferingOnFigPlaybackItem];
     }
 
-    [(AVPlayerItem *)self _timeToPausePlayback];
+    objc_msgSend__timeToPausePlayback(self);
     if (v42)
     {
       [(AVPlayerItem *)self _updateTimeToPausePlaybackOnFigPlaybackItem];
@@ -2857,7 +2857,7 @@ CFTypeRef __43__AVPlayerItem__copyFigPlaybackItemLocked___block_invoke(uint64_t 
       [(AVPlayerItem *)self _updatePreservesTimeOffsetFromLive];
     }
 
-    [(AVPlayerItem *)self configuredTimeOffsetFromLive];
+    objc_msgSend_configuredTimeOffsetFromLive(self);
     if (v41)
     {
       [(AVPlayerItem *)self _updateConfiguredTimeOffsetFromLiveOnFigPlaybackItem];
@@ -2958,7 +2958,7 @@ CFTypeRef __43__AVPlayerItem__copyFigPlaybackItemLocked___block_invoke(uint64_t 
       [(AVPlayerItem *)self _updateMaximumTrailingBufferDurationOnFigPlaybackItem];
     }
 
-    [(AVPlayerItem *)self maximumForwardBufferDuration];
+    objc_msgSend_maximumForwardBufferDuration(self);
     if (v40)
     {
       [(AVPlayerItem *)self _updateMaximumForwardBufferDurationOnFigPlaybackItem];
@@ -3425,7 +3425,7 @@ id __27__AVPlayerItem__copyPlayer__block_invoke(uint64_t a1)
   v8 = *(*(CMBaseObjectGetVTable() + 8) + 48);
   if (!v8)
   {
-    v9 = -12782;
+    v9 = 4294954514;
 LABEL_7:
     v6 = AVLocalizedErrorWithUnderlyingOSStatus(v9, 0);
     goto LABEL_8;
@@ -3500,7 +3500,7 @@ void __67__AVPlayerItem_processWaitingMetricEventTimelineCompletionHandlers__blo
   }
 }
 
-uint64_t __67__AVPlayerItem_processWaitingMetricEventTimelineCompletionHandlers__block_invoke_3(uint64_t a1)
+void *__67__AVPlayerItem_processWaitingMetricEventTimelineCompletionHandlers__block_invoke_3(uint64_t a1)
 {
   result = [*(*(*(a1 + 32) + 8) + 1528) count];
   if (result)
@@ -3990,7 +3990,7 @@ LABEL_12:
       [(AVPlayerItem *)self _markAsReadyForInspectionOfDuration];
       v13 = 0uLL;
       v14 = 0;
-      [(AVPlayerItem *)self _duration];
+      objc_msgSend__duration(self);
       ivarAccessQueue = self->_playerItem->ivarAccessQueue;
       v10[0] = MEMORY[0x1E69E9820];
       v10[1] = 3221225472;
@@ -4037,7 +4037,7 @@ __n128 __26__AVPlayerItem__setAsset___block_invoke(uint64_t a1)
   return result;
 }
 
-uint64_t __26__AVPlayerItem__setAsset___block_invoke_2(uint64_t a1)
+void *__26__AVPlayerItem__setAsset___block_invoke_2(uint64_t a1)
 {
   result = [*(a1 + 40) copy];
   *(*(*(a1 + 32) + 8) + 152) = result;
@@ -4204,7 +4204,7 @@ id __63__AVPlayerItem__markAssetWithFigPlaybackItemAsNeedingNewTracks__block_inv
   }
 }
 
-uint64_t __58__AVPlayerItem__informObserversAboutAvailabilityOfTracks___block_invoke(uint64_t a1)
+void *__58__AVPlayerItem__informObserversAboutAvailabilityOfTracks___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 40) copy];
   *(*(*(a1 + 32) + 8) + 152) = result;
@@ -4274,20 +4274,20 @@ __n128 __67__AVPlayerItem__informObserversAboutAvailabilityOfPresentationSize__b
   _Block_object_dispose(v10, 8);
 }
 
-void __60__AVPlayerItem__informObserversAboutAvailabilityOfDuration___block_invoke(uint64_t a1)
+void __60__AVPlayerItem__informObserversAboutAvailabilityOfDuration___block_invoke(uint64_t a1, const char *a2)
 {
-  [*(a1 + 32) _duration];
-  v2 = *(*(a1 + 40) + 8);
-  *(v2 + 32) = v7;
-  *(v2 + 48) = v8;
+  objc_msgSend__duration(*(a1 + 32), a2);
+  v3 = *(*(a1 + 40) + 8);
+  *(v3 + 32) = v8;
+  *(v3 + 48) = v9;
   block[0] = MEMORY[0x1E69E9820];
-  v3 = *(a1 + 32);
-  v4 = *(*(*(a1 + 32) + 8) + 136);
+  v4 = *(a1 + 32);
+  v5 = *(*(*(a1 + 32) + 8) + 136);
   block[1] = 3221225472;
   block[2] = __60__AVPlayerItem__informObserversAboutAvailabilityOfDuration___block_invoke_2;
   block[3] = &unk_1E7460EE0;
-  v6 = v3;
-  dispatch_async(v4, block);
+  v7 = v4;
+  dispatch_async(v5, block);
 }
 
 uint64_t __60__AVPlayerItem__informObserversAboutAvailabilityOfDuration___block_invoke_2(uint64_t a1)
@@ -4381,15 +4381,15 @@ id __21__AVPlayerItem_error__block_invoke(uint64_t a1)
   }
 }
 
-uint64_t __47__AVPlayerItem__changeStatusToFailedWithError___block_invoke(uint64_t result)
+void *__47__AVPlayerItem__changeStatusToFailedWithError___block_invoke(void *result)
 {
-  v1 = *(*(result + 32) + 8);
+  v1 = *(*(result + 4) + 8);
   if (*(v1 + 280) != 2)
   {
     v2 = result;
     *(v1 + 280) = 2;
-    result = [*(result + 40) copy];
-    *(*(*(v2 + 32) + 8) + 288) = result;
+    result = [*(result + 5) copy];
+    *(*(v2[4] + 8) + 288) = result;
   }
 
   return result;
@@ -4522,7 +4522,7 @@ __n128 __24__AVPlayerItem_duration__block_invoke(uint64_t a1)
   return v3;
 }
 
-uint64_t __29__AVPlayerItem__cachedTracks__block_invoke(uint64_t a1)
+void *__29__AVPlayerItem__cachedTracks__block_invoke(uint64_t a1)
 {
   result = [*(*(*(a1 + 32) + 8) + 144) copy];
   *(*(*(a1 + 40) + 8) + 40) = result;
@@ -4869,7 +4869,7 @@ LABEL_3:
 
   else
   {
-    v7 = -12782;
+    v7 = 4294954514;
   }
 
   [(AVPlayerItem *)self _changeStatusToFailedWithError:AVLocalizedErrorWithUnderlyingOSStatus(v7, 0)];
@@ -4901,7 +4901,7 @@ LABEL_7:
 
   else
   {
-    v12 = -12782;
+    v12 = 4294954514;
   }
 
   [(AVPlayerItem *)self _changeStatusToFailedWithError:AVLocalizedErrorWithUnderlyingOSStatus(v12, 0)];
@@ -4923,7 +4923,7 @@ LABEL_19:
   v17 = *(*(CMBaseObjectGetVTable() + 16) + 48);
   if (!v17)
   {
-    v18 = -12782;
+    v18 = 4294954514;
     goto LABEL_26;
   }
 
@@ -5441,7 +5441,7 @@ uint64_t __50__AVPlayerItem__updatePreservesTimeOffsetFromLive__block_invoke(uin
 
   if ((flags & 1) == 0)
   {
-    result = [(AVPlayerItem *)self configuredTimeOffsetFromLive];
+    result = objc_msgSend_configuredTimeOffsetFromLive(self);
     value = v11;
     flags = v13;
     timescale = v12;
@@ -5505,28 +5505,28 @@ __n128 __44__AVPlayerItem_configuredTimeOffsetFromLive__block_invoke(uint64_t a1
   }
 }
 
-void __68__AVPlayerItem__updateConfiguredTimeOffsetFromLiveOnFigPlaybackItem__block_invoke(uint64_t a1)
+void __68__AVPlayerItem__updateConfiguredTimeOffsetFromLiveOnFigPlaybackItem__block_invoke(uint64_t a1, const char *a2)
 {
-  memset(&v6[1], 0, sizeof(CMTime));
-  v1 = *(a1 + 32);
-  if (v1)
+  memset(&v7[1], 0, sizeof(CMTime));
+  v2 = *(a1 + 32);
+  if (v2)
   {
-    [v1 configuredTimeOffsetFromLive];
+    objc_msgSend_configuredTimeOffsetFromLive(v2, a2);
   }
 
-  v2 = *MEMORY[0x1E695E480];
-  v6[0] = v6[1];
-  v3 = CMTimeCopyAsDictionary(v6, v2);
+  v3 = *MEMORY[0x1E695E480];
+  v7[0] = v7[1];
+  v4 = CMTimeCopyAsDictionary(v7, v3);
   FigBaseObject = FigPlaybackItemGetFigBaseObject();
-  v5 = *(*(CMBaseObjectGetVTable() + 8) + 56);
-  if (v5)
+  v6 = *(*(CMBaseObjectGetVTable() + 8) + 56);
+  if (v6)
   {
-    v5(FigBaseObject, *MEMORY[0x1E6972B58], v3);
+    v6(FigBaseObject, *MEMORY[0x1E6972B58], v4);
   }
 
-  if (v3)
+  if (v4)
   {
-    CFRelease(v3);
+    CFRelease(v4);
   }
 }
 
@@ -5913,7 +5913,7 @@ LABEL_6:
   memset(&v80, 0, sizeof(v80));
   if (self)
   {
-    [(AVPlayerItem *)self loopTimeRange];
+    objc_msgSend_loopTimeRange(self);
     v20 = (v80.start.flags & 1) == 0;
   }
 
@@ -6126,7 +6126,7 @@ LABEL_36:
   _Block_object_dispose(&v75, 8);
 }
 
-uint64_t __84__AVPlayerItem__seekToTime_toleranceBefore_toleranceAfter_seekID_completionHandler___block_invoke(uint64_t a1)
+void *__84__AVPlayerItem__seekToTime_toleranceBefore_toleranceAfter_seekID_completionHandler___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _copyFigPlaybackItem];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -6244,28 +6244,27 @@ uint64_t __84__AVPlayerItem__seekToTime_toleranceBefore_toleranceAfter_seekID_co
 
 - (BOOL)seekToDate:(NSDate *)date
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   _copyStateDispatchQueue = [(AVPlayerItem *)self _copyStateDispatchQueue];
   if (_copyStateDispatchQueue)
   {
     v6 = _copyStateDispatchQueue;
-    IsNotCurrentDispatchQueue = _FigIsNotCurrentDispatchQueue();
-    if (IsNotCurrentDispatchQueue)
+    if (_FigIsNotCurrentDispatchQueue())
     {
       if (dword_1ED5AC298)
       {
         os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
         os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
-        IsNotCurrentDispatchQueue = fig_log_call_emit_and_clean_up_after_send_and_compose();
+        fig_log_call_emit_and_clean_up_after_send_and_compose();
       }
 
-      AVPotentialRaceCondition(IsNotCurrentDispatchQueue);
+      AVPotentialRaceCondition();
     }
 
     dispatch_release(v6);
   }
 
-  return [(AVPlayerItem *)self seekToDate:date completionHandler:0, v10, v11];
+  return [(AVPlayerItem *)self seekToDate:date completionHandler:0];
 }
 
 - (id)initialDate
@@ -6471,12 +6470,12 @@ __n128 __38__AVPlayerItem_forwardPlaybackEndTime__block_invoke(uint64_t a1)
   }
 }
 
-void __62__AVPlayerItem__updateForwardPlaybackEndTimeOnFigPlaybackItem__block_invoke(uint64_t a1)
+void __62__AVPlayerItem__updateForwardPlaybackEndTimeOnFigPlaybackItem__block_invoke(uint64_t a1, const char *a2)
 {
-  v1 = *(a1 + 32);
-  if (v1)
+  v2 = *(a1 + 32);
+  if (v2)
   {
-    [v1 forwardPlaybackEndTime];
+    objc_msgSend_forwardPlaybackEndTime(v2, a2);
   }
 
   else
@@ -6484,17 +6483,17 @@ void __62__AVPlayerItem__updateForwardPlaybackEndTimeOnFigPlaybackItem__block_in
     memset(&time, 0, sizeof(time));
   }
 
-  v2 = CMTimeCopyAsDictionary(&time, *MEMORY[0x1E695E480]);
+  v3 = CMTimeCopyAsDictionary(&time, *MEMORY[0x1E695E480]);
   FigBaseObject = FigPlaybackItemGetFigBaseObject();
-  v4 = *(*(CMBaseObjectGetVTable() + 8) + 56);
-  if (v4)
+  v5 = *(*(CMBaseObjectGetVTable() + 8) + 56);
+  if (v5)
   {
-    v4(FigBaseObject, *MEMORY[0x1E6972900], v2);
+    v5(FigBaseObject, *MEMORY[0x1E6972900], v3);
   }
 
-  if (v2)
+  if (v3)
   {
-    CFRelease(v2);
+    CFRelease(v3);
   }
 }
 
@@ -6572,12 +6571,12 @@ __n128 __38__AVPlayerItem_reversePlaybackEndTime__block_invoke(uint64_t a1)
   }
 }
 
-void __62__AVPlayerItem__updateReversePlaybackEndTimeOnFigPlaybackItem__block_invoke(uint64_t a1)
+void __62__AVPlayerItem__updateReversePlaybackEndTimeOnFigPlaybackItem__block_invoke(uint64_t a1, const char *a2)
 {
-  v1 = *(a1 + 32);
-  if (v1)
+  v2 = *(a1 + 32);
+  if (v2)
   {
-    [v1 reversePlaybackEndTime];
+    objc_msgSend_reversePlaybackEndTime(v2, a2);
   }
 
   else
@@ -6585,17 +6584,17 @@ void __62__AVPlayerItem__updateReversePlaybackEndTimeOnFigPlaybackItem__block_in
     memset(&time, 0, sizeof(time));
   }
 
-  v2 = CMTimeCopyAsDictionary(&time, *MEMORY[0x1E695E480]);
+  v3 = CMTimeCopyAsDictionary(&time, *MEMORY[0x1E695E480]);
   FigBaseObject = FigPlaybackItemGetFigBaseObject();
-  v4 = *(*(CMBaseObjectGetVTable() + 8) + 56);
-  if (v4)
+  v5 = *(*(CMBaseObjectGetVTable() + 8) + 56);
+  if (v5)
   {
-    v4(FigBaseObject, *MEMORY[0x1E6972AB0], v2);
+    v5(FigBaseObject, *MEMORY[0x1E6972AB0], v3);
   }
 
-  if (v2)
+  if (v3)
   {
-    CFRelease(v2);
+    CFRelease(v3);
   }
 }
 
@@ -6682,7 +6681,7 @@ __n128 __37__AVPlayerItem__timeToPauseBuffering__block_invoke(uint64_t a1)
 
   else
   {
-    result = [(AVPlayerItem *)self _timeToPauseBuffering];
+    result = objc_msgSend__timeToPauseBuffering(self);
     v13 = v10;
   }
 
@@ -6708,12 +6707,12 @@ __n128 __37__AVPlayerItem__timeToPauseBuffering__block_invoke(uint64_t a1)
   }
 }
 
-void __60__AVPlayerItem__updateTimeToPauseBufferingOnFigPlaybackItem__block_invoke(uint64_t a1)
+void __60__AVPlayerItem__updateTimeToPauseBufferingOnFigPlaybackItem__block_invoke(uint64_t a1, const char *a2)
 {
-  v1 = *(a1 + 32);
-  if (v1)
+  v2 = *(a1 + 32);
+  if (v2)
   {
-    [v1 _timeToPauseBuffering];
+    objc_msgSend__timeToPauseBuffering(v2, a2);
   }
 
   else
@@ -6721,17 +6720,17 @@ void __60__AVPlayerItem__updateTimeToPauseBufferingOnFigPlaybackItem__block_invo
     memset(&time, 0, sizeof(time));
   }
 
-  v2 = CMTimeCopyAsDictionary(&time, *MEMORY[0x1E695E480]);
+  v3 = CMTimeCopyAsDictionary(&time, *MEMORY[0x1E695E480]);
   FigBaseObject = FigPlaybackItemGetFigBaseObject();
-  v4 = *(*(CMBaseObjectGetVTable() + 8) + 56);
-  if (v4)
+  v5 = *(*(CMBaseObjectGetVTable() + 8) + 56);
+  if (v5)
   {
-    v4(FigBaseObject, *MEMORY[0x1E6972B68], v2);
+    v5(FigBaseObject, *MEMORY[0x1E6972B68], v3);
   }
 
-  if (v2)
+  if (v3)
   {
-    CFRelease(v2);
+    CFRelease(v3);
   }
 }
 
@@ -6814,7 +6813,7 @@ __n128 __36__AVPlayerItem__timeToPausePlayback__block_invoke(uint64_t a1)
   {
     if (self)
     {
-      result = [(AVPlayerItem *)self _timeToPausePlayback];
+      result = objc_msgSend__timeToPausePlayback(self);
     }
 
     else
@@ -6849,12 +6848,12 @@ __n128 __36__AVPlayerItem__timeToPausePlayback__block_invoke(uint64_t a1)
   }
 }
 
-void __59__AVPlayerItem__updateTimeToPausePlaybackOnFigPlaybackItem__block_invoke(uint64_t a1)
+void __59__AVPlayerItem__updateTimeToPausePlaybackOnFigPlaybackItem__block_invoke(uint64_t a1, const char *a2)
 {
-  v1 = *(a1 + 32);
-  if (v1)
+  v2 = *(a1 + 32);
+  if (v2)
   {
-    [v1 _timeToPausePlayback];
+    objc_msgSend__timeToPausePlayback(v2, a2);
   }
 
   else
@@ -6862,17 +6861,17 @@ void __59__AVPlayerItem__updateTimeToPausePlaybackOnFigPlaybackItem__block_invok
     memset(&time, 0, sizeof(time));
   }
 
-  v2 = CMTimeCopyAsDictionary(&time, *MEMORY[0x1E695E480]);
+  v3 = CMTimeCopyAsDictionary(&time, *MEMORY[0x1E695E480]);
   FigBaseObject = FigPlaybackItemGetFigBaseObject();
-  v4 = *(*(CMBaseObjectGetVTable() + 8) + 56);
-  if (v4)
+  v5 = *(*(CMBaseObjectGetVTable() + 8) + 56);
+  if (v5)
   {
-    v4(FigBaseObject, *MEMORY[0x1E6972B70], v2);
+    v5(FigBaseObject, *MEMORY[0x1E6972B70], v3);
   }
 
-  if (v2)
+  if (v3)
   {
-    CFRelease(v2);
+    CFRelease(v3);
   }
 }
 
@@ -7031,7 +7030,7 @@ uint64_t __63__AVPlayerItem__updateSnapTimeToPausePlaybackOnFigPlaybackItem__blo
   return v3;
 }
 
-uint64_t __44__AVPlayerItem_imageQueueInterpolationCurve__block_invoke(uint64_t a1)
+void *__44__AVPlayerItem_imageQueueInterpolationCurve__block_invoke(uint64_t a1)
 {
   result = [*(*(*(a1 + 32) + 8) + 848) copy];
   *(*(*(a1 + 40) + 8) + 40) = result;
@@ -7106,7 +7105,7 @@ uint64_t __68__AVPlayerItem__updateImageQueueInterpolationCurveOnFigPlaybackItem
   [(AVPlayerItem *)self _updateImageQueueInterpolationCurveOnFigPlaybackItem];
 }
 
-uint64_t __48__AVPlayerItem_setImageQueueInterpolationCurve___block_invoke(uint64_t a1)
+void *__48__AVPlayerItem_setImageQueueInterpolationCurve___block_invoke(uint64_t a1)
 {
   *(*(*(a1 + 32) + 8) + 856) = 1;
 
@@ -7877,7 +7876,7 @@ void __37__AVPlayerItem_setReportingCategory___block_invoke(uint64_t a1)
   return v3;
 }
 
-uint64_t __33__AVPlayerItem_reportingCategory__block_invoke(uint64_t a1)
+void *__33__AVPlayerItem_reportingCategory__block_invoke(uint64_t a1)
 {
   result = [*(*(*(a1 + 32) + 8) + 664) copy];
   *(*(*(a1 + 40) + 8) + 40) = result;
@@ -7918,7 +7917,7 @@ uint64_t __33__AVPlayerItem_reportingCategory__block_invoke(uint64_t a1)
   }
 }
 
-uint64_t __55__AVPlayerItem__updateReportingValuesOnFigPlaybackItem__block_invoke(uint64_t a1)
+void *__55__AVPlayerItem__updateReportingValuesOnFigPlaybackItem__block_invoke(uint64_t a1)
 {
   result = [*(*(*(a1 + 32) + 8) + 672) copy];
   *(*(*(a1 + 40) + 8) + 40) = result;
@@ -8080,7 +8079,7 @@ uint64_t __54__AVPlayerItem__updateLimitReadAheadOnFigPlaybackItem__block_invoke
   CMTimeMake(&v6, 50, 1);
   if (self)
   {
-    [(AVPlayerItem *)self maximumForwardBufferDuration];
+    objc_msgSend_maximumForwardBufferDuration(self);
   }
 
   else
@@ -8109,7 +8108,7 @@ LABEL_8:
 
   if (self)
   {
-    [(AVPlayerItem *)self maximumForwardBufferDuration];
+    objc_msgSend_maximumForwardBufferDuration(self);
   }
 
   else
@@ -8131,7 +8130,7 @@ LABEL_8:
   v6 = [[AVTelemetryInterval alloc] initAndStartWith:152];
   [(AVPlayerItemObservationRegistrar *)self->_playerItem->observationRegistrar accessWithKey:@"preferredForwardBufferDuration" on:self];
   memset(&v5[32], 0, 24);
-  [(AVPlayerItem *)self maximumForwardBufferDuration];
+  objc_msgSend_maximumForwardBufferDuration(self);
   Seconds = 0.0;
   if (0 >> 96 == 1)
   {
@@ -8222,40 +8221,40 @@ __n128 __45__AVPlayerItem_maximumTrailingBufferDuration__block_invoke(uint64_t a
   }
 }
 
-void __69__AVPlayerItem__updateMaximumTrailingBufferDurationOnFigPlaybackItem__block_invoke(uint64_t a1)
+void __69__AVPlayerItem__updateMaximumTrailingBufferDurationOnFigPlaybackItem__block_invoke(uint64_t a1, const char *a2)
 {
-  memset(&v8, 0, sizeof(v8));
-  v1 = *(a1 + 32);
-  if (v1)
+  memset(&v9, 0, sizeof(v9));
+  v2 = *(a1 + 32);
+  if (v2)
   {
-    [v1 maximumTrailingBufferDuration];
+    objc_msgSend_maximumTrailingBufferDuration(v2, a2);
   }
 
-  time1 = v8;
-  v6 = **&MEMORY[0x1E6960CC0];
-  if (CMTimeCompare(&time1, &v6) < 0)
+  time1 = v9;
+  v7 = **&MEMORY[0x1E6960CC0];
+  if (CMTimeCompare(&time1, &v7) < 0)
   {
-    v2 = -1;
+    v3 = -1;
   }
 
   else
   {
-    time1 = v8;
-    v2 = (CMTimeGetSeconds(&time1) + 0.5);
+    time1 = v9;
+    v3 = (CMTimeGetSeconds(&time1) + 0.5);
   }
 
-  LODWORD(time1.value) = v2;
-  v3 = CFNumberCreate(*MEMORY[0x1E695E480], kCFNumberSInt32Type, &time1);
+  LODWORD(time1.value) = v3;
+  v4 = CFNumberCreate(*MEMORY[0x1E695E480], kCFNumberSInt32Type, &time1);
   FigBaseObject = FigPlaybackItemGetFigBaseObject();
-  v5 = *(*(CMBaseObjectGetVTable() + 8) + 56);
-  if (v5)
+  v6 = *(*(CMBaseObjectGetVTable() + 8) + 56);
+  if (v6)
   {
-    v5(FigBaseObject, *MEMORY[0x1E69729B0], v3);
+    v6(FigBaseObject, *MEMORY[0x1E69729B0], v4);
   }
 
-  if (v3)
+  if (v4)
   {
-    CFRelease(v3);
+    CFRelease(v4);
   }
 }
 
@@ -8329,12 +8328,12 @@ __n128 __44__AVPlayerItem_maximumForwardBufferDuration__block_invoke(uint64_t a1
   }
 }
 
-void __68__AVPlayerItem__updateMaximumForwardBufferDurationOnFigPlaybackItem__block_invoke(uint64_t a1)
+void __68__AVPlayerItem__updateMaximumForwardBufferDurationOnFigPlaybackItem__block_invoke(uint64_t a1, const char *a2)
 {
-  v1 = *(a1 + 32);
-  if (v1)
+  v2 = *(a1 + 32);
+  if (v2)
   {
-    [v1 maximumForwardBufferDuration];
+    objc_msgSend_maximumForwardBufferDuration(v2, a2);
   }
 
   else
@@ -8343,17 +8342,17 @@ void __68__AVPlayerItem__updateMaximumForwardBufferDurationOnFigPlaybackItem__bl
   }
 
   time.value = CMTimeGetSeconds(&time);
-  v2 = CFNumberCreate(*MEMORY[0x1E695E480], kCFNumberFloat64Type, &time);
+  v3 = CFNumberCreate(*MEMORY[0x1E695E480], kCFNumberFloat64Type, &time);
   FigBaseObject = FigPlaybackItemGetFigBaseObject();
-  v4 = *(*(CMBaseObjectGetVTable() + 8) + 56);
-  if (v4)
+  v5 = *(*(CMBaseObjectGetVTable() + 8) + 56);
+  if (v5)
   {
-    v4(FigBaseObject, *MEMORY[0x1E6972A28], v2);
+    v5(FigBaseObject, *MEMORY[0x1E6972A28], v3);
   }
 
-  if (v2)
+  if (v3)
   {
-    CFRelease(v2);
+    CFRelease(v3);
   }
 }
 
@@ -9064,12 +9063,12 @@ __n128 __52__AVPlayerItem_minimumIntervalForIFrameOnlyPlayback__block_invoke(uin
   }
 }
 
-void __76__AVPlayerItem__updateMinimumIntervalForIFrameOnlyPlaybackOnFigPlaybackItem__block_invoke(uint64_t a1)
+void __76__AVPlayerItem__updateMinimumIntervalForIFrameOnlyPlaybackOnFigPlaybackItem__block_invoke(uint64_t a1, const char *a2)
 {
-  v1 = *(a1 + 32);
-  if (v1)
+  v2 = *(a1 + 32);
+  if (v2)
   {
-    [v1 minimumIntervalForIFrameOnlyPlayback];
+    objc_msgSend_minimumIntervalForIFrameOnlyPlayback(v2, a2);
   }
 
   else
@@ -9077,17 +9076,17 @@ void __76__AVPlayerItem__updateMinimumIntervalForIFrameOnlyPlaybackOnFigPlayback
     memset(&time, 0, sizeof(time));
   }
 
-  v2 = CMTimeCopyAsDictionary(&time, *MEMORY[0x1E695E480]);
+  v3 = CMTimeCopyAsDictionary(&time, *MEMORY[0x1E695E480]);
   FigBaseObject = FigPlaybackItemGetFigBaseObject();
-  v4 = *(*(CMBaseObjectGetVTable() + 8) + 56);
-  if (v4)
+  v5 = *(*(CMBaseObjectGetVTable() + 8) + 56);
+  if (v5)
   {
-    v4(FigBaseObject, *MEMORY[0x1E69729F0], v2);
+    v5(FigBaseObject, *MEMORY[0x1E69729F0], v3);
   }
 
-  if (v2)
+  if (v3)
   {
-    CFRelease(v2);
+    CFRelease(v3);
   }
 }
 
@@ -9372,9 +9371,9 @@ id __24__AVPlayerItem_audioMix__block_invoke(uint64_t a1)
   }
 }
 
-uint64_t __69__AVPlayerItem__setAudioCurvesAccordingToInputParameters_forTrackID___block_invoke(uint64_t a1)
+uint64_t __69__AVPlayerItem__setAudioCurvesAccordingToInputParameters_forTrackID___block_invoke(void *a1)
 {
-  v2 = *(a1 + 32);
+  v2 = a1[4];
   FigBaseObject = FigPlaybackItemGetFigBaseObject();
   v4 = *(*(CMBaseObjectGetVTable() + 8) + 56);
   if (v4)
@@ -9387,7 +9386,7 @@ uint64_t __69__AVPlayerItem__setAudioCurvesAccordingToInputParameters_forTrackID
     result = 4294954514;
   }
 
-  *(*(*(a1 + 40) + 8) + 24) = result;
+  *(*(a1[5] + 8) + 24) = result;
   return result;
 }
 
@@ -9655,20 +9654,20 @@ LABEL_28:
   while (v29);
 }
 
-uint64_t __69__AVPlayerItem__setAudioEffectParameters_previousEffects_forTrackID___block_invoke(uint64_t a1)
+uint64_t __69__AVPlayerItem__setAudioEffectParameters_previousEffects_forTrackID___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v1 = *(a1 + 32);
-  v2 = objc_opt_class();
+  v2 = *(a1 + 32);
+  v3 = objc_opt_class();
 
-  return [v1 addObject:v2];
+  return [v2 addObject:v3];
 }
 
-uint64_t __69__AVPlayerItem__setAudioEffectParameters_previousEffects_forTrackID___block_invoke_2(uint64_t a1)
+uint64_t __69__AVPlayerItem__setAudioEffectParameters_previousEffects_forTrackID___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v1 = *(a1 + 32);
-  v2 = objc_opt_class();
+  v2 = *(a1 + 32);
+  v3 = objc_opt_class();
 
-  return [v1 removeObject:v2];
+  return [v2 removeObject:v3];
 }
 
 - (void)_applyCurrentAudioMix
@@ -9791,15 +9790,15 @@ uint64_t __69__AVPlayerItem__setAudioEffectParameters_previousEffects_forTrackID
   AVTelemetryIntervalEnd(&v10);
 }
 
-uint64_t __28__AVPlayerItem_setAudioMix___block_invoke(uint64_t result)
+void *__28__AVPlayerItem_setAudioMix___block_invoke(void *result)
 {
-  v1 = *(*(*(result + 40) + 8) + 272);
-  if (*(result + 32) != v1)
+  v1 = *(*(result[5] + 8) + 272);
+  if (result[4] != v1)
   {
     v2 = result;
 
-    result = [*(v2 + 32) copy];
-    *(*(*(v2 + 40) + 8) + 272) = result;
+    result = [v2[4] copy];
+    *(*(v2[5] + 8) + 272) = result;
   }
 
   return result;
@@ -9898,9 +9897,9 @@ uint64_t __53__AVPlayerItem__setDelayPreparingItemForTestingOnly___block_invoke_
   return v6;
 }
 
-uint64_t __49__AVPlayerItem__delayPreparingItemForTestingOnly__block_invoke(uint64_t a1)
+void __49__AVPlayerItem__delayPreparingItemForTestingOnly__block_invoke(void *a1)
 {
-  v2 = *(*(a1 + 32) + 8);
+  v2 = *(a1[4] + 8);
   FigBaseObject = FigPlaybackItemGetFigBaseObject();
   v4 = *(*(CMBaseObjectGetVTable() + 8) + 48);
   if (v4)
@@ -9908,14 +9907,11 @@ uint64_t __49__AVPlayerItem__delayPreparingItemForTestingOnly__block_invoke(uint
     v4(FigBaseObject, *MEMORY[0x1E69727F8], *MEMORY[0x1E695E480], v2 + 24);
   }
 
-  result = *(*(*(a1 + 32) + 8) + 24);
-  if (result)
+  if (*(*(a1[4] + 8) + 24))
   {
-    result = FigCFNumberGetFloat64();
-    *(*(*(a1 + 40) + 8) + 24) = v6;
+    FigCFNumberGetFloat64();
+    *(*(a1[5] + 8) + 24) = v5;
   }
-
-  return result;
 }
 
 - (id)makeLookupableSpatialVideoConfigurations:(id)configurations
@@ -10803,16 +10799,16 @@ uint64_t __58__AVPlayerItem__updateTextHighlightArrayOnFigPlaybackItem__block_in
   _Block_object_dispose(&v7, 8);
 }
 
-uint64_t __34__AVPlayerItem_setTextStyleRules___block_invoke(uint64_t result)
+void *__34__AVPlayerItem_setTextStyleRules___block_invoke(void *result)
 {
-  v1 = *(*(*(result + 40) + 8) + 528);
-  if (*(result + 32) != v1)
+  v1 = *(*(result[5] + 8) + 528);
+  if (result[4] != v1)
   {
     v2 = result;
 
-    result = [*(v2 + 32) copy];
-    *(*(*(v2 + 40) + 8) + 528) = result;
-    *(*(*(v2 + 48) + 8) + 24) = 1;
+    result = [v2[4] copy];
+    *(*(v2[5] + 8) + 528) = result;
+    *(*(v2[6] + 8) + 24) = 1;
   }
 
   return result;
@@ -10841,16 +10837,16 @@ uint64_t __34__AVPlayerItem_setTextStyleRules___block_invoke(uint64_t result)
   _Block_object_dispose(&v6, 8);
 }
 
-uint64_t __38__AVPlayerItem_setTextHighlightArray___block_invoke(uint64_t result)
+void *__38__AVPlayerItem_setTextHighlightArray___block_invoke(void *result)
 {
-  v1 = *(*(*(result + 32) + 8) + 536);
-  if (v1 != *(result + 40))
+  v1 = *(*(result[4] + 8) + 536);
+  if (v1 != result[5])
   {
     v2 = result;
 
-    result = [*(v2 + 40) copy];
-    *(*(*(v2 + 32) + 8) + 536) = result;
-    *(*(*(v2 + 48) + 8) + 24) = 1;
+    result = [v2[5] copy];
+    *(*(v2[4] + 8) + 536) = result;
+    *(*(v2[6] + 8) + 24) = 1;
   }
 
   return result;
@@ -11284,7 +11280,7 @@ uint64_t __68__AVPlayerItem__updateStartsOnFirstEligibleVariantOnFigPlaybackItem
   memset(&v15, 0, sizeof(v15));
   if (self)
   {
-    [(AVPlayerItem *)self loopTimeRange];
+    objc_msgSend_loopTimeRange(self, a2);
   }
 
   _copyFigPlaybackItem = [(AVPlayerItem *)self _copyFigPlaybackItem];
@@ -11441,7 +11437,7 @@ __n128 __33__AVPlayerItem_setLoopTimeRange___block_invoke(uint64_t a1)
   return v6;
 }
 
-uint64_t __34__AVPlayerItem_seekableTimeRanges__block_invoke(uint64_t a1)
+void *__34__AVPlayerItem_seekableTimeRanges__block_invoke(uint64_t a1)
 {
   result = [*(*(*(a1 + 32) + 8) + 1032) copy];
   *(*(*(a1 + 40) + 8) + 40) = result;
@@ -11602,7 +11598,7 @@ double __50__AVPlayerItem_seekableTimeRangesLastModifiedTime__block_invoke(uint6
   return v6;
 }
 
-uint64_t __32__AVPlayerItem_loadedTimeRanges__block_invoke(uint64_t a1)
+void *__32__AVPlayerItem_loadedTimeRanges__block_invoke(uint64_t a1)
 {
   result = [*(*(*(a1 + 32) + 8) + 1048) copy];
   *(*(*(a1 + 40) + 8) + 40) = result;
@@ -11684,7 +11680,7 @@ id __27__AVPlayerItem_gaplessInfo__block_invoke(uint64_t a1)
   }
 }
 
-uint64_t __58__AVPlayerItem__updatePlaybackPropertiesOnFigPlaybackItem__block_invoke()
+void *__58__AVPlayerItem__updatePlaybackPropertiesOnFigPlaybackItem__block_invoke()
 {
   v0 = objc_alloc(MEMORY[0x1E695DF20]);
   result = [v0 initWithObjectsAndKeys:{*MEMORY[0x1E6972DC0], @"GaplessInfoHeuristicInfoKey", *MEMORY[0x1E6972DB0], @"GaplessInfoEncodingDelayInFramesKey", *MEMORY[0x1E6972DB8], @"GaplessInfoEncodingDrainInFramesKey", *MEMORY[0x1E6972DA8], @"GaplessInfoDurationInFramesKey", *MEMORY[0x1E6972DC8], @"GaplessInfoLastPacketsResyncKey", *MEMORY[0x1E6972DD0], @"OverrideHEAACPrimingEditList", *MEMORY[0x1E6972DD8], @"RampInOutInfoInDuration", *MEMORY[0x1E6972DE0], @"RampInOutInfoOutDuration", *MEMORY[0x1E6972DA0], @"AudibleDRMInfoGroupID", 0}];
@@ -11692,7 +11688,7 @@ uint64_t __58__AVPlayerItem__updatePlaybackPropertiesOnFigPlaybackItem__block_in
   return result;
 }
 
-uint64_t __58__AVPlayerItem__updatePlaybackPropertiesOnFigPlaybackItem__block_invoke_2(uint64_t a1)
+void *__58__AVPlayerItem__updatePlaybackPropertiesOnFigPlaybackItem__block_invoke_2(uint64_t a1)
 {
   v21 = *MEMORY[0x1E69E9840];
   result = [*(a1 + 32) _playbackProperties];
@@ -11734,7 +11730,7 @@ uint64_t __58__AVPlayerItem__updatePlaybackPropertiesOnFigPlaybackItem__block_in
             [v5 setObject:v10 forKey:v11];
           }
 
-          ++v7;
+          v7 = v7 + 1;
         }
 
         while (v4 != v7);
@@ -11748,7 +11744,7 @@ uint64_t __58__AVPlayerItem__updatePlaybackPropertiesOnFigPlaybackItem__block_in
         FigBaseObject = FigPlaybackItemGetFigBaseObject();
         VTable = CMBaseObjectGetVTable();
         v14 = *(VTable + 8);
-        result = VTable + 8;
+        result = (VTable + 8);
         v15 = *(v14 + 56);
         if (v15)
         {
@@ -11784,16 +11780,16 @@ uint64_t __58__AVPlayerItem__updatePlaybackPropertiesOnFigPlaybackItem__block_in
   _Block_object_dispose(&v6, 8);
 }
 
-uint64_t __31__AVPlayerItem_setGaplessInfo___block_invoke(uint64_t result)
+void *__31__AVPlayerItem_setGaplessInfo___block_invoke(void *result)
 {
-  v1 = *(*(*(result + 40) + 8) + 680);
-  if (*(result + 32) != v1)
+  v1 = *(*(result[5] + 8) + 680);
+  if (result[4] != v1)
   {
     v2 = result;
 
-    result = [*(v2 + 32) copy];
-    *(*(*(v2 + 40) + 8) + 680) = result;
-    *(*(*(v2 + 48) + 8) + 24) = 1;
+    result = [v2[4] copy];
+    *(*(v2[5] + 8) + 680) = result;
+    *(*(v2[6] + 8) + 24) = 1;
   }
 
   return result;
@@ -11957,7 +11953,7 @@ uint64_t __31__AVPlayerItem_setGaplessInfo___block_invoke(uint64_t result)
   return v3;
 }
 
-uint64_t __38__AVPlayerItem_currentStableVariantID__block_invoke(uint64_t a1)
+void *__38__AVPlayerItem_currentStableVariantID__block_invoke(uint64_t a1)
 {
   result = [*(*(*(a1 + 32) + 8) + 1424) copy];
   *(*(*(a1 + 40) + 8) + 40) = result;
@@ -12380,7 +12376,7 @@ uint64_t __44__AVPlayerItem_setAdjustCompressionProfile___block_invoke(uint64_t 
   return v3;
 }
 
-uint64_t __45__AVPlayerItem__mediaOptionsSelectedByClient__block_invoke(uint64_t a1)
+void *__45__AVPlayerItem__mediaOptionsSelectedByClient__block_invoke(uint64_t a1)
 {
   result = [*(*(*(a1 + 32) + 8) + 1432) copy];
   *(*(*(a1 + 40) + 8) + 40) = result;
@@ -12527,7 +12523,7 @@ uint64_t __56__AVPlayerItem__setMediaOptionsSelectedByClient_forKey___block_invo
   }
 }
 
-uint64_t __43__AVPlayerItem__applyMediaSelectionOptions__block_invoke(uint64_t a1)
+void *__43__AVPlayerItem__applyMediaSelectionOptions__block_invoke(uint64_t a1)
 {
   [*(a1 + 32) _selectMediaOption:*(a1 + 40) inMediaSelectionGroup:*(a1 + 48)];
   if (([*(a1 + 32) _isReadyForBasicInspection] & 1) != 0 || (result = objc_msgSend(*(a1 + 48), "_isStreamingGroup"), result))
@@ -12622,7 +12618,7 @@ uint64_t __43__AVPlayerItem__applyMediaSelectionOptions__block_invoke(uint64_t a
   AVTelemetryIntervalEnd(v12);
 }
 
-uint64_t __56__AVPlayerItem_selectMediaOption_inMediaSelectionGroup___block_invoke(uint64_t a1)
+void *__56__AVPlayerItem_selectMediaOption_inMediaSelectionGroup___block_invoke(uint64_t a1)
 {
   [*(a1 + 32) _selectMediaOption:*(a1 + 40) inMediaSelectionGroup:*(a1 + 48)];
   result = [*(a1 + 32) _isFigAssetReadyForInspectionOfMediaSelectionOptionsAndFigPlaybackItemIsReadyForInspection];
@@ -13427,7 +13423,7 @@ uint64_t __30__AVPlayerItem__addSyncLayer___block_invoke(uint64_t a1)
   return v3;
 }
 
-uint64_t __27__AVPlayerItem__syncLayers__block_invoke(uint64_t a1)
+void *__27__AVPlayerItem__syncLayers__block_invoke(uint64_t a1)
 {
   result = [objc_msgSend(*(*(*(a1 + 32) + 8) + 160) "allObjects")];
   *(*(*(a1 + 40) + 8) + 40) = result;
@@ -15094,7 +15090,7 @@ uint64_t __57__AVPlayerItem__updateVideoApertureModeOnFigPlaybackItem__block_inv
   [(AVPlayerItemObservationRegistrar *)self->_playerItem->observationRegistrar didChangeValueFor:@"videoApertureMode" on:self];
 }
 
-uint64_t __37__AVPlayerItem_setVideoApertureMode___block_invoke(uint64_t a1)
+void *__37__AVPlayerItem_setVideoApertureMode___block_invoke(uint64_t a1)
 {
   v2 = *(*(*(a1 + 32) + 8) + 864);
   result = [*(a1 + 40) copy];
@@ -15236,7 +15232,7 @@ void *__32__AVPlayerItem_setRestrictions___block_invoke(void *result)
   return v3;
 }
 
-uint64_t __25__AVPlayerItem_mediaKind__block_invoke(uint64_t a1)
+void *__25__AVPlayerItem_mediaKind__block_invoke(uint64_t a1)
 {
   result = [*(*(*(a1 + 32) + 8) + 752) copy];
   *(*(*(a1 + 40) + 8) + 40) = result;
@@ -15261,7 +15257,7 @@ uint64_t __25__AVPlayerItem_mediaKind__block_invoke(uint64_t a1)
   }
 }
 
-uint64_t __49__AVPlayerItem__updateMediaKindOnFigPlaybackItem__block_invoke(uint64_t a1)
+void *__49__AVPlayerItem__updateMediaKindOnFigPlaybackItem__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) mediaKind];
   if (result)
@@ -15270,7 +15266,7 @@ uint64_t __49__AVPlayerItem__updateMediaKindOnFigPlaybackItem__block_invoke(uint
     FigBaseObject = FigPlaybackItemGetFigBaseObject();
     VTable = CMBaseObjectGetVTable();
     v5 = *(VTable + 8);
-    result = VTable + 8;
+    result = (VTable + 8);
     v6 = *(v5 + 56);
     if (v6)
     {
@@ -15296,15 +15292,15 @@ uint64_t __49__AVPlayerItem__updateMediaKindOnFigPlaybackItem__block_invoke(uint
   [(AVPlayerItem *)self _updateMediaKindOnFigPlaybackItem];
 }
 
-uint64_t __29__AVPlayerItem_setMediaKind___block_invoke(uint64_t result)
+void *__29__AVPlayerItem_setMediaKind___block_invoke(void *result)
 {
-  v1 = *(*(*(result + 32) + 8) + 752);
-  if (v1 != *(result + 40))
+  v1 = *(*(result[4] + 8) + 752);
+  if (v1 != result[5])
   {
     v2 = result;
 
-    result = [*(v2 + 40) copy];
-    *(*(*(v2 + 32) + 8) + 752) = result;
+    result = [v2[5] copy];
+    *(*(v2[4] + 8) + 752) = result;
   }
 
   return result;
@@ -15331,7 +15327,7 @@ uint64_t __29__AVPlayerItem_setMediaKind___block_invoke(uint64_t result)
   return v3;
 }
 
-uint64_t __28__AVPlayerItem_loudnessInfo__block_invoke(uint64_t a1)
+void *__28__AVPlayerItem_loudnessInfo__block_invoke(uint64_t a1)
 {
   result = [*(*(*(a1 + 32) + 8) + 696) copy];
   *(*(*(a1 + 40) + 8) + 40) = result;
@@ -15387,15 +15383,15 @@ uint64_t __52__AVPlayerItem__updateLoudnessInfoOnFigPlaybackItem__block_invoke(u
   [(AVPlayerItem *)self _updateLoudnessInfoOnFigPlaybackItem];
 }
 
-uint64_t __32__AVPlayerItem_setLoudnessInfo___block_invoke(uint64_t result)
+void *__32__AVPlayerItem_setLoudnessInfo___block_invoke(void *result)
 {
-  v1 = *(*(*(result + 32) + 8) + 696);
-  if (v1 != *(result + 40))
+  v1 = *(*(result[4] + 8) + 696);
+  if (v1 != result[5])
   {
     v2 = result;
 
-    result = [*(v2 + 40) copy];
-    *(*(*(v2 + 32) + 8) + 696) = result;
+    result = [v2[5] copy];
+    *(*(v2[4] + 8) + 696) = result;
   }
 
   return result;
@@ -15600,19 +15596,19 @@ void __62__AVPlayerItem__setItemAudioTapProcessor_fromAudioMixContext___block_in
   }
 }
 
-uint64_t __39__AVPlayerItem_resetAudioBufferedAhead__block_invoke()
+uint64_t __39__AVPlayerItem_resetAudioBufferedAhead__block_invoke(uint64_t a1)
 {
   FigBaseObject = FigPlaybackItemGetFigBaseObject();
   VTable = CMBaseObjectGetVTable();
-  v3 = *(VTable + 8);
+  v4 = *(VTable + 8);
   result = VTable + 8;
-  v4 = *(v3 + 56);
-  if (v4)
+  v5 = *(v4 + 56);
+  if (v5)
   {
-    v5 = *MEMORY[0x1E6972A80];
-    v6 = *MEMORY[0x1E695E4D0];
+    v6 = *MEMORY[0x1E6972A80];
+    v7 = *MEMORY[0x1E695E4D0];
 
-    return v4(FigBaseObject, v5, v6);
+    return v5(FigBaseObject, v6, v7);
   }
 
   return result;
@@ -15904,12 +15900,12 @@ __n128 __48__AVPlayerItem_advanceTimeForOverlappedPlayback__block_invoke(uint64_
   }
 }
 
-void __72__AVPlayerItem__updateAdvanceTimeForOverlappedPlaybackOnFigPlaybackItem__block_invoke(uint64_t a1)
+void __72__AVPlayerItem__updateAdvanceTimeForOverlappedPlaybackOnFigPlaybackItem__block_invoke(uint64_t a1, const char *a2)
 {
-  v1 = *(a1 + 32);
-  if (v1)
+  v2 = *(a1 + 32);
+  if (v2)
   {
-    [v1 advanceTimeForOverlappedPlayback];
+    objc_msgSend_advanceTimeForOverlappedPlayback(v2, a2);
   }
 
   else
@@ -15917,17 +15913,17 @@ void __72__AVPlayerItem__updateAdvanceTimeForOverlappedPlaybackOnFigPlaybackItem
     memset(&time, 0, sizeof(time));
   }
 
-  v2 = CMTimeCopyAsDictionary(&time, *MEMORY[0x1E695E480]);
+  v3 = CMTimeCopyAsDictionary(&time, *MEMORY[0x1E695E480]);
   FigBaseObject = FigPlaybackItemGetFigBaseObject();
-  v4 = *(*(CMBaseObjectGetVTable() + 8) + 56);
-  if (v4)
+  v5 = *(*(CMBaseObjectGetVTable() + 8) + 56);
+  if (v5)
   {
-    v4(FigBaseObject, *MEMORY[0x1E69727C0], v2);
+    v5(FigBaseObject, *MEMORY[0x1E69727C0], v3);
   }
 
-  if (v2)
+  if (v3)
   {
-    CFRelease(v2);
+    CFRelease(v3);
   }
 }
 
@@ -16021,12 +16017,12 @@ __n128 __41__AVPlayerItem_overlappedPlaybackEndTime__block_invoke(uint64_t a1)
   }
 }
 
-void __65__AVPlayerItem__updateOverlappedPlaybackEndTimeOnFigPlaybackItem__block_invoke(uint64_t a1)
+void __65__AVPlayerItem__updateOverlappedPlaybackEndTimeOnFigPlaybackItem__block_invoke(uint64_t a1, const char *a2)
 {
-  v1 = *(a1 + 32);
-  if (v1)
+  v2 = *(a1 + 32);
+  if (v2)
   {
-    [v1 overlappedPlaybackEndTime];
+    objc_msgSend_overlappedPlaybackEndTime(v2, a2);
   }
 
   else
@@ -16034,17 +16030,17 @@ void __65__AVPlayerItem__updateOverlappedPlaybackEndTimeOnFigPlaybackItem__block
     memset(&time, 0, sizeof(time));
   }
 
-  v2 = CMTimeCopyAsDictionary(&time, *MEMORY[0x1E695E480]);
+  v3 = CMTimeCopyAsDictionary(&time, *MEMORY[0x1E695E480]);
   FigBaseObject = FigPlaybackItemGetFigBaseObject();
-  v4 = *(*(CMBaseObjectGetVTable() + 8) + 56);
-  if (v4)
+  v5 = *(*(CMBaseObjectGetVTable() + 8) + 56);
+  if (v5)
   {
-    v4(FigBaseObject, *MEMORY[0x1E6972A00], v2);
+    v5(FigBaseObject, *MEMORY[0x1E6972A00], v3);
   }
 
-  if (v2)
+  if (v3)
   {
-    CFRelease(v2);
+    CFRelease(v3);
   }
 }
 
@@ -16075,7 +16071,7 @@ __n128 __45__AVPlayerItem_setOverlappedPlaybackEndTime___block_invoke(uint64_t a
 {
   if (self)
   {
-    return [($3CC8671D27C23BF42ADDB32F2B5E48AE *)self currentTime];
+    return objc_msgSend_currentTime(self, a3);
   }
 
   retstr->var0 = 0;
@@ -16413,7 +16409,7 @@ uint64_t __53__AVPlayerItem_setAllowedAudioSpatializationFormats___block_invoke(
   [(AVPlayerItem *)self didChangeValueForKey:@"eligibleForDSPBasedEnhancedDialogue"];
 }
 
-uint64_t __62__AVPlayerItem__updateEligibilityForDSPBasedEnhancedDialogue___block_invoke(uint64_t a1)
+void *__62__AVPlayerItem__updateEligibilityForDSPBasedEnhancedDialogue___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 40) BOOLValue];
   *(*(*(a1 + 32) + 8) + 1017) = result;
@@ -16466,7 +16462,7 @@ uint64_t __62__AVPlayerItem__updateEligibilityForDSPBasedEnhancedDialogue___bloc
   }
 }
 
-uint64_t __76__AVPlayerItem__updatePreferredCustomMediaSelectionSchemesOnFigPlaybackItem__block_invoke(uint64_t a1)
+void *__76__AVPlayerItem__updatePreferredCustomMediaSelectionSchemesOnFigPlaybackItem__block_invoke(uint64_t a1)
 {
   v13 = *MEMORY[0x1E69E9840];
   v8 = 0u;
@@ -16495,7 +16491,7 @@ uint64_t __76__AVPlayerItem__updatePreferredCustomMediaSelectionSchemesOnFigPlay
           [*(a1 + 40) addObject:v7];
         }
 
-        ++v6;
+        v6 = v6 + 1;
       }
 
       while (v4 != v6);
@@ -16563,7 +16559,7 @@ uint64_t __76__AVPlayerItem__updatePreferredCustomMediaSelectionSchemesOnFigPlay
   _Block_object_dispose(&v8, 8);
 }
 
-uint64_t __66__AVPlayerItem__updateMediaPresentationLanguagesOnFigPlaybackItem__block_invoke(uint64_t a1)
+void *__66__AVPlayerItem__updateMediaPresentationLanguagesOnFigPlaybackItem__block_invoke(uint64_t a1)
 {
   result = [*(*(*(a1 + 32) + 8) + 1544) copy];
   *(*(*(a1 + 40) + 8) + 40) = result;
@@ -16624,7 +16620,7 @@ uint64_t __66__AVPlayerItem__updateMediaPresentationLanguagesOnFigPlaybackItem__
   _Block_object_dispose(&v8, 8);
 }
 
-uint64_t __72__AVPlayerItem__updateMediaPresentationCharacteristicsOnFigPlaybackItem__block_invoke(uint64_t a1)
+void *__72__AVPlayerItem__updateMediaPresentationCharacteristicsOnFigPlaybackItem__block_invoke(uint64_t a1)
 {
   result = [*(*(*(a1 + 32) + 8) + 1560) copy];
   *(*(*(a1 + 40) + 8) + 40) = result;
@@ -16669,7 +16665,7 @@ uint64_t __72__AVPlayerItem__updateMediaPresentationCharacteristicsOnFigPlayback
 
 uint64_t __59__AVPlayerItem__updateItemIdentifierForCoordinatedPlayback__block_invoke(uint64_t a1)
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   result = [*(a1 + 32) _playbackCoordinator];
   if (result)
   {
@@ -16681,29 +16677,29 @@ uint64_t __59__AVPlayerItem__updateItemIdentifierForCoordinatedPlayback__block_i
       if ([v4 count])
       {
         v6 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(v5, "count")}];
+        v23 = 0u;
+        v24 = 0u;
         v25 = 0u;
         v26 = 0u;
-        v27 = 0u;
-        v28 = 0u;
-        v7 = [v5 countByEnumeratingWithState:&v25 objects:v30 count:16];
+        v7 = [v5 countByEnumeratingWithState:&v23 objects:v28 count:16];
         if (v7)
         {
           v8 = v7;
-          v9 = *v26;
+          v9 = *v24;
           v10 = *MEMORY[0x1E695E480];
           do
           {
             for (i = 0; i != v8; ++i)
             {
-              if (*v26 != v9)
+              if (*v24 != v9)
               {
                 objc_enumerationMutation(v5);
               }
 
-              v12 = *(*(&v25 + 1) + 8 * i);
+              v12 = *(*(&v23 + 1) + 8 * i);
               if (v12)
               {
-                [v12 CMTimeRangeValue];
+                objc_msgSend_CMTimeRangeValue(v12);
               }
 
               else
@@ -16720,7 +16716,7 @@ uint64_t __59__AVPlayerItem__updateItemIdentifierForCoordinatedPlayback__block_i
               }
             }
 
-            v8 = [v5 countByEnumeratingWithState:&v25 objects:v30 count:16];
+            v8 = [v5 countByEnumeratingWithState:&v23 objects:v28 count:16];
           }
 
           while (v8);
@@ -16748,7 +16744,7 @@ uint64_t __59__AVPlayerItem__updateItemIdentifierForCoordinatedPlayback__block_i
       [*(a1 + 32) _setCoordinatorIdentifier:v17];
     }
 
-    result = [objc_msgSend(*(a1 + 32) _player];
+    result = [objc_msgSend(*(a1 + 32) "_player")];
     if (v17 || (result & 1) == 0)
     {
       v19 = FigPlaybackItemGetFigBaseObject();
@@ -16942,7 +16938,7 @@ uint64_t __96__AVPlayerItem_AVPlayerItemCustomMediaSelectionScheme__setPreferred
   return [v3 isEqual:v4];
 }
 
-uint64_t __96__AVPlayerItem_AVPlayerItemCustomMediaSelectionScheme__setPreferredCustomMediaSelectionSchemes___block_invoke_2(uint64_t a1)
+void *__96__AVPlayerItem_AVPlayerItemCustomMediaSelectionScheme__setPreferredCustomMediaSelectionSchemes___block_invoke_2(uint64_t a1)
 {
   *(*(*(a1 + 32) + 8) + 1128) = *(a1 + 40);
 
@@ -17049,7 +17045,7 @@ uint64_t __111__AVPlayerItem_AVPlayerItemCustomMediaSelectionScheme__selectMedia
   return v7;
 }
 
-uint64_t __112__AVPlayerItem_AVPlayerItemCustomMediaSelectionScheme__selectedMediaPresentationLanguageForMediaSelectionGroup___block_invoke(void *a1)
+void *__112__AVPlayerItem_AVPlayerItemCustomMediaSelectionScheme__selectedMediaPresentationLanguageForMediaSelectionGroup___block_invoke(void *a1)
 {
   result = [objc_msgSend(objc_msgSend(*(*(a1[4] + 8) + 1544) objectForKey:{a1[5]), "firstObject"), "copy"}];
   *(*(a1[6] + 8) + 40) = result;
@@ -17197,7 +17193,7 @@ uint64_t __110__AVPlayerItem_AVPlayerItemCustomMediaSelectionScheme__selectMedia
   return dictionary2;
 }
 
-uint64_t __112__AVPlayerItem_AVPlayerItemCustomMediaSelectionScheme__selectedMediaPresentationSettingsForMediaSelectionGroup___block_invoke(uint64_t a1)
+void *__112__AVPlayerItem_AVPlayerItemCustomMediaSelectionScheme__selectedMediaPresentationSettingsForMediaSelectionGroup___block_invoke(uint64_t a1)
 {
   v17 = *MEMORY[0x1E69E9840];
   v2 = [*(*(*(a1 + 32) + 8) + 1552) objectForKey:*(a1 + 40)];
@@ -17368,7 +17364,7 @@ LABEL_17:
   return v5;
 }
 
-uint64_t __122__AVPlayerItem_AVPlayerItemCustomMediaSelectionScheme_Private__mediaCharacteristicsOfPreferredCustomMediaSelectionSchemes__block_invoke(uint64_t a1)
+void *__122__AVPlayerItem_AVPlayerItemCustomMediaSelectionScheme_Private__mediaCharacteristicsOfPreferredCustomMediaSelectionSchemes__block_invoke(uint64_t a1)
 {
   result = [*(*(*(a1 + 32) + 8) + 1136) copy];
   *(*(*(a1 + 40) + 8) + 40) = result;
@@ -17438,7 +17434,7 @@ uint64_t __122__AVPlayerItem_AVPlayerItemCustomMediaSelectionScheme_Private__med
   return v9;
 }
 
-uint64_t __140__AVPlayerItem_AVPlayerItemProtectedContentPrivate___initializeProtectedContentPlaybackSupportSessionAsynchronouslyForProvider_withOptions___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
+void *__140__AVPlayerItem_AVPlayerItemProtectedContentPrivate___initializeProtectedContentPlaybackSupportSessionAsynchronouslyForProvider_withOptions___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
   if ([a2 isEqualToString:@"AVInitializeProtectedContentPlaybackSupportStorageURLKey"])
   {
@@ -17592,19 +17588,19 @@ LABEL_8:
   }
 }
 
-uint64_t __95__AVPlayerItem_AVPlayerItemProtectedContentPrivate___setExternalProtectionRequiredForPlayback___block_invoke_2()
+uint64_t __95__AVPlayerItem_AVPlayerItemProtectedContentPrivate___setExternalProtectionRequiredForPlayback___block_invoke_2(uint64_t a1)
 {
   FigBaseObject = FigPlaybackItemGetFigBaseObject();
   VTable = CMBaseObjectGetVTable();
-  v3 = *(VTable + 8);
+  v4 = *(VTable + 8);
   result = VTable + 8;
-  v4 = *(v3 + 56);
-  if (v4)
+  v5 = *(v4 + 56);
+  if (v5)
   {
-    v5 = *MEMORY[0x1E6972A78];
-    v6 = *MEMORY[0x1E695E4D0];
+    v6 = *MEMORY[0x1E6972A78];
+    v7 = *MEMORY[0x1E695E4D0];
 
-    return v4(FigBaseObject, v5, v6);
+    return v5(FigBaseObject, v6, v7);
   }
 
   return result;
@@ -17936,7 +17932,7 @@ uint64_t __95__AVPlayerItem_AVPlayerItemProtectedContentPrivate___setExternalPro
   return v3;
 }
 
-uint64_t __50__AVPlayerItem_AVPlayerItemOutputs___videoOutputs__block_invoke(uint64_t a1)
+void *__50__AVPlayerItem_AVPlayerItemOutputs___videoOutputs__block_invoke(uint64_t a1)
 {
   result = [*(*(*(a1 + 32) + 8) + 176) copy];
   *(*(*(a1 + 40) + 8) + 40) = result;
@@ -17964,7 +17960,7 @@ uint64_t __50__AVPlayerItem_AVPlayerItemOutputs___videoOutputs__block_invoke(uin
   return v3;
 }
 
-uint64_t __59__AVPlayerItem_AVPlayerItemOutputs___legibleOutputsForKeys__block_invoke(uint64_t a1)
+void *__59__AVPlayerItem_AVPlayerItemOutputs___legibleOutputsForKeys__block_invoke(uint64_t a1)
 {
   result = [*(*(*(a1 + 32) + 8) + 184) copy];
   *(*(*(a1 + 40) + 8) + 40) = result;
@@ -17992,7 +17988,7 @@ uint64_t __59__AVPlayerItem_AVPlayerItemOutputs___legibleOutputsForKeys__block_i
   return v3;
 }
 
-uint64_t __60__AVPlayerItem_AVPlayerItemOutputs___metadataOutputsForKeys__block_invoke(uint64_t a1)
+void *__60__AVPlayerItem_AVPlayerItemOutputs___metadataOutputsForKeys__block_invoke(uint64_t a1)
 {
   result = [*(*(*(a1 + 32) + 8) + 192) copy];
   *(*(*(a1 + 40) + 8) + 40) = result;
@@ -18020,7 +18016,7 @@ uint64_t __60__AVPlayerItem_AVPlayerItemOutputs___metadataOutputsForKeys__block_
   return v3;
 }
 
-uint64_t __67__AVPlayerItem_AVPlayerItemOutputs___renderedLegibleOutputsForKeys__block_invoke(uint64_t a1)
+void *__67__AVPlayerItem_AVPlayerItemOutputs___renderedLegibleOutputsForKeys__block_invoke(uint64_t a1)
 {
   result = [*(*(*(a1 + 32) + 8) + 200) copy];
   *(*(*(a1 + 40) + 8) + 40) = result;
@@ -18314,13 +18310,13 @@ void __68__AVPlayerItem_AVPlayerItemOutputs___evaluateRenderedLegibleOutputs__bl
   [(AVPlayerItem *)self _evaluateLegibleOutputs];
 }
 
-uint64_t __55__AVPlayerItem_AVPlayerItemOutputs___addLegibleOutput___block_invoke(uint64_t a1)
+uint64_t __55__AVPlayerItem_AVPlayerItemOutputs___addLegibleOutput___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v1 = *(a1 + 40);
-  v2 = *(*(*(a1 + 32) + 8) + 184);
-  v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%d", FigAtomicIncrement32()];
+  v2 = *(a1 + 40);
+  v3 = *(*(*(a1 + 32) + 8) + 184);
+  v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%d", FigAtomicIncrement32()];
 
-  return [v2 setObject:v1 forKey:v3];
+  return [v3 setObject:v2 forKey:v4];
 }
 
 - (void)_addMetadataOutput:(id)output
@@ -18336,13 +18332,13 @@ uint64_t __55__AVPlayerItem_AVPlayerItemOutputs___addLegibleOutput___block_invok
   [(AVPlayerItem *)self _evaluateMetadataOutputs];
 }
 
-uint64_t __56__AVPlayerItem_AVPlayerItemOutputs___addMetadataOutput___block_invoke(uint64_t a1)
+uint64_t __56__AVPlayerItem_AVPlayerItemOutputs___addMetadataOutput___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v1 = *(a1 + 40);
-  v2 = *(*(*(a1 + 32) + 8) + 192);
-  v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%d", FigAtomicIncrement32()];
+  v2 = *(a1 + 40);
+  v3 = *(*(*(a1 + 32) + 8) + 192);
+  v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%d", FigAtomicIncrement32()];
 
-  return [v2 setObject:v1 forKey:v3];
+  return [v3 setObject:v2 forKey:v4];
 }
 
 - (void)addOutput:(AVPlayerItemOutput *)output
@@ -18450,13 +18446,13 @@ void __47__AVPlayerItem_AVPlayerItemOutputs__addOutput___block_invoke(uint64_t a
   [(AVPlayerItem *)self _evaluateRenderedLegibleOutputs];
 }
 
-uint64_t __63__AVPlayerItem_AVPlayerItemOutputs___addRenderedLegibleOutput___block_invoke(uint64_t a1)
+uint64_t __63__AVPlayerItem_AVPlayerItemOutputs___addRenderedLegibleOutput___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v1 = *(a1 + 40);
-  v2 = *(*(*(a1 + 32) + 8) + 200);
-  v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%d", FigAtomicIncrement32()];
+  v2 = *(a1 + 40);
+  v3 = *(*(*(a1 + 32) + 8) + 200);
+  v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%d", FigAtomicIncrement32()];
 
-  return [v2 setObject:v1 forKey:v3];
+  return [v3 setObject:v2 forKey:v4];
 }
 
 - (void)_removeVideoOutput:(id)output
@@ -18488,7 +18484,7 @@ uint64_t __63__AVPlayerItem_AVPlayerItemOutputs___addRenderedLegibleOutput___blo
   [(AVPlayerItem *)self _evaluateLegibleOutputs];
 }
 
-uint64_t __58__AVPlayerItem_AVPlayerItemOutputs___removeLegibleOutput___block_invoke(uint64_t a1)
+void *__58__AVPlayerItem_AVPlayerItemOutputs___removeLegibleOutput___block_invoke(uint64_t a1)
 {
   v2 = [*(*(*(a1 + 32) + 8) + 184) allKeysForObject:*(a1 + 40)];
   result = [v2 count];
@@ -18608,7 +18604,7 @@ void __50__AVPlayerItem_AVPlayerItemOutputs__removeOutput___block_invoke(void *a
   [(AVPlayerItem *)self _evaluateRenderedLegibleOutputs];
 }
 
-uint64_t __66__AVPlayerItem_AVPlayerItemOutputs___removeRenderedLegibleOutput___block_invoke(uint64_t a1)
+void *__66__AVPlayerItem_AVPlayerItemOutputs___removeRenderedLegibleOutput___block_invoke(uint64_t a1)
 {
   v2 = [*(*(*(a1 + 32) + 8) + 200) allKeysForObject:*(a1 + 40)];
   result = [v2 count];
@@ -18774,22 +18770,22 @@ void __81__AVPlayerItem_AVPlayerItemMediaDataCollectors___removeMetadataCollecto
   _Block_object_dispose(v11, 8);
 }
 
-uint64_t __78__AVPlayerItem_AVPlayerItemMediaDataCollectors__addMediaDataCollector_locked___block_invoke(uint64_t a1)
+void *__78__AVPlayerItem_AVPlayerItemMediaDataCollectors__addMediaDataCollector_locked___block_invoke(uint64_t a1)
 {
   *(*(*(a1 + 48) + 8) + 24) = [*(*(*(a1 + 32) + 8) + 632) containsObject:*(a1 + 40)];
-  if (*(*(*(a1 + 48) + 8) + 24) & 1) != 0 || (*(a1 + 64) & 1) == 0 && (v7 = [*(*(*(a1 + 32) + 8) + 632) arrayByAddingObject:*(a1 + 40)], *(*(*(a1 + 32) + 8) + 632), *(*(*(a1 + 32) + 8) + 632) = v7, (*(*(*(a1 + 48) + 8) + 24)) || (*(a1 + 64))
+  if (*(*(*(a1 + 48) + 8) + 24) & 1) != 0 || (*(a1 + 64) & 1) == 0 && (v8 = [*(*(*(a1 + 32) + 8) + 632) arrayByAddingObject:*(a1 + 40)], *(*(*(a1 + 32) + 8) + 632), *(*(*(a1 + 32) + 8) + 632) = v8, (*(*(*(a1 + 48) + 8) + 24)) || (*(a1 + 64))
   {
-    v11 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector(*(a1 + 32) userInfo:{*(a1 + 56), @"Cannot attach a collector that is already attached", v2, v3, v4, v5, v6, v12), 0}];
-    objc_exception_throw(v11);
+    v12 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector(*(a1 + 32) userInfo:{*(a1 + 56), @"Cannot attach a collector that is already attached", v3, v4, v5, v6, v7, v13), 0}];
+    objc_exception_throw(v12);
   }
 
-  result = needsTaggedRanges();
+  result = needsTaggedRanges(*(a1 + 40), v2);
   if (result)
   {
-    v9 = *(a1 + 32);
-    v10 = *(a1 + 40);
+    v10 = *(a1 + 32);
+    v11 = *(a1 + 40);
 
-    return [v9 _addMetadataCollector:v10 locked:1];
+    return [v10 _addMetadataCollector:v11 locked:1];
   }
 
   return result;
@@ -18816,7 +18812,7 @@ uint64_t __78__AVPlayerItem_AVPlayerItemMediaDataCollectors__addMediaDataCollect
   [(AVPlayerItemObservationRegistrar *)self->_playerItem->observationRegistrar didChangeValueFor:@"mediaDataCollectors" on:self];
 }
 
-uint64_t __81__AVPlayerItem_AVPlayerItemMediaDataCollectors__removeMediaDataCollector_locked___block_invoke(uint64_t a1)
+void *__81__AVPlayerItem_AVPlayerItemMediaDataCollectors__removeMediaDataCollector_locked___block_invoke(uint64_t a1)
 {
   result = [*(*(*(a1 + 32) + 8) + 632) containsObject:*(a1 + 40)];
   if (result)
@@ -18826,13 +18822,13 @@ uint64_t __81__AVPlayerItem_AVPlayerItemMediaDataCollectors__removeMediaDataColl
 
     *(*(*(a1 + 32) + 8) + 632) = v3;
     [*(a1 + 40) _detatchFromPlayerItem];
-    result = needsTaggedRanges();
+    result = needsTaggedRanges(*(a1 + 40), v4);
     if (result)
     {
-      v4 = *(a1 + 32);
-      v5 = *(a1 + 40);
+      v5 = *(a1 + 32);
+      v6 = *(a1 + 40);
 
-      return [v4 _removeMetadataCollector:v5 locked:1];
+      return [v5 _removeMetadataCollector:v6 locked:1];
     }
   }
 
@@ -18898,41 +18894,37 @@ id __68__AVPlayerItem_AVPlayerItemMediaDataCollectors___metadataCollectors__bloc
 
 - (void)_updateTaggedMetadataArray:(id)array
 {
-  v15 = *MEMORY[0x1E69E9840];
-  v10 = 0u;
+  v16 = *MEMORY[0x1E69E9840];
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
+  v14 = 0u;
   mediaDataCollectors = [(AVPlayerItem *)self mediaDataCollectors];
-  v5 = [(NSArray *)mediaDataCollectors countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v5 = [(NSArray *)mediaDataCollectors countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v5)
   {
-    v6 = v5;
-    v7 = *v11;
+    v7 = v5;
+    v8 = *v12;
     do
     {
-      v8 = 0;
-      do
+      for (i = 0; i != v7; ++i)
       {
-        if (*v11 != v7)
+        if (*v12 != v8)
         {
           objc_enumerationMutation(mediaDataCollectors);
         }
 
-        v9 = *(*(&v10 + 1) + 8 * v8);
-        if (needsTaggedRanges())
+        v10 = *(*(&v11 + 1) + 8 * i);
+        if (needsTaggedRanges(v10, v6))
         {
-          [v9 _updateTaggedRangeMetadataArray:array];
+          [v10 _updateTaggedRangeMetadataArray:array];
         }
-
-        ++v8;
       }
 
-      while (v6 != v8);
-      v6 = [(NSArray *)mediaDataCollectors countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v7 = [(NSArray *)mediaDataCollectors countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
-    while (v6);
+    while (v7);
   }
 }
 
@@ -18947,7 +18939,7 @@ id __68__AVPlayerItem_AVPlayerItemMediaDataCollectors___metadataCollectors__bloc
   dispatch_async(figConfigurationQueue, block);
 }
 
-uint64_t __83__AVPlayerItem_AVPlayerItemServiceIdentifier_Private___quietlySetServiceIdentifier__block_invoke(uint64_t a1)
+void *__83__AVPlayerItem_AVPlayerItemServiceIdentifier_Private___quietlySetServiceIdentifier__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) serviceIdentifier];
   if (result)
@@ -18956,7 +18948,7 @@ uint64_t __83__AVPlayerItem_AVPlayerItemServiceIdentifier_Private___quietlySetSe
     FigBaseObject = FigPlaybackItemGetFigBaseObject();
     VTable = CMBaseObjectGetVTable();
     v5 = *(VTable + 8);
-    result = VTable + 8;
+    result = (VTable + 8);
     v6 = *(v5 + 56);
     if (v6)
     {
@@ -19030,7 +19022,7 @@ void __76__AVPlayerItem_AVPlayerItemServiceIdentifier_Private__setServiceIdentif
   return v3;
 }
 
-uint64_t __72__AVPlayerItem_AVPlayerItemServiceIdentifier_Private__serviceIdentifier__block_invoke(uint64_t a1)
+void *__72__AVPlayerItem_AVPlayerItemServiceIdentifier_Private__serviceIdentifier__block_invoke(uint64_t a1)
 {
   result = [*(*(*(a1 + 32) + 8) + 1184) copy];
   *(*(*(a1 + 40) + 8) + 40) = result;
@@ -19164,7 +19156,7 @@ uint64_t __72__AVPlayerItem_AVPlayerItemServiceIdentifier_Private__serviceIdenti
   return v3;
 }
 
-uint64_t __48__AVPlayerItem_SwiftMedia__supplementalMetadata__block_invoke(uint64_t a1)
+void *__48__AVPlayerItem_SwiftMedia__supplementalMetadata__block_invoke(uint64_t a1)
 {
   result = [*(*(*(a1 + 32) + 8) + 1568) copy];
   *(*(*(a1 + 40) + 8) + 40) = result;
@@ -19183,15 +19175,15 @@ uint64_t __48__AVPlayerItem_SwiftMedia__supplementalMetadata__block_invoke(uint6
   av_readwrite_dispatch_queue_write(ivarAccessQueue, v4);
 }
 
-uint64_t __52__AVPlayerItem_SwiftMedia__setSupplementalMetadata___block_invoke(uint64_t result)
+void *__52__AVPlayerItem_SwiftMedia__setSupplementalMetadata___block_invoke(void *result)
 {
-  v1 = *(*(*(result + 32) + 8) + 1568);
-  if (v1 != *(result + 40))
+  v1 = *(*(result[4] + 8) + 1568);
+  if (v1 != result[5])
   {
     v2 = result;
 
-    result = [*(v2 + 40) copy];
-    *(*(*(v2 + 32) + 8) + 1568) = result;
+    result = [v2[5] copy];
+    *(*(v2[4] + 8) + 1568) = result;
   }
 
   return result;
@@ -19256,7 +19248,7 @@ LABEL_4:
   av_readwrite_dispatch_queue_write(ivarAccessQueue, v16);
 }
 
-uint64_t __48__AVPlayerItem_AVPlayerItemAVKit__setAVKitData___block_invoke(uint64_t a1)
+void *__48__AVPlayerItem_AVPlayerItemAVKit__setAVKitData___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 40) copyWithZone:0];
   *(*(*(a1 + 32) + 8) + 912) = result;
@@ -19447,7 +19439,7 @@ id __59__AVPlayerItem_AVPlayerItemHaptics__hapticPlaybackLocality__block_invoke(
   _Block_object_dispose(&v16, 8);
 }
 
-uint64_t __63__AVPlayerItem_AVPlayerItemHaptics__setHapticPlaybackLocality___block_invoke(uint64_t a1)
+CFTypeRef __63__AVPlayerItem_AVPlayerItemHaptics__setHapticPlaybackLocality___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) isEqualToString:*(*(*(a1 + 40) + 8) + 928)];
   if ((result & 1) == 0)
@@ -19578,7 +19570,7 @@ LABEL_7:
   _Block_object_dispose(&v8, 8);
 }
 
-uint64_t __70__AVPlayerItem_AVPlayerItemVideoEnhancement__setVideoEnhancementMode___block_invoke(uint64_t a1)
+void *__70__AVPlayerItem_AVPlayerItemVideoEnhancement__setVideoEnhancementMode___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) isEqualToString:*(*(*(a1 + 40) + 8) + 1144)];
   if ((result & 1) == 0)
@@ -19672,9 +19664,10 @@ uint64_t __107__AVPlayerItem_AVPlayerInterstitialSupport___updateAutomaticallyHa
   [(AVPlayerItem *)self _updateAutomaticallyHandlesInterstitialEventsOnFigPlaybackItem];
 }
 
-uint64_t __87__AVPlayerItem_AVPlayerInterstitialSupport__setAutomaticallyHandlesInterstitialEvents___block_invoke(uint64_t result)
+void *__87__AVPlayerItem_AVPlayerInterstitialSupport__setAutomaticallyHandlesInterstitialEvents___block_invoke(void *result)
 {
-  v1 = *(*(result + 32) + 8);
+  v6 = *MEMORY[0x1E69E9840];
+  v1 = *(result[4] + 8);
   v2 = *(result + 40);
   if (*(v1 + 1019) != v2)
   {
@@ -19685,11 +19678,11 @@ uint64_t __87__AVPlayerItem_AVPlayerInterstitialSupport__setAutomaticallyHandles
       os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
       fig_log_call_emit_and_clean_up_after_send_and_compose();
       LOBYTE(v2) = *(v3 + 40);
-      v1 = *(*(v3 + 32) + 8);
+      v1 = *(v3[4] + 8);
     }
 
     *(v1 + 1019) = v2;
-    v5 = *(v3 + 32);
+    v5 = v3[4];
     if (*(v3 + 40) == 1)
     {
       return [v5 _addInterstitialEventCollectorLocked:1];
@@ -20056,7 +20049,7 @@ LABEL_8:
   v6 = [ramp objectAtIndexedSubscript:0];
   if (v6)
   {
-    [v6 CMTimeMappingValue];
+    objc_msgSend_CMTimeMappingValue(v6);
   }
 
   else
@@ -20077,7 +20070,7 @@ LABEL_8:
   v13 = [ramp objectAtIndexedSubscript:0];
   if (v13)
   {
-    [v13 CMTimeMappingValue];
+    objc_msgSend_CMTimeMappingValue(v13);
   }
 
   else
@@ -20105,7 +20098,7 @@ LABEL_77:
   v14 = [ramp objectAtIndexedSubscript:0];
   if (v14)
   {
-    [v14 CMTimeMappingValue];
+    objc_msgSend_CMTimeMappingValue(v14);
   }
 
   else
@@ -20135,7 +20128,7 @@ LABEL_77:
   v16 = [ramp objectAtIndexedSubscript:0];
   if (v16)
   {
-    [v16 CMTimeMappingValue];
+    objc_msgSend_CMTimeMappingValue(v16);
   }
 
   else
@@ -20166,7 +20159,7 @@ LABEL_77:
   v47 = a2;
   if (v17)
   {
-    [v17 CMTimeMappingValue];
+    objc_msgSend_CMTimeMappingValue(v17);
   }
 
   else
@@ -20183,7 +20176,7 @@ LABEL_77:
       v19 = [ramp objectAtIndexedSubscript:v18];
       if (v19)
       {
-        [v19 CMTimeMappingValue];
+        objc_msgSend_CMTimeMappingValue(v19);
         v20 = HIDWORD(v73);
         v21 = *&v74[0];
       }
@@ -20202,7 +20195,7 @@ LABEL_77:
       v22 = [ramp objectAtIndexedSubscript:v18];
       if (v22)
       {
-        [v22 CMTimeMappingValue];
+        objc_msgSend_CMTimeMappingValue(v22);
         v23 = HIDWORD(v70);
         v24 = *&v71[0];
       }
@@ -20269,7 +20262,7 @@ LABEL_77:
       v25 = [ramp objectAtIndexedSubscript:v18];
       if (v25)
       {
-        [v25 CMTimeMappingValue];
+        objc_msgSend_CMTimeMappingValue(v25);
       }
 
       else
@@ -20321,7 +20314,7 @@ LABEL_45:
         memset(&range, 0, sizeof(range));
         if (v30)
         {
-          [v30 CMTimeMappingValue];
+          objc_msgSend_CMTimeMappingValue(v30);
         }
 
         [v7 appendBytes:&range length:96];
@@ -20540,7 +20533,7 @@ LABEL_3:
 
   else
   {
-    v7 = -12782;
+    v7 = 4294954514;
   }
 
   if ((v18[3] & 1) == 0)
@@ -20655,7 +20648,7 @@ void __92__AVPlayerItem_AVMetricEventStreamPublisherInternal__getEventTimelineWi
       v4 = Mutable;
       if (v15)
       {
-        [v15 frameDuration];
+        objc_msgSend_frameDuration(v15);
       }
 
       FigCFDictionarySetCMTime();
@@ -20716,12 +20709,12 @@ void __92__AVPlayerItem_AVMetricEventStreamPublisherInternal__getEventTimelineWi
 
 - (id)_propertyListForSelectedMediaOptionUsingFigSelectedMediaArrayObtainedFromGroup:(id)group
 {
-  v45 = *MEMORY[0x1E69E9840];
+  cf[17] = *MEMORY[0x1E69E9840];
   _copyFigPlaybackItem = [(AVPlayerItem *)self _copyFigPlaybackItem];
-  cf = 0;
+  cf[0] = 0;
   FigBaseObject = FigPlaybackItemGetFigBaseObject();
   v6 = *(*(CMBaseObjectGetVTable() + 8) + 48);
-  if (v6 && (v7 = v6(FigBaseObject, *MEMORY[0x1E6972AD8], *MEMORY[0x1E695E480], &cf), !v7) && (v15 = cf, (v16 = OUTLINED_FUNCTION_2_3(v7, v8, v9, v10, v11, v12, v13, v14, 0, 0, 0, 0, 0, 0, 0, 0, v41, cf, v44)) != 0))
+  if (v6 && (v7 = v6(FigBaseObject, *MEMORY[0x1E6972AD8], *MEMORY[0x1E695E480], cf), !v7) && (v15 = cf[0], (v16 = OUTLINED_FUNCTION_2_3(v7, v8, v9, v10, v11, v12, v13, v14, 0, 0, 0, 0, 0, 0, 0, 0, v41, cf[0])) != 0))
   {
     v17 = v16;
     v18 = *v35;
@@ -20745,7 +20738,7 @@ LABEL_5:
 
       if (v17 == ++v21)
       {
-        v17 = OUTLINED_FUNCTION_2_3(v23, v24, v25, v26, v27, v28, v29, v30, v33, v34, v35, v36, v37, v38, v39, v40, v42, cf, v44);
+        v17 = OUTLINED_FUNCTION_2_3(v23, v24, v25, v26, v27, v28, v29, v30, v33, v34, v35, v36, v37, v38, v39, v40, v42, cf[0]);
         v31 = 0;
         if (v17)
         {
@@ -20774,9 +20767,9 @@ LABEL_14:
     }
   }
 
-  if (cf)
+  if (cf[0])
   {
-    CFRelease(cf);
+    CFRelease(cf[0]);
   }
 
   return v31;
@@ -20824,15 +20817,15 @@ LABEL_14:
   return _copyFigPlaybackItem;
 }
 
-uint64_t __48__AVPlayerItem_AVPlayerItemSpeedRamp__speedRamp__block_invoke(uint64_t result)
+void *__48__AVPlayerItem_AVPlayerItemSpeedRamp__speedRamp__block_invoke(void *result)
 {
-  v1 = *(*(result + 32) + 8);
+  v1 = *(result[4] + 8);
   if (*(v1 + 1576))
   {
     v2 = result;
     result = [MEMORY[0x1E695DF70] arrayWithCapacity:*(v1 + 1584)];
-    *(*(*(v2 + 40) + 8) + 40) = result;
-    v3 = *(v2 + 32);
+    *(*(v2[5] + 8) + 40) = result;
+    v3 = v2[4];
     v5 = *(v3 + 8);
     v4 = v3 + 8;
     if (*(v5 + 1584))
@@ -20843,11 +20836,11 @@ uint64_t __48__AVPlayerItem_AVPlayerItemSpeedRamp__speedRamp__block_invoke(uint6
       {
         memset(__src, 0, sizeof(__src));
         [*(*v4 + 1576) getBytes:__src range:{v6, 96}];
-        v8 = *(*(*(v2 + 40) + 8) + 40);
+        v8 = *(*(v2[5] + 8) + 40);
         memcpy(v11, __src, sizeof(v11));
         result = [v8 addObject:{objc_msgSend(MEMORY[0x1E696B098], "valueWithCMTimeMapping:", v11)}];
         ++v7;
-        v9 = *(v2 + 32);
+        v9 = v2[4];
         v10 = *(v9 + 8);
         v4 = v9 + 8;
         v6 += 96;

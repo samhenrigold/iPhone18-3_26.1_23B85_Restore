@@ -8,17 +8,16 @@
 
 - (void)viewDidLoad
 {
-  v5.receiver = self;
-  v5.super_class = type metadata accessor for IMBHTMLContentViewController();
-  v2 = v5.receiver;
-  [(IMBDetailedMessageViewController *)&v5 viewDidLoad];
+  v4.receiver = self;
+  v4.super_class = type metadata accessor for IMBHTMLContentViewController();
+  v2 = v4.receiver;
+  [(IMBDetailedMessageViewController *)&v4 viewDidLoad];
   if ([*&v2[OBJC_IVAR____TtC8Business32IMBDetailedMessageViewController_message] rootObject])
   {
-    type metadata accessor for IMBContent();
+    type metadata accessor for IMBContent(0);
     v3 = swift_dynamicCastClass();
     if (v3)
     {
-      v4 = *&v2[OBJC_IVAR____TtC8Business28IMBHTMLContentViewController_content];
       *&v2[OBJC_IVAR____TtC8Business28IMBHTMLContentViewController_content] = v3;
     }
 

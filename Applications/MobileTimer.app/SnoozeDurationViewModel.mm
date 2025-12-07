@@ -35,13 +35,13 @@
 - (void)setIsEnabled:(BOOL)enabled
 {
   selfCopy = self;
-  sub_10006431C(enabled, &OBJC_IVAR____TtC11MobileTimer23SnoozeDurationViewModel__isEnabled);
+  sub_10006431C(enabled, &OBJC_IVAR____TtC11MobileTimer23SnoozeDurationViewModel__isEnabled, &unk_10008C230, sub_100063FE8);
 }
 
 - (void)setIsPickerShown:(BOOL)shown
 {
   selfCopy = self;
-  sub_10006431C(shown, &OBJC_IVAR____TtC11MobileTimer23SnoozeDurationViewModel__isPickerShown);
+  sub_10006431C(shown, &OBJC_IVAR____TtC11MobileTimer23SnoozeDurationViewModel__isPickerShown, &unk_10008C268, sub_100064508);
 }
 
 - (int64_t)maxSnoozeDurationInMinutes

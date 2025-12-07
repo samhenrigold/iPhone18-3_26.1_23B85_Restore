@@ -303,7 +303,7 @@ LABEL_24:
   }
 }
 
-uint64_t std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::reverse_iterator<std::__wrap_iter<std::pair<float,int> *>>>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::reverse_iterator<std::__wrap_iter<std::pair<float,int> *>>>(uint64_t a1, float *a2, uint64_t a3, uint64_t a4)
 {
   v6 = (a2 - a4) >> 3;
   if (v6 > 2)
@@ -311,12 +311,12 @@ uint64_t std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,s
     switch(v6)
     {
       case 3:
-        std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::reverse_iterator<std::__wrap_iter<std::pair<float,int> *>>,0>(a1, a2, a2 - 8, a2 - 8, a3, a4 + 8);
+        std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::reverse_iterator<std::__wrap_iter<std::pair<float,int> *>>,0>(a1, a2, (a2 - 2), (a2 - 2), a3, a4 + 8);
         goto LABEL_12;
       case 4:
-        std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::reverse_iterator<std::__wrap_iter<std::pair<float,int> *>>,0>(a1, a2, a2 - 8, a2 - 8, a2 - 16, a2 - 16);
+        std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::reverse_iterator<std::__wrap_iter<std::pair<float,int> *>>,0>(a1, a2, (a2 - 2), (a2 - 2), (a2 - 4), (a2 - 4));
         v27 = *a4;
-        v28 = *(a2 - 24);
+        v28 = *(a2 - 6);
         if (*a4 >= v28)
         {
           if (v28 < v27)
@@ -325,7 +325,7 @@ uint64_t std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,s
           }
 
           v30 = *(a4 + 4);
-          v29 = *(a2 - 20);
+          v29 = *(a2 - 5);
           if (v30 >= v29)
           {
             goto LABEL_12;
@@ -334,16 +334,16 @@ uint64_t std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,s
 
         else
         {
-          v29 = *(a2 - 20);
+          v29 = *(a2 - 5);
           v30 = *(a4 + 4);
         }
 
-        *(a2 - 24) = v27;
+        *(a2 - 6) = v27;
         *a4 = v28;
-        *(a2 - 20) = v30;
+        *(a2 - 5) = v30;
         *(a4 + 4) = v29;
-        v31 = *(a2 - 24);
-        v32 = *(a2 - 16);
+        v31 = *(a2 - 6);
+        v32 = *(a2 - 4);
         if (v31 >= v32)
         {
           if (v32 < v31)
@@ -351,8 +351,8 @@ uint64_t std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,s
             goto LABEL_12;
           }
 
-          v34 = *(a2 - 20);
-          v33 = *(a2 - 12);
+          v34 = *(a2 - 5);
+          v33 = *(a2 - 3);
           if (v34 >= v33)
           {
             goto LABEL_12;
@@ -361,15 +361,15 @@ uint64_t std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,s
 
         else
         {
-          v33 = *(a2 - 12);
-          v34 = *(a2 - 20);
+          v33 = *(a2 - 3);
+          v34 = *(a2 - 5);
         }
 
-        *(a2 - 16) = v31;
-        *(a2 - 24) = v32;
-        *(a2 - 12) = v34;
-        *(a2 - 20) = v33;
-        v35 = *(a2 - 8);
+        *(a2 - 4) = v31;
+        *(a2 - 6) = v32;
+        *(a2 - 3) = v34;
+        *(a2 - 5) = v33;
+        v35 = *(a2 - 2);
         if (v31 >= v35)
         {
           if (v35 < v31)
@@ -377,8 +377,8 @@ uint64_t std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,s
             goto LABEL_12;
           }
 
-          v37 = *(a2 - 12);
-          v36 = *(a2 - 4);
+          v37 = *(a2 - 3);
+          v36 = *(a2 - 1);
           if (v37 >= v36)
           {
             goto LABEL_12;
@@ -387,18 +387,18 @@ uint64_t std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,s
 
         else
         {
-          v36 = *(a2 - 4);
-          v37 = *(a2 - 12);
+          v36 = *(a2 - 1);
+          v37 = *(a2 - 3);
         }
 
-        *(a2 - 8) = v31;
-        *(a2 - 16) = v35;
-        *(a2 - 4) = v37;
+        *(a2 - 2) = v31;
+        *(a2 - 4) = v35;
+        *(a2 - 1) = v37;
         v11 = 1;
-        *(a2 - 12) = v36;
+        *(a2 - 3) = v36;
         return v11 & 1;
       case 5:
-        std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::reverse_iterator<std::__wrap_iter<std::pair<float,int> *>>,0>(a1, a2, a2 - 8, a2 - 8, a2 - 16, a2 - 16, a2 - 24, a2 - 24, a3, a4 + 8);
+        std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::reverse_iterator<std::__wrap_iter<std::pair<float,int> *>>,0>(a1, a2, (a2 - 2), (a2 - 2), (a2 - 4), (a2 - 4), (a2 - 6), (a2 - 6), a3, a4 + 8);
         goto LABEL_12;
     }
   }
@@ -413,15 +413,15 @@ uint64_t std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,s
     if (v6 == 2)
     {
       v7 = *a4;
-      v8 = *(a2 - 8);
+      v8 = *(a2 - 2);
       if (*a4 < v8)
       {
-        v9 = *(a2 - 4);
+        v9 = *(a2 - 1);
         v10 = *(a4 + 4);
 LABEL_6:
-        *(a2 - 8) = v7;
+        *(a2 - 2) = v7;
         *a4 = v8;
-        *(a2 - 4) = v10;
+        *(a2 - 1) = v10;
         v11 = 1;
         *(a4 + 4) = v9;
         return v11 & 1;
@@ -430,7 +430,7 @@ LABEL_6:
       if (v8 >= v7)
       {
         v10 = *(a4 + 4);
-        v9 = *(a2 - 4);
+        v9 = *(a2 - 1);
         if (v10 < v9)
         {
           goto LABEL_6;
@@ -443,10 +443,10 @@ LABEL_12:
     }
   }
 
-  v13 = (a2 - 16);
-  std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::reverse_iterator<std::__wrap_iter<std::pair<float,int> *>>,0>(a1, a2, a2 - 8, a2 - 8, a2 - 16, a2 - 16);
-  v15 = a2 - 24;
-  if (a2 - 24 == a4)
+  v13 = a2 - 4;
+  std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::reverse_iterator<std::__wrap_iter<std::pair<float,int> *>>,0>(a1, a2, (a2 - 2), (a2 - 2), (a2 - 4), (a2 - 4));
+  v15 = a2 - 6;
+  if (a2 - 6 == a4)
   {
 LABEL_32:
     v26 = 1;
@@ -454,11 +454,11 @@ LABEL_32:
   }
 
   v16 = 0;
-  v14 = a2 - 24;
+  v14 = a2 - 6;
   while (1)
   {
-    v17 = *(v14 - 8);
-    v14 -= 8;
+    v17 = *(v14 - 2);
+    v14 -= 2;
     v18 = v17;
     v19 = *(v13 - 2);
     if (v17 < v19)
@@ -468,7 +468,7 @@ LABEL_32:
 
     if (v19 >= v18)
     {
-      v20 = *(v15 - 4);
+      v20 = *(v15 - 1);
       v21 = *(v13 - 1);
       if (v20 < v21)
       {
@@ -485,11 +485,11 @@ LABEL_31:
     }
   }
 
-  v20 = *(v15 - 4);
+  v20 = *(v15 - 1);
   v21 = *(v13 - 1);
 LABEL_18:
-  *(v15 - 8) = v19;
-  *(v15 - 4) = v21;
+  *(v15 - 2) = v19;
+  *(v15 - 1) = v21;
   if (v13 != a2)
   {
     v22 = v13;
@@ -543,41 +543,41 @@ LABEL_33:
   return v11 & 1;
 }
 
-uint64_t *std::__tree<std::__value_type<int,int>,std::__map_value_compare<int,std::__value_type<int,int>,std::less<int>,true>,std::allocator<std::__value_type<int,int>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(uint64_t a1, int *a2)
+uint64_t *std::__tree<std::__value_type<int,int>,std::__map_value_compare<int,std::__value_type<int,int>,std::less<int>,true>,std::allocator<std::__value_type<int,int>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(uint64_t a1, int *a2, uint64_t a3, unsigned int **a4)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v4 = *(a1 + 8);
+  if (!v4)
   {
 LABEL_8:
     operator new();
   }
 
-  v3 = *a2;
+  v5 = *a2;
   while (1)
   {
     while (1)
     {
-      v4 = v2;
-      v5 = *(v2 + 28);
-      if (v3 >= v5)
+      v6 = v4;
+      v7 = *(v4 + 28);
+      if (v5 >= v7)
       {
         break;
       }
 
-      v2 = *v4;
-      if (!*v4)
+      v4 = *v6;
+      if (!*v6)
       {
         goto LABEL_8;
       }
     }
 
-    if (v5 >= v3)
+    if (v7 >= v5)
     {
-      return v4;
+      return v6;
     }
 
-    v2 = v4[1];
-    if (!v2)
+    v4 = v6[1];
+    if (!v4)
     {
       goto LABEL_8;
     }
@@ -597,15 +597,15 @@ void sub_247836BF8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
     operator delete(a58);
   }
 
-  if (a70)
+  if (a65)
   {
-    operator delete(a70);
+    operator delete(a65);
   }
 
   _Unwind_Resume(a1);
 }
 
-void std::vector<double>::push_back[abi:ne200100](const void **a1, void *a2)
+void std::vector<double>::push_back[abi:ne200100](const void **a1, uint64_t *a2)
 {
   v5 = a1[1];
   v4 = a1[2];
@@ -654,7 +654,7 @@ void std::vector<double>::push_back[abi:ne200100](const void **a1, void *a2)
   else
   {
     *v5 = *a2;
-    v6 = v5 + 1;
+    v6 = v5 + 8;
   }
 
   a1[1] = v6;
@@ -684,49 +684,48 @@ void sub_24783871C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 void fieldDecoding(uint64_t *a1, unsigned int a2, int a3, void *a4, int a5, void *a6, void *a7, int a8)
 {
-  v34 = a7;
-  v16 = (a3 - (a2 >> 1)) & ~((a3 - (a2 >> 1)) >> 31);
-  v17 = a3 + (a2 >> 1);
-  v18 = 0xAAAAAAAAAAAAAAABLL * ((a1[1] - *a1) >> 3);
-  v19 = v18 - 1;
-  v20 = v18 - 1;
-  if (v19 < v17)
+  v31 = a7;
+  v14 = (a3 - (a2 >> 1)) & ~((a3 - (a2 >> 1)) >> 31);
+  v15 = a3 + (a2 >> 1);
+  v16 = 0xAAAAAAAAAAAAAAABLL * ((a1[1] - *a1) >> 3);
+  v17 = v16 - 1;
+  v18 = v16 - 1;
+  if (v17 < v15)
   {
-    v17 = v20;
+    v15 = v18;
   }
 
-  if (v16 > v17)
+  if (v14 > v15)
   {
-    goto LABEL_32;
+    goto LABEL_30;
   }
 
-  v21 = (v17 + 1);
+  v19 = (v15 + 1);
   do
   {
-    v22 = *a1;
-    v23 = *(*a1 + 24 * v16);
-    v24 = *(*a1 + 24 * v16 + 8);
-    v25 = v24 - v23;
-    if (v24 == v23)
+    v20 = *(*a1 + 24 * v14);
+    v21 = *(*a1 + 24 * v14 + 8);
+    v22 = v21 - v20;
+    if (v21 == v20)
     {
       goto LABEL_29;
     }
 
-    v26 = 0;
-    v27 = v25 >> 2;
-    if (v27 <= 1)
+    v23 = 0;
+    v24 = v22 >> 2;
+    if (v24 <= 1)
     {
-      v27 = 1;
+      v24 = 1;
     }
 
-    LODWORD(v15) = -8388608;
-    v28 = 0xFFFFFFFFLL;
+    v25 = -INFINITY;
+    v26 = 0xFFFFFFFFLL;
     do
     {
-      v29 = *(*a4 + 4 * v26);
+      v27 = *(*a4 + 4 * v23);
       if (a5 == 3)
       {
-        if (v29 == 103 || (v29 - 91) > 0xFFFFFFE5)
+        if (v27 == 103 || (v27 - 91) > 0xFFFFFFE5)
         {
           goto LABEL_26;
         }
@@ -734,60 +733,53 @@ void fieldDecoding(uint64_t *a1, unsigned int a2, int a3, void *a4, int a5, void
 
       else if (a5 == 2)
       {
-        if (v29 == 103 || (v29 - 58) > 0xFFFFFFF5)
+        if (v27 == 103 || (v27 - 58) > 0xFFFFFFF5)
         {
           goto LABEL_26;
         }
       }
 
-      else if ((v29 - 48) > 9)
+      else if ((v27 - 48) > 9)
       {
         goto LABEL_26;
       }
 
-      if (*(v23 + 4 * v26) > *&v15)
+      if (*(v20 + 4 * v23) > v25)
       {
-        v28 = v26;
-        LODWORD(v15) = *(v23 + 4 * v26);
+        v26 = v23;
+        v25 = *(v20 + 4 * v23);
       }
 
 LABEL_26:
-      ++v26;
+      ++v23;
     }
 
-    while (v27 != v26);
-    if ((v28 & 0x80000000) == 0)
+    while (v24 != v23);
+    if ((v26 & 0x80000000) == 0)
     {
-      v15 = *(*a6 + 8 * v28) + *&v15;
-      *(*a6 + 8 * v28) = v15;
+      *(*a6 + 8 * v26) = *(*a6 + 8 * v26) + v25;
     }
 
 LABEL_29:
-    v32 = v16;
-    if (a8)
-    {
-      v32 = ~v16 - 1431655765 * ((a1[1] - v22) >> 3);
-    }
+    v30 = [MEMORY[0x277CCABB0] numberWithInteger:?];
+    [v31 addObject:?];
 
-    v33 = [MEMORY[0x277CCABB0] numberWithInteger:{v32, v15}];
-    [v34 addObject:v33];
-
-    ++v16;
+    ++v14;
   }
 
-  while (v16 != v21);
-LABEL_32:
+  while (v14 != v19);
+LABEL_30:
 }
 
-void sub_247838B28(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
+void sub_247838B28(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
 {
-  va_start(va, a10);
+  va_start(va, a17);
   std::vector<std::vector<std::vector<float>>>::__destroy_vector::operator()[abi:ne200100](va);
 
   _Unwind_Resume(a1);
 }
 
-void sub_247839888(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *a15, void *a16, uint64_t a17, uint64_t a18, void *a19, void *a20, void *a21, void *a22, void *a23, void *a24, void *a25, void *a26, void *a27, void *a28, uint64_t a29, void *a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, void *a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, void *a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, void *a45, uint64_t a46, uint64_t a47, void *a48, uint64_t a49, uint64_t a50, void *a51, uint64_t a52, uint64_t a53, void *__p, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
+void sub_247839888(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *a15, void *a16, uint64_t a17, uint64_t a18, void *a19, void *a20, void *a21, void *a22, void *a23, void *a24, void *a25, void *a26, void *a27, void *a28, uint64_t a29, void *a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, void *a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, void *a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, void *a45, uint64_t a46, uint64_t a47, void *a48, uint64_t a49, uint64_t a50, void *a51, uint64_t a52, uint64_t a53, char *__p, char *a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
 {
   if (__p)
   {
@@ -801,9 +793,9 @@ void sub_247839888(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void sub_247839D40(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
+void sub_247839D40(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
 {
-  va_start(va, a10);
+  va_start(va, a17);
   std::vector<std::vector<std::vector<float>>>::__destroy_vector::operator()[abi:ne200100](va);
 
   _Unwind_Resume(a1);

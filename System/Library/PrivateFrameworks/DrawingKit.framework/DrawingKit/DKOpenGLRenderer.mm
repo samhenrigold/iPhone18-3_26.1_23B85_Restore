@@ -455,7 +455,7 @@ LABEL_5:
           memset(v75, 0, 24);
           if (v15)
           {
-            [v15 dk_renderPointValue];
+            objc_msgSend_dk_renderPointValue(v15);
             v16 = vcvt_hight_f32_f64(vcvt_f32_f64(0), *(v75 + 8));
           }
 
@@ -579,7 +579,7 @@ LABEL_5:
         v40 = v39;
         if (v39)
         {
-          [v39 dk_renderPointValue];
+          objc_msgSend_dk_renderPointValue(v39);
         }
 
         else
@@ -592,7 +592,7 @@ LABEL_5:
         v42 = v41;
         if (v41)
         {
-          [v41 dk_renderPointValue];
+          objc_msgSend_dk_renderPointValue(v41);
         }
 
         else
@@ -1430,7 +1430,7 @@ LABEL_24:
 
       v14 = 0;
       LODWORD(v15) = 0;
-      v16 = v32 + 6;
+      v16 = (v32 + 24);
       while (1)
       {
         v15 = (v15 + 1);
@@ -1447,12 +1447,12 @@ LABEL_24:
 LABEL_19:
           v17 = v14;
           [(DKOpenGLRenderer *)self renderToWetPaintBufferWithRange:v14, v15];
-          v18 = &v32[6 * v14];
+          v18 = &v32[24 * v14];
           v14 += v15;
           v27 = 0;
           v28 = 0;
           v26 = 0;
-          std::vector<Vertex>::__init_with_size[abi:ne200100]<std::__wrap_iter<Vertex*>,std::__wrap_iter<Vertex*>>(&v26, v18, &v32[6 * v14], 0xAAAAAAAAAAAAAAABLL * ((24 * v14 - 24 * v17) >> 3));
+          std::vector<Vertex>::__init_with_size[abi:ne200100]<std::__wrap_iter<Vertex*>,std::__wrap_iter<Vertex*>>(&v26, v18, &v32[24 * v14], 0xAAAAAAAAAAAAAAABLL * ((24 * v14 - 24 * v17) >> 3));
           LODWORD(v19) = 10.0;
           [(DKOpenGLRenderer *)self regionWithVertices:&v26 withInflationAmount:v19];
           self->mDirtyCanvasRegion.origin.x = v20;

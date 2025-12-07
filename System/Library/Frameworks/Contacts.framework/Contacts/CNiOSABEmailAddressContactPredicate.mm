@@ -55,7 +55,7 @@
   return v4;
 }
 
-uint64_t __59__CNiOSABEmailAddressContactPredicate__stringsAreNonEmpty___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
+void *__59__CNiOSABEmailAddressContactPredicate__stringsAreNonEmpty___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
   result = [a2 length];
   if (!result)

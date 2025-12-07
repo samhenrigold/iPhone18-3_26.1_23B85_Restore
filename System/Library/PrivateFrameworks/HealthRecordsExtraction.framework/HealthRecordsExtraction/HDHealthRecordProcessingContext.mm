@@ -68,47 +68,46 @@ LABEL_3:
 
 - (id)createExtractionResultWithError:(id *)error
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v4 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   obj = self->_medicalRecordsByOriginalResource;
-  v5 = [(NSMutableDictionary *)obj countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v5 = [(NSMutableDictionary *)obj countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v19;
+    v7 = *v18;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v19 != v7)
+        if (*v18 != v7)
         {
           objc_enumerationMutation(obj);
         }
 
-        v9 = *(*(&v18 + 1) + 8 * i);
+        v9 = *(*(&v17 + 1) + 8 * i);
         v10 = [(NSMutableDictionary *)self->_medicalRecordsByOriginalResource objectForKeyedSubscript:v9];
-        v17[0] = MEMORY[0x277D85DD0];
-        v17[1] = 3221225472;
-        v17[2] = __67__HDHealthRecordProcessingContext_createExtractionResultWithError___block_invoke;
-        v17[3] = &unk_2796E2928;
-        v17[4] = self;
-        v11 = [v10 hk_map:v17];
+        v16[0] = MEMORY[0x277D85DD0];
+        v16[1] = 3221225472;
+        v16[2] = __67__HDHealthRecordProcessingContext_createExtractionResultWithError___block_invoke;
+        v16[3] = &unk_2796E2928;
+        v16[4] = self;
+        v11 = [v10 hk_map:v16];
         v12 = [objc_alloc(MEMORY[0x277D12360]) initWithOriginalFHIRResource:v9 units:v11 flags:0];
         [v4 addObject:v12];
       }
 
-      v6 = [(NSMutableDictionary *)obj countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v6 = [(NSMutableDictionary *)obj countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v6);
   }
 
   v13 = [objc_alloc(MEMORY[0x277D12358]) initWithItems:v4];
-  v14 = *MEMORY[0x277D85DE8];
 
   return v13;
 }
@@ -200,7 +199,7 @@ LABEL_3:
 
 - (BOOL)didProcessClinicalRecord:(id)record forMedicalRecord:(id)medicalRecord error:(id *)error
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   recordCopy = record;
   medicalRecordCopy = medicalRecord;
   if (!recordCopy)
@@ -213,33 +212,33 @@ LABEL_3:
     [HDHealthRecordProcessingContext didProcessClinicalRecord:forMedicalRecord:error:];
   }
 
-  v26 = 0u;
-  v27 = 0u;
-  v24 = 0u;
   v25 = 0u;
+  v26 = 0u;
+  v23 = 0u;
+  v24 = 0u;
   v9 = self->_medicalRecordsByOriginalResource;
-  v10 = [(NSMutableDictionary *)v9 countByEnumeratingWithState:&v24 objects:v28 count:16];
+  v10 = [(NSMutableDictionary *)v9 countByEnumeratingWithState:&v23 objects:v27 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v25;
+    v12 = *v24;
     while (2)
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v25 != v12)
+        if (*v24 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        v14 = [(NSMutableDictionary *)self->_medicalRecordsByOriginalResource objectForKeyedSubscript:*(*(&v24 + 1) + 8 * i)];
-        v22[0] = MEMORY[0x277D85DD0];
-        v22[1] = 3221225472;
-        v22[2] = __83__HDHealthRecordProcessingContext_didProcessClinicalRecord_forMedicalRecord_error___block_invoke;
-        v22[3] = &unk_2796E2950;
+        v14 = [(NSMutableDictionary *)self->_medicalRecordsByOriginalResource objectForKeyedSubscript:*(*(&v23 + 1) + 8 * i)];
+        v21[0] = MEMORY[0x277D85DD0];
+        v21[1] = 3221225472;
+        v21[2] = __83__HDHealthRecordProcessingContext_didProcessClinicalRecord_forMedicalRecord_error___block_invoke;
+        v21[3] = &unk_2796E2950;
         v15 = medicalRecordCopy;
-        v23 = v15;
-        fHIRIdentifier = [v14 hk_firstObjectPassingTest:v22];
+        v22 = v15;
+        fHIRIdentifier = [v14 hk_firstObjectPassingTest:v21];
 
         if (fHIRIdentifier)
         {
@@ -250,7 +249,7 @@ LABEL_3:
         }
       }
 
-      v11 = [(NSMutableDictionary *)v9 countByEnumeratingWithState:&v24 objects:v28 count:16];
+      v11 = [(NSMutableDictionary *)v9 countByEnumeratingWithState:&v23 objects:v27 count:16];
       if (v11)
       {
         continue;
@@ -266,7 +265,6 @@ LABEL_3:
   v18 = 0;
 LABEL_15:
 
-  v19 = *MEMORY[0x277D85DE8];
   return v18;
 }
 

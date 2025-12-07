@@ -5,7 +5,6 @@
 
 CFTypeID ___MDPlistContainerCreateCommon_block_invoke()
 {
-  v2 = *MEMORY[0x1E69E9840];
   gCFArrayTypeID = CFArrayGetTypeID();
   gCFDictionaryTypeID = CFDictionaryGetTypeID();
   gCFNullTypeID = CFNullGetTypeID();
@@ -17,7 +16,6 @@ CFTypeID ___MDPlistContainerCreateCommon_block_invoke()
   gCFBooleanTypeID = CFBooleanGetTypeID();
   result = CFNumberGetTypeID();
   gCFNumberTypeID = result;
-  v1 = *MEMORY[0x1E69E9840];
   return result;
 }
 

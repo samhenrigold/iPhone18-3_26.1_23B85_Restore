@@ -47,7 +47,7 @@
 + (id)_linkWithDataRepresentation:(id)representation substitutingAttachments:(BOOL)attachments attachments:(id)a5
 {
   attachmentsCopy = attachments;
-  v33 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   representationCopy = representation;
   v8 = a5;
   v9 = [objc_alloc(MEMORY[0x1E696ACD0]) initForReadingFromData:representationCopy error:0];
@@ -75,28 +75,28 @@
   metadata4 = 0x1E7A34000;
   v15 = [v11 setWithObjects:{v12, v13, objc_opt_class(), 0}];
   v16 = *MEMORY[0x1E696A508];
-  v31 = 0;
-  v17 = [v9 decodeTopLevelObjectOfClasses:v15 forKey:v16 error:&v31];
-  v18 = v31;
+  v35 = 0;
+  v17 = [v9 decodeTopLevelObjectOfClasses:v15 forKey:v16 error:&v35];
+  v18 = v35;
 
-  [v9 finishDecoding];
+  finishDecoding = [v9 finishDecoding];
   if (v18)
   {
-    v19 = LPLogChannelFetching();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+    v21 = LPLogChannelFetching(finishDecoding, v20);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
       +[LPMessagesPayload _linkWithDataRepresentation:substitutingAttachments:attachments:];
     }
 
 LABEL_7:
-    v20 = 0;
+    v22 = 0;
     goto LABEL_8;
   }
 
   if (!v17)
   {
-    v23 = LPLogChannelFetching();
-    if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+    v25 = LPLogChannelFetching(finishDecoding, v20);
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
     {
       +[LPMessagesPayload _linkWithDataRepresentation:substitutingAttachments:attachments:];
     }
@@ -107,9 +107,9 @@ LABEL_7:
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v20 = v17;
-    metadata = [(LPMessagesPayload *)v20 metadata];
-    -[LPMessagesPayload setNeedsCompleteFetch:](v20, "setNeedsCompleteFetch:", [metadata _isCurrentlyLoadingOrIncomplete]);
+    v22 = v17;
+    metadata = [(LPMessagesPayload *)v22 metadata];
+    -[LPMessagesPayload setNeedsCompleteFetch:](v22, "setNeedsCompleteFetch:", [metadata _isCurrentlyLoadingOrIncomplete]);
   }
 
   else
@@ -117,37 +117,38 @@ LABEL_7:
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v20 = objc_alloc_init(LPMessagesPayload);
-      [(LPMessagesPayload *)v20 setMetadata:v17];
-      metadata2 = [(LPMessagesPayload *)v20 metadata];
-      -[LPMessagesPayload setNeedsCompleteFetch:](v20, "setNeedsCompleteFetch:", [metadata2 _isCurrentlyLoadingOrIncomplete]);
+      v22 = objc_alloc_init(LPMessagesPayload);
+      [(LPMessagesPayload *)v22 setMetadata:v17];
+      metadata2 = [(LPMessagesPayload *)v22 metadata];
+      -[LPMessagesPayload setNeedsCompleteFetch:](v22, "setNeedsCompleteFetch:", [metadata2 _isCurrentlyLoadingOrIncomplete]);
     }
 
     else
     {
       objc_opt_class();
-      if ((objc_opt_isKindOfClass() & 1) == 0)
+      isKindOfClass = objc_opt_isKindOfClass();
+      if ((isKindOfClass & 1) == 0)
       {
-        v29 = LPLogChannelFetching();
-        if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+        v33 = LPLogChannelFetching(isKindOfClass, v28);
+        if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
         {
-          v30 = objc_opt_class();
-          [LPMessagesPayload _linkWithDataRepresentation:v30 substitutingAttachments:v32 attachments:v29];
+          v34 = objc_opt_class();
+          [LPMessagesPayload _linkWithDataRepresentation:v34 substitutingAttachments:v36 attachments:v33];
         }
 
         goto LABEL_7;
       }
 
-      v20 = objc_alloc_init(LPMessagesPayload);
-      v25 = v17;
-      metadata3 = [v25 metadata];
-      [(LPMessagesPayload *)v20 setMetadata:metadata3];
+      v22 = objc_alloc_init(LPMessagesPayload);
+      v29 = v17;
+      metadata3 = [v29 metadata];
+      [(LPMessagesPayload *)v22 setMetadata:metadata3];
 
-      -[LPMessagesPayload setNeedsSubresourceFetch:](v20, "setNeedsSubresourceFetch:", [v25 hasFetchedSubresources] ^ 1);
-      hasCompletedFetch = [v25 hasCompletedFetch];
+      -[LPMessagesPayload setNeedsSubresourceFetch:](v22, "setNeedsSubresourceFetch:", [v29 hasFetchedSubresources] ^ 1);
+      hasCompletedFetch = [v29 hasCompletedFetch];
       if (hasCompletedFetch)
       {
-        metadata4 = [v25 metadata];
+        metadata4 = [v29 metadata];
         _isCurrentlyLoadingOrIncomplete = [metadata4 _isCurrentlyLoadingOrIncomplete];
       }
 
@@ -156,7 +157,7 @@ LABEL_7:
         _isCurrentlyLoadingOrIncomplete = 1;
       }
 
-      [(LPMessagesPayload *)v20 setNeedsCompleteFetch:_isCurrentlyLoadingOrIncomplete];
+      [(LPMessagesPayload *)v22 setNeedsCompleteFetch:_isCurrentlyLoadingOrIncomplete];
       if (hasCompletedFetch)
       {
       }
@@ -165,7 +166,7 @@ LABEL_7:
 
 LABEL_8:
 
-  return v20;
+  return v22;
 }
 
 + (id)linkWithDataRepresentation:(id)representation attachments:(id)attachments

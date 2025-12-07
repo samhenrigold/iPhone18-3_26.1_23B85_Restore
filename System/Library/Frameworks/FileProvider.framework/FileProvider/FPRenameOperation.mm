@@ -42,20 +42,20 @@
 
 - (FPRenameOperation)initWithItem:(id)item newNameInternal:(id)internal
 {
-  v21[1] = *MEMORY[0x1E69E9840];
+  v20[1] = *MEMORY[0x1E69E9840];
   itemCopy = item;
   internalCopy = internal;
   providerDomainID = [itemCopy providerDomainID];
-  v20.receiver = self;
-  v20.super_class = FPRenameOperation;
-  v10 = [(FPActionOperation *)&v20 initWithProvider:providerDomainID action:@"Rename"];
+  v19.receiver = self;
+  v19.super_class = FPRenameOperation;
+  v10 = [(FPActionOperation *)&v19 initWithProvider:providerDomainID action:@"Rename"];
 
   if (v10)
   {
     objc_storeStrong(&v10->_item, item);
     objc_storeStrong(&v10->_newName, internal);
-    v21[0] = itemCopy;
-    v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v21 count:1];
+    v20[0] = itemCopy;
+    v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v20 count:1];
     [(FPActionOperation *)v10 setSourceItemsToPreflight:v11];
 
     [(FPActionOperation *)v10 setSetupRemoteOperationService:1];
@@ -71,7 +71,6 @@
     [(FPActionOperation *)v10 setDestinationItemToPreflight:v16];
   }
 
-  v18 = *MEMORY[0x1E69E9840];
   return v10;
 }
 
@@ -143,24 +142,22 @@ LABEL_9:
 
 - (void)presendNotifications
 {
-  v9[1] = *MEMORY[0x1E69E9840];
+  v8[1] = *MEMORY[0x1E69E9840];
   stitcher = [(FPActionOperation *)self stitcher];
   [stitcher start];
 
   stitcher2 = [(FPActionOperation *)self stitcher];
-  v9[0] = self->_item;
-  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:1];
-  v8[0] = MEMORY[0x1E69E9820];
-  v8[1] = 3221225472;
-  v8[2] = __41__FPRenameOperation_presendNotifications__block_invoke;
-  v8[3] = &unk_1E793CA10;
-  v8[4] = self;
-  [stitcher2 transformItems:v5 handler:v8];
+  v8[0] = self->_item;
+  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:1];
+  v7[0] = MEMORY[0x1E69E9820];
+  v7[1] = 3221225472;
+  v7[2] = __41__FPRenameOperation_presendNotifications__block_invoke;
+  v7[3] = &unk_1E793CA10;
+  v7[4] = self;
+  [stitcher2 transformItems:v5 handler:v7];
 
   stitcher3 = [(FPActionOperation *)self stitcher];
   [stitcher3 flush];
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void __41__FPRenameOperation_presendNotifications__block_invoke(uint64_t a1, void *a2)
@@ -184,28 +181,19 @@ void __41__FPRenameOperation_presendNotifications__block_invoke(uint64_t a1, voi
 
 void __31__FPRenameOperation_actionMain__block_invoke_cold_1(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
-  v2 = *(a1 + 32);
-  v3 = *(v2 + 448);
-  v4 = *(v2 + 456);
-  v5 = [a2 fp_prettyDescription];
+  v2 = [a2 fp_prettyDescription];
   OUTLINED_FUNCTION_10_4();
   OUTLINED_FUNCTION_3_3();
   OUTLINED_FUNCTION_15();
-  _os_log_error_impl(v6, v7, v8, v9, v10, 0x20u);
-
-  v11 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v3, v4, v5, v6, v7, 0x20u);
 }
 
 void __31__FPRenameOperation_actionMain__block_invoke_cold_2(void *a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
   v1 = [a1 itemID];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_20();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 @end

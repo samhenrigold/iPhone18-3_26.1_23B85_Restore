@@ -12,15 +12,16 @@
 
 - (KNWipeBase)initWithAnimationContext:(id)context
 {
-  v5.receiver = self;
-  v5.super_class = KNWipeBase;
-  v3 = [(KNAnimationEffect *)&v5 initWithAnimationContext:context];
+  v6.receiver = self;
+  v6.super_class = KNWipeBase;
+  v3 = [(KNAnimationEffect *)&v6 initWithAnimationContext:context];
+  v4 = v3;
   if (v3)
   {
-    v3->_parameterGroup = +[KNAnimParameterGroup parameterGroupForFile:](KNAnimParameterGroup, "parameterGroupForFile:", [KNBundle() pathForResource:@"Wipe" ofType:@"parameterGroup"]);
+    v3->_parameterGroup = +[KNAnimParameterGroup parameterGroupForFile:](KNAnimParameterGroup, "parameterGroupForFile:", [KNBundle(v3) pathForResource:@"Wipe" ofType:@"parameterGroup"]);
   }
 
-  return v3;
+  return v4;
 }
 
 - (void)p_teardown
@@ -57,7 +58,7 @@
   v21 = 0u;
   v18 = 0u;
   v19 = 0u;
-  [(KNAnimationEffect *)self mvpMatrixWithContext:context];
+  objc_msgSend_mvpMatrixWithContext_(self);
   metalContext = [context metalContext];
   device = [metalContext device];
   v11 = objc_alloc_init(MTLRenderPipelineColorAttachmentDescriptor);

@@ -52,8 +52,8 @@
 
 - (id)_dictionaryRepresentation
 {
-  v22[6] = *MEMORY[0x1E69E9840];
-  v21[0] = @"pickupLocation";
+  v21[6] = *MEMORY[0x1E69E9840];
+  v20[0] = @"pickupLocation";
   pickupLocation = [(INRequestRideIntent *)self pickupLocation];
   v4 = pickupLocation;
   if (!pickupLocation)
@@ -61,9 +61,9 @@
     pickupLocation = [MEMORY[0x1E695DFB0] null];
   }
 
-  v20 = pickupLocation;
-  v22[0] = pickupLocation;
-  v21[1] = @"dropOffLocation";
+  v19 = pickupLocation;
+  v21[0] = pickupLocation;
+  v20[1] = @"dropOffLocation";
   dropOffLocation = [(INRequestRideIntent *)self dropOffLocation];
   v6 = dropOffLocation;
   if (!dropOffLocation)
@@ -71,9 +71,9 @@
     dropOffLocation = [MEMORY[0x1E695DFB0] null];
   }
 
-  v19 = dropOffLocation;
-  v22[1] = dropOffLocation;
-  v21[2] = @"rideOptionName";
+  v18 = dropOffLocation;
+  v21[1] = dropOffLocation;
+  v20[2] = @"rideOptionName";
   rideOptionName = [(INRequestRideIntent *)self rideOptionName];
   v8 = rideOptionName;
   if (!rideOptionName)
@@ -81,8 +81,8 @@
     rideOptionName = [MEMORY[0x1E695DFB0] null];
   }
 
-  v22[2] = rideOptionName;
-  v21[3] = @"partySize";
+  v21[2] = rideOptionName;
+  v20[3] = @"partySize";
   partySize = [(INRequestRideIntent *)self partySize];
   null = partySize;
   if (!partySize)
@@ -90,8 +90,8 @@
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v22[3] = null;
-  v21[4] = @"paymentMethod";
+  v21[3] = null;
+  v20[4] = @"paymentMethod";
   paymentMethod = [(INRequestRideIntent *)self paymentMethod];
   null2 = paymentMethod;
   if (!paymentMethod)
@@ -99,8 +99,8 @@
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v22[4] = null2;
-  v21[5] = @"scheduledPickupTime";
+  v21[4] = null2;
+  v20[5] = @"scheduledPickupTime";
   scheduledPickupTime = [(INRequestRideIntent *)self scheduledPickupTime];
   null3 = scheduledPickupTime;
   if (!scheduledPickupTime)
@@ -108,8 +108,8 @@
     null3 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v22[5] = null3;
-  v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v22 forKeys:v21 count:6];
+  v21[5] = null3;
+  v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v21 forKeys:v20 count:6];
   if (!scheduledPickupTime)
   {
   }
@@ -133,8 +133,6 @@
   if (!v4)
   {
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 
   return v15;
 }

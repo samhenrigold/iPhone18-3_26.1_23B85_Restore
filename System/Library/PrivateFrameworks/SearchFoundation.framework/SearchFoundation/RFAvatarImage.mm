@@ -120,11 +120,11 @@ LABEL_14:
 
 - (RFAvatarImage)initWithProtobuf:(id)protobuf
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   protobufCopy = protobuf;
-  v20.receiver = self;
-  v20.super_class = RFAvatarImage;
-  v5 = [(RFAvatarImage *)&v20 init];
+  v19.receiver = self;
+  v19.super_class = RFAvatarImage;
+  v5 = [(RFAvatarImage *)&v19 init];
   if (v5)
   {
     contact_ids = [protobufCopy contact_ids];
@@ -138,32 +138,32 @@ LABEL_14:
       v7 = 0;
     }
 
-    v18 = 0u;
-    v19 = 0u;
-    v16 = 0u;
     v17 = 0u;
+    v18 = 0u;
+    v15 = 0u;
+    v16 = 0u;
     contact_ids2 = [protobufCopy contact_ids];
-    v9 = [contact_ids2 countByEnumeratingWithState:&v16 objects:v21 count:16];
+    v9 = [contact_ids2 countByEnumeratingWithState:&v15 objects:v20 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v17;
+      v11 = *v16;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v17 != v11)
+          if (*v16 != v11)
           {
             objc_enumerationMutation(contact_ids2);
           }
 
-          if (*(*(&v16 + 1) + 8 * i))
+          if (*(*(&v15 + 1) + 8 * i))
           {
             [v7 addObject:?];
           }
         }
 
-        v10 = [contact_ids2 countByEnumeratingWithState:&v16 objects:v21 count:16];
+        v10 = [contact_ids2 countByEnumeratingWithState:&v15 objects:v20 count:16];
       }
 
       while (v10);
@@ -178,7 +178,6 @@ LABEL_14:
     v13 = v5;
   }
 
-  v14 = *MEMORY[0x1E69E9840];
   return v5;
 }
 

@@ -9,7 +9,7 @@
   ObjectType = swift_getObjectType();
   v4 = OBJC_IVAR____TtC19NewsPersonalization33ComputeServiceProxyScoringService_scoreCache;
   v5 = sub_1C6B5F1EC(MEMORY[0x1E69E7CC0]);
-  sub_1C6CF6434();
+  sub_1C6CF6434(0);
   v6 = swift_allocObject();
   *(v6 + 24) = 0;
   *(v6 + 16) = v5;

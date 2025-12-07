@@ -16,10 +16,7 @@
 - (uint64_t)bundleIndex;
 - (uint64_t)categoryID;
 - (uint64_t)categoryIndex;
-- (uint64_t)clearEngagedSuggestionIds;
-- (uint64_t)clearShownSuggestionIds;
 - (uint64_t)engagedSuggestionIds;
-- (uint64_t)engagedSuggestionIdsCount;
 - (uint64_t)eventType;
 - (uint64_t)hasBundleIndex;
 - (uint64_t)hasCategoryID;
@@ -46,15 +43,18 @@
 - (uint64_t)setSearchQueryLength:(uint64_t)result;
 - (uint64_t)setSearchTab:(uint64_t)result;
 - (uint64_t)shownSuggestionIds;
-- (uint64_t)shownSuggestionIdsCount;
 - (unint64_t)hash;
+- (void)clearEngagedSuggestionIds;
+- (void)clearShownSuggestionIds;
 - (void)copyTo:(uint64_t)to;
+- (void)engagedSuggestionIdsCount;
 - (void)mergeFrom:(uint64_t)from;
 - (void)setBlendingCacheId:(uint64_t)id;
 - (void)setBundleId:(uint64_t)id;
 - (void)setEngagedSuggestionIds:(uint64_t)ids;
 - (void)setMetadata:(uint64_t)metadata;
 - (void)setShownSuggestionIds:(uint64_t)ids;
+- (void)shownSuggestionIdsCount;
 - (void)writeTo:(id)to;
 @end
 
@@ -1069,7 +1069,7 @@ LABEL_23:
   return result;
 }
 
-- (uint64_t)clearShownSuggestionIds
+- (void)clearShownSuggestionIds
 {
   if (result)
   {
@@ -1103,7 +1103,7 @@ LABEL_23:
   return MEMORY[0x1EEE66BB8](v3, v4);
 }
 
-- (uint64_t)shownSuggestionIdsCount
+- (void)shownSuggestionIdsCount
 {
   if (result)
   {
@@ -1124,7 +1124,7 @@ LABEL_23:
   return index;
 }
 
-- (uint64_t)clearEngagedSuggestionIds
+- (void)clearEngagedSuggestionIds
 {
   if (result)
   {
@@ -1158,7 +1158,7 @@ LABEL_23:
   return MEMORY[0x1EEE66BB8](v3, v4);
 }
 
-- (uint64_t)engagedSuggestionIdsCount
+- (void)engagedSuggestionIdsCount
 {
   if (result)
   {

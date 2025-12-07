@@ -24,38 +24,36 @@
 
 void __37__PPSRequestValidator_sharedInstance__block_invoke()
 {
-  v6[11] = *MEMORY[0x277D85DE8];
+  v5[11] = *MEMORY[0x277D85DE8];
   v0 = objc_alloc_init(PPSRequestValidator);
   v1 = sharedInstance__sharedValidator;
   sharedInstance__sharedValidator = v0;
 
-  v5[0] = &unk_287017F88;
-  v6[0] = objc_opt_class();
-  v5[1] = &unk_287017FA0;
-  v6[1] = objc_opt_class();
-  v5[2] = &unk_287017FB8;
-  v6[2] = objc_opt_class();
-  v5[3] = &unk_287017FD0;
-  v6[3] = objc_opt_class();
-  v5[4] = &unk_287017FE8;
-  v6[4] = objc_opt_class();
-  v5[5] = &unk_287018000;
-  v6[5] = objc_opt_class();
-  v5[6] = &unk_287018018;
-  v6[6] = objc_opt_class();
-  v5[7] = &unk_287018030;
-  v6[7] = objc_opt_class();
-  v5[8] = &unk_287018048;
-  v6[8] = objc_opt_class();
-  v5[9] = &unk_287018060;
-  v6[9] = objc_opt_class();
-  v5[10] = &unk_287018078;
-  v6[10] = objc_opt_class();
-  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:v5 count:11];
+  v4[0] = &unk_287017F88;
+  v5[0] = objc_opt_class();
+  v4[1] = &unk_287017FA0;
+  v5[1] = objc_opt_class();
+  v4[2] = &unk_287017FB8;
+  v5[2] = objc_opt_class();
+  v4[3] = &unk_287017FD0;
+  v5[3] = objc_opt_class();
+  v4[4] = &unk_287017FE8;
+  v5[4] = objc_opt_class();
+  v4[5] = &unk_287018000;
+  v5[5] = objc_opt_class();
+  v4[6] = &unk_287018018;
+  v5[6] = objc_opt_class();
+  v4[7] = &unk_287018030;
+  v5[7] = objc_opt_class();
+  v4[8] = &unk_287018048;
+  v5[8] = objc_opt_class();
+  v4[9] = &unk_287018060;
+  v5[9] = objc_opt_class();
+  v4[10] = &unk_287018078;
+  v5[10] = objc_opt_class();
+  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v5 forKeys:v4 count:11];
   v3 = kMetricDataTypeToClass;
   kMetricDataTypeToClass = v2;
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)validateDataRequest:(id)request filepath:(id)filepath withError:(id *)error
@@ -69,13 +67,13 @@ void __37__PPSRequestValidator_sharedInstance__block_invoke()
   v12 = [PPSPredicateUtilities keyPathsAndValuesForPredicate:valueFilter];
   if (![PPSEntitlementChecker checkForEntitlement:@"com.apple.PerfPowerServices.data-read"])
   {
-    v27 = MEMORY[0x277CCA9B8];
+    v28 = MEMORY[0x277CCA9B8];
     v82 = *MEMORY[0x277CCA450];
     v83[0] = @"Missing read entitlement";
-    v28 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v83 forKeys:&v82 count:1];
-    v14 = [v27 errorWithDomain:@"com.apple.PerfPowerServicesReader.request" code:257 userInfo:v28];
+    v29 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v83 forKeys:&v82 count:1];
+    v15 = [v28 errorWithDomain:@"com.apple.PerfPowerServicesReader.request" code:257 userInfo:v29];
 
-    if (!v14)
+    if (!v15)
     {
       goto LABEL_20;
     }
@@ -87,21 +85,21 @@ void __37__PPSRequestValidator_sharedInstance__block_invoke()
   if (!requestCopy)
   {
     objb = MEMORY[0x277CCA9B8];
-    v29 = MEMORY[0x277CBEAC0];
-    v30 = [MEMORY[0x277CCACA8] stringWithFormat:@"Null request."];
-    [v29 dictionaryWithObject:v30 forKey:*MEMORY[0x277CCA450]];
-    v31 = v12;
-    v32 = valueFilter;
-    v33 = filepathCopy;
-    v34 = subsystem;
-    v36 = v35 = category;
-    v14 = [objb errorWithDomain:@"com.apple.PerfPowerServicesReader.request" code:1 userInfo:v36];
+    v30 = MEMORY[0x277CBEAC0];
+    v31 = [MEMORY[0x277CCACA8] stringWithFormat:@"Null request."];
+    [v30 dictionaryWithObject:v31 forKey:*MEMORY[0x277CCA450]];
+    v32 = v12;
+    v33 = valueFilter;
+    v34 = filepathCopy;
+    v35 = subsystem;
+    v37 = v36 = category;
+    v15 = [objb errorWithDomain:@"com.apple.PerfPowerServicesReader.request" code:1 userInfo:v37];
 
-    category = v35;
-    subsystem = v34;
-    filepathCopy = v33;
-    valueFilter = v32;
-    v12 = v31;
+    category = v36;
+    subsystem = v35;
+    filepathCopy = v34;
+    valueFilter = v33;
+    v12 = v32;
     requestCopy = 0;
 
     goto LABEL_15;
@@ -110,40 +108,41 @@ void __37__PPSRequestValidator_sharedInstance__block_invoke()
   v79 = 0;
   v13 = [PPSRequestValidator _validateFilepath:filepathCopy error:&v79];
   v14 = v79;
+  v15 = v14;
   if (!v13)
   {
     goto LABEL_15;
   }
 
   v78 = v14;
-  v15 = +[PPSRequestValidator _validateRequestType:error:](PPSRequestValidator, "_validateRequestType:error:", [requestCopy requestType], &v78);
-  v16 = v78;
+  v16 = +[PPSRequestValidator _validateRequestType:error:](PPSRequestValidator, "_validateRequestType:error:", [requestCopy requestType], &v78);
+  v17 = v78;
 
-  if (!v15)
+  if (!v16)
   {
     goto LABEL_14;
   }
 
-  v77 = v16;
-  v17 = [PPSRequestValidator _validatePredicateRequiredKey:@"subsystem" value:subsystem error:&v77];
-  v14 = v77;
+  v77 = v17;
+  v18 = [PPSRequestValidator _validatePredicateRequiredKey:@"subsystem" value:subsystem error:&v77];
+  v15 = v77;
 
-  if (!v17)
+  if (!v18)
   {
     goto LABEL_15;
   }
 
-  v76 = v14;
-  v18 = [PPSRequestValidator _validatePredicateRequiredKey:@"category" value:category error:&v76];
-  v16 = v76;
+  v76 = v15;
+  v19 = [PPSRequestValidator _validatePredicateRequiredKey:@"category" value:category error:&v76];
+  v17 = v76;
 
-  if (!v18)
+  if (!v19)
   {
 LABEL_14:
-    v14 = v16;
+    v15 = v17;
 LABEL_15:
     error = errorCopy;
-    if (!v14)
+    if (!v15)
     {
       goto LABEL_20;
     }
@@ -151,23 +150,23 @@ LABEL_15:
     goto LABEL_16;
   }
 
-  v58 = v16;
+  v58 = v17;
   if ([requestCopy requestType] == 2)
   {
     metrics = [requestCopy metrics];
-    v20 = category;
-    v21 = [metrics count];
+    v21 = category;
+    v22 = [metrics count];
 
-    v22 = v21 >= 2;
-    category = v20;
-    if (v22)
+    v23 = v22 >= 2;
+    category = v21;
+    if (v23)
     {
-      v23 = MEMORY[0x277CCA9B8];
-      v24 = MEMORY[0x277CBEAC0];
-      v25 = [MEMORY[0x277CCACA8] stringWithFormat:@"Interval-set requests only support a single metric."];
-      v26 = [v24 dictionaryWithObject:v25 forKey:*MEMORY[0x277CCA450]];
-      category = v20;
-      v14 = [v23 errorWithDomain:@"com.apple.PerfPowerServicesReader.request" code:5 userInfo:v26];
+      v24 = MEMORY[0x277CCA9B8];
+      v25 = MEMORY[0x277CBEAC0];
+      v26 = [MEMORY[0x277CCACA8] stringWithFormat:@"Interval-set requests only support a single metric."];
+      v27 = [v25 dictionaryWithObject:v26 forKey:*MEMORY[0x277CCA450]];
+      category = v21;
+      v15 = [v24 errorWithDomain:@"com.apple.PerfPowerServicesReader.request" code:5 userInfo:v27];
 
       goto LABEL_15;
     }
@@ -200,7 +199,7 @@ LABEL_15:
           v54 = MEMORY[0x277CBEAC0];
           v55 = [MEMORY[0x277CCACA8] stringWithFormat:@"Select metric '%@' is not defined for subsystem='%@', category='%@'", v45, subsystem, category];
           v56 = [v54 dictionaryWithObject:v55 forKey:*MEMORY[0x277CCA450]];
-          v14 = [v53 errorWithDomain:@"com.apple.PerfPowerServicesReader.request" code:3 userInfo:v56];
+          v15 = [v53 errorWithDomain:@"com.apple.PerfPowerServicesReader.request" code:3 userInfo:v56];
 
           goto LABEL_45;
         }
@@ -285,30 +284,29 @@ LABEL_15:
 
 LABEL_44:
 
-  v14 = v46;
+  v15 = v46;
 LABEL_45:
   error = errorCopy;
   v12 = v57;
-  if (v14)
+  if (v15)
   {
 LABEL_16:
-    v37 = PPSReaderLog();
-    if (os_log_type_enabled(v37, OS_LOG_TYPE_DEBUG))
+    v38 = PPSReaderLog(v14);
+    if (os_log_type_enabled(v38, OS_LOG_TYPE_DEBUG))
     {
-      [PPSRequestValidator validateDataRequest:v14 filepath:v37 withError:?];
+      [PPSRequestValidator validateDataRequest:v15 filepath:v38 withError:?];
     }
 
     if (error)
     {
-      v38 = v14;
-      *error = v14;
+      v39 = v15;
+      *error = v15;
     }
   }
 
 LABEL_20:
 
-  v39 = *MEMORY[0x277D85DE8];
-  return v14 == 0;
+  return v15 == 0;
 }
 
 + (BOOL)_isMetricDefinedForFilepath:(id)filepath subsystem:(id)subsystem category:(id)category name:(id)name
@@ -386,7 +384,7 @@ LABEL_20:
 
 + (BOOL)_validatePredicateValue:(id)value metricDefinition:(id)definition error:(id *)error
 {
-  v63 = *MEMORY[0x277D85DE8];
+  v65 = *MEMORY[0x277D85DE8];
   valueCopy = value;
   definitionCopy = definition;
   v9 = definitionCopy;
@@ -407,12 +405,12 @@ LABEL_20:
       objc_opt_class();
       if (objc_opt_isKindOfClass() & 1) != 0 || (objc_opt_class(), (objc_opt_isKindOfClass()))
       {
+        v52 = 0u;
+        v53 = 0u;
         v50 = 0u;
         v51 = 0u;
-        v48 = 0u;
-        v49 = 0u;
         name4 = valueCopy;
-        v15 = [name4 countByEnumeratingWithState:&v48 objects:v62 count:16];
+        v15 = [name4 countByEnumeratingWithState:&v50 objects:v64 count:16];
         if (!v15)
         {
           v10 = 1;
@@ -423,30 +421,31 @@ LABEL_37:
 
         v16 = v15;
         errorCopy = error;
-        v47 = v11;
-        v17 = *v49;
+        v49 = v11;
+        v17 = *v51;
 LABEL_10:
         v18 = 0;
         while (1)
         {
-          if (*v49 != v17)
+          if (*v51 != v17)
           {
             objc_enumerationMutation(name4);
           }
 
-          v19 = *(*(&v48 + 1) + 8 * v18);
+          v19 = *(*(&v50 + 1) + 8 * v18);
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            if ([v19 expressionType])
+            expressionType = [v19 expressionType];
+            if (expressionType)
             {
-              name2 = PPSReaderLog();
+              name2 = PPSReaderLog(expressionType);
               if (os_log_type_enabled(name2, OS_LOG_TYPE_DEBUG))
               {
                 [PPSRequestValidator _validatePredicateValue:v9 metricDefinition:v19 error:name2];
               }
 
-              v11 = v47;
+              v11 = v49;
               goto LABEL_35;
             }
 
@@ -455,57 +454,58 @@ LABEL_10:
             v19 = constantValue;
           }
 
-          if ((objc_opt_isKindOfClass() & 1) == 0)
+          isKindOfClass = objc_opt_isKindOfClass();
+          if ((isKindOfClass & 1) == 0)
           {
             break;
           }
 
           if (v16 == ++v18)
           {
-            v16 = [name4 countByEnumeratingWithState:&v48 objects:v62 count:16];
+            v16 = [name4 countByEnumeratingWithState:&v50 objects:v64 count:16];
             v10 = 1;
             if (v16)
             {
               goto LABEL_10;
             }
 
-            v11 = v47;
+            v11 = v49;
             goto LABEL_37;
           }
         }
 
-        v26 = PPSReaderLog();
-        if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
+        v29 = PPSReaderLog(isKindOfClass);
+        if (os_log_type_enabled(v29, OS_LOG_TYPE_DEBUG))
         {
           subsystem = [v9 subsystem];
           category = [v9 category];
           name = [v9 name];
-          v42 = objc_opt_class();
-          v43 = NSStringFromClass(v42);
-          v44 = NSStringFromClass(v12);
+          v44 = objc_opt_class();
+          v45 = NSStringFromClass(v44);
+          v46 = NSStringFromClass(v12);
           *buf = 138413314;
-          v53 = subsystem;
-          v54 = 2112;
-          v55 = category;
+          v55 = subsystem;
           v56 = 2112;
-          v57 = name;
-          v58 = 2114;
-          v59 = v43;
+          v57 = category;
+          v58 = 2112;
+          v59 = name;
           v60 = 2114;
-          v61 = v44;
-          _os_log_debug_impl(&dword_25E225000, v26, OS_LOG_TYPE_DEBUG, "Validation: Type mismatch for entry in provided array '%@::%@::%@' -- %{public}@ != %{public}@ (expected)", buf, 0x34u);
+          v61 = v45;
+          v62 = 2114;
+          v63 = v46;
+          _os_log_debug_impl(&dword_25E225000, v29, OS_LOG_TYPE_DEBUG, "Validation: Type mismatch for entry in provided array '%@::%@::%@' -- %{public}@ != %{public}@ (expected)", buf, 0x34u);
         }
 
-        v11 = v47;
+        v11 = v49;
         if (errorCopy)
         {
-          v45 = MEMORY[0x277CCA9B8];
-          v27 = MEMORY[0x277CBEAC0];
-          v28 = MEMORY[0x277CCACA8];
+          v47 = MEMORY[0x277CCA9B8];
+          v30 = MEMORY[0x277CBEAC0];
+          v31 = MEMORY[0x277CCACA8];
           name2 = [v9 name];
-          v29 = [v28 stringWithFormat:@"Mismatch between value type of '%@' in predicate and its metric definition.", name2];
-          v30 = [v27 dictionaryWithObject:v29 forKey:*MEMORY[0x277CCA450]];
-          *errorCopy = [v45 errorWithDomain:@"com.apple.PerfPowerServicesReader.request" code:3 userInfo:v30];
+          v32 = [v31 stringWithFormat:@"Mismatch between value type of '%@' in predicate and its metric definition.", name2];
+          v33 = [v30 dictionaryWithObject:v32 forKey:*MEMORY[0x277CCA450]];
+          *errorCopy = [v47 errorWithDomain:@"com.apple.PerfPowerServicesReader.request" code:3 userInfo:v33];
 
           goto LABEL_35;
         }
@@ -517,7 +517,8 @@ LABEL_36:
       }
     }
 
-    if (objc_opt_isKindOfClass())
+    v23 = objc_opt_isKindOfClass();
+    if (v23)
     {
 LABEL_21:
       v10 = 1;
@@ -525,39 +526,39 @@ LABEL_21:
 
     else
     {
-      v21 = PPSReaderLog();
-      if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
+      v24 = PPSReaderLog(v23);
+      if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
       {
         subsystem2 = [v9 subsystem];
         category2 = [v9 category];
         name3 = [v9 name];
-        v36 = objc_opt_class();
-        v37 = NSStringFromClass(v36);
-        v38 = NSStringFromClass(v12);
+        v38 = objc_opt_class();
+        v39 = NSStringFromClass(v38);
+        v40 = NSStringFromClass(v12);
         *buf = 138413314;
-        v53 = subsystem2;
-        v54 = 2112;
-        v55 = category2;
+        v55 = subsystem2;
         v56 = 2112;
-        v57 = name3;
-        v58 = 2114;
-        v59 = v37;
+        v57 = category2;
+        v58 = 2112;
+        v59 = name3;
         v60 = 2114;
-        v61 = v38;
-        _os_log_debug_impl(&dword_25E225000, v21, OS_LOG_TYPE_DEBUG, "Validation: Type mismatch for metric '%@::%@::%@' -- %{public}@ != %{public}@ (expected)", buf, 0x34u);
+        v61 = v39;
+        v62 = 2114;
+        v63 = v40;
+        _os_log_debug_impl(&dword_25E225000, v24, OS_LOG_TYPE_DEBUG, "Validation: Type mismatch for metric '%@::%@::%@' -- %{public}@ != %{public}@ (expected)", buf, 0x34u);
 
         v13 = 0x277CCA000;
       }
 
       if (error)
       {
-        v22 = MEMORY[0x277CCA9B8];
-        v23 = MEMORY[0x277CBEAC0];
-        v24 = *(v13 + 3240);
+        v25 = MEMORY[0x277CCA9B8];
+        v26 = MEMORY[0x277CBEAC0];
+        v27 = *(v13 + 3240);
         name4 = [v9 name];
-        v19 = [v24 stringWithFormat:@"Mismatch between value type of '%@' in predicate and its metric definition.", name4];
-        name2 = [v23 dictionaryWithObject:v19 forKey:*MEMORY[0x277CCA450]];
-        *error = [v22 errorWithDomain:@"com.apple.PerfPowerServicesReader.request" code:3 userInfo:name2];
+        v19 = [v27 stringWithFormat:@"Mismatch between value type of '%@' in predicate and its metric definition.", name4];
+        name2 = [v26 dictionaryWithObject:v19 forKey:*MEMORY[0x277CCA450]];
+        *error = [v25 errorWithDomain:@"com.apple.PerfPowerServicesReader.request" code:3 userInfo:name2];
 LABEL_35:
 
         goto LABEL_36;
@@ -569,7 +570,6 @@ LABEL_35:
 LABEL_38:
   }
 
-  v31 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
@@ -589,30 +589,27 @@ LABEL_38:
 
 - (void)validateDataRequest:(uint64_t)a1 filepath:(NSObject *)a2 withError:.cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_debug_impl(&dword_25E225000, a2, OS_LOG_TYPE_DEBUG, "Request validation error: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_debug_impl(&dword_25E225000, a2, OS_LOG_TYPE_DEBUG, "Request validation error: %@", &v2, 0xCu);
 }
 
 + (void)_validatePredicateValue:(void *)a1 metricDefinition:(uint64_t)a2 error:(NSObject *)a3 .cold.1(void *a1, uint64_t a2, NSObject *a3)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v6 = [a1 subsystem];
   v7 = [a1 category];
   v8 = [a1 name];
-  v10 = 138413058;
-  v11 = v6;
-  v12 = 2112;
-  v13 = v7;
-  v14 = 2112;
-  v15 = v8;
-  v16 = 2114;
-  v17 = a2;
-  _os_log_debug_impl(&dword_25E225000, a3, OS_LOG_TYPE_DEBUG, "Validation: Non-Constant value expression present in provided collection for '%@::%@::%@' -- %{public}@", &v10, 0x2Au);
-
-  v9 = *MEMORY[0x277D85DE8];
+  v9 = 138413058;
+  v10 = v6;
+  v11 = 2112;
+  v12 = v7;
+  v13 = 2112;
+  v14 = v8;
+  v15 = 2114;
+  v16 = a2;
+  _os_log_debug_impl(&dword_25E225000, a3, OS_LOG_TYPE_DEBUG, "Validation: Non-Constant value expression present in provided collection for '%@::%@::%@' -- %{public}@", &v9, 0x2Au);
 }
 
 @end

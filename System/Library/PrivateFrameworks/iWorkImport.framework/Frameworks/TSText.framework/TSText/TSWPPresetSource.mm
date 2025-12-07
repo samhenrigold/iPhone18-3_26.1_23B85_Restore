@@ -63,7 +63,7 @@
   v10 = *MEMORY[0x277D80B50];
   do
   {
-    v11 = TSWPShapeStyleIdentifierString(v10);
+    v11 = TSWPShapeStyleIdentifierString(v10, v9);
     v12 = [TSWPShapeStyle alloc];
     v15 = objc_msgSend_context(themeCopy, v13, v14);
     v17 = objc_msgSend_initWithContext_(v12, v16, v15);
@@ -93,7 +93,7 @@
   v8 = [v6 alloc];
   v36 = objc_msgSend_initWithCapacity_(v8, v9, 1);
   v10 = *MEMORY[0x277D80BB8];
-  v11 = TSWPShapeStyleIdentifierString(*MEMORY[0x277D80BB8]);
+  v11 = TSWPShapeStyleIdentifierString(*MEMORY[0x277D80BB8], 0);
   v12 = [TSWPShapeStyle alloc];
   v15 = objc_msgSend_context(themeCopy, v13, v14);
   v17 = objc_msgSend_initWithContext_(v12, v16, v15);
@@ -137,7 +137,7 @@
   v58 = *MEMORY[0x277D80B88];
   do
   {
-    v14 = TSWPShapeStyleIdentifierString(v58);
+    v14 = TSWPShapeStyleIdentifierString(v58, v12);
     v15 = [TSWPShapeStyle alloc];
     v18 = objc_msgSend_context(themeCopy, v16, v17);
     v20 = objc_msgSend_initWithContext_(v15, v19, v18);

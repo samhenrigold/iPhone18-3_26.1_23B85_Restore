@@ -3,6 +3,7 @@
 - (NSString)description;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)dictionaryRepresentation;
+- (id)resultAsString:(int)string;
 - (int)StringAsResult:(id)result;
 - (int)result;
 - (unint64_t)hash;
@@ -47,6 +48,21 @@
   {
     return 0;
   }
+}
+
+- (id)resultAsString:(int)string
+{
+  if (string >= 3)
+  {
+    v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_100010340[string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsResult:(id)result
@@ -202,7 +218,6 @@
     goto LABEL_11;
   }
 
-  v5 = *(equalCopy + 32);
   if (*&self->_has)
   {
     if ((*(equalCopy + 32) & 1) == 0 || self->_result != *(equalCopy + 4))
@@ -214,7 +229,7 @@
   else if (*(equalCopy + 32))
   {
 LABEL_11:
-    v8 = 0;
+    v7 = 0;
     goto LABEL_12;
   }
 
@@ -227,17 +242,17 @@ LABEL_11:
   error = self->_error;
   if (error | *(equalCopy + 1))
   {
-    v8 = [(ModelKeyServerAPIResultError *)error isEqual:?];
+    v7 = [(ModelKeyServerAPIResultError *)error isEqual:?];
   }
 
   else
   {
-    v8 = 1;
+    v7 = 1;
   }
 
 LABEL_12:
 
-  return v8;
+  return v7;
 }
 
 - (unint64_t)hash

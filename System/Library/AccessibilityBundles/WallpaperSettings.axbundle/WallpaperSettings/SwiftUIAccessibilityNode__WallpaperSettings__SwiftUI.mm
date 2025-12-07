@@ -10,7 +10,7 @@
 
 - (id)_axWallpaperDescription
 {
-  v21 = *MEMORY[0x29EDCA608];
+  v20 = *MEMORY[0x29EDCA608];
   accessibilityIdentifier = [(SwiftUIAccessibilityNode__WallpaperSettings__SwiftUI *)self accessibilityIdentifier];
   if (([accessibilityIdentifier hasPrefix:@"WALLPAPER_"] & 1) != 0 || (objc_msgSend(accessibilityIdentifier, "hasPrefix:", @"WALLPAPER_HOME_SCREEN_") & 1) != 0 || objc_msgSend(accessibilityIdentifier, "hasPrefix:", @"WALLPAPER_LOCK_SCREEN_"))
   {
@@ -22,9 +22,9 @@
     v7 = AXWallpaperLabel(v6);
     if ([v7 isEqualToString:v6])
     {
-      v16.receiver = self;
-      v16.super_class = SwiftUIAccessibilityNode__WallpaperSettings__SwiftUI;
-      accessibilityLabel = [(SwiftUIAccessibilityNode__WallpaperSettings__SwiftUI *)&v16 accessibilityLabel];
+      v15.receiver = self;
+      v15.super_class = SwiftUIAccessibilityNode__WallpaperSettings__SwiftUI;
+      accessibilityLabel = [(SwiftUIAccessibilityNode__WallpaperSettings__SwiftUI *)&v15 accessibilityLabel];
       v9 = [accessibilityLabel isEqualToString:@"Dynamic"];
 
       if (v9)
@@ -34,9 +34,9 @@
 
       else
       {
-        v15.receiver = self;
-        v15.super_class = SwiftUIAccessibilityNode__WallpaperSettings__SwiftUI;
-        accessibilityLabel2 = [(SwiftUIAccessibilityNode__WallpaperSettings__SwiftUI *)&v15 accessibilityLabel];
+        v14.receiver = self;
+        v14.super_class = SwiftUIAccessibilityNode__WallpaperSettings__SwiftUI;
+        accessibilityLabel2 = [(SwiftUIAccessibilityNode__WallpaperSettings__SwiftUI *)&v14 accessibilityLabel];
         v10 = AXWallpaperLabel(accessibilityLabel2);
 
         v7 = accessibilityLabel2;
@@ -49,9 +49,9 @@
     if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
     {
       *buf = 138412546;
-      v18 = v6;
-      v19 = 2112;
-      v20 = v7;
+      v17 = v6;
+      v18 = 2112;
+      v19 = v7;
       _os_log_impl(&dword_29C77E000, v12, OS_LOG_TYPE_INFO, "Wallpaper: %@/%@", buf, 0x16u);
     }
   }
@@ -60,8 +60,6 @@
   {
     v7 = 0;
   }
-
-  v13 = *MEMORY[0x29EDCA608];
 
   return v7;
 }
@@ -131,7 +129,7 @@ LABEL_4:
 
 - (id)accessibilityLabel
 {
-  v18 = *MEMORY[0x29EDCA608];
+  v17 = *MEMORY[0x29EDCA608];
   accessibilityIdentifier = [(SwiftUIAccessibilityNode__WallpaperSettings__SwiftUI *)self accessibilityIdentifier];
   if ([accessibilityIdentifier isEqualToString:@"Dynamic"])
   {
@@ -147,9 +145,9 @@ LABEL_5:
     goto LABEL_5;
   }
 
-  v13.receiver = self;
-  v13.super_class = SwiftUIAccessibilityNode__WallpaperSettings__SwiftUI;
-  accessibilityLabel = [(SwiftUIAccessibilityNode__WallpaperSettings__SwiftUI *)&v13 accessibilityLabel];
+  v12.receiver = self;
+  v12.super_class = SwiftUIAccessibilityNode__WallpaperSettings__SwiftUI;
+  accessibilityLabel = [(SwiftUIAccessibilityNode__WallpaperSettings__SwiftUI *)&v12 accessibilityLabel];
   _axWallpaperDescription = [(SwiftUIAccessibilityNode__WallpaperSettings__SwiftUI *)self _axWallpaperDescription];
   v8 = _axWallpaperDescription;
   if (_axWallpaperDescription)
@@ -168,13 +166,12 @@ LABEL_5:
   {
     *buf = 138412546;
     selfCopy = self;
-    v16 = 2112;
-    v17 = v5;
+    v15 = 2112;
+    v16 = v5;
     _os_log_impl(&dword_29C77E000, v10, OS_LOG_TYPE_INFO, "%@ Wallpaper swift UI label: %@", buf, 0x16u);
   }
 
 LABEL_12:
-  v11 = *MEMORY[0x29EDCA608];
 
   return v5;
 }

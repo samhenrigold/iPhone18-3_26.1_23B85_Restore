@@ -156,7 +156,7 @@
   [(TUILayoutAttributes *)v19 setSize:?];
   if (modelCopy)
   {
-    [modelCopy transform];
+    objc_msgSend_transform(modelCopy);
   }
 
   else

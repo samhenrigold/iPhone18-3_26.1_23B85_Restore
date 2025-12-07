@@ -105,16 +105,14 @@ void sub_100002864(uint64_t a1)
   v3 = [*(a1 + 40) identifier];
   v4 = v2;
   v5 = v3;
-  v12 = v5;
+  v10 = v5;
   if (v4 == v5)
   {
 
 LABEL_10:
     v9 = a1 + 32;
     v8 = *(a1 + 32);
-    v10 = *(v9 + 8);
-    v11 = *(v8 + 32);
-    *(v8 + 32) = v10;
+    *(v8 + 32) = *(v9 + 8);
     goto LABEL_11;
   }
 
@@ -145,12 +143,12 @@ LABEL_11:
   _objc_release_x1();
 }
 
-void sub_100002F6C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_100002F6C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
-  objc_destroyWeak((v15 + 48));
+  va_start(va, a22);
+  objc_destroyWeak((v22 + 48));
   objc_destroyWeak(va);
-  objc_destroyWeak((v16 - 104));
+  objc_destroyWeak((v23 - 104));
   _Unwind_Resume(a1);
 }
 
@@ -346,35 +344,31 @@ void sub_100003D34(uint64_t a1, void *a2)
 {
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 56));
-  v5 = WeakRetained;
   if (WeakRetained)
   {
     if (v3)
     {
-      v6 = WeakRetained[4];
-      v7 = *(a1 + 32);
-      v8 = *(a1 + 40);
-      v9 = PKEncryptTransactionAuthenticationPasscodeWithSession();
-      v10 = 0;
-      if (v10)
+      v5 = PKEncryptTransactionAuthenticationPasscodeWithSession();
+      v6 = 0;
+      if (v6)
       {
-        v11 = PKLogFacilityTypeGetObject();
-        if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+        v7 = PKLogFacilityTypeGetObject();
+        if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v14 = v10;
-          _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Failed to encrypt PIN with error %@", buf, 0xCu);
+          v10 = v6;
+          _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Failed to encrypt PIN with error %@", buf, 0xCu);
         }
       }
     }
 
     else
     {
-      v9 = 0;
+      v5 = 0;
     }
 
-    v12 = objc_loadWeakRetained(v5 + 22);
-    [v12 passcodeViewControllerDidEndSessionExchange:v5];
+    v8 = objc_loadWeakRetained(WeakRetained + 22);
+    [v8 passcodeViewControllerDidEndSessionExchange:WeakRetained];
 
     (*(*(a1 + 48) + 16))();
   }

@@ -6,6 +6,7 @@
 - (void)startOperation:(id)operation toCopySharingAccessTokenWithReply:(id)reply;
 - (void)startOperation:(id)operation toCopySharingInfoWithReply:(id)reply;
 - (void)startOperation:(id)operation toCopyShortTokenWithReply:(id)reply;
+- (void)startOperation:(id)operation toModifyRecordWithAllowAccess:(BOOL)access reply:(id)reply;
 - (void)startOperation:(id)operation toPrepFolderForSharingWithReply:(id)reply;
 - (void)startOperation:(id)operation toProcessSubitemsWithMaxSubsharesFailures:(unint64_t)failures processType:(unint64_t)type reply:(id)reply;
 @end
@@ -246,6 +247,61 @@
   }
 
   sub_100001DE4(v16);
+}
+
+- (void)startOperation:(id)operation toModifyRecordWithAllowAccess:(BOOL)access reply:(id)reply
+{
+  accessCopy = access;
+  operationCopy = operation;
+  replyCopy = reply;
+  memset(v24, 0, sizeof(v24));
+  sub_100001C50(1, "[ICDFileProviderShareOperationProxy startOperation:toModifyRecordWithAllowAccess:reply:]", 93, 0, v24);
+  v10 = brc_bread_crumbs();
+  v11 = brc_default_log();
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+  {
+    *buf = 134218498;
+    v26 = v24[0];
+    v27 = 2080;
+    v28 = "[ICDFileProviderShareOperationProxy startOperation:toModifyRecordWithAllowAccess:reply:]";
+    v29 = 2112;
+    v30 = v10;
+    _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_INFO, "[INFO] ┏%llx %s %@", buf, 0x20u);
+  }
+
+  clientPrivilegesDescriptor = [(BaseFileProviderShareOperationProxy *)self clientPrivilegesDescriptor];
+  isSharingProxyEntitled = [clientPrivilegesDescriptor isSharingProxyEntitled];
+
+  if (isSharingProxyEntitled)
+  {
+    v14 = sub_100011E44(operationCopy);
+    remoteObject = [(ICDFileProviderShareOperationProxy *)self remoteObject];
+    itemIdentifier = [(BaseFileProviderShareOperationProxy *)self itemIdentifier];
+    v19[0] = _NSConcreteStackBlock;
+    v19[1] = 3221225472;
+    v19[2] = sub_10001CD48;
+    v19[3] = &unk_100045120;
+    v17 = v14;
+    v20 = v17;
+    v21 = replyCopy;
+    [remoteObject startOperation:v17 toModifyRecordAccessWithItemID:itemIdentifier allowAccess:accessCopy reply:v19];
+
+    v18 = &v20;
+  }
+
+  else
+  {
+    v17 = [NSError br_errorWithDomain:BRCloudDocsErrorDomain code:26 description:@"%s privilege required", "isSharingProxyEntitled"];
+    v22[0] = _NSConcreteStackBlock;
+    v22[1] = 3221225472;
+    v22[2] = sub_10001CC20;
+    v22[3] = &unk_100044598;
+    v23 = replyCopy;
+    sub_10001CC20(v22, v17);
+    v18 = &v23;
+  }
+
+  sub_100001DE4(v24);
 }
 
 - (void)startOperation:(id)operation toCopyParticipantTokenWithReply:(id)reply

@@ -84,28 +84,28 @@
 
 - (NSDictionary)defaultValues
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   dictionary = [MEMORY[0x277CBEB38] dictionary];
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   obj = [(SHBagContract *)self mutableDefaultValues];
-  v4 = [obj countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v4 = [obj countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v19;
+    v6 = *v18;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v19 != v6)
+        if (*v18 != v6)
         {
           objc_enumerationMutation(obj);
         }
 
-        v8 = *(*(&v18 + 1) + 8 * i);
+        v8 = *(*(&v17 + 1) + 8 * i);
         v9 = MEMORY[0x277CCACA8];
         baseDictionaryKey = [(SHBagContract *)self baseDictionaryKey];
         v11 = [v9 stringWithFormat:@"%@/", baseDictionaryKey];
@@ -116,13 +116,11 @@
         [dictionary setObject:v14 forKeyedSubscript:v12];
       }
 
-      v5 = [obj countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v5 = [obj countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v5);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return dictionary;
 }
@@ -283,7 +281,8 @@ void __63__SHBagContract_BOOLeanBackedByStringForKey_completionHandler___block_i
   keyCopy = key;
   valueCopy = value;
   handlerCopy = handler;
-  if ([valueCopy isLoaded])
+  isLoaded = [valueCopy isLoaded];
+  if (isLoaded)
   {
     v17[0] = MEMORY[0x277D85DD0];
     v17[1] = 3221225472;
@@ -297,37 +296,35 @@ void __63__SHBagContract_BOOLeanBackedByStringForKey_completionHandler___block_i
 
   else
   {
-    v11 = shcore_log_object();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v12 = shcore_log_object(isLoaded);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      v12 = [(SHBagContract *)self fullyQualifiedKey:keyCopy];
+      v13 = [(SHBagContract *)self fullyQualifiedKey:keyCopy];
       *buf = 138412290;
-      v21 = v12;
-      _os_log_impl(&dword_231025000, v11, OS_LOG_TYPE_ERROR, "%@ was not loaded when we tried to access it, attempting to return default...", buf, 0xCu);
+      v21 = v13;
+      _os_log_impl(&dword_231025000, v12, OS_LOG_TYPE_ERROR, "%@ was not loaded when we tried to access it, attempting to return default...", buf, 0xCu);
     }
 
-    v13 = [(SHBagContract *)self defaultValueForKey:keyCopy];
-    if (!v13)
+    v14 = [(SHBagContract *)self defaultValueForKey:keyCopy];
+    if (!v14)
     {
-      v14 = shcore_log_object();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+      v15 = shcore_log_object(0);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
-        v15 = [(SHBagContract *)self fullyQualifiedKey:keyCopy];
+        v16 = [(SHBagContract *)self fullyQualifiedKey:keyCopy];
         *buf = 138412290;
-        v21 = v15;
-        _os_log_impl(&dword_231025000, v14, OS_LOG_TYPE_ERROR, "NO DEFAULT SUPPLIED for %@", buf, 0xCu);
+        v21 = v16;
+        _os_log_impl(&dword_231025000, v15, OS_LOG_TYPE_ERROR, "NO DEFAULT SUPPLIED for %@", buf, 0xCu);
       }
     }
 
-    (*(handlerCopy + 2))(handlerCopy, v13, 0);
+    (*(handlerCopy + 2))(handlerCopy, v14, 0);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 void __56__SHBagContract_valueForKey_bagValue_completionHandler___block_invoke(uint64_t a1, void *a2, uint64_t a3, void *a4)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v6 = a2;
   v7 = a4;
   v8 = v7;
@@ -340,17 +337,17 @@ void __56__SHBagContract_valueForKey_bagValue_completionHandler___block_invoke(u
   {
     if (v7 && [*(a1 + 32) throwOnError])
     {
-      v15 = MEMORY[0x277CBEAD8];
-      v16 = *MEMORY[0x277CBE658];
-      v17 = [MEMORY[0x277CCACA8] stringWithFormat:@"Failed to fetch key %@ with error %@", *(a1 + 40), v8];
-      v18 = [v15 exceptionWithName:v16 reason:v17 userInfo:0];
-      v19 = v18;
+      v14 = MEMORY[0x277CBEAD8];
+      v15 = *MEMORY[0x277CBE658];
+      v16 = [MEMORY[0x277CCACA8] stringWithFormat:@"Failed to fetch key %@ with error %@", *(a1 + 40), v8];
+      v17 = [v14 exceptionWithName:v15 reason:v16 userInfo:0];
+      v18 = v17;
 
-      objc_exception_throw(v18);
+      objc_exception_throw(v17);
     }
 
     v6 = [*(a1 + 32) defaultValueForKey:*(a1 + 40)];
-    v9 = shcore_log_object();
+    v9 = shcore_log_object(v6);
     v10 = os_log_type_enabled(v9, OS_LOG_TYPE_ERROR);
     if (v6)
     {
@@ -358,9 +355,9 @@ void __56__SHBagContract_valueForKey_bagValue_completionHandler___block_invoke(u
       {
         v11 = [*(a1 + 32) fullyQualifiedKey:*(a1 + 40)];
         *buf = 138412546;
-        v21 = v11;
-        v22 = 2112;
-        v23 = v8;
+        v20 = v11;
+        v21 = 2112;
+        v22 = v8;
         _os_log_impl(&dword_231025000, v9, OS_LOG_TYPE_ERROR, "Failed to fetch key %@ from bag with error %@, using default", buf, 0x16u);
       }
 
@@ -374,9 +371,9 @@ void __56__SHBagContract_valueForKey_bagValue_completionHandler___block_invoke(u
       {
         v13 = [*(a1 + 32) fullyQualifiedKey:*(a1 + 40)];
         *buf = 138412546;
-        v21 = v13;
-        v22 = 2112;
-        v23 = v8;
+        v20 = v13;
+        v21 = 2112;
+        v22 = v8;
         _os_log_impl(&dword_231025000, v9, OS_LOG_TYPE_ERROR, "Failed to fetch key %@ from bag with error %@, NO DEFAULT SUPPLIED", buf, 0x16u);
       }
 
@@ -385,13 +382,11 @@ void __56__SHBagContract_valueForKey_bagValue_completionHandler___block_invoke(u
 
     v12();
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (id)numberFromString:(id)string forKey:(id)key
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   stringCopy = string;
   keyCopy = key;
   numberFormatter = [(SHBagContract *)self numberFormatter];
@@ -404,30 +399,29 @@ void __56__SHBagContract_valueForKey_bagValue_completionHandler___block_invoke(u
   }
 
   v10 = [(SHBagContract *)self defaultValueForKey:keyCopy];
-  v11 = shcore_log_object();
+  v11 = shcore_log_object(v10);
   v12 = os_log_type_enabled(v11, OS_LOG_TYPE_ERROR);
   if (v10)
   {
     if (v12)
     {
-      v16 = 138412290;
-      v17 = stringCopy;
+      v15 = 138412290;
+      v16 = stringCopy;
       v13 = "Failed to convert string %@, to number using default";
 LABEL_8:
-      _os_log_impl(&dword_231025000, v11, OS_LOG_TYPE_ERROR, v13, &v16, 0xCu);
+      _os_log_impl(&dword_231025000, v11, OS_LOG_TYPE_ERROR, v13, &v15, 0xCu);
     }
   }
 
   else if (v12)
   {
-    v16 = 138412290;
-    v17 = stringCopy;
+    v15 = 138412290;
+    v16 = stringCopy;
     v13 = "Failed to convert string %@, to number using default, NO DEFAULT SUPPLIED";
     goto LABEL_8;
   }
 
 LABEL_10:
-  v14 = *MEMORY[0x277D85DE8];
 
   return v10;
 }

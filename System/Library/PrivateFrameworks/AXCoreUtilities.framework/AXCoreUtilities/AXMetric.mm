@@ -20,9 +20,9 @@
 {
   nameCopy = name;
   sessionCopy = session;
-  v20.receiver = self;
-  v20.super_class = AXMetric;
-  v8 = [(AXMetric *)&v20 init];
+  v13.receiver = self;
+  v13.super_class = AXMetric;
+  v8 = [(AXMetric *)&v13 init];
   v9 = v8;
   if (v8)
   {
@@ -38,19 +38,12 @@
       [processInfo processIdentifier];
       pc_session_set_procpid();
 
-      perfCheckSession = v9->_perfCheckSession;
       pc_session_add_metric();
-      v13 = v9->_perfCheckSession;
       pc_session_add_metric();
-      v14 = v9->_perfCheckSession;
       pc_session_add_metric();
-      v15 = v9->_perfCheckSession;
       pc_session_add_metric();
-      v16 = v9->_perfCheckSession;
       pc_session_add_metric();
-      v17 = v9->_perfCheckSession;
       pc_session_add_metric();
-      v18 = v9->_perfCheckSession;
       pc_session_add_metric();
     }
   }
@@ -145,10 +138,9 @@
 
     if (perfCheckSession)
     {
-      v4 = self->_perfCheckSession;
       pc_session_begin();
       [MEMORY[0x1E695DF00] timeIntervalSinceReferenceDate];
-      self->_startTime = v5;
+      self->_startTime = v4;
     }
   }
 
@@ -168,21 +160,13 @@
     {
       [MEMORY[0x1E695DF00] timeIntervalSinceReferenceDate];
       self->_endTime = v4;
-      v5 = self->_perfCheckSession;
       pc_session_end();
-      v6 = self->_perfCheckSession;
       pc_session_get_value();
-      v7 = self->_perfCheckSession;
       pc_session_get_value();
-      v8 = self->_perfCheckSession;
       pc_session_get_value();
-      v9 = self->_perfCheckSession;
       pc_session_get_value();
-      v10 = self->_perfCheckSession;
       pc_session_get_value();
-      v11 = self->_perfCheckSession;
       pc_session_get_value();
-      v12 = self->_perfCheckSession;
       pc_session_get_value();
       self->_dirtyMemory = 0.0;
       self->_dirtyMemoryDelta = 0.0;
@@ -191,7 +175,6 @@
       self->_dirtyMemoryPeakLifetime = 0.0;
       self->_cpuTime = 0.0 / 0xF4240uLL;
       self->_cpuInstructions = 0.0;
-      v13 = self->_perfCheckSession;
       pc_session_destroy();
       self->_perfCheckSession = 0;
     }
@@ -220,7 +203,7 @@
 
 - (void)_appendToReport:(id)report withIndentation:(int64_t)indentation
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   reportCopy = report;
   session = [(AXMetric *)self session];
   measurementsEnabled = [session measurementsEnabled];
@@ -246,38 +229,36 @@
     v16 = [(AXMetric *)self _formatKbAsMbString:[(AXMetric *)self dirtyMemoryPeakLifetime]];
     [reportCopy appendFormat:@" [Global Peak:%@]\n", v16];
 
-    v25 = 0u;
-    v26 = 0u;
-    v23 = 0u;
     v24 = 0u;
+    v25 = 0u;
+    v22 = 0u;
+    v23 = 0u;
     childMetrics = [(AXMetric *)self childMetrics];
-    v18 = [childMetrics countByEnumeratingWithState:&v23 objects:v27 count:16];
+    v18 = [childMetrics countByEnumeratingWithState:&v22 objects:v26 count:16];
     if (v18)
     {
       v19 = v18;
-      v20 = *v24;
+      v20 = *v23;
       do
       {
         v21 = 0;
         do
         {
-          if (*v24 != v20)
+          if (*v23 != v20)
           {
             objc_enumerationMutation(childMetrics);
           }
 
-          [*(*(&v23 + 1) + 8 * v21++) _appendToReport:reportCopy withIndentation:indentation + 1];
+          [*(*(&v22 + 1) + 8 * v21++) _appendToReport:reportCopy withIndentation:indentation + 1];
         }
 
         while (v19 != v21);
-        v19 = [childMetrics countByEnumeratingWithState:&v23 objects:v27 count:16];
+        v19 = [childMetrics countByEnumeratingWithState:&v22 objects:v26 count:16];
       }
 
       while (v19);
     }
   }
-
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 - (void)measure:(id)measure execute:(id)execute
@@ -285,21 +266,22 @@
   measureCopy = measure;
   executeCopy = execute;
   session = [(AXMetric *)self session];
-  if ([session measurementsEnabled] && self->_perfCheckSession)
+  measurementsEnabled = [session measurementsEnabled];
+  if (measurementsEnabled && self->_perfCheckSession)
   {
-    v8 = [(AXMetric *)[AXBlockMetric alloc] _initWithName:measureCopy session:session];
+    v9 = [(AXMetric *)[AXBlockMetric alloc] _initWithName:measureCopy session:session];
     childMetrics = [(AXMetric *)self childMetrics];
-    [childMetrics addObject:v8];
+    [childMetrics addObject:v9];
 
-    [v8 _startMeasurement];
-    executeCopy[2](executeCopy, v8);
-    [v8 _endMeasurement];
+    [v9 _startMeasurement];
+    executeCopy[2](executeCopy, v9);
+    [v9 _endMeasurement];
   }
 
   else
   {
-    v8 = AXSharedInertMetric();
-    executeCopy[2](executeCopy, v8);
+    v9 = AXSharedInertMetric(measurementsEnabled);
+    executeCopy[2](executeCopy, v9);
   }
 }
 
@@ -308,45 +290,47 @@
   measureCopy = measure;
   executeCopy = execute;
   session = [(AXMetric *)self session];
-  if ([session measurementsEnabled] && self->_perfCheckSession)
+  measurementsEnabled = [session measurementsEnabled];
+  if (measurementsEnabled && self->_perfCheckSession)
   {
-    v9 = [(AXMetric *)[AXBlockMetric alloc] _initWithName:measureCopy session:session];
+    v10 = [(AXMetric *)[AXBlockMetric alloc] _initWithName:measureCopy session:session];
     childMetrics = [(AXMetric *)self childMetrics];
-    [childMetrics addObject:v9];
+    [childMetrics addObject:v10];
 
-    [v9 _startMeasurement];
-    v11 = executeCopy[2](executeCopy, v9);
-    [v9 _endMeasurement];
+    [v10 _startMeasurement];
+    v12 = executeCopy[2](executeCopy, v10);
+    [v10 _endMeasurement];
   }
 
   else
   {
-    v9 = AXSharedInertMetric();
-    v11 = executeCopy[2](executeCopy, v9);
+    v10 = AXSharedInertMetric(measurementsEnabled);
+    v12 = executeCopy[2](executeCopy, v10);
   }
 
-  return v11;
+  return v12;
 }
 
 - (id)startMeasure:(id)measure
 {
   measureCopy = measure;
   session = [(AXMetric *)self session];
-  if ([session measurementsEnabled] && self->_perfCheckSession)
+  measurementsEnabled = [session measurementsEnabled];
+  if (measurementsEnabled && self->_perfCheckSession)
   {
-    v6 = [(AXMetric *)[AXBookendMetric alloc] _initWithName:measureCopy session:session];
+    v7 = [(AXMetric *)[AXBookendMetric alloc] _initWithName:measureCopy session:session];
     childMetrics = [(AXMetric *)self childMetrics];
-    [childMetrics addObject:v6];
+    [childMetrics addObject:v7];
 
-    [v6 _startMeasurement];
+    [v7 _startMeasurement];
   }
 
   else
   {
-    v6 = AXSharedInertMetric();
+    v7 = AXSharedInertMetric(measurementsEnabled);
   }
 
-  return v6;
+  return v7;
 }
 
 - (BOOL)measurementsEnabled

@@ -861,13 +861,13 @@ void __40__CNComposeRecipientTextView_recipients__block_invoke(uint64_t a1, void
       v51 = 0u;
       v48 = 0u;
       v49 = 0u;
-      sortedChildren = [v39 sortedChildren];
-      v20 = [sortedChildren countByEnumeratingWithState:&v48 objects:v57 count:16];
+      defaultCenter = objc_msgSend_sortedChildren(v39);
+      v20 = [defaultCenter countByEnumeratingWithState:&v48 objects:v57 count:16];
       if (v20)
       {
         v21 = v20;
         v42 = *v49;
-        obj = sortedChildren;
+        obj = defaultCenter;
         do
         {
           for (j = 0; j != v21; ++j)
@@ -922,7 +922,7 @@ void __40__CNComposeRecipientTextView_recipients__block_invoke(uint64_t a1, void
             }
           }
 
-          sortedChildren = obj;
+          defaultCenter = obj;
           v21 = [obj countByEnumeratingWithState:&v48 objects:v57 count:16];
         }
 
@@ -961,8 +961,8 @@ void __40__CNComposeRecipientTextView_recipients__block_invoke(uint64_t a1, void
       }
 
       [(CNComposeRecipientTextView *)self _updateAddButtonVisibility];
-      sortedChildren = [MEMORY[0x1E696AD88] defaultCenter];
-      [sortedChildren postNotificationName:@"CNComposeRecipientTextViewDidChangeNotification" object:self userInfo:0];
+      defaultCenter = [MEMORY[0x1E696AD88] defaultCenter];
+      [defaultCenter postNotificationName:@"CNComposeRecipientTextViewDidChangeNotification" object:self userInfo:0];
     }
   }
 }
@@ -2395,11 +2395,11 @@ uint64_t __63__CNComposeRecipientTextView__setTextViewIsCollapsed_animated___blo
   return [v4 setAlpha:v3];
 }
 
-uint64_t __63__CNComposeRecipientTextView__setTextViewIsCollapsed_animated___block_invoke_2(uint64_t result, int a2)
+void *__63__CNComposeRecipientTextView__setTextViewIsCollapsed_animated___block_invoke_2(void *result, int a2)
 {
   if (a2)
   {
-    return [*(*(result + 32) + 552) setHidden:(*(result + 40) & 1) == 0];
+    return [*(result[4] + 552) setHidden:(result[5] & 1) == 0];
   }
 
   return result;
@@ -3432,7 +3432,7 @@ uint64_t __84__CNComposeRecipientTextView_layoutManager_didCompleteLayoutForText
   }
 }
 
-uint64_t __57__CNComposeRecipientTextView__notifyDelegateOfSizeChange__block_invoke(uint64_t a1)
+void *__57__CNComposeRecipientTextView__notifyDelegateOfSizeChange__block_invoke(uint64_t a1)
 {
   [*(*(a1 + 32) + 544) frame];
   v3 = v2;

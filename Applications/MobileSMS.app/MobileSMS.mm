@@ -37,9 +37,11 @@ void sub_100001644(id a1)
 
 void sub_100001D28(id a1)
 {
-  qword_10003A1B0 = os_log_create("com.apple.Messages", "SMSApplicationDelegate");
+  v1 = os_log_create("com.apple.Messages", "SMSApplicationDelegate");
+  v2 = qword_10003A1B0;
+  qword_10003A1B0 = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 void sub_100001E2C(void *a1)
@@ -101,7 +103,40 @@ uint64_t sub_100002724(uint64_t a1)
   }
 
   v2 = kShowMessagesTest;
-  if ([*(a1 + 40) rangeOfString:kShowMessagesTest] == 0x7FFFFFFFFFFFFFFFLL && objc_msgSend(*(a1 + 40), "rangeOfString:", kShowMessagesExtendedTest) == 0x7FFFFFFFFFFFFFFFLL && objc_msgSend(*(a1 + 40), "rangeOfString:", @"ScrollConversations") == 0x7FFFFFFFFFFFFFFFLL && objc_msgSend(*(a1 + 40), "rangeOfString:", @"ScrollTranscript") == 0x7FFFFFFFFFFFFFFFLL && objc_msgSend(*(a1 + 40), "rangeOfString:", @"StaticTranscript") == 0x7FFFFFFFFFFFFFFFLL && objc_msgSend(*(a1 + 40), "rangeOfString:", @"Rotat") == 0x7FFFFFFFFFFFFFFFLL && objc_msgSend(*(a1 + 40), "rangeOfString:", @"Present") == 0x7FFFFFFFFFFFFFFFLL && objc_msgSend(*(a1 + 40), "rangeOfString:", kShowPeoplePickerTest) == 0x7FFFFFFFFFFFFFFFLL && objc_msgSend(*(a1 + 40), "rangeOfString:", kSelectContactPeoplePickerTest) == 0x7FFFFFFFFFFFFFFFLL && objc_msgSend(*(a1 + 40), "rangeOfString:", kCancelPeoplePickerTest) == 0x7FFFFFFFFFFFFFFFLL && objc_msgSend(*(a1 + 40), "rangeOfString:", kShowNewComposeTest) == 0x7FFFFFFFFFFFFFFFLL && objc_msgSend(*(a1 + 40), "rangeOfString:", @"ResolveContact") == 0x7FFFFFFFFFFFFFFFLL && objc_msgSend(*(a1 + 40), "rangeOfString:", @"Photo") == 0x7FFFFFFFFFFFFFFFLL && objc_msgSend(*(a1 + 40), "rangeOfString:", kThrowAnimationPPTTestNamePrefix) == 0x7FFFFFFFFFFFFFFFLL && objc_msgSend(*(a1 + 40), "rangeOfString:", @"ScrollPseudoContactNames") == 0x7FFFFFFFFFFFFFFFLL && objc_msgSend(*(a1 + 40), "rangeOfString:", @"ComposeToPseudoContact") == 0x7FFFFFFFFFFFFFFFLL && objc_msgSend(*(a1 + 40), "rangeOfString:", @"DetailsView") == 0x7FFFFFFFFFFFFFFFLL && objc_msgSend(*(a1 + 40), "rangeOfString:", @"AudioReply") == 0x7FFFFFFFFFFFFFFFLL && objc_msgSend(*(a1 + 40), "rangeOfString:", @"InvisibleInkStaticFPSTest") == 0x7FFFFFFFFFFFFFFFLL && objc_msgSend(*(a1 + 40), "rangeOfString:", @"AudioWaveformFPSTest") == 0x7FFFFFFFFFFFFFFFLL && objc_msgSend(*(a1 + 40), "rangeOfString:", @"GifPlaybackStaticFPSTest") == 0x7FFFFFFFFFFFFFFFLL && objc_msgSend(*(a1 + 40), "rangeOfString:", @"StickerDragFPSTest") == 0x7FFFFFFFFFFFFFFFLL && objc_msgSend(*(a1 + 40), "rangeOfString:", @"ExtensionLaunch") == 0x7FFFFFFFFFFFFFFFLL && objc_msgSend(*(a1 + 40), "rangeOfString:", @"ExtensionTest") == 0x7FFFFFFFFFFFFFFFLL && objc_msgSend(*(a1 + 40), "rangeOfString:", @"perfTestPushTranscriptToAppsShelf") == 0x7FFFFFFFFFFFFFFFLL && objc_msgSend(*(a1 + 40), "rangeOfString:", @"perfTestScrollAppsDrawer") == 0x7FFFFFFFFFFFFFFFLL && objc_msgSend(*(a1 + 40), "rangeOfString:", @"TestPriorityBoosting") == 0x7FFFFFFFFFFFFFFFLL && objc_msgSend(*(a1 + 40), "rangeOfString:", CKAudioBalloonPlaybackPPTName) == 0x7FFFFFFFFFFFFFFFLL && objc_msgSend(*(a1 + 40), "rangeOfString:", CKPluginChatItemPPTName) == 0x7FFFFFFFFFFFFFFFLL && objc_msgSend(*(a1 + 40), "rangeOfString:", @"TestMarkAsRead") == 0x7FFFFFFFFFFFFFFFLL && objc_msgSend(*(a1 + 40), "rangeOfString:", @"Resize") == 0x7FFFFFFFFFFFFFFFLL && objc_msgSend(*(a1 + 40), "rangeOfString:", @"MacResize") == 0x7FFFFFFFFFFFFFFFLL && objc_msgSend(*(a1 + 40), "rangeOfString:", @"MacActivate") == 0x7FFFFFFFFFFFFFFFLL && objc_msgSend(*(a1 + 40), "rangeOfString:", @"MacEnterExitFullscreen") == 0x7FFFFFFFFFFFFFFFLL)
+  if ([*(a1 + 40) rangeOfString:kShowMessagesTest] == 0x7FFFFFFFFFFFFFFFLL
+    && [*(a1 + 40) rangeOfString:kShowMessagesExtendedTest] == 0x7FFFFFFFFFFFFFFFLL
+    && [*(a1 + 40) rangeOfString:@"ScrollConversations"] == 0x7FFFFFFFFFFFFFFFLL
+    && [*(a1 + 40) rangeOfString:@"ScrollTranscript"] == 0x7FFFFFFFFFFFFFFFLL
+    && [*(a1 + 40) rangeOfString:@"StaticTranscript"] == 0x7FFFFFFFFFFFFFFFLL
+    && [*(a1 + 40) rangeOfString:@"Rotat"] == 0x7FFFFFFFFFFFFFFFLL
+    && [*(a1 + 40) rangeOfString:@"Present"] == 0x7FFFFFFFFFFFFFFFLL
+    && [*(a1 + 40) rangeOfString:kShowPeoplePickerTest] == 0x7FFFFFFFFFFFFFFFLL
+    && [*(a1 + 40) rangeOfString:kSelectContactPeoplePickerTest] == 0x7FFFFFFFFFFFFFFFLL
+    && [*(a1 + 40) rangeOfString:kCancelPeoplePickerTest] == 0x7FFFFFFFFFFFFFFFLL
+    && [*(a1 + 40) rangeOfString:kShowNewComposeTest] == 0x7FFFFFFFFFFFFFFFLL
+    && [*(a1 + 40) rangeOfString:@"ResolveContact"] == 0x7FFFFFFFFFFFFFFFLL
+    && [*(a1 + 40) rangeOfString:@"Photo"] == 0x7FFFFFFFFFFFFFFFLL
+    && [*(a1 + 40) rangeOfString:kThrowAnimationPPTTestNamePrefix] == 0x7FFFFFFFFFFFFFFFLL
+    && [*(a1 + 40) rangeOfString:@"ScrollPseudoContactNames"] == 0x7FFFFFFFFFFFFFFFLL
+    && [*(a1 + 40) rangeOfString:@"ComposeToPseudoContact"] == 0x7FFFFFFFFFFFFFFFLL
+    && [*(a1 + 40) rangeOfString:@"DetailsView"] == 0x7FFFFFFFFFFFFFFFLL
+    && [*(a1 + 40) rangeOfString:@"AudioReply"] == 0x7FFFFFFFFFFFFFFFLL
+    && [*(a1 + 40) rangeOfString:@"InvisibleInkStaticFPSTest"] == 0x7FFFFFFFFFFFFFFFLL
+    && [*(a1 + 40) rangeOfString:@"AudioWaveformFPSTest"] == 0x7FFFFFFFFFFFFFFFLL
+    && [*(a1 + 40) rangeOfString:@"GifPlaybackStaticFPSTest"] == 0x7FFFFFFFFFFFFFFFLL
+    && [*(a1 + 40) rangeOfString:@"StickerDragFPSTest"] == 0x7FFFFFFFFFFFFFFFLL
+    && [*(a1 + 40) rangeOfString:@"ExtensionLaunch"] == 0x7FFFFFFFFFFFFFFFLL
+    && [*(a1 + 40) rangeOfString:@"ExtensionTest"] == 0x7FFFFFFFFFFFFFFFLL
+    && [*(a1 + 40) rangeOfString:@"perfTestPushTranscriptToAppsShelf"] == 0x7FFFFFFFFFFFFFFFLL
+    && [*(a1 + 40) rangeOfString:@"perfTestScrollAppsDrawer"] == 0x7FFFFFFFFFFFFFFFLL
+    && [*(a1 + 40) rangeOfString:@"TestPriorityBoosting"] == 0x7FFFFFFFFFFFFFFFLL
+    && [*(a1 + 40) rangeOfString:CKAudioBalloonPlaybackPPTName] == 0x7FFFFFFFFFFFFFFFLL
+    && [*(a1 + 40) rangeOfString:CKPluginChatItemPPTName] == 0x7FFFFFFFFFFFFFFFLL
+    && [*(a1 + 40) rangeOfString:@"TestMarkAsRead"] == 0x7FFFFFFFFFFFFFFFLL
+    && [*(a1 + 40) rangeOfString:@"Resize"] == 0x7FFFFFFFFFFFFFFFLL
+    && [*(a1 + 40) rangeOfString:@"MacResize"] == 0x7FFFFFFFFFFFFFFFLL
+    && [*(a1 + 40) rangeOfString:@"MacActivate"] == 0x7FFFFFFFFFFFFFFFLL
+    && [*(a1 + 40) rangeOfString:@"MacEnterExitFullscreen"] == 0x7FFFFFFFFFFFFFFFLL)
   {
     [*(a1 + 40) rangeOfString:@"Nano"];
     return 1;
@@ -492,9 +527,9 @@ id sub_100003E78()
   return v1;
 }
 
-void sub_100003F40(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100003F40(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -523,9 +558,9 @@ id sub_100003F58()
   return v1;
 }
 
-void sub_100004020(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100004020(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -594,9 +629,9 @@ void sub_100004C54(uint64_t a1)
   dispatch_after(v3, &_dispatch_main_q, block);
 }
 
-void sub_100004EE8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_100004EE8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -679,27 +714,26 @@ void sub_1000051EC(uint64_t a1)
   v10 = v8 & v9 & [*(a1 + 32) validateBottomInsetGreaterThanIAVHeight:*(*(*(a1 + 40) + 8) + 40) expected:0 withResultsDictionary:v6];
   v11 = v10 & [*(a1 + 32) validateIAVisExpanded:*(*(*(a1 + 40) + 8) + 40) expected:0 withResultsDictionary:v6];
   v12 = [*(a1 + 32) validateTranscriptIsScrolledToBottom:*(*(*(a1 + 40) + 8) + 40) expected:1 withResultsDictionary:v6];
-  v13 = *(a1 + 32);
   if ((v11 & v12) != 0)
   {
-    v14 = @":D";
+    v13 = @":D";
   }
 
   else
   {
-    v14 = CFSTR(":(");
+    v13 = CFSTR(":(");
   }
 
-  [*(a1 + 32) _recordResult:v11 & v12 forKey:@"|--All Tests Passed--|" comment:v14 resultsDictionary:v6];
-  v15 = dispatch_time(0, 1000000000);
-  v17[0] = _NSConcreteStackBlock;
-  v17[1] = 3221225472;
-  v17[2] = sub_1000053BC;
-  v17[3] = &unk_100030B00;
-  v17[4] = *(a1 + 32);
-  v18 = v6;
-  v16 = v6;
-  dispatch_after(v15, &_dispatch_main_q, v17);
+  [*(a1 + 32) _recordResult:v11 & v12 forKey:@"|--All Tests Passed--|" comment:v13 resultsDictionary:v6];
+  v14 = dispatch_time(0, 1000000000);
+  v16[0] = _NSConcreteStackBlock;
+  v16[1] = 3221225472;
+  v16[2] = sub_1000053BC;
+  v16[3] = &unk_100030B00;
+  v16[4] = *(a1 + 32);
+  v17 = v6;
+  v15 = v6;
+  dispatch_after(v14, &_dispatch_main_q, v16);
 }
 
 id sub_1000053BC(uint64_t a1)
@@ -749,24 +783,23 @@ void sub_100005680(uint64_t a1)
 void sub_100005734(uint64_t a1)
 {
   v2 = [*(a1 + 32) messagesController];
-  v9 = [v2 chatController];
+  v8 = [v2 chatController];
 
   v3 = objc_alloc_init(NSMutableDictionary);
-  v4 = [*(a1 + 32) validateTranscriptVendingIAV:v9 expected:1 withResultsDictionary:v3];
-  v5 = v4 & [*(a1 + 32) validateTranscriptControllerIsFirstResponder:v9 expected:1 withResultsDictionary:v3];
-  v6 = [*(a1 + 32) validateTranscriptIsScrolledToBottom:v9 expected:1 withResultsDictionary:v3];
-  v7 = *(a1 + 32);
+  v4 = [*(a1 + 32) validateTranscriptVendingIAV:v8 expected:1 withResultsDictionary:v3];
+  v5 = v4 & [*(a1 + 32) validateTranscriptControllerIsFirstResponder:v8 expected:1 withResultsDictionary:v3];
+  v6 = [*(a1 + 32) validateTranscriptIsScrolledToBottom:v8 expected:1 withResultsDictionary:v3];
   if ((v5 & v6) != 0)
   {
-    v8 = @":D";
+    v7 = @":D";
   }
 
   else
   {
-    v8 = CFSTR(":(");
+    v7 = CFSTR(":(");
   }
 
-  [*(a1 + 32) _recordResult:v5 & v6 forKey:@"|--All Tests Passed--|" comment:v8 resultsDictionary:v3];
+  [*(a1 + 32) _recordResult:v5 & v6 forKey:@"|--All Tests Passed--|" comment:v7 resultsDictionary:v3];
   [*(a1 + 32) finishedTest:__CurrentTestName extraResults:v3];
 }
 
@@ -849,22 +882,21 @@ void sub_100005C84(uint64_t a1)
 
 void sub_100005D60(uint64_t a1)
 {
-  v6 = objc_alloc_init(NSMutableDictionary);
-  v2 = [*(a1 + 32) validateTranscriptVendingIAV:*(a1 + 40) expected:1 withResultsDictionary:v6];
-  v3 = [*(a1 + 32) validateActionMenuWindowOrientationExpectedOrientation:4 withResultsDictionary:v6];
-  v4 = *(a1 + 32);
+  v5 = objc_alloc_init(NSMutableDictionary);
+  v2 = [*(a1 + 32) validateTranscriptVendingIAV:*(a1 + 40) expected:1 withResultsDictionary:v5];
+  v3 = [*(a1 + 32) validateActionMenuWindowOrientationExpectedOrientation:4 withResultsDictionary:v5];
   if ((v2 & v3) != 0)
   {
-    v5 = @":D";
+    v4 = @":D";
   }
 
   else
   {
-    v5 = CFSTR(":(");
+    v4 = CFSTR(":(");
   }
 
-  [*(a1 + 32) _recordResult:v2 & v3 forKey:@"|--All Tests Passed--|" comment:v5 resultsDictionary:v6];
-  [*(a1 + 32) finishedTest:__CurrentTestName extraResults:v6];
+  [*(a1 + 32) _recordResult:v2 & v3 forKey:@"|--All Tests Passed--|" comment:v4 resultsDictionary:v5];
+  [*(a1 + 32) finishedTest:__CurrentTestName extraResults:v5];
 }
 
 void sub_100005EA8(uint64_t a1)
@@ -986,54 +1018,52 @@ LABEL_11:
 
 void sub_100006B7C(uint64_t a1)
 {
-  v11 = objc_alloc_init(NSMutableDictionary);
-  v2 = [*(a1 + 32) validateTranscriptVendingIAV:*(a1 + 40) expected:1 withResultsDictionary:v11];
-  v3 = v2 & [*(a1 + 32) validateEntryViewIsFirstResponder:*(a1 + 40) expected:0 withResultsDictionary:v11];
-  v4 = [*(a1 + 32) validateNonzeroTranscriptInsets:*(a1 + 40) expected:1 withResultsDictionary:v11];
-  v5 = v3 & v4 & [*(a1 + 32) validateBottomInsetGreaterThanIAVHeight:*(a1 + 40) expected:0 withResultsDictionary:v11];
-  v6 = [*(a1 + 32) validateIAVisExpanded:*(a1 + 40) expected:0 withResultsDictionary:v11];
-  v7 = v5 & v6 & [*(a1 + 32) validateTranscriptIsScrolledToBottom:*(a1 + 40) expected:1 withResultsDictionary:v11];
-  v8 = [*(a1 + 32) validateTranscriptPreviewCacheHasResumed:*(a1 + 40) expected:1 withResultsDictionary:v11];
-  v9 = *(a1 + 32);
+  v10 = objc_alloc_init(NSMutableDictionary);
+  v2 = [*(a1 + 32) validateTranscriptVendingIAV:*(a1 + 40) expected:1 withResultsDictionary:v10];
+  v3 = v2 & [*(a1 + 32) validateEntryViewIsFirstResponder:*(a1 + 40) expected:0 withResultsDictionary:v10];
+  v4 = [*(a1 + 32) validateNonzeroTranscriptInsets:*(a1 + 40) expected:1 withResultsDictionary:v10];
+  v5 = v3 & v4 & [*(a1 + 32) validateBottomInsetGreaterThanIAVHeight:*(a1 + 40) expected:0 withResultsDictionary:v10];
+  v6 = [*(a1 + 32) validateIAVisExpanded:*(a1 + 40) expected:0 withResultsDictionary:v10];
+  v7 = v5 & v6 & [*(a1 + 32) validateTranscriptIsScrolledToBottom:*(a1 + 40) expected:1 withResultsDictionary:v10];
+  v8 = [*(a1 + 32) validateTranscriptPreviewCacheHasResumed:*(a1 + 40) expected:1 withResultsDictionary:v10];
   if ((v7 & v8) != 0)
   {
-    v10 = @":D";
+    v9 = @":D";
   }
 
   else
   {
-    v10 = CFSTR(":(");
+    v9 = CFSTR(":(");
   }
 
-  [*(a1 + 32) _recordResult:v7 & v8 forKey:@"|--All Tests Passed--|" comment:v10 resultsDictionary:v11];
-  [*(a1 + 32) finishedTest:__CurrentTestName extraResults:v11];
+  [*(a1 + 32) _recordResult:v7 & v8 forKey:@"|--All Tests Passed--|" comment:v9 resultsDictionary:v10];
+  [*(a1 + 32) finishedTest:__CurrentTestName extraResults:v10];
 }
 
 void sub_100006DFC(uint64_t a1)
 {
   v2 = [*(a1 + 32) messagesController];
-  v13 = [v2 chatController];
+  v12 = [v2 chatController];
 
   v3 = objc_alloc_init(NSMutableDictionary);
-  v4 = [*(a1 + 32) validateTranscriptVendingIAV:v13 expected:1 withResultsDictionary:v3];
-  v5 = v4 & [*(a1 + 32) validateEntryViewIsFirstResponder:v13 expected:1 withResultsDictionary:v3];
-  v6 = [*(a1 + 32) validateNonzeroTranscriptInsets:v13 expected:1 withResultsDictionary:v3];
-  v7 = v5 & v6 & [*(a1 + 32) validateBottomInsetGreaterThanIAVHeight:v13 expected:1 withResultsDictionary:v3];
-  v8 = [*(a1 + 32) validateIAVisExpanded:v13 expected:0 withResultsDictionary:v3];
-  v9 = v7 & v8 & [*(a1 + 32) validateTranscriptIsScrolledToBottom:v13 expected:1 withResultsDictionary:v3];
-  v10 = [*(a1 + 32) validateTranscriptPreviewCacheHasResumed:v13 expected:1 withResultsDictionary:v3];
-  v11 = *(a1 + 32);
+  v4 = [*(a1 + 32) validateTranscriptVendingIAV:v12 expected:1 withResultsDictionary:v3];
+  v5 = v4 & [*(a1 + 32) validateEntryViewIsFirstResponder:v12 expected:1 withResultsDictionary:v3];
+  v6 = [*(a1 + 32) validateNonzeroTranscriptInsets:v12 expected:1 withResultsDictionary:v3];
+  v7 = v5 & v6 & [*(a1 + 32) validateBottomInsetGreaterThanIAVHeight:v12 expected:1 withResultsDictionary:v3];
+  v8 = [*(a1 + 32) validateIAVisExpanded:v12 expected:0 withResultsDictionary:v3];
+  v9 = v7 & v8 & [*(a1 + 32) validateTranscriptIsScrolledToBottom:v12 expected:1 withResultsDictionary:v3];
+  v10 = [*(a1 + 32) validateTranscriptPreviewCacheHasResumed:v12 expected:1 withResultsDictionary:v3];
   if ((v9 & v10) != 0)
   {
-    v12 = @":D";
+    v11 = @":D";
   }
 
   else
   {
-    v12 = CFSTR(":(");
+    v11 = CFSTR(":(");
   }
 
-  [*(a1 + 32) _recordResult:v9 & v10 forKey:@"|--All Tests Passed--|" comment:v12 resultsDictionary:v3];
+  [*(a1 + 32) _recordResult:v9 & v10 forKey:@"|--All Tests Passed--|" comment:v11 resultsDictionary:v3];
   [*(a1 + 32) finishedTest:__CurrentTestName extraResults:v3];
 }
 
@@ -1379,26 +1409,25 @@ void sub_100007DC8(uint64_t a1)
 
 void sub_100007EA4(uint64_t a1)
 {
-  v10 = objc_alloc_init(NSMutableDictionary);
-  v2 = [*(a1 + 32) validateTranscriptVendingIAV:*(a1 + 40) expected:1 withResultsDictionary:v10];
-  v3 = v2 & [*(a1 + 32) validateIAVisExpanded:*(a1 + 40) expected:0 withResultsDictionary:v10];
-  v4 = [*(a1 + 32) validateEntryViewIsFirstResponder:*(a1 + 40) expected:0 withResultsDictionary:v10];
-  v5 = v3 & v4 & [*(a1 + 32) validateNonzeroTranscriptInsets:*(a1 + 40) expected:1 withResultsDictionary:v10];
-  v6 = v5 & [*(a1 + 32) validateBottomInsetGreaterThanIAVHeight:*(a1 + 40) expected:0 withResultsDictionary:v10];
-  v7 = [*(a1 + 32) validateTranscriptIsScrolledToBottom:*(a1 + 40) expected:1 withResultsDictionary:v10];
-  v8 = *(a1 + 32);
+  v9 = objc_alloc_init(NSMutableDictionary);
+  v2 = [*(a1 + 32) validateTranscriptVendingIAV:*(a1 + 40) expected:1 withResultsDictionary:v9];
+  v3 = v2 & [*(a1 + 32) validateIAVisExpanded:*(a1 + 40) expected:0 withResultsDictionary:v9];
+  v4 = [*(a1 + 32) validateEntryViewIsFirstResponder:*(a1 + 40) expected:0 withResultsDictionary:v9];
+  v5 = v3 & v4 & [*(a1 + 32) validateNonzeroTranscriptInsets:*(a1 + 40) expected:1 withResultsDictionary:v9];
+  v6 = v5 & [*(a1 + 32) validateBottomInsetGreaterThanIAVHeight:*(a1 + 40) expected:0 withResultsDictionary:v9];
+  v7 = [*(a1 + 32) validateTranscriptIsScrolledToBottom:*(a1 + 40) expected:1 withResultsDictionary:v9];
   if ((v6 & v7) != 0)
   {
-    v9 = @":D";
+    v8 = @":D";
   }
 
   else
   {
-    v9 = CFSTR(":(");
+    v8 = CFSTR(":(");
   }
 
-  [*(a1 + 32) _recordResult:v6 & v7 forKey:@"|--All Tests Passed--|" comment:v9 resultsDictionary:v10];
-  [*(a1 + 32) finishedTest:__CurrentTestName extraResults:v10];
+  [*(a1 + 32) _recordResult:v6 & v7 forKey:@"|--All Tests Passed--|" comment:v8 resultsDictionary:v9];
+  [*(a1 + 32) finishedTest:__CurrentTestName extraResults:v9];
 }
 
 void sub_10000804C(uint64_t a1)
@@ -1522,26 +1551,25 @@ void sub_100008434(uint64_t a1)
 
 void sub_100008524(uint64_t a1)
 {
-  v10 = objc_alloc_init(NSMutableDictionary);
-  v2 = [*(a1 + 32) validateTranscriptVendingIAV:*(a1 + 40) expected:1 withResultsDictionary:v10];
-  v3 = v2 & [*(a1 + 32) validateIAVisExpanded:*(a1 + 40) expected:0 withResultsDictionary:v10];
-  v4 = [*(a1 + 32) validateNonzeroTranscriptInsets:*(a1 + 40) expected:1 withResultsDictionary:v10];
-  v5 = v3 & v4 & [*(a1 + 32) validateBottomInsetGreaterThanIAVHeight:*(a1 + 40) expected:1 withResultsDictionary:v10];
-  v6 = v5 & [*(a1 + 32) validateTranscriptIsScrolledToBottom:*(a1 + 40) expected:1 withResultsDictionary:v10];
-  v7 = [*(a1 + 32) validateEntryViewIsFirstResponder:*(a1 + 40) expected:1 withResultsDictionary:v10];
-  v8 = *(a1 + 32);
+  v9 = objc_alloc_init(NSMutableDictionary);
+  v2 = [*(a1 + 32) validateTranscriptVendingIAV:*(a1 + 40) expected:1 withResultsDictionary:v9];
+  v3 = v2 & [*(a1 + 32) validateIAVisExpanded:*(a1 + 40) expected:0 withResultsDictionary:v9];
+  v4 = [*(a1 + 32) validateNonzeroTranscriptInsets:*(a1 + 40) expected:1 withResultsDictionary:v9];
+  v5 = v3 & v4 & [*(a1 + 32) validateBottomInsetGreaterThanIAVHeight:*(a1 + 40) expected:1 withResultsDictionary:v9];
+  v6 = v5 & [*(a1 + 32) validateTranscriptIsScrolledToBottom:*(a1 + 40) expected:1 withResultsDictionary:v9];
+  v7 = [*(a1 + 32) validateEntryViewIsFirstResponder:*(a1 + 40) expected:1 withResultsDictionary:v9];
   if ((v6 & v7) != 0)
   {
-    v9 = @":D";
+    v8 = @":D";
   }
 
   else
   {
-    v9 = CFSTR(":(");
+    v8 = CFSTR(":(");
   }
 
-  [*(a1 + 32) _recordResult:v6 & v7 forKey:@"|--All Tests Passed--|" comment:v9 resultsDictionary:v10];
-  [*(a1 + 32) finishedTest:__CurrentTestName extraResults:v10];
+  [*(a1 + 32) _recordResult:v6 & v7 forKey:@"|--All Tests Passed--|" comment:v8 resultsDictionary:v9];
+  [*(a1 + 32) finishedTest:__CurrentTestName extraResults:v9];
 }
 
 void sub_100008774(uint64_t a1)
@@ -1674,25 +1702,24 @@ void sub_100008C98(uint64_t a1)
 
 void sub_100008D58(uint64_t a1)
 {
-  v9 = objc_alloc_init(NSMutableDictionary);
-  v2 = [*(a1 + 32) validateTranscriptVendingIAV:*(a1 + 40) expected:1 withResultsDictionary:v9];
-  v3 = v2 & [*(a1 + 32) validateNonzeroTranscriptInsets:*(a1 + 40) expected:1 withResultsDictionary:v9];
-  v4 = [*(a1 + 32) validateBottomInsetGreaterThanIAVHeight:*(a1 + 40) expected:0 withResultsDictionary:v9];
-  v5 = v3 & v4 & [*(a1 + 32) validateTranscriptIsScrolledToBottom:*(a1 + 40) expected:1 withResultsDictionary:v9];
-  v6 = [*(a1 + 32) validateEntryViewIsFirstResponder:*(a1 + 40) expected:0 withResultsDictionary:v9];
-  v7 = *(a1 + 32);
+  v8 = objc_alloc_init(NSMutableDictionary);
+  v2 = [*(a1 + 32) validateTranscriptVendingIAV:*(a1 + 40) expected:1 withResultsDictionary:v8];
+  v3 = v2 & [*(a1 + 32) validateNonzeroTranscriptInsets:*(a1 + 40) expected:1 withResultsDictionary:v8];
+  v4 = [*(a1 + 32) validateBottomInsetGreaterThanIAVHeight:*(a1 + 40) expected:0 withResultsDictionary:v8];
+  v5 = v3 & v4 & [*(a1 + 32) validateTranscriptIsScrolledToBottom:*(a1 + 40) expected:1 withResultsDictionary:v8];
+  v6 = [*(a1 + 32) validateEntryViewIsFirstResponder:*(a1 + 40) expected:0 withResultsDictionary:v8];
   if ((v5 & v6) != 0)
   {
-    v8 = @":D";
+    v7 = @":D";
   }
 
   else
   {
-    v8 = CFSTR(":(");
+    v7 = CFSTR(":(");
   }
 
-  [*(a1 + 32) _recordResult:v5 & v6 forKey:@"|--All Tests Passed--|" comment:v8 resultsDictionary:v9];
-  [*(a1 + 32) finishedTest:__CurrentTestName extraResults:v9];
+  [*(a1 + 32) _recordResult:v5 & v6 forKey:@"|--All Tests Passed--|" comment:v7 resultsDictionary:v8];
+  [*(a1 + 32) finishedTest:__CurrentTestName extraResults:v8];
 }
 
 void sub_100008EEC(uint64_t a1)
@@ -1797,25 +1824,24 @@ void sub_100009220(uint64_t a1)
 
 void sub_1000092E0(uint64_t a1)
 {
-  v9 = objc_alloc_init(NSMutableDictionary);
-  v2 = [*(a1 + 32) validateTranscriptVendingIAV:*(a1 + 40) expected:1 withResultsDictionary:v9];
-  v3 = v2 & [*(a1 + 32) validateNonzeroTranscriptInsets:*(a1 + 40) expected:1 withResultsDictionary:v9];
-  v4 = [*(a1 + 32) validateBottomInsetGreaterThanIAVHeight:*(a1 + 40) expected:1 withResultsDictionary:v9];
-  v5 = v3 & v4 & [*(a1 + 32) validateTranscriptIsScrolledToBottom:*(a1 + 40) expected:1 withResultsDictionary:v9];
-  v6 = [*(a1 + 32) validateEntryViewIsFirstResponder:*(a1 + 40) expected:1 withResultsDictionary:v9];
-  v7 = *(a1 + 32);
+  v8 = objc_alloc_init(NSMutableDictionary);
+  v2 = [*(a1 + 32) validateTranscriptVendingIAV:*(a1 + 40) expected:1 withResultsDictionary:v8];
+  v3 = v2 & [*(a1 + 32) validateNonzeroTranscriptInsets:*(a1 + 40) expected:1 withResultsDictionary:v8];
+  v4 = [*(a1 + 32) validateBottomInsetGreaterThanIAVHeight:*(a1 + 40) expected:1 withResultsDictionary:v8];
+  v5 = v3 & v4 & [*(a1 + 32) validateTranscriptIsScrolledToBottom:*(a1 + 40) expected:1 withResultsDictionary:v8];
+  v6 = [*(a1 + 32) validateEntryViewIsFirstResponder:*(a1 + 40) expected:1 withResultsDictionary:v8];
   if ((v5 & v6) != 0)
   {
-    v8 = @":D";
+    v7 = @":D";
   }
 
   else
   {
-    v8 = CFSTR(":(");
+    v7 = CFSTR(":(");
   }
 
-  [*(a1 + 32) _recordResult:v5 & v6 forKey:@"|--All Tests Passed--|" comment:v8 resultsDictionary:v9];
-  [*(a1 + 32) finishedTest:__CurrentTestName extraResults:v9];
+  [*(a1 + 32) _recordResult:v5 & v6 forKey:@"|--All Tests Passed--|" comment:v7 resultsDictionary:v8];
+  [*(a1 + 32) finishedTest:__CurrentTestName extraResults:v8];
 }
 
 void sub_100009474(uint64_t a1)
@@ -1919,25 +1945,24 @@ void sub_1000097A8(uint64_t a1)
 
 void sub_100009868(uint64_t a1)
 {
-  v9 = objc_alloc_init(NSMutableDictionary);
-  v2 = [*(a1 + 32) validateTranscriptVendingIAV:*(a1 + 40) expected:1 withResultsDictionary:v9];
-  v3 = v2 & [*(a1 + 32) validateNonzeroTranscriptInsets:*(a1 + 40) expected:1 withResultsDictionary:v9];
-  v4 = [*(a1 + 32) validateBottomInsetGreaterThanIAVHeight:*(a1 + 40) expected:0 withResultsDictionary:v9];
-  v5 = v3 & v4 & [*(a1 + 32) validateTranscriptIsScrolledToBottom:*(a1 + 40) expected:1 withResultsDictionary:v9];
-  v6 = [*(a1 + 32) validateEntryViewIsFirstResponder:*(a1 + 40) expected:0 withResultsDictionary:v9];
-  v7 = *(a1 + 32);
+  v8 = objc_alloc_init(NSMutableDictionary);
+  v2 = [*(a1 + 32) validateTranscriptVendingIAV:*(a1 + 40) expected:1 withResultsDictionary:v8];
+  v3 = v2 & [*(a1 + 32) validateNonzeroTranscriptInsets:*(a1 + 40) expected:1 withResultsDictionary:v8];
+  v4 = [*(a1 + 32) validateBottomInsetGreaterThanIAVHeight:*(a1 + 40) expected:0 withResultsDictionary:v8];
+  v5 = v3 & v4 & [*(a1 + 32) validateTranscriptIsScrolledToBottom:*(a1 + 40) expected:1 withResultsDictionary:v8];
+  v6 = [*(a1 + 32) validateEntryViewIsFirstResponder:*(a1 + 40) expected:0 withResultsDictionary:v8];
   if ((v5 & v6) != 0)
   {
-    v8 = @":D";
+    v7 = @":D";
   }
 
   else
   {
-    v8 = CFSTR(":(");
+    v7 = CFSTR(":(");
   }
 
-  [*(a1 + 32) _recordResult:v5 & v6 forKey:@"|--All Tests Passed--|" comment:v8 resultsDictionary:v9];
-  [*(a1 + 32) finishedTest:__CurrentTestName extraResults:v9];
+  [*(a1 + 32) _recordResult:v5 & v6 forKey:@"|--All Tests Passed--|" comment:v7 resultsDictionary:v8];
+  [*(a1 + 32) finishedTest:__CurrentTestName extraResults:v8];
 }
 
 void sub_1000099FC(uint64_t a1)
@@ -2056,25 +2081,24 @@ void sub_100009DF0(uint64_t a1)
 
 void sub_100009EB0(uint64_t a1)
 {
-  v9 = objc_alloc_init(NSMutableDictionary);
-  v2 = [*(a1 + 32) validateTranscriptVendingIAV:*(a1 + 40) expected:1 withResultsDictionary:v9];
-  v3 = v2 & [*(a1 + 32) validateNonzeroTranscriptInsets:*(a1 + 40) expected:1 withResultsDictionary:v9];
-  v4 = [*(a1 + 32) validateBottomInsetGreaterThanIAVHeight:*(a1 + 40) expected:1 withResultsDictionary:v9];
-  v5 = v3 & v4 & [*(a1 + 32) validateTranscriptIsScrolledToBottom:*(a1 + 40) expected:1 withResultsDictionary:v9];
-  v6 = [*(a1 + 32) validateEntryViewIsFirstResponder:*(a1 + 40) expected:1 withResultsDictionary:v9];
-  v7 = *(a1 + 32);
+  v8 = objc_alloc_init(NSMutableDictionary);
+  v2 = [*(a1 + 32) validateTranscriptVendingIAV:*(a1 + 40) expected:1 withResultsDictionary:v8];
+  v3 = v2 & [*(a1 + 32) validateNonzeroTranscriptInsets:*(a1 + 40) expected:1 withResultsDictionary:v8];
+  v4 = [*(a1 + 32) validateBottomInsetGreaterThanIAVHeight:*(a1 + 40) expected:1 withResultsDictionary:v8];
+  v5 = v3 & v4 & [*(a1 + 32) validateTranscriptIsScrolledToBottom:*(a1 + 40) expected:1 withResultsDictionary:v8];
+  v6 = [*(a1 + 32) validateEntryViewIsFirstResponder:*(a1 + 40) expected:1 withResultsDictionary:v8];
   if ((v5 & v6) != 0)
   {
-    v8 = @":D";
+    v7 = @":D";
   }
 
   else
   {
-    v8 = CFSTR(":(");
+    v7 = CFSTR(":(");
   }
 
-  [*(a1 + 32) _recordResult:v5 & v6 forKey:@"|--All Tests Passed--|" comment:v8 resultsDictionary:v9];
-  [*(a1 + 32) finishedTest:__CurrentTestName extraResults:v9];
+  [*(a1 + 32) _recordResult:v5 & v6 forKey:@"|--All Tests Passed--|" comment:v7 resultsDictionary:v8];
+  [*(a1 + 32) finishedTest:__CurrentTestName extraResults:v8];
 }
 
 void sub_10000A044(uint64_t a1)
@@ -2095,26 +2119,25 @@ void sub_10000A044(uint64_t a1)
 void sub_10000A110(uint64_t a1)
 {
   v2 = [*(a1 + 32) messagesController];
-  v11 = [v2 composeChatController];
+  v10 = [v2 composeChatController];
 
-  if (v11 || ([*(a1 + 32) messagesController], v3 = objc_claimAutoreleasedReturnValue(), v4 = objc_msgSend(v3, "isCollapsed"), v3, !v4))
+  if (v10 || ([*(a1 + 32) messagesController], v3 = objc_claimAutoreleasedReturnValue(), v4 = objc_msgSend(v3, "isCollapsed"), v3, !v4))
   {
     v5 = objc_alloc_init(NSMutableDictionary);
-    v6 = [*(a1 + 32) validateTranscriptVendingIAV:v11 expected:1 withResultsDictionary:v5];
-    v7 = v6 & [*(a1 + 32) validateEntryViewIsFirstResponder:v11 expected:0 withResultsDictionary:v5];
-    v8 = [*(a1 + 32) validateRecipientSelectionControllerIsFirstResponder:v11 expected:1 withResultsDictionary:v5];
-    v9 = *(a1 + 32);
+    v6 = [*(a1 + 32) validateTranscriptVendingIAV:v10 expected:1 withResultsDictionary:v5];
+    v7 = v6 & [*(a1 + 32) validateEntryViewIsFirstResponder:v10 expected:0 withResultsDictionary:v5];
+    v8 = [*(a1 + 32) validateRecipientSelectionControllerIsFirstResponder:v10 expected:1 withResultsDictionary:v5];
     if ((v7 & v8) != 0)
     {
-      v10 = @":D";
+      v9 = @":D";
     }
 
     else
     {
-      v10 = CFSTR(":(");
+      v9 = CFSTR(":(");
     }
 
-    [*(a1 + 32) _recordResult:v7 & v8 forKey:@"|--All Tests Passed--|" comment:v10 resultsDictionary:v5];
+    [*(a1 + 32) _recordResult:v7 & v8 forKey:@"|--All Tests Passed--|" comment:v9 resultsDictionary:v5];
     [*(a1 + 32) finishedTest:__CurrentTestName extraResults:v5];
   }
 
@@ -2142,26 +2165,25 @@ void sub_10000A3D0(uint64_t a1)
 void sub_10000A498(uint64_t a1)
 {
   v2 = [*(a1 + 32) messagesController];
-  v11 = [v2 composeChatController];
+  v10 = [v2 composeChatController];
 
-  if (v11 || ([*(a1 + 32) messagesController], v3 = objc_claimAutoreleasedReturnValue(), v4 = objc_msgSend(v3, "isCollapsed"), v3, !v4))
+  if (v10 || ([*(a1 + 32) messagesController], v3 = objc_claimAutoreleasedReturnValue(), v4 = objc_msgSend(v3, "isCollapsed"), v3, !v4))
   {
     v5 = objc_alloc_init(NSMutableDictionary);
-    v6 = [*(a1 + 32) validateTranscriptVendingIAV:v11 expected:1 withResultsDictionary:v5];
-    v7 = v6 & [*(a1 + 32) validateEntryViewIsFirstResponder:v11 expected:1 withResultsDictionary:v5];
-    v8 = [*(a1 + 32) validateRecipientSelectionControllerIsFirstResponder:v11 expected:0 withResultsDictionary:v5];
-    v9 = *(a1 + 32);
+    v6 = [*(a1 + 32) validateTranscriptVendingIAV:v10 expected:1 withResultsDictionary:v5];
+    v7 = v6 & [*(a1 + 32) validateEntryViewIsFirstResponder:v10 expected:1 withResultsDictionary:v5];
+    v8 = [*(a1 + 32) validateRecipientSelectionControllerIsFirstResponder:v10 expected:0 withResultsDictionary:v5];
     if ((v7 & v8) != 0)
     {
-      v10 = @":D";
+      v9 = @":D";
     }
 
     else
     {
-      v10 = CFSTR(":(");
+      v9 = CFSTR(":(");
     }
 
-    [*(a1 + 32) _recordResult:v7 & v8 forKey:@"|--All Tests Passed--|" comment:v10 resultsDictionary:v5];
+    [*(a1 + 32) _recordResult:v7 & v8 forKey:@"|--All Tests Passed--|" comment:v9 resultsDictionary:v5];
     [*(a1 + 32) finishedTest:__CurrentTestName extraResults:v5];
   }
 
@@ -2300,24 +2322,23 @@ void sub_10000ADF8(uint64_t a1, void *a2)
 void sub_10000AEF8(uint64_t a1)
 {
   v2 = [*(a1 + 32) messagesController];
-  v9 = [v2 composeChatController];
+  v8 = [v2 composeChatController];
 
   v3 = objc_alloc_init(NSMutableDictionary);
-  v4 = [*(a1 + 32) validateTranscriptVendingIAV:v9 expected:1 withResultsDictionary:v3];
-  v5 = v4 & [*(a1 + 32) validateEntryViewIsFirstResponder:v9 expected:0 withResultsDictionary:v3];
-  v6 = [*(a1 + 32) validateRecipientSelectionControllerIsFirstResponder:v9 expected:1 withResultsDictionary:v3];
-  v7 = *(a1 + 32);
+  v4 = [*(a1 + 32) validateTranscriptVendingIAV:v8 expected:1 withResultsDictionary:v3];
+  v5 = v4 & [*(a1 + 32) validateEntryViewIsFirstResponder:v8 expected:0 withResultsDictionary:v3];
+  v6 = [*(a1 + 32) validateRecipientSelectionControllerIsFirstResponder:v8 expected:1 withResultsDictionary:v3];
   if ((v5 & v6) != 0)
   {
-    v8 = @":D";
+    v7 = @":D";
   }
 
   else
   {
-    v8 = CFSTR(":(");
+    v7 = CFSTR(":(");
   }
 
-  [*(a1 + 32) _recordResult:v5 & v6 forKey:@"|--All Tests Passed--|" comment:v8 resultsDictionary:v3];
+  [*(a1 + 32) _recordResult:v5 & v6 forKey:@"|--All Tests Passed--|" comment:v7 resultsDictionary:v3];
   [*(a1 + 32) finishedTest:__CurrentTestName extraResults:v3];
 }
 
@@ -2416,25 +2437,24 @@ void sub_10000B5E4(uint64_t a1)
 
 void sub_10000B6D0(uint64_t a1)
 {
-  v8 = objc_alloc_init(NSMutableDictionary);
+  v7 = objc_alloc_init(NSMutableDictionary);
   v2 = [*(a1 + 32) messagesController];
   v3 = [v2 isCollapsed];
 
-  v4 = [*(a1 + 32) validateTranscriptVendingIAV:*(a1 + 40) expected:v3 ^ 1 withResultsDictionary:v8];
-  v5 = [*(a1 + 32) validateEntryViewIsFirstResponder:*(a1 + 40) expected:v3 ^ 1 withResultsDictionary:v8];
-  v6 = *(a1 + 32);
+  v4 = [*(a1 + 32) validateTranscriptVendingIAV:*(a1 + 40) expected:v3 ^ 1 withResultsDictionary:v7];
+  v5 = [*(a1 + 32) validateEntryViewIsFirstResponder:*(a1 + 40) expected:v3 ^ 1 withResultsDictionary:v7];
   if ((v4 & v5) != 0)
   {
-    v7 = @":D";
+    v6 = @":D";
   }
 
   else
   {
-    v7 = CFSTR(":(");
+    v6 = CFSTR(":(");
   }
 
-  [*(a1 + 32) _recordResult:v4 & v5 forKey:@"|--All Tests Passed--|" comment:v7 resultsDictionary:v8];
-  [*(a1 + 32) finishedTest:__CurrentTestName extraResults:v8];
+  [*(a1 + 32) _recordResult:v4 & v5 forKey:@"|--All Tests Passed--|" comment:v6 resultsDictionary:v7];
+  [*(a1 + 32) finishedTest:__CurrentTestName extraResults:v7];
 }
 
 void sub_10000B888(uint64_t a1)
@@ -2550,23 +2570,21 @@ id sub_10000BF98(uint64_t a1, uint64_t a2)
 
 void sub_10000C07C(uint64_t a1)
 {
-  v2 = [*(a1 + 32) messagesController];
-  v3 = [v2 conversationListController];
-  v4 = [v3 searchResultsController];
+  v1 = [*(a1 + 32) messagesController];
+  v2 = [v1 conversationListController];
+  v3 = [v2 searchResultsController];
 
-  v6 = [v4 collectionView];
-  v7 = *(a1 + 32);
-  v5 = v6;
+  v5 = [v3 collectionView];
+  v4 = v5;
   ck_dispatch_main_after_seconds();
 }
 
 uint64_t sub_10000C158(uint64_t a1)
 {
-  v2 = *(a1 + 32);
-  v3 = [NSIndexPath indexPathForRow:0 inSection:0];
-  [v2 selectItemAtIndexPath:v3 animated:0 scrollPosition:0];
+  v1 = *(a1 + 32);
+  v2 = [NSIndexPath indexPathForRow:0 inSection:0];
+  [v1 selectItemAtIndexPath:v2 animated:0 scrollPosition:0];
 
-  v5 = *(a1 + 40);
   return ck_dispatch_main_after_seconds();
 }
 
@@ -2614,9 +2632,9 @@ void sub_10000C218(uint64_t a1)
   [*(a1 + 32) finishedTest:__CurrentTestName extraResults:v24];
 }
 
-void sub_10000C5FC(uint64_t a1)
+void sub_10000C5FC(id *a1)
 {
-  v2 = [*(a1 + 32) messagesController];
+  v2 = [a1[4] messagesController];
   v3 = [v2 conversationListController];
   v4 = [v3 searchResultsController];
 
@@ -2626,17 +2644,15 @@ void sub_10000C5FC(uint64_t a1)
 
   [v5 scrollToItemAtIndexPath:v6 atScrollPosition:16 animated:1];
   v14 = v5;
-  v13 = *(a1 + 32);
+  v13 = *(a1 + 2);
   v7 = *(&v13 + 1);
-  v8 = *(a1 + 48);
-  v9 = *(a1 + 56);
+  v8 = a1[6];
+  v9 = a1[7];
   *&v10 = v8;
   *(&v10 + 1) = v9;
   v15 = v10;
-  v16 = *(a1 + 64);
-  v18 = *(a1 + 80);
-  v19 = *(a1 + 88);
-  v17 = *(a1 + 72);
+  v16 = a1[8];
+  v17 = a1[9];
   v11 = v6;
   v12 = v5;
   ck_dispatch_main_after_seconds();
@@ -2653,30 +2669,26 @@ void sub_10000C7F0(uint64_t a1)
   *(&v5 + 1) = v4;
   v7 = v5;
   v8 = *(a1 + 80);
-  v10 = *(a1 + 96);
-  v11 = *(a1 + 104);
   v9 = *(a1 + 88);
   ck_dispatch_main_after_seconds();
 }
 
-void sub_10000C900(uint64_t a1)
+void sub_10000C900(id *a1)
 {
-  v2 = [*(a1 + 32) messagesController];
+  v2 = [a1[4] messagesController];
   v3 = [v2 conversationListController];
   v4 = [v3 navigationController];
   v5 = [v4 popViewControllerAnimated:1];
 
-  v10 = *(a1 + 32);
+  v10 = *(a1 + 2);
   v6 = *(&v10 + 1);
-  v7 = *(a1 + 48);
-  v8 = *(a1 + 56);
+  v7 = a1[6];
+  v8 = a1[7];
   *&v9 = v7;
   *(&v9 + 1) = v8;
   v11 = v9;
-  v12 = *(a1 + 64);
-  v14 = *(a1 + 80);
-  v15 = *(a1 + 88);
-  v13 = *(a1 + 72);
+  v12 = a1[8];
+  v13 = a1[9];
   ck_dispatch_main_after_seconds();
 }
 
@@ -2789,16 +2801,13 @@ id sub_10000D40C(uint64_t a1, char a2)
 
 void sub_10000D57C(id *a1)
 {
-  v2 = (a1 + 5);
-  v3 = a1[4];
-  v4 = *v2;
-  v8 = v3;
-  v5 = a1[6];
-  v6 = a1[7];
-  *&v7 = v5;
-  *(&v7 + 1) = v6;
-  v9 = v7;
-  v10 = a1[8];
+  v5 = a1[4];
+  v2 = a1[6];
+  v3 = a1[7];
+  *&v4 = v2;
+  *(&v4 + 1) = v3;
+  v6 = v4;
+  v7 = a1[8];
   ck_dispatch_main_after_seconds();
 }
 
@@ -3052,16 +3061,16 @@ id sub_10000FE10(uint64_t a1)
   }
 }
 
-void sub_100010258(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_100010258(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va1, a9);
-  va_start(va, a9);
-  v10 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
+  va_start(va1, a16);
+  va_start(va, a16);
+  v17 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -4087,18 +4096,19 @@ void sub_100017E88(uint64_t a1)
   [v6 setContentOffset:{v5, v4}];
 }
 
-void sub_1000180D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1000180D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1000183CC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, id location, char a19)
+void sub_1000183CC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, id location, ...)
 {
-  objc_destroyWeak((v19 + 48));
+  va_start(va, location);
+  objc_destroyWeak((v18 + 48));
   objc_destroyWeak(&location);
-  _Block_object_dispose(&a19, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -4182,7 +4192,6 @@ void sub_100018880()
 
 uint64_t sub_100018974(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   qword_10003A188 = result;
   return result;
@@ -4294,16 +4303,15 @@ void sub_100019CB4(uint64_t a1)
     [v7 setDelegate:*(a1 + 32)];
   }
 
-  v8 = *(a1 + 32);
-  v12 = 0;
-  v9 = [objc_opt_class() addMessagesFileProviderDomain:&v12];
-  v10 = v12;
-  if (v10)
+  v11 = 0;
+  v8 = [objc_opt_class() addMessagesFileProviderDomain:&v11];
+  v9 = v11;
+  if (v9)
   {
-    v11 = IMLogHandleForCategory();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v10 = IMLogHandleForCategory();
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      sub_10001D578(v10, v11);
+      sub_10001D578(v9, v10);
     }
   }
 }
@@ -4340,9 +4348,9 @@ void sub_10001A738(id a1, UIAlertAction *a2)
   [v5 openSensitiveURL:v6 withOptions:0];
 }
 
-void sub_10001A844(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10001A844(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4425,7 +4433,6 @@ Class sub_10001C004(uint64_t a1)
 
 uint64_t sub_10001C130(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   qword_10003A1D8 = result;
   return result;
@@ -4458,7 +4465,7 @@ char *sub_10001C1A4()
   return v1;
 }
 
-uint64_t sub_10001C268(char *a1)
+uint64_t sub_10001C268(unsigned __int8 *a1)
 {
   v2 = getpid();
   sub_10001C7D0(v2, (a1 + 80));

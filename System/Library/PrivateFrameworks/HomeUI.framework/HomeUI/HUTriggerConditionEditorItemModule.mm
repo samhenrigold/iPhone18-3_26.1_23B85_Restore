@@ -220,9 +220,9 @@
   }
 }
 
-uint64_t __70__HUTriggerConditionEditorItemModule_setShowConditionOptions_forType___block_invoke(uint64_t result, void *a2)
+void **__70__HUTriggerConditionEditorItemModule_setShowConditionOptions_forType___block_invoke(void **result, void *a2)
 {
-  if (*(result + 32) != a2)
+  if (result[4] != a2)
   {
     return [a2 setShowOptions:0];
   }

@@ -1,4 +1,4 @@
-void EARLogger::initializeLogging(EARLogger *this)
+void EARLogger::initializeLogging(uint64_t this)
 {
   if (EARLogger::loggingIsInitialized != -1)
   {
@@ -49,7 +49,7 @@ LABEL_9:
 
 id EARLogger::QuasarOSLogger(EARLogger *this)
 {
-  if ((atomic_load_explicit(qword_1EB90B7C8, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(byte_1EB90B7C8, memory_order_acquire) & 1) == 0)
   {
     EARLogger::QuasarOSLogger();
   }
@@ -61,11 +61,11 @@ id EARLogger::QuasarOSLogger(EARLogger *this)
 
 void EARLogger::QuasarOSLogger()
 {
-  if (__cxa_guard_acquire(qword_1EB90B7C8))
+  if (__cxa_guard_acquire(byte_1EB90B7C8))
   {
     _MergedGlobals_6 = os_log_create("com.apple.siri", "quasar");
 
-    __cxa_guard_release(qword_1EB90B7C8);
+    __cxa_guard_release(byte_1EB90B7C8);
   }
 }
 
@@ -96,7 +96,7 @@ void sub_1B501F264(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-_BYTE *std::string::basic_string[abi:ne200100]<0>(_BYTE *a1, char *__s)
+void *std::string::basic_string[abi:ne200100]<0>(void *a1, char *__s)
 {
   v4 = strlen(__s);
   if (v4 >= 0x7FFFFFFFFFFFFFF8)
@@ -110,22 +110,23 @@ _BYTE *std::string::basic_string[abi:ne200100]<0>(_BYTE *a1, char *__s)
     operator new();
   }
 
-  a1[23] = v4;
+  *(a1 + 23) = v4;
   if (v4)
   {
     memmove(a1, __s, v4);
   }
 
-  a1[v5] = 0;
+  *(a1 + v5) = 0;
   return a1;
 }
 
-void sub_1B501F3DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, char a17)
+void sub_1B501F3DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
+  va_start(va, a16);
   std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::~__hash_table(&a9);
-  *(v18 - 40) = v17;
-  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100]((v18 - 40));
-  quasar::SystemConfig::~SystemConfig(&a17);
+  *(v17 - 40) = v16;
+  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100]((v17 - 40));
+  quasar::SystemConfig::~SystemConfig(va);
   _Unwind_Resume(a1);
 }
 
@@ -250,8 +251,9 @@ double quasar::ModelLoader::ModelLoader(quasar::ModelLoader *this)
   return result;
 }
 
-uint64_t quasar::SystemConfig::readJsonFile(uint64_t a1, uint64_t a2, void *a3, uint64_t a4, uint64_t a5, char a6)
+void quasar::SystemConfig::readJsonFile(uint64_t a1, __int128 *a2, uint64_t *a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
+  v6 = a6;
   if (!*(a4 + 24))
   {
     goto LABEL_24;
@@ -308,21 +310,21 @@ LABEL_17:
 LABEL_21:
   if (quasar::gLogLevel >= 2)
   {
-    v39 = 0u;
-    v40 = 0u;
-    v37 = 0u;
-    v38 = 0u;
-    v35 = 0u;
     v36 = 0u;
-    v33 = 0u;
+    v37 = 0u;
     v34 = 0u;
-    v31 = 0u;
+    v35 = 0u;
     v32 = 0u;
-    v29 = 0u;
+    v33 = 0u;
     v30 = 0u;
-    v27 = 0u;
+    v31 = 0u;
     v28 = 0u;
+    v29 = 0u;
     v26 = 0u;
+    v27 = 0u;
+    v24 = 0u;
+    v25 = 0u;
+    v23 = 0u;
     memset(__str, 0, sizeof(__str));
     kaldi::KaldiWarnMessage::KaldiWarnMessage(__str);
     std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(__str, "Key-value config overrides are unsupported and will be ignored", 62);
@@ -331,7 +333,7 @@ LABEL_21:
 
   std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::clear(a4);
 LABEL_24:
-  quasar::SystemConfig::simpleReadJson(a1, a2, a4, a6);
+  quasar::SystemConfig::simpleReadJson(a1, a2, a4, v6);
   if (*(a1 + 736))
   {
     quasar::SystemConfig::getModelVersion(a1, __str);
@@ -352,29 +354,20 @@ LABEL_24:
     *(a1 + 904) = *&__str[16];
     if (*(a1 + 736) == 1)
     {
-      SpeechModelInfo = quasar::SystemConfig::getSpeechModelInfo(a1);
-      quasar::SpeechModelInfo::operator=(a1 + 912, SpeechModelInfo);
+      quasar::SystemConfig::getSpeechModelInfo(a1);
+      quasar::SpeechModelInfo::operator=(a1 + 912, v20);
     }
   }
 
-  v21 = quasar::SystemConfig::checkConfigFileVersion(a1);
-  v22 = v21;
-  if (v21 == 2)
+  if (quasar::SystemConfig::checkConfigFileVersion(a1) == 2)
   {
     *(a1 + 1552) = 0;
   }
 
-  else
+  else if (*a3 != a3[1])
   {
-    if (*a3 != a3[1])
-    {
-      quasar::SystemConfig::SystemConfig(__str);
-    }
-
-    return v21;
+    quasar::SystemConfig::SystemConfig(__str);
   }
-
-  return v22;
 }
 
 void *quasar::filesystem::Path::Path(void *a1, __int128 *a2)
@@ -408,27 +401,27 @@ void quasar::filesystem::system_complete(quasar::filesystem *this@<X0>, void *a2
     pn = *(this + 8);
   }
 
-  v10.__pn_ = pn;
-  if (std::__fs::filesystem::path::__root_directory(&v10).__size_)
+  v9.__pn_ = pn;
+  if (std::__fs::filesystem::path::__root_directory(&v9).__size_)
   {
     *a2 = &unk_1F2CFAA28;
-    v5 = (a2 + 1);
+    v4 = (a2 + 1);
     if (*(this + 31) < 0)
     {
-      std::string::__init_copy_ctor_external(v5, *(this + 1), *(this + 2));
+      std::string::__init_copy_ctor_external(v4, *(this + 1), *(this + 2));
     }
 
     else
     {
-      *&v5->__r_.__value_.__l.__data_ = *(this + 8);
-      v5->__r_.__value_.__r.__words[2] = *(this + 3);
+      *&v4->__r_.__value_.__l.__data_ = *(this + 8);
+      v4->__r_.__value_.__r.__words[2] = *(this + 3);
     }
   }
 
   else
   {
-    std::__fs::filesystem::__current_path(&v7, 0);
-    std::__fs::filesystem::operator/[abi:ne200100](&v10, &v7, &__p);
+    std::__fs::filesystem::__current_path(&v6, 0);
+    std::__fs::filesystem::operator/[abi:ne200100](&__p, &v9, &v6);
     if (SHIBYTE(__p.__pn_.__r_.__value_.__r.__words[2]) < 0)
     {
       std::string::__init_copy_ctor_external(&pn, __p.__pn_.__r_.__value_.__l.__data_, __p.__pn_.__r_.__value_.__l.__size_);
@@ -440,10 +433,10 @@ void quasar::filesystem::system_complete(quasar::filesystem *this@<X0>, void *a2
     }
 
     *a2 = &unk_1F2CFAA28;
-    v6 = (a2 + 1);
+    v5 = (a2 + 1);
     if (SHIBYTE(pn.__r_.__value_.__r.__words[2]) < 0)
     {
-      std::string::__init_copy_ctor_external(v6, pn.__r_.__value_.__l.__data_, pn.__r_.__value_.__l.__size_);
+      std::string::__init_copy_ctor_external(v5, pn.__r_.__value_.__l.__data_, pn.__r_.__value_.__l.__size_);
       if (SHIBYTE(pn.__r_.__value_.__r.__words[2]) < 0)
       {
         operator delete(pn.__r_.__value_.__l.__data_);
@@ -452,7 +445,7 @@ void quasar::filesystem::system_complete(quasar::filesystem *this@<X0>, void *a2
 
     else
     {
-      *v6 = pn;
+      *v5 = pn;
     }
 
     if (SHIBYTE(__p.__pn_.__r_.__value_.__r.__words[2]) < 0)
@@ -460,15 +453,15 @@ void quasar::filesystem::system_complete(quasar::filesystem *this@<X0>, void *a2
       operator delete(__p.__pn_.__r_.__value_.__l.__data_);
     }
 
-    if (SHIBYTE(v7.__pn_.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v6.__pn_.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v7.__pn_.__r_.__value_.__l.__data_);
+      operator delete(v6.__pn_.__r_.__value_.__l.__data_);
     }
   }
 
-  if (SHIBYTE(v10.__pn_.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v9.__pn_.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v10.__pn_.__r_.__value_.__l.__data_);
+    operator delete(v9.__pn_.__r_.__value_.__l.__data_);
   }
 }
 
@@ -558,36 +551,46 @@ void sub_1B5020608(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void boost::property_tree::json_parser::read_json<boost::property_tree::basic_ptree<std::string,std::string,std::less<std::string>>>(__int128 *a1, uint64_t a2, const std::locale *a3)
+void boost::property_tree::json_parser::read_json<boost::property_tree::basic_ptree<std::string,std::string,std::less<std::string>>>(std::string *a1, __int128 *a2, const std::locale *a3)
 {
-  v11[72] = *MEMORY[0x1E69E9840];
-  std::ifstream::basic_ifstream(v11);
-  v5 = v11 + *(v11[0] - 24);
-  if ((v5[32] & 5) == 0)
+  v13[72] = *MEMORY[0x1E69E9840];
+  if ((a1->__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
-    std::ios_base::getloc((v11 + *(v11[0] - 24)));
-    std::ios_base::imbue(v5, a3);
-    std::locale::~locale(&v10);
-    v6 = *(v5 + 5);
-    if (v6)
-    {
-      (*(v6->__locale_ + 2))(v6, a3);
-      std::locale::locale(&v9, v6 + 1);
-      std::locale::operator=(v6 + 1, a3);
-      std::locale::~locale(&v9);
-    }
-
-    std::locale::~locale(&v7);
-    boost::property_tree::json_parser::detail::read_json_internal<boost::property_tree::basic_ptree<std::string,std::string,std::less<std::string>>>();
+    v6 = a1;
   }
 
-  std::string::basic_string[abi:ne200100]<0>(&v9, "cannot open file");
-  boost::property_tree::file_parser_error::file_parser_error(&v10, &v9, a1, 0);
-  v10.__locale_ = &unk_1F2CFFB50;
-  v8[0] = "/AppleInternal/Library/BuildRoots/4~B_v8ugAyYI0IKEYsMtCXGlJLPsrxIHMQK5jjw9Y/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS26.1.Internal.sdk/usr/local/include/boost/property_tree/json_parser.hpp";
-  v8[1] = "void boost::property_tree::json_parser::read_json(const std::string &, Ptree &, const std::locale &) [Ptree = boost::property_tree::basic_ptree<std::string, std::string>]";
-  v8[2] = 73;
-  boost::throw_exception<boost::property_tree::json_parser::json_parser_error>(&v10, v8);
+  else
+  {
+    v6 = a1->__r_.__value_.__r.__words[0];
+  }
+
+  std::ifstream::basic_ifstream(v13, v6, 8);
+  v7 = v13 + *(v13[0] - 24);
+  if ((v7[32] & 5) == 0)
+  {
+    std::ios_base::getloc((v13 + *(v13[0] - 24)));
+    std::ios_base::imbue(v7, a3);
+    std::locale::~locale(&v12);
+    v8 = *(v7 + 5);
+    if (v8)
+    {
+      (*(v8->__locale_ + 2))(v8, a3);
+      std::locale::locale(v11, v8 + 1);
+      std::locale::operator=(v8 + 1, a3);
+      std::locale::~locale(v11);
+    }
+
+    std::locale::~locale(&v9);
+    boost::property_tree::json_parser::detail::read_json_internal<boost::property_tree::basic_ptree<std::string,std::string,std::less<std::string>>>(v13, a2, a1);
+  }
+
+  std::string::basic_string[abi:ne200100]<0>(v11, "cannot open file");
+  boost::property_tree::file_parser_error::file_parser_error(&v12, v11, a1, 0);
+  v12.__locale_ = &unk_1F2CFFB50;
+  v10[0] = "/AppleInternal/Library/BuildRoots/4~B_v8ugAyYI0IKEYsMtCXGlJLPsrxIHMQK5jjw9Y/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS26.1.Internal.sdk/usr/local/include/boost/property_tree/json_parser.hpp";
+  v10[1] = "void boost::property_tree::json_parser::read_json(const std::string &, Ptree &, const std::locale &) [Ptree = boost::property_tree::basic_ptree<std::string, std::string>]";
+  v10[2] = 73;
+  boost::throw_exception<boost::property_tree::json_parser::json_parser_error>(&v12, v10);
 }
 
 void sub_1B50208B8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, std::locale a10, uint64_t a11, uint64_t a12, uint64_t a13, void *__p, uint64_t a15, int a16, __int16 a17, char a18, char a19, std::runtime_error a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28)
@@ -603,16 +606,16 @@ void sub_1B50208B8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void boost::property_tree::json_parser::detail::read_json_internal<boost::property_tree::basic_ptree<std::string,std::string,std::less<std::string>>>()
+void boost::property_tree::json_parser::detail::read_json_internal<boost::property_tree::basic_ptree<std::string,std::string,std::less<std::string>>>(void *a1, __int128 *a2, std::string *a3)
 {
-  v0 = 0uLL;
-  v1 = 0;
+  v3 = 0uLL;
+  v4 = 0;
   operator new();
 }
 
-void sub_1B5020A48(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_1B5020A48(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   boost::property_tree::json_parser::detail::standard_callbacks<boost::property_tree::basic_ptree<std::string,std::string,std::less<std::string>>>::~standard_callbacks(va);
   _Unwind_Resume(a1);
 }
@@ -980,7 +983,7 @@ uint64_t boost::property_tree::json_parser::detail::standard_callbacks<boost::pr
   return a1;
 }
 
-void sub_1B5021498(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, uint64_t a11, uint64_t a12, uint64_t a13, void *__p, uint64_t a15, int a16, __int16 a17, char a18, char a19, char a20)
+void sub_1B5021498(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *__p, uint64_t a15, int a16, __int16 a17, char a18, char a19, char a20)
 {
   std::pair<std::string const,boost::property_tree::basic_ptree<std::string,std::string,std::less<std::string>>>::~pair(v20 - 104);
   std::pair<std::string const,boost::property_tree::basic_ptree<std::string,std::string,std::less<std::string>>>::~pair(&a20);
@@ -1062,20 +1065,20 @@ void std::vector<boost::property_tree::json_parser::detail::standard_callbacks<b
   *(a1 + 8) = v6;
 }
 
-uint64_t boost::property_tree::json_parser::detail::parser<boost::property_tree::json_parser::detail::standard_callbacks<boost::property_tree::basic_ptree<std::string,std::string,std::less<std::string>>>,boost::property_tree::json_parser::detail::encoding<char>,std::istreambuf_iterator<char>,std::istreambuf_iterator<char>>::parse_string(uint64_t a1)
+uint64_t boost::property_tree::json_parser::detail::parser<boost::property_tree::json_parser::detail::standard_callbacks<boost::property_tree::basic_ptree<std::string,std::string,std::less<std::string>>>,boost::property_tree::json_parser::detail::encoding<char>,std::istreambuf_iterator<char>,std::istreambuf_iterator<char>>::parse_string(uint64_t *a1)
 {
     ;
   }
 
-  v2 = boost::property_tree::json_parser::detail::source<boost::property_tree::json_parser::detail::encoding<char>,std::istreambuf_iterator<char>,std::istreambuf_iterator<char>>::have<boost::property_tree::json_parser::detail::source<boost::property_tree::json_parser::detail::encoding<char>,std::istreambuf_iterator<char>,std::istreambuf_iterator<char>>::DoNothing>(a1 + 16, boost::property_tree::json_parser::detail::external_ascii_superset_encoding::is_quote, 0);
+  v2 = boost::property_tree::json_parser::detail::source<boost::property_tree::json_parser::detail::encoding<char>,std::istreambuf_iterator<char>,std::istreambuf_iterator<char>>::have<boost::property_tree::json_parser::detail::source<boost::property_tree::json_parser::detail::encoding<char>,std::istreambuf_iterator<char>,std::istreambuf_iterator<char>>::DoNothing>((a1 + 2), boost::property_tree::json_parser::detail::external_ascii_superset_encoding::is_quote, 0);
   if (v2)
   {
     boost::property_tree::json_parser::detail::standard_callbacks<boost::property_tree::basic_ptree<std::string,std::string,std::less<std::string>>>::new_value(*a1);
     v4 = *a1;
-    v3 = *(a1 + 8);
-    while (boost::property_tree::json_parser::detail::source<boost::property_tree::json_parser::detail::encoding<char>,std::istreambuf_iterator<char>,std::istreambuf_iterator<char>>::need_cur(a1 + 16, "unterminated string") != 34)
+    v3 = a1[1];
+    while (boost::property_tree::json_parser::detail::source<boost::property_tree::json_parser::detail::encoding<char>,std::istreambuf_iterator<char>,std::istreambuf_iterator<char>>::need_cur((a1 + 2), "unterminated string") != 34)
     {
-      v5 = *(a1 + 24);
+      v5 = a1[3];
       v6 = v5[3];
       if (v6 == v5[4])
       {
@@ -1089,13 +1092,13 @@ uint64_t boost::property_tree::json_parser::detail::parser<boost::property_tree:
 
       if (v7 == 92)
       {
-        boost::property_tree::json_parser::detail::source<boost::property_tree::json_parser::detail::encoding<char>,std::istreambuf_iterator<char>,std::istreambuf_iterator<char>>::next(a1 + 16);
+        boost::property_tree::json_parser::detail::source<boost::property_tree::json_parser::detail::encoding<char>,std::istreambuf_iterator<char>,std::istreambuf_iterator<char>>::next((a1 + 2));
         boost::property_tree::json_parser::detail::parser<boost::property_tree::json_parser::detail::standard_callbacks<boost::property_tree::basic_ptree<std::string,std::string,std::less<std::string>>>,boost::property_tree::json_parser::detail::encoding<char>,std::istreambuf_iterator<char>,std::istreambuf_iterator<char>>::parse_escape(a1);
       }
 
       else
       {
-        v8 = *(a1 + 32);
+        v8 = a1[4];
         v11[0] = boost::property_tree::json_parser::detail::standard_callbacks<boost::property_tree::basic_ptree<std::string,std::string,std::less<std::string>>>::on_code_unit;
         v11[1] = 0;
         v11[2] = v4;
@@ -1103,11 +1106,11 @@ uint64_t boost::property_tree::json_parser::detail::parser<boost::property_tree:
         v10[1] = 0;
         v10[2] = a1;
         v10[3] = "invalid code sequence";
-        boost::property_tree::json_parser::detail::utf8_utf8_encoding::transcode_codepoint<std::istreambuf_iterator<char>,std::istreambuf_iterator<char>,boost::_bi::bind_t<void,boost::_mfi::mf1<void,boost::property_tree::json_parser::detail::standard_callbacks<boost::property_tree::basic_ptree<std::string,std::string,std::less<std::string>>>,char>,boost::_bi::list2<boost::reference_wrapper<boost::property_tree::json_parser::detail::standard_callbacks<boost::property_tree::basic_ptree<std::string,std::string,std::less<std::string>>>>,boost::arg<1>>>,boost::_bi::bind_t<void,boost::_mfi::mf1<void,boost::property_tree::json_parser::detail::parser<boost::property_tree::json_parser::detail::standard_callbacks<boost::property_tree::basic_ptree<std::string,std::string,std::less<std::string>>>,boost::property_tree::json_parser::detail::encoding<char>,std::istreambuf_iterator<char>,std::istreambuf_iterator<char>>,char const*>,boost::_bi::list2<boost::_bi::value<boost::property_tree::json_parser::detail::parser<boost::property_tree::json_parser::detail::standard_callbacks<boost::property_tree::basic_ptree<std::string,std::string,std::less<std::string>>>,boost::property_tree::json_parser::detail::encoding<char>,std::istreambuf_iterator<char>,std::istreambuf_iterator<char>>*>,boost::_bi::value<char const*>>>>(v3, (a1 + 24), v8, v11, v10);
+        boost::property_tree::json_parser::detail::utf8_utf8_encoding::transcode_codepoint<std::istreambuf_iterator<char>,std::istreambuf_iterator<char>,boost::_bi::bind_t<void,boost::_mfi::mf1<void,boost::property_tree::json_parser::detail::standard_callbacks<boost::property_tree::basic_ptree<std::string,std::string,std::less<std::string>>>,char>,boost::_bi::list2<boost::reference_wrapper<boost::property_tree::json_parser::detail::standard_callbacks<boost::property_tree::basic_ptree<std::string,std::string,std::less<std::string>>>>,boost::arg<1>>>,boost::_bi::bind_t<void,boost::_mfi::mf1<void,boost::property_tree::json_parser::detail::parser<boost::property_tree::json_parser::detail::standard_callbacks<boost::property_tree::basic_ptree<std::string,std::string,std::less<std::string>>>,boost::property_tree::json_parser::detail::encoding<char>,std::istreambuf_iterator<char>,std::istreambuf_iterator<char>>,char const*>,boost::_bi::list2<boost::_bi::value<boost::property_tree::json_parser::detail::parser<boost::property_tree::json_parser::detail::standard_callbacks<boost::property_tree::basic_ptree<std::string,std::string,std::less<std::string>>>,boost::property_tree::json_parser::detail::encoding<char>,std::istreambuf_iterator<char>,std::istreambuf_iterator<char>>*>,boost::_bi::value<char const*>>>>(v3, a1 + 3, v8, v11, v10);
       }
     }
 
-    boost::property_tree::json_parser::detail::source<boost::property_tree::json_parser::detail::encoding<char>,std::istreambuf_iterator<char>,std::istreambuf_iterator<char>>::next(a1 + 16);
+    boost::property_tree::json_parser::detail::source<boost::property_tree::json_parser::detail::encoding<char>,std::istreambuf_iterator<char>,std::istreambuf_iterator<char>>::next((a1 + 2));
   }
 
   return v2;
@@ -1199,7 +1202,7 @@ _DWORD *quasar::result_handler::Range::Range(_DWORD *this, int a2, int a3)
   return this;
 }
 
-void quasar::SystemConfig::simpleReadJson(quasar::SystemConfig *a1, uint64_t a2, uint64_t a3, char a4)
+void quasar::SystemConfig::simpleReadJson(quasar::SystemConfig *a1, __int128 *a2, uint64_t a3, char a4)
 {
   if (*(a1 + 388))
   {
@@ -1290,14 +1293,14 @@ void quasar::SystemConfig::simpleReadJson(quasar::SystemConfig *a1, uint64_t a2,
 
       else
       {
-        v18 = *(a2 + 8);
+        v18 = *(a2 + 1);
       }
 
       std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v15, v17, v18);
       quasar::QuasarInfoMessage::~QuasarInfoMessage(v22);
     }
 
-    quasar::PTree::readJsonFromFile();
+    quasar::PTree::readJsonFromFile(a1 + 72, a2);
   }
 
   if (quasar::gLogLevel >= 4)
@@ -1490,7 +1493,7 @@ void sub_1B50223E4(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t **std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__assign_multi<std::__tree_const_iterator<std::__value_type<std::string,std::string>,std::__tree_node<std::__value_type<std::string,std::string>,void *> *,long>>(uint64_t **result, void *a2, void *a3)
+uint64_t ***std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__assign_multi<std::__tree_const_iterator<std::__value_type<std::string,std::string>,std::__tree_node<std::__value_type<std::string,std::string>,void *> *,long>>(uint64_t ***result, __int128 *a2, __int128 *a3)
 {
   v5 = result;
   if (result[2])
@@ -1522,8 +1525,8 @@ uint64_t **std::__tree<std::__value_type<std::string,std::string>,std::__map_val
         v9 = a2;
         do
         {
-          std::string::operator=((v8 + 4), (v9 + 4));
-          std::string::operator=((v8 + 7), (v9 + 7));
+          std::string::operator=((v8 + 4), (v9 + 2));
+          std::string::operator=((v8 + 7), (v9 + 56));
           leaf_high = std::__tree<std::__value_type<std::string,double>,std::__map_value_compare<std::string,std::__value_type<std::string,double>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,double>>>::__find_leaf_high(v5, &v16, v15 + 4);
           std::__tree<std::__value_type<std::string,double>,std::__map_value_compare<std::string,std::__value_type<std::string,double>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,double>>>::__insert_node_at(v5, v16, leaf_high, v15);
           v15 = v14;
@@ -1532,7 +1535,7 @@ uint64_t **std::__tree<std::__value_type<std::string,std::string>,std::__map_val
             v14 = std::__tree<std::__value_type<std::string,double>,std::__map_value_compare<std::string,std::__value_type<std::string,double>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,double>>>::_DetachedTreeCache::__detach_next(v14);
           }
 
-          v11 = v9[1];
+          v11 = *(v9 + 1);
           if (v11)
           {
             do
@@ -1548,7 +1551,7 @@ uint64_t **std::__tree<std::__value_type<std::string,std::string>,std::__map_val
           {
             do
             {
-              a2 = v9[2];
+              a2 = *(v9 + 2);
               v12 = *a2 == v9;
               v9 = a2;
             }
@@ -1579,13 +1582,13 @@ uint64_t **std::__tree<std::__value_type<std::string,std::string>,std::__map_val
 
   if (a2 != a3)
   {
-    std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_multi<std::pair<std::string const,std::string> const&>();
+    std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_multi<std::pair<std::string const,std::string> const&>(v5, a2 + 2);
   }
 
   return result;
 }
 
-uint64_t **std::__tree<std::string>::__assign_multi<std::__tree_const_iterator<std::string,std::__tree_node<std::string,void *> *,long>>(uint64_t **result, void *a2, void *a3)
+uint64_t ***std::__tree<std::string>::__assign_multi<std::__tree_const_iterator<std::string,std::__tree_node<std::string,void *> *,long>>(uint64_t ***result, void *a2, void *a3)
 {
   v5 = result;
   if (result[2])
@@ -1673,7 +1676,7 @@ uint64_t **std::__tree<std::string>::__assign_multi<std::__tree_const_iterator<s
 
   if (a2 != a3)
   {
-    std::__tree<std::string>::__emplace_multi<std::string const&>();
+    std::__tree<std::string>::__emplace_multi<std::string const&>(v5);
   }
 
   return result;
@@ -1705,9 +1708,9 @@ uint64_t quasar::SpeechModelInfo::operator=(uint64_t a1, uint64_t a2)
   return a1;
 }
 
-void sub_1B50228D0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1B50228D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__tree_node<std::__value_type<std::string,std::string>,void *>,std::__tree_node_destructor<std::allocator<std::__tree_node<std::__value_type<std::string,std::string>,void *>>>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -1760,7 +1763,7 @@ void sub_1B5022A4C(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-uint64_t *std::__tree<std::__value_type<std::string,double>,std::__map_value_compare<std::string,std::__value_type<std::string,double>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,double>>>::__insert_node_at(uint64_t **a1, uint64_t a2, uint64_t **a3, uint64_t *a4)
+uint64_t *std::__tree<std::__value_type<std::string,double>,std::__map_value_compare<std::string,std::__value_type<std::string,double>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,double>>>::__insert_node_at(uint64_t ***a1, uint64_t a2, uint64_t **a3, uint64_t *a4)
 {
   *a4 = 0;
   a4[1] = 0;
@@ -1786,12 +1789,12 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
     do
     {
       v2 = a2[2];
-      if (v2[3])
+      if (*(v2 + 24))
       {
         break;
       }
 
-      v3 = v2[2];
+      v3 = *(v2 + 16);
       v4 = *v3;
       if (*v3 == v2)
       {
@@ -1805,22 +1808,22 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
 
           else
           {
-            v11 = v2[1];
+            v11 = *(v2 + 8);
             v12 = *v11;
-            v2[1] = *v11;
+            *(v2 + 8) = *v11;
             v13 = v2;
             if (v12)
             {
-              v12[2] = v2;
-              v3 = v2[2];
+              *(v12 + 16) = v2;
+              v3 = *(v2 + 16);
               v13 = *v3;
             }
 
-            v11[2] = v3;
+            *(v11 + 16) = v3;
             v3[v13 != v2] = v11;
             *v11 = v2;
-            v2[2] = v11;
-            v3 = v11[2];
+            *(v2 + 16) = v11;
+            v3 = *(v11 + 16);
             v4 = *v3;
           }
 
@@ -1854,13 +1857,13 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
             if (v14)
             {
               *(v14 + 16) = v2;
-              v3 = v2[2];
+              v3 = *(v2 + 16);
             }
 
             v10[2] = v3;
             v3[*v3 != v2] = v10;
             v10[1] = v2;
-            v2[2] = v10;
+            *(v2 + 16) = v10;
             v3 = v10[2];
           }
 
@@ -1902,7 +1905,7 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
   return result;
 }
 
-uint64_t std::unique_ptr<std::__tree_node<std::__value_type<std::string,std::string>,void *>,std::__tree_node_destructor<std::allocator<std::__tree_node<std::__value_type<std::string,std::string>,void *>>>>::~unique_ptr[abi:ne200100](uint64_t a1)
+char **std::unique_ptr<std::__tree_node<std::__value_type<std::string,std::string>,void *>,std::__tree_node_destructor<std::allocator<std::__tree_node<std::__value_type<std::string,std::string>,void *>>>>::~unique_ptr[abi:ne200100](char **a1)
 {
   v2 = *a1;
   *a1 = 0;
@@ -1985,9 +1988,9 @@ BOOL std::less<std::string>::operator()[abi:ne200100](uint64_t a1, const void **
   }
 }
 
-void sub_1B5022DF4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1B5022DF4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__tree_node<std::__value_type<std::string,std::vector<std::string>>,void *>,std::__tree_node_destructor<std::allocator<std::__tree_node<std::__value_type<std::string,std::vector<std::string>>,void *>>>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -2082,15 +2085,15 @@ uint64_t **std::__tree<std::__value_type<std::string,std::vector<std::string>>,s
 
   if (a2 != a3)
   {
-    std::__tree<std::__value_type<std::string,std::vector<std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::vector<std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::vector<std::string>>>>::__emplace_multi<std::pair<std::string const,std::vector<std::string>> const&>();
+    std::__tree<std::__value_type<std::string,std::vector<std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::vector<std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::vector<std::string>>>>::__emplace_multi<std::pair<std::string const,std::vector<std::string>> const&>(v5);
   }
 
   return result;
 }
 
-void sub_1B5022F84(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1B5022F84(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__tree<std::__value_type<std::string,std::vector<std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::vector<std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::vector<std::string>>>>::_DetachedTreeCache::~_DetachedTreeCache[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -2105,7 +2108,7 @@ void std::__allocate_at_least[abi:ne200100]<std::allocator<std::string>>(uint64_
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-void std::vector<std::string>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<std::string>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (a2 < 0xAAAAAAAAAAAAAABLL)
   {
@@ -2146,7 +2149,7 @@ void sub_1B50230B4(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::vector<std::string>::__init_with_size[abi:ne200100]<std::string*,std::string*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<std::string>::__init_with_size[abi:ne200100]<std::string*,std::string*>(uint64_t *result, int a2, int a3, unint64_t a4)
 {
   if (a4)
   {
@@ -2156,7 +2159,7 @@ uint64_t std::vector<std::string>::__init_with_size[abi:ne200100]<std::string*,s
   return result;
 }
 
-void sub_1B5023138(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void **a9)
+void sub_1B5023138(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
   *(v9 + 8) = v10;
   std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&a9);
@@ -2212,7 +2215,7 @@ uint64_t std::__exception_guard_exceptions<std::_AllocatorDestroyRangeReverse<st
   return a1;
 }
 
-uint64_t std::unique_ptr<std::__tree_node<std::__value_type<std::string,std::vector<std::string>>,void *>,std::__tree_node_destructor<std::allocator<std::__tree_node<std::__value_type<std::string,std::vector<std::string>>,void *>>>>::~unique_ptr[abi:ne200100](uint64_t a1)
+char **std::unique_ptr<std::__tree_node<std::__value_type<std::string,std::vector<std::string>>,void *>,std::__tree_node_destructor<std::allocator<std::__tree_node<std::__value_type<std::string,std::vector<std::string>>,void *>>>>::~unique_ptr[abi:ne200100](char **a1)
 {
   v2 = *a1;
   *a1 = 0;
@@ -2361,20 +2364,20 @@ std::string *std::__copy_impl::operator()[abi:ne200100]<std::pair<std::string,st
   return v6;
 }
 
-void std::__hash_table<std::__hash_value_type<std::string,std::vector<std::pair<std::string,std::string>>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::vector<std::pair<std::string,std::string>>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::vector<std::pair<std::string,std::string>>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::vector<std::pair<std::string,std::string>>>>>::__assign_multi<std::__hash_const_iterator<std::__hash_node<std::__hash_value_type<std::string,std::vector<std::pair<std::string,std::string>>>,void *> *>>(void *a1, void *a2, void *a3)
+void std::__hash_table<std::__hash_value_type<std::string,std::vector<std::pair<std::string,std::string>>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::vector<std::pair<std::string,std::string>>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::vector<std::pair<std::string,std::string>>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::vector<std::pair<std::string,std::string>>>>>::__assign_multi<std::__hash_const_iterator<std::__hash_node<std::__hash_value_type<std::string,std::vector<std::pair<std::string,std::string>>>,void *> *>>(void *result, void *a2, void *a3)
 {
   v4 = a2;
-  v6 = a1[1];
+  v6 = result[1];
   if (v6)
   {
     for (i = 0; i != v6; ++i)
     {
-      *(*a1 + 8 * i) = 0;
+      *(*result + 8 * i) = 0;
     }
 
-    v8 = a1[2];
-    a1[2] = 0;
-    a1[3] = 0;
+    v8 = result[2];
+    result[2] = 0;
+    result[3] = 0;
     if (v8)
     {
       v9 = a2 == a3;
@@ -2398,7 +2401,7 @@ void std::__hash_table<std::__hash_value_type<std::string,std::vector<std::pair<
         v12[1] = v8 + 5;
         std::pair<std::string &,std::vector<std::pair<std::string,std::string>> &>::operator=[abi:ne200100]<std::string const,std::vector<std::pair<std::string,std::string>>,0>(v12, (v4 + 2));
         v10 = *v8;
-        std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__node_insert_multi(a1, v8);
+        std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__node_insert_multi(result, v8);
         v4 = *v4;
         if (v10)
         {
@@ -2416,12 +2419,12 @@ void std::__hash_table<std::__hash_value_type<std::string,std::vector<std::pair<
       while (!v11);
     }
 
-    std::__hash_table<std::__hash_value_type<std::string,std::vector<std::pair<std::string,std::string>>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::vector<std::pair<std::string,std::string>>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::vector<std::pair<std::string,std::string>>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::vector<std::pair<std::string,std::string>>>>>::__deallocate_node(a1, v10);
+    std::__hash_table<std::__hash_value_type<std::string,std::vector<std::pair<std::string,std::string>>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::vector<std::pair<std::string,std::string>>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::vector<std::pair<std::string,std::string>>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::vector<std::pair<std::string,std::string>>>>>::__deallocate_node(result, v10);
   }
 
   if (v4 != a3)
   {
-    std::__hash_table<std::__hash_value_type<std::string,std::vector<std::pair<std::string,std::string>>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::vector<std::pair<std::string,std::string>>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::vector<std::pair<std::string,std::string>>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::vector<std::pair<std::string,std::string>>>>>::__emplace_multi<std::pair<std::string const,std::vector<std::pair<std::string,std::string>>> const&>();
+    std::__hash_table<std::__hash_value_type<std::string,std::vector<std::pair<std::string,std::string>>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::vector<std::pair<std::string,std::string>>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::vector<std::pair<std::string,std::string>>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::vector<std::pair<std::string,std::string>>>>>::__emplace_multi<std::pair<std::string const,std::vector<std::pair<std::string,std::string>>> const&>(result);
   }
 }
 
@@ -2432,20 +2435,20 @@ void sub_1B5023760(void *a1)
   __cxa_rethrow();
 }
 
-void std::__hash_table<std::__hash_value_type<std::string,quasar::TranslationPairSetting>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,quasar::TranslationPairSetting>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,quasar::TranslationPairSetting>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,quasar::TranslationPairSetting>>>::__assign_multi<std::__hash_const_iterator<std::__hash_node<std::__hash_value_type<std::string,quasar::TranslationPairSetting>,void *> *>>(void *a1, uint64_t *a2, uint64_t *a3)
+void std::__hash_table<std::__hash_value_type<std::string,quasar::TranslationPairSetting>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,quasar::TranslationPairSetting>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,quasar::TranslationPairSetting>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,quasar::TranslationPairSetting>>>::__assign_multi<std::__hash_const_iterator<std::__hash_node<std::__hash_value_type<std::string,quasar::TranslationPairSetting>,void *> *>>(void *result, void *a2, void *a3)
 {
   v4 = a2;
-  v6 = a1[1];
+  v6 = result[1];
   if (v6)
   {
     for (i = 0; i != v6; ++i)
     {
-      *(*a1 + 8 * i) = 0;
+      *(*result + 8 * i) = 0;
     }
 
-    v8 = a1[2];
-    a1[2] = 0;
-    a1[3] = 0;
+    v8 = result[2];
+    result[2] = 0;
+    result[3] = 0;
     if (v8)
     {
       v9 = a2 == a3;
@@ -2465,11 +2468,11 @@ void std::__hash_table<std::__hash_value_type<std::string,quasar::TranslationPai
     {
       do
       {
-        v12[0] = (v8 + 16);
-        v12[1] = (v8 + 40);
+        v12[0] = (v8 + 2);
+        v12[1] = (v8 + 5);
         std::pair<std::string &,quasar::TranslationPairSetting &>::operator=[abi:ne200100]<std::string const,quasar::TranslationPairSetting,0>(v12, (v4 + 2));
         v10 = *v8;
-        std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__node_insert_multi(a1, v8);
+        std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__node_insert_multi(result, v8);
         v4 = *v4;
         if (v10)
         {
@@ -2487,12 +2490,12 @@ void std::__hash_table<std::__hash_value_type<std::string,quasar::TranslationPai
       while (!v11);
     }
 
-    std::__hash_table<std::__hash_value_type<std::string,quasar::TranslationPairSetting>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,quasar::TranslationPairSetting>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,quasar::TranslationPairSetting>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,quasar::TranslationPairSetting>>>::__deallocate_node(a1, v10);
+    std::__hash_table<std::__hash_value_type<std::string,quasar::TranslationPairSetting>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,quasar::TranslationPairSetting>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,quasar::TranslationPairSetting>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,quasar::TranslationPairSetting>>>::__deallocate_node(result, v10);
   }
 
   if (v4 != a3)
   {
-    std::__hash_table<std::__hash_value_type<std::string,quasar::TranslationPairSetting>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,quasar::TranslationPairSetting>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,quasar::TranslationPairSetting>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,quasar::TranslationPairSetting>>>::__emplace_multi<std::pair<std::string const,quasar::TranslationPairSetting> const&>();
+    std::__hash_table<std::__hash_value_type<std::string,quasar::TranslationPairSetting>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,quasar::TranslationPairSetting>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,quasar::TranslationPairSetting>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,quasar::TranslationPairSetting>>>::__emplace_multi<std::pair<std::string const,quasar::TranslationPairSetting> const&>(result);
   }
 }
 
@@ -2503,20 +2506,20 @@ void sub_1B5023870(void *a1)
   __cxa_rethrow();
 }
 
-void std::__hash_table<std::__hash_value_type<std::string,std::unordered_map<std::string,quasar::TranslationPairSetting>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::unordered_map<std::string,quasar::TranslationPairSetting>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::unordered_map<std::string,quasar::TranslationPairSetting>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::unordered_map<std::string,quasar::TranslationPairSetting>>>>::__assign_multi<std::__hash_const_iterator<std::__hash_node<std::__hash_value_type<std::string,std::unordered_map<std::string,quasar::TranslationPairSetting>>,void *> *>>(void *a1, void *a2, void *a3)
+void std::__hash_table<std::__hash_value_type<std::string,std::unordered_map<std::string,quasar::TranslationPairSetting>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::unordered_map<std::string,quasar::TranslationPairSetting>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::unordered_map<std::string,quasar::TranslationPairSetting>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::unordered_map<std::string,quasar::TranslationPairSetting>>>>::__assign_multi<std::__hash_const_iterator<std::__hash_node<std::__hash_value_type<std::string,std::unordered_map<std::string,quasar::TranslationPairSetting>>,void *> *>>(void *result, void *a2, void *a3)
 {
   v4 = a2;
-  v6 = a1[1];
+  v6 = result[1];
   if (v6)
   {
     for (i = 0; i != v6; ++i)
     {
-      *(*a1 + 8 * i) = 0;
+      *(*result + 8 * i) = 0;
     }
 
-    v8 = a1[2];
-    a1[2] = 0;
-    a1[3] = 0;
+    v8 = result[2];
+    result[2] = 0;
+    result[3] = 0;
     if (v8)
     {
       v9 = a2 == a3;
@@ -2540,7 +2543,7 @@ void std::__hash_table<std::__hash_value_type<std::string,std::unordered_map<std
         v12[1] = v8 + 5;
         std::pair<std::string &,std::unordered_map<std::string,quasar::TranslationPairSetting> &>::operator=[abi:ne200100]<std::string const,std::unordered_map<std::string,quasar::TranslationPairSetting>,0>(v12, (v4 + 2));
         v10 = *v8;
-        std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__node_insert_multi(a1, v8);
+        std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__node_insert_multi(result, v8);
         v4 = *v4;
         if (v10)
         {
@@ -2558,12 +2561,12 @@ void std::__hash_table<std::__hash_value_type<std::string,std::unordered_map<std
       while (!v11);
     }
 
-    std::__hash_table<std::__hash_value_type<std::string,std::unordered_map<std::string,quasar::TranslationPairSetting>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::unordered_map<std::string,quasar::TranslationPairSetting>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::unordered_map<std::string,quasar::TranslationPairSetting>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::unordered_map<std::string,quasar::TranslationPairSetting>>>>::__deallocate_node(a1, v10);
+    std::__hash_table<std::__hash_value_type<std::string,std::unordered_map<std::string,quasar::TranslationPairSetting>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::unordered_map<std::string,quasar::TranslationPairSetting>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::unordered_map<std::string,quasar::TranslationPairSetting>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::unordered_map<std::string,quasar::TranslationPairSetting>>>>::__deallocate_node(result, v10);
   }
 
   if (v4 != a3)
   {
-    std::__hash_table<std::__hash_value_type<std::string,std::unordered_map<std::string,quasar::TranslationPairSetting>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::unordered_map<std::string,quasar::TranslationPairSetting>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::unordered_map<std::string,quasar::TranslationPairSetting>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::unordered_map<std::string,quasar::TranslationPairSetting>>>>::__emplace_multi<std::pair<std::string const,std::unordered_map<std::string,quasar::TranslationPairSetting>> const&>();
+    std::__hash_table<std::__hash_value_type<std::string,std::unordered_map<std::string,quasar::TranslationPairSetting>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::unordered_map<std::string,quasar::TranslationPairSetting>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::unordered_map<std::string,quasar::TranslationPairSetting>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::unordered_map<std::string,quasar::TranslationPairSetting>>>>::__emplace_multi<std::pair<std::string const,std::unordered_map<std::string,quasar::TranslationPairSetting>> const&>(result);
   }
 }
 
@@ -2576,8 +2579,7 @@ void sub_1B5023980(void *a1)
 
 std::string *std::__fs::filesystem::path::path[abi:ne200100]<std::string,void>(std::string *a1, std::string *a2)
 {
-  a1->__r_.__value_.__r.__words[0] = 0;
-  a1->__r_.__value_.__l.__size_ = 0;
+  *&a1->__r_.__value_.__l.__data_ = 0uLL;
   a1->__r_.__value_.__r.__words[2] = 0;
   v3 = SHIBYTE(a2->__r_.__value_.__r.__words[2]);
   size = a2->__r_.__value_.__l.__size_;
@@ -2721,8 +2723,7 @@ void kaldi::quasar::Vocab::OOvWord(kaldi::quasar::Vocab *this@<X0>, std::string 
 
   else
   {
-    *&a2->__r_.__value_.__l.__data_ = *(this + 8);
-    a2->__r_.__value_.__r.__words[2] = *(this + 3);
+    *a2 = *(this + 8);
   }
 }
 
@@ -2794,7 +2795,7 @@ uint64_t std::unordered_map<std::string const*,std::__list_iterator<std::pair<st
   return a1;
 }
 
-void std::__hash_table<std::__hash_value_type<std::vector<int> const*,std::__list_iterator<std::pair<std::vector<int>,kaldi::quasar::RnnlmEvaluator::HistoryCacheEntry>,void *>>,std::__unordered_map_hasher<std::vector<int> const*,std::__hash_value_type<std::vector<int> const*,std::__list_iterator<std::pair<std::vector<int>,kaldi::quasar::RnnlmEvaluator::HistoryCacheEntry>,void *>>,kaldi::LRUCacheMap<std::vector<int>,kaldi::quasar::RnnlmEvaluator::HistoryCacheEntry,kaldi::VectorHasher<int>,std::equal_to<std::vector<int>>>::PointerHasher,kaldi::LRUCacheMap<std::vector<int>,kaldi::quasar::RnnlmEvaluator::HistoryCacheEntry,kaldi::VectorHasher<int>,std::equal_to<std::vector<int>>>::PointerPred,false>,std::__unordered_map_equal<std::vector<int> const*,std::__hash_value_type<std::vector<int> const*,std::__list_iterator<std::pair<std::vector<int>,kaldi::quasar::RnnlmEvaluator::HistoryCacheEntry>,void *>>,kaldi::LRUCacheMap<std::vector<int>,kaldi::quasar::RnnlmEvaluator::HistoryCacheEntry,kaldi::VectorHasher<int>,std::equal_to<std::vector<int>>>::PointerPred,kaldi::LRUCacheMap<std::vector<int>,kaldi::quasar::RnnlmEvaluator::HistoryCacheEntry,kaldi::VectorHasher<int>,std::equal_to<std::vector<int>>>::PointerHasher,false>,std::allocator<std::__hash_value_type<std::vector<int> const*,std::__list_iterator<std::pair<std::vector<int>,kaldi::quasar::RnnlmEvaluator::HistoryCacheEntry>,void *>>>>::__rehash<true>(uint64_t a1, size_t __n)
+void std::__hash_table<std::__hash_value_type<std::vector<int> const*,std::__list_iterator<std::pair<std::vector<int>,kaldi::quasar::RnnlmEvaluator::HistoryCacheEntry>,void *>>,std::__unordered_map_hasher<std::vector<int> const*,std::__hash_value_type<std::vector<int> const*,std::__list_iterator<std::pair<std::vector<int>,kaldi::quasar::RnnlmEvaluator::HistoryCacheEntry>,void *>>,kaldi::LRUCacheMap<std::vector<int>,kaldi::quasar::RnnlmEvaluator::HistoryCacheEntry,kaldi::VectorHasher<int>,std::equal_to<std::vector<int>>>::PointerHasher,kaldi::LRUCacheMap<std::vector<int>,kaldi::quasar::RnnlmEvaluator::HistoryCacheEntry,kaldi::VectorHasher<int>,std::equal_to<std::vector<int>>>::PointerPred,false>,std::__unordered_map_equal<std::vector<int> const*,std::__hash_value_type<std::vector<int> const*,std::__list_iterator<std::pair<std::vector<int>,kaldi::quasar::RnnlmEvaluator::HistoryCacheEntry>,void *>>,kaldi::LRUCacheMap<std::vector<int>,kaldi::quasar::RnnlmEvaluator::HistoryCacheEntry,kaldi::VectorHasher<int>,std::equal_to<std::vector<int>>>::PointerPred,kaldi::LRUCacheMap<std::vector<int>,kaldi::quasar::RnnlmEvaluator::HistoryCacheEntry,kaldi::VectorHasher<int>,std::equal_to<std::vector<int>>>::PointerHasher,false>,std::allocator<std::__hash_value_type<std::vector<int> const*,std::__list_iterator<std::pair<std::vector<int>,kaldi::quasar::RnnlmEvaluator::HistoryCacheEntry>,void *>>>>::__rehash<true>(uint64_t result, size_t __n)
 {
   if (__n == 1)
   {
@@ -2810,7 +2811,7 @@ void std::__hash_table<std::__hash_value_type<std::vector<int> const*,std::__lis
     }
   }
 
-  v4 = *(a1 + 8);
+  v4 = *(result + 8);
   if (prime > *&v4)
   {
     goto LABEL_6;
@@ -2818,7 +2819,7 @@ void std::__hash_table<std::__hash_value_type<std::vector<int> const*,std::__lis
 
   if (prime < *&v4)
   {
-    v5 = vcvtps_u32_f32(*(a1 + 24) / *(a1 + 36));
+    v5 = vcvtps_u32_f32(*(result + 24) / *(result + 36));
     if (*&v4 < 3uLL || (v6 = vcnt_s8(v4), v6.i16[0] = vaddlv_u8(v6), v6.u32[0] > 1uLL))
     {
       v5 = std::__next_prime(v5);
@@ -2842,7 +2843,7 @@ void std::__hash_table<std::__hash_value_type<std::vector<int> const*,std::__lis
     {
 LABEL_6:
 
-      std::__hash_table<std::__hash_value_type<std::string,std::variant<kaldi::quasar::ShortlistDataInManyFiles::NotLoadedShortListDataOnDisk,std::shared_ptr<kaldi::quasar::ShortlistDataOnDisk>>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::variant<kaldi::quasar::ShortlistDataInManyFiles::NotLoadedShortListDataOnDisk,std::shared_ptr<kaldi::quasar::ShortlistDataOnDisk>>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::variant<kaldi::quasar::ShortlistDataInManyFiles::NotLoadedShortListDataOnDisk,std::shared_ptr<kaldi::quasar::ShortlistDataOnDisk>>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::variant<kaldi::quasar::ShortlistDataInManyFiles::NotLoadedShortListDataOnDisk,std::shared_ptr<kaldi::quasar::ShortlistDataOnDisk>>>>>::__do_rehash<true>(a1, prime);
+      std::__hash_table<std::__hash_value_type<std::string,std::variant<kaldi::quasar::ShortlistDataInManyFiles::NotLoadedShortListDataOnDisk,std::shared_ptr<kaldi::quasar::ShortlistDataOnDisk>>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::variant<kaldi::quasar::ShortlistDataInManyFiles::NotLoadedShortListDataOnDisk,std::shared_ptr<kaldi::quasar::ShortlistDataOnDisk>>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::variant<kaldi::quasar::ShortlistDataInManyFiles::NotLoadedShortListDataOnDisk,std::shared_ptr<kaldi::quasar::ShortlistDataOnDisk>>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::variant<kaldi::quasar::ShortlistDataInManyFiles::NotLoadedShortListDataOnDisk,std::shared_ptr<kaldi::quasar::ShortlistDataOnDisk>>>>>::__do_rehash<true>(result, prime);
     }
   }
 }
@@ -2862,9 +2863,9 @@ uint64_t *std::unique_ptr<kaldi::LRUCacheMap<std::string,quasar::SystemConfig::S
   return result;
 }
 
-unint64_t std::__string_hash<char>::operator()[abi:ne200100](uint64_t a1, uint64_t a2)
+unint64_t std::__string_hash<char>::operator()[abi:ne200100](uint64_t a1, uint64_t *a2)
 {
-  v2 = *(a2 + 8);
+  v2 = a2[1];
   if (*(a2 + 23) >= 0)
   {
     v3 = *(a2 + 23);
@@ -2958,7 +2959,7 @@ unint64_t std::__murmur2_or_cityhash<unsigned long,64ul>::operator()[abi:ne20010
   }
 }
 
-uint64_t quasar::SystemConfig::SystemConfigInfoCache::get(uint64_t a1, uint64_t a2, uint64_t a3)
+uint64_t quasar::SystemConfig::SystemConfigInfoCache::get(uint64_t a1, uint64_t *a2, uint64_t a3)
 {
   std::mutex::lock(a1);
   v6 = *(a1 + 64);
@@ -2977,19 +2978,20 @@ uint64_t quasar::SystemConfig::SystemConfigInfoCache::get(uint64_t a1, uint64_t 
   return v7;
 }
 
-BOOL kaldi::LRUCacheMap<std::string,quasar::SystemConfig::SystemConfigInfo,std::hash<std::string>,std::equal_to<std::string>>::Get(uint64_t a1, uint64_t a2, uint64_t a3)
+uint64_t kaldi::LRUCacheMap<std::string,quasar::SystemConfig::SystemConfigInfo,std::hash<std::string>,std::equal_to<std::string>>::Get(uint64_t a1, uint64_t *a2, uint64_t a3)
 {
-  v6 = 0;
-  v4 = kaldi::LRUCacheMap<std::string,quasar::SystemConfig::SystemConfigInfo,std::hash<std::string>,std::equal_to<std::string>>::Get(a1, a2, &v6);
+  v7 = 0;
+  kaldi::LRUCacheMap<std::string,quasar::SystemConfig::SystemConfigInfo,std::hash<std::string>,std::equal_to<std::string>>::Get(a1, a2, &v7);
+  v5 = v4;
   if (v4)
   {
-    quasar::SystemConfig::SystemConfigInfo::operator=(a3, v6);
+    quasar::SystemConfig::SystemConfigInfo::operator=(a3, v7);
   }
 
-  return v4;
+  return v5;
 }
 
-void *std::__hash_table<std::__hash_value_type<std::string const*,std::__list_iterator<std::pair<std::string,quasar::SystemConfig::SystemConfigInfo>,void *>>,std::__unordered_map_hasher<std::string const*,std::__hash_value_type<std::string const*,std::__list_iterator<std::pair<std::string,quasar::SystemConfig::SystemConfigInfo>,void *>>,kaldi::LRUCacheMap<std::string,quasar::SystemConfig::SystemConfigInfo,std::hash<std::string>,std::equal_to<std::string>>::PointerHasher,kaldi::LRUCacheMap<std::string,quasar::SystemConfig::SystemConfigInfo,std::hash<std::string>,std::equal_to<std::string>>::PointerPred,false>,std::__unordered_map_equal<std::string const*,std::__hash_value_type<std::string const*,std::__list_iterator<std::pair<std::string,quasar::SystemConfig::SystemConfigInfo>,void *>>,kaldi::LRUCacheMap<std::string,quasar::SystemConfig::SystemConfigInfo,std::hash<std::string>,std::equal_to<std::string>>::PointerPred,kaldi::LRUCacheMap<std::string,quasar::SystemConfig::SystemConfigInfo,std::hash<std::string>,std::equal_to<std::string>>::PointerHasher,false>,std::allocator<std::__hash_value_type<std::string const*,std::__list_iterator<std::pair<std::string,quasar::SystemConfig::SystemConfigInfo>,void *>>>>::find<std::string const*>(void *a1, uint64_t *a2)
+void *std::__hash_table<std::__hash_value_type<std::string const*,std::__list_iterator<std::pair<std::string,quasar::SystemConfig::SystemConfigInfo>,void *>>,std::__unordered_map_hasher<std::string const*,std::__hash_value_type<std::string const*,std::__list_iterator<std::pair<std::string,quasar::SystemConfig::SystemConfigInfo>,void *>>,kaldi::LRUCacheMap<std::string,quasar::SystemConfig::SystemConfigInfo,std::hash<std::string>,std::equal_to<std::string>>::PointerHasher,kaldi::LRUCacheMap<std::string,quasar::SystemConfig::SystemConfigInfo,std::hash<std::string>,std::equal_to<std::string>>::PointerPred,false>,std::__unordered_map_equal<std::string const*,std::__hash_value_type<std::string const*,std::__list_iterator<std::pair<std::string,quasar::SystemConfig::SystemConfigInfo>,void *>>,kaldi::LRUCacheMap<std::string,quasar::SystemConfig::SystemConfigInfo,std::hash<std::string>,std::equal_to<std::string>>::PointerPred,kaldi::LRUCacheMap<std::string,quasar::SystemConfig::SystemConfigInfo,std::hash<std::string>,std::equal_to<std::string>>::PointerHasher,false>,std::allocator<std::__hash_value_type<std::string const*,std::__list_iterator<std::pair<std::string,quasar::SystemConfig::SystemConfigInfo>,void *>>>>::find<std::string const*>(void *a1, uint64_t **a2)
 {
   v4 = std::__string_hash<char>::operator()[abi:ne200100]((a1 + 4), *a2);
   v5 = a1[1];
@@ -3067,17 +3069,17 @@ void *std::__hash_table<std::__hash_value_type<std::string const*,std::__list_it
   return v11;
 }
 
-BOOL kaldi::LRUCacheMap<std::string,quasar::SystemConfig::SystemConfigInfo,std::hash<std::string>,std::equal_to<std::string>>::Get(uint64_t a1, uint64_t a2, void *a3)
+void kaldi::LRUCacheMap<std::string,quasar::SystemConfig::SystemConfigInfo,std::hash<std::string>,std::equal_to<std::string>>::Get(uint64_t a1, uint64_t *a2, void *a3)
 {
   if (!a3)
   {
-    kaldi::KaldiWarnMessage::KaldiWarnMessage(v12);
-    std::operator<<[abi:ne200100]<std::char_traits<char>>(v12, "v != nullptr");
-    kaldi::KaldiErrorMessage::~KaldiErrorMessage(v12);
+    kaldi::KaldiWarnMessage::KaldiWarnMessage(v11);
+    std::operator<<[abi:ne200100]<std::char_traits<char>>(v11, "v != nullptr");
+    kaldi::KaldiErrorMessage::~KaldiErrorMessage(v11);
   }
 
-  v12[0] = a2;
-  v5 = std::__hash_table<std::__hash_value_type<std::string const*,std::__list_iterator<std::pair<std::string,quasar::SystemConfig::SystemConfigInfo>,void *>>,std::__unordered_map_hasher<std::string const*,std::__hash_value_type<std::string const*,std::__list_iterator<std::pair<std::string,quasar::SystemConfig::SystemConfigInfo>,void *>>,kaldi::LRUCacheMap<std::string,quasar::SystemConfig::SystemConfigInfo,std::hash<std::string>,std::equal_to<std::string>>::PointerHasher,kaldi::LRUCacheMap<std::string,quasar::SystemConfig::SystemConfigInfo,std::hash<std::string>,std::equal_to<std::string>>::PointerPred,false>,std::__unordered_map_equal<std::string const*,std::__hash_value_type<std::string const*,std::__list_iterator<std::pair<std::string,quasar::SystemConfig::SystemConfigInfo>,void *>>,kaldi::LRUCacheMap<std::string,quasar::SystemConfig::SystemConfigInfo,std::hash<std::string>,std::equal_to<std::string>>::PointerPred,kaldi::LRUCacheMap<std::string,quasar::SystemConfig::SystemConfigInfo,std::hash<std::string>,std::equal_to<std::string>>::PointerHasher,false>,std::allocator<std::__hash_value_type<std::string const*,std::__list_iterator<std::pair<std::string,quasar::SystemConfig::SystemConfigInfo>,void *>>>>::find<std::string const*>((a1 + 8), v12);
+  v11[0] = a2;
+  v5 = std::__hash_table<std::__hash_value_type<std::string const*,std::__list_iterator<std::pair<std::string,quasar::SystemConfig::SystemConfigInfo>,void *>>,std::__unordered_map_hasher<std::string const*,std::__hash_value_type<std::string const*,std::__list_iterator<std::pair<std::string,quasar::SystemConfig::SystemConfigInfo>,void *>>,kaldi::LRUCacheMap<std::string,quasar::SystemConfig::SystemConfigInfo,std::hash<std::string>,std::equal_to<std::string>>::PointerHasher,kaldi::LRUCacheMap<std::string,quasar::SystemConfig::SystemConfigInfo,std::hash<std::string>,std::equal_to<std::string>>::PointerPred,false>,std::__unordered_map_equal<std::string const*,std::__hash_value_type<std::string const*,std::__list_iterator<std::pair<std::string,quasar::SystemConfig::SystemConfigInfo>,void *>>,kaldi::LRUCacheMap<std::string,quasar::SystemConfig::SystemConfigInfo,std::hash<std::string>,std::equal_to<std::string>>::PointerPred,kaldi::LRUCacheMap<std::string,quasar::SystemConfig::SystemConfigInfo,std::hash<std::string>,std::equal_to<std::string>>::PointerHasher,false>,std::allocator<std::__hash_value_type<std::string const*,std::__list_iterator<std::pair<std::string,quasar::SystemConfig::SystemConfigInfo>,void *>>>>::find<std::string const*>((a1 + 8), v11);
   if (v5)
   {
     v6 = v5[3];
@@ -3100,21 +3102,19 @@ BOOL kaldi::LRUCacheMap<std::string,quasar::SystemConfig::SystemConfigInfo,std::
 
     *a3 = v6 + 5;
   }
-
-  return v5 != 0;
 }
 
-void quasar::PTree::readJsonFromFile()
+void quasar::PTree::readJsonFromFile(uint64_t a1, uint64_t *a2)
 {
-  v0 = 0;
-  v1 = 0;
   v2 = 0;
+  v3 = 0;
+  v4 = 0;
   operator new();
 }
 
-void sub_1B5024570(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, __int128 __p, int a10, __int16 a11, char a12, char a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, char a19)
+void sub_1B5024570(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, __int128 __p, int a11, __int16 a12, char a13, char a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, char a20)
 {
-  boost::property_tree::basic_ptree<std::string,std::string,std::less<std::string>>::~basic_ptree(&a19);
+  boost::property_tree::basic_ptree<std::string,std::string,std::less<std::string>>::~basic_ptree(&a20);
   if (a2 == 1)
   {
     v21 = __cxa_begin_catch(a1);
@@ -3127,48 +3127,23 @@ void sub_1B5024570(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t *std::ifstream::basic_ifstream(uint64_t *a1)
+uint64_t *std::ifstream::basic_ifstream(uint64_t *a1, uint64_t a2, int a3)
 {
   a1[59] = 0;
-  v2 = MEMORY[0x1E69E5528] + 64;
+  v4 = MEMORY[0x1E69E5528] + 64;
   a1[53] = MEMORY[0x1E69E5528] + 64;
-  v3 = *(MEMORY[0x1E69E54C8] + 16);
-  v4 = *(MEMORY[0x1E69E54C8] + 8);
-  *a1 = v4;
-  *(a1 + *(v4 - 24)) = v3;
-  a1[1] = 0;
-  v5 = (a1 + *(*a1 - 24));
-  std::ios_base::init(v5, a1 + 2);
-  v6 = MEMORY[0x1E69E5528] + 24;
-  v5[1].__vftable = 0;
-  v5[1].__fmtflags_ = -1;
+  v5 = *(MEMORY[0x1E69E54C8] + 16);
+  v6 = *(MEMORY[0x1E69E54C8] + 8);
   *a1 = v6;
-  a1[53] = v2;
-  MEMORY[0x1B8C849F0](a1 + 2);
-  if (!std::filebuf::open())
-  {
-    std::ios_base::clear((a1 + *(*a1 - 24)), *(a1 + *(*a1 - 24) + 32) | 4);
-  }
-
-  return a1;
-}
-
-{
-  a1[59] = 0;
-  v2 = MEMORY[0x1E69E5528] + 64;
-  a1[53] = MEMORY[0x1E69E5528] + 64;
-  v3 = *(MEMORY[0x1E69E54C8] + 16);
-  v4 = *(MEMORY[0x1E69E54C8] + 8);
-  *a1 = v4;
-  *(a1 + *(v4 - 24)) = v3;
+  *(a1 + *(v6 - 24)) = v5;
   a1[1] = 0;
-  v5 = (a1 + *(*a1 - 24));
-  std::ios_base::init(v5, a1 + 2);
-  v6 = MEMORY[0x1E69E5528] + 24;
-  v5[1].__vftable = 0;
-  v5[1].__fmtflags_ = -1;
-  *a1 = v6;
-  a1[53] = v2;
+  v7 = (a1 + *(*a1 - 24));
+  std::ios_base::init(v7, a1 + 2);
+  v8 = MEMORY[0x1E69E5528] + 24;
+  v7[1].__vftable = 0;
+  v7[1].__fmtflags_ = -1;
+  *a1 = v8;
+  a1[53] = v4;
   MEMORY[0x1B8C849F0](a1 + 2);
   if (!std::filebuf::open())
   {
@@ -3264,8 +3239,7 @@ void std::pair<std::string,boost::property_tree::basic_ptree<std::string,std::st
   v3 = *a2;
   *(a1 + 16) = *(a2 + 2);
   *a1 = v3;
-  *(a2 + 1) = 0;
-  *(a2 + 2) = 0;
+  *(a2 + 8) = 0uLL;
   *a2 = 0;
   if (*(a3 + 23) < 0)
   {
@@ -3923,9 +3897,9 @@ void quasar::PTreeHelper::PTreeFromPTree(uint64_t a1@<X0>, uint64_t a2@<X8>)
 
   while (v8 != v6)
   {
-    quasar::PTreeHelper::PTreeFromPTree(v10, v8 + 24);
+    quasar::PTreeHelper::PTreeFromPTree(v8 + 24, v10);
     std::pair<std::string,quasar::PTree>::pair[abi:ne200100]<std::string const&,quasar::PTree,0>(&__p, v8, v10);
-    std::vector<std::pair<std::string,quasar::PTree>>::push_back[abi:ne200100](a2 + 32, &__p);
+    std::vector<std::pair<std::string,quasar::PTree>>::push_back[abi:ne200100]((a2 + 32), &__p);
     quasar::PTree::~PTree(&v12);
     if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
     {
@@ -3991,20 +3965,20 @@ void sub_1B5025B00(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::__assign_multi<std::__hash_const_iterator<std::__hash_node<std::__hash_value_type<std::string,std::string>,void *> *>>(void *a1, uint64_t *a2, uint64_t *a3)
+void std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::__assign_multi<std::__hash_const_iterator<std::__hash_node<std::__hash_value_type<std::string,std::string>,void *> *>>(void *result, uint64_t *a2, uint64_t *a3)
 {
   v4 = a2;
-  v6 = a1[1];
+  v6 = result[1];
   if (v6)
   {
     for (i = 0; i != v6; ++i)
     {
-      *(*a1 + 8 * i) = 0;
+      *(*result + 8 * i) = 0;
     }
 
-    v8 = a1[2];
-    a1[2] = 0;
-    a1[3] = 0;
+    v8 = result[2];
+    result[2] = 0;
+    result[3] = 0;
     if (v8)
     {
       v9 = a2 == a3;
@@ -4024,10 +3998,10 @@ void std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__un
     {
       do
       {
-        std::string::operator=((v8 + 16), (v4 + 2));
-        std::string::operator=((v8 + 40), (v4 + 5));
+        std::string::operator=((v8 + 2), (v4 + 2));
+        std::string::operator=((v8 + 5), (v4 + 5));
         v10 = *v8;
-        std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__node_insert_multi(a1, v8);
+        std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__node_insert_multi(result, v8);
         v4 = *v4;
         if (!v10)
         {
@@ -4040,12 +4014,12 @@ void std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__un
       while (v4 != a3);
     }
 
-    std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::__deallocate_node(a1, v10);
+    std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::__deallocate_node(result, v10);
   }
 
   if (v4 != a3)
   {
-    std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::__emplace_multi<std::pair<std::string const,std::string> const&>();
+    std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::__emplace_multi<std::pair<std::string const,std::string> const&>(result);
   }
 }
 
@@ -4056,20 +4030,20 @@ void sub_1B5025C0C(void *a1)
   __cxa_rethrow();
 }
 
-void std::__hash_table<std::__hash_value_type<std::string,std::unordered_set<std::string>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::unordered_set<std::string>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::unordered_set<std::string>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::unordered_set<std::string>>>>::__assign_multi<std::__hash_const_iterator<std::__hash_node<std::__hash_value_type<std::string,std::unordered_set<std::string>>,void *> *>>(void *a1, void *a2, void *a3)
+void std::__hash_table<std::__hash_value_type<std::string,std::unordered_set<std::string>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::unordered_set<std::string>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::unordered_set<std::string>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::unordered_set<std::string>>>>::__assign_multi<std::__hash_const_iterator<std::__hash_node<std::__hash_value_type<std::string,std::unordered_set<std::string>>,void *> *>>(void *result, void *a2, void *a3)
 {
   v4 = a2;
-  v6 = a1[1];
+  v6 = result[1];
   if (v6)
   {
     for (i = 0; i != v6; ++i)
     {
-      *(*a1 + 8 * i) = 0;
+      *(*result + 8 * i) = 0;
     }
 
-    v8 = a1[2];
-    a1[2] = 0;
-    a1[3] = 0;
+    v8 = result[2];
+    result[2] = 0;
+    result[3] = 0;
     if (v8)
     {
       v9 = a2 == a3;
@@ -4093,7 +4067,7 @@ void std::__hash_table<std::__hash_value_type<std::string,std::unordered_set<std
         v12[1] = v8 + 5;
         std::pair<std::string &,std::unordered_set<std::string> &>::operator=[abi:ne200100]<std::string const,std::unordered_set<std::string>,0>(v12, (v4 + 2));
         v10 = *v8;
-        std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__node_insert_multi(a1, v8);
+        std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__node_insert_multi(result, v8);
         v4 = *v4;
         if (v10)
         {
@@ -4111,12 +4085,12 @@ void std::__hash_table<std::__hash_value_type<std::string,std::unordered_set<std
       while (!v11);
     }
 
-    std::__hash_table<std::__hash_value_type<std::string,std::unordered_set<std::string>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::unordered_set<std::string>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::unordered_set<std::string>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::unordered_set<std::string>>>>::__deallocate_node(a1, v10);
+    std::__hash_table<std::__hash_value_type<std::string,std::unordered_set<std::string>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::unordered_set<std::string>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::unordered_set<std::string>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::unordered_set<std::string>>>>::__deallocate_node(result, v10);
   }
 
   if (v4 != a3)
   {
-    std::__hash_table<std::__hash_value_type<std::string,std::unordered_set<std::string>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::unordered_set<std::string>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::unordered_set<std::string>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::unordered_set<std::string>>>>::__emplace_multi<std::pair<std::string const,std::unordered_set<std::string>> const&>();
+    std::__hash_table<std::__hash_value_type<std::string,std::unordered_set<std::string>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::unordered_set<std::string>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::unordered_set<std::string>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::unordered_set<std::string>>>>::__emplace_multi<std::pair<std::string const,std::unordered_set<std::string>> const&>(result);
   }
 }
 
@@ -4144,20 +4118,20 @@ void sub_1B5025E54(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__assign_multi<std::__hash_const_iterator<std::__hash_node<std::string,void *> *>>(void *a1, uint64_t *a2, uint64_t *a3)
+void std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__assign_multi<std::__hash_const_iterator<std::__hash_node<std::string,void *> *>>(void *result, uint64_t *a2, uint64_t *a3)
 {
   v4 = a2;
-  v6 = a1[1];
+  v6 = result[1];
   if (v6)
   {
     for (i = 0; i != v6; ++i)
     {
-      *(*a1 + 8 * i) = 0;
+      *(*result + 8 * i) = 0;
     }
 
-    v8 = a1[2];
-    a1[2] = 0;
-    a1[3] = 0;
+    v8 = result[2];
+    result[2] = 0;
+    result[3] = 0;
     if (v8)
     {
       v9 = a2 == a3;
@@ -4177,9 +4151,9 @@ void std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::str
     {
       do
       {
-        std::string::operator=((v8 + 16), (v4 + 2));
+        std::string::operator=((v8 + 2), (v4 + 2));
         v10 = *v8;
-        std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__node_insert_multi(a1, v8);
+        std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__node_insert_multi(result, v8);
         v4 = *v4;
         if (v10)
         {
@@ -4197,12 +4171,12 @@ void std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::str
       while (!v11);
     }
 
-    std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__deallocate_node(a1, v10);
+    std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__deallocate_node(result, v10);
   }
 
   if (v4 != a3)
   {
-    std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__emplace_multi<std::string const&>();
+    std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__emplace_multi<std::string const&>(result);
   }
 }
 
@@ -4213,15 +4187,15 @@ void sub_1B5025F3C(void *a1)
   __cxa_rethrow();
 }
 
-uint64_t **std::__tree<std::__value_type<int,std::map<std::string,double>>,std::__map_value_compare<int,std::__value_type<int,std::map<std::string,double>>,std::less<int>,true>,std::allocator<std::__value_type<int,std::map<std::string,double>>>>::__assign_multi<std::__tree_const_iterator<std::__value_type<int,std::map<std::string,double>>,std::__tree_node<std::__value_type<int,std::map<std::string,double>>,void *> *,long>>(uint64_t **result, uint64_t *a2, uint64_t *a3)
+void *std::__tree<std::__value_type<int,std::map<std::string,double>>,std::__map_value_compare<int,std::__value_type<int,std::map<std::string,double>>,std::less<int>,true>,std::allocator<std::__value_type<int,std::map<std::string,double>>>>::__assign_multi<std::__tree_const_iterator<std::__value_type<int,std::map<std::string,double>>,std::__tree_node<std::__value_type<int,std::map<std::string,double>>,void *> *,long>>(void *result, void *a2, void *a3)
 {
   v5 = result;
   if (result[2])
   {
     v6 = *result;
     v7 = result[1];
-    *result = (result + 1);
-    v7[2] = 0;
+    *result = result + 1;
+    *(v7 + 16) = 0;
     result[1] = 0;
     result[2] = 0;
     if (v6[1])
@@ -4301,15 +4275,15 @@ uint64_t **std::__tree<std::__value_type<int,std::map<std::string,double>>,std::
 
   if (a2 != a3)
   {
-    std::__tree<std::__value_type<int,std::map<std::string,double>>,std::__map_value_compare<int,std::__value_type<int,std::map<std::string,double>>,std::less<int>,true>,std::allocator<std::__value_type<int,std::map<std::string,double>>>>::__emplace_multi<std::pair<int const,std::map<std::string,double>> const&>();
+    std::__tree<std::__value_type<int,std::map<std::string,double>>,std::__map_value_compare<int,std::__value_type<int,std::map<std::string,double>>,std::less<int>,true>,std::allocator<std::__value_type<int,std::map<std::string,double>>>>::__emplace_multi<std::pair<int const,std::map<std::string,double>> const&>(v5);
   }
 
   return result;
 }
 
-void sub_1B50260D8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1B50260D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__tree<std::__value_type<int,std::map<std::string,double>>,std::__map_value_compare<int,std::__value_type<int,std::map<std::string,double>>,std::less<int>,true>,std::allocator<std::__value_type<int,std::map<std::string,double>>>>::_DetachedTreeCache::~_DetachedTreeCache[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -4403,7 +4377,7 @@ uint64_t **std::__tree<std::__value_type<std::string,int>,std::__map_value_compa
 
   if (a2 != a3)
   {
-    std::__tree<std::__value_type<std::string,int>,std::__map_value_compare<std::string,std::__value_type<std::string,int>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,int>>>::__emplace_multi<std::pair<std::string const,int> const&>();
+    std::__tree<std::__value_type<std::string,int>,std::__map_value_compare<std::string,std::__value_type<std::string,int>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,int>>>::__emplace_multi<std::pair<std::string const,int> const&>(v5);
   }
 
   return result;
@@ -4577,11 +4551,11 @@ const void **std::__hash_table<std::string,std::hash<std::string>,std::equal_to<
   return v16;
 }
 
-uint64_t std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__node_insert_multi(void *a1, uint64_t a2)
+void *std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__node_insert_multi(void *a1, void *a2)
 {
-  v4 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2 + 16);
-  *(a2 + 8) = v4;
-  inserted = std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__node_insert_multi_prepare(a1, v4, (a2 + 16));
+  v4 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2 + 2);
+  a2[1] = v4;
+  inserted = std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__node_insert_multi_prepare(a1, v4, a2 + 2);
   std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__node_insert_multi_perform(a1, a2, inserted);
   return a2;
 }
@@ -4678,7 +4652,7 @@ BOOL boost::property_tree::json_parser::detail::parser<boost::property_tree::jso
   return result;
 }
 
-uint64_t std::vector<std::pair<std::string,quasar::PTree>>::__init_with_size[abi:ne200100]<std::pair<std::string,quasar::PTree>*,std::pair<std::string,quasar::PTree>*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<std::pair<std::string,quasar::PTree>>::__init_with_size[abi:ne200100]<std::pair<std::string,quasar::PTree>*,std::pair<std::string,quasar::PTree>*>(uint64_t *result, int a2, int a3, unint64_t a4)
 {
   if (a4)
   {
@@ -4688,28 +4662,28 @@ uint64_t std::vector<std::pair<std::string,quasar::PTree>>::__init_with_size[abi
   return result;
 }
 
-void sub_1B50268C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void **a9)
+void sub_1B50268C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
   *(v9 + 8) = v10;
   std::vector<std::pair<std::string,quasar::PTree>>::__destroy_vector::operator()[abi:ne200100](&a9);
   _Unwind_Resume(a1);
 }
 
-uint64_t std::vector<std::pair<std::string,quasar::PTree>>::__emplace_back_slow_path<std::pair<std::string,quasar::PTree>>(uint64_t a1, __int128 *a2)
+uint64_t std::vector<std::pair<std::string,quasar::PTree>>::__emplace_back_slow_path<std::pair<std::string,quasar::PTree>>(std::string **a1, __int128 *a2)
 {
-  v2 = 0x2E8BA2E8BA2E8BA3 * ((*(a1 + 8) - *a1) >> 3);
+  v2 = 0x2E8BA2E8BA2E8BA3 * ((a1[1] - *a1) >> 3);
   v3 = v2 + 1;
   if ((v2 + 1) > 0x2E8BA2E8BA2E8BALL)
   {
     std::vector<int>::__throw_length_error[abi:ne200100]();
   }
 
-  if (0x5D1745D1745D1746 * ((*(a1 + 16) - *a1) >> 3) > v3)
+  if (0x5D1745D1745D1746 * ((a1[2] - *a1) >> 3) > v3)
   {
-    v3 = 0x5D1745D1745D1746 * ((*(a1 + 16) - *a1) >> 3);
+    v3 = 0x5D1745D1745D1746 * ((a1[2] - *a1) >> 3);
   }
 
-  if ((0x2E8BA2E8BA2E8BA3 * ((*(a1 + 16) - *a1) >> 3)) >= 0x1745D1745D1745DLL)
+  if ((0x2E8BA2E8BA2E8BA3 * ((a1[2] - *a1) >> 3)) >= 0x1745D1745D1745DLL)
   {
     v6 = 0x2E8BA2E8BA2E8BALL;
   }
@@ -4729,14 +4703,14 @@ uint64_t std::vector<std::pair<std::string,quasar::PTree>>::__emplace_back_slow_
   v14 = 88 * v2;
   std::pair<std::string,quasar::PTree>::pair[abi:ne200100](88 * v2, a2);
   v15 = (88 * v2 + 88);
-  v7 = *(a1 + 8);
+  v7 = a1[1];
   v8 = (88 * v2 + *a1 - v7);
   std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<std::pair<std::string,quasar::PTree>>,std::pair<std::string,quasar::PTree>*>(a1, *a1, v7, v8);
   v9 = *a1;
   *a1 = v8;
-  v10 = *(a1 + 16);
+  v10 = a1[2];
   v12 = v15;
-  *(a1 + 8) = v15;
+  *(a1 + 1) = v15;
   *&v15 = v9;
   *(&v15 + 1) = v10;
   v13 = v9;
@@ -4745,29 +4719,29 @@ uint64_t std::vector<std::pair<std::string,quasar::PTree>>::__emplace_back_slow_
   return v12;
 }
 
-void sub_1B5026A18(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_1B5026A18(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<std::pair<std::string,quasar::PTree>>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t std::vector<std::pair<std::string,quasar::PTree>>::push_back[abi:ne200100](uint64_t a1, __int128 *a2)
+std::string *std::vector<std::pair<std::string,quasar::PTree>>::push_back[abi:ne200100](std::string **a1, __int128 *a2)
 {
-  v3 = *(a1 + 8);
-  if (v3 >= *(a1 + 16))
+  v3 = a1[1];
+  if (v3 >= a1[2])
   {
     result = std::vector<std::pair<std::string,quasar::PTree>>::__emplace_back_slow_path<std::pair<std::string,quasar::PTree>>(a1, a2);
   }
 
   else
   {
-    std::pair<std::string,quasar::PTree>::pair[abi:ne200100](*(a1 + 8), a2);
-    result = v3 + 88;
-    *(a1 + 8) = v3 + 88;
+    std::pair<std::string,quasar::PTree>::pair[abi:ne200100](a1[1], a2);
+    result = (v3 + 88);
+    a1[1] = (v3 + 88);
   }
 
-  *(a1 + 8) = result;
+  a1[1] = result;
   return result;
 }
 
@@ -4828,13 +4802,13 @@ void std::vector<std::pair<std::string,quasar::PTree>>::__destroy_vector::operat
   }
 }
 
-void std::__split_buffer<std::pair<std::string,quasar::PTree>>::clear[abi:ne200100](void *a1)
+void std::__split_buffer<std::pair<std::string,quasar::PTree>>::clear[abi:ne200100](void *result)
 {
-  v2 = a1[1];
-  for (i = a1[2]; i != v2; i = a1[2])
+  v2 = result[1];
+  for (i = result[2]; i != v2; i = result[2])
   {
-    v4 = a1[4];
-    a1[2] = i - 88;
+    v4 = result[4];
+    result[2] = i - 88;
     std::allocator<std::pair<std::string,quasar::PTree>>::destroy[abi:ne200100](v4, i - 88);
   }
 }
@@ -5141,8 +5115,7 @@ void std::pair<std::string const,boost::property_tree::basic_ptree<std::string,s
   v2 = *a2;
   *(a1 + 16) = *(a2 + 2);
   *a1 = v2;
-  *(a2 + 1) = 0;
-  *(a2 + 2) = 0;
+  *(a2 + 8) = 0uLL;
   *a2 = 0;
   if (*(a2 + 47) < 0)
   {
@@ -5176,17 +5149,17 @@ void sub_1B5027244(void *a1)
   __cxa_rethrow();
 }
 
-uint64_t boost::multi_index::detail::ordered_index_impl<boost::multi_index::member<std::pair<std::string const,boost::property_tree::basic_ptree<std::string,std::string,std::less<std::string>>>,std::string const,&std::pair<std::string const,boost::property_tree::basic_ptree<std::string,std::string,std::less<std::string>>>::first>,std::less<std::string>,boost::multi_index::detail::nth_layer<2,std::pair<std::string const,boost::property_tree::basic_ptree<std::string,std::string,std::less<std::string>>>,boost::multi_index::indexed_by<boost::multi_index::sequenced<boost::multi_index::tag<mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na>>,boost::multi_index::ordered_non_unique<boost::multi_index::tag<boost::property_tree::basic_ptree<std::string,std::string,std::less<std::string>>::subs::by_name,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na>,boost::multi_index::member<std::pair<std::string const,boost::property_tree::basic_ptree<std::string,std::string,std::less<std::string>>>,std::string const,&std::pair<std::string const,boost::property_tree::basic_ptree<std::string,std::string,std::less<std::string>>>::first>,std::less<std::string>>,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na>,std::allocator<std::pair<std::string const,boost::property_tree::basic_ptree<std::string,std::string,std::less<std::string>>>>>,boost::mpl::v_item<boost::property_tree::basic_ptree<std::string,std::string,std::less<std::string>>::subs::by_name,boost::mpl::vector0<mpl_::na>,0>,boost::multi_index::detail::ordered_non_unique_tag,boost::multi_index::detail::null_augment_policy>::insert_<boost::multi_index::detail::lvalue_tag>(uint64_t a1, const void **a2)
+uint64_t boost::multi_index::detail::ordered_index_impl<boost::multi_index::member<std::pair<std::string const,boost::property_tree::basic_ptree<std::string,std::string,std::less<std::string>>>,std::string const,&std::pair<std::string const,boost::property_tree::basic_ptree<std::string,std::string,std::less<std::string>>>::first>,std::less<std::string>,boost::multi_index::detail::nth_layer<2,std::pair<std::string const,boost::property_tree::basic_ptree<std::string,std::string,std::less<std::string>>>,boost::multi_index::indexed_by<boost::multi_index::sequenced<boost::multi_index::tag<mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na>>,boost::multi_index::ordered_non_unique<boost::multi_index::tag<boost::property_tree::basic_ptree<std::string,std::string,std::less<std::string>>::subs::by_name,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na>,boost::multi_index::member<std::pair<std::string const,boost::property_tree::basic_ptree<std::string,std::string,std::less<std::string>>>,std::string const,&std::pair<std::string const,boost::property_tree::basic_ptree<std::string,std::string,std::less<std::string>>>::first>,std::less<std::string>>,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na>,std::allocator<std::pair<std::string const,boost::property_tree::basic_ptree<std::string,std::string,std::less<std::string>>>>>,boost::mpl::v_item<boost::property_tree::basic_ptree<std::string,std::string,std::less<std::string>>::subs::by_name,boost::mpl::vector0<mpl_::na>,0>,boost::multi_index::detail::ordered_non_unique_tag,boost::multi_index::detail::null_augment_policy>::insert_<boost::multi_index::detail::lvalue_tag>(uint64_t a1, const void **a2, void *a3)
 {
-  v4 = 0;
-  if (boost::multi_index::detail::ordered_index_impl<boost::multi_index::member<std::pair<std::string const,boost::property_tree::basic_ptree<std::string,std::string,std::less<std::string>>>,std::string const,&std::pair<std::string const,boost::property_tree::basic_ptree<std::string,std::string,std::less<std::string>>>::first>,std::less<std::string>,boost::multi_index::detail::nth_layer<2,std::pair<std::string const,boost::property_tree::basic_ptree<std::string,std::string,std::less<std::string>>>,boost::multi_index::indexed_by<boost::multi_index::sequenced<boost::multi_index::tag<mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na>>,boost::multi_index::ordered_non_unique<boost::multi_index::tag<boost::property_tree::basic_ptree<std::string,std::string,std::less<std::string>>::subs::by_name,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na>,boost::multi_index::member<std::pair<std::string const,boost::property_tree::basic_ptree<std::string,std::string,std::less<std::string>>>,std::string const,&std::pair<std::string const,boost::property_tree::basic_ptree<std::string,std::string,std::less<std::string>>>::first>,std::less<std::string>>,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na>,std::allocator<std::pair<std::string const,boost::property_tree::basic_ptree<std::string,std::string,std::less<std::string>>>>>,boost::mpl::v_item<boost::property_tree::basic_ptree<std::string,std::string,std::less<std::string>>::subs::by_name,boost::mpl::vector0<mpl_::na>,0>,boost::multi_index::detail::ordered_non_unique_tag,boost::multi_index::detail::null_augment_policy>::link_point(a1, a2, &v4))
+  v8 = 0;
+  if (boost::multi_index::detail::ordered_index_impl<boost::multi_index::member<std::pair<std::string const,boost::property_tree::basic_ptree<std::string,std::string,std::less<std::string>>>,std::string const,&std::pair<std::string const,boost::property_tree::basic_ptree<std::string,std::string,std::less<std::string>>>::first>,std::less<std::string>,boost::multi_index::detail::nth_layer<2,std::pair<std::string const,boost::property_tree::basic_ptree<std::string,std::string,std::less<std::string>>>,boost::multi_index::indexed_by<boost::multi_index::sequenced<boost::multi_index::tag<mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na>>,boost::multi_index::ordered_non_unique<boost::multi_index::tag<boost::property_tree::basic_ptree<std::string,std::string,std::less<std::string>>::subs::by_name,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na>,boost::multi_index::member<std::pair<std::string const,boost::property_tree::basic_ptree<std::string,std::string,std::less<std::string>>>,std::string const,&std::pair<std::string const,boost::property_tree::basic_ptree<std::string,std::string,std::less<std::string>>>::first>,std::less<std::string>>,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na>,std::allocator<std::pair<std::string const,boost::property_tree::basic_ptree<std::string,std::string,std::less<std::string>>>>>,boost::mpl::v_item<boost::property_tree::basic_ptree<std::string,std::string,std::less<std::string>>::subs::by_name,boost::mpl::vector0<mpl_::na>,0>,boost::multi_index::detail::ordered_non_unique_tag,boost::multi_index::detail::null_augment_policy>::link_point(a1, a2, &v8))
   {
-    boost::multi_index::detail::index_base<std::pair<std::string const,boost::property_tree::basic_ptree<std::string,std::string,std::less<std::string>>>,boost::multi_index::indexed_by<boost::multi_index::sequenced<boost::multi_index::tag<mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na>>,boost::multi_index::ordered_non_unique<boost::multi_index::tag<boost::property_tree::basic_ptree<std::string,std::string,std::less<std::string>>::subs::by_name,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na>,boost::multi_index::member<std::pair<std::string const,boost::property_tree::basic_ptree<std::string,std::string,std::less<std::string>>>,std::string const,&std::pair<std::string const,boost::property_tree::basic_ptree<std::string,std::string,std::less<std::string>>>::first>,std::less<std::string>>,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na>,std::allocator<std::pair<std::string const,boost::property_tree::basic_ptree<std::string,std::string,std::less<std::string>>>>>::insert_();
+    boost::multi_index::detail::index_base<std::pair<std::string const,boost::property_tree::basic_ptree<std::string,std::string,std::less<std::string>>>,boost::multi_index::indexed_by<boost::multi_index::sequenced<boost::multi_index::tag<mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na>>,boost::multi_index::ordered_non_unique<boost::multi_index::tag<boost::property_tree::basic_ptree<std::string,std::string,std::less<std::string>>::subs::by_name,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na>,boost::multi_index::member<std::pair<std::string const,boost::property_tree::basic_ptree<std::string,std::string,std::less<std::string>>>,std::string const,&std::pair<std::string const,boost::property_tree::basic_ptree<std::string,std::string,std::less<std::string>>>::first>,std::less<std::string>>,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na>,std::allocator<std::pair<std::string const,boost::property_tree::basic_ptree<std::string,std::string,std::less<std::string>>>>>::insert_(a1, a2, a3);
   }
 
-  if (v5)
+  if (v9)
   {
-    return v5 - 56;
+    return v9 - 56;
   }
 
   else
@@ -5197,7 +5170,7 @@ uint64_t boost::multi_index::detail::ordered_index_impl<boost::multi_index::memb
 
 uint64_t boost::multi_index::detail::sequenced_index<boost::multi_index::detail::nth_layer<1,std::pair<std::string const,boost::property_tree::basic_ptree<std::string,std::string,std::less<std::string>>>,boost::multi_index::indexed_by<boost::multi_index::sequenced<boost::multi_index::tag<mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na>>,boost::multi_index::ordered_non_unique<boost::multi_index::tag<boost::property_tree::basic_ptree<std::string,std::string,std::less<std::string>>::subs::by_name,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na>,boost::multi_index::member<std::pair<std::string const,boost::property_tree::basic_ptree<std::string,std::string,std::less<std::string>>>,std::string const,&std::pair<std::string const,boost::property_tree::basic_ptree<std::string,std::string,std::less<std::string>>>::first>,std::less<std::string>>,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na>,std::allocator<std::pair<std::string const,boost::property_tree::basic_ptree<std::string,std::string,std::less<std::string>>>>>,boost::mpl::vector0<mpl_::na>>::insert_<boost::multi_index::detail::lvalue_tag>(uint64_t a1, const void **a2, uint64_t *a3)
 {
-  result = boost::multi_index::detail::ordered_index_impl<boost::multi_index::member<std::pair<std::string const,boost::property_tree::basic_ptree<std::string,std::string,std::less<std::string>>>,std::string const,&std::pair<std::string const,boost::property_tree::basic_ptree<std::string,std::string,std::less<std::string>>>::first>,std::less<std::string>,boost::multi_index::detail::nth_layer<2,std::pair<std::string const,boost::property_tree::basic_ptree<std::string,std::string,std::less<std::string>>>,boost::multi_index::indexed_by<boost::multi_index::sequenced<boost::multi_index::tag<mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na>>,boost::multi_index::ordered_non_unique<boost::multi_index::tag<boost::property_tree::basic_ptree<std::string,std::string,std::less<std::string>>::subs::by_name,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na>,boost::multi_index::member<std::pair<std::string const,boost::property_tree::basic_ptree<std::string,std::string,std::less<std::string>>>,std::string const,&std::pair<std::string const,boost::property_tree::basic_ptree<std::string,std::string,std::less<std::string>>>::first>,std::less<std::string>>,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na>,std::allocator<std::pair<std::string const,boost::property_tree::basic_ptree<std::string,std::string,std::less<std::string>>>>>,boost::mpl::v_item<boost::property_tree::basic_ptree<std::string,std::string,std::less<std::string>>::subs::by_name,boost::mpl::vector0<mpl_::na>,0>,boost::multi_index::detail::ordered_non_unique_tag,boost::multi_index::detail::null_augment_policy>::insert_<boost::multi_index::detail::lvalue_tag>(a1, a2);
+  result = boost::multi_index::detail::ordered_index_impl<boost::multi_index::member<std::pair<std::string const,boost::property_tree::basic_ptree<std::string,std::string,std::less<std::string>>>,std::string const,&std::pair<std::string const,boost::property_tree::basic_ptree<std::string,std::string,std::less<std::string>>>::first>,std::less<std::string>,boost::multi_index::detail::nth_layer<2,std::pair<std::string const,boost::property_tree::basic_ptree<std::string,std::string,std::less<std::string>>>,boost::multi_index::indexed_by<boost::multi_index::sequenced<boost::multi_index::tag<mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na>>,boost::multi_index::ordered_non_unique<boost::multi_index::tag<boost::property_tree::basic_ptree<std::string,std::string,std::less<std::string>>::subs::by_name,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na>,boost::multi_index::member<std::pair<std::string const,boost::property_tree::basic_ptree<std::string,std::string,std::less<std::string>>>,std::string const,&std::pair<std::string const,boost::property_tree::basic_ptree<std::string,std::string,std::less<std::string>>>::first>,std::less<std::string>>,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na,mpl_::na>,std::allocator<std::pair<std::string const,boost::property_tree::basic_ptree<std::string,std::string,std::less<std::string>>>>>,boost::mpl::v_item<boost::property_tree::basic_ptree<std::string,std::string,std::less<std::string>>::subs::by_name,boost::mpl::vector0<mpl_::na>,0>,boost::multi_index::detail::ordered_non_unique_tag,boost::multi_index::detail::null_augment_policy>::insert_<boost::multi_index::detail::lvalue_tag>(a1, a2, a3);
   v6 = *a3;
   if (result == *a3)
   {
@@ -5491,7 +5464,7 @@ uint64_t boost::multi_index::multi_index_container<std::pair<std::string const,b
   v8 = *(v5 + 88);
   if (v8)
   {
-    v9 = v8 - 80;
+    v9 = (v8 - 80);
   }
 
   else
@@ -5710,15 +5683,15 @@ uint64_t boost::algorithm::split_iterator<std::__wrap_iter<char const*>>::split_
   return a1;
 }
 
-uint64_t boost::detail::function::functor_manager<boost::algorithm::detail::token_finderF<boost::algorithm::detail::is_any_ofF<char>>>::manage(uint64_t result, _WORD *a2, int a3)
+uint64_t boost::detail::function::functor_manager<boost::algorithm::detail::token_finderF<boost::algorithm::detail::is_any_ofF<char>>>::manage(uint64_t a1, _WORD *a2, int a3)
 {
   if (a3 != 4)
   {
-    return boost::detail::function::functor_manager<boost::algorithm::detail::token_finderF<boost::algorithm::detail::is_any_ofF<char>>>::manager(result, a2, a3);
+    return boost::detail::function::functor_manager<boost::algorithm::detail::token_finderF<boost::algorithm::detail::is_any_ofF<char>>>::manager(a1, a2, a3);
   }
 
   a2[4] = 0;
-  return result;
+  return a1;
 }
 
 uint64_t boost::detail::function::functor_manager<boost::algorithm::detail::token_finderF<boost::algorithm::detail::is_any_ofF<char>>>::manager(uint64_t result, _WORD *a2, int a3)
@@ -5810,12 +5783,11 @@ void *std::vector<std::string>::vector[abi:ne200100]<boost::iterators::transform
   return a1;
 }
 
-void sub_1B5028084(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1B5028084(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va1, a2);
-  va_start(va, a2);
-  v3 = va_arg(va1, void (**)(void, void, uint64_t));
-  v5 = va_arg(va1, void);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v4 = va_arg(va1, void (**)(void, void, uint64_t));
   v6 = va_arg(va1, void);
   v7 = va_arg(va1, void);
   v8 = va_arg(va1, void);
@@ -5824,6 +5796,7 @@ void sub_1B5028084(_Unwind_Exception *a1, uint64_t a2, ...)
   v11 = va_arg(va1, void);
   v12 = va_arg(va1, void);
   v13 = va_arg(va1, void);
+  v14 = va_arg(va1, void);
   boost::function2<boost::iterator_range<std::__wrap_iter<char const*>>,std::__wrap_iter<char const*>,std::__wrap_iter<char const*>>::~function2(va);
   boost::function2<boost::iterator_range<std::__wrap_iter<char const*>>,std::__wrap_iter<char const*>,std::__wrap_iter<char const*>>::~function2(va1);
   _Unwind_Resume(a1);
@@ -5878,8 +5851,7 @@ uint64_t std::pair<std::string,quasar::PTree>::pair[abi:ne200100](uint64_t a1, _
   v4 = *a2;
   *(a1 + 16) = *(a2 + 2);
   *a1 = v4;
-  *(a2 + 1) = 0;
-  *(a2 + 2) = 0;
+  *(a2 + 8) = 0uLL;
   *a2 = 0;
   *(a1 + 24) = *(a2 + 6);
   if (*(a2 + 55) < 0)
@@ -5897,7 +5869,7 @@ uint64_t std::pair<std::string,quasar::PTree>::pair[abi:ne200100](uint64_t a1, _
   *(a1 + 56) = 0;
   *(a1 + 64) = 0;
   *(a1 + 72) = 0;
-  std::vector<std::pair<std::string,quasar::PTree>>::__init_with_size[abi:ne200100]<std::pair<std::string,quasar::PTree>*,std::pair<std::string,quasar::PTree>*>(a1 + 56, *(a2 + 7), *(a2 + 8), 0x2E8BA2E8BA2E8BA3 * ((*(a2 + 8) - *(a2 + 7)) >> 3));
+  std::vector<std::pair<std::string,quasar::PTree>>::__init_with_size[abi:ne200100]<std::pair<std::string,quasar::PTree>*,std::pair<std::string,quasar::PTree>*>((a1 + 56), *(a2 + 7), *(a2 + 8), 0x2E8BA2E8BA2E8BA3 * ((*(a2 + 8) - *(a2 + 7)) >> 3));
   *(a1 + 80) = *(a2 + 80);
   return a1;
 }
@@ -5978,7 +5950,7 @@ void sub_1B502840C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<std::pair<std::string,quasar::PTree>>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<std::pair<std::string,quasar::PTree>>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (a2 < 0x2E8BA2E8BA2E8BBLL)
   {
@@ -6073,7 +6045,7 @@ void std::vector<std::pair<std::string,quasar::PTree>>::__assign_with_size[abi:n
   }
 }
 
-void std::vector<std::pair<std::string,quasar::PTree>>::__vdeallocate(void **a1)
+void std::vector<std::pair<std::string,quasar::PTree>>::__vdeallocate(char **a1)
 {
   v1 = *a1;
   if (*a1)
@@ -6230,7 +6202,7 @@ void quasar::SystemConfig::findCommentNodes(uint64_t a1, quasar::PTree *a2, uint
 
       else if ((quasar::PTree::isLeaf((v8 + 24)) & 1) == 0)
       {
-        quasar::SystemConfig::findCommentNodes(a1, v8 + 24, &__p, a4);
+        quasar::SystemConfig::findCommentNodes(a1, (v8 + 24), &__p, a4);
       }
 
       if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
@@ -6255,7 +6227,7 @@ void sub_1B5028A08(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>@<X0>(const void **a1@<X0>, const void **a2@<X1>, uint64_t a3@<X8>)
+char *std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>@<X0>(const void **a1@<X0>, const void **a2@<X1>, uint64_t a3@<X8>)
 {
   if (*(a1 + 23) >= 0)
   {
@@ -6278,7 +6250,7 @@ uint64_t std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator
   }
 
   result = std::string::basic_string[abi:ne200100](a3, v6 + v5);
-  if (*(result + 23) >= 0)
+  if (result[23] >= 0)
   {
     v8 = result;
   }
@@ -6323,7 +6295,7 @@ uint64_t std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator
   return result;
 }
 
-uint64_t std::string::basic_string[abi:ne200100](uint64_t result, unint64_t a2)
+uint64_t std::string::basic_string[abi:ne200100](uint64_t a1, unint64_t a2)
 {
   if (a2 >= 0x7FFFFFFFFFFFFFF8)
   {
@@ -6335,11 +6307,11 @@ uint64_t std::string::basic_string[abi:ne200100](uint64_t result, unint64_t a2)
     operator new();
   }
 
-  *(result + 8) = 0;
-  *(result + 16) = 0;
-  *result = 0;
-  *(result + 23) = a2;
-  return result;
+  *(a1 + 8) = 0;
+  *(a1 + 16) = 0;
+  *a1 = 0;
+  *(a1 + 23) = a2;
+  return a1;
 }
 
 void std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](void ***a1)
@@ -6369,7 +6341,7 @@ void sub_1B5028D44(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void quasar::SystemConfig::hasParam(uint64_t a1, uint64_t a2)
+void quasar::SystemConfig::hasParam(uint64_t a1, uint64_t **a2)
 {
   if (*(a1 + 1552) == 1)
   {
@@ -6400,15 +6372,15 @@ void quasar::SystemConfig::hasParam(uint64_t a1, uint64_t a2)
   quasar::QuasarExceptionMessage::~QuasarExceptionMessage(__p);
 }
 
-void quasar::PTree::getChildOptional(uint64_t a1, uint64_t a2)
+void quasar::PTree::getChildOptional(uint64_t a1, uint64_t **a2)
 {
   std::string::basic_string[abi:ne200100]<0>(__p, ".");
-  quasar::split(a2, __p, 0, v4);
+  quasar::split(a2, v4, __p, 0);
 }
 
 {
   std::string::basic_string[abi:ne200100]<0>(__p, ".");
-  quasar::split(a2, __p, 0, v4);
+  quasar::split(a2, v4, __p, 0);
 }
 
 void sub_1B5028EE4(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
@@ -6421,20 +6393,20 @@ void sub_1B5028EE4(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void quasar::split(uint64_t a1@<X0>, uint64_t *a2@<X1>, int a3@<W2>, void *a4@<X8>)
+void quasar::split(uint64_t **a1@<X0>, __int128 *a2@<X8>, uint64_t *a3@<X1>, int a4@<W2>)
 {
   __dst[3] = *MEMORY[0x1E69E9840];
-  v7 = *(a2 + 23);
-  v8 = *a2;
-  v9 = a2[1];
+  v7 = *(a3 + 23);
+  v8 = *a3;
+  v9 = a3[1];
   if (v7 >= 0)
   {
-    v8 = a2;
+    v8 = a3;
   }
 
-  *a4 = 0;
-  a4[1] = 0;
-  a4[2] = 0;
+  *a2 = 0;
+  *(a2 + 1) = 0;
+  *(a2 + 2) = 0;
   if (v7 < 0)
   {
     v7 = v9;
@@ -6443,7 +6415,7 @@ void quasar::split(uint64_t a1@<X0>, uint64_t *a2@<X1>, int a3@<W2>, void *a4@<X
   v10[0] = v8;
   v10[1] = v8 + v7;
   boost::algorithm::detail::is_any_ofF<char>::is_any_ofF<boost::iterator_range<char const*>>(__dst, v10);
-  boost::algorithm::split<std::vector<std::string>,std::string const&,boost::algorithm::detail::is_any_ofF<char>>(a4, a1, __dst, a3 ^ 1);
+  boost::algorithm::split<std::vector<std::string>,std::string const&,boost::algorithm::detail::is_any_ofF<char>>(a2, a1, __dst, a4 ^ 1);
 }
 
 void sub_1B5029038(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, void **a12, uint64_t a13, uint64_t a14, unint64_t a15)
@@ -6452,7 +6424,7 @@ void sub_1B5029038(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   {
     if (a13)
     {
-      MEMORY[0x1B8C85310](a13, 0x1000C8077774924);
+      MEMORY[0x1B8C85310](a13, 0x1000C8077774924, a3, a4, a5, a6, a7, a8);
     }
   }
 
@@ -6460,12 +6432,12 @@ void sub_1B5029038(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void *boost::algorithm::detail::is_any_ofF<char>::is_any_ofF<boost::iterator_range<char const*>>(void *__dst, uint64_t a2)
+char *boost::algorithm::detail::is_any_ofF<char>::is_any_ofF<boost::iterator_range<char const*>>(char *__dst, uint64_t a2)
 {
   *__dst = 0;
   v4 = *a2;
   v5 = *(a2 + 8);
-  __dst[2] = v5 - v4;
+  *(__dst + 2) = v5 - v4;
   if ((v5 - v4) >= 0x11)
   {
     operator new[]();
@@ -6480,7 +6452,7 @@ void *boost::algorithm::detail::is_any_ofF<char>::is_any_ofF<boost::iterator_ran
   return __dst;
 }
 
-void boost::algorithm::split<std::vector<std::string>,std::string const&,boost::algorithm::detail::is_any_ofF<char>>(uint64_t a1, uint64_t a2, void *__src, int a4)
+void boost::algorithm::split<std::vector<std::string>,std::string const&,boost::algorithm::detail::is_any_ofF<char>>(__int128 *a1, uint64_t **a2, void *__src, int a4)
 {
   v14 = *MEMORY[0x1E69E9840];
   v7 = __src[2];
@@ -6512,11 +6484,11 @@ void boost::algorithm::split<std::vector<std::string>,std::string const&,boost::
   operator new[]();
 }
 
-void sub_1B50292E4(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17)
+void sub_1B50292E4(_Unwind_Exception *exception_object, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17)
 {
   if (a17)
   {
-    MEMORY[0x1B8C85310](a17, v17);
+    MEMORY[0x1B8C85310](a17, v17, a3, a4, a5, a6, a7, a8);
   }
 
   if (v18 >= 0x11)
@@ -6530,7 +6502,7 @@ void sub_1B50292E4(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void boost::algorithm::iter_split<std::vector<std::string>,std::string const&,boost::algorithm::detail::token_finderF<boost::algorithm::detail::is_any_ofF<char>>>(uint64_t a1, uint64_t a2, uint64_t a3)
+void boost::algorithm::iter_split<std::vector<std::string>,std::string const&,boost::algorithm::detail::token_finderF<boost::algorithm::detail::is_any_ofF<char>>>(__int128 *a1, uint64_t **a2, _DWORD *a3)
 {
   v11 = *MEMORY[0x1E69E9840];
   v4 = *(a2 + 23);
@@ -6551,17 +6523,17 @@ void boost::algorithm::iter_split<std::vector<std::string>,std::string const&,bo
 
   else
   {
-    v6 = *(a2 + 8);
+    v6 = a2[1];
   }
 
-  v7 = *(a3 + 16);
+  v7 = *(a3 + 2);
   v9[2] = v7;
   v9[0] = 0;
   if (v7 < 0x11)
   {
     memcpy(v9, a3, v7);
-    v10 = *(a3 + 24);
-    boost::algorithm::split_iterator<std::__wrap_iter<char const*>>::split_iterator<boost::algorithm::detail::token_finderF<boost::algorithm::detail::is_any_ofF<char>>>(v8, v5, v5 + v6, v9);
+    v10 = a3[6];
+    boost::algorithm::split_iterator<std::__wrap_iter<char const*>>::split_iterator<boost::algorithm::detail::token_finderF<boost::algorithm::detail::is_any_ofF<char>>>(&v8, v5, v5 + v6, v9);
   }
 
   operator new[]();
@@ -6576,32 +6548,32 @@ void sub_1B5029500(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void boost::algorithm::split_iterator<std::__wrap_iter<char const*>>::split_iterator<boost::algorithm::detail::token_finderF<boost::algorithm::detail::is_any_ofF<char>>>(void *a1, uint64_t a2, uint64_t a3, uint64_t a4)
+void boost::algorithm::split_iterator<std::__wrap_iter<char const*>>::split_iterator<boost::algorithm::detail::token_finderF<boost::algorithm::detail::is_any_ofF<char>>>(uint64_t (***a1)(), uint64_t a2, uint64_t a3, _DWORD *a4)
 {
   v9 = *MEMORY[0x1E69E9840];
-  v6 = *(a4 + 16);
+  v6 = *(a4 + 2);
   v7[2] = v6;
   v7[0] = 0;
   if (v6 < 0x11)
   {
     memcpy(v7, a4, v6);
-    v8 = *(a4 + 24);
+    v8 = a4[6];
     boost::algorithm::detail::find_iterator_base<std::__wrap_iter<char const*>>::find_iterator_base<boost::algorithm::detail::token_finderF<boost::algorithm::detail::is_any_ofF<char>>>(a1, v7);
   }
 
   operator new[]();
 }
 
-void boost::algorithm::detail::find_iterator_base<std::__wrap_iter<char const*>>::find_iterator_base<boost::algorithm::detail::token_finderF<boost::algorithm::detail::is_any_ofF<char>>>(void *a1, uint64_t a2)
+void boost::algorithm::detail::find_iterator_base<std::__wrap_iter<char const*>>::find_iterator_base<boost::algorithm::detail::token_finderF<boost::algorithm::detail::is_any_ofF<char>>>(uint64_t (***a1)(), void *a2)
 {
   v7 = *MEMORY[0x1E69E9840];
-  v4 = *(a2 + 16);
+  v4 = a2[2];
   v5[2] = v4;
   v5[0] = 0;
   if (v4 < 0x11)
   {
     memcpy(v5, a2, v4);
-    v6 = *(a2 + 24);
+    v6 = *(a2 + 6);
     boost::function2<boost::iterator_range<std::__wrap_iter<char const*>>,std::__wrap_iter<char const*>,std::__wrap_iter<char const*>>::function2<boost::algorithm::detail::token_finderF<boost::algorithm::detail::is_any_ofF<char>>>(a1, v5);
   }
 
@@ -6618,17 +6590,17 @@ void sub_1B50297D0(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void boost::function2<boost::iterator_range<std::__wrap_iter<char const*>>,std::__wrap_iter<char const*>,std::__wrap_iter<char const*>>::assign_to<boost::algorithm::detail::token_finderF<boost::algorithm::detail::is_any_ofF<char>>>(uint64_t a1, uint64_t a2)
+void boost::function2<boost::iterator_range<std::__wrap_iter<char const*>>,std::__wrap_iter<char const*>,std::__wrap_iter<char const*>>::assign_to<boost::algorithm::detail::token_finderF<boost::algorithm::detail::is_any_ofF<char>>>(uint64_t (***a1)(), void *a2)
 {
-  v6 = *MEMORY[0x1E69E9840];
-  v3 = *(a2 + 16);
-  v4[2] = v3;
-  v4[0] = 0;
-  if (v3 < 0x11)
+  v7 = *MEMORY[0x1E69E9840];
+  v4 = a2[2];
+  v5[2] = v4;
+  v5[0] = 0;
+  if (v4 < 0x11)
   {
-    memcpy(v4, a2, v3);
-    v5 = *(a2 + 24);
-    boost::detail::function::basic_vtable2<boost::iterator_range<std::__wrap_iter<char const*>>,std::__wrap_iter<char const*>,std::__wrap_iter<char const*>>::assign_to<boost::algorithm::detail::token_finderF<boost::algorithm::detail::is_any_ofF<char>>>(boost::function2<boost::iterator_range<std::__wrap_iter<char const*>>,std::__wrap_iter<char const*>,std::__wrap_iter<char const*>>::assign_to<boost::algorithm::detail::token_finderF<boost::algorithm::detail::is_any_ofF<char>>>(boost::algorithm::detail::token_finderF<boost::algorithm::detail::is_any_ofF<char>>)::stored_vtable, v4);
+    memcpy(v5, a2, v4);
+    v6 = *(a2 + 6);
+    boost::detail::function::basic_vtable2<boost::iterator_range<std::__wrap_iter<char const*>>,std::__wrap_iter<char const*>,std::__wrap_iter<char const*>>::assign_to<boost::algorithm::detail::token_finderF<boost::algorithm::detail::is_any_ofF<char>>>(boost::function2<boost::iterator_range<std::__wrap_iter<char const*>>,std::__wrap_iter<char const*>,std::__wrap_iter<char const*>>::assign_to<boost::algorithm::detail::token_finderF<boost::algorithm::detail::is_any_ofF<char>>>(boost::algorithm::detail::token_finderF<boost::algorithm::detail::is_any_ofF<char>>)::stored_vtable, v5, a1 + 1);
   }
 
   operator new[]();
@@ -6644,17 +6616,17 @@ void sub_1B50298F8(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void boost::function2<boost::iterator_range<std::__wrap_iter<char const*>>,std::__wrap_iter<char const*>,std::__wrap_iter<char const*>>::function2<boost::algorithm::detail::token_finderF<boost::algorithm::detail::is_any_ofF<char>>>(void *a1, uint64_t a2)
+void boost::function2<boost::iterator_range<std::__wrap_iter<char const*>>,std::__wrap_iter<char const*>,std::__wrap_iter<char const*>>::function2<boost::algorithm::detail::token_finderF<boost::algorithm::detail::is_any_ofF<char>>>(uint64_t (***a1)(), void *a2)
 {
   v7 = *MEMORY[0x1E69E9840];
   *a1 = 0;
-  v4 = *(a2 + 16);
+  v4 = a2[2];
   v5[2] = v4;
   v5[0] = 0;
   if (v4 < 0x11)
   {
     memcpy(v5, a2, v4);
-    v6 = *(a2 + 24);
+    v6 = *(a2 + 6);
     boost::function2<boost::iterator_range<std::__wrap_iter<char const*>>,std::__wrap_iter<char const*>,std::__wrap_iter<char const*>>::assign_to<boost::algorithm::detail::token_finderF<boost::algorithm::detail::is_any_ofF<char>>>(a1, v5);
   }
 
@@ -6671,32 +6643,32 @@ void sub_1B5029A0C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void boost::detail::function::basic_vtable2<boost::iterator_range<std::__wrap_iter<char const*>>,std::__wrap_iter<char const*>,std::__wrap_iter<char const*>>::assign_to<boost::algorithm::detail::token_finderF<boost::algorithm::detail::is_any_ofF<char>>>(uint64_t a1, uint64_t a2)
+void boost::detail::function::basic_vtable2<boost::iterator_range<std::__wrap_iter<char const*>>,std::__wrap_iter<char const*>,std::__wrap_iter<char const*>>::assign_to<boost::algorithm::detail::token_finderF<boost::algorithm::detail::is_any_ofF<char>>>(uint64_t a1, void *a2, void *a3)
 {
-  v7 = *MEMORY[0x1E69E9840];
-  v4 = *(a2 + 16);
-  v5[2] = v4;
-  v5[0] = 0;
-  if (v4 < 0x11)
+  v9 = *MEMORY[0x1E69E9840];
+  v6 = a2[2];
+  v7[2] = v6;
+  v7[0] = 0;
+  if (v6 < 0x11)
   {
-    memcpy(v5, a2, v4);
-    v6 = *(a2 + 24);
-    boost::detail::function::basic_vtable2<boost::iterator_range<std::__wrap_iter<char const*>>,std::__wrap_iter<char const*>,std::__wrap_iter<char const*>>::assign_to<boost::algorithm::detail::token_finderF<boost::algorithm::detail::is_any_ofF<char>>>(a1, v5);
+    memcpy(v7, a2, v6);
+    v8 = *(a2 + 6);
+    boost::detail::function::basic_vtable2<boost::iterator_range<std::__wrap_iter<char const*>>,std::__wrap_iter<char const*>,std::__wrap_iter<char const*>>::assign_to<boost::algorithm::detail::token_finderF<boost::algorithm::detail::is_any_ofF<char>>>(a1, v7, a3);
   }
 
   operator new[]();
 }
 
 {
-  v6 = *MEMORY[0x1E69E9840];
-  v3 = *(a2 + 16);
-  v4[2] = v3;
-  v4[0] = 0;
-  if (v3 < 0x11)
+  v9 = *MEMORY[0x1E69E9840];
+  v6 = a2[2];
+  v7[2] = v6;
+  v7[0] = 0;
+  if (v6 < 0x11)
   {
-    memcpy(v4, a2, v3);
-    v5 = *(a2 + 24);
-    boost::detail::function::basic_vtable2<boost::iterator_range<std::__wrap_iter<char const*>>,std::__wrap_iter<char const*>,std::__wrap_iter<char const*>>::assign_functor<boost::algorithm::detail::token_finderF<boost::algorithm::detail::is_any_ofF<char>>>();
+    memcpy(v7, a2, v6);
+    v8 = *(a2 + 6);
+    boost::detail::function::basic_vtable2<boost::iterator_range<std::__wrap_iter<char const*>>,std::__wrap_iter<char const*>,std::__wrap_iter<char const*>>::assign_functor<boost::algorithm::detail::token_finderF<boost::algorithm::detail::is_any_ofF<char>>>(a1, v7, a3);
   }
 
   operator new[]();
@@ -6722,10 +6694,10 @@ void sub_1B5029C40(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-char *boost::algorithm::detail::token_finderF<boost::algorithm::detail::is_any_ofF<char>>::operator()<std::__wrap_iter<char const*>>(uint64_t a1, char *a2, char *a3)
+char *boost::algorithm::detail::token_finderF<boost::algorithm::detail::is_any_ofF<char>>::operator()<std::__wrap_iter<char const*>>(_DWORD *a1, char *a2, char *a3)
 {
   v12 = *MEMORY[0x1E69E9840];
-  v6 = *(a1 + 16);
+  v6 = *(a1 + 2);
   v11 = v6;
   v10[0] = 0;
   if (v6 >= 0x11)
@@ -6758,7 +6730,7 @@ char *boost::algorithm::detail::token_finderF<boost::algorithm::detail::is_any_o
 
   if (v8 != a3)
   {
-    if (!*(a1 + 24))
+    if (!a1[6])
     {
       do
       {
@@ -7004,7 +6976,7 @@ LABEL_11:
   return v9 & 1;
 }
 
-_BYTE *std::string::__init_with_size[abi:ne200100]<char *,char *>(_BYTE *__dst, _BYTE *__src, _BYTE *a3, unint64_t a4)
+void *std::string::__init_with_size[abi:ne200100]<char *,char *>(void *__dst, _BYTE *__src, _BYTE *a3, unint64_t a4)
 {
   if (a4 >= 0x7FFFFFFFFFFFFFF8)
   {
@@ -7017,14 +6989,14 @@ _BYTE *std::string::__init_with_size[abi:ne200100]<char *,char *>(_BYTE *__dst, 
     operator new();
   }
 
-  __dst[23] = a4;
+  *(__dst + 23) = a4;
   v5 = a3 - __src;
   if (a3 != __src)
   {
     __dst = memmove(__dst, __src, v5);
   }
 
-  v4[v5] = 0;
+  *(v4 + v5) = 0;
   return __dst;
 }
 
@@ -7140,15 +7112,15 @@ void std::vector<std::string>::clear[abi:ne200100](void ***a1)
   a1[1] = v2;
 }
 
-void quasar::PTree::getChild(uint64_t a1, uint64_t a2)
+void quasar::PTree::getChild(uint64_t a1, uint64_t **a2)
 {
   std::string::basic_string[abi:ne200100]<0>(__p, ".");
-  quasar::split(a2, __p, 0, &v4);
+  quasar::split(a2, &v4, __p, 0);
 }
 
 {
   std::string::basic_string[abi:ne200100]<0>(__p, ".");
-  quasar::split(a2, __p, 0, &v4);
+  quasar::split(a2, &v4, __p, 0);
 }
 
 void sub_1B502A650(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, char a15)
@@ -7161,7 +7133,7 @@ void sub_1B502A650(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void quasar::SystemConfig::getPtreeOptional(uint64_t a1, uint64_t a2)
+void quasar::SystemConfig::getPtreeOptional(uint64_t a1, uint64_t **a2)
 {
   if (*(a1 + 1552) == 1)
   {
@@ -7216,9 +7188,9 @@ void sub_1B502B74C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::__tree<std::string>::__emplace_unique_key_args<std::string,std::string const&>(uint64_t a1, const void **a2)
+void *std::__tree<std::string>::__emplace_unique_key_args<std::string,std::string const&>(uint64_t **a1, const void **a2, uint64_t a3)
 {
-  result = *std::__tree<std::__value_type<std::string,double>,std::__map_value_compare<std::string,std::__value_type<std::string,double>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,double>>>::__find_equal<std::string>(a1, &v3, a2);
+  result = *std::__tree<std::__value_type<std::string,double>,std::__map_value_compare<std::string,std::__value_type<std::string,double>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,double>>>::__find_equal<std::string>(a1, &v4, a2);
   if (!result)
   {
     std::__tree<std::string>::__construct_node<std::string const&>();
@@ -7273,41 +7245,41 @@ LABEL_9:
   return v5;
 }
 
-uint64_t *std::__tree<int>::__emplace_unique_key_args<int,int const&>(uint64_t a1, int *a2)
+uint64_t *std::__tree<int>::__emplace_unique_key_args<int,int const&>(uint64_t a1, int *a2, _DWORD *a3)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v3 = *(a1 + 8);
+  if (!v3)
   {
 LABEL_8:
     operator new();
   }
 
-  v3 = *a2;
+  v4 = *a2;
   while (1)
   {
     while (1)
     {
-      v4 = v2;
-      v5 = *(v2 + 28);
-      if (v3 >= v5)
+      v5 = v3;
+      v6 = *(v3 + 28);
+      if (v4 >= v6)
       {
         break;
       }
 
-      v2 = *v4;
-      if (!*v4)
+      v3 = *v5;
+      if (!*v5)
       {
         goto LABEL_8;
       }
     }
 
-    if (v5 >= v3)
+    if (v6 >= v4)
     {
-      return v4;
+      return v5;
     }
 
-    v2 = v4[1];
-    if (!v2)
+    v3 = v5[1];
+    if (!v3)
     {
       goto LABEL_8;
     }
@@ -7324,15 +7296,15 @@ void sub_1B502BA1C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(uint64_t a1, const void **a2)
+char *std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(uint64_t **a1, const void **a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v2 = *std::__tree<std::__value_type<std::string,double>,std::__map_value_compare<std::string,std::__value_type<std::string,double>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,double>>>::__find_equal<std::string>(a1, &v4, a2);
-  if (!v2)
+  v5 = *std::__tree<std::__value_type<std::string,double>,std::__map_value_compare<std::string,std::__value_type<std::string,double>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,double>>>::__find_equal<std::string>(a1, &v7, a2);
+  if (!v5)
   {
     std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__construct_node<std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>();
   }
 
-  return v2;
+  return v5;
 }
 
 uint64_t std::__tree<std::__value_type<std::string,double>,std::__map_value_compare<std::string,std::__value_type<std::string,double>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,double>>>::find<std::string>(uint64_t a1, const void **a2)
@@ -7375,15 +7347,15 @@ uint64_t std::__tree<std::__value_type<std::string,double>,std::__map_value_comp
   return v6;
 }
 
-uint64_t std::__tree<std::__value_type<std::string,std::vector<std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::vector<std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::vector<std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(uint64_t a1, const void **a2)
+char *std::__tree<std::__value_type<std::string,std::vector<std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::vector<std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::vector<std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(uint64_t **a1, const void **a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v2 = *std::__tree<std::__value_type<std::string,double>,std::__map_value_compare<std::string,std::__value_type<std::string,double>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,double>>>::__find_equal<std::string>(a1, &v4, a2);
-  if (!v2)
+  v5 = *std::__tree<std::__value_type<std::string,double>,std::__map_value_compare<std::string,std::__value_type<std::string,double>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,double>>>::__find_equal<std::string>(a1, &v7, a2);
+  if (!v5)
   {
     std::__tree<std::__value_type<std::string,std::vector<std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::vector<std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::vector<std::string>>>>::__construct_node<std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>();
   }
 
-  return v2;
+  return v5;
 }
 
 void std::vector<std::string>::__vdeallocate(std::vector<std::wstring> *this)
@@ -7511,7 +7483,7 @@ uint64_t quasar::SystemConfig::enforceMinVersion(uint64_t result, int a2, int a3
   if (v5 < a2 || v5 == a2 && *(result + 36) < a3)
   {
     exception = __cxa_allocate_exception(0x20uLL);
-    quasar::SystemConfig::Version::str(v21, &v16);
+    quasar::SystemConfig::Version::str(&v16, v21);
     v7 = std::string::insert(&v16, 0, "Incompatible system config version. Needs to be >= ");
     v8 = *&v7->__r_.__value_.__l.__data_;
     v17.__r_.__value_.__r.__words[2] = v7->__r_.__value_.__r.__words[2];
@@ -7596,15 +7568,15 @@ LABEL_12:
   goto LABEL_12;
 }
 
-uint64_t **std::__tree<int>::__assign_multi<std::__tree_const_iterator<int,std::__tree_node<int,void *> *,long>>(uint64_t **result, void *a2, void *a3)
+void *std::__tree<int>::__assign_multi<std::__tree_const_iterator<int,std::__tree_node<int,void *> *,long>>(void *result, int *a2, int *a3)
 {
   v5 = result;
   if (result[2])
   {
     v6 = *result;
     v7 = result[1];
-    *result = (result + 1);
-    v7[2] = 0;
+    *result = result + 1;
+    *(v7 + 16) = 0;
     result[1] = 0;
     result[2] = 0;
     if (v6[1])
@@ -7628,7 +7600,7 @@ uint64_t **std::__tree<int>::__assign_multi<std::__tree_const_iterator<int,std::
         v9 = a2;
         do
         {
-          *(v8 + 7) = *(v9 + 7);
+          *(v8 + 7) = v9[7];
           std::__tree<int>::__node_insert_multi(v5, v8);
           v8 = v13;
           v14 = v13;
@@ -7637,7 +7609,7 @@ uint64_t **std::__tree<int>::__assign_multi<std::__tree_const_iterator<int,std::
             v13 = std::__tree<std::__value_type<std::string,double>,std::__map_value_compare<std::string,std::__value_type<std::string,double>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,double>>>::_DetachedTreeCache::__detach_next(v13);
           }
 
-          v10 = v9[1];
+          v10 = *(v9 + 1);
           if (v10)
           {
             do
@@ -7653,7 +7625,7 @@ uint64_t **std::__tree<int>::__assign_multi<std::__tree_const_iterator<int,std::
           {
             do
             {
-              a2 = v9[2];
+              a2 = *(v9 + 2);
               v11 = *a2 == v9;
               v9 = a2;
             }
@@ -7678,15 +7650,15 @@ uint64_t **std::__tree<int>::__assign_multi<std::__tree_const_iterator<int,std::
 
   if (a2 != a3)
   {
-    std::__tree<int>::__emplace_multi<int const&>();
+    std::__tree<int>::__emplace_multi<int const&>(v5, a2 + 7);
   }
 
   return result;
 }
 
-void sub_1B502C2C8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1B502C2C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__tree<int>::_DetachedTreeCache::~_DetachedTreeCache[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -7810,9 +7782,9 @@ void sub_1B502C9E8(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void quasar::filesystem::Path::parent_path(quasar::filesystem::Path *this@<X0>, void *a2@<X8>)
+void quasar::filesystem::Path::parent_path(uint64_t *__return_ptr a1@<X8>, void **this@<X0>)
 {
-  std::__fs::filesystem::path::path[abi:ne200100]<std::string,void>(&v4, (this + 8));
+  std::__fs::filesystem::path::path[abi:ne200100]<std::string,void>(&v4, (this + 1));
   std::__fs::filesystem::path::parent_path[abi:ne200100](&v4, &__p);
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
@@ -7824,8 +7796,8 @@ void quasar::filesystem::Path::parent_path(quasar::filesystem::Path *this@<X0>, 
     v6 = __p;
   }
 
-  *a2 = &unk_1F2CFAA28;
-  v3 = (a2 + 1);
+  *a1 = &unk_1F2CFAA28;
+  v3 = (a1 + 1);
   if (SHIBYTE(v6.__r_.__value_.__r.__words[2]) < 0)
   {
     std::string::__init_copy_ctor_external(v3, v6.__r_.__value_.__l.__data_, v6.__r_.__value_.__l.__size_);
@@ -7897,7 +7869,7 @@ double std::__fs::filesystem::path::parent_path[abi:ne200100]@<D0>(const std::__
   return result;
 }
 
-void quasar::SystemConfig::absolutizeFilePathInPtree(const void **a1, quasar::PTree *a2, const void **a3)
+void quasar::SystemConfig::absolutizeFilePathInPtree(uint64_t a1, quasar::PTree *a2, const void **a3)
 {
   if (!quasar::PTree::isLeaf(a2))
   {
@@ -7993,7 +7965,7 @@ void quasar::SystemConfig::absolutizeFilePathInPtree(const void **a1, quasar::PT
           v17->__r_.__value_.__l.__size_ = 0;
           v17->__r_.__value_.__r.__words[2] = 0;
           v17->__r_.__value_.__r.__words[0] = 0;
-          quasar::SystemConfig::absolutizeFilePathInPtree(a1, v7 + 24, __p);
+          quasar::SystemConfig::absolutizeFilePathInPtree(a1, (v7 + 24), __p);
           if (SHIBYTE(v26) < 0)
           {
             operator delete(__p[0]);
@@ -8047,7 +8019,7 @@ void quasar::SystemConfig::absolutizeFilePathInPtree(const void **a1, quasar::PT
           }
 
           strcpy(v22 + v21, "[]");
-          quasar::SystemConfig::absolutizeFilePathInPtree(a1, v7 + 24, __p);
+          quasar::SystemConfig::absolutizeFilePathInPtree(a1, (v7 + 24), __p);
           if ((SHIBYTE(v26) & 0x80000000) == 0)
           {
             goto LABEL_50;
@@ -8065,7 +8037,7 @@ LABEL_49:
 
       else
       {
-        quasar::SystemConfig::absolutizeFilePathInPtree(a1, v7 + 24, &v27);
+        quasar::SystemConfig::absolutizeFilePathInPtree(a1, (v7 + 24), &v27.__r_.__value_.__l.__data_);
       }
 
 LABEL_50:
@@ -8102,7 +8074,7 @@ void sub_1B502CF50(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void quasar::SystemConfig::absolutizeFilePaths(const void **a1, uint64_t *a2, uint64_t a3)
+void quasar::SystemConfig::absolutizeFilePaths(uint64_t a1, uint64_t *a2, uint64_t a3)
 {
   std::string::basic_string[abi:ne200100]<0>(v22, "-file");
   if (quasar::endsWith(a2, v22))
@@ -8331,8 +8303,8 @@ BOOL quasar::endsWith(uint64_t *a1, uint64_t *a2)
   v7 = v5 - 1;
   while (v2 && v4)
   {
-    v8 = *(v6 + v2);
-    v9 = *(v7 + v4);
+    v8 = v6[v2];
+    v9 = v7[v4];
     --v2;
     --v4;
     if (v8 != v9)
@@ -8344,60 +8316,13 @@ BOOL quasar::endsWith(uint64_t *a1, uint64_t *a2)
   return v4 == 0;
 }
 
-{
-  v2 = *(a1 + 23);
-  v3 = *a1;
-  v4 = a1[1];
-  if (v2 >= 0)
-  {
-    v3 = a1;
-  }
-
-  if (v2 >= 0)
-  {
-    v4 = *(a1 + 23);
-  }
-
-  v5 = *(a2 + 23);
-  v6 = *a2;
-  v7 = a2[1];
-  if (v5 >= 0)
-  {
-    v6 = a2;
-  }
-
-  if (v5 >= 0)
-  {
-    v7 = *(a2 + 23);
-  }
-
-  v8 = v3 - 4;
-  v9 = 4 * v4;
-  v10 = 4 * v7;
-  v11 = v6 - 4;
-  while (v9 && v10)
-  {
-    v12 = *(v8 + v9);
-    v13 = *(v11 + v10);
-    v9 -= 4;
-    v10 -= 4;
-    if (v12 != v13)
-    {
-      return 0;
-    }
-  }
-
-  return v10 == 0;
-}
-
 void quasar::filesystem::Path::makeAbsolute(uint64_t a1@<X0>, uint64_t a2@<X1>, std::string *a3@<X8>)
 {
   if ((*(a2 + 23) & 0x80000000) == 0)
   {
     if (!*(a2 + 23))
     {
-      *&a3->__r_.__value_.__l.__data_ = *a2;
-      a3->__r_.__value_.__r.__words[2] = *(a2 + 16);
+      *a3 = *a2;
       return;
     }
 
@@ -8425,7 +8350,7 @@ LABEL_5:
     else
     {
       std::__fs::filesystem::path::path[abi:ne200100]<std::string,void>(&__p, (a1 + 8));
-      std::__fs::filesystem::operator/[abi:ne200100](&v11, &__p, &v9);
+      std::__fs::filesystem::operator/[abi:ne200100](&v9, &v11, &__p);
       std::__fs::filesystem::__absolute(&v10, &v9, 0);
       if (SHIBYTE(v10.__pn_.__r_.__value_.__r.__words[2]) < 0)
       {
@@ -8490,9 +8415,9 @@ void sub_1B502D5B0(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-const void **quasar::SystemConfig::makePathAbsoluteInternal(const void **result, uint64_t a2, int a3)
+void quasar::SystemConfig::makePathAbsoluteInternal(uint64_t a1, uint64_t a2, int a3)
 {
-  if (*(result + 388) != 1)
+  if (*(a1 + 1552) != 1)
   {
     v23 = 0u;
     v24 = 0u;
@@ -8524,8 +8449,7 @@ const void **quasar::SystemConfig::makePathAbsoluteInternal(const void **result,
 
   if (v4)
   {
-    v6 = result;
-    quasar::filesystem::Path::makeAbsolute((result + 5), a2, &v8);
+    quasar::filesystem::Path::makeAbsolute(a1 + 40, a2, &v8);
     if (*(a2 + 23) < 0)
     {
       operator delete(*a2);
@@ -8533,16 +8457,14 @@ const void **quasar::SystemConfig::makePathAbsoluteInternal(const void **result,
 
     *a2 = v8;
     *(a2 + 16) = v9;
-    v7 = 98;
+    v7 = 784;
     if (a3)
     {
-      v7 = 93;
+      v7 = 744;
     }
 
-    return std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__emplace_unique_key_args<std::string,std::string const&>(&v6[v7], a2);
+    std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__emplace_unique_key_args<std::string,std::string const&>((a1 + v7), a2, a2);
   }
-
-  return result;
 }
 
 BOOL quasar::startsWith(unsigned __int8 *a1, unsigned __int8 *a2)
@@ -8618,20 +8540,19 @@ BOOL quasar::startsWith(unsigned __int8 *a1, unsigned __int8 *a2)
   }
 }
 
-std::__fs::filesystem::path *std::__fs::filesystem::operator/[abi:ne200100]@<X0>(std::__fs::filesystem::path *this@<X1>, uint64_t a2@<X0>, std::__fs::filesystem::path *a3@<X8>)
+std::__fs::filesystem::path *std::__fs::filesystem::operator/[abi:ne200100]@<X0>(std::__fs::filesystem::path *__return_ptr a1@<X8>, std::__fs::filesystem::path *this@<X1>, uint64_t a3@<X0>)
 {
-  if (*(a2 + 23) < 0)
+  if (*(a3 + 23) < 0)
   {
-    std::string::__init_copy_ctor_external(&a3->__pn_, *a2, *(a2 + 8));
+    std::string::__init_copy_ctor_external(&a1->__pn_, *a3, *(a3 + 8));
   }
 
   else
   {
-    *&a3->__pn_.__r_.__value_.__l.__data_ = *a2;
-    a3->__pn_.__r_.__value_.__r.__words[2] = *(a2 + 16);
+    a1->__pn_ = *a3;
   }
 
-  return std::__fs::filesystem::path::operator/=[abi:ne200100](a3, this);
+  return std::__fs::filesystem::path::operator/=[abi:ne200100](a1, this);
 }
 
 void sub_1B502D808(_Unwind_Exception *exception_object)
@@ -8685,35 +8606,35 @@ std::__fs::filesystem::path *std::__fs::filesystem::path::operator/=[abi:ne20010
   return a1;
 }
 
-const void **std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__emplace_unique_key_args<std::string,std::string const&>(void *a1, const void **a2)
+const void **std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__emplace_unique_key_args<std::string,std::string const&>(void *a1, uint64_t *a2, uint64_t a3)
 {
-  v4 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
-  v5 = v4;
-  v6 = a1[1];
-  if (!*&v6)
+  v5 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
+  v6 = v5;
+  v7 = a1[1];
+  if (!*&v7)
   {
     goto LABEL_18;
   }
 
-  v7 = vcnt_s8(v6);
-  v7.i16[0] = vaddlv_u8(v7);
-  v8 = v7.u32[0];
-  if (v7.u32[0] > 1uLL)
+  v8 = vcnt_s8(v7);
+  v8.i16[0] = vaddlv_u8(v8);
+  v9 = v8.u32[0];
+  if (v8.u32[0] > 1uLL)
   {
-    v9 = v4;
-    if (v4 >= *&v6)
+    v10 = v5;
+    if (v5 >= *&v7)
     {
-      v9 = v4 % *&v6;
+      v10 = v5 % *&v7;
     }
   }
 
   else
   {
-    v9 = (*&v6 - 1) & v4;
+    v10 = (*&v7 - 1) & v5;
   }
 
-  v10 = *(*a1 + 8 * v9);
-  if (!v10 || (v11 = *v10) == 0)
+  v11 = *(*a1 + 8 * v10);
+  if (!v11 || (v12 = *v11) == 0)
   {
 LABEL_18:
     std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__construct_node_hash<std::string const&>();
@@ -8721,44 +8642,44 @@ LABEL_18:
 
   while (1)
   {
-    v12 = v11[1];
-    if (v12 == v5)
+    v13 = v12[1];
+    if (v13 == v6)
     {
       break;
     }
 
-    if (v8 > 1)
+    if (v9 > 1)
     {
-      if (v12 >= *&v6)
+      if (v13 >= *&v7)
       {
-        v12 %= *&v6;
+        v13 %= *&v7;
       }
     }
 
     else
     {
-      v12 &= *&v6 - 1;
+      v13 &= *&v7 - 1;
     }
 
-    if (v12 != v9)
+    if (v13 != v10)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v11 = *v11;
-    if (!v11)
+    v12 = *v12;
+    if (!v12)
     {
       goto LABEL_18;
     }
   }
 
-  if (!std::equal_to<std::string>::operator()[abi:ne200100](a1, v11 + 2, a2))
+  if (!std::equal_to<std::string>::operator()[abi:ne200100](a1, v12 + 2, a2))
   {
     goto LABEL_17;
   }
 
-  return v11;
+  return v12;
 }
 
 void sub_1B502DAD8(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void **__p, uint64_t a11)
@@ -8943,8 +8864,8 @@ void kaldi::SplitStringToVector(const std::string *a1, const char *a2, int a3, u
 
     else
     {
-      v16 = (v11 + v12);
-      v17 = (v11 + v9);
+      v16 = v11 + v12;
+      v17 = v11 + v9;
 LABEL_17:
       v18 = v13;
       v19 = a2;
@@ -8958,7 +8879,7 @@ LABEL_17:
             goto LABEL_17;
           }
 
-          v17 = (v11 + v12);
+          v17 = v11 + v12;
           break;
         }
       }
@@ -8970,7 +8891,7 @@ LABEL_17:
 
       else
       {
-        v15 = &v17[-v11];
+        v15 = v17 - v11;
       }
 
       if (a3)
@@ -9071,7 +8992,7 @@ void sub_1B502E0C4(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 BOOL quasar::isPlaceholder(unsigned __int8 *a1)
 {
-  std::string::basic_string[abi:ne200100]<0>(__p, "\");
+  std::string::basic_string[abi:ne200100]<0>(__p, "\"");
   v2 = quasar::startsWith(a1, __p);
   if (v5 < 0)
   {
@@ -9197,13 +9118,13 @@ void sub_1B502E2A8(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void quasar::SystemConfig::SystemConfigInfoCache::putIfNotExist(std::mutex *a1, std::string::size_type a2, uint64_t a3)
+void quasar::SystemConfig::SystemConfigInfoCache::putIfNotExist(std::mutex *a1, uint64_t *a2, uint64_t a3)
 {
   std::mutex::lock(a1);
   if (a1[1].__m_.__sig)
   {
     quasar::SystemConfig::SystemConfigInfo::SystemConfigInfo(v7);
-    if (!kaldi::LRUCacheMap<std::string,quasar::SystemConfig::SystemConfigInfo,std::hash<std::string>,std::equal_to<std::string>>::Get(a1[1].__m_.__sig, a2, v7))
+    if ((kaldi::LRUCacheMap<std::string,quasar::SystemConfig::SystemConfigInfo,std::hash<std::string>,std::equal_to<std::string>>::Get(a1[1].__m_.__sig, a2, v7) & 1) == 0)
     {
       sig = a1[1].__m_.__sig;
       if (*sig)
@@ -9220,29 +9141,29 @@ void quasar::SystemConfig::SystemConfigInfoCache::putIfNotExist(std::mutex *a1, 
 
 uint64_t *kaldi::LRUCacheMap<std::string,quasar::SystemConfig::SystemConfigInfo,std::hash<std::string>,std::equal_to<std::string>>::InsertWithValueFunction<kaldi::LRUCacheMap<std::string,quasar::SystemConfig::SystemConfigInfo,std::hash<std::string>,std::equal_to<std::string>>::Insert(std::string const&,quasar::SystemConfig::SystemConfigInfo const&)::{lambda(quasar::SystemConfig::SystemConfigInfo&)#1}>(unint64_t *a1, std::string::size_type a2, uint64_t a3)
 {
-  v23 = &v23;
-  v24 = &v23;
-  v25 = 0;
-  v22.__r_.__value_.__r.__words[0] = a2;
-  v6 = std::__hash_table<std::__hash_value_type<std::string const*,std::__list_iterator<std::pair<std::string,quasar::SystemConfig::SystemConfigInfo>,void *>>,std::__unordered_map_hasher<std::string const*,std::__hash_value_type<std::string const*,std::__list_iterator<std::pair<std::string,quasar::SystemConfig::SystemConfigInfo>,void *>>,kaldi::LRUCacheMap<std::string,quasar::SystemConfig::SystemConfigInfo,std::hash<std::string>,std::equal_to<std::string>>::PointerHasher,kaldi::LRUCacheMap<std::string,quasar::SystemConfig::SystemConfigInfo,std::hash<std::string>,std::equal_to<std::string>>::PointerPred,false>,std::__unordered_map_equal<std::string const*,std::__hash_value_type<std::string const*,std::__list_iterator<std::pair<std::string,quasar::SystemConfig::SystemConfigInfo>,void *>>,kaldi::LRUCacheMap<std::string,quasar::SystemConfig::SystemConfigInfo,std::hash<std::string>,std::equal_to<std::string>>::PointerPred,kaldi::LRUCacheMap<std::string,quasar::SystemConfig::SystemConfigInfo,std::hash<std::string>,std::equal_to<std::string>>::PointerHasher,false>,std::allocator<std::__hash_value_type<std::string const*,std::__list_iterator<std::pair<std::string,quasar::SystemConfig::SystemConfigInfo>,void *>>>>::find<std::string const*>(a1 + 1, &v22);
+  v24 = &v24;
+  v25 = &v24;
+  v26 = 0;
+  v23.__r_.__value_.__r.__words[0] = a2;
+  v6 = std::__hash_table<std::__hash_value_type<std::string const*,std::__list_iterator<std::pair<std::string,quasar::SystemConfig::SystemConfigInfo>,void *>>,std::__unordered_map_hasher<std::string const*,std::__hash_value_type<std::string const*,std::__list_iterator<std::pair<std::string,quasar::SystemConfig::SystemConfigInfo>,void *>>,kaldi::LRUCacheMap<std::string,quasar::SystemConfig::SystemConfigInfo,std::hash<std::string>,std::equal_to<std::string>>::PointerHasher,kaldi::LRUCacheMap<std::string,quasar::SystemConfig::SystemConfigInfo,std::hash<std::string>,std::equal_to<std::string>>::PointerPred,false>,std::__unordered_map_equal<std::string const*,std::__hash_value_type<std::string const*,std::__list_iterator<std::pair<std::string,quasar::SystemConfig::SystemConfigInfo>,void *>>,kaldi::LRUCacheMap<std::string,quasar::SystemConfig::SystemConfigInfo,std::hash<std::string>,std::equal_to<std::string>>::PointerPred,kaldi::LRUCacheMap<std::string,quasar::SystemConfig::SystemConfigInfo,std::hash<std::string>,std::equal_to<std::string>>::PointerHasher,false>,std::allocator<std::__hash_value_type<std::string const*,std::__list_iterator<std::pair<std::string,quasar::SystemConfig::SystemConfigInfo>,void *>>>>::find<std::string const*>(a1 + 1, &v23);
   if (v6)
   {
     v7 = v6[3];
-    if (&v23 != v7)
+    if (&v24 != v7)
     {
       v8 = v7[1];
-      if (v8 != &v23)
+      if (v8 != &v24)
       {
         v9 = *v7;
         *(v9 + 8) = v8;
         *v8 = v9;
-        v10 = v23;
-        v23[1] = v7;
+        v10 = v24;
+        v24[1] = v7;
         *v7 = v10;
-        v7[1] = &v23;
+        v7[1] = &v24;
         --a1[9];
-        v23 = v7;
-        ++v25;
+        v24 = v7;
+        ++v26;
       }
     }
 
@@ -9256,46 +9177,46 @@ uint64_t *kaldi::LRUCacheMap<std::string,quasar::SystemConfig::SystemConfigInfo,
     {
       if (*(a2 + 23) < 0)
       {
-        std::string::__init_copy_ctor_external(&v22, *a2, *(a2 + 8));
+        std::string::__init_copy_ctor_external(&v23, *a2, *(a2 + 8));
       }
 
       else
       {
-        v22 = *a2;
+        v23 = *a2;
       }
 
-      std::__list_imp<std::pair<std::string,quasar::SystemConfig::SystemConfigInfo>>::__create_node[abi:ne200100]<std::piecewise_construct_t const&,std::tuple<std::string>,std::tuple<>>();
+      std::__list_imp<std::pair<std::string,quasar::SystemConfig::SystemConfigInfo>>::__create_node[abi:ne200100]<std::piecewise_construct_t const&,std::tuple<std::string>,std::tuple<>>(&v24, 0, 0, &std::piecewise_construct, &v23, &v22);
     }
 
     v12 = a1[7];
-    if (&v23 != v12)
+    if (&v24 != v12)
     {
       v13 = v12[1];
-      if (v13 != &v23)
+      if (v13 != &v24)
       {
         v14 = *v12;
         *(v14 + 8) = v13;
         *v13 = v14;
-        v15 = v23;
-        v23[1] = v12;
+        v15 = v24;
+        v24[1] = v12;
         *v12 = v15;
-        v12[1] = &v23;
+        v12[1] = &v24;
         a1[9] = v11 - 1;
-        v23 = v12;
-        ++v25;
+        v24 = v12;
+        ++v26;
       }
     }
 
-    v22.__r_.__value_.__r.__words[0] = (v24 + 2);
-    std::__hash_table<std::__hash_value_type<std::string const*,std::__list_iterator<std::pair<std::string,quasar::SystemConfig::SystemConfigInfo>,void *>>,std::__unordered_map_hasher<std::string const*,std::__hash_value_type<std::string const*,std::__list_iterator<std::pair<std::string,quasar::SystemConfig::SystemConfigInfo>,void *>>,kaldi::LRUCacheMap<std::string,quasar::SystemConfig::SystemConfigInfo,std::hash<std::string>,std::equal_to<std::string>>::PointerHasher,kaldi::LRUCacheMap<std::string,quasar::SystemConfig::SystemConfigInfo,std::hash<std::string>,std::equal_to<std::string>>::PointerPred,false>,std::__unordered_map_equal<std::string const*,std::__hash_value_type<std::string const*,std::__list_iterator<std::pair<std::string,quasar::SystemConfig::SystemConfigInfo>,void *>>,kaldi::LRUCacheMap<std::string,quasar::SystemConfig::SystemConfigInfo,std::hash<std::string>,std::equal_to<std::string>>::PointerPred,kaldi::LRUCacheMap<std::string,quasar::SystemConfig::SystemConfigInfo,std::hash<std::string>,std::equal_to<std::string>>::PointerHasher,false>,std::allocator<std::__hash_value_type<std::string const*,std::__list_iterator<std::pair<std::string,quasar::SystemConfig::SystemConfigInfo>,void *>>>>::__erase_unique<std::string const*>(a1 + 1, &v22);
-    std::string::operator=((v24 + 2), a2);
+    v23.__r_.__value_.__r.__words[0] = (v25 + 2);
+    std::__hash_table<std::__hash_value_type<std::string const*,std::__list_iterator<std::pair<std::string,quasar::SystemConfig::SystemConfigInfo>,void *>>,std::__unordered_map_hasher<std::string const*,std::__hash_value_type<std::string const*,std::__list_iterator<std::pair<std::string,quasar::SystemConfig::SystemConfigInfo>,void *>>,kaldi::LRUCacheMap<std::string,quasar::SystemConfig::SystemConfigInfo,std::hash<std::string>,std::equal_to<std::string>>::PointerHasher,kaldi::LRUCacheMap<std::string,quasar::SystemConfig::SystemConfigInfo,std::hash<std::string>,std::equal_to<std::string>>::PointerPred,false>,std::__unordered_map_equal<std::string const*,std::__hash_value_type<std::string const*,std::__list_iterator<std::pair<std::string,quasar::SystemConfig::SystemConfigInfo>,void *>>,kaldi::LRUCacheMap<std::string,quasar::SystemConfig::SystemConfigInfo,std::hash<std::string>,std::equal_to<std::string>>::PointerPred,kaldi::LRUCacheMap<std::string,quasar::SystemConfig::SystemConfigInfo,std::hash<std::string>,std::equal_to<std::string>>::PointerHasher,false>,std::allocator<std::__hash_value_type<std::string const*,std::__list_iterator<std::pair<std::string,quasar::SystemConfig::SystemConfigInfo>,void *>>>>::__erase_unique<std::string const*>(a1 + 1, &v23);
+    std::string::operator=((v25 + 2), a2);
   }
 
-  v16 = v24;
-  quasar::SystemConfig::SystemConfigInfo::operator=((v24 + 5), a3);
-  v22.__r_.__value_.__r.__words[0] = (v16 + 2);
-  v22.__r_.__value_.__l.__size_ = v16;
-  std::__hash_table<std::__hash_value_type<std::string const*,std::__list_iterator<std::pair<std::string,quasar::SystemConfig::SystemConfigInfo>,void *>>,std::__unordered_map_hasher<std::string const*,std::__hash_value_type<std::string const*,std::__list_iterator<std::pair<std::string,quasar::SystemConfig::SystemConfigInfo>,void *>>,kaldi::LRUCacheMap<std::string,quasar::SystemConfig::SystemConfigInfo,std::hash<std::string>,std::equal_to<std::string>>::PointerHasher,kaldi::LRUCacheMap<std::string,quasar::SystemConfig::SystemConfigInfo,std::hash<std::string>,std::equal_to<std::string>>::PointerPred,false>,std::__unordered_map_equal<std::string const*,std::__hash_value_type<std::string const*,std::__list_iterator<std::pair<std::string,quasar::SystemConfig::SystemConfigInfo>,void *>>,kaldi::LRUCacheMap<std::string,quasar::SystemConfig::SystemConfigInfo,std::hash<std::string>,std::equal_to<std::string>>::PointerPred,kaldi::LRUCacheMap<std::string,quasar::SystemConfig::SystemConfigInfo,std::hash<std::string>,std::equal_to<std::string>>::PointerHasher,false>,std::allocator<std::__hash_value_type<std::string const*,std::__list_iterator<std::pair<std::string,quasar::SystemConfig::SystemConfigInfo>,void *>>>>::__emplace_unique_key_args<std::string const*,std::pair<std::string const* const,std::__list_iterator<std::pair<std::string,quasar::SystemConfig::SystemConfigInfo>,void *>>>(a1 + 1, &v22);
+  v16 = v25;
+  quasar::SystemConfig::SystemConfigInfo::operator=((v25 + 5), a3);
+  v23.__r_.__value_.__r.__words[0] = (v16 + 2);
+  v23.__r_.__value_.__l.__size_ = v16;
+  std::__hash_table<std::__hash_value_type<std::string const*,std::__list_iterator<std::pair<std::string,quasar::SystemConfig::SystemConfigInfo>,void *>>,std::__unordered_map_hasher<std::string const*,std::__hash_value_type<std::string const*,std::__list_iterator<std::pair<std::string,quasar::SystemConfig::SystemConfigInfo>,void *>>,kaldi::LRUCacheMap<std::string,quasar::SystemConfig::SystemConfigInfo,std::hash<std::string>,std::equal_to<std::string>>::PointerHasher,kaldi::LRUCacheMap<std::string,quasar::SystemConfig::SystemConfigInfo,std::hash<std::string>,std::equal_to<std::string>>::PointerPred,false>,std::__unordered_map_equal<std::string const*,std::__hash_value_type<std::string const*,std::__list_iterator<std::pair<std::string,quasar::SystemConfig::SystemConfigInfo>,void *>>,kaldi::LRUCacheMap<std::string,quasar::SystemConfig::SystemConfigInfo,std::hash<std::string>,std::equal_to<std::string>>::PointerPred,kaldi::LRUCacheMap<std::string,quasar::SystemConfig::SystemConfigInfo,std::hash<std::string>,std::equal_to<std::string>>::PointerHasher,false>,std::allocator<std::__hash_value_type<std::string const*,std::__list_iterator<std::pair<std::string,quasar::SystemConfig::SystemConfigInfo>,void *>>>>::__emplace_unique_key_args<std::string const*,std::pair<std::string const* const,std::__list_iterator<std::pair<std::string,quasar::SystemConfig::SystemConfigInfo>,void *>>>(a1 + 1, &v23, &v23);
   v17 = a1[8];
   if (v17 != v16)
   {
@@ -9310,12 +9231,12 @@ uint64_t *kaldi::LRUCacheMap<std::string,quasar::SystemConfig::SystemConfigInfo,
       *v16 = v20;
       *v17 = v16;
       v16[1] = v17;
-      --v25;
+      --v26;
       ++a1[9];
     }
   }
 
-  std::__list_imp<std::pair<std::string,quasar::SystemConfig::SystemConfigInfo>>::clear(&v23);
+  std::__list_imp<std::pair<std::string,quasar::SystemConfig::SystemConfigInfo>>::clear(&v24);
   return v16 + 5;
 }
 
@@ -9324,8 +9245,7 @@ uint64_t _ZNSt3__14pairINS_12basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEE
   v3 = *a2;
   *(a1 + 16) = *(a2 + 2);
   *a1 = v3;
-  *(a2 + 1) = 0;
-  *(a2 + 2) = 0;
+  *(a2 + 8) = 0uLL;
   *a2 = 0;
   bzero((a1 + 24), 0x330uLL);
   quasar::SystemConfig::SystemConfigInfo::SystemConfigInfo((a1 + 24));
@@ -9366,35 +9286,35 @@ void sub_1B502E758(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void *std::__hash_table<std::__hash_value_type<std::string const*,std::__list_iterator<std::pair<std::string,quasar::SystemConfig::SystemConfigInfo>,void *>>,std::__unordered_map_hasher<std::string const*,std::__hash_value_type<std::string const*,std::__list_iterator<std::pair<std::string,quasar::SystemConfig::SystemConfigInfo>,void *>>,kaldi::LRUCacheMap<std::string,quasar::SystemConfig::SystemConfigInfo,std::hash<std::string>,std::equal_to<std::string>>::PointerHasher,kaldi::LRUCacheMap<std::string,quasar::SystemConfig::SystemConfigInfo,std::hash<std::string>,std::equal_to<std::string>>::PointerPred,false>,std::__unordered_map_equal<std::string const*,std::__hash_value_type<std::string const*,std::__list_iterator<std::pair<std::string,quasar::SystemConfig::SystemConfigInfo>,void *>>,kaldi::LRUCacheMap<std::string,quasar::SystemConfig::SystemConfigInfo,std::hash<std::string>,std::equal_to<std::string>>::PointerPred,kaldi::LRUCacheMap<std::string,quasar::SystemConfig::SystemConfigInfo,std::hash<std::string>,std::equal_to<std::string>>::PointerHasher,false>,std::allocator<std::__hash_value_type<std::string const*,std::__list_iterator<std::pair<std::string,quasar::SystemConfig::SystemConfigInfo>,void *>>>>::__emplace_unique_key_args<std::string const*,std::pair<std::string const* const,std::__list_iterator<std::pair<std::string,quasar::SystemConfig::SystemConfigInfo>,void *>>>(void *a1, uint64_t *a2)
+void *std::__hash_table<std::__hash_value_type<std::string const*,std::__list_iterator<std::pair<std::string,quasar::SystemConfig::SystemConfigInfo>,void *>>,std::__unordered_map_hasher<std::string const*,std::__hash_value_type<std::string const*,std::__list_iterator<std::pair<std::string,quasar::SystemConfig::SystemConfigInfo>,void *>>,kaldi::LRUCacheMap<std::string,quasar::SystemConfig::SystemConfigInfo,std::hash<std::string>,std::equal_to<std::string>>::PointerHasher,kaldi::LRUCacheMap<std::string,quasar::SystemConfig::SystemConfigInfo,std::hash<std::string>,std::equal_to<std::string>>::PointerPred,false>,std::__unordered_map_equal<std::string const*,std::__hash_value_type<std::string const*,std::__list_iterator<std::pair<std::string,quasar::SystemConfig::SystemConfigInfo>,void *>>,kaldi::LRUCacheMap<std::string,quasar::SystemConfig::SystemConfigInfo,std::hash<std::string>,std::equal_to<std::string>>::PointerPred,kaldi::LRUCacheMap<std::string,quasar::SystemConfig::SystemConfigInfo,std::hash<std::string>,std::equal_to<std::string>>::PointerHasher,false>,std::allocator<std::__hash_value_type<std::string const*,std::__list_iterator<std::pair<std::string,quasar::SystemConfig::SystemConfigInfo>,void *>>>>::__emplace_unique_key_args<std::string const*,std::pair<std::string const* const,std::__list_iterator<std::pair<std::string,quasar::SystemConfig::SystemConfigInfo>,void *>>>(void *a1, uint64_t **a2, _OWORD *a3)
 {
-  v4 = std::__string_hash<char>::operator()[abi:ne200100]((a1 + 4), *a2);
-  v5 = v4;
-  v6 = a1[1];
-  if (!*&v6)
+  v5 = std::__string_hash<char>::operator()[abi:ne200100]((a1 + 4), *a2);
+  v6 = v5;
+  v7 = a1[1];
+  if (!*&v7)
   {
     goto LABEL_19;
   }
 
-  v7 = vcnt_s8(v6);
-  v7.i16[0] = vaddlv_u8(v7);
-  v8 = v7.u32[0];
-  if (v7.u32[0] > 1uLL)
+  v8 = vcnt_s8(v7);
+  v8.i16[0] = vaddlv_u8(v8);
+  v9 = v8.u32[0];
+  if (v8.u32[0] > 1uLL)
   {
-    v9 = v4;
-    if (v4 >= *&v6)
+    v10 = v5;
+    if (v5 >= *&v7)
     {
-      v9 = v4 % *&v6;
+      v10 = v5 % *&v7;
     }
   }
 
   else
   {
-    v9 = (*&v6 - 1) & v4;
+    v10 = (*&v7 - 1) & v5;
   }
 
-  v10 = *(*a1 + 8 * v9);
-  if (!v10 || (v11 = *v10) == 0)
+  v11 = *(*a1 + 8 * v10);
+  if (!v11 || (v12 = *v11) == 0)
   {
 LABEL_19:
     operator new();
@@ -9402,51 +9322,51 @@ LABEL_19:
 
   while (1)
   {
-    v12 = v11[1];
-    if (v12 == v5)
+    v13 = v12[1];
+    if (v13 == v6)
     {
       break;
     }
 
-    if (v8 > 1)
+    if (v9 > 1)
     {
-      if (v12 >= *&v6)
+      if (v13 >= *&v7)
       {
-        v12 %= *&v6;
+        v13 %= *&v7;
       }
     }
 
     else
     {
-      v12 &= *&v6 - 1;
+      v13 &= *&v7 - 1;
     }
 
-    if (v12 != v9)
+    if (v13 != v10)
     {
       goto LABEL_19;
     }
 
 LABEL_18:
-    v11 = *v11;
-    if (!v11)
+    v12 = *v12;
+    if (!v12)
     {
       goto LABEL_19;
     }
   }
 
-  v13 = v11[2];
-  if (v13 != *a2 && !std::equal_to<std::string>::operator()[abi:ne200100]((a1 + 5), v13, *a2))
+  v14 = v12[2];
+  if (v14 != *a2 && !std::equal_to<std::string>::operator()[abi:ne200100]((a1 + 5), v14, *a2))
   {
     goto LABEL_18;
   }
 
-  return v11;
+  return v12;
 }
 
 void quasar::SystemConfig::SystemConfigInfo::~SystemConfigInfo(quasar::SystemConfig::SystemConfigInfo *this)
 {
-  std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::~__hash_table(this + 776);
-  std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::~__hash_table(this + 736);
+  std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::~__hash_table(this + 97);
+  std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::~__hash_table(this + 92);
   std::__tree<std::string>::destroy(this + 704, *(this + 89));
   std::__tree<std::__value_type<int,std::map<std::string,double>>,std::__map_value_compare<int,std::__value_type<int,std::map<std::string,double>>,std::less<int>,true>,std::allocator<std::__value_type<int,std::map<std::string,double>>>>::destroy(this + 680, *(this + 86));
   std::__hash_table<std::__hash_value_type<std::string,std::unordered_set<std::string>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::unordered_set<std::string>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::unordered_set<std::string>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::unordered_set<std::string>>>>::~__hash_table(this + 640);
@@ -9463,7 +9383,7 @@ void quasar::SystemConfig::SystemConfigInfo::~SystemConfigInfo(quasar::SystemCon
   }
 
   quasar::SpeechModelInfo::~SpeechModelInfo((this + 128));
-  quasar::PTree::~PTree((this + 64));
+  quasar::PTree::~PTree(this + 8);
   *(this + 4) = &unk_1F2CFAA28;
   if (*(this + 63) < 0)
   {
@@ -9476,9 +9396,9 @@ void quasar::SystemConfig::SystemConfigInfo::~SystemConfigInfo(quasar::SystemCon
   }
 }
 
-uint64_t std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::~__hash_table(uint64_t a1)
+void **std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::~__hash_table(void **a1)
 {
-  std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__deallocate_node(a1, *(a1 + 16));
+  std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__deallocate_node(a1, a1[2]);
   v2 = *a1;
   *a1 = 0;
   if (v2)
@@ -9805,56 +9725,127 @@ LABEL_11:
   std::string::__init_copy_ctor_external(a2, v4, v5);
 }
 
-uint64_t quasar::SystemConfig::getSpeechModelInfo(quasar::SystemConfig *this)
+void quasar::SystemConfig::getSpeechModelInfo(quasar::SystemConfig *this)
 {
   if (*(this + 388) != 1)
   {
-    v17 = 0u;
-    v18 = 0u;
-    v15 = 0u;
     v16 = 0u;
-    v13 = 0u;
+    v17 = 0u;
     v14 = 0u;
-    v11 = 0u;
+    v15 = 0u;
     v12 = 0u;
-    v9 = 0u;
+    v13 = 0u;
     v10 = 0u;
-    v7 = 0u;
+    v11 = 0u;
     v8 = 0u;
-    v5 = 0u;
+    v9 = 0u;
     v6 = 0u;
-    v3 = 0u;
+    v7 = 0u;
     v4 = 0u;
+    v5 = 0u;
     v2 = 0u;
-    kaldi::KaldiWarnMessage::KaldiWarnMessage(&v2);
-    std::operator<<[abi:ne200100]<std::char_traits<char>>(&v2, "Config file must be loaded before calling this method.");
+    v3 = 0u;
+    v1 = 0u;
+    kaldi::KaldiWarnMessage::KaldiWarnMessage(&v1);
+    std::operator<<[abi:ne200100]<std::char_traits<char>>(&v1, "Config file must be loaded before calling this method.");
     goto LABEL_6;
   }
 
   if (*(this + 184) != 1)
   {
-    v17 = 0u;
-    v18 = 0u;
-    v15 = 0u;
     v16 = 0u;
-    v13 = 0u;
+    v17 = 0u;
     v14 = 0u;
-    v11 = 0u;
+    v15 = 0u;
     v12 = 0u;
-    v9 = 0u;
+    v13 = 0u;
     v10 = 0u;
-    v7 = 0u;
+    v11 = 0u;
     v8 = 0u;
-    v5 = 0u;
+    v9 = 0u;
     v6 = 0u;
-    v3 = 0u;
+    v7 = 0u;
     v4 = 0u;
+    v5 = 0u;
     v2 = 0u;
-    kaldi::KaldiWarnMessage::KaldiWarnMessage(&v2);
-    std::operator<<[abi:ne200100]<std::char_traits<char>>(&v2, "Config file does not have speech model-info node.");
+    v3 = 0u;
+    v1 = 0u;
+    kaldi::KaldiWarnMessage::KaldiWarnMessage(&v1);
+    std::operator<<[abi:ne200100]<std::char_traits<char>>(&v1, "Config file does not have speech model-info node.");
 LABEL_6:
-    quasar::QuasarExceptionMessage::~QuasarExceptionMessage(&v2);
+    quasar::QuasarExceptionMessage::~QuasarExceptionMessage(&v1);
+  }
+}
+
+std::string *quasar::SpeechModelInfo::SpeechModelInfo(std::string *this, const quasar::SpeechModelInfo *a2)
+{
+  if (*(a2 + 23) < 0)
+  {
+    std::string::__init_copy_ctor_external(this, *a2, *(a2 + 1));
   }
 
-  return this + 136;
+  else
+  {
+    v4 = *a2;
+    this->__r_.__value_.__r.__words[2] = *(a2 + 2);
+    *&this->__r_.__value_.__l.__data_ = v4;
+  }
+
+  if (*(a2 + 47) < 0)
+  {
+    std::string::__init_copy_ctor_external(this + 1, *(a2 + 3), *(a2 + 4));
+  }
+
+  else
+  {
+    v5 = *(a2 + 24);
+    this[1].__r_.__value_.__r.__words[2] = *(a2 + 5);
+    *&this[1].__r_.__value_.__l.__data_ = v5;
+  }
+
+  std::set<int>::set[abi:ne200100](this[2].__r_.__value_.__r.__words, a2 + 48);
+  std::set<std::string>::set[abi:ne200100](&this[3], a2 + 9);
+  std::set<std::string>::set[abi:ne200100](&this[4], a2 + 12);
+  if (*(a2 + 143) < 0)
+  {
+    std::string::__init_copy_ctor_external(this + 5, *(a2 + 15), *(a2 + 16));
+  }
+
+  else
+  {
+    v6 = *(a2 + 120);
+    this[5].__r_.__value_.__r.__words[2] = *(a2 + 17);
+    *&this[5].__r_.__value_.__l.__data_ = v6;
+  }
+
+  if (*(a2 + 167) < 0)
+  {
+    std::string::__init_copy_ctor_external(this + 6, *(a2 + 18), *(a2 + 19));
+  }
+
+  else
+  {
+    v7 = *(a2 + 9);
+    this[6].__r_.__value_.__r.__words[2] = *(a2 + 20);
+    *&this[6].__r_.__value_.__l.__data_ = v7;
+  }
+
+  if (*(a2 + 191) < 0)
+  {
+    std::string::__init_copy_ctor_external(this + 7, *(a2 + 21), *(a2 + 22));
+  }
+
+  else
+  {
+    v8 = *(a2 + 168);
+    this[7].__r_.__value_.__r.__words[2] = *(a2 + 23);
+    *&this[7].__r_.__value_.__l.__data_ = v8;
+  }
+
+  LODWORD(this[8].__r_.__value_.__l.__data_) = *(a2 + 48);
+  std::map<std::string,std::string>::map[abi:ne200100](&this[8].__r_.__value_.__s.__data_[8], a2 + 200);
+  std::map<std::string,std::vector<std::string>>::map[abi:ne200100](&this[9].__r_.__value_.__s.__data_[8], a2 + 28);
+  std::map<std::string,std::string>::map[abi:ne200100](&this[10].__r_.__value_.__s.__data_[8], a2 + 248);
+  this[11].__r_.__value_.__l.__size_ = *(a2 + 34);
+  return this;
 }

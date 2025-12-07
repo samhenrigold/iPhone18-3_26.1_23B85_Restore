@@ -555,45 +555,41 @@ uint64_t __28__VFFuture_addFailureBlock___block_invoke(uint64_t result, uint64_t
 
 - (void)_flushCompletionBlocks
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   [(NSConditionLock *)self->_stateLock lock];
   v3 = [(NSMutableArray *)self->_completionBlocks copy];
   [(NSMutableArray *)self->_completionBlocks removeAllObjects];
   [(NSConditionLock *)self->_stateLock unlock];
-  v14 = 0u;
-  v15 = 0u;
+  v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
+  v9 = 0u;
+  v10 = 0u;
   v4 = v3;
-  v5 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v13;
+    v7 = *v10;
     do
     {
       v8 = 0;
       do
       {
-        if (*v13 != v7)
+        if (*v10 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        result = self->_result;
-        error = self->_error;
-        (*(*(*(&v12 + 1) + 8 * v8) + 16))(*(*(&v12 + 1) + 8 * v8));
+        (*(*(*(&v9 + 1) + 8 * v8) + 16))(*(*(&v9 + 1) + 8 * v8));
         ++v8;
       }
 
       while (v6 != v8);
-      v6 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v6);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (VFFutureDelegate)delegate

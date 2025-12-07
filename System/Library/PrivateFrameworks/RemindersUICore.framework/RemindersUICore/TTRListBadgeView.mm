@@ -52,7 +52,7 @@
   v32.size.height = v24;
   if (CGRectContainsPoint(v32, v31))
   {
-    sub_21D0D8CF0(0, &qword_27CE65B88);
+    sub_21D0D8CF0(0, &qword_27CE65B88, 0x277D75880);
     v27 = sub_21DBFAFEC();
 
     v28 = v27;

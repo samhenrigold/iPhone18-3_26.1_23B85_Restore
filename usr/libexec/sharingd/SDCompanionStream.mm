@@ -14,12 +14,14 @@
 - (void)notifyStreamRequestWithError:(id)error;
 - (void)readClientStream;
 - (void)sendInitialRequest;
+- (void)sendInitialResponse:(BOOL)response;
 - (void)setBundleID:(id)d;
 - (void)start;
 - (void)startBrowser;
 - (void)stop;
 - (void)stopIfReady;
 - (void)stream:(id)stream handleEvent:(unint64_t)event;
+- (void)streamHandler:(id)handler bufferSpaceChanged:(BOOL)changed;
 - (void)streamHandler:(id)handler didReceiveMessage:(id)message;
 - (void)streamHandler:(id)handler didReceiveStreamData:(id)data;
 - (void)streamHandlerDidClose:(id)close withError:(id)error;
@@ -250,6 +252,45 @@ LABEL_16:
   v8[3] = &unk_1008CE090;
   v8[4] = self;
   [(SDStreamHandler *)streamHandler sendMessage:encodedData withCompletionHandler:v8];
+}
+
+- (void)sendInitialResponse:(BOOL)response
+{
+  responseCopy = response;
+  v5 = streams_log();
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  {
+    v6 = @"NO";
+    if (responseCopy)
+    {
+      v6 = @"YES";
+    }
+
+    *buf = 138412290;
+    v17 = v6;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Sending initial streams response (accepted = %@)", buf, 0xCu);
+  }
+
+  v15[0] = &off_10090BFA0;
+  v14[0] = @"StreamMessageType";
+  v14[1] = @"StreamMessageVersion";
+  v7 = [NSNumber numberWithInteger:1];
+  v15[1] = v7;
+  v14[2] = @"CompanionStreamConnectResponse";
+  v8 = [NSNumber numberWithBool:responseCopy];
+  v15[2] = v8;
+  v9 = [NSDictionary dictionaryWithObjects:v15 forKeys:v14 count:3];
+
+  v10 = [[NSKeyedArchiver alloc] initRequiringSecureCoding:1];
+  [v10 encodeObject:v9 forKey:NSKeyedArchiveRootObjectKey];
+  streamHandler = self->_streamHandler;
+  encodedData = [v10 encodedData];
+  v13[0] = _NSConcreteStackBlock;
+  v13[1] = 3221225472;
+  v13[2] = sub_10021CAFC;
+  v13[3] = &unk_1008CE090;
+  v13[4] = self;
+  [(SDStreamHandler *)streamHandler sendMessage:encodedData withCompletionHandler:v13];
 }
 
 - (void)switchToStreaming
@@ -583,6 +624,18 @@ LABEL_7:
     [(SDCompanionStream *)self notifyStreamRequestWithError:v9];
 
     [(SDCompanionStream *)self stop];
+  }
+}
+
+- (void)streamHandler:(id)handler bufferSpaceChanged:(BOOL)changed
+{
+  changedCopy = changed;
+  networkBufferSpaceAvailable = [(SDCompanionStream *)self networkBufferSpaceAvailable];
+  [(SDCompanionStream *)self setNetworkBufferSpaceAvailable:changedCopy];
+  if (changedCopy && (networkBufferSpaceAvailable & 1) == 0 && [(NSInputStream *)self->_clientInputStream hasBytesAvailable])
+  {
+
+    [(SDCompanionStream *)self readClientStream];
   }
 }
 

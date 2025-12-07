@@ -71,6 +71,7 @@
 - (id)setNumberValue:(id)value forKey:(id)key;
 - (id)setStringValue:(id)value forKey:(id)key;
 - (id)setUUIDValue:(id)value forKey:(id)key;
+- (id)statementForFetchingProperties:(id)properties distinct:(BOOL)distinct inEntriesMatchingColumns:(id)columns;
 - (id)stringValueForKey:(id)key error:(id *)error;
 - (id)tableForReferenceProperty:(id)property;
 - (id)updateProperties:(id)properties usingObject:(id)object label:(_CKSQLiteCompiledStatementLabel *)label;
@@ -203,12 +204,10 @@
 
 - (id)predicateForMatchingPrimaryKey
 {
-  v8[1] = *MEMORY[0x1E69E9840];
-  v8[0] = self->_primaryKey;
-  v3 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], a2, v8, 1);
+  v7[1] = *MEMORY[0x1E69E9840];
+  v7[0] = self->_primaryKey;
+  v3 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], a2, v7, 1);
   v5 = objc_msgSend__predicateForMatchingProperties_(self, v4, v3);
-
-  v6 = *MEMORY[0x1E69E9840];
 
   return v5;
 }
@@ -359,8 +358,9 @@
 
 + (id)objectClassesForProperty:(id)property
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v3 = MEMORY[0x1E695DFA8];
+  v9 = objc_opt_class();
   v10 = objc_opt_class();
   v11 = objc_opt_class();
   v12 = objc_opt_class();
@@ -371,11 +371,8 @@
   v17 = objc_opt_class();
   v18 = objc_opt_class();
   v19 = objc_opt_class();
-  v20 = objc_opt_class();
-  v5 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v4, &v10, 11);
-  v7 = objc_msgSend_setWithArray_(v3, v6, v5, v10, v11, v12, v13, v14, v15, v16, v17, v18, v19);
-
-  v8 = *MEMORY[0x1E69E9840];
+  v5 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v4, &v9, 11);
+  v7 = objc_msgSend_setWithArray_(v3, v6, v5, v9, v10, v11, v12, v13, v14, v15, v16, v17, v18);
 
   return v7;
 }
@@ -638,31 +635,31 @@
 
 + (id)descriptionOfProperties:(id)properties from:(id)from
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   propertiesCopy = properties;
   fromCopy = from;
   v8 = objc_alloc_init(MEMORY[0x1E696AD60]);
+  v25 = 0u;
   v26 = 0u;
   v27 = 0u;
   v28 = 0u;
-  v29 = 0u;
   obj = propertiesCopy;
-  v10 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v9, &v26, v30, 16);
+  v10 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v9, &v25, v29, 16);
   if (v10)
   {
     v12 = v10;
     v13 = 1;
-    v14 = *v27;
+    v14 = *v26;
     do
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v27 != v14)
+        if (*v26 != v14)
         {
           objc_enumerationMutation(obj);
         }
 
-        v16 = *(*(&v26 + 1) + 8 * i);
+        v16 = *(*(&v25 + 1) + 8 * i);
         if ((v13 & 1) == 0)
         {
           objc_msgSend_appendString_(v8, v11, @", ");
@@ -689,14 +686,12 @@
         v13 = 0;
       }
 
-      v12 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v11, &v26, v30, 16);
+      v12 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v11, &v25, v29, 16);
       v13 = 0;
     }
 
     while (v12);
   }
-
-  v23 = *MEMORY[0x1E69E9840];
 
   return v8;
 }
@@ -964,22 +959,22 @@
 
 - (id)createTableSQL
 {
-  v107 = *MEMORY[0x1E69E9840];
-  v99 = 0;
-  v100 = &v99;
-  v101 = 0x3032000000;
-  v102 = sub_1883EE20C;
-  v103 = sub_1883EF7AC;
-  v104 = 0;
+  v106 = *MEMORY[0x1E69E9840];
+  v98 = 0;
+  v99 = &v98;
+  v100 = 0x3032000000;
+  v101 = sub_1883EE20C;
+  v102 = sub_1883EF7AC;
+  v103 = 0;
   v2 = objc_alloc_init(MEMORY[0x1E696AD60]);
   v3 = objc_alloc_init(MEMORY[0x1E695DF70]);
   v4 = objc_alloc_init(MEMORY[0x1E695DF90]);
   v5 = objc_alloc_init(MEMORY[0x1E695DF90]);
-  v69 = objc_msgSend_dbTableName(self, v6, v7);
-  if (!v69)
+  v68 = objc_msgSend_dbTableName(self, v6, v7);
+  if (!v68)
   {
-    v58 = objc_msgSend_currentHandler(MEMORY[0x1E696AAA8], v8, v9);
-    objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v58, v59, a2, self, @"CKSQLiteTable.m", 999, @"Name not set");
+    v57 = objc_msgSend_currentHandler(MEMORY[0x1E696AAA8], v8, v9);
+    objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v57, v58, a2, self, @"CKSQLiteTable.m", 999, @"Name not set");
   }
 
   v10 = objc_msgSend__useTemporaryTables(self, v8, v9);
@@ -989,66 +984,66 @@
     v11 = @"TEMPORARY ";
   }
 
-  v65 = v11;
-  objc_msgSend_appendFormat_(v2, v12, @"CREATE %@TABLE '%@' ("), v65, v69;
-  v95 = 0;
-  v96 = &v95;
-  v97 = 0x2020000000;
-  v98 = 1;
+  v64 = v11;
+  objc_msgSend_appendFormat_(v2, v12, @"CREATE %@TABLE '%@' ("), v64, v68;
+  v94 = 0;
+  v95 = &v94;
+  v96 = 0x2020000000;
+  v97 = 1;
   v13 = objc_opt_class();
-  v85[0] = MEMORY[0x1E69E9820];
-  v85[1] = 3221225472;
-  v85[2] = sub_188683FEC;
-  v85[3] = &unk_1E70C0FA8;
-  v92 = &v95;
+  v84[0] = MEMORY[0x1E69E9820];
+  v84[1] = 3221225472;
+  v84[2] = sub_188683FEC;
+  v84[3] = &unk_1E70C0FA8;
+  v91 = &v94;
   v14 = v2;
-  v86 = v14;
+  v85 = v14;
   selfCopy = self;
-  v66 = v3;
-  v88 = v66;
-  v91 = &unk_1EFA30130;
-  v68 = v4;
-  v89 = v68;
-  v94 = 0xFC00000003F0000;
-  v67 = v5;
-  v90 = v67;
-  v93 = &v99;
-  objc_msgSend_enumeratePropertyDataWithBlock_(v13, v15, v85);
-  if (*(v96 + 24) == 1)
+  v65 = v3;
+  v87 = v65;
+  v90 = &unk_1EFA30130;
+  v67 = v4;
+  v88 = v67;
+  v93 = 0xFC00000003F0000;
+  v66 = v5;
+  v89 = v66;
+  v92 = &v98;
+  objc_msgSend_enumeratePropertyDataWithBlock_(v13, v15, v84);
+  if (*(v95 + 24) == 1)
   {
-    v60 = objc_msgSend_currentHandler(MEMORY[0x1E696AAA8], v16, v17);
-    v61 = objc_opt_class();
-    v62 = NSStringFromClass(v61);
-    objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v60, v63, a2, self, @"CKSQLiteTable.m", 1066, @"Table class %@ defines no properties", v62);
+    v59 = objc_msgSend_currentHandler(MEMORY[0x1E696AAA8], v16, v17);
+    v60 = objc_opt_class();
+    v61 = NSStringFromClass(v60);
+    objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v59, v62, a2, self, @"CKSQLiteTable.m", 1066, @"Table class %@ defines no properties", v61);
   }
 
   objc_msgSend_appendFormat_(v14, v16, @", PRIMARY KEY (%@)", self->_primaryKey);
-  v83[0] = MEMORY[0x1E69E9820];
-  v83[1] = 3221225472;
-  v83[2] = sub_18868432C;
-  v83[3] = &unk_1E70C0FD0;
+  v82[0] = MEMORY[0x1E69E9820];
+  v82[1] = 3221225472;
+  v82[2] = sub_18868432C;
+  v82[3] = &unk_1E70C0FD0;
   v18 = v14;
-  v84 = v18;
-  objc_msgSend_enumerateKeysAndObjectsUsingBlock_(v68, v19, v83);
-  v81 = 0u;
-  v82 = 0u;
-  v79 = 0u;
+  v83 = v18;
+  objc_msgSend_enumerateKeysAndObjectsUsingBlock_(v67, v19, v82);
   v80 = 0u;
-  v20 = v100[5];
-  v23 = objc_msgSend_countByEnumeratingWithState_objects_count_(v20, v21, &v79, v106, 16);
+  v81 = 0u;
+  v78 = 0u;
+  v79 = 0u;
+  v20 = v99[5];
+  v23 = objc_msgSend_countByEnumeratingWithState_objects_count_(v20, v21, &v78, v105, 16);
   if (v23)
   {
-    v24 = *v80;
+    v24 = *v79;
     do
     {
       for (i = 0; i != v23; ++i)
       {
-        if (*v80 != v24)
+        if (*v79 != v24)
         {
           objc_enumerationMutation(v20);
         }
 
-        v26 = *(*(&v79 + 1) + 8 * i);
+        v26 = *(*(&v78 + 1) + 8 * i);
         v29 = objc_msgSend_tableForReferenceProperty_(self, v22, v26);
         if (!v29)
         {
@@ -1063,7 +1058,7 @@
         objc_msgSend_appendFormat_(v18, v34, @", FOREIGN KEY(%@) REFERENCES '%@'(%@)", v26, v33, v30);
       }
 
-      v23 = objc_msgSend_countByEnumeratingWithState_objects_count_(v20, v22, &v79, v106, 16);
+      v23 = objc_msgSend_countByEnumeratingWithState_objects_count_(v20, v22, &v78, v105, 16);
     }
 
     while (v23);
@@ -1071,51 +1066,49 @@
 
   objc_msgSend_appendString_(v18, v39, @";"));
   v42 = objc_msgSend_dbTableName(self, v40, v41);
-  v77 = 0u;
-  v78 = 0u;
-  v75 = 0u;
   v76 = 0u;
-  obja = v66;
-  v45 = objc_msgSend_countByEnumeratingWithState_objects_count_(obja, v43, &v75, v105, 16);
+  v77 = 0u;
+  v74 = 0u;
+  v75 = 0u;
+  obja = v65;
+  v45 = objc_msgSend_countByEnumeratingWithState_objects_count_(obja, v43, &v74, v104, 16);
   if (v45)
   {
-    v46 = *v76;
+    v46 = *v75;
     do
     {
       for (j = 0; j != v45; ++j)
       {
-        if (*v76 != v46)
+        if (*v75 != v46)
         {
           objc_enumerationMutation(obja);
         }
 
-        v48 = *(*(&v75 + 1) + 8 * j);
+        v48 = *(*(&v74 + 1) + 8 * j);
         v49 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], v44, @"%@.index_%@", v42, v48);
         objc_msgSend_appendFormat_(v18, v50, @"CREATE INDEX '%@' on '%@' (%@);", v49, v42, v48);
       }
 
-      v45 = objc_msgSend_countByEnumeratingWithState_objects_count_(obja, v44, &v75, v105, 16);
+      v45 = objc_msgSend_countByEnumeratingWithState_objects_count_(obja, v44, &v74, v104, 16);
     }
 
     while (v45);
   }
 
-  v72[0] = MEMORY[0x1E69E9820];
-  v72[1] = 3221225472;
-  v72[2] = sub_1886843BC;
-  v72[3] = &unk_1E70C0FF8;
+  v71[0] = MEMORY[0x1E69E9820];
+  v71[1] = 3221225472;
+  v71[2] = sub_1886843BC;
+  v71[3] = &unk_1E70C0FF8;
   v51 = v42;
-  v73 = v51;
+  v72 = v51;
   v52 = v18;
-  v74 = v52;
-  objc_msgSend_enumerateKeysAndObjectsUsingBlock_(v67, v53, v72);
-  v54 = v74;
+  v73 = v52;
+  objc_msgSend_enumerateKeysAndObjectsUsingBlock_(v66, v53, v71);
+  v54 = v73;
   v55 = v52;
 
-  _Block_object_dispose(&v95, 8);
-  _Block_object_dispose(&v99, 8);
-
-  v56 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v94, 8);
+  _Block_object_dispose(&v98, 8);
 
   return v55;
 }
@@ -1188,48 +1181,48 @@
 
 - (BOOL)migrateDataFromTable:(id)table error:(id *)error
 {
-  v48 = *MEMORY[0x1E69E9840];
+  v47 = *MEMORY[0x1E69E9840];
   tableCopy = table;
   v6 = objc_alloc_init(MEMORY[0x1E695DF70]);
   v7 = objc_alloc_init(MEMORY[0x1E695DFA8]);
   v8 = objc_opt_class();
-  v43[0] = MEMORY[0x1E69E9820];
-  v43[1] = 3221225472;
-  v43[2] = sub_188684C54;
-  v43[3] = &unk_1E70C1070;
+  v42[0] = MEMORY[0x1E69E9820];
+  v42[1] = 3221225472;
+  v42[2] = sub_188684C54;
+  v42[3] = &unk_1E70C1070;
   v9 = tableCopy;
-  v44 = v9;
+  v43 = v9;
   v10 = v6;
-  v45 = v10;
+  v44 = v10;
   v11 = v7;
-  v46 = v11;
-  objc_msgSend_enumeratePropertyDataWithBlock_(v8, v12, v43);
-  v41[0] = MEMORY[0x1E69E9820];
-  v41[1] = 3221225472;
-  v41[2] = sub_188684CC8;
-  v41[3] = &unk_1E70BC098;
-  v35 = v10;
-  v42 = v35;
-  objc_msgSend_entriesWithValues_label_setupBlock_(v9, v13, 0, 0, v41);
+  v45 = v11;
+  objc_msgSend_enumeratePropertyDataWithBlock_(v8, v12, v42);
+  v40[0] = MEMORY[0x1E69E9820];
+  v40[1] = 3221225472;
+  v40[2] = sub_188684CC8;
+  v40[3] = &unk_1E70BC098;
+  v34 = v10;
+  v41 = v34;
+  objc_msgSend_entriesWithValues_label_setupBlock_(v9, v13, 0, 0, v40);
+  v36 = 0u;
   v37 = 0u;
   v38 = 0u;
-  v39 = 0u;
-  v14 = v40 = 0u;
-  v16 = objc_msgSend_countByEnumeratingWithState_objects_count_(v14, v15, &v37, v47, 16);
+  v14 = v39 = 0u;
+  v16 = objc_msgSend_countByEnumeratingWithState_objects_count_(v14, v15, &v36, v46, 16);
   if (v16)
   {
     v17 = v16;
-    v18 = *v38;
+    v18 = *v37;
     do
     {
       for (i = 0; i != v17; ++i)
       {
-        if (*v38 != v18)
+        if (*v37 != v18)
         {
           objc_enumerationMutation(v14);
         }
 
-        v20 = *(*(&v37 + 1) + 8 * i);
+        v20 = *(*(&v36 + 1) + 8 * i);
         v21 = objc_autoreleasePoolPush();
         v22 = objc_opt_class();
         v25 = objc_alloc_init(objc_msgSend_entryClass(v22, v23, v24));
@@ -1252,7 +1245,7 @@
         }
       }
 
-      v17 = objc_msgSend_countByEnumeratingWithState_objects_count_(v14, v29, &v37, v47, 16);
+      v17 = objc_msgSend_countByEnumeratingWithState_objects_count_(v14, v29, &v36, v46, 16);
     }
 
     while (v17);
@@ -1266,7 +1259,6 @@ LABEL_13:
     *error = v28;
   }
 
-  v33 = *MEMORY[0x1E69E9840];
   return v28 == 0;
 }
 
@@ -1360,7 +1352,7 @@ LABEL_13:
 
 - (id)_predicateForMatchingProperties:(id)properties
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   propertiesCopy = properties;
   if (objc_msgSend_count(propertiesCopy, v4, v5) == 1)
   {
@@ -1372,32 +1364,32 @@ LABEL_13:
   else
   {
     v12 = objc_alloc_init(MEMORY[0x1E695DF70]);
+    v27 = 0u;
     v28 = 0u;
     v29 = 0u;
     v30 = 0u;
-    v31 = 0u;
-    v27 = propertiesCopy;
+    v26 = propertiesCopy;
     v13 = propertiesCopy;
-    v15 = objc_msgSend_countByEnumeratingWithState_objects_count_(v13, v14, &v28, v32, 16);
+    v15 = objc_msgSend_countByEnumeratingWithState_objects_count_(v13, v14, &v27, v31, 16);
     if (v15)
     {
       v17 = v15;
-      v18 = *v29;
+      v18 = *v28;
       do
       {
         for (i = 0; i != v17; ++i)
         {
-          if (*v29 != v18)
+          if (*v28 != v18)
           {
             objc_enumerationMutation(v13);
           }
 
-          v20 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], v16, @"%@=$%@", *(*(&v28 + 1) + 8 * i), *(*(&v28 + 1) + 8 * i));
+          v20 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], v16, @"%@=$%@", *(*(&v27 + 1) + 8 * i), *(*(&v27 + 1) + 8 * i));
           v22 = objc_msgSend_predicateWithFormat_(MEMORY[0x1E696AE18], v21, v20);
           objc_msgSend_addObject_(v12, v23, v22);
         }
 
-        v17 = objc_msgSend_countByEnumeratingWithState_objects_count_(v13, v16, &v28, v32, 16);
+        v17 = objc_msgSend_countByEnumeratingWithState_objects_count_(v13, v16, &v27, v31, 16);
       }
 
       while (v17);
@@ -1405,42 +1397,40 @@ LABEL_13:
 
     v11 = objc_msgSend_andPredicateWithSubpredicates_(MEMORY[0x1E696AB28], v24, v12);
 
-    propertiesCopy = v27;
+    propertiesCopy = v26;
   }
-
-  v25 = *MEMORY[0x1E69E9840];
 
   return v11;
 }
 
 - (id)_valueDictionaryForProperties:(id)properties inObject:(id)object nilPropertyError:(id *)error selForNilPropertyError:(SEL)propertyError
 {
-  v42 = *MEMORY[0x1E69E9840];
+  v41 = *MEMORY[0x1E69E9840];
   propertiesCopy = properties;
   objectCopy = object;
   v11 = objc_alloc_init(MEMORY[0x1E695DF90]);
   v12 = objc_opt_class();
+  v36 = 0u;
   v37 = 0u;
   v38 = 0u;
   v39 = 0u;
-  v40 = 0u;
   v13 = propertiesCopy;
-  v15 = objc_msgSend_countByEnumeratingWithState_objects_count_(v13, v14, &v37, v41, 16);
+  v15 = objc_msgSend_countByEnumeratingWithState_objects_count_(v13, v14, &v36, v40, 16);
   if (v15)
   {
     v17 = v15;
     aSelector = propertyError;
-    v18 = *v38;
+    v18 = *v37;
     while (2)
     {
       for (i = 0; i != v17; ++i)
       {
-        if (*v38 != v18)
+        if (*v37 != v18)
         {
           objc_enumerationMutation(v13);
         }
 
-        v20 = *(*(&v37 + 1) + 8 * i);
+        v20 = *(*(&v36 + 1) + 8 * i);
         v21 = objc_msgSend_propertyInfo_(v12, v16, v20);
         v25 = objc_msgSend_valueForProperty_propertyInfo_inObject_(self, v22, v20, v21, objectCopy);
         if (!v25)
@@ -1464,7 +1454,7 @@ LABEL_13:
         objc_msgSend_setObject_forKey_(v11, v23, v25, v20);
       }
 
-      v17 = objc_msgSend_countByEnumeratingWithState_objects_count_(v13, v16, &v37, v41, 16);
+      v17 = objc_msgSend_countByEnumeratingWithState_objects_count_(v13, v16, &v36, v40, 16);
       if (v17)
       {
         continue;
@@ -1475,8 +1465,6 @@ LABEL_13:
   }
 
 LABEL_13:
-
-  v33 = *MEMORY[0x1E69E9840];
 
   return v11;
 }
@@ -1492,33 +1480,43 @@ LABEL_13:
   }
 }
 
+- (id)statementForFetchingProperties:(id)properties distinct:(BOOL)distinct inEntriesMatchingColumns:(id)columns
+{
+  distinctCopy = distinct;
+  columnsCopy = columns;
+  v10 = objc_msgSend_statementForFetchingColumns_distinct_inTable_(CKSQLiteCompiledStatement, v9, properties, distinctCopy, self);
+  objc_msgSend__addPredicateForMatching_toStatement_(self, v11, columnsCopy, v10);
+
+  return v10;
+}
+
 - (id)_bindProperties:(id)properties valueObject:(id)object inStatement:(id)statement includePrimaryKey:(BOOL)key
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   propertiesCopy = properties;
   objectCopy = object;
   statementCopy = statement;
   v11 = objc_opt_class();
+  v28 = 0u;
   v29 = 0u;
   v30 = 0u;
   v31 = 0u;
-  v32 = 0u;
   v12 = propertiesCopy;
-  v14 = objc_msgSend_countByEnumeratingWithState_objects_count_(v12, v13, &v29, v33, 16);
+  v14 = objc_msgSend_countByEnumeratingWithState_objects_count_(v12, v13, &v28, v32, 16);
   if (v14)
   {
     v16 = v14;
-    v17 = *v30;
+    v17 = *v29;
 LABEL_3:
     v18 = 0;
     while (1)
     {
-      if (*v30 != v17)
+      if (*v29 != v17)
       {
         objc_enumerationMutation(v12);
       }
 
-      v19 = *(*(&v29 + 1) + 8 * v18);
+      v19 = *(*(&v28 + 1) + 8 * v18);
       v20 = objc_msgSend_propertyInfo_(v11, v15, v19, statementCopy);
       v21 = v20;
       if (key || (v20 & 0x100) == 0)
@@ -1534,7 +1532,7 @@ LABEL_3:
 
       if (v16 == ++v18)
       {
-        v16 = objc_msgSend_countByEnumeratingWithState_objects_count_(v12, v15, &v29, v33, 16);
+        v16 = objc_msgSend_countByEnumeratingWithState_objects_count_(v12, v15, &v28, v32, 16);
         if (v16)
         {
           goto LABEL_3;
@@ -1551,19 +1549,17 @@ LABEL_11:
     v24 = 0;
   }
 
-  v25 = *MEMORY[0x1E69E9840];
-
   return v24;
 }
 
 - (BOOL)hasEntry:(id)entry error:(id *)error
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   primaryKey = self->_primaryKey;
   v6 = MEMORY[0x1E695DEC8];
   entryCopy = entry;
   v9 = objc_msgSend_arrayWithObjects_count_(v6, v8, &primaryKey, 1);
-  v11 = objc_msgSend_fetchProperties_inObject_matchingDBProperties_label_(self, v10, MEMORY[0x1E695E0F0], entryCopy, v9, off_1EA910FE0, primaryKey, v18);
+  v11 = objc_msgSend_fetchProperties_inObject_matchingDBProperties_label_(self, v10, MEMORY[0x1E695E0F0], entryCopy, v9, off_1EA910FE0, primaryKey, v17);
 
   if (v11)
   {
@@ -1578,28 +1574,27 @@ LABEL_11:
     }
   }
 
-  v15 = *MEMORY[0x1E69E9840];
   return v11 == 0;
 }
 
 - (id)entryWithPrimaryKey:(id)key fetchProperties:(id)properties label:(_CKSQLiteCompiledStatementLabel *)label error:(id *)error
 {
-  v27[1] = *MEMORY[0x1E69E9840];
+  v26[1] = *MEMORY[0x1E69E9840];
   keyCopy = key;
   propertiesCopy = properties;
   primaryKey = self->_primaryKey;
-  v27[0] = keyCopy;
-  v14 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v13, v27, &primaryKey, 1);
-  v25 = 0;
-  v23[0] = MEMORY[0x1E69E9820];
-  v23[1] = 3221225472;
-  v23[2] = sub_1886858CC;
-  v23[3] = &unk_1E70C1098;
-  v23[4] = self;
+  v26[0] = keyCopy;
+  v14 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v13, v26, &primaryKey, 1);
+  v24 = 0;
+  v22[0] = MEMORY[0x1E69E9820];
+  v22[1] = 3221225472;
+  v22[2] = sub_1886858CC;
+  v22[3] = &unk_1E70C1098;
+  v22[4] = self;
   v15 = propertiesCopy;
-  v24 = v15;
-  v17 = objc_msgSend_entryWithValues_label_error_setupBlock_(self, v16, v14, label, &v25, v23);
-  v18 = v25;
+  v23 = v15;
+  v17 = objc_msgSend_entryWithValues_label_error_setupBlock_(self, v16, v14, label, &v24, v22);
+  v18 = v24;
   v19 = v18;
   if (v18)
   {
@@ -1612,8 +1607,6 @@ LABEL_11:
 
     v17 = 0;
   }
-
-  v21 = *MEMORY[0x1E69E9840];
 
   return v17;
 }
@@ -1657,19 +1650,19 @@ LABEL_11:
 
 - (id)_fetchPropertiesUsingStatement:(id)statement inObject:(id)object matchingDBProperties:(id)properties label:(_CKSQLiteCompiledStatementLabel *)label
 {
-  v64 = *MEMORY[0x1E69E9840];
+  v63 = *MEMORY[0x1E69E9840];
   statementCopy = statement;
   objectCopy = object;
-  v51 = 0;
-  v13 = objc_msgSend_step_(statementCopy, v12, &v51);
-  v14 = v51;
+  v50 = 0;
+  v13 = objc_msgSend_step_(statementCopy, v12, &v50);
+  v14 = v50;
   v17 = v14;
   if (v13 && !v14)
   {
     v18 = objc_msgSend_fetchedValues(statementCopy, v15, v16);
-    v50 = 0;
-    v20 = objc_msgSend_step_(statementCopy, v19, &v50);
-    v17 = v50;
+    v49 = 0;
+    v20 = objc_msgSend_step_(statementCopy, v19, &v49);
+    v17 = v49;
     if (v20)
     {
       v22 = objc_msgSend_noUniqueDatabaseRowErrorIn_(CKPrettyError, v21, a2);
@@ -1679,13 +1672,13 @@ LABEL_11:
 
     if (!v17)
     {
-      v48[0] = MEMORY[0x1E69E9820];
-      v48[1] = 3221225472;
-      v48[2] = sub_188686060;
-      v48[3] = &unk_1E70C1110;
-      v48[4] = self;
-      v49 = objectCopy;
-      objc_msgSend_enumerateResultColumnsWithFetchedValues_block_(statementCopy, v23, v18, v48);
+      v47[0] = MEMORY[0x1E69E9820];
+      v47[1] = 3221225472;
+      v47[2] = sub_188686060;
+      v47[3] = &unk_1E70C1110;
+      v47[4] = self;
+      v48 = objectCopy;
+      objc_msgSend_enumerateResultColumnsWithFetchedValues_block_(statementCopy, v23, v18, v47);
     }
 
     goto LABEL_9;
@@ -1704,8 +1697,8 @@ LABEL_10:
   if (objc_msgSend_logOperations(self, v15, v16))
   {
     v27 = objc_msgSend_fetchedColumns(statementCopy, v25, v26);
-    v47 = objc_msgSend_componentsJoinedByString_(v27, v28, @", ");
-    v46 = objc_msgSend_searchBindingsDescription(statementCopy, v29, v30);
+    v46 = objc_msgSend_componentsJoinedByString_(v27, v28, @", ");
+    v45 = objc_msgSend_searchBindingsDescription(statementCopy, v29, v30);
     if (v17)
     {
       objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], v31, @"<none>, Error = %@", v17);
@@ -1728,25 +1721,25 @@ LABEL_10:
       v36 = v35;
       v37 = objc_opt_class();
       NSStringFromClass(v37);
-      v38 = v45 = a2;
+      v38 = v44 = a2;
       sub_188680BFC(label, v39);
       v41 = v40 = objectCopy;
       *buf = 138544642;
-      v53 = v38;
-      v54 = 2048;
+      v52 = v38;
+      v53 = 2048;
       selfCopy = self;
-      v56 = 2114;
-      v57 = v47;
-      v58 = 2114;
-      v59 = v46;
-      v60 = 2114;
-      v61 = v41;
-      v62 = 2114;
-      v63 = v34;
+      v55 = 2114;
+      v56 = v46;
+      v57 = 2114;
+      v58 = v45;
+      v59 = 2114;
+      v60 = v41;
+      v61 = 2114;
+      v62 = v34;
       _os_log_impl(&dword_1883EA000, v36, OS_LOG_TYPE_INFO, "%{public}@(%p): FETCH (%{public}@) WHERE %{public}@, label: %{public}@ fetched: %{public}@", buf, 0x3Eu);
 
       objectCopy = v40;
-      a2 = v45;
+      a2 = v44;
     }
   }
 
@@ -1765,8 +1758,6 @@ LABEL_10:
   {
     sub_18868114C(v17, self, a2);
   }
-
-  v43 = *MEMORY[0x1E69E9840];
 
   return v17;
 }
@@ -1795,15 +1786,13 @@ LABEL_10:
 
 - (id)fetchProperties:(id)properties inObject:(id)object label:(_CKSQLiteCompiledStatementLabel *)label
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   primaryKey = self->_primaryKey;
   v8 = MEMORY[0x1E695DEC8];
   objectCopy = object;
   propertiesCopy = properties;
   v12 = objc_msgSend_arrayWithObjects_count_(v8, v11, &primaryKey, 1);
-  v14 = objc_msgSend_fetchProperties_inObject_matchingDBProperties_label_(self, v13, propertiesCopy, objectCopy, v12, label, primaryKey, v18);
-
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = objc_msgSend_fetchProperties_inObject_matchingDBProperties_label_(self, v13, propertiesCopy, objectCopy, v12, label, primaryKey, v17);
 
   return v14;
 }
@@ -1825,36 +1814,35 @@ LABEL_10:
 
 - (id)updateProperties:(id)properties usingObject:(id)object label:(_CKSQLiteCompiledStatementLabel *)label
 {
-  v32[1] = *MEMORY[0x1E69E9840];
+  v31[1] = *MEMORY[0x1E69E9840];
   propertiesCopy = properties;
   objectCopy = object;
-  v32[0] = self->_primaryKey;
-  v12 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v11, v32, 1);
-  v31 = 0;
-  v14 = objc_msgSend__valueDictionaryForProperties_inObject_nilPropertyError_selForNilPropertyError_(self, v13, v12, objectCopy, &v31, a2);
-  v15 = v31;
+  v31[0] = self->_primaryKey;
+  v12 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v11, v31, 1);
+  v30 = 0;
+  v14 = objc_msgSend__valueDictionaryForProperties_inObject_nilPropertyError_selForNilPropertyError_(self, v13, v12, objectCopy, &v30, a2);
+  v15 = v30;
   if (!v15)
   {
     selfCopy = self;
-    v30 = 0;
-    v24 = MEMORY[0x1E69E9820];
-    v25 = 3221225472;
-    v26 = sub_1886868AC;
-    v27 = &unk_1E70C1188;
+    v29 = 0;
+    v23 = MEMORY[0x1E69E9820];
+    v24 = 3221225472;
+    v25 = sub_1886868AC;
+    v26 = &unk_1E70C1188;
     v17 = selfCopy;
-    v28 = v17;
-    v29 = v12;
-    v19 = objc_msgSend_setProperties_valuesToStore_inEntriesMatching_label_error_predicate_(v17, v18, propertiesCopy, objectCopy, v14, label, &v30, &v24);
-    v15 = v30;
+    v27 = v17;
+    v28 = v12;
+    v19 = objc_msgSend_setProperties_valuesToStore_inEntriesMatching_label_error_predicate_(v17, v18, propertiesCopy, objectCopy, v14, label, &v29, &v23);
+    v15 = v29;
     if (!v15 && !v19)
     {
-      v15 = objc_msgSend_noMatchingDatabaseRowErrorIn_(CKPrettyError, v20, a2, v24, v25, v26, v27, v28);
+      v15 = objc_msgSend_noMatchingDatabaseRowErrorIn_(CKPrettyError, v20, a2, v23, v24, v25, v26, v27);
     }
   }
 
   v21 = v15;
 
-  v22 = *MEMORY[0x1E69E9840];
   return v15;
 }
 
@@ -1965,29 +1953,29 @@ LABEL_10:
 
 - (id)deleteObject:(id)object
 {
-  v27[1] = *MEMORY[0x1E69E9840];
-  v27[0] = self->_primaryKey;
+  v26[1] = *MEMORY[0x1E69E9840];
+  v26[0] = self->_primaryKey;
   v5 = MEMORY[0x1E695DEC8];
   objectCopy = object;
-  v8 = objc_msgSend_arrayWithObjects_count_(v5, v7, v27, 1);
-  v26 = 0;
-  v10 = objc_msgSend__valueDictionaryForProperties_inObject_nilPropertyError_selForNilPropertyError_(self, v9, v8, objectCopy, &v26, a2);
+  v8 = objc_msgSend_arrayWithObjects_count_(v5, v7, v26, 1);
+  v25 = 0;
+  v10 = objc_msgSend__valueDictionaryForProperties_inObject_nilPropertyError_selForNilPropertyError_(self, v9, v8, objectCopy, &v25, a2);
 
-  v11 = v26;
+  v11 = v25;
   if (!v11)
   {
-    v25 = 0;
-    v19 = MEMORY[0x1E69E9820];
-    v20 = 3221225472;
-    v21 = sub_18868754C;
-    v22 = &unk_1E70C1188;
+    v24 = 0;
+    v18 = MEMORY[0x1E69E9820];
+    v19 = 3221225472;
+    v20 = sub_18868754C;
+    v21 = &unk_1E70C1188;
     selfCopy = self;
-    v24 = v8;
-    v13 = objc_msgSend_deleteEntriesMatching_label_error_predicate_(self, v12, v10, off_1EA911058, &v25, &v19);
-    v11 = v25;
+    v23 = v8;
+    v13 = objc_msgSend_deleteEntriesMatching_label_error_predicate_(self, v12, v10, off_1EA911058, &v24, &v18);
+    v11 = v24;
     if (!v13)
     {
-      v15 = objc_msgSend_noMatchingDatabaseRowErrorIn_(CKPrettyError, v14, a2, v19, v20, v21, v22, selfCopy);
+      v15 = objc_msgSend_noMatchingDatabaseRowErrorIn_(CKPrettyError, v14, a2, v18, v19, v20, v21, selfCopy);
 
       v11 = v15;
     }
@@ -1995,25 +1983,24 @@ LABEL_10:
 
   v16 = v11;
 
-  v17 = *MEMORY[0x1E69E9840];
   return v11;
 }
 
 - (id)deletePrimaryKeyValue:(id)value
 {
-  v20[1] = *MEMORY[0x1E69E9840];
+  v19[1] = *MEMORY[0x1E69E9840];
   valueCopy = value;
   primaryKey = self->_primaryKey;
-  v20[0] = valueCopy;
-  v7 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v6, v20, &primaryKey, 1);
-  v17[4] = self;
-  v18 = 0;
-  v17[0] = MEMORY[0x1E69E9820];
-  v17[1] = 3221225472;
-  v17[2] = sub_1886876D8;
-  v17[3] = &unk_1E70BC1F0;
-  v9 = objc_msgSend_deleteEntriesMatching_label_error_predicate_(self, v8, v7, off_1EA911070, &v18, v17);
-  v10 = v18;
+  v19[0] = valueCopy;
+  v7 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v6, v19, &primaryKey, 1);
+  v16[4] = self;
+  v17 = 0;
+  v16[0] = MEMORY[0x1E69E9820];
+  v16[1] = 3221225472;
+  v16[2] = sub_1886876D8;
+  v16[3] = &unk_1E70BC1F0;
+  v9 = objc_msgSend_deleteEntriesMatching_label_error_predicate_(self, v8, v7, off_1EA911070, &v17, v16);
+  v10 = v17;
   v11 = v10;
   if (v9)
   {
@@ -2031,23 +2018,21 @@ LABEL_10:
     v11 = objc_msgSend_errorWithDomain_code_format_(CKPrettyError, v14, @"CKInternalErrorDomain", 1050, @"No matching database row in %@", v13);
   }
 
-  v15 = *MEMORY[0x1E69E9840];
-
   return v11;
 }
 
 - (int64_t)sizeOfProperty:(id)property inEntry:(id)entry label:(_CKSQLiteCompiledStatementLabel *)label error:(id *)error
 {
-  v29[1] = *MEMORY[0x1E69E9840];
+  v28[1] = *MEMORY[0x1E69E9840];
   propertyCopy = property;
-  v29[0] = self->_primaryKey;
+  v28[0] = self->_primaryKey;
   v12 = MEMORY[0x1E695DEC8];
   entryCopy = entry;
-  v15 = objc_msgSend_arrayWithObjects_count_(v12, v14, v29, 1);
-  v28 = 0;
-  v17 = objc_msgSend__valueDictionaryForProperties_inObject_nilPropertyError_selForNilPropertyError_(self, v16, v15, entryCopy, &v28, a2);
+  v15 = objc_msgSend_arrayWithObjects_count_(v12, v14, v28, 1);
+  v27 = 0;
+  v17 = objc_msgSend__valueDictionaryForProperties_inObject_nilPropertyError_selForNilPropertyError_(self, v16, v15, entryCopy, &v27, a2);
 
-  v18 = v28;
+  v18 = v27;
   if (v18)
   {
     v19 = v18;
@@ -2056,15 +2041,15 @@ LABEL_10:
 
   else
   {
-    v27 = 0;
-    v25[0] = MEMORY[0x1E69E9820];
-    v25[1] = 3221225472;
-    v25[2] = sub_188687894;
-    v25[3] = &unk_1E70C1188;
-    v25[4] = self;
-    v26 = v15;
-    v20 = objc_msgSend_sizeOfProperty_inEntriesMatching_label_error_predicate_(self, v21, propertyCopy, v17, label, &v27, v25);
-    v19 = v27;
+    v26 = 0;
+    v24[0] = MEMORY[0x1E69E9820];
+    v24[1] = 3221225472;
+    v24[2] = sub_188687894;
+    v24[3] = &unk_1E70C1188;
+    v24[4] = self;
+    v25 = v15;
+    v20 = objc_msgSend_sizeOfProperty_inEntriesMatching_label_error_predicate_(self, v21, propertyCopy, v17, label, &v26, v24);
+    v19 = v26;
 
     if (!v19)
     {
@@ -2081,7 +2066,6 @@ LABEL_10:
   sub_18868114C(v19, self, a2);
 LABEL_7:
 
-  v23 = *MEMORY[0x1E69E9840];
   return v20;
 }
 
@@ -2370,20 +2354,19 @@ LABEL_7:
 
 - (BOOL)hasEntryWithPrimaryKey:(id)key error:(id *)error
 {
-  v15[1] = *MEMORY[0x1E69E9840];
+  v14[1] = *MEMORY[0x1E69E9840];
   primaryKey = self->_primaryKey;
-  v15[0] = key;
+  v14[0] = key;
   v6 = MEMORY[0x1E695DF20];
   keyCopy = key;
-  v9 = objc_msgSend_dictionaryWithObjects_forKeys_count_(v6, v8, v15, &primaryKey, 1);
-  v13[0] = MEMORY[0x1E69E9820];
-  v13[1] = 3221225472;
-  v13[2] = sub_188689650;
-  v13[3] = &unk_1E70BC1F0;
-  v13[4] = self;
-  LOBYTE(error) = objc_msgSend_hasEntriesMatching_label_error_predicate_(self, v10, v9, off_1EA9110B8, error, v13);
+  v9 = objc_msgSend_dictionaryWithObjects_forKeys_count_(v6, v8, v14, &primaryKey, 1);
+  v12[0] = MEMORY[0x1E69E9820];
+  v12[1] = 3221225472;
+  v12[2] = sub_188689650;
+  v12[3] = &unk_1E70BC1F0;
+  v12[4] = self;
+  LOBYTE(error) = objc_msgSend_hasEntriesMatching_label_error_predicate_(self, v10, v9, off_1EA9110B8, error, v12);
 
-  v11 = *MEMORY[0x1E69E9840];
   return error;
 }
 

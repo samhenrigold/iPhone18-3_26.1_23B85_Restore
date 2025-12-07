@@ -1,7 +1,7 @@
 @interface NSData(ISStoreIndex_BlobTable)
-- (uint64_t)_ISStoreIndex_blobForID:()ISStoreIndex_BlobTable;
+- (_BYTE)_ISStoreIndex_isValid;
+- (char)_ISStoreIndex_blobForID:()ISStoreIndex_BlobTable;
 - (uint64_t)_ISStoreIndex_blobTableHeader;
-- (uint64_t)_ISStoreIndex_isValid;
 - (unsigned)_ISStoreIndex_blobDataForID:()ISStoreIndex_BlobTable;
 - (void)_ISStoreIndex_enumerateBlobsWithBock:()ISStoreIndex_BlobTable;
 @end
@@ -20,18 +20,26 @@
   return [selfCopy bytes];
 }
 
-- (uint64_t)_ISStoreIndex_isValid
+- (_BYTE)_ISStoreIndex_isValid
 {
   result = [self _ISStoreIndex_blobTableHeader];
   if (result)
   {
-    return *(result + 4) == 1 && *result == 11;
+    if (result[4] == 1)
+    {
+      return (*result == 11);
+    }
+
+    else
+    {
+      return 0;
+    }
   }
 
   return result;
 }
 
-- (uint64_t)_ISStoreIndex_blobForID:()ISStoreIndex_BlobTable
+- (char)_ISStoreIndex_blobForID:()ISStoreIndex_BlobTable
 {
   v5 = [self length];
   bytes = [self bytes];
@@ -47,7 +55,7 @@
 
       else
       {
-        return a3 + bytes + 12;
+        return (a3 + bytes + 12);
       }
     }
 

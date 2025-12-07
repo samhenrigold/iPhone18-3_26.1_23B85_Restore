@@ -35,36 +35,36 @@
 
 - (void)saveToMessage:(void *)message archiver:(id)archiver
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   archiverCopy = archiver;
-  v28[0] = MEMORY[0x277D85DD0];
-  v28[1] = 3221225472;
-  v28[2] = sub_276A6680C;
-  v28[3] = &unk_27A6E2898;
+  v27[0] = MEMORY[0x277D85DD0];
+  v27[1] = 3221225472;
+  v27[2] = sub_276A6680C;
+  v27[3] = &unk_27A6E2898;
   v7 = archiverCopy;
-  v29 = v7;
+  v28 = v7;
   selfCopy = self;
-  objc_msgSend_pushScopeForField_message_usingBlock_(v7, v8, 1, message, v28);
-  v26 = 0u;
-  v27 = 0u;
-  v24 = 0u;
+  objc_msgSend_pushScopeForField_message_usingBlock_(v7, v8, 1, message, v27);
   v25 = 0u;
+  v26 = 0u;
+  v23 = 0u;
+  v24 = 0u;
   selfCopy2 = self;
-  v13 = objc_msgSend_countByEnumeratingWithState_objects_count_(selfCopy2, v10, &v24, v31, 16);
+  v13 = objc_msgSend_countByEnumeratingWithState_objects_count_(selfCopy2, v10, &v23, v30, 16);
   if (v13)
   {
-    v14 = *v25;
+    v14 = *v24;
     do
     {
       v15 = 0;
       do
       {
-        if (*v25 != v14)
+        if (*v24 != v14)
         {
           objc_enumerationMutation(selfCopy2);
         }
 
-        objc_msgSend_doubleValue(*(*(&v24 + 1) + 8 * v15), v11, v12, v24);
+        objc_msgSend_doubleValue(*(*(&v23 + 1) + 8 * v15), v11, v12, v23);
         v17 = *(message + 6);
         if (v17 == *(message + 7))
         {
@@ -77,7 +77,7 @@
       }
 
       while (v13 != v15);
-      v13 = objc_msgSend_countByEnumeratingWithState_objects_count_(selfCopy2, v11, &v24, v31, 16);
+      v13 = objc_msgSend_countByEnumeratingWithState_objects_count_(selfCopy2, v11, &v23, v30, 16);
     }
 
     while (v13);
@@ -85,8 +85,6 @@
 
   v21 = TSP::LargeNumberArraySegment::ByteSizeLong(message, v18, v19, v20);
   objc_msgSend_setEstimatedByteSize_(selfCopy2, v22, v21);
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (void)loadFromUnarchiver:(id)unarchiver

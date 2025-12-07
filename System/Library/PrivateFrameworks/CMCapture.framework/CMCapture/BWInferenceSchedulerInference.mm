@@ -250,7 +250,7 @@ uint64_t __115__BWInferenceSchedulerInference_submitForSampleBuffer_usingStorage
   memset(&v19, 0, sizeof(v19));
   if (self)
   {
-    [(BWInferenceSchedulerInference *)self previousExecutionTime];
+    objc_msgSend_previousExecutionTime(self, a2);
   }
 
   if (self->_maximumFramesPerSecond > 0.00000011921 && (v19.flags & 1) != 0 && (time->var2 & 1) != 0 && (lhs = *time, v16 = v19, CMTimeSubtract(&time, &lhs, &v16), v7 = 0.949999999 / CMTimeGetSeconds(&time), self->_maximumFramesPerSecond < v7))

@@ -10,7 +10,7 @@
   presenterCopy = presenter;
   swift_unknownObjectRetain();
   selfCopy = self;
-  sub_27486D7AC();
+  sub_27486D7AC(presenterCopy, state);
 
   swift_unknownObjectRelease();
 }

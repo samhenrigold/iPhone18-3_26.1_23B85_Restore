@@ -488,7 +488,7 @@ LABEL_14:
     v10 = v9;
     v12 = v11;
     memset(&v31, 0, sizeof(v31));
-    [(UIPDFSelection *)v4 transform];
+    objc_msgSend_transform(v4);
     v30 = v31;
     v34.origin.x = v6;
     v34.origin.y = v8;

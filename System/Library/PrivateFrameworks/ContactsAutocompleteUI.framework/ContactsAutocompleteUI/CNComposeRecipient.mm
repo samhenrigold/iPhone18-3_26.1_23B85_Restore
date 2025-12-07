@@ -438,7 +438,7 @@ LABEL_29:
   }
 
   v9 = v8;
-  v10 = CNAutocompleteSharedContactStore();
+  v10 = CNAutocompleteSharedContactStore(v8);
   v16 = v7;
   v6 = [v10 unifiedContactWithIdentifier:v9 keysToFetch:keysCopy error:&v16];
   v11 = v16;

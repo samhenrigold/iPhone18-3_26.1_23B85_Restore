@@ -7,8 +7,8 @@
 
 - (void)fetchWarrantyPropertiesFor:(NSString *)for completionHandler:(id)handler
 {
-  v7 = (*(*(sub_10001A078(&qword_1000A7920, &qword_10007AE70) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  __chkstk_darwin();
+  v7 = sub_10001A078(&qword_1000A7920, &qword_10007AE70);
+  __chkstk_darwin(v7 - 8);
   v9 = &v17 - v8;
   v10 = _Block_copy(handler);
   v11 = swift_allocObject();

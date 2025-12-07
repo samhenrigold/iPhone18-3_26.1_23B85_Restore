@@ -28,13 +28,13 @@
 
 - (STFetchResultsRequest)initWithEntity:(id)entity predicate:(id)predicate sortDescriptors:(id)descriptors
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   entityCopy = entity;
   predicateCopy = predicate;
   descriptorsCopy = descriptors;
-  v32.receiver = self;
-  v32.super_class = STFetchResultsRequest;
-  v11 = [(STFetchResultsRequest *)&v32 init];
+  v31.receiver = self;
+  v31.super_class = STFetchResultsRequest;
+  v11 = [(STFetchResultsRequest *)&v31 init];
   if (v11)
   {
     v12 = MEMORY[0x1E695D5E0];
@@ -51,21 +51,21 @@
 
     else
     {
-      v26 = 0;
-      v27 = &v26;
-      v28 = 0x3032000000;
-      v29 = __Block_byref_object_copy__7;
-      v30 = __Block_byref_object_dispose__7;
-      v31 = 0;
+      v25 = 0;
+      v26 = &v25;
+      v27 = 0x3032000000;
+      v28 = __Block_byref_object_copy__7;
+      v29 = __Block_byref_object_dispose__7;
+      v30 = 0;
       attributesByName = [entityCopy attributesByName];
-      v25[0] = MEMORY[0x1E69E9820];
-      v25[1] = 3221225472;
-      v25[2] = __66__STFetchResultsRequest_initWithEntity_predicate_sortDescriptors___block_invoke;
-      v25[3] = &unk_1E7CE7690;
-      v25[4] = &v26;
-      [attributesByName enumerateKeysAndObjectsUsingBlock:v25];
+      v24[0] = MEMORY[0x1E69E9820];
+      v24[1] = 3221225472;
+      v24[2] = __66__STFetchResultsRequest_initWithEntity_predicate_sortDescriptors___block_invoke;
+      v24[3] = &unk_1E7CE7690;
+      v24[4] = &v25;
+      [attributesByName enumerateKeysAndObjectsUsingBlock:v24];
 
-      v17 = v27[5];
+      v17 = v26[5];
       if (!v17)
       {
         v18 = MEMORY[0x1E69E9C10];
@@ -76,19 +76,18 @@
           [STFetchResultsRequest initWithEntity:name2 predicate:buf sortDescriptors:?];
         }
 
-        v17 = v27[5];
+        v17 = v26[5];
       }
 
       v21 = [MEMORY[0x1E696AEB0] sortDescriptorWithKey:v17 ascending:1];
-      v33 = v21;
-      v22 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v33 count:1];
+      v32 = v21;
+      v22 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v32 count:1];
       [(NSFetchRequest *)v11->_fetchRequest setSortDescriptors:v22];
 
-      _Block_object_dispose(&v26, 8);
+      _Block_object_dispose(&v25, 8);
     }
   }
 
-  v23 = *MEMORY[0x1E69E9840];
   return v11;
 }
 

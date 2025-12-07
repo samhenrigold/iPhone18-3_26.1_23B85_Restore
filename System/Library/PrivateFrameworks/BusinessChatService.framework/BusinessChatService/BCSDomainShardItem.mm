@@ -14,7 +14,7 @@
 
 - (BCSDomainShardItem)initWithJSONObj:(id)obj type:(int64_t)type
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   v5 = [obj objectForKeyedSubscript:{@"records", type}];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
@@ -27,12 +27,12 @@
       v9 = ABSLogCommon();
       if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
-        v26 = objc_opt_class();
-        v27 = NSStringFromClass(v26);
+        v25 = objc_opt_class();
+        v26 = NSStringFromClass(v25);
         *buf = 136315394;
-        v33 = "[BCSDomainShardItem(Conversion) initWithJSONObj:type:]";
-        v34 = 2112;
-        v35 = v27;
+        v32 = "[BCSDomainShardItem(Conversion) initWithJSONObj:type:]";
+        v33 = 2112;
+        v34 = v26;
         _os_log_error_impl(&dword_242072000, v9, OS_LOG_TYPE_ERROR, "%s - Expected NSDictionary fields parameter. Got %@", buf, 0x16u);
       }
 
@@ -49,12 +49,12 @@
       v11 = ABSLogCommon();
       if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
-        v28 = objc_opt_class();
-        v29 = NSStringFromClass(v28);
+        v27 = objc_opt_class();
+        v28 = NSStringFromClass(v27);
         *buf = 136315394;
-        v33 = "[BCSDomainShardItem(Conversion) initWithJSONObj:type:]";
-        v34 = 2112;
-        v35 = v29;
+        v32 = "[BCSDomainShardItem(Conversion) initWithJSONObj:type:]";
+        v33 = 2112;
+        v34 = v28;
         _os_log_error_impl(&dword_242072000, v11, OS_LOG_TYPE_ERROR, "%s - Expected NSString domainShardString parameter. Got %@", buf, 0x16u);
       }
 
@@ -87,10 +87,10 @@
           {
             date = [MEMORY[0x277CBEAA8] date];
             [v17 doubleValue];
-            v31 = [date dateByAddingTimeInterval:?];
+            v30 = [date dateByAddingTimeInterval:?];
 
             fileURL = [v11 fileURL];
-            self = -[BCSDomainShardItem initWithFileURL:startIndex:shardCount:type:expirationDate:](self, "initWithFileURL:startIndex:shardCount:type:expirationDate:", fileURL, [v13 longLongValue], objc_msgSend(v15, "longLongValue"), 3, v31);
+            self = -[BCSDomainShardItem initWithFileURL:startIndex:shardCount:type:expirationDate:](self, "initWithFileURL:startIndex:shardCount:type:expirationDate:", fileURL, [v13 longLongValue], objc_msgSend(v15, "longLongValue"), 3, v30);
 
             selfCopy = self;
 LABEL_22:
@@ -107,7 +107,7 @@ LABEL_24:
       if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315138;
-        v33 = "[BCSDomainShardItem(Conversion) initWithJSONObj:type:]";
+        v32 = "[BCSDomainShardItem(Conversion) initWithJSONObj:type:]";
         v21 = "%s - BCSDomainShardItem bloomFilter, startIndex, shardCount, or ttl is not correct class type";
 LABEL_27:
         _os_log_error_impl(&dword_242072000, v20, OS_LOG_TYPE_ERROR, v21, buf, 0xCu);
@@ -120,7 +120,7 @@ LABEL_27:
       if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315138;
-        v33 = "[BCSDomainShardItem(Conversion) initWithJSONObj:type:]";
+        v32 = "[BCSDomainShardItem(Conversion) initWithJSONObj:type:]";
         v21 = "%s - No asset found in record to download Domain Shard";
         goto LABEL_27;
       }
@@ -133,25 +133,24 @@ LABEL_27:
   firstObject = ABSLogCommon();
   if (os_log_type_enabled(firstObject, OS_LOG_TYPE_ERROR))
   {
-    v24 = objc_opt_class();
-    v25 = NSStringFromClass(v24);
+    v23 = objc_opt_class();
+    v24 = NSStringFromClass(v23);
     *buf = 136315394;
-    v33 = "[BCSDomainShardItem(Conversion) initWithJSONObj:type:]";
-    v34 = 2112;
-    v35 = v25;
+    v32 = "[BCSDomainShardItem(Conversion) initWithJSONObj:type:]";
+    v33 = 2112;
+    v34 = v24;
     _os_log_error_impl(&dword_242072000, firstObject, OS_LOG_TYPE_ERROR, "%s - Expected NSArray for records parameter. Got %@", buf, 0x16u);
   }
 
   selfCopy = 0;
 LABEL_25:
 
-  v22 = *MEMORY[0x277D85DE8];
   return selfCopy;
 }
 
 - (BCSDomainShardItem)initWithRecord:(id)record type:(int64_t)type
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   recordCopy = record;
   v6 = [recordCopy objectForKeyedSubscript:@"shard"];
   v7 = [recordCopy objectForKeyedSubscript:@"index"];
@@ -167,8 +166,8 @@ LABEL_25:
     v14 = ABSLogCommon();
     if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
-      v18 = 136315138;
-      v19 = "[BCSDomainShardItem(Conversion) initWithRecord:type:]";
+      v17 = 136315138;
+      v18 = "[BCSDomainShardItem(Conversion) initWithRecord:type:]";
       v15 = "%s - No asset found in record to download Domain Shard";
       goto LABEL_12;
     }
@@ -185,11 +184,11 @@ LABEL_9:
     v14 = ABSLogCommon();
     if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
-      v18 = 136315138;
-      v19 = "[BCSDomainShardItem(Conversion) initWithRecord:type:]";
+      v17 = 136315138;
+      v18 = "[BCSDomainShardItem(Conversion) initWithRecord:type:]";
       v15 = "%s - BCSShardItem bloomFilter, startIndex, shardCount, or ttl is not correct class type";
 LABEL_12:
-      _os_log_error_impl(&dword_242072000, v14, OS_LOG_TYPE_ERROR, v15, &v18, 0xCu);
+      _os_log_error_impl(&dword_242072000, v14, OS_LOG_TYPE_ERROR, v15, &v17, 0xCu);
       goto LABEL_9;
     }
 
@@ -202,7 +201,6 @@ LABEL_12:
   selfCopy = self;
 LABEL_10:
 
-  v16 = *MEMORY[0x277D85DE8];
   return selfCopy;
 }
 
@@ -215,7 +213,7 @@ LABEL_10:
 
 + (id)shardItemWithFileURL:(id)l
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   lCopy = l;
   v4 = [[BCSLineReader alloc] initWithFileURL:lCopy];
   readLine = [(BCSLineReader *)v4 readLine];
@@ -242,18 +240,16 @@ LABEL_10:
     v6 = ABSLogCommon();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      v14 = 136315394;
-      v15 = "+[BCSDomainShardItem shardItemWithFileURL:]";
-      v16 = 2112;
-      v17 = lCopy;
-      _os_log_error_impl(&dword_242072000, v6, OS_LOG_TYPE_ERROR, "%s Cannot create BCSDomainShardItem. Got nil metadata while reading file %@", &v14, 0x16u);
+      v13 = 136315394;
+      v14 = "+[BCSDomainShardItem shardItemWithFileURL:]";
+      v15 = 2112;
+      v16 = lCopy;
+      _os_log_error_impl(&dword_242072000, v6, OS_LOG_TYPE_ERROR, "%s Cannot create BCSDomainShardItem. Got nil metadata while reading file %@", &v13, 0x16u);
     }
   }
 
   v11 = 0;
 LABEL_8:
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v11;
 }

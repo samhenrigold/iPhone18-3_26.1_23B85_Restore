@@ -22,7 +22,7 @@
 
 - (BOOL)generateThreadDiagnosticsMonitorLogs
 {
-  [(CtrClient *)self->ctrClient generateThreadDiagnosticsMonitorLogs];
+  objc_msgSend_generateThreadDiagnosticsMonitorLogs(self->ctrClient, a2);
   if (v4 < 0)
   {
     operator delete(__p);

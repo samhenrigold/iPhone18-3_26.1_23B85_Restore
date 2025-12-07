@@ -77,7 +77,7 @@ void __44__SXQuickLookEventHandler_didLoadThumbnail___block_invoke(uint64_t a1)
 void __48__SXQuickLookEventHandler_failedToLoadThumbnail__block_invoke(uint64_t a1)
 {
   v3 = [*(a1 + 32) delegate];
-  v1 = SXBundle();
+  v1 = SXBundle(v3);
   v2 = [v1 localizedStringForKey:@"Failed to load thumbnail" value:&stru_1F532F6C0 table:0];
   [v3 showThumbnailErrorWithMessage:v2];
 }

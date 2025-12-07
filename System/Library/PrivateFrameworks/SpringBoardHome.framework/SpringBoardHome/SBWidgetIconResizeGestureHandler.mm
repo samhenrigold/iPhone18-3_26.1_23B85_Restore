@@ -139,7 +139,7 @@ LABEL_9:
   [(SBWidgetIconResizeGestureHandler *)self setStartingLocation:v21, v23];
   [(SBWidgetIconResizeGestureHandler *)self setStretchingStartLocation:v21, v23];
   v24 = objc_alloc(MEMORY[0x1E69DD250]);
-  [iconListView bounds];
+  objc_msgSend_bounds(iconListView);
   v41 = [v24 initWithFrame:?];
   [iconListView addSubview:v41];
   [v41 addSubview:iconView];
@@ -211,7 +211,8 @@ void __63__SBWidgetIconResizeGestureHandler_setUpWithGestureRecognizer___block_i
   [sortedGridSizeClasses enumerateObjectsUsingBlock:v10];
   if (v5 == 2)
   {
-    RectangleFromLine = SBHPolygonCreateRectangleFromLine(v7, *v7, v7[1], v7[2], v7[3], 10.0);
+    v8.n128_f64[0] = *v7;
+    v8.n128_f64[0] = SBHPolygonCreateRectangleFromLine(v7, v8, v7[1], v7[2], v7[3], 10.0);
   }
 
   if ([(SBWidgetIconResizeGestureHandler *)self gesturePathVertexCapacity]< v6)
@@ -225,7 +226,7 @@ void __63__SBWidgetIconResizeGestureHandler_setUpWithGestureRecognizer___block_i
   [(SBWidgetIconResizeGestureHandler *)self setGesturePathVertexCount:ConvexHullPoints];
 }
 
-uint64_t __58__SBWidgetIconResizeGestureHandler_configureForStretching__block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
+void *__58__SBWidgetIconResizeGestureHandler_configureForStretching__block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   result = [*(a1 + 32) resizeHandlePointForGridSizeClass:a2];
   v6 = (*(a1 + 40) + 16 * a3);
@@ -297,12 +298,12 @@ uint64_t __58__SBWidgetIconResizeGestureHandler_configureForStretching__block_in
   y = v61.origin.y;
   width = v61.size.width;
   height = v61.size.height;
-  [iconView iconImageInfo];
+  objc_msgSend_iconImageInfo(iconView);
   v32 = v31;
   v34 = v33;
   sortedGridSizeClasses = [(SBWidgetIconResizeGestureHandler *)self sortedGridSizeClasses];
   firstObject = [sortedGridSizeClasses firstObject];
-  [(SBWidgetIconResizeGestureHandler *)self iconImageInfoForGridSizeClass:firstObject];
+  objc_msgSend_iconImageInfoForGridSizeClass_(self);
   v39 = height;
   if (width <= v37)
   {
@@ -377,8 +378,7 @@ uint64_t __75__SBWidgetIconResizeGestureHandler_updatePreviewSizeWithGestureReco
   v12 = hypot(v7 - v10, v9 - v11);
   if (fabs(v12) >= 20.0)
   {
-    [(SBWidgetIconResizeGestureHandler *)self updateTransitionEndpointAndProgressWithGestureRecognizer:recognizerCopy];
-    v13 = SBLogWidgetResizing();
+    v13 = SBLogWidgetResizing([(SBWidgetIconResizeGestureHandler *)self updateTransitionEndpointAndProgressWithGestureRecognizer:recognizerCopy]);
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       v14 = 134217984;
@@ -483,7 +483,7 @@ uint64_t __93__SBWidgetIconResizeGestureHandler_updateTransitionEndpointAndProgr
 
 - (void)updateResizingWithGestureRecognizer:(id)recognizer
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   recognizerCopy = recognizer;
   iconListView = [(SBWidgetIconResizeGestureHandler *)self iconListView];
   containerView = [(SBWidgetIconResizeGestureHandler *)self containerView];
@@ -505,34 +505,33 @@ uint64_t __93__SBWidgetIconResizeGestureHandler_updateTransitionEndpointAndProgr
   }
 
   v14 = v13;
-  v15 = SBLogWidgets();
+  v15 = SBLogWidgets(v14);
   if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
   {
-    v19 = 138543362;
-    v20 = *&v14;
-    _os_log_impl(&dword_1BEB18000, v15, OS_LOG_TYPE_DEFAULT, "setting placeholder grid size class: %{public}@", &v19, 0xCu);
+    v20 = 138543362;
+    v21 = *&v14;
+    _os_log_impl(&dword_1BEB18000, v15, OS_LOG_TYPE_DEFAULT, "setting placeholder grid size class: %{public}@", &v20, 0xCu);
   }
 
   placeholder = [(SBWidgetIconResizeGestureHandler *)self placeholder];
   [placeholder setGridSizeClass:v14];
   [iconListView layoutIconsIfNeededWithAnimationType:0 options:0];
-  [iconListView bringSubviewToFront:containerView];
-  v17 = SBLogWidgets();
+  v17 = SBLogWidgets([iconListView bringSubviewToFront:containerView]);
   if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
   {
-    v19 = 134217984;
-    v20 = v8;
-    _os_log_impl(&dword_1BEB18000, v17, OS_LOG_TYPE_DEFAULT, "widget resize progress: %f", &v19, 0xCu);
+    v20 = 134217984;
+    v21 = v8;
+    _os_log_impl(&dword_1BEB18000, v17, OS_LOG_TYPE_DEFAULT, "widget resize progress: %f", &v20, 0xCu);
   }
 
   if (v8 >= 0.95)
   {
-    v18 = SBLogWidgetResizing();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+    v19 = SBLogWidgetResizing(v18);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
     {
-      v19 = 138543362;
-      v20 = *&v12;
-      _os_log_impl(&dword_1BEB18000, v18, OS_LOG_TYPE_DEFAULT, "resize went beyond 95%%, switching to size class %{public}@", &v19, 0xCu);
+      v20 = 138543362;
+      v21 = *&v12;
+      _os_log_impl(&dword_1BEB18000, v19, OS_LOG_TYPE_DEFAULT, "resize went beyond 95%%, switching to size class %{public}@", &v20, 0xCu);
     }
 
     [previewViewController swapViewControllersAndClearEnding];
@@ -554,10 +553,10 @@ uint64_t __93__SBWidgetIconResizeGestureHandler_updateTransitionEndpointAndProgr
   placeholder = [(SBWidgetIconResizeGestureHandler *)self placeholder];
   gridSizeClass = [placeholder gridSizeClass];
   gridCellIndex = [placeholder gridCellIndex];
-  [(SBWidgetIconResizeGestureHandler *)self iconImageInfoForGridSizeClass:gridSizeClass];
+  objc_msgSend_iconImageInfoForGridSizeClass_(self);
   v10 = v9;
   v12 = v11;
-  [iconView iconImageInfo];
+  objc_msgSend_iconImageInfo(iconView);
   v14 = v13;
   v16 = v15;
   iconListView = [(SBWidgetIconResizeGestureHandler *)self iconListView];
@@ -652,7 +651,7 @@ uint64_t __64__SBWidgetIconResizeGestureHandler_finishWithGestureRecognizer___bl
   v9 = *MEMORY[0x1E69E9840];
   if (self->_state != state)
   {
-    v5 = SBLogWidgetResizing();
+    v5 = SBLogWidgetResizing(self);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       if (state > 4)
@@ -703,7 +702,7 @@ uint64_t __64__SBWidgetIconResizeGestureHandler_finishWithGestureRecognizer___bl
 
 - (CGPoint)resizeHandlePointForGridSizeClass:(id)class
 {
-  [(SBWidgetIconResizeGestureHandler *)self iconImageInfoForGridSizeClass:class];
+  objc_msgSend_iconImageInfoForGridSizeClass_(self, a2, class);
   v5 = v4;
   v7 = v6;
   v9 = v8;
@@ -754,7 +753,7 @@ uint64_t __64__SBWidgetIconResizeGestureHandler_finishWithGestureRecognizer___bl
   gesturePathVertexCount = [(SBWidgetIconResizeGestureHandler *)self gesturePathVertexCount];
   gesturePathVertices = self->_gesturePathVertices;
 
-  v8 = SBHPolygonNearestPointToPoint(gesturePathVertices, gesturePathVertexCount, x, y);
+  v8 = SBHPolygonNearestPointToPoint(&gesturePathVertices->x, gesturePathVertexCount, x, y);
   result.y = v9;
   result.x = v8;
   return result;
@@ -764,7 +763,7 @@ uint64_t __64__SBWidgetIconResizeGestureHandler_finishWithGestureRecognizer___bl
 {
   v5 = a4;
   iconListView = [(SBWidgetIconResizeGestureHandler *)self iconListView];
-  [iconListView iconImageInfoForGridSizeClass:v5];
+  objc_msgSend_iconImageInfoForGridSizeClass_(iconListView);
 
   return result;
 }

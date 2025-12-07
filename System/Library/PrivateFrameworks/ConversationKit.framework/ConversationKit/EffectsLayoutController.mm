@@ -35,7 +35,7 @@
   viewControllerCopy = viewController;
   selfCopy = self;
   EffectsLayoutController.effectBrowserViewController(_:presentExpandedAppViewController:animated:completion:)(controllerCopy, viewController, animated, v10, v11);
-  outlined consume of (@escaping @callee_guaranteed () -> ())?(v10);
+  outlined consume of (@escaping @callee_guaranteed () -> ())?(v10, v11);
 }
 
 - (void)effectBrowserViewController:(id)controller dismissExpandedAppViewController:(id)viewController animated:(BOOL)animated completion:(id)completion
@@ -57,7 +57,7 @@
   viewControllerCopy = viewController;
   selfCopy = self;
   EffectsLayoutController.effectBrowserViewController(_:dismissExpandedAppViewController:animated:completion:)(selfCopy, viewController, animated, v10, v11);
-  outlined consume of (@escaping @callee_guaranteed () -> ())?(v10);
+  outlined consume of (@escaping @callee_guaranteed () -> ())?(v10, v11);
 }
 
 - (CGSize)expandedAppViewControllerSizeFor:(id)for

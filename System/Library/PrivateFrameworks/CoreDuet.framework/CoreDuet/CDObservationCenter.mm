@@ -5,12 +5,11 @@
 
 uint64_t __38___CDObservationCenter_sharedInstance__block_invoke(uint64_t a1)
 {
-  v1 = *(a1 + 32);
-  v2 = objc_opt_new();
-  v3 = sharedInstance_sharedInstance_1;
-  sharedInstance_sharedInstance_1 = v2;
+  v1 = objc_opt_new();
+  v2 = sharedInstance_sharedInstance_1;
+  sharedInstance_sharedInstance_1 = v1;
 
-  return MEMORY[0x1EEE66BB8](v2, v3);
+  return MEMORY[0x1EEE66BB8](v1, v2);
 }
 
 uint64_t __78___CDObservationCenter_addObserverChangesObserver_onName_queue_usingSelector___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)

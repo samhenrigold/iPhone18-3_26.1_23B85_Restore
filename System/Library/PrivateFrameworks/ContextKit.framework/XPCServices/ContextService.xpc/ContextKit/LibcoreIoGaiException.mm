@@ -10,7 +10,7 @@
 
 - (LibcoreIoGaiException)initWithNSString:(id)string withInt:(int)int
 {
-  JavaLangRuntimeException_init(self, a2);
+  JavaLangRuntimeException_init(self);
   JreStrongAssign(&self->error_, string);
   *(&self->super.super.super.rawFrameCount + 1) = int;
   return self;
@@ -28,7 +28,6 @@
 {
   if (!LibcoreIoOsConstants_gaiNameWithInt_(*(&self->super.super.super.rawFrameCount + 1)))
   {
-    v18 = *(&self->super.super.super.rawFrameCount + 1);
     JreStrcat("$I", v3, v4, v5, v6, v7, v8, v9, @"GAI_ error ");
   }
 

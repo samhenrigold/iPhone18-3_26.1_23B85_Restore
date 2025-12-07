@@ -1,212 +1,3 @@
-void AudioRingBuffer::AudioRingBuffer(AudioRingBuffer *this)
-{
-  *this = &unk_285344990;
-  CAStreamBasicDescription::CAStreamBasicDescription((this + 8));
-  CAStreamBasicDescription::CAStreamBasicDescription((this + 48));
-  *(this + 11) = 0;
-  *(this + 12) = 0;
-  *(this + 28) = 0;
-  *(this + 13) = 0;
-  bzero(this + 120, 0x314uLL);
-  *(this + 454) = 1;
-}
-
-{
-  *this = &unk_285344990;
-  CAStreamBasicDescription::CAStreamBasicDescription((this + 8));
-  CAStreamBasicDescription::CAStreamBasicDescription((this + 48));
-  *(this + 11) = 0;
-  *(this + 12) = 0;
-  *(this + 28) = 0;
-  *(this + 13) = 0;
-  bzero(this + 120, 0x314uLL);
-  *(this + 454) = 1;
-}
-
-void AudioRingBuffer::~AudioRingBuffer(AudioRingBuffer *this)
-{
-  *this = &unk_285344990;
-  AudioRingBuffer::Deallocate(this);
-  v2 = *(this + 12);
-  if (v2)
-  {
-    free(v2);
-    *(this + 12) = 0;
-  }
-
-  v3 = *(this + 11);
-  if (v3)
-  {
-    free(v3);
-    *(this + 11) = 0;
-  }
-}
-
-{
-  AudioRingBuffer::~AudioRingBuffer(this);
-
-  JUMPOUT(0x245CEB8C0);
-}
-
-OpaqueAudioConverter *AudioRingBuffer::Deallocate(AudioRingBuffer *this)
-{
-  v2 = *(this + 13);
-  if (v2)
-  {
-    free(v2);
-    *(this + 13) = 0;
-  }
-
-  *(this + 28) = 0;
-  *(this + 15) = 0;
-  CAStreamBasicDescription::CAStreamBasicDescription(v7);
-  v3 = v7[1];
-  *(this + 8) = v7[0];
-  *(this + 24) = v3;
-  v4 = v8;
-  *(this + 5) = v8;
-  v5 = *(this + 24);
-  *(this + 3) = *(this + 8);
-  *(this + 4) = v5;
-  *(this + 10) = v4;
-  result = *(this + 16);
-  if (result)
-  {
-    result = AudioConverterDispose(result);
-    *(this + 16) = 0;
-  }
-
-  return result;
-}
-
-void AudioRingBuffer::Allocate(AudioRingBuffer *this, int a2, int a3, int a4)
-{
-  AudioRingBuffer::Deallocate(this);
-  *(this + 28) = a2;
-  *(this + 29) = a3;
-  *(this + 30) = a4;
-  *(this + 31) = a4 * a3;
-  v8 = ((a4 * a3 + 8) * a2);
-  v9 = malloc_type_malloc(v8, 0x100004077774924uLL);
-  if (v8)
-  {
-    v10 = v9 == 0;
-  }
-
-  else
-  {
-    v10 = 0;
-  }
-
-  if (v10)
-  {
-    exception = __cxa_allocate_exception(8uLL);
-    v18 = std::bad_alloc::bad_alloc(exception);
-  }
-
-  v11 = v9;
-  bzero(v9, v8);
-  *(this + 13) = v11;
-  if (a2 >= 1)
-  {
-    v12 = 0;
-    v13 = *(this + 31);
-    v14 = &v11[8 * a2];
-    do
-    {
-      *(*(this + 13) + 8 * v12) = v14;
-      v14 += v13;
-      ++v12;
-    }
-
-    while (a2 != v12);
-  }
-
-  v15 = (this + 152);
-  v16 = 32;
-  do
-  {
-    *(v15 - 2) = 0;
-    *(v15 - 1) = 0;
-    *v15 = 0;
-    v15 += 6;
-    --v16;
-  }
-
-  while (v16);
-  *(this + 226) = 0;
-  *(this + 908) = 1;
-}
-
-AudioRingBuffer *AudioRingBuffer::Clear(AudioRingBuffer *this)
-{
-  v1 = (this + 152);
-  v2 = 32;
-  do
-  {
-    *(v1 - 2) = 0;
-    *(v1 - 1) = 0;
-    *v1 = 0;
-    v1 += 6;
-    --v2;
-  }
-
-  while (v2);
-  *(this + 226) = 0;
-  *(this + 908) = 1;
-  return this;
-}
-
-void AudioRingBuffer::Allocate(AudioRingBuffer *this, const CAStreamBasicDescription *a2, int a3)
-{
-  v6 = *(a2 + 6);
-  if ((*(a2 + 3) & 0x20) != 0)
-  {
-    v7 = *(a2 + 7);
-  }
-
-  else
-  {
-    v7 = 1;
-  }
-
-  AudioRingBuffer::Allocate(this, v7, v6, a3);
-  v8 = *a2;
-  v9 = *(a2 + 1);
-  *(this + 5) = *(a2 + 4);
-  *(this + 24) = v9;
-  *(this + 8) = v8;
-  v10 = *(a2 + 3);
-  v11 = *(a2 + 7);
-  if ((v10 & 0x20) != 0)
-  {
-    v12 = *(a2 + 7);
-  }
-
-  else
-  {
-    v12 = 1;
-  }
-
-  if ((v10 & 0x20) != 0)
-  {
-    v13 = 1;
-  }
-
-  else
-  {
-    v13 = *(a2 + 7);
-  }
-
-  v14 = AllocABL(v12, v13);
-  v15 = *(this + 11);
-  if (v15 != v14)
-  {
-    free(v15);
-    *(this + 11) = v14;
-  }
-}
-
 _DWORD *AllocABL(unsigned int a1, int a2)
 {
   result = malloc_type_malloc(16 * (a1 - 1) + 24, 0x10800404ACF7207uLL);
@@ -241,33 +32,32 @@ uint64_t AudioRingBuffer::SetInputFormat(AudioRingBuffer *this, AudioStreamBasic
     *(this + 3) = v5;
     *(this + 4) = v6;
     mFormatFlags = inSourceFormat->mFormatFlags;
-    mChannelsPerFrame = inSourceFormat->mChannelsPerFrame;
     if ((mFormatFlags & 0x20) != 0)
     {
-      v9 = inSourceFormat->mChannelsPerFrame;
+      mChannelsPerFrame = inSourceFormat->mChannelsPerFrame;
     }
 
     else
+    {
+      mChannelsPerFrame = 1;
+    }
+
+    if ((mFormatFlags & 0x20) != 0)
     {
       v9 = 1;
     }
 
-    if ((mFormatFlags & 0x20) != 0)
-    {
-      v10 = 1;
-    }
-
     else
     {
-      v10 = inSourceFormat->mChannelsPerFrame;
+      v9 = inSourceFormat->mChannelsPerFrame;
     }
 
-    v11 = AllocABL(v9, v10);
-    v12 = *(this + 12);
-    if (v12 != v11)
+    v10 = AllocABL(mChannelsPerFrame, v9);
+    v11 = *(this + 12);
+    if (v11 != v10)
     {
-      free(v12);
-      *(this + 12) = v11;
+      free(v11);
+      *(this + 12) = v10;
     }
   }
 
@@ -323,7 +113,7 @@ AudioRingBuffer *AudioRingBuffer::ConvertAndStore(AudioRingBuffer *this, int a2,
   return this;
 }
 
-uint64_t AudioRingBuffer::Store(AudioRingBuffer *this, const AudioBufferList *a2, unsigned int a3, uint64_t a4)
+uint64_t AudioRingBuffer::Store(AudioRingBuffer *this, const AudioBufferList *a2, UInt32 a3, uint64_t a4)
 {
   if (!a3)
   {
@@ -1012,7 +802,7 @@ uint64_t AudioRingBuffer::FetchAllWithZeroes(AudioRingBuffer *this, AudioBufferL
 
     if (v52 && a2->mNumberBuffers >= 1)
     {
-      v53 = (*(v78 + 29) * v52);
+      v53 = *(v78 + 29) * v52;
       v54 = &a2->mBuffers[0].mData;
       v55 = a2->mNumberBuffers + 1;
       do
@@ -1082,16 +872,16 @@ uint64_t AudioRingBuffer::FetchAllWithZeroes(AudioRingBuffer *this, AudioBufferL
   return v20;
 }
 
-void sub_24160083C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_24160083C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_241600A90(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_241600A90(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1117,16 +907,16 @@ uint64_t __Block_byref_object_copy__3(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_241608BA8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+void sub_241608BA8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, ...)
 {
-  va_start(va, a16);
+  va_start(va, a23);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_241608EF4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_241608EF4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
+  va_start(va, a22);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1160,15 +950,14 @@ void LogWarning(const char *a1, ...)
 
 uint64_t CAIsDebuggerAttached(void)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  *v5 = 0xE00000001;
-  v6 = 1;
-  v7 = getpid();
-  v2 = 648;
-  v4 = 0;
-  sysctl(v5, 4u, v3, &v2, 0, 0);
-  v0 = *MEMORY[0x277D85DE8];
-  return (v4 >> 11) & 1;
+  v7 = *MEMORY[0x277D85DE8];
+  *v4 = 0xE00000001;
+  v5 = 1;
+  v6 = getpid();
+  v1 = 648;
+  v3 = 0;
+  sysctl(v4, 4u, v2, &v1, 0, 0);
+  return (v3 >> 11) & 1;
 }
 
 uint64_t __Block_byref_object_copy__4(uint64_t result, uint64_t a2)
@@ -1178,17 +967,17 @@ uint64_t __Block_byref_object_copy__4(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_24160EC40(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, void *a6, uint64_t a7, uint64_t a8, ...)
+void sub_24160EC40(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, void *a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
   std::__function::__value_func<BOOL ()(void)>::~__value_func[abi:ne200100](va);
 
   _Unwind_Resume(a1);
 }
 
-void sub_24160F004(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, void *a8, void *a9, void *a10, ...)
+void sub_24160F004(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, void *a8, void *a9, void *a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *a15, void *a16, void *a17, ...)
 {
-  va_start(va, a10);
+  va_start(va, a17);
   std::__function::__value_func<objc_object * ()(void)>::~__value_func[abi:ne200100](va);
 
   _Unwind_Resume(a1);
@@ -1209,9 +998,9 @@ void sub_24160F1E4(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_24160F3AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, void *a8, void *a9, void *a10, ...)
+void sub_24160F3AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, void *a8, void *a9, void *a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *a15, void *a16, void *a17, ...)
 {
-  va_start(va, a10);
+  va_start(va, a17);
   std::__function::__value_func<objc_object * ()(void)>::~__value_func[abi:ne200100](va);
 
   _Unwind_Resume(a1);
@@ -1239,9 +1028,9 @@ void sub_24160F764(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_24160F908(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_24160F908(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
 
   std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](va);
   _Unwind_Resume(a1);
@@ -1368,9 +1157,9 @@ uint64_t std::__shared_ptr_pointer<DSPGraph::Graph  *>::__on_zero_shared(uint64_
   return result;
 }
 
-void sub_24160FC54(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_24160FC54(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,std::string>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::string,std::string>,void *>>>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -1378,7 +1167,7 @@ void sub_24160FC54(_Unwind_Exception *a1, uint64_t a2, ...)
 const void **std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::__node_insert_unique(uint64_t *a1, uint64_t a2)
 {
   v2 = a2;
-  v4 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2 + 16);
+  v4 = std::__string_hash<char>::operator()[abi:ne200100](a1, (a2 + 16));
   *(v2 + 8) = v4;
   v5 = std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::__node_insert_unique_prepare[abi:ne200100](a1, v4, (v2 + 16));
   if (v5)
@@ -1407,10 +1196,10 @@ uint64_t std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,std
   return a1;
 }
 
-_BYTE *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const*,char const*,0>(_BYTE *a1, char **a2, char **a3)
+void *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const*,char const*,0>(void *a1, char **a2, char **a3)
 {
   v5 = std::string::basic_string[abi:ne200100]<0>(a1, *a2);
-  std::string::basic_string[abi:ne200100]<0>(v5 + 24, *a3);
+  std::string::basic_string[abi:ne200100]<0>(v5 + 3, *a3);
   return a1;
 }
 
@@ -1424,9 +1213,9 @@ void sub_24160FDF0(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-unint64_t std::__string_hash<char>::operator()[abi:ne200100](uint64_t a1, uint64_t a2)
+unint64_t std::__string_hash<char>::operator()[abi:ne200100](uint64_t a1, uint64_t *a2)
 {
-  v2 = *(a2 + 8);
+  v2 = a2[1];
   if (*(a2 + 23) >= 0)
   {
     v3 = *(a2 + 23);
@@ -1764,7 +1553,7 @@ BOOL std::equal_to<std::string>::operator()[abi:ne200100](uint64_t a1, const voi
   return memcmp(v7, v8, v3) == 0;
 }
 
-void std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::__rehash<true>(uint64_t a1, size_t __n)
+void std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::__rehash<true>(uint64_t result, size_t __n)
 {
   if (__n == 1)
   {
@@ -1780,7 +1569,7 @@ void std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__un
     }
   }
 
-  v4 = *(a1 + 8);
+  v4 = *(result + 8);
   if (prime > *&v4)
   {
     goto LABEL_6;
@@ -1788,7 +1577,7 @@ void std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__un
 
   if (prime < *&v4)
   {
-    v5 = vcvtps_u32_f32(*(a1 + 24) / *(a1 + 32));
+    v5 = vcvtps_u32_f32(*(result + 24) / *(result + 32));
     if (*&v4 < 3uLL || (v6 = vcnt_s8(v4), v6.i16[0] = vaddlv_u8(v6), v6.u32[0] > 1uLL))
     {
       v5 = std::__next_prime(v5);
@@ -1812,7 +1601,7 @@ void std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__un
     {
 LABEL_6:
 
-      std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::__do_rehash<true>(a1, prime);
+      std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::__do_rehash<true>(result, prime);
     }
   }
 }
@@ -1932,14 +1721,14 @@ void std::__split_buffer<std::string>::__destruct_at_end[abi:ne200100](uint64_t 
   }
 }
 
-void ASDDSPGraphHelper::ASDDSPGraphHelper(void *a1, void *a2)
+void ASDDSPGraphHelper::ASDDSPGraphHelper(void *a1, void *a2, uint64_t a3)
 {
-  v2 = a2[1];
+  v3 = a2[1];
   *a1 = *a2;
-  a1[1] = v2;
-  if (v2)
+  a1[1] = v3;
+  if (v3)
   {
-    atomic_fetch_add_explicit((v2 + 8), 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit((v3 + 8), 1uLL, memory_order_relaxed);
   }
 
   a1[2] = 0;
@@ -1965,40 +1754,39 @@ void sub_241610A14(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-uint64_t ASDDSPGraphHelper::allocateStreamingResources(uint64_t a1, void *a2, void *a3)
+uint64_t ASDDSPGraphHelper::allocateStreamingResources(uint64_t a1, void *a2, void *a3, uint64_t a4, uint64_t a5)
 {
-  v4 = *(a1 + 8);
-  v11 = *a1;
-  v12 = v4;
-  if (v4)
-  {
-    atomic_fetch_add_explicit(&v4->__shared_owners_, 1uLL, memory_order_relaxed);
-  }
-
-  DSPGraph::GraphFactory::createFormatMatchedGraphWithGraph(&v11, a2, a3);
-  v5 = v13;
-  v13 = 0;
-  v6 = *(a1 + 16);
-  *(a1 + 16) = v5;
+  v6 = *(a1 + 8);
+  v12 = *a1;
+  v13 = v6;
   if (v6)
   {
-    (*(*v6 + 8))(v6);
-    v7 = v13;
-    v13 = 0;
-    if (v7)
+    atomic_fetch_add_explicit(&v6->__shared_owners_, 1uLL, memory_order_relaxed);
+  }
+
+  DSPGraph::GraphFactory::createFormatMatchedGraphWithGraph(&v12, a2, a3);
+  v7 = v14;
+  v14 = 0;
+  v8 = *(a1 + 16);
+  *(a1 + 16) = v7;
+  if (v8)
+  {
+    (*(*v8 + 8))(v8);
+    v9 = v14;
+    v14 = 0;
+    if (v9)
     {
-      (*(*v7 + 8))(v7);
+      (*(*v9 + 8))(v9);
     }
   }
 
-  if (v12)
+  if (v13)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v12);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v13);
   }
 
-  v8 = *(a1 + 16);
-  v9 = DSPGraph::Graph::in(*a1);
-  DSPGraph::Box::sampleRate(v9);
+  v10 = DSPGraph::Graph::in(*a1);
+  DSPGraph::Box::sampleRate(v10);
   DSPGraph::Graph::setSliceDuration();
   DSPGraph::Graph::configure(*(a1 + 16));
   return DSPGraph::Graph::initialize(*(a1 + 16));
@@ -2037,11 +1825,11 @@ uint64_t __Block_byref_object_copy__5(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_2416144A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_2416144A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v13 - 64), 8);
+  _Block_object_dispose((v20 - 64), 8);
   _Unwind_Resume(a1);
 }
 
@@ -2049,14 +1837,13 @@ uint64_t CABufferList::AllocateBuffers(uint64_t this, unsigned int a2)
 {
   if (*(this + 36) < a2)
   {
-    *(this + 24);
     operator new[]();
   }
 
   return this;
 }
 
-char *CABufferList::AllocateBuffersAndCopyFrom(char *this, unsigned int a2, CABufferList *a3, CABufferList *a4)
+void CABufferList::AllocateBuffersAndCopyFrom(CABufferList *this, unsigned int a2, CABufferList *a3, CABufferList *a4)
 {
   v4 = *(this + 6);
   if (v4 == *(a3 + 6) && v4 == *(a4 + 6))
@@ -2071,17 +1858,14 @@ char *CABufferList::AllocateBuffersAndCopyFrom(char *this, unsigned int a2, CABu
     {
       if (!*(a4 + 1))
       {
-        v7 = *(a3 + 9);
         operator new[]();
       }
 
       this = CABufferList::AllocateBuffersAndCopyFrom();
     }
 
-    return CABufferList::CopyAllFrom(this, v5, v6);
+    CABufferList::CopyAllFrom(this, v5, v6);
   }
-
-  return this;
 }
 
 char *CABufferList::CopyAllFrom(char *this, CABufferList *a2, CABufferList *a3)
@@ -2126,7 +1910,7 @@ char *CABufferList::CopyAllFrom(char *this, CABufferList *a2, CABufferList *a3)
   return this;
 }
 
-uint64_t CABufferList::BytesConsumed(uint64_t this, unsigned int a2)
+uint64_t CABufferList::BytesConsumed(uint64_t this, uint64_t a2)
 {
   if (*(this + 8))
   {
@@ -2193,23 +1977,23 @@ uint64_t CABufferList::DeallocateBuffers(CABufferList *this)
 
 uint64_t CAShowAudioBufferList(const AudioBufferList *a1, int a2, const AudioStreamBasicDescription *a3, const char *a4)
 {
-  v26 = *MEMORY[0x277D85DE8];
-  CAStreamBasicDescription::CAStreamBasicDescription(v15, a3);
-  v24 = 0u;
-  v25 = 0u;
+  v23 = *MEMORY[0x277D85DE8];
+  CAStreamBasicDescription::CAStreamBasicDescription(v12, a3);
+  v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
+  v19 = 0u;
+  v20 = 0u;
   *__str = 0u;
-  if (v16 != 1819304813)
+  if (v13 != 1819304813)
   {
     goto LABEL_10;
   }
 
-  if (v17)
+  if (v14)
   {
-    if (v20 == 32)
+    if (v17 == 32)
     {
-      if ((v17 & 2) != 0)
+      if ((v14 & 2) != 0)
       {
         strcpy(__str, ", BEF");
         v9 = 10;
@@ -2221,39 +2005,38 @@ uint64_t CAShowAudioBufferList(const AudioBufferList *a1, int a2, const AudioStr
         v9 = -10;
       }
 
-      goto LABEL_11;
+      return show(a1, a2, v9, a4, __str);
     }
 
 LABEL_10:
     v9 = 1;
-    goto LABEL_11;
+    return show(a1, a2, v9, a4, __str);
   }
 
-  if (!v18)
+  if (!v15)
   {
 LABEL_6:
     v9 = 0;
-    goto LABEL_11;
+    return show(a1, a2, v9, a4, __str);
   }
 
-  if ((v17 & 0x20) != 0)
+  if ((v14 & 0x20) != 0)
   {
     v8 = 1;
   }
 
   else
   {
-    v8 = v19;
-    if (!v19)
+    v8 = v16;
+    if (!v16)
     {
       goto LABEL_6;
     }
   }
 
-  v9 = v18 / v8;
-  if ((v18 / v8) >= 1)
+  v9 = v15 / v8;
+  if ((v15 / v8) >= 1)
   {
-    mBitsPerChannel = a3->mBitsPerChannel;
     if (((a3->mFormatFlags >> 7) & 0x3F) != 0)
     {
       snprintf(__str, 0x50uLL, ", %d.%d-bit");
@@ -2261,28 +2044,24 @@ LABEL_6:
 
     else
     {
-      v14 = a3->mBitsPerChannel;
       snprintf(__str, 0x50uLL, ", %d-bit");
     }
 
-    if ((v17 & 2) != 0)
+    if ((v14 & 2) != 0)
     {
-      v13 = " BEI";
+      v11 = " BEI";
     }
 
     else
     {
       v9 = -v9;
-      v13 = " LEI";
+      v11 = " LEI";
     }
 
-    strlcat(__str, v13, 0x50uLL);
+    strlcat(__str, v11, 0x50uLL);
   }
 
-LABEL_11:
-  result = show(a1, a2, v9, a4, __str);
-  v11 = *MEMORY[0x277D85DE8];
-  return result;
+  return show(a1, a2, v9, a4, __str);
 }
 
 uint64_t show(const AudioBufferList *a1, int a2, int a3, const char *a4, const char *a5)
@@ -2338,14 +2117,12 @@ LABEL_40:
           if (a3 == -10)
           {
 LABEL_29:
-            v20 = *mData;
             mData += 4;
             goto LABEL_30;
           }
 
           if (a3 == -4)
           {
-            v19 = *mData;
             mData += 4;
 LABEL_34:
             printf(" %08X");
@@ -2357,14 +2134,13 @@ LABEL_34:
           switch(a3)
           {
             case -3:
-              v23 = (mData[2] << 16) | (mData[1] << 8);
-              v24 = *mData;
+              v16 = (mData[2] << 16) | (mData[1] << 8);
+              v17 = *mData;
 LABEL_39:
-              printf(" %06X", v23 | v24);
+              printf(" %06X", v16 | v17);
               mData += 3;
               break;
             case -2:
-              v21 = *mData;
               mData += 2;
               goto LABEL_32;
             case -1:
@@ -2378,15 +2154,13 @@ LABEL_39:
         switch(a3)
         {
           case 3:
-            v23 = (*mData << 16) | (mData[1] << 8);
-            v24 = mData[2];
+            v16 = (*mData << 16) | (mData[1] << 8);
+            v17 = mData[2];
             goto LABEL_39;
           case 4:
-            v22 = *mData;
             mData += 4;
             goto LABEL_34;
           case 10:
-            v18 = *mData;
             mData += 4;
 LABEL_30:
             printf(" %6.3f");
@@ -2402,11 +2176,10 @@ LABEL_30:
             goto LABEL_29;
           case 1:
 LABEL_21:
-            v17 = *mData++;
+            ++mData;
             printf(" %02X");
             break;
           case 2:
-            v16 = *mData;
             mData += 2;
 LABEL_32:
             printf(" %04X");
@@ -2490,14 +2263,14 @@ uint64_t DSPGraph::GraphBox::GraphBox(uint64_t a1, uint64_t a2, char a3)
   v33 = 0u;
   v34 = 0u;
   v32 = 0u;
-  std::vector<DSPGraph::GraphIOData>::vector[abi:ne200100]((a1 + 792), v8);
+  std::vector<DSPGraph::GraphIOData>::vector[abi:ne200100]((a1 + 792), v8, &v32);
   v9 = DSPGraph::Graph::numOutputs(*a2);
   v35 = 0u;
   v36 = 0u;
   v33 = 0u;
   v34 = 0u;
   v32 = 0u;
-  std::vector<DSPGraph::GraphIOData>::vector[abi:ne200100]((a1 + 816), v9);
+  std::vector<DSPGraph::GraphIOData>::vector[abi:ne200100]((a1 + 816), v9, &v32);
   *(a1 + 840) = a3;
   if (!*a2)
   {
@@ -2511,7 +2284,6 @@ uint64_t DSPGraph::GraphBox::GraphBox(uint64_t a1, uint64_t a2, char a3)
     v12 = *(v10 + 762);
     DSPGraph::Graph::uninitialize(v10);
     DSPGraph::Graph::unconfigure(*(a1 + 776));
-    *(*(a1 + 776) + 688);
     v13 = DSPGraph::Graph::in(*(a1 + 776));
     DSPGraph::Box::sampleRate(v13);
     DSPGraph::Graph::setSliceDuration();
@@ -2890,22 +2662,23 @@ void sub_241616900(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t DSPGraph::GraphBox::process(DSPGraph::GraphBox *this, int a2)
+uint64_t DSPGraph::GraphBox::process(DSPGraph::GraphBox *this, uint64_t a2)
 {
+  v2 = a2;
   if ((*(*this + 64))(this))
   {
     v4 = *(this + 8);
     if (*(this + 9) == v4)
     {
-      std::string::basic_string[abi:ne200100]<0>(v26, "/AppleInternal/Library/BuildRoots/4~B_v4ugBrk2VtsmME3o9-eotLpphjaV7WfgvGsVo/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS26.1.Internal.sdk/System/Library/PrivateFrameworks/AudioToolboxCore.framework/PrivateHeaders/DSPGraph_Box.h");
-      std::string::basic_string[abi:ne200100]<0>(v25, "in");
-      v20 = (this + 32);
+      std::string::basic_string[abi:ne200100]<0>(v19, "/AppleInternal/Library/BuildRoots/4~B_v4ugBrk2VtsmME3o9-eotLpphjaV7WfgvGsVo/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS26.1.Internal.sdk/System/Library/PrivateFrameworks/AudioToolboxCore.framework/PrivateHeaders/DSPGraph_Box.h");
+      std::string::basic_string[abi:ne200100]<0>(v18, "in");
+      v13 = (this + 32);
       if (*(this + 55) < 0)
       {
-        v20 = *v20;
+        v13 = *v13;
       }
 
-      DSPGraph::strprintf(v24, "Box::in inIndex out of range! box %s has %zu inputs but input %u was requested", v19, v20, (*(this + 9) - *(this + 8)) >> 5, 0);
+      DSPGraph::strprintf(v17, "Box::in inIndex out of range! box %s has %zu inputs but input %u was requested", v12, v13, (*(this + 9) - *(this + 8)) >> 5, 0);
       DSPGraph::ThrowException();
     }
 
@@ -2916,35 +2689,33 @@ uint64_t DSPGraph::GraphBox::process(DSPGraph::GraphBox *this, int a2)
       if (*(this + 12) != v6)
       {
         v7 = *(v5 + 56);
-        v8 = (*(*v6 + 40))(v6);
-        if (*(v8 + 56) != v7)
+        if (*((*(*v6 + 40))(v6) + 56) != v7)
         {
-          v9 = *(v8 + 56);
           DSPGraph::Buffer::copyFrom();
           DSPGraph::Buffer::copyTimeFrom();
         }
 
-        DSPGraph::GraphBox::prepareGraphIOData(this, a2);
+        DSPGraph::GraphBox::prepareGraphIOData(this, v2);
         if (*(this + 103) != *(this + 102))
         {
-          v10 = *(this + 97);
+          v8 = *(this + 97);
 
-          return MEMORY[0x282143068](v10);
+          return MEMORY[0x282143068](v8);
         }
 
 LABEL_21:
         std::vector<CAStreamBasicDescription>::__throw_out_of_range[abi:ne200100]();
       }
 
-      std::string::basic_string[abi:ne200100]<0>(v26, "/AppleInternal/Library/BuildRoots/4~B_v4ugBrk2VtsmME3o9-eotLpphjaV7WfgvGsVo/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS26.1.Internal.sdk/System/Library/PrivateFrameworks/AudioToolboxCore.framework/PrivateHeaders/DSPGraph_Box.h");
-      std::string::basic_string[abi:ne200100]<0>(v25, "out");
-      v22 = (this + 32);
+      std::string::basic_string[abi:ne200100]<0>(v19, "/AppleInternal/Library/BuildRoots/4~B_v4ugBrk2VtsmME3o9-eotLpphjaV7WfgvGsVo/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS26.1.Internal.sdk/System/Library/PrivateFrameworks/AudioToolboxCore.framework/PrivateHeaders/DSPGraph_Box.h");
+      std::string::basic_string[abi:ne200100]<0>(v18, "out");
+      v15 = (this + 32);
       if (*(this + 55) < 0)
       {
-        v22 = *v22;
+        v15 = *v15;
       }
 
-      DSPGraph::strprintf(v24, "Box::out inIndex out of range! box %s has %zu outputs but input %u was requested", v21, v22, (*(this + 12) - *(this + 11)) >> 5, 0);
+      DSPGraph::strprintf(v17, "Box::out inIndex out of range! box %s has %zu outputs but input %u was requested", v14, v15, (*(this + 12) - *(this + 11)) >> 5, 0);
       DSPGraph::ThrowException();
     }
 
@@ -2952,25 +2723,20 @@ LABEL_21:
     goto LABEL_21;
   }
 
-  DSPGraph::GraphBox::prepareGraphIOData(this, a2);
-  v11 = *(this + 99);
-  v12 = *(this + 102);
-  v13 = DSPGraph::Graph::in(*(this + 97));
-  DSPGraph::Box::sampleRate(v13);
+  DSPGraph::GraphBox::prepareGraphIOData(this, v2);
+  v9 = DSPGraph::Graph::in(*(this + 97));
+  DSPGraph::Box::sampleRate(v9);
   DSPGraph::Graph::preflight();
-  v14 = *(this + 97);
-  v15 = *(this + 99);
-  v16 = *(this + 102);
   DSPGraph::Graph::processMultiple();
-  v17 = *(this + 99);
-  if (*(this + 100) == v17)
+  v10 = *(this + 99);
+  if (*(this + 100) == v10)
   {
     goto LABEL_21;
   }
 
-  v18 = *(v17 + 4);
+  v11 = *(v10 + 4);
 
-  return MEMORY[0x282143030](this, v18, v17 + 8);
+  return MEMORY[0x282143030](this, v11, v10 + 8);
 }
 
 void sub_241616C08(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13, int a14, __int16 a15, char a16, char a17, void *a18, uint64_t a19, int a20, __int16 a21, char a22, char a23, void *a24, uint64_t a25, int a26, __int16 a27, char a28, char a29)
@@ -3092,7 +2858,7 @@ void DSPGraph::GraphBox::getParameterInfo(int a1@<W1>, uint64_t a2@<X8>)
 {
   if (a1)
   {
-    v3 = 0;
+    v2 = 0;
     *a2 = 1852204065;
   }
 
@@ -3103,12 +2869,12 @@ void DSPGraph::GraphBox::getParameterInfo(int a1@<W1>, uint64_t a2@<X8>)
     *(a2 + 80) = 0u;
     *(a2 + 32) = 0u;
     *(a2 + 48) = 0u;
-    v3 = 1;
+    v2 = 1;
     *a2 = 0u;
     *(a2 + 16) = 0u;
   }
 
-  *(a2 + 104) = v3;
+  *(a2 + 104) = v2;
 }
 
 unint64_t DSPGraph::GraphBox::selfLatencyInTicks(DSPGraph::Graph **this)
@@ -3136,7 +2902,7 @@ unint64_t DSPGraph::GraphBox::selfLatencyInTicks(DSPGraph::Graph **this)
   return v3;
 }
 
-uint64_t DSPGraph::GraphBox::setMaxFrames(DSPGraph::GraphBox *this, int a2)
+uint64_t DSPGraph::GraphBox::setMaxFrames(DSPGraph::GraphBox *this, uint64_t a2)
 {
   result = *(this + 97);
   if (*(result + 688) != a2)
@@ -3151,27 +2917,26 @@ uint64_t DSPGraph::GraphBox::setMaxFrames(DSPGraph::GraphBox *this, int a2)
     DSPGraph::Graph::unconfigure(result);
     v5 = DSPGraph::Graph::out(*(this + 97));
     DSPGraph::Box::sampleRate(v5);
-    v6 = *(this + 97);
     (*(*this + 128))(this);
     DSPGraph::Graph::setSliceDuration();
     result = DSPGraph::Graph::configure(*(this + 97));
     if (v4)
     {
-      v7 = *(this + 97);
+      v6 = *(this + 97);
 
-      return DSPGraph::Graph::initialize(v7);
+      return DSPGraph::Graph::initialize(v6);
     }
   }
 
   return result;
 }
 
-unsigned __int8 *DSPGraph::GraphBox::setUsesFixedBlockSize(DSPGraph::GraphBox *this, int a2)
+DSPGraph::Graph *DSPGraph::GraphBox::setUsesFixedBlockSize(DSPGraph::GraphBox *this, int a2)
 {
   result = *(this + 97);
-  if (result[760] == a2)
+  if (*(result + 760) == a2)
   {
-    v4 = result[762];
+    v4 = *(result + 762);
     if (v4 == 1)
     {
       DSPGraph::Graph::uninitialize(result);
@@ -3179,18 +2944,15 @@ unsigned __int8 *DSPGraph::GraphBox::setUsesFixedBlockSize(DSPGraph::GraphBox *t
     }
 
     DSPGraph::Graph::unconfigure(result);
-    v5 = *(this + 97);
-    v6 = v5[172];
-    v7 = DSPGraph::Graph::out(v5);
-    DSPGraph::Box::sampleRate(v7);
-    v8 = *(this + 97);
+    v5 = DSPGraph::Graph::out(*(this + 97));
+    DSPGraph::Box::sampleRate(v5);
     DSPGraph::Graph::setSliceDuration();
     result = DSPGraph::Graph::configure(*(this + 97));
     if (v4)
     {
-      v9 = *(this + 97);
+      v6 = *(this + 97);
 
-      return DSPGraph::Graph::initialize(v9);
+      return DSPGraph::Graph::initialize(v6);
     }
   }
 
@@ -3205,17 +2967,17 @@ double DSPGraph::GraphBox::desc@<D0>(uint64_t a1@<X8>)
   return result;
 }
 
-void *std::vector<DSPGraph::GraphIOData>::vector[abi:ne200100](void *result, unint64_t a2)
+uint64_t *std::vector<DSPGraph::GraphIOData>::vector[abi:ne200100](uint64_t *a1, unint64_t a2, _OWORD *a3)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<DSPGraph::GraphIOData>::__vallocate[abi:ne200100](result, a2);
+    std::vector<DSPGraph::GraphIOData>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
 void sub_241617208(_Unwind_Exception *exception_object)
@@ -3230,7 +2992,7 @@ void sub_241617208(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<DSPGraph::GraphIOData>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<DSPGraph::GraphIOData>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (a2 < 0x333333333333334)
   {
@@ -3667,7 +3429,7 @@ LABEL_15:
   return v30;
 }
 
-void ramstadPrecalculateCoeffs<float>(int a1, uint64_t a2, uint64_t a3, uint64_t a4, float *a5, float *a6, double a7)
+void ramstadPrecalculateCoeffs<float>(unsigned int a1, uint64_t a2, uint64_t a3, uint64_t a4, float *a5, float *a6, double a7)
 {
   if (a1 >= 1)
   {
@@ -3703,7 +3465,7 @@ void ramstadPrecalculateCoeffs<float>(int a1, uint64_t a2, uint64_t a3, uint64_t
   }
 }
 
-void ramstadBackEndCoeffs<float>(int a1, uint64_t a2, float *a3, _DWORD *a4, double a5)
+void ramstadBackEndCoeffs<float>(unsigned int a1, uint64_t a2, float *a3, _DWORD *a4, double a5)
 {
   if (a1 >= 1)
   {
@@ -3990,7 +3752,7 @@ LABEL_15:
   return v35;
 }
 
-void ramstadPrecalculateCoeffs<double>(int a1, uint64_t a2, uint64_t a3, uint64_t a4, long double *a5, long double *a6, double a7)
+void ramstadPrecalculateCoeffs<double>(unsigned int a1, uint64_t a2, uint64_t a3, uint64_t a4, long double *a5, long double *a6, double a7)
 {
   if (a1 >= 1)
   {
@@ -4024,7 +3786,7 @@ void ramstadPrecalculateCoeffs<double>(int a1, uint64_t a2, uint64_t a3, uint64_
   }
 }
 
-void ramstadBackEndCoeffs<double>(int a1, uint64_t a2, double *a3, double *a4, double a5)
+void ramstadBackEndCoeffs<double>(unsigned int a1, uint64_t a2, double *a3, double *a4, double a5)
 {
   if (a1 >= 1)
   {
@@ -4049,7 +3811,7 @@ void ramstadBackEndCoeffs<double>(int a1, uint64_t a2, double *a3, double *a4, d
   }
 }
 
-void RamstadSRC::RamstadSRC(RamstadSRC *this, double a2, double a3, int a4, int a5)
+void RamstadSRC::RamstadSRC(RamstadSRC *this, double a2, double a3, int a4, unsigned int a5)
 {
   *this = 0;
   *(this + 1) = 0;
@@ -4213,7 +3975,7 @@ void sub_24161993C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t RamstadSRC::initQuality(uint64_t this, int a2)
+uint64_t RamstadSRC::initQuality(uint64_t this, unsigned int a2)
 {
   if (a2 <= 63)
   {
@@ -4297,7 +4059,7 @@ _DWORD *RamstadSRC::initFilter(RamstadSRC *this, double a2)
   return std::vector<float>::assign(this + 26, v8, &v11, v9);
 }
 
-void RamstadSRC::RamstadSRC(RamstadSRC *this, double a2, double a3, int a4, int a5, double a6)
+void RamstadSRC::RamstadSRC(RamstadSRC *this, double a2, double a3, int a4, unsigned int a5, double a6)
 {
   *this = 0;
   *(this + 1) = 0;
@@ -4418,7 +4180,7 @@ void GetKernelFactory(void)
   }
 }
 
-_DWORD *std::vector<float>::assign(void *a1, unint64_t a2, __int32 *a3, int16x4_t a4)
+_DWORD *std::vector<float>::assign(uint64_t *a1, unint64_t a2, __int32 *a3, int16x4_t a4)
 {
   v6 = a1[2];
   result = *a1;
@@ -4643,7 +4405,6 @@ double RamstadSRC::processMono(RamstadSRC *this, const float *a2, float *a3, int
   }
 
   RamstadSRC::checkPreflight(this, a4, a5);
-  v14 = *(this + 76);
   if (*(this + 77) == 1)
   {
     if (*(this + 76))
@@ -4681,15 +4442,15 @@ void sub_24161A36C(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-_DWORD *RamstadSRC::checkPreflight(_DWORD *this, int a2, int a3)
+RamstadSRC *RamstadSRC::checkPreflight(RamstadSRC *this, int a2, int a3)
 {
   v4 = this;
-  v5 = this[60];
+  v5 = *(this + 60);
   if (v5 == -1)
   {
     v7 = 0;
     this = RamstadSRC::outputSamplesForInputSamples(this, a2, &v7);
-    if (v4[60] == a3)
+    if (*(v4 + 60) == a3)
     {
       return this;
     }
@@ -4706,7 +4467,7 @@ LABEL_10:
     goto LABEL_10;
   }
 
-  if (this[58] > a2 || this[59] < a2)
+  if (*(this + 58) > a2 || *(this + 59) < a2)
   {
     exception = __cxa_allocate_exception(0x10uLL);
     MEMORY[0x245CEB7A0](exception, "RamstadSRC process called for number of input samples than outside range of preflight.");
@@ -5784,7 +5545,6 @@ double RamstadSRC::processStereo(RamstadSRC *this, const float *a2, const float 
   }
 
   RamstadSRC::checkPreflight(this, a6, a7);
-  v17 = *(this + 76);
   if (*(this + 77) == 1)
   {
     if (*(this + 76))
@@ -7319,7 +7079,6 @@ LABEL_29:
 double RamstadSRC::processMulti(RamstadSRC *this, const float *const *a2, float *const *a3, int a4, int a5, int a6, int a7)
 {
   RamstadSRC::checkPreflight(this, a4, a5);
-  v14 = *(this + 76);
   if (*(this + 77) == 1)
   {
     if (*(this + 76))
@@ -9435,32 +9194,30 @@ double RamstadSRC::latencySeconds(RamstadSRC *this)
 {
   v1 = *(this + 3);
   v2 = *(this + 2) / v1;
-  v3 = *(this + 10) == 8;
   if (v2 >= 1.0)
   {
-    v4 = dbl_241642F40[*(this + 10) == 8];
+    v3 = dbl_241642F40[*(this + 10) == 8];
   }
 
   else
   {
-    v4 = dbl_241642F30[*(this + 10) == 8] / v2;
+    v3 = dbl_241642F30[*(this + 10) == 8] / v2;
   }
 
-  return v4 / v1;
+  return v3 / v1;
 }
 
 double RamstadSRC::latencySamples(RamstadSRC *this)
 {
-  v1 = *(this + 10) == 8;
-  v2 = *(this + 2) / *(this + 3);
-  if (v2 >= 1.0)
+  v1 = *(this + 2) / *(this + 3);
+  if (v1 >= 1.0)
   {
     return dbl_241642F40[*(this + 10) == 8];
   }
 
   else
   {
-    return dbl_241642F30[*(this + 10) == 8] / v2;
+    return dbl_241642F30[*(this + 10) == 8] / v1;
   }
 }
 
@@ -9584,20 +9341,17 @@ void sub_24161FC74(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void *std::vector<RamstadKernelD *>::reserve(void *result, unint64_t a2)
+void std::vector<RamstadKernelD *>::reserve(void *a1, unint64_t a2)
 {
-  if (a2 > (result[2] - *result) >> 3)
+  if (a2 > (a1[2] - *a1) >> 3)
   {
     if (!(a2 >> 61))
     {
-      v2 = result[1] - *result;
-      std::__allocate_at_least[abi:ne200100]<std::allocator<RamstadSRC *>>(result, a2);
+      std::__allocate_at_least[abi:ne200100]<std::allocator<RamstadSRC *>>(a1, a2);
     }
 
     std::vector<CAStreamBasicDescription>::__throw_length_error[abi:ne200100]();
   }
-
-  return result;
 }
 
 void RamstadKernelFactory::~RamstadKernelFactory(RamstadKernelFactory *this)
@@ -9650,7 +9404,7 @@ void _ZNSt3__119__allocate_at_leastB8ne200100INS_9allocatorIDv8_dEEEENS_19__allo
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-void std::vector<float>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<float>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 62))
   {
@@ -9677,7 +9431,78 @@ uint64_t __Block_byref_object_copy__6(uint64_t a1, uint64_t a2)
   return result;
 }
 
-uint64_t ASDBufferList::setBufferListFromData(ASDBufferList *this, void *a2, int a3)
+void sub_2416205E0(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, __int128 a9, __int128 a10)
+{
+  if (a2)
+  {
+
+    v13 = __cxa_begin_catch(exception_object);
+    if (a2 == 2)
+    {
+      v14 = v13;
+      if (CALog_DefaultScope)
+      {
+        v15 = *CALog_DefaultScope;
+      }
+
+      else
+      {
+        v15 = MEMORY[0x277D86220];
+        v16 = MEMORY[0x277D86220];
+      }
+
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+      {
+        v17 = LogFilenameOnly("/Library/Caches/com.apple.xbs/Sources/AudioServerDriver/AudioServerDriver/DSP/ASDRingBufferStream.mm");
+        v18 = (*(*v14 + 16))(v14);
+        LODWORD(a9) = 136315906;
+        *(&a9 + 4) = v17;
+        WORD6(a9) = 1024;
+        *(&a9 + 14) = 115;
+        WORD1(a10) = 2080;
+        *(&a10 + 4) = "[ASDRingBufferOutputStream writeMixBlock]_block_invoke";
+        WORD6(a10) = 2080;
+        *(&a10 + 14) = v18;
+        _os_log_impl(&dword_2415D8000, v15, OS_LOG_TYPE_ERROR, "%s:%d:%s: %s", &a9, 0x26u);
+      }
+    }
+
+    else
+    {
+      if (CALog_DefaultScope)
+      {
+        v15 = *CALog_DefaultScope;
+      }
+
+      else
+      {
+        v15 = MEMORY[0x277D86220];
+        v19 = MEMORY[0x277D86220];
+      }
+
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+      {
+        v20 = LogFilenameOnly("/Library/Caches/com.apple.xbs/Sources/AudioServerDriver/AudioServerDriver/DSP/ASDRingBufferStream.mm");
+        LODWORD(a9) = 136315906;
+        *(&a9 + 4) = v20;
+        WORD6(a9) = 1024;
+        *(&a9 + 14) = 119;
+        WORD1(a10) = 2080;
+        *(&a10 + 4) = "[ASDRingBufferOutputStream writeMixBlock]_block_invoke";
+        WORD6(a10) = 2080;
+        *(&a10 + 14) = "Unknown exception occured.";
+        _os_log_impl(&dword_2415D8000, v15, OS_LOG_TYPE_ERROR, "%s:%d:%s: %s", &a9, 0x26u);
+      }
+    }
+
+    __cxa_end_catch();
+    JUMPOUT(0x2416205ACLL);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+void *ASDBufferList::setBufferListFromData(ASDBufferList *this, void *a2, int a3)
 {
   if (!a2)
   {
@@ -9689,81 +9514,157 @@ uint64_t ASDBufferList::setBufferListFromData(ASDBufferList *this, void *a2, int
     ASDBufferList::setBufferListFromData();
   }
 
-  v4 = *(this + 6) * a3;
+  v4 = (*(this + 6) * a3);
   v5 = *(this + 5);
 
   return CABufferList::SetBytes(v5, v4, a2);
 }
 
-uint64_t CABufferList::SetBytes(uint64_t this, int a2, void *a3)
+void sub_241620FA0(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, __int128 buf, __int128 a12)
 {
-  if (*(this + 8))
+  if (a2)
+  {
+
+    v15 = __cxa_begin_catch(a1);
+    if (a2 == 2)
+    {
+      v16 = v15;
+      if (CALog_DefaultScope)
+      {
+        v17 = *CALog_DefaultScope;
+      }
+
+      else
+      {
+        v17 = MEMORY[0x277D86220];
+        v18 = MEMORY[0x277D86220];
+      }
+
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+      {
+        v19 = LogFilenameOnly("/Library/Caches/com.apple.xbs/Sources/AudioServerDriver/AudioServerDriver/DSP/ASDRingBufferStream.mm");
+        v20 = (*(*v16 + 16))(v16);
+        LODWORD(buf) = 136315906;
+        *(&buf + 4) = v19;
+        WORD6(buf) = 1024;
+        *(&buf + 14) = 220;
+        WORD1(a12) = 2080;
+        *(&a12 + 4) = "[ASDRingBufferInputStream readInputBlock]_block_invoke";
+        WORD6(a12) = 2080;
+        *(&a12 + 14) = v20;
+        _os_log_impl(&dword_2415D8000, v17, OS_LOG_TYPE_ERROR, "%s:%d:%s: %s", &buf, 0x26u);
+      }
+    }
+
+    else
+    {
+      if (CALog_DefaultScope)
+      {
+        v17 = *CALog_DefaultScope;
+      }
+
+      else
+      {
+        v17 = MEMORY[0x277D86220];
+        v21 = MEMORY[0x277D86220];
+      }
+
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+      {
+        v22 = LogFilenameOnly("/Library/Caches/com.apple.xbs/Sources/AudioServerDriver/AudioServerDriver/DSP/ASDRingBufferStream.mm");
+        LODWORD(buf) = 136315650;
+        *(&buf + 4) = v22;
+        WORD6(buf) = 1024;
+        *(&buf + 14) = 225;
+        WORD1(a12) = 2080;
+        *(&a12 + 4) = "[ASDRingBufferInputStream readInputBlock]_block_invoke";
+        _os_log_impl(&dword_2415D8000, v17, OS_LOG_TYPE_ERROR, "%s:%d:%s: Unknown exception occured.", &buf, 0x1Cu);
+      }
+    }
+
+    __cxa_end_catch();
+    JUMPOUT(0x241620F68);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+void *CABufferList::SetBytes(void *this, uint64_t a2, void *a3)
+{
+  if (this[1])
   {
     CABufferList::AllocateBuffersAndCopyFrom();
   }
 
-  else if (*(this + 24) == 1)
+  else if (*(this + 6) == 1)
   {
-    *(this + 36) = a2;
-    *(this + 40) = a3;
+    *(this + 9) = a2;
+    this[5] = a3;
     return this;
   }
 
-  v3 = CABufferList::SetBytes();
+  CABufferList::SetBytes();
   return CABufferList::New(v3, v4, v5);
 }
 
 void *CABufferList::New(CABufferList *this, const char *a2, const CAStreamBasicDescription *a3)
 {
   v4 = *(a2 + 3);
-  v5 = *(a2 + 7);
   if ((v4 & 0x20) != 0)
   {
-    v6 = *(a2 + 7);
+    v5 = *(a2 + 7);
   }
 
   else
+  {
+    v5 = 1;
+  }
+
+  if ((v4 & 0x20) != 0)
   {
     v6 = 1;
   }
 
-  if ((v4 & 0x20) != 0)
-  {
-    v7 = 1;
-  }
-
   else
   {
-    v7 = *(a2 + 7);
+    v6 = *(a2 + 7);
   }
 
-  result = operator new(16 * v6 + 32);
+  result = operator new(16 * v5 + 32);
   *result = this;
   result[1] = 0;
   *(result + 4) = 0;
-  *(result + 6) = v6;
-  if (v6)
+  *(result + 6) = v5;
+  if (v5)
   {
-    v9 = (result + 4);
+    v8 = result + 4;
     do
     {
-      *v9 = v7;
-      *(v9 + 1) = 0;
-      *(v9 + 1) = 0;
-      v9 += 16;
-      --v6;
+      *v8 = v6;
+      *(v8 + 1) = 0;
+      v8[1] = 0;
+      v8 += 2;
+      --v5;
     }
 
-    while (v6);
+    while (v5);
   }
 
   return result;
 }
 
-void OUTLINED_FUNCTION_0_3(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0_3(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
+}
+
+void sub_241626618(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, ...)
+{
+  va_start(va, a51);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
 }
 
 uint64_t __Block_byref_object_copy__7(uint64_t result, uint64_t a2)
@@ -9773,16 +9674,16 @@ uint64_t __Block_byref_object_copy__7(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_241627DA0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+void sub_241627DA0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, ...)
 {
-  va_start(va, a16);
+  va_start(va, a23);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_2416280EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_2416280EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
+  va_start(va, a22);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -9866,9 +9767,9 @@ CALog::Scope *CALog::Scope::Scope(CALog::Scope *this, int a2, uint64_t a3, const
   return this;
 }
 
-uint64_t CALog::Scope::init(CALog::Scope *this, uint64_t a2, const char *a3, CFTypeRef cf, void *a5, int a6)
+uint64_t CALog::Scope::init(CALog::Scope *this, uint64_t a2, const char *a3, __CFString *cf, void *a5, int a6)
 {
-  v24[4] = *MEMORY[0x277D85DE8];
+  v23[4] = *MEMORY[0x277D85DE8];
   *(this + 3) = a3;
   *(this + 4) = cf;
   *(this + 5) = a5;
@@ -9954,12 +9855,11 @@ uint64_t CALog::Scope::init(CALog::Scope *this, uint64_t a2, const char *a3, CFT
   result = pthread_rwlock_unlock(&sLock);
   if (cf)
   {
-    v24[0] = &unk_2853445A0;
-    v24[1] = this;
-    v24[3] = v24;
-    CASmartPreferences::AddHandler<int>(a5, cf, PrefValueToPriority, v24);
+    v23[0] = &unk_2853445A0;
+    v23[1] = this;
+    v23[3] = v23;
+    CASmartPreferences::AddHandler<int>(a5, cf, PrefValueToPriority, v23);
   }
 
-  v23 = *MEMORY[0x277D85DE8];
   return result;
 }

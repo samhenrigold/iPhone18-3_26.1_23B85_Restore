@@ -15,48 +15,48 @@
   dateCopy = date;
   identifierCopy = identifier;
   descriptionCopy = description;
-  v61.receiver = self;
-  v61.super_class = IMSPIAttachment;
-  v27 = [(IMSPIAttachment *)&v61 init];
-  if (v27)
+  v45.receiver = self;
+  v45.super_class = IMSPIAttachment;
+  v25 = [(IMSPIAttachment *)&v45 init];
+  if (v25)
   {
-    v28 = objc_msgSend_copy(guidCopy, v25, v26);
-    guid = v27->_guid;
-    v27->_guid = v28;
+    v26 = [guidCopy copy];
+    guid = v25->_guid;
+    v25->_guid = v26;
 
-    v32 = objc_msgSend_copy(urlCopy, v30, v31);
-    fileUrl = v27->_fileUrl;
-    v27->_fileUrl = v32;
+    v28 = [urlCopy copy];
+    fileUrl = v25->_fileUrl;
+    v25->_fileUrl = v28;
 
-    v27->_fileTransferState = state;
-    v36 = objc_msgSend_copy(utiCopy, v34, v35);
-    uti = v27->_uti;
-    v27->_uti = v36;
+    v25->_fileTransferState = state;
+    v30 = [utiCopy copy];
+    uti = v25->_uti;
+    v25->_uti = v30;
 
-    v27->_isSticker = sticker;
-    v27->_isOutgoing = outgoing;
-    v40 = objc_msgSend_copy(infoCopy, v38, v39);
-    stickerUserInfo = v27->_stickerUserInfo;
-    v27->_stickerUserInfo = v40;
+    v25->_isSticker = sticker;
+    v25->_isOutgoing = outgoing;
+    v32 = [infoCopy copy];
+    stickerUserInfo = v25->_stickerUserInfo;
+    v25->_stickerUserInfo = v32;
 
-    v44 = objc_msgSend_copy(attributionInfoCopy, v42, v43);
-    attributionInfo = v27->_attributionInfo;
-    v27->_attributionInfo = v44;
+    v34 = [attributionInfoCopy copy];
+    attributionInfo = v25->_attributionInfo;
+    v25->_attributionInfo = v34;
 
-    v48 = objc_msgSend_copy(dateCopy, v46, v47);
-    creationDate = v27->_creationDate;
-    v27->_creationDate = v48;
+    v36 = [dateCopy copy];
+    creationDate = v25->_creationDate;
+    v25->_creationDate = v36;
 
-    v52 = objc_msgSend_copy(identifierCopy, v50, v51);
-    adaptiveImageGlyphContentIdentifier = v27->_adaptiveImageGlyphContentIdentifier;
-    v27->_adaptiveImageGlyphContentIdentifier = v52;
+    v38 = [identifierCopy copy];
+    adaptiveImageGlyphContentIdentifier = v25->_adaptiveImageGlyphContentIdentifier;
+    v25->_adaptiveImageGlyphContentIdentifier = v38;
 
-    v56 = objc_msgSend_copy(descriptionCopy, v54, v55);
-    adaptiveImageGlyphContentDescription = v27->_adaptiveImageGlyphContentDescription;
-    v27->_adaptiveImageGlyphContentDescription = v56;
+    v40 = [descriptionCopy copy];
+    adaptiveImageGlyphContentDescription = v25->_adaptiveImageGlyphContentDescription;
+    v25->_adaptiveImageGlyphContentDescription = v40;
   }
 
-  return v27;
+  return v25;
 }
 
 - (id)description
@@ -77,7 +77,7 @@
     v2 = @"YES";
   }
 
-  return objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], a2, @"IMSPIAttachment: %p [guid: %@ FileUrl: %@ TransferState: %tu uti: %@ isSticker: %@ isOutgoing: %@ attributionInfo: %@ creationDate: %@]", self, self->_guid, self->_fileUrl, self->_fileTransferState, self->_uti, v3, v2, self->_attributionInfo, self->_creationDate);
+  return [MEMORY[0x1E696AEC0] stringWithFormat:@"IMSPIAttachment: %p [guid: %@ FileUrl: %@ TransferState: %tu uti: %@ isSticker: %@ isOutgoing: %@ attributionInfo: %@ creationDate: %@]", self, self->_guid, self->_fileUrl, self->_fileTransferState, self->_uti, v3, v2, self->_attributionInfo, self->_creationDate];
 }
 
 @end

@@ -16,7 +16,7 @@
 - (id)playbackSpeedMenu;
 - (id)speedLabelColorFor:(char)for idiom:(int64_t)idiom;
 - (id)transcriptionButtonColorWithIsFromMe:(BOOL)me idiom:(int64_t)idiom;
-- (id)transcriptionLabelColorFor:(char)for idiom:(uint64_t)idiom;
+- (id)transcriptionLabelColorFor:(uint64_t)for idiom:(uint64_t)idiom;
 - (id)waveformColorWithIsFromMe:(BOOL)me isPlayed:(BOOL)played idiom:(int64_t)idiom;
 - (int64_t)waveformContentMode;
 - (void)configureForComposition:(id)composition;
@@ -41,7 +41,7 @@
 
 @implementation CKAudioMessageBalloonView
 
-- (id)transcriptionLabelColorFor:(char)for idiom:(uint64_t)idiom
+- (id)transcriptionLabelColorFor:(uint64_t)for idiom:(uint64_t)idiom
 {
   v4 = sub_19083145C(for, idiom);
 
@@ -283,7 +283,7 @@
     goto LABEL_15;
   }
 
-  sub_1902188FC(0, &qword_1EAD46530);
+  sub_1902188FC(0, &qword_1EAD46530, 0x1E69DD250);
   v3 = sub_190D57180();
   v4 = v3;
   if (v3 >> 62)
@@ -334,7 +334,7 @@ LABEL_11:
 
 - (id)nonVibrantSubViews
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EAD53820);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EAD53820, &unk_190DD76C0);
   v3 = swift_allocObject();
   *(v3 + 16) = xmmword_190DDA780;
   selfCopy = self;
@@ -342,7 +342,7 @@ LABEL_11:
   *(v3 + 40) = sub_190BE94C4();
   *(v3 + 48) = sub_190BE96B8();
 
-  sub_1902188FC(0, &qword_1EAD46530);
+  sub_1902188FC(0, &qword_1EAD46530, 0x1E69DD250);
   v5 = sub_190D57160();
 
   return v5;

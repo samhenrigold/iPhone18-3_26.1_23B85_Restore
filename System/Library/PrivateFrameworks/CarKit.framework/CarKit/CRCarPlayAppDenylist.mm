@@ -34,8 +34,7 @@
 {
   v3 = [MEMORY[0x1E696B0D0] interfaceWithProtocol:&unk_1F48038E8];
   v4 = [objc_alloc(MEMORY[0x1E696B0B8]) initWithMachServiceName:@"com.apple.carkit.app.service" options:4096];
-  [v4 setRemoteObjectInterface:v3];
-  v5 = CarGeneralLogging();
+  v5 = CarGeneralLogging([v4 setRemoteObjectInterface:v3]);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *v6 = 0;
@@ -65,19 +64,19 @@
 
 - (BOOL)containsBundleIdentifier:(id)identifier
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   denylistedBundleIDs = [(CRCarPlayAppDenylist *)self denylistedBundleIDs];
   v6 = [denylistedBundleIDs containsObject:identifierCopy];
 
   if (v6)
   {
-    v7 = CarGeneralLogging();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = CarGeneralLogging(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = 138412290;
-      v10 = identifierCopy;
-      _os_log_impl(&dword_1C81FC000, v7, OS_LOG_TYPE_DEFAULT, "app %@ is CarPlay denylisted", &v9, 0xCu);
+      v10 = 138412290;
+      v11 = identifierCopy;
+      _os_log_impl(&dword_1C81FC000, v8, OS_LOG_TYPE_DEFAULT, "app %@ is CarPlay denylisted", &v10, 0xCu);
     }
   }
 
@@ -95,7 +94,7 @@
 void __46__CRCarPlayAppDenylist__requestDenylistUpdate__block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = CarGeneralLogging();
+  v3 = CarGeneralLogging(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __46__CRCarPlayAppDenylist__requestDenylistUpdate__block_invoke_cold_1(v2, v3);

@@ -134,7 +134,6 @@ LABEL_6:
   has = self->_has;
   if ((has & 8) != 0)
   {
-    rssi = self->_rssi;
     PBDataWriterWriteSint32Field();
     has = self->_has;
     if ((has & 4) == 0)
@@ -154,7 +153,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  rscp = self->_rscp;
   PBDataWriterWriteSint32Field();
   has = self->_has;
   if ((has & 1) == 0)
@@ -169,12 +167,10 @@ LABEL_4:
   }
 
 LABEL_11:
-  ecno = self->_ecno;
   PBDataWriterWriteSint32Field();
   if ((*&self->_has & 2) != 0)
   {
 LABEL_5:
-    frameIndex = self->_frameIndex;
     PBDataWriterWriteUint32Field();
   }
 

@@ -13,7 +13,7 @@
   v4 = MEMORY[0x1AC55AC70](0, v3, &v7);
   if (!v4)
   {
-    v5 = _ISDefaultLog();
+    v5 = _ISDefaultLog(0);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
     {
       [(NSData(IconServicesAdditions) *)v3 __is__bookmarkDataWithContentsOfURL:v5];
@@ -50,14 +50,13 @@
 
 + (void)__is__bookmarkDataWithContentsOfURL:()IconServicesAdditions .cold.1(uint64_t a1, uint64_t *a2, os_log_t log)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v3 = *a2;
-  v5 = 138412546;
-  v6 = a1;
-  v7 = 2112;
-  v8 = v3;
-  _os_log_debug_impl(&dword_1A77B8000, log, OS_LOG_TYPE_DEBUG, "Failed to read bookmarkm data from URL %@ with error: %@", &v5, 0x16u);
-  v4 = *MEMORY[0x1E69E9840];
+  v4 = 138412546;
+  v5 = a1;
+  v6 = 2112;
+  v7 = v3;
+  _os_log_debug_impl(&dword_1A77B8000, log, OS_LOG_TYPE_DEBUG, "Failed to read bookmarkm data from URL %@ with error: %@", &v4, 0x16u);
 }
 
 @end

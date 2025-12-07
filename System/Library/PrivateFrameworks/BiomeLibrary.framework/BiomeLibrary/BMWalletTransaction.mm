@@ -117,41 +117,41 @@ LABEL_21:
 
 - (id)jsonDictionary
 {
-  v24[6] = *MEMORY[0x1E69E9840];
+  v23[6] = *MEMORY[0x1E69E9840];
   passUniqueID = [(BMWalletTransaction *)self passUniqueID];
   passLocalizedDescription = [(BMWalletTransaction *)self passLocalizedDescription];
   v5 = [MEMORY[0x1E696AD98] numberWithInt:{-[BMWalletTransaction transactionType](self, "transactionType")}];
   transactionID = [(BMWalletTransaction *)self transactionID];
   v7 = [MEMORY[0x1E696AD98] numberWithInt:{-[BMWalletTransaction merchantType](self, "merchantType")}];
   poiCategory = [(BMWalletTransaction *)self poiCategory];
-  v23[0] = @"passUniqueID";
+  v22[0] = @"passUniqueID";
   null = passUniqueID;
   if (!passUniqueID)
   {
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v21 = null;
-  v22 = passLocalizedDescription;
-  v24[0] = null;
-  v23[1] = @"passLocalizedDescription";
+  v20 = null;
+  v21 = passLocalizedDescription;
+  v23[0] = null;
+  v22[1] = @"passLocalizedDescription";
   null2 = passLocalizedDescription;
   if (!passLocalizedDescription)
   {
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v19 = null2;
-  v24[1] = null2;
-  v23[2] = @"transactionType";
+  v18 = null2;
+  v23[1] = null2;
+  v22[2] = @"transactionType";
   null3 = v5;
   if (!v5)
   {
     null3 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v24[2] = null3;
-  v23[3] = @"transactionID";
+  v23[2] = null3;
+  v22[3] = @"transactionID";
   null4 = transactionID;
   if (!transactionID)
   {
@@ -159,24 +159,24 @@ LABEL_21:
   }
 
   v13 = passUniqueID;
-  v24[3] = null4;
-  v23[4] = @"merchantType";
+  v23[3] = null4;
+  v22[4] = @"merchantType";
   null5 = v7;
   if (!v7)
   {
     null5 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v24[4] = null5;
-  v23[5] = @"poiCategory";
+  v23[4] = null5;
+  v22[5] = @"poiCategory";
   null6 = poiCategory;
   if (!poiCategory)
   {
     null6 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v24[5] = null6;
-  v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v24 forKeys:v23 count:{6, v19}];
+  v23[5] = null6;
+  v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v23 forKeys:v22 count:{6, v18}];
   if (poiCategory)
   {
     if (v7)
@@ -221,7 +221,7 @@ LABEL_16:
 LABEL_25:
 
 LABEL_17:
-  if (v22)
+  if (v21)
   {
     if (v13)
     {
@@ -239,14 +239,13 @@ LABEL_17:
   }
 
 LABEL_19:
-  v17 = *MEMORY[0x1E69E9840];
 
   return v16;
 }
 
 - (BMWalletTransaction)initWithJSONDictionary:(id)dictionary error:(id *)error
 {
-  v62[1] = *MEMORY[0x1E69E9840];
+  v61[1] = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   v7 = [dictionaryCopy objectForKeyedSubscript:@"passUniqueID"];
   if (!v7 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
@@ -270,10 +269,10 @@ LABEL_4:
         v17 = objc_alloc(MEMORY[0x1E696ABC0]);
         v18 = v8;
         v19 = *MEMORY[0x1E698F240];
-        v59 = *MEMORY[0x1E696A578];
-        v48 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"passLocalizedDescription"];
-        v60 = v48;
-        [MEMORY[0x1E695DF20] dictionaryWithObjects:&v60 forKeys:&v59 count:1];
+        v58 = *MEMORY[0x1E696A578];
+        v47 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"passLocalizedDescription"];
+        v59 = v47;
+        [MEMORY[0x1E695DF20] dictionaryWithObjects:&v59 forKeys:&v58 count:1];
         v10 = v20 = error;
         v21 = v19;
         v8 = v18;
@@ -283,12 +282,12 @@ LABEL_4:
         goto LABEL_45;
       }
 
-      v47 = v9;
+      v46 = v9;
     }
 
     else
     {
-      v47 = 0;
+      v46 = 0;
     }
 
     v10 = [dictionaryCopy objectForKeyedSubscript:@"transactionType"];
@@ -308,27 +307,27 @@ LABEL_4:
         {
           if (!errorCopy)
           {
-            v48 = 0;
+            v47 = 0;
             v16 = 0;
-            v14 = v47;
+            v14 = v46;
             goto LABEL_45;
           }
 
-          v49 = objc_alloc(MEMORY[0x1E696ABC0]);
-          v34 = v8;
-          v35 = *MEMORY[0x1E698F240];
-          v57 = *MEMORY[0x1E696A578];
-          v45 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber (corresponding to enum value), or NSString (string version of enum)", objc_opt_class(), @"transactionType"];
-          v58 = v45;
-          v22 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v58 forKeys:&v57 count:1];
-          v36 = v35;
-          v8 = v34;
-          v37 = [v49 initWithDomain:v36 code:2 userInfo:v22];
-          v48 = 0;
+          v48 = objc_alloc(MEMORY[0x1E696ABC0]);
+          v33 = v8;
+          v34 = *MEMORY[0x1E698F240];
+          v56 = *MEMORY[0x1E696A578];
+          v44 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber (corresponding to enum value), or NSString (string version of enum)", objc_opt_class(), @"transactionType"];
+          v57 = v44;
+          v22 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v57 forKeys:&v56 count:1];
+          v35 = v34;
+          v8 = v33;
+          v36 = [v48 initWithDomain:v35 code:2 userInfo:v22];
+          v47 = 0;
           v16 = 0;
-          *errorCopy = v37;
+          *errorCopy = v36;
 LABEL_44:
-          v14 = v47;
+          v14 = v46;
 
           self = selfCopy;
 LABEL_45:
@@ -339,16 +338,16 @@ LABEL_45:
         v11 = [MEMORY[0x1E696AD98] numberWithInt:BMWalletTransactionTypeFromString(v10)];
       }
 
-      v48 = v11;
+      v47 = v11;
     }
 
     else
     {
-      v48 = 0;
+      v47 = 0;
     }
 
     v22 = [dictionaryCopy objectForKeyedSubscript:@"transactionID"];
-    v44 = v8;
+    v43 = v8;
     if (v22 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
     {
       objc_opt_class();
@@ -356,30 +355,30 @@ LABEL_45:
       {
         if (!errorCopy)
         {
-          v45 = 0;
+          v44 = 0;
           v16 = 0;
           goto LABEL_44;
         }
 
-        v46 = objc_alloc(MEMORY[0x1E696ABC0]);
+        v45 = objc_alloc(MEMORY[0x1E696ABC0]);
         v26 = *MEMORY[0x1E698F240];
-        v55 = *MEMORY[0x1E696A578];
+        v54 = *MEMORY[0x1E696A578];
         v24 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"transactionID"];
-        v56 = v24;
-        v23 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v56 forKeys:&v55 count:1];
-        v27 = [v46 initWithDomain:v26 code:2 userInfo:v23];
-        v45 = 0;
+        v55 = v24;
+        v23 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v55 forKeys:&v54 count:1];
+        v27 = [v45 initWithDomain:v26 code:2 userInfo:v23];
+        v44 = 0;
         v16 = 0;
         *errorCopy = v27;
         goto LABEL_43;
       }
 
-      v45 = v22;
+      v44 = v22;
     }
 
     else
     {
-      v45 = 0;
+      v44 = 0;
     }
 
     v23 = [dictionaryCopy objectForKeyedSubscript:@"merchantType"];
@@ -403,16 +402,16 @@ LABEL_45:
             goto LABEL_43;
           }
 
-          v38 = objc_alloc(MEMORY[0x1E696ABC0]);
-          v39 = *MEMORY[0x1E698F240];
-          v53 = *MEMORY[0x1E696A578];
+          v37 = objc_alloc(MEMORY[0x1E696ABC0]);
+          v38 = *MEMORY[0x1E698F240];
+          v52 = *MEMORY[0x1E696A578];
           v29 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber (corresponding to enum value), or NSString (string version of enum)", objc_opt_class(), @"merchantType"];
-          v54 = v29;
-          v28 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v54 forKeys:&v53 count:1];
-          v40 = [v38 initWithDomain:v39 code:2 userInfo:v28];
+          v53 = v29;
+          v28 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v53 forKeys:&v52 count:1];
+          v39 = [v37 initWithDomain:v38 code:2 userInfo:v28];
           v24 = 0;
           v16 = 0;
-          *errorCopy = v40;
+          *errorCopy = v39;
           goto LABEL_42;
         }
 
@@ -435,13 +434,13 @@ LABEL_45:
       {
         if (errorCopy)
         {
-          v42 = objc_alloc(MEMORY[0x1E696ABC0]);
-          v41 = *MEMORY[0x1E698F240];
-          v51 = *MEMORY[0x1E696A578];
-          v32 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"poiCategory"];
-          v52 = v32;
-          v33 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v52 forKeys:&v51 count:1];
-          *errorCopy = [v42 initWithDomain:v41 code:2 userInfo:v33];
+          v41 = objc_alloc(MEMORY[0x1E696ABC0]);
+          v40 = *MEMORY[0x1E698F240];
+          v50 = *MEMORY[0x1E696A578];
+          v31 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"poiCategory"];
+          v51 = v31;
+          v32 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v51 forKeys:&v50 count:1];
+          *errorCopy = [v41 initWithDomain:v40 code:2 userInfo:v32];
         }
 
         v29 = 0;
@@ -457,12 +456,12 @@ LABEL_45:
       v29 = 0;
     }
 
-    v16 = -[BMWalletTransaction initWithPassUniqueID:passLocalizedDescription:transactionType:transactionID:merchantType:poiCategory:](selfCopy, "initWithPassUniqueID:passLocalizedDescription:transactionType:transactionID:merchantType:poiCategory:", v44, v47, [v48 intValue], v45, objc_msgSend(v24, "intValue"), v29);
+    v16 = -[BMWalletTransaction initWithPassUniqueID:passLocalizedDescription:transactionType:transactionID:merchantType:poiCategory:](selfCopy, "initWithPassUniqueID:passLocalizedDescription:transactionType:transactionID:merchantType:poiCategory:", v43, v46, [v47 intValue], v44, objc_msgSend(v24, "intValue"), v29);
     selfCopy = v16;
 LABEL_42:
 
 LABEL_43:
-    v8 = v44;
+    v8 = v43;
     goto LABEL_44;
   }
 
@@ -482,10 +481,10 @@ LABEL_43:
 
   v12 = objc_alloc(MEMORY[0x1E696ABC0]);
   v13 = *MEMORY[0x1E698F240];
-  v61 = *MEMORY[0x1E696A578];
+  v60 = *MEMORY[0x1E696A578];
   v14 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"passUniqueID"];
-  v62[0] = v14;
-  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v62 forKeys:&v61 count:1];
+  v61[0] = v14;
+  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v61 forKeys:&v60 count:1];
   v15 = [v12 initWithDomain:v13 code:2 userInfo:v9];
   v8 = 0;
   v16 = 0;
@@ -493,7 +492,6 @@ LABEL_43:
 LABEL_46:
 
 LABEL_47:
-  v30 = *MEMORY[0x1E69E9840];
   return v16;
 }
 
@@ -519,14 +517,12 @@ LABEL_47:
     PBDataWriterWriteStringField();
   }
 
-  transactionType = self->_transactionType;
   PBDataWriterWriteUint32Field();
   if (self->_transactionID)
   {
     PBDataWriterWriteStringField();
   }
 
-  merchantType = self->_merchantType;
   PBDataWriterWriteUint32Field();
   if (self->_poiCategory)
   {
@@ -789,44 +785,40 @@ LABEL_62:
 
 + (id)protoFields
 {
-  v11[6] = *MEMORY[0x1E69E9840];
+  v10[6] = *MEMORY[0x1E69E9840];
   v2 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"passUniqueID" number:1 type:13 subMessageClass:0];
-  v11[0] = v2;
+  v10[0] = v2;
   v3 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"passLocalizedDescription" number:2 type:13 subMessageClass:0];
-  v11[1] = v3;
+  v10[1] = v3;
   v4 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"transactionType" number:3 type:4 subMessageClass:0];
-  v11[2] = v4;
+  v10[2] = v4;
   v5 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"transactionID" number:4 type:13 subMessageClass:0];
-  v11[3] = v5;
+  v10[3] = v5;
   v6 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"merchantType" number:5 type:4 subMessageClass:0];
-  v11[4] = v6;
+  v10[4] = v6;
   v7 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"poiCategory" number:6 type:13 subMessageClass:0];
-  v11[5] = v7;
-  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:6];
-
-  v9 = *MEMORY[0x1E69E9840];
+  v10[5] = v7;
+  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:6];
 
   return v8;
 }
 
 + (id)columns
 {
-  v11[6] = *MEMORY[0x1E69E9840];
+  v10[6] = *MEMORY[0x1E69E9840];
   v2 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"passUniqueID" dataType:2 requestOnly:0 fieldNumber:1 protoDataType:13 convertedType:0];
   v3 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"passLocalizedDescription" dataType:2 requestOnly:0 fieldNumber:2 protoDataType:13 convertedType:0];
   v4 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"transactionType" dataType:0 requestOnly:0 fieldNumber:3 protoDataType:4 convertedType:0];
   v5 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"transactionID" dataType:2 requestOnly:0 fieldNumber:4 protoDataType:13 convertedType:0];
   v6 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"merchantType" dataType:0 requestOnly:0 fieldNumber:5 protoDataType:4 convertedType:0];
   v7 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"poiCategory" dataType:2 requestOnly:0 fieldNumber:6 protoDataType:13 convertedType:0];
-  v11[0] = v2;
-  v11[1] = v3;
-  v11[2] = v4;
-  v11[3] = v5;
-  v11[4] = v6;
-  v11[5] = v7;
-  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:6];
-
-  v9 = *MEMORY[0x1E69E9840];
+  v10[0] = v2;
+  v10[1] = v3;
+  v10[2] = v4;
+  v10[3] = v5;
+  v10[4] = v6;
+  v10[5] = v7;
+  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:6];
 
   return v8;
 }

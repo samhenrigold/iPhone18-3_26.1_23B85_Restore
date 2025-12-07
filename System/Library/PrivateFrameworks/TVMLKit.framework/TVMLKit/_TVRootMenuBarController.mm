@@ -59,7 +59,7 @@
     return 30;
   }
 
-  if (TVShouldConstrainToPortait())
+  if (TVShouldConstrainToPortait(v5, v6))
   {
     return 2;
   }

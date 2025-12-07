@@ -1,9 +1,32 @@
 @interface EKRelation
++ (id)relationWithEntityName:(id)name toMany:(BOOL)many inversePropertyNames:(id)names;
++ (id)relationWithEntityName:(id)name toMany:(BOOL)many inversePropertyNames:(id)names ownsRelated:(BOOL)related;
 - (BOOL)shouldSetInverseProperty:(id)property onObject:(id)object forObject:(id)forObject;
 - (EKRelation)initWithEntityName:(id)name toMany:(BOOL)many inversePropertyNames:(id)names ownsRelated:(BOOL)related;
 @end
 
 @implementation EKRelation
+
++ (id)relationWithEntityName:(id)name toMany:(BOOL)many inversePropertyNames:(id)names
+{
+  manyCopy = many;
+  namesCopy = names;
+  nameCopy = name;
+  v10 = [[self alloc] initWithEntityName:nameCopy toMany:manyCopy inversePropertyNames:namesCopy ownsRelated:1];
+
+  return v10;
+}
+
++ (id)relationWithEntityName:(id)name toMany:(BOOL)many inversePropertyNames:(id)names ownsRelated:(BOOL)related
+{
+  relatedCopy = related;
+  manyCopy = many;
+  namesCopy = names;
+  nameCopy = name;
+  v12 = [[self alloc] initWithEntityName:nameCopy toMany:manyCopy inversePropertyNames:namesCopy ownsRelated:relatedCopy];
+
+  return v12;
+}
 
 - (EKRelation)initWithEntityName:(id)name toMany:(BOOL)many inversePropertyNames:(id)names ownsRelated:(BOOL)related
 {

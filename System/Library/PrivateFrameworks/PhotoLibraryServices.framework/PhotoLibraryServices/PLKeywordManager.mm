@@ -65,7 +65,7 @@ LABEL_3:
   v17 = [MEMORY[0x1E695DEC8] arrayWithObjects:v34 count:1];
   v18 = [(PLKeywordManager *)self _inq_keywordObjectsForKeywords:v17 managedObjectContext:v12];
 
-  v19 = [v18 count];
+  v19 = objc_msgSend_count(v18);
   if (!v19)
   {
     firstObject = PLBackendGetLog();
@@ -79,7 +79,7 @@ LABEL_3:
     goto LABEL_10;
   }
 
-  if ([assetsCopy count])
+  if (objc_msgSend_count(assetsCopy))
   {
     firstObject = [v18 firstObject];
     v21 = objc_alloc(MEMORY[0x1E695DFA8]);
@@ -135,7 +135,7 @@ LABEL_10:
     _os_log_impl(&dword_19BF1F000, v18, OS_LOG_TYPE_DEBUG, "Keywords: %{public}@", buf, 0xCu);
   }
 
-  if ([keywordsCopy count])
+  if (objc_msgSend_count(keywordsCopy))
   {
     allObjects = [keywordsCopy allObjects];
     additionalAttributes2 = [(PLKeywordManager *)self _inq_keywordObjectsForKeywords:allObjects managedObjectContext:contextCopy];
@@ -228,7 +228,7 @@ LABEL_10:
             v57 = 0;
             v16 = [v47 existingObjectWithID:v15 error:&v57];
             v17 = v57;
-            if (v16 && ([v16 title], v18 = objc_claimAutoreleasedReturnValue(), v19 = objc_msgSend(v14, "isEqualToString:", v18), v18, v19))
+            if (v16 && ([v16 title], v18 = objc_claimAutoreleasedReturnValue(), isEqualToString = objc_msgSend_isEqualToString_(v14), v18, isEqualToString))
             {
               [v45 setObject:v16 forKey:v14];
             }
@@ -301,7 +301,7 @@ LABEL_10:
 
 LABEL_27:
 
-    if ([array count])
+    if (objc_msgSend_count(array))
     {
       v52 = 0;
       v31 = [v47 obtainPermanentIDsForObjects:array error:&v52];
@@ -651,7 +651,7 @@ void __69__PLKeywordManager_createOrLookupKeywordForTitle_photoLibrary_error___b
   v18 = *MEMORY[0x1E69E9840];
   additionalAttributes = [asset additionalAttributes];
   keywords = [additionalAttributes keywords];
-  v5 = [objc_alloc(MEMORY[0x1E695DFA8]) initWithCapacity:{objc_msgSend(keywords, "count")}];
+  v5 = [objc_alloc(MEMORY[0x1E695DFA8]) initWithCapacity:objc_msgSend_count(keywords)];
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
@@ -688,7 +688,7 @@ void __69__PLKeywordManager_createOrLookupKeywordForTitle_photoLibrary_error___b
 {
   v20 = *MEMORY[0x1E69E9840];
   assetsCopy = assets;
-  v5 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(assetsCopy, "count")}];
+  v5 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:objc_msgSend_count(assetsCopy)];
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;

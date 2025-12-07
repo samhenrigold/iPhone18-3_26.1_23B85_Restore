@@ -19,9 +19,9 @@
 - (PRAmbientEditingTitledViewController)initWithCoder:(id)coder
 {
   swift_unknownObjectWeakInit();
-  sub_1A8BA3FE4(0, &qword_1ED7F2360);
+  sub_1A8BA3FE4(0, &qword_1ED7F2360, 0x1E69DCC10);
   sub_1A8BDE214();
-  sub_1A8BA3FE4(0, &qword_1ED7F2340);
+  sub_1A8BA3FE4(0, &qword_1ED7F2340, 0x1E69DC738);
   sub_1A8BDE214();
   result = sub_1A8BDE344();
   __break(1u);

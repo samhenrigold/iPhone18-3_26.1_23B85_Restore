@@ -16,38 +16,34 @@
 
 - (BOOL)isExpired
 {
-  v3 = (self + OBJC_IVAR____TtC7JetCore12AMSKitAMSBag_amsKitBag);
-  v4 = v3[4];
-  __swift_project_boxed_opaque_existential_1(v3, v3[3]);
+  __swift_project_boxed_opaque_existential_1((self + OBJC_IVAR____TtC7JetCore12AMSKitAMSBag_amsKitBag), *(self + OBJC_IVAR____TtC7JetCore12AMSKitAMSBag_amsKitBag + 24));
   selfCopy = self;
-  v6 = sub_1DB50A0F0();
+  v4 = sub_1DB50A0F0();
 
-  return v6 & 1;
+  return v4 & 1;
 }
 
 - (NSDate)expirationDate
 {
   v3 = sub_1DB509DD0();
   v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
   MEMORY[0x1EEE9AC00](v3);
-  v7 = &v12 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v8 = *(self + OBJC_IVAR____TtC7JetCore12AMSKitAMSBag_amsKitBag + 32);
+  v6 = &v10 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
   __swift_project_boxed_opaque_existential_1((self + OBJC_IVAR____TtC7JetCore12AMSKitAMSBag_amsKitBag), *(self + OBJC_IVAR____TtC7JetCore12AMSKitAMSBag_amsKitBag + 24));
   selfCopy = self;
   sub_1DB50A090();
 
-  v10 = sub_1DB509D40();
-  (*(v4 + 8))(v7, v3);
+  v8 = sub_1DB509D40();
+  (*(v4 + 8))(v6, v3);
 
-  return v10;
+  return v8;
 }
 
 - (id)arrayForKey:(id)key
 {
   keyCopy = key;
   selfCopy = self;
-  v6 = sub_1DB4D575C(selfCopy);
+  v6 = sub_1DB4D575C(selfCopy, keyCopy);
   if (v6)
   {
     v7 = v6;
@@ -125,27 +121,26 @@
 - (void)createSnapshotWithCompletion:(id)completion
 {
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1ECC46EB0, &qword_1DB50F750);
-  v6 = *(*(v5 - 8) + 64);
   MEMORY[0x1EEE9AC00](v5 - 8);
-  v8 = &v15 - v7;
-  v9 = _Block_copy(completion);
-  v10 = swift_allocObject();
-  *(v10 + 16) = v9;
-  *(v10 + 24) = self;
-  v11 = sub_1DB50ABA0();
-  (*(*(v11 - 8) + 56))(v8, 1, 1, v11);
+  v7 = &v14 - v6;
+  v8 = _Block_copy(completion);
+  v9 = swift_allocObject();
+  *(v9 + 16) = v8;
+  *(v9 + 24) = self;
+  v10 = sub_1DB50ABA0();
+  (*(*(v10 - 8) + 56))(v7, 1, 1, v10);
+  v11 = swift_allocObject();
+  v11[2] = 0;
+  v11[3] = 0;
+  v11[4] = &unk_1DB522488;
+  v11[5] = v9;
   v12 = swift_allocObject();
   v12[2] = 0;
   v12[3] = 0;
-  v12[4] = &unk_1DB522488;
-  v12[5] = v10;
-  v13 = swift_allocObject();
-  v13[2] = 0;
-  v13[3] = 0;
-  v13[4] = &unk_1DB522498;
-  v13[5] = v12;
+  v12[4] = &unk_1DB522498;
+  v12[5] = v11;
   selfCopy = self;
-  sub_1DB419B9C(0, 0, v8, &unk_1DB5224A8, v13);
+  sub_1DB419B9C(0, 0, v7, &unk_1DB5224A8, v12);
 }
 
 - (_TtC7JetCore12AMSKitAMSBag)init

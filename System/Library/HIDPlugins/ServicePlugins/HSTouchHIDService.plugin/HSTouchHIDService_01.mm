@@ -417,11 +417,11 @@ void sub_37F34(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, in
   _Unwind_Resume(a1);
 }
 
-uint64_t std::vector<std::vector<int>>::push_back[abi:ne200100](uint64_t result, uint64_t a2)
+const void **std::vector<std::vector<int>>::push_back[abi:ne200100](const void **result, uint64_t a2)
 {
   v3 = result;
-  v4 = *(result + 8);
-  v5 = *(result + 16);
+  v4 = result[1];
+  v5 = result[2];
   if (v4 >= v5)
   {
     v7 = 0xAAAAAAAAAAAAAAABLL * ((v4 - *result) >> 3);
@@ -463,8 +463,8 @@ uint64_t std::vector<std::vector<int>>::push_back[abi:ne200100](uint64_t result,
     *(a2 + 8) = 0;
     *(a2 + 16) = 0;
     v6 = 24 * v7 + 24;
-    v12 = *(result + 8) - *result;
-    v13 = v11 - v12;
+    v12 = result[1] - *result;
+    v13 = (v11 - v12);
     memcpy((v11 - v12), *result, v12);
     v14 = *v3;
     *v3 = v13;
@@ -481,21 +481,21 @@ uint64_t std::vector<std::vector<int>>::push_back[abi:ne200100](uint64_t result,
   else
   {
     *v4 = 0;
-    v4[1] = 0;
-    v4[2] = 0;
+    *(v4 + 1) = 0;
+    *(v4 + 2) = 0;
     *v4 = *a2;
-    v4[2] = *(a2 + 16);
+    *(v4 + 2) = *(a2 + 16);
     *a2 = 0;
     *(a2 + 8) = 0;
     *(a2 + 16) = 0;
-    v6 = (v4 + 3);
+    v6 = (v4 + 24);
   }
 
   v3[1] = v6;
   return result;
 }
 
-void std::vector<int>::push_back[abi:ne200100](const void **a1, _DWORD *a2)
+void std::vector<int>::push_back[abi:ne200100](const void **a1, int *a2)
 {
   v5 = a1[1];
   v4 = a1[2];
@@ -868,7 +868,7 @@ void sub_396A8(_Unwind_Exception *exception_object, int a2, int a3, int a4, int 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::vector<std::vector<int>>::__init_with_size[abi:ne200100]<std::vector<int>*,std::vector<int>*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<std::vector<int>>::__init_with_size[abi:ne200100]<std::vector<int>*,std::vector<int>*>(uint64_t *result, uint64_t a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -878,14 +878,14 @@ uint64_t std::vector<std::vector<int>>::__init_with_size[abi:ne200100]<std::vect
   return result;
 }
 
-void sub_39E08(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void **a9)
+void sub_39E08(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
   *(v9 + 8) = v10;
   std::vector<std::vector<int>>::__destroy_vector::operator()[abi:ne200100](&a9);
   _Unwind_Resume(a1);
 }
 
-void std::vector<std::vector<int>>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<std::vector<int>>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (a2 < 0xAAAAAAAAAAAAAABLL)
   {
@@ -905,7 +905,7 @@ void std::__allocate_at_least[abi:ne200100]<std::allocator<std::vector<int>>>(ui
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-void *std::__uninitialized_allocator_copy_impl[abi:ne200100]<std::allocator<std::vector<int>>,std::vector<int>*,std::vector<int>*,std::vector<int>*>(uint64_t a1, uint64_t *a2, uint64_t *a3, void *a4)
+uint64_t *std::__uninitialized_allocator_copy_impl[abi:ne200100]<std::allocator<std::vector<int>>,std::vector<int>*,std::vector<int>*,std::vector<int>*>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4)
 {
   v4 = a4;
   v10 = a4;
@@ -922,8 +922,8 @@ void *std::__uninitialized_allocator_copy_impl[abi:ne200100]<std::allocator<std:
       *v4 = 0;
       v4[1] = 0;
       v4[2] = 0;
-      std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(v4, *v6, v6[1], (v6[1] - *v6) >> 2);
-      v6 += 3;
+      std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(v4, *v6, *(v6 + 8), (*(v6 + 8) - *v6) >> 2);
+      v6 += 24;
       v4 = v11 + 3;
       v11 += 3;
     }
@@ -936,7 +936,7 @@ void *std::__uninitialized_allocator_copy_impl[abi:ne200100]<std::allocator<std:
   return v4;
 }
 
-uint64_t std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(uint64_t *result, const void *a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -958,7 +958,7 @@ void sub_39FE4(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<int>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<int>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 62))
   {
@@ -1052,21 +1052,21 @@ void std::vector<std::vector<int>>::clear[abi:ne200100](uint64_t *a1)
   a1[1] = v3;
 }
 
-void std::vector<std::vector<int>>::__assign_with_size[abi:ne200100]<std::vector<int>*,std::vector<int>*>(uint64_t *a1, char **a2, char **a3, unint64_t a4)
+void std::vector<std::vector<int>>::__assign_with_size[abi:ne200100]<std::vector<int>*,std::vector<int>*>(uint64_t a1, char **a2, char **a3, unint64_t a4)
 {
   v8 = *a1;
-  if (0xAAAAAAAAAAAAAAABLL * ((a1[2] - *a1) >> 3) < a4)
+  if (0xAAAAAAAAAAAAAAABLL * ((*(a1 + 16) - *a1) >> 3) < a4)
   {
     std::vector<std::vector<int>>::__vdeallocate(a1);
     if (a4 <= 0xAAAAAAAAAAAAAAALL)
     {
-      v9 = 0x5555555555555556 * ((a1[2] - *a1) >> 3);
+      v9 = 0x5555555555555556 * ((*(a1 + 16) - *a1) >> 3);
       if (v9 <= a4)
       {
         v9 = a4;
       }
 
-      if (0xAAAAAAAAAAAAAAABLL * ((a1[2] - *a1) >> 3) >= 0x555555555555555)
+      if (0xAAAAAAAAAAAAAAABLL * ((*(a1 + 16) - *a1) >> 3) >= 0x555555555555555)
       {
         v10 = 0xAAAAAAAAAAAAAAALL;
       }
@@ -1082,15 +1082,15 @@ void std::vector<std::vector<int>>::__assign_with_size[abi:ne200100]<std::vector
     std::vector<HSUtil::CoderKey const*>::__throw_length_error[abi:ne200100]();
   }
 
-  v11 = a1[1] - v8;
+  v11 = *(a1 + 8) - v8;
   if (0xAAAAAAAAAAAAAAABLL * (v11 >> 3) >= a4)
   {
     std::__copy_impl::operator()[abi:ne200100]<std::vector<int> *,std::vector<int> *,std::vector<int> *>(&v19, a2, a3, v8);
     v13 = v12;
-    v14 = a1[1];
+    v14 = *(a1 + 8);
     if (v14 != v12)
     {
-      v15 = a1[1];
+      v15 = *(a1 + 8);
       do
       {
         v17 = *(v15 - 24);
@@ -1108,13 +1108,13 @@ void std::vector<std::vector<int>>::__assign_with_size[abi:ne200100]<std::vector
       while (v15 != v13);
     }
 
-    a1[1] = v13;
+    *(a1 + 8) = v13;
   }
 
   else
   {
     std::__copy_impl::operator()[abi:ne200100]<std::vector<int> *,std::vector<int> *,std::vector<int> *>(&v18, a2, (a2 + v11), v8);
-    a1[1] = std::__uninitialized_allocator_copy_impl[abi:ne200100]<std::allocator<std::vector<int>>,std::vector<int>*,std::vector<int>*,std::vector<int>*>(a1, (a2 + v11), a3, a1[1]);
+    *(a1 + 8) = std::__uninitialized_allocator_copy_impl[abi:ne200100]<std::allocator<std::vector<int>>,std::vector<int>*,std::vector<int>*,std::vector<int>*>(a1, a2 + v11, a3, *(a1 + 8));
   }
 }
 
@@ -1130,7 +1130,7 @@ void std::vector<std::vector<int>>::__vdeallocate(uint64_t *a1)
   }
 }
 
-char **std::__copy_impl::operator()[abi:ne200100]<std::vector<int> *,std::vector<int> *,std::vector<int> *>(int a1, char **a2, char **a3, char **a4)
+char **std::__copy_impl::operator()[abi:ne200100]<std::vector<int> *,std::vector<int> *,std::vector<int> *>(int a1, char **a2, char **a3, void **a4)
 {
   v5 = a2;
   if (a2 != a3)
@@ -1153,7 +1153,7 @@ char **std::__copy_impl::operator()[abi:ne200100]<std::vector<int> *,std::vector
   return v5;
 }
 
-void *std::vector<int>::__assign_with_size[abi:ne200100]<int *,int *>(void *result, char *__src, char *a3, unint64_t a4)
+uint64_t *std::vector<int>::__assign_with_size[abi:ne200100]<int *,int *>(uint64_t *result, char *__src, char *a3, unint64_t a4)
 {
   v6 = result;
   v7 = result[2];
@@ -1260,7 +1260,7 @@ void std::__split_buffer<std::vector<int>>::__destruct_at_end[abi:ne200100](uint
   }
 }
 
-int *std::__introsort<std::_ClassicAlgPolicy,std::greater<int> &,int *,true>(int *result, int *a2, uint64_t a3, uint64_t a4, char a5)
+uint64_t std::__introsort<std::_ClassicAlgPolicy,std::greater<int> &,int *,true>(uint64_t result, int *a2, uint64_t a3, uint64_t a4, char a5)
 {
   v8 = result;
 LABEL_2:
@@ -2430,7 +2430,7 @@ LABEL_68:
   return v53 - 1;
 }
 
-BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,std::greater<int> &,int *>(_DWORD *a1, int *a2)
+BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,std::greater<int> &,int *>(int *a1, int *a2)
 {
   v2 = a2 - a1;
   if (v2 > 2)
@@ -3083,27 +3083,26 @@ uint64_t std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,std::greater<int>
   return result;
 }
 
-void *std::__split_buffer<int>::emplace_back<int>(void *result, _DWORD *a2)
+void std::__split_buffer<int>::emplace_back<int>(unint64_t *a1, _DWORD *a2)
 {
-  v3 = result;
-  v4 = result[2];
-  if (v4 == result[3])
+  v4 = a1[2];
+  if (v4 == a1[3])
   {
-    v5 = result[1];
-    v6 = &v5[-*result];
-    if (v5 <= *result)
+    v5 = a1[1];
+    v6 = &v5[-*a1];
+    if (v5 <= *a1)
     {
-      if (v4 == *result)
+      if (v4 == *a1)
       {
         v11 = 1;
       }
 
       else
       {
-        v11 = &v4[-*result] >> 1;
+        v11 = &v4[-*a1] >> 1;
       }
 
-      std::__allocate_at_least[abi:ne200100]<std::allocator<int>>(result[4], v11);
+      std::__allocate_at_least[abi:ne200100]<std::allocator<int>>(a1[4], v11);
     }
 
     v7 = ((v6 >> 2) + 1) / -2;
@@ -3112,17 +3111,16 @@ void *std::__split_buffer<int>::emplace_back<int>(void *result, _DWORD *a2)
     v10 = v4 - v5;
     if (v4 != v5)
     {
-      result = memmove(&v5[-4 * v8], v5, v4 - v5);
-      v5 = v3[1];
+      memmove(&v5[-4 * v8], v5, v4 - v5);
+      v5 = a1[1];
     }
 
     v4 = &v9[v10];
-    v3[1] = &v5[4 * v7];
+    a1[1] = &v5[4 * v7];
   }
 
   *v4 = *a2;
-  v3[2] = v4 + 4;
-  return result;
+  a1[2] = (v4 + 4);
 }
 
 void __cxx_global_var_init_18()
@@ -3181,10 +3179,10 @@ void __cxx_global_var_init_8_18(uint64_t a1, const char *a2)
   }
 }
 
-void sub_3B9A8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_3B9A8(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   a9.super_class = TrackpadMomentumGeneratorStage;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
@@ -3549,15 +3547,15 @@ uint64_t MTChordTable_::MTChordTable_(uint64_t a1, int a2, uint64_t a3)
   return a1;
 }
 
-void sub_405FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void **a10)
+void sub_405FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
 {
-  v12 = (v10 + 344);
+  v12 = v10 + 344;
   v13 = -336;
   do
   {
     a10 = v12;
     std::vector<MTChordGestureSet_>::__destroy_vector::operator()[abi:ne200100](&a10);
-    v12 -= 3;
+    v12 -= 24;
     v13 += 24;
   }
 
@@ -3886,14 +3884,14 @@ void std::vector<MTChordGestureSet_>::__destroy_vector::operator()[abi:ne200100]
   }
 }
 
-void std::vector<MTChordGestureSet_>::__base_destruct_at_end[abi:ne200100](uint64_t a1, uint64_t a2)
+void std::vector<MTChordGestureSet_>::__base_destruct_at_end[abi:ne200100](uint64_t result, uint64_t a2)
 {
-  for (i = *(a1 + 8); i != a2; std::allocator_traits<std::allocator<MTChordGestureSet_>>::destroy[abi:ne200100]<MTChordGestureSet_,0>(a1, i))
+  for (i = *(result + 8); i != a2; std::allocator_traits<std::allocator<MTChordGestureSet_>>::destroy[abi:ne200100]<MTChordGestureSet_,0>(result, i))
   {
     i -= 240;
   }
 
-  *(a1 + 8) = a2;
+  *(result + 8) = a2;
 }
 
 void std::allocator_traits<std::allocator<MTChordGestureSet_>>::destroy[abi:ne200100]<MTChordGestureSet_,0>(uint64_t a1, uint64_t a2)
@@ -4025,9 +4023,9 @@ uint64_t std::vector<MTChordGestureSet_>::__emplace_back_slow_path<MTChordGestur
   return v12;
 }
 
-void sub_40EB0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_40EB0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   std::__split_buffer<MTChordGestureSet_>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -4845,7 +4843,7 @@ LABEL_25:
                 else
                 {
                   MTActionEvent_::MTActionEvent_(*(a3 + 8), &v29);
-                  v28 = v27 + 8;
+                  v28 = (v27 + 8);
                   *(a3 + 8) = v27 + 8;
                 }
 
@@ -5294,7 +5292,7 @@ uint64_t MTPListGestureConfig_::extractGestureCategory(MTPListGestureConfig_ *th
   return v6;
 }
 
-void MTPListGestureConfig_::parseGesture(MTPListGestureConfig_ *a1, const __CFDictionary *a2, void **a3, __int128 *a4)
+void MTPListGestureConfig_::parseGesture(MTPListGestureConfig_ *a1, const __CFDictionary *a2, const MTActionEvent_ **a3, __int128 *a4)
 {
   if (a2)
   {
@@ -5362,7 +5360,7 @@ void MTPListGestureConfig_::parseGesture(MTPListGestureConfig_ *a1, const __CFDi
         }
 
         *(a3 + 61) = v47;
-        v43 = a3 + 12;
+        v43 = (a3 + 12);
         if (a3 + 12 == &v71)
         {
           goto LABEL_106;
@@ -5391,7 +5389,7 @@ LABEL_85:
         }
 
         *(a3 + 77) = v13;
-        v43 = a3 + 16;
+        v43 = (a3 + 16);
         if (a3 + 16 == &v71)
         {
           goto LABEL_106;
@@ -5628,7 +5626,7 @@ LABEL_18:
         {
           MTSlideGesture_::MTSlideGesture_(a3[21], valuePtr);
           v52 = (v51 + 160);
-          a3[21] = v51 + 160;
+          a3[21] = (v51 + 160);
         }
 
         a3[21] = v52;
@@ -5663,7 +5661,7 @@ LABEL_106:
       if (v9 == 6)
       {
         *(a3 + 28) = 3;
-        v15 = a3 + 4;
+        v15 = (a3 + 4);
       }
 
       else
@@ -5674,7 +5672,7 @@ LABEL_106:
         }
 
         *(a3 + 44) = 3;
-        v15 = a3 + 8;
+        v15 = (a3 + 8);
       }
 
       a3 = v15;
@@ -5688,7 +5686,7 @@ LABEL_106:
     goto LABEL_106;
   }
 
-  v14 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"%@ NULL chord or gesture dictionary\n", @"ERROR in PListGestureParser:");
+  v14 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"%@ NULL chord or gesture dictionary\n", a4, @"ERROR in PListGestureParser:");
 
   MTPListGestureConfig_::setParseErrorString(a1, v14);
 }
@@ -5941,93 +5939,94 @@ void MTPListGestureConfig_::parseChordGestureSetAndCopyIntoTable(MTPListGestureC
           if (Value && (v10 = Value, v11 = CFGetTypeID(Value), v11 == CFStringGetTypeID()))
           {
             GestureCategory = MTPListGestureConfig_::extractGestureCategory(this, cf);
-            v13 = MTPListGestureConfig_::parseChordSpecifier(GestureCategory, v10);
-            if (v13)
+            v13 = GestureCategory;
+            v14 = MTPListGestureConfig_::parseChordSpecifier(GestureCategory, v10);
+            if (v14)
             {
-              v14 = v13;
-              *&v15 = 0xAAAAAAAAAAAAAAAALL;
-              *(&v15 + 1) = 0xAAAAAAAAAAAAAAAALL;
-              v38[3] = v15;
-              v38[4] = v15;
-              v38[1] = v15;
-              v38[2] = v15;
-              v37 = v15;
-              v38[0] = v15;
-              __p = v15;
-              *v34 = v15;
-              v35 = v15;
-              *v32 = v15;
-              v33 = v15;
-              *v30 = v15;
-              v31 = v15;
-              *v28 = v15;
-              v29 = v15;
+              v15 = v14;
+              *&v16 = 0xAAAAAAAAAAAAAAAALL;
+              *(&v16 + 1) = 0xAAAAAAAAAAAAAAAALL;
+              v39[3] = v16;
+              v39[4] = v16;
+              v39[1] = v16;
+              v39[2] = v16;
+              v38 = v16;
+              v39[0] = v16;
+              __p = v16;
+              *v35 = v16;
+              v36 = v16;
+              *v33 = v16;
+              v34 = v16;
+              *v31 = v16;
+              v32 = v16;
+              *v29 = v16;
+              v30 = v16;
               CStringPtr = CFStringGetCStringPtr(v10, 0);
-              MTChordGestureSet_::MTChordGestureSet_(v28, v14, 0, GestureCategory, CStringPtr);
-              v17 = MTGestureConfig_::copyChordIntoHandTable(this, 1, v28);
-              v18 = CFDictionaryGetValue(cf, @"Gesture Set");
-              v19 = v18;
-              if (v18 && (v20 = CFGetTypeID(v18), v20 == CFStringGetTypeID()))
+              MTChordGestureSet_::MTChordGestureSet_(v29, v15, 0, v13, CStringPtr);
+              v18 = MTGestureConfig_::copyChordIntoHandTable(this, 1, v29);
+              v19 = CFDictionaryGetValue(cf, @"Gesture Set");
+              v20 = v19;
+              if (v19 && (v21 = CFGetTypeID(v19), v21 == CFStringGetTypeID()))
               {
-                v21 = CFDictionaryGetValue(*(this + 11), v19);
-                v22 = v21;
-                if (v21 && (v23 = CFGetTypeID(v21), v23 == CFDictionaryGetTypeID()))
+                v22 = CFDictionaryGetValue(*(this + 11), v20);
+                v23 = v22;
+                if (v22 && (v24 = CFGetTypeID(v22), v24 == CFDictionaryGetTypeID()))
                 {
-                  MTPListGestureConfig_::parseGestureSet(this, v19, v22, v17);
+                  MTPListGestureConfig_::parseGestureSet(this, v20, v23, v18);
                 }
 
                 else
                 {
-                  v26 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"%@ No dictionary for '%@' Gesture Set\n", @"ERROR in PListGestureParser:", v19);
-                  MTPListGestureConfig_::setParseErrorString(this, v26);
+                  v27 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"%@ No dictionary for '%@' Gesture Set\n", @"ERROR in PListGestureParser:", v20);
+                  MTPListGestureConfig_::setParseErrorString(this, v27);
                 }
               }
 
               else
               {
-                v25 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"%@ No Gesture Set for '%@' Chord\n", @"ERROR in PListGestureParser:", v10);
-                MTPListGestureConfig_::setParseErrorString(this, v25);
+                v26 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"%@ No Gesture Set for '%@' Chord\n", @"ERROR in PListGestureParser:", v10);
+                MTPListGestureConfig_::setParseErrorString(this, v26);
               }
 
-              v27 = v38;
-              std::vector<MTSlideGesture_>::__destroy_vector::operator()[abi:ne200100](&v27);
+              v28 = v39;
+              std::vector<MTSlideGesture_>::__destroy_vector::operator()[abi:ne200100](&v28);
               if (__p)
               {
                 *(&__p + 1) = __p;
                 operator delete(__p);
               }
 
-              if (v34[0])
+              if (v35[0])
               {
-                v34[1] = v34[0];
-                operator delete(v34[0]);
+                v35[1] = v35[0];
+                operator delete(v35[0]);
               }
 
-              if (v32[0])
+              if (v33[0])
               {
-                v32[1] = v32[0];
-                operator delete(v32[0]);
+                v33[1] = v33[0];
+                operator delete(v33[0]);
               }
 
-              if (v30[0])
+              if (v31[0])
               {
-                v30[1] = v30[0];
-                operator delete(v30[0]);
+                v31[1] = v31[0];
+                operator delete(v31[0]);
               }
 
-              if (v28[0])
+              if (v29[0])
               {
-                v28[1] = v28[0];
-                operator delete(v28[0]);
+                v29[1] = v29[0];
+                operator delete(v29[0]);
               }
             }
           }
 
           else
           {
-            v24 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"%@ Chord Dictionary Missing '%@' Key\n", @"ERROR in PListGestureParser:", @"Chord");
+            v25 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"%@ Chord Dictionary Missing '%@' Key\n", @"ERROR in PListGestureParser:", @"Chord");
 
-            MTPListGestureConfig_::setParseErrorString(this, v24);
+            MTPListGestureConfig_::setParseErrorString(this, v25);
           }
         }
       }
@@ -6035,9 +6034,9 @@ void MTPListGestureConfig_::parseChordGestureSetAndCopyIntoTable(MTPListGestureC
   }
 }
 
-void sub_441A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_441A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   MTChordGestureSet_::~MTChordGestureSet_(va);
   _Unwind_Resume(a1);
 }
@@ -6302,17 +6301,17 @@ BOOL MTGestureConfig_::decodeFromMap(MTChordCycling_ **this, HSUtil::Decoder *a2
   return v3 == 0;
 }
 
-void *std::vector<MTActionEvent_>::__assign_with_size[abi:ne200100]<MTActionEvent_*,MTActionEvent_*>(void *result, const MTActionEvent_ *a2, const MTActionEvent_ *a3, unint64_t a4)
+MTActionEvent_ *std::vector<MTActionEvent_>::__assign_with_size[abi:ne200100]<MTActionEvent_*,MTActionEvent_*>(MTActionEvent_ *result, const MTActionEvent_ *a2, const MTActionEvent_ *a3, unint64_t a4)
 {
   v6 = a2;
   v7 = result;
-  v8 = result[2];
+  v8 = *(result + 2);
   v9 = *result;
   if (a4 > (v8 - *result) >> 3)
   {
     if (v9)
     {
-      result[1] = v9;
+      *(result + 1) = v9;
       operator delete(v9);
       v8 = 0;
       *v7 = 0;
@@ -6344,7 +6343,7 @@ void *std::vector<MTActionEvent_>::__assign_with_size[abi:ne200100]<MTActionEven
     std::vector<HSUtil::CoderKey const*>::__throw_length_error[abi:ne200100]();
   }
 
-  v12 = result[1];
+  v12 = *(result + 1);
   v13 = v12 - v9;
   if (a4 <= (v12 - v9) >> 3)
   {
@@ -6352,7 +6351,7 @@ void *std::vector<MTActionEvent_>::__assign_with_size[abi:ne200100]<MTActionEven
     {
       result = MTActionEvent_::operator=(v9, v6);
       v6 = (v6 + 8);
-      v9 += 2;
+      v9 += 8;
     }
 
     v7[1] = v9;
@@ -6367,7 +6366,7 @@ void *std::vector<MTActionEvent_>::__assign_with_size[abi:ne200100]<MTActionEven
       {
         result = MTActionEvent_::operator=(v9, v6);
         v6 = (v6 + 8);
-        v9 += 2;
+        v9 += 8;
         v13 -= 8;
       }
 
@@ -6397,7 +6396,7 @@ void *std::vector<MTActionEvent_>::__assign_with_size[abi:ne200100]<MTActionEven
   return result;
 }
 
-void std::vector<MTActionEvent_>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<MTActionEvent_>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 61))
   {
@@ -6457,7 +6456,7 @@ void MTChordGestureSet_::~MTChordGestureSet_(MTChordGestureSet_ *this)
   }
 }
 
-HSUtil::Encoder *HSUtil::Encoder::encodeCodable<MTChordCycling_>(HSUtil::Encoder *result, const HSUtil::CoderKey *a2, MTChordCycling_ *a3)
+uint64_t HSUtil::Encoder::encodeCodable<MTChordCycling_>(uint64_t result, const HSUtil::CoderKey *a2, MTChordCycling_ *a3)
 {
   if (!*result)
   {
@@ -6514,7 +6513,7 @@ HSUtil::Decoder *HSUtil::Decoder::decodeCodable<MTChordCycling_>(HSUtil::Decoder
 
       else
       {
-        *(v6 + 72) = v7[0];
+        *(v6 + 9) = v7[0];
       }
     }
   }
@@ -6580,7 +6579,7 @@ uint64_t MTChordCycling_::decode(MTChordCycling_ *this, HSUtil::Decoder *a2)
   v9 = v4;
   v10 = v4;
   v8 = v4;
-  HSUtil::Decoder::decodeMap(a2, &v8);
+  HSUtil::Decoder::decodeMap(&v8, a2);
   if (*a2)
   {
     memset(__b, 170, sizeof(__b));
@@ -6625,16 +6624,16 @@ LABEL_9:
   return v5;
 }
 
-uint64_t std::vector<MTActionEvent_>::__emplace_back_slow_path<MTActionEvent_ const&>(uint64_t a1, const MTActionEvent_ *a2)
+const MTActionEvent_ *std::vector<MTActionEvent_>::__emplace_back_slow_path<MTActionEvent_ const&>(const MTActionEvent_ **a1, const MTActionEvent_ *a2)
 {
-  v2 = (*(a1 + 8) - *a1) >> 3;
+  v2 = (a1[1] - *a1) >> 3;
   v3 = v2 + 1;
   if ((v2 + 1) >> 61)
   {
     std::vector<HSUtil::CoderKey const*>::__throw_length_error[abi:ne200100]();
   }
 
-  v6 = *(a1 + 16) - *a1;
+  v6 = a1[2] - *a1;
   if (v6 >> 2 > v3)
   {
     v3 = v6 >> 2;
@@ -6661,7 +6660,7 @@ uint64_t std::vector<MTActionEvent_>::__emplace_back_slow_path<MTActionEvent_ co
   MTActionEvent_::MTActionEvent_((8 * v2), a2);
   v11 = (8 * v2 + 8);
   std::vector<MTActionEvent_>::__swap_out_circular_buffer(a1, __p);
-  v8 = *(a1 + 8);
+  v8 = a1[1];
   if (v11 != __p[1])
   {
     *&v11 = v11 + ((__p[1] - v11 + 7) & 0xFFFFFFFFFFFFFFF8);
@@ -6770,9 +6769,9 @@ uint64_t std::vector<MTSlideGesture_>::__emplace_back_slow_path<MTSlideGesture_ 
   return v12;
 }
 
-void sub_45338(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_45338(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   std::__split_buffer<MTSlideGesture_>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -7225,7 +7224,7 @@ uint64_t MTTapDragManager_::updateLastState(uint64_t this)
   return this;
 }
 
-uint64_t MTTapDragManager_::hasPhysicalDraggingEnded(uint64_t a1, uint64_t a2, int a3)
+uint64_t MTTapDragManager_::hasPhysicalDraggingEnded(uint64_t a1, uint64_t a2, unsigned int a3)
 {
   if (*(a1 + 24) < 3)
   {
@@ -7775,21 +7774,21 @@ void __cxx_global_var_init_30_3(uint64_t a1, const char *a2)
   }
 }
 
-void MTChordIntegrating_::clearIntegrationState(MTChordIntegrating_ *this)
+void MTChordIntegrating_::clearIntegrationState(uint64_t this)
 {
-  *(this + 34) = 0;
-  *(this + 31) = 0;
-  *(this + 32) = 0;
-  *(this + 30) = 0;
-  *(this + 66) = 0;
-  *(this + 70) = 1;
+  *(this + 272) = 0;
+  *(this + 248) = 0;
+  *(this + 256) = 0;
+  *(this + 240) = 0;
+  *(this + 264) = 0;
+  *(this + 280) = 1;
   v2 = this + 312;
   v3 = 0uLL;
   *(this + 284) = 0u;
   *(this + 300) = 0u;
   *(this + 312) = 0u;
-  v4 = *(this + 20);
-  v5 = *(this + 21);
+  v4 = *(this + 160);
+  v5 = *(this + 168);
   if (v5 != v4)
   {
     v6 = 0;
@@ -7798,8 +7797,8 @@ void MTChordIntegrating_::clearIntegrationState(MTChordIntegrating_ *this)
     {
       MTSlideGesture_::clearIntegrationState((v4 + 160 * v6));
       v6 = v7;
-      v4 = *(this + 20);
-      v5 = *(this + 21);
+      v4 = *(this + 160);
+      v5 = *(this + 168);
       v8 = 0xCCCCCCCCCCCCCCCDLL * ((v5 - v4) >> 5) > v7++;
     }
 
@@ -7807,13 +7806,13 @@ void MTChordIntegrating_::clearIntegrationState(MTChordIntegrating_ *this)
     v3 = 0uLL;
   }
 
-  *(v2 + 20) = 0;
-  *(v2 + 3) = v3;
-  *(v2 + 4) = v3;
-  *(v2 + 1) = v3;
-  *(v2 + 2) = v3;
+  *(v2 + 80) = 0;
+  *(v2 + 48) = v3;
+  *(v2 + 64) = v3;
+  *(v2 + 16) = v3;
+  *(v2 + 32) = v3;
   *v2 = v3;
-  *(this + 50) = 0;
+  *(this + 400) = 0;
   if (v5 != v4)
   {
     v9 = 0;
@@ -7826,8 +7825,8 @@ void MTChordIntegrating_::clearIntegrationState(MTChordIntegrating_ *this)
         *(v11 + 120) = 0;
         *(v11 + 80) = v3;
         *(v11 + 96) = v3;
-        v4 = *(this + 20);
-        v5 = *(this + 21);
+        v4 = *(this + 160);
+        v5 = *(this + 168);
       }
 
       v9 = v10;
@@ -7838,7 +7837,7 @@ void MTChordIntegrating_::clearIntegrationState(MTChordIntegrating_ *this)
   }
 }
 
-MTChordIntegrating_ *MTChordIntegrating_::operator=(MTChordIntegrating_ *a1, uint64_t a2)
+uint64_t MTChordIntegrating_::operator=(uint64_t a1, uint64_t a2)
 {
   if (a1 != a2)
   {
@@ -7975,7 +7974,7 @@ void MTChordIntegrating_::endChordIntegration(MTChordIntegrating_ *this, const M
   }
 }
 
-void MTChordIntegrating_::sendLiftSlideEvents(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, __IOHIDEvent *a5, uint64_t *a6)
+void MTChordIntegrating_::sendLiftSlideEvents(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, __IOHIDEvent *a5, MTChordCycling_ *a6)
 {
   if (*(a1 + 264) != 1)
   {
@@ -7990,7 +7989,7 @@ void MTChordIntegrating_::sendLiftSlideEvents(uint64_t a1, uint64_t a2, uint64_t
   else
   {
     MTDragManagerEventQueue_::stopMomentum(a6, a5, 4);
-    MTTapDragManager_::sustainMultiFingerDrag(a6[49], a2);
+    MTTapDragManager_::sustainMultiFingerDrag(*(a6 + 49), a2);
     if ((*(a1 + 264) & 1) == 0)
     {
       return;
@@ -8009,7 +8008,7 @@ void MTChordIntegrating_::sendLiftSlideEvents(uint64_t a1, uint64_t a2, uint64_t
         goto LABEL_26;
       }
 
-      v17 = a6[49];
+      v17 = *(a6 + 49);
       if (v16 > *(v17 + 48))
       {
         goto LABEL_26;
@@ -8018,7 +8017,7 @@ void MTChordIntegrating_::sendLiftSlideEvents(uint64_t a1, uint64_t a2, uint64_t
 
     else
     {
-      v17 = a6[49];
+      v17 = *(a6 + 49);
     }
 
     v18 = *(a2 + 8);
@@ -8051,12 +8050,12 @@ LABEL_26:
           v23 = *(a1 + 272);
           if (*v23 != v23[1] && (**v23 & 0xFFFE) == 0x46)
           {
-            (*(*a6[49] + 24))(a6[49], *(a2 + 8));
+            (*(**(a6 + 49) + 24))(*(a6 + 49), *(a2 + 8));
           }
 
           v25 = 0xAAAAAAAAAAAAAAAALL;
           MTActionEvent_::MTActionEvent_(&v25, v22, 0, 0);
-          (*(*a6[49] + 24))(a6[49], &v25, a5, 0, 0, a4, 0x2000, *(a1 + 224), *(a2 + 8));
+          (*(**(a6 + 49) + 24))(*(a6 + 49), &v25, a5, 0, 0, a4, 0x2000, *(a1 + 224), *(a2 + 8));
         }
       }
 
@@ -8073,7 +8072,7 @@ LABEL_26:
       {
         if (*v24)
         {
-          MTGesture::dispatchEvents((a1 + 128), a6[49], a5, 16, 0, a4, 0x2000, *(a1 + 224), *(a2 + 8));
+          MTGesture::dispatchEvents((a1 + 128), *(a6 + 49), a5, 16, 0, a4, 0x2000, *(a1 + 224), *(a2 + 8));
         }
       }
     }
@@ -8270,7 +8269,7 @@ uint64_t MTChordIntegrating_::sendSlidePreamble(MTChordIntegrating_ *this, const
   result = 0;
   if (a6 && v17)
   {
-    if (v17[1] != *v17)
+    if (*(v17 + 8) != *v17)
     {
       v19 = MTActionEvent_::deriveGestureStartedType(*v17);
       if (a6[1] != *a6)
@@ -8398,18 +8397,18 @@ void MTChordIntegrating_::momentumFilterAlpha(MTChordIntegrating_ *this, const M
   }
 }
 
-double MTChordIntegrating_::decayMomentumFilters(MTChordIntegrating_ *this, const MTHandStatistics_ *a2)
+double MTChordIntegrating_::decayMomentumFilters(uint64_t this, const MTHandStatistics_ *a2, uint64_t a3, uint64_t a4)
 {
-  v4 = *(this + 34);
-  if (v4)
+  v6 = *(this + 272);
+  if (v6)
   {
     result = *(a2 + 1);
-    if (result != *(v4 + 144))
+    if (result != *(v6 + 144))
     {
-      v7 = v2;
-      v8 = v3;
-      v6 = 0uLL;
-      *&result = MTChordIntegrating_::updateMomentumMickeys(this, &v6, a2).u64[0];
+      v9 = v4;
+      v10 = v5;
+      v8 = 0uLL;
+      *&result = MTChordIntegrating_::updateMomentumMickeys(this, &v8, a2).u64[0];
     }
   }
 
@@ -8563,7 +8562,7 @@ uint64_t MTChordIntegrating_::possiblyStartMomentum(MTChordIntegrating_ *this, c
   }
 
   v7 = *v6;
-  if (*v6 == *(v6 + 8))
+  if (*v6 == v6[1])
   {
     return 0;
   }
@@ -8577,7 +8576,12 @@ uint64_t MTChordIntegrating_::possiblyStartMomentum(MTChordIntegrating_ *this, c
     {
       if (v15 != 1 || v14 <= *(a2 + 195))
       {
+        v27 = *(v7 + 5);
         MTDragManagerEventQueue_::startMomentum(a4, a3, 4);
+        v16 = *(this + 90);
+        v17 = *(this + 91);
+        v18 = a3;
+        v19 = v27;
         goto LABEL_36;
       }
 
@@ -8594,58 +8598,62 @@ LABEL_11:
     if (*v7 == 68 && *(a2 + 1) - *(a4 + 155) > *&qword_121A48 && ((*(this + 91) * *(this + 91)) + (*(this + 90) * *(this + 90))) >= 64.0)
     {
       MTDragManagerEventQueue_::startMomentum(a4, a3, 2);
+      v16 = *(this + 90);
+      v17 = *(this + 91);
+      v18 = a3;
+      v19 = 0;
 LABEL_36:
-      MTAppendRelativeMouseEvent();
+      MTAppendRelativeMouseEvent(v18, v16, v17, v19);
       return 1;
     }
 
     return 0;
   }
 
-  v16 = -v12;
-  v17 = -v13;
-  if (v16 >= 0)
+  v20 = -v12;
+  v21 = -v13;
+  if (v20 >= 0)
   {
-    v18 = -v12;
+    v22 = -v12;
   }
 
   else
   {
-    v18 = -v16;
+    v22 = -v20;
   }
 
-  v19 = v18;
-  if (v17 >= 0)
+  v23 = v22;
+  if (v21 >= 0)
   {
-    v20 = v17;
+    v24 = v21;
   }
 
   else
   {
-    v20 = -v17;
+    v24 = -v21;
   }
 
-  if ((v20 * 3.0) >= v19)
+  if ((v24 * 3.0) >= v23)
   {
-    if ((v19 * 3.0) < v20)
+    if ((v23 * 3.0) < v24)
     {
-      v16 = 0;
+      v20 = 0;
     }
   }
 
   else
   {
-    v17 = 0;
+    v21 = 0;
   }
 
-  if (((v17 * v17) + (v16 * v16)) < 25.0 || *(a2 + 1) - *(this + 50) <= 0.05)
+  if (((v21 * v21) + (v20 * v20)) < 25.0 || *(a2 + 1) - *(this + 50) <= 0.05)
   {
     return 1;
   }
 
-  v21 = 1;
-  MTAppendMomentumEnableEvent();
-  MTAppendScrollEvent();
+  v25 = 1;
+  MTAppendMomentumEnableEvent(a3, 1, 1);
+  MTAppendScrollEvent(a3, 0, v20, v21, 0);
   if (*(a4 + 1264) == 1)
   {
     MTDragManagerEventQueue_::stopMomentum(a4, a3, 1);
@@ -8654,7 +8662,7 @@ LABEL_36:
   *(this + 50) = *(a2 + 1);
   *(a4 + 317) = 1;
   *(a4 + 1264) = 1;
-  return v21;
+  return v25;
 }
 
 uint64_t MTChordIntegrating_::clearMickeysSinceLastTouchdown(uint64_t this)
@@ -8797,7 +8805,7 @@ uint64_t MTChordIntegrating_::continueChordIntegration(MTChordIntegrating_ *this
   {
     v29 = (v21 + 160 * v22);
     v30 = *(v29 + 7);
-    if ((!v30 || (*(a5 + 6) & v30) != 0) && !MTSlideGesture_::isBlocked(v29, a2, v53, this, *(a5 + 400)))
+    if ((!v30 || (*(a5 + 6) & v30) != 0) && (MTSlideGesture_::isBlocked(v29, a2, v53, this, *(a5 + 400)) & 1) == 0)
     {
       v31 = MTSlideGesture_::integrateGesture(v29, a2, v53, *(a5 + 49), this, *(a2 + 1) - *(a5 + 154));
       canPunishSomeMoving = MTSlideGesture_::canPunishSomeMoving(v29, a2, this);
@@ -9301,7 +9309,7 @@ void MTParserPath_::~MTParserPath_(MTParserPath_ *this)
   operator delete();
 }
 
-uint64_t MTParserPath_::updateCurPrevContactsWith(MTParserPath_ *this, _OWORD *a2, MTSurfaceDimensions_ *a3, float *a4, double a5)
+uint64_t MTParserPath_::updateCurPrevContactsWith(MTParserPath_ *this, _OWORD *a2, MTSurfaceDimensions_ *a3, double a4, float *a5)
 {
   v9 = *&this->var3.var8;
   *&this[1].var3.var2 = *&this->var3.var6.x;
@@ -9351,10 +9359,10 @@ uint64_t MTParserPath_::updateCurPrevContactsWith(MTParserPath_ *this, _OWORD *a
     *(&this[3].var0 + 4) = this->var3.var13;
   }
 
-  MTParserPath_::updatePathStageTimestamps(this, a5);
+  MTParserPath_::updatePathStageTimestamps(this, a4);
   MTParserPath_::updateTotalDiscountedDistance(this, v18);
 
-  return MTParserPath_::updateZonesAndEdges(this, a3, a4, a5);
+  return MTParserPath_::updateZonesAndEdges(this, a3, a5, a4);
 }
 
 MTParserPath_ *MTParserPath_::rejectRestingThumbFromRestingHand(MTParserPath_ *this)

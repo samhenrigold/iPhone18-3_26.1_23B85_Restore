@@ -9,7 +9,7 @@
 
 - (NSArray)packets
 {
-  SpeechPacket.packets.getter();
+  SpeechPacket.packets.getter(self);
   type metadata accessor for NSData();
   v2.super.isa = Array._bridgeToObjectiveC()().super.isa;
 

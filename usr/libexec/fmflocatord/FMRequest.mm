@@ -54,7 +54,7 @@
 
 - (void)dealloc
 {
-  v3 = sub_100002830();
+  v3 = sub_100002830(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     sub_10003859C(self);
@@ -69,7 +69,7 @@
 - (void)deinitializeRequest
 {
   v3 = +[NSNotificationCenter defaultCenter];
-  v4 = sub_100002830();
+  v4 = sub_100002830(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     fm_logID = [(FMRequest *)self fm_logID];
@@ -278,205 +278,220 @@
   requestModifierLock = [(FMRequest *)self requestModifierLock];
   [requestModifierLock lock];
 
-  if (![(FMRequest *)self inProgress]&& ![(FMRequest *)self cancelled]&& ![(FMRequest *)self isComplete]&& [(FMRequest *)self willRetry])
+  inProgress = [(FMRequest *)self inProgress];
+  if ((inProgress & 1) == 0)
   {
-    delegate = [(FMRequest *)self delegate];
-    *v52 = 0;
-    v53 = v52;
-    v54 = 0x3032000000;
-    v55 = sub_1000211A4;
-    v56 = sub_1000211B4;
-    v57 = 0;
-    [(FMRequest *)self setInProgress:1];
-    [(FMRequest *)self setAlertFromServerResponse:0];
-    willSendHandler = [(FMRequest *)self willSendHandler];
-
-    if (willSendHandler)
+    inProgress = [(FMRequest *)self cancelled];
+    if ((inProgress & 1) == 0)
     {
-      willSendHandler2 = [(FMRequest *)self willSendHandler];
-      (willSendHandler2)[2](willSendHandler2, self);
-    }
-
-    completionHandler = [(FMRequest *)self completionHandler];
-    account = [delegate account];
-    authId = [account authId];
-    if (!authId || ([(FMRequest *)self authToken], v10 = objc_claimAutoreleasedReturnValue(), v11 = v10 == 0, v10, authId, v11))
-    {
-      requestUrl = sub_100002830();
-      if (os_log_type_enabled(requestUrl, OS_LOG_TYPE_DEFAULT))
+      inProgress = [(FMRequest *)self isComplete];
+      if ((inProgress & 1) == 0)
       {
-        fm_logID = [(FMRequest *)self fm_logID];
-        *buf = 138412290;
-        v59 = fm_logID;
-        _os_log_impl(&_mh_execute_header, requestUrl, OS_LOG_TYPE_DEFAULT, "%@ No credentials found. Not sending the request", buf, 0xCu);
-      }
-
-      goto LABEL_49;
-    }
-
-    requestUrl = [(FMRequest *)self requestUrl];
-    v13 = sub_100002830();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
-    {
-      authId2 = [account authId];
-      authToken = [(FMRequest *)self authToken];
-      sub_10003863C(authId2, authToken, v67, v13);
-    }
-
-    v16 = sub_100002830();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
-    {
-      authTokenType = [(FMRequest *)self authTokenType];
-      *buf = 138412290;
-      v59 = authTokenType;
-      _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_INFO, "Using auth token of type - %@", buf, 0xCu);
-    }
-
-    if (!requestUrl)
-    {
-      requestUrl = sub_100002830();
-      if (os_log_type_enabled(requestUrl, OS_LOG_TYPE_DEFAULT))
-      {
-        fm_logID2 = [(FMRequest *)self fm_logID];
-        *buf = 138412290;
-        v59 = fm_logID2;
-        _os_log_impl(&_mh_execute_header, requestUrl, OS_LOG_TYPE_DEFAULT, "%@ No url found. Not sending the request", buf, 0xCu);
-      }
-
-      goto LABEL_49;
-    }
-
-    host = [requestUrl host];
-    authId3 = [account authId];
-    v19 = [RealmSupport redirectedHostForHost:host withContext:authId3];
-    v20 = *(v53 + 5);
-    *(v53 + 5) = v19;
-
-    if (*(v53 + 5) && ([host isEqualToString:?] & 1) == 0)
-    {
-      v21 = [requestUrl URLByReplacingHost:*(v53 + 5)];
-
-      requestUrl = v21;
-    }
-
-    requestHeaders = [(FMRequest *)self requestHeaders];
-    requestBody = [(FMRequest *)self requestBody];
-    if (requestBody)
-    {
-      v51 = 0;
-      v23 = [NSJSONSerialization dataWithJSONObject:requestBody options:0 error:&v51];
-      v24 = v51;
-      v43 = v23;
-      if (!v23)
-      {
-        v25 = sub_100002830();
-        if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+        inProgress = [(FMRequest *)self willRetry];
+        if (inProgress)
         {
-          fm_logID3 = [(FMRequest *)self fm_logID];
-          sub_1000386C4(fm_logID3, v66, v25);
-        }
-      }
+          delegate = [(FMRequest *)self delegate];
+          *v60 = 0;
+          v61 = v60;
+          v62 = 0x3032000000;
+          v63 = sub_1000211A4;
+          v64 = sub_1000211B4;
+          v65 = 0;
+          [(FMRequest *)self setInProgress:1];
+          [(FMRequest *)self setAlertFromServerResponse:0];
+          willSendHandler = [(FMRequest *)self willSendHandler];
 
-      if (v24)
-      {
-        v27 = sub_100002830();
-        if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
-        {
-          fm_logID4 = [(FMRequest *)self fm_logID];
-          sub_10003871C(fm_logID4, v24, buf, v27);
-        }
+          if (willSendHandler)
+          {
+            willSendHandler2 = [(FMRequest *)self willSendHandler];
+            (willSendHandler2)[2](willSendHandler2, self);
+          }
 
-        v29 = sub_10001BAE0();
-        if (os_log_type_enabled(v29, OS_LOG_TYPE_INFO))
-        {
-          *v64 = 138412290;
-          v65 = requestBody;
-          _os_log_impl(&_mh_execute_header, v29, OS_LOG_TYPE_INFO, "Encountered a serializing error for the request body : %@", v64, 0xCu);
-        }
+          completionHandler = [(FMRequest *)self completionHandler];
+          account = [delegate account];
+          authId = [account authId];
+          v11 = authId;
+          if (!authId || ([(FMRequest *)self authToken], v12 = objc_claimAutoreleasedReturnValue(), v13 = v12 == 0, v12, v11, v13))
+          {
+            requestUrl = sub_100002830(authId);
+            if (os_log_type_enabled(requestUrl, OS_LOG_TYPE_DEFAULT))
+            {
+              fm_logID = [(FMRequest *)self fm_logID];
+              *buf = 138412290;
+              v67 = fm_logID;
+              _os_log_impl(&_mh_execute_header, requestUrl, OS_LOG_TYPE_DEFAULT, "%@ No credentials found. Not sending the request", buf, 0xCu);
+            }
+
+            goto LABEL_49;
+          }
+
+          requestUrl = [(FMRequest *)self requestUrl];
+          v15 = sub_100002830(requestUrl);
+          if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+          {
+            authId2 = [account authId];
+            authToken = [(FMRequest *)self authToken];
+            sub_10003863C(authId2, authToken, v75, v15);
+          }
+
+          v19 = sub_100002830(v18);
+          if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
+          {
+            authTokenType = [(FMRequest *)self authTokenType];
+            *buf = 138412290;
+            v67 = authTokenType;
+            _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_INFO, "Using auth token of type - %@", buf, 0xCu);
+          }
+
+          if (!requestUrl)
+          {
+            requestUrl = sub_100002830(v21);
+            if (os_log_type_enabled(requestUrl, OS_LOG_TYPE_DEFAULT))
+            {
+              fm_logID2 = [(FMRequest *)self fm_logID];
+              *buf = 138412290;
+              v67 = fm_logID2;
+              _os_log_impl(&_mh_execute_header, requestUrl, OS_LOG_TYPE_DEFAULT, "%@ No url found. Not sending the request", buf, 0xCu);
+            }
+
+            goto LABEL_49;
+          }
+
+          host = [requestUrl host];
+          authId3 = [account authId];
+          v23 = [RealmSupport redirectedHostForHost:host withContext:authId3];
+          v24 = *(v61 + 5);
+          *(v61 + 5) = v23;
+
+          if (*(v61 + 5) && ([host isEqualToString:?] & 1) == 0)
+          {
+            v25 = [requestUrl URLByReplacingHost:*(v61 + 5)];
+
+            requestUrl = v25;
+          }
+
+          requestHeaders = [(FMRequest *)self requestHeaders];
+          requestBody = [(FMRequest *)self requestBody];
+          if (requestBody)
+          {
+            v59 = 0;
+            v27 = [NSJSONSerialization dataWithJSONObject:requestBody options:0 error:&v59];
+            v28 = v59;
+            v29 = v28;
+            v51 = v27;
+            if (!v27)
+            {
+              v30 = sub_100002830(v28);
+              if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+              {
+                fm_logID3 = [(FMRequest *)self fm_logID];
+                sub_1000386C4(fm_logID3, v74, v30);
+              }
+            }
+
+            if (v29)
+            {
+              v32 = sub_100002830(v28);
+              if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
+              {
+                fm_logID4 = [(FMRequest *)self fm_logID];
+                sub_10003871C(fm_logID4, v29, buf, v32);
+              }
+
+              v35 = sub_10001BAE0(v34);
+              if (os_log_type_enabled(v35, OS_LOG_TYPE_INFO))
+              {
+                *v72 = 138412290;
+                v73 = requestBody;
+                _os_log_impl(&_mh_execute_header, v35, OS_LOG_TYPE_INFO, "Encountered a serializing error for the request body : %@", v72, 0xCu);
+              }
 
 LABEL_48:
 LABEL_49:
 
-        _Block_object_dispose(v52, 8);
-        goto LABEL_31;
+              _Block_object_dispose(v60, 8);
+              goto LABEL_31;
+            }
+          }
+
+          else
+          {
+            v51 = 0;
+          }
+
+          v40 = [requestHeaders mutableCopy];
+          v41 = [v40 objectForKeyedSubscript:@"Authorization"];
+
+          if (v41)
+          {
+            v42 = [v40 setObject:@"REDACTED" forKeyedSubscript:@"Authorization"];
+          }
+
+          v43 = sub_10001BAE0(v42);
+          if (os_log_type_enabled(v43, OS_LOG_TYPE_DEFAULT))
+          {
+            fm_logID5 = [(FMRequest *)self fm_logID];
+            *buf = 138412802;
+            v67 = fm_logID5;
+            v68 = 2112;
+            v69 = requestUrl;
+            v70 = 2112;
+            v71 = v40;
+            _os_log_impl(&_mh_execute_header, v43, OS_LOG_TYPE_DEFAULT, "Sending %@ to url %@ with headers: \n%@", buf, 0x20u);
+          }
+
+          v46 = sub_10001BAE0(v45);
+          if (os_log_type_enabled(v46, OS_LOG_TYPE_DEFAULT))
+          {
+            fm_logID6 = [(FMRequest *)self fm_logID];
+            *buf = 138412546;
+            v67 = fm_logID6;
+            v68 = 2112;
+            v69 = requestBody;
+            _os_log_impl(&_mh_execute_header, v46, OS_LOG_TYPE_DEFAULT, "Sending %@ body dictionary : \n%@ ", buf, 0x16u);
+          }
+
+          v29 = [NSMutableURLRequest requestWithURL:requestUrl cachePolicy:1 timeoutInterval:120.0];
+          [v29 setHTTPMethod:@"POST"];
+          [v29 setAllHTTPHeaderFields:requestHeaders];
+          if (v51)
+          {
+            [v29 setHTTPBody:v51];
+          }
+
+          [(FMRequest *)self _enablePowerAssertion];
+          if (![(FMRequest *)self totalRetryCount])
+          {
+            [(FMRequest *)self _beginXPCTransaction];
+          }
+
+          urlSession = [(FMRequest *)self urlSession];
+          v54[0] = _NSConcreteStackBlock;
+          v54[1] = 3221225472;
+          v54[2] = sub_1000211BC;
+          v54[3] = &unk_10005E2D8;
+          v54[4] = self;
+          v55 = 0;
+          v58 = v60;
+          v56 = delegate;
+          v57 = completionHandler;
+          v49 = [urlSession dataTaskWithRequest:v29 completionHandler:v54];
+          [(FMRequest *)self setCurrentDataTask:v49];
+
+          currentDataTask = [(FMRequest *)self currentDataTask];
+          [currentDataTask resume];
+
+          goto LABEL_48;
+        }
       }
     }
-
-    else
-    {
-      v43 = 0;
-    }
-
-    v34 = [requestHeaders mutableCopy];
-    v35 = [v34 objectForKeyedSubscript:@"Authorization"];
-
-    if (v35)
-    {
-      [v34 setObject:@"REDACTED" forKeyedSubscript:@"Authorization"];
-    }
-
-    v36 = sub_10001BAE0();
-    if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
-    {
-      fm_logID5 = [(FMRequest *)self fm_logID];
-      *buf = 138412802;
-      v59 = fm_logID5;
-      v60 = 2112;
-      v61 = requestUrl;
-      v62 = 2112;
-      v63 = v34;
-      _os_log_impl(&_mh_execute_header, v36, OS_LOG_TYPE_DEFAULT, "Sending %@ to url %@ with headers: \n%@", buf, 0x20u);
-    }
-
-    v38 = sub_10001BAE0();
-    if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
-    {
-      fm_logID6 = [(FMRequest *)self fm_logID];
-      *buf = 138412546;
-      v59 = fm_logID6;
-      v60 = 2112;
-      v61 = requestBody;
-      _os_log_impl(&_mh_execute_header, v38, OS_LOG_TYPE_DEFAULT, "Sending %@ body dictionary : \n%@ ", buf, 0x16u);
-    }
-
-    v24 = [NSMutableURLRequest requestWithURL:requestUrl cachePolicy:1 timeoutInterval:120.0];
-    [v24 setHTTPMethod:@"POST"];
-    [v24 setAllHTTPHeaderFields:requestHeaders];
-    if (v43)
-    {
-      [v24 setHTTPBody:v43];
-    }
-
-    [(FMRequest *)self _enablePowerAssertion];
-    if (![(FMRequest *)self totalRetryCount])
-    {
-      [(FMRequest *)self _beginXPCTransaction];
-    }
-
-    urlSession = [(FMRequest *)self urlSession];
-    v46[0] = _NSConcreteStackBlock;
-    v46[1] = 3221225472;
-    v46[2] = sub_1000211BC;
-    v46[3] = &unk_10005E2D8;
-    v46[4] = self;
-    v47 = 0;
-    v50 = v52;
-    v48 = delegate;
-    v49 = completionHandler;
-    v41 = [urlSession dataTaskWithRequest:v24 completionHandler:v46];
-    [(FMRequest *)self setCurrentDataTask:v41];
-
-    currentDataTask = [(FMRequest *)self currentDataTask];
-    [currentDataTask resume];
-
-    goto LABEL_48;
   }
 
-  v30 = sub_100002830();
-  if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
+  v36 = sub_100002830(inProgress);
+  if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
   {
-    *v52 = 0;
-    _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_DEFAULT, "Not sending", v52, 2u);
+    *v60 = 0;
+    _os_log_impl(&_mh_execute_header, v36, OS_LOG_TYPE_DEFAULT, "Not sending", v60, 2u);
   }
 
 LABEL_31:
@@ -497,8 +512,7 @@ LABEL_31:
   [retryTimer invalidate];
 
   [(FMRequest *)self setRetryTimer:0];
-  [(FMRequest *)self setNextRetryTime:0];
-  v6 = sub_100002830();
+  v6 = sub_100002830([(FMRequest *)self setNextRetryTime:0]);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     *v8 = 0;
@@ -531,45 +545,45 @@ LABEL_31:
 
   v12 = [NSString stringWithFormat:@"%@:%@", authId2, v11];
 
-  v13 = sub_100002830();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+  v14 = sub_100002830(v13);
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
   {
     sub_1000388E4();
   }
 
   [qword_100070300 lock];
-  v14 = [qword_1000702F8 objectForKeyedSubscript:v7];
-  if (!v14)
+  v15 = [qword_1000702F8 objectForKeyedSubscript:v7];
+  if (!v15)
   {
-    v15 = [v7 dataUsingEncoding:4];
-    v16 = v15;
-    if (v15 && [v15 length])
+    v16 = [v7 dataUsingEncoding:4];
+    v17 = v16;
+    if (v16 && [v16 length])
     {
-      base64EncodedString = [v16 base64EncodedString];
+      base64EncodedString = [v17 base64EncodedString];
       if (base64EncodedString)
       {
-        v14 = [NSString stringWithFormat:@"Basic %@", base64EncodedString];
-        if (v14)
+        v15 = [NSString stringWithFormat:@"Basic %@", base64EncodedString];
+        if (v15)
         {
-          [qword_1000702F8 setObject:v14 forKeyedSubscript:v7];
+          [qword_1000702F8 setObject:v15 forKeyedSubscript:v7];
         }
       }
 
       else
       {
-        v14 = 0;
+        v15 = 0;
       }
     }
 
     else
     {
-      v14 = 0;
+      v15 = 0;
     }
   }
 
   [qword_100070300 unlock];
 
-  return v14;
+  return v15;
 }
 
 - (void)_beginXPCTransaction
@@ -621,18 +635,22 @@ LABEL_31:
   {
   }
 
-  else if ([(FMRequest *)self isComplete])
+  else
   {
-    v5 = sub_100002830();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+    isComplete = [(FMRequest *)self isComplete];
+    if (isComplete)
     {
-      fm_logID = [(FMRequest *)self fm_logID];
-      v46 = 138412290;
-      v47 = fm_logID;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_INFO, "%@ Request is complete", &v46, 0xCu);
-    }
+      v6 = sub_100002830(isComplete);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+      {
+        fm_logID = [(FMRequest *)self fm_logID];
+        v49 = 138412290;
+        v50 = fm_logID;
+        _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_INFO, "%@ Request is complete", &v49, 0xCu);
+      }
 
-    [(FMRequest *)self setNextRetryType:@"NoMoreRetries"];
+      [(FMRequest *)self setNextRetryType:@"NoMoreRetries"];
+    }
   }
 
   nextRetryType2 = [(FMRequest *)self nextRetryType];
@@ -640,66 +658,70 @@ LABEL_31:
   {
   }
 
-  else if (![(FMRequest *)self canRequestBeRetriedNow])
+  else
   {
-    v8 = sub_100002830();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+    canRequestBeRetriedNow = [(FMRequest *)self canRequestBeRetriedNow];
+    if ((canRequestBeRetriedNow & 1) == 0)
     {
-      fm_logID2 = [(FMRequest *)self fm_logID];
-      v46 = 138412290;
-      v47 = fm_logID2;
-      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_INFO, "%@ Request cannot be retried anymore. Not scheduling any more retries", &v46, 0xCu);
-    }
+      v10 = sub_100002830(canRequestBeRetriedNow);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+      {
+        fm_logID2 = [(FMRequest *)self fm_logID];
+        v49 = 138412290;
+        v50 = fm_logID2;
+        _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_INFO, "%@ Request cannot be retried anymore. Not scheduling any more retries", &v49, 0xCu);
+      }
 
-    [(FMRequest *)self setNextRetryType:@"NoMoreRetries"];
+      [(FMRequest *)self setNextRetryType:@"NoMoreRetries"];
+    }
   }
 
   nextRetryType3 = [(FMRequest *)self nextRetryType];
 
-  v11 = -1.0;
+  v13 = -1.0;
   if (!nextRetryType3)
   {
     httpResponseHeaders = [(FMRequest *)self httpResponseHeaders];
-    v13 = [httpResponseHeaders objectForKeyedSubscript:@"X-Apple-Retry-After"];
+    v15 = [httpResponseHeaders objectForKeyedSubscript:@"X-Apple-Retry-After"];
 
-    if (v13)
+    if (v15)
     {
-      [v13 doubleValue];
-      if (v14 < 0.0)
+      doubleValue = [v15 doubleValue];
+      if (v17 < 0.0)
       {
-        v15 = sub_100002830();
-        v16 = -1.0;
-        if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+        v18 = sub_100002830(doubleValue);
+        v19 = -1.0;
+        if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
         {
           fm_logID3 = [(FMRequest *)self fm_logID];
-          v46 = 138412290;
-          v47 = fm_logID3;
-          _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "%@ Server requested that no more retries be done.", &v46, 0xCu);
+          v49 = 138412290;
+          v50 = fm_logID3;
+          _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "%@ Server requested that no more retries be done.", &v49, 0xCu);
         }
 
-        v18 = @"NoMoreRetries";
+        v21 = @"NoMoreRetries";
 LABEL_23:
 
-        [(FMRequest *)self setNextRetryType:v18];
-        v11 = v16;
+        [(FMRequest *)self setNextRetryType:v21];
+        v13 = v19;
         goto LABEL_24;
       }
 
-      if (v14 > 0.0)
+      if (v17 > 0.0)
       {
-        v16 = v14;
-        v15 = sub_100002830();
-        if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+        v19 = v17;
+        v18 = sub_100002830(doubleValue);
+        if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
         {
           fm_logID4 = [(FMRequest *)self fm_logID];
-          v46 = 138412546;
-          v47 = fm_logID4;
-          v48 = 2048;
-          v49 = v16;
-          _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "%@ Server requested a retry after %f seconds", &v46, 0x16u);
+          v49 = 138412546;
+          v50 = fm_logID4;
+          v51 = 2048;
+          v52 = v19;
+          _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "%@ Server requested a retry after %f seconds", &v49, 0x16u);
         }
 
-        v18 = @"ServerDelayedRetry";
+        v21 = @"ServerDelayedRetry";
         goto LABEL_23;
       }
     }
@@ -733,7 +755,7 @@ LABEL_31:
     authId = [account authId];
     [RealmSupport clearCachedHostsWithContext:authId];
 
-    v11 = 0.0;
+    v13 = 0.0;
     goto LABEL_31;
   }
 
@@ -745,42 +767,40 @@ LABEL_34:
 
   else if (([(FMRequest *)self responseErrorType]& 0x200) != 0)
   {
-    v24 = [(FMRequest *)self _retryCountForType:@"TimerBasedNetworkRetry"];
-    if ([(FMRequest *)self maxTimerBasedNetworkRetries]== -1 || [(FMRequest *)self maxTimerBasedNetworkRetries]> v24)
+    v27 = [(FMRequest *)self _retryCountForType:@"TimerBasedNetworkRetry"];
+    if ([(FMRequest *)self maxTimerBasedNetworkRetries]== -1 || [(FMRequest *)self maxTimerBasedNetworkRetries]> v27)
     {
       [(FMRequest *)self setNextRetryType:@"TimerBasedNetworkRetry"];
-      [(FMRequest *)self _decayedWaitIntervalForRetryCount:v24];
-      v11 = v25;
+      [(FMRequest *)self _decayedWaitIntervalForRetryCount:v27];
+      v13 = v28;
     }
 
     else
     {
-      v27 = [(FMRequest *)self _consecutiveRetryCountForType:@"NotificationBasedNetworkRetry"];
-      if ([(FMRequest *)self maxConsecutiveNetworkNotificationRetries]== -1 || [(FMRequest *)self maxConsecutiveNetworkNotificationRetries]> v27)
+      v30 = [(FMRequest *)self _consecutiveRetryCountForType:@"NotificationBasedNetworkRetry"];
+      if ([(FMRequest *)self maxConsecutiveNetworkNotificationRetries]== -1 || [(FMRequest *)self maxConsecutiveNetworkNotificationRetries]> v30)
       {
-        [(FMRequest *)self setNextRetryType:@"NotificationBasedNetworkRetry"];
-        v28 = sub_100002830();
-        if (os_log_type_enabled(v28, OS_LOG_TYPE_INFO))
+        v31 = sub_100002830([(FMRequest *)self setNextRetryType:@"NotificationBasedNetworkRetry"]);
+        if (os_log_type_enabled(v31, OS_LOG_TYPE_INFO))
         {
           fm_logID5 = [(FMRequest *)self fm_logID];
-          v46 = 138412290;
-          v47 = fm_logID5;
-          _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_INFO, "%@ Waiting for a network-up notification to retry again", &v46, 0xCu);
+          v49 = 138412290;
+          v50 = fm_logID5;
+          _os_log_impl(&_mh_execute_header, v31, OS_LOG_TYPE_INFO, "%@ Waiting for a network-up notification to retry again", &v49, 0xCu);
         }
 
-        v11 = -1.0;
+        v13 = -1.0;
       }
 
       else
       {
-        [(FMRequest *)self setNextRetryType:@"NoMoreRetries"];
-        v30 = sub_100002830();
-        if (os_log_type_enabled(v30, OS_LOG_TYPE_INFO))
+        v33 = sub_100002830([(FMRequest *)self setNextRetryType:@"NoMoreRetries"]);
+        if (os_log_type_enabled(v33, OS_LOG_TYPE_INFO))
         {
           fm_logID6 = [(FMRequest *)self fm_logID];
-          v46 = 138412290;
-          v47 = fm_logID6;
-          _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_INFO, "%@ Stopped retrying since we exceeded the maximum number of consecutive network-up notification based retries", &v46, 0xCu);
+          v49 = 138412290;
+          v50 = fm_logID6;
+          _os_log_impl(&_mh_execute_header, v33, OS_LOG_TYPE_INFO, "%@ Stopped retrying since we exceeded the maximum number of consecutive network-up notification based retries", &v49, 0xCu);
         }
       }
     }
@@ -793,27 +813,26 @@ LABEL_34:
 
   else if ([(FMRequest *)self responseErrorType]== 769)
   {
-    v33 = [(FMRequest *)self _retryCountForType:@"RedirectRetry"];
-    if (v33)
+    v36 = [(FMRequest *)self _retryCountForType:@"RedirectRetry"];
+    if (v36)
     {
-      v34 = v33;
-      if ([(FMRequest *)self maxNonNetworkRelatedRetries]== -1 || [(FMRequest *)self maxNonNetworkRelatedRetries]> v34)
+      v37 = v36;
+      if ([(FMRequest *)self maxNonNetworkRelatedRetries]== -1 || [(FMRequest *)self maxNonNetworkRelatedRetries]> v37)
       {
         [(FMRequest *)self setNextRetryType:@"RedirectRetry"];
-        [(FMRequest *)self _decayedWaitIntervalForRetryCount:v34];
-        v11 = v35;
+        [(FMRequest *)self _decayedWaitIntervalForRetryCount:v37];
+        v13 = v38;
       }
 
       else
       {
-        [(FMRequest *)self setNextRetryType:@"NoMoreRetries"];
-        v36 = sub_100002830();
-        if (os_log_type_enabled(v36, OS_LOG_TYPE_INFO))
+        v39 = sub_100002830([(FMRequest *)self setNextRetryType:@"NoMoreRetries"]);
+        if (os_log_type_enabled(v39, OS_LOG_TYPE_INFO))
         {
           fm_logID7 = [(FMRequest *)self fm_logID];
-          v46 = 138412290;
-          v47 = fm_logID7;
-          _os_log_impl(&_mh_execute_header, v36, OS_LOG_TYPE_INFO, "%@ Stopped retrying since we exceeded the maximum number of redirect retries", &v46, 0xCu);
+          v49 = 138412290;
+          v50 = fm_logID7;
+          _os_log_impl(&_mh_execute_header, v39, OS_LOG_TYPE_INFO, "%@ Stopped retrying since we exceeded the maximum number of redirect retries", &v49, 0xCu);
         }
       }
     }
@@ -821,7 +840,7 @@ LABEL_34:
     else
     {
       [(FMRequest *)self setNextRetryType:@"RedirectRetry"];
-      v11 = 0.0;
+      v13 = 0.0;
     }
   }
 
@@ -829,29 +848,28 @@ LABEL_34:
 
   if (!nextRetryType8)
   {
-    v39 = [NSNumber numberWithInteger:[(FMRequest *)self httpResponseStatus]];
-    stringValue = [v39 stringValue];
+    v42 = [NSNumber numberWithInteger:[(FMRequest *)self httpResponseStatus]];
+    stringValue = [v42 stringValue];
 
-    v41 = [(FMRequest *)self _retryCountForType:stringValue];
-    if ([(FMRequest *)self maxNonNetworkRelatedRetries]== -1 || [(FMRequest *)self maxNonNetworkRelatedRetries]> v41)
+    v44 = [(FMRequest *)self _retryCountForType:stringValue];
+    if ([(FMRequest *)self maxNonNetworkRelatedRetries]== -1 || [(FMRequest *)self maxNonNetworkRelatedRetries]> v44)
     {
       [(FMRequest *)self setNextRetryType:stringValue];
-      [(FMRequest *)self _decayedWaitIntervalForRetryCount:v41];
-      v11 = v42;
+      [(FMRequest *)self _decayedWaitIntervalForRetryCount:v44];
+      v13 = v45;
     }
 
     else
     {
-      [(FMRequest *)self setNextRetryType:@"NoMoreRetries"];
-      v43 = sub_100002830();
-      if (os_log_type_enabled(v43, OS_LOG_TYPE_INFO))
+      v46 = sub_100002830([(FMRequest *)self setNextRetryType:@"NoMoreRetries"]);
+      if (os_log_type_enabled(v46, OS_LOG_TYPE_INFO))
       {
         fm_logID8 = [(FMRequest *)self fm_logID];
-        v46 = 138412546;
-        v47 = fm_logID8;
-        v48 = 2112;
-        v49 = *&stringValue;
-        _os_log_impl(&_mh_execute_header, v43, OS_LOG_TYPE_INFO, "%@ Stopped retrying since we exceeded the maximum number of retries for status code %@", &v46, 0x16u);
+        v49 = 138412546;
+        v50 = fm_logID8;
+        v51 = 2112;
+        v52 = *&stringValue;
+        _os_log_impl(&_mh_execute_header, v46, OS_LOG_TYPE_INFO, "%@ Stopped retrying since we exceeded the maximum number of retries for status code %@", &v49, 0x16u);
       }
     }
   }
@@ -859,7 +877,7 @@ LABEL_34:
   nextRetryType9 = [(FMRequest *)self nextRetryType];
   -[FMRequest setWillRetry:](self, "setWillRetry:", [nextRetryType9 isEqualToString:@"NoMoreRetries"] ^ 1);
 
-  [(FMRequest *)self _scheduleRetryAfterTimeInterval:v11];
+  [(FMRequest *)self _scheduleRetryAfterTimeInterval:v13];
 }
 
 - (double)_decayedWaitIntervalForRetryCount:(int64_t)count
@@ -891,15 +909,16 @@ LABEL_34:
 
   [(FMRequest *)self setRetryTimer:0];
   [(FMRequest *)self setNextRetryTime:0];
-  if ([(FMRequest *)self inProgress])
+  inProgress = [(FMRequest *)self inProgress];
+  if (inProgress)
   {
-    v4 = sub_100002830();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+    v5 = sub_100002830(inProgress);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
       fm_logID = [(FMRequest *)self fm_logID];
-      v6 = 138412290;
-      v7 = fm_logID;
-      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_INFO, "%@ Retry time arrived, but request cannot be retried anymore or retry is already in progress. Not retrying", &v6, 0xCu);
+      v7 = 138412290;
+      v8 = fm_logID;
+      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_INFO, "%@ Retry time arrived, but request cannot be retried anymore or retry is already in progress. Not retrying", &v7, 0xCu);
     }
   }
 
@@ -912,7 +931,7 @@ LABEL_34:
 
 - (void)_retryNow
 {
-  v3 = sub_100002830();
+  v3 = sub_100002830(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     v6 = 138412290;
@@ -931,7 +950,7 @@ LABEL_34:
 
 - (void)_networkCameUp
 {
-  v3 = sub_100002830();
+  v3 = sub_100002830(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     sub_100038958(self);
@@ -963,16 +982,16 @@ LABEL_34:
 
       if (nextRetryTime)
       {
-        v10 = sub_100002830();
-        if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+        v11 = sub_100002830(v10);
+        if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
         {
           fm_logID = [(FMRequest *)self fm_logID];
           nextRetryTime2 = [(FMRequest *)self nextRetryTime];
-          v24 = 138412546;
-          v25 = fm_logID;
-          v26 = 2112;
-          v27 = nextRetryTime2;
-          _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_INFO, "%@ Network up retry already pending for %@", &v24, 0x16u);
+          v26 = 138412546;
+          v27 = fm_logID;
+          v28 = 2112;
+          v29 = nextRetryTime2;
+          _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_INFO, "%@ Network up retry already pending for %@", &v26, 0x16u);
         }
 
         goto LABEL_28;
@@ -992,16 +1011,16 @@ LABEL_34:
       {
         lastRetryTime2 = [(FMRequest *)self lastRetryTime];
         [v7 timeIntervalSinceDate:lastRetryTime2];
-        v17 = v16;
+        v18 = v17;
 
-        if (v17 >= 60.0 || v17 < 0.0)
+        if (v18 >= 60.0 || v18 < 0.0)
         {
-          v19 = 0.0;
+          v20 = 0.0;
         }
 
         else
         {
-          v19 = 60.0 - v17;
+          v20 = 60.0 - v18;
         }
 
         goto LABEL_23;
@@ -1012,18 +1031,18 @@ LABEL_34:
     {
     }
 
-    v19 = 0.0;
+    v20 = 0.0;
 LABEL_23:
     nextRetryTime3 = [(FMRequest *)self nextRetryTime];
 
-    if (!nextRetryTime3 || (-[FMRequest nextRetryTime](self, "nextRetryTime"), v21 = objc_claimAutoreleasedReturnValue(), [v21 timeIntervalSinceDate:v7], v23 = v22, v21, v23 < 0.0) || v23 >= v19)
+    if (!nextRetryTime3 || (-[FMRequest nextRetryTime](self, "nextRetryTime"), v22 = objc_claimAutoreleasedReturnValue(), [v22 timeIntervalSinceDate:v7], v24 = v23, v22, v24 < 0.0) || v24 >= v20)
     {
-      [(FMRequest *)self _scheduleRetryAfterTimeInterval:v19];
+      [(FMRequest *)self _scheduleRetryAfterTimeInterval:v20];
       goto LABEL_30;
     }
 
-    v10 = sub_100002830();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+    v11 = sub_100002830(v25);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
     {
       sub_1000389E4(self);
     }
@@ -1038,36 +1057,36 @@ LABEL_30:
 {
   if (interval <= 0.0)
   {
-    v15 = sub_100002830();
-    v16 = os_log_type_enabled(v15, OS_LOG_TYPE_INFO);
+    v16 = sub_100002830(self);
+    v17 = os_log_type_enabled(v16, OS_LOG_TYPE_INFO);
     if (interval >= 0.0)
     {
-      if (v16)
+      if (v17)
       {
         fm_logID = [(FMRequest *)self fm_logID];
         nextRetryType = [(FMRequest *)self nextRetryType];
         *buf = 138412546;
-        v23 = fm_logID;
-        v24 = 2112;
-        v25 = nextRetryType;
-        _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_INFO, "%@ Scheduling retry of type '%@' to occur now", buf, 0x16u);
+        v24 = fm_logID;
+        v25 = 2112;
+        v26 = nextRetryType;
+        _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_INFO, "%@ Scheduling retry of type '%@' to occur now", buf, 0x16u);
       }
 
-      v20 = +[NSDate date];
-      [(FMRequest *)self setNextRetryTime:v20];
+      v21 = +[NSDate date];
+      [(FMRequest *)self setNextRetryTime:v21];
 
-      v21 = +[NSThread currentThread];
-      [(FMRequest *)self performSelector:"_retryNow" onThread:v21 withObject:0 waitUntilDone:0];
+      v22 = +[NSThread currentThread];
+      [(FMRequest *)self performSelector:"_retryNow" onThread:v22 withObject:0 waitUntilDone:0];
     }
 
     else
     {
-      if (v16)
+      if (v17)
       {
         fm_logID2 = [(FMRequest *)self fm_logID];
         *buf = 138412290;
-        v23 = fm_logID2;
-        _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_INFO, "%@ Not scheduling any retry", buf, 0xCu);
+        v24 = fm_logID2;
+        _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_INFO, "%@ Not scheduling any retry", buf, 0xCu);
       }
 
       [(FMRequest *)self setNextRetryTime:0];
@@ -1079,31 +1098,31 @@ LABEL_30:
     v5 = [NSDate dateWithTimeIntervalSinceNow:interval];
     [(FMRequest *)self setNextRetryTime:v5];
 
-    v6 = sub_100002830();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+    v7 = sub_100002830(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
       fm_logID3 = [(FMRequest *)self fm_logID];
       nextRetryType2 = [(FMRequest *)self nextRetryType];
       nextRetryTime = [(FMRequest *)self nextRetryTime];
       *buf = 138412802;
-      v23 = fm_logID3;
-      v24 = 2112;
-      v25 = nextRetryType2;
-      v26 = 2112;
-      v27 = nextRetryTime;
-      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_INFO, "%@ Scheduling retry of type '%@' to occur at %@", buf, 0x20u);
+      v24 = fm_logID3;
+      v25 = 2112;
+      v26 = nextRetryType2;
+      v27 = 2112;
+      v28 = nextRetryTime;
+      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_INFO, "%@ Scheduling retry of type '%@' to occur at %@", buf, 0x20u);
     }
 
-    v10 = [NSString stringWithFormat:@"com.apple.icloud.fmflocatord.retry.%@-%X", objc_opt_class(), self];
-    v11 = [[PCPersistentTimer alloc] initWithTimeInterval:v10 serviceIdentifier:self target:"_retryTimerFired" selector:0 userInfo:interval];
-    [(FMRequest *)self setRetryTimer:v11];
+    v11 = [NSString stringWithFormat:@"com.apple.icloud.fmflocatord.retry.%@-%X", objc_opt_class(), self];
+    v12 = [[PCPersistentTimer alloc] initWithTimeInterval:v11 serviceIdentifier:self target:"_retryTimerFired" selector:0 userInfo:interval];
+    [(FMRequest *)self setRetryTimer:v12];
 
     retryTimer = [(FMRequest *)self retryTimer];
     [retryTimer setMinimumEarlyFireProportion:0.75];
 
     retryTimer2 = [(FMRequest *)self retryTimer];
-    v14 = +[NSRunLoop currentRunLoop];
-    [retryTimer2 scheduleInRunLoop:v14];
+    v15 = +[NSRunLoop currentRunLoop];
+    [retryTimer2 scheduleInRunLoop:v15];
   }
 }
 

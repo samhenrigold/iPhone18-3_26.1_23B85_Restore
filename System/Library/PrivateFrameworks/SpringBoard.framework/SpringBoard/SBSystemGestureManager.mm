@@ -206,30 +206,30 @@
 
 - (void)_evaluateEnablement
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   if ([(NSMutableSet *)self->_gesturesDisabledAssertions count])
   {
-    v19 = 0u;
     v20 = 0u;
-    v17 = 0u;
+    v21 = 0u;
     v18 = 0u;
+    v19 = 0u;
     v3 = self->_gesturesDisabledAssertions;
-    v4 = [(NSMutableSet *)v3 countByEnumeratingWithState:&v17 objects:v25 count:16];
+    v4 = [(NSMutableSet *)v3 countByEnumeratingWithState:&v18 objects:v26 count:16];
     if (v4)
     {
       v5 = v4;
       v6 = 0;
-      v7 = *v18;
+      v7 = *v19;
       do
       {
         for (i = 0; i != v5; ++i)
         {
-          if (*v18 != v7)
+          if (*v19 != v7)
           {
             objc_enumerationMutation(v3);
           }
 
-          exceptions = [*(*(&v17 + 1) + 8 * i) exceptions];
+          exceptions = [*(*(&v18 + 1) + 8 * i) exceptions];
           v10 = exceptions;
           if (v6)
           {
@@ -242,7 +242,7 @@
           }
         }
 
-        v5 = [(NSMutableSet *)v3 countByEnumeratingWithState:&v17 objects:v25 count:16];
+        v5 = [(NSMutableSet *)v3 countByEnumeratingWithState:&v18 objects:v26 count:16];
       }
 
       while (v5);
@@ -254,38 +254,38 @@
     }
 
     objc_storeStrong(&self->_gestureTypesAllowedWhileDisableAssertionsExist, v6);
-    v12 = SBLogSystemGestureDetail();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v13 = SBLogSystemGestureDetail(v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       displayIdentity = self->_displayIdentity;
-      v14 = [(NSSet *)self->_gestureTypesAllowedWhileDisableAssertionsExist bs_map:&__block_literal_global_290];
+      v15 = [(NSSet *)self->_gestureTypesAllowedWhileDisableAssertionsExist bs_map:&__block_literal_global_290];
       *buf = 138543618;
-      v22 = displayIdentity;
-      v23 = 2114;
-      v24 = v14;
-      _os_log_impl(&dword_21ED4E000, v12, OS_LOG_TYPE_DEFAULT, "(Display - %{public}@) System gestures globally disabled (exceptions:%{public}@)", buf, 0x16u);
+      v23 = displayIdentity;
+      v24 = 2114;
+      v25 = v15;
+      _os_log_impl(&dword_21ED4E000, v13, OS_LOG_TYPE_DEFAULT, "(Display - %{public}@) System gestures globally disabled (exceptions:%{public}@)", buf, 0x16u);
     }
   }
 
   else
   {
-    v6 = SBLogSystemGestureDetail();
+    v6 = SBLogSystemGestureDetail(0);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       v11 = self->_displayIdentity;
       *buf = 138543362;
-      v22 = v11;
+      v23 = v11;
       _os_log_impl(&dword_21ED4E000, v6, OS_LOG_TYPE_DEFAULT, "(Display - %{public}@) System gestures globally enabled (may be individually disabled)", buf, 0xCu);
     }
   }
 
   typeToGesture = self->_typeToGesture;
-  v16[0] = MEMORY[0x277D85DD0];
-  v16[1] = 3221225472;
-  v16[2] = __45__SBSystemGestureManager__evaluateEnablement__block_invoke_51;
-  v16[3] = &unk_2783BE2C8;
-  v16[4] = self;
-  [(NSMutableDictionary *)typeToGesture enumerateKeysAndObjectsUsingBlock:v16];
+  v17[0] = MEMORY[0x277D85DD0];
+  v17[1] = 3221225472;
+  v17[2] = __45__SBSystemGestureManager__evaluateEnablement__block_invoke_51;
+  v17[3] = &unk_2783BE2C8;
+  v17[4] = self;
+  [(NSMutableDictionary *)typeToGesture enumerateKeysAndObjectsUsingBlock:v17];
 }
 
 __CFString *__45__SBSystemGestureManager__evaluateEnablement__block_invoke(uint64_t a1, void *a2)
@@ -395,7 +395,7 @@ void __45__SBSystemGestureManager__evaluateEnablement__block_invoke_51(uint64_t 
   typeToGesture = self->_typeToGesture;
   recognizerCopy = recognizer;
   allValues = [(NSMutableDictionary *)typeToGesture allValues];
-  v6 = [allValues containsObject:recognizerCopy];
+  v6 = objc_msgSend_containsObject_(allValues);
 
   return v6;
 }
@@ -460,7 +460,7 @@ void __45__SBSystemGestureManager__evaluateEnablement__block_invoke_51(uint64_t 
 
   else
   {
-    v7 = SBLogSystemGesture();
+    v7 = SBLogSystemGesture(0);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       [(SBSystemGestureManager *)recognizerCopy removeGestureRecognizer:v7];
@@ -496,43 +496,47 @@ void __45__SBSystemGestureManager__evaluateEnablement__block_invoke_51(uint64_t 
 
 - (void)cancelGestureRecognizerOfType:(unint64_t)type reason:(id)reason
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   reasonCopy = reason;
   typeToGesture = self->_typeToGesture;
   v8 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:type];
   v9 = [(NSMutableDictionary *)typeToGesture objectForKey:v8];
 
-  if (v9 && [v9 isEnabled])
+  if (v9)
   {
-    v10 = SBLogSystemGesture();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    isEnabled = [v9 isEnabled];
+    if (isEnabled)
     {
-      sb_briefDescription = [v9 sb_briefDescription];
-      state = [v9 state];
-      if (state >= 6)
+      v11 = SBLogSystemGesture(isEnabled);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
-        v13 = [MEMORY[0x277CCACA8] stringWithFormat:@"<unknown: 0x%X>", state];
+        sb_briefDescription = [v9 sb_briefDescription];
+        state = [v9 state];
+        if (state >= 6)
+        {
+          v14 = [MEMORY[0x277CCACA8] stringWithFormat:@"<unknown: 0x%X>", state];
+        }
+
+        else
+        {
+          v14 = off_2783BE308[state];
+        }
+
+        v15 = SBSystemGestureTypeDebugName(type);
+        *buf = 138544130;
+        v17 = reasonCopy;
+        v18 = 2114;
+        v19 = sb_briefDescription;
+        v20 = 2114;
+        v21 = v14;
+        v22 = 2114;
+        v23 = v15;
+        _os_log_impl(&dword_21ED4E000, v11, OS_LOG_TYPE_DEFAULT, "canceling (reason: %{public}@) <%{public}@ state:%{public}@ sgtype:'%{public}@' >", buf, 0x2Au);
       }
 
-      else
-      {
-        v13 = off_2783BE308[state];
-      }
-
-      v14 = SBSystemGestureTypeDebugName(type);
-      *buf = 138544130;
-      v16 = reasonCopy;
-      v17 = 2114;
-      v18 = sb_briefDescription;
-      v19 = 2114;
-      v20 = v13;
-      v21 = 2114;
-      v22 = v14;
-      _os_log_impl(&dword_21ED4E000, v10, OS_LOG_TYPE_DEFAULT, "canceling (reason: %{public}@) <%{public}@ state:%{public}@ sgtype:'%{public}@' >", buf, 0x2Au);
+      [v9 setEnabled:0];
+      [v9 setEnabled:1];
     }
-
-    [v9 setEnabled:0];
-    [v9 setEnabled:1];
   }
 }
 
@@ -548,7 +552,7 @@ void __45__SBSystemGestureManager__evaluateEnablement__block_invoke_51(uint64_t 
 {
   y = location.y;
   x = location.x;
-  v27 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   windowForSystemGestures = [(SBSystemGestureManager *)self windowForSystemGestures];
   windowScene = [windowForSystemGestures windowScene];
   screen = [windowScene screen];
@@ -565,21 +569,22 @@ void __45__SBSystemGestureManager__evaluateEnablement__block_invoke_51(uint64_t 
   v16 = v15;
   v18 = v17;
 
-  v19 = [pictureInPictureManager isPointWithinAnyPictureInPictureContent:{v16, v18}] ^ 1;
-  v20 = SBLogSystemGestureAppSwitcher();
-  if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+  v19 = [pictureInPictureManager isPointWithinAnyPictureInPictureContent:{v16, v18}];
+  v20 = v19 ^ 1;
+  v21 = SBLogSystemGestureAppSwitcher(v19);
+  if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
   {
-    v28.x = x;
-    v28.y = y;
-    v21 = NSStringFromPoint(v28);
-    v23 = 138478083;
-    v24 = v21;
-    v25 = 1024;
-    v26 = v19;
-    _os_log_impl(&dword_21ED4E000, v20, OS_LOG_TYPE_DEFAULT, "Should system gesture receive touch with location:%{private}@ <%{BOOL}u>", &v23, 0x12u);
+    v29.x = x;
+    v29.y = y;
+    v22 = NSStringFromPoint(v29);
+    v24 = 138478083;
+    v25 = v22;
+    v26 = 1024;
+    v27 = v20;
+    _os_log_impl(&dword_21ED4E000, v21, OS_LOG_TYPE_DEFAULT, "Should system gesture receive touch with location:%{private}@ <%{BOOL}u>", &v24, 0x12u);
   }
 
-  return v19;
+  return v20;
 }
 
 - (id)succinctDescription
@@ -722,7 +727,7 @@ void __36__SBSystemGestureManager_invalidate__block_invoke(uint64_t a1, void *a2
   squeezeCopy = squeeze;
   if ([MEMORY[0x277D75820] _preferredSqueezeAction] == 6 && objc_msgSend(squeezeCopy, "_phase") == 2)
   {
-    v5 = SBLogSystemGesturePencilSqueeze();
+    v5 = SBLogSystemGesturePencilSqueeze(2);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       *v14 = 0;
@@ -744,20 +749,21 @@ void __36__SBSystemGestureManager_invalidate__block_invoke(uint64_t a1, void *a2
 
 - (BOOL)_isGestureWithTypeAllowed:(unint64_t)allowed
 {
-  v19 = *MEMORY[0x277D85DE8];
-  if ([(SBSystemGestureManager *)self areSystemGesturesDisabledForAccessibility])
+  v21 = *MEMORY[0x277D85DE8];
+  areSystemGesturesDisabledForAccessibility = [(SBSystemGestureManager *)self areSystemGesturesDisabledForAccessibility];
+  if (areSystemGesturesDisabledForAccessibility)
   {
-    v5 = SBLogSystemGestureDetail();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = SBLogSystemGestureDetail(areSystemGesturesDisabledForAccessibility);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       displayIdentity = self->_displayIdentity;
-      v15 = 138543362;
-      v16 = displayIdentity;
-      v7 = "(Display - %{public}@) Not allowing system gestures because accessibility has disabled them";
-      v8 = v5;
-      v9 = 12;
+      v17 = 138543362;
+      v18 = displayIdentity;
+      v8 = "(Display - %{public}@) Not allowing system gestures because accessibility has disabled them";
+      v9 = v6;
+      v10 = 12;
 LABEL_9:
-      _os_log_impl(&dword_21ED4E000, v8, OS_LOG_TYPE_DEFAULT, v7, &v15, v9);
+      _os_log_impl(&dword_21ED4E000, v9, OS_LOG_TYPE_DEFAULT, v8, &v17, v10);
     }
   }
 
@@ -769,26 +775,26 @@ LABEL_9:
     }
 
     gestureTypesAllowedWhileDisableAssertionsExist = self->_gestureTypesAllowedWhileDisableAssertionsExist;
-    v11 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:allowed];
-    LOBYTE(gestureTypesAllowedWhileDisableAssertionsExist) = [(NSSet *)gestureTypesAllowedWhileDisableAssertionsExist containsObject:v11];
+    v12 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:allowed];
+    LOBYTE(gestureTypesAllowedWhileDisableAssertionsExist) = objc_msgSend_containsObject_(gestureTypesAllowedWhileDisableAssertionsExist);
 
     if (gestureTypesAllowedWhileDisableAssertionsExist)
     {
       return 1;
     }
 
-    v5 = SBLogSystemGestureDetail();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = SBLogSystemGestureDetail(v13);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v13 = self->_displayIdentity;
+      v15 = self->_displayIdentity;
       gesturesDisabledAssertions = self->_gesturesDisabledAssertions;
-      v15 = 138543618;
-      v16 = v13;
-      v17 = 2114;
-      v18 = gesturesDisabledAssertions;
-      v7 = "(Display - %{public}@) Not allowing system gestures due to assertions:%{public}@";
-      v8 = v5;
-      v9 = 22;
+      v17 = 138543618;
+      v18 = v15;
+      v19 = 2114;
+      v20 = gesturesDisabledAssertions;
+      v8 = "(Display - %{public}@) Not allowing system gestures due to assertions:%{public}@";
+      v9 = v6;
+      v10 = 22;
       goto LABEL_9;
     }
   }
@@ -1013,7 +1019,7 @@ LABEL_9:
     {
       gestureTypesAllowedWhileDisableAssertionsExist = self->_gestureTypesAllowedWhileDisableAssertionsExist;
       v7 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:type];
-      LOBYTE(gestureTypesAllowedWhileDisableAssertionsExist) = [(NSSet *)gestureTypesAllowedWhileDisableAssertionsExist containsObject:v7];
+      LOBYTE(gestureTypesAllowedWhileDisableAssertionsExist) = objc_msgSend_containsObject_(gestureTypesAllowedWhileDisableAssertionsExist);
 
       LOBYTE(v5) = gestureTypesAllowedWhileDisableAssertionsExist;
     }
@@ -1029,7 +1035,7 @@ LABEL_9:
 
 - (void)_enableSystemGesture:(id)gesture withType:(unint64_t)type
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   gestureCopy = gesture;
   typeToState = self->_typeToState;
   v8 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:type];
@@ -1038,23 +1044,23 @@ LABEL_9:
 
   if ((bOOLValue & 1) == 0)
   {
-    v11 = SBLogSystemGestureDetail();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+    v12 = SBLogSystemGestureDetail(v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
     {
       displayIdentity = self->_displayIdentity;
-      v19 = SBSystemGestureTypeDebugName(type);
-      v20 = 138412802;
-      v21 = displayIdentity;
-      v22 = 2114;
-      v23 = v19;
-      v24 = 2112;
-      v25 = gestureCopy;
-      _os_log_debug_impl(&dword_21ED4E000, v11, OS_LOG_TYPE_DEBUG, "(Display - %@) Enabling System Gesture Type: %{public}@ - %@", &v20, 0x20u);
+      v20 = SBSystemGestureTypeDebugName(type);
+      v21 = 138412802;
+      v22 = displayIdentity;
+      v23 = 2114;
+      v24 = v20;
+      v25 = 2112;
+      v26 = gestureCopy;
+      _os_log_debug_impl(&dword_21ED4E000, v12, OS_LOG_TYPE_DEBUG, "(Display - %@) Enabling System Gesture Type: %{public}@ - %@", &v21, 0x20u);
     }
 
-    v12 = self->_typeToState;
-    v13 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:type];
-    [(NSMutableDictionary *)v12 setObject:MEMORY[0x277CBEC38] forKey:v13];
+    v13 = self->_typeToState;
+    v14 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:type];
+    [(NSMutableDictionary *)v13 setObject:MEMORY[0x277CBEC38] forKey:v14];
 
     [gestureCopy addTarget:self action:sel__systemGestureChanged_];
     objc_opt_class();
@@ -1064,26 +1070,26 @@ LABEL_9:
     }
 
     allowedTouchTypes = [gestureCopy allowedTouchTypes];
-    v15 = [allowedTouchTypes count];
+    v16 = [allowedTouchTypes count];
 
-    if (v15)
+    if (v16)
     {
-      v16 = [(SBSystemGestureManager *)self _recognitionEventForTouchGestureType:type];
+      v17 = [(SBSystemGestureManager *)self _recognitionEventForTouchGestureType:type];
     }
 
     else
     {
-      v16 = 2;
+      v17 = 2;
     }
 
     systemGestureManager = [(SBSystemGestureManager *)self systemGestureManager];
-    [systemGestureManager addGestureRecognizer:gestureCopy recognitionEvent:v16 toDisplayWithIdentity:self->_displayIdentity];
+    [systemGestureManager addGestureRecognizer:gestureCopy recognitionEvent:v17 toDisplayWithIdentity:self->_displayIdentity];
   }
 }
 
 - (void)_disableSystemGesture:(id)gesture withType:(unint64_t)type
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   gestureCopy = gesture;
   typeToState = self->_typeToState;
   v8 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:type];
@@ -1092,18 +1098,18 @@ LABEL_9:
 
   if (bOOLValue)
   {
-    v11 = SBLogSystemGestureDetail();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+    v12 = SBLogSystemGestureDetail(v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
     {
       displayIdentity = self->_displayIdentity;
-      v16 = SBSystemGestureTypeDebugName(type);
-      v17 = 138412802;
-      v18 = displayIdentity;
-      v19 = 2114;
-      v20 = v16;
-      v21 = 2112;
-      v22 = gestureCopy;
-      _os_log_debug_impl(&dword_21ED4E000, v11, OS_LOG_TYPE_DEBUG, "(Display - %@) Disabling System Gesture Type: %{public}@ - %@", &v17, 0x20u);
+      v17 = SBSystemGestureTypeDebugName(type);
+      v18 = 138412802;
+      v19 = displayIdentity;
+      v20 = 2114;
+      v21 = v17;
+      v22 = 2112;
+      v23 = gestureCopy;
+      _os_log_debug_impl(&dword_21ED4E000, v12, OS_LOG_TYPE_DEBUG, "(Display - %@) Disabling System Gesture Type: %{public}@ - %@", &v18, 0x20u);
     }
 
     objc_opt_class();
@@ -1112,9 +1118,9 @@ LABEL_9:
       [(SBIndirectTouchLifecycleMonitor *)self->_indirectTouchLifecycleMonitor removeObserver:gestureCopy];
     }
 
-    v12 = self->_typeToState;
-    v13 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:type];
-    [(NSMutableDictionary *)v12 removeObjectForKey:v13];
+    v13 = self->_typeToState;
+    v14 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:type];
+    [(NSMutableDictionary *)v13 removeObjectForKey:v14];
 
     [gestureCopy removeTarget:self action:0];
     systemGestureManager = [(SBSystemGestureManager *)self systemGestureManager];
@@ -1125,19 +1131,19 @@ LABEL_9:
 
 - (void)_systemGestureChanged:(id)changed
 {
-  v22[2] = *MEMORY[0x277D85DE8];
+  v23[2] = *MEMORY[0x277D85DE8];
   changedCopy = changed;
-  if ([(NSMutableSet *)self->_touchGestures containsObject:changedCopy])
+  if (objc_msgSend_containsObject_(self->_touchGestures))
   {
     state = [changedCopy state];
     v6 = objc_getAssociatedObject(changedCopy, "_SBSystemGestureType");
     v7 = *MEMORY[0x277D67680];
-    v21[0] = *MEMORY[0x277D67688];
-    v21[1] = v7;
-    v22[0] = v6;
+    v22[0] = *MEMORY[0x277D67688];
+    v22[1] = v7;
+    v23[0] = v6;
     v8 = [MEMORY[0x277CCABB0] numberWithInteger:state];
-    v22[1] = v8;
-    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:v21 count:2];
+    v23[1] = v8;
+    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:v22 count:2];
     v10 = MEMORY[0x277D65DD0];
     v11 = v9;
     sharedInstance = [v10 sharedInstance];
@@ -1152,36 +1158,36 @@ LABEL_14:
         goto LABEL_15;
       }
 
-      v16 = SBLogSystemGestureDetail();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
+      v17 = SBLogSystemGestureDetail(v13);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
       {
         [SBSystemGestureManager _systemGestureChanged:];
       }
 
-      v17 = SBSystemGestureTypeDebugName([v6 unsignedIntegerValue]);
-      v18 = [v17 stringByReplacingOccurrencesOfString:@" " withString:&stru_283094718];
+      v18 = SBSystemGestureTypeDebugName([v6 unsignedIntegerValue]);
+      v19 = [v18 stringByReplacingOccurrencesOfString:@" " withString:&stru_283094718];
 
-      v14 = [v18 stringByAppendingString:@"-Dragging"];
+      v15 = [v19 stringByAppendingString:@"-Dragging"];
 
       processInfo = [MEMORY[0x277CCAC38] processInfo];
-      v20 = [processInfo beginActivityWithOptions:0x200000000000 reason:v14];
+      v21 = [processInfo beginActivityWithOptions:0x200000000000 reason:v15];
 
-      [(NSMapTable *)self->_recognizingTouchGestures setObject:v20 forKey:changedCopy];
+      [(NSMapTable *)self->_recognizingTouchGestures setObject:v21 forKey:changedCopy];
     }
 
     else
     {
-      v13 = SBLogSystemGestureDetail();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+      v14 = SBLogSystemGestureDetail(v13);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
       {
         [SBSystemGestureManager _systemGestureChanged:];
       }
 
-      v14 = [(NSMapTable *)self->_recognizingTouchGestures objectForKey:changedCopy];
-      if (v14 && state == 3)
+      v15 = [(NSMapTable *)self->_recognizingTouchGestures objectForKey:changedCopy];
+      if (v15 && state == 3)
       {
         processInfo2 = [MEMORY[0x277CCAC38] processInfo];
-        [processInfo2 endActivity:v14];
+        [processInfo2 endActivity:v15];
       }
 
       [(NSMapTable *)self->_recognizingTouchGestures removeObjectForKey:changedCopy];
@@ -1250,7 +1256,7 @@ uint64_t __97__SBSystemGestureManager_acquireSystemGestureDisableAssertionForRea
   for (i = 1; i != 145; ++i)
   {
     v10 = [MEMORY[0x277CCABB0] numberWithInteger:i];
-    if (([typesCopy containsObject:v10] & 1) == 0)
+    if ((objc_msgSend_containsObject_(typesCopy) & 1) == 0)
     {
       [v8 addObject:v10];
     }
@@ -1309,27 +1315,27 @@ void __58__SBSystemGestureManager_deviceHardwareButtonGestureTypes__block_invoke
     objc_initWeak(&location, self);
     v6 = MEMORY[0x277CF0BD0];
     v7 = [MEMORY[0x277CCACA8] stringWithFormat:@"ignoreHIDEdgeFlags(%@)", self];
-    v14[0] = MEMORY[0x277D85DD0];
-    v14[1] = 3221225472;
-    v14[2] = __79__SBSystemGestureManager_acquireSystemEdgeGesturesIgnoreHIDEdgeFlagsForReason___block_invoke;
-    v14[3] = &unk_2783AD688;
-    objc_copyWeak(&v15, &location);
-    v8 = [v6 assertionWithIdentifier:v7 stateDidChangeHandler:v14];
+    v15[0] = MEMORY[0x277D85DD0];
+    v15[1] = 3221225472;
+    v15[2] = __79__SBSystemGestureManager_acquireSystemEdgeGesturesIgnoreHIDEdgeFlagsForReason___block_invoke;
+    v15[3] = &unk_2783AD688;
+    objc_copyWeak(&v16, &location);
+    v8 = [v6 assertionWithIdentifier:v7 stateDidChangeHandler:v15];
     v9 = self->_ignoreHIDEdgeFlagsAssertion;
     self->_ignoreHIDEdgeFlagsAssertion = v8;
 
     v10 = self->_ignoreHIDEdgeFlagsAssertion;
-    v11 = SBLogSystemGesture();
-    [(BSCompoundAssertion *)v10 setLog:v11];
+    v12 = SBLogSystemGesture(v11);
+    [(BSCompoundAssertion *)v10 setLog:v12];
 
-    objc_destroyWeak(&v15);
+    objc_destroyWeak(&v16);
     objc_destroyWeak(&location);
     ignoreHIDEdgeFlagsAssertion = self->_ignoreHIDEdgeFlagsAssertion;
   }
 
-  v12 = [(BSCompoundAssertion *)ignoreHIDEdgeFlagsAssertion acquireForReason:reasonCopy];
+  v13 = [(BSCompoundAssertion *)ignoreHIDEdgeFlagsAssertion acquireForReason:reasonCopy];
 
-  return v12;
+  return v13;
 }
 
 void __79__SBSystemGestureManager_acquireSystemEdgeGesturesIgnoreHIDEdgeFlagsForReason___block_invoke(uint64_t a1)

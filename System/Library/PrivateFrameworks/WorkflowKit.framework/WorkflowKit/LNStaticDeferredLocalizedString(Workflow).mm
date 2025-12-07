@@ -28,7 +28,7 @@
 
 - (id)initWithSerializedRepresentation:()Workflow variableProvider:parameter:
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   v4 = a3;
   v5 = objc_opt_class();
   v6 = v4;
@@ -44,16 +44,16 @@ LABEL_10:
     v9 = getWFGeneralLogObject();
     if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
     {
-      v16 = 136315906;
-      v17 = "WFEnforceClass";
-      v18 = 2114;
-      v19 = v6;
-      v20 = 2114;
-      v21 = objc_opt_class();
-      v22 = 2114;
-      v23 = v5;
-      v10 = v21;
-      _os_log_impl(&dword_1CA256000, v9, OS_LOG_TYPE_FAULT, "%s Warning: %{public}@ is of type %{public}@, not %{public}@! Falling back to nil.", &v16, 0x2Au);
+      v15 = 136315906;
+      v16 = "WFEnforceClass";
+      v17 = 2114;
+      v18 = v6;
+      v19 = 2114;
+      v20 = objc_opt_class();
+      v21 = 2114;
+      v22 = v5;
+      v10 = v20;
+      _os_log_impl(&dword_1CA256000, v9, OS_LOG_TYPE_FAULT, "%s Warning: %{public}@ is of type %{public}@, not %{public}@! Falling back to nil.", &v15, 0x2Au);
     }
 
     goto LABEL_10;
@@ -87,7 +87,6 @@ LABEL_10:
   selfCopy = self;
 LABEL_13:
 
-  v14 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 

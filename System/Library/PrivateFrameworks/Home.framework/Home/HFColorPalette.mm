@@ -70,44 +70,42 @@ id __35__HFColorPalette__defaultRGBColors__block_invoke(uint64_t a1)
 
 void __35__HFColorPalette__defaultRGBColors__block_invoke_2(uint64_t a1)
 {
-  v31[6] = *MEMORY[0x277D85DE8];
+  v30[6] = *MEMORY[0x277D85DE8];
   v2 = [HFColorPaletteColor alloc];
   LODWORD(v3) = 1061966242;
   LODWORD(v4) = 1062994089;
   LODWORD(v5) = 1.0;
   v6 = [(HFColorPaletteColor *)v2 initWithRed:v3 green:v4 blue:v5];
-  v31[0] = v6;
+  v30[0] = v6;
   v7 = [HFColorPaletteColor alloc];
   LODWORD(v8) = 1064668145;
   LODWORD(v9) = 1064514355;
   LODWORD(v10) = 1.0;
   v11 = [(HFColorPaletteColor *)v7 initWithRed:v8 green:v9 blue:v10];
-  v31[1] = v11;
+  v30[1] = v11;
   v12 = [*(a1 + 32) warmWhiteColor];
-  v31[2] = v12;
+  v30[2] = v12;
   v13 = [HFColorPaletteColor alloc];
   LODWORD(v14) = 1061300772;
   LODWORD(v15) = 1057278939;
   LODWORD(v16) = 1.0;
   v17 = [(HFColorPaletteColor *)v13 initWithRed:v16 green:v14 blue:v15];
-  v31[3] = v17;
+  v30[3] = v17;
   v18 = [HFColorPaletteColor alloc];
   LODWORD(v19) = 1059695018;
   LODWORD(v20) = 1051372202;
   LODWORD(v21) = 1.0;
   v22 = [(HFColorPaletteColor *)v18 initWithRed:v21 green:v19 blue:v20];
-  v31[4] = v22;
+  v30[4] = v22;
   v23 = [HFColorPaletteColor alloc];
   LODWORD(v24) = 1056629064;
   LODWORD(v25) = 1050924810;
   LODWORD(v26) = 1.0;
   v27 = [(HFColorPaletteColor *)v23 initWithRed:v24 green:v25 blue:v26];
-  v31[5] = v27;
-  v28 = [MEMORY[0x277CBEA60] arrayWithObjects:v31 count:6];
+  v30[5] = v27;
+  v28 = [MEMORY[0x277CBEA60] arrayWithObjects:v30 count:6];
   v29 = qword_280E03790;
   qword_280E03790 = v28;
-
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 + (id)_defaultTemperatureColors
@@ -342,7 +340,7 @@ id __42__HFColorPalette_serializedRepresentation__block_invoke(uint64_t a1, void
 
 - (HFColorPalette)initWithDawnColorPickerFavorites:(id)favorites type:(unint64_t)type
 {
-  v75 = *MEMORY[0x277D85DE8];
+  v74 = *MEMORY[0x277D85DE8];
   favoritesCopy = favorites;
   if (favoritesCopy && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
   {
@@ -350,7 +348,7 @@ id __42__HFColorPalette_serializedRepresentation__block_invoke(uint64_t a1, void
     if (os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v74 = favoritesCopy;
+      v73 = favoritesCopy;
       _os_log_error_impl(&dword_20D9BF000, v45, OS_LOG_TYPE_ERROR, "Invalid color picker favorites %@", buf, 0xCu);
     }
 
@@ -360,7 +358,7 @@ id __42__HFColorPalette_serializedRepresentation__block_invoke(uint64_t a1, void
   else
   {
     selfCopy = self;
-    v56 = [objc_opt_class() _defaultColorsOfType:type];
+    v55 = [objc_opt_class() _defaultColorsOfType:type];
     array = [MEMORY[0x277CBEB18] array];
     typeCopy = type;
     v8 = 0x277DEF000uLL;
@@ -370,29 +368,29 @@ id __42__HFColorPalette_serializedRepresentation__block_invoke(uint64_t a1, void
       [array addObject:initWithNaturalLightColor];
     }
 
-    v69 = 0u;
-    v70 = 0u;
-    v67 = 0u;
     v68 = 0u;
-    v58 = favoritesCopy;
+    v69 = 0u;
+    v66 = 0u;
+    v67 = 0u;
+    v57 = favoritesCopy;
     v10 = favoritesCopy;
-    v11 = [v10 countByEnumeratingWithState:&v67 objects:v72 count:16];
+    v11 = [v10 countByEnumeratingWithState:&v66 objects:v71 count:16];
     if (v11)
     {
       v12 = v11;
       v13 = typeCopy & 0xFFFFFFFFFFFFFFFDLL;
-      v62 = *v68;
-      v60 = v10;
+      v61 = *v67;
+      v59 = v10;
 LABEL_7:
       v14 = 0;
       while (1)
       {
-        if (*v68 != v62)
+        if (*v67 != v61)
         {
           objc_enumerationMutation(v10);
         }
 
-        v15 = *(*(&v67 + 1) + 8 * v14);
+        v15 = *(*(&v66 + 1) + 8 * v14);
         if ([array count] > 5)
         {
           goto LABEL_30;
@@ -418,7 +416,7 @@ LABEL_7:
             v21 = 1;
           }
 
-          v61 = v20;
+          v60 = v20;
           if (v21)
           {
             v18 = 0;
@@ -465,7 +463,7 @@ LABEL_7:
 
           v8 = 0x277DEF000;
           v13 = typeCopy & 0xFFFFFFFFFFFFFFFDLL;
-          v10 = v60;
+          v10 = v59;
           goto LABEL_27;
         }
 
@@ -473,7 +471,7 @@ LABEL_28:
 
         if (v12 == ++v14)
         {
-          v12 = [v10 countByEnumeratingWithState:&v67 objects:v72 count:16];
+          v12 = [v10 countByEnumeratingWithState:&v66 objects:v71 count:16];
           if (v12)
           {
             goto LABEL_7;
@@ -495,26 +493,26 @@ LABEL_27:
 
 LABEL_30:
 
-    v45 = v56;
+    v45 = v55;
     if ([array count] <= 5)
     {
       v46 = [array count];
+      v62 = 0u;
       v63 = 0u;
       v64 = 0u;
       v65 = 0u;
-      v66 = 0u;
-      v47 = v56;
-      v48 = [v47 countByEnumeratingWithState:&v63 objects:v71 count:16];
+      v47 = v55;
+      v48 = [v47 countByEnumeratingWithState:&v62 objects:v70 count:16];
       if (v48)
       {
         v49 = v48;
         v50 = 6 - v46;
-        v51 = *v64;
+        v51 = *v63;
 LABEL_33:
         v52 = 0;
         while (1)
         {
-          if (*v64 != v51)
+          if (*v63 != v51)
           {
             objc_enumerationMutation(v47);
           }
@@ -524,10 +522,10 @@ LABEL_33:
             break;
           }
 
-          [array addObject:*(*(&v63 + 1) + 8 * v52++)];
+          [array addObject:*(*(&v62 + 1) + 8 * v52++)];
           if (v49 == v52)
           {
-            v49 = [v47 countByEnumeratingWithState:&v63 objects:v71 count:16];
+            v49 = [v47 countByEnumeratingWithState:&v62 objects:v70 count:16];
             v50 -= v52;
             if (v49)
             {
@@ -543,10 +541,9 @@ LABEL_33:
     self = [(HFColorPalette *)selfCopy initWithColors:array type:typeCopy];
 
     selfCopy2 = self;
-    favoritesCopy = v58;
+    favoritesCopy = v57;
   }
 
-  v54 = *MEMORY[0x277D85DE8];
   return selfCopy2;
 }
 

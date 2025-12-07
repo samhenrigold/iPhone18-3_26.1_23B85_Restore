@@ -399,7 +399,7 @@ uint64_t __60__WGWidgetDataSourceManager__beginContinuousPlugInDiscovery__block_
   v3 = a1;
   v4 = [a2 valueForKey:@"wg_description"];
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_27425E000, v5, v6, "Extensions to update: %{public}@", v7, v8, v9, v10, v11);
+  OUTLINED_FUNCTION_1(&dword_27425E000, v5, v6, "Extensions to update: %{public}@", v7, v8, v9, v10);
 }
 
 void __61__WGWidgetDataSourceManager__updatePublishedWidgetExtensions__block_invoke_cold_1()
@@ -421,7 +421,7 @@ void __60__WGWidgetDataSourceManager__beginContinuousPlugInDiscovery__block_invo
   v3 = a1;
   v4 = [a2 valueForKey:@"wg_description"];
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_27425E000, v5, v6, "Discovered widget plug-ins: %{public}@", v7, v8, v9, v10, v11);
+  OUTLINED_FUNCTION_1(&dword_27425E000, v5, v6, "Discovered widget plug-ins: %{public}@", v7, v8, v9, v10);
 }
 
 @end

@@ -113,7 +113,7 @@
     {
       *buf = 0;
       _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_INFO, "Not fetching remote configuration because a request is already in progress", buf, 2u);
-      _MBLog();
+      _MBLog(@"I ", "Not fetching remote configuration because a request is already in progress");
     }
 
     v17[2](v17, 0);
@@ -126,14 +126,14 @@
     {
       v20 = objc_opt_new();
       operator = [(MBRemoteConfiguration *)self operator];
-      v33[0] = _NSConcreteStackBlock;
-      v33[1] = 3221225472;
-      v33[2] = sub_1001763A0;
-      v33[3] = &unk_1003C01C8;
-      v34 = account;
+      v34[0] = _NSConcreteStackBlock;
+      v34[1] = 3221225472;
+      v34[2] = sub_1001763A0;
+      v34[3] = &unk_1003C01C8;
+      v35 = account;
       selfCopy = self;
-      v36 = v17;
-      v22 = [operator operationForRequest:v20 callback:v33];
+      v37 = v17;
+      v22 = [operator operationForRequest:v20 callback:v34];
 
       v23 = MBGetDefaultLog();
       if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
@@ -144,19 +144,21 @@
         v25 = v32 = v20;
         name = [groupCopy name];
         *buf = 138543874;
-        v38 = v24;
-        v39 = 2114;
-        v40 = v25;
-        v41 = 2114;
-        v42 = name;
+        v39 = v24;
+        v40 = 2114;
+        v41 = v25;
+        v42 = 2114;
+        v43 = name;
         _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_INFO, "Fetching remote configuration id:%{public}@, gid:%{public}@ gn:%{public}@", buf, 0x20u);
 
         v22 = v31;
         operationID = [v31 operationID];
         operationGroupID = [groupCopy operationGroupID];
-        name2 = [groupCopy name];
-        _MBLog();
+        [groupCopy name];
+        v29 = v33 = account;
+        _MBLog(@"I ", "Fetching remote configuration id:%{public}@, gid:%{public}@ gn:%{public}@", operationID, operationGroupID, v29);
 
+        account = v33;
         v20 = v32;
       }
 
@@ -165,12 +167,12 @@
 
     else
     {
-      v29 = MBGetDefaultLog();
-      if (os_log_type_enabled(v29, OS_LOG_TYPE_INFO))
+      v30 = MBGetDefaultLog();
+      if (os_log_type_enabled(v30, OS_LOG_TYPE_INFO))
       {
         *buf = 0;
-        _os_log_impl(&_mh_execute_header, v29, OS_LOG_TYPE_INFO, "Not fetching remote configuration because it hasn't expired yet", buf, 2u);
-        _MBLog();
+        _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_INFO, "Not fetching remote configuration because it hasn't expired yet", buf, 2u);
+        _MBLog(@"I ", "Not fetching remote configuration because it hasn't expired yet");
       }
 
       atomic_store(0, &self->_operationInProgress);
@@ -241,7 +243,7 @@
     *buf = 138412290;
     v33 = v9;
     _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "Merged remote configuration: %@", buf, 0xCu);
-    _MBLog();
+    _MBLog(@"Df", "Merged remote configuration: %@", v9);
   }
 
   objc_storeStrong(&self->_configuration, v9);
@@ -266,7 +268,7 @@
   {
     *v8 = 0;
     _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Resetting remote configuration", v8, 2u);
-    _MBLog();
+    _MBLog(@"Df", "Resetting remote configuration");
   }
 
   configuration = self->_configuration;
@@ -300,10 +302,9 @@
       if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138543362;
-        v15 = keyCopy;
+        v14 = keyCopy;
         _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Duplicate value for persisted remote configuration setting '%{public}@' -- arbitrarily picking one of the values", buf, 0xCu);
-        v13 = keyCopy;
-        _MBLog();
+        _MBLog(@"Df", "Duplicate value for persisted remote configuration setting '%{public}@' -- arbitrarily picking one of the values", keyCopy);
       }
     }
 
@@ -376,10 +377,9 @@
       if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138543362;
-        v17 = keyCopy;
+        v16 = keyCopy;
         _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Duplicate value for remote configuration setting '%{public}@' -- arbitrarily picking one of the values", buf, 0xCu);
-        v15 = keyCopy;
-        _MBLog();
+        _MBLog(@"Df", "Duplicate value for remote configuration setting '%{public}@' -- arbitrarily picking one of the values", keyCopy);
       }
     }
 
@@ -401,11 +401,11 @@
       if (os_log_type_enabled(v13, OS_LOG_TYPE_FAULT))
       {
         *buf = 138543618;
-        v17 = keyCopy;
-        v18 = 2114;
-        v19 = firstObject;
+        v16 = keyCopy;
+        v17 = 2114;
+        v18 = firstObject;
         _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_FAULT, "Unexpected first value for %{public}@: %{public}@ (remote configuration)", buf, 0x16u);
-        _MBLog();
+        _MBLog(@"F ", "Unexpected first value for %{public}@: %{public}@ (remote configuration)", keyCopy, firstObject);
       }
     }
   }
@@ -421,11 +421,11 @@
     if (os_log_type_enabled(firstObject, OS_LOG_TYPE_FAULT))
     {
       *buf = 138543618;
-      v17 = keyCopy;
-      v18 = 2114;
-      v19 = v11;
+      v16 = keyCopy;
+      v17 = 2114;
+      v18 = v11;
       _os_log_impl(&_mh_execute_header, firstObject, OS_LOG_TYPE_FAULT, "Unexpected value for %{public}@: %{public}@ (remote configuration)", buf, 0x16u);
-      _MBLog();
+      _MBLog(@"F ", "Unexpected value for %{public}@: %{public}@ (remote configuration)", keyCopy, v11);
     }
   }
 
@@ -455,7 +455,7 @@ LABEL_25:
     {
       *v15 = 0;
       _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEBUG, "Remote configuration hasn't been loaded -- using default", v15, 2u);
-      _MBLog();
+      _MBLog(@"Db", "Remote configuration hasn't been loaded -- using default");
     }
   }
 
@@ -504,7 +504,7 @@ LABEL_25:
       v10 = 2112;
       v11 = v4;
       _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_ERROR, "Unknown %@ server value %@", buf, 0x16u);
-      _MBLog();
+      _MBLog(@"E ", "Unknown %@ server value %@", @"BackupRecordModelSelection", v4);
     }
 
 LABEL_11:
@@ -543,7 +543,7 @@ LABEL_12:
       v10 = 2112;
       v11 = v4;
       _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_ERROR, "Unknown %@ server value %@", buf, 0x16u);
-      _MBLog();
+      _MBLog(@"E ", "Unknown %@ server value %@", @"RestoreRecordModelSelection", v4);
     }
 
 LABEL_9:
@@ -587,8 +587,7 @@ LABEL_10:
       *buf = 134217984;
       valueCopy2 = value;
       _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_INFO, "Using server provided keybag validation period %.2f", buf, 0xCu);
-LABEL_6:
-      _MBLog();
+      _MBLog(@"I ", "Using server provided keybag validation period %.2f");
     }
   }
 
@@ -600,7 +599,7 @@ LABEL_6:
       *buf = 134217984;
       valueCopy2 = value;
       _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_INFO, "Using default keybag validation period of %.2f", buf, 0xCu);
-      goto LABEL_6;
+      _MBLog(@"I ", "Using default keybag validation period of %.2f");
     }
   }
 

@@ -3,7 +3,6 @@
 - (STStorageCacheDelete)init;
 - (id)cacheDeleteDict;
 - (int64_t)totalPurgeable;
-- (uint64_t)refreshPurgeableSpace;
 - (void)dealloc;
 - (void)refreshPurgeableSpace;
 - (void)startMonitor;
@@ -102,87 +101,9 @@ void __28__STStorageCacheDelete_init__block_invoke_3()
 
 - (void)refreshPurgeableSpace
 {
-  v21 = 0;
-  v22 = &v21;
-  v23 = 0x2020000000;
-  v3 = getCacheDeleteCopyPurgeableSpaceWithInfoSymbolLoc_ptr;
-  v24 = getCacheDeleteCopyPurgeableSpaceWithInfoSymbolLoc_ptr;
-  if (!getCacheDeleteCopyPurgeableSpaceWithInfoSymbolLoc_ptr)
-  {
-    v4 = CacheDeleteLibrary();
-    v22[3] = dlsym(v4, "CacheDeleteCopyPurgeableSpaceWithInfo");
-    getCacheDeleteCopyPurgeableSpaceWithInfoSymbolLoc_ptr = v22[3];
-    v3 = v22[3];
-  }
-
-  _Block_object_dispose(&v21, 8);
-  if (!v3)
-  {
-    [STStorageCacheDelete refreshPurgeableSpace];
-    goto LABEL_15;
-  }
-
-  v5 = v3(&unk_287C8E8A8);
-  v6 = v5;
-  v7 = MEMORY[0x277CBEC10];
-  if (v5)
-  {
-    v8 = v5;
-  }
-
-  else
-  {
-    v8 = MEMORY[0x277CBEC10];
-  }
-
-  v9 = v8;
-
-  v10 = [v9 objectForKey:@"CACHE_DELETE_TOTAL_PURGEABLE"];
-  v11 = [v10 objectForKey:@"/private/var"];
-  v21 = 0;
-  v22 = &v21;
-  v23 = 0x2020000000;
-  v12 = getCacheDeleteCopyItemizedPurgeableSpaceWithInfoSymbolLoc_ptr;
-  v24 = getCacheDeleteCopyItemizedPurgeableSpaceWithInfoSymbolLoc_ptr;
-  if (!getCacheDeleteCopyItemizedPurgeableSpaceWithInfoSymbolLoc_ptr)
-  {
-    v13 = CacheDeleteLibrary();
-    v22[3] = dlsym(v13, "CacheDeleteCopyItemizedPurgeableSpaceWithInfo");
-    getCacheDeleteCopyItemizedPurgeableSpaceWithInfoSymbolLoc_ptr = v22[3];
-    v12 = v22[3];
-  }
-
-  _Block_object_dispose(&v21, 8);
-  if (!v12)
-  {
-LABEL_15:
-    refreshPurgeableSpace = [STStorageCacheDelete refreshPurgeableSpace];
-    _Block_object_dispose(&v21, 8);
-    _Unwind_Resume(refreshPurgeableSpace);
-  }
-
-  v14 = v12(&unk_287C8E8D0);
-  v15 = v14;
-  if (v14)
-  {
-    v16 = v14;
-  }
-
-  else
-  {
-    v16 = v7;
-  }
-
-  v17 = v16;
-
-  os_unfair_lock_lock(&self->_updateLock);
-  longLongValue = [v11 longLongValue];
-  itemsDict = self->_itemsDict;
-  self->_totalPurgeable = longLongValue;
-  self->_itemsDict = v17;
-
-  os_unfair_lock_unlock(&self->_updateLock);
-  self->_inited = 1;
+  v0 = dlerror();
+  abort_report_np("%s", v0);
+  +[STStorageMediaMonitor sharedMonitor];
 }
 
 - (id)cacheDeleteDict
@@ -210,13 +131,6 @@ LABEL_15:
   totalPurgeable = self->_totalPurgeable;
   os_unfair_lock_unlock(&self->_updateLock);
   return totalPurgeable;
-}
-
-- (uint64_t)refreshPurgeableSpace
-{
-  dlerror();
-  v0 = abort_report_np();
-  return +[(STStorageMediaMonitor *)v0];
 }
 
 @end

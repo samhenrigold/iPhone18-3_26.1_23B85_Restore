@@ -36,7 +36,6 @@
 
 - (void)encodeWithXPCDictionary:(id)dictionary
 {
-  text = self->_text;
   xdict = dictionary;
   BSSerializeStringToXPCDictionaryWithKey();
   xpc_dictionary_set_BOOL(xdict, "_allowsResponse", self->_allowsResponse);

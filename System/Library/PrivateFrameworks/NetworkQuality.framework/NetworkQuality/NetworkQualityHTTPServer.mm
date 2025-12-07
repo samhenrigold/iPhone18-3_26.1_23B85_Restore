@@ -1,9 +1,11 @@
 @interface NetworkQualityHTTPServer
 - (NetworkQualityHTTPServer)initWithConfiguration:(id)configuration;
 - (NetworkQualityHTTPServer)initWithLaunchd;
+- (NetworkQualityHTTPServer)initWithPort:(unsigned int)port enableHTTP3:(BOOL)p3;
 - (NetworkQualityHTTPServer)initWithPort:(unsigned int)port tlsEnabled:(BOOL)enabled httpVersion:(int)version bonjourEnabled:(BOOL)bonjourEnabled;
 - (id)HTTP2ParametersForServer;
 - (id)HTTP3ParametersForServer;
+- (id)configForConnection:(id)connection mirrorIP:(BOOL)p;
 - (id)urlForType:(id)type withAddress:(id)address mirrorIP:(BOOL)p;
 - (id)urlFormatAddress:(id)address;
 - (void)receiveLoop:(id)loop;
@@ -25,53 +27,69 @@
   return result;
 }
 
+- (NetworkQualityHTTPServer)initWithPort:(unsigned int)port enableHTTP3:(BOOL)p3
+{
+  if (p3)
+  {
+    v4 = 5;
+  }
+
+  else
+  {
+    v4 = 4;
+  }
+
+  return [(NetworkQualityHTTPServer *)self initWithPort:*&port tlsEnabled:1 httpVersion:v4 bonjourEnabled:1];
+}
+
 - (NetworkQualityHTTPServer)initWithPort:(unsigned int)port tlsEnabled:(BOOL)enabled httpVersion:(int)version bonjourEnabled:(BOOL)bonjourEnabled
 {
-  v20.receiver = self;
-  v20.super_class = NetworkQualityHTTPServer;
-  v10 = [(NetworkQualityHTTPServer *)&v20 init];
+  v22.receiver = self;
+  v22.super_class = NetworkQualityHTTPServer;
+  v10 = [(NetworkQualityHTTPServer *)&v22 init];
   if (!v10)
   {
     goto LABEL_7;
   }
 
   v11 = +[NetworkQualityServerConfiguration defaultIdleTimeout];
-  v10->port = port;
-  v10->idleTimeoutSeconds = v11;
-  v10->hasStarted = 0;
-  v10->tlsEnabled = enabled;
-  v10->bonjourEnabled = bonjourEnabled;
-  v10->httpVersion = version;
-  v10->l4sEnabled = 0;
+  *(v10 + 2) = port;
+  *(v10 + 3) = v11;
+  *(v10 + 20) = 0;
+  *(v10 + 21) = enabled;
+  *(v10 + 22) = bonjourEnabled;
+  *(v10 + 7) = version;
+  *(v10 + 25) = 0;
   v12 = dispatch_data_create("X", 1uLL, 0, 0);
-  small_response_data = v10->small_response_data;
-  v10->small_response_data = v12;
+  v13 = *(v10 + 5);
+  *(v10 + 5) = v12;
 
   v14 = malloc_type_malloc(0x100000uLL, 0xA6DFF529uLL);
   memset(v14, 88, 0x100000uLL);
   v15 = dispatch_data_create(v14, 0x100000uLL, 0, *MEMORY[0x277D85CB0]);
-  large_response_data = v10->large_response_data;
-  v10->large_response_data = v15;
+  v16 = *(v10 + 6);
+  *(v10 + 6) = v15;
 
-  v19 = 0;
-  if (!CreateSelfSignedIdentity(@"networkquality", &v10->sec_identity, &v19))
+  v21 = 0;
+  v17 = CreateSelfSignedIdentity(@"networkquality", v10 + 8, &v21);
+  if (!v17)
   {
 
 LABEL_7:
-    v17 = v10;
+    v19 = v10;
     goto LABEL_8;
   }
 
-  netqual_log_init();
+  netqual_log_init(v17, v18);
   if (os_log_type_enabled(os_log_netqual, OS_LOG_TYPE_ERROR))
   {
     [NetworkQualityHTTPServer initWithPort:tlsEnabled:httpVersion:bonjourEnabled:];
   }
 
-  v17 = 0;
+  v19 = 0;
 LABEL_8:
 
-  return v17;
+  return v19;
 }
 
 - (NetworkQualityHTTPServer)initWithConfiguration:(id)configuration
@@ -125,33 +143,32 @@ LABEL_8:
 
 - (id)HTTP2ParametersForServer
 {
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = 3221225472;
-  v13[2] = __52__NetworkQualityHTTPServer_HTTP2ParametersForServer__block_invoke;
-  v13[3] = &unk_279969728;
-  v13[4] = self;
-  v3 = MEMORY[0x25F873620](v13, a2);
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __52__NetworkQualityHTTPServer_HTTP2ParametersForServer__block_invoke;
+  v12[3] = &unk_279969728;
+  v12[4] = self;
+  v3 = MEMORY[0x25F873620](v12, a2);
   v4 = MEMORY[0x25F873620](*MEMORY[0x277CD9238]);
   if (self->tlsEnabled)
   {
-    v11[0] = MEMORY[0x277D85DD0];
-    v11[1] = 3221225472;
-    v11[2] = __52__NetworkQualityHTTPServer_HTTP2ParametersForServer__block_invoke_2;
-    v11[3] = &unk_279969750;
-    v12 = v3;
-    v5 = MEMORY[0x25F873620](v11);
+    v10[0] = MEMORY[0x277D85DD0];
+    v10[1] = 3221225472;
+    v10[2] = __52__NetworkQualityHTTPServer_HTTP2ParametersForServer__block_invoke_2;
+    v10[3] = &unk_279969750;
+    v11 = v3;
+    v5 = MEMORY[0x25F873620](v10);
 
     v4 = v5;
   }
 
   options = nw_http_messaging_create_options();
-  idleTimeoutSeconds = self->idleTimeoutSeconds;
   nw_http2_set_idle_timeout();
   MEMORY[0x25F873400](options, self->l4sEnabled);
   secure_tcp = nw_parameters_create_secure_tcp(v4, *MEMORY[0x277CD9230]);
   [(NetworkQualityHTTPServer *)self setCommmonParameters:secure_tcp];
-  v9 = nw_parameters_copy_default_protocol_stack(secure_tcp);
-  nw_protocol_stack_prepend_application_protocol(v9, options);
+  v8 = nw_parameters_copy_default_protocol_stack(secure_tcp);
+  nw_protocol_stack_prepend_application_protocol(v8, options);
   nw_parameters_set_prohibit_joining_protocols();
   nw_parameters_set_attach_protocol_listener();
 
@@ -186,25 +203,22 @@ void __52__NetworkQualityHTTPServer_HTTP2ParametersForServer__block_invoke_2(uin
 
 - (id)HTTP3ParametersForServer
 {
-  v14[0] = MEMORY[0x277D85DD0];
-  v14[1] = 3221225472;
-  v14[2] = __52__NetworkQualityHTTPServer_HTTP3ParametersForServer__block_invoke;
-  v14[3] = &unk_279969728;
-  v14[4] = self;
-  v3 = MEMORY[0x25F873620](v14, a2);
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = __52__NetworkQualityHTTPServer_HTTP3ParametersForServer__block_invoke;
+  v11[3] = &unk_279969728;
+  v11[4] = self;
+  v3 = MEMORY[0x25F873620](v11, a2);
   options = nw_http_messaging_create_options();
-  idleTimeoutSeconds = self->idleTimeoutSeconds;
   nw_http3_set_idle_timeout();
-  l4sEnabled = self->l4sEnabled;
   nw_quic_connection_set_enable_l4s();
-  v7 = *MEMORY[0x277CD9230];
-  v12 = MEMORY[0x277D85DD0];
-  v13 = v3;
-  v8 = v3;
+  v9 = MEMORY[0x277D85DD0];
+  v10 = v3;
+  v5 = v3;
   quic_stream = nw_parameters_create_quic_stream();
-  [(NetworkQualityHTTPServer *)self setCommmonParameters:quic_stream, v12, 3221225472, __52__NetworkQualityHTTPServer_HTTP3ParametersForServer__block_invoke_2, &unk_279969750];
-  v10 = nw_parameters_copy_default_protocol_stack(quic_stream);
-  nw_protocol_stack_prepend_application_protocol(v10, options);
+  [(NetworkQualityHTTPServer *)self setCommmonParameters:quic_stream, v9, 3221225472, __52__NetworkQualityHTTPServer_HTTP3ParametersForServer__block_invoke_2, &unk_279969750];
+  v7 = nw_parameters_copy_default_protocol_stack(quic_stream);
+  nw_protocol_stack_prepend_application_protocol(v7, options);
   nw_parameters_set_prohibit_joining_protocols();
   nw_parameters_set_attach_protocol_listener();
 
@@ -231,15 +245,15 @@ void __52__NetworkQualityHTTPServer_HTTP3ParametersForServer__block_invoke(uint6
   sec_protocol_options_append_tls_ciphersuite_group(options, tls_ciphersuite_group_default);
 }
 
-void __52__NetworkQualityHTTPServer_HTTP3ParametersForServer__block_invoke_2(uint64_t a1)
+void __52__NetworkQualityHTTPServer_HTTP3ParametersForServer__block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v2 = nw_quic_connection_copy_sec_protocol_options();
+  v3 = nw_quic_connection_copy_sec_protocol_options();
   (*(*(a1 + 32) + 16))();
 }
 
 - (void)start:(id)start
 {
-  v54[1] = *MEMORY[0x277D85DE8];
+  v61[1] = *MEMORY[0x277D85DE8];
   startCopy = start;
   v5 = dispatch_queue_create("networkQuality", MEMORY[0x277D85CD8]);
   queue = self->queue;
@@ -282,105 +296,106 @@ LABEL_10:
 
   if (self->listener)
   {
-    v13 = dispatch_group_create();
+    v15 = dispatch_group_create();
     if (self->bonjourEnabled)
     {
       bonjour_service = nw_advertise_descriptor_create_bonjour_service(0, "_nq._tcp", "local");
       nw_listener_set_advertise_descriptor(self->listener, bonjour_service);
-      dispatch_group_enter(v13);
-      v15 = self->listener;
+      dispatch_group_enter(v15);
+      v17 = self->listener;
       handler[0] = MEMORY[0x277D85DD0];
       handler[1] = 3221225472;
       handler[2] = __34__NetworkQualityHTTPServer_start___block_invoke;
       handler[3] = &unk_279969778;
       handler[4] = self;
-      v44 = v13;
-      nw_listener_set_advertised_endpoint_changed_handler(v15, handler);
+      v51 = v15;
+      nw_listener_set_advertised_endpoint_changed_handler(v17, handler);
     }
 
-    v16 = self->listener;
-    v42[0] = MEMORY[0x277D85DD0];
-    v42[1] = 3221225472;
-    v42[2] = __34__NetworkQualityHTTPServer_start___block_invoke_20;
-    v42[3] = &unk_2799697C8;
-    v42[4] = self;
-    nw_listener_set_new_connection_handler(v16, v42);
-    dispatch_group_enter(v13);
-    v17 = self->listener;
-    v40[0] = MEMORY[0x277D85DD0];
-    v40[1] = 3221225472;
-    v40[2] = __34__NetworkQualityHTTPServer_start___block_invoke_3;
-    v40[3] = &unk_2799697A0;
-    v18 = v13;
-    v41 = v18;
-    nw_listener_set_state_changed_handler(v17, v40);
+    v18 = self->listener;
+    v49[0] = MEMORY[0x277D85DD0];
+    v49[1] = 3221225472;
+    v49[2] = __34__NetworkQualityHTTPServer_start___block_invoke_20;
+    v49[3] = &unk_2799697C8;
+    v49[4] = self;
+    nw_listener_set_new_connection_handler(v18, v49);
+    dispatch_group_enter(v15);
+    v19 = self->listener;
+    v47[0] = MEMORY[0x277D85DD0];
+    v47[1] = 3221225472;
+    v47[2] = __34__NetworkQualityHTTPServer_start___block_invoke_3;
+    v47[3] = &unk_2799697A0;
+    v20 = v15;
+    v48 = v20;
+    nw_listener_set_state_changed_handler(v19, v47);
     nw_listener_set_queue(self->listener, self->queue);
     nw_listener_start(self->listener);
     if (!self->launchdInvoked)
     {
-      dispatch_group_wait(v18, 0xFFFFFFFFFFFFFFFFLL);
+      dispatch_group_wait(v20, 0xFFFFFFFFFFFFFFFFLL);
     }
 
     p_name = &self->name;
     name = self->name;
     self->name = @"localhost";
 
-    netqual_log_init();
-    v21 = os_log_netqual;
+    netqual_log_init(v23, v24);
+    v25 = os_log_netqual;
     if (os_log_type_enabled(os_log_netqual, OS_LOG_TYPE_INFO))
     {
-      v22 = self->name;
+      v26 = self->name;
       bonjourEnabled = self->bonjourEnabled;
       *buf = 136315906;
-      v46 = "[NetworkQualityHTTPServer start:]";
-      v47 = 1024;
-      v48 = 276;
-      v49 = 2112;
-      v50 = v22;
-      v51 = 1024;
-      v52 = bonjourEnabled;
-      _os_log_impl(&dword_25B962000, v21, OS_LOG_TYPE_INFO, "%s:%u - Default servername=%@ bonjourEnabled=%d", buf, 0x22u);
+      v53 = "[NetworkQualityHTTPServer start:]";
+      v54 = 1024;
+      v55 = 276;
+      v56 = 2112;
+      v57 = v26;
+      v58 = 1024;
+      v59 = bonjourEnabled;
+      _os_log_impl(&dword_25B962000, v25, OS_LOG_TYPE_INFO, "%s:%u - Default servername=%@ bonjourEnabled=%d", buf, 0x22u);
     }
 
     if (self->bonjourEnabled)
     {
-      v24 = SCDynamicStoreCopyLocalHostName(0);
-      if (v24)
+      v28 = SCDynamicStoreCopyLocalHostName(0);
+      if (v28)
       {
-        v25 = v24;
-        v26 = [MEMORY[0x277CCACA8] stringWithString:v24];
-        v27 = *p_name;
-        *p_name = v26;
+        v30 = v28;
+        v31 = [MEMORY[0x277CCACA8] stringWithString:v28];
+        v32 = *p_name;
+        *p_name = v31;
 
-        CFRelease(v25);
-        if (([*p_name hasSuffix:@".local"] & 1) == 0)
+        CFRelease(v30);
+        v33 = [*p_name hasSuffix:@".local"];
+        if ((v33 & 1) == 0)
         {
-          v28 = [*p_name stringByAppendingString:@".local"];
-          v29 = *p_name;
-          *p_name = v28;
+          v35 = [*p_name stringByAppendingString:@".local"];
+          v36 = *p_name;
+          *p_name = v35;
         }
 
-        netqual_log_init();
-        v30 = os_log_netqual;
+        netqual_log_init(v33, v34);
+        v37 = os_log_netqual;
         if (os_log_type_enabled(os_log_netqual, OS_LOG_TYPE_INFO))
         {
-          v31 = *p_name;
+          v38 = *p_name;
           *buf = 136315650;
-          v46 = "[NetworkQualityHTTPServer start:]";
-          v47 = 1024;
-          v48 = 287;
-          v49 = 2112;
-          v50 = v31;
-          _os_log_impl(&dword_25B962000, v30, OS_LOG_TYPE_INFO, "%s:%u - New servername=%@", buf, 0x1Cu);
+          v53 = "[NetworkQualityHTTPServer start:]";
+          v54 = 1024;
+          v55 = 287;
+          v56 = 2112;
+          v57 = v38;
+          _os_log_impl(&dword_25B962000, v37, OS_LOG_TYPE_INFO, "%s:%u - New servername=%@", buf, 0x1Cu);
         }
       }
 
       else
       {
-        netqual_log_init();
+        netqual_log_init(0, v29);
         if (os_log_type_enabled(os_log_netqual, OS_LOG_TYPE_ERROR))
         {
-          [NetworkQualityHTTPServer start:?];
+          [NetworkQualityHTTPServer start:];
         }
       }
     }
@@ -388,72 +403,70 @@ LABEL_10:
     port = nw_listener_get_port(self->listener);
     if (self->launchdInvoked)
     {
-      v35 = 56666;
+      v42 = 56666;
     }
 
     else
     {
-      v35 = port;
+      v42 = port;
     }
 
-    self->port = v35;
-    v36 = [(NetworkQualityHTTPServer *)self urlForType:@".well-known/nq" withAddress:self->name mirrorIP:0];
-    netqual_log_init();
-    v37 = os_log_netqual;
+    self->port = v42;
+    v43 = [(NetworkQualityHTTPServer *)self urlForType:@".well-known/nq" withAddress:self->name mirrorIP:0];
+    netqual_log_init(v43, v44);
+    v45 = os_log_netqual;
     if (os_log_type_enabled(os_log_netqual, OS_LOG_TYPE_INFO))
     {
       *buf = 136315650;
-      v46 = "[NetworkQualityHTTPServer start:]";
-      v47 = 1024;
-      v48 = 300;
-      v49 = 2112;
-      v50 = v36;
-      _os_log_impl(&dword_25B962000, v37, OS_LOG_TYPE_INFO, "%s:%u - Available for server @ %@", buf, 0x1Cu);
+      v53 = "[NetworkQualityHTTPServer start:]";
+      v54 = 1024;
+      v55 = 300;
+      v56 = 2112;
+      v57 = v43;
+      _os_log_impl(&dword_25B962000, v45, OS_LOG_TYPE_INFO, "%s:%u - Available for server @ %@", buf, 0x1Cu);
     }
 
-    v38 = [(NetworkQualityHTTPServer *)self urlForType:@".well-known/nq" withAddress:self->name mirrorIP:0];
-    startCopy[2](startCopy, v38, 0);
+    v46 = [(NetworkQualityHTTPServer *)self urlForType:@".well-known/nq" withAddress:self->name mirrorIP:0];
+    startCopy[2](startCopy, v46, 0);
   }
 
   else
   {
-    netqual_log_init();
+    netqual_log_init(v13, v14);
     if (os_log_type_enabled(os_log_netqual, OS_LOG_TYPE_ERROR))
     {
       [NetworkQualityHTTPServer start:];
     }
 
-    v32 = MEMORY[0x277CCA9B8];
-    v53 = *MEMORY[0x277CCA450];
-    v54[0] = @"Could not create listener for server";
-    v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v54 forKeys:&v53 count:1];
-    v33 = [v32 errorWithDomain:@"NetworkQualityErrorDomain" code:1007 userInfo:v18];
-    (startCopy)[2](startCopy, 0, v33);
+    v39 = MEMORY[0x277CCA9B8];
+    v60 = *MEMORY[0x277CCA450];
+    v61[0] = @"Could not create listener for server";
+    v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v61 forKeys:&v60 count:1];
+    v40 = [v39 errorWithDomain:@"NetworkQualityErrorDomain" code:1007 userInfo:v20];
+    (startCopy)[2](startCopy, 0, v40);
   }
-
-  v39 = *MEMORY[0x277D85DE8];
 }
 
 void __34__NetworkQualityHTTPServer_start___block_invoke(uint64_t a1, nw_endpoint_t endpoint, int a3)
 {
   v24 = *MEMORY[0x277D85DE8];
   v5 = [MEMORY[0x277CCACA8] stringWithUTF8String:nw_endpoint_get_bonjour_service_name(endpoint)];
-  netqual_log_init();
-  v6 = os_log_netqual;
+  netqual_log_init(v5, v6);
+  v7 = os_log_netqual;
   if (os_log_type_enabled(os_log_netqual, OS_LOG_TYPE_INFO))
   {
     v11 = "[NetworkQualityHTTPServer start:]_block_invoke";
-    v7 = "removed";
+    v8 = "removed";
     v12 = 1024;
     v13 = 237;
     v10 = 136316674;
     v14 = 2080;
     if (a3)
     {
-      v7 = "added";
+      v8 = "added";
     }
 
-    v15 = v7;
+    v15 = v8;
     v16 = 2112;
     v17 = v5;
     v18 = 2112;
@@ -462,17 +475,15 @@ void __34__NetworkQualityHTTPServer_start___block_invoke(uint64_t a1, nw_endpoin
     v21 = "_nq._tcp";
     v22 = 2080;
     v23 = "local";
-    _os_log_impl(&dword_25B962000, v6, OS_LOG_TYPE_INFO, "%s:%u - Listener %s on %@ (%@.%s.%s)\n", &v10, 0x44u);
+    _os_log_impl(&dword_25B962000, v7, OS_LOG_TYPE_INFO, "%s:%u - Listener %s on %@ (%@.%s.%s)\n", &v10, 0x44u);
   }
 
-  v8 = *(a1 + 32);
-  if ((*(v8 + 20) & 1) == 0)
+  v9 = *(a1 + 32);
+  if ((*(v9 + 20) & 1) == 0)
   {
-    *(v8 + 20) = 1;
+    *(v9 + 20) = 1;
     dispatch_group_leave(*(a1 + 40));
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __34__NetworkQualityHTTPServer_start___block_invoke_20(uint64_t a1, void *a2)
@@ -531,53 +542,54 @@ void __40__NetworkQualityHTTPServer_receiveLoop___block_invoke(uint64_t a1, void
   v9 = a2;
   v10 = a3;
   v11 = a5;
-  v43[0] = MEMORY[0x277D85DD0];
-  v43[1] = 3221225472;
-  v43[2] = __40__NetworkQualityHTTPServer_receiveLoop___block_invoke_2;
-  v43[3] = &unk_2799697F0;
-  v47 = a4;
+  v54[0] = MEMORY[0x277D85DD0];
+  v54[1] = 3221225472;
+  v54[2] = __40__NetworkQualityHTTPServer_receiveLoop___block_invoke_2;
+  v54[3] = &unk_2799697F0;
+  v58 = a4;
   v12 = v11;
   v14 = (a1 + 40);
   v13 = *(a1 + 40);
   v15 = *(a1 + 32);
-  v44 = v12;
-  v45 = v15;
-  v46 = v13;
-  v16 = MEMORY[0x25F873620](v43);
+  v55 = v12;
+  v56 = v15;
+  v57 = v13;
+  v16 = MEMORY[0x25F873620](v54);
+  v18 = v16;
   if (!v12)
   {
-    v17 = nw_protocol_copy_http_definition();
-    v18 = nw_content_context_copy_protocol_metadata(v10, v17);
+    v19 = nw_protocol_copy_http_definition();
+    v20 = nw_content_context_copy_protocol_metadata(v10, v19);
 
-    if (!v18)
+    if (!v20)
     {
-      netqual_log_init();
+      netqual_log_init(v21, v22);
       if (os_log_type_enabled(os_log_netqual, OS_LOG_TYPE_ERROR))
       {
-        __40__NetworkQualityHTTPServer_receiveLoop___block_invoke_cold_4((a1 + 40));
+        __40__NetworkQualityHTTPServer_receiveLoop___block_invoke_cold_4();
       }
 
       nw_connection_cancel(*v14);
       goto LABEL_41;
     }
 
-    v19 = nw_http_metadata_copy_request();
-    v40 = 0;
-    v41[0] = &v40;
-    v41[1] = 0x3032000000;
-    v41[2] = __Block_byref_object_copy__1;
-    v41[3] = __Block_byref_object_dispose__1;
-    v42 = 0;
-    v35 = MEMORY[0x277D85DD0];
-    v36 = 3221225472;
-    v37 = __40__NetworkQualityHTTPServer_receiveLoop___block_invoke_33;
-    v38 = &unk_279969818;
-    v39 = &v40;
-    v30 = v19;
-    nw_http_request_access_path();
-    if (!*(v41[0] + 40))
+    v23 = nw_http_metadata_copy_request();
+    v48 = 0;
+    v49 = &v48;
+    v50 = 0x3032000000;
+    v51 = __Block_byref_object_copy__1;
+    v52 = __Block_byref_object_dispose__1;
+    v53 = 0;
+    v43 = MEMORY[0x277D85DD0];
+    v44 = 3221225472;
+    v45 = __40__NetworkQualityHTTPServer_receiveLoop___block_invoke_33;
+    v46 = &unk_279969818;
+    v47 = &v48;
+    v38 = v23;
+    v24 = nw_http_request_access_path();
+    if (!v49[5])
     {
-      netqual_log_init();
+      netqual_log_init(v24, v25);
       if (os_log_type_enabled(os_log_netqual, OS_LOG_TYPE_ERROR))
       {
         __40__NetworkQualityHTTPServer_receiveLoop___block_invoke_cold_3();
@@ -587,8 +599,8 @@ void __40__NetworkQualityHTTPServer_receiveLoop___block_invoke(uint64_t a1, void
     }
 
     well_known = nw_http_response_create_well_known();
-    v20 = *(v41[0] + 40);
-    if (!v20)
+    v26 = v49[5];
+    if (!v26)
     {
       if (!v9)
       {
@@ -598,32 +610,33 @@ void __40__NetworkQualityHTTPServer_receiveLoop___block_invoke(uint64_t a1, void
       goto LABEL_24;
     }
 
-    if ([v20 isEqualToString:@"/small"])
+    if ([v26 isEqualToString:@"/small"])
     {
       nw_http_fields_append();
-      v21 = *(*(a1 + 32) + 40);
+      v27 = *(*(a1 + 32) + 40);
     }
 
     else
     {
-      if ([*(v41[0] + 40) isEqualToString:@"/large"])
+      if ([v49[5] isEqualToString:@"/large"])
       {
         nw_http_fields_append();
-        v22 = [MEMORY[0x277CCACA8] stringWithFormat:@"%zu", 0x300000000, v30];
-        [v22 UTF8String];
+        v28 = [MEMORY[0x277CCACA8] stringWithFormat:@"%zu", 0x300000000, v38];
+        [v28 UTF8String];
         nw_http_fields_append();
-        v23 = 1;
+        v29 = 1;
         goto LABEL_26;
       }
 
-      if (([*(v41[0] + 40) isEqualToString:@"/"] & 1) == 0 && (objc_msgSend(*(v41[0] + 40), "isEqualToString:", @"/config") & 1) == 0 && !objc_msgSend(*(v41[0] + 40), "isEqualToString:", @"/.well-known/nq"))
+      if (([v49[5] isEqualToString:@"/"] & 1) == 0 && (objc_msgSend(v49[5], "isEqualToString:", @"/config") & 1) == 0 && !objc_msgSend(v49[5], "isEqualToString:", @"/.well-known/nq"))
       {
-        if (![*(v41[0] + 40) isEqualToString:@"/slurp"])
+        v32 = [v49[5] isEqualToString:@"/slurp"];
+        if (!v32)
         {
-          netqual_log_init();
+          netqual_log_init(v32, v33);
           if (os_log_type_enabled(os_log_netqual, OS_LOG_TYPE_ERROR))
           {
-            __40__NetworkQualityHTTPServer_receiveLoop___block_invoke_cold_2(v41);
+            __40__NetworkQualityHTTPServer_receiveLoop___block_invoke_cold_2();
           }
 
           if (!v9)
@@ -639,21 +652,21 @@ void __40__NetworkQualityHTTPServer_receiveLoop___block_invoke(uint64_t a1, void
           dispatch_data_get_size(v9);
         }
 
-        v24 = *(*(a1 + 32) + 40);
+        v30 = *(*(a1 + 32) + 40);
 
         nw_http_fields_append();
         goto LABEL_23;
       }
 
       nw_http_fields_append();
-      v21 = [*(a1 + 32) configForConnection:*(a1 + 40) mirrorIP:*(*(a1 + 32) + 24)];
+      v27 = [*(a1 + 32) configForConnection:*(a1 + 40) mirrorIP:*(*(a1 + 32) + 24)];
     }
 
-    v24 = v21;
+    v30 = v27;
 
 LABEL_23:
-    v9 = v24;
-    if (!v24)
+    v9 = v30;
+    if (!v30)
     {
       goto LABEL_34;
     }
@@ -662,20 +675,20 @@ LABEL_24:
     size = dispatch_data_get_size(v9);
     if (size)
     {
-      v22 = [MEMORY[0x277CCACA8] stringWithFormat:@"%zu", size, v30];
-      [v22 UTF8String];
+      v28 = [MEMORY[0x277CCACA8] stringWithFormat:@"%zu", size, v38];
+      [v28 UTF8String];
       nw_http_fields_append();
-      v23 = 0;
+      v29 = 0;
 LABEL_26:
 
       if (!a4)
       {
 LABEL_27:
-        v16[2](v16);
+        v18[2](v18);
 LABEL_39:
 
 LABEL_40:
-        _Block_object_dispose(&v40, 8);
+        _Block_object_dispose(&v48, 8);
 
 LABEL_41:
         goto LABEL_42;
@@ -683,38 +696,38 @@ LABEL_41:
 
 LABEL_35:
       nw_http_response_set_status_code();
-      v26 = nw_content_context_create("response");
+      v34 = nw_content_context_create("response");
       metadata_for_response = nw_http_create_metadata_for_response();
-      nw_content_context_set_metadata_for_protocol(v26, metadata_for_response);
+      nw_content_context_set_metadata_for_protocol(v34, metadata_for_response);
 
-      if (v23)
+      if (v29)
       {
-        v28 = objc_alloc_init(BodyWriter);
-        [(BodyWriter *)v28 setConnection:*v14];
-        [(BodyWriter *)v28 setPostData:*(*(a1 + 32) + 48)];
-        [(BodyWriter *)v28 setBytesLeftToPost:0x300000000];
-        [(BodyWriter *)v28 sendBodyDataWithContext:v26];
+        v36 = objc_alloc_init(BodyWriter);
+        [(BodyWriter *)v36 setConnection:*v14];
+        [(BodyWriter *)v36 setPostData:*(*(a1 + 32) + 48)];
+        [(BodyWriter *)v36 setBytesLeftToPost:0x300000000];
+        [(BodyWriter *)v36 sendBodyDataWithContext:v34];
       }
 
       else
       {
-        v29 = *v14;
+        v37 = *v14;
         completion[0] = MEMORY[0x277D85DD0];
         completion[1] = 3221225472;
         completion[2] = __40__NetworkQualityHTTPServer_receiveLoop___block_invoke_62;
         completion[3] = &unk_279969840;
-        v33 = well_known;
-        v34 = *v14;
-        nw_connection_send(v29, v9, v26, 1, completion);
+        v41 = well_known;
+        v42 = *v14;
+        nw_connection_send(v37, v9, v34, 1, completion);
 
-        v28 = v33;
+        v36 = v41;
       }
 
       goto LABEL_39;
     }
 
 LABEL_34:
-    v23 = 0;
+    v29 = 0;
     if (!a4)
     {
       goto LABEL_27;
@@ -723,7 +736,7 @@ LABEL_34:
     goto LABEL_35;
   }
 
-  netqual_log_init();
+  netqual_log_init(v16, v17);
   if (os_log_type_enabled(os_log_netqual, OS_LOG_TYPE_ERROR))
   {
     __40__NetworkQualityHTTPServer_receiveLoop___block_invoke_cold_1();
@@ -732,11 +745,11 @@ LABEL_34:
 LABEL_42:
 }
 
-uint64_t __40__NetworkQualityHTTPServer_receiveLoop___block_invoke_2(uint64_t result)
+id *__40__NetworkQualityHTTPServer_receiveLoop___block_invoke_2(id *result)
 {
-  if ((*(result + 56) & 1) == 0 && !*(result + 32))
+  if ((result[7] & 1) == 0 && !result[4])
   {
-    return [*(result + 40) receiveLoop:*(result + 48)];
+    return [result[5] receiveLoop:result[6]];
   }
 
   return result;
@@ -744,22 +757,18 @@ uint64_t __40__NetworkQualityHTTPServer_receiveLoop___block_invoke_2(uint64_t re
 
 uint64_t __40__NetworkQualityHTTPServer_receiveLoop___block_invoke_33(uint64_t a1, uint64_t a2)
 {
-  v3 = [MEMORY[0x277CCACA8] stringWithUTF8String:a2];
-  v4 = *(*(a1 + 32) + 8);
-  v5 = *(v4 + 40);
-  *(v4 + 40) = v3;
+  *(*(*(a1 + 32) + 8) + 40) = [MEMORY[0x277CCACA8] stringWithUTF8String:a2];
 
   return MEMORY[0x2821F96F8]();
 }
 
 void __40__NetworkQualityHTTPServer_receiveLoop___block_invoke_62(uint64_t a1)
 {
-  v2 = *(a1 + 32);
   if (nw_http_response_get_status_code() >= 0x190)
   {
-    v3 = *(a1 + 40);
+    v2 = *(a1 + 40);
 
-    nw_connection_cancel(v3);
+    nw_connection_cancel(v2);
   }
 }
 
@@ -799,6 +808,85 @@ void __40__NetworkQualityHTTPServer_receiveLoop___block_invoke_62(uint64_t a1)
   free(v5);
 
   return port;
+}
+
+- (id)configForConnection:(id)connection mirrorIP:(BOOL)p
+{
+  pCopy = p;
+  v36 = *MEMORY[0x277D85DE8];
+  v6 = nw_connection_copy_parameters(connection);
+  v8 = v6;
+  if (v6)
+  {
+    v9 = nw_parameters_copy_local_endpoint(v6);
+    if (v9)
+    {
+      v10 = [(NetworkQualityHTTPServer *)self urlFormatAddress:v9];
+    }
+
+    else
+    {
+      v10 = 0;
+    }
+  }
+
+  else
+  {
+    v10 = 0;
+  }
+
+  netqual_log_init(v6, v7);
+  v11 = os_log_netqual;
+  if (os_log_type_enabled(os_log_netqual, OS_LOG_TYPE_INFO))
+  {
+    *buf = 136315650;
+    v31 = "[NetworkQualityHTTPServer configForConnection:mirrorIP:]";
+    v32 = 1024;
+    v33 = 487;
+    v34 = 2112;
+    v35 = v10;
+    _os_log_impl(&dword_25B962000, v11, OS_LOG_TYPE_INFO, "%s:%u - testEndPoint: %@", buf, 0x1Cu);
+  }
+
+  v12 = objc_alloc(MEMORY[0x277CBEB38]);
+  v28[1] = @"urls";
+  v29[0] = &unk_286D22D18;
+  v28[0] = @"version";
+  v26[0] = @"small_download_url";
+  v13 = [(NetworkQualityHTTPServer *)self urlForType:@"small" withAddress:v10 mirrorIP:pCopy];
+  v27[0] = v13;
+  v26[1] = @"large_download_url";
+  v14 = [(NetworkQualityHTTPServer *)self urlForType:@"large" withAddress:v10 mirrorIP:pCopy];
+  v27[1] = v14;
+  v26[2] = @"upload_url";
+  v15 = [(NetworkQualityHTTPServer *)self urlForType:@"slurp" withAddress:v10 mirrorIP:pCopy];
+  v27[2] = v15;
+  v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v27 forKeys:v26 count:3];
+  v29[1] = v16;
+  v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v29 forKeys:v28 count:2];
+  v18 = [v12 initWithDictionary:v17];
+
+  v25 = 0;
+  v19 = [MEMORY[0x277CCAAA0] dataWithJSONObject:v18 options:11 error:&v25];
+  v20 = v25;
+  v22 = v20;
+  if (v20)
+  {
+    netqual_log_init(v20, v21);
+    if (os_log_type_enabled(os_log_netqual, OS_LOG_TYPE_ERROR))
+    {
+      [NetworkQualityHTTPServer configForConnection:mirrorIP:];
+    }
+
+    v23 = 0;
+  }
+
+  else
+  {
+    v23 = dispatch_data_create([v19 bytes], objc_msgSend(v19, "length"), 0, 0);
+  }
+
+  return v23;
 }
 
 - (id)urlForType:(id)type withAddress:(id)address mirrorIP:(BOOL)p
@@ -863,84 +951,66 @@ void __40__NetworkQualityHTTPServer_receiveLoop___block_invoke_62(uint64_t a1)
 
 - (void)initWithPort:tlsEnabled:httpVersion:bonjourEnabled:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_1_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x18u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
-- (void)start:(uint64_t *)a1 .cold.1(uint64_t *a1)
+- (void)start:.cold.1()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v1 = *a1;
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_1_3();
   OUTLINED_FUNCTION_1_2();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x1Cu);
-  v7 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x1Cu);
 }
 
 - (void)start:.cold.2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_1_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __40__NetworkQualityHTTPServer_receiveLoop___block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_1_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x1Cu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
-void __40__NetworkQualityHTTPServer_receiveLoop___block_invoke_cold_2(uint64_t a1)
+void __40__NetworkQualityHTTPServer_receiveLoop___block_invoke_cold_2()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v1 = *(*a1 + 40);
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_1_3();
   OUTLINED_FUNCTION_1_2();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x1Cu);
-  v7 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x1Cu);
 }
 
 void __40__NetworkQualityHTTPServer_receiveLoop___block_invoke_cold_3()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_1_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
-void __40__NetworkQualityHTTPServer_receiveLoop___block_invoke_cold_4(uint64_t *a1)
+void __40__NetworkQualityHTTPServer_receiveLoop___block_invoke_cold_4()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v1 = *a1;
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_1_3();
   OUTLINED_FUNCTION_1_2();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x1Cu);
-  v7 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x1Cu);
 }
 
 - (void)configForConnection:mirrorIP:.cold.1()
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v4[0] = 136315906;
+  v6 = *MEMORY[0x277D85DE8];
+  v3[0] = 136315906;
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
-  v5 = v0;
-  v6 = v1;
-  _os_log_error_impl(&dword_25B962000, v2, OS_LOG_TYPE_ERROR, "%s:%u - Error serializing data (%@): %@", v4, 0x26u);
-  v3 = *MEMORY[0x277D85DE8];
+  v4 = v0;
+  v5 = v1;
+  _os_log_error_impl(&dword_25B962000, v2, OS_LOG_TYPE_ERROR, "%s:%u - Error serializing data (%@): %@", v3, 0x26u);
 }
 
 @end

@@ -25,7 +25,7 @@
 
 - (void)source:(id)source didAddAlarms:(id)alarms
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   alarmsCopy = alarms;
   v6 = [objc_opt_class() shouldScheduleSnapshotForAlarms:alarmsCopy];
 
@@ -34,20 +34,18 @@
     v7 = MTLogForCategory(0);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = 138543362;
+      v8 = 138543362;
       selfCopy = self;
-      _os_log_impl(&dword_1B1F9F000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@ Alarm added - Request snapshot", &v9, 0xCu);
+      _os_log_impl(&dword_1B1F9F000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@ Alarm added - Request snapshot", &v8, 0xCu);
     }
 
     [(MTSnapshotScheduler *)self scheduleSnapshot];
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)source:(id)source didUpdateAlarms:(id)alarms
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   alarmsCopy = alarms;
   v6 = [objc_opt_class() shouldScheduleSnapshotForAlarms:alarmsCopy];
 
@@ -56,20 +54,18 @@
     v7 = MTLogForCategory(0);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = 138543362;
+      v8 = 138543362;
       selfCopy = self;
-      _os_log_impl(&dword_1B1F9F000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@ Alarm updated - Request snapshot", &v9, 0xCu);
+      _os_log_impl(&dword_1B1F9F000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@ Alarm updated - Request snapshot", &v8, 0xCu);
     }
 
     [(MTSnapshotScheduler *)self scheduleSnapshot];
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)source:(id)source didRemoveAlarms:(id)alarms
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   alarmsCopy = alarms;
   v6 = [objc_opt_class() shouldScheduleSnapshotForAlarms:alarmsCopy];
 
@@ -78,15 +74,13 @@
     v7 = MTLogForCategory(0);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = 138543362;
+      v8 = 138543362;
       selfCopy = self;
-      _os_log_impl(&dword_1B1F9F000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@ Alarm removed - Request snapshot", &v9, 0xCu);
+      _os_log_impl(&dword_1B1F9F000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@ Alarm removed - Request snapshot", &v8, 0xCu);
     }
 
     [(MTSnapshotScheduler *)self scheduleSnapshot];
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 @end

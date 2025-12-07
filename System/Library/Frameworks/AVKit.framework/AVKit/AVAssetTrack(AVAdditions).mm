@@ -21,8 +21,7 @@
 
 - (CMTime)_avkit_findTimeForFrameUsingFrameRateSteppedByFrameCount:()AVAdditions fromFrameAtTime:
 {
-  *&a4->value = *a3;
-  a4->epoch = *(a3 + 16);
+  *a4 = *a3;
   if (a2)
   {
     v7 = result;
@@ -31,7 +30,7 @@
     if (([(CMTime *)v7 _avkit_frameRateIsValid:?]& 1) == 0)
     {
       memset(&rhs, 0, sizeof(rhs));
-      [(CMTime *)v7 minFrameDuration];
+      objc_msgSend_minFrameDuration(v7);
       v13 = rhs;
       v10 = 1.0 / CMTimeGetSeconds(&v13);
       v9 = v10;
@@ -113,8 +112,7 @@ LABEL_13:
     [self _avkit_timeForFrameUsingSampleCursorSteppedByFrameCount:a2 fromFrameAtTime:&time1];
     if ((*(a4 + 12) & 1) == 0)
     {
-      v13 = *a3;
-      [self _avkit_findTimeForFrameUsingFrameRateSteppedByFrameCount:a2 fromFrameAtTime:&v13];
+      objc_msgSend__avkit_findTimeForFrameUsingFrameRateSteppedByFrameCount_fromFrameAtTime_(self, a3->value, *&a3->timescale, a3->epoch);
       *a4 = time1;
     }
   }

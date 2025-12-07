@@ -65,52 +65,50 @@
 
 - (id)_constructProbe
 {
-  v19 = *MEMORY[0x277D85DE8];
+  selfCopy = self;
+  v16 = *MEMORY[0x277D85DE8];
   startDate_semaphore = self->_startDate_semaphore;
   if (startDate_semaphore)
   {
     v5 = dispatch_time(0, 5000000000);
-    dispatch_semaphore_wait(startDate_semaphore, v5);
+    self = dispatch_semaphore_wait(startDate_semaphore, v5);
   }
 
-  stopDate_semaphore = self->_stopDate_semaphore;
+  stopDate_semaphore = selfCopy->_stopDate_semaphore;
   if (stopDate_semaphore)
   {
     v7 = dispatch_time(0, 5000000000);
-    dispatch_semaphore_wait(stopDate_semaphore, v7);
+    self = dispatch_semaphore_wait(stopDate_semaphore, v7);
   }
 
-  if (!self->_startDate || !self->_stopDate)
+  if (!selfCopy->_startDate || !selfCopy->_stopDate)
   {
-    v8 = _MXMGetLog();
+    v8 = _MXMGetLog(self, a2);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      startDate = self->_startDate;
-      stopDate = self->_stopDate;
-      *v16 = 138412546;
-      *&v16[4] = startDate;
-      v17 = 2112;
-      v18 = stopDate;
-      _os_log_impl(&dword_258DAA000, v8, OS_LOG_TYPE_ERROR, "Bad date range to search archive. Start date is %@. Stop date is %@.", v16, 0x16u);
+      startDate = selfCopy->_startDate;
+      stopDate = selfCopy->_stopDate;
+      *v13 = 138412546;
+      *&v13[4] = startDate;
+      v14 = 2112;
+      v15 = stopDate;
+      _os_log_impl(&dword_258DAA000, v8, OS_LOG_TYPE_ERROR, "Bad date range to search archive. Start date is %@. Stop date is %@.", v13, 0x16u);
     }
 
-    if (!self->_startDate)
+    if (!selfCopy->_startDate)
     {
       [(MXMOSSignpostMetric *)a2 _constructProbe];
     }
 
-    if (!self->_stopDate)
+    if (!selfCopy->_stopDate)
     {
-      [(MXMOSSignpostMetric *)a2 _constructProbe:&self->_stopDate];
+      [(MXMOSSignpostMetric *)a2 _constructProbe:selfCopy];
     }
   }
 
-  startMachContTime = self->_startMachContTime;
-  stopMachContTime = self->_stopMachContTime;
-  v13 = [MXMOSSignpostProbe probeHostSystemLogArchiveWithStartDate:"probeHostSystemLogArchiveWithStartDate:endDate:startMachTime:stopMachTime:" endDate:self->_startDate startMachTime:? stopMachTime:?];
-  v14 = *MEMORY[0x277D85DE8];
+  v11 = [MXMOSSignpostProbe probeHostSystemLogArchiveWithStartDate:"probeHostSystemLogArchiveWithStartDate:endDate:startMachTime:stopMachTime:" endDate:selfCopy->_startDate startMachTime:? stopMachTime:?];
 
-  return v13;
+  return v11;
 }
 
 - (MXMOSSignpostMetric)initWithSubsystem:(id)subsystem category:(id)category name:(id)name processName:(id)processName

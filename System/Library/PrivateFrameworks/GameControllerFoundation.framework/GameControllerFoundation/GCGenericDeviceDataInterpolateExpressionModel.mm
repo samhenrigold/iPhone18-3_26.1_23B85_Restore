@@ -175,23 +175,23 @@
 
 - (id)buildExpressionWithContext:(id)context error:(id *)error
 {
-  v92[3] = *MEMORY[0x1E69E9840];
+  v91[3] = *MEMORY[0x1E69E9840];
   contextCopy = context;
   v7 = objc_opt_respondsToSelector();
   inputExpression = [(GCGenericDeviceDataInterpolateExpressionModel *)self inputExpression];
   v9 = inputExpression;
   if (v7)
   {
-    v82 = 0;
-    v10 = &v82;
-    v11 = [contextCopy buildExpression:inputExpression error:&v82];
+    v81 = 0;
+    v10 = &v81;
+    v11 = [contextCopy buildExpression:inputExpression error:&v81];
   }
 
   else
   {
-    v81 = 0;
-    v10 = &v81;
-    v11 = [inputExpression buildExpressionWithContext:contextCopy error:&v81];
+    v80 = 0;
+    v10 = &v80;
+    v11 = [inputExpression buildExpressionWithContext:contextCopy error:&v80];
   }
 
   v12 = v11;
@@ -206,16 +206,16 @@
     }
 
     v20 = MEMORY[0x1E696ABC0];
-    v91[0] = *MEMORY[0x1E696A578];
+    v90[0] = *MEMORY[0x1E696A578];
     v21 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Failed to build expression closure for '%@'.", objc_opt_class()];
     v22 = *MEMORY[0x1E696A588];
-    v92[0] = v21;
-    v92[1] = @"The 'inputExpression' sub-expression failed to build.";
+    v91[0] = v21;
+    v91[1] = @"The 'inputExpression' sub-expression failed to build.";
     v23 = *MEMORY[0x1E696AA08];
-    v91[1] = v22;
-    v91[2] = v23;
-    v92[2] = v13;
-    v24 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v92 forKeys:v91 count:3];
+    v90[1] = v22;
+    v90[2] = v23;
+    v91[2] = v13;
+    v24 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v91 forKeys:v90 count:3];
     [v20 errorWithDomain:@"GCGenericDeviceError" code:2 userInfo:v24];
     *error = v25 = 0;
     v14 = v13;
@@ -229,16 +229,16 @@
   v17 = inputMinExpression;
   if (v15)
   {
-    v80 = 0;
-    v18 = &v80;
-    v19 = [contextCopy buildExpression:inputMinExpression error:&v80];
+    v79 = 0;
+    v18 = &v79;
+    v19 = [contextCopy buildExpression:inputMinExpression error:&v79];
   }
 
   else
   {
-    v79 = 0;
-    v18 = &v79;
-    v19 = [inputMinExpression buildExpressionWithContext:contextCopy error:&v79];
+    v78 = 0;
+    v18 = &v78;
+    v19 = [inputMinExpression buildExpressionWithContext:contextCopy error:&v78];
   }
 
   v26 = v19;
@@ -253,16 +253,16 @@
     v30 = inputMaxExpression;
     if (v28)
     {
-      v78 = 0;
-      v31 = &v78;
-      v32 = [contextCopy buildExpression:inputMaxExpression error:&v78];
+      v77 = 0;
+      v31 = &v77;
+      v32 = [contextCopy buildExpression:inputMaxExpression error:&v77];
     }
 
     else
     {
-      v77 = 0;
-      v31 = &v77;
-      v32 = [inputMaxExpression buildExpressionWithContext:contextCopy error:&v77];
+      v76 = 0;
+      v31 = &v76;
+      v32 = [inputMaxExpression buildExpressionWithContext:contextCopy error:&v76];
     }
 
     v38 = v32;
@@ -277,16 +277,16 @@
       }
 
       v44 = MEMORY[0x1E696ABC0];
-      v87[0] = *MEMORY[0x1E696A578];
+      v86[0] = *MEMORY[0x1E696A578];
       v45 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Failed to build expression closure for '%@'.", objc_opt_class()];
       v46 = *MEMORY[0x1E696A588];
-      v88[0] = v45;
-      v88[1] = @"The 'inputMaxExpression' sub-expression failed to build.";
+      v87[0] = v45;
+      v87[1] = @"The 'inputMaxExpression' sub-expression failed to build.";
       v47 = *MEMORY[0x1E696AA08];
-      v87[1] = v46;
-      v87[2] = v47;
-      v88[2] = v24;
-      v48 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v88 forKeys:v87 count:3];
+      v86[1] = v46;
+      v86[2] = v47;
+      v87[2] = v24;
+      v48 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v87 forKeys:v86 count:3];
       [v44 errorWithDomain:@"GCGenericDeviceError" code:2 userInfo:v48];
       *error = v25 = 0;
       v34 = v24;
@@ -300,16 +300,16 @@
     v41 = outputMinExpression;
     if (v39)
     {
-      v76 = 0;
-      v42 = &v76;
-      v43 = [contextCopy buildExpression:outputMinExpression error:&v76];
+      v75 = 0;
+      v42 = &v75;
+      v43 = [contextCopy buildExpression:outputMinExpression error:&v75];
     }
 
     else
     {
-      v75 = 0;
-      v42 = &v75;
-      v43 = [outputMinExpression buildExpressionWithContext:contextCopy error:&v75];
+      v74 = 0;
+      v42 = &v74;
+      v43 = [outputMinExpression buildExpressionWithContext:contextCopy error:&v74];
     }
 
     v49 = v43;
@@ -324,16 +324,16 @@
       v52 = outputMaxExpression;
       if (v50)
       {
-        v74 = 0;
-        v53 = &v74;
-        v54 = [contextCopy buildExpression:outputMaxExpression error:&v74];
+        v73 = 0;
+        v53 = &v73;
+        v54 = [contextCopy buildExpression:outputMaxExpression error:&v73];
       }
 
       else
       {
-        v73 = 0;
-        v53 = &v73;
-        v54 = [outputMaxExpression buildExpressionWithContext:contextCopy error:&v73];
+        v72 = 0;
+        v53 = &v72;
+        v54 = [outputMaxExpression buildExpressionWithContext:contextCopy error:&v72];
       }
 
       v58 = v54;
@@ -347,16 +347,16 @@
         aBlock[1] = 3221225472;
         aBlock[2] = __95__GCGenericDeviceDataInterpolateExpressionModel_Compilation__buildExpressionWithContext_error___block_invoke;
         aBlock[3] = &unk_1E8415308;
-        v68 = v14;
-        v69 = v21;
-        v70 = v34;
+        v67 = v14;
+        v68 = v21;
+        v69 = v34;
         v37 = v45;
-        v71 = v37;
-        v72 = v59;
+        v70 = v37;
+        v71 = v59;
         v48 = v59;
         v25 = _Block_copy(aBlock);
 
-        v57 = v68;
+        v57 = v67;
       }
 
       else
@@ -367,18 +367,18 @@
           goto LABEL_35;
         }
 
-        v66 = MEMORY[0x1E696ABC0];
-        v83[0] = *MEMORY[0x1E696A578];
+        v65 = MEMORY[0x1E696ABC0];
+        v82[0] = *MEMORY[0x1E696A578];
         v57 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Failed to build expression closure for '%@'.", objc_opt_class()];
         v60 = *MEMORY[0x1E696A588];
-        v84[0] = v57;
-        v84[1] = @"The 'outputMaxExpression' sub-expression failed to build.";
+        v83[0] = v57;
+        v83[1] = @"The 'outputMaxExpression' sub-expression failed to build.";
         v61 = *MEMORY[0x1E696AA08];
-        v83[1] = v60;
-        v83[2] = v61;
-        v84[2] = v48;
-        v62 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v84 forKeys:v83 count:3];
-        *error = [v66 errorWithDomain:@"GCGenericDeviceError" code:2 userInfo:v62];
+        v82[1] = v60;
+        v82[2] = v61;
+        v83[2] = v48;
+        v62 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v83 forKeys:v82 count:3];
+        *error = [v65 errorWithDomain:@"GCGenericDeviceError" code:2 userInfo:v62];
 
         v25 = 0;
         v37 = v45;
@@ -393,18 +393,18 @@
         goto LABEL_36;
       }
 
-      v65 = MEMORY[0x1E696ABC0];
-      v85[0] = *MEMORY[0x1E696A578];
+      v64 = MEMORY[0x1E696ABC0];
+      v84[0] = *MEMORY[0x1E696A578];
       v48 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Failed to build expression closure for '%@'.", objc_opt_class()];
       v55 = *MEMORY[0x1E696A588];
-      v86[0] = v48;
-      v86[1] = @"The 'outputMinExpression' sub-expression failed to build.";
+      v85[0] = v48;
+      v85[1] = @"The 'outputMinExpression' sub-expression failed to build.";
       v56 = *MEMORY[0x1E696AA08];
-      v85[1] = v55;
-      v85[2] = v56;
-      v86[2] = v37;
-      v57 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v86 forKeys:v85 count:3];
-      [v65 errorWithDomain:@"GCGenericDeviceError" code:2 userInfo:v57];
+      v84[1] = v55;
+      v84[2] = v56;
+      v85[2] = v37;
+      v57 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v85 forKeys:v84 count:3];
+      [v64 errorWithDomain:@"GCGenericDeviceError" code:2 userInfo:v57];
       *error = v25 = 0;
     }
 
@@ -418,16 +418,16 @@ LABEL_35:
   if (error)
   {
     v33 = MEMORY[0x1E696ABC0];
-    v89[0] = *MEMORY[0x1E696A578];
+    v88[0] = *MEMORY[0x1E696A578];
     v34 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Failed to build expression closure for '%@'.", objc_opt_class()];
     v35 = *MEMORY[0x1E696A588];
-    v90[0] = v34;
-    v90[1] = @"The 'inputMinExpression' sub-expression failed to build.";
+    v89[0] = v34;
+    v89[1] = @"The 'inputMinExpression' sub-expression failed to build.";
     v36 = *MEMORY[0x1E696AA08];
-    v89[1] = v35;
-    v89[2] = v36;
-    v90[2] = v27;
-    v37 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v90 forKeys:v89 count:3];
+    v88[1] = v35;
+    v88[2] = v36;
+    v89[2] = v27;
+    v37 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v89 forKeys:v88 count:3];
     [v33 errorWithDomain:@"GCGenericDeviceError" code:2 userInfo:v37];
     *error = v25 = 0;
     v21 = v27;
@@ -446,8 +446,6 @@ LABEL_38:
   v13 = v14;
 LABEL_39:
 
-  v63 = *MEMORY[0x1E69E9840];
-
   return v25;
 }
 
@@ -462,13 +460,9 @@ double __95__GCGenericDeviceDataInterpolateExpressionModel_Compilation__buildExp
 
 - (id)buildReactiveExpressionWithContext:(id)context consumer:(id)consumer error:(id *)error
 {
-  v97[5] = *MEMORY[0x1E69E9840];
+  v96[5] = *MEMORY[0x1E69E9840];
   contextCopy = context;
   consumerCopy = consumer;
-  v86[0] = 0;
-  v86[1] = v86;
-  v86[2] = 0x2020000000;
-  v86[3] = 0;
   v85[0] = 0;
   v85[1] = v85;
   v85[2] = 0x2020000000;
@@ -485,42 +479,46 @@ double __95__GCGenericDeviceDataInterpolateExpressionModel_Compilation__buildExp
   v82[1] = v82;
   v82[2] = 0x2020000000;
   v82[3] = 0;
+  v81[0] = 0;
+  v81[1] = v81;
+  v81[2] = 0x2020000000;
+  v81[3] = 0;
   if (objc_opt_respondsToSelector())
   {
     inputExpression = [(GCGenericDeviceDataInterpolateExpressionModel *)self inputExpression];
-    v9 = v81;
-    v81[0] = MEMORY[0x1E69E9820];
-    v81[1] = 3221225472;
-    v81[2] = __112__GCGenericDeviceDataInterpolateExpressionModel_Compilation__buildReactiveExpressionWithContext_consumer_error___block_invoke;
-    v81[3] = &unk_1E8415330;
-    v81[5] = v86;
-    v81[6] = v85;
-    v81[7] = v84;
-    v81[8] = v83;
-    v81[9] = v82;
-    v81[4] = consumerCopy;
-    v80 = 0;
-    v10 = &v80;
-    v11 = [contextCopy buildReactiveExpression:inputExpression consumer:v81 error:&v80];
+    v9 = v80;
+    v80[0] = MEMORY[0x1E69E9820];
+    v80[1] = 3221225472;
+    v80[2] = __112__GCGenericDeviceDataInterpolateExpressionModel_Compilation__buildReactiveExpressionWithContext_consumer_error___block_invoke;
+    v80[3] = &unk_1E8415330;
+    v80[5] = v85;
+    v80[6] = v84;
+    v80[7] = v83;
+    v80[8] = v82;
+    v80[9] = v81;
+    v80[4] = consumerCopy;
+    v79 = 0;
+    v10 = &v79;
+    v11 = [contextCopy buildReactiveExpression:inputExpression consumer:v80 error:&v79];
   }
 
   else
   {
     inputExpression = [(GCGenericDeviceDataInterpolateExpressionModel *)self inputExpression];
-    v9 = v79;
-    v79[0] = MEMORY[0x1E69E9820];
-    v79[1] = 3221225472;
-    v79[2] = __112__GCGenericDeviceDataInterpolateExpressionModel_Compilation__buildReactiveExpressionWithContext_consumer_error___block_invoke_2;
-    v79[3] = &unk_1E8415330;
-    v79[5] = v86;
-    v79[6] = v85;
-    v79[7] = v84;
-    v79[8] = v83;
-    v79[9] = v82;
-    v79[4] = consumerCopy;
-    v78 = 0;
-    v10 = &v78;
-    v11 = [inputExpression buildReactiveExpressionWithContext:contextCopy consumer:v79 error:&v78];
+    v9 = v78;
+    v78[0] = MEMORY[0x1E69E9820];
+    v78[1] = 3221225472;
+    v78[2] = __112__GCGenericDeviceDataInterpolateExpressionModel_Compilation__buildReactiveExpressionWithContext_consumer_error___block_invoke_2;
+    v78[3] = &unk_1E8415330;
+    v78[5] = v85;
+    v78[6] = v84;
+    v78[7] = v83;
+    v78[8] = v82;
+    v78[9] = v81;
+    v78[4] = consumerCopy;
+    v77 = 0;
+    v10 = &v77;
+    v11 = [inputExpression buildReactiveExpressionWithContext:contextCopy consumer:v78 error:&v77];
   }
 
   v12 = v11;
@@ -535,58 +533,58 @@ double __95__GCGenericDeviceDataInterpolateExpressionModel_Compilation__buildExp
     }
 
     v18 = MEMORY[0x1E696ABC0];
-    v95[0] = *MEMORY[0x1E696A578];
+    v94[0] = *MEMORY[0x1E696A578];
     v19 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Failed to build expression closure for '%@'.", objc_opt_class()];
     v20 = *MEMORY[0x1E696A588];
-    v96[0] = v19;
-    v96[1] = @"The 'inputExpression' sub-expression failed to build.";
+    v95[0] = v19;
+    v95[1] = @"The 'inputExpression' sub-expression failed to build.";
     v21 = *MEMORY[0x1E696AA08];
-    v95[1] = v20;
-    v95[2] = v21;
-    v96[2] = v13;
-    v22 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v96 forKeys:v95 count:3];
+    v94[1] = v20;
+    v94[2] = v21;
+    v95[2] = v13;
+    v22 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v95 forKeys:v94 count:3];
     [v18 errorWithDomain:@"GCGenericDeviceError" code:2 userInfo:v22];
     *error = v23 = 0;
     goto LABEL_41;
   }
 
-  v97[0] = v12;
+  v96[0] = v12;
   if (objc_opt_respondsToSelector())
   {
     inputMinExpression = [(GCGenericDeviceDataInterpolateExpressionModel *)self inputMinExpression];
-    v15 = v77;
-    v77[0] = MEMORY[0x1E69E9820];
-    v77[1] = 3221225472;
-    v77[2] = __112__GCGenericDeviceDataInterpolateExpressionModel_Compilation__buildReactiveExpressionWithContext_consumer_error___block_invoke_3;
-    v77[3] = &unk_1E8415330;
-    v77[5] = v85;
-    v77[6] = v86;
-    v77[7] = v84;
-    v77[8] = v83;
-    v77[9] = v82;
-    v77[4] = consumerCopy;
-    v76 = 0;
-    v16 = &v76;
-    v17 = [contextCopy buildReactiveExpression:inputMinExpression consumer:v77 error:&v76];
+    v15 = v76;
+    v76[0] = MEMORY[0x1E69E9820];
+    v76[1] = 3221225472;
+    v76[2] = __112__GCGenericDeviceDataInterpolateExpressionModel_Compilation__buildReactiveExpressionWithContext_consumer_error___block_invoke_3;
+    v76[3] = &unk_1E8415330;
+    v76[5] = v84;
+    v76[6] = v85;
+    v76[7] = v83;
+    v76[8] = v82;
+    v76[9] = v81;
+    v76[4] = consumerCopy;
+    v75 = 0;
+    v16 = &v75;
+    v17 = [contextCopy buildReactiveExpression:inputMinExpression consumer:v76 error:&v75];
   }
 
   else
   {
     inputMinExpression = [(GCGenericDeviceDataInterpolateExpressionModel *)self inputMinExpression];
-    v15 = v75;
-    v75[0] = MEMORY[0x1E69E9820];
-    v75[1] = 3221225472;
-    v75[2] = __112__GCGenericDeviceDataInterpolateExpressionModel_Compilation__buildReactiveExpressionWithContext_consumer_error___block_invoke_4;
-    v75[3] = &unk_1E8415330;
-    v75[5] = v85;
-    v75[6] = v86;
-    v75[7] = v84;
-    v75[8] = v83;
-    v75[9] = v82;
-    v75[4] = consumerCopy;
-    v74 = 0;
-    v16 = &v74;
-    v17 = [inputMinExpression buildReactiveExpressionWithContext:contextCopy consumer:v75 error:&v74];
+    v15 = v74;
+    v74[0] = MEMORY[0x1E69E9820];
+    v74[1] = 3221225472;
+    v74[2] = __112__GCGenericDeviceDataInterpolateExpressionModel_Compilation__buildReactiveExpressionWithContext_consumer_error___block_invoke_4;
+    v74[3] = &unk_1E8415330;
+    v74[5] = v84;
+    v74[6] = v85;
+    v74[7] = v83;
+    v74[8] = v82;
+    v74[9] = v81;
+    v74[4] = consumerCopy;
+    v73 = 0;
+    v16 = &v73;
+    v17 = [inputMinExpression buildReactiveExpressionWithContext:contextCopy consumer:v74 error:&v73];
   }
 
   v19 = v17;
@@ -596,43 +594,43 @@ double __95__GCGenericDeviceDataInterpolateExpressionModel_Compilation__buildExp
   if (v19)
   {
 
-    v97[1] = v19;
+    v96[1] = v19;
     if (objc_opt_respondsToSelector())
     {
       inputMaxExpression = [(GCGenericDeviceDataInterpolateExpressionModel *)self inputMaxExpression];
-      v27 = v73;
-      v73[0] = MEMORY[0x1E69E9820];
-      v73[1] = 3221225472;
-      v73[2] = __112__GCGenericDeviceDataInterpolateExpressionModel_Compilation__buildReactiveExpressionWithContext_consumer_error___block_invoke_5;
-      v73[3] = &unk_1E8415330;
-      v73[5] = v84;
-      v73[6] = v86;
-      v73[7] = v85;
-      v73[8] = v83;
-      v73[9] = v82;
-      v73[4] = consumerCopy;
-      v72 = 0;
-      v28 = &v72;
-      v29 = [contextCopy buildReactiveExpression:inputMaxExpression consumer:v73 error:&v72];
+      v27 = v72;
+      v72[0] = MEMORY[0x1E69E9820];
+      v72[1] = 3221225472;
+      v72[2] = __112__GCGenericDeviceDataInterpolateExpressionModel_Compilation__buildReactiveExpressionWithContext_consumer_error___block_invoke_5;
+      v72[3] = &unk_1E8415330;
+      v72[5] = v83;
+      v72[6] = v85;
+      v72[7] = v84;
+      v72[8] = v82;
+      v72[9] = v81;
+      v72[4] = consumerCopy;
+      v71 = 0;
+      v28 = &v71;
+      v29 = [contextCopy buildReactiveExpression:inputMaxExpression consumer:v72 error:&v71];
     }
 
     else
     {
       inputMaxExpression = [(GCGenericDeviceDataInterpolateExpressionModel *)self inputMaxExpression];
-      v27 = v71;
-      v71[0] = MEMORY[0x1E69E9820];
-      v71[1] = 3221225472;
-      v71[2] = __112__GCGenericDeviceDataInterpolateExpressionModel_Compilation__buildReactiveExpressionWithContext_consumer_error___block_invoke_6;
-      v71[3] = &unk_1E8415330;
-      v71[5] = v84;
-      v71[6] = v86;
-      v71[7] = v85;
-      v71[8] = v83;
-      v71[9] = v82;
-      v71[4] = consumerCopy;
-      v70 = 0;
-      v28 = &v70;
-      v29 = [inputMaxExpression buildReactiveExpressionWithContext:contextCopy consumer:v71 error:&v70];
+      v27 = v70;
+      v70[0] = MEMORY[0x1E69E9820];
+      v70[1] = 3221225472;
+      v70[2] = __112__GCGenericDeviceDataInterpolateExpressionModel_Compilation__buildReactiveExpressionWithContext_consumer_error___block_invoke_6;
+      v70[3] = &unk_1E8415330;
+      v70[5] = v83;
+      v70[6] = v85;
+      v70[7] = v84;
+      v70[8] = v82;
+      v70[9] = v81;
+      v70[4] = consumerCopy;
+      v69 = 0;
+      v28 = &v69;
+      v29 = [inputMaxExpression buildReactiveExpressionWithContext:contextCopy consumer:v70 error:&v69];
     }
 
     v31 = v29;
@@ -647,115 +645,115 @@ double __95__GCGenericDeviceDataInterpolateExpressionModel_Compilation__buildExp
       }
 
       v38 = MEMORY[0x1E696ABC0];
-      v91[0] = *MEMORY[0x1E696A578];
+      v90[0] = *MEMORY[0x1E696A578];
       v34 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Failed to build expression closure for '%@'.", objc_opt_class()];
       v39 = *MEMORY[0x1E696A588];
-      v92[0] = v34;
-      v92[1] = @"The 'inputMaxExpression' sub-expression failed to build.";
+      v91[0] = v34;
+      v91[1] = @"The 'inputMaxExpression' sub-expression failed to build.";
       v40 = *MEMORY[0x1E696AA08];
-      v91[1] = v39;
-      v91[2] = v40;
-      v92[2] = v22;
-      v41 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v92 forKeys:v91 count:3];
+      v90[1] = v39;
+      v90[2] = v40;
+      v91[2] = v22;
+      v41 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v91 forKeys:v90 count:3];
       [v38 errorWithDomain:@"GCGenericDeviceError" code:2 userInfo:v41];
       *error = v23 = 0;
       goto LABEL_37;
     }
 
-    v97[2] = v31;
+    v96[2] = v31;
     if (objc_opt_respondsToSelector())
     {
       outputMinExpression = [(GCGenericDeviceDataInterpolateExpressionModel *)self outputMinExpression];
-      v36 = v69;
-      v69[0] = MEMORY[0x1E69E9820];
-      v69[1] = 3221225472;
-      v69[2] = __112__GCGenericDeviceDataInterpolateExpressionModel_Compilation__buildReactiveExpressionWithContext_consumer_error___block_invoke_7;
-      v69[3] = &unk_1E8415330;
-      v69[5] = v83;
-      v69[6] = v86;
-      v69[7] = v85;
-      v69[8] = v84;
-      v69[9] = v82;
-      v69[4] = consumerCopy;
-      v68 = 0;
-      v37 = &v68;
-      v59 = [contextCopy buildReactiveExpression:outputMinExpression consumer:v69 error:&v68];
+      v36 = v68;
+      v68[0] = MEMORY[0x1E69E9820];
+      v68[1] = 3221225472;
+      v68[2] = __112__GCGenericDeviceDataInterpolateExpressionModel_Compilation__buildReactiveExpressionWithContext_consumer_error___block_invoke_7;
+      v68[3] = &unk_1E8415330;
+      v68[5] = v82;
+      v68[6] = v85;
+      v68[7] = v84;
+      v68[8] = v83;
+      v68[9] = v81;
+      v68[4] = consumerCopy;
+      v67 = 0;
+      v37 = &v67;
+      v58 = [contextCopy buildReactiveExpression:outputMinExpression consumer:v68 error:&v67];
     }
 
     else
     {
       outputMinExpression = [(GCGenericDeviceDataInterpolateExpressionModel *)self outputMinExpression];
-      v36 = v67;
-      v67[0] = MEMORY[0x1E69E9820];
-      v67[1] = 3221225472;
-      v67[2] = __112__GCGenericDeviceDataInterpolateExpressionModel_Compilation__buildReactiveExpressionWithContext_consumer_error___block_invoke_8;
-      v67[3] = &unk_1E8415330;
-      v67[5] = v83;
-      v67[6] = v86;
-      v67[7] = v85;
-      v67[8] = v84;
-      v67[9] = v82;
-      v67[4] = consumerCopy;
-      v66 = 0;
-      v37 = &v66;
-      v59 = [outputMinExpression buildReactiveExpressionWithContext:contextCopy consumer:v67 error:&v66];
+      v36 = v66;
+      v66[0] = MEMORY[0x1E69E9820];
+      v66[1] = 3221225472;
+      v66[2] = __112__GCGenericDeviceDataInterpolateExpressionModel_Compilation__buildReactiveExpressionWithContext_consumer_error___block_invoke_8;
+      v66[3] = &unk_1E8415330;
+      v66[5] = v82;
+      v66[6] = v85;
+      v66[7] = v84;
+      v66[8] = v83;
+      v66[9] = v81;
+      v66[4] = consumerCopy;
+      v65 = 0;
+      v37 = &v65;
+      v58 = [outputMinExpression buildReactiveExpressionWithContext:contextCopy consumer:v66 error:&v65];
     }
 
     v42 = (v36 + 4);
     v34 = *v37;
 
-    if (v59)
+    if (v58)
     {
 
-      v97[3] = v59;
+      v96[3] = v58;
       if (objc_opt_respondsToSelector())
       {
         outputMaxExpression = [(GCGenericDeviceDataInterpolateExpressionModel *)self outputMaxExpression];
-        v44 = v65;
-        v65[0] = MEMORY[0x1E69E9820];
-        v65[1] = 3221225472;
-        v65[2] = __112__GCGenericDeviceDataInterpolateExpressionModel_Compilation__buildReactiveExpressionWithContext_consumer_error___block_invoke_9;
-        v65[3] = &unk_1E8415330;
-        v65[5] = v82;
-        v65[6] = v86;
-        v65[7] = v85;
-        v65[8] = v84;
-        v65[9] = v83;
-        v65[4] = consumerCopy;
-        v64 = 0;
-        v45 = &v64;
-        v46 = [contextCopy buildReactiveExpression:outputMaxExpression consumer:v65 error:&v64];
+        v44 = v64;
+        v64[0] = MEMORY[0x1E69E9820];
+        v64[1] = 3221225472;
+        v64[2] = __112__GCGenericDeviceDataInterpolateExpressionModel_Compilation__buildReactiveExpressionWithContext_consumer_error___block_invoke_9;
+        v64[3] = &unk_1E8415330;
+        v64[5] = v81;
+        v64[6] = v85;
+        v64[7] = v84;
+        v64[8] = v83;
+        v64[9] = v82;
+        v64[4] = consumerCopy;
+        v63 = 0;
+        v45 = &v63;
+        v46 = [contextCopy buildReactiveExpression:outputMaxExpression consumer:v64 error:&v63];
       }
 
       else
       {
         outputMaxExpression = [(GCGenericDeviceDataInterpolateExpressionModel *)self outputMaxExpression];
-        v44 = v63;
-        v63[0] = MEMORY[0x1E69E9820];
-        v63[1] = 3221225472;
-        v63[2] = __112__GCGenericDeviceDataInterpolateExpressionModel_Compilation__buildReactiveExpressionWithContext_consumer_error___block_invoke_10;
-        v63[3] = &unk_1E8415330;
-        v63[5] = v82;
-        v63[6] = v86;
-        v63[7] = v85;
-        v63[8] = v84;
-        v63[9] = v83;
-        v63[4] = consumerCopy;
-        v62 = 0;
-        v45 = &v62;
-        v46 = [outputMaxExpression buildReactiveExpressionWithContext:contextCopy consumer:v63 error:&v62];
+        v44 = v62;
+        v62[0] = MEMORY[0x1E69E9820];
+        v62[1] = 3221225472;
+        v62[2] = __112__GCGenericDeviceDataInterpolateExpressionModel_Compilation__buildReactiveExpressionWithContext_consumer_error___block_invoke_10;
+        v62[3] = &unk_1E8415330;
+        v62[5] = v81;
+        v62[6] = v85;
+        v62[7] = v84;
+        v62[8] = v83;
+        v62[9] = v82;
+        v62[4] = consumerCopy;
+        v61 = 0;
+        v45 = &v61;
+        v46 = [outputMaxExpression buildReactiveExpressionWithContext:contextCopy consumer:v62 error:&v61];
       }
 
       v51 = v46;
       v52 = (v44 + 4);
       v41 = *v45;
 
-      v34 = v59;
+      v34 = v58;
       if (v51)
       {
 
-        v97[4] = v51;
-        v23 = [MEMORY[0x1E695DEC8] arrayWithObjects:v97 count:5];
+        v96[4] = v51;
+        v23 = [MEMORY[0x1E695DEC8] arrayWithObjects:v96 count:5];
         v41 = v51;
 LABEL_36:
         v22 = v31;
@@ -775,18 +773,18 @@ LABEL_35:
       }
 
       v53 = MEMORY[0x1E696ABC0];
-      v87[0] = *MEMORY[0x1E696A578];
+      v86[0] = *MEMORY[0x1E696A578];
       v50 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Failed to build expression closure for '%@'.", objc_opt_class()];
       v54 = *MEMORY[0x1E696A588];
-      v88[0] = v50;
-      v88[1] = @"The 'outputMaxExpression' sub-expression failed to build.";
+      v87[0] = v50;
+      v87[1] = @"The 'outputMaxExpression' sub-expression failed to build.";
       v55 = *MEMORY[0x1E696AA08];
-      v87[1] = v54;
-      v87[2] = v55;
-      v88[2] = v41;
-      v56 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v88 forKeys:v87 count:3];
+      v86[1] = v54;
+      v86[2] = v55;
+      v87[2] = v41;
+      v56 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v87 forKeys:v86 count:3];
       [v53 errorWithDomain:@"GCGenericDeviceError" code:2 userInfo:v56];
-      *error = v34 = v59;
+      *error = v34 = v58;
     }
 
     else
@@ -798,16 +796,16 @@ LABEL_35:
       }
 
       v47 = MEMORY[0x1E696ABC0];
-      v89[0] = *MEMORY[0x1E696A578];
+      v88[0] = *MEMORY[0x1E696A578];
       v41 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Failed to build expression closure for '%@'.", objc_opt_class()];
       v48 = *MEMORY[0x1E696A588];
-      v90[0] = v41;
-      v90[1] = @"The 'outputMinExpression' sub-expression failed to build.";
+      v89[0] = v41;
+      v89[1] = @"The 'outputMinExpression' sub-expression failed to build.";
       v49 = *MEMORY[0x1E696AA08];
-      v89[1] = v48;
-      v89[2] = v49;
-      v90[2] = v34;
-      v50 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v90 forKeys:v89 count:3];
+      v88[1] = v48;
+      v88[2] = v49;
+      v89[2] = v34;
+      v50 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v89 forKeys:v88 count:3];
       *error = [v47 errorWithDomain:@"GCGenericDeviceError" code:2 userInfo:v50];
     }
 
@@ -817,16 +815,16 @@ LABEL_35:
   if (error)
   {
     v30 = MEMORY[0x1E696ABC0];
-    v93[0] = *MEMORY[0x1E696A578];
+    v92[0] = *MEMORY[0x1E696A578];
     v31 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Failed to build expression closure for '%@'.", objc_opt_class()];
     v32 = *MEMORY[0x1E696A588];
-    v94[0] = v31;
-    v94[1] = @"The 'inputMinExpression' sub-expression failed to build.";
+    v93[0] = v31;
+    v93[1] = @"The 'inputMinExpression' sub-expression failed to build.";
     v33 = *MEMORY[0x1E696AA08];
-    v93[1] = v32;
-    v93[2] = v33;
-    v94[2] = v25;
-    v34 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v94 forKeys:v93 count:3];
+    v92[1] = v32;
+    v92[2] = v33;
+    v93[2] = v25;
+    v34 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v93 forKeys:v92 count:3];
     [v30 errorWithDomain:@"GCGenericDeviceError" code:2 userInfo:v34];
     *error = v23 = 0;
 LABEL_39:
@@ -848,13 +846,11 @@ LABEL_42:
   v13 = v12;
 LABEL_43:
 
+  _Block_object_dispose(v81, 8);
   _Block_object_dispose(v82, 8);
   _Block_object_dispose(v83, 8);
   _Block_object_dispose(v84, 8);
   _Block_object_dispose(v85, 8);
-  _Block_object_dispose(v86, 8);
-
-  v57 = *MEMORY[0x1E69E9840];
 
   return v23;
 }

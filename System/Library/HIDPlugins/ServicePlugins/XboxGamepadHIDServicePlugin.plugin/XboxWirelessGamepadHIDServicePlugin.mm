@@ -1,4 +1,5 @@
 @interface XboxWirelessGamepadHIDServicePlugin
+- (XboxWirelessGamepadHIDServicePlugin)initWithService:(unsigned int)service;
 - (void)activate;
 - (void)cancel;
 - (void)dispatchPowerOnMessageCompletion:(id)completion;
@@ -7,6 +8,20 @@
 @end
 
 @implementation XboxWirelessGamepadHIDServicePlugin
+
+- (XboxWirelessGamepadHIDServicePlugin)initWithService:(unsigned int)service
+{
+  v7.receiver = self;
+  v7.super_class = XboxWirelessGamepadHIDServicePlugin;
+  v3 = [(GCGamepadHIDServicePlugin *)&v7 initWithService:*&service];
+  v4 = v3;
+  if (v3)
+  {
+    v5 = v3;
+  }
+
+  return v4;
+}
 
 - (void)activate
 {
@@ -83,10 +98,11 @@
 - (void)dispatchPowerOnMessageCompletion:(id)completion
 {
   completionCopy = completion;
-  v5 = sub_10F8();
+  v5 = sub_10F8(completionCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
-    sub_2F78(&dword_0, v6, v7, "Power on", v8, v9, v10, v11, v15, v16, 0);
+    *buf = 0;
+    sub_2F78(&dword_0, v6, v7, "Power on", v8, v9, v10, v11, v15, v16);
   }
 
   *(&v16 + 3) = 8197;

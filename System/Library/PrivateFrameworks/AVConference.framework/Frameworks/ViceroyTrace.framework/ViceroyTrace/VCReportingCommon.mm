@@ -12,9 +12,9 @@
 
 - (VCReportingCommon)init
 {
-  v7.receiver = self;
-  v7.super_class = VCReportingCommon;
-  v2 = [(VCReportingCommon *)&v7 init];
+  v8.receiver = self;
+  v8.super_class = VCReportingCommon;
+  v2 = [(VCReportingCommon *)&v8 init];
   if (!v2)
   {
     [VCReportingCommon init];
@@ -37,7 +37,7 @@ LABEL_7:
   notify_get_state(thermalNotificationToken, &state64);
   v5 = [VCReportingCommon aggregatorThermalLevelWithThermalLevel:state64];
   v2->_currentThermalLevel = v5;
-  [(VCDurationHistogram *)v2->_thermalDurations resumeAtBucket:v5 currentTime:micro()];
+  [(VCDurationHistogram *)v2->_thermalDurations resumeAtBucket:v5 currentTime:micro(v5, v6)];
   v2->_clientExperiments = objc_alloc_init(MEMORY[0x277CBEB38]);
   return v2;
 }
@@ -53,98 +53,92 @@ LABEL_7:
 - (id)dispatchedAggregatedReportCommon
 {
   dictionary = [MEMORY[0x277CBEB38] dictionary];
-  [(VCDurationHistogram *)self->_thermalDurations finalize:micro()];
+  [(VCDurationHistogram *)self->_thermalDurations finalize:micro(dictionary, v4)];
   [dictionary setObject:-[VCHistogram description](self->_thermalDurations forKeyedSubscript:{"description"), @"THERMDUR"}];
   return dictionary;
 }
 
 - (id)getUplinkRTXelemetryWithDuration:(unint64_t)duration
 {
-  v15[17] = *MEMORY[0x277D85DE8];
-  if (self->_isUplinkRTXTelemetryAvailable)
+  v14[17] = *MEMORY[0x277D85DE8];
+  if (!self->_isUplinkRTXTelemetryAvailable)
   {
-    v5 = objc_alloc_init(MEMORY[0x277CBEB38]);
-    v14[0] = @"ULNACKRQCNT";
-    v15[0] = [MEMORY[0x277CCABA8] numberWithUnsignedLongLong:self->_retransmissionRequestPacketCount];
-    v14[1] = @"ULNACKFLCNT";
-    v15[1] = [MEMORY[0x277CCABA8] numberWithUnsignedLongLong:self->_retransmissionFulfilledPacketCount];
-    v14[2] = @"ULNACKCHCNT";
-    v15[2] = [MEMORY[0x277CCABA8] numberWithUnsignedLongLong:self->_retransmissionCacheHitCount];
-    v14[3] = @"ULNACKCMCNT";
-    v15[3] = [MEMORY[0x277CCABA8] numberWithUnsignedLongLong:self->_retransmissionCacheMissCount];
-    v14[4] = @"ULNACKNRCNT";
-    v15[4] = [MEMORY[0x277CCABA8] numberWithUnsignedLongLong:self->_retransmissionNACKReceivedCount];
-    v14[5] = @"ULNACKRPCNT";
-    v15[5] = [MEMORY[0x277CCABA8] numberWithUnsignedLongLong:self->_retransmissionRequestRepeatedCount];
-    v14[6] = @"ULNACKRPMAXCNT";
-    v15[6] = [MEMORY[0x277CCABA8] numberWithUnsignedShort:self->_retransmissionRequestRepeatedMaxCount];
-    v14[7] = @"ULNACKRQRATE";
-    v6 = 0.0;
-    v7 = 0.0;
-    if (duration)
-    {
-      v7 = self->_retransmissionRequestPacketCount / duration;
-    }
-
-    v15[7] = [MEMORY[0x277CCABA8] numberWithDouble:v7];
-    v14[8] = @"ULNACKFLRATE";
-    if (duration)
-    {
-      v6 = self->_retransmissionFulfilledPacketCount / duration;
-    }
-
-    v15[8] = [MEMORY[0x277CCABA8] numberWithDouble:v6];
-    v14[9] = @"ULNACKCHRATE";
-    v8 = 0.0;
-    v9 = 0.0;
-    if (duration)
-    {
-      v9 = self->_retransmissionCacheHitCount / duration;
-    }
-
-    v15[9] = [MEMORY[0x277CCABA8] numberWithDouble:v9];
-    v14[10] = @"ULNACKCMRATE";
-    if (duration)
-    {
-      v8 = self->_retransmissionCacheMissCount / duration;
-    }
-
-    v15[10] = [MEMORY[0x277CCABA8] numberWithDouble:v8];
-    v14[11] = @"ULNACKNRRATE";
-    v10 = 0.0;
-    v11 = 0.0;
-    if (duration)
-    {
-      v11 = self->_retransmissionNACKReceivedCount / duration;
-    }
-
-    v15[11] = [MEMORY[0x277CCABA8] numberWithDouble:v11];
-    v14[12] = @"ULNACKRPRATE";
-    if (duration)
-    {
-      v10 = self->_retransmissionRequestRepeatedCount / duration;
-    }
-
-    v15[12] = [MEMORY[0x277CCABA8] numberWithDouble:v10];
-    v14[13] = @"ULNACKAVGRESP";
-    v15[13] = [(VCHistogram *)self->_retransmissionResponseTime description];
-    v14[14] = @"ULNACKAVGLATE";
-    v15[14] = [(VCHistogram *)self->_retransmissionLateTime description];
-    v14[15] = @"ULNACKAVGLATE";
-    v15[15] = [(VCHistogram *)self->_retransmissionActualMediaBitrate description];
-    v14[16] = @"ULNACKRBR";
-    v15[16] = [(VCHistogram *)self->_retransmissionBitrate description];
-    [v5 addEntriesFromDictionary:{objc_msgSend(MEMORY[0x277CBEAC0], "dictionaryWithObjects:forKeys:count:", v15, v14, 17)}];
-    result = v5;
+    return MEMORY[0x277CBEC10];
   }
 
-  else
+  v5 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v13[0] = @"ULNACKRQCNT";
+  v14[0] = [MEMORY[0x277CCABA8] numberWithUnsignedLongLong:self->_retransmissionRequestPacketCount];
+  v13[1] = @"ULNACKFLCNT";
+  v14[1] = [MEMORY[0x277CCABA8] numberWithUnsignedLongLong:self->_retransmissionFulfilledPacketCount];
+  v13[2] = @"ULNACKCHCNT";
+  v14[2] = [MEMORY[0x277CCABA8] numberWithUnsignedLongLong:self->_retransmissionCacheHitCount];
+  v13[3] = @"ULNACKCMCNT";
+  v14[3] = [MEMORY[0x277CCABA8] numberWithUnsignedLongLong:self->_retransmissionCacheMissCount];
+  v13[4] = @"ULNACKNRCNT";
+  v14[4] = [MEMORY[0x277CCABA8] numberWithUnsignedLongLong:self->_retransmissionNACKReceivedCount];
+  v13[5] = @"ULNACKRPCNT";
+  v14[5] = [MEMORY[0x277CCABA8] numberWithUnsignedLongLong:self->_retransmissionRequestRepeatedCount];
+  v13[6] = @"ULNACKRPMAXCNT";
+  v14[6] = [MEMORY[0x277CCABA8] numberWithUnsignedShort:self->_retransmissionRequestRepeatedMaxCount];
+  v13[7] = @"ULNACKRQRATE";
+  v6 = 0.0;
+  v7 = 0.0;
+  if (duration)
   {
-    result = MEMORY[0x277CBEC10];
+    v7 = self->_retransmissionRequestPacketCount / duration;
   }
 
-  v13 = *MEMORY[0x277D85DE8];
-  return result;
+  v14[7] = [MEMORY[0x277CCABA8] numberWithDouble:v7];
+  v13[8] = @"ULNACKFLRATE";
+  if (duration)
+  {
+    v6 = self->_retransmissionFulfilledPacketCount / duration;
+  }
+
+  v14[8] = [MEMORY[0x277CCABA8] numberWithDouble:v6];
+  v13[9] = @"ULNACKCHRATE";
+  v8 = 0.0;
+  v9 = 0.0;
+  if (duration)
+  {
+    v9 = self->_retransmissionCacheHitCount / duration;
+  }
+
+  v14[9] = [MEMORY[0x277CCABA8] numberWithDouble:v9];
+  v13[10] = @"ULNACKCMRATE";
+  if (duration)
+  {
+    v8 = self->_retransmissionCacheMissCount / duration;
+  }
+
+  v14[10] = [MEMORY[0x277CCABA8] numberWithDouble:v8];
+  v13[11] = @"ULNACKNRRATE";
+  v10 = 0.0;
+  v11 = 0.0;
+  if (duration)
+  {
+    v11 = self->_retransmissionNACKReceivedCount / duration;
+  }
+
+  v14[11] = [MEMORY[0x277CCABA8] numberWithDouble:v11];
+  v13[12] = @"ULNACKRPRATE";
+  if (duration)
+  {
+    v10 = self->_retransmissionRequestRepeatedCount / duration;
+  }
+
+  v14[12] = [MEMORY[0x277CCABA8] numberWithDouble:v10];
+  v13[13] = @"ULNACKAVGRESP";
+  v14[13] = [(VCHistogram *)self->_retransmissionResponseTime description];
+  v13[14] = @"ULNACKAVGLATE";
+  v14[14] = [(VCHistogram *)self->_retransmissionLateTime description];
+  v13[15] = @"ULNACKAVGLATE";
+  v14[15] = [(VCHistogram *)self->_retransmissionActualMediaBitrate description];
+  v13[16] = @"ULNACKRBR";
+  v14[16] = [(VCHistogram *)self->_retransmissionBitrate description];
+  [v5 addEntriesFromDictionary:{objc_msgSend(MEMORY[0x277CBEAC0], "dictionaryWithObjects:forKeys:count:", v14, v13, 17)}];
+  return v5;
 }
 
 - (void)setUplinkRTXTelemetryWithRealTimeStreamData:(id)data
@@ -210,28 +204,28 @@ LABEL_7:
 
 - (void)init
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   if (!objc_opt_class())
   {
     if (VRTraceGetErrorLogLevelForModule("") < 3)
     {
-      goto LABEL_10;
+      return;
     }
 
     v1 = VRTraceErrorLogLevelToCSTR(3u);
     if (!os_log_type_enabled(gVRTraceOSLog, OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_10;
+      return;
     }
 
-    v11 = 136315650;
-    v12 = v1;
+    v10 = 136315650;
+    v11 = v1;
     OUTLINED_FUNCTION_0();
-    v13 = 41;
+    v12 = 41;
     OUTLINED_FUNCTION_1();
 LABEL_12:
     _os_log_error_impl(v2, v3, v4, v5, v6, v7);
-    goto LABEL_10;
+    return;
   }
 
   if (objc_opt_respondsToSelector())
@@ -250,26 +244,23 @@ LABEL_12:
     v9 = gVRTraceOSLog;
     if (os_log_type_enabled(gVRTraceOSLog, OS_LOG_TYPE_ERROR))
     {
-      v11 = 136316162;
-      v12 = v8;
+      v10 = 136316162;
+      v11 = v8;
       OUTLINED_FUNCTION_0();
-      v13 = 41;
-      v14 = 2112;
-      v15 = v0;
-      v16 = 2048;
-      v17 = 0;
+      v12 = 41;
+      v13 = 2112;
+      v14 = v0;
+      v15 = 2048;
+      v16 = 0;
       v2 = &dword_23D4DF000;
       v5 = " [%s] %s:%d %@(%p) Failed to initialize self";
-      v6 = &v11;
+      v6 = &v10;
       v3 = v9;
       v4 = OS_LOG_TYPE_ERROR;
       v7 = 48;
       goto LABEL_12;
     }
   }
-
-LABEL_10:
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 @end

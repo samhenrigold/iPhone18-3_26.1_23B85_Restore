@@ -24,7 +24,7 @@
   *(&self->super.isa + OBJC_IVAR____TtC11WorkoutCore19WorkoutNotification_units) = MEMORY[0x277D84F90];
   *(&self->super.isa + OBJC_IVAR____TtC11WorkoutCore19WorkoutNotification_displayDuration) = 0;
   v4.receiver = self;
-  v4.super_class = type metadata accessor for WorkoutNotification();
+  v4.super_class = type metadata accessor for WorkoutNotification(0);
   return [(WorkoutNotification *)&v4 init];
 }
 
@@ -51,7 +51,7 @@
     goto LABEL_8;
   }
 
-  type metadata accessor for WorkoutNotification();
+  type metadata accessor for WorkoutNotification(0);
   if ((swift_dynamicCast() & 1) == 0)
   {
 LABEL_8:

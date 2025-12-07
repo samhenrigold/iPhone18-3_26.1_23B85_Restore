@@ -246,16 +246,16 @@ void __46__CARScreenInfo__currentProcessHasEntitlement__block_invoke()
   dictionaryCopy = dictionary;
   displayCopy = display;
   capabilitiesCopy = capabilities;
-  v131.receiver = self;
-  v131.super_class = CARScreenInfo;
-  v21 = [(CARScreenInfo *)&v131 init];
+  v134.receiver = self;
+  v134.super_class = CARScreenInfo;
+  v21 = [(CARScreenInfo *)&v134 init];
   v22 = v21;
   if (!supplierCopy || !v21)
   {
     goto LABEL_97;
   }
 
-  v119 = capabilitiesCopy;
+  v122 = capabilitiesCopy;
   v23 = [dictionaryCopy copy];
   screenInfoResponse = v22->_screenInfoResponse;
   v22->_screenInfoResponse = v23;
@@ -291,7 +291,7 @@ void __46__CARScreenInfo__currentProcessHasEntitlement__block_invoke()
     v32 = 0;
   }
 
-  v118 = v32;
+  v121 = v32;
   v22->_initialFocusOwner = [v32 BOOLValue];
   v33 = [dictionaryCopy objectForKey:@"features"];
   objc_opt_class();
@@ -306,43 +306,45 @@ void __46__CARScreenInfo__currentProcessHasEntitlement__block_invoke()
     v35 = 0;
   }
 
-  v115 = v35;
+  v118 = v35;
   if (v35)
   {
     unsignedIntegerValue = [v35 unsignedIntegerValue];
+    v38 = unsignedIntegerValue;
+    v39 = unsignedIntegerValue & 0xFFFFFFFFFFFFFFC1;
     if ((unsignedIntegerValue & 0xFFFFFFFFFFFFFFC1) != 0)
     {
-      v37 = CarGeneralLogging();
-      if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
+      v40 = CarGeneralLogging(unsignedIntegerValue);
+      if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
       {
-        [CARScreenInfo initWithPropertySupplier:? screenType:? additionalInsets:? displayDictionary:? physicalDisplay:? carCapabilities:?];
+        [CARScreenInfo initWithPropertySupplier:v39 screenType:? additionalInsets:? displayDictionary:? physicalDisplay:? carCapabilities:?];
       }
     }
 
-    v38 = (unsignedIntegerValue >> 1) & 2;
-    if ((unsignedIntegerValue & 8) != 0)
+    v41 = (v38 >> 1) & 2;
+    if ((v38 & 8) != 0)
     {
-      v38 = 2;
+      v41 = 2;
     }
 
-    v39 = ((2 * unsignedIntegerValue) | (unsignedIntegerValue >> 3)) & 4 | (unsignedIntegerValue >> 1) & 8 | v38;
-    if (v39 <= 1)
+    v42 = ((2 * v38) | (v38 >> 3)) & 4 | (v38 >> 1) & 8 | v41;
+    if (v42 <= 1)
     {
-      v39 = 1;
+      v42 = 1;
     }
 
-    v22->_systemAvailableInteractionModels = v39;
-    v22->_supportsHighFidelityTouch = (unsignedIntegerValue & 8) != 0;
+    v22->_systemAvailableInteractionModels = v42;
+    v22->_supportsHighFidelityTouch = (v38 & 8) != 0;
   }
 
   else
   {
     if (!type)
     {
-      v40 = CarGeneralLogging();
-      if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
+      v43 = CarGeneralLogging(v36);
+      if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
       {
-        [(CARScreenInfo *)&v22->_identifier initWithPropertySupplier:v40 screenType:v41 additionalInsets:v42 displayDictionary:v43 physicalDisplay:v44 carCapabilities:v45, v46];
+        [(CARScreenInfo *)&v22->_identifier initWithPropertySupplier:v43 screenType:v44 additionalInsets:v45 displayDictionary:v46 physicalDisplay:v47 carCapabilities:v48, v49];
       }
     }
 
@@ -350,23 +352,23 @@ void __46__CARScreenInfo__currentProcessHasEntitlement__block_invoke()
     v22->_supportsHighFidelityTouch = 0;
   }
 
-  v47 = [dictionaryCopy objectForKey:@"primaryInputDevice"];
+  v50 = [dictionaryCopy objectForKey:@"primaryInputDevice"];
   objc_opt_class();
-  v48 = v47;
+  v51 = v50;
   if (objc_opt_isKindOfClass())
   {
-    v49 = v48;
+    v52 = v51;
   }
 
   else
   {
-    v49 = 0;
+    v52 = 0;
   }
 
-  if (v49)
+  if (v52)
   {
-    unsignedIntegerValue2 = [v49 unsignedIntegerValue];
-    v51 = unsignedIntegerValue2;
+    unsignedIntegerValue2 = [v52 unsignedIntegerValue];
+    v54 = unsignedIntegerValue2;
     if (unsignedIntegerValue2 <= 1)
     {
       if (!unsignedIntegerValue2)
@@ -377,7 +379,7 @@ void __46__CARScreenInfo__currentProcessHasEntitlement__block_invoke()
       if (unsignedIntegerValue2 == 1)
       {
 LABEL_44:
-        v54 = 2;
+        v57 = 2;
         goto LABEL_46;
       }
     }
@@ -392,17 +394,17 @@ LABEL_44:
       if (unsignedIntegerValue2 == 2)
       {
 LABEL_43:
-        v54 = 8;
+        v57 = 8;
 LABEL_46:
-        v22->_systemPrimaryInteractionModel = v54;
+        v22->_systemPrimaryInteractionModel = v57;
         goto LABEL_47;
       }
     }
 
-    v52 = CarGeneralLogging();
-    if (os_log_type_enabled(v52, OS_LOG_TYPE_ERROR))
+    v55 = CarGeneralLogging(unsignedIntegerValue2);
+    if (os_log_type_enabled(v55, OS_LOG_TYPE_ERROR))
     {
-      [CARScreenInfo initWithPropertySupplier:v51 screenType:? additionalInsets:? displayDictionary:? physicalDisplay:? carCapabilities:?];
+      [CARScreenInfo initWithPropertySupplier:v54 screenType:? additionalInsets:? displayDictionary:? physicalDisplay:? carCapabilities:?];
     }
   }
 
@@ -417,7 +419,7 @@ LABEL_40:
   if ((systemAvailableInteractionModels & 4) != 0)
   {
 LABEL_45:
-    v54 = 4;
+    v57 = 4;
     goto LABEL_46;
   }
 
@@ -427,46 +429,30 @@ LABEL_45:
   }
 
 LABEL_47:
-  v55 = supplierCopy[2](supplierCopy, *MEMORY[0x1E6962430]);
+  v58 = supplierCopy[2](supplierCopy, *MEMORY[0x1E6962430]);
   objc_opt_class();
-  v56 = v55;
+  v59 = v58;
   if (objc_opt_isKindOfClass())
   {
-    v57 = v56;
+    v60 = v59;
   }
 
   else
   {
-    v57 = 0;
+    v60 = 0;
   }
 
-  v113 = v57;
-  v22->_maxFramesPerSecond = [v57 unsignedIntegerValue];
-  v58 = (supplierCopy[2])(supplierCopy, *MEMORY[0x1E6962438]);
-  CRSizeFromDictionary(v58, &v22->_physicalSize);
-  v59 = (supplierCopy[2])(supplierCopy, *MEMORY[0x1E6962440]);
-  CRSizeFromDictionary(v59, &v22->_pixelSize);
-  v60 = (supplierCopy[2])(supplierCopy, *MEMORY[0x1E6962450]);
-  CRSizeFromDictionary(v60, &v22->_squaredPixelSize);
-  v61 = supplierCopy[2](supplierCopy, *MEMORY[0x1E6962418]);
-  objc_opt_class();
-  v62 = v61;
-  if (objc_opt_isKindOfClass())
-  {
-    v63 = v62;
-  }
-
-  else
-  {
-    v63 = 0;
-  }
-
-  v112 = v63;
-  v22->_limitedUI = [v63 BOOLValue];
-  v64 = supplierCopy[2](supplierCopy, *MEMORY[0x1E6962420]);
+  v116 = v60;
+  v22->_maxFramesPerSecond = [v60 unsignedIntegerValue];
+  v61 = (supplierCopy[2])(supplierCopy, *MEMORY[0x1E6962438]);
+  CRSizeFromDictionary(v61, &v22->_physicalSize);
+  v62 = (supplierCopy[2])(supplierCopy, *MEMORY[0x1E6962440]);
+  CRSizeFromDictionary(v62, &v22->_pixelSize);
+  v63 = (supplierCopy[2])(supplierCopy, *MEMORY[0x1E6962450]);
+  CRSizeFromDictionary(v63, &v22->_squaredPixelSize);
+  v64 = supplierCopy[2](supplierCopy, *MEMORY[0x1E6962418]);
   objc_opt_class();
   v65 = v64;
-  v114 = v49;
   if (objc_opt_isKindOfClass())
   {
     v66 = v65;
@@ -477,11 +463,12 @@ LABEL_47:
     v66 = 0;
   }
 
-  v111 = v66;
-  v22->_nightMode = [v66 BOOLValue];
-  v67 = supplierCopy[2](supplierCopy, *MEMORY[0x1E6962428]);
+  v115 = v66;
+  v22->_limitedUI = [v66 BOOLValue];
+  v67 = supplierCopy[2](supplierCopy, *MEMORY[0x1E6962420]);
   objc_opt_class();
   v68 = v67;
+  v117 = v52;
   if (objc_opt_isKindOfClass())
   {
     v69 = v68;
@@ -492,13 +479,11 @@ LABEL_47:
     v69 = 0;
   }
 
-  v110 = v69;
-  v22->_limitedUIElements = [CARSessionConfiguration _limitableUserInterfacesFromLimitedUIValues:v69];
-  v70 = supplierCopy[2](supplierCopy, *MEMORY[0x1E6962458]);
+  v114 = v69;
+  v22->_nightMode = [v69 BOOLValue];
+  v70 = supplierCopy[2](supplierCopy, *MEMORY[0x1E6962428]);
   objc_opt_class();
   v71 = v70;
-  v116 = v29;
-  v117 = displayCopy;
   if (objc_opt_isKindOfClass())
   {
     v72 = v71;
@@ -509,82 +494,84 @@ LABEL_47:
     v72 = 0;
   }
 
-  v73 = objc_alloc_init(MEMORY[0x1E695DF70]);
-  v74 = objc_alloc_init(MEMORY[0x1E695DF70]);
-  v129[0] = MEMORY[0x1E69E9820];
-  v129[1] = 3221225472;
-  v129[2] = __120__CARScreenInfo_initWithPropertySupplier_screenType_additionalInsets_displayDictionary_physicalDisplay_carCapabilities___block_invoke;
-  v129[3] = &unk_1E82FCA80;
-  v120 = v73;
-  v130 = v120;
-  v109 = v72;
-  [v72 enumerateObjectsUsingBlock:v129];
-  v75 = [dictionaryCopy objectForKey:@"viewAreas"];
+  v113 = v72;
+  v22->_limitedUIElements = [CARSessionConfiguration _limitableUserInterfacesFromLimitedUIValues:v72];
+  v73 = supplierCopy[2](supplierCopy, *MEMORY[0x1E6962458]);
   objc_opt_class();
-  v76 = v75;
+  v74 = v73;
+  v119 = v29;
+  v120 = displayCopy;
   if (objc_opt_isKindOfClass())
   {
-    v77 = v76;
+    v75 = v74;
   }
 
   else
   {
-    v77 = 0;
+    v75 = 0;
   }
 
-  capabilitiesCopy = v119;
+  v76 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v77 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v132[0] = MEMORY[0x1E69E9820];
+  v132[1] = 3221225472;
+  v132[2] = __120__CARScreenInfo_initWithPropertySupplier_screenType_additionalInsets_displayDictionary_physicalDisplay_carCapabilities___block_invoke;
+  v132[3] = &unk_1E82FCA80;
+  v123 = v76;
+  v133 = v123;
+  v112 = v75;
+  [v75 enumerateObjectsUsingBlock:v132];
+  v78 = [dictionaryCopy objectForKey:@"viewAreas"];
+  objc_opt_class();
+  v79 = v78;
+  if (objc_opt_isKindOfClass())
+  {
+    v80 = v79;
+  }
 
-  v121[0] = MEMORY[0x1E69E9820];
-  v121[1] = 3221225472;
-  v121[2] = __120__CARScreenInfo_initWithPropertySupplier_screenType_additionalInsets_displayDictionary_physicalDisplay_carCapabilities___block_invoke_2;
-  v121[3] = &unk_1E82FCAD0;
-  v125 = top;
-  v126 = left;
-  v127 = bottom;
-  v128 = right;
-  v108 = v77;
-  v122 = v108;
-  v78 = v22;
-  v123 = v78;
-  v107 = v74;
-  v124 = v107;
-  [v120 enumerateObjectsUsingBlock:v121];
-  objc_storeStrong(&v78->_viewAreas, v74);
+  else
+  {
+    v80 = 0;
+  }
+
+  capabilitiesCopy = v122;
+
+  v124[0] = MEMORY[0x1E69E9820];
+  v124[1] = 3221225472;
+  v124[2] = __120__CARScreenInfo_initWithPropertySupplier_screenType_additionalInsets_displayDictionary_physicalDisplay_carCapabilities___block_invoke_2;
+  v124[3] = &unk_1E82FCAD0;
+  v128 = top;
+  v129 = left;
+  v130 = bottom;
+  v131 = right;
+  v111 = v80;
+  v125 = v111;
+  v81 = v22;
+  v126 = v81;
+  v110 = v77;
+  v127 = v110;
+  [v123 enumerateObjectsUsingBlock:v124];
+  objc_storeStrong(&v81->_viewAreas, v77);
   if (type == 1)
   {
-    v79 = supplierCopy[2](supplierCopy, *MEMORY[0x1E6962408]);
+    v82 = supplierCopy[2](supplierCopy, *MEMORY[0x1E6962408]);
     objc_opt_class();
-    v80 = v79;
+    v83 = v82;
     if (objc_opt_isKindOfClass())
     {
-      v81 = v80;
+      v84 = v83;
     }
 
     else
     {
-      v81 = 0;
+      v84 = 0;
     }
 
-    initialURL = v78->_initialURL;
-    v78->_initialURL = v81;
+    initialURL = v81->_initialURL;
+    v81->_initialURL = v84;
   }
 
-  v83 = [dictionaryCopy objectForKey:@"uiAppearanceMode"];
-  objc_opt_class();
-  v84 = v83;
-  if (objc_opt_isKindOfClass())
-  {
-    v85 = v84;
-  }
-
-  else
-  {
-    v85 = 0;
-  }
-
-  v105 = v85;
-  v78->_supportsAppearanceMode = v85 != 0;
-  v86 = [dictionaryCopy objectForKey:@"mapAppearanceMode"];
+  v86 = [dictionaryCopy objectForKey:@"uiAppearanceMode"];
   objc_opt_class();
   v87 = v86;
   if (objc_opt_isKindOfClass())
@@ -597,73 +584,88 @@ LABEL_47:
     v88 = 0;
   }
 
+  v108 = v88;
+  v81->_supportsAppearanceMode = v88 != 0;
+  v89 = [dictionaryCopy objectForKey:@"mapAppearanceMode"];
+  objc_opt_class();
+  v90 = v89;
+  if (objc_opt_isKindOfClass())
+  {
+    v91 = v90;
+  }
+
+  else
+  {
+    v91 = 0;
+  }
+
   typeCopy = type;
   if (type)
   {
-    v90 = v88 == 0;
+    v93 = v91 == 0;
   }
 
   else
   {
-    v90 = 1;
+    v93 = 1;
   }
 
-  v91 = !v90;
-  v78->_supportsMapAppearanceMode = v91;
-  v92 = [dictionaryCopy objectForKey:{@"nightMode", v105}];
+  v94 = !v93;
+  v81->_supportsMapAppearanceMode = v94;
+  v95 = [dictionaryCopy objectForKey:{@"nightMode", v108}];
   objc_opt_class();
-  v93 = v92;
+  v96 = v95;
   if (objc_opt_isKindOfClass())
   {
-    v94 = v93;
+    v97 = v96;
   }
 
   else
   {
-    v94 = 0;
+    v97 = 0;
   }
 
-  v95 = v118;
+  v98 = v121;
 
   if (typeCopy)
   {
-    v96 = v94 == 0;
+    v99 = v97 == 0;
   }
 
   else
   {
-    v96 = 0;
+    v99 = 0;
   }
 
-  v97 = !v96;
-  v78->_supportsPerDisplayNightMode = v97;
-  zoomFactor = [v119 zoomFactor];
-  zoomFactor = v78->_zoomFactor;
-  v78->_zoomFactor = zoomFactor;
+  v100 = !v99;
+  v81->_supportsPerDisplayNightMode = v100;
+  zoomFactor = [v122 zoomFactor];
+  zoomFactor = v81->_zoomFactor;
+  v81->_zoomFactor = zoomFactor;
 
-  if (!v78->_zoomFactor)
+  if (!v81->_zoomFactor)
   {
-    v100 = [dictionaryCopy objectForKeyedSubscript:@"zoomFactor"];
+    v103 = [dictionaryCopy objectForKeyedSubscript:@"zoomFactor"];
     objc_opt_class();
-    v101 = v100;
+    v104 = v103;
     if (objc_opt_isKindOfClass())
     {
-      v102 = v101;
+      v105 = v104;
     }
 
     else
     {
-      v102 = 0;
+      v105 = 0;
     }
 
-    v103 = v78->_zoomFactor;
-    v78->_zoomFactor = v102;
+    v106 = v81->_zoomFactor;
+    v81->_zoomFactor = v105;
 
-    v95 = v118;
-    capabilitiesCopy = v119;
+    v98 = v121;
+    capabilitiesCopy = v122;
   }
 
-  displayCopy = v117;
+  displayCopy = v120;
 LABEL_97:
 
   return v22;
@@ -786,7 +788,7 @@ LABEL_11:
 {
   changedCopy = changed;
   v12 = *MEMORY[0x1E69E9840];
-  v5 = CarGeneralLogging();
+  v5 = CarGeneralLogging(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     identifier = [(CARScreenInfo *)self identifier];
@@ -805,7 +807,7 @@ LABEL_11:
 {
   changedCopy = changed;
   v12 = *MEMORY[0x1E69E9840];
-  v5 = CarGeneralLogging();
+  v5 = CarGeneralLogging(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     identifier = [(CARScreenInfo *)self identifier];
@@ -880,14 +882,21 @@ LABEL_11:
 {
   v1 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:a1];
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_3_0(&dword_1C81FC000, v2, v3, "Unknown display input methods: %@", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_3_0(&dword_1C81FC000, v2, v3, "Unknown display input methods: %@", v4, v5, v6, v7);
+}
+
+- (void)initWithPropertySupplier:(uint64_t)a3 screenType:(uint64_t)a4 additionalInsets:(uint64_t)a5 displayDictionary:(uint64_t)a6 physicalDisplay:(uint64_t)a7 carCapabilities:(uint64_t)a8 .cold.2(void *a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = *a1;
+  OUTLINED_FUNCTION_0_0(&dword_1C81FC000, a2, a3, "Missing interaction model on screen: %{public}@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)initWithPropertySupplier:(uint64_t)a1 screenType:additionalInsets:displayDictionary:physicalDisplay:carCapabilities:.cold.3(uint64_t a1)
 {
   v1 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:a1];
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_3_0(&dword_1C81FC000, v2, v3, "Unknown primary input device: %@", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_3_0(&dword_1C81FC000, v2, v3, "Unknown primary input device: %@", v4, v5, v6, v7);
 }
 
 @end

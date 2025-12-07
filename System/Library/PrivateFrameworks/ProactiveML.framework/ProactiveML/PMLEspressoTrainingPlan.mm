@@ -21,19 +21,17 @@
 
 - (id)toPlistWithChunks:(id)chunks
 {
-  v12[2] = *MEMORY[0x277D85DE8];
-  v11[0] = @"META_TRAINING_VARIABLES";
+  v11[2] = *MEMORY[0x277D85DE8];
+  v10[0] = @"META_TRAINING_VARIABLES";
   mtv = self->_mtv;
   chunksCopy = chunks;
   v6 = [(PMLMetaTrainingVariables *)mtv toPlistWithChunks:chunksCopy];
-  v11[1] = @"ESPRESSO_TRAINING_VARIABLES";
-  v12[0] = v6;
+  v10[1] = @"ESPRESSO_TRAINING_VARIABLES";
+  v11[0] = v6;
   v7 = [(PMLEspressoTrainingVariables *)self->_etv toPlistWithChunks:chunksCopy];
 
-  v12[1] = v7;
-  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:2];
-
-  v9 = *MEMORY[0x277D85DE8];
+  v11[1] = v7;
+  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:v10 count:2];
 
   return v8;
 }
@@ -135,20 +133,20 @@ LABEL_10:
 
 - (id)runWithError:(id *)error
 {
-  v75 = *MEMORY[0x277D85DE8];
-  v60 = 0;
-  v61 = &v60;
-  v62 = 0x3032000000;
-  v63 = __Block_byref_object_copy__2913;
-  v64 = __Block_byref_object_dispose__2914;
-  v65 = 0;
+  v74 = *MEMORY[0x277D85DE8];
+  v59 = 0;
+  v60 = &v59;
+  v61 = 0x3032000000;
+  v62 = __Block_byref_object_copy__2913;
+  v63 = __Block_byref_object_dispose__2914;
+  v64 = 0;
   v5 = objc_opt_class();
   taskDefinition = self->_taskDefinition;
   globalsToGetGradientsFor = [(PMLEspressoTrainingVariables *)self->_etv globalsToGetGradientsFor];
   layerWeightsToGetGradientsFor = [(PMLEspressoTrainingVariables *)self->_etv layerWeightsToGetGradientsFor];
   layerBiasesToGetGradientsFor = [(PMLEspressoTrainingVariables *)self->_etv layerBiasesToGetGradientsFor];
-  v10 = (v61 + 5);
-  obj = v61[5];
+  v10 = (v60 + 5);
+  obj = v60[5];
   v11 = [v5 _getModelParametersForTask:taskDefinition globalNames:globalsToGetGradientsFor weightNames:layerWeightsToGetGradientsFor biasNames:layerBiasesToGetGradientsFor error:&obj];
   objc_storeStrong(v10, obj);
 
@@ -156,61 +154,61 @@ LABEL_10:
   {
     *&buf = 0;
     *(&buf + 1) = &buf;
-    v73 = 0x2020000000;
-    v74 = 0;
-    v58[0] = 0;
-    v58[1] = v58;
-    v58[2] = 0x2020000000;
-    v58[3] = 0;
+    v72 = 0x2020000000;
+    v73 = 0;
+    v57[0] = 0;
+    v57[1] = v57;
+    v57[2] = 0x2020000000;
+    v57[3] = 0;
     store = [(PMLMetaTrainingVariables *)self->_mtv store];
     sessionDescriptor = [(PMLMetaTrainingVariables *)self->_mtv sessionDescriptor];
     +[PMLTrainingStore lastUsedTimestampLimit];
     v15 = v14;
     labelsToTrainOn = [(PMLMetaTrainingVariables *)self->_mtv labelsToTrainOn];
     trainingSetSize = [(PMLMetaTrainingVariables *)self->_mtv trainingSetSize];
-    v57[0] = MEMORY[0x277D85DD0];
-    v57[1] = 3221225472;
-    v57[2] = __40__PMLEspressoTrainingPlan_runWithError___block_invoke;
-    v57[3] = &unk_279AC03D8;
-    v57[4] = self;
-    v57[5] = &buf;
-    v57[6] = &v60;
-    v57[7] = v58;
-    [store loadDataForModel:sessionDescriptor privacyBudgetRefreshPeriod:labelsToTrainOn labels:trainingSetSize batchSize:v57 block:v15];
+    v56[0] = MEMORY[0x277D85DD0];
+    v56[1] = 3221225472;
+    v56[2] = __40__PMLEspressoTrainingPlan_runWithError___block_invoke;
+    v56[3] = &unk_279AC03D8;
+    v56[4] = self;
+    v56[5] = &buf;
+    v56[6] = &v59;
+    v56[7] = v57;
+    [store loadDataForModel:sessionDescriptor privacyBudgetRefreshPeriod:labelsToTrainOn labels:trainingSetSize batchSize:v56 block:v15];
 
     if (!*(*(&buf + 1) + 24))
     {
       v21 = PML_LogHandle();
       if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
       {
-        *v70 = 0;
-        _os_log_error_impl(&dword_260D68000, v21, OS_LOG_TYPE_ERROR, "Returning nil since no training was done", v70, 2u);
+        *v69 = 0;
+        _os_log_error_impl(&dword_260D68000, v21, OS_LOG_TYPE_ERROR, "Returning nil since no training was done", v69, 2u);
       }
 
       goto LABEL_15;
     }
 
-    if (v61[5])
+    if (v60[5])
     {
       v18 = PML_LogHandle();
       if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
       {
-        *v70 = 0;
-        _os_log_error_impl(&dword_260D68000, v18, OS_LOG_TYPE_ERROR, "Returning nil and early from training since an error occurred during training", v70, 2u);
+        *v69 = 0;
+        _os_log_error_impl(&dword_260D68000, v18, OS_LOG_TYPE_ERROR, "Returning nil and early from training since an error occurred during training", v69, 2u);
       }
 
       if (error)
       {
 LABEL_20:
         v20 = 0;
-        *error = v61[5];
+        *error = v60[5];
         goto LABEL_36;
       }
 
 LABEL_15:
       v20 = 0;
 LABEL_36:
-      _Block_object_dispose(v58, 8);
+      _Block_object_dispose(v57, 8);
       _Block_object_dispose(&buf, 8);
       goto LABEL_37;
     }
@@ -221,18 +219,18 @@ LABEL_36:
     layerWeightsToGetGradientsFor2 = [(PMLEspressoTrainingVariables *)self->_etv layerWeightsToGetGradientsFor];
     layerBiasesToGetGradientsFor2 = [(PMLEspressoTrainingVariables *)self->_etv layerBiasesToGetGradientsFor];
     v27 = [v22 _calculateGradientInPlaceForTask:v23 startingParameters:v11 globalNames:globalsToGetGradientsFor2 weightNames:layerWeightsToGetGradientsFor2 biasNames:layerBiasesToGetGradientsFor2];
-    v28 = v61[5];
-    v61[5] = v27;
+    v28 = v60[5];
+    v60[5] = v27;
 
-    if (v61[5])
+    if (v60[5])
     {
       v29 = PML_LogHandle();
       if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
       {
-        v52 = v61[5];
-        *v70 = 138412290;
-        v71 = v52;
-        _os_log_error_impl(&dword_260D68000, v29, OS_LOG_TYPE_ERROR, "Returning nil since an error occurred when calculating the gradient: %@", v70, 0xCu);
+        v51 = v60[5];
+        *v69 = 138412290;
+        v70 = v51;
+        _os_log_error_impl(&dword_260D68000, v29, OS_LOG_TYPE_ERROR, "Returning nil since an error occurred when calculating the gradient: %@", v69, 0xCu);
       }
 
       if (error)
@@ -249,35 +247,35 @@ LABEL_36:
       goto LABEL_34;
     }
 
-    *v70 = 1065353216;
+    *v69 = 1065353216;
     noiseStrategy = [(PMLMetaTrainingVariables *)self->_mtv noiseStrategy];
-    v32 = [noiseStrategy scaleAndAddNoiseToDenseVector:v30 usingNorm:-[PMLMetaTrainingVariables reportScale](self->_mtv scaleFactor:{"reportScale"), v70}];
+    v32 = [noiseStrategy scaleAndAddNoiseToDenseVector:v30 usingNorm:-[PMLMetaTrainingVariables reportScale](self->_mtv scaleFactor:{"reportScale"), v69}];
 
     if (v32)
     {
       planId = [(PMLMetaTrainingVariables *)self->_mtv planId];
-      v55 = [PMLPlanDescriptor descriptorFromPlanId:planId];
+      v54 = [PMLPlanDescriptor descriptorFromPlanId:planId];
 
       v20 = objc_opt_new();
-      v68[0] = @"plan";
-      v66[0] = @"name";
-      name = [v55 name];
-      v67[0] = name;
-      v66[1] = @"version";
-      version = [v55 version];
-      v67[1] = version;
-      v66[2] = @"locale";
-      locale = [v55 locale];
-      v67[2] = locale;
-      v36 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v67 forKeys:v66 count:3];
-      v69[0] = v36;
-      v68[1] = @"gradient";
+      v67[0] = @"plan";
+      v65[0] = @"name";
+      name = [v54 name];
+      v66[0] = name;
+      v65[1] = @"version";
+      version = [v54 version];
+      v66[1] = version;
+      v65[2] = @"locale";
+      locale = [v54 locale];
+      v66[2] = locale;
+      v36 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v66 forKeys:v65 count:3];
+      v68[0] = v36;
+      v67[1] = @"gradient";
       data = [(PMLDenseVector *)v30 data];
-      v69[1] = data;
-      v68[2] = @"serverIteration";
+      v68[1] = data;
+      v67[2] = @"serverIteration";
       v38 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[PMLMetaTrainingVariables currentServerIteration](self->_mtv, "currentServerIteration")}];
-      v69[2] = v38;
-      v39 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v69 forKeys:v68 count:3];
+      v68[2] = v38;
+      v39 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v68 forKeys:v67 count:3];
       [v20 addEntriesFromDictionary:v39];
 
       summableMetricsOnly = [(PMLMetaTrainingVariables *)self->_mtv summableMetricsOnly];
@@ -310,8 +308,8 @@ LABEL_36:
     v49 = PML_LogHandle();
     if (os_log_type_enabled(v49, OS_LOG_TYPE_ERROR))
     {
-      *v56 = 0;
-      _os_log_error_impl(&dword_260D68000, v49, OS_LOG_TYPE_ERROR, "scaleAndAddNoiseToDenseVector failed", v56, 2u);
+      *v55 = 0;
+      _os_log_error_impl(&dword_260D68000, v49, OS_LOG_TYPE_ERROR, "scaleAndAddNoiseToDenseVector failed", v55, 2u);
     }
 
     if (error)
@@ -334,7 +332,7 @@ LABEL_35:
   v19 = PML_LogHandle();
   if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
   {
-    v48 = v61[5];
+    v48 = v60[5];
     LODWORD(buf) = 138412290;
     *(&buf + 4) = v48;
     _os_log_error_impl(&dword_260D68000, v19, OS_LOG_TYPE_ERROR, "Returning nil since unable to snapshot starting model parameters: %@", &buf, 0xCu);
@@ -343,20 +341,19 @@ LABEL_35:
   v20 = 0;
   if (error)
   {
-    *error = v61[5];
+    *error = v60[5];
   }
 
 LABEL_37:
 
-  _Block_object_dispose(&v60, 8);
-  v50 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v59, 8);
 
   return v20;
 }
 
 void __40__PMLEspressoTrainingPlan_runWithError___block_invoke(uint64_t a1, uint64_t a2, void *a3, void *a4, _BYTE *a5)
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   v8 = a3;
   v9 = a4;
   if ([v8 count])
@@ -373,10 +370,10 @@ void __40__PMLEspressoTrainingPlan_runWithError___block_invoke(uint64_t a1, uint
       v15 = *(a1 + 32);
       v16 = *(v15 + 16);
       v17 = [*(v15 + 24) epochsPerBatch];
-      v31 = *MEMORY[0x277D07748];
+      v30 = *MEMORY[0x277D07748];
       v18 = [*(a1 + 32) _updateResultsReferenceCallback:v14];
-      v32 = v18;
-      v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v32 forKeys:&v31 count:1];
+      v31 = v18;
+      v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v31 forKeys:&v30 count:1];
       v20 = *(*(a1 + 48) + 8);
       obj = *(v20 + 40);
       LODWORD(v16) = [v16 doTrainingOnData:v14 forNumberOfEpochs:v17 withCallback:v19 error:&obj];
@@ -385,8 +382,8 @@ void __40__PMLEspressoTrainingPlan_runWithError___block_invoke(uint64_t a1, uint
       if (v16 && !*(*(*(a1 + 48) + 8) + 40))
       {
         *(*(*(a1 + 56) + 8) + 24) += [v8 count];
-        v29 = *(*(*(a1 + 56) + 8) + 24);
-        if (v29 < [*(*(a1 + 32) + 24) maxSessionsToTrainOn])
+        v28 = *(*(*(a1 + 56) + 8) + 24);
+        if (v28 < [*(*(a1 + 32) + 24) maxSessionsToTrainOn])
         {
           goto LABEL_12;
         }
@@ -399,7 +396,7 @@ void __40__PMLEspressoTrainingPlan_runWithError___block_invoke(uint64_t a1, uint
       {
         v22 = *(*(*(a1 + 48) + 8) + 40);
         *buf = 138412290;
-        v36 = v22;
+        v35 = v22;
         _os_log_error_impl(&dword_260D68000, v21, OS_LOG_TYPE_ERROR, "Training was unsuccessful: %@", buf, 0xCu);
       }
     }
@@ -410,14 +407,14 @@ void __40__PMLEspressoTrainingPlan_runWithError___block_invoke(uint64_t a1, uint
       if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v36 = @"Unable to convert session batch data into espresso data provider";
+        v35 = @"Unable to convert session batch data into espresso data provider";
         _os_log_error_impl(&dword_260D68000, v23, OS_LOG_TYPE_ERROR, "%@", buf, 0xCu);
       }
 
       v24 = MEMORY[0x277CCA9B8];
-      v33 = *MEMORY[0x277CCA450];
-      v34 = @"Unable to convert session batch data into espresso data provider";
-      v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v34 forKeys:&v33 count:1];
+      v32 = *MEMORY[0x277CCA450];
+      v33 = @"Unable to convert session batch data into espresso data provider";
+      v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v33 forKeys:&v32 count:1];
       v25 = [v24 errorWithDomain:@"ProactiveMLErrorDomain" code:200 userInfo:v21];
       v26 = *(*(a1 + 48) + 8);
       v27 = *(v26 + 40);
@@ -428,36 +425,34 @@ LABEL_11:
     *a5 = 1;
 LABEL_12:
   }
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_newTaskForTraining
 {
-  v32[1] = *MEMORY[0x277D85DE8];
+  v31[1] = *MEMORY[0x277D85DE8];
   v3 = objc_alloc(MEMORY[0x277D07770]);
   trainingNetworkPath = [(PMLEspressoTrainingVariables *)self->_etv trainingNetworkPath];
   inputName = [(PMLEspressoTrainingVariables *)self->_etv inputName];
-  v32[0] = inputName;
-  v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v32 count:1];
+  v31[0] = inputName;
+  v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v31 count:1];
   outputName = [(PMLEspressoTrainingVariables *)self->_etv outputName];
-  v31 = outputName;
-  v19 = [MEMORY[0x277CBEA60] arrayWithObjects:&v31 count:1];
+  v30 = outputName;
+  v18 = [MEMORY[0x277CBEA60] arrayWithObjects:&v30 count:1];
   inputName2 = [(PMLEspressoTrainingVariables *)self->_etv inputName];
-  v30[0] = inputName2;
+  v29[0] = inputName2;
   trueLabelName = [(PMLEspressoTrainingVariables *)self->_etv trueLabelName];
-  v30[1] = trueLabelName;
-  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v30 count:2];
+  v29[1] = trueLabelName;
+  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v29 count:2];
   lossValueName = [(PMLEspressoTrainingVariables *)self->_etv lossValueName];
-  v29[0] = lossValueName;
+  v28[0] = lossValueName;
   trainingOutputName = [(PMLEspressoTrainingVariables *)self->_etv trainingOutputName];
-  v29[1] = trainingOutputName;
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v29 count:2];
+  v28[1] = trainingOutputName;
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v28 count:2];
   trainingControlVariableName = [(PMLEspressoTrainingVariables *)self->_etv trainingControlVariableName];
   initializerName = [(PMLEspressoTrainingVariables *)self->_etv initializerName];
-  v26 = 0;
-  v10 = [v3 initWithTrainingNetworkPath:trainingNetworkPath inferenceInputs:v18 inferenceOutputs:v19 trainingInputs:v4 trainingOutputs:v7 trainingControlVariableName:trainingControlVariableName withInitializer:initializerName error:&v26];
-  v11 = v26;
+  v25 = 0;
+  v10 = [v3 initWithTrainingNetworkPath:trainingNetworkPath inferenceInputs:v17 inferenceOutputs:v18 trainingInputs:v4 trainingOutputs:v7 trainingControlVariableName:trainingControlVariableName withInitializer:initializerName error:&v25];
+  v11 = v25;
 
   if (!v10 || v11)
   {
@@ -465,16 +460,16 @@ LABEL_12:
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v28 = v11;
+      v27 = v11;
       _os_log_error_impl(&dword_260D68000, v12, OS_LOG_TYPE_ERROR, "Unable to successfully initialize model: %@", buf, 0xCu);
     }
 
     goto LABEL_11;
   }
 
-  v25 = 0;
-  v12 = [objc_alloc(MEMORY[0x277D07790]) initWithTrainingModelDefinition:v10 forPlatform:1 error:&v25];
-  v13 = v25;
+  v24 = 0;
+  v12 = [objc_alloc(MEMORY[0x277D07790]) initWithTrainingModelDefinition:v10 forPlatform:1 error:&v24];
+  v13 = v24;
   v11 = v13;
   if (!v12 || v13)
   {
@@ -482,7 +477,7 @@ LABEL_12:
     if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v28 = v11;
+      v27 = v11;
       _os_log_error_impl(&dword_260D68000, v15, OS_LOG_TYPE_ERROR, "Unable to create task definition: %@", buf, 0xCu);
     }
 
@@ -495,18 +490,17 @@ LABEL_11:
   v14 = v12;
 LABEL_12:
 
-  v16 = *MEMORY[0x277D85DE8];
   return v14;
 }
 
 - (PMLEspressoTrainingPlan)initWithMetaTrainingVariables:(id)variables espressoTrainingVariables:(id)trainingVariables
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   variablesCopy = variables;
   trainingVariablesCopy = trainingVariables;
-  v27.receiver = self;
-  v27.super_class = PMLEspressoTrainingPlan;
-  v9 = [(PMLEspressoTrainingPlan *)&v27 init];
+  v26.receiver = self;
+  v26.super_class = PMLEspressoTrainingPlan;
+  v9 = [(PMLEspressoTrainingPlan *)&v26 init];
   if (!v9)
   {
     goto LABEL_12;
@@ -539,9 +533,9 @@ LABEL_12:
   globalsToGetGradientsFor = [(PMLEspressoTrainingVariables *)v9->_etv globalsToGetGradientsFor];
   layerWeightsToGetGradientsFor = [(PMLEspressoTrainingVariables *)v9->_etv layerWeightsToGetGradientsFor];
   layerBiasesToGetGradientsFor = [(PMLEspressoTrainingVariables *)v9->_etv layerBiasesToGetGradientsFor];
-  v26 = 0;
-  v19 = [PMLEspressoTrainingPlan _getModelParametersForTask:v15 globalNames:globalsToGetGradientsFor weightNames:layerWeightsToGetGradientsFor biasNames:layerBiasesToGetGradientsFor error:&v26];
-  v20 = v26;
+  v25 = 0;
+  v19 = [PMLEspressoTrainingPlan _getModelParametersForTask:v15 globalNames:globalsToGetGradientsFor weightNames:layerWeightsToGetGradientsFor biasNames:layerBiasesToGetGradientsFor error:&v25];
+  v20 = v25;
 
   if (!v20)
   {
@@ -555,7 +549,7 @@ LABEL_12:
   if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
   {
     *buf = 138412290;
-    v29 = v20;
+    v28 = v20;
     _os_log_error_impl(&dword_260D68000, v21, OS_LOG_TYPE_ERROR, "Unable to fetch parameters requested in weights and biases during validation, returning nil for PMLEspressoTrainingPlan: %@", buf, 0xCu);
   }
 
@@ -564,13 +558,12 @@ LABEL_10:
   v23 = 0;
 LABEL_13:
 
-  v24 = *MEMORY[0x277D85DE8];
   return v23;
 }
 
 + (id)_calculateTrainingMetricsWithSamplingProb:(double)prob groundTruthProvider:(id)provider predictionsProvider:(id)predictionsProvider trueLabelName:(id)name trainingOutputName:(id)outputName lossValueName:(id)valueName probThreshold:(double)threshold includeSummableOnly:(BOOL)self0
 {
-  v125[1] = *MEMORY[0x277D85DE8];
+  v124[1] = *MEMORY[0x277D85DE8];
   providerCopy = provider;
   predictionsProviderCopy = predictionsProvider;
   nameCopy = name;
@@ -601,8 +594,8 @@ LABEL_13:
     {
       *buf = 134218240;
       probCopy = *&v22;
-      v118 = 2048;
-      v119 = v24;
+      v117 = 2048;
+      v118 = v24;
       _os_log_impl(&dword_260D68000, v82, OS_LOG_TYPE_DEFAULT, "Returning nil for training metrics since 0 points for ground truth %tu and / or training results %tu", buf, 0x16u);
     }
 
@@ -612,36 +605,36 @@ LABEL_56:
   }
 
   onlyCopy = only;
-  v101 = valueNameCopy;
-  v102 = outputNameCopy;
-  v100 = nameCopy;
-  v125[0] = nameCopy;
-  [MEMORY[0x277CBEA60] arrayWithObjects:v125 count:1];
+  v100 = valueNameCopy;
+  v101 = outputNameCopy;
+  v99 = nameCopy;
+  v124[0] = nameCopy;
+  [MEMORY[0x277CBEA60] arrayWithObjects:v124 count:1];
+  v111 = 0u;
   v112 = 0u;
   v113 = 0u;
-  v114 = 0u;
-  obj = v115 = 0u;
-  v25 = [obj countByEnumeratingWithState:&v112 objects:v124 count:16];
+  obj = v114 = 0u;
+  v25 = [obj countByEnumeratingWithState:&v111 objects:v123 count:16];
   v26 = predictionsProviderCopy;
   if (v25)
   {
     v27 = v25;
-    v28 = *v113;
-    v96 = v24;
+    v28 = *v112;
+    v95 = v24;
     do
     {
       for (i = 0; i != v27; ++i)
       {
-        if (*v113 != v28)
+        if (*v112 != v28)
         {
           objc_enumerationMutation(obj);
         }
 
-        v30 = *(*(&v112 + 1) + 8 * i);
+        v30 = *(*(&v111 + 1) + 8 * i);
         v31 = objc_autoreleasePoolPush();
-        v111 = 0;
-        v32 = [providerCopy dataPointAtIndex:0 error:&v111];
-        v33 = v111;
+        v110 = 0;
+        v32 = [providerCopy dataPointAtIndex:0 error:&v110];
+        v33 = v110;
         if (*&v33 != 0.0)
         {
           v82 = v33;
@@ -665,66 +658,66 @@ LABEL_56:
           {
             *buf = 138412546;
             probCopy = v30;
-            v118 = 2112;
-            v119 = 0.0;
+            v117 = 2112;
+            v118 = 0.0;
             _os_log_error_impl(&dword_260D68000, v83, OS_LOG_TYPE_ERROR, "Unable to get %@ key for ground truth: %@", buf, 0x16u);
           }
 
           *&v82 = 0.0;
 LABEL_62:
           predictionsProviderCopy = v26;
-          nameCopy = v100;
+          nameCopy = v99;
           v80 = obj;
 
           objc_autoreleasePoolPop(v31);
           v72 = 0;
           v81 = obj;
-          valueNameCopy = v101;
-          outputNameCopy = v102;
+          valueNameCopy = v100;
+          outputNameCopy = v101;
           goto LABEL_84;
         }
 
         objc_autoreleasePoolPop(v31);
       }
 
-      v27 = [obj countByEnumeratingWithState:&v112 objects:v124 count:16];
+      v27 = [obj countByEnumeratingWithState:&v111 objects:v123 count:16];
       predictionsProviderCopy = v26;
-      v24 = v96;
+      v24 = v95;
     }
 
     while (v27);
   }
 
-  v123[0] = v102;
-  v123[1] = v101;
-  [MEMORY[0x277CBEA60] arrayWithObjects:v123 count:2];
+  v122[0] = v101;
+  v122[1] = v100;
+  [MEMORY[0x277CBEA60] arrayWithObjects:v122 count:2];
+  v106 = 0u;
   v107 = 0u;
   v108 = 0u;
-  v109 = 0u;
-  v99 = v110 = 0u;
-  v35 = [v99 countByEnumeratingWithState:&v107 objects:v122 count:16];
+  v98 = v109 = 0u;
+  v35 = [v98 countByEnumeratingWithState:&v106 objects:v121 count:16];
   if (!v35)
   {
     goto LABEL_23;
   }
 
   v36 = v35;
-  v37 = *v108;
-  v97 = v24;
+  v37 = *v107;
+  v96 = v24;
   do
   {
     for (j = 0; j != v36; ++j)
     {
-      if (*v108 != v37)
+      if (*v107 != v37)
       {
-        objc_enumerationMutation(v99);
+        objc_enumerationMutation(v98);
       }
 
-      v39 = *(*(&v107 + 1) + 8 * j);
+      v39 = *(*(&v106 + 1) + 8 * j);
       v40 = objc_autoreleasePoolPush();
-      v106 = 0;
-      v41 = [v26 dataPointAtIndex:0 error:&v106];
-      v42 = v106;
+      v105 = 0;
+      v41 = [v26 dataPointAtIndex:0 error:&v105];
+      v42 = v105;
       if (*&v42 != 0.0)
       {
         v82 = v42;
@@ -748,32 +741,32 @@ LABEL_62:
         {
           *buf = 138412546;
           probCopy = v39;
-          v118 = 2112;
-          v119 = 0.0;
+          v117 = 2112;
+          v118 = 0.0;
           _os_log_error_impl(&dword_260D68000, v84, OS_LOG_TYPE_ERROR, "Unable to get %@ key for training result: %@", buf, 0x16u);
         }
 
         *&v82 = 0.0;
 LABEL_68:
         predictionsProviderCopy = v26;
-        v81 = v99;
-        nameCopy = v100;
+        v81 = v98;
+        nameCopy = v99;
         v80 = obj;
 
         objc_autoreleasePoolPop(v40);
         v72 = 0;
-        v85 = v99;
-        valueNameCopy = v101;
-        outputNameCopy = v102;
+        v85 = v98;
+        valueNameCopy = v100;
+        outputNameCopy = v101;
         goto LABEL_83;
       }
 
       objc_autoreleasePoolPop(v40);
     }
 
-    v36 = [v99 countByEnumeratingWithState:&v107 objects:v122 count:16];
+    v36 = [v98 countByEnumeratingWithState:&v106 objects:v121 count:16];
     predictionsProviderCopy = v26;
-    v24 = v97;
+    v24 = v96;
   }
 
   while (v36);
@@ -790,8 +783,8 @@ LABEL_23:
       *buf = 134218240;
       probCopy = *&v46;
       v24 = v45;
-      v118 = 2048;
-      v119 = v47;
+      v117 = 2048;
+      v118 = v47;
       _os_log_impl(&dword_260D68000, v44, OS_LOG_TYPE_DEFAULT, "The number of ground truth values %tu does not match number of inference results %tu", buf, 0x16u);
     }
   }
@@ -801,15 +794,15 @@ LABEL_23:
     v24 = *&v22;
   }
 
-  v95 = objc_opt_new();
+  v94 = objc_opt_new();
   predictionsProviderCopy = v26;
-  v98 = objc_opt_new();
+  v97 = objc_opt_new();
   v48 = objc_opt_new();
   v49 = 0;
-  v93 = 0;
-  v94 = v48;
+  v92 = 0;
+  v93 = v48;
   v50 = 0.0;
-  v90 = v24;
+  v89 = v24;
   if (*&v24 <= 1uLL)
   {
     v51 = 1;
@@ -837,9 +830,9 @@ LABEL_23:
       goto LABEL_44;
     }
 
-    v105 = 0;
-    v55 = [providerCopy dataPointAtIndex:*&v50 error:&v105];
-    v56 = v105;
+    v104 = 0;
+    v55 = [providerCopy dataPointAtIndex:*&v50 error:&v104];
+    v56 = v104;
     if (*&v56 != 0.0)
     {
       v82 = v56;
@@ -848,17 +841,17 @@ LABEL_23:
       {
         *buf = 134218242;
         probCopy = v50;
-        v118 = 2112;
-        v119 = *&v82;
+        v117 = 2112;
+        v118 = *&v82;
         _os_log_error_impl(&dword_260D68000, v86, OS_LOG_TYPE_ERROR, "Unable to get ground truth at index %tu: %@", buf, 0x16u);
       }
 
       goto LABEL_75;
     }
 
-    v104 = 0;
-    v57 = [predictionsProviderCopy dataPointAtIndex:*&v50 error:&v104];
-    v58 = v104;
+    v103 = 0;
+    v57 = [predictionsProviderCopy dataPointAtIndex:*&v50 error:&v103];
+    v58 = v103;
     if (*&v58 != 0.0)
     {
       v82 = v58;
@@ -867,29 +860,29 @@ LABEL_23:
       {
         *buf = 134218242;
         probCopy = v50;
-        v118 = 2112;
-        v119 = *&v82;
+        v117 = 2112;
+        v118 = *&v82;
         _os_log_error_impl(&dword_260D68000, v87, OS_LOG_TYPE_ERROR, "Unable to get inference results at index %tu: %@", buf, 0x16u);
       }
 
 LABEL_75:
       objc_autoreleasePoolPop(v53);
       v72 = 0;
-      nameCopy = v100;
-      valueNameCopy = v101;
-      outputNameCopy = v102;
+      nameCopy = v99;
+      valueNameCopy = v100;
+      outputNameCopy = v101;
       v80 = obj;
-      v81 = v99;
+      v81 = v98;
 LABEL_80:
-      v85 = v95;
+      v85 = v94;
       goto LABEL_82;
     }
 
-    v59 = [v55 objectForKeyedSubscript:v100];
+    v59 = [v55 objectForKeyedSubscript:v99];
     dataPointer = [v59 dataPointer];
 
     v61 = *dataPointer;
-    v62 = [v57 objectForKeyedSubscript:v102];
+    v62 = [v57 objectForKeyedSubscript:v101];
     dataArray = [v62 dataArray];
 
     v64 = [PMLEspressoTrainingPlan argmax:dataArray];
@@ -899,25 +892,25 @@ LABEL_80:
       [v65 floatValue];
       v67 = v66;
 
-      v68 = v93;
+      v68 = v92;
       if (v67 > threshold)
       {
-        v68 = v93 + 1;
+        v68 = v92 + 1;
       }
 
-      v93 = v68;
+      v92 = v68;
     }
 
     ++v49;
-    v69 = [v57 objectForKeyedSubscript:{v101, *&v90}];
+    v69 = [v57 objectForKeyedSubscript:{v100, *&v89}];
     v52 = v52 + *[v69 dataPointer];
 
-    [v95 addObject:dataArray];
+    [v94 addObject:dataArray];
     *&v70 = v61;
     v71 = [MEMORY[0x277CCABB0] numberWithFloat:v70];
-    [v98 addObject:v71];
+    [v97 addObject:v71];
 
-    v48 = v94;
+    v48 = v93;
 LABEL_44:
 
     objc_autoreleasePoolPop(v53);
@@ -943,34 +936,34 @@ LABEL_44:
     v74 = &unk_2873581A8;
   }
 
-  [v72 setObject:v74 forKeyedSubscript:{@"isSampled", *&v90}];
+  [v72 setObject:v74 forKeyedSubscript:{@"isSampled", *&v89}];
   if (v49)
   {
     *&v75 = v52 / v49;
     v76 = [MEMORY[0x277CCABB0] numberWithFloat:v75];
     [v72 setObject:v76 forKeyedSubscript:@"loss"];
 
-    *&v77 = v93 / v49;
+    *&v77 = v92 / v49;
     v78 = [MEMORY[0x277CCABB0] numberWithFloat:v77];
     [v72 setObject:v78 forKeyedSubscript:@"accuracy"];
 
     v79 = PML_LogHandle();
-    nameCopy = v100;
-    valueNameCopy = v101;
-    outputNameCopy = v102;
+    nameCopy = v99;
+    valueNameCopy = v100;
+    outputNameCopy = v101;
     if (os_log_type_enabled(v79, OS_LOG_TYPE_INFO))
     {
       *buf = 134218496;
-      probCopy = v91;
-      v118 = 2048;
-      v119 = (v52 / v49);
-      v120 = 2048;
-      v121 = (v93 / v49);
+      probCopy = v90;
+      v117 = 2048;
+      v118 = (v52 / v49);
+      v119 = 2048;
+      v120 = (v92 / v49);
       _os_log_impl(&dword_260D68000, v79, OS_LOG_TYPE_INFO, "Number of data points: %tu, Loss: %f, Accuracy: %f", buf, 0x20u);
     }
 
     v80 = obj;
-    v81 = v99;
+    v81 = v98;
   }
 
   else
@@ -978,11 +971,11 @@ LABEL_44:
     [v72 setObject:&unk_2873581A8 forKeyedSubscript:@"loss"];
     [v72 setObject:&unk_2873581A8 forKeyedSubscript:@"accuracy"];
     v79 = PML_LogHandle();
-    nameCopy = v100;
-    valueNameCopy = v101;
-    outputNameCopy = v102;
+    nameCopy = v99;
+    valueNameCopy = v100;
+    outputNameCopy = v101;
     v80 = obj;
-    v81 = v99;
+    v81 = v98;
     if (os_log_type_enabled(v79, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
@@ -996,9 +989,9 @@ LABEL_44:
     goto LABEL_80;
   }
 
-  v85 = v95;
-  [v72 setObject:v95 forKeyedSubscript:@"predictions"];
-  [v72 setObject:v98 forKeyedSubscript:@"groundTruth"];
+  v85 = v94;
+  [v72 setObject:v94 forKeyedSubscript:@"predictions"];
+  [v72 setObject:v97 forKeyedSubscript:@"groundTruth"];
   *&v82 = 0.0;
 LABEL_82:
 
@@ -1006,7 +999,6 @@ LABEL_83:
 LABEL_84:
 
 LABEL_85:
-  v88 = *MEMORY[0x277D85DE8];
 
   return v72;
 }
@@ -1058,7 +1050,7 @@ LABEL_85:
 
 BOOL __113__PMLEspressoTrainingPlan__calculateGradientInPlaceForTask_startingParameters_globalNames_weightNames_biasNames___block_invoke(void *a1, void *a2, void *a3, void *a4)
 {
-  v25[1] = *MEMORY[0x277D85DE8];
+  v22[1] = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = a3;
   v9 = a4;
@@ -1067,28 +1059,25 @@ BOOL __113__PMLEspressoTrainingPlan__calculateGradientInPlaceForTask_startingPar
   v12 = a1[6];
   if (v11 > v12)
   {
-    v16 = MEMORY[0x277CCA9B8];
-    v24 = *MEMORY[0x277CCA450];
-    v17 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Unable to in place update gradient since number of starting and ending parameters don't match for tensor type %@ name %@", v8, v9];
-    v25[0] = v17;
-    v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:&v24 count:1];
-    v19 = [v16 errorWithDomain:@"ProactiveMLErrorDomain" code:201 userInfo:v18];
-    v20 = *(a1[5] + 8);
-    v21 = *(v20 + 40);
-    *(v20 + 40) = v19;
+    v14 = MEMORY[0x277CCA9B8];
+    v21 = *MEMORY[0x277CCA450];
+    v15 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Unable to in place update gradient since number of starting and ending parameters don't match for tensor type %@ name %@", v8, v9];
+    v22[0] = v15;
+    v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:&v21 count:1];
+    v17 = [v14 errorWithDomain:@"ProactiveMLErrorDomain" code:201 userInfo:v16];
+    v18 = *(a1[5] + 8);
+    v19 = *(v18 + 40);
+    *(v18 + 40) = v17;
   }
 
   else
   {
     v13 = v10;
     [v7 dataPointer];
-    v14 = a1[7];
-    v15 = *(*(a1[4] + 8) + 24);
     catlas_saxpby_NEWLAPACK();
     *(*(a1[4] + 8) + 24) += v13;
   }
 
-  v22 = *MEMORY[0x277D85DE8];
   return v11 <= v12;
 }
 
@@ -1203,7 +1192,7 @@ uint64_t __94__PMLEspressoTrainingPlan__getModelParametersForTask_globalNames_we
 
 + (id)_iterateModelParametersForTask:(id)task globalNames:(id)names weightNames:(id)weightNames biasNames:(id)biasNames block:(id)block
 {
-  v85 = *MEMORY[0x277D85DE8];
+  v84 = *MEMORY[0x277D85DE8];
   taskCopy = task;
   namesCopy = names;
   weightNamesCopy = weightNames;
@@ -1216,29 +1205,29 @@ uint64_t __94__PMLEspressoTrainingPlan__getModelParametersForTask_globalNames_we
     goto LABEL_2;
   }
 
-  v58 = namesCopy;
-  v59 = weightNamesCopy;
-  v76 = 0u;
-  v77 = 0u;
-  v74 = 0u;
+  v57 = namesCopy;
+  v58 = weightNamesCopy;
   v75 = 0u;
+  v76 = 0u;
+  v73 = 0u;
+  v74 = 0u;
   obj = namesCopy;
-  v18 = [obj countByEnumeratingWithState:&v74 objects:v84 count:16];
-  v57 = biasNamesCopy;
+  v18 = [obj countByEnumeratingWithState:&v73 objects:v83 count:16];
+  v56 = biasNamesCopy;
   if (v18)
   {
     v19 = v18;
-    v20 = *v75;
+    v20 = *v74;
 LABEL_5:
     v21 = 0;
     while (1)
     {
-      if (*v75 != v20)
+      if (*v74 != v20)
       {
         objc_enumerationMutation(obj);
       }
 
-      v22 = *(*(&v74 + 1) + 8 * v21);
+      v22 = *(*(&v73 + 1) + 8 * v21);
       v23 = objc_autoreleasePoolPush();
       v24 = [taskCopy getTensorNamed:v22];
       if (!v24)
@@ -1255,15 +1244,15 @@ LABEL_5:
 
         v17 = 0;
 LABEL_43:
-        namesCopy = v58;
-        weightNamesCopy = v59;
+        namesCopy = v57;
+        weightNamesCopy = v58;
         goto LABEL_51;
       }
 
       if (v19 == ++v21)
       {
-        v19 = [obj countByEnumeratingWithState:&v74 objects:v84 count:16];
-        biasNamesCopy = v57;
+        v19 = [obj countByEnumeratingWithState:&v73 objects:v83 count:16];
+        biasNamesCopy = v56;
         if (v19)
         {
           goto LABEL_5;
@@ -1274,24 +1263,24 @@ LABEL_43:
     }
 
     v27 = PML_LogHandle();
-    namesCopy = v58;
-    weightNamesCopy = v59;
+    namesCopy = v57;
+    weightNamesCopy = v58;
     if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v83 = v22;
+      v82 = v22;
       _os_log_error_impl(&dword_260D68000, v27, OS_LOG_TYPE_ERROR, "An error occured when attempting to get parameters for global variable: %@", buf, 0xCu);
     }
 
     v28 = MEMORY[0x277CCA9B8];
-    v80 = *MEMORY[0x277CCA450];
+    v79 = *MEMORY[0x277CCA450];
     v29 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Unable to find global variable named: %@", v22];
-    v81 = v29;
-    v30 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v81 forKeys:&v80 count:1];
+    v80 = v29;
+    v30 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v80 forKeys:&v79 count:1];
     v17 = [v28 errorWithDomain:@"ProactiveMLErrorDomain" code:202 userInfo:v30];
 
     objc_autoreleasePoolPop(v23);
-    biasNamesCopy = v57;
+    biasNamesCopy = v56;
     if (v17)
     {
       goto LABEL_52;
@@ -1302,21 +1291,21 @@ LABEL_43:
   {
 LABEL_12:
 
-    namesCopy = v58;
-    weightNamesCopy = v59;
+    namesCopy = v57;
+    weightNamesCopy = v58;
   }
 
-  v73 = 0u;
-  v71 = 0u;
   v72 = 0u;
   v70 = 0u;
+  v71 = 0u;
+  v69 = 0u;
   v31 = weightNamesCopy;
-  v32 = [v31 countByEnumeratingWithState:&v70 objects:v79 count:16];
+  v32 = [v31 countByEnumeratingWithState:&v69 objects:v78 count:16];
   if (v32)
   {
     v33 = v32;
     v17 = 0;
-    v34 = *v71;
+    v34 = *v70;
     obja = v31;
     while (2)
     {
@@ -1324,16 +1313,16 @@ LABEL_12:
       v36 = v17;
       do
       {
-        if (*v71 != v34)
+        if (*v70 != v34)
         {
           objc_enumerationMutation(obja);
         }
 
-        v37 = *(*(&v70 + 1) + 8 * v35);
+        v37 = *(*(&v69 + 1) + 8 * v35);
         v38 = objc_autoreleasePoolPush();
-        v69 = v36;
-        v39 = [taskCopy getParameterOfType:1 forLayerNamed:v37 error:&v69];
-        v17 = v69;
+        v68 = v36;
+        v39 = [taskCopy getParameterOfType:1 forLayerNamed:v37 error:&v68];
+        v17 = v68;
 
         if (!v39)
         {
@@ -1341,7 +1330,7 @@ LABEL_12:
           if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
           {
             *buf = 138412290;
-            v83 = v37;
+            v82 = v37;
             _os_log_error_impl(&dword_260D68000, v42, OS_LOG_TYPE_ERROR, "An error occured when attempting to get weight for layer: %@", buf, 0xCu);
           }
 
@@ -1365,7 +1354,7 @@ LABEL_12:
 
       while (v33 != v35);
       v41 = obja;
-      v33 = [obja countByEnumeratingWithState:&v70 objects:v79 count:16];
+      v33 = [obja countByEnumeratingWithState:&v69 objects:v78 count:16];
       if (v33)
       {
         continue;
@@ -1376,9 +1365,9 @@ LABEL_12:
 
 LABEL_31:
 
-    namesCopy = v58;
-    weightNamesCopy = v59;
-    biasNamesCopy = v57;
+    namesCopy = v57;
+    weightNamesCopy = v58;
+    biasNamesCopy = v56;
     if (v17)
     {
       goto LABEL_52;
@@ -1389,12 +1378,12 @@ LABEL_31:
   {
   }
 
-  v67 = 0u;
-  v68 = 0u;
-  v65 = 0u;
   v66 = 0u;
+  v67 = 0u;
+  v64 = 0u;
+  v65 = 0u;
   v43 = biasNamesCopy;
-  v44 = [v43 countByEnumeratingWithState:&v65 objects:v78 count:16];
+  v44 = [v43 countByEnumeratingWithState:&v64 objects:v77 count:16];
   if (!v44)
   {
 
@@ -1405,32 +1394,32 @@ LABEL_2:
 
   v45 = v44;
   v17 = 0;
-  v46 = *v66;
+  v46 = *v65;
   objb = v43;
 LABEL_34:
   v47 = 0;
   v48 = v17;
   while (1)
   {
-    if (*v66 != v46)
+    if (*v65 != v46)
     {
       objc_enumerationMutation(objb);
     }
 
-    v49 = *(*(&v65 + 1) + 8 * v47);
+    v49 = *(*(&v64 + 1) + 8 * v47);
     v50 = objc_autoreleasePoolPush();
-    v64 = v48;
-    v51 = [taskCopy getParameterOfType:2 forLayerNamed:v49 error:&v64];
-    v17 = v64;
+    v63 = v48;
+    v51 = [taskCopy getParameterOfType:2 forLayerNamed:v49 error:&v63];
+    v17 = v63;
 
     if (!v51)
     {
       v54 = PML_LogHandle();
-      weightNamesCopy = v59;
+      weightNamesCopy = v58;
       if (os_log_type_enabled(v54, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v83 = v49;
+        v82 = v49;
         _os_log_error_impl(&dword_260D68000, v54, OS_LOG_TYPE_ERROR, "An error occured when attempting to get bias for layer: %@", buf, 0xCu);
       }
 
@@ -1454,8 +1443,8 @@ LABEL_48:
     if (v45 == v47)
     {
       v53 = objb;
-      v45 = [objb countByEnumeratingWithState:&v65 objects:v78 count:16];
-      weightNamesCopy = v59;
+      v45 = [objb countByEnumeratingWithState:&v64 objects:v77 count:16];
+      weightNamesCopy = v58;
       if (v45)
       {
         goto LABEL_34;
@@ -1465,21 +1454,19 @@ LABEL_48:
     }
   }
 
-  weightNamesCopy = v59;
+  weightNamesCopy = v58;
 LABEL_50:
-  namesCopy = v58;
+  namesCopy = v57;
 LABEL_51:
-  biasNamesCopy = v57;
+  biasNamesCopy = v56;
 LABEL_52:
-
-  v55 = *MEMORY[0x277D85DE8];
 
   return v17;
 }
 
 + (BOOL)isValidGradient:(id)gradient error:(id *)error
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   gradientCopy = gradient;
   if ([gradientCopy count])
   {
@@ -1500,14 +1487,14 @@ LABEL_10:
         if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
         {
           *buf = 138412290;
-          v26 = v14;
+          v25 = v14;
           _os_log_error_impl(&dword_260D68000, v15, OS_LOG_TYPE_ERROR, "%@", buf, 0xCu);
         }
 
         v16 = MEMORY[0x277CCA9B8];
-        v23 = *MEMORY[0x277CCA450];
-        v24 = v14;
-        v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v24 forKeys:&v23 count:1];
+        v22 = *MEMORY[0x277CCA450];
+        v23 = v14;
+        v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v23 forKeys:&v22 count:1];
         v18 = [v16 errorWithDomain:@"ProactiveMLErrorDomain" code:203 userInfo:v17];
 
         objc_autoreleasePoolPop(v9);
@@ -1561,37 +1548,36 @@ LABEL_18:
   v11 = 1;
 LABEL_19:
 
-  v21 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
 + (unint64_t)numberOfParametersInTensor:(id)tensor
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   shape = [tensor shape];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
-  v4 = [shape countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v4 = [shape countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v12;
+    v6 = *v11;
     v7 = 1;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v12 != v6)
+        if (*v11 != v6)
         {
           objc_enumerationMutation(shape);
         }
 
-        v7 *= [*(*(&v11 + 1) + 8 * i) unsignedIntegerValue];
+        v7 *= [*(*(&v10 + 1) + 8 * i) unsignedIntegerValue];
       }
 
-      v5 = [shape countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v5 = [shape countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v5);
@@ -1602,7 +1588,6 @@ LABEL_19:
     v7 = 1;
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return v7;
 }
 

@@ -40,7 +40,6 @@
 {
   if (*&self->_has)
   {
-    nodeID = self->_nodeID;
     PBDataWriterWriteUint64Field();
   }
 }

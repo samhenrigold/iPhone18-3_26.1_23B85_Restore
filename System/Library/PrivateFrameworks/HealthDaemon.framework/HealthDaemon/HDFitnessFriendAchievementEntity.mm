@@ -20,7 +20,7 @@
 
 + (id)insertDataObject:(id)object withProvenance:(id)provenance inDatabase:(id)database persistentID:(id)d error:(id *)error
 {
-  v28[5] = *MEMORY[0x277D85DE8];
+  v27[5] = *MEMORY[0x277D85DE8];
   objectCopy = object;
   dCopy = d;
   databaseCopy = database;
@@ -31,21 +31,21 @@
     [currentHandler handleFailureInMethod:a2 object:self file:@"HDFitnessFriendAchievementEntity.m" lineNumber:84 description:{@"Subclasses must override %s", "+[HDFitnessFriendAchievementEntity insertDataObject:withProvenance:inDatabase:persistentID:error:]"}];
   }
 
-  v28[0] = @"data_id";
-  v28[1] = @"friend_uuid";
-  v28[2] = @"template_unique_name";
-  v28[3] = @"completed_date";
-  v28[4] = @"value";
-  v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v28 count:5];
-  v25[0] = MEMORY[0x277D85DD0];
-  v25[1] = 3221225472;
-  v25[2] = __98__HDFitnessFriendAchievementEntity_insertDataObject_withProvenance_inDatabase_persistentID_error___block_invoke;
-  v25[3] = &unk_278613DE8;
-  v26 = dCopy;
-  v27 = objectCopy;
+  v27[0] = @"data_id";
+  v27[1] = @"friend_uuid";
+  v27[2] = @"template_unique_name";
+  v27[3] = @"completed_date";
+  v27[4] = @"value";
+  v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v27 count:5];
+  v24[0] = MEMORY[0x277D85DD0];
+  v24[1] = 3221225472;
+  v24[2] = __98__HDFitnessFriendAchievementEntity_insertDataObject_withProvenance_inDatabase_persistentID_error___block_invoke;
+  v24[3] = &unk_278613DE8;
+  v25 = dCopy;
+  v26 = objectCopy;
   v17 = objectCopy;
   v18 = dCopy;
-  v19 = [self insertOrReplaceEntity:1 database:databaseCopy properties:v16 error:error bindingHandler:v25];
+  v19 = [self insertOrReplaceEntity:1 database:databaseCopy properties:v16 error:error bindingHandler:v24];
 
   if (v19)
   {
@@ -59,7 +59,6 @@
 
   v21 = v20;
 
-  v22 = *MEMORY[0x277D85DE8];
   return v20;
 }
 
@@ -91,7 +90,7 @@ void __98__HDFitnessFriendAchievementEntity_insertDataObject_withProvenance_inDa
 
 + (BOOL)enumerateAchievementsWithPredicate:(id)predicate anchor:(id *)anchor profile:(id)profile error:(id *)error handler:(id)handler
 {
-  v33[1] = *MEMORY[0x277D85DE8];
+  v32[1] = *MEMORY[0x277D85DE8];
   predicateCopy = predicate;
   profileCopy = profile;
   handlerCopy = handler;
@@ -123,30 +122,29 @@ void __98__HDFitnessFriendAchievementEntity_insertDataObject_withProvenance_inDa
   v18 = [MEMORY[0x277D10B70] compoundPredicateWithPredicate:predicateCopy otherPredicate:v15];
   [v17 setPredicate:v18];
 
-  v29 = 0;
-  v30 = &v29;
-  v31 = 0x2020000000;
+  v28 = 0;
+  v29 = &v28;
+  v30 = 0x2020000000;
   longLongValue = [v13 longLongValue];
   v19 = [MEMORY[0x277D10B68] orderingTermWithProperty:v14 entityClass:objc_opt_class() ascending:1];
-  v33[0] = v19;
-  v20 = [MEMORY[0x277CBEA60] arrayWithObjects:v33 count:1];
+  v32[0] = v19;
+  v20 = [MEMORY[0x277CBEA60] arrayWithObjects:v32 count:1];
   [v17 setOrderingTerms:v20];
 
-  v26[0] = MEMORY[0x277D85DD0];
-  v26[1] = 3221225472;
-  v26[2] = __100__HDFitnessFriendAchievementEntity_enumerateAchievementsWithPredicate_anchor_profile_error_handler___block_invoke;
-  v26[3] = &unk_278622330;
-  v28 = &v29;
+  v25[0] = MEMORY[0x277D85DD0];
+  v25[1] = 3221225472;
+  v25[2] = __100__HDFitnessFriendAchievementEntity_enumerateAchievementsWithPredicate_anchor_profile_error_handler___block_invoke;
+  v25[3] = &unk_278622330;
+  v27 = &v28;
   v21 = handlerCopy;
-  v27 = v21;
-  v22 = [v17 enumerateWithError:error handler:v26];
+  v26 = v21;
+  v22 = [v17 enumerateWithError:error handler:v25];
   if (anchor)
   {
-    *anchor = [MEMORY[0x277CCABB0] numberWithLongLong:v30[3]];
+    *anchor = [MEMORY[0x277CCABB0] numberWithLongLong:v29[3]];
   }
 
-  _Block_object_dispose(&v29, 8);
-  v23 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v28, 8);
   return v22;
 }
 

@@ -177,11 +177,11 @@ void __61__HKSHSleepApneaControl_getSamplesFromLastAnalysisWithError___block_inv
 
 - (id)getDateIntervalOfLastAnalysis
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   v3 = [objc_alloc(MEMORY[0x277CCD570]) initWithCategory:2 domainName:@"com.apple.health.Sleep.BreathingDisturbanceAnalysis" healthStore:self->_healthStore];
-  v38 = 0;
-  v4 = [v3 numberForKey:@"HDSHBreathingDisturbanceAnalysisSchedulerSuccessfulAnalysisAttemptCountKey" error:&v38];
-  v5 = v38;
+  v37 = 0;
+  v4 = [v3 numberForKey:@"HDSHBreathingDisturbanceAnalysisSchedulerSuccessfulAnalysisAttemptCountKey" error:&v37];
+  v5 = v37;
   if (v5)
   {
     _HKInitializeLogging();
@@ -194,12 +194,12 @@ LABEL_3:
     }
 
     v14 = v6;
-    v26 = objc_opt_class();
+    v25 = objc_opt_class();
     *buf = 138543618;
-    v40 = v26;
-    v41 = 2112;
-    v42 = v5;
-    v16 = v26;
+    v39 = v25;
+    v40 = 2112;
+    v41 = v5;
+    v16 = v25;
     v17 = "[%{public}@] Error fetching count of successful analysis attempts: %@";
     v18 = v14;
     v19 = 22;
@@ -221,7 +221,7 @@ LABEL_17:
     v14 = v13;
     v15 = objc_opt_class();
     *buf = 138543362;
-    v40 = v15;
+    v39 = v15;
     v16 = v15;
     v17 = "[%{public}@] No analysis has been performed yet; not returning date interval from the most recent analysis.";
     v18 = v14;
@@ -231,9 +231,9 @@ LABEL_17:
 
   v8 = objc_alloc(MEMORY[0x277CCD438]);
   v9 = [v8 initWithFeatureIdentifier:*MEMORY[0x277CCC0D8] healthStore:self->_healthStore];
-  v37 = 0;
-  v10 = [v9 featureOnboardingRecordWithError:&v37];
-  v11 = v37;
+  v36 = 0;
+  v10 = [v9 featureOnboardingRecordWithError:&v36];
+  v11 = v36;
   if (v11)
   {
     _HKInitializeLogging();
@@ -243,18 +243,18 @@ LABEL_17:
       goto LABEL_7;
     }
 
-    v28 = v12;
-    v34 = objc_opt_class();
+    v27 = v12;
+    v33 = objc_opt_class();
     *buf = 138543618;
-    v40 = v34;
-    v41 = 2112;
-    v42 = v11;
-    v30 = v34;
-    v31 = "[%{public}@] Unable to fetch onboarding record with error: %@";
-    v32 = v28;
-    v33 = 22;
+    v39 = v33;
+    v40 = 2112;
+    v41 = v11;
+    v29 = v33;
+    v30 = "[%{public}@] Unable to fetch onboarding record with error: %@";
+    v31 = v27;
+    v32 = 22;
 LABEL_21:
-    _os_log_error_impl(&dword_269BCF000, v32, OS_LOG_TYPE_ERROR, v31, buf, v33);
+    _os_log_error_impl(&dword_269BCF000, v31, OS_LOG_TYPE_ERROR, v30, buf, v32);
 
     goto LABEL_7;
   }
@@ -265,7 +265,7 @@ LABEL_21:
     hk_gregorianCalendar = [MEMORY[0x277CBEA80] hk_gregorianCalendar];
     v21 = objc_alloc_init(MEMORY[0x277CBEAB8]);
     [v21 setDay:{30 * objc_msgSend(v4, "integerValue") - 30}];
-    v35 = hk_gregorianCalendar;
+    v34 = hk_gregorianCalendar;
     v22 = [hk_gregorianCalendar dateByAddingComponents:v21 toDate:earliestDateOfAnyOnboardingCompletion options:0];
     [v21 setDay:{30 * objc_msgSend(v4, "integerValue")}];
     v23 = [hk_gregorianCalendar dateByAddingComponents:v21 toDate:earliestDateOfAnyOnboardingCompletion options:0];
@@ -275,17 +275,17 @@ LABEL_21:
   }
 
   _HKInitializeLogging();
-  v27 = *MEMORY[0x277CCC320];
+  v26 = *MEMORY[0x277CCC320];
   if (os_log_type_enabled(*MEMORY[0x277CCC320], OS_LOG_TYPE_ERROR))
   {
-    v28 = v27;
-    v29 = objc_opt_class();
+    v27 = v26;
+    v28 = objc_opt_class();
     *buf = 138543362;
-    v40 = v29;
-    v30 = v29;
-    v31 = "[%{public}@] Fetched nil onboarding record; cannot calculate date interval.";
-    v32 = v28;
-    v33 = 12;
+    v39 = v28;
+    v29 = v28;
+    v30 = "[%{public}@] Fetched nil onboarding record; cannot calculate date interval.";
+    v31 = v27;
+    v32 = 12;
     goto LABEL_21;
   }
 
@@ -294,7 +294,6 @@ LABEL_7:
 LABEL_12:
 
 LABEL_13:
-  v24 = *MEMORY[0x277D85DE8];
 
   return v7;
 }

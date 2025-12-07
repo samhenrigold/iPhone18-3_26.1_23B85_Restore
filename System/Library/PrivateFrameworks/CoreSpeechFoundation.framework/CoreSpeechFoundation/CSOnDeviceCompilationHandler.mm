@@ -12,7 +12,7 @@
 
 - (id)_compileModelAndAddToCacheWithConfigFiles:(id)files compileDirectoryPath:(id)path locale:(id)locale assetVersion:(id)version hashToUse:(id)use modelType:(int64_t)type compilationFramework:(int64_t)framework
 {
-  v71[1] = *MEMORY[0x1E69E9840];
+  v70[1] = *MEMORY[0x1E69E9840];
   filesCopy = files;
   pathCopy = path;
   localeCopy = locale;
@@ -20,33 +20,33 @@
   useCopy = use;
   if (filesCopy)
   {
-    v57 = 0u;
-    v58 = 0u;
-    v55 = 0u;
     v56 = 0u;
-    v15 = [filesCopy countByEnumeratingWithState:&v55 objects:v69 count:16];
+    v57 = 0u;
+    v54 = 0u;
+    v55 = 0u;
+    v15 = [filesCopy countByEnumeratingWithState:&v54 objects:v68 count:16];
     if (v15)
     {
       v17 = v15;
       v18 = 0;
       v19 = 0x1E8659000uLL;
-      v54 = *v56;
-      v48 = *MEMORY[0x1E696A578];
+      v53 = *v55;
+      v47 = *MEMORY[0x1E696A578];
       *&v16 = 136315138;
-      v47 = v16;
+      v46 = v16;
       while (1)
       {
         v20 = 0;
-        v53 = v17;
+        v52 = v17;
         do
         {
-          if (*v56 != v54)
+          if (*v55 != v53)
           {
             objc_enumerationMutation(filesCopy);
           }
 
-          v21 = *(*(&v55 + 1) + 8 * v20);
-          v22 = [*(v19 + 2472) readMilFilePathFromConfig:v21 modelType:{type, v47}];
+          v21 = *(*(&v54 + 1) + 8 * v20);
+          v22 = [*(v19 + 2472) readMilFilePathFromConfig:v21 modelType:{type, v46}];
           v23 = [*(v19 + 2472) getModelNameFromMilFilePath:v22];
           v24 = [*(v19 + 2472) getBackendTypeFromModelFile:v22];
           if (v24 == 2)
@@ -54,17 +54,17 @@
             typeCopy = type;
             v29 = filesCopy;
             v30 = MEMORY[0x1E696ABC0];
-            v67 = v48;
+            v66 = v47;
             v31 = [MEMORY[0x1E696AEC0] stringWithFormat:@"not avaiable for E5ML"];
-            v68 = v31;
-            v32 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v68 forKeys:&v67 count:1];
+            v67 = v31;
+            v32 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v67 forKeys:&v66 count:1];
             v33 = [v30 errorWithDomain:@"com.apple.corespeech" code:2254 userInfo:v32];
 
             v34 = CSLogContextFacilityCoreSpeech;
             if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_FAULT))
             {
-              *buf = v47;
-              v60 = "[CSOnDeviceCompilationHandler _compileModelAndAddToCacheWithConfigFiles:compileDirectoryPath:locale:assetVersion:hashToUse:modelType:compilationFramework:]";
+              *buf = v46;
+              v59 = "[CSOnDeviceCompilationHandler _compileModelAndAddToCacheWithConfigFiles:compileDirectoryPath:locale:assetVersion:hashToUse:modelType:compilationFramework:]";
               _os_log_fault_impl(&dword_1DDA4B000, v34, OS_LOG_TYPE_FAULT, "%s Not implemented", buf, 0xCu);
             }
 
@@ -72,7 +72,7 @@
             v18 = v33;
             filesCopy = v29;
             type = typeCopy;
-            v17 = v53;
+            v17 = v52;
             v19 = 0x1E8659000;
           }
 
@@ -92,11 +92,11 @@
             if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 136315650;
-              v60 = "[CSOnDeviceCompilationHandler _compileModelAndAddToCacheWithConfigFiles:compileDirectoryPath:locale:assetVersion:hashToUse:modelType:compilationFramework:]";
-              v61 = 2112;
-              v62 = v22;
-              v63 = 2112;
-              v64 = v21;
+              v59 = "[CSOnDeviceCompilationHandler _compileModelAndAddToCacheWithConfigFiles:compileDirectoryPath:locale:assetVersion:hashToUse:modelType:compilationFramework:]";
+              v60 = 2112;
+              v61 = v22;
+              v62 = 2112;
+              v63 = v21;
               _os_log_impl(&dword_1DDA4B000, v35, OS_LOG_TYPE_DEFAULT, "%s No Valid backend for compilation is found for model file: %@ from config: %@", buf, 0x20u);
             }
 
@@ -113,11 +113,11 @@
             }
 
             *buf = 136315650;
-            v60 = "[CSOnDeviceCompilationHandler _compileModelAndAddToCacheWithConfigFiles:compileDirectoryPath:locale:assetVersion:hashToUse:modelType:compilationFramework:]";
-            v61 = 2112;
-            v62 = v22;
-            v63 = 2112;
-            v64 = v18;
+            v59 = "[CSOnDeviceCompilationHandler _compileModelAndAddToCacheWithConfigFiles:compileDirectoryPath:locale:assetVersion:hashToUse:modelType:compilationFramework:]";
+            v60 = 2112;
+            v61 = v22;
+            v62 = 2112;
+            v63 = v18;
             v38 = v36;
             v39 = "%s mil2Bnns compilation failed for modelFile: %@ with error: %@";
             v40 = 32;
@@ -131,13 +131,13 @@
             }
 
             *buf = 136315906;
-            v60 = "[CSOnDeviceCompilationHandler _compileModelAndAddToCacheWithConfigFiles:compileDirectoryPath:locale:assetVersion:hashToUse:modelType:compilationFramework:]";
-            v61 = 2112;
-            v62 = v22;
-            v63 = 2112;
-            v64 = v26;
-            v65 = 2112;
-            v66 = 0;
+            v59 = "[CSOnDeviceCompilationHandler _compileModelAndAddToCacheWithConfigFiles:compileDirectoryPath:locale:assetVersion:hashToUse:modelType:compilationFramework:]";
+            v60 = 2112;
+            v61 = v22;
+            v62 = 2112;
+            v63 = v26;
+            v64 = 2112;
+            v65 = 0;
             v38 = v36;
             v39 = "%s Compilation done for modelFile: %@, output cacheIrPath: %@ with error: %@";
             v40 = 42;
@@ -150,7 +150,7 @@ LABEL_22:
         }
 
         while (v17 != v20);
-        v17 = [filesCopy countByEnumeratingWithState:&v55 objects:v69 count:16];
+        v17 = [filesCopy countByEnumeratingWithState:&v54 objects:v68 count:16];
         if (!v17)
         {
           goto LABEL_27;
@@ -164,23 +164,22 @@ LABEL_22:
   else
   {
     v41 = MEMORY[0x1E696ABC0];
-    v70 = *MEMORY[0x1E696A578];
+    v69 = *MEMORY[0x1E696A578];
     v42 = [MEMORY[0x1E696AEC0] stringWithFormat:@"config files passed in for compilation is nil"];
-    v71[0] = v42;
-    v43 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v71 forKeys:&v70 count:1];
+    v70[0] = v42;
+    v43 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v70 forKeys:&v69 count:1];
     v18 = [v41 errorWithDomain:@"com.apple.corespeech" code:2255 userInfo:v43];
   }
 
 LABEL_27:
   v44 = v18;
 
-  v45 = *MEMORY[0x1E69E9840];
   return v18;
 }
 
 - (id)_compileModelWithModelListInAsset:(id)asset modelType:(id)type compileDirectoryPath:(id)path locale:(id)locale compilationFramework:(int64_t)framework
 {
-  v36[1] = *MEMORY[0x1E69E9840];
+  v35[1] = *MEMORY[0x1E69E9840];
   assetCopy = asset;
   typeCopy = type;
   pathCopy = path;
@@ -195,10 +194,10 @@ LABEL_27:
       v17 = [v15 objectForKeyedSubscript:typeCopy];
       frameworkCopy = framework;
       v18 = pathCopy;
-      v31 = [CSOnDeviceCompilationUtils getModelNameFromMilFilePath:v17];
+      v30 = [CSOnDeviceCompilationUtils getModelNameFromMilFilePath:v17];
       configVersion = [assetCopy configVersion];
       hashFromResourcePath = [assetCopy hashFromResourcePath];
-      v21 = [CSOnDeviceCompilationUtils getIrNameFromModelNameForCompile:v31 locale:localeCopy assetVersion:configVersion hashToUse:hashFromResourcePath];
+      v21 = [CSOnDeviceCompilationUtils getIrNameFromModelNameForCompile:v30 locale:localeCopy assetVersion:configVersion hashToUse:hashFromResourcePath];
       [v18 stringByAppendingPathComponent:v21];
       v22 = typeCopy;
       v24 = v23 = localeCopy;
@@ -213,10 +212,10 @@ LABEL_27:
     else
     {
       v27 = MEMORY[0x1E696ABC0];
-      v33 = *MEMORY[0x1E696A578];
+      v32 = *MEMORY[0x1E696A578];
       v17 = [MEMORY[0x1E696AEC0] stringWithFormat:@"model type not found in compilation list"];
-      v34 = v17;
-      v28 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v34 forKeys:&v33 count:1];
+      v33 = v17;
+      v28 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v33 forKeys:&v32 count:1];
       v25 = [v27 errorWithDomain:@"com.apple.corespeech" code:2262 userInfo:v28];
     }
   }
@@ -224,30 +223,28 @@ LABEL_27:
   else
   {
     v26 = MEMORY[0x1E696ABC0];
-    v35 = *MEMORY[0x1E696A578];
+    v34 = *MEMORY[0x1E696A578];
     v15 = [MEMORY[0x1E696AEC0] stringWithFormat:@"asset being nil"];
-    v36[0] = v15;
-    v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v36 forKeys:&v35 count:1];
+    v35[0] = v15;
+    v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v35 forKeys:&v34 count:1];
     v25 = [v26 errorWithDomain:@"com.apple.corespeech" code:2263 userInfo:v17];
   }
-
-  v29 = *MEMORY[0x1E69E9840];
 
   return v25;
 }
 
 - (void)compileUsingConfig:(id)config locale:(id)locale compileDirectory:(id)directory modelType:(int64_t)type errOut:(id *)out
 {
-  v33[1] = *MEMORY[0x1E69E9840];
+  v32[1] = *MEMORY[0x1E69E9840];
   configCopy = config;
   localeCopy = locale;
   directoryCopy = directory;
-  v26 = 0;
-  v27 = &v26;
-  v28 = 0x3032000000;
-  v29 = __Block_byref_object_copy__12693;
-  v30 = __Block_byref_object_dispose__12694;
-  v31 = 0;
+  v25 = 0;
+  v26 = &v25;
+  v27 = 0x3032000000;
+  v28 = __Block_byref_object_copy__12693;
+  v29 = __Block_byref_object_dispose__12694;
+  v30 = 0;
   if (configCopy)
   {
     queue = self->_queue;
@@ -255,37 +252,35 @@ LABEL_27:
     block[1] = 3221225472;
     block[2] = __92__CSOnDeviceCompilationHandler_compileUsingConfig_locale_compileDirectory_modelType_errOut___block_invoke;
     block[3] = &unk_1E865C4B0;
-    v24 = &v26;
+    v23 = &v25;
     typeCopy = type;
     block[4] = self;
-    v21 = configCopy;
-    v22 = directoryCopy;
-    v23 = localeCopy;
+    v20 = configCopy;
+    v21 = directoryCopy;
+    v22 = localeCopy;
     dispatch_sync(queue, block);
     if (out)
     {
-      *out = v27[5];
+      *out = v26[5];
     }
   }
 
   else if (out)
   {
     v16 = MEMORY[0x1E696ABC0];
-    v32 = *MEMORY[0x1E696A578];
+    v31 = *MEMORY[0x1E696A578];
     v17 = [MEMORY[0x1E696AEC0] stringWithFormat:@"configfileNil"];
-    v33[0] = v17;
-    v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v33 forKeys:&v32 count:1];
+    v32[0] = v17;
+    v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v32 forKeys:&v31 count:1];
     *out = [v16 errorWithDomain:@"com.apple.corespeech" code:2255 userInfo:v18];
   }
 
-  _Block_object_dispose(&v26, 8);
-
-  v19 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v25, 8);
 }
 
 void __92__CSOnDeviceCompilationHandler_compileUsingConfig_locale_compileDirectory_modelType_errOut___block_invoke(void *a1)
 {
-  v15[1] = *MEMORY[0x1E69E9840];
+  v14[1] = *MEMORY[0x1E69E9840];
   if ((a1[9] & 0xFFFFFFFFFFFFFFFELL) == 2)
   {
     v2 = 2;
@@ -297,8 +292,8 @@ void __92__CSOnDeviceCompilationHandler_compileUsingConfig_locale_compileDirecto
   }
 
   v3 = a1[4];
-  v15[0] = a1[5];
-  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v15 count:1];
+  v14[0] = a1[5];
+  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v14 count:1];
   v5 = [v3 _compileModelAndAddToCacheWithConfigFiles:v4 compileDirectoryPath:a1[6] locale:a1[7] assetVersion:@"override" hashToUse:@"defaultHash" modelType:a1[9] compilationFramework:v2];
   v6 = *(a1[8] + 8);
   v7 = *(v6 + 40);
@@ -309,18 +304,16 @@ void __92__CSOnDeviceCompilationHandler_compileUsingConfig_locale_compileDirecto
   {
     v9 = *(*(a1[8] + 8) + 40);
     *buf = 136315394;
-    v12 = "[CSOnDeviceCompilationHandler compileUsingConfig:locale:compileDirectory:modelType:errOut:]_block_invoke";
-    v13 = 2112;
-    v14 = v9;
+    v11 = "[CSOnDeviceCompilationHandler compileUsingConfig:locale:compileDirectory:modelType:errOut:]_block_invoke";
+    v12 = 2112;
+    v13 = v9;
     _os_log_impl(&dword_1DDA4B000, v8, OS_LOG_TYPE_DEFAULT, "%s model compilation finished with error %@: ", buf, 0x16u);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)compileAndUpdateDeviceCachesWithAsset:(id)asset assetType:(unint64_t)type modelType:(id)modelType deviceId:(id)id currentLocale:(id)locale compileDirectory:(id)directory errOut:(id *)out
 {
-  v78[1] = *MEMORY[0x1E69E9840];
+  v77[1] = *MEMORY[0x1E69E9840];
   assetCopy = asset;
   modelTypeCopy = modelType;
   idCopy = id;
@@ -330,14 +323,14 @@ void __92__CSOnDeviceCompilationHandler_compileUsingConfig_locale_compileDirecto
   {
     if ([CSOnDeviceCompilationUtils shouldCompileForAssetType:type])
     {
-      v70 = 0;
-      v71 = &v70;
-      v72 = 0x3032000000;
-      v73 = __Block_byref_object_copy__12693;
-      v74 = __Block_byref_object_dispose__12694;
-      v75 = 0;
-      v49 = localeCopy;
-      v50 = assetCopy;
+      v69 = 0;
+      v70 = &v69;
+      v71 = 0x3032000000;
+      v72 = __Block_byref_object_copy__12693;
+      v73 = __Block_byref_object_dispose__12694;
+      v74 = 0;
+      v48 = localeCopy;
+      v49 = assetCopy;
       if (type == 6 && (([modelTypeCopy isEqual:&unk_1F5916A90] & 1) != 0 || objc_msgSend(modelTypeCopy, "isEqual:", &unk_1F5916AA8)))
       {
         v20 = 2;
@@ -353,19 +346,19 @@ void __92__CSOnDeviceCompilationHandler_compileUsingConfig_locale_compileDirecto
       block[1] = 3221225472;
       block[2] = __137__CSOnDeviceCompilationHandler_compileAndUpdateDeviceCachesWithAsset_assetType_modelType_deviceId_currentLocale_compileDirectory_errOut___block_invoke;
       block[3] = &unk_1E865C438;
-      v68 = &v70;
+      v67 = &v69;
       block[4] = self;
-      v25 = v50;
-      v64 = v25;
+      v25 = v49;
+      v63 = v25;
       v26 = modelTypeCopy;
-      v65 = v26;
-      v46 = directoryCopy;
-      v66 = v46;
-      v48 = v49;
-      v67 = v48;
-      v69 = v20;
+      v64 = v26;
+      v45 = directoryCopy;
+      v65 = v45;
+      v47 = v48;
+      v66 = v47;
+      v68 = v20;
       dispatch_sync(v24, block);
-      if (v71[5])
+      if (v70[5])
       {
         if (type)
         {
@@ -390,27 +383,27 @@ void __92__CSOnDeviceCompilationHandler_compileUsingConfig_locale_compileDirecto
         {
           queue = v20;
           v29 = +[CSOnDeviceCompilationUtils getModelConfigsWithAsset:modelType:](CSOnDeviceCompilationUtils, "getModelConfigsWithAsset:modelType:", v25, [v26 intValue]);
-          v43 = self->_queue;
-          v51[0] = MEMORY[0x1E69E9820];
-          v51[1] = 3221225472;
-          v51[2] = __137__CSOnDeviceCompilationHandler_compileAndUpdateDeviceCachesWithAsset_assetType_modelType_deviceId_currentLocale_compileDirectory_errOut___block_invoke_24;
-          v51[3] = &unk_1E865C488;
-          v56[1] = &v70;
-          v51[4] = self;
-          v52 = v29;
-          v53 = v46;
-          v47 = &v54;
-          v54 = v48;
-          v30 = &v55;
-          v55 = v25;
-          v31 = v56;
-          v32 = &v52;
-          v33 = &v53;
-          v56[0] = v26;
-          v56[2] = queue;
+          v42 = self->_queue;
+          v50[0] = MEMORY[0x1E69E9820];
+          v50[1] = 3221225472;
+          v50[2] = __137__CSOnDeviceCompilationHandler_compileAndUpdateDeviceCachesWithAsset_assetType_modelType_deviceId_currentLocale_compileDirectory_errOut___block_invoke_24;
+          v50[3] = &unk_1E865C488;
+          v55[1] = &v69;
+          v50[4] = self;
+          v51 = v29;
+          v52 = v45;
+          v46 = &v53;
+          v53 = v47;
+          v30 = &v54;
+          v54 = v25;
+          v31 = v55;
+          v32 = &v51;
+          v33 = &v52;
+          v55[0] = v26;
+          v55[2] = queue;
           v34 = v29;
-          v35 = v51;
-          v36 = v43;
+          v35 = v50;
+          v36 = v42;
         }
 
         else
@@ -427,8 +420,8 @@ void __92__CSOnDeviceCompilationHandler_compileUsingConfig_locale_compileDirecto
             if (v37)
             {
               configPathRecognizer = [v37 configPathRecognizer];
-              v76 = configPathRecognizer;
-              v40 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v76 count:1];
+              v75 = configPathRecognizer;
+              v40 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v75 count:1];
             }
 
             else
@@ -438,25 +431,25 @@ void __92__CSOnDeviceCompilationHandler_compileUsingConfig_locale_compileDirecto
           }
 
           queuea = self->_queue;
-          v57[0] = MEMORY[0x1E69E9820];
-          v57[1] = 3221225472;
-          v57[2] = __137__CSOnDeviceCompilationHandler_compileAndUpdateDeviceCachesWithAsset_assetType_modelType_deviceId_currentLocale_compileDirectory_errOut___block_invoke_23;
-          v57[3] = &unk_1E865C460;
-          v62[1] = &v70;
-          v32 = &v58;
-          v57[4] = self;
-          v58 = v40;
-          v33 = &v59;
-          v59 = v46;
-          v47 = &v60;
-          v60 = v48;
+          v56[0] = MEMORY[0x1E69E9820];
+          v56[1] = 3221225472;
+          v56[2] = __137__CSOnDeviceCompilationHandler_compileAndUpdateDeviceCachesWithAsset_assetType_modelType_deviceId_currentLocale_compileDirectory_errOut___block_invoke_23;
+          v56[3] = &unk_1E865C460;
+          v61[1] = &v69;
+          v32 = &v57;
+          v56[4] = self;
+          v57 = v40;
+          v33 = &v58;
+          v58 = v45;
+          v46 = &v59;
+          v59 = v47;
           v41 = v40;
-          v30 = &v61;
-          v61 = v25;
-          v31 = v62;
-          v62[0] = v26;
+          v30 = &v60;
+          v60 = v25;
+          v31 = v61;
+          v61[0] = v26;
           v34 = v41;
-          v35 = v57;
+          v35 = v56;
           v36 = queuea;
         }
 
@@ -464,65 +457,58 @@ void __92__CSOnDeviceCompilationHandler_compileUsingConfig_locale_compileDirecto
 
         if (out)
         {
-          *out = v71[5];
+          *out = v70[5];
         }
       }
 
-      localeCopy = v49;
-      assetCopy = v50;
+      localeCopy = v48;
+      assetCopy = v49;
 
-      _Block_object_dispose(&v70, 8);
+      _Block_object_dispose(&v69, 8);
     }
   }
 
   else if (out)
   {
     v21 = MEMORY[0x1E696ABC0];
-    v77 = *MEMORY[0x1E696A578];
+    v76 = *MEMORY[0x1E696A578];
     v22 = [MEMORY[0x1E696AEC0] stringWithFormat:@"deviceId specified as nil"];
-    v78[0] = v22;
-    v23 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v78 forKeys:&v77 count:1];
+    v77[0] = v22;
+    v23 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v77 forKeys:&v76 count:1];
     *out = [v21 errorWithDomain:@"com.apple.corespeech" code:2254 userInfo:v23];
   }
-
-  v42 = *MEMORY[0x1E69E9840];
 }
 
 void __137__CSOnDeviceCompilationHandler_compileAndUpdateDeviceCachesWithAsset_assetType_modelType_deviceId_currentLocale_compileDirectory_errOut___block_invoke(uint64_t a1)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) _compileModelWithModelListInAsset:*(a1 + 40) modelType:*(a1 + 48) compileDirectoryPath:*(a1 + 56) locale:*(a1 + 64) compilationFramework:*(a1 + 80)];
   v3 = *(*(a1 + 72) + 8);
   v4 = *(v3 + 40);
   *(v3 + 40) = v2;
 
   v5 = *(*(*(a1 + 72) + 8) + 40);
-  if (v5)
+  if (v5 && [v5 code] != 2262)
   {
-    if ([v5 code] != 2262)
+    v6 = CSLogContextFacilityCoreSpeech;
+    if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = CSLogContextFacilityCoreSpeech;
-      if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
-      {
-        v7 = *(*(*(a1 + 72) + 8) + 40);
-        v8 = *(a1 + 48);
-        v10 = 136315650;
-        v11 = "[CSOnDeviceCompilationHandler compileAndUpdateDeviceCachesWithAsset:assetType:modelType:deviceId:currentLocale:compileDirectory:errOut:]_block_invoke";
-        v12 = 2112;
-        v13 = v7;
-        v14 = 2112;
-        v15 = v8;
-        _os_log_impl(&dword_1DDA4B000, v6, OS_LOG_TYPE_DEFAULT, "%s compilation with onDeviceCompilation list finished with error: %@ with modelType: %@", &v10, 0x20u);
-      }
+      v7 = *(*(*(a1 + 72) + 8) + 40);
+      v8 = *(a1 + 48);
+      v9 = 136315650;
+      v10 = "[CSOnDeviceCompilationHandler compileAndUpdateDeviceCachesWithAsset:assetType:modelType:deviceId:currentLocale:compileDirectory:errOut:]_block_invoke";
+      v11 = 2112;
+      v12 = v7;
+      v13 = 2112;
+      v14 = v8;
+      _os_log_impl(&dword_1DDA4B000, v6, OS_LOG_TYPE_DEFAULT, "%s compilation with onDeviceCompilation list finished with error: %@ with modelType: %@", &v9, 0x20u);
     }
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 void __137__CSOnDeviceCompilationHandler_compileAndUpdateDeviceCachesWithAsset_assetType_modelType_deviceId_currentLocale_compileDirectory_errOut___block_invoke_23(uint64_t a1)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 32);
   v3 = *(a1 + 40);
   v4 = *(a1 + 48);
@@ -539,18 +525,16 @@ void __137__CSOnDeviceCompilationHandler_compileAndUpdateDeviceCachesWithAsset_a
   {
     v12 = *(*(*(a1 + 80) + 8) + 40);
     *buf = 136315394;
-    v15 = "[CSOnDeviceCompilationHandler compileAndUpdateDeviceCachesWithAsset:assetType:modelType:deviceId:currentLocale:compileDirectory:errOut:]_block_invoke";
-    v16 = 2112;
-    v17 = v12;
+    v14 = "[CSOnDeviceCompilationHandler compileAndUpdateDeviceCachesWithAsset:assetType:modelType:deviceId:currentLocale:compileDirectory:errOut:]_block_invoke";
+    v15 = 2112;
+    v16 = v12;
     _os_log_impl(&dword_1DDA4B000, v11, OS_LOG_TYPE_DEFAULT, "%s second pass model compilation finished with error %@: ", buf, 0x16u);
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 void __137__CSOnDeviceCompilationHandler_compileAndUpdateDeviceCachesWithAsset_assetType_modelType_deviceId_currentLocale_compileDirectory_errOut___block_invoke_24(uint64_t a1)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 32);
   v3 = *(a1 + 40);
   v4 = *(a1 + 48);
@@ -567,46 +551,44 @@ void __137__CSOnDeviceCompilationHandler_compileAndUpdateDeviceCachesWithAsset_a
   {
     v12 = *(*(*(a1 + 80) + 8) + 40);
     *buf = 136315394;
-    v15 = "[CSOnDeviceCompilationHandler compileAndUpdateDeviceCachesWithAsset:assetType:modelType:deviceId:currentLocale:compileDirectory:errOut:]_block_invoke";
-    v16 = 2112;
-    v17 = v12;
+    v14 = "[CSOnDeviceCompilationHandler compileAndUpdateDeviceCachesWithAsset:assetType:modelType:deviceId:currentLocale:compileDirectory:errOut:]_block_invoke";
+    v15 = 2112;
+    v16 = v12;
     _os_log_impl(&dword_1DDA4B000, v11, OS_LOG_TYPE_DEFAULT, "%s second pass model compilation finished with error %@: ", buf, 0x16u);
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)compileAndUpdateDeviceCachesWithAsset:(id)asset assetType:(unint64_t)type endpointId:(id)id errOut:(id *)out
 {
-  v51[1] = *MEMORY[0x1E69E9840];
+  v50[1] = *MEMORY[0x1E69E9840];
   assetCopy = asset;
   idCopy = id;
   v10 = idCopy;
   if (idCopy)
   {
-    v36 = idCopy;
+    v35 = idCopy;
     [CSUtils getSiriLanguageWithEndpointId:"getSiriLanguageWithEndpointId:fallbackLanguage:" fallbackLanguage:?];
   }
 
   else
   {
-    v36 = @"Hub";
+    v35 = @"Hub";
     v11 = @"Hub";
     [CSUtils getSiriLanguageWithFallback:@"en-US"];
   }
-  v35 = ;
+  v34 = ;
   v12 = +[CSFPreferences sharedPreferences];
   getOnDeviceCompilationCacheDirectory = [v12 getOnDeviceCompilationCacheDirectory];
 
-  v34 = getOnDeviceCompilationCacheDirectory;
+  v33 = getOnDeviceCompilationCacheDirectory;
   if (getOnDeviceCompilationCacheDirectory)
   {
     v14 = CSLogContextFacilityCoreSpeech;
     if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315394;
-      v47 = "[CSOnDeviceCompilationHandler compileAndUpdateDeviceCachesWithAsset:assetType:endpointId:errOut:]";
-      v48 = 2048;
+      v46 = "[CSOnDeviceCompilationHandler compileAndUpdateDeviceCachesWithAsset:assetType:endpointId:errOut:]";
+      v47 = 2048;
       typeCopy = type;
       _os_log_impl(&dword_1DDA4B000, v14, OS_LOG_TYPE_DEFAULT, "%s compiling for modelType: %lu", buf, 0x16u);
     }
@@ -623,40 +605,40 @@ void __137__CSOnDeviceCompilationHandler_compileAndUpdateDeviceCachesWithAsset_a
         v16 = &CSOnDeviceCompileSupportedMitigationModelTypes;
 LABEL_20:
         v20 = *v16;
+        v38 = 0u;
         v39 = 0u;
         v40 = 0u;
         v41 = 0u;
-        v42 = 0u;
         v19 = v20;
-        v21 = [v19 countByEnumeratingWithState:&v39 objects:v43 count:16];
+        v21 = [v19 countByEnumeratingWithState:&v38 objects:v42 count:16];
         if (v21)
         {
           v22 = v21;
           v18 = 0;
-          v23 = *v40;
+          v23 = *v39;
           do
           {
             v24 = 0;
             v25 = v18;
             do
             {
-              if (*v40 != v23)
+              if (*v39 != v23)
               {
                 objc_enumerationMutation(v19);
               }
 
-              v26 = *(*(&v39 + 1) + 8 * v24);
-              v27 = +[CSOnDeviceCompilationUtils getModelCompiledDirWithModelType:basePath:](CSOnDeviceCompilationUtils, "getModelCompiledDirWithModelType:basePath:", [v26 intValue], v34);
-              v38 = v25;
-              [(CSOnDeviceCompilationHandler *)self compileAndUpdateDeviceCachesWithAsset:assetCopy assetType:type modelType:v26 deviceId:v36 currentLocale:v35 compileDirectory:v27 errOut:&v38];
-              v18 = v38;
+              v26 = *(*(&v38 + 1) + 8 * v24);
+              v27 = +[CSOnDeviceCompilationUtils getModelCompiledDirWithModelType:basePath:](CSOnDeviceCompilationUtils, "getModelCompiledDirWithModelType:basePath:", [v26 intValue], v33);
+              v37 = v25;
+              [(CSOnDeviceCompilationHandler *)self compileAndUpdateDeviceCachesWithAsset:assetCopy assetType:type modelType:v26 deviceId:v35 currentLocale:v34 compileDirectory:v27 errOut:&v37];
+              v18 = v37;
 
               ++v24;
               v25 = v18;
             }
 
             while (v22 != v24);
-            v22 = [v19 countByEnumeratingWithState:&v39 objects:v43 count:16];
+            v22 = [v19 countByEnumeratingWithState:&v38 objects:v42 count:16];
           }
 
           while (v22);
@@ -690,7 +672,7 @@ LABEL_20:
         if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 136315138;
-          v47 = "[CSOnDeviceCompilationHandler compileAndUpdateDeviceCachesWithAsset:assetType:endpointId:errOut:]";
+          v46 = "[CSOnDeviceCompilationHandler compileAndUpdateDeviceCachesWithAsset:assetType:endpointId:errOut:]";
           _os_log_impl(&dword_1DDA4B000, v15, OS_LOG_TYPE_DEFAULT, "%s compiling for modelType forCSSpeakerRecognitionAssetType", buf, 0xCu);
         }
 
@@ -702,10 +684,10 @@ LABEL_28:
       if (out)
       {
         v28 = MEMORY[0x1E696ABC0];
-        v44 = *MEMORY[0x1E696A578];
+        v43 = *MEMORY[0x1E696A578];
         type = [MEMORY[0x1E696AEC0] stringWithFormat:@"asset type is not supported: %lu", type];
-        v45 = type;
-        v30 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v45 forKeys:&v44 count:1];
+        v44 = type;
+        v30 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v44 forKeys:&v43 count:1];
         *out = [v28 errorWithDomain:@"com.apple.corespeech" code:2265 userInfo:v30];
       }
 
@@ -721,15 +703,13 @@ LABEL_28:
   if (out)
   {
     v17 = MEMORY[0x1E696ABC0];
-    v50 = *MEMORY[0x1E696A578];
+    v49 = *MEMORY[0x1E696A578];
     v18 = [MEMORY[0x1E696AEC0] stringWithFormat:@"cached ir directory is nil"];
-    v51[0] = v18;
-    v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v51 forKeys:&v50 count:1];
+    v50[0] = v18;
+    v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v50 forKeys:&v49 count:1];
     *out = [v17 errorWithDomain:@"com.apple.corespeech" code:2264 userInfo:v19];
 LABEL_34:
   }
-
-  v32 = *MEMORY[0x1E69E9840];
 }
 
 - (CSOnDeviceCompilationHandler)init

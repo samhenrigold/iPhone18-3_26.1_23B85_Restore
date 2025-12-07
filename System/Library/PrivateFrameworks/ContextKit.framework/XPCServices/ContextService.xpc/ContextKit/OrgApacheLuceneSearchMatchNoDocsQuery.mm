@@ -23,8 +23,8 @@
 {
   v4 = new_JavaLangStringBuilder_init();
   [(JavaLangStringBuilder *)v4 appendWithNSString:&stru_100484358];
-  [(OrgApacheLuceneSearchQuery *)self getBoost];
-  [(JavaLangStringBuilder *)v4 appendWithNSString:OrgApacheLuceneUtilToStringUtils_boostWithFloat_(v5)];
+  getBoost = [(OrgApacheLuceneSearchQuery *)self getBoost];
+  [(JavaLangStringBuilder *)v4 appendWithNSString:OrgApacheLuceneUtilToStringUtils_boostWithFloat_(v7, getBoost, v6)];
 
   return [(JavaLangStringBuilder *)v4 description];
 }

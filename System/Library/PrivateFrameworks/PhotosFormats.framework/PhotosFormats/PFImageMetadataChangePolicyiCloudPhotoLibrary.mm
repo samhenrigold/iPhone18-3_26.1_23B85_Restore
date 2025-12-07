@@ -16,7 +16,7 @@
 
   if (livePhotoPairingIdentifier)
   {
-    v8 = [v7 mutableCopy];
+    v8 = objc_msgSend_mutableCopy(v7);
     livePhotoPairingIdentifierMetadataKey = [(PFMetadata *)v5 livePhotoPairingIdentifierMetadataKey];
     v10 = [PFMetadataUtilities addMakerApplePropertyWithKey:livePhotoPairingIdentifierMetadataKey value:livePhotoPairingIdentifier toProperties:v8];
 
@@ -45,9 +45,11 @@
 
 uint64_t __63__PFImageMetadataChangePolicyiCloudPhotoLibrary_standardPolicy__block_invoke()
 {
-  standardPolicy_standardPolicy_77 = objc_alloc_init(PFImageMetadataChangePolicyiCloudPhotoLibrary);
+  v0 = objc_alloc_init(PFImageMetadataChangePolicyiCloudPhotoLibrary);
+  v1 = standardPolicy_standardPolicy_77;
+  standardPolicy_standardPolicy_77 = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 @end

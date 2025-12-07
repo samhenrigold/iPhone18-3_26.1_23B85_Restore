@@ -18,20 +18,18 @@
 {
   v3 = type metadata accessor for LinkAttribute(0);
   v4 = v3 - 8;
-  v5 = *(*(v3 - 8) + 64);
   MEMORY[0x28223BE20](v3);
-  v7 = &v15 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v8 = sub_2146D8958();
-  v9 = *(v8 - 8);
-  v10 = *(v9 + 64);
-  MEMORY[0x28223BE20](v8);
-  v12 = &v15 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  sub_213FB568C(self + OBJC_IVAR___BlastDoorLinkAttribute_linkAttribute[0], v7, type metadata accessor for LinkAttribute);
-  (*(v9 + 32))(v12, &v7[*(v4 + 28)], v8);
-  v13 = sub_2146D8898();
-  (*(v9 + 8))(v12, v8);
+  v6 = &v13 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = sub_2146D8958();
+  v8 = *(v7 - 8);
+  MEMORY[0x28223BE20](v7);
+  v10 = &v13 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  sub_213FB568C(self + OBJC_IVAR___BlastDoorLinkAttribute_linkAttribute[0], v6, type metadata accessor for LinkAttribute);
+  (*(v8 + 32))(v10, &v6[*(v4 + 28)], v7);
+  v11 = sub_2146D8898();
+  (*(v8 + 8))(v10, v7);
 
-  return v13;
+  return v11;
 }
 
 - (BlastDoorLinkAttribute)init

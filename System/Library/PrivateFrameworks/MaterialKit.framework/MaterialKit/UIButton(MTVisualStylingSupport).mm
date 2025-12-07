@@ -1,17 +1,17 @@
 @interface UIButton(MTVisualStylingSupport)
-- (uint64_t)mt_applyVisualStyling:()MTVisualStylingSupport;
+- (void)mt_applyVisualStyling:()MTVisualStylingSupport;
 @end
 
 @implementation UIButton(MTVisualStylingSupport)
 
-- (uint64_t)mt_applyVisualStyling:()MTVisualStylingSupport
+- (void)mt_applyVisualStyling:()MTVisualStylingSupport
 {
-  v4[0] = MEMORY[0x277D85DD0];
-  v4[1] = 3221225472;
-  v4[2] = __58__UIButton_MTVisualStylingSupport__mt_applyVisualStyling___block_invoke;
-  v4[3] = &unk_27835D4F0;
-  v4[4] = self;
-  return [a3 applyToView:self withColorBlock:v4];
+  v4 = MEMORY[0x277D85DD0];
+  v5 = 3221225472;
+  v6 = __58__UIButton_MTVisualStylingSupport__mt_applyVisualStyling___block_invoke;
+  v7 = &unk_27835D4F0;
+  selfCopy = self;
+  return [a3 applyToView:? withColorBlock:?];
 }
 
 @end

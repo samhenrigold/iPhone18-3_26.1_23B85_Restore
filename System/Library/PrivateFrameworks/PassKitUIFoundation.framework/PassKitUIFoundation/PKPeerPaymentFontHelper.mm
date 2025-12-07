@@ -18,7 +18,7 @@
 
 void __53__PKPeerPaymentFontHelper_chiseledCashFontDescriptor__block_invoke()
 {
-  v10[1] = *MEMORY[0x277D85DE8];
+  v9[1] = *MEMORY[0x277D85DE8];
   v0 = PKPassKitUIFoundationBundle();
   v1 = [v0 URLForResource:@"SFCash-Chiseled" withExtension:@"otf"];
 
@@ -31,9 +31,9 @@ void __53__PKPeerPaymentFontHelper_chiseledCashFontDescriptor__block_invoke()
       if (CFArrayGetCount(FontDescriptorsFromURL) >= 1)
       {
         ValueAtIndex = CFArrayGetValueAtIndex(v3, 0);
-        v9 = *MEMORY[0x277CC4928];
-        v10[0] = &unk_286FD0EF0;
-        v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:&v9 count:1];
+        v8 = *MEMORY[0x277CC4928];
+        v9[0] = &unk_286FD0EF0;
+        v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:&v8 count:1];
         v6 = CTFontDescriptorCreateCopyWithAttributes(ValueAtIndex, v5);
         v7 = chiseledCashFontDescriptor_descriptorWithPalette;
         chiseledCashFontDescriptor_descriptorWithPalette = v6;
@@ -42,8 +42,6 @@ void __53__PKPeerPaymentFontHelper_chiseledCashFontDescriptor__block_invoke()
       CFRelease(v3);
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 @end

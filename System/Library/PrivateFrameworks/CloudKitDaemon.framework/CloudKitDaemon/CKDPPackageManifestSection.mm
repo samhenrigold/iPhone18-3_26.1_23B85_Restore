@@ -287,33 +287,31 @@ LABEL_52:
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v8 = toCopy;
+  v6 = toCopy;
   if (self->_signature)
   {
     PBDataWriterWriteDataField();
-    toCopy = v8;
+    toCopy = v6;
   }
 
   has = self->_has;
   if (has)
   {
-    size = self->_size;
     PBDataWriterWriteInt64Field();
-    toCopy = v8;
+    toCopy = v6;
     has = self->_has;
   }
 
   if ((has & 2) != 0)
   {
-    lastSection = self->_lastSection;
     PBDataWriterWriteBOOLField();
-    toCopy = v8;
+    toCopy = v6;
   }
 
   if (self->_verificationKey)
   {
     PBDataWriterWriteDataField();
-    toCopy = v8;
+    toCopy = v6;
   }
 }
 
@@ -399,7 +397,6 @@ LABEL_52:
     }
   }
 
-  v10 = *(equalCopy + 36);
   if (*&self->_has)
   {
     if ((*(equalCopy + 36) & 1) == 0 || self->_size != equalCopy[1])
@@ -430,7 +427,6 @@ LABEL_14:
     goto LABEL_14;
   }
 
-  v15 = *(equalCopy + 32);
   if (self->_lastSection)
   {
     if ((equalCopy[4] & 1) == 0)
@@ -446,10 +442,10 @@ LABEL_14:
 
 LABEL_11:
   verificationKey = self->_verificationKey;
-  v12 = equalCopy[3];
-  if (verificationKey | v12)
+  v11 = equalCopy[3];
+  if (verificationKey | v11)
   {
-    isEqual = objc_msgSend_isEqual_(verificationKey, v7, v12);
+    isEqual = objc_msgSend_isEqual_(verificationKey, v7, v11);
   }
 
   else

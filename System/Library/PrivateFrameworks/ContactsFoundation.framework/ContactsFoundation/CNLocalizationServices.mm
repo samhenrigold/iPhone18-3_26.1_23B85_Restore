@@ -24,9 +24,11 @@
 
 uint64_t __41__CNLocalizationServices_defaultServices__block_invoke(uint64_t a1)
 {
-  defaultServices_cn_once_object_1 = objc_alloc_init(*(a1 + 32));
+  v1 = objc_alloc_init(*(a1 + 32));
+  v2 = defaultServices_cn_once_object_1;
+  defaultServices_cn_once_object_1 = v1;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v1, v2);
 }
 
 - (id)localizedStringForKey:(id)key value:(id)value table:(id)table bundleForClass:(Class)class comment:(id)comment

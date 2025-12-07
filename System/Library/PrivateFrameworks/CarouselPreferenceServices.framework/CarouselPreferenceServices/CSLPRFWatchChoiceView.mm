@@ -137,7 +137,7 @@
 
 - (void)_addWatchScreenImageIfNecessary:(id)necessary
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   necessaryCopy = necessary;
   watchScreenImageView = [(BPSIllustratedWatchView *)self->_watchView watchScreenImageView];
   mainScreen = [MEMORY[0x277D759A0] mainScreen];
@@ -188,9 +188,9 @@
     {
       screenImage2 = [necessaryCopy screenImage];
       *buf = 138412546;
-      v38 = screenImage2;
-      v39 = 2112;
-      v40 = watchScreenImageView;
+      v37 = screenImage2;
+      v38 = 2112;
+      v39 = watchScreenImageView;
       _os_log_impl(&dword_22CE92000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, ">>>> adding provided %@ to view %@", buf, 0x16u);
     }
 
@@ -228,25 +228,23 @@
     v27 = self->_watchView;
     imageProvider2 = [necessaryCopy imageProvider];
     choice = [necessaryCopy choice];
-    v33[0] = MEMORY[0x277D85DD0];
-    v33[1] = 3221225472;
-    v33[2] = __57__CSLPRFWatchChoiceView__addWatchScreenImageIfNecessary___block_invoke;
-    v33[3] = &unk_278744DE8;
-    v33[4] = self;
-    v34 = watchScreenImageView;
-    v35 = v27;
-    v36 = v22;
+    v32[0] = MEMORY[0x277D85DD0];
+    v32[1] = 3221225472;
+    v32[2] = __57__CSLPRFWatchChoiceView__addWatchScreenImageIfNecessary___block_invoke;
+    v32[3] = &unk_278744DE8;
+    v32[4] = self;
+    v33 = watchScreenImageView;
+    v34 = v27;
+    v35 = v22;
     v30 = v22;
     v31 = v27;
-    [imageProvider2 retrieveImageForLauncherViewMode:choice size:v33 completion:{v16, v15}];
+    [imageProvider2 retrieveImageForLauncherViewMode:choice size:v32 completion:{v16, v15}];
   }
-
-  v32 = *MEMORY[0x277D85DE8];
 }
 
 void __57__CSLPRFWatchChoiceView__addWatchScreenImageIfNecessary___block_invoke(uint64_t a1, void *a2)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO);
   if (v3)
@@ -255,13 +253,13 @@ void __57__CSLPRFWatchChoiceView__addWatchScreenImageIfNecessary___block_invoke(
     {
       v5 = *(a1 + 32);
       v6 = *(a1 + 40);
-      v11 = 138412802;
-      v12 = v5;
-      v13 = 2112;
-      v14 = v3;
-      v15 = 2112;
-      v16 = v6;
-      _os_log_impl(&dword_22CE92000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, ">>>> %@ adding retrieved image %@ to view %@", &v11, 0x20u);
+      v10 = 138412802;
+      v11 = v5;
+      v12 = 2112;
+      v13 = v3;
+      v14 = 2112;
+      v15 = v6;
+      _os_log_impl(&dword_22CE92000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, ">>>> %@ adding retrieved image %@ to view %@", &v10, 0x20u);
     }
 
     [*(a1 + 40) setImage:v3];
@@ -280,16 +278,14 @@ void __57__CSLPRFWatchChoiceView__addWatchScreenImageIfNecessary___block_invoke(
   {
     v8 = *(a1 + 32);
     v9 = *(a1 + 40);
-    v11 = 138412802;
-    v12 = v8;
-    v13 = 2112;
-    v14 = 0;
-    v15 = 2112;
-    v16 = v9;
-    _os_log_impl(&dword_22CE92000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, ">>>> %@ retrieved image is %@, not adding to view %@", &v11, 0x20u);
+    v10 = 138412802;
+    v11 = v8;
+    v12 = 2112;
+    v13 = 0;
+    v14 = 2112;
+    v15 = v9;
+    _os_log_impl(&dword_22CE92000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, ">>>> %@ retrieved image is %@, not adding to view %@", &v10, 0x20u);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_createWatchViewForChoice:(id)choice

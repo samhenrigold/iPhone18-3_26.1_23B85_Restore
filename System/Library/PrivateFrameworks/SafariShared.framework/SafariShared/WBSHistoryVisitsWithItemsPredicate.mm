@@ -45,7 +45,7 @@
           }
 
           databaseID = [*(*(&v28 + 1) + 8 * v12) databaseID];
-          std::__hash_table<long long,std::hash<long long>,std::equal_to<long long>,std::allocator<long long>>::__emplace_unique_key_args<long long,long long const&>(v34, &databaseID);
+          std::__hash_table<long long,std::hash<long long>,std::equal_to<long long>,std::allocator<long long>>::__emplace_unique_key_args<long long,long long const&>(v34, &databaseID, &databaseID);
           ++v12;
         }
 
@@ -76,7 +76,7 @@
           }
 
           databaseID = [*(*(&v23 + 1) + 8 * v16) databaseID];
-          std::__hash_table<long long,std::hash<long long>,std::equal_to<long long>,std::allocator<long long>>::__emplace_unique_key_args<long long,long long const&>(v32, &databaseID);
+          std::__hash_table<long long,std::hash<long long>,std::equal_to<long long>,std::allocator<long long>>::__emplace_unique_key_args<long long,long long const&>(v32, &databaseID, &databaseID);
           ++v16;
         }
 

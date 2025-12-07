@@ -6,11 +6,11 @@
 
 - (uint64_t)CACornerRadiiValue
 {
-  x8_0[2] = 0u;
-  x8_0[3] = 0u;
-  *x8_0 = 0u;
-  x8_0[1] = 0u;
-  return [self getValue:x8_0 size:64];
+  a2[2] = 0u;
+  a2[3] = 0u;
+  *a2 = 0u;
+  a2[1] = 0u;
+  return [self getValue:a2 size:64];
 }
 
 @end

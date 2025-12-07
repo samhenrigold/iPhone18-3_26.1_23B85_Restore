@@ -127,12 +127,13 @@
 - (id)rootURLsWithTransientState:(BOOL *)state
 {
   selfCopy = self;
-  sub_1CEFCE524(state);
+  v5 = sub_1CEFCE524(state);
 
   sub_1CF9E5A58();
-  v5 = sub_1CF9E6D28();
+  v6 = sub_1CF9E6D28();
+  v5, v7, v8, v9, v10, v11, v12, v13;
 
-  return v5;
+  return v6;
 }
 
 - (BOOL)backgroundActivityIsPaused
@@ -273,34 +274,34 @@
 - (NSArray)coordinationRootURLs
 {
   selfCopy = self;
-  v7 = sub_1CEFCE64C();
+  v15 = sub_1CEFCE64C();
   v3 = *(selfCopy + OBJC_IVAR____TtC18FileProviderDaemon20FPDDomainFPFSBackend_pathsManager);
   v4 = selfCopy;
-  sub_1CF5170A8(v3, v4, &v7);
+  sub_1CF5170A8(v3, v4, &v15);
 
+  v5 = v15;
   sub_1CF9E5A58();
-  v5 = sub_1CF9E6D28();
+  v6 = sub_1CF9E6D28();
+  v5, v7, v8, v9, v10, v11, v12, v13;
 
-  return v5;
+  return v6;
 }
 
 - (NSFileProviderDomainVersion)domainVersion
 {
-  v2 = *(self + OBJC_IVAR____TtC18FileProviderDaemon20FPDDomainFPFSBackend___fpfs);
-  if (v2)
+  if (*(self + OBJC_IVAR____TtC18FileProviderDaemon20FPDDomainFPFSBackend___fpfs))
   {
-    v3 = *(v2 + 16);
     selfCopy = self;
 
-    v5 = sub_1CF807310();
+    v3 = sub_1CF807310();
   }
 
   else
   {
-    v5 = 0;
+    v3 = 0;
   }
 
-  return v5;
+  return v3;
 }
 
 - (void)removeEbihilSymlink
@@ -427,10 +428,11 @@
 - (BOOL)startWithReason:(id)reason userAllowedDBDrop:(BOOL)drop error:(id *)error
 {
   _sSo28NSFileProviderItemIdentifiera04FileB6DaemonE15parseableStringSSvg_0();
-  v6 = *(self + OBJC_IVAR____TtC18FileProviderDaemon20FPDDomainFPFSBackend_startupQueue);
+  v7 = v6;
   selfCopy = self;
   sub_1CF9E7398();
 
+  v7, v9, v10, v11, v12, v13, v14, v15;
   return 1;
 }
 
@@ -453,38 +455,37 @@
 - (id)createRootByImportingURL:(id)l knownFolders:(id)folders error:(id *)error
 {
   v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EC4BE310, qword_1CF9FCBE0);
-  v8 = *(*(v7 - 8) + 64);
   MEMORY[0x1EEE9AC00](v7 - 8);
-  v10 = &v23[-v9];
-  v11 = sub_1CF9E5A58();
-  v12 = *(v11 - 8);
-  v13 = *(v12 + 64);
-  MEMORY[0x1EEE9AC00](v11);
-  v15 = &v23[-((v14 + 15) & 0xFFFFFFFFFFFFFFF0)];
-  MEMORY[0x1EEE9AC00](v16);
-  v18 = &v23[-v17];
+  v9 = &v28[-v8];
+  v10 = sub_1CF9E5A58();
+  v11 = *(v10 - 8);
+  MEMORY[0x1EEE9AC00](v10);
+  v13 = &v28[-((v12 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  MEMORY[0x1EEE9AC00](v14);
+  v16 = &v28[-v15];
   if (l)
   {
     sub_1CF9E59D8();
-    (*(v12 + 32))(v10, v15, v11);
-    (*(v12 + 56))(v10, 0, 1, v11);
+    (*(v11 + 32))(v9, v13, v10);
+    (*(v11 + 56))(v9, 0, 1, v10);
   }
 
   else
   {
-    (*(v12 + 56))(v10, 1, 1, v11);
+    (*(v11 + 56))(v9, 1, 1, v10);
   }
 
   sub_1CEFD57E0(0, &qword_1EDEA3480, 0x1E69674F8);
-  v19 = sub_1CF9E6D48();
+  v17 = sub_1CF9E6D48();
   selfCopy = self;
-  FPDDomainFPFSBackend.createRoot(byImporting:knownFolders:)(v10, v19, v18);
-  sub_1CEFCCC44(v10, &unk_1EC4BE310, qword_1CF9FCBE0);
+  FPDDomainFPFSBackend.createRoot(byImporting:knownFolders:)(v9, v17, v16);
+  sub_1CEFCCC44(v9, &unk_1EC4BE310, qword_1CF9FCBE0);
+  v17, v19, v20, v21, v22, v23, v24, v25;
 
-  v21 = sub_1CF9E5928();
-  (*(v12 + 8))(v18, v11);
+  v26 = sub_1CF9E5928();
+  (*(v11 + 8))(v16, v10);
 
-  return v21;
+  return v26;
 }
 
 - (void)invalidate
@@ -497,16 +498,15 @@
 {
   v4 = sub_1CF9E5A58();
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
   MEMORY[0x1EEE9AC00](v4);
-  v8 = &v13 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = &v12 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_1CF9E59D8();
   selfCopy = self;
-  FPDDomainFPFSBackend.isProvider(forRealPathURL:)(v8);
-  v11 = v10;
+  FPDDomainFPFSBackend.isProvider(forRealPathURL:)(v7);
+  v10 = v9;
 
-  (*(v5 + 8))(v8, v4);
-  return v11 & 1;
+  (*(v5 + 8))(v7, v4);
+  return v10 & 1;
 }
 
 - (void)registerFPCKProgress:(id)progress
@@ -587,36 +587,34 @@
   dCopy = d;
   v10 = sub_1CF9E5A58();
   v11 = *(v10 - 8);
-  v12 = *(v11 + 64);
   MEMORY[0x1EEE9AC00](v10);
-  v14 = &v19 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v15 = _Block_copy(handler);
+  v13 = &v18 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v14 = _Block_copy(handler);
   sub_1CF9E59D8();
-  v16 = swift_allocObject();
-  *(v16 + 16) = v15;
+  v15 = swift_allocObject();
+  *(v15 + 16) = v14;
   requestCopy = request;
   selfCopy = self;
-  FPDDomainFPFSBackend.itemID(for:requireProviderItemID:request:completionHandler:)(v14, dCopy, requestCopy, sub_1CF902DDC, v16);
+  FPDDomainFPFSBackend.itemID(for:requireProviderItemID:request:completionHandler:)(v13, dCopy, requestCopy, sub_1CF902DDC, v15);
 
-  (*(v11 + 8))(v14, v10);
+  (*(v11 + 8))(v13, v10);
 }
 
 - (void)itemForURL:(id)l options:(unint64_t)options request:(id)request completionHandler:(id)handler
 {
   v10 = sub_1CF9E5A58();
   v11 = *(v10 - 8);
-  v12 = *(v11 + 64);
   MEMORY[0x1EEE9AC00](v10);
-  v14 = &v19 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v15 = _Block_copy(handler);
+  v13 = &v18 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v14 = _Block_copy(handler);
   sub_1CF9E59D8();
-  v16 = swift_allocObject();
-  v16[2] = v15;
+  v15 = swift_allocObject();
+  v15[2] = v14;
   requestCopy = request;
   selfCopy = self;
-  FPDDomainFPFSBackend.item(for:options:request:completionHandler:)(v14, options, requestCopy, sub_1CF024BB0, v16);
+  FPDDomainFPFSBackend.item(for:options:request:completionHandler:)(v13, options, requestCopy, sub_1CF024BB0, v15);
 
-  (*(v11 + 8))(v14, v10);
+  (*(v11 + 8))(v13, v10);
 }
 
 - (void)putBackURLForTrashedItemAtURL:(id)l request:(id)request completionHandler:(id)handler
@@ -688,24 +686,23 @@
 {
   v11 = sub_1CF9E5A58();
   v12 = *(v11 - 8);
-  v13 = *(v12 + 64);
   MEMORY[0x1EEE9AC00](v11);
-  v15 = v22 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v16 = _Block_copy(handler);
+  v14 = v21 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v15 = _Block_copy(handler);
   sub_1CF9E59D8();
   swift_unknownObjectRetain();
   requestCopy = request;
   selfCopy = self;
   sub_1CF9E7728();
   swift_unknownObjectRelease();
-  v19 = swift_allocObject();
-  *(v19 + 16) = v16;
-  v20 = FPDDomainFPFSBackend.startProvidingItem(at:readerID:readingOptions:request:completionHandler:)(v15, v22, options, requestCopy, sub_1CF067718, v19);
+  v18 = swift_allocObject();
+  *(v18 + 16) = v15;
+  v19 = FPDDomainFPFSBackend.startProvidingItem(at:readerID:readingOptions:request:completionHandler:)(v14, v21, options, requestCopy, sub_1CF067718, v18);
 
-  __swift_destroy_boxed_opaque_existential_1(v22);
-  (*(v12 + 8))(v15, v11);
+  __swift_destroy_boxed_opaque_existential_1(v21);
+  (*(v12 + 8))(v14, v11);
 
-  return v20;
+  return v19;
 }
 
 - (void)downloadItemWithItemID:(id)d request:(id)request progress:(id)progress completionHandler:(id)handler
@@ -724,47 +721,45 @@
 {
   v10 = sub_1CF9E5A58();
   v11 = *(v10 - 8);
-  v12 = *(v11 + 64);
   MEMORY[0x1EEE9AC00](v10);
-  v14 = &v20 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v15 = _Block_copy(handler);
+  v13 = &v19 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v14 = _Block_copy(handler);
   sub_1CF9E59D8();
-  v16 = swift_allocObject();
-  *(v16 + 16) = v15;
+  v15 = swift_allocObject();
+  *(v15 + 16) = v14;
   dCopy = d;
   versionCopy = version;
   selfCopy = self;
-  FPDDomainFPFSBackend.downloadVersion(with:version:originalURL:completionHandler:)(dCopy, versionCopy, v14, sub_1CF8F8750, v16);
+  FPDDomainFPFSBackend.downloadVersion(with:version:originalURL:completionHandler:)(dCopy, versionCopy, v13, sub_1CF8F8750, v15);
 
-  (*(v11 + 8))(v14, v10);
+  (*(v11 + 8))(v13, v10);
 }
 
 - (void)forceUpdateBlockedProcessNamesFromDomain:(NSString *)domain completionHandler:(id)handler
 {
   v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC4BFBA8, &qword_1CFA12B20);
-  v8 = *(*(v7 - 8) + 64);
   MEMORY[0x1EEE9AC00](v7 - 8);
-  v10 = &v18 - v9;
-  v11 = _Block_copy(handler);
-  v12 = swift_allocObject();
-  v12[2] = domain;
-  v12[3] = v11;
-  v12[4] = self;
-  v13 = sub_1CF9E6F08();
-  (*(*(v13 - 8) + 56))(v10, 1, 1, v13);
+  v9 = &v17 - v8;
+  v10 = _Block_copy(handler);
+  v11 = swift_allocObject();
+  v11[2] = domain;
+  v11[3] = v10;
+  v11[4] = self;
+  v12 = sub_1CF9E6F08();
+  (*(*(v12 - 8) + 56))(v9, 1, 1, v12);
+  v13 = swift_allocObject();
+  v13[2] = 0;
+  v13[3] = 0;
+  v13[4] = &unk_1CFA17E70;
+  v13[5] = v11;
   v14 = swift_allocObject();
   v14[2] = 0;
   v14[3] = 0;
-  v14[4] = &unk_1CFA17E70;
-  v14[5] = v12;
-  v15 = swift_allocObject();
-  v15[2] = 0;
-  v15[3] = 0;
-  v15[4] = &unk_1CFA17E78;
-  v15[5] = v14;
+  v14[4] = &unk_1CFA17E78;
+  v14[5] = v13;
   domainCopy = domain;
   selfCopy = self;
-  sub_1CF8DC7A4(0, 0, v10, &unk_1CFA17E80, v15);
+  sub_1CF8DC7A4(0, 0, v9, &unk_1CFA17E80, v14);
 }
 
 - (void)movingItemAtURL:(id)l withInfo:(id)info completionHandler:(id)handler
@@ -809,20 +804,19 @@
 {
   v10 = sub_1CF9E5A58();
   v11 = *(v10 - 8);
-  v12 = *(v11 + 64);
   MEMORY[0x1EEE9AC00](v10);
-  v14 = &v21 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v15 = _Block_copy(handler);
+  v13 = &v20 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v14 = _Block_copy(handler);
   sub_1CF9E59D8();
-  v16 = swift_allocObject();
-  *(v16 + 16) = v15;
+  v15 = swift_allocObject();
+  *(v15 + 16) = v14;
   requestCopy = request;
   selfCopy = self;
-  v19 = FPDDomainFPFSBackend.evictItem(at:evictionReason:request:completionHandler:)(v14, reason, requestCopy, sub_1CF902DDC, v16);
+  v18 = FPDDomainFPFSBackend.evictItem(at:evictionReason:request:completionHandler:)(v13, reason, requestCopy, sub_1CF902DDC, v15);
 
-  (*(v11 + 8))(v14, v10);
+  (*(v11 + 8))(v13, v10);
 
-  return v19;
+  return v18;
 }
 
 - (void)evictItemWithID:(id)d evictionReason:(unsigned int)reason request:(id)request completionHandler:(id)handler
@@ -878,11 +872,10 @@
 {
   v4 = sub_1CF9E5A58();
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
   MEMORY[0x1EEE9AC00](v4);
-  v8 = &v9 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = &v8 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_1CF9E59D8();
-  (*(v5 + 8))(v8, v4);
+  (*(v5 + 8))(v7, v4);
 }
 
 - (void)enumerateMaterializedSetFromSyncAnchor:(id)anchor suggestedBatchSize:(int64_t)size completionHandler:(id)handler
@@ -990,19 +983,18 @@
   v6 = _Block_copy(handler);
   v7 = swift_allocObject();
   *(v7 + 16) = v6;
-  v8 = *(self + OBJC_IVAR____TtC18FileProviderDaemon20FPDDomainFPFSBackend_queue);
-  v9 = *(self + OBJC_IVAR____TtC18FileProviderDaemon20FPDDomainFPFSBackend_log);
-  v10 = swift_allocObject();
-  v10[2] = d;
-  v10[3] = self;
-  v10[4] = sub_1CF744650;
-  v10[5] = v7;
+  v8 = *(self + OBJC_IVAR____TtC18FileProviderDaemon20FPDDomainFPFSBackend_log);
+  v9 = swift_allocObject();
+  v9[2] = d;
+  v9[3] = self;
+  v9[4] = sub_1CF744650;
+  v9[5] = v7;
   dCopy = d;
   selfCopy = self;
-  v13 = dCopy;
-  v14 = selfCopy;
+  v12 = dCopy;
+  v13 = selfCopy;
 
-  sub_1CF01001C(v9, "didChange(_:completionHandler:)", 31, 2, sub_1CF90347C, v10);
+  sub_1CF01001C(v8, "didChange(_:completionHandler:)", 31, 2, sub_1CF90347C, v9);
 }
 
 - (void)enumerateWithSettings:(id)settings lifetimeExtender:(id)extender observer:(id)observer completionHandler:(id)handler
@@ -1092,6 +1084,7 @@
   {
     sub_1CEFD57E0(0, &qword_1EDEAED20, 0x1E696AD98);
     v4 = sub_1CF9E6618();
+    v3, v5, v6, v7, v8, v9, v10, v11;
   }
 
   else
@@ -1133,6 +1126,7 @@
   if (object)
   {
     v4 = sub_1CF9E6888();
+    object, v5, v6, v7, v8, v9, v10, v11;
   }
 
   else
@@ -1147,36 +1141,35 @@
 {
   v8 = sub_1CF9E5A58();
   v9 = *(v8 - 8);
-  v10 = *(v9 + 64);
   MEMORY[0x1EEE9AC00](v8);
-  v12 = aBlock - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v13 = _Block_copy(handler);
+  v11 = aBlock - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = _Block_copy(handler);
   sub_1CF9E59D8();
-  v14 = swift_allocObject();
-  *(v14 + 16) = v13;
+  v13 = swift_allocObject();
+  *(v13 + 16) = v12;
   requestCopy = request;
   selfCopy = self;
-  v17 = sub_1CF9E5928();
-  v18 = swift_allocObject();
-  v18[2] = sub_1CF8F826C;
-  v18[3] = v14;
-  v18[4] = selfCopy;
-  v18[5] = requestCopy;
+  v16 = sub_1CF9E5928();
+  v17 = swift_allocObject();
+  v17[2] = sub_1CF8F826C;
+  v17[3] = v13;
+  v17[4] = selfCopy;
+  v17[5] = requestCopy;
   aBlock[4] = sub_1CF902C90;
-  aBlock[5] = v18;
+  aBlock[5] = v17;
   aBlock[0] = MEMORY[0x1E69E9820];
   aBlock[1] = 1107296256;
   aBlock[2] = sub_1CEFF9A6C;
   aBlock[3] = &block_descriptor_1464;
-  v19 = _Block_copy(aBlock);
-  v20 = requestCopy;
-  v21 = selfCopy;
+  v18 = _Block_copy(aBlock);
+  v19 = requestCopy;
+  v20 = selfCopy;
 
-  [(FPDDomainFPFSBackend *)v21 itemForURL:v17 options:0 request:v20 completionHandler:v19];
+  [(FPDDomainFPFSBackend *)v20 itemForURL:v16 options:0 request:v19 completionHandler:v18];
 
-  _Block_release(v19);
+  _Block_release(v18);
 
-  (*(v9 + 8))(v12, v8);
+  (*(v9 + 8))(v11, v8);
 }
 
 - (void)reimportItemsBelowItemWithID:(id)d markItemDataless:(BOOL)dataless completionHandler:(id)handler
@@ -1209,7 +1202,7 @@
   if (result)
   {
     v9 = result;
-    v10 = objc_allocWithZone(type metadata accessor for FPFSIndexer());
+    v10 = objc_allocWithZone(type metadata accessor for FPFSIndexer(0));
     v11 = sub_1CF746E80(v9, enabled, v7);
 
     return v11;
@@ -1227,44 +1220,44 @@
 {
   v9 = sub_1CF9E5A58();
   v10 = *(v9 - 8);
-  v11 = *(v10 + 64);
   MEMORY[0x1EEE9AC00](v9);
-  v13 = &v19 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v14 = _Block_copy(handler);
+  v12 = &v25 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v13 = _Block_copy(handler);
   type metadata accessor for URLResourceKey(0);
-  v15 = sub_1CF9E6D48();
+  v14 = sub_1CF9E6D48();
   sub_1CF9E59D8();
-  v16 = swift_allocObject();
-  v16[2] = v14;
+  v15 = swift_allocObject();
+  v15[2] = v13;
   requestCopy = request;
   selfCopy = self;
-  FPDDomainFPFSBackend.values(forAttributes:for:request:completionHandler:)(v15, v13, requestCopy, sub_1CF8F8254, v16);
+  FPDDomainFPFSBackend.values(forAttributes:for:request:completionHandler:)(v14, v12, requestCopy, sub_1CF8F8254, v15);
 
-  (*(v10 + 8))(v13, v9);
+  v14, v18, v19, v20, v21, v22, v23, v24;
+
+  (*(v10 + 8))(v12, v9);
 }
 
 - (id)materializedURLForItemID:(id)d
 {
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EC4BE310, qword_1CF9FCBE0);
-  v6 = *(*(v5 - 8) + 64);
   MEMORY[0x1EEE9AC00](v5 - 8);
-  v8 = &v17 - v7;
+  v7 = &v16 - v6;
   dCopy = d;
   selfCopy = self;
-  FPDDomainFPFSBackend.materializedURL(for:)(dCopy, v8);
+  FPDDomainFPFSBackend.materializedURL(for:)(dCopy, v7);
 
-  v11 = sub_1CF9E5A58();
-  v12 = *(v11 - 8);
-  v13 = (*(v12 + 48))(v8, 1, v11);
-  v14 = 0;
-  if (v13 != 1)
+  v10 = sub_1CF9E5A58();
+  v11 = *(v10 - 8);
+  v12 = (*(v11 + 48))(v7, 1, v10);
+  v13 = 0;
+  if (v12 != 1)
   {
-    v15 = sub_1CF9E5928();
-    (*(v12 + 8))(v8, v11);
-    v14 = v15;
+    v14 = sub_1CF9E5928();
+    (*(v11 + 8))(v7, v10);
+    v13 = v14;
   }
 
-  return v14;
+  return v13;
 }
 
 - (BOOL)isItemDataless:(id)dataless
@@ -1370,12 +1363,11 @@
 {
   v3 = sub_1CF9E5A58();
   v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
   MEMORY[0x1EEE9AC00](v3);
-  v7 = &v8 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v6 = &v7 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_1CF9E59D8();
-  _s18FileProviderDaemon20FPDDomainFPFSBackendC14forceIngestion2aty10Foundation3URLV_tF_0(v7);
-  (*(v4 + 8))(v7, v3);
+  _s18FileProviderDaemon20FPDDomainFPFSBackendC14forceIngestion2aty10Foundation3URLV_tF_0(v6);
+  (*(v4 + 8))(v6, v3);
 }
 
 - (void)pinItemWithID:(id)d request:(id)request completionHandler:(id)handler
@@ -1444,6 +1436,8 @@
   requestCopy = request;
   selfCopy = self;
   FPDDomainFPFSBackend.detachKnownFolders(_:request:completionHandler:)(v8, requestCopy, sub_1CF067718, v9);
+
+  v8, v12, v13, v14, v15, v16, v17, v18;
 }
 
 - (void)attachKnownFolders:(id)folders options:(unint64_t)options request:(id)request completionHandler:(id)handler
@@ -1456,6 +1450,8 @@
   requestCopy = request;
   selfCopy = self;
   FPDDomainFPFSBackend.attachKnownFolders(_:options:request:completionHandler:)(v10, options, requestCopy, sub_1CF067718, v11);
+
+  v10, v14, v15, v16, v17, v18, v19, v20;
 }
 
 - (void)getKnownFolderLocations:(unint64_t)locations request:(id)request completionHandler:(id)handler
@@ -1514,25 +1510,26 @@
   requestCopy = request;
   selfCopy = self;
   FPDDomainFPFSBackend.bulkItemChanges(_:changedFields:request:completionHandler:)(v10, fields, requestCopy, sub_1CF8F8084, v11);
+
+  v10, v14, v15, v16, v17, v18, v19, v20;
 }
 
 - (void)trashItemAtURL:(id)l request:(id)request completionHandler:(id)handler
 {
   v8 = sub_1CF9E5A58();
   v9 = *(v8 - 8);
-  v10 = *(v9 + 64);
   MEMORY[0x1EEE9AC00](v8);
-  v12 = &v16 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v13 = _Block_copy(handler);
+  v11 = &v15 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = _Block_copy(handler);
   sub_1CF9E59D8();
-  _Block_copy(v13);
+  _Block_copy(v12);
   requestCopy = request;
   selfCopy = self;
-  sub_1CF8F4EC0(v12, requestCopy, selfCopy, v13);
-  _Block_release(v13);
-  _Block_release(v13);
+  sub_1CF8F4EC0(v11, requestCopy, selfCopy, v12);
+  _Block_release(v12);
+  _Block_release(v12);
 
-  (*(v9 + 8))(v12, v8);
+  (*(v9 + 8))(v11, v8);
 }
 
 - (void)resolveConflictAtURL:(id)l request:(id)request completionHandler:(id)handler
@@ -1929,102 +1926,99 @@
 {
   v10 = sub_1CF9E5A58();
   v11 = *(v10 - 8);
-  v12 = *(v11 + 64);
   MEMORY[0x1EEE9AC00](v10);
-  v14 = aBlock - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v15 = _Block_copy(handler);
+  v13 = aBlock - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v14 = _Block_copy(handler);
   sub_1CF9E59D8();
-  v16 = swift_allocObject();
-  *(v16 + 16) = v15;
+  v15 = swift_allocObject();
+  *(v15 + 16) = v14;
   wrapperCopy = wrapper;
   requestCopy = request;
   selfCopy = self;
-  v20 = sub_1CF9E5928();
-  v21 = swift_allocObject();
-  v21[2] = sub_1CF902DDC;
-  v21[3] = v16;
-  v21[4] = selfCopy;
-  v21[5] = wrapperCopy;
+  v19 = sub_1CF9E5928();
+  v20 = swift_allocObject();
+  v20[2] = sub_1CF902DDC;
+  v20[3] = v15;
+  v20[4] = selfCopy;
+  v20[5] = wrapperCopy;
   aBlock[4] = sub_1CF902C8C;
-  aBlock[5] = v21;
+  aBlock[5] = v20;
   aBlock[0] = MEMORY[0x1E69E9820];
   aBlock[1] = 1107296256;
   aBlock[2] = sub_1CEFF9A6C;
   aBlock[3] = &block_descriptor_1065;
-  v22 = _Block_copy(aBlock);
-  v23 = wrapperCopy;
-  v24 = selfCopy;
+  v21 = _Block_copy(aBlock);
+  v22 = wrapperCopy;
+  v23 = selfCopy;
 
-  [(FPDDomainFPFSBackend *)v24 itemIDForURL:v20 requireProviderItemID:0 request:requestCopy completionHandler:v22];
-  _Block_release(v22);
+  [(FPDDomainFPFSBackend *)v23 itemIDForURL:v19 requireProviderItemID:0 request:requestCopy completionHandler:v21];
+  _Block_release(v21);
 
-  (*(v11 + 8))(v14, v10);
+  (*(v11 + 8))(v13, v10);
 }
 
 - (void)fetchAlternateContentsURLWrapperForDocumentWithURL:(id)l request:(id)request completionHandler:(id)handler
 {
   v8 = sub_1CF9E5A58();
   v9 = *(v8 - 8);
-  v10 = *(v9 + 64);
   MEMORY[0x1EEE9AC00](v8);
-  v12 = aBlock - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v13 = _Block_copy(handler);
+  v11 = aBlock - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = _Block_copy(handler);
   sub_1CF9E59D8();
-  v14 = swift_allocObject();
-  *(v14 + 16) = v13;
+  v13 = swift_allocObject();
+  *(v13 + 16) = v12;
   requestCopy = request;
   selfCopy = self;
-  v17 = sub_1CF9E5928();
-  v18 = swift_allocObject();
-  v18[2] = sub_1CF902DDC;
-  v18[3] = v14;
-  v18[4] = selfCopy;
+  v16 = sub_1CF9E5928();
+  v17 = swift_allocObject();
+  v17[2] = sub_1CF902DDC;
+  v17[3] = v13;
+  v17[4] = selfCopy;
   aBlock[4] = sub_1CF902E48;
-  aBlock[5] = v18;
+  aBlock[5] = v17;
   aBlock[0] = MEMORY[0x1E69E9820];
   aBlock[1] = 1107296256;
   aBlock[2] = sub_1CEFF9A6C;
   aBlock[3] = &block_descriptor_1054;
-  v19 = _Block_copy(aBlock);
-  v20 = selfCopy;
+  v18 = _Block_copy(aBlock);
+  v19 = selfCopy;
 
-  [(FPDDomainFPFSBackend *)v20 itemIDForURL:v17 requireProviderItemID:0 request:requestCopy completionHandler:v19];
-  _Block_release(v19);
+  [(FPDDomainFPFSBackend *)v19 itemIDForURL:v16 requireProviderItemID:0 request:requestCopy completionHandler:v18];
+  _Block_release(v18);
 
-  (*(v9 + 8))(v12, v8);
+  (*(v9 + 8))(v11, v8);
 }
 
 - (void)didUpdateAlternateContentsDocumentForDocumentWithURL:(id)l request:(id)request completionHandler:(id)handler
 {
   v8 = sub_1CF9E5A58();
   v9 = *(v8 - 8);
-  v10 = *(v9 + 64);
   MEMORY[0x1EEE9AC00](v8);
-  v12 = aBlock - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v13 = _Block_copy(handler);
+  v11 = aBlock - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = _Block_copy(handler);
   sub_1CF9E59D8();
-  v14 = swift_allocObject();
-  *(v14 + 16) = v13;
+  v13 = swift_allocObject();
+  *(v13 + 16) = v12;
   requestCopy = request;
   selfCopy = self;
-  v17 = sub_1CF9E5928();
-  v18 = swift_allocObject();
-  v18[2] = sub_1CF067718;
-  v18[3] = v14;
-  v18[4] = selfCopy;
+  v16 = sub_1CF9E5928();
+  v17 = swift_allocObject();
+  v17[2] = sub_1CF067718;
+  v17[3] = v13;
+  v17[4] = selfCopy;
   aBlock[4] = sub_1CF902E44;
-  aBlock[5] = v18;
+  aBlock[5] = v17;
   aBlock[0] = MEMORY[0x1E69E9820];
   aBlock[1] = 1107296256;
   aBlock[2] = sub_1CEFF9A6C;
   aBlock[3] = &block_descriptor_1044_0;
-  v19 = _Block_copy(aBlock);
-  v20 = selfCopy;
+  v18 = _Block_copy(aBlock);
+  v19 = selfCopy;
 
-  [(FPDDomainFPFSBackend *)v20 itemIDForURL:v17 requireProviderItemID:0 request:requestCopy completionHandler:v19];
-  _Block_release(v19);
+  [(FPDDomainFPFSBackend *)v19 itemIDForURL:v16 requireProviderItemID:0 request:requestCopy completionHandler:v18];
+  _Block_release(v18);
 
-  (*(v9 + 8))(v12, v8);
+  (*(v9 + 8))(v11, v8);
 }
 
 - (void)getDiagnosticAttributesForItems:(id)items completionHandler:(id)handler
@@ -2221,26 +2215,25 @@
   selfCopy = self;
   v9 = sub_1CF9E5A58();
   v10 = *(v9 - 8);
-  v11 = *(v10 + 64);
   MEMORY[0x1EEE9AC00](v9);
-  v13 = &v24 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v14 = _Block_copy(handler);
+  v12 = &v23 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v13 = _Block_copy(handler);
   sub_1CF9E59D8();
-  v15 = swift_allocObject();
-  *(v15 + 16) = v14;
-  v16 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EC4C4B00, &unk_1CFA0F490);
-  v17 = swift_allocBox();
-  v19 = v18;
-  v20 = *(v16 + 48);
-  v21 = *(v16 + 64);
-  (*(v10 + 16))(v18, v13, v9);
-  *(v19 + v20) = policy;
-  *(v19 + v21) = request;
+  v14 = swift_allocObject();
+  *(v14 + 16) = v13;
+  v15 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EC4C4B00, &unk_1CFA0F490);
+  v16 = swift_allocBox();
+  v18 = v17;
+  v19 = *(v15 + 48);
+  v20 = *(v15 + 64);
+  (*(v10 + 16))(v17, v12, v9);
+  *(v18 + v19) = policy;
+  *(v18 + v20) = request;
   requestCopy = request;
-  v23 = selfCopy;
-  sub_1CF8F10A4(v13, 1, v17 | 0xA000000000000004, v23, sub_1CF067718, v15, v23, policy, v17 | 0xA000000000000004);
+  v22 = selfCopy;
+  sub_1CF8F10A4(v12, 1, v16 | 0xA000000000000004, v22, sub_1CF067718, v14, v22, policy, v16 | 0xA000000000000004);
 
-  (*(v10 + 8))(v13, v9);
+  (*(v10 + 8))(v12, v9);
 }
 
 - (void)getNumberOfNonMaterializedFilesWithCompletionHandler:(id)handler
@@ -2363,23 +2356,22 @@
 - (void)sendDiagnosticsFromFPCKForItemIDs:(id)ds
 {
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC4BFBA8, &qword_1CFA12B20);
-  v6 = *(*(v5 - 8) + 64);
   MEMORY[0x1EEE9AC00](v5 - 8);
-  v8 = &v16 - v7;
+  v7 = &v15 - v6;
   dsCopy = ds;
   selfCopy = self;
-  v11 = sub_1CF9E5B88();
-  v13 = v12;
+  v10 = sub_1CF9E5B88();
+  v12 = v11;
 
-  v14 = sub_1CF9E6F08();
-  (*(*(v14 - 8) + 56))(v8, 1, 1, v14);
-  v15 = swift_allocObject();
-  v15[2] = 0;
-  v15[3] = 0;
-  v15[4] = selfCopy;
-  v15[5] = v11;
-  v15[6] = v13;
-  sub_1CF6FCFEC(0, 0, v8, &unk_1CFA17E50, v15);
+  v13 = sub_1CF9E6F08();
+  (*(*(v13 - 8) + 56))(v7, 1, 1, v13);
+  v14 = swift_allocObject();
+  v14[2] = 0;
+  v14[3] = 0;
+  v14[4] = selfCopy;
+  v14[5] = v10;
+  v14[6] = v12;
+  sub_1CF6FCFEC(0, 0, v7, &unk_1CFA17E50, v14);
 }
 
 - (void)requestDiagnosticCollectionForItemWithID:(id)d errorReason:(id)reason completionHandler:(id)handler
@@ -2412,80 +2404,78 @@
   domainCopy = domain;
   selfCopy = self;
   v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC4BFBA8, &qword_1CFA12B20);
-  v8 = *(*(v7 - 8) + 64);
   MEMORY[0x1EEE9AC00](v7 - 8);
-  v10 = &v30 - v9;
-  v30 = &v30 - v9;
-  v11 = sub_1CF9E5A58();
-  v12 = *(v11 - 8);
-  v13 = *(v12 + 64);
-  MEMORY[0x1EEE9AC00](v11);
-  v14 = &v30 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v15);
-  v17 = &v30 - v16;
-  v18 = _Block_copy(handler);
+  v9 = &v29 - v8;
+  v29 = &v29 - v8;
+  v10 = sub_1CF9E5A58();
+  v11 = *(v10 - 8);
+  v12 = *(v11 + 64);
+  MEMORY[0x1EEE9AC00](v10);
+  v13 = &v29 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v14);
+  v16 = &v29 - v15;
+  v17 = _Block_copy(handler);
   sub_1CF9E59D8();
-  v19 = swift_allocObject();
-  *(v19 + 16) = v18;
-  v20 = sub_1CF9E6F08();
-  (*(*(v20 - 8) + 56))(v10, 1, 1, v20);
-  (*(v12 + 16))(v14, v17, v11);
-  v21 = (*(v12 + 80) + 48) & ~*(v12 + 80);
-  v22 = (v13 + v21 + 7) & 0xFFFFFFFFFFFFFFF8;
-  v23 = swift_allocObject();
-  *(v23 + 16) = 0;
-  *(v23 + 24) = 0;
-  *(v23 + 32) = onlyCopy;
-  v24 = selfCopy;
-  *(v23 + 40) = selfCopy;
-  (*(v12 + 32))(v23 + v21, v14, v11);
-  v25 = (v23 + v22);
-  *v25 = sub_1CF8F741C;
-  v25[1] = v19;
-  v26 = domainCopy;
-  *(v23 + ((v22 + 23) & 0xFFFFFFFFFFFFFFF8)) = domainCopy;
-  v27 = v26;
-  v28 = v24;
-  v29 = v27;
+  v18 = swift_allocObject();
+  *(v18 + 16) = v17;
+  v19 = sub_1CF9E6F08();
+  (*(*(v19 - 8) + 56))(v9, 1, 1, v19);
+  (*(v11 + 16))(v13, v16, v10);
+  v20 = (*(v11 + 80) + 48) & ~*(v11 + 80);
+  v21 = (v12 + v20 + 7) & 0xFFFFFFFFFFFFFFF8;
+  v22 = swift_allocObject();
+  *(v22 + 16) = 0;
+  *(v22 + 24) = 0;
+  *(v22 + 32) = onlyCopy;
+  v23 = selfCopy;
+  *(v22 + 40) = selfCopy;
+  (*(v11 + 32))(v22 + v20, v13, v10);
+  v24 = (v22 + v21);
+  *v24 = sub_1CF8F741C;
+  v24[1] = v18;
+  v25 = domainCopy;
+  *(v22 + ((v21 + 23) & 0xFFFFFFFFFFFFFFF8)) = domainCopy;
+  v26 = v25;
+  v27 = v23;
+  v28 = v26;
 
-  sub_1CF6FCFEC(0, 0, v30, &unk_1CFA17E48, v23);
+  sub_1CF6FCFEC(0, 0, v29, &unk_1CFA17E48, v22);
 
-  (*(v12 + 8))(v17, v11);
+  (*(v11 + 8))(v16, v10);
 }
 
 - (void)launchFeedbackForDomain:(FPDDomain *)domain itemIdentifier:(NSString *)identifier triggeringError:(NSError *)error when:(NSDate *)when useDiagnostic:(BOOL)diagnostic completionHandler:(id)handler
 {
   v15 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC4BFBA8, &qword_1CFA12B20);
-  v16 = *(*(v15 - 8) + 64);
   MEMORY[0x1EEE9AC00](v15 - 8);
-  v18 = &v29 - v17;
-  v19 = _Block_copy(handler);
-  v20 = swift_allocObject();
-  *(v20 + 16) = domain;
-  *(v20 + 24) = identifier;
-  *(v20 + 32) = error;
-  *(v20 + 40) = when;
-  *(v20 + 48) = diagnostic;
-  *(v20 + 56) = v19;
-  *(v20 + 64) = self;
-  v21 = sub_1CF9E6F08();
-  (*(*(v21 - 8) + 56))(v18, 1, 1, v21);
+  v17 = &v28 - v16;
+  v18 = _Block_copy(handler);
+  v19 = swift_allocObject();
+  *(v19 + 16) = domain;
+  *(v19 + 24) = identifier;
+  *(v19 + 32) = error;
+  *(v19 + 40) = when;
+  *(v19 + 48) = diagnostic;
+  *(v19 + 56) = v18;
+  *(v19 + 64) = self;
+  v20 = sub_1CF9E6F08();
+  (*(*(v20 - 8) + 56))(v17, 1, 1, v20);
+  v21 = swift_allocObject();
+  v21[2] = 0;
+  v21[3] = 0;
+  v21[4] = &unk_1CFA17E08;
+  v21[5] = v19;
   v22 = swift_allocObject();
   v22[2] = 0;
   v22[3] = 0;
-  v22[4] = &unk_1CFA17E08;
-  v22[5] = v20;
-  v23 = swift_allocObject();
-  v23[2] = 0;
-  v23[3] = 0;
-  v23[4] = &unk_1CFA17E18;
-  v23[5] = v22;
+  v22[4] = &unk_1CFA17E18;
+  v22[5] = v21;
   domainCopy = domain;
   identifierCopy = identifier;
   errorCopy = error;
   whenCopy = when;
   selfCopy = self;
-  sub_1CF8DC7A4(0, 0, v18, &unk_1CFA17E28, v23);
+  sub_1CF8DC7A4(0, 0, v17, &unk_1CFA17E28, v22);
 }
 
 - (void)getSavedDiagnostics:(id)diagnostics

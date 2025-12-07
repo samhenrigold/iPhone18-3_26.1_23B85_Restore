@@ -57,11 +57,11 @@
 
 - (VGMLEspressoModel)initWithModelInfo:(id)info
 {
-  v67 = *MEMORY[0x277D85DE8];
+  v60 = *MEMORY[0x277D85DE8];
   infoCopy = info;
-  v62.receiver = self;
-  v62.super_class = VGMLEspressoModel;
-  v5 = [(VGMLEspressoModel *)&v62 init];
+  v55.receiver = self;
+  v55.super_class = VGMLEspressoModel;
+  v5 = [(VGMLEspressoModel *)&v55 init];
   if (v5)
   {
     v6 = [infoCopy objectForKeyedSubscript:@"config"];
@@ -71,197 +71,189 @@
 
     if (v5->_networkFilePath)
     {
-      v9 = [v6 valueForKeyPath:@"input_name"];
+      v10 = [v6 valueForKeyPath:@"input_name"];
       inputLayerNames = v5->_inputLayerNames;
-      v5->_inputLayerNames = v9;
+      v5->_inputLayerNames = v10;
 
-      v11 = [v6 valueForKeyPath:@"output_name"];
+      v12 = [v6 valueForKeyPath:@"output_name"];
       outputLayerNames = v5->_outputLayerNames;
-      v5->_outputLayerNames = v11;
+      v5->_outputLayerNames = v12;
 
       v5->_numInputs = [(NSMutableArray *)v5->_inputLayerNames count];
       v5->_numOutputs = [(NSMutableArray *)v5->_outputLayerNames count];
-      v13 = [v6 valueForKey:@"engine"];
-      v14 = 65552;
-      if (([v13 isEqualToString:@"ANE"]& 1) != 0)
+      v14 = [v6 valueForKey:@"engine"];
+      v15 = 65552;
+      if (([v14 isEqualToString:@"ANE"]& 1) != 0)
       {
-        v15 = 10007;
+        v16 = 10007;
       }
 
-      else if (([v13 isEqualToString:@"GPU"]& 1) != 0)
+      else if (([v14 isEqualToString:@"GPU"]& 1) != 0)
       {
-        v15 = 5;
+        v16 = 5;
       }
 
       else
       {
-        [v13 isEqualToString:@"CPU"];
-        v15 = 0;
-        v14 = 65568;
+        [v14 isEqualToString:@"CPU"];
+        v16 = 0;
+        v15 = 65568;
       }
 
-      v5->_engine = v15;
-      v5->_storageFormat = v14;
+      v5->_engine = v16;
+      v5->_storageFormat = v15;
       v5->_context = espresso_create_context();
       v5->_plan_flags = 0;
       v5->_plan = espresso_create_plan();
       [(NSString *)v5->_networkFilePath UTF8String];
-      storageFormat = v5->_storageFormat;
-      if (!espresso_plan_add_network())
+      v18 = espresso_plan_add_network();
+      if (!v18)
       {
-        v60 = 0u;
-        v61 = 0u;
-        v58 = 0u;
-        v59 = 0u;
-        v20 = v5->_inputLayerNames;
-        v21 = [(NSMutableArray *)v20 countByEnumeratingWithState:&v58 objects:v64 count:16];
-        if (v21)
+        v53 = 0u;
+        v54 = 0u;
+        v51 = 0u;
+        v52 = 0u;
+        v21 = v5->_inputLayerNames;
+        v22 = [(NSMutableArray *)v21 countByEnumeratingWithState:&v51 objects:v57 count:16];
+        if (v22)
         {
-          v22 = *v59;
+          v23 = *v52;
           do
           {
-            for (i = 0; i != v21; ++i)
+            for (i = 0; i != v22; ++i)
             {
-              if (*v59 != v22)
+              if (*v52 != v23)
               {
-                objc_enumerationMutation(v20);
+                objc_enumerationMutation(v21);
               }
 
-              plan = v5->_network.plan;
-              v25 = *&v5->_network.network_index;
-              [*(*(&v58 + 1) + 8 * i) UTF8String];
+              [*(*(&v51 + 1) + 8 * i) UTF8String];
               if (espresso_network_declare_input())
               {
                 exception = __cxa_allocate_exception(0x10uLL);
-                v49 = v5->_plan;
                 espresso_plan_get_error_info();
-                std::runtime_error::runtime_error(exception, v50);
+                std::runtime_error::runtime_error(exception, v44);
                 __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
               }
             }
 
-            v21 = [(NSMutableArray *)v20 countByEnumeratingWithState:&v58 objects:v64 count:16];
+            v22 = [(NSMutableArray *)v21 countByEnumeratingWithState:&v51 objects:v57 count:16];
           }
 
-          while (v21);
+          while (v22);
         }
 
-        v56 = 0u;
-        v57 = 0u;
-        v54 = 0u;
-        v55 = 0u;
-        v26 = v5->_outputLayerNames;
-        v27 = [(NSMutableArray *)v26 countByEnumeratingWithState:&v54 objects:v63 count:16];
-        if (v27)
+        v49 = 0u;
+        v50 = 0u;
+        v47 = 0u;
+        v48 = 0u;
+        v25 = v5->_outputLayerNames;
+        v26 = [(NSMutableArray *)v25 countByEnumeratingWithState:&v47 objects:v56 count:16];
+        if (v26)
         {
-          v28 = *v55;
+          v27 = *v48;
           do
           {
-            for (j = 0; j != v27; ++j)
+            for (j = 0; j != v26; ++j)
             {
-              if (*v55 != v28)
+              if (*v48 != v27)
               {
-                objc_enumerationMutation(v26);
+                objc_enumerationMutation(v25);
               }
 
-              v30 = v5->_network.plan;
-              v31 = *&v5->_network.network_index;
-              v32 = *(*(&v54 + 1) + 8 * j);
-              [v32 UTF8String];
+              v29 = *(*(&v47 + 1) + 8 * j);
+              [v29 UTF8String];
               if (espresso_network_declare_output())
               {
-                v51 = __cxa_allocate_exception(0x10uLL);
-                v52 = v5->_plan;
+                v45 = __cxa_allocate_exception(0x10uLL);
                 espresso_plan_get_error_info();
-                std::runtime_error::runtime_error(v51, v53);
-                __cxa_throw(v51, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+                std::runtime_error::runtime_error(v45, v46);
+                __cxa_throw(v45, MEMORY[0x277D82760], MEMORY[0x277D82600]);
               }
             }
 
-            v27 = [(NSMutableArray *)v26 countByEnumeratingWithState:&v54 objects:v63 count:16];
+            v26 = [(NSMutableArray *)v25 countByEnumeratingWithState:&v47 objects:v56 count:16];
           }
 
-          while (v27);
+          while (v26);
         }
 
-        v33 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:v5->_numInputs];
+        v30 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:v5->_numInputs];
         inputBuffers = v5->_inputBuffers;
-        v5->_inputBuffers = v33;
+        v5->_inputBuffers = v30;
 
         if (v5->_numInputs)
         {
-          v35 = 0;
+          v32 = 0;
           do
           {
-            v36 = [VGMLEspressoBuffer alloc];
-            v37 = [(NSMutableArray *)v5->_inputLayerNames objectAtIndexedSubscript:v35];
-            v38 = [(VGMLEspressoBuffer *)v36 initWithNetwork:&v5->_network withLayerName:v37 withMode:0x10000];
-            [(NSMutableArray *)v5->_inputBuffers setObject:v38 atIndexedSubscript:v35];
+            v33 = [VGMLEspressoBuffer alloc];
+            v34 = [(NSMutableArray *)v5->_inputLayerNames objectAtIndexedSubscript:v32];
+            v35 = [(VGMLEspressoBuffer *)v33 initWithNetwork:&v5->_network withLayerName:v34 withMode:0x10000];
+            [(NSMutableArray *)v5->_inputBuffers setObject:v35 atIndexedSubscript:v32];
 
-            ++v35;
+            ++v32;
           }
 
-          while (v35 < v5->_numInputs);
+          while (v32 < v5->_numInputs);
         }
 
-        v39 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:v5->_numOutputs];
+        v36 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:v5->_numOutputs];
         outputBuffers = v5->_outputBuffers;
-        v5->_outputBuffers = v39;
+        v5->_outputBuffers = v36;
 
         if (v5->_numOutputs)
         {
-          v41 = 0;
+          v38 = 0;
           do
           {
-            v42 = [VGMLEspressoBuffer alloc];
-            v43 = [(NSMutableArray *)v5->_outputLayerNames objectAtIndexedSubscript:v41];
-            v44 = [(VGMLEspressoBuffer *)v42 initWithNetwork:&v5->_network withLayerName:v43 withMode:0x20000];
-            [(NSMutableArray *)v5->_outputBuffers setObject:v44 atIndexedSubscript:v41];
+            v39 = [VGMLEspressoBuffer alloc];
+            v40 = [(NSMutableArray *)v5->_outputLayerNames objectAtIndexedSubscript:v38];
+            v41 = [(VGMLEspressoBuffer *)v39 initWithNetwork:&v5->_network withLayerName:v40 withMode:0x20000];
+            [(NSMutableArray *)v5->_outputBuffers setObject:v41 atIndexedSubscript:v38];
 
-            ++v41;
+            ++v38;
           }
 
-          while (v41 < v5->_numOutputs);
+          while (v38 < v5->_numOutputs);
         }
 
-        v45 = v5->_plan;
         espresso_plan_build();
-        v16 = v5;
+        v17 = v5;
         goto LABEL_39;
       }
 
-      v18 = __VGLogSharedInstance();
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+      v19 = __VGLogSharedInstance(v18);
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
       {
-        v19 = v5->_networkFilePath;
+        v20 = v5->_networkFilePath;
         *buf = 138412290;
-        v66 = v19;
-        _os_log_impl(&dword_270F06000, v18, OS_LOG_TYPE_ERROR, " Espresso error. Failed to load model expected at - %@. ", buf, 0xCu);
+        v59 = v20;
+        _os_log_impl(&dword_270F06000, v19, OS_LOG_TYPE_ERROR, " Espresso error. Failed to load model expected at - %@. ", buf, 0xCu);
       }
     }
 
     else
     {
-      v13 = __VGLogSharedInstance();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+      v14 = __VGLogSharedInstance(v9);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v66 = infoCopy;
-        _os_log_impl(&dword_270F06000, v13, OS_LOG_TYPE_ERROR, " No modelpath with info %@ ", buf, 0xCu);
+        v59 = infoCopy;
+        _os_log_impl(&dword_270F06000, v14, OS_LOG_TYPE_ERROR, " No modelpath with info %@ ", buf, 0xCu);
       }
     }
 
-    v16 = 0;
+    v17 = 0;
 LABEL_39:
 
     goto LABEL_40;
   }
 
-  v16 = 0;
+  v17 = 0;
 LABEL_40:
 
-  v46 = *MEMORY[0x277D85DE8];
-  return v16;
+  return v17;
 }
 
 - (VGMLEspressoModel)initWithModelPath:(id)path
@@ -286,25 +278,25 @@ LABEL_40:
 
 - (VGMLEspressoModel)initWithNetworkFile:(id)file
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   fileCopy = file;
-  v35.receiver = self;
-  v35.super_class = VGMLEspressoModel;
-  v5 = [(VGMLEspressoModel *)&v35 init];
+  v38.receiver = self;
+  v38.super_class = VGMLEspressoModel;
+  v5 = [(VGMLEspressoModel *)&v38 init];
   if (v5)
   {
-    v34 = 0;
-    v6 = [MEMORY[0x277CBEA90] dataWithContentsOfFile:fileCopy options:0 error:&v34];
-    v7 = v34;
+    v37 = 0;
+    v6 = [MEMORY[0x277CBEA90] dataWithContentsOfFile:fileCopy options:0 error:&v37];
+    v7 = v37;
     if (v7)
     {
       v8 = v7;
-      v9 = __VGLogSharedInstance();
+      v9 = __VGLogSharedInstance(v7);
       if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
         v10 = [v8 description];
         *buf = 138412290;
-        v44 = v10;
+        v47 = v10;
         _os_log_impl(&dword_270F06000, v9, OS_LOG_TYPE_ERROR, " Failed to read network file. %@ ", buf, 0xCu);
       }
 
@@ -312,21 +304,21 @@ LABEL_40:
       goto LABEL_27;
     }
 
-    v33 = 0;
-    v9 = [MEMORY[0x277CCAAA0] JSONObjectWithData:v6 options:0 error:&v33];
-    v8 = v33;
+    v36 = 0;
+    v9 = [MEMORY[0x277CCAAA0] JSONObjectWithData:v6 options:0 error:&v36];
+    v8 = v36;
     v12 = [v9 objectForKeyedSubscript:@"properties"];
     v13 = v12;
     if (v8 || !v12)
     {
-      v25 = __VGLogSharedInstance();
-      if (!os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+      v29 = __VGLogSharedInstance(v12);
+      if (!os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
       {
         goto LABEL_25;
       }
 
       *buf = 0;
-      v26 = " Properties field is missing in the network file. ";
+      v30 = " Properties field is missing in the network file. ";
     }
 
     else
@@ -336,67 +328,67 @@ LABEL_40:
 
       if (v15)
       {
-        v25 = __VGLogSharedInstance();
-        if (!os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+        v29 = __VGLogSharedInstance(v16);
+        if (!os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
         {
           goto LABEL_25;
         }
 
         *buf = 0;
-        v26 = " network_version field is missing in the network properties. ";
+        v30 = " network_version field is missing in the network properties. ";
       }
 
       else
       {
-        v16 = [v13 objectForKey:@"engine"];
-        v17 = v16 == 0;
+        v17 = [v13 objectForKey:@"engine"];
+        v18 = v17 == 0;
 
-        if (v17)
+        if (v18)
         {
-          v25 = __VGLogSharedInstance();
-          if (!os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+          v29 = __VGLogSharedInstance(v19);
+          if (!os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
           {
             goto LABEL_25;
           }
 
           *buf = 0;
-          v26 = " engine field is missing in the network properties. ";
+          v30 = " engine field is missing in the network properties. ";
         }
 
         else
         {
-          v18 = [v13 objectForKey:@"input_name"];
-          v19 = v18 == 0;
+          v20 = [v13 objectForKey:@"input_name"];
+          v21 = v20 == 0;
 
-          if (!v19)
+          if (!v21)
           {
-            v20 = [v13 objectForKey:@"output_name"];
-            v21 = v20 == 0;
+            v23 = [v13 objectForKey:@"output_name"];
+            v24 = v23 == 0;
 
-            if (!v21)
+            if (!v24)
             {
-              v42[0] = fileCopy;
-              v41[0] = @"model_path";
-              v41[1] = @"config";
-              v36[0] = @"version";
-              v32 = [v13 objectForKeyedSubscript:@"network_version"];
-              v37 = v32;
-              v36[1] = @"engine";
-              v38 = [v13 objectForKeyedSubscript:@"engine"];
-              v36[2] = @"input_name";
-              v31 = v38;
-              v30 = [v13 objectForKeyedSubscript:@"input_name"];
-              v29 = [v30 componentsSeparatedByString:{@", "}];
-              v39 = v29;
-              v36[3] = @"output_name";
-              v22 = [v13 objectForKeyedSubscript:@"output_name"];
-              v23 = [v22 componentsSeparatedByString:{@", "}];
-              v40 = v23;
-              v24 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v37 forKeys:v36 count:4];
-              v42[1] = v24;
-              v25 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v42 forKeys:v41 count:2];
+              v45[0] = fileCopy;
+              v44[0] = @"model_path";
+              v44[1] = @"config";
+              v39[0] = @"version";
+              v35 = [v13 objectForKeyedSubscript:@"network_version"];
+              v40 = v35;
+              v39[1] = @"engine";
+              v41 = [v13 objectForKeyedSubscript:@"engine"];
+              v39[2] = @"input_name";
+              v34 = v41;
+              v33 = [v13 objectForKeyedSubscript:@"input_name"];
+              v32 = [v33 componentsSeparatedByString:{@", "}];
+              v42 = v32;
+              v39[3] = @"output_name";
+              v26 = [v13 objectForKeyedSubscript:@"output_name"];
+              v27 = [v26 componentsSeparatedByString:{@", "}];
+              v43 = v27;
+              v28 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v40 forKeys:v39 count:4];
+              v45[1] = v28;
+              v29 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v45 forKeys:v44 count:2];
 
-              v5 = [(VGMLEspressoModel *)v5 initWithModelInfo:v25];
+              v5 = [(VGMLEspressoModel *)v5 initWithModelInfo:v29];
               v11 = v5;
 LABEL_26:
 
@@ -404,11 +396,11 @@ LABEL_27:
               goto LABEL_28;
             }
 
-            v25 = __VGLogSharedInstance();
-            if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+            v29 = __VGLogSharedInstance(v25);
+            if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
             {
               *buf = 0;
-              v26 = " output_name is missing in the network properties. ";
+              v30 = " output_name is missing in the network properties. ";
               goto LABEL_24;
             }
 
@@ -417,60 +409,53 @@ LABEL_25:
             goto LABEL_26;
           }
 
-          v25 = __VGLogSharedInstance();
-          if (!os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+          v29 = __VGLogSharedInstance(v22);
+          if (!os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
           {
             goto LABEL_25;
           }
 
           *buf = 0;
-          v26 = " input_name is missing in the network properties. ";
+          v30 = " input_name is missing in the network properties. ";
         }
       }
     }
 
 LABEL_24:
-    _os_log_impl(&dword_270F06000, v25, OS_LOG_TYPE_ERROR, v26, buf, 2u);
+    _os_log_impl(&dword_270F06000, v29, OS_LOG_TYPE_ERROR, v30, buf, 2u);
     goto LABEL_25;
   }
 
   v11 = 0;
 LABEL_28:
 
-  v27 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
 - (void)dealloc
 {
-  plan = self->_plan;
   espresso_plan_destroy();
-  context = self->_context;
   espresso_context_destroy();
-  v5.receiver = self;
-  v5.super_class = VGMLEspressoModel;
-  [(VGMLEspressoModel *)&v5 dealloc];
+  v3.receiver = self;
+  v3.super_class = VGMLEspressoModel;
+  [(VGMLEspressoModel *)&v3 dealloc];
 }
 
 - (void)inferModel
 {
-  v11 = *MEMORY[0x277D85DE8];
-  plan = self->_plan;
+  v8 = *MEMORY[0x277D85DE8];
   if (espresso_plan_execute_sync())
   {
-    v4 = self->_plan;
-    espresso_plan_get_error_info();
-    v6 = v5;
-    v7 = __VGLogSharedInstance();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    error_info = espresso_plan_get_error_info();
+    v4 = v3;
+    v5 = __VGLogSharedInstance(error_info);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      v9 = 136315138;
-      v10 = v6;
-      _os_log_impl(&dword_270F06000, v7, OS_LOG_TYPE_ERROR, " Espresso error: %s ", &v9, 0xCu);
+      v6 = 136315138;
+      v7 = v4;
+      _os_log_impl(&dword_270F06000, v5, OS_LOG_TYPE_ERROR, " Espresso error: %s ", &v6, 0xCu);
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (const)getInputDimensions:(unint64_t)dimensions

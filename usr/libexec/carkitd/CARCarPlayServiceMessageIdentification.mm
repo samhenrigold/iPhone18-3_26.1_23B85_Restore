@@ -162,43 +162,42 @@
               v15 = 0;
             }
 
-            v39 = v13;
+            v38 = v13;
 
             if (v15)
             {
-              v37 = v11;
-              v42 = 0u;
-              v43 = 0u;
-              v40 = 0u;
+              v36 = v11;
               v41 = 0u;
+              v42 = 0u;
+              v39 = 0u;
+              v40 = 0u;
               v16 = v15;
-              v17 = [v16 countByEnumeratingWithState:&v40 objects:v44 count:16];
+              v17 = [v16 countByEnumeratingWithState:&v39 objects:v43 count:16];
               if (v17)
               {
                 v18 = v17;
-                v19 = *v41;
+                v19 = *v40;
                 while (2)
                 {
-                  for (i = 0; i != v18; i = i + 1)
+                  for (i = 0; i != v18; ++i)
                   {
-                    if (*v41 != v19)
+                    if (*v40 != v19)
                     {
                       objc_enumerationMutation(v16);
                     }
 
-                    v21 = *(*(&v40 + 1) + 8 * i);
                     objc_opt_class();
                     if ((objc_opt_isKindOfClass() & 1) == 0)
                     {
 
                       selfCopy = 0;
-                      v11 = v37;
-                      v13 = v39;
+                      v11 = v36;
+                      v13 = v38;
                       goto LABEL_68;
                     }
                   }
 
-                  v18 = [v16 countByEnumeratingWithState:&v40 objects:v44 count:16];
+                  v18 = [v16 countByEnumeratingWithState:&v39 objects:v43 count:16];
                   if (v18)
                   {
                     continue;
@@ -208,58 +207,34 @@
                 }
               }
 
-              v36 = v6;
+              v35 = v6;
 
-              v11 = v37;
+              v11 = v36;
             }
 
             else
             {
-              v36 = v6;
+              v35 = v6;
               v16 = &__NSArray0__struct;
             }
 
             objc_opt_class();
-            v22 = [representationCopy objectForKey:@"supportsWired"];
-            if (v22 && (objc_opt_isKindOfClass() & 1) != 0)
+            v21 = [representationCopy objectForKey:@"supportsWired"];
+            if (v21 && (objc_opt_isKindOfClass() & 1) != 0)
             {
-              v23 = v22;
+              v22 = v21;
             }
 
             else
             {
-              v23 = 0;
+              v22 = 0;
             }
 
             objc_opt_class();
-            v24 = [representationCopy objectForKey:@"supportsOOBPairing"];
-            if (v24 && (objc_opt_isKindOfClass() & 1) != 0)
+            v23 = [representationCopy objectForKey:@"supportsOOBPairing"];
+            if (v23 && (objc_opt_isKindOfClass() & 1) != 0)
             {
-              v34 = v24;
-            }
-
-            else
-            {
-              v34 = 0;
-            }
-
-            objc_opt_class();
-            v25 = [representationCopy objectForKey:@"supportsEnhancedIntegration"];
-            if (v25 && (objc_opt_isKindOfClass() & 1) != 0)
-            {
-              v26 = v25;
-            }
-
-            else
-            {
-              v26 = 0;
-            }
-
-            objc_opt_class();
-            v27 = [representationCopy objectForKey:@"supportsThemeAssets"];
-            if (v27 && (objc_opt_isKindOfClass() & 1) != 0)
-            {
-              v33 = v27;
+              v33 = v23;
             }
 
             else
@@ -267,18 +242,42 @@
               v33 = 0;
             }
 
-            bOOLValue = [v23 BOOLValue];
-            v38 = v23;
-            bOOLValue2 = [v34 BOOLValue];
-            v29 = v26;
-            bOOLValue3 = [v26 BOOLValue];
-            BYTE2(v32) = [v33 BOOLValue];
-            BYTE1(v32) = bOOLValue3;
-            LOBYTE(v32) = bOOLValue2;
-            v13 = v39;
-            self = [CARCarPlayServiceMessageIdentification initWithDisplayName:"initWithDisplayName:modelName:PPID:authenticationSerialNumber:accessoryProtocols:supportsWiredCarPlay:supportsWiredToWirelessPairing:supportsEnhancedIntegration:supportsThemeAssets:" modelName:v36 PPID:v8 authenticationSerialNumber:v11 accessoryProtocols:v39 supportsWiredCarPlay:v16 supportsWiredToWirelessPairing:bOOLValue supportsEnhancedIntegration:v32 supportsThemeAssets:?];
+            objc_opt_class();
+            v24 = [representationCopy objectForKey:@"supportsEnhancedIntegration"];
+            if (v24 && (objc_opt_isKindOfClass() & 1) != 0)
+            {
+              v25 = v24;
+            }
 
-            v6 = v36;
+            else
+            {
+              v25 = 0;
+            }
+
+            objc_opt_class();
+            v26 = [representationCopy objectForKey:@"supportsThemeAssets"];
+            if (v26 && (objc_opt_isKindOfClass() & 1) != 0)
+            {
+              v32 = v26;
+            }
+
+            else
+            {
+              v32 = 0;
+            }
+
+            bOOLValue = [v22 BOOLValue];
+            v37 = v22;
+            bOOLValue2 = [v33 BOOLValue];
+            v28 = v25;
+            bOOLValue3 = [v25 BOOLValue];
+            BYTE2(v31) = [v32 BOOLValue];
+            BYTE1(v31) = bOOLValue3;
+            LOBYTE(v31) = bOOLValue2;
+            v13 = v38;
+            self = [CARCarPlayServiceMessageIdentification initWithDisplayName:"initWithDisplayName:modelName:PPID:authenticationSerialNumber:accessoryProtocols:supportsWiredCarPlay:supportsWiredToWirelessPairing:supportsEnhancedIntegration:supportsThemeAssets:" modelName:v35 PPID:v8 authenticationSerialNumber:v11 accessoryProtocols:v38 supportsWiredCarPlay:v16 supportsWiredToWirelessPairing:bOOLValue supportsEnhancedIntegration:v31 supportsThemeAssets:?];
+
+            v6 = v35;
             selfCopy = self;
           }
 

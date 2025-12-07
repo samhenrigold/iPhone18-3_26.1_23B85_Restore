@@ -4,6 +4,8 @@
 - (void)dealloc;
 - (void)loadView;
 - (void)setChildViewController:(id)controller;
+- (void)viewDidAppear:(BOOL)appear;
+- (void)viewDidDisappear:(BOOL)disappear;
 - (void)viewDidLoad;
 @end
 
@@ -35,6 +37,42 @@
   }
 
   self->_didDisappear = 0;
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = ServiceCardContainerViewController;
+  [(ServiceCardContainerViewController *)&v4 viewDidAppear:appear];
+  self->_didDisappear = 0;
+}
+
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  v7.receiver = self;
+  v7.super_class = ServiceCardContainerViewController;
+  [(ServiceCardContainerViewController *)&v7 viewDidDisappear:disappear];
+  self->_didDisappear = 1;
+  WeakRetained = objc_loadWeakRetained(&self->_dismissalDelegate);
+  v5 = objc_opt_respondsToSelector();
+
+  if (v5)
+  {
+    if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 138543362;
+      selfCopy = self;
+      _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "%{public}@: Notifying dismissal.", buf, 0xCu);
+    }
+
+    v6 = objc_loadWeakRetained(&self->_dismissalDelegate);
+    [v6 cardControllerDidDismiss];
+  }
+
+  else if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEBUG))
+  {
+    sub_10002C960(self);
+  }
 }
 
 - (void)loadView

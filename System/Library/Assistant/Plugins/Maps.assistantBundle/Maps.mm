@@ -6,11 +6,11 @@ void sub_18CC(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_1B68(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_1B68(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
+  va_start(va, a22);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v15 - 96), 8);
+  _Block_object_dispose((v22 - 96), 8);
   _Unwind_Resume(a1);
 }
 
@@ -28,12 +28,12 @@ LABEL_7:
 
   if (*(v2 + 56))
   {
-    v5 = _maps_backgroundStateLog();
+    v5 = _maps_backgroundStateLog(a1);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
       v6 = *(a1[4] + 56);
       *buf = 138412290;
-      v17 = v6;
+      v18 = v6;
       _os_log_impl(&dword_0, v5, OS_LOG_TYPE_INFO, "MapsIPCInterface Using existing dispatchGroup: %@", buf, 0xCu);
     }
 
@@ -47,26 +47,26 @@ LABEL_7:
   v9 = *(v8 + 56);
   *(v8 + 56) = v7;
 
-  v10 = _maps_backgroundStateLog();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+  v11 = _maps_backgroundStateLog(v10);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
   {
-    v11 = *(a1[4] + 56);
+    v12 = *(a1[4] + 56);
     *buf = 138412290;
-    v17 = v11;
-    _os_log_impl(&dword_0, v10, OS_LOG_TYPE_INFO, "MapsIPCInterface Created connectionGroup to wait for Maps: %@", buf, 0xCu);
+    v18 = v12;
+    _os_log_impl(&dword_0, v11, OS_LOG_TYPE_INFO, "MapsIPCInterface Created connectionGroup to wait for Maps: %@", buf, 0xCu);
   }
 
   objc_storeStrong((*(a1[6] + 8) + 40), *(a1[4] + 56));
   dispatch_group_enter(*(a1[4] + 56));
-  v12 = dispatch_time(0, 20000000000);
-  v13 = a1[4];
-  v14 = *(v13 + 40);
+  v13 = dispatch_time(0, 20000000000);
+  v14 = a1[4];
+  v15 = *(v14 + 40);
   block[0] = _NSConcreteStackBlock;
   block[1] = 3221225472;
   block[2] = sub_144C8;
   block[3] = &unk_34970;
-  block[4] = v13;
-  dispatch_after(v12, v14, block);
+  block[4] = v14;
+  dispatch_after(v13, v15, block);
 }
 
 id IPCMessageGetServerFormattedInstructionArrayForKey(void *a1, uint64_t a2)
@@ -174,9 +174,9 @@ void sub_4A6C(id a1)
   [v3 setMinimumIntegerDigits:1];
 }
 
-void sub_569C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_569C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -185,58 +185,59 @@ void sub_56C8(uint64_t a1, uint64_t a2, void *a3)
 {
   v5 = a3;
   v6 = SBSGetScreenLockStatus();
+  v7 = v6;
   if (v6)
   {
-    v7 = a2;
+    v8 = a2;
   }
 
   else
   {
-    v7 = 0;
+    v8 = 0;
   }
 
-  *(*(*(a1 + 40) + 8) + 24) = v7;
-  v8 = _maps_backgroundStateLog();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+  *(*(*(a1 + 40) + 8) + 24) = v8;
+  v9 = _maps_backgroundStateLog(v6);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
   {
-    v9 = [NSNumber numberWithBool:a2];
-    v10 = [NSNumber numberWithBool:v6 != 0];
+    v10 = [NSNumber numberWithBool:a2];
+    v11 = [NSNumber numberWithBool:v7 != 0];
     *buf = 138412802;
-    v12 = v9;
-    v13 = 2112;
-    v14 = v5;
-    v15 = 2112;
-    v16 = v10;
-    _os_log_impl(&dword_0, v8, OS_LOG_TYPE_INFO, "MAPS SIRI: Got do-not-disturb-while-driving exit confirmation response %@ error %@ screen locked %@", buf, 0x20u);
+    v13 = v10;
+    v14 = 2112;
+    v15 = v5;
+    v16 = 2112;
+    v17 = v11;
+    _os_log_impl(&dword_0, v9, OS_LOG_TYPE_INFO, "MAPS SIRI: Got do-not-disturb-while-driving exit confirmation response %@ error %@ screen locked %@", buf, 0x20u);
   }
 
   dispatch_group_leave(*(a1 + 32));
 }
 
-void sub_604C(void *a1)
+void sub_604C(void *a1, uint64_t a2)
 {
-  v1 = *(a1[7] + 8);
-  if ((*(v1 + 24) & 1) == 0)
+  v2 = *(a1[7] + 8);
+  if ((*(v2 + 24) & 1) == 0)
   {
-    *(v1 + 24) = 1;
-    v3 = _maps_backgroundStateLog();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
+    *(v2 + 24) = 1;
+    v4 = _maps_backgroundStateLog(a1);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
     {
-      *v6 = 0;
-      _os_log_impl(&dword_0, v3, OS_LOG_TYPE_INFO, "MAPS SIRI: Bailed out", v6, 2u);
+      *v7 = 0;
+      _os_log_impl(&dword_0, v4, OS_LOG_TYPE_INFO, "MAPS SIRI: Bailed out", v7, 2u);
     }
 
     NSLog(@"MAPS SIRI: We could not get the Maps application to start background nav in a timely fashion.");
-    v4 = a1[4];
-    v5 = [NSURL URLWithString:@"x-maps-reopen:"];
-    [v4 _launchMapsWithURL:v5 serviceHelper:a1[5] placeActionDetails:0 completion:a1[6]];
+    v5 = a1[4];
+    v6 = [NSURL URLWithString:@"x-maps-reopen:"];
+    [v5 _launchMapsWithURL:v6 serviceHelper:a1[5] placeActionDetails:0 completion:a1[6]];
   }
 }
 
 void sub_6120(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = _maps_backgroundStateLog();
+  v4 = _maps_backgroundStateLog(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     *buf = 138412290;
@@ -264,99 +265,100 @@ void sub_6120(uint64_t a1, void *a2)
   dispatch_async(v5, block);
 }
 
-void sub_62A8(uint64_t a1)
+void sub_62A8(uint64_t a1, uint64_t a2)
 {
-  v1 = *(*(a1 + 80) + 8);
-  if (*(v1 + 24) == 1)
+  v2 = *(*(a1 + 80) + 8);
+  if (*(v2 + 24) == 1)
   {
-    v2 = _maps_backgroundStateLog();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
+    v3 = _maps_backgroundStateLog(a1);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      _os_log_impl(&dword_0, v2, OS_LOG_TYPE_INFO, "MAPS SIRI: We bailed out before we could get to the start message", buf, 2u);
+      _os_log_impl(&dword_0, v3, OS_LOG_TYPE_INFO, "MAPS SIRI: We bailed out before we could get to the start message", buf, 2u);
     }
   }
 
   else
   {
-    *(v1 + 24) = 1;
-    v4 = _maps_backgroundStateLog();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+    *(v2 + 24) = 1;
+    v5 = _maps_backgroundStateLog(a1);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      _os_log_impl(&dword_0, v4, OS_LOG_TYPE_INFO, "MAPS SIRI: Preparation done", buf, 2u);
+      _os_log_impl(&dword_0, v5, OS_LOG_TYPE_INFO, "MAPS SIRI: Preparation done", buf, 2u);
     }
 
-    v5 = [*(a1 + 32) navigationState];
-    v6 = _maps_backgroundStateLog();
-    v7 = os_log_type_enabled(v6, OS_LOG_TYPE_INFO);
-    if (v5)
+    v6 = [*(a1 + 32) navigationState];
+    v7 = _maps_backgroundStateLog(v6);
+    v8 = os_log_type_enabled(v7, OS_LOG_TYPE_INFO);
+    if (v6)
     {
-      if (v7)
+      if (v8)
       {
         *buf = 0;
-        _os_log_impl(&dword_0, v6, OS_LOG_TYPE_INFO, "MAPS SIRI: Maps has failed preparing, unlocking.", buf, 2u);
+        _os_log_impl(&dword_0, v7, OS_LOG_TYPE_INFO, "MAPS SIRI: Maps has failed preparing, unlocking.", buf, 2u);
       }
 
-      v8 = *(a1 + 40);
-      v2 = [NSURL URLWithString:@"x-maps-reopen:"];
-      [v8 _launchMapsWithURL:v2 serviceHelper:*(a1 + 48) placeActionDetails:0 completion:*(a1 + 72)];
+      v9 = *(a1 + 40);
+      v3 = [NSURL URLWithString:@"x-maps-reopen:"];
+      [v9 _launchMapsWithURL:v3 serviceHelper:*(a1 + 48) placeActionDetails:0 completion:*(a1 + 72)];
     }
 
     else
     {
-      if (v7)
+      if (v8)
       {
         *buf = 0;
-        _os_log_impl(&dword_0, v6, OS_LOG_TYPE_INFO, "MAPS SIRI: Sending the start message asynchronously and completing successfully", buf, 2u);
+        _os_log_impl(&dword_0, v7, OS_LOG_TYPE_INFO, "MAPS SIRI: Sending the start message asynchronously and completing successfully", buf, 2u);
       }
 
-      v9 = *(a1 + 56);
-      v10 = [IPCStartNavigationMessage startNavigationMessageWithLoadDirectionsMessage:*(a1 + 64)];
-      v14[0] = _NSConcreteStackBlock;
-      v14[1] = 3221225472;
-      v14[2] = sub_64D8;
-      v14[3] = &unk_348D0;
-      v11 = *(a1 + 72);
-      v12 = *(a1 + 40);
-      v13 = *(a1 + 48);
-      v16 = v11;
-      v14[4] = v12;
-      v15 = v13;
-      [v9 startPreparedNavigation:v10 completion:v14];
+      v10 = *(a1 + 56);
+      v11 = [IPCStartNavigationMessage startNavigationMessageWithLoadDirectionsMessage:*(a1 + 64)];
+      v15[0] = _NSConcreteStackBlock;
+      v15[1] = 3221225472;
+      v15[2] = sub_64D8;
+      v15[3] = &unk_348D0;
+      v12 = *(a1 + 72);
+      v13 = *(a1 + 40);
+      v14 = *(a1 + 48);
+      v17 = v12;
+      v15[4] = v13;
+      v16 = v14;
+      [v10 startPreparedNavigation:v11 completion:v15];
 
-      v2 = v16;
+      v3 = v17;
     }
   }
 }
 
 void sub_64D8(void *a1, void *a2)
 {
-  if ([a2 success])
+  v3 = [a2 success];
+  if (v3)
   {
-    v3 = a1[6];
-    v7 = objc_alloc_init(SALocalSearchShowMapPointsCompleted);
-    (*(v3 + 16))(v3, v7, 1);
+    v4 = a1[6];
+    v8 = objc_alloc_init(SALocalSearchShowMapPointsCompleted);
+    (*(v4 + 16))(v4, v8, 1);
   }
 
   else
   {
-    v4 = _maps_backgroundStateLog();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+    v5 = _maps_backgroundStateLog(v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      _os_log_impl(&dword_0, v4, OS_LOG_TYPE_INFO, "MAPS SIRI: Maps has failed to start prepared navigation, unlocking.", buf, 2u);
+      _os_log_impl(&dword_0, v5, OS_LOG_TYPE_INFO, "MAPS SIRI: Maps has failed to start prepared navigation, unlocking.", buf, 2u);
     }
 
-    v5 = a1[4];
-    v6 = [NSURL URLWithString:@"x-maps-reopen:"];
-    [v5 _launchMapsWithURL:v6 serviceHelper:a1[5] placeActionDetails:0 completion:a1[6]];
+    v6 = a1[4];
+    v7 = [NSURL URLWithString:@"x-maps-reopen:"];
+    [v6 _launchMapsWithURL:v7 serviceHelper:a1[5] placeActionDetails:0 completion:a1[6]];
   }
 }
 
-void sub_7904(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_7904(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -364,37 +366,37 @@ void sub_7904(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint
 void sub_791C(uint64_t a1, void *a2, int a3)
 {
   v5 = a2;
-  v6 = _maps_backgroundStateLog();
+  v6 = _maps_backgroundStateLog(v5);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     v7 = +[NSThread callStackSymbols];
-    v11 = 138412290;
-    v12 = v7;
-    _os_log_impl(&dword_0, v6, OS_LOG_TYPE_INFO, "MAPS SIRI: Completion called by %@", &v11, 0xCu);
+    v12 = 138412290;
+    v13 = v7;
+    _os_log_impl(&dword_0, v6, OS_LOG_TYPE_INFO, "MAPS SIRI: Completion called by %@", &v12, 0xCu);
   }
 
-  v8 = *(*(a1 + 48) + 8);
-  if (*(v8 + 24) == 1)
+  v9 = *(*(a1 + 48) + 8);
+  if (*(v9 + 24) == 1)
   {
-    v9 = _maps_backgroundStateLog();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+    v10 = _maps_backgroundStateLog(v8);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
     {
-      LOWORD(v11) = 0;
-      _os_log_impl(&dword_0, v9, OS_LOG_TYPE_INFO, "MAPS SIRI: Bailing out because we have already been called once", &v11, 2u);
+      LOWORD(v12) = 0;
+      _os_log_impl(&dword_0, v10, OS_LOG_TYPE_INFO, "MAPS SIRI: Bailing out because we have already been called once", &v12, 2u);
     }
   }
 
   else
   {
-    *(v8 + 24) = 1;
+    *(v9 + 24) = 1;
     if (a3)
     {
       [*(a1 + 32) dismissAssistant];
     }
 
-    v10 = *(a1 + 40);
-    v9 = [v5 dictionary];
-    (*(v10 + 16))(v10, v9);
+    v11 = *(a1 + 40);
+    v10 = [v5 dictionary];
+    (*(v11 + 16))(v11, v10);
   }
 }
 
@@ -880,8 +882,7 @@ void sub_916C(uint64_t a1, void *a2)
   {
     v4 = objc_alloc_init(IPCLoadDirectionsReply);
     [(IPCLoadDirectionsReply *)v4 setNavigationState:3];
-    [(IPCLoadDirectionsReply *)v4 setError:v3];
-    v5 = _maps_backgroundStateLog();
+    v5 = _maps_backgroundStateLog([(IPCLoadDirectionsReply *)v4 setError:v3]);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
@@ -928,11 +929,12 @@ uint64_t sub_9374(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_938C(uint64_t a1, int a2)
+void sub_938C(uint64_t a1, uint64_t a2)
 {
-  v4 = _maps_backgroundStateLog();
+  v2 = a2;
+  v4 = _maps_backgroundStateLog(a1);
   v5 = os_log_type_enabled(v4, OS_LOG_TYPE_INFO);
-  if (a2)
+  if (v2)
   {
     if (v5)
     {
@@ -979,7 +981,7 @@ void sub_938C(uint64_t a1, int a2)
 void sub_9528(void *a1, void *a2)
 {
   v3 = a2;
-  v4 = _maps_backgroundStateLog();
+  v4 = _maps_backgroundStateLog(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     v5 = a1[4];
@@ -1001,19 +1003,19 @@ void sub_9528(void *a1, void *a2)
   dispatch_after(v6, v7, block);
 }
 
-void sub_967C(uint64_t a1)
+void sub_967C(uint64_t a1, uint64_t a2)
 {
-  v2 = _maps_backgroundStateLog();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
+  v3 = _maps_backgroundStateLog(a1);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
-    *v5 = 0;
-    _os_log_impl(&dword_0, v2, OS_LOG_TYPE_INFO, "MapsIPCInterface Invalidating prepare navigation assertion", v5, 2u);
+    *v6 = 0;
+    _os_log_impl(&dword_0, v3, OS_LOG_TYPE_INFO, "MapsIPCInterface Invalidating prepare navigation assertion", v6, 2u);
   }
 
   [*(*(*(a1 + 32) + 8) + 40) invalidate];
-  v3 = *(*(a1 + 32) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = 0;
+  v4 = *(*(a1 + 32) + 8);
+  v5 = *(v4 + 40);
+  *(v4 + 40) = 0;
 }
 
 void sub_9894(uint64_t a1, void *a2)
@@ -1048,7 +1050,7 @@ void sub_9954(uint64_t a1)
 
 void sub_99FC(uint64_t a1, uint64_t a2)
 {
-  v4 = _maps_backgroundStateLog();
+  v4 = _maps_backgroundStateLog(a1);
   v5 = os_log_type_enabled(v4, OS_LOG_TYPE_INFO);
   if (a2)
   {
@@ -1078,44 +1080,45 @@ void sub_99FC(uint64_t a1, uint64_t a2)
     v10 = [v9 stringByAppendingString:@".Maps.StartPreparedNavigation"];
     v6 = [v7 initWithBundleIdentifier:@"com.apple.Maps" flags:3 reason:4 name:v10];
 
-    LODWORD(v9) = [(IPCNavigationActionReply *)v6 acquire];
-    v11 = _maps_backgroundStateLog();
-    v12 = os_log_type_enabled(v11, OS_LOG_TYPE_INFO);
+    v11 = [(IPCNavigationActionReply *)v6 acquire];
+    LODWORD(v9) = v11;
+    v12 = _maps_backgroundStateLog(v11);
+    v13 = os_log_type_enabled(v12, OS_LOG_TYPE_INFO);
     if (v9)
     {
-      if (v12)
+      if (v13)
       {
         *buf = 0;
-        _os_log_impl(&dword_0, v11, OS_LOG_TYPE_INFO, "MapsIPCInterface Sending start prepared navigation to Maps", buf, 2u);
+        _os_log_impl(&dword_0, v12, OS_LOG_TYPE_INFO, "MapsIPCInterface Sending start prepared navigation to Maps", buf, 2u);
       }
 
-      v14 = *(a1 + 32);
-      v13 = *(a1 + 40);
-      v15 = *(v14 + 8);
-      v17[0] = _NSConcreteStackBlock;
-      v17[1] = 3221225472;
-      v17[2] = sub_9CCC;
-      v17[3] = &unk_34B80;
-      v17[4] = v14;
-      v18 = v13;
+      v15 = *(a1 + 32);
+      v14 = *(a1 + 40);
+      v16 = *(v15 + 8);
+      v18[0] = _NSConcreteStackBlock;
+      v18[1] = 3221225472;
+      v18[2] = sub_9CCC;
+      v18[3] = &unk_34B80;
+      v18[4] = v15;
+      v19 = v14;
       v6 = v6;
-      v19 = v6;
-      v20 = *(a1 + 48);
-      dispatch_async(v15, v17);
+      v20 = v6;
+      v21 = *(a1 + 48);
+      dispatch_async(v16, v18);
     }
 
     else
     {
-      if (v12)
+      if (v13)
       {
         *buf = 0;
-        _os_log_impl(&dword_0, v11, OS_LOG_TYPE_INFO, "MapsIPCInterface Failed to acquire assertion for prepared directions", buf, 2u);
+        _os_log_impl(&dword_0, v12, OS_LOG_TYPE_INFO, "MapsIPCInterface Failed to acquire assertion for prepared directions", buf, 2u);
       }
 
       [(IPCNavigationActionReply *)v6 invalidate];
-      v16 = objc_alloc_init(IPCNavigationActionReply);
-      [(IPCNavigationActionReply *)v16 setSuccess:0];
-      [(IPCNavigationActionReply *)v16 setNavigationActionError:5];
+      v17 = objc_alloc_init(IPCNavigationActionReply);
+      [(IPCNavigationActionReply *)v17 setSuccess:0];
+      [(IPCNavigationActionReply *)v17 setNavigationActionError:5];
       (*(*(a1 + 48) + 16))();
     }
   }
@@ -1166,7 +1169,7 @@ void sub_9ED4(uint64_t a1)
 void sub_A000(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = _maps_backgroundStateLog();
+  v4 = _maps_backgroundStateLog(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     *buf = 138412290;
@@ -1314,16 +1317,16 @@ void sub_AE64(uint64_t a1)
   }
 }
 
-id _maps_backgroundStateLog()
+id _maps_backgroundStateLog(uint64_t a1)
 {
   if (qword_5A760 != -1)
   {
     sub_1A890();
   }
 
-  v1 = qword_5A758;
+  v2 = qword_5A758;
 
-  return v1;
+  return v2;
 }
 
 void sub_B0C8(id a1)
@@ -1432,9 +1435,9 @@ void sub_B5AC(id a1)
   _objc_release_x1();
 }
 
-void sub_BB98(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_BB98(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1509,16 +1512,16 @@ void sub_C880(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-id sub_C89C()
+id sub_C89C(uint64_t a1)
 {
   if (qword_5A7A8 != -1)
   {
     sub_1A8E0();
   }
 
-  v1 = qword_5A7A0;
+  v2 = qword_5A7A0;
 
-  return v1;
+  return v2;
 }
 
 void sub_C8E0(uint64_t a1)
@@ -1536,7 +1539,7 @@ uint64_t sub_CA64(uint64_t result, uint64_t a2)
 
 void sub_CC20(uint64_t a1)
 {
-  v2 = sub_C89C();
+  v2 = sub_C89C(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
@@ -1604,7 +1607,7 @@ LABEL_9:
   (*(v8 + 16))(v8, v9);
 }
 
-void sub_F4E8()
+void sub_F4E8(uint64_t result, uint64_t a2)
 {
   if (qword_5A7B0 != -1)
   {
@@ -1640,7 +1643,7 @@ id sub_11844(id a1)
 void sub_11FD8(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = _maps_backgroundStateLog();
+  v4 = _maps_backgroundStateLog(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     v11 = 138412290;
@@ -1709,7 +1712,7 @@ id sub_128D8(uint64_t a1, void *a2)
 
 void sub_13F88(uint64_t a1)
 {
-  v2 = _maps_backgroundStateLog();
+  v2 = _maps_backgroundStateLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     *v6 = 0;
@@ -1727,7 +1730,7 @@ void sub_13F88(uint64_t a1)
 
 void sub_14014(uint64_t a1)
 {
-  v2 = _maps_backgroundStateLog();
+  v2 = _maps_backgroundStateLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     v7[0] = 0;
@@ -1759,7 +1762,7 @@ void sub_1431C(id a1)
 void sub_143E4(uint64_t a1, uint64_t a2, void *a3)
 {
   v4 = a3;
-  v5 = _maps_backgroundStateLog();
+  v5 = _maps_backgroundStateLog(v4);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     v6 = 138412290;
@@ -1787,11 +1790,11 @@ void sub_144C8(uint64_t a1)
     v4 = *(v3 + 56);
     *(v3 + 56) = 0;
 
-    v5 = _maps_backgroundStateLog();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+    v6 = _maps_backgroundStateLog(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
-      *v6 = 0;
-      _os_log_impl(&dword_0, v5, OS_LOG_TYPE_INFO, "MapsIPCInterface Timed out waiting for a connection to be established", v6, 2u);
+      *v7 = 0;
+      _os_log_impl(&dword_0, v6, OS_LOG_TYPE_INFO, "MapsIPCInterface Timed out waiting for a connection to be established", v7, 2u);
     }
   }
 }
@@ -1823,7 +1826,7 @@ void sub_148BC(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v3 = objc_loadWeakRetained((a1 + 40));
-  v4 = _maps_backgroundStateLog();
+  v4 = _maps_backgroundStateLog(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     *buf = 138412290;
@@ -1848,7 +1851,7 @@ void sub_149F8(uint64_t a1)
 {
   v2 = *(a1 + 40);
   v3 = *(*(a1 + 32) + 48);
-  v4 = _maps_backgroundStateLog();
+  v4 = _maps_backgroundStateLog(a1);
   v5 = os_log_type_enabled(v4, OS_LOG_TYPE_INFO);
   if (v3 == v2)
   {
@@ -1879,7 +1882,7 @@ void sub_149F8(uint64_t a1)
 
 void sub_14B18(id a1)
 {
-  v1 = _maps_backgroundStateLog();
+  v1 = _maps_backgroundStateLog(a1);
   if (os_log_type_enabled(v1, OS_LOG_TYPE_INFO))
   {
     *v2 = 0;
@@ -1889,7 +1892,7 @@ void sub_14B18(id a1)
 
 void sub_14B80(uint64_t a1)
 {
-  v2 = _maps_backgroundStateLog();
+  v2 = _maps_backgroundStateLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     v3 = *(a1 + 32);
@@ -1953,7 +1956,7 @@ void sub_1A5B8(uint64_t a1, void *a2)
 {
   v3 = a2;
   v4 = v3;
-  if (v3 && [v3 isNavigating])
+  if (v3 && (v3 = [v3 isNavigating], v3))
   {
     v5 = objc_alloc_init(SALocalSearchGetNavigationStatusCompleted);
     v6 = [*(a1 + 32) _overallETAForGuidanceState:v4];
@@ -1972,7 +1975,7 @@ void sub_1A5B8(uint64_t a1, void *a2)
     [v5 setVolume:v10];
 
     v11 = [v5 dictionary];
-    v12 = _maps_backgroundStateLog();
+    v12 = _maps_backgroundStateLog(v11);
     if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
     {
       v16 = 138477827;
@@ -1985,7 +1988,7 @@ void sub_1A5B8(uint64_t a1, void *a2)
 
   else
   {
-    v13 = _maps_backgroundStateLog();
+    v13 = _maps_backgroundStateLog(v3);
     if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
     {
       v14 = [v4 shortDescription];

@@ -11,7 +11,7 @@
 - (id)save
 {
   selfCopy = self;
-  v3 = UNNotificationOnboardingDefaults.save()();
+  v3 = UNNotificationOnboardingDefaults.save()(selfCopy);
 
   if (v3)
   {
@@ -31,7 +31,7 @@
   coderCopy = coder;
   selfCopy = self;
   sub_270A78D10();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_28083FCE0);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_28083FCE0, &unk_270A8F170);
   v5 = sub_270A88F50();
 
   v6 = sub_270A88FB0();
@@ -51,14 +51,15 @@
 
   else
   {
-    memset(v8, 0, sizeof(v8));
+    memset(v9, 0, sizeof(v9));
     selfCopy2 = self;
   }
 
-  v6 = UNNotificationOnboardingDefaults.isEqual(_:)(v8);
+  UNNotificationOnboardingDefaults.isEqual(_:)(v9);
+  v7 = v6;
 
-  sub_270A4E644(v8, &qword_28083FCB0);
-  return v6 & 1;
+  sub_270A4E644(v9, &qword_28083FCB0, &qword_270A8D8A0);
+  return v7 & 1;
 }
 
 - (NSString)description
@@ -126,7 +127,7 @@
       [v20 removeObjectForKey_];
     }
 
-    sub_270A4DC8C(0, &unk_28083FD80);
+    sub_270A4DC8C(0, &unk_28083FD80, 0x277D85C78);
     (*(v6 + 104))(v8, *MEMORY[0x277D851A8], v5);
     v35 = sub_270A891F0();
     (*(v6 + 8))(v8, v5);
@@ -147,9 +148,9 @@
     v27 = v40;
     sub_270A88F10();
     v44 = MEMORY[0x277D84F90];
-    sub_270A7EC2C(&qword_28083F128, MEMORY[0x277D85198]);
-    __swift_instantiateConcreteTypeFromMangledNameV2(&unk_28083FD90);
-    sub_270A4E7E4(&qword_28083F130, &unk_28083FD90);
+    sub_270A7EC2C(&qword_28083F128, MEMORY[0x277D85198], MEMORY[0x277D851A0]);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&unk_28083FD90, &unk_270A8F2B0);
+    sub_270A4E7E4(&qword_28083F130, &unk_28083FD90, &unk_270A8F2B0, MEMORY[0x277D83970]);
     v28 = v42;
     v29 = v38;
     sub_270A89280();

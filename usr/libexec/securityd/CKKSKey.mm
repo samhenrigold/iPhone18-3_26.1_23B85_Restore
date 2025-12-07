@@ -24,6 +24,7 @@
 - (BOOL)isEqual:(id)equal;
 - (BOOL)loadKeyMaterialFromKeychain:(id *)keychain;
 - (BOOL)matchesCKRecord:(id)record;
+- (BOOL)saveKeyMaterialToKeychain:(BOOL)keychain error:(id *)error;
 - (BOOL)saveKeyMaterialToKeychain:(id *)keychain;
 - (BOOL)saveToDatabaseAsOnlyCurrentKeyForClassAndState:(id *)state;
 - (BOOL)tlkMaterialPresentOrRecoverableViaTLKShareForContextID:(id)d forTrustStates:(id)states error:(id *)error;
@@ -566,6 +567,22 @@ LABEL_12:
   return v7;
 }
 
+- (BOOL)saveKeyMaterialToKeychain:(BOOL)keychain error:(id *)error
+{
+  keychainCopy = keychain;
+  v7 = [(CKKSKey *)self getKeychainBackedKey:error];
+
+  if (!v7)
+  {
+    return 0;
+  }
+
+  keycore = [(CKKSKey *)self keycore];
+  v9 = [keycore saveKeyMaterialToKeychain:keychainCopy error:error];
+
+  return v9;
+}
+
 - (BOOL)saveKeyMaterialToKeychain:(id *)keychain
 {
   v5 = [(CKKSKey *)self getKeychainBackedKey:?];
@@ -1101,25 +1118,8 @@ LABEL_37:
         keyclass = [(CKKSKey *)self keyclass];
         v17 = [keyclass isEqual:@"tlk"];
 
-        if (!v17)
+        if (v17 && ((-[CKKSKey parentKeyUUID](self, "parentKeyUUID"), (v18 = objc_claimAutoreleasedReturnValue()) == 0) || (v19 = v18, -[CKKSKey parentKeyUUID](self, "parentKeyUUID"), v20 = objc_claimAutoreleasedReturnValue(), -[CKKSKey uuid](self, "uuid"), v21 = objc_claimAutoreleasedReturnValue(), v22 = [v20 isEqualToString:v21], v21, v20, v19, v22)))
         {
-          goto LABEL_12;
-        }
-
-        parentKeyUUID = [(CKKSKey *)self parentKeyUUID];
-        if (!parentKeyUUID)
-        {
-          goto LABEL_10;
-        }
-
-        v19 = parentKeyUUID;
-        parentKeyUUID2 = [(CKKSKey *)self parentKeyUUID];
-        uuid = [(CKKSKey *)self uuid];
-        v22 = [parentKeyUUID2 isEqualToString:uuid];
-
-        if (v22)
-        {
-LABEL_10:
           if (error)
           {
             v23 = v14;
@@ -1135,22 +1135,21 @@ LABEL_10:
 
         else
         {
-LABEL_12:
-          parentKeyUUID3 = [(CKKSKey *)self parentKeyUUID];
+          parentKeyUUID = [(CKKSKey *)self parentKeyUUID];
           contextID = [(CKKSCKRecordHolder *)self contextID];
           zoneID = [(CKKSCKRecordHolder *)self zoneID];
           if (hierarchyCopy)
           {
             v41 = 0;
             v27 = &v41;
-            v28 = [hierarchyCopy loadKeyForUUID:parentKeyUUID3 contextID:contextID zoneID:zoneID error:&v41];
+            v28 = [hierarchyCopy loadKeyForUUID:parentKeyUUID contextID:contextID zoneID:zoneID error:&v41];
           }
 
           else
           {
             v40 = 0;
             v27 = &v40;
-            v28 = [CKKSKey fromDatabaseAnyState:parentKeyUUID3 contextID:contextID zoneID:zoneID error:&v40];
+            v28 = [CKKSKey fromDatabaseAnyState:parentKeyUUID contextID:contextID zoneID:zoneID error:&v40];
           }
 
           v29 = v28;

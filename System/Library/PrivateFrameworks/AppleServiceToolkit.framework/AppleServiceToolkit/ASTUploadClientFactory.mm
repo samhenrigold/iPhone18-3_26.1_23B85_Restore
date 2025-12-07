@@ -8,34 +8,34 @@
 
 + (id)uploadClientWithASTSession:(id)session andFileMap:(id)map andUrlFactory:(id)factory andDelegate:(id)delegate
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   sessionCopy = session;
   mapCopy = map;
   factoryCopy = factory;
   delegateCopy = delegate;
-  v23 = factoryCopy;
+  v22 = factoryCopy;
   v13 = [[ASTConfigurableUploadClient alloc] initWithASTSession:sessionCopy withURLSession:0 withURLRequestFactory:factoryCopy withDelegate:delegateCopy];
+  v23 = 0u;
   v24 = 0u;
   v25 = 0u;
   v26 = 0u;
-  v27 = 0u;
   v14 = mapCopy;
-  v15 = [v14 countByEnumeratingWithState:&v24 objects:v28 count:16];
+  v15 = [v14 countByEnumeratingWithState:&v23 objects:v27 count:16];
   if (v15)
   {
     v16 = v15;
-    v17 = *v25;
+    v17 = *v24;
     v18 = MEMORY[0x277CBEC10];
     do
     {
       for (i = 0; i != v16; ++i)
       {
-        if (*v25 != v17)
+        if (*v24 != v17)
         {
           objc_enumerationMutation(v14);
         }
 
-        v20 = *(*(&v24 + 1) + 8 * i);
+        v20 = *(*(&v23 + 1) + 8 * i);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
@@ -52,13 +52,11 @@
         }
       }
 
-      v16 = [v14 countByEnumeratingWithState:&v24 objects:v28 count:16];
+      v16 = [v14 countByEnumeratingWithState:&v23 objects:v27 count:16];
     }
 
     while (v16);
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 
   return v13;
 }

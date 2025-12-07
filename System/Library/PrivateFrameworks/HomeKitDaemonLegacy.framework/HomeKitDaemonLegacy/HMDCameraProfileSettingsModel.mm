@@ -17,9 +17,15 @@
 - (unint64_t)mostPrivateAccessMode;
 - (unint64_t)recordingEventTriggers;
 - (void)setAccessModeAtHome:(unint64_t)home;
+- (void)setAccessModeIndicatorEnabled:(BOOL)enabled;
 - (void)setAccessModeNotAtHome:(unint64_t)home;
 - (void)setActivityZones:(id)zones;
+- (void)setActivityZonesIncludedForSignificantEventDetection:(BOOL)detection;
+- (void)setNightVisionModeEnabled:(BOOL)enabled;
+- (void)setPeriodicSnapshotsAllowed:(BOOL)allowed;
+- (void)setRecordingAudioEnabled:(BOOL)enabled;
 - (void)setRecordingEventTriggers:(unint64_t)triggers;
+- (void)setSnapshotsAllowed:(BOOL)allowed;
 - (void)setVersion:(int64_t)version;
 @end
 
@@ -39,72 +45,76 @@
 
 void __46__HMDCameraProfileSettingsModel_hmbProperties__block_invoke()
 {
-  v34[15] = *MEMORY[0x277D85DE8];
-  v33[0] = @"versionField";
-  v29 = [MEMORY[0x277D170B8] fieldWithClass:objc_opt_class()];
-  v34[0] = v29;
-  v33[1] = @"accessModeAtHomeField";
+  v33[15] = *MEMORY[0x277D85DE8];
+  v32[0] = @"versionField";
   v28 = [MEMORY[0x277D170B8] fieldWithClass:objc_opt_class()];
-  v34[1] = v28;
-  v33[2] = @"accessModeNotAtHomeField";
+  v33[0] = v28;
+  v32[1] = @"accessModeAtHomeField";
   v27 = [MEMORY[0x277D170B8] fieldWithClass:objc_opt_class()];
-  v34[2] = v27;
-  v33[3] = @"recordingStorageDurationField";
+  v33[1] = v27;
+  v32[2] = @"accessModeNotAtHomeField";
   v26 = [MEMORY[0x277D170B8] fieldWithClass:objc_opt_class()];
-  v34[3] = v26;
-  v33[4] = @"recordingEventTriggersField";
+  v33[2] = v26;
+  v32[3] = @"recordingStorageDurationField";
   v25 = [MEMORY[0x277D170B8] fieldWithClass:objc_opt_class()];
-  v34[4] = v25;
-  v33[5] = @"accessModeIndicatorEnabledField";
+  v33[3] = v25;
+  v32[4] = @"recordingEventTriggersField";
   v24 = [MEMORY[0x277D170B8] fieldWithClass:objc_opt_class()];
-  v34[5] = v24;
-  v33[6] = @"nightVisionModeEnabledField";
+  v33[4] = v24;
+  v32[5] = @"accessModeIndicatorEnabledField";
   v23 = [MEMORY[0x277D170B8] fieldWithClass:objc_opt_class()];
-  v34[6] = v23;
-  v33[7] = @"snapshotsAllowedField";
+  v33[5] = v23;
+  v32[6] = @"nightVisionModeEnabledField";
   v22 = [MEMORY[0x277D170B8] fieldWithClass:objc_opt_class()];
-  v34[7] = v22;
-  v33[8] = @"periodicSnapshotsAllowedField";
+  v33[6] = v22;
+  v32[7] = @"snapshotsAllowedField";
   v21 = [MEMORY[0x277D170B8] fieldWithClass:objc_opt_class()];
-  v34[8] = v21;
-  v33[9] = @"recordingAudioEnabledField";
+  v33[7] = v21;
+  v32[8] = @"periodicSnapshotsAllowedField";
   v20 = [MEMORY[0x277D170B8] fieldWithClass:objc_opt_class()];
-  v34[9] = v20;
-  v33[10] = @"smartBulletinBoardNotificationDataField";
+  v33[8] = v20;
+  v32[9] = @"recordingAudioEnabledField";
+  v19 = [MEMORY[0x277D170B8] fieldWithClass:objc_opt_class()];
+  v33[9] = v19;
+  v32[10] = @"smartBulletinBoardNotificationDataField";
   v0 = MEMORY[0x277D170B8];
   v1 = objc_opt_class();
-  v19 = [MEMORY[0x277D170C0] excludeFromCloudStorage];
-  v32 = v19;
-  v18 = [MEMORY[0x277CBEA60] arrayWithObjects:&v32 count:1];
-  v17 = [v0 fieldWithClass:v1 options:v18];
-  v34[10] = v17;
-  v33[11] = @"accessModeChangeNotificationEnabledField";
+  v18 = [MEMORY[0x277D170C0] excludeFromCloudStorage];
+  v31 = v18;
+  v17 = [MEMORY[0x277CBEA60] arrayWithObjects:&v31 count:1];
+  v16 = [v0 fieldWithClass:v1 options:v17];
+  v33[10] = v16;
+  v32[11] = @"accessModeChangeNotificationEnabledField";
   v2 = MEMORY[0x277D170B8];
   v3 = objc_opt_class();
   v4 = [MEMORY[0x277D170C0] excludeFromCloudStorage];
-  v31 = v4;
-  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:&v31 count:1];
+  v30 = v4;
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:&v30 count:1];
   v6 = [v2 fieldWithClass:v3 options:v5];
-  v34[11] = v6;
-  v33[12] = @"reachabilityEventNotificationEnabledField";
+  v33[11] = v6;
+  v32[12] = @"reachabilityEventNotificationEnabledField";
   v7 = MEMORY[0x277D170B8];
   v8 = objc_opt_class();
   v9 = [MEMORY[0x277D170C0] excludeFromCloudStorage];
-  v30 = v9;
-  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:&v30 count:1];
+  v29 = v9;
+  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:&v29 count:1];
   v11 = [v7 fieldWithClass:v8 options:v10];
-  v34[12] = v11;
-  v33[13] = @"activityZonesField";
+  v33[12] = v11;
+  v32[13] = @"activityZonesField";
   v12 = [MEMORY[0x277D170B8] fieldWithClass:objc_opt_class()];
-  v34[13] = v12;
-  v33[14] = @"activityZonesIncludedForSignificantEventDetectionField";
+  v33[13] = v12;
+  v32[14] = @"activityZonesIncludedForSignificantEventDetectionField";
   v13 = [MEMORY[0x277D170B8] fieldWithClass:objc_opt_class()];
-  v34[14] = v13;
-  v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v34 forKeys:v33 count:15];
+  v33[14] = v13;
+  v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v33 forKeys:v32 count:15];
   v15 = hmbProperties__properties_73763;
   hmbProperties__properties_73763 = v14;
+}
 
-  v16 = *MEMORY[0x277D85DE8];
+- (void)setActivityZonesIncludedForSignificantEventDetection:(BOOL)detection
+{
+  v4 = [MEMORY[0x277CCABB0] numberWithBool:detection];
+  [(HMDCameraProfileSettingsModel *)self setActivityZonesIncludedForSignificantEventDetectionField:v4];
 }
 
 - (BOOL)activityZonesIncludedForSignificantEventDetection
@@ -117,11 +127,11 @@ void __46__HMDCameraProfileSettingsModel_hmbProperties__block_invoke()
 
 - (void)setActivityZones:(id)zones
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   zonesCopy = zones;
-  v12 = 0;
-  v5 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:zonesCopy requiringSecureCoding:1 error:&v12];
-  v6 = v12;
+  v11 = 0;
+  v5 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:zonesCopy requiringSecureCoding:1 error:&v11];
+  v6 = v11;
   if (v5)
   {
     [(HMDCameraProfileSettingsModel *)self setActivityZonesField:v5];
@@ -136,35 +146,33 @@ void __46__HMDCameraProfileSettingsModel_hmbProperties__block_invoke()
     {
       v10 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v14 = v10;
-      v15 = 2112;
-      v16 = v6;
+      v13 = v10;
+      v14 = 2112;
+      v15 = v6;
       _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_INFO, "%{public}@Failed to encode activity zones: %@", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v7);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (NSSet)activityZones
 {
-  v24[2] = *MEMORY[0x277D85DE8];
+  v23[2] = *MEMORY[0x277D85DE8];
   activityZonesField = [(HMDCameraProfileSettingsModel *)self activityZonesField];
 
   if (activityZonesField)
   {
     v4 = MEMORY[0x277CCAAC8];
     v5 = MEMORY[0x277CBEB98];
-    v24[0] = objc_opt_class();
-    v24[1] = objc_opt_class();
-    v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:2];
+    v23[0] = objc_opt_class();
+    v23[1] = objc_opt_class();
+    v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:2];
     v7 = [v5 setWithArray:v6];
     activityZonesField2 = [(HMDCameraProfileSettingsModel *)self activityZonesField];
-    v19 = 0;
-    v9 = [v4 unarchivedObjectOfClasses:v7 fromData:activityZonesField2 error:&v19];
-    v10 = v19;
+    v18 = 0;
+    v9 = [v4 unarchivedObjectOfClasses:v7 fromData:activityZonesField2 error:&v18];
+    v10 = v18;
 
     if (v9)
     {
@@ -180,9 +188,9 @@ void __46__HMDCameraProfileSettingsModel_hmbProperties__block_invoke()
       {
         v16 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v21 = v16;
-        v22 = 2112;
-        v23 = v10;
+        v20 = v16;
+        v21 = 2112;
+        v22 = v10;
         _os_log_impl(&dword_2531F8000, v15, OS_LOG_TYPE_ERROR, "%{public}@Failed to decode activity zones: %@", buf, 0x16u);
       }
 
@@ -198,14 +206,12 @@ void __46__HMDCameraProfileSettingsModel_hmbProperties__block_invoke()
     v12 = [MEMORY[0x277CBEB98] set];
   }
 
-  v17 = *MEMORY[0x277D85DE8];
-
   return v12;
 }
 
 - (HMDBulletinBoardNotification)smartBulletinBoardNotification
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   smartBulletinBoardNotificationDataField = [(HMDCameraProfileSettingsModel *)self smartBulletinBoardNotificationDataField];
 
   if (smartBulletinBoardNotificationDataField)
@@ -213,9 +219,9 @@ void __46__HMDCameraProfileSettingsModel_hmbProperties__block_invoke()
     v4 = MEMORY[0x277CCAAC8];
     v5 = objc_opt_class();
     smartBulletinBoardNotificationDataField2 = [(HMDCameraProfileSettingsModel *)self smartBulletinBoardNotificationDataField];
-    v15 = 0;
-    smartBulletinBoardNotificationDataField = [v4 unarchivedObjectOfClass:v5 fromData:smartBulletinBoardNotificationDataField2 error:&v15];
-    v7 = v15;
+    v14 = 0;
+    smartBulletinBoardNotificationDataField = [v4 unarchivedObjectOfClass:v5 fromData:smartBulletinBoardNotificationDataField2 error:&v14];
+    v7 = v14;
 
     if (smartBulletinBoardNotificationDataField)
     {
@@ -231,17 +237,15 @@ void __46__HMDCameraProfileSettingsModel_hmbProperties__block_invoke()
       {
         v12 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v17 = v12;
-        v18 = 2112;
-        v19 = v7;
+        v16 = v12;
+        v17 = 2112;
+        v18 = v7;
         _os_log_impl(&dword_2531F8000, v11, OS_LOG_TYPE_ERROR, "%{public}@Failed to decode HMDBulletinBoardNotification: %@", buf, 0x16u);
       }
 
       objc_autoreleasePoolPop(v9);
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return smartBulletinBoardNotificationDataField;
 }
@@ -262,12 +266,24 @@ void __46__HMDCameraProfileSettingsModel_hmbProperties__block_invoke()
   return bOOLValue;
 }
 
+- (void)setRecordingAudioEnabled:(BOOL)enabled
+{
+  v4 = [MEMORY[0x277CCABB0] numberWithBool:enabled];
+  [(HMDCameraProfileSettingsModel *)self setRecordingAudioEnabledField:v4];
+}
+
 - (BOOL)recordingAudioEnabled
 {
   recordingAudioEnabledField = [(HMDCameraProfileSettingsModel *)self recordingAudioEnabledField];
   bOOLValue = [recordingAudioEnabledField BOOLValue];
 
   return bOOLValue;
+}
+
+- (void)setPeriodicSnapshotsAllowed:(BOOL)allowed
+{
+  v4 = [MEMORY[0x277CCABB0] numberWithBool:allowed];
+  [(HMDCameraProfileSettingsModel *)self setPeriodicSnapshotsAllowedField:v4];
 }
 
 - (BOOL)periodicSnapshotsAllowed
@@ -278,6 +294,12 @@ void __46__HMDCameraProfileSettingsModel_hmbProperties__block_invoke()
   return bOOLValue;
 }
 
+- (void)setSnapshotsAllowed:(BOOL)allowed
+{
+  v4 = [MEMORY[0x277CCABB0] numberWithBool:allowed];
+  [(HMDCameraProfileSettingsModel *)self setSnapshotsAllowedField:v4];
+}
+
 - (BOOL)snapshotsAllowed
 {
   snapshotsAllowedField = [(HMDCameraProfileSettingsModel *)self snapshotsAllowedField];
@@ -286,12 +308,24 @@ void __46__HMDCameraProfileSettingsModel_hmbProperties__block_invoke()
   return bOOLValue;
 }
 
+- (void)setNightVisionModeEnabled:(BOOL)enabled
+{
+  v4 = [MEMORY[0x277CCABB0] numberWithBool:enabled];
+  [(HMDCameraProfileSettingsModel *)self setNightVisionModeEnabledField:v4];
+}
+
 - (BOOL)nightVisionModeEnabled
 {
   nightVisionModeEnabledField = [(HMDCameraProfileSettingsModel *)self nightVisionModeEnabledField];
   bOOLValue = [nightVisionModeEnabledField BOOLValue];
 
   return bOOLValue;
+}
+
+- (void)setAccessModeIndicatorEnabled:(BOOL)enabled
+{
+  v4 = [MEMORY[0x277CCABB0] numberWithBool:enabled];
+  [(HMDCameraProfileSettingsModel *)self setAccessModeIndicatorEnabledField:v4];
 }
 
 - (BOOL)accessModeIndicatorEnabled

@@ -29,26 +29,26 @@
 {
   payloadCopy = payload;
   attributesCopy = attributes;
-  v23 = 0;
+  v24 = 0;
   sendingIdentityCopy = sendingIdentity;
   identityCopy = identity;
   v15 = objc_alloc_init(NGMPBInnerMessage);
   v16 = +[NGMReplayManager sharedManager];
-  v17 = [v16 counterForDestinationWithIdentityKey:identityCopy sendingIdentity:sendingIdentityCopy error:error success:&v23];
+  v17 = [v16 counterForDestinationWithIdentityKey:identityCopy sendingIdentity:sendingIdentityCopy error:error success:&v24];
 
   [(NGMPBInnerMessage *)v15 setCounter:v17];
   if (attributesCopy)
   {
-    v18 = [attributesCopy objectForKeyedSubscript:NGMEncryptedAttributeKTGossipData];
+    v19 = [attributesCopy objectForKeyedSubscript:NGMEncryptedAttributeKTGossipData];
 
-    if (v18)
+    if (v19)
     {
-      v19 = [attributesCopy objectForKeyedSubscript:NGMEncryptedAttributeKTGossipData];
-      [(NGMPBInnerMessage *)v15 setKtGossipData:v19];
+      v20 = [attributesCopy objectForKeyedSubscript:NGMEncryptedAttributeKTGossipData];
+      [(NGMPBInnerMessage *)v15 setKtGossipData:v20];
     }
   }
 
-  if (v23)
+  if (v24)
   {
     [(NGMPBInnerMessage *)v15 setMessage:payloadCopy];
     data = [(NGMPBInnerMessage *)v15 data];
@@ -58,10 +58,10 @@
   {
     if (*error)
     {
-      v21 = MessageProtectionLog();
-      if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+      v22 = MessageProtectionLog(v18);
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
       {
-        [NGMMessageFormatter formatOutgoingInnerMessageWithPayload:error attributes:v21 destinationIdentity:? sendingIdentity:? error:?];
+        [NGMMessageFormatter formatOutgoingInnerMessageWithPayload:error attributes:v22 destinationIdentity:? sendingIdentity:? error:?];
       }
     }
 
@@ -78,13 +78,11 @@
 
 + (void)formatOutgoingInnerMessageWithPayload:(id *)a1 attributes:(NSObject *)a2 destinationIdentity:sendingIdentity:error:.cold.1(id *a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v3 = [*a1 description];
-  v5 = 138412290;
-  v6 = v3;
-  _os_log_error_impl(&dword_22B404000, a2, OS_LOG_TYPE_ERROR, "Error while obtaining counter %@", &v5, 0xCu);
-
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 138412290;
+  v5 = v3;
+  _os_log_error_impl(&dword_22B404000, a2, OS_LOG_TYPE_ERROR, "Error while obtaining counter %@", &v4, 0xCu);
 }
 
 @end

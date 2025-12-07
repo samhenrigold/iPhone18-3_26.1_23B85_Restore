@@ -271,7 +271,7 @@
   return NSAllocateObject(selfCopy, 0, zone);
 }
 
-uint64_t __24__NSTextStorage_dealloc__block_invoke(uint64_t a1, void *a2)
+void *__24__NSTextStorage_dealloc__block_invoke(uint64_t a1, void *a2)
 {
   v3 = *(a1 + 32);
   result = [a2 textStorage];
@@ -813,7 +813,7 @@ LABEL_22:
   return v4;
 }
 
-uint64_t __48__NSTextStorage__shouldSetOriginalFontAttribute__block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
+void *__48__NSTextStorage__shouldSetOriginalFontAttribute__block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
   result = [a2 allowsOriginalFontMetricsOverride];
   if (result)

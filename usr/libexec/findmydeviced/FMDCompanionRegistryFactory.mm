@@ -20,12 +20,12 @@
     v3 = 0;
   }
 
-  v4 = sub_100002880();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  v5 = sub_100002880(v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v6[0] = 67109120;
-    v6[1] = v3;
-    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "FMDAutomationWatchMigration: isAutomationActive: %d", v6, 8u);
+    v7[0] = 67109120;
+    v7[1] = v3;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "FMDAutomationWatchMigration: isAutomationActive: %d", v7, 8u);
   }
 
   return v3;
@@ -53,7 +53,7 @@
 
 + (BOOL)isBlackMagic
 {
-  v3 = sub_100002880();
+  v3 = sub_100002880(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v5[0] = 67109120;

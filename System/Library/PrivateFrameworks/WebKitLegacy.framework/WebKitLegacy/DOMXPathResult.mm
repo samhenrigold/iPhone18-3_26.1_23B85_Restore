@@ -290,23 +290,41 @@ LABEL_18:
 
 - (DOMNode)snapshotItem:(unsigned int)index
 {
-  WebCore::JSMainThreadNullState::JSMainThreadNullState(v11);
-  v4 = WebCore::XPathResult::snapshotItem(self->super._internal);
-  if (v10)
+  WebCore::JSMainThreadNullState::JSMainThreadNullState(v13);
+  v4 = WebCore::XPathResult::snapshotItem(&v10, self->super._internal);
+  if (v12)
   {
-    if (v10 == 1)
+    if (v12 == 1)
     {
-      v11[80] = v8;
-      v12 = v9;
+      v13[80] = v10;
+      v9 = v11;
+      v11 = 0;
+      v14 = v9;
       raiseDOMErrorException();
     }
 
     mpark::throw_bad_variant_access(v4);
   }
 
-  v5 = kit(v8);
-  WebCore::JSMainThreadNullState::~JSMainThreadNullState(v11, v6);
-  return v5;
+  v6 = kit(v10);
+  if (v12)
+  {
+    if (v12 != 255)
+    {
+      v7 = v11;
+      v11 = 0;
+      if (v7)
+      {
+        if (atomic_fetch_add_explicit(v7, 0xFFFFFFFE, memory_order_relaxed) == 2)
+        {
+          WTF::StringImpl::destroy(v7, v5);
+        }
+      }
+    }
+  }
+
+  WebCore::JSMainThreadNullState::~JSMainThreadNullState(v13, v5);
+  return v6;
 }
 
 @end

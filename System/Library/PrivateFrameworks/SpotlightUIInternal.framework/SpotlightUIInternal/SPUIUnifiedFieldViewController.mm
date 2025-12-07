@@ -535,64 +535,63 @@ void __55__SPUIUnifiedFieldViewController_keyboardFrameChanged___block_invoke(ui
   v6 = [*(a1 + 32) keyboardVisualEffectView];
   [v6 setHideVisualEffectView:v5];
 
-  v7 = *(a1 + 32);
-  v8 = objc_opt_class();
-  v9 = [*(a1 + 32) searchHeader];
-  [v8 insetMarginsForSearchField:v9];
-  v11 = v10;
+  v7 = objc_opt_class();
+  v8 = [*(a1 + 32) searchHeader];
+  [v7 insetMarginsForSearchField:v8];
+  v10 = v9;
   [MEMORY[0x277D65D28] bottomPaddingToKeyboard];
-  v13 = v11 - v12;
+  v12 = v10 - v11;
 
-  v14 = 0.0;
+  v13 = 0.0;
   if (*(a1 + 40) <= 0.0)
   {
-    v15 = v13;
+    v14 = v12;
   }
 
   else
   {
-    v15 = 0.0;
+    v14 = 0.0;
   }
 
-  v16 = [*(a1 + 32) leadingConstraint];
-  [v16 setConstant:v15];
+  v15 = [*(a1 + 32) leadingConstraint];
+  [v15 setConstant:v14];
 
   if (*(a1 + 40) <= 0.0)
   {
-    v17 = -v13;
+    v16 = -v12;
   }
 
   else
   {
-    v17 = 0.0;
+    v16 = 0.0;
   }
 
-  v18 = [*(a1 + 32) trailingConstraint];
-  [v18 setConstant:v17];
+  v17 = [*(a1 + 32) trailingConstraint];
+  [v17 setConstant:v16];
 
   if ((*(a1 + 48) & 1) == 0)
   {
     [*(a1 + 32) unifiedFieldVerticalSpacing];
-    v14 = -v19;
+    v13 = -v18;
   }
 
-  v20 = [*(a1 + 32) klgConstraint];
-  [v20 setConstant:v14];
+  v19 = [*(a1 + 32) klgConstraint];
+  [v19 setConstant:v13];
 
-  v21 = (*(a1 + 48) & 1) != 0 || *(a1 + 40) > 0.0;
+  v20 = (*(a1 + 48) & 1) != 0 || *(a1 + 40) > 0.0;
+  v21 = [*(a1 + 32) klgConstraint];
+  [v21 setActive:v20];
+
   v22 = [*(a1 + 32) klgConstraint];
-  [v22 setActive:v21];
+  LODWORD(v21) = [v22 isActive];
+  v23 = [*(a1 + 32) bottomConstraint];
+  [v23 setActive:v21 ^ 1];
 
-  v23 = [*(a1 + 32) klgConstraint];
-  LODWORD(v22) = [v23 isActive];
   v24 = [*(a1 + 32) bottomConstraint];
-  [v24 setActive:v22 ^ 1];
+  [v24 setConstant:v12];
 
-  v25 = [*(a1 + 32) bottomConstraint];
-  [v25 setConstant:v13];
-
-  v26 = [*(a1 + 32) view];
-  [v26 layoutIfNeeded];
+  v25 = [*(a1 + 32) view];
+  [v25 layoutIfNeeded];
 }
 
 + (double)insetMarginsForSearchField:(id)field
@@ -786,55 +785,52 @@ void __116__SPUIUnifiedFieldViewController_resetSearchFieldContentWithSearchToke
     return;
   }
 
-  v7 = *(a1 + 40);
-  v8 = *(a1 + 48);
-  v9 = *(a1 + 56);
   (*(*(a1 + 64) + 16))();
   if (*(a1 + 56))
   {
-    v10 = [*(a1 + 32) searchHeader];
-    [v10 setUseClearTokens:1];
+    v7 = [*(a1 + 32) searchHeader];
+    [v7 setUseClearTokens:1];
   }
 
-  v11 = *(a1 + 32);
+  v8 = *(a1 + 32);
   if (*(a1 + 72) == 1)
   {
-    v12 = [v11 backButton];
+    v9 = [v8 backButton];
 
-    if (!v12)
+    if (!v9)
     {
-      v13 = [*(a1 + 32) generateBackButton];
-      [*(a1 + 32) setBackButton:v13];
+      v10 = [*(a1 + 32) generateBackButton];
+      [*(a1 + 32) setBackButton:v10];
+    }
+
+    v11 = [*(a1 + 32) backButton];
+    v12 = [*(a1 + 40) leftView];
+
+    if (v11 != v12)
+    {
+      v13 = [*(a1 + 40) leftView];
+      [*(a1 + 32) setOriginalLeftView:v13];
     }
 
     v14 = [*(a1 + 32) backButton];
-    v15 = [*(a1 + 40) leftView];
-
-    if (v14 != v15)
-    {
-      v16 = [*(a1 + 40) leftView];
-      [*(a1 + 32) setOriginalLeftView:v16];
-    }
-
-    v17 = [*(a1 + 32) backButton];
     goto LABEL_12;
   }
 
-  v18 = [v11 originalLeftView];
+  v15 = [v8 originalLeftView];
 
-  if (v18)
+  if (v15)
   {
-    v17 = [*(a1 + 32) originalLeftView];
+    v14 = [*(a1 + 32) originalLeftView];
 LABEL_12:
-    v19 = v17;
-    [*(a1 + 40) setLeftView:v17];
+    v16 = v14;
+    [*(a1 + 40) setLeftView:v14];
   }
 
-  v20 = [*(a1 + 40) leftView];
-  [v20 setAlpha:1.0];
+  v17 = [*(a1 + 40) leftView];
+  [v17 setAlpha:1.0];
 
-  v21 = [*(a1 + 40) _placeholderLabel];
-  [v21 setHidden:0];
+  v18 = [*(a1 + 40) _placeholderLabel];
+  [v18 setHidden:0];
 }
 
 void __116__SPUIUnifiedFieldViewController_resetSearchFieldContentWithSearchToken_text_wantsBackButton_transitionCoordinator___block_invoke_4(uint64_t a1, double a2)

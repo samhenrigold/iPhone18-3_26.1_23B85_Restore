@@ -1,47 +1,48 @@
-uint64_t l2tp_outgoing_call(int a1, const sockaddr *a2, uint64_t a3, uint64_t a4, int a5)
+uint64_t l2tp_outgoing_call(uint64_t a1, const sockaddr *a2, uint64_t a3, char *a4, int a5)
 {
-  *&v25[4] = sub_1E1C(1u, a3);
-  result = sub_B1C(a1, *&v25[4], 0, a2, "SCCRQ");
+  v9 = a1;
+  *&v26[4] = sub_1E1C(1u, a3);
+  result = sub_B1C(v9, *&v26[4], 0, a2, "SCCRQ");
   if (!result)
   {
-    v31 = 0u;
     v32 = 0u;
-    v29 = 0u;
+    v33 = 0u;
     v30 = 0u;
-    v27 = 0u;
+    v31 = 0u;
     v28 = 0u;
-    *&v25[8] = 0u;
-    v26 = 0u;
-    v25[8] = 0x80;
-    result = l2tp_recv(a1, &control_buf, 1500, &v25[4], &v25[8], a5);
+    v29 = 0u;
+    *&v26[8] = 0u;
+    v27 = 0u;
+    v26[8] = 0x80;
+    result = l2tp_recv(v9, &control_buf, 1500, &v26[4], &v26[8], a5, "SCCRP");
     if (result != -2)
     {
-      if (result == -1 || !*&v25[4])
+      if (result == -1 || !*&v26[4])
       {
-        notice();
+        notice("L2TP cannot connect to the server\n");
       }
 
-      v17 = *&v25[4];
-      l2tp_change_peeraddress(a1, &v25[8], v11, v12, v13, v14, v15, v16, v22, v24, *v25);
-      if (sub_E20(v17, &v25[2], a4, 2u))
+      v17 = *&v26[4];
+      l2tp_change_peeraddress(v9, &v26[8], v11, v12, v13, v14, v15, v16, v22, v24, *v26);
+      if (sub_E20(v17, &v26[2], a4, 2))
       {
         return 5;
       }
 
       if (!*a4)
       {
-        goto LABEL_19;
+        error("L2TP received invalid Tunnel ID from peer\n", v23, v25);
       }
 
-      l2tp_reset_timers(a1, 0);
-      if (!*(a4 + 6))
+      l2tp_reset_timers(v9, 0);
+      if (!*(a4 + 3))
       {
-        *(a4 + 6) = 4;
+        *(a4 + 3) = 4;
       }
 
-      l2tp_set_peerparams(a1, a4);
+      l2tp_set_peerparams(v9, a4);
       qword_189EC = 0x300000000000880;
-      result = sub_B1C(a1, 20, 0, 0, "SCCCN");
+      result = sub_B1C(v9, 0x14u, 0, 0, "SCCCN");
       if (!result)
       {
         qword_189EC = 0xA00000000000880;
@@ -53,43 +54,39 @@ uint64_t l2tp_outgoing_call(int a1, const sockaddr *a2, uint64_t a3, uint64_t a4
         dword_189FC = 2688;
         word_18A00 = 3840;
         *&word_18A02 = bswap32(v19);
-        *&v25[4] = 38;
-        result = sub_B1C(a1, 38, 0, 0, "ICRQ");
+        *&v26[4] = 38;
+        result = sub_B1C(v9, 0x26u, 0, 0, "ICRQ");
         if (!result)
         {
-          v25[8] = 0x80;
-          result = l2tp_recv(a1, &control_buf, 1500, &v25[4], &v25[8], a5);
+          v26[8] = 0x80;
+          result = l2tp_recv(v9, &control_buf, 1500, &v26[4], &v26[8], a5, "ICRP");
           if (!result)
           {
-            if (sub_E20(*&v25[4], &v25[2], a4, 0xBu))
+            if (sub_E20(*&v26[4], &v26[2], a4, 11))
             {
               return 5;
             }
 
-            if (bswap32(*(&dword_4 + control_hdr + 2)) >> 16 == *(a3 + 8))
+            if (bswap32(*(&dword_4 + control_hdr + 2)) >> 16 != *(a3 + 8))
             {
-              if (*(a4 + 8))
-              {
-                qword_189EC = 0xC00000000000880;
-                v20 = *(a3 + 16);
-                dword_189F4 = 2688;
-                word_189F8 = 6144;
-                *&word_189FA = bswap32(v20);
-                v21 = *(a3 + 12);
-                *(&dword_189FC + 2) = 2688;
-                word_18A02 = 4864;
-                dword_18A04 = bswap32(v21);
-                return sub_B1C(a1, 40, *(a4 + 8), 0, "ICCN");
-              }
+              error("L2TP message from peer addressed to invalid session ID (our ID : %d, target ID : %d)\n");
             }
 
-            else
+            if (!*(a4 + 4))
             {
-              v23 = *(a3 + 8);
+              error("L2TP received invalid Session ID from peer\n", v23, v25);
             }
 
-LABEL_19:
-            error();
+            qword_189EC = 0xC00000000000880;
+            v20 = *(a3 + 16);
+            dword_189F4 = 2688;
+            word_189F8 = 6144;
+            *&word_189FA = bswap32(v20);
+            v21 = *(a3 + 12);
+            *(&dword_189FC + 2) = 2688;
+            word_18A02 = 4864;
+            dword_18A04 = bswap32(v21);
+            return sub_B1C(v9, 0x28u, *(a4 + 4), 0, "ICCN");
           }
         }
       }
@@ -99,11 +96,11 @@ LABEL_19:
   return result;
 }
 
-uint64_t sub_B1C(int a1, int a2, unsigned int a3, const sockaddr *a4, const char *a5)
+uint64_t sub_B1C(int a1, unsigned int a2, unsigned int a3, const sockaddr *a4, const char *a5)
 {
   if (a2 <= 0)
   {
-    error();
+    error("L2TP incorrect size when trying to send %s\n", a5);
   }
 
   word_189E6 = __rev16(a3);
@@ -129,52 +126,52 @@ uint64_t sub_B1C(int a1, int a2, unsigned int a3, const sockaddr *a4, const char
 
     if (*__error() != 4)
     {
-      error();
+      error("L2TP error sending %s (%m)", a5);
     }
   }
 
   result = strcmp(a5, "Hello");
   if (result)
   {
-    dbglog();
+    dbglog("L2TP sent %s\n", a5);
   }
 
   return result;
 }
 
-uint64_t l2tp_recv(int a1, void *a2, int a3, _DWORD *a4, sockaddr *a5, int a6)
+uint64_t l2tp_recv(int a1, void *a2, int a3, _DWORD *a4, sockaddr *a5, int a6, const char *a7)
 {
-  v22[0] = a5->sa_len;
-  v20 = 0;
-  v21 = 0;
-  memset(&v19, 0, sizeof(v19));
+  v24[0] = a5->sa_len;
+  v22 = 0;
+  v23 = 0;
+  memset(&v21, 0, sizeof(v21));
   if (a6)
   {
-    v10 = 1 << a1;
-    v11 = a1 >> 5;
-    v12 = a6;
+    v11 = 1 << a1;
+    v12 = a1 >> 5;
+    v13 = a6;
     if (a6 == -1)
     {
-      v13 = 0;
+      v14 = 0;
     }
 
     else
     {
-      v13 = &v20;
+      v14 = &v22;
     }
 
     while (1)
     {
-      memset(&v19, 0, sizeof(v19));
-      if (__darwin_check_fd_set_overflow(a1, &v19, 0))
+      memset(&v21, 0, sizeof(v21));
+      if (__darwin_check_fd_set_overflow(a1, &v21, 0))
       {
-        v19.fds_bits[v11] |= v10;
+        v21.fds_bits[v12] |= v11;
       }
 
-      v20 = v12;
-      LODWORD(v21) = 0;
-      v14 = select(a1 + 1, &v19, 0, 0, v13);
-      if (!v14)
+      v22 = v13;
+      LODWORD(v23) = 0;
+      v15 = select(a1 + 1, &v21, 0, 0, v14);
+      if (!v15)
       {
         break;
       }
@@ -184,7 +181,7 @@ uint64_t l2tp_recv(int a1, void *a2, int a3, _DWORD *a4, sockaddr *a5, int a6)
         return 4294967294;
       }
 
-      if (v14 > 0)
+      if (v15 > 0)
       {
         goto LABEL_12;
       }
@@ -197,7 +194,7 @@ uint64_t l2tp_recv(int a1, void *a2, int a3, _DWORD *a4, sockaddr *a5, int a6)
 
     if (&debug_ptr >= 2)
     {
-      dbglog();
+      dbglog("L2TP timeout receiving %s\n", a7);
     }
 
     return 0xFFFFFFFFLL;
@@ -208,8 +205,8 @@ uint64_t l2tp_recv(int a1, void *a2, int a3, _DWORD *a4, sockaddr *a5, int a6)
 LABEL_12:
     while (1)
     {
-      v15 = recvfrom(a1, a2, a3, 128, a5, v22);
-      if ((v15 & 0x8000000000000000) == 0)
+      v16 = recvfrom(a1, a2, a3, 128, a5, v24);
+      if ((v16 & 0x8000000000000000) == 0)
       {
         break;
       }
@@ -222,38 +219,39 @@ LABEL_12:
       if (*__error() != 4)
       {
 LABEL_15:
-        error();
+        error("L2TP receive error trying to read %s (%m)\n", a7);
       }
     }
 
-    v17 = v15;
+    v18 = v16;
     result = 0;
-    *a4 = v17;
+    *a4 = v18;
   }
 
   return result;
 }
 
-uint64_t sub_E20(uint64_t a1, _WORD *a2, uint64_t a3, unsigned int a4)
+uint64_t sub_E20(uint64_t a1, _WORD *a2, uint64_t a3, uint64_t a4)
 {
   v4 = a1 - 12;
   if (a1 == 12)
   {
-LABEL_109:
+LABEL_111:
     v34 = 0;
-    goto LABEL_110;
+    goto LABEL_112;
   }
 
-  v44 = 0;
+  v43 = a4;
   v45 = 0;
+  v46 = 0;
   v5 = 0;
   v6 = 0;
-  v37 = a3 + 1092;
-  v38 = (a3 + 827);
+  v38 = a3 + 1092;
+  v39 = (a3 + 827);
   __dst = (a3 + 568);
-  v40 = (a3 + 116);
-  v41 = a2;
-  v39 = (a3 + 52);
+  v41 = (a3 + 116);
+  v42 = a2;
+  v40 = (a3 + 52);
   v7 = &qword_189EC;
   v8 = 1;
   do
@@ -265,7 +263,7 @@ LABEL_109:
     v13 = v11 - 6;
     if (v11 < 6 || v4 < v11)
     {
-      goto LABEL_114;
+      error("L2TP received AVP with bad length... AVP type = %d\n");
     }
 
     v14 = v7[1];
@@ -284,7 +282,7 @@ LABEL_109:
         v6 = __src;
         if ((v15 & 0x4000) != 0)
         {
-          goto LABEL_114;
+          error("L2TP error while unhiding a hidden AVP... AVP type = %d\n");
         }
 
         if (v12 <= 0x27)
@@ -293,10 +291,10 @@ LABEL_109:
           v18 = *v17;
           if (v18 != 255 && v18 != v13)
           {
-            goto LABEL_114;
+            error("L2TP AVP with invalid len... AVP type = %d\n");
           }
 
-          HIDWORD(v45) |= *(v17 + 1);
+          HIDWORD(v46) |= *(v17 + 1);
         }
 
         switch(v12)
@@ -304,7 +302,7 @@ LABEL_109:
           case 1u:
             if (v13 <= 1)
             {
-              goto LABEL_114;
+              error("L2TP received Result Code AVP with invalid length\n");
             }
 
             *(a3 + 564) = bswap32(*__src) >> 16;
@@ -319,7 +317,7 @@ LABEL_109:
             {
               v20 = 0;
               v22 = __dst;
-              goto LABEL_73;
+              goto LABEL_74;
             }
 
             if (v19 >= 0xFF)
@@ -340,7 +338,7 @@ LABEL_109:
             *(a3 + 2) = __rev16(v28);
             if (v28 != 1)
             {
-              goto LABEL_114;
+              error("L2TP received message for invalid or unknown Protocol Version\n");
             }
 
             break;
@@ -380,8 +378,8 @@ LABEL_109:
               v26 = v13;
             }
 
-            v27 = v39;
-            goto LABEL_55;
+            v27 = v40;
+            goto LABEL_56;
           case 8u:
             if (v13 >= 0x3F)
             {
@@ -393,8 +391,8 @@ LABEL_109:
               v26 = v13;
             }
 
-            v27 = v40;
-LABEL_55:
+            v27 = v41;
+LABEL_56:
             memmove(v27, __src, v26);
             v6 = __src;
             *(v27 + v26) = 0;
@@ -404,7 +402,7 @@ LABEL_55:
             *a3 = __rev16(v31);
             if (!v31)
             {
-              goto LABEL_114;
+              error("L2TP received invalid Assigned Tunnel ID\n");
             }
 
             break;
@@ -423,12 +421,11 @@ LABEL_55:
             *(a3 + 6) = v30;
             break;
           case 0xBu:
-          case 0xDu:
-            error();
+            error("L2TP received Auth Challenge AVP - not supported\n");
           case 0xCu:
             if (v13 <= 2)
             {
-              goto LABEL_114;
+              error("L2TP received Cause Code AVP with invalid length\n");
             }
 
             *(a3 + 824) = bswap32(*__src) >> 16;
@@ -437,7 +434,7 @@ LABEL_55:
             if (v11 == 9)
             {
               v20 = 0;
-              v22 = v38;
+              v22 = v39;
             }
 
             else
@@ -453,21 +450,23 @@ LABEL_55:
               }
 
               v21 = __src + 3;
-              v22 = v38;
+              v22 = v39;
 LABEL_43:
               memmove(v22, v21, v20);
               v6 = __src;
             }
 
-LABEL_73:
+LABEL_74:
             *(v22 + v20) = 0;
             break;
+          case 0xDu:
+            error("L2TP received Auth Challenge Response AVP - not supported\n");
           case 0xEu:
             v33 = *__src;
             *(a3 + 8) = __rev16(v33);
             if (!v33)
             {
-              goto LABEL_114;
+              error("L2TP received invalid Assigned Session ID\n");
             }
 
             break;
@@ -477,17 +476,17 @@ LABEL_73:
           case 0x22u:
             if (v11 != 32)
             {
-              goto LABEL_114;
+              error("L2TP received Call Errors AVP with invalid length\n");
             }
 
             v32 = *(__src + 9);
-            *v37 = vrev32q_s8(*(__src + 1));
-            *(v37 + 16) = vrev32_s8(v32);
+            *v38 = vrev32q_s8(*(__src + 1));
+            *(v38 + 16) = vrev32_s8(v32);
             break;
           case 0x24u:
             if (v13 > 0x80)
             {
-              goto LABEL_114;
+              error("L2TP received larger than supported Random Vector\n");
             }
 
             __memmove_chk();
@@ -499,7 +498,7 @@ LABEL_73:
           default:
             if ((v15 & 0x8000) != 0)
             {
-              goto LABEL_114;
+              error("L2TP received unknown mandatory AVP... AVP type = %d\n");
             }
 
             break;
@@ -511,19 +510,19 @@ LABEL_73:
         v6 = __src;
         if (v9 || (v15 & 0x4000) != 0 || v11 != 8)
         {
-          goto LABEL_114;
+          error("L2TP invalid Message Type AVP... AVP type = %d\n");
         }
 
         v23 = bswap32(*__src) >> 16;
-        v24 = v45;
+        v24 = v46;
         if ((v15 & 0x8000u) != 0)
         {
           v24 = 1;
         }
 
-        v44 = v23;
-        LODWORD(v45) = v24;
-        HIDWORD(v45) |= dword_18004;
+        v45 = v23;
+        LODWORD(v46) = v24;
+        HIDWORD(v46) |= dword_18004;
       }
     }
 
@@ -532,7 +531,7 @@ LABEL_73:
       v6 = __src;
       if ((((v15 & 0x8000u) == 0) & ~v8) == 0)
       {
-        goto LABEL_114;
+        error("L2TP received invalid madatory AVP... AVP type = %d\n");
       }
     }
 
@@ -548,252 +547,240 @@ LABEL_73:
     free(v6);
   }
 
-  if (v44 > 9u)
+  if (v45 > 9u)
   {
-    if (v44 > 0xDu)
+    if (v45 > 0xDu)
     {
-      a2 = v41;
-      switch(v44)
+      a2 = v42;
+      switch(v45)
       {
         case 0xEu:
-          if ((~HIDWORD(v45) & 0x83) == 0)
+          if ((~HIDWORD(v46) & 0x83) != 0)
           {
-            v34 = 14;
-            goto LABEL_110;
+            error("L2TP received CDN control message with missing mandatory parameters\n");
           }
 
-          goto LABEL_114;
+          v34 = 14;
+          goto LABEL_112;
         case 0xFu:
-          if ((~HIDWORD(v45) & 0x8001) == 0)
+          if ((~HIDWORD(v46) & 0x8001) != 0)
           {
-            v34 = 15;
-            goto LABEL_110;
+            error("L2TP received WEN control message with missing mandatory parameters\n");
           }
 
-          goto LABEL_114;
+          v34 = 15;
+          goto LABEL_112;
         case 0x10u:
-          if ((~HIDWORD(v45) & 0x10001) == 0)
+          if ((~HIDWORD(v46) & 0x10001) != 0)
           {
-            v34 = 16;
-            goto LABEL_110;
+            error("L2TP received SLI control message with missing mandatory parameters\n");
           }
 
-          goto LABEL_114;
+          v34 = 16;
+          goto LABEL_112;
       }
     }
 
     else
     {
-      a2 = v41;
-      switch(v44)
+      a2 = v42;
+      switch(v45)
       {
         case 0xAu:
-          if ((~HIDWORD(v45) & 0x181) == 0)
+          if ((~HIDWORD(v46) & 0x181) != 0)
           {
-            v34 = 10;
-            goto LABEL_110;
+            error("L2TP received ICRQ control message with missing mandatory parameters\n");
           }
 
-          goto LABEL_114;
+          v34 = 10;
+          goto LABEL_112;
         case 0xBu:
-          if ((~HIDWORD(v45) & 0x81) == 0)
+          if ((~HIDWORD(v46) & 0x81) != 0)
           {
-            v34 = 11;
-            goto LABEL_110;
+            error("L2TP received ICRP control message with missing mandatory parameters\n");
           }
 
-          goto LABEL_114;
+          v34 = 11;
+          goto LABEL_112;
         case 0xCu:
-          if ((~HIDWORD(v45) & 0x5001) == 0)
+          if ((~HIDWORD(v46) & 0x5001) != 0)
           {
-            v34 = 12;
-            goto LABEL_110;
+            error("L2TP received ICCN control message with missing mandatory parameters\n");
           }
 
-          goto LABEL_114;
+          v34 = 12;
+          goto LABEL_112;
       }
     }
 
-    goto LABEL_108;
+LABEL_109:
+    if (v46)
+    {
+      error("L2TP received unknown mandatory message type\n");
+    }
+
+    goto LABEL_111;
   }
 
-  if (v44 <= 3u)
+  if (v45 <= 3u)
   {
-    a2 = v41;
-    switch(v44)
+    a2 = v42;
+    switch(v45)
     {
       case 1u:
-        if ((~HIDWORD(v45) & 0x3D) == 0)
+        if ((~HIDWORD(v46) & 0x3D) != 0)
         {
-          v34 = 1;
-          goto LABEL_110;
+          error("L2TP received SCCRQ control message with missing mandatory parameters\n");
         }
 
+        v34 = 1;
         break;
       case 2u:
-        if ((~HIDWORD(v45) & 0x3D) == 0)
+        if ((~HIDWORD(v46) & 0x3D) != 0)
         {
-          v34 = 2;
-          goto LABEL_110;
+          error("L2TP received SCCRP control message with missing mandatory parameters\n");
         }
 
+        v34 = 2;
         break;
       case 3u:
-        if ((v45 & 0x100000000) == 0)
+        if ((v46 & 0x100000000) == 0)
         {
-          break;
+          error("L2TP received SCCN control message with missing mandatory parameters\n");
         }
 
         v34 = 3;
-LABEL_110:
-        *a2 = v34;
-        sub_1DAC(v34);
-        dbglog();
+        break;
       default:
-        goto LABEL_108;
+        goto LABEL_109;
     }
 
-LABEL_114:
-    error();
+LABEL_112:
+    *a2 = v34;
+    v35 = sub_1DAC(v34);
+    dbglog("L2TP received %s\n", v35);
   }
 
-  a2 = v41;
-  if (v44 - 7 < 3)
+  a2 = v42;
+  if (v45 - 7 < 3)
   {
-    goto LABEL_114;
+    error("L2TP reveived unsupported message type\n");
   }
 
-  if (v44 == 4)
+  if (v45 == 4)
   {
-    if ((~HIDWORD(v45) & 0x23) == 0)
+    if ((~HIDWORD(v46) & 0x23) != 0)
     {
-      v34 = 4;
-      goto LABEL_110;
+      error("L2TP received StopCCN control message with missing mandatory parameters\n");
     }
 
-    goto LABEL_114;
+    v34 = 4;
+    goto LABEL_112;
   }
 
-  if (v44 != 6)
+  if (v45 != 6)
   {
-LABEL_108:
-    if (v45)
-    {
-      goto LABEL_114;
-    }
-
     goto LABEL_109;
   }
 
-  if ((v45 & 0x100000000) == 0)
+  if ((v46 & 0x100000000) == 0)
   {
-    goto LABEL_114;
+    error("L2TP received Hello control message with missing mandatory parameters\n");
   }
 
-  *v41 = 6;
+  *v42 = 6;
   result = 0;
-  if (a4 && a4 != 6)
+  if (v43 && v43 != 6)
   {
-    sub_1DAC(a4);
+    sub_1DAC(v43);
     sub_1DAC(6u);
-    goto LABEL_114;
+    error("L2TP received invalid message (expected %s, received %s)");
   }
 
   return result;
 }
 
-uint64_t l2tp_incoming_call(int a1, unsigned __int16 *a2, uint64_t a3, int a4)
+uint64_t l2tp_incoming_call(uint64_t a1, unsigned __int16 *a2, char *a3, int a4)
 {
-  HIDWORD(v19) = 0;
-  *&v20.sa_data[6] = 0;
-  *&v20.sa_family = 0;
-  v20.sa_len = 16;
-  result = l2tp_recv(a1, &control_buf, 1500, &v19 + 3, &v20, 0);
-  if (result)
-  {
-    return result;
-  }
-
-  l2tp_change_peeraddress(a1, &v20, v9, v10, v11, v12, v13, v14, v17, v19, *&v20);
-  if (sub_E20(SHIDWORD(v19), &v19 + 5, a3, 1u))
-  {
-    return 5;
-  }
-
-  if (!*a3)
-  {
-    goto LABEL_19;
-  }
-
-  if (!*(a3 + 6))
-  {
-    *(a3 + 6) = 4;
-  }
-
-  l2tp_set_peerparams(a1, a3);
-  HIDWORD(v19) = sub_1E1C(2u, a2);
-  result = sub_B1C(a1, SHIDWORD(v19), 0, 0, "SCCRP");
-  if (result)
-  {
-    return result;
-  }
-
-  v20.sa_len = 16;
-  result = l2tp_recv(a1, &control_buf, 1500, &v19 + 3, &v20, a4);
-  if (result)
-  {
-    return result;
-  }
-
-  if (sub_E20(SHIDWORD(v19), &v19 + 5, a3, 3u))
-  {
-    return 5;
-  }
-
-  v20.sa_len = 16;
-  result = l2tp_recv(a1, &control_buf, 1500, &v19 + 3, &v20, a4);
-  if (result)
-  {
-    return result;
-  }
-
-  if (sub_E20(SHIDWORD(v19), &v19 + 5, a3, 0xAu))
-  {
-    return 5;
-  }
-
-  if (!*(a3 + 8))
-  {
-LABEL_19:
-    error();
-  }
-
-  qword_189EC = 0xB00000000000880;
-  v15 = a2[4];
-  dword_189F4 = 2176;
-  word_189F8 = 3584;
-  word_189FA = bswap32(v15) >> 16;
-  HIDWORD(v19) = 28;
-  result = sub_B1C(a1, 28, *(a3 + 8), 0, "ICRP");
+  v7 = a1;
+  HIDWORD(v18) = 0;
+  *&v19.sa_data[6] = 0;
+  *&v19.sa_family = 0;
+  v19.sa_len = 16;
+  result = l2tp_recv(a1, &control_buf, 1500, &v18 + 3, &v19, 0, "SCCRQ");
   if (!result)
   {
-    result = l2tp_recv(a1, &control_buf, 1500, &v19 + 3, &v20, a4);
+    l2tp_change_peeraddress(v7, &v19, v9, v10, v11, v12, v13, v14, v16, v18, *&v19);
+    if (sub_E20(SHIDWORD(v18), &v18 + 5, a3, 1))
+    {
+      return 5;
+    }
+
+    if (!*a3)
+    {
+      error("L2TP received invalid Tunnel ID from peer\n");
+    }
+
+    if (!*(a3 + 3))
+    {
+      *(a3 + 3) = 4;
+    }
+
+    l2tp_set_peerparams(v7, a3);
+    HIDWORD(v18) = sub_1E1C(2u, a2);
+    result = sub_B1C(v7, HIDWORD(v18), 0, 0, "SCCRP");
     if (!result)
     {
-      if (sub_E20(SHIDWORD(v19), &v19 + 5, a3, 0xCu))
+      v19.sa_len = 16;
+      result = l2tp_recv(v7, &control_buf, 1500, &v18 + 3, &v19, a4, "SCCCN");
+      if (!result)
       {
-        return 5;
-      }
+        if (sub_E20(SHIDWORD(v18), &v18 + 5, a3, 3))
+        {
+          return 5;
+        }
 
-      v16 = bswap32(*(&dword_4 + control_hdr + 2)) >> 16;
-      if (v16 == a2[4])
-      {
-        return 0;
-      }
+        v19.sa_len = 16;
+        result = l2tp_recv(v7, &control_buf, 1500, &v18 + 3, &v19, a4, "ICRQ");
+        if (!result)
+        {
+          if (sub_E20(SHIDWORD(v18), &v18 + 5, a3, 10))
+          {
+            return 5;
+          }
 
-      v18 = a2[4];
-      *&v19 = v16;
-      goto LABEL_19;
+          if (!*(a3 + 4))
+          {
+            error("L2TP received invalid Session ID from peer\n", v17, v18);
+          }
+
+          qword_189EC = 0xB00000000000880;
+          v15 = a2[4];
+          dword_189F4 = 2176;
+          word_189F8 = 3584;
+          word_189FA = bswap32(v15) >> 16;
+          HIDWORD(v18) = 28;
+          result = sub_B1C(v7, 0x1Cu, *(a3 + 4), 0, "ICRP");
+          if (!result)
+          {
+            result = l2tp_recv(v7, &control_buf, 1500, &v18 + 3, &v19, a4, "ICCN");
+            if (!result)
+            {
+              if (sub_E20(SHIDWORD(v18), &v18 + 5, a3, 12))
+              {
+                return 5;
+              }
+
+              if (bswap32(*(&dword_4 + control_hdr + 2)) >> 16 != a2[4])
+              {
+                error("L2TP message from peer addressed to invalid session ID (our ID : %d, target ID : %d)\n");
+              }
+
+              return 0;
+            }
+          }
+        }
+      }
     }
   }
 
@@ -807,7 +794,7 @@ uint64_t l2tp_send_hello_trigger(int a1, const sockaddr *a2)
   if (sysctlbyname("net.key.blockacq_count", &v8, &v7, 0, 0))
   {
     v8 = 10;
-    error();
+    error("Failed to probe blockacq count: using %d", 10);
   }
 
   qword_189EC = 0x600000000000880;
@@ -816,9 +803,9 @@ uint64_t l2tp_send_hello_trigger(int a1, const sockaddr *a2)
     v4 = 0;
     do
     {
-      if (sub_B1C(a1, 20, 0, a2, "Hello"))
+      if (sub_B1C(a1, 0x14u, 0, a2, "Hello"))
       {
-        error();
+        error("Failed to send L2TP hello trigger. tried %d, max %d", v4, v8);
       }
     }
 
@@ -923,7 +910,7 @@ uint64_t l2tp_data_in(int a1)
   *&v6.sa_family = 0;
   bzero(v5, 0x45CuLL);
   v6.sa_len = 16;
-  result = l2tp_recv(a1, &control_buf, 1500, &v4, &v6, 0);
+  result = l2tp_recv(a1, &control_buf, 1500, &v4, &v6, 0, "data");
   if (!result)
   {
     if (!v4)
@@ -944,7 +931,7 @@ uint64_t l2tp_data_in(int a1)
 
     if (((1 << v3) & 0x1F8E) != 0)
     {
-      error();
+      error("L2TP received unexpected control message\n");
     }
 
     if (((1 << v3) & 0x4010) == 0)
@@ -1079,19 +1066,25 @@ uint64_t l2tp_check_options()
       result = strcmp(v0, "answer");
       if (result)
       {
-        error();
+        v2 = &unk_10CE9;
+        if (v0)
+        {
+          v2 = v0;
+        }
+
+        error("L2TP incorrect mode : '%s'", v2);
       }
     }
   }
 
   if ((dword_18168 - 9) <= 0xFFFFFFF7)
   {
-    error();
+    error("L2TP incorrect timeout - must be between 1 and 8");
   }
 
   if (dword_1816C <= 3)
   {
-    error();
+    error("L2TP incorrect timeout cap - cannot be less than 4");
   }
 
   if (&extraconnecttime_ptr)
@@ -1112,7 +1105,7 @@ uint64_t l2tp_pre_start_link_check()
   xmmword_19CE0 = 0uLL;
   if (v0 < 0)
   {
-    error();
+    error("L2TP: NAT64 translation error %d", v0);
   }
 
   *&stru_19CF8.sa_len = 0;
@@ -1142,7 +1135,7 @@ uint64_t l2tp_pre_start_link_check()
       *&stru_19CF8.sa_len = -1526325732;
       if ((nw_nat64_synthesize_v6() & 1) == 0)
       {
-        error();
+        error("L2TP: NAT64 synthesis error");
       }
 
       v4 = SCNetworkReachabilityCreateWithAddress(0, &stru_19CF8);
@@ -1151,7 +1144,7 @@ uint64_t l2tp_pre_start_link_check()
         v5 = v4;
         if (SCNetworkReachabilityGetFlags(v4, flags) && ((flags[0] & 2) != 0 && (flags[0] & 5) != 5 || (flags[0] & 0x10) == 0 && ((~flags[0] & 0xF) == 0 || (flags[0] & 0x40007) == 0x40007)))
         {
-          notice();
+          notice("L2TP: NAT64 synthesized address is reachable");
         }
 
         CFRelease(v5);
@@ -1168,6 +1161,23 @@ uint64_t l2tp_pre_start_link_check()
   {
     return 0xFFFFFFFFLL;
   }
+}
+
+uint64_t l2tp_connect(_DWORD *a1)
+{
+  v3 = 0;
+  result = sub_3DC0(a1, &v3, 0);
+  if (result == -1 && v3 != 0)
+  {
+    if (strcmp(off_18160, "answer"))
+    {
+      dbglog("L2TP IPSec aggressive mode retry with DH group 2");
+    }
+
+    return 0xFFFFFFFFLL;
+  }
+
+  return result;
 }
 
 void l2tp_cleanup()
@@ -1235,7 +1245,7 @@ uint64_t l2tp_close_fds()
   return result;
 }
 
-void l2tp_establish_ppp(int a1)
+void l2tp_establish_ppp(uint64_t a1)
 {
   v1 = 0;
   if ((ioctl(a1, 0x8004743DuLL, &v1) & 0x80000000) == 0)
@@ -1243,7 +1253,7 @@ void l2tp_establish_ppp(int a1)
     generic_establish_ppp();
   }
 
-  error();
+  error("Couldn't attach socket to the link layer: %m");
 }
 
 void sub_2C2C()
@@ -1265,7 +1275,7 @@ uint64_t sub_2D50()
       racoon_ctrlsockfd = v1;
       if (v1 < 0)
       {
-        error();
+        error("L2TP: cannot create racoon control socket: %m\n");
       }
 
       strcpy(v6[0].sa_data, "/var/run/vpncontrol.sock");
@@ -1273,7 +1283,7 @@ uint64_t sub_2D50()
       memset(&v6[1].sa_data[9], 0, 79);
       if (connect(v1, v6, 0x6Au) < 0)
       {
-        error();
+        error("L2TP: cannot connect racoon control socket: %m\n");
       }
     }
 
@@ -1352,7 +1362,7 @@ uint64_t l2tp_resolver_thread()
       {
         v8 = -v4;
         DWORD1(xmmword_19C2C) = *v2->h_addr_list[v16 % -v4];
-        xmmword_19C3C = 0u;
+        xmmword_19C3C[0] = 0u;
         unk_19C4C = 0u;
         xmmword_19C5C = 0u;
         unk_19C6C = 0u;
@@ -1383,7 +1393,7 @@ LABEL_17:
 
         v11 = v10 - 1;
         v12 = v16 + 1;
-        v13 = &xmmword_19C3C + 2;
+        v13 = xmmword_19C3C + 2;
         do
         {
           *(v13 - 2) = -1526332912;
@@ -1406,7 +1416,7 @@ LABEL_17:
         unk_19C8C = 0u;
         xmmword_19C5C = 0u;
         unk_19C6C = 0u;
-        xmmword_19C3C = 0u;
+        xmmword_19C3C[0] = 0u;
         unk_19C4C = 0u;
       }
 
@@ -1579,7 +1589,7 @@ LABEL_5:
   return result;
 }
 
-uint64_t l2tp_trigger_ipsec(int a1)
+uint64_t l2tp_trigger_ipsec(int a1, int *a2)
 {
   memset(v17, 0, 106);
   v15 = 0u;
@@ -1590,33 +1600,40 @@ uint64_t l2tp_trigger_ipsec(int a1)
   v12 = 0u;
   v9 = 0;
   v10 = 0u;
-  v7 = 0;
-  v8 = 0;
+  v8 = 0uLL;
   if (racoon_ctrlsockfd < 0)
   {
-    v2 = socket(1, 1, 0);
-    racoon_ctrlsockfd = v2;
-    if (v2 < 0 || (strcpy(v17[0].sa_data, "/var/run/vpncontrol.sock"), *&v17[0].sa_len = 256, memset(&v17[1].sa_data[9], 0, 79), connect(v2, v17, 0x6Au) < 0))
+    v3 = socket(1, 1, 0);
+    racoon_ctrlsockfd = v3;
+    if (v3 < 0)
     {
-      error();
+      error("L2TP: cannot create racoon control socket: %m\n");
+    }
+
+    strcpy(v17[0].sa_data, "/var/run/vpncontrol.sock");
+    *&v17[0].sa_len = 256;
+    memset(&v17[1].sa_data[9], 0, 79);
+    if (connect(v3, v17, 0x6Au) < 0)
+    {
+      error("L2TP: cannot connect racoon control socket: %m\n");
     }
   }
 
   if (!a1)
   {
-    v5 = 0x800000000000000;
+    v6 = 0x800000000000000;
     __buf = 256;
-    *&v6 = DWORD1(xmmword_19C2C);
+    *&v7 = DWORD1(xmmword_19C2C);
     write(racoon_ctrlsockfd, &__buf, 0x18uLL);
     if (xmmword_19CE0)
     {
-      v5 = 0x1000000000000000;
+      v6 = 0x1000000000000000;
       __buf = 6144;
-      v6 = xmmword_19CE0;
-      notice();
+      v7 = xmmword_19CE0;
+      notice("L2TP: sending SET_NAT64_PREFIX to racoon control socket");
     }
 
-    notice();
+    notice("IPSec connection started\n");
   }
 
   close(racoon_ctrlsockfd);
@@ -1629,7 +1646,7 @@ uint64_t l2tp_change_peeraddress(int a1, _DWORD *a2, uint64_t a3, uint64_t a4, u
   v11 = *a2;
   if (v11 != xmmword_19C2C)
   {
-    goto LABEL_9;
+    error("L2TP received an invalid server address...\n");
   }
 
   if (!bcmp(&xmmword_19C2C, a2, v11))
@@ -1638,27 +1655,27 @@ uint64_t l2tp_change_peeraddress(int a1, _DWORD *a2, uint64_t a3, uint64_t a4, u
   }
 
   var48[0] = 0uLL;
-  v27 = 0;
+  v28 = 0;
   if (!byte_19979 && !strcmp(off_18160, "connect"))
   {
-    IPSecRemoveConfiguration(qword_19D18, &v27);
+    IPSecRemoveConfiguration(qword_19D18, &v28);
     if (a2[1] != DWORD1(xmmword_19C2C))
     {
       IPSecRemoveSecurityAssociations(&unk_19B90, &xmmword_19C2C);
     }
 
-    IPSecRemovePolicies(qword_19D18, -1, &v27);
+    IPSecRemovePolicies(qword_19D18, -1, &v28);
   }
 
   if (get_src_address(var48, a2, &ifscope_ptr, 0))
   {
-    goto LABEL_9;
+    error("L2TP: cannot get our local address...\n");
   }
 
   if (byte_19B91 == 2 && DWORD1(var48[0]) != dword_19B94)
   {
     xmmword_19BD0 = var48[4];
-    unk_19BE0 = var48[5];
+    unk_19BE0 = _68;
     xmmword_19BF0 = a10;
     unk_19C00 = a11;
     unk_19B90 = var48[0];
@@ -1679,25 +1696,31 @@ uint64_t l2tp_change_peeraddress(int a1, _DWORD *a2, uint64_t a3, uint64_t a4, u
     l2tp_set_ouraddress(a1, &unk_19B90);
   }
 
-  v16 = *a2;
   __memmove_chk();
   v14 = l2tp_set_peeraddress(a1, a2);
-  v17 = off_18160;
-  v18 = strlen(off_18160);
-  if (!strncmp(off_18160, "answer", v18) || !strncmp(v17, "listen", v18))
+  v16 = off_18160;
+  v17 = strlen(off_18160);
+  if (!strncmp(off_18160, "answer", v17) || !strncmp(v16, "listen", v17))
   {
-    v19.s_addr = DWORD1(xmmword_19C2C);
-    remoteaddress_ptr = inet_ntoa(v19);
-    notice();
+    v18.s_addr = DWORD1(xmmword_19C2C);
+    v19 = inet_ntoa(v18);
+    remoteaddress_ptr = v19;
+    v20 = &unk_10CE9;
+    if (v19)
+    {
+      v20 = v19;
+    }
+
+    notice("L2TP incoming call in progress from '%s'...", v20);
   }
 
   if (!byte_19979 && !strcmp(off_18160, "connect"))
   {
-    v21 = addr2ascii(2, &xmmword_19C2C + 4, 4, 0);
-    v22 = CFStringCreateWithCString(0, v21, 0x600u);
+    v22 = addr2ascii(2, &xmmword_19C2C + 4, 4, 0);
+    v23 = CFStringCreateWithCString(0, v22, 0x600u);
     valuePtr = bswap32(WORD1(xmmword_19C2C)) >> 16;
-    v23 = CFNumberCreate(0, kCFNumberIntType, &valuePtr);
-    CFDictionarySetValue(qword_19D18, @"RemoteAddress", v22);
+    v24 = CFNumberCreate(0, kCFNumberIntType, &valuePtr);
+    CFDictionarySetValue(qword_19D18, @"RemoteAddress", v23);
     Value = CFDictionaryGetValue(qword_19D18, @"Policies");
     if (CFArrayGetCount(Value) >= 2)
     {
@@ -1705,22 +1728,21 @@ uint64_t l2tp_change_peeraddress(int a1, _DWORD *a2, uint64_t a3, uint64_t a4, u
     }
 
     ValueAtIndex = CFArrayGetValueAtIndex(Value, 0);
-    CFDictionarySetValue(ValueAtIndex, @"RemotePort", v23);
+    CFDictionarySetValue(ValueAtIndex, @"RemotePort", v24);
     CFArraySetValueAtIndex(Value, 0, ValueAtIndex);
     CFDictionarySetValue(qword_19D18, @"Policies", Value);
-    CFRelease(v22);
     CFRelease(v23);
-    if (IPSecApplyConfiguration(qword_19D18, &v27) || IPSecInstallPolicies(qword_19D18, -1, &v27))
+    CFRelease(v24);
+    if (IPSecApplyConfiguration(qword_19D18, &v28) || IPSecInstallPolicies(qword_19D18, -1, &v28))
     {
-LABEL_9:
-      error();
+      error("L2TP: cannot reconfigure secure transport (%s).\n");
     }
   }
 
   return v14;
 }
 
-uint64_t sub_3DC0(_DWORD *a1)
+uint64_t sub_3DC0(_DWORD *a1, _DWORD *a2, int a3)
 {
   *a1 = 0;
   if (&cfgCache_ptr && &serviceidRef_ptr)
@@ -1730,13 +1752,13 @@ uint64_t sub_3DC0(_DWORD *a1)
     LODWORD(hungup_ptr) = 0;
     LODWORD(kill_link_ptr) = 0;
     byte_19D20 = 0;
-    v1 = &unk_19000;
+    v3 = &unk_19000;
     byte_19C10 = 0;
     unk_19B90 = 528;
     unk_19B98 = 0;
     xmmword_19C2C = 0x210uLL;
-    bzero(&our_params, 0x45CuLL);
-    bzero(&peer_params, 0x45CuLL);
+    bzero(our_params, 0x45CuLL);
+    bzero(peer_params, 0x45CuLL);
     word_18FC8 = getpid();
     word_18FC6 = dword_1817C;
     word_18FCA = 0;
@@ -1754,24 +1776,24 @@ uint64_t sub_3DC0(_DWORD *a1)
       NetworkGlobalEntity = SCDynamicStoreKeyCreateNetworkGlobalEntity(0, kSCDynamicStoreDomainState, kSCEntNetIPv4);
       if (NetworkGlobalEntity)
       {
-        v17 = NetworkGlobalEntity;
-        v18 = SCDynamicStoreCopyValue(&cfgCache_ptr, NetworkGlobalEntity);
-        CFRelease(v17);
-        if (v18)
+        v19 = NetworkGlobalEntity;
+        v20 = SCDynamicStoreCopyValue(&cfgCache_ptr, NetworkGlobalEntity);
+        CFRelease(v19);
+        if (v20)
         {
-          Value = CFDictionaryGetValue(v18, kSCPropNetIPv4Router);
+          Value = CFDictionaryGetValue(v20, kSCPropNetIPv4Router);
           if (Value)
           {
             CFStringGetCString(Value, &byte_19D20, 16, 0x8000100u);
           }
 
-          v20 = CFDictionaryGetValue(v18, kSCDynamicStorePropNetPrimaryInterface);
-          if (v20)
+          v22 = CFDictionaryGetValue(v20, kSCDynamicStorePropNetPrimaryInterface);
+          if (v22)
           {
-            CFStringGetCString(v20, &byte_19C10, 17, 0x8000100u);
+            CFStringGetCString(v22, &byte_19C10, 17, 0x8000100u);
           }
 
-          CFRelease(v18);
+          CFRelease(v20);
         }
       }
 
@@ -1786,60 +1808,60 @@ uint64_t sub_3DC0(_DWORD *a1)
 
     Mutable = CFArrayCreateMutable(kCFAllocatorDefault, 0, &kCFTypeArrayCallBacks);
     NetworkServiceEntity = SCDynamicStoreKeyCreateNetworkServiceEntity(kCFAllocatorDefault, kSCDynamicStoreDomainState, kSCCompAnyRegex, kSCEntNetIPv4);
-    v4 = NetworkServiceEntity;
-    v5 = 0;
+    v6 = NetworkServiceEntity;
+    v7 = 0;
     if (Mutable)
     {
-      v6 = 0;
-      v7 = 0;
+      v8 = 0;
+      v9 = 0;
       if (!NetworkServiceEntity)
       {
         goto LABEL_32;
       }
 
       CFArrayAppendValue(Mutable, NetworkServiceEntity);
-      v8 = SCDynamicStoreCopyMultiple(0, 0, Mutable);
-      v5 = v8;
-      if (v8)
+      v10 = SCDynamicStoreCopyMultiple(0, 0, Mutable);
+      v7 = v10;
+      if (v10)
       {
-        v26 = v4;
-        Count = CFDictionaryGetCount(v8);
-        v7 = malloc_type_calloc(Count, 8uLL, 0x6004044C4A2DFuLL);
-        v10 = malloc_type_calloc(Count, 8uLL, 0x6004044C4A2DFuLL);
-        v6 = v10;
-        if (v7)
+        v28 = v6;
+        Count = CFDictionaryGetCount(v10);
+        v9 = malloc_type_calloc(Count, 8uLL, 0x6004044C4A2DFuLL);
+        v12 = malloc_type_calloc(Count, 8uLL, 0x6004044C4A2DFuLL);
+        v8 = v12;
+        if (v9)
         {
-          if (v10)
+          if (v12)
           {
-            CFDictionaryGetKeysAndValues(v5, v7, v10);
+            CFDictionaryGetKeysAndValues(v7, v9, v12);
             if (Count >= 1)
             {
-              v25 = Mutable;
+              v27 = Mutable;
               for (i = 0; i != Count; ++i)
               {
-                v12 = v7[i];
-                v13 = v6[i];
-                if (v12)
+                v14 = v9[i];
+                v15 = v8[i];
+                if (v14)
                 {
-                  v14 = v13 == 0;
+                  v16 = v15 == 0;
                 }
 
                 else
                 {
-                  v14 = 1;
+                  v16 = 1;
                 }
 
-                if (!v14)
+                if (!v16)
                 {
-                  v15 = CFDictionaryGetValue(v13, kSCPropInterfaceName);
-                  if (v15)
+                  v17 = CFDictionaryGetValue(v15, kSCPropInterfaceName);
+                  if (v17)
                   {
                     buffer[0] = 0;
                     buffer[1] = 0;
-                    CFStringGetCString(v15, buffer, 16, 0x600u);
-                    if (!strcmp(buffer, &byte_19C10) && CFStringHasPrefix(v12, kSCDynamicStoreDomainState) && CFStringHasSuffix(v12, kSCEntNetIPv4))
+                    CFStringGetCString(v17, buffer, 16, 0x600u);
+                    if (!strcmp(buffer, &byte_19C10) && CFStringHasPrefix(v14, kSCDynamicStoreDomainState) && CFStringHasSuffix(v14, kSCEntNetIPv4))
                     {
-                      ArrayBySeparatingStrings = CFStringCreateArrayBySeparatingStrings(0, v12, @"/");
+                      ArrayBySeparatingStrings = CFStringCreateArrayBySeparatingStrings(0, v14, @"/");
                       if (CFArrayGetCount(ArrayBySeparatingStrings) >= 4)
                       {
                         ValueAtIndex = CFArrayGetValueAtIndex(ArrayBySeparatingStrings, 3);
@@ -1850,17 +1872,17 @@ uint64_t sub_3DC0(_DWORD *a1)
                       }
 
                       CFRelease(ArrayBySeparatingStrings);
-                      warning();
+                      warning("l2tp_get_router_address\n");
                     }
                   }
                 }
               }
 
-              v1 = &unk_19000;
-              Mutable = v25;
-              v4 = v26;
+              v3 = &unk_19000;
+              Mutable = v27;
+              v6 = v28;
 LABEL_32:
-              if (!v4)
+              if (!v6)
               {
                 goto LABEL_37;
               }
@@ -1870,45 +1892,45 @@ LABEL_32:
           }
         }
 
-        v4 = v26;
+        v6 = v28;
       }
 
       else
       {
-        v7 = 0;
-        v6 = 0;
+        v9 = 0;
+        v8 = 0;
       }
 
 LABEL_36:
-      CFRelease(v4);
+      CFRelease(v6);
 LABEL_37:
       if (Mutable)
       {
         CFRelease(Mutable);
       }
 
-      if (v5)
-      {
-        CFRelease(v5);
-      }
-
       if (v7)
       {
-        free(v7);
+        CFRelease(v7);
       }
 
-      if (v6)
+      if (v9)
       {
-        free(v6);
+        free(v9);
+      }
+
+      if (v8)
+      {
+        free(v8);
       }
 
 LABEL_45:
-      if (v1[3088])
+      if (v3[3088])
       {
-        v21 = get_if_mtu() - 220;
-        if (&phase_ptr > v21)
+        v23 = get_if_mtu(&byte_19C10) - 220;
+        if (&phase_ptr > v23)
         {
-          LODWORD(phase_ptr) = v21;
+          LODWORD(phase_ptr) = v23;
         }
       }
 
@@ -1919,8 +1941,8 @@ LABEL_48:
       ppp_session_clear();
     }
 
-    v6 = 0;
-    v7 = 0;
+    v8 = 0;
+    v9 = 0;
     goto LABEL_32;
   }
 
@@ -1933,7 +1955,7 @@ void sub_5658()
 {
   if (l2tp_send_hello(dword_18848))
   {
-    error();
+    error("L2TP error on control channel sending Hello message\n");
   }
 
   timeout(sub_5658);
@@ -1941,13 +1963,13 @@ void sub_5658()
 
 uint64_t l2tp_set_baudrate(int a1, int a2)
 {
-  v4 = a2;
-  result = setsockopt(a1, 18, 15, &v4, 4u);
+  v5 = a2;
+  result = setsockopt(a1, 18, 15, &v5, 4u);
   if (result)
   {
     v3 = __error();
-    strerror(*v3);
-    error();
+    v4 = strerror(*v3);
+    error("L2TP can't set L2TP baudrate: %s\n", v4);
   }
 
   return result;
@@ -1955,13 +1977,13 @@ uint64_t l2tp_set_baudrate(int a1, int a2)
 
 uint64_t l2tp_set_delegated_process(int a1, int a2)
 {
-  v4 = a2;
-  result = setsockopt(a1, 18, 17, &v4, 4u);
+  v5 = a2;
+  result = setsockopt(a1, 18, 17, &v5, 4u);
   if (result)
   {
     v3 = __error();
-    strerror(*v3);
-    error();
+    v4 = strerror(*v3);
+    error("L2TP can't set L2TP delegate process: %s\n", v4);
   }
 
   return result;
@@ -1972,12 +1994,12 @@ uint64_t l2tp_set_ouraddress(int a1, unsigned __int8 *a2)
   if (setsockopt(a1, 18, 14, a2, *a2))
   {
     v4 = __error();
-    strerror(*v4);
-    error();
+    v5 = strerror(*v4);
+    error("L2TP can't set L2TP local address: %s\n", v5);
   }
 
-  v6 = *a2;
-  getsockopt(a1, 18, 14, a2, &v6);
+  v7 = *a2;
+  getsockopt(a1, 18, 14, a2, &v7);
   return 0;
 }
 
@@ -1987,8 +2009,8 @@ uint64_t l2tp_set_peeraddress(int a1, unsigned __int8 *a2)
   if (result)
   {
     v3 = __error();
-    strerror(*v3);
-    error();
+    v4 = strerror(*v3);
+    error("L2TP can't set L2TP server address: %s\n", v4);
   }
 
   return result;
@@ -2106,7 +2128,7 @@ void l2tp_reset_timers(int a1, int a2)
   }
 }
 
-double l2tp_ip_probe_init(_OWORD *a1, uint64_t a2, int a3)
+double l2tp_ip_probe_init(_OWORD *a1, uint64_t a2, unsigned int a3)
 {
   if (a1 && a2 && a3 >= 3)
   {
@@ -2285,7 +2307,7 @@ void sub_5EE4(char a1, int a2, uint64_t a3, const char *a4, int a5)
   }
 }
 
-uint64_t ipsec_check_keylen(int a1, int a2, unsigned int a3)
+uint64_t ipsec_check_keylen(int a1, uint64_t a2, unsigned int a3)
 {
   v5 = 2;
   if (a1 != 14)
@@ -2340,7 +2362,7 @@ LABEL_14:
   return 0xFFFFFFFFLL;
 }
 
-uint64_t ipsec_check_keylen2(int a1, int a2, unsigned int a3)
+uint64_t ipsec_check_keylen2(uint64_t a1, uint64_t a2, unsigned int a3)
 {
   v4 = sub_6184(a1, a2);
   if (!v4)
@@ -2545,7 +2567,7 @@ uint64_t pfkey_get_softrate(int a1)
   return result;
 }
 
-uint64_t pfkey_send_getspi(int a1, char a2, char a3, unsigned __int8 *a4, unsigned __int8 *a5, unsigned int a6, unsigned int a7, int a8, int a9)
+ssize_t pfkey_send_getspi(uint64_t a1, char a2, char a3, unsigned __int8 *a4, unsigned __int8 *a5, unsigned int a6, unsigned int a7, int a8, int a9)
 {
   if (a4 && a5)
   {
@@ -2560,6 +2582,7 @@ uint64_t pfkey_send_getspi(int a1, char a2, char a3, unsigned __int8 *a4, unsign
 
       else
       {
+        v17 = a1;
         if (v11 == 2)
         {
           v18 = 32;
@@ -2632,7 +2655,7 @@ LABEL_41:
 
                   if (v32 == v30)
                   {
-                    v27 = pfkey_send(a1, v25, v23);
+                    v27 = pfkey_send(v17, v25, v23);
                     free(v25);
                     if ((v27 & 0x80000000) == 0)
                     {
@@ -2719,7 +2742,7 @@ ssize_t pfkey_send(int a1, const void *a2, int a3)
   return result;
 }
 
-uint64_t sub_6890(int a1, char a2, int a3, char a4, unsigned __int8 *a5, unsigned __int8 *a6, int a7, int a8, char a9, char *a10, int a11, unsigned int a12, int a13, unsigned int a14, int a15, int a16, unsigned int a17, unsigned int a18, unsigned int a19, int a20)
+ssize_t sub_6890(int a1, char a2, int a3, char a4, unsigned __int8 *a5, unsigned __int8 *a6, int a7, int a8, char a9, char *a10, int a11, unsigned int a12, int a13, unsigned int a14, int a15, int a16, unsigned int a17, unsigned int a18, unsigned int a19, int a20)
 {
   if (!a5 || !a6)
   {
@@ -2924,7 +2947,7 @@ LABEL_36:
   return 0xFFFFFFFFLL;
 }
 
-uint64_t sub_6F38(int a1, char a2, char a3, unsigned __int8 *a4, unsigned __int8 *a5, int a6)
+ssize_t sub_6F38(int a1, char a2, char a3, unsigned __int8 *a4, unsigned __int8 *a5, int a6)
 {
   if (!a4 || !a5)
   {
@@ -2965,38 +2988,7 @@ LABEL_10:
   {
     v18 = v17;
     v19 = getpid();
-    if (v15 <= -35)
-    {
-      goto LABEL_24;
-    }
-
-    *v18 = 0;
-    v18[1] = 0;
-    *v18 = 2;
-    *(v18 + 1) = a2;
-    *(v18 + 2) = 0;
-    *(v18 + 3) = a3;
-    *(v18 + 1) = (v16 >> 3);
-    *(v18 + 2) = 0;
-    *(v18 + 3) = v19;
-    if (v15 <= -19)
-    {
-      goto LABEL_24;
-    }
-
-    v18[2] = 0;
-    v18[3] = 0;
-    *(v18 + 4) = 65538;
-    *(v18 + 5) = a6;
-    v18[3] = 0;
-    v23 = sub_674C(v18 + 16, v18 + v16, 5, a4, v13, 255);
-    if (!v23)
-    {
-      goto LABEL_24;
-    }
-
-    v24 = sub_674C(v23, v18 + v16, 6, a5, v13, 255);
-    if (v24 && v24 == v18 + v16)
+    if (v15 > -35 && (*v18 = 0, v18[1] = 0, *v18 = 2, *(v18 + 1) = a2, *(v18 + 2) = 0, *(v18 + 3) = a3, *(v18 + 1) = (v16 >> 3), *(v18 + 2) = 0, *(v18 + 3) = v19, v15 > -19) && (v18[2] = 0, v18[3] = 0, *(v18 + 4) = 65538, *(v18 + 5) = a6, v18[3] = 0, (v23 = sub_674C(v18 + 16, v18 + v16, 5, a4, v13, 255)) != 0) && ((v24 = sub_674C(v23, v18 + v16, 6, a5, v13, 255)) != 0 ? (v25 = v24 == v18 + v16) : (v25 = 0), v25))
     {
       v20 = pfkey_send(a1, v18, v16);
       free(v18);
@@ -3009,7 +3001,6 @@ LABEL_10:
 
     else
     {
-LABEL_24:
       free(v18);
     }
   }
@@ -3025,7 +3016,7 @@ LABEL_24:
   return 0xFFFFFFFFLL;
 }
 
-uint64_t pfkey_send_delete_all(int a1, char a2, uint64_t a3, unsigned __int8 *a4, unsigned __int8 *a5)
+ssize_t pfkey_send_delete_all(int a1, char a2, uint64_t a3, unsigned __int8 *a4, unsigned __int8 *a5)
 {
   if (!a4 || !a5)
   {
@@ -3066,27 +3057,7 @@ LABEL_10:
   {
     v15 = v14;
     v16 = getpid();
-    if (v12 <= -19)
-    {
-      goto LABEL_12;
-    }
-
-    *v15 = 0;
-    v15[1] = 0;
-    *v15 = 1026;
-    *(v15 + 2) = 0;
-    *(v15 + 3) = a2;
-    *(v15 + 1) = (v13 >> 3);
-    *(v15 + 2) = 0;
-    *(v15 + 3) = v16;
-    v20 = sub_674C(v15 + 8, v15 + v13, 5, a4, v10, 255);
-    if (!v20)
-    {
-      goto LABEL_12;
-    }
-
-    v21 = sub_674C(v20, v15 + v13, 6, a5, v10, 255);
-    if (v21 && v21 == v15 + v13)
+    if (v12 > -19 && (*v15 = 0, v15[1] = 0, *v15 = 1026, *(v15 + 2) = 0, *(v15 + 3) = a2, *(v15 + 1) = (v13 >> 3), *(v15 + 2) = 0, *(v15 + 3) = v16, (v20 = sub_674C(v15 + 8, v15 + v13, 5, a4, v10, 255)) != 0) && ((v21 = sub_674C(v20, v15 + v13, 6, a5, v10, 255)) != 0 ? (v22 = v21 == v15 + v13) : (v22 = 0), v22))
     {
       v17 = pfkey_send(a1, v15, v13);
       free(v15);
@@ -3099,7 +3070,6 @@ LABEL_10:
 
     else
     {
-LABEL_12:
       free(v15);
     }
   }
@@ -3115,8 +3085,10 @@ LABEL_12:
   return 0xFFFFFFFFLL;
 }
 
-uint64_t pfkey_send_register(int a1, unsigned int a2)
+ssize_t pfkey_send_register(uint64_t a1, uint64_t a2)
 {
+  v2 = a2;
+  v3 = a1;
   v4 = 0;
   if (a2)
   {
@@ -3154,10 +3126,10 @@ uint64_t pfkey_send_register(int a1, unsigned int a2)
     while (v4 != 24);
   }
 
-  return sub_75C8(a1, 7, a2);
+  return sub_75C8(v3, 7, v2);
 }
 
-uint64_t sub_75C8(int a1, int a2, unsigned int a3)
+ssize_t sub_75C8(int a1, int a2, unsigned int a3)
 {
   v3 = a3;
   v4 = a2;
@@ -3432,46 +3404,7 @@ LABEL_17:
   {
     v25 = v24;
     v26 = getpid();
-    if (v23 <= 15)
-    {
-      goto LABEL_25;
-    }
-
-    *v25 = 0;
-    v25[1] = 0;
-    *v25 = 2;
-    *(v25 + 1) = a2;
-    v30 = v25 + v23;
-    *(v25 + 1) = 0;
-    *(v25 + 1) = (v23 >> 3);
-    *(v25 + 2) = a12;
-    *(v25 + 3) = v26;
-    v31 = sub_674C(v25 + 8, v25 + v23, 5, a3, v18, a7);
-    if (!v31)
-    {
-      goto LABEL_25;
-    }
-
-    v32 = sub_674C(v31, v25 + v23, 6, a5, v17, a7);
-    if (!v32)
-    {
-      goto LABEL_25;
-    }
-
-    v33 = v32;
-    v34 = v32 + 32;
-    if (v34 > v30)
-    {
-      goto LABEL_25;
-    }
-
-    *v33 = 0u;
-    *(v33 + 1) = 0u;
-    *v33 = 196612;
-    *(v33 + 1) = 0;
-    *(v33 + 2) = a8;
-    *(v33 + 3) = a9;
-    if (&v34[a11] == v30)
+    if (v23 > 15 && (*v25 = 0, v25[1] = 0, *v25 = 2, *(v25 + 1) = a2, v30 = v25 + v23, *(v25 + 1) = 0, *(v25 + 1) = (v23 >> 3), *(v25 + 2) = a12, *(v25 + 3) = v26, (v31 = sub_674C(v25 + 8, v25 + v23, 5, a3, v18, a7)) != 0) && (v32 = sub_674C(v31, v25 + v23, 6, a5, v17, a7)) != 0 && (v33 = v32, v34 = v32 + 32, v34 <= v30) && (*v33 = 0u, *(v33 + 1) = 0u, *v33 = 196612, *(v33 + 1) = 0, *(v33 + 2) = a8, *(v33 + 3) = a9, &v34[a11] == v30))
     {
       memcpy(v34, __src, a11);
       v27 = pfkey_send(a1, v25, v23);
@@ -3485,7 +3418,6 @@ LABEL_17:
 
     else
     {
-LABEL_25:
       free(v25);
     }
   }
@@ -3512,7 +3444,7 @@ ssize_t pfkey_send_spddelete(int a1, unsigned __int8 *a2, unsigned int a3, unsig
   return 0xFFFFFFFFLL;
 }
 
-uint64_t sub_7FDC(int a1, char a2, int a3)
+ssize_t sub_7FDC(int a1, char a2, int a3)
 {
   v6 = malloc_type_calloc(1uLL, 0x20uLL, 0x1000040451B5BE8uLL);
   if (!v6)
@@ -3791,14 +3723,14 @@ LABEL_8:
 char *sub_8474(_WORD *a1, unint64_t a2, __int16 a3, const void *a4, unsigned int a5)
 {
   v5 = (a5 - 1) | 7;
-  v6 = (v5 + 9);
+  v6 = v5 + 9;
   v7 = a1 + v6;
   if (a1 + v6 > a2)
   {
     return 0;
   }
 
-  bzero(a1, (v5 + 9));
+  bzero(a1, v5 + 9);
   *a1 = v6 >> 3;
   a1[1] = a3;
   a1[2] = 8 * a5;
@@ -3899,7 +3831,7 @@ void IPSecConfigureVerboseLogging(__CFDictionary *a1, int a2)
   CFRelease(v3);
 }
 
-uint64_t sub_87B4(const void *a1, const char **a2, int a3)
+uint64_t sub_87B4(const __CFDictionary *a1, char **a2, int a3)
 {
   __str[0].__pn_.__r_.__value_.__s.__data_[0] = 0;
   if (!isDictionary(a1))
@@ -3908,42 +3840,42 @@ uint64_t sub_87B4(const void *a1, const char **a2, int a3)
     return 0xFFFFFFFFLL;
   }
 
-  memset(&v76, 0, sizeof(v76));
-  v75 = 0;
-  GetIntFromDict(a1, @"VerboseLogging", &v75, 0);
+  memset(&v74, 0, sizeof(v74));
+  v73 = 0;
+  GetIntFromDict(a1, @"VerboseLogging", &v73, 0);
   if (!GetStrAddrFromDict(a1, @"LocalAddress", cStr, 256))
   {
-    v13 = "incorrect local address found";
+    v12 = "incorrect local address found";
 LABEL_19:
-    *a2 = v13;
+    *a2 = v12;
     goto LABEL_20;
   }
 
   if (!racoon_validate_cfg_str(cStr))
   {
-    v13 = "invalid local address";
+    v12 = "invalid local address";
     goto LABEL_19;
   }
 
-  if (!GetStrAddrFromDict(a1, @"RemoteAddress", v79, 256))
+  if (!GetStrAddrFromDict(a1, @"RemoteAddress", v77, 256))
   {
-    v13 = "incorrect remote address found";
+    v12 = "incorrect remote address found";
     goto LABEL_19;
   }
 
-  if (!racoon_validate_cfg_str(v79))
+  if (!racoon_validate_cfg_str(v77))
   {
-    v13 = "invalid remote address";
+    v12 = "invalid remote address";
     goto LABEL_19;
   }
 
-  v7 = inet_addr(v79);
+  v7 = inet_addr(v77);
   v8 = v7;
   if (a3)
   {
     if (v7)
     {
-      v9 = v79;
+      v9 = v77;
     }
 
     else
@@ -3954,14 +3886,14 @@ LABEL_19:
     v10 = __str;
     snprintf(__str, 0x100uLL, "/var/run/racoon/%s.conf", v9);
     remove(__str, v11);
-    if (stat("/var/run/racoon", &v76))
+    if (stat("/var/run/racoon", &v74))
     {
       if (*__error() == 2 && makepath("/var/run/racoon"))
       {
-        v12 = *__error();
-        snprintf(v81, 0x100uLL, "cannot create racoon configuration file path (error %d)");
+        __error();
+        snprintf(v79, 0x100uLL, "cannot create racoon configuration file path (error %d)");
 LABEL_55:
-        *a2 = v81;
+        *a2 = v79;
         goto LABEL_20;
       }
 
@@ -3974,80 +3906,80 @@ LABEL_55:
     v10 = "/dev/null";
   }
 
-  v15 = umask(0x3Fu);
-  v16 = fopen(v10, "w");
-  umask(v15);
-  if (!v16)
+  v14 = umask(0x3Fu);
+  v15 = fopen(v10, "w");
+  umask(v14);
+  if (!v15)
   {
-    v30 = *__error();
-    snprintf(v81, 0x100uLL, "cannot create racoon configuration file (error %d)");
+    __error();
+    snprintf(v79, 0x100uLL, "cannot create racoon configuration file (error %d)");
     goto LABEL_55;
   }
 
-  if (v75)
+  if (v73)
   {
-    fprintf(v16, "%s%s", TAB_LEVEL, "log debug2;\n");
-    fprintf(v16, "%s%s", TAB_LEVEL, "path logfile /var/log/racoon.log;\n\n");
+    fprintf(v15, "%s%s", TAB_LEVEL, "log debug2;\n");
+    fprintf(v15, "%s%s", TAB_LEVEL, "path logfile /var/log/racoon.log;\n\n");
   }
 
-  v18 = CFDictionaryGetValue(a1, @"UseAnonymousPolicy") == 0 && v8 != 0;
-  v17 = !v18;
-  v66 = v18;
-  v19 = v79;
-  if (v17)
+  v17 = CFDictionaryGetValue(a1, @"UseAnonymousPolicy") == 0 && v8 != 0;
+  v16 = !v17;
+  v64 = v17;
+  v18 = v77;
+  if (v16)
   {
-    v19 = "anonymous";
+    v18 = "anonymous";
   }
 
-  snprintf(v81, 0x100uLL, "remote %s {\n", v19);
-  fprintf(v16, "%s%s", TAB_LEVEL, v81);
-  fprintf(v16, "%s%s", off_189C8, "doi ipsec_doi;\n");
-  v72 = v16;
-  fprintf(v16, "%s%s", off_189C8, "situation identity_only;\n");
+  snprintf(v79, 0x100uLL, "remote %s {\n", v18);
+  fprintf(v15, "%s%s", TAB_LEVEL, v79);
+  fprintf(v15, "%s%s", off_189C8, "doi ipsec_doi;\n");
+  v70 = v15;
+  fprintf(v15, "%s%s", off_189C8, "situation identity_only;\n");
   Value = CFDictionaryGetValue(a1, @"AuthenticationMethod");
   if (Value)
   {
-    v21 = Value;
+    v20 = Value;
   }
 
   else
   {
-    v21 = @"SharedSecret";
+    v20 = @"SharedSecret";
   }
 
   __strlcpy_chk();
-  v22 = CFDictionaryGetValue(a1, @"ExchangeMode");
-  cf1 = v21;
-  if (!isArray(v22))
+  v21 = CFDictionaryGetValue(a1, @"ExchangeMode");
+  cf1 = v20;
+  if (!isArray(v21))
   {
     goto LABEL_48;
   }
 
-  v68 = a2;
-  Count = CFArrayGetCount(v22);
-  v24 = Count - 1;
+  v66 = a2;
+  Count = CFArrayGetCount(v21);
+  v23 = Count - 1;
   if (Count >= 1)
   {
-    v25 = 0;
-    if (v24 >= 2)
+    v24 = 0;
+    if (v23 >= 2)
     {
-      v24 = 2;
+      v23 = 2;
     }
 
-    v26 = v24 + 1;
+    v25 = v23 + 1;
     do
     {
-      ValueAtIndex = CFArrayGetValueAtIndex(v22, v25);
+      ValueAtIndex = CFArrayGetValueAtIndex(v21, v24);
       if (isString(ValueAtIndex))
       {
-        if (v25)
+        if (v24)
         {
           __strlcat_chk();
         }
 
         if (!CFEqual(ValueAtIndex, @"Main") && !CFEqual(ValueAtIndex, @"Aggressive") && !CFEqual(ValueAtIndex, @"Base"))
         {
-          v38 = "incorrect phase 1 exchange mode";
+          v36 = "incorrect phase 1 exchange mode";
           goto LABEL_87;
         }
 
@@ -4055,331 +3987,331 @@ LABEL_55:
       }
     }
 
-    while (v26 != ++v25);
+    while (v25 != ++v24);
   }
 
-  a2 = v68;
+  a2 = v66;
   if (!Count)
   {
 LABEL_48:
-    StrFromDict = GetStrFromDict(a1, @"LocalIdentifier", v85, 256, &unk_10CE9);
-    IPSecIsAggressiveMode(v21, StrFromDict, 1);
+    StrFromDict = GetStrFromDict(a1, @"LocalIdentifier", v83, 256, &unk_10CE9);
+    IPSecIsAggressiveMode(v20, StrFromDict, 1);
     __strlcat_chk();
   }
 
   __strlcat_chk();
-  v29 = v16;
-  fprintf(v16, "%s%s", off_189C8, __ptr);
-  if (!CFEqual(v21, @"SharedSecret") && !CFEqual(v21, @"Certificate") && !CFEqual(v21, @"Hybrid"))
+  v28 = v15;
+  fprintf(v15, "%s%s", off_189C8, __ptr);
+  if (!CFEqual(v20, @"SharedSecret") && !CFEqual(v20, @"Certificate") && !CFEqual(v20, @"Hybrid"))
   {
-    v35 = "incorrect authentication method found";
+    v33 = "incorrect authentication method found";
     goto LABEL_232;
   }
 
-  if (GetStrFromDict(a1, @"LocalIdentifierType", v84, 256, &unk_10CE9))
+  if (GetStrFromDict(a1, @"LocalIdentifierType", v82, 256, &unk_10CE9))
   {
     __strlcpy_chk();
-    if (!racoon_validate_cfg_str(v84))
+    if (!racoon_validate_cfg_str(v82))
     {
-      v35 = "invalid LocalIdentifierType";
+      v33 = "invalid LocalIdentifierType";
       goto LABEL_232;
     }
   }
 
-  if (GetStrFromDict(a1, @"LocalIdentifier", v85, 256, &unk_10CE9))
+  if (GetStrFromDict(a1, @"LocalIdentifier", v83, 256, &unk_10CE9))
   {
-    if (!racoon_validate_cfg_str(v85))
+    if (!racoon_validate_cfg_str(v83))
     {
-      v35 = "invalid LocalIdentifier";
+      v33 = "invalid LocalIdentifier";
       goto LABEL_232;
     }
 
-    v31 = v84;
-    if (!v84[0])
+    v29 = v82;
+    if (!v82[0])
     {
-      v31 = "fqdn";
+      v29 = "fqdn";
     }
 
-    snprintf(__ptr, 0x400uLL, "my_identifier %s %s;\n", v31, v85);
+    snprintf(__ptr, 0x400uLL, "my_identifier %s %s;\n", v29, v83);
     goto LABEL_62;
   }
 
-  if (!CFEqual(v21, @"SharedSecret") && !CFEqual(v21, @"Hybrid") && CFEqual(v21, @"Certificate"))
+  if (!CFEqual(v20, @"SharedSecret") && !CFEqual(v20, @"Hybrid") && CFEqual(v20, @"Certificate"))
   {
     strcpy(__ptr, "my_identifier asn1dn;\n");
 LABEL_62:
-    fprintf(v16, "%s%s", off_189C8, __ptr);
+    fprintf(v15, "%s%s", off_189C8, __ptr);
   }
 
-  v32 = CFDictionaryGetValue(a1, @"IdentifierVerification");
-  if (!isString(v32))
+  v30 = CFDictionaryGetValue(a1, @"IdentifierVerification");
+  if (!isString(v30))
   {
-    v32 = @"GenerateFromRemoteAddress";
+    v30 = @"GenerateFromRemoteAddress";
   }
 
-  if (!CFEqual(v32, @"None"))
+  if (!CFEqual(v30, @"None"))
   {
-    if (CFEqual(v32, @"GenerateFromRemoteAddress"))
+    if (CFEqual(v30, @"GenerateFromRemoteAddress"))
     {
-      if (!GetStrAddrFromDict(a1, @"RemoteAddress", v85, 256))
+      if (!GetStrAddrFromDict(a1, @"RemoteAddress", v83, 256))
       {
-        v35 = "no remote address found";
+        v33 = "no remote address found";
         goto LABEL_150;
       }
 
-      snprintf(__ptr, 0x400uLL, "peers_identifier address %s;\n", v85);
-      v29 = v16;
-      fprintf(v16, "%s%s", off_189C8, __ptr);
-      v36 = CFEqual(v21, @"Certificate");
-      v37 = "off";
-      if (!v36)
+      snprintf(__ptr, 0x400uLL, "peers_identifier address %s;\n", v83);
+      v28 = v15;
+      fprintf(v15, "%s%s", off_189C8, __ptr);
+      v34 = CFEqual(v20, @"Certificate");
+      v35 = "off";
+      if (!v34)
       {
-        v37 = "on";
+        v35 = "on";
       }
 
-      v33 = 2 * (v36 != 0);
+      v31 = 2 * (v34 != 0);
       goto LABEL_93;
     }
 
-    if (CFEqual(v32, @"UseRemoteIdentifier"))
+    if (CFEqual(v30, @"UseRemoteIdentifier"))
     {
-      v29 = v16;
-      if (!GetStrFromDict(a1, @"RemoteIdentifier", v85, 256, &unk_10CE9))
+      v28 = v15;
+      if (!GetStrFromDict(a1, @"RemoteIdentifier", v83, 256, &unk_10CE9))
       {
-        v35 = "no remote identifier found";
+        v33 = "no remote identifier found";
         goto LABEL_232;
       }
 
-      if (!racoon_validate_cfg_str(v85))
+      if (!racoon_validate_cfg_str(v83))
       {
-        v35 = "invalid RemoteIdentifier";
+        v33 = "invalid RemoteIdentifier";
         goto LABEL_232;
       }
 
-      snprintf(__ptr, 0x400uLL, "peers_identifier fqdn %s;\n", v85);
-      fprintf(v16, "%s%s", off_189C8, __ptr);
-      if (!CFEqual(v21, @"Certificate") && !CFEqual(v21, @"Hybrid"))
+      snprintf(__ptr, 0x400uLL, "peers_identifier fqdn %s;\n", v83);
+      fprintf(v15, "%s%s", off_189C8, __ptr);
+      if (!CFEqual(v20, @"Certificate") && !CFEqual(v20, @"Hybrid"))
       {
-        v33 = 0;
-        v37 = "on";
+        v31 = 0;
+        v35 = "on";
         goto LABEL_93;
       }
 
-      v33 = 2;
+      v31 = 2;
     }
 
     else
     {
-      if (!CFEqual(v32, @"UseOpenDirectory"))
+      if (!CFEqual(v30, @"UseOpenDirectory"))
       {
-        v35 = "incorrect verification method";
+        v33 = "incorrect verification method";
         goto LABEL_150;
       }
 
-      v29 = v16;
-      if (!CFEqual(v21, @"Certificate"))
+      v28 = v15;
+      if (!CFEqual(v20, @"Certificate"))
       {
-        v35 = "open directory can only be used with certificate authentication";
+        v33 = "open directory can only be used with certificate authentication";
         goto LABEL_232;
       }
 
-      v33 = 1;
+      v31 = 1;
     }
 
-    v37 = "off";
+    v35 = "off";
 LABEL_93:
-    v34 = __ptr;
-    snprintf(__ptr, 0x400uLL, "verify_identifier %s;\n", v37);
+    v32 = __ptr;
+    snprintf(__ptr, 0x400uLL, "verify_identifier %s;\n", v35);
     goto LABEL_94;
   }
 
-  v33 = 0;
-  v34 = "verify_identifier off;\n";
-  v29 = v72;
+  v31 = 0;
+  v32 = "verify_identifier off;\n";
+  v28 = v70;
 LABEL_94:
-  fprintf(v29, "%s%s", off_189C8, v34);
+  fprintf(v28, "%s%s", off_189C8, v32);
   if (CFEqual(cf1, @"SharedSecret") || CFEqual(cf1, @"Hybrid"))
   {
-    if (!GetStrFromDict(a1, @"SharedSecret", v85, 256, &unk_10CE9))
+    if (!GetStrFromDict(a1, @"SharedSecret", v83, 256, &unk_10CE9))
     {
-      v35 = "no shared secret found";
+      v33 = "no shared secret found";
       goto LABEL_232;
     }
 
-    if (!racoon_validate_cfg_str(v85))
+    if (!racoon_validate_cfg_str(v83))
     {
-      v35 = "invalid SharedSecret";
+      v33 = "invalid SharedSecret";
       goto LABEL_232;
     }
 
     __strlcpy_chk();
-    v39 = CFDictionaryGetValue(a1, @"SharedSecretEncryption");
-    if (!isString(v39))
+    v37 = CFDictionaryGetValue(a1, @"SharedSecretEncryption");
+    if (!isString(v37))
     {
 LABEL_108:
-      snprintf(__ptr, 0x400uLL, "shared_secret %s %s;\n", v84, v85);
-      v29 = v72;
-      fprintf(v72, "%s%s", off_189C8, __ptr);
+      snprintf(__ptr, 0x400uLL, "shared_secret %s %s;\n", v82, v83);
+      v28 = v70;
+      fprintf(v70, "%s%s", off_189C8, __ptr);
       if (CFEqual(cf1, @"Hybrid"))
       {
         strcpy(__ptr, "certificate_verification sec_framework use_peers_identifier;\n");
 LABEL_117:
-        fprintf(v29, "%s%s", off_189C8, __ptr);
+        fprintf(v28, "%s%s", off_189C8, __ptr);
         goto LABEL_118;
       }
 
       goto LABEL_118;
     }
 
-    if (CFEqual(v39, @"Key") || CFEqual(v39, @"Keychain"))
+    if (CFEqual(v37, @"Key") || CFEqual(v37, @"Keychain"))
     {
       __strlcpy_chk();
       goto LABEL_108;
     }
 
-    v35 = "incorrect shared secret encryption found";
+    v33 = "incorrect shared secret encryption found";
 LABEL_150:
-    v29 = v72;
+    v28 = v70;
     goto LABEL_232;
   }
 
   if (CFEqual(cf1, @"Certificate"))
   {
-    v40 = CFDictionaryGetValue(a1, @"LocalCertificate");
-    if (isData(v40))
+    v38 = CFDictionaryGetValue(a1, @"LocalCertificate");
+    if (isData(v38))
     {
-      fprintf(v72, "%s%s", off_189C8, "certificate_type x509 in_keychain ");
-      v41 = v40;
-      v29 = v72;
-      v42 = sub_EC0C(v41, __ptr);
-      fwrite(__ptr, 1uLL, v42, v72);
-      fputs(";\n", v72);
+      fprintf(v70, "%s%s", off_189C8, "certificate_type x509 in_keychain ");
+      v39 = v38;
+      v28 = v70;
+      v40 = sub_EC0C(v39, __ptr);
+      fwrite(__ptr, 1uLL, v40, v70);
+      fputs(";\n", v70);
     }
 
     else
     {
-      v29 = v72;
-      fprintf(v72, "%s%s", off_189C8, "certificate_type x509 in_keychain;\n");
+      v28 = v70;
+      fprintf(v70, "%s%s", off_189C8, "certificate_type x509 in_keychain;\n");
     }
 
-    fprintf(v29, "%s%s", off_189C8, "verify_cert on;\n");
-    v43 = " use_peers_identifier";
-    if (v33 != 2)
+    fprintf(v28, "%s%s", off_189C8, "verify_cert on;\n");
+    v41 = " use_peers_identifier";
+    if (v31 != 2)
     {
-      v43 = &unk_10CE9;
+      v41 = &unk_10CE9;
     }
 
-    if (v33 == 1)
+    if (v31 == 1)
     {
-      v43 = " use_open_dir";
+      v41 = " use_open_dir";
     }
 
-    snprintf(__ptr, 0x400uLL, "certificate_verification sec_framework%s;\n", v43);
+    snprintf(__ptr, 0x400uLL, "certificate_verification sec_framework%s;\n", v41);
     goto LABEL_117;
   }
 
 LABEL_118:
   if (CFDictionaryContainsKey(a1, @"ForceLocalAddress") && CFDictionaryGetValue(a1, @"ForceLocalAddress") == kCFBooleanTrue)
   {
-    GetStrAddrFromDict(a1, @"LocalAddress", v85, 256);
-    if (racoon_validate_cfg_str(v85))
+    GetStrAddrFromDict(a1, @"LocalAddress", v83, 256);
+    if (racoon_validate_cfg_str(v83))
     {
-      snprintf(__ptr, 0x400uLL, "local_address %s;\n", v85);
-      fprintf(v29, "%s%s", off_189C8, __ptr);
+      snprintf(__ptr, 0x400uLL, "local_address %s;\n", v83);
+      fprintf(v28, "%s%s", off_189C8, __ptr);
       goto LABEL_122;
     }
 
-    v35 = "invalid force local address";
+    v33 = "invalid force local address";
 LABEL_232:
-    *a2 = v35;
+    *a2 = v33;
     goto LABEL_233;
   }
 
 LABEL_122:
-  *v85 = 0;
-  GetIntFromDict(a1, @"NonceSize", v85, 16);
-  snprintf(__ptr, 0x400uLL, "nonce_size %d;\n", *v85);
-  fprintf(v29, "%s%s", off_189C8, __ptr);
-  *v85 = 0;
-  if (GetIntFromDict(a1, @"NattMultipleUsersEnabled", v85, 0))
+  *v83 = 0;
+  GetIntFromDict(a1, @"NonceSize", v83, 16);
+  snprintf(__ptr, 0x400uLL, "nonce_size %d;\n", *v83);
+  fprintf(v28, "%s%s", off_189C8, __ptr);
+  *v83 = 0;
+  if (GetIntFromDict(a1, @"NattMultipleUsersEnabled", v83, 0))
   {
-    if (*v85)
+    if (*v83)
     {
-      v44 = "on";
+      v42 = "on";
     }
 
     else
     {
-      v44 = "off";
+      v42 = "off";
     }
 
-    snprintf(__ptr, 0x400uLL, "nat_traversal_multi_user %s;\n", v44);
-    fprintf(v29, "%s%s", off_189C8, __ptr);
+    snprintf(__ptr, 0x400uLL, "nat_traversal_multi_user %s;\n", v42);
+    fprintf(v28, "%s%s", off_189C8, __ptr);
   }
 
-  *v85 = 0;
-  if (GetIntFromDict(a1, @"NattKeepAliveEnabled", v85, 1))
+  *v83 = 0;
+  if (GetIntFromDict(a1, @"NattKeepAliveEnabled", v83, 1))
   {
-    if (*v85)
+    if (*v83)
     {
-      v45 = "on";
+      v43 = "on";
     }
 
     else
     {
-      v45 = "off";
+      v43 = "off";
     }
 
-    snprintf(__ptr, 0x400uLL, "nat_traversal_keepalive %s;\n", v45);
-    fprintf(v29, "%s%s", off_189C8, __ptr);
+    snprintf(__ptr, 0x400uLL, "nat_traversal_keepalive %s;\n", v43);
+    fprintf(v28, "%s%s", off_189C8, __ptr);
   }
 
-  *v85 = 0;
-  *v84 = 0;
-  v78 = 0;
-  v77 = 0;
-  if (GetIntFromDict(a1, @"DeadPeerDetectionEnabled", v85, 0))
+  *v83 = 0;
+  *v82 = 0;
+  v76 = 0;
+  v75 = 0;
+  if (GetIntFromDict(a1, @"DeadPeerDetectionEnabled", v83, 0))
   {
-    GetIntFromDict(a1, @"DeadPeerDetectionDelay", v84, 30);
-    GetIntFromDict(a1, @"DeadPeerDetectionRetry", &v78 + 1, 5);
-    GetIntFromDict(a1, @"DeadPeerDetectionMaxFail", &v78, 5);
-    GetIntFromDict(a1, @"BlackHoleDetectionEnabled", &v77, 1);
-    snprintf(__ptr, 0x400uLL, "dpd_delay %d;\n", *v84);
-    fprintf(v29, "%s%s", off_189C8, __ptr);
-    snprintf(__ptr, 0x400uLL, "dpd_retry %d;\n", HIDWORD(v78));
-    fprintf(v29, "%s%s", off_189C8, __ptr);
-    snprintf(__ptr, 0x400uLL, "dpd_maxfail %d;\n", v78);
-    fprintf(v29, "%s%s", off_189C8, __ptr);
-    if (v77)
+    GetIntFromDict(a1, @"DeadPeerDetectionDelay", v82, 30);
+    GetIntFromDict(a1, @"DeadPeerDetectionRetry", &v76 + 1, 5);
+    GetIntFromDict(a1, @"DeadPeerDetectionMaxFail", &v76, 5);
+    GetIntFromDict(a1, @"BlackHoleDetectionEnabled", &v75, 1);
+    snprintf(__ptr, 0x400uLL, "dpd_delay %d;\n", *v82);
+    fprintf(v28, "%s%s", off_189C8, __ptr);
+    snprintf(__ptr, 0x400uLL, "dpd_retry %d;\n", HIDWORD(v76));
+    fprintf(v28, "%s%s", off_189C8, __ptr);
+    snprintf(__ptr, 0x400uLL, "dpd_maxfail %d;\n", v76);
+    fprintf(v28, "%s%s", off_189C8, __ptr);
+    if (v75)
     {
-      v46 = "dpd_blackhole_detect";
+      v44 = "dpd_blackhole_detect";
     }
 
     else
     {
-      v46 = "dpd_inbound_detect";
+      v44 = "dpd_inbound_detect";
     }
 
-    snprintf(__ptr, 0x400uLL, "dpd_algorithm %s;\n", v46);
-    fprintf(v29, "%s%s", off_189C8, __ptr);
+    snprintf(__ptr, 0x400uLL, "dpd_algorithm %s;\n", v44);
+    fprintf(v28, "%s%s", off_189C8, __ptr);
   }
 
-  *v85 = 0;
-  *v84 = 0;
-  if (GetIntFromDict(a1, @"DisconnectOnIdle", v85, 0) && *v85)
+  *v83 = 0;
+  *v82 = 0;
+  if (GetIntFromDict(a1, @"DisconnectOnIdle", v83, 0) && *v83)
   {
-    GetIntFromDict(a1, @"DisconnectOnIdleTimer", v84, 120);
-    snprintf(__ptr, 0x400uLL, "disconnect_on_idle idle_timeout %d idle_direction idle_outbound;\n", *v84);
-    fprintf(v29, "%s%s", off_189C8, __ptr);
+    GetIntFromDict(a1, @"DisconnectOnIdleTimer", v82, 120);
+    snprintf(__ptr, 0x400uLL, "disconnect_on_idle idle_timeout %d idle_direction idle_outbound;\n", *v82);
+    fprintf(v28, "%s%s", off_189C8, __ptr);
   }
 
-  fprintf(v29, "%s%s", off_189C8, "initial_contact on;\n");
-  fprintf(v29, "%s%s", off_189C8, "support_proxy on;\n");
+  fprintf(v28, "%s%s", off_189C8, "initial_contact on;\n");
+  fprintf(v28, "%s%s", off_189C8, "support_proxy on;\n");
   __strlcpy_chk();
-  v47 = CFDictionaryGetValue(a1, @"ProposalsBehavior");
-  if (isString(v47))
+  v45 = CFDictionaryGetValue(a1, @"ProposalsBehavior");
+  if (isString(v45))
   {
-    if (!CFEqual(v47, @"Claim") && !CFEqual(v47, @"Obey") && !CFEqual(v47, @"Strict") && !CFEqual(v47, @"Exact"))
+    if (!CFEqual(v45, @"Claim") && !CFEqual(v45, @"Obey") && !CFEqual(v45, @"Strict") && !CFEqual(v45, @"Exact"))
     {
       *a2 = "incorrect proposal behavior";
       goto LABEL_88;
@@ -4388,133 +4320,133 @@ LABEL_122:
     __strlcpy_chk();
   }
 
-  snprintf(__ptr, 0x400uLL, "proposal_check %s;\n", v85);
-  v29 = v72;
-  fprintf(v72, "%s%s", off_189C8, __ptr);
-  if (!GetStrFromDict(a1, @"XAuthName", v85, 256, &unk_10CE9))
+  snprintf(__ptr, 0x400uLL, "proposal_check %s;\n", v83);
+  v28 = v70;
+  fprintf(v70, "%s%s", off_189C8, __ptr);
+  if (!GetStrFromDict(a1, @"XAuthName", v83, 256, &unk_10CE9))
   {
     goto LABEL_157;
   }
 
-  if (!racoon_validate_cfg_str(v85))
+  if (!racoon_validate_cfg_str(v83))
   {
-    v35 = "invalid XauthName";
+    v33 = "invalid XauthName";
     goto LABEL_232;
   }
 
-  snprintf(__ptr, 0x400uLL, "xauth_login %s;\n", v85);
-  fprintf(v72, "%s%s", off_189C8, __ptr);
+  snprintf(__ptr, 0x400uLL, "xauth_login %s;\n", v83);
+  fprintf(v70, "%s%s", off_189C8, __ptr);
 LABEL_157:
-  *v85 = 0;
-  if (GetIntFromDict(a1, @"ModeConfigEnabled", v85, 0))
+  *v83 = 0;
+  if (GetIntFromDict(a1, @"ModeConfigEnabled", v83, 0))
   {
-    if (*v85)
+    if (*v83)
     {
-      v48 = "on";
+      v46 = "on";
     }
 
     else
     {
-      v48 = "off";
+      v46 = "off";
     }
 
-    snprintf(__ptr, 0x400uLL, "mode_cfg %s;\n", v48);
-    fprintf(v72, "%s%s", off_189C8, __ptr);
+    snprintf(__ptr, 0x400uLL, "mode_cfg %s;\n", v46);
+    fprintf(v70, "%s%s", off_189C8, __ptr);
   }
 
-  v49 = CFDictionaryGetValue(a1, @"Proposals");
-  v68 = a2;
-  theArray = v49;
-  v67 = a3;
-  if (isArray(v49))
+  v47 = CFDictionaryGetValue(a1, @"Proposals");
+  v66 = a2;
+  theArray = v47;
+  v65 = a3;
+  if (isArray(v47))
   {
-    v50 = CFArrayGetCount(v49);
+    v48 = CFArrayGetCount(v47);
   }
 
   else
   {
-    v50 = 0;
+    v48 = 0;
   }
 
-  v51 = 0;
-  v52 = 0;
-  if (v50 <= 1)
+  v49 = 0;
+  v50 = 0;
+  if (v48 <= 1)
   {
-    v53 = 1;
+    v51 = 1;
   }
 
   else
   {
-    v53 = v50;
+    v51 = v48;
   }
 
-  cf1a = v53;
+  cf1a = v51;
   do
   {
-    if (v50)
+    if (v48)
     {
-      v52 = CFArrayGetValueAtIndex(theArray, v51);
-      if (!isDictionary(v52))
+      v50 = CFArrayGetValueAtIndex(theArray, v49);
+      if (!isDictionary(v50))
       {
-        *v68 = "incorrect phase 1 proposal";
+        *v66 = "incorrect phase 1 proposal";
         goto LABEL_233;
       }
     }
 
-    fprintf(v29, "%s%s", off_189C8, "\n");
-    fprintf(v29, "%s%s", off_189C8, "proposal {\n");
-    HIDWORD(v78) = 0;
-    v54 = CFDictionaryGetValue(a1, @"AuthenticationMethod");
-    GetIntFromDict(a1, @"XAuthEnabled", &v78 + 1, 0);
+    fprintf(v28, "%s%s", off_189C8, "\n");
+    fprintf(v28, "%s%s", off_189C8, "proposal {\n");
+    HIDWORD(v76) = 0;
+    v52 = CFDictionaryGetValue(a1, @"AuthenticationMethod");
+    GetIntFromDict(a1, @"XAuthEnabled", &v76 + 1, 0);
     __strlcpy_chk();
-    if (isString(v54))
+    if (isString(v52))
     {
-      if (!CFEqual(v54, @"SharedSecret") && !CFEqual(v54, @"Certificate") && !CFEqual(v54, @"Hybrid"))
+      if (!CFEqual(v52, @"SharedSecret") && !CFEqual(v52, @"Certificate") && !CFEqual(v52, @"Hybrid"))
       {
-        v38 = "incorrect authentication method";
+        v36 = "incorrect authentication method";
         goto LABEL_87;
       }
 
       __strlcpy_chk();
     }
 
-    snprintf(v85, 0x400uLL, "authentication_method %s;\n", v84);
-    fprintf(v72, "%s%s", off_189D0, v85);
+    snprintf(v83, 0x400uLL, "authentication_method %s;\n", v82);
+    fprintf(v70, "%s%s", off_189D0, v83);
     __strlcpy_chk();
-    if (!v52)
+    if (!v50)
     {
-      snprintf(v85, 0x400uLL, "hash_algorithm %s;\n", v84);
-      fprintf(v72, "%s%s", off_189D0, v85);
+      snprintf(v83, 0x400uLL, "hash_algorithm %s;\n", v82);
+      fprintf(v70, "%s%s", off_189D0, v83);
 LABEL_190:
       __strlcpy_chk();
       goto LABEL_191;
     }
 
-    v55 = CFDictionaryGetValue(v52, @"HashAlgorithm");
-    if (isString(v55))
+    v53 = CFDictionaryGetValue(v50, @"HashAlgorithm");
+    if (isString(v53))
     {
-      if (!CFEqual(v55, @"MD5") && !CFEqual(v55, @"SHA1") && !CFEqual(v55, @"SHA256") && !CFEqual(v55, @"SHA512"))
+      if (!CFEqual(v53, @"MD5") && !CFEqual(v53, @"SHA1") && !CFEqual(v53, @"SHA256") && !CFEqual(v53, @"SHA512"))
       {
-        v38 = "incorrect authentication algorithm";
+        v36 = "incorrect authentication algorithm";
         goto LABEL_87;
       }
 
       __strlcpy_chk();
     }
 
-    snprintf(v85, 0x400uLL, "hash_algorithm %s;\n", v84);
-    fprintf(v72, "%s%s", off_189D0, v85);
+    snprintf(v83, 0x400uLL, "hash_algorithm %s;\n", v82);
+    fprintf(v70, "%s%s", off_189D0, v83);
     __strlcpy_chk();
-    v56 = CFDictionaryGetValue(v52, @"EncryptionAlgorithm");
-    if (isString(v56))
+    v54 = CFDictionaryGetValue(v50, @"EncryptionAlgorithm");
+    if (isString(v54))
     {
-      if (!CFEqual(v56, @"DES") && !CFEqual(v56, @"3DES") && !CFEqual(v56, @"AES") && !CFEqual(v56, @"AES256"))
+      if (!CFEqual(v54, @"DES") && !CFEqual(v54, @"3DES") && !CFEqual(v54, @"AES") && !CFEqual(v54, @"AES256"))
       {
-        v38 = "incorrect encryption algorithm";
+        v36 = "incorrect encryption algorithm";
 LABEL_87:
-        *v68 = v38;
+        *v66 = v36;
 LABEL_88:
-        v29 = v72;
+        v28 = v70;
         goto LABEL_233;
       }
 
@@ -4522,42 +4454,42 @@ LABEL_88:
     }
 
 LABEL_191:
-    snprintf(v85, 0x400uLL, "encryption_algorithm %s;\n", v84);
-    v29 = v72;
-    fprintf(v72, "%s%s", off_189D0, v85);
-    *v84 = 3600;
-    if (v52)
+    snprintf(v83, 0x400uLL, "encryption_algorithm %s;\n", v82);
+    v28 = v70;
+    fprintf(v70, "%s%s", off_189D0, v83);
+    *v82 = 3600;
+    if (v50)
     {
-      GetIntFromDict(v52, @"Lifetime", v84, 3600);
-      snprintf(v85, 0x400uLL, "lifetime time %d sec;\n", *v84);
-      fprintf(v72, "%s%s", off_189D0, v85);
-      *v84 = 14;
-      GetIntFromDict(v52, @"DHGroup", v84, 14);
-      v57 = *v84;
+      GetIntFromDict(v50, @"Lifetime", v82, 3600);
+      snprintf(v83, 0x400uLL, "lifetime time %d sec;\n", *v82);
+      fprintf(v70, "%s%s", off_189D0, v83);
+      *v82 = 14;
+      GetIntFromDict(v50, @"DHGroup", v82, 14);
+      v55 = *v82;
     }
 
     else
     {
-      snprintf(v85, 0x400uLL, "lifetime time %d sec;\n", 3600);
-      fprintf(v72, "%s%s", off_189D0, v85);
-      v57 = 14;
-      *v84 = 14;
+      snprintf(v83, 0x400uLL, "lifetime time %d sec;\n", 3600);
+      fprintf(v70, "%s%s", off_189D0, v83);
+      v55 = 14;
+      *v82 = 14;
     }
 
-    snprintf(v85, 0x400uLL, "dh_group %d;\n", v57);
-    fprintf(v72, "%s%s", off_189D0, v85);
-    fprintf(v72, "%s%s", off_189C8, "}\n");
-    ++v51;
+    snprintf(v83, 0x400uLL, "dh_group %d;\n", v55);
+    fprintf(v70, "%s%s", off_189D0, v83);
+    fprintf(v70, "%s%s", off_189C8, "}\n");
+    ++v49;
   }
 
-  while (cf1a != v51);
-  fprintf(v72, "%s%s", TAB_LEVEL, "}\n\n");
-  v58 = CFDictionaryGetValue(a1, @"Policies");
-  if (!isArray(v58) || (v59 = CFArrayGetCount(v58)) == 0 || (!v66 ? (v60 = 1) : (v60 = v59), v60 < 1))
+  while (cf1a != v49);
+  fprintf(v70, "%s%s", TAB_LEVEL, "}\n\n");
+  v56 = CFDictionaryGetValue(a1, @"Policies");
+  if (!isArray(v56) || (v57 = CFArrayGetCount(v56)) == 0 || (!v64 ? (v58 = 1) : (v58 = v57), v58 < 1))
   {
 LABEL_227:
-    fclose(v29);
-    if (v67)
+    fclose(v28);
+    if (v65)
     {
       sub_A4EC();
     }
@@ -4565,101 +4497,101 @@ LABEL_227:
     return 0;
   }
 
-  v61 = 0;
-  v62 = "incorrect policy found";
+  v59 = 0;
+  v60 = "incorrect policy found";
   while (2)
   {
-    v78 = 0;
-    v77 = 0;
-    v73 = 0;
-    v74 = 0;
-    v63 = CFArrayGetValueAtIndex(v58, v61);
-    if (isDictionary(v63))
+    v76 = 0;
+    v75 = 0;
+    v71 = 0;
+    v72 = 0;
+    v61 = CFArrayGetValueAtIndex(v56, v59);
+    if (isDictionary(v61))
     {
-      v64 = CFDictionaryGetValue(v63, @"Level");
-      if (!isString(v64) || CFEqual(v64, @"None") || CFEqual(v64, @"Discard"))
+      v62 = CFDictionaryGetValue(v61, @"Level");
+      if (!isString(v62) || CFEqual(v62, @"None") || CFEqual(v62, @"Discard"))
       {
         goto LABEL_223;
       }
 
-      if (!CFEqual(v64, @"Require"))
+      if (!CFEqual(v62, @"Require"))
       {
-        v62 = "incorrect policy level found";
+        v60 = "incorrect policy level found";
 LABEL_246:
-        v29 = v72;
+        v28 = v70;
         break;
       }
 
-      if (v66)
+      if (v64)
       {
-        v65 = CFDictionaryGetValue(v63, @"Mode");
-        if (!isString(v65) || CFEqual(v65, @"Tunnel"))
+        v63 = CFDictionaryGetValue(v61, @"Mode");
+        if (!isString(v63) || CFEqual(v63, @"Tunnel"))
         {
-          if (!GetStrNetFromDict(v63, @"LocalAddress", __ptr, 256))
+          if (!GetStrNetFromDict(v61, @"LocalAddress", __ptr, 256))
           {
-            v62 = "incorrect policy local network";
+            v60 = "incorrect policy local network";
             goto LABEL_246;
           }
 
-          v29 = v72;
+          v28 = v70;
           if (!racoon_validate_cfg_str(__ptr))
           {
-            v62 = "invalid local network";
+            v60 = "invalid local network";
             break;
           }
 
-          if (!GetStrNetFromDict(v63, @"RemoteAddress", v84, 256))
+          if (!GetStrNetFromDict(v61, @"RemoteAddress", v82, 256))
           {
-            v62 = "incorrect policy remote network";
+            v60 = "incorrect policy remote network";
             break;
           }
 
-          if (!racoon_validate_cfg_str(v84))
+          if (!racoon_validate_cfg_str(v82))
           {
-            v62 = "invalid remote network";
+            v60 = "invalid remote network";
             break;
           }
 
-          GetIntFromDict(v63, @"LocalPrefix", &v77, 24);
-          if (!v77)
+          GetIntFromDict(v61, @"LocalPrefix", &v75, 24);
+          if (!v75)
           {
-            v62 = "incorrect policy local prefix";
+            v60 = "incorrect policy local prefix";
             break;
           }
 
-          GetIntFromDict(v63, @"RemotePrefix", &v74, 24);
-          if (!v74)
+          GetIntFromDict(v61, @"RemotePrefix", &v72, 24);
+          if (!v72)
           {
-            v62 = "incorrect policy remote prefix";
+            v60 = "incorrect policy remote prefix";
             break;
           }
 
-          snprintf(v81, 0x100uLL, "sainfo address %s/%d 0 address %s/%d 0 {\n", __ptr, v77, v84, v74);
-          snprintf(v85, 0x100uLL, "sainfo address %s/%d 0 address %s/%d 0 {\n", v84, v74, __ptr, v77);
+          snprintf(v79, 0x100uLL, "sainfo address %s/%d 0 address %s/%d 0 {\n", __ptr, v75, v82, v72);
+          snprintf(v83, 0x100uLL, "sainfo address %s/%d 0 address %s/%d 0 {\n", v82, v72, __ptr, v75);
 LABEL_219:
-          fprintf(v29, "%s%s", TAB_LEVEL, v81);
-          if (sub_E658(v29, v63, v68))
+          fprintf(v28, "%s%s", TAB_LEVEL, v79);
+          if (sub_E658(v28, v61, v66))
           {
             goto LABEL_233;
           }
 
-          fprintf(v29, "%s%s", TAB_LEVEL, "}\n\n");
-          if (v66)
+          fprintf(v28, "%s%s", TAB_LEVEL, "}\n\n");
+          if (v64)
           {
-            v29 = v72;
-            fprintf(v72, "%s%s", TAB_LEVEL, v85);
-            if (sub_E658(v72, v63, v68))
+            v28 = v70;
+            fprintf(v70, "%s%s", TAB_LEVEL, v83);
+            if (sub_E658(v70, v61, v66))
             {
               goto LABEL_233;
             }
 
-            fprintf(v72, "%s%s", TAB_LEVEL, "}\n\n");
+            fprintf(v70, "%s%s", TAB_LEVEL, "}\n\n");
           }
 
 LABEL_223:
-          ++v61;
-          v29 = v72;
-          if (v60 == v61)
+          ++v59;
+          v28 = v70;
+          if (v58 == v59)
           {
             goto LABEL_227;
           }
@@ -4667,36 +4599,36 @@ LABEL_223:
           continue;
         }
 
-        if (!CFEqual(v65, @"Transport"))
+        if (!CFEqual(v63, @"Transport"))
         {
-          v62 = "incorrect policy type found";
+          v60 = "incorrect policy type found";
           goto LABEL_246;
         }
 
-        GetIntFromDict(v63, @"LocalPort", &v78 + 1, 0);
-        GetIntFromDict(v63, @"RemotePort", &v78, 0);
-        GetIntFromDict(v63, @"Protocol", &v73, 0);
-        GetIntFromDict(v63, @"LocalPrefix", &v77, 32);
-        GetIntFromDict(v63, @"RemotePrefix", &v74, 32);
-        snprintf(v81, 0x100uLL, "sainfo address %s/%d [%d] %d address %s/%d [%d] %d {\n", cStr, v77, HIDWORD(v78), v73, v79, v74, v78, v73);
-        snprintf(v85, 0x100uLL, "sainfo address %s/%d [%d] %d address %s/%d [%d] %d {\n", v79, v74, v78, v73, cStr, v77, HIDWORD(v78), v73);
+        GetIntFromDict(v61, @"LocalPort", &v76 + 1, 0);
+        GetIntFromDict(v61, @"RemotePort", &v76, 0);
+        GetIntFromDict(v61, @"Protocol", &v71, 0);
+        GetIntFromDict(v61, @"LocalPrefix", &v75, 32);
+        GetIntFromDict(v61, @"RemotePrefix", &v72, 32);
+        snprintf(v79, 0x100uLL, "sainfo address %s/%d [%d] %d address %s/%d [%d] %d {\n", cStr, v75, HIDWORD(v76), v71, v77, v72, v76, v71);
+        snprintf(v83, 0x100uLL, "sainfo address %s/%d [%d] %d address %s/%d [%d] %d {\n", v77, v72, v76, v71, cStr, v75, HIDWORD(v76), v71);
       }
 
       else
       {
-        strcpy(v81, "sainfo anonymous {\n");
+        strcpy(v79, "sainfo anonymous {\n");
       }
 
-      v29 = v72;
+      v28 = v70;
       goto LABEL_219;
     }
 
     break;
   }
 
-  *v68 = v62;
+  *v66 = v60;
 LABEL_233:
-  fclose(v29);
+  fclose(v28);
 LABEL_20:
   if (__str[0].__pn_.__r_.__value_.__s.__data_[0])
   {
@@ -4775,7 +4707,7 @@ LABEL_7:
   return result;
 }
 
-const void *IPSecCountPolicies(const __CFDictionary *a1)
+CFIndex IPSecCountPolicies(const __CFDictionary *a1)
 {
   Value = CFDictionaryGetValue(a1, @"Policies");
   result = isArray(Value);
@@ -5751,7 +5683,7 @@ LABEL_53:
   return v31;
 }
 
-uint64_t IPSecRemoveSecurityAssociations(unsigned __int8 *a1, unsigned __int8 *a2)
+ssize_t IPSecRemoveSecurityAssociations(unsigned __int8 *a1, unsigned __int8 *a2)
 {
   v4 = pfkey_open();
   if (v4 < 0)
@@ -5836,24 +5768,23 @@ uint64_t get_src_address(_BYTE *a1, unsigned __int8 *a2, const char *a3, char *a
   if (result != -1)
   {
     v10 = result;
-    bzero(v43, 0x258uLL);
+    bzero(v41, 0x258uLL);
     __buf = 285540444;
-    v44 = 0x1100000807;
-    v45 = v8;
-    v46 = 1;
+    v42 = 0x1100000807;
+    v43 = v8;
+    v44 = 1;
     if (a3)
     {
       LODWORD(a3) = if_nametoindex(a3);
-      LODWORD(v44) = 16779271;
-      v43[0] = a3;
+      LODWORD(v42) = 16779271;
+      v41[0] = a3;
     }
 
-    v11 = v47;
-    v12 = *a2;
+    v11 = v45;
     __memmove_chk();
-    v13 = __buf + v47[0];
-    *&v47[v47[0]] = 4628;
-    LOWORD(__buf) = v13 + 20;
+    v12 = __buf + v45[0];
+    *&v45[v45[0]] = 4628;
+    LOWORD(__buf) = v12 + 20;
     while (write(v10, &__buf, __buf) == -1)
     {
       if (*__error() != 4)
@@ -5870,53 +5801,52 @@ uint64_t get_src_address(_BYTE *a1, unsigned __int8 *a2, const char *a3, char *a
       }
     }
 
-    v14 = 0;
+    v13 = 0;
     *__src = 0u;
-    v41 = 0u;
-    v38 = 0u;
     v39 = 0u;
-    v15 = HIDWORD(v44);
+    v36 = 0u;
+    v37 = 0u;
+    v14 = HIDWORD(v42);
     do
     {
-      if (((1 << v14) & v15) != 0)
+      if (((1 << v13) & v14) != 0)
       {
-        *(&v38 + v14) = v11;
-        v16 = *v11;
-        if ((v16 & 3) != 0)
+        *(&v36 + v13) = v11;
+        v15 = *v11;
+        if ((v15 & 3) != 0)
         {
-          v17 = (v16 | 3) + 1;
+          v16 = (v15 | 3) + 1;
         }
 
         else
         {
-          v17 = *v11;
+          v16 = *v11;
         }
 
-        *v11;
         if (*v11)
         {
-          v18 = v17;
+          v17 = v16;
         }
 
         else
         {
-          v18 = 4;
+          v17 = 4;
         }
 
-        v11 += v18;
-        v15 ^= 1 << v14;
+        v11 += v17;
+        v14 ^= 1 << v13;
       }
 
       else
       {
-        *(&v38 + v14) = 0;
+        *(&v36 + v13) = 0;
       }
 
-      ++v14;
+      ++v13;
     }
 
-    while (v14 != 8);
-    if (!a1 || (v19 = __src[1]) == 0 || (v20 = __src[0], a4) && !__src[0])
+    while (v13 != 8);
+    if (!a1 || (v18 = __src[1]) == 0 || (v19 = __src[0], a4) && !__src[0])
     {
 LABEL_7:
       close(v10);
@@ -5925,21 +5855,21 @@ LABEL_7:
 
     if (*(__src[1] + 1) == 30 && *(__src[1] + 8) == 254 && (*(__src[1] + 9) & 0xC0) == 0x80)
     {
-      v21 = *(__src[1] + 5);
+      v20 = *(__src[1] + 5);
       if (*(__src[1] + 5))
       {
         *(__src[1] + 5) = 0;
-        if (!v19[6])
+        if (!v18[6])
         {
-          v19[6] = __rev16(v21);
+          v18[6] = __rev16(v20);
         }
       }
     }
 
-    memmove(a1, v19, *v19);
+    memmove(a1, v18, *v18);
     if (a4)
     {
-      strncpy(a4, v20 + 8, 0x10uLL);
+      strncpy(a4, v19 + 8, 0x10uLL);
     }
 
     close(v10);
@@ -5948,80 +5878,79 @@ LABEL_7:
       return 0;
     }
 
-    LODWORD(v37) = 128;
-    HIDWORD(v37) = a3;
-    v22 = malloc_type_calloc(1uLL, 0x80uLL, 0x2FFDBC06uLL);
-    if (v22)
+    LODWORD(v35) = 128;
+    HIDWORD(v35) = a3;
+    v21 = malloc_type_calloc(1uLL, 0x80uLL, 0x2FFDBC06uLL);
+    if (v21)
     {
-      v23 = v22;
-      v24 = socket(a2[1], 2, 0);
-      if (v24 < 0)
+      v22 = v21;
+      v23 = socket(a2[1], 2, 0);
+      if (v23 < 0)
       {
-        v31 = __error();
-        v32 = strerror(*v31);
-        syslog(3, "socket (%s)\n", v32);
+        v29 = __error();
+        v30 = strerror(*v29);
+        syslog(3, "socket (%s)\n", v30);
       }
 
       else
       {
-        v25 = v24;
-        if (fcntl(v24, 4, 4, v37, v38, v39) == -1)
+        v24 = v23;
+        if (fcntl(v23, 4, 4, v35, v36, v37) == -1)
         {
           syslog(3, "failed to put localaddr socket in non-blocking mode\n");
         }
 
         if (a3)
         {
-          v26 = a2[1] == 2 ? 0 : 41;
-          v27 = a2[1] == 2 ? 25 : 125;
-          if (setsockopt(v25, v26, v27, &v37 + 4, 4u))
+          v25 = a2[1] == 2 ? 0 : 41;
+          v26 = a2[1] == 2 ? 25 : 125;
+          if (setsockopt(v24, v25, v26, &v35 + 4, 4u))
           {
-            v28 = __error();
-            v29 = strerror(*v28);
-            syslog(3, "failed to set IP family on localaddr socket: %s\n", v29);
+            v27 = __error();
+            v28 = strerror(*v27);
+            syslog(3, "failed to set IP family on localaddr socket: %s\n", v28);
           }
         }
 
-        v54 = 0u;
-        v55 = 0u;
         v52 = 0u;
         v53 = 0u;
         v50 = 0u;
         v51 = 0u;
-        v48 = 0;
+        v48 = 0u;
         v49 = 0u;
-        v30 = *a2;
+        v46 = 0;
+        v47 = 0u;
         __memcpy_chk();
-        if (v48.sa_family == 30 || v48.sa_family == 2)
+        if (v46.sa_family == 30 || v46.sa_family == 2)
         {
-          *v48.sa_data = -14161;
+          *v46.sa_data = -14161;
         }
 
-        if (connect(v25, &v48, v48.sa_len) < 0)
+        if (connect(v24, &v46, v46.sa_len) < 0)
         {
-          v33 = __error();
-          v34 = strerror(*v33);
-          syslog(3, "connect (%s)\n", v34);
-          close(v25);
+          v31 = __error();
+          v32 = strerror(*v31);
+          syslog(3, "connect (%s)\n", v32);
+          close(v24);
         }
 
         else
         {
-          if (getsockname(v25, v23, &v37) < 0)
+          if (getsockname(v24, v22, &v35) < 0)
           {
-            v35 = __error();
-            v36 = strerror(*v35);
-            syslog(3, "getsockname (%s)\n", v36);
-            close(v25);
+            v33 = __error();
+            v34 = strerror(*v33);
+            syslog(3, "getsockname (%s)\n", v34);
+            close(v24);
             return 0;
           }
 
-          close(v25);
-          memcpy(a1, v23, v23->sa_len);
+          close(v24);
+          memcpy(a1, v22, v22->sa_len);
         }
       }
 
-      free(v23);
+      free(v22);
     }
 
     else
@@ -6035,39 +5964,39 @@ LABEL_7:
   return result;
 }
 
-uint64_t get_if_mtu()
+uint64_t get_if_mtu(uint64_t a1)
 {
-  v4 = 0u;
   v5 = 0u;
-  v0 = 1500;
-  LODWORD(v5) = 1500;
-  v1 = socket(2, 2, 0);
-  if ((v1 & 0x80000000) == 0)
+  v6 = 0u;
+  v1 = 1500;
+  LODWORD(v6) = 1500;
+  v2 = socket(2, 2, 0);
+  if ((v2 & 0x80000000) == 0)
   {
-    v2 = v1;
+    v3 = v2;
     __strlcpy_chk();
-    ioctl(v2, 0xC0206933uLL, &v4);
-    close(v2);
-    return v5;
+    ioctl(v3, 0xC0206933uLL, &v5);
+    close(v3);
+    return v6;
   }
 
-  return v0;
+  return v1;
 }
 
-uint64_t get_if_media()
+uint64_t get_if_media(uint64_t a1)
 {
-  memset(v3, 0, 44);
-  v0 = socket(2, 2, 0);
-  if (v0 < 0)
+  memset(v4, 0, 44);
+  v1 = socket(2, 2, 0);
+  if (v1 < 0)
   {
     return 0;
   }
 
-  v1 = v0;
+  v2 = v1;
   __strlcpy_chk();
-  ioctl(v1, 0xC02C6938uLL, v3);
-  close(v1);
-  return LODWORD(v3[1]);
+  ioctl(v2, 0xC02C6938uLL, v4);
+  close(v2);
+  return LODWORD(v4[1]);
 }
 
 uint64_t get_if_baudrate(const char *a1)
@@ -7483,13 +7412,13 @@ void check_vpn_interface_or_service_unrecoverable()
   }
 }
 
-void dbglog()
+void dbglog(const char *a1, ...)
 {
     ;
   }
 }
 
-void error()
+void error(const char *a1, ...)
 {
     ;
   }
@@ -7549,7 +7478,7 @@ void new_phase()
   }
 }
 
-void notice()
+void notice(const char *a1, ...)
 {
     ;
   }
@@ -7627,7 +7556,7 @@ void untimeout()
   }
 }
 
-void warning()
+void warning(const char *a1, ...)
 {
     ;
   }

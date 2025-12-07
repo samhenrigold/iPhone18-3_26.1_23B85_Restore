@@ -50,55 +50,54 @@ uint64_t __66__ATXGEOTileLoader_requestGEOTileDataForLocation_tileDataHandler___
 
 - (void)requestGEOTileDataForLocation:(id)location tileLoader:(id)loader tileDataHandler:(id)handler
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   loaderCopy = loader;
   handlerCopy = handler;
   v8 = [(ATXGEOTileLoader *)self tileKeyListForLocation:location];
   v9 = dispatch_group_create();
+  v23 = 0u;
   v24 = 0u;
   v25 = 0u;
   v26 = 0u;
-  v27 = 0u;
   obj = v8;
-  v10 = [obj countByEnumeratingWithState:&v24 objects:v28 count:16];
+  v10 = [obj countByEnumeratingWithState:&v23 objects:v27 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v25;
+    v12 = *v24;
     do
     {
       v13 = 0;
       do
       {
-        if (*v25 != v12)
+        if (*v24 != v12)
         {
           objc_enumerationMutation(obj);
         }
 
-        v14 = *(*(&v24 + 1) + 8 * v13);
+        v14 = *(*(&v23 + 1) + 8 * v13);
         dispatch_group_enter(v9);
         v15 = GEOTileLoaderClientIdentifier();
         callbackQueue = self->_callbackQueue;
-        v21[0] = MEMORY[0x277D85DD0];
-        v21[1] = 3221225472;
-        v21[2] = __77__ATXGEOTileLoader_requestGEOTileDataForLocation_tileLoader_tileDataHandler___block_invoke;
-        v21[3] = &unk_279AB6F60;
-        v23 = handlerCopy;
-        v22 = v9;
-        [loaderCopy loadKey:v14 priority:2147483646 forClient:v15 options:3 reason:4 callbackQ:callbackQueue beginNetwork:0 callback:v21];
+        v20[0] = MEMORY[0x277D85DD0];
+        v20[1] = 3221225472;
+        v20[2] = __77__ATXGEOTileLoader_requestGEOTileDataForLocation_tileLoader_tileDataHandler___block_invoke;
+        v20[3] = &unk_279AB6F60;
+        v22 = handlerCopy;
+        v21 = v9;
+        [loaderCopy loadKey:v14 priority:2147483646 forClient:v15 options:3 reason:4 callbackQ:callbackQueue beginNetwork:0 callback:v20];
 
         ++v13;
       }
 
       while (v11 != v13);
-      v11 = [obj countByEnumeratingWithState:&v24 objects:v28 count:16];
+      v11 = [obj countByEnumeratingWithState:&v23 objects:v27 count:16];
     }
 
     while (v11);
   }
 
   [MEMORY[0x277D425A0] waitForGroup:v9 timeoutSeconds:&__block_literal_global_21 onGroupComplete:&__block_literal_global_24 onTimeout:1.0];
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 void __77__ATXGEOTileLoader_requestGEOTileDataForLocation_tileLoader_tileDataHandler___block_invoke(uint64_t a1, uint64_t a2, void *a3, uint64_t a4, void *a5, void *a6)
@@ -106,41 +105,42 @@ void __77__ATXGEOTileLoader_requestGEOTileDataForLocation_tileLoader_tileDataHan
   v9 = a3;
   v10 = a5;
   v11 = a6;
+  v12 = v11;
   if (v10)
   {
-    v12 = __atxlog_handle_hero();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v13 = __atxlog_handle_hero(v11);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      __77__ATXGEOTileLoader_requestGEOTileDataForLocation_tileLoader_tileDataHandler___block_invoke_cold_1(v10, v12);
+      __77__ATXGEOTileLoader_requestGEOTileDataForLocation_tileLoader_tileDataHandler___block_invoke_cold_1(v10, v13);
     }
   }
 
-  v13 = __atxlog_handle_hero();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+  v14 = __atxlog_handle_hero(v11);
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
   {
-    __77__ATXGEOTileLoader_requestGEOTileDataForLocation_tileLoader_tileDataHandler___block_invoke_cold_2(v13);
+    __77__ATXGEOTileLoader_requestGEOTileDataForLocation_tileLoader_tileDataHandler___block_invoke_cold_2(v14);
   }
 
   (*(*(a1 + 40) + 16))();
   dispatch_group_leave(*(a1 + 32));
 }
 
-void __77__ATXGEOTileLoader_requestGEOTileDataForLocation_tileLoader_tileDataHandler___block_invoke_19()
+void __77__ATXGEOTileLoader_requestGEOTileDataForLocation_tileLoader_tileDataHandler___block_invoke_19(uint64_t a1)
 {
-  v0 = __atxlog_handle_hero();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
+  v1 = __atxlog_handle_hero(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
   {
-    *v1 = 0;
-    _os_log_impl(&dword_260C92000, v0, OS_LOG_TYPE_DEFAULT, "GEO: tile download finished", v1, 2u);
+    *v2 = 0;
+    _os_log_impl(&dword_260C92000, v1, OS_LOG_TYPE_DEFAULT, "GEO: tile download finished", v2, 2u);
   }
 }
 
-void __77__ATXGEOTileLoader_requestGEOTileDataForLocation_tileLoader_tileDataHandler___block_invoke_22()
+void __77__ATXGEOTileLoader_requestGEOTileDataForLocation_tileLoader_tileDataHandler___block_invoke_22(uint64_t a1)
 {
-  v0 = __atxlog_handle_hero();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+  v1 = __atxlog_handle_hero(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
-    __77__ATXGEOTileLoader_requestGEOTileDataForLocation_tileLoader_tileDataHandler___block_invoke_22_cold_1(v0);
+    __77__ATXGEOTileLoader_requestGEOTileDataForLocation_tileLoader_tileDataHandler___block_invoke_22_cold_1(v1);
   }
 }
 
@@ -160,11 +160,10 @@ void __77__ATXGEOTileLoader_requestGEOTileDataForLocation_tileLoader_tileDataHan
 
 void __77__ATXGEOTileLoader_requestGEOTileDataForLocation_tileLoader_tileDataHandler___block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_260C92000, a2, OS_LOG_TYPE_ERROR, "GEO: Encountered error %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_260C92000, a2, OS_LOG_TYPE_ERROR, "GEO: Encountered error %@", &v2, 0xCu);
 }
 
 @end

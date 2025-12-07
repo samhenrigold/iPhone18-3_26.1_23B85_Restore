@@ -57,7 +57,7 @@
 
 - (void)startTranscribingForCallUUID:(id)d
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   dCopy = d;
   v5 = +[RTTSettings sharedInstance];
   if (([v5 rttLiveTranscriptionsFeatureFlagEnabled] & 1) == 0)
@@ -101,14 +101,14 @@ LABEL_16:
     }
 
     transcriber = [(RTTTranscriptionController *)self transcriber];
-    v16 = 0;
-    v17[0] = MEMORY[0x277D85DD0];
-    v17[1] = 3221225472;
-    v17[2] = __59__RTTTranscriptionController_startTranscribingForCallUUID___block_invoke;
-    v17[3] = &unk_279AE8048;
-    v17[4] = self;
-    [transcriber startTranscribing:1 targetPID:4294967294 callbackBlock:v17 error:&v16];
-    v5 = v16;
+    v15 = 0;
+    v16[0] = MEMORY[0x277D85DD0];
+    v16[1] = 3221225472;
+    v16[2] = __59__RTTTranscriptionController_startTranscribingForCallUUID___block_invoke;
+    v16[3] = &unk_279AE8048;
+    v16[4] = self;
+    [transcriber startTranscribing:1 targetPID:4294967294 callbackBlock:v16 error:&v15];
+    v5 = v15;
 
     v14 = AXLogRTT();
     v6 = v14;
@@ -117,7 +117,7 @@ LABEL_16:
       if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
       {
         *buf = 138412290;
-        v19 = dCopy;
+        v18 = dCopy;
         _os_log_impl(&dword_261754000, v6, OS_LOG_TYPE_INFO, "Started transcription for callUUID %@", buf, 0xCu);
       }
 
@@ -138,12 +138,11 @@ LABEL_16:
   if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
   {
     *buf = 138412290;
-    v19 = dCopy;
+    v18 = dCopy;
     _os_log_impl(&dword_261754000, v10, OS_LOG_TYPE_INFO, "Already transcribing for callUUID %@", buf, 0xCu);
   }
 
 LABEL_17:
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void __59__RTTTranscriptionController_startTranscribingForCallUUID___block_invoke(uint64_t a1, void *a2)
@@ -192,7 +191,7 @@ void __59__RTTTranscriptionController_startTranscribingForCallUUID___block_invok
 
 - (void)stopTranscribingForCallUUID:(id)d
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   dCopy = d;
   currentCallUUID = [(RTTTranscriptionController *)self currentCallUUID];
   v6 = [currentCallUUID isEqualToString:dCopy];
@@ -207,9 +206,9 @@ void __59__RTTTranscriptionController_startTranscribingForCallUUID___block_invok
     else
     {
       transcriber = [(RTTTranscriptionController *)self transcriber];
-      v13 = 0;
-      [transcriber stopTranscribing:1 targetPID:4294967294 error:&v13];
-      v9 = v13;
+      v12 = 0;
+      [transcriber stopTranscribing:1 targetPID:4294967294 error:&v12];
+      v9 = v12;
 
       v10 = AXLogRTT();
       v11 = v10;
@@ -226,7 +225,7 @@ void __59__RTTTranscriptionController_startTranscribingForCallUUID___block_invok
         if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
         {
           *buf = 138412290;
-          v15 = dCopy;
+          v14 = dCopy;
           _os_log_impl(&dword_261754000, v11, OS_LOG_TYPE_INFO, "Stopped transcription for callUUID %@", buf, 0xCu);
         }
 
@@ -242,12 +241,10 @@ void __59__RTTTranscriptionController_startTranscribingForCallUUID___block_invok
     if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v15 = dCopy;
+      v14 = dCopy;
       _os_log_impl(&dword_261754000, v7, OS_LOG_TYPE_INFO, "Already not transcribing for callUUID %@", buf, 0xCu);
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)startTranscribingV2ForCallUUID:(id)d
@@ -259,31 +256,31 @@ void __59__RTTTranscriptionController_startTranscribingForCallUUID___block_invok
 
 void __61__RTTTranscriptionController_startTranscribingV2ForCallUUID___block_invoke(uint64_t a1)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v2 = +[RTTLiveCaptionsObjC shared];
   [*(a1 + 32) setLiveCaptionsService:v2];
 
   v3 = MEMORY[0x277CBEAF8];
-  v18 = 0;
-  v19 = &v18;
-  v20 = 0x2020000000;
+  v17 = 0;
+  v18 = &v17;
+  v19 = 0x2020000000;
   v4 = getAXLCLiveCaptionsSelectedLocaleIdentifierSymbolLoc_ptr;
-  v21 = getAXLCLiveCaptionsSelectedLocaleIdentifierSymbolLoc_ptr;
+  v20 = getAXLCLiveCaptionsSelectedLocaleIdentifierSymbolLoc_ptr;
   if (!getAXLCLiveCaptionsSelectedLocaleIdentifierSymbolLoc_ptr)
   {
     *&buf = MEMORY[0x277D85DD0];
     *(&buf + 1) = 3221225472;
-    v23 = __getAXLCLiveCaptionsSelectedLocaleIdentifierSymbolLoc_block_invoke;
-    v24 = &unk_279AE78F0;
-    v25 = &v18;
+    v22 = __getAXLCLiveCaptionsSelectedLocaleIdentifierSymbolLoc_block_invoke;
+    v23 = &unk_279AE78F0;
+    v24 = &v17;
     v5 = LiveTranscriptionLibrary();
     v6 = dlsym(v5, "AXLCLiveCaptionsSelectedLocaleIdentifier");
-    *(v25[1] + 24) = v6;
-    getAXLCLiveCaptionsSelectedLocaleIdentifierSymbolLoc_ptr = *(v25[1] + 24);
-    v4 = v19[3];
+    *(v24[1] + 24) = v6;
+    getAXLCLiveCaptionsSelectedLocaleIdentifierSymbolLoc_ptr = *(v24[1] + 24);
+    v4 = v18[3];
   }
 
-  _Block_object_dispose(&v18, 8);
+  _Block_object_dispose(&v17, 8);
   if (!v4)
   {
     __41__RTTCall__postLocalNotificationForText___block_invoke_cold_1();
@@ -295,14 +292,14 @@ void __61__RTTTranscriptionController_startTranscribingV2ForCallUUID___block_inv
 
   v9 = [*(a1 + 32) liveCaptionsService];
   v10 = +[RTTLiveCaptionsObjC sourceTypeDownlink];
-  v16[0] = MEMORY[0x277D85DD0];
-  v16[1] = 3221225472;
-  v16[2] = __61__RTTTranscriptionController_startTranscribingV2ForCallUUID___block_invoke_2;
-  v16[3] = &unk_279AE8070;
-  v16[4] = *(a1 + 32);
-  v17 = 0;
-  [v9 startWithSource:v10 locale:v8 sharedRoute:0 excludePIDs:0 error:&v17 transcriptionResult:v16];
-  v11 = v17;
+  v15[0] = MEMORY[0x277D85DD0];
+  v15[1] = 3221225472;
+  v15[2] = __61__RTTTranscriptionController_startTranscribingV2ForCallUUID___block_invoke_2;
+  v15[3] = &unk_279AE8070;
+  v15[4] = *(a1 + 32);
+  v16 = 0;
+  [v9 startWithSource:v10 locale:v8 sharedRoute:0 excludePIDs:0 error:&v16 transcriptionResult:v15];
+  v11 = v16;
 
   v12 = AXLogRTT();
   v13 = v12;
@@ -327,8 +324,6 @@ void __61__RTTTranscriptionController_startTranscribingV2ForCallUUID___block_inv
     [*(a1 + 32) setCurrentTranscription:0];
     [*(a1 + 32) setCurrentCallUUID:*(a1 + 40)];
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void __61__RTTTranscriptionController_startTranscribingV2ForCallUUID___block_invoke_2(uint64_t a1, void *a2)
@@ -383,11 +378,11 @@ void __61__RTTTranscriptionController_startTranscribingV2ForCallUUID___block_inv
 
 void __60__RTTTranscriptionController_stopTranscribingV2ForCallUUID___block_invoke(uint64_t a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) liveCaptionsService];
-  v8 = 0;
-  [v2 stop:+[RTTLiveCaptionsObjC sourceTypeDownlink](RTTLiveCaptionsObjC error:{"sourceTypeDownlink"), &v8}];
-  v3 = v8;
+  v7 = 0;
+  [v2 stop:+[RTTLiveCaptionsObjC sourceTypeDownlink](RTTLiveCaptionsObjC error:{"sourceTypeDownlink"), &v7}];
+  v3 = v7;
 
   v4 = AXLogRTT();
   v5 = v4;
@@ -405,15 +400,13 @@ void __60__RTTTranscriptionController_stopTranscribingV2ForCallUUID___block_invo
     {
       v6 = *(a1 + 40);
       *buf = 138412290;
-      v10 = v6;
+      v9 = v6;
       _os_log_impl(&dword_261754000, v5, OS_LOG_TYPE_INFO, "Stopped transcription V2 for callUUID %@", buf, 0xCu);
     }
 
     [*(a1 + 32) setCurrentTranscription:0];
     [*(a1 + 32) setCurrentCallUUID:0];
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (RTTTranscriptionControllerDelegate)delegate
@@ -421,38 +414,6 @@ void __60__RTTTranscriptionController_stopTranscribingV2ForCallUUID___block_invo
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
 
   return WeakRetained;
-}
-
-- (void)startTranscribingForCallUUID:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_261754000, v0, v1, "Failed to start transcribing: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)stopTranscribingForCallUUID:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_261754000, v0, v1, "Failed to stop transcribing: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __61__RTTTranscriptionController_startTranscribingV2ForCallUUID___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_261754000, v0, v1, "Failed to start transcribing V2: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __60__RTTTranscriptionController_stopTranscribingV2ForCallUUID___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_261754000, v0, v1, "Failed to stop transcribing V2: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -1,4 +1,4 @@
-uint64_t sub_DE8()
+uint64_t sub_DE8(uint64_t a1, uint64_t a2)
 {
   if (qword_169D8 != -1)
   {
@@ -8,16 +8,16 @@ uint64_t sub_DE8()
   return byte_169D0;
 }
 
-id sub_E48()
+id sub_E48(uint64_t a1)
 {
   if (qword_169E8 != -1)
   {
     sub_680C();
   }
 
-  v1 = qword_169E0;
+  v2 = qword_169E0;
 
-  return v1;
+  return v2;
 }
 
 void sub_E8C(id a1)
@@ -27,16 +27,16 @@ void sub_E8C(id a1)
   qword_169E0 = v1;
 }
 
-id sub_ED0()
+id sub_ED0(uint64_t a1)
 {
   if (qword_169F8 != -1)
   {
     sub_6820();
   }
 
-  v1 = qword_169F0;
+  v2 = qword_169F0;
 
-  return v1;
+  return v2;
 }
 
 void sub_F14(id a1)
@@ -46,16 +46,16 @@ void sub_F14(id a1)
   qword_169F0 = v1;
 }
 
-id sub_F58()
+id sub_F58(uint64_t a1)
 {
   if (qword_16A08 != -1)
   {
     sub_6834();
   }
 
-  v1 = qword_16A00;
+  v2 = qword_16A00;
 
-  return v1;
+  return v2;
 }
 
 void sub_F9C(id a1)
@@ -65,16 +65,16 @@ void sub_F9C(id a1)
   qword_16A00 = v1;
 }
 
-id sub_FE0()
+id sub_FE0(uint64_t a1)
 {
   if (qword_16A18 != -1)
   {
     sub_6848();
   }
 
-  v1 = qword_16A10;
+  v2 = qword_16A10;
 
-  return v1;
+  return v2;
 }
 
 void sub_1024(id a1)
@@ -91,16 +91,16 @@ void sub_1068(char *category)
   qword_16A20 = v1;
 }
 
-id sub_10A8()
+id sub_10A8(uint64_t a1)
 {
   if (qword_16A28 != -1)
   {
     sub_685C();
   }
 
-  v1 = qword_16A20;
+  v2 = qword_16A20;
 
-  return v1;
+  return v2;
 }
 
 void sub_10EC(id a1)
@@ -111,16 +111,16 @@ void sub_10EC(id a1)
   }
 }
 
-id sub_1110()
+id sub_1110(uint64_t a1)
 {
   if (qword_16A38 != -1)
   {
     sub_6870();
   }
 
-  v1 = qword_16A30;
+  v2 = qword_16A30;
 
-  return v1;
+  return v2;
 }
 
 void sub_1154(id a1)
@@ -130,16 +130,16 @@ void sub_1154(id a1)
   qword_16A30 = v1;
 }
 
-id sub_1198()
+id sub_1198(uint64_t a1)
 {
   if (qword_16A48 != -1)
   {
     sub_6884();
   }
 
-  v1 = qword_16A40;
+  v2 = qword_16A40;
 
-  return v1;
+  return v2;
 }
 
 void sub_11DC(id a1)
@@ -149,16 +149,16 @@ void sub_11DC(id a1)
   qword_16A40 = v1;
 }
 
-id sub_1220()
+id sub_1220(uint64_t a1)
 {
   if (qword_16A58 != -1)
   {
     sub_6898();
   }
 
-  v1 = qword_16A50;
+  v2 = qword_16A50;
 
-  return v1;
+  return v2;
 }
 
 void sub_1264(id a1)
@@ -168,9 +168,9 @@ void sub_1264(id a1)
   qword_16A50 = v1;
 }
 
-id hexStringFromByteArray(uint64_t a1, int a2)
+id hexStringFromByteArray(uint64_t a1, unsigned int a2)
 {
-  v4 = [NSMutableString stringWithCapacity:2 * a2];
+  v4 = [NSMutableString stringWithCapacity:(2 * a2)];
   if (a2 >= 1)
   {
     v5 = a2 - 1;
@@ -201,7 +201,7 @@ id hexStringFromByteArray(uint64_t a1, int a2)
   return v10;
 }
 
-uint64_t isPartnerSupportEnabled()
+uint64_t isPartnerSupportEnabled(uint64_t a1, uint64_t a2)
 {
   if (qword_16A60 != -1)
   {
@@ -214,13 +214,14 @@ uint64_t isPartnerSupportEnabled()
 void sub_2020(id a1)
 {
   v1 = [[NSUserDefaults alloc] initWithSuiteName:@"com.apple.GameController"];
-  byte_16A68 = [v1 BOOLForKey:@"GCPartnersEnable"];
-  v2 = sub_10A8();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v2 = [v1 BOOLForKey:@"GCPartnersEnable"];
+  byte_16A68 = v2;
+  v3 = sub_10A8(v2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v3[0] = 67109120;
-    v3[1] = byte_16A68;
-    _os_log_impl(&dword_0, v2, OS_LOG_TYPE_DEFAULT, "Partners mode enabled? %d", v3, 8u);
+    v4[0] = 67109120;
+    v4[1] = byte_16A68;
+    _os_log_impl(&dword_0, v3, OS_LOG_TYPE_DEFAULT, "Partners mode enabled? %d", v4, 8u);
   }
 }
 
@@ -425,7 +426,7 @@ void sub_2C70(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int
 void sub_2CA0(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 32));
-  v2 = sub_10A8();
+  v2 = sub_10A8(WeakRetained);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *v3 = 0;
@@ -440,7 +441,7 @@ void sub_2CA0(uint64_t a1)
 void sub_2D38(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 32));
-  v2 = sub_10A8();
+  v2 = sub_10A8(WeakRetained);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *v4 = 0;
@@ -451,9 +452,9 @@ void sub_2D38(uint64_t a1)
   [v3 driverCheckIn];
 }
 
-void sub_34AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_34AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -468,7 +469,7 @@ uint64_t sub_34CC(uint64_t result, uint64_t a2)
 void sub_34E4(uint64_t a1)
 {
   v2 = [NSString stringWithCString:dispatch_queue_get_label(*(a1 + 32)) encoding:4];
-  v3 = sub_10A8();
+  v3 = sub_10A8(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v6 = 138412290;
@@ -510,18 +511,19 @@ void sub_3E8C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int
 void sub_3EB0(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 32));
+  v2 = WeakRetained;
   if (WeakRetained)
   {
-    v2 = sub_10A8();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+    v3 = sub_10A8(WeakRetained);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
-      *v4 = 0;
-      _os_log_impl(&dword_0, v2, OS_LOG_TYPE_DEFAULT, "calling cancel handler", v4, 2u);
+      *v5 = 0;
+      _os_log_impl(&dword_0, v3, OS_LOG_TYPE_DEFAULT, "calling cancel handler", v5, 2u);
     }
 
-    (*(WeakRetained[1] + 16))();
-    v3 = WeakRetained[1];
-    WeakRetained[1] = 0;
+    (*(v2[1] + 16))();
+    v4 = v2[1];
+    v2[1] = 0;
   }
 }
 
@@ -597,19 +599,20 @@ void sub_6030(uint64_t a1)
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   if (WeakRetained)
   {
-    v5 = 0uLL;
-    clock_gettime(_CLOCK_MONOTONIC_RAW, &v5);
-    if ((*(&v5 + 1) + v5 * 1000000000.0 - (*(WeakRetained + 64) + *(WeakRetained + 63) * 1000000000.0)) * 0.000000001 >= *(WeakRetained + 122))
+    v6 = 0uLL;
+    clock_gettime(_CLOCK_MONOTONIC_RAW, &v6);
+    if ((*(&v6 + 1) + v6 * 1000000000.0 - (*(WeakRetained + 64) + *(WeakRetained + 63) * 1000000000.0)) * 0.000000001 >= *(WeakRetained + 122))
     {
-      *(WeakRetained + 504) = v5;
+      *(WeakRetained + 504) = v6;
       v2 = [WeakRetained isAnyHapticMotorEnabled];
-      v3 = sub_10A8();
-      v4 = os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG);
-      if (v2)
+      v3 = v2;
+      v4 = sub_10A8(v2);
+      v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG);
+      if (v3)
       {
-        if (v4)
+        if (v5)
         {
-          sub_6CE8(v3);
+          sub_6CE8(v4);
         }
 
         *(WeakRetained + 121) = 0;
@@ -618,9 +621,9 @@ void sub_6030(uint64_t a1)
 
       else
       {
-        if (v4)
+        if (v5)
         {
-          sub_6CA4(v3);
+          sub_6CA4(v4);
         }
 
         [WeakRetained stopHaptics];
@@ -629,7 +632,7 @@ void sub_6030(uint64_t a1)
   }
 }
 
-uint64_t sub_6710()
+uint64_t sub_6710(unsigned int a1)
 {
 
   return kdebug_trace();
@@ -637,7 +640,6 @@ uint64_t sub_6710()
 
 id sub_6738(uint64_t a1, void *a2)
 {
-  v3 = *(a1 + 656);
 
   return [a2 timestamp];
 }
@@ -654,20 +656,19 @@ void sub_68C0(uint64_t a1, void *a2, int a3)
   v5 = a2;
   if (a1)
   {
-    v8 = v5;
+    v7 = v5;
     if (a3)
     {
       *(a1 + 664) = [v5 timestamp];
     }
 
-    v6 = *(a1 + 656);
-    [v8 timestamp];
-    [v8 type];
+    [v7 timestamp];
+    [v7 type];
     kdebug_trace();
     WeakRetained = objc_loadWeakRetained((a1 + 624));
-    [WeakRetained dispatchEvent:v8];
+    [WeakRetained dispatchEvent:v7];
 
-    v5 = v8;
+    v5 = v7;
   }
 }
 
@@ -683,7 +684,7 @@ uint64_t sub_6970(uint64_t result)
 
 void sub_6A24(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v6 = sub_10A8();
+  v6 = sub_10A8(a1);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
     v7 = *(a1 + 656);
@@ -700,8 +701,7 @@ void sub_6A24(uint64_t a1, uint64_t a2, uint64_t a3)
 void sub_6B08(uint64_t a1, void *a2)
 {
   sub_6738(a1, a2);
-  [v3 type];
-  sub_6710();
+  sub_6710([v3 type]);
   dispatch_time(0, (*v4 * 1000000000.0));
   [v5 dispatchQueue];
   objc_claimAutoreleasedReturnValue();
@@ -716,8 +716,7 @@ void sub_6B08(uint64_t a1, void *a2)
 void sub_6BB8(uint64_t a1, void *a2)
 {
   sub_6738(a1, a2);
-  [v3 type];
-  sub_6710();
+  sub_6710([v3 type]);
   dispatch_time(0, (*v4 * 1000000000.0));
   [v5 dispatchQueue];
   objc_claimAutoreleasedReturnValue();
@@ -727,14 +726,4 @@ void sub_6BB8(uint64_t a1, void *a2)
   *(v2 + 24) = &unk_105F8;
   *(v2 + 32) = v5;
   sub_6760(v3);
-}
-
-uint64_t sub_6C68(uint64_t a1)
-{
-  if (a1)
-  {
-    v1 = *(a1 + 656);
-  }
-
-  return kdebug_trace();
 }

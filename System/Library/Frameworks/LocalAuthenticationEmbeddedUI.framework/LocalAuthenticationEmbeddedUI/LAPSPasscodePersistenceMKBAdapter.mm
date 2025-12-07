@@ -2,6 +2,7 @@
 - (BOOL)isPasscodeLockedOut;
 - (id)_deviceLockStateValueForKey:(id)key;
 - (id)_mementoStateValueForKey:(id)key;
+- (id)_persistenceErrorWithPasscodeVerificationStatus:(int)status;
 - (id)_verifyPasscode:(id)passcode options:(id)options;
 - (id)verifyRecoveryPasscode:(id)passcode;
 @end
@@ -27,15 +28,13 @@
 
 - (id)verifyRecoveryPasscode:(id)passcode
 {
-  v11[1] = *MEMORY[0x277D85DE8];
-  v10 = @"UseMementoBlob";
-  v11[0] = MEMORY[0x277CBEC38];
+  v10[1] = *MEMORY[0x277D85DE8];
+  v9 = @"UseMementoBlob";
+  v10[0] = MEMORY[0x277CBEC38];
   v4 = MEMORY[0x277CBEAC0];
   passcodeCopy = passcode;
-  v6 = [v4 dictionaryWithObjects:v11 forKeys:&v10 count:1];
+  v6 = [v4 dictionaryWithObjects:v10 forKeys:&v9 count:1];
   v7 = [(LAPSPasscodePersistenceMKBAdapter *)self _verifyPasscode:passcodeCopy options:v6];
-
-  v8 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
@@ -62,6 +61,30 @@
   v11 = [(LAPSPasscodePersistenceMKBAdapter *)self _persistenceErrorWithPasscodeVerificationStatus:v9];
 
   return v11;
+}
+
+- (id)_persistenceErrorWithPasscodeVerificationStatus:(int)status
+{
+  if (status)
+  {
+    if (status == -3)
+    {
+      v3 = +[LAPSErrorBuilder invalidPasscodeError];
+    }
+
+    else
+    {
+      v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"Passcode verification failed (status: %d)", *&status];
+      v3 = [LAPSErrorBuilder genericErrorWithDebugDescription:v4];
+    }
+  }
+
+  else
+  {
+    v3 = 0;
+  }
+
+  return v3;
 }
 
 - (id)_mementoStateValueForKey:(id)key

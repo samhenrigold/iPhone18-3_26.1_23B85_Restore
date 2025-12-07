@@ -137,7 +137,7 @@
 
 - (void)writeTo:(id)to
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   toCopy = to;
   if (self->_serviceProviderIdentifier)
   {
@@ -149,68 +149,66 @@
     PBDataWriterWriteStringField();
   }
 
-  v34 = 0u;
-  v35 = 0u;
-  v32 = 0u;
-  v33 = 0u;
+  v30 = 0u;
+  v31 = 0u;
+  v28 = 0u;
+  v29 = 0u;
   v5 = self->_serviceProviderAcceptedNetworks;
-  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v32 objects:v38 count:16];
+  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v28 objects:v34 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v33;
+    v8 = *v29;
     do
     {
       v9 = 0;
       do
       {
-        if (*v33 != v8)
+        if (*v29 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v32 + 1) + 8 * v9);
         PBDataWriterWriteStringField();
         ++v9;
       }
 
       while (v7 != v9);
-      v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v32 objects:v38 count:16];
+      v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v28 objects:v34 count:16];
     }
 
     while (v7);
   }
 
-  v30 = 0u;
-  v31 = 0u;
-  v28 = 0u;
-  v29 = 0u;
-  v11 = self->_serviceProviderCapabilities;
-  v12 = [(NSMutableArray *)v11 countByEnumeratingWithState:&v28 objects:v37 count:16];
-  if (v12)
+  v26 = 0u;
+  v27 = 0u;
+  v24 = 0u;
+  v25 = 0u;
+  v10 = self->_serviceProviderCapabilities;
+  v11 = [(NSMutableArray *)v10 countByEnumeratingWithState:&v24 objects:v33 count:16];
+  if (v11)
   {
-    v13 = v12;
-    v14 = *v29;
+    v12 = v11;
+    v13 = *v25;
     do
     {
-      v15 = 0;
+      v14 = 0;
       do
       {
-        if (*v29 != v14)
+        if (*v25 != v13)
         {
-          objc_enumerationMutation(v11);
+          objc_enumerationMutation(v10);
         }
 
-        v16 = *(*(&v28 + 1) + 8 * v15);
         PBDataWriterWriteStringField();
-        ++v15;
+        ++v14;
       }
 
-      while (v13 != v15);
-      v13 = [(NSMutableArray *)v11 countByEnumeratingWithState:&v28 objects:v37 count:16];
+      while (v12 != v14);
+      v12 = [(NSMutableArray *)v10 countByEnumeratingWithState:&v24 objects:v33 count:16];
     }
 
-    while (v13);
+    while (v12);
   }
 
   if (self->_serviceProviderDictJson)
@@ -228,39 +226,36 @@
     PBDataWriterWriteStringField();
   }
 
-  v26 = 0u;
-  v27 = 0u;
-  v24 = 0u;
-  v25 = 0u;
-  v17 = self->_defaultSuggestions;
-  v18 = [(NSMutableArray *)v17 countByEnumeratingWithState:&v24 objects:v36 count:16];
-  if (v18)
+  v22 = 0u;
+  v23 = 0u;
+  v20 = 0u;
+  v21 = 0u;
+  v15 = self->_defaultSuggestions;
+  v16 = [(NSMutableArray *)v15 countByEnumeratingWithState:&v20 objects:v32 count:16];
+  if (v16)
   {
-    v19 = v18;
-    v20 = *v25;
+    v17 = v16;
+    v18 = *v21;
     do
     {
-      v21 = 0;
+      v19 = 0;
       do
       {
-        if (*v25 != v20)
+        if (*v21 != v18)
         {
-          objc_enumerationMutation(v17);
+          objc_enumerationMutation(v15);
         }
 
-        v22 = *(*(&v24 + 1) + 8 * v21);
         PBDataWriterWriteStringField();
-        ++v21;
+        ++v19;
       }
 
-      while (v19 != v21);
-      v19 = [(NSMutableArray *)v17 countByEnumeratingWithState:&v24 objects:v36 count:16];
+      while (v17 != v19);
+      v17 = [(NSMutableArray *)v15 countByEnumeratingWithState:&v20 objects:v32 count:16];
     }
 
-    while (v19);
+    while (v17);
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (void)copyTo:(id)to
@@ -339,7 +334,7 @@
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v51 = *MEMORY[0x277D85DE8];
+  v50 = *MEMORY[0x277D85DE8];
   v5 = [objc_msgSend(objc_opt_class() allocWithZone:{zone), "init"}];
   v6 = [(NSString *)self->_serviceProviderIdentifier copyWithZone:zone];
   v7 = v5[8];
@@ -349,67 +344,67 @@
   v9 = v5[6];
   v5[6] = v8;
 
-  v46 = 0u;
-  v47 = 0u;
-  v44 = 0u;
   v45 = 0u;
+  v46 = 0u;
+  v43 = 0u;
+  v44 = 0u;
   v10 = self->_serviceProviderAcceptedNetworks;
-  v11 = [(NSMutableArray *)v10 countByEnumeratingWithState:&v44 objects:v50 count:16];
+  v11 = [(NSMutableArray *)v10 countByEnumeratingWithState:&v43 objects:v49 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v45;
+    v13 = *v44;
     do
     {
       v14 = 0;
       do
       {
-        if (*v45 != v13)
+        if (*v44 != v13)
         {
           objc_enumerationMutation(v10);
         }
 
-        v15 = [*(*(&v44 + 1) + 8 * v14) copyWithZone:zone];
+        v15 = [*(*(&v43 + 1) + 8 * v14) copyWithZone:zone];
         [v5 addServiceProviderAcceptedNetworks:v15];
 
         ++v14;
       }
 
       while (v12 != v14);
-      v12 = [(NSMutableArray *)v10 countByEnumeratingWithState:&v44 objects:v50 count:16];
+      v12 = [(NSMutableArray *)v10 countByEnumeratingWithState:&v43 objects:v49 count:16];
     }
 
     while (v12);
   }
 
-  v42 = 0u;
-  v43 = 0u;
-  v40 = 0u;
   v41 = 0u;
+  v42 = 0u;
+  v39 = 0u;
+  v40 = 0u;
   v16 = self->_serviceProviderCapabilities;
-  v17 = [(NSMutableArray *)v16 countByEnumeratingWithState:&v40 objects:v49 count:16];
+  v17 = [(NSMutableArray *)v16 countByEnumeratingWithState:&v39 objects:v48 count:16];
   if (v17)
   {
     v18 = v17;
-    v19 = *v41;
+    v19 = *v40;
     do
     {
       v20 = 0;
       do
       {
-        if (*v41 != v19)
+        if (*v40 != v19)
         {
           objc_enumerationMutation(v16);
         }
 
-        v21 = [*(*(&v40 + 1) + 8 * v20) copyWithZone:zone];
+        v21 = [*(*(&v39 + 1) + 8 * v20) copyWithZone:zone];
         [v5 addServiceProviderCapabilities:v21];
 
         ++v20;
       }
 
       while (v18 != v20);
-      v18 = [(NSMutableArray *)v16 countByEnumeratingWithState:&v40 objects:v49 count:16];
+      v18 = [(NSMutableArray *)v16 countByEnumeratingWithState:&v39 objects:v48 count:16];
     }
 
     while (v18);
@@ -427,40 +422,39 @@
   v27 = v5[3];
   v5[3] = v26;
 
-  v38 = 0u;
-  v39 = 0u;
-  v36 = 0u;
   v37 = 0u;
+  v38 = 0u;
+  v35 = 0u;
+  v36 = 0u;
   v28 = self->_defaultSuggestions;
-  v29 = [(NSMutableArray *)v28 countByEnumeratingWithState:&v36 objects:v48 count:16];
+  v29 = [(NSMutableArray *)v28 countByEnumeratingWithState:&v35 objects:v47 count:16];
   if (v29)
   {
     v30 = v29;
-    v31 = *v37;
+    v31 = *v36;
     do
     {
       v32 = 0;
       do
       {
-        if (*v37 != v31)
+        if (*v36 != v31)
         {
           objc_enumerationMutation(v28);
         }
 
-        v33 = [*(*(&v36 + 1) + 8 * v32) copyWithZone:{zone, v36}];
+        v33 = [*(*(&v35 + 1) + 8 * v32) copyWithZone:{zone, v35}];
         [v5 addDefaultSuggestions:v33];
 
         ++v32;
       }
 
       while (v30 != v32);
-      v30 = [(NSMutableArray *)v28 countByEnumeratingWithState:&v36 objects:v48 count:16];
+      v30 = [(NSMutableArray *)v28 countByEnumeratingWithState:&v35 objects:v47 count:16];
     }
 
     while (v30);
   }
 
-  v34 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -503,7 +497,7 @@
 
 - (void)mergeFrom:(id)from
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   fromCopy = from;
   if (*(fromCopy + 8))
   {
@@ -515,57 +509,57 @@
     [(NPKProtoStandalonePaymentDigitalIssuanceMetadata *)self setServiceProviderCountryCode:?];
   }
 
-  v31 = 0u;
-  v32 = 0u;
-  v29 = 0u;
   v30 = 0u;
+  v31 = 0u;
+  v28 = 0u;
+  v29 = 0u;
   v5 = *(fromCopy + 4);
-  v6 = [v5 countByEnumeratingWithState:&v29 objects:v35 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v28 objects:v34 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v30;
+    v8 = *v29;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v30 != v8)
+        if (*v29 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        [(NPKProtoStandalonePaymentDigitalIssuanceMetadata *)self addServiceProviderAcceptedNetworks:*(*(&v29 + 1) + 8 * i)];
+        [(NPKProtoStandalonePaymentDigitalIssuanceMetadata *)self addServiceProviderAcceptedNetworks:*(*(&v28 + 1) + 8 * i)];
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v29 objects:v35 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v28 objects:v34 count:16];
     }
 
     while (v7);
   }
 
-  v27 = 0u;
-  v28 = 0u;
-  v25 = 0u;
   v26 = 0u;
+  v27 = 0u;
+  v24 = 0u;
+  v25 = 0u;
   v10 = *(fromCopy + 5);
-  v11 = [v10 countByEnumeratingWithState:&v25 objects:v34 count:16];
+  v11 = [v10 countByEnumeratingWithState:&v24 objects:v33 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v26;
+    v13 = *v25;
     do
     {
       for (j = 0; j != v12; ++j)
       {
-        if (*v26 != v13)
+        if (*v25 != v13)
         {
           objc_enumerationMutation(v10);
         }
 
-        [(NPKProtoStandalonePaymentDigitalIssuanceMetadata *)self addServiceProviderCapabilities:*(*(&v25 + 1) + 8 * j)];
+        [(NPKProtoStandalonePaymentDigitalIssuanceMetadata *)self addServiceProviderCapabilities:*(*(&v24 + 1) + 8 * j)];
       }
 
-      v12 = [v10 countByEnumeratingWithState:&v25 objects:v34 count:16];
+      v12 = [v10 countByEnumeratingWithState:&v24 objects:v33 count:16];
     }
 
     while (v12);
@@ -586,35 +580,33 @@
     [(NPKProtoStandalonePaymentDigitalIssuanceMetadata *)self setMerchantID:?];
   }
 
-  v23 = 0u;
-  v24 = 0u;
-  v21 = 0u;
   v22 = 0u;
+  v23 = 0u;
+  v20 = 0u;
+  v21 = 0u;
   v15 = *(fromCopy + 2);
-  v16 = [v15 countByEnumeratingWithState:&v21 objects:v33 count:16];
+  v16 = [v15 countByEnumeratingWithState:&v20 objects:v32 count:16];
   if (v16)
   {
     v17 = v16;
-    v18 = *v22;
+    v18 = *v21;
     do
     {
       for (k = 0; k != v17; ++k)
       {
-        if (*v22 != v18)
+        if (*v21 != v18)
         {
           objc_enumerationMutation(v15);
         }
 
-        [(NPKProtoStandalonePaymentDigitalIssuanceMetadata *)self addDefaultSuggestions:*(*(&v21 + 1) + 8 * k), v21];
+        [(NPKProtoStandalonePaymentDigitalIssuanceMetadata *)self addDefaultSuggestions:*(*(&v20 + 1) + 8 * k), v20];
       }
 
-      v17 = [v15 countByEnumeratingWithState:&v21 objects:v33 count:16];
+      v17 = [v15 countByEnumeratingWithState:&v20 objects:v32 count:16];
     }
 
     while (v17);
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 @end

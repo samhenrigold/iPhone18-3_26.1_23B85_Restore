@@ -22,7 +22,7 @@
     return 0;
   }
 
-  v4 = [MEMORY[0x277CCA900] characterSetWithCharactersInString:@";?:@&=+$#/%<>'\"\\""];
+  v4 = [MEMORY[0x277CCA900] characterSetWithCharactersInString:@";?:@&=+$#/%<>'\"];
   v5 = [MEMORY[0x277CCAB68] stringWithCapacity:{objc_msgSend(a3, "length")}];
   [v5 appendString:a3];
   v6 = [v5 rangeOfCharacterFromSet:v4];

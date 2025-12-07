@@ -69,7 +69,7 @@
 
 void __46__ATXHeuristicCacheContextStoreExpirer__start__block_invoke(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   if (WeakRetained)
   {
@@ -83,11 +83,11 @@ void __46__ATXHeuristicCacheContextStoreExpirer__start__block_invoke(uint64_t a1
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       v7 = WeakRetained[10];
-      v9 = 134218242;
-      v10 = WeakRetained;
-      v11 = 2112;
-      v12 = v7;
-      _os_log_impl(&dword_23E3EA000, v6, OS_LOG_TYPE_DEFAULT, "ATXHeuristicCacheContextStoreExpirer (%p): Context changed at keypath %@. Triggering heuristics refresh.", &v9, 0x16u);
+      v8 = 134218242;
+      v9 = WeakRetained;
+      v10 = 2112;
+      v11 = v7;
+      _os_log_impl(&dword_23E3EA000, v6, OS_LOG_TYPE_DEFAULT, "ATXHeuristicCacheContextStoreExpirer (%p): Context changed at keypath %@. Triggering heuristics refresh.", &v8, 0x16u);
     }
 
     [WeakRetained expire];
@@ -101,8 +101,6 @@ void __46__ATXHeuristicCacheContextStoreExpirer__start__block_invoke(uint64_t a1
       __46__ATXHeuristicCacheContextStoreExpirer__start__block_invoke_cold_1();
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)isEqual:(id)equal
@@ -174,41 +172,8 @@ void __46__ATXHeuristicCacheContextStoreExpirer__start__block_invoke(uint64_t a1
   v15.receiver = self;
   v15.super_class = ATXHeuristicCacheContextStoreExpirer;
   v5 = [(ATXHeuristicCacheExpirer *)&v15 initWithCoder:coderCopy];
-  if (!v5)
+  if (!v5 || ([coderCopy error], v6 = objc_claimAutoreleasedReturnValue(), v6, v6) || (objc_msgSend(coderCopy, "decodeObjectOfClass:forKey:", objc_opt_class(), @"contextKeyPath"), v9 = objc_claimAutoreleasedReturnValue(), contextKeyPath = v5->_contextKeyPath, v5->_contextKeyPath = v9, contextKeyPath, !v5->_contextKeyPath) || (objc_msgSend(coderCopy, "error"), v11 = objc_claimAutoreleasedReturnValue(), v11, v11) || (objc_msgSend(coderCopy, "decodeObjectOfClass:forKey:", objc_opt_class(), @"predicate"), v12 = objc_claimAutoreleasedReturnValue(), predicate = v5->_predicate, v5->_predicate = v12, predicate, !v5->_predicate) || (objc_msgSend(coderCopy, "error"), v14 = objc_claimAutoreleasedReturnValue(), v14, v14))
   {
-    goto LABEL_3;
-  }
-
-  error = [coderCopy error];
-
-  if (error)
-  {
-    goto LABEL_3;
-  }
-
-  v9 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"contextKeyPath"];
-  contextKeyPath = v5->_contextKeyPath;
-  v5->_contextKeyPath = v9;
-
-  if (!v5->_contextKeyPath)
-  {
-    goto LABEL_3;
-  }
-
-  error2 = [coderCopy error];
-
-  if (error2)
-  {
-    goto LABEL_3;
-  }
-
-  v12 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"predicate"];
-  predicate = v5->_predicate;
-  v5->_predicate = v12;
-
-  if (!v5->_predicate || ([coderCopy error], v14 = objc_claimAutoreleasedReturnValue(), v14, v14))
-  {
-LABEL_3:
     v7 = 0;
   }
 

@@ -22,42 +22,38 @@ void ___ef_log_EDDataDetectionPersistence_block_invoke()
 
 + (id)protectedTablesAndForeignKeysToResolve:(id *)resolve
 {
-  v7[1] = *MEMORY[0x1E69E9840];
+  v6[1] = *MEMORY[0x1E69E9840];
   if (resolve)
   {
     *resolve = MEMORY[0x1E695E0F0];
   }
 
   v3 = [self _dataDetectionResultsTableSchemaWithName:@"data_detection_results"];
-  v7[0] = v3;
-  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:1];
-
-  v5 = *MEMORY[0x1E69E9840];
+  v6[0] = v3;
+  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v6 count:1];
 
   return v4;
 }
 
 + (id)_dataDetectionResultsTableSchemaWithName:(id)name
 {
-  v14[3] = *MEMORY[0x1E69E9840];
+  v13[3] = *MEMORY[0x1E69E9840];
   nameCopy = name;
   v4 = objc_alloc(MEMORY[0x1E699B958]);
   v5 = [MEMORY[0x1E699B8D0] integerColumnWithName:@"global_message_id" nullable:0];
-  v14[0] = v5;
+  v13[0] = v5;
   v6 = [MEMORY[0x1E699B8D0] textColumnWithName:@"category" collation:1 nullable:0];
-  v14[1] = v6;
+  v13[1] = v6;
   v7 = [MEMORY[0x1E699B8D0] textColumnWithName:@"value" collation:1 nullable:0];
-  v14[2] = v7;
-  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v14 count:3];
+  v13[2] = v7;
+  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v13 count:3];
   v9 = [v4 initWithName:nameCopy rowIDType:1 columns:v8];
 
-  v13[0] = @"global_message_id";
-  v13[1] = @"category";
-  v13[2] = @"value";
-  v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v13 count:3];
+  v12[0] = @"global_message_id";
+  v12[1] = @"category";
+  v12[2] = @"value";
+  v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:3];
   [v9 addUniquenessConstraintForColumns:v10 conflictResolution:1];
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v9;
 }
@@ -150,28 +146,28 @@ uint64_t __70__EDDataDetectionPersistence_addDataDetectionResults_globalMessageI
 
 - (BOOL)_addDataDetectionResults:(id)results withGlobalMessageID:(int64_t)d toTable:(id)table withConnection:(id)connection
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   resultsCopy = results;
   tableCopy = table;
   connectionCopy = connection;
-  v29 = 0;
-  v30 = &v29;
-  v31 = 0x3032000000;
-  v32 = __Block_byref_object_copy__10;
-  v33 = __Block_byref_object_dispose__10;
-  v34 = [objc_alloc(MEMORY[0x1E699B910]) initWithTable:tableCopy conflictResolution:4];
-  v28[0] = MEMORY[0x1E69E9820];
-  v28[1] = 3221225472;
-  v28[2] = __98__EDDataDetectionPersistence__addDataDetectionResults_withGlobalMessageID_toTable_withConnection___block_invoke;
-  v28[3] = &unk_1E8252040;
-  v28[4] = &v29;
-  v28[5] = d;
-  [resultsCopy enumerateKeysAndObjectsUsingBlock:v28];
-  v12 = v30[5];
-  v27 = 0;
-  v13 = [connectionCopy executeInsertStatement:v12 error:&v27];
-  v14 = v27;
-  v15 = _ef_log_EDDataDetectionPersistence();
+  v28 = 0;
+  v29 = &v28;
+  v30 = 0x3032000000;
+  v31 = __Block_byref_object_copy__10;
+  v32 = __Block_byref_object_dispose__10;
+  v33 = [objc_alloc(MEMORY[0x1E699B910]) initWithTable:tableCopy conflictResolution:4];
+  v27[0] = MEMORY[0x1E69E9820];
+  v27[1] = 3221225472;
+  v27[2] = __98__EDDataDetectionPersistence__addDataDetectionResults_withGlobalMessageID_toTable_withConnection___block_invoke;
+  v27[3] = &unk_1E8252040;
+  v27[4] = &v28;
+  v27[5] = d;
+  [resultsCopy enumerateKeysAndObjectsUsingBlock:v27];
+  v12 = v29[5];
+  v26 = 0;
+  v13 = [connectionCopy executeInsertStatement:v12 error:&v26];
+  v14 = v26;
+  v15 = _ef_log_EDDataDetectionPersistence(v14);
   v16 = v15;
   if (v13)
   {
@@ -193,35 +189,34 @@ uint64_t __70__EDDataDetectionPersistence_addDataDetectionResults_globalMessageI
     [connectionCopy handleError:v14 message:@"Inserting into the data detection results table"];
   }
 
-  _Block_object_dispose(&v29, 8);
-  v25 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v28, 8);
   return v13;
 }
 
 void __98__EDDataDetectionPersistence__addDataDetectionResults_withGlobalMessageID_toTable_withConnection___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v5 = a2;
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   obj = a3;
-  v6 = [obj countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v6 = [obj countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v6)
   {
-    v7 = *v15;
+    v7 = *v14;
     do
     {
       v8 = 0;
       do
       {
-        if (*v15 != v7)
+        if (*v14 != v7)
         {
           objc_enumerationMutation(obj);
         }
 
-        v9 = *(*(&v14 + 1) + 8 * v8);
+        v9 = *(*(&v13 + 1) + 8 * v8);
         v10 = [*(*(*(a1 + 32) + 8) + 40) addValue];
         [v10 setObject:v9 forKeyedSubscript:@"value"];
         [v10 setObject:v5 forKeyedSubscript:@"category"];
@@ -232,47 +227,45 @@ void __98__EDDataDetectionPersistence__addDataDetectionResults_withGlobalMessage
       }
 
       while (v6 != v8);
-      v6 = [obj countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v6 = [obj countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v6);
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (id)getDataDetectionResultsForGlobalMessageID:(int64_t)d
 {
-  v26 = *MEMORY[0x1E69E9840];
-  v16 = 0;
-  v17 = &v16;
-  v18 = 0x3032000000;
-  v19 = __Block_byref_object_copy__10;
-  v20 = __Block_byref_object_dispose__10;
-  v21 = objc_alloc_init(MEMORY[0x1E695DF90]);
+  v25 = *MEMORY[0x1E69E9840];
+  v15 = 0;
+  v16 = &v15;
+  v17 = 0x3032000000;
+  v18 = __Block_byref_object_copy__10;
+  v19 = __Block_byref_object_dispose__10;
+  v20 = objc_alloc_init(MEMORY[0x1E695DF90]);
   database = [(EDDataDetectionPersistence *)self database];
   v6 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[EDDataDetectionPersistence getDataDetectionResultsForGlobalMessageID:]"];
-  v15[0] = MEMORY[0x1E69E9820];
-  v15[1] = 3221225472;
-  v15[2] = __72__EDDataDetectionPersistence_getDataDetectionResultsForGlobalMessageID___block_invoke;
-  v15[3] = &unk_1E8250150;
-  v15[4] = &v16;
-  v15[5] = d;
-  [database __performReadWithCaller:v6 usingBlock:v15];
+  v14[0] = MEMORY[0x1E69E9820];
+  v14[1] = 3221225472;
+  v14[2] = __72__EDDataDetectionPersistence_getDataDetectionResultsForGlobalMessageID___block_invoke;
+  v14[3] = &unk_1E8250150;
+  v14[4] = &v15;
+  v14[5] = d;
+  [database __performReadWithCaller:v6 usingBlock:v14];
 
-  v7 = [v17[5] count];
-  v8 = _ef_log_EDDataDetectionPersistence();
+  v7 = [v16[5] count];
+  v8 = _ef_log_EDDataDetectionPersistence(v7);
   v9 = v8;
   if (v7)
   {
     v10 = v8;
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = [MEMORY[0x1E699B858] partiallyRedactedDictionary:v17[5]];
+      v11 = [MEMORY[0x1E699B858] partiallyRedactedDictionary:v16[5]];
       *buf = 134349314;
       dCopy2 = d;
-      v24 = 2112;
-      v25 = v11;
+      v23 = 2112;
+      v24 = v11;
       _os_log_impl(&dword_1C61EF000, v10, OS_LOG_TYPE_DEFAULT, "Database read data detection results for message %{public}lld: %@", buf, 0x16u);
     }
   }
@@ -284,10 +277,8 @@ void __98__EDDataDetectionPersistence__addDataDetectionResults_withGlobalMessage
     _os_log_impl(&dword_1C61EF000, v9, OS_LOG_TYPE_DEFAULT, "Did not find any data detection results for message %{public}lld", buf, 0xCu);
   }
 
-  v12 = v17[5];
-  _Block_object_dispose(&v16, 8);
-
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = v16[5];
+  _Block_object_dispose(&v15, 8);
 
   return v12;
 }
@@ -302,23 +293,24 @@ uint64_t __72__EDDataDetectionPersistence_getDataDetectionResultsForGlobalMessag
   v7 = [v5 is:v6];
   [v4 setWhere:v7];
 
-  v17 = 0;
-  v18[0] = MEMORY[0x1E69E9820];
-  v18[1] = 3221225472;
-  v18[2] = __72__EDDataDetectionPersistence_getDataDetectionResultsForGlobalMessageID___block_invoke_2;
-  v18[3] = &unk_1E8250418;
-  v18[4] = *(a1 + 32);
-  LOBYTE(v7) = [v3 executeSelectStatement:v4 withBlock:v18 error:&v17];
-  v8 = v17;
+  v18 = 0;
+  v19[0] = MEMORY[0x1E69E9820];
+  v19[1] = 3221225472;
+  v19[2] = __72__EDDataDetectionPersistence_getDataDetectionResultsForGlobalMessageID___block_invoke_2;
+  v19[3] = &unk_1E8250418;
+  v19[4] = *(a1 + 32);
+  LOBYTE(v7) = [v3 executeSelectStatement:v4 withBlock:v19 error:&v18];
+  v8 = v18;
+  v9 = v8;
   if ((v7 & 1) == 0)
   {
-    v9 = _ef_log_EDDataDetectionPersistence();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v10 = _ef_log_EDDataDetectionPersistence(v8);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      __72__EDDataDetectionPersistence_getDataDetectionResultsForGlobalMessageID___block_invoke_cold_1(v8, v9, v10, v11, v12, v13, v14, v15);
+      __72__EDDataDetectionPersistence_getDataDetectionResultsForGlobalMessageID___block_invoke_cold_1(v9, v10, v11, v12, v13, v14, v15, v16);
     }
 
-    [v3 handleError:v8 message:@"Reading data detection results"];
+    [v3 handleError:v9 message:@"Reading data detection results"];
   }
 
   return 1;
@@ -392,24 +384,24 @@ uint64_t __77__EDDataDetectionPersistence_getDataDetectionResultRowIDsForGlobalM
   v7 = [v5 is:v6];
   [v4 setWhere:v7];
 
-  v21[0] = MEMORY[0x1E69E9820];
-  v21[1] = 3221225472;
-  v21[2] = __77__EDDataDetectionPersistence_getDataDetectionResultRowIDsForGlobalMessageID___block_invoke_2;
-  v21[3] = &unk_1E8250418;
-  v9 = (a1 + 6);
+  v22[0] = MEMORY[0x1E69E9820];
+  v22[1] = 3221225472;
+  v22[2] = __77__EDDataDetectionPersistence_getDataDetectionResultRowIDsForGlobalMessageID___block_invoke_2;
+  v22[3] = &unk_1E8250418;
+  v9 = a1 + 6;
   v8 = a1[6];
-  v21[4] = a1[5];
+  v22[4] = a1[5];
   v10 = *(v8 + 8);
   obj = *(v10 + 40);
-  v11 = [v3 executeSelectStatement:v4 withBlock:v21 error:&obj];
+  v11 = [v3 executeSelectStatement:v4 withBlock:v22 error:&obj];
   objc_storeStrong((v10 + 40), obj);
   *(*(a1[4] + 8) + 24) = v11;
   if ((*(*(a1[4] + 8) + 24) & 1) == 0)
   {
-    v12 = _ef_log_EDDataDetectionPersistence();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v13 = _ef_log_EDDataDetectionPersistence(v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      __77__EDDataDetectionPersistence_getDataDetectionResultRowIDsForGlobalMessageID___block_invoke_cold_1(v9, v12, v13, v14, v15, v16, v17, v18);
+      __77__EDDataDetectionPersistence_getDataDetectionResultRowIDsForGlobalMessageID___block_invoke_cold_1(v9, v13, v14, v15, v16, v17, v18, v19);
     }
 
     [v3 handleError:*(*(*v9 + 8) + 40) message:@"Getting data detection results from message ID"];
@@ -428,17 +420,15 @@ void __77__EDDataDetectionPersistence_getDataDetectionResultRowIDsForGlobalMessa
 
 - (id)_getPersistedMessagesFromGlobalMessageID:(int64_t)d
 {
-  v13[1] = *MEMORY[0x1E69E9840];
+  v12[1] = *MEMORY[0x1E69E9840];
   messagePersistence = [(EDDataDetectionPersistence *)self messagePersistence];
   v6 = [MEMORY[0x1E696AD98] numberWithLongLong:d];
-  v13[0] = v6;
-  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v13 count:1];
+  v12[0] = v6;
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:1];
   v8 = [messagePersistence persistedMessageIDsForGlobalMessageIDs:v7];
 
   messagePersistence2 = [(EDDataDetectionPersistence *)self messagePersistence];
   v10 = [messagePersistence2 persistedMessagesForDatabaseIDs:v8 requireProtectedData:0 temporarilyUnavailableDatabaseIDs:0];
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v10;
 }
@@ -468,9 +458,9 @@ void __77__EDDataDetectionPersistence_getDataDetectionResultRowIDsForGlobalMessa
 
 - (void)_addDataDetectionResults:(uint64_t)a3 withGlobalMessageID:(uint64_t)a4 toTable:(uint64_t)a5 withConnection:(uint64_t)a6 .cold.1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_4(&dword_1C61EF000, a2, a3, "Error: %@ unable to persist all results into data_detection_results table", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0_4(&dword_1C61EF000, a2, a3, "Error: %@ unable to persist all results into data_detection_results table", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)_addDataDetectionResults:(os_log_t)log withGlobalMessageID:toTable:withConnection:.cold.2(void *a1, uint8_t *buf, os_log_t log)
@@ -482,17 +472,16 @@ void __77__EDDataDetectionPersistence_getDataDetectionResultRowIDsForGlobalMessa
 
 void __72__EDDataDetectionPersistence_getDataDetectionResultsForGlobalMessageID___block_invoke_cold_1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_4(&dword_1C61EF000, a2, a3, "Error reading data detection results: %@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0_4(&dword_1C61EF000, a2, a3, "Error reading data detection results: %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void __77__EDDataDetectionPersistence_getDataDetectionResultRowIDsForGlobalMessageID___block_invoke_cold_1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v9 = HIDWORD(*(*(*a1 + 8) + 40));
-  OUTLINED_FUNCTION_0_4(&dword_1C61EF000, a2, a3, "Error getting data detection results from message ID: %@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = *(*(*a1 + 8) + 40);
+  OUTLINED_FUNCTION_0_4(&dword_1C61EF000, a2, a3, "Error getting data detection results from message ID: %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

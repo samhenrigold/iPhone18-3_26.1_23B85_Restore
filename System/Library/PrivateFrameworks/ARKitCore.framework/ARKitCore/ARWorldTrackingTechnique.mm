@@ -30,11 +30,11 @@
 - (int64_t)vioHandleState;
 - (shared_ptr<PlaneDetectionSession>)planeDetectionSession;
 - (shared_ptr<RaycastSession>)raycastSession;
-- (uint64_t)_compensationMatrixForTrackingCameraID:(uint64_t)d;
 - (unint64_t)_sessionType;
 - (unint64_t)requiredSensorDataTypes;
 - (unsigned)CV3DSLAMJasperPointCloudProjectorModeFromAVTimeOfFlightProjectorMode:(int64_t)mode;
 - (unsigned)_trackingCameraID:(CV3DSLAMStateContext *)d;
+- (void)_compensationMatrixForTrackingCameraID:(uint64_t)d;
 - (void)_configureMeshPlaneHarmonization;
 - (void)_didFailWithError:(id)error;
 - (void)_handleCV3DError:(__CFError *)error withDescription:(id)description failTechnique:(BOOL)technique;
@@ -102,9 +102,10 @@
   return +[ARWorldTrackingTechnique isSupported]::supported;
 }
 
-void __39__ARWorldTrackingTechnique_isSupported__block_invoke()
+void __39__ARWorldTrackingTechnique_isSupported__block_invoke(uint64_t a1, uint64_t a2)
 {
-  if (IsCV3DVIOVideoModeSupported(1))
+  v2 = IsCV3DVIOVideoModeSupported(1, a2);
+  if (v2)
   {
     +[ARWorldTrackingTechnique isSupported]::supported = 1;
     return;
@@ -115,30 +116,30 @@ void __39__ARWorldTrackingTechnique_isSupported__block_invoke()
     __39__ARWorldTrackingTechnique_isSupported__block_invoke_cold_1();
   }
 
-  v0 = ARShouldUseLogTypeError(void)::internalOSVersion;
-  v1 = _ARLogGeneral();
-  v2 = v1;
-  if (v0 == 1)
+  v3 = ARShouldUseLogTypeError(void)::internalOSVersion;
+  v4 = _ARLogGeneral(v2);
+  v5 = v4;
+  if (v3 == 1)
   {
-    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      v8 = 0;
-      v3 = "ARWorldTracking is not supported on this device. VIO is video mode supported returned false.";
-      v4 = &v8;
-      v5 = v2;
-      v6 = OS_LOG_TYPE_ERROR;
+      v11 = 0;
+      v6 = "ARWorldTracking is not supported on this device. VIO is video mode supported returned false.";
+      v7 = &v11;
+      v8 = v5;
+      v9 = OS_LOG_TYPE_ERROR;
 LABEL_10:
-      _os_log_impl(&dword_1C241C000, v5, v6, v3, v4, 2u);
+      _os_log_impl(&dword_1C241C000, v8, v9, v6, v7, 2u);
     }
   }
 
-  else if (os_log_type_enabled(v1, OS_LOG_TYPE_INFO))
+  else if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
-    v7 = 0;
-    v3 = "Error: ARWorldTracking is not supported on this device. VIO is video mode supported returned false.";
-    v4 = &v7;
-    v5 = v2;
-    v6 = OS_LOG_TYPE_INFO;
+    v10 = 0;
+    v6 = "Error: ARWorldTracking is not supported on this device. VIO is video mode supported returned false.";
+    v7 = &v10;
+    v8 = v5;
+    v9 = OS_LOG_TYPE_INFO;
     goto LABEL_10;
   }
 }
@@ -148,12 +149,12 @@ LABEL_10:
   height = resolution.height;
   width = resolution.width;
   typeCopy = type;
-  if ((atomic_load_explicit(&_MergedGlobals_0, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(_MergedGlobals_0, memory_order_acquire) & 1) == 0)
   {
     +[ARWorldTrackingTechnique supportsVideoResolution:forDeviceType:];
   }
 
-  if ((atomic_load_explicit(&qword_1EBF41CB8, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(byte_1EBF41CB8, memory_order_acquire) & 1) == 0)
   {
     +[ARWorldTrackingTechnique supportsVideoResolution:forDeviceType:];
   }
@@ -165,41 +166,41 @@ LABEL_10:
 
   if (*MEMORY[0x1E6986950] == typeCopy && (*&xmmword_1EBF41CC0 == width ? (v7 = *(&xmmword_1EBF41CC0 + 1) == height) : (v7 = 0), v7) || (v8 = *MEMORY[0x1E6986948], *MEMORY[0x1E6986948] == typeCopy) && (*&qword_1EBF41CD0 == width ? (v9 = *algn_1EBF41CD8 == height) : (v9 = 0), v9))
   {
-    v11 = 1;
+    v12 = 1;
   }
 
   else if (ARIsSupportedAVCaptureDeviceTypeForRearCameraBackdrop(typeCopy))
   {
     if (width == 640.0 && height == 480.0)
     {
-      v10 = 0;
+      v11 = 0;
 LABEL_42:
-      v11 = IsCV3DVIOVideoModeSupported(v10);
+      v12 = IsCV3DVIOVideoModeSupported(v11, v10);
       goto LABEL_43;
     }
 
     if (width == 1280.0 && height == 720.0)
     {
-      v10 = 1;
+      v11 = 1;
       goto LABEL_42;
     }
 
     if (width == 1440.0 && height == 1080.0)
     {
-      v10 = 4;
+      v11 = 4;
       goto LABEL_42;
     }
 
     if (width == 1920.0 && height == 1080.0)
     {
-      v10 = 2;
+      v11 = 2;
       goto LABEL_42;
     }
 
-    v11 = 0;
+    v12 = 0;
     if (width == 1920.0 && height == 1440.0)
     {
-      v10 = 3;
+      v11 = 3;
       goto LABEL_42;
     }
   }
@@ -208,26 +209,26 @@ LABEL_42:
   {
     if (width == 640.0 && height == 480.0)
     {
-      v10 = 5;
+      v11 = 5;
       goto LABEL_42;
     }
 
-    v11 = 0;
+    v12 = 0;
     if (width == 1920.0 && height == 1440.0)
     {
-      v10 = 6;
+      v11 = 6;
       goto LABEL_42;
     }
   }
 
   else
   {
-    v11 = 0;
+    v12 = 0;
   }
 
 LABEL_43:
 
-  return v11;
+  return v12;
 }
 
 void __66__ARWorldTrackingTechnique_supportsVideoResolution_forDeviceType___block_invoke()
@@ -286,11 +287,11 @@ void __66__ARWorldTrackingTechnique_supportsVideoResolution_forDeviceType___bloc
 
 - (ARWorldTrackingTechnique)initWithOptions:(id)options
 {
-  v110 = *MEMORY[0x1E69E9840];
+  v120 = *MEMORY[0x1E69E9840];
   optionsCopy = options;
-  v103.receiver = self;
-  v103.super_class = ARWorldTrackingTechnique;
-  v5 = [(ARImageBasedTechnique *)&v103 init];
+  v113.receiver = self;
+  v113.super_class = ARWorldTrackingTechnique;
+  v5 = [(ARImageBasedTechnique *)&v113 init];
   if (v5)
   {
     weakObjectsHashTable = [MEMORY[0x1E696AC70] weakObjectsHashTable];
@@ -330,62 +331,62 @@ void __66__ARWorldTrackingTechnique_supportsVideoResolution_forDeviceType___bloc
 
       v5->_participantAnchorsEnabled = [ARKitUserDefaults BOOLForKey:@"com.apple.arkit.worldTracking.participantAnchors"];
       v5->_resultLatency = 0.008;
-      v20 = [ARKitUserDefaults numberForKey:@"com.apple.arkit.worldTracking.resultLatency"];
-      v101 = v20;
-      if (v20)
+      doubleValue = [ARKitUserDefaults numberForKey:@"com.apple.arkit.worldTracking.resultLatency"];
+      v111 = doubleValue;
+      if (doubleValue)
       {
-        [(ARWorldTrackingTechnique *)v20 doubleValue];
+        doubleValue = [(ARWorldTrackingTechnique *)doubleValue doubleValue];
         v5->_resultLatency = v21 * 0.001;
       }
 
-      v22 = _ARLogTechnique();
+      v22 = _ARLogTechnique(doubleValue);
       if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
       {
         v23 = objc_opt_class();
         v24 = NSStringFromClass(v23);
         v25 = v5->_resultLatency * 1000.0;
         *buf = 138543874;
-        v105 = v24;
-        v106 = 2048;
-        v107 = v5;
-        v108 = 2048;
-        *&v109 = v25;
+        v115 = v24;
+        v116 = 2048;
+        v117 = v5;
+        v118 = 2048;
+        *&v119 = v25;
         _os_log_impl(&dword_1C241C000, v22, OS_LOG_TYPE_INFO, "%{public}@ <%p>: World tracking result latency %fms", buf, 0x20u);
       }
 
-      CV3DGetVersionInfo();
-      v26 = _ARLogTechnique();
-      if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
+      v26 = CV3DGetVersionInfo();
+      v27 = _ARLogTechnique(v26);
+      if (os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
       {
-        v27 = objc_opt_class();
-        v28 = NSStringFromClass(v27);
+        v28 = objc_opt_class();
+        v29 = NSStringFromClass(v28);
         *buf = 138544386;
-        v105 = v28;
-        v106 = 2048;
-        v107 = v5;
-        v108 = 1024;
-        LODWORD(v109) = 0;
-        WORD2(v109) = 1024;
-        *(&v109 + 6) = 0;
-        WORD5(v109) = 1024;
-        HIDWORD(v109) = 0;
-        _os_log_impl(&dword_1C241C000, v26, OS_LOG_TYPE_DEBUG, "%{public}@ <%p>: AppleCV3D version %u.%u.%u", buf, 0x28u);
+        v115 = v29;
+        v116 = 2048;
+        v117 = v5;
+        v118 = 1024;
+        LODWORD(v119) = 0;
+        WORD2(v119) = 1024;
+        *(&v119 + 6) = 0;
+        WORD5(v119) = 1024;
+        HIDWORD(v119) = 0;
+        _os_log_impl(&dword_1C241C000, v27, OS_LOG_TYPE_DEBUG, "%{public}@ <%p>: AppleCV3D version %u.%u.%u", buf, 0x28u);
       }
 
       v5->_sessionHandleState = 1;
-      v29 = _ARLogTechnique();
-      if (os_log_type_enabled(v29, OS_LOG_TYPE_DEBUG))
+      v31 = _ARLogTechnique(v30);
+      if (os_log_type_enabled(v31, OS_LOG_TYPE_DEBUG))
       {
-        v30 = objc_opt_class();
-        v31 = NSStringFromClass(v30);
+        v32 = objc_opt_class();
+        v33 = NSStringFromClass(v32);
         predictorHandle = v5->_predictorHandle;
         *buf = 138543874;
-        v105 = v31;
-        v106 = 2048;
-        v107 = v5;
-        v108 = 2048;
-        *&v109 = predictorHandle;
-        _os_log_impl(&dword_1C241C000, v29, OS_LOG_TYPE_DEBUG, "%{public}@ <%p>: Created pose predictor handle: %p", buf, 0x20u);
+        v115 = v33;
+        v116 = 2048;
+        v117 = v5;
+        v118 = 2048;
+        *&v119 = predictorHandle;
+        _os_log_impl(&dword_1C241C000, v31, OS_LOG_TYPE_DEBUG, "%{public}@ <%p>: Created pose predictor handle: %p", buf, 0x20u);
       }
 
       imageSensorSettings = [(ARWorldTrackingOptions *)v5->_mutableOptions imageSensorSettings];
@@ -394,202 +395,206 @@ void __66__ARWorldTrackingTechnique_supportsVideoResolution_forDeviceType___bloc
 
       if (captureDeviceType)
       {
-        v35 = [(ARWorldTrackingOptions *)v5->_mutableOptions cameraIdForCaptureDeviceType:?];
+        v37 = [(ARWorldTrackingOptions *)v5->_mutableOptions cameraIdForCaptureDeviceType:?];
       }
 
       else
       {
-        v35 = 0;
+        v37 = 0;
       }
 
-      v5->_visualizationCameraID = v35;
-      v37 = _ARLogTechnique();
-      if (os_log_type_enabled(v37, OS_LOG_TYPE_DEBUG))
+      v5->_visualizationCameraID = v37;
+      v39 = _ARLogTechnique(v37);
+      if (os_log_type_enabled(v39, OS_LOG_TYPE_DEBUG))
       {
-        v38 = objc_opt_class();
-        v39 = NSStringFromClass(v38);
+        v40 = objc_opt_class();
+        v41 = NSStringFromClass(v40);
         visualizationCameraID = v5->_visualizationCameraID;
         *buf = 138544130;
-        v105 = v39;
-        v106 = 2048;
-        v107 = v5;
-        v108 = 1024;
-        LODWORD(v109) = visualizationCameraID;
-        WORD2(v109) = 2112;
-        *(&v109 + 6) = captureDeviceType;
-        _os_log_impl(&dword_1C241C000, v37, OS_LOG_TYPE_DEBUG, "%{public}@ <%p>: World tracking visualization camera identifier: %u, visualization capture device type: %@", buf, 0x26u);
+        v115 = v41;
+        v116 = 2048;
+        v117 = v5;
+        v118 = 1024;
+        LODWORD(v119) = visualizationCameraID;
+        WORD2(v119) = 2112;
+        *(&v119 + 6) = captureDeviceType;
+        _os_log_impl(&dword_1C241C000, v39, OS_LOG_TYPE_DEBUG, "%{public}@ <%p>: World tracking visualization camera identifier: %u, visualization capture device type: %@", buf, 0x26u);
       }
 
-      v5->_useFixedIntrinsics = [ARKitUserDefaults BOOLForKey:@"com.apple.arkit.worldtracking.fixedIntrinsics"];
-      v41 = _ARLogTechnique();
-      if (os_log_type_enabled(v41, OS_LOG_TYPE_DEBUG))
+      v43 = [ARKitUserDefaults BOOLForKey:@"com.apple.arkit.worldtracking.fixedIntrinsics"];
+      v5->_useFixedIntrinsics = v43;
+      v44 = _ARLogTechnique(v43);
+      if (os_log_type_enabled(v44, OS_LOG_TYPE_DEBUG))
       {
-        v42 = objc_opt_class();
-        v43 = NSStringFromClass(v42);
+        v45 = objc_opt_class();
+        v46 = NSStringFromClass(v45);
         useFixedIntrinsics = v5->_useFixedIntrinsics;
         *buf = 138543874;
-        v105 = v43;
+        v115 = v46;
         if (useFixedIntrinsics)
         {
-          v45 = @"fixed";
+          v48 = @"fixed";
         }
 
         else
         {
-          v45 = @"varying";
+          v48 = @"varying";
         }
 
-        v106 = 2048;
-        v107 = v5;
-        v108 = 2112;
-        *&v109 = v45;
-        _os_log_impl(&dword_1C241C000, v41, OS_LOG_TYPE_DEBUG, "%{public}@ <%p>: World tracking will use %@ intrinsics", buf, 0x20u);
+        v116 = 2048;
+        v117 = v5;
+        v118 = 2112;
+        *&v119 = v48;
+        _os_log_impl(&dword_1C241C000, v44, OS_LOG_TYPE_DEBUG, "%{public}@ <%p>: World tracking will use %@ intrinsics", buf, 0x20u);
       }
 
-      v5->_shouldPushVisionDataIntrinsics = [ARKitUserDefaults BOOLForKey:@"com.apple.arkit.worldtracking.pushVisionDataIntrinsics"];
-      v46 = _ARLogTechnique();
-      if (os_log_type_enabled(v46, OS_LOG_TYPE_DEBUG))
+      v49 = [ARKitUserDefaults BOOLForKey:@"com.apple.arkit.worldtracking.pushVisionDataIntrinsics"];
+      v5->_shouldPushVisionDataIntrinsics = v49;
+      v50 = _ARLogTechnique(v49);
+      if (os_log_type_enabled(v50, OS_LOG_TYPE_DEBUG))
       {
-        v47 = objc_opt_class();
-        v48 = NSStringFromClass(v47);
+        v51 = objc_opt_class();
+        v52 = NSStringFromClass(v51);
         shouldPushVisionDataIntrinsics = v5->_shouldPushVisionDataIntrinsics;
         *buf = 138543874;
-        v105 = v48;
+        v115 = v52;
         if (shouldPushVisionDataIntrinsics)
         {
-          v50 = &stru_1F4208A80;
+          v54 = &stru_1F4208A80;
         }
 
         else
         {
-          v50 = @"not ";
+          v54 = @"not ";
         }
 
-        v106 = 2048;
-        v107 = v5;
-        v108 = 2112;
-        *&v109 = v50;
-        _os_log_impl(&dword_1C241C000, v46, OS_LOG_TYPE_DEBUG, "%{public}@ <%p>: World tracking will %@push vision data intrinsics", buf, 0x20u);
+        v116 = 2048;
+        v117 = v5;
+        v118 = 2112;
+        *&v119 = v54;
+        _os_log_impl(&dword_1C241C000, v50, OS_LOG_TYPE_DEBUG, "%{public}@ <%p>: World tracking will %@push vision data intrinsics", buf, 0x20u);
       }
 
-      v5->_shouldUseFullResolutionVisionDataIntrinsics = [ARKitUserDefaults BOOLForKey:@"com.apple.arkit.worldtracking.useFullResolutionVisionDataIntrinsics"];
-      v51 = _ARLogTechnique();
-      if (os_log_type_enabled(v51, OS_LOG_TYPE_DEBUG))
+      v55 = [ARKitUserDefaults BOOLForKey:@"com.apple.arkit.worldtracking.useFullResolutionVisionDataIntrinsics"];
+      v5->_shouldUseFullResolutionVisionDataIntrinsics = v55;
+      v56 = _ARLogTechnique(v55);
+      if (os_log_type_enabled(v56, OS_LOG_TYPE_DEBUG))
       {
-        v52 = objc_opt_class();
-        v53 = NSStringFromClass(v52);
+        v57 = objc_opt_class();
+        v58 = NSStringFromClass(v57);
         shouldUseFullResolutionVisionDataIntrinsics = v5->_shouldUseFullResolutionVisionDataIntrinsics;
         *buf = 138543874;
-        v105 = v53;
+        v115 = v58;
         if (shouldUseFullResolutionVisionDataIntrinsics)
         {
-          v55 = &stru_1F4208A80;
+          v60 = &stru_1F4208A80;
         }
 
         else
         {
-          v55 = @"not ";
+          v60 = @"not ";
         }
 
-        v106 = 2048;
-        v107 = v5;
-        v108 = 2112;
-        *&v109 = v55;
-        _os_log_impl(&dword_1C241C000, v51, OS_LOG_TYPE_DEBUG, "%{public}@ <%p>: World tracking will %@push scale vision intrinsics for full resolution", buf, 0x20u);
+        v116 = 2048;
+        v117 = v5;
+        v118 = 2112;
+        *&v119 = v60;
+        _os_log_impl(&dword_1C241C000, v56, OS_LOG_TYPE_DEBUG, "%{public}@ <%p>: World tracking will %@push scale vision intrinsics for full resolution", buf, 0x20u);
       }
 
       [ARKitUserDefaults doubleForKey:@"com.apple.arkit.worldtracking.minVergenceAngle"];
-      v57 = v56;
-      v5->_minVergenceAngleCosine = cos(v56 * 3.14159265 / 180.0);
-      v58 = _ARLogTechnique();
-      if (os_log_type_enabled(v58, OS_LOG_TYPE_DEBUG))
+      v62 = v61;
+      v5->_minVergenceAngleCosine = cos(v61 * 3.14159265 / 180.0);
+      v64 = _ARLogTechnique(v63);
+      if (os_log_type_enabled(v64, OS_LOG_TYPE_DEBUG))
       {
-        v59 = objc_opt_class();
-        v60 = NSStringFromClass(v59);
+        v65 = objc_opt_class();
+        v66 = NSStringFromClass(v65);
         *buf = 138543874;
-        v105 = v60;
-        v106 = 2048;
-        v107 = v5;
-        v108 = 2048;
-        *&v109 = v57;
-        _os_log_impl(&dword_1C241C000, v58, OS_LOG_TYPE_DEBUG, "%{public}@ <%p>: World tracking will use %.03f° as minimum vergence angle threshold", buf, 0x20u);
+        v115 = v66;
+        v116 = 2048;
+        v117 = v5;
+        v118 = 2048;
+        *&v119 = v62;
+        _os_log_impl(&dword_1C241C000, v64, OS_LOG_TYPE_DEBUG, "%{public}@ <%p>: World tracking will use %.03f° as minimum vergence angle threshold", buf, 0x20u);
       }
 
-      v5->_allowPoseGraphUpdates = [ARKitUserDefaults BOOLForKey:@"com.apple.arkit.worldtracking.poseGraphUpdates"];
-      v61 = _ARLogTechnique();
-      if (os_log_type_enabled(v61, OS_LOG_TYPE_DEBUG))
+      v67 = [ARKitUserDefaults BOOLForKey:@"com.apple.arkit.worldtracking.poseGraphUpdates"];
+      v5->_allowPoseGraphUpdates = v67;
+      v68 = _ARLogTechnique(v67);
+      if (os_log_type_enabled(v68, OS_LOG_TYPE_DEBUG))
       {
-        v62 = objc_opt_class();
-        v63 = NSStringFromClass(v62);
+        v69 = objc_opt_class();
+        v70 = NSStringFromClass(v69);
         allowPoseGraphUpdates = v5->_allowPoseGraphUpdates;
         *buf = 138543874;
-        v105 = v63;
+        v115 = v70;
         if (allowPoseGraphUpdates)
         {
-          v65 = @"allowed";
+          v72 = @"allowed";
         }
 
         else
         {
-          v65 = @"disallowed";
+          v72 = @"disallowed";
         }
 
-        v106 = 2048;
-        v107 = v5;
-        v108 = 2112;
-        *&v109 = v65;
-        _os_log_impl(&dword_1C241C000, v61, OS_LOG_TYPE_DEBUG, "%{public}@ <%p>: World tracking pose graph update custom setting: %@", buf, 0x20u);
+        v116 = 2048;
+        v117 = v5;
+        v118 = 2112;
+        *&v119 = v72;
+        _os_log_impl(&dword_1C241C000, v68, OS_LOG_TYPE_DEBUG, "%{public}@ <%p>: World tracking pose graph update custom setting: %@", buf, 0x20u);
       }
 
-      v66 = v5->_mutableOptions;
-      v67 = [ARKitUserDefaults numberForKey:@"com.apple.arkit.planeEstimation.minDetectionCount"];
-      v68 = [ARKitUserDefaults numberForKey:@"com.apple.arkit.planeEstimation.minVergenceAngle"];
-      v69 = [ARKitUserDefaults valueForKey:@"com.apple.arkit.planeEstimation.lineFeaturesAlwaysOn"];
+      v73 = v5->_mutableOptions;
+      v74 = [ARKitUserDefaults numberForKey:@"com.apple.arkit.planeEstimation.minDetectionCount"];
+      v75 = [ARKitUserDefaults numberForKey:@"com.apple.arkit.planeEstimation.minVergenceAngle"];
+      v76 = [ARKitUserDefaults valueForKey:@"com.apple.arkit.planeEstimation.lineFeaturesAlwaysOn"];
       deterministicMode = [(ARWorldTrackingTechnique *)v5 deterministicMode];
-      v71 = [ARKitUserDefaults stringForKey:@"com.apple.arkit.planeEstimation.detectionMethod"];
+      v78 = [ARKitUserDefaults stringForKey:@"com.apple.arkit.planeEstimation.detectionMethod"];
       options = v5->_surfaceDetectionParametrization.options;
-      v5->_surfaceDetectionParametrization.options = v66;
+      v5->_surfaceDetectionParametrization.options = v73;
 
       detectionCountUserDefaultValue = v5->_surfaceDetectionParametrization.detectionCountUserDefaultValue;
-      v5->_surfaceDetectionParametrization.detectionCountUserDefaultValue = v67;
+      v5->_surfaceDetectionParametrization.detectionCountUserDefaultValue = v74;
 
       minVergenceAngleDegreesUserDefaultValue = v5->_surfaceDetectionParametrization.minVergenceAngleDegreesUserDefaultValue;
-      v5->_surfaceDetectionParametrization.minVergenceAngleDegreesUserDefaultValue = v68;
+      v5->_surfaceDetectionParametrization.minVergenceAngleDegreesUserDefaultValue = v75;
 
       lineFeaturesAlwaysOnUserDefaultValue = v5->_surfaceDetectionParametrization.lineFeaturesAlwaysOnUserDefaultValue;
-      v5->_surfaceDetectionParametrization.lineFeaturesAlwaysOnUserDefaultValue = v69;
+      v5->_surfaceDetectionParametrization.lineFeaturesAlwaysOnUserDefaultValue = v76;
 
       v5->_surfaceDetectionParametrization.var0 = deterministicMode;
       detectionPolicyString = v5->_surfaceDetectionParametrization.detectionPolicyString;
-      v5->_surfaceDetectionParametrization.detectionPolicyString = v71;
+      v5->_surfaceDetectionParametrization.detectionPolicyString = v78;
 
       v5->_enableMLCMRelocalization = [ARKitUserDefaults BOOLForKey:@"com.apple.arkit.worldTracking.enableMLCMRelocalization"];
       mutableOptions = [(ARWorldTrackingTechnique *)v5 mutableOptions];
       slamConfiguration = [mutableOptions slamConfiguration];
-      v79 = slamConfiguration;
+      v86 = slamConfiguration;
       [slamConfiguration UTF8String];
-      v80 = CV3DSLAMConfigPresetFromString() == 26;
+      v87 = CV3DSLAMConfigPresetFromString() == 26;
 
-      [(ARWorldTrackingTechnique *)v5 setIsMultiSessionMode:v5->_enableMLCMRelocalization && v80];
-      v81 = ARCreateFixedPriorityDispatchQueue("com.apple.arkit.worldTracking.resultData");
+      [(ARWorldTrackingTechnique *)v5 setIsMultiSessionMode:v5->_enableMLCMRelocalization && v87];
+      v88 = ARCreateFixedPriorityDispatchQueue("com.apple.arkit.worldTracking.resultData", 4294967285);
       resultDataQueue = v5->_resultDataQueue;
-      v5->_resultDataQueue = v81;
+      v5->_resultDataQueue = v88;
 
       array = [MEMORY[0x1E695DF70] array];
       pendingRawSceneUnderstandingResults = v5->_pendingRawSceneUnderstandingResults;
       v5->_pendingRawSceneUnderstandingResults = array;
 
       v5->_pendingRawSceneUnderstandingResultsLock._os_unfair_lock_opaque = 0;
-      if (ARDeviceSupportsJasper())
+      if (ARDeviceSupportsJasper(v92, v93))
       {
         array2 = [MEMORY[0x1E695DF70] array];
         latestSpatialMappingData = v5->_latestSpatialMappingData;
         v5->_latestSpatialMappingData = array2;
 
         v5->_latestSpatialMappingDataLock._os_unfair_lock_opaque = 0;
-        v87 = MTLCreateSystemDefaultDevice();
+        v96 = MTLCreateSystemDefaultDevice();
         sharedMetalDevice = v5->_sharedMetalDevice;
-        v5->_sharedMetalDevice = v87;
+        v5->_sharedMetalDevice = v96;
 
         newCommandQueue = [(MTLDevice *)v5->_sharedMetalDevice newCommandQueue];
         spatialMappingCommandQueue = v5->_spatialMappingCommandQueue;
@@ -600,25 +605,25 @@ void __66__ARWorldTrackingTechnique_supportsVideoResolution_forDeviceType___bloc
         v5->_spatialMappingPointClouds = dictionary;
 
         v5->_spatialMappingPointCloudsLock._os_unfair_lock_opaque = 0;
-        v93 = ARKitCoreBundle();
-        v94 = [v93 URLForResource:@"default" withExtension:@"metallib"];
+        v103 = ARKitCoreBundle(v102);
+        v104 = [v103 URLForResource:@"default" withExtension:@"metallib"];
 
-        v95 = [(MTLDevice *)v5->_sharedMetalDevice newLibraryWithURL:v94 error:0];
-        v96 = [v95 newFunctionWithName:@"annotateDepthData"];
+        v105 = [(MTLDevice *)v5->_sharedMetalDevice newLibraryWithURL:v104 error:0];
+        v106 = [v105 newFunctionWithName:@"annotateDepthData"];
         annotateDepthDataKernelFunction = v5->_annotateDepthDataKernelFunction;
-        v5->_annotateDepthDataKernelFunction = v96;
+        v5->_annotateDepthDataKernelFunction = v106;
 
         dictionary2 = [MEMORY[0x1E695DF90] dictionary];
         spatialMappingResultDataWaitingForSemantics = v5->_spatialMappingResultDataWaitingForSemantics;
         v5->_spatialMappingResultDataWaitingForSemantics = dictionary2;
       }
 
-      v36 = v101;
+      v38 = v111;
     }
 
     else
     {
-      v36 = v5;
+      v38 = v5;
       v5 = 0;
     }
   }
@@ -644,7 +649,7 @@ void __66__ARWorldTrackingTechnique_supportsVideoResolution_forDeviceType___bloc
 
 - (void)dealloc
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   depth16grayBufferPool = self->_depth16grayBufferPool;
   if (depth16grayBufferPool)
   {
@@ -707,77 +712,77 @@ void __66__ARWorldTrackingTechnique_supportsVideoResolution_forDeviceType___bloc
   }
 
   os_unfair_lock_unlock(&self->_raycastSessionLock);
-  dispatch_semaphore_wait(self->_sessionHandleStateSemaphore, 0xFFFFFFFFFFFFFFFFLL);
+  v11 = dispatch_semaphore_wait(self->_sessionHandleStateSemaphore, 0xFFFFFFFFFFFFFFFFLL);
   if (self->_slamSessionHandle)
   {
-    v11 = _ARLogTechnique();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+    v12 = _ARLogTechnique(v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
     {
-      v12 = objc_opt_class();
-      v13 = NSStringFromClass(v12);
+      v13 = objc_opt_class();
+      v14 = NSStringFromClass(v13);
       slamSessionHandle = self->_slamSessionHandle;
       *buf = 138543874;
-      v27 = v13;
-      v28 = 2048;
+      v30 = v14;
+      v31 = 2048;
       selfCopy4 = self;
-      v30 = 2048;
-      v31 = slamSessionHandle;
-      _os_log_impl(&dword_1C241C000, v11, OS_LOG_TYPE_DEBUG, "%{public}@ <%p>: Releasing SLAM handle: %p …", buf, 0x20u);
+      v33 = 2048;
+      v34 = slamSessionHandle;
+      _os_log_impl(&dword_1C241C000, v12, OS_LOG_TYPE_DEBUG, "%{public}@ <%p>: Releasing SLAM handle: %p …", buf, 0x20u);
     }
 
     CV3DSLAMSessionWait();
-    CV3DSLAMSessionRelease();
+    v16 = CV3DSLAMSessionRelease();
     self->_slamSessionHandle = 0;
     self->_sessionHandleState = 0;
-    v15 = _ARLogTechnique();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+    v17 = _ARLogTechnique(v16);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
     {
-      v16 = objc_opt_class();
-      v17 = NSStringFromClass(v16);
+      v18 = objc_opt_class();
+      v19 = NSStringFromClass(v18);
       *buf = 138543618;
-      v27 = v17;
-      v28 = 2048;
+      v30 = v19;
+      v31 = 2048;
       selfCopy4 = self;
-      _os_log_impl(&dword_1C241C000, v15, OS_LOG_TYPE_DEBUG, "%{public}@ <%p>: SLAM handle released", buf, 0x16u);
+      _os_log_impl(&dword_1C241C000, v17, OS_LOG_TYPE_DEBUG, "%{public}@ <%p>: SLAM handle released", buf, 0x16u);
     }
   }
 
   if (self->_predictorHandle)
   {
-    v18 = _ARLogTechnique();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
+    v20 = _ARLogTechnique(v11);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
     {
-      v19 = objc_opt_class();
-      v20 = NSStringFromClass(v19);
+      v21 = objc_opt_class();
+      v22 = NSStringFromClass(v21);
       predictorHandle = self->_predictorHandle;
       *buf = 138543874;
-      v27 = v20;
-      v28 = 2048;
+      v30 = v22;
+      v31 = 2048;
       selfCopy4 = self;
-      v30 = 2048;
-      v31 = predictorHandle;
-      _os_log_impl(&dword_1C241C000, v18, OS_LOG_TYPE_DEBUG, "%{public}@ <%p>: Releasing predictor handle: %p …", buf, 0x20u);
+      v33 = 2048;
+      v34 = predictorHandle;
+      _os_log_impl(&dword_1C241C000, v20, OS_LOG_TYPE_DEBUG, "%{public}@ <%p>: Releasing predictor handle: %p …", buf, 0x20u);
     }
 
-    CV3DPosePredictionRelease();
+    v24 = CV3DPosePredictionRelease();
     self->_predictorHandle = 0;
-    v22 = _ARLogTechnique();
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
+    v25 = _ARLogTechnique(v24);
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
     {
-      v23 = objc_opt_class();
-      v24 = NSStringFromClass(v23);
+      v26 = objc_opt_class();
+      v27 = NSStringFromClass(v26);
       *buf = 138543618;
-      v27 = v24;
-      v28 = 2048;
+      v30 = v27;
+      v31 = 2048;
       selfCopy4 = self;
-      _os_log_impl(&dword_1C241C000, v22, OS_LOG_TYPE_DEBUG, "%{public}@ <%p>: Predictor handle released", buf, 0x16u);
+      _os_log_impl(&dword_1C241C000, v25, OS_LOG_TYPE_DEBUG, "%{public}@ <%p>: Predictor handle released", buf, 0x16u);
     }
   }
 
   dispatch_semaphore_signal(self->_sessionHandleStateSemaphore);
-  v25.receiver = self;
-  v25.super_class = ARWorldTrackingTechnique;
-  [(ARWorldTrackingTechnique *)&v25 dealloc];
+  v28.receiver = self;
+  v28.super_class = ARWorldTrackingTechnique;
+  [(ARWorldTrackingTechnique *)&v28 dealloc];
 }
 
 - (BOOL)isEqual:(id)equal
@@ -899,9 +904,10 @@ void __66__ARWorldTrackingTechnique_supportsVideoResolution_forDeviceType___bloc
 - (void)_handleCV3DError:(__CFError *)error withDescription:(id)description failTechnique:(BOOL)technique
 {
   techniqueCopy = technique;
-  v26 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   descriptionCopy = description;
   errorCopy = error;
+  v10 = errorCopy;
   if (errorCopy)
   {
     if (ARShouldUseLogTypeError(void)::onceToken != -1)
@@ -909,75 +915,76 @@ void __66__ARWorldTrackingTechnique_supportsVideoResolution_forDeviceType___bloc
       __39__ARWorldTrackingTechnique_isSupported__block_invoke_cold_1();
     }
 
-    v10 = ARShouldUseLogTypeError(void)::internalOSVersion;
-    v11 = _ARLogTechnique();
-    v12 = v11;
-    if (v10 == 1)
+    v11 = ARShouldUseLogTypeError(void)::internalOSVersion;
+    v12 = _ARLogTechnique(errorCopy);
+    v13 = v12;
+    if (v11 == 1)
     {
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
-        v13 = objc_opt_class();
-        v14 = NSStringFromClass(v13);
-        v18 = 138544130;
-        v19 = v14;
-        v20 = 2048;
+        v14 = objc_opt_class();
+        v15 = NSStringFromClass(v14);
+        v19 = 138544130;
+        v20 = v15;
+        v21 = 2048;
         selfCopy2 = self;
-        v22 = 2112;
-        v23 = descriptionCopy;
-        v24 = 2112;
-        v25 = errorCopy;
-        _os_log_impl(&dword_1C241C000, v12, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: %@ => %@", &v18, 0x2Au);
+        v23 = 2112;
+        v24 = descriptionCopy;
+        v25 = 2112;
+        v26 = v10;
+        _os_log_impl(&dword_1C241C000, v13, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: %@ => %@", &v19, 0x2Au);
       }
     }
 
-    else if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+    else if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
     {
-      v15 = objc_opt_class();
-      v16 = NSStringFromClass(v15);
-      v18 = 138544130;
-      v19 = v16;
-      v20 = 2048;
+      v16 = objc_opt_class();
+      v17 = NSStringFromClass(v16);
+      v19 = 138544130;
+      v20 = v17;
+      v21 = 2048;
       selfCopy2 = self;
-      v22 = 2112;
-      v23 = descriptionCopy;
-      v24 = 2112;
-      v25 = errorCopy;
-      _os_log_impl(&dword_1C241C000, v12, OS_LOG_TYPE_INFO, "Error: %{public}@ <%p>: %@ => %@", &v18, 0x2Au);
+      v23 = 2112;
+      v24 = descriptionCopy;
+      v25 = 2112;
+      v26 = v10;
+      _os_log_impl(&dword_1C241C000, v13, OS_LOG_TYPE_INFO, "Error: %{public}@ <%p>: %@ => %@", &v19, 0x2Au);
     }
 
     if (techniqueCopy)
     {
-      v17 = ARErrorWithCodeAndUserInfo(200, 0);
-      [(ARWorldTrackingTechnique *)self _didFailWithError:v17];
+      v18 = ARErrorWithCodeAndUserInfo(200, 0);
+      [(ARWorldTrackingTechnique *)self _didFailWithError:v18];
     }
   }
 }
 
 - (BOOL)reconfigurableFrom:(id)from
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   fromCopy = from;
   if (-[ARWorldTrackingTechnique vioHandleState](self, "vioHandleState") == 4 || ![fromCopy isMemberOfClass:objc_opt_class()])
   {
-    LOBYTE(v7) = 0;
+    LOBYTE(v8) = 0;
   }
 
   else
   {
     options = [fromCopy options];
     mutableOptions = [(ARWorldTrackingTechnique *)self mutableOptions];
-    if ([mutableOptions isEqual:options])
+    v7 = [mutableOptions isEqual:options];
+    if (v7)
     {
-      v7 = 1;
+      v8 = 1;
     }
 
     else
     {
       imageSensorSettings = [mutableOptions imageSensorSettings];
       imageSensorSettings2 = [options imageSensorSettings];
-      v10 = [imageSensorSettings isEqual:imageSensorSettings2];
+      v11 = [imageSensorSettings isEqual:imageSensorSettings2];
 
-      if ((v10 & 1) == 0)
+      if ((v11 & 1) == 0)
       {
         imageSensorSettings3 = [mutableOptions imageSensorSettings];
         autoFocusEnabled = [imageSensorSettings3 autoFocusEnabled];
@@ -1008,35 +1015,36 @@ void __66__ARWorldTrackingTechnique_supportsVideoResolution_forDeviceType___bloc
       [options setPlaneDetectionPoseUpdateCallback:planeDetectionPoseUpdateCallback];
 
       v7 = [mutableOptions isEqual:options];
+      v8 = v7;
     }
 
-    v19 = _ARLogTechnique();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
+    v20 = _ARLogTechnique(v7);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
     {
-      v20 = objc_opt_class();
-      v21 = NSStringFromClass(v20);
-      v22 = @"not ";
-      v24 = 138543874;
-      v25 = v21;
-      if (v7)
+      v21 = objc_opt_class();
+      v22 = NSStringFromClass(v21);
+      v23 = @"not ";
+      v25 = 138543874;
+      v26 = v22;
+      if (v8)
       {
-        v22 = &stru_1F4208A80;
+        v23 = &stru_1F4208A80;
       }
 
-      v26 = 2048;
+      v27 = 2048;
       selfCopy = self;
-      v28 = 2112;
-      v29 = v22;
-      _os_log_impl(&dword_1C241C000, v19, OS_LOG_TYPE_DEBUG, "%{public}@ <%p>: is %@reconfigurable", &v24, 0x20u);
+      v29 = 2112;
+      v30 = v23;
+      _os_log_impl(&dword_1C241C000, v20, OS_LOG_TYPE_DEBUG, "%{public}@ <%p>: is %@reconfigurable", &v25, 0x20u);
     }
   }
 
-  return v7;
+  return v8;
 }
 
 - (void)reconfigureFrom:(id)from
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   fromCopy = from;
   mutableOptions = [(ARWorldTrackingTechnique *)self mutableOptions];
   mutableOptions2 = [fromCopy mutableOptions];
@@ -1082,38 +1090,39 @@ void __66__ARWorldTrackingTechnique_supportsVideoResolution_forDeviceType___bloc
       v14 = 1;
     }
 
-    if ([(ARWorldTrackingTechnique *)self vioHandleState]== 3)
+    vioHandleState = [(ARWorldTrackingTechnique *)self vioHandleState];
+    if (vioHandleState == 3)
     {
       if (v13)
       {
-        [(ARWorldTrackingTechnique *)self _initializeSurfaceDetection:&self->_surfaceDetectionParametrization];
+        vioHandleState = [(ARWorldTrackingTechnique *)self _initializeSurfaceDetection:&self->_surfaceDetectionParametrization];
       }
 
       else if ((v14 & 1) == 0)
       {
-        [(ARWorldTrackingTechnique *)self updateSurfaceDetectionConfiguration];
+        vioHandleState = [(ARWorldTrackingTechnique *)self updateSurfaceDetectionConfiguration];
       }
 
-      v15 = _ARLogTechnique();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
+      v16 = _ARLogTechnique(vioHandleState);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
       {
-        v16 = objc_opt_class();
-        v17 = NSStringFromClass(v16);
+        v17 = objc_opt_class();
+        v18 = NSStringFromClass(v17);
         mutableOptions4 = [(ARWorldTrackingTechnique *)self mutableOptions];
-        v19 = NSStringFromARPlaneDetection([mutableOptions4 planeDetection]);
-        v23 = 138543874;
-        v24 = v17;
-        v25 = 2048;
+        v20 = NSStringFromARPlaneDetection([mutableOptions4 planeDetection]);
+        v24 = 138543874;
+        v25 = v18;
+        v26 = 2048;
         selfCopy = self;
-        v27 = 2112;
-        v28 = v19;
-        _os_log_impl(&dword_1C241C000, v15, OS_LOG_TYPE_INFO, "%{public}@ <%p>: reconfigured for detection type(s): %@", &v23, 0x20u);
+        v28 = 2112;
+        v29 = v20;
+        _os_log_impl(&dword_1C241C000, v16, OS_LOG_TYPE_INFO, "%{public}@ <%p>: reconfigured for detection type(s): %@", &v24, 0x20u);
       }
 
       mutableOptions5 = [(ARWorldTrackingTechnique *)self mutableOptions];
-      v21 = [mutableOptions5 sceneReconstruction] == 0;
+      v22 = [mutableOptions5 sceneReconstruction] == 0;
 
-      if (v21)
+      if (v22)
       {
         sceneReconstructionHandler = [(ARWorldTrackingTechnique *)self sceneReconstructionHandler];
         [sceneReconstructionHandler pause];
@@ -1129,11 +1138,12 @@ void __66__ARWorldTrackingTechnique_supportsVideoResolution_forDeviceType___bloc
 
 - (void)updateSurfaceDetectionConfiguration
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   ptr = self->_planeDetectionSession.__ptr_;
   if (ptr)
   {
-    if (PlaneDetectionSession::UpdateConfiguration(ptr, &self->_surfaceDetectionParametrization))
+    updated = PlaneDetectionSession::UpdateConfiguration(ptr, &self->_surfaceDetectionParametrization);
+    if (updated)
     {
 
       [(ARWorldTrackingTechnique *)self _updateVIOLineDetectionPolicy];
@@ -1146,36 +1156,36 @@ void __66__ARWorldTrackingTechnique_supportsVideoResolution_forDeviceType___bloc
         __39__ARWorldTrackingTechnique_isSupported__block_invoke_cold_1();
       }
 
-      v4 = ARShouldUseLogTypeError(void)::internalOSVersion;
-      v5 = _ARLogTechnique();
-      v6 = v5;
-      if (v4 == 1)
+      v5 = ARShouldUseLogTypeError(void)::internalOSVersion;
+      v6 = _ARLogTechnique(updated);
+      v7 = v6;
+      if (v5 == 1)
       {
-        if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+        if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
         {
-          v7 = objc_opt_class();
-          v8 = NSStringFromClass(v7);
-          v12 = 138543618;
-          v13 = v8;
-          v14 = 2048;
+          v8 = objc_opt_class();
+          v9 = NSStringFromClass(v8);
+          v13 = 138543618;
+          v14 = v9;
+          v15 = 2048;
           selfCopy2 = self;
-          _os_log_impl(&dword_1C241C000, v6, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: Error updating surface detection configuration", &v12, 0x16u);
+          _os_log_impl(&dword_1C241C000, v7, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: Error updating surface detection configuration", &v13, 0x16u);
         }
       }
 
-      else if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+      else if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
       {
-        v9 = objc_opt_class();
-        v10 = NSStringFromClass(v9);
-        v12 = 138543618;
-        v13 = v10;
-        v14 = 2048;
+        v10 = objc_opt_class();
+        v11 = NSStringFromClass(v10);
+        v13 = 138543618;
+        v14 = v11;
+        v15 = 2048;
         selfCopy2 = self;
-        _os_log_impl(&dword_1C241C000, v6, OS_LOG_TYPE_INFO, "Error: %{public}@ <%p>: Error updating surface detection configuration", &v12, 0x16u);
+        _os_log_impl(&dword_1C241C000, v7, OS_LOG_TYPE_INFO, "Error: %{public}@ <%p>: Error updating surface detection configuration", &v13, 0x16u);
       }
 
-      v11 = ARErrorWithCodeAndUserInfo(200, 0);
-      [(ARWorldTrackingTechnique *)self _didFailWithError:v11];
+      v12 = ARErrorWithCodeAndUserInfo(200, 0);
+      [(ARWorldTrackingTechnique *)self _didFailWithError:v12];
     }
   }
 }
@@ -1275,11 +1285,11 @@ void __66__ARWorldTrackingTechnique_supportsVideoResolution_forDeviceType___bloc
 
 - (id)processData:(id)data
 {
-  v186 = *MEMORY[0x1E69E9840];
+  v209 = *MEMORY[0x1E69E9840];
   dataCopy = data;
-  v173.receiver = self;
-  v173.super_class = ARWorldTrackingTechnique;
-  v8 = [(ARImageBasedTechnique *)&v173 processData:dataCopy];
+  v194.receiver = self;
+  v194.super_class = ARWorldTrackingTechnique;
+  v8 = [(ARImageBasedTechnique *)&v194 processData:dataCopy];
   if ([(ARWorldTrackingTechnique *)self vioHandleState]== 3)
   {
     objc_opt_class();
@@ -1300,25 +1310,25 @@ void __66__ARWorldTrackingTechnique_supportsVideoResolution_forDeviceType___bloc
           {
 
 LABEL_39:
-            goto LABEL_127;
+            goto LABEL_128;
           }
 
-          v26 = 1;
+          v28 = 1;
         }
 
         else
         {
-          v26 = 0;
+          v28 = 0;
         }
       }
 
       else
       {
-        v26 = 0;
+        v28 = 0;
       }
 
       isHighResolution = [v9 isHighResolution];
-      if (v26)
+      if (v28)
       {
 
         if ((alwaysUsePrimaryCameraForTracking & 1) == 0)
@@ -1332,222 +1342,226 @@ LABEL_38:
           }
 
           [(ARWorldTrackingTechnique *)self _saveExtrinsicsFromImage:v9];
-          [v9 timestamp];
+          objc_msgSend_timestamp(v9);
           kdebug_trace();
           mutableOptions3 = [(ARWorldTrackingTechnique *)self mutableOptions];
           cameraType2 = [v9 cameraType];
           [mutableOptions3 cameraIdForCaptureDeviceType:cameraType2];
 
-          [v9 timestamp];
+          objc_msgSend_timestamp(v9);
           [v9 visionData];
           kdebug_trace();
-          v185 = 0;
+          v208 = 0;
+          v206 = 0u;
+          v207 = 0u;
           memset(buf, 0, sizeof(buf));
           [v9 cameraIntrinsics];
-          ARMatrix3x3RowMajorArray(buf, v39, v40, v41);
-          v183 = 0;
-          v181 = 0u;
-          v182 = 0u;
-          v179 = 0u;
-          v180 = 0u;
-          v42 = CMGetAttachment([v9 visionData], @"VisionDataCameraIntrinsicMatrix", 0);
-          v44 = v42;
-          if (v42 && self->_shouldPushVisionDataIntrinsics)
+          ARMatrix3x3RowMajorArray(buf, v42, v43, v44);
+          v204 = 0;
+          v202 = 0u;
+          v203 = 0u;
+          v200 = 0u;
+          v201 = 0u;
+          v45 = CMGetAttachment([v9 visionData], @"VisionDataCameraIntrinsicMatrix", 0);
+          v47 = v45;
+          if (v45 && self->_shouldPushVisionDataIntrinsics)
           {
-            *v45.i64 = ARMatrix3x3FromNSData(v42);
-            v149 = v45;
-            v151 = v46;
-            v45.i32[3] = 0;
-            v46.i32[3] = 0;
-            v158 = v46;
-            v160 = v45;
-            v153 = v47;
-            v47.i32[3] = 0;
-            v155 = v47;
+            *v48.i64 = ARMatrix3x3FromNSData(v45);
+            v164 = v48;
+            v167 = v49;
+            v48.i32[3] = 0;
+            v49.i32[3] = 0;
+            v178 = v49;
+            v181 = v48;
+            v171 = v50;
+            v50.i32[3] = 0;
+            v174 = v50;
             if (self->_shouldUseFullResolutionVisionDataIntrinsics)
             {
               mutableOptions4 = [(ARWorldTrackingTechnique *)self mutableOptions];
               imageSensorSettings = [mutableOptions4 imageSensorSettings];
               visionDataOutputParameters = [imageSensorSettings visionDataOutputParameters];
 
-              if (visionDataOutputParameters || (-[ARWorldTrackingTechnique mutableOptions](self, "mutableOptions"), v51 = objc_claimAutoreleasedReturnValue(), [v51 imageSensorSettingsForUltraWide], v52 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v52, "visionDataOutputParameters"), visionDataOutputParameters = objc_claimAutoreleasedReturnValue(), v52, v51, visionDataOutputParameters))
+              if (visionDataOutputParameters || (-[ARWorldTrackingTechnique mutableOptions](self, "mutableOptions"), v54 = objc_claimAutoreleasedReturnValue(), [v54 imageSensorSettingsForUltraWide], v55 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v55, "visionDataOutputParameters"), visionDataOutputParameters = objc_claimAutoreleasedReturnValue(), v55, v54, visionDataOutputParameters))
               {
-                v53 = [visionDataOutputParameters valueForKey:*MEMORY[0x1E698BDC8]];
-                [v53 floatValue];
-                v156 = v54;
+                v56 = [visionDataOutputParameters valueForKey:*MEMORY[0x1E698BDC8]];
+                [v56 floatValue];
+                v175 = v57;
 
-                *v55.i32 = v156 * *v149.i32;
-                v55.i32[1] = v149.i32[1];
-                v55.i64[1] = v149.u32[2];
-                v56.i64[0] = __PAIR64__(COERCE_UNSIGNED_INT(vmuls_lane_f32(v156, *v151.i8, 1)), v151.u32[0]);
-                v56.i64[1] = v151.u32[2];
-                v158 = v56;
-                v160 = v55;
-                v57.n128_u64[0] = vmulq_n_f32(v153, v156).u64[0];
-                v57.n128_u64[1] = v153.u32[2];
-                v155 = v57;
+                *v58.i32 = v175 * *v164.i32;
+                v58.i32[1] = v164.i32[1];
+                v58.i64[1] = v164.u32[2];
+                v59.i64[0] = __PAIR64__(COERCE_UNSIGNED_INT(vmuls_lane_f32(v175, *v167.i8, 1)), v167.u32[0]);
+                v59.i64[1] = v167.u32[2];
+                v178 = v59;
+                v181 = v58;
+                v60.n128_u64[0] = vmulq_n_f32(v171, v175).u64[0];
+                v60.n128_u64[1] = v171.u32[2];
+                v174 = v60;
               }
             }
 
-            v43 = ARMatrix3x3RowMajorArray(&v179, v160, v158, v155);
+            v46 = ARMatrix3x3RowMajorArray(&v200, v181, v178, v174);
           }
 
           [v9 ISO];
-          v172 = v58;
-          [v9 exposureDuration];
-          v171 = v59;
+          v193 = v61;
+          objc_msgSend_exposureDuration(v9);
+          v192 = v62;
           [v9 temperature];
-          v170 = v60;
+          v191 = v63;
           kdebug_trace();
           kdebug_trace();
-          v169 = 0;
+          v190 = 0;
           [v9 pixelBuffer];
-          [v9 timestamp];
-          v61 = CV3DSLAMCameraFrameCreate();
-          v165[0] = MEMORY[0x1E69E9820];
-          v165[1] = 3221225472;
-          v166 = __40__ARWorldTrackingTechnique_processData___block_invoke;
-          v167 = &__block_descriptor_40_e5_v8__0l;
-          v168 = v61;
-          if (!v61)
+          objc_msgSend_timestamp(v9);
+          v64 = CV3DSLAMCameraFrameCreate();
+          v186[0] = MEMORY[0x1E69E9820];
+          v186[1] = 3221225472;
+          v187 = __40__ARWorldTrackingTechnique_processData___block_invoke;
+          v188 = &__block_descriptor_40_e5_v8__0l;
+          v189 = v64;
+          if (!v64)
           {
             if (ARShouldUseLogTypeError(void)::onceToken != -1)
             {
               [ARWorldTrackingTechnique processData:];
             }
 
-            v62 = ARShouldUseLogTypeError(void)::internalOSVersion;
-            v63 = _ARLogTechnique();
-            v64 = v63;
-            if (v62 == 1)
+            v65 = ARShouldUseLogTypeError(void)::internalOSVersion;
+            v66 = _ARLogTechnique(v64);
+            v67 = v66;
+            if (v65 == 1)
             {
-              if (os_log_type_enabled(v63, OS_LOG_TYPE_ERROR))
+              if (os_log_type_enabled(v66, OS_LOG_TYPE_ERROR))
               {
-                v65 = objc_opt_class();
-                v66 = NSStringFromClass(v65);
-                *v174 = 138543874;
-                *&v174[4] = v66;
-                v175 = 2048;
+                v68 = objc_opt_class();
+                v69 = NSStringFromClass(v68);
+                *v195 = 138543874;
+                *&v195[4] = v69;
+                v196 = 2048;
                 selfCopy6 = self;
-                v177 = 2112;
-                v178 = v169;
-                _os_log_impl(&dword_1C241C000, v64, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: Could not create camera frame: %@", v174, 0x20u);
+                v198 = 2112;
+                v199 = v190;
+                _os_log_impl(&dword_1C241C000, v67, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: Could not create camera frame: %@", v195, 0x20u);
               }
             }
 
-            else if (os_log_type_enabled(v63, OS_LOG_TYPE_INFO))
+            else if (os_log_type_enabled(v66, OS_LOG_TYPE_INFO))
             {
-              v85 = objc_opt_class();
-              v86 = NSStringFromClass(v85);
-              *v174 = 138543874;
-              *&v174[4] = v86;
-              v175 = 2048;
+              v89 = objc_opt_class();
+              v90 = NSStringFromClass(v89);
+              *v195 = 138543874;
+              *&v195[4] = v90;
+              v196 = 2048;
               selfCopy6 = self;
-              v177 = 2112;
-              v178 = v169;
-              _os_log_impl(&dword_1C241C000, v64, OS_LOG_TYPE_INFO, "Error: %{public}@ <%p>: Could not create camera frame: %@", v174, 0x20u);
+              v198 = 2112;
+              v199 = v190;
+              _os_log_impl(&dword_1C241C000, v67, OS_LOG_TYPE_INFO, "Error: %{public}@ <%p>: Could not create camera frame: %@", v195, 0x20u);
             }
 
-            v87 = ARErrorWithCodeAndUserInfo(200, 0);
-            [(ARWorldTrackingTechnique *)self _didFailWithError:v87];
+            v91 = ARErrorWithCodeAndUserInfo(200, 0);
+            [(ARWorldTrackingTechnique *)self _didFailWithError:v91];
           }
 
           if ([v9 visionData])
           {
             kdebug_trace();
             [v9 visionData];
-            if ((CV3DSLAMCameraFrameAddHWFPWithIntrinsics() & 1) == 0)
+            v92 = CV3DSLAMCameraFrameAddHWFPWithIntrinsics();
+            if ((v92 & 1) == 0)
             {
               if (ARShouldUseLogTypeError(void)::onceToken != -1)
               {
                 [ARWorldTrackingTechnique processData:];
               }
 
-              v88 = ARShouldUseLogTypeError(void)::internalOSVersion;
-              v89 = _ARLogTechnique();
-              v90 = v89;
-              if (v88 == 1)
+              v93 = ARShouldUseLogTypeError(void)::internalOSVersion;
+              v94 = _ARLogTechnique(v92);
+              v95 = v94;
+              if (v93 == 1)
               {
-                if (os_log_type_enabled(v89, OS_LOG_TYPE_ERROR))
+                if (os_log_type_enabled(v94, OS_LOG_TYPE_ERROR))
                 {
-                  v91 = objc_opt_class();
-                  v92 = NSStringFromClass(v91);
-                  *v174 = 138543874;
-                  *&v174[4] = v92;
-                  v175 = 2048;
+                  v96 = objc_opt_class();
+                  v97 = NSStringFromClass(v96);
+                  *v195 = 138543874;
+                  *&v195[4] = v97;
+                  v196 = 2048;
                   selfCopy6 = self;
-                  v177 = 2112;
-                  v178 = v169;
-                  _os_log_impl(&dword_1C241C000, v90, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: Could not add HWFP: %@", v174, 0x20u);
+                  v198 = 2112;
+                  v199 = v190;
+                  _os_log_impl(&dword_1C241C000, v95, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: Could not add HWFP: %@", v195, 0x20u);
                 }
               }
 
-              else if (os_log_type_enabled(v89, OS_LOG_TYPE_INFO))
+              else if (os_log_type_enabled(v94, OS_LOG_TYPE_INFO))
               {
-                v93 = objc_opt_class();
-                v94 = NSStringFromClass(v93);
-                *v174 = 138543874;
-                *&v174[4] = v94;
-                v175 = 2048;
+                v98 = objc_opt_class();
+                v99 = NSStringFromClass(v98);
+                *v195 = 138543874;
+                *&v195[4] = v99;
+                v196 = 2048;
                 selfCopy6 = self;
-                v177 = 2112;
-                v178 = v169;
-                _os_log_impl(&dword_1C241C000, v90, OS_LOG_TYPE_INFO, "Error: %{public}@ <%p>: Could not add HWFP: %@", v174, 0x20u);
+                v198 = 2112;
+                v199 = v190;
+                _os_log_impl(&dword_1C241C000, v95, OS_LOG_TYPE_INFO, "Error: %{public}@ <%p>: Could not add HWFP: %@", v195, 0x20u);
               }
 
-              v95 = ARErrorWithCodeAndUserInfo(200, 0);
-              [(ARWorldTrackingTechnique *)self _didFailWithError:v95];
+              v100 = ARErrorWithCodeAndUserInfo(200, 0);
+              [(ARWorldTrackingTechnique *)self _didFailWithError:v100];
             }
           }
 
-          v164 = 0;
-          if ((CV3DSLAMSessionPushCamera() & 1) == 0)
+          v185 = 0;
+          v101 = CV3DSLAMSessionPushCamera();
+          if ((v101 & 1) == 0)
           {
             if (ARShouldUseLogTypeError(void)::onceToken != -1)
             {
               [ARWorldTrackingTechnique processData:];
             }
 
-            v96 = ARShouldUseLogTypeError(void)::internalOSVersion;
-            v97 = _ARLogTechnique();
-            v98 = v97;
-            if (v96 == 1)
+            v102 = ARShouldUseLogTypeError(void)::internalOSVersion;
+            v103 = _ARLogTechnique(v101);
+            v104 = v103;
+            if (v102 == 1)
             {
-              if (os_log_type_enabled(v97, OS_LOG_TYPE_ERROR))
+              if (os_log_type_enabled(v103, OS_LOG_TYPE_ERROR))
               {
-                v99 = objc_opt_class();
-                v100 = NSStringFromClass(v99);
-                *v174 = 138543874;
-                *&v174[4] = v100;
-                v175 = 2048;
+                v105 = objc_opt_class();
+                v106 = NSStringFromClass(v105);
+                *v195 = 138543874;
+                *&v195[4] = v106;
+                v196 = 2048;
                 selfCopy6 = self;
-                v177 = 2112;
-                v178 = v164;
-                _os_log_impl(&dword_1C241C000, v98, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: Pushing camera failed: %@", v174, 0x20u);
+                v198 = 2112;
+                v199 = v185;
+                _os_log_impl(&dword_1C241C000, v104, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: Pushing camera failed: %@", v195, 0x20u);
               }
             }
 
-            else if (os_log_type_enabled(v97, OS_LOG_TYPE_INFO))
+            else if (os_log_type_enabled(v103, OS_LOG_TYPE_INFO))
             {
-              v101 = objc_opt_class();
-              v102 = NSStringFromClass(v101);
-              *v174 = 138543874;
-              *&v174[4] = v102;
-              v175 = 2048;
+              v107 = objc_opt_class();
+              v108 = NSStringFromClass(v107);
+              *v195 = 138543874;
+              *&v195[4] = v108;
+              v196 = 2048;
               selfCopy6 = self;
-              v177 = 2112;
-              v178 = v164;
-              _os_log_impl(&dword_1C241C000, v98, OS_LOG_TYPE_INFO, "Error: %{public}@ <%p>: Pushing camera failed: %@", v174, 0x20u);
+              v198 = 2112;
+              v199 = v185;
+              _os_log_impl(&dword_1C241C000, v104, OS_LOG_TYPE_INFO, "Error: %{public}@ <%p>: Pushing camera failed: %@", v195, 0x20u);
             }
 
-            v103 = ARErrorWithCodeAndUserInfo(200, 0);
-            [(ARWorldTrackingTechnique *)self _didFailWithError:v103];
+            v109 = ARErrorWithCodeAndUserInfo(200, 0);
+            [(ARWorldTrackingTechnique *)self _didFailWithError:v109];
           }
 
           kdebug_trace();
-          v166(v165);
+          v187(v186);
 
-          goto LABEL_124;
+          goto LABEL_125;
         }
       }
 
@@ -1563,64 +1577,66 @@ LABEL_38:
     if (objc_opt_isKindOfClass())
     {
       v12 = dataCopy;
-      v179.f64[0] = 0.0;
+      v200.f64[0] = 0.0;
       [v12 acceleration];
       [v12 acceleration];
       [v12 acceleration];
-      [v12 timestamp];
-      if ((CV3DSLAMSessionPushAccel() & 1) == 0)
+      objc_msgSend_timestamp(v12);
+      v13 = CV3DSLAMSessionPushAccel();
+      if ((v13 & 1) == 0)
       {
         if (ARShouldUseLogTypeError(void)::onceToken != -1)
         {
           [ARWorldTrackingTechnique processData:];
         }
 
-        v13 = ARShouldUseLogTypeError(void)::internalOSVersion;
-        v14 = _ARLogTechnique();
-        v15 = v14;
-        if (v13 == 1)
+        v14 = ARShouldUseLogTypeError(void)::internalOSVersion;
+        v15 = _ARLogTechnique(v13);
+        v16 = v15;
+        if (v14 == 1)
         {
-          if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+          if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
           {
-            v16 = objc_opt_class();
-            v17 = NSStringFromClass(v16);
-            v18 = v179.f64[0];
+            v17 = objc_opt_class();
+            v18 = NSStringFromClass(v17);
+            v19 = v200.f64[0];
             LODWORD(buf[0].f64[0]) = 138543874;
-            *(buf[0].f64 + 4) = v17;
+            *(buf[0].f64 + 4) = v18;
             WORD2(buf[0].f64[1]) = 2048;
             *(&buf[0].f64[1] + 6) = self;
             HIWORD(buf[1].f64[0]) = 2112;
-            buf[1].f64[1] = v179.f64[0];
-            _os_log_impl(&dword_1C241C000, v15, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: Error pushing accelometer data: %@", buf, 0x20u);
+            buf[1].f64[1] = v200.f64[0];
+            _os_log_impl(&dword_1C241C000, v16, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: Error pushing accelometer data: %@", buf, 0x20u);
           }
         }
 
-        else if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
+        else if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
         {
-          v70 = objc_opt_class();
-          v71 = NSStringFromClass(v70);
-          v72 = v179.f64[0];
+          v73 = objc_opt_class();
+          v74 = NSStringFromClass(v73);
+          v75 = v200.f64[0];
           LODWORD(buf[0].f64[0]) = 138543874;
-          *(buf[0].f64 + 4) = v71;
+          *(buf[0].f64 + 4) = v74;
           WORD2(buf[0].f64[1]) = 2048;
           *(&buf[0].f64[1] + 6) = self;
           HIWORD(buf[1].f64[0]) = 2112;
-          buf[1].f64[1] = v179.f64[0];
-          _os_log_impl(&dword_1C241C000, v15, OS_LOG_TYPE_INFO, "Error: %{public}@ <%p>: Error pushing accelometer data: %@", buf, 0x20u);
+          buf[1].f64[1] = v200.f64[0];
+          _os_log_impl(&dword_1C241C000, v16, OS_LOG_TYPE_INFO, "Error: %{public}@ <%p>: Error pushing accelometer data: %@", buf, 0x20u);
         }
 
-        v73 = ARErrorWithCodeAndUserInfo(200, 0);
-        [(ARWorldTrackingTechnique *)self _didFailWithError:v73];
+        v76 = ARErrorWithCodeAndUserInfo(200, 0);
+        [(ARWorldTrackingTechnique *)self _didFailWithError:v76];
       }
 
       [v12 acceleration];
       [v12 acceleration];
       [v12 acceleration];
-      [v12 timestamp];
-      v74 = CV3DPosePredictionPushAccel();
-      if (!v74)
+      objc_msgSend_timestamp(v12);
+      v77 = CV3DPosePredictionPushAccel();
+      v78 = v77;
+      if (!v77)
       {
-        goto LABEL_124;
+        goto LABEL_125;
       }
 
       if (ARShouldUseLogTypeError(void)::onceToken != -1)
@@ -1628,38 +1644,38 @@ LABEL_38:
         [ARWorldTrackingTechnique processData:];
       }
 
-      v75 = ARShouldUseLogTypeError(void)::internalOSVersion;
-      v76 = _ARLogTechnique();
-      v77 = v76;
-      if (v75 == 1)
+      v79 = ARShouldUseLogTypeError(void)::internalOSVersion;
+      v80 = _ARLogTechnique(v77);
+      v81 = v80;
+      if (v79 == 1)
       {
-        if (os_log_type_enabled(v76, OS_LOG_TYPE_ERROR))
+        if (os_log_type_enabled(v80, OS_LOG_TYPE_ERROR))
         {
-          v78 = objc_opt_class();
-          v79 = NSStringFromClass(v78);
-          v80 = NSStringFromCV3DPosePredictionReturn(v74);
+          v82 = objc_opt_class();
+          v83 = NSStringFromClass(v82);
+          v84 = NSStringFromCV3DPosePredictionReturn(v78);
           LODWORD(buf[0].f64[0]) = 138543874;
-          *(buf[0].f64 + 4) = v79;
+          *(buf[0].f64 + 4) = v83;
           WORD2(buf[0].f64[1]) = 2048;
           *(&buf[0].f64[1] + 6) = self;
           HIWORD(buf[1].f64[0]) = 2112;
-          *&buf[1].f64[1] = v80;
-          _os_log_impl(&dword_1C241C000, v77, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: Error pushing accelometer data to predictor: %@", buf, 0x20u);
+          *&buf[1].f64[1] = v84;
+          _os_log_impl(&dword_1C241C000, v81, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: Error pushing accelometer data to predictor: %@", buf, 0x20u);
         }
       }
 
-      else if (os_log_type_enabled(v76, OS_LOG_TYPE_INFO))
+      else if (os_log_type_enabled(v80, OS_LOG_TYPE_INFO))
       {
-        v81 = objc_opt_class();
-        v82 = NSStringFromClass(v81);
-        v83 = NSStringFromCV3DPosePredictionReturn(v74);
+        v85 = objc_opt_class();
+        v86 = NSStringFromClass(v85);
+        v87 = NSStringFromCV3DPosePredictionReturn(v78);
         LODWORD(buf[0].f64[0]) = 138543874;
-        *(buf[0].f64 + 4) = v82;
+        *(buf[0].f64 + 4) = v86;
         WORD2(buf[0].f64[1]) = 2048;
         *(&buf[0].f64[1] + 6) = self;
         HIWORD(buf[1].f64[0]) = 2112;
-        *&buf[1].f64[1] = v83;
-        _os_log_impl(&dword_1C241C000, v77, OS_LOG_TYPE_INFO, "Error: %{public}@ <%p>: Error pushing accelometer data to predictor: %@", buf, 0x20u);
+        *&buf[1].f64[1] = v87;
+        _os_log_impl(&dword_1C241C000, v81, OS_LOG_TYPE_INFO, "Error: %{public}@ <%p>: Error pushing accelometer data to predictor: %@", buf, 0x20u);
       }
     }
 
@@ -1671,151 +1687,166 @@ LABEL_38:
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          v27 = dataCopy;
-          pointCloud = [v27 pointCloud];
+          v29 = dataCopy;
+          pointCloud = [v29 pointCloud];
           CV3DSLAMJasperPointCloudCreateFromADPointCloud();
 
-          -[ARWorldTrackingTechnique CV3DSLAMJasperPointCloudProjectorModeFromAVTimeOfFlightProjectorMode:](self, "CV3DSLAMJasperPointCloudProjectorModeFromAVTimeOfFlightProjectorMode:", [v27 projectorMode]);
-          v29 = CV3DSLAMJasperPointCloudSetProjectorMode();
-          if (v29)
+          -[ARWorldTrackingTechnique CV3DSLAMJasperPointCloudProjectorModeFromAVTimeOfFlightProjectorMode:](self, "CV3DSLAMJasperPointCloudProjectorModeFromAVTimeOfFlightProjectorMode:", [v29 projectorMode]);
+          v31 = CV3DSLAMJasperPointCloudSetProjectorMode();
+          v32 = v31;
+          if (v31)
           {
             if (ARShouldUseLogTypeError(void)::onceToken != -1)
             {
               [ARWorldTrackingTechnique processData:];
             }
 
-            v30 = ARShouldUseLogTypeError(void)::internalOSVersion;
-            v31 = _ARLogTechnique();
-            v32 = v31;
-            if (v30 == 1)
+            v33 = ARShouldUseLogTypeError(void)::internalOSVersion;
+            v34 = _ARLogTechnique(v31);
+            v35 = v34;
+            if (v33 == 1)
             {
-              if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
+              if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
               {
-                v33 = objc_opt_class();
-                v34 = NSStringFromClass(v33);
-                v35 = NSStringFromCV3DSLAMJasperPointCloudReturn(v29);
+                v36 = objc_opt_class();
+                v37 = NSStringFromClass(v36);
+                v38 = NSStringFromCV3DSLAMJasperPointCloudReturn(v32);
                 LODWORD(buf[0].f64[0]) = 138543874;
-                *(buf[0].f64 + 4) = v34;
+                *(buf[0].f64 + 4) = v37;
                 WORD2(buf[0].f64[1]) = 2048;
                 *(&buf[0].f64[1] + 6) = self;
                 HIWORD(buf[1].f64[0]) = 2112;
-                *&buf[1].f64[1] = v35;
-                _os_log_impl(&dword_1C241C000, v32, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: Error setting jasper projector mode: %@", buf, 0x20u);
+                *&buf[1].f64[1] = v38;
+                _os_log_impl(&dword_1C241C000, v35, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: Error setting jasper projector mode: %@", buf, 0x20u);
               }
             }
 
-            else if (os_log_type_enabled(v31, OS_LOG_TYPE_INFO))
+            else if (os_log_type_enabled(v34, OS_LOG_TYPE_INFO))
             {
-              v117 = objc_opt_class();
-              v118 = NSStringFromClass(v117);
-              v119 = NSStringFromCV3DSLAMJasperPointCloudReturn(v29);
+              v124 = objc_opt_class();
+              v125 = NSStringFromClass(v124);
+              v126 = NSStringFromCV3DSLAMJasperPointCloudReturn(v32);
               LODWORD(buf[0].f64[0]) = 138543874;
-              *(buf[0].f64 + 4) = v118;
+              *(buf[0].f64 + 4) = v125;
               WORD2(buf[0].f64[1]) = 2048;
               *(&buf[0].f64[1] + 6) = self;
               HIWORD(buf[1].f64[0]) = 2112;
-              *&buf[1].f64[1] = v119;
-              _os_log_impl(&dword_1C241C000, v32, OS_LOG_TYPE_INFO, "Error: %{public}@ <%p>: Error setting jasper projector mode: %@", buf, 0x20u);
+              *&buf[1].f64[1] = v126;
+              _os_log_impl(&dword_1C241C000, v35, OS_LOG_TYPE_INFO, "Error: %{public}@ <%p>: Error setting jasper projector mode: %@", buf, 0x20u);
             }
           }
 
-          *v174 = 0;
-          [v27 timestamp];
-          if ((CV3DSLAMSessionPushJasperPointCloud() & 1) == 0)
+          *v195 = 0;
+          objc_msgSend_timestamp(v29);
+          v127 = CV3DSLAMSessionPushJasperPointCloud();
+          if ((v127 & 1) == 0)
           {
             if (ARShouldUseLogTypeError(void)::onceToken != -1)
             {
               [ARWorldTrackingTechnique processData:];
             }
 
-            v120 = ARShouldUseLogTypeError(void)::internalOSVersion;
-            v121 = _ARLogTechnique();
-            v122 = v121;
-            if (v120 == 1)
+            v128 = ARShouldUseLogTypeError(void)::internalOSVersion;
+            v129 = _ARLogTechnique(v127);
+            v130 = v129;
+            if (v128 == 1)
             {
-              if (os_log_type_enabled(v121, OS_LOG_TYPE_ERROR))
+              if (os_log_type_enabled(v129, OS_LOG_TYPE_ERROR))
               {
-                v123 = objc_opt_class();
-                v124 = NSStringFromClass(v123);
-                v125 = *v174;
+                v131 = objc_opt_class();
+                v132 = NSStringFromClass(v131);
+                v133 = *v195;
                 LODWORD(buf[0].f64[0]) = 138543874;
-                *(buf[0].f64 + 4) = v124;
+                *(buf[0].f64 + 4) = v132;
                 WORD2(buf[0].f64[1]) = 2048;
                 *(&buf[0].f64[1] + 6) = self;
                 HIWORD(buf[1].f64[0]) = 2112;
-                buf[1].f64[1] = *v174;
-                _os_log_impl(&dword_1C241C000, v122, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: Error pushing jasper buffer to SLAM: %@", buf, 0x20u);
+                buf[1].f64[1] = *v195;
+                _os_log_impl(&dword_1C241C000, v130, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: Error pushing jasper buffer to SLAM: %@", buf, 0x20u);
               }
             }
 
-            else if (os_log_type_enabled(v121, OS_LOG_TYPE_INFO))
+            else if (os_log_type_enabled(v129, OS_LOG_TYPE_INFO))
             {
-              v126 = objc_opt_class();
-              v127 = NSStringFromClass(v126);
-              v128 = *v174;
+              v134 = objc_opt_class();
+              v135 = NSStringFromClass(v134);
+              v136 = *v195;
               LODWORD(buf[0].f64[0]) = 138543874;
-              *(buf[0].f64 + 4) = v127;
+              *(buf[0].f64 + 4) = v135;
               WORD2(buf[0].f64[1]) = 2048;
               *(&buf[0].f64[1] + 6) = self;
               HIWORD(buf[1].f64[0]) = 2112;
-              buf[1].f64[1] = *v174;
-              _os_log_impl(&dword_1C241C000, v122, OS_LOG_TYPE_INFO, "Error: %{public}@ <%p>: Error pushing jasper buffer to SLAM: %@", buf, 0x20u);
+              buf[1].f64[1] = *v195;
+              _os_log_impl(&dword_1C241C000, v130, OS_LOG_TYPE_INFO, "Error: %{public}@ <%p>: Error pushing jasper buffer to SLAM: %@", buf, 0x20u);
             }
 
-            v129 = ARErrorWithCodeAndUserInfo(200, 0);
-            [(ARWorldTrackingTechnique *)self _didFailWithError:v129];
+            v137 = ARErrorWithCodeAndUserInfo(200, 0);
+            [(ARWorldTrackingTechnique *)self _didFailWithError:v137];
           }
 
           if (self->_planeDetectionSession.__ptr_ || self->_raycastSession.__ptr_)
           {
-            [v27 extrinsicsToWideSensor];
+            [v29 extrinsicsToWideSensor];
             ARMatrix4x4FromMatrix4x3();
-            v159 = v131;
-            v161 = v130;
-            v154 = v133;
-            v157 = v132;
-            [v27 visionCameraTransform];
-            v150 = v135;
-            v152 = v134;
-            v147 = v137;
-            v148 = v136;
-            v188.columns[1] = v159;
-            v188.columns[0] = v161;
-            v188.columns[3] = v154;
-            v188.columns[2] = v157;
-            v189 = __invert_f4(v188);
-            v138 = 0;
-            v139 = vmulq_f32(v189.columns[3], vdupq_n_s32(0x3A83126Fu));
-            v139.i32[3] = v189.columns[3].i32[3];
-            v179 = v152;
-            v180 = v150;
-            v181 = v148;
-            v182 = v147;
+            v179 = v139;
+            v182 = v138;
+            v172 = v141;
+            v176 = v140;
+            [v29 visionCameraTransform];
+            v165 = v143;
+            v168 = v142;
+            v161 = v145;
+            v162 = v144;
+            v211.columns[1] = v179;
+            v211.columns[0] = v182;
+            v211.columns[3] = v172;
+            v211.columns[2] = v176;
+            v212 = __invert_f4(v211);
+            v146 = 0;
+            v147 = vmulq_f32(v212.columns[3], vdupq_n_s32(0x3A83126Fu));
+            v147.i32[3] = v212.columns[3].i32[3];
+            v200 = v168;
+            v201 = v165;
+            v202 = v162;
+            v203 = v161;
             do
             {
-              buf[v138 / 2] = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v189.columns[0], COERCE_FLOAT(*(&v179 + v138 * 8))), v189.columns[1], *&v179.f64[v138], 1), v189.columns[2], *(&v179 + v138 * 8), 2), v139, *(&v179 + v138 * 8), 3);
-              v138 += 2;
+              buf[v146 / 2] = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v212.columns[0], COERCE_FLOAT(*(&v200 + v146 * 8))), v212.columns[1], *&v200.f64[v146], 1), v212.columns[2], *(&v200 + v146 * 8), 2), v147, *(&v200 + v146 * 8), 3);
+              v146 += 2;
             }
 
-            while (v138 != 8);
+            while (v146 != 8);
+            v177 = buf[1].f64[0];
+            v180 = buf[0].f64[0];
+            v170 = *&v207;
+            v173 = *&v206;
           }
 
           os_unfair_lock_lock(&self->_surfaceDetectionSessionLock);
           if (self->_planeDetectionSession.__ptr_)
           {
             mutableOptions5 = [(ARWorldTrackingTechnique *)self mutableOptions];
-            v141 = [mutableOptions5 planeDetection] == 0;
+            v149 = [mutableOptions5 planeDetection] == 0;
 
-            if (!v141)
+            if (!v149)
             {
-              v172 = 0.0;
+              v193 = 0.0;
               CV3DSLAMSessionCopyJasperCameraCalibration();
-              ARMatrix3x3MakeRowMajorTransform(buf[0].f64);
+              v150.n128_u64[0] = ARMatrix3x3MakeRowMajorTransform(buf[0].f64);
+              v166 = v151;
+              v169 = v150;
+              v163 = v152;
+              v153 = v200.f64[0];
               ptr = self->_planeDetectionSession.__ptr_;
-              pointCloud2 = [v27 pointCloud];
-              [v27 timestamp];
-              v146 = v144;
-              PlaneDetectionSession::PushJasperPointCloud(ptr, pointCloud2);
+              pointCloud2 = [v29 pointCloud];
+              objc_msgSend_timestamp(v29);
+              v157 = v166;
+              v156 = v169;
+              v156.n128_u32[3] = 0;
+              v157.n128_u32[3] = 0;
+              v158 = v163;
+              v158.n128_u32[3] = 0;
+              PlaneDetectionSession::PushJasperPointCloud(ptr, pointCloud2, v180, v177, v173, v170, v156, v157, v158, v153, v159);
             }
           }
 
@@ -1823,7 +1854,7 @@ LABEL_38:
           os_unfair_lock_lock(&self->_raycastSessionLock);
           if (self->_raycastSession.__ptr_)
           {
-            [v27 timestamp];
+            objc_msgSend_timestamp(v29);
             CV3DRaycastPushJasperPointCloud();
           }
 
@@ -1836,93 +1867,95 @@ LABEL_38:
           objc_opt_class();
           if ((objc_opt_isKindOfClass() & 1) == 0)
           {
-            goto LABEL_125;
+            goto LABEL_126;
           }
 
-          v67 = dataCopy;
-          [v67 setStillRequiresPostProcessing:1];
+          v70 = dataCopy;
+          [v70 setStillRequiresPostProcessing:1];
           resultDataQueue = self->_resultDataQueue;
           block[0] = MEMORY[0x1E69E9820];
           block[1] = 3221225472;
           block[2] = __40__ARWorldTrackingTechnique_processData___block_invoke_124;
           block[3] = &unk_1E817C820;
           block[4] = self;
-          v163 = v67;
-          v69 = v67;
+          v184 = v70;
+          v72 = v70;
           dispatch_async(resultDataQueue, block);
         }
 
-LABEL_124:
-
 LABEL_125:
+
+LABEL_126:
         if ([(ARWorldTrackingTechnique *)self deterministicMode])
         {
           dispatch_sync(self->_resultDataQueue, &__block_literal_global_126);
           CV3DSLAMSessionWait();
         }
 
-        goto LABEL_127;
+        goto LABEL_128;
       }
 
-      v19 = dataCopy;
-      v179.f64[0] = 0.0;
-      [v19 rotationRate];
-      [v19 rotationRate];
-      [v19 rotationRate];
-      [v19 timestamp];
-      if ((CV3DSLAMSessionPushGyro() & 1) == 0)
+      v20 = dataCopy;
+      v200.f64[0] = 0.0;
+      [v20 rotationRate];
+      [v20 rotationRate];
+      [v20 rotationRate];
+      objc_msgSend_timestamp(v20);
+      v21 = CV3DSLAMSessionPushGyro();
+      if ((v21 & 1) == 0)
       {
         if (ARShouldUseLogTypeError(void)::onceToken != -1)
         {
           [ARWorldTrackingTechnique processData:];
         }
 
-        v20 = ARShouldUseLogTypeError(void)::internalOSVersion;
-        v21 = _ARLogTechnique();
-        v22 = v21;
-        if (v20 == 1)
+        v22 = ARShouldUseLogTypeError(void)::internalOSVersion;
+        v23 = _ARLogTechnique(v21);
+        v24 = v23;
+        if (v22 == 1)
         {
-          if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+          if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
           {
-            v23 = objc_opt_class();
-            v24 = NSStringFromClass(v23);
-            v25 = v179.f64[0];
+            v25 = objc_opt_class();
+            v26 = NSStringFromClass(v25);
+            v27 = v200.f64[0];
             LODWORD(buf[0].f64[0]) = 138543874;
-            *(buf[0].f64 + 4) = v24;
+            *(buf[0].f64 + 4) = v26;
             WORD2(buf[0].f64[1]) = 2048;
             *(&buf[0].f64[1] + 6) = self;
             HIWORD(buf[1].f64[0]) = 2112;
-            buf[1].f64[1] = v179.f64[0];
-            _os_log_impl(&dword_1C241C000, v22, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: Error pushing gyro data: %@", buf, 0x20u);
+            buf[1].f64[1] = v200.f64[0];
+            _os_log_impl(&dword_1C241C000, v24, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: Error pushing gyro data: %@", buf, 0x20u);
           }
         }
 
-        else if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
+        else if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
         {
-          v104 = objc_opt_class();
-          v105 = NSStringFromClass(v104);
-          v106 = v179.f64[0];
+          v110 = objc_opt_class();
+          v111 = NSStringFromClass(v110);
+          v112 = v200.f64[0];
           LODWORD(buf[0].f64[0]) = 138543874;
-          *(buf[0].f64 + 4) = v105;
+          *(buf[0].f64 + 4) = v111;
           WORD2(buf[0].f64[1]) = 2048;
           *(&buf[0].f64[1] + 6) = self;
           HIWORD(buf[1].f64[0]) = 2112;
-          buf[1].f64[1] = v179.f64[0];
-          _os_log_impl(&dword_1C241C000, v22, OS_LOG_TYPE_INFO, "Error: %{public}@ <%p>: Error pushing gyro data: %@", buf, 0x20u);
+          buf[1].f64[1] = v200.f64[0];
+          _os_log_impl(&dword_1C241C000, v24, OS_LOG_TYPE_INFO, "Error: %{public}@ <%p>: Error pushing gyro data: %@", buf, 0x20u);
         }
 
-        v107 = ARErrorWithCodeAndUserInfo(200, 0);
-        [(ARWorldTrackingTechnique *)self _didFailWithError:v107];
+        v113 = ARErrorWithCodeAndUserInfo(200, 0);
+        [(ARWorldTrackingTechnique *)self _didFailWithError:v113];
       }
 
-      [v19 rotationRate];
-      [v19 rotationRate];
-      [v19 rotationRate];
-      [v19 timestamp];
-      v108 = CV3DPosePredictionPushGyro();
-      if (!v108)
+      [v20 rotationRate];
+      [v20 rotationRate];
+      [v20 rotationRate];
+      objc_msgSend_timestamp(v20);
+      v114 = CV3DPosePredictionPushGyro();
+      v115 = v114;
+      if (!v114)
       {
-        goto LABEL_124;
+        goto LABEL_125;
       }
 
       if (ARShouldUseLogTypeError(void)::onceToken != -1)
@@ -1930,45 +1963,45 @@ LABEL_125:
         [ARWorldTrackingTechnique processData:];
       }
 
-      v109 = ARShouldUseLogTypeError(void)::internalOSVersion;
-      v110 = _ARLogTechnique();
-      v77 = v110;
-      if (v109 == 1)
+      v116 = ARShouldUseLogTypeError(void)::internalOSVersion;
+      v117 = _ARLogTechnique(v114);
+      v81 = v117;
+      if (v116 == 1)
       {
-        if (os_log_type_enabled(v110, OS_LOG_TYPE_ERROR))
+        if (os_log_type_enabled(v117, OS_LOG_TYPE_ERROR))
         {
-          v111 = objc_opt_class();
-          v112 = NSStringFromClass(v111);
-          v113 = NSStringFromCV3DPosePredictionReturn(v108);
+          v118 = objc_opt_class();
+          v119 = NSStringFromClass(v118);
+          v120 = NSStringFromCV3DPosePredictionReturn(v115);
           LODWORD(buf[0].f64[0]) = 138543874;
-          *(buf[0].f64 + 4) = v112;
+          *(buf[0].f64 + 4) = v119;
           WORD2(buf[0].f64[1]) = 2048;
           *(&buf[0].f64[1] + 6) = self;
           HIWORD(buf[1].f64[0]) = 2112;
-          *&buf[1].f64[1] = v113;
-          _os_log_impl(&dword_1C241C000, v77, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: CV3DPosePredictionPushAccel error: %@", buf, 0x20u);
+          *&buf[1].f64[1] = v120;
+          _os_log_impl(&dword_1C241C000, v81, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: CV3DPosePredictionPushAccel error: %@", buf, 0x20u);
         }
       }
 
-      else if (os_log_type_enabled(v110, OS_LOG_TYPE_INFO))
+      else if (os_log_type_enabled(v117, OS_LOG_TYPE_INFO))
       {
-        v114 = objc_opt_class();
-        v115 = NSStringFromClass(v114);
-        v116 = NSStringFromCV3DPosePredictionReturn(v108);
+        v121 = objc_opt_class();
+        v122 = NSStringFromClass(v121);
+        v123 = NSStringFromCV3DPosePredictionReturn(v115);
         LODWORD(buf[0].f64[0]) = 138543874;
-        *(buf[0].f64 + 4) = v115;
+        *(buf[0].f64 + 4) = v122;
         WORD2(buf[0].f64[1]) = 2048;
         *(&buf[0].f64[1] + 6) = self;
         HIWORD(buf[1].f64[0]) = 2112;
-        *&buf[1].f64[1] = v116;
-        _os_log_impl(&dword_1C241C000, v77, OS_LOG_TYPE_INFO, "Error: %{public}@ <%p>: CV3DPosePredictionPushAccel error: %@", buf, 0x20u);
+        *&buf[1].f64[1] = v123;
+        _os_log_impl(&dword_1C241C000, v81, OS_LOG_TYPE_INFO, "Error: %{public}@ <%p>: CV3DPosePredictionPushAccel error: %@", buf, 0x20u);
       }
     }
 
-    v84 = ARErrorWithCodeAndUserInfo(200, 0);
-    [(ARWorldTrackingTechnique *)self _didFailWithError:v84];
+    v88 = ARErrorWithCodeAndUserInfo(200, 0);
+    [(ARWorldTrackingTechnique *)self _didFailWithError:v88];
 
-    goto LABEL_124;
+    goto LABEL_125;
   }
 
   objc_opt_class();
@@ -1977,7 +2010,7 @@ LABEL_125:
     [(ARImageBasedTechnique *)self pushResultData:MEMORY[0x1E695E0F0] forFrame:0];
   }
 
-LABEL_127:
+LABEL_128:
 
   return dataCopy;
 }
@@ -1987,12 +2020,12 @@ void __40__ARWorldTrackingTechnique_processData___block_invoke_124(uint64_t a1)
   [*(a1 + 32) _postProcessNonSynchronousDataForSceneUnderstanding:*(a1 + 40)];
   v2 = [ARNonSynchronousData alloc];
   v3 = [*(a1 + 40) gatheredData];
-  [*(a1 + 40) timestamp];
-  v23 = [(ARNonSynchronousData *)v2 initWithGatheredData:v3 timestamp:?];
+  objc_msgSend_timestamp(*(a1 + 40));
+  v25 = [(ARNonSynchronousData *)v2 initWithGatheredData:v3 timestamp:?];
 
   [*(a1 + 40) setStillRequiresPostProcessing:0];
   os_unfair_lock_lock((*(a1 + 32) + 560));
-  [*(*(a1 + 32) + 552) addObject:v23];
+  [*(*(a1 + 32) + 552) addObject:v25];
   os_unfair_lock_unlock((*(a1 + 32) + 560));
   v4 = [*(a1 + 40) arMLDepthResult];
   v5 = [*(a1 + 40) segmentationResultWithDataSource:1];
@@ -2002,34 +2035,34 @@ void __40__ARWorldTrackingTechnique_processData___block_invoke_124(uint64_t a1)
 
   if (v8 && v6)
   {
-    v9 = [*(a1 + 32) mutableOptions];
-    if ([v9 planeDetection])
+    v11 = [*(a1 + 32) mutableOptions];
+    if ([v11 planeDetection])
     {
-      v10 = [*(a1 + 32) mutableOptions];
-      v11 = [v10 mlModelEnabled];
+      v12 = [*(a1 + 32) mutableOptions];
+      v13 = [v12 mlModelEnabled];
 
-      if (v11)
+      if (v13)
       {
         os_unfair_lock_lock((*(a1 + 32) + 152));
-        v12 = *(a1 + 32);
+        v14 = *(a1 + 32);
         if (v4)
         {
-          [v12 pushToSceneUnderstandingDepth:v4 segmentation:v6 pose:v8];
+          [v14 pushToSceneUnderstandingDepth:v4 segmentation:v6 pose:v8];
         }
 
         else
         {
-          [v12 pushToSceneUnderstandingSegmentation:v6 pose:v8];
+          [v14 pushToSceneUnderstandingSegmentation:v6 pose:v8];
         }
 
-        v13 = [*(a1 + 32) mutableOptions];
-        v14 = [v13 planeDetectionVIOPoseCallback];
+        v15 = [*(a1 + 32) mutableOptions];
+        v16 = [v15 planeDetectionVIOPoseCallback];
 
-        if (v14)
+        if (v16)
         {
-          v15 = [*(a1 + 32) mutableOptions];
-          v16 = [v15 planeDetectionVIOPoseCallback];
-          (v16)[2](v16, v8);
+          v17 = [*(a1 + 32) mutableOptions];
+          v18 = [v17 planeDetectionVIOPoseCallback];
+          (v18)[2](v18, v8);
         }
 
         os_unfair_lock_unlock((*(a1 + 32) + 152));
@@ -2043,34 +2076,34 @@ void __40__ARWorldTrackingTechnique_processData___block_invoke_124(uint64_t a1)
 
   if (v4)
   {
-    v17 = v8 == 0;
+    v19 = v8 == 0;
   }
 
   else
   {
-    v17 = 1;
+    v19 = 1;
   }
 
-  v18 = !v17;
-  if (!v17)
+  v20 = !v19;
+  if (!v19)
   {
     os_unfair_lock_lock((*(a1 + 32) + 156));
     [*(a1 + 32) pushToHitTestingDepth:v4 pose:v8];
     os_unfair_lock_unlock((*(a1 + 32) + 156));
   }
 
-  if (ARDeviceSupportsJasper())
+  if (ARDeviceSupportsJasper(v9, v10))
   {
-    v19 = [*(a1 + 32) mutableOptions];
-    v20 = [v19 sceneReconstruction];
+    v21 = [*(a1 + 32) mutableOptions];
+    v22 = [v21 sceneReconstruction];
 
-    v21 = v6 ? v18 : 0;
-    if (v21 == 1 && v20)
+    v23 = v6 ? v20 : 0;
+    if (v23 == 1 && v22)
     {
       [v8 visionCameraTransform];
-      *(*(a1 + 32) + 928) = __invert_f4(v25);
-      v22 = [*(a1 + 32) sceneReconstructionHandler];
-      [v22 pushDepth:v4 semanticSegmentation:v6 personSegmentation:v5 pose:v8];
+      *(*(a1 + 32) + 928) = __invert_f4(v27);
+      v24 = [*(a1 + 32) sceneReconstructionHandler];
+      [v24 pushDepth:v4 semanticSegmentation:v6 personSegmentation:v5 pose:v8];
     }
   }
 }
@@ -2081,139 +2114,149 @@ void __40__ARWorldTrackingTechnique_processData___block_invoke_124(uint64_t a1)
   arMLDepthResult = [understandingCopy arMLDepthResult];
   v6 = [understandingCopy segmentationResultWithDataSource:2];
   v7 = v6;
-  if (v6 && [v6 segmentationBuffer] && objc_msgSend(arMLDepthResult, "singleFrameDepthBuffer") && ARDeviceSupportsJasper())
+  if (v6)
   {
-    singleFrameDepthBuffer = [arMLDepthResult singleFrameDepthBuffer];
-    v9 = singleFrameDepthBuffer;
-    if (singleFrameDepthBuffer)
+    if ([v6 segmentationBuffer])
     {
-      Width = CVPixelBufferGetWidth(singleFrameDepthBuffer);
-      Height = CVPixelBufferGetHeight(v9);
-    }
-
-    else
-    {
-      Width = *MEMORY[0x1E695F060];
-      Height = *(MEMORY[0x1E695F060] + 8);
-    }
-
-    PixelFormatType = CVPixelBufferGetPixelFormatType([v7 segmentationBuffer]);
-    v13 = ARCreateCVPixelBufferFromPool(&self->_poolForSemanticsAnnotatedDepth, PixelFormatType, self, @"segmentation annotated depth", Width, Height);
-    v14 = v13;
-    if (v13)
-    {
-      v45[0] = MEMORY[0x1E69E9820];
-      v45[1] = 3221225472;
-      v46 = __80__ARWorldTrackingTechnique__postProcessNonSynchronousDataForSceneUnderstanding___block_invoke;
-      v47 = &__block_descriptor_40_e5_v8__0l;
-      v48 = v13;
-      singleFrameDepthBuffer2 = [arMLDepthResult singleFrameDepthBuffer];
-      v16 = singleFrameDepthBuffer2;
-      if (singleFrameDepthBuffer2)
+      singleFrameDepthBuffer = [arMLDepthResult singleFrameDepthBuffer];
+      if (singleFrameDepthBuffer)
       {
-        v17 = CVPixelBufferGetWidth(singleFrameDepthBuffer2);
-        v18 = CVPixelBufferGetHeight(v16);
-      }
-
-      else
-      {
-        v17 = *MEMORY[0x1E695F060];
-        v18 = *(MEMORY[0x1E695F060] + 8);
-      }
-
-      v19 = CVPixelBufferGetPixelFormatType([v7 confidenceBuffer]);
-      v20 = ARCreateCVPixelBufferFromPool(&self->_poolForConfidenceAnnotatedDepth, v19, self, @"confidence annotated depth", v17, v18);
-      v21 = v20;
-      if (!v20)
-      {
-        goto LABEL_27;
-      }
-
-      v41[0] = MEMORY[0x1E69E9820];
-      v41[1] = 3221225472;
-      v42 = __80__ARWorldTrackingTechnique__postProcessNonSynchronousDataForSceneUnderstanding___block_invoke_2;
-      v43 = &__block_descriptor_40_e5_v8__0l;
-      v44 = v20;
-      if ([v7 uncertaintyBuffer])
-      {
-        singleFrameDepthBuffer3 = [arMLDepthResult singleFrameDepthBuffer];
-        v23 = singleFrameDepthBuffer3;
-        if (singleFrameDepthBuffer3)
+        if (ARDeviceSupportsJasper(singleFrameDepthBuffer, v9))
         {
-          v24 = CVPixelBufferGetWidth(singleFrameDepthBuffer3);
-          v25 = CVPixelBufferGetHeight(v23);
-        }
+          singleFrameDepthBuffer2 = [arMLDepthResult singleFrameDepthBuffer];
+          v11 = singleFrameDepthBuffer2;
+          if (singleFrameDepthBuffer2)
+          {
+            Width = CVPixelBufferGetWidth(singleFrameDepthBuffer2);
+            Height = CVPixelBufferGetHeight(v11);
+          }
 
-        else
-        {
-          v24 = *MEMORY[0x1E695F060];
-          v25 = *(MEMORY[0x1E695F060] + 8);
-        }
+          else
+          {
+            Width = *MEMORY[0x1E695F060];
+            Height = *(MEMORY[0x1E695F060] + 8);
+          }
 
-        v26 = CVPixelBufferGetPixelFormatType([v7 uncertaintyBuffer]);
-        v27 = ARCreateCVPixelBufferFromPool(&self->_poolForUncertaintyAnnotatedDepth, v26, self, @"uncertainty annotated depth", v24, v25);
-        v28 = v27;
-        if (!v27)
-        {
-          goto LABEL_26;
-        }
+          PixelFormatType = CVPixelBufferGetPixelFormatType([v7 segmentationBuffer]);
+          v15 = ARCreateCVPixelBufferFromPool(&self->_poolForSemanticsAnnotatedDepth, PixelFormatType, self, @"segmentation annotated depth", Width, Height);
+          v16 = v15;
+          if (v15)
+          {
+            v47[0] = MEMORY[0x1E69E9820];
+            v47[1] = 3221225472;
+            v48 = __80__ARWorldTrackingTechnique__postProcessNonSynchronousDataForSceneUnderstanding___block_invoke;
+            v49 = &__block_descriptor_40_e5_v8__0l;
+            v50 = v15;
+            singleFrameDepthBuffer3 = [arMLDepthResult singleFrameDepthBuffer];
+            v18 = singleFrameDepthBuffer3;
+            if (singleFrameDepthBuffer3)
+            {
+              v19 = CVPixelBufferGetWidth(singleFrameDepthBuffer3);
+              v20 = CVPixelBufferGetHeight(v18);
+            }
 
-        v37[0] = MEMORY[0x1E69E9820];
-        v37[1] = 3221225472;
-        v38 = __80__ARWorldTrackingTechnique__postProcessNonSynchronousDataForSceneUnderstanding___block_invoke_3;
-        v39 = &__block_descriptor_40_e5_v8__0l;
-        v40 = v27;
-        singleFrameDepthBuffer4 = [arMLDepthResult singleFrameDepthBuffer];
-        v30 = singleFrameDepthBuffer4;
-        if (singleFrameDepthBuffer4)
-        {
-          v31 = CVPixelBufferGetWidth(singleFrameDepthBuffer4);
-          v32 = CVPixelBufferGetHeight(v30);
-        }
+            else
+            {
+              v19 = *MEMORY[0x1E695F060];
+              v20 = *(MEMORY[0x1E695F060] + 8);
+            }
 
-        else
-        {
-          v31 = *MEMORY[0x1E695F060];
-          v32 = *(MEMORY[0x1E695F060] + 8);
-        }
+            v21 = CVPixelBufferGetPixelFormatType([v7 confidenceBuffer]);
+            v22 = ARCreateCVPixelBufferFromPool(&self->_poolForConfidenceAnnotatedDepth, v21, self, @"confidence annotated depth", v19, v20);
+            v23 = v22;
+            if (!v22)
+            {
+              goto LABEL_27;
+            }
 
-        v33 = CVPixelBufferGetPixelFormatType([v7 segmentationBuffer]);
-        v34 = ARCreateCVPixelBufferFromPool(&self->_poolForUncertaintyMaskedSemanticsDepth, v33, self, @"uncertainty masked segmentation buffer", v31, v32);
-        v35 = v34;
-        if (v34)
-        {
-          v36[0] = MEMORY[0x1E69E9820];
-          v36[1] = 3221225472;
-          v36[2] = __80__ARWorldTrackingTechnique__postProcessNonSynchronousDataForSceneUnderstanding___block_invoke_4;
-          v36[3] = &__block_descriptor_40_e5_v8__0l;
-          v36[4] = v34;
-          [(ARWorldTrackingTechnique *)self annotateDepth:arMLDepthResult withSemantics:v7 toTargetSemanticsImage:v14 targetConfidenceBuffer:v21 targetUncertaintyBuffer:v28];
-          [v7 setSemanticsSampledForDepth:v14];
-          [v7 setConfidenceSampledForDepth:v21];
-          [v7 setUncertaintySampledForDepth:v28];
-          [ARSISemanticSegmentationTechnique createUncertaintyMaskedSegmentationBuffer:v35 fromSegmentationBuffer:v14 uncertaintyBuffer:v28 maskValue:255];
-          __80__ARWorldTrackingTechnique__postProcessNonSynchronousDataForSceneUnderstanding___block_invoke_4(v36);
-        }
+            v43[0] = MEMORY[0x1E69E9820];
+            v43[1] = 3221225472;
+            v44 = __80__ARWorldTrackingTechnique__postProcessNonSynchronousDataForSceneUnderstanding___block_invoke_2;
+            v45 = &__block_descriptor_40_e5_v8__0l;
+            v46 = v22;
+            if ([v7 uncertaintyBuffer])
+            {
+              singleFrameDepthBuffer4 = [arMLDepthResult singleFrameDepthBuffer];
+              v25 = singleFrameDepthBuffer4;
+              if (singleFrameDepthBuffer4)
+              {
+                v26 = CVPixelBufferGetWidth(singleFrameDepthBuffer4);
+                v27 = CVPixelBufferGetHeight(v25);
+              }
 
-        v38(v37);
-        if (!v35)
-        {
-          goto LABEL_26;
-        }
-      }
+              else
+              {
+                v26 = *MEMORY[0x1E695F060];
+                v27 = *(MEMORY[0x1E695F060] + 8);
+              }
 
-      else
-      {
-        [(ARWorldTrackingTechnique *)self annotateDepth:arMLDepthResult withSemantics:v7 toTargetSemanticsImage:v14 targetConfidenceBuffer:v21 targetUncertaintyBuffer:0];
-        [v7 setSemanticsSampledForDepth:v14];
-        [v7 setConfidenceSampledForDepth:v21];
-      }
+              v28 = CVPixelBufferGetPixelFormatType([v7 uncertaintyBuffer]);
+              v29 = ARCreateCVPixelBufferFromPool(&self->_poolForUncertaintyAnnotatedDepth, v28, self, @"uncertainty annotated depth", v26, v27);
+              v30 = v29;
+              if (!v29)
+              {
+                goto LABEL_26;
+              }
 
-      [v7 setMaskedSemanticsSampledForDepth:v14];
+              v39[0] = MEMORY[0x1E69E9820];
+              v39[1] = 3221225472;
+              v40 = __80__ARWorldTrackingTechnique__postProcessNonSynchronousDataForSceneUnderstanding___block_invoke_3;
+              v41 = &__block_descriptor_40_e5_v8__0l;
+              v42 = v29;
+              singleFrameDepthBuffer5 = [arMLDepthResult singleFrameDepthBuffer];
+              v32 = singleFrameDepthBuffer5;
+              if (singleFrameDepthBuffer5)
+              {
+                v33 = CVPixelBufferGetWidth(singleFrameDepthBuffer5);
+                v34 = CVPixelBufferGetHeight(v32);
+              }
+
+              else
+              {
+                v33 = *MEMORY[0x1E695F060];
+                v34 = *(MEMORY[0x1E695F060] + 8);
+              }
+
+              v35 = CVPixelBufferGetPixelFormatType([v7 segmentationBuffer]);
+              v36 = ARCreateCVPixelBufferFromPool(&self->_poolForUncertaintyMaskedSemanticsDepth, v35, self, @"uncertainty masked segmentation buffer", v33, v34);
+              v37 = v36;
+              if (v36)
+              {
+                v38[0] = MEMORY[0x1E69E9820];
+                v38[1] = 3221225472;
+                v38[2] = __80__ARWorldTrackingTechnique__postProcessNonSynchronousDataForSceneUnderstanding___block_invoke_4;
+                v38[3] = &__block_descriptor_40_e5_v8__0l;
+                v38[4] = v36;
+                [(ARWorldTrackingTechnique *)self annotateDepth:arMLDepthResult withSemantics:v7 toTargetSemanticsImage:v16 targetConfidenceBuffer:v23 targetUncertaintyBuffer:v30];
+                [v7 setSemanticsSampledForDepth:v16];
+                [v7 setConfidenceSampledForDepth:v23];
+                [v7 setUncertaintySampledForDepth:v30];
+                [ARSISemanticSegmentationTechnique createUncertaintyMaskedSegmentationBuffer:v37 fromSegmentationBuffer:v16 uncertaintyBuffer:v30 maskValue:255];
+                __80__ARWorldTrackingTechnique__postProcessNonSynchronousDataForSceneUnderstanding___block_invoke_4(v38);
+              }
+
+              v40(v39);
+              if (!v37)
+              {
+                goto LABEL_26;
+              }
+            }
+
+            else
+            {
+              [(ARWorldTrackingTechnique *)self annotateDepth:arMLDepthResult withSemantics:v7 toTargetSemanticsImage:v16 targetConfidenceBuffer:v23 targetUncertaintyBuffer:0];
+              [v7 setSemanticsSampledForDepth:v16];
+              [v7 setConfidenceSampledForDepth:v23];
+            }
+
+            [v7 setMaskedSemanticsSampledForDepth:v16];
 LABEL_26:
-      v42(v41);
+            v44(v43);
 LABEL_27:
-      v46(v45);
+            v48(v47);
+          }
+        }
+      }
     }
   }
 }
@@ -2281,7 +2324,7 @@ LABEL_27:
 
 - (id)predictedResultDataAtTimestamp:(double)timestamp context:(id)context
 {
-  v46 = *MEMORY[0x1E69E9840];
+  *&v45[21] = *MEMORY[0x1E69E9840];
   contextCopy = context;
   cachedPoseData = self->_cachedPoseData;
   if (cachedPoseData && (-[ARWorldTrackingPoseData worldTrackingState](cachedPoseData, "worldTrackingState"), v8 = objc_claimAutoreleasedReturnValue(), v9 = [v8 state], v8, v9))
@@ -2293,6 +2336,7 @@ LABEL_27:
     }
 
     v11 = [(ARWorldTrackingTechnique *)self _updatePoseData:v10 forTimeStamp:0 updateTrackingState:timestamp];
+    v12 = v11;
     if (v11)
     {
       if (ARShouldUseLogTypeError(void)::onceToken != -1)
@@ -2300,43 +2344,43 @@ LABEL_27:
         __39__ARWorldTrackingTechnique_isSupported__block_invoke_cold_1();
       }
 
-      v12 = ARShouldUseLogTypeError(void)::internalOSVersion;
-      v13 = _ARLogTechnique();
-      imageData = v13;
-      if (v12 == 1)
+      v13 = ARShouldUseLogTypeError(void)::internalOSVersion;
+      v14 = _ARLogTechnique(v11);
+      imageData = v14;
+      if (v13 == 1)
       {
-        if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+        if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
         {
-          v15 = objc_opt_class();
-          v16 = NSStringFromClass(v15);
+          v16 = objc_opt_class();
+          v17 = NSStringFromClass(v16);
           *buf = 138544130;
-          *&buf[4] = v16;
+          *&buf[4] = v17;
           buf_12 = 2048;
           *buf_14 = self;
           *&buf_14[8] = 1024;
-          v42 = v11;
-          v43 = 2048;
-          v44[0] = timestamp;
+          v43 = v12;
+          v44 = 2048;
+          *v45 = timestamp;
           _os_log_impl(&dword_1C241C000, imageData, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: Unable to predict pose [%i] for timestamp %f", buf, 0x26u);
         }
       }
 
-      else if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+      else if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
       {
-        v27 = objc_opt_class();
-        v28 = NSStringFromClass(v27);
+        v28 = objc_opt_class();
+        v29 = NSStringFromClass(v28);
         *buf = 138544130;
-        *&buf[4] = v28;
+        *&buf[4] = v29;
         buf_12 = 2048;
         *buf_14 = self;
         *&buf_14[8] = 1024;
-        v42 = v11;
-        v43 = 2048;
-        v44[0] = timestamp;
+        v43 = v12;
+        v44 = 2048;
+        *v45 = timestamp;
         _os_log_impl(&dword_1C241C000, imageData, OS_LOG_TYPE_INFO, "Error: %{public}@ <%p>: Unable to predict pose [%i] for timestamp %f", buf, 0x26u);
       }
 
-      v17 = MEMORY[0x1E695E0F0];
+      v18 = MEMORY[0x1E695E0F0];
     }
 
     else
@@ -2345,37 +2389,37 @@ LABEL_27:
       if ([imageData cameraPosition]== 2)
       {
         [(ARWorldTrackingPoseData *)v10 cameraTransform];
-        v32 = v19;
-        v33 = v18;
-        v30 = v21;
-        v31 = v20;
-        *&v22 = ARFrontFacingCameraFlip();
-        v23 = 0;
-        v34 = v22;
-        v35 = v24;
+        v33 = v20;
+        v34 = v19;
+        v31 = v22;
+        v32 = v21;
+        *&v23 = ARFrontFacingCameraFlip();
+        v24 = 0;
+        v35 = v23;
         v36 = v25;
         v37 = v26;
+        v38 = v27;
         do
         {
-          *&buf[v23] = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v33, COERCE_FLOAT(*(&v34 + v23))), v32, *(&v34 + v23), 1), v31, *(&v34 + v23), 2), v30, *(&v34 + v23), 3);
-          v23 += 16;
+          *&buf[v24] = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v34, COERCE_FLOAT(*(&v35 + v24))), v33, *(&v35 + v24), 1), v32, *(&v35 + v24), 2), v31, *(&v35 + v24), 3);
+          v24 += 16;
         }
 
-        while (v23 != 64);
-        [(ARWorldTrackingPoseData *)v10 setCameraTransform:*buf, *&buf_14[2], *(v44 + 2), v45[0]];
+        while (v24 != 64);
+        [(ARWorldTrackingPoseData *)v10 setCameraTransform:*buf, *&buf_14[2], *&v45[1], *&v45[9]];
       }
 
-      v38 = v10;
-      v17 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v38 count:{1, *&v30, *&v31, *&v32, *&v33, v34, v35, v36, v37}];
+      v39 = v10;
+      v18 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v39 count:{1, *&v31, *&v32, *&v33, *&v34, v35, v36, v37, v38}];
     }
   }
 
   else
   {
-    v17 = MEMORY[0x1E695E0F0];
+    v18 = MEMORY[0x1E695E0F0];
   }
 
-  return v17;
+  return v18;
 }
 
 - (void)mergeResultData:(id)data intoData:(id)intoData context:(id)context
@@ -2684,9 +2728,9 @@ LABEL_38:
   depthCopy = depth;
   semanticsCopy = semantics;
   sourceImageData = [semanticsCopy sourceImageData];
-  [sourceImageData timestamp];
+  objc_msgSend_timestamp(sourceImageData);
   sourceImageData2 = [depthCopy sourceImageData];
-  [sourceImageData2 timestamp];
+  objc_msgSend_timestamp(sourceImageData2);
   kdebug_trace();
 
   [depthCopy depthBufferSize];
@@ -2984,7 +3028,7 @@ LABEL_38:
     v31 = v22;
     v28 = v25;
     v29 = v24;
-    [(ARSegmentationData *)segmentationCopy timestamp];
+    objc_msgSend_timestamp(segmentationCopy);
     v27 = v26;
     v40.columns[1] = v35;
     v40.columns[0] = v37;
@@ -3073,7 +3117,7 @@ LABEL_38:
     v34 = v25;
     v31 = v28;
     v32 = v27;
-    [(ARSegmentationData *)segmentationCopy timestamp];
+    objc_msgSend_timestamp(segmentationCopy);
     v30 = v29;
     v43.columns[1] = v38;
     v43.columns[0] = v40;
@@ -3092,8 +3136,8 @@ LABEL_38:
 
 - (void)didReceiveKeyframesUpdatedCallback:(CV3DReconKeyframeList *)callback
 {
-  v99 = *MEMORY[0x1E69E9840];
-  v92 = 0;
+  v102 = *MEMORY[0x1E69E9840];
+  v95 = 0;
   Count = CV3DReconKeyframeListGetCount();
   kdebug_trace();
   kdebug_trace();
@@ -3112,7 +3156,7 @@ LABEL_49:
   while (1)
   {
     KeyframeUUIDAtIndex = CV3DReconKeyframeListGetKeyframeUUIDAtIndex();
-    if (v92)
+    if (v95)
     {
       break;
     }
@@ -3120,95 +3164,95 @@ LABEL_49:
     v7 = KeyframeUUIDAtIndex;
     v8 = [MEMORY[0x1E696AFB0] ar_UUIDWithCFUUIDRef:KeyframeUUIDAtIndex];
     CFRelease(v7);
-    CV3DReconKeyframeListGetKeyframeToWorldTransformAtIndex();
-    v80 = v9;
-    v81 = v10;
-    v82 = v11;
-    v83 = v12;
-    if (v92)
+    KeyframeToWorldTransformAtIndex = CV3DReconKeyframeListGetKeyframeToWorldTransformAtIndex();
+    v83 = v10;
+    v84 = v11;
+    v85 = v12;
+    v86 = v13;
+    if (v95)
     {
       if (ARShouldUseLogTypeError(void)::onceToken != -1)
       {
         [ARWorldTrackingTechnique processData:];
       }
 
-      v59 = ARShouldUseLogTypeError(void)::internalOSVersion;
-      v60 = _ARLogGeneral();
-      v61 = v60;
-      if (v59 == 1)
+      v62 = ARShouldUseLogTypeError(void)::internalOSVersion;
+      v63 = _ARLogGeneral(KeyframeToWorldTransformAtIndex);
+      v64 = v63;
+      if (v62 == 1)
       {
-        if (os_log_type_enabled(v60, OS_LOG_TYPE_ERROR))
+        if (os_log_type_enabled(v63, OS_LOG_TYPE_ERROR))
         {
-          v62 = objc_opt_class();
-          v63 = NSStringFromClass(v62);
-          v64 = v92;
+          v65 = objc_opt_class();
+          v66 = NSStringFromClass(v65);
+          v67 = v95;
           *buf = 138543874;
-          v94 = v63;
-          v95 = 2048;
+          v97 = v66;
+          v98 = 2048;
           selfCopy14 = self;
-          v97 = 2112;
-          v98 = v92;
-          _os_log_impl(&dword_1C241C000, v61, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: Error getting keyframe transform: %@", buf, 0x20u);
+          v100 = 2112;
+          v101 = v95;
+          _os_log_impl(&dword_1C241C000, v64, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: Error getting keyframe transform: %@", buf, 0x20u);
         }
       }
 
-      else if (os_log_type_enabled(v60, OS_LOG_TYPE_INFO))
+      else if (os_log_type_enabled(v63, OS_LOG_TYPE_INFO))
       {
-        v73 = objc_opt_class();
-        v74 = NSStringFromClass(v73);
-        v75 = v92;
+        v76 = objc_opt_class();
+        v77 = NSStringFromClass(v76);
+        v78 = v95;
         *buf = 138543874;
-        v94 = v74;
-        v95 = 2048;
+        v97 = v77;
+        v98 = 2048;
         selfCopy14 = self;
-        v97 = 2112;
-        v98 = v92;
-        _os_log_impl(&dword_1C241C000, v61, OS_LOG_TYPE_INFO, "Error: %{public}@ <%p>: Error getting keyframe transform: %@", buf, 0x20u);
+        v100 = 2112;
+        v101 = v95;
+        _os_log_impl(&dword_1C241C000, v64, OS_LOG_TYPE_INFO, "Error: %{public}@ <%p>: Error getting keyframe transform: %@", buf, 0x20u);
       }
 
       goto LABEL_71;
     }
 
-    v13 = CV3DReconKeyframeListCopyKeyframeAtIndex();
-    if (v92)
+    v14 = CV3DReconKeyframeListCopyKeyframeAtIndex();
+    if (v95)
     {
       if (ARShouldUseLogTypeError(void)::onceToken != -1)
       {
         [ARWorldTrackingTechnique processData:];
       }
 
-      v65 = ARShouldUseLogTypeError(void)::internalOSVersion;
-      v66 = _ARLogGeneral();
-      v61 = v66;
-      if (v65 == 1)
+      v68 = ARShouldUseLogTypeError(void)::internalOSVersion;
+      v69 = _ARLogGeneral(v14);
+      v64 = v69;
+      if (v68 == 1)
       {
-        if (os_log_type_enabled(v66, OS_LOG_TYPE_ERROR))
+        if (os_log_type_enabled(v69, OS_LOG_TYPE_ERROR))
         {
-          v67 = objc_opt_class();
-          v68 = NSStringFromClass(v67);
-          v69 = v92;
+          v70 = objc_opt_class();
+          v71 = NSStringFromClass(v70);
+          v72 = v95;
           *buf = 138543874;
-          v94 = v68;
-          v95 = 2048;
+          v97 = v71;
+          v98 = 2048;
           selfCopy14 = self;
-          v97 = 2112;
-          v98 = v92;
-          _os_log_impl(&dword_1C241C000, v61, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: Error getting keyframe: %@", buf, 0x20u);
+          v100 = 2112;
+          v101 = v95;
+          _os_log_impl(&dword_1C241C000, v64, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: Error getting keyframe: %@", buf, 0x20u);
         }
       }
 
-      else if (os_log_type_enabled(v66, OS_LOG_TYPE_INFO))
+      else if (os_log_type_enabled(v69, OS_LOG_TYPE_INFO))
       {
-        v76 = objc_opt_class();
-        v77 = NSStringFromClass(v76);
-        v78 = v92;
+        v79 = objc_opt_class();
+        v80 = NSStringFromClass(v79);
+        v81 = v95;
         *buf = 138543874;
-        v94 = v77;
-        v95 = 2048;
+        v97 = v80;
+        v98 = 2048;
         selfCopy14 = self;
-        v97 = 2112;
-        v98 = v92;
-        _os_log_impl(&dword_1C241C000, v61, OS_LOG_TYPE_INFO, "Error: %{public}@ <%p>: Error getting keyframe: %@", buf, 0x20u);
+        v100 = 2112;
+        v101 = v95;
+        _os_log_impl(&dword_1C241C000, v64, OS_LOG_TYPE_INFO, "Error: %{public}@ <%p>: Error getting keyframe: %@", buf, 0x20u);
       }
 
 LABEL_71:
@@ -3216,150 +3260,150 @@ LABEL_71:
       goto LABEL_72;
     }
 
-    v88[0] = MEMORY[0x1E69E9820];
-    v88[1] = 3221225472;
-    v89 = __63__ARWorldTrackingTechnique_didReceiveKeyframesUpdatedCallback___block_invoke;
-    v90 = &__block_descriptor_40_e5_v8__0l;
-    v91 = v13;
+    v91[0] = MEMORY[0x1E69E9820];
+    v91[1] = 3221225472;
+    v92 = __63__ARWorldTrackingTechnique_didReceiveKeyframesUpdatedCallback___block_invoke;
+    v93 = &__block_descriptor_40_e5_v8__0l;
+    v94 = v14;
     PointCloud = CV3DReconKeyframeCreatePointCloud();
-    if (v92)
+    if (v95)
     {
       if (ARShouldUseLogTypeError(void)::onceToken != -1)
       {
         [ARWorldTrackingTechnique processData:];
       }
 
-      v15 = ARShouldUseLogTypeError(void)::internalOSVersion;
-      v16 = _ARLogGeneral();
-      v17 = v16;
-      if (v15 == 1)
+      v16 = ARShouldUseLogTypeError(void)::internalOSVersion;
+      v17 = _ARLogGeneral(PointCloud);
+      v18 = v17;
+      if (v16 == 1)
       {
-        if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+        if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
         {
-          v18 = objc_opt_class();
-          v19 = NSStringFromClass(v18);
-          v20 = v92;
+          v19 = objc_opt_class();
+          v20 = NSStringFromClass(v19);
+          v21 = v95;
           *buf = 138543874;
-          v94 = v19;
-          v95 = 2048;
+          v97 = v20;
+          v98 = 2048;
           selfCopy14 = self;
-          v97 = 2112;
-          v98 = v92;
-          _os_log_impl(&dword_1C241C000, v17, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: Error creating point cloud keyframe: %@", buf, 0x20u);
+          v100 = 2112;
+          v101 = v95;
+          _os_log_impl(&dword_1C241C000, v18, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: Error creating point cloud keyframe: %@", buf, 0x20u);
         }
       }
 
-      else if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
+      else if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
       {
-        v29 = objc_opt_class();
-        v30 = NSStringFromClass(v29);
-        v31 = v92;
+        v31 = objc_opt_class();
+        v32 = NSStringFromClass(v31);
+        v33 = v95;
         *buf = 138543874;
-        v94 = v30;
-        v95 = 2048;
+        v97 = v32;
+        v98 = 2048;
         selfCopy14 = self;
-        v97 = 2112;
-        v98 = v92;
-        _os_log_impl(&dword_1C241C000, v17, OS_LOG_TYPE_INFO, "Error: %{public}@ <%p>: Error creating point cloud keyframe: %@", buf, 0x20u);
+        v100 = 2112;
+        v101 = v95;
+        _os_log_impl(&dword_1C241C000, v18, OS_LOG_TYPE_INFO, "Error: %{public}@ <%p>: Error creating point cloud keyframe: %@", buf, 0x20u);
       }
 
-      v32 = 0;
+      v34 = 0;
       goto LABEL_36;
     }
 
-    v21 = PointCloud;
-    v84[0] = MEMORY[0x1E69E9820];
-    v84[1] = 3221225472;
-    v85 = __63__ARWorldTrackingTechnique_didReceiveKeyframesUpdatedCallback___block_invoke_172;
-    v86 = &__block_descriptor_40_e5_v8__0l;
-    v87 = PointCloud;
-    CV3DReconKeyframeGetCreationTime();
-    if (v92)
+    v22 = PointCloud;
+    v87[0] = MEMORY[0x1E69E9820];
+    v87[1] = 3221225472;
+    v88 = __63__ARWorldTrackingTechnique_didReceiveKeyframesUpdatedCallback___block_invoke_172;
+    v89 = &__block_descriptor_40_e5_v8__0l;
+    v90 = PointCloud;
+    CreationTime = CV3DReconKeyframeGetCreationTime();
+    if (v95)
     {
       if (ARShouldUseLogTypeError(void)::onceToken != -1)
       {
         [ARWorldTrackingTechnique processData:];
       }
 
-      v23 = ARShouldUseLogTypeError(void)::internalOSVersion;
-      v24 = _ARLogGeneral();
-      p_super = v24;
-      if (v23 == 1)
+      v25 = ARShouldUseLogTypeError(void)::internalOSVersion;
+      v26 = _ARLogGeneral(CreationTime);
+      p_super = v26;
+      if (v25 == 1)
       {
-        if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+        if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
         {
-          v26 = objc_opt_class();
-          v27 = NSStringFromClass(v26);
-          v28 = v92;
+          v28 = objc_opt_class();
+          v29 = NSStringFromClass(v28);
+          v30 = v95;
           *buf = 138543874;
-          v94 = v27;
-          v95 = 2048;
+          v97 = v29;
+          v98 = 2048;
           selfCopy14 = self;
-          v97 = 2112;
-          v98 = v92;
+          v100 = 2112;
+          v101 = v95;
           _os_log_impl(&dword_1C241C000, p_super, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: Error getting keyframe timestamp: %@", buf, 0x20u);
         }
       }
 
-      else if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
+      else if (os_log_type_enabled(v26, OS_LOG_TYPE_INFO))
       {
-        v40 = objc_opt_class();
-        v41 = NSStringFromClass(v40);
-        v42 = v92;
+        v42 = objc_opt_class();
+        v43 = NSStringFromClass(v42);
+        v44 = v95;
         *buf = 138543874;
-        v94 = v41;
-        v95 = 2048;
+        v97 = v43;
+        v98 = 2048;
         selfCopy14 = self;
-        v97 = 2112;
-        v98 = v92;
+        v100 = 2112;
+        v101 = v95;
         _os_log_impl(&dword_1C241C000, p_super, OS_LOG_TYPE_INFO, "Error: %{public}@ <%p>: Error getting keyframe timestamp: %@", buf, 0x20u);
       }
 
 LABEL_34:
-      v32 = 0;
+      v34 = 0;
       goto LABEL_35;
     }
 
-    v33 = v22;
+    v35 = v24;
     PointsCount = CV3DReconPointCloudGetPointsCount();
-    if (v92)
+    if (v95)
     {
       if (ARShouldUseLogTypeError(void)::onceToken != -1)
       {
         [ARWorldTrackingTechnique processData:];
       }
 
-      v35 = ARShouldUseLogTypeError(void)::internalOSVersion;
-      v36 = _ARLogGeneral();
-      p_super = v36;
-      if (v35 == 1)
+      v37 = ARShouldUseLogTypeError(void)::internalOSVersion;
+      v38 = _ARLogGeneral(PointsCount);
+      p_super = v38;
+      if (v37 == 1)
       {
-        if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
+        if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
         {
-          v37 = objc_opt_class();
-          v38 = NSStringFromClass(v37);
-          v39 = v92;
+          v39 = objc_opt_class();
+          v40 = NSStringFromClass(v39);
+          v41 = v95;
           *buf = 138543874;
-          v94 = v38;
-          v95 = 2048;
+          v97 = v40;
+          v98 = 2048;
           selfCopy14 = self;
-          v97 = 2112;
-          v98 = v92;
+          v100 = 2112;
+          v101 = v95;
           _os_log_impl(&dword_1C241C000, p_super, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: Error getting point cloud size: %@", buf, 0x20u);
         }
       }
 
-      else if (os_log_type_enabled(v36, OS_LOG_TYPE_INFO))
+      else if (os_log_type_enabled(v38, OS_LOG_TYPE_INFO))
       {
-        v44 = objc_opt_class();
-        v45 = NSStringFromClass(v44);
-        v46 = v92;
+        v47 = objc_opt_class();
+        v48 = NSStringFromClass(v47);
+        v49 = v95;
         *buf = 138543874;
-        v94 = v45;
-        v95 = 2048;
+        v97 = v48;
+        v98 = 2048;
         selfCopy14 = self;
-        v97 = 2112;
-        v98 = v92;
+        v100 = 2112;
+        v101 = v95;
         _os_log_impl(&dword_1C241C000, p_super, OS_LOG_TYPE_INFO, "Error: %{public}@ <%p>: Error getting point cloud size: %@", buf, 0x20u);
       }
 
@@ -3368,49 +3412,50 @@ LABEL_34:
 
     if (!PointsCount)
     {
-      v47 = [dictionary objectForKeyedSubscript:v8];
-      p_super = v47;
-      if (v47)
+      v50 = [dictionary objectForKeyedSubscript:v8];
+      p_super = v50;
+      if (v50)
       {
-        [v47 updateTransform:v80, v81, v82, v83];
+        [v50 updateTransform:v83, v84, v85, v86];
       }
 
-      v32 = 1;
+      v34 = 1;
       goto LABEL_35;
     }
 
-    v43 = [[ARSpatialMappingPointCloud alloc] initWithPointCloud:v21 smTransform:v8 identifier:v80 timestamp:v81, v82, v83, v33];
-    if (!v43)
+    v45 = [[ARSpatialMappingPointCloud alloc] initWithPointCloud:v22 smTransform:v8 identifier:v83 timestamp:v84, v85, v86, v35];
+    v46 = v45;
+    if (!v45)
     {
       if (ARShouldUseLogTypeError(void)::onceToken != -1)
       {
         [ARWorldTrackingTechnique processData:];
       }
 
-      v48 = ARShouldUseLogTypeError(void)::internalOSVersion;
-      v49 = _ARLogGeneral();
-      p_super = v49;
-      if (v48 == 1)
+      v51 = ARShouldUseLogTypeError(void)::internalOSVersion;
+      v52 = _ARLogGeneral(v45);
+      p_super = v52;
+      if (v51 == 1)
       {
-        if (os_log_type_enabled(v49, OS_LOG_TYPE_ERROR))
+        if (os_log_type_enabled(v52, OS_LOG_TYPE_ERROR))
         {
-          v50 = objc_opt_class();
-          v51 = NSStringFromClass(v50);
+          v53 = objc_opt_class();
+          v54 = NSStringFromClass(v53);
           *buf = 138543618;
-          v94 = v51;
-          v95 = 2048;
+          v97 = v54;
+          v98 = 2048;
           selfCopy14 = self;
           _os_log_impl(&dword_1C241C000, p_super, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: Error constructing point cloud", buf, 0x16u);
         }
       }
 
-      else if (os_log_type_enabled(v49, OS_LOG_TYPE_INFO))
+      else if (os_log_type_enabled(v52, OS_LOG_TYPE_INFO))
       {
-        v52 = objc_opt_class();
-        v53 = NSStringFromClass(v52);
+        v55 = objc_opt_class();
+        v56 = NSStringFromClass(v55);
         *buf = 138543618;
-        v94 = v53;
-        v95 = 2048;
+        v97 = v56;
+        v98 = 2048;
         selfCopy14 = self;
         _os_log_impl(&dword_1C241C000, p_super, OS_LOG_TYPE_INFO, "Error: %{public}@ <%p>: Error constructing point cloud", buf, 0x16u);
       }
@@ -3418,16 +3463,16 @@ LABEL_34:
       goto LABEL_34;
     }
 
-    [dictionary setObject:v43 forKeyedSubscript:v8];
-    v32 = 1;
-    p_super = &v43->super;
+    [dictionary setObject:v45 forKeyedSubscript:v8];
+    v34 = 1;
+    p_super = &v46->super;
 LABEL_35:
 
-    v85(v84);
+    v88(v87);
 LABEL_36:
-    v89(v88);
+    v92(v91);
 
-    if ((v32 & 1) == 0)
+    if ((v34 & 1) == 0)
     {
       goto LABEL_73;
     }
@@ -3443,37 +3488,37 @@ LABEL_36:
     [ARWorldTrackingTechnique processData:];
   }
 
-  v54 = ARShouldUseLogTypeError(void)::internalOSVersion;
-  v55 = _ARLogGeneral();
-  v8 = v55;
-  if (v54 == 1)
+  v57 = ARShouldUseLogTypeError(void)::internalOSVersion;
+  v58 = _ARLogGeneral(KeyframeUUIDAtIndex);
+  v8 = v58;
+  if (v57 == 1)
   {
-    if (os_log_type_enabled(v55, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v58, OS_LOG_TYPE_ERROR))
     {
-      v56 = objc_opt_class();
-      v57 = NSStringFromClass(v56);
-      v58 = v92;
+      v59 = objc_opt_class();
+      v60 = NSStringFromClass(v59);
+      v61 = v95;
       *buf = 138543874;
-      v94 = v57;
-      v95 = 2048;
+      v97 = v60;
+      v98 = 2048;
       selfCopy14 = self;
-      v97 = 2112;
-      v98 = v92;
+      v100 = 2112;
+      v101 = v95;
       _os_log_impl(&dword_1C241C000, v8, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: Error getting keyframe UUID: %@", buf, 0x20u);
     }
   }
 
-  else if (os_log_type_enabled(v55, OS_LOG_TYPE_INFO))
+  else if (os_log_type_enabled(v58, OS_LOG_TYPE_INFO))
   {
-    v70 = objc_opt_class();
-    v71 = NSStringFromClass(v70);
-    v72 = v92;
+    v73 = objc_opt_class();
+    v74 = NSStringFromClass(v73);
+    v75 = v95;
     *buf = 138543874;
-    v94 = v71;
-    v95 = 2048;
+    v97 = v74;
+    v98 = 2048;
     selfCopy14 = self;
-    v97 = 2112;
-    v98 = v92;
+    v100 = 2112;
+    v101 = v95;
     _os_log_impl(&dword_1C241C000, v8, OS_LOG_TYPE_INFO, "Error: %{public}@ <%p>: Error getting keyframe UUID: %@", buf, 0x20u);
   }
 
@@ -3484,11 +3529,12 @@ LABEL_73:
 
 - (ARWorldMap)serializeWorldMapWithReferenceOrigin:(double)origin
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   v6 = objc_opt_new();
-  if (CV3DSLAMSessionSerializeMap())
+  v7 = CV3DSLAMSessionSerializeMap();
+  if (v7)
   {
-    v7 = [[ARWorldMap alloc] initWithTrackingData:v6 referenceOriginTransform:a2, origin, a4, a5];
+    v8 = [[ARWorldMap alloc] initWithTrackingData:v6 referenceOriginTransform:a2, origin, a4, a5];
   }
 
   else
@@ -3498,47 +3544,47 @@ LABEL_73:
       [ARWorldTrackingTechnique processData:];
     }
 
-    v8 = ARShouldUseLogTypeError(void)::internalOSVersion;
-    v9 = _ARLogTechnique();
-    v10 = v9;
-    if (v8 == 1)
+    v9 = ARShouldUseLogTypeError(void)::internalOSVersion;
+    v10 = _ARLogTechnique(v7);
+    v11 = v10;
+    if (v9 == 1)
     {
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
-        v11 = objc_opt_class();
-        v12 = NSStringFromClass(v11);
+        v12 = objc_opt_class();
+        v13 = NSStringFromClass(v12);
         *buf = 138543874;
-        v21 = v12;
-        v22 = 2048;
+        v22 = v13;
+        v23 = 2048;
         selfCopy2 = self;
-        v24 = 2112;
-        v25 = 0;
-        _os_log_impl(&dword_1C241C000, v10, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: Unable to serialize map: %@", buf, 0x20u);
+        v25 = 2112;
+        v26 = 0;
+        _os_log_impl(&dword_1C241C000, v11, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: Unable to serialize map: %@", buf, 0x20u);
       }
     }
 
-    else if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+    else if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
     {
-      v13 = objc_opt_class();
-      v14 = NSStringFromClass(v13);
+      v14 = objc_opt_class();
+      v15 = NSStringFromClass(v14);
       *buf = 138543874;
-      v21 = v14;
-      v22 = 2048;
+      v22 = v15;
+      v23 = 2048;
       selfCopy2 = self;
-      v24 = 2112;
-      v25 = 0;
-      _os_log_impl(&dword_1C241C000, v10, OS_LOG_TYPE_INFO, "Error: %{public}@ <%p>: Unable to serialize map: %@", buf, 0x20u);
+      v25 = 2112;
+      v26 = 0;
+      _os_log_impl(&dword_1C241C000, v11, OS_LOG_TYPE_INFO, "Error: %{public}@ <%p>: Unable to serialize map: %@", buf, 0x20u);
     }
 
-    v7 = 0;
+    v8 = 0;
   }
 
-  return v7;
+  return v8;
 }
 
 - (void)clearMap
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   if ([(ARWorldTrackingTechnique *)self vioHandleState]== 3)
   {
     dispatch_semaphore_wait(self->_resultSemaphore, 0xFFFFFFFFFFFFFFFFLL);
@@ -3546,18 +3592,19 @@ LABEL_73:
     [(ARWorldTrackingTechnique *)self setHasQualityKeyframe:0];
     dispatch_semaphore_signal(self->_resultSemaphore);
     kdebug_trace();
-    if (CV3DSLAMSessionClearMap())
+    v3 = CV3DSLAMSessionClearMap();
+    if (v3)
     {
-      v3 = _ARLogTechnique();
-      if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
+      v4 = _ARLogTechnique(v3);
+      if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
       {
-        v4 = objc_opt_class();
-        v5 = NSStringFromClass(v4);
+        v5 = objc_opt_class();
+        v6 = NSStringFromClass(v5);
         *buf = 138543618;
-        v14 = v5;
-        v15 = 2048;
+        v15 = v6;
+        v16 = 2048;
         selfCopy3 = self;
-        _os_log_impl(&dword_1C241C000, v3, OS_LOG_TYPE_INFO, "%{public}@ <%p>: World map cleared", buf, 0x16u);
+        _os_log_impl(&dword_1C241C000, v4, OS_LOG_TYPE_INFO, "%{public}@ <%p>: World map cleared", buf, 0x16u);
       }
 
       kdebug_trace();
@@ -3572,36 +3619,36 @@ LABEL_73:
         [ARWorldTrackingTechnique processData:];
       }
 
-      v6 = ARShouldUseLogTypeError(void)::internalOSVersion;
-      v7 = _ARLogTechnique();
-      v8 = v7;
-      if (v6 == 1)
+      v7 = ARShouldUseLogTypeError(void)::internalOSVersion;
+      v8 = _ARLogTechnique(v3);
+      v9 = v8;
+      if (v7 == 1)
       {
-        if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+        if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
         {
-          v9 = objc_opt_class();
-          v10 = NSStringFromClass(v9);
+          v10 = objc_opt_class();
+          v11 = NSStringFromClass(v10);
           *buf = 138543874;
-          v14 = v10;
-          v15 = 2048;
+          v15 = v11;
+          v16 = 2048;
           selfCopy3 = self;
-          v17 = 2112;
-          v18 = 0;
-          _os_log_impl(&dword_1C241C000, v8, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: Error clearing vio map: %@", buf, 0x20u);
+          v18 = 2112;
+          v19 = 0;
+          _os_log_impl(&dword_1C241C000, v9, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: Error clearing vio map: %@", buf, 0x20u);
         }
       }
 
-      else if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+      else if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
       {
-        v11 = objc_opt_class();
-        v12 = NSStringFromClass(v11);
+        v12 = objc_opt_class();
+        v13 = NSStringFromClass(v12);
         *buf = 138543874;
-        v14 = v12;
-        v15 = 2048;
+        v15 = v13;
+        v16 = 2048;
         selfCopy3 = self;
-        v17 = 2112;
-        v18 = 0;
-        _os_log_impl(&dword_1C241C000, v8, OS_LOG_TYPE_INFO, "Error: %{public}@ <%p>: Error clearing vio map: %@", buf, 0x20u);
+        v18 = 2112;
+        v19 = 0;
+        _os_log_impl(&dword_1C241C000, v9, OS_LOG_TYPE_INFO, "Error: %{public}@ <%p>: Error clearing vio map: %@", buf, 0x20u);
       }
     }
   }
@@ -3640,33 +3687,33 @@ LABEL_73:
 
 - (void)addReferenceAnchors:(id)anchors
 {
-  v73 = *MEMORY[0x1E69E9840];
+  v74 = *MEMORY[0x1E69E9840];
   anchorsCopy = anchors;
   selfCopy = self;
   if (self->_allowPoseGraphUpdates)
   {
-    v64 = 0u;
     v65 = 0u;
-    v62 = 0u;
+    v66 = 0u;
     v63 = 0u;
-    v49 = anchorsCopy;
+    v64 = 0u;
+    v50 = anchorsCopy;
     obj = anchorsCopy;
-    v5 = [obj countByEnumeratingWithState:&v62 objects:v70 count:16];
+    v5 = [obj countByEnumeratingWithState:&v63 objects:v71 count:16];
     if (v5)
     {
-      v61 = *v63;
+      v62 = *v64;
       do
       {
         v6 = 0;
-        v50 = v5;
+        v51 = v5;
         do
         {
-          if (*v63 != v61)
+          if (*v64 != v62)
           {
             objc_enumerationMutation(obj);
           }
 
-          v7 = *(*(&v62 + 1) + 8 * v6);
+          v7 = *(*(&v63 + 1) + 8 * v6);
           objc_opt_class();
           if ((objc_opt_isKindOfClass() & 1) == 0)
           {
@@ -3674,24 +3721,24 @@ LABEL_73:
             if ((objc_opt_isKindOfClass() & 1) == 0)
             {
               *v8.i64 = ARRenderingToVisionCoordinateTransform();
-              v57 = v9;
-              v58 = v8;
-              v55 = v11;
-              v56 = v10;
+              v58 = v9;
+              v59 = v8;
+              v56 = v11;
+              v57 = v10;
               [v7 referenceTransform];
-              v53 = v13;
-              v54 = v12;
-              v51 = v15;
-              v52 = v14;
+              v54 = v13;
+              v55 = v12;
+              v52 = v15;
+              v53 = v14;
               *&v16 = ARVisionToRenderingCoordinateTransform();
               v20 = 0;
-              v66 = v54;
-              v67 = v53;
-              v68 = v52;
-              v69 = v51;
+              v67 = v55;
+              v68 = v54;
+              v69 = v53;
+              v70 = v52;
               do
               {
-                *&buf[v20] = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v58, COERCE_FLOAT(*(&v66 + v20))), v57, *(&v66 + v20), 1), v56, *(&v66 + v20), 2), v55, *(&v66 + v20), 3);
+                *&buf[v20] = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v59, COERCE_FLOAT(*(&v67 + v20))), v58, *(&v67 + v20), 1), v57, *(&v67 + v20), 2), v56, *(&v67 + v20), 3);
                 v20 += 16;
               }
 
@@ -3699,26 +3746,27 @@ LABEL_73:
               v21 = 0;
               v22 = *buf;
               v23 = *&buf[16];
-              v24 = *v72;
-              v25 = *&v72[16];
-              v66 = v16;
-              v67 = v17;
-              v68 = v18;
-              v69 = v19;
+              v24 = *v73;
+              v25 = *&v73[16];
+              v67 = v16;
+              v68 = v17;
+              v69 = v18;
+              v70 = v19;
               do
               {
-                *&buf[v21] = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v22, COERCE_FLOAT(*(&v66 + v21))), v23, *(&v66 + v21), 1), v24, *(&v66 + v21), 2), v25, *(&v66 + v21), 3);
+                *&buf[v21] = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v22, COERCE_FLOAT(*(&v67 + v21))), v23, *(&v67 + v21), 1), v24, *(&v67 + v21), 2), v25, *(&v67 + v21), 3);
                 v21 += 16;
               }
 
               while (v21 != 64);
-              *v74.columns[0].i64 = ARNormalizedTransform(*buf);
-              __invert_f4(v74);
+              *v75.columns[0].i64 = ARNormalizedTransform(*buf);
+              __invert_f4(v75);
               identifier = [v7 identifier];
               ar_createCFUUIDRef = [identifier ar_createCFUUIDRef];
 
-              *&v66 = 0;
+              *&v67 = 0;
               v28 = CV3DSLAMSessionAddAnchor();
+              v29 = v28;
               if ((v28 & 1) == 0)
               {
                 if (ARShouldUseLogTypeError(void)::onceToken != -1)
@@ -3726,71 +3774,71 @@ LABEL_73:
                   [ARWorldTrackingTechnique processData:];
                 }
 
-                v29 = ARShouldUseLogTypeError(void)::internalOSVersion;
-                v30 = _ARLogTechnique();
-                v31 = v30;
-                if (v29 == 1)
+                v30 = ARShouldUseLogTypeError(void)::internalOSVersion;
+                v31 = _ARLogTechnique(v28);
+                v32 = v31;
+                if (v30 == 1)
                 {
-                  if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+                  if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
                   {
-                    v32 = objc_opt_class();
-                    v33 = NSStringFromClass(v32);
-                    v34 = v66;
+                    v33 = objc_opt_class();
+                    v34 = NSStringFromClass(v33);
+                    v35 = v67;
                     *buf = 138543874;
-                    *&buf[4] = v33;
+                    *&buf[4] = v34;
                     *&buf[12] = 2048;
                     *&buf[14] = selfCopy;
                     *&buf[22] = 2112;
-                    *&buf[24] = v66;
-                    _os_log_impl(&dword_1C241C000, v31, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: Error adding anchor: %@", buf, 0x20u);
+                    *&buf[24] = v67;
+                    _os_log_impl(&dword_1C241C000, v32, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: Error adding anchor: %@", buf, 0x20u);
                   }
                 }
 
-                else if (os_log_type_enabled(v30, OS_LOG_TYPE_INFO))
+                else if (os_log_type_enabled(v31, OS_LOG_TYPE_INFO))
                 {
-                  v35 = objc_opt_class();
-                  v36 = NSStringFromClass(v35);
-                  v37 = v66;
+                  v36 = objc_opt_class();
+                  v37 = NSStringFromClass(v36);
+                  v38 = v67;
                   *buf = 138543874;
-                  *&buf[4] = v36;
+                  *&buf[4] = v37;
                   *&buf[12] = 2048;
                   *&buf[14] = selfCopy;
                   *&buf[22] = 2112;
-                  *&buf[24] = v66;
-                  _os_log_impl(&dword_1C241C000, v31, OS_LOG_TYPE_INFO, "Error: %{public}@ <%p>: Error adding anchor: %@", buf, 0x20u);
+                  *&buf[24] = v67;
+                  _os_log_impl(&dword_1C241C000, v32, OS_LOG_TYPE_INFO, "Error: %{public}@ <%p>: Error adding anchor: %@", buf, 0x20u);
                 }
               }
 
-              v38 = _ARLogTechnique();
-              if (os_log_type_enabled(v38, OS_LOG_TYPE_DEBUG))
+              v39 = _ARLogTechnique(v28);
+              if (os_log_type_enabled(v39, OS_LOG_TYPE_DEBUG))
               {
-                v39 = objc_opt_class();
-                v40 = NSStringFromClass(v39);
+                v40 = objc_opt_class();
+                v41 = NSStringFromClass(v40);
                 identifier2 = [v7 identifier];
                 [v7 referenceTransform];
-                v46 = ARMatrix4x4Description(0, v42, v43, v44, v45);
-                v47 = v46;
+                v47 = ARMatrix4x4Description(0, v43, v44, v45, v46);
+                v48 = v47;
                 *buf = 138544386;
-                v48 = @"FAILED";
-                if (v28)
+                v49 = @"FAILED";
+                if (v29)
                 {
-                  v48 = @"SUCESS";
+                  v49 = @"SUCESS";
                 }
 
-                *&buf[4] = v40;
+                *&buf[4] = v41;
                 *&buf[12] = 2048;
                 *&buf[14] = selfCopy;
                 *&buf[22] = 2112;
                 *&buf[24] = identifier2;
-                *v72 = 2112;
-                *&v72[2] = v46;
-                *&v72[10] = 2112;
-                *&v72[12] = v48;
-                _os_log_impl(&dword_1C241C000, v38, OS_LOG_TYPE_DEBUG, "%{public}@ <%p>: CV3DVIOAddAnchor: %@ - %@, %@", buf, 0x34u);
+                *v73 = 2112;
+                *&v73[2] = v47;
+                *&v73[10] = 2112;
+                *&v73[12] = v49;
+                _os_log_impl(&dword_1C241C000, v39, OS_LOG_TYPE_DEBUG, "%{public}@ <%p>: CV3DVIOAddAnchor: %@ - %@, %@", buf, 0x34u);
               }
 
               CFRelease(ar_createCFUUIDRef);
-              v5 = v50;
+              v5 = v51;
             }
           }
 
@@ -3798,46 +3846,47 @@ LABEL_73:
         }
 
         while (v6 != v5);
-        v5 = [obj countByEnumeratingWithState:&v62 objects:v70 count:16];
+        v5 = [obj countByEnumeratingWithState:&v63 objects:v71 count:16];
       }
 
       while (v5);
     }
 
-    anchorsCopy = v49;
+    anchorsCopy = v50;
   }
 }
 
 - (void)removeReferenceAnchors:(id)anchors
 {
-  v46 = *MEMORY[0x1E69E9840];
+  v47 = *MEMORY[0x1E69E9840];
   anchorsCopy = anchors;
   if (self->_allowPoseGraphUpdates && self->_slamSessionHandle)
   {
-    v33 = 0u;
     v34 = 0u;
-    v31 = 0u;
+    v35 = 0u;
     v32 = 0u;
+    v33 = 0u;
     obj = anchorsCopy;
-    v4 = [obj countByEnumeratingWithState:&v31 objects:v45 count:16];
+    v4 = [obj countByEnumeratingWithState:&v32 objects:v46 count:16];
     if (v4)
     {
-      v30 = *v32;
+      v31 = *v33;
       do
       {
         v5 = 0;
         do
         {
-          if (*v32 != v30)
+          if (*v33 != v31)
           {
             objc_enumerationMutation(obj);
           }
 
-          v6 = *(*(&v31 + 1) + 8 * v5);
+          v6 = *(*(&v32 + 1) + 8 * v5);
           identifier = [v6 identifier];
           ar_createCFUUIDRef = [identifier ar_createCFUUIDRef];
 
           v9 = CV3DSLAMSessionRemoveAnchor();
+          v10 = v9;
           if ((v9 & 1) == 0)
           {
             if (ARShouldUseLogTypeError(void)::onceToken != -1)
@@ -3845,65 +3894,65 @@ LABEL_73:
               [ARWorldTrackingTechnique processData:];
             }
 
-            v10 = ARShouldUseLogTypeError(void)::internalOSVersion;
-            v11 = _ARLogTechnique();
-            v12 = v11;
-            if (v10 == 1)
+            v11 = ARShouldUseLogTypeError(void)::internalOSVersion;
+            v12 = _ARLogTechnique(v9);
+            v13 = v12;
+            if (v11 == 1)
             {
-              if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+              if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
               {
-                v13 = objc_opt_class();
-                v14 = NSStringFromClass(v13);
+                v14 = objc_opt_class();
+                v15 = NSStringFromClass(v14);
                 *buf = 138543874;
-                v36 = v14;
-                v37 = 2048;
+                v37 = v15;
+                v38 = 2048;
                 selfCopy3 = self;
-                v39 = 2112;
-                v40 = 0;
-                _os_log_impl(&dword_1C241C000, v12, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: Error removing anchor: %@", buf, 0x20u);
+                v40 = 2112;
+                v41 = 0;
+                _os_log_impl(&dword_1C241C000, v13, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: Error removing anchor: %@", buf, 0x20u);
               }
             }
 
-            else if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+            else if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
             {
-              v15 = objc_opt_class();
-              v16 = NSStringFromClass(v15);
+              v16 = objc_opt_class();
+              v17 = NSStringFromClass(v16);
               *buf = 138543874;
-              v36 = v16;
-              v37 = 2048;
+              v37 = v17;
+              v38 = 2048;
               selfCopy3 = self;
-              v39 = 2112;
-              v40 = 0;
-              _os_log_impl(&dword_1C241C000, v12, OS_LOG_TYPE_INFO, "Error: %{public}@ <%p>: Error removing anchor: %@", buf, 0x20u);
+              v40 = 2112;
+              v41 = 0;
+              _os_log_impl(&dword_1C241C000, v13, OS_LOG_TYPE_INFO, "Error: %{public}@ <%p>: Error removing anchor: %@", buf, 0x20u);
             }
           }
 
-          v17 = _ARLogTechnique();
-          if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
+          v18 = _ARLogTechnique(v9);
+          if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
           {
-            v18 = objc_opt_class();
-            v19 = NSStringFromClass(v18);
+            v19 = objc_opt_class();
+            v20 = NSStringFromClass(v19);
             identifier2 = [v6 identifier];
             [v6 referenceTransform];
-            v25 = ARMatrix4x4Description(0, v21, v22, v23, v24);
-            v26 = v25;
+            v26 = ARMatrix4x4Description(0, v22, v23, v24, v25);
+            v27 = v26;
             *buf = 138544386;
-            v27 = @"FAILED";
-            if (v9)
+            v28 = @"FAILED";
+            if (v10)
             {
-              v27 = @"SUCESS";
+              v28 = @"SUCESS";
             }
 
-            v36 = v19;
-            v37 = 2048;
+            v37 = v20;
+            v38 = 2048;
             selfCopy3 = self;
-            v39 = 2112;
-            v40 = identifier2;
-            v41 = 2112;
-            v42 = v25;
-            v43 = 2112;
-            v44 = v27;
-            _os_log_impl(&dword_1C241C000, v17, OS_LOG_TYPE_DEBUG, "%{public}@ <%p>: CV3DVIORemoveAnchor: %@ - %@, %@", buf, 0x34u);
+            v40 = 2112;
+            v41 = identifier2;
+            v42 = 2112;
+            v43 = v26;
+            v44 = 2112;
+            v45 = v28;
+            _os_log_impl(&dword_1C241C000, v18, OS_LOG_TYPE_DEBUG, "%{public}@ <%p>: CV3DVIORemoveAnchor: %@ - %@, %@", buf, 0x34u);
           }
 
           CFRelease(ar_createCFUUIDRef);
@@ -3911,7 +3960,7 @@ LABEL_73:
         }
 
         while (v4 != v5);
-        v4 = [obj countByEnumeratingWithState:&v31 objects:v45 count:16];
+        v4 = [obj countByEnumeratingWithState:&v32 objects:v46 count:16];
       }
 
       while (v4);
@@ -3954,138 +4003,137 @@ LABEL_73:
 
 - (void)pushCollaborationData:(id)data
 {
-  v133 = *MEMORY[0x1E69E9840];
+  v139 = *MEMORY[0x1E69E9840];
   dataCopy = data;
   mutableOptions = [(ARWorldTrackingTechnique *)self mutableOptions];
   isCollaborationEnabled = [mutableOptions isCollaborationEnabled];
 
-  v115.columns[1].i64[1] = self;
+  v121.columns[1].i64[1] = self;
   if (isCollaborationEnabled)
   {
     dispatch_semaphore_wait(self->_sessionHandleStateSemaphore, 0xFFFFFFFFFFFFFFFFLL);
-    v120 = 0;
+    v126 = 0;
     if ([dataCopy vioDataType] == 7)
     {
-      v118 = 0;
-      v128 = 0;
-      v126 = 0u;
-      v127 = 0u;
-      memset(v125, 0, sizeof(v125));
-      v122 = 0;
-      v123 = 0;
       v124 = 0;
+      v134 = 0;
+      v132 = 0u;
+      v133 = 0u;
+      memset(v131, 0, sizeof(v131));
+      v128 = 0;
+      v129 = 0;
+      v130 = 0;
       vioData = [dataCopy vioData];
       CMPoseAnchorTransformation = CV3DSLAMSessionGetCMPoseAnchorTransformation();
 
       if (CMPoseAnchorTransformation)
       {
-        *v8.i64 = ARMatrix4x4MakeRowMajorTransform(v125);
-        v115.columns[0] = v8;
-        v108 = v10;
-        v111 = v9;
-        v105 = v11;
-        *v12.i64 = ARVisionToRenderingCoordinateTransform();
-        v103 = v13;
-        v104 = v12;
-        v101 = v15;
-        v102 = v14;
-        *v16.i64 = ARRenderingToVisionCoordinateTransform();
-        v97 = v17;
-        v98 = v16;
-        v99 = v19;
-        v100 = v18;
-        v134.columns[0] = v115.columns[0];
-        v134.columns[2] = v108;
-        v134.columns[1] = v111;
-        v134.columns[3] = v105;
-        v135 = __invert_f4(v134);
-        v20 = 0;
-        v129 = v135;
+        *v10.i64 = ARMatrix4x4MakeRowMajorTransform(v131);
+        v121.columns[0] = v10;
+        v114 = v12;
+        v117 = v11;
+        v111 = v13;
+        *v14.i64 = ARVisionToRenderingCoordinateTransform();
+        v109 = v15;
+        v110 = v14;
+        v107 = v17;
+        v108 = v16;
+        *v18.i64 = ARRenderingToVisionCoordinateTransform();
+        v103 = v19;
+        v104 = v18;
+        v105 = v21;
+        v106 = v20;
+        v140.columns[0] = v121.columns[0];
+        v140.columns[2] = v114;
+        v140.columns[1] = v117;
+        v140.columns[3] = v111;
+        v141 = __invert_f4(v140);
+        v23 = 0;
+        v135 = v141;
         do
         {
-          *&buf[v20 * 16] = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v104, COERCE_FLOAT(*&v129.columns[v20])), v103, *v129.columns[v20].f32, 1), v102, v129.columns[v20], 2), v101, v129.columns[v20], 3);
-          ++v20;
+          *&buf[v23 * 16] = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v110, COERCE_FLOAT(*&v135.columns[v23])), v109, *v135.columns[v23].f32, 1), v108, v135.columns[v23], 2), v107, v135.columns[v23], 3);
+          ++v23;
         }
 
-        while (v20 != 4);
-        v21 = 0;
-        v22 = *buf;
-        v23 = *&buf[16];
-        v24 = v131;
-        v25 = v132;
-        v129.columns[0] = v98;
-        v129.columns[1] = v97;
-        v129.columns[2] = v100;
-        v129.columns[3] = v99;
+        while (v23 != 4);
+        v24 = 0;
+        v25 = *buf;
+        v26 = *&buf[16];
+        v27 = v137;
+        v28 = v138;
+        v135.columns[0] = v104;
+        v135.columns[1] = v103;
+        v135.columns[2] = v106;
+        v135.columns[3] = v105;
         do
         {
-          *&buf[v21 * 16] = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v22, COERCE_FLOAT(*&v129.columns[v21])), v23, *v129.columns[v21].f32, 1), v24, v129.columns[v21], 2), v25, v129.columns[v21], 3);
-          ++v21;
+          *&buf[v24 * 16] = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v25, COERCE_FLOAT(*&v135.columns[v24])), v26, *v135.columns[v24].f32, 1), v27, v135.columns[v24], 2), v28, v135.columns[v24], 3);
+          ++v24;
         }
 
-        while (v21 != 4);
-        v115.columns[0] = *buf;
-        v109 = v131;
-        v112 = *&buf[16];
-        v106 = v132;
-        if (ARLinkedOnOrAfterAzul())
+        while (v24 != 4);
+        v121.columns[0] = *buf;
+        v115 = v137;
+        v118 = *&buf[16];
+        v112 = v138;
+        if (ARLinkedOnOrAfterAzul(v22))
         {
-          *v26.i64 = simd_matrix4x4(_PromotedConst);
-          v27 = 0;
-          v129.columns[0] = v26;
-          v129.columns[1] = v28;
-          v129.columns[2] = v29;
-          v129.columns[3] = v30;
+          *v29.i64 = simd_matrix4x4(_PromotedConst);
+          v30 = 0;
+          v135.columns[0] = v29;
+          v135.columns[1] = v31;
+          v135.columns[2] = v32;
+          v135.columns[3] = v33;
           do
           {
-            *&buf[v27 * 16] = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v115.columns[0], COERCE_FLOAT(*&v129.columns[v27])), v112, *v129.columns[v27].f32, 1), v109, v129.columns[v27], 2), v106, v129.columns[v27], 3);
-            ++v27;
+            *&buf[v30 * 16] = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v121.columns[0], COERCE_FLOAT(*&v135.columns[v30])), v118, *v135.columns[v30].f32, 1), v115, v135.columns[v30], 2), v112, v135.columns[v30], 3);
+            ++v30;
           }
 
-          while (v27 != 4);
-          v115.columns[0] = *&buf[16];
-          v110 = v131;
-          v113 = *buf;
-          v107 = v132;
-          *v31.i64 = simd_matrix4x4(_PromotedConst_592);
-          v32 = 0;
-          v129.columns[0] = v31;
-          v129.columns[1] = v33;
-          v129.columns[2] = v34;
-          v129.columns[3] = v35;
+          while (v30 != 4);
+          v121.columns[0] = *&buf[16];
+          v116 = v137;
+          v119 = *buf;
+          v113 = v138;
+          *v34.i64 = simd_matrix4x4(_PromotedConst_592);
+          v35 = 0;
+          v135.columns[0] = v34;
+          v135.columns[1] = v36;
+          v135.columns[2] = v37;
+          v135.columns[3] = v38;
           do
           {
-            *&buf[v32 * 16] = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v113, COERCE_FLOAT(*&v129.columns[v32])), v115.columns[0], *v129.columns[v32].f32, 1), v110, v129.columns[v32], 2), v107, v129.columns[v32], 3);
-            ++v32;
+            *&buf[v35 * 16] = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v119, COERCE_FLOAT(*&v135.columns[v35])), v121.columns[0], *v135.columns[v35].f32, 1), v116, v135.columns[v35], 2), v113, v135.columns[v35], 3);
+            ++v35;
           }
 
-          while (v32 != 4);
-          v115.columns[0].i64[0] = *buf;
-          v109.i64[0] = v131.i64[0];
-          v112.i64[0] = *&buf[16];
-          v106.i64[0] = v132.i64[0];
+          while (v35 != 4);
+          v121.columns[0].i64[0] = *buf;
+          v115.i64[0] = v137.i64[0];
+          v118.i64[0] = *&buf[16];
+          v112.i64[0] = v138.i64[0];
         }
 
-        v129.columns[0] = v119;
-        v36 = [objc_alloc(MEMORY[0x1E696AFB0]) initWithUUIDBytes:&v129];
-        v37 = [(ARAnchor *)[ARParticipantAnchor alloc] initWithIdentifier:v36 transform:*v115.columns[0].i64, *v112.i64, *v109.i64, *v106.i64];
-        [(ARAnchor *)v37 setSessionIdentifier:v36];
+        v135.columns[0] = v125;
+        v39 = [objc_alloc(MEMORY[0x1E696AFB0]) initWithUUIDBytes:&v135];
+        v40 = [(ARAnchor *)[ARParticipantAnchor alloc] initWithIdentifier:v39 transform:*v121.columns[0].i64, *v118.i64, *v115.i64, *v112.i64];
+        [(ARAnchor *)v40 setSessionIdentifier:v39];
         dispatch_semaphore_wait(self->_resultSemaphore, 0xFFFFFFFFFFFFFFFFLL);
-        [(NSMutableSet *)self->_participantAnchors removeObject:v37];
-        [(NSMutableSet *)self->_participantAnchors addObject:v37];
-        v38 = _ARLogTechnique();
-        if (os_log_type_enabled(v38, OS_LOG_TYPE_DEBUG))
+        [(NSMutableSet *)self->_participantAnchors removeObject:v40];
+        v41 = _ARLogTechnique([(NSMutableSet *)self->_participantAnchors addObject:v40]);
+        if (os_log_type_enabled(v41, OS_LOG_TYPE_DEBUG))
         {
-          v39 = objc_opt_class();
-          v40 = NSStringFromClass(v39);
-          v41 = [(ARAnchor *)v37 description];
+          v42 = objc_opt_class();
+          v43 = NSStringFromClass(v42);
+          v44 = [(ARAnchor *)v40 description];
           *buf = 138543874;
-          *&buf[4] = v40;
+          *&buf[4] = v43;
           *&buf[12] = 2048;
           *&buf[14] = self;
           *&buf[22] = 2112;
-          *&buf[24] = v41;
-          _os_log_impl(&dword_1C241C000, v38, OS_LOG_TYPE_DEBUG, "%{public}@ <%p>: Participant anchor updated: %@", buf, 0x20u);
+          *&buf[24] = v44;
+          _os_log_impl(&dword_1C241C000, v41, OS_LOG_TYPE_DEBUG, "%{public}@ <%p>: Participant anchor updated: %@", buf, 0x20u);
         }
 
         dispatch_semaphore_signal(self->_resultSemaphore);
@@ -4098,36 +4146,36 @@ LABEL_73:
           [ARWorldTrackingTechnique processData:];
         }
 
-        v78 = ARShouldUseLogTypeError(void)::internalOSVersion;
-        v79 = _ARLogTechnique();
-        v80 = v79;
-        if (v78 == 1)
+        v84 = ARShouldUseLogTypeError(void)::internalOSVersion;
+        v85 = _ARLogTechnique(v9);
+        v86 = v85;
+        if (v84 == 1)
         {
-          if (os_log_type_enabled(v79, OS_LOG_TYPE_ERROR))
+          if (os_log_type_enabled(v85, OS_LOG_TYPE_ERROR))
           {
-            v81 = objc_opt_class();
-            v82 = NSStringFromClass(v81);
+            v87 = objc_opt_class();
+            v88 = NSStringFromClass(v87);
             *buf = 138543874;
-            *&buf[4] = v82;
+            *&buf[4] = v88;
             *&buf[12] = 2048;
             *&buf[14] = self;
             *&buf[22] = 2112;
-            *&buf[24] = v120;
-            _os_log_impl(&dword_1C241C000, v80, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: Error getting pose for participant anchor: %@", buf, 0x20u);
+            *&buf[24] = v126;
+            _os_log_impl(&dword_1C241C000, v86, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: Error getting pose for participant anchor: %@", buf, 0x20u);
           }
         }
 
-        else if (os_log_type_enabled(v79, OS_LOG_TYPE_INFO))
+        else if (os_log_type_enabled(v85, OS_LOG_TYPE_INFO))
         {
-          v90 = objc_opt_class();
-          v91 = NSStringFromClass(v90);
+          v96 = objc_opt_class();
+          v97 = NSStringFromClass(v96);
           *buf = 138543874;
-          *&buf[4] = v91;
+          *&buf[4] = v97;
           *&buf[12] = 2048;
           *&buf[14] = self;
           *&buf[22] = 2112;
-          *&buf[24] = v120;
-          _os_log_impl(&dword_1C241C000, v80, OS_LOG_TYPE_INFO, "Error: %{public}@ <%p>: Error getting pose for participant anchor: %@", buf, 0x20u);
+          *&buf[24] = v126;
+          _os_log_impl(&dword_1C241C000, v86, OS_LOG_TYPE_INFO, "Error: %{public}@ <%p>: Error getting pose for participant anchor: %@", buf, 0x20u);
         }
       }
 
@@ -4150,93 +4198,99 @@ LABEL_73:
         anchors2 = [dataCopy anchors];
         [(NSMutableSet *)anchorsReceived minusSet:anchors2];
 
-        v53 = self->_anchorsReceived;
+        v56 = self->_anchorsReceived;
         anchors3 = [dataCopy anchors];
-        [(NSMutableSet *)v53 unionSet:anchors3];
+        [(NSMutableSet *)v56 unionSet:anchors3];
 
-        v55 = _ARLogTechnique();
-        if (os_log_type_enabled(v55, OS_LOG_TYPE_DEBUG))
+        v59 = _ARLogTechnique(v58);
+        if (os_log_type_enabled(v59, OS_LOG_TYPE_DEBUG))
         {
-          v56 = objc_opt_class();
-          v57 = NSStringFromClass(v56);
+          v60 = objc_opt_class();
+          v61 = NSStringFromClass(v60);
           anchors4 = [dataCopy anchors];
-          v59 = [anchors4 count];
-          v60 = [(NSMutableSet *)self->_anchorsReceived count];
-          *v125 = 138544130;
-          *&v125[4] = v57;
-          *&v125[12] = 2048;
-          *&v125[14] = self;
-          *&v125[22] = 2048;
-          *&v125[24] = v59;
-          LOWORD(v126) = 2048;
-          *(&v126 + 2) = v60;
-          _os_log_impl(&dword_1C241C000, v55, OS_LOG_TYPE_DEBUG, "%{public}@ <%p>: collaboration data received with anchors: %tu => %tu", v125, 0x2Au);
+          v63 = [anchors4 count];
+          v64 = [(NSMutableSet *)self->_anchorsReceived count];
+          *v131 = 138544130;
+          *&v131[4] = v61;
+          *&v131[12] = 2048;
+          *&v131[14] = self;
+          *&v131[22] = 2048;
+          *&v131[24] = v63;
+          LOWORD(v132) = 2048;
+          *(&v132 + 2) = v64;
+          _os_log_impl(&dword_1C241C000, v59, OS_LOG_TYPE_DEBUG, "%{public}@ <%p>: collaboration data received with anchors: %tu => %tu", v131, 0x2Au);
         }
 
-        v116 = 0u;
-        v117 = 0u;
-        memset(&v115.columns[2], 0, 32);
-        v61 = self->_anchorsReceived;
-        v62 = [(NSMutableSet *)v61 countByEnumeratingWithState:&v115.columns[2] objects:v121 count:16];
-        if (v62)
+        v122 = 0u;
+        v123 = 0u;
+        memset(&v121.columns[2], 0, 32);
+        v65 = self->_anchorsReceived;
+        v66 = [(NSMutableSet *)v65 countByEnumeratingWithState:&v121.columns[2] objects:v127 count:16];
+        v67 = v66;
+        if (v66)
         {
-          v63 = *v115.columns[3].i64[0];
+          v68 = *v121.columns[3].i64[0];
           do
           {
-            for (i = 0; i != v62; ++i)
+            v69 = 0;
+            do
             {
-              if (*v115.columns[3].i64[0] != v63)
+              if (*v121.columns[3].i64[0] != v68)
               {
-                objc_enumerationMutation(v61);
+                objc_enumerationMutation(v65);
               }
 
-              v65 = *(v115.columns[2].i64[1] + 8 * i);
-              v66 = _ARLogTechnique();
-              if (os_log_type_enabled(v66, OS_LOG_TYPE_DEBUG))
+              v70 = *(v121.columns[2].i64[1] + 8 * v69);
+              v71 = _ARLogTechnique(v66);
+              if (os_log_type_enabled(v71, OS_LOG_TYPE_DEBUG))
               {
-                v67 = objc_opt_class();
-                v68 = NSStringFromClass(v67);
-                v69 = [v65 description];
-                *v125 = 138543874;
-                *&v125[4] = v68;
-                *&v125[12] = 2048;
-                *&v125[14] = self;
-                *&v125[22] = 2112;
-                *&v125[24] = v69;
-                _os_log_impl(&dword_1C241C000, v66, OS_LOG_TYPE_DEBUG, "%{public}@ <%p>: received anchor: %@", v125, 0x20u);
+                v72 = objc_opt_class();
+                v73 = NSStringFromClass(v72);
+                v74 = [v70 description];
+                *v131 = 138543874;
+                *&v131[4] = v73;
+                *&v131[12] = 2048;
+                *&v131[14] = self;
+                *&v131[22] = 2112;
+                *&v131[24] = v74;
+                _os_log_impl(&dword_1C241C000, v71, OS_LOG_TYPE_DEBUG, "%{public}@ <%p>: received anchor: %@", v131, 0x20u);
               }
+
+              ++v69;
             }
 
-            v62 = [(NSMutableSet *)v61 countByEnumeratingWithState:&v115.columns[2] objects:v121 count:16];
+            while (v67 != v69);
+            v66 = [(NSMutableSet *)v65 countByEnumeratingWithState:&v121.columns[2] objects:v127 count:16];
+            v67 = v66;
           }
 
-          while (v62);
+          while (v66);
         }
       }
 
       [dataCopy vioDataType];
       vioData3 = [dataCopy vioData];
-      v71 = CV3DSLAMSessionPushCMData();
+      v76 = CV3DSLAMSessionPushCMData();
 
-      if (v71)
+      if (v76)
       {
-        v72 = _ARLogTechnique();
-        if (os_log_type_enabled(v72, OS_LOG_TYPE_DEBUG))
+        v78 = _ARLogTechnique(v77);
+        if (os_log_type_enabled(v78, OS_LOG_TYPE_DEBUG))
         {
-          v73 = objc_opt_class();
-          v74 = NSStringFromClass(v73);
+          v79 = objc_opt_class();
+          v80 = NSStringFromClass(v79);
           vioData4 = [dataCopy vioData];
-          v76 = [vioData4 length];
-          v77 = NSStringFromSLAMCMDataType([dataCopy vioDataType]);
-          *v125 = 138544130;
-          *&v125[4] = v74;
-          *&v125[12] = 2048;
-          *&v125[14] = self;
-          *&v125[22] = 2048;
-          *&v125[24] = v76;
-          LOWORD(v126) = 2112;
-          *(&v126 + 2) = v77;
-          _os_log_impl(&dword_1C241C000, v72, OS_LOG_TYPE_DEBUG, "%{public}@ <%p>: collaboration data pushed to VIO: %lu, %@", v125, 0x2Au);
+          v82 = [vioData4 length];
+          v83 = NSStringFromSLAMCMDataType([dataCopy vioDataType]);
+          *v131 = 138544130;
+          *&v131[4] = v80;
+          *&v131[12] = 2048;
+          *&v131[14] = self;
+          *&v131[22] = 2048;
+          *&v131[24] = v82;
+          LOWORD(v132) = 2112;
+          *(&v132 + 2) = v83;
+          _os_log_impl(&dword_1C241C000, v78, OS_LOG_TYPE_DEBUG, "%{public}@ <%p>: collaboration data pushed to VIO: %lu, %@", v131, 0x2Au);
         }
       }
 
@@ -4249,49 +4303,49 @@ LABEL_73:
           selfCopy3 = self;
         }
 
-        v84 = ARShouldUseLogTypeError(void)::internalOSVersion;
-        v85 = _ARLogTechnique();
-        v72 = v85;
-        if (v84 == 1)
+        v90 = ARShouldUseLogTypeError(void)::internalOSVersion;
+        v91 = _ARLogTechnique(v77);
+        v78 = v91;
+        if (v90 == 1)
         {
-          if (os_log_type_enabled(v85, OS_LOG_TYPE_ERROR))
+          if (os_log_type_enabled(v91, OS_LOG_TYPE_ERROR))
           {
-            v86 = objc_opt_class();
-            v87 = NSStringFromClass(v86);
+            v92 = objc_opt_class();
+            v93 = NSStringFromClass(v92);
             slamSessionHandle = selfCopy3->_slamSessionHandle;
-            v89 = v120;
-            *v125 = 138544130;
-            *&v125[4] = v87;
-            *&v125[12] = 2048;
-            *&v125[14] = selfCopy3;
-            *&v125[22] = 2048;
-            *&v125[24] = slamSessionHandle;
-            LOWORD(v126) = 2112;
-            *(&v126 + 2) = v120;
-            _os_log_impl(&dword_1C241C000, v72, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: error pushing SLAM data %p, %@", v125, 0x2Au);
+            v95 = v126;
+            *v131 = 138544130;
+            *&v131[4] = v93;
+            *&v131[12] = 2048;
+            *&v131[14] = selfCopy3;
+            *&v131[22] = 2048;
+            *&v131[24] = slamSessionHandle;
+            LOWORD(v132) = 2112;
+            *(&v132 + 2) = v126;
+            _os_log_impl(&dword_1C241C000, v78, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: error pushing SLAM data %p, %@", v131, 0x2Au);
           }
         }
 
-        else if (os_log_type_enabled(v85, OS_LOG_TYPE_INFO))
+        else if (os_log_type_enabled(v91, OS_LOG_TYPE_INFO))
         {
-          v93 = objc_opt_class();
-          v94 = NSStringFromClass(v93);
-          v95 = selfCopy3->_slamSessionHandle;
-          v96 = v120;
-          *v125 = 138544130;
-          *&v125[4] = v94;
-          *&v125[12] = 2048;
-          *&v125[14] = selfCopy3;
-          *&v125[22] = 2048;
-          *&v125[24] = v95;
-          LOWORD(v126) = 2112;
-          *(&v126 + 2) = v120;
-          _os_log_impl(&dword_1C241C000, v72, OS_LOG_TYPE_INFO, "Error: %{public}@ <%p>: error pushing SLAM data %p, %@", v125, 0x2Au);
+          v99 = objc_opt_class();
+          v100 = NSStringFromClass(v99);
+          v101 = selfCopy3->_slamSessionHandle;
+          v102 = v126;
+          *v131 = 138544130;
+          *&v131[4] = v100;
+          *&v131[12] = 2048;
+          *&v131[14] = selfCopy3;
+          *&v131[22] = 2048;
+          *&v131[24] = v101;
+          LOWORD(v132) = 2112;
+          *(&v132 + 2) = v126;
+          _os_log_impl(&dword_1C241C000, v78, OS_LOG_TYPE_INFO, "Error: %{public}@ <%p>: error pushing SLAM data %p, %@", v131, 0x2Au);
         }
       }
 
       [dataCopy vioSessionID];
-      selfCopy = v115.columns[1].i64[1];
+      selfCopy = v121.columns[1].i64[1];
       kdebug_trace();
     }
 
@@ -4305,32 +4359,32 @@ LABEL_73:
       __39__ARWorldTrackingTechnique_isSupported__block_invoke_cold_1();
     }
 
-    v42 = ARShouldUseLogTypeError(void)::internalOSVersion;
-    v43 = _ARLogTechnique();
-    v44 = v43;
-    if (v42 == 1)
+    v45 = ARShouldUseLogTypeError(void)::internalOSVersion;
+    v46 = _ARLogTechnique(v6);
+    v47 = v46;
+    if (v45 == 1)
     {
-      if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
       {
-        v45 = objc_opt_class();
-        v46 = NSStringFromClass(v45);
-        *v125 = 138543618;
-        *&v125[4] = v46;
-        *&v125[12] = 2048;
-        *&v125[14] = self;
-        _os_log_impl(&dword_1C241C000, v44, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: collaboration data cannot be pushed because the feature is disabled.", v125, 0x16u);
+        v48 = objc_opt_class();
+        v49 = NSStringFromClass(v48);
+        *v131 = 138543618;
+        *&v131[4] = v49;
+        *&v131[12] = 2048;
+        *&v131[14] = self;
+        _os_log_impl(&dword_1C241C000, v47, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: collaboration data cannot be pushed because the feature is disabled.", v131, 0x16u);
       }
     }
 
-    else if (os_log_type_enabled(v43, OS_LOG_TYPE_INFO))
+    else if (os_log_type_enabled(v46, OS_LOG_TYPE_INFO))
     {
-      v47 = objc_opt_class();
-      v48 = NSStringFromClass(v47);
-      *v125 = 138543618;
-      *&v125[4] = v48;
-      *&v125[12] = 2048;
-      *&v125[14] = self;
-      _os_log_impl(&dword_1C241C000, v44, OS_LOG_TYPE_INFO, "Error: %{public}@ <%p>: collaboration data cannot be pushed because the feature is disabled.", v125, 0x16u);
+      v50 = objc_opt_class();
+      v51 = NSStringFromClass(v50);
+      *v131 = 138543618;
+      *&v131[4] = v51;
+      *&v131[12] = 2048;
+      *&v131[14] = self;
+      _os_log_impl(&dword_1C241C000, v47, OS_LOG_TYPE_INFO, "Error: %{public}@ <%p>: collaboration data cannot be pushed because the feature is disabled.", v131, 0x16u);
     }
   }
 }
@@ -4338,9 +4392,9 @@ LABEL_73:
 - (void)_reportCollaborationData:(id)data type:(unsigned __int8)type metadata:(const void *)metadata
 {
   typeCopy = type;
-  v48 = *MEMORY[0x1E69E9840];
+  v49 = *MEMORY[0x1E69E9840];
   dataCopy = data;
-  v9 = _ARLogTechnique();
+  v9 = _ARLogTechnique(dataCopy);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
   {
     v10 = objc_opt_class();
@@ -4351,11 +4405,11 @@ LABEL_73:
     *&buf[4] = v11;
     *&buf[12] = 2048;
     *&buf[14] = self;
-    v42 = 2048;
-    v43 = v12;
-    v44 = 2112;
-    v45 = v13;
-    v46 = 2048;
+    v43 = 2048;
+    v44 = v12;
+    v45 = 2112;
+    v46 = v13;
+    v47 = 2048;
     metadataCopy = metadata;
     _os_log_impl(&dword_1C241C000, v9, OS_LOG_TYPE_DEBUG, "%{public}@ <%p>: collaboration data received from VIO: %lu, %@, %p", buf, 0x34u);
   }
@@ -4366,104 +4420,105 @@ LABEL_73:
     goto LABEL_19;
   }
 
-  v39 = 0;
-  v38 = 0uLL;
-  v37 = 0;
-  if (!MEMORY[0x1C6919870](metadata, &v39, &v38, &v37))
+  v40 = 0;
+  v39 = 0uLL;
+  v38 = 0;
+  v15 = MEMORY[0x1C6919870](metadata, &v40, &v39, &v38);
+  if (!v15)
   {
     if (ARShouldUseLogTypeError(void)::onceToken != -1)
     {
       [ARWorldTrackingTechnique processData:];
     }
 
-    v16 = ARShouldUseLogTypeError(void)::internalOSVersion;
-    v17 = _ARLogTechnique();
-    v18 = v17;
-    if (v16 == 1)
+    v17 = ARShouldUseLogTypeError(void)::internalOSVersion;
+    v18 = _ARLogTechnique(v15);
+    v19 = v18;
+    if (v17 == 1)
     {
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
       {
-        v19 = objc_opt_class();
-        v20 = NSStringFromClass(v19);
-        v21 = v37;
+        v20 = objc_opt_class();
+        v21 = NSStringFromClass(v20);
+        v22 = v38;
         *buf = 138543874;
-        *&buf[4] = v20;
+        *&buf[4] = v21;
         *&buf[12] = 2048;
         *&buf[14] = self;
-        v42 = 2112;
-        v43 = v37;
-        _os_log_impl(&dword_1C241C000, v18, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: Unable to parse anchor metadata: %@", buf, 0x20u);
+        v43 = 2112;
+        v44 = v38;
+        _os_log_impl(&dword_1C241C000, v19, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: Unable to parse anchor metadata: %@", buf, 0x20u);
       }
     }
 
-    else if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
+    else if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
     {
-      v25 = objc_opt_class();
-      v26 = NSStringFromClass(v25);
-      v27 = v37;
+      v26 = objc_opt_class();
+      v27 = NSStringFromClass(v26);
+      v28 = v38;
       *buf = 138543874;
-      *&buf[4] = v26;
+      *&buf[4] = v27;
       *&buf[12] = 2048;
       *&buf[14] = self;
-      v42 = 2112;
-      v43 = v37;
-      _os_log_impl(&dword_1C241C000, v18, OS_LOG_TYPE_INFO, "Error: %{public}@ <%p>: Unable to parse anchor metadata: %@", buf, 0x20u);
+      v43 = 2112;
+      v44 = v38;
+      _os_log_impl(&dword_1C241C000, v19, OS_LOG_TYPE_INFO, "Error: %{public}@ <%p>: Unable to parse anchor metadata: %@", buf, 0x20u);
     }
 
     goto LABEL_19;
   }
 
-  if (v39 == 1)
+  if (v40 == 1)
   {
-    *buf = v38;
-    v15 = [objc_alloc(MEMORY[0x1E696AFB0]) initWithUUIDBytes:buf];
-    [(ARCollaborationData *)v14 setAnchorIdentifier:v15];
+    *buf = v39;
+    v16 = [objc_alloc(MEMORY[0x1E696AFB0]) initWithUUIDBytes:buf];
+    [(ARCollaborationData *)v14 setAnchorIdentifier:v16];
 
 LABEL_19:
     [(ARWorldTrackingTechnique *)self getObservers];
-    v35 = 0u;
     v36 = 0u;
-    v33 = 0u;
-    v28 = v34 = 0u;
-    v29 = [v28 countByEnumeratingWithState:&v33 objects:v40 count:16];
-    if (v29)
+    v37 = 0u;
+    v34 = 0u;
+    v29 = v35 = 0u;
+    v30 = [v29 countByEnumeratingWithState:&v34 objects:v41 count:16];
+    if (v30)
     {
-      v30 = *v34;
+      v31 = *v35;
       do
       {
-        for (i = 0; i != v29; ++i)
+        for (i = 0; i != v30; ++i)
         {
-          if (*v34 != v30)
+          if (*v35 != v31)
           {
-            objc_enumerationMutation(v28);
+            objc_enumerationMutation(v29);
           }
 
-          v32 = *(*(&v33 + 1) + 8 * i);
+          v33 = *(*(&v34 + 1) + 8 * i);
           if (objc_opt_respondsToSelector())
           {
-            [v32 technique:self didOutputCollaborationData:{v14, v33}];
+            [v33 technique:self didOutputCollaborationData:{v14, v34}];
           }
         }
 
-        v29 = [v28 countByEnumeratingWithState:&v33 objects:v40 count:16];
+        v30 = [v29 countByEnumeratingWithState:&v34 objects:v41 count:16];
       }
 
-      while (v29);
+      while (v30);
     }
 
     goto LABEL_29;
   }
 
-  v22 = _ARLogTechnique();
-  if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
+  v23 = _ARLogTechnique(v15);
+  if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
   {
-    v23 = objc_opt_class();
-    v24 = NSStringFromClass(v23);
+    v24 = objc_opt_class();
+    v25 = NSStringFromClass(v24);
     *buf = 138543618;
-    *&buf[4] = v24;
+    *&buf[4] = v25;
     *&buf[12] = 2048;
     *&buf[14] = self;
-    _os_log_impl(&dword_1C241C000, v22, OS_LOG_TYPE_DEBUG, "%{public}@ <%p>: Not reporting non-user created anchor.", buf, 0x16u);
+    _os_log_impl(&dword_1C241C000, v23, OS_LOG_TYPE_DEBUG, "%{public}@ <%p>: Not reporting non-user created anchor.", buf, 0x16u);
   }
 
 LABEL_29:
@@ -4503,7 +4558,7 @@ LABEL_29:
     ARInitializeHitTestIntentWithExtentCheck(v12, raycastCopy, 0, [(ARWorldTrackingTechnique *)self extentCheckFromConfiguration], *self->_anon_360, *&self->_anon_360[16], *&self->_anon_360[32], *&self->_anon_360[48]);
     ptr = self->_raycastSession.__ptr_;
     [(ARWorldTrackingTechnique *)self referenceOriginTransform];
-    v10 = RaycastSession::PerformHitTest(v6, v7, v8, v9, ptr, v12, raycastCopy);
+    v10 = RaycastSession::PerformHitTest(ptr, v12, raycastCopy, v6, v7, v8, v9);
     ARReleaseHitTestIntent(v12);
   }
 
@@ -4522,7 +4577,7 @@ LABEL_29:
   if (self->_raycastSession.__ptr_)
   {
     ARInitializeHitTestIntentWithExtentCheck(v12, raycastCopy, 1, [(ARWorldTrackingTechnique *)self extentCheckFromConfiguration], *self->_anon_360, *&self->_anon_360[16], *&self->_anon_360[32], *&self->_anon_360[48]);
-    v8 = RaycastSession::PerformHitTest(*self->_anon_360, *&self->_anon_360[16], *&self->_anon_360[32], *&self->_anon_360[48], self->_raycastSession.__ptr_, v12, raycastCopy);
+    v8 = RaycastSession::PerformHitTest(self->_raycastSession.__ptr_, v12, raycastCopy, *self->_anon_360, *&self->_anon_360[16], *&self->_anon_360[32], *&self->_anon_360[48]);
     if ([v8 count])
     {
       v9 = [MEMORY[0x1E696AFB0] ar_UUIDWithCFUUIDRef:v13];
@@ -4698,7 +4753,7 @@ LABEL_6:
 
 - (int64_t)_initializeSLAMAndPredictorHandle
 {
-  v118 = *MEMORY[0x1E69E9840];
+  v124 = *MEMORY[0x1E69E9840];
   mutableOptions = [(ARWorldTrackingTechnique *)self mutableOptions];
   [mutableOptions initialWorldMap];
   v3 = selfCopy3 = self;
@@ -4709,17 +4764,17 @@ LABEL_6:
   }
 
   kdebug_trace();
-  v112 = 0;
-  v4 = [mutableOptions createSLAMCalibration:&v112];
-  v108[0] = MEMORY[0x1E69E9820];
-  v108[1] = 3221225472;
-  v109 = __61__ARWorldTrackingTechnique__initializeSLAMAndPredictorHandle__block_invoke;
-  v110 = &__block_descriptor_40_e5_v8__0l;
-  v111 = v112;
+  v118 = 0;
+  v4 = [mutableOptions createSLAMCalibration:&v118];
+  v114[0] = MEMORY[0x1E69E9820];
+  v114[1] = 3221225472;
+  v115 = __61__ARWorldTrackingTechnique__initializeSLAMAndPredictorHandle__block_invoke;
+  v116 = &__block_descriptor_40_e5_v8__0l;
+  v117 = v118;
   if (v4)
   {
     dictionary = [MEMORY[0x1E695DF90] dictionary];
-    v6 = ARKitCoreBundle();
+    v6 = ARKitCoreBundle(dictionary);
     v7 = [v6 localizedStringForKey:@"Unable to initialize tracking." value:&stru_1F4208A80 table:@"Localizable"];
     [dictionary setObject:v7 forKeyedSubscript:*MEMORY[0x1E696A588]];
 
@@ -4729,52 +4784,54 @@ LABEL_6:
 
   else
   {
-    v107 = 0;
-    [mutableOptions createSLAMConfig:&v107 calibration:?];
-    v102 = 0;
-    v103[0] = MEMORY[0x1E69E9820];
-    v103[1] = 3221225472;
-    v104 = __61__ARWorldTrackingTechnique__initializeSLAMAndPredictorHandle__block_invoke_2;
-    v105 = &__block_descriptor_40_e5_v8__0l;
-    v106 = v107;
-    if (!CV3DSLAMConfigAsString())
+    v113 = 0;
+    [mutableOptions createSLAMConfig:&v113 calibration:?];
+    v108 = 0;
+    v109[0] = MEMORY[0x1E69E9820];
+    v109[1] = 3221225472;
+    v110 = __61__ARWorldTrackingTechnique__initializeSLAMAndPredictorHandle__block_invoke_2;
+    v111 = &__block_descriptor_40_e5_v8__0l;
+    v112 = v113;
+    v9 = CV3DSLAMConfigAsString();
+    if (!v9)
     {
-      v9 = _ARLogTechnique();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+      v10 = _ARLogTechnique(v9);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
       {
-        v10 = objc_opt_class();
-        v11 = NSStringFromClass(v10);
+        v11 = objc_opt_class();
+        v12 = NSStringFromClass(v11);
         mutableOptions2 = [(ARWorldTrackingTechnique *)self mutableOptions];
         slamConfiguration = [mutableOptions2 slamConfiguration];
         *buf = 138543874;
-        *&buf[4] = v11;
+        *&buf[4] = v12;
         *&buf[12] = 2048;
         *&buf[14] = self;
-        v114 = 2112;
-        v115 = slamConfiguration;
-        _os_log_impl(&dword_1C241C000, v9, OS_LOG_TYPE_INFO, "%{public}@ <%p>: Created SLAM configuration with configuration preset '%@'. SLAM config string:", buf, 0x20u);
+        v120 = 2112;
+        v121 = slamConfiguration;
+        _os_log_impl(&dword_1C241C000, v10, OS_LOG_TYPE_INFO, "%{public}@ <%p>: Created SLAM configuration with configuration preset '%@'. SLAM config string:", buf, 0x20u);
       }
 
-      v14 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithUTF8String:v102];
-      ARLogDebugNoClassLongMessage(v14, @"ARWorldTrackingTechnique");
+      v15 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithUTF8String:v108];
+      ARLogDebugNoClassLongMessage(v15, @"ARWorldTrackingTechnique");
 
-      free(v102);
+      free(v108);
       selfCopy3 = self;
     }
 
-    v101 = 0;
-    v15 = CV3DSLAMSessionCreate();
-    selfCopy3->_slamSessionHandle = v15;
-    if (v15)
+    v107 = 0;
+    v16 = CV3DSLAMSessionCreate();
+    selfCopy3->_slamSessionHandle = v16;
+    if (v16)
     {
-      v16 = CV3DPosePredictionConfigCreate();
-      v97[0] = MEMORY[0x1E69E9820];
-      v97[1] = 3221225472;
-      v98 = __61__ARWorldTrackingTechnique__initializeSLAMAndPredictorHandle__block_invoke_196;
-      v99 = &__block_descriptor_40_e5_v8__0l;
-      v100 = v16;
-      v17 = CV3DPosePredictionCreate();
-      if (v17)
+      v17 = CV3DPosePredictionConfigCreate();
+      v103[0] = MEMORY[0x1E69E9820];
+      v103[1] = 3221225472;
+      v104 = __61__ARWorldTrackingTechnique__initializeSLAMAndPredictorHandle__block_invoke_196;
+      v105 = &__block_descriptor_40_e5_v8__0l;
+      v106 = v17;
+      v18 = CV3DPosePredictionCreate();
+      v19 = v18;
+      if (v18)
       {
         if (ARShouldUseLogTypeError(void)::onceToken != -1)
         {
@@ -4782,61 +4839,63 @@ LABEL_6:
           selfCopy3 = self;
         }
 
-        v18 = ARShouldUseLogTypeError(void)::internalOSVersion;
-        v19 = _ARLogGeneral();
-        v20 = v19;
-        if (v18 == 1)
+        v20 = ARShouldUseLogTypeError(void)::internalOSVersion;
+        v21 = _ARLogGeneral(v18);
+        v22 = v21;
+        if (v20 == 1)
         {
-          if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+          if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
           {
-            v21 = objc_opt_class();
-            v22 = NSStringFromClass(v21);
+            v23 = objc_opt_class();
+            v24 = NSStringFromClass(v23);
             *buf = 138543874;
-            *&buf[4] = v22;
+            *&buf[4] = v24;
             *&buf[12] = 2048;
             *&buf[14] = selfCopy3;
-            v114 = 1024;
-            LODWORD(v115) = v17;
-            _os_log_impl(&dword_1C241C000, v20, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: CV3DPosePredictionCreate error: %d", buf, 0x1Cu);
+            v120 = 1024;
+            LODWORD(v121) = v19;
+            _os_log_impl(&dword_1C241C000, v22, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: CV3DPosePredictionCreate error: %d", buf, 0x1Cu);
           }
         }
 
-        else if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
+        else if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
         {
-          v35 = objc_opt_class();
-          v36 = NSStringFromClass(v35);
+          v38 = objc_opt_class();
+          v39 = NSStringFromClass(v38);
           *buf = 138543874;
-          *&buf[4] = v36;
+          *&buf[4] = v39;
           *&buf[12] = 2048;
           *&buf[14] = selfCopy3;
-          v114 = 1024;
-          LODWORD(v115) = v17;
-          _os_log_impl(&dword_1C241C000, v20, OS_LOG_TYPE_INFO, "Error: %{public}@ <%p>: CV3DPosePredictionCreate error: %d", buf, 0x1Cu);
+          v120 = 1024;
+          LODWORD(v121) = v19;
+          _os_log_impl(&dword_1C241C000, v22, OS_LOG_TYPE_INFO, "Error: %{public}@ <%p>: CV3DPosePredictionCreate error: %d", buf, 0x1Cu);
         }
       }
 
       else
       {
-        if (!CV3PosePredictionInitialize())
+        v31 = CV3PosePredictionInitialize();
+        if (!v31)
         {
           kdebug_trace();
-          v95 = 0;
-          v96 = 0;
-          if (CV3DSLAMSessionGetSessionID())
+          v101 = 0;
+          v102 = 0;
+          SessionID = CV3DSLAMSessionGetSessionID();
+          if (SessionID)
           {
-            selfCopy3->_vioSessionIdentifier = v96;
-            v44 = _ARLogTechnique();
-            if (os_log_type_enabled(v44, OS_LOG_TYPE_INFO))
+            selfCopy3->_vioSessionIdentifier = v102;
+            v48 = _ARLogTechnique(SessionID);
+            if (os_log_type_enabled(v48, OS_LOG_TYPE_INFO))
             {
-              v45 = objc_opt_class();
-              v46 = NSStringFromClass(v45);
+              v49 = objc_opt_class();
+              v50 = NSStringFromClass(v49);
               *buf = 138543874;
-              *&buf[4] = v46;
+              *&buf[4] = v50;
               *&buf[12] = 2048;
               *&buf[14] = selfCopy3;
-              v114 = 2048;
-              v115 = v96;
-              _os_log_impl(&dword_1C241C000, v44, OS_LOG_TYPE_INFO, "%{public}@ <%p>: initialized with session identifier %llX", buf, 0x20u);
+              v120 = 2048;
+              v121 = v102;
+              _os_log_impl(&dword_1C241C000, v48, OS_LOG_TYPE_INFO, "%{public}@ <%p>: initialized with session identifier %llX", buf, 0x20u);
             }
           }
 
@@ -4848,165 +4907,166 @@ LABEL_6:
               selfCopy3 = self;
             }
 
-            v55 = ARShouldUseLogTypeError(void)::internalOSVersion;
-            v56 = _ARLogTechnique();
-            v44 = v56;
-            if (v55 == 1)
+            v59 = ARShouldUseLogTypeError(void)::internalOSVersion;
+            v60 = _ARLogTechnique(SessionID);
+            v48 = v60;
+            if (v59 == 1)
             {
-              if (os_log_type_enabled(v56, OS_LOG_TYPE_ERROR))
+              if (os_log_type_enabled(v60, OS_LOG_TYPE_ERROR))
               {
-                v57 = objc_opt_class();
-                v58 = NSStringFromClass(v57);
+                v61 = objc_opt_class();
+                v62 = NSStringFromClass(v61);
                 *buf = 138543874;
-                *&buf[4] = v58;
+                *&buf[4] = v62;
                 *&buf[12] = 2048;
                 *&buf[14] = selfCopy3;
-                v114 = 2112;
-                v115 = v101;
-                _os_log_impl(&dword_1C241C000, v44, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: unable to read VIO session identifier: %@", buf, 0x20u);
+                v120 = 2112;
+                v121 = v107;
+                _os_log_impl(&dword_1C241C000, v48, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: unable to read VIO session identifier: %@", buf, 0x20u);
               }
             }
 
-            else if (os_log_type_enabled(v56, OS_LOG_TYPE_INFO))
+            else if (os_log_type_enabled(v60, OS_LOG_TYPE_INFO))
             {
-              v59 = objc_opt_class();
-              v60 = NSStringFromClass(v59);
+              v63 = objc_opt_class();
+              v64 = NSStringFromClass(v63);
               *buf = 138543874;
-              *&buf[4] = v60;
+              *&buf[4] = v64;
               *&buf[12] = 2048;
               *&buf[14] = selfCopy3;
-              v114 = 2112;
-              v115 = v101;
-              _os_log_impl(&dword_1C241C000, v44, OS_LOG_TYPE_INFO, "Error: %{public}@ <%p>: unable to read VIO session identifier: %@", buf, 0x20u);
+              v120 = 2112;
+              v121 = v107;
+              _os_log_impl(&dword_1C241C000, v48, OS_LOG_TYPE_INFO, "Error: %{public}@ <%p>: unable to read VIO session identifier: %@", buf, 0x20u);
             }
           }
 
           objc_initWeak(&location, self);
-          v95 = 0;
-          v92[1] = MEMORY[0x1E69E9820];
-          v92[2] = 3221225472;
-          v92[3] = __61__ARWorldTrackingTechnique__initializeSLAMAndPredictorHandle__block_invoke_197;
-          v92[4] = &unk_1E817C870;
-          v87 = &v93;
-          objc_copyWeak(&v93, &location);
-          if ((CV3DSLAMSetNewStateBlock() & 1) == 0)
+          v101 = 0;
+          v98[1] = MEMORY[0x1E69E9820];
+          v98[2] = 3221225472;
+          v98[3] = __61__ARWorldTrackingTechnique__initializeSLAMAndPredictorHandle__block_invoke_197;
+          v98[4] = &unk_1E817C870;
+          v93 = &v99;
+          objc_copyWeak(&v99, &location);
+          v65 = CV3DSLAMSetNewStateBlock();
+          if ((v65 & 1) == 0)
           {
             if (ARShouldUseLogTypeError(void)::onceToken != -1)
             {
               [ARWorldTrackingTechnique processData:];
             }
 
-            v61 = ARShouldUseLogTypeError(void)::internalOSVersion;
-            v62 = _ARLogTechnique();
-            v63 = v62;
-            if (v61 == 1)
+            v66 = ARShouldUseLogTypeError(void)::internalOSVersion;
+            v67 = _ARLogTechnique(v65);
+            v68 = v67;
+            if (v66 == 1)
             {
-              if (os_log_type_enabled(v62, OS_LOG_TYPE_ERROR))
+              if (os_log_type_enabled(v67, OS_LOG_TYPE_ERROR))
               {
-                v64 = objc_opt_class();
-                v65 = NSStringFromClass(v64);
+                v69 = objc_opt_class();
+                v70 = NSStringFromClass(v69);
                 slamSessionHandle = self->_slamSessionHandle;
-                v67 = v95;
+                v72 = v101;
                 *buf = 138544130;
-                *&buf[4] = v65;
+                *&buf[4] = v70;
                 *&buf[12] = 2048;
                 *&buf[14] = self;
-                v114 = 2048;
-                v115 = slamSessionHandle;
-                v116 = 2112;
-                v117 = v95;
-                _os_log_impl(&dword_1C241C000, v63, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: error setting metadata callback (%p): %@", buf, 0x2Au);
+                v120 = 2048;
+                v121 = slamSessionHandle;
+                v122 = 2112;
+                v123 = v101;
+                _os_log_impl(&dword_1C241C000, v68, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: error setting metadata callback (%p): %@", buf, 0x2Au);
               }
             }
 
-            else if (os_log_type_enabled(v62, OS_LOG_TYPE_INFO))
+            else if (os_log_type_enabled(v67, OS_LOG_TYPE_INFO))
             {
-              v68 = objc_opt_class();
-              v69 = NSStringFromClass(v68);
-              v70 = self->_slamSessionHandle;
-              v71 = v95;
+              v73 = objc_opt_class();
+              v74 = NSStringFromClass(v73);
+              v75 = self->_slamSessionHandle;
+              v76 = v101;
               *buf = 138544130;
-              *&buf[4] = v69;
+              *&buf[4] = v74;
               *&buf[12] = 2048;
               *&buf[14] = self;
-              v114 = 2048;
-              v115 = v70;
-              v116 = 2112;
-              v117 = v95;
-              _os_log_impl(&dword_1C241C000, v63, OS_LOG_TYPE_INFO, "Error: %{public}@ <%p>: error setting metadata callback (%p): %@", buf, 0x2Au);
+              v120 = 2048;
+              v121 = v75;
+              v122 = 2112;
+              v123 = v101;
+              _os_log_impl(&dword_1C241C000, v68, OS_LOG_TYPE_INFO, "Error: %{public}@ <%p>: error setting metadata callback (%p): %@", buf, 0x2Au);
             }
 
-            v72 = objc_loadWeakRetained(&location);
-            v73 = ARErrorWithCodeAndUserInfo(200, 0);
-            [v72 _didFailWithError:{v73, &v93}];
+            v77 = objc_loadWeakRetained(&location);
+            v78 = ARErrorWithCodeAndUserInfo(200, 0);
+            [v77 _didFailWithError:{v78, &v99}];
           }
 
-          objc_destroyWeak(v87);
-          v95 = 0;
-          v91[2] = MEMORY[0x1E69E9820];
-          v91[3] = 3221225472;
-          v91[4] = __61__ARWorldTrackingTechnique__initializeSLAMAndPredictorHandle__block_invoke_199;
-          v91[5] = &unk_1E817C898;
-          objc_copyWeak(v92, &location);
-          CV3DSLAMSetErrorBlock();
-          if (v95)
+          objc_destroyWeak(v93);
+          v101 = 0;
+          v97[2] = MEMORY[0x1E69E9820];
+          v97[3] = 3221225472;
+          v97[4] = __61__ARWorldTrackingTechnique__initializeSLAMAndPredictorHandle__block_invoke_199;
+          v97[5] = &unk_1E817C898;
+          objc_copyWeak(v98, &location);
+          v79 = CV3DSLAMSetErrorBlock();
+          if (v101)
           {
             if (ARShouldUseLogTypeError(void)::onceToken != -1)
             {
               [ARWorldTrackingTechnique processData:];
             }
 
-            v74 = ARShouldUseLogTypeError(void)::internalOSVersion;
-            v75 = _ARLogTechnique();
-            v76 = v75;
-            if (v74 == 1)
+            v80 = ARShouldUseLogTypeError(void)::internalOSVersion;
+            v81 = _ARLogTechnique(v79);
+            v82 = v81;
+            if (v80 == 1)
             {
-              if (os_log_type_enabled(v75, OS_LOG_TYPE_ERROR))
+              if (os_log_type_enabled(v81, OS_LOG_TYPE_ERROR))
               {
-                v77 = objc_opt_class();
-                v78 = NSStringFromClass(v77);
-                v79 = self->_slamSessionHandle;
-                v80 = v95;
+                v83 = objc_opt_class();
+                v84 = NSStringFromClass(v83);
+                v85 = self->_slamSessionHandle;
+                v86 = v101;
                 *buf = 138544130;
-                *&buf[4] = v78;
+                *&buf[4] = v84;
                 *&buf[12] = 2048;
                 *&buf[14] = self;
-                v114 = 2048;
-                v115 = v79;
-                v116 = 2112;
-                v117 = v95;
-                _os_log_impl(&dword_1C241C000, v76, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: error setting error callback (%p): %@", buf, 0x2Au);
+                v120 = 2048;
+                v121 = v85;
+                v122 = 2112;
+                v123 = v101;
+                _os_log_impl(&dword_1C241C000, v82, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: error setting error callback (%p): %@", buf, 0x2Au);
               }
             }
 
-            else if (os_log_type_enabled(v75, OS_LOG_TYPE_INFO))
+            else if (os_log_type_enabled(v81, OS_LOG_TYPE_INFO))
             {
-              v81 = objc_opt_class();
-              v82 = NSStringFromClass(v81);
-              v83 = self->_slamSessionHandle;
-              v84 = v95;
+              v87 = objc_opt_class();
+              v88 = NSStringFromClass(v87);
+              v89 = self->_slamSessionHandle;
+              v90 = v101;
               *buf = 138544130;
-              *&buf[4] = v82;
+              *&buf[4] = v88;
               *&buf[12] = 2048;
               *&buf[14] = self;
-              v114 = 2048;
-              v115 = v83;
-              v116 = 2112;
-              v117 = v95;
-              _os_log_impl(&dword_1C241C000, v76, OS_LOG_TYPE_INFO, "Error: %{public}@ <%p>: error setting error callback (%p): %@", buf, 0x2Au);
+              v120 = 2048;
+              v121 = v89;
+              v122 = 2112;
+              v123 = v101;
+              _os_log_impl(&dword_1C241C000, v82, OS_LOG_TYPE_INFO, "Error: %{public}@ <%p>: error setting error callback (%p): %@", buf, 0x2Au);
             }
 
-            v85 = objc_loadWeakRetained(&location);
-            v86 = ARErrorWithCodeAndUserInfo(200, 0);
-            [v85 _didFailWithError:{v86, v92}];
+            v91 = objc_loadWeakRetained(&location);
+            v92 = ARErrorWithCodeAndUserInfo(200, 0);
+            [v91 _didFailWithError:{v92, v98}];
           }
 
-          v90[0] = MEMORY[0x1E69E9820];
-          v90[1] = 3221225472;
-          v90[2] = __61__ARWorldTrackingTechnique__initializeSLAMAndPredictorHandle__block_invoke_201;
-          v90[3] = &unk_1E817C8C0;
-          objc_copyWeak(v91, &location);
-          v91[1] = MEMORY[0x1C691B4C0](v90);
+          v96[0] = MEMORY[0x1E69E9820];
+          v96[1] = 3221225472;
+          v96[2] = __61__ARWorldTrackingTechnique__initializeSLAMAndPredictorHandle__block_invoke_201;
+          v96[3] = &unk_1E817C8C0;
+          objc_copyWeak(v97, &location);
+          v97[1] = MEMORY[0x1C691B4C0](v96);
           [(ARWorldTrackingTechnique *)self deterministicMode];
           std::allocate_shared[abi:ne200100]<RaycastSession,std::allocator<RaycastSession>,CV3DSLAMSession *&,void({block_pointer} {__strong}&)(CV3DRaycastResultMap const*),BOOL,0>();
         }
@@ -5016,54 +5076,54 @@ LABEL_6:
           [ARWorldTrackingTechnique processData:];
         }
 
-        v29 = ARShouldUseLogTypeError(void)::internalOSVersion;
-        v30 = _ARLogTechnique();
-        v31 = v30;
-        if (v29 == 1)
+        v32 = ARShouldUseLogTypeError(void)::internalOSVersion;
+        v33 = _ARLogTechnique(v31);
+        v34 = v33;
+        if (v32 == 1)
         {
-          if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+          if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
           {
-            v32 = objc_opt_class();
-            v33 = NSStringFromClass(v32);
+            v35 = objc_opt_class();
+            v36 = NSStringFromClass(v35);
             predictorHandle = self->_predictorHandle;
             *buf = 138544130;
-            *&buf[4] = v33;
+            *&buf[4] = v36;
             *&buf[12] = 2048;
             *&buf[14] = self;
-            v114 = 2048;
-            v115 = predictorHandle;
-            v116 = 2112;
-            v117 = v101;
-            _os_log_impl(&dword_1C241C000, v31, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: Error initializing predictor handle (%p): %@", buf, 0x2Au);
+            v120 = 2048;
+            v121 = predictorHandle;
+            v122 = 2112;
+            v123 = v107;
+            _os_log_impl(&dword_1C241C000, v34, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: Error initializing predictor handle (%p): %@", buf, 0x2Au);
           }
         }
 
-        else if (os_log_type_enabled(v30, OS_LOG_TYPE_INFO))
+        else if (os_log_type_enabled(v33, OS_LOG_TYPE_INFO))
         {
-          v47 = objc_opt_class();
-          v48 = NSStringFromClass(v47);
-          v49 = self->_predictorHandle;
+          v51 = objc_opt_class();
+          v52 = NSStringFromClass(v51);
+          v53 = self->_predictorHandle;
           *buf = 138544130;
-          *&buf[4] = v48;
+          *&buf[4] = v52;
           *&buf[12] = 2048;
           *&buf[14] = self;
-          v114 = 2048;
-          v115 = v49;
-          v116 = 2112;
-          v117 = v101;
-          _os_log_impl(&dword_1C241C000, v31, OS_LOG_TYPE_INFO, "Error: %{public}@ <%p>: Error initializing predictor handle (%p): %@", buf, 0x2Au);
+          v120 = 2048;
+          v121 = v53;
+          v122 = 2112;
+          v123 = v107;
+          _os_log_impl(&dword_1C241C000, v34, OS_LOG_TYPE_INFO, "Error: %{public}@ <%p>: Error initializing predictor handle (%p): %@", buf, 0x2Au);
         }
 
         dictionary2 = [MEMORY[0x1E695DF90] dictionary];
-        v51 = ARKitCoreBundle();
-        v52 = [v51 localizedStringForKey:@"Unable to initialize tracking." value:&stru_1F4208A80 table:@"Localizable"];
-        [dictionary2 setObject:v52 forKeyedSubscript:*MEMORY[0x1E696A588]];
+        v55 = ARKitCoreBundle(dictionary2);
+        v56 = [v55 localizedStringForKey:@"Unable to initialize tracking." value:&stru_1F4208A80 table:@"Localizable"];
+        [dictionary2 setObject:v56 forKeyedSubscript:*MEMORY[0x1E696A588]];
 
-        v53 = ARErrorWithCodeAndUserInfo(200, dictionary2);
-        [(ARWorldTrackingTechnique *)self _didFailWithError:v53];
+        v57 = ARErrorWithCodeAndUserInfo(200, dictionary2);
+        [(ARWorldTrackingTechnique *)self _didFailWithError:v57];
       }
 
-      v98(v97);
+      v104(v103);
     }
 
     else
@@ -5073,57 +5133,57 @@ LABEL_6:
         [ARWorldTrackingTechnique processData:];
       }
 
-      v23 = ARShouldUseLogTypeError(void)::internalOSVersion;
-      v24 = _ARLogTechnique();
-      v25 = v24;
-      if (v23 == 1)
+      v25 = ARShouldUseLogTypeError(void)::internalOSVersion;
+      v26 = _ARLogTechnique(v16);
+      v27 = v26;
+      if (v25 == 1)
       {
-        if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+        if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
         {
-          v26 = objc_opt_class();
-          v27 = NSStringFromClass(v26);
-          v28 = self->_slamSessionHandle;
+          v28 = objc_opt_class();
+          v29 = NSStringFromClass(v28);
+          v30 = self->_slamSessionHandle;
           *buf = 138544130;
-          *&buf[4] = v27;
+          *&buf[4] = v29;
           *&buf[12] = 2048;
           *&buf[14] = self;
-          v114 = 2048;
-          v115 = v28;
-          v116 = 2112;
-          v117 = v101;
-          _os_log_impl(&dword_1C241C000, v25, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: Error initializing SLAM handle (%p): %@", buf, 0x2Au);
+          v120 = 2048;
+          v121 = v30;
+          v122 = 2112;
+          v123 = v107;
+          _os_log_impl(&dword_1C241C000, v27, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: Error initializing SLAM handle (%p): %@", buf, 0x2Au);
         }
       }
 
-      else if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
+      else if (os_log_type_enabled(v26, OS_LOG_TYPE_INFO))
       {
-        v37 = objc_opt_class();
-        v38 = NSStringFromClass(v37);
-        v39 = self->_slamSessionHandle;
+        v40 = objc_opt_class();
+        v41 = NSStringFromClass(v40);
+        v42 = self->_slamSessionHandle;
         *buf = 138544130;
-        *&buf[4] = v38;
+        *&buf[4] = v41;
         *&buf[12] = 2048;
         *&buf[14] = self;
-        v114 = 2048;
-        v115 = v39;
-        v116 = 2112;
-        v117 = v101;
-        _os_log_impl(&dword_1C241C000, v25, OS_LOG_TYPE_INFO, "Error: %{public}@ <%p>: Error initializing SLAM handle (%p): %@", buf, 0x2Au);
+        v120 = 2048;
+        v121 = v42;
+        v122 = 2112;
+        v123 = v107;
+        _os_log_impl(&dword_1C241C000, v27, OS_LOG_TYPE_INFO, "Error: %{public}@ <%p>: Error initializing SLAM handle (%p): %@", buf, 0x2Au);
       }
 
       dictionary3 = [MEMORY[0x1E695DF90] dictionary];
-      v41 = ARKitCoreBundle();
-      v42 = [v41 localizedStringForKey:@"Unable to initialize tracking." value:&stru_1F4208A80 table:@"Localizable"];
-      [dictionary3 setObject:v42 forKeyedSubscript:*MEMORY[0x1E696A588]];
+      v44 = ARKitCoreBundle(dictionary3);
+      v45 = [v44 localizedStringForKey:@"Unable to initialize tracking." value:&stru_1F4208A80 table:@"Localizable"];
+      [dictionary3 setObject:v45 forKeyedSubscript:*MEMORY[0x1E696A588]];
 
-      v43 = ARErrorWithCodeAndUserInfo(200, dictionary3);
-      [(ARWorldTrackingTechnique *)self _didFailWithError:v43];
+      v46 = ARErrorWithCodeAndUserInfo(200, dictionary3);
+      [(ARWorldTrackingTechnique *)self _didFailWithError:v46];
     }
 
-    (v104)(v103);
+    v110(v109);
   }
 
-  (v109)(v108);
+  v115(v114);
 
   return 4;
 }
@@ -5146,14 +5206,15 @@ void __61__ARWorldTrackingTechnique__initializeSLAMAndPredictorHandle__block_inv
   [WeakRetained _handleRaycastResultCallback:a2];
 }
 
-uint64_t __61__ARWorldTrackingTechnique__initializeSLAMAndPredictorHandle__block_invoke_203(uint64_t a1, uint64_t a2, CFDataRef theData, uint64_t a4)
+double __61__ARWorldTrackingTechnique__initializeSLAMAndPredictorHandle__block_invoke_203(uint64_t a1, uint64_t a2, CFDataRef theData, uint64_t a4)
 {
   CFDataGetLength(theData);
   kdebug_trace();
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   [WeakRetained _reportCollaborationData:theData type:a2 metadata:a4];
 
-  return kdebug_trace();
+  kdebug_trace();
+  return result;
 }
 
 - (unsigned)CV3DSLAMJasperPointCloudProjectorModeFromAVTimeOfFlightProjectorMode:(int64_t)mode
@@ -5195,7 +5256,7 @@ LABEL_18:
     }
 
     v6 = ARShouldUseLogTypeError(void)::internalOSVersion;
-    v7 = _ARLogTechnique();
+    v7 = _ARLogTechnique(self);
     v8 = v7;
     if (v6 == 1)
     {
@@ -5241,7 +5302,7 @@ LABEL_18:
 - (void)_removeAllMeshAnchors
 {
   v11 = *MEMORY[0x1E69E9840];
-  v3 = _ARLogTechnique();
+  v3 = _ARLogTechnique(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     v4 = objc_opt_class();
@@ -5265,7 +5326,7 @@ LABEL_18:
 - (void)_setupSceneReconstruction
 {
   v17 = *MEMORY[0x1E69E9840];
-  v3 = _ARLogTechnique();
+  v3 = _ARLogTechnique(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     v4 = objc_opt_class();
@@ -5293,7 +5354,7 @@ LABEL_18:
 - (void)_reconfigureSceneReconstruction
 {
   v16 = *MEMORY[0x1E69E9840];
-  v3 = _ARLogTechnique();
+  v3 = _ARLogTechnique(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     v4 = objc_opt_class();
@@ -5341,7 +5402,7 @@ LABEL_18:
 - (void)resetSceneReconstruction
 {
   v11 = *MEMORY[0x1E69E9840];
-  v3 = _ARLogTechnique();
+  v3 = _ARLogTechnique(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     v4 = objc_opt_class();
@@ -5400,7 +5461,7 @@ LABEL_18:
   v20 = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
   errorCopy = error;
-  v8 = _ARLogTechnique();
+  v8 = _ARLogTechnique(errorCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
     v9 = objc_opt_class();
@@ -5569,7 +5630,7 @@ void __56__ARWorldTrackingTechnique__initializeSurfaceDetection___block_invoke_3
 - (void)_resetSurfaceDetection
 {
   v10 = *MEMORY[0x1E69E9840];
-  v3 = _ARLogTechnique();
+  v3 = _ARLogTechnique(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     v4 = objc_opt_class();
@@ -5634,115 +5695,117 @@ void __56__ARWorldTrackingTechnique__initializeSurfaceDetection___block_invoke_3
 
 - (id)_featurePointDataFromSLAMState:(const CV3DSLAMStateContext *)state
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   data = [MEMORY[0x1E695DF88] data];
   PointCloud = CV3DSLAMStateGetPointCloud();
   if (PointCloud != *MEMORY[0x1E698BD80] || CV3DSLAMStateGetTimestamp() != PointCloud)
   {
 LABEL_7:
-    v9 = 0;
+    v10 = 0;
     goto LABEL_8;
   }
 
-  if (CV3DSLAMStateGetStatus() != PointCloud)
+  Status = CV3DSLAMStateGetStatus();
+  if (Status != PointCloud)
   {
-    v6 = _ARLogTechnique();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+    v7 = _ARLogTechnique(Status);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
-      v7 = objc_opt_class();
-      v8 = NSStringFromClass(v7);
+      v8 = objc_opt_class();
+      v9 = NSStringFromClass(v8);
       *buf = 138543874;
-      v13 = v8;
-      v14 = 2048;
+      v14 = v9;
+      v15 = 2048;
       selfCopy = self;
-      v16 = 2048;
-      v17 = 0;
-      _os_log_impl(&dword_1C241C000, v6, OS_LOG_TYPE_DEBUG, "%{public}@ <%p>: Point cloud rejected because tracking state is not nominal: %f", buf, 0x20u);
+      v17 = 2048;
+      v18 = 0;
+      _os_log_impl(&dword_1C241C000, v7, OS_LOG_TYPE_DEBUG, "%{public}@ <%p>: Point cloud rejected because tracking state is not nominal: %f", buf, 0x20u);
     }
 
     goto LABEL_7;
   }
 
   [data length];
-  v9 = [[ARWorldTrackingFeaturePointData alloc] initWithTimestamp:0.0];
+  v10 = [[ARWorldTrackingFeaturePointData alloc] initWithTimestamp:0.0];
   kdebug_trace();
-  v11 = [[ARPointCloud alloc] initWithCV3DPointData:data minVergenceAngleCosine:self->_minVergenceAngleCosine];
-  [(ARWorldTrackingFeaturePointData *)v9 setVisionFeaturePoints:v11];
+  v12 = [[ARPointCloud alloc] initWithCV3DPointData:data minVergenceAngleCosine:self->_minVergenceAngleCosine];
+  [(ARWorldTrackingFeaturePointData *)v10 setVisionFeaturePoints:v12];
 
   kdebug_trace();
 LABEL_8:
 
-  return v9;
+  return v10;
 }
 
 - (void)_updateTrackingState:(id)state slamState:(const CV3DSLAMStateContext *)slamState
 {
-  v52 = *MEMORY[0x1E69E9840];
+  v56 = *MEMORY[0x1E69E9840];
   stateCopy = state;
   CV3DSLAMStateGetStatus();
-  v44 = *(MEMORY[0x1E69E9B18] + 16);
-  v45 = *MEMORY[0x1E69E9B18];
-  v42 = *(MEMORY[0x1E69E9B18] + 48);
-  v43 = *(MEMORY[0x1E69E9B18] + 32);
+  v48 = *(MEMORY[0x1E69E9B18] + 16);
+  v49 = *MEMORY[0x1E69E9B18];
+  v46 = *(MEMORY[0x1E69E9B18] + 48);
+  v47 = *(MEMORY[0x1E69E9B18] + 32);
   if (CV3DSLAMStateGetRelocalizationTimestamp() == *MEMORY[0x1E698BD80] && self->_lastRelocalizationTimestamp < 0.0)
   {
     CV3DSLAMStateIsGlobalRelocalization();
     CV3DSLAMStateRelocalizationSucceeded();
-    kdebug_trace();
-    v5 = _ARLogTechnique();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+    v5 = kdebug_trace();
+    v6 = _ARLogTechnique(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
-      v6 = objc_opt_class();
-      v7 = NSStringFromClass(v6);
+      v7 = objc_opt_class();
+      v8 = NSStringFromClass(v7);
       *buf = 138544386;
-      *&buf[4] = v7;
+      *&buf[4] = v8;
       *&buf[12] = 2048;
       *&buf[14] = self;
-      v48 = 2048;
-      v49 = 0;
-      v50 = 1024;
-      *v51 = 0;
-      *&v51[4] = 1024;
-      *&v51[6] = 0;
-      _os_log_impl(&dword_1C241C000, v5, OS_LOG_TYPE_DEBUG, "%{public}@ <%p>: Relocalization event: %f, global %i, succeeded %i", buf, 0x2Cu);
+      v52 = 2048;
+      v53 = 0;
+      v54 = 1024;
+      *v55 = 0;
+      *&v55[4] = 1024;
+      *&v55[6] = 0;
+      _os_log_impl(&dword_1C241C000, v6, OS_LOG_TYPE_DEBUG, "%{public}@ <%p>: Relocalization event: %f, global %i, succeeded %i", buf, 0x2Cu);
     }
 
     self->_lastRelocalizationTimestamp = 0.0;
-    v8 = 1;
+    v9 = 1;
   }
 
   else
   {
-    v8 = 0;
+    v9 = 0;
   }
 
-  if ([(ARWorldTrackingTechnique *)self _isRelocalizing:v34]&& self->_didClearMap)
+  v10 = [(ARWorldTrackingTechnique *)self _isRelocalizing:v38];
+  if (v10 && self->_didClearMap)
   {
-    v9 = _ARLogTechnique();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+    v11 = _ARLogTechnique(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
     {
-      v10 = objc_opt_class();
-      v11 = NSStringFromClass(v10);
-      v12 = @"NO";
+      v12 = objc_opt_class();
+      v13 = NSStringFromClass(v12);
+      v14 = @"NO";
       didClearMap = self->_didClearMap;
       *buf = 138544130;
-      *&buf[4] = v11;
+      *&buf[4] = v13;
       *&buf[12] = 2048;
       if (didClearMap)
       {
-        v12 = @"YES";
+        v14 = @"YES";
       }
 
       *&buf[14] = self;
-      v48 = 2112;
-      v49 = @"NO";
-      v50 = 2112;
-      *v51 = v12;
-      _os_log_impl(&dword_1C241C000, v9, OS_LOG_TYPE_DEBUG, "%{public}@ <%p>: Clearing relocalization after sensor data drop because major relocalization(%@) or clear map (%@) occurred.", buf, 0x2Au);
+      v52 = 2112;
+      v53 = @"NO";
+      v54 = 2112;
+      *v55 = v14;
+      _os_log_impl(&dword_1C241C000, v11, OS_LOG_TYPE_DEBUG, "%{public}@ <%p>: Clearing relocalization after sensor data drop because major relocalization(%@) or clear map (%@) occurred.", buf, 0x2Au);
     }
 
     self->_relocalizationState = 0;
-    if ((v8 & 1) == 0)
+    if ((v9 & 1) == 0)
     {
       p_originTimestamp = &self->_originTimestamp;
       goto LABEL_19;
@@ -5752,8 +5815,8 @@ LABEL_8:
     if (self->_didClearMap)
     {
 LABEL_19:
-      v15 = 0;
-      v16 = *p_originTimestamp;
+      v17 = 0;
+      v18 = *p_originTimestamp;
       if (*p_originTimestamp >= 2.22044605e-16)
       {
         goto LABEL_23;
@@ -5766,113 +5829,114 @@ LABEL_19:
   else
   {
     p_originTimestamp = &self->_originTimestamp;
-    if ((v8 & 1) == 0)
+    if ((v9 & 1) == 0)
     {
       goto LABEL_19;
     }
   }
 
-  v15 = 1;
+  v17 = 1;
 LABEL_20:
-  [stateCopy timestamp];
-  *p_originTimestamp = v17;
-  v18 = _ARLogTechnique();
-  if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
+  v19 = objc_msgSend_timestamp(stateCopy);
+  *p_originTimestamp = v20;
+  v21 = _ARLogTechnique(v19);
+  if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
   {
-    v19 = objc_opt_class();
-    v20 = NSStringFromClass(v19);
-    v21 = *p_originTimestamp;
+    v22 = objc_opt_class();
+    v23 = NSStringFromClass(v22);
+    v24 = *p_originTimestamp;
     *buf = 138543874;
-    *&buf[4] = v20;
+    *&buf[4] = v23;
     *&buf[12] = 2048;
     *&buf[14] = self;
-    v48 = 2048;
-    v49 = v21;
-    _os_log_impl(&dword_1C241C000, v18, OS_LOG_TYPE_INFO, "%{public}@ <%p>: VIO origin timestamp: %f", buf, 0x20u);
+    v52 = 2048;
+    v53 = v24;
+    _os_log_impl(&dword_1C241C000, v21, OS_LOG_TYPE_INFO, "%{public}@ <%p>: VIO origin timestamp: %f", buf, 0x20u);
   }
 
 LABEL_23:
-  if ([(ARWorldTrackingTechnique *)self _isRelocalizing])
+  _isRelocalizing = [(ARWorldTrackingTechnique *)self _isRelocalizing];
+  if (_isRelocalizing)
   {
     if (self->_relocalizationState == 2)
     {
-      v22 = 4;
+      v26 = 4;
     }
 
     else if (self->_wasEverInNominalState)
     {
-      v22 = 4;
+      v26 = 4;
     }
 
     else
     {
-      v22 = 1;
+      v26 = 1;
     }
 
     reinitializationAttempts = self->_reinitializationAttempts;
     if (self->_reinitializationAttemptsAtInitialization != reinitializationAttempts)
     {
       self->_reinitializationAttemptsAtInitialization = reinitializationAttempts;
-      v25 = _ARLogTechnique();
-      if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
+      v29 = _ARLogTechnique(_isRelocalizing);
+      if (os_log_type_enabled(v29, OS_LOG_TYPE_DEBUG))
       {
-        v26 = objc_opt_class();
-        v27 = NSStringFromClass(v26);
-        v28 = ARTrackingStateReasonToString(v22);
+        v30 = objc_opt_class();
+        v31 = NSStringFromClass(v30);
+        v32 = ARTrackingStateReasonToString(v26);
         reinitializationAttemptsAtInitialization = self->_reinitializationAttemptsAtInitialization;
         *buf = 138544130;
-        *&buf[4] = v27;
+        *&buf[4] = v31;
         *&buf[12] = 2048;
         *&buf[14] = self;
-        v48 = 2112;
-        v49 = v28;
-        v50 = 2048;
-        *v51 = reinitializationAttemptsAtInitialization;
-        _os_log_impl(&dword_1C241C000, v25, OS_LOG_TYPE_DEBUG, "%{public}@ <%p>: Setting tracking state to limited with %@ after sensor data drop, resetting reinitialization attempts counter to %li", buf, 0x2Au);
+        v52 = 2112;
+        v53 = v32;
+        v54 = 2048;
+        *v55 = reinitializationAttemptsAtInitialization;
+        _os_log_impl(&dword_1C241C000, v29, OS_LOG_TYPE_DEBUG, "%{public}@ <%p>: Setting tracking state to limited with %@ after sensor data drop, resetting reinitialization attempts counter to %li", buf, 0x2Au);
       }
     }
 
-    v23 = 1;
+    v27 = 1;
   }
 
   else
   {
-    v23 = 1;
-    v22 = 3;
+    v27 = 1;
+    v26 = 3;
     if (self->_reinitializationAttemptsAtInitialization == self->_reinitializationAttempts)
     {
-      v22 = 0;
+      v26 = 0;
       self->_wasEverInNominalState = 1;
-      v23 = 2;
+      v27 = 2;
     }
   }
 
-  v30 = CV3DSLAMStateCopyUpdatedAnchors();
-  v31 = v30;
-  if (v30)
+  v34 = CV3DSLAMStateCopyUpdatedAnchors();
+  v35 = v34;
+  if (v34)
   {
-    v32 = [v30 count] != 0;
+    v36 = [v34 count] != 0;
   }
 
   else
   {
-    v32 = 0;
+    v36 = 0;
   }
 
-  v33 = objc_opt_new();
-  [v33 setState:v23];
-  [v33 setReason:v22];
-  [v33 setMajorRelocalization:0];
-  [v33 setMinorRelocalization:v15 & 1];
-  [v33 setPoseGraphUpdated:v32];
-  [v33 setMajorRelocalizationCameraTransform:{*&v45, *&v44, *&v43, *&v42}];
-  [v33 setVioTrackingState:1];
-  [v33 setLastMajorRelocalizationTimestamp:self->_lastMajorRelocalizationTimestamp];
-  [v33 setOriginTimestamp:*p_originTimestamp];
-  [v33 setCurrentVIOMapSize:self->_currentVIOMapSize];
-  [v33 setNumberOfCameraSwitches:self->_numberOfCameraSwitches];
-  [v33 setReinitializationAttempts:self->_reinitializationAttempts];
-  [stateCopy setWorldTrackingState:v33];
+  v37 = objc_opt_new();
+  [v37 setState:v27];
+  [v37 setReason:v26];
+  [v37 setMajorRelocalization:0];
+  [v37 setMinorRelocalization:v17 & 1];
+  [v37 setPoseGraphUpdated:v36];
+  [v37 setMajorRelocalizationCameraTransform:{*&v49, *&v48, *&v47, *&v46}];
+  [v37 setVioTrackingState:1];
+  [v37 setLastMajorRelocalizationTimestamp:self->_lastMajorRelocalizationTimestamp];
+  [v37 setOriginTimestamp:*p_originTimestamp];
+  [v37 setCurrentVIOMapSize:self->_currentVIOMapSize];
+  [v37 setNumberOfCameraSwitches:self->_numberOfCameraSwitches];
+  [v37 setReinitializationAttempts:self->_reinitializationAttempts];
+  [stateCopy setWorldTrackingState:v37];
 }
 
 - (unint64_t)_sessionType
@@ -5902,7 +5966,7 @@ LABEL_23:
 
 - (unsigned)_trackingCameraID:(CV3DSLAMStateContext *)d
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   data = [MEMORY[0x1E695DF88] data];
   if (CV3DSLAMStateGetCameraSwitchingStatistics() == *MEMORY[0x1E698BD80] && (v5 = [data bytes], (objc_msgSend(data, "length") - 24) <= 0x17))
   {
@@ -5917,21 +5981,21 @@ LABEL_23:
     lastCameraType = self->_lastCameraType;
     if (lastCameraType && lastCameraType != captureDeviceType)
     {
-      v13 = _ARLogTechnique();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+      v14 = _ARLogTechnique(v12);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
       {
-        v14 = objc_opt_class();
-        v15 = NSStringFromClass(v14);
-        v16 = self->_lastCameraType;
-        v19 = 138544130;
-        v20 = v15;
-        v21 = 2048;
+        v15 = objc_opt_class();
+        v16 = NSStringFromClass(v15);
+        v17 = self->_lastCameraType;
+        v20 = 138544130;
+        v21 = v16;
+        v22 = 2048;
         selfCopy = self;
-        v23 = 2112;
-        v24 = v16;
-        v25 = 2112;
-        v26 = captureDeviceType;
-        _os_log_impl(&dword_1C241C000, v13, OS_LOG_TYPE_INFO, "%{public}@ <%p>: Camera type changed from %@ to %@", &v19, 0x2Au);
+        v24 = 2112;
+        v25 = v17;
+        v26 = 2112;
+        v27 = captureDeviceType;
+        _os_log_impl(&dword_1C241C000, v14, OS_LOG_TYPE_INFO, "%{public}@ <%p>: Camera type changed from %@ to %@", &v20, 0x2Au);
       }
 
       if ([ARKitUserDefaults BOOLForKey:@"com.apple.arkit.worldTracking.warningSounds"])
@@ -5942,7 +6006,7 @@ LABEL_23:
       ++self->_numberOfCameraSwitches;
     }
 
-    v17 = self->_lastCameraType;
+    v18 = self->_lastCameraType;
     self->_lastCameraType = captureDeviceType;
   }
 
@@ -5958,7 +6022,7 @@ LABEL_23:
 {
   if (self[17].n128_u32[2] == d)
   {
-    ARMatrix4x3FromMatrix4x4(*MEMORY[0x1E69E9B18], *(MEMORY[0x1E69E9B18] + 16), *(MEMORY[0x1E69E9B18] + 32), *(MEMORY[0x1E69E9B18] + 48));
+    ARMatrix4x3FromMatrix4x4();
   }
 
   else
@@ -5985,7 +6049,7 @@ LABEL_23:
 
     else
     {
-      v4 = _ARLogGeneral();
+      v4 = _ARLogGeneral(self);
       if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
       {
         v5 = objc_opt_class();
@@ -5998,7 +6062,7 @@ LABEL_23:
       }
     }
 
-    ARMatrix4x3FromMatrix4x4(*MEMORY[0x1E69E9B18], *(MEMORY[0x1E69E9B18] + 16), *(MEMORY[0x1E69E9B18] + 32), *(MEMORY[0x1E69E9B18] + 48));
+    ARMatrix4x3FromMatrix4x4();
     return result;
   }
 
@@ -6020,17 +6084,22 @@ LABEL_23:
   return *(self + v3);
 }
 
-- (uint64_t)_compensationMatrixForTrackingCameraID:(uint64_t)d
+- (void)_compensationMatrixForTrackingCameraID:(uint64_t)d
 {
   result = [self _sessionType];
-  switch(result)
+  if (result == 2)
   {
-    case 2:
-      return ARMatrix4x3FromMatrix4x4(*MEMORY[0x1E69E9B18], *(MEMORY[0x1E69E9B18] + 16), *(MEMORY[0x1E69E9B18] + 32), *(MEMORY[0x1E69E9B18] + 48));
-    case 1:
-      return [self _compensationMatrixForBravoSession];
-    case 0:
-      return [self _compensationMatrixForWidePlusUWSessionAndTrackingCameraID:d];
+    ARMatrix4x3FromMatrix4x4();
+  }
+
+  else if (result == 1)
+  {
+    return [self _compensationMatrixForBravoSession];
+  }
+
+  else if (!result)
+  {
+    return [self _compensationMatrixForWidePlusUWSessionAndTrackingCameraID:d];
   }
 
   return result;
@@ -6039,21 +6108,22 @@ LABEL_23:
 - (int)_updatePoseData:(id)data forTimeStamp:(double)stamp updateTrackingState:(BOOL)state
 {
   stateCopy = state;
-  v80 = *MEMORY[0x1E69E9840];
+  v82 = *MEMORY[0x1E69E9840];
   dataCopy = data;
   v9 = CV3DSLAMStateSnapshotCreate();
-  v60[0] = MEMORY[0x1E69E9820];
-  v60[1] = 3221225472;
-  v61 = __77__ARWorldTrackingTechnique__updatePoseData_forTimeStamp_updateTrackingState___block_invoke;
-  v62 = &__block_descriptor_40_e5_v8__0l;
-  v63 = v9;
+  v62[0] = MEMORY[0x1E69E9820];
+  v62[1] = 3221225472;
+  v63 = __77__ARWorldTrackingTechnique__updatePoseData_forTimeStamp_updateTrackingState___block_invoke;
+  v64 = &__block_descriptor_40_e5_v8__0l;
+  v65 = v9;
   Pose = CV3DPosePredictionGetPose();
+  v11 = Pose;
   if (Pose)
   {
     if (self->_lastPoseMetaDataTimestamp <= 0.0)
     {
 LABEL_32:
-      v21 = 1;
+      v23 = 1;
       goto LABEL_37;
     }
 
@@ -6062,42 +6132,42 @@ LABEL_32:
       [ARWorldTrackingTechnique processData:];
     }
 
-    v11 = ARShouldUseLogTypeError(void)::internalOSVersion;
-    v12 = _ARLogTechnique();
-    v13 = v12;
-    if (v11 == 1)
+    v12 = ARShouldUseLogTypeError(void)::internalOSVersion;
+    v13 = _ARLogTechnique(Pose);
+    v14 = v13;
+    if (v12 == 1)
     {
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
-        v14 = objc_opt_class();
-        v15 = NSStringFromClass(v14);
-        v16 = NSStringFromCV3DPosePredictionReturn(Pose);
+        v15 = objc_opt_class();
+        v16 = NSStringFromClass(v15);
+        v17 = NSStringFromCV3DPosePredictionReturn(v11);
         *buf = 138544130;
-        *&buf[4] = v15;
+        *&buf[4] = v16;
         *&buf[12] = 2048;
         *&buf[14] = self;
         *&buf[22] = 2112;
-        *&buf[24] = v16;
-        LOWORD(v77) = 2048;
-        *(&v77 + 2) = stamp;
-        _os_log_impl(&dword_1C241C000, v13, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: Unable to update pose [%@] for timestamp %f", buf, 0x2Au);
+        *&buf[24] = v17;
+        LOWORD(v79) = 2048;
+        *(&v79 + 2) = stamp;
+        _os_log_impl(&dword_1C241C000, v14, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: Unable to update pose [%@] for timestamp %f", buf, 0x2Au);
       }
     }
 
-    else if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+    else if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
     {
-      v27 = objc_opt_class();
-      v28 = NSStringFromClass(v27);
-      v29 = NSStringFromCV3DPosePredictionReturn(Pose);
+      v29 = objc_opt_class();
+      v30 = NSStringFromClass(v29);
+      v31 = NSStringFromCV3DPosePredictionReturn(v11);
       *buf = 138544130;
-      *&buf[4] = v28;
+      *&buf[4] = v30;
       *&buf[12] = 2048;
       *&buf[14] = self;
       *&buf[22] = 2112;
-      *&buf[24] = v29;
-      LOWORD(v77) = 2048;
-      *(&v77 + 2) = stamp;
-      _os_log_impl(&dword_1C241C000, v13, OS_LOG_TYPE_INFO, "Error: %{public}@ <%p>: Unable to update pose [%@] for timestamp %f", buf, 0x2Au);
+      *&buf[24] = v31;
+      LOWORD(v79) = 2048;
+      *(&v79 + 2) = stamp;
+      _os_log_impl(&dword_1C241C000, v14, OS_LOG_TYPE_INFO, "Error: %{public}@ <%p>: Unable to update pose [%@] for timestamp %f", buf, 0x2Au);
     }
 
 LABEL_31:
@@ -6106,7 +6176,7 @@ LABEL_31:
   }
 
   SLAMState = CV3DSLAMStateSnapshotCreateSLAMState();
-  v18 = SLAMState;
+  v19 = SLAMState;
   if (!SLAMState)
   {
     if (ARShouldUseLogTypeError(void)::onceToken != -1)
@@ -6114,99 +6184,100 @@ LABEL_31:
       [ARWorldTrackingTechnique processData:];
     }
 
-    v30 = ARShouldUseLogTypeError(void)::internalOSVersion;
-    v31 = _ARLogTechnique();
-    v13 = v31;
-    if (v30 == 1)
+    v32 = ARShouldUseLogTypeError(void)::internalOSVersion;
+    v33 = _ARLogTechnique(SLAMState);
+    v14 = v33;
+    if (v32 == 1)
     {
-      if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
       {
-        v32 = objc_opt_class();
-        v33 = NSStringFromClass(v32);
+        v34 = objc_opt_class();
+        v35 = NSStringFromClass(v34);
         *buf = 138543874;
-        *&buf[4] = v33;
+        *&buf[4] = v35;
         *&buf[12] = 2048;
         *&buf[14] = self;
         *&buf[22] = 2048;
         *&buf[24] = stamp;
-        _os_log_impl(&dword_1C241C000, v13, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: Unable to create SLAM state for timestamp %f", buf, 0x20u);
+        _os_log_impl(&dword_1C241C000, v14, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: Unable to create SLAM state for timestamp %f", buf, 0x20u);
       }
     }
 
-    else if (os_log_type_enabled(v31, OS_LOG_TYPE_INFO))
+    else if (os_log_type_enabled(v33, OS_LOG_TYPE_INFO))
     {
-      v42 = objc_opt_class();
-      v43 = NSStringFromClass(v42);
+      v44 = objc_opt_class();
+      v45 = NSStringFromClass(v44);
       *buf = 138543874;
-      *&buf[4] = v43;
+      *&buf[4] = v45;
       *&buf[12] = 2048;
       *&buf[14] = self;
       *&buf[22] = 2048;
       *&buf[24] = stamp;
-      _os_log_impl(&dword_1C241C000, v13, OS_LOG_TYPE_INFO, "Error: %{public}@ <%p>: Unable to create SLAM state for timestamp %f", buf, 0x20u);
+      _os_log_impl(&dword_1C241C000, v14, OS_LOG_TYPE_INFO, "Error: %{public}@ <%p>: Unable to create SLAM state for timestamp %f", buf, 0x20u);
     }
 
     goto LABEL_31;
   }
 
-  v56[0] = MEMORY[0x1E69E9820];
-  v56[1] = 3221225472;
-  v57 = __77__ARWorldTrackingTechnique__updatePoseData_forTimeStamp_updateTrackingState___block_invoke_219;
-  v58 = &__block_descriptor_40_e5_v8__0l;
-  v59 = SLAMState;
-  v19 = [[ARSLAMState alloc] initWithSLAMState:SLAMState];
-  [dataCopy setSlamState:v19];
+  v58[0] = MEMORY[0x1E69E9820];
+  v58[1] = 3221225472;
+  v59 = __77__ARWorldTrackingTechnique__updatePoseData_forTimeStamp_updateTrackingState___block_invoke_219;
+  v60 = &__block_descriptor_40_e5_v8__0l;
+  v61 = SLAMState;
+  v20 = [[ARSLAMState alloc] initWithSLAMState:SLAMState];
+  [dataCopy setSlamState:v20];
 
-  v79 = 0;
-  v77 = 0u;
-  v78 = 0u;
+  v81 = 0;
+  v79 = 0u;
+  v80 = 0u;
   memset(buf, 0, sizeof(buf));
-  v73 = 0;
-  v74 = 0;
   v75 = 0;
-  v20 = [(ARWorldTrackingTechnique *)self _trackingCameraID:v18];
-  v54 = *(MEMORY[0x1E69E9B18] + 16);
-  v55 = *MEMORY[0x1E69E9B18];
-  v52 = *(MEMORY[0x1E69E9B18] + 48);
-  v53 = *(MEMORY[0x1E69E9B18] + 32);
-  v21 = CV3DSLAMStateSnapshotGetPose();
-  if (v21)
+  v76 = 0;
+  v77 = 0;
+  v21 = [(ARWorldTrackingTechnique *)self _trackingCameraID:v19];
+  v56 = *(MEMORY[0x1E69E9B18] + 16);
+  v57 = *MEMORY[0x1E69E9B18];
+  v54 = *(MEMORY[0x1E69E9B18] + 48);
+  v55 = *(MEMORY[0x1E69E9B18] + 32);
+  v22 = CV3DSLAMStateSnapshotGetPose();
+  v23 = v22;
+  if (v22)
   {
-    v22 = *MEMORY[0x1E698BD60];
-    v24 = *&v54;
-    RowMajorTransform = *&v55;
-    v26 = *&v52;
-    v25 = *&v53;
+    v24 = *MEMORY[0x1E698BD60];
+    v26 = *&v56;
+    RowMajorTransform = *&v57;
+    v28 = *&v54;
+    v27 = *&v55;
   }
 
   else
   {
-    v22 = CV3DSLAMStateConvertPoseToCameraFrame();
-    v66 = 0;
-    memset(v65, 0, sizeof(v65));
-    memset(v64, 0, sizeof(v64));
-    [(ARWorldTrackingTechnique *)self _compensationMatrixForTrackingCameraID:v20];
-    v81.columns[0].i32[3] = 0;
-    v81.columns[1].i32[3] = 0;
-    v81.columns[2].i32[3] = 0;
-    v81.columns[3].i32[3] = 0;
-    ARCascadeTransform(v65, v64, v81, v68, v67);
-    RowMajorTransform = ARMatrix4x4MakeRowMajorTransform(v65);
+    v24 = CV3DSLAMStateConvertPoseToCameraFrame();
+    v68 = 0;
+    memset(v67, 0, sizeof(v67));
+    memset(v66, 0, sizeof(v66));
+    [(ARWorldTrackingTechnique *)self _compensationMatrixForTrackingCameraID:v21];
+    v83.columns[0].i32[3] = 0;
+    v83.columns[1].i32[3] = 0;
+    v83.columns[2].i32[3] = 0;
+    v83.columns[3].i32[3] = 0;
+    ARCascadeTransform(v67, v66, v83, v70, v69);
+    RowMajorTransform = ARMatrix4x4MakeRowMajorTransform(v67);
   }
 
-  if (v22 == *MEMORY[0x1E698BD80])
+  if (v24 == *MEMORY[0x1E698BD80])
   {
-    [dataCopy setVisionCameraTransform:{RowMajorTransform, v24, v25, v26}];
+    [dataCopy setVisionCameraTransform:{RowMajorTransform, v26, v27, v28}];
     if (stateCopy)
     {
-      [(ARWorldTrackingTechnique *)self _updateTrackingState:dataCopy slamState:v18];
+      [(ARWorldTrackingTechnique *)self _updateTrackingState:dataCopy slamState:v19];
     }
 
-    *v68 = 0;
+    *v70 = 0;
     CV3DSLAMStateGetTimestamp();
-    v34 = *v68;
+    v36 = *v70;
     worldTrackingState = [dataCopy worldTrackingState];
-    [worldTrackingState setPoseTimestamp:v34];
+    [worldTrackingState setPoseTimestamp:v36];
   }
 
   else
@@ -6216,61 +6287,62 @@ LABEL_31:
       [ARWorldTrackingTechnique processData:];
     }
 
-    v36 = ARShouldUseLogTypeError(void)::internalOSVersion;
-    v37 = _ARLogTechnique();
-    v38 = v37;
-    if (v36 == 1)
+    v38 = ARShouldUseLogTypeError(void)::internalOSVersion;
+    v39 = _ARLogTechnique(v22);
+    v40 = v39;
+    if (v38 == 1)
     {
-      if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
       {
-        v39 = objc_opt_class();
-        v40 = NSStringFromClass(v39);
-        v41 = NSStringFromCV3DSLAMReturn(v22);
-        *v68 = 138543874;
-        *&v68[4] = v40;
-        v69 = 2048;
+        v41 = objc_opt_class();
+        v42 = NSStringFromClass(v41);
+        v43 = NSStringFromCV3DSLAMReturn(v24);
+        *v70 = 138543874;
+        *&v70[4] = v42;
+        v71 = 2048;
         selfCopy2 = self;
-        v71 = 2112;
-        v72 = v41;
-        _os_log_impl(&dword_1C241C000, v38, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: Error converting pose from IMU to camera frame: %@", v68, 0x20u);
+        v73 = 2112;
+        v74 = v43;
+        _os_log_impl(&dword_1C241C000, v40, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: Error converting pose from IMU to camera frame: %@", v70, 0x20u);
       }
     }
 
-    else if (os_log_type_enabled(v37, OS_LOG_TYPE_INFO))
+    else if (os_log_type_enabled(v39, OS_LOG_TYPE_INFO))
     {
-      v44 = objc_opt_class();
-      v45 = NSStringFromClass(v44);
-      v46 = NSStringFromCV3DSLAMReturn(v22);
-      *v68 = 138543874;
-      *&v68[4] = v45;
-      v69 = 2048;
+      v46 = objc_opt_class();
+      v47 = NSStringFromClass(v46);
+      v48 = NSStringFromCV3DSLAMReturn(v24);
+      *v70 = 138543874;
+      *&v70[4] = v47;
+      v71 = 2048;
       selfCopy2 = self;
-      v71 = 2112;
-      v72 = v46;
-      _os_log_impl(&dword_1C241C000, v38, OS_LOG_TYPE_INFO, "Error: %{public}@ <%p>: Error converting pose from IMU to camera frame: %@", v68, 0x20u);
+      v73 = 2112;
+      v74 = v48;
+      _os_log_impl(&dword_1C241C000, v40, OS_LOG_TYPE_INFO, "Error: %{public}@ <%p>: Error converting pose from IMU to camera frame: %@", v70, 0x20u);
     }
 
-    v21 = 1;
+    v23 = 1;
   }
 
-  v47 = [(ARWorldTrackingTechnique *)self mutableOptions:v52];
-  activeVideoFormatsMap = [v47 activeVideoFormatsMap];
-  v49 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:v20];
-  v50 = [activeVideoFormatsMap objectForKeyedSubscript:v49];
-  [dataCopy setCurrentlyActiveVideoFormat:v50];
+  v49 = [(ARWorldTrackingTechnique *)self mutableOptions:v54];
+  activeVideoFormatsMap = [v49 activeVideoFormatsMap];
+  v51 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:v21];
+  v52 = [activeVideoFormatsMap objectForKeyedSubscript:v51];
+  [dataCopy setCurrentlyActiveVideoFormat:v52];
 
-  (v57)(v56);
+  v59(v58);
 LABEL_37:
-  v61(v60);
+  v63(v62);
 
-  return v21;
+  return v23;
 }
 
 - (void)onMetadataCallback:(CV3DSLAMStateContext *)callback
 {
-  v43 = *MEMORY[0x1E69E9840];
+  v47 = *MEMORY[0x1E69E9840];
   Timestamp = CV3DSLAMStateGetTimestamp();
-  v6 = *MEMORY[0x1E698BD80];
+  v6 = Timestamp;
+  v7 = *MEMORY[0x1E698BD80];
   if (Timestamp != *MEMORY[0x1E698BD80])
   {
     if (ARShouldUseLogTypeError(void)::onceToken != -1)
@@ -6278,121 +6350,127 @@ LABEL_37:
       [ARWorldTrackingTechnique processData:];
     }
 
-    v7 = ARShouldUseLogTypeError(void)::internalOSVersion;
-    v8 = _ARLogTechnique();
-    v9 = v8;
-    if (v7 == 1)
+    v8 = ARShouldUseLogTypeError(void)::internalOSVersion;
+    v9 = _ARLogTechnique(Timestamp);
+    v10 = v9;
+    if (v8 == 1)
     {
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
-        v10 = objc_opt_class();
-        v11 = NSStringFromClass(v10);
+        v11 = objc_opt_class();
+        v12 = NSStringFromClass(v11);
         *buf = 138543874;
-        v34 = v11;
-        v35 = 2048;
+        v38 = v12;
+        v39 = 2048;
         selfCopy6 = self;
-        v37 = 1024;
-        LODWORD(v38) = Timestamp;
-        _os_log_impl(&dword_1C241C000, v9, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: onMetadataCallback: CV3DSLAMStateGetTimestamp error: %d", buf, 0x1Cu);
+        v41 = 1024;
+        LODWORD(v42) = v6;
+        _os_log_impl(&dword_1C241C000, v10, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: onMetadataCallback: CV3DSLAMStateGetTimestamp error: %d", buf, 0x1Cu);
       }
     }
 
-    else if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+    else if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
-      v12 = objc_opt_class();
-      v13 = NSStringFromClass(v12);
+      v13 = objc_opt_class();
+      v14 = NSStringFromClass(v13);
       *buf = 138543874;
-      v34 = v13;
-      v35 = 2048;
+      v38 = v14;
+      v39 = 2048;
       selfCopy6 = self;
-      v37 = 1024;
-      LODWORD(v38) = Timestamp;
-      _os_log_impl(&dword_1C241C000, v9, OS_LOG_TYPE_INFO, "Error: %{public}@ <%p>: onMetadataCallback: CV3DSLAMStateGetTimestamp error: %d", buf, 0x1Cu);
+      v41 = 1024;
+      LODWORD(v42) = v6;
+      _os_log_impl(&dword_1C241C000, v10, OS_LOG_TYPE_INFO, "Error: %{public}@ <%p>: onMetadataCallback: CV3DSLAMStateGetTimestamp error: %d", buf, 0x1Cu);
     }
   }
 
-  v14 = CV3DPosePredictionPushSLAMMetadata();
-  if (v14)
+  v15 = CV3DPosePredictionPushSLAMMetadata();
+  v16 = v15;
+  if (v15)
   {
     if (ARShouldUseLogTypeError(void)::onceToken != -1)
     {
       [ARWorldTrackingTechnique processData:];
     }
 
-    v15 = ARShouldUseLogTypeError(void)::internalOSVersion;
-    v16 = _ARLogTechnique();
-    v17 = v16;
-    if (v15 == 1)
+    v17 = ARShouldUseLogTypeError(void)::internalOSVersion;
+    v18 = _ARLogTechnique(v15);
+    v19 = v18;
+    if (v17 == 1)
     {
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
       {
-        v18 = objc_opt_class();
-        v19 = NSStringFromClass(v18);
+        v20 = objc_opt_class();
+        v21 = NSStringFromClass(v20);
         *buf = 138543874;
-        v34 = v19;
-        v35 = 2048;
+        v38 = v21;
+        v39 = 2048;
         selfCopy6 = self;
-        v37 = 1024;
-        LODWORD(v38) = v14;
-        _os_log_impl(&dword_1C241C000, v17, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: onMetadataCallback: CV3DPosePredictionPushSLAMMetadata error: %d", buf, 0x1Cu);
+        v41 = 1024;
+        LODWORD(v42) = v16;
+        _os_log_impl(&dword_1C241C000, v19, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: onMetadataCallback: CV3DPosePredictionPushSLAMMetadata error: %d", buf, 0x1Cu);
       }
     }
 
-    else if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
+    else if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
     {
-      v31 = objc_opt_class();
-      v32 = NSStringFromClass(v31);
+      v35 = objc_opt_class();
+      v36 = NSStringFromClass(v35);
       *buf = 138543874;
-      v34 = v32;
-      v35 = 2048;
+      v38 = v36;
+      v39 = 2048;
       selfCopy6 = self;
-      v37 = 1024;
-      LODWORD(v38) = v14;
-      _os_log_impl(&dword_1C241C000, v17, OS_LOG_TYPE_INFO, "Error: %{public}@ <%p>: onMetadataCallback: CV3DPosePredictionPushSLAMMetadata error: %d", buf, 0x1Cu);
+      v41 = 1024;
+      LODWORD(v42) = v16;
+      _os_log_impl(&dword_1C241C000, v19, OS_LOG_TYPE_INFO, "Error: %{public}@ <%p>: onMetadataCallback: CV3DPosePredictionPushSLAMMetadata error: %d", buf, 0x1Cu);
     }
   }
 
   else
   {
     CV3DSLAMStateGetStatus();
-    if (CV3DSLAMStateNumReinit() == v6 && self->_reinitializationAttempts)
+    v22 = CV3DSLAMStateNumReinit();
+    if (v22 == v7 && self->_reinitializationAttempts)
     {
-      v20 = _ARLogTechnique();
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
+      v23 = _ARLogTechnique(v22);
+      if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
       {
-        v21 = objc_opt_class();
-        v22 = NSStringFromClass(v21);
+        v24 = objc_opt_class();
+        v25 = NSStringFromClass(v24);
         reinitializationAttempts = self->_reinitializationAttempts;
         *buf = 138544386;
-        v34 = v22;
-        v35 = 2048;
+        v38 = v25;
+        v39 = 2048;
         selfCopy6 = self;
-        v37 = 2048;
-        v38 = 0;
-        v39 = 1024;
-        v40 = reinitializationAttempts;
-        v41 = 1024;
+        v41 = 2048;
         v42 = 0;
-        _os_log_impl(&dword_1C241C000, v20, OS_LOG_TYPE_DEBUG, "%{public}@ <%p>: Reinitialization attempts changed at %f, %i => %i", buf, 0x2Cu);
+        v43 = 1024;
+        v44 = reinitializationAttempts;
+        v45 = 1024;
+        v46 = 0;
+        _os_log_impl(&dword_1C241C000, v23, OS_LOG_TYPE_DEBUG, "%{public}@ <%p>: Reinitialization attempts changed at %f, %i => %i", buf, 0x2Cu);
       }
 
       self->_reinitializationAttempts = 0;
-      if (![(ARWorldTrackingTechnique *)self _isRelocalizing]&& CV3DSLAMStateGetMapSize() == v6)
+      if (![(ARWorldTrackingTechnique *)self _isRelocalizing])
       {
-        v24 = _ARLogTechnique();
-        if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
+        MapSize = CV3DSLAMStateGetMapSize();
+        if (MapSize == v7)
         {
-          v25 = objc_opt_class();
-          v26 = NSStringFromClass(v25);
-          *buf = 138543618;
-          v34 = v26;
-          v35 = 2048;
-          selfCopy6 = self;
-          _os_log_impl(&dword_1C241C000, v24, OS_LOG_TYPE_DEBUG, "%{public}@ <%p>: SLAM re-init with 0 mapsize. Triggering scene recon and surface detection reset", buf, 0x16u);
-        }
+          v28 = _ARLogTechnique(MapSize);
+          if (os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
+          {
+            v29 = objc_opt_class();
+            v30 = NSStringFromClass(v29);
+            *buf = 138543618;
+            v38 = v30;
+            v39 = 2048;
+            selfCopy6 = self;
+            _os_log_impl(&dword_1C241C000, v28, OS_LOG_TYPE_DEBUG, "%{public}@ <%p>: SLAM re-init with 0 mapsize. Triggering scene recon and surface detection reset", buf, 0x16u);
+          }
 
-        [(ARWorldTrackingTechnique *)self resetSceneReconstruction];
-        [(ARWorldTrackingTechnique *)self _resetSurfaceDetection];
+          [(ARWorldTrackingTechnique *)self resetSceneReconstruction];
+          [(ARWorldTrackingTechnique *)self _resetSurfaceDetection];
+        }
       }
     }
 
@@ -6427,11 +6505,11 @@ LABEL_37:
 
 - (void)_pushWTResultDataForTimestamp:(double)timestamp
 {
-  v189 = *MEMORY[0x1E69E9840];
+  v194 = *MEMORY[0x1E69E9840];
   obj = [[ARWorldTrackingPoseData alloc] initWithTimestamp:timestamp];
-  v142 = [ARWorldTrackingTechnique _updatePoseData:"_updatePoseData:forTimeStamp:updateTrackingState:" forTimeStamp:timestamp updateTrackingState:?];
-  v152 = objc_opt_new();
-  v168 = 0.0;
+  v147 = [ARWorldTrackingTechnique _updatePoseData:"_updatePoseData:forTimeStamp:updateTrackingState:" forTimeStamp:timestamp updateTrackingState:?];
+  v157 = objc_opt_new();
+  v173 = 0.0;
   slamState = [(ARWorldTrackingPoseData *)obj slamState];
   selfCopy = self;
   [slamState slamState];
@@ -6444,36 +6522,36 @@ LABEL_37:
   }
 
   kdebug_trace();
-  self->_lastPoseMetaDataTimestamp = v168;
-  v170[0] = 0;
+  self->_lastPoseMetaDataTimestamp = v173;
+  v175[0] = 0;
   slamState2 = [(ARWorldTrackingPoseData *)obj slamState];
   [slamState2 slamState];
-  v150 = CV3DSLAMStateCopyUpdatedAnchors();
+  v155 = CV3DSLAMStateCopyUpdatedAnchors();
 
-  if (!v150)
+  if (!v155)
   {
-    [(ARWorldTrackingTechnique *)self _handleCV3DError:v170[0] withDescription:@"Get updated anchors error" failTechnique:0];
-    CFRelease(v170[0]);
+    [(ARWorldTrackingTechnique *)self _handleCV3DError:v175[0] withDescription:@"Get updated anchors error" failTechnique:0];
+    CFRelease(v175[0]);
   }
 
   slamState3 = [(ARWorldTrackingPoseData *)obj slamState];
   [slamState3 slamState];
-  v148 = CV3DSLAMStateCopyNewAnchors();
+  v153 = CV3DSLAMStateCopyNewAnchors();
 
-  if (!v148)
+  if (!v153)
   {
-    [(ARWorldTrackingTechnique *)self _handleCV3DError:v170[0] withDescription:@"Get added anchors error" failTechnique:0];
-    CFRelease(v170[0]);
+    [(ARWorldTrackingTechnique *)self _handleCV3DError:v175[0] withDescription:@"Get added anchors error" failTechnique:0];
+    CFRelease(v175[0]);
   }
 
   slamState4 = [(ARWorldTrackingPoseData *)obj slamState];
   [slamState4 slamState];
-  v146 = CV3DSLAMStateCopyRemovedAnchors();
+  v151 = CV3DSLAMStateCopyRemovedAnchors();
 
-  if (!v146)
+  if (!v151)
   {
-    [(ARWorldTrackingTechnique *)self _handleCV3DError:v170[0] withDescription:@"Get removed anchors error" failTechnique:0];
-    CFRelease(v170[0]);
+    [(ARWorldTrackingTechnique *)self _handleCV3DError:v175[0] withDescription:@"Get removed anchors error" failTechnique:0];
+    CFRelease(v175[0]);
   }
 
   if (self->_enableMLCMRelocalization)
@@ -6487,157 +6565,163 @@ LABEL_37:
       goto LABEL_12;
     }
 
-    [(ARWorldTrackingTechnique *)self _handleCV3DError:v170[0] withDescription:@"Get external anchors error" failTechnique:0];
-    CFRelease(v170[0]);
+    [(ARWorldTrackingTechnique *)self _handleCV3DError:v175[0] withDescription:@"Get external anchors error" failTechnique:0];
+    CFRelease(v175[0]);
   }
 
   ExternalAnchorNames = 0;
 LABEL_12:
-  if ([v150 count] || objc_msgSend(v148, "count") || objc_msgSend(v146, "count") || objc_msgSend(ExternalAnchorNames, "count"))
+  if ([v155 count] || objc_msgSend(v153, "count") || objc_msgSend(v151, "count") || objc_msgSend(ExternalAnchorNames, "count"))
   {
-    [v150 count];
-    [v148 count];
-    [v146 count];
+    [v155 count];
+    [v153 count];
+    [v151 count];
     kdebug_trace();
     v11 = [ARWorldTrackingReferenceAnchorData alloc];
-    v12 = ARAnchorsFromCV3DAnchorsArray(v150, timestamp);
-    v13 = ARAnchorsFromCV3DAnchorsArray(v148, timestamp);
-    v14 = ARAnchorsFromCV3DAnchorsArray(v146, timestamp);
+    v12 = ARAnchorsFromCV3DAnchorsArray(v155, timestamp);
+    v13 = ARAnchorsFromCV3DAnchorsArray(v153, timestamp);
+    v14 = ARAnchorsFromCV3DAnchorsArray(v151, timestamp);
     v15 = ARAnchorsFromCV3DAnchorsArray(ExternalAnchorNames, timestamp);
-    v144 = [(ARWorldTrackingReferenceAnchorData *)v11 initWithUpdatedAnchors:v12 addedAnchors:v13 removedAnchors:v14 externalAnchors:v15];
+    v149 = [(ARWorldTrackingReferenceAnchorData *)v11 initWithUpdatedAnchors:v12 addedAnchors:v13 removedAnchors:v14 externalAnchors:v15];
 
-    [(ARWorldTrackingReferenceAnchorData *)v144 setTimestamp:timestamp];
+    [(ARWorldTrackingReferenceAnchorData *)v149 setTimestamp:timestamp];
     dispatch_semaphore_wait(self->_sessionHandleStateSemaphore, 0xFFFFFFFFFFFFFFFFLL);
-    [(ARWorldTrackingReferenceAnchorData *)v144 setReceivedAnchors:self->_anchorsReceived];
-    v166 = 0u;
-    v167 = 0u;
-    v164 = 0u;
-    v165 = 0u;
-    addedAnchors = [(ARWorldTrackingReferenceAnchorData *)v144 addedAnchors];
-    v17 = [addedAnchors countByEnumeratingWithState:&v164 objects:v188 count:16];
+    [(ARWorldTrackingReferenceAnchorData *)v149 setReceivedAnchors:self->_anchorsReceived];
+    v171 = 0u;
+    v172 = 0u;
+    v169 = 0u;
+    v170 = 0u;
+    addedAnchors = [(ARWorldTrackingReferenceAnchorData *)v149 addedAnchors];
+    v17 = [addedAnchors countByEnumeratingWithState:&v169 objects:v193 count:16];
     if (v17)
     {
-      v18 = *v165;
+      v18 = *v170;
       do
       {
         for (i = 0; i != v17; ++i)
         {
-          if (*v165 != v18)
+          if (*v170 != v18)
           {
             objc_enumerationMutation(addedAnchors);
           }
 
-          v20 = *(*(&v164 + 1) + 8 * i);
-          if ([(NSMutableSet *)selfCopy->_anchorsReceived containsObject:v20])
+          v20 = *(*(&v169 + 1) + 8 * i);
+          v21 = [(NSMutableSet *)selfCopy->_anchorsReceived containsObject:v20];
+          if (v21)
           {
-            v21 = _ARLogTechnique();
-            if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
+            v22 = _ARLogTechnique(v21);
+            if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
             {
-              v22 = objc_opt_class();
-              v23 = NSStringFromClass(v22);
-              v24 = [v20 description];
+              v23 = objc_opt_class();
+              v24 = NSStringFromClass(v23);
+              v25 = [v20 description];
               LODWORD(buf[0].f64[0]) = 138543874;
-              *(buf[0].f64 + 4) = v23;
+              *(buf[0].f64 + 4) = v24;
               WORD2(buf[0].f64[1]) = 2048;
               *(&buf[0].f64[1] + 6) = selfCopy;
               HIWORD(buf[1].f64[0]) = 2112;
-              *&buf[1].f64[1] = v24;
-              _os_log_impl(&dword_1C241C000, v21, OS_LOG_TYPE_DEBUG, "%{public}@ <%p>: adding received anchor %@", buf, 0x20u);
+              *&buf[1].f64[1] = v25;
+              _os_log_impl(&dword_1C241C000, v22, OS_LOG_TYPE_DEBUG, "%{public}@ <%p>: adding received anchor %@", buf, 0x20u);
             }
 
             [(NSMutableSet *)selfCopy->_anchorsReceived removeObject:v20];
           }
         }
 
-        v17 = [addedAnchors countByEnumeratingWithState:&v164 objects:v188 count:16];
+        v17 = [addedAnchors countByEnumeratingWithState:&v169 objects:v193 count:16];
       }
 
       while (v17);
     }
 
-    v163 = 0u;
-    v161 = 0u;
-    v162 = 0u;
-    v160 = 0u;
-    externalAnchors = [(ARWorldTrackingReferenceAnchorData *)v144 externalAnchors];
-    v26 = [externalAnchors countByEnumeratingWithState:&v160 objects:v187 count:16];
-    if (v26)
+    v168 = 0u;
+    v166 = 0u;
+    v167 = 0u;
+    v165 = 0u;
+    externalAnchors = [(ARWorldTrackingReferenceAnchorData *)v149 externalAnchors];
+    v27 = [externalAnchors countByEnumeratingWithState:&v165 objects:v192 count:16];
+    v28 = v27;
+    if (v27)
     {
-      v27 = *v161;
+      v29 = *v166;
       do
       {
-        for (j = 0; j != v26; ++j)
+        v30 = 0;
+        do
         {
-          if (*v161 != v27)
+          if (*v166 != v29)
           {
             objc_enumerationMutation(externalAnchors);
           }
 
-          v29 = *(*(&v160 + 1) + 8 * j);
-          v30 = _ARLogTechnique();
-          if (os_log_type_enabled(v30, OS_LOG_TYPE_DEBUG))
+          v31 = *(*(&v165 + 1) + 8 * v30);
+          v32 = _ARLogTechnique(v27);
+          if (os_log_type_enabled(v32, OS_LOG_TYPE_DEBUG))
           {
-            v31 = objc_opt_class();
-            v32 = NSStringFromClass(v31);
-            v33 = [v29 description];
+            v33 = objc_opt_class();
+            v34 = NSStringFromClass(v33);
+            v35 = [v31 description];
             LODWORD(buf[0].f64[0]) = 138543874;
-            *(buf[0].f64 + 4) = v32;
+            *(buf[0].f64 + 4) = v34;
             WORD2(buf[0].f64[1]) = 2048;
             *(&buf[0].f64[1] + 6) = selfCopy;
             HIWORD(buf[1].f64[0]) = 2112;
-            *&buf[1].f64[1] = v33;
-            _os_log_impl(&dword_1C241C000, v30, OS_LOG_TYPE_DEBUG, "%{public}@ <%p>: updating external anchor %@", buf, 0x20u);
+            *&buf[1].f64[1] = v35;
+            _os_log_impl(&dword_1C241C000, v32, OS_LOG_TYPE_DEBUG, "%{public}@ <%p>: updating external anchor %@", buf, 0x20u);
           }
+
+          ++v30;
         }
 
-        v26 = [externalAnchors countByEnumeratingWithState:&v160 objects:v187 count:16];
+        while (v28 != v30);
+        v27 = [externalAnchors countByEnumeratingWithState:&v165 objects:v192 count:16];
+        v28 = v27;
       }
 
-      while (v26);
+      while (v27);
     }
 
-    v34 = _ARLogTechnique();
-    if (os_log_type_enabled(v34, OS_LOG_TYPE_DEBUG))
+    v37 = _ARLogTechnique(v36);
+    if (os_log_type_enabled(v37, OS_LOG_TYPE_DEBUG))
     {
-      v35 = objc_opt_class();
-      v36 = NSStringFromClass(v35);
-      v37 = [(NSMutableSet *)selfCopy->_anchorsReceived count];
+      v38 = objc_opt_class();
+      v39 = NSStringFromClass(v38);
+      v40 = [(NSMutableSet *)selfCopy->_anchorsReceived count];
       LODWORD(buf[0].f64[0]) = 138543874;
-      *(buf[0].f64 + 4) = v36;
+      *(buf[0].f64 + 4) = v39;
       WORD2(buf[0].f64[1]) = 2048;
       *(&buf[0].f64[1] + 6) = selfCopy;
       HIWORD(buf[1].f64[0]) = 2048;
-      *&buf[1].f64[1] = v37;
-      _os_log_impl(&dword_1C241C000, v34, OS_LOG_TYPE_DEBUG, "%{public}@ <%p>: remaining received anchors to be added %tu", buf, 0x20u);
+      *&buf[1].f64[1] = v40;
+      _os_log_impl(&dword_1C241C000, v37, OS_LOG_TYPE_DEBUG, "%{public}@ <%p>: remaining received anchors to be added %tu", buf, 0x20u);
     }
 
     dispatch_semaphore_signal(selfCopy->_sessionHandleStateSemaphore);
-    [v152 addObject:v144];
-    [(ARTrackedRaycastPostProcessor *)selfCopy->_trackedRaycastPostProcessor updateFromPoseGraphEventWithData:v144 referenceOriginTransform:*selfCopy->_anon_360, *&selfCopy->_anon_360[16], *&selfCopy->_anon_360[32], *&selfCopy->_anon_360[48]];
-    v38 = _ARLogTechnique();
-    if (os_log_type_enabled(v38, OS_LOG_TYPE_DEBUG))
+    [v157 addObject:v149];
+    v41 = _ARLogTechnique([(ARTrackedRaycastPostProcessor *)selfCopy->_trackedRaycastPostProcessor updateFromPoseGraphEventWithData:v149 referenceOriginTransform:*selfCopy->_anon_360, *&selfCopy->_anon_360[16], *&selfCopy->_anon_360[32], *&selfCopy->_anon_360[48]]);
+    if (os_log_type_enabled(v41, OS_LOG_TYPE_DEBUG))
     {
-      v39 = objc_opt_class();
-      v40 = NSStringFromClass(v39);
-      v41 = [v150 count];
-      v42 = [v148 count];
-      v43 = [v146 count];
-      v44 = [ExternalAnchorNames count];
+      v42 = objc_opt_class();
+      v43 = NSStringFromClass(v42);
+      v44 = [v155 count];
+      v45 = [v153 count];
+      v46 = [v151 count];
+      v47 = [ExternalAnchorNames count];
       LODWORD(buf[0].f64[0]) = 138544898;
-      *(buf[0].f64 + 4) = v40;
+      *(buf[0].f64 + 4) = v43;
       WORD2(buf[0].f64[1]) = 2048;
       *(&buf[0].f64[1] + 6) = selfCopy;
       HIWORD(buf[1].f64[0]) = 2048;
       buf[1].f64[1] = timestamp;
       LOWORD(buf[2].f64[0]) = 2048;
-      *(buf[2].f64 + 2) = v41;
+      *(buf[2].f64 + 2) = v44;
       WORD1(buf[2].f64[1]) = 2048;
-      *(&buf[2].f64[1] + 4) = v42;
+      *(&buf[2].f64[1] + 4) = v45;
       WORD2(buf[3].f64[0]) = 2048;
-      *(buf[3].f64 + 6) = v43;
+      *(buf[3].f64 + 6) = v46;
       HIWORD(buf[3].f64[1]) = 2048;
-      v184 = v44;
-      _os_log_impl(&dword_1C241C000, v38, OS_LOG_TYPE_DEBUG, "%{public}@ <%p>: World tracking anchors changed at timestamp %f, updated %lu, added %lu, removed %lu, external %lu", buf, 0x48u);
+      v189 = v47;
+      _os_log_impl(&dword_1C241C000, v41, OS_LOG_TYPE_DEBUG, "%{public}@ <%p>: World tracking anchors changed at timestamp %f, updated %lu, added %lu, removed %lu, external %lu", buf, 0x48u);
     }
 
     self = selfCopy;
@@ -6645,20 +6729,20 @@ LABEL_12:
 
   mutableOptions = [(ARWorldTrackingTechnique *)self mutableOptions];
   planeDetectionPoseUpdateCallback = [mutableOptions planeDetectionPoseUpdateCallback];
-  v47 = planeDetectionPoseUpdateCallback == 0;
+  v50 = planeDetectionPoseUpdateCallback == 0;
 
-  if (!v47)
+  if (!v50)
   {
     mutableOptions2 = [(ARWorldTrackingTechnique *)selfCopy mutableOptions];
     planeDetectionPoseUpdateCallback2 = [mutableOptions2 planeDetectionPoseUpdateCallback];
-    (planeDetectionPoseUpdateCallback2)[2](planeDetectionPoseUpdateCallback2, v150);
+    (planeDetectionPoseUpdateCallback2)[2](planeDetectionPoseUpdateCallback2, v155);
   }
 
   os_unfair_lock_lock(&selfCopy->_raycastSessionLock);
   if (selfCopy->_raycastSession.__ptr_)
   {
     [(ARWorldTrackingPoseData *)obj visionCameraTransform];
-    __invert_f4(v190);
+    __invert_f4(v195);
     CV3DRaycastTriggerUpdateFromTrackableIntentsAsync();
   }
 
@@ -6667,36 +6751,36 @@ LABEL_12:
   selfCopy2 = selfCopy;
 LABEL_46:
   dispatch_semaphore_wait(selfCopy2->_resultSemaphore, 0xFFFFFFFFFFFFFFFFLL);
-  v50 = MEMORY[0x1E698BD80];
-  if (v142)
+  v53 = MEMORY[0x1E698BD80];
+  if (v147)
   {
     cachedPoseData = selfCopy2->_cachedPoseData;
     if (cachedPoseData)
     {
-      [(ARWorldTrackingPoseData *)cachedPoseData timestamp];
-      v53 = v52;
-      v54 = _ARLogTechnique();
-      if (os_log_type_enabled(v54, OS_LOG_TYPE_DEBUG))
+      v55 = objc_msgSend_timestamp(cachedPoseData);
+      v57 = v56;
+      v58 = _ARLogTechnique(v55);
+      if (os_log_type_enabled(v58, OS_LOG_TYPE_DEBUG))
       {
-        v55 = objc_opt_class();
-        v56 = NSStringFromClass(v55);
-        [(ARWorldTrackingPoseData *)selfCopy->_cachedPoseData timestamp];
+        v59 = objc_opt_class();
+        v60 = NSStringFromClass(v59);
+        objc_msgSend_timestamp(selfCopy->_cachedPoseData);
         LODWORD(buf[0].f64[0]) = 138544386;
-        *(buf[0].f64 + 4) = v56;
+        *(buf[0].f64 + 4) = v60;
         WORD2(buf[0].f64[1]) = 2048;
         *(&buf[0].f64[1] + 6) = selfCopy;
         HIWORD(buf[1].f64[0]) = 2048;
-        buf[1].f64[1] = (timestamp - v53) * 1000.0;
+        buf[1].f64[1] = (timestamp - v57) * 1000.0;
         LOWORD(buf[2].f64[0]) = 2048;
         *(buf[2].f64 + 2) = timestamp;
         WORD1(buf[2].f64[1]) = 2048;
-        *(&buf[2].f64[1] + 4) = v57;
-        _os_log_impl(&dword_1C241C000, v54, OS_LOG_TYPE_DEBUG, "%{public}@ <%p>: Using cached pose data with age: %fms (%f - %f)", buf, 0x34u);
+        *(&buf[2].f64[1] + 4) = v61;
+        _os_log_impl(&dword_1C241C000, v58, OS_LOG_TYPE_DEBUG, "%{public}@ <%p>: Using cached pose data with age: %fms (%f - %f)", buf, 0x34u);
       }
 
-      v58 = [(ARWorldTrackingPoseData *)selfCopy->_cachedPoseData copy];
-      obj = v58;
-      [v152 addObject:v58];
+      v62 = [(ARWorldTrackingPoseData *)selfCopy->_cachedPoseData copy];
+      obj = v62;
+      [v157 addObject:v62];
       selfCopy2 = selfCopy;
     }
 
@@ -6708,20 +6792,20 @@ LABEL_46:
   [(ARWorldTrackingPoseData *)obj cameraTransform];
   kdebug_trace();
   worldTrackingState = [(ARWorldTrackingPoseData *)obj worldTrackingState];
-  v60 = [worldTrackingState state] == 0;
+  v64 = [worldTrackingState state] == 0;
 
-  if (!v60)
+  if (!v64)
   {
-    v61 = selfCopy->_cachedPoseData;
-    if (v61)
+    v65 = selfCopy->_cachedPoseData;
+    if (v65)
     {
-      [(ARWorldTrackingPoseData *)v61 visionCameraTransform];
-      v149 = v63;
-      v151 = v62;
-      v145 = v65;
-      v147 = v64;
+      [(ARWorldTrackingPoseData *)v65 visionCameraTransform];
+      v154 = v67;
+      v156 = v66;
+      v150 = v69;
+      v152 = v68;
       [(ARWorldTrackingPoseData *)obj visionCameraTransform];
-      if (AREqualTransforms(v151, v149, v147, v145, v66, v67, v68, v69))
+      if (AREqualTransforms(v156, v154, v152, v150, v70, v71, v72, v73))
       {
         kdebug_trace();
       }
@@ -6730,7 +6814,7 @@ LABEL_46:
     objc_storeStrong(&selfCopy->_cachedPoseData, obj);
   }
 
-  [v152 addObject:obj];
+  [v157 addObject:obj];
   if (selfCopy->_didClearMap)
   {
     selfCopy->_didClearMap = 0;
@@ -6748,42 +6832,43 @@ LABEL_46:
 
     mutableOptions3 = [MEMORY[0x1E696AFB0] ar_UUIDWithIntegerValue:{-[ARWorldTrackingTechnique vioSessionIdentifier](selfCopy, "vioSessionIdentifier")}];
     ar_createCFUUIDRef = [mutableOptions3 ar_createCFUUIDRef];
-    *&v173 = 0;
-    v184 = 0;
+    *&v178 = 0;
+    v189 = 0;
     memset(buf, 0, sizeof(buf));
-    v175 = 0uLL;
-    v176 = 0;
+    v180 = 0uLL;
+    v181 = 0;
     [(ARWorldTrackingPoseData *)obj visionCameraTransform];
-    ARMatrix4x4RowMajorRotationAndTranslation(buf, &v175, v73, v74, v75, v76);
-    v191.columns[0] = ARDisplayCenterTransformForCaptureDevicePosition(1);
-    v192 = __invert_f4(v191);
-    v192.columns[1] = vcvtq_f64_f32(*v192.columns[3].f32);
-    v192.columns[2].i64[0] = *&vaddq_f64(v175, v192.columns[1]);
-    v192.columns[2].i64[1] = *&vsubq_f64(v175, *(&v192 + 16)).f64[1];
-    v185 = v192.columns[2];
-    v186 = v176;
-    *&v171 = 0;
-    if (CV3DSLAMSessionCreateCMPoseAnchorData())
+    ARMatrix4x4RowMajorRotationAndTranslation(buf, &v180, v77, v78, v79, v80);
+    v196.columns[0] = ARDisplayCenterTransformForCaptureDevicePosition(1);
+    v197 = __invert_f4(v196);
+    v197.columns[1] = vcvtq_f64_f32(*v197.columns[3].f32);
+    v197.columns[2].i64[0] = *&vaddq_f64(v180, v197.columns[1]);
+    v197.columns[2].i64[1] = *&vsubq_f64(v180, *(&v197 + 16)).f64[1];
+    v190 = v197.columns[2];
+    v191 = v181;
+    *&v176 = 0;
+    CMPoseAnchorData = CV3DSLAMSessionCreateCMPoseAnchorData();
+    if (CMPoseAnchorData)
     {
-      v77 = v173;
-      [(ARWorldTrackingTechnique *)selfCopy _reportCollaborationData:v173 type:7 metadata:0];
+      v82 = v178;
+      [(ARWorldTrackingTechnique *)selfCopy _reportCollaborationData:v178 type:7 metadata:0];
     }
 
     else
     {
-      v77 = _ARLogTechnique();
-      if (os_log_type_enabled(v77, OS_LOG_TYPE_DEBUG))
+      v82 = _ARLogTechnique(CMPoseAnchorData);
+      if (os_log_type_enabled(v82, OS_LOG_TYPE_DEBUG))
       {
-        v78 = objc_opt_class();
-        v79 = NSStringFromClass(v78);
-        v80 = v171;
-        LODWORD(v170[0]) = 138543874;
-        *(v170 + 4) = v79;
-        WORD2(v170[1]) = 2048;
-        *(&v170[1] + 6) = selfCopy;
-        HIWORD(v170[2]) = 2112;
-        v170[3] = v171;
-        _os_log_impl(&dword_1C241C000, v77, OS_LOG_TYPE_DEBUG, "%{public}@ <%p>: Error creating participant anchor data: %@", v170, 0x20u);
+        v83 = objc_opt_class();
+        v84 = NSStringFromClass(v83);
+        v85 = v176;
+        LODWORD(v175[0]) = 138543874;
+        *(v175 + 4) = v84;
+        WORD2(v175[1]) = 2048;
+        *(&v175[1] + 6) = selfCopy;
+        HIWORD(v175[2]) = 2112;
+        v175[3] = v176;
+        _os_log_impl(&dword_1C241C000, v82, OS_LOG_TYPE_DEBUG, "%{public}@ <%p>: Error creating participant anchor data: %@", v175, 0x20u);
       }
     }
 
@@ -6796,60 +6881,60 @@ LABEL_66:
   [slamState6 slamState];
   LineCloud = CV3DSLAMStateGetLineCloud();
 
-  if (LineCloud == *v50 && [data length])
+  if (LineCloud == *v53 && [data length])
   {
-    v84 = [[ARLineCloud alloc] initWithLineCloudData:data];
-    [(ARWorldTrackingPoseData *)obj setLineCloud:v84];
+    v89 = [[ARLineCloud alloc] initWithLineCloudData:data];
+    [(ARWorldTrackingPoseData *)obj setLineCloud:v89];
   }
 
   selfCopy2 = selfCopy;
 LABEL_70:
   os_unfair_lock_lock(&selfCopy2->_pendingRawSceneUnderstandingResultsLock);
-  [v152 addObjectsFromArray:selfCopy2->_pendingRawSceneUnderstandingResults];
+  [v157 addObjectsFromArray:selfCopy2->_pendingRawSceneUnderstandingResults];
   [(NSMutableArray *)selfCopy2->_pendingRawSceneUnderstandingResults removeAllObjects];
   os_unfair_lock_unlock(&selfCopy2->_pendingRawSceneUnderstandingResultsLock);
   slamState7 = [(ARWorldTrackingPoseData *)obj slamState];
   [slamState7 slamState];
   OldestStateCovarianceMatrices = CV3DSLAMStateGetOldestStateCovarianceMatrices();
 
-  v87 = *v50;
-  if (OldestStateCovarianceMatrices == *v50)
+  v92 = *v53;
+  if (OldestStateCovarianceMatrices == *v53)
   {
-    v88 = [[ARInertialState alloc] initWithCovarianceMatrix:buf];
-    *&v90 = v175.f64[1];
-    *&v89 = v175.f64[0];
-    *(&v89 + 1) = v177;
-    *(&v90 + 1) = v178;
-    *&v91 = v180;
-    *&v92 = v181;
-    *&v93 = v176;
-    *(&v93 + 1) = v179;
-    *&v94 = v182;
-    *v170 = v89;
-    *&v170[2] = v91;
-    *&v170[4] = v90;
-    *&v170[6] = v92;
-    *&v170[8] = v93;
-    *&v170[10] = v94;
-    [(ARInertialState *)v88 setOrientation:v170];
-    *&v95 = v170[15];
-    *v170 = *&v170[13];
-    *&v170[2] = v95;
-    [(ARInertialState *)v88 setPosition:v170];
-    *&v96 = v174;
-    *v170 = v173;
-    *&v170[2] = v96;
-    [(ARInertialState *)v88 setVelocity:v170];
-    *&v97 = v172;
-    *v170 = v171;
-    *&v170[2] = v97;
-    [(ARInertialState *)v88 setAccelerometerBias:v170];
-    *&v98 = v186;
-    *v170 = v185;
-    *&v170[2] = v98;
-    [(ARInertialState *)v88 setGyroscopeBias:v170];
+    v93 = [[ARInertialState alloc] initWithCovarianceMatrix:buf];
+    *&v95 = v180.f64[1];
+    *&v94 = v180.f64[0];
+    *(&v94 + 1) = v182;
+    *(&v95 + 1) = v183;
+    *&v96 = v185;
+    *&v97 = v186;
+    *&v98 = v181;
+    *(&v98 + 1) = v184;
+    *&v99 = v187;
+    *v175 = v94;
+    *&v175[2] = v96;
+    *&v175[4] = v95;
+    *&v175[6] = v97;
+    *&v175[8] = v98;
+    *&v175[10] = v99;
+    [(ARInertialState *)v93 setOrientation:v175];
+    *&v100 = v175[15];
+    *v175 = *&v175[13];
+    *&v175[2] = v100;
+    [(ARInertialState *)v93 setPosition:v175];
+    *&v101 = v179;
+    *v175 = v178;
+    *&v175[2] = v101;
+    [(ARInertialState *)v93 setVelocity:v175];
+    *&v102 = v177;
+    *v175 = v176;
+    *&v175[2] = v102;
+    [(ARInertialState *)v93 setAccelerometerBias:v175];
+    *&v103 = v191;
+    *v175 = v190;
+    *&v175[2] = v103;
+    [(ARInertialState *)v93 setGyroscopeBias:v175];
     worldTrackingState2 = [(ARWorldTrackingPoseData *)obj worldTrackingState];
-    [worldTrackingState2 setInertialState:v88];
+    [worldTrackingState2 setInertialState:v93];
   }
 
   mutableOptions4 = [(ARWorldTrackingTechnique *)selfCopy mutableOptions];
@@ -6857,86 +6942,86 @@ LABEL_70:
 
   if (isCollaborationEnabled)
   {
-    v170[0] = 0;
-    v159 = 0;
+    v175[0] = 0;
+    v164 = 0;
     slamState8 = [(ARWorldTrackingPoseData *)obj slamState];
     [slamState8 slamState];
     CollaborativeMapStatistics = CV3DSLAMStateGetCollaborativeMapStatistics();
 
-    v104 = v170[0];
-    if (CollaborativeMapStatistics == v87 && v170[0])
+    v109 = v175[0];
+    if (CollaborativeMapStatistics == v92 && v175[0])
     {
-      v105 = [MEMORY[0x1E695DF70] arrayWithCapacity:v159];
+      v110 = [MEMORY[0x1E695DF70] arrayWithCapacity:v164];
       worldTrackingState3 = [(ARWorldTrackingPoseData *)obj worldTrackingState];
-      [worldTrackingState3 setCollaborationStats:v105];
+      [worldTrackingState3 setCollaborationStats:v110];
 
-      v104 = v170[0];
+      v109 = v175[0];
     }
 
-    free(v104);
-    v107 = objc_opt_new();
+    free(v109);
+    v112 = objc_opt_new();
     slamState9 = [(ARWorldTrackingPoseData *)obj slamState];
     [slamState9 slamState];
     MapMergeStats = CV3DSLAMStateGetMapMergeStats();
 
-    if (MapMergeStats == v87)
+    if (MapMergeStats == v92)
     {
-      v110 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(v107, "count")}];
-      v157 = 0u;
-      v158 = 0u;
-      v155 = 0u;
-      v156 = 0u;
-      v111 = v107;
-      v112 = [v111 countByEnumeratingWithState:&v155 objects:v169 count:16];
-      if (v112)
+      v115 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(v112, "count")}];
+      v162 = 0u;
+      v163 = 0u;
+      v160 = 0u;
+      v161 = 0u;
+      v116 = v112;
+      v117 = [v116 countByEnumeratingWithState:&v160 objects:v174 count:16];
+      if (v117)
       {
-        v113 = *v156;
+        v118 = *v161;
         do
         {
-          for (k = 0; k != v112; ++k)
+          for (j = 0; j != v117; ++j)
           {
-            if (*v156 != v113)
+            if (*v161 != v118)
             {
-              objc_enumerationMutation(v111);
+              objc_enumerationMutation(v116);
             }
 
-            v115 = *(*(&v155 + 1) + 8 * k);
-            firstObject = [v115 firstObject];
+            v120 = *(*(&v160 + 1) + 8 * j);
+            firstObject = [v120 firstObject];
             objc_opt_class();
             isKindOfClass = objc_opt_isKindOfClass();
 
             if (isKindOfClass)
             {
-              firstObject2 = [v115 firstObject];
-              [v110 addObject:firstObject2];
+              firstObject2 = [v120 firstObject];
+              [v115 addObject:firstObject2];
             }
           }
 
-          v112 = [v111 countByEnumeratingWithState:&v155 objects:v169 count:16];
+          v117 = [v116 countByEnumeratingWithState:&v160 objects:v174 count:16];
         }
 
-        while (v112);
+        while (v117);
       }
 
       worldTrackingState4 = [(ARWorldTrackingPoseData *)obj worldTrackingState];
-      [worldTrackingState4 setMergedSessionIdentifiers:v110];
+      [worldTrackingState4 setMergedSessionIdentifiers:v115];
     }
   }
 
   mutableOptions5 = [(ARWorldTrackingTechnique *)selfCopy mutableOptions];
   slamConfiguration = [mutableOptions5 slamConfiguration];
-  v122 = [slamConfiguration isEqualToString:@"ObjectDetectionMapBuilding"];
+  v127 = [slamConfiguration isEqualToString:@"ObjectDetectionMapBuilding"];
 
   p_isa = &selfCopy->super.super.super.isa;
-  if ((v122 & 1) == 0)
+  if ((v127 & 1) == 0)
   {
-    LODWORD(v170[0]) = 0;
-    LODWORD(v159) = 0;
+    LODWORD(v175[0]) = 0;
+    LODWORD(v164) = 0;
     slamState10 = [(ARWorldTrackingPoseData *)obj slamState];
     [slamState10 slamState];
     CV3DSLAMStateGetMapSize();
 
-    selfCopy->_currentVIOMapSize = SLODWORD(v170[0]);
+    selfCopy->_currentVIOMapSize = SLODWORD(v175[0]);
     slamState11 = [(ARWorldTrackingPoseData *)obj slamState];
     [slamState11 slamState];
     CV3DSLAMStateGetMapKeyFrameQuality();
@@ -6946,48 +7031,48 @@ LABEL_70:
     CV3DSLAMStateWasTrackingMap();
 
     p_isa = &selfCopy->super.super.super.isa;
-    [(ARWorldTrackingPoseData *)obj setWorldMappingStatus:[(ARWorldTrackingTechnique *)selfCopy _mappingStatusFromMapSize:LODWORD(v170[0]) keyframeQuality:v159 isTrackingMap:0 timestamp:timestamp]];
+    [(ARWorldTrackingPoseData *)obj setWorldMappingStatus:[(ARWorldTrackingTechnique *)selfCopy _mappingStatusFromMapSize:LODWORD(v175[0]) keyframeQuality:v164 isTrackingMap:0 timestamp:timestamp]];
   }
 
   mutableOptions6 = [p_isa mutableOptions];
   if ([(ARWorldTrackingParticipantAnchorData *)mutableOptions6 isCollaborationEnabled])
   {
-    v128 = [p_isa[49] count] == 0;
+    v133 = [p_isa[49] count] == 0;
 
-    if (v128)
+    if (v133)
     {
       goto LABEL_94;
     }
 
     mutableOptions6 = [[ARWorldTrackingParticipantAnchorData alloc] initWithAnchors:selfCopy->_participantAnchors];
     [(NSMutableSet *)selfCopy->_participantAnchors removeAllObjects];
-    [v152 addObject:mutableOptions6];
+    [v157 addObject:mutableOptions6];
   }
 
 LABEL_94:
-  v129 = selfCopy;
+  v134 = selfCopy;
   if (selfCopy->_errorData)
   {
-    [v152 addObject:?];
+    [v157 addObject:?];
     if (obj)
     {
       errorCode = [(ARWorldTrackingErrorData *)selfCopy->_errorData errorCode];
       if (errorCode == *MEMORY[0x1E698BD10])
       {
-        v131 = _ARLogTechnique();
-        if (os_log_type_enabled(v131, OS_LOG_TYPE_DEBUG))
+        v136 = _ARLogTechnique(errorCode);
+        if (os_log_type_enabled(v136, OS_LOG_TYPE_DEBUG))
         {
-          v132 = objc_opt_class();
-          v133 = NSStringFromClass(v132);
-          LODWORD(v170[0]) = 138543618;
-          *(v170 + 4) = v133;
-          WORD2(v170[1]) = 2048;
-          *(&v170[1] + 6) = selfCopy;
-          _os_log_impl(&dword_1C241C000, v131, OS_LOG_TYPE_DEBUG, "%{public}@ <%p>: Setting tracking state to initializing due to significant sensor data lose.", v170, 0x16u);
+          v137 = objc_opt_class();
+          v138 = NSStringFromClass(v137);
+          LODWORD(v175[0]) = 138543618;
+          *(v175 + 4) = v138;
+          WORD2(v175[1]) = 2048;
+          *(&v175[1] + 6) = selfCopy;
+          _os_log_impl(&dword_1C241C000, v136, OS_LOG_TYPE_DEBUG, "%{public}@ <%p>: Setting tracking state to initializing due to significant sensor data lose.", v175, 0x16u);
         }
 
-        v134 = objc_opt_new();
-        [(ARWorldTrackingPoseData *)obj setWorldTrackingState:v134];
+        v139 = objc_opt_new();
+        [(ARWorldTrackingPoseData *)obj setWorldTrackingState:v139];
 
         worldTrackingState5 = [(ARWorldTrackingPoseData *)obj worldTrackingState];
         [worldTrackingState5 setState:0];
@@ -6995,30 +7080,30 @@ LABEL_94:
         worldTrackingState6 = [(ARWorldTrackingPoseData *)obj worldTrackingState];
         [worldTrackingState6 setReason:1];
 
-        v129 = selfCopy;
+        v134 = selfCopy;
       }
     }
 
-    errorData = v129->_errorData;
-    v129->_errorData = 0;
+    errorData = v134->_errorData;
+    v134->_errorData = 0;
 
-    v129 = selfCopy;
+    v134 = selfCopy;
   }
 
-  dispatch_semaphore_signal(v129->_resultSemaphore);
+  dispatch_semaphore_signal(v134->_resultSemaphore);
   slamState13 = [(ARWorldTrackingPoseData *)obj slamState];
-  v139 = -[ARWorldTrackingTechnique _featurePointDataFromSLAMState:](v129, "_featurePointDataFromSLAMState:", [slamState13 slamState]);
+  v144 = -[ARWorldTrackingTechnique _featurePointDataFromSLAMState:](v134, "_featurePointDataFromSLAMState:", [slamState13 slamState]);
 
-  v140 = selfCopy;
-  if (v139)
+  v145 = selfCopy;
+  if (v144)
   {
-    [v152 addObject:v139];
+    [v157 addObject:v144];
   }
 
   os_unfair_lock_lock(&selfCopy->_latestSpatialMappingDataLock);
   if ([(NSMutableArray *)selfCopy->_latestSpatialMappingData count])
   {
-    [v152 addObjectsFromArray:selfCopy->_latestSpatialMappingData];
+    [v157 addObjectsFromArray:selfCopy->_latestSpatialMappingData];
     [(NSMutableArray *)selfCopy->_latestSpatialMappingData removeAllObjects];
   }
 
@@ -7027,17 +7112,17 @@ LABEL_94:
   if ([(NSMutableDictionary *)selfCopy->_spatialMappingPointClouds count])
   {
     allValues = [(NSMutableDictionary *)selfCopy->_spatialMappingPointClouds allValues];
-    [v152 addObjectsFromArray:allValues];
+    [v157 addObjectsFromArray:allValues];
 
-    v140 = selfCopy;
+    v145 = selfCopy;
     [(NSMutableDictionary *)selfCopy->_spatialMappingPointClouds removeAllObjects];
   }
 
-  os_unfair_lock_unlock(v140 + 130);
-  [(os_unfair_lock_s *)v140 pushResultData:v152 forTimestamp:timestamp];
+  os_unfair_lock_unlock(v145 + 130);
+  [(os_unfair_lock_s *)v145 pushResultData:v157 forTimestamp:timestamp];
   if (!obj)
   {
-    if (!v139)
+    if (!v144)
     {
       goto LABEL_111;
     }
@@ -7045,95 +7130,95 @@ LABEL_94:
     goto LABEL_109;
   }
 
-  [(ARWorldTrackingPoseData *)obj timestamp];
-  if (v139)
+  objc_msgSend_timestamp(obj);
+  if (v144)
   {
 LABEL_109:
-    [v139 timestamp];
+    objc_msgSend_timestamp(v144);
   }
 
 LABEL_111:
-  [v139 timestamp];
+  objc_msgSend_timestamp(v144);
   kdebug_trace();
 }
 
 - (void)_handleSLAMError:(id)error
 {
-  v41 = *MEMORY[0x1E69E9840];
+  v44 = *MEMORY[0x1E69E9840];
   errorCopy = error;
   [errorCopy code];
-  kdebug_trace();
+  v5 = kdebug_trace();
   if (ARShouldUseLogTypeError(void)::onceToken != -1)
   {
     __39__ARWorldTrackingTechnique_isSupported__block_invoke_cold_1();
   }
 
-  v5 = ARShouldUseLogTypeError(void)::internalOSVersion;
-  v6 = _ARLogTechnique();
-  v7 = v6;
-  if (v5 == 1)
+  v6 = ARShouldUseLogTypeError(void)::internalOSVersion;
+  v7 = _ARLogTechnique(v5);
+  v8 = v7;
+  if (v6 == 1)
   {
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      v8 = objc_opt_class();
-      v9 = NSStringFromClass(v8);
+      v9 = objc_opt_class();
+      v10 = NSStringFromClass(v9);
       *buf = 138543874;
-      *&buf[4] = v9;
-      v37 = 2048;
+      *&buf[4] = v10;
+      v40 = 2048;
       selfCopy6 = self;
-      v39 = 2112;
-      v40 = *&errorCopy;
-      _os_log_impl(&dword_1C241C000, v7, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: SLAM error callback: %@", buf, 0x20u);
+      v42 = 2112;
+      v43 = *&errorCopy;
+      _os_log_impl(&dword_1C241C000, v8, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: SLAM error callback: %@", buf, 0x20u);
     }
   }
 
-  else if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+  else if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
-    v10 = objc_opt_class();
-    v11 = NSStringFromClass(v10);
+    v11 = objc_opt_class();
+    v12 = NSStringFromClass(v11);
     *buf = 138543874;
-    *&buf[4] = v11;
-    v37 = 2048;
+    *&buf[4] = v12;
+    v40 = 2048;
     selfCopy6 = self;
-    v39 = 2112;
-    v40 = *&errorCopy;
-    _os_log_impl(&dword_1C241C000, v7, OS_LOG_TYPE_INFO, "Error: %{public}@ <%p>: SLAM error callback: %@", buf, 0x20u);
+    v42 = 2112;
+    v43 = *&errorCopy;
+    _os_log_impl(&dword_1C241C000, v8, OS_LOG_TYPE_INFO, "Error: %{public}@ <%p>: SLAM error callback: %@", buf, 0x20u);
   }
 
-  v12 = CACurrentMediaTime();
+  v13 = CACurrentMediaTime();
   code = [errorCopy code];
-  if (code == *MEMORY[0x1E698BD10] || (v14 = [errorCopy code], v14 == *MEMORY[0x1E698BD08]))
+  if (code == *MEMORY[0x1E698BD10] || (code = [errorCopy code], code == *MEMORY[0x1E698BD08]))
   {
-    v15 = _ARLogTechnique();
+    v15 = _ARLogTechnique(code);
     if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
       v16 = objc_opt_class();
       v17 = NSStringFromClass(v16);
       *buf = 138543874;
       *&buf[4] = v17;
-      v37 = 2048;
+      v40 = 2048;
       selfCopy6 = self;
-      v39 = 2048;
-      v40 = v12;
+      v42 = 2048;
+      v43 = v13;
       _os_log_impl(&dword_1C241C000, v15, OS_LOG_TYPE_DEFAULT, "%{public}@ <%p>: World tracking encountered a significant drop in sensor data, attempting to relocalize at time %f.", buf, 0x20u);
     }
 
-    dispatch_semaphore_wait(self->_resultSemaphore, 0xFFFFFFFFFFFFFFFFLL);
+    v18 = dispatch_semaphore_wait(self->_resultSemaphore, 0xFFFFFFFFFFFFFFFFLL);
     if (self->_relocalizationState)
     {
-      v18 = _ARLogTechnique();
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
+      v19 = _ARLogTechnique(v18);
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
       {
-        v19 = objc_opt_class();
-        v20 = NSStringFromClass(v19);
+        v20 = objc_opt_class();
+        v21 = NSStringFromClass(v20);
         relocalizationState = self->_relocalizationState;
         *buf = 138543874;
-        *&buf[4] = v20;
-        v37 = 2048;
+        *&buf[4] = v21;
+        v40 = 2048;
         selfCopy6 = self;
-        v39 = 2048;
-        v40 = *&relocalizationState;
-        _os_log_impl(&dword_1C241C000, v18, OS_LOG_TYPE_DEBUG, "%{public}@ <%p>: Not setting ARRelocalizationStateRelocalizingAfterSensorDataDrop, because we're already in state: %lu", buf, 0x20u);
+        v42 = 2048;
+        v43 = *&relocalizationState;
+        _os_log_impl(&dword_1C241C000, v19, OS_LOG_TYPE_DEBUG, "%{public}@ <%p>: Not setting ARRelocalizationStateRelocalizingAfterSensorDataDrop, because we're already in state: %lu", buf, 0x20u);
       }
     }
 
@@ -7144,7 +7229,7 @@ LABEL_111:
 
     self->_lastRelocalizationTimestamp = 0.0;
     self->_originTimestamp = 0.0;
-    v22 = [(ARWorldTrackingPoseData *)self->_cachedPoseData copy];
+    v23 = [(ARWorldTrackingPoseData *)self->_cachedPoseData copy];
     worldTrackingState = [(ARWorldTrackingPoseData *)self->_cachedPoseData worldTrackingState];
     [worldTrackingState setState:1];
 
@@ -7152,11 +7237,11 @@ LABEL_111:
     [worldTrackingState2 setReason:1];
 
     dispatch_semaphore_signal(self->_resultSemaphore);
-    if (v22)
+    if (v23)
     {
-      v35 = v22;
-      v25 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v35 count:1];
-      [(ARImageBasedTechnique *)self pushResultData:v25 forFrame:0];
+      v38 = v23;
+      v26 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v38 count:1];
+      [(ARImageBasedTechnique *)self pushResultData:v26 forFrame:0];
     }
 
     [errorCopy code];
@@ -7171,24 +7256,25 @@ LABEL_20:
   {
     code2 = [errorCopy code];
     *buf = &code2;
-    if (v12 - *(std::__tree<std::__value_type<long,double>,std::__map_value_compare<long,std::__value_type<long,double>,std::less<long>,true>,std::allocator<std::__value_type<long,double>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long &&>,std::tuple<>>(&self->_lastErrorLogTimestamp, &code2) + 5) > 1.0)
+    if (v13 - *(std::__tree<std::__value_type<long,double>,std::__map_value_compare<long,std::__value_type<long,double>,std::less<long>,true>,std::allocator<std::__value_type<long,double>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long &&>,std::tuple<>>(&self->_lastErrorLogTimestamp, &code2, &std::piecewise_construct, buf) + 5) > 1.0)
     {
       code2 = [errorCopy code];
       *buf = &code2;
-      *(std::__tree<std::__value_type<long,double>,std::__map_value_compare<long,std::__value_type<long,double>,std::less<long>,true>,std::allocator<std::__value_type<long,double>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long &&>,std::tuple<>>(&self->_lastErrorLogTimestamp, &code2) + 5) = v12;
-      v30 = _ARLogTechnique();
-      if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+      v32 = std::__tree<std::__value_type<long,double>,std::__map_value_compare<long,std::__value_type<long,double>,std::less<long>,true>,std::allocator<std::__value_type<long,double>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long &&>,std::tuple<>>(&self->_lastErrorLogTimestamp, &code2, &std::piecewise_construct, buf);
+      v32[5] = v13;
+      v33 = _ARLogTechnique(v32);
+      if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
       {
-        v31 = objc_opt_class();
-        v32 = NSStringFromClass(v31);
+        v34 = objc_opt_class();
+        v35 = NSStringFromClass(v34);
         code3 = [errorCopy code];
         *buf = 138543874;
-        *&buf[4] = v32;
-        v37 = 2048;
+        *&buf[4] = v35;
+        v40 = 2048;
         selfCopy6 = self;
-        v39 = 2048;
-        v40 = *&code3;
-        _os_log_impl(&dword_1C241C000, v30, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: World tracking performance is being affected by resource constraints [%li]", buf, 0x20u);
+        v42 = 2048;
+        v43 = *&code3;
+        _os_log_impl(&dword_1C241C000, v33, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: World tracking performance is being affected by resource constraints [%li]", buf, 0x20u);
       }
     }
 
@@ -7197,10 +7283,10 @@ LABEL_20:
       softLinkAudioServicesPlaySystemSound(0x3EBu);
     }
 
-    v22 = [[ARWorldTrackingErrorData alloc] initWithTimestamp:v12];
-    -[ARWorldTrackingErrorData setErrorCode:](v22, "setErrorCode:", [errorCopy code]);
+    v23 = [[ARWorldTrackingErrorData alloc] initWithTimestamp:v13];
+    -[ARWorldTrackingErrorData setErrorCode:](v23, "setErrorCode:", [errorCopy code]);
     dispatch_semaphore_wait(self->_resultSemaphore, 0xFFFFFFFFFFFFFFFFLL);
-    objc_storeStrong(&self->_errorData, v22);
+    objc_storeStrong(&self->_errorData, v23);
     dispatch_semaphore_signal(self->_resultSemaphore);
     [errorCopy code];
     kdebug_trace();
@@ -7209,21 +7295,21 @@ LABEL_20:
 
   dispatch_semaphore_wait(self->_sessionHandleStateSemaphore, 0xFFFFFFFFFFFFFFFFLL);
   self->_sessionHandleState = 4;
-  dispatch_semaphore_signal(self->_sessionHandleStateSemaphore);
-  v26 = _ARLogTechnique();
-  if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+  v27 = dispatch_semaphore_signal(self->_sessionHandleStateSemaphore);
+  v28 = _ARLogTechnique(v27);
+  if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
   {
-    v27 = objc_opt_class();
-    v28 = NSStringFromClass(v27);
+    v29 = objc_opt_class();
+    v30 = NSStringFromClass(v29);
     *buf = 138543618;
-    *&buf[4] = v28;
-    v37 = 2048;
+    *&buf[4] = v30;
+    v40 = 2048;
     selfCopy6 = self;
-    _os_log_impl(&dword_1C241C000, v26, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: World tracking encountered fatal error.", buf, 0x16u);
+    _os_log_impl(&dword_1C241C000, v28, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: World tracking encountered fatal error.", buf, 0x16u);
   }
 
-  v29 = ARErrorWithCodeAndUserInfo(200, 0);
-  [(ARWorldTrackingTechnique *)self _didFailWithError:v29];
+  v31 = ARErrorWithCodeAndUserInfo(200, 0);
+  [(ARWorldTrackingTechnique *)self _didFailWithError:v31];
 
   [errorCopy code];
   kdebug_trace();
@@ -7347,21 +7433,21 @@ LABEL_21:
 
 + (void)supportsVideoResolution:forDeviceType:.cold.1()
 {
-  if (__cxa_guard_acquire(&_MergedGlobals_0))
+  if (__cxa_guard_acquire(_MergedGlobals_0))
   {
     xmmword_1EBF41CC0 = *MEMORY[0x1E695F060];
 
-    __cxa_guard_release(&_MergedGlobals_0);
+    __cxa_guard_release(_MergedGlobals_0);
   }
 }
 
 + (void)supportsVideoResolution:forDeviceType:.cold.2()
 {
-  if (__cxa_guard_acquire(&qword_1EBF41CB8))
+  if (__cxa_guard_acquire(byte_1EBF41CB8))
   {
     *&qword_1EBF41CD0 = *MEMORY[0x1E695F060];
 
-    __cxa_guard_release(&qword_1EBF41CB8);
+    __cxa_guard_release(byte_1EBF41CB8);
   }
 }
 

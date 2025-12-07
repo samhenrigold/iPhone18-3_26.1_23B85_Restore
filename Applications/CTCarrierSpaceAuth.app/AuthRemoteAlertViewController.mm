@@ -23,6 +23,8 @@
 - (void)remoteUIController:(id)controller didFinishLoadWithError:(id)error;
 - (void)remoteUIController:(id)controller didReceiveHTTPResponse:(id)response;
 - (void)remoteUIController:(id)controller didReceiveObjectModel:(id)model actionSignal:(unint64_t *)signal;
+- (void)remoteUIController:(id)controller willPresentObjectModel:(id)model modally:(BOOL)modally;
+- (void)viewDidAppear:(BOOL)appear;
 - (void)viewDidLoad;
 @end
 
@@ -31,7 +33,7 @@
 - (void)_loadURL:(id)l
 {
   lCopy = l;
-  v5 = sub_100002CBC();
+  v5 = sub_100002CBC(lCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
@@ -267,6 +269,14 @@
   return v4;
 }
 
+- (void)viewDidAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = AuthRemoteAlertViewController;
+  [(AuthRemoteAlertViewController *)&v4 viewDidAppear:appear];
+  [(AuthRemoteAlertViewController *)self _configure];
+}
+
 - (void)viewDidLoad
 {
   v11.receiver = self;
@@ -376,58 +386,58 @@
 
   if (error)
   {
-    v6 = sub_100002CBC();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = sub_100002CBC(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       sub_100005764(responseCopy);
     }
 
     selfCopy2 = self;
-    v8 = 1;
+    v9 = 1;
     goto LABEL_11;
   }
 
   token = [responseCopy token];
-  if (!token || (v10 = token, v11 = [responseCopy statusCode], v10, v11 != 200))
+  if (!token || (v11 = token, v12 = [responseCopy statusCode], v11, v12 != 200))
   {
     sub_1000022DC(responseCopy);
     selfCopy2 = self;
-    v8 = 2;
+    v9 = 2;
 LABEL_11:
-    [(AuthRemoteAlertViewController *)selfCopy2 _presentAlertController:v8];
+    [(AuthRemoteAlertViewController *)selfCopy2 _presentAlertController:v9];
     goto LABEL_12;
   }
 
   sub_1000021D8(2, 0);
-  v12 = sub_100002CBC();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+  v14 = sub_100002CBC(v13);
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
     token2 = [responseCopy token];
     *buf = 138412290;
-    v25 = token2;
-    _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Successfully received acess token %@", buf, 0xCu);
+    v27 = token2;
+    _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "Successfully received acess token %@", buf, 0xCu);
   }
 
-  v14 = objc_alloc_init(CTCarrierSpaceAuthInfo);
+  v16 = objc_alloc_init(CTCarrierSpaceAuthInfo);
   token3 = [responseCopy token];
-  v16 = [token3 dataUsingEncoding:4];
-  [v14 setAccessToken:v16];
+  v18 = [token3 dataUsingEncoding:4];
+  [v16 setAccessToken:v18];
 
   refreshToken = [responseCopy refreshToken];
-  v18 = [refreshToken dataUsingEncoding:4];
-  [v14 setRefreshToken:v18];
+  v20 = [refreshToken dataUsingEncoding:4];
+  [v16 setRefreshToken:v20];
 
   expiryDate = [responseCopy expiryDate];
-  [v14 setExpiresAt:expiryDate];
+  [v16 setExpiresAt:expiryDate];
 
-  v21[0] = _NSConcreteStackBlock;
-  v21[1] = 3221225472;
-  v21[2] = sub_100004910;
-  v21[3] = &unk_1000105A8;
-  v22 = v14;
+  v23[0] = _NSConcreteStackBlock;
+  v23[1] = 3221225472;
+  v23[2] = sub_100004910;
+  v23[3] = &unk_1000105A8;
+  v24 = v16;
   selfCopy3 = self;
-  v20 = v14;
-  [(AuthRemoteAlertViewController *)self _evaluateBiometry:v21];
+  v22 = v16;
+  [(AuthRemoteAlertViewController *)self _evaluateBiometry:v23];
 
 LABEL_12:
 }
@@ -437,7 +447,7 @@ LABEL_12:
   codeCopy = code;
   v5 = [(AuthRemoteAlertViewController *)self _getURLFromContextForKey:@"kCTCarrierSpaceAuthTokenURL"];
   v6 = [AuthTokenHttpRequest urlRequestForBaseURL:v5 clientID:self->_clientID authCode:codeCopy];
-  v7 = sub_100002CBC();
+  v7 = sub_100002CBC(v6);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
@@ -587,7 +597,7 @@ LABEL_8:
       v10 = [(AuthRemoteAlertViewController *)self _itemWithName:@"state" items:queryItems];
       if (!v10)
       {
-        v11 = sub_100002CBC();
+        v11 = sub_100002CBC(0);
         if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
         {
           sub_1000058E4();
@@ -606,14 +616,14 @@ LABEL_8:
         {
 
 LABEL_8:
-          v14 = [(AuthRemoteAlertViewController *)self _itemWithName:@"code" items:queryItems];
-          v11 = v14;
-          if (v14)
+          v15 = [(AuthRemoteAlertViewController *)self _itemWithName:@"code" items:queryItems];
+          v11 = v15;
+          if (v15)
           {
-            value2 = [v14 value];
+            value2 = [v15 value];
             [(AuthRemoteAlertViewController *)self _exchangeAuthCode:value2];
 
-            v16 = self->_authCodeRequest;
+            v17 = self->_authCodeRequest;
             self->_authCodeRequest = 0;
 
             authState = self->_authState;
@@ -623,8 +633,8 @@ LABEL_8:
           else
           {
             sub_1000021D8(2, 1);
-            v19 = sub_100002CBC();
-            if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+            v22 = sub_100002CBC(v21);
+            if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
             {
               sub_100005920();
             }
@@ -636,8 +646,8 @@ LABEL_8:
         }
 
         sub_1000021D8(2, 5);
-        v20 = sub_100002CBC();
-        if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+        v23 = sub_100002CBC(v24);
+        if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
         {
           sub_10000586C();
         }
@@ -645,8 +655,8 @@ LABEL_8:
 
       else
       {
-        v20 = sub_100002CBC();
-        if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+        v23 = sub_100002CBC(v14);
+        if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
         {
           sub_1000058A8();
         }
@@ -659,8 +669,8 @@ LABEL_25:
     }
 
     sub_1000021D8(2, 4);
-    v18 = sub_100002CBC();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+    v20 = sub_100002CBC(v19);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
       sub_1000057E8();
     }
@@ -670,7 +680,7 @@ LABEL_25:
 
   else
   {
-    v7 = sub_100002CBC();
+    v7 = sub_100002CBC(0);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       sub_100005990();
@@ -678,6 +688,16 @@ LABEL_25:
   }
 
 LABEL_26:
+}
+
+- (void)remoteUIController:(id)controller willPresentObjectModel:(id)model modally:(BOOL)modally
+{
+  v5[0] = _NSConcreteStackBlock;
+  v5[1] = 3221225472;
+  v5[2] = sub_100005238;
+  v5[3] = &unk_1000105F8;
+  v5[4] = self;
+  [controller setHandlerForElementName:@"cancel" handler:{v5, modally}];
 }
 
 - (void)remoteUIController:(id)controller didFinishLoadWithError:(id)error
@@ -692,10 +712,11 @@ LABEL_26:
 
     if (v10)
     {
-      if ([v8 code] != -999)
+      code = [v8 code];
+      if (code != -999)
       {
-        v11 = sub_100002CBC();
-        if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+        v12 = sub_100002CBC(code);
+        if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
         {
           sub_1000059CC();
         }
@@ -709,16 +730,20 @@ LABEL_26:
 - (void)remoteUIController:(id)controller didReceiveHTTPResponse:(id)response
 {
   responseCopy = response;
-  if ([responseCopy statusCode] != 200 && objc_msgSend(responseCopy, "statusCode") != 302)
+  if ([responseCopy statusCode] != 200)
   {
-    v6 = sub_100002CBC();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    statusCode = [responseCopy statusCode];
+    if (statusCode != 302)
     {
-      sub_100005A3C(responseCopy);
-    }
+      v7 = sub_100002CBC(statusCode);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+      {
+        sub_100005A3C(responseCopy);
+      }
 
-    sub_1000021D8(3, [responseCopy statusCode]);
-    [(AuthRemoteAlertViewController *)self _presentAlertController:1];
+      sub_1000021D8(3, [responseCopy statusCode]);
+      [(AuthRemoteAlertViewController *)self _presentAlertController:1];
+    }
   }
 }
 
@@ -740,45 +765,46 @@ LABEL_26:
 
 - (void)handleButtonActions:(id)actions
 {
-  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
+  v16 = 0u;
   actionsCopy = actions;
-  v5 = [actionsCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v5 = [actionsCopy countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v13;
+    v7 = *v14;
     while (2)
     {
       for (i = 0; i != v6; i = i + 1)
       {
-        if (*v13 != v7)
+        if (*v14 != v7)
         {
           objc_enumerationMutation(actionsCopy);
         }
 
-        if (([*(*(&v12 + 1) + 8 * i) events] & 0x11) != 0)
+        events = [*(*(&v13 + 1) + 8 * i) events];
+        if ((events & 0x11) != 0)
         {
-          v9 = sub_100002CBC();
-          if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+          v10 = sub_100002CBC(events);
+          if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
           {
             *buf = 0;
-            _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_INFO, "User pressed lock or home button, dismissing ourselves", buf, 2u);
+            _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_INFO, "User pressed lock or home button, dismissing ourselves", buf, 2u);
           }
 
-          v10[0] = _NSConcreteStackBlock;
-          v10[1] = 3221225472;
-          v10[2] = sub_10000564C;
-          v10[3] = &unk_100010450;
-          v10[4] = self;
-          [(AuthRemoteAlertViewController *)self _sendAuthFailure:10 completion:v10];
+          v11[0] = _NSConcreteStackBlock;
+          v11[1] = 3221225472;
+          v11[2] = sub_10000564C;
+          v11[3] = &unk_100010450;
+          v11[4] = self;
+          [(AuthRemoteAlertViewController *)self _sendAuthFailure:10 completion:v11];
           goto LABEL_13;
         }
       }
 
-      v6 = [actionsCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v6 = [actionsCopy countByEnumeratingWithState:&v13 objects:v17 count:16];
       if (v6)
       {
         continue;

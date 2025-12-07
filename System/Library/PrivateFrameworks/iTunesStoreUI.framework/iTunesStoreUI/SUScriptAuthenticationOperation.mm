@@ -30,16 +30,21 @@
   shouldLog = [mEMORY[0x1E69D4938] shouldLog];
   if ([mEMORY[0x1E69D4938] shouldLogToDisk])
   {
-    v5 = shouldLog | 2;
+    LODWORD(v5) = shouldLog | 2;
   }
 
   else
   {
-    v5 = shouldLog;
+    LODWORD(v5) = shouldLog;
   }
 
   oSLogObject = [mEMORY[0x1E69D4938] OSLogObject];
-  if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+  {
+    v5 = v5;
+  }
+
+  else
   {
     v5 &= 2u;
   }
@@ -54,22 +59,20 @@
     v29 = v7;
     v30 = 2112;
     v31 = requiredUniqueIdentifier;
-    LODWORD(v26) = 22;
-    v25 = &v28;
-    v11 = _os_log_send_and_compose_impl();
+    v11 = _os_log_send_and_compose_impl(v5, 0, 0, 0, &dword_1C21AF000, oSLogObject, 0, "%@: Authenticating for DSID: %@", &v28, 22);
 
     if (!v11)
     {
-      goto LABEL_10;
+      goto LABEL_11;
     }
 
-    oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v11 encoding:{4, &v28, v26}];
+    oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v11 encoding:4];
     free(v11);
     v25 = oSLogObject;
     SSFileLog();
   }
 
-LABEL_10:
+LABEL_11:
   [(SSMutableAuthenticationContext *)self->_authenticationContext setForceDaemonAuthentication:1];
   v12 = [objc_alloc(MEMORY[0x1E69E47D8]) initWithAuthenticationContext:self->_authenticationContext];
   presentingViewController = [(SUScriptAuthenticationOperation *)self presentingViewController];
@@ -89,16 +92,21 @@ LABEL_10:
     shouldLog2 = [mEMORY[0x1E69D4938]2 shouldLog];
     if ([mEMORY[0x1E69D4938]2 shouldLogToDisk])
     {
-      v20 = shouldLog2 | 2;
+      LODWORD(v20) = shouldLog2 | 2;
     }
 
     else
     {
-      v20 = shouldLog2;
+      LODWORD(v20) = shouldLog2;
     }
 
     oSLogObject2 = [mEMORY[0x1E69D4938]2 OSLogObject];
-    if (!os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_DEFAULT))
+    {
+      v20 = v20;
+    }
+
+    else
     {
       v20 &= 2u;
     }
@@ -112,29 +120,29 @@ LABEL_10:
       v31 = v16;
       v23 = v22;
       LODWORD(v26) = 22;
-      v24 = _os_log_send_and_compose_impl();
+      v24 = _os_log_send_and_compose_impl(v20, 0, 0, 0, &dword_1C21AF000, oSLogObject2, 0, "%@: Failed with error: %@", &v28, v26);
 
       if (!v24)
       {
-LABEL_23:
+LABEL_25:
 
         [(SUScriptAuthenticationOperation *)self setError:v16];
-        goto LABEL_24;
+        goto LABEL_26;
       }
 
-      oSLogObject2 = [MEMORY[0x1E696AEC0] stringWithCString:v24 encoding:{4, &v28, v26}];
+      oSLogObject2 = [MEMORY[0x1E696AEC0] stringWithCString:v24 encoding:4];
       free(v24);
       SSFileLog();
     }
 
-    goto LABEL_23;
+    goto LABEL_25;
   }
 
   authenticatedAccountDSID = [v12 authenticatedAccountDSID];
   [(SUScriptAuthenticationOperation *)self setAuthenticatedDSID:authenticatedAccountDSID];
 
   [(SUScriptAuthenticationOperation *)self setSuccess:1];
-LABEL_24:
+LABEL_26:
 }
 
 - (void)sendCompletionCallback:(id)callback

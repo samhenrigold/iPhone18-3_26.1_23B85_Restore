@@ -638,7 +638,7 @@ uint64_t __88__UIKeyboardFloatingTransitionController_updateTransitionAtPoint_wi
       {
         if (v14)
         {
-          [v14 CATransform3DValue];
+          objc_msgSend_CATransform3DValue(v14);
         }
 
         else
@@ -950,12 +950,12 @@ void __73__UIKeyboardFloatingTransitionController_endTransitionAtPoint_withScale
   }
 }
 
-uint64_t __73__UIKeyboardFloatingTransitionController_endTransitionAtPoint_withScale___block_invoke_2(uint64_t a1)
+void *__73__UIKeyboardFloatingTransitionController_endTransitionAtPoint_withScale___block_invoke_2(uint64_t a1)
 {
   [*(a1 + 32) finalizeTransition];
   if (([*(a1 + 32) startedFromFloating] & 1) != 0 || *(a1 + 80) != 1)
   {
-    result = [*(a1 + 40) isEqualToString:@"BottomEdge"];
+    result = objc_msgSend_isEqualToString_(*(a1 + 40));
     if ((result & 1) == 0)
     {
       v5 = [*(a1 + 32) platterView];
@@ -1698,7 +1698,7 @@ LABEL_46:
   v295 = endState11;
   if (endState11)
   {
-    [endState11 initialInputViewTransform];
+    objc_msgSend_initialInputViewTransform(endState11);
   }
 
   else
@@ -2381,7 +2381,7 @@ void __60__UIKeyboardFloatingTransitionController_finalizeTransition__block_invo
   v152 = startState9;
   if (startState9)
   {
-    [startState9 initialInputViewTransform];
+    objc_msgSend_initialInputViewTransform(startState9);
   }
 
   else
@@ -2395,7 +2395,7 @@ void __60__UIKeyboardFloatingTransitionController_finalizeTransition__block_invo
   v154 = startState10;
   if (startState10)
   {
-    [startState10 finalInputViewTransform];
+    objc_msgSend_finalInputViewTransform(startState10);
   }
 
   else
@@ -2420,7 +2420,7 @@ void __60__UIKeyboardFloatingTransitionController_finalizeTransition__block_invo
   v159 = endState7;
   if (endState7)
   {
-    [endState7 initialInputViewTransform];
+    objc_msgSend_initialInputViewTransform(endState7);
   }
 
   else
@@ -2434,7 +2434,7 @@ void __60__UIKeyboardFloatingTransitionController_finalizeTransition__block_invo
   v161 = endState8;
   if (endState8)
   {
-    [endState8 finalInputViewTransform];
+    objc_msgSend_finalInputViewTransform(endState8);
   }
 
   else

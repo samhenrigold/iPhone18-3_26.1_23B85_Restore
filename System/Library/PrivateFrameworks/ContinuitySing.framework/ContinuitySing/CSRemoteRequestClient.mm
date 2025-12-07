@@ -20,8 +20,10 @@
 - (void)retrieveReverb:(id)reverb;
 - (void)retrieveSessionState:(id)state;
 - (void)sendDisconnectMessageWithCompletion:(id)completion;
+- (void)sendDisplayMode:(BOOL)mode;
 - (void)sendEnableMicRequest:(id)request;
 - (void)sendEventMessage:(id)message completion:(id)completion;
+- (void)sendQueuedSongsNotificationWithTracks:(id)tracks shouldQueueOnServer:(BOOL)server;
 - (void)sendReaction:(id)reaction;
 - (void)sendRequestMessage:(id)message completion:(id)completion;
 - (void)sendReverb:(int64_t)reverb;
@@ -125,7 +127,7 @@ void __119__CSRemoteRequestClient_initWithRemoteDisplayIdentifier_participantInf
   {
     if (WeakRetained[9] && v5 != 0)
     {
-      v8 = ContinuitySingLog();
+      v8 = ContinuitySingLog(v5);
       if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
         v17 = 136315394;
@@ -155,7 +157,7 @@ void __119__CSRemoteRequestClient_initWithRemoteDisplayIdentifier_participantInf
   v5 = WeakRetained;
   if (WeakRetained && WeakRetained[1])
   {
-    v6 = ContinuitySingLog();
+    v6 = ContinuitySingLog(WeakRetained);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       v7 = 136315394;
@@ -172,16 +174,17 @@ void __119__CSRemoteRequestClient_initWithRemoteDisplayIdentifier_participantInf
 void __119__CSRemoteRequestClient_initWithRemoteDisplayIdentifier_participantInfo_disconnectHandler_connectionCompletionHandler___block_invoke_12(uint64_t a1, void *a2)
 {
   v3 = a2;
+  v4 = v3;
   if (v3)
   {
-    v4 = ContinuitySingLog();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = ContinuitySingLog(v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       __119__CSRemoteRequestClient_initWithRemoteDisplayIdentifier_participantInfo_disconnectHandler_connectionCompletionHandler___block_invoke_12_cold_1();
     }
 
     *(*(a1 + 32) + 16) = 0;
-    [*(a1 + 32) _resolvePendingActivationCompletionsWithError:v3];
+    [*(a1 + 32) _resolvePendingActivationCompletionsWithError:v4];
   }
 
   else
@@ -222,7 +225,7 @@ void __119__CSRemoteRequestClient_initWithRemoteDisplayIdentifier_participantInf
   v5 = WeakRetained;
   if (WeakRetained && WeakRetained[8])
   {
-    v6 = ContinuitySingLog();
+    v6 = ContinuitySingLog(WeakRetained);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       v7 = 136315394;
@@ -322,12 +325,12 @@ void __32__CSRemoteRequestClient_dealloc__block_invoke(uint64_t a1)
   dispatch_assert_queue_V2(self->_companionLinkQueue);
   if (self->_activeDeviceActivationState == 2)
   {
-    v5 = ContinuitySingLog();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+    v6 = ContinuitySingLog(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
       *buf = 136315138;
-      v41 = "[CSRemoteRequestClient _activateMessageClientIfNeeded:]";
-      _os_log_impl(&dword_2441FB000, v5, OS_LOG_TYPE_INFO, "%s: Message client previously activated", buf, 0xCu);
+      v43 = "[CSRemoteRequestClient _activateMessageClientIfNeeded:]";
+      _os_log_impl(&dword_2441FB000, v6, OS_LOG_TYPE_INFO, "%s: Message client previously activated", buf, 0xCu);
     }
 
     neededCopy[2](neededCopy, 0);
@@ -337,24 +340,24 @@ void __32__CSRemoteRequestClient_dealloc__block_invoke(uint64_t a1)
   {
     if (!self->_pendingCompletionBlocks)
     {
-      v6 = objc_alloc_init(MEMORY[0x277CBEB18]);
+      v7 = objc_alloc_init(MEMORY[0x277CBEB18]);
       pendingCompletionBlocks = self->_pendingCompletionBlocks;
-      self->_pendingCompletionBlocks = v6;
+      self->_pendingCompletionBlocks = v7;
     }
 
     if (neededCopy)
     {
-      v8 = self->_pendingCompletionBlocks;
-      v9 = _Block_copy(neededCopy);
-      [(NSMutableArray *)v8 addObject:v9];
+      v9 = self->_pendingCompletionBlocks;
+      v10 = _Block_copy(neededCopy);
+      [(NSMutableArray *)v9 addObject:v10];
     }
 
     if (self->_activeDeviceActivationState == 1 || self->_discoveryCompanionLinkActivationState == 1)
     {
-      v10 = ContinuitySingLog();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      v11 = ContinuitySingLog(v5);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
-        [(CSRemoteRequestClient *)v10 _activateMessageClientIfNeeded:v11, v12, v13, v14, v15, v16, v17];
+        [(CSRemoteRequestClient *)v11 _activateMessageClientIfNeeded:v12, v13, v14, v15, v16, v17, v18];
       }
     }
 
@@ -362,61 +365,61 @@ void __32__CSRemoteRequestClient_dealloc__block_invoke(uint64_t a1)
     {
       self->_activeDeviceActivationState = 1;
       objc_initWeak(&location, self);
-      v18 = objc_alloc(MEMORY[0x277D27EF8]);
-      v46[0] = MEMORY[0x277D85DD0];
-      v46[1] = 3221225472;
-      v46[2] = __56__CSRemoteRequestClient__activateMessageClientIfNeeded___block_invoke;
-      v46[3] = &unk_278E0ABF8;
-      objc_copyWeak(&v47, &location);
-      v19 = [v18 initWithTimeout:v46 interruptionHandler:5.0];
+      v19 = objc_alloc(MEMORY[0x277D27EF8]);
+      v48[0] = MEMORY[0x277D85DD0];
+      v48[1] = 3221225472;
+      v48[2] = __56__CSRemoteRequestClient__activateMessageClientIfNeeded___block_invoke;
+      v48[3] = &unk_278E0ABF8;
+      objc_copyWeak(&v49, &location);
+      v20 = [v19 initWithTimeout:v48 interruptionHandler:5.0];
       activationGuard = self->_activationGuard;
-      self->_activationGuard = v19;
+      self->_activationGuard = v20;
 
-      v21 = ContinuitySingLog();
-      if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
+      v23 = ContinuitySingLog(v22);
+      if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
       {
         remoteDisplayIdentifier = self->_remoteDisplayIdentifier;
         companionLink = [(CSRemoteRequestClient *)self companionLink];
         activeDevices = [companionLink activeDevices];
         *buf = 136315650;
-        v41 = "[CSRemoteRequestClient _activateMessageClientIfNeeded:]";
-        v42 = 2112;
-        v43 = remoteDisplayIdentifier;
+        v43 = "[CSRemoteRequestClient _activateMessageClientIfNeeded:]";
         v44 = 2112;
-        v45 = activeDevices;
-        _os_log_impl(&dword_2441FB000, v21, OS_LOG_TYPE_INFO, "%s: Activating message client to %@ with %@", buf, 0x20u);
+        v45 = remoteDisplayIdentifier;
+        v46 = 2112;
+        v47 = activeDevices;
+        _os_log_impl(&dword_2441FB000, v23, OS_LOG_TYPE_INFO, "%s: Activating message client to %@ with %@", buf, 0x20u);
       }
 
+      v40 = 0u;
+      v41 = 0u;
       v38 = 0u;
       v39 = 0u;
-      v36 = 0u;
-      v37 = 0u;
       companionLink2 = [(CSRemoteRequestClient *)self companionLink];
       activeDevices2 = [companionLink2 activeDevices];
 
-      v27 = [activeDevices2 countByEnumeratingWithState:&v36 objects:v35 count:16];
-      if (v27)
+      v29 = [activeDevices2 countByEnumeratingWithState:&v38 objects:v37 count:16];
+      if (v29)
       {
-        v28 = *v37;
+        v30 = *v39;
         while (2)
         {
-          for (i = 0; i != v27; i = i + 1)
+          for (i = 0; i != v29; i = i + 1)
           {
-            if (*v37 != v28)
+            if (*v39 != v30)
             {
               objc_enumerationMutation(activeDevices2);
             }
 
-            v30 = *(*(&v36 + 1) + 8 * i);
-            if ([v30 compareWithDeviceIdentifier:self->_remoteDisplayIdentifier])
+            v32 = *(*(&v38 + 1) + 8 * i);
+            if ([v32 compareWithDeviceIdentifier:self->_remoteDisplayIdentifier])
             {
-              v27 = v30;
+              v29 = v32;
               goto LABEL_26;
             }
           }
 
-          v27 = [activeDevices2 countByEnumeratingWithState:&v36 objects:v35 count:16];
-          if (v27)
+          v29 = [activeDevices2 countByEnumeratingWithState:&v38 objects:v37 count:16];
+          if (v29)
           {
             continue;
           }
@@ -431,19 +434,19 @@ LABEL_26:
       aBlock[1] = 3221225472;
       aBlock[2] = __56__CSRemoteRequestClient__activateMessageClientIfNeeded___block_invoke_25;
       aBlock[3] = &unk_278E0AF60;
-      objc_copyWeak(&v34, &location);
-      v31 = _Block_copy(aBlock);
+      objc_copyWeak(&v36, &location);
+      v33 = _Block_copy(aBlock);
       pendingActivationDeviceFoundHandler = self->_pendingActivationDeviceFoundHandler;
-      self->_pendingActivationDeviceFoundHandler = v31;
+      self->_pendingActivationDeviceFoundHandler = v33;
 
-      if (v27)
+      if (v29)
       {
         (*(self->_pendingActivationDeviceFoundHandler + 2))();
       }
 
-      objc_destroyWeak(&v34);
+      objc_destroyWeak(&v36);
 
-      objc_destroyWeak(&v47);
+      objc_destroyWeak(&v49);
       objc_destroyWeak(&location);
     }
   }
@@ -466,23 +469,23 @@ void __56__CSRemoteRequestClient__activateMessageClientIfNeeded___block_invoke(u
   }
 }
 
-void __56__CSRemoteRequestClient__activateMessageClientIfNeeded___block_invoke_2(uint64_t a1)
+void __56__CSRemoteRequestClient__activateMessageClientIfNeeded___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v2 = ContinuitySingLog();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+  v3 = ContinuitySingLog(a1);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __56__CSRemoteRequestClient__activateMessageClientIfNeeded___block_invoke_2_cold_1(a1);
   }
 
   *(*(a1 + 32) + 24) = 0;
-  v3 = *(a1 + 32);
-  v4 = *(v3 + 64);
-  *(v3 + 64) = 0;
+  v4 = *(a1 + 32);
+  v5 = *(v4 + 64);
+  *(v4 + 64) = 0;
 
-  v5 = *(a1 + 32);
-  v6 = objc_alloc(MEMORY[0x277CCA9B8]);
-  v7 = [v6 initWithDomain:CSRemoteRequestClientErrorDomain code:4 userInfo:0];
-  [v5 _resolvePendingActivationCompletionsWithError:v7];
+  v6 = *(a1 + 32);
+  v7 = objc_alloc(MEMORY[0x277CCA9B8]);
+  v8 = [v7 initWithDomain:CSRemoteRequestClientErrorDomain code:4 userInfo:0];
+  [v6 _resolvePendingActivationCompletionsWithError:v8];
 }
 
 void __56__CSRemoteRequestClient__activateMessageClientIfNeeded___block_invoke_25(uint64_t a1, void *a2)
@@ -538,40 +541,44 @@ void __56__CSRemoteRequestClient__activateMessageClientIfNeeded___block_invoke_3
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v5 = WeakRetained;
-  if (WeakRetained && [WeakRetained[7] disarm])
+  if (WeakRetained)
   {
-    v6 = ContinuitySingLog();
-    v7 = v6;
-    if (v3)
+    v6 = [WeakRetained[7] disarm];
+    if (v6)
     {
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+      v7 = ContinuitySingLog(v6);
+      v8 = v7;
+      if (v3)
       {
-        __56__CSRemoteRequestClient__activateMessageClientIfNeeded___block_invoke_3_cold_1();
+        if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+        {
+          __56__CSRemoteRequestClient__activateMessageClientIfNeeded___block_invoke_3_cold_1();
+        }
+
+        [*(a1 + 32) invalidate];
+        v5[3] = 0;
+        v9 = v5;
+        v10 = v3;
       }
 
-      [*(a1 + 32) invalidate];
-      v5[3] = 0;
-      v8 = v5;
-      v9 = v3;
-    }
-
-    else
-    {
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+      else
       {
-        v10 = 136315138;
-        v11 = "[CSRemoteRequestClient _activateMessageClientIfNeeded:]_block_invoke";
-        _os_log_impl(&dword_2441FB000, v7, OS_LOG_TYPE_DEFAULT, "%s: Successfully activated message client", &v10, 0xCu);
+        if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+        {
+          v11 = 136315138;
+          v12 = "[CSRemoteRequestClient _activateMessageClientIfNeeded:]_block_invoke";
+          _os_log_impl(&dword_2441FB000, v8, OS_LOG_TYPE_DEFAULT, "%s: Successfully activated message client", &v11, 0xCu);
+        }
+
+        objc_storeStrong(v5 + 11, *(a1 + 32));
+        v5[3] = 2;
+        [v5 _updateCurrentState];
+        v9 = v5;
+        v10 = 0;
       }
 
-      objc_storeStrong(v5 + 11, *(a1 + 32));
-      v5[3] = 2;
-      [v5 _updateCurrentState];
-      v8 = v5;
-      v9 = 0;
+      [v9 _resolvePendingActivationCompletionsWithError:v10];
     }
-
-    [v8 _resolvePendingActivationCompletionsWithError:v9];
   }
 }
 
@@ -651,12 +658,13 @@ void __56__CSRemoteRequestClient__activateMessageClientIfNeeded___block_invoke_3
 void __55__CSRemoteRequestClient_sendRequestMessage_completion___block_invoke(id *a1, void *a2)
 {
   v3 = a2;
+  v4 = v3;
   if (v3)
   {
-    v4 = ContinuitySingLog();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = ContinuitySingLog(v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      __55__CSRemoteRequestClient_sendRequestMessage_completion___block_invoke_cold_1(a1);
+      __55__CSRemoteRequestClient_sendRequestMessage_completion___block_invoke_cold_1();
     }
 
     (*(a1[5] + 2))();
@@ -665,31 +673,31 @@ void __55__CSRemoteRequestClient_sendRequestMessage_completion___block_invoke(id
   else
   {
     WeakRetained = objc_loadWeakRetained(a1 + 6);
-    v6 = WeakRetained;
+    v7 = WeakRetained;
     if (WeakRetained)
     {
-      v7 = *(WeakRetained + 11);
-      v8 = [a1[4] identifier];
-      v9 = [a1[4] dictionaryRepresentation];
-      v13[0] = MEMORY[0x277D85DD0];
-      v13[1] = 3221225472;
-      v13[2] = __55__CSRemoteRequestClient_sendRequestMessage_completion___block_invoke_29;
-      v13[3] = &unk_278E0AFF8;
-      v14 = a1[4];
-      v15 = a1[5];
-      [v7 sendRequestID:v8 request:v9 options:0 responseHandler:v13];
+      v8 = *(WeakRetained + 11);
+      v9 = [a1[4] identifier];
+      v10 = [a1[4] dictionaryRepresentation];
+      v14[0] = MEMORY[0x277D85DD0];
+      v14[1] = 3221225472;
+      v14[2] = __55__CSRemoteRequestClient_sendRequestMessage_completion___block_invoke_29;
+      v14[3] = &unk_278E0AFF8;
+      v15 = a1[4];
+      v16 = a1[5];
+      [v8 sendRequestID:v9 request:v10 options:0 responseHandler:v14];
 
-      v10 = v14;
+      v11 = v15;
     }
 
     else
     {
-      v11 = objc_alloc(MEMORY[0x277CCA9B8]);
-      v10 = [v11 initWithDomain:CSRemoteRequestClientErrorDomain code:0 userInfo:0];
-      v12 = ContinuitySingLog();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      v12 = objc_alloc(MEMORY[0x277CCA9B8]);
+      v11 = [v12 initWithDomain:CSRemoteRequestClientErrorDomain code:0 userInfo:0];
+      v13 = ContinuitySingLog(v11);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
-        __55__CSRemoteRequestClient_sendRequestMessage_completion___block_invoke_cold_1(a1);
+        __55__CSRemoteRequestClient_sendRequestMessage_completion___block_invoke_cold_1();
       }
 
       (*(a1[5] + 2))();
@@ -699,23 +707,22 @@ void __55__CSRemoteRequestClient_sendRequestMessage_completion___block_invoke(id
 
 void __55__CSRemoteRequestClient_sendRequestMessage_completion___block_invoke_29(uint64_t a1, void *a2, uint64_t a3, void *a4)
 {
-  v12 = a2;
+  v11 = a2;
   v6 = a4;
-  if (v12)
+  if (v11)
   {
-    v7 = *(a1 + 32);
-    v8 = [objc_opt_class() responseMessageFromDictionary:v12];
-    v9 = *(a1 + 40);
-    if (v8)
+    v7 = [objc_opt_class() responseMessageFromDictionary:v11];
+    v8 = *(a1 + 40);
+    if (v7)
     {
-      (*(v9 + 16))(v9, v8, v6);
+      (*(v8 + 16))(v8, v7, v6);
     }
 
     else
     {
-      v10 = objc_alloc(MEMORY[0x277CCA9B8]);
-      v11 = [v10 initWithDomain:CSRemoteRequestClientErrorDomain code:5 userInfo:0];
-      (*(v9 + 16))(v9, 0, v11);
+      v9 = objc_alloc(MEMORY[0x277CCA9B8]);
+      v10 = [v9 initWithDomain:CSRemoteRequestClientErrorDomain code:5 userInfo:0];
+      (*(v8 + 16))(v8, 0, v10);
     }
   }
 
@@ -752,7 +759,7 @@ void __53__CSRemoteRequestClient_sendEventMessage_completion___block_invoke(id *
   v5 = WeakRetained;
   if (v3 || !WeakRetained)
   {
-    v9 = ContinuitySingLog();
+    v9 = ContinuitySingLog(WeakRetained);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       v10 = objc_loadWeakRetained(a1 + 6);
@@ -814,12 +821,12 @@ void __50__CSRemoteRequestClient_retrieveMicrophoneVolume___block_invoke(uint64_
 
   if (v7)
   {
-    if (v6 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
+    if (v6 || (objc_opt_class(), isKindOfClass = objc_opt_isKindOfClass(), (isKindOfClass & 1) == 0))
     {
-      v10 = ContinuitySingLog();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      v11 = ContinuitySingLog(isKindOfClass);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
-        __50__CSRemoteRequestClient_retrieveMicrophoneVolume___block_invoke_cold_1(a1);
+        __50__CSRemoteRequestClient_retrieveMicrophoneVolume___block_invoke_cold_1();
       }
 
       (*(*(a1 + 40) + 16))(0.0);
@@ -827,17 +834,17 @@ void __50__CSRemoteRequestClient_retrieveMicrophoneVolume___block_invoke(uint64_
 
     else
     {
-      v8 = ContinuitySingLog();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+      v9 = ContinuitySingLog(isKindOfClass);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
-        v9 = *(a1 + 32);
-        v14 = 136315650;
-        v15 = "[CSRemoteRequestClient retrieveMicrophoneVolume:]_block_invoke";
-        v16 = 2112;
-        v17 = v9;
-        v18 = 2112;
-        v19 = v5;
-        _os_log_impl(&dword_2441FB000, v8, OS_LOG_TYPE_DEFAULT, "%s: Successfully sent request %@, response: %@", &v14, 0x20u);
+        v10 = *(a1 + 32);
+        v15 = 136315650;
+        v16 = "[CSRemoteRequestClient retrieveMicrophoneVolume:]_block_invoke";
+        v17 = 2112;
+        v18 = v10;
+        v19 = 2112;
+        v20 = v5;
+        _os_log_impl(&dword_2441FB000, v9, OS_LOG_TYPE_DEFAULT, "%s: Successfully sent request %@, response: %@", &v15, 0x20u);
       }
 
       [v5 volume];
@@ -847,10 +854,10 @@ void __50__CSRemoteRequestClient_retrieveMicrophoneVolume___block_invoke(uint64_
 
   else
   {
-    v11 = *(a1 + 40);
-    v12 = objc_alloc(MEMORY[0x277CCA9B8]);
-    v13 = [v12 initWithDomain:CSRemoteRequestClientErrorDomain code:0 userInfo:0];
-    (*(v11 + 16))(v11, v13, 0.0);
+    v12 = *(a1 + 40);
+    v13 = objc_alloc(MEMORY[0x277CCA9B8]);
+    v14 = [v13 initWithDomain:CSRemoteRequestClientErrorDomain code:0 userInfo:0];
+    (*(v12 + 16))(v12, v14, 0.0);
   }
 
   objc_destroyWeak(&to);
@@ -885,12 +892,12 @@ void __50__CSRemoteRequestClient_increaseMicrophoneVolume___block_invoke(uint64_
 
   if (v7)
   {
-    if (v6 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
+    if (v6 || (objc_opt_class(), isKindOfClass = objc_opt_isKindOfClass(), (isKindOfClass & 1) == 0))
     {
-      v10 = ContinuitySingLog();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      v11 = ContinuitySingLog(isKindOfClass);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
-        __50__CSRemoteRequestClient_increaseMicrophoneVolume___block_invoke_cold_1(a1);
+        __50__CSRemoteRequestClient_increaseMicrophoneVolume___block_invoke_cold_1();
       }
 
       (*(*(a1 + 40) + 16))(0.0);
@@ -898,17 +905,17 @@ void __50__CSRemoteRequestClient_increaseMicrophoneVolume___block_invoke(uint64_
 
     else
     {
-      v8 = ContinuitySingLog();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+      v9 = ContinuitySingLog(isKindOfClass);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
-        v9 = *(a1 + 32);
-        v14 = 136315650;
-        v15 = "[CSRemoteRequestClient increaseMicrophoneVolume:]_block_invoke";
-        v16 = 2112;
-        v17 = v9;
-        v18 = 2112;
-        v19 = v5;
-        _os_log_impl(&dword_2441FB000, v8, OS_LOG_TYPE_DEFAULT, "%s: Successfully sent request %@, response: %@", &v14, 0x20u);
+        v10 = *(a1 + 32);
+        v15 = 136315650;
+        v16 = "[CSRemoteRequestClient increaseMicrophoneVolume:]_block_invoke";
+        v17 = 2112;
+        v18 = v10;
+        v19 = 2112;
+        v20 = v5;
+        _os_log_impl(&dword_2441FB000, v9, OS_LOG_TYPE_DEFAULT, "%s: Successfully sent request %@, response: %@", &v15, 0x20u);
       }
 
       [v5 volume];
@@ -918,10 +925,10 @@ void __50__CSRemoteRequestClient_increaseMicrophoneVolume___block_invoke(uint64_
 
   else
   {
-    v11 = *(a1 + 40);
-    v12 = objc_alloc(MEMORY[0x277CCA9B8]);
-    v13 = [v12 initWithDomain:CSRemoteRequestClientErrorDomain code:0 userInfo:0];
-    (*(v11 + 16))(v11, v13, 0.0);
+    v12 = *(a1 + 40);
+    v13 = objc_alloc(MEMORY[0x277CCA9B8]);
+    v14 = [v13 initWithDomain:CSRemoteRequestClientErrorDomain code:0 userInfo:0];
+    (*(v12 + 16))(v12, v14, 0.0);
   }
 
   objc_destroyWeak(&to);
@@ -956,12 +963,12 @@ void __50__CSRemoteRequestClient_decreaseMicrophoneVolume___block_invoke(uint64_
 
   if (v7)
   {
-    if (v6 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
+    if (v6 || (objc_opt_class(), isKindOfClass = objc_opt_isKindOfClass(), (isKindOfClass & 1) == 0))
     {
-      v10 = ContinuitySingLog();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      v11 = ContinuitySingLog(isKindOfClass);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
-        __50__CSRemoteRequestClient_decreaseMicrophoneVolume___block_invoke_cold_1(a1);
+        __50__CSRemoteRequestClient_decreaseMicrophoneVolume___block_invoke_cold_1();
       }
 
       (*(*(a1 + 40) + 16))(0.0);
@@ -969,17 +976,17 @@ void __50__CSRemoteRequestClient_decreaseMicrophoneVolume___block_invoke(uint64_
 
     else
     {
-      v8 = ContinuitySingLog();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+      v9 = ContinuitySingLog(isKindOfClass);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
-        v9 = *(a1 + 32);
-        v14 = 136315650;
-        v15 = "[CSRemoteRequestClient decreaseMicrophoneVolume:]_block_invoke";
-        v16 = 2112;
-        v17 = v9;
-        v18 = 2112;
-        v19 = v5;
-        _os_log_impl(&dword_2441FB000, v8, OS_LOG_TYPE_DEFAULT, "%s: Successfully sent request %@, response: %@", &v14, 0x20u);
+        v10 = *(a1 + 32);
+        v15 = 136315650;
+        v16 = "[CSRemoteRequestClient decreaseMicrophoneVolume:]_block_invoke";
+        v17 = 2112;
+        v18 = v10;
+        v19 = 2112;
+        v20 = v5;
+        _os_log_impl(&dword_2441FB000, v9, OS_LOG_TYPE_DEFAULT, "%s: Successfully sent request %@, response: %@", &v15, 0x20u);
       }
 
       [v5 volume];
@@ -989,10 +996,10 @@ void __50__CSRemoteRequestClient_decreaseMicrophoneVolume___block_invoke(uint64_
 
   else
   {
-    v11 = *(a1 + 40);
-    v12 = objc_alloc(MEMORY[0x277CCA9B8]);
-    v13 = [v12 initWithDomain:CSRemoteRequestClientErrorDomain code:0 userInfo:0];
-    (*(v11 + 16))(v11, v13, 0.0);
+    v12 = *(a1 + 40);
+    v13 = objc_alloc(MEMORY[0x277CCA9B8]);
+    v14 = [v13 initWithDomain:CSRemoteRequestClientErrorDomain code:0 userInfo:0];
+    (*(v12 + 16))(v12, v14, 0.0);
   }
 
   objc_destroyWeak(&to);
@@ -1027,12 +1034,12 @@ void __40__CSRemoteRequestClient_retrieveReverb___block_invoke(uint64_t a1, void
 
   if (v7)
   {
-    if (v6 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
+    if (v6 || (objc_opt_class(), isKindOfClass = objc_opt_isKindOfClass(), (isKindOfClass & 1) == 0))
     {
-      v10 = ContinuitySingLog();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      v11 = ContinuitySingLog(isKindOfClass);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
-        __40__CSRemoteRequestClient_retrieveReverb___block_invoke_cold_1(a1);
+        __40__CSRemoteRequestClient_retrieveReverb___block_invoke_cold_1();
       }
 
       (*(*(a1 + 40) + 16))();
@@ -1040,17 +1047,17 @@ void __40__CSRemoteRequestClient_retrieveReverb___block_invoke(uint64_t a1, void
 
     else
     {
-      v8 = ContinuitySingLog();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+      v9 = ContinuitySingLog(isKindOfClass);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
-        v9 = *(a1 + 32);
-        v14 = 136315650;
-        v15 = "[CSRemoteRequestClient retrieveReverb:]_block_invoke";
-        v16 = 2112;
-        v17 = v9;
-        v18 = 2112;
-        v19 = v5;
-        _os_log_impl(&dword_2441FB000, v8, OS_LOG_TYPE_DEFAULT, "%s: Successfully sent request %@, response: %@", &v14, 0x20u);
+        v10 = *(a1 + 32);
+        v15 = 136315650;
+        v16 = "[CSRemoteRequestClient retrieveReverb:]_block_invoke";
+        v17 = 2112;
+        v18 = v10;
+        v19 = 2112;
+        v20 = v5;
+        _os_log_impl(&dword_2441FB000, v9, OS_LOG_TYPE_DEFAULT, "%s: Successfully sent request %@, response: %@", &v15, 0x20u);
       }
 
       [v5 reverbLevel];
@@ -1060,10 +1067,10 @@ void __40__CSRemoteRequestClient_retrieveReverb___block_invoke(uint64_t a1, void
 
   else
   {
-    v11 = *(a1 + 40);
-    v12 = objc_alloc(MEMORY[0x277CCA9B8]);
-    v13 = [v12 initWithDomain:CSRemoteRequestClientErrorDomain code:0 userInfo:0];
-    (*(v11 + 16))(v11, 0, v13);
+    v12 = *(a1 + 40);
+    v13 = objc_alloc(MEMORY[0x277CCA9B8]);
+    v14 = [v13 initWithDomain:CSRemoteRequestClientErrorDomain code:0 userInfo:0];
+    (*(v12 + 16))(v12, 0, v14);
   }
 
   objc_destroyWeak(&to);
@@ -1071,7 +1078,7 @@ void __40__CSRemoteRequestClient_retrieveReverb___block_invoke(uint64_t a1, void
 
 - (void)sendReverb:(int64_t)reverb
 {
-  v5 = ContinuitySingLog();
+  v5 = ContinuitySingLog(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = NSStringFromCSReverbLevel(reverb);
@@ -1083,7 +1090,7 @@ void __40__CSRemoteRequestClient_retrieveReverb___block_invoke(uint64_t a1, void
   }
 
   v7 = [[CSReverbMessage alloc] initWithReverbLevel:reverb];
-  v8 = ContinuitySingLog();
+  v8 = ContinuitySingLog(v7);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
@@ -1104,7 +1111,7 @@ void __40__CSRemoteRequestClient_retrieveReverb___block_invoke(uint64_t a1, void
 void __36__CSRemoteRequestClient_sendReverb___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = ContinuitySingLog();
+  v4 = ContinuitySingLog(v3);
   v5 = v4;
   if (v3)
   {
@@ -1139,7 +1146,7 @@ void __36__CSRemoteRequestClient_sendReverb___block_invoke(uint64_t a1, void *a2
 void __40__CSRemoteRequestClient_sendVocalLevel___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = ContinuitySingLog();
+  v4 = ContinuitySingLog(v3);
   v5 = v4;
   if (v3)
   {
@@ -1180,13 +1187,13 @@ void __40__CSRemoteRequestClient_sendVocalLevel___block_invoke(uint64_t a1, void
 void __38__CSRemoteRequestClient_sendReaction___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = ContinuitySingLog();
+  v4 = ContinuitySingLog(v3);
   v5 = v4;
   if (v3)
   {
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      __38__CSRemoteRequestClient_sendReaction___block_invoke_cold_1(a1);
+      __38__CSRemoteRequestClient_sendReaction___block_invoke_cold_1();
     }
   }
 
@@ -1229,16 +1236,16 @@ void __46__CSRemoteRequestClient__registerForReactions__block_invoke(uint64_t a1
   eventCopy = event;
   dispatch_assert_queue_V2(self->_companionLinkQueue);
   v5 = [[CSReactionMessage alloc] initWithMessage:eventCopy];
-  v6 = ContinuitySingLog();
+  v6 = ContinuitySingLog(v5);
   p_super = v6;
   if (v5)
   {
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315394;
-      v16 = "[CSRemoteRequestClient _handleReactionEvent:]";
-      v17 = 2112;
-      v18 = v5;
+      v17 = "[CSRemoteRequestClient _handleReactionEvent:]";
+      v18 = 2112;
+      v19 = v5;
       _os_log_impl(&dword_2441FB000, p_super, OS_LOG_TYPE_DEFAULT, "%s: Received reaction event %@", buf, 0x16u);
     }
 
@@ -1249,25 +1256,25 @@ void __46__CSRemoteRequestClient__registerForReactions__block_invoke(uint64_t a1
 
     if (v11)
     {
-      p_super = ContinuitySingLog();
+      p_super = ContinuitySingLog(v12);
       if (os_log_type_enabled(p_super, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315138;
-        v16 = "[CSRemoteRequestClient _handleReactionEvent:]";
+        v17 = "[CSRemoteRequestClient _handleReactionEvent:]";
         _os_log_impl(&dword_2441FB000, p_super, OS_LOG_TYPE_DEFAULT, "%s: Dropping reaction event that came from us", buf, 0xCu);
       }
     }
 
     else
     {
-      v12[0] = MEMORY[0x277D85DD0];
-      v12[1] = 3221225472;
-      v12[2] = __46__CSRemoteRequestClient__handleReactionEvent___block_invoke;
-      v12[3] = &unk_278E0AD78;
-      v13 = v5;
+      v13[0] = MEMORY[0x277D85DD0];
+      v13[1] = 3221225472;
+      v13[2] = __46__CSRemoteRequestClient__handleReactionEvent___block_invoke;
+      v13[3] = &unk_278E0AD78;
+      v14 = v5;
       selfCopy = self;
-      dispatch_async(MEMORY[0x277D85CD0], v12);
-      p_super = &v13->super.super;
+      dispatch_async(MEMORY[0x277D85CD0], v13);
+      p_super = &v14->super.super;
     }
   }
 
@@ -1347,19 +1354,20 @@ void __46__CSRemoteRequestClient__registerCheckinTimer__block_invoke_2(uint64_t 
 void __44__CSRemoteRequestClient__sendCheckinRequest__block_invoke(uint64_t a1, void *a2, void *a3)
 {
   v5 = a2;
-  v6 = a3;
-  if (v6 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
+  isKindOfClass = a3;
+  v7 = isKindOfClass;
+  if (isKindOfClass || (objc_opt_class(), isKindOfClass = objc_opt_isKindOfClass(), (isKindOfClass & 1) == 0))
   {
-    v11 = ContinuitySingLog();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v13 = ContinuitySingLog(isKindOfClass);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      __44__CSRemoteRequestClient__sendCheckinRequest__block_invoke_cold_1(a1);
+      __44__CSRemoteRequestClient__sendCheckinRequest__block_invoke_cold_1();
     }
 
-    v12 = ContinuitySingLog();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v15 = ContinuitySingLog(v14);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
-      __44__CSRemoteRequestClient__sendCheckinRequest__block_invoke_cold_2(v12, v13, v14, v15, v16, v17, v18, v19);
+      __44__CSRemoteRequestClient__sendCheckinRequest__block_invoke_cold_2(v15, v16, v17, v18, v19, v20, v21, v22);
     }
 
     (*(*(*(a1 + 40) + 8) + 16))();
@@ -1367,33 +1375,34 @@ void __44__CSRemoteRequestClient__sendCheckinRequest__block_invoke(uint64_t a1, 
 
   else
   {
-    v7 = [v5 isValid];
-    v8 = ContinuitySingLog();
+    v8 = [v5 isValid];
     v9 = v8;
-    if (v7)
+    v10 = ContinuitySingLog(v8);
+    v11 = v10;
+    if (v9)
     {
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
-        v10 = *(a1 + 32);
-        v21 = 136315650;
-        v22 = "[CSRemoteRequestClient _sendCheckinRequest]_block_invoke";
-        v23 = 2112;
-        v24 = v10;
-        v25 = 2112;
-        v26 = v5;
-        _os_log_impl(&dword_2441FB000, v9, OS_LOG_TYPE_DEFAULT, "%s: Successfully sent checkin request %@, response: %@", &v21, 0x20u);
+        v12 = *(a1 + 32);
+        v24 = 136315650;
+        v25 = "[CSRemoteRequestClient _sendCheckinRequest]_block_invoke";
+        v26 = 2112;
+        v27 = v12;
+        v28 = 2112;
+        v29 = v5;
+        _os_log_impl(&dword_2441FB000, v11, OS_LOG_TYPE_DEFAULT, "%s: Successfully sent checkin request %@, response: %@", &v24, 0x20u);
       }
     }
 
     else
     {
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
-        __44__CSRemoteRequestClient__sendCheckinRequest__block_invoke_cold_3(a1);
+        __44__CSRemoteRequestClient__sendCheckinRequest__block_invoke_cold_3();
       }
 
-      v20 = +[CSShieldConnectionManager sharedManager];
-      [v20 reportErrorWithCode:-116 subsystem:0 description:@"The remote server does not recognize this client as valid" exitSession:1];
+      v23 = +[CSShieldConnectionManager sharedManager];
+      [v23 reportErrorWithCode:-116 subsystem:0 description:@"The remote server does not recognize this client as valid" exitSession:1];
     }
   }
 }
@@ -1416,31 +1425,32 @@ void __44__CSRemoteRequestClient__sendCheckinRequest__block_invoke(uint64_t a1, 
 void __46__CSRemoteRequestClient_sendEnableMicRequest___block_invoke(uint64_t a1, void *a2, void *a3)
 {
   v5 = a2;
-  v6 = a3;
-  if (v6 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
+  isKindOfClass = a3;
+  v7 = isKindOfClass;
+  if (isKindOfClass || (objc_opt_class(), isKindOfClass = objc_opt_isKindOfClass(), (isKindOfClass & 1) == 0))
   {
-    v9 = ContinuitySingLog();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v10 = ContinuitySingLog(isKindOfClass);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      __46__CSRemoteRequestClient_sendEnableMicRequest___block_invoke_cold_1(a1);
+      __46__CSRemoteRequestClient_sendEnableMicRequest___block_invoke_cold_1();
     }
 
-    (*(*(a1 + 40) + 16))(*(a1 + 40), 2, v6);
+    (*(*(a1 + 40) + 16))(*(a1 + 40), 2, v7);
   }
 
   else
   {
-    v7 = ContinuitySingLog();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = ContinuitySingLog(isKindOfClass);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = *(a1 + 32);
-      v10 = 136315650;
-      v11 = "[CSRemoteRequestClient sendEnableMicRequest:]_block_invoke";
-      v12 = 2112;
-      v13 = v8;
-      v14 = 2112;
-      v15 = v5;
-      _os_log_impl(&dword_2441FB000, v7, OS_LOG_TYPE_DEFAULT, "%s: Successfully sent session update request %@, response: %@", &v10, 0x20u);
+      v9 = *(a1 + 32);
+      v11 = 136315650;
+      v12 = "[CSRemoteRequestClient sendEnableMicRequest:]_block_invoke";
+      v13 = 2112;
+      v14 = v9;
+      v15 = 2112;
+      v16 = v5;
+      _os_log_impl(&dword_2441FB000, v8, OS_LOG_TYPE_DEFAULT, "%s: Successfully sent session update request %@, response: %@", &v11, 0x20u);
     }
 
     (*(*(a1 + 40) + 16))(*(a1 + 40), [v5 result], 0);
@@ -1465,13 +1475,14 @@ void __46__CSRemoteRequestClient_sendEnableMicRequest___block_invoke(uint64_t a1
 void __46__CSRemoteRequestClient_retrieveSessionState___block_invoke(uint64_t a1, void *a2, void *a3)
 {
   v5 = a2;
-  v6 = a3;
-  if (v6 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
+  isKindOfClass = a3;
+  v7 = isKindOfClass;
+  if (isKindOfClass || (objc_opt_class(), isKindOfClass = objc_opt_isKindOfClass(), (isKindOfClass & 1) == 0))
   {
-    v16 = ContinuitySingLog();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    v18 = ContinuitySingLog(isKindOfClass);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
-      __46__CSRemoteRequestClient_retrieveSessionState___block_invoke_cold_1(a1);
+      __46__CSRemoteRequestClient_retrieveSessionState___block_invoke_cold_1();
     }
 
     (*(*(a1 + 40) + 16))();
@@ -1479,41 +1490,56 @@ void __46__CSRemoteRequestClient_retrieveSessionState___block_invoke(uint64_t a1
 
   else
   {
-    v7 = [CSSingSessionState alloc];
+    v8 = [CSSingSessionState alloc];
     [v5 micVolume];
-    v9 = v8;
-    v10 = [v5 reverbLevel];
-    v11 = [v5 activeMicRemoteDisplayID];
-    v12 = [v5 participants];
-    v13 = -[CSSingSessionState initWithMicVolume:reverbLevel:activeMicRemoteDisplayID:participants:sdrMode:](v7, "initWithMicVolume:reverbLevel:activeMicRemoteDisplayID:participants:sdrMode:", v10, v11, v12, [v5 sdrMode], v9);
+    v10 = v9;
+    v11 = [v5 reverbLevel];
+    v12 = [v5 activeMicRemoteDisplayID];
+    v13 = [v5 participants];
+    v14 = -[CSSingSessionState initWithMicVolume:reverbLevel:activeMicRemoteDisplayID:participants:sdrMode:](v8, "initWithMicVolume:reverbLevel:activeMicRemoteDisplayID:participants:sdrMode:", v11, v12, v13, [v5 sdrMode], v10);
 
-    v14 = ContinuitySingLog();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    v16 = ContinuitySingLog(v15);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
-      v15 = *(a1 + 32);
-      v17 = 136315650;
-      v18 = "[CSRemoteRequestClient retrieveSessionState:]_block_invoke";
-      v19 = 2112;
-      v20 = v15;
+      v17 = *(a1 + 32);
+      v19 = 136315650;
+      v20 = "[CSRemoteRequestClient retrieveSessionState:]_block_invoke";
       v21 = 2112;
-      v22 = v13;
-      _os_log_impl(&dword_2441FB000, v14, OS_LOG_TYPE_DEFAULT, "%s: Successfully sent session update request %@, state: %@", &v17, 0x20u);
+      v22 = v17;
+      v23 = 2112;
+      v24 = v14;
+      _os_log_impl(&dword_2441FB000, v16, OS_LOG_TYPE_DEFAULT, "%s: Successfully sent session update request %@, state: %@", &v19, 0x20u);
     }
 
     (*(*(a1 + 40) + 16))();
   }
 }
 
+- (void)sendQueuedSongsNotificationWithTracks:(id)tracks shouldQueueOnServer:(BOOL)server
+{
+  serverCopy = server;
+  tracksCopy = tracks;
+  v7 = [[CSTrackQueuedMessage alloc] initWithQueuedTracks:tracksCopy shouldQueueOnServer:serverCopy];
+
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v9[2] = __83__CSRemoteRequestClient_sendQueuedSongsNotificationWithTracks_shouldQueueOnServer___block_invoke;
+  v9[3] = &unk_278E0ADC8;
+  v10 = v7;
+  v8 = v7;
+  [(CSRemoteRequestClient *)self sendEventMessage:v8 completion:v9];
+}
+
 void __83__CSRemoteRequestClient_sendQueuedSongsNotificationWithTracks_shouldQueueOnServer___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = ContinuitySingLog();
+  v4 = ContinuitySingLog(v3);
   v5 = v4;
   if (v3)
   {
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      __83__CSRemoteRequestClient_sendQueuedSongsNotificationWithTracks_shouldQueueOnServer___block_invoke_cold_1(a1);
+      __83__CSRemoteRequestClient_sendQueuedSongsNotificationWithTracks_shouldQueueOnServer___block_invoke_cold_1();
     }
   }
 
@@ -1574,10 +1600,11 @@ void __83__CSRemoteRequestClient_sendQueuedSongsNotificationWithTracks_shouldQue
 void __64__CSRemoteRequestClient__activateAudioLatencyEstimatorIfNeeded___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
+  v4 = v3;
   if (v3)
   {
-    v4 = ContinuitySingLog();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = ContinuitySingLog(v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       __64__CSRemoteRequestClient__activateAudioLatencyEstimatorIfNeeded___block_invoke_cold_1();
     }
@@ -1590,31 +1617,31 @@ void __64__CSRemoteRequestClient__activateAudioLatencyEstimatorIfNeeded___block_
     WeakRetained = objc_loadWeakRetained((a1 + 40));
     if (WeakRetained)
     {
-      v6 = [CSAudioLatencyEstimatorClient alloc];
-      v7 = [WeakRetained activeMessageClient];
-      v8 = [(CSAudioLatencyEstimatorClient *)v6 initWithActiveMessageClient:v7];
+      v7 = [CSAudioLatencyEstimatorClient alloc];
+      v8 = [WeakRetained activeMessageClient];
+      v9 = [(CSAudioLatencyEstimatorClient *)v7 initWithActiveMessageClient:v8];
 
-      v9 = WeakRetained[16];
-      WeakRetained[16] = v8;
-      v10 = v8;
+      v10 = WeakRetained[16];
+      WeakRetained[16] = v9;
+      v11 = v9;
 
-      v11 = ContinuitySingLog();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+      v13 = ContinuitySingLog(v12);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
       {
-        v14 = 136315138;
-        v15 = "[CSRemoteRequestClient _activateAudioLatencyEstimatorIfNeeded:]_block_invoke";
-        _os_log_impl(&dword_2441FB000, v11, OS_LOG_TYPE_DEFAULT, "%s: Activated audio latency estimator", &v14, 0xCu);
+        v16 = 136315138;
+        v17 = "[CSRemoteRequestClient _activateAudioLatencyEstimatorIfNeeded:]_block_invoke";
+        _os_log_impl(&dword_2441FB000, v13, OS_LOG_TYPE_DEFAULT, "%s: Activated audio latency estimator", &v16, 0xCu);
       }
 
-      v12 = v10;
+      v14 = v11;
     }
 
     else
     {
-      v13 = objc_alloc(MEMORY[0x277CCA9B8]);
-      v12 = [v13 initWithDomain:CSRemoteRequestClientErrorDomain code:0 userInfo:0];
-      v11 = ContinuitySingLog();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      v15 = objc_alloc(MEMORY[0x277CCA9B8]);
+      v14 = [v15 initWithDomain:CSRemoteRequestClientErrorDomain code:0 userInfo:0];
+      v13 = ContinuitySingLog(v14);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
         __64__CSRemoteRequestClient__activateAudioLatencyEstimatorIfNeeded___block_invoke_cold_1();
       }
@@ -1624,16 +1651,28 @@ void __64__CSRemoteRequestClient__activateAudioLatencyEstimatorIfNeeded___block_
   }
 }
 
+- (void)sendDisplayMode:(BOOL)mode
+{
+  v4 = [[CSDisplayModeMessage alloc] initWithEnableSDR:mode];
+  v6[0] = MEMORY[0x277D85DD0];
+  v6[1] = 3221225472;
+  v6[2] = __41__CSRemoteRequestClient_sendDisplayMode___block_invoke;
+  v6[3] = &unk_278E0ADC8;
+  v7 = v4;
+  v5 = v4;
+  [(CSRemoteRequestClient *)self sendEventMessage:v5 completion:v6];
+}
+
 void __41__CSRemoteRequestClient_sendDisplayMode___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = ContinuitySingLog();
+  v4 = ContinuitySingLog(v3);
   v5 = v4;
   if (v3)
   {
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      __41__CSRemoteRequestClient_sendDisplayMode___block_invoke_cold_1(a1);
+      __41__CSRemoteRequestClient_sendDisplayMode___block_invoke_cold_1(a1, v3);
     }
   }
 
@@ -1691,11 +1730,11 @@ void __61__CSRemoteRequestClient_sendDisconnectMessageWithCompletion___block_inv
 
   if (v9)
   {
-    v11 = ContinuitySingLog();
-    v12 = v11;
+    v12 = ContinuitySingLog(v11);
+    v13 = v12;
     if (errorCopy)
     {
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
         [CSRemoteRequestClient _handleHandshakeResponse:error:];
       }
@@ -1708,14 +1747,14 @@ void __61__CSRemoteRequestClient_sendDisconnectMessageWithCompletion___block_inv
         if (code == 3)
         {
           defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
-          v41 = @"CSRemoteRequestClientErrorCode";
-          v42 = &unk_2857A1738;
-          v16 = MEMORY[0x277CBEAC0];
-          v17 = &v42;
-          v18 = &v41;
+          v43 = @"CSRemoteRequestClientErrorCode";
+          v44 = &unk_2857A1738;
+          v17 = MEMORY[0x277CBEAC0];
+          v18 = &v44;
+          v19 = &v43;
 LABEL_24:
-          v31 = [v16 dictionaryWithObjects:v17 forKeys:v18 count:1];
-          [defaultCenter postNotificationName:@"CSRemoteRequestClientErrorNotification" object:self userInfo:v31];
+          v33 = [v17 dictionaryWithObjects:v18 forKeys:v19 count:1];
+          [defaultCenter postNotificationName:@"CSRemoteRequestClientErrorNotification" object:self userInfo:v33];
 
           v9[2](v9, errorCopy);
           goto LABEL_25;
@@ -1734,11 +1773,11 @@ LABEL_24:
         if (code2 == 4)
         {
           defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
-          v39 = @"CSRemoteRequestClientErrorCode";
-          v40 = &unk_2857A1750;
-          v16 = MEMORY[0x277CBEAC0];
-          v17 = &v40;
-          v18 = &v39;
+          v41 = @"CSRemoteRequestClientErrorCode";
+          v42 = &unk_2857A1750;
+          v17 = MEMORY[0x277CBEAC0];
+          v18 = &v42;
+          v19 = &v41;
           goto LABEL_24;
         }
       }
@@ -1748,38 +1787,39 @@ LABEL_24:
       }
 
       defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
-      v37 = @"CSRemoteRequestClientErrorCode";
-      v38 = &unk_2857A1768;
-      v16 = MEMORY[0x277CBEAC0];
-      v17 = &v38;
-      v18 = &v37;
+      v39 = @"CSRemoteRequestClientErrorCode";
+      v40 = &unk_2857A1768;
+      v17 = MEMORY[0x277CBEAC0];
+      v18 = &v40;
+      v19 = &v39;
       goto LABEL_24;
     }
 
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315394;
-      v34 = "[CSRemoteRequestClient _handleHandshakeResponse:error:]";
-      v35 = 2112;
-      v36 = responseCopy;
-      _os_log_impl(&dword_2441FB000, v12, OS_LOG_TYPE_DEFAULT, "%s: Server handshake successful: %@", buf, 0x16u);
+      v36 = "[CSRemoteRequestClient _handleHandshakeResponse:error:]";
+      v37 = 2112;
+      v38 = responseCopy;
+      _os_log_impl(&dword_2441FB000, v13, OS_LOG_TYPE_DEFAULT, "%s: Server handshake successful: %@", buf, 0x16u);
     }
 
     v9[2](v9, 0);
     objc_storeStrong(&self->_serverHandshake, response);
     [(CSRemoteRequestClient *)self _registerForReactions];
-    if ([responseCopy shouldActivateMicrophone])
+    shouldActivateMicrophone = [responseCopy shouldActivateMicrophone];
+    if (shouldActivateMicrophone)
     {
-      v27 = ContinuitySingLog();
-      if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
+      v29 = ContinuitySingLog(shouldActivateMicrophone);
+      if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315138;
-        v34 = "[CSRemoteRequestClient _handleHandshakeResponse:error:]";
-        _os_log_impl(&dword_2441FB000, v27, OS_LOG_TYPE_DEFAULT, "%s: Handshake indicates we should turn on the mic - let's do it!", buf, 0xCu);
+        v36 = "[CSRemoteRequestClient _handleHandshakeResponse:error:]";
+        _os_log_impl(&dword_2441FB000, v29, OS_LOG_TYPE_DEFAULT, "%s: Handshake indicates we should turn on the mic - let's do it!", buf, 0xCu);
       }
 
-      v28 = +[CSShieldManager sharedManager];
-      [v28 requestMicrophoneActivationWithCompletion:0];
+      v30 = +[CSShieldManager sharedManager];
+      [v30 requestMicrophoneActivationWithCompletion:0];
     }
 
     block[0] = MEMORY[0x277D85DD0];
@@ -1792,10 +1832,10 @@ LABEL_24:
 
   else
   {
-    v19 = ContinuitySingLog();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+    v20 = ContinuitySingLog(v11);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
-      [(CSRemoteRequestClient *)v19 _handleHandshakeResponse:v20 error:v21, v22, v23, v24, v25, v26];
+      [(CSRemoteRequestClient *)v20 _handleHandshakeResponse:v21 error:v22, v23, v24, v25, v26, v27];
     }
   }
 
@@ -1822,13 +1862,14 @@ LABEL_25:
 void __73__CSRemoteRequestClient_retrieveAttributionsForQueueIdentifiers_handler___block_invoke(uint64_t a1, void *a2, void *a3)
 {
   v5 = a2;
-  v6 = a3;
-  if (v6 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
+  isKindOfClass = a3;
+  v7 = isKindOfClass;
+  if (isKindOfClass || (objc_opt_class(), isKindOfClass = objc_opt_isKindOfClass(), (isKindOfClass & 1) == 0))
   {
-    v9 = ContinuitySingLog();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v10 = ContinuitySingLog(isKindOfClass);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      __73__CSRemoteRequestClient_retrieveAttributionsForQueueIdentifiers_handler___block_invoke_cold_1(a1);
+      __73__CSRemoteRequestClient_retrieveAttributionsForQueueIdentifiers_handler___block_invoke_cold_1();
     }
 
     (*(*(a1 + 40) + 16))();
@@ -1836,9 +1877,9 @@ void __73__CSRemoteRequestClient_retrieveAttributionsForQueueIdentifiers_handler
 
   else
   {
-    v7 = *(a1 + 40);
-    v8 = [v5 queueIdentifierAttributionMap];
-    (*(v7 + 16))(v7, v8, 0);
+    v8 = *(a1 + 40);
+    v9 = [v5 queueIdentifierAttributionMap];
+    (*(v8 + 16))(v8, v9, 0);
   }
 }
 
@@ -1864,13 +1905,14 @@ void __73__CSRemoteRequestClient_retrieveAttributionsForQueueIdentifiers_handler
 void __62__CSRemoteRequestClient_retrieveAvatarForParticipant_handler___block_invoke(uint64_t a1, void *a2, void *a3)
 {
   v5 = a2;
-  v6 = a3;
-  if (v6 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
+  isKindOfClass = a3;
+  v7 = isKindOfClass;
+  if (isKindOfClass || (objc_opt_class(), isKindOfClass = objc_opt_isKindOfClass(), (isKindOfClass & 1) == 0))
   {
-    v9 = ContinuitySingLog();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v10 = ContinuitySingLog(isKindOfClass);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      __62__CSRemoteRequestClient_retrieveAvatarForParticipant_handler___block_invoke_cold_1(a1);
+      __62__CSRemoteRequestClient_retrieveAvatarForParticipant_handler___block_invoke_cold_1();
     }
 
     (*(*(a1 + 40) + 16))();
@@ -1878,9 +1920,9 @@ void __62__CSRemoteRequestClient_retrieveAvatarForParticipant_handler___block_in
 
   else
   {
-    v7 = *(a1 + 40);
-    v8 = [v5 avatar];
-    (*(v7 + 16))(v7, v8, 0);
+    v8 = *(a1 + 40);
+    v9 = [v5 avatar];
+    (*(v8 + 16))(v8, v9, 0);
   }
 }
 
@@ -1893,7 +1935,7 @@ void __62__CSRemoteRequestClient_retrieveAvatarForParticipant_handler___block_in
 void __46__CSRemoteRequestClient_sendStartSingingEvent__block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = ContinuitySingLog();
+  v3 = ContinuitySingLog(v2);
   v4 = v3;
   if (v2)
   {
@@ -1911,59 +1953,81 @@ void __46__CSRemoteRequestClient_sendStartSingingEvent__block_invoke(uint64_t a1
   }
 }
 
+void __119__CSRemoteRequestClient_initWithRemoteDisplayIdentifier_participantInfo_disconnectHandler_connectionCompletionHandler___block_invoke_12_cold_1()
+{
+  v6 = 136315394;
+  OUTLINED_FUNCTION_0();
+  OUTLINED_FUNCTION_1(&dword_2441FB000, v0, v1, "%s: CompanionLink failed to activate with error: %@", v2, v3, v4, v5, v6);
+}
+
+- (void)_activateMessageClientIfNeeded:(uint64_t)a3 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[CSRemoteRequestClient _activateMessageClientIfNeeded:]";
+  OUTLINED_FUNCTION_5(&dword_2441FB000, a1, a3, "%s: Message client activation in progress", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
 void __56__CSRemoteRequestClient__activateMessageClientIfNeeded___block_invoke_2_cold_1(uint64_t a1)
 {
   v1 = *(a1 + 32);
   v2 = v1[13];
-  v9 = [v1 companionLink];
-  OUTLINED_FUNCTION_4(&dword_2441FB000, v3, v4, "%s: Timed out waiting to find device with identifier: %@ with %@", v5, v6, v7, v8, 2u);
+  v3 = [v1 companionLink];
+  *v10 = 136315650;
+  *&v10[4] = "[CSRemoteRequestClient _activateMessageClientIfNeeded:]_block_invoke_2";
+  *&v10[12] = 2112;
+  *&v10[14] = v2;
+  *&v10[22] = 2112;
+  OUTLINED_FUNCTION_4(&dword_2441FB000, v4, v5, "%s: Timed out waiting to find device with identifier: %@ with %@", v6, v7, v8, v9, *v10, *&v10[8], *&v10[16], v3);
 }
 
-void __55__CSRemoteRequestClient_sendRequestMessage_completion___block_invoke_cold_1(uint64_t a1)
+void __56__CSRemoteRequestClient__activateMessageClientIfNeeded___block_invoke_3_cold_1()
 {
-  v1 = *(a1 + 32);
-  v4 = 136315650;
-  OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_2_0(&dword_2441FB000, v2, v3, "%s: Failed to send %@ with error %@", v4);
+  v6 = 136315394;
+  OUTLINED_FUNCTION_0();
+  OUTLINED_FUNCTION_1(&dword_2441FB000, v0, v1, "%s: Failed to activate with error: %@", v2, v3, v4, v5, v6);
 }
 
-void __50__CSRemoteRequestClient_retrieveMicrophoneVolume___block_invoke_cold_1(uint64_t a1)
+void __55__CSRemoteRequestClient_sendRequestMessage_completion___block_invoke_cold_1()
 {
-  v1 = *(a1 + 32);
-  v4 = 136315650;
+  v2 = 136315650;
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_2_0(&dword_2441FB000, v2, v3, "%s: Failed to send request %@ with error %@", v4);
+  OUTLINED_FUNCTION_2_0(&dword_2441FB000, v0, v1, "%s: Failed to send %@ with error %@", v2);
 }
 
-void __50__CSRemoteRequestClient_increaseMicrophoneVolume___block_invoke_cold_1(uint64_t a1)
+void __50__CSRemoteRequestClient_retrieveMicrophoneVolume___block_invoke_cold_1()
 {
-  v1 = *(a1 + 32);
-  v4 = 136315650;
+  v2 = 136315650;
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_2_0(&dword_2441FB000, v2, v3, "%s: Failed to send request %@ with error %@", v4);
+  OUTLINED_FUNCTION_2_0(&dword_2441FB000, v0, v1, "%s: Failed to send request %@ with error %@", v2);
 }
 
-void __50__CSRemoteRequestClient_decreaseMicrophoneVolume___block_invoke_cold_1(uint64_t a1)
+void __50__CSRemoteRequestClient_increaseMicrophoneVolume___block_invoke_cold_1()
 {
-  v1 = *(a1 + 32);
-  v4 = 136315650;
+  v2 = 136315650;
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_2_0(&dword_2441FB000, v2, v3, "%s: Failed to send request %@ with error %@", v4);
+  OUTLINED_FUNCTION_2_0(&dword_2441FB000, v0, v1, "%s: Failed to send request %@ with error %@", v2);
 }
 
-void __40__CSRemoteRequestClient_retrieveReverb___block_invoke_cold_1(uint64_t a1)
+void __50__CSRemoteRequestClient_decreaseMicrophoneVolume___block_invoke_cold_1()
 {
-  v1 = *(a1 + 32);
-  v4 = 136315650;
+  v2 = 136315650;
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_2_0(&dword_2441FB000, v2, v3, "%s: Failed to send request %@ with error %@", v4);
+  OUTLINED_FUNCTION_2_0(&dword_2441FB000, v0, v1, "%s: Failed to send request %@ with error %@", v2);
+}
+
+void __40__CSRemoteRequestClient_retrieveReverb___block_invoke_cold_1()
+{
+  v2 = 136315650;
+  OUTLINED_FUNCTION_0_1();
+  OUTLINED_FUNCTION_2_0(&dword_2441FB000, v0, v1, "%s: Failed to send request %@ with error %@", v2);
 }
 
 void __36__CSRemoteRequestClient_sendReverb___block_invoke_cold_1(uint64_t a1)
 {
   v1 = NSStringFromCSReverbLevel(*(a1 + 32));
+  v8 = 136315650;
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_4(&dword_2441FB000, v2, v3, "%s: failed to send reverb %@ with error: %@", v4, v5, v6, v7, 2u);
+  OUTLINED_FUNCTION_4(&dword_2441FB000, v2, v3, "%s: failed to send reverb %@ with error: %@", v4, v5, v6, v7, v8);
 }
 
 void __40__CSRemoteRequestClient_sendVocalLevel___block_invoke_cold_1(uint64_t a1, uint64_t a2, NSObject *a3)
@@ -1976,68 +2040,119 @@ void __40__CSRemoteRequestClient_sendVocalLevel___block_invoke_cold_1(uint64_t a
   OUTLINED_FUNCTION_2_0(&dword_2441FB000, a2, a3, "%s: failed to send vocal level %f with error: %@", *v3, *&v3[8], *&v3[16], a2);
 }
 
-void __38__CSRemoteRequestClient_sendReaction___block_invoke_cold_1(uint64_t a1)
+void __38__CSRemoteRequestClient_sendReaction___block_invoke_cold_1()
 {
-  v1 = *(a1 + 32);
-  v4 = 136315650;
+  v2 = 136315650;
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_2_0(&dword_2441FB000, v2, v3, "%s: failed to send reaction %@ with error: %@", v4);
+  OUTLINED_FUNCTION_2_0(&dword_2441FB000, v0, v1, "%s: failed to send reaction %@ with error: %@", v2);
 }
 
-void __44__CSRemoteRequestClient__sendCheckinRequest__block_invoke_cold_1(uint64_t a1)
+- (void)_handleReactionEvent:.cold.1()
 {
-  v1 = *(a1 + 32);
-  v4 = 136315650;
-  OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_2_0(&dword_2441FB000, v2, v3, "%s: Failed to get checkin response for message %@ with error %@", v4);
+  v6 = 136315394;
+  OUTLINED_FUNCTION_0();
+  OUTLINED_FUNCTION_1(&dword_2441FB000, v0, v1, "%s: Received invalid reaction event: %@", v2, v3, v4, v5, v6);
 }
 
-void __44__CSRemoteRequestClient__sendCheckinRequest__block_invoke_cold_3(uint64_t a1)
+void __44__CSRemoteRequestClient__sendCheckinRequest__block_invoke_cold_1()
 {
-  v1 = *(a1 + 32);
-  v4 = 136315650;
+  v2 = 136315650;
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_2_0(&dword_2441FB000, v2, v3, "%s: Sent checkin request: %@ but received response that we are an invalid client: %@", v4);
+  OUTLINED_FUNCTION_2_0(&dword_2441FB000, v0, v1, "%s: Failed to get checkin response for message %@ with error %@", v2);
 }
 
-void __46__CSRemoteRequestClient_sendEnableMicRequest___block_invoke_cold_1(uint64_t a1)
+void __44__CSRemoteRequestClient__sendCheckinRequest__block_invoke_cold_2(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v1 = *(a1 + 32);
-  v4 = 136315650;
-  OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_2_0(&dword_2441FB000, v2, v3, "%s: Failed to send enable mic request %@ with error %@", v4);
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[CSRemoteRequestClient _sendCheckinRequest]_block_invoke";
+  OUTLINED_FUNCTION_5(&dword_2441FB000, a1, a3, "%s: Exiting with no checkin", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
-void __46__CSRemoteRequestClient_retrieveSessionState___block_invoke_cold_1(uint64_t a1)
+void __44__CSRemoteRequestClient__sendCheckinRequest__block_invoke_cold_3()
 {
-  v1 = *(a1 + 32);
-  v4 = 136315650;
+  v2 = 136315650;
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_2_0(&dword_2441FB000, v2, v3, "%s: Failed to send session state update request %@ with error %@", v4);
+  OUTLINED_FUNCTION_2_0(&dword_2441FB000, v0, v1, "%s: Sent checkin request: %@ but received response that we are an invalid client: %@", v2);
 }
 
-void __83__CSRemoteRequestClient_sendQueuedSongsNotificationWithTracks_shouldQueueOnServer___block_invoke_cold_1(uint64_t a1)
+void __46__CSRemoteRequestClient_sendEnableMicRequest___block_invoke_cold_1()
 {
-  v1 = *(a1 + 32);
-  v4 = 136315650;
+  v2 = 136315650;
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_2_0(&dword_2441FB000, v2, v3, "%s: Failed to send track queued notification %@ with error: %@", v4);
+  OUTLINED_FUNCTION_2_0(&dword_2441FB000, v0, v1, "%s: Failed to send enable mic request %@ with error %@", v2);
 }
 
-void __73__CSRemoteRequestClient_retrieveAttributionsForQueueIdentifiers_handler___block_invoke_cold_1(uint64_t a1)
+void __46__CSRemoteRequestClient_retrieveSessionState___block_invoke_cold_1()
 {
-  v1 = *(a1 + 32);
-  v4 = 136315650;
+  v2 = 136315650;
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_2_0(&dword_2441FB000, v2, v3, "%s: Failed to send request %@ with error %@", v4);
+  OUTLINED_FUNCTION_2_0(&dword_2441FB000, v0, v1, "%s: Failed to send session state update request %@ with error %@", v2);
 }
 
-void __62__CSRemoteRequestClient_retrieveAvatarForParticipant_handler___block_invoke_cold_1(uint64_t a1)
+void __83__CSRemoteRequestClient_sendQueuedSongsNotificationWithTracks_shouldQueueOnServer___block_invoke_cold_1()
 {
-  v1 = *(a1 + 32);
-  v4 = 136315650;
+  v2 = 136315650;
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_2_0(&dword_2441FB000, v2, v3, "%s: Failed to send request %@ with error %@", v4);
+  OUTLINED_FUNCTION_2_0(&dword_2441FB000, v0, v1, "%s: Failed to send track queued notification %@ with error: %@", v2);
+}
+
+void __64__CSRemoteRequestClient__activateAudioLatencyEstimatorIfNeeded___block_invoke_cold_1()
+{
+  v6 = 136315394;
+  OUTLINED_FUNCTION_0();
+  OUTLINED_FUNCTION_1(&dword_2441FB000, v0, v1, "%s: Failed to start audio latency estimator with error %@", v2, v3, v4, v5, v6);
+}
+
+void __41__CSRemoteRequestClient_sendDisplayMode___block_invoke_cold_1(uint64_t a1, uint64_t a2)
+{
+  v3 = [*(a1 + 32) enableSDR];
+  v10 = @"NO";
+  *&v11[4] = "[CSRemoteRequestClient sendDisplayMode:]_block_invoke";
+  *v11 = 136315650;
+  *&v11[12] = 2112;
+  if (v3)
+  {
+    v10 = @"YES";
+  }
+
+  *&v11[14] = v10;
+  *&v11[22] = 2112;
+  OUTLINED_FUNCTION_4(&dword_2441FB000, v4, v5, "%s: failed to send display mode enable sdr %@ with error: %@", v6, v7, v8, v9, *v11, *&v11[8], *&v11[16], a2);
+}
+
+- (void)_handleHandshakeResponse:error:.cold.1()
+{
+  v6 = 136315394;
+  OUTLINED_FUNCTION_0();
+  OUTLINED_FUNCTION_1(&dword_2441FB000, v0, v1, "%s: Failed to handshake continuity sing connection with error: %@", v2, v3, v4, v5, v6);
+}
+
+- (void)_handleHandshakeResponse:(uint64_t)a3 error:(uint64_t)a4 .cold.2(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[CSRemoteRequestClient _handleHandshakeResponse:error:]";
+  OUTLINED_FUNCTION_5(&dword_2441FB000, a1, a3, "%s: Got handshake response but don't have a connectionCompletionHandler - are we getting this twice?", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void __73__CSRemoteRequestClient_retrieveAttributionsForQueueIdentifiers_handler___block_invoke_cold_1()
+{
+  v2 = 136315650;
+  OUTLINED_FUNCTION_0_1();
+  OUTLINED_FUNCTION_2_0(&dword_2441FB000, v0, v1, "%s: Failed to send request %@ with error %@", v2);
+}
+
+void __62__CSRemoteRequestClient_retrieveAvatarForParticipant_handler___block_invoke_cold_1()
+{
+  v2 = 136315650;
+  OUTLINED_FUNCTION_0_1();
+  OUTLINED_FUNCTION_2_0(&dword_2441FB000, v0, v1, "%s: Failed to send request %@ with error %@", v2);
+}
+
+void __46__CSRemoteRequestClient_sendStartSingingEvent__block_invoke_cold_1()
+{
+  v6 = 136315394;
+  OUTLINED_FUNCTION_0();
+  OUTLINED_FUNCTION_1(&dword_2441FB000, v0, v1, "%s: failed to send start singing event with error: %@", v2, v3, v4, v5, v6);
 }
 
 @end

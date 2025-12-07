@@ -29,7 +29,7 @@
   }
 
   specifierCopy = specifier;
-  return sub_A6CB8(style, v7, v9, specifier);
+  return sub_A6CB8(style, v7, v9, specifier, v11);
 }
 
 - (_TtC20JournalNotifications26CustomizeNotificationsCell)initWithStyle:(int64_t)style reuseIdentifier:(id)identifier

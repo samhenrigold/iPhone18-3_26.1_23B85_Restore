@@ -44,10 +44,10 @@
   {
     [*(*&self->_workoutSourceEnabled + 16) register:*(*&self->_workoutSourceEnabled + 8) forNotification:11 registrationInfo:0];
     [*(*&self->_workoutSourceEnabled + 16) register:*(*&self->_workoutSourceEnabled + 8) forNotification:12 registrationInfo:0];
-    if (sub_100023ED4(0))
+    if (sub_100023ED4(0, v3))
     {
-      v3 = sub_100023ED4(0);
-      sub_100178498(v3, 30, self->fCompanionClient.__ptr_, -1.0);
+      v5 = sub_100023ED4(0, v4);
+      sub_100178498(v5, 30, self->fCompanionClient.__ptr_, -1.0);
     }
 
     if (qword_1025D4410 != -1)
@@ -55,12 +55,12 @@
       sub_1018BD480();
     }
 
-    v4 = qword_1025D4418;
+    v6 = qword_1025D4418;
     if (os_log_type_enabled(qword_1025D4418, OS_LOG_TYPE_DEFAULT))
     {
-      v5 = 134217984;
+      v7 = 134217984;
       Current = CFAbsoluteTimeGetCurrent();
-      _os_log_impl(dword_100000000, v4, OS_LOG_TYPE_DEFAULT, "#altimeter,enable companion data source,timestamp,%f", &v5, 0xCu);
+      _os_log_impl(dword_100000000, v6, OS_LOG_TYPE_DEFAULT, "#altimeter,enable companion data source,timestamp,%f", &v7, 0xCu);
     }
 
     if (sub_10000A100(121, 2))
@@ -78,10 +78,10 @@
   {
     [*(*&self->_workoutSourceEnabled + 16) unregister:*(*&self->_workoutSourceEnabled + 8) forNotification:11];
     [*(*&self->_workoutSourceEnabled + 16) unregister:*(*&self->_workoutSourceEnabled + 8) forNotification:12];
-    if (sub_100023ED4(0))
+    if (sub_100023ED4(0, v3))
     {
-      v3 = sub_100023ED4(0);
-      sub_10095D9F8(v3, 30, self->fCompanionClient.__ptr_);
+      v5 = sub_100023ED4(0, v4);
+      sub_10095D9F8(v5, 30, self->fCompanionClient.__ptr_);
     }
 
     if (qword_1025D4410 != -1)
@@ -89,12 +89,12 @@
       sub_1018BD480();
     }
 
-    v4 = qword_1025D4418;
+    v6 = qword_1025D4418;
     if (os_log_type_enabled(qword_1025D4418, OS_LOG_TYPE_DEFAULT))
     {
-      v5 = 134217984;
+      v7 = 134217984;
       Current = CFAbsoluteTimeGetCurrent();
-      _os_log_impl(dword_100000000, v4, OS_LOG_TYPE_DEFAULT, "#altimeter,disable companion data source,timestamp,%f", &v5, 0xCu);
+      _os_log_impl(dword_100000000, v6, OS_LOG_TYPE_DEFAULT, "#altimeter,disable companion data source,timestamp,%f", &v7, 0xCu);
     }
 
     if (sub_10000A100(121, 2))

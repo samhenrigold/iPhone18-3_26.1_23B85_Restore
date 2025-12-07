@@ -17,20 +17,18 @@
 {
   if (self->_readValid)
   {
-    readArchive = self->_readArchive;
     archive_read_free();
   }
 
   if (self->_writeValid)
   {
-    writeArchive = self->_writeArchive;
     archive_write_free();
   }
 
   self->_outputURL = 0;
-  v5.receiver = self;
-  v5.super_class = RDUnarchiver;
-  [(RDUnarchiver *)&v5 dealloc];
+  v3.receiver = self;
+  v3.super_class = RDUnarchiver;
+  [(RDUnarchiver *)&v3 dealloc];
 }
 
 @end

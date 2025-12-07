@@ -98,7 +98,7 @@
 
 - (void)setFontSize:(double)size
 {
-  v3 = sub_100003824();
+  v3 = sub_100003824(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = 136315138;

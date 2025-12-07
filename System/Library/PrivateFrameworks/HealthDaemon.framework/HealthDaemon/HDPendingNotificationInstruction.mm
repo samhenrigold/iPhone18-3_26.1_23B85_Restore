@@ -16,15 +16,15 @@
   v11 = [(HDPendingNotificationInstruction *)&v19 init];
   if (v11)
   {
-    v12 = [identifierCopy copy];
+    v12 = objc_msgSend_copy(identifierCopy);
     messageIdentifier = v11->_messageIdentifier;
     v11->_messageIdentifier = v12;
 
-    v14 = [categoryIdentifierCopy copy];
+    v14 = objc_msgSend_copy(categoryIdentifierCopy);
     categoryIdentifier = v11->_categoryIdentifier;
     v11->_categoryIdentifier = v14;
 
-    v16 = [nameCopy copy];
+    v16 = objc_msgSend_copy(nameCopy);
     sendingDeviceName = v11->_sendingDeviceName;
     v11->_sendingDeviceName = v16;
   }

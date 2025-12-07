@@ -49,7 +49,7 @@
   x = velocity.x;
   draggingCopy = dragging;
   selfCopy = self;
-  sub_1000097A4(offset, x);
+  sub_1000097A4(&offset->x, x);
 }
 
 @end

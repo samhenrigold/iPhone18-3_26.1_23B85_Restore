@@ -32,7 +32,7 @@
 
 - (void)establishExclusionsWithHelper:(id)helper idioms:(id)idioms sizeClasses:(id)classes
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   if ([-[TDLayerStackRenditionSpec keySpec](self->_layerStackRendition keySpec])
   {
     v8 = [-[TDLayerStackRenditionSpec keySpec](self->_layerStackRendition "keySpec")];
@@ -47,32 +47,32 @@
 
     else if (![(NSMutableArray *)self->_excludedIdioms count])
     {
-      v23 = 0u;
-      v24 = 0u;
-      v21 = 0u;
       v22 = 0u;
-      v9 = [idioms countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v23 = 0u;
+      v20 = 0u;
+      v21 = 0u;
+      v9 = [idioms countByEnumeratingWithState:&v20 objects:v24 count:16];
       if (v9)
       {
         v10 = v9;
-        v11 = *v22;
+        v11 = *v21;
         do
         {
           for (i = 0; i != v10; ++i)
           {
-            if (*v22 != v11)
+            if (*v21 != v11)
             {
               objc_enumerationMutation(idioms);
             }
 
-            v13 = *(*(&v21 + 1) + 8 * i);
+            v13 = *(*(&v20 + 1) + 8 * i);
             if (v13 != [-[TDLayerStackRenditionSpec keySpec](self->_layerStackRendition "keySpec")])
             {
               [(NSMutableArray *)self->_excludedIdioms addObject:v13];
             }
           }
 
-          v10 = [idioms countByEnumeratingWithState:&v21 objects:v25 count:16];
+          v10 = [idioms countByEnumeratingWithState:&v20 objects:v24 count:16];
         }
 
         while (v10);
@@ -88,13 +88,13 @@
       v16 = [-[TDLayerStackRenditionSpec keySpec](self->_layerStackRendition "keySpec")];
       if (v16 == [objc_msgSend(objc_msgSend(helper "layerStackRendition")])
       {
-        v19 = [objc_msgSend(objc_msgSend(helper "layerStackRendition")];
-        if (v19)
+        v18 = [objc_msgSend(objc_msgSend(helper "layerStackRendition")];
+        if (v18)
         {
-          v20 = v19;
-          if (v19 != [-[TDLayerStackRenditionSpec keySpec](self->_layerStackRendition "keySpec")])
+          v19 = v18;
+          if (v18 != [-[TDLayerStackRenditionSpec keySpec](self->_layerStackRendition "keySpec")])
           {
-            -[NSMutableArray addObject:](self->_excludedSubtypes, "addObject:", [MEMORY[0x277CCABB0] numberWithUnsignedInt:v20]);
+            -[NSMutableArray addObject:](self->_excludedSubtypes, "addObject:", [MEMORY[0x277CCABB0] numberWithUnsignedInt:v19]);
           }
         }
       }
@@ -106,39 +106,37 @@
   {
     -[NSMutableArray addObject:](self->_excludedScaleFactors, "addObject:", [MEMORY[0x277CCABB0] numberWithUnsignedInt:v17]);
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)allowKey:(id)key
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   if (![key idiom] || (-[NSMutableArray containsObject:](self->_excludedIdioms, "containsObject:", objc_msgSend(key, "idiom")) & 1) == 0)
   {
-    if ([key subtype] && (v27 = 0u, v28 = 0u, v25 = 0u, v26 = 0u, excludedSubtypes = self->_excludedSubtypes, (v8 = -[NSMutableArray countByEnumeratingWithState:objects:count:](excludedSubtypes, "countByEnumeratingWithState:objects:count:", &v25, v30, 16)) != 0))
+    if ([key subtype] && (v26 = 0u, v27 = 0u, v24 = 0u, v25 = 0u, excludedSubtypes = self->_excludedSubtypes, (v7 = -[NSMutableArray countByEnumeratingWithState:objects:count:](excludedSubtypes, "countByEnumeratingWithState:objects:count:", &v24, v29, 16)) != 0))
     {
-      v9 = v8;
-      v10 = *v26;
+      v8 = v7;
+      v9 = *v25;
 LABEL_8:
-      v11 = 0;
+      v10 = 0;
       while (1)
       {
-        if (*v26 != v10)
+        if (*v25 != v9)
         {
           objc_enumerationMutation(excludedSubtypes);
         }
 
-        v12 = *(*(&v25 + 1) + 8 * v11);
+        v11 = *(*(&v24 + 1) + 8 * v10);
         subtype = [key subtype];
-        if (subtype == [v12 unsignedIntValue])
+        if (subtype == [v11 unsignedIntValue])
         {
           break;
         }
 
-        if (v9 == ++v11)
+        if (v8 == ++v10)
         {
-          v9 = [(NSMutableArray *)excludedSubtypes countByEnumeratingWithState:&v25 objects:v30 count:16];
-          if (v9)
+          v8 = [(NSMutableArray *)excludedSubtypes countByEnumeratingWithState:&v24 objects:v29 count:16];
+          if (v8)
           {
             goto LABEL_8;
           }
@@ -151,36 +149,36 @@ LABEL_8:
     else
     {
 LABEL_14:
-      v23 = 0u;
-      v24 = 0u;
-      v21 = 0u;
       v22 = 0u;
+      v23 = 0u;
+      v20 = 0u;
+      v21 = 0u;
       excludedScaleFactors = self->_excludedScaleFactors;
-      v15 = [(NSMutableArray *)excludedScaleFactors countByEnumeratingWithState:&v21 objects:v29 count:16];
-      if (v15)
+      v14 = [(NSMutableArray *)excludedScaleFactors countByEnumeratingWithState:&v20 objects:v28 count:16];
+      if (v14)
       {
-        v16 = v15;
-        v17 = *v22;
+        v15 = v14;
+        v16 = *v21;
 LABEL_16:
-        v18 = 0;
+        v17 = 0;
         while (1)
         {
-          if (*v22 != v17)
+          if (*v21 != v16)
           {
             objc_enumerationMutation(excludedScaleFactors);
           }
 
-          v19 = *(*(&v21 + 1) + 8 * v18);
+          v18 = *(*(&v20 + 1) + 8 * v17);
           scaleFactor = [key scaleFactor];
-          if (scaleFactor == [v19 unsignedIntValue])
+          if (scaleFactor == [v18 unsignedIntValue])
           {
             break;
           }
 
-          if (v16 == ++v18)
+          if (v15 == ++v17)
           {
-            v16 = [(NSMutableArray *)excludedScaleFactors countByEnumeratingWithState:&v21 objects:v29 count:16];
-            if (v16)
+            v15 = [(NSMutableArray *)excludedScaleFactors countByEnumeratingWithState:&v20 objects:v28 count:16];
+            if (v15)
             {
               goto LABEL_16;
             }
@@ -195,17 +193,13 @@ LABEL_16:
 LABEL_22:
         if ((![key sizeClassVertical] || (-[NSMutableArray containsObject:](self->_excludedVerticalSizeClasses, "containsObject:", objc_msgSend(key, "sizeClassVertical")) & 1) == 0) && (!objc_msgSend(key, "direction") || (-[NSMutableArray containsObject:](self->_excludedDirections, "containsObject:", objc_msgSend(key, "direction")) & 1) == 0) && (!objc_msgSend(key, "layer") || (-[NSMutableArray containsObject:](self->_excludedLayers, "containsObject:", objc_msgSend(key, "layer")) & 1) == 0) && (!objc_msgSend(key, "presentationState") || (-[NSMutableArray containsObject:](self->_excludedPresentationStates, "containsObject:", objc_msgSend(key, "presentationState")) & 1) == 0) && (!objc_msgSend(key, "size") || (-[NSMutableArray containsObject:](self->_excludedSizes, "containsObject:", objc_msgSend(key, "size")) & 1) == 0) && (!objc_msgSend(key, "state") || (-[NSMutableArray containsObject:](self->_excludedStates, "containsObject:", objc_msgSend(key, "state")) & 1) == 0) && (!objc_msgSend(key, "value") || (-[NSMutableArray containsObject:](self->_excludedValues, "containsObject:", objc_msgSend(key, "value")) & 1) == 0))
         {
-          result = 1;
-          goto LABEL_4;
+          return 1;
         }
       }
     }
   }
 
-  result = 0;
-LABEL_4:
-  v6 = *MEMORY[0x277D85DE8];
-  return result;
+  return 0;
 }
 
 - (void)dealloc

@@ -154,328 +154,304 @@ uint64_t SGSplineMatrix_invert(uint64_t a1, uint64_t a2)
   return result;
 }
 
-id SGInterpolateBetweenBezierPaths(void *a1, void *a2)
+id SGInterpolateBetweenBezierPaths(void *a1, void *a2, double a3)
 {
-  v3 = a1;
-  v4 = a2;
-  v5 = v4;
-  if (!v3)
+  v4 = a1;
+  v5 = a2;
+  v6 = v5;
+  if (!v4)
   {
-    v54 = v4;
+    v37 = v5;
 LABEL_29:
-    v55 = v54;
+    v38 = v37;
     goto LABEL_61;
   }
 
-  if (!v4)
+  if (!v5)
   {
-    v54 = v3;
+    v37 = v4;
     goto LABEL_29;
   }
 
-  v6 = [MEMORY[0x277D75208] bezierPath];
-  v7 = [MEMORY[0x277CBEB18] array];
-  CGPathApply([v3 CGPath], v7, SGBuildPathElement);
+  v7 = [MEMORY[0x277D75208] bezierPath];
   v8 = [MEMORY[0x277CBEB18] array];
-  CGPathApply([v5 CGPath], v8, SGBuildPathElement);
-  if ([v7 count])
+  CGPathApply([v4 CGPath], v8, SGBuildPathElement);
+  v9 = [MEMORY[0x277CBEB18] array];
+  CGPathApply([v6 CGPath], v9, SGBuildPathElement);
+  if ([v8 count])
   {
-    if ([v8 count])
+    if ([v9 count])
     {
-      v9 = [v7 count];
       v10 = [v8 count];
-      if (v9 >= v10)
+      v11 = [v9 count];
+      if (v10 >= v11)
       {
-        v11 = v10;
+        v12 = v11;
       }
 
       else
       {
-        v11 = v9;
+        v12 = v10;
       }
 
-      if (v11)
+      if (v12)
       {
-        v12 = 0;
+        v13 = 0;
         do
         {
-          v13 = [v7 objectAtIndexedSubscript:v12];
-          v14 = [v8 objectAtIndexedSubscript:v12];
-          v15 = [v13 type];
-          if (v15 != [v14 type])
+          v14 = [v8 objectAtIndexedSubscript:v13];
+          v15 = [v9 objectAtIndexedSubscript:v13];
+          v16 = [v14 type];
+          if (v16 != [v15 type])
           {
             goto LABEL_18;
           }
 
-          v16 = [v13 type];
-          if (v16 > 1)
+          v17 = [v14 type];
+          if (v17 > 1)
           {
-            switch(v16)
+            switch(v17)
             {
               case 2:
-                [v13 endPoint];
                 [v14 endPoint];
+                [v15 endPoint];
                 CLKInterpolateBetweenPoints();
-                v21 = v20;
-                v23 = v22;
-                v24 = [v13 points];
-                v25 = [v14 points];
-                v26 = *(v24 + 16);
-                v27 = *(v24 + 24);
-                v28 = *(v25 + 16);
-                v29 = *(v25 + 24);
+                v22 = v21;
+                v24 = v23;
+                [v14 points];
+                [v15 points];
                 CLKInterpolateBetweenPoints();
-                [v6 addQuadCurveToPoint:v21 controlPoint:{v23, v30, v31}];
+                [v7 addQuadCurveToPoint:v22 controlPoint:{v24, v25, v26}];
                 break;
               case 3:
-                [v13 endPoint];
                 [v14 endPoint];
+                [v15 endPoint];
                 CLKInterpolateBetweenPoints();
-                v33 = v32;
-                v35 = v34;
-                v36 = [v13 points];
-                v37 = [v14 points];
-                v38 = *(v36 + 16);
-                v39 = *(v36 + 24);
-                v40 = *(v37 + 16);
-                v41 = *(v37 + 24);
+                v28 = v27;
+                v30 = v29;
+                [v14 points];
+                [v15 points];
                 CLKInterpolateBetweenPoints();
-                v43 = v42;
-                v45 = v44;
-                v46 = [v13 points];
-                v47 = [v14 points];
-                v48 = *(v46 + 32);
-                v49 = *(v46 + 40);
-                v50 = *(v47 + 32);
-                v51 = *(v47 + 40);
+                v32 = v31;
+                v34 = v33;
+                [v14 points];
+                [v15 points];
                 CLKInterpolateBetweenPoints();
-                [v6 addCurveToPoint:v33 controlPoint1:v35 controlPoint2:{v43, v45, v52, v53}];
+                [v7 addCurveToPoint:v28 controlPoint1:v30 controlPoint2:{v32, v34, v35, v36}];
                 break;
               case 4:
-                [v6 closePath];
+                [v7 closePath];
                 break;
             }
 
             goto LABEL_19;
           }
 
-          if (!v16)
+          if (!v17)
           {
-            [v13 endPoint];
             [v14 endPoint];
+            [v15 endPoint];
             CLKInterpolateBetweenPoints();
-            [v6 moveToPoint:?];
+            [v7 moveToPoint:?];
             goto LABEL_19;
           }
 
-          if (v16 == 1)
+          if (v17 == 1)
           {
 LABEL_18:
-            [v13 endPoint];
             [v14 endPoint];
+            [v15 endPoint];
             CLKInterpolateBetweenPoints();
-            [v6 addLineToPoint:?];
+            [v7 addLineToPoint:?];
           }
 
 LABEL_19:
 
-          ++v12;
-          v17 = [v7 count];
+          ++v13;
           v18 = [v8 count];
-          if (v17 >= v18)
+          v19 = [v9 count];
+          if (v18 >= v19)
           {
-            v19 = v18;
+            v20 = v19;
           }
 
           else
           {
-            v19 = v17;
+            v20 = v18;
           }
         }
 
-        while (v12 < v19);
+        while (v13 < v20);
       }
 
-      for (i = [v7 count]; i < objc_msgSend(v8, "count"); ++i)
+      for (i = [v8 count]; i < objc_msgSend(v9, "count"); ++i)
       {
-        v57 = [v7 lastObject];
-        v58 = [v8 objectAtIndexedSubscript:i];
-        v59 = [v58 type];
-        if (v59 <= 1)
+        v40 = [v8 lastObject];
+        v41 = [v9 objectAtIndexedSubscript:i];
+        v42 = [v41 type];
+        if (v42 <= 1)
         {
-          if (v59)
+          if (v42)
           {
-            if (v59 == 1)
+            if (v42 == 1)
             {
-              [v57 endPoint];
-              [v58 endPoint];
+              [v40 endPoint];
+              [v41 endPoint];
               CLKInterpolateBetweenPoints();
-              [v6 addLineToPoint:?];
+              [v7 addLineToPoint:?];
             }
           }
 
           else
           {
-            [v57 endPoint];
-            [v58 endPoint];
+            [v40 endPoint];
+            [v41 endPoint];
             CLKInterpolateBetweenPoints();
-            [v6 moveToPoint:?];
+            [v7 moveToPoint:?];
           }
         }
 
         else
         {
-          switch(v59)
+          switch(v42)
           {
             case 2:
-              [v57 endPoint];
-              [v58 endPoint];
+              [v40 endPoint];
+              [v41 endPoint];
               CLKInterpolateBetweenPoints();
-              v61 = v60;
-              v63 = v62;
-              [v57 endPoint];
-              v64 = [v58 points];
-              v65 = *(v64 + 16);
-              v66 = *(v64 + 24);
+              v44 = v43;
+              v46 = v45;
+              [v40 endPoint];
+              [v41 points];
               CLKInterpolateBetweenPoints();
-              [v6 addQuadCurveToPoint:v61 controlPoint:{v63, v67, v68}];
+              [v7 addQuadCurveToPoint:v44 controlPoint:{v46, v47, v48}];
               break;
             case 3:
-              [v57 endPoint];
-              [v58 endPoint];
+              [v40 endPoint];
+              [v41 endPoint];
               CLKInterpolateBetweenPoints();
-              v70 = v69;
-              v72 = v71;
-              [v57 endPoint];
-              v73 = [v58 points];
-              v74 = *(v73 + 16);
-              v75 = *(v73 + 24);
+              v50 = v49;
+              v52 = v51;
+              [v40 endPoint];
+              [v41 points];
               CLKInterpolateBetweenPoints();
-              v77 = v76;
-              v79 = v78;
-              [v57 endPoint];
-              v80 = [v58 points];
-              v81 = *(v80 + 32);
-              v82 = *(v80 + 40);
+              v54 = v53;
+              v56 = v55;
+              [v40 endPoint];
+              [v41 points];
               CLKInterpolateBetweenPoints();
-              [v6 addCurveToPoint:v70 controlPoint1:v72 controlPoint2:{v77, v79, v83, v84}];
+              [v7 addCurveToPoint:v50 controlPoint1:v52 controlPoint2:{v54, v56, v57, v58}];
               break;
             case 4:
-              [v6 closePath];
+              [v7 closePath];
               break;
           }
         }
       }
 
-      v85 = [v8 count];
-      v86 = [v7 count];
-      v87 = v6;
-      if (v85 < v86)
+      v59 = [v9 count];
+      v60 = [v8 count];
+      v61 = v7;
+      if (v59 < v60)
       {
         do
         {
-          v88 = [v7 objectAtIndexedSubscript:v85];
-          v89 = [v8 lastObject];
-          v90 = [v89 type];
-          if (v90 <= 1)
+          v62 = [v8 objectAtIndexedSubscript:v59];
+          v63 = [v9 lastObject];
+          v64 = [v63 type];
+          if (v64 <= 1)
           {
-            if (v90)
+            if (v64)
             {
-              if (v90 == 1)
+              if (v64 == 1)
               {
-                [v88 endPoint];
-                [v89 endPoint];
+                [v62 endPoint];
+                [v63 endPoint];
                 CLKInterpolateBetweenPoints();
-                [v6 addLineToPoint:?];
+                [v7 addLineToPoint:?];
               }
             }
 
             else
             {
-              [v88 endPoint];
-              [v89 endPoint];
+              [v62 endPoint];
+              [v63 endPoint];
               CLKInterpolateBetweenPoints();
-              [v6 moveToPoint:?];
+              [v7 moveToPoint:?];
             }
           }
 
           else
           {
-            switch(v90)
+            switch(v64)
             {
               case 2:
-                [v88 endPoint];
-                [v89 endPoint];
+                [v62 endPoint];
+                [v63 endPoint];
                 CLKInterpolateBetweenPoints();
-                v92 = v91;
-                v94 = v93;
-                v95 = [v88 points];
-                [v89 endPoint];
-                v96 = *(v95 + 16);
-                v97 = *(v95 + 24);
+                v66 = v65;
+                v68 = v67;
+                [v62 points];
+                [v63 endPoint];
                 CLKInterpolateBetweenPoints();
-                [v6 addQuadCurveToPoint:v92 controlPoint:{v94, v98, v99}];
+                [v7 addQuadCurveToPoint:v66 controlPoint:{v68, v69, v70}];
                 break;
               case 3:
-                [v88 endPoint];
-                [v89 endPoint];
+                [v62 endPoint];
+                [v63 endPoint];
                 CLKInterpolateBetweenPoints();
-                v101 = v100;
-                v103 = v102;
-                v104 = [v88 points];
-                [v89 endPoint];
-                v105 = *(v104 + 16);
-                v106 = *(v104 + 24);
+                v72 = v71;
+                v74 = v73;
+                [v62 points];
+                [v63 endPoint];
                 CLKInterpolateBetweenPoints();
-                v108 = v107;
-                v110 = v109;
-                v111 = [v88 points];
-                [v89 endPoint];
-                v112 = *(v111 + 32);
-                v113 = *(v111 + 40);
+                v76 = v75;
+                v78 = v77;
+                [v62 points];
+                [v63 endPoint];
                 CLKInterpolateBetweenPoints();
-                [v6 addCurveToPoint:v101 controlPoint1:v103 controlPoint2:{v108, v110, v114, v115}];
+                [v7 addCurveToPoint:v72 controlPoint1:v74 controlPoint2:{v76, v78, v79, v80}];
                 break;
               case 4:
-                [v6 closePath];
+                [v7 closePath];
                 break;
             }
           }
 
-          ++v85;
+          ++v59;
         }
 
-        while (v85 < [v7 count]);
-        v87 = v6;
+        while (v59 < [v8 count]);
+        v61 = v7;
       }
     }
 
     else
     {
-      v87 = v3;
+      v61 = v4;
     }
   }
 
   else
   {
-    v87 = v5;
+    v61 = v6;
   }
 
-  v55 = v87;
+  v38 = v61;
 
 LABEL_61:
 
-  return v55;
+  return v38;
 }
 
-double SGFindCubicBezierPoint(double a1, float64x2_t a2, float64_t a3, float64x2_t a4, float64_t a5, float64x2_t a6, float64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, float64x2_t a16)
+double SGFindCubicBezierPoint(double a1, float64x2_t a2, float64_t a3, float64x2_t a4, float64_t a5, float64x2_t a6, float64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, float64x2_t a16, float64x2_t a17)
 {
   a2.f64[1] = a3;
   a4.f64[1] = a5;
   __asm { FMOV            V4.2D, #3.0 }
 
   a6.f64[1] = a7;
-  *&result = *&vmlaq_n_f64(vmlaq_n_f64(vmlaq_n_f64(vmulq_n_f64(vmulq_n_f64(vmulq_n_f64(vmulq_f64(a4, _Q4), 1.0 - a1), 1.0 - a1), a1), vmulq_n_f64(vmulq_n_f64(a2, 1.0 - a1), 1.0 - a1), 1.0 - a1), vmulq_n_f64(vmulq_n_f64(vmulq_f64(a6, _Q4), 1.0 - a1), a1), a1), vmulq_n_f64(vmulq_n_f64(a16, a1), a1), a1);
+  *&result = *&vmlaq_n_f64(vmlaq_n_f64(vmlaq_n_f64(vmulq_n_f64(vmulq_n_f64(vmulq_n_f64(vmulq_f64(a4, _Q4), 1.0 - a1), 1.0 - a1), a1), vmulq_n_f64(vmulq_n_f64(a2, 1.0 - a1), 1.0 - a1), 1.0 - a1), vmulq_n_f64(vmulq_n_f64(vmulq_f64(a6, _Q4), 1.0 - a1), a1), a1), vmulq_n_f64(vmulq_n_f64(a17, a1), a1), a1);
   return result;
 }
 
@@ -514,43 +490,43 @@ double SGComputeCubicBezierLength(float64x2_t a1, float64_t a2, float64x2_t a3, 
 
 double SGComputeCubicBezierYForX(double a1, double a2, double a3, double a4, double a5, double a6, double a7, double a8, double a9, double a10)
 {
-  v17 = vabdd_f64(a9, a2) * 10.0;
-  if (v17 < 10.0)
+  v10 = vabdd_f64(a9, a2) * 10.0;
+  if (v10 < 10.0)
   {
-    v17 = 10.0;
+    v10 = 10.0;
   }
 
-  v18 = v17;
-  if (v17 < 0)
+  v11 = v10;
+  if (v10 < 0)
   {
     return 0.0;
   }
 
-  v19 = v18;
-  v20 = a4 * 3.0;
-  v21 = a6 * 3.0;
-  v22 = a5 * 3.0;
-  v23 = a7 * 3.0;
-  v24 = v18 + 1;
-  v25 = 0.0;
-  v26 = 1.79769313e308;
-  v27 = 0.0;
+  v12 = v11;
+  v13 = a4 * 3.0;
+  v14 = a6 * 3.0;
+  v15 = a5 * 3.0;
+  v16 = a7 * 3.0;
+  v17 = v11 + 1;
+  v18 = 0.0;
+  v19 = 1.79769313e308;
+  v20 = 0.0;
   do
   {
-    v28 = 1.0 - v25 / v19;
-    v29 = vabdd_f64(v25 / v19 * (v28 * (v20 * v28)) + v28 * (a2 * v28) * v28 + v25 / v19 * (v21 * v28) * (v25 / v19) + v25 / v19 * (a9 * (v25 / v19)) * (v25 / v19), a1);
-    if (v29 < v26)
+    v21 = 1.0 - v18 / v12;
+    v22 = vabdd_f64(v18 / v12 * (v21 * (v13 * v21)) + v21 * (a2 * v21) * v21 + v18 / v12 * (v14 * v21) * (v18 / v12) + v18 / v12 * (a9 * (v18 / v12)) * (v18 / v12), a1);
+    if (v22 < v19)
     {
-      v27 = v25 / v19 * (v28 * (v22 * v28)) + v28 * (a3 * v28) * v28 + v25 / v19 * (v23 * v28) * (v25 / v19) + v25 / v19 * (a10 * (v25 / v19)) * (v25 / v19);
-      v26 = v29;
+      v20 = v18 / v12 * (v21 * (v15 * v21)) + v21 * (a3 * v21) * v21 + v18 / v12 * (v16 * v21) * (v18 / v12) + v18 / v12 * (a10 * (v18 / v12)) * (v18 / v12);
+      v19 = v22;
     }
 
-    v25 = v25 + 1.0;
-    --v24;
+    v18 = v18 + 1.0;
+    --v17;
   }
 
-  while (v24);
-  return v27;
+  while (v17);
+  return v20;
 }
 
 double SGScreenRadiusAtAngleWithInset(void *a1, double a2, double a3)
@@ -684,16 +660,16 @@ SGColorCurveElement *_elementWithColorAtAltitude(double a1, double a2, double a3
   return v8;
 }
 
-SGCubicColorCurveElement *SGCubicColorCurveElementCreate(double a1)
+SGCubicColorCurveElement *SGCubicColorCurveElementCreate(double a1, double a2, double a3, double a4)
 {
-  v2 = objc_alloc_init(SGCubicColorCurveElement);
-  [(SGCubicColorCurveElement *)v2 setFraction:a1];
+  v5 = objc_alloc_init(SGCubicColorCurveElement);
+  [(SGCubicColorCurveElement *)v5 setFraction:a1];
   __asm { FMOV            V0.4S, #1.0 }
 
   CLKUIConvertToRGBfFromXRSRGBf();
-  [(SGCubicColorCurveElement *)v2 setColor:?];
+  [(SGCubicColorCurveElement *)v5 setColor:?];
 
-  return v2;
+  return v5;
 }
 
 void *generateOpenSplineMatrix(int a1)
@@ -859,7 +835,6 @@ id SGCircleSectorPath(uint64_t a1, double a2, double a3, double a4, double a5, d
 
 uint64_t SolarGradient.colors.setter(uint64_t a1)
 {
-  v3 = *v1;
 
   *v1 = a1;
   return result;
@@ -867,7 +842,6 @@ uint64_t SolarGradient.colors.setter(uint64_t a1)
 
 void SolarGradient.gradient.getter()
 {
-  v1 = *v0;
 
   JUMPOUT(0x25F865B80);
 }
@@ -891,11 +865,11 @@ uint64_t SolarGradient.init(date:location:)@<X0>(uint64_t a1@<X0>, void *a2@<X1>
 
 LABEL_11:
 
-    v17 = sub_25B2FC1FC();
-    result = (*(*(v17 - 8) + 8))(a1, v17);
-    v16 = MEMORY[0x277D84F90];
+    v16 = sub_25B2FC1FC();
+    result = (*(*(v16 - 8) + 8))(a1, v16);
+    v15 = MEMORY[0x277D84F90];
 LABEL_12:
-    *a3 = v16;
+    *a3 = v15;
     return result;
   }
 
@@ -906,7 +880,7 @@ LABEL_12:
   }
 
 LABEL_3:
-  v18 = MEMORY[0x277D84F90];
+  v17 = MEMORY[0x277D84F90];
   result = sub_25B2FC26C();
   if ((v10 & 0x8000000000000000) == 0)
   {
@@ -920,23 +894,22 @@ LABEL_3:
 
       else
       {
-        v14 = *(v9 + 8 * v12 + 32);
+        v13 = *(v9 + 8 * v12 + 32);
       }
 
       ++v12;
       sub_25B2FC20C();
       sub_25B2FC24C();
-      v13 = *(v18 + 16);
       sub_25B2FC27C();
       sub_25B2FC28C();
       sub_25B2FC25C();
     }
 
     while (v10 != v12);
-    v15 = sub_25B2FC1FC();
-    (*(*(v15 - 8) + 8))(a1, v15);
+    v14 = sub_25B2FC1FC();
+    (*(*(v14 - 8) + 8))(a1, v14);
 
-    v16 = v18;
+    v15 = v17;
     goto LABEL_12;
   }
 

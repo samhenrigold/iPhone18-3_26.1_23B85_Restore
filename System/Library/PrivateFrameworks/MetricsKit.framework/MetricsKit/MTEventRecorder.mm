@@ -19,6 +19,7 @@
 - (void)maybeSubscribeToFlushNotification;
 - (void)removeEventListener:(id)listener;
 - (void)setDelegate:(id)delegate;
+- (void)setMonitorsLifecycleEvents:(BOOL)events;
 @end
 
 @implementation MTEventRecorder
@@ -301,25 +302,23 @@ id __52__MTEventRecorder_recordEvent_shouldSkipValidation___block_invoke(uint64_
 
 id __46__MTEventRecorder__recordEvent_usingRecorder___block_invoke(uint64_t a1, void *a2)
 {
-  v14[3] = *MEMORY[0x277D85DE8];
+  v13[3] = *MEMORY[0x277D85DE8];
   v3 = *MEMORY[0x277CCA450];
-  v14[0] = @"The event recorder failed to record the metrics data.";
+  v13[0] = @"The event recorder failed to record the metrics data.";
   v4 = *MEMORY[0x277CCA470];
-  v13[0] = v3;
-  v13[1] = v4;
+  v12[0] = v3;
+  v12[1] = v4;
   v5 = a2;
   v6 = [v5 localizedDescription];
-  v13[2] = @"MetricsData";
+  v12[2] = @"MetricsData";
   v7 = *(a1 + 32);
-  v14[1] = v6;
-  v14[2] = v7;
-  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:3];
+  v13[1] = v6;
+  v13[2] = v7;
+  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:3];
 
   v9 = MTWrappedError(v5, 500, v8);
 
   v10 = [MTPromise promiseWithError:v9];
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -384,23 +383,21 @@ id __46__MTEventRecorder__recordEvent_usingRecorder___block_invoke(uint64_t a1, 
 
 + (id)_compositePromiseWithPromises:(id)promises resolvingResultFromPromise:(id)promise
 {
-  v16[2] = *MEMORY[0x277D85DE8];
+  v15[2] = *MEMORY[0x277D85DE8];
   promiseCopy = promise;
-  v16[0] = promiseCopy;
-  v16[1] = promises;
+  v15[0] = promiseCopy;
+  v15[1] = promises;
   v6 = MEMORY[0x277CBEA60];
   promisesCopy = promises;
-  v8 = [v6 arrayWithObjects:v16 count:2];
+  v8 = [v6 arrayWithObjects:v15 count:2];
   v9 = [MTPromise promiseWithComposition:v8];
-  v14[0] = MEMORY[0x277D85DD0];
-  v14[1] = 3221225472;
-  v14[2] = __76__MTEventRecorder__compositePromiseWithPromises_resolvingResultFromPromise___block_invoke;
-  v14[3] = &unk_2798CD570;
-  v15 = promiseCopy;
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 3221225472;
+  v13[2] = __76__MTEventRecorder__compositePromiseWithPromises_resolvingResultFromPromise___block_invoke;
+  v13[3] = &unk_2798CD570;
+  v14 = promiseCopy;
   v10 = promiseCopy;
-  v11 = [v9 thenWithBlock:v14];
-
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = [v9 thenWithBlock:v13];
 
   return v11;
 }
@@ -427,6 +424,18 @@ id __46__MTEventRecorder__recordEvent_usingRecorder___block_invoke(uint64_t a1, 
   }
 
   return monitorsLifecycleEvents;
+}
+
+- (void)setMonitorsLifecycleEvents:(BOOL)events
+{
+  eventsCopy = events;
+  _amsDelegate = [(MTEventRecorder *)self _amsDelegate];
+
+  if (_amsDelegate)
+  {
+    _amsDelegate2 = [(MTEventRecorder *)self _amsDelegate];
+    [_amsDelegate2 setMonitorsLifecycleEvents:eventsCopy];
+  }
 }
 
 - (id)_amsDelegate

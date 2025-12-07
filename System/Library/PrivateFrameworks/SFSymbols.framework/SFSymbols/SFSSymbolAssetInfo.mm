@@ -202,13 +202,12 @@ LABEL_13:
 
 + (void)localeAgnosticInfo:(uint64_t)a1 allowsPrivate:(uint64_t)a2 .cold.2(uint64_t a1, uint64_t a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v3 = 138412546;
-  v4 = a1;
-  v5 = 2112;
-  v6 = a2;
-  _os_log_fault_impl(&dword_22E44F000, MEMORY[0x277D86220], OS_LOG_TYPE_FAULT, "Client requested a temporary SFSymbol alias '%@' and should migrate to the latest name '%@'", &v3, 0x16u);
-  v2 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
+  v2 = 138412546;
+  v3 = a1;
+  v4 = 2112;
+  v5 = a2;
+  _os_log_fault_impl(&dword_22E44F000, MEMORY[0x277D86220], OS_LOG_TYPE_FAULT, "Client requested a temporary SFSymbol alias '%@' and should migrate to the latest name '%@'", &v2, 0x16u);
 }
 
 @end

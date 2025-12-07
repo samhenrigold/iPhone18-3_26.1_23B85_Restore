@@ -48,21 +48,21 @@
         dispatch_once(&qword_1EAFE2848, &unk_1F0E28A80);
       }
 
-      v5 = _os_log_send_and_compose_impl();
+      v8[0] = 0;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, qword_1EAFE2868, 0, "Pocket state disabled by defaults write", v8, 2);
+      v6 = v5;
       sub_19B6BB7CC("Generic", 1, 0, 2, "+[CMPocketStateManager isPocketStateAvailable]", "CoreLocation: %s\n", v5);
-      if (v5 != buf)
+      if (v6 != buf)
       {
-        free(v5);
+        free(v6);
       }
     }
 
-    v6 = *MEMORY[0x1E69E9840];
     return 0;
   }
 
   else
   {
-    v8 = *MEMORY[0x1E69E9840];
 
     return objc_msgSend_isPocketStateSupported(CMPocketStateManager, a2, v2);
   }
@@ -185,12 +185,13 @@
       dispatch_once(&qword_1EAFE2848, &unk_1F0E28A80);
     }
 
-    v9 = 0;
-    v5 = _os_log_send_and_compose_impl();
+    v9[0] = 0;
+    _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, qword_1EAFE2868, 0, "disabling dispatcher", v9, 2);
+    v6 = v5;
     sub_19B6BB7CC("Generic", 1, 0, 2, "[CMPocketStateManager _disableDispatcher]", "CoreLocation: %s\n", v5);
-    if (v5 != buf)
+    if (v6 != buf)
     {
-      free(v5);
+      free(v6);
     }
   }
 
@@ -201,7 +202,6 @@
   block[3] = &unk_1E7532988;
   block[4] = self;
   dispatch_sync(fPrivateQueue, block);
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (int64_t)translateInternalState:(int)state
@@ -260,7 +260,7 @@
 
 - (void)queryStateOntoQueue:(id)queue andMonitorFor:(double)for withTimeout:(double)timeout andHandler:(id)handler
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   if (objc_msgSend_isPocketStateAvailable(CMPocketStateManager, a2, queue) & 1) != 0 || (objc_msgSend_isPocketStateSupported(CMPocketStateManager, v11, v12))
   {
     if (qword_1EAFE2848 != -1)
@@ -273,7 +273,7 @@
     {
       v14 = mach_absolute_time();
       *buf = 134217984;
-      v28 = sub_19B41E070(v14);
+      v30 = sub_19B41E070(v14);
       _os_log_impl(&dword_19B41C000, v13, OS_LOG_TYPE_DEFAULT, "QueryRequest,%f", buf, 0xCu);
     }
 
@@ -286,14 +286,16 @@
         dispatch_once(&qword_1EAFE2848, &unk_1F0E28A80);
       }
 
-      v16 = mach_absolute_time();
-      v25 = 134217984;
-      v26 = sub_19B41E070(v16);
-      v17 = _os_log_send_and_compose_impl();
-      sub_19B6BB7CC("Generic", 1, 0, 2, "[CMPocketStateManager queryStateOntoQueue:andMonitorFor:withTimeout:andHandler:]", "CoreLocation: %s\n", v17);
-      if (v17 != buf)
+      v16 = qword_1EAFE2868;
+      v17 = mach_absolute_time();
+      v27 = 134217984;
+      v28 = sub_19B41E070(v17);
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, v16, 0, "QueryRequest,%f", COERCE_DOUBLE(&v27));
+      v19 = v18;
+      sub_19B6BB7CC("Generic", 1, 0, 2, "[CMPocketStateManager queryStateOntoQueue:andMonitorFor:withTimeout:andHandler:]", "CoreLocation: %s\n", v18);
+      if (v19 != buf)
       {
-        free(v17);
+        free(v19);
       }
     }
 
@@ -319,15 +321,15 @@
       dispatch_once(&qword_1EAFE2848, &unk_1F0E28A80);
     }
 
-    v21 = qword_1EAFE2868;
+    v22 = qword_1EAFE2868;
     if (os_log_type_enabled(qword_1EAFE2868, OS_LOG_TYPE_FAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_19B41C000, v21, OS_LOG_TYPE_FAULT, "Pocket state query is called on an unsupported platform", buf, 2u);
+      _os_log_impl(&dword_19B41C000, v22, OS_LOG_TYPE_FAULT, "Pocket state query is called on an unsupported platform", buf, 2u);
     }
 
-    v22 = sub_19B420058();
-    if ((*(v22 + 160) & 0x80000000) == 0 || (*(v22 + 164) & 0x80000000) == 0 || (*(v22 + 168) & 0x80000000) == 0 || *(v22 + 152))
+    v23 = sub_19B420058();
+    if ((*(v23 + 160) & 0x80000000) == 0 || (*(v23 + 164) & 0x80000000) == 0 || (*(v23 + 168) & 0x80000000) == 0 || *(v23 + 152))
     {
       bzero(buf, 0x65CuLL);
       if (qword_1EAFE2848 != -1)
@@ -335,17 +337,16 @@
         dispatch_once(&qword_1EAFE2848, &unk_1F0E28A80);
       }
 
-      LOWORD(v25) = 0;
-      v23 = _os_log_send_and_compose_impl();
-      sub_19B6BB7CC("Generic", 1, 0, 0, "[CMPocketStateManager queryStateOntoQueue:andMonitorFor:withTimeout:andHandler:]", "CoreLocation: %s\n", v23);
-      if (v23 != buf)
+      LOWORD(v27) = 0;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, qword_1EAFE2868, 17, "Pocket state query is called on an unsupported platform", &v27, 2);
+      v25 = v24;
+      sub_19B6BB7CC("Generic", 1, 0, 0, "[CMPocketStateManager queryStateOntoQueue:andMonitorFor:withTimeout:andHandler:]", "CoreLocation: %s\n", v24);
+      if (v25 != buf)
       {
-        free(v23);
+        free(v25);
       }
     }
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 - (void)onNotification:(id)notification

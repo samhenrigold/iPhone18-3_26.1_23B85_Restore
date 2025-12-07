@@ -29,7 +29,7 @@
     v14 = path;
     if (path)
     {
-      [path cxxString];
+      objc_msgSend_cxxString(path);
     }
 
     else
@@ -47,7 +47,7 @@
 
     if (contextCopy)
     {
-      [contextCopy context];
+      objc_msgSend_context(contextCopy);
     }
 
     else
@@ -210,145 +210,140 @@ void __58__SNNMILProgram_loadContentsOfURL_withContext_completion___block_invoke
 
 - (BOOL)isReferencingBlobFile
 {
-  v43 = *MEMORY[0x277D85DE8];
-  if (self->_milFilePath)
+  v42 = *MEMORY[0x277D85DE8];
+  if (!self->_milFilePath)
   {
-    v38 = 0u;
-    v39 = 0u;
-    v36 = 0u;
-    v37 = 0u;
-    obj = [(SNNMILProgram *)self functionNames];
-    v3 = [obj countByEnumeratingWithState:&v36 objects:v42 count:16];
-    if (v3)
+    return 0;
+  }
+
+  v37 = 0u;
+  v38 = 0u;
+  v35 = 0u;
+  v36 = 0u;
+  obj = [(SNNMILProgram *)self functionNames];
+  v3 = [obj countByEnumeratingWithState:&v35 objects:v41 count:16];
+  if (v3)
+  {
+    v20 = v3;
+    v21 = *v36;
+    do
     {
-      v21 = v3;
-      v22 = *v37;
-      do
+      v23 = 0;
+      while (2)
       {
-        v24 = 0;
-        while (2)
+        if (*v36 != v21)
         {
-          if (*v37 != v22)
-          {
-            objc_enumerationMutation(obj);
-          }
+          objc_enumerationMutation(obj);
+        }
 
-          v23 = *(*(&v36 + 1) + 8 * v24);
-          v26 = [(SNNMILProgram *)self functionWithName:?];
-          for (i = 0; [v26 operationCount] > i; ++i)
+        v22 = *(*(&v35 + 1) + 8 * v23);
+        v25 = [(SNNMILProgram *)self functionWithName:?];
+        for (i = 0; [v25 operationCount] > i; ++i)
+        {
+          v4 = [v25 operationAtIndex:?];
+          v33 = 0u;
+          v34 = 0u;
+          v31 = 0u;
+          v32 = 0u;
+          attributes = [v4 attributes];
+          v6 = [attributes countByEnumeratingWithState:&v31 objects:v40 count:16];
+          if (v6)
           {
-            v4 = [v26 operationAtIndex:?];
-            v34 = 0u;
-            v35 = 0u;
-            v32 = 0u;
-            v33 = 0u;
-            attributes = [v4 attributes];
-            v6 = [attributes countByEnumeratingWithState:&v32 objects:v41 count:16];
-            if (v6)
-            {
-              v7 = *v33;
+            v7 = *v32;
 LABEL_11:
-              v8 = 0;
-              while (1)
+            v8 = 0;
+            while (1)
+            {
+              if (*v32 != v7)
               {
-                if (*v33 != v7)
+                objc_enumerationMutation(attributes);
+              }
+
+              v9 = *(*(&v31 + 1) + 8 * v8);
+              value = [v9 value];
+              objc_opt_class();
+              isKindOfClass = objc_opt_isKindOfClass();
+
+              if (isKindOfClass)
+              {
+                goto LABEL_29;
+              }
+
+              if (v6 == ++v8)
+              {
+                v6 = [attributes countByEnumeratingWithState:&v31 objects:v40 count:16];
+                if (v6)
                 {
-                  objc_enumerationMutation(attributes);
+                  goto LABEL_11;
                 }
 
-                v9 = *(*(&v32 + 1) + 8 * v8);
-                value = [v9 value];
-                objc_opt_class();
-                isKindOfClass = objc_opt_isKindOfClass();
-
-                if (isKindOfClass)
-                {
-                  goto LABEL_29;
-                }
-
-                if (v6 == ++v8)
-                {
-                  v6 = [attributes countByEnumeratingWithState:&v32 objects:v41 count:16];
-                  if (v6)
-                  {
-                    goto LABEL_11;
-                  }
-
-                  break;
-                }
+                break;
               }
             }
+          }
 
-            v30 = 0u;
-            v31 = 0u;
-            v28 = 0u;
-            v29 = 0u;
-            attributes = [v4 inputs];
-            v12 = [attributes countByEnumeratingWithState:&v28 objects:v40 count:16];
-            if (v12)
-            {
-              v13 = *v29;
+          v29 = 0u;
+          v30 = 0u;
+          v27 = 0u;
+          v28 = 0u;
+          attributes = [v4 inputs];
+          v12 = [attributes countByEnumeratingWithState:&v27 objects:v39 count:16];
+          if (v12)
+          {
+            v13 = *v28;
 LABEL_19:
-              v14 = 0;
-              while (1)
+            v14 = 0;
+            while (1)
+            {
+              if (*v28 != v13)
               {
-                if (*v29 != v13)
-                {
-                  objc_enumerationMutation(attributes);
-                }
-
-                v15 = *(*(&v28 + 1) + 8 * v14);
-                value2 = [v15 value];
-                objc_opt_class();
-                v17 = objc_opt_isKindOfClass();
-
-                if (v17)
-                {
-                  break;
-                }
-
-                if (v12 == ++v14)
-                {
-                  v12 = [attributes countByEnumeratingWithState:&v28 objects:v40 count:16];
-                  if (v12)
-                  {
-                    goto LABEL_19;
-                  }
-
-                  goto LABEL_25;
-                }
+                objc_enumerationMutation(attributes);
               }
+
+              v15 = *(*(&v27 + 1) + 8 * v14);
+              value2 = [v15 value];
+              objc_opt_class();
+              v17 = objc_opt_isKindOfClass();
+
+              if (v17)
+              {
+                break;
+              }
+
+              if (v12 == ++v14)
+              {
+                v12 = [attributes countByEnumeratingWithState:&v27 objects:v39 count:16];
+                if (v12)
+                {
+                  goto LABEL_19;
+                }
+
+                goto LABEL_25;
+              }
+            }
 
 LABEL_29:
 
-              v18 = 1;
-              goto LABEL_32;
-            }
+            v18 = 1;
+            goto LABEL_32;
+          }
 
 LABEL_25:
-          }
-
-          if (++v24 != v21)
-          {
-            continue;
-          }
-
-          break;
         }
 
-        v18 = 0;
-        v21 = [obj countByEnumeratingWithState:&v36 objects:v42 count:16];
+        if (++v23 != v20)
+        {
+          continue;
+        }
+
+        break;
       }
 
-      while (v21);
-    }
-
-    else
-    {
       v18 = 0;
+      v20 = [obj countByEnumeratingWithState:&v35 objects:v41 count:16];
     }
 
-LABEL_32:
+    while (v20);
   }
 
   else
@@ -356,7 +351,8 @@ LABEL_32:
     v18 = 0;
   }
 
-  v19 = *MEMORY[0x277D85DE8];
+LABEL_32:
+
   return v18;
 }
 
@@ -378,7 +374,7 @@ LABEL_32:
   v5 = nameCopy;
   if (nameCopy)
   {
-    [nameCopy cxxString];
+    objc_msgSend_cxxString(nameCopy);
   }
 
   else
@@ -482,92 +478,90 @@ LABEL_19:
 - (void)writeToFile:(id)file
 {
   fileCopy = file;
-  MIL::Text::SerializerOptions::Make(&v10, fileCopy);
-  (*(*v10 + 88))(v10, 1);
-  v5 = v10;
+  MIL::Text::SerializerOptions::Make(&v8, fileCopy);
+  (*(*v8 + 88))(v8, 1);
+  v4 = v8;
   if (fileCopy)
   {
-    [(MIL::Text::SerializerOptions *)fileCopy cxxString];
+    objc_msgSend_cxxString(fileCopy);
   }
 
   else
   {
     __p[0] = 0;
     __p[1] = 0;
-    v9 = 0;
+    v7 = 0;
   }
 
-  (*(*v5 + 24))(v5, __p);
-  if (SHIBYTE(v9) < 0)
+  (*(*v4 + 24))(v4, __p);
+  if (SHIBYTE(v7) < 0)
   {
     operator delete(__p[0]);
   }
 
-  ptr = self->_program.__ptr_;
   MIL::Text::SerializeToFile();
-  v7 = v10;
-  v10 = 0;
-  if (v7)
+  v5 = v8;
+  v8 = 0;
+  if (v5)
   {
-    (*(*v7 + 8))(v7);
+    (*(*v5 + 8))(v5);
   }
 }
 
 - (id)serializeToProtobufWithError:(id *)error
 {
-  MIL::Opsets::Common::CreateMILContext(&v14, self);
-  if (v14)
+  MIL::Opsets::Common::CreateMILContext(&v12, self);
+  if (v12)
   {
     operator new();
   }
 
-  std::ostringstream::basic_ostringstream[abi:ne200100](&v14);
-  v12 = 0;
-  v13 = 0;
-  ptr = self->_program.__ptr_;
+  std::ostringstream::basic_ostringstream[abi:ne200100](&v12);
+  v10 = 0;
+  v11 = 0;
   MIL::Proto::SerializeProgram();
   std::stringbuf::str();
-  v5 = objc_alloc(MEMORY[0x277CBEA90]);
-  if ((v11 & 0x80u) == 0)
+  v3 = objc_alloc(MEMORY[0x277CBEA90]);
+  if ((v9 & 0x80u) == 0)
   {
-    v6 = __p;
+    v4 = __p;
   }
 
   else
   {
-    v6 = __p[0];
+    v4 = __p[0];
   }
 
-  if ((v11 & 0x80u) == 0)
+  if ((v9 & 0x80u) == 0)
   {
-    v7 = v11;
+    v5 = v9;
   }
 
   else
   {
-    v7 = __p[1];
+    v5 = __p[1];
   }
 
-  v8 = [v5 initWithBytes:v6 length:v7];
-  if (v11 < 0)
+  v6 = [v3 initWithBytes:v4 length:v5];
+  if (v9 < 0)
   {
     operator delete(__p[0]);
   }
 
-  v14 = *MEMORY[0x277D82828];
-  *(&v14 + *(v14 - 24)) = *(MEMORY[0x277D82828] + 24);
-  v15 = MEMORY[0x277D82878] + 16;
-  if (v17 < 0)
+  v12 = *MEMORY[0x277D82828];
+  *(&v12 + *(v12 - 24)) = *(MEMORY[0x277D82828] + 24);
+  v13 = MEMORY[0x277D82878] + 16;
+  if (v15 < 0)
   {
-    operator delete(v16[7].__locale_);
+    operator delete(v14[7].__locale_);
   }
 
-  v15 = MEMORY[0x277D82868] + 16;
-  std::locale::~locale(v16);
+  v13 = MEMORY[0x277D82868] + 16;
+  std::locale::~locale(v14);
   std::ostream::~ostream();
-  MEMORY[0x25F878BF0](&v18);
+  MEMORY[0x25F878BF0](&v16);
 
-  return v8;
+  return v6;
 }
 
 - (id)description

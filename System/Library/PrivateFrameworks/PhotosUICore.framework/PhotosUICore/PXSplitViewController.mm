@@ -156,7 +156,7 @@
 
 - (void)splitViewController:(id)controller willChangeToDisplayMode:(int64_t)mode
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   controllerCopy = controller;
   if (mode != 3 && !self->_inViewWillTransitionToSize)
   {
@@ -173,54 +173,54 @@
   standardUserDefaults = [MEMORY[0x1E695E000] standardUserDefaults];
   [standardUserDefaults setBool:mode == 1 forKey:@"sidebarHiddenOnLaunch1"];
 
-  v9 = PXIsSidebarVisibleWithDisplayMode(mode);
+  v10 = PXIsSidebarVisibleWithDisplayMode(mode, v9);
   allObjects = [(NSHashTable *)self->_changeObservers allObjects];
   aBlock[0] = MEMORY[0x1E69E9820];
   aBlock[1] = 3221225472;
   aBlock[2] = __69__PXSplitViewController_splitViewController_willChangeToDisplayMode___block_invoke_2;
   aBlock[3] = &unk_1E7749328;
   aBlock[4] = self;
-  v28 = v9;
-  v11 = _Block_copy(aBlock);
-  v23 = 0u;
+  v29 = v10;
+  v12 = _Block_copy(aBlock);
   v24 = 0u;
   v25 = 0u;
   v26 = 0u;
-  v12 = allObjects;
-  v13 = [v12 countByEnumeratingWithState:&v23 objects:v30 count:16];
-  if (v13)
+  v27 = 0u;
+  v13 = allObjects;
+  v14 = [v13 countByEnumeratingWithState:&v24 objects:v31 count:16];
+  if (v14)
   {
-    v14 = v13;
-    v15 = *v24;
+    v15 = v14;
+    v16 = *v25;
     do
     {
-      for (i = 0; i != v14; ++i)
+      for (i = 0; i != v15; ++i)
       {
-        if (*v24 != v15)
+        if (*v25 != v16)
         {
-          objc_enumerationMutation(v12);
+          objc_enumerationMutation(v13);
         }
 
-        v11[2](v11, *(*(&v23 + 1) + 8 * i));
+        v12[2](v12, *(*(&v24 + 1) + 8 * i));
       }
 
-      v14 = [v12 countByEnumeratingWithState:&v23 objects:v30 count:16];
+      v15 = [v13 countByEnumeratingWithState:&v24 objects:v31 count:16];
     }
 
-    while (v14);
+    while (v15);
   }
 
-  v19[0] = MEMORY[0x1E69E9820];
-  v19[1] = 3221225472;
-  v19[2] = __69__PXSplitViewController_splitViewController_willChangeToDisplayMode___block_invoke_3;
-  v19[3] = &unk_1E7749350;
-  v19[4] = self;
-  v20 = v12;
-  v21 = v11;
-  v22 = v9;
-  v17 = v11;
+  v20[0] = MEMORY[0x1E69E9820];
+  v20[1] = 3221225472;
+  v20[2] = __69__PXSplitViewController_splitViewController_willChangeToDisplayMode___block_invoke_3;
+  v20[3] = &unk_1E7749350;
+  v20[4] = self;
+  v21 = v13;
+  v22 = v12;
+  v23 = v10;
   v18 = v12;
-  dispatch_async(MEMORY[0x1E69E96A0], v19);
+  v19 = v13;
+  dispatch_async(MEMORY[0x1E69E96A0], v20);
 }
 
 void __69__PXSplitViewController_splitViewController_willChangeToDisplayMode___block_invoke_2(uint64_t a1, void *a2)
@@ -378,7 +378,7 @@ void __69__PXSplitViewController_splitViewController_willChangeToDisplayMode___b
 {
   displayMode = [(PXSplitViewController *)self displayMode];
 
-  return PXIsSidebarVisibleWithDisplayMode(displayMode);
+  return PXIsSidebarVisibleWithDisplayMode(displayMode, v3);
 }
 
 - (void)unregisterChangeObserver:(id)observer

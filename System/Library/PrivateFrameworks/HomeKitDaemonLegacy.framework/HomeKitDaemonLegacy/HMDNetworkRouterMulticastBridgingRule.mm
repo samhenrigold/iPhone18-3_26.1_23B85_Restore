@@ -204,37 +204,37 @@ LABEL_26:
 
 - (id)serializeWithError:(id *)error
 {
-  v45 = *MEMORY[0x277D85DE8];
-  v43 = 0u;
-  v44 = 0u;
-  v41 = 0u;
+  v44 = *MEMORY[0x277D85DE8];
   v42 = 0u;
-  v39 = 0u;
+  v43 = 0u;
   v40 = 0u;
-  v37 = 0u;
+  v41 = 0u;
   v38 = 0u;
-  v35 = 0u;
+  v39 = 0u;
   v36 = 0u;
-  v33 = 0u;
+  v37 = 0u;
   v34 = 0u;
-  v31 = 0u;
+  v35 = 0u;
   v32 = 0u;
-  v29 = 0u;
+  v33 = 0u;
   v30 = 0u;
-  v27 = 0u;
+  v31 = 0u;
   v28 = 0u;
-  v25 = 0u;
+  v29 = 0u;
   v26 = 0u;
+  v27 = 0u;
   v24 = 0u;
+  v25 = 0u;
+  v23 = 0u;
   TLV8BufferInit();
   direction = [(HMDNetworkRouterMulticastBridgingRule *)self direction];
 
   if (direction)
   {
     direction2 = [(HMDNetworkRouterMulticastBridgingRule *)self direction];
-    v23 = 0;
-    v7 = [direction2 serializeWithError:&v23];
-    v8 = v23;
+    v22 = 0;
+    v7 = [direction2 serializeWithError:&v22];
+    v8 = v22;
 
     if (v8)
     {
@@ -257,9 +257,9 @@ LABEL_26:
   }
 
   lanIdentifierList2 = [(HMDNetworkRouterMulticastBridgingRule *)self lanIdentifierList];
-  v22 = 0;
-  v7 = [lanIdentifierList2 serializeWithError:&v22];
-  v8 = v22;
+  v21 = 0;
+  v7 = [lanIdentifierList2 serializeWithError:&v21];
+  v8 = v21;
 
   if (v8)
   {
@@ -293,9 +293,9 @@ LABEL_9:
   if (destinationIPAddress)
   {
     destinationIPAddress2 = [(HMDNetworkRouterMulticastBridgingRule *)self destinationIPAddress];
-    v21 = 0;
-    v7 = [destinationIPAddress2 serializeWithError:&v21];
-    v8 = v21;
+    v20 = 0;
+    v7 = [destinationIPAddress2 serializeWithError:&v20];
+    v8 = v20;
 
     if (v8)
     {
@@ -315,9 +315,9 @@ LABEL_9:
   if (destinationPort)
   {
     destinationPort2 = [(HMDNetworkRouterMulticastBridgingRule *)self destinationPort];
-    v20 = 0;
-    v7 = [destinationPort2 serializeWithError:&v20];
-    v8 = v20;
+    v19 = 0;
+    v7 = [destinationPort2 serializeWithError:&v19];
+    v8 = v19;
 
     if (v8)
     {
@@ -336,20 +336,18 @@ LABEL_19:
 
     [v7 bytes];
     [v7 length];
-    v19 = TLV8BufferAppend();
+    v18 = TLV8BufferAppend();
 
-    if (v19)
+    if (v18)
     {
       goto LABEL_13;
     }
   }
 
-  v13 = [MEMORY[0x277CBEA90] dataWithBytes:v24 length:?];
+  v13 = [MEMORY[0x277CBEA90] dataWithBytes:v23 length:?];
   v8 = 0;
 LABEL_22:
   TLV8BufferFree();
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return v13;
 }

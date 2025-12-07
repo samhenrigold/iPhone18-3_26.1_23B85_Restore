@@ -16,9 +16,9 @@
   {
     calendar = [dateCopy calendar];
     calendar2 = [endDateCopy calendar];
-    v13 = [calendar isEqual:calendar2];
+    isEqual = objc_msgSend_isEqual_(calendar);
 
-    if ((v13 & 1) == 0)
+    if ((isEqual & 1) == 0)
     {
       currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
       calendar3 = [(NSDateComponents *)v10->_startDate calendar];

@@ -11,6 +11,8 @@
 - (BOOL)shouldStartTaskingToday;
 - (BOOL)shouldSubmitToday;
 - (PLSubmissionConfig)initWithPayload:(id)payload;
+- (PLSubmissionConfig)initWithReasonType:(signed __int16)type;
+- (PLSubmissionConfig)initWithReasonType:(signed __int16)type DRConfig:(id)config;
 - (id)contextDictionary;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)getDateMarker;
@@ -23,6 +25,7 @@
 - (id)submissionCategory;
 - (id)submissionMaskToString;
 - (void)conditionCheckForEnergy;
+- (void)emitQueryEvent:(BOOL)event;
 - (void)emitSubmitEvent;
 - (void)emitTaskingTypeSpecifiedEvent;
 - (void)initTagInfoForReasonType:(signed __int16)type withStartDate:(id)date withEndDate:(id)endDate;
@@ -35,6 +38,179 @@
 @end
 
 @implementation PLSubmissionConfig
+
+- (PLSubmissionConfig)initWithReasonType:(signed __int16)type
+{
+  typeCopy = type;
+  v31.receiver = self;
+  v31.super_class = PLSubmissionConfig;
+  v4 = [(PLSubmissionConfig *)&v31 init];
+  if (!v4)
+  {
+    goto LABEL_11;
+  }
+
+  monotonicDate = [MEMORY[0x1E695DF00] monotonicDate];
+  v6 = 0;
+  if (typeCopy <= 2)
+  {
+    if (typeCopy >= 3)
+    {
+      goto LABEL_10;
+    }
+
+LABEL_8:
+    [PLDefaults doubleForKey:@"internalOTASubmission" ifNotSet:86400.0];
+    v6 = [MEMORY[0x1E695DF00] dateWithTimeInterval:monotonicDate sinceDate:-v7];
+    v8 = v4;
+    v9 = monotonicDate;
+LABEL_9:
+    [(PLSubmissionConfig *)v8 setConfigDateApplied:v9];
+    goto LABEL_10;
+  }
+
+  if (typeCopy == 3)
+  {
+    monotonicDate2 = [MEMORY[0x1E695DF00] monotonicDate];
+    v6 = [PLDefaults objectForKey:@"PLTaskingOnDemandStartDate" ifNotSet:monotonicDate2];
+
+    v8 = v4;
+    v9 = v6;
+    goto LABEL_9;
+  }
+
+  if (typeCopy != 4)
+  {
+    if (typeCopy != 5)
+    {
+LABEL_10:
+      [(PLSubmissionConfig *)v4 initTagInfoForReasonType:typeCopy withStartDate:v6 withEndDate:monotonicDate];
+
+LABEL_11:
+      v10 = v4;
+      goto LABEL_12;
+    }
+
+    goto LABEL_8;
+  }
+
+  v13 = MEMORY[0x1E695DF00];
+  [PLDefaults doubleForKey:@"LastUpgradeTimestamp" ifNotSet:-1.0];
+  v14 = [v13 dateWithTimeIntervalSince1970:?];
+  v15 = +[PLUtilities getFirstBatteryTimestamp];
+  v16 = +[PLUtilities getLastBatteryTimestamp];
+  v17 = v16;
+  if (v15 && v16)
+  {
+    v18 = [objc_alloc(MEMORY[0x1E696AB80]) initWithStartDate:v15 endDate:v16];
+    v19 = PLLogSubmission(v18);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
+    {
+      [(PLSubmissionConfig *)v18 initWithReasonType:v19];
+    }
+
+    v21 = PLLogSubmission(v20);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
+    {
+      [PLSubmissionConfig initWithReasonType:];
+    }
+
+    v22 = [v18 containsDate:v14];
+    if (v22)
+    {
+      v6 = [MEMORY[0x1E695DF00] nearestMidnightBeforeDate:v14];
+      v23 = [MEMORY[0x1E695DF00] nearestMidnightAfterDate:v14];
+
+      v25 = PLLogSubmission(v24);
+      if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
+      {
+        *v30 = 0;
+        _os_log_impl(&dword_1D8611000, v25, OS_LOG_TYPE_INFO, "Upgrade date is within active powerlog region", v30, 2u);
+      }
+
+      v27 = PLLogSubmission(v26);
+      if (os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
+      {
+        [PLSubmissionConfig initWithReasonType:];
+      }
+
+      [(PLSubmissionConfig *)v4 setConfigDateApplied:v23];
+      monotonicDate = v23;
+    }
+
+    else
+    {
+      v29 = PLLogSubmission(v22);
+      if (os_log_type_enabled(v29, OS_LOG_TYPE_INFO))
+      {
+        *v30 = 0;
+        _os_log_impl(&dword_1D8611000, v29, OS_LOG_TYPE_INFO, "Upgrade date is outside of active powerlog region", v30, 2u);
+      }
+
+      v6 = 0;
+    }
+
+    goto LABEL_10;
+  }
+
+  v28 = PLLogSubmission(v16);
+  if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+  {
+    [PLSubmissionConfig initWithReasonType:];
+  }
+
+  v10 = 0;
+LABEL_12:
+
+  return v10;
+}
+
+- (PLSubmissionConfig)initWithReasonType:(signed __int16)type DRConfig:(id)config
+{
+  typeCopy = type;
+  configCopy = config;
+  v7 = [(PLSubmissionConfig *)self initWithReasonType:typeCopy];
+  if (v7)
+  {
+    if (configCopy && ([configCopy payloadDictionaryRepresentation], v8 = objc_claimAutoreleasedReturnValue(), v8, v8))
+    {
+      [(PLSubmissionConfig *)v7 setIsDRTasking:1];
+      configUUID = [configCopy configUUID];
+      [(PLSubmissionConfig *)v7 setConfigUUID:configUUID];
+
+      receivedDate = [configCopy receivedDate];
+      convertFromSystemToMonotonic = [receivedDate convertFromSystemToMonotonic];
+      [(PLSubmissionConfig *)v7 setConfigDateReceived:convertFromSystemToMonotonic];
+
+      payloadDictionaryRepresentation = [configCopy payloadDictionaryRepresentation];
+      [(PLSubmissionConfig *)v7 readTaskingPayloadOverride:payloadDictionaryRepresentation];
+    }
+
+    else
+    {
+      [(PLSubmissionConfig *)v7 setIsDRTasking:0];
+      [(PLSubmissionConfig *)v7 readTaskingDefaults];
+    }
+
+    if ([(PLSubmissionConfig *)v7 submitReasonType]== 4)
+    {
+      v13 = 1024;
+LABEL_8:
+      v7->_submittedFilesMask = v13;
+      goto LABEL_13;
+    }
+
+    if ([(PLSubmissionConfig *)v7 submitReasonType]== 3 && [(PLSubmissionConfig *)v7 submitPLL]&& [(PLSubmissionConfig *)v7 submitPLLUpgrade])
+    {
+      v13 = v7->_submittedFilesMask & 0xFFFFFFFFFFFFFBFFLL;
+      goto LABEL_8;
+    }
+  }
+
+LABEL_13:
+
+  return v7;
+}
 
 - (PLSubmissionConfig)initWithPayload:(id)payload
 {
@@ -404,13 +580,14 @@ LABEL_35:
           goto LABEL_35;
         }
 
-        if ([v33 isEqualToString:@"BG"])
+        v35 = [v33 isEqualToString:@"BG"];
+        if (v35)
         {
           v34 = self->_submittedFilesMask | 0x40;
           goto LABEL_35;
         }
 
-        log = PLLogSubmission();
+        log = PLLogSubmission(v35);
         if (os_log_type_enabled(log, OS_LOG_TYPE_ERROR))
         {
           *buf = v45;
@@ -423,9 +600,9 @@ LABEL_36:
       }
 
       while (v30 != v32);
-      v35 = [taskingFiles2 countByEnumeratingWithState:&v50 objects:v58 count:16];
-      v30 = v35;
-      if (!v35)
+      v36 = [taskingFiles2 countByEnumeratingWithState:&v50 objects:v58 count:16];
+      v30 = v36;
+      if (!v36)
       {
 LABEL_42:
 
@@ -447,12 +624,12 @@ LABEL_42:
   }
 
 LABEL_46:
-  v36 = [overrideCopy objectForKeyedSubscript:@"PLEnableDPUpload"];
+  v37 = [overrideCopy objectForKeyedSubscript:@"PLEnableDPUpload"];
 
-  if (v36)
+  if (v37)
   {
-    v37 = [overrideCopy objectForKeyedSubscript:@"PLEnableDPUpload"];
-    -[PLSubmissionConfig setEnableDPUpload:](self, "setEnableDPUpload:", [v37 BOOLValue]);
+    v38 = [overrideCopy objectForKeyedSubscript:@"PLEnableDPUpload"];
+    -[PLSubmissionConfig setEnableDPUpload:](self, "setEnableDPUpload:", [v38 BOOLValue]);
   }
 
   else
@@ -460,14 +637,14 @@ LABEL_46:
     [(PLSubmissionConfig *)self setEnableDPUpload:1];
   }
 
-  v38 = [overrideCopy objectForKeyedSubscript:@"PLTaskingType"];
-  [(PLSubmissionConfig *)self setTaskingType:v38];
+  v39 = [overrideCopy objectForKeyedSubscript:@"PLTaskingType"];
+  [(PLSubmissionConfig *)self setTaskingType:v39];
 
-  v39 = [overrideCopy objectForKeyedSubscript:@"PLDefaultTaskingTypeParametersKey"];
-  [(PLSubmissionConfig *)self setDefaultTaskingTypeParameters:v39];
+  v40 = [overrideCopy objectForKeyedSubscript:@"PLDefaultTaskingTypeParametersKey"];
+  [(PLSubmissionConfig *)self setDefaultTaskingTypeParameters:v40];
 
-  v40 = [overrideCopy objectForKeyedSubscript:@"PLPerModelTaskingTypeParametersKey"];
-  [(PLSubmissionConfig *)self setPerModelTaskingTypeParameters:v40];
+  v41 = [overrideCopy objectForKeyedSubscript:@"PLPerModelTaskingTypeParametersKey"];
+  [(PLSubmissionConfig *)self setPerModelTaskingTypeParameters:v41];
 
   taskingFiles3 = [(PLSubmissionConfig *)self taskingFiles];
   [PLDefaults setObject:taskingFiles3 forKey:@"PLTaskingFiles" saveToDisk:1];
@@ -477,8 +654,6 @@ LABEL_46:
 
   ppsTaskingTables = [(PLSubmissionConfig *)self ppsTaskingTables];
   [PLDefaults setObject:ppsTaskingTables forKey:@"PPSTaskingTables" saveToDisk:1];
-
-  v44 = *MEMORY[0x1E69E9840];
 }
 
 void __49__PLSubmissionConfig_readTaskingPayloadOverride___block_invoke(uint64_t a1, void *a2)
@@ -529,7 +704,8 @@ void __49__PLSubmissionConfig_readTaskingPayloadOverride___block_invoke(uint64_t
 
 - (BOOL)isValidTaskingBlob
 {
-  if ([(PLSubmissionConfig *)self isValidSubmissionFilesMask])
+  isValidSubmissionFilesMask = [(PLSubmissionConfig *)self isValidSubmissionFilesMask];
+  if (isValidSubmissionFilesMask)
   {
     request = self->_request;
 
@@ -538,8 +714,8 @@ void __49__PLSubmissionConfig_readTaskingPayloadOverride___block_invoke(uint64_t
 
   else
   {
-    v5 = PLLogSubmission();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = PLLogSubmission(isValidSubmissionFilesMask);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       [(PLSubmissionConfig *)self isValidTaskingBlob];
     }
@@ -717,7 +893,7 @@ void __41__PLSubmissionConfig_readTaskingDefaults__block_invoke(uint64_t a1, voi
 
 - (id)splitBySubmissionType
 {
-  v11[1] = *MEMORY[0x1E69E9840];
+  v10[1] = *MEMORY[0x1E69E9840];
   if ([(PLSubmissionConfig *)self submitReasonType]== 1)
   {
     array = [MEMORY[0x1E695DF70] array];
@@ -752,11 +928,9 @@ void __41__PLSubmissionConfig_readTaskingDefaults__block_invoke(uint64_t a1, voi
 
   else
   {
-    v11[0] = self;
-    allObjects = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:1];
+    v10[0] = self;
+    allObjects = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:1];
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 
   return allObjects;
 }
@@ -982,8 +1156,8 @@ LABEL_16:
       v6 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"+[PLSubmissionConfig clearTaskingDefaults]"];
       [PLCoreStorage logMessage:v3 fromFile:lastPathComponent fromFunction:v6 fromLineNumber:727];
 
-      v7 = PLLogCommon();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+      v8 = PLLogCommon(v7);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
       {
         [PLSubmissionFile logSubmissionResultToCAWithErrorType:withFileType:withOverrideKeys:];
       }
@@ -1003,27 +1177,27 @@ LABEL_16:
   PLOSAPreferencesSetValue();
   if (+[PLDefaults debugEnabled])
   {
-    v8 = objc_opt_class();
-    v30[0] = MEMORY[0x1E69E9820];
-    v30[1] = 3221225472;
-    v30[2] = __42__PLSubmissionConfig_clearTaskingDefaults__block_invoke_384;
-    v30[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-    v30[4] = v8;
+    v9 = objc_opt_class();
+    v34[0] = MEMORY[0x1E69E9820];
+    v34[1] = 3221225472;
+    v34[2] = __42__PLSubmissionConfig_clearTaskingDefaults__block_invoke_384;
+    v34[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+    v34[4] = v9;
     if (clearTaskingDefaults_defaultOnce_382 != -1)
     {
-      dispatch_once(&clearTaskingDefaults_defaultOnce_382, v30);
+      dispatch_once(&clearTaskingDefaults_defaultOnce_382, v34);
     }
 
     if (clearTaskingDefaults_classDebugEnabled_383 == 1)
     {
-      v9 = [MEMORY[0x1E696AEC0] stringWithFormat:@"clearing tasking OSAPreferences"];
-      v10 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices/Storage/PLSubmissionsClasses/PLSubmissionConfig.m"];
-      lastPathComponent2 = [v10 lastPathComponent];
-      v12 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"+[PLSubmissionConfig clearTaskingDefaults]"];
-      [PLCoreStorage logMessage:v9 fromFile:lastPathComponent2 fromFunction:v12 fromLineNumber:741];
+      v10 = [MEMORY[0x1E696AEC0] stringWithFormat:@"clearing tasking OSAPreferences"];
+      v11 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices/Storage/PLSubmissionsClasses/PLSubmissionConfig.m"];
+      lastPathComponent2 = [v11 lastPathComponent];
+      v13 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"+[PLSubmissionConfig clearTaskingDefaults]"];
+      [PLCoreStorage logMessage:v10 fromFile:lastPathComponent2 fromFunction:v13 fromLineNumber:741];
 
-      v13 = PLLogCommon();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+      v15 = PLLogCommon(v14);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
       {
         [PLSubmissionFile logSubmissionResultToCAWithErrorType:withFileType:withOverrideKeys:];
       }
@@ -1034,30 +1208,30 @@ LABEL_16:
   PLOSAPreferencesSetValue();
   PLOSAPreferencesSetValue();
   PLOSAPreferencesSetValue();
-  v14 = PLOSAPreferencesSynchronize();
+  v16 = PLOSAPreferencesSynchronize();
   if (+[PLDefaults debugEnabled])
   {
-    v15 = objc_opt_class();
-    v29[0] = MEMORY[0x1E69E9820];
-    v29[1] = 3221225472;
-    v29[2] = __42__PLSubmissionConfig_clearTaskingDefaults__block_invoke_390;
-    v29[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-    v29[4] = v15;
+    v17 = objc_opt_class();
+    v33[0] = MEMORY[0x1E69E9820];
+    v33[1] = 3221225472;
+    v33[2] = __42__PLSubmissionConfig_clearTaskingDefaults__block_invoke_390;
+    v33[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+    v33[4] = v17;
     if (clearTaskingDefaults_defaultOnce_388 != -1)
     {
-      dispatch_once(&clearTaskingDefaults_defaultOnce_388, v29);
+      dispatch_once(&clearTaskingDefaults_defaultOnce_388, v33);
     }
 
     if (clearTaskingDefaults_classDebugEnabled_389 == 1)
     {
-      v16 = [MEMORY[0x1E696AEC0] stringWithFormat:@"synchronized=%d", v14];
-      v17 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices/Storage/PLSubmissionsClasses/PLSubmissionConfig.m"];
-      lastPathComponent3 = [v17 lastPathComponent];
-      v19 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"+[PLSubmissionConfig clearTaskingDefaults]"];
-      [PLCoreStorage logMessage:v16 fromFile:lastPathComponent3 fromFunction:v19 fromLineNumber:748];
+      v18 = [MEMORY[0x1E696AEC0] stringWithFormat:@"synchronized=%d", v16];
+      v19 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices/Storage/PLSubmissionsClasses/PLSubmissionConfig.m"];
+      lastPathComponent3 = [v19 lastPathComponent];
+      v21 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"+[PLSubmissionConfig clearTaskingDefaults]"];
+      [PLCoreStorage logMessage:v18 fromFile:lastPathComponent3 fromFunction:v21 fromLineNumber:748];
 
-      v20 = PLLogCommon();
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
+      v23 = PLLogCommon(v22);
+      if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
       {
         [PLSubmissionFile logSubmissionResultToCAWithErrorType:withFileType:withOverrideKeys:];
       }
@@ -1067,30 +1241,30 @@ LABEL_16:
   PLOSAPreferencesSetValue();
   PLOSAPreferencesSetValue();
   PLOSAPreferencesSetValue();
-  v21 = PLOSAPreferencesSynchronize();
+  v24 = PLOSAPreferencesSynchronize();
   if (+[PLDefaults debugEnabled])
   {
-    v22 = objc_opt_class();
-    v28[0] = MEMORY[0x1E69E9820];
-    v28[1] = 3221225472;
-    v28[2] = __42__PLSubmissionConfig_clearTaskingDefaults__block_invoke_396;
-    v28[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-    v28[4] = v22;
+    v25 = objc_opt_class();
+    v32[0] = MEMORY[0x1E69E9820];
+    v32[1] = 3221225472;
+    v32[2] = __42__PLSubmissionConfig_clearTaskingDefaults__block_invoke_396;
+    v32[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+    v32[4] = v25;
     if (clearTaskingDefaults_defaultOnce_394 != -1)
     {
-      dispatch_once(&clearTaskingDefaults_defaultOnce_394, v28);
+      dispatch_once(&clearTaskingDefaults_defaultOnce_394, v32);
     }
 
     if (clearTaskingDefaults_classDebugEnabled_395 == 1)
     {
-      v23 = [MEMORY[0x1E696AEC0] stringWithFormat:@"synchronized=%d", v21];
-      v24 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices/Storage/PLSubmissionsClasses/PLSubmissionConfig.m"];
-      lastPathComponent4 = [v24 lastPathComponent];
-      v26 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"+[PLSubmissionConfig clearTaskingDefaults]"];
-      [PLCoreStorage logMessage:v23 fromFile:lastPathComponent4 fromFunction:v26 fromLineNumber:754];
+      v26 = [MEMORY[0x1E696AEC0] stringWithFormat:@"synchronized=%d", v24];
+      v27 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices/Storage/PLSubmissionsClasses/PLSubmissionConfig.m"];
+      lastPathComponent4 = [v27 lastPathComponent];
+      v29 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"+[PLSubmissionConfig clearTaskingDefaults]"];
+      [PLCoreStorage logMessage:v26 fromFile:lastPathComponent4 fromFunction:v29 fromLineNumber:754];
 
-      v27 = PLLogCommon();
-      if (os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
+      v31 = PLLogCommon(v30);
+      if (os_log_type_enabled(v31, OS_LOG_TYPE_DEBUG))
       {
         [PLSubmissionFile logSubmissionResultToCAWithErrorType:withFileType:withOverrideKeys:];
       }
@@ -1128,7 +1302,7 @@ BOOL __42__PLSubmissionConfig_clearTaskingDefaults__block_invoke_396(uint64_t a1
 
 - (BOOL)conditionCheckForAppIntents
 {
-  v2 = PLLogSubmission();
+  v2 = PLLogSubmission(self);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -1139,26 +1313,27 @@ BOOL __42__PLSubmissionConfig_clearTaskingDefaults__block_invoke_396(uint64_t a1
   pLSQLConnection = [v3 PLSQLConnection];
 
   v5 = [pLSQLConnection rowCountForTableName:@"AppIntentsServices_Activity_1_2"];
-  v6 = PLLogSubmission();
-  v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
-  if (v5 < 1)
+  v6 = v5;
+  v7 = PLLogSubmission(v5);
+  v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
+  if (v6 < 1)
   {
-    if (v7)
+    if (v8)
     {
-      v11 = 0;
-      v8 = "No app intents found, skipping submission";
-      v9 = &v11;
+      v12 = 0;
+      v9 = "No app intents found, skipping submission";
+      v10 = &v12;
       goto LABEL_8;
     }
   }
 
-  else if (v7)
+  else if (v8)
   {
-    v12 = 0;
-    v8 = "App intents found, proceeding with submission";
-    v9 = &v12;
+    v13 = 0;
+    v9 = "App intents found, proceeding with submission";
+    v10 = &v13;
 LABEL_8:
-    _os_log_impl(&dword_1D8611000, v6, OS_LOG_TYPE_DEFAULT, v8, v9, 2u);
+    _os_log_impl(&dword_1D8611000, v7, OS_LOG_TYPE_DEFAULT, v9, v10, 2u);
   }
 
   return 1;
@@ -1166,19 +1341,19 @@ LABEL_8:
 
 - (BOOL)conditionCheckForEnergy
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v2 = +[PLArchiveManager lastArchivePath];
-  v3 = PLLogSubmission();
+  v3 = PLLogSubmission(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    LOWORD(v11) = 0;
-    _os_log_impl(&dword_1D8611000, v3, OS_LOG_TYPE_DEFAULT, "Energy Tasking: looking for archived powerlog...", &v11, 2u);
+    LOWORD(v12) = 0;
+    _os_log_impl(&dword_1D8611000, v3, OS_LOG_TYPE_DEFAULT, "Energy Tasking: looking for archived powerlog...", &v12, 2u);
   }
 
   if (!v2)
   {
-    v7 = PLLogSubmission();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v9 = PLLogSubmission(v4);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       [PLSubmissionConfig conditionCheckForEnergy];
     }
@@ -1187,34 +1362,33 @@ LABEL_8:
   }
 
   defaultManager = [MEMORY[0x1E696AC08] defaultManager];
-  v5 = [defaultManager fileExistsAtPath:v2];
+  v6 = [defaultManager fileExistsAtPath:v2];
 
-  v6 = PLLogSubmission();
-  v7 = v6;
-  if ((v5 & 1) == 0)
+  v8 = PLLogSubmission(v7);
+  v9 = v8;
+  if ((v6 & 1) == 0)
   {
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       [PLSubmissionConfig conditionCheckForEnergy];
     }
 
 LABEL_12:
-    v8 = 0;
+    v10 = 0;
     goto LABEL_13;
   }
 
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = 138412290;
-    v12 = v2;
-    _os_log_impl(&dword_1D8611000, v7, OS_LOG_TYPE_DEFAULT, "Energy Tasking: last archived powerlog = %@", &v11, 0xCu);
+    v12 = 138412290;
+    v13 = v2;
+    _os_log_impl(&dword_1D8611000, v9, OS_LOG_TYPE_DEFAULT, "Energy Tasking: last archived powerlog = %@", &v12, 0xCu);
   }
 
-  v8 = 1;
+  v10 = 1;
 LABEL_13:
 
-  v9 = *MEMORY[0x1E69E9840];
-  return v8;
+  return v10;
 }
 
 - (BOOL)conditionCheckForTaskingType:(id)type
@@ -1244,17 +1418,18 @@ LABEL_7:
 
 - (BOOL)shouldSubmitToday
 {
-  v3 = PLLogSubmission();
+  v3 = PLLogSubmission(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     [PLSubmissionConfig shouldSubmitToday];
   }
 
   [(PLSubmissionConfig *)self emitTaskingTypeSpecifiedEvent];
-  if (![(PLSubmissionConfig *)self isValidTaskingBlob])
+  isValidTaskingBlob = [(PLSubmissionConfig *)self isValidTaskingBlob];
+  if ((isValidTaskingBlob & 1) == 0)
   {
-    v6 = PLLogSubmission();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+    v7 = PLLogSubmission(isValidTaskingBlob);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
       [PLSubmissionConfig shouldSubmitToday];
     }
@@ -1263,13 +1438,12 @@ LABEL_7:
   }
 
   taskingType = [(PLSubmissionConfig *)self taskingType];
-  v5 = [(PLSubmissionConfig *)self conditionCheckForTaskingType:taskingType];
+  v6 = [(PLSubmissionConfig *)self conditionCheckForTaskingType:taskingType];
 
-  if (!v5)
+  if (!v6)
   {
-    [(PLSubmissionConfig *)self emitQueryEvent:0];
-    v6 = PLLogSubmission();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+    v7 = PLLogSubmission([(PLSubmissionConfig *)self emitQueryEvent:0]);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
       [PLSubmissionConfig shouldSubmitToday];
     }
@@ -1278,28 +1452,28 @@ LABEL_7:
   }
 
   [(PLSubmissionConfig *)self emitQueryEvent:1];
-  v6 = +[PLGestaltUtilities getProductType];
+  v7 = +[PLGestaltUtilities getProductType];
   perModelTaskingTypeParameters = self->_perModelTaskingTypeParameters;
   if (perModelTaskingTypeParameters || self->_defaultTaskingTypeParameters)
   {
-    if (v6)
+    if (v7)
     {
-      v8 = [(NSDictionary *)perModelTaskingTypeParameters objectForKeyedSubscript:v6];
-      if (v8)
+      v9 = [(NSDictionary *)perModelTaskingTypeParameters objectForKeyedSubscript:v7];
+      if (v9)
       {
-        v9 = [(NSDictionary *)self->_perModelTaskingTypeParameters objectForKeyedSubscript:v6];
-        v10 = [v9 objectForKeyedSubscript:@"samplingPercentage"];
-        intValue = [v10 intValue];
+        v10 = [(NSDictionary *)self->_perModelTaskingTypeParameters objectForKeyedSubscript:v7];
+        v11 = [v10 objectForKeyedSubscript:@"samplingPercentage"];
+        intValue = [v11 intValue];
       }
 
       else
       {
-        v9 = [(NSDictionary *)self->_defaultTaskingTypeParameters objectForKeyedSubscript:@"samplingPercentage"];
-        intValue = [v9 intValue];
+        v10 = [(NSDictionary *)self->_defaultTaskingTypeParameters objectForKeyedSubscript:@"samplingPercentage"];
+        intValue = [v10 intValue];
       }
 
-      v13 = PLLogSubmission();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+      v15 = PLLogSubmission(v14);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
       {
         [PLSubmissionConfig shouldSubmitToday];
       }
@@ -1307,7 +1481,7 @@ LABEL_7:
       if (intValue - 101 >= 0xFFFFFF9C)
       {
         [(PLSubmissionConfig *)self dice];
-        if (v14 < intValue)
+        if (v16 < intValue)
         {
           goto LABEL_22;
         }
@@ -1316,29 +1490,29 @@ LABEL_7:
 
     else
     {
-      v12 = PLLogSubmission();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+      v13 = PLLogSubmission(perModelTaskingTypeParameters);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
       {
         [PLSubmissionConfig shouldSubmitToday];
       }
     }
 
 LABEL_23:
-    v15 = 0;
+    v17 = 0;
     goto LABEL_24;
   }
 
 LABEL_22:
   [(PLSubmissionConfig *)self emitSubmitEvent];
-  v15 = 1;
+  v17 = 1;
 LABEL_24:
 
-  return v15;
+  return v17;
 }
 
 - (BOOL)shouldStartTaskingToday
 {
-  v101 = *MEMORY[0x1E69E9840];
+  v108 = *MEMORY[0x1E69E9840];
   if (+[PLDefaults debugEnabled])
   {
     v3 = objc_opt_class();
@@ -1360,8 +1534,8 @@ LABEL_24:
       v7 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[PLSubmissionConfig shouldStartTaskingToday]"];
       [PLCoreStorage logMessage:v4 fromFile:lastPathComponent fromFunction:v7 fromLineNumber:1005];
 
-      v8 = PLLogCommon();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+      v9 = PLLogCommon(v8);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
       {
         [PLSubmissionFile logSubmissionResultToCAWithErrorType:withFileType:withOverrideKeys:];
       }
@@ -1372,27 +1546,27 @@ LABEL_24:
   {
     if (+[PLDefaults debugEnabled])
     {
-      v9 = objc_opt_class();
-      v98[0] = MEMORY[0x1E69E9820];
-      v98[1] = 3221225472;
-      v98[2] = __45__PLSubmissionConfig_shouldStartTaskingToday__block_invoke_416;
-      v98[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-      v98[4] = v9;
+      v10 = objc_opt_class();
+      v105[0] = MEMORY[0x1E69E9820];
+      v105[1] = 3221225472;
+      v105[2] = __45__PLSubmissionConfig_shouldStartTaskingToday__block_invoke_416;
+      v105[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+      v105[4] = v10;
       if (shouldStartTaskingToday_defaultOnce_414 != -1)
       {
-        dispatch_once(&shouldStartTaskingToday_defaultOnce_414, v98);
+        dispatch_once(&shouldStartTaskingToday_defaultOnce_414, v105);
       }
 
       if (shouldStartTaskingToday_classDebugEnabled_415 == 1)
       {
-        v10 = [MEMORY[0x1E696AEC0] stringWithFormat:@"already in task mode or full mode"];
-        v11 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices/Storage/PLSubmissionsClasses/PLSubmissionConfig.m"];
-        lastPathComponent2 = [v11 lastPathComponent];
-        v13 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[PLSubmissionConfig shouldStartTaskingToday]"];
-        [PLCoreStorage logMessage:v10 fromFile:lastPathComponent2 fromFunction:v13 fromLineNumber:1010];
+        v11 = [MEMORY[0x1E696AEC0] stringWithFormat:@"already in task mode or full mode"];
+        v12 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices/Storage/PLSubmissionsClasses/PLSubmissionConfig.m"];
+        lastPathComponent2 = [v12 lastPathComponent];
+        v14 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[PLSubmissionConfig shouldStartTaskingToday]"];
+        [PLCoreStorage logMessage:v11 fromFile:lastPathComponent2 fromFunction:v14 fromLineNumber:1010];
 
-        v14 = PLLogCommon();
-        if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+        v16 = PLLogCommon(v15);
+        if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
         {
           [PLSubmissionFile logSubmissionResultToCAWithErrorType:withFileType:withOverrideKeys:];
         }
@@ -1403,34 +1577,34 @@ LABEL_16:
       }
     }
 
-    goto LABEL_73;
+    return 0;
   }
 
   if (![(PLSubmissionConfig *)self isValidTaskingBlob])
   {
     if (+[PLDefaults debugEnabled])
     {
-      v16 = objc_opt_class();
-      v97[0] = MEMORY[0x1E69E9820];
-      v97[1] = 3221225472;
-      v97[2] = __45__PLSubmissionConfig_shouldStartTaskingToday__block_invoke_422;
-      v97[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-      v97[4] = v16;
+      v18 = objc_opt_class();
+      v104[0] = MEMORY[0x1E69E9820];
+      v104[1] = 3221225472;
+      v104[2] = __45__PLSubmissionConfig_shouldStartTaskingToday__block_invoke_422;
+      v104[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+      v104[4] = v18;
       if (shouldStartTaskingToday_defaultOnce_420 != -1)
       {
-        dispatch_once(&shouldStartTaskingToday_defaultOnce_420, v97);
+        dispatch_once(&shouldStartTaskingToday_defaultOnce_420, v104);
       }
 
       if (shouldStartTaskingToday_classDebugEnabled_421 == 1)
       {
-        v10 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Tasking blob is not valid"];
-        v17 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices/Storage/PLSubmissionsClasses/PLSubmissionConfig.m"];
-        lastPathComponent3 = [v17 lastPathComponent];
-        v19 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[PLSubmissionConfig shouldStartTaskingToday]"];
-        [PLCoreStorage logMessage:v10 fromFile:lastPathComponent3 fromFunction:v19 fromLineNumber:1016];
+        v11 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Tasking blob is not valid"];
+        v19 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices/Storage/PLSubmissionsClasses/PLSubmissionConfig.m"];
+        lastPathComponent3 = [v19 lastPathComponent];
+        v21 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[PLSubmissionConfig shouldStartTaskingToday]"];
+        [PLCoreStorage logMessage:v11 fromFile:lastPathComponent3 fromFunction:v21 fromLineNumber:1016];
 
-        v14 = PLLogCommon();
-        if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+        v16 = PLLogCommon(v22);
+        if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
         {
           [PLSubmissionFile logSubmissionResultToCAWithErrorType:withFileType:withOverrideKeys:];
         }
@@ -1439,15 +1613,12 @@ LABEL_16:
       }
     }
 
-LABEL_73:
-    v15 = 0;
-    goto LABEL_74;
+    return 0;
   }
 
   if ([(PLSubmissionConfig *)self isDRTasking])
   {
-    v15 = 1;
-    goto LABEL_74;
+    return 1;
   }
 
   [MEMORY[0x1E696AEC0] stringWithFormat:@"%@.%@", @"com.apple.powerlog.OTATasking", @"PLTaskingRequest"];
@@ -1456,80 +1627,79 @@ LABEL_73:
   [PLSubmissionConfig submitTaskingDefaultsCheckStateToCA:@"PLTaskingRequest"];
   if (self->_taskingBuild)
   {
-    v10 = [PLDefaults objectForKey:@"LastBuild" forApplicationID:@"com.apple.powerlogd" synchronize:0];
-    if (!v10)
+    v11 = [PLDefaults objectForKey:@"LastBuild" forApplicationID:@"com.apple.powerlogd" synchronize:0];
+    if (!v11)
+    {
+      goto LABEL_17;
+    }
+
+    objc_opt_class();
+    if ((objc_opt_isKindOfClass() & 1) == 0)
+    {
+      goto LABEL_17;
+    }
+
+    objc_opt_class();
+    if ((objc_opt_isKindOfClass() & 1) == 0)
     {
       goto LABEL_17;
     }
 
     taskingBuild = self->_taskingBuild;
-    objc_opt_class();
-    if ((objc_opt_isKindOfClass() & 1) == 0)
-    {
-      goto LABEL_17;
-    }
-
-    objc_opt_class();
-    if ((objc_opt_isKindOfClass() & 1) == 0)
-    {
-      goto LABEL_17;
-    }
-
-    v21 = self->_taskingBuild;
     whitespaceAndNewlineCharacterSet = [MEMORY[0x1E696AB08] whitespaceAndNewlineCharacterSet];
-    v23 = [(NSString *)v21 stringByTrimmingCharactersInSet:whitespaceAndNewlineCharacterSet];
+    v25 = [(NSString *)taskingBuild stringByTrimmingCharactersInSet:whitespaceAndNewlineCharacterSet];
 
     whitespaceAndNewlineCharacterSet2 = [MEMORY[0x1E696AB08] whitespaceAndNewlineCharacterSet];
-    v25 = [(__CFString *)v10 stringByTrimmingCharactersInSet:whitespaceAndNewlineCharacterSet2];
+    v27 = [(__CFString *)v11 stringByTrimmingCharactersInSet:whitespaceAndNewlineCharacterSet2];
 
     if (+[PLDefaults debugEnabled])
     {
-      v26 = objc_opt_class();
-      v96[0] = MEMORY[0x1E69E9820];
-      v96[1] = 3221225472;
-      v96[2] = __45__PLSubmissionConfig_shouldStartTaskingToday__block_invoke_443;
-      v96[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-      v96[4] = v26;
+      v28 = objc_opt_class();
+      v103[0] = MEMORY[0x1E69E9820];
+      v103[1] = 3221225472;
+      v103[2] = __45__PLSubmissionConfig_shouldStartTaskingToday__block_invoke_443;
+      v103[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+      v103[4] = v28;
       if (shouldStartTaskingToday_defaultOnce_441 != -1)
       {
-        dispatch_once(&shouldStartTaskingToday_defaultOnce_441, v96);
+        dispatch_once(&shouldStartTaskingToday_defaultOnce_441, v103);
       }
 
       if (shouldStartTaskingToday_classDebugEnabled_442 == 1)
       {
-        v27 = [MEMORY[0x1E696AEC0] stringWithFormat:@"taskingBuild=%@, currentBuild=%@\n", v23, v25];
-        v28 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices/Storage/PLSubmissionsClasses/PLSubmissionConfig.m"];
-        lastPathComponent4 = [v28 lastPathComponent];
-        v30 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[PLSubmissionConfig shouldStartTaskingToday]"];
-        [PLCoreStorage logMessage:v27 fromFile:lastPathComponent4 fromFunction:v30 fromLineNumber:1046];
+        v29 = [MEMORY[0x1E696AEC0] stringWithFormat:@"taskingBuild=%@, currentBuild=%@\n", v25, v27];
+        v30 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices/Storage/PLSubmissionsClasses/PLSubmissionConfig.m"];
+        lastPathComponent4 = [v30 lastPathComponent];
+        v32 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[PLSubmissionConfig shouldStartTaskingToday]"];
+        [PLCoreStorage logMessage:v29 fromFile:lastPathComponent4 fromFunction:v32 fromLineNumber:1046];
 
-        v31 = PLLogCommon();
-        if (os_log_type_enabled(v31, OS_LOG_TYPE_DEBUG))
+        v34 = PLLogCommon(v33);
+        if (os_log_type_enabled(v34, OS_LOG_TYPE_DEBUG))
         {
           [PLSubmissionFile logSubmissionResultToCAWithErrorType:withFileType:withOverrideKeys:];
         }
       }
     }
 
-    if (!v23)
+    if (!v25)
     {
 
       goto LABEL_17;
     }
 
-    v32 = [v23 isEqualToString:v25];
+    v35 = [v25 isEqualToString:v27];
 
-    if (!v32)
+    if (!v35)
     {
-      goto LABEL_73;
+      return 0;
     }
   }
 
-  v33 = +[PLGestaltUtilities getHardwareModel];
-  v10 = v33;
+  v36 = +[PLGestaltUtilities getHardwareModel];
+  v11 = v36;
   if (self->_taskingDeviceModels)
   {
-    if (!v33)
+    if (!v36)
     {
       goto LABEL_17;
     }
@@ -1542,72 +1712,72 @@ LABEL_73:
 
     if (+[PLDefaults debugEnabled])
     {
-      v34 = objc_opt_class();
-      v95[0] = MEMORY[0x1E69E9820];
-      v95[1] = 3221225472;
-      v95[2] = __45__PLSubmissionConfig_shouldStartTaskingToday__block_invoke_449;
-      v95[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-      v95[4] = v34;
+      v37 = objc_opt_class();
+      v102[0] = MEMORY[0x1E69E9820];
+      v102[1] = 3221225472;
+      v102[2] = __45__PLSubmissionConfig_shouldStartTaskingToday__block_invoke_449;
+      v102[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+      v102[4] = v37;
       if (shouldStartTaskingToday_defaultOnce_447 != -1)
       {
-        dispatch_once(&shouldStartTaskingToday_defaultOnce_447, v95);
+        dispatch_once(&shouldStartTaskingToday_defaultOnce_447, v102);
       }
 
       if (shouldStartTaskingToday_classDebugEnabled_448 == 1)
       {
-        v35 = [MEMORY[0x1E696AEC0] stringWithFormat:@"currentModel=%@, taskingDeviceModels=%@\n", v10, self->_taskingDeviceModels];
-        v36 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices/Storage/PLSubmissionsClasses/PLSubmissionConfig.m"];
-        lastPathComponent5 = [v36 lastPathComponent];
-        v38 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[PLSubmissionConfig shouldStartTaskingToday]"];
-        [PLCoreStorage logMessage:v35 fromFile:lastPathComponent5 fromFunction:v38 fromLineNumber:1061];
+        v38 = [MEMORY[0x1E696AEC0] stringWithFormat:@"currentModel=%@, taskingDeviceModels=%@\n", v11, self->_taskingDeviceModels];
+        v39 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices/Storage/PLSubmissionsClasses/PLSubmissionConfig.m"];
+        lastPathComponent5 = [v39 lastPathComponent];
+        v41 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[PLSubmissionConfig shouldStartTaskingToday]"];
+        [PLCoreStorage logMessage:v38 fromFile:lastPathComponent5 fromFunction:v41 fromLineNumber:1061];
 
-        v39 = PLLogCommon();
-        if (os_log_type_enabled(v39, OS_LOG_TYPE_DEBUG))
+        v43 = PLLogCommon(v42);
+        if (os_log_type_enabled(v43, OS_LOG_TYPE_DEBUG))
         {
           [PLSubmissionFile logSubmissionResultToCAWithErrorType:withFileType:withOverrideKeys:];
         }
       }
     }
 
-    v40 = [(NSString *)self->_taskingDeviceModels tokenizedByString:@":"];
-    v91 = 0u;
-    v92 = 0u;
-    v93 = 0u;
-    v94 = 0u;
-    v41 = [v40 countByEnumeratingWithState:&v91 objects:v100 count:16];
-    if (!v41)
+    v44 = [(NSString *)self->_taskingDeviceModels tokenizedByString:@":"];
+    v98 = 0u;
+    v99 = 0u;
+    v100 = 0u;
+    v101 = 0u;
+    v45 = [v44 countByEnumeratingWithState:&v98 objects:v107 count:16];
+    if (!v45)
     {
       goto LABEL_120;
     }
 
-    v42 = v41;
-    v43 = 0;
-    v44 = *v92;
+    v46 = v45;
+    v47 = 0;
+    v48 = *v99;
     do
     {
-      for (i = 0; i != v42; ++i)
+      for (i = 0; i != v46; ++i)
       {
-        if (*v92 != v44)
+        if (*v99 != v48)
         {
-          objc_enumerationMutation(v40);
+          objc_enumerationMutation(v44);
         }
 
-        v46 = *(*(&v91 + 1) + 8 * i);
-        if (v46)
+        v50 = *(*(&v98 + 1) + 8 * i);
+        if (v50)
         {
           whitespaceAndNewlineCharacterSet3 = [MEMORY[0x1E696AB08] whitespaceAndNewlineCharacterSet];
-          v48 = [v46 stringByTrimmingCharactersInSet:whitespaceAndNewlineCharacterSet3];
+          v52 = [v50 stringByTrimmingCharactersInSet:whitespaceAndNewlineCharacterSet3];
 
-          v43 |= [(__CFString *)v10 isEqualToString:v48];
+          v47 |= [(__CFString *)v11 isEqualToString:v52];
         }
       }
 
-      v42 = [v40 countByEnumeratingWithState:&v91 objects:v100 count:16];
+      v46 = [v44 countByEnumeratingWithState:&v98 objects:v107 count:16];
     }
 
-    while (v42);
+    while (v46);
 
-    if ((v43 & 1) == 0)
+    if ((v47 & 1) == 0)
     {
       goto LABEL_17;
     }
@@ -1623,27 +1793,27 @@ LABEL_73:
 
     if (+[PLDefaults debugEnabled])
     {
-      v49 = objc_opt_class();
-      v90[0] = MEMORY[0x1E69E9820];
-      v90[1] = 3221225472;
-      v90[2] = __45__PLSubmissionConfig_shouldStartTaskingToday__block_invoke_458;
-      v90[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-      v90[4] = v49;
+      v53 = objc_opt_class();
+      v97[0] = MEMORY[0x1E69E9820];
+      v97[1] = 3221225472;
+      v97[2] = __45__PLSubmissionConfig_shouldStartTaskingToday__block_invoke_458;
+      v97[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+      v97[4] = v53;
       if (shouldStartTaskingToday_defaultOnce_456 != -1)
       {
-        dispatch_once(&shouldStartTaskingToday_defaultOnce_456, v90);
+        dispatch_once(&shouldStartTaskingToday_defaultOnce_456, v97);
       }
 
       if (shouldStartTaskingToday_classDebugEnabled_457 == 1)
       {
-        v50 = [MEMORY[0x1E696AEC0] stringWithFormat:@"taskingPopulation=%@\n", self->_taskingPopulation];
-        v51 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices/Storage/PLSubmissionsClasses/PLSubmissionConfig.m"];
-        lastPathComponent6 = [v51 lastPathComponent];
-        v53 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[PLSubmissionConfig shouldStartTaskingToday]"];
-        [PLCoreStorage logMessage:v50 fromFile:lastPathComponent6 fromFunction:v53 fromLineNumber:1080];
+        v54 = [MEMORY[0x1E696AEC0] stringWithFormat:@"taskingPopulation=%@\n", self->_taskingPopulation];
+        v55 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices/Storage/PLSubmissionsClasses/PLSubmissionConfig.m"];
+        lastPathComponent6 = [v55 lastPathComponent];
+        v57 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[PLSubmissionConfig shouldStartTaskingToday]"];
+        [PLCoreStorage logMessage:v54 fromFile:lastPathComponent6 fromFunction:v57 fromLineNumber:1080];
 
-        v54 = PLLogCommon();
-        if (os_log_type_enabled(v54, OS_LOG_TYPE_DEBUG))
+        v59 = PLLogCommon(v58);
+        if (os_log_type_enabled(v59, OS_LOG_TYPE_DEBUG))
         {
           [PLSubmissionFile logSubmissionResultToCAWithErrorType:withFileType:withOverrideKeys:];
         }
@@ -1652,9 +1822,9 @@ LABEL_73:
 
     taskingPopulation = self->_taskingPopulation;
     whitespaceAndNewlineCharacterSet4 = [MEMORY[0x1E696AB08] whitespaceAndNewlineCharacterSet];
-    v40 = [(NSString *)taskingPopulation stringByTrimmingCharactersInSet:whitespaceAndNewlineCharacterSet4];
+    v44 = [(NSString *)taskingPopulation stringByTrimmingCharactersInSet:whitespaceAndNewlineCharacterSet4];
 
-    if ([v40 isEqualToString:@"INTERNAL"])
+    if ([v44 isEqualToString:@"INTERNAL"])
     {
       if (!+[PLPlatform internalBuild])
       {
@@ -1662,7 +1832,7 @@ LABEL_73:
       }
     }
 
-    else if ([v40 isEqualToString:@"SEED"])
+    else if ([v44 isEqualToString:@"SEED"])
     {
       if (!+[PLPlatform seedBuild])
       {
@@ -1670,7 +1840,7 @@ LABEL_73:
       }
     }
 
-    else if ([v40 isEqualToString:@"CARRIER"])
+    else if ([v44 isEqualToString:@"CARRIER"])
     {
       if (!+[PLPlatform carrierBuild])
       {
@@ -1680,7 +1850,7 @@ LABEL_120:
       }
     }
 
-    else if (![v40 isEqualToString:@"GM"] || +[PLPlatform internalBuild](PLPlatform, "internalBuild") || +[PLPlatform seedBuild](PLPlatform, "seedBuild"))
+    else if (![v44 isEqualToString:@"GM"] || +[PLPlatform internalBuild](PLPlatform, "internalBuild") || +[PLPlatform seedBuild](PLPlatform, "seedBuild"))
     {
       goto LABEL_120;
     }
@@ -1694,12 +1864,12 @@ LABEL_120:
       goto LABEL_17;
     }
 
-    v59 = [(NSDictionary *)self->_taskingPercentage objectForKeyedSubscript:v10];
+    v63 = [(NSDictionary *)self->_taskingPercentage objectForKeyedSubscript:v11];
 
     taskingPercentage = self->_taskingPercentage;
-    if (v59)
+    if (v63)
     {
-      v61 = v10;
+      v65 = v11;
     }
 
     else
@@ -1712,36 +1882,36 @@ LABEL_120:
       }
 
       taskingPercentage = self->_taskingPercentage;
-      v61 = @"default";
+      v65 = @"default";
     }
 
-    v63 = [(NSDictionary *)taskingPercentage objectForKeyedSubscript:v61];
-    intValue = [v63 intValue];
+    v67 = [(NSDictionary *)taskingPercentage objectForKeyedSubscript:v65];
+    intValue = [v67 intValue];
 
 LABEL_89:
     if (+[PLDefaults debugEnabled])
     {
-      v64 = objc_opt_class();
-      v89[0] = MEMORY[0x1E69E9820];
-      v89[1] = 3221225472;
-      v89[2] = __45__PLSubmissionConfig_shouldStartTaskingToday__block_invoke_480;
-      v89[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-      v89[4] = v64;
+      v68 = objc_opt_class();
+      v96[0] = MEMORY[0x1E69E9820];
+      v96[1] = 3221225472;
+      v96[2] = __45__PLSubmissionConfig_shouldStartTaskingToday__block_invoke_480;
+      v96[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+      v96[4] = v68;
       if (shouldStartTaskingToday_defaultOnce_478 != -1)
       {
-        dispatch_once(&shouldStartTaskingToday_defaultOnce_478, v89);
+        dispatch_once(&shouldStartTaskingToday_defaultOnce_478, v96);
       }
 
       if (shouldStartTaskingToday_classDebugEnabled_479 == 1)
       {
-        v65 = [MEMORY[0x1E696AEC0] stringWithFormat:@"taskingPercentage=%d\n", intValue];
-        v66 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices/Storage/PLSubmissionsClasses/PLSubmissionConfig.m"];
-        lastPathComponent7 = [v66 lastPathComponent];
-        v68 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[PLSubmissionConfig shouldStartTaskingToday]"];
-        [PLCoreStorage logMessage:v65 fromFile:lastPathComponent7 fromFunction:v68 fromLineNumber:1120];
+        v69 = [MEMORY[0x1E696AEC0] stringWithFormat:@"taskingPercentage=%d\n", intValue];
+        v70 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices/Storage/PLSubmissionsClasses/PLSubmissionConfig.m"];
+        lastPathComponent7 = [v70 lastPathComponent];
+        v72 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[PLSubmissionConfig shouldStartTaskingToday]"];
+        [PLCoreStorage logMessage:v69 fromFile:lastPathComponent7 fromFunction:v72 fromLineNumber:1120];
 
-        v69 = PLLogCommon();
-        if (os_log_type_enabled(v69, OS_LOG_TYPE_DEBUG))
+        v74 = PLLogCommon(v73);
+        if (os_log_type_enabled(v74, OS_LOG_TYPE_DEBUG))
         {
           [PLSubmissionFile logSubmissionResultToCAWithErrorType:withFileType:withOverrideKeys:];
         }
@@ -1757,29 +1927,29 @@ LABEL_89:
     {
       if (+[PLDefaults debugEnabled])
       {
-        v70 = objc_opt_class();
-        v88[0] = MEMORY[0x1E69E9820];
-        v88[1] = 3221225472;
-        v88[2] = __45__PLSubmissionConfig_shouldStartTaskingToday__block_invoke_486;
-        v88[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-        v88[4] = v70;
+        v75 = objc_opt_class();
+        v95[0] = MEMORY[0x1E69E9820];
+        v95[1] = 3221225472;
+        v95[2] = __45__PLSubmissionConfig_shouldStartTaskingToday__block_invoke_486;
+        v95[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+        v95[4] = v75;
         if (shouldStartTaskingToday_defaultOnce_484 != -1)
         {
-          dispatch_once(&shouldStartTaskingToday_defaultOnce_484, v88);
+          dispatch_once(&shouldStartTaskingToday_defaultOnce_484, v95);
         }
 
         if (shouldStartTaskingToday_classDebugEnabled_485 == 1)
         {
-          v71 = MEMORY[0x1E696AEC0];
+          v76 = MEMORY[0x1E696AEC0];
           [(PLSubmissionConfig *)self dice];
-          v73 = [v71 stringWithFormat:@"dice=%f\n", v72];
-          v74 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices/Storage/PLSubmissionsClasses/PLSubmissionConfig.m"];
-          lastPathComponent8 = [v74 lastPathComponent];
-          v76 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[PLSubmissionConfig shouldStartTaskingToday]"];
-          [PLCoreStorage logMessage:v73 fromFile:lastPathComponent8 fromFunction:v76 fromLineNumber:1123];
+          v78 = [v76 stringWithFormat:@"dice=%f\n", v77];
+          v79 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices/Storage/PLSubmissionsClasses/PLSubmissionConfig.m"];
+          lastPathComponent8 = [v79 lastPathComponent];
+          v81 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[PLSubmissionConfig shouldStartTaskingToday]"];
+          [PLCoreStorage logMessage:v78 fromFile:lastPathComponent8 fromFunction:v81 fromLineNumber:1123];
 
-          v77 = PLLogCommon();
-          if (os_log_type_enabled(v77, OS_LOG_TYPE_DEBUG))
+          v83 = PLLogCommon(v82);
+          if (os_log_type_enabled(v83, OS_LOG_TYPE_DEBUG))
           {
             [PLSubmissionFile logSubmissionResultToCAWithErrorType:withFileType:withOverrideKeys:];
           }
@@ -1787,42 +1957,42 @@ LABEL_89:
       }
 
       [(PLSubmissionConfig *)self dice];
-      if (v78 >= intValue)
+      if (v84 >= intValue)
       {
         goto LABEL_17;
       }
     }
   }
 
-  v79 = 0x1E8518000;
+  v85 = 0x1E8518000;
   if (+[PLDefaults debugEnabled])
   {
-    v80 = objc_opt_class();
-    v87[0] = MEMORY[0x1E69E9820];
-    v87[1] = 3221225472;
-    v87[2] = __45__PLSubmissionConfig_shouldStartTaskingToday__block_invoke_492;
-    v87[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-    v87[4] = v80;
+    v86 = objc_opt_class();
+    v94[0] = MEMORY[0x1E69E9820];
+    v94[1] = 3221225472;
+    v94[2] = __45__PLSubmissionConfig_shouldStartTaskingToday__block_invoke_492;
+    v94[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+    v94[4] = v86;
     if (shouldStartTaskingToday_defaultOnce_490 != -1)
     {
-      dispatch_once(&shouldStartTaskingToday_defaultOnce_490, v87);
+      dispatch_once(&shouldStartTaskingToday_defaultOnce_490, v94);
     }
 
     if (shouldStartTaskingToday_classDebugEnabled_491 == 1)
     {
-      v81 = [MEMORY[0x1E696AEC0] stringWithFormat:@"onDemandTasking=%@", self->_ondemand];
-      v82 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices/Storage/PLSubmissionsClasses/PLSubmissionConfig.m"];
-      lastPathComponent9 = [v82 lastPathComponent];
-      v84 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[PLSubmissionConfig shouldStartTaskingToday]"];
-      [PLCoreStorage logMessage:v81 fromFile:lastPathComponent9 fromFunction:v84 fromLineNumber:1128];
+      v87 = [MEMORY[0x1E696AEC0] stringWithFormat:@"onDemandTasking=%@", self->_ondemand];
+      v88 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices/Storage/PLSubmissionsClasses/PLSubmissionConfig.m"];
+      lastPathComponent9 = [v88 lastPathComponent];
+      v90 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[PLSubmissionConfig shouldStartTaskingToday]"];
+      [PLCoreStorage logMessage:v87 fromFile:lastPathComponent9 fromFunction:v90 fromLineNumber:1128];
 
-      v85 = PLLogCommon();
-      if (os_log_type_enabled(v85, OS_LOG_TYPE_DEBUG))
+      v92 = PLLogCommon(v91);
+      if (os_log_type_enabled(v92, OS_LOG_TYPE_DEBUG))
       {
         [PLSubmissionFile logSubmissionResultToCAWithErrorType:withFileType:withOverrideKeys:];
       }
 
-      v79 = 0x1E8518000uLL;
+      v85 = 0x1E8518000uLL;
     }
   }
 
@@ -1830,10 +2000,10 @@ LABEL_89:
   if (ondemand && [(NSString *)ondemand isEqualToString:@"PLTaskingOnDemandForced"])
   {
     [MEMORY[0x1E696AEC0] stringWithFormat:@"%@.%@", @"com.apple.powerlog.OTATasking", @"PLTaskingOnDemand"];
-    v15 = 1;
+    v17 = 1;
     PLADClientAddValueForScalarKey();
     AnalyticsSendEventLazy();
-    [*(v79 + 2440) submitTaskingDefaultsCheckStateToCA:@"PLTaskingOnDemand"];
+    [*(v85 + 2440) submitTaskingDefaultsCheckStateToCA:@"PLTaskingOnDemand"];
     if (![PLDefaults BOOLForKey:@"PLTaskingOnDemandOptOut" ifNotSet:0])
     {
       goto LABEL_18;
@@ -1845,12 +2015,10 @@ LABEL_89:
   }
 
 LABEL_17:
-  v15 = 0;
+  v17 = 0;
 LABEL_18:
 
-LABEL_74:
-  v57 = *MEMORY[0x1E69E9840];
-  return v15;
+  return v17;
 }
 
 BOOL __45__PLSubmissionConfig_shouldStartTaskingToday__block_invoke(uint64_t a1)
@@ -1924,18 +2092,19 @@ BOOL __45__PLSubmissionConfig_shouldStartTaskingToday__block_invoke_492(uint64_t
   }
 
   v2 = PLOSAPreferencesGetValue();
-  v3 = v2 == 0;
+  v3 = v2;
+  v4 = v2 == 0;
   if (v2)
   {
-    v4 = PLLogSubmission();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = PLLogSubmission(v2);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      *v6 = 0;
-      _os_log_impl(&dword_1D8611000, v4, OS_LOG_TYPE_DEFAULT, "Tasking blob received for internal device", v6, 2u);
+      *v7 = 0;
+      _os_log_impl(&dword_1D8611000, v5, OS_LOG_TYPE_DEFAULT, "Tasking blob received for internal device", v7, 2u);
     }
   }
 
-  return v3;
+  return v4;
 }
 
 - (void)initializeFilesToBeSubmitted
@@ -2019,13 +2188,14 @@ LABEL_23:
           goto LABEL_23;
         }
 
-        if ([v12 isEqualToString:@"BG"])
+        v14 = [v12 isEqualToString:@"BG"];
+        if (v14)
         {
           v13 = self->_submittedFilesMask | 0x40;
           goto LABEL_23;
         }
 
-        log = PLLogSubmission();
+        log = PLLogSubmission(v14);
         if (os_log_type_enabled(log, OS_LOG_TYPE_ERROR))
         {
           *buf = v18;
@@ -2038,13 +2208,13 @@ LABEL_24:
       }
 
       while (v9 != v11);
-      v14 = [(NSArray *)v6 countByEnumeratingWithState:&v20 objects:v26 count:16];
-      v9 = v14;
-      if (!v14)
+      v15 = [(NSArray *)v6 countByEnumeratingWithState:&v20 objects:v26 count:16];
+      v9 = v15;
+      if (!v15)
       {
 LABEL_30:
 
-        goto LABEL_36;
+        return;
       }
     }
   }
@@ -2052,21 +2222,18 @@ LABEL_30:
   if (+[PLPlatform internalBuild])
   {
     submitReasonType = [(PLSubmissionConfig *)self submitReasonType];
-    v16 = 127;
+    v17 = 127;
     if (submitReasonType == 2)
     {
-      v16 = 3;
+      v17 = 3;
     }
 
-    self->_submittedFilesMask = v16;
+    self->_submittedFilesMask = v17;
     if ((_os_feature_enabled_impl() & 1) == 0)
     {
       self->_submittedFilesMask &= ~0x20uLL;
     }
   }
-
-LABEL_36:
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (void)submitFileStatsToAnalytics
@@ -2112,8 +2279,8 @@ LABEL_36:
 
 id __48__PLSubmissionConfig_submitFileStatsToAnalytics__block_invoke(uint64_t a1)
 {
-  v13[7] = *MEMORY[0x1E69E9840];
-  v12[0] = @"PLL";
+  v12[7] = *MEMORY[0x1E69E9840];
+  v11[0] = @"PLL";
   if ([*(a1 + 32) submitPLL])
   {
     v2 = &unk_1F540A260;
@@ -2124,8 +2291,8 @@ id __48__PLSubmissionConfig_submitFileStatsToAnalytics__block_invoke(uint64_t a1
     v2 = &unk_1F540A278;
   }
 
-  v13[0] = v2;
-  v12[1] = @"PLL-Upgrade";
+  v12[0] = v2;
+  v11[1] = @"PLL-Upgrade";
   if ([*(a1 + 32) submitPLLUpgrade])
   {
     v3 = &unk_1F540A260;
@@ -2136,8 +2303,8 @@ id __48__PLSubmissionConfig_submitFileStatsToAnalytics__block_invoke(uint64_t a1
     v3 = &unk_1F540A278;
   }
 
-  v13[1] = v3;
-  v12[2] = @"MSS";
+  v12[1] = v3;
+  v11[2] = @"MSS";
   if ([*(a1 + 32) submitMSS])
   {
     v4 = &unk_1F540A260;
@@ -2148,8 +2315,8 @@ id __48__PLSubmissionConfig_submitFileStatsToAnalytics__block_invoke(uint64_t a1
     v4 = &unk_1F540A278;
   }
 
-  v13[2] = v4;
-  v12[3] = @"SP";
+  v12[2] = v4;
+  v11[3] = @"SP";
   if ([*(a1 + 32) submitSP])
   {
     v5 = &unk_1F540A260;
@@ -2160,8 +2327,8 @@ id __48__PLSubmissionConfig_submitFileStatsToAnalytics__block_invoke(uint64_t a1
     v5 = &unk_1F540A278;
   }
 
-  v13[3] = v5;
-  v12[4] = @"BDC";
+  v12[3] = v5;
+  v11[4] = @"BDC";
   if ([*(a1 + 32) submitBDC])
   {
     v6 = &unk_1F540A260;
@@ -2172,8 +2339,8 @@ id __48__PLSubmissionConfig_submitFileStatsToAnalytics__block_invoke(uint64_t a1
     v6 = &unk_1F540A278;
   }
 
-  v13[4] = v6;
-  v12[5] = @"CE";
+  v12[4] = v6;
+  v11[5] = @"CE";
   if ([*(a1 + 32) submitCE])
   {
     v7 = &unk_1F540A260;
@@ -2184,8 +2351,8 @@ id __48__PLSubmissionConfig_submitFileStatsToAnalytics__block_invoke(uint64_t a1
     v7 = &unk_1F540A278;
   }
 
-  v13[5] = v7;
-  v12[6] = @"XC";
+  v12[5] = v7;
+  v11[6] = @"XC";
   if ([*(a1 + 32) submitXC])
   {
     v8 = &unk_1F540A260;
@@ -2196,9 +2363,8 @@ id __48__PLSubmissionConfig_submitFileStatsToAnalytics__block_invoke(uint64_t a1
     v8 = &unk_1F540A278;
   }
 
-  v13[6] = v8;
-  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:v12 count:7];
-  v10 = *MEMORY[0x1E69E9840];
+  v12[6] = v8;
+  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:v11 count:7];
 
   return v9;
 }
@@ -2222,6 +2388,36 @@ id __48__PLSubmissionConfig_submitFileStatsToAnalytics__block_invoke(uint64_t a1
   [dictionary setObject:v9 forKeyedSubscript:@"TaskingTypeSpecified"];
 
   _submitTaskingTypeCAEventPayload(dictionary, @"Tasking type specified");
+}
+
+- (void)emitQueryEvent:(BOOL)event
+{
+  eventCopy = event;
+  dictionary = [MEMORY[0x1E695DF90] dictionary];
+  request = [(PLSubmissionConfig *)self request];
+  [dictionary setObject:request forKeyedSubscript:@"TaskingRequest"];
+
+  taskingType = [(PLSubmissionConfig *)self taskingType];
+  [dictionary setObject:taskingType forKeyedSubscript:@"TaskingType"];
+
+  configUUID = [(PLSubmissionConfig *)self configUUID];
+  uUIDString = [configUUID UUIDString];
+  [dictionary setObject:uUIDString forKeyedSubscript:@"TaskingUUID"];
+
+  v9 = [MEMORY[0x1E696AD98] numberWithBool:eventCopy];
+  [dictionary setObject:v9 forKeyedSubscript:@"QueryResult"];
+
+  if (eventCopy)
+  {
+    v10 = @"Query succceded";
+  }
+
+  else
+  {
+    v10 = @"Query failed";
+  }
+
+  _submitTaskingTypeCAEventPayload(dictionary, v10);
 }
 
 - (void)emitSubmitEvent
@@ -2250,12 +2446,11 @@ id __48__PLSubmissionConfig_submitFileStatsToAnalytics__block_invoke(uint64_t a1
 
 id __58__PLSubmissionConfig_submitTaskingDefaultsCheckStateToCA___block_invoke(uint64_t a1)
 {
-  v6[1] = *MEMORY[0x1E69E9840];
+  v5[1] = *MEMORY[0x1E69E9840];
   v1 = *(a1 + 32);
-  v5 = @"state";
-  v6[0] = v1;
-  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v6 forKeys:&v5 count:1];
-  v3 = *MEMORY[0x1E69E9840];
+  v4 = @"state";
+  v5[0] = v1;
+  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v5 forKeys:&v4 count:1];
 
   return v2;
 }
@@ -2388,62 +2583,47 @@ id __58__PLSubmissionConfig_submitTaskingDefaultsCheckStateToCA___block_invoke(u
 
 - (void)initWithReasonType:.cold.1()
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_2();
-  v4 = 2112;
-  v5 = v0;
-  _os_log_error_impl(&dword_1D8611000, v1, OS_LOG_TYPE_ERROR, "Nil date(s), cannot init upgrade range: monotonicPowerlogStart=%@, monotonicPowerlogEnd=%@", v3, 0x16u);
-  v2 = *MEMORY[0x1E69E9840];
+  v3 = 2112;
+  v4 = v0;
+  _os_log_error_impl(&dword_1D8611000, v1, OS_LOG_TYPE_ERROR, "Nil date(s), cannot init upgrade range: monotonicPowerlogStart=%@, monotonicPowerlogEnd=%@", v2, 0x16u);
 }
 
 - (void)initWithReasonType:(void *)a1 .cold.2(void *a1, NSObject *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v4 = [a1 startDate];
   v5 = [a1 endDate];
-  v7 = 138412546;
-  v8 = v4;
-  v9 = 2112;
-  v10 = v5;
-  _os_log_debug_impl(&dword_1D8611000, a2, OS_LOG_TYPE_DEBUG, "monotonicPowerlogRange=[%@, %@]", &v7, 0x16u);
-
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-- (void)initWithReasonType:.cold.3()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_1D8611000, v0, v1, "monotonicUpgradeDate=%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
+  v6 = 138412546;
+  v7 = v4;
+  v8 = 2112;
+  v9 = v5;
+  _os_log_debug_impl(&dword_1D8611000, a2, OS_LOG_TYPE_DEBUG, "monotonicPowerlogRange=[%@, %@]", &v6, 0x16u);
 }
 
 - (void)initWithReasonType:.cold.4()
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_2();
-  v4 = 2112;
-  v5 = v0;
-  _os_log_debug_impl(&dword_1D8611000, v1, OS_LOG_TYPE_DEBUG, "startDate=%@, endDate=%@", v3, 0x16u);
-  v2 = *MEMORY[0x1E69E9840];
+  v3 = 2112;
+  v4 = v0;
+  _os_log_debug_impl(&dword_1D8611000, v1, OS_LOG_TYPE_DEBUG, "startDate=%@, endDate=%@", v2, 0x16u);
 }
 
 - (void)isValidTaskingBlob
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   taskingFiles = [self taskingFiles];
   OUTLINED_FUNCTION_2();
-  _os_log_error_impl(&dword_1D8611000, a2, OS_LOG_TYPE_ERROR, "Invalid tasking files request: %@", v5, 0xCu);
-
-  v4 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(&dword_1D8611000, a2, OS_LOG_TYPE_ERROR, "Invalid tasking files request: %@", v4, 0xCu);
 }
 
 - (void)conditionCheckForEnergy
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_2();
-  _os_log_error_impl(&dword_1D8611000, v0, OS_LOG_TYPE_ERROR, "Energy Tasking: last archived powerlog %@ does not exist!", v2, 0xCu);
-  v1 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(&dword_1D8611000, v0, OS_LOG_TYPE_ERROR, "Energy Tasking: last archived powerlog %@ does not exist!", v1, 0xCu);
 }
 
 - (void)shouldSubmitToday

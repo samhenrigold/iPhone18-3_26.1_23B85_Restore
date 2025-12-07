@@ -1,6 +1,7 @@
 @interface HDSmoothingTask
 - (BOOL)isEqual:(id)equal;
 - (id)_initWithWorkout:(id)workout routes:(id)routes analyticsSubmissionCoordinator:(id)coordinator;
+- (id)_newLocationSmootherWithWorkoutActivityType:(unint64_t)type shouldReconstructEntireRoute:(BOOL)route timeIntervalsThatNeedPopulating:(id)populating;
 - (id)description;
 - (void)setSmoothingError:(uint64_t)error;
 - (void)setTransaction:(uint64_t)transaction;
@@ -10,22 +11,22 @@
 
 - (id)_initWithWorkout:(id)workout routes:(id)routes analyticsSubmissionCoordinator:(id)coordinator
 {
-  v80 = *MEMORY[0x277D85DE8];
+  v79 = *MEMORY[0x277D85DE8];
   workoutCopy = workout;
   routesCopy = routes;
   coordinatorCopy = coordinator;
-  v74.receiver = self;
-  v74.super_class = HDSmoothingTask;
-  v11 = [(HDSmoothingTask *)&v74 init];
+  v73.receiver = self;
+  v73.super_class = HDSmoothingTask;
+  v11 = [(HDSmoothingTask *)&v73 init];
   if (v11)
   {
-    v70 = coordinatorCopy;
-    v12 = [workoutCopy copy];
+    v69 = coordinatorCopy;
+    v12 = objc_msgSend_copy(workoutCopy);
     workout = v11->_workout;
     v11->_workout = v12;
 
-    v72 = routesCopy;
-    v14 = [routesCopy copy];
+    v71 = routesCopy;
+    v14 = objc_msgSend_copy(routesCopy);
     routes = v11->_routes;
     v11->_routes = v14;
 
@@ -33,30 +34,30 @@
     v11->_currentActivitySmoothingIndex = 0;
     v11->_isTimedOut = 0;
     v16 = v11->_routes;
+    v74 = 0u;
     v75 = 0u;
     v76 = 0u;
     v77 = 0u;
-    v78 = 0u;
     v17 = v16;
-    v18 = [(NSArray *)v17 countByEnumeratingWithState:&v75 objects:buf count:16];
+    v18 = [(NSArray *)v17 countByEnumeratingWithState:&v74 objects:buf count:16];
     if (v18)
     {
       v19 = v18;
       v20 = 0;
-      v21 = *v76;
+      v21 = *v75;
       do
       {
         for (i = 0; i != v19; ++i)
         {
-          if (*v76 != v21)
+          if (*v75 != v21)
           {
             objc_enumerationMutation(v17);
           }
 
-          v20 += [*(*(&v75 + 1) + 8 * i) count];
+          v20 += [*(*(&v74 + 1) + 8 * i) count];
         }
 
-        v19 = [(NSArray *)v17 countByEnumeratingWithState:&v75 objects:buf count:16];
+        v19 = [(NSArray *)v17 countByEnumeratingWithState:&v74 objects:buf count:16];
       }
 
       while (v19);
@@ -68,7 +69,7 @@
     }
 
     v11->_totalLocations = v20;
-    v73 = workoutCopy;
+    v72 = workoutCopy;
     metadata = [workoutCopy metadata];
     v24 = [metadata objectForKeyedSubscript:*MEMORY[0x277CCE188]];
     v11->_extendedMode = [v24 BOOLValue];
@@ -88,7 +89,7 @@
     smoothedRoutes = v11->_smoothedRoutes;
     v11->_smoothedRoutes = v28;
 
-    v71 = v11;
+    v70 = v11;
     v30 = v11->_workout;
     v31 = objc_alloc_init(MEMORY[0x277CBEB18]);
     metadata2 = [(HKWorkout *)v30 metadata];
@@ -110,28 +111,28 @@
       }
     }
 
-    v68 = v34;
-    v69 = v30;
-    v77 = 0u;
-    v78 = 0u;
-    v75 = 0u;
+    v67 = v34;
+    v68 = v30;
     v76 = 0u;
+    v77 = 0u;
+    v74 = 0u;
+    v75 = 0u;
     workoutEvents = [(HKWorkout *)v30 workoutEvents];
-    v41 = [workoutEvents countByEnumeratingWithState:&v75 objects:buf count:16];
+    v41 = [workoutEvents countByEnumeratingWithState:&v74 objects:buf count:16];
     if (v41)
     {
       v42 = v41;
-      v43 = *v76;
+      v43 = *v75;
       do
       {
         for (j = 0; j != v42; ++j)
         {
-          if (*v76 != v43)
+          if (*v75 != v43)
           {
             objc_enumerationMutation(workoutEvents);
           }
 
-          v45 = *(*(&v75 + 1) + 8 * j);
+          v45 = *(*(&v74 + 1) + 8 * j);
           metadata3 = [v45 metadata];
           v47 = [metadata3 objectForKeyedSubscript:v33];
 
@@ -148,47 +149,47 @@
           }
         }
 
-        v42 = [workoutEvents countByEnumeratingWithState:&v75 objects:buf count:16];
+        v42 = [workoutEvents countByEnumeratingWithState:&v74 objects:buf count:16];
       }
 
       while (v42);
     }
 
-    v11 = v71;
-    workoutIntervals = v71->_workoutIntervals;
-    v71->_workoutIntervals = v31;
+    v11 = v70;
+    workoutIntervals = v70->_workoutIntervals;
+    v70->_workoutIntervals = v31;
 
-    _routeSmoothingActivities = [(HKWorkout *)v71->_workout _routeSmoothingActivities];
-    routeSmoothingActivities = v71->_routeSmoothingActivities;
-    v71->_routeSmoothingActivities = _routeSmoothingActivities;
+    _routeSmoothingActivities = [(HKWorkout *)v70->_workout _routeSmoothingActivities];
+    routeSmoothingActivities = v70->_routeSmoothingActivities;
+    v70->_routeSmoothingActivities = _routeSmoothingActivities;
 
     v54 = objc_alloc(MEMORY[0x277CCAD78]);
-    workoutCopy = v73;
-    metadata4 = [v73 metadata];
+    workoutCopy = v72;
+    metadata4 = [v72 metadata];
     v56 = [metadata4 objectForKeyedSubscript:*MEMORY[0x277CCE0E8]];
     v57 = [v54 initWithUUIDString:v56];
 
     if (v57)
     {
-      workoutActivityType = [v73 workoutActivityType];
-      [v73 duration];
+      workoutActivityType = [v72 workoutActivityType];
+      [v72 duration];
       v60 = v59;
-      workoutActivities = [v73 workoutActivities];
+      workoutActivities = [v72 workoutActivities];
       v62 = [workoutActivities count];
-      LOBYTE(v67) = 0;
-      LOBYTE(v66) = v71->_extendedMode;
-      coordinatorCopy = v70;
-      [HDWorkoutUtilities submitRouteSmoothingWorkoutPerformanceAnalyticsWithCoordinator:v70 event:@"HDWorkoutAnalyticsPerformanceEventNameRouteSmoothingTaskCreated" sessionIdentifier:v57 activityType:workoutActivityType duration:v60 activityCount:v62 extendedMode:v66 totalLocations:v71->_totalLocations routeSmoothingRetryCount:0 activityID:0 failure:v67];
+      LOBYTE(v66) = 0;
+      LOBYTE(v65) = v70->_extendedMode;
+      coordinatorCopy = v69;
+      [HDWorkoutUtilities submitRouteSmoothingWorkoutPerformanceAnalyticsWithCoordinator:v69 event:@"HDWorkoutAnalyticsPerformanceEventNameRouteSmoothingTaskCreated" sessionIdentifier:v57 activityType:workoutActivityType duration:v60 activityCount:v62 extendedMode:v65 totalLocations:v70->_totalLocations routeSmoothingRetryCount:0 activityID:0 failure:v66];
 
-      routesCopy = v72;
+      routesCopy = v71;
     }
 
     else
     {
       _HKInitializeLogging();
       v63 = *MEMORY[0x277CCC330];
-      routesCopy = v72;
-      coordinatorCopy = v70;
+      routesCopy = v71;
+      coordinatorCopy = v69;
       if (os_log_type_enabled(*MEMORY[0x277CCC330], OS_LOG_TYPE_ERROR))
       {
         *buf = 0;
@@ -197,7 +198,6 @@
     }
   }
 
-  v64 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
@@ -232,6 +232,16 @@
   v7 = [v3 stringWithFormat:@"<%@ totalLocations=%tu %@>", uUID, totalLocations, v6];
 
   return v7;
+}
+
+- (id)_newLocationSmootherWithWorkoutActivityType:(unint64_t)type shouldReconstructEntireRoute:(BOOL)route timeIntervalsThatNeedPopulating:(id)populating
+{
+  routeCopy = route;
+  v7 = MEMORY[0x277CBFC30];
+  populatingCopy = populating;
+  v9 = [[v7 alloc] initWithWorkoutActivityType:type shouldReconstructEntireRoute:routeCopy timeIntervalsThatNeedPopulating:populatingCopy];
+
+  return v9;
 }
 
 - (void)setTransaction:(uint64_t)transaction

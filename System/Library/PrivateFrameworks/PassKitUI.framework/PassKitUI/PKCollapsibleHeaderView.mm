@@ -32,9 +32,9 @@
 
 - (PKCollapsibleHeaderView)initWithFrame:(CGRect)frame
 {
-  v21.receiver = self;
-  v21.super_class = PKCollapsibleHeaderView;
-  v3 = [(PKCollapsibleHeaderView *)&v21 initWithFrame:frame.origin.x, frame.origin.y, frame.size.width, frame.size.height];
+  v22.receiver = self;
+  v22.super_class = PKCollapsibleHeaderView;
+  v3 = [(PKCollapsibleHeaderView *)&v22 initWithFrame:frame.origin.x, frame.origin.y, frame.size.width, frame.size.height];
   v4 = v3;
   if (v3)
   {
@@ -54,33 +54,33 @@
     v4->_subtitleLabel = v9;
 
     [(UILabel *)v4->_subtitleLabel setTextAlignment:v6];
-    [(UILabel *)v4->_subtitleLabel setNumberOfLines:0];
-    v11 = v4->_subtitleLabel;
-    v12 = PKOBKHeaderSubtitleTextColor();
-    [(UILabel *)v11 setTextColor:v12];
+    v11 = [(UILabel *)v4->_subtitleLabel setNumberOfLines:0];
+    v12 = v4->_subtitleLabel;
+    v13 = PKOBKHeaderSubtitleTextColor(v11);
+    [(UILabel *)v12 setTextColor:v13];
 
     [(UILabel *)v4->_subtitleLabel setAccessibilityIdentifier:*MEMORY[0x1E69B9CC8]];
     [(PKCollapsibleHeaderView *)v4 addSubview:v4->_subtitleLabel];
     [(PKCollapsibleHeaderView *)v4 _setLabelFonts];
-    v13 = objc_alloc_init(MEMORY[0x1E69DCF08]);
+    v14 = objc_alloc_init(MEMORY[0x1E69DCF08]);
     searchBar = v4->_searchBar;
-    v4->_searchBar = v13;
+    v4->_searchBar = v14;
 
     [(UISearchBar *)v4->_searchBar setAutocorrectionType:1];
     [(UISearchBar *)v4->_searchBar setDelegate:v4];
     [(UISearchBar *)v4->_searchBar setReturnKeyType:6];
     [(UISearchBar *)v4->_searchBar setEnablesReturnKeyAutomatically:1];
     [(UISearchBar *)v4->_searchBar setSearchBarStyle:2];
-    v15 = [objc_alloc(MEMORY[0x1E69DC638]) initWithActivityIndicatorStyle:100];
+    v16 = [objc_alloc(MEMORY[0x1E69DC638]) initWithActivityIndicatorStyle:100];
     activityIndicator = v4->_activityIndicator;
-    v4->_activityIndicator = v15;
+    v4->_activityIndicator = v16;
 
     [(UIActivityIndicatorView *)v4->_activityIndicator setHidesWhenStopped:1];
     [(UIActivityIndicatorView *)v4->_activityIndicator sizeToFit];
     [(UIActivityIndicatorView *)v4->_activityIndicator setHidden:1];
-    v17 = objc_alloc_init(PKCheckmarkView);
+    v18 = objc_alloc_init(PKCheckmarkView);
     checkmarkView = v4->_checkmarkView;
-    v4->_checkmarkView = v17;
+    v4->_checkmarkView = v18;
 
     [(PKCollapsibleHeaderView *)v4 setTitleAccessoriesEnabled:1];
     defaultCenter = [MEMORY[0x1E696AD88] defaultCenter];
@@ -118,7 +118,7 @@
 - (CGSize)sizeThatFits:(CGSize)fits
 {
   width = fits.width;
-  [(PKCollapsibleHeaderView *)self heightBoundsForWidth:fits.width, fits.height, 0, 0, 0, 0];
+  objc_msgSend_heightBoundsForWidth_(self, a2, fits.width, fits.height, 0, 0, 0, 0);
   v4 = 0.0;
   v5 = width;
   result.height = v4;
@@ -132,7 +132,7 @@
   v3.super_class = PKCollapsibleHeaderView;
   [(PKCollapsibleHeaderView *)&v3 layoutSubviews];
   [(PKCollapsibleHeaderView *)self bounds];
-  [(PKCollapsibleHeaderView *)self _layoutWithBounds:0 isTemplateLayout:?];
+  objc_msgSend__layoutWithBounds_isTemplateLayout_(self);
 }
 
 - ($3CC2805F0189FCCE51047C0D2B5A52A9)_layoutWithBounds:(SEL)bounds isTemplateLayout:(CGRect)layout
@@ -147,63 +147,65 @@
   MaxY = 0.0;
   if (!a5)
   {
-    [(PKCollapsibleHeaderView *)self _layoutWithBounds:1 isTemplateLayout:0.0, 0.0, layout.size.width, 1.79769313e308];
-    MaxY = height - v52;
+    objc_msgSend__layoutWithBounds_isTemplateLayout_(self, bounds, 1, 0.0, 0.0, layout.size.width, 1.79769313e308);
+    MaxY = height - v53;
   }
 
   v13 = width - (left + right);
   if (self->_topArtView)
   {
-    v49 = x;
+    v50 = x;
     v14 = height;
     [(PKCollapsibleHeaderView *)self _topArtTopPadding];
-    v16 = v15;
-    v18 = self->_imageSize.width;
-    v17 = self->_imageSize.height;
-    if (v18 == *MEMORY[0x1E695F060] && v17 == *(MEMORY[0x1E695F060] + 8))
+    v17 = v15.n128_f64[0];
+    v19 = self->_imageSize.width;
+    v18 = self->_imageSize.height;
+    if (v19 == *MEMORY[0x1E695F060] && v18 == *(MEMORY[0x1E695F060] + 8))
     {
       [(UIView *)self->_topArtView sizeThatFits:v13, 1.79769313e308];
-      v18 = v20;
-      v17 = v21;
+      v19 = v15.n128_f64[0];
+      v18 = v16.n128_f64[0];
     }
 
-    v22 = MaxY + v16;
-    PKFloatRoundToPixel();
-    v24 = v23;
+    v21 = MaxY + v17;
+    v16.n128_u64[0] = 0.5;
+    v15.n128_f64[0] = (width - v19) * 0.5;
+    PKFloatRoundToPixel(v15, v16);
+    v23 = v22;
     if (!v5)
     {
-      [(UIView *)self->_topArtView setFrame:v23, v22, v18, v17];
+      [(UIView *)self->_topArtView setFrame:v22, v21, v19, v18];
     }
 
-    v25 = fmin(v22, 0.0);
-    v53.origin.x = v24;
-    v53.origin.y = v22;
-    v53.size.width = v18;
-    v53.size.height = v17;
-    MaxY = CGRectGetMaxY(v53);
+    v24 = fmin(v21, 0.0);
+    v54.origin.x = v23;
+    v54.origin.y = v21;
+    v54.size.width = v19;
+    v54.size.height = v18;
+    MaxY = CGRectGetMaxY(v54);
     height = v14;
-    x = v49;
+    x = v50;
   }
 
   else
   {
-    v25 = 0.0;
+    v24 = 0.0;
   }
 
   if (self->_titleText || self->_showSpinner || self->_showCheckmark)
   {
     [(PKCollapsibleHeaderView *)self _titleTopPadding];
-    v27 = MaxY + v26;
+    v26 = MaxY + v25;
     [(PKTrailingAccessoryLabel *)self->_titleLabel setContentInsets:p_readableContentInsets->top, p_readableContentInsets->left, p_readableContentInsets->bottom, p_readableContentInsets->right];
     [(PKTrailingAccessoryLabel *)self->_titleLabel sizeThatFits:width, 1.79769313e308];
-    v30 = v29;
+    v29 = v28;
     if (!v5)
     {
-      [(PKTrailingAccessoryLabel *)self->_titleLabel setFrame:x, v27, v28, v29];
+      [(PKTrailingAccessoryLabel *)self->_titleLabel setFrame:x, v26, v27, v28];
     }
 
-    v25 = fmin(v25, v27);
-    MaxY = v27 + v30;
+    v24 = fmin(v24, v26);
+    MaxY = v26 + v29;
   }
 
   else
@@ -216,81 +218,83 @@
   }
 
   text = [(UILabel *)self->_subtitleLabel text];
-  v32 = [text length];
+  v31 = [text length];
 
-  if (!v32)
+  if (!v31)
   {
     if (!self->_showSearchBar)
     {
-      v43 = MaxY + 15.0;
-      v44 = 0.0;
+      v44 = MaxY + 15.0;
+      v45 = 0.0;
       goto LABEL_37;
     }
 
-    v43 = MaxY;
+    v44 = MaxY;
     goto LABEL_31;
   }
 
-  v34 = _UISolariumFeatureFlagEnabled();
-  v35 = 8.0;
-  if (v34)
+  v33 = _UISolariumFeatureFlagEnabled();
+  v34 = 8.0;
+  if (v33)
   {
-    v35 = 0.0;
+    v34 = 0.0;
   }
 
-  v36 = MaxY + v35;
+  v35 = MaxY + v34;
   [(UILabel *)self->_subtitleLabel sizeThatFits:v13, 1.79769313e308];
-  v38 = v37;
-  PKFloatRoundToPixel();
-  v40 = v39;
+  v37 = v36;
+  v38.n128_u64[0] = 0.5;
+  v39.n128_f64[0] = (width - v13) * 0.5;
+  PKFloatRoundToPixel(v39, v38);
+  v41 = v40;
   if (!v5)
   {
-    [(UILabel *)self->_subtitleLabel setFrame:v39, v36, v13, v38];
+    [(UILabel *)self->_subtitleLabel setFrame:v40, v35, v13, v37];
   }
 
-  v25 = fmin(v25, v36);
-  v54.origin.x = v40;
-  v54.origin.y = v36;
-  v54.size.width = width - (left + right);
-  v54.size.height = v38;
-  v41 = CGRectGetMaxY(v54);
-  v42 = 15.0;
+  v24 = fmin(v24, v35);
+  v55.origin.x = v41;
+  v55.origin.y = v35;
+  v55.size.width = width - (left + right);
+  v55.size.height = v37;
+  v42 = CGRectGetMaxY(v55);
+  v43 = 15.0;
   if (self->_showSearchBar)
   {
-    v42 = 10.0;
+    v43 = 10.0;
   }
 
-  v43 = v41 + v42;
-  v44 = 0.0;
+  v44 = v42 + v43;
+  v45 = 0.0;
   if (self->_showSearchBar)
   {
 LABEL_31:
-    v45 = v43;
+    v46 = v44;
     if (!v5)
     {
-      v45 = fmax(v43, self->_additionalCollapsibleHeight);
+      v46 = fmax(v44, self->_additionalCollapsibleHeight);
     }
 
     result = [(UISearchBar *)self->_searchBar sizeThatFits:width, height];
-    v47 = v46;
+    v48 = v47;
     if (!v5)
     {
-      [(UISearchBar *)self->_searchBar setFrame:0.0, v45, width, v46];
+      [(UISearchBar *)self->_searchBar setFrame:0.0, v46, width, v47];
       result = [(UISearchBar *)self->_searchBar setContentInset:0.0, left, 0.0, right];
     }
 
-    v25 = fmin(v25, v43);
-    v43 = v43 + v47 + 10.0;
-    v44 = fmax(v47 + 10.0 - self->_additionalCollapsibleHeight, 0.0);
+    v24 = fmin(v24, v44);
+    v44 = v44 + v48 + 10.0;
+    v45 = fmax(v48 + 10.0 - self->_additionalCollapsibleHeight, 0.0);
   }
 
 LABEL_37:
-  v48 = v43 + self->_additionalBottomPadding;
-  retstr->var0 = v44;
-  retstr->var1 = v25;
+  v49 = v44 + self->_additionalBottomPadding;
+  retstr->var0 = v45;
+  retstr->var1 = v24;
   retstr->var2 = MaxY;
-  retstr->var3 = v48 - MaxY;
-  retstr->var4 = v48;
+  retstr->var3 = v49 - MaxY;
+  retstr->var4 = v49;
   return result;
 }
 
@@ -303,13 +307,13 @@ LABEL_37:
 
 - (void)_setLabelFonts
 {
-  v3 = PKOBKHeaderTitleFont();
+  v3 = PKOBKHeaderTitleFont(self);
   titleFont = self->_titleFont;
   self->_titleFont = v3;
 
   subtitleLabel = self->_subtitleLabel;
-  v6 = PKOBKHeaderSubtitleFont();
-  [(UILabel *)subtitleLabel setFont:v6];
+  v7 = PKOBKHeaderSubtitleFont(v6);
+  [(UILabel *)subtitleLabel setFont:v7];
 
   [(PKCollapsibleHeaderView *)self updateTitleLabelText];
 }

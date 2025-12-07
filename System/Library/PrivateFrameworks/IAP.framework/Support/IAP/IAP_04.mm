@@ -287,9 +287,9 @@ uint64_t sub_10004E12C(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_10004E20C(unsigned __int8 *a1, uint64_t a2, unsigned int a3)
+void sub_10004E20C(unsigned __int8 *result, uint64_t a2, unsigned int a3)
 {
-  if (!a1 || (a1 & 7) != 0)
+  if (!result || (result & 7) != 0)
   {
     __break(0x5516u);
     goto LABEL_8;
@@ -303,7 +303,7 @@ LABEL_8:
   }
 
   dword_10012C6AC = a3;
-  sub_10004BFF8(a1, a2);
+  sub_10004BFF8(result, a2);
 
   sub_10004D1C8(a2);
 }
@@ -441,9 +441,9 @@ LABEL_11:
   return result;
 }
 
-void sub_10004E558(unsigned __int8 *a1, uint64_t a2, uint64_t a3)
+void sub_10004E558(unsigned __int8 *result, uint64_t a2, uint64_t a3)
 {
-  if (!a1 || (a1 & 7) != 0)
+  if (!result || (result & 7) != 0)
   {
     goto LABEL_10;
   }
@@ -465,7 +465,7 @@ LABEL_10:
   v6 = (*(*a2 + 200))(a2);
 LABEL_7:
   sub_1000DDE90(0xCu, @"%s:%s-%d _videoOutAuthorized = %d for port %s", "/Library/Caches/com.apple.xbs/Sources/iapd/iapd/IAP/link/SystemStatus.mm", "SetVideoOutAuthorized", 1280, a3, v6);
-  sub_10004BFF8(a1, a2);
+  sub_10004BFF8(result, a2);
 
   sub_10004D1C8(a2);
 }
@@ -498,7 +498,6 @@ uint64_t sub_10004E65C(uint64_t result, uint64_t a2)
 
       if (v4 && [v4 service])
       {
-        v5 = *(a2 + 80);
         IOAccessoryPortGetServiceWithPort();
         IOAccessoryPortGetManagerService();
         USBConnectType = IOAccessoryManagerGetUSBConnectType();
@@ -551,25 +550,24 @@ LABEL_19:
     return 1;
   }
 
-  v7 = *(a2 + 80);
   IOAccessoryPortGetServiceWithPort();
   ManagerService = IOAccessoryPortGetManagerService();
   connect = 0;
-  v9 = IOServiceOpen(ManagerService, mach_task_self_, 0, &connect);
-  if (v9 || (result = connect) == 0)
+  v8 = IOServiceOpen(ManagerService, mach_task_self_, 0, &connect);
+  if (v8 || (result = connect) == 0)
   {
-    NSLog(@"ERROR - %s:%s - %d Couldn't connect to port (%hhx) because of error 0x%x\n", "/Library/Caches/com.apple.xbs/Sources/iapd/iapd/IAP/link/SystemStatus.mm", "SetUSBMode", 1398, a2, v9);
+    NSLog(@"ERROR - %s:%s - %d Couldn't connect to port (%hhx) because of error 0x%x\n", "/Library/Caches/com.apple.xbs/Sources/iapd/iapd/IAP/link/SystemStatus.mm", "SetUSBMode", 1398, a2, v8);
     return 1;
   }
 
   if (a3 < 8)
   {
-    v10 = IOAccessoryManagerConfigureUSBMode();
-    if (v10 != -536870183)
+    v9 = IOAccessoryManagerConfigureUSBMode();
+    if (v9 != -536870183)
     {
-      if (v10)
+      if (v9)
       {
-        NSLog(@"ERROR - %s:%s - %d unable to set USB mode 0x%x", "/Library/Caches/com.apple.xbs/Sources/iapd/iapd/IAP/link/SystemStatus.mm", "SetUSBMode", 1394, v10);
+        NSLog(@"ERROR - %s:%s - %d unable to set USB mode 0x%x", "/Library/Caches/com.apple.xbs/Sources/iapd/iapd/IAP/link/SystemStatus.mm", "SetUSBMode", 1394, v9);
       }
     }
 
@@ -594,7 +592,7 @@ LABEL_12:
 
   if (!a2)
   {
-    NSLog(@"ERROR - %s:%s - %d need a transport", "/Library/Caches/com.apple.xbs/Sources/iapd/iapd/IAP/link/SystemStatus.mm", "SetAudioIn", 1427);
+    NSLog(@"ERROR - %s:%s - %d need a transport", 0, a3, "/Library/Caches/com.apple.xbs/Sources/iapd/iapd/IAP/link/SystemStatus.mm", "SetAudioIn", 1427);
     return;
   }
 
@@ -858,7 +856,6 @@ uint64_t sub_10004EF78(uint64_t a1, uint64_t a2)
 
 void sub_10004F094(uint64_t a1, uint64_t a2)
 {
-  v2 = *(a1 + 32);
   if (a2)
   {
     NSLog(@"%s:%s-%d error launching app %@ is %@", "/Library/Caches/com.apple.xbs/Sources/iapd/iapd/IAP/link/SystemStatus.mm", "virtual BOOL ISL::SystemStatus::LaunchApplicationToForeground(const char *)_block_invoke", 1596, *(a1 + 32), a2);
@@ -896,7 +893,6 @@ uint64_t sub_10004F0FC(uint64_t a1, uint64_t a2)
 
 void sub_10004F264(uint64_t a1, uint64_t a2)
 {
-  v2 = *(a1 + 32);
   if (a2)
   {
     NSLog(@"%s:%s-%d error launching app %@ is %@", "/Library/Caches/com.apple.xbs/Sources/iapd/iapd/IAP/link/SystemStatus.mm", "virtual BOOL ISL::SystemStatus::LaunchApplicationToBackground(const char *)_block_invoke", 1621, *(a1 + 32), a2);
@@ -905,10 +901,10 @@ void sub_10004F264(uint64_t a1, uint64_t a2)
   else
   {
     sub_1000DDE90(3u, @"Launching app %@ succeeded, taking process assertion", *(a1 + 32));
-    v4 = +[EAManager sharedManager];
-    v5 = *(a1 + 32);
+    v3 = +[EAManager sharedManager];
+    v4 = *(a1 + 32);
 
-    [v4 takeProcessAssertionForBundleID:v5];
+    [v3 takeProcessAssertionForBundleID:v4];
   }
 }
 
@@ -1047,9 +1043,9 @@ uint64_t sub_10004F688(uint64_t result)
   return result;
 }
 
-uint64_t sub_10004F734(uint64_t result)
+BOOL sub_10004F734(_BOOL8 result)
 {
-  if (!result || (result & 7) != 0)
+  if (!result || result & 7)
   {
     __break(0x5516u);
   }
@@ -1424,27 +1420,27 @@ LABEL_20:
   __break(0x5516u);
 }
 
-void sub_10004FF4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
+void sub_10004FF4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
 {
-  va_start(va, a10);
+  va_start(va, a17);
   sub_1000089F8(va);
   _Unwind_Resume(a1);
 }
 
 void sub_10004FF64(uint64_t a1)
 {
+  v8 = 0xAAAAAAAAAAAAAAAALL;
   v9 = 0xAAAAAAAAAAAAAAAALL;
-  v10 = 0xAAAAAAAAAAAAAAAALL;
   *&v2 = 0xAAAAAAAAAAAAAAAALL;
   *(&v2 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  v11[6] = v2;
-  v11[7] = v2;
-  v11[4] = v2;
-  v11[5] = v2;
-  v11[2] = v2;
-  v11[3] = v2;
-  v11[0] = v2;
-  v11[1] = v2;
+  v10[6] = v2;
+  v10[7] = v2;
+  v10[4] = v2;
+  v10[5] = v2;
+  v10[2] = v2;
+  v10[3] = v2;
+  v10[0] = v2;
+  v10[1] = v2;
   sub_100007DB0(a1);
   if (qword_10012C690 && !BTLocalDeviceGetDefault())
   {
@@ -1458,24 +1454,23 @@ void sub_10004FF64(uint64_t a1)
       v3 = 0;
       while (1)
       {
-        v8 = -21846;
-        v7 = -1431655766;
+        v7 = -21846;
+        v6 = -1431655766;
         if (v3 == 16)
         {
           break;
         }
 
-        v4 = *(v11 + v3);
-        if (sub_100050544())
+        if (sub_100050544(*(v10 + v3), &v6))
         {
           NSLog(@"ERROR - %s:%s - %d failed getting MAC address for device", "/Library/Caches/com.apple.xbs/Sources/iapd/iapd/IAP/link/SystemStatus.mm", "_BTFindKnownDevices", 2110);
           return;
         }
 
+        v4 = v6;
         v5 = v7;
-        v6 = v8;
-        sub_1000505C0(a1, &v5);
-        if (++v3 >= v9)
+        sub_1000505C0(a1, &v4);
+        if (++v3 >= v8)
         {
           return;
         }
@@ -1631,7 +1626,7 @@ LABEL_11:
   __break(0x5510u);
 }
 
-uint64_t *sub_1000503C0(uint64_t a1)
+unsigned int *sub_1000503C0(uint64_t a1)
 {
   v2 = *(a1 + 32);
   result = *(v2 + 152);
@@ -1652,7 +1647,7 @@ uint64_t *sub_1000503C0(uint64_t a1)
   }
 
   v7 = *(a1 + 40);
-  if (result + 1 == v5)
+  if (result + 2 == v5)
   {
     if (v7 <= 3)
     {
@@ -1740,7 +1735,7 @@ uint64_t sub_10005052C(uint64_t result, uint64_t a2)
   return result;
 }
 
-uint64_t sub_100050544()
+uint64_t sub_100050544(uint64_t a1, uint64_t a2)
 {
   result = BTDeviceGetAddressString();
   if (!result)
@@ -1759,7 +1754,7 @@ uint64_t sub_1000505C0(uint64_t result, unsigned int *a2)
     goto LABEL_6;
   }
 
-  result = sub_1000512B8(result, a2);
+  result = sub_1000512B8(result, a2, a2);
   if ((v2 & 0xFE) != 0)
   {
 LABEL_6:
@@ -1769,9 +1764,11 @@ LABEL_6:
   return result;
 }
 
-uint64_t sub_100050600()
+uint64_t sub_100050600(uint64_t a1)
 {
-  if (sub_100050544())
+  v3 = -21846;
+  v2 = -1431655766;
+  if (sub_100050544(a1, &v2))
   {
     NSLog(@"ERROR - %s:%s - %d _BTGetMACAddress failed.\n", "/Library/Caches/com.apple.xbs/Sources/iapd/iapd/IAP/link/SystemStatus.mm", "_BTPostConnectionStatus", 2156);
   }
@@ -1801,28 +1798,28 @@ uint64_t sub_100050720(uint64_t a1, int a2, unsigned int a3, int a4, int a5)
   if (a3 >= 4)
   {
     __break(0x550Au);
-    return result;
+    return a1;
   }
 
   if (a3 != 1)
   {
     if (a3 || (a2 & 0x1FFFB) == 0 || a4 != 11 || a5)
     {
-      return result;
+      return a1;
     }
 
-    return sub_100050600();
+    return sub_100050600(a1);
   }
 
   if ((a2 & 0x1FFFB) != 0 && a4 == 12)
   {
-    return sub_100050600();
+    return sub_100050600(a1);
   }
 
-  return result;
+  return a1;
 }
 
-void sub_100050778(uint64_t a1, unsigned int a2)
+void sub_100050778(uint64_t result, unsigned int a2)
 {
   if (a2 >= 0x10)
   {
@@ -1849,11 +1846,11 @@ LABEL_11:
   }
 }
 
-void sub_10005082C(uint64_t a1, unsigned int a2, uint64_t a3)
+void sub_10005082C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   if (a3)
   {
-    NSLog(@"ERROR - %s:%s - %d called with a BTResult of %d", "/Library/Caches/com.apple.xbs/Sources/iapd/iapd/IAP/link/SystemStatus.mm", "_BTSessionCallback", 2328, a3);
+    NSLog(@"ERROR - %s:%s - %d called with a BTResult of %d", a2, "/Library/Caches/com.apple.xbs/Sources/iapd/iapd/IAP/link/SystemStatus.mm", "_BTSessionCallback", 2328, a3);
     return;
   }
 
@@ -1879,7 +1876,7 @@ LABEL_21:
   {
     if (!a1)
     {
-      NSLog(@"ERROR - %s:%s - %d called with a NULL BTSession", "/Library/Caches/com.apple.xbs/Sources/iapd/iapd/IAP/link/SystemStatus.mm", "_BTSessionCallback", 2312);
+      NSLog(@"ERROR - %s:%s - %d called with a NULL BTSession", a2, "/Library/Caches/com.apple.xbs/Sources/iapd/iapd/IAP/link/SystemStatus.mm", "_BTSessionCallback", 2312);
       return;
     }
 
@@ -1906,7 +1903,7 @@ LABEL_21:
   }
 }
 
-void sub_1000509D8(uint64_t a1, uint64_t a2, uint64_t a3)
+void sub_1000509D8(uint64_t *a1, unsigned int *a2, uint64_t a3)
 {
   if (!a1 || (a1 & 7) != 0)
   {
@@ -1915,14 +1912,12 @@ void sub_1000509D8(uint64_t a1, uint64_t a2, uint64_t a3)
 
   *&v3 = 0xAAAAAAAAAAAAAAAALL;
   *(&v3 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  v8 = v3;
-  v9 = v3;
-  *__dst = v3;
+  v6 = v3;
   v7 = v3;
+  *__dst = v3;
+  v5 = v3;
   if (qword_10012C690)
   {
-    v4 = *(a3 + 8);
-    v5 = *(a3 + 12);
     if (BTLocalDeviceGetDefault())
     {
       NSLog(@"ERROR - %s:%s - %d failed getting local BT device", "/Library/Caches/com.apple.xbs/Sources/iapd/iapd/IAP/link/SystemStatus.mm", "BluetoothUpdateStatus", 2369);
@@ -2042,37 +2037,8 @@ uint64_t sub_100050F5C(uint64_t result, std::string *a2, uint64_t a3)
   v5 = (*(*qword_10012BBB0 + 304))();
   if (v5)
   {
-    if (!std::string::compare(&__str, "com.apple.mobileipod") || (result = std::string::compare(&__str, "com.apple.Music"), !result))
-    {
-      v7 = "com.apple.mobileipod";
-      if (!dword_1001296F4)
-      {
-        goto LABEL_31;
-      }
-
-      result = sub_1000388B8();
-      if (result && (result & 7) == 0)
-      {
-        if ((*(*result + 504))(result))
-        {
-          v7 = "com.apple.iapd.radio";
-          goto LABEL_31;
-        }
-
-        result = sub_1000388B8();
-        if (result && (result & 7) == 0)
-        {
-          if ((*(*result + 496))(result))
-          {
-            v7 = "com.apple.iapd.geniusmix";
-          }
-
-          goto LABEL_31;
-        }
-      }
-    }
-
-    else
+    result = std::string::compare(&__str, "com.apple.mobileipod");
+    if (result && (result = std::string::compare(&__str, "com.apple.Music"), result))
     {
       if (dword_1001296F0)
       {
@@ -2080,9 +2046,9 @@ LABEL_14:
         if (!std::string::compare(&__str, "com.apple.podcasts") || !std::string::compare(&__str, "com.apple.iBooks"))
         {
 LABEL_20:
-          v7 = "com.apple.mobileipod";
+          v8 = "com.apple.mobileipod";
 LABEL_31:
-          std::string::assign(&__str, v7);
+          std::string::assign(&__str, v8);
 LABEL_32:
           std::string::operator=(a2, &__str);
           goto LABEL_33;
@@ -2112,6 +2078,37 @@ LABEL_16:
         }
 
         goto LABEL_14;
+      }
+    }
+
+    else
+    {
+      v8 = "com.apple.mobileipod";
+      if (!dword_1001296F4)
+      {
+        goto LABEL_31;
+      }
+
+      result = sub_1000388B8(result, v6);
+      if (result && (result & 7) == 0)
+      {
+        v9 = (*(*result + 504))(result);
+        if (v9)
+        {
+          v8 = "com.apple.iapd.radio";
+          goto LABEL_31;
+        }
+
+        result = sub_1000388B8(v9, v10);
+        if (result && (result & 7) == 0)
+        {
+          if ((*(*result + 496))(result))
+          {
+            v8 = "com.apple.iapd.geniusmix";
+          }
+
+          goto LABEL_31;
+        }
       }
     }
 
@@ -2257,12 +2254,12 @@ uint64_t sub_1000512A0(uint64_t result)
   return result;
 }
 
-uint64_t sub_1000512B8(uint64_t result, unsigned int *a2)
+uint64_t sub_1000512B8(uint64_t result, unsigned int *a2, uint64_t a3)
 {
   if (result && (result & 7) == 0)
   {
-    v2 = 0xAAAAAAAAAAAAAAAALL;
-    result = sub_100051388(result, &v2, a2);
+    v3 = 0xAAAAAAAAAAAAAAAALL;
+    result = sub_100051388(result, &v3, a2);
     if (!*result)
     {
       operator new();
@@ -2278,7 +2275,7 @@ uint64_t sub_1000512B8(uint64_t result, unsigned int *a2)
   return result;
 }
 
-uint64_t sub_100051388(uint64_t result, void *a2, unsigned int *a3)
+uint64_t sub_100051388(uint64_t result, uint64_t *a2, unsigned int *a3)
 {
   if (result && (result & 7) == 0)
   {
@@ -2437,7 +2434,7 @@ uint64_t sub_1000514E8(uint64_t a1, unsigned int *a2, uint64_t a3, uint64_t a4)
   return a3;
 }
 
-uint64_t sub_100051568(uint64_t result, void *a2, unsigned int *a3)
+uint64_t sub_100051568(uint64_t result, uint64_t *a2, unsigned int *a3)
 {
   if (result && (result & 7) == 0)
   {
@@ -2714,7 +2711,7 @@ void sub_100052124(uint64_t a1)
   *(v3 + 40) = v2;
 }
 
-uint64_t sub_100052234()
+uint64_t sub_100052234(uint64_t a1, uint64_t a2)
 {
   if (qword_10012BBF0 != -1)
   {
@@ -2754,7 +2751,6 @@ uint64_t sub_1000522E0(uint64_t result)
 
 uint64_t sub_1000523D4(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   CTTelephonyCenterSetDefaultDispatchQueue();
   CTTelephonyCenterGetDefault();
   CTTelephonyCenterAddObserver();
@@ -3089,7 +3085,7 @@ uint64_t sub_100052BB0(uint64_t result)
   return result;
 }
 
-uint64_t sub_100052BC8(uint64_t result, int a2)
+uint64_t sub_100052BC8(uint64_t result, uint64_t a2)
 {
   if (!result)
   {
@@ -3102,15 +3098,16 @@ uint64_t sub_100052BC8(uint64_t result, int a2)
     goto LABEL_20;
   }
 
-  result = sub_1000388B8();
+  result = sub_1000388B8(result, a2);
   if (!result || (result & 7) != 0)
   {
     goto LABEL_20;
   }
 
-  if ((*(*result + 592))(result))
+  v4 = (*(*result + 592))(result);
+  if (v4)
   {
-    result = sub_1000388B8();
+    result = sub_1000388B8(v4, v5);
     if (!result || (result & 7) != 0)
     {
       goto LABEL_20;
@@ -3126,26 +3123,26 @@ uint64_t sub_100052BC8(uint64_t result, int a2)
 
   if ((*(v2 + 44) & 0x80000000) == 0 || (*(v2 + 40) & 0x80000000) == 0)
   {
-    LOBYTE(v4) = 1;
+    LOBYTE(v6) = 1;
 LABEL_13:
     if (*(v2 + 8))
     {
-      v5 = 1;
-      return v5 & 1;
+      v7 = 1;
+      return v7 & 1;
     }
 
-    v6 = *(v2 + 32);
-    if (v6 <= 1)
+    v8 = *(v2 + 32);
+    if (v8 <= 1)
     {
-      v5 = result | v6 | v4;
-      return v5 & 1;
+      v7 = result | v8 | v6;
+      return v7 & 1;
     }
 
     goto LABEL_19;
   }
 
-  v4 = *(v2 + 33);
-  if (v4 <= 1)
+  v6 = *(v2 + 33);
+  if (v6 <= 1)
   {
     goto LABEL_13;
   }
@@ -3157,41 +3154,41 @@ LABEL_20:
   return result;
 }
 
-uint64_t sub_100052CA8(uint64_t result)
+uint64_t sub_100052CA8(uint64_t result, uint64_t a2)
 {
   if (!result)
   {
     goto LABEL_13;
   }
 
-  v1 = result;
+  v2 = result;
   if ((result & 7) != 0)
   {
     goto LABEL_13;
   }
 
-  v2 = *(result + 32);
-  if (v2 >= 2)
+  v3 = *(result + 32);
+  if (v3 >= 2)
   {
 LABEL_14:
     __break(0x550Au);
     return result;
   }
 
-  if ((v2 & 1) == 0)
+  if ((v3 & 1) == 0)
   {
     if (!*(result + 8))
     {
       return 0;
     }
 
-    v3 = objc_alloc_init(NSAutoreleasePool);
-    v4 = [objc_msgSend(*(v1 + 8) valueForProperty:{MPMediaItemPropertyPersistentID), "unsignedLongLongValue"}];
+    v4 = objc_alloc_init(NSAutoreleasePool);
+    v5 = [objc_msgSend(*(v2 + 8) valueForProperty:{MPMediaItemPropertyPersistentID), "unsignedLongLongValue"}];
 
-    return v4;
+    return v5;
   }
 
-  result = sub_1000388B8();
+  result = sub_1000388B8(result, a2);
   if (!result || (result & 7) != 0)
   {
 LABEL_13:
@@ -3204,7 +3201,13 @@ LABEL_13:
 
 void sub_100052D5C(uint64_t a1, uint64_t a2)
 {
-  if (!a1 || (a1 & 7) != 0)
+  if (!a1)
+  {
+    goto LABEL_57;
+  }
+
+  v2 = a1;
+  if ((a1 & 7) != 0)
   {
     goto LABEL_57;
   }
@@ -3217,18 +3220,19 @@ void sub_100052D5C(uint64_t a1, uint64_t a2)
 
   if (v3)
   {
-    v5 = sub_1000388B8();
+    v5 = sub_1000388B8(a1, a2);
     if (!v5 || (v5 & 7) != 0)
     {
       goto LABEL_57;
     }
 
-    if ((*(*v5 + 608))(v5))
+    a1 = (*(*v5 + 608))(v5);
+    if (a1)
     {
-      v6 = sub_1000388B8();
+      v6 = sub_1000388B8(a1, a2);
       if (v6 && (v6 & 7) == 0)
       {
-        v7 = *(a1 + 36);
+        v7 = *(v2 + 36);
 
         sub_100044744(v6, v7, a2);
         return;
@@ -3238,7 +3242,7 @@ void sub_100052D5C(uint64_t a1, uint64_t a2)
     }
   }
 
-  v8 = *(a1 + 32);
+  v8 = *(v2 + 32);
   if (v8 >= 2)
   {
     goto LABEL_58;
@@ -3246,7 +3250,7 @@ void sub_100052D5C(uint64_t a1, uint64_t a2)
 
   if (v8)
   {
-    v9 = sub_1000388B8();
+    v9 = sub_1000388B8(a1, a2);
     if (v9 && (v9 & 7) == 0)
     {
 
@@ -3259,7 +3263,7 @@ LABEL_57:
     goto LABEL_58;
   }
 
-  if (!*(a1 + 8))
+  if (!*(v2 + 8))
   {
     if (*(a2 + 23) < 0)
     {
@@ -3284,74 +3288,75 @@ LABEL_57:
     }
 
     v11 = objc_autoreleasePoolPush();
-    if ((*(a1 + 40) & 0x80000000) != 0)
+    v13 = v11;
+    if ((*(v2 + 40) & 0x80000000) != 0)
     {
-      if ((*(a1 + 44) & 0x80000000) != 0)
+      if ((*(v2 + 44) & 0x80000000) != 0)
       {
-        v21 = sub_1000388B8();
-        if (!v21 || (v21 & 7) != 0)
+        v23 = sub_1000388B8(v11, v12);
+        if (!v23 || (v23 & 7) != 0)
         {
           goto LABEL_57;
         }
 
-        (*(*v21 + 536))(v21, a2);
+        (*(*v23 + 536))(v23, a2);
         goto LABEL_51;
       }
 
-      v17 = sub_10002DDA4();
-      if (!v17 || (v17 & 7) != 0)
+      v19 = sub_10002DDA4(v11, v12);
+      if (!v19 || (v19 & 7) != 0)
       {
         goto LABEL_57;
       }
 
-      v13 = sub_10002E314(v17, @"IAP_ITUNES_GENIUS_MIX");
-      v18 = *(a1 + 33);
-      if (v18 <= 1)
+      v15 = sub_10002E314(v19, @"IAP_ITUNES_GENIUS_MIX");
+      v20 = *(v2 + 33);
+      if (v20 <= 1)
       {
-        v15 = v13;
-        if ((v18 & 1) == 0)
+        v17 = v15;
+        if ((v20 & 1) == 0)
         {
-          v16 = *(a1 + 44);
+          v18 = *(v2 + 44);
           goto LABEL_48;
         }
 
 LABEL_50:
-        std::string::assign(a2, [(__CFString *)v13 UTF8String]);
+        std::string::assign(a2, [(__CFString *)v15 UTF8String]);
 
 LABEL_51:
 
-        objc_autoreleasePoolPop(v11);
+        objc_autoreleasePoolPop(v13);
         return;
       }
     }
 
     else
     {
-      v12 = sub_10002DDA4();
-      if (!v12 || (v12 & 7) != 0)
+      v14 = sub_10002DDA4(v11, v12);
+      if (!v14 || (v14 & 7) != 0)
       {
         goto LABEL_57;
       }
 
-      v13 = sub_10002E314(v12, @"IAP_ITUNES_RADIO");
-      v14 = *(a1 + 33);
-      if (v14 <= 1)
+      v15 = sub_10002E314(v14, @"IAP_ITUNES_RADIO");
+      v16 = *(v2 + 33);
+      if (v16 <= 1)
       {
-        v15 = v13;
-        if ((v14 & 1) == 0)
+        v17 = v15;
+        if ((v16 & 1) == 0)
         {
-          v16 = *(a1 + 40);
+          v18 = *(v2 + 40);
 LABEL_48:
-          v19 = __OFADD__(v16, 1);
-          v20 = (v16 + 1);
-          if (v19)
+          v21 = __OFADD__(v18, 1);
+          v22 = (v18 + 1);
+          if (v21)
           {
 LABEL_59:
             __break(0x5500u);
             return;
           }
 
-          v13 = [NSString stringWithFormat:@"%@-%d", v15, v20];
+          v15 = [NSString stringWithFormat:@"%@-%d", v17, v22];
           goto LABEL_50;
         }
 
@@ -3364,8 +3369,8 @@ LABEL_58:
     goto LABEL_59;
   }
 
-  v22 = objc_alloc_init(NSAutoreleasePool);
-  v10 = [*(a1 + 8) valueForProperty:MPMediaItemPropertyTitle];
+  v24 = objc_alloc_init(NSAutoreleasePool);
+  v10 = [*(v2 + 8) valueForProperty:MPMediaItemPropertyTitle];
   if (v10)
   {
     std::string::assign(a2, [objc_msgSend(v10 "precomposedStringWithCanonicalMapping")]);
@@ -3406,7 +3411,7 @@ LABEL_25:
 
   if (v3)
   {
-    v5 = sub_1000388B8();
+    v5 = sub_1000388B8(a1, a2);
     if (v5 && (v5 & 7) == 0)
     {
 
@@ -3480,7 +3485,7 @@ LABEL_25:
 
   if (v3)
   {
-    v5 = sub_1000388B8();
+    v5 = sub_1000388B8(a1, a2);
     if (v5 && (v5 & 7) == 0)
     {
 
@@ -3554,7 +3559,7 @@ LABEL_25:
 
   if (v3)
   {
-    v5 = sub_1000388B8();
+    v5 = sub_1000388B8(a1, a2);
     if (v5 && (v5 & 7) == 0)
     {
 
@@ -3628,7 +3633,7 @@ LABEL_25:
 
   if (v3)
   {
-    v5 = sub_1000388B8();
+    v5 = sub_1000388B8(a1, a2);
     if (v5 && (v5 & 7) == 0)
     {
 
@@ -3847,21 +3852,21 @@ uint64_t sub_10005373C(uint64_t result)
   return result;
 }
 
-uint64_t sub_100053754(uint64_t result)
+uint64_t sub_100053754(uint64_t result, uint64_t a2)
 {
   if (!result)
   {
     goto LABEL_22;
   }
 
-  v1 = result;
+  v2 = result;
   if ((result & 7) != 0)
   {
     goto LABEL_22;
   }
 
-  v2 = *(result + 32);
-  if (v2 >= 2)
+  v3 = *(result + 32);
+  if (v3 >= 2)
   {
 LABEL_23:
     __break(0x550Au);
@@ -3870,36 +3875,36 @@ LABEL_24:
     return result;
   }
 
-  if ((v2 & 1) == 0)
+  if ((v3 & 1) == 0)
   {
     if (!*(result + 8))
     {
       return 0;
     }
 
-    v3 = objc_alloc_init(NSAutoreleasePool);
-    v4 = [*(v1 + 8) valueForProperty:MPMediaItemPropertyPlaybackDuration];
-    if (v4)
+    v4 = objc_alloc_init(NSAutoreleasePool);
+    v5 = [*(v2 + 8) valueForProperty:MPMediaItemPropertyPlaybackDuration];
+    if (v5)
     {
-      result = [v4 doubleValue];
-      v6 = v5 * 1000.0;
-      if (v6 <= -1.0 || v6 >= 4294967300.0)
+      result = [v5 doubleValue];
+      v7 = v6 * 1000.0;
+      if (v7 <= -1.0 || v7 >= 4294967300.0)
       {
         goto LABEL_24;
       }
 
-      v8 = v6;
+      v9 = v7;
     }
 
     else
     {
-      v8 = 0;
+      v9 = 0;
     }
 
-    return v8;
+    return v9;
   }
 
-  result = sub_1000388B8();
+  result = sub_1000388B8(result, a2);
   if (!result || (result & 7) != 0)
   {
 LABEL_22:
@@ -3954,26 +3959,26 @@ uint64_t sub_100053884(uint64_t result)
   return result;
 }
 
-uint64_t sub_10005389C(uint64_t result)
+uint64_t sub_10005389C(uint64_t result, uint64_t a2)
 {
-  if (!result || (v1 = result, (result & 7) != 0))
+  if (!result || (v2 = result, (result & 7) != 0))
   {
 LABEL_17:
     __break(0x5516u);
     goto LABEL_18;
   }
 
-  v2 = *(result + 32);
-  if (v2 >= 2)
+  v3 = *(result + 32);
+  if (v3 >= 2)
   {
 LABEL_18:
     __break(0x550Au);
     return result;
   }
 
-  if (v2)
+  if (v3)
   {
-    result = sub_1000388B8();
+    result = sub_1000388B8(result, a2);
     if (result && (result & 7) == 0)
     {
 
@@ -3985,16 +3990,16 @@ LABEL_18:
 
   if (*(result + 8))
   {
-    v3 = objc_alloc_init(NSAutoreleasePool);
-    v4 = [*(v1 + 8) valueForProperty:MPMediaItemPropertyAlbumTrackNumber];
-    if (v4)
+    v4 = objc_alloc_init(NSAutoreleasePool);
+    v5 = [*(v2 + 8) valueForProperty:MPMediaItemPropertyAlbumTrackNumber];
+    if (v5)
     {
-      v5 = [v4 unsignedIntValue];
+      v6 = [v5 unsignedIntValue];
     }
 
     else
     {
-      v5 = 0;
+      v6 = 0;
     }
   }
 
@@ -4003,29 +4008,29 @@ LABEL_18:
     return 0;
   }
 
-  return v5;
+  return v6;
 }
 
-uint64_t sub_10005395C(uint64_t result)
+uint64_t sub_10005395C(uint64_t result, uint64_t a2)
 {
-  if (!result || (v1 = result, (result & 7) != 0))
+  if (!result || (v2 = result, (result & 7) != 0))
   {
 LABEL_17:
     __break(0x5516u);
     goto LABEL_18;
   }
 
-  v2 = *(result + 32);
-  if (v2 >= 2)
+  v3 = *(result + 32);
+  if (v3 >= 2)
   {
 LABEL_18:
     __break(0x550Au);
     return result;
   }
 
-  if (v2)
+  if (v3)
   {
-    result = sub_1000388B8();
+    result = sub_1000388B8(result, a2);
     if (result && (result & 7) == 0)
     {
 
@@ -4037,16 +4042,16 @@ LABEL_18:
 
   if (*(result + 8))
   {
-    v3 = objc_alloc_init(NSAutoreleasePool);
-    v4 = [*(v1 + 8) valueForProperty:MPMediaItemPropertyDiscNumber];
-    if (v4)
+    v4 = objc_alloc_init(NSAutoreleasePool);
+    v5 = [*(v2 + 8) valueForProperty:MPMediaItemPropertyDiscNumber];
+    if (v5)
     {
-      v5 = [v4 unsignedIntValue];
+      v6 = [v5 unsignedIntValue];
     }
 
     else
     {
-      v5 = 0;
+      v6 = 0;
     }
   }
 
@@ -4055,7 +4060,7 @@ LABEL_18:
     return 0;
   }
 
-  return v5;
+  return v6;
 }
 
 uint64_t sub_100053A1C(uint64_t result)
@@ -4123,60 +4128,60 @@ uint64_t sub_100053A94(uint64_t result)
   return result;
 }
 
-uint64_t sub_100053AAC(uint64_t result)
+uint64_t sub_100053AAC(uint64_t result, uint64_t a2)
 {
   if (!result)
   {
     goto LABEL_20;
   }
 
-  v1 = result;
+  v2 = result;
   if ((result & 7) != 0)
   {
     goto LABEL_20;
   }
 
-  v2 = *(result + 32);
-  if (v2 >= 2)
+  v3 = *(result + 32);
+  if (v3 >= 2)
   {
 LABEL_21:
     __break(0x550Au);
     return result;
   }
 
-  if ((v2 & 1) == 0)
+  if ((v3 & 1) == 0)
   {
     if (!*(result + 8))
     {
       return 0;
     }
 
-    v3 = objc_alloc_init(NSAutoreleasePool);
-    v4 = [*(v1 + 8) valueForProperty:MPMediaItemPropertyChapterArtworkTimes];
-    v5 = sub_10002A564(*(v1 + 8));
-    v6 = v5;
-    if (v4)
+    v4 = objc_alloc_init(NSAutoreleasePool);
+    v5 = [*(v2 + 8) valueForProperty:MPMediaItemPropertyChapterArtworkTimes];
+    v6 = sub_10002A564(*(v2 + 8));
+    v7 = v6;
+    if (v5)
     {
-      v7 = [v4 count];
-      if (!v6 && !v7)
+      v8 = [v5 count];
+      if (!v7 && !v8)
       {
-        v6 = 0;
+        v7 = 0;
 LABEL_18:
 
-        return v6;
+        return v7;
       }
     }
 
-    else if (!v5)
+    else if (!v6)
     {
       goto LABEL_18;
     }
 
-    v6 = 1;
+    v7 = 1;
     goto LABEL_18;
   }
 
-  result = sub_1000388B8();
+  result = sub_1000388B8(result, a2);
   if (!result || (result & 7) != 0)
   {
 LABEL_20:
@@ -4282,7 +4287,7 @@ uint64_t sub_100053C8C(uint64_t result)
   return result;
 }
 
-BOOL sub_100053D0C(_BOOL8 result)
+uint64_t sub_100053D0C(uint64_t result)
 {
   if (!result || (v1 = result, (result & 7) != 0))
   {
@@ -4314,7 +4319,7 @@ BOOL sub_100053D0C(_BOOL8 result)
   return result;
 }
 
-BOOL sub_100053D94(_BOOL8 result)
+uint64_t sub_100053D94(uint64_t result)
 {
   if (!result || (v1 = result, (result & 7) != 0))
   {
@@ -4346,7 +4351,7 @@ BOOL sub_100053D94(_BOOL8 result)
   return result;
 }
 
-BOOL sub_100053E1C(_BOOL8 result)
+uint64_t sub_100053E1C(uint64_t result)
 {
   if (!result || (v1 = result, (result & 7) != 0))
   {
@@ -4424,20 +4429,20 @@ uint64_t sub_100053EF4(uint64_t result)
   return result;
 }
 
-uint64_t sub_100053F0C(uint64_t result)
+uint64_t sub_100053F0C(uint64_t result, uint64_t a2)
 {
   if (!result)
   {
     goto LABEL_17;
   }
 
-  v1 = result;
+  v2 = result;
   if ((result & 7) != 0)
   {
     goto LABEL_17;
   }
 
-  result = sub_1000388B8();
+  result = sub_1000388B8(result, a2);
   if (!result || (result & 7) != 0)
   {
     goto LABEL_17;
@@ -4449,26 +4454,26 @@ uint64_t sub_100053F0C(uint64_t result)
     return 0;
   }
 
-  v3 = *(v1 + 32);
-  if (v3 >= 2)
+  v5 = *(v2 + 32);
+  if (v5 >= 2)
   {
     goto LABEL_18;
   }
 
-  if ((v3 & 1) == 0)
+  if ((v5 & 1) == 0)
   {
-    if (*(v1 + 8))
+    if (*(v2 + 8))
     {
-      v4 = objc_alloc_init(NSAutoreleasePool);
-      v2 = [*(v1 + 8) countOfChaptersOfType:1];
+      v6 = objc_alloc_init(NSAutoreleasePool);
+      v4 = [*(v2 + 8) countOfChaptersOfType:1];
 
-      return v2;
+      return v4;
     }
 
     return 0;
   }
 
-  result = sub_1000388B8();
+  result = sub_1000388B8(result, v3);
   if (!result || (result & 7) != 0)
   {
 LABEL_17:
@@ -4668,19 +4673,19 @@ LABEL_17:
   }
 
   result = objc_alloc_init(NSAutoreleasePool);
-  v10 = *(v4 + 32);
-  if (v10 < 2)
+  v11 = *(v4 + 32);
+  if (v11 < 2)
   {
-    v11 = result;
-    if ((v10 & 1) == 0)
+    v12 = result;
+    if ((v11 & 1) == 0)
     {
       if (*(v4 + 8))
       {
-        v14 = (*(*v4 + 408))(v4);
-        v15 = sub_10002A564(v14);
-        if (v15)
+        v15 = (*(*v4 + 408))(v4);
+        v16 = sub_10002A564(v15);
+        if (v16)
         {
-          v9 = [v15 imageWithSize:{a2, a3}];
+          v9 = [v16 imageWithSize:{a2, a3}];
         }
 
         else
@@ -4688,7 +4693,7 @@ LABEL_17:
           v9 = 0;
         }
 
-        v16 = v9;
+        v17 = v9;
       }
 
       else
@@ -4699,12 +4704,12 @@ LABEL_17:
       goto LABEL_15;
     }
 
-    result = sub_1000388B8();
+    result = sub_1000388B8(result, v10);
     if (result && (result & 7) == 0)
     {
-      v12 = sub_100044A0C(result);
-      v9 = [(objc_class *)v8 imageWithData:v12];
-      v13 = v9;
+      v13 = sub_100044A0C(result);
+      v9 = [(objc_class *)v8 imageWithData:v13];
+      v14 = v9;
 
 LABEL_15:
       return v9;
@@ -4744,7 +4749,7 @@ LABEL_8:
     goto LABEL_11;
   }
 
-  if (!sub_100036DB4())
+  if (!sub_100036DB4(a1))
   {
     sub_1000DDE90(0, @"%s:%s:%d no systemMusicPlayer", "/Library/Caches/com.apple.xbs/Sources/iapd/iapd/IAP/link/TrackAccessor.mm", "IsGeniusAvailable", 714);
     goto LABEL_8;
@@ -4818,7 +4823,7 @@ uint64_t sub_1000546B8(uint64_t result)
   return result;
 }
 
-uint64_t sub_1000546D0()
+uint64_t sub_1000546D0(uint64_t a1, uint64_t a2)
 {
   if (qword_10012BC00 != -1)
   {
@@ -4909,7 +4914,7 @@ void *sub_1000548A0(void *result)
   return result;
 }
 
-void *sub_1000548B4(void *result)
+uint64_t sub_1000548B4(uint64_t result)
 {
   if (result && (result & 7) == 0)
   {
@@ -4922,39 +4927,39 @@ void *sub_1000548B4(void *result)
   return result;
 }
 
-uint64_t sub_100054934(uint64_t result)
+uint64_t sub_100054934(uint64_t result, uint64_t a2)
 {
   if (!result)
   {
     goto LABEL_13;
   }
 
-  v1 = result;
+  v2 = result;
   if ((result & 7) != 0)
   {
     goto LABEL_13;
   }
 
-  result = sub_100045A94();
+  result = sub_100045A94(result, a2);
   if (!result || (result & 7) != 0)
   {
     goto LABEL_13;
   }
 
-  result = (*(*result + 104))(result, *(v1 + 56));
-  if (__OFADD__(result, *(v1 + 48)))
+  result = (*(*result + 104))(result, *(v2 + 56));
+  if (__OFADD__(result, *(v2 + 48)))
   {
 LABEL_14:
     __break(0x5500u);
     return result;
   }
 
-  if (!*(v1 + 56))
+  if (!*(v2 + 56))
   {
     return result;
   }
 
-  result = sub_100045A94();
+  result = sub_100045A94(result, v3);
   if (!result || (result & 7) != 0)
   {
 LABEL_13:
@@ -4962,13 +4967,12 @@ LABEL_13:
     goto LABEL_14;
   }
 
-  v2 = *(v1 + 56);
-  v3 = *(*result + 88);
+  v4 = *(*result + 88);
 
-  return v3();
+  return v4();
 }
 
-void sub_100054A0C(uint64_t a1, uint64_t a2)
+void sub_100054A0C(uint64_t result, uint64_t a2)
 {
   if (qword_10012BC00 != -1)
   {
@@ -5013,24 +5017,24 @@ void sub_100054A0C(uint64_t a1, uint64_t a2)
     }
 
     sub_1000DDE90(0xBu, @"SimpleRemoteEventHandler long play pause fired");
-    v6 = sub_1000388B8();
-    if (!v6 || (v6 & 7) != 0)
+    v8 = sub_1000388B8(v6, v7);
+    if (!v8 || (v8 & 7) != 0)
     {
 LABEL_22:
       __break(0x5516u);
       return;
     }
 
-    sub_100044A3C(v6);
+    sub_100044A3C(v8);
     if (*(v3 + 28))
     {
       SBSLockDevice();
     }
   }
 
-  v7 = *(*v3 + 56);
+  v9 = *(*v3 + 56);
 
-  v7(v3);
+  v9(v3);
 }
 
 void sub_100054B98(uint64_t a1, void *a2, int a3, CFTimeInterval a4)
@@ -5092,11 +5096,11 @@ void sub_100054CA0(uint64_t a1, uint64_t a2, int a3, uint64_t a4, int a5)
     goto LABEL_106;
   }
 
-  v10 = v9;
+  v11 = v9;
   if (a3 == 3)
   {
-    v12 = &kMRMediaRemoteMediaTypeAudio;
-    v11 = 4;
+    v13 = &kMRMediaRemoteMediaTypeAudio;
+    v12 = 4;
     switch(a4)
     {
       case 0:
@@ -5105,7 +5109,7 @@ void sub_100054CA0(uint64_t a1, uint64_t a2, int a3, uint64_t a4, int a5)
       case 2:
       case 10:
 LABEL_18:
-        v11 = 0xFFFFFFFFLL;
+        v12 = 0xFFFFFFFFLL;
         goto LABEL_57;
       case 3:
         goto LABEL_66;
@@ -5113,12 +5117,12 @@ LABEL_18:
         goto LABEL_39;
       case 5:
 LABEL_51:
-        v11 = 102;
+        v12 = 102;
         LODWORD(a4) = 5;
         goto LABEL_57;
       case 6:
 LABEL_49:
-        v11 = 103;
+        v12 = 103;
         LODWORD(a4) = 6;
         goto LABEL_57;
       case 7:
@@ -5133,32 +5137,32 @@ LABEL_49:
         goto LABEL_43;
       case 13:
 LABEL_46:
-        v11 = 104;
+        v12 = 104;
         LODWORD(a4) = 13;
         goto LABEL_57;
       case 14:
 LABEL_45:
-        v11 = 105;
+        v12 = 105;
         LODWORD(a4) = 14;
         goto LABEL_57;
       case 15:
 LABEL_47:
-        v11 = 6;
+        v12 = 6;
         LODWORD(a4) = 15;
         goto LABEL_57;
       case 16:
 LABEL_44:
-        v11 = 7;
+        v12 = 7;
         LODWORD(a4) = 16;
         goto LABEL_57;
       case 17:
 LABEL_48:
-        v11 = 8;
+        v12 = 8;
         LODWORD(a4) = 20;
         goto LABEL_57;
       case 18:
 LABEL_50:
-        v11 = 10;
+        v12 = 10;
         LODWORD(a4) = 21;
         goto LABEL_57;
       default:
@@ -5172,7 +5176,7 @@ LABEL_50:
     if (a3 != 1)
     {
 LABEL_34:
-      v11 = 4;
+      v12 = 4;
       switch(a4)
       {
         case 0:
@@ -5208,19 +5212,19 @@ LABEL_34:
         case 21:
           goto LABEL_50;
         case 22:
-          v11 = 111;
+          v12 = 111;
           goto LABEL_57;
         case 23:
-          v11 = 112;
+          v12 = 112;
           goto LABEL_57;
         case 24:
-          v11 = 113;
+          v12 = 113;
           goto LABEL_57;
         case 25:
-          v11 = 114;
+          v12 = 114;
           goto LABEL_57;
         case 26:
-          v11 = 115;
+          v12 = 115;
           goto LABEL_57;
         default:
           goto LABEL_18;
@@ -5234,9 +5238,9 @@ LABEL_34:
         if (a4 == 1)
         {
           LODWORD(a4) = 3;
-          v11 = 4;
+          v12 = 4;
 LABEL_60:
-          v12 = &kMRMediaRemoteMediaTypeImage;
+          v13 = &kMRMediaRemoteMediaTypeImage;
           goto LABEL_66;
         }
 
@@ -5266,13 +5270,13 @@ LABEL_26:
       }
 
 LABEL_40:
-      v11 = 0;
+      v12 = 0;
       LODWORD(a4) = 8;
       goto LABEL_57;
     }
 
 LABEL_38:
-    v11 = 3;
+    v12 = 3;
     LODWORD(a4) = 7;
     goto LABEL_57;
   }
@@ -5284,7 +5288,7 @@ LABEL_38:
       if (a4 == 8)
       {
 LABEL_42:
-        v11 = 100;
+        v12 = 100;
         LODWORD(a4) = 11;
         goto LABEL_57;
       }
@@ -5292,7 +5296,7 @@ LABEL_42:
       if (a4 == 9)
       {
 LABEL_43:
-        v11 = 101;
+        v12 = 101;
         LODWORD(a4) = 12;
         goto LABEL_57;
       }
@@ -5308,7 +5312,7 @@ LABEL_43:
       if (a4 == 5)
       {
 LABEL_41:
-        v11 = 1;
+        v12 = 1;
         LODWORD(a4) = 9;
         goto LABEL_57;
       }
@@ -5324,7 +5328,7 @@ LABEL_31:
     if (a4 == 2)
     {
 LABEL_39:
-      v11 = 5;
+      v12 = 5;
       LODWORD(a4) = 4;
       goto LABEL_57;
     }
@@ -5337,9 +5341,9 @@ LABEL_39:
     if (a4 == 1)
     {
       LODWORD(a4) = 3;
-      v11 = 4;
+      v12 = 4;
 LABEL_63:
-      v12 = &kMRMediaRemoteMediaTypeVideo;
+      v13 = &kMRMediaRemoteMediaTypeVideo;
       goto LABEL_66;
     }
 
@@ -5347,21 +5351,21 @@ LABEL_63:
   }
 
 LABEL_35:
-  v13 = sub_1000388B8();
-  if (!v13 || (v13 & 7) != 0)
+  v14 = sub_1000388B8(v9, v10);
+  if (!v14 || (v14 & 7) != 0)
   {
     goto LABEL_105;
   }
 
   LODWORD(a4) = 0;
-  v11 = (*(*v13 + 416))(v13) == 1;
+  v12 = (*(*v14 + 416))(v14) == 1;
 LABEL_57:
-  v14 = 0;
+  v15 = 0;
   if (a3 <= 1)
   {
     if (!a3)
     {
-      v15 = &stru_100119FF8;
+      v16 = &stru_100119FF8;
       goto LABEL_67;
     }
 
@@ -5383,12 +5387,12 @@ LABEL_57:
     goto LABEL_63;
   }
 
-  v12 = &kMRMediaRemoteMediaTypeAudio;
+  v13 = &kMRMediaRemoteMediaTypeAudio;
 LABEL_66:
-  v15 = *v12;
-  if (!*v12)
+  v16 = *v13;
+  if (!*v13)
   {
-    v14 = 0;
+    v15 = 0;
     goto LABEL_78;
   }
 
@@ -5409,78 +5413,78 @@ LABEL_67:
       JUMPOUT(0x1000552F4);
     }
 
-    v16 = [NSString stringWithFormat:@"%02X:%02X:%02X:%02X:%02X:%02X", LOBYTE(keys[0]), BYTE1(keys[0]), BYTE2(keys[0]), BYTE3(keys[0]), BYTE4(keys[0]), BYTE5(keys[0])];
+    v17 = [NSString stringWithFormat:@"%02X:%02X:%02X:%02X:%02X:%02X", LOBYTE(keys[0]), BYTE1(keys[0]), BYTE2(keys[0]), BYTE3(keys[0]), BYTE4(keys[0]), BYTE5(keys[0])];
   }
 
   else
   {
-    v16 = 0;
+    v17 = 0;
   }
 
   keys[0] = kMRMediaRemoteOptionMediaType;
   keys[1] = kMRMediaRemoteOptionSourceID;
-  v17 = &stru_100119FF8;
-  if (v16)
+  v18 = &stru_100119FF8;
+  if (v17)
   {
-    v17 = v16;
+    v18 = v17;
   }
 
-  values[0] = v15;
-  values[1] = v17;
-  v14 = CFDictionaryCreate(kCFAllocatorDefault, keys, values, 2, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
+  values[0] = v16;
+  values[1] = v18;
+  v15 = CFDictionaryCreate(kCFAllocatorDefault, keys, values, 2, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
 LABEL_78:
   if (a5 == 131073)
   {
     if (a4 == 21)
     {
-      v11 = 11;
+      v12 = 11;
     }
 
     else
     {
       if (a4 != 20)
       {
-        sub_1000553AC(v11);
-        if (v11 <= 5 && ((1 << v11) & 0x3A) != 0)
+        v21 = sub_1000553AC(v12);
+        if (v12 <= 5 && ((1 << v12) & 0x3A) != 0)
         {
-          v18 = sub_1000388B8();
-          if (!v18 || (v18 & 7) != 0)
+          v23 = sub_1000388B8(v21, v22);
+          if (!v23 || (v23 & 7) != 0)
           {
             goto LABEL_105;
           }
 
-          (*(*v18 + 688))(v18);
+          (*(*v23 + 688))(v23);
         }
 
 LABEL_93:
-        MRMediaRemoteSendCommand();
-        if (v11 > 0xB)
+        v19 = MRMediaRemoteSendCommand();
+        if (v12 > 0xB)
         {
           goto LABEL_102;
         }
 
-        if (((1 << v11) & 0xB) == 0)
+        if (((1 << v12) & 0xB) == 0)
         {
-          if (((1 << v11) & 0xA00) == 0)
+          if (((1 << v12) & 0xA00) == 0)
           {
             goto LABEL_102;
           }
 
 LABEL_99:
-          v20 = sub_1000388B8();
-          if (v20 && (v20 & 7) == 0)
+          v25 = sub_1000388B8(v19, v20);
+          if (v25 && (v25 & 7) == 0)
           {
-            sub_10004506C(v20, v11);
+            sub_10004506C(v25, v12);
             goto LABEL_102;
           }
 
           goto LABEL_105;
         }
 
-        v19 = sub_1000388B8();
-        if (v19 && (v19 & 7) == 0)
+        v24 = sub_1000388B8(v19, v20);
+        if (v24 && (v24 & 7) == 0)
         {
-          sub_100044E98(v19, v11);
+          sub_100044E98(v24, v12);
           goto LABEL_102;
         }
 
@@ -5490,27 +5494,27 @@ LABEL_106:
         __break(0x550Au);
       }
 
-      v11 = 9;
+      v12 = 9;
     }
 
-    sub_1000553AC(v11);
+    sub_1000553AC(v12);
     goto LABEL_93;
   }
 
   if (a5 == 131074 && (a4 & 0xFFFFFFFE) == 0x14)
   {
-    sub_1000553AC(v11);
-    MRMediaRemoteSendCommand();
-    if ((v11 | 2) == 0xA)
+    sub_1000553AC(v12);
+    v19 = MRMediaRemoteSendCommand();
+    if ((v12 | 2) == 0xA)
     {
       goto LABEL_99;
     }
   }
 
 LABEL_102:
-  if (v14)
+  if (v15)
   {
-    CFRelease(v14);
+    CFRelease(v15);
   }
 }
 
@@ -5570,8 +5574,8 @@ void sub_1000554A4(uint64_t a1, uint64_t a2, int *a3)
     goto LABEL_104;
   }
 
-  v40 = *a3;
-  v39 = a3[1];
+  v43 = *a3;
+  v42 = a3[1];
   v6 = *(a3 + 1);
   v7 = objc_alloc_init(NSAutoreleasePool);
   if ((a2 - 131077) <= 1)
@@ -5681,14 +5685,14 @@ void sub_1000554A4(uint64_t a1, uint64_t a2, int *a3)
   *(a1 + 28) = v20;
   if (sub_1000DDE68(11))
   {
-    if (v40 > 0xA)
+    if (v43 > 0xA)
     {
       v22 = "Unknown";
     }
 
     else
     {
-      v22 = off_100115978[v40];
+      v22 = off_100115978[v43];
     }
 
     v23 = "evKeyUp";
@@ -5697,17 +5701,17 @@ void sub_1000554A4(uint64_t a1, uint64_t a2, int *a3)
       v23 = "evKeyDown";
     }
 
-    NSLog(@"SimpleRemoteEventHandler got %s context:%s key:%lu port=%hhx", v23, v22, v39, v6);
+    NSLog(@"SimpleRemoteEventHandler got %s context:%s key:%lu port=%hhx", v23, v22, v42, v6);
   }
 
-  sub_100055C60(a1, &v40, &v39);
+  sub_100055C60(a1, &v43, &v42);
   if (a2 == 131073)
   {
-    (*(*a1 + 56))(a1);
+    v24 = (*(*a1 + 56))(a1);
   }
 
-  v24 = v39;
-  if (!v39)
+  v26 = v42;
+  if (!v42)
   {
     if (a2 == 131074)
     {
@@ -5715,82 +5719,88 @@ void sub_1000554A4(uint64_t a1, uint64_t a2, int *a3)
       sub_1000DDE90(0xBu, @"SimpleRemoteEventHandler starting timer for %f seconds", 0x4000000000000000);
     }
 
-    v25 = *(a1 + 24);
-    if (v25 > 1)
+    v27 = *(a1 + 24);
+    if (v27 > 1)
     {
       goto LABEL_104;
     }
 
-    if (v25)
+    if (v27)
     {
       sub_1000DDE90(0xBu, @"SimpleRemoteEventHandler ignoring key");
       goto LABEL_92;
     }
 
-    v24 = v39;
+    v26 = v42;
   }
 
-  if (a2 == 131074 && (v24 & 0xFFFFFFFFFFFFFFF7) != 0x12 && !_AXSVoiceOverTouchEnabled())
+  if (a2 == 131074 && (v26 & 0xFFFFFFFFFFFFFFF7) != 0x12)
   {
-    v26 = sub_1000D5ED0();
-    if (!v26 || (v26 & 7) != 0)
+    v24 = _AXSVoiceOverTouchEnabled();
+    if (!v24)
     {
-      goto LABEL_105;
-    }
-
-    if (!(*(*v26 + 104))(v26))
-    {
-      v27 = sub_100025E90();
-      if (!v27 || (v27 & 7) != 0)
+      v28 = sub_1000D5ED0(v24, v25);
+      if (!v28 || (v28 & 7) != 0)
       {
         goto LABEL_105;
       }
 
-      if (((*(*v27 + 96))(v27) & 1) == 0)
+      v24 = (*(*v28 + 104))(v28);
+      if (!v24)
       {
-        v28 = sub_10004B1AC();
-        if (!v28 || (v28 & 7) != 0)
+        v29 = sub_100025E90(v24, v25);
+        if (!v29 || (v29 & 7) != 0)
         {
           goto LABEL_105;
         }
 
-        (*(*v28 + 448))(v28);
+        v24 = (*(*v29 + 96))(v29);
+        if ((v24 & 1) == 0)
+        {
+          v30 = sub_10004B1AC(v24, v25);
+          if (!v30 || (v30 & 7) != 0)
+          {
+            goto LABEL_105;
+          }
+
+          v24 = (*(*v30 + 448))(v30);
+        }
       }
     }
   }
 
-  if (v40 && v40 != 3)
+  if (v43 && v43 != 3)
   {
-    v34 = 0;
-    v29 = v39;
+    v36 = 0;
+    v31 = v42;
   }
 
   else
   {
-    v29 = v39;
-    if (v39 - 1 <= 1)
+    v31 = v42;
+    if (v42 - 1 <= 1)
     {
       if (a2 == 131074)
       {
-        if (v39 == 1)
+        if (v42 == 1)
         {
-          v30 = 8;
+          v32 = 8;
         }
 
         else
         {
-          v30 = -8;
+          v32 = -8;
         }
 
-        *(a1 + 48) = v30;
+        *(a1 + 48) = v32;
         *(a1 + 56) = v6;
         context.version = 0;
         context.info = a1;
         memset(&context.retain, 0, 24);
-        v31 = CFAbsoluteTimeGetCurrent();
-        *(a1 + 40) = CFRunLoopTimerCreate(0, v31 + 0.4, 0.4, 0, 0, sub_100055CF4, &context);
-        v32 = CFRunLoopGetMain();
-        CFRunLoopAddTimer(v32, *(a1 + 40), kCFRunLoopCommonModes);
+        v33 = CFAbsoluteTimeGetCurrent();
+        *(a1 + 40) = CFRunLoopTimerCreate(0, v33 + 0.4, 0.4, 0, 0, sub_100055CF4, &context);
+        v34 = CFRunLoopGetMain();
+        CFRunLoopAddTimer(v34, *(a1 + 40), kCFRunLoopCommonModes);
         CFRelease(*(a1 + 40));
       }
 
@@ -5798,60 +5808,60 @@ void sub_1000554A4(uint64_t a1, uint64_t a2, int *a3)
       {
         CFRunLoopTimerInvalidate(*(a1 + 40));
         *(a1 + 40) = 0;
-        sub_100054934(a1);
+        sub_100054934(a1, v37);
         *(a1 + 56) = 0;
       }
 
       goto LABEL_92;
     }
 
-    if (v39 == 10)
+    if (v42 == 10)
     {
       if (a2 == 131073)
       {
-        v33 = sub_100045A94();
-        if (!v33 || (v33 & 7) != 0)
+        v35 = sub_100045A94(v24, v25);
+        if (!v35 || (v35 & 7) != 0)
         {
           goto LABEL_105;
         }
 
-        (*(*v33 + 112))(v33, v6);
+        (*(*v35 + 112))(v35, v6);
       }
 
       goto LABEL_92;
     }
 
-    if (!v40 && v39 == 19)
+    if (!v43 && v42 == 19)
     {
       if (a2 == 131073)
       {
-        v35 = [+[ITIdleTimerState sharedInstance](ITIdleTimerState newAssertionToDisableIdleTimerForReason:"newAssertionToDisableIdleTimerForReason:error:" error:@"SimpleRemoteButtonUp", 0];
-        [v35 invalidate];
+        v38 = [+[ITIdleTimerState sharedInstance](ITIdleTimerState newAssertionToDisableIdleTimerForReason:"newAssertionToDisableIdleTimerForReason:error:" error:@"SimpleRemoteButtonUp", 0];
+        [v38 invalidate];
       }
 
       goto LABEL_92;
     }
 
-    if (v40)
+    if (v43)
     {
-      v34 = 0;
+      v36 = 0;
     }
 
     else
     {
-      if (v39 <= 0x1A && ((1 << v39) & 0x4060000) != 0)
+      if (v42 <= 0x1A && ((1 << v42) & 0x4060000) != 0)
       {
         if (a2 == 131073)
         {
-          if (v39 != 26)
+          if (v42 != 26)
           {
-            if (v39 != 18)
+            if (v42 != 18)
             {
               goto LABEL_92;
             }
 
             (*(*a1 + 64))(a1, v6, 0, 9, 131073);
-            if (v39 == 17)
+            if (v42 == 17)
             {
               SBSUndimScreen();
               goto LABEL_92;
@@ -5866,37 +5876,37 @@ LABEL_92:
         return;
       }
 
-      v34 = 1;
-      if (a2 == 131074 && v39 - 3 <= 1)
+      v36 = 1;
+      if (a2 == 131074 && v42 - 3 <= 1)
       {
-        (*(*a1 + 48))(a1, v6, v39 | 0x400, 0.5);
+        (*(*a1 + 48))(a1, v6, v42 | 0x400, 0.5);
         goto LABEL_92;
       }
     }
   }
 
-  v36 = *(a1 + 32);
-  if (v36 <= 1)
+  v39 = *(a1 + 32);
+  if (v39 <= 1)
   {
-    if (a2 == 131073 && (v34 & v36) != 0 && v29 - 3 <= 1)
+    if (a2 == 131073 && (v36 & v39) != 0 && v31 - 3 <= 1)
     {
       *(a1 + 32) = 0;
-      if (v29 == 3)
+      if (v31 == 3)
       {
-        v37 = 20;
+        v40 = 20;
       }
 
       else
       {
-        v37 = 21;
+        v40 = 21;
       }
 
-      (*(*a1 + 64))(a1, v6, 0, v37, 131073);
+      (*(*a1 + 64))(a1, v6, 0, v40, 131073);
     }
 
     else
     {
-      (*(*a1 + 64))(a1, v6, v40, v29, a2);
+      (*(*a1 + 64))(a1, v6, v43, v31, a2);
     }
 
     goto LABEL_92;
@@ -5927,9 +5937,9 @@ void sub_100055C10(uint64_t a1, uint64_t a2)
   }
 }
 
-void sub_100055C60(uint64_t a1, void *a2, uint64_t *a3)
+void sub_100055C60(uint64_t result, void *a2, uint64_t *a3)
 {
-  if (!a1 || (a1 & 7) != 0 || !a2 || (a2 & 7) != 0)
+  if (!result || (result & 7) != 0 || !a2 || (a2 & 7) != 0)
   {
     goto LABEL_11;
   }
@@ -5960,7 +5970,7 @@ uint64_t sub_100055CF4(uint64_t a1, uint64_t a2)
 {
   if (a2 && (a2 & 7) == 0)
   {
-    return sub_100054934(a2);
+    return sub_100054934(a2, a2);
   }
 
   __break(0x5516u);
@@ -6115,7 +6125,7 @@ LABEL_13:
   return result;
 }
 
-unint64_t sub_100055EC0(unint64_t result, unsigned int a2, _WORD *a3, _WORD *a4, uint64_t a5, uint64_t a6, uint64_t a7)
+unsigned __int16 *sub_100055EC0(unsigned __int16 *result, unsigned int a2, _WORD *a3, _WORD *a4, uint64_t a5, uint64_t a6, uint64_t a7)
 {
   if (a2 < 4)
   {
@@ -6137,7 +6147,6 @@ unint64_t sub_100055EC0(unint64_t result, unsigned int a2, _WORD *a3, _WORD *a4,
     goto LABEL_26;
   }
 
-  v7 = *(result + 1) | (*result << 8);
   *a3 = _byteswap_ushort(*result);
   if (result > 0xFFFFFFFFFFFFFFFCLL)
   {
@@ -6149,22 +6158,21 @@ unint64_t sub_100055EC0(unint64_t result, unsigned int a2, _WORD *a3, _WORD *a4,
     goto LABEL_26;
   }
 
-  v8 = *(result + 3) | (*(result + 2) << 8);
-  *a4 = _byteswap_ushort(*(result + 2));
-  if (result + 2 > 0xFFFFFFFFFFFFFFFDLL)
+  *a4 = _byteswap_ushort(result[1]);
+  if ((result + 1) > 0xFFFFFFFFFFFFFFFDLL)
   {
     goto LABEL_25;
   }
 
-  v12 = result + 4;
-  result = sub_100055D44((result + 4), a2, a5);
+  v10 = result + 2;
+  result = sub_100055D44(result + 2, a2, a5);
   if (!result)
   {
     return result;
   }
 
-  v13 = result;
-  if (__CFADD__(v12, result))
+  v11 = result;
+  if (__CFADD__(v10, result))
   {
     goto LABEL_25;
   }
@@ -6174,45 +6182,45 @@ unint64_t sub_100055EC0(unint64_t result, unsigned int a2, _WORD *a3, _WORD *a4,
     goto LABEL_27;
   }
 
-  v14 = a2 - result;
+  v12 = a2 - result;
   if ((a2 - result) >> 16)
   {
     goto LABEL_27;
   }
 
-  v15 = (v12 + result);
-  v16 = v14;
-  result = sub_100055D44(v15, v14, a6);
+  v13 = (v10 + result);
+  v14 = v12;
+  result = sub_100055D44(v13, v12, a6);
   if (!result)
   {
     return result;
   }
 
-  if (__CFADD__(v15, result))
+  if (__CFADD__(v13, result))
   {
     goto LABEL_25;
   }
 
-  v17 = (v13 + 4) + result;
-  if (HIWORD(v17))
+  v15 = (v11 + 4) + result;
+  if (HIWORD(v15))
   {
     goto LABEL_27;
   }
 
-  v18 = v16 - result;
-  if (HIWORD(v18))
+  v16 = v14 - result;
+  if (HIWORD(v16))
   {
     goto LABEL_27;
   }
 
-  v19 = (v15 + result);
-  result = sub_100055D44(v19, v18, a7);
+  v17 = (v13 + result);
+  result = sub_100055D44(v17, v16, a7);
   if (!result)
   {
     return result;
   }
 
-  if (__CFADD__(v19, result))
+  if (__CFADD__(v17, result))
   {
 LABEL_25:
     __break(0x5513u);
@@ -6223,7 +6231,7 @@ LABEL_27:
     return result;
   }
 
-  if ((v17 + result) >> 16 || (v18 - result) >> 16)
+  if ((v15 + result) >> 16 || (v16 - result) >> 16)
   {
     goto LABEL_27;
   }
@@ -6231,7 +6239,7 @@ LABEL_27:
   return 1;
 }
 
-unsigned __int16 *sub_100056024(unsigned __int16 *result, unsigned int a2, uint64_t a3)
+uint64_t sub_100056024(uint64_t result, uint64_t a2, uint64_t a3)
 {
   if (!a3 || (a3 & 7) != 0)
   {
@@ -6455,14 +6463,14 @@ uint64_t sub_100056234(uint64_t result, uint64_t a2)
   return result;
 }
 
-uint64_t sub_100056294(const void **a1, const void **a2, uint64_t a3, uint64_t a4)
+const void **sub_100056294(const void **a1, const void **a2, uint64_t a3, uint64_t a4)
 {
   sub_100057E48(1, a2);
 
   return sub_10005674C(a1, a2, a3, a4);
 }
 
-uint64_t sub_1000562F0(uint64_t a1, uint64_t a2, int a3)
+uint64_t sub_1000562F0(unsigned __int16 *a1, uint64_t a2, int a3)
 {
   v16 = 0xAAAAAAAAAAAAAAAALL;
   *&v6 = 0xAAAAAAAAAAAAAAAALL;
@@ -6486,7 +6494,7 @@ LABEL_23:
 
   for (i = 4 * v8; v9 > v8; v9 = *a1)
   {
-    memcpy(__dst[1], *(a1 + 8), 4 * v8);
+    memcpy(__dst[1], *(a1 + 1), 4 * v8);
     LOWORD(__dst[0]) = v8;
     sub_100057CF0(__dst);
     sub_1000582F8(v8, a1);
@@ -6508,7 +6516,7 @@ LABEL_23:
     return sub_100057AFC(__dst);
   }
 
-  v11 = *(a1 + 8);
+  v11 = *(a1 + 1);
   if ((v8 == 0) != i - 4 <= ~v11)
   {
     if (v11)
@@ -6660,7 +6668,7 @@ uint64_t sub_1000565C0(const void **a1, unsigned __int16 *a2, uint64_t a3)
   return sub_100057AFC(v8);
 }
 
-uint64_t sub_10005664C(unsigned __int16 *a1, unsigned __int16 *a2, uint64_t a3)
+uint64_t sub_10005664C(unint64_t a1, unsigned __int16 *a2, uint64_t a3)
 {
   v9 = 0xAAAAAAAAAAAAAAAALL;
   *&v6 = 0xAAAAAAAAAAAAAAAALL;
@@ -6690,7 +6698,7 @@ uint64_t sub_1000566D4(unint64_t a1, uint64_t a2)
   return sub_100057AFC(v6);
 }
 
-uint64_t sub_10005674C(const void **a1, const void **a2, uint64_t a3, uint64_t a4)
+const void **sub_10005674C(const void **a1, const void **a2, uint64_t a3, uint64_t a4)
 {
   result = sub_100057B6C(a3);
   if (dword_10012C6B4 == -1)
@@ -6914,7 +6922,7 @@ uint64_t sub_100056B00(uint64_t result, uint64_t a2)
   return result;
 }
 
-uint64_t sub_100056B78(uint64_t result, const void **a2, uint64_t a3)
+const void **sub_100056B78(const void **result, const void **a2, uint64_t a3)
 {
   if (!a3 || (a3 & 7) != 0)
   {
@@ -7002,7 +7010,7 @@ uint64_t sub_100056B78(uint64_t result, const void **a2, uint64_t a3)
   return result;
 }
 
-uint64_t sub_100056E2C(const void **a1, const void **a2, unsigned __int16 *a3, unsigned __int16 *a4, uint64_t a5)
+uint64_t sub_100056E2C(const void **a1, const void **a2, unint64_t a3, unsigned __int16 *a4, uint64_t a5)
 {
   v15 = 0xAAAAAAAAAAAAAAAALL;
   *&v10 = 0xAAAAAAAAAAAAAAAALL;
@@ -7042,7 +7050,7 @@ uint64_t sub_100056E2C(const void **a1, const void **a2, unsigned __int16 *a3, u
   return result;
 }
 
-uint64_t sub_100056F7C(const void **a1, const void **a2, unsigned __int16 *a3, unsigned __int16 *a4, unsigned __int16 *a5, unsigned __int16 *a6, uint64_t a7)
+uint64_t sub_100056F7C(const void **a1, const void **a2, unsigned __int16 *a3, unsigned __int16 *a4, unint64_t a5, unint64_t a6, uint64_t a7)
 {
   v19 = 0xAAAAAAAAAAAAAAAALL;
   *&v14 = 0xAAAAAAAAAAAAAAAALL;
@@ -7133,7 +7141,7 @@ LABEL_23:
   return result;
 }
 
-uint64_t sub_1000571A4(const void **a1, const void **a2, unsigned __int16 *a3, unsigned __int16 *a4, unsigned __int16 *a5, unsigned __int16 *a6, uint64_t a7)
+uint64_t sub_1000571A4(const void **a1, const void **a2, unsigned __int16 *a3, unint64_t a4, unint64_t a5, unint64_t a6, uint64_t a7)
 {
   v23 = 0xAAAAAAAAAAAAAAAALL;
   *&v14 = 0xAAAAAAAAAAAAAAAALL;
@@ -7209,7 +7217,7 @@ uint64_t sub_1000571A4(const void **a1, const void **a2, unsigned __int16 *a3, u
   return result;
 }
 
-uint64_t sub_1000574B0(const void **a1, unsigned __int16 *a2, unsigned int a3, unint64_t a4, unsigned int a5)
+uint64_t sub_1000574B0(const void **a1, uint64_t a2, uint64_t a3, unsigned __int16 *a4, unsigned int a5)
 {
   v35 = 0xAAAAAAAAAAAAAAAALL;
   *&v10 = 0xAAAAAAAAAAAAAAAALL;
@@ -7663,7 +7671,7 @@ LABEL_13:
   return result;
 }
 
-uint64_t sub_100057B6C(uint64_t a1)
+uint64_t sub_100057B6C(unsigned __int16 *a1)
 {
   result = sub_100057C40(a1);
   if (result)
@@ -7677,7 +7685,7 @@ uint64_t sub_100057B6C(uint64_t a1)
     goto LABEL_18;
   }
 
-  v4 = *(a1 + 8);
+  v4 = *(a1 + 1);
   v5 = *a1 - 1;
   if ((*a1 == 0) == 4 * v5 <= ~v4)
   {
@@ -8377,7 +8385,7 @@ LABEL_13:
   return result;
 }
 
-uint64_t sub_100058360(unsigned __int16 *a1, unsigned __int16 *a2)
+uint64_t sub_100058360(unint64_t a1, unsigned __int16 *a2)
 {
   v7 = 0xAAAAAAAAAAAAAAAALL;
   *&v4 = 0xAAAAAAAAAAAAAAAALL;
@@ -8391,7 +8399,7 @@ uint64_t sub_100058360(unsigned __int16 *a1, unsigned __int16 *a2)
   return sub_100057AFC(v6);
 }
 
-void sub_1000583CC(unsigned __int16 *a1, unsigned __int16 *a2, uint64_t a3)
+void sub_1000583CC(unint64_t a1, unsigned __int16 *a2, uint64_t a3)
 {
   if (!a1 || (a1 & 7) != 0 || !a2 || (a2 & 7) != 0)
   {
@@ -8507,7 +8515,7 @@ LABEL_33:
     v20 = 0;
     v21 = 0;
     v22 = 0;
-    v23 = *(a1 + 1);
+    v23 = *(a1 + 8);
     v24 = v23 & 3;
     while (v23 <= 0xFFFFFFFFFFFFFFFBLL)
     {
@@ -8606,7 +8614,7 @@ LABEL_39:
       {
         v42 = 0;
         v38 = 0;
-        v43 = *(a1 + 1);
+        v43 = *(a1 + 8);
         v44 = v43 & 3;
         v45 = *(a3 + 8) & 3;
         v46 = v41;
@@ -8987,7 +8995,7 @@ uint64_t sub_100058A0C(uint64_t result, int a2, char *a3, _BYTE *a4)
   return result;
 }
 
-unsigned __int16 *sub_100058A3C(unsigned __int16 *result, char **a2, int a3)
+uint64_t sub_100058A3C(uint64_t result, const void *a2, int a3)
 {
   if (!result)
   {
@@ -8996,7 +9004,7 @@ unsigned __int16 *sub_100058A3C(unsigned __int16 *result, char **a2, int a3)
 
   if (a3 == 512)
   {
-    return 0x7FFF;
+    return 0x7FFFLL;
   }
 
   result = sub_100058A8C(result, a2, a3);
@@ -9021,7 +9029,7 @@ LABEL_10:
   return result;
 }
 
-unsigned __int16 *sub_100058A8C(unsigned __int16 *result, char **a2, int a3)
+unsigned __int16 *sub_100058A8C(unsigned __int16 *result, const void *a2, int a3)
 {
   if (!result)
   {
@@ -9032,7 +9040,7 @@ unsigned __int16 *sub_100058A8C(unsigned __int16 *result, char **a2, int a3)
   {
     if (a2 && (a2 & 7) == 0)
     {
-      v4 = (*(*a2 + 26))(a2);
+      v4 = (*(*a2 + 208))(a2);
       result = 0;
       if (v4 <= 1)
       {
@@ -9059,7 +9067,6 @@ unsigned __int16 *sub_100058A8C(unsigned __int16 *result, char **a2, int a3)
         return result;
       }
 
-      v6 = **a2;
       if (result)
       {
         if ((result & 7) == 0)
@@ -9154,7 +9161,7 @@ LABEL_16:
   return result;
 }
 
-uint64_t sub_100058CA0(uint64_t result, uint64_t a2, int a3)
+unsigned __int16 *sub_100058CA0(unsigned __int16 *result, void *a2, int a3)
 {
   if (!result)
   {
@@ -9180,7 +9187,7 @@ LABEL_26:
 
     if ((a2 & 7) == 0)
     {
-      v5 = *(a2 + 24);
+      v5 = a2[3];
       if (v5)
       {
         if ((v5 & 7) == 0)
@@ -9205,7 +9212,7 @@ LABEL_26:
               goto LABEL_23;
             }
 
-            result = *(a2 + 40);
+            result = a2[5];
             if (result && (result & 7) == 0)
             {
               (*(*result + 112))(result);
@@ -9220,7 +9227,7 @@ LABEL_26:
               goto LABEL_23;
             }
 
-            result = sub_1000C4254();
+            result = sub_1000C4254(result, a2);
             if (result && (result & 7) == 0)
             {
               v7 = sub_1000932FC(result, a2);
@@ -9253,7 +9260,7 @@ LABEL_28:
   return result;
 }
 
-unsigned __int16 *sub_100058E18(unsigned __int16 *result, uint64_t a2)
+unsigned __int16 *sub_100058E18(unsigned __int16 *result, void *a2)
 {
   if (!result)
   {
@@ -9270,7 +9277,7 @@ unsigned __int16 *sub_100058E18(unsigned __int16 *result, uint64_t a2)
     goto LABEL_12;
   }
 
-  v3 = *(a2 + 24);
+  v3 = a2[3];
   if (!v3 || (v3 & 7) != 0)
   {
     goto LABEL_12;
@@ -9302,7 +9309,7 @@ unsigned __int16 *sub_100058E18(unsigned __int16 *result, uint64_t a2)
   *(v3 + 16) = 0u;
   result = sub_100058A8C(result, a2, 0);
   *(v3 + 8) = result;
-  v4 = *(a2 + 24);
+  v4 = a2[3];
   if (!v4 || (v4 & 7) != 0)
   {
 LABEL_12:
@@ -9562,7 +9569,7 @@ LABEL_24:
   return result;
 }
 
-unsigned __int16 *sub_100059100(unsigned __int16 *result, uint64_t a2)
+unsigned __int16 *sub_100059100(unsigned __int16 *result, void *a2)
 {
   if (result)
   {
@@ -9573,7 +9580,7 @@ unsigned __int16 *sub_100059100(unsigned __int16 *result, uint64_t a2)
 
     if ((a2 & 7) == 0)
     {
-      v2 = *(a2 + 24);
+      v2 = a2[3];
       result = sub_100058A8C(result, a2, 0);
       if (v2)
       {

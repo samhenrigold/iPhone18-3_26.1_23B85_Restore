@@ -26,10 +26,9 @@
 
 - (id)accessibilityHeaderElements
 {
-  v5[1] = *MEMORY[0x29EDCA608];
-  v5[0] = self;
-  v2 = [MEMORY[0x29EDB8D80] arrayWithObjects:v5 count:1];
-  v3 = *MEMORY[0x29EDCA608];
+  v4[1] = *MEMORY[0x29EDCA608];
+  v4[0] = self;
+  v2 = [MEMORY[0x29EDB8D80] arrayWithObjects:v4 count:1];
 
   return v2;
 }

@@ -60,7 +60,7 @@ void __75__NSObject_NSObjectAccessibilityUI___accessibilityUIFindSubviewDescenda
   }
 }
 
-uint64_t __53__NSObject_QSSupport__accessibilityQuickSpeakContent__block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
+char *__53__NSObject_QSSupport__accessibilityQuickSpeakContent__block_invoke(uint64_t a1, uint64_t a2, char *a3)
 {
   [*(a1 + 32) appendString:a2];
   result = [*(a1 + 40) count];

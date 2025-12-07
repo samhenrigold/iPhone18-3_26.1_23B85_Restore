@@ -5,7 +5,7 @@
 
 id __86__ACCNavigationRouteGuidanceUpdateInfo_CPAccNavInfo__initWithRouteGuidance_component___block_invoke(id *a1, void *a2)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v3 = [a2 key];
   v4 = 0;
   if (v3 <= 12)
@@ -43,32 +43,32 @@ LABEL_17:
     }
 
     v4 = objc_opt_new();
+    v21 = 0u;
     v22 = 0u;
     v23 = 0u;
     v24 = 0u;
-    v25 = 0u;
     v8 = [a1[5] electricVehicleDestination];
     v6 = [v8 connectors];
 
-    v9 = [v6 countByEnumeratingWithState:&v22 objects:v26 count:16];
+    v9 = [v6 countByEnumeratingWithState:&v21 objects:v25 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v23;
+      v11 = *v22;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v23 != v11)
+          if (*v22 != v11)
           {
             objc_enumerationMutation(v6);
           }
 
-          v13 = [CPAccNavUpdate dictionaryIAPFormat:*(*(&v22 + 1) + 8 * i)];
+          v13 = [CPAccNavUpdate dictionaryIAPFormat:*(*(&v21 + 1) + 8 * i)];
           [v4 addObject:v13];
         }
 
-        v10 = [v6 countByEnumeratingWithState:&v22 objects:v26 count:16];
+        v10 = [v6 countByEnumeratingWithState:&v21 objects:v25 count:16];
       }
 
       while (v10);
@@ -98,7 +98,6 @@ LABEL_17:
   }
 
 LABEL_24:
-  v20 = *MEMORY[0x277D85DE8];
 
   return v4;
 }

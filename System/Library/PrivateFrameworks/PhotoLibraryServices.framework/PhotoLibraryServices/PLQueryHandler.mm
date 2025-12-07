@@ -419,7 +419,7 @@ LABEL_17:
     v14 = 0;
   }
 
-  if (![v10 count])
+  if (!objc_msgSend_count(v10))
   {
     v18 = 0;
     queryCopy = v35;
@@ -447,7 +447,7 @@ LABEL_29:
     firstObject = [v10 firstObject];
     v18 = [v28 notPredicateWithSubpredicate:firstObject];
 
-    if ([v10 count] >= 2)
+    if (objc_msgSend_count(v10) >= 2)
     {
       v30 = PLUserSmartAlbumGetLog();
       if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
@@ -1448,7 +1448,7 @@ LABEL_27:
   v20 = *MEMORY[0x1E69E9840];
   criteriaCopy = criteria;
   _personNameQueryKeyPaths = [self _personNameQueryKeyPaths];
-  v6 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(_personNameQueryKeyPaths, "count")}];
+  v6 = [MEMORY[0x1E695DF70] arrayWithCapacity:objc_msgSend_count(_personNameQueryKeyPaths)];
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
@@ -2037,7 +2037,7 @@ void __72__PLQueryHandler__predicateFromSearchIndexForText_comparator_inLibrary_
   v14 = [entitiesByName objectForKeyedSubscript:@"ExtendedAttributes"];
   v15 = [entitiesByName objectForKeyedSubscript:@"AdditionalAssetAttributes"];
   v16 = [entitiesByName objectForKeyedSubscript:@"AssetDescription"];
-  if ([v7 count] == 1)
+  if (objc_msgSend_count(v7) == 1)
   {
     propertiesByName = [v13 propertiesByName];
     v18 = [v7 objectAtIndexedSubscript:0];
@@ -2054,7 +2054,7 @@ LABEL_4:
     goto LABEL_25;
   }
 
-  if ([v7 count] == 2)
+  if (objc_msgSend_count(v7) == 2)
   {
     propertiesByName = [v13 propertiesByName];
     v21 = [v7 objectAtIndexedSubscript:0];
@@ -2063,9 +2063,9 @@ LABEL_4:
     if (v22)
     {
       v23 = [v7 objectAtIndexedSubscript:0];
-      v24 = [v23 isEqualToString:@"extendedAttributes"];
+      isEqualToString = objc_msgSend_isEqualToString_(v23);
 
-      if (v24)
+      if (isEqualToString)
       {
         propertiesByName2 = [v14 propertiesByName];
         v26 = [v7 objectAtIndexedSubscript:1];
@@ -2081,7 +2081,7 @@ LABEL_4:
       }
 
       v43 = [v7 objectAtIndexedSubscript:0];
-      v44 = [v43 isEqualToString:@"additionalAttributes"];
+      v44 = objc_msgSend_isEqualToString_(v43);
 
       if (v44)
       {
@@ -2109,7 +2109,7 @@ LABEL_25:
     goto LABEL_26;
   }
 
-  if ([v7 count] == 3)
+  if (objc_msgSend_count(v7) == 3)
   {
     propertiesByName = [v13 propertiesByName];
     v28 = [v7 objectAtIndexedSubscript:0];
@@ -2125,7 +2125,7 @@ LABEL_24:
     v49 = v14;
     [v7 objectAtIndexedSubscript:0];
     v31 = v51 = v28;
-    v32 = [v31 isEqualToString:@"additionalAttributes"];
+    v32 = objc_msgSend_isEqualToString_(v31);
 
     if (v32)
     {
@@ -2137,7 +2137,7 @@ LABEL_24:
       if (v35)
       {
         v36 = [v7 objectAtIndexedSubscript:1];
-        v37 = [v36 isEqualToString:@"assetDescription"];
+        v37 = objc_msgSend_isEqualToString_(v36);
 
         if (v37)
         {
@@ -2853,7 +2853,7 @@ LABEL_16:
   {
     v38 = infoCopy;
     v39 = v4;
-    v10 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(v8, "count")}];
+    v10 = [MEMORY[0x1E695DF70] arrayWithCapacity:objc_msgSend_count(v8)];
     v41 = 0u;
     v42 = 0u;
     v43 = 0u;

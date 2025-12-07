@@ -13,11 +13,11 @@ Swift::Int protocol witness for Hashable.hashValue.getter in conformance RemoteE
   return Hasher._finalize()();
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance RemoteError()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance RemoteError(uint64_t a1)
 {
-  v1 = *v0;
+  v2 = *v1;
   Hasher.init(_seed:)();
-  Hasher._combine(_:)(v1);
+  Hasher._combine(_:)(v2);
   return Hasher._finalize()();
 }
 
@@ -58,89 +58,88 @@ id RemoteViewController.init(remoteContext:flowOptions:)(void *a1, void *a2)
   v3 = v2;
   v6 = type metadata accessor for Logger();
   v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
-  __chkstk_darwin();
-  v10 = &v34 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v6);
+  v9 = &v33 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   v3[OBJC_IVAR____TtC19RemoteiCloudQuotaUI20RemoteViewController_flowPresented] = 0;
-  v11 = [a1 offer];
-  v12 = [objc_allocWithZone(ICQUpgradeFlowManager) initWithOffer:v11];
+  v10 = [a1 offer];
+  v11 = [objc_allocWithZone(ICQUpgradeFlowManager) initWithOffer:v10];
 
-  if (!v12)
+  if (!v11)
   {
     static QuotaLogger.ui.getter();
-    v23 = a2;
-    v24 = a1;
-    v25 = Logger.logObject.getter();
-    v26 = static os_log_type_t.error.getter();
+    v22 = a2;
+    v23 = a1;
+    v24 = Logger.logObject.getter();
+    v25 = static os_log_type_t.error.getter();
 
-    if (os_log_type_enabled(v25, v26))
+    if (os_log_type_enabled(v24, v25))
     {
-      v27 = swift_slowAlloc();
-      v35 = a2;
-      v28 = v27;
-      v29 = swift_slowAlloc();
-      *v28 = 138412546;
-      v30 = [v24 offer];
-      *(v28 + 4) = v30;
-      *(v28 + 12) = 2112;
-      *(v28 + 14) = v23;
-      v31 = v35;
-      *v29 = v30;
-      v29[1] = v31;
-      v32 = v23;
-      _os_log_impl(&_mh_execute_header, v25, v26, "Unable to create RemoteViewController using offer %@ and flowOptions %@", v28, 0x16u);
+      v26 = swift_slowAlloc();
+      v34 = a2;
+      v27 = v26;
+      v28 = swift_slowAlloc();
+      *v27 = 138412546;
+      v29 = [v23 offer];
+      *(v27 + 4) = v29;
+      *(v27 + 12) = 2112;
+      *(v27 + 14) = v22;
+      v30 = v34;
+      *v28 = v29;
+      v28[1] = v30;
+      v31 = v22;
+      _os_log_impl(&_mh_execute_header, v24, v25, "Unable to create RemoteViewController using offer %@ and flowOptions %@", v27, 0x16u);
       __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
       swift_arrayDestroy();
 
-      v33 = v24;
-      v24 = v32;
+      v32 = v23;
+      v23 = v31;
     }
 
     else
     {
-      v33 = v25;
-      v25 = v23;
+      v32 = v24;
+      v24 = v22;
     }
 
-    (*(v7 + 8))(v10, v6);
+    (*(v7 + 8))(v9, v6);
     type metadata accessor for RemoteViewController();
     swift_deallocPartialClassInstance();
     return 0;
   }
 
-  *&v3[OBJC_IVAR____TtC19RemoteiCloudQuotaUI20RemoteViewController_flowManager] = v12;
-  v13 = type metadata accessor for RemoteViewController();
-  v36.receiver = v3;
-  v36.super_class = v13;
-  v14 = v12;
-  v15 = objc_msgSendSuper2(&v36, "initWithNibName:bundle:", 0, 0);
-  v16 = v15;
-  [v14 setDelegate:v16];
-  [v14 setFlowOptions:a2];
-  v17 = [a1 link];
-  [v14 setIcqLink:v17];
+  *&v3[OBJC_IVAR____TtC19RemoteiCloudQuotaUI20RemoteViewController_flowManager] = v11;
+  v12 = type metadata accessor for RemoteViewController();
+  v35.receiver = v3;
+  v35.super_class = v12;
+  v13 = v11;
+  v14 = objc_msgSendSuper2(&v35, "initWithNibName:bundle:", 0, 0);
+  v15 = v14;
+  [v13 setDelegate:v15];
+  [v13 setFlowOptions:a2];
+  v16 = [a1 link];
+  [v13 setIcqLink:v16];
 
-  v18 = [a1 presentingSceneIdentifier];
-  [v14 setPresentingSceneIdentifier:v18];
+  v17 = [a1 presentingSceneIdentifier];
+  [v13 setPresentingSceneIdentifier:v17];
 
-  v19 = [a1 presentingSceneBundleIdentifier];
-  [v14 setPresentingSceneBundleIdentifier:v19];
+  v18 = [a1 presentingSceneBundleIdentifier];
+  [v13 setPresentingSceneBundleIdentifier:v18];
 
   result = [a1 offer];
   if (result)
   {
-    v21 = result;
-    v22 = [result bundleIdentifier];
+    v20 = result;
+    v21 = [result bundleIdentifier];
 
-    if (!v22)
+    if (!v21)
     {
       static String._unconditionallyBridgeFromObjectiveC(_:)();
-      v22 = String._bridgeToObjectiveC()();
+      v21 = String._bridgeToObjectiveC()();
     }
 
-    [objc_opt_self() publishOfferDisplayActionEventWithBundleId:v22];
+    [objc_opt_self() publishOfferDisplayActionEventWithBundleId:v21];
 
-    return v15;
+    return v14;
   }
 
   __break(1u);
@@ -165,33 +164,32 @@ Swift::Void __swiftcall RemoteViewController.viewDidAppear(_:)(Swift::Bool a1)
 {
   v3 = type metadata accessor for Logger();
   v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
-  __chkstk_darwin();
-  v7 = &v15 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v8 = type metadata accessor for RemoteViewController();
-  v15.receiver = v1;
-  v15.super_class = v8;
-  v9 = objc_msgSendSuper2(&v15, "viewDidAppear:", a1);
-  if ((*((swift_isaMask & *v1) + 0x60))(v9))
+  __chkstk_darwin(v3);
+  v6 = &v14 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = type metadata accessor for RemoteViewController();
+  v14.receiver = v1;
+  v14.super_class = v7;
+  v8 = objc_msgSendSuper2(&v14, "viewDidAppear:", a1);
+  if ((*((swift_isaMask & *v1) + 0x60))(v8))
   {
     static QuotaLogger.ui.getter();
-    v10 = Logger.logObject.getter();
-    v11 = static os_log_type_t.default.getter();
-    if (os_log_type_enabled(v10, v11))
+    v9 = Logger.logObject.getter();
+    v10 = static os_log_type_t.default.getter();
+    if (os_log_type_enabled(v9, v10))
     {
-      v12 = swift_slowAlloc();
-      *v12 = 0;
-      _os_log_impl(&_mh_execute_header, v10, v11, "Extension flow is already presented.", v12, 2u);
+      v11 = swift_slowAlloc();
+      *v11 = 0;
+      _os_log_impl(&_mh_execute_header, v9, v10, "Extension flow is already presented.", v11, 2u);
     }
 
-    (*(v4 + 8))(v7, v3);
+    (*(v4 + 8))(v6, v3);
   }
 
   else
   {
-    v13 = (*((swift_isaMask & *v1) + 0x68))(1);
-    v14 = (*((swift_isaMask & *v1) + 0x78))(v13);
-    [v14 startFlowWithParentViewController:v1];
+    v12 = (*((swift_isaMask & *v1) + 0x68))(1);
+    v13 = (*((swift_isaMask & *v1) + 0x78))(v12);
+    [v13 startFlowWithParentViewController:v1];
   }
 }
 
@@ -225,7 +223,6 @@ uint64_t __swift_instantiateConcreteTypeFromMangledNameV2(uint64_t *a1, uint64_t
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContext2();
     *a1 = result;
   }
@@ -233,7 +230,7 @@ uint64_t __swift_instantiateConcreteTypeFromMangledNameV2(uint64_t *a1, uint64_t
   return result;
 }
 
-uint64_t getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(uint64_t a1, unint64_t a2, uint64_t *a3)
+unint64_t getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(uint64_t a1, unint64_t a2, uint64_t *a3)
 {
 
   v6 = specialized _StringGuts._deconstructUTF8<A>(scratch:)(v11, 0, 0, 1, a1, a2);
@@ -333,11 +330,9 @@ LABEL_8:
 
 char *_StringGuts._allocateForDeconstruct()(uint64_t a1, unint64_t a2)
 {
-  v4 = specialized _copyCollectionToContiguousArray<A>(_:)(a1, a2);
+  v3 = specialized _copyCollectionToContiguousArray<A>(_:)(a1, a2);
   specialized Array.append<A>(contentsOf:)(&outlined read-only object #0 of _StringGuts._allocateForDeconstruct());
-  result = v4;
-  v3 = *(v4 + 2) - 1;
-  return result;
+  return v3;
 }
 
 char *specialized _copyCollectionToContiguousArray<A>(_:)(uint64_t a1, unint64_t a2)
@@ -437,7 +432,6 @@ LABEL_16:
   }
 
   v6 = result;
-  v7 = *v1;
   result = swift_isUniquelyReferenced_nonNull_native();
   if (result && v5 <= *(v3 + 24) >> 1)
   {
@@ -451,15 +445,15 @@ LABEL_16:
 
   if (v4 <= v5)
   {
-    v12 = v4 + v2;
+    v11 = v4 + v2;
   }
 
   else
   {
-    v12 = v4;
+    v11 = v4;
   }
 
-  result = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(result, v12, 1, v3);
+  result = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(result, v11, 1, v3);
   v3 = result;
   if (!*(v6 + 16))
   {
@@ -474,15 +468,15 @@ LABEL_13:
   }
 
 LABEL_5:
-  v8 = *(v3 + 16);
-  if ((*(v3 + 24) >> 1) - v8 < v2)
+  v7 = *(v3 + 16);
+  if ((*(v3 + 24) >> 1) - v7 < v2)
   {
 LABEL_17:
     __break(1u);
     goto LABEL_18;
   }
 
-  memcpy((v3 + v8 + 32), (v6 + 32), v2);
+  memcpy((v3 + v7 + 32), (v6 + 32), v2);
 
   if (!v2)
   {
@@ -491,12 +485,12 @@ LABEL_14:
     return result;
   }
 
-  v9 = *(v3 + 16);
-  v10 = __OFADD__(v9, v2);
-  v11 = v9 + v2;
-  if (!v10)
+  v8 = *(v3 + 16);
+  v9 = __OFADD__(v8, v2);
+  v10 = v8 + v2;
+  if (!v9)
   {
-    *(v3 + 16) = v11;
+    *(v3 + 16) = v10;
     goto LABEL_14;
   }
 
@@ -609,32 +603,31 @@ void *specialized RemoteViewController.upgradeFlowManagerDidComplete(_:)()
   v1 = v0;
   v2 = type metadata accessor for Logger();
   v3 = *(v2 - 8);
-  v4 = *(v3 + 64);
-  __chkstk_darwin();
-  v6 = &v12 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v2);
+  v5 = &v11 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
   static QuotaLogger.ui.getter();
-  v7 = Logger.logObject.getter();
-  v8 = static os_log_type_t.default.getter();
-  if (os_log_type_enabled(v7, v8))
+  v6 = Logger.logObject.getter();
+  v7 = static os_log_type_t.default.getter();
+  if (os_log_type_enabled(v6, v7))
   {
-    v9 = swift_slowAlloc();
-    v13 = swift_slowAlloc();
-    *v9 = 136315650;
-    *(v9 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(0xD00000000000002ELL, 0x8000000100004AA0, &v13);
-    *(v9 + 12) = 2080;
-    *(v9 + 14) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(0xD000000000000021, 0x8000000100004C10, &v13);
-    *(v9 + 22) = 2048;
-    *(v9 + 24) = 60;
-    _os_log_impl(&_mh_execute_header, v7, v8, "%s: %s - line %ld", v9, 0x20u);
+    v8 = swift_slowAlloc();
+    v12 = swift_slowAlloc();
+    *v8 = 136315650;
+    *(v8 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(0xD00000000000002ELL, 0x8000000100004AA0, &v12);
+    *(v8 + 12) = 2080;
+    *(v8 + 14) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(0xD000000000000021, 0x8000000100004C10, &v12);
+    *(v8 + 22) = 2048;
+    *(v8 + 24) = 60;
+    _os_log_impl(&_mh_execute_header, v6, v7, "%s: %s - line %ld", v8, 0x20u);
     swift_arrayDestroy();
   }
 
-  (*(v3 + 8))(v6, v2);
+  (*(v3 + 8))(v5, v2);
   type metadata accessor for ICQUIRemoteExtensionEntry();
   result = static ICQUIRemoteExtensionEntry.sharedInstance.getter();
   if (result)
   {
-    v11 = result;
+    v10 = result;
     [result dismissViewControllerWithError:0];
 
     return (*((swift_isaMask & *v1) + 0x68))(0);
@@ -648,43 +641,42 @@ void *specialized RemoteViewController.upgradeFlowManagerDidComplete(_:)()
   return result;
 }
 
-uint64_t specialized RemoteViewController.upgradeFlowManagerDidCancel(_:)()
+void *specialized RemoteViewController.upgradeFlowManagerDidCancel(_:)()
 {
   v1 = v0;
   v2 = type metadata accessor for Logger();
   v3 = *(v2 - 8);
-  v4 = *(v3 + 64);
-  __chkstk_darwin();
-  v6 = &v14 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v2);
+  v5 = &v13 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
   static QuotaLogger.ui.getter();
-  v7 = Logger.logObject.getter();
-  v8 = static os_log_type_t.default.getter();
-  if (os_log_type_enabled(v7, v8))
+  v6 = Logger.logObject.getter();
+  v7 = static os_log_type_t.default.getter();
+  if (os_log_type_enabled(v6, v7))
   {
-    v9 = swift_slowAlloc();
-    v15 = swift_slowAlloc();
-    *v9 = 136315650;
-    *(v9 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(0xD00000000000002ELL, 0x8000000100004AA0, &v15);
-    *(v9 + 12) = 2080;
-    *(v9 + 14) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(0xD00000000000001FLL, 0x8000000100004BF0, &v15);
-    *(v9 + 22) = 2048;
-    *(v9 + 24) = 66;
-    _os_log_impl(&_mh_execute_header, v7, v8, "%s: %s - line %ld", v9, 0x20u);
+    v8 = swift_slowAlloc();
+    v14 = swift_slowAlloc();
+    *v8 = 136315650;
+    *(v8 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(0xD00000000000002ELL, 0x8000000100004AA0, &v14);
+    *(v8 + 12) = 2080;
+    *(v8 + 14) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(0xD00000000000001FLL, 0x8000000100004BF0, &v14);
+    *(v8 + 22) = 2048;
+    *(v8 + 24) = 66;
+    _os_log_impl(&_mh_execute_header, v6, v7, "%s: %s - line %ld", v8, 0x20u);
     swift_arrayDestroy();
   }
 
-  (*(v3 + 8))(v6, v2);
+  (*(v3 + 8))(v5, v2);
   type metadata accessor for ICQUIRemoteExtensionEntry();
   result = static ICQUIRemoteExtensionEntry.sharedInstance.getter();
   if (result)
   {
-    v11 = result;
+    v10 = result;
     lazy protocol witness table accessor for type RemoteError and conformance RemoteError();
     swift_allocError();
-    *v12 = 0;
-    v13 = _convertErrorToNSError(_:)();
+    *v11 = 0;
+    v12 = _convertErrorToNSError(_:)();
 
-    [v11 dismissViewControllerWithError:v13];
+    [v10 dismissViewControllerWithError:v12];
 
     return (*((swift_isaMask & *v1) + 0x68))(0);
   }
@@ -895,15 +887,17 @@ unint64_t type metadata accessor for ICQUIRemoteExtensionEntry()
   return result;
 }
 
-uint64_t __swift_destroy_boxed_opaque_existential_0(uint64_t *a1)
+uint64_t __swift_destroy_boxed_opaque_existential_0(void *a1)
 {
   v1 = *(a1[3] - 8);
-  if ((*(v1 + 82) & 2) == 0)
+  if ((*(v1 + 82) & 2) != 0)
+  {
+  }
+
+  else
   {
     return (*(v1 + 8))();
   }
-
-  v3 = *a1;
 }
 
 uint64_t outlined init with copy of Any(uint64_t a1, uint64_t a2)
@@ -914,7 +908,7 @@ uint64_t outlined init with copy of Any(uint64_t a1, uint64_t a2)
   return a2;
 }
 
-uint64_t specialized _dictionaryUpCast<A, B, C, D>(_:)(uint64_t a1)
+Swift::Int specialized _dictionaryUpCast<A, B, C, D>(_:)(uint64_t a1)
 {
   if (*(a1 + 16))
   {
@@ -1051,22 +1045,21 @@ id RemoteExtensionAppDelegate.init()()
   return objc_msgSendSuper2(&v2, "init");
 }
 
-id RemoteExtensionAppDelegate.__deallocating_deinit()
+id RemoteExtensionAppDelegate.__deallocating_deinit(uint64_t a1, uint64_t a2)
 {
-  v2.receiver = v0;
-  v2.super_class = type metadata accessor for RemoteExtensionAppDelegate();
-  return objc_msgSendSuper2(&v2, "dealloc");
+  v4.receiver = v2;
+  v4.super_class = type metadata accessor for RemoteExtensionAppDelegate();
+  return objc_msgSendSuper2(&v4, "dealloc");
 }
 
 id specialized RemoteExtensionAppDelegate.makeContentViewController()()
 {
   v0 = type metadata accessor for Logger();
   v1 = *(v0 - 8);
-  v2 = *(v1 + 64);
-  v3 = (__chkstk_darwin)();
-  v5 = &v36 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v3);
-  v7 = &v36 - v6;
+  v2 = __chkstk_darwin(v0);
+  v4 = &v35 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v2);
+  v6 = &v35 - v5;
   type metadata accessor for ICQUIRemoteExtensionEntry();
   result = static ICQUIRemoteExtensionEntry.sharedInstance.getter();
   if (!result)
@@ -1075,91 +1068,91 @@ id specialized RemoteExtensionAppDelegate.makeContentViewController()()
     goto LABEL_19;
   }
 
-  v9 = result;
-  v10 = [result offerContext];
+  v8 = result;
+  v9 = [result offerContext];
 
-  v11 = static Dictionary._unconditionallyBridgeFromObjectiveC(_:)();
-  specialized _dictionaryUpCast<A, B, C, D>(_:)(v11);
+  v10 = static Dictionary._unconditionallyBridgeFromObjectiveC(_:)();
+  specialized _dictionaryUpCast<A, B, C, D>(_:)(v10);
 
   isa = Dictionary._bridgeToObjectiveC()().super.isa;
 
-  v13 = [objc_opt_self() contextFromDictionary:isa];
+  v12 = [objc_opt_self() contextFromDictionary:isa];
 
-  if (v13)
+  if (v12)
   {
-    v14 = [v13 flowOptionsData];
-    if (v14)
+    v13 = [v12 flowOptionsData];
+    if (v13)
     {
-      v15 = v14;
-      v16 = static Data._unconditionallyBridgeFromObjectiveC(_:)();
-      v18 = v17;
+      v14 = v13;
+      v15 = static Data._unconditionallyBridgeFromObjectiveC(_:)();
+      v17 = v16;
 
-      v19.super.isa = Data._bridgeToObjectiveC()().super.isa;
-      outlined consume of Data._Representation(v16, v18);
+      v18.super.isa = Data._bridgeToObjectiveC()().super.isa;
+      outlined consume of Data._Representation(v15, v17);
     }
 
     else
     {
-      v19.super.isa = 0;
+      v18.super.isa = 0;
     }
 
     type metadata accessor for RemoteViewController();
-    v26 = [objc_opt_self() flowOptionsFromData:v19.super.isa];
+    v25 = [objc_opt_self() flowOptionsFromData:v18.super.isa];
 
-    v27 = v13;
-    v28 = RemoteViewController.__allocating_init(remoteContext:flowOptions:)(v27, v26);
-    if (v28)
+    v26 = v12;
+    v27 = RemoteViewController.__allocating_init(remoteContext:flowOptions:)(v26, v25);
+    if (v27)
     {
-      v29 = v28;
+      v28 = v27;
 
-      return v29;
+      return v28;
     }
 
     static QuotaLogger.ui.getter();
-    v30 = v27;
-    v31 = Logger.logObject.getter();
-    v32 = static os_log_type_t.error.getter();
+    v29 = v26;
+    v30 = Logger.logObject.getter();
+    v31 = static os_log_type_t.error.getter();
 
-    if (os_log_type_enabled(v31, v32))
+    if (os_log_type_enabled(v30, v31))
     {
+      v32 = swift_slowAlloc();
       v33 = swift_slowAlloc();
-      v34 = swift_slowAlloc();
-      *v33 = 138412290;
-      *(v33 + 4) = v30;
-      *v34 = v13;
-      v35 = v30;
-      _os_log_impl(&_mh_execute_header, v31, v32, "unable to retrieve remote view controller from remote context: %@", v33, 0xCu);
-      outlined destroy of NSObject?(v34);
+      *v32 = 138412290;
+      *(v32 + 4) = v29;
+      *v33 = v12;
+      v34 = v29;
+      _os_log_impl(&_mh_execute_header, v30, v31, "unable to retrieve remote view controller from remote context: %@", v32, 0xCu);
+      outlined destroy of NSObject?(v33);
     }
 
     else
     {
-      v35 = v31;
-      v31 = v30;
+      v34 = v30;
+      v30 = v29;
     }
 
-    (*(v1 + 8))(v7, v0);
+    (*(v1 + 8))(v6, v0);
     return 0;
   }
 
   static QuotaLogger.ui.getter();
-  v20 = Logger.logObject.getter();
-  v21 = static os_log_type_t.error.getter();
-  if (os_log_type_enabled(v20, v21))
+  v19 = Logger.logObject.getter();
+  v20 = static os_log_type_t.error.getter();
+  if (os_log_type_enabled(v19, v20))
   {
-    v22 = swift_slowAlloc();
-    v37 = swift_slowAlloc();
-    *v22 = 136315650;
-    *(v22 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(0xD000000000000034, 0x8000000100004C80, &v37);
-    *(v22 + 12) = 2080;
-    *(v22 + 14) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(0xD00000000000001BLL, 0x8000000100004CC0, &v37);
-    *(v22 + 22) = 2048;
-    *(v22 + 24) = 22;
-    _os_log_impl(&_mh_execute_header, v20, v21, "%s: %s - line %ld: Unable to retrieve context!", v22, 0x20u);
+    v21 = swift_slowAlloc();
+    v36 = swift_slowAlloc();
+    *v21 = 136315650;
+    *(v21 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(0xD000000000000034, 0x8000000100004C80, &v36);
+    *(v21 + 12) = 2080;
+    *(v21 + 14) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(0xD00000000000001BLL, 0x8000000100004CC0, &v36);
+    *(v21 + 22) = 2048;
+    *(v21 + 24) = 22;
+    _os_log_impl(&_mh_execute_header, v19, v20, "%s: %s - line %ld: Unable to retrieve context!", v21, 0x20u);
     swift_arrayDestroy();
   }
 
-  (*(v1 + 8))(v5, v0);
+  (*(v1 + 8))(v4, v0);
   result = static ICQUIRemoteExtensionEntry.sharedInstance.getter();
   if (!result)
   {
@@ -1168,13 +1161,13 @@ LABEL_19:
     return result;
   }
 
-  v23 = result;
+  v22 = result;
   lazy protocol witness table accessor for type RemoteError and conformance RemoteError();
   swift_allocError();
-  *v24 = 1;
-  v25 = _convertErrorToNSError(_:)();
+  *v23 = 1;
+  v24 = _convertErrorToNSError(_:)();
 
-  [v23 dismissViewControllerWithError:v25];
+  [v22 dismissViewControllerWithError:v24];
 
   return 0;
 }
@@ -1186,13 +1179,13 @@ uint64_t outlined destroy of NSObject?(uint64_t a1)
   return a1;
 }
 
-uint64_t outlined consume of Data._Representation(uint64_t a1, unint64_t a2)
+uint64_t outlined consume of Data._Representation(uint64_t result, unint64_t a2)
 {
   if (a2 >> 62 != 1)
   {
     if (a2 >> 62 != 2)
     {
-      return result;
+      return v3;
     }
   }
 }

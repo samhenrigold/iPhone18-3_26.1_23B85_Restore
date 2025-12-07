@@ -53,7 +53,7 @@ void __43__PUMergedLivePhotosVideo_debugDescription__block_invoke(uint64_t a1, v
   memset(&v30[1], 0, sizeof(CMTime));
   if (v5)
   {
-    [v5 CMTimeValue];
+    objc_msgSend_CMTimeValue(v5);
   }
 
   memset(v30, 0, 24);
@@ -66,7 +66,7 @@ void __43__PUMergedLivePhotosVideo_debugDescription__block_invoke(uint64_t a1, v
     v10 = v13;
     if (v13)
     {
-      [v13 duration];
+      objc_msgSend_duration(v13);
     }
 
     else
@@ -82,7 +82,7 @@ void __43__PUMergedLivePhotosVideo_debugDescription__block_invoke(uint64_t a1, v
     v12 = v11;
     if (v11)
     {
-      [v11 CMTimeValue];
+      objc_msgSend_CMTimeValue(v11);
     }
 
     else
@@ -97,7 +97,7 @@ void __43__PUMergedLivePhotosVideo_debugDescription__block_invoke(uint64_t a1, v
   v16 = v15;
   if (v15)
   {
-    [v15 CMTimeValue];
+    objc_msgSend_CMTimeValue(v15);
   }
 
   else
@@ -163,7 +163,7 @@ void __43__PUMergedLivePhotosVideo_debugDescription__block_invoke(uint64_t a1, v
     v12 = v11;
     if (v11)
     {
-      [v11 CMTimeValue];
+      objc_msgSend_CMTimeValue(v11);
     }
 
     else
@@ -177,7 +177,7 @@ void __43__PUMergedLivePhotosVideo_debugDescription__block_invoke(uint64_t a1, v
     v15 = v14;
     if (v14)
     {
-      [v14 CMTimeValue];
+      objc_msgSend_CMTimeValue(v14);
     }
 
     else
@@ -204,7 +204,7 @@ uint64_t __45__PUMergedLivePhotosVideo__assetIndexAtTime___block_invoke(uint64_t
 {
   if (a2)
   {
-    [a2 CMTimeValue];
+    objc_msgSend_CMTimeValue(a2);
   }
 
   else
@@ -244,7 +244,7 @@ LABEL_29:
     v14 = firstObject;
     if (firstObject)
     {
-      [firstObject CMTimeValue];
+      objc_msgSend_CMTimeValue(firstObject);
     }
 
     else
@@ -256,7 +256,7 @@ LABEL_29:
     v16 = lastObject;
     if (lastObject)
     {
-      [lastObject CMTimeValue];
+      objc_msgSend_CMTimeValue(lastObject);
     }
 
     else
@@ -275,7 +275,7 @@ LABEL_29:
       v19 = v18;
       if (v18)
       {
-        [v18 CMTimeValue];
+        objc_msgSend_CMTimeValue(v18);
       }
 
       else
@@ -299,7 +299,7 @@ LABEL_29:
         v24 = v23;
         if (v23)
         {
-          [v23 CMTimeValue];
+          objc_msgSend_CMTimeValue(v23);
         }
 
         else
@@ -319,7 +319,7 @@ LABEL_29:
         v22 = v21;
         if (v21)
         {
-          [v21 CMTimeValue];
+          objc_msgSend_CMTimeValue(v21);
         }
 
         else

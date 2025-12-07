@@ -2165,8 +2165,8 @@ LABEL_31:
     objc_msgSend_nodePoint(v21, v53, v54);
     v75 = v55;
     v76 = v56;
-    sub_276667338(&v70, v77, 0.0, at);
-    sub_276667338(&v70, v82, at, 1.0);
+    sub_276667338(0.0, at, &v70, v77);
+    sub_276667338(at, 1.0, &v70, v82);
     objc_msgSend_setOutControlPoint_(v17, v57, v58, v78, v79);
     objc_msgSend_setInControlPoint_(v21, v59, v60, v82[4], v82[5]);
     v41 = objc_msgSend_bezierNodeWithPoint_inControlPoint_outControlPoint_(TSDBezierNode, v61, v62, v82[0], v82[1], v80, v81, v82[2], v82[3]);

@@ -34,70 +34,66 @@
 
 - (BOOL)insertDataObjects:(const void *)objects atLoiUUID:(const uuid *)d
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   selfCopy = self;
   if (*objects == *(objects + 1))
   {
-    inserted = 1;
+    return 1;
+  }
+
+  dbStore = [(ULStore *)self dbStore];
+  v8 = (*(dbStore->var0 + 8))(dbStore);
+  managedObjectContext = [(ULStore *)self managedObjectContext];
+  v14 = [v8 fetchLoiManagedObjectWithUUID:d withManagedObjectContext:managedObjectContext];
+
+  if (v14)
+  {
+    v16[0] = &unk_286A55E30;
+    v16[1] = &v14;
+    v16[2] = &selfCopy;
+    v16[3] = v16;
+    inserted = ULDBUtils::insertDataObjects<ULAnchorAppearanceMapDO,ULAnchorAppearanceMapMO>(self, objects, v16);
+    std::__function::__value_func<ULAnchorAppearanceMapMO * ()(ULAnchorAppearanceMapDO const&)>::~__value_func[abi:ne200100](v16);
   }
 
   else
   {
-    dbStore = [(ULStore *)self dbStore];
-    v8 = (*(dbStore->var0 + 8))(dbStore);
-    managedObjectContext = [(ULStore *)self managedObjectContext];
-    v15 = [v8 fetchLoiManagedObjectWithUUID:d withManagedObjectContext:managedObjectContext];
-
-    if (v15)
+    if (onceToken_MicroLocation_Default != -1)
     {
-      v17[0] = &unk_286A55E30;
-      v17[1] = &v15;
-      v17[2] = &selfCopy;
-      v17[3] = v17;
-      inserted = ULDBUtils::insertDataObjects<ULAnchorAppearanceMapDO,ULAnchorAppearanceMapMO>(self, objects, v17);
-      std::__function::__value_func<ULAnchorAppearanceMapMO * ()(ULAnchorAppearanceMapDO const&)>::~__value_func[abi:ne200100](v17);
+      [ULAnchorAppearanceMapStore insertDataObjects:atLoiUUID:];
     }
 
-    else
+    v11 = logObject_MicroLocation_Default;
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      if (onceToken_MicroLocation_Default != -1)
-      {
-        [ULAnchorAppearanceMapStore insertDataObjects:atLoiUUID:];
-      }
-
-      v11 = logObject_MicroLocation_Default;
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
-      {
-        operator new();
-      }
-
-      if (onceToken_MicroLocation_Default != -1)
-      {
-        [ULAnchorAppearanceMapStore insertDataObjects:atLoiUUID:];
-      }
-
-      v12 = logObject_MicroLocation_Default;
-      if (os_signpost_enabled(v12))
-      {
-        operator new();
-      }
-
-      [(ULStore *)self resetMOC:v15];
-      inserted = 0;
+      operator new();
     }
+
+    if (onceToken_MicroLocation_Default != -1)
+    {
+      [ULAnchorAppearanceMapStore insertDataObjects:atLoiUUID:];
+    }
+
+    v12 = logObject_MicroLocation_Default;
+    if (os_signpost_enabled(v12))
+    {
+      operator new();
+    }
+
+    [(ULStore *)self resetMOC:v14];
+    return 0;
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return inserted;
 }
 
 - (optional<ULAnchorAppearanceMapDO>)fetchMostRecentAnchorAppearanceMapAtLoiGroupId:(optional<ULAnchorAppearanceMapDO> *__return_ptr)retstr
 {
   v3 = v2;
-  v21[1] = *MEMORY[0x277D85DE8];
-  v18 = 0uLL;
-  v19 = 0;
-  std::vector<ULAnchorAppearanceMapDO>::reserve(&v18, 1uLL);
+  v20[1] = *MEMORY[0x277D85DE8];
+  v17 = 0uLL;
+  v18 = 0;
+  std::vector<ULAnchorAppearanceMapDO>::reserve(&v17, 1uLL);
   v6 = objc_autoreleasePoolPush();
   array = [MEMORY[0x277CBEB18] array];
   v8 = [objc_alloc(MEMORY[0x277CCAD78]) initWithUUIDBytes:v3];
@@ -107,19 +103,19 @@
   [array addObject:v10];
 
   v11 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"timestamp" ascending:0];
-  v21[0] = v11;
-  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:1];
-  [(ULAnchorAppearanceMapStore *)self _fetchAnchorAppearanceMapByAndPredicates:array sortDescriptors:v12 andLimit:1];
-  std::vector<ULAnchorAppearanceMapDO>::__vdeallocate(&v18);
+  v20[0] = v11;
+  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:1];
+  objc_msgSend__fetchAnchorAppearanceMapByAndPredicates_sortDescriptors_andLimit_(self);
+  std::vector<ULAnchorAppearanceMapDO>::__vdeallocate(&v17);
+  v17 = v15;
   v18 = v16;
-  v19 = v17;
-  v20 = &v16;
-  v17 = 0;
-  v16 = 0uLL;
-  std::vector<ULAnchorAppearanceMapDO>::__destroy_vector::operator()[abi:ne200100](&v20);
+  v19 = &v15;
+  v16 = 0;
+  v15 = 0uLL;
+  std::vector<ULAnchorAppearanceMapDO>::__destroy_vector::operator()[abi:ne200100](&v19);
 
   objc_autoreleasePoolPop(v6);
-  if (v18 == *(&v18 + 1))
+  if (v17 == *(&v17 + 1))
   {
     v13 = 0;
     retstr->var0.var0 = 0;
@@ -127,14 +123,13 @@
 
   else
   {
-    ULAnchorAppearanceMapDO::ULAnchorAppearanceMapDO(retstr, v18);
+    ULAnchorAppearanceMapDO::ULAnchorAppearanceMapDO(retstr, v17);
     v13 = 1;
   }
 
   LOBYTE(retstr[1].var0.var3.var4[0]) = v13;
-  *&v16 = &v18;
-  std::vector<ULAnchorAppearanceMapDO>::__destroy_vector::operator()[abi:ne200100](&v16);
-  v15 = *MEMORY[0x277D85DE8];
+  *&v15 = &v17;
+  std::vector<ULAnchorAppearanceMapDO>::__destroy_vector::operator()[abi:ne200100](&v15);
   return result;
 }
 

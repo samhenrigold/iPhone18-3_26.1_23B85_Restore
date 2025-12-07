@@ -376,7 +376,7 @@ LABEL_3:
 
   else
   {
-    dialerController5 = PHDefaultLog();
+    dialerController5 = PHDefaultLog(v13);
     if (os_log_type_enabled(dialerController5, OS_LOG_TYPE_ERROR))
     {
       [PHCarPlayDialerViewController callButtonPressed:dialerController5];
@@ -408,12 +408,12 @@ LABEL_3:
 - (void)hardwareControlEventNotification:(id)notification
 {
   notificationCopy = notification;
-  v5 = PHDefaultLog();
+  v5 = PHDefaultLog(notificationCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v17 = 138412290;
-    v18 = notificationCopy;
-    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "PHCarPlayDialerViewController received hardware control event notification: %@", &v17, 0xCu);
+    v18 = 138412290;
+    v19 = notificationCopy;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "PHCarPlayDialerViewController received hardware control event notification: %@", &v18, 0xCu);
   }
 
   if ([(PHCarPlayGenericViewController *)self shouldRespondToHardwareControlEvent])
@@ -446,7 +446,7 @@ LABEL_3:
 
       else
       {
-        dialerController3 = PHDefaultLog();
+        dialerController3 = PHDefaultLog(v15);
         if (os_log_type_enabled(dialerController3, OS_LOG_TYPE_ERROR))
         {
           [PHCarPlayDialerViewController callButtonPressed:dialerController3];
@@ -474,8 +474,8 @@ LABEL_20:
 
       telephonyProvider = [(PHCarPlayGenericDialerViewController *)self dialerController];
       dialerController3 = [notificationCopy userInfo];
-      v16 = [dialerController3 valueForKey:kTUCarPlayHardwareControlKeypadValueKey];
-      [telephonyProvider performCharacterAddAction:v16];
+      v17 = [dialerController3 valueForKey:kTUCarPlayHardwareControlKeypadValueKey];
+      [telephonyProvider performCharacterAddAction:v17];
     }
 
     goto LABEL_20;

@@ -11,7 +11,7 @@
 {
   v3 = [PXCuratedLibraryLayoutSpec alloc];
   extendedTraitCollection = [(PXFeatureSpecManager *)self extendedTraitCollection];
-  v5 = [(PXCuratedLibraryLayoutSpec *)v3 initWithExtendedTraitCollection:extendedTraitCollection options:[(PXFeatureSpecManager *)self options] variant:[(PXCuratedLibraryLayoutSpecManager *)self variant]];
+  v5 = [(PXCuratedLibraryLayoutSpec *)v3 initWithExtendedTraitCollection:extendedTraitCollection options:objc_msgSend_options(self) variant:[(PXCuratedLibraryLayoutSpecManager *)self variant]];
 
   return v5;
 }

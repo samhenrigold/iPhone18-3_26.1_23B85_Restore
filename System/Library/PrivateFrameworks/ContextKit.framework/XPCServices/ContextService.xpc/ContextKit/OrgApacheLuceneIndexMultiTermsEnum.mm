@@ -337,7 +337,7 @@ LABEL_79:
             sub_1000169C0();
           }
 
-          v16 = OrgApacheLuceneIndexTermsEnum_SeekStatusEnum_values_;
+          v16 = OrgApacheLuceneIndexTermsEnum_SeekStatusEnum_values_[0];
           goto LABEL_31;
         }
 
@@ -560,7 +560,7 @@ LABEL_31:
   {
     if ([(OrgApacheLuceneUtilPriorityQueue *)self->queue_ size]< 1)
     {
-      v42 = &OrgApacheLuceneIndexTermsEnum_SeekStatusEnum_values_;
+      v42 = OrgApacheLuceneIndexTermsEnum_SeekStatusEnum_values_;
       if (atomic_load_explicit(OrgApacheLuceneIndexTermsEnum_SeekStatusEnum__initialized, memory_order_acquire))
       {
         return *v42;

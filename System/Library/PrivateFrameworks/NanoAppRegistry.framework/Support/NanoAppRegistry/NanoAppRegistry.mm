@@ -5,9 +5,9 @@ void sub_100000FE4(id a1)
   _objc_release_x1();
 }
 
-void sub_1000011C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1000011C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -54,19 +54,16 @@ id sub_100001678(uint64_t a1, uint64_t a2)
   return v4;
 }
 
-void sub_100001AA4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_100001AA4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 uint64_t sub_100001ABC(uint64_t a1)
 {
-  v2 = [*(a1 + 32) _allApplicationsIncludingHidden:*(a1 + 48)];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(a1 + 32) _allApplicationsIncludingHidden:*(a1 + 48)];
 
   return _objc_release_x1();
 }
@@ -119,10 +116,11 @@ void sub_100002B98(uint64_t a1)
   [v2 setSequenceNumber:*(a1 + 40) UUID:*(a1 + 48)];
 }
 
-void sub_100002D70(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_100002D70(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
 uint64_t sub_100003A44(uint64_t a1, void *a2)
@@ -663,18 +661,18 @@ uint64_t sub_1000085F4(uint64_t a1)
   return _objc_release_x1();
 }
 
-void sub_1000087F4(uint64_t a1)
+void sub_1000087F4(uint64_t a1, uint64_t a2)
 {
-  v2 = nar_workspace_log();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
+  v3 = nar_workspace_log();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
-    sub_10000C384(v2);
+    sub_10000C384(v3);
   }
 
-  v3 = [[NADSyncController alloc] initWithApplicationStore:*(*(a1 + 32) + 32)];
-  v4 = *(a1 + 32);
-  v5 = *(v4 + 24);
-  *(v4 + 24) = v3;
+  v4 = [[NADSyncController alloc] initWithApplicationStore:*(*(a1 + 32) + 32)];
+  v5 = *(a1 + 32);
+  v6 = *(v5 + 24);
+  *(v5 + 24) = v4;
 }
 
 void sub_100008880(id a1, OS_xpc_object *a2)
@@ -1154,6 +1152,27 @@ uint64_t start()
   return 0;
 }
 
+void sub_10000B98C(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  sub_100002D70(&_mh_execute_header, a2, a3, "Caught exception trying to open store metadata: %@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_10000B9F8(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  sub_100002D70(&_mh_execute_header, a2, a3, "Error trying to unarchive store metadata: %@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_10000BA64(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  sub_100002D70(&_mh_execute_header, a2, a3, "Couldn't write store metadata: %@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
 void sub_10000BAD0(uint64_t a1, uint64_t a2, os_log_t log)
 {
   v3 = 138412546;
@@ -1189,13 +1208,6 @@ void sub_10000BCB0()
   sub_100005940();
   sub_10000594C();
   sub_100005964(&_mh_execute_header, v0, v1, "NARApplicationWorkspace has no applications; UUID %@ and sequenceNumber %@. Resetting store and requesting full sync.");
-}
-
-void sub_10000BD20(uint64_t *a1)
-{
-  v6 = *a1;
-  sub_100005958();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
 }
 
 void sub_10000BD98(void *a1, void *a2, NSObject *a3)

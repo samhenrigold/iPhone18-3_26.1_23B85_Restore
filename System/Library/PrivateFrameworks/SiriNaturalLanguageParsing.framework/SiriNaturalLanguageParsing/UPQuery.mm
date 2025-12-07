@@ -14,28 +14,28 @@
 
 - (id)description
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   array = [MEMORY[0x277CBEB18] array];
   array2 = [MEMORY[0x277CBEB18] array];
+  v26 = 0u;
   v27 = 0u;
   v28 = 0u;
   v29 = 0u;
-  v30 = 0u;
   obj = [(UPQuery *)self tokens];
-  v26 = [obj countByEnumeratingWithState:&v27 objects:v31 count:16];
-  if (v26)
+  v25 = [obj countByEnumeratingWithState:&v26 objects:v30 count:16];
+  if (v25)
   {
-    v23 = *v28;
+    v22 = *v27;
     do
     {
-      for (i = 0; i != v26; ++i)
+      for (i = 0; i != v25; ++i)
       {
-        if (*v28 != v23)
+        if (*v27 != v22)
         {
           objc_enumerationMutation(obj);
         }
 
-        v4 = *(*(&v27 + 1) + 8 * i);
+        v4 = *(*(&v26 + 1) + 8 * i);
         v5 = [objc_opt_class() tokenDescription:v4];
         [array addObject:v5];
         embeddingsByToken = [(UPQuery *)self embeddingsByToken];
@@ -51,10 +51,10 @@
         [array2 addObject:v13];
       }
 
-      v26 = [obj countByEnumeratingWithState:&v27 objects:v31 count:16];
+      v25 = [obj countByEnumeratingWithState:&v26 objects:v30 count:16];
     }
 
-    while (v26);
+    while (v25);
   }
 
   v14 = MEMORY[0x277CCACA8];
@@ -63,8 +63,6 @@
   v17 = [array2 componentsJoinedByString:@"\n"];
   spans = [(UPQuery *)self spans];
   v19 = [v14 stringWithFormat:@"{UPQuery\n  utterance: %@\n  tokens: %@\n  embeddingsByToken:\n%@\n  spans:\n%@\n}", utterance, v16, v17, spans];
-
-  v20 = *MEMORY[0x277D85DE8];
 
   return v19;
 }
@@ -135,7 +133,7 @@ LABEL_13:
 
 - (id)buildSpansListWithProtobufQuery:(id)query nonWhitespaceTokenIndexes:(id)indexes error:(id *)error
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   queryCopy = query;
   indexesCopy = indexes;
   v9 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(queryCopy, "matchingSpansCount")}];
@@ -146,9 +144,9 @@ LABEL_13:
     {
       v11 = [UPSpan alloc];
       v12 = [queryCopy matchingSpansAtIndex:v10];
-      v21 = 0;
-      v13 = [(UPSpan *)v11 initWithProtobufSpan:v12 nonWhitespaceTokenIndexes:indexesCopy error:&v21];
-      v14 = v21;
+      v20 = 0;
+      v13 = [(UPSpan *)v11 initWithProtobufSpan:v12 nonWhitespaceTokenIndexes:indexesCopy error:&v20];
+      v14 = v20;
 
       if (!v13)
       {
@@ -168,7 +166,7 @@ LABEL_13:
     {
       localizedDescription = [v14 localizedDescription];
       *buf = 138412290;
-      v23 = localizedDescription;
+      v22 = localizedDescription;
       _os_log_impl(&dword_22284A000, v16, OS_LOG_TYPE_ERROR, "Hit error when converting protobuf span to UPSpan: %@", buf, 0xCu);
     }
 
@@ -187,14 +185,12 @@ LABEL_5:
     v15 = v9;
   }
 
-  v19 = *MEMORY[0x277D85DE8];
-
   return v15;
 }
 
 - (id)_buildEmbeddingsDictionaryWithNonWhitespaceTokens:(id)tokens nonWhitespaceTokenIndexes:(id)indexes embeddings:(id)embeddings error:(id *)error
 {
-  v39[1] = *MEMORY[0x277D85DE8];
+  v38[1] = *MEMORY[0x277D85DE8];
   tokensCopy = tokens;
   indexesCopy = indexes;
   embeddingsCopy = embeddings;
@@ -202,38 +198,38 @@ LABEL_5:
   if (v12 == [indexesCopy count])
   {
     dictionary = [MEMORY[0x277CBEB38] dictionary];
-    v36[0] = 0;
-    v36[1] = v36;
-    v36[2] = 0x2020000000;
-    v37 = 0;
-    v32 = 0;
-    v33 = &v32;
-    v34 = 0x2020000000;
-    v35 = 0;
-    v26 = 0;
-    v27 = &v26;
-    v28 = 0x3032000000;
-    v29 = __Block_byref_object_copy_;
-    v30 = __Block_byref_object_dispose_;
+    v35[0] = 0;
+    v35[1] = v35;
+    v35[2] = 0x2020000000;
+    v36 = 0;
     v31 = 0;
-    v19[0] = MEMORY[0x277D85DD0];
-    v19[1] = 3221225472;
-    v19[2] = __104__UPQuery__buildEmbeddingsDictionaryWithNonWhitespaceTokens_nonWhitespaceTokenIndexes_embeddings_error___block_invoke;
-    v19[3] = &unk_2784B6DC0;
-    v20 = tokensCopy;
-    v23 = v36;
-    v21 = embeddingsCopy;
-    v24 = &v26;
-    v25 = &v32;
+    v32 = &v31;
+    v33 = 0x2020000000;
+    v34 = 0;
+    v25 = 0;
+    v26 = &v25;
+    v27 = 0x3032000000;
+    v28 = __Block_byref_object_copy_;
+    v29 = __Block_byref_object_dispose_;
+    v30 = 0;
+    v18[0] = MEMORY[0x277D85DD0];
+    v18[1] = 3221225472;
+    v18[2] = __104__UPQuery__buildEmbeddingsDictionaryWithNonWhitespaceTokens_nonWhitespaceTokenIndexes_embeddings_error___block_invoke;
+    v18[3] = &unk_2784B6DC0;
+    v19 = tokensCopy;
+    v22 = v35;
+    v20 = embeddingsCopy;
+    v23 = &v25;
+    v24 = &v31;
     v14 = dictionary;
-    v22 = v14;
-    [indexesCopy enumerateIndexesUsingBlock:v19];
-    if (*(v33 + 24) == 1)
+    v21 = v14;
+    [indexesCopy enumerateIndexesUsingBlock:v18];
+    if (*(v32 + 24) == 1)
     {
       v15 = 0;
       if (error)
       {
-        *error = v27[5];
+        *error = v26[5];
       }
     }
 
@@ -242,9 +238,9 @@ LABEL_5:
       v15 = v14;
     }
 
-    _Block_object_dispose(&v26, 8);
-    _Block_object_dispose(&v32, 8);
-    _Block_object_dispose(v36, 8);
+    _Block_object_dispose(&v25, 8);
+    _Block_object_dispose(&v31, 8);
+    _Block_object_dispose(v35, 8);
   }
 
   else
@@ -256,15 +252,14 @@ LABEL_5:
     }
 
     v16 = MEMORY[0x277CCA9B8];
-    v38 = *MEMORY[0x277CCA450];
-    v39[0] = @"Count of nonWhitespaceTokens does not match nonWhitespaceTokenIndexes";
-    v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v39 forKeys:&v38 count:1];
+    v37 = *MEMORY[0x277CCA450];
+    v38[0] = @"Count of nonWhitespaceTokens does not match nonWhitespaceTokenIndexes";
+    v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v38 forKeys:&v37 count:1];
     [v16 errorWithDomain:@"com.apple.uaapcustomluframework" code:10 userInfo:v14];
     *error = v15 = 0;
   }
 
 LABEL_11:
-  v17 = *MEMORY[0x277D85DE8];
 
   return v15;
 }
@@ -348,38 +343,38 @@ void __67__UPQuery__buildTokenListWithTokenChain_nonWhitespaceTokenIndexes___blo
 
 - (UPQuery)initWithProtobufQuery:(id)query error:(id *)error
 {
-  v41[1] = *MEMORY[0x277D85DE8];
+  v40[1] = *MEMORY[0x277D85DE8];
   queryCopy = query;
   if ([queryCopy hasTokenChain])
   {
     tokenChain = [queryCopy tokenChain];
-    v29 = [(UPQuery *)self _getNonWhitespaceTokenIndexes:tokenChain];
-    v30 = [(UPQuery *)self _buildTokenListWithTokenChain:tokenChain nonWhitespaceTokenIndexes:?];
+    v28 = [(UPQuery *)self _getNonWhitespaceTokenIndexes:tokenChain];
+    v29 = [(UPQuery *)self _buildTokenListWithTokenChain:tokenChain nonWhitespaceTokenIndexes:?];
     string = [MEMORY[0x277CCAB68] string];
+    v32 = 0u;
     v33 = 0u;
     v34 = 0u;
     v35 = 0u;
-    v36 = 0u;
     tokens = [tokenChain tokens];
-    v10 = [tokens countByEnumeratingWithState:&v33 objects:v39 count:16];
+    v10 = [tokens countByEnumeratingWithState:&v32 objects:v38 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v34;
+      v12 = *v33;
       do
       {
         for (i = 0; i != v11; ++i)
         {
-          if (*v34 != v12)
+          if (*v33 != v12)
           {
             objc_enumerationMutation(tokens);
           }
 
-          value = [*(*(&v33 + 1) + 8 * i) value];
+          value = [*(*(&v32 + 1) + 8 * i) value];
           [string appendString:value];
         }
 
-        v11 = [tokens countByEnumeratingWithState:&v33 objects:v39 count:16];
+        v11 = [tokens countByEnumeratingWithState:&v32 objects:v38 count:16];
       }
 
       while (v11);
@@ -388,21 +383,21 @@ void __67__UPQuery__buildTokenListWithTokenChain_nonWhitespaceTokenIndexes___blo
     if ([queryCopy hasEmbeddings])
     {
       embeddings = [queryCopy embeddings];
-      v32 = 0;
-      v16 = v29;
-      v17 = [(UPQuery *)self _buildEmbeddingsDictionaryWithNonWhitespaceTokens:v30 nonWhitespaceTokenIndexes:v29 embeddings:embeddings error:&v32];
-      v18 = v32;
+      v31 = 0;
+      v16 = v28;
+      v17 = [(UPQuery *)self _buildEmbeddingsDictionaryWithNonWhitespaceTokens:v29 nonWhitespaceTokenIndexes:v28 embeddings:embeddings error:&v31];
+      v18 = v31;
 
       if (v17)
       {
-        v31 = 0;
-        v19 = [(UPQuery *)self buildSpansListWithProtobufQuery:queryCopy nonWhitespaceTokenIndexes:v29 error:&v31];
-        v20 = v31;
-        v28 = v20;
+        v30 = 0;
+        v19 = [(UPQuery *)self buildSpansListWithProtobufQuery:queryCopy nonWhitespaceTokenIndexes:v28 error:&v30];
+        v20 = v30;
+        v27 = v20;
         if (v19)
         {
           v21 = [(UPQuery *)self _createDialogActWithProtobufQuery:queryCopy];
-          self = [(UPQuery *)self initWithUtterance:string tokens:v30 embeddingsByToken:v17 spans:v19 dialogAct:v21];
+          self = [(UPQuery *)self initWithUtterance:string tokens:v29 embeddingsByToken:v17 spans:v19 dialogAct:v21];
 
           selfCopy = self;
         }
@@ -432,7 +427,7 @@ void __67__UPQuery__buildTokenListWithTokenChain_nonWhitespaceTokenIndexes___blo
 
     else
     {
-      v16 = v29;
+      v16 = v28;
       if (!error)
       {
         selfCopy = 0;
@@ -442,9 +437,9 @@ LABEL_27:
       }
 
       v24 = MEMORY[0x277CCA9B8];
-      v37 = *MEMORY[0x277CCA450];
-      v38 = @"Request has no embeddings";
-      v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v38 forKeys:&v37 count:1];
+      v36 = *MEMORY[0x277CCA450];
+      v37 = @"Request has no embeddings";
+      v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v37 forKeys:&v36 count:1];
       [v24 errorWithDomain:@"com.apple.uaapcustomluframework" code:10 userInfo:v18];
       *error = selfCopy = 0;
     }
@@ -455,9 +450,9 @@ LABEL_27:
   if (error)
   {
     v23 = MEMORY[0x277CCA9B8];
-    v40 = *MEMORY[0x277CCA450];
-    v41[0] = @"Request has no token chain";
-    tokenChain = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v41 forKeys:&v40 count:1];
+    v39 = *MEMORY[0x277CCA450];
+    v40[0] = @"Request has no token chain";
+    tokenChain = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v40 forKeys:&v39 count:1];
     [v23 errorWithDomain:@"com.apple.uaapcustomluframework" code:10 userInfo:tokenChain];
     *error = selfCopy = 0;
 LABEL_28:
@@ -468,7 +463,6 @@ LABEL_28:
   selfCopy = 0;
 LABEL_29:
 
-  v26 = *MEMORY[0x277D85DE8];
   return selfCopy;
 }
 

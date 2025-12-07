@@ -195,7 +195,7 @@ LABEL_17:
 
         else
         {
-          v14 = sub_100004778();
+          v14 = sub_100004778(0);
           if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412290;
@@ -246,7 +246,7 @@ LABEL_17:
 
         else
         {
-          v26 = sub_100004778();
+          v26 = sub_100004778(0);
           if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412290;

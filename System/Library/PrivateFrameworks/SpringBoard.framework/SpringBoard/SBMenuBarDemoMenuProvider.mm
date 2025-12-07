@@ -80,7 +80,7 @@
     }
 
     _bundleIdsToMinimizeAfterRestore = [(SBMenuBarDemoMenuProvider *)self _bundleIdsToMinimizeAfterRestore];
-    v21 = [_bundleIdsToMinimizeAfterRestore containsObject:bundleIdentifier];
+    v21 = objc_msgSend_containsObject_(_bundleIdsToMinimizeAfterRestore);
 
     v22 = MEMORY[0x277D750C8];
     if (v21)
@@ -225,7 +225,7 @@ void __65__SBMenuBarDemoMenuProvider__storeDemoLayoutAttributes_forScene___block
   if (bundleIdentifier)
   {
     _bundleIdsToMinimizeAfterRestore = [(SBMenuBarDemoMenuProvider *)self _bundleIdsToMinimizeAfterRestore];
-    v7 = [_bundleIdsToMinimizeAfterRestore containsObject:bundleIdentifier];
+    v7 = objc_msgSend_containsObject_(_bundleIdsToMinimizeAfterRestore);
   }
 
   else
@@ -629,7 +629,7 @@ void __69__SBMenuBarDemoMenuProvider__restoreBundleStateForAppsWithBundleIds___b
   [v2 _performAfterDelay:v5 actions:0.5];
 }
 
-uint64_t __69__SBMenuBarDemoMenuProvider__restoreBundleStateForAppsWithBundleIds___block_invoke_10(uint64_t a1)
+void *__69__SBMenuBarDemoMenuProvider__restoreBundleStateForAppsWithBundleIds___block_invoke_10(uint64_t a1)
 {
   result = [*(a1 + 32) count];
   if (result)

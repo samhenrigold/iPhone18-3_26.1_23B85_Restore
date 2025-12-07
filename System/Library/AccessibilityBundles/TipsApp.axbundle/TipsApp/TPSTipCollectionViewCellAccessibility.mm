@@ -23,31 +23,29 @@
 
 - (id)_accessibilityScannerGroupElements
 {
-  v14[1] = *MEMORY[0x29EDCA608];
+  v13[1] = *MEMORY[0x29EDCA608];
   v3 = [(TPSTipCollectionViewCellAccessibility *)self safeValueForKey:@"heroAssetView"];
   v4 = [v3 safeUIViewForKey:@"imageView"];
 
   if (v4)
   {
-    v11 = v4;
-    v12[0] = @"GroupElements";
-    v5 = [MEMORY[0x29EDB8D80] arrayWithObjects:&v11 count:1];
-    v12[1] = @"GroupTraits";
-    v13[0] = v5;
-    v13[1] = &unk_2A234B568;
-    v6 = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v13 forKeys:v12 count:2];
-    v14[0] = v6;
-    _accessibilityScannerGroupElements = [MEMORY[0x29EDB8D80] arrayWithObjects:v14 count:1];
+    v10 = v4;
+    v11[0] = @"GroupElements";
+    v5 = [MEMORY[0x29EDB8D80] arrayWithObjects:&v10 count:1];
+    v11[1] = @"GroupTraits";
+    v12[0] = v5;
+    v12[1] = &unk_2A234B568;
+    v6 = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v12 forKeys:v11 count:2];
+    v13[0] = v6;
+    _accessibilityScannerGroupElements = [MEMORY[0x29EDB8D80] arrayWithObjects:v13 count:1];
   }
 
   else
   {
-    v10.receiver = self;
-    v10.super_class = TPSTipCollectionViewCellAccessibility;
-    _accessibilityScannerGroupElements = [(TPSTipCollectionViewCellAccessibility *)&v10 _accessibilityScannerGroupElements];
+    v9.receiver = self;
+    v9.super_class = TPSTipCollectionViewCellAccessibility;
+    _accessibilityScannerGroupElements = [(TPSTipCollectionViewCellAccessibility *)&v9 _accessibilityScannerGroupElements];
   }
-
-  v8 = *MEMORY[0x29EDCA608];
 
   return _accessibilityScannerGroupElements;
 }

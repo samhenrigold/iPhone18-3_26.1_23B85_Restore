@@ -55,9 +55,11 @@
   return v3;
 }
 
-uint64_t __28__MBMessage__allowedClasses__block_invoke()
+uint64_t __28__MBMessage__allowedClasses__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v30 = MEMORY[0x1E695DFD8];
+  v32 = MEMORY[0x1E695DFD8];
+  v31 = objc_opt_class();
+  v30 = objc_opt_class();
   v29 = objc_opt_class();
   v28 = objc_opt_class();
   v27 = objc_opt_class();
@@ -75,10 +77,6 @@ uint64_t __28__MBMessage__allowedClasses__block_invoke()
   v15 = objc_opt_class();
   v14 = objc_opt_class();
   v13 = objc_opt_class();
-  v12 = objc_opt_class();
-  v11 = objc_opt_class();
-  v0 = objc_opt_class();
-  v1 = objc_opt_class();
   v2 = objc_opt_class();
   v3 = objc_opt_class();
   v4 = objc_opt_class();
@@ -87,7 +85,9 @@ uint64_t __28__MBMessage__allowedClasses__block_invoke()
   v7 = objc_opt_class();
   v8 = objc_opt_class();
   v9 = objc_opt_class();
-  _allowedClasses_sAllowedClasses = [v30 setWithObjects:{v29, v28, v27, v26, v25, v24, v23, v22, v21, v20, v19, v18, v17, v16, v15, v14, v13, v12, v11, v0, v1, v2, v3, v4, v5, v6, v7, v8, v9, objc_opt_class(), 0}];
+  v10 = objc_opt_class();
+  v11 = objc_opt_class();
+  _allowedClasses_sAllowedClasses = [v32 setWithObjects:{v31, v30, v29, v28, v27, v26, v25, v24, v23, v22, v21, v20, v19, v18, v17, v16, v15, v14, v13, v2, v3, v4, v5, v6, v7, v8, v9, v10, v11, objc_opt_class(), 0}];
 
   return MEMORY[0x1EEE66BB8]();
 }
@@ -208,20 +208,20 @@ uint64_t __28__MBMessage__allowedClasses__block_invoke()
 - (void)archiver:(id)archiver didEncodeObject:(id)object
 {
   objectCopy = object;
-  if (MBIsInternalInstall())
+  if (MBIsInternalInstall(objectCopy, v5))
   {
-    v5 = objc_opt_class();
-    v6 = NSStringFromClass(v5);
-    v7 = [v6 isEqualToString:@"CKRecordID"];
+    v6 = objc_opt_class();
+    v7 = NSStringFromClass(v6);
+    v8 = [v7 isEqualToString:@"CKRecordID"];
 
-    if (v7)
+    if (v8)
     {
-      v8 = MBGetDefaultLog();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
+      v10 = MBGetDefaultLog(v9);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
       {
-        LOWORD(v15) = 0;
-        _os_log_impl(&dword_1DEB5D000, v8, OS_LOG_TYPE_FAULT, "Improper error sanitizing: CKRecordID leaked", &v15, 2u);
-        _MBLog(@"F ", "Improper error sanitizing: CKRecordID leaked", v9, v10, v11, v12, v13, v14, v15);
+        *v11 = 0;
+        _os_log_impl(&dword_1DEB5D000, v10, OS_LOG_TYPE_FAULT, "Improper error sanitizing: CKRecordID leaked", v11, 2u);
+        _MBLog(@"F ", "Improper error sanitizing: CKRecordID leaked");
       }
     }
   }
@@ -229,7 +229,7 @@ uint64_t __28__MBMessage__allowedClasses__block_invoke()
 
 - (void)sendReply
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   replyError = [(MBMessage *)self replyError];
   v4 = xpc_dictionary_get_remote_connection(self->_xpcObject);
   reply = xpc_dictionary_create_reply(self->_xpcObject);
@@ -242,24 +242,22 @@ uint64_t __28__MBMessage__allowedClasses__block_invoke()
   xpc_dictionary_set_value(reply, "replyInfo", v8);
   if (replyError)
   {
-    v9 = MBGetDefaultLog();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v10 = MBGetDefaultLog(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       name = [(MBMessage *)self name];
       *buf = 138543618;
-      v20 = name;
-      v21 = 2112;
-      v22 = replyError;
-      _os_log_impl(&dword_1DEB5D000, v9, OS_LOG_TYPE_DEFAULT, "Sending reply for %{public}@: %@", buf, 0x16u);
+      v14 = name;
+      v15 = 2112;
+      v16 = replyError;
+      _os_log_impl(&dword_1DEB5D000, v10, OS_LOG_TYPE_DEFAULT, "Sending reply for %{public}@: %@", buf, 0x16u);
 
       name2 = [(MBMessage *)self name];
-      _MBLog(@"Df", "Sending reply for %{public}@: %@", v12, v13, v14, v15, v16, v17, name2);
+      _MBLog(@"Df", "Sending reply for %{public}@: %@", name2, replyError);
     }
   }
 
   xpc_connection_send_message(v4, reply);
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setReply:(id)reply
@@ -297,17 +295,17 @@ uint64_t __28__MBMessage__allowedClasses__block_invoke()
 
 - (void)_xpcObject
 {
-  v16 = *MEMORY[0x1E69E9840];
-  v4 = MBGetDefaultLog();
+  v10 = *MEMORY[0x1E69E9840];
+  v4 = MBGetDefaultLog(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     v5 = *self;
     *buf = 138412546;
-    v13 = v5;
-    v14 = 2112;
-    v15 = a2;
+    v7 = v5;
+    v8 = 2112;
+    v9 = a2;
     _os_log_impl(&dword_1DEB5D000, v4, OS_LOG_TYPE_ERROR, "Failed to archive the message (%@): %@", buf, 0x16u);
-    _MBLog(@"E ", "Failed to archive the message (%@): %@", v6, v7, v8, v9, v10, v11, *self);
+    _MBLog(@"E ", "Failed to archive the message (%@): %@", *self, a2);
   }
 
   __assert_rtn("[MBMessage _xpcObject]", "MBConnection.m", 363, "0");

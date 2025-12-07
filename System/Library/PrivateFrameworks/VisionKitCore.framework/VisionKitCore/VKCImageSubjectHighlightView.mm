@@ -237,38 +237,38 @@ uint64_t __66__VKCImageSubjectHighlightView_visualLookUpYear3InvocationEnabled__
 - (void)buildMenuWithBuilder:(id)builder
 {
   builderCopy = builder;
-  v18.receiver = self;
-  v18.super_class = VKCImageSubjectHighlightView;
-  [(VKCImageSubjectHighlightView *)&v18 buildMenuWithBuilder:builderCopy];
+  v19.receiver = self;
+  v19.super_class = VKCImageSubjectHighlightView;
+  [(VKCImageSubjectHighlightView *)&v19 buildMenuWithBuilder:builderCopy];
   system = [builderCopy system];
   contextSystem = [MEMORY[0x1E69DCC88] contextSystem];
 
   if (system == contextSystem)
   {
     v7 = [MEMORY[0x1E695DF70] arrayWithCapacity:3];
-    if (vk_deviceSupportsAddingSystemStickers())
+    if (vk_deviceSupportsAddingSystemStickers(v7, v8))
     {
-      v8 = MEMORY[0x1E69DC8B0];
-      v9 = VKBundle();
-      v10 = [v9 localizedStringForKey:@"VK_SUBJECT_LIFT_ADDSTICKER_MENU_TITLE" value:@"VK_SUBJECT_LIFT_ADDSTICKER_MENU_TITLE" table:@"Localizable"];
-      v11 = [v8 commandWithTitle:v10 image:0 action:sel__addSticker_ propertyList:0 alternates:MEMORY[0x1E695E0F0]];
+      v9 = MEMORY[0x1E69DC8B0];
+      v10 = VKBundle();
+      v11 = [v10 localizedStringForKey:@"VK_SUBJECT_LIFT_ADDSTICKER_MENU_TITLE" value:@"VK_SUBJECT_LIFT_ADDSTICKER_MENU_TITLE" table:@"Localizable"];
+      v12 = [v9 commandWithTitle:v11 image:0 action:sel__addSticker_ propertyList:0 alternates:MEMORY[0x1E695E0F0]];
 
-      [v7 addObject:v11];
+      [v7 addObject:v12];
       if ([(VKCImageSubjectHighlightView *)self isLivePhoto]&& vk_isInternalBuild() && +[VKCInternalSettings shareHeicsCalloutEnabled]&& !vk_isDeviceLocked())
       {
-        v12 = [MEMORY[0x1E69DC8B0] commandWithTitle:@"shareHeics(internal)" image:0 action:sel__shareHeics_ propertyList:0 alternates:MEMORY[0x1E695E0F0]];
-        [v7 addObject:v12];
+        v13 = [MEMORY[0x1E69DC8B0] commandWithTitle:@"shareHeics(internal)" image:0 action:sel__shareHeics_ propertyList:0 alternates:MEMORY[0x1E695E0F0]];
+        [v7 addObject:v13];
       }
     }
 
-    v13 = MEMORY[0x1E69DC8B0];
-    v14 = VKBundle();
-    v15 = [v14 localizedStringForKey:@"VK_SUBJECT_LIFT_SELECT_ALL_MENU_TITLE" value:@"VK_SUBJECT_LIFT_SELECT_ALL_MENU_TITLE" table:@"Localizable"];
-    v16 = [v13 commandWithTitle:v15 image:0 action:sel__selectAllSubjects_ propertyList:0 alternates:MEMORY[0x1E695E0F0]];
+    v14 = MEMORY[0x1E69DC8B0];
+    v15 = VKBundle();
+    v16 = [v15 localizedStringForKey:@"VK_SUBJECT_LIFT_SELECT_ALL_MENU_TITLE" value:@"VK_SUBJECT_LIFT_SELECT_ALL_MENU_TITLE" table:@"Localizable"];
+    v17 = [v14 commandWithTitle:v16 image:0 action:sel__selectAllSubjects_ propertyList:0 alternates:MEMORY[0x1E695E0F0]];
 
-    [v7 addObject:v16];
-    v17 = [MEMORY[0x1E69DCC60] menuWithTitle:&stru_1F2C04538 image:0 identifier:0 options:1 children:v7];
-    [builderCopy insertSiblingMenu:v17 beforeMenuForIdentifier:*MEMORY[0x1E69DE1A0]];
+    [v7 addObject:v17];
+    v18 = [MEMORY[0x1E69DCC60] menuWithTitle:&stru_1F2C04538 image:0 identifier:0 options:1 children:v7];
+    [builderCopy insertSiblingMenu:v18 beforeMenuForIdentifier:*MEMORY[0x1E69DE1A0]];
   }
 }
 
@@ -286,9 +286,10 @@ LABEL_6:
 
   if (sel__share_ == action || sel__addSticker_ == action)
   {
-    if (vk_isDeviceLocked())
+    isDeviceLocked = vk_isDeviceLocked();
+    if (isDeviceLocked)
     {
-      LOBYTE(selfCopy) = vk_processHasUnlockEntitlement();
+      LOBYTE(selfCopy) = vk_processHasUnlockEntitlement(isDeviceLocked, v12);
       goto LABEL_7;
     }
 
@@ -1142,7 +1143,7 @@ void __84__VKCImageSubjectHighlightView_dragInteraction_willAnimateLiftWithAnima
   [animator addCompletion:{v5, item}];
 }
 
-uint64_t __83__VKCImageSubjectHighlightView_dragInteraction_item_willAnimateCancelWithAnimator___block_invoke(uint64_t a1)
+void *__83__VKCImageSubjectHighlightView_dragInteraction_item_willAnimateCancelWithAnimator___block_invoke(uint64_t a1)
 {
   [*(a1 + 32) setSubjectHighlightState:objc_msgSend(*(a1 + 32) animated:{"subjectHighlightState") | 0xD, 0}];
   result = [*(a1 + 32) shouldShowCalloutOnDragCancel];
@@ -1811,28 +1812,29 @@ void __51__VKCImageSubjectHighlightView__selectAllSubjects___block_invoke(uint64
 - (void)_presentStickerPickerViewController
 {
   [(VKCImageSubjectHighlightView *)self subjectBoundsClippedToVisibleRectWithShouldInsetForCallout:1];
-  x = v31.origin.x;
-  y = v31.origin.y;
-  width = v31.size.width;
-  height = v31.size.height;
-  v7 = CGRectGetMidX(v31) + -20.0;
-  v32.origin.x = x;
-  v32.origin.y = y;
-  v32.size.width = width;
-  v32.size.height = height;
-  v8 = CGRectGetMidY(v32) + -20.0;
-  v9 = objc_alloc_init(MEMORY[0x1E69DD758]);
-  [(VKCImageSubjectHighlightView *)self setStickerPickerViewController:v9];
+  x = v29.origin.x;
+  y = v29.origin.y;
+  width = v29.size.width;
+  height = v29.size.height;
+  CGRectGetMidX(v29);
+  v30.origin.x = x;
+  v30.origin.y = y;
+  v30.size.width = width;
+  v30.size.height = height;
+  CGRectGetMidY(v30);
+  v7 = objc_alloc_init(MEMORY[0x1E69DD758]);
+  [(VKCImageSubjectHighlightView *)self setStickerPickerViewController:v7];
 
   stickerPickerViewController = [(VKCImageSubjectHighlightView *)self stickerPickerViewController];
   [stickerPickerViewController setSourceView:self];
 
-  v12 = VKMRectWithOriginAndSize(v11, v7, v8, 40.0, 40.0);
+  VKMRectWithOriginAndSize();
+  v10 = v9;
+  v12 = v11;
   v14 = v13;
   v16 = v15;
-  v18 = v17;
   stickerPickerViewController2 = [(VKCImageSubjectHighlightView *)self stickerPickerViewController];
-  [stickerPickerViewController2 setSourceRect:{v12, v14, v16, v18}];
+  [stickerPickerViewController2 setSourceRect:{v10, v12, v14, v16}];
 
   stickerPickerViewController3 = [(VKCImageSubjectHighlightView *)self stickerPickerViewController];
   [stickerPickerViewController3 setDelegate:self];
@@ -1843,11 +1845,11 @@ void __51__VKCImageSubjectHighlightView__selectAllSubjects___block_invoke(uint64
   [stickerPickerViewController4 setOverrideUserInterfaceStyle:userInterfaceStyle];
 
   delegate = [(VKCImageSubjectHighlightView *)self delegate];
-  v25 = [delegate presentingViewControllerForSubjectHighlightView:self];
-  v26 = v25;
-  if (v25)
+  v23 = [delegate presentingViewControllerForSubjectHighlightView:self];
+  v24 = v23;
+  if (v23)
   {
-    rootViewController = v25;
+    rootViewController = v23;
   }
 
   else
@@ -2870,7 +2872,7 @@ void __107__VKCImageSubjectHighlightView_createStickerRepresentationsAtIndexSet_
   if (videoPreview)
   {
     v6 = videoPreview;
-    [videoPreview timeRange];
+    objc_msgSend_timeRange(videoPreview);
     videoPreview = v6;
   }
 

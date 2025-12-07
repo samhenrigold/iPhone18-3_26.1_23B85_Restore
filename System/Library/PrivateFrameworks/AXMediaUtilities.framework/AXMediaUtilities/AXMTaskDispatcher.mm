@@ -77,7 +77,7 @@ void __49__AXMTaskDispatcher_initWithIdentifier_delegate___block_invoke(uint64_t
   return v3;
 }
 
-uint64_t __26__AXMTaskDispatcher_count__block_invoke(uint64_t a1)
+void *__26__AXMTaskDispatcher_count__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _queue_count];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -143,21 +143,21 @@ void __43__AXMTaskDispatcher__queue_processNextTask__block_invoke(uint64_t a1, v
   dispatch_async(v8, block);
 }
 
-void __43__AXMTaskDispatcher__queue_processNextTask__block_invoke_26(uint64_t a1)
+void __43__AXMTaskDispatcher__queue_processNextTask__block_invoke_26(uint64_t a1, uint64_t a2)
 {
-  v2 = *(a1 + 32);
-  if ((*(v2 + 32) & 1) == 0)
+  v3 = *(a1 + 32);
+  if ((*(v3 + 32) & 1) == 0)
   {
-    v3 = AXMediaLogCommon();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
+    v4 = AXMediaLogCommon();
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
     {
       __43__AXMTaskDispatcher__queue_processNextTask__block_invoke_26_cold_1();
     }
 
-    v2 = *(a1 + 32);
+    v3 = *(a1 + 32);
   }
 
-  *(v2 + 32) = 0;
+  *(v3 + 32) = 0;
   dispatch_source_merge_data(*(*(a1 + 32) + 8), 1uLL);
 }
 

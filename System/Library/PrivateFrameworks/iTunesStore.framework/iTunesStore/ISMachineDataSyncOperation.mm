@@ -115,11 +115,11 @@
 
 - (void)run
 {
-  v42 = *MEMORY[0x277D85DE8];
-  v37 = 0;
-  v36 = 0;
-  v35 = 0;
-  v34 = 0;
+  v38 = *MEMORY[0x277D85DE8];
+  v33 = 0;
+  v32 = 0;
+  v31 = 0;
+  v30 = 0;
   if (self->_protocolVersion == 1)
   {
     accountID = -1;
@@ -130,11 +130,10 @@
     accountID = self->_accountID;
   }
 
-  inputData = self->_inputData;
-  v5 = SSVAnisetteSynchronize();
+  v4 = SSVAnisetteSynchronize();
   mEMORY[0x277D69B38] = [MEMORY[0x277D69B38] sharedDaemonConfig];
   mEMORY[0x277D69B38]2 = mEMORY[0x277D69B38];
-  if (v5)
+  if (v4)
   {
     if (!mEMORY[0x277D69B38])
     {
@@ -150,30 +149,28 @@
     oSLogObject = [mEMORY[0x277D69B38]2 OSLogObject];
     if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = shouldLog;
+      v9 = shouldLog;
     }
 
     else
     {
-      v10 = shouldLog & 2;
+      v9 = shouldLog & 2;
     }
 
-    if (v10)
+    if (v9)
     {
-      v38 = 138412546;
-      v39 = objc_opt_class();
-      v40 = 2048;
-      v41 = v5;
-      v11 = v39;
-      LODWORD(v32) = 22;
-      v31 = &v38;
-      v12 = _os_log_send_and_compose_impl();
+      v34 = 138412546;
+      v35 = objc_opt_class();
+      v36 = 2048;
+      v37 = v4;
+      v10 = v35;
+      v11 = _os_log_send_and_compose_impl(v9, 0, 0, 0, &dword_275BC3000, oSLogObject, 0, "%@: Synchronize failed: %ld", &v34, 22);
 
-      if (v12)
+      if (v11)
       {
-        v13 = [MEMORY[0x277CCACA8] stringWithCString:v12 encoding:{4, &v38, v32}];
-        free(v12);
-        v31 = v13;
+        v12 = [MEMORY[0x277CCACA8] stringWithCString:v11 encoding:4];
+        free(v11);
+        v28 = v12;
         SSFileLog();
       }
     }
@@ -182,10 +179,9 @@
     {
     }
 
-    v29 = *MEMORY[0x277D6A5F8];
-    v23 = SSError();
-    v22 = 0;
-    goto LABEL_35;
+    v22 = SSError();
+    v21 = 0;
+    goto LABEL_36;
   }
 
   if (!mEMORY[0x277D69B38])
@@ -196,86 +192,87 @@
   shouldLog2 = [mEMORY[0x277D69B38]2 shouldLog];
   if ([mEMORY[0x277D69B38]2 shouldLogToDisk])
   {
-    v15 = shouldLog2 | 2;
+    LODWORD(v14) = shouldLog2 | 2;
   }
 
   else
   {
-    v15 = shouldLog2;
+    LODWORD(v14) = shouldLog2;
   }
 
   oSLogObject2 = [mEMORY[0x277D69B38]2 OSLogObject];
-  if (!os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_INFO))
+  if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_INFO))
   {
-    v15 &= 2u;
+    v14 = v14;
   }
 
-  if (!v15)
+  else
   {
-    goto LABEL_25;
+    v14 &= 2u;
   }
 
-  v38 = 138412546;
-  v39 = objc_opt_class();
-  v40 = 2048;
-  v41 = accountID;
-  v17 = v39;
-  LODWORD(v32) = 22;
-  v31 = &v38;
-  v18 = _os_log_send_and_compose_impl();
-
-  if (v18)
+  if (!v14)
   {
-    oSLogObject2 = [MEMORY[0x277CCACA8] stringWithCString:v18 encoding:{4, &v38, v32}];
-    free(v18);
-    v31 = oSLogObject2;
+    goto LABEL_26;
+  }
+
+  v34 = 138412546;
+  v35 = objc_opt_class();
+  v36 = 2048;
+  v37 = accountID;
+  v16 = v35;
+  v17 = _os_log_send_and_compose_impl(v14, 0, 0, 0, &dword_275BC3000, oSLogObject2, 1, "%@: Performing sync for account: %llu", &v34, 22);
+
+  if (v17)
+  {
+    oSLogObject2 = [MEMORY[0x277CCACA8] stringWithCString:v17 encoding:4];
+    free(v17);
+    v28 = oSLogObject2;
     SSFileLog();
-LABEL_25:
+LABEL_26:
   }
 
-  v19 = [objc_alloc(MEMORY[0x277CBEA90]) initWithBytesNoCopy:v35 length:v34 freeWhenDone:0];
-  v20 = [objc_alloc(MEMORY[0x277CBEA90]) initWithBytesNoCopy:v37 length:v36 freeWhenDone:0];
-  v21 = [(ISMachineDataSyncOperation *)self _newSyncOperationWithClientData:v19 machineIDData:v20];
-  v33 = 0;
-  v22 = [(ISOperation *)self runSubOperation:v21 returningError:&v33];
-  v23 = v33;
-  if (v22)
+  v18 = [objc_alloc(MEMORY[0x277CBEA90]) initWithBytesNoCopy:v31 length:v30 freeWhenDone:0];
+  v19 = [objc_alloc(MEMORY[0x277CBEA90]) initWithBytesNoCopy:v33 length:v32 freeWhenDone:0];
+  v20 = [(ISMachineDataSyncOperation *)self _newSyncOperationWithClientData:v18 machineIDData:v19];
+  v29 = 0;
+  v21 = [(ISOperation *)self runSubOperation:v20 returningError:&v29];
+  v22 = v29;
+  if (v21)
   {
-    dataProvider = [v21 dataProvider];
+    dataProvider = [v20 dataProvider];
     output = [dataProvider output];
 
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v26 = [output objectForKey:@"syncState"];
+      v25 = [output objectForKey:@"syncState"];
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
         [(NSLock *)self->super._lock lock];
-        v27 = [v26 copy];
+        v26 = [v25 copy];
         syncState = self->_syncState;
-        self->_syncState = v27;
+        self->_syncState = v26;
 
         [(NSLock *)self->super._lock unlock];
       }
     }
   }
 
-LABEL_35:
-  if (v37)
+LABEL_36:
+  if (v33)
   {
-    MEMORY[0x277C8BA80]();
+    MEMORY[0x277C8BA80](v33);
   }
 
-  if (v35)
+  if (v31)
   {
-    MEMORY[0x277C8BA80]();
+    MEMORY[0x277C8BA80](v31);
   }
 
-  [(ISOperation *)self setError:v23, v31];
-  [(ISOperation *)self setSuccess:v22];
-
-  v30 = *MEMORY[0x277D85DE8];
+  [(ISOperation *)self setError:v22, v28];
+  [(ISOperation *)self setSuccess:v21];
 }
 
 - (id)_newSyncOperationWithClientData:(id)data machineIDData:(id)dData

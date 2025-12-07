@@ -30,7 +30,7 @@
     sub_100026EB0();
   }
 
-  if (occur == OrgApacheLuceneSearchBooleanClause_OccurEnum_values_)
+  if (occur == OrgApacheLuceneSearchBooleanClause_OccurEnum_values_[0])
   {
     return 1;
   }
@@ -52,7 +52,7 @@
     sub_100026EB0();
   }
 
-  if (occur == OrgApacheLuceneSearchBooleanClause_OccurEnum_values_)
+  if (occur == OrgApacheLuceneSearchBooleanClause_OccurEnum_values_[0])
   {
     return 1;
   }

@@ -66,7 +66,7 @@
 
 + (id)unwrappedMotionActivityFrom:(id)from
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   fromCopy = from;
   content = [fromCopy content];
   v5 = content;
@@ -89,9 +89,9 @@
       if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
         v13 = [v5 debugDescription];
-        v16 = 138412290;
-        v17 = v13;
-        _os_log_impl(&dword_22D8C5000, v12, OS_LOG_TYPE_DEFAULT, "Unwrapping successful, url=%@", &v16, 0xCu);
+        v15 = 138412290;
+        v16 = v13;
+        _os_log_impl(&dword_22D8C5000, v12, OS_LOG_TYPE_DEFAULT, "Unwrapping successful, url=%@", &v15, 0xCu);
       }
     }
 
@@ -118,14 +118,12 @@
     v9 = 0;
   }
 
-  v14 = *MEMORY[0x277D85DE8];
-
   return v9;
 }
 
 + (id)unwrappedMediaItemFrom:(id)from
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   fromCopy = from;
   content = [fromCopy content];
   v5 = content;
@@ -136,7 +134,7 @@
 
     if (v8)
     {
-      v27 = [MOSuggestionAssetMediaItem alloc];
+      v26 = [MOSuggestionAssetMediaItem alloc];
       title = [v5 title];
       albumTitle = [v5 albumTitle];
       artistName = [v5 artistName];
@@ -144,7 +142,7 @@
       previewURL = [v5 previewURL];
       mediaType = [v5 mediaType];
       bgColor = [v5 bgColor];
-      v16 = -[MOSuggestionAssetMediaItem initTitle:albumTitle:artistName:albumArt:trackIdentifier:previewURL:mediaType:imageURL:bgColor:bgColorVariant:](v27, "initTitle:albumTitle:artistName:albumArt:trackIdentifier:previewURL:mediaType:imageURL:bgColor:bgColorVariant:", title, albumTitle, artistName, v8, trackIdentifier, previewURL, mediaType, 0, bgColor, [v5 bgColorVariant]);
+      v16 = -[MOSuggestionAssetMediaItem initTitle:albumTitle:artistName:albumArt:trackIdentifier:previewURL:mediaType:imageURL:bgColor:bgColorVariant:](v26, "initTitle:albumTitle:artistName:albumArt:trackIdentifier:previewURL:mediaType:imageURL:bgColor:bgColorVariant:", title, albumTitle, artistName, v8, trackIdentifier, previewURL, mediaType, 0, bgColor, [v5 bgColorVariant]);
 
       v17 = [MOSuggestionAsset alloc];
       assetType = [fromCopy assetType];
@@ -162,7 +160,7 @@
         imageURL2 = [v5 imageURL];
         v24 = [imageURL2 debugDescription];
         *buf = 138412290;
-        v29 = v24;
+        v28 = v24;
         _os_log_impl(&dword_22D8C5000, v22, OS_LOG_TYPE_DEFAULT, "Unwrapping successful, mediaArtURL=%@", buf, 0xCu);
       }
     }
@@ -190,14 +188,12 @@
     v19 = 0;
   }
 
-  v25 = *MEMORY[0x277D85DE8];
-
   return v19;
 }
 
 + (id)unwrappeCombinedWorkoutObjectFrom:(id)from
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   fromCopy = from;
   content = [fromCopy content];
   if (content)
@@ -219,9 +215,9 @@
       if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
         v12 = [content debugDescription];
-        v15 = 138412290;
-        v16 = v12;
-        _os_log_impl(&dword_22D8C5000, v11, OS_LOG_TYPE_DEFAULT, "Unwrapping successful, url=%@", &v15, 0xCu);
+        v14 = 138412290;
+        v15 = v12;
+        _os_log_impl(&dword_22D8C5000, v11, OS_LOG_TYPE_DEFAULT, "Unwrapping successful, url=%@", &v14, 0xCu);
       }
     }
 
@@ -248,14 +244,12 @@
     v8 = 0;
   }
 
-  v13 = *MEMORY[0x277D85DE8];
-
   return v8;
 }
 
 + (id)unwrappedWorkoutObjectFrom:(id)from
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   fromCopy = from;
   content = [fromCopy content];
   route = [content route];
@@ -265,8 +259,8 @@
     v6 = _mo_log_facility_get_os_log(MOLogFacilityUIService);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v25) = 0;
-      _os_log_impl(&dword_22D8C5000, v6, OS_LOG_TYPE_DEFAULT, "Route Only Pass Through", &v25, 2u);
+      LOWORD(v24) = 0;
+      _os_log_impl(&dword_22D8C5000, v6, OS_LOG_TYPE_DEFAULT, "Route Only Pass Through", &v24, 2u);
     }
 
     v7 = fromCopy;
@@ -299,9 +293,9 @@
       {
         iconURL2 = [content iconURL];
         v21 = [iconURL2 debugDescription];
-        v25 = 138412290;
-        v26 = v21;
-        _os_log_impl(&dword_22D8C5000, v19, OS_LOG_TYPE_DEFAULT, "Unwrapping successful, iconURL=%@", &v25, 0xCu);
+        v24 = 138412290;
+        v25 = v21;
+        _os_log_impl(&dword_22D8C5000, v19, OS_LOG_TYPE_DEFAULT, "Unwrapping successful, iconURL=%@", &v24, 0xCu);
       }
     }
 
@@ -328,14 +322,12 @@
     v7 = 0;
   }
 
-  v23 = *MEMORY[0x277D85DE8];
-
   return v7;
 }
 
 + (id)unwrappedContactPhotoFrom:(id)from
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   fromCopy = from;
   content = [fromCopy content];
   if (content)
@@ -357,9 +349,9 @@
       if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
         v12 = [content debugDescription];
-        v15 = 138412290;
-        v16 = v12;
-        _os_log_impl(&dword_22D8C5000, v11, OS_LOG_TYPE_DEFAULT, "Unwrapping successful, photoUrl=%@", &v15, 0xCu);
+        v14 = 138412290;
+        v15 = v12;
+        _os_log_impl(&dword_22D8C5000, v11, OS_LOG_TYPE_DEFAULT, "Unwrapping successful, photoUrl=%@", &v14, 0xCu);
       }
     }
 
@@ -386,14 +378,12 @@
     v8 = 0;
   }
 
-  v13 = *MEMORY[0x277D85DE8];
-
   return v8;
 }
 
 + (id)unwrappedStateOfMindFrom:(id)from
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   fromCopy = from;
   content = [fromCopy content];
   v5 = content;
@@ -416,9 +406,9 @@
       if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
         v13 = [v5 debugDescription];
-        v16 = 138412290;
-        v17 = v13;
-        _os_log_impl(&dword_22D8C5000, v12, OS_LOG_TYPE_DEFAULT, "Unwrapping successful, url=%@", &v16, 0xCu);
+        v15 = 138412290;
+        v16 = v13;
+        _os_log_impl(&dword_22D8C5000, v12, OS_LOG_TYPE_DEFAULT, "Unwrapping successful, url=%@", &v15, 0xCu);
       }
     }
 
@@ -445,79 +435,56 @@
     v9 = 0;
   }
 
-  v14 = *MEMORY[0x277D85DE8];
-
   return v9;
 }
 
 + (void)imageFromURL:(void *)a1 .cold.1(void *a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
   v1 = [a1 debugDescription];
   OUTLINED_FUNCTION_3_0();
-  OUTLINED_FUNCTION_0_9(&dword_22D8C5000, v2, v3, "Unwrapping failed, bad image data, url=%@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_9(&dword_22D8C5000, v2, v3, "Unwrapping failed, bad image data, url=%@", v4, v5, v6, v7);
 }
 
 + (void)imageFromURL:(void *)a1 .cold.2(void *a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
   v1 = [a1 debugDescription];
   OUTLINED_FUNCTION_3_0();
-  OUTLINED_FUNCTION_0_9(&dword_22D8C5000, v2, v3, "Unwrapping failed, URL data nil, url=%@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_9(&dword_22D8C5000, v2, v3, "Unwrapping failed, URL data nil, url=%@", v4, v5, v6, v7);
 }
 
 + (void)imageFromURL:.cold.3()
 {
-  v9 = *MEMORY[0x277D85DE8];
   v0 = [0 debugDescription];
   OUTLINED_FUNCTION_3_0();
-  OUTLINED_FUNCTION_0_9(&dword_22D8C5000, v1, v2, "Unwrapping failed, URL nil, url=%@", v3, v4, v5, v6, v8);
-
-  v7 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_9(&dword_22D8C5000, v1, v2, "Unwrapping failed, URL nil, url=%@", v3, v4, v5, v6);
 }
 
 + (void)unwrappedMotionActivityFrom:(void *)a1 .cold.1(void *a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
   v1 = [a1 debugDescription];
   OUTLINED_FUNCTION_3_0();
-  OUTLINED_FUNCTION_0_9(&dword_22D8C5000, v2, v3, "Failed to construct motion activity image, url=%@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_9(&dword_22D8C5000, v2, v3, "Failed to construct motion activity image, url=%@", v4, v5, v6, v7);
 }
 
 + (void)unwrappeCombinedWorkoutObjectFrom:(void *)a1 .cold.1(void *a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
   v1 = [a1 debugDescription];
   OUTLINED_FUNCTION_3_0();
-  OUTLINED_FUNCTION_0_9(&dword_22D8C5000, v2, v3, "Failed to construct combined workout glyph image, url=%@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_9(&dword_22D8C5000, v2, v3, "Failed to construct combined workout glyph image, url=%@", v4, v5, v6, v7);
 }
 
 + (void)unwrappedContactPhotoFrom:(void *)a1 .cold.1(void *a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
   v1 = [a1 debugDescription];
   OUTLINED_FUNCTION_3_0();
-  OUTLINED_FUNCTION_0_9(&dword_22D8C5000, v2, v3, "Failed to construct contact photo image, photoUrl=%@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_9(&dword_22D8C5000, v2, v3, "Failed to construct contact photo image, photoUrl=%@", v4, v5, v6, v7);
 }
 
 + (void)unwrappedStateOfMindFrom:(void *)a1 .cold.1(void *a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
   v1 = [a1 debugDescription];
   OUTLINED_FUNCTION_3_0();
-  OUTLINED_FUNCTION_0_9(&dword_22D8C5000, v2, v3, "Failed to construct state of mind image, url=%@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_9(&dword_22D8C5000, v2, v3, "Failed to construct state of mind image, url=%@", v4, v5, v6, v7);
 }
 
 @end

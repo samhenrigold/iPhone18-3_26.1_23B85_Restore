@@ -1,5 +1,6 @@
 @interface ISLocaleSetupController
 - (void)commitRegion;
+- (void)handleAlertActionAndChangeLanguage:(BOOL)language;
 - (void)setupController;
 @end
 
@@ -184,6 +185,30 @@
       [(ISLocaleSetupController *)v33 presentViewController:v29 animated:1 completion:0];
     }
   }
+}
+
+- (void)handleAlertActionAndChangeLanguage:(BOOL)language
+{
+  languageCopy = language;
+  selectedRegion = [(ISLocaleSetupController *)self selectedRegion];
+  regionCode = [selectedRegion regionCode];
+
+  v7 = [IPLanguageListManager alloc];
+  v8 = +[(ISInternationalViewController *)InternationalSettingsController];
+  v9 = +[(ISInternationalViewController *)InternationalSettingsController];
+  v10 = [v7 initWithPreferredLanguages:v8 preferredLocale:v9];
+
+  [v10 setRegion:regionCode updateFirstLanguage:languageCopy];
+  [IPSettingsUtilities setRegion:regionCode changeLanguageVariant:languageCopy postNotification:0];
+  v11 = [NSBundle bundleForClass:objc_opt_class()];
+  v12 = [v11 localizedStringForKey:@"CHANGE_DEVICE_REGION" value:&stru_35798 table:@"InternationalSettings"];
+  systemDisplayLanguage = [v10 systemDisplayLanguage];
+  v14[0] = _NSConcreteStackBlock;
+  v14[1] = 3221225472;
+  v14[2] = sub_936C;
+  v14[3] = &unk_34DE8;
+  v14[4] = self;
+  [(ISLocaleSetupController *)self showUpdatingLanguageViewWithLabel:v12 languageIdentifier:systemDisplayLanguage completionBlock:v14];
 }
 
 - (void)setupController

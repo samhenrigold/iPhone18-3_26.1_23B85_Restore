@@ -63,7 +63,7 @@ void __56__AeroMLTracerSession_logChannelWithSubsystem_category___block_invoke()
 
 void __56__AeroMLTracerSession_logChannelWithSubsystem_category___block_invoke_11(void *a1, void *a2)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = [v3 objectForKeyedSubscript:a1[4]];
   v5 = *(a1[5] + 8);
@@ -72,35 +72,33 @@ void __56__AeroMLTracerSession_logChannelWithSubsystem_category___block_invoke_1
 
   if (!*(*(a1[5] + 8) + 40))
   {
-    v9 = a1[6];
-    v8 = a1 + 6;
-    v10 = os_log_create(v9, v8[1]);
-    v11 = *(*(v8 - 1) + 8);
-    v12 = *(v11 + 40);
-    *(v11 + 40) = v10;
+    v8 = a1[6];
+    v7 = a1 + 6;
+    v9 = os_log_create(v8, v7[1]);
+    v10 = *(*(v7 - 1) + 8);
+    v11 = *(v10 + 40);
+    *(v10 + 40) = v9;
 
-    [v3 setObject:*(*(*(v8 - 1) + 8) + 40) forKeyedSubscript:*(v8 - 2)];
-    if (*(*(*(v8 - 1) + 8) + 40))
+    [v3 setObject:*(*(*(v7 - 1) + 8) + 40) forKeyedSubscript:*(v7 - 2)];
+    if (*(*(*(v7 - 1) + 8) + 40))
     {
       if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO))
       {
-        v13 = *v8;
-        v14 = v8[1];
-        v15 = 136315394;
-        v16 = v13;
-        v17 = 2080;
-        v18 = v14;
-        _os_log_impl(&dword_1B5ED1000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO, "Successfully created os_log_t for subsystem: %s, category: %s", &v15, 0x16u);
+        v12 = *v7;
+        v13 = v7[1];
+        v14 = 136315394;
+        v15 = v12;
+        v16 = 2080;
+        v17 = v13;
+        _os_log_impl(&dword_1B5ED1000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO, "Successfully created os_log_t for subsystem: %s, category: %s", &v14, 0x16u);
       }
     }
 
     else if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      __56__AeroMLTracerSession_logChannelWithSubsystem_category___block_invoke_11_cold_1(v8, v8 + 1);
+      __56__AeroMLTracerSession_logChannelWithSubsystem_category___block_invoke_11_cold_1(v7, v7 + 1);
     }
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (AeroMLTracerSession)initWithTraceId:(id)id projectName:(id)name
@@ -169,15 +167,14 @@ void __56__AeroMLTracerSession_logChannelWithSubsystem_category___block_invoke_1
 
 void __56__AeroMLTracerSession_logChannelWithSubsystem_category___block_invoke_11_cold_1(uint64_t *a1, uint64_t *a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v2 = *a1;
   v3 = *a2;
-  v5 = 136315394;
-  v6 = v2;
-  v7 = 2080;
-  v8 = v3;
-  _os_log_error_impl(&dword_1B5ED1000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "Couldn't create os_log_t for subsystem: %s, category: %s", &v5, 0x16u);
-  v4 = *MEMORY[0x1E69E9840];
+  v4 = 136315394;
+  v5 = v2;
+  v6 = 2080;
+  v7 = v3;
+  _os_log_error_impl(&dword_1B5ED1000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "Couldn't create os_log_t for subsystem: %s, category: %s", &v4, 0x16u);
 }
 
 @end

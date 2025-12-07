@@ -657,7 +657,7 @@ LABEL_3:
   return result;
 }
 
-uint64_t __56__PXImportAssetsDataSource_indexPathForObjectReference___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
+void *__56__PXImportAssetsDataSource_indexPathForObjectReference___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
   result = [a2 indexOfItem:*(a1 + 32)];
   if (result != 0x7FFFFFFFFFFFFFFFLL)

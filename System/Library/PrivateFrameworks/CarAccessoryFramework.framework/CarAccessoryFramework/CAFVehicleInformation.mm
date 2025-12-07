@@ -3,6 +3,7 @@
 - (BOOL)registeredForVehicleUserVisibleLabel;
 - (CAFStringCharacteristic)vehicleUserVisibleLabelCharacteristic;
 - (NSString)vehicleUserVisibleLabel;
+- (void)_characteristicDidUpdate:(id)update fromGroupUpdate:(BOOL)groupUpdate;
 - (void)registerObserver:(id)observer;
 - (void)unregisterObserver:(id)observer;
 @end
@@ -84,6 +85,35 @@
   stringValue = [vehicleUserVisibleLabelCharacteristic stringValue];
 
   return stringValue;
+}
+
+- (void)_characteristicDidUpdate:(id)update fromGroupUpdate:(BOOL)groupUpdate
+{
+  groupUpdateCopy = groupUpdate;
+  updateCopy = update;
+  characteristicType = [updateCopy characteristicType];
+  if (![characteristicType isEqual:@"0x0000000041000020"])
+  {
+    goto LABEL_4;
+  }
+
+  uniqueIdentifier = [updateCopy uniqueIdentifier];
+  vehicleUserVisibleLabelCharacteristic = [(CAFVehicleInformation *)self vehicleUserVisibleLabelCharacteristic];
+  uniqueIdentifier2 = [vehicleUserVisibleLabelCharacteristic uniqueIdentifier];
+  v11 = [uniqueIdentifier isEqual:uniqueIdentifier2];
+
+  if (v11)
+  {
+    characteristicType = [(CAFService *)self observers];
+    vehicleUserVisibleLabel = [(CAFVehicleInformation *)self vehicleUserVisibleLabel];
+    [characteristicType vehicleInformationService:self didUpdateVehicleUserVisibleLabel:vehicleUserVisibleLabel];
+
+LABEL_4:
+  }
+
+  v13.receiver = self;
+  v13.super_class = CAFVehicleInformation;
+  [(CAFService *)&v13 _characteristicDidUpdate:updateCopy fromGroupUpdate:groupUpdateCopy];
 }
 
 - (BOOL)registeredForVehicleUserVisibleLabel

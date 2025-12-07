@@ -46,12 +46,11 @@
 {
   addedCopy = added;
   selfCopy = self;
-  v21 = type metadata accessor for UUID();
-  v10 = *(v21 - 8);
-  v11 = *(v10 + 64);
-  __chkstk_darwin(v21, v12);
-  v14 = &v18 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v15 = _Block_copy(handler);
+  v20 = type metadata accessor for UUID();
+  v10 = *(v20 - 8);
+  __chkstk_darwin(v20);
+  v12 = &v17 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v13 = _Block_copy(handler);
   static String._unconditionallyBridgeFromObjectiveC(_:)();
   static String._unconditionallyBridgeFromObjectiveC(_:)();
   if (ds)
@@ -60,32 +59,33 @@
   }
 
   static UUID._unconditionallyBridgeFromObjectiveC(_:)();
-  if (v15)
+  if (v13)
   {
-    *(swift_allocObject() + 16) = v15;
-    v16 = sub_1003701E0;
+    v14 = swift_allocObject();
+    *(v14 + 16) = v13;
+    v15 = sub_1003701E0;
   }
 
   else
   {
-    v16 = 0;
+    v15 = 0;
+    v14 = 0;
   }
 
-  v17 = selfCopy;
+  v16 = selfCopy;
   sub_1004237E4();
-  sub_1000051F8(v16);
+  sub_1000051F8(v15, v14);
 
-  (*(v10 + 8))(v14, v21);
+  (*(v10 + 8))(v12, v20);
 }
 
 - (void)collaborationAdded:(id)added collaborationURL:(id)l cloudKitAppBundleIDs:(id)ds isLocallyAdded:(BOOL)locallyAdded toConversationUUID:(id)d
 {
   v9 = type metadata accessor for UUID();
   v10 = *(v9 - 8);
-  v11 = *(v10 + 64);
-  __chkstk_darwin(v9, v12);
-  v14 = &v16 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
-  static String._unconditionallyBridgeFromObjectiveC(_:)();
+  __chkstk_darwin(v9);
+  v12 = &v15 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v13 = static String._unconditionallyBridgeFromObjectiveC(_:)();
   static String._unconditionallyBridgeFromObjectiveC(_:)();
   if (ds)
   {
@@ -94,9 +94,9 @@
 
   static UUID._unconditionallyBridgeFromObjectiveC(_:)();
   selfCopy = self;
-  sub_100423ED0();
+  sub_100423ED0(v13);
 
-  (*(v10 + 8))(v14, v9);
+  (*(v10 + 8))(v12, v9);
 }
 
 - (void)stopTrackingCollaborationForConversationIfNecessary:(id)necessary
@@ -120,47 +120,44 @@
 {
   v8 = type metadata accessor for UUID();
   v9 = *(v8 - 8);
-  v10 = *(v9 + 64);
-  __chkstk_darwin(v8, v11);
-  v13 = &v17 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v14 = _Block_copy(handler);
+  __chkstk_darwin(v8);
+  v11 = &v15 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = _Block_copy(handler);
   static UUID._unconditionallyBridgeFromObjectiveC(_:)();
-  _Block_copy(v14);
+  _Block_copy(v12);
   initiatorCopy = initiator;
   selfCopy = self;
-  sub_1004253BC(initiatorCopy, v13, selfCopy, v14);
-  _Block_release(v14);
+  sub_1004253BC(initiatorCopy, v11, selfCopy, v12);
+  _Block_release(v12);
 
-  (*(v9 + 8))(v13, v8);
+  (*(v9 + 8))(v11, v8);
 }
 
 - (void)addDisclosedCollaborationInitiator:(id)initiator toConversationUUID:(id)d
 {
   v6 = type metadata accessor for UUID();
   v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
-  __chkstk_darwin(v6, v9);
-  v11 = &v14 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v6);
+  v9 = &v12 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   static UUID._unconditionallyBridgeFromObjectiveC(_:)();
   initiatorCopy = initiator;
   selfCopy = self;
   sub_100425AC8();
 
-  (*(v7 + 8))(v11, v6);
+  (*(v7 + 8))(v9, v6);
 }
 
 - (void)stopTrackingDisclosedCollaborationInitiatorsForConversationUUID:(id)d
 {
   v4 = type metadata accessor for UUID();
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
-  __chkstk_darwin(v4, v7);
-  v9 = &v11 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v4);
+  v7 = &v9 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   static UUID._unconditionallyBridgeFromObjectiveC(_:)();
   selfCopy = self;
   sub_100425F40();
 
-  (*(v5 + 8))(v9, v4);
+  (*(v5 + 8))(v7, v4);
 }
 
 @end

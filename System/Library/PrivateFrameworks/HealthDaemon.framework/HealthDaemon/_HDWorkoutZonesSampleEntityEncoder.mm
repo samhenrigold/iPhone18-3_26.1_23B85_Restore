@@ -9,14 +9,12 @@
 
 - (id)orderedProperties
 {
-  v9[1] = *MEMORY[0x277D85DE8];
-  v9[0] = @"zones";
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:1];
+  v8[1] = *MEMORY[0x277D85DE8];
+  v8[0] = @"zones";
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:1];
   superclassEncoder = [(HDEntityEncoder *)self superclassEncoder];
   orderedProperties = [superclassEncoder orderedProperties];
   v6 = [v3 arrayByAddingObjectsFromArray:orderedProperties];
-
-  v7 = *MEMORY[0x277D85DE8];
 
   return v6;
 }

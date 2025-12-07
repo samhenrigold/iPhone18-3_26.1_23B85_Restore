@@ -100,13 +100,12 @@ LABEL_7:
 id __37__AFCoercion_typeAssertionWithClass___block_invoke(uint64_t a1, void *a2, void *a3)
 {
   v5 = a2;
-  v6 = *(a1 + 32);
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
-    v9 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Object %@ is not a kind of %@", v5, *(a1 + 32)];
-    v8 = [AFConversationError errorWithCode:200 localizedFailureReason:v9];
+    v8 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Object %@ is not a kind of %@", v5, *(a1 + 32)];
+    v7 = [AFConversationError errorWithCode:200 localizedFailureReason:v8];
 
-    v7 = 0;
+    v6 = 0;
     if (!a3)
     {
       goto LABEL_6;
@@ -115,18 +114,18 @@ id __37__AFCoercion_typeAssertionWithClass___block_invoke(uint64_t a1, void *a2,
     goto LABEL_5;
   }
 
-  v7 = v5;
-  v8 = 0;
+  v6 = v5;
+  v7 = 0;
   if (a3)
   {
 LABEL_5:
-    v10 = v8;
-    *a3 = v8;
+    v9 = v7;
+    *a3 = v7;
   }
 
 LABEL_6:
 
-  return v7;
+  return v6;
 }
 
 + (id)coercionWithBlock:(id)block

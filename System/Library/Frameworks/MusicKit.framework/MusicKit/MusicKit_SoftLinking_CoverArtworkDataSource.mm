@@ -254,15 +254,13 @@
 
 - (id)_errorWithDescription:(id)description
 {
-  v10[1] = *MEMORY[0x277D85DE8];
-  v9 = *MEMORY[0x277CCA068];
-  v10[0] = description;
+  v9[1] = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277CCA068];
+  v9[0] = description;
   v3 = MEMORY[0x277CBEAC0];
   descriptionCopy = description;
-  v5 = [v3 dictionaryWithObjects:v10 forKeys:&v9 count:1];
+  v5 = [v3 dictionaryWithObjects:v9 forKeys:&v8 count:1];
   v6 = [MEMORY[0x277CCA9B8] errorWithDomain:@"MusicKit_SoftLinking_CoverArtworkRecipeError" code:0 userInfo:v5];
-
-  v7 = *MEMORY[0x277D85DE8];
 
   return v6;
 }

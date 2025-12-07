@@ -5,6 +5,7 @@
 - (CGPoint)_findCircleLineIntersectionWithOffset:(double)offset cornerRadiusOffset:(double)radiusOffset radius:(double)radius slope:(double)slope;
 - (CGPoint)_findIntersectionOfCircle:(CGPoint)circle cornerRadius:(double)radius offset:(double)offset;
 - (CGPoint)_findPointThatIsDistance:(double)distance fromPoint:(CGPoint)point onSlope:(double)slope offset:(double)offset;
+- (CGPoint)_getMirroredPoint:(CGPoint)point;
 - (CGPoint)_midPointOfPoint1:(CGPoint)point1 point2:(CGPoint)point2;
 - (CGPoint)_pointAtAngle:(double)angle radius:(double)radius;
 - (double)_findNewOffsetOfParalelLineWithSlope:(double)slope offset:(double)offset distanceFrom:(double)from;
@@ -380,6 +381,18 @@ LABEL_8:
   radiusCopy = radius;
   v12 = v10 * -4.0 * ((offsetCopy * offsetCopy) - (radiusCopy * radiusCopy)) + v8 * (offsetCopy * offsetCopy);
   return (sqrtf(v12) - v5) / (v10 + v10);
+}
+
+- (CGPoint)_getMirroredPoint:(CGPoint)point
+{
+  y = point.y;
+  __asm { FMOV            V1.2S, #1.0 }
+
+  v9 = vcvtq_f64_f32(vmul_f32(vcvt_f32_f64(point), COERCE_FLOAT32X2_T(-_D1)));
+  v10 = v9.f64[1];
+  result.x = v9.f64[0];
+  result.y = v10;
+  return result;
 }
 
 - (CGPoint)_pointAtAngle:(double)angle radius:(double)radius

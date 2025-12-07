@@ -421,21 +421,21 @@ LABEL_46:
 LABEL_47:
 }
 
-void __104__SUUIExplicitRestrictionAlertController_presentExplicitRestrictionAlertIfNeededOfType_completionBlock___block_invoke_6(uint64_t a1)
+void __104__SUUIExplicitRestrictionAlertController_presentExplicitRestrictionAlertIfNeededOfType_completionBlock___block_invoke_6(uint64_t a1, uint64_t a2)
 {
   if (*(a1 + 32) == 1)
   {
-    v2 = SUUIMobileCoreServicesFramework();
-    v5 = [SUUIWeakLinkedClassForString(&cfstr_Lsapplicationw.isa v2)];
-    v3 = [MEMORY[0x277CBEBC0] URLWithString:@"prefs:root=General&path=RESTRICTIONS"];
-    [v5 openSensitiveURL:v3 withOptions:0];
+    v3 = SUUIMobileCoreServicesFramework(a1, a2);
+    v6 = [SUUIWeakLinkedClassForString(&cfstr_Lsapplicationw.isa v3)];
+    v4 = [MEMORY[0x277CBEBC0] URLWithString:@"prefs:root=General&path=RESTRICTIONS"];
+    [v6 openSensitiveURL:v4 withOptions:0];
   }
 
   else
   {
-    v4 = MEMORY[0x277D69C38];
+    v5 = MEMORY[0x277D69C38];
 
-    [v4 setAllowExplicitContent];
+    [v5 setAllowExplicitContent];
   }
 }
 

@@ -111,40 +111,40 @@ LABEL_6:
 
 - (id)tokens
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   backingDict = [(OSLogDeserializedMessagePlaceholder *)self backingDict];
   v5 = [backingDict objectForKeyedSubscript:@"t"];
 
   if (v5)
   {
     array = [MEMORY[0x277CBEB18] array];
+    v18 = 0u;
     v19 = 0u;
     v20 = 0u;
     v21 = 0u;
-    v22 = 0u;
     v7 = v5;
-    v8 = [v7 countByEnumeratingWithState:&v19 objects:v23 count:16];
+    v8 = [v7 countByEnumeratingWithState:&v18 objects:v22 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v20;
+      v10 = *v19;
       do
       {
         v11 = 0;
         do
         {
-          if (*v20 != v10)
+          if (*v19 != v10)
           {
             objc_enumerationMutation(v7);
           }
 
-          v12 = *(*(&v19 + 1) + 8 * v11);
+          v12 = *(*(&v18 + 1) + 8 * v11);
           objc_opt_class();
           if ((objc_opt_isKindOfClass() & 1) == 0)
           {
             currentHandler = [MEMORY[0x277CCA890] currentHandler];
-            v18 = objc_opt_class();
-            [currentHandler handleFailureInMethod:a2 object:self file:@"EventSerializer.m" lineNumber:1336 description:{@"Unexpected class: %@. Expected: %@", v18, objc_opt_class()}];
+            v17 = objc_opt_class();
+            [currentHandler handleFailureInMethod:a2 object:self file:@"EventSerializer.m" lineNumber:1336 description:{@"Unexpected class: %@. Expected: %@", v17, objc_opt_class()}];
           }
 
           metadata = [(OSLogDeserializedMessagePlaceholder *)self metadata];
@@ -155,7 +155,7 @@ LABEL_6:
         }
 
         while (v9 != v11);
-        v9 = [v7 countByEnumeratingWithState:&v19 objects:v23 count:16];
+        v9 = [v7 countByEnumeratingWithState:&v18 objects:v22 count:16];
       }
 
       while (v9);
@@ -166,8 +166,6 @@ LABEL_6:
   {
     array = MEMORY[0x277CBEBF8];
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return array;
 }

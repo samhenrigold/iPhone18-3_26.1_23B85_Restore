@@ -1,4 +1,5 @@
 @interface PGSpecBasedHighlightTitleGenerator
+- (PGSpecBasedHighlightTitleGenerator)initWithCollection:(id)collection meaningLabel:(id)label createVerboseTitle:(BOOL)title titleGenerationContext:(id)context;
 - (PGSpecBasedHighlightTitleGenerator)initWithMomentNodes:(id)nodes meaningLabel:(id)label createVerboseTitle:(BOOL)title titleGenerationContext:(id)context;
 - (void)_generateTitleAndSubtitleWithResult:(id)result;
 @end
@@ -36,6 +37,18 @@
   }
 
   return v13;
+}
+
+- (PGSpecBasedHighlightTitleGenerator)initWithCollection:(id)collection meaningLabel:(id)label createVerboseTitle:(BOOL)title titleGenerationContext:(id)context
+{
+  titleCopy = title;
+  contextCopy = context;
+  labelCopy = label;
+  eventEnrichmentMomentNodes = [collection eventEnrichmentMomentNodes];
+  temporarySet = [eventEnrichmentMomentNodes temporarySet];
+
+  v14 = [(PGSpecBasedHighlightTitleGenerator *)self initWithMomentNodes:temporarySet meaningLabel:labelCopy createVerboseTitle:titleCopy titleGenerationContext:contextCopy];
+  return v14;
 }
 
 @end

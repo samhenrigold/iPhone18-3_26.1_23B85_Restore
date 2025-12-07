@@ -25,7 +25,7 @@
   v6 = WeakRetained;
   if (WeakRetained)
   {
-    [WeakRetained camera];
+    objc_msgSend_camera(WeakRetained);
   }
 
   else
@@ -81,7 +81,7 @@
     v15 = v14;
     if (v14)
     {
-      [v14 camera];
+      objc_msgSend_camera(v14);
       v14 = v25;
       v16 = v26;
     }
@@ -141,7 +141,7 @@
     v14 = v13;
     if (v13)
     {
-      [v13 camera];
+      objc_msgSend_camera(v13);
       v13 = v25;
       v15 = v26;
     }
@@ -181,7 +181,7 @@
   v7 = WeakRetained;
   if (WeakRetained)
   {
-    [WeakRetained camera];
+    objc_msgSend_camera(WeakRetained);
     WeakRetained = v12;
     v8 = v13;
   }

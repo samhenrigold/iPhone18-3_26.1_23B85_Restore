@@ -24,7 +24,7 @@
 
 - (JavaTextNumberFormat)init
 {
-  JavaTextFormat_init(self, a2);
+  JavaTextFormat_init();
   self->groupingUsed_ = 1;
   self->parseIntegerOnly_ = 0;
   self->maximumIntegerDigits_ = 40;
@@ -171,21 +171,21 @@ LABEL_21:
 {
   Default = JavaUtilLocale_getDefault();
 
-  return JavaTextNumberFormat_getCurrencyInstanceWithJavaUtilLocale_(Default);
+  return JavaTextNumberFormat_getCurrencyInstanceWithJavaUtilLocale_(Default, v3);
 }
 
 + (id)getIntegerInstance
 {
   Default = JavaUtilLocale_getDefault();
 
-  return JavaTextNumberFormat_getIntegerInstanceWithJavaUtilLocale_(Default);
+  return JavaTextNumberFormat_getIntegerInstanceWithJavaUtilLocale_(Default, v3);
 }
 
 + (id)getInstance
 {
   Default = JavaUtilLocale_getDefault();
 
-  return JavaTextNumberFormat_getNumberInstanceWithJavaUtilLocale_(Default);
+  return JavaTextNumberFormat_getNumberInstanceWithJavaUtilLocale_(Default, v3);
 }
 
 + (id)getInstanceWithNSString:(id)string withJavaUtilLocale:(id)locale
@@ -199,14 +199,14 @@ LABEL_21:
 {
   Default = JavaUtilLocale_getDefault();
 
-  return JavaTextNumberFormat_getNumberInstanceWithJavaUtilLocale_(Default);
+  return JavaTextNumberFormat_getNumberInstanceWithJavaUtilLocale_(Default, v3);
 }
 
 + (id)getPercentInstance
 {
   Default = JavaUtilLocale_getDefault();
 
-  return JavaTextNumberFormat_getPercentInstanceWithJavaUtilLocale_(Default);
+  return JavaTextNumberFormat_getPercentInstanceWithJavaUtilLocale_(Default, v3);
 }
 
 - (unint64_t)hash

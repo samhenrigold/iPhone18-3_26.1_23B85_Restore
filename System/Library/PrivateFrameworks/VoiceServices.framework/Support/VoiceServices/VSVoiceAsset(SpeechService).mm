@@ -1,13 +1,12 @@
 @interface VSVoiceAsset(SpeechService)
-- (uint64_t)gainDecibelWithVolume:()SpeechService;
+- (void)gainDecibelWithVolume:()SpeechService;
 @end
 
 @implementation VSVoiceAsset(SpeechService)
 
-- (uint64_t)gainDecibelWithVolume:()SpeechService
+- (void)gainDecibelWithVolume:()SpeechService
 {
   result = [self footprint];
-  LODWORD(v5) = 2.5;
   if (result != 1)
   {
     result = [self type];

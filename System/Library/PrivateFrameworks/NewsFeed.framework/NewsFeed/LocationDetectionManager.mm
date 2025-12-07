@@ -59,11 +59,11 @@
     swift_once();
   }
 
-  sub_1D7262EBC();
-  sub_1D725C30C();
-  _authorizationStatus = [*(&selfCopy->super.isa + OBJC_IVAR____TtC8NewsFeed24LocationDetectionManager_locationManager) _authorizationStatus];
+  v4 = qword_1EDFFCAB0;
+  v5 = sub_1D7262EBC();
+  LODWORD(v4) = [*(&selfCopy->super.isa + OBJC_IVAR____TtC8NewsFeed24LocationDetectionManager_locationManager) _authorizationStatus];
 
-  return _authorizationStatus - 3 < 2;
+  return (v4 - 3) < 2;
 }
 
 - (void)isAuthorizedWithCompletionHandler:(id)handler

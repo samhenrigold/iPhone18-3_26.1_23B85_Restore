@@ -45,40 +45,38 @@
 
 - (void)_setRemoteViewController:(id)controller
 {
-  v24[4] = *MEMORY[0x1E69E9840];
+  v23[4] = *MEMORY[0x1E69E9840];
   controllerCopy = controller;
   [(_ASExtensionViewController *)self _endDelayingPresentation];
   view = [(UIViewController *)controllerCopy view];
   view2 = [(_ASExtensionViewController *)self view];
   remoteViewController = self->_remoteViewController;
   self->_remoteViewController = controllerCopy;
-  v21 = controllerCopy;
+  v20 = controllerCopy;
 
   [view setTranslatesAutoresizingMaskIntoConstraints:0];
   [(UIViewController *)self->_remoteViewController willMoveToParentViewController:self];
   [view2 addSubview:view];
   [(_ASExtensionViewController *)self addChildViewController:self->_remoteViewController];
-  v17 = MEMORY[0x1E696ACD8];
+  v16 = MEMORY[0x1E696ACD8];
   leftAnchor = [view leftAnchor];
   leftAnchor2 = [view2 leftAnchor];
-  v20 = [leftAnchor constraintEqualToAnchor:leftAnchor2];
-  v24[0] = v20;
+  v19 = [leftAnchor constraintEqualToAnchor:leftAnchor2];
+  v23[0] = v19;
   topAnchor = [view topAnchor];
   topAnchor2 = [view2 topAnchor];
   v8 = [topAnchor constraintEqualToAnchor:topAnchor2];
-  v24[1] = v8;
+  v23[1] = v8;
   rightAnchor = [view rightAnchor];
   rightAnchor2 = [view2 rightAnchor];
   v11 = [rightAnchor constraintEqualToAnchor:rightAnchor2];
-  v24[2] = v11;
+  v23[2] = v11;
   bottomAnchor = [view bottomAnchor];
   bottomAnchor2 = [view2 bottomAnchor];
   v14 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2];
-  v24[3] = v14;
-  v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v24 count:4];
-  [v17 activateConstraints:v15];
-
-  v16 = *MEMORY[0x1E69E9840];
+  v23[3] = v14;
+  v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v23 count:4];
+  [v16 activateConstraints:v15];
 }
 
 - (void)setDismissOnBackground:(BOOL)background
@@ -171,21 +169,22 @@
   entitlements = [_plugIn entitlements];
 
   v5 = [entitlements safari_BOOLForKey:@"get-task-allow"];
-  v6 = WBS_LOG_CHANNEL_PREFIXCredentialProviderExtension();
-  v7 = os_log_type_enabled(v6, OS_LOG_TYPE_ERROR);
-  if (v5)
+  v6 = v5;
+  v8 = WBS_LOG_CHANNEL_PREFIXCredentialProviderExtension(v5, v7);
+  v9 = os_log_type_enabled(v8, OS_LOG_TYPE_ERROR);
+  if (v6)
   {
-    if (v7)
+    if (v9)
     {
-      [(_ASExtensionViewController *)v6 _nonUIRequestTimedOut];
+      [(_ASExtensionViewController *)v8 _nonUIRequestTimedOut];
     }
   }
 
   else
   {
-    if (v7)
+    if (v9)
     {
-      [(_ASExtensionViewController *)v6 _nonUIRequestTimedOut];
+      [(_ASExtensionViewController *)v8 _nonUIRequestTimedOut];
     }
 
     [(NSExtension *)self->_extension _kill:9];

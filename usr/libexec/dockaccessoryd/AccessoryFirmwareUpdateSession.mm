@@ -24,7 +24,7 @@
   }
 
   v5.receiver = self;
-  v5.super_class = type metadata accessor for AccessoryFirmwareUpdateSession();
+  v5.super_class = type metadata accessor for AccessoryFirmwareUpdateSession(0);
   [(AccessoryFirmwareUpdateSession *)&v5 dealloc];
 }
 
@@ -83,7 +83,7 @@
 {
   swift_unknownObjectRetain();
   selfCopy = self;
-  sub_1000C39C0();
+  sub_1000C39C0(selfCopy, v4);
   swift_unknownObjectRelease();
 }
 
@@ -92,7 +92,7 @@
   swift_unknownObjectRetain();
   errorCopy = error;
   selfCopy = self;
-  sub_1000C3BDC();
+  sub_1000C3BDC(errorCopy, v7);
   swift_unknownObjectRelease();
 }
 

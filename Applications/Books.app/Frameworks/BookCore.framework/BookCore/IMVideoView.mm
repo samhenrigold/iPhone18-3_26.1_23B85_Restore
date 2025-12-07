@@ -56,39 +56,40 @@
 
   if (airplayVideoActive)
   {
-    v6 = @"AirPlay";
+    v7 = @"AirPlay";
   }
 
   else
   {
-    if (![(IMVideoView *)self externalDisplay])
+    externalDisplay = [(IMVideoView *)self externalDisplay];
+    if (!externalDisplay)
     {
       goto LABEL_6;
     }
 
-    v7 = IMCommonCoreBundle();
-    v8 = [v7 localizedStringForKey:@"TV" value:&stru_2D2930 table:@"BCCommonCoreLocalizable"];
+    v9 = IMCommonCoreBundle(externalDisplay);
+    v10 = [v9 localizedStringForKey:@"TV" value:&stru_2D2930 table:@"BCCommonCoreLocalizable"];
 
-    v6 = @"TV Connected";
-    obj = v8;
+    v7 = @"TV Connected";
+    obj = v10;
   }
 
-  v9 = IMCommonCoreBundle();
-  v10 = [v9 localizedStringForKey:v6 value:&stru_2D2930 table:@"BCCommonCoreLocalizable"];
-  [(UILabel *)self->_airplayLabel setText:v10];
+  v11 = IMCommonCoreBundle(v6);
+  v12 = [v11 localizedStringForKey:v7 value:&stru_2D2930 table:@"BCCommonCoreLocalizable"];
+  [(UILabel *)self->_airplayLabel setText:v12];
 
 LABEL_6:
-  v11 = obj;
+  v13 = obj;
   if (self->_airplayRouteName != obj)
   {
     objc_storeStrong(&self->_airplayRouteName, obj);
-    v12 = IMCommonCoreBundle();
-    v13 = [v12 localizedStringForKey:@"The video is playing on \\U201C%@\\U201D." value:&stru_2D2930 table:@"BCCommonCoreLocalizable"];
+    v15 = IMCommonCoreBundle(v14);
+    v16 = [v15 localizedStringForKey:@"The video is playing on \\U201C%@\\U201D." value:&stru_2D2930 table:@"BCCommonCoreLocalizable"];
 
-    v14 = [NSString stringWithFormat:v13, obj];
-    [(UILabel *)self->_airplayRouteLabel setText:v14];
+    v17 = [NSString stringWithFormat:v16, obj];
+    [(UILabel *)self->_airplayRouteLabel setText:v17];
 
-    v11 = obj;
+    v13 = obj;
   }
 }
 
@@ -102,7 +103,7 @@ LABEL_6:
 
 - (BOOL)smallAirplayBackground
 {
-  v3 = isPhone();
+  v3 = isPhone(self);
   [(IMVideoView *)self frame];
   return v4 < 768.0 || v3;
 }

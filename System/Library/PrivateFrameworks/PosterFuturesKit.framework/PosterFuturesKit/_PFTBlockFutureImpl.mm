@@ -459,98 +459,100 @@ LABEL_5:
 
 - (BOOL)finishWithResult:(id)result error:(id)error
 {
-  v30[2] = *MEMORY[0x277D85DE8];
+  v34[2] = *MEMORY[0x277D85DE8];
   resultCopy = result;
   errorCopy = error;
-  if (+[PFTObservableContractEnforcement shouldSwizzleNilResults])
+  null = +[PFTObservableContractEnforcement shouldSwizzleNilResults];
+  if (null)
   {
-    v8 = (resultCopy | errorCopy) == 0;
+    v9 = (resultCopy | errorCopy) == 0;
   }
 
   else
   {
-    v8 = 0;
+    v9 = 0;
   }
 
-  if (!v8)
+  if (!v9)
   {
-    v9 = resultCopy != 0;
-    v10 = errorCopy != 0;
-    if ((v9 ^ v10))
+    v10 = resultCopy != 0;
+    v11 = errorCopy != 0;
+    if ((v10 ^ v11))
     {
 LABEL_20:
-      null = resultCopy;
+      v22 = resultCopy;
       goto LABEL_21;
     }
 
 LABEL_6:
-    v11 = PFTLogFutures();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
-    {
-      [_PFTBlockFutureImpl finishWithResult:error:];
-    }
-
-    v12 = PFTLogFutures();
+    v12 = PFTLogFutures(null);
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       [_PFTBlockFutureImpl finishWithResult:error:];
     }
 
-    v13 = PFTLogFutures();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
-    {
-      [_PFTBlockFutureImpl finishWithResult:error:];
-    }
-
-    v14 = PFTLogFutures();
+    v14 = PFTLogFutures(v13);
     if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       [_PFTBlockFutureImpl finishWithResult:error:];
     }
 
-    v15 = PFTObserverProtocolExceptionNullMarker;
-    v29[0] = PFTObserverProtocolExceptionResultKey;
-    v29[1] = PFTObserverProtocolExceptionErrorKey;
-    if (v9)
+    v16 = PFTLogFutures(v15);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
-      v16 = resultCopy;
+      [_PFTBlockFutureImpl finishWithResult:error:];
+    }
+
+    v18 = PFTLogFutures(v17);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+    {
+      [_PFTBlockFutureImpl finishWithResult:error:];
+    }
+
+    v19 = PFTObserverProtocolExceptionNullMarker;
+    v33[0] = PFTObserverProtocolExceptionResultKey;
+    v33[1] = PFTObserverProtocolExceptionErrorKey;
+    if (v10)
+    {
+      v20 = resultCopy;
     }
 
     else
     {
-      v16 = PFTObserverProtocolExceptionNullMarker;
+      v20 = PFTObserverProtocolExceptionNullMarker;
     }
 
-    if (v10)
+    if (v11)
     {
-      v15 = errorCopy;
+      v19 = errorCopy;
     }
 
-    v30[0] = v16;
-    v30[1] = v15;
-    v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v30 forKeys:v29 count:2];
-    PFTFutureThrowProtocolExceptionWithReason(@"Either the result or error must be non-nil", v17);
+    v34[0] = v20;
+    v34[1] = v19;
+    v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v34 forKeys:v33 count:2];
+    PFTFutureThrowProtocolExceptionWithReason(@"Either the result or error must be non-nil", v21);
 
     goto LABEL_20;
   }
 
-  v27 = PFTLogFutures();
-  if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+  v30 = PFTLogFutures(null);
+  if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
   {
     [_PFTBlockFutureImpl finishWithResult:error:];
   }
 
-  v28 = PFTLogFutures();
-  if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+  v32 = PFTLogFutures(v31);
+  if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
   {
     [_PFTBlockFutureImpl finishWithResult:error:];
   }
 
   null = [MEMORY[0x277CBEB68] null];
+  v22 = null;
   if (!null)
   {
+    v11 = 0;
     v10 = 0;
-    v9 = 0;
     goto LABEL_6;
   }
 
@@ -569,7 +571,7 @@ LABEL_21:
 
   else
   {
-    [(PFTFutureResult *)self->_futureResult setResult:null error:errorCopy];
+    [(PFTFutureResult *)self->_futureResult setResult:v22 error:errorCopy];
     nts_mayResumeQueue = [(_PFTBlockFutureImpl *)self nts_mayResumeQueue];
     stateLock4 = [(_PFTBlockFutureImpl *)self stateLock];
     [stateLock4 unlockWithCondition:1];
@@ -580,7 +582,6 @@ LABEL_21:
     }
   }
 
-  v25 = *MEMORY[0x277D85DE8];
   return condition != 1;
 }
 
@@ -637,12 +638,9 @@ LABEL_21:
 
 - (void)finishWithResult:error:.cold.2()
 {
-  v9 = *MEMORY[0x277D85DE8];
   v0 = [MEMORY[0x277CCACC8] callStackSymbols];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_4(&dword_25ED8F000, v1, v2, "Call stack: %{public}@", v3, v4, v5, v6, v8);
-
-  v7 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_4(&dword_25ED8F000, v1, v2, "Call stack: %{public}@", v3, v4, v5, v6);
 }
 
 - (void)finishWithResult:error:.cold.3()
@@ -654,20 +652,16 @@ LABEL_21:
 
 - (void)finishWithResult:error:.cold.4()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_3();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)finishWithResult:error:.cold.5()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_3();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -38,7 +38,7 @@
   v2 = *&__clearButtonPreferredSize;
   if (*&__clearButtonPreferredSize == 0.0 && *(&__clearButtonPreferredSize + 1) == 0.0)
   {
-    v4 = NCUserNotificationsUIKitFrameworkBundle();
+    v4 = NCUserNotificationsUIKitFrameworkBundle(self);
     v5 = [v4 localizedStringForKey:@"NOTIFICATION_LIST_CLEAR_ALL" value:&stru_282FE84F8 table:0];
     v6 = [NCToggleControl dismissControlWithMaterialRecipe:0 clearAllText:v5];
 
@@ -85,7 +85,7 @@
 
 + (double)headerHeightWithWidth:(double)width title:(id)title isShowingCollapseButton:(BOOL)button
 {
-  v60[1] = *MEMORY[0x277D85DE8];
+  v64[1] = *MEMORY[0x277D85DE8];
   v9 = MEMORY[0x277D76620];
   v10 = *MEMORY[0x277D76620];
   titleCopy = title;
@@ -121,23 +121,23 @@ LABEL_4:
       currentDevice2 = [MEMORY[0x277D75418] currentDevice];
       if ([currentDevice2 userInterfaceIdiom])
       {
-        v19 = 0;
-        v20 = 1;
-        v21 = 50.0;
+        v20 = 0;
+        v21 = 1;
+        v22 = 50.0;
       }
 
       else
       {
-        v61.origin.x = NCMainScreenReferenceBounds();
-        v19 = 0;
-        v22 = CGRectGetHeight(v61) <= 568.0;
-        v21 = 50.0;
-        if (!v22)
+        v65.origin.x = NCMainScreenReferenceBounds(0, v19);
+        v20 = 0;
+        v24 = CGRectGetHeight(v65) <= 568.0;
+        v22 = 50.0;
+        if (!v24)
         {
-          v21 = 54.0;
+          v22 = 54.0;
         }
 
-        v20 = 1;
+        v21 = 1;
       }
 
       goto LABEL_15;
@@ -148,32 +148,32 @@ LABEL_4:
   userInterfaceIdiom = [MEMORY[0x277D75418] currentDevice];
   if ([userInterfaceIdiom userInterfaceIdiom])
   {
-    v20 = 0;
-    v19 = 1;
-    v21 = 52.0;
+    v21 = 0;
+    v20 = 1;
+    v22 = 52.0;
   }
 
   else
   {
-    v62.origin.x = NCMainScreenReferenceBounds();
-    v20 = 0;
-    v22 = CGRectGetHeight(v62) <= 568.0;
-    v21 = 52.0;
-    if (!v22)
+    v66.origin.x = NCMainScreenReferenceBounds(0, v23);
+    v21 = 0;
+    v24 = CGRectGetHeight(v66) <= 568.0;
+    v22 = 52.0;
+    if (!v24)
     {
-      v21 = 56.0;
+      v22 = 56.0;
     }
 
-    v19 = 1;
+    v20 = 1;
   }
 
 LABEL_15:
-  [v14 _scaledValueForValue:v21 + -8.0];
+  [v14 _scaledValueForValue:v22 + -8.0];
   [v14 lineHeight];
-  if (v20)
+  if (v21)
   {
 
-    if ((v19 & 1) == 0)
+    if ((v20 & 1) == 0)
     {
       goto LABEL_20;
     }
@@ -181,7 +181,7 @@ LABEL_15:
     goto LABEL_19;
   }
 
-  if (v19)
+  if (v20)
   {
 LABEL_19:
   }
@@ -197,64 +197,64 @@ LABEL_23:
   __clearButtonPreferredSize = *MEMORY[0x277CBF3A8];
   __collapseButtonPreferredSize = __clearButtonPreferredSize;
   [self _clearButtonPreferredSize];
-  v24 = v23;
-  [self _collapseButtonPreferredSize];
   v26 = v25;
+  [self _collapseButtonPreferredSize];
+  v28 = v27;
   currentDevice3 = [MEMORY[0x277D75418] currentDevice];
   userInterfaceIdiom2 = [currentDevice3 userInterfaceIdiom];
 
-  v29 = userInterfaceIdiom2 & 0xFFFFFFFFFFFFFFFBLL;
+  v31 = userInterfaceIdiom2 & 0xFFFFFFFFFFFFFFFBLL;
   if ((userInterfaceIdiom2 & 0xFFFFFFFFFFFFFFFBLL) == 1)
   {
-    v30 = ([*v9 activeInterfaceOrientation] - 1) < 2;
+    v32 = ([*v9 activeInterfaceOrientation] - 1) < 2;
   }
 
   else
   {
     currentDevice3 = [MEMORY[0x277D75C80] currentTraitCollection];
-    v30 = [currentDevice3 verticalSizeClass] == 2;
+    v32 = [currentDevice3 verticalSizeClass] == 2;
   }
 
-  v31 = 6.0;
-  if (v30)
+  v33 = 6.0;
+  if (v32)
   {
-    v31 = 10.0;
+    v33 = 10.0;
   }
 
-  v32 = width - v31;
+  v34 = width - v33;
   if (!IsAX)
   {
     currentDevice4 = [MEMORY[0x277D75418] currentDevice];
     userInterfaceIdiom3 = [currentDevice4 userInterfaceIdiom];
 
-    v35 = userInterfaceIdiom3 & 0xFFFFFFFFFFFFFFFBLL;
+    v37 = userInterfaceIdiom3 & 0xFFFFFFFFFFFFFFFBLL;
     if ((userInterfaceIdiom3 & 0xFFFFFFFFFFFFFFFBLL) == 1)
     {
       [*v9 activeInterfaceOrientation];
-      v36 = v24 + 0.0;
+      v38 = v26 + 0.0;
       if (!button)
       {
-        v32 = v32 - v36;
+        v34 = v34 - v38;
         goto LABEL_45;
       }
 
-      v37 = v9;
+      v39 = v9;
     }
 
     else
     {
       currentDevice4 = [MEMORY[0x277D75C80] currentTraitCollection];
       [currentDevice4 verticalSizeClass];
-      v36 = v24 + 0.0;
+      v38 = v26 + 0.0;
       if (!button)
       {
-        v32 = v32 - v36;
+        v34 = v34 - v38;
 LABEL_44:
 
         goto LABEL_45;
       }
 
-      v37 = v9;
+      v39 = v9;
     }
 
     currentDevice5 = [MEMORY[0x277D75418] currentDevice];
@@ -262,65 +262,65 @@ LABEL_44:
 
     if ((userInterfaceIdiom4 & 0xFFFFFFFFFFFFFFFBLL) == 1)
     {
-      activeInterfaceOrientation = [*v37 activeInterfaceOrientation];
-      v41 = 6.0;
+      activeInterfaceOrientation = [*v39 activeInterfaceOrientation];
+      v43 = 6.0;
       if ((activeInterfaceOrientation - 1) < 2)
       {
-        v41 = 10.0;
+        v43 = 10.0;
       }
 
-      v32 = v32 - (v36 + v26 + v41);
+      v34 = v34 - (v38 + v28 + v43);
     }
 
     else
     {
       currentTraitCollection2 = [MEMORY[0x277D75C80] currentTraitCollection];
       verticalSizeClass = [currentTraitCollection2 verticalSizeClass];
-      v44 = 6.0;
+      v46 = 6.0;
       if (verticalSizeClass == 2)
       {
-        v44 = 10.0;
+        v46 = 10.0;
       }
 
-      v32 = v32 - (v36 + v26 + v44);
+      v34 = v34 - (v38 + v28 + v46);
     }
 
-    if (v35 != 1)
+    if (v37 != 1)
     {
       goto LABEL_44;
     }
   }
 
 LABEL_45:
-  if (v29 != 1)
+  if (v31 != 1)
   {
   }
 
-  v59 = *MEMORY[0x277D740A8];
-  v60[0] = v14;
-  v45 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v60 forKeys:&v59 count:1];
-  [titleCopy boundingRectWithSize:1 options:v45 attributes:0 context:{v32, 0.0}];
-  v47 = v46;
+  v63 = *MEMORY[0x277D740A8];
+  v64[0] = v14;
+  v47 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v64 forKeys:&v63 count:1];
+  [titleCopy boundingRectWithSize:1 options:v47 attributes:0 context:{v34, 0.0}];
   v49 = v48;
   v51 = v50;
   v53 = v52;
+  v55 = v54;
 
-  v63.origin.x = v47;
-  v63.origin.y = v49;
-  v63.size.width = v51;
-  v63.size.height = v53;
-  CGRectGetHeight(v63);
+  v67.origin.x = v49;
+  v67.origin.y = v51;
+  v67.size.width = v53;
+  v67.size.height = v55;
+  CGRectGetHeight(v67);
 
   if (!IsAX)
   {
-    [v14 _scaledValueForValue:8.0];
+    v56 = [v14 _scaledValueForValue:8.0];
   }
 
-  _NCMainScreenScale();
+  _NCMainScreenScale(v56, v57);
   UICeilToScale();
-  v55 = v54;
+  v59 = v58;
 
-  return v55;
+  return v59;
 }
 
 - (NCNotificationListSectionHeaderView)initWithFrame:(CGRect)frame
@@ -549,7 +549,7 @@ uint64_t __70__NCNotificationListSectionHeaderView__resetClearButtonStateAnimate
 {
   if (!self->_clearButton)
   {
-    v3 = NCUserNotificationsUIKitFrameworkBundle();
+    v3 = NCUserNotificationsUIKitFrameworkBundle(self);
     v4 = [v3 localizedStringForKey:@"NOTIFICATION_LIST_CLEAR_ALL" value:&stru_282FE84F8 table:0];
     v5 = [NCToggleControl dismissControlWithMaterialRecipe:1 clearAllText:v4];
     clearButton = self->_clearButton;
@@ -722,27 +722,27 @@ uint64_t __70__NCNotificationListSectionHeaderView__resetClearButtonStateAnimate
   if ((v21 & 1) == 0)
   {
 LABEL_18:
-    v31.origin.x = rect;
-    v31.origin.y = v5;
-    v31.size.width = v7;
-    v31.size.height = v9;
-    v27 = CGRectGetMaxX(v31) - v24;
-    v32.origin.x = v11;
-    v32.origin.y = v13;
-    v32.size.width = v15;
-    v32.size.height = v17;
-    v24 = round(v27 - CGRectGetWidth(v32));
+    v33.origin.x = rect;
+    v33.origin.y = v5;
+    v33.size.width = v7;
+    v33.size.height = v9;
+    v27 = CGRectGetMaxX(v33) - v24;
+    v34.origin.x = v11;
+    v34.origin.y = v13;
+    v34.size.width = v15;
+    v34.size.height = v17;
+    v24 = round(v27 - CGRectGetWidth(v34));
   }
 
 LABEL_19:
   [(NCNotificationListSectionHeaderView *)self bounds];
-  CGRectGetHeight(v33);
-  v34.origin.x = v24;
-  v34.origin.y = v13;
-  v34.size.width = v15;
-  v34.size.height = v17;
-  CGRectGetHeight(v34);
-  _NCMainScreenScale();
+  CGRectGetHeight(v35);
+  v36.origin.x = v24;
+  v36.origin.y = v13;
+  v36.size.width = v15;
+  v36.size.height = v17;
+  CGRectGetHeight(v36);
+  _NCMainScreenScale(v28, v29);
   UIRectIntegralWithScale();
   clearButton = self->_clearButton;
 
@@ -765,14 +765,14 @@ LABEL_19:
   _shouldReverseLayoutDirection = [(NCNotificationListSectionHeaderView *)self _shouldReverseLayoutDirection];
   v20 = MEMORY[0x277D76620];
   rect = v10;
-  v65 = v14;
+  v67 = v14;
   if (_shouldReverseLayoutDirection)
   {
-    v70.origin.x = v4;
-    v70.origin.y = v6;
-    v70.size.width = v8;
-    v70.size.height = v10;
-    Width = CGRectGetWidth(v70);
+    v72.origin.x = v4;
+    v72.origin.y = v6;
+    v72.size.width = v8;
+    v72.size.height = v10;
+    Width = CGRectGetWidth(v72);
     currentDevice = [MEMORY[0x277D75418] currentDevice];
     userInterfaceIdiom = [currentDevice userInterfaceIdiom];
 
@@ -795,11 +795,11 @@ LABEL_19:
     }
 
     v30 = Width - v29;
-    v71.origin.x = v12;
-    v71.origin.y = v14;
-    v71.size.width = v16;
-    v71.size.height = v18;
-    v31 = v30 - CGRectGetWidth(v71);
+    v73.origin.x = v12;
+    v73.origin.y = v14;
+    v73.size.width = v16;
+    v73.size.height = v18;
+    v31 = v30 - CGRectGetWidth(v73);
     if (v24 != 1)
     {
     }
@@ -844,17 +844,17 @@ LABEL_19:
   IsAX = _NCSizeCategoryIsAX(preferredContentSizeCategory);
 
   [objc_opt_class() _clearButtonPreferredSize];
-  v68 = v18;
+  v70 = v18;
   v36 = v16;
-  v66 = v28;
+  v68 = v28;
   if (!IsAX)
   {
     v37 = v35;
-    v72.origin.x = v4;
-    v72.origin.y = v6;
-    v72.size.width = v8;
-    v72.size.height = rect;
-    v38 = CGRectGetWidth(v72);
+    v74.origin.x = v4;
+    v74.origin.y = v6;
+    v74.size.width = v8;
+    v74.size.height = rect;
+    v38 = CGRectGetWidth(v74);
     currentDevice3 = [MEMORY[0x277D75418] currentDevice];
     userInterfaceIdiom3 = [currentDevice3 userInterfaceIdiom];
 
@@ -928,50 +928,50 @@ LABEL_19:
 
     headerTitleView = self->_headerTitleView;
     [(NCNotificationListSectionHeaderView *)self bounds];
-    [(NCNotificationListHeaderTitleView *)headerTitleView sizeThatFits:v48, CGRectGetHeight(v73)];
+    [(NCNotificationListHeaderTitleView *)headerTitleView sizeThatFits:v48, CGRectGetHeight(v75)];
     BSRectWithSize();
     v28 = v56;
     v36 = v57;
     v18 = v58;
   }
 
-  v64 = v18;
+  v66 = v18;
   v59 = v16;
   preferredContentSizeCategory2 = [*v20 preferredContentSizeCategory];
   v61 = 12.0;
   if (!_NCSizeCategoryIsAX(preferredContentSizeCategory2))
   {
-    v74.origin.x = v4;
-    v74.origin.y = v6;
-    v74.size.width = v8;
-    v74.size.height = rect;
-    v62 = CGRectGetHeight(v74) + -8.0;
-    v75.origin.y = v65;
-    v75.origin.x = v66;
-    v75.size.width = v59;
-    v75.size.height = v68;
-    v61 = v62 - CGRectGetHeight(v75);
-  }
-
-  if (!IsAX)
-  {
     v76.origin.x = v4;
     v76.origin.y = v6;
     v76.size.width = v8;
     v76.size.height = rect;
-    CGRectGetHeight(v76);
-    v77.origin.x = v28;
-    v77.origin.y = v61;
-    v77.size.width = v36;
-    v77.size.height = v64;
-    CGRectGetHeight(v77);
+    v62 = CGRectGetHeight(v76) + -8.0;
+    v77.origin.y = v67;
+    v77.origin.x = v68;
+    v77.size.width = v59;
+    v77.size.height = v70;
+    v61 = v62 - CGRectGetHeight(v77);
   }
 
-  _NCMainScreenScale();
-  UIRectIntegralWithScale();
-  v63 = self->_headerTitleView;
+  if (!IsAX)
+  {
+    v78.origin.x = v4;
+    v78.origin.y = v6;
+    v78.size.width = v8;
+    v78.size.height = rect;
+    CGRectGetHeight(v78);
+    v79.origin.x = v28;
+    v79.origin.y = v61;
+    v79.size.width = v36;
+    v79.size.height = v66;
+    CGRectGetHeight(v79);
+  }
 
-  [(NCNotificationListHeaderTitleView *)v63 setFrame:?];
+  _NCMainScreenScale(v63, v64);
+  UIRectIntegralWithScale();
+  v65 = self->_headerTitleView;
+
+  [(NCNotificationListHeaderTitleView *)v65 setFrame:?];
 }
 
 - (void)_layoutCollapseButton
@@ -982,18 +982,18 @@ LABEL_19:
   }
 
   [(NCNotificationListSectionHeaderView *)self bounds];
-  v58 = v4;
-  v59 = v3;
-  v56 = v6;
-  v57 = v5;
+  v60 = v4;
+  v61 = v3;
+  v58 = v6;
+  v59 = v5;
   [(NCNotificationListHeaderTitleView *)self->_headerTitleView frame];
   v8 = v7;
   v10 = v9;
   v12 = v11;
   v14 = v13;
   [(NCToggleControl *)self->_clearButton frame];
-  v60 = v16;
-  v61 = v15;
+  v62 = v16;
+  v63 = v15;
   v18 = v17;
   v20 = v19;
   collapseButton = self->_collapseButton;
@@ -1088,11 +1088,11 @@ LABEL_23:
     else if (!IsAX)
     {
 LABEL_25:
-      v64.size.width = v60;
-      v64.origin.x = v61;
-      v64.origin.y = v18;
-      v64.size.height = v20;
-      CGRectGetMinX(v64);
+      v66.size.width = v62;
+      v66.origin.x = v63;
+      v66.origin.y = v18;
+      v66.size.height = v20;
+      CGRectGetMinX(v66);
       currentDevice3 = [MEMORY[0x277D75418] currentDevice];
       userInterfaceIdiom3 = [currentDevice3 userInterfaceIdiom];
 
@@ -1110,11 +1110,11 @@ LABEL_29:
       goto LABEL_30;
     }
 
-    v65.size.width = v60;
-    v65.origin.x = v61;
-    v65.origin.y = v18;
-    v65.size.height = v20;
-    CGRectGetMaxX(v65);
+    v67.size.width = v62;
+    v67.origin.x = v63;
+    v67.origin.y = v18;
+    v67.size.height = v20;
+    CGRectGetMaxX(v67);
     currentDevice4 = [MEMORY[0x277D75418] currentDevice];
     userInterfaceIdiom4 = [currentDevice4 userInterfaceIdiom];
 
@@ -1126,22 +1126,22 @@ LABEL_29:
     goto LABEL_29;
   }
 
-  v63.origin.y = v58;
-  v63.origin.x = v59;
-  v63.size.height = v56;
-  v63.size.width = v57;
-  if (v25 + v37 > CGRectGetWidth(v63))
+  v65.origin.y = v60;
+  v65.origin.x = v61;
+  v65.size.height = v58;
+  v65.size.width = v59;
+  if (v25 + v37 > CGRectGetWidth(v65))
   {
     goto LABEL_23;
   }
 
 LABEL_30:
-  UIRectCenteredYInRect();
-  _NCMainScreenScale();
+  v55 = UIRectCenteredYInRect();
+  _NCMainScreenScale(v55, v56);
   UIRectIntegralWithScale();
-  v55 = self->_collapseButton;
+  v57 = self->_collapseButton;
 
-  [(UIButton *)v55 setFrame:?];
+  [(UIButton *)v57 setFrame:?];
 }
 
 - (void)_handleClearButtonTouchUpInside:(id)inside

@@ -12,14 +12,14 @@
 
 - (HAP2AccessoryServerAccessoryCache)initWithCoder:(id)coder
 {
-  v18[3] = *MEMORY[0x277D85DE8];
+  v17[3] = *MEMORY[0x277D85DE8];
   coderCopy = coder;
   v5 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"HAP2.pe"];
   v6 = MEMORY[0x277CBEB98];
-  v18[0] = objc_opt_class();
-  v18[1] = objc_opt_class();
-  v18[2] = objc_opt_class();
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:3];
+  v17[0] = objc_opt_class();
+  v17[1] = objc_opt_class();
+  v17[2] = objc_opt_class();
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:3];
   v8 = [v6 setWithArray:v7];
 
   v9 = [coderCopy decodeObjectOfClasses:v8 forKey:@"HAP2.ac"];
@@ -43,14 +43,13 @@
     v14 = hap2Log_accessory;
     if (os_log_type_enabled(hap2Log_accessory, OS_LOG_TYPE_ERROR))
     {
-      *v17 = 0;
-      _os_log_error_impl(&dword_22AADC000, v14, OS_LOG_TYPE_ERROR, "AccessoryCache: Unable to decode objects", v17, 2u);
+      *v16 = 0;
+      _os_log_error_impl(&dword_22AADC000, v14, OS_LOG_TYPE_ERROR, "AccessoryCache: Unable to decode objects", v16, 2u);
     }
 
     selfCopy = 0;
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   return selfCopy;
 }
 

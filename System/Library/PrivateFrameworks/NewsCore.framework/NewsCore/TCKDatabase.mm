@@ -26,7 +26,7 @@
 
 - (void)addOperation:(id)operation
 {
-  v291 = *MEMORY[0x1E69E9840];
+  v290 = *MEMORY[0x1E69E9840];
   operationCopy = operation;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
@@ -40,9 +40,9 @@
   }
 
   v6 = v5;
-  v199 = v6;
+  v198 = v6;
   selfCopy = self;
-  v194 = operationCopy;
+  v193 = operationCopy;
   if (!v6)
   {
     goto LABEL_18;
@@ -77,19 +77,19 @@
   tSavedRecordIDs2 = [(TCKDatabase *)self tSavedRecordIDs];
   tDeletedRecordIDs2 = [(TCKDatabase *)self tDeletedRecordIDs];
   modifyRecordsCompletionBlock = [v7 modifyRecordsCompletionBlock];
-  v267[0] = MEMORY[0x1E69E9820];
-  v267[1] = 3221225472;
-  v267[2] = __28__TCKDatabase_addOperation___block_invoke;
-  v267[3] = &unk_1E7C43D18;
-  v197 = tSavedRecords2;
-  v268 = v197;
-  v195 = tSavedRecordIDs2;
-  v269 = v195;
-  v192 = tDeletedRecordIDs2;
-  v270 = v192;
-  v191 = modifyRecordsCompletionBlock;
-  v271 = v191;
-  [v7 setModifyRecordsCompletionBlock:v267];
+  v266[0] = MEMORY[0x1E69E9820];
+  v266[1] = 3221225472;
+  v266[2] = __28__TCKDatabase_addOperation___block_invoke;
+  v266[3] = &unk_1E7C43D18;
+  v196 = tSavedRecords2;
+  v267 = v196;
+  v194 = tSavedRecordIDs2;
+  v268 = v194;
+  v191 = tDeletedRecordIDs2;
+  v269 = v191;
+  v190 = modifyRecordsCompletionBlock;
+  v270 = v190;
+  [v7 setModifyRecordsCompletionBlock:v266];
   tModifyRecordsOperationHandler = [(TCKDatabase *)self tModifyRecordsOperationHandler];
 
   if (tModifyRecordsOperationHandler)
@@ -97,7 +97,7 @@
     tModifyRecordsOperationHandler2 = [(TCKDatabase *)self tModifyRecordsOperationHandler];
     (tModifyRecordsOperationHandler2)[2](tModifyRecordsOperationHandler2, v7);
 LABEL_15:
-    operationCopy = v194;
+    operationCopy = v193;
     goto LABEL_16;
   }
 
@@ -108,40 +108,40 @@ LABEL_15:
     tModifyRecordsHandler2 = [(TCKDatabase *)self tModifyRecordsHandler];
     recordsToSave = [v7 recordsToSave];
     recordIDsToDelete = [v7 recordIDsToDelete];
-    v265[0] = MEMORY[0x1E69E9820];
-    v265[1] = 3221225472;
-    v265[2] = __28__TCKDatabase_addOperation___block_invoke_2;
-    v265[3] = &unk_1E7C39A20;
-    v266 = v7;
-    (tModifyRecordsHandler2)[2](tModifyRecordsHandler2, recordsToSave, recordIDsToDelete, v265);
+    v264[0] = MEMORY[0x1E69E9820];
+    v264[1] = 3221225472;
+    v264[2] = __28__TCKDatabase_addOperation___block_invoke_2;
+    v264[3] = &unk_1E7C39A20;
+    v265 = v7;
+    (tModifyRecordsHandler2)[2](tModifyRecordsHandler2, recordsToSave, recordIDsToDelete, v264);
 
-    tModifyRecordsOperationHandler2 = v266;
+    tModifyRecordsOperationHandler2 = v265;
     goto LABEL_15;
   }
 
-  v263 = 0u;
-  v264 = 0u;
-  v261 = 0u;
   v262 = 0u;
+  v263 = 0u;
+  v260 = 0u;
+  v261 = 0u;
   obj = [v7 recordsToSave];
-  v105 = [obj countByEnumeratingWithState:&v261 objects:v290 count:16];
+  v105 = [obj countByEnumeratingWithState:&v260 objects:v289 count:16];
   if (v105)
   {
     v106 = v105;
-    v107 = *v262;
-    v200 = *v262;
+    v107 = *v261;
+    v199 = *v261;
     do
     {
       v108 = 0;
-      v201 = v106;
+      v200 = v106;
       do
       {
-        if (*v262 != v107)
+        if (*v261 != v107)
         {
           objc_enumerationMutation(obj);
         }
 
-        v109 = *(*(&v261 + 1) + 8 * v108);
+        v109 = *(*(&v260 + 1) + 8 * v108);
         savePolicy = [v7 savePolicy];
         recordsByID = self->_recordsByID;
         recordID = [v109 recordID];
@@ -151,80 +151,80 @@ LABEL_15:
 
           if (v113)
           {
-            v206 = v108;
-            v259 = 0u;
-            v260 = 0u;
-            v257 = 0u;
+            v205 = v108;
             v258 = 0u;
+            v259 = 0u;
+            v256 = 0u;
+            v257 = 0u;
             encryptedValueStore = [v109 encryptedValueStore];
             changedKeys = [encryptedValueStore changedKeys];
 
-            v116 = [changedKeys countByEnumeratingWithState:&v257 objects:v289 count:16];
+            v116 = [changedKeys countByEnumeratingWithState:&v256 objects:v288 count:16];
             if (v116)
             {
               v117 = v116;
-              v118 = *v258;
+              v118 = *v257;
               do
               {
                 for (i = 0; i != v117; ++i)
                 {
-                  if (*v258 != v118)
+                  if (*v257 != v118)
                   {
                     objc_enumerationMutation(changedKeys);
                   }
 
-                  v120 = *(*(&v257 + 1) + 8 * i);
+                  v120 = *(*(&v256 + 1) + 8 * i);
                   encryptedValueStore2 = [v109 encryptedValueStore];
                   v122 = [encryptedValueStore2 objectForKeyedSubscript:v120];
                   encryptedValueStore3 = [v113 encryptedValueStore];
                   [encryptedValueStore3 setObject:v122 forKeyedSubscript:v120];
                 }
 
-                v117 = [changedKeys countByEnumeratingWithState:&v257 objects:v289 count:16];
+                v117 = [changedKeys countByEnumeratingWithState:&v256 objects:v288 count:16];
               }
 
               while (v117);
             }
 
-            v255 = 0u;
-            v256 = 0u;
-            v253 = 0u;
             v254 = 0u;
+            v255 = 0u;
+            v252 = 0u;
+            v253 = 0u;
             valueStore = [v109 valueStore];
             changedKeys2 = [valueStore changedKeys];
 
-            v126 = [changedKeys2 countByEnumeratingWithState:&v253 objects:v288 count:16];
+            v126 = [changedKeys2 countByEnumeratingWithState:&v252 objects:v287 count:16];
             if (v126)
             {
               v127 = v126;
-              v128 = *v254;
+              v128 = *v253;
               do
               {
                 for (j = 0; j != v127; ++j)
                 {
-                  if (*v254 != v128)
+                  if (*v253 != v128)
                   {
                     objc_enumerationMutation(changedKeys2);
                   }
 
-                  v130 = *(*(&v253 + 1) + 8 * j);
+                  v130 = *(*(&v252 + 1) + 8 * j);
                   valueStore2 = [v109 valueStore];
                   v132 = [valueStore2 objectForKeyedSubscript:v130];
                   valueStore3 = [v113 valueStore];
                   [valueStore3 setObject:v132 forKeyedSubscript:v130];
                 }
 
-                v127 = [changedKeys2 countByEnumeratingWithState:&v253 objects:v288 count:16];
+                v127 = [changedKeys2 countByEnumeratingWithState:&v252 objects:v287 count:16];
               }
 
               while (v127);
             }
 
-            v7 = v199;
-            v107 = v200;
-            v108 = v206;
+            v7 = v198;
+            v107 = v199;
+            v108 = v205;
             self = selfCopy;
-            v106 = v201;
+            v106 = v200;
           }
 
           else
@@ -245,35 +245,35 @@ LABEL_15:
       }
 
       while (v108 != v106);
-      v106 = [obj countByEnumeratingWithState:&v261 objects:v290 count:16];
+      v106 = [obj countByEnumeratingWithState:&v260 objects:v289 count:16];
     }
 
     while (v106);
   }
 
-  v251 = 0u;
-  v252 = 0u;
-  v249 = 0u;
   v250 = 0u;
+  v251 = 0u;
+  v248 = 0u;
+  v249 = 0u;
   recordIDsToDelete2 = [v7 recordIDsToDelete];
-  v136 = [recordIDsToDelete2 countByEnumeratingWithState:&v249 objects:v287 count:16];
+  v136 = [recordIDsToDelete2 countByEnumeratingWithState:&v248 objects:v286 count:16];
   if (v136)
   {
     v137 = v136;
-    v138 = *v250;
+    v138 = *v249;
     do
     {
       for (k = 0; k != v137; ++k)
       {
-        if (*v250 != v138)
+        if (*v249 != v138)
         {
           objc_enumerationMutation(recordIDsToDelete2);
         }
 
-        [(NSMutableDictionary *)self->_recordsByID setObject:0 forKeyedSubscript:*(*(&v249 + 1) + 8 * k)];
+        [(NSMutableDictionary *)self->_recordsByID setObject:0 forKeyedSubscript:*(*(&v248 + 1) + 8 * k)];
       }
 
-      v137 = [recordIDsToDelete2 countByEnumeratingWithState:&v249 objects:v287 count:16];
+      v137 = [recordIDsToDelete2 countByEnumeratingWithState:&v248 objects:v286 count:16];
     }
 
     while (v137);
@@ -283,31 +283,31 @@ LABEL_15:
 
   if (perRecordCompletionBlock)
   {
-    v247 = 0u;
-    v248 = 0u;
-    v245 = 0u;
     v246 = 0u;
+    v247 = 0u;
+    v244 = 0u;
+    v245 = 0u;
     recordsToSave2 = [v7 recordsToSave];
-    v142 = [recordsToSave2 countByEnumeratingWithState:&v245 objects:v286 count:16];
+    v142 = [recordsToSave2 countByEnumeratingWithState:&v244 objects:v285 count:16];
     if (v142)
     {
       v143 = v142;
-      v144 = *v246;
+      v144 = *v245;
       do
       {
         for (m = 0; m != v143; ++m)
         {
-          if (*v246 != v144)
+          if (*v245 != v144)
           {
             objc_enumerationMutation(recordsToSave2);
           }
 
-          v146 = *(*(&v245 + 1) + 8 * m);
+          v146 = *(*(&v244 + 1) + 8 * m);
           perRecordCompletionBlock2 = [v7 perRecordCompletionBlock];
           perRecordCompletionBlock2[2](perRecordCompletionBlock2, v146, 0);
         }
 
-        v143 = [recordsToSave2 countByEnumeratingWithState:&v245 objects:v286 count:16];
+        v143 = [recordsToSave2 countByEnumeratingWithState:&v244 objects:v285 count:16];
       }
 
       while (v143);
@@ -323,7 +323,7 @@ LABEL_15:
 
   completionBlock = [v7 completionBlock];
 
-  operationCopy = v194;
+  operationCopy = v193;
   if (!completionBlock)
   {
     goto LABEL_17;
@@ -385,49 +385,49 @@ LABEL_18:
       tModifyZonesHandler2 = [(TCKDatabase *)selfCopy tModifyZonesHandler];
       recordZonesToSave2 = [v25 recordZonesToSave];
       recordZoneIDsToDelete2 = [v25 recordZoneIDsToDelete];
-      v243[0] = MEMORY[0x1E69E9820];
-      v243[1] = 3221225472;
-      v243[2] = __28__TCKDatabase_addOperation___block_invoke_3;
-      v243[3] = &unk_1E7C39A20;
-      v244 = v25;
-      (tModifyZonesHandler2)[2](tModifyZonesHandler2, recordZonesToSave2, recordZoneIDsToDelete2, v243);
+      v242[0] = MEMORY[0x1E69E9820];
+      v242[1] = 3221225472;
+      v242[2] = __28__TCKDatabase_addOperation___block_invoke_3;
+      v242[3] = &unk_1E7C39A20;
+      v243 = v25;
+      (tModifyZonesHandler2)[2](tModifyZonesHandler2, recordZonesToSave2, recordZoneIDsToDelete2, v242);
 
-      modifyRecordZonesCompletionBlock = v244;
+      modifyRecordZonesCompletionBlock = v243;
     }
 
     else
     {
       v43 = operationCopy;
-      v241 = 0u;
-      v242 = 0u;
-      v239 = 0u;
       v240 = 0u;
+      v241 = 0u;
+      v238 = 0u;
+      v239 = 0u;
       recordZoneIDsToDelete3 = [v25 recordZoneIDsToDelete];
-      v45 = [recordZoneIDsToDelete3 countByEnumeratingWithState:&v239 objects:v285 count:16];
+      v45 = [recordZoneIDsToDelete3 countByEnumeratingWithState:&v238 objects:v284 count:16];
       if (v45)
       {
         v46 = v45;
-        v47 = *v240;
+        v47 = *v239;
         do
         {
           for (n = 0; n != v46; ++n)
           {
-            if (*v240 != v47)
+            if (*v239 != v47)
             {
               objc_enumerationMutation(recordZoneIDsToDelete3);
             }
 
-            v49 = *(*(&v239 + 1) + 8 * n);
+            v49 = *(*(&v238 + 1) + 8 * n);
             v50 = selfCopy->_recordsByID;
-            v238[0] = MEMORY[0x1E69E9820];
-            v238[1] = 3221225472;
-            v238[2] = __28__TCKDatabase_addOperation___block_invoke_4;
-            v238[3] = &unk_1E7C43D40;
-            v238[4] = v49;
-            [(NSMutableDictionary *)v50 fc_removeObjectsForKeysPassingTest:v238];
+            v237[0] = MEMORY[0x1E69E9820];
+            v237[1] = 3221225472;
+            v237[2] = __28__TCKDatabase_addOperation___block_invoke_4;
+            v237[3] = &unk_1E7C43D40;
+            v237[4] = v49;
+            [(NSMutableDictionary *)v50 fc_removeObjectsForKeysPassingTest:v237];
           }
 
-          v46 = [recordZoneIDsToDelete3 countByEnumeratingWithState:&v239 objects:v285 count:16];
+          v46 = [recordZoneIDsToDelete3 countByEnumeratingWithState:&v238 objects:v284 count:16];
         }
 
         while (v46);
@@ -459,12 +459,12 @@ LABEL_18:
   {
     tFetchZonesHandler = [(TCKDatabase *)self tFetchZonesHandler];
     recordZoneIDs = [v54 recordZoneIDs];
-    v236[0] = MEMORY[0x1E69E9820];
-    v236[1] = 3221225472;
-    v236[2] = __28__TCKDatabase_addOperation___block_invoke_5;
-    v236[3] = &unk_1E7C39358;
-    v237 = v54;
-    (tFetchZonesHandler)[2](tFetchZonesHandler, recordZoneIDs, v236);
+    v235[0] = MEMORY[0x1E69E9820];
+    v235[1] = 3221225472;
+    v235[2] = __28__TCKDatabase_addOperation___block_invoke_5;
+    v235[3] = &unk_1E7C39358;
+    v236 = v54;
+    (tFetchZonesHandler)[2](tFetchZonesHandler, recordZoneIDs, v235);
   }
 
   objc_opt_class();
@@ -480,7 +480,7 @@ LABEL_18:
 
   v58 = v57;
   v59 = v58;
-  v205 = v58;
+  v204 = v58;
   if (v58)
   {
     if ([v58 isCancelled])
@@ -489,7 +489,7 @@ LABEL_18:
       v61 = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E695B740] code:20 userInfo:0];
       (fetchRecordsCompletionBlock)[2](fetchRecordsCompletionBlock, 0, v61);
 
-      v59 = v205;
+      v59 = v204;
     }
 
     else
@@ -508,15 +508,15 @@ LABEL_18:
       {
         tFetchRecordsHandler2 = [(TCKDatabase *)self tFetchRecordsHandler];
         recordIDs = [v59 recordIDs];
-        v234[0] = MEMORY[0x1E69E9820];
-        v234[1] = 3221225472;
-        v234[2] = __28__TCKDatabase_addOperation___block_invoke_6;
-        v234[3] = &unk_1E7C40918;
-        v234[4] = self;
-        v235 = v205;
-        (tFetchRecordsHandler2)[2](tFetchRecordsHandler2, recordIDs, v234);
+        v233[0] = MEMORY[0x1E69E9820];
+        v233[1] = 3221225472;
+        v233[2] = __28__TCKDatabase_addOperation___block_invoke_6;
+        v233[3] = &unk_1E7C40918;
+        v233[4] = self;
+        v234 = v204;
+        (tFetchRecordsHandler2)[2](tFetchRecordsHandler2, recordIDs, v233);
 
-        v59 = v205;
+        v59 = v204;
       }
 
       else
@@ -528,27 +528,27 @@ LABEL_18:
         recordIDs2 = [v59 recordIDs];
         v72 = [(NSMutableDictionary *)v70 fc_subdictionaryForKeys:recordIDs2];
 
-        v59 = v205;
-        v232 = 0u;
-        v233 = 0u;
-        v230 = 0u;
+        v59 = v204;
         v231 = 0u;
+        v232 = 0u;
+        v229 = 0u;
+        v230 = 0u;
         v73 = v72;
-        v74 = [v73 countByEnumeratingWithState:&v230 objects:v284 count:16];
+        v74 = [v73 countByEnumeratingWithState:&v229 objects:v283 count:16];
         if (v74)
         {
           v75 = v74;
-          v76 = *v231;
+          v76 = *v230;
           do
           {
             for (ii = 0; ii != v75; ++ii)
             {
-              if (*v231 != v76)
+              if (*v230 != v76)
               {
                 objc_enumerationMutation(v73);
               }
 
-              v78 = *(*(&v230 + 1) + 8 * ii);
+              v78 = *(*(&v229 + 1) + 8 * ii);
               perRecordCompletionBlock3 = [v59 perRecordCompletionBlock];
 
               if (perRecordCompletionBlock3)
@@ -557,11 +557,11 @@ LABEL_18:
                 v81 = [v73 objectForKeyedSubscript:v78];
                 (perRecordCompletionBlock4)[2](perRecordCompletionBlock4, v81, v78, 0);
 
-                v59 = v205;
+                v59 = v204;
               }
             }
 
-            v75 = [v73 countByEnumeratingWithState:&v230 objects:v284 count:16];
+            v75 = [v73 countByEnumeratingWithState:&v229 objects:v283 count:16];
           }
 
           while (v75);
@@ -577,7 +577,7 @@ LABEL_18:
     }
   }
 
-  v196 = v54;
+  v195 = v54;
   objc_opt_class();
   if (operationCopy && (objc_opt_isKindOfClass() & 1) != 0)
   {
@@ -590,32 +590,32 @@ LABEL_18:
       [(TCKDatabase *)self setTFetchedChangedRecordZoneNames:v85];
     }
 
-    v228 = 0u;
-    v229 = 0u;
-    v226 = 0u;
     v227 = 0u;
+    v228 = 0u;
+    v225 = 0u;
+    v226 = 0u;
     recordZoneIDs2 = [v83 recordZoneIDs];
-    v87 = [recordZoneIDs2 countByEnumeratingWithState:&v226 objects:v283 count:16];
+    v87 = [recordZoneIDs2 countByEnumeratingWithState:&v225 objects:v282 count:16];
     if (v87)
     {
       v88 = v87;
-      v89 = *v227;
+      v89 = *v226;
       do
       {
         for (jj = 0; jj != v88; ++jj)
         {
-          if (*v227 != v89)
+          if (*v226 != v89)
           {
             objc_enumerationMutation(recordZoneIDs2);
           }
 
-          v91 = *(*(&v226 + 1) + 8 * jj);
+          v91 = *(*(&v225 + 1) + 8 * jj);
           tFetchedChangedRecordZoneNames2 = [(TCKDatabase *)selfCopy tFetchedChangedRecordZoneNames];
           zoneName = [v91 zoneName];
           [tFetchedChangedRecordZoneNames2 addObject:zoneName];
         }
 
-        v88 = [recordZoneIDs2 countByEnumeratingWithState:&v226 objects:v283 count:16];
+        v88 = [recordZoneIDs2 countByEnumeratingWithState:&v225 objects:v282 count:16];
       }
 
       while (v88);
@@ -628,52 +628,52 @@ LABEL_18:
     {
       tFetchRecordZoneChangesOperationHandler2 = [(TCKDatabase *)selfCopy tFetchRecordZoneChangesOperationHandler];
       (tFetchRecordZoneChangesOperationHandler2)[2](tFetchRecordZoneChangesOperationHandler2, v83);
-      operationCopy = v194;
+      operationCopy = v193;
     }
 
     else
     {
-      v193 = v25;
+      v192 = v25;
       tFetchZoneChangesHandler = [(TCKDatabase *)selfCopy tFetchZoneChangesHandler];
 
       if (tFetchZoneChangesHandler)
       {
-        v224 = 0uLL;
-        v225 = 0uLL;
-        v222 = 0uLL;
         v223 = 0uLL;
+        v224 = 0uLL;
+        v221 = 0uLL;
+        v222 = 0uLL;
         recordZoneIDs3 = [v83 recordZoneIDs];
-        v98 = [recordZoneIDs3 countByEnumeratingWithState:&v222 objects:v282 count:16];
+        v98 = [recordZoneIDs3 countByEnumeratingWithState:&v221 objects:v281 count:16];
         if (v98)
         {
           v99 = v98;
-          v100 = *v223;
+          v100 = *v222;
           do
           {
             for (kk = 0; kk != v99; ++kk)
             {
-              if (*v223 != v100)
+              if (*v222 != v100)
               {
                 objc_enumerationMutation(recordZoneIDs3);
               }
 
-              v102 = *(*(&v222 + 1) + 8 * kk);
+              v102 = *(*(&v221 + 1) + 8 * kk);
               tFetchZoneChangesHandler2 = [(TCKDatabase *)selfCopy tFetchZoneChangesHandler];
 
               if (tFetchZoneChangesHandler2)
               {
                 tFetchZoneChangesHandler3 = [(TCKDatabase *)selfCopy tFetchZoneChangesHandler];
-                v219[0] = MEMORY[0x1E69E9820];
-                v219[1] = 3221225472;
-                v219[2] = __28__TCKDatabase_addOperation___block_invoke_7;
-                v219[3] = &unk_1E7C39650;
-                v220 = v83;
-                v221 = v102;
-                (tFetchZoneChangesHandler3)[2](tFetchZoneChangesHandler3, v102, v219);
+                v218[0] = MEMORY[0x1E69E9820];
+                v218[1] = 3221225472;
+                v218[2] = __28__TCKDatabase_addOperation___block_invoke_7;
+                v218[3] = &unk_1E7C39650;
+                v219 = v83;
+                v220 = v102;
+                (tFetchZoneChangesHandler3)[2](tFetchZoneChangesHandler3, v102, v218);
               }
             }
 
-            v99 = [recordZoneIDs3 countByEnumeratingWithState:&v222 objects:v282 count:16];
+            v99 = [recordZoneIDs3 countByEnumeratingWithState:&v221 objects:v281 count:16];
           }
 
           while (v99);
@@ -682,52 +682,52 @@ LABEL_18:
 
       else
       {
-        v217 = 0uLL;
-        v218 = 0uLL;
-        v215 = 0uLL;
         v216 = 0uLL;
+        v217 = 0uLL;
+        v214 = 0uLL;
+        v215 = 0uLL;
         recordZoneIDs4 = [v83 recordZoneIDs];
-        obja = [recordZoneIDs4 countByEnumeratingWithState:&v215 objects:v281 count:16];
+        obja = [recordZoneIDs4 countByEnumeratingWithState:&v214 objects:v280 count:16];
         if (obja)
         {
-          v202 = *v216;
+          v201 = *v215;
           do
           {
             for (mm = 0; mm != obja; mm = mm + 1)
             {
-              if (*v216 != v202)
+              if (*v215 != v201)
               {
                 objc_enumerationMutation(recordZoneIDs4);
               }
 
-              v153 = *(*(&v215 + 1) + 8 * mm);
+              v153 = *(*(&v214 + 1) + 8 * mm);
               v154 = selfCopy->_recordsByID;
-              v214[0] = MEMORY[0x1E69E9820];
-              v214[1] = 3221225472;
-              v214[2] = __28__TCKDatabase_addOperation___block_invoke_8;
-              v214[3] = &unk_1E7C43D68;
-              v214[4] = v153;
-              v155 = [(NSMutableDictionary *)v154 keysOfEntriesPassingTest:v214];
+              v213[0] = MEMORY[0x1E69E9820];
+              v213[1] = 3221225472;
+              v213[2] = __28__TCKDatabase_addOperation___block_invoke_8;
+              v213[3] = &unk_1E7C43D68;
+              v213[4] = v153;
+              v155 = [(NSMutableDictionary *)v154 keysOfEntriesPassingTest:v213];
+              v209 = 0u;
               v210 = 0u;
               v211 = 0u;
               v212 = 0u;
-              v213 = 0u;
               v156 = v155;
-              v157 = [v156 countByEnumeratingWithState:&v210 objects:v280 count:16];
+              v157 = [v156 countByEnumeratingWithState:&v209 objects:v279 count:16];
               if (v157)
               {
                 v158 = v157;
-                v159 = *v211;
+                v159 = *v210;
                 do
                 {
                   for (nn = 0; nn != v158; ++nn)
                   {
-                    if (*v211 != v159)
+                    if (*v210 != v159)
                     {
                       objc_enumerationMutation(v156);
                     }
 
-                    v161 = *(*(&v210 + 1) + 8 * nn);
+                    v161 = *(*(&v209 + 1) + 8 * nn);
                     recordChangedBlock = [v83 recordChangedBlock];
 
                     if (recordChangedBlock)
@@ -738,7 +738,7 @@ LABEL_18:
                     }
                   }
 
-                  v158 = [v156 countByEnumeratingWithState:&v210 objects:v280 count:16];
+                  v158 = [v156 countByEnumeratingWithState:&v209 objects:v279 count:16];
                 }
 
                 while (v158);
@@ -754,7 +754,7 @@ LABEL_18:
               }
             }
 
-            obja = [recordZoneIDs4 countByEnumeratingWithState:&v215 objects:v281 count:16];
+            obja = [recordZoneIDs4 countByEnumeratingWithState:&v214 objects:v280 count:16];
           }
 
           while (obja);
@@ -765,19 +765,19 @@ LABEL_18:
 
       if (!fetchRecordZoneChangesCompletionBlock)
       {
-        v25 = v193;
-        operationCopy = v194;
-        v59 = v205;
+        v25 = v192;
+        operationCopy = v193;
+        v59 = v204;
         goto LABEL_154;
       }
 
       tFetchRecordZoneChangesOperationHandler2 = [v83 fetchRecordZoneChangesCompletionBlock];
       tFetchRecordZoneChangesOperationHandler2[2](tFetchRecordZoneChangesOperationHandler2, 0);
-      v25 = v193;
-      operationCopy = v194;
+      v25 = v192;
+      operationCopy = v193;
     }
 
-    v59 = v205;
+    v59 = v204;
   }
 
   else
@@ -795,12 +795,12 @@ LABEL_154:
     if (tFetchDatabaseChangesHandler)
     {
       tFetchDatabaseChangesHandler2 = [(TCKDatabase *)self tFetchDatabaseChangesHandler];
-      v208[0] = MEMORY[0x1E69E9820];
-      v208[1] = 3221225472;
-      v208[2] = __28__TCKDatabase_addOperation___block_invoke_9;
-      v208[3] = &unk_1E7C39A20;
-      v209 = v169;
-      (tFetchDatabaseChangesHandler2)[2](tFetchDatabaseChangesHandler2, v208);
+      v207[0] = MEMORY[0x1E69E9820];
+      v207[1] = 3221225472;
+      v207[2] = __28__TCKDatabase_addOperation___block_invoke_9;
+      v207[3] = &unk_1E7C39A20;
+      v208 = v169;
+      (tFetchDatabaseChangesHandler2)[2](tFetchDatabaseChangesHandler2, v207);
     }
 
     objc_opt_class();
@@ -838,7 +838,7 @@ LABEL_164:
     v175 = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E695B740] code:11 userInfo:0];
     (fetchSubscriptionCompletionBlock2)[2](fetchSubscriptionCompletionBlock2, 0, v175);
 
-    v59 = v205;
+    v59 = v204;
   }
 
   objc_opt_class();
@@ -870,7 +870,7 @@ LABEL_165:
     }
 
     objc_opt_class();
-    v59 = v205;
+    v59 = v204;
     goto LABEL_172;
   }
 
@@ -896,21 +896,20 @@ LABEL_172:
   v188 = MEMORY[0x1E69E9C10];
   if (os_log_type_enabled(v187, OS_LOG_TYPE_ERROR))
   {
-    v190 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"CKQueryOperation is not supported"];
+    v189 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"CKQueryOperation is not supported"];
     *buf = 136315906;
-    v273 = "[TCKDatabase addOperation:]";
-    v274 = 2080;
-    v275 = "TCKDatabase.m";
-    v276 = 1024;
-    v277 = 299;
-    v278 = 2114;
-    v279 = v190;
-    v59 = v205;
+    v272 = "[TCKDatabase addOperation:]";
+    v273 = 2080;
+    v274 = "TCKDatabase.m";
+    v275 = 1024;
+    v276 = 299;
+    v277 = 2114;
+    v278 = v189;
+    v59 = v204;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
 LABEL_177:
-  v189 = *MEMORY[0x1E69E9840];
 }
 
 void __28__TCKDatabase_addOperation___block_invoke(void *a1, void *a2, void *a3, void *a4)
@@ -939,30 +938,30 @@ void __28__TCKDatabase_addOperation___block_invoke(void *a1, void *a2, void *a3,
 
 void __28__TCKDatabase_addOperation___block_invoke_2(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   v7 = a2;
   v8 = a3;
   v9 = a4;
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
-  v10 = [v7 countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v10 = [v7 countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v21;
+    v12 = *v20;
     do
     {
       v13 = 0;
       do
       {
-        if (*v21 != v12)
+        if (*v20 != v12)
         {
           objc_enumerationMutation(v7);
         }
 
-        v14 = *(*(&v20 + 1) + 8 * v13);
+        v14 = *(*(&v19 + 1) + 8 * v13);
         v15 = [*(a1 + 32) perRecordCompletionBlock];
 
         if (v15)
@@ -975,7 +974,7 @@ void __28__TCKDatabase_addOperation___block_invoke_2(uint64_t a1, void *a2, void
       }
 
       while (v11 != v13);
-      v11 = [v7 countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v11 = [v7 countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
     while (v11);
@@ -988,8 +987,6 @@ void __28__TCKDatabase_addOperation___block_invoke_2(uint64_t a1, void *a2, void
     v18 = [*(a1 + 32) modifyRecordsCompletionBlock];
     (v18)[2](v18, v7, v8, v9);
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 void __28__TCKDatabase_addOperation___block_invoke_3(uint64_t a1, void *a2, void *a3, void *a4)
@@ -1021,7 +1018,7 @@ void __28__TCKDatabase_addOperation___block_invoke_5(uint64_t a1, void *a2, void
 
 void __28__TCKDatabase_addOperation___block_invoke_6(uint64_t a1, void *a2, void *a3)
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = [*(a1 + 32) tFetchedRecords];
@@ -1030,27 +1027,27 @@ void __28__TCKDatabase_addOperation___block_invoke_6(uint64_t a1, void *a2, void
   v10 = [v8 initWithArray:v9 copyItems:1];
   [v7 addObjectsFromArray:v10];
 
-  v24 = 0u;
-  v25 = 0u;
-  v22 = 0u;
   v23 = 0u;
+  v24 = 0u;
+  v21 = 0u;
+  v22 = 0u;
   v11 = v5;
-  v12 = [v11 countByEnumeratingWithState:&v22 objects:v26 count:16];
+  v12 = [v11 countByEnumeratingWithState:&v21 objects:v25 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v23;
+    v14 = *v22;
     do
     {
       v15 = 0;
       do
       {
-        if (*v23 != v14)
+        if (*v22 != v14)
         {
           objc_enumerationMutation(v11);
         }
 
-        v16 = *(*(&v22 + 1) + 8 * v15);
+        v16 = *(*(&v21 + 1) + 8 * v15);
         v17 = [*(a1 + 40) perRecordCompletionBlock];
 
         if (v17)
@@ -1064,7 +1061,7 @@ void __28__TCKDatabase_addOperation___block_invoke_6(uint64_t a1, void *a2, void
       }
 
       while (v13 != v15);
-      v13 = [v11 countByEnumeratingWithState:&v22 objects:v26 count:16];
+      v13 = [v11 countByEnumeratingWithState:&v21 objects:v25 count:16];
     }
 
     while (v13);
@@ -1072,36 +1069,34 @@ void __28__TCKDatabase_addOperation___block_invoke_6(uint64_t a1, void *a2, void
 
   v20 = [*(a1 + 40) fetchRecordsCompletionBlock];
   (v20)[2](v20, v11, v6);
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 void __28__TCKDatabase_addOperation___block_invoke_7(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
   v7 = a2;
   v8 = a3;
   v9 = a4;
+  v33 = 0u;
   v34 = 0u;
   v35 = 0u;
   v36 = 0u;
-  v37 = 0u;
-  v10 = [v7 countByEnumeratingWithState:&v34 objects:v39 count:16];
+  v10 = [v7 countByEnumeratingWithState:&v33 objects:v38 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v35;
+    v12 = *v34;
     do
     {
       v13 = 0;
       do
       {
-        if (*v35 != v12)
+        if (*v34 != v12)
         {
           objc_enumerationMutation(v7);
         }
 
-        v14 = *(*(&v34 + 1) + 8 * v13);
+        v14 = *(*(&v33 + 1) + 8 * v13);
         v15 = [*(a1 + 32) recordChangedBlock];
 
         if (v15)
@@ -1114,33 +1109,33 @@ void __28__TCKDatabase_addOperation___block_invoke_7(uint64_t a1, void *a2, void
       }
 
       while (v11 != v13);
-      v11 = [v7 countByEnumeratingWithState:&v34 objects:v39 count:16];
+      v11 = [v7 countByEnumeratingWithState:&v33 objects:v38 count:16];
     }
 
     while (v11);
   }
 
-  v32 = 0u;
-  v33 = 0u;
-  v30 = 0u;
   v31 = 0u;
+  v32 = 0u;
+  v29 = 0u;
+  v30 = 0u;
   v17 = v8;
-  v18 = [v17 countByEnumeratingWithState:&v30 objects:v38 count:16];
+  v18 = [v17 countByEnumeratingWithState:&v29 objects:v37 count:16];
   if (v18)
   {
     v19 = v18;
-    v20 = *v31;
+    v20 = *v30;
     do
     {
       v21 = 0;
       do
       {
-        if (*v31 != v20)
+        if (*v30 != v20)
         {
           objc_enumerationMutation(v17);
         }
 
-        v22 = *(*(&v30 + 1) + 8 * v21);
+        v22 = *(*(&v29 + 1) + 8 * v21);
         v23 = [*(a1 + 32) recordWithIDWasDeletedBlock];
 
         if (v23)
@@ -1153,7 +1148,7 @@ void __28__TCKDatabase_addOperation___block_invoke_7(uint64_t a1, void *a2, void
       }
 
       while (v19 != v21);
-      v19 = [v17 countByEnumeratingWithState:&v30 objects:v38 count:16];
+      v19 = [v17 countByEnumeratingWithState:&v29 objects:v37 count:16];
     }
 
     while (v19);
@@ -1168,8 +1163,6 @@ void __28__TCKDatabase_addOperation___block_invoke_7(uint64_t a1, void *a2, void
     v28 = objc_opt_new();
     (v26)[2](v26, v27, 0, v28, v9 != 0, v9);
   }
-
-  v29 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __28__TCKDatabase_addOperation___block_invoke_8(uint64_t a1, void *a2)
@@ -1182,30 +1175,30 @@ uint64_t __28__TCKDatabase_addOperation___block_invoke_8(uint64_t a1, void *a2)
 
 void __28__TCKDatabase_addOperation___block_invoke_9(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   v7 = a2;
   v8 = a3;
   v9 = a4;
+  v31 = 0u;
   v32 = 0u;
   v33 = 0u;
   v34 = 0u;
-  v35 = 0u;
-  v10 = [v7 countByEnumeratingWithState:&v32 objects:v37 count:16];
+  v10 = [v7 countByEnumeratingWithState:&v31 objects:v36 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v33;
+    v12 = *v32;
     do
     {
       v13 = 0;
       do
       {
-        if (*v33 != v12)
+        if (*v32 != v12)
         {
           objc_enumerationMutation(v7);
         }
 
-        v14 = *(*(&v32 + 1) + 8 * v13);
+        v14 = *(*(&v31 + 1) + 8 * v13);
         v15 = [*(a1 + 32) recordZoneWithIDChangedBlock];
 
         if (v15)
@@ -1218,33 +1211,33 @@ void __28__TCKDatabase_addOperation___block_invoke_9(uint64_t a1, void *a2, void
       }
 
       while (v11 != v13);
-      v11 = [v7 countByEnumeratingWithState:&v32 objects:v37 count:16];
+      v11 = [v7 countByEnumeratingWithState:&v31 objects:v36 count:16];
     }
 
     while (v11);
   }
 
-  v30 = 0u;
-  v31 = 0u;
-  v28 = 0u;
   v29 = 0u;
+  v30 = 0u;
+  v27 = 0u;
+  v28 = 0u;
   v17 = v8;
-  v18 = [v17 countByEnumeratingWithState:&v28 objects:v36 count:16];
+  v18 = [v17 countByEnumeratingWithState:&v27 objects:v35 count:16];
   if (v18)
   {
     v19 = v18;
-    v20 = *v29;
+    v20 = *v28;
     do
     {
       v21 = 0;
       do
       {
-        if (*v29 != v20)
+        if (*v28 != v20)
         {
           objc_enumerationMutation(v17);
         }
 
-        v22 = *(*(&v28 + 1) + 8 * v21);
+        v22 = *(*(&v27 + 1) + 8 * v21);
         v23 = [*(a1 + 32) recordZoneWithIDWasDeletedBlock];
 
         if (v23)
@@ -1257,7 +1250,7 @@ void __28__TCKDatabase_addOperation___block_invoke_9(uint64_t a1, void *a2, void
       }
 
       while (v19 != v21);
-      v19 = [v17 countByEnumeratingWithState:&v28 objects:v36 count:16];
+      v19 = [v17 countByEnumeratingWithState:&v27 objects:v35 count:16];
     }
 
     while (v19);
@@ -1270,8 +1263,6 @@ void __28__TCKDatabase_addOperation___block_invoke_9(uint64_t a1, void *a2, void
     v26 = [*(a1 + 32) fetchDatabaseChangesCompletionBlock];
     (v26)[2](v26, 0, 0, v9);
   }
-
-  v27 = *MEMORY[0x1E69E9840];
 }
 
 - (void)addRecord:(id)record
@@ -1308,7 +1299,7 @@ uint64_t __35__TCKDatabase_recordIDsInZoneName___block_invoke(uint64_t a1, void 
 
 - (CKRecord)sentinelRecord
 {
-  v3 = +[CKRecordID fc_staticSentinelRecordID];
+  v3 = +[(CKRecordID *)MEMORY[0x1E695BA70]];
   v4 = [(TCKDatabase *)self recordWithID:v3];
 
   return v4;
@@ -1316,7 +1307,7 @@ uint64_t __35__TCKDatabase_recordIDsInZoneName___block_invoke(uint64_t a1, void 
 
 - (CKRecord)secureSentinelRecord
 {
-  v3 = +[CKRecordID fc_staticSecureSentinelRecordID];
+  v3 = +[(CKRecordID *)MEMORY[0x1E695BA70]];
   v4 = [(TCKDatabase *)self recordWithID:v3];
 
   return v4;

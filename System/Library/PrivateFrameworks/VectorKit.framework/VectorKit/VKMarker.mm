@@ -139,7 +139,7 @@
     if (v11)
     {
       (*(*v7->_actualMarker.__ptr_ + 96))(&v14);
-      std::allocate_shared[abi:nn200100]<FeatureStyleAttributes,std::allocator<FeatureStyleAttributes>,FeatureStyleAttributes const&,0>();
+      std::allocate_shared[abi:nn200100]<FeatureStyleAttributes,std::allocator<FeatureStyleAttributes>,FeatureStyleAttributes const&,0>(&v15, v14);
     }
 
     styleAttributes = v7->_styleAttributes;

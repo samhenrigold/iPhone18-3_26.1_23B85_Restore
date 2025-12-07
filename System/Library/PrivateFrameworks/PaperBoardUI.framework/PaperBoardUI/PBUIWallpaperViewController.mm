@@ -550,7 +550,7 @@ void __73__PBUIWallpaperViewController__updateInactiveBlurEffectForWallpaperMode
     v79 = 0;
     if (v19)
     {
-      [v19 styleTransitionState];
+      objc_msgSend_styleTransitionState(v19);
     }
 
     v69 = v78;
@@ -723,7 +723,7 @@ uint64_t __102__PBUIWallpaperViewController_setActiveVariant_withOutAnimationFac
   return [v2 setAlpha:0.0];
 }
 
-uint64_t __102__PBUIWallpaperViewController_setActiveVariant_withOutAnimationFactory_inAnimationFactory_completion___block_invoke_3(uint64_t a1)
+void *__102__PBUIWallpaperViewController_setActiveVariant_withOutAnimationFactory_inAnimationFactory_completion___block_invoke_3(uint64_t a1)
 {
   [*(a1 + 32) setHidden:1];
   [*(a1 + 40) setHidden:1];
@@ -755,7 +755,7 @@ uint64_t __102__PBUIWallpaperViewController_setActiveVariant_withOutAnimationFac
   return [v2 setContentsRect:{0.0, 0.0, 1.0, 1.0}];
 }
 
-uint64_t __102__PBUIWallpaperViewController_setActiveVariant_withOutAnimationFactory_inAnimationFactory_completion___block_invoke_5(uint64_t a1)
+void *__102__PBUIWallpaperViewController_setActiveVariant_withOutAnimationFactory_inAnimationFactory_completion___block_invoke_5(uint64_t a1)
 {
   result = [*(a1 + 32) setAlpha:*(a1 + 64)];
   *(*(*(a1 + 48) + 8) + 24) = 1;
@@ -1018,28 +1018,28 @@ uint64_t __63__PBUIWallpaperViewController_setLockscreenOnlyWallpaperAlpha___blo
 
 - (id)_wallpaperScaleAssertionForVariant:(int64_t)variant scale:(double)scale
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   objc_initWeak(&location, self);
   v7 = [PBUIWallpaperScaleAssertion alloc];
   v8 = [MEMORY[0x277CCACA8] stringWithFormat:@"Wallpaper scale %f", *&scale];
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = 3221225472;
-  v13[2] = __72__PBUIWallpaperViewController__wallpaperScaleAssertionForVariant_scale___block_invoke;
-  v13[3] = &unk_2783629B0;
-  objc_copyWeak(&v14, &location);
-  v9 = [(PBUIWallpaperScaleAssertion *)v7 initWithVariant:variant scale:v8 forReason:v13 invalidationBlock:scale];
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __72__PBUIWallpaperViewController__wallpaperScaleAssertionForVariant_scale___block_invoke;
+  v14[3] = &unk_2783629B0;
+  objc_copyWeak(&v15, &location);
+  v9 = [(PBUIWallpaperScaleAssertion *)v7 initWithVariant:variant scale:v8 forReason:v14 invalidationBlock:scale];
 
-  v10 = PBUILogCommon();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  v11 = PBUILogCommon(v10);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = [v9 description];
+    v12 = [v9 description];
     *buf = 138412290;
-    v17 = v11;
-    _os_log_impl(&dword_21E67D000, v10, OS_LOG_TYPE_DEFAULT, "Acquiring wallpaper scale assertion %@", buf, 0xCu);
+    v18 = v12;
+    _os_log_impl(&dword_21E67D000, v11, OS_LOG_TYPE_DEFAULT, "Acquiring wallpaper scale assertion %@", buf, 0xCu);
   }
 
   [(NSHashTable *)self->_wallpaperScaleAssertions addObject:v9];
-  objc_destroyWeak(&v14);
+  objc_destroyWeak(&v15);
   objc_destroyWeak(&location);
 
   return v9;
@@ -1047,23 +1047,24 @@ uint64_t __63__PBUIWallpaperViewController_setLockscreenOnlyWallpaperAlpha___blo
 
 void __72__PBUIWallpaperViewController__wallpaperScaleAssertionForVariant_scale___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
+  v8 = WeakRetained;
   if (WeakRetained)
   {
-    v8 = PBUILogCommon();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = PBUILogCommon(WeakRetained);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = [v5 description];
-      v10 = 138412290;
-      v11 = v9;
-      _os_log_impl(&dword_21E67D000, v8, OS_LOG_TYPE_DEFAULT, "Removing wallpaper scale assertion %@", &v10, 0xCu);
+      v10 = [v5 description];
+      v11 = 138412290;
+      v12 = v10;
+      _os_log_impl(&dword_21E67D000, v9, OS_LOG_TYPE_DEFAULT, "Removing wallpaper scale assertion %@", &v11, 0xCu);
     }
 
-    [WeakRetained[144] removeObject:v5];
-    [WeakRetained _updateWallpaperScaleWithAnimationFactory:v6];
+    [v8[144] removeObject:v5];
+    [v8 _updateWallpaperScaleWithAnimationFactory:v6];
   }
 }
 
@@ -1183,8 +1184,7 @@ LABEL_4:
   v5 = [[_PBUIWallpaperViewControllerAssertion alloc] initWithWallpaperViewController:self type:1 reason:reasonCopy];
 
   [(NSHashTable *)self->_suspendWallpaperAnimationAssertions addObject:v5];
-  [(PBUIWallpaperViewController *)self _suspendOrResumeWallpaperAnimation];
-  v6 = PBUILogCommon();
+  v6 = PBUILogCommon([(PBUIWallpaperViewController *)self _suspendOrResumeWallpaperAnimation]);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     suspendWallpaperAnimationAssertions = self->_suspendWallpaperAnimationAssertions;
@@ -1211,7 +1211,7 @@ LABEL_4:
   if (homescreenStyleInfo)
   {
     v6 = homescreenStyleInfo;
-    [homescreenStyleInfo styleTransitionState];
+    objc_msgSend_styleTransitionState(homescreenStyleInfo);
     homescreenStyleInfo = v6;
   }
 
@@ -1236,68 +1236,70 @@ LABEL_4:
 
 - (BOOL)setWallpaperStyleTransitionState:(id *)state forPriority:(int64_t)priority forVariant:(int64_t)variant withAnimationFactory:(id)factory
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   factoryCopy = factory;
+  v11 = factoryCopy;
   if (priority >= 5)
   {
     [PBUIWallpaperViewController setWallpaperStyleTransitionState:priority forPriority:? forVariant:? withAnimationFactory:?];
   }
 
-  v11 = PBUILogCommon();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+  v12 = PBUILogCommon(factoryCopy);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
   {
-    v12 = PBUIStringForWallpaperVariant(variant);
+    v13 = PBUIStringForWallpaperVariant(variant);
     *buf = *&state->var0;
     *&buf[16] = state->var2;
-    v13 = PBUIStringForStyleTransitionState(buf);
+    v14 = PBUIStringForStyleTransitionState(buf);
     *buf = 134218498;
     *&buf[4] = priority;
     *&buf[12] = 2114;
-    *&buf[14] = v12;
+    *&buf[14] = v13;
     *&buf[22] = 2114;
-    *&buf[24] = v13;
-    _os_log_impl(&dword_21E67D000, v11, OS_LOG_TYPE_INFO, "Set wallpaper style state for priority %li for variant %{public}@ to %{public}@", buf, 0x20u);
+    *&buf[24] = v14;
+    _os_log_impl(&dword_21E67D000, v12, OS_LOG_TYPE_INFO, "Set wallpaper style state for priority %li for variant %{public}@ to %{public}@", buf, 0x20u);
   }
 
-  v14 = [(PBUIWallpaperViewController *)self wallpaperStyleInfoForVariant:variant];
-  *&v17[3] = 0;
-  *v17 = 0;
-  *&v17[23] = state->var2;
-  *&v17[7] = *&state->var0;
+  v15 = [(PBUIWallpaperViewController *)self wallpaperStyleInfoForVariant:variant];
+  *&v18[3] = 0;
+  *v18 = 0;
+  *&v18[23] = state->var2;
+  *&v18[7] = *&state->var0;
   buf[0] = 1;
-  *&buf[1] = *v17;
-  *&buf[16] = *&v17[15];
-  [v14 setPriorityInfo:buf forPriority:{priority, *v17, *&v17[8], *&v17[16], *&v17[24]}];
-  v15 = [(PBUIWallpaperViewController *)self _updateEffectViewForVariant:variant withFactory:factoryCopy];
+  *&buf[1] = *v18;
+  *&buf[16] = *&v18[15];
+  [v15 setPriorityInfo:buf forPriority:{priority, *v18, *&v18[8], *&v18[16], *&v18[24]}];
+  v16 = [(PBUIWallpaperViewController *)self _updateEffectViewForVariant:variant withFactory:v11];
 
-  return v15;
+  return v16;
 }
 
 - (BOOL)removeWallpaperStyleForPriority:(int64_t)priority forVariant:(int64_t)variant withAnimationFactory:(id)factory
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   factoryCopy = factory;
+  v9 = factoryCopy;
   if (priority >= 5)
   {
     [PBUIWallpaperViewController removeWallpaperStyleForPriority:priority forVariant:? withAnimationFactory:?];
   }
 
-  v9 = PBUILogCommon();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+  v10 = PBUILogCommon(factoryCopy);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
   {
-    v10 = PBUIStringForWallpaperVariant(variant);
-    v14 = 134218242;
+    v11 = PBUIStringForWallpaperVariant(variant);
+    v15 = 134218242;
     priorityCopy = priority;
-    v16 = 2114;
-    v17 = v10;
-    _os_log_impl(&dword_21E67D000, v9, OS_LOG_TYPE_INFO, "Remove wallpaper style for priority %li for variant %{public}@", &v14, 0x16u);
+    v17 = 2114;
+    v18 = v11;
+    _os_log_impl(&dword_21E67D000, v10, OS_LOG_TYPE_INFO, "Remove wallpaper style for priority %li for variant %{public}@", &v15, 0x16u);
   }
 
-  v11 = [(PBUIWallpaperViewController *)self wallpaperStyleInfoForVariant:variant];
-  [v11 removePriorityInfoForPriority:priority];
-  v12 = [(PBUIWallpaperViewController *)self _updateEffectViewForVariant:variant withFactory:factoryCopy];
+  v12 = [(PBUIWallpaperViewController *)self wallpaperStyleInfoForVariant:variant];
+  [v12 removePriorityInfoForPriority:priority];
+  v13 = [(PBUIWallpaperViewController *)self _updateEffectViewForVariant:variant withFactory:v9];
 
-  return v12;
+  return v13;
 }
 
 - (id)requireWallpaperWithReason:(id)reason
@@ -2005,8 +2007,7 @@ LABEL_8:
   v11 = *MEMORY[0x277D85DE8];
   assertionCopy = assertion;
   [(NSHashTable *)self->_suspendWallpaperAnimationAssertions removeObject:assertionCopy];
-  [(PBUIWallpaperViewController *)self _suspendOrResumeWallpaperAnimation];
-  v5 = PBUILogCommon();
+  v5 = PBUILogCommon([(PBUIWallpaperViewController *)self _suspendOrResumeWallpaperAnimation]);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     suspendWallpaperAnimationAssertions = self->_suspendWallpaperAnimationAssertions;
@@ -2192,7 +2193,7 @@ LABEL_8:
       if (v7)
       {
         v8 = v7;
-        v9 = PBUILogCommon();
+        v9 = PBUILogCommon(v7);
         if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
         {
           v11 = 138412546;
@@ -2799,15 +2800,15 @@ LABEL_72:
 
   if (!wallpaperStyleAnimationAssertion)
   {
-    v4 = PBUILogCommon();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+    v5 = PBUILogCommon(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
-      *v6 = 0;
-      _os_log_impl(&dword_21E67D000, v4, OS_LOG_TYPE_INFO, "Disabling dynamic wallpapers and parallax because of requested wallpaper style", v6, 2u);
+      *v7 = 0;
+      _os_log_impl(&dword_21E67D000, v5, OS_LOG_TYPE_INFO, "Disabling dynamic wallpapers and parallax because of requested wallpaper style", v7, 2u);
     }
 
-    v5 = [(PBUIWallpaperViewController *)self suspendWallpaperAnimationForReason:@"PBUIWallpaperViewIsDarkOrHiddenReason"];
-    [(PBUIWallpaperViewController *)self setWallpaperStyleAnimationAssertion:v5];
+    v6 = [(PBUIWallpaperViewController *)self suspendWallpaperAnimationForReason:@"PBUIWallpaperViewIsDarkOrHiddenReason"];
+    [(PBUIWallpaperViewController *)self setWallpaperStyleAnimationAssertion:v6];
   }
 }
 
@@ -2817,11 +2818,11 @@ LABEL_72:
 
   if (wallpaperStyleAnimationAssertion)
   {
-    v4 = PBUILogCommon();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+    v5 = PBUILogCommon(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
-      *v6 = 0;
-      _os_log_impl(&dword_21E67D000, v4, OS_LOG_TYPE_INFO, "Enabling dynamic wallpapers and parallax because of requested wallpaper style", v6, 2u);
+      *v7 = 0;
+      _os_log_impl(&dword_21E67D000, v5, OS_LOG_TYPE_INFO, "Enabling dynamic wallpapers and parallax because of requested wallpaper style", v7, 2u);
     }
 
     wallpaperStyleAnimationAssertion2 = [(PBUIWallpaperViewController *)self wallpaperStyleAnimationAssertion];
@@ -2890,12 +2891,12 @@ LABEL_72:
   v36 = 0.0;
   if (v13)
   {
-    [v13 styleTransitionState];
+    objc_msgSend_styleTransitionState(v13);
     v33 = 0uLL;
     v34 = 0.0;
     if ((v15 & 0x8000000000000000) == 0)
     {
-      [v13 priorityInfoForPriority:v15];
+      objc_msgSend_priorityInfoForPriority_(v13);
 LABEL_9:
       v33 = *(v32 + 8);
       v34 = *(&v32[1] + 1);

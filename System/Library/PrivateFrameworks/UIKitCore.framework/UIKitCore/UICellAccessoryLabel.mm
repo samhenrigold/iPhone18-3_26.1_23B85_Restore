@@ -131,9 +131,9 @@
         goto LABEL_17;
       }
 
-      v11 = [(UIFont *)v7 isEqual:v8];
+      isEqual = objc_msgSend_isEqual_(v7);
 
-      if (!v11)
+      if (!isEqual)
       {
         goto LABEL_18;
       }
@@ -161,7 +161,7 @@
 
     if (!v15)
     {
-      v16 = [(UIFont *)v7 isEqual:v14];
+      v16 = objc_msgSend_isEqual_(v7);
 
       if (!v16)
       {

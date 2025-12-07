@@ -257,7 +257,7 @@ void __66__SUQueueSessionManager_beginPreorderManagerSessionWithItemKinds___bloc
   dispatch_sync(dispatchQueue, v4);
 }
 
-uint64_t __61__SUQueueSessionManager_endDownloadManagerSessionForManager___block_invoke(uint64_t a1)
+void *__61__SUQueueSessionManager_endDownloadManagerSessionForManager___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _queueSessionWithQueue:*(a1 + 40) fromArray:*(*(a1 + 32) + 16)];
   if (result)
@@ -284,7 +284,7 @@ uint64_t __61__SUQueueSessionManager_endDownloadManagerSessionForManager___block
   dispatch_sync(dispatchQueue, v4);
 }
 
-uint64_t __62__SUQueueSessionManager_endPreorderManagerSessionWithManager___block_invoke(uint64_t a1)
+void *__62__SUQueueSessionManager_endPreorderManagerSessionWithManager___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _queueSessionWithQueue:*(a1 + 40) fromArray:*(*(a1 + 32) + 24)];
   if (result)

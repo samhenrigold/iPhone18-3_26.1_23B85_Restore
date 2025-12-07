@@ -1,4 +1,5 @@
 @interface CKThrottlingCriteriaImpl
+- (BOOL)isOperationType:(int)type;
 - (CKThrottlingCriteriaImpl)initWithContainerID:(id)d databaseScope:(int64_t)scope;
 @end
 
@@ -18,6 +19,21 @@
   }
 
   return v9;
+}
+
+- (BOOL)isOperationType:(int)type
+{
+  v5 = objc_msgSend_operationType(self, a2, *&type);
+
+  if (!v5)
+  {
+    return 0;
+  }
+
+  v8 = objc_msgSend_operationType(self, v6, v7);
+  v11 = objc_msgSend_intValue(v8, v9, v10) == type;
+
+  return v11;
 }
 
 @end

@@ -61,7 +61,7 @@
 
 void __52__HDSkiingWorkoutEventCollector_startWithSessionId___block_invoke(uint64_t a1)
 {
-  v16[1] = *MEMORY[0x277D85DE8];
+  v15[1] = *MEMORY[0x277D85DE8];
   v1 = *(a1 + 32);
   v2 = *(a1 + 40);
   if (v1)
@@ -75,9 +75,9 @@ void __52__HDSkiingWorkoutEventCollector_startWithSessionId___block_invoke(uint6
       _os_log_impl(&dword_228986000, v3, OS_LOG_TYPE_DEFAULT, "Starting ski workout event collector for sessionID %@", &buf, 0xCu);
     }
 
-    v12.receiver = v1;
-    v12.super_class = HDSkiingWorkoutEventCollector;
-    objc_msgSendSuper2(&v12, sel_startWithSessionId_, v2);
+    v11.receiver = v1;
+    v11.super_class = HDSkiingWorkoutEventCollector;
+    objc_msgSendSuper2(&v11, sel_startWithSessionId_, v2);
     v4 = objc_alloc(MEMORY[0x277CC1D40]);
     v5 = [v1 sessionId];
     v6 = [v4 initWithSessionId:v5];
@@ -89,15 +89,13 @@ void __52__HDSkiingWorkoutEventCollector_startWithSessionId___block_invoke(uint6
     v9 = v1[5];
     *&buf = MEMORY[0x277D85DD0];
     *(&buf + 1) = 3221225472;
-    v14 = __69__HDSkiingWorkoutEventCollector__queue_startCollectionWithSessionId___block_invoke;
-    v15 = &unk_27861EAC0;
-    objc_copyWeak(v16, &location);
+    v13 = __69__HDSkiingWorkoutEventCollector__queue_startCollectionWithSessionId___block_invoke;
+    v14 = &unk_27861EAC0;
+    objc_copyWeak(v15, &location);
     [v8 startUpdatesFromRecord:v9 handler:&buf];
-    objc_destroyWeak(v16);
+    objc_destroyWeak(v15);
     objc_destroyWeak(&location);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)stop
@@ -111,10 +109,10 @@ void __52__HDSkiingWorkoutEventCollector_startWithSessionId___block_invoke(uint6
   dispatch_sync(workoutEventQueue, block);
 }
 
-id __37__HDSkiingWorkoutEventCollector_stop__block_invoke(id result)
+void *__37__HDSkiingWorkoutEventCollector_stop__block_invoke(void *result)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v1 = *(result + 4);
+  v6 = *MEMORY[0x277D85DE8];
+  v1 = result[4];
   if (v1)
   {
     _HKInitializeLogging();
@@ -123,18 +121,17 @@ id __37__HDSkiingWorkoutEventCollector_stop__block_invoke(id result)
     {
       v3 = v2;
       v4 = [v1 sessionId];
-      LODWORD(v6.receiver) = 138412290;
-      *(&v6.receiver + 4) = v4;
-      _os_log_impl(&dword_228986000, v3, OS_LOG_TYPE_DEFAULT, "Stopping ski workout event collector for sessionID: %@", &v6, 0xCu);
+      LODWORD(v5.receiver) = 138412290;
+      *(&v5.receiver + 4) = v4;
+      _os_log_impl(&dword_228986000, v3, OS_LOG_TYPE_DEFAULT, "Stopping ski workout event collector for sessionID: %@", &v5, 0xCu);
     }
 
     [v1[4] stopUpdates];
-    v6.receiver = v1;
-    v6.super_class = HDSkiingWorkoutEventCollector;
-    result = objc_msgSendSuper2(&v6, sel_stop);
+    v5.receiver = v1;
+    v5.super_class = HDSkiingWorkoutEventCollector;
+    return objc_msgSendSuper2(&v5, sel_stop);
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -235,7 +232,7 @@ void __73__HDSkiingWorkoutEventCollector__startUpdatesFromRecordHandlerWithError
 
 - (void)_queue_errorOccurred:(void *)occurred
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (occurred)
   {
@@ -243,9 +240,9 @@ void __73__HDSkiingWorkoutEventCollector__startUpdatesFromRecordHandlerWithError
     v4 = *MEMORY[0x277CCC330];
     if (os_log_type_enabled(*MEMORY[0x277CCC330], OS_LOG_TYPE_ERROR))
     {
-      v10 = 138543362;
-      v11 = v3;
-      _os_log_error_impl(&dword_228986000, v4, OS_LOG_TYPE_ERROR, "Error getting ski data: %{public}@", &v10, 0xCu);
+      v9 = 138543362;
+      v10 = v3;
+      _os_log_error_impl(&dword_228986000, v4, OS_LOG_TYPE_ERROR, "Error getting ski data: %{public}@", &v9, 0xCu);
     }
 
     v5 = objc_alloc(MEMORY[0x277CCDE58]);
@@ -255,8 +252,6 @@ void __73__HDSkiingWorkoutEventCollector__startUpdatesFromRecordHandlerWithError
     delegate = [occurred delegate];
     [delegate receivedWorkoutEvent:v7];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __67__HDSkiingWorkoutEventCollector__queue_querySkiDataWithCompletion___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -282,7 +277,7 @@ void __67__HDSkiingWorkoutEventCollector__queue_querySkiDataWithCompletion___blo
 uint64_t __67__HDSkiingWorkoutEventCollector__queue_querySkiDataWithCompletion___block_invoke_2(uint64_t a1)
 {
   v1 = a1;
-  v95 = *MEMORY[0x277D85DE8];
+  v92 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   v3 = *(a1 + 48);
   v4 = *(a1 + 40);
@@ -296,7 +291,7 @@ uint64_t __67__HDSkiingWorkoutEventCollector__queue_querySkiDataWithCompletion__
       goto LABEL_34;
     }
 
-    v71 = v1;
+    v68 = v1;
     v7 = [v2[5] recordId];
     v8 = MEMORY[0x277CCC330];
     if (!v7)
@@ -309,39 +304,39 @@ uint64_t __67__HDSkiingWorkoutEventCollector__queue_querySkiDataWithCompletion__
       v11 = *v8;
       if (os_log_type_enabled(*v8, OS_LOG_TYPE_DEBUG))
       {
-        v69 = v2[5];
-        *v88 = 138412290;
-        v89 = v69;
-        _os_log_debug_impl(&dword_228986000, v11, OS_LOG_TYPE_DEBUG, "Setting initial reference ski data to %@", v88, 0xCu);
+        v66 = v2[5];
+        *v85 = 138412290;
+        v86 = v66;
+        _os_log_debug_impl(&dword_228986000, v11, OS_LOG_TYPE_DEBUG, "Setting initial reference ski data to %@", v85, 0xCu);
       }
     }
 
-    v86 = 0u;
-    v87 = 0u;
+    v83 = 0u;
     v84 = 0u;
-    v85 = 0u;
-    v70 = v4;
+    v81 = 0u;
+    v82 = 0u;
+    v67 = v4;
     v12 = v4;
-    v13 = [v12 countByEnumeratingWithState:&v84 objects:v88 count:16];
+    v13 = [v12 countByEnumeratingWithState:&v81 objects:v85 count:16];
     if (v13)
     {
       v14 = v13;
-      v83 = *v85;
-      v75 = *MEMORY[0x277CCC470];
-      v74 = *MEMORY[0x277CCC4E8];
-      v72 = *MEMORY[0x277CCC490];
-      v73 = *MEMORY[0x277CCC430];
-      v77 = v12;
+      v80 = *v82;
+      v72 = *MEMORY[0x277CCC470];
+      v71 = *MEMORY[0x277CCC4E8];
+      v69 = *MEMORY[0x277CCC490];
+      v70 = *MEMORY[0x277CCC430];
+      v74 = v12;
       do
       {
         for (i = 0; i != v14; ++i)
         {
-          if (*v85 != v83)
+          if (*v82 != v80)
           {
             objc_enumerationMutation(v12);
           }
 
-          v16 = *(*(&v84 + 1) + 8 * i);
+          v16 = *(*(&v81 + 1) + 8 * i);
           _HKInitializeLogging();
           v17 = *v8;
           if (os_log_type_enabled(*v8, OS_LOG_TYPE_DEFAULT))
@@ -420,15 +415,15 @@ LABEL_21:
             v38 = [v36 unitFromString:@"m/s"];
             v39 = MEMORY[0x277CCD7E8];
             [v35 runAvgSpeed];
-            v80 = [v39 quantityWithUnit:v38 doubleValue:?];
+            v77 = [v39 quantityWithUnit:v38 doubleValue:?];
             v40 = MEMORY[0x277CCD7E8];
             [v35 runMaxSpeed];
-            v79 = v38;
-            v82 = [v40 quantityWithUnit:v38 doubleValue:?];
+            v76 = v38;
+            v79 = [v40 quantityWithUnit:v38 doubleValue:?];
             v41 = MEMORY[0x277CCD7E8];
             v42 = [MEMORY[0x277CCDAB0] percentUnit];
             [v35 runSlope];
-            v81 = [v41 quantityWithUnit:v42 doubleValue:(tan(v43) * 100.0)];
+            v78 = [v41 quantityWithUnit:v42 doubleValue:(tan(v43) * 100.0)];
 
             [v35 runElevationDescent];
             v45 = v44;
@@ -445,13 +440,13 @@ LABEL_21:
             v54 = [v51 initWithStartDate:v52 endDate:v53];
 
             [v54 duration];
-            v78 = v50;
+            v75 = v50;
             if (v55 == 0.0)
             {
               _HKInitializeLogging();
               v8 = MEMORY[0x277CCC330];
               v56 = *MEMORY[0x277CCC330];
-              v57 = v80;
+              v57 = v77;
               if (os_log_type_enabled(*MEMORY[0x277CCC330], OS_LOG_TYPE_ERROR))
               {
                 *buf = 138543362;
@@ -462,49 +457,49 @@ LABEL_21:
 
             else
             {
-              v92[0] = v75;
-              v92[1] = v74;
-              *buf = v80;
-              *&buf[8] = v82;
-              v92[2] = v73;
-              v92[3] = v72;
-              *&buf[16] = v81;
-              v94 = v50;
-              v58 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:buf forKeys:v92 count:4];
+              v89[0] = v72;
+              v89[1] = v71;
+              *buf = v77;
+              *&buf[8] = v79;
+              v89[2] = v70;
+              v89[3] = v69;
+              *&buf[16] = v78;
+              v91 = v50;
+              v58 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:buf forKeys:v89 count:4];
               v59 = objc_alloc(MEMORY[0x277CCDE58]);
               v60 = [v2 sessionId];
-              v76 = v58;
+              v73 = v58;
               v61 = [v59 initWithEventType:9 sessionId:v60 dateInterval:v54 metadata:v58];
 
               _HKInitializeLogging();
               v8 = MEMORY[0x277CCC330];
               v62 = *MEMORY[0x277CCC330];
-              v57 = v80;
+              v57 = v77;
               if (os_log_type_enabled(*MEMORY[0x277CCC330], OS_LOG_TYPE_DEFAULT))
               {
-                *v90 = 138412290;
-                v91 = v61;
-                _os_log_impl(&dword_228986000, v62, OS_LOG_TYPE_DEFAULT, "Generating workout segment event: %@", v90, 0xCu);
+                *v87 = 138412290;
+                v88 = v61;
+                _os_log_impl(&dword_228986000, v62, OS_LOG_TYPE_DEFAULT, "Generating workout segment event: %@", v87, 0xCu);
               }
 
               v63 = [v2 delegate];
               [v63 receivedWorkoutEvent:v61];
             }
 
-            v12 = v77;
+            v12 = v74;
           }
 
           objc_storeStrong(v2 + 5, v16);
         }
 
-        v14 = [v12 countByEnumeratingWithState:&v84 objects:v88 count:16];
+        v14 = [v12 countByEnumeratingWithState:&v81 objects:v85 count:16];
       }
 
       while (v14);
     }
 
-    v4 = v70;
-    v1 = v71;
+    v4 = v67;
+    v1 = v68;
     v6 = 0;
   }
 
@@ -513,16 +508,9 @@ LABEL_34:
   result = *(v1 + 56);
   if (result)
   {
-    v65 = *(v1 + 48) == 0;
-    v66 = *(result + 16);
-    v67 = *MEMORY[0x277D85DE8];
+    v65 = *(result + 16);
 
-    return v66();
-  }
-
-  else
-  {
-    v68 = *MEMORY[0x277D85DE8];
+    return v65();
   }
 
   return result;

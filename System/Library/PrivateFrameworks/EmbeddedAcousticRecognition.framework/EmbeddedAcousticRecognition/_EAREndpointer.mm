@@ -34,7 +34,7 @@
     {
       if (configurationCopy)
       {
-        [configurationCopy ear_toString];
+        objc_msgSend_ear_toString(configurationCopy);
       }
 
       operator new();
@@ -72,7 +72,7 @@
     {
       if (configurationCopy)
       {
-        [configurationCopy ear_toString];
+        objc_msgSend_ear_toString(configurationCopy);
       }
 
       operator new();
@@ -196,19 +196,19 @@
   v2 = [_EARDefaultServerEndpointFeatures alloc];
   std::string::basic_string[abi:ne200100]<0>(v20, quasar::EP_NUM_OF_WORDS_STR[0]);
   v18[0] = v20;
-  v3 = *(std::__tree<std::__value_type<std::string,float>,std::__map_value_compare<std::string,std::__value_type<std::string,float>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,float>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v22, v20) + 56);
+  v3 = *(std::__tree<std::__value_type<std::string,float>,std::__map_value_compare<std::string,std::__value_type<std::string,float>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,float>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v22, v20, &std::piecewise_construct, v18) + 56);
   std::string::basic_string[abi:ne200100]<0>(v18, quasar::EP_NUM_TRAILING_SIL_STR[0]);
   v16[0] = v18;
-  v4 = *(std::__tree<std::__value_type<std::string,float>,std::__map_value_compare<std::string,std::__value_type<std::string,float>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,float>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v22, v18) + 56);
+  v4 = *(std::__tree<std::__value_type<std::string,float>,std::__map_value_compare<std::string,std::__value_type<std::string,float>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,float>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v22, v18, &std::piecewise_construct, v16) + 56);
   std::string::basic_string[abi:ne200100]<0>(v16, quasar::EP_EOS_LIKELIHOOD_STR[0]);
   v14[0] = v16;
-  v5 = *(std::__tree<std::__value_type<std::string,float>,std::__map_value_compare<std::string,std::__value_type<std::string,float>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,float>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v22, v16) + 56);
+  v5 = *(std::__tree<std::__value_type<std::string,float>,std::__map_value_compare<std::string,std::__value_type<std::string,float>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,float>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v22, v16, &std::piecewise_construct, v14) + 56);
   std::string::basic_string[abi:ne200100]<0>(v14, quasar::EP_ACOUSTIC_EP_SCORE_STR[0]);
   __p[0] = v14;
-  v6 = *(std::__tree<std::__value_type<std::string,float>,std::__map_value_compare<std::string,std::__value_type<std::string,float>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,float>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v22, v14) + 56);
+  v6 = *(std::__tree<std::__value_type<std::string,float>,std::__map_value_compare<std::string,std::__value_type<std::string,float>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,float>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v22, v14, &std::piecewise_construct, __p) + 56);
   std::string::basic_string[abi:ne200100]<0>(__p, quasar::EP_SILENCE_POSTERIOR_STR[0]);
-  v22[4] = __p;
-  LODWORD(v7) = *(std::__tree<std::__value_type<std::string,float>,std::__map_value_compare<std::string,std::__value_type<std::string,float>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,float>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v22, __p) + 56);
+  v23 = __p;
+  LODWORD(v7) = *(std::__tree<std::__value_type<std::string,float>,std::__map_value_compare<std::string,std::__value_type<std::string,float>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,float>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v22, __p, &std::piecewise_construct, &v23) + 56);
   LODWORD(v8) = v5;
   LODWORD(v9) = v6;
   v10 = [(_EARDefaultServerEndpointFeatures *)v2 initWithWordCount:v3 trailingSilenceDuration:v4 endOfSentenceLikelihood:v8 acousticEndpointerScore:v9 silencePosterior:v7];

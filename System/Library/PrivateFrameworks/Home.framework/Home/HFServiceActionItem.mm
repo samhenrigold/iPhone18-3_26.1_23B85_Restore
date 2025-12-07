@@ -133,16 +133,14 @@ id __51__HFServiceActionItem__subclass_updateWithOptions___block_invoke(uint64_t
 
 void __51__HFServiceActionItem__subclass_updateWithOptions___block_invoke_3()
 {
-  v3[4] = *MEMORY[0x277D85DE8];
-  v3[0] = @"errorDescription";
-  v3[1] = @"longErrorDescription";
-  v3[2] = @"badge";
-  v3[3] = @"underlyingError";
-  v0 = [MEMORY[0x277CBEA60] arrayWithObjects:v3 count:4];
+  v2[4] = *MEMORY[0x277D85DE8];
+  v2[0] = @"errorDescription";
+  v2[1] = @"longErrorDescription";
+  v2[2] = @"badge";
+  v2[3] = @"underlyingError";
+  v0 = [MEMORY[0x277CBEA60] arrayWithObjects:v2 count:4];
   v1 = qword_27C84C4D8;
   qword_27C84C4D8 = v0;
-
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addAction:(id)action
@@ -192,26 +190,26 @@ void __51__HFServiceActionItem__subclass_updateWithOptions___block_invoke_3()
 - (id)serviceActionItemForChildServiceItem:(id)item
 {
   itemCopy = item;
-  service = [itemCopy service];
+  v5 = objc_msgSend_service(itemCopy);
   services = [(HFServiceActionItem *)self services];
-  v7 = [services containsObject:service];
+  v7 = [services containsObject:v5];
 
   if ((v7 & 1) == 0)
   {
-    hf_prettyDescription = [service hf_prettyDescription];
+    hf_prettyDescription = [v5 hf_prettyDescription];
     NSLog(&cfstr_RequestToCreat.isa, hf_prettyDescription, self);
   }
 
   v9 = [HFServiceActionItem alloc];
-  home = [(HFServiceActionItem *)self home];
-  v11 = [(HFServiceActionItem *)v9 initWithHome:home containingItem:itemCopy];
+  v10 = objc_msgSend_home(self);
+  v11 = [(HFServiceActionItem *)v9 initWithHome:v10 containingItem:itemCopy];
 
   actionBuilders = [(HFServiceActionItem *)self actionBuilders];
   v21[0] = MEMORY[0x277D85DD0];
   v21[1] = 3221225472;
   v21[2] = __60__HFServiceActionItem_serviceActionItemForChildServiceItem___block_invoke;
   v21[3] = &unk_277DF4998;
-  v13 = service;
+  v13 = v5;
   v22 = v13;
   v14 = [actionBuilders na_filter:v21];
   [(HFServiceActionItem *)v11 setActionBuilders:v14];
@@ -236,7 +234,7 @@ uint64_t __60__HFServiceActionItem_serviceActionItemForChildServiceItem___block_
   if (objc_opt_isKindOfClass())
   {
     v4 = [v3 characteristic];
-    v5 = [v4 service];
+    v5 = objc_msgSend_service(v4);
     v6 = [v5 uniqueIdentifier];
     v7 = [*(a1 + 32) uniqueIdentifier];
     v8 = [v6 isEqual:v7];
@@ -257,7 +255,7 @@ uint64_t __60__HFServiceActionItem_serviceActionItemForChildServiceItem___block_
   if (objc_opt_isKindOfClass())
   {
     v4 = [v3 characteristic];
-    v5 = [v4 service];
+    v5 = objc_msgSend_service(v4);
     v6 = [v5 uniqueIdentifier];
     v7 = [*(a1 + 32) uniqueIdentifier];
     v8 = [v6 isEqual:v7];
@@ -307,11 +305,11 @@ uint64_t __60__HFServiceActionItem_serviceActionItemForChildServiceItem___block_
 {
   sourceCopy = source;
   v5 = objc_alloc(objc_opt_class());
-  home = [(HFServiceActionItem *)self home];
+  v6 = objc_msgSend_home(self);
   containingItem = [(HFServiceActionItem *)self containingItem];
   v8 = [containingItem copyWithValueSource:sourceCopy];
 
-  v9 = [v5 initWithHome:home containingItem:v8];
+  v9 = [v5 initWithHome:v6 containingItem:v8];
   [v9 copyLatestResultsFromItem:self];
   return v9;
 }
@@ -583,36 +581,36 @@ BOOL __91__HFServiceActionItem__getDesiredItemDescription_controlDescription_wit
 
 - (id)_characteristicTypeToTargetValuesMap
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   dictionary = [MEMORY[0x277CBEB38] dictionary];
   aBlock[0] = MEMORY[0x277D85DD0];
   aBlock[1] = 3221225472;
   aBlock[2] = __59__HFServiceActionItem__characteristicTypeToTargetValuesMap__block_invoke;
   aBlock[3] = &unk_277DFAEB0;
   aBlock[4] = self;
-  v26 = dictionary;
-  v36 = v26;
+  v25 = dictionary;
+  v35 = v25;
   v4 = _Block_copy(aBlock);
+  v30 = 0u;
   v31 = 0u;
   v32 = 0u;
   v33 = 0u;
-  v34 = 0u;
   actions = [(HFServiceActionItem *)self actions];
-  v6 = [actions countByEnumeratingWithState:&v31 objects:v38 count:16];
+  v6 = [actions countByEnumeratingWithState:&v30 objects:v37 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v32;
+    v8 = *v31;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v32 != v8)
+        if (*v31 != v8)
         {
           objc_enumerationMutation(actions);
         }
 
-        v10 = *(*(&v31 + 1) + 8 * i);
+        v10 = *(*(&v30 + 1) + 8 * i);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
@@ -624,32 +622,32 @@ BOOL __91__HFServiceActionItem__getDesiredItemDescription_controlDescription_wit
         }
       }
 
-      v7 = [actions countByEnumeratingWithState:&v31 objects:v38 count:16];
+      v7 = [actions countByEnumeratingWithState:&v30 objects:v37 count:16];
     }
 
     while (v7);
   }
 
-  v29 = 0u;
-  v30 = 0u;
-  v27 = 0u;
   v28 = 0u;
+  v29 = 0u;
+  v26 = 0u;
+  v27 = 0u;
   actionBuilders = [(HFServiceActionItem *)self actionBuilders];
-  v15 = [actionBuilders countByEnumeratingWithState:&v27 objects:v37 count:16];
+  v15 = [actionBuilders countByEnumeratingWithState:&v26 objects:v36 count:16];
   if (v15)
   {
     v16 = v15;
-    v17 = *v28;
+    v17 = *v27;
     do
     {
       for (j = 0; j != v16; ++j)
       {
-        if (*v28 != v17)
+        if (*v27 != v17)
         {
           objc_enumerationMutation(actionBuilders);
         }
 
-        v19 = *(*(&v27 + 1) + 8 * j);
+        v19 = *(*(&v26 + 1) + 8 * j);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
@@ -661,15 +659,14 @@ BOOL __91__HFServiceActionItem__getDesiredItemDescription_controlDescription_wit
         }
       }
 
-      v16 = [actionBuilders countByEnumeratingWithState:&v27 objects:v37 count:16];
+      v16 = [actionBuilders countByEnumeratingWithState:&v26 objects:v36 count:16];
     }
 
     while (v16);
   }
 
-  v23 = v26;
-  v24 = *MEMORY[0x277D85DE8];
-  return v26;
+  v23 = v25;
+  return v25;
 }
 
 void __59__HFServiceActionItem__characteristicTypeToTargetValuesMap__block_invoke(uint64_t a1, void *a2, void *a3)
@@ -677,7 +674,7 @@ void __59__HFServiceActionItem__characteristicTypeToTargetValuesMap__block_invok
   v12 = a2;
   v5 = a3;
   v6 = [*(a1 + 32) services];
-  v7 = [v12 service];
+  v7 = objc_msgSend_service(v12);
   v8 = [v6 containsObject:v7];
 
   if (v8)

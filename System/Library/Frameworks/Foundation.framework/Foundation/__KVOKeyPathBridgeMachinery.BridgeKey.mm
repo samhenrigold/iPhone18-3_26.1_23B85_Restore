@@ -36,7 +36,7 @@
 
   v6 = __KVOKeyPathBridgeMachinery.BridgeKey.isEqual(_:)(v8);
 
-  outlined destroy of TermOfAddress?(v8, &_sypSgMd);
+  outlined destroy of TermOfAddress?(v8, &_sypSgMd, &_sypSgMR);
   return v6 & 1;
 }
 

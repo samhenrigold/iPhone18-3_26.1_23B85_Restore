@@ -126,7 +126,7 @@
       {
         v15 = self->_addressString;
         addressString2 = [(PLRevGeoLocationInfo *)v5 addressString];
-        LODWORD(v15) = [(NSString *)v15 isEqualToString:addressString2];
+        LODWORD(v15) = objc_msgSend_isEqualToString_(v15);
 
         if (!v15)
         {
@@ -202,7 +202,7 @@ LABEL_23:
   {
     compoundSecondaryNameInfo = [(PLRevGeoLocationInfo *)self compoundSecondaryNameInfo];
     localizedSortedNames = [compoundSecondaryNameInfo localizedSortedNames];
-    v5 = [localizedSortedNames count] != 0;
+    v5 = objc_msgSend_count(localizedSortedNames) != 0;
   }
 
   return v5;
@@ -604,7 +604,7 @@ LABEL_27:
 {
   v3 = +[PLRevGeoLocationHelper currentRevGeoProvider];
   geoServiceProvider = [(PLRevGeoLocationInfo *)self geoServiceProvider];
-  if (([v3 isEqualToString:geoServiceProvider] & 1) != 0 || (v5 = +[PLRevGeoLocationHelper isAutoNaviRevGeoProvider:](PLRevGeoLocationHelper, "isAutoNaviRevGeoProvider:", geoServiceProvider), -[PLRevGeoLocationInfo countryCode](self, "countryCode"), v6 = objc_claimAutoreleasedReturnValue(), v7 = +[PLRevGeoLocationHelper isAutoNaviCountryCode:](PLRevGeoLocationHelper, "isAutoNaviCountryCode:", v6), v6, v5 == v7))
+  if ((objc_msgSend_isEqualToString_(v3) & 1) != 0 || (v5 = [PLRevGeoLocationHelper isAutoNaviRevGeoProvider:geoServiceProvider], [(PLRevGeoLocationInfo *)self countryCode], v6 = objc_claimAutoreleasedReturnValue(), v7 = [PLRevGeoLocationHelper isAutoNaviCountryCode:v6], v6, v5 == v7))
   {
     LOBYTE(v8) = 1;
   }

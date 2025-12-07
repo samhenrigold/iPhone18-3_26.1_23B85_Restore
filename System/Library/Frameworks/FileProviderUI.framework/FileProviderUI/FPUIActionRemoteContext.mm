@@ -65,43 +65,41 @@ uint64_t __60__FPUIActionRemoteContext__extensionAuxiliaryVendorProtocol__block_
 
 void __63__FPUIActionRemoteContext__openExtensionURL_completionHandler___block_invoke(uint64_t a1)
 {
-  v14[1] = *MEMORY[0x277D85DE8];
-  v13 = *MEMORY[0x277D0AC28];
-  v14[0] = @"FPUIAppLaunchOrigin";
-  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:&v13 count:1];
+  v15[1] = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D0AC28];
+  v15[0] = @"FPUIAppLaunchOrigin";
+  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:&v14 count:1];
   v3 = [MEMORY[0x277CC1E80] defaultWorkspace];
   v4 = *(a1 + 32);
-  v12 = 0;
-  v5 = [v3 openSensitiveURL:v4 withOptions:v2 error:&v12];
-  v6 = v12;
+  v13 = 0;
+  v5 = [v3 openSensitiveURL:v4 withOptions:v2 error:&v13];
+  v6 = v13;
 
   if ((v5 & 1) == 0)
   {
-    v7 = fpuiLogHandle;
+    v9 = fpuiLogHandle;
     if (!fpuiLogHandle)
     {
-      FPUIInitLogging();
-      v7 = fpuiLogHandle;
+      FPUIInitLogging(v7, v8);
+      v9 = fpuiLogHandle;
     }
 
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      __63__FPUIActionRemoteContext__openExtensionURL_completionHandler___block_invoke_cold_1((a1 + 32), v6, v7);
+      __63__FPUIActionRemoteContext__openExtensionURL_completionHandler___block_invoke_cold_1((a1 + 32), v6, v9);
     }
   }
 
   if (*(a1 + 40))
   {
-    v9[0] = MEMORY[0x277D85DD0];
-    v9[1] = 3221225472;
-    v9[2] = __63__FPUIActionRemoteContext__openExtensionURL_completionHandler___block_invoke_55;
-    v9[3] = &unk_278A51460;
-    v10 = *(a1 + 40);
-    v11 = v5;
-    dispatch_async(MEMORY[0x277D85CD0], v9);
+    v10[0] = MEMORY[0x277D85DD0];
+    v10[1] = 3221225472;
+    v10[2] = __63__FPUIActionRemoteContext__openExtensionURL_completionHandler___block_invoke_55;
+    v10[3] = &unk_278A51460;
+    v11 = *(a1 + 40);
+    v12 = v5;
+    dispatch_async(MEMORY[0x277D85CD0], v10);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_completeRequestWithUserInfo:(id)info error:(id)error
@@ -157,14 +155,13 @@ void __64__FPUIActionRemoteContext__didEncounterError_completionHandler___block_
 
 void __63__FPUIActionRemoteContext__openExtensionURL_completionHandler___block_invoke_cold_1(uint64_t *a1, uint64_t a2, os_log_t log)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = *a1;
-  v5 = 138412546;
-  v6 = v3;
-  v7 = 2112;
-  v8 = a2;
-  _os_log_error_impl(&dword_238356000, log, OS_LOG_TYPE_ERROR, "FPUIActionExtensionContext failed to open URL %@ with error %@", &v5, 0x16u);
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 138412546;
+  v5 = v3;
+  v6 = 2112;
+  v7 = a2;
+  _os_log_error_impl(&dword_238356000, log, OS_LOG_TYPE_ERROR, "FPUIActionExtensionContext failed to open URL %@ with error %@", &v4, 0x16u);
 }
 
 @end

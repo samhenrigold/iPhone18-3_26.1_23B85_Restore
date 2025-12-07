@@ -7,45 +7,45 @@
 + (id)attributedStringWithFormatAndAttributes:()VSSpeechAdditions
 {
   v9 = a3;
-  v91 = *MEMORY[0x277D85DE8];
-  v89 = 0;
-  v80 = 0u;
-  v81 = 0u;
-  v78 = 0u;
+  v90 = *MEMORY[0x277D85DE8];
+  v88 = 0;
   v79 = 0u;
-  v76 = 0u;
+  v80 = 0u;
   v77 = 0u;
-  *buffer = 0u;
+  v78 = 0u;
   v75 = 0u;
+  v76 = 0u;
+  *buffer = 0u;
+  v74 = 0u;
   v10 = [(__CFString *)a3 length];
   v11 = objc_alloc_init(MEMORY[0x277CCAB48]);
   Mutable = CFDictionaryCreateMutable(*MEMORY[0x277CBECE8], 0, 0, MEMORY[0x277CBF150]);
   v13 = objc_alloc_init(MEMORY[0x277CBEB18]);
-  v89 = &a9;
+  v88 = &a9;
   theString = v9;
-  v85 = 0;
-  v86 = v10;
+  v84 = 0;
+  v85 = v10;
   CharactersPtr = CFStringGetCharactersPtr(v9);
   CStringPtr = 0;
-  v83 = CharactersPtr;
+  v82 = CharactersPtr;
   if (!CharactersPtr)
   {
     CStringPtr = CFStringGetCStringPtr(v9, 0x600u);
   }
 
+  v86 = 0;
   v87 = 0;
-  v88 = 0;
-  v84 = CStringPtr;
+  v83 = CStringPtr;
   v16 = v10 - 1;
   if (v10 >= 1)
   {
-    v67 = v9;
+    v66 = v9;
     theDict = Mutable;
     v17 = 0;
-    v63 = 0;
+    v62 = 0;
     v18 = 0;
-    v69 = v10 - 1;
-    v66 = v10;
+    v68 = v10 - 1;
+    v65 = v10;
     while (1)
     {
       v19 = v17 + 1;
@@ -54,25 +54,25 @@
         goto LABEL_52;
       }
 
-      v20 = v86;
-      if (v86 <= v17)
+      v20 = v85;
+      if (v85 <= v17)
       {
         goto LABEL_52;
       }
 
-      if (v83)
+      if (v82)
       {
-        v21 = v83[v85 + v17];
+        v21 = v82[v84 + v17];
       }
 
-      else if (v84)
+      else if (v83)
       {
-        v21 = v84[v85 + v17];
+        v21 = v83[v84 + v17];
       }
 
       else
       {
-        if (v88 <= v17 || (v22 = v87, v87 > v17))
+        if (v87 <= v17 || (v22 = v86, v86 > v17))
         {
           v23 = v17 - 4;
           if (v17 < 4)
@@ -80,18 +80,18 @@
             v23 = 0;
           }
 
-          if (v23 + 64 < v86)
+          if (v23 + 64 < v85)
           {
             v20 = v23 + 64;
           }
 
-          v87 = v23;
-          v88 = v20;
-          v92.length = v20 - v23;
-          v92.location = v85 + v23;
-          CFStringGetCharacters(theString, v92, buffer);
-          v16 = v69;
-          v22 = v87;
+          v86 = v23;
+          v87 = v20;
+          v91.length = v20 - v23;
+          v91.location = v84 + v23;
+          CFStringGetCharacters(theString, v91, buffer);
+          v16 = v68;
+          v22 = v86;
         }
 
         v21 = buffer[v17 - v22];
@@ -106,7 +106,7 @@
       if (v17 > v18)
       {
         [v13 addObject:{-[__CFString substringWithRange:](v9, "substringWithRange:", v18, v24)}];
-        v16 = v69;
+        v16 = v68;
       }
 
       if (v19 >= v10)
@@ -134,54 +134,54 @@ LABEL_52:
           v31 = v19;
         }
 
-        v32 = v86;
-        if (v86 <= v30)
+        v32 = v85;
+        if (v85 <= v30)
         {
           goto LABEL_50;
         }
 
-        if (v83)
+        if (v82)
         {
-          v33 = v83[v85 + 1 + v17];
+          v33 = v82[v84 + 1 + v17];
         }
 
-        else if (v84)
+        else if (v83)
         {
-          v33 = v84[v85 + 1 + v17];
+          v33 = v83[v84 + 1 + v17];
         }
 
         else
         {
-          if (v88 <= v30 || (v34 = v87, v87 > v30))
+          if (v87 <= v30 || (v34 = v86, v86 > v30))
           {
             v35 = v31 + v27;
             v36 = v28 - v31;
             v37 = v17 - v31;
             v38 = v37 + 1;
             v39 = v37 + 65;
-            if (v39 >= v86)
+            if (v39 >= v85)
             {
-              v39 = v86;
+              v39 = v85;
             }
 
-            v87 = v38;
-            v88 = v39;
-            if (v86 >= v36)
+            v86 = v38;
+            v87 = v39;
+            if (v85 >= v36)
             {
               v32 = v36;
             }
 
-            v93.location = v38 + v85;
-            v64 = v26;
-            v65 = v29;
-            v93.length = v32 + v35;
+            v92.location = v38 + v84;
+            v63 = v26;
+            v64 = v29;
+            v92.length = v32 + v35;
             v40 = v25;
-            CFStringGetCharacters(theString, v93, buffer);
-            v26 = v64;
-            v29 = v65;
+            CFStringGetCharacters(theString, v92, buffer);
+            v26 = v63;
+            v29 = v64;
             v25 = v40;
-            v16 = v69;
-            v34 = v87;
+            v16 = v68;
+            v34 = v86;
           }
 
           v33 = buffer[v17 + 1 - v34];
@@ -191,9 +191,9 @@ LABEL_52:
         if (v33 == 37 && v30 == v29)
         {
           [v13 addObject:{@"%", v24}];
-          v16 = v69;
+          v16 = v68;
           v19 = v17 + 2;
-          v9 = v67;
+          v9 = v66;
           goto LABEL_56;
         }
 
@@ -223,8 +223,8 @@ LABEL_50:
         if (v16 == v30)
         {
           v41 = v18;
-          v19 = v66;
-          v9 = v67;
+          v19 = v65;
+          v9 = v66;
           goto LABEL_61;
         }
       }
@@ -236,21 +236,21 @@ LABEL_50:
 
       else
       {
-        v43 = (v63 + 1);
+        v43 = (v62 + 1);
       }
 
       v44 = v29;
       v45 = objc_alloc_init(VSFormatArgument);
-      v9 = v67;
-      v45->formatSpecifier = [(__CFString *)v67 substringWithRange:v44, v41 - v44];
+      v9 = v66;
+      v45->formatSpecifier = [(__CFString *)v66 substringWithRange:v44, v41 - v44];
       CFDictionarySetValue(theDict, v43, v45);
       [v13 addObject:v45];
 
-      v16 = v69;
-      ++v63;
+      v16 = v68;
+      ++v62;
       v19 = v17 + 2;
 LABEL_56:
-      v10 = v66;
+      v10 = v65;
 LABEL_53:
       v17 = v19;
       v18 = v41;
@@ -279,9 +279,9 @@ LABEL_61:
       if (Value)
       {
         v50 = Value;
-        v51 = v89++;
+        v51 = v88++;
         Value[3] = *v51;
-        v52 = v89++;
+        v52 = v88++;
         v50[2] = *v52;
       }
 
@@ -292,25 +292,25 @@ LABEL_61:
     while (v47);
   }
 
-  v72 = 0u;
-  v73 = 0u;
-  v70 = 0u;
   v71 = 0u;
-  v53 = [v13 countByEnumeratingWithState:&v70 objects:v90 count:{16, v63}];
+  v72 = 0u;
+  v69 = 0u;
+  v70 = 0u;
+  v53 = [v13 countByEnumeratingWithState:&v69 objects:v89 count:{16, v62}];
   if (v53)
   {
     v54 = v53;
-    v55 = *v71;
+    v55 = *v70;
     do
     {
       for (i = 0; i != v54; ++i)
       {
-        if (*v71 != v55)
+        if (*v70 != v55)
         {
           objc_enumerationMutation(v13);
         }
 
-        v57 = *(*(&v70 + 1) + 8 * i);
+        v57 = *(*(&v69 + 1) + 8 * i);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
@@ -335,7 +335,7 @@ LABEL_61:
         [v58 appendString:v59 withAttributes:v60];
       }
 
-      v54 = [v13 countByEnumeratingWithState:&v70 objects:v90 count:16];
+      v54 = [v13 countByEnumeratingWithState:&v69 objects:v89 count:16];
     }
 
     while (v54);
@@ -343,9 +343,7 @@ LABEL_61:
 
   CFRelease(Mutable);
 
-  result = v11;
-  v62 = *MEMORY[0x277D85DE8];
-  return result;
+  return v11;
 }
 
 @end

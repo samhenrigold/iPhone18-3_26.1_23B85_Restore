@@ -89,47 +89,47 @@
   width = rect.size.width;
   y = rect.origin.y;
   x = rect.origin.x;
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v8 = [MEMORY[0x277CBEB18] arrayWithCapacity:0];
-  v25.origin.x = x;
-  v25.origin.y = y;
-  v25.size.width = width;
-  v25.size.height = height;
+  v24.origin.x = x;
+  v24.origin.y = y;
+  v24.size.width = width;
+  v24.size.height = height;
   v9 = 0;
-  if (!CGRectIsEmpty(v25))
+  if (!CGRectIsEmpty(v24))
   {
-    v20 = 0u;
-    v21 = 0u;
-    v18 = 0u;
     v19 = 0u;
+    v20 = 0u;
+    v17 = 0u;
+    v18 = 0u;
     v10 = self->_layoutAttributesByIndexPath;
-    v11 = [(NSDictionary *)v10 countByEnumeratingWithState:&v18 objects:v22 count:16];
+    v11 = [(NSDictionary *)v10 countByEnumeratingWithState:&v17 objects:v21 count:16];
     if (v11)
     {
       v12 = v11;
-      v13 = *v19;
+      v13 = *v18;
       do
       {
         for (i = 0; i != v12; ++i)
         {
-          if (*v19 != v13)
+          if (*v18 != v13)
           {
             objc_enumerationMutation(v10);
           }
 
-          v15 = [(NSDictionary *)self->_layoutAttributesByIndexPath objectForKeyedSubscript:*(*(&v18 + 1) + 8 * i), v18];
+          v15 = [(NSDictionary *)self->_layoutAttributesByIndexPath objectForKeyedSubscript:*(*(&v17 + 1) + 8 * i), v17];
           [v15 frame];
-          v27.origin.x = x;
-          v27.origin.y = y;
-          v27.size.width = width;
-          v27.size.height = height;
-          if (CGRectIntersectsRect(v26, v27))
+          v26.origin.x = x;
+          v26.origin.y = y;
+          v26.size.width = width;
+          v26.size.height = height;
+          if (CGRectIntersectsRect(v25, v26))
           {
             [v8 addObject:v15];
           }
         }
 
-        v12 = [(NSDictionary *)v10 countByEnumeratingWithState:&v18 objects:v22 count:16];
+        v12 = [(NSDictionary *)v10 countByEnumeratingWithState:&v17 objects:v21 count:16];
       }
 
       while (v12);
@@ -137,8 +137,6 @@
 
     v9 = v8;
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return v9;
 }

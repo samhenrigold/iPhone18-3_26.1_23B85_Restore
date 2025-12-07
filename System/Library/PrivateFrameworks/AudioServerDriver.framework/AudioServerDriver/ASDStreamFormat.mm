@@ -31,7 +31,7 @@
 
 - (AudioStreamRangedDescription)audioStreamRangedDescription
 {
-  [(ASDStreamFormat *)self audioStreamBasicDescription];
+  objc_msgSend_audioStreamBasicDescription(self, a3);
   retstr->mSampleRateRange.mMinimum = 0.0;
   retstr->mSampleRateRange.mMaximum = 0.0;
   [(ASDStreamFormat *)self minimumSampleRate];
@@ -217,68 +217,40 @@
 {
   compatibleCopy = compatible;
   formatID = [compatibleCopy formatID];
-  if (formatID != [(ASDStreamFormat *)self formatID])
+  v18 = 0;
+  if (formatID == [(ASDStreamFormat *)self formatID])
   {
-    goto LABEL_13;
-  }
-
-  formatFlags = [compatibleCopy formatFlags];
-  if (formatFlags != [(ASDStreamFormat *)self formatFlags])
-  {
-    goto LABEL_13;
-  }
-
-  bytesPerPacket = [compatibleCopy bytesPerPacket];
-  if (bytesPerPacket != [(ASDStreamFormat *)self bytesPerPacket])
-  {
-    goto LABEL_13;
-  }
-
-  framesPerPacket = [compatibleCopy framesPerPacket];
-  if (framesPerPacket != [(ASDStreamFormat *)self framesPerPacket])
-  {
-    goto LABEL_13;
-  }
-
-  bytesPerFrame = [compatibleCopy bytesPerFrame];
-  if (bytesPerFrame != [(ASDStreamFormat *)self bytesPerFrame])
-  {
-    goto LABEL_13;
-  }
-
-  channelsPerFrame = [compatibleCopy channelsPerFrame];
-  if (channelsPerFrame != [(ASDStreamFormat *)self channelsPerFrame])
-  {
-    goto LABEL_13;
-  }
-
-  bitsPerChannel = [compatibleCopy bitsPerChannel];
-  if (bitsPerChannel != [(ASDStreamFormat *)self bitsPerChannel])
-  {
-    goto LABEL_13;
-  }
-
-  [compatibleCopy minimumSampleRate];
-  v13 = v12;
-  [(ASDStreamFormat *)self sampleRate];
-  if (vabdd_f64(v13, v14) < 0.001)
-  {
-    goto LABEL_10;
-  }
-
-  [compatibleCopy maximumSampleRate];
-  v16 = v15;
-  [(ASDStreamFormat *)self sampleRate];
-  if (vabdd_f64(v16, v17) < 0.001 || ([compatibleCopy minimumSampleRate], v20 = v19, -[ASDStreamFormat sampleRate](self, "sampleRate"), v20 <= v21) && (objc_msgSend(compatibleCopy, "maximumSampleRate"), v23 = v22, -[ASDStreamFormat sampleRate](self, "sampleRate"), v23 >= v24))
-  {
-LABEL_10:
-    v18 = 1;
-  }
-
-  else
-  {
-LABEL_13:
-    v18 = 0;
+    formatFlags = [compatibleCopy formatFlags];
+    if (formatFlags == [(ASDStreamFormat *)self formatFlags])
+    {
+      bytesPerPacket = [compatibleCopy bytesPerPacket];
+      if (bytesPerPacket == [(ASDStreamFormat *)self bytesPerPacket])
+      {
+        framesPerPacket = [compatibleCopy framesPerPacket];
+        if (framesPerPacket == [(ASDStreamFormat *)self framesPerPacket])
+        {
+          bytesPerFrame = [compatibleCopy bytesPerFrame];
+          if (bytesPerFrame == [(ASDStreamFormat *)self bytesPerFrame])
+          {
+            channelsPerFrame = [compatibleCopy channelsPerFrame];
+            if (channelsPerFrame == [(ASDStreamFormat *)self channelsPerFrame])
+            {
+              bitsPerChannel = [compatibleCopy bitsPerChannel];
+              if (bitsPerChannel == [(ASDStreamFormat *)self bitsPerChannel])
+              {
+                [compatibleCopy minimumSampleRate];
+                v13 = v12;
+                [(ASDStreamFormat *)self sampleRate];
+                if (vabdd_f64(v13, v14) < 0.001 || ([compatibleCopy maximumSampleRate], v16 = v15, -[ASDStreamFormat sampleRate](self, "sampleRate"), vabdd_f64(v16, v17) < 0.001) || (objc_msgSend(compatibleCopy, "minimumSampleRate"), v20 = v19, -[ASDStreamFormat sampleRate](self, "sampleRate"), v20 <= v21) && (objc_msgSend(compatibleCopy, "maximumSampleRate"), v23 = v22, -[ASDStreamFormat sampleRate](self, "sampleRate"), v23 >= v24))
+                {
+                  v18 = 1;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
   }
 
   return v18;

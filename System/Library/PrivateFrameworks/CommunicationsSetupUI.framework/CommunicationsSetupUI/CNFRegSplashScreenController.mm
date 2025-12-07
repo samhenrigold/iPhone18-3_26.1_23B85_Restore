@@ -9,6 +9,7 @@
 - (void)loadView;
 - (void)setCustomLeftButton:(id)button;
 - (void)setCustomRightButton:(id)button;
+- (void)viewWillAppear:(BOOL)appear;
 - (void)willBecomeActive;
 @end
 
@@ -235,10 +236,19 @@
   [(UIButton *)self->_learnMoreButton setSelected:0];
 }
 
+- (void)viewWillAppear:(BOOL)appear
+{
+  appearCopy = appear;
+  [(UIButton *)self->_learnMoreButton setSelected:0];
+  v5.receiver = self;
+  v5.super_class = CNFRegSplashScreenController;
+  [(CNFRegSplashScreenController *)&v5 viewWillAppear:appearCopy];
+}
+
 - (void)_learnMorePressed:(id)pressed
 {
   v3 = *MEMORY[0x277D76620];
-  v4 = CNFRegLocalizedSplashScreenURL();
+  v4 = CNFRegLocalizedSplashScreenURL(self, a2);
   [v3 openURL:v4 withCompletionHandler:0];
 }
 

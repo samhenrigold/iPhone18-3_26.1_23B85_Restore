@@ -1,5 +1,6 @@
 @interface HeadphoneControlCenterTrainingViewController
 - (_TtC20HeadphoneProxService44HeadphoneControlCenterTrainingViewController)initWithContentView:(id)view;
+- (void)viewDidAppear:(BOOL)appear;
 - (void)viewDidLoad;
 @end
 
@@ -9,6 +10,16 @@
 {
   selfCopy = self;
   sub_1000ACDB4();
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  appearCopy = appear;
+  v5.receiver = self;
+  v5.super_class = swift_getObjectType();
+  v4 = v5.receiver;
+  [(HeadphoneControlCenterTrainingViewController *)&v5 viewDidAppear:appearCopy];
+  sub_1000AD1C8();
 }
 
 - (_TtC20HeadphoneProxService44HeadphoneControlCenterTrainingViewController)initWithContentView:(id)view

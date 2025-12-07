@@ -18,7 +18,7 @@
 
 - (void)setKeyAssetScopedIdentifier:(id)identifier
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   scopeIdentifier = [identifierCopy scopeIdentifier];
   scopedIdentifier = [(CPLRecordChange *)self scopedIdentifier];
@@ -50,11 +50,11 @@ LABEL_4:
           scopeIdentifier3 = [scopedIdentifier2 scopeIdentifier];
           scopeIdentifier4 = [identifierCopy scopeIdentifier];
           *buf = 138412802;
-          v24 = v10;
-          v25 = 2112;
-          v26 = scopeIdentifier3;
-          v27 = 2112;
-          v28 = scopeIdentifier4;
+          v23 = v10;
+          v24 = 2112;
+          v25 = scopeIdentifier3;
+          v26 = 2112;
+          v27 = scopeIdentifier4;
           _os_log_impl(&dword_1DC05A000, v9, OS_LOG_TYPE_ERROR, "Invalid call to %@ with mismatched scope: %@ vs. %@", buf, 0x20u);
         }
       }
@@ -73,8 +73,6 @@ LABEL_4:
 
   identifier = [identifierCopy identifier];
   [(CPLSocialGroupChange *)self setKeyAssetIdentifier:identifier];
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 - (id)keyAssetScopedIdentifier
@@ -212,7 +210,7 @@ uint64_t __50__CPLSocialGroupChange_equalityBlockForDirection___block_invoke(uin
 
 + (id)_createTestSocialGroupWithPersons:(id)persons
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   personsCopy = persons;
   firstObject = [personsCopy firstObject];
   scopedIdentifier = [firstObject scopedIdentifier];
@@ -230,7 +228,7 @@ uint64_t __50__CPLSocialGroupChange_equalityBlockForDirection___block_invoke(uin
 
   v9 = v8;
 
-  v25 = v9;
+  v24 = v9;
   v10 = [(CPLRecordChange *)CPLSocialGroupChange newRecordInScopeWithIdentifier:v9];
   [v10 setCustomTitle:@"Test title"];
   [v10 setVerifiedType:1];
@@ -240,26 +238,26 @@ uint64_t __50__CPLSocialGroupChange_equalityBlockForDirection___block_invoke(uin
   [v10 setKeyAssetIdentifier:uUIDString];
 
   v13 = objc_alloc_init(CPLSocialGroupPersonList);
+  v25 = 0u;
   v26 = 0u;
   v27 = 0u;
   v28 = 0u;
-  v29 = 0u;
   v14 = personsCopy;
-  v15 = [v14 countByEnumeratingWithState:&v26 objects:v30 count:16];
+  v15 = [v14 countByEnumeratingWithState:&v25 objects:v29 count:16];
   if (v15)
   {
     v16 = v15;
-    v17 = *v27;
+    v17 = *v26;
     do
     {
       for (i = 0; i != v16; ++i)
       {
-        if (*v27 != v17)
+        if (*v26 != v17)
         {
           objc_enumerationMutation(v14);
         }
 
-        v19 = *(*(&v26 + 1) + 8 * i);
+        v19 = *(*(&v25 + 1) + 8 * i);
         v20 = objc_alloc_init(CPLSocialGroupPerson);
         scopedIdentifier2 = [v19 scopedIdentifier];
         identifier = [scopedIdentifier2 identifier];
@@ -268,14 +266,13 @@ uint64_t __50__CPLSocialGroupChange_equalityBlockForDirection___block_invoke(uin
         [(CPLSocialGroupPersonList *)v13 addPerson:v20];
       }
 
-      v16 = [v14 countByEnumeratingWithState:&v26 objects:v30 count:16];
+      v16 = [v14 countByEnumeratingWithState:&v25 objects:v29 count:16];
     }
 
     while (v16);
   }
 
   [v10 setPersons:v13];
-  v23 = *MEMORY[0x1E69E9840];
 
   return v10;
 }
@@ -318,21 +315,106 @@ uint64_t __50__CPLSocialGroupChange_equalityBlockForDirection___block_invoke(uin
 
 - (id)translateToClientChangeUsingIDMapping:(id)mapping error:(id *)error
 {
-  v40 = *MEMORY[0x1E69E9840];
-  v38.receiver = self;
-  v38.super_class = CPLSocialGroupChange;
+  v39 = *MEMORY[0x1E69E9840];
+  v37.receiver = self;
+  v37.super_class = CPLSocialGroupChange;
   mappingCopy = mapping;
   v5 = [CPLRecordChange translateToClientChangeUsingIDMapping:sel_translateToClientChangeUsingIDMapping_error_ error:?];
   v6 = v5;
   if (v5)
   {
-    v32 = v5;
+    v31 = v5;
+    [v5 persons];
+    v33 = 0u;
+    v34 = 0u;
+    v35 = 0u;
+    v30 = v36 = 0u;
+    persons = [v30 persons];
+    v8 = [persons countByEnumeratingWithState:&v33 objects:v38 count:16];
+    if (v8)
+    {
+      v9 = v8;
+      v10 = *v34;
+      do
+      {
+        for (i = 0; i != v9; ++i)
+        {
+          if (*v34 != v10)
+          {
+            objc_enumerationMutation(persons);
+          }
+
+          v12 = *(*(&v33 + 1) + 8 * i);
+          personIdentifier = [v12 personIdentifier];
+          if (personIdentifier)
+          {
+            v14 = personIdentifier;
+            v15 = [CPLScopedIdentifier alloc];
+            scopedIdentifier = [(CPLRecordChange *)self scopedIdentifier];
+            v17 = [(CPLScopedIdentifier *)v15 initRelativeToScopedIdentifier:scopedIdentifier identifier:v14];
+
+            if (v17)
+            {
+              v18 = [mappingCopy localScopedIdentifierForCloudScopedIdentifierIncludeRemappedRecords:v17];
+              v19 = v18;
+              if (v18)
+              {
+                identifier = [v18 identifier];
+                [v12 setPersonIdentifier:identifier];
+              }
+            }
+          }
+        }
+
+        v9 = [persons countByEnumeratingWithState:&v33 objects:v38 count:16];
+      }
+
+      while (v9);
+    }
+
+    v6 = v31;
+    [v31 setPersons:v30];
+    keyAssetIdentifier = [(CPLSocialGroupChange *)self keyAssetIdentifier];
+    if (keyAssetIdentifier)
+    {
+      v22 = keyAssetIdentifier;
+      v23 = [CPLScopedIdentifier alloc];
+      scopedIdentifier2 = [(CPLRecordChange *)self scopedIdentifier];
+      v25 = [(CPLScopedIdentifier *)v23 initRelativeToScopedIdentifier:scopedIdentifier2 identifier:v22];
+
+      if (v25)
+      {
+        v26 = [mappingCopy localScopedIdentifierForCloudScopedIdentifierIncludeRemappedRecords:v25];
+        v27 = v26;
+        if (v26)
+        {
+          identifier2 = [v26 identifier];
+          [v31 setKeyAssetIdentifier:identifier2];
+        }
+      }
+    }
+  }
+
+  return v6;
+}
+
+- (id)translateToCloudChangeUsingIDMapping:(id)mapping error:(id *)error
+{
+  v40 = *MEMORY[0x1E69E9840];
+  v38.receiver = self;
+  v38.super_class = CPLSocialGroupChange;
+  mappingCopy = mapping;
+  v5 = [CPLRecordChange translateToCloudChangeUsingIDMapping:sel_translateToCloudChangeUsingIDMapping_error_ error:?];
+  v6 = v5;
+  if (v5)
+  {
+    v31 = v5;
     [v5 persons];
     v34 = 0u;
     v35 = 0u;
     v36 = 0u;
-    v31 = v37 = 0u;
-    persons = [v31 persons];
+    v30 = v37 = 0u;
+    persons = [v30 persons];
     v8 = [persons countByEnumeratingWithState:&v34 objects:v39 count:16];
     if (v8)
     {
@@ -358,7 +440,8 @@ uint64_t __50__CPLSocialGroupChange_equalityBlockForDirection___block_invoke(uin
 
             if (v17)
             {
-              v18 = [mappingCopy localScopedIdentifierForCloudScopedIdentifierIncludeRemappedRecords:v17];
+              v33 = 0;
+              v18 = [mappingCopy cloudScopedIdentifierForLocalScopedIdentifier:v17 isFinal:&v33];
               v19 = v18;
               if (v18)
               {
@@ -375,8 +458,8 @@ uint64_t __50__CPLSocialGroupChange_equalityBlockForDirection___block_invoke(uin
       while (v9);
     }
 
-    v6 = v32;
-    [v32 setPersons:v31];
+    v6 = v31;
+    [v31 setPersons:v30];
     keyAssetIdentifier = [(CPLSocialGroupChange *)self keyAssetIdentifier];
     if (keyAssetIdentifier)
     {
@@ -387,141 +470,51 @@ uint64_t __50__CPLSocialGroupChange_equalityBlockForDirection___block_invoke(uin
 
       if (v25)
       {
-        v26 = [mappingCopy localScopedIdentifierForCloudScopedIdentifierIncludeRemappedRecords:v25];
+        v33 = 0;
+        v26 = [mappingCopy cloudScopedIdentifierForLocalScopedIdentifier:v25 isFinal:&v33];
         v27 = v26;
         if (v26)
         {
           identifier2 = [v26 identifier];
-          [v32 setKeyAssetIdentifier:identifier2];
+          [v31 setKeyAssetIdentifier:identifier2];
         }
       }
     }
   }
-
-  v29 = *MEMORY[0x1E69E9840];
-
-  return v6;
-}
-
-- (id)translateToCloudChangeUsingIDMapping:(id)mapping error:(id *)error
-{
-  v41 = *MEMORY[0x1E69E9840];
-  v39.receiver = self;
-  v39.super_class = CPLSocialGroupChange;
-  mappingCopy = mapping;
-  v5 = [CPLRecordChange translateToCloudChangeUsingIDMapping:sel_translateToCloudChangeUsingIDMapping_error_ error:?];
-  v6 = v5;
-  if (v5)
-  {
-    v32 = v5;
-    [v5 persons];
-    v35 = 0u;
-    v36 = 0u;
-    v37 = 0u;
-    v31 = v38 = 0u;
-    persons = [v31 persons];
-    v8 = [persons countByEnumeratingWithState:&v35 objects:v40 count:16];
-    if (v8)
-    {
-      v9 = v8;
-      v10 = *v36;
-      do
-      {
-        for (i = 0; i != v9; ++i)
-        {
-          if (*v36 != v10)
-          {
-            objc_enumerationMutation(persons);
-          }
-
-          v12 = *(*(&v35 + 1) + 8 * i);
-          personIdentifier = [v12 personIdentifier];
-          if (personIdentifier)
-          {
-            v14 = personIdentifier;
-            v15 = [CPLScopedIdentifier alloc];
-            scopedIdentifier = [(CPLRecordChange *)self scopedIdentifier];
-            v17 = [(CPLScopedIdentifier *)v15 initRelativeToScopedIdentifier:scopedIdentifier identifier:v14];
-
-            if (v17)
-            {
-              v34 = 0;
-              v18 = [mappingCopy cloudScopedIdentifierForLocalScopedIdentifier:v17 isFinal:&v34];
-              v19 = v18;
-              if (v18)
-              {
-                identifier = [v18 identifier];
-                [v12 setPersonIdentifier:identifier];
-              }
-            }
-          }
-        }
-
-        v9 = [persons countByEnumeratingWithState:&v35 objects:v40 count:16];
-      }
-
-      while (v9);
-    }
-
-    v6 = v32;
-    [v32 setPersons:v31];
-    keyAssetIdentifier = [(CPLSocialGroupChange *)self keyAssetIdentifier];
-    if (keyAssetIdentifier)
-    {
-      v22 = keyAssetIdentifier;
-      v23 = [CPLScopedIdentifier alloc];
-      scopedIdentifier2 = [(CPLRecordChange *)self scopedIdentifier];
-      v25 = [(CPLScopedIdentifier *)v23 initRelativeToScopedIdentifier:scopedIdentifier2 identifier:v22];
-
-      if (v25)
-      {
-        v34 = 0;
-        v26 = [mappingCopy cloudScopedIdentifierForLocalScopedIdentifier:v25 isFinal:&v34];
-        v27 = v26;
-        if (v26)
-        {
-          identifier2 = [v26 identifier];
-          [v32 setKeyAssetIdentifier:identifier2];
-        }
-      }
-    }
-  }
-
-  v29 = *MEMORY[0x1E69E9840];
 
   return v6;
 }
 
 - (id)scopedIdentifiersForMapping
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   v3 = objc_alloc(MEMORY[0x1E695DF70]);
-  v23.receiver = self;
-  v23.super_class = CPLSocialGroupChange;
-  scopedIdentifiersForMapping = [(CPLRecordChange *)&v23 scopedIdentifiersForMapping];
+  v22.receiver = self;
+  v22.super_class = CPLSocialGroupChange;
+  scopedIdentifiersForMapping = [(CPLRecordChange *)&v22 scopedIdentifiersForMapping];
   v5 = [v3 initWithArray:scopedIdentifiersForMapping];
 
   [(CPLSocialGroupChange *)self persons];
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
-  v18 = v22 = 0u;
-  persons = [v18 persons];
-  v7 = [persons countByEnumeratingWithState:&v19 objects:v24 count:16];
+  v17 = v21 = 0u;
+  persons = [v17 persons];
+  v7 = [persons countByEnumeratingWithState:&v18 objects:v23 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v20;
+    v9 = *v19;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v20 != v9)
+        if (*v19 != v9)
         {
           objc_enumerationMutation(persons);
         }
 
-        personIdentifier = [*(*(&v19 + 1) + 8 * i) personIdentifier];
+        personIdentifier = [*(*(&v18 + 1) + 8 * i) personIdentifier];
         if (personIdentifier)
         {
           v12 = personIdentifier;
@@ -536,13 +529,11 @@ uint64_t __50__CPLSocialGroupChange_equalityBlockForDirection___block_invoke(uin
         }
       }
 
-      v8 = [persons countByEnumeratingWithState:&v19 objects:v24 count:16];
+      v8 = [persons countByEnumeratingWithState:&v18 objects:v23 count:16];
     }
 
     while (v8);
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 
   return v5;
 }

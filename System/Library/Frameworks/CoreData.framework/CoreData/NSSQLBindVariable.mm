@@ -1,4 +1,6 @@
 @interface NSSQLBindVariable
+- (NSSQLBindVariable)initWithInt64:(int64_t)int64 sqlType:(unsigned __int8)type;
+- (NSSQLBindVariable)initWithUnsignedInt:(unsigned int)int sqlType:(unsigned __int8)type;
 - (NSSQLBindVariable)initWithValue:(id)value sqlType:(unsigned __int8)type propertyDescription:(id)description allowCoercion:(BOOL)coercion;
 - (id)value;
 - (int64_t)int64;
@@ -91,6 +93,31 @@
   }
 
   return v10;
+}
+
+- (NSSQLBindVariable)initWithInt64:(int64_t)int64 sqlType:(unsigned __int8)type
+{
+  v5 = [(NSSQLBindVariable *)self initWithValue:0 sqlType:type propertyDescription:0];
+  v6 = v5;
+  if (int64 && v5)
+  {
+    [(NSSQLBindVariable *)v5 setInt64:int64];
+  }
+
+  return v6;
+}
+
+- (NSSQLBindVariable)initWithUnsignedInt:(unsigned int)int sqlType:(unsigned __int8)type
+{
+  v4 = *&int;
+  v5 = [(NSSQLBindVariable *)self initWithValue:0 sqlType:type propertyDescription:0];
+  v6 = v5;
+  if (v4 && v5)
+  {
+    [(NSSQLBindVariable *)v5 setUnsignedInt:v4];
+  }
+
+  return v6;
 }
 
 - (unsigned)unsignedInt

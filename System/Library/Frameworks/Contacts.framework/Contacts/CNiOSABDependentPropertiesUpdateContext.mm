@@ -347,16 +347,16 @@ uint64_t __89__CNiOSABDependentPropertiesUpdateContext_flushPendingImageChangesT
   return v6;
 }
 
-uint64_t __89__CNiOSABDependentPropertiesUpdateContext_flushPendingImageChangesToPerson_logger_error___block_invoke_29(uint64_t a1)
+uint64_t __89__CNiOSABDependentPropertiesUpdateContext_flushPendingImageChangesToPerson_logger_error___block_invoke_29(uint64_t a1, uint64_t a2)
 {
-  v2 = *(a1 + 32);
-  v3 = [*(a1 + 40) pendingSyncImageData];
-  [v2 setContactImageDataZeroCropRect:v3 format:"sync"];
-
+  v3 = *(a1 + 32);
   v4 = [*(a1 + 40) pendingSyncImageData];
-  v5 = ABPersonSetImageDataAndCropRect();
+  [v3 setContactImageDataZeroCropRect:v4 format:"sync"];
 
-  return v5;
+  v5 = [*(a1 + 40) pendingSyncImageData];
+  v6 = ABPersonSetImageDataAndCropRect();
+
+  return v6;
 }
 
 - (BOOL)setWatchChangesforThumbnailImageDataToPerson:(void *)person error:(id *)error

@@ -13,7 +13,7 @@
   if (collections)
   {
     v6 = collections;
-    sub_220B55458(0, &qword_2812C0930);
+    sub_220B55458(0, &qword_2812C0930, 0x277D716D8);
     v7 = sub_220BCDC70();
   }
 
@@ -24,7 +24,7 @@
 
   sub_220B9E960(v7);
   sub_220B9F8D0([updatedCopy featuredCollection]);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CF76EC0);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CF76EC0, &qword_220BD1830);
   sub_220BA3C24();
   sub_220BCC470();
 }

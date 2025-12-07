@@ -72,7 +72,7 @@
 
 - (id)jsonDictionary
 {
-  v20[3] = *MEMORY[0x1E69E9840];
+  v19[3] = *MEMORY[0x1E69E9840];
   if (![(BMMomentsNotificationsPrediction *)self hasVailabilityProbability]|| ([(BMMomentsNotificationsPrediction *)self vailabilityProbability], fabs(v3) == INFINITY))
   {
     v5 = 0;
@@ -113,31 +113,31 @@
     v12 = 0;
   }
 
-  v19[0] = @"vailabilityProbability";
+  v18[0] = @"vailabilityProbability";
   null = v5;
   if (!v5)
   {
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v20[0] = null;
-  v19[1] = @"locationFilterProbability";
+  v19[0] = null;
+  v18[1] = @"locationFilterProbability";
   null2 = v8;
   if (!v8)
   {
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v20[1] = null2;
-  v19[2] = @"predictionDate";
+  v19[1] = null2;
+  v18[2] = @"predictionDate";
   null3 = v12;
   if (!v12)
   {
     null3 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v20[2] = null3;
-  v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v20 forKeys:v19 count:3];
+  v19[2] = null3;
+  v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v19 forKeys:v18 count:3];
   if (v12)
   {
     if (v8)
@@ -169,14 +169,13 @@ LABEL_20:
 LABEL_26:
 
 LABEL_21:
-  v17 = *MEMORY[0x1E69E9840];
 
   return v16;
 }
 
 - (BMMomentsNotificationsPrediction)initWithJSONDictionary:(id)dictionary error:(id *)error
 {
-  v37[1] = *MEMORY[0x1E69E9840];
+  v36[1] = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   v7 = [dictionaryCopy objectForKeyedSubscript:@"vailabilityProbability"];
   if (!v7 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
@@ -196,13 +195,13 @@ LABEL_4:
           goto LABEL_25;
         }
 
-        v30 = objc_alloc(MEMORY[0x1E696ABC0]);
+        v29 = objc_alloc(MEMORY[0x1E696ABC0]);
         v22 = *MEMORY[0x1E698F240];
-        v34 = *MEMORY[0x1E696A578];
+        v33 = *MEMORY[0x1E696A578];
         v12 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"locationFilterProbability"];
-        v35 = v12;
-        v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v35 forKeys:&v34 count:1];
-        v23 = [v30 initWithDomain:v22 code:2 userInfo:v11];
+        v34 = v12;
+        v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v34 forKeys:&v33 count:1];
+        v23 = [v29 initWithDomain:v22 code:2 userInfo:v11];
         v10 = 0;
         selfCopy = 0;
         *error = v23;
@@ -248,13 +247,13 @@ LABEL_4:
         {
           if (error)
           {
-            v31 = objc_alloc(MEMORY[0x1E696ABC0]);
-            v29 = *MEMORY[0x1E698F240];
-            v32 = *MEMORY[0x1E696A578];
-            v27 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber (as time internal since 1970), NSString (ISO8601 format), or NSDate", objc_opt_class(), @"predictionDate"];
-            v33 = v27;
-            v28 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v33 forKeys:&v32 count:1];
-            *error = [v31 initWithDomain:v29 code:2 userInfo:v28];
+            v30 = objc_alloc(MEMORY[0x1E696ABC0]);
+            v28 = *MEMORY[0x1E698F240];
+            v31 = *MEMORY[0x1E696A578];
+            v26 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber (as time internal since 1970), NSString (ISO8601 format), or NSDate", objc_opt_class(), @"predictionDate"];
+            v32 = v26;
+            v27 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v32 forKeys:&v31 count:1];
+            *error = [v30 initWithDomain:v28 code:2 userInfo:v27];
           }
 
           v12 = 0;
@@ -297,17 +296,16 @@ LABEL_24:
 
   v19 = objc_alloc(MEMORY[0x1E696ABC0]);
   v20 = *MEMORY[0x1E698F240];
-  v36 = *MEMORY[0x1E696A578];
+  v35 = *MEMORY[0x1E696A578];
   v10 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"vailabilityProbability"];
-  v37[0] = v10;
-  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v37 forKeys:&v36 count:1];
+  v36[0] = v10;
+  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v36 forKeys:&v35 count:1];
   v8 = 0;
   selfCopy = 0;
   *error = [v19 initWithDomain:v20 code:2 userInfo:v9];
 LABEL_25:
 
 LABEL_26:
-  v25 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 
@@ -323,26 +321,23 @@ LABEL_26:
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v8 = toCopy;
+  v5 = toCopy;
   if (self->_hasVailabilityProbability)
   {
-    vailabilityProbability = self->_vailabilityProbability;
     PBDataWriterWriteDoubleField();
-    toCopy = v8;
+    toCopy = v5;
   }
 
   if (self->_hasLocationFilterProbability)
   {
-    locationFilterProbability = self->_locationFilterProbability;
     PBDataWriterWriteDoubleField();
-    toCopy = v8;
+    toCopy = v5;
   }
 
   if (self->_hasRaw_predictionDate)
   {
-    raw_predictionDate = self->_raw_predictionDate;
     PBDataWriterWriteDoubleField();
-    toCopy = v8;
+    toCopy = v5;
   }
 }
 
@@ -580,31 +575,27 @@ LABEL_42:
 
 + (id)protoFields
 {
-  v8[3] = *MEMORY[0x1E69E9840];
+  v7[3] = *MEMORY[0x1E69E9840];
   v2 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"vailabilityProbability" number:1 type:0 subMessageClass:0];
   v3 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"locationFilterProbability" number:2 type:0 subMessageClass:{0, v2}];
-  v8[1] = v3;
+  v7[1] = v3;
   v4 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"predictionDate" number:3 type:0 subMessageClass:0];
-  v8[2] = v4;
-  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:3];
-
-  v6 = *MEMORY[0x1E69E9840];
+  v7[2] = v4;
+  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:3];
 
   return v5;
 }
 
 + (id)columns
 {
-  v8[3] = *MEMORY[0x1E69E9840];
+  v7[3] = *MEMORY[0x1E69E9840];
   v2 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"vailabilityProbability" dataType:1 requestOnly:0 fieldNumber:1 protoDataType:0 convertedType:0];
   v3 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"locationFilterProbability" dataType:1 requestOnly:0 fieldNumber:2 protoDataType:0 convertedType:0];
   v4 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"predictionDate" dataType:3 requestOnly:0 fieldNumber:3 protoDataType:0 convertedType:2];
-  v8[0] = v2;
-  v8[1] = v3;
-  v8[2] = v4;
-  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:3];
-
-  v6 = *MEMORY[0x1E69E9840];
+  v7[0] = v2;
+  v7[1] = v3;
+  v7[2] = v4;
+  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:3];
 
   return v5;
 }

@@ -8,10 +8,10 @@
 
 - (SpeedTestConfig)init
 {
-  v23 = *MEMORY[0x277D85DE8];
-  v20.receiver = self;
-  v20.super_class = SpeedTestConfig;
-  v2 = [(SpeedTestConfig *)&v20 init];
+  v22 = *MEMORY[0x277D85DE8];
+  v19.receiver = self;
+  v19.super_class = SpeedTestConfig;
+  v2 = [(SpeedTestConfig *)&v19 init];
   v2->inProgress = 0;
   v3 = DiagnosticsKitLogHandleForCategory();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
@@ -49,7 +49,7 @@
   {
     downloadSize = [v6 downloadSize];
     *buf = 134217984;
-    v22 = downloadSize;
+    v21 = downloadSize;
     _os_log_impl(&dword_24335C000, v7, OS_LOG_TYPE_INFO, "CellularThroughput: performanceTestWithConfig.downloadSize: %lu", buf, 0xCu);
   }
 
@@ -60,7 +60,7 @@
   {
     testDuration = [v6 testDuration];
     *buf = 134217984;
-    v22 = testDuration;
+    v21 = testDuration;
     _os_log_impl(&dword_24335C000, v9, OS_LOG_TYPE_INFO, "CellularThroughput: performanceTestWithConfig.testDuration: %lu", buf, 0xCu);
   }
 
@@ -71,7 +71,7 @@
   {
     interfaceType = [v6 interfaceType];
     *buf = 67109120;
-    LODWORD(v22) = interfaceType;
+    LODWORD(v21) = interfaceType;
     _os_log_impl(&dword_24335C000, v11, OS_LOG_TYPE_INFO, "CellularThroughput: performanceTestWithConfig.interfaceType: %d", buf, 8u);
   }
 
@@ -98,7 +98,6 @@ LABEL_20:
   v15 = v2;
 LABEL_21:
 
-  v18 = *MEMORY[0x277D85DE8];
   return v15;
 }
 
@@ -177,14 +176,14 @@ LABEL_21:
 
 void __37__SpeedTestConfig_startDownloadTest___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v4 = a3;
   dispatch_semaphore_signal(*(a1 + 32));
   v5 = DiagnosticsKitLogHandleForCategory();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     *buf = 134349056;
-    v11 = [v4 count];
+    v10 = [v4 count];
     _os_log_impl(&dword_24335C000, v5, OS_LOG_TYPE_INFO, "CellularThroughput: Error count in startMetadataCollectionWithCompletion: %{public}lu", buf, 0xCu);
   }
 
@@ -198,7 +197,7 @@ void __37__SpeedTestConfig_startDownloadTest___block_invoke(uint64_t a1, uint64_
       {
         v8 = [v4 objectAtIndexedSubscript:v6];
         *buf = 138543362;
-        v11 = v8;
+        v10 = v8;
         _os_log_impl(&dword_24335C000, v7, OS_LOG_TYPE_INFO, "CellularThroughput: Error in startMetadataCollectionWithCompletion: %{public}@", buf, 0xCu);
       }
 
@@ -207,8 +206,6 @@ void __37__SpeedTestConfig_startDownloadTest___block_invoke(uint64_t a1, uint64_
 
     while ([v4 count] > v6);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __37__SpeedTestConfig_startDownloadTest___block_invoke_12(uint64_t a1, void *a2, void *a3)
@@ -265,12 +262,12 @@ void __37__SpeedTestConfig_startDownloadTest___block_invoke_12(uint64_t a1, void
 
 uint64_t __37__SpeedTestConfig_startDownloadTest___block_invoke_2(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v2 = DiagnosticsKitLogHandleForCategory();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
-    LOWORD(v11) = 0;
-    _os_log_impl(&dword_24335C000, v2, OS_LOG_TYPE_INFO, "CellularThroughput: save results to AWD", &v11, 2u);
+    LOWORD(v10) = 0;
+    _os_log_impl(&dword_24335C000, v2, OS_LOG_TYPE_INFO, "CellularThroughput: save results to AWD", &v10, 2u);
   }
 
   v3 = *(a1 + 32);
@@ -281,9 +278,9 @@ uint64_t __37__SpeedTestConfig_startDownloadTest___block_invoke_2(uint64_t a1)
     if (v5)
     {
       v6 = [*(a1 + 32) localizedDescription];
-      v11 = 138543362;
-      v12 = v6;
-      _os_log_impl(&dword_24335C000, v4, OS_LOG_TYPE_INFO, "CellularThroughput: Download task errored out: %{public}@", &v11, 0xCu);
+      v10 = 138543362;
+      v11 = v6;
+      _os_log_impl(&dword_24335C000, v4, OS_LOG_TYPE_INFO, "CellularThroughput: Download task errored out: %{public}@", &v10, 0xCu);
     }
 
     result = *(a1 + 56);
@@ -300,9 +297,9 @@ LABEL_12:
     if (v5)
     {
       [*(a1 + 40) speed];
-      v11 = 134217984;
-      v12 = v9;
-      _os_log_impl(&dword_24335C000, v4, OS_LOG_TYPE_INFO, "CellularThroughput: Download task completed, throughput %f Mbps", &v11, 0xCu);
+      v10 = 134217984;
+      v11 = v9;
+      _os_log_impl(&dword_24335C000, v4, OS_LOG_TYPE_INFO, "CellularThroughput: Download task completed, throughput %f Mbps", &v10, 0xCu);
     }
 
     result = *(a1 + 56);
@@ -314,7 +311,6 @@ LABEL_12:
   }
 
   *(*(a1 + 48) + 8) = 0;
-  v10 = *MEMORY[0x277D85DE8];
   return result;
 }
 

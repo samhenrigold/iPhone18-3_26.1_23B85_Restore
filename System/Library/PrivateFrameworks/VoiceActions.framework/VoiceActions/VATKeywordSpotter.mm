@@ -1,5 +1,6 @@
 @interface VATKeywordSpotter
 + (id)pronounciationsFor:(id)for wordSeparator:(id)separator;
++ (id)pronounciationsFor:(id)for wordSeparator:(id)separator prefixWithPhrase:(BOOL)phrase;
 - (BOOL)_isDetectionValidForResult:(void *)result reason:(id *)reason;
 - (BOOL)audioDebuggingEnabled;
 - (BOOL)batchDecodeEnabled;
@@ -9,6 +10,7 @@
 - (BOOL)secondPassEnabled;
 - (VATKeywordSpotter)initWithConfig:(id)config keywords:(id)keywords delegate:(id)delegate;
 - (VATKeywordSpotter)initWithConfig:(id)config keywordsWithPhonemes:(id)phonemes delegate:(id)delegate;
+- (VATKeywordSpotter)initWithConfig:(id)config keywordsWithPhonemes:(id)phonemes delegate:(id)delegate silenceLookback:(int)lookback silenceExpect:(int)expect batchDecode:(BOOL)decode enableAudioDebugging:(BOOL)debugging;
 - (id).cxx_construct;
 - (id)_handleAudioDebuggingForKeyword:(id)keyword result:(void *)result buffer:(id)buffer;
 - (id)_handleSecondPass:(id)pass expectedKeyword:(id)keyword duration:(double *)duration secondPassAudio:(id *)audio;
@@ -21,6 +23,12 @@
 - (void)addAudioSamples:(const void *)samples count:(int)count isFloat:(BOOL)float;
 - (void)addAudioSamples:(const void *)samples count:(int)count isFloat:(BOOL)float filePath:(id)path byteCount:(int64_t)byteCount currentDuration:(double)duration;
 - (void)dealloc;
+- (void)setAudioDebuggingEnabled:(BOOL)enabled;
+- (void)setBatchDecodeEnabled:(BOOL)enabled;
+- (void)setDuringKeywordSilenceCheckEnabled:(BOOL)enabled;
+- (void)setPostKeywordSilenceCheckEnabled:(BOOL)enabled;
+- (void)setPreKeywordSilenceCheckEnabled:(BOOL)enabled;
+- (void)setSecondPassEnabled:(BOOL)enabled;
 - (void)setSecondPassEnabled:(BOOL)enabled customAssetPath:(id)path;
 - (void)setStreamingMode:(BOOL)mode;
 - (void)start;
@@ -30,6 +38,21 @@
 @end
 
 @implementation VATKeywordSpotter
+
+- (void)setSecondPassEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  configuration = [(VATKeywordSpotter *)self configuration];
+  runtime = [configuration runtime];
+  secondPass = [runtime secondPass];
+
+  if (secondPass != enabledCopy)
+  {
+    configuration2 = [(VATKeywordSpotter *)self configuration];
+    runtime2 = [configuration2 runtime];
+    [runtime2 setSecondPass:enabledCopy];
+  }
+}
 
 - (BOOL)secondPassEnabled
 {
@@ -47,6 +70,14 @@
   MEMORY[0x2821F9670](self, sel_setSecondPassEnabled_);
 }
 
+- (void)setBatchDecodeEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  configuration = [(VATKeywordSpotter *)self configuration];
+  runtime = [configuration runtime];
+  [runtime setBatchDecode:enabledCopy];
+}
+
 - (BOOL)batchDecodeEnabled
 {
   configuration = [(VATKeywordSpotter *)self configuration];
@@ -54,6 +85,14 @@
   batchDecode = [runtime batchDecode];
 
   return batchDecode;
+}
+
+- (void)setAudioDebuggingEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  configuration = [(VATKeywordSpotter *)self configuration];
+  runtime = [configuration runtime];
+  [runtime setAudioDebug:enabledCopy];
 }
 
 - (BOOL)audioDebuggingEnabled
@@ -133,15 +172,15 @@
 
 - (void)_handleValidResult:(void *)result
 {
-  v111 = *MEMORY[0x277D85DE8];
+  v108 = *MEMORY[0x277D85DE8];
   v3 = *result;
   if (*(*result + 23) < 0)
   {
     v3 = *v3;
   }
 
-  v93 = [MEMORY[0x277CCACA8] stringWithCString:v3 encoding:{objc_msgSend(MEMORY[0x277CCACA8], "defaultCStringEncoding")}];
-  v103 = 0.0;
+  v90 = [MEMORY[0x277CCACA8] stringWithCString:v3 encoding:{objc_msgSend(MEMORY[0x277CCACA8], "defaultCStringEncoding")}];
+  v100 = 0.0;
   v4 = *(*result + 32);
   configuration = [(VATKeywordSpotter *)self configuration];
   decoder = [configuration decoder];
@@ -155,10 +194,10 @@
   v13 = v9 + [audioCapture2 rightOfEndFrameOffset];
 
   v14 = v13;
-  v102 = v13;
+  v99 = v13;
   configuration3 = [(VATKeywordSpotter *)self configuration];
   runtime = [configuration3 runtime];
-  v88 = (v4 - leftOfStartFrameOffset);
+  v85 = (v4 - leftOfStartFrameOffset);
   if ([runtime secondPass])
   {
   }
@@ -171,20 +210,20 @@
 
     if (!audioDebug)
     {
-      v91 = 0;
+      v88 = 0;
 LABEL_44:
       obj = 0;
-      v90 = 0;
+      v87 = 0;
       goto LABEL_45;
     }
   }
 
-  v90 = [(FeatureExtractObjc *)self->fe audioForKeywordWithStartFrame:v88 endFrame:v14 actualEndFrame:&v102];
+  v87 = [(FeatureExtractObjc *)self->fe audioForKeywordWithStartFrame:v85 endFrame:v14 actualEndFrame:&v99];
   configuration5 = [(VATKeywordSpotter *)self configuration];
   runtime3 = [configuration5 runtime];
   secondPass = [runtime3 secondPass];
 
-  if (v90)
+  if (v87)
   {
     v23 = secondPass;
   }
@@ -196,21 +235,21 @@ LABEL_44:
 
   if ((v23 & 1) != 0 || (-[VATKeywordSpotter configuration](self, "configuration"), v24 = objc_claimAutoreleasedReturnValue(), [v24 runtime], v25 = objc_claimAutoreleasedReturnValue(), v26 = objc_msgSend(v25, "audioDebug"), v25, v24, !v26))
   {
-    v91 = 0;
+    v88 = 0;
   }
 
   else
   {
-    v27 = [(VATKeywordSpotter *)self _handleAudioDebuggingForKeyword:v93 result:*result buffer:v90];
+    v27 = [(VATKeywordSpotter *)self _handleAudioDebuggingForKeyword:v90 result:*result buffer:v87];
     v28 = _VATLoggingFacility(kVATLogCategoryFramework);
     if (os_log_type_enabled(v28, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v105 = v27;
+      v102 = v27;
       _os_log_impl(&dword_2721E4000, v28, OS_LOG_TYPE_INFO, "audio %@", buf, 0xCu);
     }
 
-    v91 = v27;
+    v88 = v27;
   }
 
   configuration6 = [(VATKeywordSpotter *)self configuration];
@@ -221,11 +260,11 @@ LABEL_44:
   {
     obj = 0;
 LABEL_45:
-    v95 = 0;
+    v92 = 0;
     goto LABEL_46;
   }
 
-  if (!v90)
+  if (!v87)
   {
     v56 = _VATLoggingFacility(kVATLogCategoryFramework);
     if (os_log_type_enabled(v56, OS_LOG_TYPE_INFO))
@@ -237,10 +276,10 @@ LABEL_45:
     goto LABEL_44;
   }
 
-  v101 = 0;
-  v85 = [(VATKeywordSpotter *)self _handleSecondPass:v90 expectedKeyword:v93 duration:&v103 secondPassAudio:&v101];
-  v87 = v101;
-  if (v87)
+  v98 = 0;
+  v82 = [(VATKeywordSpotter *)self _handleSecondPass:v87 expectedKeyword:v90 duration:&v100 secondPassAudio:&v98];
+  v84 = v98;
+  if (v84)
   {
     configuration7 = [(VATKeywordSpotter *)self configuration];
     runtime5 = [configuration7 runtime];
@@ -249,72 +288,72 @@ LABEL_45:
     if (audioDebug2)
     {
       v35 = [objc_alloc(MEMORY[0x277CB83A8]) initWithStreamDescription:&unk_272387710];
-      v36 = [objc_alloc(MEMORY[0x277CB83C8]) initWithPCMFormat:v35 frameCapacity:objc_msgSend(v87, "length") / *(objc_msgSend(v35, "streamDescription") + 24)];
+      v36 = [objc_alloc(MEMORY[0x277CB83C8]) initWithPCMFormat:v35 frameCapacity:objc_msgSend(v84, "length") / *(objc_msgSend(v35, "streamDescription") + 24)];
       [v36 setFrameLength:{objc_msgSend(v36, "frameCapacity")}];
       frameCapacity = [v36 frameCapacity];
       *([v36 mutableAudioBufferList] + 12) = frameCapacity;
       v38 = *([v36 mutableAudioBufferList] + 16);
-      v39 = v87;
-      memcpy(v38, [v87 bytes], 2 * objc_msgSend(v36, "frameCapacity"));
-      v40 = [(VATKeywordSpotter *)self _handleAudioDebuggingForKeyword:v93 result:*result buffer:v36];
+      v39 = v84;
+      memcpy(v38, [v84 bytes], 2 * objc_msgSend(v36, "frameCapacity"));
+      v40 = [(VATKeywordSpotter *)self _handleAudioDebuggingForKeyword:v90 result:*result buffer:v36];
 
       v41 = _VATLoggingFacility(kVATLogCategoryFramework);
       if (os_log_type_enabled(v41, OS_LOG_TYPE_INFO))
       {
         *buf = 138412290;
-        v105 = v40;
+        v102 = v40;
         _os_log_impl(&dword_2721E4000, v41, OS_LOG_TYPE_INFO, "audio %@", buf, 0xCu);
       }
 
-      v91 = v40;
+      v88 = v40;
     }
   }
 
-  v86 = [MEMORY[0x277CCAC68] regularExpressionWithPattern:@"_[0-9]+$" options:0 error:0];
-  v84 = [v86 stringByReplacingMatchesInString:v93 options:0 range:0 withTemplate:{objc_msgSend(v93, "length"), &stru_2881908A8}];
-  lowercaseString = [v84 lowercaseString];
+  v83 = [MEMORY[0x277CCAC68] regularExpressionWithPattern:@"_[0-9]+$" options:0 error:0];
+  v81 = [v83 stringByReplacingMatchesInString:v90 options:0 range:0 withTemplate:{objc_msgSend(v90, "length"), &stru_2881908A8}];
+  lowercaseString = [v81 lowercaseString];
   v43 = [lowercaseString stringByReplacingOccurrencesOfString:@"_" withString:&stru_2881908A8];
 
-  v96 = [v43 stringByReplacingOccurrencesOfString:@" " withString:&stru_2881908A8];
+  v93 = [v43 stringByReplacingOccurrencesOfString:@" " withString:&stru_2881908A8];
 
-  v99 = 0u;
-  v100 = 0u;
+  v96 = 0u;
   v97 = 0u;
-  v98 = 0u;
-  obj = v85;
-  v44 = [obj countByEnumeratingWithState:&v97 objects:v110 count:16];
+  v94 = 0u;
+  v95 = 0u;
+  obj = v82;
+  v44 = [obj countByEnumeratingWithState:&v94 objects:v107 count:16];
   if (v44)
   {
     v45 = 0;
-    v95 = 0;
-    v46 = *v98;
+    v92 = 0;
+    v46 = *v95;
     do
     {
       for (i = 0; i != v44; ++i)
       {
-        if (*v98 != v46)
+        if (*v95 != v46)
         {
           objc_enumerationMutation(obj);
         }
 
-        v48 = *(*(&v97 + 1) + 8 * i);
+        v48 = *(*(&v94 + 1) + 8 * i);
         lowercaseString2 = [v48 lowercaseString];
         v50 = [lowercaseString2 stringByReplacingOccurrencesOfString:@" " withString:&stru_2881908A8];
 
         v51 = _VATLoggingFacility(kVATLogCategoryFramework);
         if (os_log_type_enabled(v51, OS_LOG_TYPE_DEBUG))
         {
-          v54 = [v50 hasPrefix:v96];
+          v54 = [v50 hasPrefix:v93];
           *buf = 138412802;
-          v105 = v96;
-          v106 = 2112;
-          v107 = v50;
-          v108 = 1024;
-          v109 = v54;
+          v102 = v93;
+          v103 = 2112;
+          v104 = v50;
+          v105 = 1024;
+          v106 = v54;
           _os_log_debug_impl(&dword_2721E4000, v51, OS_LOG_TYPE_DEBUG, "%@ is prefix of %@ = %d", buf, 0x1Cu);
         }
 
-        if ([v50 hasPrefix:v96])
+        if ([v50 hasPrefix:v93])
         {
           v52 = v48;
 
@@ -323,13 +362,13 @@ LABEL_45:
           if (os_log_type_enabled(v53, OS_LOG_TYPE_INFO))
           {
             *buf = 138412546;
-            v105 = v52;
-            v106 = 2112;
-            v107 = v93;
+            v102 = v52;
+            v103 = 2112;
+            v104 = v90;
             _os_log_impl(&dword_2721E4000, v53, OS_LOG_TYPE_INFO, "Second pass %@ matches keyword %@", buf, 0x16u);
           }
 
-          v95 = v52;
+          v92 = v52;
         }
 
         else
@@ -338,15 +377,15 @@ LABEL_45:
           if (os_log_type_enabled(v53, OS_LOG_TYPE_INFO))
           {
             *buf = 138412546;
-            v105 = v48;
-            v106 = 2112;
-            v107 = v93;
+            v102 = v48;
+            v103 = 2112;
+            v104 = v90;
             _os_log_impl(&dword_2721E4000, v53, OS_LOG_TYPE_INFO, "Second pass %@ doesn't match keyword %@", buf, 0x16u);
           }
         }
       }
 
-      v44 = [obj countByEnumeratingWithState:&v97 objects:v110 count:16];
+      v44 = [obj countByEnumeratingWithState:&v94 objects:v107 count:16];
     }
 
     while (v44);
@@ -361,29 +400,28 @@ LABEL_45:
   else
   {
 
-    v95 = 0;
+    v92 = 0;
   }
 
-  v75 = _VATLoggingFacility(kVATLogCategoryFramework);
-  if (os_log_type_enabled(v75, OS_LOG_TYPE_INFO))
+  v74 = _VATLoggingFacility(kVATLogCategoryFramework);
+  if (os_log_type_enabled(v74, OS_LOG_TYPE_INFO))
   {
-    v76 = [obj componentsJoinedByString:{@", "}];
+    v75 = [obj componentsJoinedByString:{@", "}];
     *buf = 138412546;
-    v105 = v76;
-    v106 = 2112;
-    v107 = v93;
-    _os_log_impl(&dword_2721E4000, v75, OS_LOG_TYPE_INFO, "Second pass %@ doesn't match keyword %@", buf, 0x16u);
+    v102 = v75;
+    v103 = 2112;
+    v104 = v90;
+    _os_log_impl(&dword_2721E4000, v74, OS_LOG_TYPE_INFO, "Second pass %@ doesn't match keyword %@", buf, 0x16u);
   }
 
-  delegate = self->_delegate;
   if (objc_opt_respondsToSelector())
   {
-    v78 = self->_delegate;
+    v76 = self->_delegate;
+    v77 = [obj componentsJoinedByString:{@", "}];
+    v78 = MEMORY[0x277CCACA8];
     v79 = [obj componentsJoinedByString:{@", "}];
-    v80 = MEMORY[0x277CCACA8];
-    v81 = [obj componentsJoinedByString:{@", "}];
-    v82 = [v80 stringWithFormat:@"%@ vs %@ mismatch", v93, v81];
-    [(VATKeywordSpotterDelegate *)v78 keywordDiscarded:v93 failedPreSilence:0 failedDuringSilence:0 failedPostSilence:0 failedSecondPass:1 secondPassResult:v79 reason:v82 audioURL:v91];
+    v80 = [v78 stringWithFormat:@"%@ vs %@ mismatch", v90, v79];
+    [(VATKeywordSpotterDelegate *)v76 keywordDiscarded:v90 failedPreSilence:0 failedDuringSilence:0 failedPostSilence:0 failedSecondPass:1 secondPassResult:v77 reason:v80 audioURL:v88];
   }
 
   v55 = 1;
@@ -395,23 +433,22 @@ LABEL_63:
   }
 
 LABEL_46:
-  v57 = self->_delegate;
   if (objc_opt_respondsToSelector())
   {
-    v58 = self->_delegate;
-    v59 = [VATKeywordSpotterResult alloc];
-    LODWORD(v60) = *(*result + 24);
-    LODWORD(v61) = *(*result + 56);
-    v62 = [(VATKeywordSpotterResult *)v59 initWithKeyword:v93 cost:*(*result + 32) threshold:*(*result + 36) start:*(*result + 52) end:v60 duration:v61];
-    [(VATKeywordSpotterResult *)v62 setAudioFileURL:v91];
+    v57 = self->_delegate;
+    v58 = [VATKeywordSpotterResult alloc];
+    LODWORD(v59) = *(*result + 24);
+    LODWORD(v60) = *(*result + 56);
+    v61 = [(VATKeywordSpotterResult *)v58 initWithKeyword:v90 cost:*(*result + 32) threshold:*(*result + 36) start:*(*result + 52) end:v59 duration:v60];
+    [(VATKeywordSpotterResult *)v61 setAudioFileURL:v88];
     configuration8 = [(VATKeywordSpotter *)self configuration];
     runtime6 = [configuration8 runtime];
     secondPass3 = [runtime6 secondPass];
 
     if (secondPass3)
     {
-      [(VATKeywordSpotterResult *)v62 setSecondPassResult:v95];
-      [(VATKeywordSpotterResult *)v62 setSecondPassDuration:v103];
+      [(VATKeywordSpotterResult *)v61 setSecondPassResult:v92];
+      [(VATKeywordSpotterResult *)v61 setSecondPassDuration:v100];
     }
 
     configuration9 = [(VATKeywordSpotter *)self configuration];
@@ -429,40 +466,38 @@ LABEL_46:
       if (!audioDebug3)
       {
 LABEL_56:
-        [(VATKeywordSpotterDelegate *)v58 keywordSpotted:v62 nbestResults:0 filePath:self->_filePath fileByteCount:self->_fileByteCount fileDuration:self->_fileCurrentDuration];
+        [(VATKeywordSpotterDelegate *)v57 keywordSpotted:v61 nbestResults:0 filePath:self->_filePath fileByteCount:self->_fileByteCount fileDuration:self->_fileCurrentDuration];
 
         goto LABEL_64;
       }
     }
 
-    [(VATKeywordSpotterResult *)v62 setAudioStart:v88];
-    [(VATKeywordSpotterResult *)v62 setAudioEnd:v102];
-    -[VATKeywordSpotterResult setAudioDuration:](v62, "setAudioDuration:", [v90 frameLength] / 16000.0);
+    [(VATKeywordSpotterResult *)v61 setAudioStart:v85];
+    [(VATKeywordSpotterResult *)v61 setAudioEnd:v99];
+    -[VATKeywordSpotterResult setAudioDuration:](v61, "setAudioDuration:", [v87 frameLength] / 16000.0);
     goto LABEL_56;
   }
 
-  v68 = objc_opt_respondsToSelector();
-  v69 = self->_delegate;
-  v70 = *result;
-  v71 = *(*result + 24);
-  if (v68)
+  v67 = objc_opt_respondsToSelector();
+  delegate = self->_delegate;
+  v69 = *result;
+  v70 = *(*result + 24);
+  if (v67)
   {
-    [(VATKeywordSpotterDelegate *)v69 keywordSpotted:v93 cost:*(v70 + 32) threshold:*(v70 + 36) start:v71 end:*(v70 + 56)];
+    [(VATKeywordSpotterDelegate *)delegate keywordSpotted:v90 cost:*(v69 + 32) threshold:*(v69 + 36) start:v70 end:*(v69 + 56)];
   }
 
   else
   {
-    [(VATKeywordSpotterDelegate *)v69 keywordSpotted:v93 cost:*(v70 + 32) start:*(v70 + 36) end:v71];
+    [(VATKeywordSpotterDelegate *)delegate keywordSpotted:v90 cost:*(v69 + 32) start:*(v69 + 36) end:v70];
   }
 
 LABEL_64:
-
-  v83 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_isDetectionValidForResult:(void *)result reason:(id *)reason
 {
-  v97 = *MEMORY[0x277D85DE8];
+  v95 = *MEMORY[0x277D85DE8];
   preKeywordSilenceCheckEnabled = [(VATKeywordSpotter *)self preKeywordSilenceCheckEnabled];
   configuration = [(VATKeywordSpotter *)self configuration];
   runtime = [configuration runtime];
@@ -535,7 +570,7 @@ LABEL_64:
 
   if ([(VATKeywordSpotter *)self preKeywordSilenceCheckEnabled])
   {
-    v75 = v26;
+    v73 = v26;
     v33 = self->_floatFstDecoder;
     v34 = *(result + 8);
     configuration6 = [(VATKeywordSpotter *)self configuration];
@@ -611,7 +646,7 @@ LABEL_64:
       *reason = [v51 stringWithFormat:@"pre-keyword silence frames %d < %ld. %@", v48, minSilenceInLookbackFrames2, v55];
     }
 
-    v26 = v75;
+    v26 = v73;
   }
 
   else
@@ -662,37 +697,35 @@ LABEL_64:
     v69 = _VATLoggingFacility(kVATLogCategoryFramework);
     if (os_log_type_enabled(v69, OS_LOG_TYPE_DEBUG))
     {
-      v73 = *(result + 8);
-      v84 = *(result + 9);
-      v86 = *reason;
+      v71 = *(result + 8);
+      v82 = *(result + 9);
+      v84 = *reason;
       path = [v68 path];
       *buf = 138413314;
       *&buf[4] = v59;
+      v87 = 1024;
+      v88 = v71;
       v89 = 1024;
-      v90 = v73;
-      v91 = 1024;
+      v90 = v82;
+      v91 = 2112;
       v92 = v84;
       v93 = 2112;
-      v94 = v86;
-      v95 = 2112;
-      v96 = path;
+      v94 = path;
       _os_log_debug_impl(&dword_2721E4000, v69, OS_LOG_TYPE_DEBUG, "Keyword %@ [%d,%d] dismissed. %@, %@", buf, 0x2Cu);
     }
 
-    delegate = self->_delegate;
     if (objc_opt_respondsToSelector())
     {
       [(VATKeywordSpotterDelegate *)self->_delegate keywordDiscarded:v59 failedPreSilence:v49 ^ 1u failedDuringSilence:v57 failedPostSilence:0 failedSecondPass:0 secondPassResult:0 reason:*reason audioURL:v68];
     }
   }
 
-  v71 = *MEMORY[0x277D85DE8];
   return v49 & v56;
 }
 
 - (void)_postKeywordSilenceProcessingWithResults:(id)results rows:(int64_t)rows cols:(int64_t)cols
 {
-  v92 = *MEMORY[0x277D85DE8];
+  v90 = *MEMORY[0x277D85DE8];
   resultsCopy = results;
   [resultsCopy bytes];
   selfCopy = self;
@@ -703,8 +736,8 @@ LABEL_64:
 
   v7 = self->_frameCountSinceKeywordDetected + rows;
   self->_frameCountSinceKeywordDetected = v7;
-  v83 = 0;
-  v84 = -1;
+  v81 = 0;
+  v82 = -1;
   configuration = [(VATKeywordSpotter *)self configuration];
   decoder = [configuration decoder];
   postKeywordSilence = [decoder postKeywordSilence];
@@ -740,7 +773,7 @@ LABEL_64:
       v26 = lookForwardFrames2;
     }
 
-    v78 = v26;
+    v76 = v26;
     floatFstDecoder = selfCopy->_floatFstDecoder;
     configuration3 = [(VATKeywordSpotter *)selfCopy configuration];
     decoder3 = [configuration3 decoder];
@@ -750,7 +783,7 @@ LABEL_64:
     configuration4 = [(VATKeywordSpotter *)selfCopy configuration];
     decoder4 = [configuration4 decoder];
     postKeywordSilence4 = [decoder4 postKeywordSilence];
-    v34 = sub_27236638C(floatFstDecoder, v23, 0, 0, v78, [postKeywordSilence4 minSilenceFramesExpected], &v84, &v83, v30);
+    v34 = sub_27236638C(floatFstDecoder, v23, 0, 0, v76, [postKeywordSilence4 minSilenceFramesExpected], &v82, &v81, v30);
 
     begin = p_keywordResults->__begin_;
     if (*(p_keywordResults->__begin_ + 23) < 0)
@@ -758,31 +791,31 @@ LABEL_64:
       begin = *begin;
     }
 
-    v79 = [MEMORY[0x277CCACA8] stringWithCString:begin encoding:{objc_msgSend(MEMORY[0x277CCACA8], "defaultCStringEncoding")}];
+    v77 = [MEMORY[0x277CCACA8] stringWithCString:begin encoding:{objc_msgSend(MEMORY[0x277CCACA8], "defaultCStringEncoding")}];
     if (v34)
     {
       v36 = _VATLoggingFacility(kVATLogCategoryFramework);
       if (os_log_type_enabled(v36, OS_LOG_TYPE_DEBUG))
       {
-        v77 = [MEMORY[0x277CCABB0] numberWithInt:v83];
-        v63 = MEMORY[0x277CCABB0];
+        v75 = [MEMORY[0x277CCABB0] numberWithInt:v81];
+        v61 = MEMORY[0x277CCABB0];
         configuration5 = [(VATKeywordSpotter *)selfCopy configuration];
         decoder5 = [configuration5 decoder];
         postKeywordSilence5 = [decoder5 postKeywordSilence];
-        v67 = [v63 numberWithInteger:{objc_msgSend(postKeywordSilence5, "minSilenceFramesExpected")}];
-        v68 = MEMORY[0x277CCABB0];
+        v65 = [v61 numberWithInteger:{objc_msgSend(postKeywordSilence5, "minSilenceFramesExpected")}];
+        v66 = MEMORY[0x277CCABB0];
         configuration6 = [(VATKeywordSpotter *)selfCopy configuration];
         decoder6 = [configuration6 decoder];
         postKeywordSilence6 = [decoder6 postKeywordSilence];
-        v72 = [v68 numberWithInteger:{objc_msgSend(postKeywordSilence6, "lookForwardFrames")}];
+        v70 = [v66 numberWithInteger:{objc_msgSend(postKeywordSilence6, "lookForwardFrames")}];
         *buf = 138413058;
-        *&buf[4] = v79;
+        *&buf[4] = v77;
+        v84 = 2112;
+        v85 = v75;
         v86 = 2112;
-        v87 = v77;
+        v87 = v65;
         v88 = 2112;
-        v89 = v67;
-        v90 = 2112;
-        v91 = v72;
+        v89 = v70;
         _os_log_debug_impl(&dword_2721E4000, v36, OS_LOG_TYPE_DEBUG, "Enough silence after keyword %@, %@ > %@/%@", buf, 0x2Au);
       }
 
@@ -803,16 +836,16 @@ LABEL_64:
         v43 = *(v42 + 8);
         *buf = *(v42 + 9);
         v44 = [FeatureExtractObjc audioForKeywordWithStartFrame:"audioForKeywordWithStartFrame:endFrame:actualEndFrame:" endFrame:v43 actualEndFrame:?];
-        v74 = [(VATKeywordSpotter *)selfCopy _handleAudioDebuggingForKeyword:v79 result:selfCopy->_keywordResults.__begin_ buffer:v44];
+        v72 = [(VATKeywordSpotter *)selfCopy _handleAudioDebuggingForKeyword:v77 result:selfCopy->_keywordResults.__begin_ buffer:v44];
       }
 
       else
       {
-        v74 = 0;
+        v72 = 0;
       }
 
       v45 = MEMORY[0x277CCACA8];
-      v76 = [MEMORY[0x277CCABB0] numberWithInt:v83];
+      v74 = [MEMORY[0x277CCABB0] numberWithInt:v81];
       v46 = MEMORY[0x277CCABB0];
       configuration8 = [(VATKeywordSpotter *)selfCopy configuration];
       decoder7 = [configuration8 decoder];
@@ -823,30 +856,29 @@ LABEL_64:
       decoder8 = [configuration9 decoder];
       postKeywordSilence8 = [decoder8 postKeywordSilence];
       v55 = [v51 numberWithInteger:{objc_msgSend(postKeywordSilence8, "lookForwardFrames")}];
-      v56 = [v45 stringWithFormat:@"not enough silence after keyword %@ < %@/%@", v76, v50, v55];
+      v56 = [v45 stringWithFormat:@"not enough silence after keyword %@ < %@/%@", v74, v50, v55];
 
       v57 = _VATLoggingFacility(kVATLogCategoryFramework);
       if (os_log_type_enabled(v57, OS_LOG_TYPE_INFO))
       {
         *buf = 138412546;
-        *&buf[4] = v79;
-        v86 = 2112;
-        v87 = v56;
+        *&buf[4] = v77;
+        v84 = 2112;
+        v85 = v56;
         _os_log_impl(&dword_2721E4000, v57, OS_LOG_TYPE_INFO, "Discarding keyword %@, %@", buf, 0x16u);
       }
 
-      delegate = selfCopy->_delegate;
       if (objc_opt_respondsToSelector())
       {
-        v59 = selfCopy->_delegate;
-        v60 = selfCopy->_keywordResults.__begin_;
-        if (*(v60 + 23) < 0)
+        v58 = selfCopy->_delegate;
+        v59 = selfCopy->_keywordResults.__begin_;
+        if (*(v59 + 23) < 0)
         {
-          v60 = *v60;
+          v59 = *v59;
         }
 
-        v61 = [MEMORY[0x277CCACA8] stringWithCString:v60 encoding:{objc_msgSend(MEMORY[0x277CCACA8], "defaultCStringEncoding")}];
-        [(VATKeywordSpotterDelegate *)v59 keywordDiscarded:v61 failedPreSilence:0 failedDuringSilence:0 failedPostSilence:1 failedSecondPass:0 secondPassResult:0 reason:v56 audioURL:v74];
+        v60 = [MEMORY[0x277CCACA8] stringWithCString:v59 encoding:{objc_msgSend(MEMORY[0x277CCACA8], "defaultCStringEncoding")}];
+        [(VATKeywordSpotterDelegate *)v58 keywordDiscarded:v60 failedPreSilence:0 failedDuringSilence:0 failedPostSilence:1 failedSecondPass:0 secondPassResult:0 reason:v56 audioURL:v72];
       }
 
       v38 = &selfCopy->_keywordResults;
@@ -855,7 +887,7 @@ LABEL_64:
 
     v37->_frameCountSinceKeywordDetected = 0;
     sub_272363EE8(v38);
-    v12 = v79;
+    v12 = v77;
   }
 
   else
@@ -871,35 +903,33 @@ LABEL_64:
       frameCountSinceKeywordDetected = selfCopy->_frameCountSinceKeywordDetected;
       *buf = 138412546;
       *&buf[4] = v17;
-      v86 = 1024;
-      LODWORD(v87) = frameCountSinceKeywordDetected;
+      v84 = 1024;
+      LODWORD(v85) = frameCountSinceKeywordDetected;
       _os_log_debug_impl(&dword_2721E4000, v12, OS_LOG_TYPE_DEBUG, "waiting for %@ frames, have only %d", buf, 0x12u);
     }
   }
-
-  v62 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_acousticCallback:(id)callback rows:(int64_t)rows cols:(int64_t)cols
 {
-  v147 = *MEMORY[0x277D85DE8];
+  v145 = *MEMORY[0x277D85DE8];
   callbackCopy = callback;
   v9 = callbackCopy;
   if (rows != 8)
   {
-    v126 = sub_2723686B0(v125, "/Library/Caches/com.apple.xbs/Sources/VoiceActions/VoiceActions/v1/VATKeywordSpotter.m", 86);
-    v127 = sub_2723686B0(v126, " line ", 6);
-    v128 = MEMORY[0x2743C5B80](v127, 397);
-    v129 = sub_2723686B0(v128, ": ", 2);
-    v130 = sub_2723686B0(v129, "Mismatch in acoustic model output shape, expected 8 rows", 56);
-    sub_2723689D8(v130);
+    v124 = sub_2723686B0(v123, "/Library/Caches/com.apple.xbs/Sources/VoiceActions/VoiceActions/v1/VATKeywordSpotter.m", 86);
+    v125 = sub_2723686B0(v124, " line ", 6);
+    v126 = MEMORY[0x2743C5B80](v125, 397);
+    v127 = sub_2723686B0(v126, ": ", 2);
+    v128 = sub_2723686B0(v127, "Mismatch in acoustic model output shape, expected 8 rows", 56);
+    sub_2723689D8(v128);
     std::terminate();
   }
 
   if (callbackCopy)
   {
     configuration = [(VATKeywordSpotter *)self configuration];
-    v133 = v9;
+    v131 = v9;
     runtime = [configuration runtime];
     selfCopy = self;
     if ([runtime postKeywordSilence])
@@ -923,15 +953,15 @@ LABEL_64:
 
     bytes = [v9 bytes];
     p_keywordResults = &self->_keywordResults;
-    *&v18 = 138413058;
-    v131 = v18;
-    v19 = 0;
-    v135 = 4 * cols;
+    *&v17 = 138413058;
+    v129 = v17;
+    v18 = 0;
+    v133 = 4 * cols;
     colsCopy = cols;
     while (1)
     {
-      v138 = v19;
-      v139 = bytes;
+      v136 = v18;
+      v137 = bytes;
       if (cols)
       {
         if (!(cols >> 62))
@@ -948,32 +978,31 @@ LABEL_64:
         processedFrameCount = self->_processedFrameCount;
         if ((floatFstDecoder[72] & 1) != 0 || (floatFstDecoder[73] & 1) != 0 || floatFstDecoder[74] == 1)
         {
-          v22 = *(floatFstDecoder + 1);
-          v23 = *(floatFstDecoder + 3);
-          v24 = *(floatFstDecoder + 2);
-          v25 = v23 - v24;
-          if (v23 == v24)
+          v21 = *(floatFstDecoder + 3);
+          v22 = *(floatFstDecoder + 2);
+          v23 = v21 - v22;
+          if (v21 == v22)
           {
-            v26 = 0;
+            v24 = 0;
           }
 
           else
           {
-            v26 = ((v23 - v24) << 7) - 1;
+            v24 = ((v21 - v22) << 7) - 1;
           }
 
-          v28 = *(floatFstDecoder + 5);
-          v27 = *(floatFstDecoder + 6);
-          v29 = v27 + v28;
-          if (v26 == v27 + v28)
+          v26 = *(floatFstDecoder + 5);
+          v25 = *(floatFstDecoder + 6);
+          v27 = v25 + v26;
+          if (v24 == v25 + v26)
           {
-            if (v28 < 0x400)
+            if (v26 < 0x400)
             {
-              v30 = *(floatFstDecoder + 4);
-              v31 = *(floatFstDecoder + 1);
-              if (v25 < v30 - v31)
+              v28 = *(floatFstDecoder + 4);
+              v29 = *(floatFstDecoder + 1);
+              if (v23 < v28 - v29)
               {
-                if (v30 != v23)
+                if (v28 != v21)
                 {
                   operator new();
                 }
@@ -981,163 +1010,163 @@ LABEL_64:
                 operator new();
               }
 
-              if (v30 == v31)
+              if (v28 == v29)
               {
-                v32 = 1;
+                v30 = 1;
               }
 
               else
               {
-                v32 = (v30 - v31) >> 2;
+                v30 = (v28 - v29) >> 2;
               }
 
-              *(&v144 + 1) = floatFstDecoder + 8;
-              sub_272367404(v32);
+              *(&v142 + 1) = floatFstDecoder + 8;
+              sub_272367404(v30);
             }
 
-            *(floatFstDecoder + 5) = v28 - 1024;
-            __str.__r_.__value_.__r.__words[0] = *v24;
-            *(floatFstDecoder + 2) = v24 + 1;
+            *(floatFstDecoder + 5) = v26 - 1024;
+            __str.__r_.__value_.__r.__words[0] = *v22;
+            *(floatFstDecoder + 2) = v22 + 1;
             sub_272367300(floatFstDecoder + 1, &__str);
-            v24 = *(floatFstDecoder + 2);
-            v28 = *(floatFstDecoder + 5);
-            v27 = *(floatFstDecoder + 6);
-            v29 = v28 + v27;
+            v22 = *(floatFstDecoder + 2);
+            v26 = *(floatFstDecoder + 5);
+            v25 = *(floatFstDecoder + 6);
+            v27 = v26 + v25;
           }
 
-          *(*(v24 + ((v29 >> 7) & 0x1FFFFFFFFFFFFF8)) + 4 * (v29 & 0x3FF)) = MEMORY[0xD8];
-          *(floatFstDecoder + 6) = v27 + 1;
-          if (v27 + 1 == *(floatFstDecoder + 14))
+          *(*(v22 + ((v27 >> 7) & 0x1FFFFFFFFFFFFF8)) + 4 * (v27 & 0x3FF)) = MEMORY[0xD8];
+          *(floatFstDecoder + 6) = v25 + 1;
+          if (v25 + 1 == *(floatFstDecoder + 14))
           {
-            *(floatFstDecoder + 5) = v28 + 1;
-            *(floatFstDecoder + 6) = v27;
+            *(floatFstDecoder + 5) = v26 + 1;
+            *(floatFstDecoder + 6) = v25;
             sub_272366EC0((floatFstDecoder + 8));
             ++*(floatFstDecoder + 8);
           }
         }
 
-        v33 = *(floatFstDecoder + 23);
-        if (0xAAAAAAAAAAAAAAABLL * ((*(floatFstDecoder + 11) - *(floatFstDecoder + 10)) >> 3) != (*(floatFstDecoder + 24) - v33) >> 5)
+        v31 = *(floatFstDecoder + 23);
+        if (0xAAAAAAAAAAAAAAABLL * ((*(floatFstDecoder + 11) - *(floatFstDecoder + 10)) >> 3) != (*(floatFstDecoder + 24) - v31) >> 5)
         {
           __assert_rtn("SearchFrame", "OnlineFstSpottingDecoder.hpp", 505, "tokens.size() == states.size()");
         }
 
-        v34 = floatFstDecoder[517];
-        v35 = processedFrameCount != 0;
-        *v33 = voiceactions::kNolabel;
-        v36 = *&voiceactions::kLogZero;
-        if ((v35 & v34) == 0)
+        v32 = floatFstDecoder[517];
+        v33 = processedFrameCount != 0;
+        *v31 = voiceactions::kNolabel;
+        v34 = *&voiceactions::kLogZero;
+        if ((v33 & v32) == 0)
         {
-          v36 = 0.0;
+          v34 = 0.0;
         }
 
-        v134 = processedFrameCount;
-        if ((v35 & v34) != 0)
+        v132 = processedFrameCount;
+        if ((v33 & v32) != 0)
         {
-          v37 = voiceactions::kNoTime;
+          v35 = voiceactions::kNoTime;
         }
 
         else
         {
-          v37 = processedFrameCount;
+          v35 = processedFrameCount;
         }
 
-        *(v33 + 20) = 0;
-        *(v33 + 12) = 0;
-        *(v33 + 4) = v36;
-        *(v33 + 8) = v37;
-        v38 = -1 - 1431655765 * ((*(floatFstDecoder + 11) - *(floatFstDecoder + 10)) >> 3);
-        if ((v38 & 0x80000000) == 0)
+        *(v31 + 20) = 0;
+        *(v31 + 12) = 0;
+        *(v31 + 4) = v34;
+        *(v31 + 8) = v35;
+        v36 = -1 - 1431655765 * ((*(floatFstDecoder + 11) - *(floatFstDecoder + 10)) >> 3);
+        if ((v36 & 0x80000000) == 0)
         {
           do
           {
-            v39 = (*(floatFstDecoder + 10) + 24 * v38);
-            v40 = *v39;
-            if (v39[1] != *v39)
+            v37 = (*(floatFstDecoder + 10) + 24 * v36);
+            v38 = *v37;
+            if (v37[1] != *v37)
             {
-              v41 = *(v40 + 8);
-              v42 = floatFstDecoder[524];
-              v43 = *(4 * v41 - 4);
-              v44 = logf(v43);
-              if (!v42)
+              v39 = *(v38 + 8);
+              v40 = floatFstDecoder[524];
+              v41 = *(4 * v39 - 4);
+              v42 = logf(v41);
+              if (!v40)
               {
-                v44 = v43;
+                v42 = v41;
               }
 
-              sub_2723696E4(*(floatFstDecoder + 23) + 32 * v38, (*(floatFstDecoder + 23) + 32 * *(v40 + 4)), v41, *(v40 + 12), *(floatFstDecoder + 120), 1, *(v40 + 16) - v44);
-              v46 = *v39;
-              v45 = v39[1];
-              if (0xAAAAAAAAAAAAAAABLL * ((v45 - *v39) >> 3) >= 2)
+              sub_2723696E4(*(floatFstDecoder + 23) + 32 * v36, (*(floatFstDecoder + 23) + 32 * *(v38 + 4)), v39, *(v38 + 12), *(floatFstDecoder + 120), 1, *(v38 + 16) - v42);
+              v44 = *v37;
+              v43 = v37[1];
+              if (0xAAAAAAAAAAAAAAABLL * ((v43 - *v37) >> 3) >= 2)
               {
-                v47 = 0;
-                v48 = 1;
+                v45 = 0;
+                v46 = 1;
                 do
                 {
-                  v49 = v46 + v47;
-                  v50 = *(v46 + v47 + 32);
-                  v51 = floatFstDecoder[524];
-                  v52 = *(4 * v50 - 4);
-                  v53 = logf(v52);
-                  if (!v51)
+                  v47 = v44 + v45;
+                  v48 = *(v44 + v45 + 32);
+                  v49 = floatFstDecoder[524];
+                  v50 = *(4 * v48 - 4);
+                  v51 = logf(v50);
+                  if (!v49)
                   {
-                    v53 = v52;
+                    v51 = v50;
                   }
 
-                  v54 = *(floatFstDecoder + 23);
-                  v55 = v54 + 32 * v38;
-                  v56 = (v54 + 32 * *(v49 + 28));
-                  if ((v56[1] - v53) < *(v55 + 4))
+                  v52 = *(floatFstDecoder + 23);
+                  v53 = v52 + 32 * v36;
+                  v54 = (v52 + 32 * *(v47 + 28));
+                  if ((v54[1] - v51) < *(v53 + 4))
                   {
-                    sub_2723696E4(v55, v56, v50, *(v49 + 36), *(floatFstDecoder + 120), 0, -v53);
-                    v46 = *v39;
-                    v45 = v39[1];
+                    sub_2723696E4(v53, v54, v48, *(v47 + 36), *(floatFstDecoder + 120), 0, -v51);
+                    v44 = *v37;
+                    v43 = v37[1];
                   }
 
-                  ++v48;
-                  v47 += 24;
+                  ++v46;
+                  v45 += 24;
                 }
 
-                while (0xAAAAAAAAAAAAAAABLL * ((v45 - v46) >> 3) > v48);
+                while (0xAAAAAAAAAAAAAAABLL * ((v43 - v44) >> 3) > v46);
               }
             }
           }
 
-          while (v38-- > 0);
+          while (v36-- > 0);
         }
 
-        v58 = *(floatFstDecoder + 15);
-        v9 = v133;
+        v56 = *(floatFstDecoder + 15);
+        v9 = v131;
         self = selfCopy;
-        if (v58)
+        if (v56)
         {
           while (1)
           {
-            v59 = v58[2];
-            v141 = v59;
-            v60 = *(floatFstDecoder + 23) + 32 * v59;
-            v61 = *(v60 + 4);
-            if (v61 >= *&voiceactions::kLogZero)
+            v57 = v56[2];
+            v139 = v57;
+            v58 = *(floatFstDecoder + 23) + 32 * v57;
+            v59 = *(v58 + 4);
+            if (v59 >= *&voiceactions::kLogZero)
             {
               goto LABEL_87;
             }
 
             memset(&__str, 0, sizeof(__str));
-            *&v145[20] = voiceactions::kLogZero;
-            v145[24] = 0;
-            *&v144 = v61 + *(&v59 + 1);
-            *&v145[16] = 0;
-            v62 = *(v60 + 8);
-            *(&v144 + 1) = __PAIR64__(v134, v62);
-            if (*v60 >= 1 && (v63 = sub_27236A1FC(floatFstDecoder + 45, *v60)) != 0)
+            *&v143[20] = voiceactions::kLogZero;
+            v143[24] = 0;
+            *&v142 = v59 + *(&v57 + 1);
+            *&v143[16] = 0;
+            v60 = *(v58 + 8);
+            *(&v142 + 1) = __PAIR64__(v132, v60);
+            if (*v58 >= 1 && (v61 = sub_27236A1FC(floatFstDecoder + 45, *v58)) != 0)
             {
-              if (*(v63 + 47) < 0)
+              if (*(v61 + 47) < 0)
               {
-                sub_272369088(&__dst, v63[3], v63[4]);
+                sub_272369088(&__dst, v61[3], v61[4]);
               }
 
               else
               {
-                __dst = *(v63 + 1);
+                __dst = *(v61 + 1);
               }
             }
 
@@ -1146,112 +1175,112 @@ LABEL_64:
               memset(&__dst, 0, sizeof(__dst));
             }
 
-            v65 = *(v60 + 20);
-            v64 = *(v60 + 24);
-            v66 = *(v60 + 12);
-            v67 = *(v60 + 16);
+            v63 = *(v58 + 20);
+            v62 = *(v58 + 24);
+            v64 = *(v58 + 12);
+            v65 = *(v58 + 16);
             __str = __dst;
-            DWORD1(v144) = v67;
-            *v145 = v65;
-            *&v145[4] = v66;
-            *&v145[8] = v64;
-            *&v145[12] = v134 + 1 - v62;
+            DWORD1(v142) = v65;
+            *v143 = v63;
+            *&v143[4] = v64;
+            *&v143[8] = v62;
+            *&v143[12] = v132 + 1 - v60;
             __dst.__r_.__value_.__r.__words[0] = &__str;
-            v68 = *(sub_272369758(floatFstDecoder + 50, &__str) + 10);
-            v145[24] = *&v144 < v68;
-            *&v145[16] = v68;
-            *&v145[20] = v144;
-            if (*&v144 < v68 && *&v144 < *(floatFstDecoder + 67))
+            v66 = *(sub_272369758(floatFstDecoder + 100, &__str, &__dst) + 10);
+            v143[24] = *&v142 < v66;
+            *&v143[16] = v66;
+            *&v143[20] = v142;
+            if (*&v142 < v66 && *&v142 < *(floatFstDecoder + 67))
             {
               std::string::operator=((floatFstDecoder + 208), &__str);
-              v69 = *v145;
-              *(floatFstDecoder + 232) = v144;
-              *(floatFstDecoder + 248) = v69;
-              *(floatFstDecoder + 257) = *&v145[9];
+              v67 = *v143;
+              *(floatFstDecoder + 232) = v142;
+              *(floatFstDecoder + 248) = v67;
+              *(floatFstDecoder + 257) = *&v143[9];
             }
 
-            v70 = v141;
-            v71 = *(floatFstDecoder + 19);
-            if (!v71)
+            v68 = v139;
+            v69 = *(floatFstDecoder + 19);
+            if (!v69)
             {
               goto LABEL_84;
             }
 
-            v72 = vcnt_s8(v71);
-            v72.i16[0] = vaddlv_u8(v72);
-            if (v72.u32[0] > 1uLL)
+            v70 = vcnt_s8(v69);
+            v70.i16[0] = vaddlv_u8(v70);
+            if (v70.u32[0] > 1uLL)
             {
-              v73 = v141;
-              if (v71 <= v141)
+              v71 = v139;
+              if (v69 <= v139)
               {
-                v73 = v141 % v71;
+                v71 = v139 % v69;
               }
             }
 
             else
             {
-              v73 = (v71 - 1) & v141;
+              v71 = (v69 - 1) & v139;
             }
 
-            v74 = *(*(floatFstDecoder + 18) + 8 * v73);
-            if (!v74 || (v75 = *v74) == 0)
+            v72 = *(*(floatFstDecoder + 18) + 8 * v71);
+            if (!v72 || (v73 = *v72) == 0)
             {
 LABEL_84:
-              __dst.__r_.__value_.__r.__words[0] = &v141;
-              v78 = sub_272368C38(floatFstDecoder + 18, v70);
-              std::string::operator=(v78 + 1, &__str);
-              v79 = *&v145[9];
-              v80 = *v145;
-              *(v78 + 3) = v144;
-              *(v78 + 4) = v80;
-              *(v78 + 73) = v79;
+              __dst.__r_.__value_.__r.__words[0] = &v139;
+              v76 = sub_272368C38(floatFstDecoder + 36, v68, &__dst);
+              std::string::operator=(v76 + 1, &__str);
+              v77 = *&v143[9];
+              v78 = *v143;
+              *(v76 + 3) = v142;
+              *(v76 + 4) = v78;
+              *(v76 + 73) = v77;
               goto LABEL_85;
             }
 
             while (1)
             {
-              v76 = v75[1];
-              if (v76 == v141)
+              v74 = v73[1];
+              if (v74 == v139)
               {
                 break;
               }
 
-              if (v72.u32[0] > 1uLL)
+              if (v70.u32[0] > 1uLL)
               {
-                if (v76 >= v71)
+                if (v74 >= v69)
                 {
-                  v76 %= v71;
+                  v74 %= v69;
                 }
               }
 
               else
               {
-                v76 &= v71 - 1;
+                v74 &= v69 - 1;
               }
 
-              if (v76 != v73)
+              if (v74 != v71)
               {
                 goto LABEL_84;
               }
 
 LABEL_79:
-              v75 = *v75;
-              if (!v75)
+              v73 = *v73;
+              if (!v73)
               {
                 goto LABEL_84;
               }
             }
 
-            if (*(v75 + 4) != v141)
+            if (*(v73 + 4) != v139)
             {
               goto LABEL_79;
             }
 
-            __dst.__r_.__value_.__r.__words[0] = &v141;
-            v77 = sub_272368C38(floatFstDecoder + 18, v141);
-            if (*(v77 + 12) > *&v144)
+            __dst.__r_.__value_.__r.__words[0] = &v139;
+            v75 = sub_272368C38(floatFstDecoder + 36, v139, &__dst);
+            if (*(v75 + 12) > *&v142)
             {
-              v70 = v141;
+              v68 = v139;
               goto LABEL_84;
             }
 
@@ -1262,10 +1291,10 @@ LABEL_85:
             }
 
 LABEL_87:
-            v58 = *v58;
-            if (!v58)
+            v56 = *v56;
+            if (!v56)
             {
-              v81 = *(floatFstDecoder + 15);
+              v79 = *(floatFstDecoder + 15);
                 ;
               }
 
@@ -1275,68 +1304,68 @@ LABEL_87:
         }
       }
 
-      v82 = self->_floatFstDecoder;
-      v83 = self->_processedFrameCount;
+      v80 = self->_floatFstDecoder;
+      v81 = self->_processedFrameCount;
       memset(&__dst, 0, sizeof(__dst));
-      v84 = v82[20];
-      if (v84)
+      v82 = v80[20];
+      if (v82)
       {
-        v85 = 0;
+        v83 = 0;
         do
         {
-          sub_272368BD4(&__str, (v84 + 2));
-          if (v146 == 1)
+          sub_272368BD4(&__str, (v82 + 2));
+          if (v144 == 1)
           {
-            v85 |= *&v145[4] >= v83 - *(v82 + 130);
+            v83 |= *&v143[4] >= v81 - *(v80 + 130);
           }
 
-          if (SBYTE7(v144) < 0)
+          if (SBYTE7(v142) < 0)
           {
             operator delete(__str.__r_.__value_.__l.__size_);
           }
 
-          v84 = *v84;
+          v82 = *v82;
         }
 
-        while (v84);
-        if (v85)
+        while (v82);
+        if (v83)
         {
-          v86 = v82[20];
+          v84 = v80[20];
           self = selfCopy;
-          if (v86)
+          if (v84)
           {
             do
             {
-              sub_272368BD4(&__str, (v86 + 2));
-              if (v146 == 1)
+              sub_272368BD4(&__str, (v84 + 2));
+              if (v144 == 1)
               {
                 sub_2723692DC(&__dst, &__str.__r_.__value_.__r.__words[1]);
               }
 
-              if (SBYTE7(v144) < 0)
+              if (SBYTE7(v142) < 0)
               {
                 operator delete(__str.__r_.__value_.__l.__size_);
               }
 
-              v86 = *v86;
+              v84 = *v84;
             }
 
-            while (v86);
+            while (v84);
             size = __dst.__r_.__value_.__l.__size_;
-            v87 = __dst.__r_.__value_.__r.__words[0];
+            v85 = __dst.__r_.__value_.__r.__words[0];
           }
 
           else
           {
             size = 0;
-            v87 = 0;
+            v85 = 0;
           }
         }
 
         else
         {
           size = 0;
-          v87 = 0;
+          v85 = 0;
           self = selfCopy;
         }
       }
@@ -1344,21 +1373,21 @@ LABEL_87:
       else
       {
         size = 0;
-        v87 = 0;
+        v85 = 0;
       }
 
-      v89 = 126 - 2 * __clz(0x8E38E38E38E38E39 * ((size - v87) >> 3));
-      if (size == v87)
+      v87 = 126 - 2 * __clz(0x8E38E38E38E38E39 * ((size - v85) >> 3));
+      if (size == v85)
       {
-        v90 = 0;
+        v88 = 0;
       }
 
       else
       {
-        v90 = v89;
+        v88 = v87;
       }
 
-      sub_272370FCC(v87, size, v90, 1);
+      sub_272370FCC(v85, size, v88, 1);
       configuration2 = [(VATKeywordSpotter *)self configuration];
       runtime2 = [configuration2 runtime];
       if (([(__CFString *)runtime2 batchDecode]& 1) != 0 || __dst.__r_.__value_.__l.__size_ == __dst.__r_.__value_.__r.__words[0])
@@ -1366,9 +1395,9 @@ LABEL_87:
         goto LABEL_151;
       }
 
-      v93 = *(__dst.__r_.__value_.__r.__words[0] + 64);
+      v91 = *(__dst.__r_.__value_.__r.__words[0] + 64);
 
-      if (v93)
+      if (v91)
       {
         break;
       }
@@ -1378,60 +1407,60 @@ LABEL_152:
       __str.__r_.__value_.__r.__words[0] = &__dst;
       sub_272363E94(&__str);
       cols = colsCopy;
-      bytes = v139 + v135;
-      v19 = v138 + 1;
-      if (v138 == 7)
+      bytes = v137 + v133;
+      v18 = v136 + 1;
+      if (v136 == 7)
       {
         goto LABEL_9;
       }
     }
 
-    v94 = __dst.__r_.__value_.__r.__words[0];
+    v92 = __dst.__r_.__value_.__r.__words[0];
     if (*(__dst.__r_.__value_.__r.__words[0] + 23) < 0)
     {
-      v94 = *__dst.__r_.__value_.__l.__data_;
+      v92 = *__dst.__r_.__value_.__l.__data_;
     }
 
-    configuration2 = [MEMORY[0x277CCACA8] stringWithCString:v94 encoding:{objc_msgSend(MEMORY[0x277CCACA8], "defaultCStringEncoding", v131)}];
-    v140 = &stru_2881908A8;
-    v95 = [(VATKeywordSpotter *)self _isDetectionValidForResult:__dst.__r_.__value_.__r.__words[0] reason:&v140];
-    runtime2 = v140;
-    if (v95)
+    configuration2 = [MEMORY[0x277CCACA8] stringWithCString:v92 encoding:{objc_msgSend(MEMORY[0x277CCACA8], "defaultCStringEncoding", v129)}];
+    v138 = &stru_2881908A8;
+    v93 = [(VATKeywordSpotter *)self _isDetectionValidForResult:__dst.__r_.__value_.__r.__words[0] reason:&v138];
+    runtime2 = v138;
+    if (v93)
     {
       configuration3 = [(VATKeywordSpotter *)self configuration];
       runtime3 = [configuration3 runtime];
       postKeywordSilence = [runtime3 postKeywordSilence];
 
-      v99 = _VATLoggingFacility(kVATLogCategoryFramework);
-      v100 = os_log_type_enabled(v99, OS_LOG_TYPE_DEBUG);
+      v97 = _VATLoggingFacility(kVATLogCategoryFramework);
+      v98 = os_log_type_enabled(v97, OS_LOG_TYPE_DEBUG);
       if (postKeywordSilence)
       {
-        if (v100)
+        if (v98)
         {
-          v120 = *(__dst.__r_.__value_.__r.__words[0] + 32);
-          v119 = *(__dst.__r_.__value_.__r.__words[0] + 36);
-          v121 = self->_processedFrameCount;
-          LODWORD(__str.__r_.__value_.__l.__data_) = v131;
+          v118 = *(__dst.__r_.__value_.__r.__words[0] + 32);
+          v117 = *(__dst.__r_.__value_.__r.__words[0] + 36);
+          v119 = self->_processedFrameCount;
+          LODWORD(__str.__r_.__value_.__l.__data_) = v129;
           *(__str.__r_.__value_.__r.__words + 4) = configuration2;
           WORD2(__str.__r_.__value_.__r.__words[1]) = 1024;
-          *(&__str.__r_.__value_.__r.__words[1] + 6) = v120;
+          *(&__str.__r_.__value_.__r.__words[1] + 6) = v118;
           WORD1(__str.__r_.__value_.__r.__words[2]) = 1024;
-          HIDWORD(__str.__r_.__value_.__r.__words[2]) = v119;
-          LOWORD(v144) = 1024;
-          *(&v144 + 2) = v121;
-          _os_log_debug_impl(&dword_2721E4000, v99, OS_LOG_TYPE_DEBUG, "Got keyword %@ [%d, %d] at frame %d, waiting for silence", &__str, 0x1Eu);
+          HIDWORD(__str.__r_.__value_.__r.__words[2]) = v117;
+          LOWORD(v142) = 1024;
+          *(&v142 + 2) = v119;
+          _os_log_debug_impl(&dword_2721E4000, v97, OS_LOG_TYPE_DEBUG, "Got keyword %@ [%d, %d] at frame %d, waiting for silence", &__str, 0x1Eu);
         }
 
         if (p_keywordResults != &__dst)
         {
-          v101 = __dst.__r_.__value_.__l.__size_;
-          v102 = __dst.__r_.__value_.__r.__words[0];
-          v103 = __dst.__r_.__value_.__l.__size_ - __dst.__r_.__value_.__r.__words[0];
+          v99 = __dst.__r_.__value_.__l.__size_;
+          v100 = __dst.__r_.__value_.__r.__words[0];
+          v101 = __dst.__r_.__value_.__l.__size_ - __dst.__r_.__value_.__r.__words[0];
           cap = self->_keywordResults.__cap_;
-          v105 = self->_keywordResults.__begin_;
-          if (cap - v105 < __dst.__r_.__value_.__l.__size_ - __dst.__r_.__value_.__r.__words[0])
+          v103 = self->_keywordResults.__begin_;
+          if (cap - v103 < __dst.__r_.__value_.__l.__size_ - __dst.__r_.__value_.__r.__words[0])
           {
-            if (v105)
+            if (v103)
             {
               sub_272363EE8(p_keywordResults);
               operator delete(p_keywordResults->__begin_);
@@ -1441,110 +1470,110 @@ LABEL_152:
               p_keywordResults->__cap_ = 0;
             }
 
-            v106 = 0x8E38E38E38E38E39 * (v103 >> 3);
-            if (v106 <= 0x38E38E38E38E38ELL)
+            v104 = 0x8E38E38E38E38E39 * (v101 >> 3);
+            if (v104 <= 0x38E38E38E38E38ELL)
             {
-              v107 = 0x8E38E38E38E38E39 * (cap >> 3);
-              if (2 * v107 > v106)
+              v105 = 0x8E38E38E38E38E39 * (cap >> 3);
+              if (2 * v105 > v104)
               {
-                v106 = 2 * v107;
+                v104 = 2 * v105;
               }
 
-              if (v107 >= 0x1C71C71C71C71C7)
+              if (v105 >= 0x1C71C71C71C71C7)
               {
-                v108 = 0x38E38E38E38E38ELL;
+                v106 = 0x38E38E38E38E38ELL;
               }
 
               else
               {
-                v108 = v106;
+                v106 = v104;
               }
 
-              if (v108 <= 0x38E38E38E38E38ELL)
+              if (v106 <= 0x38E38E38E38E38ELL)
               {
-                sub_272369220(v108);
+                sub_272369220(v106);
               }
             }
 
             sub_27236F7F0();
           }
 
-          v110 = self->_keywordResults.__end_;
-          if (v110 - v105 >= v103)
+          v108 = self->_keywordResults.__end_;
+          if (v108 - v103 >= v101)
           {
             if (__dst.__r_.__value_.__r.__words[0] != __dst.__r_.__value_.__l.__size_)
             {
               do
               {
-                std::string::operator=(v105, v102);
-                v114 = *(v102 + 24);
-                v115 = *(v102 + 40);
-                *(v105 + 49) = *(v102 + 49);
-                *(v105 + 40) = v115;
-                *(v105 + 24) = v114;
-                v102 += 72;
-                v105 = (v105 + 72);
+                std::string::operator=(v103, v100);
+                v112 = *(v100 + 24);
+                v113 = *(v100 + 40);
+                *(v103 + 49) = *(v100 + 49);
+                *(v103 + 40) = v113;
+                *(v103 + 24) = v112;
+                v100 += 72;
+                v103 = (v103 + 72);
               }
 
-              while (v102 != v101);
-              v110 = self->_keywordResults.__end_;
+              while (v100 != v99);
+              v108 = self->_keywordResults.__end_;
             }
 
-            while (v110 != v105)
+            while (v108 != v103)
             {
-              v116 = *(v110 - 49);
-              v110 -= 9;
-              if (v116 < 0)
+              v114 = *(v108 - 49);
+              v108 -= 9;
+              if (v114 < 0)
               {
-                operator delete(*v110);
+                operator delete(*v108);
               }
             }
 
-            self->_keywordResults.__end_ = v105;
+            self->_keywordResults.__end_ = v103;
           }
 
           else
           {
-            v111 = (__dst.__r_.__value_.__r.__words[0] + v110 - v105);
-            if (v110 != v105)
+            v109 = (__dst.__r_.__value_.__r.__words[0] + v108 - v103);
+            if (v108 != v103)
             {
               do
               {
-                std::string::operator=(v105, v102);
-                v112 = *(v102 + 24);
-                v113 = *(v102 + 40);
-                *(v105 + 49) = *(v102 + 49);
-                *(v105 + 40) = v113;
-                *(v105 + 24) = v112;
-                v102 += 72;
-                v105 = (v105 + 72);
+                std::string::operator=(v103, v100);
+                v110 = *(v100 + 24);
+                v111 = *(v100 + 40);
+                *(v103 + 49) = *(v100 + 49);
+                *(v103 + 40) = v111;
+                *(v103 + 24) = v110;
+                v100 += 72;
+                v103 = (v103 + 72);
               }
 
-              while (v102 != v111);
-              v110 = self->_keywordResults.__end_;
+              while (v100 != v109);
+              v108 = self->_keywordResults.__end_;
             }
 
-            self->_keywordResults.__end_ = sub_272369144(p_keywordResults, v111, v101, v110);
+            self->_keywordResults.__end_ = sub_272369144(p_keywordResults, v109, v99, v108);
           }
         }
       }
 
       else
       {
-        if (v100)
+        if (v98)
         {
-          v123 = *(__dst.__r_.__value_.__r.__words[0] + 32);
-          v122 = *(__dst.__r_.__value_.__r.__words[0] + 36);
-          v124 = self->_processedFrameCount;
-          LODWORD(__str.__r_.__value_.__l.__data_) = v131;
+          v121 = *(__dst.__r_.__value_.__r.__words[0] + 32);
+          v120 = *(__dst.__r_.__value_.__r.__words[0] + 36);
+          v122 = self->_processedFrameCount;
+          LODWORD(__str.__r_.__value_.__l.__data_) = v129;
           *(__str.__r_.__value_.__r.__words + 4) = configuration2;
           WORD2(__str.__r_.__value_.__r.__words[1]) = 1024;
-          *(&__str.__r_.__value_.__r.__words[1] + 6) = v123;
+          *(&__str.__r_.__value_.__r.__words[1] + 6) = v121;
           WORD1(__str.__r_.__value_.__r.__words[2]) = 1024;
-          HIDWORD(__str.__r_.__value_.__r.__words[2]) = v122;
-          LOWORD(v144) = 1024;
-          *(&v144 + 2) = v124;
-          _os_log_debug_impl(&dword_2721E4000, v99, OS_LOG_TYPE_DEBUG, "Got keyword %@ [%d, %d] after %d frames, not looking for silence after", &__str, 0x1Eu);
+          HIDWORD(__str.__r_.__value_.__r.__words[2]) = v120;
+          LOWORD(v142) = 1024;
+          *(&v142 + 2) = v122;
+          _os_log_debug_impl(&dword_2721E4000, v97, OS_LOG_TYPE_DEBUG, "Got keyword %@ [%d, %d] after %d frames, not looking for silence after", &__str, 0x1Eu);
         }
 
         [(VATKeywordSpotter *)self _handleValidResult:&__dst];
@@ -1553,20 +1582,20 @@ LABEL_152:
 
     else
     {
-      v109 = _VATLoggingFacility(kVATLogCategoryFramework);
-      if (os_log_type_enabled(v109, OS_LOG_TYPE_DEBUG))
+      v107 = _VATLoggingFacility(kVATLogCategoryFramework);
+      if (os_log_type_enabled(v107, OS_LOG_TYPE_DEBUG))
       {
-        v118 = *(__dst.__r_.__value_.__r.__words[0] + 32);
-        v117 = *(__dst.__r_.__value_.__r.__words[0] + 36);
-        LODWORD(__str.__r_.__value_.__l.__data_) = v131;
+        v116 = *(__dst.__r_.__value_.__r.__words[0] + 32);
+        v115 = *(__dst.__r_.__value_.__r.__words[0] + 36);
+        LODWORD(__str.__r_.__value_.__l.__data_) = v129;
         *(__str.__r_.__value_.__r.__words + 4) = configuration2;
         WORD2(__str.__r_.__value_.__r.__words[1]) = 1024;
-        *(&__str.__r_.__value_.__r.__words[1] + 6) = v118;
+        *(&__str.__r_.__value_.__r.__words[1] + 6) = v116;
         WORD1(__str.__r_.__value_.__r.__words[2]) = 1024;
-        HIDWORD(__str.__r_.__value_.__r.__words[2]) = v117;
-        LOWORD(v144) = 2112;
-        *(&v144 + 2) = runtime2;
-        _os_log_debug_impl(&dword_2721E4000, v109, OS_LOG_TYPE_DEBUG, "Keyword %@ [%d,%d] dismissed. %@", &__str, 0x22u);
+        HIDWORD(__str.__r_.__value_.__r.__words[2]) = v115;
+        LOWORD(v142) = 2112;
+        *(&v142 + 2) = runtime2;
+        _os_log_debug_impl(&dword_2721E4000, v107, OS_LOG_TYPE_DEBUG, "Keyword %@ [%d,%d] dismissed. %@", &__str, 0x22u);
       }
     }
 
@@ -1584,16 +1613,22 @@ LABEL_151:
   }
 
 LABEL_9:
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_initializeDecoderForKeywordsWithPhonemes:(id)phonemes
 {
-  v4 = *MEMORY[0x277D85DE8];
   phonemes;
   fwrite("Allocating new decoder\n", 0x17uLL, 1uLL, *MEMORY[0x277D85DF8]);
   self->_processedFrameCount = 0;
   operator new();
+}
+
+- (void)setPostKeywordSilenceCheckEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  configuration = [(VATKeywordSpotter *)self configuration];
+  runtime = [configuration runtime];
+  [runtime setPostKeywordSilence:enabledCopy];
 }
 
 - (BOOL)postKeywordSilenceCheckEnabled
@@ -1605,6 +1640,14 @@ LABEL_9:
   return postKeywordSilence;
 }
 
+- (void)setDuringKeywordSilenceCheckEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  configuration = [(VATKeywordSpotter *)self configuration];
+  runtime = [configuration runtime];
+  [runtime setDuringKeywordSilence:enabledCopy];
+}
+
 - (BOOL)duringKeywordSilenceCheckEnabled
 {
   configuration = [(VATKeywordSpotter *)self configuration];
@@ -1612,6 +1655,14 @@ LABEL_9:
   duringKeywordSilence = [runtime duringKeywordSilence];
 
   return duringKeywordSilence;
+}
+
+- (void)setPreKeywordSilenceCheckEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  configuration = [(VATKeywordSpotter *)self configuration];
+  runtime = [configuration runtime];
+  [runtime setPreKeywordSilence:enabledCopy];
 }
 
 - (BOOL)preKeywordSilenceCheckEnabled
@@ -1629,71 +1680,63 @@ LABEL_9:
   {
     v3 = dispatch_semaphore_create(0);
     fe = self->fe;
-    v33[0] = MEMORY[0x277D85DD0];
-    v33[1] = 3221225472;
-    v33[2] = sub_272370840;
-    v33[3] = &unk_279E40788;
-    v33[4] = self;
+    v27[0] = MEMORY[0x277D85DD0];
+    v27[1] = 3221225472;
+    v27[2] = sub_272370840;
+    v27[3] = &unk_279E40788;
+    v27[4] = self;
     v5 = v3;
-    v34 = v5;
-    [(FeatureExtractObjc *)fe stopWithCompletionHandlerWithCompletionHandler:v33];
+    v28 = v5;
+    [(FeatureExtractObjc *)fe stopWithCompletionHandlerWithCompletionHandler:v27];
     dispatch_semaphore_wait(v5, 0xFFFFFFFFFFFFFFFFLL);
     self->_isRunning = 0;
     self->_processedFrameCount = 0;
     floatFstDecoder = self->_floatFstDecoder;
     sub_272368A90(floatFstDecoder);
-    floatFstDecoder[8] = 0;
-    v7 = floatFstDecoder[5];
+    *(floatFstDecoder + 8) = 0;
+    v7 = *(floatFstDecoder + 5);
     v8 = (v7 >> 7) & 0x1FFFFFFFFFFFFF8;
-    v9 = floatFstDecoder[2];
-    v31 = floatFstDecoder[3];
-    if (v31 == v9)
+    v9 = *(floatFstDecoder + 2);
+    if (*(floatFstDecoder + 3) == v9)
     {
       v10 = 0;
-      v17 = 0;
-      v11 = floatFstDecoder + 6;
-      v18 = (floatFstDecoder + 1);
+      v16 = 0;
+      v17 = (floatFstDecoder + 2);
     }
 
     else
     {
-      v10 = *(v9 + v8) + 4 * (floatFstDecoder[5] & 0x3FFLL);
-      v11 = floatFstDecoder + 6;
-      v12 = floatFstDecoder[6] + v7;
-      v13 = (v12 >> 7) & 0x1FFFFFFFFFFFFF8;
-      v14 = v12 & 0x3FF;
-      v15 = *(v9 + v13) + 4 * v14;
-      v16 = (v14 | ((v13 - v8) << 7)) - (floatFstDecoder[5] & 0x3FFLL);
-      if (v15 == v10)
+      v10 = *(v9 + v8) + 4 * (*(floatFstDecoder + 5) & 0x3FFLL);
+      v11 = *(floatFstDecoder + 6) + v7;
+      v12 = (v11 >> 7) & 0x1FFFFFFFFFFFFF8;
+      v13 = v11 & 0x3FF;
+      v14 = *(v9 + v12) + 4 * v13;
+      v15 = (v13 | ((v12 - v8) << 7)) - (*(floatFstDecoder + 5) & 0x3FFLL);
+      if (v14 == v10)
       {
-        v17 = 0;
+        v16 = 0;
       }
 
       else
       {
-        v17 = v16;
+        v16 = v15;
       }
 
-      v18 = (floatFstDecoder + 1);
+      v17 = (floatFstDecoder + 2);
     }
 
-    v32 = v8;
-    v30 = v10;
-    v19 = sub_272366F18((v9 + v8), v10, 0);
-    if (v17 >= 1)
+    v26 = v8;
+    v25 = v10;
+    v18 = sub_272366F18((v9 + v8), v10, 0);
+    if (v16 >= 1)
     {
+      v20 = v18;
       v21 = v19;
-      v22 = v20;
-      v23 = v17;
-      v29 = v5;
-      v24 = *v11 - v17;
-      v25 = v23;
-      v26 = sub_272366F18(v19, v20, v23);
-      sub_272367104(v35, (v9 + v32), v30, v21, v22, v26, v27);
-      v28 = floatFstDecoder[6] - v25;
-      floatFstDecoder[5] += v25;
-      floatFstDecoder[6] = v28;
-      v5 = v29;
+      v22 = sub_272366F18(v18, v19, v16);
+      sub_272367104(v29, (v9 + v26), v25, v20, v21, v22, v23);
+      v24 = *(floatFstDecoder + 6) - v16;
+      *(floatFstDecoder + 5) += v16;
+      *(floatFstDecoder + 6) = v24;
         ;
       }
     }
@@ -1772,21 +1815,21 @@ LABEL_9:
 
 - (VATKeywordSpotter)initWithConfig:(id)config keywordsWithPhonemes:(id)phonemes delegate:(id)delegate
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   configCopy = config;
   phonemesCopy = phonemes;
   delegateCopy = delegate;
-  v30.receiver = self;
-  v30.super_class = VATKeywordSpotter;
-  v11 = [(VATKeywordSpotter *)&v30 init];
+  v29.receiver = self;
+  v29.super_class = VATKeywordSpotter;
+  v11 = [(VATKeywordSpotter *)&v29 init];
   if (!v11)
   {
     goto LABEL_5;
   }
 
-  v29 = 0;
-  v12 = [[VATConfiguration alloc] initWithFilename:configCopy error:&v29];
-  v13 = v29;
+  v28 = 0;
+  v12 = [[VATConfiguration alloc] initWithFilename:configCopy error:&v28];
+  v13 = v28;
   if (!v12)
   {
     v18 = _VATLoggingFacility("VATKeywordSpotter");
@@ -1800,8 +1843,8 @@ LABEL_9:
 
     *location = 138412546;
     *&location[4] = configCopy;
-    v32 = 2112;
-    v33 = v13;
+    v31 = 2112;
+    v32 = v13;
     v19 = "Failed to load config from %@: %@";
     v20 = v18;
     v21 = 22;
@@ -1835,27 +1878,26 @@ LABEL_12:
   [(VATKeywordSpotter *)v11 _initializeDecoderForKeywordsWithPhonemes:phonemesCopy];
   objc_initWeak(location, v11);
   v16 = v11->fe;
-  v24 = MEMORY[0x277D85DD0];
-  v25 = 3221225472;
-  v26 = sub_272372928;
-  v27 = &unk_279E40738;
-  objc_copyWeak(&v28, location);
-  [(FeatureExtractObjc *)v16 addCallbackForAcousticModelOutputAvailableWithCallback:&v24];
-  [(VATKeywordSpotter *)v11 start:v24];
-  objc_destroyWeak(&v28);
+  v23 = MEMORY[0x277D85DD0];
+  v24 = 3221225472;
+  v25 = sub_272372928;
+  v26 = &unk_279E40738;
+  objc_copyWeak(&v27, location);
+  [(FeatureExtractObjc *)v16 addCallbackForAcousticModelOutputAvailableWithCallback:&v23];
+  [(VATKeywordSpotter *)v11 start:v23];
+  objc_destroyWeak(&v27);
   objc_destroyWeak(location);
 
 LABEL_5:
   v17 = v11;
 LABEL_10:
 
-  v22 = *MEMORY[0x277D85DE8];
   return v17;
 }
 
 - (VATKeywordSpotter)initWithConfig:(id)config keywords:(id)keywords delegate:(id)delegate
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   configCopy = config;
   keywordsCopy = keywords;
   delegateCopy = delegate;
@@ -1863,26 +1905,26 @@ LABEL_10:
   v11 = objc_alloc_init(G2PFactoredObjc);
   [(G2PFactoredObjc *)v11 setup];
   v12 = objc_opt_new();
-  v24 = 0u;
-  v25 = 0u;
-  v22 = 0u;
   v23 = 0u;
+  v24 = 0u;
+  v21 = 0u;
+  v22 = 0u;
   v13 = keywordsCopy;
-  v14 = [v13 countByEnumeratingWithState:&v22 objects:v26 count:16];
+  v14 = [v13 countByEnumeratingWithState:&v21 objects:v25 count:16];
   if (v14)
   {
-    v15 = *v23;
+    v15 = *v22;
     do
     {
       v16 = 0;
       do
       {
-        if (*v23 != v15)
+        if (*v22 != v15)
         {
           objc_enumerationMutation(v13);
         }
 
-        v17 = [(G2PFactoredObjc *)v11 getPhrasePronounciationWithPhrase:*(*(&v22 + 1) + 8 * v16) wordSep:@"<w>" prefixWithPhrase:1];
+        v17 = [(G2PFactoredObjc *)v11 getPhrasePronounciationWithPhrase:*(*(&v21 + 1) + 8 * v16) wordSep:@"<w>" prefixWithPhrase:1];
         if (v17)
         {
           [v12 addObject:v17];
@@ -1892,49 +1934,48 @@ LABEL_10:
       }
 
       while (v14 != v16);
-      v14 = [v13 countByEnumeratingWithState:&v22 objects:v26 count:16];
+      v14 = [v13 countByEnumeratingWithState:&v21 objects:v25 count:16];
     }
 
     while (v14);
   }
 
   v18 = [(VATKeywordSpotter *)selfCopy initWithConfig:configCopy keywordsWithPhonemes:v12 delegate:delegateCopy];
-  v19 = *MEMORY[0x277D85DE8];
   return v18;
 }
 
 - (void)updateWithKeywordsWithPhonemes:(id)phonemes
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   phonemesCopy = phonemes;
   [(VATKeywordSpotter *)self stop];
+  v24 = 0;
   v25 = 0;
   v26 = 0;
-  v27 = 0;
+  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
   v5 = phonemesCopy;
-  v6 = [v5 countByEnumeratingWithState:&v21 objects:v28 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v20 objects:v27 count:16];
   if (v6)
   {
-    v7 = *v22;
+    v7 = *v21;
     do
     {
       v8 = 0;
       do
       {
-        if (*v22 != v7)
+        if (*v21 != v7)
         {
           objc_enumerationMutation(v5);
         }
 
-        v9 = *(*(&v21 + 1) + 8 * v8);
+        v9 = *(*(&v20 + 1) + 8 * v8);
         v10 = v9;
         sub_27236B1B4(__p, [v9 UTF8String]);
-        sub_27236B26C(&v25, __p);
-        if (v20 < 0)
+        sub_27236B26C(&v24, __p);
+        if (v19 < 0)
         {
           operator delete(__p[0]);
         }
@@ -1943,66 +1984,64 @@ LABEL_10:
       }
 
       while (v6 != v8);
-      v6 = [v5 countByEnumeratingWithState:&v21 objects:v28 count:16];
+      v6 = [v5 countByEnumeratingWithState:&v20 objects:v27 count:16];
     }
 
     while (v6);
   }
 
   floatFstDecoder = self->_floatFstDecoder;
-  v16 = 0;
-  v17 = 0;
   v15 = 0;
-  sub_27236B398(&v15, v25, v26, 0xAAAAAAAAAAAAAAABLL * ((v26 - v25) >> 3));
-  sub_27236B420(v18, floatFstDecoder, v15, v16);
-  sub_27236FEDC(v18[2]);
-  v12 = v18[0];
-  v18[0] = 0;
+  v16 = 0;
+  v14 = 0;
+  sub_27236B398(&v14, v24, v25, 0xAAAAAAAAAAAAAAABLL * ((v25 - v24) >> 3));
+  sub_27236B420(v17, floatFstDecoder, v14, v15);
+  sub_27236FEDC(v17[2]);
+  v12 = v17[0];
+  v17[0] = 0;
   if (v12)
   {
     operator delete(v12);
   }
 
-  __p[0] = &v15;
+  __p[0] = &v14;
   sub_27236A158(__p);
   v13 = self->_floatFstDecoder;
   sub_27236C8E0(v13 + 23, (-1431655765 * ((v13[11] - v13[10]) >> 3)));
   sub_272368A90(v13);
   sub_272368A90(self->_floatFstDecoder);
   [(VATKeywordSpotter *)self start];
-  __p[0] = &v25;
+  __p[0] = &v24;
   sub_27236A158(__p);
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateWithKeywords:(id)keywords
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   keywordsCopy = keywords;
   v5 = objc_alloc_init(G2PFactoredObjc);
   [(G2PFactoredObjc *)v5 setup];
   v6 = objc_opt_new();
-  v15 = 0u;
-  v16 = 0u;
-  v13 = 0u;
   v14 = 0u;
+  v15 = 0u;
+  v12 = 0u;
+  v13 = 0u;
   v7 = keywordsCopy;
-  v8 = [v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v8)
   {
-    v9 = *v14;
+    v9 = *v13;
     do
     {
       v10 = 0;
       do
       {
-        if (*v14 != v9)
+        if (*v13 != v9)
         {
           objc_enumerationMutation(v7);
         }
 
-        v11 = [(G2PFactoredObjc *)v5 getPhrasePronounciationWithPhrase:*(*(&v13 + 1) + 8 * v10) wordSep:@"<w>" prefixWithPhrase:1, v13];
+        v11 = [(G2PFactoredObjc *)v5 getPhrasePronounciationWithPhrase:*(*(&v12 + 1) + 8 * v10) wordSep:@"<w>" prefixWithPhrase:1, v12];
         if (v11)
         {
           [v6 addObject:v11];
@@ -2012,14 +2051,39 @@ LABEL_10:
       }
 
       while (v8 != v10);
-      v8 = [v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v8 = [v7 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v8);
   }
 
   [(VATKeywordSpotter *)self updateWithKeywordsWithPhonemes:v6];
-  v12 = *MEMORY[0x277D85DE8];
+}
+
+- (VATKeywordSpotter)initWithConfig:(id)config keywordsWithPhonemes:(id)phonemes delegate:(id)delegate silenceLookback:(int)lookback silenceExpect:(int)expect batchDecode:(BOOL)decode enableAudioDebugging:(BOOL)debugging
+{
+  decodeCopy = decode;
+  v12 = [(VATKeywordSpotter *)self initWithConfig:config keywordsWithPhonemes:phonemes delegate:delegate];
+  v13 = v12;
+  v15 = lookback > 0 && expect > 0;
+  if (v15)
+  {
+    configuration = [(VATKeywordSpotter *)v12 configuration];
+    decoder = [configuration decoder];
+    preKeywordSilence = [decoder preKeywordSilence];
+    [preKeywordSilence setLookbackFrames:lookback];
+
+    configuration2 = [(VATKeywordSpotter *)v13 configuration];
+    decoder2 = [configuration2 decoder];
+    preKeywordSilence2 = [decoder2 preKeywordSilence];
+    [preKeywordSilence2 setMinSilenceInLookbackFrames:expect];
+  }
+
+  [(VATKeywordSpotter *)v13 setPreKeywordSilenceCheckEnabled:v15];
+  [(VATKeywordSpotter *)v13 setAudioDebuggingEnabled:debugging];
+  [(VATKeywordSpotter *)v13 setBatchDecodeEnabled:decodeCopy];
+
+  return v13;
 }
 
 - (void)dealloc
@@ -2034,6 +2098,55 @@ LABEL_10:
   v4.receiver = self;
   v4.super_class = VATKeywordSpotter;
   [(VATKeywordSpotter *)&v4 dealloc];
+}
+
++ (id)pronounciationsFor:(id)for wordSeparator:(id)separator prefixWithPhrase:(BOOL)phrase
+{
+  phraseCopy = phrase;
+  v27 = *MEMORY[0x277D85DE8];
+  forCopy = for;
+  separatorCopy = separator;
+  v8 = objc_alloc_init(G2PFactoredObjc);
+  [(G2PFactoredObjc *)v8 setup];
+  v9 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v23 = 0u;
+  v24 = 0u;
+  v21 = 0u;
+  v22 = 0u;
+  v10 = forCopy;
+  v11 = [v10 countByEnumeratingWithState:&v21 objects:v26 count:16];
+  if (v11)
+  {
+    v12 = *v22;
+    do
+    {
+      for (i = 0; i != v11; ++i)
+      {
+        if (*v22 != v12)
+        {
+          objc_enumerationMutation(v10);
+        }
+
+        v14 = *(*(&v21 + 1) + 8 * i);
+        allKeys = [v9 allKeys];
+        v16 = [allKeys containsObject:v14];
+
+        if ((v16 & 1) == 0)
+        {
+          v17 = [(G2PFactoredObjc *)v8 getPhrasePronounciationWithPhrase:v14 wordSep:separatorCopy prefixWithPhrase:phraseCopy];
+          v25 = v17;
+          v18 = [MEMORY[0x277CBEA60] arrayWithObjects:&v25 count:1];
+          [v9 setObject:v18 forKeyedSubscript:v14];
+        }
+      }
+
+      v11 = [v10 countByEnumeratingWithState:&v21 objects:v26 count:16];
+    }
+
+    while (v11);
+  }
+
+  return v9;
 }
 
 + (id)pronounciationsFor:(id)for wordSeparator:(id)separator

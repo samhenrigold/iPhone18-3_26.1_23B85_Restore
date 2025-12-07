@@ -13,6 +13,7 @@
 - (void)createMailbox:(id)mailbox;
 - (void)dealloc;
 - (void)deleteMailbox:(id)mailbox;
+- (void)expungeTemporaryUid:(unsigned int)uid;
 - (void)performDeferredOperationsWithConnection:(id)connection;
 - (void)saveChanges;
 - (void)setFlags:(id)flags andClearFlags:(id)clearFlags forMessages:(id)messages;
@@ -94,7 +95,7 @@
 
 - (void)_queueDeferredOperation:(id)operation
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   if (operation)
   {
     operationCopy = operation;
@@ -114,30 +115,30 @@
 
       else
       {
-        v24 = 0u;
-        v25 = 0u;
-        v22 = 0u;
         v23 = 0u;
+        v24 = 0u;
+        v21 = 0u;
+        v22 = 0u;
         uids = [(MFIMAPOperation *)operationCopy uids];
-        v7 = [uids countByEnumeratingWithState:&v22 objects:v26 count:16];
+        v7 = [uids countByEnumeratingWithState:&v21 objects:v25 count:16];
         if (v7)
         {
           v8 = v7;
-          v9 = *v23;
+          v9 = *v22;
           do
           {
             for (i = 0; i != v8; ++i)
             {
-              if (*v23 != v9)
+              if (*v22 != v9)
               {
                 objc_enumerationMutation(uids);
               }
 
-              v11 = +[MFLibraryIMAPStore copyRemoteIDForTemporaryUid:](MFLibraryIMAPStore, "copyRemoteIDForTemporaryUid:", [*(*(&v22 + 1) + 8 * i) intValue]);
+              v11 = +[MFLibraryIMAPStore copyRemoteIDForTemporaryUid:](MFLibraryIMAPStore, "copyRemoteIDForTemporaryUid:", [*(*(&v21 + 1) + 8 * i) intValue]);
               [v5 addObject:v11];
             }
 
-            v8 = [uids countByEnumeratingWithState:&v22 objects:v26 count:16];
+            v8 = [uids countByEnumeratingWithState:&v21 objects:v25 count:16];
           }
 
           while (v8);
@@ -207,8 +208,6 @@ LABEL_32:
     [objc_msgSend(MEMORY[0x277CCAB98] "defaultCenter")];
     [(IMAPAccount *)self->_account acquireNetworkAssertion];
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)createMailbox:(id)mailbox
@@ -225,29 +224,29 @@ LABEL_32:
 
 - (void)setFlags:(id)flags andClearFlags:(id)clearFlags forMessages:(id)messages
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
-  v6 = [messages countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v6 = [messages countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v6)
   {
     v7 = v6;
     mailboxName = 0;
     v9 = 0;
     v10 = 0;
-    v11 = *v20;
+    v11 = *v19;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v20 != v11)
+        if (*v19 != v11)
         {
           objc_enumerationMutation(messages);
         }
 
-        v13 = *(*(&v19 + 1) + 8 * i);
+        v13 = *(*(&v18 + 1) + 8 * i);
         if ([v13 hasTemporaryUid])
         {
           if (v9)
@@ -281,7 +280,7 @@ LABEL_32:
         }
       }
 
-      v7 = [messages countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v7 = [messages countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v7);
@@ -295,13 +294,12 @@ LABEL_32:
   }
 
   _setFlags(self, mailboxName, flags, clearFlags, v10, v9);
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (unsigned)firstUidForCopyingMessages:(id)messages fromMailbox:(id)mailbox toMailbox:(id)toMailbox
 {
   selfCopy = self;
-  v48 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
   v7 = [-[IMAPAccount lastKnownCapabilities](self->_account "lastKnownCapabilities")];
   array = [MEMORY[0x277CBEB18] array];
   offlineCacheDirectoryPath = [(IMAPAccount *)selfCopy->_account offlineCacheDirectoryPath];
@@ -319,45 +317,45 @@ LABEL_32:
 
   [(MFIMAPOperationCache *)selfCopy mf_lock];
   lastUid = selfCopy->_lastUid;
+  v42 = 0u;
   v43 = 0u;
   v44 = 0u;
   v45 = 0u;
-  v46 = 0u;
-  v39 = [messages countByEnumeratingWithState:&v43 objects:v47 count:16];
-  if (v39)
+  v38 = [messages countByEnumeratingWithState:&v42 objects:v46 count:16];
+  if (v38)
   {
-    v40 = selfCopy;
-    v41 = lastUid;
+    v39 = selfCopy;
+    v40 = lastUid;
     v12 = 0;
     mailboxCopy3 = 0;
     firstTemporaryUid = 0;
-    v38 = *v44;
-    v37 = *MEMORY[0x277D06FE0];
-    v34 = array;
+    v37 = *v43;
+    v36 = *MEMORY[0x277D06FE0];
+    v33 = array;
     mailboxCopy = mailbox;
-    v33 = v10;
+    v32 = v10;
     do
     {
       v14 = 0;
       v15 = v12;
       do
       {
-        if (*v44 != v38)
+        if (*v43 != v37)
         {
           objc_enumerationMutation(messages);
         }
 
-        v16 = *(*(&v43 + 1) + 8 * v14);
+        v16 = *(*(&v42 + 1) + 8 * v14);
         messageStore = [v16 messageStore];
         hasTemporaryUid = [v16 hasTemporaryUid];
-        v42 = 0;
-        if ([(IMAPAccount *)v40->_account requiresDataForOfflineTransfersFromStore:messageStore])
+        v41 = 0;
+        if ([(IMAPAccount *)v39->_account requiresDataForOfflineTransfersFromStore:messageStore])
         {
-          v19 = [messageStore fullBodyDataForMessage:v16 andHeaderDataIfReadilyAvailable:&v42 isComplete:0 downloadIfNecessary:0 didDownload:0];
-          v20 = v42;
+          v19 = [messageStore fullBodyDataForMessage:v16 andHeaderDataIfReadilyAvailable:&v41 isComplete:0 downloadIfNecessary:0 didDownload:0];
+          v20 = v41;
           if (v19)
           {
-            v21 = v42 == 0;
+            v21 = v41 == 0;
           }
 
           else
@@ -368,7 +366,7 @@ LABEL_32:
           if (v21)
           {
             v20 = [messageStore headerDataForMessage:v16 downloadIfNecessary:0];
-            v42 = v20;
+            v41 = v20;
           }
 
           if (v19)
@@ -381,7 +379,7 @@ LABEL_32:
             v22 = 1;
           }
 
-          ++v41;
+          ++v40;
           if (!v22)
           {
             v23 = [v20 mutableCopyWithZone:0];
@@ -389,20 +387,20 @@ LABEL_32:
             [v23 writeToFile:objc_msgSend(offlineCacheDirectoryPath options:"stringByAppendingPathComponent:" error:{EFStringWithInt()), 805306369, 0}];
           }
 
-          v10 = v33;
-          array = v34;
+          v10 = v32;
+          array = v33;
           mailbox = mailboxCopy;
         }
 
         else
         {
-          ++v41;
+          ++v40;
         }
 
         v12 = hasTemporaryUid;
         if ([array count] && (mailboxCopy3 != mailbox || ((v15 ^ hasTemporaryUid) & 1) != 0))
         {
-          CopyOperation = _makeCopyOperation(v40, array, mailboxCopy3, toMailbox, v15 & 1, Mutable, v10);
+          CopyOperation = _makeCopyOperation(v39, array, mailboxCopy3, toMailbox, v15 & 1, Mutable, v10);
           v25 = CopyOperation;
           if (CopyOperation && !firstTemporaryUid)
           {
@@ -429,13 +427,13 @@ LABEL_32:
         mailboxCopy3 = mailbox;
       }
 
-      while (v39 != v14);
+      while (v38 != v14);
       mailboxCopy3 = mailbox;
-      v39 = [messages countByEnumeratingWithState:&v43 objects:v47 count:16];
+      v38 = [messages countByEnumeratingWithState:&v42 objects:v46 count:16];
     }
 
-    while (v39);
-    selfCopy = v40;
+    while (v38);
+    selfCopy = v39;
   }
 
   else
@@ -466,7 +464,6 @@ LABEL_32:
     CFRelease(v10);
   }
 
-  v28 = *MEMORY[0x277D85DE8];
   return firstTemporaryUid;
 }
 
@@ -491,6 +488,60 @@ LABEL_32:
   return lastUid;
 }
 
+- (void)expungeTemporaryUid:(unsigned int)uid
+{
+  if (uid)
+  {
+    v3 = *&uid;
+    [(MFIMAPOperationCache *)self mf_lock];
+    v5 = [(NSMutableArray *)self->_ops count];
+    if (v5)
+    {
+      v6 = v5;
+      v7 = 0;
+      while (![-[NSMutableArray objectAtIndex:](self->_ops objectAtIndex:{v7), "isSourceOfTemporaryUid:", v3}])
+      {
+        if (v6 == ++v7)
+        {
+          goto LABEL_17;
+        }
+      }
+
+      v8 = v7 + 1;
+      while (v8 < v6)
+      {
+        v9 = [(NSMutableArray *)self->_ops objectAtIndex:v8++];
+        if ([v9 actsOnTemporaryUid:v3])
+        {
+          if ([v9 operationType] == 5)
+          {
+            goto LABEL_17;
+          }
+
+          break;
+        }
+      }
+
+      while (--v6 > v7)
+      {
+        v10 = [(NSMutableArray *)self->_ops objectAtIndex:v6];
+        if ([v10 actsOnTemporaryUid:v3])
+        {
+          [v10 expungeTemporaryUid:v3];
+        }
+      }
+
+      [-[NSMutableArray objectAtIndex:](self->_ops objectAtIndex:{v7), "expungeTemporaryUid:", v3}];
+      [-[IMAPAccount offlineCacheDirectoryPath](self->_account "offlineCacheDirectoryPath")];
+      MFRemoveItemAtPath();
+    }
+
+LABEL_17:
+
+    [(MFIMAPOperationCache *)self mf_unlock];
+  }
+}
+
 - (void)saveChanges
 {
   [(MFIMAPOperationCache *)self mf_lock];
@@ -502,35 +553,35 @@ LABEL_32:
 
 - (BOOL)hasOperationsForMailbox:(id)mailbox
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   [(MFIMAPOperationCache *)self mf_lock];
-  v15 = 0u;
-  v16 = 0u;
-  v13 = 0u;
   v14 = 0u;
+  v15 = 0u;
+  v12 = 0u;
+  v13 = 0u;
   ops = self->_ops;
-  v6 = [(NSMutableArray *)ops countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v6 = [(NSMutableArray *)ops countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v14;
+    v8 = *v13;
     while (2)
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v14 != v8)
+        if (*v13 != v8)
         {
           objc_enumerationMutation(ops);
         }
 
-        if ([objc_msgSend(*(*(&v13 + 1) + 8 * i) "mailboxName")])
+        if ([objc_msgSend(*(*(&v12 + 1) + 8 * i) "mailboxName")])
         {
           v10 = 1;
           goto LABEL_11;
         }
       }
 
-      v7 = [(NSMutableArray *)ops countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v7 = [(NSMutableArray *)ops countByEnumeratingWithState:&v12 objects:v16 count:16];
       if (v7)
       {
         continue;
@@ -543,7 +594,6 @@ LABEL_32:
   v10 = 0;
 LABEL_11:
   [(MFIMAPOperationCache *)self mf_unlock];
-  v11 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
@@ -610,7 +660,7 @@ LABEL_11:
 
 - (void)_performAppendOperation:(id)operation withContext:(id *)context
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v7 = [operation uid];
   v8 = [(IMAPAccount *)self->_account _dataForTemporaryUid:v7];
   if (v7)
@@ -620,15 +670,15 @@ LABEL_11:
     {
       mailboxName = [operation mailboxName];
       [operation internalDate];
-      v22 = 0;
-      if ([context->var1 appendData:v9 toMailboxNamed:mailboxName flags:objc_msgSend(operation dateReceived:"flags") newMessageInfo:{objc_msgSend(operation, "internalDate"), &v22}])
+      v20 = 0;
+      if ([context->var1 appendData:v9 toMailboxNamed:mailboxName flags:objc_msgSend(operation dateReceived:"flags") newMessageInfo:{objc_msgSend(operation, "internalDate"), &v20}])
       {
-        v11 = [objc_msgSend(v22 objectForKey:{@"Source UIDS", "unsignedIntValue"}];
+        v11 = [objc_msgSend(v20 objectForKey:{@"Source UIDS", "unsignedIntValue"}];
         [v9 mf_rangeOfRFC822HeaderData];
-        if (v12 && (*buf = 0uLL, v13 = *MEMORY[0x277D06FE0], ECGetNextHeaderFromDataInRange()))
+        if (v12 && (*buf = 0uLL, ECGetNextHeaderFromDataInRange()))
         {
           [v9 bytes];
-          v14 = _MFCreateStringFromHeaderBytes();
+          v13 = _MFCreateStringFromHeaderBytes();
           if (!v11)
           {
             goto LABEL_7;
@@ -637,25 +687,25 @@ LABEL_11:
 
         else
         {
-          v14 = 0;
+          v13 = 0;
           if (!v11)
           {
 LABEL_7:
-            v11 = _searchForNewUid(self, context, v14, mailboxName);
+            v11 = _searchForNewUid(self, context, v13, mailboxName);
 
             if (!v11)
             {
 LABEL_22:
               [-[IMAPAccount offlineCacheDirectoryPath](self->_account "offlineCacheDirectoryPath")];
               MFRemoveItemAtPath();
-              goto LABEL_23;
+              return;
             }
 
 LABEL_13:
             StoreForMailboxName = _getStoreForMailboxName(self, &context->var3, mailboxName);
             if (StoreForMailboxName)
             {
-              v17 = StoreForMailboxName;
+              v16 = StoreForMailboxName;
               var4 = context->var4;
               if (var4)
               {
@@ -667,10 +717,10 @@ LABEL_13:
                 Value = 0;
               }
 
-              v20 = [objc_msgSend(objc_msgSend(v17 "mailboxUid")];
-              if (!Value || !v20 || Value == v20)
+              v19 = [objc_msgSend(objc_msgSend(v16 "mailboxUid")];
+              if (!Value || !v19 || Value == v19)
               {
-                [v17 setUid:v11 forMessageWithTemporaryUid:v7];
+                [v16 setUid:v11 forMessageWithTemporaryUid:v7];
               }
             }
 
@@ -682,23 +732,20 @@ LABEL_13:
         goto LABEL_13;
       }
 
-      v15 = MFLogGeneral();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
+      v14 = MFLogGeneral();
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
       {
         *buf = 138412290;
         *&buf[4] = mailboxName;
-        _os_log_impl(&dword_258B7A000, v15, OS_LOG_TYPE_INFO, "**** Failed to append to %@", buf, 0xCu);
+        _os_log_impl(&dword_258B7A000, v14, OS_LOG_TYPE_INFO, "**** Failed to append to %@", buf, 0xCu);
       }
     }
   }
-
-LABEL_23:
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_performCopyOperation:(id)operation withContext:(id *)context
 {
-  v86 = *MEMORY[0x277D85DE8];
+  v85 = *MEMORY[0x277D85DE8];
   mailboxName = [operation mailboxName];
   destinationMailbox = [operation destinationMailbox];
   if (mailboxName)
@@ -714,77 +761,77 @@ LABEL_23:
 
       if (sourceUids)
       {
-        v84 = 0;
-        if ([context->var1 copyUids:sourceUids toMailboxNamed:v9 newMessageInfo:&v84])
+        v83 = 0;
+        if ([context->var1 copyUids:sourceUids toMailboxNamed:v9 newMessageInfo:&v83])
         {
           key = v9;
-          v11 = [v84 objectForKey:@"Source UIDS"];
-          v12 = [v84 objectForKey:@"Destination UIDS"];
+          v11 = [v83 objectForKey:@"Source UIDS"];
+          v12 = [v83 objectForKey:@"Destination UIDS"];
           if (v11)
           {
             v13 = v12;
             if (v12)
             {
-              v72 = 0u;
-              v73 = 0u;
-              v70 = 0u;
               v71 = 0u;
-              v68 = 0u;
+              v72 = 0u;
               v69 = 0u;
-              *buffer = 0u;
+              v70 = 0u;
               v67 = 0u;
-              v64 = 0u;
-              v65 = 0u;
-              v62 = 0u;
+              v68 = 0u;
+              *buffer = 0u;
+              v66 = 0u;
               v63 = 0u;
-              v60 = 0u;
+              v64 = 0u;
               v61 = 0u;
-              v58 = 0u;
+              v62 = 0u;
               v59 = 0u;
-              v56 = 0u;
+              v60 = 0u;
               v57 = 0u;
-              v54 = 0u;
+              v58 = 0u;
               v55 = 0u;
-              *v53 = 0u;
+              v56 = 0u;
+              v53 = 0u;
+              v54 = 0u;
+              *v52 = 0u;
               v14 = [(__CFString *)v11 length];
-              v74 = v11;
-              v77 = 0;
-              v78 = v14;
+              v73 = v11;
+              v76 = 0;
+              v77 = v14;
               CharactersPtr = CFStringGetCharactersPtr(v11);
               CStringPtr = 0;
-              v75 = CharactersPtr;
+              v74 = CharactersPtr;
               if (!CharactersPtr)
               {
                 CStringPtr = CFStringGetCStringPtr(v11, 0x600u);
               }
 
-              v76 = CStringPtr;
+              v75 = CStringPtr;
+              v78 = 0;
               v79 = 0;
               v80 = 0;
-              v81 = 0;
-              v82 = v14;
-              v83 = 0;
+              v81 = v14;
+              v82 = 0;
               v17 = [(__CFString *)v13 length];
-              *&v61 = v13;
-              *(&v62 + 1) = 0;
-              *&v63 = v17;
+              *&v60 = v13;
+              *(&v61 + 1) = 0;
+              *&v62 = v17;
               v18 = CFStringGetCharactersPtr(v13);
               v19 = 0;
-              *(&v61 + 1) = v18;
+              *(&v60 + 1) = v18;
               if (!v18)
               {
                 v19 = CFStringGetCStringPtr(v13, 0x600u);
               }
 
-              *&v62 = v19;
-              *(&v63 + 1) = 0;
-              v64 = 0uLL;
-              v65 = v17;
+              *&v61 = v19;
+              *(&v62 + 1) = 0;
+              v63 = 0uLL;
+              v64 = v17;
               destinationUids = [operation destinationUids];
               v21 = [objc_alloc(MEMORY[0x277CBEAC0]) initWithObjects:destinationUids forKeys:sourceUids];
               while (IMAPNextUidFromSet(buffer))
               {
-                v22 = IMAPNextUidFromSet(v53);
+                v22 = IMAPNextUidFromSet(v52);
                 if (!v22)
                 {
                   break;
@@ -799,36 +846,36 @@ LABEL_23:
 LABEL_36:
               offlineCacheDirectoryPath = [(IMAPAccount *)self->_account offlineCacheDirectoryPath];
               destinationUids2 = [operation destinationUids];
+              v48 = 0u;
               v49 = 0u;
               v50 = 0u;
               v51 = 0u;
-              v52 = 0u;
-              v42 = [destinationUids2 countByEnumeratingWithState:&v49 objects:v85 count:16];
+              v42 = [destinationUids2 countByEnumeratingWithState:&v48 objects:v84 count:16];
               if (v42)
               {
                 v43 = v42;
-                v44 = *v50;
+                v44 = *v49;
                 do
                 {
                   for (i = 0; i != v43; ++i)
                   {
-                    if (*v50 != v44)
+                    if (*v49 != v44)
                     {
                       objc_enumerationMutation(destinationUids2);
                     }
 
-                    [*(*(&v49 + 1) + 8 * i) intValue];
+                    [*(*(&v48 + 1) + 8 * i) intValue];
                     [offlineCacheDirectoryPath stringByAppendingPathComponent:EFStringWithInt()];
                     MFRemoveItemAtPath();
                   }
 
-                  v43 = [destinationUids2 countByEnumeratingWithState:&v49 objects:v85 count:16];
+                  v43 = [destinationUids2 countByEnumeratingWithState:&v48 objects:v84 count:16];
                 }
 
                 while (v43);
               }
 
-              goto LABEL_43;
+              return;
             }
           }
 
@@ -858,13 +905,13 @@ LABEL_36:
 
             v32 = v31;
             *buffer = 0;
-            *v53 = 0;
-            if (([operation getMessageId:v53 andInternalDate:buffer forDestinationUid:v31] & 1) == 0)
+            *v52 = 0;
+            if (([operation getMessageId:v52 andInternalDate:buffer forDestinationUid:v31] & 1) == 0)
             {
               goto LABEL_35;
             }
 
-            v33 = _searchForNewUid(self, context, *v53, v29);
+            v33 = _searchForNewUid(self, context, *v52, v29);
             if (!v33)
             {
               goto LABEL_35;
@@ -878,7 +925,7 @@ LABEL_36:
             }
 
             v36 = StoreForMailboxName;
-            Value = [objc_msgSend(v84 objectForKey:{@"UIDVALIDITY", "unsignedIntValue"}];
+            Value = [objc_msgSend(v83 objectForKey:{@"UIDVALIDITY", "unsignedIntValue"}];
             v38 = [objc_msgSend(objc_msgSend(v36 "mailboxUid")];
             if (Value)
             {
@@ -922,22 +969,19 @@ LABEL_30:
       }
     }
   }
-
-LABEL_43:
-  v46 = *MEMORY[0x277D85DE8];
 }
 
 - (void)performDeferredOperationsWithConnection:(id)connection
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   currentMonitor = [MEMORY[0x277D283F8] currentMonitor];
-  v29 = currentMonitor;
+  v28 = currentMonitor;
   connectionCopy = connection;
   Mutable = CFDictionaryCreateMutable(0, 0, 0, 0);
+  v31 = 0;
   v32 = 0;
   v33 = 0;
   v34 = 0;
-  v35 = 0;
   [connection setDelegate:self];
   taskName = [currentMonitor taskName];
   [currentMonitor setTaskName:MFLookupLocalizedString()];
@@ -948,62 +992,62 @@ LABEL_43:
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     *buf = 134218242;
-    v39 = v6;
-    v40 = 2112;
+    v38 = v6;
+    v39 = 2112;
     connectionCopy2 = connection;
     _os_log_impl(&dword_258B7A000, v7, OS_LOG_TYPE_INFO, "replaying %lu operations with connection %@", buf, 0x16u);
   }
 
-  HIDWORD(v34) = 0;
+  HIDWORD(v33) = 0;
+  v24 = 0u;
   v25 = 0u;
   v26 = 0u;
   v27 = 0u;
-  v28 = 0u;
   ops = self->_ops;
-  v9 = [(NSMutableArray *)ops countByEnumeratingWithState:&v25 objects:v37 count:16];
+  v9 = [(NSMutableArray *)ops countByEnumeratingWithState:&v24 objects:v36 count:16];
   if (v9)
   {
     v11 = v9;
     v12 = 0;
-    v13 = *v26;
+    v13 = *v25;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v26 != v13)
+        if (*v25 != v13)
         {
           objc_enumerationMutation(ops);
         }
 
-        v12 += [*(*(&v25 + 1) + 8 * i) approximateSize];
-        HIDWORD(v34) = v12;
+        v12 += [*(*(&v24 + 1) + 8 * i) approximateSize];
+        HIDWORD(v33) = v12;
       }
 
-      v11 = [(NSMutableArray *)ops countByEnumeratingWithState:&v25 objects:v37 count:16];
+      v11 = [(NSMutableArray *)ops countByEnumeratingWithState:&v24 objects:v36 count:16];
     }
 
     while (v11);
     if (v12)
     {
-      LODWORD(v35) = [currentMonitor acquireExclusiveAccessKey];
+      LODWORD(v34) = [currentMonitor acquireExclusiveAccessKey];
     }
   }
 
-  LODWORD(v34) = 0;
+  LODWORD(v33) = 0;
   v15 = 0;
   if (v6)
   {
     *&v10 = 138412290;
-    v24 = v10;
+    v23 = v10;
     while (1)
     {
-      v16 = [(NSMutableArray *)self->_ops objectAtIndex:v15, v24];
+      v16 = [(NSMutableArray *)self->_ops objectAtIndex:v15, v23];
       v17 = [objc_allocWithZone(MEMORY[0x277CCA8B0]) init];
       v18 = MFLogGeneral();
       if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
       {
-        *buf = v24;
-        v39 = v16;
+        *buf = v23;
+        v38 = v16;
         _os_log_impl(&dword_258B7A000, v18, OS_LOG_TYPE_INFO, "replaying %@", buf, 0xCu);
       }
 
@@ -1012,12 +1056,12 @@ LABEL_43:
       {
         if (operationType == 1)
         {
-          [(MFIMAPOperationCache *)self _performCreateOperation:v16 withContext:&v29];
+          [(MFIMAPOperationCache *)self _performCreateOperation:v16 withContext:&v28];
         }
 
         else if (operationType == 2)
         {
-          [(MFIMAPOperationCache *)self _performDeleteOperation:v16 withContext:&v29];
+          [(MFIMAPOperationCache *)self _performDeleteOperation:v16 withContext:&v28];
         }
       }
 
@@ -1026,19 +1070,19 @@ LABEL_43:
         switch(operationType)
         {
           case 3:
-            [(MFIMAPOperationCache *)self _performStoreOperation:v16 withContext:&v29];
+            [(MFIMAPOperationCache *)self _performStoreOperation:v16 withContext:&v28];
             break;
           case 4:
-            [(MFIMAPOperationCache *)self _performAppendOperation:v16 withContext:&v29];
+            [(MFIMAPOperationCache *)self _performAppendOperation:v16 withContext:&v28];
             break;
           case 5:
-            [(MFIMAPOperationCache *)self _performCopyOperation:v16 withContext:&v29];
+            [(MFIMAPOperationCache *)self _performCopyOperation:v16 withContext:&v28];
             break;
         }
       }
 
       approximateSize = [v16 approximateSize];
-      LODWORD(v34) = v34 + approximateSize;
+      LODWORD(v33) = v33 + approximateSize;
       [v17 drain];
       if (([connectionCopy isValid] & 1) == 0)
       {
@@ -1063,8 +1107,8 @@ LABEL_43:
       v22 = MFLogGeneral();
       if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
       {
-        *buf = v24;
-        v39 = v16;
+        *buf = v23;
+        v38 = v16;
         _os_log_impl(&dword_258B7A000, v22, OS_LOG_TYPE_INFO, "removing failed operation from offline cache: %@", buf, 0xCu);
       }
 
@@ -1088,41 +1132,38 @@ LABEL_35:
   self->_lastSave = 0;
   _saveChanges(self);
   [(MFIMAPOperationCache *)self mf_unlock];
-  if (v35)
+  if (v34)
   {
-    [v29 relinquishExclusiveAccessKey:?];
+    [v28 relinquishExclusiveAccessKey:?];
   }
 
-  [v29 setTaskName:taskName];
+  [v28 setTaskName:taskName];
+
+  if (v31)
+  {
+  }
 
   if (v32)
   {
   }
-
-  if (v33)
-  {
-  }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_performCreateOperation:(void *)a1 withContext:(id *)a2 .cold.1(void *a1, id *a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  [a1 mailboxName];
+  v3 = [a1 mailboxName];
   [objc_msgSend(*a2 "error")];
+  LODWORD(v10) = 138412546;
+  *(&v10 + 4) = v3;
   OUTLINED_FUNCTION_1_2();
-  OUTLINED_FUNCTION_0_3(&dword_258B7A000, v3, v4, "*** Error while creating %@: %{public}@", v5, v6, v7, v8, 2u);
-  v9 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_3(&dword_258B7A000, v4, v5, "*** Error while creating %@: %{public}@", v6, v7, v8, v9, v10, DWORD2(v10));
 }
 
 - (void)_performCopyOperation:(uint64_t)a1 withContext:(NSObject *)a2 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_258B7A000, a2, OS_LOG_TYPE_ERROR, "*** Error while copying messages to %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_258B7A000, a2, OS_LOG_TYPE_ERROR, "*** Error while copying messages to %@", &v2, 0xCu);
 }
 
 @end

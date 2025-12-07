@@ -2491,7 +2491,7 @@ void __126__HKHealthChartFactory_encodeChartQueryDataForTypeIdentifier_forTimeSc
   objc_claimAutoreleasedReturnValue();
   v2 = [OUTLINED_FUNCTION_3() localizedDescription];
   OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1_0(&dword_1C3942000, v3, v4, "[RemoteCharting]_%@_%@: Error encoding day time scope chart. %@", v5, v6, v7, v8, v9);
+  OUTLINED_FUNCTION_1_0(&dword_1C3942000, v3, v4, "[RemoteCharting]_%@_%@: Error encoding day time scope chart. %@", v5, v6, v7, v8);
 }
 
 void __126__HKHealthChartFactory_encodeChartQueryDataForTypeIdentifier_forTimeScopes_timeScopeReferenceDate_audience_completionHandler___block_invoke_334_cold_1()
@@ -2501,7 +2501,7 @@ void __126__HKHealthChartFactory_encodeChartQueryDataForTypeIdentifier_forTimeSc
   objc_claimAutoreleasedReturnValue();
   v2 = [OUTLINED_FUNCTION_3() localizedDescription];
   OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1_0(&dword_1C3942000, v3, v4, "[RemoteCharting]_%@_%@: Error encoding week time scope chart. %@", v5, v6, v7, v8, v9);
+  OUTLINED_FUNCTION_1_0(&dword_1C3942000, v3, v4, "[RemoteCharting]_%@_%@: Error encoding week time scope chart. %@", v5, v6, v7, v8);
 }
 
 void __126__HKHealthChartFactory_encodeChartQueryDataForTypeIdentifier_forTimeScopes_timeScopeReferenceDate_audience_completionHandler___block_invoke_335_cold_1()
@@ -2511,7 +2511,7 @@ void __126__HKHealthChartFactory_encodeChartQueryDataForTypeIdentifier_forTimeSc
   objc_claimAutoreleasedReturnValue();
   v2 = [OUTLINED_FUNCTION_3() localizedDescription];
   OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1_0(&dword_1C3942000, v3, v4, "[RemoteCharting]_%@_%@: Error encoding month time scope chart. %@", v5, v6, v7, v8, v9);
+  OUTLINED_FUNCTION_1_0(&dword_1C3942000, v3, v4, "[RemoteCharting]_%@_%@: Error encoding month time scope chart. %@", v5, v6, v7, v8);
 }
 
 void __126__HKHealthChartFactory_encodeChartQueryDataForTypeIdentifier_forTimeScopes_timeScopeReferenceDate_audience_completionHandler___block_invoke_336_cold_1()
@@ -2521,7 +2521,7 @@ void __126__HKHealthChartFactory_encodeChartQueryDataForTypeIdentifier_forTimeSc
   objc_claimAutoreleasedReturnValue();
   v2 = [OUTLINED_FUNCTION_3() localizedDescription];
   OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1_0(&dword_1C3942000, v3, v4, "[RemoteCharting]_%@_%@: Error encoding six months time scope chart. %@", v5, v6, v7, v8, v9);
+  OUTLINED_FUNCTION_1_0(&dword_1C3942000, v3, v4, "[RemoteCharting]_%@_%@: Error encoding six months time scope chart. %@", v5, v6, v7, v8);
 }
 
 - (void)remoteInteractiveChartForTypeIdentifier:(uint64_t)a1 model:(NSObject *)a2 chartSummaryTrendModel:displayDate:.cold.1(uint64_t a1, NSObject *a2)

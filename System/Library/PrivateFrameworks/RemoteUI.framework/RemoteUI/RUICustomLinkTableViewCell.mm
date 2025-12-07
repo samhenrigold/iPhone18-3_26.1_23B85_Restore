@@ -345,13 +345,14 @@
 
 - (void)_detailLinkPressed
 {
-  if (_isInternalInstall())
+  isInternalInstall = _isInternalInstall(self, a2);
+  if (isInternalInstall)
   {
-    v3 = _RUILoggingFacility();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    v4 = _RUILoggingFacility(isInternalInstall);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_21B93D000, v3, OS_LOG_TYPE_DEFAULT, "detail pressed", buf, 2u);
+      _os_log_impl(&dword_21B93D000, v4, OS_LOG_TYPE_DEFAULT, "detail pressed", buf, 2u);
     }
   }
 
@@ -368,16 +369,21 @@
 
 void __48__RUICustomLinkTableViewCell__detailLinkPressed__block_invoke_2(uint64_t a1, char a2, void *a3)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v4 = a3;
-  if ((a2 & 1) == 0 && _isInternalInstall())
+  v6 = v4;
+  if ((a2 & 1) == 0)
   {
-    v5 = _RUILoggingFacility();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    isInternalInstall = _isInternalInstall(v4, v5);
+    if (isInternalInstall)
     {
-      v6 = 138412290;
-      v7 = v4;
-      _os_log_impl(&dword_21B93D000, v5, OS_LOG_TYPE_DEFAULT, "error %@", &v6, 0xCu);
+      v8 = _RUILoggingFacility(isInternalInstall);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+      {
+        v9 = 138412290;
+        v10 = v6;
+        _os_log_impl(&dword_21B93D000, v8, OS_LOG_TYPE_DEFAULT, "error %@", &v9, 0xCu);
+      }
     }
   }
 }

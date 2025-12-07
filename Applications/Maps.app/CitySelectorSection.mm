@@ -52,7 +52,7 @@
   v22 = [NSCollectionLayoutDimension fractionalWidthDimension:1.0];
   v23 = [NSCollectionLayoutSize sizeWithWidthDimension:v22 heightDimension:v21];
 
-  [(CitySelectorSection *)self configuration];
+  objc_msgSend_configuration(self);
   v24 = [NSCollectionLayoutGroup horizontalGroupWithLayoutSize:v23 subitem:v20 count:v30];
 
   sizeController2 = [(CitySelectorSection *)self sizeController];
@@ -94,7 +94,7 @@
   v25 = [NSCollectionLayoutDimension fractionalWidthDimension:1.0];
   v26 = [NSCollectionLayoutSize sizeWithWidthDimension:v25 heightDimension:v24];
 
-  [(CitySelectorSection *)self configuration];
+  objc_msgSend_configuration(self);
   v27 = [NSCollectionLayoutGroup horizontalGroupWithLayoutSize:v26 subitem:v23 count:v40];
 
   sizeController3 = [(CitySelectorSection *)self sizeController];

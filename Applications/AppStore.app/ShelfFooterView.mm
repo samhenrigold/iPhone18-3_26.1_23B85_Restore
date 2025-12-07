@@ -9,14 +9,16 @@
 
 - (CGSize)sizeThatFits:(CGSize)fits
 {
+  height = fits.height;
+  width = fits.width;
   selfCopy = self;
-  v4 = sub_10050D148();
-  v6 = v5;
+  v6 = sub_10050D148(width, height);
+  v8 = v7;
 
-  v7 = v4;
-  v8 = v6;
-  result.height = v8;
-  result.width = v7;
+  v9 = v6;
+  v10 = v8;
+  result.height = v10;
+  result.width = v9;
   return result;
 }
 
@@ -33,7 +35,7 @@
   v2 = v6.receiver;
   [(ShelfFooterView *)&v6 prepareForReuse];
   v3 = *&v2[OBJC_IVAR____TtC8AppStore15ShelfFooterView_separator];
-  sub_100005744(0, &qword_100970180);
+  sub_100005744(0, &qword_100970180, UIColor_ptr);
   v4 = static UIColor.defaultLine.getter();
   [v3 setBackgroundColor:{v4, v6.receiver, v6.super_class}];
 

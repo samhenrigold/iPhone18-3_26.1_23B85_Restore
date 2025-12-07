@@ -6,34 +6,34 @@
 
 - (id)cellularPlans
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   v2 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v26 = 0u;
+  v27 = 0u;
   v28 = 0u;
   v29 = 0u;
-  v30 = 0u;
-  v31 = 0u;
   mEMORY[0x277D4D8C0] = [MEMORY[0x277D4D8C0] sharedInstance];
   planItems = [mEMORY[0x277D4D8C0] planItems];
 
-  v5 = [planItems countByEnumeratingWithState:&v28 objects:v40 count:16];
+  v5 = [planItems countByEnumeratingWithState:&v26 objects:v38 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v29;
+    v7 = *v27;
     v8 = 0x278F7D000uLL;
-    v27 = v2;
+    v25 = v2;
     do
     {
       v9 = 0;
       do
       {
-        if (*v29 != v7)
+        if (*v27 != v7)
         {
           objc_enumerationMutation(planItems);
         }
 
-        v10 = *(*(&v28 + 1) + 8 * v9);
-        v11 = _DKLogSystem();
+        v10 = *(*(&v26 + 1) + 8 * v9);
+        v11 = _DKLogSystem(v5);
         if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
         {
           carrierName = [v10 carrierName];
@@ -49,21 +49,21 @@
             v22 = @"NO";
           }
 
-          v33 = carrierName;
-          v34 = 2112;
-          v35 = phoneNumber;
-          v36 = 2048;
-          v37 = type;
+          v31 = carrierName;
+          v32 = 2112;
+          v33 = phoneNumber;
+          v34 = 2048;
+          v35 = type;
           v8 = v19;
           planItems = v18;
-          v38 = 2112;
-          v39 = v22;
+          v36 = 2112;
+          v37 = v22;
           _os_log_debug_impl(&dword_248D68000, v11, OS_LOG_TYPE_DEBUG, "cellularPlans - planItem carrierName:%@  phoneNumber:%@ type:%li IsTransfered:%@", buf, 0x2Au);
 
-          v2 = v27;
+          v2 = v25;
         }
 
-        if ([v10 type] == 2 || objc_msgSend(v10, "type") == 3)
+        if ([v10 type] == 2 || (v5 = objc_msgSend(v10, "type"), v5 == 3))
         {
           v12 = objc_alloc(*(v8 + 1352));
           carrierName2 = [v10 carrierName];
@@ -77,17 +77,16 @@
       }
 
       while (v6 != v9);
-      v23 = [planItems countByEnumeratingWithState:&v28 objects:v40 count:16];
-      v6 = v23;
+      v5 = [planItems countByEnumeratingWithState:&v26 objects:v38 count:16];
+      v6 = v5;
     }
 
-    while (v23);
+    while (v5);
   }
 
-  v24 = [v2 copy];
-  v25 = *MEMORY[0x277D85DE8];
+  v23 = [v2 copy];
 
-  return v24;
+  return v23;
 }
 
 @end

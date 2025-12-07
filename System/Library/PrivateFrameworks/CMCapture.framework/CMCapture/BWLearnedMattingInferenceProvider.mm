@@ -1,12 +1,12 @@
 @interface BWLearnedMattingInferenceProvider
 - (BWLearnedMattingInferenceProvider)initWithConfiguration:(id)configuration resourceProvider:(id)provider;
+- (float32x2_t)_updateTileCount;
 - (int)createInputTiles:(id)tiles withInputs:(id)inputs atPosition:(id *)position cmdBuffer:;
 - (int)preProcessOutputBuffer:(__CVBuffer *)buffer forMediaKey:(id)key;
 - (int)prepareForSubmissionWithWorkQueue:(id)queue;
 - (int)propagateInferenceResultForOutputRequirement:(id)requirement storage:(id)storage propagationSampleBuffer:(opaqueCMSampleBuffer *)buffer;
 - (int)reconcileWithPlaceholderProvider:(id)provider;
 - (int)writeOutputFor:(id)for to:(__CVBuffer *)to fromNetworkOutputTiles:(id)tiles withAdditionalPixelBuffers:(id)buffers withInputTilePixelBuffers:(id)pixelBuffers withInputFullPixelBuffers:(id)fullPixelBuffers atPosition:(id *)position cmdBuffer:;
-- (unint64_t)_updateTileCount;
 - (void)dealloc;
 - (void)migrateVideoRequirementsToTiledHarness;
 - (void)setOutputFormatDescription:(opaqueCMFormatDescription *)description;
@@ -89,8 +89,8 @@
 
 - (int)preProcessOutputBuffer:(__CVBuffer *)buffer forMediaKey:(id)key
 {
-  v7 = [key isEqualToString:0x1F21AABB0];
-  if ((v7 | [key isEqualToString:0x1F21AADF0]))
+  isEqualToString = objc_msgSend_isEqualToString_(key, a2, 0x1F21AABB0);
+  if ((isEqualToString | objc_msgSend_isEqualToString_(key)))
   {
     result = 0;
   }
@@ -100,7 +100,7 @@
     result = -31710;
   }
 
-  if (v7)
+  if (isEqualToString)
   {
     metalProcessor = self->_metalProcessor;
 
@@ -172,8 +172,8 @@ LABEL_14:
 
 - (int)writeOutputFor:(id)for to:(__CVBuffer *)to fromNetworkOutputTiles:(id)tiles withAdditionalPixelBuffers:(id)buffers withInputTilePixelBuffers:(id)pixelBuffers withInputFullPixelBuffers:(id)fullPixelBuffers atPosition:(id *)position cmdBuffer:
 {
-  v13 = [for isEqualToString:{0x1F21AABB0, to, tiles, buffers, pixelBuffers, fullPixelBuffers}];
-  if ((v13 | [for isEqualToString:0x1F21AADF0]))
+  isEqualToString = objc_msgSend_isEqualToString_(for, a2, 0x1F21AABB0, to, tiles, buffers, pixelBuffers, fullPixelBuffers);
+  if ((isEqualToString | objc_msgSend_isEqualToString_(for)))
   {
     result = 0;
   }
@@ -183,7 +183,7 @@ LABEL_14:
     result = -31710;
   }
 
-  if (v13)
+  if (isEqualToString)
   {
     v15.i32[0] = position;
     v24 = vmovl_u16(v15);
@@ -304,24 +304,26 @@ LABEL_14:
   {
     fig_log_get_emitter();
     OUTLINED_FUNCTION_0_33();
-    return FigSignalErrorAtGM();
+    v21 = 225;
+    return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v17, 0xFFFF8422, "<<<< BWLearnedMattingInferenceProvider >>>>", v21, v18, v19, v20, v22);
   }
 
   v9 = v8;
-  v10 = [objc_msgSend(requirement "attachedMediaKey")];
-  v11 = [objc_msgSend(requirement "attachedMediaKey")];
-  if ((v10 & 1) == 0 && !v11)
+  isEqualToString = objc_msgSend_isEqualToString_([requirement attachedMediaKey]);
+  v11 = objc_msgSend_isEqualToString_([requirement attachedMediaKey]);
+  if ((isEqualToString & 1) == 0 && !v11)
   {
     return -31710;
   }
 
-  if (v10)
+  if (isEqualToString)
   {
     CVBufferSetAttachment(v9, *MEMORY[0x1E6965F30], *MEMORY[0x1E6965F60], kCVAttachmentMode_ShouldPropagate);
-    OUTLINED_FUNCTION_2_69(144, v17, v18, v19, v20, v21, v22, v23);
+    OUTLINED_FUNCTION_2_69(144, v22, v23, v24, v25, v26, v27, v28);
     fig_log_get_emitter();
     OUTLINED_FUNCTION_0_33();
-    return FigSignalErrorAtGM();
+    v21 = 237;
+    return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v17, 0xFFFF8422, "<<<< BWLearnedMattingInferenceProvider >>>>", v21, v18, v19, v20, v22);
   }
 
   if (v11)
@@ -335,10 +337,11 @@ LABEL_14:
       {
         if (!VTPixelTransferSessionTransferImage(lowResSegmentationCloneCopySession, v13, v9))
         {
-          OUTLINED_FUNCTION_2_69(152, v17, v18, v19, v20, v21, v22, v23);
+          OUTLINED_FUNCTION_2_69(152, v22, v23, v24, v25, v26, v27, v28);
           fig_log_get_emitter();
           OUTLINED_FUNCTION_0_33();
-          return FigSignalErrorAtGM();
+          v21 = 289;
+          return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v17, 0xFFFF8422, "<<<< BWLearnedMattingInferenceProvider >>>>", v21, v18, v19, v20, v22);
         }
 
         return -31710;
@@ -352,7 +355,14 @@ LABEL_14:
 - (int)reconcileWithPlaceholderProvider:(id)provider
 {
   type = [(BWLearnedMattingInferenceProvider *)self type];
-  if (type != [provider type] || !-[NSString isEqualToString:](-[BWTiledEspressoInferenceProvider customInferenceIdentifier](self, "customInferenceIdentifier"), "isEqualToString:", objc_msgSend(provider, "customInferenceIdentifier")))
+  if (type != [provider type])
+  {
+    return -31783;
+  }
+
+  customInferenceIdentifier = [(BWTiledEspressoInferenceProvider *)self customInferenceIdentifier];
+  [provider customInferenceIdentifier];
+  if (!objc_msgSend_isEqualToString_(customInferenceIdentifier))
   {
     return -31783;
   }
@@ -388,23 +398,23 @@ LABEL_14:
   }
 
   self->_outputLowResSegmentationCloneFormatDescription = outputLowResSegmentationCloneFormatDescription;
+  v15.receiver = self;
+  v15.super_class = BWLearnedMattingInferenceProvider;
+  v11 = [(BWTiledEspressoInferenceProvider *)&v15 reconcileWithPlaceholderProvider:provider];
+  [(BWLearnedMattingInferenceProvider *)self _updateTileCount];
+  v12 = *&self->_didConfigureAndLoadEspressoNetwork;
   v14.receiver = self;
   v14.super_class = BWLearnedMattingInferenceProvider;
-  v10 = [(BWTiledEspressoInferenceProvider *)&v14 reconcileWithPlaceholderProvider:provider];
-  [(BWLearnedMattingInferenceProvider *)self _updateTileCount];
-  v11 = *&self->_didConfigureAndLoadEspressoNetwork;
-  v13.receiver = self;
-  v13.super_class = BWLearnedMattingInferenceProvider;
-  [(BWTiledEspressoInferenceProvider *)&v13 updateMaxTileCount:v11];
-  return v10;
+  [(BWTiledEspressoInferenceProvider *)&v14 updateMaxTileCount:v12];
+  return v11;
 }
 
-- (unint64_t)_updateTileCount
+- (float32x2_t)_updateTileCount
 {
   if (result)
   {
     v1 = result;
-    v2 = [objc_msgSend(*(result + 128) "videoFormat")];
+    v2 = [objc_msgSend(*&result[16] "videoFormat")];
     v3 = [objc_msgSend(*&v1[16] "videoFormat")];
     v4.f32[0] = v2;
     v4.f32[1] = v3;
@@ -487,7 +497,7 @@ LABEL_14:
     {
       fig_log_get_emitter();
       OUTLINED_FUNCTION_0_4();
-      FigSignalErrorAtGM();
+      FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v22, 0xFFFF8422, "<<<< BWLearnedMattingInferenceProvider >>>>", 0x196, v23, v24, v25, v27);
       goto LABEL_7;
     }
   }
@@ -512,20 +522,20 @@ LABEL_7:
     v15 = [MEMORY[0x1E695DF20] dictionaryWithObjectsAndKeys:{v14, @"alpha_refined", 0}];
     type = [(BWLearnedMattingInferenceProvider *)self type];
     v17 = *&self->_didConfigureAndLoadEspressoNetwork;
-    v20.receiver = self;
-    v20.super_class = BWLearnedMattingInferenceProvider;
-    if ([(BWTiledEspressoInferenceProvider *)&v20 loadNetworkWithURL:v10 configName:@"832x768" inferenceType:type maxTileCount:v17 inputFormatsByBindingName:v13 outputFormatsByBindingName:v15 additionalVideoRequirements:0])
+    v30.receiver = self;
+    v30.super_class = BWLearnedMattingInferenceProvider;
+    if ([(BWTiledEspressoInferenceProvider *)&v30 loadNetworkWithURL:v10 configName:@"832x768" inferenceType:type maxTileCount:v17 inputFormatsByBindingName:v13 outputFormatsByBindingName:v15 additionalVideoRequirements:0])
     {
       fig_log_get_emitter();
       OUTLINED_FUNCTION_0_4();
-      LODWORD(v7) = FigSignalErrorAtGM();
+      LODWORD(v7) = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v18, 0xFFFF842ALL, "<<<< BWLearnedMattingInferenceProvider >>>>", 0x1B0, v19, v20, v21, v28);
     }
 
     else
     {
-      v19.receiver = self;
-      v19.super_class = BWLearnedMattingInferenceProvider;
-      LODWORD(v7) = [(BWTiledEspressoInferenceProvider *)&v19 prepareForSubmissionWithWorkQueue:queue];
+      v29.receiver = self;
+      v29.super_class = BWLearnedMattingInferenceProvider;
+      LODWORD(v7) = [(BWTiledEspressoInferenceProvider *)&v29 prepareForSubmissionWithWorkQueue:queue];
       *(&self->_didConfigureAndLoadEspressoNetwork + 4) = 1;
     }
   }
@@ -537,14 +547,14 @@ LABEL_7:
 {
   fig_log_get_emitter();
   OUTLINED_FUNCTION_0_4();
-  return FigSignalErrorAtGM();
+  return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v0, 0xFFFF8422, "<<<< BWLearnedMattingInferenceProvider >>>>", 0x64, v1, v2, v3, v5);
 }
 
-- (uint64_t)createInputTiles:(uint64_t)a1 withInputs:(_DWORD *)a2 atPosition:cmdBuffer:.cold.1(uint64_t a1, _DWORD *a2)
+- (uint64_t)createInputTiles:(void *)a1 withInputs:(_DWORD *)a2 atPosition:cmdBuffer:.cold.1(void *a1, _DWORD *a2)
 {
   fig_log_get_emitter();
   OUTLINED_FUNCTION_0_4();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, 0xFFFF8422, "<<<< BWLearnedMattingInferenceProvider >>>>", a1, v5, v6, v7, v9);
   *a2 = result;
   return result;
 }
@@ -553,7 +563,7 @@ LABEL_7:
 {
   fig_log_get_emitter();
   OUTLINED_FUNCTION_0_4();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFF8422, "<<<< BWLearnedMattingInferenceProvider >>>>", 0xCD, v3, v4, v5, v7);
   *a1 = result;
   return result;
 }

@@ -31,7 +31,7 @@
       layer4 = [viewCopy layer];
       [layer4 setShadowOffset:{0.0, 8.0}];
 
-      v11 = +[UIColor blackColor];
+      v11 = objc_msgSend_blackColor(UIColor);
       cGColor = [v11 CGColor];
       layer5 = [viewCopy layer];
       [layer5 setShadowColor:cGColor];
@@ -70,7 +70,7 @@
   v5.receiver = self;
   v5.super_class = _UIDocumentUnavailablePortalContainerView;
   [(UIView *)&v5 layoutSubviews];
-  [(UIView *)self _intersectedSceneCornerRadii];
+  objc_msgSend__intersectedSceneCornerRadii(self);
   layer = [(UIView *)self layer];
   v4[0] = v4[4];
   v4[1] = v4[5];

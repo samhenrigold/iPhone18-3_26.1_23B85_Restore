@@ -484,7 +484,7 @@ LABEL_24:
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d AVCPacketRelaySocketConnection: invalid remote IPPort", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d AVCPacketRelaySocketConnection: invalid remote IPPort", v2, v3, v4, v5);
 }
 
 - (void)initWithSocket:remoteAddress:packetFilter:.cold.3()
@@ -502,13 +502,15 @@ LABEL_24:
 {
   if (VRTraceGetErrorLogLevelForModule() >= 3)
   {
-    VRTraceErrorLogLevelToCSTR();
+    v3 = VRTraceErrorLogLevelToCSTR();
     if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_ERROR))
     {
+      LODWORD(v10) = 136315906;
+      *(&v10 + 4) = v3;
       OUTLINED_FUNCTION_6_5();
       OUTLINED_FUNCTION_6();
       OUTLINED_FUNCTION_21();
-      OUTLINED_FUNCTION_6_0(&dword_1DB56E000, v3, v4, " [%s] %s:%d AVCPacketRelaySocketConnection: init error %08X", v5, v6, v7, v8, 2u);
+      OUTLINED_FUNCTION_6_0(&dword_1DB56E000, v4, v5, " [%s] %s:%d AVCPacketRelaySocketConnection: init error %08X", v6, v7, v8, v9, v10, DWORD2(v10));
     }
   }
 }
@@ -517,7 +519,7 @@ LABEL_24:
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d AVCPacketRelaySocketConnection: cannot start without setting read handler", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d AVCPacketRelaySocketConnection: cannot start without setting read handler", v2, v3, v4, v5);
 }
 
 - (void)receiveDataOnSocket:.cold.1()

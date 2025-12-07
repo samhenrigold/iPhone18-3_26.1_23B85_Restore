@@ -50,7 +50,7 @@
   v19 = v14;
   if (v14)
   {
-    objc_msgSend_transform(v14, v15, v16, v17, v18);
+    objc_msgSend_transform(v14, v16, v17, v18);
   }
 
   else

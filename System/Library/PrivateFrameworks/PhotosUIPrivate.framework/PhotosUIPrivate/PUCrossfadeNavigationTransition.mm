@@ -18,7 +18,7 @@
   [view2 setAlpha:0.0];
   [containerView insertSubview:view2 aboveSubview:view];
   v8 = MEMORY[0x1E69DD250];
-  [(PUViewControllerTransition *)self duration];
+  objc_msgSend_duration(self);
   v10 = v9;
   v13[0] = MEMORY[0x1E69E9820];
   v13[1] = 3221225472;

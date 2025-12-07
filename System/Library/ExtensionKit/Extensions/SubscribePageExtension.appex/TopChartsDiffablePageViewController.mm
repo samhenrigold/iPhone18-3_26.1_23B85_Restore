@@ -65,7 +65,7 @@
 - (void)viewWillLayoutSubviews
 {
   selfCopy = self;
-  sub_1006D98C0();
+  sub_1006D98C0(selfCopy);
 }
 
 - (unint64_t)supportedInterfaceOrientations

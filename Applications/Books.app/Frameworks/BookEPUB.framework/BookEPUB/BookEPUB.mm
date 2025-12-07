@@ -16,33 +16,34 @@ void sub_2E40(uint64_t a1, void *a2, void *a3)
 {
   v5 = a2;
   v6 = a3;
+  v7 = v6;
   if (v5)
   {
     [*(a1 + 32) removeAllContentRuleLists];
     [*(a1 + 32) addContentRuleList:v5];
-    [*(a1 + 40) setBe_appliedContentBlockingRule:*(a1 + 72)];
+    v6 = [*(a1 + 40) setBe_appliedContentBlockingRule:*(a1 + 72)];
   }
 
-  if (v6)
+  if (v7)
   {
-    v7 = _BookEPUBLog();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = _BookEPUBLog(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      v12 = 138412290;
-      v13 = v6;
-      _os_log_impl(&dword_0, v7, OS_LOG_TYPE_ERROR, "Error creating content blocking rule list - %@", &v12, 0xCu);
+      v13 = 138412290;
+      v14 = v7;
+      _os_log_impl(&dword_0, v8, OS_LOG_TYPE_ERROR, "Error creating content blocking rule list - %@", &v13, 0xCu);
     }
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 64));
-  v9 = [WeakRetained cachedRules];
-  [v9 setObject:v5 forKeyedSubscript:*(a1 + 48)];
+  v10 = [WeakRetained cachedRules];
+  [v10 setObject:v5 forKeyedSubscript:*(a1 + 48)];
 
-  v10 = objc_retainBlock(*(a1 + 56));
-  v11 = v10;
-  if (v10)
+  v11 = objc_retainBlock(*(a1 + 56));
+  v12 = v11;
+  if (v11)
   {
-    (*(v10 + 2))(v10, 1, v6);
+    (*(v11 + 2))(v11, 1, v7);
   }
 }
 
@@ -50,53 +51,55 @@ void sub_2F90(uint64_t a1, void *a2, void *a3)
 {
   v5 = a2;
   v6 = a3;
+  v7 = v6;
   if (!v5)
   {
     if (*(a1 + 56) <= 1uLL)
     {
-      v7 = 1;
+      v8 = 1;
     }
 
     else
     {
-      v7 = *(a1 + 56);
+      v8 = *(a1 + 56);
     }
 
-    if (v7 == 1)
+    if (v8 == 1)
     {
-      v8 = &off_325EB0;
+      v9 = &off_325EB0;
     }
 
     else
     {
-      if (v7 != 2)
+      if (v8 != 2)
       {
         goto LABEL_11;
       }
 
-      v8 = off_325EA8;
+      v9 = off_325EA8;
     }
 
-    v9 = [(__objc2_class *)*v8 source];
-    if (v9)
+    v6 = [(__objc2_class *)*v9 source];
+    v10 = v6;
+    if (v6)
     {
 LABEL_14:
-      [*(a1 + 32) compileContentRuleListForIdentifier:*(a1 + 40) encodedContentRuleList:v9 completionHandler:*(a1 + 48)];
+      [*(a1 + 32) compileContentRuleListForIdentifier:*(a1 + 40) encodedContentRuleList:v10 completionHandler:*(a1 + 48)];
 
       goto LABEL_15;
     }
 
 LABEL_11:
-    v10 = _BookEPUBLog();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v11 = _BookEPUBLog(v6);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      v11 = [NSNumber numberWithUnsignedInteger:v7];
-      v12 = 138412290;
-      v13 = v11;
-      _os_log_impl(&dword_0, v10, OS_LOG_TYPE_ERROR, "Unsupported content blocking rule '%@'", &v12, 0xCu);
+      v12 = [NSNumber numberWithUnsignedInteger:v8];
+      v13 = 138412290;
+      v14 = v12;
+      _os_log_impl(&dword_0, v11, OS_LOG_TYPE_ERROR, "Unsupported content blocking rule '%@'", &v13, 0xCu);
     }
 
-    v9 = 0;
+    v10 = 0;
     goto LABEL_14;
   }
 
@@ -208,16 +211,16 @@ id sub_3680(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
   return v16;
 }
 
-id BookEPUBBundle()
+id BookEPUBBundle(uint64_t a1)
 {
   if (qword_36AA58 != -1)
   {
     sub_2638F4();
   }
 
-  v1 = qword_36AA50;
+  v2 = qword_36AA50;
 
-  return v1;
+  return v2;
 }
 
 void sub_3CB0(id a1)
@@ -654,7 +657,7 @@ void ITNavPoint::setNavPointValue(ITNavPoint *this, CFTypeRef cf)
   }
 }
 
-const __CFString *ITNavPoint::setContentFile(ITNavPoint *this, CFStringRef originalString)
+CFStringRef ITNavPoint::setContentFile(ITNavPoint *this, CFStringRef originalString)
 {
   v4 = *(this + 9);
   if (v4)
@@ -814,10 +817,10 @@ uint64_t ITNavPoint::childAtIndex(ITNavPoint *this, unint64_t a2)
   }
 }
 
-uint64_t ITNavPoint::removeChild(uint64_t this, atomic_uint *a2)
+void *ITNavPoint::removeChild(void *this, atomic_uint *a2)
 {
-  v2 = *(this + 16);
-  v3 = *(this + 24);
+  v2 = this[2];
+  v3 = this[3];
   if (v2 != v3)
   {
     v4 = this;
@@ -833,14 +836,14 @@ uint64_t ITNavPoint::removeChild(uint64_t this, atomic_uint *a2)
     }
 
     this = ITRetain::release(a2);
-    v6 = *(v4 + 24);
+    v6 = v4[3];
     v7 = v6 - v5;
     if (v6 != v5)
     {
       this = memmove(v5 - 8, v5, v6 - v5);
     }
 
-    *(v4 + 24) = &v5[v7 - 8];
+    v4[3] = &v5[v7 - 8];
   }
 
   return this;
@@ -881,10 +884,10 @@ id CFStringGetXmlCharPtr(__CFString *a1)
   return [(__CFString *)v1 UTF8String];
 }
 
-void sub_687C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_687C(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   a9.super_class = ITEpubXmlParseDelegate;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
@@ -985,43 +988,43 @@ void GR7MfHLOwbW53iI3X2X0XHFzhK::~GR7MfHLOwbW53iI3X2X0XHFzhK(GR7MfHLOwbW53iI3X2X
   operator delete();
 }
 
-void GR7MfHLOwbW53iI3X2X0XHFzhK::StartElement(GR7MfHLOwbW53iI3X2X0XHFzhK *this, const __CFString *a2, const __CFDictionary *a3)
+void GR7MfHLOwbW53iI3X2X0XHFzhK::StartElement(CFStringRef *this, const __CFString *a2, const __CFDictionary *a3)
 {
   ITEpubXmlParseHandler::StartElement(this, a2, a3);
   if (ITEpubXmlParseHandler::doesNodeMatch(this, a2, @"EncryptedData"))
   {
-    v6 = *(this + 16);
+    v6 = this[16];
     if (v6)
     {
       CFRelease(v6);
-      *(this + 16) = 0;
+      this[16] = 0;
     }
 
-    v7 = *(this + 17);
+    v7 = this[17];
     if (v7)
     {
       CFRelease(v7);
-      *(this + 17) = 0;
+      this[17] = 0;
     }
 
-    v8 = *(this + 18);
+    v8 = this[18];
     if (v8)
     {
       CFRelease(v8);
-      *(this + 18) = 0;
+      this[18] = 0;
     }
 
-    v9 = *(this + 19);
+    v9 = this[19];
     if (v9)
     {
       CFRelease(v9);
-      *(this + 19) = 0;
+      this[19] = 0;
     }
 
     Value = CFDictionaryGetValue(a3, @"deenc:compression");
     if (Value || (Value = CFDictionaryGetValue(a3, @"compression")) != 0)
     {
-      *(this + 19) = Value;
+      this[19] = Value;
 LABEL_17:
 
       CFRetain(Value);
@@ -1030,15 +1033,15 @@ LABEL_17:
 
   else if (ITEpubXmlParseHandler::doesNodeMatch(this, a2, @"EncryptionMethod"))
   {
-    v11 = *(this + 16);
+    v11 = this[16];
     if (v11)
     {
       CFRelease(v11);
-      *(this + 16) = 0;
+      this[16] = 0;
     }
 
     Value = CFDictionaryGetValue(a3, @"Algorithm");
-    *(this + 16) = Value;
+    this[16] = Value;
     if (Value)
     {
       goto LABEL_17;
@@ -1052,24 +1055,24 @@ LABEL_17:
       return;
     }
 
-    v12 = *(this + 17);
+    v12 = this[17];
     if (v12)
     {
       CFRelease(v12);
-      *(this + 17) = 0;
+      this[17] = 0;
     }
 
     v13 = CFDictionaryGetValue(a3, @"URI");
     v15 = ITEpubXmlParseHandler::copyHrefStrippingHash(v13, v14);
     v16 = v15;
-    if (*(this + 20))
+    if (this[20])
     {
       Mutable = CFStringCreateMutable(kCFAllocatorDefault, 0);
       CFStringAppend(Mutable, v16);
-      v19.length = CFStringGetLength(*(this + 20)) + 1;
+      v19.length = CFStringGetLength(this[20]) + 1;
       v19.location = 0;
-      CFStringFindAndReplace(Mutable, *(this + 20), &stru_33E120, v19, 0);
-      *(this + 17) = Mutable;
+      CFStringFindAndReplace(Mutable, this[20], &stru_33E120, v19, 0);
+      this[17] = Mutable;
       if (!v16)
       {
         return;
@@ -1078,7 +1081,7 @@ LABEL_17:
 
     else
     {
-      *(this + 17) = v15;
+      this[17] = v15;
       if (!v15)
       {
         return;
@@ -1137,9 +1140,9 @@ void GR7MfHLOwbW53iI3X2X0XHFzhK::EndElement(GR7MfHLOwbW53iI3X2X0XHFzhK *this, co
   ITEpubXmlParseHandler::EndElement(this, a2);
 }
 
-void sub_8530(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_8530(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1175,19 +1178,19 @@ void ITBlissFolder::ITBlissFolder(ITBlissFolder *this, const __CFString *a2, con
   *v3 = &off_328218;
 }
 
-BOOL ITBlissFolder::isMimeCorrect(const __CFString **this)
+BOOL ITBlissFolder::isMimeCorrect(const __CFString **this, uint64_t a2, uint64_t a3, unint64_t a4)
 {
-  if ((atomic_load_explicit(&qword_36AA88, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(byte_36AA88, memory_order_acquire) & 1) == 0)
   {
-    v5 = this;
+    v8 = this;
     sub_263930();
-    this = v5;
+    this = v8;
   }
 
-  v2 = this[2];
-  v3 = qword_36AA80;
+  v5 = this[2];
+  v6 = qword_36AA80;
 
-  return ITEpubFolder::isMimeCorrect(v2, aApplicationXIb, v3);
+  return ITEpubFolder::isMimeCorrect(v5, aApplicationXIb, v6);
 }
 
 void sub_8908(ITEpubFolder *a1)
@@ -1516,23 +1519,23 @@ const __CFDictionary *ITEpubAppleDisplayOptionsParser::platformOptions(uint64_t 
   return result;
 }
 
-void sub_97F8(uint64_t a1)
+void sub_97F8(uint64_t a1, uint64_t a2)
 {
-  v2 = _BookEPUBLog();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = _BookEPUBLog(a1);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = [*(a1 + 32) styleManager];
-    v4 = [v3 font];
-    v8 = 138543362;
-    v9 = v4;
-    _os_log_impl(&dword_0, v2, OS_LOG_TYPE_DEFAULT, "Attempting deferred #fontReg of #fontFamily '%{public}@'", &v8, 0xCu);
+    v4 = [*(a1 + 32) styleManager];
+    v5 = [v4 font];
+    v9 = 138543362;
+    v10 = v5;
+    _os_log_impl(&dword_0, v3, OS_LOG_TYPE_DEFAULT, "Attempting deferred #fontReg of #fontFamily '%{public}@'", &v9, 0xCu);
   }
 
   [*(a1 + 40) be_willProcessDeferredFontRegistration];
-  v5 = *(a1 + 40);
-  v6 = [*(a1 + 32) styleManager];
-  v7 = [*(a1 + 32) fontRegistrationHandler];
-  [v5 be_configureFontWithStyleManager:v6 completion:v7];
+  v6 = *(a1 + 40);
+  v7 = [*(a1 + 32) styleManager];
+  v8 = [*(a1 + 32) fontRegistrationHandler];
+  [v6 be_configureFontWithStyleManager:v7 completion:v8];
 }
 
 id sub_9B34(uint64_t a1, uint64_t a2)
@@ -1545,11 +1548,12 @@ id sub_9B34(uint64_t a1, uint64_t a2)
   return [v3 be_processPendingFontRegistration];
 }
 
-void sub_A1E4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, id location, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, char a23)
+void sub_A1E4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, id location, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  objc_destroyWeak((v23 + 56));
+  va_start(va, a22);
+  objc_destroyWeak((v22 + 56));
   objc_destroyWeak(&location);
-  _Block_object_dispose(&a23, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -1565,55 +1569,55 @@ void sub_A220(uint64_t a1, int a2)
   v6 = [WeakRetained fontsAttemptingRegistration];
   [v6 removeObject:*(a1 + 32)];
 
-  v7 = _BookEPUBLog();
-  v8 = v7;
+  v8 = _BookEPUBLog(v7);
+  v9 = v8;
   if (a2)
   {
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = *(a1 + 32);
-      v15 = 138543362;
-      v16 = v9;
-      _os_log_impl(&dword_0, v8, OS_LOG_TYPE_DEFAULT, "Success #fontReg #fontFamily '%{public}@'", &v15, 0xCu);
+      v10 = *(a1 + 32);
+      v17 = 138543362;
+      v18 = v10;
+      _os_log_impl(&dword_0, v9, OS_LOG_TYPE_DEFAULT, "Success #fontReg #fontFamily '%{public}@'", &v17, 0xCu);
     }
 
-    v10 = [v5 registeredFonts];
-    [v10 addObject:*(a1 + 32)];
+    v11 = [v5 registeredFonts];
+    [v11 addObject:*(a1 + 32)];
 
-    [v5 be_fontFamilySuccessfullyRegistered:*(a1 + 32)];
+    v12 = [v5 be_fontFamilySuccessfullyRegistered:*(a1 + 32)];
     if (*(*(*(a1 + 48) + 8) + 24))
     {
-      v11 = _BookEPUBLog();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      v13 = _BookEPUBLog(v12);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
-        v12 = *(a1 + 32);
-        v15 = 138543362;
-        v16 = v12;
-        _os_log_impl(&dword_0, v11, OS_LOG_TYPE_ERROR, "Skipping #fontReg Completion due to timeout for #fontFamily '%{public}@'", &v15, 0xCu);
+        v14 = *(a1 + 32);
+        v17 = 138543362;
+        v18 = v14;
+        _os_log_impl(&dword_0, v13, OS_LOG_TYPE_ERROR, "Skipping #fontReg Completion due to timeout for #fontFamily '%{public}@'", &v17, 0xCu);
       }
 
       goto LABEL_15;
     }
 
-    v14 = *(*(a1 + 40) + 16);
+    v16 = *(*(a1 + 40) + 16);
 LABEL_14:
-    v14();
+    v16();
     goto LABEL_15;
   }
 
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
   {
-    v13 = *(a1 + 32);
-    v15 = 138543362;
-    v16 = v13;
-    _os_log_impl(&dword_0, v8, OS_LOG_TYPE_ERROR, "Failure #fontReg #fontFamily '%{public}@'", &v15, 0xCu);
+    v15 = *(a1 + 32);
+    v17 = 138543362;
+    v18 = v15;
+    _os_log_impl(&dword_0, v9, OS_LOG_TYPE_ERROR, "Failure #fontReg #fontFamily '%{public}@'", &v17, 0xCu);
   }
 
   [v5 be_fontFamilyFailedToRegister:*(a1 + 32)];
   if ((*(*(*(a1 + 48) + 8) + 24) & 1) == 0)
   {
 LABEL_12:
-    v14 = *(*(a1 + 40) + 16);
+    v16 = *(*(a1 + 40) + 16);
     goto LABEL_14;
   }
 
@@ -1630,33 +1634,34 @@ void sub_BAA0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int
 void sub_BAD0(uint64_t a1, int a2)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 40));
+  v5 = WeakRetained;
   if (WeakRetained)
   {
-    v5 = _BookEPUBLog();
-    v6 = v5;
+    v6 = _BookEPUBLog(WeakRetained);
+    v7 = v6;
     if (a2)
     {
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
       {
-        v7 = *(a1 + 32);
-        v12 = 138543362;
-        v13 = v7;
-        v8 = "Success ThemePreview #fontReg #fontFamily '%{public}@'";
-        v9 = v6;
-        v10 = OS_LOG_TYPE_DEFAULT;
+        v8 = *(a1 + 32);
+        v13 = 138543362;
+        v14 = v8;
+        v9 = "Success ThemePreview #fontReg #fontFamily '%{public}@'";
+        v10 = v7;
+        v11 = OS_LOG_TYPE_DEFAULT;
 LABEL_7:
-        _os_log_impl(&dword_0, v9, v10, v8, &v12, 0xCu);
+        _os_log_impl(&dword_0, v10, v11, v9, &v13, 0xCu);
       }
     }
 
-    else if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    else if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      v11 = *(a1 + 32);
-      v12 = 138543362;
-      v13 = v11;
-      v8 = "Failure ThemePreview #fontReg #fontFamily '%{public}@'";
-      v9 = v6;
-      v10 = OS_LOG_TYPE_ERROR;
+      v12 = *(a1 + 32);
+      v13 = 138543362;
+      v14 = v12;
+      v9 = "Failure ThemePreview #fontReg #fontFamily '%{public}@'";
+      v10 = v7;
+      v11 = OS_LOG_TYPE_ERROR;
       goto LABEL_7;
     }
   }
@@ -1712,16 +1717,16 @@ void sub_CB20(id a1)
   _objc_release_x1();
 }
 
-id _BookEPUBLog()
+id _BookEPUBLog(uint64_t a1)
 {
   if (qword_36AAC8 != -1)
   {
     sub_2639D8();
   }
 
-  v1 = qword_36AAC0;
+  v2 = qword_36AAC0;
 
-  return v1;
+  return v2;
 }
 
 void sub_CEE8(id a1)
@@ -1820,7 +1825,7 @@ std::string *ITStrUtil::trim(std::string *a1, char *__s)
 
   result = strlen(v3);
   v9 = result;
-  v10 = &v6[-1].__r_.__value_.__s + 23;
+  v10 = &v6[-1].__r_.__value_.__r.__words[2] + 7;
   do
   {
     if (!size)
@@ -1994,7 +1999,7 @@ void ITEpubMediaOverlayParser::~ITEpubMediaOverlayParser(ITEpubMediaOverlayParse
   operator delete();
 }
 
-void ITEpubMediaOverlayParser::clearBodyMemory(const void ***this)
+void ITEpubMediaOverlayParser::clearBodyMemory(ITRetain ***this)
 {
   ITEpubMediaOverlayParser::clearParMemory(this);
   v3 = this[23];
@@ -4044,7 +4049,7 @@ void ITEpubOpfParser::StartContributorElement(ITEpubOpfParser *this, CFTypeRef c
 
 void ITEpubOpfParser::EndElement(std::string *this, const __CFString *a2)
 {
-  v4 = &this[3];
+  v4 = this + 3;
   ITStrUtil::trim(this + 3, 0);
   if (ITEpubXmlParseHandler::doesNodeMatch(this, a2, @"manifest"))
   {
@@ -4095,7 +4100,7 @@ void ITEpubOpfParser::EndElement(std::string *this, const __CFString *a2)
 
     if (SHIBYTE(this[3].__r_.__value_.__r.__words[2]) < 0)
     {
-      v4 = *v4;
+      v4 = v4->__r_.__value_.__r.__words[0];
     }
 
     v6 = this + 6;
@@ -4122,7 +4127,7 @@ void ITEpubOpfParser::EndElement(std::string *this, const __CFString *a2)
 
     if (SHIBYTE(this[3].__r_.__value_.__r.__words[2]) < 0)
     {
-      v4 = *v4;
+      v4 = v4->__r_.__value_.__r.__words[0];
     }
 
     v6 = this + 5;
@@ -4138,7 +4143,7 @@ void ITEpubOpfParser::EndElement(std::string *this, const __CFString *a2)
   {
     if (SHIBYTE(this[3].__r_.__value_.__r.__words[2]) < 0)
     {
-      v4 = *v4;
+      v4 = v4->__r_.__value_.__r.__words[0];
     }
 
     v6 = this + 7;
@@ -4149,7 +4154,7 @@ LABEL_22:
 
   if (this[17].__r_.__value_.__s.__data_[2])
   {
-    sub_10100(this);
+    sub_10100(this, v8, @"publisher");
     return;
   }
 
@@ -5048,7 +5053,7 @@ std::string *ITEpubOpfParser::language(uint64_t a1, std::string *this)
 
 std::string *ITEpubOpfParser::genre(std::string *result, std::string *this)
 {
-  v2 = &result[8];
+  v2 = result + 8;
   if (SHIBYTE(result[8].__r_.__value_.__r.__words[2]) < 0)
   {
     if (!result[8].__r_.__value_.__l.__size_)
@@ -5056,7 +5061,7 @@ std::string *ITEpubOpfParser::genre(std::string *result, std::string *this)
       goto LABEL_7;
     }
 
-    v2 = *v2;
+    v2 = v2->__r_.__value_.__r.__words[0];
     return std::string::assign(this, v2);
   }
 
@@ -5136,7 +5141,7 @@ std::string *ITEpubOpfParser::uniqueIdentifierWithUUIDScheme(uint64_t a1, std::s
   return std::string::assign(this, v3);
 }
 
-uint64_t ITEpubOpfParser::_lowerHrefInSpine(CFArrayRef *this, const __CFString *a2, uint64_t a3)
+uint64_t ITEpubOpfParser::_lowerHrefInSpine(CFArrayRef *this, __CFString *a2, uint64_t a3)
 {
   v5 = ITEpubXmlParseHandler::copyHrefStrippingHash(a2, a2);
   if (a3 < 1)
@@ -5186,7 +5191,7 @@ LABEL_8:
   return a3;
 }
 
-const __CFString *ITEpubOpfParser::_lowestHrefInSpine(ITEpubOpfParser *this)
+__CFString *ITEpubOpfParser::_lowestHrefInSpine(ITEpubOpfParser *this)
 {
   v1 = *(this + 59);
   v2 = *(this + 60) - v1;
@@ -5236,7 +5241,7 @@ const __CFString *ITEpubOpfParser::_lowestHrefInSpine(ITEpubOpfParser *this)
   return v6;
 }
 
-const __CFString *ITEpubOpfParser::copyFirstHref(ITEpubOpfParser *this)
+__CFString *ITEpubOpfParser::copyFirstHref(ITEpubOpfParser *this)
 {
   v1 = *(this + 62);
   if (!v1)
@@ -5365,16 +5370,16 @@ std::logic_error *sub_11430(std::logic_error *a1, const char *a2)
   return result;
 }
 
-uint64_t sub_116B4()
+uint64_t sub_116B4(uint64_t a1)
 {
   qword_36AAD8 = objc_alloc_init(objc_opt_class());
 
   return _objc_release_x1();
 }
 
-void sub_1194C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1194C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5499,9 +5504,9 @@ void sub_12354(uint64_t a1, void *a2)
   }
 }
 
-void sub_12604(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_12604(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5865,7 +5870,7 @@ uint64_t ITEpubPrintableParser::StartElement(CFMutableArrayRef *this, const __CF
     if (result)
     {
       v8 = CFDictionaryGetValue(a3, @"idref");
-      v10[0] = v8;
+      v10 = v8;
       result = CFDictionaryGetValue(a3, @"printable");
       if (result)
       {
@@ -5873,8 +5878,8 @@ uint64_t ITEpubPrintableParser::StartElement(CFMutableArrayRef *this, const __CF
         {
           v9 = ITEpubXmlParseHandler::BOOLeanForString(this, result);
           CFRetain(v8);
-          v10[2] = v10;
-          result = sub_16D08((this + 16), v10);
+          v11 = &v10;
+          result = sub_16D08((this + 16), &v10, &std::piecewise_construct, &v11);
           *(result + 40) = v9;
         }
       }
@@ -5912,15 +5917,15 @@ void sub_16CB4(uint64_t a1, void *a2)
   }
 }
 
-uint64_t sub_16D08(uint64_t a1, CFStringRef *a2)
+uint64_t sub_16D08(uint64_t a1, CFStringRef *a2, uint64_t a3, void **a4)
 {
-  v2 = *sub_16DA4(a1, &v4, a2);
-  if (!v2)
+  v4 = *sub_16DA4(a1, &v6, a2);
+  if (!v4)
   {
     operator new();
   }
 
-  return v2;
+  return v4;
 }
 
 void *sub_16DA4(uint64_t a1, void *a2, CFStringRef *a3)
@@ -6009,7 +6014,7 @@ LABEL_24:
   return v5;
 }
 
-uint64_t *sub_16E70(uint64_t **a1, uint64_t a2, uint64_t **a3, uint64_t *a4)
+uint64_t *sub_16E70(uint64_t ***a1, uint64_t a2, uint64_t **a3, uint64_t *a4)
 {
   *a4 = 0;
   a4[1] = 0;
@@ -6035,12 +6040,12 @@ uint64_t *sub_16EC8(uint64_t *result, uint64_t *a2)
     do
     {
       v2 = a2[2];
-      if (v2[3])
+      if (*(v2 + 24))
       {
         break;
       }
 
-      v3 = v2[2];
+      v3 = *(v2 + 16);
       v4 = *v3;
       if (*v3 == v2)
       {
@@ -6054,22 +6059,22 @@ uint64_t *sub_16EC8(uint64_t *result, uint64_t *a2)
 
           else
           {
-            v11 = v2[1];
+            v11 = *(v2 + 8);
             v12 = *v11;
-            v2[1] = *v11;
+            *(v2 + 8) = *v11;
             v13 = v2;
             if (v12)
             {
-              v12[2] = v2;
-              v3 = v2[2];
+              *(v12 + 16) = v2;
+              v3 = *(v2 + 16);
               v13 = *v3;
             }
 
-            v11[2] = v3;
+            *(v11 + 16) = v3;
             v3[v13 != v2] = v11;
             *v11 = v2;
-            v2[2] = v11;
-            v3 = v11[2];
+            *(v2 + 16) = v11;
+            v3 = *(v11 + 16);
             v4 = *v3;
           }
 
@@ -6103,13 +6108,13 @@ uint64_t *sub_16EC8(uint64_t *result, uint64_t *a2)
             if (v14)
             {
               *(v14 + 16) = v2;
-              v3 = v2[2];
+              v3 = *(v2 + 16);
             }
 
             v10[2] = v3;
             v3[*v3 != v2] = v10;
             v10[1] = v2;
-            v2[2] = v10;
+            *(v2 + 16) = v10;
             v3 = v10[2];
           }
 
@@ -6151,7 +6156,7 @@ uint64_t *sub_16EC8(uint64_t *result, uint64_t *a2)
   return result;
 }
 
-uint64_t sub_17064(uint64_t a1, const __CFString **a2)
+uint64_t sub_17064(uint64_t a1, CFStringRef *a2)
 {
   v3 = a1 + 8;
   v4 = sub_170DC(a1, a2, *(a1 + 8), a1 + 8);
@@ -6637,7 +6642,7 @@ LABEL_19:
 std::string *ITEpub3NavParser::takeFoundTextAsAccumulatedText(std::string *this)
 {
   v1 = this;
-  v2 = &this[3];
+  v2 = this + 3;
   if (SHIBYTE(this[3].__r_.__value_.__r.__words[2]) < 0)
   {
     if (!this[3].__r_.__value_.__l.__size_)
@@ -6645,12 +6650,12 @@ std::string *ITEpub3NavParser::takeFoundTextAsAccumulatedText(std::string *this)
       return this;
     }
 
-    v3 = *v2;
+    v3 = v2->__r_.__value_.__r.__words[0];
   }
 
   else
   {
-    v3 = &this[3];
+    v3 = this + 3;
     if (!*(&this[3].__r_.__value_.__s + 23))
     {
       return this;
@@ -6658,22 +6663,22 @@ std::string *ITEpub3NavParser::takeFoundTextAsAccumulatedText(std::string *this)
   }
 
   std::string::append((this + 184), v3);
-  if (*(v1 + 95) < 0)
+  if (SHIBYTE(v1[3].__r_.__value_.__r.__words[2]) < 0)
   {
-    v2 = *v2;
+    v2 = v2->__r_.__value_.__r.__words[0];
   }
 
   this = std::string::append((v1 + 208), v2);
-  if (*(v1 + 95) < 0)
+  if (SHIBYTE(v1[3].__r_.__value_.__r.__words[2]) < 0)
   {
-    **(v1 + 72) = 0;
-    *(v1 + 80) = 0;
+    *v1[3].__r_.__value_.__l.__data_ = 0;
+    v1[3].__r_.__value_.__l.__size_ = 0;
   }
 
   else
   {
-    *(v1 + 72) = 0;
-    *(v1 + 95) = 0;
+    v1[3].__r_.__value_.__s.__data_[0] = 0;
+    *(&v1[3].__r_.__value_.__s + 23) = 0;
   }
 
   return this;
@@ -6765,7 +6770,7 @@ LABEL_19:
 std::string *ITEpub3NavParser::takeFoundTextAsAccumulatedHTML(std::string *this)
 {
   v1 = this;
-  v2 = &this[3];
+  v2 = this + 3;
   if (SHIBYTE(this[3].__r_.__value_.__r.__words[2]) < 0)
   {
     if (!this[3].__r_.__value_.__l.__size_)
@@ -6773,7 +6778,7 @@ std::string *ITEpub3NavParser::takeFoundTextAsAccumulatedHTML(std::string *this)
       return this;
     }
 
-    v2 = *v2;
+    v2 = v2->__r_.__value_.__r.__words[0];
   }
 
   else if (!*(&this[3].__r_.__value_.__s + 23))
@@ -6782,16 +6787,16 @@ std::string *ITEpub3NavParser::takeFoundTextAsAccumulatedHTML(std::string *this)
   }
 
   this = std::string::append((this + 208), v2);
-  if (*(v1 + 95) < 0)
+  if (SHIBYTE(v1[3].__r_.__value_.__r.__words[2]) < 0)
   {
-    **(v1 + 72) = 0;
-    *(v1 + 80) = 0;
+    *v1[3].__r_.__value_.__l.__data_ = 0;
+    v1[3].__r_.__value_.__l.__size_ = 0;
   }
 
   else
   {
-    *(v1 + 72) = 0;
-    *(v1 + 95) = 0;
+    v1[3].__r_.__value_.__s.__data_[0] = 0;
+    *(&v1[3].__r_.__value_.__s + 23) = 0;
   }
 
   return this;
@@ -7463,9 +7468,9 @@ __CFString *ITEpub3NavParser::copyTocCfi(ITEpub3NavParser *this)
   return Mutable;
 }
 
-void sub_18FBC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_18FBC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   sub_1908C(va);
   _Unwind_Resume(a1);
 }
@@ -7557,9 +7562,8 @@ uint64_t sub_19138(uint64_t a1)
   return a1;
 }
 
-void *sub_19188(void *result, _DWORD *a2)
+void sub_19188(unint64_t *result, _DWORD *a2)
 {
-  v3 = result;
   v4 = result[2];
   v5 = result[1];
   if (v4 == v5)
@@ -7576,30 +7580,29 @@ void *sub_19188(void *result, _DWORD *a2)
   v8 = v7 + result[4];
   if (v6 == v8)
   {
-    result = sub_19210(result);
-    v5 = v3[1];
-    v7 = v3[5];
-    v8 = v3[4] + v7;
+    sub_19210(result);
+    v5 = result[1];
+    v7 = result[5];
+    v8 = result[4] + v7;
   }
 
   *(*(v5 + ((v8 >> 7) & 0x1FFFFFFFFFFFFF8)) + 4 * (v8 & 0x3FF)) = *a2;
-  v3[5] = v7 + 1;
-  return result;
+  result[5] = v7 + 1;
 }
 
-void *sub_19210(void *a1)
+void sub_19210(unint64_t *a1)
 {
   v1 = a1[4];
   v2 = v1 >= 0x400;
   v3 = v1 - 1024;
   if (!v2)
   {
-    v6 = a1[2];
-    v7 = a1[3];
-    v8 = v7 - *a1;
-    if (v6 - a1[1] < v8)
+    v5 = a1[2];
+    v6 = a1[3];
+    v7 = v6 - *a1;
+    if (v5 - a1[1] < v7)
     {
-      if (v7 != v6)
+      if (v6 != v5)
       {
         operator new();
       }
@@ -7607,25 +7610,25 @@ void *sub_19210(void *a1)
       operator new();
     }
 
-    if (v7 == *a1)
+    if (v6 == *a1)
     {
-      v9 = 1;
+      v8 = 1;
     }
 
     else
     {
-      v9 = v8 >> 2;
+      v8 = v7 >> 2;
     }
 
-    v11 = a1;
-    sub_1980C(a1, v9);
+    v10 = a1;
+    sub_1980C(a1, v8);
   }
 
   a1[4] = v3;
   v4 = a1[1];
-  *&v10 = *v4;
-  a1[1] = v4 + 1;
-  return sub_193E4(a1, &v10);
+  *&v9 = *v4;
+  a1[1] = (v4 + 1);
+  sub_193E4(a1, &v9);
 }
 
 void sub_19398(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, uint64_t a13)
@@ -7639,27 +7642,26 @@ void sub_19398(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, in
   _Unwind_Resume(a1);
 }
 
-void *sub_193E4(void *result, void *a2)
+void sub_193E4(unint64_t *a1, void *a2)
 {
-  v3 = result;
-  v4 = result[2];
-  if (v4 == result[3])
+  v4 = a1[2];
+  if (v4 == a1[3])
   {
-    v5 = result[1];
-    v6 = &v5[-*result];
-    if (v5 <= *result)
+    v5 = a1[1];
+    v6 = &v5[-*a1];
+    if (v5 <= *a1)
     {
-      if (v4 == *result)
+      if (v4 == *a1)
       {
         v11 = 1;
       }
 
       else
       {
-        v11 = &v4[-*result] >> 2;
+        v11 = &v4[-*a1] >> 2;
       }
 
-      sub_1980C(result, v11);
+      sub_1980C(a1, v11);
     }
 
     v7 = ((v6 >> 3) + 1) / -2;
@@ -7668,28 +7670,26 @@ void *sub_193E4(void *result, void *a2)
     v10 = v4 - v5;
     if (v4 != v5)
     {
-      result = memmove(&v5[-8 * v8], v5, v4 - v5);
-      v5 = v3[1];
+      memmove(&v5[-8 * v8], v5, v4 - v5);
+      v5 = a1[1];
     }
 
     v4 = &v9[v10];
-    v3[1] = &v5[8 * v7];
-    v3[2] = &v9[v10];
+    a1[1] = &v5[8 * v7];
+    a1[2] = &v9[v10];
   }
 
   *v4 = *a2;
-  v3[2] += 8;
-  return result;
+  a1[2] += 8;
 }
 
-const void **sub_194EC(const void **result, void *a2)
+void sub_194EC(const void **a1, void *a2)
 {
-  v3 = result;
-  v4 = result[1];
-  if (v4 == *result)
+  v4 = a1[1];
+  if (v4 == *a1)
   {
-    v6 = result[2];
-    v7 = result[3];
+    v6 = a1[2];
+    v7 = a1[3];
     if (v6 >= v7)
     {
       if (v7 == v4)
@@ -7702,52 +7702,50 @@ const void **sub_194EC(const void **result, void *a2)
         v9 = (v7 - v4) >> 2;
       }
 
-      sub_1980C(result, v9);
+      sub_1980C(a1, v9);
     }
 
     v8 = (((v7 - v6) >> 3) + 1) / 2;
     v5 = &v4[8 * v8];
     if (v6 != v4)
     {
-      result = memmove(&v4[8 * v8], v4, v6 - v4);
-      v6 = v3[2];
+      memmove(&v4[8 * v8], v4, v6 - v4);
+      v6 = a1[2];
     }
 
-    v3[1] = v5;
-    v3[2] = &v6[8 * v8];
+    a1[1] = v5;
+    a1[2] = &v6[8 * v8];
   }
 
   else
   {
-    v5 = result[1];
+    v5 = a1[1];
   }
 
   *(v5 - 1) = *a2;
-  v3[1] = v3[1] - 8;
-  return result;
+  a1[1] = a1[1] - 8;
 }
 
-void *sub_195F8(void *result, void *a2)
+void sub_195F8(unint64_t *a1, void *a2)
 {
-  v3 = result;
-  v4 = result[2];
-  if (v4 == result[3])
+  v4 = a1[2];
+  if (v4 == a1[3])
   {
-    v5 = result[1];
-    v6 = &v5[-*result];
-    if (v5 <= *result)
+    v5 = a1[1];
+    v6 = &v5[-*a1];
+    if (v5 <= *a1)
     {
-      if (v4 == *result)
+      if (v4 == *a1)
       {
         v11 = 1;
       }
 
       else
       {
-        v11 = &v4[-*result] >> 2;
+        v11 = &v4[-*a1] >> 2;
       }
 
-      sub_1980C(result[4], v11);
+      sub_1980C(a1[4], v11);
     }
 
     v7 = ((v6 >> 3) + 1) / -2;
@@ -7756,28 +7754,26 @@ void *sub_195F8(void *result, void *a2)
     v10 = v4 - v5;
     if (v4 != v5)
     {
-      result = memmove(&v5[-8 * v8], v5, v4 - v5);
-      v5 = v3[1];
+      memmove(&v5[-8 * v8], v5, v4 - v5);
+      v5 = a1[1];
     }
 
     v4 = &v9[v10];
-    v3[1] = &v5[8 * v7];
-    v3[2] = &v9[v10];
+    a1[1] = &v5[8 * v7];
+    a1[2] = &v9[v10];
   }
 
   *v4 = *a2;
-  v3[2] += 8;
-  return result;
+  a1[2] += 8;
 }
 
-const void **sub_19700(const void **result, void *a2)
+void sub_19700(const void **a1, void *a2)
 {
-  v3 = result;
-  v4 = result[1];
-  if (v4 == *result)
+  v4 = a1[1];
+  if (v4 == *a1)
   {
-    v6 = result[2];
-    v7 = result[3];
+    v6 = a1[2];
+    v7 = a1[3];
     if (v6 >= v7)
     {
       if (v7 == v4)
@@ -7790,29 +7786,28 @@ const void **sub_19700(const void **result, void *a2)
         v9 = (v7 - v4) >> 2;
       }
 
-      sub_1980C(result[4], v9);
+      sub_1980C(a1[4], v9);
     }
 
     v8 = (((v7 - v6) >> 3) + 1) / 2;
     v5 = &v4[8 * v8];
     if (v6 != v4)
     {
-      result = memmove(&v4[8 * v8], v4, v6 - v4);
-      v6 = v3[2];
+      memmove(&v4[8 * v8], v4, v6 - v4);
+      v6 = a1[2];
     }
 
-    v3[1] = v5;
-    v3[2] = &v6[8 * v8];
+    a1[1] = v5;
+    a1[2] = &v6[8 * v8];
   }
 
   else
   {
-    v5 = result[1];
+    v5 = a1[1];
   }
 
   *(v5 - 1) = *a2;
-  v3[1] = v3[1] - 8;
-  return result;
+  a1[1] = a1[1] - 8;
 }
 
 void sub_1980C(uint64_t a1, unint64_t a2)
@@ -7989,7 +7984,7 @@ LABEL_23:
   }
 }
 
-uint64_t ITEpubNavMapParser::isUndesirableTocElement(ITEpubNavMapParser *this, const __CFString **a2, const ITNavPoint *a3, const ITEpubOpfParser *a4)
+uint64_t ITEpubNavMapParser::isUndesirableTocElement(ITEpubNavMapParser *this, const ITNavPoint *a2, const ITNavPoint *a3, const ITEpubOpfParser *a4)
 {
   v7 = ITNavPoint::copyContentFileWithoutHash(a2, a2);
   if (v7)
@@ -8010,13 +8005,13 @@ uint64_t ITEpubNavMapParser::isUndesirableTocElement(ITEpubNavMapParser *this, c
       }
     }
 
-    v11 = a2[10];
+    v11 = *(a2 + 10);
     if (!v11)
     {
       goto LABEL_19;
     }
 
-    CharacterAtIndex = CFStringGetCharacterAtIndex(a2[10], 0);
+    CharacterAtIndex = CFStringGetCharacterAtIndex(*(a2 + 10), 0);
     v13 = 0;
     if (CharacterAtIndex > 98)
     {
@@ -8246,18 +8241,19 @@ const __CFString *NSStringFromBEBookContentPreferredFontWeight(uint64_t a1)
 void sub_1B318(uint64_t a1)
 {
   [*(a1 + 32) setObserverCount:{objc_msgSend(*(a1 + 32), "observerCount") + 1}];
-  if ([*(a1 + 32) observerCount] >= 3)
+  v2 = [*(a1 + 32) observerCount];
+  if (v2 >= 3)
   {
-    v2 = _BookEPUBLog();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+    v3 = _BookEPUBLog(v2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
-      *v4 = 0;
-      _os_log_impl(&dword_0, v2, OS_LOG_TYPE_ERROR, "While we can support more observers, if we get more than two it is either a bug, or an architectural change.", v4, 2u);
+      *v5 = 0;
+      _os_log_impl(&dword_0, v3, OS_LOG_TYPE_ERROR, "While we can support more observers, if we get more than two it is either a bug, or an architectural change.", v5, 2u);
     }
   }
 
-  v3 = [*(a1 + 32) _observers];
-  [v3 addObject:*(a1 + 40)];
+  v4 = [*(a1 + 32) _observers];
+  [v4 addObject:*(a1 + 40)];
 }
 
 void sub_1B474(uint64_t a1)
@@ -8267,9 +8263,9 @@ void sub_1B474(uint64_t a1)
   [v2 removeObject:*(a1 + 40)];
 }
 
-void sub_1B5F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1B5F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -8394,7 +8390,7 @@ void sub_1C780(uint64_t a1)
 
 void sub_1D7D4(id a1)
 {
-  v1 = _BookEPUBLog();
+  v1 = _BookEPUBLog(a1);
   if (os_log_type_enabled(v1, OS_LOG_TYPE_INFO))
   {
     *v2 = 0;
@@ -8408,12 +8404,12 @@ id sub_1DF24(uint64_t a1, uint64_t a2)
   [*(a1 + 32) cachedApproval:a2 forBookID:*(a1 + 40)];
   if ([*(a1 + 32) didApproveLoadingExternalContentForBookID:*(a1 + 40)])
   {
-    v4 = 2;
+    v4 = &dword_0 + 2;
   }
 
   else
   {
-    v4 = 1;
+    v4 = &dword_0 + 1;
   }
 
   result = [*(a1 + 48) be_appliedContentBlockingRule];
@@ -8434,13 +8430,14 @@ id sub_1DF24(uint64_t a1, uint64_t a2)
 void sub_1DFE0(id a1, BOOL a2, NSError *a3)
 {
   v4 = a3;
+  v5 = v4;
   if (v4 || !a2)
   {
-    v5 = _BookEPUBLog();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = _BookEPUBLog(v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      v6 = 138412290;
-      v7 = v4;
+      v7 = 138412290;
+      v8 = v5;
     }
   }
 }
@@ -8448,14 +8445,15 @@ void sub_1DFE0(id a1, BOOL a2, NSError *a3)
 void sub_1E098(id a1, id a2, NSError *a3)
 {
   v3 = a3;
+  v4 = v3;
   if (v3)
   {
-    v4 = _BookEPUBLog();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = _BookEPUBLog(v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      v5 = 138412290;
-      v6 = v3;
-      _os_log_impl(&dword_0, v4, OS_LOG_TYPE_ERROR, "Error in refreshing without blocker: %@", &v5, 0xCu);
+      v6 = 138412290;
+      v7 = v4;
+      _os_log_impl(&dword_0, v5, OS_LOG_TYPE_ERROR, "Error in refreshing without blocker: %@", &v6, 0xCu);
     }
   }
 }
@@ -8463,17 +8461,18 @@ void sub_1E098(id a1, id a2, NSError *a3)
 void sub_1E148(uint64_t a1, uint64_t a2, void *a3)
 {
   v4 = a3;
+  v5 = v4;
   if (v4)
   {
-    v5 = _BookEPUBLog();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = _BookEPUBLog(v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      v6 = *(a1 + 32);
-      v7 = 138412546;
-      v8 = v6;
-      v9 = 2112;
-      v10 = v4;
-      _os_log_impl(&dword_0, v5, OS_LOG_TYPE_ERROR, "Error in registering deny list url: %@, with error: %@", &v7, 0x16u);
+      v7 = *(a1 + 32);
+      v8 = 138412546;
+      v9 = v7;
+      v10 = 2112;
+      v11 = v5;
+      _os_log_impl(&dword_0, v6, OS_LOG_TYPE_ERROR, "Error in registering deny list url: %@, with error: %@", &v8, 0x16u);
     }
   }
 }
@@ -8535,7 +8534,7 @@ uint64_t ITEpubNcxParser::SetXmlPath(ITEpubNcxParser *this, const __CFString *a2
   return v3();
 }
 
-void ITEpubNcxParser::StartElement(CFMutableArrayRef *this, const __CFString *a2, const __CFDictionary *a3)
+void ITEpubNcxParser::StartElement(ITEpubNavMapParser **this, const __CFString *a2, const __CFDictionary *a3)
 {
   ITEpubXmlParseHandler::StartElement(this, a2, a3);
   ITEpubNavMapParser::StartNode(this[16], a2, a3);
@@ -8565,7 +8564,7 @@ void ITEpubNcxParser::EndElement(ITEpubNcxParser *this, const __CFString *a2)
   ITEpubXmlParseHandler::EndElement(this, a2);
 }
 
-uint64_t BEIsInternalInstall()
+uint64_t BEIsInternalInstall(uint64_t a1, uint64_t a2)
 {
   if (qword_36AB58 != -1)
   {
@@ -8575,11 +8574,11 @@ uint64_t BEIsInternalInstall()
   return byte_36AB50;
 }
 
-uint64_t BEShouldEnableDeveloperExtrasSettings(char a1)
+uint64_t BEShouldEnableDeveloperExtrasSettings(uint64_t a1, uint64_t a2)
 {
   if (a1)
   {
-    v1 = 1;
+    v2 = 1;
   }
 
   else
@@ -8589,10 +8588,10 @@ uint64_t BEShouldEnableDeveloperExtrasSettings(char a1)
       sub_263A70();
     }
 
-    v1 = byte_36AB50;
+    v2 = byte_36AB50;
   }
 
-  return v1 & 1;
+  return v2 & 1;
 }
 
 id BEAlwaysFullParseEPUB()
@@ -8630,29 +8629,30 @@ void sub_208BC(uint64_t a1, void *a2, void *a3)
 {
   v5 = a2;
   v6 = a3;
+  v7 = v6;
   if (v6)
   {
-    v7 = _BookEPUBLog();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = _BookEPUBLog(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      v8 = *(a1 + 32);
-      v12 = *(a1 + 48);
-      v9 = [NSValue valueWithBytes:&v12 objCType:"{CGPoint=dd}"];
+      v9 = *(a1 + 32);
+      v13 = *(a1 + 48);
+      v10 = [NSValue valueWithBytes:&v13 objCType:"{CGPoint=dd}"];
       *buf = 138412802;
-      v14 = v8;
-      v15 = 2112;
-      v16 = v9;
-      v17 = 2112;
-      v18 = v6;
-      _os_log_impl(&dword_0, v7, OS_LOG_TYPE_ERROR, "Failed to set offset of WebView:%@ to %@ - %@", buf, 0x20u);
+      v15 = v9;
+      v16 = 2112;
+      v17 = v10;
+      v18 = 2112;
+      v19 = v7;
+      _os_log_impl(&dword_0, v8, OS_LOG_TYPE_ERROR, "Failed to set offset of WebView:%@ to %@ - %@", buf, 0x20u);
     }
   }
 
-  v10 = objc_retainBlock(*(a1 + 40));
-  v11 = v10;
-  if (v10)
+  v11 = objc_retainBlock(*(a1 + 40));
+  v12 = v11;
+  if (v11)
   {
-    (*(v10 + 2))(v10);
+    (*(v11 + 2))(v11);
   }
 }
 
@@ -8674,36 +8674,36 @@ void sub_219C0(id *a1)
     v7 = [(BEEvaluateJavaScriptContext *)v2 _jsonRepresentation];
     v8 = [@"((blocks) => {   const results = {}   for (const [name block] of Object.entries(blocks)) {      let result = block();      results[name] = result ? result :{"stringByReplacingOccurrencesOfString:withString:", @"__arguments__", v7} '';   }   return results;})({__arguments__});"];;
 
-    v9 = _BookEPUBLog();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v10 = _BookEPUBLog(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = [a1[4] be_identifier];
-      v11 = [a1[4] URL];
+      v11 = [a1[4] be_identifier];
+      v12 = [a1[4] URL];
       *buf = 138543618;
-      v19 = v10;
-      v20 = 2112;
-      v21 = v11;
-      _os_log_impl(&dword_0, v9, OS_LOG_TYPE_DEFAULT, "Begin executing JS on %{public}@ %@", buf, 0x16u);
+      v20 = v11;
+      v21 = 2112;
+      v22 = v12;
+      _os_log_impl(&dword_0, v10, OS_LOG_TYPE_DEFAULT, "Begin executing JS on %{public}@ %@", buf, 0x16u);
     }
 
-    v12 = a1[4];
-    v15[0] = _NSConcreteStackBlock;
-    v15[1] = 3221225472;
-    v15[2] = sub_21BE8;
-    v15[3] = &unk_328C78;
-    v15[4] = v12;
-    v16 = v2;
-    v17 = a1[6];
-    [v12 evaluateJavaScript:v8 completionHandler:v15];
+    v13 = a1[4];
+    v16[0] = _NSConcreteStackBlock;
+    v16[1] = 3221225472;
+    v16[2] = sub_21BE8;
+    v16[3] = &unk_328C78;
+    v16[4] = v13;
+    v17 = v2;
+    v18 = a1[6];
+    [v13 evaluateJavaScript:v8 completionHandler:v16];
   }
 
   else
   {
-    v13 = objc_retainBlock(a1[6]);
-    v14 = v13;
-    if (v13)
+    v14 = objc_retainBlock(a1[6]);
+    v15 = v14;
+    if (v14)
     {
-      (*(v13 + 2))(v13, 0);
+      (*(v14 + 2))(v14, 0);
     }
   }
 }
@@ -8712,54 +8712,54 @@ void sub_21BE8(id *a1, void *a2, void *a3)
 {
   v5 = a2;
   v6 = a3;
-  v7 = _BookEPUBLog();
+  v7 = _BookEPUBLog(v6);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v8 = [a1[4] be_identifier];
     v9 = [a1[4] URL];
-    v16 = 138543618;
-    v17 = v8;
-    v18 = 2112;
-    v19 = v9;
-    _os_log_impl(&dword_0, v7, OS_LOG_TYPE_DEFAULT, "End executing JS on %{public}@ %@", &v16, 0x16u);
+    v17 = 138543618;
+    v18 = v8;
+    v19 = 2112;
+    v20 = v9;
+    _os_log_impl(&dword_0, v7, OS_LOG_TYPE_DEFAULT, "End executing JS on %{public}@ %@", &v17, 0x16u);
   }
 
   if (v6)
   {
-    v10 = _BookEPUBLog();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
+    v11 = _BookEPUBLog(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
     {
-      v16 = 138543362;
-      v17 = v6;
-      _os_log_impl(&dword_0, v10, OS_LOG_TYPE_FAULT, "multi-js evaluation failure - %{public}@", &v16, 0xCu);
+      v17 = 138543362;
+      v18 = v6;
+      _os_log_impl(&dword_0, v11, OS_LOG_TYPE_FAULT, "multi-js evaluation failure - %{public}@", &v17, 0xCu);
     }
   }
 
   objc_opt_class();
-  v11 = BUDynamicCast();
-  if (v11)
+  v12 = BUDynamicCast();
+  if (v12)
   {
-    v12 = [a1[5] _transformResults:v11 error:v6];
+    v13 = [a1[5] _transformResults:v12 error:v6];
   }
 
   else
   {
-    v13 = _BookEPUBLog();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_FAULT))
+    v14 = _BookEPUBLog(0);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_FAULT))
     {
-      v16 = 138543362;
-      v17 = v5;
-      _os_log_impl(&dword_0, v13, OS_LOG_TYPE_FAULT, "Unexpected javascript result type for be_evaluateJavaScript - %{public}@", &v16, 0xCu);
+      v17 = 138543362;
+      v18 = v5;
+      _os_log_impl(&dword_0, v14, OS_LOG_TYPE_FAULT, "Unexpected javascript result type for be_evaluateJavaScript - %{public}@", &v17, 0xCu);
     }
 
-    v12 = 0;
+    v13 = 0;
   }
 
-  v14 = objc_retainBlock(a1[6]);
-  v15 = v14;
-  if (v14)
+  v15 = objc_retainBlock(a1[6]);
+  v16 = v15;
+  if (v15)
   {
-    (*(v14 + 2))(v14, v12);
+    (*(v15 + 2))(v15, v13);
   }
 }
 
@@ -8854,40 +8854,40 @@ void sub_2211C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int 
 
 uint64_t ITFileUtil::slurp(ITFileUtil *this, unsigned __int8 *a2, char **a3, unint64_t *a4)
 {
-  v20 = off_328D48;
-  v21 = 0u;
-  v22 = 0u;
+  v22 = off_328D48;
+  v23 = 0u;
+  v24 = 0u;
   if (!this || !a3 || !a2 || !*this)
   {
-    v12 = _BookEPUBLog();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v13 = _BookEPUBLog(this);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       if (this)
       {
-        v13 = *this;
+        v14 = *this;
       }
 
       else
       {
-        v13 = 0;
+        v14 = 0;
       }
 
       *buf = 134218752;
       *&buf[4] = this;
       *&buf[12] = 1024;
-      *&buf[14] = v13;
-      v24 = 2048;
-      v25 = a2;
+      *&buf[14] = v14;
       v26 = 2048;
-      v27 = a3;
-      v9 = "Illegal input: %p [%02x], %p, %p";
-      v10 = v12;
-      v11 = 38;
+      v27 = a2;
+      v28 = 2048;
+      v29 = a3;
+      v10 = "Illegal input: %p [%02x], %p, %p";
+      v11 = v13;
+      v12 = 38;
       goto LABEL_14;
     }
 
 LABEL_15:
-    v14 = 0xFFFFFFFFLL;
+    v15 = 0xFFFFFFFFLL;
     goto LABEL_16;
   }
 
@@ -8897,70 +8897,71 @@ LABEL_15:
     goto LABEL_15;
   }
 
-  if (ITFileUtil::OpenToRead(&v20, this))
+  v8 = ITFileUtil::OpenToRead(&v22, this);
+  if (v8)
   {
-    v8 = _BookEPUBLog();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = _BookEPUBLog(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315138;
       *&buf[4] = this;
-      v9 = "ITFileUtil Failure OpenToRead: [%s]";
-      v10 = v8;
-      v11 = 12;
+      v10 = "ITFileUtil Failure OpenToRead: [%s]";
+      v11 = v9;
+      v12 = 12;
 LABEL_14:
-      _os_log_impl(&dword_0, v10, OS_LOG_TYPE_ERROR, v9, buf, v11);
+      _os_log_impl(&dword_0, v11, OS_LOG_TYPE_ERROR, v10, buf, v12);
       goto LABEL_15;
     }
 
     goto LABEL_15;
   }
 
-  v16 = malloc_type_malloc((Size + 1), 0x100004077774924uLL);
-  *a2 = v16;
-  if (v16)
+  v17 = malloc_type_malloc((Size + 1), 0x100004077774924uLL);
+  *a2 = v17;
+  if (v17)
   {
-    bzero(v16, (Size + 1));
+    bzero(v17, (Size + 1));
     *buf = 0;
-    ITFileUtil::Read(&v20, *a2, Size, buf);
+    v18 = ITFileUtil::Read(&v22, *a2, Size, buf);
     if (*buf != Size)
     {
-      v17 = _BookEPUBLog();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+      v19 = _BookEPUBLog(v18);
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
       {
-        *v19 = 0;
-        _os_log_impl(&dword_0, v17, OS_LOG_TYPE_ERROR, "ITFileUtil::slurp didread != file_size, assuming 0 file size", v19, 2u);
+        *v21 = 0;
+        _os_log_impl(&dword_0, v19, OS_LOG_TYPE_ERROR, "ITFileUtil::slurp didread != file_size, assuming 0 file size", v21, 2u);
       }
 
       Size = 0;
     }
 
-    v14 = 0;
+    v15 = 0;
   }
 
   else
   {
-    v18 = _BookEPUBLog();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+    v20 = _BookEPUBLog(0);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
       *buf = 67109378;
       *&buf[4] = Size;
       *&buf[8] = 2080;
       *&buf[10] = this;
-      _os_log_impl(&dword_0, v18, OS_LOG_TYPE_ERROR, "Mem error: %d [%s]", buf, 0x12u);
+      _os_log_impl(&dword_0, v20, OS_LOG_TYPE_ERROR, "Mem error: %d [%s]", buf, 0x12u);
     }
 
-    v14 = 0xFFFFFFFFLL;
+    v15 = 0xFFFFFFFFLL;
   }
 
   *a3 = Size;
 LABEL_16:
-  ITFileUtil::~ITFileUtil(&v20);
-  return v14;
+  ITFileUtil::~ITFileUtil(&v22);
+  return v15;
 }
 
-void sub_223BC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_223BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   ITFileUtil::~ITFileUtil(va);
   _Unwind_Resume(a1);
 }
@@ -8982,20 +8983,20 @@ uint64_t ITFileUtil::OpenToRead(ITFileUtil *this, std::string::value_type *__s)
 {
   if (*(this + 1))
   {
-    v3 = _BookEPUBLog();
+    v3 = _BookEPUBLog(this);
     if (!os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       return 0xFFFFFFFFLL;
     }
 
     v4 = *__error();
-    v10 = 136315394;
-    v11 = __s;
-    v12 = 1024;
-    v13 = v4;
+    v11 = 136315394;
+    v12 = __s;
+    v13 = 1024;
+    v14 = v4;
     v5 = "OpenToRead In Use: [%s] [%d]";
 LABEL_4:
-    _os_log_impl(&dword_0, v3, OS_LOG_TYPE_ERROR, v5, &v10, 0x12u);
+    _os_log_impl(&dword_0, v3, OS_LOG_TYPE_ERROR, v5, &v11, 0x12u);
     return 0xFFFFFFFFLL;
   }
 
@@ -9004,22 +9005,23 @@ LABEL_4:
   *(this + 1) = v8;
   if (!v8)
   {
-    if (*__error() == 2)
+    v9 = __error();
+    if (*v9 == 2)
     {
       return 0xFFFFFFFFLL;
     }
 
-    v3 = _BookEPUBLog();
+    v3 = _BookEPUBLog(v9);
     if (!os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       return 0xFFFFFFFFLL;
     }
 
-    v9 = *__error();
-    v10 = 136315394;
-    v11 = __s;
-    v12 = 1024;
-    v13 = v9;
+    v10 = *__error();
+    v11 = 136315394;
+    v12 = __s;
+    v13 = 1024;
+    v14 = v10;
     v5 = "OpenToRead fopen Failed: [%s] [%d]";
     goto LABEL_4;
   }
@@ -9063,7 +9065,7 @@ uint64_t ITFileUtil::Read(ITFileUtil *this, void *__ptr, size_t a3, unint64_t *a
 
   else
   {
-    v12 = _BookEPUBLog();
+    v12 = _BookEPUBLog(this);
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       v13 = (this + 16);
@@ -9115,7 +9117,7 @@ uint64_t ITFileUtil::Close(ITFileUtil *this)
 
   else
   {
-    v4 = _BookEPUBLog();
+    v4 = _BookEPUBLog(0);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       v5 = (this + 16);
@@ -9139,20 +9141,20 @@ uint64_t ITFileUtil::Create(ITFileUtil *this, std::string::value_type *__s)
 {
   if (*(this + 1))
   {
-    v3 = _BookEPUBLog();
+    v3 = _BookEPUBLog(this);
     if (!os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       return 0xFFFFFFFFLL;
     }
 
     v4 = *__error();
-    v10 = 136315394;
-    v11 = __s;
-    v12 = 1024;
-    v13 = v4;
+    v11 = 136315394;
+    v12 = __s;
+    v13 = 1024;
+    v14 = v4;
     v5 = "Create File already in Use: [%s] [%d]";
 LABEL_4:
-    _os_log_impl(&dword_0, v3, OS_LOG_TYPE_ERROR, v5, &v10, 0x12u);
+    _os_log_impl(&dword_0, v3, OS_LOG_TYPE_ERROR, v5, &v11, 0x12u);
     return 0xFFFFFFFFLL;
   }
 
@@ -9161,22 +9163,23 @@ LABEL_4:
   *(this + 1) = v8;
   if (!v8)
   {
-    if (*__error() == 2)
+    v9 = __error();
+    if (*v9 == 2)
     {
       return 0xFFFFFFFFLL;
     }
 
-    v3 = _BookEPUBLog();
+    v3 = _BookEPUBLog(v9);
     if (!os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       return 0xFFFFFFFFLL;
     }
 
-    v9 = *__error();
-    v10 = 136315394;
-    v11 = __s;
-    v12 = 1024;
-    v13 = v9;
+    v10 = *__error();
+    v11 = 136315394;
+    v12 = __s;
+    v13 = 1024;
+    v14 = v10;
     v5 = "Create fopen Failed: [%s] [%d]";
     goto LABEL_4;
   }
@@ -9188,20 +9191,20 @@ uint64_t ITFileUtil::OpenToAppend(ITFileUtil *this, std::string::value_type *__s
 {
   if (*(this + 1))
   {
-    v3 = _BookEPUBLog();
+    v3 = _BookEPUBLog(this);
     if (!os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       return 0xFFFFFFFFLL;
     }
 
     v4 = *__error();
-    v10 = 136315394;
-    v11 = __s;
-    v12 = 1024;
-    v13 = v4;
+    v11 = 136315394;
+    v12 = __s;
+    v13 = 1024;
+    v14 = v4;
     v5 = "OpenToAppend In Use: [%s] [%d]";
 LABEL_4:
-    _os_log_impl(&dword_0, v3, OS_LOG_TYPE_ERROR, v5, &v10, 0x12u);
+    _os_log_impl(&dword_0, v3, OS_LOG_TYPE_ERROR, v5, &v11, 0x12u);
     return 0xFFFFFFFFLL;
   }
 
@@ -9210,22 +9213,23 @@ LABEL_4:
   *(this + 1) = v8;
   if (!v8)
   {
-    if (*__error() == 2)
+    v9 = __error();
+    if (*v9 == 2)
     {
       return 0xFFFFFFFFLL;
     }
 
-    v3 = _BookEPUBLog();
+    v3 = _BookEPUBLog(v9);
     if (!os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       return 0xFFFFFFFFLL;
     }
 
-    v9 = *__error();
-    v10 = 136315394;
-    v11 = __s;
-    v12 = 1024;
-    v13 = v9;
+    v10 = *__error();
+    v11 = 136315394;
+    v12 = __s;
+    v13 = 1024;
+    v14 = v10;
     v5 = "OpenToAppend Failed: [%s] [%d]";
     goto LABEL_4;
   }
@@ -9244,7 +9248,7 @@ uint64_t ITFileUtil::GetPosition(ITFileUtil *this)
 
   else
   {
-    v4 = _BookEPUBLog();
+    v4 = _BookEPUBLog(0);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       v5 = (this + 16);
@@ -9268,7 +9272,65 @@ uint64_t ITFileUtil::SeekTo(ITFileUtil *this, uint64_t a2)
   v4 = *(this + 1);
   if (!v4)
   {
-    v10 = _BookEPUBLog();
+    v11 = _BookEPUBLog(0);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    {
+      v12 = (this + 16);
+      if (*(this + 39) < 0)
+      {
+        v12 = *v12;
+      }
+
+      v15 = 67109378;
+      v16 = v2;
+      v17 = 2080;
+      v18 = v12;
+      v9 = "SeekTo not opened: [%d] [%s]";
+      v10 = v11;
+      goto LABEL_11;
+    }
+
+    return -1;
+  }
+
+  v5 = fseek(v4, a2, 0);
+  if (v5)
+  {
+    v6 = _BookEPUBLog(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    {
+      v7 = *__error();
+      v8 = (this + 16);
+      if (*(this + 39) < 0)
+      {
+        v8 = *v8;
+      }
+
+      v15 = 67109378;
+      v16 = v7;
+      v17 = 2080;
+      v18 = v8;
+      v9 = "SeekTo Failed: %08x [%s]";
+      v10 = v6;
+LABEL_11:
+      _os_log_impl(&dword_0, v10, OS_LOG_TYPE_ERROR, v9, &v15, 0x12u);
+      return -1;
+    }
+
+    return -1;
+  }
+
+  v14 = *(this + 1);
+
+  return ftell(v14);
+}
+
+uint64_t ITFileUtil::SeekEnd(ITFileUtil *this)
+{
+  v2 = *(this + 1);
+  if (!v2)
+  {
+    v10 = _BookEPUBLog(0);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       v11 = (this + 16);
@@ -9277,38 +9339,39 @@ uint64_t ITFileUtil::SeekTo(ITFileUtil *this, uint64_t a2)
         v11 = *v11;
       }
 
-      v14 = 67109378;
-      v15 = v2;
-      v16 = 2080;
-      v17 = v11;
-      v8 = "SeekTo not opened: [%d] [%s]";
-      v9 = v10;
+      v14 = 136315138;
+      v15[0] = v11;
+      v7 = "SeekEnd not opened: [%s]";
+      v8 = v10;
+      v9 = 12;
       goto LABEL_11;
     }
 
     return -1;
   }
 
-  if (fseek(v4, a2, 0))
+  v3 = fseek(v2, 0, 2);
+  if (v3)
   {
-    v5 = _BookEPUBLog();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v4 = _BookEPUBLog(v3);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      v6 = *__error();
-      v7 = (this + 16);
+      v5 = *__error();
+      v6 = (this + 16);
       if (*(this + 39) < 0)
       {
-        v7 = *v7;
+        v6 = *v6;
       }
 
       v14 = 67109378;
-      v15 = v6;
-      v16 = 2080;
-      v17 = v7;
-      v8 = "SeekTo Failed: %08x [%s]";
-      v9 = v5;
+      LODWORD(v15[0]) = v5;
+      WORD2(v15[0]) = 2080;
+      *(v15 + 6) = v6;
+      v7 = "SeekEnd Failed: %08x [%s]";
+      v8 = v4;
+      v9 = 18;
 LABEL_11:
-      _os_log_impl(&dword_0, v9, OS_LOG_TYPE_ERROR, v8, &v14, 0x12u);
+      _os_log_impl(&dword_0, v8, OS_LOG_TYPE_ERROR, v7, &v14, v9);
       return -1;
     }
 
@@ -9320,63 +9383,6 @@ LABEL_11:
   return ftell(v13);
 }
 
-uint64_t ITFileUtil::SeekEnd(ITFileUtil *this)
-{
-  v2 = *(this + 1);
-  if (!v2)
-  {
-    v9 = _BookEPUBLog();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
-    {
-      v10 = (this + 16);
-      if (*(this + 39) < 0)
-      {
-        v10 = *v10;
-      }
-
-      v13 = 136315138;
-      v14[0] = v10;
-      v6 = "SeekEnd not opened: [%s]";
-      v7 = v9;
-      v8 = 12;
-      goto LABEL_11;
-    }
-
-    return -1;
-  }
-
-  if (fseek(v2, 0, 2))
-  {
-    v3 = _BookEPUBLog();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
-    {
-      v4 = *__error();
-      v5 = (this + 16);
-      if (*(this + 39) < 0)
-      {
-        v5 = *v5;
-      }
-
-      v13 = 67109378;
-      LODWORD(v14[0]) = v4;
-      WORD2(v14[0]) = 2080;
-      *(v14 + 6) = v5;
-      v6 = "SeekEnd Failed: %08x [%s]";
-      v7 = v3;
-      v8 = 18;
-LABEL_11:
-      _os_log_impl(&dword_0, v7, OS_LOG_TYPE_ERROR, v6, &v13, v8);
-      return -1;
-    }
-
-    return -1;
-  }
-
-  v12 = *(this + 1);
-
-  return ftell(v12);
-}
-
 uint64_t ITFileUtil::Write(ITFileUtil *this, const void *__ptr, size_t a3, unint64_t *a4)
 {
   v6 = *(this + 1);
@@ -9386,7 +9392,7 @@ uint64_t ITFileUtil::Write(ITFileUtil *this, const void *__ptr, size_t a3, unint
     result = ferror(*(this + 1));
     if (result)
     {
-      v9 = _BookEPUBLog();
+      v9 = _BookEPUBLog(result);
       if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
         v10 = (this + 16);
@@ -9415,7 +9421,7 @@ uint64_t ITFileUtil::Write(ITFileUtil *this, const void *__ptr, size_t a3, unint
 
   else
   {
-    v12 = _BookEPUBLog();
+    v12 = _BookEPUBLog(this);
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       v13 = (this + 16);
@@ -9487,9 +9493,9 @@ void sub_2305C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int 
 
 char *ITFileUtil::createMd5String(ITFileUtil *this, const unsigned __int8 *a2)
 {
-  v12 = off_328D48;
-  v13 = 0u;
+  v13 = off_328D48;
   v14 = 0u;
+  v15 = 0u;
   if (!this || !*this)
   {
 LABEL_19:
@@ -9500,25 +9506,26 @@ LABEL_19:
   Size = ITFileUtil::GetSize(this, a2);
   if (Size)
   {
-    if (ITFileUtil::OpenToRead(&v12, this))
+    v4 = ITFileUtil::OpenToRead(&v13, this);
+    if (v4)
     {
-      v4 = _BookEPUBLog();
-      if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+      v5 = _BookEPUBLog(v4);
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
       {
         buf.A = 136315138;
         *&buf.B = this;
-        _os_log_impl(&dword_0, v4, OS_LOG_TYPE_ERROR, "createMd5String Failure: [%s]", &buf, 0xCu);
+        _os_log_impl(&dword_0, v5, OS_LOG_TYPE_ERROR, "createMd5String Failure: [%s]", &buf, 0xCu);
       }
 
       goto LABEL_19;
     }
 
     CC_MD5_Init(&buf);
-    v5 = malloc_type_malloc(0x10000uLL, 0x100004077774924uLL);
+    v6 = malloc_type_malloc(0x10000uLL, 0x100004077774924uLL);
     if (Size <= 0x10000)
     {
 LABEL_10:
-      v6 = 1;
+      v7 = 1;
     }
 
     else
@@ -9526,13 +9533,13 @@ LABEL_10:
       while (1)
       {
         *bytes = 0;
-        ITFileUtil::Read(&v12, v5, 0x10000uLL, bytes);
+        ITFileUtil::Read(&v13, v6, 0x10000uLL, bytes);
         if (*bytes != 0x10000)
         {
           break;
         }
 
-        CC_MD5_Update(&buf, v5, 0x10000u);
+        CC_MD5_Update(&buf, v6, 0x10000u);
         Size -= 0x10000;
         if (Size < 0x10001)
         {
@@ -9540,54 +9547,54 @@ LABEL_10:
         }
       }
 
-      v6 = 0;
+      v7 = 0;
     }
 
     *bytes = 0;
-    ITFileUtil::Read(&v12, v5, Size, bytes);
+    ITFileUtil::Read(&v13, v6, Size, bytes);
     if (*bytes == Size)
     {
-      CC_MD5_Update(&buf, v5, Size);
+      CC_MD5_Update(&buf, v6, Size);
     }
 
     else
     {
-      v6 = 0;
+      v7 = 0;
     }
 
     CC_MD5_Final(md, &buf);
-    free(v5);
-    if (!v6)
+    free(v6);
+    if (!v7)
     {
       goto LABEL_19;
     }
 
-    v7 = 0;
-    v17 = 0;
+    v8 = 0;
+    v18 = 0;
     *bytes = 0u;
-    v16 = 0u;
-    v8 = md;
+    v17 = 0u;
+    v9 = md;
     do
     {
-      v9 = *v8++;
-      v10 = &bytes[v7];
-      *v10 = a0123456789abcd[v9 >> 4];
-      v10[1] = a0123456789abcd[v9 & 0xF];
-      v7 += 2;
+      v10 = *v9++;
+      v11 = &bytes[v8];
+      *v11 = a0123456789abcd[v10 >> 4];
+      v11[1] = a0123456789abcd[v10 & 0xF];
+      v8 += 2;
     }
 
-    while (v7 != 32);
+    while (v8 != 32);
     Size = CFStringCreateWithBytes(0, bytes, 32, 0x600u, 0);
   }
 
 LABEL_20:
-  ITFileUtil::~ITFileUtil(&v12);
+  ITFileUtil::~ITFileUtil(&v13);
   return Size;
 }
 
-void sub_232C0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_232C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   ITFileUtil::~ITFileUtil(va);
   _Unwind_Resume(a1);
 }

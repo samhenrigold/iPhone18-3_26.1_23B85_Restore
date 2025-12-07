@@ -45,7 +45,7 @@
 - (void)layoutSubviews
 {
   selfCopy = self;
-  sub_100392964();
+  sub_100392964(selfCopy);
 }
 
 - (JUMeasurements)measurementsWithFitting:(CGSize)fitting in:(id)in

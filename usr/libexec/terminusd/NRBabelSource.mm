@@ -4,11 +4,13 @@
 - (BOOL)isNewDistanceUnfeasibleWithSeqno:(unsigned __int16)seqno metric:(unsigned __int16)metric;
 - (BOOL)matchesPrefix:(id)prefix routerID:(unint64_t)d;
 - (NRBabelInstance)instance;
+- (NRBabelSource)initWithPrefix:(id)prefix routerID:(unint64_t)d seqno:(unsigned __int16)seqno metric:(unsigned __int16)metric instance:(id)instance;
 - (id)description;
 - (id)descriptionWithoutMetric;
 - (void)dealloc;
 - (void)resetGCTimer;
 - (void)setupGCTimer;
+- (void)updateFeasabilityDistanceWithSeqno:(unsigned __int16)seqno metric:(unsigned __int16)metric;
 @end
 
 @implementation NRBabelSource
@@ -48,6 +50,30 @@
   [(NRBabelSource *)self resetGCTimer:v8];
   objc_destroyWeak(&v12);
   objc_destroyWeak(&location);
+}
+
+- (void)updateFeasabilityDistanceWithSeqno:(unsigned __int16)seqno metric:(unsigned __int16)metric
+{
+  metricCopy = metric;
+  seqnoCopy = seqno;
+  if ([(NRBabelSource *)self seqno]< seqno)
+  {
+    [(NRBabelSource *)self setSeqno:seqnoCopy];
+    p_metric = &self->_metric;
+LABEL_3:
+    *p_metric = metricCopy;
+    return;
+  }
+
+  if ([(NRBabelSource *)self seqno]== seqnoCopy)
+  {
+    metric = self->_metric;
+    p_metric = &self->_metric;
+    if (metric > metricCopy)
+    {
+      goto LABEL_3;
+    }
+  }
 }
 
 - (BOOL)isNewDistanceUnfeasibleWithSeqno:(unsigned __int16)seqno metric:(unsigned __int16)metric
@@ -248,6 +274,49 @@ LABEL_2:
   v4.receiver = self;
   v4.super_class = NRBabelSource;
   [(NRBabelSource *)&v4 dealloc];
+}
+
+- (NRBabelSource)initWithPrefix:(id)prefix routerID:(unint64_t)d seqno:(unsigned __int16)seqno metric:(unsigned __int16)metric instance:(id)instance
+{
+  seqnoCopy = seqno;
+  prefixCopy = prefix;
+  instanceCopy = instance;
+  v26.receiver = self;
+  v26.super_class = NRBabelSource;
+  v14 = [(NRBabelSource *)&v26 init];
+  if (!v14)
+  {
+    v19 = sub_1000CB9A8();
+    IsLevelEnabled = _NRLogIsLevelEnabled();
+
+    if (IsLevelEnabled)
+    {
+      v21 = sub_1000CB9A8();
+      _NRLogWithArgs(v21, 16, "%s%.30s:%-4d ABORTING: [super init] failed", ", "[NRBabelSource initWithPrefix:routerID:seqno:metric:instance:]"", 1886);
+    }
+
+    v22 = _os_log_pack_size();
+    v23 = __error();
+    v24 = _os_log_pack_fill(&v25 - ((v22 + 15) & 0xFFFFFFFFFFFFFFF0), v22, *v23, &_mh_execute_header, "%{public}s [super init] failed");
+    *v24 = 136446210;
+    *(v24 + 4) = "[NRBabelSource initWithPrefix:routerID:seqno:metric:instance:]";
+    sub_1000CB9A8();
+    _NRLogAbortWithPack();
+  }
+
+  v15 = v14;
+  bPrefix = v14->_bPrefix;
+  v14->_bPrefix = prefixCopy;
+
+  v15->_routerID = d;
+  [(NRBabelSource *)v15 setSeqno:seqnoCopy];
+  v15->_metric = metric;
+  [(NRBabelSource *)v15 setInstance:instanceCopy];
+  sources = [instanceCopy sources];
+  [sources addObject:v15];
+
+  [(NRBabelSource *)v15 setupGCTimer];
+  return v15;
 }
 
 @end

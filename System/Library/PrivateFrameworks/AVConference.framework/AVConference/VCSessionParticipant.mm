@@ -223,7 +223,7 @@
   return v3;
 }
 
-uint64_t __46__VCSessionParticipant_isPersonaCameraEnabled__block_invoke(uint64_t a1)
+void *__46__VCSessionParticipant_isPersonaCameraEnabled__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) dispatchedIsPersonaCameraEnabled];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -7380,7 +7380,7 @@ LABEL_11:
   dispatch_async(participantQueue, block);
 }
 
-uint64_t __33__VCSessionParticipant_setMuted___block_invoke(uint64_t a1)
+void *__33__VCSessionParticipant_setMuted___block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 392) setMuted:*(a1 + 40)];
   *(*(a1 + 32) + 372) = *(a1 + 40);
@@ -7985,7 +7985,7 @@ LABEL_26:
 LABEL_20:
   v22 = systemAudioGroup;
 LABEL_27:
-  [v22 removeSyncDestination:{screenGroup, *v25, *&v25[16], v26, selfCopy2}];
+  [v22 removeSyncDestination:{screenGroup, *v25, *&v25[8], v26, selfCopy2}];
   [microphoneGroup addSyncDestination:screenGroup];
 }
 
@@ -8174,7 +8174,7 @@ uint64_t __53__VCSessionParticipant_handleActiveConnectionChange___block_invoke(
   return v4;
 }
 
-uint64_t __62__VCSessionParticipant_negotiatedCipherSuiteForStreamGroupID___block_invoke(uint64_t a1)
+void *__62__VCSessionParticipant_negotiatedCipherSuiteForStreamGroupID___block_invoke(uint64_t a1)
 {
   result = [objc_msgSend(*(*(a1 + 32) + 416) negotiatedResultsForGroupID:{*(a1 + 48)), "cipherSuite"}];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -8625,13 +8625,15 @@ uint64_t __68__VCSessionParticipant_didChangeActualNetworkBitrateForStreamGroup_
 
 - (void)didDecryptionTimeOutForMKMRecoveryForStreamGroup:(id)group
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   if (objc_opt_class() == self)
   {
-    if (VRTraceGetErrorLogLevelForModule() >= 3)
+    ErrorLogLevelForModule = VRTraceGetErrorLogLevelForModule();
+    if (ErrorLogLevelForModule >= 3)
     {
       VRTraceErrorLogLevelToCSTR();
-      if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_ERROR))
+      ErrorLogLevelForModule = os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_ERROR);
+      if (ErrorLogLevelForModule)
       {
         [VCSessionParticipant didDecryptionTimeOutForMKMRecoveryForStreamGroup:];
       }
@@ -8650,47 +8652,49 @@ uint64_t __68__VCSessionParticipant_didChangeActualNetworkBitrateForStreamGroup_
       v5 = &stru_1F570E008;
     }
 
-    if (VRTraceGetErrorLogLevelForModule() >= 3)
+    ErrorLogLevelForModule = VRTraceGetErrorLogLevelForModule();
+    if (ErrorLogLevelForModule >= 3)
     {
-      v6 = VRTraceErrorLogLevelToCSTR();
-      v7 = *MEMORY[0x1E6986650];
-      if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_ERROR))
+      v8 = VRTraceErrorLogLevelToCSTR();
+      v9 = *MEMORY[0x1E6986650];
+      ErrorLogLevelForModule = os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_ERROR);
+      if (ErrorLogLevelForModule)
       {
         *buf = 136316418;
-        v14 = v6;
-        v15 = 2080;
-        v16 = "[VCSessionParticipant didDecryptionTimeOutForMKMRecoveryForStreamGroup:]";
-        v17 = 1024;
-        v18 = 2899;
-        v19 = 2112;
-        v20 = v5;
-        v21 = 2048;
+        v16 = v8;
+        v17 = 2080;
+        v18 = "[VCSessionParticipant didDecryptionTimeOutForMKMRecoveryForStreamGroup:]";
+        v19 = 1024;
+        v20 = 2899;
+        v21 = 2112;
+        v22 = v5;
+        v23 = 2048;
         selfCopy = self;
-        v23 = 2112;
+        v25 = 2112;
         groupCopy = group;
-        _os_log_error_impl(&dword_1DB56E000, v7, OS_LOG_TYPE_ERROR, " [%s] %s:%d %@(%p) streamGroup=%@", buf, 0x3Au);
+        _os_log_error_impl(&dword_1DB56E000, v9, OS_LOG_TYPE_ERROR, " [%s] %s:%d %@(%p) streamGroup=%@", buf, 0x3Au);
       }
     }
   }
 
-  v8 = micro();
-  if (v8 - self->_lastParticipantMKMRecoveryTime > self->_participantMKMRecoveryTimeout)
+  v10 = micro(ErrorLogLevelForModule, v7);
+  if (v10 - self->_lastParticipantMKMRecoveryTime > self->_participantMKMRecoveryTimeout)
   {
-    self->_lastParticipantMKMRecoveryTime = v8;
-    v12[0] = MEMORY[0x1E69E9820];
-    v12[1] = 3221225472;
-    v12[2] = __73__VCSessionParticipant_didDecryptionTimeOutForMKMRecoveryForStreamGroup___block_invoke;
-    v12[3] = &unk_1E85F6780;
-    v12[4] = self;
-    [(VCSessionParticipant *)self callDelegateWithBlock:v12];
-    v9 = dispatch_time(0, 5000000000);
+    self->_lastParticipantMKMRecoveryTime = v10;
+    v14[0] = MEMORY[0x1E69E9820];
+    v14[1] = 3221225472;
+    v14[2] = __73__VCSessionParticipant_didDecryptionTimeOutForMKMRecoveryForStreamGroup___block_invoke;
+    v14[3] = &unk_1E85F6780;
+    v14[4] = self;
+    [(VCSessionParticipant *)self callDelegateWithBlock:v14];
+    v11 = dispatch_time(0, 5000000000);
     participantQueue = self->_participantQueue;
-    v11[0] = MEMORY[0x1E69E9820];
-    v11[1] = 3221225472;
-    v11[2] = __73__VCSessionParticipant_didDecryptionTimeOutForMKMRecoveryForStreamGroup___block_invoke_2;
-    v11[3] = &unk_1E85F3778;
-    v11[4] = self;
-    dispatch_after(v9, participantQueue, v11);
+    v13[0] = MEMORY[0x1E69E9820];
+    v13[1] = 3221225472;
+    v13[2] = __73__VCSessionParticipant_didDecryptionTimeOutForMKMRecoveryForStreamGroup___block_invoke_2;
+    v13[3] = &unk_1E85F3778;
+    v13[4] = self;
+    dispatch_after(v11, participantQueue, v13);
   }
 }
 
@@ -9088,14 +9092,12 @@ LABEL_20:
 - (id)updateMediaState:(unsigned int)state forStreamGroups:(id)groups
 {
   v5 = *&state;
-  v89 = *MEMORY[0x1E69E9840];
+  v88 = *MEMORY[0x1E69E9840];
   dispatch_assert_queue_V2(self->_participantQueue);
   v7 = [groups count];
   if (!v7)
   {
-    v62 = "/Library/Caches/com.apple.xbs/Sources/AVConference/AVConference.subproj/Sources/VCSessionParticipant.m";
-    v64 = 2357;
-    v7 = +[VCSessionErrorUtils VCSessionParticipantErrorEvent:errorPath:](VCSessionErrorUtils, "VCSessionParticipantErrorEvent:errorPath:", 12, [MEMORY[0x1E696AEC0] stringWithFormat:@"%s:%d"]);
+    v7 = +[VCSessionErrorUtils VCSessionParticipantErrorEvent:errorPath:](VCSessionErrorUtils, "VCSessionParticipantErrorEvent:errorPath:", 12, [MEMORY[0x1E696AEC0] stringWithFormat:@"%s:%d", "/Library/Caches/com.apple.xbs/Sources/AVConference/AVConference.subproj/Sources/VCSessionParticipant.m", 2357]);
     if (v7)
     {
       v35 = v7;
@@ -9170,15 +9172,15 @@ LABEL_20:
 
   if (self->_state == 1)
   {
-    v87 = 0u;
-    v88 = 0u;
-    v85 = 0u;
     v86 = 0u;
-    v15 = OUTLINED_FUNCTION_41_6(v7, v8, v9, v10, v11, v12, v13, v14, v62, v64, v66, v68, v69, v71, v72, v74, v76, groups, buf, *(&buf + 1), v80, v81, *(&v81 + 1), selfCopy2, *v83, *&v83[8], *&v83[16], *&v83[24], v84);
+    v87 = 0u;
+    v84 = 0u;
+    v85 = 0u;
+    v15 = OUTLINED_FUNCTION_41_6(v7, v8, v9, v10, v11, v12, v13, v14, v62, v64, v66, v68, v69, v71, v72, v74, v76, groups, buf, *(&buf + 1), v80, v81, *(&v81 + 1), selfCopy2, *v83, *&v83[8], *&v83[16], *&v83[24]);
     if (v15)
     {
       v17 = v15;
-      v18 = *v86;
+      v18 = *v85;
       v19 = &selRef_isLatencySensitiveModeEnabled;
       *&v16 = 136316674;
       v67 = v16;
@@ -9190,12 +9192,12 @@ LABEL_20:
         v77 = v19[456];
         do
         {
-          if (*v86 != v18)
+          if (*v85 != v18)
           {
             objc_enumerationMutation(obj);
           }
 
-          v21 = *(*(&v85 + 1) + 8 * v20);
+          v21 = *(*(&v84 + 1) + 8 * v20);
           v22 = [(VCSessionParticipant *)self isStreamGroupActive:v21];
           state = [(VCSessionParticipant *)v21 state];
           v24 = state;
@@ -9302,7 +9304,7 @@ LABEL_21:
         }
 
         while (v17 != v20);
-        v49 = OUTLINED_FUNCTION_41_6(ErrorLogLevelForModule, v27, v28, v29, v30, v31, v32, v33, v63, v65, v67, *(&v67 + 1), v70, *(&v70 + 1), v73, v75, v77, obj, buf, *(&buf + 1), v80, v81, *(&v81 + 1), selfCopy2, *v83, *&v83[8], *&v83[16], *&v83[24], v84);
+        v49 = OUTLINED_FUNCTION_41_6(ErrorLogLevelForModule, v27, v28, v29, v30, v31, v32, v33, v63, v65, v67, *(&v67 + 1), v70, *(&v70 + 1), v73, v75, v77, obj, buf, *(&buf + 1), v80, v81, *(&v81 + 1), selfCopy2, *v83, *&v83[8], *&v83[16], *&v83[24]);
         v17 = v49;
         v19 = &selRef_isLatencySensitiveModeEnabled;
       }
@@ -10322,7 +10324,7 @@ LABEL_11:
   _os_log_error_impl(v2, v3, v4, v5, v6, v7);
 }
 
-- (void)updateMediaStatesWithConfig:(uint64_t)a3 .cold.2(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9, uint64_t a10, uint64_t a11, int a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24)
+- (void)updateMediaStatesWithConfig:(uint64_t)a3 .cold.2(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, int a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24)
 {
   OUTLINED_FUNCTION_40_0();
   a23 = v26;

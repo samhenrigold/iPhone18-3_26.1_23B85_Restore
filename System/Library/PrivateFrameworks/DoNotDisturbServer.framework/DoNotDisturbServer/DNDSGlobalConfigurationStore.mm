@@ -11,7 +11,8 @@
 - (id)recordIDsForSyncEngine:(id)engine;
 - (int64_t)syncEngine:(id)engine prepareRecordToSave:(id)save;
 - (int64_t)syncEngine:(id)engine wantsRecord:(id)record;
-- (void)_lock_existingConfiguration;
+- (unint64_t)_lock_writeRecord:(id)record writePartition:(BOOL)partition error:(id *)error;
+- (unint64_t)writeRecord:(id)record writePartition:(BOOL)partition error:(id *)error;
 - (void)_lock_prepareCKRecordToSave:(id)save;
 - (void)_lock_prepareDNDSIDSRecordToSave:(id)save;
 - (void)_lock_purgeData;
@@ -37,13 +38,13 @@
 
 - (DNDSGlobalConfigurationStore)initWithBackingStore:(id)store syncEngine:(id)engine idsSyncEngine:(id)syncEngine
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   storeCopy = store;
   engineCopy = engine;
   syncEngineCopy = syncEngine;
-  v21.receiver = self;
-  v21.super_class = DNDSGlobalConfigurationStore;
-  v12 = [(DNDSGlobalConfigurationStore *)&v21 init];
+  v20.receiver = self;
+  v20.super_class = DNDSGlobalConfigurationStore;
+  v12 = [(DNDSGlobalConfigurationStore *)&v20 init];
   v13 = v12;
   if (v12)
   {
@@ -54,9 +55,9 @@
     [(DNDSSyncEngine *)v13->_syncEngine setDataSource:v13 forZoneName:@"DNDSGlobalConfiguration"];
     objc_storeStrong(&v13->_idsSyncEngine, syncEngine);
     [(DNDSIDSSyncEngine *)v13->_idsSyncEngine setDataSource:v13 forZone:@"DNDSGlobalConfiguration"];
-    v20 = 0;
-    v14 = [storeCopy readRecordWithError:&v20];
-    v15 = v20;
+    v19 = 0;
+    v14 = [storeCopy readRecordWithError:&v19];
+    v15 = v19;
     configuration = v13->_configuration;
     v13->_configuration = v14;
 
@@ -66,13 +67,12 @@
       if (os_log_type_enabled(DNDSLogGlobalConfiguration, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138543362;
-        v23 = v15;
+        v22 = v15;
         _os_log_impl(&dword_24912E000, v17, OS_LOG_TYPE_DEFAULT, "Could not read configuration: %{public}@", buf, 0xCu);
       }
     }
   }
 
-  v18 = *MEMORY[0x277D85DE8];
   return v13;
 }
 
@@ -83,6 +83,18 @@
   os_unfair_lock_unlock(&self->_lock);
 
   return v5;
+}
+
+- (unint64_t)writeRecord:(id)record writePartition:(BOOL)partition error:(id *)error
+{
+  partitionCopy = partition;
+  recordCopy = record;
+  os_unfair_lock_lock(&self->_lock);
+  v9 = [(DNDSGlobalConfigurationStore *)self _lock_writeRecord:recordCopy writePartition:partitionCopy error:error];
+
+  os_unfair_lock_unlock(&self->_lock);
+  [(DNDSGlobalConfigurationStore *)self _notifyDelegateOfConfigurationChange];
+  return v9;
 }
 
 - (id)backingStore:(id)store migrateDictionaryRepresentation:(id)representation fromVersionNumber:(unint64_t)number toVersionNumber:(unint64_t)versionNumber
@@ -132,7 +144,7 @@
 
 - (void)syncEngine:(id)engine didFetchRecord:(id)record
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   recordCopy = record;
   recordID = [recordCopy recordID];
   recordName = [recordID recordName];
@@ -141,7 +153,7 @@
   if (os_log_type_enabled(DNDSLogGlobalConfiguration, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v30 = recordName;
+    v29 = recordName;
     _os_log_impl(&dword_24912E000, v8, OS_LOG_TYPE_DEFAULT, "Fetched record with ID: %@", buf, 0xCu);
   }
 
@@ -162,15 +174,15 @@
         recordID2 = [recordCopy recordID];
         recordName2 = [recordID2 recordName];
         *buf = 138412290;
-        v30 = recordName2;
+        v29 = recordName2;
         _os_log_impl(&dword_24912E000, v22, OS_LOG_TYPE_DEFAULT, "Fetched data with ID %@ is current; applying update", buf, 0xCu);
       }
 
       [(DNDSGlobalConfigurationStore *)self _lock_updateConfigurationWithCKRecord:recordCopy];
       recordID4 = [[DNDSIDSRecordID alloc] initWithIdentifier:recordName zone:@"DNDSGlobalConfiguration"];
       idsSyncEngine = self->_idsSyncEngine;
-      v28 = recordID4;
-      v20 = &v28;
+      v27 = recordID4;
+      v20 = &v27;
     }
 
     else
@@ -181,17 +193,17 @@
         recordID3 = [recordCopy recordID];
         recordName3 = [recordID3 recordName];
         *buf = 138412290;
-        v30 = recordName3;
+        v29 = recordName3;
         _os_log_impl(&dword_24912E000, v15, OS_LOG_TYPE_DEFAULT, "Fetched data with ID %@ is outdated; ignoring update and resending local data", buf, 0xCu);
       }
 
       idsSyncEngine = self->_syncEngine;
       recordID4 = [recordCopy recordID];
-      v27 = recordID4;
-      v20 = &v27;
+      v26 = recordID4;
+      v20 = &v26;
     }
 
-    v25 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:{1, v27, v28}];
+    v25 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:{1, v26, v27}];
     [idsSyncEngine addRecordIDsToSave:v25 recordIDsToDelete:0];
   }
 
@@ -206,8 +218,6 @@
 
   os_unfair_lock_unlock(&self->_lock);
   [(DNDSGlobalConfigurationStore *)self _notifyDelegateOfConfigurationChange];
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 - (void)syncEngine:(id)engine failedToDeleteRecordWithID:(id)d error:(id)error
@@ -221,7 +231,7 @@
 
 - (void)syncEngine:(id)engine resolveConflictBetweenClientRecord:(id)record andServerRecord:(id)serverRecord
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   engineCopy = engine;
   recordCopy = record;
   serverRecordCopy = serverRecord;
@@ -250,13 +260,13 @@
       recordID = [serverRecordCopy recordID];
       recordName = [recordID recordName];
       *buf = 138412290;
-      v32 = recordName;
+      v31 = recordName;
       _os_log_impl(&dword_24912E000, v16, OS_LOG_TYPE_DEFAULT, "Resolved conflict between records with ID %@; using local data", buf, 0xCu);
     }
 
     recordID2 = [recordCopy recordID];
-    v29 = recordID2;
-    v20 = [MEMORY[0x277CBEA60] arrayWithObjects:&v29 count:1];
+    v28 = recordID2;
+    v20 = [MEMORY[0x277CBEA60] arrayWithObjects:&v28 count:1];
     [engineCopy addRecordIDsToSave:v20 recordIDsToDelete:0];
 
 LABEL_8:
@@ -270,27 +280,25 @@ LABEL_8:
     recordID3 = [serverRecordCopy recordID];
     recordName2 = [recordID3 recordName];
     *buf = 138412290;
-    v32 = recordName2;
+    v31 = recordName2;
     _os_log_impl(&dword_24912E000, v22, OS_LOG_TYPE_DEFAULT, "Resolved conflict records with ID %@; using remote data", buf, 0xCu);
   }
 
   [(DNDSGlobalConfigurationStore *)self _lock_updateConfigurationWithCKRecord:serverRecordCopy];
   v25 = [[DNDSIDSRecordID alloc] initWithIdentifier:@"DNDSGlobalConfigurationRecord" zone:@"DNDSGlobalConfiguration"];
   idsSyncEngine = self->_idsSyncEngine;
-  v30 = v25;
-  v27 = [MEMORY[0x277CBEA60] arrayWithObjects:&v30 count:1];
+  v29 = v25;
+  v27 = [MEMORY[0x277CBEA60] arrayWithObjects:&v29 count:1];
   [(DNDSIDSSyncEngine *)idsSyncEngine addRecordIDsToSave:v27 recordIDsToDelete:0];
 
   os_unfair_lock_unlock(&self->_lock);
   [(DNDSGlobalConfigurationStore *)self _notifyDelegateOfConfigurationChange];
 LABEL_12:
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 - (int64_t)syncEngine:(id)engine prepareRecordToSave:(id)save
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   saveCopy = save;
   v6 = DNDSLogGlobalConfiguration;
   if (os_log_type_enabled(DNDSLogGlobalConfiguration, OS_LOG_TYPE_DEFAULT))
@@ -298,16 +306,15 @@ LABEL_12:
     v7 = v6;
     recordID = [saveCopy recordID];
     recordName = [recordID recordName];
-    v12 = 138412290;
-    v13 = recordName;
-    _os_log_impl(&dword_24912E000, v7, OS_LOG_TYPE_DEFAULT, "Preparing to save record %@", &v12, 0xCu);
+    v11 = 138412290;
+    v12 = recordName;
+    _os_log_impl(&dword_24912E000, v7, OS_LOG_TYPE_DEFAULT, "Preparing to save record %@", &v11, 0xCu);
   }
 
   os_unfair_lock_lock(&self->_lock);
   [(DNDSGlobalConfigurationStore *)self _lock_prepareCKRecordToSave:saveCopy];
   os_unfair_lock_unlock(&self->_lock);
 
-  v10 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
@@ -335,23 +342,21 @@ LABEL_12:
 
 - (id)recordIDsForSyncEngine:(id)engine
 {
-  v10[1] = *MEMORY[0x277D85DE8];
+  v9[1] = *MEMORY[0x277D85DE8];
   v3 = [objc_alloc(MEMORY[0x277CBC5E8]) initWithZoneName:@"DNDSGlobalConfiguration"];
   v4 = objc_alloc(MEMORY[0x277CBC5D0]);
   zoneID = [v3 zoneID];
   v6 = [v4 initWithRecordName:@"DNDSGlobalConfigurationRecord" zoneID:zoneID];
 
-  v10[0] = v6;
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:1];
-
-  v8 = *MEMORY[0x277D85DE8];
+  v9[0] = v6;
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:1];
 
   return v7;
 }
 
 - (void)idsSyncEngine:(id)engine prepareRecordToSave:(id)save
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   saveCopy = save;
   v6 = DNDSLogGlobalConfiguration;
   if (os_log_type_enabled(DNDSLogGlobalConfiguration, OS_LOG_TYPE_DEFAULT))
@@ -359,21 +364,19 @@ LABEL_12:
     v7 = v6;
     recordID = [saveCopy recordID];
     identifier = [recordID identifier];
-    v11 = 138412290;
-    v12 = identifier;
-    _os_log_impl(&dword_24912E000, v7, OS_LOG_TYPE_DEFAULT, "Preparing to save record for IDS sync engine: %@", &v11, 0xCu);
+    v10 = 138412290;
+    v11 = identifier;
+    _os_log_impl(&dword_24912E000, v7, OS_LOG_TYPE_DEFAULT, "Preparing to save record for IDS sync engine: %@", &v10, 0xCu);
   }
 
   os_unfair_lock_lock(&self->_lock);
   [(DNDSGlobalConfigurationStore *)self _lock_prepareDNDSIDSRecordToSave:saveCopy];
   os_unfair_lock_unlock(&self->_lock);
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)idsSyncEngine:(id)engine didFetchRecord:(id)record
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   recordCopy = record;
   recordID = [recordCopy recordID];
   identifier = [recordID identifier];
@@ -382,7 +385,7 @@ LABEL_12:
   if (os_log_type_enabled(DNDSLogGlobalConfiguration, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v26 = identifier;
+    v25 = identifier;
     _os_log_impl(&dword_24912E000, v8, OS_LOG_TYPE_DEFAULT, "Fetched record from IDS sync engine with ID: %@", buf, 0xCu);
   }
 
@@ -400,7 +403,7 @@ LABEL_12:
       if (v14)
       {
         *buf = 138412290;
-        v26 = identifier;
+        v25 = identifier;
         _os_log_impl(&dword_24912E000, v13, OS_LOG_TYPE_DEFAULT, "Fetched data with ID %@ is current; applying update", buf, 0xCu);
       }
 
@@ -411,8 +414,8 @@ LABEL_12:
       v17 = [v18 initWithRecordName:identifier zoneID:zoneID];
 
       syncEngine = self->_syncEngine;
-      v24 = v17;
-      v21 = [MEMORY[0x277CBEA60] arrayWithObjects:&v24 count:1];
+      v23 = v17;
+      v21 = [MEMORY[0x277CBEA60] arrayWithObjects:&v23 count:1];
       [(DNDSSyncEngine *)syncEngine addRecordIDsToSave:v21 recordIDsToDelete:0];
     }
 
@@ -421,14 +424,14 @@ LABEL_12:
       if (v14)
       {
         *buf = 138543362;
-        v26 = identifier;
+        v25 = identifier;
         _os_log_impl(&dword_24912E000, v13, OS_LOG_TYPE_DEFAULT, "Fetched data with ID %{public}@ is outdated; ignoring update and resending local data", buf, 0xCu);
       }
 
       v15 = [[DNDSIDSRecordID alloc] initWithIdentifier:identifier zone:@"DNDSGlobalConfiguration"];
       idsSyncEngine = self->_idsSyncEngine;
-      v23 = v15;
-      v17 = [MEMORY[0x277CBEA60] arrayWithObjects:&v23 count:1];
+      v22 = v15;
+      v17 = [MEMORY[0x277CBEA60] arrayWithObjects:&v22 count:1];
       [(DNDSIDSSyncEngine *)idsSyncEngine addRecordIDsToSave:v17 recordIDsToDelete:0];
     }
   }
@@ -440,8 +443,6 @@ LABEL_12:
 
   os_unfair_lock_unlock(&self->_lock);
   [(DNDSGlobalConfigurationStore *)self _notifyDelegateOfConfigurationChange];
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (void)idsSyncEngine:(id)engine recordWithIDWasDeleted:(id)deleted
@@ -456,12 +457,10 @@ LABEL_12:
 
 - (id)recordIDsForIDSSyncEngine:(id)engine
 {
-  v7[1] = *MEMORY[0x277D85DE8];
+  v6[1] = *MEMORY[0x277D85DE8];
   v3 = [[DNDSIDSRecordID alloc] initWithIdentifier:@"DNDSGlobalConfigurationRecord" zone:@"DNDSGlobalConfiguration"];
-  v7[0] = v3;
-  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:1];
-
-  v5 = *MEMORY[0x277D85DE8];
+  v6[0] = v3;
+  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:1];
 
   return v4;
 }
@@ -746,13 +745,13 @@ LABEL_12:
 
 - (void)_notifyDelegateOfConfigurationChange
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   os_unfair_lock_lock(&self->_lock);
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
   backingStore = self->_backingStore;
-  v14 = 0;
-  v5 = [(DNDSBackingStore *)backingStore readRecordWithError:&v14];
-  v6 = v14;
+  v13 = 0;
+  v5 = [(DNDSBackingStore *)backingStore readRecordWithError:&v13];
+  v6 = v13;
   v7 = [(DNDSGlobalConfiguration *)self->_configuration copy];
   objc_storeStrong(&self->_configuration, v5);
   if (v6 && os_log_type_enabled(DNDSLogGlobalConfiguration, OS_LOG_TYPE_ERROR))
@@ -776,14 +775,76 @@ LABEL_12:
       }
 
       *buf = 136446210;
-      v16 = v12;
+      v15 = v12;
       _os_log_impl(&dword_24912E000, v10, OS_LOG_TYPE_DEFAULT, "Notifying delegate of prevent-auto-reply change: %{public}s", buf, 0xCu);
     }
 
     [WeakRetained globalConfigurationStore:self didUpdatePreventAutoReplySetting:{DNDResolvedPreventAutoReplySetting(objc_msgSend(v5, "preventAutoReply")) == 2}];
   }
+}
 
-  v13 = *MEMORY[0x277D85DE8];
+- (unint64_t)_lock_writeRecord:(id)record writePartition:(BOOL)partition error:(id *)error
+{
+  partitionCopy = partition;
+  v34[1] = *MEMORY[0x277D85DE8];
+  recordCopy = record;
+  os_unfair_lock_assert_owner(&self->_lock);
+  v9 = [recordCopy mutableCopy];
+
+  v10 = [(DNDSBackingStore *)self->_backingStore readRecordWithError:error];
+  if ([v9 isEqual:v10])
+  {
+    v11 = 1;
+  }
+
+  else
+  {
+    date = [MEMORY[0x277CBEAA8] date];
+    lastModified = [v9 lastModified];
+    v14 = [lastModified earlierDate:date];
+
+    if (v14 == date)
+    {
+      distantPast = [MEMORY[0x277CBEAA8] distantPast];
+      [v9 setLastModified:distantPast];
+    }
+
+    else
+    {
+      [v9 setLastModified:date];
+    }
+
+    v16 = [[DNDSIDSRecordID alloc] initWithIdentifier:@"DNDSGlobalConfigurationRecord" zone:@"DNDSGlobalConfiguration"];
+    idsSyncEngine = self->_idsSyncEngine;
+    v34[0] = v16;
+    v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v34 count:1];
+    [(DNDSIDSSyncEngine *)idsSyncEngine addRecordIDsToSave:v18 recordIDsToDelete:0];
+
+    v11 = [(DNDSBackingStore *)self->_backingStore writeRecord:v9 writePartition:partitionCopy error:error];
+    if (error)
+    {
+      if (*error)
+      {
+        v19 = DNDSLogGlobalConfiguration;
+        if (os_log_type_enabled(DNDSLogGlobalConfiguration, OS_LOG_TYPE_ERROR))
+        {
+          [(DNDSModeConfigurationsStore *)error _lock_writeRecord:v19 writePartition:v20 error:v21, v22, v23, v24, v25];
+        }
+      }
+    }
+
+    v26 = [objc_alloc(MEMORY[0x277CBC5E8]) initWithZoneName:@"DNDSGlobalConfiguration"];
+    v27 = objc_alloc(MEMORY[0x277CBC5D0]);
+    zoneID = [v26 zoneID];
+    v29 = [v27 initWithRecordName:@"DNDSGlobalConfigurationRecord" zoneID:zoneID];
+
+    syncEngine = self->_syncEngine;
+    v33 = v29;
+    v31 = [MEMORY[0x277CBEA60] arrayWithObjects:&v33 count:1];
+    [(DNDSSyncEngine *)syncEngine addRecordIDsToSave:v31 recordIDsToDelete:0];
+  }
+
+  return v11;
 }
 
 - (void)_lock_updateConfigurationWithDNDSIDSRecord:(id)record
@@ -820,7 +881,7 @@ LABEL_12:
 
 - (void)_lock_purgeData
 {
-  v12[1] = *MEMORY[0x277D85DE8];
+  v11[1] = *MEMORY[0x277D85DE8];
   v3 = objc_alloc_init(DNDSMutableGlobalConfiguration);
   [(DNDSMutableGlobalConfiguration *)v3 setAutomaticallyGenerated:1];
   v4 = DNDSLogGlobalConfiguration;
@@ -831,20 +892,18 @@ LABEL_12:
   }
 
   backingStore = self->_backingStore;
-  v10 = 0;
-  [(DNDSBackingStore *)backingStore writeRecord:v3 error:&v10];
-  v6 = v10;
+  v9 = 0;
+  [(DNDSBackingStore *)backingStore writeRecord:v3 error:&v9];
+  v6 = v9;
   v7 = [[DNDSIDSRecordID alloc] initWithIdentifier:@"DNDSGlobalConfigurationRecord" zone:@"DNDSGlobalConfiguration"];
-  v12[0] = v7;
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
+  v11[0] = v7;
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:1];
 
   [(DNDSIDSSyncEngine *)self->_idsSyncEngine addRecordIDsToSave:v8 recordIDsToDelete:0];
   if (v6 && os_log_type_enabled(DNDSLogGlobalConfiguration, OS_LOG_TYPE_ERROR))
   {
     [DNDSModeConfigurationsStore purgeRecordsForIDSSyncEngine:];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_purgeData
@@ -865,160 +924,102 @@ LABEL_12:
 
 - (void)syncEngine:(void *)a1 didFetchRecord:.cold.1(void *a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_4_0() recordID];
   v4 = [v3 recordName];
   OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_1_3(&dword_24912E000, v5, v6, "Fetched data with ID %@ could not be reconstructed into a configuration; ignoring update", v7, v8, v9, v10, v12);
-
-  v11 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_3(&dword_24912E000, v5, v6, "Fetched data with ID %@ could not be reconstructed into a configuration; ignoring update", v7, v8, v9, v10);
 }
 
 - (void)syncEngine:failedToDeleteRecordWithID:error:.cold.1()
 {
   OUTLINED_FUNCTION_3_0();
-  v12 = *MEMORY[0x277D85DE8];
   v2 = v1;
   v3 = [OUTLINED_FUNCTION_2_2() recordName];
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_5_1();
-  OUTLINED_FUNCTION_3_1(&dword_24912E000, v4, v5, "Failed to delete record %@: %@", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3_1(&dword_24912E000, v4, v5, "Failed to delete record %@: %@", v6, v7, v8, v9);
 }
 
 - (void)syncEngine:(void *)a1 resolveConflictBetweenClientRecord:andServerRecord:.cold.1(void *a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_4_0() recordID];
   v4 = [v3 recordName];
   OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_1_3(&dword_24912E000, v5, v6, "Could not resolve conflict as remote configuration is nil; keeping local data with ID %@", v7, v8, v9, v10, v12);
-
-  v11 = *MEMORY[0x277D85DE8];
-}
-
-- (void)idsSyncEngine:didFetchRecord:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_0(&dword_24912E000, v0, v1, "Fetched data with ID %@ could not be reconstructed into a configuration; ignoring update", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_3(&dword_24912E000, v5, v6, "Could not resolve conflict as remote configuration is nil; keeping local data with ID %@", v7, v8, v9, v10);
 }
 
 - (void)globalConfigurationSyncManager:didReceiveUpdatedGlobalConfiguration:.cold.1()
 {
   OUTLINED_FUNCTION_3_0();
-  v12 = *MEMORY[0x277D85DE8];
   v3 = v2;
   [OUTLINED_FUNCTION_2_2() lastModified];
   objc_claimAutoreleasedReturnValue();
-  v11 = [OUTLINED_FUNCTION_4_0() lastModified];
-  OUTLINED_FUNCTION_3_1(&dword_24912E000, v4, v5, "Ignoring incoming configuration with date %@ as it is older than existing configuration with date %@", v6, v7, v8, v9, 2u);
-
-  v10 = *MEMORY[0x277D85DE8];
+  v4 = [OUTLINED_FUNCTION_4_0() lastModified];
+  *v11 = 138412546;
+  *&v11[4] = v0;
+  *&v11[12] = 2112;
+  *&v11[14] = v4;
+  OUTLINED_FUNCTION_3_1(&dword_24912E000, v5, v6, "Ignoring incoming configuration with date %@ as it is older than existing configuration with date %@", v7, v8, v9, v10, *v11, *&v11[8], *&v11[16]);
 }
 
 - (void)_createConfigurationFromDNDSIDSRecord:.cold.1()
 {
   OUTLINED_FUNCTION_3_0();
-  v13 = *MEMORY[0x277D85DE8];
   v2 = v1;
   v3 = [OUTLINED_FUNCTION_2_2() recordID];
   v4 = [v3 identifier];
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_5_1();
-  OUTLINED_FUNCTION_3_1(&dword_24912E000, v5, v6, "Failed to decode record data %@: %@", v7, v8, v9, v10, v12);
-
-  v11 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3_1(&dword_24912E000, v5, v6, "Failed to decode record data %@: %@", v7, v8, v9, v10);
 }
 
 - (void)_createConfigurationFromDNDSIDSRecord:(void *)a1 .cold.2(void *a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_4_0() recordID];
   v4 = [v3 identifier];
   OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_1_3(&dword_24912E000, v5, v6, "Record data is nil in record data %@", v7, v8, v9, v10, v12);
-
-  v11 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_3(&dword_24912E000, v5, v6, "Record data is nil in record data %@", v7, v8, v9, v10);
 }
 
 - (void)_createConfigurationFromCKRecord:.cold.1()
 {
   OUTLINED_FUNCTION_3_0();
-  v13 = *MEMORY[0x277D85DE8];
   v2 = v1;
   v3 = [OUTLINED_FUNCTION_2_2() recordID];
   v4 = [v3 recordName];
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_5_1();
-  OUTLINED_FUNCTION_3_1(&dword_24912E000, v5, v6, "Failed to decode record data %@: %@", v7, v8, v9, v10, v12);
-
-  v11 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3_1(&dword_24912E000, v5, v6, "Failed to decode record data %@: %@", v7, v8, v9, v10);
 }
 
 - (void)_createConfigurationFromCKRecord:(void *)a1 .cold.2(void *a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_4_0() recordID];
   v4 = [v3 recordName];
   OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_1_3(&dword_24912E000, v5, v6, "Record data is nil in record data %@", v7, v8, v9, v10, v12);
-
-  v11 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_lock_existingConfiguration
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_0(&dword_24912E000, v0, v1, "Failed to fetch existing configuration: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_3(&dword_24912E000, v5, v6, "Record data is nil in record data %@", v7, v8, v9, v10);
 }
 
 - (void)_populateDNDSIDSRecord:(void *)a1 withGlobalConfiguration:.cold.1(void *a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_4_0() recordID];
   v4 = [v3 identifier];
   OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_1_3(&dword_24912E000, v5, v6, "Record %@ is not valid JSON", v7, v8, v9, v10, v12);
-
-  v11 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_3(&dword_24912E000, v5, v6, "Record %@ is not valid JSON", v7, v8, v9, v10);
 }
 
 - (void)_populateCKRecord:(void *)a1 withGlobalConfiguration:.cold.1(void *a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_4_0() recordID];
   v4 = [v3 recordName];
   OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_1_3(&dword_24912E000, v5, v6, "Record %@ is not valid JSON", v7, v8, v9, v10, v12);
-
-  v11 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_lock_prepareDNDSIDSRecordToSave:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_0(&dword_24912E000, v0, v1, "Could not read configuration: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_lock_updateConfigurationWithDNDSIDSRecord:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_0(&dword_24912E000, v0, v1, "Error writing fetched configurations: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_3(&dword_24912E000, v5, v6, "Record %@ is not valid JSON", v7, v8, v9, v10);
 }
 
 @end

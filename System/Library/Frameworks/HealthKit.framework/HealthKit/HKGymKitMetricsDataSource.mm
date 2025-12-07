@@ -45,13 +45,14 @@
 void __79__HKGymKitMetricsDataSource_initWithHealthStore_workoutConfiguration_delegate___block_invoke(uint64_t a1, char a2, void *a3)
 {
   v5 = a3;
+  v7 = v5;
   if ((a2 & 1) == 0)
   {
-    _HKInitializeLogging();
-    v6 = HKLogWorkouts;
+    _HKInitializeLogging(v5, v6);
+    v8 = HKLogWorkouts;
     if (os_log_type_enabled(HKLogWorkouts, OS_LOG_TYPE_ERROR))
     {
-      __79__HKGymKitMetricsDataSource_initWithHealthStore_workoutConfiguration_delegate___block_invoke_cold_1(a1, v6);
+      __79__HKGymKitMetricsDataSource_initWithHealthStore_workoutConfiguration_delegate___block_invoke_cold_1(a1, v8);
     }
   }
 }
@@ -60,7 +61,7 @@ void __79__HKGymKitMetricsDataSource_initWithHealthStore_workoutConfiguration_de
 {
   proxyProvider = self->_proxyProvider;
   self->_proxyProvider = 0;
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](self, proxyProvider);
 }
 
 - (void)clientRemote_didReceiveMetrics:(id)metrics
@@ -87,30 +88,30 @@ void __60__HKGymKitMetricsDataSource_clientRemote_didReceiveMetrics___block_invo
   v2 = +[HKUnit wattUnit];
   v3 = [HKUnit unitFromString:@"J/s"];
   v4 = *(a1 + 32);
-  v11 = MEMORY[0x1E69E9820];
-  v12 = 3221225472;
-  v13 = __60__HKGymKitMetricsDataSource_clientRemote_didReceiveMetrics___block_invoke_2;
-  v14 = &unk_1E7385A68;
+  v13 = MEMORY[0x1E69E9820];
+  v14 = 3221225472;
+  v15 = __60__HKGymKitMetricsDataSource_clientRemote_didReceiveMetrics___block_invoke_2;
+  v16 = &unk_1E7385A68;
   v5 = v2;
-  v15 = v5;
+  v17 = v5;
   v6 = v3;
-  v16 = v6;
-  v7 = [v4 hk_map:&v11];
+  v18 = v6;
+  v7 = [v4 hk_map:&v13];
   WeakRetained = objc_loadWeakRetained((a1 + 48));
 
   if (WeakRetained)
   {
-    v9 = objc_loadWeakRetained((a1 + 48));
-    [v9 gymKitMetricsDataSource:*(a1 + 40) didReceiveMetrics:{v7, v11, v12, v13, v14, v15}];
+    v11 = objc_loadWeakRetained((a1 + 48));
+    [v11 gymKitMetricsDataSource:*(a1 + 40) didReceiveMetrics:{v7, v13, v14, v15, v16, v17}];
   }
 
   else
   {
-    _HKInitializeLogging();
-    v10 = HKLogWorkouts;
+    _HKInitializeLogging(v9, v10);
+    v12 = HKLogWorkouts;
     if (os_log_type_enabled(HKLogWorkouts, OS_LOG_TYPE_ERROR))
     {
-      __60__HKGymKitMetricsDataSource_clientRemote_didReceiveMetrics___block_invoke_cold_1(a1, v10);
+      __60__HKGymKitMetricsDataSource_clientRemote_didReceiveMetrics___block_invoke_cold_1(a1, v12);
     }
   }
 }
@@ -157,13 +158,14 @@ void __60__HKGymKitMetricsDataSource_clientRemote_didReceiveMetrics___block_invo
 void __50__HKGymKitMetricsDataSource_connectionInterrupted__block_invoke(uint64_t a1, char a2, void *a3)
 {
   v5 = a3;
+  v7 = v5;
   if ((a2 & 1) == 0)
   {
-    _HKInitializeLogging();
-    v6 = HKLogWorkouts;
+    _HKInitializeLogging(v5, v6);
+    v8 = HKLogWorkouts;
     if (os_log_type_enabled(HKLogWorkouts, OS_LOG_TYPE_ERROR))
     {
-      __50__HKGymKitMetricsDataSource_connectionInterrupted__block_invoke_cold_1(a1, v6);
+      __50__HKGymKitMetricsDataSource_connectionInterrupted__block_invoke_cold_1(a1, v8);
     }
   }
 }
@@ -203,44 +205,30 @@ uint64_t __68__HKGymKitMetricsDataSource__startTaskServerIfNeededWithCompletion_
 
 void __79__HKGymKitMetricsDataSource_initWithHealthStore_workoutConfiguration_delegate___block_invoke_cold_1(uint64_t a1, void *a2)
 {
-  v16 = *MEMORY[0x1E69E9840];
-  v3 = *(a1 + 32);
-  v4 = a2;
-  v5 = objc_opt_class();
-  v6 = NSStringFromClass(v5);
-  v7 = *(*(a1 + 32) + 32);
+  v2 = a2;
+  v3 = objc_opt_class();
+  v4 = NSStringFromClass(v3);
   OUTLINED_FUNCTION_0_31();
-  OUTLINED_FUNCTION_1_15(&dword_19197B000, v8, v9, "%{public}@: Unable to start task server %@ with error: %@", v10, v11, v12, v13, v15);
-
-  v14 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1_15(&dword_19197B000, v5, v6, "%{public}@: Unable to start task server %@ with error: %@", v7, v8, v9, v10);
 }
 
 void __60__HKGymKitMetricsDataSource_clientRemote_didReceiveMetrics___block_invoke_cold_1(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v3 = *(a1 + 40);
-  v4 = a2;
-  v5 = objc_opt_class();
-  v6 = NSStringFromClass(v5);
-  v7 = *(*(a1 + 40) + 32);
+  v6 = *MEMORY[0x1E69E9840];
+  v2 = a2;
+  v3 = objc_opt_class();
+  v4 = NSStringFromClass(v3);
   OUTLINED_FUNCTION_0_31();
-  _os_log_error_impl(&dword_19197B000, v4, OS_LOG_TYPE_ERROR, "%{public}@: Metrics received but no delegate configured for data source %@", v9, 0x16u);
-
-  v8 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(&dword_19197B000, v2, OS_LOG_TYPE_ERROR, "%{public}@: Metrics received but no delegate configured for data source %@", v5, 0x16u);
 }
 
 void __50__HKGymKitMetricsDataSource_connectionInterrupted__block_invoke_cold_1(uint64_t a1, void *a2)
 {
-  v16 = *MEMORY[0x1E69E9840];
-  v3 = *(a1 + 32);
-  v4 = a2;
-  v5 = objc_opt_class();
-  v6 = NSStringFromClass(v5);
-  v7 = *(*(a1 + 32) + 32);
+  v2 = a2;
+  v3 = objc_opt_class();
+  v4 = NSStringFromClass(v3);
   OUTLINED_FUNCTION_0_31();
-  OUTLINED_FUNCTION_1_15(&dword_19197B000, v8, v9, "%{public}@: Unable to fetch data source %@ proxy after interrupted connection with error: %@", v10, v11, v12, v13, v15);
-
-  v14 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1_15(&dword_19197B000, v5, v6, "%{public}@: Unable to fetch data source %@ proxy after interrupted connection with error: %@", v7, v8, v9, v10);
 }
 
 @end

@@ -202,14 +202,14 @@
 
 - (id)stepsLUTGenerator
 {
-  v2 = SDOFV2MetalLibURL();
+  v2 = SDOFV2MetalLibURL(self, a2);
 
   return [(CIKernel *)CIColorKernel cachedKernelWithFunctionName:@"_sparserendering_stepLUT" fromMetalLibrary:v2 error:0];
 }
 
 - (id)baseVecsLUTGenerator
 {
-  v2 = SDOFV2MetalLibURL();
+  v2 = SDOFV2MetalLibURL(self, a2);
 
   return [(CIKernel *)CIColorKernel cachedKernelWithFunctionName:@"_sparserendering_baseVecLUT" fromMetalLibrary:v2 error:0];
 }
@@ -241,7 +241,7 @@
 {
   alphaCopy = alpha;
   kernelCopy = kernel;
-  v6 = SDOFV2MetalLibURL();
+  v6 = SDOFV2MetalLibURL(self, a2);
   v7 = @"_sparserendering_opt2x_sample_noAlphaLUT";
   if (alphaCopy)
   {
@@ -271,7 +271,7 @@
 {
   alphaCopy = alpha;
   _kernelCopy = _kernel;
-  v6 = SDOFV2MetalLibURL();
+  v6 = SDOFV2MetalLibURL(self, a2);
   v7 = @"_sparserendering_opt2x_sample";
   if (alphaCopy)
   {

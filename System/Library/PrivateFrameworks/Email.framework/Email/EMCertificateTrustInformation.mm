@@ -103,19 +103,18 @@ void __36__EMCertificateTrustInformation_log__block_invoke(uint64_t a1)
   [coderCopy encodeObject:sender forKey:@"EFPropertyKey_sender"];
 
   [coderCopy encodeInteger:-[EMCertificateTrustInformation certificateType](self forKey:{"certificateType"), @"EFPropertyKey_certificateType"}];
-  trust = self->_trust;
-  v7 = SecTrustSerialize();
-  if (v7)
+  v6 = SecTrustSerialize();
+  if (v6)
   {
-    [coderCopy encodeObject:v7 forKey:@"trust"];
+    [coderCopy encodeObject:v6 forKey:@"trust"];
   }
 
   else
   {
-    v8 = +[EMCertificateTrustInformation log];
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v7 = +[EMCertificateTrustInformation log];
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      [EMCertificateTrustInformation encodeWithCoder:v8];
+      [EMCertificateTrustInformation encodeWithCoder:v7];
     }
   }
 }

@@ -47,7 +47,7 @@ LABEL_3:
   memset(&v136, 0, sizeof(v136));
   if (v29)
   {
-    [v29 transform];
+    objc_msgSend_transform(v29);
   }
 
   v134[0] = 0;

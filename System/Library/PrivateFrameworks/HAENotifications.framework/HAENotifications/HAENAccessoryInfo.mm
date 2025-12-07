@@ -9,26 +9,27 @@
 
 + (id)getAccessoryInfoFromIOAccesoryManager:(id *)manager
 {
-  v49 = *MEMORY[0x277D85DE8];
-  if (!+[HAENDefaults isRunningCITests])
+  v56 = *MEMORY[0x277D85DE8];
+  v4 = +[HAENDefaults isRunningCITests];
+  if (!v4)
   {
     connect = 0;
     ServiceWithPrimaryPort = IOAccessoryManagerGetServiceWithPrimaryPort();
     if (ServiceWithPrimaryPort)
     {
-      v10 = IOServiceOpen(ServiceWithPrimaryPort, *MEMORY[0x277D85F48], 0, &connect);
-      if (!v10)
+      v11 = IOServiceOpen(ServiceWithPrimaryPort, *MEMORY[0x277D85F48], 0, &connect);
+      if (!v11)
       {
-        v13 = objc_alloc_init(HAENAccessoryInfo);
+        v14 = objc_alloc_init(HAENAccessoryInfo);
         v17 = IOAccessoryManagerCopyDeviceInfo();
         if (v17)
         {
           v18 = errorForIOKitFailure(v17);
-          v19 = HAENotificationsLog();
+          v19 = HAENotificationsLog(v18);
           if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412290;
-            v46 = v18;
+            v53 = v18;
             _os_log_impl(&dword_25081E000, v19, OS_LOG_TYPE_DEFAULT, "failed to get serial number %@", buf, 0xCu);
           }
 
@@ -37,137 +38,137 @@
           {
             v21 = errorForIOKitFailure(v20);
 
-            v22 = HAENotificationsLog();
-            if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+            v23 = HAENotificationsLog(v22);
+            if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 138412290;
-              v46 = v21;
-              _os_log_impl(&dword_25081E000, v22, OS_LOG_TYPE_DEFAULT, "failed to get manufacturer %@", buf, 0xCu);
+              v53 = v21;
+              _os_log_impl(&dword_25081E000, v23, OS_LOG_TYPE_DEFAULT, "failed to get manufacturer %@", buf, 0xCu);
             }
 
             v18 = v21;
 
-            v23 = IOAccessoryManagerCopyDeviceInfo();
-            if (v23)
+            v24 = IOAccessoryManagerCopyDeviceInfo();
+            if (v24)
             {
-              v24 = errorForIOKitFailure(v23);
+              v25 = errorForIOKitFailure(v24);
 
-              v25 = HAENotificationsLog();
-              if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+              v27 = HAENotificationsLog(v26);
+              if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
               {
                 *buf = 138412290;
-                v46 = v24;
-                _os_log_impl(&dword_25081E000, v25, OS_LOG_TYPE_DEFAULT, "failed to get model number %@", buf, 0xCu);
+                v53 = v25;
+                _os_log_impl(&dword_25081E000, v27, OS_LOG_TYPE_DEFAULT, "failed to get model number %@", buf, 0xCu);
               }
 
-              v18 = v24;
+              v18 = v25;
 
-              v26 = IOAccessoryManagerCopyDeviceInfo();
-              if (v26)
+              v28 = IOAccessoryManagerCopyDeviceInfo();
+              if (v28)
               {
-                v27 = errorForIOKitFailure(v26);
+                v29 = errorForIOKitFailure(v28);
 
-                v28 = HAENotificationsLog();
-                if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
+                v31 = HAENotificationsLog(v30);
+                if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
                 {
                   *buf = 138412290;
-                  v46 = v27;
-                  _os_log_impl(&dword_25081E000, v28, OS_LOG_TYPE_DEFAULT, "failed to get name %@", buf, 0xCu);
+                  v53 = v29;
+                  _os_log_impl(&dword_25081E000, v31, OS_LOG_TYPE_DEFAULT, "failed to get name %@", buf, 0xCu);
                 }
 
-                v18 = v27;
+                v18 = v29;
 
-                v29 = IOAccessoryManagerCopyDeviceInfo();
-                if (v29)
+                v32 = IOAccessoryManagerCopyDeviceInfo();
+                if (v32)
                 {
-                  v30 = errorForIOKitFailure(v29);
+                  v33 = errorForIOKitFailure(v32);
 
-                  v31 = HAENotificationsLog();
-                  if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
+                  v35 = HAENotificationsLog(v34);
+                  if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
                   {
                     *buf = 138412290;
-                    v46 = v30;
-                    _os_log_impl(&dword_25081E000, v31, OS_LOG_TYPE_DEFAULT, "failed to get interface serial number %@", buf, 0xCu);
+                    v53 = v33;
+                    _os_log_impl(&dword_25081E000, v35, OS_LOG_TYPE_DEFAULT, "failed to get interface serial number %@", buf, 0xCu);
                   }
 
-                  v18 = v30;
+                  v18 = v33;
 
-                  v32 = IOAccessoryManagerCopyDeviceInfo();
-                  if (v32)
+                  v36 = IOAccessoryManagerCopyDeviceInfo();
+                  if (v36)
                   {
-                    v33 = errorForIOKitFailure(v32);
+                    v37 = errorForIOKitFailure(v36);
 
-                    v34 = HAENotificationsLog();
-                    if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
+                    v39 = HAENotificationsLog(v38);
+                    if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
                     {
                       +[HAENAccessoryInfo getAccessoryInfoFromIOAccesoryManager:];
                     }
 
-                    name = v33;
+                    name = v37;
 
-                    v35 = HAENotificationsLog();
-                    if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
+                    v41 = HAENotificationsLog(v40);
+                    if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
                     {
                       *buf = 136315394;
-                      v46 = "+[HAENAccessoryInfo getAccessoryInfoFromIOAccesoryManager:]";
-                      v47 = 2112;
-                      v48 = v13;
-                      _os_log_impl(&dword_25081E000, v35, OS_LOG_TYPE_DEFAULT, "%s %@", buf, 0x16u);
+                      v53 = "+[HAENAccessoryInfo getAccessoryInfoFromIOAccesoryManager:]";
+                      v54 = 2112;
+                      v55 = v14;
+                      _os_log_impl(&dword_25081E000, v41, OS_LOG_TYPE_DEFAULT, "%s %@", buf, 0x16u);
                     }
 
                     IOServiceClose(connect);
-                    serialNumber = v13->_serialNumber;
-                    if (!v13->_manufacturer || !serialNumber)
+                    serialNumber = v14->_serialNumber;
+                    if (!v14->_manufacturer || !serialNumber)
                     {
-                      v37 = [MEMORY[0x277CCACA8] stringWithFormat:@"IOAccessoryManager: required fields are missing, manufacturer %@, serialNumber %@", v13->_manufacturer, serialNumber, 0];
-                      v43 = *MEMORY[0x277CCA450];
-                      v44 = v37;
-                      v38 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v44 forKeys:&v43 count:1];
-                      *manager = makeError(v38, 4u);
+                      v43 = [MEMORY[0x277CCACA8] stringWithFormat:@"IOAccessoryManager: required fields are missing, manufacturer %@, serialNumber %@", v14->_manufacturer, serialNumber, 0];
+                      v50 = *MEMORY[0x277CCA450];
+                      v51 = v43;
+                      v44 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v51 forKeys:&v50 count:1];
+                      *manager = makeError(v44, 4u);
 
-                      v39 = HAENotificationsLog();
-                      if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
+                      v46 = HAENotificationsLog(v45);
+                      if (os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
                       {
                         +[HAENAccessoryInfo getAccessoryInfoFromIOAccesoryManager:];
                       }
 
-                      v13 = 0;
+                      v14 = 0;
                     }
 
-                    v13 = v13;
-                    v5 = v13;
+                    v14 = v14;
+                    v6 = v14;
                     goto LABEL_17;
                   }
 
-                  v40 = @"kIOAccDigitalIDDeviceInfoTypeInterfaceModuleSerialNumber";
+                  v47 = @"kIOAccDigitalIDDeviceInfoTypeInterfaceModuleSerialNumber";
                 }
 
                 else
                 {
-                  v40 = @"kIOAccDigitalIDDeviceInfoTypeInterfaceDeviceSerialNumber";
+                  v47 = @"kIOAccDigitalIDDeviceInfoTypeInterfaceDeviceSerialNumber";
                 }
               }
 
               else
               {
-                v40 = @"kIOAccDigitalIDDeviceInfoTypeAccessoryName";
+                v47 = @"kIOAccDigitalIDDeviceInfoTypeAccessoryName";
               }
             }
 
             else
             {
-              v40 = @"kIOAccDigitalIDDeviceInfoTypeAccessoryModelNumber";
+              v47 = @"kIOAccDigitalIDDeviceInfoTypeAccessoryModelNumber";
             }
           }
 
           else
           {
-            v40 = @"kIOAccDigitalIDDeviceInfoTypeAccessoryManufacturer";
+            v47 = @"kIOAccDigitalIDDeviceInfoTypeAccessoryManufacturer";
           }
 
-          v41 = errorForBadDeviceInfo(v40);
+          v48 = errorForBadDeviceInfo(v47);
 
-          name = v41;
+          name = v48;
         }
 
         else
@@ -181,11 +182,11 @@ LABEL_12:
           IOServiceClose(connect);
         }
 
-        v5 = 0;
+        v6 = 0;
         if (manager && name)
         {
-          v14 = name;
-          v5 = 0;
+          v15 = name;
+          v6 = 0;
           *manager = name;
         }
 
@@ -194,9 +195,9 @@ LABEL_17:
         goto LABEL_18;
       }
 
-      name = errorForIOKitFailure(v10);
-      v11 = HAENotificationsLog();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      name = errorForIOKitFailure(v11);
+      v12 = HAENotificationsLog(name);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
         +[HAENAccessoryInfo getAccessoryInfoFromIOAccesoryManager:];
       }
@@ -204,45 +205,43 @@ LABEL_17:
 
     else
     {
-      v12 = objc_alloc(MEMORY[0x277CCA9B8]);
-      name = [v12 initWithDomain:HAENAccessoryInfoErrorDomain code:2 userInfo:MEMORY[0x277CBEC10]];
-      v11 = HAENotificationsLog();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      v13 = objc_alloc(MEMORY[0x277CCA9B8]);
+      name = [v13 initWithDomain:HAENAccessoryInfoErrorDomain code:2 userInfo:MEMORY[0x277CBEC10]];
+      v12 = HAENotificationsLog(name);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
         +[HAENAccessoryInfo getAccessoryInfoFromIOAccesoryManager:];
       }
     }
 
-    v13 = 0;
+    v14 = 0;
     goto LABEL_12;
   }
 
-  v4 = HAENotificationsLog();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  v5 = HAENotificationsLog(v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_25081E000, v4, OS_LOG_TYPE_DEFAULT, "running citest mode with fake accessory info", buf, 2u);
+    _os_log_impl(&dword_25081E000, v5, OS_LOG_TYPE_DEFAULT, "running citest mode with fake accessory info", buf, 2u);
   }
 
-  v5 = objc_alloc_init(HAENAccessoryInfo);
-  manufacturer = v5->_manufacturer;
-  v5->_manufacturer = @"CITEST.INC";
+  v6 = objc_alloc_init(HAENAccessoryInfo);
+  manufacturer = v6->_manufacturer;
+  v6->_manufacturer = @"CITEST.INC";
 
-  v7 = v5->_serialNumber;
-  v5->_serialNumber = @"0123456789";
+  v8 = v6->_serialNumber;
+  v6->_serialNumber = @"0123456789";
 
-  name = v5->_name;
-  v5->_name = @"FAKE";
+  name = v6->_name;
+  v6->_name = @"FAKE";
 LABEL_18:
 
-  v15 = *MEMORY[0x277D85DE8];
-
-  return v5;
+  return v6;
 }
 
 + (id)getAccessoryInfoFromIOKitDirectly:(id *)directly
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   v4 = objc_alloc_init(HAENAccessoryInfo);
   v5 = IOServiceMatching("IOMikeyBusDevice");
   if (!v5 || ((existing = 0, !IOServiceGetMatchingServices(*MEMORY[0x277CD28A0], v5, &existing)) ? (v6 = existing == 0) : (v6 = 1), v6))
@@ -291,13 +290,13 @@ LABEL_21:
         }
       }
 
-      v13 = HAENotificationsLog();
+      v13 = HAENotificationsLog(properties);
       if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315394;
-        v28 = "+[HAENAccessoryInfo getAccessoryInfoFromIOKitDirectly:]";
-        v29 = 2112;
-        v30 = properties;
+        v29 = "+[HAENAccessoryInfo getAccessoryInfoFromIOKitDirectly:]";
+        v30 = 2112;
+        v31 = properties;
         _os_log_impl(&dword_25081E000, v13, OS_LOG_TYPE_DEFAULT, "%s IOMikeyBusDevice properties: %@\n", buf, 0x16u);
       }
 
@@ -306,14 +305,14 @@ LABEL_21:
         if (v7)
         {
 LABEL_18:
-          v14 = HAENotificationsLog();
-          if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+          v15 = HAENotificationsLog(v14);
+          if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412546;
-            v28 = v8;
-            v29 = 2112;
-            v30 = v7;
-            _os_log_impl(&dword_25081E000, v14, OS_LOG_TYPE_DEFAULT, "IOMikeyBus sn: %@ mft: %@", buf, 0x16u);
+            v29 = v8;
+            v30 = 2112;
+            v31 = v7;
+            _os_log_impl(&dword_25081E000, v15, OS_LOG_TYPE_DEFAULT, "IOMikeyBus sn: %@ mft: %@", buf, 0x16u);
           }
 
           v12 = properties;
@@ -323,14 +322,16 @@ LABEL_18:
 
       else
       {
-        v8 = [(__CFDictionary *)properties objectForKey:@"SerialNumber"];
+        v14 = [(__CFDictionary *)properties objectForKey:@"SerialNumber"];
+        v8 = v14;
         if (v7)
         {
           goto LABEL_18;
         }
       }
 
-      v7 = [(__CFDictionary *)properties objectForKey:@"VendorName"];
+      v14 = [(__CFDictionary *)properties objectForKey:@"VendorName"];
+      v7 = v14;
       goto LABEL_18;
     }
 
@@ -345,24 +346,24 @@ LABEL_28:
   serialNumber = v4->_serialNumber;
   if (v4->_manufacturer)
   {
-    v16 = serialNumber == 0;
+    v17 = serialNumber == 0;
   }
 
   else
   {
-    v16 = 1;
+    v17 = 1;
   }
 
-  if (v16)
+  if (v17)
   {
     serialNumber = [MEMORY[0x277CCACA8] stringWithFormat:@"IOMikeyBus: required fields are missing, manufacturer %@, serialNumber %@", v4->_manufacturer, serialNumber];
-    v25 = *MEMORY[0x277CCA450];
-    v26 = serialNumber;
-    v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v26 forKeys:&v25 count:1];
-    *directly = makeError(v18, 4u);
+    v26 = *MEMORY[0x277CCA450];
+    v27 = serialNumber;
+    v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v27 forKeys:&v26 count:1];
+    *directly = makeError(v19, 4u);
 
-    v19 = HAENotificationsLog();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+    v21 = HAENotificationsLog(v20);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
       +[HAENAccessoryInfo getAccessoryInfoFromIOAccesoryManager:];
     }
@@ -370,9 +371,8 @@ LABEL_28:
     v4 = 0;
   }
 
-  v20 = v4;
+  v22 = v4;
 
-  v21 = *MEMORY[0x277D85DE8];
   return v4;
 }
 
@@ -387,7 +387,7 @@ LABEL_28:
 
   else
   {
-    v6 = HAENotificationsLog();
+    v6 = HAENotificationsLog(v4);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       [(HAENAccessoryInfo *)info getAccessoryInfo:v6, v7, v8, v9, v10, v11, v12];
@@ -398,17 +398,17 @@ LABEL_28:
 
     if (*info)
     {
-      v14 = HAENotificationsLog();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+      v15 = HAENotificationsLog(v14);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
-        [(HAENAccessoryInfo *)info getAccessoryInfo:v14, v15, v16, v17, v18, v19, v20];
+        [(HAENAccessoryInfo *)info getAccessoryInfo:v15, v16, v17, v18, v19, v20, v21];
       }
     }
   }
 
-  v21 = v13;
+  v22 = v13;
 
-  return v21;
+  return v22;
 }
 
 - (id)description
@@ -421,52 +421,18 @@ LABEL_28:
   return v6;
 }
 
-+ (void)getAccessoryInfoFromIOAccesoryManager:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_25081E000, v0, v1, "failed IOServiceOpen %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-+ (void)getAccessoryInfoFromIOAccesoryManager:.cold.2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_25081E000, v0, v1, "failed to get device module serial number %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-+ (void)getAccessoryInfoFromIOAccesoryManager:.cold.3()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_25081E000, v0, v1, "%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-+ (void)getAccessoryInfoFromIOAccesoryManager:.cold.4()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_25081E000, v0, v1, "failed to get service port %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
 + (void)getAccessoryInfo:(uint64_t)a3 .cold.1(void *a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v9 = HIDWORD(*a1);
-  OUTLINED_FUNCTION_0(&dword_25081E000, a2, a3, "failed to get accessory info from IOAccessoryManager: %@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = *a1;
+  OUTLINED_FUNCTION_0(&dword_25081E000, a2, a3, "failed to get accessory info from IOAccessoryManager: %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 + (void)getAccessoryInfo:(uint64_t)a3 .cold.2(void *a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v9 = HIDWORD(*a1);
-  OUTLINED_FUNCTION_0(&dword_25081E000, a2, a3, "failed to get accessory info from mickey bus: %@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = *a1;
+  OUTLINED_FUNCTION_0(&dword_25081E000, a2, a3, "failed to get accessory info from mickey bus: %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

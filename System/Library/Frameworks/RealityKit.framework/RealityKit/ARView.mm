@@ -72,7 +72,7 @@
 {
   wrapperCopy = wrapper;
   selfCopy = self;
-  ARView.distanceInMetersFromEntityAccessibilityWrapper(_:)();
+  ARView.distanceInMetersFromEntityAccessibilityWrapper(_:)(wrapperCopy);
   v7 = v6;
 
   return v7;
@@ -99,7 +99,7 @@
 
 + (Class)layerClass
 {
-  type metadata accessor for ARReferenceObject(0, &lazy cache variable for type metadata for CALayer);
+  type metadata accessor for ARReferenceObject(0, &lazy cache variable for type metadata for CALayer, 0x1E69793A0);
 
   return swift_getObjCClassFromMetadata();
 }
@@ -114,7 +114,7 @@
 - (double)contentScaleFactor
 {
   v3.receiver = self;
-  v3.super_class = type metadata accessor for ARView();
+  v3.super_class = type metadata accessor for ARView(0);
   [(ARView *)&v3 contentScaleFactor];
   return result;
 }
@@ -122,7 +122,7 @@
 - (void)setContentScaleFactor:(double)factor
 {
   v10.receiver = self;
-  v10.super_class = type metadata accessor for ARView();
+  v10.super_class = type metadata accessor for ARView(0);
   v4 = v10.receiver;
   [(ARView *)&v10 setContentScaleFactor:factor];
   if (*(v4 + OBJC_IVAR____TtC10RealityKit6ARView_initialized) == 1)
@@ -158,7 +158,7 @@
 - (void)layoutSubviews
 {
   v8.receiver = self;
-  v8.super_class = type metadata accessor for ARView();
+  v8.super_class = type metadata accessor for ARView(0);
   v2 = v8.receiver;
   [(ARView *)&v8 layoutSubviews];
   [v2 bounds];

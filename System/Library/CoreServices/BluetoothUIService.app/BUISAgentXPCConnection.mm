@@ -27,7 +27,6 @@
     return 1;
   }
 
-  xpcCnx = self->_xpcCnx;
   if (xpc_connection_has_entitlement())
   {
     result = 1;
@@ -36,17 +35,16 @@
 
   else
   {
-    v7 = NSErrorF();
+    v6 = NSErrorF(NSOSStatusErrorDomain, 4294896128, "Missing entitlement: %s", "com.apple.BluetoothUIService");
     if (dword_10001E9A0 <= 90 && (dword_10001E9A0 != -1 || _LogCategory_Initialize()))
     {
-      pid = self->_pid;
-      LogPrintF();
+      LogPrintF(&dword_10001E9A0, "[BUISAgentXPCConnection _entitledAndReturnError:]", 90, "### XPC denied: %#{pid}, %{error}", self->_pid, v6);
     }
 
     if (error)
     {
-      v8 = v7;
-      *error = v7;
+      v7 = v6;
+      *error = v6;
     }
 
     return 0;
@@ -58,12 +56,15 @@
 - (void)xpcConnectionEvent:(id)event
 {
   eventCopy = event;
-  if (xpc_get_type(eventCopy) == &_xpc_type_dictionary)
+  type = xpc_get_type(eventCopy);
+  if (type == &_xpc_type_dictionary)
   {
-    [(BUISAgentXPCConnection *)self xpcConnectionMessage:eventCopy];
+    type = [(BUISAgentXPCConnection *)self xpcConnectionMessage:eventCopy];
+    goto LABEL_12;
   }
 
-  else if (eventCopy == &_xpc_error_connection_invalid)
+  v5 = eventCopy;
+  if (eventCopy == &_xpc_error_connection_invalid)
   {
     if (dword_10001E9A0 <= 20 && (dword_10001E9A0 != -1 || _LogCategory_Initialize()))
     {
@@ -73,15 +74,21 @@
     xpcCnx = self->_xpcCnx;
     self->_xpcCnx = 0;
 
-    [(BUISAgentXPCConnection *)self invalidate];
+    type = [(BUISAgentXPCConnection *)self invalidate];
+    goto LABEL_12;
   }
 
-  else if (dword_10001E9A0 <= 90 && (dword_10001E9A0 != -1 || _LogCategory_Initialize()))
+  if (dword_10001E9A0 <= 90)
   {
-    sub_10000BE6C();
+    if (dword_10001E9A0 != -1 || (type = _LogCategory_Initialize(), v5 = eventCopy, type))
+    {
+      type = sub_10000BE6C(v5);
+LABEL_12:
+      v5 = eventCopy;
+    }
   }
 
-  _objc_release_x1();
+  _objc_release_x1(type, v5);
 }
 
 - (void)xpcSendMessage:(int)message
@@ -89,14 +96,14 @@
   connection = self->_xpcCnx;
   if (connection)
   {
-    v5 = xpc_dictionary_create(0, 0, 0);
-    xpc_dictionary_set_int64(v5, [@"BUISKeyType" UTF8String], message);
-    xpc_connection_send_message_with_reply(connection, v5, self->_dispatchQueue, &stru_100018578);
+    v7 = xpc_dictionary_create(0, 0, 0);
+    xpc_dictionary_set_int64(v7, [@"BUISKeyType" UTF8String], message);
+    xpc_connection_send_message_with_reply(connection, v7, self->_dispatchQueue, &stru_100018578);
   }
 
   else
   {
-    sub_10000BEF0();
+    sub_10000BEF0(0, v5, v6);
   }
 }
 
@@ -104,25 +111,25 @@
 {
   errorCopy = error;
   requestCopy = request;
-  v7 = self->_xpcCnx;
-  if (v7)
+  v9 = self->_xpcCnx;
+  if (v9)
   {
     reply = xpc_dictionary_create_reply(requestCopy);
     if (reply)
     {
       CUXPCEncodeNSError();
-      xpc_connection_send_message(v7, reply);
+      xpc_connection_send_message(v9, reply);
     }
 
     else
     {
-      sub_10000C000();
+      sub_10000C000(0, v10, v11);
     }
   }
 
   else
   {
-    sub_10000C060();
+    sub_10000C060(0, v7, v8);
   }
 }
 
@@ -134,7 +141,7 @@
   {
     if (dword_10001E9A0 <= 90 && (dword_10001E9A0 != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      LogPrintF(&dword_10001E9A0, "[BUISAgentXPCConnection xpcConnectionMessage:]", 90, "### XPC no message type");
     }
 
     if (!xpc_dictionary_expects_reply())
@@ -142,7 +149,7 @@
       goto LABEL_18;
     }
 
-    v10 = 0;
+    NSErrorF(NSOSStatusErrorDomain, 4294960561, "Unknown message type: %lld", 0);
     goto LABEL_17;
   }
 
@@ -151,7 +158,7 @@
   {
     if (dword_10001E9A0 <= 90 && (dword_10001E9A0 != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      LogPrintF(&dword_10001E9A0, "[BUISAgentXPCConnection xpcConnectionMessage:]", 90, "### XPC unknown message type: %lld", v6);
     }
 
     if (!xpc_dictionary_expects_reply())
@@ -159,19 +166,18 @@
       goto LABEL_18;
     }
 
-    v10 = v6;
-LABEL_17:
-    v9 = NSErrorF();
-    [(BUISAgentXPCConnection *)self _xpcSendReplyError:v9 request:messageCopy, v10];
+    NSErrorF(NSOSStatusErrorDomain, 4294960561, "Unknown message type: %lld", v6);
+    v9 = LABEL_17:;
+    [(BUISAgentXPCConnection *)self _xpcSendReplyError:v9 request:messageCopy];
 
 LABEL_18:
     v8 = 0;
     goto LABEL_19;
   }
 
-  v11 = 0;
-  v7 = [(BUISAgentXPCConnection *)self _entitledAndReturnError:&v11];
-  v8 = v11;
+  v10 = 0;
+  v7 = [(BUISAgentXPCConnection *)self _entitledAndReturnError:&v10];
+  v8 = v10;
   if (v7)
   {
     [(BluetoothUIService *)self->_agent activateBanner:messageCopy withXPCConnection:self];

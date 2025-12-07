@@ -13,6 +13,7 @@
 - (void)completeMiniFlowStep;
 - (void)learnMoreButtonPressed:(id)pressed;
 - (void)okayButtonPressed:(id)pressed;
+- (void)updateMedicalIDShareDuringEmergency:(BOOL)emergency;
 - (void)updateMedicalIDShareDuringEmergencyInSkippedPane:(BOOL)pane;
 @end
 
@@ -190,6 +191,28 @@
 {
   v4 = +[MIUIMedicalIDLearnMoreNavigationViewControllerFactory makeViewController];
   [(HKBridgeSetupEmergencyCallAccessController *)self presentViewController:v4 animated:1 completion:0];
+}
+
+- (void)updateMedicalIDShareDuringEmergency:(BOOL)emergency
+{
+  if (self->_healthStore)
+  {
+    [(_HKMedicalIDData *)self->_medicalIDData setShareDuringEmergency:emergency];
+    medicalIDStore = self->_medicalIDStore;
+    medicalIDData = self->_medicalIDData;
+    v6[0] = _NSConcreteStackBlock;
+    v6[1] = 3221225472;
+    v6[2] = sub_4400;
+    v6[3] = &unk_C428;
+    v6[4] = self;
+    [(HKMedicalIDStore *)medicalIDStore updateMedicalIDData:medicalIDData completion:v6];
+  }
+
+  else
+  {
+
+    [(HKBridgeSetupEmergencyCallAccessController *)self updateMedicalIDShareDuringEmergencyInSkippedPane:emergency];
+  }
 }
 
 - (void)updateMedicalIDShareDuringEmergencyInSkippedPane:(BOOL)pane

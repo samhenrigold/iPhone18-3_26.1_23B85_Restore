@@ -25,20 +25,20 @@
 
 - (MCDefaultsPayload)initWithDictionary:(id)dictionary profile:(id)profile outError:(id *)error
 {
-  v71 = *MEMORY[0x1E69E9840];
+  v70 = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   profileCopy = profile;
-  v65.receiver = self;
-  v65.super_class = MCDefaultsPayload;
-  v10 = [(MCPayload *)&v65 initWithDictionary:dictionaryCopy profile:profileCopy outError:error];
+  v64.receiver = self;
+  v64.super_class = MCDefaultsPayload;
+  v10 = [(MCPayload *)&v64 initWithDictionary:dictionaryCopy profile:profileCopy outError:error];
   if (!v10)
   {
     goto LABEL_51;
   }
 
-  v64 = 0;
-  v11 = [MCProfile removeOptionalObjectInDictionary:dictionaryCopy key:@"PayloadContent" type:objc_opt_class() errorDomain:@"MCPayloadErrorDomain" invalidDataCode:2003 invalidDataErrorString:@"ERROR_PAYLOAD_FIELD_INVALID_P_FIELD" outError:&v64];
-  mCCopyAsPrimaryError = v64;
+  v63 = 0;
+  v11 = [MCProfile removeOptionalObjectInDictionary:dictionaryCopy key:@"PayloadContent" type:objc_opt_class() errorDomain:@"MCPayloadErrorDomain" invalidDataCode:2003 invalidDataErrorString:@"ERROR_PAYLOAD_FIELD_INVALID_P_FIELD" outError:&v63];
+  mCCopyAsPrimaryError = v63;
   if (mCCopyAsPrimaryError)
   {
     goto LABEL_42;
@@ -77,35 +77,35 @@
     goto LABEL_40;
   }
 
-  v57 = profileCopy;
-  v62 = 0u;
-  v63 = 0u;
-  v60 = 0u;
+  v56 = profileCopy;
   v61 = 0u;
+  v62 = 0u;
+  v59 = 0u;
+  v60 = 0u;
   obj = v11;
-  v16 = [obj countByEnumeratingWithState:&v60 objects:v70 count:16];
+  v16 = [obj countByEnumeratingWithState:&v59 objects:v69 count:16];
   if (!v16)
   {
 LABEL_28:
 
-    profileCopy = v57;
+    profileCopy = v56;
     goto LABEL_39;
   }
 
   v17 = v16;
-  v18 = *v61;
-  v56 = v11;
-  v59 = v15;
+  v18 = *v60;
+  v55 = v11;
+  v58 = v15;
 LABEL_12:
   v19 = 0;
   while (1)
   {
-    if (*v61 != v18)
+    if (*v60 != v18)
     {
       objc_enumerationMutation(obj);
     }
 
-    v20 = *(*(&v60 + 1) + 8 * v19);
+    v20 = *(*(&v59 + 1) + 8 * v19);
     objc_opt_class();
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
@@ -143,8 +143,8 @@ LABEL_12:
       goto LABEL_35;
     }
 
-    v23 = v59;
-    v24 = [(NSDictionary *)v59 objectForKey:v21];
+    v23 = v58;
+    v24 = [(NSDictionary *)v58 objectForKey:v21];
     if (v24)
     {
       objc_opt_class();
@@ -160,7 +160,7 @@ LABEL_12:
       [v25 addEntriesFromDictionary:v22];
 
       v22 = v25;
-      v23 = v59;
+      v23 = v58;
     }
 
     [(NSDictionary *)v23 setObject:v22 forKey:v21];
@@ -168,9 +168,9 @@ LABEL_12:
 LABEL_26:
     if (v17 == ++v19)
     {
-      v17 = [obj countByEnumeratingWithState:&v60 objects:v70 count:16];
-      v11 = v56;
-      v15 = v59;
+      v17 = [obj countByEnumeratingWithState:&v59 objects:v69 count:16];
+      v11 = v55;
+      v15 = v58;
       if (v17)
       {
         goto LABEL_12;
@@ -196,9 +196,9 @@ LABEL_36:
 
 LABEL_37:
 LABEL_38:
-  v11 = v56;
-  profileCopy = v57;
-  v15 = v59;
+  v11 = v55;
+  profileCopy = v56;
+  v15 = v58;
 
   if (mCCopyAsPrimaryError)
   {
@@ -232,9 +232,9 @@ LABEL_42:
       v49 = v48;
       mCVerboseDescription = [v44 MCVerboseDescription];
       *buf = 138543618;
-      v67 = v48;
-      v68 = 2114;
-      v69 = mCVerboseDescription;
+      v66 = v48;
+      v67 = 2114;
+      v68 = mCVerboseDescription;
       _os_log_impl(&dword_1A795B000, v47, OS_LOG_TYPE_ERROR, "%{public}@ Can't parse payload: %{public}@", buf, 0x16u);
     }
 
@@ -249,69 +249,67 @@ LABEL_42:
       v52 = v51;
       friendlyName2 = [(MCPayload *)v10 friendlyName];
       *buf = 138543618;
-      v67 = friendlyName2;
-      v68 = 2114;
-      v69 = dictionaryCopy;
+      v66 = friendlyName2;
+      v67 = 2114;
+      v68 = dictionaryCopy;
       _os_log_impl(&dword_1A795B000, v52, OS_LOG_TYPE_INFO, "Payload “%{public}@” contains ignored fields. They are: %{public}@", buf, 0x16u);
     }
   }
 
 LABEL_51:
-  v54 = *MEMORY[0x1E69E9840];
   return v10;
 }
 
 - (id)stubDictionary
 {
-  v26 = *MEMORY[0x1E69E9840];
-  v22.receiver = self;
-  v22.super_class = MCDefaultsPayload;
-  stubDictionary = [(MCPayload *)&v22 stubDictionary];
+  v25 = *MEMORY[0x1E69E9840];
+  v21.receiver = self;
+  v21.super_class = MCDefaultsPayload;
+  stubDictionary = [(MCPayload *)&v21 stubDictionary];
   v3 = MEMORY[0x1E695DF70];
   domains = [(MCDefaultsPayload *)self domains];
   v5 = [v3 arrayWithCapacity:{objc_msgSend(domains, "count")}];
 
-  v20 = 0u;
-  v21 = 0u;
-  v18 = 0u;
   v19 = 0u;
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
   domains2 = [(MCDefaultsPayload *)self domains];
-  v7 = [domains2 countByEnumeratingWithState:&v18 objects:v25 count:16];
+  v7 = [domains2 countByEnumeratingWithState:&v17 objects:v24 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v19;
+    v9 = *v18;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v19 != v9)
+        if (*v18 != v9)
         {
           objc_enumerationMutation(domains2);
         }
 
-        v11 = *(*(&v18 + 1) + 8 * i);
+        v11 = *(*(&v17 + 1) + 8 * i);
         v12 = [(MCDefaultsPayload *)self defaultsForDomain:v11];
         v13 = v12;
         if (v12)
         {
-          v23[0] = @"DefaultsDomainName";
-          v23[1] = @"DefaultsData";
-          v24[0] = v11;
-          v24[1] = v12;
-          v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v24 forKeys:v23 count:2];
+          v22[0] = @"DefaultsDomainName";
+          v22[1] = @"DefaultsData";
+          v23[0] = v11;
+          v23[1] = v12;
+          v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v23 forKeys:v22 count:2];
           [v5 addObject:v14];
         }
       }
 
-      v8 = [domains2 countByEnumeratingWithState:&v18 objects:v25 count:16];
+      v8 = [domains2 countByEnumeratingWithState:&v17 objects:v24 count:16];
     }
 
     while (v8);
   }
 
   [stubDictionary setObject:v5 forKey:@"PayloadContent"];
-  v15 = *MEMORY[0x1E69E9840];
 
   return stubDictionary;
 }

@@ -11,7 +11,6 @@
 - (void)clearCAARequestHistory;
 - (void)clearFollowUpForkey:(id)forkey;
 - (void)getCAAForRepairHistory;
-- (void)getCpuUptimeInSec;
 - (void)isPreflightSuccessful;
 - (void)performBackGroundMiniPreflight;
 - (void)performInteractiveMiniPreflightWith:(id)with;
@@ -147,26 +146,26 @@ LABEL_20:
 
 - (void)getCAAForRepairHistory
 {
-  v22[3] = *MEMORY[0x277D85DE8];
+  v21[3] = *MEMORY[0x277D85DE8];
   dictionary = [MEMORY[0x277CBEB38] dictionary];
   [dictionary setObject:&unk_28597F158 forKeyedSubscript:*MEMORY[0x277D04948]];
   v4 = *MEMORY[0x277D04908];
-  v22[0] = *MEMORY[0x277D04900];
-  v22[1] = v4;
-  v22[2] = *MEMORY[0x277D04930];
-  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:3];
+  v21[0] = *MEMORY[0x277D04900];
+  v21[1] = v4;
+  v21[2] = *MEMORY[0x277D04930];
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:3];
   [dictionary setObject:v5 forKeyedSubscript:*MEMORY[0x277D04928]];
 
-  v21[0] = 0;
-  v21[1] = v21;
-  v21[2] = 0x2020000000;
-  v21[3] = 0;
-  v19[0] = 0;
-  v19[1] = v19;
-  v19[2] = 0x3032000000;
-  v19[3] = __Block_byref_object_copy__0;
-  v19[4] = __Block_byref_object_dispose__0;
-  v20 = 0;
+  v20[0] = 0;
+  v20[1] = v20;
+  v20[2] = 0x2020000000;
+  v20[3] = 0;
+  v18[0] = 0;
+  v18[1] = v18;
+  v18[2] = 0x3032000000;
+  v18[3] = __Block_byref_object_copy__0;
+  v18[4] = __Block_byref_object_dispose__0;
+  v19 = 0;
   v6 = objc_opt_new();
   v7 = dispatch_queue_create("async", MEMORY[0x277D85CD8]);
   v8 = handleForCategory(0);
@@ -180,18 +179,17 @@ LABEL_20:
   block[1] = 3221225472;
   block[2] = __43__CoreRepairUIUtils_getCAAForRepairHistory__block_invoke;
   block[3] = &unk_278EB1FC0;
-  v13 = v6;
-  v14 = dictionary;
-  v16 = v21;
-  v17 = v19;
+  v12 = v6;
+  v13 = dictionary;
+  v15 = v20;
+  v16 = v18;
   selfCopy = self;
   v9 = dictionary;
   v10 = v6;
   dispatch_async(v7, block);
 
-  _Block_object_dispose(v19, 8);
-  _Block_object_dispose(v21, 8);
-  v11 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(v18, 8);
+  _Block_object_dispose(v20, 8);
 }
 
 uint64_t __43__CoreRepairUIUtils_getCAAForRepairHistory__block_invoke(uint64_t a1)
@@ -209,7 +207,7 @@ uint64_t __43__CoreRepairUIUtils_getCAAForRepairHistory__block_invoke(uint64_t a
 
 void __43__CoreRepairUIUtils_getCAAForRepairHistory__block_invoke_2(uint64_t a1, char a2, void *a3, void *a4)
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   v7 = a3;
   v8 = a4;
   v9 = handleForCategory(0);
@@ -229,9 +227,9 @@ void __43__CoreRepairUIUtils_getCAAForRepairHistory__block_invoke_2(uint64_t a1,
     v11 = [v7 referenceKey];
     v12 = [v7 certificates];
     *buf = 138412546;
-    v28 = v11;
-    v29 = 2112;
-    v30 = v12;
+    v27 = v11;
+    v28 = 2112;
+    v29 = v12;
     _os_log_impl(&dword_247875000, v10, OS_LOG_TYPE_DEFAULT, "BIK:%@ Certs:%@", buf, 0x16u);
   }
 
@@ -282,9 +280,9 @@ LABEL_19:
     {
       v20 = *(*(*(a1 + 48) + 8) + 40);
       *buf = 138412546;
-      v28 = v10;
-      v29 = 2112;
-      v30 = v20;
+      v27 = v10;
+      v28 = 2112;
+      v29 = v20;
       _os_log_impl(&dword_247875000, v19, OS_LOG_TYPE_DEFAULT, "repairHistory: %@ error: %@", buf, 0x16u);
     }
 
@@ -306,8 +304,6 @@ LABEL_19:
 
 LABEL_21:
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_preflight:(id)_preflight
@@ -319,31 +315,31 @@ LABEL_21:
 
 void __32__CoreRepairUIUtils__preflight___block_invoke(uint64_t a1, int a2, void *a3, void *a4)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v6 = a3;
   v7 = a4;
   v8 = handleForCategory(0);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v17 = 67109120;
-    LODWORD(v18) = a2;
-    _os_log_impl(&dword_247875000, v8, OS_LOG_TYPE_DEFAULT, "Preflight success: %d", &v17, 8u);
+    v16 = 67109120;
+    LODWORD(v17) = a2;
+    _os_log_impl(&dword_247875000, v8, OS_LOG_TYPE_DEFAULT, "Preflight success: %d", &v16, 8u);
   }
 
   v9 = handleForCategory(0);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
-    v17 = 138412290;
-    v18 = v6;
-    _os_log_impl(&dword_247875000, v9, OS_LOG_TYPE_DEFAULT, "Preflight results: %@", &v17, 0xCu);
+    v16 = 138412290;
+    v17 = v6;
+    _os_log_impl(&dword_247875000, v9, OS_LOG_TYPE_DEFAULT, "Preflight results: %@", &v16, 0xCu);
   }
 
   v10 = handleForCategory(0);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
-    v17 = 138412290;
-    v18 = v7;
-    _os_log_impl(&dword_247875000, v10, OS_LOG_TYPE_DEFAULT, "Preflight error: %@", &v17, 0xCu);
+    v16 = 138412290;
+    v17 = v7;
+    _os_log_impl(&dword_247875000, v10, OS_LOG_TYPE_DEFAULT, "Preflight error: %@", &v16, 0xCu);
   }
 
   v11 = [MEMORY[0x277CBEBD0] groupUserDefaultsWithSuiteName:@"com.apple.mobilerepaird.systemhealth"];
@@ -366,8 +362,6 @@ void __32__CoreRepairUIUtils__preflight___block_invoke(uint64_t a1, int a2, void
   }
 
   [v13 sendAsyncAnalyticsForEvent:v15 moduleName:@"PartsAndServiceHistory"];
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)performInteractiveMiniPreflightWith:(id)with
@@ -478,7 +472,7 @@ uint64_t __51__CoreRepairUIUtils_performBackGroundMiniPreflight__block_invoke(ui
 
 - (BOOL)hasConnectivity
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v2 = SCNetworkReachabilityCreateWithName(*MEMORY[0x277CBECE8], [@"apple.com" UTF8String]);
   if (v2)
   {
@@ -492,7 +486,7 @@ uint64_t __51__CoreRepairUIUtils_performBackGroundMiniPreflight__block_invoke(ui
       if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 67109120;
-        v11 = v6;
+        v10 = v6;
         _os_log_impl(&dword_247875000, v5, OS_LOG_TYPE_DEFAULT, "Network reachability: %d", buf, 8u);
       }
     }
@@ -510,13 +504,12 @@ uint64_t __51__CoreRepairUIUtils_performBackGroundMiniPreflight__block_invoke(ui
     LOBYTE(v6) = 0;
   }
 
-  v7 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
 - (BOOL)isPreflightSuccessful
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277CBEBD0] groupUserDefaultsWithSuiteName:@"com.apple.mobilerepaird.systemhealth"];
   v3 = [v2 objectForKey:@"tempPreflightResults"];
 
@@ -544,9 +537,9 @@ uint64_t __51__CoreRepairUIUtils_performBackGroundMiniPreflight__block_invoke(ui
     v9 = handleForCategory(0);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v12[0] = 67109120;
-      v12[1] = v8;
-      _os_log_impl(&dword_247875000, v9, OS_LOG_TYPE_DEFAULT, "Cached preflight success: %d", v12, 8u);
+      v11[0] = 67109120;
+      v11[1] = v8;
+      _os_log_impl(&dword_247875000, v9, OS_LOG_TYPE_DEFAULT, "Cached preflight success: %d", v11, 8u);
     }
   }
 
@@ -561,7 +554,6 @@ uint64_t __51__CoreRepairUIUtils_performBackGroundMiniPreflight__block_invoke(ui
     LOBYTE(v8) = 0;
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
@@ -627,7 +619,7 @@ void __36__CoreRepairUIUtils_getRepairTicket__block_invoke(uint64_t a1, void *a2
 
 void __36__CoreRepairUIUtils_getRepairTicket__block_invoke_121(void *a1, int a2, void *a3, void *a4)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v8 = a3;
   v9 = a4;
   objc_storeStrong((*(a1[4] + 8) + 40), a3);
@@ -636,16 +628,14 @@ void __36__CoreRepairUIUtils_getRepairTicket__block_invoke_121(void *a1, int a2,
   v10 = handleForCategory(0);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
-    v12[0] = 67109634;
-    v12[1] = a2;
-    v13 = 2112;
-    v14 = v9;
-    v15 = 2112;
-    v16 = v8;
-    _os_log_impl(&dword_247875000, v10, OS_LOG_TYPE_DEFAULT, "repairTicket status:%d:error:%@:ticket:%@", v12, 0x1Cu);
+    v11[0] = 67109634;
+    v11[1] = a2;
+    v12 = 2112;
+    v13 = v9;
+    v14 = 2112;
+    v15 = v8;
+    _os_log_impl(&dword_247875000, v10, OS_LOG_TYPE_DEFAULT, "repairTicket status:%d:error:%@:ticket:%@", v11, 0x1Cu);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setBootIntentAndReboot
@@ -673,19 +663,17 @@ void __36__CoreRepairUIUtils_getRepairTicket__block_invoke_121(void *a1, int a2,
 
 void __43__CoreRepairUIUtils_setBootIntentAndReboot__block_invoke(uint64_t a1, int a2, void *a3)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v4 = a3;
   v5 = handleForCategory(0);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138412546;
-    v8 = v4;
-    v9 = 1024;
-    v10 = a2;
-    _os_log_impl(&dword_247875000, v5, OS_LOG_TYPE_DEFAULT, "setBootIntentAndRebootToCheckerboardWithLocale:Reply: error:%@:status:%d", &v7, 0x12u);
+    v6 = 138412546;
+    v7 = v4;
+    v8 = 1024;
+    v9 = a2;
+    _os_log_impl(&dword_247875000, v5, OS_LOG_TYPE_DEFAULT, "setBootIntentAndRebootToCheckerboardWithLocale:Reply: error:%@:status:%d", &v6, 0x12u);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)scheduleNetworkActivityWith:(int64_t)with
@@ -713,7 +701,7 @@ void __43__CoreRepairUIUtils_setBootIntentAndReboot__block_invoke(uint64_t a1, i
 
 void __49__CoreRepairUIUtils_scheduleNetworkActivityWith___block_invoke(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (!xpc_activity_get_state(v3))
   {
@@ -746,21 +734,21 @@ void __49__CoreRepairUIUtils_scheduleNetworkActivityWith___block_invoke(uint64_t
     {
       if (v7)
       {
-        v10 = 138412546;
-        v11 = v3;
-        v12 = 2048;
+        v9 = 138412546;
+        v10 = v3;
+        v11 = 2048;
         state = xpc_activity_get_state(v3);
         v8 = "Successfully deferred activity %@ to state: %lu";
 LABEL_14:
-        _os_log_impl(&dword_247875000, v5, OS_LOG_TYPE_DEFAULT, v8, &v10, 0x16u);
+        _os_log_impl(&dword_247875000, v5, OS_LOG_TYPE_DEFAULT, v8, &v9, 0x16u);
       }
     }
 
     else if (v7)
     {
-      v10 = 138412546;
-      v11 = v3;
-      v12 = 2048;
+      v9 = 138412546;
+      v10 = v3;
+      v11 = 2048;
       state = xpc_activity_get_state(v3);
       v8 = "Failed to set state to DEFER for activity %@ current state: %lu";
       goto LABEL_14;
@@ -773,8 +761,6 @@ LABEL_15:
 
   xpc_activity_set_state(v3, 5);
 LABEL_16:
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)requestCAA
@@ -815,7 +801,7 @@ LABEL_16:
 
 - (void)retryCAA
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   v3 = [MEMORY[0x277CBEBD0] groupUserDefaultsWithSuiteName:@"com.apple.mobilerepaird"];
   v4 = [v3 integerForKey:@"backOffCount"];
   v5 = [v3 integerForKey:@"retryCount"];
@@ -842,19 +828,19 @@ LABEL_16:
   v16 = handleForCategory(0);
   if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
   {
-    v24 = 134219264;
-    v25 = v15;
-    v26 = 2048;
-    v27 = v5;
-    v28 = 2048;
-    v29 = v6;
-    v30 = 2048;
-    v31 = getCpuUptimeInSec;
-    v32 = 2048;
-    v33 = v8;
-    v34 = 2048;
-    v35 = v12;
-    _os_log_impl(&dword_247875000, v16, OS_LOG_TYPE_DEFAULT, "Retry CAA request (BackOff: %ld RetryCount: %ld LastUptime: %ld CurrentUptime: %ld LastTime: %lf CurrentTime: %lf) ...", &v24, 0x3Eu);
+    v23 = 134219264;
+    v24 = v15;
+    v25 = 2048;
+    v26 = v5;
+    v27 = 2048;
+    v28 = v6;
+    v29 = 2048;
+    v30 = getCpuUptimeInSec;
+    v31 = 2048;
+    v32 = v8;
+    v33 = 2048;
+    v34 = v12;
+    _os_log_impl(&dword_247875000, v16, OS_LOG_TYPE_DEFAULT, "Retry CAA request (BackOff: %ld RetryCount: %ld LastUptime: %ld CurrentUptime: %ld LastTime: %lf CurrentTime: %lf) ...", &v23, 0x3Eu);
   }
 
   if (v5 > 7)
@@ -875,10 +861,10 @@ LABEL_16:
       v17 = handleForCategory(0);
       if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v24) = 0;
+        LOWORD(v23) = 0;
         v18 = "First request or uptime error, requesting CAA.";
 LABEL_22:
-        _os_log_impl(&dword_247875000, v17, OS_LOG_TYPE_DEFAULT, v18, &v24, 2u);
+        _os_log_impl(&dword_247875000, v17, OS_LOG_TYPE_DEFAULT, v18, &v23, 2u);
         goto LABEL_23;
       }
 
@@ -891,7 +877,7 @@ LABEL_22:
       v17 = handleForCategory(0);
       if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v24) = 0;
+        LOWORD(v23) = 0;
         v18 = "System must have rebooted (currentUptime < lastUptime), requesting CAA.";
         goto LABEL_22;
       }
@@ -913,7 +899,7 @@ LABEL_23:
       v17 = handleForCategory(0);
       if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v24) = 0;
+        LOWORD(v23) = 0;
         v18 = "Backoff time has elapsed, requesting CAA.";
         goto LABEL_22;
       }
@@ -924,11 +910,11 @@ LABEL_23:
     v22 = handleForCategory(0);
     if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
     {
-      v24 = 134218240;
-      v25 = (v12 - v8);
-      v26 = 2048;
-      v27 = v21;
-      _os_log_impl(&dword_247875000, v22, OS_LOG_TYPE_DEFAULT, "intervalTime: %lld intervalUptime: %lld", &v24, 0x16u);
+      v23 = 134218240;
+      v24 = (v12 - v8);
+      v25 = 2048;
+      v26 = v21;
+      _os_log_impl(&dword_247875000, v22, OS_LOG_TYPE_DEFAULT, "intervalTime: %lld intervalUptime: %lld", &v23, 0x16u);
     }
 
     if (v21 + 5 < (v12 - v8))
@@ -936,7 +922,7 @@ LABEL_23:
       v17 = handleForCategory(0);
       if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v24) = 0;
+        LOWORD(v23) = 0;
         v18 = "System must have rebooted (Uptime rolls), requesting CAA.";
         goto LABEL_22;
       }
@@ -946,8 +932,6 @@ LABEL_23:
   }
 
 LABEL_24:
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setupCAARetry:(id *)retry
@@ -1106,11 +1090,9 @@ void __44__CoreRepairUIUtils_isBatteryInServiceState__block_invoke_153(uint64_t 
 
 void __43__CoreRepairUIUtils_getCAAForRepairHistory__block_invoke_2_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_0_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __43__CoreRepairUIUtils_getCAAForRepairHistory__block_invoke_2_cold_2()
@@ -1129,28 +1111,16 @@ void __43__CoreRepairUIUtils_getCAAForRepairHistory__block_invoke_2_cold_2()
 
 void __36__CoreRepairUIUtils_getRepairTicket__block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_0_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)getCpuUptimeInSec
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_2();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __44__CoreRepairUIUtils_isBatteryInServiceState__block_invoke_153_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_0_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

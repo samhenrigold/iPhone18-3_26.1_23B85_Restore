@@ -27,11 +27,10 @@
     v7 = 0;
   }
 
-  v8 = *(&self->super.isa + OBJC_IVAR___AAProcessorManager_processorManager);
   queueCopy = queue;
   selfCopy = self;
   sub_1B69A4218(queueCopy, v6, v7);
-  sub_1B69A3100(v6);
+  sub_1B69A3100(v6, v7);
 }
 
 @end

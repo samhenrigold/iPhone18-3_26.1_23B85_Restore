@@ -18,35 +18,35 @@
 
 - (id)dictionaryRepresentation
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   dictionary = [MEMORY[0x1E695DF90] dictionary];
   if ([(NSArray *)self->_intentsRestrictedWhileLockeds count])
   {
     array = [MEMORY[0x1E695DF70] array];
+    v25 = 0u;
     v26 = 0u;
     v27 = 0u;
     v28 = 0u;
-    v29 = 0u;
     v5 = self->_intentsRestrictedWhileLockeds;
-    v6 = [(NSArray *)v5 countByEnumeratingWithState:&v26 objects:v31 count:16];
+    v6 = [(NSArray *)v5 countByEnumeratingWithState:&v25 objects:v30 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v27;
+      v8 = *v26;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v27 != v8)
+          if (*v26 != v8)
           {
             objc_enumerationMutation(v5);
           }
 
-          dictionaryRepresentation = [*(*(&v26 + 1) + 8 * i) dictionaryRepresentation];
+          dictionaryRepresentation = [*(*(&v25 + 1) + 8 * i) dictionaryRepresentation];
           [array addObject:dictionaryRepresentation];
         }
 
-        v7 = [(NSArray *)v5 countByEnumeratingWithState:&v26 objects:v31 count:16];
+        v7 = [(NSArray *)v5 countByEnumeratingWithState:&v25 objects:v30 count:16];
       }
 
       while (v7);
@@ -58,30 +58,30 @@
   if ([(NSArray *)self->_intentsSupporteds count])
   {
     array2 = [MEMORY[0x1E695DF70] array];
+    v21 = 0u;
     v22 = 0u;
     v23 = 0u;
     v24 = 0u;
-    v25 = 0u;
     v12 = self->_intentsSupporteds;
-    v13 = [(NSArray *)v12 countByEnumeratingWithState:&v22 objects:v30 count:16];
+    v13 = [(NSArray *)v12 countByEnumeratingWithState:&v21 objects:v29 count:16];
     if (v13)
     {
       v14 = v13;
-      v15 = *v23;
+      v15 = *v22;
       do
       {
         for (j = 0; j != v14; ++j)
         {
-          if (*v23 != v15)
+          if (*v22 != v15)
           {
             objc_enumerationMutation(v12);
           }
 
-          dictionaryRepresentation2 = [*(*(&v22 + 1) + 8 * j) dictionaryRepresentation];
+          dictionaryRepresentation2 = [*(*(&v21 + 1) + 8 * j) dictionaryRepresentation];
           [array2 addObject:dictionaryRepresentation2];
         }
 
-        v14 = [(NSArray *)v12 countByEnumeratingWithState:&v22 objects:v30 count:16];
+        v14 = [(NSArray *)v12 countByEnumeratingWithState:&v21 objects:v29 count:16];
       }
 
       while (v14);
@@ -96,8 +96,6 @@
     v19 = [supportedMediaCategories copy];
     [dictionary setObject:v19 forKeyedSubscript:@"supported_media_categories"];
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 
   return dictionary;
 }
@@ -244,105 +242,100 @@ LABEL_18:
 
 - (void)writeTo:(id)to
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   toCopy = to;
-  v32 = 0u;
-  v33 = 0u;
-  v34 = 0u;
-  v35 = 0u;
+  v28 = 0u;
+  v29 = 0u;
+  v30 = 0u;
+  v31 = 0u;
   v5 = self->_intentsRestrictedWhileLockeds;
-  v6 = [(NSArray *)v5 countByEnumeratingWithState:&v32 objects:v38 count:16];
+  v6 = [(NSArray *)v5 countByEnumeratingWithState:&v28 objects:v34 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v33;
+    v8 = *v29;
     do
     {
       v9 = 0;
       do
       {
-        if (*v33 != v8)
+        if (*v29 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v32 + 1) + 8 * v9);
         PBDataWriterWriteSubmessage();
         ++v9;
       }
 
       while (v7 != v9);
-      v7 = [(NSArray *)v5 countByEnumeratingWithState:&v32 objects:v38 count:16];
+      v7 = [(NSArray *)v5 countByEnumeratingWithState:&v28 objects:v34 count:16];
     }
 
     while (v7);
-  }
-
-  v30 = 0u;
-  v31 = 0u;
-  v28 = 0u;
-  v29 = 0u;
-  v11 = self->_intentsSupporteds;
-  v12 = [(NSArray *)v11 countByEnumeratingWithState:&v28 objects:v37 count:16];
-  if (v12)
-  {
-    v13 = v12;
-    v14 = *v29;
-    do
-    {
-      v15 = 0;
-      do
-      {
-        if (*v29 != v14)
-        {
-          objc_enumerationMutation(v11);
-        }
-
-        v16 = *(*(&v28 + 1) + 8 * v15);
-        PBDataWriterWriteSubmessage();
-        ++v15;
-      }
-
-      while (v13 != v15);
-      v13 = [(NSArray *)v11 countByEnumeratingWithState:&v28 objects:v37 count:16];
-    }
-
-    while (v13);
   }
 
   v26 = 0u;
   v27 = 0u;
   v24 = 0u;
   v25 = 0u;
-  v17 = self->_supportedMediaCategories;
-  v18 = [(NSArray *)v17 countByEnumeratingWithState:&v24 objects:v36 count:16];
-  if (v18)
+  v10 = self->_intentsSupporteds;
+  v11 = [(NSArray *)v10 countByEnumeratingWithState:&v24 objects:v33 count:16];
+  if (v11)
   {
-    v19 = v18;
-    v20 = *v25;
+    v12 = v11;
+    v13 = *v25;
     do
     {
-      v21 = 0;
+      v14 = 0;
       do
       {
-        if (*v25 != v20)
+        if (*v25 != v13)
         {
-          objc_enumerationMutation(v17);
+          objc_enumerationMutation(v10);
         }
 
-        v22 = *(*(&v24 + 1) + 8 * v21);
-        PBDataWriterWriteStringField();
-        ++v21;
+        PBDataWriterWriteSubmessage();
+        ++v14;
       }
 
-      while (v19 != v21);
-      v19 = [(NSArray *)v17 countByEnumeratingWithState:&v24 objects:v36 count:16];
+      while (v12 != v14);
+      v12 = [(NSArray *)v10 countByEnumeratingWithState:&v24 objects:v33 count:16];
     }
 
-    while (v19);
+    while (v12);
   }
 
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = 0u;
+  v23 = 0u;
+  v20 = 0u;
+  v21 = 0u;
+  v15 = self->_supportedMediaCategories;
+  v16 = [(NSArray *)v15 countByEnumeratingWithState:&v20 objects:v32 count:16];
+  if (v16)
+  {
+    v17 = v16;
+    v18 = *v21;
+    do
+    {
+      v19 = 0;
+      do
+      {
+        if (*v21 != v18)
+        {
+          objc_enumerationMutation(v15);
+        }
+
+        PBDataWriterWriteStringField();
+        ++v19;
+      }
+
+      while (v17 != v19);
+      v17 = [(NSArray *)v15 countByEnumeratingWithState:&v20 objects:v32 count:16];
+    }
+
+    while (v17);
+  }
 }
 
 - (void)addSupportedMediaCategories:(id)categories

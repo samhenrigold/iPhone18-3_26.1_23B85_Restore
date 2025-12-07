@@ -8,11 +8,127 @@
 - (void)_presentWebProductViewController;
 - (void)_updateRequestWithAction:(int64_t)action;
 - (void)configureWithContext:(id)context completion:(id)completion;
+- (void)dismissViewControllerAnimated:(BOOL)animated completion:(id)completion;
 - (void)productViewController:(id)controller didFinishWithResult:(int64_t)result;
 - (void)productViewControllerDidFinishWithAction:(unint64_t)action;
+- (void)viewDidAppear:(BOOL)appear;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation RemoteProductViewController
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v8.receiver = self;
+  v8.super_class = RemoteProductViewController;
+  [(RemoteProductViewController *)&v8 viewWillAppear:appear];
+  v4 = +[ACAccountStore ams_sharedAccountStore];
+  v5 = [v4 ams_activeiTunesAccountForMediaType:AMSAccountMediaTypeProduction];
+  v7[0] = _NSConcreteStackBlock;
+  v7[1] = 3221225472;
+  v7[2] = sub_1000012FC;
+  v7[3] = &unk_100018488;
+  v7[4] = self;
+  [v5 addSuccessBlock:v7];
+
+  v6 = [AMSBag bagForProfile:@"AskPermission" profileVersion:@"1"];
+  [(RemoteProductViewController *)self setBag:v6];
+
+  [(RemoteProductViewController *)self _forceOrientationBackToSupportedOrientation];
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v18.receiver = self;
+  v18.super_class = RemoteProductViewController;
+  [(RemoteProductViewController *)&v18 viewDidAppear:appear];
+  request = [(RemoteProductViewController *)self request];
+  previewURL = [request previewURL];
+  if (!previewURL)
+  {
+    goto LABEL_4;
+  }
+
+  v6 = previewURL;
+  request2 = [(RemoteProductViewController *)self request];
+  productTypeName = [request2 productTypeName];
+  if ([productTypeName isEqualToString:@"SeasonPass"])
+  {
+
+LABEL_4:
+    goto LABEL_5;
+  }
+
+  request3 = [(RemoteProductViewController *)self request];
+  productType = [request3 productType];
+  v17 = [productType isEqualToString:@"Q"];
+
+  if ((v17 & 1) == 0)
+  {
+    [(RemoteProductViewController *)self _presentWebProductViewController];
+    return;
+  }
+
+LABEL_5:
+  request4 = [(RemoteProductViewController *)self request];
+  itemIdentifier = [request4 itemIdentifier];
+
+  if (itemIdentifier)
+  {
+    [(RemoteProductViewController *)self _presentStoreProductViewController];
+  }
+
+  else
+  {
+    v11 = +[APLogConfig sharedUIServiceConfig];
+    if (!v11)
+    {
+      v11 = +[APLogConfig sharedConfig];
+    }
+
+    oSLogObject = [v11 OSLogObject];
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+    {
+      v13 = objc_opt_class();
+      *buf = 138543362;
+      v20 = v13;
+      v14 = v13;
+      _os_log_impl(&_mh_execute_header, oSLogObject, OS_LOG_TYPE_ERROR, "%{public}@: Unsupported request", buf, 0xCu);
+    }
+
+    [(RemoteProductViewController *)self _presentErrorAlert];
+  }
+}
+
+- (void)dismissViewControllerAnimated:(BOOL)animated completion:(id)completion
+{
+  animatedCopy = animated;
+  completionCopy = completion;
+  childViewController = [(RemoteProductViewController *)self childViewController];
+
+  if (childViewController)
+  {
+    childViewController2 = [(RemoteProductViewController *)self childViewController];
+    v10[0] = _NSConcreteStackBlock;
+    v10[1] = 3221225472;
+    v10[2] = sub_100001614;
+    v10[3] = &unk_1000184B0;
+    v10[4] = self;
+    v11 = completionCopy;
+    [childViewController2 dismissViewControllerAnimated:animatedCopy completion:v10];
+  }
+
+  else
+  {
+    _viewControllerProxy = [(RemoteProductViewController *)self _viewControllerProxy];
+    [_viewControllerProxy dismiss];
+
+    if (completionCopy)
+    {
+      completionCopy[2](completionCopy);
+    }
+  }
+}
 
 - (void)_forceOrientationBackToSupportedOrientation
 {

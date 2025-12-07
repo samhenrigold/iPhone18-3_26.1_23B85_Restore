@@ -208,7 +208,7 @@
   [v14 animateWithDuration:0 delay:v18 options:0 animations:0.4 completion:0.0];
 }
 
-uint64_t __76__CLKUIChronoButton__performTouchAnimationThroughColor_toColor_toRingColor___block_invoke(uint64_t a1)
+void *__76__CLKUIChronoButton__performTouchAnimationThroughColor_toColor_toRingColor___block_invoke(uint64_t a1)
 {
   v2 = *(*(a1 + 32) + 464);
   CGAffineTransformMakeScale(&v4, 1.0, 1.0);
@@ -235,7 +235,7 @@ void __76__CLKUIChronoButton__performTouchAnimationThroughColor_toColor_toRingCo
   [v2 animateWithDuration:0x20000 delay:v4 options:0 animations:0.2 completion:0.0];
 }
 
-uint64_t __76__CLKUIChronoButton__performTouchAnimationThroughColor_toColor_toRingColor___block_invoke_3(void *a1)
+void *__76__CLKUIChronoButton__performTouchAnimationThroughColor_toColor_toRingColor___block_invoke_3(void *a1)
 {
   v2 = *(a1[4] + 464);
   v3 = *(MEMORY[0x1E695EFD0] + 16);
@@ -251,7 +251,7 @@ uint64_t __76__CLKUIChronoButton__performTouchAnimationThroughColor_toColor_toRi
   return result;
 }
 
-uint64_t __76__CLKUIChronoButton__performTouchAnimationThroughColor_toColor_toRingColor___block_invoke_4(void *a1)
+void *__76__CLKUIChronoButton__performTouchAnimationThroughColor_toColor_toRingColor___block_invoke_4(void *a1)
 {
   result = [*(a1[4] + 456) setTintColor:a1[5]];
   if (!a1[6])

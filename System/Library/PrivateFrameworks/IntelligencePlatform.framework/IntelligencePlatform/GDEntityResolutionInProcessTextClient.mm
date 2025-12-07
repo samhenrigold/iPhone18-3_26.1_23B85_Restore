@@ -1,5 +1,6 @@
 @interface GDEntityResolutionInProcessTextClient
 - (GDEntityResolutionInProcessTextClient)initWithMode:(int64_t)mode error:(id)error;
+- (GDEntityResolutionInProcessTextClient)initWithMode:(int64_t)mode warmup:(BOOL)warmup error:(id *)error;
 - (id)initForMode:(int64_t)mode error:(id *)error;
 - (void)resolveEntitiesForBatchRequests:(id)requests completionHandler:(id)handler;
 - (void)resolveEntitiesForRequest:(id)request completionHandler:(id)handler;
@@ -33,6 +34,22 @@
   v7 = [(GDEntityResolutionInProcessTextClient *)self warmupForMode:mode error:&v9];
   v8 = v9;
   handlerCopy[2](handlerCopy, v7, v8);
+}
+
+- (GDEntityResolutionInProcessTextClient)initWithMode:(int64_t)mode warmup:(BOOL)warmup error:(id *)error
+{
+  warmupCopy = warmup;
+  v12.receiver = self;
+  v12.super_class = GDEntityResolutionInProcessTextClient;
+  v8 = [(GDEntityResolutionInProcessTextClient *)&v12 init];
+  if (v8)
+  {
+    v9 = [[GDEntityResolutionTextClientInner alloc] initFor:mode warmup:warmupCopy error:error];
+    ecrClient = v8->ecrClient;
+    v8->ecrClient = v9;
+  }
+
+  return v8;
 }
 
 - (id)initForMode:(int64_t)mode error:(id *)error

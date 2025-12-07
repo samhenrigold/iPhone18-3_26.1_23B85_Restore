@@ -66,23 +66,22 @@
 
 - (NSArray)ontologyFeatureEvaluators
 {
-  v8[4] = *MEMORY[0x277D85DE8];
+  v7[4] = *MEMORY[0x277D85DE8];
   medsEducationFeatureEvaluator = self->_medsEducationFeatureEvaluator;
   interactionsFeatureEvaluator = self->_interactionsFeatureEvaluator;
   medsScanningFeatureEvaluator = self->_medsScanningFeatureEvaluator;
-  v8[0] = self->_coreMedsFeatureEvaluator;
-  v8[1] = interactionsFeatureEvaluator;
-  v8[2] = medsEducationFeatureEvaluator;
-  v8[3] = medsScanningFeatureEvaluator;
-  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:4];
-  v6 = *MEMORY[0x277D85DE8];
+  v7[0] = self->_coreMedsFeatureEvaluator;
+  v7[1] = interactionsFeatureEvaluator;
+  v7[2] = medsEducationFeatureEvaluator;
+  v7[3] = medsScanningFeatureEvaluator;
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:4];
 
   return v5;
 }
 
 - (BOOL)daemonDidReceiveNotification:(const char *)notification
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v5 = strcasecmp(notification, *MEMORY[0x277D11448]);
   if (v5)
   {
@@ -92,9 +91,9 @@
       v6 = HKLogMedication();
       if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
       {
-        v18 = 138543618;
+        v17 = 138543618;
         selfCopy = self;
-        v20 = 2082;
+        v19 = 2082;
         notificationCopy = notification;
       }
 
@@ -117,9 +116,7 @@
     [medicationsDataDonator didRecieveThirdPartyMigrationNotification];
   }
 
-  result = v5 == 0;
-  v17 = *MEMORY[0x277D85DE8];
-  return result;
+  return v5 == 0;
 }
 
 - (HDDaemon)daemon

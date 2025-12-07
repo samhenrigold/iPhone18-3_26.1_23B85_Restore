@@ -327,7 +327,6 @@ LABEL_17:
     socket = self->_socket;
     v4 = fcntl(socket, 3);
     fcntl(socket, 4, v4 & 0xFFFFFFFB);
-    connection = self->_connection;
     lockdown_disconnect();
     self->_connection = 0;
     self->_socket = -1;

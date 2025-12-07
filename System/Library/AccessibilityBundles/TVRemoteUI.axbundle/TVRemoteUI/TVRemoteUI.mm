@@ -34,3 +34,13 @@ void sub_29C4A5A98(_Unwind_Exception *a1)
   objc_destroyWeak((v4 - 104));
   _Unwind_Resume(a1);
 }
+
+CGRect UIAccessibilityConvertFrameToScreenCoordinates(CGRect rect, UIView *view)
+{
+  MEMORY[0x2A1C6A7E0](view, rect.origin, *&rect.origin.y, rect.size, *&rect.size.height);
+  result.size.height = v5;
+  result.size.width = v4;
+  result.origin.y = v3;
+  result.origin.x = v2;
+  return result;
+}

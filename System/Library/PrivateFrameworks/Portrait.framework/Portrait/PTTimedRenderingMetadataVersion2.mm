@@ -58,10 +58,10 @@
 
   if (!self->_readSuccessAll)
   {
-    v10 = _PTLogSystem();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v11 = _PTLogSystem(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      [PTTimedRenderingMetadataVersion1 applyToRenderRequest:v10];
+      [PTTimedRenderingMetadataVersion1 applyToRenderRequest:v11];
     }
   }
 }

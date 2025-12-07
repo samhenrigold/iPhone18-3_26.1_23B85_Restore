@@ -66,10 +66,10 @@
 
 - (id)contextStorePredicate
 {
-  v37[2] = *MEMORY[0x277D85DE8];
+  v36[2] = *MEMORY[0x277D85DE8];
   selectedBundleIdentifiers = [self selectedBundleIdentifiers];
   contextStoreKeyPathForCurrentState = [self contextStoreKeyPathForCurrentState];
-  v34 = MEMORY[0x277CFE360];
+  v33 = MEMORY[0x277CFE360];
   v4 = MEMORY[0x277CCAC30];
   appBundleIdKey = [MEMORY[0x277CFE338] appBundleIdKey];
   appLaunchReasonKey = [MEMORY[0x277CFE338] appLaunchReasonKey];
@@ -79,9 +79,9 @@
   appBundleIdKey2 = [MEMORY[0x277CFE338] appBundleIdKey];
   appBundleIdKey3 = [MEMORY[0x277CFE338] appBundleIdKey];
   v11 = [v8 predicateWithFormat:@"NOT (SELF.value.%K IN %@) AND NOT (SELF.value.%K IN %@)", appBundleIdKey2, selectedBundleIdentifiers, appBundleIdKey3, selectedBundleIdentifiers];
-  v35 = [v34 predicateForKeyPath:contextStoreKeyPathForCurrentState withPredicate:v7 withPredicateForPreviousState:v11 withMinimumDurationInPreviousState:0.0];
+  v34 = [v33 predicateForKeyPath:contextStoreKeyPathForCurrentState withPredicate:v7 withPredicateForPreviousState:v11 withMinimumDurationInPreviousState:0.0];
 
-  v32 = MEMORY[0x277CFE360];
+  v31 = MEMORY[0x277CFE360];
   v12 = MEMORY[0x277CCAC30];
   appBundleIdKey4 = [MEMORY[0x277CFE338] appBundleIdKey];
   appLaunchReasonKey2 = [MEMORY[0x277CFE338] appLaunchReasonKey];
@@ -91,18 +91,18 @@
   appBundleIdKey5 = [MEMORY[0x277CFE338] appBundleIdKey];
   appBundleIdKey6 = [MEMORY[0x277CFE338] appBundleIdKey];
   v20 = [v17 predicateWithFormat:@"SELF.value.%K IN %@ AND SELF.value.%K IN %@", appBundleIdKey5, selectedBundleIdentifiers, appBundleIdKey6, selectedBundleIdentifiers];
-  v21 = v32;
-  v33 = contextStoreKeyPathForCurrentState;
+  v21 = v31;
+  v32 = contextStoreKeyPathForCurrentState;
   v22 = [v21 predicateForKeyPath:contextStoreKeyPathForCurrentState withPredicate:v16 withPredicateForPreviousState:v20 withMinimumDurationInPreviousState:0.0];
 
   if ([self onFocus] && objc_msgSend(self, "onBackground"))
   {
     v23 = MEMORY[0x277CFE360];
-    v24 = v35;
-    v37[0] = v35;
-    v37[1] = v22;
+    v24 = v34;
+    v36[0] = v34;
+    v36[1] = v22;
     v25 = MEMORY[0x277CBEA60];
-    v26 = v37;
+    v26 = v36;
 LABEL_6:
     v27 = [v25 arrayWithObjects:v26 count:2];
     v28 = [v23 orPredicateWithSubpredicates:v27];
@@ -113,15 +113,15 @@ LABEL_6:
   if ([self onFocus])
   {
     v23 = MEMORY[0x277CFE360];
-    v24 = v35;
-    v36[0] = v35;
-    v36[1] = v22;
+    v24 = v34;
+    v35[0] = v34;
+    v35[1] = v22;
     v25 = MEMORY[0x277CBEA60];
-    v26 = v36;
+    v26 = v35;
     goto LABEL_6;
   }
 
-  v24 = v35;
+  v24 = v34;
   if ([self onBackground])
   {
     v28 = v22;
@@ -133,8 +133,6 @@ LABEL_6:
   }
 
 LABEL_10:
-
-  v29 = *MEMORY[0x277D85DE8];
 
   return v28;
 }

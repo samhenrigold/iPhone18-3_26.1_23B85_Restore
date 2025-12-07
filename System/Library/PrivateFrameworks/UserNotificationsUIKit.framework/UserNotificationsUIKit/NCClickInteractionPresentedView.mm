@@ -75,17 +75,17 @@
   height = self->_cachedSizeThatFits.height;
   if (width == 0.0 && height == 0.0)
   {
-    [(UILabel *)self->_titleLabel sizeThatFits:1.79769313e308, 1.79769313e308];
-    v7 = v6 + 48.0;
-    v9 = v8 + 24.0;
-    if (v9 < 60.0)
+    v6 = [(UILabel *)self->_titleLabel sizeThatFits:1.79769313e308, 1.79769313e308];
+    v9 = v8 + 48.0;
+    v11 = v10 + 24.0;
+    if (v11 < 60.0)
     {
-      v9 = 60.0;
+      v11 = 60.0;
     }
 
-    p_cachedSizeThatFits->width = v7;
-    p_cachedSizeThatFits->height = v9;
-    _NCMainScreenScale();
+    p_cachedSizeThatFits->width = v9;
+    p_cachedSizeThatFits->height = v11;
+    _NCMainScreenScale(v6, v7);
     UISizeRoundToScale();
     p_cachedSizeThatFits->width = width;
     p_cachedSizeThatFits->height = height;
@@ -243,7 +243,7 @@
   titleLabel = self->_titleLabel;
   if (titleLabel)
   {
-    [(UILabel *)titleLabel transform];
+    objc_msgSend_transform(titleLabel, a2);
     titleLabel = self->_titleLabel;
   }
 

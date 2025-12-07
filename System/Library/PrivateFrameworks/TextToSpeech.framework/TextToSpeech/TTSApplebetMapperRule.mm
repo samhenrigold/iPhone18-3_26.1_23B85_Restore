@@ -7,24 +7,23 @@
 + (id)ruleWithHeterogeniousArray:(id)array
 {
   arrayCopy = array;
-  v4 = [TTSApplebetMapperRule alloc];
-  v9 = objc_msgSend_init(v4, v5, v6, v7, v8);
-  v13 = objc_msgSend_objectAtIndexedSubscript_(arrayCopy, v10, 0, v11, v12);
-  objc_msgSend_setLeft_(v9, v14, v13, v15, v16);
+  v4 = [[TTSApplebetMapperRule alloc] init];
+  v5 = [arrayCopy objectAtIndexedSubscript:0];
+  [(TTSApplebetMapperRule *)v4 setLeft:v5];
 
-  v20 = objc_msgSend_objectAtIndexedSubscript_(arrayCopy, v17, 1, v18, v19);
-  objc_msgSend_setMatch_(v9, v21, v20, v22, v23);
+  v6 = [arrayCopy objectAtIndexedSubscript:1];
+  [(TTSApplebetMapperRule *)v4 setMatch:v6];
 
-  v27 = objc_msgSend_objectAtIndexedSubscript_(arrayCopy, v24, 2, v25, v26);
-  objc_msgSend_setRight_(v9, v28, v27, v29, v30);
+  v7 = [arrayCopy objectAtIndexedSubscript:2];
+  [(TTSApplebetMapperRule *)v4 setRight:v7];
 
-  v34 = objc_msgSend_objectAtIndexedSubscript_(arrayCopy, v31, 3, v32, v33);
-  objc_msgSend_setMatchRule_(v9, v35, v34, v36, v37);
+  v8 = [arrayCopy objectAtIndexedSubscript:3];
+  [(TTSApplebetMapperRule *)v4 setMatchRule:v8];
 
-  v41 = objc_msgSend_objectAtIndexedSubscript_(arrayCopy, v38, 4, v39, v40);
-  objc_msgSend_setSubstitution_(v9, v42, v41, v43, v44);
+  v9 = [arrayCopy objectAtIndexedSubscript:4];
+  [(TTSApplebetMapperRule *)v4 setSubstitution:v9];
 
-  return v9;
+  return v4;
 }
 
 @end

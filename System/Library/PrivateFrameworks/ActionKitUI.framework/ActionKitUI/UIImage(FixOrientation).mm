@@ -142,16 +142,15 @@ LABEL_8:
   if ([self imageOrientation])
   {
     v2 = *(MEMORY[0x277CBF2C0] + 16);
-    *&v21.a = *MEMORY[0x277CBF2C0];
-    *&v21.c = v2;
-    *&v21.tx = *(MEMORY[0x277CBF2C0] + 32);
-    *&transform.a = *&v21.a;
+    *&v20.a = *MEMORY[0x277CBF2C0];
+    *&v20.c = v2;
+    *&v20.tx = *(MEMORY[0x277CBF2C0] + 32);
+    *&transform.a = *&v20.a;
     *&transform.c = v2;
-    *&transform.tx = *&v21.tx;
-    [self wf_affineTransformForImageOrientation:&transform];
-    v19 = v21;
-    [self wf_affineTransformForImageMirroringOrientation:&v19];
-    v21 = transform;
+    *&transform.tx = *&v20.tx;
+    objc_msgSend_wf_affineTransformForImageOrientation_(self);
+    objc_msgSend_wf_affineTransformForImageMirroringOrientation_(self, *&v20.a, *&v20.c, *&v20.tx);
+    v20 = transform;
     [self size];
     v4 = v3;
     [self size];
@@ -160,17 +159,17 @@ LABEL_8:
     ColorSpace = CGImageGetColorSpace([self CGImage]);
     BitmapInfo = CGImageGetBitmapInfo([self CGImage]);
     v10 = CGBitmapContextCreate(0, v4, v6, BitsPerComponent, 0, ColorSpace, BitmapInfo);
-    transform = v21;
+    transform = v20;
     CGContextConcatCTM(v10, &transform);
     [self wf_majorAxisOrientedSize];
     v12 = v11;
     v14 = v13;
     cGImage = [self CGImage];
-    v23.origin.x = 0.0;
-    v23.origin.y = 0.0;
-    v23.size.width = v12;
-    v23.size.height = v14;
-    CGContextDrawImage(v10, v23, cGImage);
+    v22.origin.x = 0.0;
+    v22.origin.y = 0.0;
+    v22.size.width = v12;
+    v22.size.height = v14;
+    CGContextDrawImage(v10, v22, cGImage);
     Image = CGBitmapContextCreateImage(v10);
     selfCopy = [MEMORY[0x277D755B8] imageWithCGImage:Image];
     CGContextRelease(v10);

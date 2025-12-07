@@ -39,38 +39,46 @@
 
 - (void)invalidate
 {
-  if (dword_1002F7228 <= 30 && (dword_1002F7228 != -1 || _LogCategory_Initialize()))
+  selfCopy = self;
+  if (dword_1002F7228 <= 30)
   {
-    sub_1001F83E8();
+    if (dword_1002F7228 != -1 || (self = _LogCategory_Initialize(), self))
+    {
+      sub_1001F83E8(self, a2, v2);
+    }
   }
 
-  self->_invalidateCalled = 1;
+  selfCopy->_invalidateCalled = 1;
 
-  [(SRLEPipe *)self _pipeCleanup];
+  [(SRLEPipe *)selfCopy _pipeCleanup];
 }
 
 - (void)_runPipeStates
 {
   if (!self->_invalidateCalled)
   {
+    selfCopy = self;
     state = self->_state;
     switch(state)
     {
       case 12:
         if (dword_1002F7228 <= 90 && (dword_1002F7228 != -1 || _LogCategory_Initialize()))
         {
-          sub_1001F8404(self);
+          sub_1001F8404(selfCopy);
         }
 
-        [(SRLEPipe *)self _pipeCleanup];
+        [(SRLEPipe *)selfCopy _pipeCleanup];
         break;
       case 11:
-        if (dword_1002F7228 <= 30 && (dword_1002F7228 != -1 || _LogCategory_Initialize()))
+        if (dword_1002F7228 <= 30)
         {
-          sub_1001F8448();
+          if (dword_1002F7228 != -1 || (self = _LogCategory_Initialize(), self))
+          {
+            sub_1001F8448(self, a2, v2);
+          }
         }
 
-        [(SRLEPipe *)self _pipeDone];
+        [(SRLEPipe *)selfCopy _pipeDone];
         break;
       case 10:
         self->_state = 11;
@@ -79,8 +87,76 @@
 
     if (dword_1002F7228 <= 30 && (dword_1002F7228 != -1 || _LogCategory_Initialize()))
     {
-      self->_state;
-      LogPrintF();
+      if (state > 10)
+      {
+        if (state != 11)
+        {
+          if (state == 12)
+          {
+            v5 = "BTSmartRoutingPipeError";
+            goto LABEL_28;
+          }
+
+          goto LABEL_25;
+        }
+
+        v5 = "BTSmartRoutingPipeDone";
+      }
+
+      else
+      {
+        if (state)
+        {
+          if (state == 10)
+          {
+            v5 = "BTSmartRoutingPipeRequest";
+            goto LABEL_28;
+          }
+
+LABEL_25:
+          v5 = "?";
+          goto LABEL_28;
+        }
+
+        v5 = "Init";
+      }
+
+LABEL_28:
+      v6 = selfCopy->_state;
+      if (v6 > 10)
+      {
+        if (v6 == 11)
+        {
+          v7 = "BTSmartRoutingPipeDone";
+          goto LABEL_38;
+        }
+
+        if (v6 == 12)
+        {
+          v7 = "BTSmartRoutingPipeError";
+          goto LABEL_38;
+        }
+      }
+
+      else
+      {
+        if (!v6)
+        {
+          v7 = "Init";
+          goto LABEL_38;
+        }
+
+        if (v6 == 10)
+        {
+          v7 = "BTSmartRoutingPipeRequest";
+LABEL_38:
+          LogPrintF(&dword_1002F7228, "[SRLEPipe _runPipeStates]", 30, "State: %s -> %s", v5, v7);
+          return;
+        }
+      }
+
+      v7 = "?";
+      goto LABEL_38;
     }
   }
 }
@@ -88,53 +164,61 @@
 - (void)_pipeEnsureStarted
 {
   v3 = self->_pipeResponder;
+  v6 = v3;
   if (!v3)
   {
-    if (dword_1002F7228 <= 30 && (dword_1002F7228 != -1 || _LogCategory_Initialize()))
+    if (dword_1002F7228 <= 30)
     {
-      sub_1001F8464();
+      if (dword_1002F7228 != -1 || (v3 = _LogCategory_Initialize(), v3))
+      {
+        sub_1001F8464(v3, v4, v5);
+      }
     }
 
-    v3 = objc_alloc_init(RPCompanionLinkClient);
+    v6 = objc_alloc_init(RPCompanionLinkClient);
     pipeResponder = self->_pipeResponder;
-    self->_pipeResponder = v3;
+    self->_pipeResponder = v6;
 
-    [(RPCompanionLinkClient *)v3 setControlFlags:[(RPCompanionLinkClient *)v3 controlFlags]| 2];
-    [(RPCompanionLinkClient *)v3 setDispatchQueue:self->_dispatchQueue];
-    v6[0] = _NSConcreteStackBlock;
-    v6[1] = 3221225472;
-    v6[2] = sub_1000CB17C;
-    v6[3] = &unk_1002B6A38;
-    v6[4] = self;
-    [(RPCompanionLinkClient *)v3 activateWithCompletion:v6];
-    v5[0] = _NSConcreteStackBlock;
-    v5[1] = 3221225472;
-    v5[2] = sub_1000CB218;
-    v5[3] = &unk_1002BAFE0;
-    v5[4] = self;
-    [(RPCompanionLinkClient *)v3 registerRequestID:@"com.apple.SmartRoutingRequest" options:0 handler:v5];
+    [(RPCompanionLinkClient *)v6 setControlFlags:[(RPCompanionLinkClient *)v6 controlFlags]| 2];
+    [(RPCompanionLinkClient *)v6 setDispatchQueue:self->_dispatchQueue];
+    v9[0] = _NSConcreteStackBlock;
+    v9[1] = 3221225472;
+    v9[2] = sub_1000CB17C;
+    v9[3] = &unk_1002B6A38;
+    v9[4] = self;
+    [(RPCompanionLinkClient *)v6 activateWithCompletion:v9];
+    v8[0] = _NSConcreteStackBlock;
+    v8[1] = 3221225472;
+    v8[2] = sub_1000CB218;
+    v8[3] = &unk_1002BAFE0;
+    v8[4] = self;
+    [(RPCompanionLinkClient *)v6 registerRequestID:@"com.apple.SmartRoutingRequest" options:0 handler:v8];
   }
 }
 
 - (void)_pipeEnsureStopped
 {
+  selfCopy = self;
   if (self->_pipeResponder)
   {
-    if (dword_1002F7228 <= 30 && (dword_1002F7228 != -1 || _LogCategory_Initialize()))
+    if (dword_1002F7228 <= 30)
     {
-      sub_1001F84C0();
+      if (dword_1002F7228 != -1 || (self = _LogCategory_Initialize(), self))
+      {
+        sub_1001F84C0(self, a2, v2);
+      }
     }
 
-    [(RPCompanionLinkClient *)self->_pipeResponder invalidate];
-    pipeResponder = self->_pipeResponder;
-    self->_pipeResponder = 0;
+    [(RPCompanionLinkClient *)selfCopy->_pipeResponder invalidate];
+    pipeResponder = selfCopy->_pipeResponder;
+    selfCopy->_pipeResponder = 0;
   }
 
-  [(SRLEPipe *)self _pipeCleanup];
-  client = self->_client;
+  [(SRLEPipe *)selfCopy _pipeCleanup];
+  client = selfCopy->_client;
   if (client)
   {
-    self->_client = 0;
+    selfCopy->_client = 0;
   }
 }
 
@@ -150,7 +234,7 @@
 
     else
     {
-      v4 = NSErrorF();
+      v4 = NSErrorF(NSOSStatusErrorDomain, 4294960596, "Cleanup before done");
       (inCompletion[2])(inCompletion, v4);
     }
 
@@ -335,7 +419,7 @@
   v28 = self->_client;
   if (dword_1002F7228 <= 30 && (dword_1002F7228 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1002F7228, "[SRLEPipe pipeSendRouteRequestToSFDevice:andWxHeadset:newPipe:connectionResult:completion:]", 30, "Send route request start: peer %@, %##@", deviceCopy, v17);
   }
 
   v39[0] = 0;
@@ -368,22 +452,12 @@
   optionsCopy = options;
   handlerCopy = handler;
   CFStringGetTypeID();
-  v74 = optionsCopy;
+  v69 = optionsCopy;
   v10 = CFDictionaryGetTypedValue();
   v11 = +[BTSmartRoutingDaemon sharedBTSmartRoutingDaemon];
   pipePendingRequest = [v11 pipePendingRequest];
-  if (!pipePendingRequest)
+  if (!pipePendingRequest || ([v11 pipePendingRequest], v13 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v13, "senderIDS"), v14 = objc_claimAutoreleasedReturnValue(), v15 = objc_msgSend(v14, "isEqualToString:", v10), v14, v13, pipePendingRequest, (v15 & 1) != 0))
   {
-    goto LABEL_3;
-  }
-
-  pipePendingRequest2 = [v11 pipePendingRequest];
-  senderIDS = [pipePendingRequest2 senderIDS];
-  v15 = [senderIDS isEqualToString:v10];
-
-  if (v15)
-  {
-LABEL_3:
     v16 = objc_alloc_init(SRPipeRequest);
     v17 = NSDictionaryGetNSNumber();
     [(SRPipeRequest *)v16 setBtXID:v17];
@@ -391,29 +465,27 @@ LABEL_3:
     [(SRPipeRequest *)v16 setRequest:requestCopy];
     [(SRPipeRequest *)v16 setResponseHandler:handlerCopy];
     [(SRPipeRequest *)v16 setSenderIDS:v10];
+    v91 = 0;
+    v92 = &v91;
+    v93 = 0x3032000000;
+    v94 = sub_1000039A8;
+    v95 = sub_100003880;
     v96 = 0;
-    v97 = &v96;
-    v98 = 0x3032000000;
-    v99 = sub_1000039A8;
-    v100 = sub_100003880;
-    v101 = 0;
-    v90[0] = _NSConcreteStackBlock;
-    v90[1] = 3221225472;
-    v90[2] = sub_1000CCC9C;
-    v90[3] = &unk_1002BB030;
-    v95 = &v96;
+    v85[0] = _NSConcreteStackBlock;
+    v85[1] = 3221225472;
+    v85[2] = sub_1000CCC9C;
+    v85[3] = &unk_1002BB030;
+    v90 = &v91;
     v18 = v10;
-    v91 = v18;
+    v86 = v18;
     v19 = requestCopy;
-    v92 = v19;
+    v87 = v19;
     selfCopy = self;
-    v94 = v16;
-    v20 = objc_retainBlock(v90);
+    v89 = v16;
+    v20 = objc_retainBlock(v85);
     if (dword_1002F7228 <= 30 && (dword_1002F7228 != -1 || _LogCategory_Initialize()))
     {
-      v55 = v18;
-      v58 = v19;
-      LogPrintF();
+      LogPrintF(&dword_1002F7228, "[SRLEPipe _pipeReceivedRouteRequest:options:responseHandler:]", 30, "Received route request: from %@, %##@", v18, v19);
     }
 
     [v11 _powerLogSmartIncomingConnection];
@@ -424,147 +496,146 @@ LABEL_3:
     {
       if (dword_1002F7228 <= 30 && (dword_1002F7228 != -1 || _LogCategory_Initialize()))
       {
-        LogPrintF();
+        LogPrintF(&dword_1002F7228, "[SRLEPipe _pipeReceivedRouteRequest:options:responseHandler:]", 30, "Reject any LE pipe because default write is enabled");
       }
 
-      v23 = NSErrorF();
-      v24 = v97[5];
-      v97[5] = v23;
+      v23 = NSErrorF(NSOSStatusErrorDomain, 4294960596, "The device is forced to reject any LE pipe as default write enabled");
+      v24 = v92[5];
+      v92[5] = v23;
       goto LABEL_57;
     }
 
     CFStringGetTypeID();
-    v71 = CFDictionaryGetTypedValue();
+    v66 = CFDictionaryGetTypedValue();
     CFStringGetTypeID();
-    v72 = CFDictionaryGetTypedValue();
-    v73 = [v19 objectForKey:@"version"];
+    v67 = CFDictionaryGetTypedValue();
+    v68 = [v19 objectForKey:@"version"];
     if (dword_1002F7228 <= 30 && (dword_1002F7228 != -1 || _LogCategory_Initialize()))
     {
-      v56 = v73;
-      LogPrintF();
+      LogPrintF(&dword_1002F7228, "[SRLEPipe _pipeReceivedRouteRequest:options:responseHandler:]", 30, "Version %@", v68);
     }
 
-    [(SRPipeRequest *)v16 setVersion:v73, v56];
-    [v73 doubleValue];
+    [(SRPipeRequest *)v16 setVersion:v68];
+    [v68 doubleValue];
     if (v25 >= 1.2)
     {
-      if (v71)
+      if (v66)
       {
-        pipePendingRequest3 = [v11 pipePendingRequest];
-        v27 = pipePendingRequest3 == 0;
+        pipePendingRequest2 = [v11 pipePendingRequest];
+        v27 = pipePendingRequest2 == 0;
 
         if (!v27)
         {
-          pipePendingRequest4 = [v11 pipePendingRequest];
-          progressStarted = [pipePendingRequest4 progressStarted];
+          pipePendingRequest3 = [v11 pipePendingRequest];
+          progressStarted = [pipePendingRequest3 progressStarted];
 
           if (progressStarted)
           {
-            pipePendingRequest5 = [v11 pipePendingRequest];
-            [pipePendingRequest5 setProgressStarted:0];
+            pipePendingRequest4 = [v11 pipePendingRequest];
+            [pipePendingRequest4 setProgressStarted:0];
 
             [v11 _setTipiElectionInProgress:0];
             [v11 _setTipiElectionReceivedLePipe:&stru_1002C1358];
             [(SRLEPipe *)self _pipeRequestCompleted:v16 error:0];
-            if ([v71 isEqual:@"connectionResultError"])
+            if ([v66 isEqual:@"connectionResultError"])
             {
               if (dword_1002F7228 <= 90 && (dword_1002F7228 != -1 || _LogCategory_Initialize()))
               {
-                v57 = v73;
-                LogPrintF();
+                LogPrintF(&dword_1002F7228, "[SRLEPipe _pipeReceivedRouteRequest:options:responseHandler:]", 90, "Connection result is failure. Remove knowledge of other %@", v68);
               }
 
-              pipePendingRequest6 = [v11 pipePendingRequest];
-              wxAddress = [pipePendingRequest6 wxAddress];
+              pipePendingRequest5 = [v11 pipePendingRequest];
+              wxAddress = [pipePendingRequest5 wxAddress];
 
               v49 = +[BTSmartRoutingDaemon sharedBTSmartRoutingDaemon];
-              v50 = NSErrorF();
+              v50 = NSErrorF(NSOSStatusErrorDomain, 4294960595, "Connection failed");
               [v49 _updateOtherTipiDevice:wxAddress otherAddress:0 otherName:0 otherVersion:0 withResult:v50];
 
-              v65 = NSErrorF();
-              [(SRLEPipe *)self pipeConnectionComplete:v65 andWxHeadset:wxAddress isSender:0];
+              v60 = NSErrorF(NSOSStatusErrorDomain, 4294960595, "Connection failed");
+              [(SRLEPipe *)self pipeConnectionComplete:v60 andWxHeadset:wxAddress isSender:0];
 
-LABEL_55:
-              goto LABEL_56;
+              goto LABEL_55;
             }
 
-            [(SRLEPipe *)self pipeConnectionComplete:0 andWxHeadset:v72 isSender:0];
-            [v11 _sendAudioCategoryViaWx:v72];
+            [(SRLEPipe *)self pipeConnectionComplete:0 andWxHeadset:v67 isSender:0];
+            [v11 _sendAudioCategoryViaWx:v67];
             v45 = +[BTSmartRoutingDaemon sharedBTSmartRoutingDaemon];
-            [v45 _updateOtherTipiBuildVersion:v72];
+            [v45 _updateOtherTipiBuildVersion:v67];
 
-            v68 = +[BTSmartRoutingDaemon sharedBTSmartRoutingDaemon];
-            [v68 _notifyOtherTipiDeviceTipiScoreChanged:0 andNewScore:0];
+            v63 = +[BTSmartRoutingDaemon sharedBTSmartRoutingDaemon];
+            [v63 _notifyOtherTipiDeviceTipiScoreChanged:0 andNewScore:0];
           }
 
 LABEL_56:
 
-          v24 = v71;
+          v24 = v66;
 LABEL_57:
 
           (v20[2])(v20);
-          _Block_object_dispose(&v96, 8);
+          _Block_object_dispose(&v91, 8);
 
           goto LABEL_58;
         }
       }
     }
 
-    pipePendingRequest7 = [v11 pipePendingRequest];
+    pipePendingRequest6 = [v11 pipePendingRequest];
 
-    if (pipePendingRequest7)
+    if (pipePendingRequest6)
     {
       if (dword_1002F7228 <= 30 && (dword_1002F7228 != -1 || _LogCategory_Initialize()))
       {
-        LogPrintF();
+        LogPrintF(&dword_1002F7228, "[SRLEPipe _pipeReceivedRouteRequest:options:responseHandler:]", 30, "Previous pipe request exists, clean it up");
       }
 
-      pipePendingRequest8 = [v11 pipePendingRequest];
-      timer = [pipePendingRequest8 timer];
+      pipePendingRequest7 = [v11 pipePendingRequest];
+      timer = [pipePendingRequest7 timer];
 
       if (timer)
       {
         dispatch_source_cancel(timer);
       }
 
-      pipePendingRequest9 = [v11 pipePendingRequest];
-      [pipePendingRequest9 setTimer:0];
+      pipePendingRequest8 = [v11 pipePendingRequest];
+      [pipePendingRequest8 setTimer:0];
 
       [v11 setPipePendingRequest:0];
     }
 
     CFStringGetTypeID();
     wxAddress = CFDictionaryGetTypedValue();
-    if (wxAddress)
+    if (!wxAddress)
     {
-      CFStringGetTypeID();
-      v64 = CFDictionaryGetTypedValue();
-      if (!v64 || [v11 _isUSBPluggedIn:v72])
-      {
-        v52 = NSErrorF();
-        v70 = v97[5];
-        v97[5] = v52;
-      }
+      v51 = NSErrorF(NSOSStatusErrorDomain, 4294960591, "No device address");
+      v61 = v92[5];
+      v92[5] = v51;
 
-      else
+      goto LABEL_55;
+    }
+
+    CFStringGetTypeID();
+    v59 = CFDictionaryGetTypedValue();
+    if (v59)
+    {
+      if (![v11 _isUSBPluggedIn:v67])
       {
-        v69 = [v11 _verifyWxConnectedBTAddress:v72 withVersion:v73];
-        identifier = [v69 identifier];
+        v64 = [v11 _verifyWxConnectedBTAddress:v67 withVersion:v68];
+        identifier = [v64 identifier];
         v37 = [identifier isEqualToString:@"FF:FF:FF:FF:FF:FF"];
 
         if (v37)
         {
-          v38 = NSErrorF();
-          v39 = v97[5];
-          v97[5] = v38;
+          v38 = NSErrorF(NSOSStatusErrorDomain, 4294960587, "Source has SR disabled!!! BACK OFF!");
+          v39 = v92[5];
+          v92[5] = v38;
         }
 
         else
         {
-          btAddressData = [v69 btAddressData];
-          v63 = CUPrintNSDataAddress();
+          btAddressData = [v64 btAddressData];
+          v58 = CUPrintNSDataAddress();
 
-          if ([v11 _verifyWxConnectedRouted:v63])
+          if ([v11 _verifyWxConnectedRouted:v58])
           {
             v41 = dispatch_source_create(&_dispatch_source_type_timer, 0, 0, self->_dispatchQueue);
             [(SRPipeRequest *)v16 setTimer:v41];
@@ -572,91 +643,97 @@ LABEL_57:
             handler[1] = 3221225472;
             handler[2] = sub_1000CCD64;
             handler[3] = &unk_1002BB058;
-            v84 = v18;
-            v85 = v19;
+            v79 = v18;
+            v80 = v19;
             selfCopy2 = self;
-            v87 = v16;
-            v88 = v11;
-            v42 = v69;
-            v89 = v42;
+            v82 = v16;
+            v83 = v11;
+            v42 = v64;
+            v84 = v42;
             dispatch_source_set_event_handler(v41, handler);
             CUDispatchTimerSet();
             dispatch_activate(v41);
-            [(SRPipeRequest *)v16 setWxAddress:v63];
-            v60 = v41;
+            [(SRPipeRequest *)v16 setWxAddress:v58];
+            v55 = v41;
             v43 = +[BTSmartRoutingDaemon sharedBTSmartRoutingDaemon];
             _myBluetoothAddressString = [v43 _myBluetoothAddressString];
 
             if (_myBluetoothAddressString)
             {
-              v102[0] = _myBluetoothAddressString;
-              v102[1] = wxAddress;
-              v44 = [NSArray arrayWithObjects:v102 count:2];
+              v97[0] = _myBluetoothAddressString;
+              v97[1] = wxAddress;
+              v44 = [NSArray arrayWithObjects:v97 count:2];
               if (dword_1002F7228 <= 30 && (dword_1002F7228 != -1 || _LogCategory_Initialize()))
               {
-                v57 = v42;
-                v59 = v44;
-                LogPrintF();
+                LogPrintF(&dword_1002F7228, "[SRLEPipe _pipeReceivedRouteRequest:options:responseHandler:]", 30, "Route request update Tipi table: Wx %@, addresses %##@", v42, v44);
               }
 
-              [v11 setPipePendingRequest:{v16, v57, v59}];
+              [v11 setPipePendingRequest:v16];
               [v11 _setTipiElectionInProgress:1];
-              [v11 _setTipiElectionReceivedLePipe:v63];
+              [v11 _setTipiElectionReceivedLePipe:v58];
               [(SRPipeRequest *)v16 setProgressStarted:1];
               [v11 _startTipiSetupTicks];
               btAddressData2 = [v42 btAddressData];
               v47 = CUPrintNSDataAddress();
-              [v11 _updateOtherTipiDevice:v47 otherAddress:wxAddress otherName:v64 otherVersion:v73 withResult:0];
+              [v11 _updateOtherTipiDevice:v47 otherAddress:wxAddress otherName:v59 otherVersion:v68 withResult:0];
 
-              v76[0] = _NSConcreteStackBlock;
-              v76[1] = 3221225472;
-              v76[2] = sub_1000CCE84;
-              v76[3] = &unk_1002BB080;
-              v77 = v72;
-              v78 = v44;
-              v79 = v11;
-              v80 = v42;
+              v71[0] = _NSConcreteStackBlock;
+              v71[1] = 3221225472;
+              v71[2] = sub_1000CCE84;
+              v71[3] = &unk_1002BB080;
+              v72 = v67;
+              v73 = v44;
+              v74 = v11;
+              v75 = v42;
               selfCopy3 = self;
-              v82 = v16;
-              [v11 _updateAccessoryID:v80 connectionDeviceAddresses:v44 completion:v76];
+              v77 = v16;
+              [v11 _updateAccessoryID:v75 connectionDeviceAddresses:v44 completion:v71];
             }
 
             else
             {
-              v54 = NSErrorF();
-              v44 = v97[5];
-              v97[5] = v54;
+              v54 = NSErrorF(NSOSStatusErrorDomain, 4294960591, "No self Bluetooth address.");
+              v44 = v92[5];
+              v92[5] = v54;
             }
           }
 
           else
           {
-            v53 = NSErrorF();
-            v61 = v97[5];
-            v97[5] = v53;
+            v53 = NSErrorF(NSOSStatusErrorDomain, 4294960576, "Wx device is not routed... reject incoming pipe!");
+            v56 = v92[5];
+            v92[5] = v53;
           }
 
-          v39 = v63;
+          v39 = v58;
         }
+
+        goto LABEL_54;
       }
+
+      v52 = NSErrorF(NSOSStatusErrorDomain, 4294960587, "Wx device is USB plugged in!!! BACK OFF!");
     }
 
     else
     {
-      v51 = NSErrorF();
-      v66 = v97[5];
-      v97[5] = v51;
+      v52 = NSErrorF(NSOSStatusErrorDomain, 4294960591, "No device name");
     }
 
-    goto LABEL_55;
+    v65 = v92[5];
+    v92[5] = v52;
+
+LABEL_54:
+LABEL_55:
+
+    goto LABEL_56;
   }
 
   if (dword_1002F7228 <= 30 && (dword_1002F7228 != -1 || _LogCategory_Initialize()))
   {
-    sub_1001F8538(v11);
+    sub_1001F8538(v11, v10);
   }
 
-  v32 = NSErrorF();
+  v32 = NSErrorF(NSOSStatusErrorDomain, 4294960595, "Reject connection already have pending request.");
   (*(handlerCopy + 2))(handlerCopy, 0, 0, v32);
 
 LABEL_58:
@@ -688,7 +765,7 @@ LABEL_58:
 
   if (dword_1002F7228 <= 30 && (dword_1002F7228 != -1 || _LogCategory_Initialize()))
   {
-    sub_1001F865C(completedCopy);
+    sub_1001F865C(completedCopy, v7);
   }
 
   responseHandler = [completedCopy responseHandler];
@@ -717,7 +794,7 @@ LABEL_58:
   {
     if (dword_1002F7228 <= 90 && (dword_1002F7228 != -1 || _LogCategory_Initialize()))
     {
-      sub_1001F86F4(responseCopy);
+      sub_1001F86F4(responseCopy, errorCopy);
     }
 
     responseHandler = [responseCopy responseHandler];
@@ -756,7 +833,7 @@ LABEL_58:
 
     if (dword_1002F7228 <= 30 && (dword_1002F7228 != -1 || _LogCategory_Initialize()))
     {
-      sub_1001F8780(responseCopy);
+      sub_1001F8780(responseCopy, v10);
     }
 
     responseHandler2 = [responseCopy responseHandler];

@@ -1137,7 +1137,7 @@ uint64_t __90__SBFloatingDockRootViewController__setPresentedProgress_animated_i
   return [v2 _layoutFloatingDockPresentationProgress:v3];
 }
 
-uint64_t __90__SBFloatingDockRootViewController__setPresentedProgress_animated_interactive_completion___block_invoke_2(uint64_t a1)
+uint64_t (**__90__SBFloatingDockRootViewController__setPresentedProgress_animated_interactive_completion___block_invoke_2(uint64_t a1))(void *, uint64_t)
 {
   v2 = *(a1 + 32);
   v3 = *(v2 + 1152);
@@ -1154,7 +1154,7 @@ uint64_t __90__SBFloatingDockRootViewController__setPresentedProgress_animated_i
   result = *(a1 + 40);
   if (result)
   {
-    result = (*(result + 16))(result, v4);
+    result = result[2](result, v4);
   }
 
   if (v4)

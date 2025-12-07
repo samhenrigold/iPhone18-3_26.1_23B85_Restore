@@ -48,23 +48,13 @@
   {
     if (_dodgeMode != 1)
     {
-      v8 = (*(self + 460) << 28 >> 28) - 1;
-      if (v8 > 3)
-      {
-        v10 = 0.0;
-        v9 = 0.5;
-      }
-
-      else
-      {
-        v9 = dbl_21E612060[v8];
-        v10 = dbl_21E612080[v8];
-      }
-
       layer = [(MTLumaDodgePillView *)self layer];
-      layer2 = [MEMORY[0x277D75348] colorWithWhite:v9 alpha:v10];
-      [layer setContentsMultiplyColor:{objc_msgSend(layer2, "CGColor")}];
-      goto LABEL_21;
+      layer2 = [MEMORY[0x277D75348] colorWithWhite:? alpha:?];
+      [layer2 CGColor];
+      [layer setContentsMultiplyColor:?];
+LABEL_18:
+
+      return;
     }
 
     settings = self->_settings;
@@ -74,13 +64,13 @@
       if (v5 == 3)
       {
         blackSettings = [(MTLumaDodgePillSettings *)settings blackSettings];
-        goto LABEL_20;
+        goto LABEL_17;
       }
 
       if (v5 == 4)
       {
         blackSettings = [(MTLumaDodgePillSettings *)settings whiteSettings];
-        goto LABEL_20;
+        goto LABEL_17;
       }
     }
 
@@ -89,139 +79,132 @@
       if (v5 == 1)
       {
         blackSettings = [(MTLumaDodgePillSettings *)settings thinSettings];
-        goto LABEL_20;
+        goto LABEL_17;
       }
 
       if (v5 == 2)
       {
         blackSettings = [(MTLumaDodgePillSettings *)settings graySettings];
-LABEL_20:
+LABEL_17:
         layer = blackSettings;
         layer2 = [(MTLumaDodgePillView *)self layer];
-        v12 = MEMORY[0x277CCABB0];
+        v8 = MEMORY[0x277CCABB0];
         [(MTLumaDodgePillSettings *)self->_settings colorAddWhiteness];
-        v14 = v13;
         [layer colorAddOpacity];
-        v16 = [v12 numberWithDouble:v14 * v15];
-        [layer2 setValue:v16 forKeyPath:@"filters.homeAffordanceBase.inputAddWhite"];
+        v9 = [v8 numberWithDouble:?];
+        [layer2 setValue:? forKeyPath:?];
 
-        v17 = MEMORY[0x277CCABB0];
+        v10 = MEMORY[0x277CCABB0];
         [layer lumaMapPlusColorOpacity];
-        v18 = [v17 numberWithDouble:?];
-        [layer2 setValue:v18 forKeyPath:@"filters.homeAffordanceBase.inputAmount"];
+        v11 = [v10 numberWithDouble:?];
+        [layer2 setValue:? forKeyPath:?];
 
-        v19 = MEMORY[0x277CCABB0];
+        v12 = MEMORY[0x277CCABB0];
         [layer overlayBlendOpacity];
-        v20 = [v19 numberWithDouble:?];
-        [layer2 setValue:v20 forKeyPath:@"filters.homeAffordanceBase.inputOverlayOpacity"];
+        v13 = [v12 numberWithDouble:?];
+        [layer2 setValue:? forKeyPath:?];
 
-        v21 = MEMORY[0x277CCABB0];
+        v14 = MEMORY[0x277CCABB0];
         [layer blur];
-        v22 = [v21 numberWithDouble:?];
-        [layer2 setValue:v22 forKeyPath:@"filters.gaussianBlur.inputRadius"];
+        v15 = [v14 numberWithDouble:?];
+        [layer2 setValue:? forKeyPath:?];
 
-        v23 = MEMORY[0x277CCABB0];
+        v16 = MEMORY[0x277CCABB0];
         [layer brightness];
-        v24 = [v23 numberWithDouble:?];
-        [layer2 setValue:v24 forKeyPath:@"filters.colorBrightness.inputAmount"];
+        v17 = [v16 numberWithDouble:?];
+        [layer2 setValue:? forKeyPath:?];
 
-        v25 = MEMORY[0x277CCABB0];
+        v18 = MEMORY[0x277CCABB0];
         [layer saturation];
-        v26 = [v25 numberWithDouble:?];
-        [layer2 setValue:v26 forKeyPath:@"filters.colorSaturate.inputAmount"];
+        v19 = [v18 numberWithDouble:?];
+        [layer2 setValue:? forKeyPath:?];
 
-LABEL_21:
-
-        return;
+        goto LABEL_18;
       }
     }
 
     blackSettings = [(MTLumaDodgePillSettings *)settings noneSettings];
-    goto LABEL_20;
+    goto LABEL_17;
   }
 
-  baseContentColor = self->_baseContentColor;
-
-  [(MTLumaDodgePillView *)self _updateBaseContentColor:baseContentColor];
+  [(MTLumaDodgePillView *)self _updateBaseContentColor:?];
 }
 
 - (void)_updateModeConfiguration
 {
-  v29[4] = *MEMORY[0x277D85DE8];
   _dodgeMode = [(MTLumaDodgePillView *)self _dodgeMode];
-  [(MTLumaDodgePillView *)self _configureLowQualityEffectViewForMode:_dodgeMode path:self->_customPillShapePath];
+  [MTLumaDodgePillView _configureLowQualityEffectViewForMode:"_configureLowQualityEffectViewForMode:path:" path:?];
   layer = [(MTLumaDodgePillView *)self layer];
   v5 = layer;
   if (_dodgeMode == 2)
   {
-    [layer setFilters:0];
+    [layer setFilters:?];
 
     layer2 = [(MTLumaDodgePillView *)self layer];
-    [layer2 setContents:0];
+    [layer2 setContents:?];
 
     layer3 = [(MTLumaDodgePillView *)self layer];
-    [layer3 setContentsMultiplyColor:0];
+    [layer3 setContentsMultiplyColor:?];
 
     layer4 = [(MTLumaDodgePillView *)self layer];
-    [layer4 setEnabled:1];
+    [layer4 setEnabled:?];
 
     layer5 = [(MTLumaDodgePillView *)self layer];
-    [layer5 setCaptureOnly:1];
+    [layer5 setCaptureOnly:?];
 
     layer6 = [(MTLumaDodgePillView *)self layer];
-    [layer6 setScale:0.5];
+    [layer6 setScale:?];
   }
 
   else
   {
     if (_dodgeMode == 1)
     {
-      [layer setContents:0];
+      [layer setContents:?];
 
       layer7 = [(MTLumaDodgePillView *)self layer];
-      [layer7 setContentsMultiplyColor:0];
+      [layer7 setContentsMultiplyColor:?];
 
       layer8 = [(MTLumaDodgePillView *)self layer];
-      [layer8 setScale:1.0];
+      [layer8 setScale:?];
 
       layer9 = [(MTLumaDodgePillView *)self layer];
-      [layer9 setEnabled:1];
+      [layer9 setEnabled:?];
 
       layer10 = [(MTLumaDodgePillView *)self layer];
-      [layer10 setCaptureOnly:0];
+      [layer10 setCaptureOnly:?];
 
-      v10 = [MEMORY[0x277CD9EA0] filterWithType:*MEMORY[0x277CDA340]];
-      [v10 setName:@"homeAffordanceBase"];
+      v10 = [MEMORY[0x277CD9EA0] filterWithType:?];
+      [v10 setName:?];
       v11 = MEMORY[0x277D755B8];
-      v12 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-      v13 = [v11 imageNamed:@"lumaDodgePillMap" inBundle:v12];
-      [v10 setValue:objc_msgSend(v13 forKey:{"CGImage"), @"inputColorMap"}];
+      v12 = MEMORY[0x277CCA8D8];
+      objc_opt_class();
+      v13 = [v12 bundleForClass:?];
+      v14 = [v11 imageNamed:? inBundle:?];
+      [v14 CGImage];
+      [v10 setValue:? forKey:?];
 
-      v14 = [MEMORY[0x277CD9EA0] filterWithType:*MEMORY[0x277CDA328]];
-      [v14 setName:@"gaussianBlur"];
-      [v14 setValue:MEMORY[0x277CBEC38] forKey:@"inputNormalizeEdges"];
-      v15 = [MEMORY[0x277CD9EA0] filterWithType:*MEMORY[0x277CDA290]];
-      [v15 setName:@"colorBrightness"];
-      v16 = [MEMORY[0x277CD9EA0] filterWithType:*MEMORY[0x277CDA2D0]];
-      [v16 setName:@"colorSaturate"];
+      v15 = [MEMORY[0x277CD9EA0] filterWithType:?];
+      [v15 setName:?];
+      [v15 setValue:? forKey:?];
+      v16 = [MEMORY[0x277CD9EA0] filterWithType:?];
+      [v16 setName:?];
+      v17 = [MEMORY[0x277CD9EA0] filterWithType:?];
+      [v17 setName:?];
       layer11 = [(MTLumaDodgePillView *)self layer];
-      v29[0] = v10;
-      v29[1] = v14;
-      v29[2] = v15;
-      v29[3] = v16;
-      v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v29 count:4];
-      [layer11 setFilters:v18];
+      v19 = [MEMORY[0x277CBEA60] arrayWithObjects:? count:?];
+      [layer11 setFilters:?];
 
       return;
     }
 
-    [layer setScale:1.0];
+    [layer setScale:?];
 
     layer12 = [(MTLumaDodgePillView *)self layer];
-    [layer12 setFilters:0];
+    [layer12 setFilters:?];
 
     layer13 = [(MTLumaDodgePillView *)self layer];
-    [layer13 setEnabled:0];
+    [layer13 setEnabled:?];
 
     v31.width = 1.0;
     v31.height = 1.0;
@@ -237,8 +220,9 @@ LABEL_21:
     layer6 = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
     layer14 = [(MTLumaDodgePillView *)self layer];
-    v27 = layer6;
-    [layer14 setContents:{objc_msgSend(layer6, "CGImage")}];
+    v28 = layer6;
+    [layer6 CGImage];
+    [layer14 setContents:?];
   }
 }
 
@@ -249,13 +233,13 @@ LABEL_21:
   if (!self->_disableLumaTracking && (_dodgeMode == 2 || (WeakRetained = objc_loadWeakRetained(&self->_backgroundLumninanceObserver), WeakRetained, WeakRetained)))
   {
     layer = [(MTLumaDodgePillView *)self layer];
-    [layer setTracksLuma:1];
+    [layer setTracksLuma:?];
   }
 
   else
   {
     layer2 = [(MTLumaDodgePillView *)self layer];
-    [layer2 setTracksLuma:0];
+    [layer2 setTracksLuma:?];
 
     self->_lumaIsValid = 0;
     *(self + 460) &= 0x8Fu;
@@ -264,7 +248,7 @@ LABEL_21:
       return;
     }
 
-    layer = [MEMORY[0x277D75348] colorWithWhite:0.5 alpha:1.0];
+    layer = [MEMORY[0x277D75348] colorWithWhite:? alpha:?];
     [(MTLumaDodgePillView *)self _updateBaseContentColor:?];
   }
 }
@@ -333,10 +317,10 @@ LABEL_21:
     v18 = *(v15 + 416);
     *(v15 + 416) = v17;
 
-    [*(v15 + 416) addKeyObserver:v15];
+    [*(v15 + 416) addKeyObserver:?];
     *(v15 + 481) = [*(v15 + 416) disableLumaTracking];
     *(v15 + 461) = *(v15 + 461) & 0xCF | (16 * ([*(v15 + 416) overrideDodgeMode] & 3));
-    v19 = [MEMORY[0x277D75348] colorWithWhite:0.5 alpha:1.0];
+    v19 = [MEMORY[0x277D75348] colorWithWhite:? alpha:?];
     v20 = *(v15 + 472);
     *(v15 + 472) = v19;
 
@@ -399,8 +383,8 @@ LABEL_7:
   v19[4] = v15;
   v11 = MTCGColorByApplyingCAColorMatrix([colorCopy CGColor], v19, 0);
   lowQualityEffectView = self->_lowQualityEffectView;
-  v13 = [MEMORY[0x277D75348] colorWithCGColor:v11];
-  [(_MTLumaDodgePillLowQualityEffectView *)lowQualityEffectView setContentColor:v13];
+  v13 = [MEMORY[0x277D75348] colorWithCGColor:?];
+  [(_MTLumaDodgePillLowQualityEffectView *)lowQualityEffectView setContentColor:?];
 
   CGColorRelease(v11);
 }
@@ -441,14 +425,16 @@ LABEL_7:
     v11 = [(_MTLumaDodgePillCustomShapeLowQualityEffectView *)v10 initWithFrame:?];
     shapeLayer = [(_MTLumaDodgePillLowQualityEffectView *)v11 shapeLayer];
     blackColor = [MEMORY[0x277D75348] blackColor];
-    v14 = [blackColor colorWithAlphaComponent:0.0];
-    [shapeLayer setFillColor:{objc_msgSend(v14, "CGColor")}];
+    v14 = [blackColor colorWithAlphaComponent:?];
+    [v14 CGColor];
+    [shapeLayer setFillColor:?];
 
-    [shapeLayer setLineCap:*MEMORY[0x277CDA780]];
-    [shapeLayer setLineJoin:*MEMORY[0x277CDA7A0]];
-    [shapeLayer setLineWidth:3.5];
+    [shapeLayer setLineCap:?];
+    [shapeLayer setLineJoin:?];
+    [shapeLayer setLineWidth:?];
     shapeLayer2 = [(_MTLumaDodgePillLowQualityEffectView *)v11 shapeLayer];
-    [shapeLayer2 setPath:{objc_msgSend(v21, "CGPath")}];
+    [v21 CGPath];
+    [shapeLayer2 setPath:?];
 
     v16 = self->_lowQualityEffectView;
     self->_lowQualityEffectView = v11;
@@ -477,8 +463,8 @@ LABEL_7:
     self->_lowQualityEffectView = v20;
   }
 
-  [(MTLumaDodgePillView *)self _updateBaseContentColor:self->_baseContentColor];
-  [(MTLumaDodgePillView *)self addSubview:self->_lowQualityEffectView];
+  [(MTLumaDodgePillView *)self _updateBaseContentColor:?];
+  [(MTLumaDodgePillView *)self addSubview:?];
 LABEL_13:
 }
 
@@ -499,7 +485,7 @@ LABEL_13:
 
 - (void)backdropLayer:(id)layer didChangeLuma:(double)luma
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   BSDispatchQueueAssertMain();
   v6 = MTLogLuma;
   if (os_log_type_enabled(MTLogLuma, OS_LOG_TYPE_DEBUG))
@@ -518,11 +504,11 @@ LABEL_13:
     v14 = MTLogLuma;
     if (os_log_type_enabled(MTLogLuma, OS_LOG_TYPE_INFO))
     {
-      *v30 = 134218240;
-      *&v30[4] = self;
-      *&v30[12] = 2048;
-      *&v30[14] = luma;
-      _os_log_impl(&dword_21E600000, v14, OS_LOG_TYPE_INFO, "pill=%p unexpected luma change (%.2f) - reporting unknown", v30, 0x16u);
+      *v27 = 134218240;
+      *&v27[4] = self;
+      *&v27[12] = 2048;
+      *&v27[14] = luma;
+      _os_log_impl(&dword_21E600000, v14, OS_LOG_TYPE_INFO, "pill=%p unexpected luma change (%.2f) - reporting unknown", v27, 0x16u);
     }
 
     v11 = *(self + 460) & 0x8F;
@@ -545,35 +531,35 @@ LABEL_13:
       goto LABEL_9;
     }
 
-    *v30 = 134218240;
-    *&v30[4] = self;
-    *&v30[12] = 2048;
-    *&v30[14] = luma;
+    *v27 = 134218240;
+    *&v27[4] = self;
+    *&v27[12] = 2048;
+    *&v27[14] = luma;
     v13 = "pill=%p responding to light luma change (%.2f)";
     goto LABEL_8;
   }
 
   [(MTLumaDodgePillSettings *)self->_settings darkLumaThreshold];
-  v21 = BSFloatLessThanOrEqualToFloat();
+  v18 = BSFloatLessThanOrEqualToFloat();
   v11 = *(self + 460);
-  if (v21)
+  if (v18)
   {
     if ((v11 & 0x70) != 0x10)
     {
       v12 = MTLogLuma;
       if (os_log_type_enabled(MTLogLuma, OS_LOG_TYPE_INFO))
       {
-        *v30 = 134218240;
-        *&v30[4] = self;
-        *&v30[12] = 2048;
-        *&v30[14] = luma;
-        v22 = "pill=%p responding to dark luma change (%.2f)";
-LABEL_29:
-        _os_log_impl(&dword_21E600000, v12, OS_LOG_TYPE_INFO, v22, v30, 0x16u);
-        goto LABEL_30;
+        *v27 = 134218240;
+        *&v27[4] = self;
+        *&v27[12] = 2048;
+        *&v27[14] = luma;
+        v19 = "pill=%p responding to dark luma change (%.2f)";
+LABEL_27:
+        _os_log_impl(&dword_21E600000, v12, OS_LOG_TYPE_INFO, v19, v27, 0x16u);
+        goto LABEL_28;
       }
 
-      goto LABEL_30;
+      goto LABEL_28;
     }
   }
 
@@ -581,43 +567,43 @@ LABEL_29:
   {
     if ((*(self + 230) & 0x380) != 0)
     {
-      v23 = MTLogLuma;
+      v20 = MTLogLuma;
       if (os_log_type_enabled(MTLogLuma, OS_LOG_TYPE_INFO))
       {
-        v24 = (*(self + 230) << 6) >> 13;
-        v25 = v23;
-        v26 = NSStringFromMTLumaDodgePillBackgroundLuminance(v24);
-        *v30 = 134218498;
-        *&v30[4] = self;
-        *&v30[12] = 2048;
-        *&v30[14] = luma;
-        *&v30[22] = 2114;
-        v31 = v26;
-        _os_log_impl(&dword_21E600000, v25, OS_LOG_TYPE_INFO, "pill=%p ambiguous initial luma (%.2f) - biased %{public}@", v30, 0x20u);
+        v21 = (*(self + 230) << 6) >> 13;
+        v22 = v20;
+        v23 = NSStringFromMTLumaDodgePillBackgroundLuminance(v21);
+        *v27 = 134218498;
+        *&v27[4] = self;
+        *&v27[12] = 2048;
+        *&v27[14] = luma;
+        *&v27[22] = 2114;
+        v28 = v23;
+        _os_log_impl(&dword_21E600000, v22, OS_LOG_TYPE_INFO, "pill=%p ambiguous initial luma (%.2f) - biased %{public}@", v27, 0x20u);
       }
 
       v11 = (*(self + 230) >> 3) & 0x70 | *(self + 460) & 0x8F;
       goto LABEL_13;
     }
 
-    v27 = *(self + 460);
-    if ((v27 & 0xF) == 4)
+    v24 = *(self + 460);
+    if ((v24 & 0xF) == 4)
     {
       v12 = MTLogLuma;
       if (!os_log_type_enabled(MTLogLuma, OS_LOG_TYPE_INFO))
       {
-        goto LABEL_30;
+        goto LABEL_28;
       }
 
-      *v30 = 134218240;
-      *&v30[4] = self;
-      *&v30[12] = 2048;
-      *&v30[14] = luma;
-      v22 = "pill=%p ambiguous initial luma (%.2f) - assuming dark since current style is white";
-      goto LABEL_29;
+      *v27 = 134218240;
+      *&v27[4] = self;
+      *&v27[12] = 2048;
+      *&v27[14] = luma;
+      v19 = "pill=%p ambiguous initial luma (%.2f) - assuming dark since current style is white";
+      goto LABEL_27;
     }
 
-    if ((v27 << 28 >> 28) == 3)
+    if ((v24 << 28 >> 28) == 3)
     {
       v12 = MTLogLuma;
       if (!os_log_type_enabled(MTLogLuma, OS_LOG_TYPE_INFO))
@@ -625,13 +611,13 @@ LABEL_29:
         goto LABEL_9;
       }
 
-      *v30 = 134218240;
-      *&v30[4] = self;
-      *&v30[12] = 2048;
-      *&v30[14] = luma;
+      *v27 = 134218240;
+      *&v27[4] = self;
+      *&v27[12] = 2048;
+      *&v27[14] = luma;
       v13 = "pill=%p ambiguous initial luma (%.2f) - assuming light since current style is black";
 LABEL_8:
-      _os_log_impl(&dword_21E600000, v12, OS_LOG_TYPE_INFO, v13, v30, 0x16u);
+      _os_log_impl(&dword_21E600000, v12, OS_LOG_TYPE_INFO, v13, v27, 0x16u);
 LABEL_9:
       v11 = *(self + 460) & 0x8F | 0x20;
 LABEL_13:
@@ -640,35 +626,35 @@ LABEL_13:
     }
 
     [(MTLumaDodgePillSettings *)self->_settings initialLumaThreshold];
-    v28 = BSFloatGreaterThanOrEqualToFloat();
+    v25 = BSFloatGreaterThanOrEqualToFloat();
     v12 = MTLogLuma;
-    v29 = os_log_type_enabled(MTLogLuma, OS_LOG_TYPE_INFO);
-    if (v28)
+    v26 = os_log_type_enabled(MTLogLuma, OS_LOG_TYPE_INFO);
+    if (v25)
     {
-      if (!v29)
+      if (!v26)
       {
         goto LABEL_9;
       }
 
-      *v30 = 134218240;
-      *&v30[4] = self;
-      *&v30[12] = 2048;
-      *&v30[14] = luma;
+      *v27 = 134218240;
+      *&v27[4] = self;
+      *&v27[12] = 2048;
+      *&v27[14] = luma;
       v13 = "pill=%p ambiguous initial luma (%.2f) - defaulting light";
       goto LABEL_8;
     }
 
-    if (v29)
+    if (v26)
     {
-      *v30 = 134218240;
-      *&v30[4] = self;
-      *&v30[12] = 2048;
-      *&v30[14] = luma;
-      v22 = "pill=%p ambiguous initial luma (%.2f) - defaulting dark";
-      goto LABEL_29;
+      *v27 = 134218240;
+      *&v27[4] = self;
+      *&v27[12] = 2048;
+      *&v27[14] = luma;
+      v19 = "pill=%p ambiguous initial luma (%.2f) - defaulting dark";
+      goto LABEL_27;
     }
 
-LABEL_30:
+LABEL_28:
     v11 = *(self + 460) & 0x8F | 0x10;
     goto LABEL_13;
   }
@@ -677,23 +663,25 @@ LABEL_14:
   if (((v11 ^ v7) & 0x70) != 0)
   {
     WeakRetained = objc_loadWeakRetained(&self->_backgroundLumninanceObserver);
-    [WeakRetained lumaDodgePillDidDetectBackgroundLuminanceChange:self];
+    [WeakRetained lumaDodgePillDidDetectBackgroundLuminanceChange:?];
   }
 
-  if ([(MTLumaDodgePillView *)self _dodgeMode:*v30]== 2)
+  if ([(MTLumaDodgePillView *)self _dodgeMode:*v27]== 2)
   {
-    v16 = BSFloatEqualToFloat();
-    v17 = self->_lumaIsValid;
-    if (!v16 || v17 != lumaIsValid)
+    if (BSFloatEqualToFloat())
     {
-      luma = 0.5;
-      if (v17)
-      {
-        luma = self->_luma;
-      }
+      v16 = self->_lumaIsValid == lumaIsValid;
+    }
 
-      v20 = [MEMORY[0x277D75348] colorWithWhite:luma alpha:1.0];
-      [(MTLumaDodgePillView *)self _updateBaseContentColor:v20];
+    else
+    {
+      v16 = 0;
+    }
+
+    if (!v16)
+    {
+      v17 = [MEMORY[0x277D75348] colorWithWhite:? alpha:?];
+      [(MTLumaDodgePillView *)self _updateBaseContentColor:?];
     }
   }
 }
@@ -737,7 +725,7 @@ LABEL_14:
 - (CGSize)sizeThatFits:(CGSize)fits
 {
   width = fits.width;
-  [(MTLumaDodgePillSettings *)self->_settings maxWidth:fits.width];
+  [(MTLumaDodgePillSettings *)self->_settings maxWidth];
   v6 = v5;
   [(MTLumaDodgePillSettings *)self->_settings minWidth];
   if (v7 < width)
@@ -771,43 +759,38 @@ LABEL_14:
   v5 = NSStringFromCGRect(v11);
   v6 = NSStringFromMTLumaDodgePillStyle((*(self + 460) << 60) >> 60);
   v7 = NSStringFromMTLumaDodgePillBackgroundLuminance((2 * *(self + 460)) >> 5);
-  v8 = [v3 stringWithFormat:@"<%@:%p frame=%@ style=%@ backgroundLuminance=%@>", v4, self, v5, v6, v7];
+  v8 = [v3 stringWithFormat:v4, self, v5, v6, v7];
 
   return v8;
 }
 
 - (void)animationDidStop:(id)stop finished:(BOOL)finished
 {
-  v18 = *MEMORY[0x277D85DE8];
   BSDispatchQueueAssertMain();
   bounceAnimationsInFlight = self->_bounceAnimationsInFlight;
   if (bounceAnimationsInFlight < 2)
   {
     self->_bounceAnimationsInFlight = 0;
     layer = [(MTLumaDodgePillView *)self layer];
-    v13 = 0u;
-    v14 = 0u;
-    v15 = 0u;
-    v16 = 0u;
     v7 = self->_bounceAnimationKeys;
-    v8 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
+    v8 = [NSMutableArray countByEnumeratingWithState:v7 objects:"countByEnumeratingWithState:objects:count:" count:0];
     if (v8)
     {
       v9 = v8;
-      v10 = *v14;
+      v10 = MEMORY[0];
       do
       {
-        for (i = 0; i != v9; ++i)
+        for (i = 0; i != v9; i = (i + 1))
         {
-          if (*v14 != v10)
+          if (MEMORY[0] != v10)
           {
             objc_enumerationMutation(v7);
           }
 
-          [layer removeAnimationForKey:{*(*(&v13 + 1) + 8 * i), v13}];
+          [layer removeAnimationForKey:?];
         }
 
-        v9 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
+        v9 = [NSMutableArray countByEnumeratingWithState:v7 objects:"countByEnumeratingWithState:objects:count:" count:?];
       }
 
       while (v9);
@@ -895,7 +878,7 @@ LABEL_14:
   if (self->_lumaIsValid)
   {
     layer = [(MTLumaDodgePillView *)self layer];
-    [(MTLumaDodgePillView *)self backdropLayer:layer didChangeLuma:self->_luma];
+    [MTLumaDodgePillView backdropLayer:"backdropLayer:didChangeLuma:" didChangeLuma:?];
   }
 }
 
@@ -903,57 +886,55 @@ LABEL_14:
 {
   BSDispatchQueueAssertMain();
   v3 = ++bounce___unique;
-  bounce___unique = [MEMORY[0x277CCACA8] stringWithFormat:@"bounce-%u.up", bounce___unique];
-  v15 = [bounce___unique copy];
+  v4 = [MEMORY[0x277CCACA8] stringWithFormat:bounce___unique];
+  v13 = [v4 copy];
 
-  v5 = [MEMORY[0x277CD9FA0] animationWithKeyPath:@"position.y"];
-  [v5 setAdditive:1];
-  [v5 setMass:1.0];
-  [v5 setStiffness:300.0];
-  [v5 setDamping:13.0];
-  [v5 setFromValue:&unk_282FA5C48];
-  [v5 setToValue:&unk_282FA5C58];
-  v6 = *MEMORY[0x277CDA238];
-  [v5 setFillMode:*MEMORY[0x277CDA238]];
-  [v5 setRemovedOnCompletion:0];
-  [v5 setDelegate:self];
+  v5 = [MEMORY[0x277CD9FA0] animationWithKeyPath:?];
+  [v5 setAdditive:?];
+  [v5 setMass:?];
+  [v5 setStiffness:?];
+  [v5 setDamping:?];
+  [v5 setFromValue:?];
+  [v5 setToValue:?];
+  [v5 setFillMode:?];
+  [v5 setRemovedOnCompletion:?];
+  [v5 setDelegate:?];
   [v5 settlingDuration];
   [v5 setDuration:?];
-  v7 = *MEMORY[0x277CDA080];
-  [v5 setBeginTimeMode:*MEMORY[0x277CDA080]];
-  v8 = [MEMORY[0x277CCACA8] stringWithFormat:@"bounce-%u.dn", v3];
-  v9 = [v8 copy];
+  [v5 setBeginTimeMode:?];
+  v6 = [MEMORY[0x277CCACA8] stringWithFormat:v3];
+  v7 = [v6 copy];
 
-  v10 = [MEMORY[0x277CD9FA0] animationWithKeyPath:@"position.y"];
-  [v10 setAdditive:1];
-  [v10 setMass:1.0];
-  [v10 setStiffness:300.0];
-  [v10 setDamping:13.0];
-  [v10 setFromValue:&unk_282FA5C48];
-  [v10 setToValue:&unk_282FA5C68];
-  [v10 setFillMode:v6];
-  [v10 setRemovedOnCompletion:0];
-  [v10 setDelegate:self];
-  [v10 settlingDuration];
-  [v10 setDuration:?];
-  [v10 setBeginTime:0.2];
-  [v10 setBeginTimeMode:v7];
+  v8 = [MEMORY[0x277CD9FA0] animationWithKeyPath:?];
+  [v8 setAdditive:?];
+  [v8 setMass:?];
+  [v8 setStiffness:?];
+  [v8 setDamping:?];
+  [v8 setFromValue:?];
+  [v8 setToValue:?];
+  [v8 setFillMode:?];
+  [v8 setRemovedOnCompletion:?];
+  [v8 setDelegate:?];
+  [v8 settlingDuration];
+  [v8 setDuration:?];
+  [v8 setBeginTime:?];
+  [v8 setBeginTimeMode:?];
   self->_bounceAnimationsInFlight += 2;
   bounceAnimationKeys = self->_bounceAnimationKeys;
   if (!bounceAnimationKeys)
   {
-    v12 = [MEMORY[0x277CBEB18] arrayWithCapacity:2];
-    v13 = self->_bounceAnimationKeys;
-    self->_bounceAnimationKeys = v12;
+    v10 = [MEMORY[0x277CBEB18] arrayWithCapacity:?];
+    v11 = self->_bounceAnimationKeys;
+    self->_bounceAnimationKeys = v10;
 
     bounceAnimationKeys = self->_bounceAnimationKeys;
   }
 
-  [(NSMutableArray *)bounceAnimationKeys addObject:v15];
-  [(NSMutableArray *)self->_bounceAnimationKeys addObject:v9];
+  [(NSMutableArray *)bounceAnimationKeys addObject:?];
+  [(NSMutableArray *)self->_bounceAnimationKeys addObject:?];
   layer = [(MTLumaDodgePillView *)self layer];
-  [layer addAnimation:v5 forKey:v15];
-  [layer addAnimation:v10 forKey:v9];
+  [layer addAnimation:? forKey:?];
+  [layer addAnimation:? forKey:?];
 }
 
 + (CGSize)suggestedSizeForContentWidth:(double)width withSettings:(id)settings
@@ -1012,12 +993,11 @@ LABEL_12:
 
 - (CGSize)suggestedSizeForContentWidth:(double)width
 {
-  v5 = objc_opt_class();
-  settings = self->_settings;
+  v3 = objc_opt_class();
 
-  [v5 suggestedSizeForContentWidth:settings withSettings:width];
-  result.height = v8;
-  result.width = v7;
+  [v3 suggestedSizeForContentWidth:? withSettings:?];
+  result.height = v5;
+  result.width = v4;
   return result;
 }
 
@@ -1026,7 +1006,8 @@ LABEL_12:
   animatedCopy = animated;
   pathCopy = path;
   objc_storeStrong(&self->_customPillShapePath, path);
-  [(MTLumaDodgePillView *)self _configureLowQualityEffectViewForMode:[(MTLumaDodgePillView *)self _dodgeMode] path:pathCopy];
+  [(MTLumaDodgePillView *)self _dodgeMode];
+  [MTLumaDodgePillView _configureLowQualityEffectViewForMode:"_configureLowQualityEffectViewForMode:path:" path:?];
   lowQualityEffectView = self->_lowQualityEffectView;
   v8 = objc_opt_class();
   v9 = lowQualityEffectView;
@@ -1055,16 +1036,19 @@ LABEL_12:
   {
     if (animatedCopy)
     {
-      v13 = [MEMORY[0x277CD9E10] animationWithKeyPath:@"path"];
+      v13 = [MEMORY[0x277CD9E10] animationWithKeyPath:?];
       presentationLayer = [shapeLayer presentationLayer];
-      [v13 setFromValue:{objc_msgSend(presentationLayer, "path")}];
+      [presentationLayer path];
+      [v13 setFromValue:?];
 
-      [v13 setToValue:{objc_msgSend(pathCopy, "CGPath")}];
-      [shapeLayer removeAnimationForKey:@"path"];
-      [shapeLayer addAnimation:v13 forKey:@"path"];
+      [pathCopy CGPath];
+      [v13 setToValue:?];
+      [shapeLayer removeAnimationForKey:?];
+      [shapeLayer addAnimation:? forKey:?];
     }
 
-    [shapeLayer setPath:{objc_msgSend(pathCopy, "CGPath")}];
+    [pathCopy CGPath];
+    [shapeLayer setPath:?];
   }
 }
 
@@ -1077,8 +1061,8 @@ LABEL_12:
 
 - (void)initWithFrame:(uint64_t)a1 settings:(uint64_t)a2 graphicsQuality:.cold.1(uint64_t a1, uint64_t a2)
 {
-  v4 = [MEMORY[0x277CCA890] currentHandler];
-  [v4 handleFailureInMethod:a1 object:a2 file:@"MTLumaDodgePillView.m" lineNumber:115 description:{@"Invalid parameter not satisfying: %@", @"settings != nil"}];
+  v2 = [MEMORY[0x277CCA890] currentHandler];
+  [v2 handleFailureInMethod:@"settings != nil" object:? file:? lineNumber:? description:?];
 }
 
 - (void)initWithFrame:(uint64_t)a1 settings:(NSObject *)a2 graphicsQuality:.cold.2(uint64_t a1, NSObject *a2)

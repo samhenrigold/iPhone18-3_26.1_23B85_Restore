@@ -56,39 +56,39 @@
 - (optional<ULLoiDO>)convertToDO
 {
   v2 = v1;
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   [v1 lastSeenTimeStamp];
   v5 = v4;
   loiType = [v2 loiType];
   v7 = loiType;
   if (loiType)
   {
-    [loiType stdString];
+    objc_msgSend_stdString(loiType);
   }
 
   else
   {
-    *v24 = 0u;
-    v25 = 0u;
+    *v23 = 0u;
+    v24 = 0u;
   }
 
-  if (BYTE8(v25))
+  if (BYTE8(v24))
   {
     loiId = [v2 loiId];
     v9 = loiId;
     if (loiId)
     {
-      [loiId boostUUID];
+      objc_msgSend_boostUUID(loiId);
     }
 
     else
     {
+      v33 = 0;
       v34 = 0;
       v35 = 0;
-      v36 = 0;
     }
 
-    if ((v36 & 1) == 0)
+    if ((v35 & 1) == 0)
     {
       if (onceToken_MicroLocation_Default != -1)
       {
@@ -102,11 +102,11 @@
         _os_log_impl(&dword_258FE9000, v12, OS_LOG_TYPE_ERROR, "convertToDO: LOI record's LoiId has no value", buf, 2u);
       }
 
+      v33 = 0;
       v34 = 0;
-      v35 = 0;
-      if ((v36 & 1) == 0)
+      if ((v35 & 1) == 0)
       {
-        v36 = 1;
+        v35 = 1;
       }
     }
 
@@ -114,18 +114,18 @@
     v14 = loiGroupId;
     if (loiGroupId)
     {
-      [loiGroupId boostUUID];
+      objc_msgSend_boostUUID(loiGroupId);
     }
 
     else
     {
+      v30 = 0;
       v31 = 0;
       v32 = 0;
-      v33 = 0;
     }
 
-    v15 = v33;
-    if (v33)
+    v15 = v32;
+    if (v32)
     {
       goto LABEL_30;
     }
@@ -142,13 +142,13 @@
       _os_log_impl(&dword_258FE9000, v16, OS_LOG_TYPE_ERROR, "convertToDO: LOI record's LoiGroupId has no value", buf, 2u);
     }
 
-    v15 = v33;
+    v15 = v32;
+    v30 = 0;
     v31 = 0;
-    v32 = 0;
-    if (v33 == 1)
+    if (v32 == 1)
     {
 LABEL_30:
-      if ((v36 & 1) == 0 || !v15)
+      if ((v35 & 1) == 0 || !v15)
       {
 LABEL_44:
         std::__throw_bad_optional_access[abi:ne200100]();
@@ -157,31 +157,31 @@ LABEL_44:
 
     else
     {
-      v33 = 1;
-      if (v36 != 1)
+      v32 = 1;
+      if (v35 != 1)
       {
         goto LABEL_44;
       }
     }
 
-    v17 = v35;
-    if ((BYTE8(v25) & 1) == 0)
+    v17 = v34;
+    if ((BYTE8(v24) & 1) == 0)
     {
       goto LABEL_44;
     }
 
-    v18 = v34;
-    v19 = v31;
-    v20 = v32;
-    if (SBYTE7(v25) < 0)
+    v18 = v33;
+    v19 = v30;
+    v20 = v31;
+    if (SBYTE7(v24) < 0)
     {
-      std::string::__init_copy_ctor_external(&__p, v24[0], v24[1]);
+      std::string::__init_copy_ctor_external(&__p, v23[0], v23[1]);
     }
 
     else
     {
-      *&__p.__r_.__value_.__l.__data_ = *v24;
-      __p.__r_.__value_.__r.__words[2] = v25;
+      *&__p.__r_.__value_.__l.__data_ = *v23;
+      __p.__r_.__value_.__r.__words[2] = v24;
     }
 
     result = ULLoiDO::ULLoiDO(buf, v18, v17, v19, v20, &__p, v5);
@@ -190,12 +190,12 @@ LABEL_44:
       operator delete(__p.__r_.__value_.__l.__data_);
     }
 
-    v21 = v27;
+    v21 = v26;
     *&retstr->var0.var0 = *buf;
     *(&retstr->var0.var4.var0.var1 + 1) = v21;
-    retstr[1].var0.var4.var0.var1.var1 = v28;
-    *(&retstr[1].var0.var4.var0.var1 + 1) = v29;
-    retstr[2].var0.var4.var0.var1.var1 = v30;
+    retstr[1].var0.var4.var0.var1.var1 = v27;
+    *(&retstr[1].var0.var4.var0.var1 + 1) = v28;
+    retstr[2].var0.var4.var0.var1.var1 = v29;
     retstr[2].var0.var4.var0.var0.var0[16] = 1;
   }
 
@@ -218,12 +218,11 @@ LABEL_44:
     retstr[2].var0.var4.var0.var0.var0[16] = 0;
   }
 
-  if (BYTE8(v25) == 1 && SBYTE7(v25) < 0)
+  if (BYTE8(v24) == 1 && SBYTE7(v24) < 0)
   {
-    operator delete(v24[0]);
+    operator delete(v23[0]);
   }
 
-  v22 = *MEMORY[0x277D85DE8];
   return result;
 }
 

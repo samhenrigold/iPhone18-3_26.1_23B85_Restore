@@ -1,6 +1,6 @@
 @interface BWPhotoDecompressorNode
 - (BWPhotoDecompressorNode)initWithSynchronizedSlaveAttachedMediaDecompressionEnabled:(BOOL)enabled;
-- (uint64_t)_ensureSemaphoresAreBalanced;
+- (id)_ensureSemaphoresAreBalanced;
 - (void)_releaseResources;
 - (void)_setOverCaptureSynchronizedSlaveSemaphoreEnabled:(void *)result;
 - (void)addEmitSampleBufferSemaphore:(id)semaphore;
@@ -62,7 +62,7 @@
 
 - (void)dealloc
 {
-  [(BWPhotoDecompressorNode *)self _releaseResources];
+  [(BWPhotoDecompressorNode *)&self->super.super.isa _releaseResources];
 
   v3.receiver = self;
   v3.super_class = BWPhotoDecompressorNode;
@@ -74,8 +74,8 @@
   keyCopy = key;
   if (self->_synchronizedSlaveAttachedMediaDecompressionEnabled)
   {
-    v8 = [key isEqualToString:{0x1F21AAA50, input}];
-    if (v8)
+    isEqualToString = objc_msgSend_isEqualToString_(key, a2, 0x1F21AAA50, input);
+    if (isEqualToString)
     {
       keyCopy = @"SynchronizedSlaveFrame";
     }
@@ -83,7 +83,7 @@
 
   else
   {
-    v8 = 0;
+    isEqualToString = 0;
   }
 
   v9 = [(BWNodeOutput *)self->super._output mediaPropertiesForAttachedMediaKey:keyCopy];
@@ -93,7 +93,7 @@
     [(BWNodeOutput *)self->super._output _setMediaProperties:v9 forAttachedMediaKey:keyCopy];
   }
 
-  if ((v8 | [(__CFString *)keyCopy isEqualToString:@"PrimaryFormat"]))
+  if ((isEqualToString | objc_msgSend_isEqualToString_(keyCopy)))
   {
     v10 = objc_alloc_init(BWVideoFormatRequirements);
     -[BWVideoFormatRequirements setWidth:](v10, "setWidth:", [format width]);
@@ -158,7 +158,7 @@
 
   else
   {
-    [(BWPhotoDecompressorNode *)self _releaseResources];
+    [(BWPhotoDecompressorNode *)&self->super.super.isa _releaseResources];
   }
 
   v7.receiver = self;
@@ -399,7 +399,7 @@ LABEL_27:
   {
     if (self->_synchronizedSlaveAttachedMediaDecompressionEnabled)
     {
-      if ([v16 isEqualToString:0x1F21A9C30])
+      if (objc_msgSend_isEqualToString_(v16))
       {
         v17 = CMGetAttachment(bufferCopy, @"RecordingSettings", 0);
         if (v17)
@@ -499,8 +499,8 @@ LABEL_55:
   {
     [(BWPhotoDecompressorNode *)self _ensureSemaphoresAreBalanced];
 
-    *(self + 136) = 0;
-    *(self + 144) = 0;
+    self[17] = 0;
+    self[18] = 0;
   }
 }
 
@@ -537,18 +537,18 @@ LABEL_55:
   return result;
 }
 
-- (uint64_t)_ensureSemaphoresAreBalanced
+- (id)_ensureSemaphoresAreBalanced
 {
   if (result)
   {
     v1 = result;
-    v2 = [*(result + 152) count];
-    if (v2 && *(v1 + 180) < *(v1 + 176))
+    v2 = [result[19] count];
+    if (v2 && *(v1 + 45) < *(v1 + 44))
     {
       do
       {
-        v10 = *(v1 + 152);
-        v2 = OUTLINED_FUNCTION_0_12(v2, v3, v4, v5, v6, v7, v8, v9, v41, v42, v43, v44, v45, v46, v47, v48, v49, v50, v51, v52, v53, v54, v55, v56, v57, v59, v60, v61, v62, v63, v64, v65, v66);
+        v10 = v1[19];
+        v2 = OUTLINED_FUNCTION_0_12(v2, v3, v4, v5, v6, v7, v8, v9, v41, v42, v43, v44, v45, v46, v47, v48, v49, v50, v51, v52, v53, v54, v55, v56, v57, v58, v59, v60, v61, v62, v63, v64);
         if (v2)
         {
           v11 = v2;
@@ -567,26 +567,26 @@ LABEL_55:
             }
 
             while (v11 != v13);
-            v2 = OUTLINED_FUNCTION_0_12(v14, v15, v16, v17, v18, v19, v20, v21, v41, v42, v43, v44, v45, v46, v47, v48, v49, v50, v51, v52, v53, v54, v55, v56, v57, v59, v60, v61, v62, v63, v64, v65, v66);
+            v2 = OUTLINED_FUNCTION_0_12(v14, v15, v16, v17, v18, v19, v20, v21, v41, v42, v43, v44, v45, v46, v47, v48, v49, v50, v51, v52, v53, v54, v55, v56, v57, v58, v59, v60, v61, v62, v63, v64);
             v11 = v2;
           }
 
           while (v2);
         }
 
-        ++*(v1 + 180);
+        ++*(v1 + 45);
       }
 
-      while (*(v1 + 180) < *(v1 + 176));
+      while (*(v1 + 45) < *(v1 + 44));
     }
 
-    result = [*(v1 + 160) count];
-    if (result && *(v1 + 188) < *(v1 + 184))
+    result = [v1[20] count];
+    if (result && *(v1 + 47) < *(v1 + 46))
     {
       do
       {
-        v29 = *(v1 + 160);
-        result = OUTLINED_FUNCTION_1_3(result, v22, v23, v24, v25, v26, v27, v28, v41, v42, v43, v44, v45, v46, v47, v48, v49, v50, v51, v52, v53, v54, v55, v56, 0);
+        v29 = v1[20];
+        result = OUTLINED_FUNCTION_1_3(result, v22, v23, v24, v25, v26, v27, v28, v41, v42, v43, v44, v45, v46, v47, v48, v49, v50, v51, v52, v53, v54, v55, v56);
         if (result)
         {
           v30 = result;
@@ -601,21 +601,22 @@ LABEL_55:
                 objc_enumerationMutation(v29);
               }
 
-              v33 = dispatch_semaphore_signal(*(8 * v32++));
+              v33 = dispatch_semaphore_signal(*(8 * v32));
+              v32 = (v32 + 1);
             }
 
             while (v30 != v32);
-            result = OUTLINED_FUNCTION_1_3(v33, v34, v35, v36, v37, v38, v39, v40, v41, v42, v43, v44, v45, v46, v47, v48, v49, v50, v51, v52, v53, v54, v55, v56, v58);
+            result = OUTLINED_FUNCTION_1_3(v33, v34, v35, v36, v37, v38, v39, v40, v41, v42, v43, v44, v45, v46, v47, v48, v49, v50, v51, v52, v53, v54, v55, v56);
             v30 = result;
           }
 
           while (result);
         }
 
-        ++*(v1 + 188);
+        ++*(v1 + 47);
       }
 
-      while (*(v1 + 188) < *(v1 + 184));
+      while (*(v1 + 47) < *(v1 + 46));
     }
   }
 

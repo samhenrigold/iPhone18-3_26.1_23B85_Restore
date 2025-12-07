@@ -2,6 +2,7 @@
 - (GQHPathEndPointInfo)endPointInfoForPath:(SEL)path;
 - (float)strokeWidthWithGraphicStyle:(id)style;
 - (id)strokeColorWithGraphicStyle:(id)style;
+- (void)addPathForLineEndStyle:(int)style graphicStyle:(id)graphicStyle atPoint:(CGPoint)point neighboringCP:(CGPoint)p filledPath:(CGPath *)path strokedPath:(CGPath *)strokedPath;
 - (void)addScriptTagToHtml:(id)html state:(id)state;
 - (void)createMaskedImageWithId:(__CFString *)id geometry:(id)geometry imageBinary:(id)binary cropGeometry:(id)cropGeometry maskingShapePath:(id)path alphaMaskBezier:(CGPath *)bezier graphicStyle:(id)style isFloating:(BOOL)self0 state:(id)self1;
 - (void)createShapeWithId:(__CFString *)id path:(id)path geometry:(id)geometry graphicStyle:(id)style isFloating:(BOOL)floating state:(id)state;
@@ -59,27 +60,27 @@
   v15 = v14;
   createBezierPath = [path createBezierPath];
   path = 0;
-  v48 = 0;
+  v44 = 0;
   if (v15 != 0.0 && self)
   {
-    [(GQHCanvasContext *)self endPointInfoForPath:createBezierPath];
+    objc_msgSend_endPointInfoForPath_(self);
   }
 
-  v46 = 0u;
-  v45 = 0u;
-  hasVerticalFlip = [path hasVerticalFlip];
-  hasVerticalFlip2 = [path hasVerticalFlip];
-  hasHorizontalFlip = [path hasHorizontalFlip];
-  horizontalFlip = [path horizontalFlip];
+  v42 = 0u;
+  v41 = 0u;
+  [path hasVerticalFlip];
+  [path hasVerticalFlip];
+  [path hasHorizontalFlip];
+  [path horizontalFlip];
   if (geometry)
   {
-    [geometry transformHasVFlip:hasVerticalFlip vFlip:hasVerticalFlip2 hasHFlip:hasHorizontalFlip hFlip:horizontalFlip];
+    objc_msgSend_transformHasVFlip_vFlip_hasHFlip_hFlip_(geometry);
   }
 
   else
   {
-    v46 = 0u;
-    v45 = 0u;
+    v42 = 0u;
+    v41 = 0u;
   }
 
   BoundingBox = CGPathGetBoundingBox(createBezierPath);
@@ -88,80 +89,80 @@
   width = BoundingBox.size.width;
   height = BoundingBox.size.height;
   CGPathRelease(createBezierPath);
-  v25 = -v15;
-  v50.origin.x = x;
-  v50.origin.y = y;
-  v50.size.width = width;
-  v50.size.height = height;
-  v51 = CGRectInset(v50, v25, v25);
-  v26 = v51.origin.x;
-  v27 = v51.origin.y;
-  v28 = v51.size.width;
-  v29 = v51.size.height;
+  v21 = -v15;
+  v46.origin.x = x;
+  v46.origin.y = y;
+  v46.size.width = width;
+  v46.size.height = height;
+  v47 = CGRectInset(v46, v21, v21);
+  v22 = v47.origin.x;
+  v23 = v47.origin.y;
+  v24 = v47.size.width;
+  v25 = v47.size.height;
   if (path)
   {
-    v52 = CGPathGetBoundingBox(path);
-    v57 = CGRectInset(v52, v25, v25);
-    v53.origin.x = v26;
-    v53.origin.y = v27;
-    v53.size.width = v28;
-    v53.size.height = v29;
-    v54 = CGRectUnion(v53, v57);
-    v26 = v54.origin.x;
-    v27 = v54.origin.y;
-    v28 = v54.size.width;
-    v29 = v54.size.height;
+    v48 = CGPathGetBoundingBox(path);
+    v53 = CGRectInset(v48, v21, v21);
+    v49.origin.x = v22;
+    v49.origin.y = v23;
+    v49.size.width = v24;
+    v49.size.height = v25;
+    v50 = CGRectUnion(v49, v53);
+    v22 = v50.origin.x;
+    v23 = v50.origin.y;
+    v24 = v50.size.width;
+    v25 = v50.size.height;
   }
 
-  if (v48)
+  if (v44)
   {
-    v58 = CGPathGetBoundingBox(v48);
-    v55.origin.x = v26;
-    v55.origin.y = v27;
-    v55.size.width = v28;
-    v55.size.height = v29;
-    v56 = CGRectUnion(v55, v58);
-    v26 = v56.origin.x;
-    v27 = v56.origin.y;
-    v28 = v56.size.width;
-    v29 = v56.size.height;
+    v54 = CGPathGetBoundingBox(v44);
+    v51.origin.x = v22;
+    v51.origin.y = v23;
+    v51.size.width = v24;
+    v51.size.height = v25;
+    v52 = CGRectUnion(v51, v54);
+    v22 = v52.origin.x;
+    v23 = v52.origin.y;
+    v24 = v52.size.width;
+    v25 = v52.size.height;
   }
 
   [geometry nonrotatedPosition];
-  v31 = v30;
-  v33 = v32;
+  v27 = v26;
+  v29 = v28;
   [(GQHCanvasContext *)self prepareContext:state];
   self->mGeometry = geometry;
   geometryCopy = geometry;
   htmlDoc = [state htmlDoc];
   [htmlDoc startElement:"canvas"];
-  *&v36 = v28;
-  [htmlDoc setAttribute:"width" floatValue:v36];
-  *&v37 = v29;
-  [htmlDoc setAttribute:"height" floatValue:v37];
+  *&v32 = v24;
+  [htmlDoc setAttribute:"width" floatValue:v32];
+  *&v33 = v25;
+  [htmlDoc setAttribute:"height" floatValue:v33];
   [htmlDoc setAttribute:"id" cfStringValue:id];
-  v38 = objc_alloc_init(GQHStyle);
-  v39 = v38;
+  v34 = objc_alloc_init(GQHStyle);
+  v35 = v34;
   if (floatingCopy)
   {
-    [(GQHStyle *)v38 addAttribute:off_9CF18 value:off_9CFA0];
-    [(GQHStyle *)v39 addAttribute:off_9CEA0 intValue:(v26 + v31)];
-    [(GQHStyle *)v39 addAttribute:off_9CF50 intValue:(v27 + v33)];
+    [(GQHStyle *)v34 addAttribute:off_9CF18 value:off_9CFA0];
+    [(GQHStyle *)v35 addAttribute:off_9CEA0 intValue:(v22 + v27)];
+    [(GQHStyle *)v35 addAttribute:off_9CF50 intValue:(v23 + v29)];
   }
 
-  v40 = CFStringCreateWithFormat(0, 0, @"matrix(%f, %f, %f, %f, 0, 0)", v45, v46);
-  [(GQHStyle *)v39 addAttribute:off_9CF90 value:v40];
-  CFRelease(v40);
-  [(GQHStyle *)v39 setStyleOnCurrentNode:state];
+  v36 = CFStringCreateWithFormat(0, 0, @"matrix(%f, %f, %f, %f, 0, 0)", v41, v42);
+  [(GQHStyle *)v35 addAttribute:off_9CF90 value:v36];
+  CFRelease(v36);
+  [(GQHStyle *)v35 setStyleOnCurrentNode:state];
 
   [htmlDoc startElement:"script"];
   [htmlDoc setAttribute:"type" value:"text/javascript"];
-  v41 = [[NSMutableString alloc] initWithString:id];
-  self->mFunctionName = v41;
-  [(NSMutableString *)v41 replaceOccurrencesOfString:@"-" withString:@"_" options:2 range:0, [(NSMutableString *)v41 length]];
-  v42 = CFStringCreateWithFormat(0, 0, @"\nfunction %@() {\nvar canvas = document.getElementById('%@'); \nvar context = canvas.getContext('2d'); \ncontext.translate(%f, %f);\n", self->mFunctionName, id, -v26, -v27);
-  [htmlDoc addContent:v42];
-  CFRelease(v42);
+  v37 = [[NSMutableString alloc] initWithString:id];
+  self->mFunctionName = v37;
+  [(NSMutableString *)v37 replaceOccurrencesOfString:@"-" withString:@"_" options:2 range:0, [(NSMutableString *)v37 length]];
+  v38 = CFStringCreateWithFormat(0, 0, @"\nfunction %@() {\nvar canvas = document.getElementById('%@'); \nvar context = canvas.getContext('2d'); \ncontext.translate(%f, %f);\n", self->mFunctionName, id, -v22, -v23);
+  [htmlDoc addContent:v38];
+  CFRelease(v38);
   -[GQHCanvasContext setBezierPath:state:](self, "setBezierPath:state:", [path pathStr], state);
   [(GQHCanvasContext *)self mapStyle:style state:state];
   if (self->mHasFill)
@@ -174,14 +175,14 @@
     [htmlDoc addContent:@"context.stroke();\n"];
   }
 
-  if (v48)
+  if (v44)
   {
     [htmlDoc addContent:@"context.beginPath();\n"];
-    [(GQHCanvasContext *)self setCGPath:v48 state:state];
+    [(GQHCanvasContext *)self setCGPath:v44 state:state];
     [(GQHCanvasContext *)self mapLineEndFillStyle:style state:state];
     [htmlDoc addContent:@"context.fill();\n"];
-    CGPathRelease(v48);
-    v48 = 0;
+    CGPathRelease(v44);
+    v44 = 0;
   }
 
   if (path)
@@ -194,9 +195,9 @@
     path = 0;
   }
 
-  v43 = CFStringCreateWithFormat(0, 0, @"}\n%@();\n", self->mFunctionName);
-  [htmlDoc addContent:v43];
-  CFRelease(v43);
+  v39 = CFStringCreateWithFormat(0, 0, @"}\n%@();\n", self->mFunctionName);
+  [htmlDoc addContent:v39];
+  CFRelease(v39);
   [htmlDoc endElement];
 
   self->mGeometry = 0;
@@ -206,10 +207,10 @@
 
 - (void)createMaskedImageWithId:(__CFString *)id geometry:(id)geometry imageBinary:(id)binary cropGeometry:(id)cropGeometry maskingShapePath:(id)path alphaMaskBezier:(CGPath *)bezier graphicStyle:(id)style isFloating:(BOOL)self0 state:(id)self1
 {
-  memset(&v73, 0, sizeof(v73));
+  memset(&v69, 0, sizeof(v69));
   if (geometry)
   {
-    [geometry transform];
+    objc_msgSend_transform(geometry, a2);
   }
 
   if (cropGeometry)
@@ -237,13 +238,13 @@
   }
 
   memset(&transform, 0, sizeof(transform));
-  hasVerticalFlip = [path hasVerticalFlip];
-  verticalFlip = [path verticalFlip];
-  hasHorizontalFlip = [path hasHorizontalFlip];
-  horizontalFlip = [path horizontalFlip];
+  [path hasVerticalFlip];
+  [path verticalFlip];
+  [path hasHorizontalFlip];
+  [path horizontalFlip];
   if (cropGeometry)
   {
-    [cropGeometry transformHasVFlip:hasVerticalFlip vFlip:verticalFlip hasHFlip:hasHorizontalFlip hFlip:horizontalFlip];
+    objc_msgSend_transformHasVFlip_vFlip_hasHFlip_hFlip_(cropGeometry);
   }
 
   else
@@ -256,14 +257,14 @@
   {
     y = CGPointZero.y;
     [cropGeometry naturalSize];
-    v75.size.width = v24;
-    v75.size.height = v25;
-    v75.origin.x = CGPointZero.x;
-    v75.origin.y = y;
-    createBezierPath = CGPathCreateWithRect(v75, 0);
+    v71.size.width = v20;
+    v71.size.height = v21;
+    v71.origin.x = CGPointZero.x;
+    v71.origin.y = y;
+    createBezierPath = CGPathCreateWithRect(v71, 0);
   }
 
-  v26 = createBezierPath;
+  v22 = createBezierPath;
   if (bezier)
   {
     CFRetain(bezier);
@@ -271,152 +272,152 @@
 
   else
   {
-    v27 = CGPointZero.y;
+    v23 = CGPointZero.y;
     [geometry naturalSize];
-    v76.size.width = v28;
-    v76.size.height = v29;
-    v76.origin.x = CGPointZero.x;
-    v76.origin.y = v27;
-    bezier = CGPathCreateWithRect(v76, 0);
+    v72.size.width = v24;
+    v72.size.height = v25;
+    v72.origin.x = CGPointZero.x;
+    v72.origin.y = v23;
+    bezier = CGPathCreateWithRect(v72, 0);
   }
 
-  v30 = CGPathCreateCopyByTransformingPath(v26, &transform);
-  v31 = CGPathCreateCopyByTransformingPath(bezier, &v73);
-  values[0] = v30;
-  values[1] = v31;
-  v32 = CFArrayCreate(0, values, 2, &kCFTypeArrayCallBacks);
-  v33 = sub_50C94(v32);
-  CFRelease(v32);
-  CFRelease(v30);
-  CFRelease(v31);
+  v26 = CGPathCreateCopyByTransformingPath(v22, &transform);
+  v27 = CGPathCreateCopyByTransformingPath(bezier, &v69);
+  values[0] = v26;
+  values[1] = v27;
+  v28 = CFArrayCreate(0, values, 2, &kCFTypeArrayCallBacks);
+  v29 = sub_50C94(v28);
+  CFRelease(v28);
   CFRelease(v26);
+  CFRelease(v27);
+  CFRelease(v22);
   CFRelease(bezier);
-  if (CGPathIsEmpty(v33))
+  if (CGPathIsEmpty(v29))
   {
-    CFRelease(v33);
+    CFRelease(v29);
   }
 
   else
   {
-    v34 = [style valueForObjectProperty:68];
-    v71 = v34;
+    v30 = [style valueForObjectProperty:68];
+    v67 = v30;
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v35 = ([GQHGraphicStyle strokeWidth:v34]* -0.5);
+      v31 = ([GQHGraphicStyle strokeWidth:v30]* -0.5);
     }
 
     else
     {
-      v35 = -0.0;
+      v31 = -0.0;
     }
 
-    PathBoundingBox = CGPathGetPathBoundingBox(v33);
-    v78 = CGRectInset(PathBoundingBox, v35, v35);
-    x = v78.origin.x;
-    v37 = v78.origin.y;
-    width = v78.size.width;
-    height = v78.size.height;
-    memset(&v70, 0, sizeof(v70));
-    CGAffineTransformMakeTranslation(&v70, -v78.origin.x, -v78.origin.y);
-    v40 = CGPathCreateCopyByTransformingPath(v33, &v70);
-    CFRelease(v33);
+    PathBoundingBox = CGPathGetPathBoundingBox(v29);
+    v74 = CGRectInset(PathBoundingBox, v31, v31);
+    x = v74.origin.x;
+    v33 = v74.origin.y;
+    width = v74.size.width;
+    height = v74.size.height;
+    memset(&v66, 0, sizeof(v66));
+    CGAffineTransformMakeTranslation(&v66, -v74.origin.x, -v74.origin.y);
+    v36 = CGPathCreateCopyByTransformingPath(v29, &v66);
+    CFRelease(v29);
     htmlDoc = [state htmlDoc];
-    v42 = htmlDoc;
+    v38 = htmlDoc;
     if (floating)
     {
       [htmlDoc startElement:"div"];
-      v43 = objc_alloc_init(GQHStyle);
-      [(GQHStyle *)v43 addAttribute:off_9CF18 value:off_9CFA0];
-      v44 = off_9CEA0;
-      v45 = x;
+      v39 = objc_alloc_init(GQHStyle);
+      [(GQHStyle *)v39 addAttribute:off_9CF18 value:off_9CFA0];
+      v40 = off_9CEA0;
+      v41 = x;
+      v42 = llroundf(v41);
+      [state scale];
+      [(GQHStyle *)v39 addAttribute:v40 intValue:(v43 * v42)];
+      v44 = off_9CF50;
+      v45 = v33;
       v46 = llroundf(v45);
       [state scale];
-      [(GQHStyle *)v43 addAttribute:v44 intValue:(v47 * v46)];
-      v48 = off_9CF50;
-      v49 = v37;
-      v50 = llroundf(v49);
-      [state scale];
-      [(GQHStyle *)v43 addAttribute:v48 intValue:(v51 * v50)];
-      [(GQHStyle *)v43 setStyleOnCurrentNode:state];
+      [(GQHStyle *)v39 addAttribute:v44 intValue:(v47 * v46)];
+      [(GQHStyle *)v39 setStyleOnCurrentNode:state];
     }
 
     [(GQHCanvasContext *)self prepareContext:state];
     self->mGeometry = geometry;
     geometryCopy = geometry;
-    [v42 startElement:"canvas"];
-    *&v53 = width;
-    [v42 setAttribute:"width" floatValue:v53];
-    *&v54 = height;
-    [v42 setAttribute:"height" floatValue:v54];
-    [v42 setAttribute:"id" cfStringValue:id];
-    v55 = objc_alloc_init(GQHStyle);
-    v71 = 0;
-    if ([style hasValueForObjectProperty:72 value:&v71])
+    [v38 startElement:"canvas"];
+    *&v49 = width;
+    [v38 setAttribute:"width" floatValue:v49];
+    *&v50 = height;
+    [v38 setAttribute:"height" floatValue:v50];
+    [v38 setAttribute:"id" cfStringValue:id];
+    v51 = objc_alloc_init(GQHStyle);
+    v67 = 0;
+    if ([style hasValueForObjectProperty:72 value:&v67])
     {
-      [GQHGraphicStyle mapExternalWrap:v71 style:v55 state:state];
+      [GQHGraphicStyle mapExternalWrap:v67 style:v51 state:state];
     }
 
-    [(GQHStyle *)v55 setStyleOnCurrentNode:state];
+    [(GQHStyle *)v51 setStyleOnCurrentNode:state];
 
-    [v42 startElement:"script"];
-    [v42 setAttribute:"type" value:"text/javascript"];
-    v56 = [[NSMutableString alloc] initWithString:id];
-    self->mFunctionName = v56;
-    [(NSMutableString *)v56 replaceOccurrencesOfString:@"-" withString:@"_" options:2 range:0, [(NSMutableString *)v56 length]];
-    v57 = CFStringCreateWithFormat(0, 0, @"\n                                                                         function %@() {\n                                                                         var canvas = document.getElementById('%@'); \n                                                                         var context = canvas.getContext('2d'); \n                                                                         ", self->mFunctionName, id);
-    [v42 addContent:v57];
-    CFRelease(v57);
-    v58 = sub_42CE8(v40);
-    [(GQHCanvasContext *)self setBezierPath:v58 state:state];
-    CFRelease(v40);
-    free(v58);
+    [v38 startElement:"script"];
+    [v38 setAttribute:"type" value:"text/javascript"];
+    v52 = [[NSMutableString alloc] initWithString:id];
+    self->mFunctionName = v52;
+    [(NSMutableString *)v52 replaceOccurrencesOfString:@"-" withString:@"_" options:2 range:0, [(NSMutableString *)v52 length]];
+    v53 = CFStringCreateWithFormat(0, 0, @"\n                                                                         function %@() {\n                                                                         var canvas = document.getElementById('%@'); \n                                                                         var context = canvas.getContext('2d'); \n                                                                         ", self->mFunctionName, id);
+    [v38 addContent:v53];
+    CFRelease(v53);
+    v54 = sub_42CE8(v36);
+    [(GQHCanvasContext *)self setBezierPath:v54 state:state];
+    CFRelease(v36);
+    free(v54);
     [(GQHCanvasContext *)self mapStyle:style state:state];
     if (binary)
     {
-      v59 = [binary createAbsoluteUrlForState:{objc_msgSend(state, "processorState")}];
-      if (v59)
+      v55 = [binary createAbsoluteUrlForState:{objc_msgSend(state, "processorState")}];
+      if (v55)
       {
-        v60 = v59;
-        v61 = CFURLGetString(v59);
-        v62 = sub_41BA4(v61);
-        v63 = CFStringCreateWithFormat(0, 0, @"                                                                              var img = new Image();\n                                                                              img.src = '%@';\n                                                                              img.onload = function () {\n", v62);
-        [v42 addContent:v63];
-        CFRelease(v63);
-        CFRelease(v62);
-        [v42 addContent:@"                                  context.clip();\n"];
-        t1 = v73;
-        memset(&v69, 0, sizeof(v69));
-        t2 = v70;
-        CGAffineTransformConcat(&v69, &t1, &t2);
-        v64 = CFStringCreateWithFormat(0, 0, @"context.transform(%f, %f, %f, %f, %f, %f);\n", *&v69.a, *&v69.b, *&v69.c, *&v69.d, *&v69.tx, *&v69.ty);
-        [v42 addContent:v64];
-        CFRelease(v64);
-        [v42 addContent:{@"                                  context.drawImage(img, 0, 0);\n                                  }\n"}];
+        v56 = v55;
+        v57 = CFURLGetString(v55);
+        v58 = sub_41BA4(v57);
+        v59 = CFStringCreateWithFormat(0, 0, @"                                                                              var img = new Image();\n                                                                              img.src = '%@';\n                                                                              img.onload = function () {\n", v58);
+        [v38 addContent:v59];
+        CFRelease(v59);
+        CFRelease(v58);
+        [v38 addContent:@"                                  context.clip();\n"];
+        t1 = v69;
+        memset(&v65, 0, sizeof(v65));
+        t2 = v66;
+        CGAffineTransformConcat(&v65, &t1, &t2);
+        v60 = CFStringCreateWithFormat(0, 0, @"context.transform(%f, %f, %f, %f, %f, %f);\n", *&v65.a, *&v65.b, *&v65.c, *&v65.d, *&v65.tx, *&v65.ty);
+        [v38 addContent:v60];
         CFRelease(v60);
+        [v38 addContent:{@"                                  context.drawImage(img, 0, 0);\n                                  }\n"}];
+        CFRelease(v56);
       }
     }
 
     if (self->mHasFill)
     {
-      [v42 addContent:@"context.fill();\n"];
+      [v38 addContent:@"context.fill();\n"];
     }
 
     if (self->mHasStroke)
     {
-      [v42 addContent:@"context.stroke();\n"];
+      [v38 addContent:@"context.stroke();\n"];
     }
 
-    v65 = CFStringCreateWithFormat(0, 0, @"}\n%@();\n", self->mFunctionName);
-    [v42 addContent:v65];
-    CFRelease(v65);
-    [v42 endElement];
+    v61 = CFStringCreateWithFormat(0, 0, @"}\n%@();\n", self->mFunctionName);
+    [v38 addContent:v61];
+    CFRelease(v61);
+    [v38 endElement];
 
     self->mGeometry = 0;
-    [v42 endElementWithExpectedName:"canvas"];
+    [v38 endElementWithExpectedName:"canvas"];
     if (floating)
     {
-      [v42 endElementWithExpectedName:"div"];
+      [v38 endElementWithExpectedName:"div"];
     }
 
     [(GQHCanvasContext *)self teardownContext:state];
@@ -855,6 +856,69 @@ LABEL_3:
   }
 
   return [v4 color];
+}
+
+- (void)addPathForLineEndStyle:(int)style graphicStyle:(id)graphicStyle atPoint:(CGPoint)point neighboringCP:(CGPoint)p filledPath:(CGPath *)path strokedPath:(CGPath *)strokedPath
+{
+  y = p.y;
+  x = p.x;
+  v12 = point.y;
+  v13 = point.x;
+  v28 = 0;
+  [graphicStyle hasValueForObjectProperty:*&style value:&v28];
+  if (v28)
+  {
+    [(GQHCanvasContext *)self strokeWidthWithGraphicStyle:graphicStyle];
+    v17 = v16;
+    v18 = atan2(v12 - y, v13 - x) + -1.57079633;
+    memset(&m.c, 0, 32);
+    if (v17 <= 1.0)
+    {
+      v20 = v17;
+    }
+
+    else
+    {
+      v19 = (v17 + -1.0) * 0.6 + 1.0;
+      v20 = v19;
+    }
+
+    *&m.a = 0uLL;
+    CGAffineTransformMakeTranslation(&m, v13, v12);
+    v25 = m;
+    CGAffineTransformScale(&v26, &v25, v20, v20);
+    m = v26;
+    v25 = v26;
+    CGAffineTransformRotate(&v26, &v25, v18);
+    m = v26;
+    [v28 endPoint];
+    v22 = -v21;
+    [v28 endPoint];
+    CGAffineTransformTranslate(&v26, &v25, v22, -v23);
+    m = v26;
+    if ([v28 isFilled])
+    {
+      Mutable = *path;
+      if (!*path)
+      {
+        goto LABEL_9;
+      }
+    }
+
+    else
+    {
+      Mutable = *strokedPath;
+      path = strokedPath;
+      if (!*strokedPath)
+      {
+LABEL_9:
+        Mutable = CGPathCreateMutable();
+        *path = Mutable;
+      }
+    }
+
+    CGPathAddPath(Mutable, &m, [v28 path]);
+  }
 }
 
 - (void)setCGPath:(CGPath *)path state:(id)state

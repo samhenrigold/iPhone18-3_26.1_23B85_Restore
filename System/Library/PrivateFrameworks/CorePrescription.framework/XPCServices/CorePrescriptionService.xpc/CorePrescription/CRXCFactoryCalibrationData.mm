@@ -37,7 +37,7 @@
   v6 = CRXCFactoryCalibrationData.isEqual(_:)(v8);
 
   sub_10000D014(v8);
-  return v6 & 1;
+  return v6;
 }
 
 - (void)encodeWithCoder:(id)coder

@@ -1,3 +1,956 @@
+xmlChar *xmlXPathErrMemory(uint64_t a1, const xmlChar *a2)
+{
+  v21 = *MEMORY[0x1E69E9840];
+  if (a1)
+  {
+    xmlResetError((a1 + 232));
+    if (a2)
+    {
+      v20 = 0;
+      v18 = 0u;
+      v19 = 0u;
+      v16 = 0u;
+      v17 = 0u;
+      v14 = 0u;
+      v15 = 0u;
+      v12 = 0u;
+      v13 = 0u;
+      v10 = 0u;
+      v11 = 0u;
+      *buf = 0u;
+      v9 = 0u;
+      xmlStrPrintf(buf, 200, "Memory allocation failed : %s\n", a2);
+      v4 = buf;
+    }
+
+    else
+    {
+      v4 = "Memory allocation failed\n";
+    }
+
+    result = xmlStrdup(v4);
+    *(a1 + 240) = result;
+    *(a1 + 232) = 0x20000000CLL;
+    v6 = *(a1 + 224);
+    if (v6)
+    {
+      return v6(*(a1 + 216), a1 + 232);
+    }
+  }
+
+  else if (a2)
+  {
+    return __xmlRaiseError(0, 0, 0, 0, 0, 0xCu, 2, 3, 0, 0, a2, 0, 0, 0, 0 >> 96, "Memory allocation failed : %s\n", a2);
+  }
+
+  else
+  {
+    return __xmlRaiseError(0, 0, 0, 0, 0, 0xCu, 2, 3, 0, 0, 0, 0, 0, 0, 0, "Memory allocation failed\n", v7);
+  }
+
+  return result;
+}
+
+xmlChar *xmlXPathPErrMemory(uint64_t a1, const xmlChar *a2)
+{
+  if (a1)
+  {
+    *(a1 + 16) = 15;
+    a1 = *(a1 + 24);
+  }
+
+  return xmlXPathErrMemory(a1, a2);
+}
+
+void xmlXPathDebugDumpObject(FILE *output, xmlXPathObjectPtr cur, int depth)
+{
+  v50 = *MEMORY[0x1E69E9840];
+  if (!output)
+  {
+    return;
+  }
+
+  v35 = 0;
+  memset(__b, 0, sizeof(__b));
+  v6 = depth - 1;
+  if (depth < 1)
+  {
+    v7 = 0;
+  }
+
+  else
+  {
+    if (v6 >= 0x18)
+    {
+      v6 = 24;
+    }
+
+    v7 = 2 * v6 + 2;
+    memset(__b, 32, v7);
+  }
+
+  *(__b + v7) = 0;
+  fputs(__b, output);
+  if (!cur)
+  {
+    v9 = "Object is empty (NULL)\n";
+    goto LABEL_15;
+  }
+
+  type = cur->type;
+  if (cur->type <= XPATH_STRING)
+  {
+    if (type > XPATH_NODESET)
+    {
+      if (type == XPATH_BOOLEAN)
+      {
+        fwrite("Object is a Boolean : ", 0x16uLL, 1uLL, output);
+        if (cur->BOOLval)
+        {
+          v9 = "true\n";
+          v10 = 5;
+        }
+
+        else
+        {
+          v9 = "false\n";
+          v10 = 6;
+        }
+
+        goto LABEL_16;
+      }
+
+      if (type != XPATH_NUMBER)
+      {
+        if (type != XPATH_STRING)
+        {
+          return;
+        }
+
+        fwrite("Object is a string : ", 0x15uLL, 1uLL, output);
+        xmlDebugDumpString(output, cur->stringval);
+        goto LABEL_67;
+      }
+
+      floatval = cur->floatval;
+      v24 = fabs(floatval);
+      if (floatval > 0.0)
+      {
+        v25 = 1;
+      }
+
+      else
+      {
+        v25 = -1;
+      }
+
+      if (v24 != INFINITY)
+      {
+        v25 = 0;
+      }
+
+      if (v25 == -1)
+      {
+        v9 = "Object is a number : -Infinity\n";
+        v10 = 31;
+        goto LABEL_16;
+      }
+
+      if (v25 == 1)
+      {
+        v9 = "Object is a number : Infinity\n";
+        v10 = 30;
+        goto LABEL_16;
+      }
+
+      if (floatval != 0.0)
+      {
+        fprintf(output, "Object is a number : %0g\n", cur->floatval);
+        return;
+      }
+
+      v9 = "Object is a number : 0\n";
+      goto LABEL_15;
+    }
+
+    if (type == XPATH_UNDEFINED)
+    {
+      v9 = "Object is uninitialized\n";
+      v10 = 24;
+      goto LABEL_16;
+    }
+
+    if (type != XPATH_NODESET)
+    {
+      return;
+    }
+
+    fwrite("Object is a Node Set :\n", 0x17uLL, 1uLL, output);
+    nodesetval = cur->nodesetval;
+    v49 = 0;
+    v47 = 0u;
+    v48 = 0u;
+    v45 = 0u;
+    v46 = 0u;
+    *v43 = 0u;
+    v44 = 0u;
+    v15 = depth - 1;
+    if (depth < 1)
+    {
+      v16 = 0;
+    }
+
+    else
+    {
+      if (v15 >= 0x18)
+      {
+        v15 = 24;
+      }
+
+      v16 = 2 * v15 + 2;
+      memset(v43, 32, v16);
+    }
+
+    *&v43[v16] = 0;
+    if (nodesetval)
+    {
+      fprintf(output, "Set contains %d nodes:\n", nodesetval->nodeNr);
+      if (nodesetval->nodeNr >= 1)
+      {
+        v26 = 0;
+        do
+        {
+          fputs(v43, output);
+          fprintf(output, "%d", v26 + 1);
+          xmlXPathDebugDumpNode(output, nodesetval->nodeTab[v26++], depth + 1);
+        }
+
+        while (v26 < nodesetval->nodeNr);
+      }
+
+      return;
+    }
+
+    fputs(v43, output);
+    v27 = "NodeSet is NULL !\n";
+    v28 = 18;
+LABEL_95:
+    fwrite(v27, v28, 1uLL, output);
+    return;
+  }
+
+  if (type <= XPATH_RANGE)
+  {
+    if (type == XPATH_POINT)
+    {
+      fprintf(output, "Object is a point : index %d in node", cur->index);
+      user = cur->user;
+    }
+
+    else
+    {
+      if (type != XPATH_RANGE)
+      {
+        return;
+      }
+
+      user2 = cur->user2;
+      if (!user2 || user2 == cur->user && cur->index == cur->index2)
+      {
+        fwrite("Object is a collapsed range :\n", 0x1EuLL, 1uLL, output);
+        fputs(__b, output);
+        if ((cur->index & 0x80000000) == 0)
+        {
+          fprintf(output, "index %d in ", cur->index);
+        }
+
+        fwrite("node\n", 5uLL, 1uLL, output);
+        v18 = cur->user;
+
+        xmlXPathDebugDumpNode(output, v18, depth + 1);
+        return;
+      }
+
+      fwrite("Object is a range :\n", 0x14uLL, 1uLL, output);
+      fputs(__b, output);
+      fwrite("From ", 5uLL, 1uLL, output);
+      if ((cur->index & 0x80000000) == 0)
+      {
+        fprintf(output, "index %d in ", cur->index);
+      }
+
+      fwrite("node\n", 5uLL, 1uLL, output);
+      xmlXPathDebugDumpNode(output, cur->user, depth + 1);
+      fputs(__b, output);
+      fwrite("To ", 3uLL, 1uLL, output);
+      if ((cur->index2 & 0x80000000) == 0)
+      {
+        fprintf(output, "index %d in ", cur->index2);
+      }
+
+      fwrite("node\n", 5uLL, 1uLL, output);
+      user = cur->user2;
+    }
+
+    xmlXPathDebugDumpNode(output, user, depth + 1);
+LABEL_67:
+
+    fputc(10, output);
+    return;
+  }
+
+  if (type != XPATH_LOCATIONSET)
+  {
+    if (type != XPATH_USERS)
+    {
+      if (type != XPATH_XSLT_TREE)
+      {
+        return;
+      }
+
+      fwrite("Object is an XSLT value tree :\n", 0x1FuLL, 1uLL, output);
+      v11 = cur->nodesetval;
+      v42 = 0;
+      v40 = 0u;
+      v41 = 0u;
+      v38 = 0u;
+      v39 = 0u;
+      *v36 = 0u;
+      v37 = 0u;
+      if (depth < 1)
+      {
+        v13 = 0;
+      }
+
+      else
+      {
+        if ((depth - 1) >= 0x18)
+        {
+          v12 = 24;
+        }
+
+        else
+        {
+          v12 = depth - 1;
+        }
+
+        memset(v36, 32, (2 * v12 + 2));
+        v13 = v12 + 1;
+      }
+
+      v36[2 * v13 + 1] = 0;
+      v36[2 * v13] = 0;
+      if (v11 && v11->nodeNr && *v11->nodeTab)
+      {
+        fputs(v36, output);
+        fprintf(output, "%d", v13 + 1);
+        children = (*v11->nodeTab)->children;
+        v49 = 0;
+        v47 = 0u;
+        v48 = 0u;
+        v45 = 0u;
+        v46 = 0u;
+        *v43 = 0u;
+        v44 = 0u;
+        if (depth < 0)
+        {
+          v32 = 0;
+        }
+
+        else
+        {
+          if (depth >= 0x18)
+          {
+            v31 = 24;
+          }
+
+          else
+          {
+            v31 = depth;
+          }
+
+          v32 = 2 * v31 + 2;
+          memset(v43, 32, v32);
+        }
+
+        *&v43[v32] = 0;
+        if (children)
+        {
+          do
+          {
+            next = children->next;
+            xmlDebugDumpOneNode(output, children, depth + 1);
+            children = next;
+          }
+
+          while (next);
+          return;
+        }
+
+        fputs(v43, output);
+        v27 = "Node is NULL !\n";
+        v28 = 15;
+      }
+
+      else
+      {
+        fputs(v36, output);
+        v27 = "Value Tree is NULL !\n";
+        v28 = 21;
+      }
+
+      goto LABEL_95;
+    }
+
+    v9 = "Object is user defined\n";
+LABEL_15:
+    v10 = 23;
+LABEL_16:
+
+    fwrite(v9, v10, 1uLL, output);
+    return;
+  }
+
+  fwrite("Object is a Location Set:\n", 0x1AuLL, 1uLL, output);
+  v20 = cur->user;
+  v49 = 0;
+  v47 = 0u;
+  v48 = 0u;
+  v45 = 0u;
+  v46 = 0u;
+  *v43 = 0u;
+  v44 = 0u;
+  v21 = depth - 1;
+  if (depth < 1)
+  {
+    v22 = 0;
+  }
+
+  else
+  {
+    if (v21 >= 0x18)
+    {
+      v21 = 24;
+    }
+
+    v22 = 2 * v21 + 2;
+    memset(v43, 32, v22);
+  }
+
+  *&v43[v22] = 0;
+  if (!v20)
+  {
+    fputs(v43, output);
+    v27 = "LocationSet is NULL !\n";
+    v28 = 22;
+    goto LABEL_95;
+  }
+
+  if (*v20 >= 1)
+  {
+    v29 = 0;
+    do
+    {
+      fputs(v43, output);
+      fprintf(output, "%d : ", v29 + 1);
+      xmlXPathDebugDumpObject(output, *(*(v20 + 1) + 8 * v29++), depth + 1);
+    }
+
+    while (v29 < *v20);
+  }
+}
+
+void xmlXPathDebugDumpNode(FILE *a1, uint64_t a2, int a3)
+{
+  v14 = *MEMORY[0x1E69E9840];
+  v13 = 0;
+  memset(v12, 0, sizeof(v12));
+  v6 = a3 - 1;
+  if (a3 < 1)
+  {
+    v7 = 0;
+  }
+
+  else
+  {
+    if (v6 >= 0x18)
+    {
+      v6 = 24;
+    }
+
+    v7 = 2 * v6 + 2;
+    memset(v12, 32, v7);
+  }
+
+  *(v12 + v7) = 0;
+  if (!a2)
+  {
+    fputs(v12, a1);
+    v10 = "Node is NULL !\n";
+    v11 = 15;
+LABEL_15:
+
+    fwrite(v10, v11, 1uLL, a1);
+    return;
+  }
+
+  v8 = *(a2 + 8);
+  if (v8 != 2)
+  {
+    if (v8 != 13 && v8 != 9)
+    {
+
+      xmlDebugDumpOneNode(a1, a2, a3);
+      return;
+    }
+
+    fputs(v12, a1);
+    v10 = " /\n";
+    v11 = 3;
+    goto LABEL_15;
+  }
+
+  xmlDebugDumpAttr(a1, a2, a3);
+}
+
+void xmlXPathDebugDumpCompExpr(FILE *output, xmlXPathCompExprPtr comp, int depth)
+{
+  v11 = *MEMORY[0x1E69E9840];
+  if (output && comp)
+  {
+    v10 = 0;
+    memset(__b, 0, sizeof(__b));
+    v6 = depth - 1;
+    if (depth < 1)
+    {
+      v7 = 0;
+    }
+
+    else
+    {
+      if (v6 >= 0x18)
+      {
+        v6 = 24;
+      }
+
+      v7 = 2 * v6 + 2;
+      memset(__b, 32, v7);
+    }
+
+    *(__b + v7) = 0;
+    fputs(__b, output);
+    if (*(comp + 5))
+    {
+
+      fwrite("Streaming Expression\n", 0x15uLL, 1uLL, output);
+    }
+
+    else
+    {
+      fprintf(output, "Compiled Expression : %d elements\n", *comp);
+      v8 = *(comp + 1) + 56 * *(comp + 4);
+
+      xmlXPathDebugDumpStepOp(output, comp, v8, depth + 1);
+    }
+  }
+}
+
+void xmlXPathDebugDumpStepOp(FILE *a1, uint64_t a2, uint64_t a3, int a4)
+{
+  while (1)
+  {
+    v4 = a4;
+    v5 = a3;
+    v6 = a2;
+    v7 = a1;
+    v31 = *MEMORY[0x1E69E9840];
+    v30 = 0;
+    memset(__b, 0, sizeof(__b));
+    v8 = a4 - 1;
+    if (a4 < 1)
+    {
+      v9 = 0;
+    }
+
+    else
+    {
+      if (v8 >= 0x18)
+      {
+        v8 = 24;
+      }
+
+      v9 = 2 * v8 + 2;
+      memset(__b, 32, v9);
+    }
+
+    *(__b + v9) = 0;
+    fputs(__b, v7);
+    if (!v5)
+    {
+      break;
+    }
+
+    switch(*v5)
+    {
+      case 0:
+        v10 = "END";
+        goto LABEL_29;
+      case 1:
+        v10 = "AND";
+        goto LABEL_29;
+      case 2:
+        v10 = "OR";
+        v13 = 2;
+        goto LABEL_58;
+      case 3:
+        if (!*(v5 + 12))
+        {
+          v10 = "EQUAL !=";
+          goto LABEL_55;
+        }
+
+        v10 = "EQUAL =";
+LABEL_41:
+        v13 = 7;
+        goto LABEL_58;
+      case 4:
+        if (*(v5 + 12))
+        {
+          v12 = "CMP <";
+        }
+
+        else
+        {
+          v12 = "CMP >";
+        }
+
+        fwrite(v12, 5uLL, 1uLL, v7);
+        if (!*(v5 + 16))
+        {
+          fputc(61, v7);
+        }
+
+        goto LABEL_59;
+      case 5:
+        v14 = *(v5 + 12);
+        if (v14 <= 1)
+        {
+          if (v14)
+          {
+            if (v14 != 1)
+            {
+              goto LABEL_59;
+            }
+
+            v10 = "PLUS +";
+          }
+
+          else
+          {
+            v10 = "PLUS -";
+          }
+
+          goto LABEL_57;
+        }
+
+        if (v14 == 2)
+        {
+          v10 = "PLUS unary -";
+          v13 = 12;
+        }
+
+        else
+        {
+          if (v14 != 3)
+          {
+            goto LABEL_59;
+          }
+
+          v10 = "PLUS unary - -";
+          v13 = 14;
+        }
+
+        goto LABEL_58;
+      case 6:
+        v15 = *(v5 + 12);
+        if (v15 == 1)
+        {
+          v10 = "MULT div";
+LABEL_55:
+          v13 = 8;
+          goto LABEL_58;
+        }
+
+        if (v15)
+        {
+          v10 = "MULT mod";
+          goto LABEL_55;
+        }
+
+        v10 = "MULT *";
+LABEL_57:
+        v13 = 6;
+LABEL_58:
+        fwrite(v10, v13, 1uLL, v7);
+LABEL_59:
+        fputc(10, v7);
+LABEL_60:
+        v22 = *(v5 + 4);
+        if ((v22 & 0x80000000) == 0)
+        {
+          xmlXPathDebugDumpStepOp(v7, v6, *(v6 + 8) + 56 * v22, v4 + 1);
+        }
+
+        v23 = *(v5 + 8);
+        if ((v23 & 0x80000000) != 0)
+        {
+          return;
+        }
+
+        a3 = *(v6 + 8) + 56 * v23;
+        a4 = v4 + 1;
+        a1 = v7;
+        a2 = v6;
+
+        break;
+      case 7:
+        v10 = "UNION";
+        v13 = 5;
+        goto LABEL_58;
+      case 8:
+        v10 = "ROOT";
+        goto LABEL_45;
+      case 9:
+        v10 = "NODE";
+        goto LABEL_45;
+      case 0xA:
+        v17 = *(v5 + 12);
+        v16 = *(v5 + 16);
+        v18 = *(v5 + 20);
+        v20 = *(v5 + 24);
+        v19 = *(v5 + 32);
+        fwrite("COLLECT ", 8uLL, 1uLL, v7);
+        switch(v17)
+        {
+          case 1:
+            v21 = " 'ancestors' ";
+            goto LABEL_83;
+          case 2:
+            v21 = " 'ancestors-or-self' ";
+            goto LABEL_77;
+          case 3:
+            v21 = " 'attributes' ";
+            goto LABEL_73;
+          case 4:
+            v21 = " 'child' ";
+            v24 = 9;
+            goto LABEL_84;
+          case 5:
+            v21 = " 'descendant' ";
+LABEL_73:
+            v24 = 14;
+            goto LABEL_84;
+          case 6:
+            v21 = " 'descendant-or-self' ";
+            goto LABEL_79;
+          case 7:
+            v21 = " 'following' ";
+            goto LABEL_83;
+          case 8:
+            v21 = " 'following-siblings' ";
+LABEL_79:
+            v24 = 22;
+            goto LABEL_84;
+          case 9:
+            v21 = " 'namespace' ";
+            goto LABEL_83;
+          case 10:
+            v21 = " 'parent' ";
+            v24 = 10;
+            goto LABEL_84;
+          case 11:
+            v21 = " 'preceding' ";
+LABEL_83:
+            v24 = 13;
+            goto LABEL_84;
+          case 12:
+            v21 = " 'preceding-sibling' ";
+LABEL_77:
+            v24 = 21;
+            goto LABEL_84;
+          case 13:
+            v21 = " 'self' ";
+            v24 = 8;
+LABEL_84:
+            fwrite(v21, v24, 1uLL, v7);
+            break;
+          default:
+            break;
+        }
+
+        if (v16 > 2)
+        {
+          if (v16 == 3)
+          {
+            v25 = "'all' ";
+            v26 = 6;
+            goto LABEL_99;
+          }
+
+          if (v16 != 4)
+          {
+            if (v16 != 5)
+            {
+              goto LABEL_100;
+            }
+
+            v25 = "'name' ";
+            goto LABEL_97;
+          }
+
+          v25 = "'namespace' ";
+          v26 = 12;
+        }
+
+        else
+        {
+          if (!v16)
+          {
+            v25 = "'none' ";
+LABEL_97:
+            v26 = 7;
+            goto LABEL_99;
+          }
+
+          if (v16 == 1)
+          {
+            v25 = "'type' ";
+            goto LABEL_97;
+          }
+
+          if (v16 != 2)
+          {
+            goto LABEL_100;
+          }
+
+          v25 = "'PI' ";
+          v26 = 5;
+        }
+
+LABEL_99:
+        fwrite(v25, v26, 1uLL, v7);
+LABEL_100:
+        if (v18 > 6)
+        {
+          if (v18 == 7)
+          {
+            v27 = "'PI' ";
+            v28 = 5;
+          }
+
+          else
+          {
+            if (v18 != 8)
+            {
+              goto LABEL_111;
+            }
+
+            v27 = "'comment' ";
+            v28 = 10;
+          }
+        }
+
+        else
+        {
+          if (v18)
+          {
+            if (v18 != 3)
+            {
+              goto LABEL_111;
+            }
+
+            v27 = "'text' ";
+          }
+
+          else
+          {
+            v27 = "'node' ";
+          }
+
+          v28 = 7;
+        }
+
+        fwrite(v27, v28, 1uLL, v7);
+LABEL_111:
+        if (v20)
+        {
+          fprintf(v7, "%s:", v20);
+        }
+
+        if (v19)
+        {
+          fputs(v19, v7);
+        }
+
+        goto LABEL_59;
+      case 0xB:
+        v11 = *(v5 + 24);
+        fwrite("ELEM ", 5uLL, 1uLL, v7);
+        xmlXPathDebugDumpObject(v7, v11, 0);
+        goto LABEL_60;
+      case 0xC:
+        if (*(v5 + 32))
+        {
+          fprintf(v7, "VARIABLE %s:%s");
+        }
+
+        else
+        {
+          fprintf(v7, "VARIABLE %s");
+        }
+
+        goto LABEL_59;
+      case 0xD:
+        if (*(v5 + 32))
+        {
+          fprintf(v7, "FUNCTION %s:%s(%d args)");
+        }
+
+        else
+        {
+          fprintf(v7, "FUNCTION %s(%d args)");
+        }
+
+        goto LABEL_59;
+      case 0xE:
+        v10 = "ARG";
+LABEL_29:
+        v13 = 3;
+        goto LABEL_58;
+      case 0xF:
+        v10 = "PREDICATE";
+        v13 = 9;
+        goto LABEL_58;
+      case 0x10:
+        v10 = "FILTER";
+        goto LABEL_57;
+      case 0x11:
+        v10 = "SORT";
+LABEL_45:
+        v13 = 4;
+        goto LABEL_58;
+      case 0x12:
+        v10 = "RANGETO";
+        goto LABEL_41;
+      default:
+        fprintf(v7, "UNKNOWN %d\n", *v5);
+        return;
+    }
+  }
+
+  fwrite("Step is NULL\n", 0xDuLL, 1uLL, v7);
+}
+
 int xmlXPathContextSetCache(xmlXPathContextPtr ctxt, int active, int value, int options)
 {
   if (!ctxt)
@@ -68,7 +1021,7 @@ LABEL_12:
   return v8;
 }
 
-void xmlXPathFreeCache(int **a1)
+void xmlXPathFreeCache(void **a1)
 {
   v2 = *a1;
   if (v2)
@@ -1878,7 +2831,7 @@ xmlChar *__cdecl xmlXPathCastBooleanToString(int val)
 
 xmlChar *__cdecl xmlXPathCastNumberToString(double val)
 {
-  v36[2] = *MEMORY[0x1E69E9840];
+  v32[2] = *MEMORY[0x1E69E9840];
   v2 = fabs(val);
   if (val > 0.0)
   {
@@ -1897,101 +2850,98 @@ xmlChar *__cdecl xmlXPathCastNumberToString(double val)
 
   if (v3 == -1)
   {
-    v6 = *MEMORY[0x1E69E9840];
-    v5 = "-Infinity";
+    v4 = "-Infinity";
     goto LABEL_12;
   }
 
   if (v3 == 1)
   {
-    v4 = *MEMORY[0x1E69E9840];
-    v5 = "Infinity";
+    v4 = "Infinity";
 LABEL_12:
 
-    return xmlStrdup(v5);
+    return xmlStrdup(v4);
   }
 
   if (val == 0.0)
   {
-    v7 = *MEMORY[0x1E69E9840];
-    v5 = "0";
+    v4 = "0";
     goto LABEL_12;
   }
 
-  v33 = 0;
-  v31 = 0u;
-  v32 = 0u;
-  v29 = 0u;
-  v30 = 0u;
-  *cur = 0u;
+  v29 = 0;
+  v27 = 0u;
   v28 = 0u;
+  v25 = 0u;
+  v26 = 0u;
+  *cur = 0u;
+  v24 = 0u;
   if (val > 0.0 && v2 == INFINITY)
   {
     strcpy(cur, "Infinity");
   }
 
-  else if (val > -2147483650.0 && (val < 2147483650.0 ? (v9 = val == val) : (v9 = 0), v9))
+  else if (val > -2147483650.0 && (val < 2147483650.0 ? (v6 = val == val) : (v6 = 0), v6))
   {
     *__str = 0;
-    v35 = 0;
-    memset(v36, 0, 14);
+    v31 = 0;
+    memset(v32, 0, 14);
     if (val)
     {
       snprintf(__str, 0x1DuLL, "%d", val);
-      v21 = __str[0];
+      v18 = __str[0];
       if (__str[0])
       {
-        v22 = cur;
-        v23 = 1;
-        v24 = cur;
+        v19 = cur;
+        v20 = 1;
+        v21 = cur;
         do
         {
-          *v24++ = v21;
-          v21 = __str[v23];
-          ++v22;
-          if (!v21)
+          *v21++ = v18;
+          v18 = __str[v20];
+          ++v19;
+          if (!v18)
           {
             break;
           }
         }
 
-        while (v23++ < 99);
+        while (v20++ < 99);
       }
 
       else
       {
-        v22 = cur;
-        v24 = cur;
+        v19 = cur;
+        v21 = cur;
       }
     }
 
     else
     {
-      v22 = &cur[1];
+      v19 = &cur[1];
       cur[0] = 48;
-      v24 = &cur[1];
+      v21 = &cur[1];
     }
 
-    v24[-(v22 - cur > 98)] = 0;
+    v21[-(v19 - cur > 98)] = 0;
   }
 
   else
   {
     *__str = 0;
-    v35 = 0;
-    LODWORD(v36[1]) = 0;
-    v36[0] = 0;
+    v31 = 0;
+    LODWORD(v32[1]) = 0;
+    v32[0] = 0;
     if (v2 > 1000000000.0 || v2 < 0.00001)
     {
-      v12 = snprintf(__str, 0x1CuLL, "%*.*e", 21, 14, val);
-      if (v12 >= 1)
+      v9 = snprintf(__str, 0x1CuLL, "%*.*e", 21, 14, val);
+      if (v9 >= 1)
       {
-        while (__str[v12] != 101)
+        while (__str[v9] != 101)
         {
-          v13 = __OFSUB__(v12--, 1);
-          if ((v12 < 0) ^ v13 | (v12 == 0))
+          v10 = __OFSUB__(v9--, 1);
+          if ((v9 < 0) ^ v10 | (v9 == 0))
           {
-            v12 = 0;
+            v9 = 0;
             break;
           }
         }
@@ -2000,63 +2950,61 @@ LABEL_12:
 
     else
     {
-      v10 = log10(v2);
-      if (v10 > 0)
+      v7 = log10(v2);
+      if (v7 > 0)
       {
-        v11 = 14;
+        v8 = 14;
       }
 
       else
       {
-        v11 = 15;
+        v8 = 15;
       }
 
-      v12 = snprintf(__str, 0x1CuLL, "%0.*f", v11 - v10, val);
+      v9 = snprintf(__str, 0x1CuLL, "%0.*f", v8 - v7, val);
     }
 
     while (__str[0] == 32)
     {
-      v14 = &__str[1];
+      v11 = &__str[1];
       do
       {
-        v15 = *v14;
-        *(v14++ - 1) = v15;
+        v12 = *v11;
+        *(v11++ - 1) = v12;
       }
 
-      while (v15);
-      --v12;
+      while (v12);
+      --v9;
     }
 
-    v16 = v12;
-    v17 = &__str[v12];
+    v13 = v9;
+    v14 = &__str[v9];
     do
     {
-      v19 = *--v17;
-      v18 = v19;
+      v16 = *--v14;
+      v15 = v16;
     }
 
-    while (v19 == 48);
-    if (v18 != 46)
+    while (v16 == 48);
+    if (v15 != 46)
     {
-      ++v17;
+      ++v14;
     }
 
     do
     {
-      v20 = __str[v16];
-      *v17++ = v20;
-      ++v16;
+      v17 = __str[v13];
+      *v14++ = v17;
+      ++v13;
     }
 
-    while (v20);
+    while (v17);
     strlen(__str);
     __memmove_chk();
   }
 
-  HIBYTE(v33) = 0;
-  result = xmlStrdup(cur);
-  v26 = *MEMORY[0x1E69E9840];
-  return result;
+  HIBYTE(v29) = 0;
+  return xmlStrdup(cur);
 }
 
 xmlXPathObjectPtr xmlXPathConvertString(xmlXPathObjectPtr val)
@@ -3415,13 +4363,13 @@ uint64_t xmlXPathCompareNodeSetValue(xmlXPathParserContextPtr ctxt, int a2, int 
       {
         if ((type | 8) == 9)
         {
-          p_nodeNr = &a4->nodesetval->nodeNr;
-          if (p_nodeNr && *p_nodeNr >= 1)
+          nodesetval = a4->nodesetval;
+          if (nodesetval && nodesetval->nodeNr >= 1)
           {
             v21 = 0;
             do
             {
-              Content = xmlNodeGetContent(*(*(p_nodeNr + 1) + 8 * v21));
+              Content = xmlNodeGetContent(nodesetval->nodeTab[v21]);
               if (Content || (Content = xmlStrdup("")) != 0)
               {
                 v23 = Content;
@@ -3438,7 +4386,7 @@ uint64_t xmlXPathCompareNodeSetValue(xmlXPathParserContextPtr ctxt, int a2, int 
               }
             }
 
-            while (++v21 < *p_nodeNr);
+            while (++v21 < nodesetval->nodeNr);
           }
 
 LABEL_31:
@@ -3456,13 +4404,13 @@ LABEL_32:
       {
         if ((type | 8) == 9)
         {
-          v12 = &a4->nodesetval->nodeNr;
-          if (v12 && *v12 >= 1)
+          v12 = a4->nodesetval;
+          if (v12 && v12->nodeNr >= 1)
           {
             v13 = 0;
             while (1)
             {
-              v14 = xmlNodeGetContent(*(*(v12 + 1) + 8 * v13));
+              v14 = xmlNodeGetContent(v12->nodeTab[v13]);
               if (v14 || (v14 = xmlStrdup("")) != 0)
               {
                 v15 = v14;
@@ -3479,7 +4427,7 @@ LABEL_32:
                 }
               }
 
-              if (++v13 >= *v12)
+              if (++v13 >= v12->nodeNr)
               {
                 goto LABEL_31;
               }
@@ -3635,25 +4583,7 @@ void xmlXPathValueFlipSign(xmlXPathParserContextPtr ctxt)
 void xmlXPathAddValues(xmlXPathParserContextPtr ctxt)
 {
   v1 = ctxt;
-  if (!ctxt)
-  {
-    goto LABEL_12;
-  }
-
-  valueNr = ctxt->valueNr;
-  if (valueNr < 1)
-  {
-    goto LABEL_12;
-  }
-
-  valueTab = ctxt->valueTab;
-  v4 = valueNr - 1;
-  ctxt->valueNr = valueNr - 1;
-  v5 = valueNr == 1 ? 0 : valueTab[valueNr - 2];
-  ctxt->value = v5;
-  v6 = valueTab[v4];
-  valueTab[v4] = 0;
-  if (v6)
+  if (ctxt && (valueNr = ctxt->valueNr, valueNr >= 1) && ((valueTab = ctxt->valueTab, v4 = valueNr - 1, ctxt->valueNr = valueNr - 1, valueNr != 1) ? (v5 = valueTab[valueNr - 2]) : (v5 = 0), ctxt->value = v5, v6 = valueTab[v4], valueTab[v4] = 0, v6))
   {
     v7 = xmlXPathCastToNumber(v6);
     xmlXPathReleaseObject(v1->context, v6);
@@ -3673,7 +4603,6 @@ void xmlXPathAddValues(xmlXPathParserContextPtr ctxt)
 
   else
   {
-LABEL_12:
     v9 = 10;
   }
 
@@ -3683,25 +4612,7 @@ LABEL_12:
 void xmlXPathMultValues(xmlXPathParserContextPtr ctxt)
 {
   v1 = ctxt;
-  if (!ctxt)
-  {
-    goto LABEL_12;
-  }
-
-  valueNr = ctxt->valueNr;
-  if (valueNr < 1)
-  {
-    goto LABEL_12;
-  }
-
-  valueTab = ctxt->valueTab;
-  v4 = valueNr - 1;
-  ctxt->valueNr = valueNr - 1;
-  v5 = valueNr == 1 ? 0 : valueTab[valueNr - 2];
-  ctxt->value = v5;
-  v6 = valueTab[v4];
-  valueTab[v4] = 0;
-  if (v6)
+  if (ctxt && (valueNr = ctxt->valueNr, valueNr >= 1) && ((valueTab = ctxt->valueTab, v4 = valueNr - 1, ctxt->valueNr = valueNr - 1, valueNr != 1) ? (v5 = valueTab[valueNr - 2]) : (v5 = 0), ctxt->value = v5, v6 = valueTab[v4], valueTab[v4] = 0, v6))
   {
     v7 = xmlXPathCastToNumber(v6);
     xmlXPathReleaseObject(v1->context, v6);
@@ -3721,7 +4632,6 @@ void xmlXPathMultValues(xmlXPathParserContextPtr ctxt)
 
   else
   {
-LABEL_12:
     v9 = 10;
   }
 
@@ -3731,25 +4641,7 @@ LABEL_12:
 void xmlXPathDivValues(xmlXPathParserContextPtr ctxt)
 {
   v1 = ctxt;
-  if (!ctxt)
-  {
-    goto LABEL_12;
-  }
-
-  valueNr = ctxt->valueNr;
-  if (valueNr < 1)
-  {
-    goto LABEL_12;
-  }
-
-  valueTab = ctxt->valueTab;
-  v4 = valueNr - 1;
-  ctxt->valueNr = valueNr - 1;
-  v5 = valueNr == 1 ? 0 : valueTab[valueNr - 2];
-  ctxt->value = v5;
-  v6 = valueTab[v4];
-  valueTab[v4] = 0;
-  if (v6)
+  if (ctxt && (valueNr = ctxt->valueNr, valueNr >= 1) && ((valueTab = ctxt->valueTab, v4 = valueNr - 1, ctxt->valueNr = valueNr - 1, valueNr != 1) ? (v5 = valueTab[valueNr - 2]) : (v5 = 0), ctxt->value = v5, v6 = valueTab[v4], valueTab[v4] = 0, v6))
   {
     v7 = xmlXPathCastToNumber(v6);
     xmlXPathReleaseObject(v1->context, v6);
@@ -3769,7 +4661,6 @@ void xmlXPathDivValues(xmlXPathParserContextPtr ctxt)
 
   else
   {
-LABEL_12:
     v9 = 10;
   }
 
@@ -3779,25 +4670,7 @@ LABEL_12:
 void xmlXPathModValues(xmlXPathParserContextPtr ctxt)
 {
   v1 = ctxt;
-  if (!ctxt)
-  {
-    goto LABEL_13;
-  }
-
-  valueNr = ctxt->valueNr;
-  if (valueNr < 1)
-  {
-    goto LABEL_13;
-  }
-
-  valueTab = ctxt->valueTab;
-  v4 = valueNr - 1;
-  ctxt->valueNr = valueNr - 1;
-  v5 = valueNr == 1 ? 0 : valueTab[valueNr - 2];
-  ctxt->value = v5;
-  v6 = valueTab[v4];
-  valueTab[v4] = 0;
-  if (v6)
+  if (ctxt && (valueNr = ctxt->valueNr, valueNr >= 1) && ((valueTab = ctxt->valueTab, v4 = valueNr - 1, ctxt->valueNr = valueNr - 1, valueNr != 1) ? (v5 = valueTab[valueNr - 2]) : (v5 = 0), ctxt->value = v5, v6 = valueTab[v4], valueTab[v4] = 0, v6))
   {
     v7 = xmlXPathCastToNumber(v6);
     xmlXPathReleaseObject(v1->context, v6);
@@ -3827,7 +4700,6 @@ void xmlXPathModValues(xmlXPathParserContextPtr ctxt)
 
   else
   {
-LABEL_13:
     v10 = 10;
   }
 
@@ -6612,41 +7484,41 @@ xmlXPathCompExprPtr xmlXPathCtxtCompile(xmlXPathContextPtr ctxt, const xmlChar *
       return 0;
     }
 
-    v6 = v5;
-    v7 = linkedOnOrAfterFall2022OSVersions();
-    if (ctxt && v7)
+    v7 = v5;
+    v8 = linkedOnOrAfterFall2022OSVersions(v5, v6);
+    if (ctxt && v8)
     {
       ctxt->depth = 0;
     }
 
-    xmlXPathCompileExpr(v6, 1);
-    if (v6->error)
+    xmlXPathCompileExpr(v7, 1);
+    if (v7->error)
     {
 LABEL_9:
-      xmlXPathFreeParserContext(v6);
+      xmlXPathFreeParserContext(v7);
       return 0;
     }
 
-    if (*v6->cur)
+    if (*v7->cur)
     {
-      xmlXPathErr(v6, 7);
+      xmlXPathErr(v7, 7);
       goto LABEL_9;
     }
 
-    comp = v6->comp;
+    comp = v7->comp;
     if (*comp >= 2 && (comp[4] & 0x80000000) == 0)
     {
-      v9 = linkedOnOrAfterFall2022OSVersions();
-      if (ctxt && v9)
+      v12 = linkedOnOrAfterFall2022OSVersions(v9, v10);
+      if (ctxt && v12)
       {
         ctxt->depth = 0;
       }
 
-      xmlXPathOptimizeExpression(v6, (*(comp + 1) + 56 * comp[4]));
+      xmlXPathOptimizeExpression(v7, (*(comp + 1) + 56 * comp[4]));
     }
 
-    v6->comp = 0;
-    xmlXPathFreeParserContext(v6);
+    v7->comp = 0;
+    xmlXPathFreeParserContext(v7);
     *(comp + 3) = xmlStrdup(str);
   }
 
@@ -6660,7 +7532,7 @@ xmlXPathObjectPtr xmlXPathCompiledEval(xmlXPathCompExprPtr comp, xmlXPathContext
   return v3;
 }
 
-uint64_t xmlXPathCompiledEvalInternal(uint64_t a1, uint64_t a2, void *a3, int a4)
+uint64_t xmlXPathCompiledEvalInternal(uint64_t a1, uint64_t a2, void *a3, uint64_t a4)
 {
   if (!a2)
   {
@@ -7498,16 +8370,21 @@ LABEL_28:
 
   v22 = StreamCtxt;
   v23 = xmlStreamWantsAnyNode(StreamCtxt);
-  if ((v17 & 1) == 0 && xmlStreamPush(v22, 0, 0) == 1)
+  v25 = v23;
+  if ((v17 & 1) == 0)
   {
-    if (a4)
+    v23 = xmlStreamPush(v22, 0, 0);
+    if (v23 == 1)
     {
+      if (a4)
+      {
 LABEL_32:
-      v4 = 1;
-      goto LABEL_37;
-    }
+        v4 = 1;
+        goto LABEL_37;
+      }
 
-    xmlXPathNodeSetAddUnique(*(*a3 + 8), v15);
+      v23 = xmlXPathNodeSetAddUnique(*(*a3 + 8), v15);
+    }
   }
 
   if (v15->type == XML_NAMESPACE_DECL)
@@ -7515,12 +8392,12 @@ LABEL_32:
     goto LABEL_36;
   }
 
-  v25 = 0;
+  v27 = 0;
   while (1)
   {
     children = v15->children;
-    v27 = children && v25 < v10;
-    if (!v27)
+    v29 = children && v27 < v10;
+    if (!v29)
     {
       break;
     }
@@ -7531,14 +8408,14 @@ LABEL_32:
       break;
     }
 
-    ++v25;
+    ++v27;
     if (type == XML_DTD_NODE)
     {
       goto LABEL_47;
     }
 
 LABEL_69:
-    if (v25 < 0)
+    if (v27 < 0)
     {
       goto LABEL_36;
     }
@@ -7546,50 +8423,52 @@ LABEL_69:
 LABEL_70:
     v15 = children;
 LABEL_71:
-    if (linkedOnOrAfterFall2022OSVersions())
+    v23 = linkedOnOrAfterFall2022OSVersions(v23, v24);
+    if (v23)
     {
-      v36 = *(a1 + 352);
-      if (v36)
+      v38 = *(a1 + 352);
+      if (v38)
       {
-        v37 = *(a1 + 360);
-        if (v37 >= v36)
+        v39 = *(a1 + 360);
+        if (v39 >= v38)
         {
-          v45 = *__xmlGenericError();
-          v46 = __xmlGenericErrorContext();
-          v45(*v46, "XPath operation limit exceeded\n");
+          v46 = *__xmlGenericError();
+          v47 = __xmlGenericErrorContext();
+          v46(*v47, "XPath operation limit exceeded\n");
           v4 = 0xFFFFFFFFLL;
           goto LABEL_37;
         }
 
-        *(a1 + 360) = v37 + 1;
+        *(a1 + 360) = v39 + 1;
       }
     }
 
-    v38 = v15->type;
-    if (v38 <= 8)
+    v40 = v15->type;
+    if (v40 <= 8)
     {
-      if (((1 << v38) & 0x198) != 0)
+      if (((1 << v40) & 0x198) != 0)
       {
-        if (v23)
+        if (v25)
         {
-          v39 = xmlStreamPushNode(v22, 0, 0, v38);
+          v23 = xmlStreamPushNode(v22, 0, 0, v40);
 LABEL_84:
-          if (v39 == 1)
+          if (v23 == 1)
           {
             if (a4)
             {
               goto LABEL_32;
             }
 
-            if (xmlXPathNodeSetAddUnique(*(*a3 + 8), v15) < 0)
+            v23 = xmlXPathNodeSetAddUnique(*(*a3 + 8), v15);
+            if ((v23 & 0x80000000) != 0)
             {
               *(a1 + 232) = 0x20000000CLL;
             }
           }
 
-          if (!v15->children || v25 >= v10)
+          if (!v15->children || v27 >= v10)
           {
-            xmlStreamPop(v22);
+            v23 = xmlStreamPop(v22);
             while (1)
             {
               next = v15->next;
@@ -7599,8 +8478,8 @@ LABEL_84:
               }
 
               v15 = v15->next;
-              v43 = next->type;
-              if (v43 != XML_ENTITY_DECL && v43 != XML_DTD_NODE)
+              v44 = next->type;
+              if (v44 != XML_ENTITY_DECL && v44 != XML_DTD_NODE)
               {
                 goto LABEL_71;
               }
@@ -7609,7 +8488,7 @@ LABEL_84:
         }
       }
 
-      else if (v38 == 1)
+      else if (v40 == 1)
       {
         ns = v15->ns;
         if (ns)
@@ -7622,7 +8501,7 @@ LABEL_84:
           href = 0;
         }
 
-        v39 = xmlStreamPush(v22, v15->name, href);
+        v23 = xmlStreamPush(v22, v15->name, href);
         goto LABEL_84;
       }
     }
@@ -7640,15 +8519,15 @@ LABEL_47:
   {
     while (1)
     {
-      v29 = children->next;
-      if (!v29)
+      v31 = children->next;
+      if (!v31)
       {
         break;
       }
 
       children = children->next;
-      v30 = v29->type;
-      if (v30 != XML_DTD_NODE && v30 != XML_ENTITY_DECL)
+      v32 = v31->type;
+      if (v32 != XML_DTD_NODE && v32 != XML_ENTITY_DECL)
       {
         goto LABEL_70;
       }
@@ -7662,29 +8541,29 @@ LABEL_47:
         break;
       }
 
-      v33 = children->type;
-      if (v33 == 1)
+      v35 = children->type;
+      if (v35 == 1)
       {
         goto LABEL_65;
       }
 
-      if (v33 == 9)
+      if (v35 == 9)
       {
         break;
       }
 
-      if (v23)
+      if (v25)
       {
-        v27 = v33 > 8;
-        v34 = (1 << v33) & 0x198;
-        if (!v27 && v34 != 0)
+        v29 = v35 > 8;
+        v36 = (1 << v35) & 0x198;
+        if (!v29 && v36 != 0)
         {
 LABEL_65:
-          xmlStreamPop(v22);
+          v23 = xmlStreamPop(v22);
         }
       }
 
-      --v25;
+      --v27;
       if (children->next)
       {
         children = children->next;
@@ -7702,7 +8581,7 @@ LABEL_37:
 
 uint64_t xmlXPathCheckOpLimit(xmlXPathParserContext *a1, unint64_t a2)
 {
-  result = linkedOnOrAfterFall2022OSVersions();
+  result = linkedOnOrAfterFall2022OSVersions(a1, a2);
   if (result)
   {
     context = a1->context;
@@ -7960,33 +8839,35 @@ uint64_t xmlXPathCompOpEvalFirst(uint64_t a1, unsigned int *a2, uint64_t *a3)
     return 0;
   }
 
-  if (linkedOnOrAfterFall2022OSVersions())
+  v8 = linkedOnOrAfterFall2022OSVersions(a1, a2);
+  if (v8)
   {
-    v8 = *(a1 + 24);
-    if (*(v8 + 352))
+    v10 = *(a1 + 24);
+    if (*(v10 + 352))
     {
-      if ((xmlXPathCheckOpLimit(a1, 1uLL) & 0x80000000) != 0)
+      v8 = xmlXPathCheckOpLimit(a1, 1uLL);
+      if ((v8 & 0x80000000) != 0)
       {
         return 0;
       }
 
-      v8 = *(a1 + 24);
+      v10 = *(a1 + 24);
     }
 
-    v9 = *(v8 + 368);
-    if (v9 >= 5000)
+    v11 = *(v10 + 368);
+    if (v11 >= 5000)
     {
-      v10 = a1;
-      v11 = 26;
+      v12 = a1;
+      v13 = 26;
 LABEL_10:
-      xmlXPathErr(v10, v11);
+      xmlXPathErr(v12, v13);
       return 0;
     }
 
-    *(v8 + 368) = v9 + 1;
+    *(v10 + 368) = v11 + 1;
   }
 
-  v12 = *(a1 + 56);
+  v14 = *(a1 + 56);
   v3 = *a2;
   if (v3 > 9)
   {
@@ -7994,16 +8875,18 @@ LABEL_10:
     {
       if (v3 == 10)
       {
-        v26 = a2[1];
-        if (v26 != -1)
+        v29 = a2[1];
+        if (v29 != -1)
         {
-          v27 = xmlXPathCompOpEval(a1, *(v12 + 8) + 56 * v26);
+          v30 = xmlXPathCompOpEval(a1, (*(v14 + 8) + 56 * v29));
           if (*(a1 + 16))
           {
             return 0;
           }
 
-          v3 = xmlXPathNodeCollectAndTest(a1, a2, a3, 0, 0) + v27;
+          v31 = v30;
+          v8 = xmlXPathNodeCollectAndTest(a1, a2, a3, 0, 0);
+          v3 = (v8 + v31);
           goto LABEL_99;
         }
 
@@ -8012,13 +8895,14 @@ LABEL_10:
 
       if (v3 == 11)
       {
-        v23 = xmlXPathCacheObjectCopy(*(a1 + 24), *(a2 + 3));
-        valuePush(a1, v23);
+        v26 = xmlXPathCacheObjectCopy(*(a1 + 24), *(a2 + 3));
+        v8 = valuePush(a1, v26);
         goto LABEL_98;
       }
 
 LABEL_53:
-      v3 = xmlXPathCompOpEval(a1, a2);
+      v8 = xmlXPathCompOpEval(a1, a2);
+      v3 = v8;
       goto LABEL_99;
     }
 
@@ -8026,15 +8910,16 @@ LABEL_53:
     {
       if (v3 == 17)
       {
-        v25 = a2[1];
-        if (v25 == -1)
+        v28 = a2[1];
+        if (v28 == -1)
         {
           v3 = 0;
         }
 
         else
         {
-          v3 = xmlXPathCompOpEvalFirst(a1, *(v12 + 8) + 56 * v25, a3);
+          v8 = xmlXPathCompOpEvalFirst(a1, (*(v14 + 8) + 56 * v28), a3);
+          v3 = v8;
         }
 
         if (*(a1 + 16))
@@ -8042,18 +8927,18 @@ LABEL_53:
           return 0;
         }
 
-        v38 = *(a1 + 32);
-        if (v38)
+        v42 = *(a1 + 32);
+        if (v42)
         {
-          if (*v38 == 1)
+          if (*v42 == 1)
           {
-            v39 = *(v38 + 8);
-            if (v39)
+            v43 = *(v42 + 8);
+            if (v43)
             {
-              v40 = *v39;
-              if (v40 >= 2)
+              v9 = *v43;
+              if (v9 >= 2)
               {
-                libxml_domnode_tim_sort(*(v39 + 1), v40);
+                v8 = libxml_domnode_tim_sort(*(v43 + 1), v9);
               }
             }
           }
@@ -8070,96 +8955,96 @@ LABEL_53:
       goto LABEL_98;
     }
 
-    v28 = a2[1];
-    if (v28 == -1)
+    v32 = a2[1];
+    if (v32 == -1)
     {
       goto LABEL_96;
     }
 
-    v29 = a2[2];
-    if (v29 == -1)
+    v33 = a2[2];
+    if (v33 == -1)
     {
       goto LABEL_52;
     }
 
-    v30 = *(v12 + 8);
-    if (*(v30 + 56 * v28) != 17)
+    v34 = *(v14 + 8);
+    if (*(v34 + 56 * v32) != 17)
     {
       goto LABEL_52;
     }
 
-    v31 = (v30 + 56 * v29);
-    if (*v31 != 17)
+    v35 = (v34 + 56 * v33);
+    if (*v35 != 17)
     {
       goto LABEL_52;
     }
 
-    v32 = v31[1];
-    if (v32 == -1)
+    v36 = v35[1];
+    if (v36 == -1)
     {
       goto LABEL_52;
     }
 
-    v33 = v30 + 56 * v32;
-    if (*v33 != 13)
+    v37 = v34 + 56 * v36;
+    if (*v37 != 13)
     {
       goto LABEL_52;
     }
 
-    if (*(v33 + 32))
+    if (*(v37 + 32))
     {
       goto LABEL_52;
     }
 
-    if (*(v33 + 12))
+    if (*(v37 + 12))
     {
       goto LABEL_52;
     }
 
-    v47 = *(v33 + 24);
-    if (!v47)
+    v50 = *(v37 + 24);
+    if (!v50)
     {
       goto LABEL_52;
     }
 
-    v48 = xmlStrEqual(v47, "last");
-    v49 = a2[1];
-    if (v48)
+    v8 = xmlStrEqual(v50, "last");
+    v51 = a2[1];
+    if (v8)
     {
       v63 = 0;
-      v50 = xmlXPathCompOpEvalLast(a1, (*(v12 + 8) + 56 * v49), &v63);
+      v8 = xmlXPathCompOpEvalLast(a1, (*(v14 + 8) + 56 * v51), &v63);
       if (*(a1 + 16))
       {
         goto LABEL_98;
       }
 
-      v3 = v50;
-      v51 = *(a1 + 32);
-      if (!v51)
+      v3 = v8;
+      v52 = *(a1 + 32);
+      if (!v52)
       {
         goto LABEL_99;
       }
 
-      if (*v51 != 1)
+      if (*v52 != 1)
       {
         goto LABEL_99;
       }
 
-      v52 = *(v51 + 8);
-      if (!v52 || !*(v52 + 8) || *v52 < 2)
+      v8 = *(v52 + 8);
+      if (!v8 || !*(v8 + 8) || *v8 < 2)
       {
         goto LABEL_99;
       }
 
-      xmlXPathNodeSetKeepLast(v52);
+      xmlXPathNodeSetKeepLast(v8);
       v53 = **(*(*(a1 + 32) + 8) + 8);
 LABEL_108:
       *a3 = v53;
       goto LABEL_99;
     }
 
-    v28 = a2[1];
-    if (v49 == -1)
+    v32 = a2[1];
+    if (v51 == -1)
     {
 LABEL_96:
       v3 = 0;
@@ -8168,7 +9053,8 @@ LABEL_96:
     else
     {
 LABEL_52:
-      v3 = xmlXPathCompOpEval(a1, *(v12 + 8) + 56 * v28);
+      v8 = xmlXPathCompOpEval(a1, (*(v14 + 8) + 56 * v32));
+      v3 = v8;
     }
 
     if (*(a1 + 16))
@@ -8217,10 +9103,10 @@ LABEL_52:
         }
       }
 
-      v37 = a1;
-      v36 = v61;
+      v41 = a1;
+      v40 = v61;
 LABEL_60:
-      valuePush(v37, v36);
+      v8 = valuePush(v41, v40);
       goto LABEL_99;
     }
 
@@ -8250,15 +9136,15 @@ LABEL_60:
   {
     if (v3 != 8)
     {
-      v24 = a2[1];
-      if (v24 == -1)
+      v27 = a2[1];
+      if (v27 == -1)
       {
         v3 = 0;
       }
 
       else
       {
-        v3 = xmlXPathCompOpEval(a1, *(v12 + 8) + 56 * v24);
+        v3 = xmlXPathCompOpEval(a1, (*(v14 + 8) + 56 * v27));
       }
 
       if (*(a1 + 16))
@@ -8266,20 +9152,20 @@ LABEL_60:
         return 0;
       }
 
-      v34 = a2[2];
-      if (v34 != -1)
+      v38 = a2[2];
+      if (v38 != -1)
       {
-        v35 = xmlXPathCompOpEval(a1, *(v12 + 8) + 56 * v34);
+        v39 = xmlXPathCompOpEval(a1, (*(v14 + 8) + 56 * v38));
         if (*(a1 + 16))
         {
           return 0;
         }
 
-        v3 = (v35 + v3);
+        v3 = (v39 + v3);
       }
 
-      v36 = xmlXPathCacheNewNodeSet(*(a1 + 24), *(*(a1 + 24) + 8));
-      v37 = a1;
+      v40 = xmlXPathCacheNewNodeSet(*(a1 + 24), *(*(a1 + 24) + 8));
+      v41 = a1;
       goto LABEL_60;
     }
 
@@ -8299,109 +9185,109 @@ LABEL_98:
     goto LABEL_53;
   }
 
-  v13 = xmlXPathCompOpEvalFirst(a1, *(v12 + 8) + 56 * a2[1], a3);
+  v15 = xmlXPathCompOpEvalFirst(a1, (*(v14 + 8) + 56 * a2[1]), a3);
   if (*(a1 + 16))
   {
     return 0;
   }
 
-  v3 = v13;
-  v14 = *(a1 + 32);
-  if (v14)
+  v3 = v15;
+  v16 = *(a1 + 32);
+  if (v16)
   {
-    if (*v14 == 1)
+    if (*v16 == 1)
     {
-      v15 = *(v14 + 8);
-      if (v15)
+      v17 = *(v16 + 8);
+      if (v17)
       {
-        v16 = *v15;
-        if (v16 >= 1)
+        v18 = *v17;
+        if (v18 >= 1)
         {
-          if (v16 != 1)
+          if (v18 != 1)
           {
-            libxml_domnode_tim_sort(*(v15 + 1), v16);
-            v15 = *(*(a1 + 32) + 8);
+            libxml_domnode_tim_sort(*(v17 + 1), v18);
+            v17 = *(*(a1 + 32) + 8);
           }
 
-          *a3 = **(v15 + 1);
+          *a3 = **(v17 + 1);
         }
       }
     }
   }
 
-  v17 = xmlXPathCompOpEvalFirst(a1, *(v12 + 8) + 56 * a2[2], a3);
+  v19 = xmlXPathCompOpEvalFirst(a1, (*(v14 + 8) + 56 * a2[2]), a3);
   if (*(a1 + 16))
   {
     return 0;
   }
 
-  v18 = *(a1 + 40);
-  if (v18 < 1)
+  v21 = *(a1 + 40);
+  if (v21 < 1)
   {
-    v22 = 0;
-    v21 = 0;
+    v25 = 0;
+    v24 = 0;
     goto LABEL_84;
   }
 
-  v19 = *(a1 + 48);
-  v20 = (v18 - 1);
-  *(a1 + 40) = v20;
-  if (v18 == 1)
+  v22 = *(a1 + 48);
+  v23 = (v21 - 1);
+  *(a1 + 40) = v23;
+  if (v21 == 1)
   {
-    v21 = 0;
+    v24 = 0;
     *(a1 + 32) = 0;
-    v22 = *(v19 + 8 * v20);
-    *(v19 + 8 * v20) = 0;
+    v25 = *(v22 + 8 * v23);
+    *(v22 + 8 * v23) = 0;
 LABEL_84:
-    xmlXPathReleaseObject(*(a1 + 24), v21);
-    xmlXPathReleaseObject(*(a1 + 24), v22);
-    v10 = a1;
-    v11 = 11;
+    xmlXPathReleaseObject(*(a1 + 24), v24);
+    xmlXPathReleaseObject(*(a1 + 24), v25);
+    v12 = a1;
+    v13 = 11;
     goto LABEL_10;
   }
 
-  v41 = v17;
-  v42 = 0;
-  *(a1 + 32) = *(v19 + 8 * v18 - 16);
-  v22 = *(v19 + 8 * v20);
-  *(v19 + 8 * v20) = 0;
-  v43 = v18 - 2;
-  *(a1 + 40) = v43;
-  v44 = *(a1 + 48);
-  if (v20 != 1)
+  v44 = v19;
+  v45 = 0;
+  *(a1 + 32) = *(v22 + 8 * v21 - 16);
+  v25 = *(v22 + 8 * v23);
+  *(v22 + 8 * v23) = 0;
+  v46 = v21 - 2;
+  *(a1 + 40) = v46;
+  v47 = *(a1 + 48);
+  if (v23 != 1)
   {
-    v42 = *(v44 + 8 * v20 - 16);
+    v45 = *(v47 + 8 * v23 - 16);
   }
 
-  *(a1 + 32) = v42;
-  v21 = *(v44 + 8 * v43);
-  *(v44 + 8 * v43) = 0;
-  if (!v21 || v21->type != XPATH_NODESET || !v22 || *v22 != 1)
+  *(a1 + 32) = v45;
+  v24 = *(v47 + 8 * v46);
+  *(v47 + 8 * v46) = 0;
+  if (!v24 || v24->type != XPATH_NODESET || !v25 || *v25 != 1)
   {
     goto LABEL_84;
   }
 
-  if (linkedOnOrAfterFall2022OSVersions() && *(*(a1 + 24) + 352) && ((p_nodeNr = &v21->nodesetval->nodeNr) != 0 && (xmlXPathCheckOpLimit(a1, *p_nodeNr) & 0x80000000) != 0 || (v46 = *(v22 + 8)) != 0 && (xmlXPathCheckOpLimit(a1, *v46) & 0x80000000) != 0))
+  if (linkedOnOrAfterFall2022OSVersions(v19, v20) && *(*(a1 + 24) + 352) && ((p_nodeNr = &v24->nodesetval->nodeNr) != 0 && (xmlXPathCheckOpLimit(a1, *p_nodeNr) & 0x80000000) != 0 || (v49 = *(v25 + 8)) != 0 && (xmlXPathCheckOpLimit(a1, *v49) & 0x80000000) != 0))
   {
-    xmlXPathReleaseObject(*(a1 + 24), v21);
-    xmlXPathReleaseObject(*(a1 + 24), v22);
+    xmlXPathReleaseObject(*(a1 + 24), v24);
+    xmlXPathReleaseObject(*(a1 + 24), v25);
   }
 
   else
   {
-    v21->nodesetval = xmlXPathNodeSetMerge(v21->nodesetval, *(v22 + 8));
-    valuePush(a1, v21);
-    xmlXPathReleaseObject(*(a1 + 24), v22);
-    if (v3 > v41)
+    v24->nodesetval = xmlXPathNodeSetMerge(v24->nodesetval, *(v25 + 8));
+    valuePush(a1, v24);
+    xmlXPathReleaseObject(*(a1 + 24), v25);
+    if (v3 > v44)
     {
       *(a2 + 1) = vrev64_s32(*(a2 + 1));
     }
 
-    v3 = (v41 + v3);
+    v3 = (v44 + v3);
   }
 
 LABEL_99:
-  if (linkedOnOrAfterFall2022OSVersions())
+  if (linkedOnOrAfterFall2022OSVersions(v8, v9))
   {
     --*(*(a1 + 24) + 368);
   }
@@ -8416,33 +9302,35 @@ uint64_t xmlXPathCompOpEvalLast(uint64_t a1, unsigned int *a2, uint64_t *a3)
     return 0;
   }
 
-  if (linkedOnOrAfterFall2022OSVersions())
+  v8 = linkedOnOrAfterFall2022OSVersions(a1, a2);
+  if (v8)
   {
-    v8 = *(a1 + 24);
-    if (*(v8 + 352))
+    v10 = *(a1 + 24);
+    if (*(v10 + 352))
     {
-      if ((xmlXPathCheckOpLimit(a1, 1uLL) & 0x80000000) != 0)
+      v8 = xmlXPathCheckOpLimit(a1, 1uLL);
+      if ((v8 & 0x80000000) != 0)
       {
         return 0;
       }
 
-      v8 = *(a1 + 24);
+      v10 = *(a1 + 24);
     }
 
-    v9 = *(v8 + 368);
-    if (v9 >= 5000)
+    v11 = *(v10 + 368);
+    if (v11 >= 5000)
     {
-      v10 = a1;
-      v11 = 26;
+      v12 = a1;
+      v13 = 26;
 LABEL_10:
-      xmlXPathErr(v10, v11);
+      xmlXPathErr(v12, v13);
       return 0;
     }
 
-    *(v8 + 368) = v9 + 1;
+    *(v10 + 368) = v11 + 1;
   }
 
-  v12 = *(a1 + 56);
+  v14 = *(a1 + 56);
   v3 = *a2;
   if (v3 <= 8)
   {
@@ -8451,105 +9339,105 @@ LABEL_10:
       case 0:
         goto LABEL_31;
       case 7:
-        v18 = xmlXPathCompOpEvalLast(a1, *(v12 + 8) + 56 * a2[1], a3);
+        v21 = xmlXPathCompOpEvalLast(a1, (*(v14 + 8) + 56 * a2[1]), a3);
         if (*(a1 + 16))
         {
           return 0;
         }
 
-        v3 = v18;
-        v19 = *(a1 + 32);
-        if (v19)
+        v3 = v21;
+        v22 = *(a1 + 32);
+        if (v22)
         {
-          if (*v19 == 1)
+          if (*v22 == 1)
           {
-            v20 = *(v19 + 8);
-            if (v20)
+            v23 = *(v22 + 8);
+            if (v23)
             {
-              v21 = *v20;
-              if (v21 >= 1)
+              v24 = *v23;
+              if (v24 >= 1)
               {
-                if (v21 == 1)
+                if (v24 == 1)
                 {
-                  v22 = 1;
+                  v25 = 1;
                 }
 
                 else
                 {
-                  libxml_domnode_tim_sort(*(v20 + 1), v21);
-                  v20 = *(*(a1 + 32) + 8);
-                  v22 = *v20;
+                  libxml_domnode_tim_sort(*(v23 + 1), v24);
+                  v23 = *(*(a1 + 32) + 8);
+                  v25 = *v23;
                 }
 
-                *a3 = *(*(v20 + 1) + 8 * v22 - 8);
+                *a3 = *(*(v23 + 1) + 8 * v25 - 8);
               }
             }
           }
         }
 
-        v29 = xmlXPathCompOpEvalLast(a1, *(v12 + 8) + 56 * a2[2], a3);
+        v31 = xmlXPathCompOpEvalLast(a1, (*(v14 + 8) + 56 * a2[2]), a3);
         if (*(a1 + 16))
         {
           return 0;
         }
 
-        v30 = *(a1 + 40);
-        if (v30 < 1)
+        v33 = *(a1 + 40);
+        if (v33 < 1)
         {
-          v34 = 0;
-          v33 = 0;
+          v37 = 0;
+          v36 = 0;
         }
 
         else
         {
-          v31 = *(a1 + 48);
-          v32 = (v30 - 1);
-          *(a1 + 40) = v32;
-          if (v30 == 1)
+          v34 = *(a1 + 48);
+          v35 = (v33 - 1);
+          *(a1 + 40) = v35;
+          if (v33 == 1)
           {
-            v33 = 0;
+            v36 = 0;
             *(a1 + 32) = 0;
-            v34 = *(v31 + 8 * v32);
-            *(v31 + 8 * v32) = 0;
+            v37 = *(v34 + 8 * v35);
+            *(v34 + 8 * v35) = 0;
           }
 
           else
           {
-            v35 = v29;
-            v36 = 0;
-            *(a1 + 32) = *(v31 + 8 * v30 - 16);
-            v34 = *(v31 + 8 * v32);
-            *(v31 + 8 * v32) = 0;
-            v37 = v30 - 2;
-            *(a1 + 40) = v37;
-            v38 = *(a1 + 48);
-            if (v32 != 1)
+            v38 = v31;
+            v39 = 0;
+            *(a1 + 32) = *(v34 + 8 * v33 - 16);
+            v37 = *(v34 + 8 * v35);
+            *(v34 + 8 * v35) = 0;
+            v40 = v33 - 2;
+            *(a1 + 40) = v40;
+            v41 = *(a1 + 48);
+            if (v35 != 1)
             {
-              v36 = *(v38 + 8 * v32 - 16);
+              v39 = *(v41 + 8 * v35 - 16);
             }
 
-            *(a1 + 32) = v36;
-            v33 = *(v38 + 8 * v37);
-            *(v38 + 8 * v37) = 0;
-            if (v33 && v33->type == XPATH_NODESET && v34 && *v34 == 1)
+            *(a1 + 32) = v39;
+            v36 = *(v41 + 8 * v40);
+            *(v41 + 8 * v40) = 0;
+            if (v36 && v36->type == XPATH_NODESET && v37 && *v37 == 1)
             {
-              if (linkedOnOrAfterFall2022OSVersions() && *(*(a1 + 24) + 352) && ((p_nodeNr = &v33->nodesetval->nodeNr) != 0 && (xmlXPathCheckOpLimit(a1, *p_nodeNr) & 0x80000000) != 0 || (v40 = *(v34 + 8)) != 0 && (xmlXPathCheckOpLimit(a1, *v40) & 0x80000000) != 0))
+              if (linkedOnOrAfterFall2022OSVersions(v31, v32) && *(*(a1 + 24) + 352) && ((p_nodeNr = &v36->nodesetval->nodeNr) != 0 && (xmlXPathCheckOpLimit(a1, *p_nodeNr) & 0x80000000) != 0 || (v43 = *(v37 + 8)) != 0 && (xmlXPathCheckOpLimit(a1, *v43) & 0x80000000) != 0))
               {
-                xmlXPathReleaseObject(*(a1 + 24), v33);
-                xmlXPathReleaseObject(*(a1 + 24), v34);
+                xmlXPathReleaseObject(*(a1 + 24), v36);
+                xmlXPathReleaseObject(*(a1 + 24), v37);
               }
 
               else
               {
-                v33->nodesetval = xmlXPathNodeSetMerge(v33->nodesetval, *(v34 + 8));
-                valuePush(a1, v33);
-                xmlXPathReleaseObject(*(a1 + 24), v34);
-                if (v3 > v35)
+                v36->nodesetval = xmlXPathNodeSetMerge(v36->nodesetval, *(v37 + 8));
+                valuePush(a1, v36);
+                xmlXPathReleaseObject(*(a1 + 24), v37);
+                if (v3 > v38)
                 {
                   *(a2 + 1) = vrev64_s32(*(a2 + 1));
                 }
 
-                v3 = (v35 + v3);
+                v3 = (v38 + v3);
               }
 
               goto LABEL_31;
@@ -8557,10 +9445,10 @@ LABEL_10:
           }
         }
 
-        xmlXPathReleaseObject(*(a1 + 24), v33);
-        xmlXPathReleaseObject(*(a1 + 24), v34);
-        v10 = a1;
-        v11 = 11;
+        xmlXPathReleaseObject(*(a1 + 24), v36);
+        xmlXPathReleaseObject(*(a1 + 24), v37);
+        v12 = a1;
+        v13 = 11;
         goto LABEL_10;
       case 8:
         xmlXPathRoot(a1);
@@ -8568,7 +9456,8 @@ LABEL_10:
     }
 
 LABEL_26:
-    v3 = xmlXPathCompOpEval(a1, a2);
+    v8 = xmlXPathCompOpEval(a1, a2);
+    v3 = v8;
     goto LABEL_31;
   }
 
@@ -8576,22 +9465,23 @@ LABEL_26:
   {
     if (v3 == 11)
     {
-      v17 = xmlXPathCacheObjectCopy(*(a1 + 24), *(a2 + 3));
-      valuePush(a1, v17);
+      v20 = xmlXPathCacheObjectCopy(*(a1 + 24), *(a2 + 3));
+      v8 = valuePush(a1, v20);
       goto LABEL_30;
     }
 
     if (v3 == 17)
     {
-      v15 = a2[1];
-      if (v15 == -1)
+      v18 = a2[1];
+      if (v18 == -1)
       {
         v3 = 0;
       }
 
       else
       {
-        v3 = xmlXPathCompOpEvalLast(a1, *(v12 + 8) + 56 * v15, a3);
+        v8 = xmlXPathCompOpEvalLast(a1, (*(v14 + 8) + 56 * v18), a3);
+        v3 = v8;
       }
 
       if (*(a1 + 16))
@@ -8599,18 +9489,18 @@ LABEL_26:
         return 0;
       }
 
-      v26 = *(a1 + 32);
-      if (v26)
+      v29 = *(a1 + 32);
+      if (v29)
       {
-        if (*v26 == 1)
+        if (*v29 == 1)
         {
-          v27 = *(v26 + 8);
-          if (v27)
+          v30 = *(v29 + 8);
+          if (v30)
           {
-            v28 = *v27;
-            if (v28 >= 2)
+            v9 = *v30;
+            if (v9 >= 2)
             {
-              libxml_domnode_tim_sort(*(v27 + 1), v28);
+              v8 = libxml_domnode_tim_sort(*(v30 + 1), v9);
             }
           }
         }
@@ -8624,15 +9514,15 @@ LABEL_26:
 
   if (v3 == 9)
   {
-    v16 = a2[1];
-    if (v16 == -1)
+    v19 = a2[1];
+    if (v19 == -1)
     {
       v3 = 0;
     }
 
     else
     {
-      v3 = xmlXPathCompOpEval(a1, *(v12 + 8) + 56 * v16);
+      v3 = xmlXPathCompOpEval(a1, (*(v14 + 8) + 56 * v19));
     }
 
     if (*(a1 + 16))
@@ -8640,40 +9530,42 @@ LABEL_26:
       return 0;
     }
 
-    v23 = a2[2];
-    if (v23 != -1)
+    v26 = a2[2];
+    if (v26 != -1)
     {
-      v24 = xmlXPathCompOpEval(a1, *(v12 + 8) + 56 * v23);
+      v27 = xmlXPathCompOpEval(a1, (*(v14 + 8) + 56 * v26));
       if (*(a1 + 16))
       {
         return 0;
       }
 
-      v3 = (v24 + v3);
+      v3 = (v27 + v3);
     }
 
-    v25 = xmlXPathCacheNewNodeSet(*(a1 + 24), *(*(a1 + 24) + 8));
-    valuePush(a1, v25);
+    v28 = xmlXPathCacheNewNodeSet(*(a1 + 24), *(*(a1 + 24) + 8));
+    v8 = valuePush(a1, v28);
     goto LABEL_31;
   }
 
-  v13 = a2[1];
-  if (v13 == -1)
+  v15 = a2[1];
+  if (v15 == -1)
   {
 LABEL_30:
     v3 = 0;
     goto LABEL_31;
   }
 
-  v14 = xmlXPathCompOpEval(a1, *(v12 + 8) + 56 * v13);
+  v16 = xmlXPathCompOpEval(a1, (*(v14 + 8) + 56 * v15));
   if (*(a1 + 16))
   {
     return 0;
   }
 
-  v3 = xmlXPathNodeCollectAndTest(a1, a2, 0, a3, 0) + v14;
+  v17 = v16;
+  v8 = xmlXPathNodeCollectAndTest(a1, a2, 0, a3, 0);
+  v3 = (v8 + v17);
 LABEL_31:
-  if (linkedOnOrAfterFall2022OSVersions())
+  if (linkedOnOrAfterFall2022OSVersions(v8, v9))
   {
     --*(*(a1 + 24) + 368);
   }
@@ -8852,7 +9744,7 @@ LABEL_24:
 
 xmlXPathObjectPtr xmlXPtrNewRange(xmlNodePtr start, int startindex, xmlNodePtr end, int endindex)
 {
-  v8 = linkedOnOrAfterFall2022OSVersions();
+  v8 = linkedOnOrAfterFall2022OSVersions(start, *&startindex);
   v9 = 0;
   if (((endindex | startindex) & 0x80000000) == 0 && end && start && (v8 & 1) == 0)
   {
@@ -8935,7 +9827,7 @@ xmlNode *xmlXPtrRangeCheckOrder(xmlNode *result)
 
 xmlXPathObjectPtr xmlXPtrNewRangePoints(xmlXPathObjectPtr start, xmlXPathObjectPtr end)
 {
-  v4 = linkedOnOrAfterFall2022OSVersions();
+  v4 = linkedOnOrAfterFall2022OSVersions(start, end);
   v5 = 0;
   if (end && start && (v4 & 1) == 0)
   {
@@ -8956,7 +9848,7 @@ xmlXPathObjectPtr xmlXPtrNewRangePoints(xmlXPathObjectPtr start, xmlXPathObjectP
 
 xmlXPathObjectPtr xmlXPtrNewRangePointNode(xmlXPathObjectPtr start, xmlNodePtr end)
 {
-  v4 = linkedOnOrAfterFall2022OSVersions();
+  v4 = linkedOnOrAfterFall2022OSVersions(start, end);
   v5 = 0;
   if (end && start && (v4 & 1) == 0)
   {
@@ -8977,7 +9869,7 @@ xmlXPathObjectPtr xmlXPtrNewRangePointNode(xmlXPathObjectPtr start, xmlNodePtr e
 
 xmlXPathObjectPtr xmlXPtrNewRangeNodePoint(xmlNodePtr start, xmlXPathObjectPtr end)
 {
-  v4 = linkedOnOrAfterFall2022OSVersions();
+  v4 = linkedOnOrAfterFall2022OSVersions(start, end);
   v5 = 0;
   if (end && start && (v4 & 1) == 0)
   {
@@ -8998,7 +9890,7 @@ xmlXPathObjectPtr xmlXPtrNewRangeNodePoint(xmlNodePtr start, xmlXPathObjectPtr e
 
 xmlXPathObjectPtr xmlXPtrNewRangeNodes(xmlNodePtr start, xmlNodePtr end)
 {
-  v4 = linkedOnOrAfterFall2022OSVersions();
+  v4 = linkedOnOrAfterFall2022OSVersions(start, end);
   v5 = 0;
   if (end && start && (v4 & 1) == 0)
   {
@@ -9011,8 +9903,8 @@ xmlXPathObjectPtr xmlXPtrNewRangeNodes(xmlNodePtr start, xmlNodePtr end)
 
 xmlXPathObjectPtr xmlXPtrNewCollapsedRange(xmlNodePtr start)
 {
-  v2 = linkedOnOrAfterFall2022OSVersions();
-  if (!start || (v2 & 1) != 0)
+  v3 = linkedOnOrAfterFall2022OSVersions(start, v1);
+  if (!start || (v3 & 1) != 0)
   {
     return 0;
   }
@@ -9022,7 +9914,7 @@ xmlXPathObjectPtr xmlXPtrNewCollapsedRange(xmlNodePtr start)
 
 xmlXPathObjectPtr xmlXPtrNewRangeNodeObject(xmlNodePtr start, xmlXPathObjectPtr end)
 {
-  v4 = linkedOnOrAfterFall2022OSVersions();
+  v4 = linkedOnOrAfterFall2022OSVersions(start, end);
   v5 = 0;
   if (end && start && (v4 & 1) == 0)
   {
@@ -9070,51 +9962,51 @@ LABEL_12:
 
 xmlLocationSetPtr xmlXPtrLocationSetCreate(xmlXPathObjectPtr val)
 {
-  if (linkedOnOrAfterFall2022OSVersions())
+  if (linkedOnOrAfterFall2022OSVersions(val, v1))
   {
     return 0;
   }
 
-  v3 = malloc_type_malloc(0x10uLL, 0x108004057E67DB5uLL);
-  v2 = v3;
-  if (!v3)
+  v4 = malloc_type_malloc(0x10uLL, 0x108004057E67DB5uLL);
+  v3 = v4;
+  if (!v4)
   {
     xmlXPtrErrMemory("allocating locationset");
-    return v2;
+    return v3;
   }
 
-  *&v3->locNr = 0;
-  v3->locTab = 0;
+  *&v4->locNr = 0;
+  v4->locTab = 0;
   if (val)
   {
-    v4 = malloc_type_malloc(0x50uLL, 0x2004093837F09uLL);
-    v2->locTab = v4;
-    if (v4)
+    v5 = malloc_type_malloc(0x50uLL, 0x2004093837F09uLL);
+    v3->locTab = v5;
+    if (v5)
     {
-      *(v4 + 3) = 0u;
-      *(v4 + 4) = 0u;
-      *(v4 + 1) = 0u;
-      *(v4 + 2) = 0u;
-      *v4 = 0u;
-      locTab = v2->locTab;
-      locNr = v2->locNr;
-      v2->locNr = locNr + 1;
-      v2->locMax = 10;
+      *(v5 + 3) = 0u;
+      *(v5 + 4) = 0u;
+      *(v5 + 1) = 0u;
+      *(v5 + 2) = 0u;
+      *v5 = 0u;
+      locTab = v3->locTab;
+      locNr = v3->locNr;
+      v3->locNr = locNr + 1;
+      v3->locMax = 10;
       locTab[locNr] = val;
-      return v2;
+      return v3;
     }
 
     xmlXPtrErrMemory("allocating locationset");
-    free(v2);
+    free(v3);
     return 0;
   }
 
-  return v2;
+  return v3;
 }
 
 void xmlXPtrLocationSetAdd(xmlLocationSetPtr cur, xmlXPathObjectPtr val)
 {
-  if ((linkedOnOrAfterFall2022OSVersions() & 1) != 0 || !cur || !val)
+  if ((linkedOnOrAfterFall2022OSVersions(cur, val) & 1) != 0 || !cur || !val)
   {
     return;
   }
@@ -9197,7 +10089,7 @@ LABEL_27:
 
 xmlLocationSetPtr xmlXPtrLocationSetMerge(xmlLocationSetPtr val1, xmlLocationSetPtr val2)
 {
-  v4 = linkedOnOrAfterFall2022OSVersions();
+  v4 = linkedOnOrAfterFall2022OSVersions(val1, val2);
   result = 0;
   if (val1 && (v4 & 1) == 0)
   {
@@ -9220,7 +10112,7 @@ xmlLocationSetPtr xmlXPtrLocationSetMerge(xmlLocationSetPtr val1, xmlLocationSet
 
 void xmlXPtrLocationSetDel(xmlLocationSetPtr cur, xmlXPathObjectPtr val)
 {
-  v4 = linkedOnOrAfterFall2022OSVersions();
+  v4 = linkedOnOrAfterFall2022OSVersions(cur, val);
   if (val)
   {
     if (cur)
@@ -9263,7 +10155,7 @@ void xmlXPtrLocationSetDel(xmlLocationSetPtr cur, xmlXPathObjectPtr val)
 
 void xmlXPtrLocationSetRemove(xmlLocationSetPtr cur, int val)
 {
-  v4 = linkedOnOrAfterFall2022OSVersions();
+  v4 = linkedOnOrAfterFall2022OSVersions(cur, *&val);
   if (cur)
   {
     if ((v4 & 1) == 0)
@@ -9294,21 +10186,21 @@ void xmlXPtrLocationSetRemove(xmlLocationSetPtr cur, int val)
 
 void xmlXPtrFreeLocationSet(xmlLocationSetPtr obj)
 {
-  v2 = linkedOnOrAfterFall2022OSVersions();
-  if (obj && (v2 & 1) == 0)
+  v3 = linkedOnOrAfterFall2022OSVersions(obj, v1);
+  if (obj && (v3 & 1) == 0)
   {
     locTab = obj->locTab;
     if (locTab)
     {
       if (obj->locNr >= 1)
       {
-        v4 = 0;
+        v5 = 0;
         do
         {
-          xmlXPathFreeObject(obj->locTab[v4++]);
+          xmlXPathFreeObject(obj->locTab[v5++]);
         }
 
-        while (v4 < obj->locNr);
+        while (v5 < obj->locNr);
         locTab = obj->locTab;
       }
 
@@ -9321,7 +10213,7 @@ void xmlXPtrFreeLocationSet(xmlLocationSetPtr obj)
 
 xmlXPathObjectPtr xmlXPtrNewLocationSetNodes(xmlNodePtr start, xmlNodePtr end)
 {
-  if (linkedOnOrAfterFall2022OSVersions())
+  if (linkedOnOrAfterFall2022OSVersions(start, end))
   {
     return 0;
   }
@@ -9359,41 +10251,41 @@ xmlXPathObjectPtr xmlXPtrNewLocationSetNodes(xmlNodePtr start, xmlNodePtr end)
 
 xmlXPathObjectPtr xmlXPtrNewLocationSetNodeSet(xmlNodeSetPtr set)
 {
-  if (linkedOnOrAfterFall2022OSVersions())
+  if (linkedOnOrAfterFall2022OSVersions(set, v1))
   {
     return 0;
   }
 
-  v3 = malloc_type_malloc(0x48uLL, 0x10B004092205464uLL);
-  v2 = v3;
-  if (v3)
+  v4 = malloc_type_malloc(0x48uLL, 0x10B004092205464uLL);
+  v3 = v4;
+  if (v4)
   {
-    *(v3 + 17) = 0;
-    *(v3 + 52) = 0u;
-    *(v3 + 36) = 0u;
-    *(v3 + 20) = 0u;
-    *(v3 + 4) = 0u;
-    *v3 = 7;
+    *(v4 + 17) = 0;
+    *(v4 + 52) = 0u;
+    *(v4 + 36) = 0u;
+    *(v4 + 20) = 0u;
+    *(v4 + 4) = 0u;
+    *v4 = 7;
     if (set)
     {
-      v4 = xmlXPtrLocationSetCreate(0);
-      if (v4)
+      v5 = xmlXPtrLocationSetCreate(0);
+      if (v5)
       {
-        v5 = v4;
+        v6 = v5;
         if (set->nodeNr >= 1)
         {
-          v6 = 0;
+          v7 = 0;
           do
           {
-            v7 = xmlXPtrNewCollapsedRange(set->nodeTab[v6]);
-            xmlXPtrLocationSetAdd(v5, v7);
-            ++v6;
+            v8 = xmlXPtrNewCollapsedRange(set->nodeTab[v7]);
+            xmlXPtrLocationSetAdd(v6, v8);
+            ++v7;
           }
 
-          while (v6 < set->nodeNr);
+          while (v7 < set->nodeNr);
         }
 
-        v2->user = v5;
+        v3->user = v6;
       }
     }
   }
@@ -9403,12 +10295,12 @@ xmlXPathObjectPtr xmlXPtrNewLocationSetNodeSet(xmlNodeSetPtr set)
     xmlXPtrErrMemory("allocating locationset");
   }
 
-  return v2;
+  return v3;
 }
 
 xmlXPathObjectPtr xmlXPtrWrapLocationSet(xmlLocationSetPtr val)
 {
-  if ((linkedOnOrAfterFall2022OSVersions() & 1) == 0)
+  if ((linkedOnOrAfterFall2022OSVersions(val, v1) & 1) == 0)
   {
     result = malloc_type_malloc(0x48uLL, 0x10B004092205464uLL);
     if (result)
@@ -11079,7 +11971,7 @@ LABEL_105:
   return v4;
 }
 
-_DWORD *xmlXPtrErr(uint64_t a1, int a2, const char *a3, const xmlChar *a4)
+xmlError *xmlXPtrErr(uint64_t a1, int a2, const char *a3, const xmlChar *a4)
 {
   *(a1 + 16) = a2;
   v7 = *(a1 + 24);
@@ -11114,14 +12006,14 @@ _DWORD *xmlXPtrErr(uint64_t a1, int a2, const char *a3, const xmlChar *a4)
 
 xmlNodePtr xmlXPtrBuildNodeList(xmlXPathObjectPtr obj)
 {
-  v2 = linkedOnOrAfterFall2022OSVersions();
-  v3 = 0;
-  if (!obj || (v2 & 1) != 0)
+  v3 = linkedOnOrAfterFall2022OSVersions(obj, v1);
+  v4 = 0;
+  if (!obj || (v3 & 1) != 0)
   {
-    return v3;
+    return v4;
   }
 
-  v3 = 0;
+  v4 = 0;
   type = obj->type;
   if (obj->type <= XPATH_POINT)
   {
@@ -11129,53 +12021,53 @@ xmlNodePtr xmlXPtrBuildNodeList(xmlXPathObjectPtr obj)
     {
       if (type != XPATH_POINT)
       {
-        return v3;
+        return v4;
       }
 
       user = obj->user;
-      v6 = 0;
+      v7 = 0;
       goto LABEL_7;
     }
 
     nodesetval = obj->nodesetval;
     if (nodesetval && nodesetval->nodeNr >= 1)
     {
-      v15 = 0;
-      v3 = 0;
       v16 = 0;
+      v4 = 0;
+      v17 = 0;
       do
       {
-        v17 = nodesetval->nodeTab[v15];
-        if (v17)
+        v18 = nodesetval->nodeTab[v16];
+        if (v18)
         {
-          v18 = v17->type;
-          v19 = v18 > 0x12;
-          v20 = (1 << v18) & 0x7DC04;
-          if (v19 || v20 == 0)
+          v19 = v18->type;
+          v20 = v19 > 0x12;
+          v21 = (1 << v19) & 0x7DC04;
+          if (v20 || v21 == 0)
           {
-            v22 = xmlCopyNode(v17, 1);
-            if (v16)
+            v23 = xmlCopyNode(v18, 1);
+            if (v17)
             {
-              xmlAddNextSibling(v16, v22);
-              if (v16->next)
+              xmlAddNextSibling(v17, v23);
+              if (v17->next)
               {
-                v16 = v16->next;
+                v17 = v17->next;
               }
             }
 
             else
             {
-              v16 = v22;
-              v3 = v22;
+              v17 = v23;
+              v4 = v23;
             }
           }
         }
 
-        ++v15;
+        ++v16;
       }
 
-      while (v15 < nodesetval->nodeNr);
-      return v3;
+      while (v16 < nodesetval->nodeNr);
+      return v4;
     }
 
     return 0;
@@ -11185,58 +12077,58 @@ xmlNodePtr xmlXPtrBuildNodeList(xmlXPathObjectPtr obj)
   {
     if (type != XPATH_LOCATIONSET)
     {
-      return v3;
+      return v4;
     }
 
-    v8 = obj->user;
-    if (!v8 || *v8 < 1)
+    v9 = obj->user;
+    if (!v9 || *v9 < 1)
     {
       return 0;
     }
 
-    v9 = 0;
     v10 = 0;
     v11 = 0;
+    v12 = 0;
     while (1)
     {
-      v12 = xmlXPtrBuildNodeList(*(*(v8 + 1) + 8 * v9));
-      v3 = v12;
-      if (v11)
+      v13 = xmlXPtrBuildNodeList(*(*(v9 + 1) + 8 * v10));
+      v4 = v13;
+      if (v12)
       {
         break;
       }
 
-      v11 = v12;
-      if (v12)
+      v12 = v13;
+      if (v13)
       {
         goto LABEL_18;
       }
 
 LABEL_20:
-      ++v9;
-      v10 = v3;
-      if (v9 >= *v8)
+      ++v10;
+      v11 = v4;
+      if (v10 >= *v9)
       {
-        return v3;
+        return v4;
       }
     }
 
-    xmlAddNextSibling(v11, v12);
-    v3 = v10;
+    xmlAddNextSibling(v12, v13);
+    v4 = v11;
 LABEL_18:
-    v13 = v11;
+    v14 = v12;
     do
     {
-      v11 = v13;
-      v13 = v13->next;
+      v12 = v14;
+      v14 = v14->next;
     }
 
-    while (v13);
+    while (v14);
     goto LABEL_20;
   }
 
-  v23 = obj->user;
-  if (!v23 || v23[2] == 18)
+  v24 = obj->user;
+  if (!v24 || v24[2] == 18)
   {
     return 0;
   }
@@ -11245,10 +12137,10 @@ LABEL_18:
   if (!user2)
   {
     user = obj->user;
-    v6 = 1;
+    v7 = 1;
 LABEL_7:
 
-    return xmlCopyNode(user, v6);
+    return xmlCopyNode(user, v7);
   }
 
   if (*(user2 + 8) == 18)
@@ -11256,89 +12148,89 @@ LABEL_7:
     return 0;
   }
 
-  v25 = 0;
-  v3 = 0;
+  v26 = 0;
+  v4 = 0;
   index = obj->index;
   index2 = obj->index2;
   NthChild = obj->user;
   while (2)
   {
-    v28 = user2;
-    v29 = v25;
+    v29 = user2;
+    v30 = v26;
 LABEL_43:
-    v30 = 0;
-    while (NthChild != v28)
+    v31 = 0;
+    while (NthChild != v29)
     {
-      v31 = *(NthChild + 8);
-      if (NthChild == v23 && !v3)
+      v32 = *(NthChild + 8);
+      if (NthChild == v24 && !v4)
       {
-        if (v31 - 3 > 1)
+        if (v32 - 3 > 1)
         {
           if (index >= 2)
           {
-            v29 = xmlCopyNode(NthChild, 0);
+            v30 = xmlCopyNode(NthChild, 0);
             NthChild = xmlXPtrGetNthChild(NthChild, index - 1);
             index = 0;
-            v3 = v29;
+            v4 = v30;
             if (NthChild)
             {
               goto LABEL_43;
             }
 
-            return v3;
+            return v4;
           }
 
-          v34 = xmlCopyNode(NthChild, 1);
-          v3 = v34;
-          v29 = 0;
+          v35 = xmlCopyNode(NthChild, 1);
+          v4 = v35;
+          v30 = 0;
         }
 
         else
         {
-          v32 = *(NthChild + 80);
-          if (v32)
+          v33 = *(NthChild + 80);
+          if (v33)
           {
             if (index <= 1)
             {
-              v33 = *(NthChild + 80);
+              v34 = *(NthChild + 80);
             }
 
             else
             {
-              v33 = (v32 + index - 1);
+              v34 = (v33 + index - 1);
             }
 
-            v34 = xmlNewText(v33);
+            v35 = xmlNewText(v34);
           }
 
           else
           {
-            v34 = xmlNewTextLen(0, 0);
+            v35 = xmlNewTextLen(0, 0);
           }
 
-          v3 = v34;
+          v4 = v35;
         }
 
-        v30 = v34;
+        v31 = v35;
         goto LABEL_63;
       }
 
-      if (v31 <= 0x14)
+      if (v32 <= 0x14)
       {
-        if (((1 << v31) & 0x19C040) != 0)
+        if (((1 << v32) & 0x19C040) != 0)
         {
           goto LABEL_63;
         }
 
-        if (v31 == 2)
+        if (v32 == 2)
         {
-          v35 = *__xmlGenericError();
-          v36 = *__xmlGenericErrorContext();
-          v37 = "Internal error at %s:%d\n";
+          v36 = *__xmlGenericError();
+          v37 = *__xmlGenericErrorContext();
+          v38 = "Internal error at %s:%d\n";
 LABEL_68:
-          v35(v36, v37);
+          v36(v37, v38);
 LABEL_63:
-          if (!v3)
+          if (!v4)
           {
             goto LABEL_94;
           }
@@ -11346,43 +12238,43 @@ LABEL_63:
           goto LABEL_64;
         }
 
-        if (v31 == 17)
+        if (v32 == 17)
         {
-          v35 = *__xmlGenericError();
-          v36 = *__xmlGenericErrorContext();
-          v37 = "Unimplemented block at %s:%d\n";
+          v36 = *__xmlGenericError();
+          v37 = *__xmlGenericErrorContext();
+          v38 = "Unimplemented block at %s:%d\n";
           goto LABEL_68;
         }
       }
 
-      v38 = xmlCopyNode(NthChild, 1);
-      if (!v38)
+      v39 = xmlCopyNode(NthChild, 1);
+      if (!v39)
       {
         goto LABEL_63;
       }
 
-      if (!v3 || !(v30 | v29))
+      if (!v4 || !(v31 | v30))
       {
-        v43 = *__xmlGenericError();
-        v44 = *__xmlGenericErrorContext();
-        v43(v44, "Internal error at %s:%d\n", "/Library/Caches/com.apple.xbs/Sources/libxml2/libxml2/xpointer.c", 1654);
+        v44 = *__xmlGenericError();
+        v45 = *__xmlGenericErrorContext();
+        v44(v45, "Internal error at %s:%d\n", "/Library/Caches/com.apple.xbs/Sources/libxml2/libxml2/xpointer.c", 1654);
         return 0;
       }
 
-      if (v30)
+      if (v31)
       {
-        xmlAddNextSibling(v30, v38);
+        xmlAddNextSibling(v31, v39);
         goto LABEL_65;
       }
 
-      v30 = xmlAddChild(v29, v38);
+      v31 = xmlAddChild(v30, v39);
 LABEL_64:
-      if (!(v30 | v29))
+      if (!(v31 | v30))
       {
 LABEL_94:
-        v41 = *__xmlGenericError();
-        v42 = *__xmlGenericErrorContext();
-        v41(v42, "Internal error at %s:%d\n", "/Library/Caches/com.apple.xbs/Sources/libxml2/libxml2/xpointer.c", 1668);
+        v42 = *__xmlGenericError();
+        v43 = *__xmlGenericErrorContext();
+        v42(v43, "Internal error at %s:%d\n", "/Library/Caches/com.apple.xbs/Sources/libxml2/libxml2/xpointer.c", 1668);
         return 0;
       }
 
@@ -11390,86 +12282,86 @@ LABEL_65:
       NthChild = xmlXPtrAdvanceNode(NthChild, 0);
       if (!NthChild)
       {
-        return v3;
+        return v4;
       }
     }
 
     if (*(NthChild + 8) == 3)
     {
-      v45 = *(NthChild + 80);
-      if (v45)
+      v46 = *(NthChild + 80);
+      if (v46)
       {
-        v46 = index - 1;
-        v47 = index > 1;
-        v48 = v28 == v23;
-        v49 = !v48 || !v47;
-        if (v48 && v47)
+        v47 = index - 1;
+        v48 = index > 1;
+        v49 = v29 == v24;
+        v50 = !v49 || !v48;
+        if (v49 && v48)
         {
-          v50 = (index - 1);
+          v51 = (index - 1);
         }
 
         else
         {
-          v50 = 0;
+          v51 = 0;
         }
 
-        if (v49)
+        if (v50)
         {
-          v46 = 0;
+          v47 = 0;
         }
 
-        v51 = index2 - v46;
-        v52 = (v45 + v50);
+        v52 = index2 - v47;
+        v53 = (v46 + v51);
       }
 
       else
       {
+        v53 = 0;
         v52 = 0;
-        v51 = 0;
       }
 
-      v53 = xmlNewTextLen(v52, v51);
-      if (v3)
+      v54 = xmlNewTextLen(v53, v52);
+      if (v4)
       {
-        if (v30)
+        if (v31)
         {
-          xmlAddNextSibling(v30, v53);
+          xmlAddNextSibling(v31, v54);
         }
 
         else
         {
-          xmlAddChild(v29, v53);
+          xmlAddChild(v30, v54);
         }
       }
 
       else
       {
-        return v53;
+        return v54;
       }
     }
 
     else
     {
-      v39 = xmlCopyNode(NthChild, 0);
-      v25 = v39;
-      if (v3)
+      v40 = xmlCopyNode(NthChild, 0);
+      v26 = v40;
+      if (v4)
       {
-        if (v30)
+        if (v31)
         {
-          Sibling = xmlAddNextSibling(v30, v39);
+          Sibling = xmlAddNextSibling(v31, v40);
         }
 
         else
         {
-          Sibling = xmlAddChild(v29, v39);
+          Sibling = xmlAddChild(v30, v40);
         }
 
-        v25 = Sibling;
+        v26 = Sibling;
       }
 
       else
       {
-        v3 = v39;
+        v4 = v40;
       }
 
       if (index2 >= 2)
@@ -11480,10 +12372,10 @@ LABEL_65:
 
       else
       {
-        user2 = v28;
+        user2 = v29;
       }
 
-      if (v28 == v23 && index >= 2)
+      if (v29 == v24 && index >= 2)
       {
         NthChild = xmlXPtrGetNthChild(NthChild, index - 1);
         index = 0;
@@ -11500,13 +12392,13 @@ LABEL_65:
       }
     }
 
-    return v3;
+    return v4;
   }
 }
 
 void xmlXPtrRangeToFunction(xmlXPathParserContextPtr ctxt, int nargs)
 {
-  if ((linkedOnOrAfterFall2022OSVersions() & 1) == 0)
+  if ((linkedOnOrAfterFall2022OSVersions(ctxt, *&nargs) & 1) == 0)
   {
 
     xmlXPathErr(ctxt, 7);
@@ -11586,16 +12478,16 @@ LABEL_10:
 
 void xmlXPtrEvalRangePredicate(xmlXPathParserContextPtr ctxt)
 {
-  v2 = linkedOnOrAfterFall2022OSVersions();
-  if (!ctxt || (v2 & 1) != 0)
+  v3 = linkedOnOrAfterFall2022OSVersions(ctxt, v1);
+  if (!ctxt || (v3 & 1) != 0)
   {
     return;
   }
 
   for (i = ctxt->cur + 1; ; ++i)
   {
-    v4 = *(i - 1);
-    if (v4 > 0x20 || ((1 << v4) & 0x100002600) == 0)
+    v5 = *(i - 1);
+    if (v5 > 0x20 || ((1 << v5) & 0x100002600) == 0)
     {
       break;
     }
@@ -11603,46 +12495,46 @@ void xmlXPtrEvalRangePredicate(xmlXPathParserContextPtr ctxt)
     ctxt->cur = i;
   }
 
-  if (v4 != 91)
+  if (v5 != 91)
   {
 LABEL_42:
-    v26 = 6;
+    v27 = 6;
     goto LABEL_43;
   }
 
   do
   {
     ctxt->cur = i;
-    v6 = *i++;
-    v7 = (1 << v6) & 0x100002600;
+    v7 = *i++;
+    v8 = (1 << v7) & 0x100002600;
   }
 
-  while (v6 <= 0x20 && v7 != 0);
+  while (v7 <= 0x20 && v8 != 0);
   value = ctxt->value;
   if (!value || value->type != XPATH_LOCATIONSET)
   {
-    v26 = 11;
+    v27 = 11;
 LABEL_43:
 
-    xmlXPathErr(ctxt, v26);
+    xmlXPathErr(ctxt, v27);
     return;
   }
 
-  v10 = valuePop(ctxt);
-  user = v10->user;
+  v11 = valuePop(ctxt);
+  user = v11->user;
   context = ctxt->context;
   context->node = 0;
   if (!user || !*user)
   {
     *&context->contextSize = 0;
     xmlXPathEvalExpr(ctxt);
-    v27 = valuePop(ctxt);
-    if (v27)
+    v28 = valuePop(ctxt);
+    if (v28)
     {
-      xmlXPathFreeObject(v27);
+      xmlXPathFreeObject(v28);
     }
 
-    valuePush(ctxt, v10);
+    valuePush(ctxt, v11);
     if (ctxt->error)
     {
       return;
@@ -11652,75 +12544,75 @@ LABEL_43:
   }
 
   cur = ctxt->cur;
-  v14 = xmlXPtrLocationSetCreate(0);
+  v15 = xmlXPtrLocationSetCreate(0);
   if (*user < 1)
   {
 LABEL_29:
-    xmlXPathFreeObject(v10);
-    v24 = ctxt->context;
-    v24->node = 0;
-    *&v24->contextSize = -1;
-    v25 = xmlXPtrWrapLocationSet(v14);
-    valuePush(ctxt, v25);
+    xmlXPathFreeObject(v11);
+    v25 = ctxt->context;
+    v25->node = 0;
+    *&v25->contextSize = -1;
+    v26 = xmlXPtrWrapLocationSet(v15);
+    valuePush(ctxt, v26);
 LABEL_34:
     if (*ctxt->cur == 93)
     {
-      v28 = ctxt->cur + 1;
+      v29 = ctxt->cur + 1;
       do
       {
-        ctxt->cur = v28;
-        v29 = *v28++;
-        v30 = (1 << v29) & 0x100002600;
+        ctxt->cur = v29;
+        v30 = *v29++;
+        v31 = (1 << v30) & 0x100002600;
       }
 
-      while (v29 <= 0x20 && v30 != 0);
+      while (v30 <= 0x20 && v31 != 0);
       return;
     }
 
     goto LABEL_42;
   }
 
-  v15 = 0;
-  v16 = ctxt->context;
+  v16 = 0;
+  v17 = ctxt->context;
   while (1)
   {
     ctxt->cur = cur;
-    v17 = *(*(*(user + 1) + 8 * v15) + 40);
-    v16->node = v17;
-    v18 = xmlXPathNewNodeSet(v17);
-    valuePush(ctxt, v18);
-    v19 = ctxt->context;
-    v20 = v15 + 1;
-    v19->contextSize = *user;
-    v19->proximityPosition = v15 + 1;
+    v18 = *(*(*(user + 1) + 8 * v16) + 40);
+    v17->node = v18;
+    v19 = xmlXPathNewNodeSet(v18);
+    valuePush(ctxt, v19);
+    v20 = ctxt->context;
+    v21 = v16 + 1;
+    v20->contextSize = *user;
+    v20->proximityPosition = v16 + 1;
     xmlXPathEvalExpr(ctxt);
     if (ctxt->error)
     {
       break;
     }
 
-    v21 = valuePop(ctxt);
-    if (xmlXPathEvaluatePredicateResult(ctxt, v21))
+    v22 = valuePop(ctxt);
+    if (xmlXPathEvaluatePredicateResult(ctxt, v22))
     {
-      v22 = xmlXPathObjectCopy(*(*(user + 1) + 8 * v15));
-      xmlXPtrLocationSetAdd(v14, v22);
+      v23 = xmlXPathObjectCopy(*(*(user + 1) + 8 * v16));
+      xmlXPtrLocationSetAdd(v15, v23);
     }
 
-    if (v21)
+    if (v22)
     {
-      xmlXPathFreeObject(v21);
+      xmlXPathFreeObject(v22);
     }
 
-    if (ctxt->value == v18)
+    if (ctxt->value == v19)
     {
-      v23 = valuePop(ctxt);
-      xmlXPathFreeObject(v23);
+      v24 = valuePop(ctxt);
+      xmlXPathFreeObject(v24);
     }
 
-    v16 = ctxt->context;
-    v16->node = 0;
-    ++v15;
-    if (v20 >= *user)
+    v17 = ctxt->context;
+    v17->node = 0;
+    ++v16;
+    if (v21 >= *user)
     {
       goto LABEL_29;
     }
@@ -11805,7 +12697,7 @@ void xmlXPtrEvalChildSeq(xmlXPathParserContext *a1, xmlChar *val)
     }
 
     value = a1->value;
-    if (value && *value == 1)
+    if (value && value->type == XPATH_NODESET)
     {
       v19 = valuePop(a1);
       v20 = v19;
@@ -12047,9 +12939,8 @@ BOOL xmlDetectSAX2_cold_1(_DWORD *a1)
 
 void xmlBufferLength_cold_1(int a1)
 {
-  v3 = *MEMORY[0x1E69E9840];
-  v2[0] = 67240192;
-  v2[1] = a1;
-  _os_log_error_impl(&dword_1C78D9000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "xmlBufferLength() int overflow: %{public}u", v2, 8u);
-  v1 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
+  v1[0] = 67240192;
+  v1[1] = a1;
+  _os_log_error_impl(&dword_1C78D9000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "xmlBufferLength() int overflow: %{public}u", v1, 8u);
 }

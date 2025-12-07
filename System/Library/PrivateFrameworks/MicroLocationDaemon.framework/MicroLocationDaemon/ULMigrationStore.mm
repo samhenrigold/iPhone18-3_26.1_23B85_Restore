@@ -32,53 +32,51 @@
 
 - (BOOL)insertDataObjects:(const void *)objects
 {
-  v7[4] = *MEMORY[0x277D85DE8];
+  v6[4] = *MEMORY[0x277D85DE8];
   selfCopy = self;
-  v7[0] = &unk_286A56718;
-  v7[1] = &selfCopy;
-  v7[3] = v7;
-  inserted = ULDBUtils::insertDataObjects<ULMigrationDO,ULMigrationMO>(self, objects, v7);
-  std::__function::__value_func<ULMigrationMO * ()(ULMigrationDO const&)>::~__value_func[abi:ne200100](v7);
-  v4 = *MEMORY[0x277D85DE8];
+  v6[0] = &unk_286A56718;
+  v6[1] = &selfCopy;
+  v6[3] = v6;
+  inserted = ULDBUtils::insertDataObjects<ULMigrationDO,ULMigrationMO>(self, objects, v6);
+  std::__function::__value_func<ULMigrationMO * ()(ULMigrationDO const&)>::~__value_func[abi:ne200100](v6);
   return inserted;
 }
 
 - (vector<ULMigrationDO,)fetchMigrationEntriesWithStates:(ULMigrationStore *)self limit:(SEL)limit
 {
-  v22[1] = *MEMORY[0x277D85DE8];
+  v20[1] = *MEMORY[0x277D85DE8];
   retstr->var0 = 0;
   retstr->var1 = 0;
   retstr->var2 = 0;
-  v9 = objc_autoreleasePoolPush();
+  v8 = objc_autoreleasePoolPush();
   array = [MEMORY[0x277CBEB18] array];
   array2 = [MEMORY[0x277CBEB18] array];
-  v12 = *a4;
-  v13 = *(a4 + 1);
-  if (*a4 != v13)
+  v11 = *a4;
+  v12 = *(a4 + 1);
+  if (*a4 != v12)
   {
     do
     {
-      v14 = [MEMORY[0x277CCABB0] numberWithInt:*v12];
-      [array2 addObject:v14];
+      v13 = [MEMORY[0x277CCABB0] numberWithInt:*v11];
+      [array2 addObject:v13];
 
-      ++v12;
+      ++v11;
     }
 
-    while (v12 != v13);
+    while (v11 != v12);
   }
 
-  v15 = [MEMORY[0x277CCAC30] predicateWithFormat:@"%K IN %@", @"state", array2];
-  [array addObject:v15];
+  v14 = [MEMORY[0x277CCAC30] predicateWithFormat:@"%K IN %@", @"state", array2];
+  [array addObject:v14];
 
-  v16 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"timestamp" ascending:0];
-  v22[0] = v16;
-  v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:1];
-  [(ULMigrationStore *)self _fetchMigrationsByAndPredicates:array sortDescriptors:v17 andLimit:a5];
-  *&retstr->var0 = v20;
-  retstr->var2 = v21;
+  v15 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"timestamp" ascending:0];
+  v20[0] = v15;
+  v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:1];
+  objc_msgSend__fetchMigrationsByAndPredicates_sortDescriptors_andLimit_(self);
+  *&retstr->var0 = v18;
+  retstr->var2 = v19;
 
-  objc_autoreleasePoolPop(v9);
-  v19 = *MEMORY[0x277D85DE8];
+  objc_autoreleasePoolPop(v8);
   return result;
 }
 

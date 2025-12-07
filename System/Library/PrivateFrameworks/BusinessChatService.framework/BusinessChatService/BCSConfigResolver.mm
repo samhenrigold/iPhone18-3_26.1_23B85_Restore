@@ -35,7 +35,7 @@
 - (void)configItemWithType:(int64_t)type clientBundleID:(id)d cacheOnly:(BOOL)only metric:(id)metric completion:(id)completion
 {
   onlyCopy = only;
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   metricCopy = metric;
   completionCopy = completion;
   if (completionCopy)
@@ -53,10 +53,10 @@
 
     else
     {
-      v27 = [0 shouldSkipCacheForConfigItemOfType:type];
+      v26 = [0 shouldSkipCacheForConfigItemOfType:type];
       configCache = 0;
       v13 = 0;
-      if (v27)
+      if (v26)
       {
 LABEL_7:
         if ([v13 isExpired])
@@ -66,9 +66,9 @@ LABEL_7:
           {
             v16 = NSStringFromBCSType(type);
             *buf = 136315394;
-            v33 = "[BCSConfigResolver configItemWithType:clientBundleID:cacheOnly:metric:completion:]";
-            v34 = 2112;
-            v35 = v16;
+            v32 = "[BCSConfigResolver configItemWithType:clientBundleID:cacheOnly:metric:completion:]";
+            v33 = 2112;
+            v34 = v16;
             _os_log_impl(&dword_242072000, v15, OS_LOG_TYPE_DEFAULT, "%s cached config item found but expired - type: %@ --> still using it but will download megashard in background with new config for later use", buf, 0x16u);
           }
 
@@ -126,11 +126,11 @@ LABEL_7:
             v23 = ABSLogCommon();
             if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
             {
-              v26 = NSStringFromBCSType(type);
+              v25 = NSStringFromBCSType(type);
               *buf = 136315394;
-              v33 = "[BCSConfigResolver configItemWithType:clientBundleID:cacheOnly:metric:completion:]";
-              v34 = 2112;
-              v35 = v26;
+              v32 = "[BCSConfigResolver configItemWithType:clientBundleID:cacheOnly:metric:completion:]";
+              v33 = 2112;
+              v34 = v25;
               _os_log_error_impl(&dword_242072000, v23, OS_LOG_TYPE_ERROR, "%s config missing!!! - type: %@ --> blocking to download megashard from server", buf, 0x16u);
             }
 
@@ -144,14 +144,14 @@ LABEL_7:
               megashardFetchTrigger = 0;
             }
 
-            v28[0] = MEMORY[0x277D85DD0];
-            v28[1] = 3221225472;
-            v28[2] = __83__BCSConfigResolver_configItemWithType_clientBundleID_cacheOnly_metric_completion___block_invoke_4;
-            v28[3] = &unk_278D38790;
+            v27[0] = MEMORY[0x277D85DD0];
+            v27[1] = 3221225472;
+            v27[2] = __83__BCSConfigResolver_configItemWithType_clientBundleID_cacheOnly_metric_completion___block_invoke_4;
+            v27[3] = &unk_278D38790;
             typeCopy = type;
-            v28[4] = self;
-            v29 = completionCopy;
-            [(BCSFetchTrigger *)megashardFetchTrigger triggerFetchForReason:5 completion:v28];
+            v27[4] = self;
+            v28 = completionCopy;
+            [(BCSFetchTrigger *)megashardFetchTrigger triggerFetchForReason:5 completion:v27];
 
             goto LABEL_26;
           }
@@ -169,8 +169,6 @@ LABEL_26:
   }
 
 LABEL_27:
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __83__BCSConfigResolver_configItemWithType_clientBundleID_cacheOnly_metric_completion___block_invoke(uint64_t a1)
@@ -191,26 +189,24 @@ uint64_t __83__BCSConfigResolver_configItemWithType_clientBundleID_cacheOnly_met
 
 void __83__BCSConfigResolver_configItemWithType_clientBundleID_cacheOnly_metric_completion___block_invoke_2(uint64_t a1, int a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v4 = ABSLogCommon();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = NSStringFromBCSType(*(a1 + 32));
-    v7 = 136315650;
-    v8 = "[BCSConfigResolver configItemWithType:clientBundleID:cacheOnly:metric:completion:]_block_invoke_2";
-    v9 = 2112;
-    v10 = v5;
-    v11 = 1024;
-    v12 = a2;
-    _os_log_impl(&dword_242072000, v4, OS_LOG_TYPE_DEFAULT, "%s - Result of fetching megashards of type %@: %d", &v7, 0x1Cu);
+    v6 = 136315650;
+    v7 = "[BCSConfigResolver configItemWithType:clientBundleID:cacheOnly:metric:completion:]_block_invoke_2";
+    v8 = 2112;
+    v9 = v5;
+    v10 = 1024;
+    v11 = a2;
+    _os_log_impl(&dword_242072000, v4, OS_LOG_TYPE_DEFAULT, "%s - Result of fetching megashards of type %@: %d", &v6, 0x1Cu);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __83__BCSConfigResolver_configItemWithType_clientBundleID_cacheOnly_metric_completion___block_invoke_4(void *a1, int a2, void *a3)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = ABSLogCommon();
   v7 = v6;
@@ -223,11 +219,11 @@ void __83__BCSConfigResolver_configItemWithType_clientBundleID_cacheOnly_metric_
 
     v13 = NSStringFromBCSType(a1[6]);
     *buf = 136315650;
-    v22 = "[BCSConfigResolver configItemWithType:clientBundleID:cacheOnly:metric:completion:]_block_invoke";
-    v23 = 2112;
-    v24 = v13;
-    v25 = 2112;
-    v26 = v5;
+    v21 = "[BCSConfigResolver configItemWithType:clientBundleID:cacheOnly:metric:completion:]_block_invoke";
+    v22 = 2112;
+    v23 = v13;
+    v24 = 2112;
+    v25 = v5;
     v14 = "%s - Failed to fetch Config and Megashard of type %@ - Error: %@";
     v15 = v7;
     v16 = 32;
@@ -241,9 +237,9 @@ LABEL_16:
   {
     v8 = NSStringFromBCSType(a1[6]);
     *buf = 136315394;
-    v22 = "[BCSConfigResolver configItemWithType:clientBundleID:cacheOnly:metric:completion:]_block_invoke";
-    v23 = 2112;
-    v24 = v8;
+    v21 = "[BCSConfigResolver configItemWithType:clientBundleID:cacheOnly:metric:completion:]_block_invoke";
+    v22 = 2112;
+    v23 = v8;
     _os_log_impl(&dword_242072000, v7, OS_LOG_TYPE_DEFAULT, "%s - Successfully fetched megashards of type %@", buf, 0x16u);
   }
 
@@ -270,9 +266,9 @@ LABEL_16:
   {
     v13 = NSStringFromBCSType(a1[6]);
     *buf = 136315394;
-    v22 = "[BCSConfigResolver configItemWithType:clientBundleID:cacheOnly:metric:completion:]_block_invoke";
-    v23 = 2112;
-    v24 = v13;
+    v21 = "[BCSConfigResolver configItemWithType:clientBundleID:cacheOnly:metric:completion:]_block_invoke";
+    v22 = 2112;
+    v23 = v13;
     v14 = "%s - Successfully fetched megashard of type %@ but did not find config in cache";
     v15 = v7;
     v16 = 22;
@@ -292,8 +288,6 @@ LABEL_11:
   v12 = 0;
 LABEL_14:
   (*(a1[5] + 16))();
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 @end

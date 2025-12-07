@@ -222,14 +222,14 @@ id __42__SBNoticePresentableElement_trailingView__block_invoke(uint64_t a1)
     v9 = v5;
     v10 = v6;
     v11 = v7;
-    [(UIView *)self->_leadingView frame];
+    objc_msgSend_frame(self->_leadingView);
     UIRectCenteredYInRectScale();
     v13 = v12;
     v15 = v14;
     v17 = v16;
     v19 = v18;
     [(UIView *)self->_leadingView setFrame:0];
-    [(UIView *)self->_trailingView frame];
+    objc_msgSend_frame(self->_trailingView);
     UIRectCenteredYInRectScale();
     [(UIView *)self->_trailingView setFrame:0];
     v29[0] = MEMORY[0x277D85DD0];

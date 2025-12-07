@@ -52,7 +52,7 @@
 
 - (void)_teardown
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   if (qword_1EAFE27A0 != -1)
   {
     dispatch_once(&qword_1EAFE27A0, &unk_1F0E3A9E0);
@@ -74,11 +74,13 @@
       dispatch_once(&qword_1EAFE27A0, &unk_1F0E3A9E0);
     }
 
-    v7 = _os_log_send_and_compose_impl();
+    v10[0] = 0;
+    _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, qword_1EAFE27D8, 1, "Tearing down CMMotionAlarmManagerInternal", v10, 2);
+    v8 = v7;
     sub_19B6BB7CC("Generic", 1, 0, 2, "[CMMotionAlarmManagerInternal _teardown]", "CoreLocation: %s\n", v7);
-    if (v7 != buf)
+    if (v8 != buf)
     {
-      free(v7);
+      free(v8);
     }
   }
 
@@ -86,14 +88,13 @@
   dispatch_release(self->fInternalQueue);
   if (self->fLocationdConnection)
   {
-    v8 = MEMORY[0x19EAE71C0]();
-    MEMORY[0x19EAE76F0](v8, 0xB0C40BC2CC919);
+    v9 = MEMORY[0x19EAE71C0]();
+    MEMORY[0x19EAE76F0](v9, 0xB0C40BC2CC919);
   }
 
   self->fLocationdConnection = 0;
 
   self->fAlarms = 0;
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_startListeners
@@ -120,7 +121,7 @@
 
 - (BOOL)_registerAlarm:(id)alarm error:(id *)error
 {
-  v46 = *MEMORY[0x1E69E9840];
+  v48 = *MEMORY[0x1E69E9840];
   objc_sync_enter(self);
   if (objc_msgSend_manager(alarm, v7, v8) && (v11 = objc_msgSend_manager(alarm, v9, v10), objc_msgSend_delegate(v11, v12, v13)))
   {
@@ -129,9 +130,9 @@
       fAlarms = self->fAlarms;
       v19 = objc_msgSend_name(alarm, v16, v17);
       objc_msgSend_setObject_forKey_(fAlarms, v20, alarm, v19);
-      v39 = @"CMMotionAlarmKey";
+      v41 = @"CMMotionAlarmKey";
       alarmCopy = alarm;
-      objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v21, &alarmCopy, &v39, 1);
+      v40 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v21, &alarmCopy, &v41, 1);
       sub_19B5D379C();
     }
 
@@ -140,15 +141,15 @@
       dispatch_once(&qword_1EAFE27A0, &unk_1F0E3A9E0);
     }
 
-    v30 = qword_1EAFE27D8;
+    v31 = qword_1EAFE27D8;
     if (os_log_type_enabled(qword_1EAFE27D8, OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
-      _os_log_impl(&dword_19B41C000, v30, OS_LOG_TYPE_ERROR, "Unable to register motion alarm. Invalid alarm object.", buf, 2u);
+      _os_log_impl(&dword_19B41C000, v31, OS_LOG_TYPE_ERROR, "Unable to register motion alarm. Invalid alarm object.", buf, 2u);
     }
 
-    v31 = sub_19B420058();
-    if ((*(v31 + 160) & 0x80000000) == 0 || (*(v31 + 164) & 0x80000000) == 0 || (*(v31 + 168) & 0x80000000) == 0 || *(v31 + 152))
+    v32 = sub_19B420058();
+    if ((*(v32 + 160) & 0x80000000) == 0 || (*(v32 + 164) & 0x80000000) == 0 || (*(v32 + 168) & 0x80000000) == 0 || *(v32 + 152))
     {
       bzero(buf, 0x65CuLL);
       if (qword_1EAFE27A0 != -1)
@@ -156,21 +157,23 @@
         dispatch_once(&qword_1EAFE27A0, &unk_1F0E3A9E0);
       }
 
-      v33 = _os_log_send_and_compose_impl();
-      sub_19B6BB7CC("Generic", 1, 0, 0, "[CMMotionAlarmManagerInternal _registerAlarm:error:]", "CoreLocation: %s\n", v33);
-      if (v33 != buf)
+      LOWORD(v40) = 0;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, qword_1EAFE27D8, 16, "Unable to register motion alarm. Invalid alarm object.", &v40, 2);
+      v35 = v34;
+      sub_19B6BB7CC("Generic", 1, 0, 0, "[CMMotionAlarmManagerInternal _registerAlarm:error:]", "CoreLocation: %s\n", v34);
+      if (v35 != buf)
       {
-        free(v33);
+        free(v35);
       }
     }
 
     if (error)
     {
-      v34 = MEMORY[0x1E696ABC0];
-      v41 = *MEMORY[0x1E696A578];
-      v42 = @"Invalid alarm object";
-      v35 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v32, &v42, &v41, 1);
-      v29 = objc_msgSend_errorWithDomain_code_userInfo_(v34, v36, @"CMErrorDomain", 107, v35);
+      v36 = MEMORY[0x1E696ABC0];
+      v43 = *MEMORY[0x1E696A578];
+      v44 = @"Invalid alarm object";
+      v37 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v33, &v44, &v43, 1);
+      v30 = objc_msgSend_errorWithDomain_code_userInfo_(v36, v38, @"CMErrorDomain", 107, v37);
       goto LABEL_32;
     }
   }
@@ -198,42 +201,43 @@
         dispatch_once(&qword_1EAFE27A0, &unk_1F0E3A9E0);
       }
 
-      v25 = _os_log_send_and_compose_impl();
+      LOWORD(v40) = 0;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, qword_1EAFE27D8, 16, "Unable to register motion alarm. No delegate assigned.", &v40, 2);
+      v26 = v25;
       sub_19B6BB7CC("Generic", 1, 0, 0, "[CMMotionAlarmManagerInternal _registerAlarm:error:]", "CoreLocation: %s\n", v25);
-      if (v25 != buf)
+      if (v26 != buf)
       {
-        free(v25);
+        free(v26);
       }
     }
 
     if (error)
     {
-      v26 = MEMORY[0x1E696ABC0];
-      v43 = *MEMORY[0x1E696A578];
-      v44 = @"Missing alarm manager and/or delegate";
-      v27 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v24, &v44, &v43, 1);
-      v29 = objc_msgSend_errorWithDomain_code_userInfo_(v26, v28, @"CMErrorDomain", 103, v27);
+      v27 = MEMORY[0x1E696ABC0];
+      v45 = *MEMORY[0x1E696A578];
+      v46 = @"Missing alarm manager and/or delegate";
+      v28 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v24, &v46, &v45, 1);
+      v30 = objc_msgSend_errorWithDomain_code_userInfo_(v27, v29, @"CMErrorDomain", 103, v28);
 LABEL_32:
-      *error = v29;
+      *error = v30;
     }
   }
 
   objc_sync_exit(self);
-  v37 = *MEMORY[0x1E69E9840];
   return 0;
 }
 
 - (BOOL)_unregisterAlarm:(id)alarm error:(id *)error
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   objc_sync_enter(self);
   if (objc_msgSend_manager(alarm, v7, v8) && (v11 = objc_msgSend_manager(alarm, v9, v10), objc_msgSend_delegate(v11, v12, v13)))
   {
     if (alarm && objc_msgSend_name(alarm, v14, v15))
     {
-      v28 = @"CMMotionAlarmKey";
+      v30 = @"CMMotionAlarmKey";
       alarmCopy = alarm;
-      objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v16, &alarmCopy, &v28, 1);
+      location = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v16, &alarmCopy, &v30, 1);
       sub_19B67D694();
     }
 
@@ -242,15 +246,15 @@ LABEL_32:
       dispatch_once(&qword_1EAFE27A0, &unk_1F0E3A9E0);
     }
 
-    v22 = qword_1EAFE27D8;
+    v23 = qword_1EAFE27D8;
     if (os_log_type_enabled(qword_1EAFE27D8, OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
-      _os_log_impl(&dword_19B41C000, v22, OS_LOG_TYPE_ERROR, "Unable to unregister motion alarm. Invalid alarm object.", buf, 2u);
+      _os_log_impl(&dword_19B41C000, v23, OS_LOG_TYPE_ERROR, "Unable to unregister motion alarm. Invalid alarm object.", buf, 2u);
     }
 
-    v23 = sub_19B420058();
-    if ((*(v23 + 160) & 0x80000000) == 0 || (*(v23 + 164) & 0x80000000) == 0 || (*(v23 + 168) & 0x80000000) == 0 || *(v23 + 152))
+    v24 = sub_19B420058();
+    if ((*(v24 + 160) & 0x80000000) == 0 || (*(v24 + 164) & 0x80000000) == 0 || (*(v24 + 168) & 0x80000000) == 0 || *(v24 + 152))
     {
       bzero(buf, 0x65CuLL);
       if (qword_1EAFE27A0 != -1)
@@ -258,17 +262,19 @@ LABEL_32:
         dispatch_once(&qword_1EAFE27A0, &unk_1F0E3A9E0);
       }
 
-      v25 = _os_log_send_and_compose_impl();
-      sub_19B6BB7CC("Generic", 1, 0, 0, "[CMMotionAlarmManagerInternal _unregisterAlarm:error:]", "CoreLocation: %s\n", v25);
-      if (v25 != buf)
+      LOWORD(location) = 0;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, qword_1EAFE27D8, 16, "Unable to unregister motion alarm. Invalid alarm object.", &location, 2);
+      v27 = v26;
+      sub_19B6BB7CC("Generic", 1, 0, 0, "[CMMotionAlarmManagerInternal _unregisterAlarm:error:]", "CoreLocation: %s\n", v26);
+      if (v27 != buf)
       {
-        free(v25);
+        free(v27);
       }
     }
 
     if (error)
     {
-      v21 = objc_msgSend_errorWithDomain_code_userInfo_(MEMORY[0x1E696ABC0], v24, @"CMErrorDomain", 107, 0);
+      v22 = objc_msgSend_errorWithDomain_code_userInfo_(MEMORY[0x1E696ABC0], v25, @"CMErrorDomain", 107, 0);
       goto LABEL_32;
     }
   }
@@ -296,24 +302,25 @@ LABEL_32:
         dispatch_once(&qword_1EAFE27A0, &unk_1F0E3A9E0);
       }
 
-      v20 = _os_log_send_and_compose_impl();
+      LOWORD(location) = 0;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, qword_1EAFE27D8, 16, "Unable to unregister motion alarm. No delegate assigned.", &location, 2);
+      v21 = v20;
       sub_19B6BB7CC("Generic", 1, 0, 0, "[CMMotionAlarmManagerInternal _unregisterAlarm:error:]", "CoreLocation: %s\n", v20);
-      if (v20 != buf)
+      if (v21 != buf)
       {
-        free(v20);
+        free(v21);
       }
     }
 
     if (error)
     {
-      v21 = objc_msgSend_errorWithDomain_code_userInfo_(MEMORY[0x1E696ABC0], v19, @"CMErrorDomain", 103, 0);
+      v22 = objc_msgSend_errorWithDomain_code_userInfo_(MEMORY[0x1E696ABC0], v19, @"CMErrorDomain", 103, 0);
 LABEL_32:
-      *error = v21;
+      *error = v22;
     }
   }
 
   objc_sync_exit(self);
-  v26 = *MEMORY[0x1E69E9840];
   return 0;
 }
 
@@ -353,11 +360,12 @@ LABEL_32:
     }
 
     LOWORD(location) = 0;
-    v13 = _os_log_send_and_compose_impl();
+    _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, qword_1EAFE27D8, 16, "Unable to acknowledge alarm, alarm does not exist.", &location, 2);
+    v14 = v13;
     sub_19B6BB7CC("Generic", 1, 0, 0, "[CMMotionAlarmManagerInternal _acknowledgeAlarm:error:]", "CoreLocation: %s\n", v13);
-    if (v13 != buf)
+    if (v14 != buf)
     {
-      free(v13);
+      free(v14);
     }
   }
 
@@ -367,13 +375,12 @@ LABEL_32:
   }
 
   objc_sync_exit(self);
-  v14 = *MEMORY[0x1E69E9840];
   return 0;
 }
 
 - (void)_handleAlarmFire:(id)fire
 {
-  v42 = *MEMORY[0x1E69E9840];
+  v44 = *MEMORY[0x1E69E9840];
   v5 = objc_msgSend_objectForKeyedSubscript_(fire, a2, @"CMMotionAlarmKey");
   if (v5 && (v8 = v5, objc_msgSend_name(v5, v6, v7)))
   {
@@ -388,13 +395,13 @@ LABEL_32:
       v20 = objc_msgSend_objectForKeyedSubscript_(fire, v19, @"CMErrorMessage");
       if (objc_msgSend_intValue(v20, v21, v22) == 100)
       {
-        v36[0] = MEMORY[0x1E69E9820];
-        v36[1] = 3221225472;
-        v36[2] = sub_19B67D210;
-        v36[3] = &unk_1E7532988;
-        v36[4] = v17;
+        v38[0] = MEMORY[0x1E69E9820];
+        v38[1] = 3221225472;
+        v38[2] = sub_19B67D210;
+        v38[3] = &unk_1E7532988;
+        v38[4] = v17;
         v23 = MEMORY[0x1E69E96A0];
-        v24 = v36;
+        v24 = v38;
       }
 
       else
@@ -419,16 +426,16 @@ LABEL_32:
         dispatch_once(&qword_1EAFE27A0, &unk_1F0E3A9E0);
       }
 
-      v28 = qword_1EAFE27D8;
+      v29 = qword_1EAFE27D8;
       if (os_log_type_enabled(qword_1EAFE27D8, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v41 = objc_msgSend_name(v8, v29, v30);
-        _os_log_impl(&dword_19B41C000, v28, OS_LOG_TYPE_ERROR, "Unable to fire motion alarm %@. Could not locate valid alarm to fire.", buf, 0xCu);
+        v43 = objc_msgSend_name(v8, v30, v31);
+        _os_log_impl(&dword_19B41C000, v29, OS_LOG_TYPE_ERROR, "Unable to fire motion alarm %@. Could not locate valid alarm to fire.", buf, 0xCu);
       }
 
-      v31 = sub_19B420058();
-      if ((*(v31 + 160) & 0x80000000) == 0 || (*(v31 + 164) & 0x80000000) == 0 || (*(v31 + 168) & 0x80000000) == 0 || *(v31 + 152))
+      v32 = sub_19B420058();
+      if ((*(v32 + 160) & 0x80000000) == 0 || (*(v32 + 164) & 0x80000000) == 0 || (*(v32 + 168) & 0x80000000) == 0 || *(v32 + 152))
       {
         bzero(buf, 0x65CuLL);
         if (qword_1EAFE27A0 != -1)
@@ -436,13 +443,15 @@ LABEL_32:
           dispatch_once(&qword_1EAFE27A0, &unk_1F0E3A9E0);
         }
 
-        v38 = 138412290;
-        v39 = objc_msgSend_name(v8, v32, v33);
-        v34 = _os_log_send_and_compose_impl();
-        sub_19B6BB7CC("Generic", 1, 0, 0, "[CMMotionAlarmManagerInternal _handleAlarmFire:]", "CoreLocation: %s\n", v34);
-        if (v34 != buf)
+        v35 = qword_1EAFE27D8;
+        v40 = 138412290;
+        v41 = objc_msgSend_name(v8, v33, v34);
+        _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, v35, 16, "Unable to fire motion alarm %@. Could not locate valid alarm to fire.", &v40, 12);
+        v37 = v36;
+        sub_19B6BB7CC("Generic", 1, 0, 0, "[CMMotionAlarmManagerInternal _handleAlarmFire:]", "CoreLocation: %s\n", v36);
+        if (v37 != buf)
         {
-          free(v34);
+          free(v37);
         }
       }
     }
@@ -473,17 +482,16 @@ LABEL_32:
         dispatch_once(&qword_1EAFE27A0, &unk_1F0E3A9E0);
       }
 
-      LOWORD(v38) = 0;
-      v27 = _os_log_send_and_compose_impl();
+      LOWORD(v40) = 0;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, qword_1EAFE27D8, 16, "Unable to fire motion alarm. Received invalid message response.", &v40, 2);
+      v28 = v27;
       sub_19B6BB7CC("Generic", 1, 0, 0, "[CMMotionAlarmManagerInternal _handleAlarmFire:]", "CoreLocation: %s\n", v27);
-      if (v27 != buf)
+      if (v28 != buf)
       {
-        free(v27);
+        free(v28);
       }
     }
   }
-
-  v35 = *MEMORY[0x1E69E9840];
 }
 
 @end

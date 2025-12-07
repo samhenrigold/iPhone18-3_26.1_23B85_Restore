@@ -663,7 +663,7 @@ LABEL_19:
   {
     if (!CGPathIsEmpty(Mutable))
     {
-      [(AKTSDShape *)v27 setHeadLineEnd:0];
+      objc_msgSend_setHeadLineEnd_(v27);
       [AKTSDLineEnd lineEndWithType:0];
       v43 = v26;
       v29 = v28 = v25;
@@ -681,7 +681,7 @@ LABEL_19:
       [AKTSDLineEnd lineEndWithType:0];
       v44 = v26;
       v39 = v38 = v25;
-      [(AKTSDShape *)v27 setHeadLineEnd:v39];
+      objc_msgSend_setHeadLineEnd_(v27);
 
       v25 = v38;
       v26 = v44;
@@ -694,13 +694,13 @@ LABEL_19:
     v42 = v25;
     if (CGPathIsEmpty(v20))
     {
-      [(AKTSDShape *)v27 setHeadLineEnd:0];
+      objc_msgSend_setHeadLineEnd_(v27);
     }
 
     else
     {
       v40 = [AKTSDLineEnd lineEndWithType:0];
-      [(AKTSDShape *)v27 setHeadLineEnd:v40];
+      objc_msgSend_setHeadLineEnd_(v27);
     }
 
     if (CGPathIsEmpty(Mutable))

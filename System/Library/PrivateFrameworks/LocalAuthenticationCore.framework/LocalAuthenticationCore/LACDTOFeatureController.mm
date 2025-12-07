@@ -208,83 +208,81 @@ void __73__LACDTOFeatureController_checkIsFeatureStrictModeEnabledWithCompletion
   v5 = a2;
   v6 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
+  v8 = WeakRetained;
   if (WeakRetained)
   {
-    v8 = LACLogDTOFeature();
-    v9 = v8;
+    v9 = LACLogDTOFeature(WeakRetained);
+    v10 = v9;
     if (v6)
     {
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
         __73__LACDTOFeatureController_checkIsFeatureStrictModeEnabledWithCompletion___block_invoke_cold_1();
       }
 
-      v10 = *(*(a1 + 32) + 16);
+      v11 = *(*(a1 + 32) + 16);
     }
 
     else
     {
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
-        v11 = [v5 BOOLValue];
-        v12 = "NO";
-        if (v11)
+        v12 = [v5 BOOLValue];
+        v13 = "NO";
+        if (v12)
         {
-          v12 = "YES";
+          v13 = "YES";
         }
 
         v15 = 136315138;
-        v16 = v12;
-        _os_log_impl(&dword_1B0233000, v9, OS_LOG_TYPE_DEFAULT, "isFeatureStrictModeEnabled: %s", &v15, 0xCu);
+        v16 = v13;
+        _os_log_impl(&dword_1B0233000, v10, OS_LOG_TYPE_DEFAULT, "isFeatureStrictModeEnabled: %s", &v15, 0xCu);
       }
 
-      v13 = *(a1 + 32);
+      v14 = *(a1 + 32);
       [v5 BOOLValue];
-      v10 = *(v13 + 16);
+      v11 = *(v14 + 16);
     }
 
-    v10();
+    v11();
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)checkIsFeatureSupportedWithCompletion:(id)completion
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   workQueue = self->_workQueue;
   completionCopy = completion;
   dispatch_assert_queue_V2(workQueue);
-  if ([(LACDTOFeatureRequirementsDataSource *)self->_requirementsDataSource isPhone])
+  isPhone = [(LACDTOFeatureRequirementsDataSource *)self->_requirementsDataSource isPhone];
+  if (isPhone)
   {
-    v6 = LACLogDTOFeature();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = LACLogDTOFeature(isPhone);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v11) = 0;
-      _os_log_impl(&dword_1B0233000, v6, OS_LOG_TYPE_DEFAULT, "isFeatureSupported: YES", &v11, 2u);
+      LOWORD(v12) = 0;
+      _os_log_impl(&dword_1B0233000, v7, OS_LOG_TYPE_DEFAULT, "isFeatureSupported: YES", &v12, 2u);
     }
 
     completionCopy[2](completionCopy, 1, 0);
-    v7 = completionCopy;
+    v8 = completionCopy;
   }
 
   else
   {
-    v8 = +[LACLocalization dtoErrorDeviceTypeNotSupported];
-    v7 = [LACError errorWithCode:-1027 localizedDescription:v8];
+    v9 = +[LACLocalization dtoErrorDeviceTypeNotSupported];
+    v8 = [LACError errorWithCode:-1027 localizedDescription:v9];
 
-    v9 = LACLogDTOFeature();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v11 = LACLogDTOFeature(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = 138543362;
-      v12 = v7;
-      _os_log_impl(&dword_1B0233000, v9, OS_LOG_TYPE_DEFAULT, "isFeatureSupported: NO (%{public}@)", &v11, 0xCu);
+      v12 = 138543362;
+      v13 = v8;
+      _os_log_impl(&dword_1B0233000, v11, OS_LOG_TYPE_DEFAULT, "isFeatureSupported: NO (%{public}@)", &v12, 0xCu);
     }
 
-    (completionCopy)[2](completionCopy, 0, v7);
+    (completionCopy)[2](completionCopy, 0, v8);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)checkIsFeatureAvailableWithCompletion:(id)completion
@@ -307,7 +305,7 @@ void __73__LACDTOFeatureController_checkIsFeatureStrictModeEnabledWithCompletion
 
 void __65__LACDTOFeatureController_checkIsFeatureAvailableWithCompletion___block_invoke(uint64_t a1, char a2, void *a3)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v5 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v7 = WeakRetained;
@@ -315,54 +313,53 @@ void __65__LACDTOFeatureController_checkIsFeatureAvailableWithCompletion___block
   {
     if (v5 || (a2 & 1) == 0)
     {
-      v9 = *(*(a1 + 32) + 16);
+      v10 = *(*(a1 + 32) + 16);
 LABEL_10:
-      v9();
+      v10();
       goto LABEL_15;
     }
 
     if ([WeakRetained[2] hasPasscodeSetForCurrentUser])
     {
-      if (([v7[2] hasBiometricEnrollmentsForCurrentUser] & 1) == 0)
+      v8 = [v7[2] hasBiometricEnrollmentsForCurrentUser];
+      if ((v8 & 1) == 0)
       {
-        v14[0] = MEMORY[0x1E69E9820];
-        v14[1] = 3221225472;
-        v14[2] = __65__LACDTOFeatureController_checkIsFeatureAvailableWithCompletion___block_invoke_10;
-        v14[3] = &unk_1E7A97C78;
-        v15 = *(a1 + 32);
-        [v7 checkIsFeatureEnabledWithCompletion:v14];
+        v15[0] = MEMORY[0x1E69E9820];
+        v15[1] = 3221225472;
+        v15[2] = __65__LACDTOFeatureController_checkIsFeatureAvailableWithCompletion___block_invoke_10;
+        v15[3] = &unk_1E7A97C78;
+        v16 = *(a1 + 32);
+        [v7 checkIsFeatureEnabledWithCompletion:v15];
 
         goto LABEL_15;
       }
 
-      v8 = LACLogDTOFeature();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+      v9 = LACLogDTOFeature(v8);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_1B0233000, v8, OS_LOG_TYPE_DEFAULT, "isFeatureAvailable: YES", buf, 2u);
+        _os_log_impl(&dword_1B0233000, v9, OS_LOG_TYPE_DEFAULT, "isFeatureAvailable: YES", buf, 2u);
       }
 
-      v9 = *(*(a1 + 32) + 16);
+      v10 = *(*(a1 + 32) + 16);
       goto LABEL_10;
     }
 
-    v10 = +[LACLocalization dtoErrorPasscodeNotSet];
-    v11 = [LACError errorWithCode:-5 localizedDescription:v10];
+    v11 = +[LACLocalization dtoErrorPasscodeNotSet];
+    v12 = [LACError errorWithCode:-5 localizedDescription:v11];
 
-    v12 = LACLogDTOFeature();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v14 = LACLogDTOFeature(v13);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v17 = v11;
-      _os_log_impl(&dword_1B0233000, v12, OS_LOG_TYPE_DEFAULT, "isFeatureAvailable: NO (%{public}@)", buf, 0xCu);
+      v18 = v12;
+      _os_log_impl(&dword_1B0233000, v14, OS_LOG_TYPE_DEFAULT, "isFeatureAvailable: NO (%{public}@)", buf, 0xCu);
     }
 
     (*(*(a1 + 32) + 16))();
   }
 
 LABEL_15:
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 void __65__LACDTOFeatureController_checkIsFeatureAvailableWithCompletion___block_invoke_10(uint64_t a1, int a2, uint64_t a3)
@@ -373,12 +370,12 @@ void __65__LACDTOFeatureController_checkIsFeatureAvailableWithCompletion___block
     v5 = +[LACLocalization dtoErrorBiometryNotEnrolled];
     v6 = [LACError errorWithCode:-7 localizedDescription:v5];
 
-    v7 = LACLogDTOFeature();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = LACLogDTOFeature(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       v9 = 138543362;
       v10 = v6;
-      _os_log_impl(&dword_1B0233000, v7, OS_LOG_TYPE_DEFAULT, "isFeatureAvailable: NO (%{public}@)", &v9, 0xCu);
+      _os_log_impl(&dword_1B0233000, v8, OS_LOG_TYPE_DEFAULT, "isFeatureAvailable: NO (%{public}@)", &v9, 0xCu);
     }
 
     (*(*(a1 + 32) + 16))();
@@ -386,7 +383,7 @@ void __65__LACDTOFeatureController_checkIsFeatureAvailableWithCompletion___block
 
   else
   {
-    v4 = LACLogDTOFeature();
+    v4 = LACLogDTOFeature(a1);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       LOWORD(v9) = 0;
@@ -395,8 +392,6 @@ void __65__LACDTOFeatureController_checkIsFeatureAvailableWithCompletion___block
 
     (*(*(a1 + 32) + 16))();
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)checkCanEnableFeatureWithCompletion:(id)completion
@@ -422,7 +417,7 @@ void __65__LACDTOFeatureController_checkIsFeatureAvailableWithCompletion___block
 
 void __63__LACDTOFeatureController_checkCanEnableFeatureWithCompletion___block_invoke(uint64_t a1, char a2, void *a3)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v5 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 48));
   v7 = WeakRetained;
@@ -435,12 +430,12 @@ void __63__LACDTOFeatureController_checkCanEnableFeatureWithCompletion___block_i
 
     if (v5)
     {
-      v8 = LACLogDTOFeature();
+      v8 = LACLogDTOFeature(WeakRetained);
       if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
-        v10 = 138543362;
-        v11 = v5;
-        _os_log_impl(&dword_1B0233000, v8, OS_LOG_TYPE_DEFAULT, "isFeatureEnabled: NO (%{public}@)", &v10, 0xCu);
+        v9 = 138543362;
+        v10 = v5;
+        _os_log_impl(&dword_1B0233000, v8, OS_LOG_TYPE_DEFAULT, "isFeatureEnabled: NO (%{public}@)", &v9, 0xCu);
       }
 
       (*(*(a1 + 40) + 16))();
@@ -451,8 +446,6 @@ void __63__LACDTOFeatureController_checkCanEnableFeatureWithCompletion___block_i
       [WeakRetained _fetchDeviceHintsCurrentConnection:*(a1 + 32) completion:*(a1 + 40)];
     }
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)enableFeatureWithCompletion:(id)completion
@@ -522,7 +515,7 @@ void __63__LACDTOFeatureController_checkCanEnableFeatureWithCompletion___block_i
 
 void __64__LACDTOFeatureController__checkIsFeatureEnabledWithCompletion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
@@ -531,7 +524,7 @@ void __64__LACDTOFeatureController__checkIsFeatureEnabledWithCompletion___block_
   {
     if (v6)
     {
-      v9 = LACLogDTOFeature();
+      v9 = LACLogDTOFeature(WeakRetained);
       if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
         __64__LACDTOFeatureController__checkIsFeatureEnabledWithCompletion___block_invoke_cold_1();
@@ -543,19 +536,17 @@ void __64__LACDTOFeatureController__checkIsFeatureEnabledWithCompletion___block_
     else
     {
       v10 = [WeakRetained[4] decode:v5];
-      v11 = LACLogDTOFeature();
+      v11 = LACLogDTOFeature(v10);
       if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
-        v13 = 138412290;
-        v14 = v10;
-        _os_log_impl(&dword_1B0233000, v11, OS_LOG_TYPE_DEFAULT, "isFeatureEnabled: %@", &v13, 0xCu);
+        v12 = 138412290;
+        v13 = v10;
+        _os_log_impl(&dword_1B0233000, v11, OS_LOG_TYPE_DEFAULT, "isFeatureEnabled: %@", &v12, 0xCu);
       }
 
       (*(*(a1 + 32) + 16))();
     }
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_enableFeatureActivatingGracePeriod:(BOOL)period completion:(id)completion
@@ -582,7 +573,7 @@ void __64__LACDTOFeatureController__checkIsFeatureEnabledWithCompletion___block_
 
 void __74__LACDTOFeatureController__enableFeatureActivatingGracePeriod_completion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 48));
@@ -591,11 +582,11 @@ void __74__LACDTOFeatureController__enableFeatureActivatingGracePeriod_completio
   {
     if (v6)
     {
-      v9 = LACLogDTOFeature();
+      v9 = LACLogDTOFeature(WeakRetained);
       if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138543362;
-        v20 = v6;
+        v19 = v6;
         _os_log_impl(&dword_1B0233000, v9, OS_LOG_TYPE_DEFAULT, "isFeatureEnabled: NO (%{public}@)", buf, 0xCu);
       }
 
@@ -604,28 +595,26 @@ void __74__LACDTOFeatureController__enableFeatureActivatingGracePeriod_completio
 
     else
     {
-      v17[0] = MEMORY[0x1E69E9820];
-      v17[1] = 3221225472;
-      v17[2] = __74__LACDTOFeatureController__enableFeatureActivatingGracePeriod_completion___block_invoke_15;
-      v17[3] = &unk_1E7A98028;
-      v18 = *(a1 + 56);
-      v17[4] = WeakRetained;
-      v10 = __74__LACDTOFeatureController__enableFeatureActivatingGracePeriod_completion___block_invoke_15(v17);
+      v16[0] = MEMORY[0x1E69E9820];
+      v16[1] = 3221225472;
+      v16[2] = __74__LACDTOFeatureController__enableFeatureActivatingGracePeriod_completion___block_invoke_15;
+      v16[3] = &unk_1E7A98028;
+      v17 = *(a1 + 56);
+      v16[4] = WeakRetained;
+      v10 = __74__LACDTOFeatureController__enableFeatureActivatingGracePeriod_completion___block_invoke_15(v16);
       v11 = *(a1 + 32);
-      v13[0] = MEMORY[0x1E69E9820];
-      v13[1] = 3221225472;
-      v13[2] = __74__LACDTOFeatureController__enableFeatureActivatingGracePeriod_completion___block_invoke_2;
-      v13[3] = &unk_1E7A95648;
-      objc_copyWeak(&v16, (a1 + 48));
-      v15 = *(a1 + 40);
-      v14 = v5;
-      [v8 _setFeatureEnablementMode:v10 context:0 connection:v11 completion:v13];
+      v12[0] = MEMORY[0x1E69E9820];
+      v12[1] = 3221225472;
+      v12[2] = __74__LACDTOFeatureController__enableFeatureActivatingGracePeriod_completion___block_invoke_2;
+      v12[3] = &unk_1E7A95648;
+      objc_copyWeak(&v15, (a1 + 48));
+      v14 = *(a1 + 40);
+      v13 = v5;
+      [v8 _setFeatureEnablementMode:v10 context:0 connection:v11 completion:v12];
 
-      objc_destroyWeak(&v16);
+      objc_destroyWeak(&v15);
     }
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 id __74__LACDTOFeatureController__enableFeatureActivatingGracePeriod_completion___block_invoke_15(uint64_t a1)
@@ -656,33 +645,33 @@ void __74__LACDTOFeatureController__enableFeatureActivatingGracePeriod_completio
 {
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 48));
+  v5 = WeakRetained;
   if (WeakRetained)
   {
-    v5 = LACLogDTOFeature();
-    v6 = v5;
+    v6 = LACLogDTOFeature(WeakRetained);
+    v7 = v6;
     if (v3)
     {
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
       {
         __74__LACDTOFeatureController__enableFeatureActivatingGracePeriod_completion___block_invoke_2_cold_1();
       }
 
-      v7 = *(*(a1 + 40) + 16);
+      v8 = *(*(a1 + 40) + 16);
     }
 
     else
     {
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
       {
         *v9 = 0;
-        _os_log_impl(&dword_1B0233000, v6, OS_LOG_TYPE_DEFAULT, "isFeatureEnabled: YES", v9, 2u);
+        _os_log_impl(&dword_1B0233000, v7, OS_LOG_TYPE_DEFAULT, "isFeatureEnabled: YES", v9, 2u);
       }
 
-      v8 = *(a1 + 32);
-      v7 = *(*(a1 + 40) + 16);
+      v8 = *(*(a1 + 40) + 16);
     }
 
-    v7();
+    v8();
   }
 }
 
@@ -901,34 +890,35 @@ void __73__LACDTOFeatureController__fetchDeviceHintsCurrentConnection_completion
   v5 = a2;
   v6 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 48));
+  v8 = WeakRetained;
   if (WeakRetained)
   {
     if (v6)
     {
-      v8 = LACLogDTOFeature();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+      v9 = LACLogDTOFeature(WeakRetained);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
         __73__LACDTOFeatureController__fetchDeviceHintsCurrentConnection_completion___block_invoke_cold_1();
       }
     }
 
-    v9 = [MEMORY[0x1E696AD98] numberWithBool:{objc_msgSend(v5, "BOOLValue")}];
-    v10 = *(*(*(a1 + 40) + 8) + 40);
-    v11 = [MEMORY[0x1E696AD98] numberWithInteger:2];
-    [v10 setObject:v9 forKeyedSubscript:v11];
+    v10 = [MEMORY[0x1E696AD98] numberWithBool:{objc_msgSend(v5, "BOOLValue")}];
+    v11 = *(*(*(a1 + 40) + 8) + 40);
+    v12 = [MEMORY[0x1E696AD98] numberWithInteger:2];
+    [v11 setObject:v10 forKeyedSubscript:v12];
 
-    v12 = WeakRetained[2];
-    v15[0] = MEMORY[0x1E69E9820];
-    v15[1] = 3221225472;
-    v15[2] = __73__LACDTOFeatureController__fetchDeviceHintsCurrentConnection_completion___block_invoke_23;
-    v15[3] = &unk_1E7A980F0;
-    objc_copyWeak(&v17, (a1 + 48));
-    v14 = *(a1 + 32);
-    v13 = v14;
-    v16 = v14;
-    [v12 hasLocationServicesEnabledWithCompletion:v15];
+    v13 = v8[2];
+    v16[0] = MEMORY[0x1E69E9820];
+    v16[1] = 3221225472;
+    v16[2] = __73__LACDTOFeatureController__fetchDeviceHintsCurrentConnection_completion___block_invoke_23;
+    v16[3] = &unk_1E7A980F0;
+    objc_copyWeak(&v18, (a1 + 48));
+    v15 = *(a1 + 32);
+    v14 = v15;
+    v17 = v15;
+    [v13 hasLocationServicesEnabledWithCompletion:v16];
 
-    objc_destroyWeak(&v17);
+    objc_destroyWeak(&v18);
   }
 }
 
@@ -937,34 +927,35 @@ void __73__LACDTOFeatureController__fetchDeviceHintsCurrentConnection_completion
   v5 = a2;
   v6 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 48));
+  v8 = WeakRetained;
   if (WeakRetained)
   {
     if (v6)
     {
-      v8 = LACLogDTOFeature();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+      v9 = LACLogDTOFeature(WeakRetained);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
         __73__LACDTOFeatureController__fetchDeviceHintsCurrentConnection_completion___block_invoke_23_cold_1();
       }
     }
 
-    v9 = [MEMORY[0x1E696AD98] numberWithBool:{objc_msgSend(v5, "BOOLValue")}];
-    v10 = *(*(*(a1 + 40) + 8) + 40);
-    v11 = [MEMORY[0x1E696AD98] numberWithInteger:0];
-    [v10 setObject:v9 forKeyedSubscript:v11];
+    v10 = [MEMORY[0x1E696AD98] numberWithBool:{objc_msgSend(v5, "BOOLValue")}];
+    v11 = *(*(*(a1 + 40) + 8) + 40);
+    v12 = [MEMORY[0x1E696AD98] numberWithInteger:0];
+    [v11 setObject:v10 forKeyedSubscript:v12];
 
-    v12 = WeakRetained[2];
-    v15[0] = MEMORY[0x1E69E9820];
-    v15[1] = 3221225472;
-    v15[2] = __73__LACDTOFeatureController__fetchDeviceHintsCurrentConnection_completion___block_invoke_24;
-    v15[3] = &unk_1E7A980F0;
-    objc_copyWeak(&v17, (a1 + 48));
-    v14 = *(a1 + 32);
-    v13 = v14;
-    v16 = v14;
-    [v12 hasHSA2AccountWithCompletion:v15];
+    v13 = v8[2];
+    v16[0] = MEMORY[0x1E69E9820];
+    v16[1] = 3221225472;
+    v16[2] = __73__LACDTOFeatureController__fetchDeviceHintsCurrentConnection_completion___block_invoke_24;
+    v16[3] = &unk_1E7A980F0;
+    objc_copyWeak(&v18, (a1 + 48));
+    v15 = *(a1 + 32);
+    v14 = v15;
+    v17 = v15;
+    [v13 hasHSA2AccountWithCompletion:v16];
 
-    objc_destroyWeak(&v17);
+    objc_destroyWeak(&v18);
   }
 }
 
@@ -973,23 +964,23 @@ void __73__LACDTOFeatureController__fetchDeviceHintsCurrentConnection_completion
   v5 = a2;
   v6 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 48));
+  v8 = WeakRetained;
   if (WeakRetained)
   {
     if (v6)
     {
-      v8 = LACLogDTOFeature();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+      v9 = LACLogDTOFeature(WeakRetained);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
         __73__LACDTOFeatureController__fetchDeviceHintsCurrentConnection_completion___block_invoke_24_cold_1();
       }
     }
 
-    v9 = [MEMORY[0x1E696AD98] numberWithBool:{objc_msgSend(v5, "BOOLValue")}];
-    v10 = *(*(*(a1 + 40) + 8) + 40);
-    v11 = [MEMORY[0x1E696AD98] numberWithInteger:1];
-    [v10 setObject:v9 forKeyedSubscript:v11];
+    v10 = [MEMORY[0x1E696AD98] numberWithBool:{objc_msgSend(v5, "BOOLValue")}];
+    v11 = *(*(*(a1 + 40) + 8) + 40);
+    v12 = [MEMORY[0x1E696AD98] numberWithInteger:1];
+    [v11 setObject:v10 forKeyedSubscript:v12];
 
-    v12 = *(*(*(a1 + 40) + 8) + 40);
     (*(*(a1 + 32) + 16))();
   }
 }
@@ -1001,54 +992,6 @@ void __73__LACDTOFeatureController__fetchDeviceHintsCurrentConnection_completion
   [(LACDTOMutableFeatureRequirements *)v5 setHasPasscodeSet:[(LACDTOFeatureRequirementsDataSource *)self->_requirementsDataSource hasPasscodeSetForCurrentUser]];
   [(LACDTOMutableFeatureRequirements *)v5 setHasBiometricEnrollments:[(LACDTOFeatureRequirementsDataSource *)self->_requirementsDataSource hasBiometricEnrollmentsForCurrentUser]];
   completionCopy[2](completionCopy, v5);
-}
-
-void __73__LACDTOFeatureController_checkIsFeatureStrictModeEnabledWithCompletion___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_1(&dword_1B0233000, v0, v1, "isFeatureStrictModeEnabled: NO (%{public}@)", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __64__LACDTOFeatureController__checkIsFeatureEnabledWithCompletion___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_1(&dword_1B0233000, v0, v1, "isFeatureEnabled: NO (%{public}@)", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __74__LACDTOFeatureController__enableFeatureActivatingGracePeriod_completion___block_invoke_2_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_1(&dword_1B0233000, v0, v1, "isFeatureEnabled: NO (error: %{public}@)", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __73__LACDTOFeatureController__fetchDeviceHintsCurrentConnection_completion___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_1(&dword_1B0233000, v0, v1, "Could not fetch biometric liveness (%{public}@)", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __73__LACDTOFeatureController__fetchDeviceHintsCurrentConnection_completion___block_invoke_23_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_1(&dword_1B0233000, v0, v1, "Could not fetch LocationServices status (%{public}@)", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __73__LACDTOFeatureController__fetchDeviceHintsCurrentConnection_completion___block_invoke_24_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_1(&dword_1B0233000, v0, v1, "Could not fetch HSA2Account (%{public}@)", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 @end

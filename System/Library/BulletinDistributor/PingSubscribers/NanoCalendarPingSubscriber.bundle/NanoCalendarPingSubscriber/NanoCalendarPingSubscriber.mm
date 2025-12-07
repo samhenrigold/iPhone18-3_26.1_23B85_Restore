@@ -41,15 +41,15 @@ void sub_2DBC(uint64_t a1, void *a2, void *a3)
 {
   v5 = a2;
   v6 = a3;
-  v7 = ncs_log_alerts_ttl();
+  v7 = ncs_log_alerts_ttl(v6);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v8 = objc_retainBlock(v6);
-    v14 = 134218242;
-    *v15 = v8;
-    *&v15[8] = 2112;
-    *v16 = v5;
-    _os_log_impl(&dword_0, v7, OS_LOG_TYPE_DEFAULT, "pingSubscriber received forwardHandler: %p notification: %@", &v14, 0x16u);
+    v16 = 134218242;
+    *v17 = v8;
+    *&v17[8] = 2112;
+    *v18 = v5;
+    _os_log_impl(&dword_0, v7, OS_LOG_TYPE_DEFAULT, "pingSubscriber received forwardHandler: %p notification: %@", &v16, 0x16u);
   }
 
   if (v6)
@@ -58,33 +58,35 @@ void sub_2DBC(uint64_t a1, void *a2, void *a3)
     v10 = [v9 ttlRemoteForwardingEnabledForWatch];
 
     v11 = [*(a1 + 32) _notificationIsTTL:v5];
-    v12 = ncs_log_alerts_ttl();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v12 = v11;
+    v13 = v10 | ~v11;
+    v14 = ncs_log_alerts_ttl(v11);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
-      v13 = [*(a1 + 32) _descriptionForForwardType:v10 & 1 | ((v11 & 1) == 0)];
-      v14 = 67109634;
-      *v15 = v10;
-      *&v15[4] = 1024;
-      *&v15[6] = v11 & 1;
-      *v16 = 2114;
-      *&v16[2] = v13;
-      _os_log_impl(&dword_0, v12, OS_LOG_TYPE_DEFAULT, "pingSubscriber forwardHandler() - remoteTTLForwardingEnabled: %d, bulletinIsTTL: %d -> action: %{public}@", &v14, 0x18u);
+      v15 = [*(a1 + 32) _descriptionForForwardType:v13 & 1];
+      v16 = 67109634;
+      *v17 = v10;
+      *&v17[4] = 1024;
+      *&v17[6] = v12 & 1;
+      *v18 = 2114;
+      *&v18[2] = v15;
+      _os_log_impl(&dword_0, v14, OS_LOG_TYPE_DEFAULT, "pingSubscriber forwardHandler() - remoteTTLForwardingEnabled: %d, bulletinIsTTL: %d -> action: %{public}@", &v16, 0x18u);
     }
 
-    (*(v6 + 2))(v6, v10 & 1 | ((v11 & 1) == 0));
+    (*(v6 + 2))(v6, v13 & 1);
   }
 }
 
-id ncs_log_error()
+id ncs_log_error(uint64_t a1)
 {
   if (qword_10C10 != -1)
   {
     sub_5430();
   }
 
-  v1 = qword_10C08;
+  v2 = qword_10C08;
 
-  return v1;
+  return v2;
 }
 
 void sub_3134(id a1)
@@ -101,16 +103,16 @@ void sub_3134(id a1)
   }
 }
 
-id ncs_log_lifecycle()
+id ncs_log_lifecycle(uint64_t a1)
 {
   if (qword_10C20 != -1)
   {
     sub_5444();
   }
 
-  v1 = qword_10C18;
+  v2 = qword_10C18;
 
-  return v1;
+  return v2;
 }
 
 void sub_31FC(id a1)
@@ -127,16 +129,16 @@ void sub_31FC(id a1)
   }
 }
 
-id ncs_log_snapshot()
+id ncs_log_snapshot(uint64_t a1)
 {
   if (qword_10C30 != -1)
   {
     sub_5458();
   }
 
-  v1 = qword_10C28;
+  v2 = qword_10C28;
 
-  return v1;
+  return v2;
 }
 
 void sub_32C4(id a1)
@@ -153,16 +155,16 @@ void sub_32C4(id a1)
   }
 }
 
-id ncs_log_snapshot_creation()
+id ncs_log_snapshot_creation(uint64_t a1)
 {
   if (qword_10C40 != -1)
   {
     sub_546C();
   }
 
-  v1 = qword_10C38;
+  v2 = qword_10C38;
 
-  return v1;
+  return v2;
 }
 
 void sub_338C(id a1)
@@ -179,16 +181,16 @@ void sub_338C(id a1)
   }
 }
 
-id ncs_log_snapshot_vending()
+id ncs_log_snapshot_vending(uint64_t a1)
 {
   if (qword_10C50 != -1)
   {
     sub_5480();
   }
 
-  v1 = qword_10C48;
+  v2 = qword_10C48;
 
-  return v1;
+  return v2;
 }
 
 void sub_3454(id a1)
@@ -205,16 +207,16 @@ void sub_3454(id a1)
   }
 }
 
-id ncs_log_selected_calendars()
+id ncs_log_selected_calendars(uint64_t a1)
 {
   if (qword_10C60 != -1)
   {
     sub_5494();
   }
 
-  v1 = qword_10C58;
+  v2 = qword_10C58;
 
-  return v1;
+  return v2;
 }
 
 void sub_351C(id a1)
@@ -231,16 +233,16 @@ void sub_351C(id a1)
   }
 }
 
-id ncs_log_data_loading()
+id ncs_log_data_loading(uint64_t a1)
 {
   if (qword_10C70 != -1)
   {
     sub_54A8();
   }
 
-  v1 = qword_10C68;
+  v2 = qword_10C68;
 
-  return v1;
+  return v2;
 }
 
 void sub_35E4(id a1)
@@ -257,16 +259,16 @@ void sub_35E4(id a1)
   }
 }
 
-id ncs_log_data_loading_verbose()
+id ncs_log_data_loading_verbose(uint64_t a1)
 {
   if (qword_10C80 != -1)
   {
     sub_54BC();
   }
 
-  v1 = qword_10C78;
+  v2 = qword_10C78;
 
-  return v1;
+  return v2;
 }
 
 void sub_36AC(id a1)
@@ -283,16 +285,16 @@ void sub_36AC(id a1)
   }
 }
 
-id ncs_log_data_display()
+id ncs_log_data_display(uint64_t a1)
 {
   if (qword_10C90 != -1)
   {
     sub_54D0();
   }
 
-  v1 = qword_10C88;
+  v2 = qword_10C88;
 
-  return v1;
+  return v2;
 }
 
 void sub_3774(id a1)
@@ -309,16 +311,16 @@ void sub_3774(id a1)
   }
 }
 
-id ncs_log_always_on_display()
+id ncs_log_always_on_display(uint64_t a1)
 {
   if (qword_10CA0 != -1)
   {
     sub_54E4();
   }
 
-  v1 = qword_10C98;
+  v2 = qword_10C98;
 
-  return v1;
+  return v2;
 }
 
 void sub_383C(id a1)
@@ -335,16 +337,16 @@ void sub_383C(id a1)
   }
 }
 
-id ncs_log_user_interaction()
+id ncs_log_user_interaction(uint64_t a1)
 {
   if (qword_10CB0 != -1)
   {
     sub_54F8();
   }
 
-  v1 = qword_10CA8;
+  v2 = qword_10CA8;
 
-  return v1;
+  return v2;
 }
 
 void sub_3904(id a1)
@@ -361,16 +363,16 @@ void sub_3904(id a1)
   }
 }
 
-id ncs_log_user_data_change()
+id ncs_log_user_data_change(uint64_t a1)
 {
   if (qword_10CC0 != -1)
   {
     sub_550C();
   }
 
-  v1 = qword_10CB8;
+  v2 = qword_10CB8;
 
-  return v1;
+  return v2;
 }
 
 void sub_39CC(id a1)
@@ -387,16 +389,16 @@ void sub_39CC(id a1)
   }
 }
 
-id ncs_log_icon_generation()
+id ncs_log_icon_generation(uint64_t a1)
 {
   if (qword_10CD0 != -1)
   {
     sub_5520();
   }
 
-  v1 = qword_10CC8;
+  v2 = qword_10CC8;
 
-  return v1;
+  return v2;
 }
 
 void sub_3A94(id a1)
@@ -413,16 +415,16 @@ void sub_3A94(id a1)
   }
 }
 
-id ncs_log_metrics()
+id ncs_log_metrics(uint64_t a1)
 {
   if (qword_10CE0 != -1)
   {
     sub_5534();
   }
 
-  v1 = qword_10CD8;
+  v2 = qword_10CD8;
 
-  return v1;
+  return v2;
 }
 
 void sub_3B5C(id a1)
@@ -439,16 +441,16 @@ void sub_3B5C(id a1)
   }
 }
 
-id ncs_log_utility()
+id ncs_log_utility(uint64_t a1)
 {
   if (qword_10CF0 != -1)
   {
     sub_5548();
   }
 
-  v1 = qword_10CE8;
+  v2 = qword_10CE8;
 
-  return v1;
+  return v2;
 }
 
 void sub_3C24(id a1)
@@ -465,16 +467,16 @@ void sub_3C24(id a1)
   }
 }
 
-id ncs_log_settings()
+id ncs_log_settings(uint64_t a1)
 {
   if (qword_10D00 != -1)
   {
     sub_555C();
   }
 
-  v1 = qword_10CF8;
+  v2 = qword_10CF8;
 
-  return v1;
+  return v2;
 }
 
 void sub_3CEC(id a1)
@@ -491,16 +493,16 @@ void sub_3CEC(id a1)
   }
 }
 
-id ncs_log_status_bar()
+id ncs_log_status_bar(uint64_t a1)
 {
   if (qword_10D10 != -1)
   {
     sub_5570();
   }
 
-  v1 = qword_10D08;
+  v2 = qword_10D08;
 
-  return v1;
+  return v2;
 }
 
 void sub_3DB4(id a1)
@@ -517,16 +519,16 @@ void sub_3DB4(id a1)
   }
 }
 
-id ncs_log_complication()
+id ncs_log_complication(uint64_t a1)
 {
   if (qword_10D20 != -1)
   {
     sub_5584();
   }
 
-  v1 = qword_10D18;
+  v2 = qword_10D18;
 
-  return v1;
+  return v2;
 }
 
 void sub_3E7C(id a1)
@@ -543,16 +545,16 @@ void sub_3E7C(id a1)
   }
 }
 
-id ncs_log_event_creation()
+id ncs_log_event_creation(uint64_t a1)
 {
   if (qword_10D30 != -1)
   {
     sub_5598();
   }
 
-  v1 = qword_10D28;
+  v2 = qword_10D28;
 
-  return v1;
+  return v2;
 }
 
 void sub_3F44(id a1)
@@ -569,16 +571,16 @@ void sub_3F44(id a1)
   }
 }
 
-id ncs_log_alerts_ttl()
+id ncs_log_alerts_ttl(uint64_t a1)
 {
   if (qword_10D40 != -1)
   {
     sub_55AC();
   }
 
-  v1 = qword_10D38;
+  v2 = qword_10D38;
 
-  return v1;
+  return v2;
 }
 
 void sub_400C(id a1)
@@ -595,16 +597,16 @@ void sub_400C(id a1)
   }
 }
 
-id ncs_log_bulletin_ui()
+id ncs_log_bulletin_ui(uint64_t a1)
 {
   if (qword_10D50 != -1)
   {
     sub_55C0();
   }
 
-  v1 = qword_10D48;
+  v2 = qword_10D48;
 
-  return v1;
+  return v2;
 }
 
 void sub_40D4(id a1)
@@ -621,16 +623,16 @@ void sub_40D4(id a1)
   }
 }
 
-id ncs_log_reminders_snapshot()
+id ncs_log_reminders_snapshot(uint64_t a1)
 {
   if (qword_10D60 != -1)
   {
     sub_55D4();
   }
 
-  v1 = qword_10D58;
+  v2 = qword_10D58;
 
-  return v1;
+  return v2;
 }
 
 void sub_419C(id a1)
@@ -647,16 +649,16 @@ void sub_419C(id a1)
   }
 }
 
-id ncs_log_reminders_demo()
+id ncs_log_reminders_demo(uint64_t a1)
 {
   if (qword_10D70 != -1)
   {
     sub_55E8();
   }
 
-  v1 = qword_10D68;
+  v2 = qword_10D68;
 
-  return v1;
+  return v2;
 }
 
 void sub_4264(id a1)
@@ -673,16 +675,16 @@ void sub_4264(id a1)
   }
 }
 
-id ncs_log_debugging()
+id ncs_log_debugging(uint64_t a1)
 {
   if (qword_10D80 != -1)
   {
     sub_55FC();
   }
 
-  v1 = qword_10D78;
+  v2 = qword_10D78;
 
-  return v1;
+  return v2;
 }
 
 void sub_432C(id a1)
@@ -699,7 +701,7 @@ void sub_432C(id a1)
   }
 }
 
-uint64_t _actsLikeCustomerBuild()
+uint64_t _actsLikeCustomerBuild(uint64_t a1, uint64_t a2)
 {
   if (qword_10D90 != -1)
   {
@@ -735,7 +737,7 @@ uint64_t _isInternalBuild()
   return v0 & 1;
 }
 
-uint64_t NCSLoggingConfidentionInformationAllowed()
+uint64_t NCSLoggingConfidentionInformationAllowed(uint64_t a1, uint64_t a2)
 {
   if (qword_10D98 != -1)
   {

@@ -526,9 +526,9 @@
 
       v10 = *(*(&v16 + 1) + 8 * i);
       identifier = [v10 identifier];
-      v12 = [identifier isEqualToString:identifierCopy];
+      isEqualToString = objc_msgSend_isEqualToString_(identifier);
 
-      if (v12)
+      if (isEqualToString)
       {
         v13 = v10;
       }
@@ -1347,22 +1347,22 @@ uint64_t __38__UITabGroup__validateSelectedElement__block_invoke(uint64_t a1, vo
   v7 = v6;
   if (v5 == v6)
   {
-    v8 = 1;
+    isEqual = 1;
   }
 
   else
   {
-    v8 = 0;
+    isEqual = 0;
     if (v5 && v6)
     {
-      v8 = [v5 isEqual:v6];
+      isEqual = objc_msgSend_isEqual_(v5);
     }
   }
 
-  return v8;
+  return isEqual;
 }
 
-uint64_t __29__UITabGroup__isCustomizable__block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
+void *__29__UITabGroup__isCustomizable__block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
   result = [a2 _isCustomizable];
   *(*(*(a1 + 32) + 8) + 24) |= result;
@@ -1514,9 +1514,9 @@ void __39__UITabGroup__defaultChildForSelection__block_invoke_2(void *a1, void *
 {
   v10 = a2;
   v7 = [v10 identifier];
-  v8 = [v7 isEqualToString:a1[4]];
+  isEqualToString = objc_msgSend_isEqualToString_(v7);
 
-  if (v8)
+  if (isEqualToString)
   {
     if ([v10 _isElement] && ((*(a1[5] + 16))() & 1) == 0)
     {
@@ -1640,9 +1640,9 @@ void __39__UITabGroup__defaultChildForSelection__block_invoke_2(void *a1, void *
     goto LABEL_12;
   }
 
-  v9 = [(NSArray *)v6 isEqual:v7];
+  isEqual = objc_msgSend_isEqual_(v6);
 
-  if (v9)
+  if (isEqual)
   {
 LABEL_10:
     v22 = self->_displayOrder;
@@ -1713,10 +1713,10 @@ LABEL_24:
 
 uint64_t __46__UITabGroup__orderedChildrenForDisplayOrder___block_invoke(uint64_t a1, void *a2)
 {
-  v3 = [a2 identifier];
-  v4 = [v3 isEqualToString:*(a1 + 32)];
+  v2 = [a2 identifier];
+  isEqualToString = objc_msgSend_isEqualToString_(v2);
 
-  return v4;
+  return isEqualToString;
 }
 
 - (void)_selectElement:(id)element notifyOnReselection:(BOOL)reselection performBeforeNotifyingDelegate:(id)delegate
@@ -1802,9 +1802,9 @@ LABEL_9:
     goto LABEL_8;
   }
 
-  v10 = [(NSArray *)_tabModel isEqual:v7];
+  isEqual = objc_msgSend_isEqual_(_tabModel);
 
-  if ((v10 & 1) == 0)
+  if ((isEqual & 1) == 0)
   {
 LABEL_8:
     objc_storeStrong(&self->_displayOrderIdentifiers, identifiers);

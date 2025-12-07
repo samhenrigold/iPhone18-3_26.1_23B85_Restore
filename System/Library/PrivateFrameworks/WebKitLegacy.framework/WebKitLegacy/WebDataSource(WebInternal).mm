@@ -1,10 +1,10 @@
 @interface WebDataSource(WebInternal)
-+ (uint64_t)_repTypesAllowImageTypeOmission:()WebInternal;
++ (void)_repTypesAllowImageTypeOmission:()WebInternal;
 @end
 
 @implementation WebDataSource(WebInternal)
 
-+ (uint64_t)_repTypesAllowImageTypeOmission:()WebInternal
++ (void)_repTypesAllowImageTypeOmission:()WebInternal
 {
   v2 = objc_alloc_init(MEMORY[0x1E695DF90]);
   *self = v2;

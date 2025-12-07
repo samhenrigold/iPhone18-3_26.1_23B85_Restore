@@ -137,7 +137,7 @@
 
 - (void)_processQueue
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   [(NSLock *)self->_queueLock lock];
   v3 = [(NSMutableArray *)self->_brailleEventQueue copy];
   [(NSMutableArray *)self->_brailleEventQueue removeAllObjects];
@@ -146,56 +146,55 @@
   WeakRetained = objc_loadWeakRetained(&self->_target);
   [(NSLock *)self->_queueLock unlock];
   array = [MEMORY[0x277CBEB18] array];
-  v23[0] = 0;
-  v23[1] = v23;
-  v23[2] = 0x2020000000;
-  v24 = 0;
-  v20[0] = MEMORY[0x277D85DD0];
-  v20[1] = 3221225472;
-  v20[2] = __43__SCROBrailleEventDispatcher__processQueue__block_invoke;
-  v20[3] = &unk_279B74528;
-  v22 = v23;
+  v22[0] = 0;
+  v22[1] = v22;
+  v22[2] = 0x2020000000;
+  v23 = 0;
+  v19[0] = MEMORY[0x277D85DD0];
+  v19[1] = 3221225472;
+  v19[2] = __43__SCROBrailleEventDispatcher__processQueue__block_invoke;
+  v19[3] = &unk_279B74528;
+  v21 = v22;
   v7 = array;
-  v21 = v7;
-  [v4 enumerateObjectsWithOptions:2 usingBlock:v20];
-  v18[0] = MEMORY[0x277D85DD0];
-  v18[1] = 3221225472;
-  v18[2] = __43__SCROBrailleEventDispatcher__processQueue__block_invoke_2;
-  v18[3] = &unk_279B74550;
+  v20 = v7;
+  [v4 enumerateObjectsWithOptions:2 usingBlock:v19];
+  v17[0] = MEMORY[0x277D85DD0];
+  v17[1] = 3221225472;
+  v17[2] = __43__SCROBrailleEventDispatcher__processQueue__block_invoke_2;
+  v17[3] = &unk_279B74550;
   v8 = WeakRetained;
-  v19 = v8;
-  [v3 enumerateObjectsUsingBlock:v18];
-  v16 = 0u;
-  v17 = 0u;
-  v14 = 0u;
+  v18 = v8;
+  [v3 enumerateObjectsUsingBlock:v17];
   v15 = 0u;
+  v16 = 0u;
+  v13 = 0u;
+  v14 = 0u;
   reverseObjectEnumerator = [v7 reverseObjectEnumerator];
-  v10 = [reverseObjectEnumerator countByEnumeratingWithState:&v14 objects:v25 count:16];
+  v10 = [reverseObjectEnumerator countByEnumeratingWithState:&v13 objects:v24 count:16];
   if (v10)
   {
-    v11 = *v15;
+    v11 = *v14;
     do
     {
       v12 = 0;
       do
       {
-        if (*v15 != v11)
+        if (*v14 != v11)
         {
           objc_enumerationMutation(reverseObjectEnumerator);
         }
 
-        [v8 handleEvent:*(*(&v14 + 1) + 8 * v12++)];
+        [v8 handleEvent:*(*(&v13 + 1) + 8 * v12++)];
       }
 
       while (v10 != v12);
-      v10 = [reverseObjectEnumerator countByEnumeratingWithState:&v14 objects:v25 count:16];
+      v10 = [reverseObjectEnumerator countByEnumeratingWithState:&v13 objects:v24 count:16];
     }
 
     while (v10);
   }
 
-  _Block_object_dispose(v23, 8);
-  v13 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(v22, 8);
 }
 
 void __43__SCROBrailleEventDispatcher__processQueue__block_invoke(uint64_t a1, void *a2)

@@ -56,12 +56,10 @@
   if (self->_isLocationKnown)
   {
     std::string::basic_string[abi:ne200100]<0>(&__p, -[NSString UTF8String](self->_filename, "UTF8String"));
-    line = self->_line;
-    column = self->_column;
-    v7 = MIL::TextFileLocation::Make();
-    *v3 = v10;
-    v10 = 0;
-    if (v9 < 0)
+    v4.__ptr_ = MIL::TextFileLocation::Make();
+    *v3 = v7;
+    v7 = 0;
+    if (v6 < 0)
     {
       operator delete(__p);
     }
@@ -69,11 +67,11 @@
 
   else
   {
-    v7 = MIL::UnknownLocation::Make(&v10, self);
-    *v3 = v10;
+    v4.__ptr_ = MIL::UnknownLocation::Make(&v7, self);
+    *v3 = v7;
   }
 
-  return v7;
+  return v4;
 }
 
 @end

@@ -5,11 +5,18 @@
 - (id)DatatypeTo4CC:(unsigned int)c;
 - (id)describeErrorCode:(int64_t)code;
 - (id)errorWithCode:(int64_t)code andReason:(id)reason;
+- (void)configureAudioSampleTypeWithIdentifier:(id)identifier type:(unsigned int)type configuration:(id)configuration withReply:(id)reply;
 - (void)deactivateAll;
 - (void)getCurrentConfigurationForAudioSampleType:(unsigned int)type withReply:(id)reply;
+- (void)isMeasurementOnForAudioSampleType:(unsigned int)type withReply:(id)reply;
 - (void)registerDelegate:(unsigned int)delegate;
 - (void)sendAudioSample:(id)sample;
+- (void)sendAudioSample:(id)sample withType:(unsigned int)type metadata:(id)metadata;
 - (void)setupConnection:(id)connection;
+- (void)startListeningToAudioSampleWithIdentifier:(id)identifier type:(unsigned int)type withReply:(id)reply;
+- (void)startMeasuringAudioSampleTypeWithIdentifier:(id)identifier type:(unsigned int)type withConfiguration:(id)configuration andReply:(id)reply;
+- (void)stopListeningToAudioSampleTypeWithIdentifier:(id)identifier type:(unsigned int)type withReply:(id)reply;
+- (void)stopMeasuringAudioSampleTypeWithIdentifier:(id)identifier type:(unsigned int)type andReply:(id)reply;
 - (void)unregisterDelegate;
 @end
 
@@ -80,15 +87,13 @@ LABEL_6:
 
 - (id)errorWithCode:(int64_t)code andReason:(id)reason
 {
-  v12[1] = *MEMORY[0x29EDCA608];
+  v11[1] = *MEMORY[0x29EDCA608];
   reasonCopy = reason;
   v6 = MEMORY[0x29EDB9FA0];
-  v11 = *MEMORY[0x29EDB9ED8];
-  v12[0] = reasonCopy;
-  v7 = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v12 forKeys:&v11 count:1];
+  v10 = *MEMORY[0x29EDB9ED8];
+  v11[0] = reasonCopy;
+  v7 = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v11 forKeys:&v10 count:1];
   v8 = [v6 errorWithDomain:@"AudioDataAnalysisManager(ADAM)" code:code userInfo:v7];
-
-  v9 = *MEMORY[0x29EDCA608];
 
   return v8;
 }
@@ -107,23 +112,17 @@ LABEL_6:
 
 - (void)unregisterDelegate
 {
-  v10 = *MEMORY[0x29EDCA608];
+  v6 = *MEMORY[0x29EDCA608];
   os_unfair_lock_lock(&self->_lock);
-  v7 = 0u;
-  v8 = 0u;
-  v5 = 0u;
-  v6 = 0u;
+  memset(v4, 0, sizeof(v4));
   v3 = self->_dataTypeStatus;
-  if ([(NSMutableDictionary *)v3 countByEnumeratingWithState:&v5 objects:v9 count:16])
+  if ([(NSMutableDictionary *)v3 countByEnumeratingWithState:v4 objects:v5 count:16])
   {
-    *v6;
-    *v6;
-    [**(&v5 + 1) unsignedIntegerValue];
+    [**(&v4[0] + 1) unsignedIntegerValue];
     operator new();
   }
 
   os_unfair_lock_unlock(&self->_lock);
-  v4 = *MEMORY[0x29EDCA608];
 }
 
 - (void)registerDelegate:(unsigned int)delegate
@@ -164,43 +163,42 @@ LABEL_6:
 
 - (void)deactivateAll
 {
-  v15 = *MEMORY[0x29EDCA608];
+  v14 = *MEMORY[0x29EDCA608];
   os_unfair_lock_lock(&self->_lock);
-  v12 = 0u;
-  v13 = 0u;
-  v10 = 0u;
   v11 = 0u;
+  v12 = 0u;
+  v9 = 0u;
+  v10 = 0u;
   v3 = self->_dataTypeStatus;
-  v4 = [(NSMutableDictionary *)v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v4 = [(NSMutableDictionary *)v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v4)
   {
-    v5 = *v11;
+    v5 = *v10;
     do
     {
       v6 = 0;
       do
       {
-        if (*v11 != v5)
+        if (*v10 != v5)
         {
           objc_enumerationMutation(v3);
         }
 
-        v7 = *(*(&v10 + 1) + 8 * v6);
-        v8 = [MEMORY[0x29EDBA070] numberWithBool:{0, v10}];
+        v7 = *(*(&v9 + 1) + 8 * v6);
+        v8 = [MEMORY[0x29EDBA070] numberWithBool:{0, v9}];
         [(NSMutableDictionary *)self->_dataTypeStatus setObject:v8 forKeyedSubscript:v7];
 
         ++v6;
       }
 
       while (v4 != v6);
-      v4 = [(NSMutableDictionary *)v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v4 = [(NSMutableDictionary *)v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v4);
   }
 
   os_unfair_lock_unlock(&self->_lock);
-  v9 = *MEMORY[0x29EDCA608];
 }
 
 - (BOOL)isActive:(unsigned int)active
@@ -222,6 +220,20 @@ LABEL_6:
   }
 
   return bOOLValue;
+}
+
+- (void)isMeasurementOnForAudioSampleType:(unsigned int)type withReply:(id)reply
+{
+  v4 = *&type;
+  replyCopy = reply;
+  v6 = [(ADAMServerDelegate *)self isActive:v4];
+  v7 = v6;
+  if ((v6 & 1) == 0)
+  {
+    ADAM::AudioDataAnalysisManager::instance(v6);
+  }
+
+  (replyCopy)[2](replyCopy, v7);
 }
 
 - (void)getCurrentConfigurationForAudioSampleType:(unsigned int)type withReply:(id)reply
@@ -274,7 +286,7 @@ LABEL_10:
 
 void __38__ADAMServerDelegate_sendAudioSample___block_invoke(uint64_t a1, void *a2)
 {
-  v16 = *MEMORY[0x29EDCA608];
+  v15 = *MEMORY[0x29EDCA608];
   v3 = a2;
   if (ADAM::ADAMLogScope(void)::once != -1)
   {
@@ -299,24 +311,41 @@ void __38__ADAMServerDelegate_sendAudioSample___block_invoke(uint64_t a1, void *
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     v6 = *(*(a1 + 32) + 16);
-    v8 = 136315906;
-    v9 = "ADAMServerDelegate.mm";
-    v10 = 1024;
-    v11 = 226;
-    v12 = 2112;
-    v13 = v6;
-    v14 = 2112;
-    v15 = v3;
-    _os_log_impl(&dword_296C34000, v4, OS_LOG_TYPE_ERROR, "%25s:%-5d connection to %@ failed: %@", &v8, 0x26u);
+    v7 = 136315906;
+    v8 = "ADAMServerDelegate.mm";
+    v9 = 1024;
+    v10 = 226;
+    v11 = 2112;
+    v12 = v6;
+    v13 = 2112;
+    v14 = v3;
+    _os_log_impl(&dword_296C34000, v4, OS_LOG_TYPE_ERROR, "%25s:%-5d connection to %@ failed: %@", &v7, 0x26u);
   }
 
 LABEL_10:
-  v7 = *MEMORY[0x29EDCA608];
+}
+
+- (void)sendAudioSample:(id)sample withType:(unsigned int)type metadata:(id)metadata
+{
+  v6 = *&type;
+  sampleCopy = sample;
+  metadataCopy = metadata;
+  if ([(ADAMServerDelegate *)self isActive:v6])
+  {
+    WeakRetained = objc_loadWeakRetained(&self->_connection);
+    v12[0] = MEMORY[0x29EDCA5F8];
+    v12[1] = 3221225472;
+    v12[2] = __56__ADAMServerDelegate_sendAudioSample_withType_metadata___block_invoke;
+    v12[3] = &unk_29EE524E8;
+    v12[4] = self;
+    v11 = [WeakRetained remoteObjectProxyWithErrorHandler:v12];
+    [v11 receiveAudioSample:sampleCopy type:v6 metadata:metadataCopy];
+  }
 }
 
 void __56__ADAMServerDelegate_sendAudioSample_withType_metadata___block_invoke(uint64_t a1, void *a2)
 {
-  v16 = *MEMORY[0x29EDCA608];
+  v15 = *MEMORY[0x29EDCA608];
   v3 = a2;
   if (ADAM::ADAMLogScope(void)::once != -1)
   {
@@ -341,19 +370,18 @@ void __56__ADAMServerDelegate_sendAudioSample_withType_metadata___block_invoke(u
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     v6 = *(*(a1 + 32) + 16);
-    v8 = 136315906;
-    v9 = "ADAMServerDelegate.mm";
-    v10 = 1024;
-    v11 = 199;
-    v12 = 2112;
-    v13 = v6;
-    v14 = 2112;
-    v15 = v3;
-    _os_log_impl(&dword_296C34000, v4, OS_LOG_TYPE_ERROR, "%25s:%-5d connection to %@ failed: %@", &v8, 0x26u);
+    v7 = 136315906;
+    v8 = "ADAMServerDelegate.mm";
+    v9 = 1024;
+    v10 = 199;
+    v11 = 2112;
+    v12 = v6;
+    v13 = 2112;
+    v14 = v3;
+    _os_log_impl(&dword_296C34000, v4, OS_LOG_TYPE_ERROR, "%25s:%-5d connection to %@ failed: %@", &v7, 0x26u);
   }
 
 LABEL_10:
-  v7 = *MEMORY[0x29EDCA608];
 }
 
 - (void)setupConnection:(id)connection
@@ -387,7 +415,7 @@ LABEL_10:
 
 void __38__ADAMServerDelegate_setupConnection___block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x29EDCA608];
+  v13 = *MEMORY[0x29EDCA608];
   if (ADAM::ADAMLogScope(void)::once != -1)
   {
     dispatch_once(&ADAM::ADAMLogScope(void)::once, &__block_literal_global_107);
@@ -411,13 +439,13 @@ void __38__ADAMServerDelegate_setupConnection___block_invoke(uint64_t a1)
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v4 = *(*(a1 + 32) + 16);
-    v8 = 136315650;
-    v9 = "ADAMServerDelegate.mm";
-    v10 = 1024;
-    v11 = 183;
-    v12 = 2112;
-    v13 = v4;
-    _os_log_impl(&dword_296C34000, v2, OS_LOG_TYPE_DEFAULT, "%25s:%-5d client connection invalidated: %@", &v8, 0x1Cu);
+    v7 = 136315650;
+    v8 = "ADAMServerDelegate.mm";
+    v9 = 1024;
+    v10 = 183;
+    v11 = 2112;
+    v12 = v4;
+    _os_log_impl(&dword_296C34000, v2, OS_LOG_TYPE_DEFAULT, "%25s:%-5d client connection invalidated: %@", &v7, 0x1Cu);
   }
 
 LABEL_10:
@@ -426,13 +454,11 @@ LABEL_10:
 
   v6 = objc_loadWeakRetained((a1 + 40));
   [v6 unregisterDelegate];
-
-  v7 = *MEMORY[0x29EDCA608];
 }
 
 void __38__ADAMServerDelegate_setupConnection___block_invoke_6(uint64_t a1)
 {
-  v14 = *MEMORY[0x29EDCA608];
+  v13 = *MEMORY[0x29EDCA608];
   if (ADAM::ADAMLogScope(void)::once != -1)
   {
     dispatch_once(&ADAM::ADAMLogScope(void)::once, &__block_literal_global_107);
@@ -456,13 +482,13 @@ void __38__ADAMServerDelegate_setupConnection___block_invoke_6(uint64_t a1)
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v4 = *(*(a1 + 32) + 16);
-    v8 = 136315650;
-    v9 = "ADAMServerDelegate.mm";
-    v10 = 1024;
-    v11 = 189;
-    v12 = 2112;
-    v13 = v4;
-    _os_log_impl(&dword_296C34000, v2, OS_LOG_TYPE_DEFAULT, "%25s:%-5d client connection interrupted: %@", &v8, 0x1Cu);
+    v7 = 136315650;
+    v8 = "ADAMServerDelegate.mm";
+    v9 = 1024;
+    v10 = 189;
+    v11 = 2112;
+    v12 = v4;
+    _os_log_impl(&dword_296C34000, v2, OS_LOG_TYPE_DEFAULT, "%25s:%-5d client connection interrupted: %@", &v7, 0x1Cu);
   }
 
 LABEL_10:
@@ -471,8 +497,598 @@ LABEL_10:
 
   v6 = objc_loadWeakRetained((a1 + 40));
   [v6 unregisterDelegate];
+}
 
-  v7 = *MEMORY[0x29EDCA608];
+- (void)configureAudioSampleTypeWithIdentifier:(id)identifier type:(unsigned int)type configuration:(id)configuration withReply:(id)reply
+{
+  v8 = *&type;
+  v37 = *MEMORY[0x29EDCA608];
+  objc_initWeak(&v26, identifier);
+  configurationCopy = configuration;
+  replyCopy = reply;
+  if ([(ADAMServerDelegate *)self verifyInvariantsWithReply:replyCopy])
+  {
+    if (!self->_clientName)
+    {
+      v12 = objc_loadWeakRetained(&v26);
+      clientName = self->_clientName;
+      self->_clientName = v12;
+    }
+
+    if (ADAM::ADAMLogScope(void)::once != -1)
+    {
+      dispatch_once(&ADAM::ADAMLogScope(void)::once, &__block_literal_global_107);
+    }
+
+    if (ADAM::ADAMLogScope(void)::scope)
+    {
+      v14 = *ADAM::ADAMLogScope(void)::scope;
+      v15 = v14;
+      if (!v14)
+      {
+        goto LABEL_13;
+      }
+    }
+
+    else
+    {
+      v15 = MEMORY[0x29EDCA988];
+      v16 = MEMORY[0x29EDCA988];
+    }
+
+    v17 = v15;
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
+    {
+      v18 = self->_clientName;
+      v19 = [ADAFUtil stringFromDataType:v8];
+      *buf = 136315906;
+      v30 = "ADAMServerDelegate.mm";
+      v31 = 1024;
+      v32 = 163;
+      v33 = 2112;
+      p_p = v18;
+      v35 = 2112;
+      v36 = v19;
+      _os_log_impl(&dword_296C34000, v17, OS_LOG_TYPE_INFO, "%25s:%-5d [configure] audio sample for client: %@ with data type: %@", buf, 0x26u);
+    }
+
+LABEL_13:
+    if (configurationCopy)
+    {
+      os_unfair_lock_lock(&self->_lock);
+      configs = self->_configs;
+      v21 = [objc_alloc(MEMORY[0x29EDB8DC0]) initWithDictionary:configurationCopy copyItems:1];
+      v22 = [MEMORY[0x29EDBA070] numberWithUnsignedInteger:v8];
+      [(NSMutableDictionary *)configs setObject:v21 forKey:v22];
+
+      os_unfair_lock_unlock(&self->_lock);
+    }
+
+    ADAM::AudioDataAnalysisManager::instance(v14);
+    if (ADAM::ADAMLogScope(void)::once != -1)
+    {
+      dispatch_once(&ADAM::ADAMLogScope(void)::once, &__block_literal_global_107);
+    }
+
+    if (ADAM::ADAMLogScope(void)::scope)
+    {
+      v23 = *ADAM::ADAMLogScope(void)::scope;
+      if (!v23)
+      {
+LABEL_25:
+        replyCopy[2](replyCopy, 0);
+        goto LABEL_26;
+      }
+    }
+
+    else
+    {
+      v23 = MEMORY[0x29EDCA988];
+      v24 = MEMORY[0x29EDCA988];
+    }
+
+    v25 = v23;
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+    {
+      v28 = 4;
+      *(&__p + 3) = v8;
+      BYTE2(__p) = BYTE1(v8);
+      BYTE1(__p) = BYTE2(v8);
+      LOBYTE(__p) = BYTE3(v8);
+      *buf = 136315650;
+      v30 = "AudioDataAnalysisManager.cpp";
+      v31 = 1024;
+      v32 = 516;
+      v33 = 2080;
+      p_p = &__p;
+      _os_log_impl(&dword_296C34000, v25, OS_LOG_TYPE_DEFAULT, "%25s:%-5d type %s does not support configuring inside ADAM", buf, 0x1Cu);
+      if (v28 < 0)
+      {
+        operator delete(__p);
+      }
+    }
+
+    goto LABEL_25;
+  }
+
+LABEL_26:
+
+  objc_destroyWeak(&v26);
+}
+
+- (void)stopMeasuringAudioSampleTypeWithIdentifier:(id)identifier type:(unsigned int)type andReply:(id)reply
+{
+  v5 = *&type;
+  v30 = *MEMORY[0x29EDCA608];
+  replyCopy = reply;
+  if ([(ADAMServerDelegate *)self verifyInvariantsWithReply:replyCopy])
+  {
+    if (ADAM::ADAMLogScope(void)::once != -1)
+    {
+      dispatch_once(&ADAM::ADAMLogScope(void)::once, &__block_literal_global_107);
+    }
+
+    if (ADAM::ADAMLogScope(void)::scope)
+    {
+      v8 = *ADAM::ADAMLogScope(void)::scope;
+      if (!v8)
+      {
+        goto LABEL_11;
+      }
+    }
+
+    else
+    {
+      v8 = MEMORY[0x29EDCA988];
+      v9 = MEMORY[0x29EDCA988];
+    }
+
+    v10 = v8;
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+    {
+      clientName = self->_clientName;
+      v12 = [ADAFUtil stringFromDataType:v5];
+      v22 = 136315906;
+      v23 = "ADAMServerDelegate.mm";
+      v24 = 1024;
+      v25 = 140;
+      v26 = 2112;
+      v27 = clientName;
+      v28 = 2112;
+      v29 = v12;
+      _os_log_impl(&dword_296C34000, v10, OS_LOG_TYPE_INFO, "%25s:%-5d [stop] measuring audio sample for client: %@ with data type: %@", &v22, 0x26u);
+    }
+
+LABEL_11:
+    v13 = [(ADAMServerDelegate *)self datatypeSupportsONOFF:v5];
+    if (v13)
+    {
+      ADAM::AudioDataAnalysisManager::instance(v13);
+      if (ADAM::ADAMLogScope(void)::once != -1)
+      {
+        dispatch_once(&ADAM::ADAMLogScope(void)::once, &__block_literal_global_107);
+      }
+
+      if (ADAM::ADAMLogScope(void)::scope)
+      {
+        v14 = *ADAM::ADAMLogScope(void)::scope;
+        if (!v14)
+        {
+LABEL_31:
+          replyCopy[2](replyCopy, 0);
+          goto LABEL_32;
+        }
+      }
+
+      else
+      {
+        v14 = MEMORY[0x29EDCA988];
+        v21 = MEMORY[0x29EDCA988];
+      }
+
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+      {
+        v22 = 136315650;
+        v23 = "AudioDataAnalysisManager.cpp";
+        v24 = 1024;
+        v25 = 488;
+        v26 = 1024;
+        LODWORD(v27) = v5;
+        _os_log_impl(&dword_296C34000, v14, OS_LOG_TYPE_ERROR, "%25s:%-5d EAE type %u does not support disabling", &v22, 0x18u);
+      }
+
+      goto LABEL_31;
+    }
+
+    if (ADAM::ADAMLogScope(void)::once != -1)
+    {
+      dispatch_once(&ADAM::ADAMLogScope(void)::once, &__block_literal_global_107);
+    }
+
+    if (ADAM::ADAMLogScope(void)::scope)
+    {
+      v15 = *ADAM::ADAMLogScope(void)::scope;
+      if (!v15)
+      {
+LABEL_26:
+        v19 = [(ADAMServerDelegate *)self describeErrorCode:560950886];
+        v20 = [(ADAMServerDelegate *)self errorWithCode:560950886 andReason:v19];
+        (replyCopy)[2](replyCopy, v20);
+
+        goto LABEL_32;
+      }
+    }
+
+    else
+    {
+      v15 = MEMORY[0x29EDCA988];
+      v16 = MEMORY[0x29EDCA988];
+    }
+
+    v17 = v15;
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    {
+      v18 = [ADAFUtil stringFromDataType:v5];
+      v22 = 136315650;
+      v23 = "ADAMServerDelegate.mm";
+      v24 = 1024;
+      v25 = 143;
+      v26 = 2112;
+      v27 = v18;
+      _os_log_impl(&dword_296C34000, v17, OS_LOG_TYPE_ERROR, "%25s:%-5d datatype %@ cannot be turned OFF", &v22, 0x1Cu);
+    }
+
+    goto LABEL_26;
+  }
+
+LABEL_32:
+}
+
+- (void)startMeasuringAudioSampleTypeWithIdentifier:(id)identifier type:(unsigned int)type withConfiguration:(id)configuration andReply:(id)reply
+{
+  v8 = *&type;
+  v40 = *MEMORY[0x29EDCA608];
+  objc_initWeak(&location, identifier);
+  configurationCopy = configuration;
+  replyCopy = reply;
+  if ([(ADAMServerDelegate *)self verifyInvariantsWithReply:replyCopy])
+  {
+    if (!self->_clientName)
+    {
+      v12 = objc_loadWeakRetained(&location);
+      clientName = self->_clientName;
+      self->_clientName = v12;
+    }
+
+    if (configurationCopy)
+    {
+      os_unfair_lock_lock(&self->_lock);
+      configs = self->_configs;
+      v15 = [objc_alloc(MEMORY[0x29EDB8DC0]) initWithDictionary:configurationCopy copyItems:1];
+      v16 = [MEMORY[0x29EDBA070] numberWithUnsignedInteger:v8];
+      [(NSMutableDictionary *)configs setObject:v15 forKey:v16];
+
+      os_unfair_lock_unlock(&self->_lock);
+    }
+
+    if (ADAM::ADAMLogScope(void)::once != -1)
+    {
+      dispatch_once(&ADAM::ADAMLogScope(void)::once, &__block_literal_global_107);
+    }
+
+    if (ADAM::ADAMLogScope(void)::scope)
+    {
+      v17 = *ADAM::ADAMLogScope(void)::scope;
+      if (!v17)
+      {
+        goto LABEL_15;
+      }
+    }
+
+    else
+    {
+      v17 = MEMORY[0x29EDCA988];
+      v18 = MEMORY[0x29EDCA988];
+    }
+
+    v19 = v17;
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
+    {
+      v20 = self->_clientName;
+      v21 = [ADAFUtil stringFromDataType:v8];
+      *buf = 136315906;
+      v33 = "ADAMServerDelegate.mm";
+      v34 = 1024;
+      v35 = 122;
+      v36 = 2112;
+      v37 = v20;
+      v38 = 2112;
+      v39 = v21;
+      _os_log_impl(&dword_296C34000, v19, OS_LOG_TYPE_INFO, "%25s:%-5d [start] measuring audio sample for client: %@ with data type: %@", buf, 0x26u);
+    }
+
+LABEL_15:
+    v22 = [(ADAMServerDelegate *)self datatypeSupportsONOFF:v8];
+    if (v22)
+    {
+      ADAM::AudioDataAnalysisManager::instance(v22);
+      if (ADAM::ADAMLogScope(void)::once != -1)
+      {
+        dispatch_once(&ADAM::ADAMLogScope(void)::once, &__block_literal_global_107);
+      }
+
+      if (ADAM::ADAMLogScope(void)::scope)
+      {
+        v23 = *ADAM::ADAMLogScope(void)::scope;
+        if (!v23)
+        {
+LABEL_35:
+          replyCopy[2](replyCopy, 0);
+          goto LABEL_36;
+        }
+      }
+
+      else
+      {
+        v23 = MEMORY[0x29EDCA988];
+        v30 = MEMORY[0x29EDCA988];
+      }
+
+      if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+      {
+        *buf = 136315650;
+        v33 = "AudioDataAnalysisManager.cpp";
+        v34 = 1024;
+        v35 = 459;
+        v36 = 1024;
+        LODWORD(v37) = v8;
+        _os_log_impl(&dword_296C34000, v23, OS_LOG_TYPE_ERROR, "%25s:%-5d EAE type %u does not support enabling", buf, 0x18u);
+      }
+
+      goto LABEL_35;
+    }
+
+    if (ADAM::ADAMLogScope(void)::once != -1)
+    {
+      dispatch_once(&ADAM::ADAMLogScope(void)::once, &__block_literal_global_107);
+    }
+
+    if (ADAM::ADAMLogScope(void)::scope)
+    {
+      v24 = *ADAM::ADAMLogScope(void)::scope;
+      if (!v24)
+      {
+LABEL_30:
+        v28 = [(ADAMServerDelegate *)self describeErrorCode:560950886];
+        v29 = [(ADAMServerDelegate *)self errorWithCode:560950886 andReason:v28];
+        (replyCopy)[2](replyCopy, v29);
+
+        goto LABEL_36;
+      }
+    }
+
+    else
+    {
+      v24 = MEMORY[0x29EDCA988];
+      v25 = MEMORY[0x29EDCA988];
+    }
+
+    v26 = v24;
+    if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+    {
+      v27 = [ADAFUtil stringFromDataType:v8];
+      *buf = 136315650;
+      v33 = "ADAMServerDelegate.mm";
+      v34 = 1024;
+      v35 = 125;
+      v36 = 2112;
+      v37 = v27;
+      _os_log_impl(&dword_296C34000, v26, OS_LOG_TYPE_ERROR, "%25s:%-5d datatype %@ cannot be turned ON", buf, 0x1Cu);
+    }
+
+    goto LABEL_30;
+  }
+
+LABEL_36:
+
+  objc_destroyWeak(&location);
+}
+
+- (void)stopListeningToAudioSampleTypeWithIdentifier:(id)identifier type:(unsigned int)type withReply:(id)reply
+{
+  v5 = *&type;
+  v27 = *MEMORY[0x29EDCA608];
+  replyCopy = reply;
+  if ([(ADAMServerDelegate *)self verifyInvariantsWithReply:replyCopy])
+  {
+    v8 = [MEMORY[0x29EDBA070] numberWithUnsignedInteger:v5];
+    os_unfair_lock_lock(&self->_lock);
+    v9 = [(NSMutableDictionary *)self->_dataTypeStatus objectForKey:v8];
+    if (v9)
+    {
+      v10 = [MEMORY[0x29EDBA070] numberWithBool:0];
+      [(NSMutableDictionary *)self->_dataTypeStatus setObject:v10 forKeyedSubscript:v8];
+    }
+
+    os_unfair_lock_unlock(&self->_lock);
+    if (ADAM::ADAMLogScope(void)::once != -1)
+    {
+      dispatch_once(&ADAM::ADAMLogScope(void)::once, &__block_literal_global_107);
+    }
+
+    if (ADAM::ADAMLogScope(void)::scope)
+    {
+      v11 = *ADAM::ADAMLogScope(void)::scope;
+      if (!v11)
+      {
+LABEL_18:
+        replyCopy[2](replyCopy, 0);
+
+        goto LABEL_19;
+      }
+    }
+
+    else
+    {
+      v11 = MEMORY[0x29EDCA988];
+      v12 = MEMORY[0x29EDCA988];
+    }
+
+    v13 = v11;
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+    {
+      clientName = self->_clientName;
+      v15 = [ADAFUtil stringFromDataType:v5];
+      if (v9)
+      {
+        stringValue = [v9 stringValue];
+      }
+
+      else
+      {
+        stringValue = @"nil";
+      }
+
+      v17 = 136316162;
+      v18 = "ADAMServerDelegate.mm";
+      v19 = 1024;
+      v20 = 104;
+      v21 = 2112;
+      v22 = clientName;
+      v23 = 2112;
+      v24 = v15;
+      v25 = 2112;
+      v26 = stringValue;
+      _os_log_impl(&dword_296C34000, v13, OS_LOG_TYPE_INFO, "%25s:%-5d [stop] recording for client: %@ with dataType: %@, previous status: %@", &v17, 0x30u);
+      if (v9)
+      {
+      }
+    }
+
+    goto LABEL_18;
+  }
+
+LABEL_19:
+}
+
+- (void)startListeningToAudioSampleWithIdentifier:(id)identifier type:(unsigned int)type withReply:(id)reply
+{
+  v6 = *&type;
+  v35 = *MEMORY[0x29EDCA608];
+  objc_initWeak(&location, identifier);
+  replyCopy = reply;
+  if ([(ADAMServerDelegate *)self verifyInvariantsWithReply:replyCopy])
+  {
+    if (!self->_clientName)
+    {
+      v9 = objc_loadWeakRetained(&location);
+      clientName = self->_clientName;
+      self->_clientName = v9;
+    }
+
+    v11 = [MEMORY[0x29EDBA070] numberWithUnsignedInteger:v6];
+    os_unfair_lock_lock(&self->_lock);
+    v12 = [(NSMutableDictionary *)self->_dataTypeStatus objectForKey:v11];
+    v13 = v12;
+    if (!v12 || ([v12 BOOLValue] & 1) == 0)
+    {
+      dataTypeStatus = self->_dataTypeStatus;
+      v16 = [MEMORY[0x29EDBA070] numberWithBool:1];
+      [(NSMutableDictionary *)dataTypeStatus setObject:v16 forKey:v11];
+
+      os_unfair_lock_unlock(&self->_lock);
+      if (!v13)
+      {
+        [(ADAMServerDelegate *)self registerDelegate:v6];
+      }
+
+LABEL_18:
+      if (ADAM::ADAMLogScope(void)::once != -1)
+      {
+        dispatch_once(&ADAM::ADAMLogScope(void)::once, &__block_literal_global_107);
+      }
+
+      if (ADAM::ADAMLogScope(void)::scope)
+      {
+        v21 = *ADAM::ADAMLogScope(void)::scope;
+        if (!v21)
+        {
+LABEL_27:
+          replyCopy[2](replyCopy, 0);
+
+          goto LABEL_28;
+        }
+      }
+
+      else
+      {
+        v21 = MEMORY[0x29EDCA988];
+        v22 = MEMORY[0x29EDCA988];
+      }
+
+      v23 = v21;
+      if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
+      {
+        v24 = objc_loadWeakRetained(&location);
+        v25 = [ADAFUtil stringFromDataType:v6];
+        *buf = 136315906;
+        v28 = "ADAMServerDelegate.mm";
+        v29 = 1024;
+        v30 = 85;
+        v31 = 2112;
+        v32 = v24;
+        v33 = 2112;
+        v34 = v25;
+        _os_log_impl(&dword_296C34000, v23, OS_LOG_TYPE_INFO, "%25s:%-5d [start] recording for a new client: %@ with type: %@", buf, 0x26u);
+      }
+
+      goto LABEL_27;
+    }
+
+    if (ADAM::ADAMLogScope(void)::once != -1)
+    {
+      dispatch_once(&ADAM::ADAMLogScope(void)::once, &__block_literal_global_107);
+    }
+
+    if (ADAM::ADAMLogScope(void)::scope)
+    {
+      v14 = *ADAM::ADAMLogScope(void)::scope;
+      if (!v14)
+      {
+LABEL_17:
+        os_unfair_lock_unlock(&self->_lock);
+        goto LABEL_18;
+      }
+    }
+
+    else
+    {
+      v14 = MEMORY[0x29EDCA988];
+      v17 = MEMORY[0x29EDCA988];
+    }
+
+    v18 = v14;
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
+    {
+      v19 = objc_loadWeakRetained(&location);
+      v20 = [ADAFUtil stringFromDataType:v6];
+      *buf = 136315906;
+      v28 = "ADAMServerDelegate.mm";
+      v29 = 1024;
+      v30 = 75;
+      v31 = 2112;
+      v32 = v19;
+      v33 = 2112;
+      v34 = v20;
+      _os_log_impl(&dword_296C34000, v18, OS_LOG_TYPE_INFO, "%25s:%-5d client %@ is already listening to type: %@", buf, 0x26u);
+    }
+
+    goto LABEL_17;
+  }
+
+LABEL_28:
+
+  objc_destroyWeak(&location);
 }
 
 - (ADAMServerDelegate)initWithConnection:(id)connection andErrorCode:(int64_t)code

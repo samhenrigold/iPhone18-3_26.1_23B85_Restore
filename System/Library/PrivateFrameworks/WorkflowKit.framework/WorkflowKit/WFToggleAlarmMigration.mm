@@ -23,37 +23,37 @@
 
 - (void)migrateWorkflow
 {
-  v63 = *MEMORY[0x1E69E9840];
+  v62 = *MEMORY[0x1E69E9840];
+  v47 = 0u;
   v48 = 0u;
   v49 = 0u;
   v50 = 0u;
-  v51 = 0u;
   obj = [(WFWorkflowMigration *)self actions];
-  v3 = [obj countByEnumeratingWithState:&v48 objects:v54 count:16];
+  v3 = [obj countByEnumeratingWithState:&v47 objects:v53 count:16];
   if (v3)
   {
     v5 = v3;
-    v6 = *v49;
+    v6 = *v48;
     *&v4 = 136315906;
-    v44 = v4;
-    v45 = *v49;
+    v43 = v4;
+    v44 = *v48;
     do
     {
       v7 = 0;
-      v46 = v5;
+      v45 = v5;
       do
       {
-        if (*v49 != v6)
+        if (*v48 != v6)
         {
           objc_enumerationMutation(obj);
         }
 
-        v8 = *(*(&v48 + 1) + 8 * v7);
+        v8 = *(*(&v47 + 1) + 8 * v7);
         actionIdentifierKey = [(WFWorkflowMigration *)self actionIdentifierKey];
         v10 = [v8 objectForKeyedSubscript:actionIdentifierKey];
-        v11 = [v10 isEqualToString:@"is.workflow.actions.alarm.toggle"];
+        isEqualToString = objc_msgSend_isEqualToString_(v10);
 
-        if (v11)
+        if (isEqualToString)
         {
           actionIdentifierKey2 = [(WFWorkflowMigration *)self actionIdentifierKey];
           [v8 setObject:@"com.apple.mobiletimer-framework.MobileTimerIntents.MTToggleAlarmIntent" forKeyedSubscript:actionIdentifierKey2];
@@ -83,14 +83,14 @@
               if (os_log_type_enabled(v23, OS_LOG_TYPE_FAULT))
               {
                 v24 = objc_opt_class();
-                *buf = v44;
-                v56 = "WFEnforceClass";
-                v57 = 2114;
-                v58 = v21;
-                v59 = 2114;
-                v60 = v24;
-                v61 = 2114;
-                v62 = v20;
+                *buf = v43;
+                v55 = "WFEnforceClass";
+                v56 = 2114;
+                v57 = v21;
+                v58 = 2114;
+                v59 = v24;
+                v60 = 2114;
+                v61 = v20;
                 v25 = v24;
                 _os_log_impl(&dword_1CA256000, v23, OS_LOG_TYPE_FAULT, "%s Warning: %{public}@ is of type %{public}@, not %{public}@! Falling back to nil.", buf, 0x2Au);
               }
@@ -116,7 +116,7 @@
             if (v28)
             {
 LABEL_19:
-              v52[0] = @"hour";
+              v51[0] = @"hour";
               v29 = [v22 objectForKeyedSubscript:@"WFAlarmHour"];
               v30 = v29;
               if (v29)
@@ -129,8 +129,8 @@ LABEL_19:
                 v31 = &unk_1F4A9ADE0;
               }
 
-              v52[1] = @"minute";
-              v53[0] = v31;
+              v51[1] = @"minute";
+              v52[0] = v31;
               v32 = [v22 objectForKeyedSubscript:@"WFAlarmMinute"];
               v33 = v32;
               if (v32)
@@ -143,8 +143,8 @@ LABEL_19:
                 v34 = &unk_1F4A9ADE0;
               }
 
-              v53[1] = v34;
-              v35 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v53 forKeys:v52 count:2];
+              v52[1] = v34;
+              v35 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v52 forKeys:v51 count:2];
               [dictionary setObject:v35 forKey:@"dateComponents"];
             }
 
@@ -170,7 +170,7 @@ LABEL_19:
 
             [v15 setObject:dictionary forKey:@"alarm"];
 
-            v6 = v45;
+            v6 = v44;
           }
 
           if ([v15 count])
@@ -179,21 +179,20 @@ LABEL_19:
             [v8 setObject:v15 forKeyedSubscript:actionParametersKey2];
           }
 
-          v5 = v46;
+          v5 = v45;
         }
 
         ++v7;
       }
 
       while (v5 != v7);
-      v5 = [obj countByEnumeratingWithState:&v48 objects:v54 count:16];
+      v5 = [obj countByEnumeratingWithState:&v47 objects:v53 count:16];
     }
 
     while (v5);
   }
 
   [(WFWorkflowMigration *)self finish];
-  v43 = *MEMORY[0x1E69E9840];
 }
 
 @end

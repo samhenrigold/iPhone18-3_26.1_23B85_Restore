@@ -116,7 +116,7 @@
 
 - (void)presentViewControllerForCard:()CRKCardViewControlling animate:
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v4 = a3;
   objc_opt_class();
   if (objc_opt_isKindOfClass() & 1) != 0 && (objc_opt_respondsToSelector() & 1) != 0 && [v4 asynchronous] && (objc_opt_respondsToSelector())
@@ -125,20 +125,20 @@
     if (os_log_type_enabled(*MEMORY[0x277CF93F0], OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v16 = v4;
+      v15 = v4;
       _os_log_impl(&dword_264EDF000, v5, OS_LOG_TYPE_INFO, "Started loading asynchronous card\n    Card: %@", buf, 0xCu);
     }
 
     objc_initWeak(buf, self);
-    v12[0] = MEMORY[0x277D85DD0];
-    v12[1] = 3221225472;
-    v12[2] = __91__SearchUICardViewController_CRKCardViewControlling__presentViewControllerForCard_animate___block_invoke;
-    v12[3] = &unk_279B8EE90;
-    objc_copyWeak(&v14, buf);
-    v13 = v4;
-    [v13 loadCardWithCompletion:v12];
+    v11[0] = MEMORY[0x277D85DD0];
+    v11[1] = 3221225472;
+    v11[2] = __91__SearchUICardViewController_CRKCardViewControlling__presentViewControllerForCard_animate___block_invoke;
+    v11[3] = &unk_279B8EE90;
+    objc_copyWeak(&v13, buf);
+    v12 = v4;
+    [v12 loadCardWithCompletion:v11];
 
-    objc_destroyWeak(&v14);
+    objc_destroyWeak(&v13);
     objc_destroyWeak(buf);
   }
 
@@ -148,7 +148,7 @@
     if (os_log_type_enabled(*MEMORY[0x277CF93F0], OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v16 = v4;
+      v15 = v4;
       _os_log_impl(&dword_264EDF000, v6, OS_LOG_TYPE_INFO, "Presenting view controller for synchronous card\n    Card: %@", buf, 0xCu);
     }
 
@@ -163,8 +163,6 @@
       [cardViewControllerDelegate2 performNextCardCommand:v7 forCardViewController:self];
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)cardSectionView:()CRKCardViewControlling willProcessEngagementFeedback:
@@ -183,17 +181,17 @@
 
 - (void)userDidEngageCardSection:()CRKCardViewControlling withEngagementFeedback:
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v6 = a3;
   v7 = a4;
   v8 = *MEMORY[0x277CF93F0];
   if (os_log_type_enabled(*MEMORY[0x277CF93F0], OS_LOG_TYPE_INFO))
   {
-    v13 = 138412546;
-    v14 = v7;
-    v15 = 2112;
+    v12 = 138412546;
+    v13 = v7;
+    v14 = 2112;
     selfCopy = self;
-    _os_log_impl(&dword_264EDF000, v8, OS_LOG_TYPE_INFO, "Card section engaged with feedback: %@  from cardViewController %@ ", &v13, 0x16u);
+    _os_log_impl(&dword_264EDF000, v8, OS_LOG_TYPE_INFO, "Card section engaged with feedback: %@  from cardViewController %@ ", &v12, 0x16u);
   }
 
   cardViewControllerDelegate = [self cardViewControllerDelegate];
@@ -204,22 +202,20 @@
     cardViewControllerDelegate2 = [self cardViewControllerDelegate];
     [cardViewControllerDelegate2 userDidEngageCardSection:v6 withEngagementFeedback:v7];
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)commandWasPerformed:()CRKCardViewControlling
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v4 = a3;
   v5 = *MEMORY[0x277CF93F0];
   if (os_log_type_enabled(*MEMORY[0x277CF93F0], OS_LOG_TYPE_INFO))
   {
-    v10 = 138412546;
-    v11 = v4;
-    v12 = 2112;
+    v9 = 138412546;
+    v10 = v4;
+    v11 = 2112;
     selfCopy = self;
-    _os_log_impl(&dword_264EDF000, v5, OS_LOG_TYPE_INFO, "Command was performed with feedback: %@ from cardViewController %@ ", &v10, 0x16u);
+    _os_log_impl(&dword_264EDF000, v5, OS_LOG_TYPE_INFO, "Command was performed with feedback: %@ from cardViewController %@ ", &v9, 0x16u);
   }
 
   cardViewControllerDelegate = [self cardViewControllerDelegate];
@@ -230,8 +226,6 @@
     cardViewControllerDelegate2 = [self cardViewControllerDelegate];
     [cardViewControllerDelegate2 commandWasPerformed:v4];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)cardViewDidAppearForCard:()CRKCardViewControlling withAppearanceFeedback:
@@ -276,17 +270,17 @@
 
 - (void)userDidReportFeedback:()CRKCardViewControlling fromCardSection:
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v6 = a3;
   v7 = a4;
   v8 = *MEMORY[0x277CF93F0];
   if (os_log_type_enabled(*MEMORY[0x277CF93F0], OS_LOG_TYPE_INFO))
   {
-    v13 = 138412546;
-    v14 = v6;
-    v15 = 2112;
+    v12 = 138412546;
+    v13 = v6;
+    v14 = 2112;
     selfCopy = self;
-    _os_log_impl(&dword_264EDF000, v8, OS_LOG_TYPE_INFO, "Card section did report feedback: %@  from cardViewController %@ ", &v13, 0x16u);
+    _os_log_impl(&dword_264EDF000, v8, OS_LOG_TYPE_INFO, "Card section did report feedback: %@  from cardViewController %@ ", &v12, 0x16u);
   }
 
   cardViewControllerDelegate = [self cardViewControllerDelegate];
@@ -297,23 +291,21 @@
     cardViewControllerDelegate2 = [self cardViewControllerDelegate];
     [cardViewControllerDelegate2 userDidReportFeedback:v6 fromCardSection:v7];
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)cardSectionViewWillAppearForCardSection:()CRKCardViewControlling withAppearanceFeedback:
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v6 = a3;
   v7 = a4;
   v8 = *MEMORY[0x277CF93F0];
   if (os_log_type_enabled(*MEMORY[0x277CF93F0], OS_LOG_TYPE_INFO))
   {
-    v13 = 138412546;
-    v14 = v7;
-    v15 = 2112;
+    v12 = 138412546;
+    v13 = v7;
+    v14 = 2112;
     selfCopy = self;
-    _os_log_impl(&dword_264EDF000, v8, OS_LOG_TYPE_INFO, "Card section will appear : %@  from cardViewController %@ ", &v13, 0x16u);
+    _os_log_impl(&dword_264EDF000, v8, OS_LOG_TYPE_INFO, "Card section will appear : %@  from cardViewController %@ ", &v12, 0x16u);
   }
 
   cardViewControllerDelegate = [self cardViewControllerDelegate];
@@ -324,23 +316,21 @@
     cardViewControllerDelegate2 = [self cardViewControllerDelegate];
     [cardViewControllerDelegate2 cardSectionViewWillAppearForCardSection:v6 withAppearanceFeedback:v7];
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)cardSectionViewDidAppearForCardSection:()CRKCardViewControlling withAppearanceFeedback:
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v6 = a3;
   v7 = a4;
   v8 = *MEMORY[0x277CF93F0];
   if (os_log_type_enabled(*MEMORY[0x277CF93F0], OS_LOG_TYPE_INFO))
   {
-    v13 = 138412546;
-    v14 = v7;
-    v15 = 2112;
+    v12 = 138412546;
+    v13 = v7;
+    v14 = 2112;
     selfCopy = self;
-    _os_log_impl(&dword_264EDF000, v8, OS_LOG_TYPE_INFO, "Card section did appear: %@  in cardViewController %@ ", &v13, 0x16u);
+    _os_log_impl(&dword_264EDF000, v8, OS_LOG_TYPE_INFO, "Card section did appear: %@  in cardViewController %@ ", &v12, 0x16u);
   }
 
   cardViewControllerDelegate = [self cardViewControllerDelegate];
@@ -351,23 +341,21 @@
     cardViewControllerDelegate2 = [self cardViewControllerDelegate];
     [cardViewControllerDelegate2 cardSectionViewDidAppearForCardSection:v6 withAppearanceFeedback:v7];
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)cardSectionViewDidDisappearForCardSection:()CRKCardViewControlling withDisappearanceFeedback:
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v6 = a3;
   v7 = a4;
   v8 = *MEMORY[0x277CF93F0];
   if (os_log_type_enabled(*MEMORY[0x277CF93F0], OS_LOG_TYPE_INFO))
   {
-    v13 = 138412546;
-    v14 = v7;
-    v15 = 2112;
+    v12 = 138412546;
+    v13 = v7;
+    v14 = 2112;
     selfCopy = self;
-    _os_log_impl(&dword_264EDF000, v8, OS_LOG_TYPE_INFO, "Card section did disappear: %@  in cardViewController %@ ", &v13, 0x16u);
+    _os_log_impl(&dword_264EDF000, v8, OS_LOG_TYPE_INFO, "Card section did disappear: %@  in cardViewController %@ ", &v12, 0x16u);
   }
 
   cardViewControllerDelegate = [self cardViewControllerDelegate];
@@ -378,8 +366,6 @@
     cardViewControllerDelegate2 = [self cardViewControllerDelegate];
     [cardViewControllerDelegate2 cardSectionViewDidDisappearForCardSection:v6 withDisappearanceFeedback:v7];
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 @end

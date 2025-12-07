@@ -30,8 +30,8 @@
   node = [(MTRAccountLoginClusterLoggedOutEvent *)self node];
   [(MTRAccountLoginClusterLoggedOutEvent *)v4 setNode:node];
 
-  fabricIndex = [(MTRAccountLoginClusterLoggedOutEvent *)self fabricIndex];
-  [(MTRAccountLoginClusterLoggedOutEvent *)v4 setFabricIndex:fabricIndex];
+  v6 = objc_msgSend_fabricIndex(self);
+  [(MTRAccountLoginClusterLoggedOutEvent *)v4 setFabricIndex:v6];
 
   return v4;
 }

@@ -7,7 +7,7 @@
 
 + (id)bundlePathForXmlResource:(id)resource
 {
-  v4 = TCBundle();
+  v4 = TCBundle(self);
   result = [v4 pathForResource:resource ofType:@"xml.gz"];
   if (!result)
   {

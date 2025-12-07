@@ -88,7 +88,7 @@
   swift_unknownObjectRelease();
   sub_10060E5C4();
 
-  sub_1000074E0(&v6);
+  sub_1000074E0(v6);
 }
 
 - (void)viewWillAppear:(BOOL)appear
@@ -128,7 +128,7 @@
   sub_10060F054(1);
   [(BKGoalPickerViewController *)selfCopy dismissViewControllerAnimated:1 completion:0];
 
-  sub_1000074E0(&v5);
+  sub_1000074E0(v5);
 }
 
 - (void)backgroundTapped:(id)tapped

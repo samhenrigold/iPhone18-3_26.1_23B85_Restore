@@ -27,8 +27,8 @@
 
 - (BOOL)_updateFromCatalog:(id)catalog displayGamut:(int64_t)gamut deviceIdiom:(int64_t)idiom appearanceName:(id)name
 {
-  v22.receiver = self;
-  v22.super_class = CUINamedLayerVectorSVGImage;
+  v15.receiver = self;
+  v15.super_class = CUINamedLayerVectorSVGImage;
   v11 = [CUINamedLookup _updateFromCatalog:sel__updateFromCatalog_displayGamut_deviceIdiom_appearanceName_ displayGamut:? deviceIdiom:? appearanceName:?];
   if (v11)
   {
@@ -54,9 +54,7 @@ LABEL_6:
       goto LABEL_6;
     }
 
-    gradientOrColorName = [(CUINamedLayerVectorSVGImage *)self gradientOrColorName];
-    [(CUINamedLookup *)self name];
-    _CUILog(4, "CoreUI: Couldn't find gradient/colorname '%@' for icon layer stack %@", v15, v16, v17, v18, v19, v20, gradientOrColorName);
+    _CUILog(4, "CoreUI: Couldn't find gradient/colorname '%@' for icon layer stack %@", [(CUINamedLayerVectorSVGImage *)self gradientOrColorName], [(CUINamedLookup *)self name]);
     LOBYTE(v11) = 0;
   }
 

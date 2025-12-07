@@ -1,3 +1,100 @@
+uint64_t UIKeyboardCarPlayIsRightHandDrive()
+{
+  v0 = UIKeyboardCachedIsRightHandDrive;
+  if (UIKeyboardCachedIsRightHandDrive)
+  {
+
+    return [v0 BOOLValue];
+  }
+
+  else
+  {
+    v2 = +[_UICarPlaySession sharedInstance];
+    v3 = [(_UICarPlaySession *)v2 currentSession];
+
+    v4 = MEMORY[0x1E696AD98];
+    v5 = [v3 configuration];
+    v6 = [v4 numberWithBool:{objc_msgSend(v5, "rightHandDrive")}];
+    v7 = UIKeyboardCachedIsRightHandDrive;
+    UIKeyboardCachedIsRightHandDrive = v6;
+
+    v8 = [UIKeyboardCachedIsRightHandDrive BOOLValue];
+    return v8;
+  }
+}
+
+void UIKeyboardResetCarPlayInformationCache()
+{
+  v0 = UIKeyboardSupportsTouch;
+  UIKeyboardSupportsTouch = 0;
+
+  v1 = UIKeyboardCachedIsRightHandDrive;
+  UIKeyboardCachedIsRightHandDrive = 0;
+}
+
+uint64_t UIKeyboardIsFiveRowKeyboard(void *a1)
+{
+  v1 = a1;
+  if (qword_1ED49EF60 != -1)
+  {
+    dispatch_once(&qword_1ED49EF60, &__block_literal_global_484);
+  }
+
+  v2 = [v1 softwareLayout];
+  if (v2 && (v3 = v2, v4 = qword_1ED49EF68, [v1 softwareLayout], v5 = objc_claimAutoreleasedReturnValue(), LOBYTE(v4) = objc_msgSend(v4, "containsObject:", v5), v5, v3, (v4 & 1) != 0))
+  {
+    isEqualToString = 1;
+  }
+
+  else
+  {
+    v7 = [v1 primaryLanguage];
+    v8 = [v7 hasPrefix:@"ja"];
+
+    if (v8)
+    {
+      v9 = [v1 softwareLayout];
+      isEqualToString = objc_msgSend_isEqualToString_(v9);
+    }
+
+    else
+    {
+      v10 = [v1 primaryLanguage];
+      if ([v10 hasPrefix:@"zh"])
+      {
+      }
+
+      else
+      {
+        v11 = [v1 primaryLanguage];
+        v12 = [v11 hasPrefix:@"yue"];
+
+        if (!v12)
+        {
+          isEqualToString = 0;
+          goto LABEL_15;
+        }
+      }
+
+      v9 = [v1 softwareLayout];
+      if ([v9 hasPrefix:@"Pinyin10"])
+      {
+        isEqualToString = 0;
+      }
+
+      else
+      {
+        v13 = [v1 softwareLayout];
+        isEqualToString = [v13 hasPrefix:@"Wubihua"] ^ 1;
+      }
+    }
+  }
+
+LABEL_15:
+
+  return isEqualToString;
+}
+
 void __UIKeyboardIsFiveRowKeyboard_block_invoke()
 {
   v0 = [MEMORY[0x1E695DFD8] setWithObjects:{@"Armenian", @"Kazakh-Cyrillic", @"Khmer", @"Lao", @"Thai", 0}];
@@ -118,7 +215,7 @@ id UIKeyboardGetKBStarKeyboardLayout(void *a1)
         }
 
         v7 = *(*(&v11 + 1) + 8 * i);
-        if (([v7 isEqualToString:@"Portrait"] & 1) == 0 && (objc_msgSend(v7, "isEqualToString:", @"Caymen") & 1) == 0 && (objc_msgSend(v7, "isEqualToString:", @"Landscape") & 1) == 0 && (objc_msgSend(v7, "isEqualToString:", @"Email") & 1) == 0 && (objc_msgSend(v7, "isEqualToString:", @"NamePhonePad") & 1) == 0 && (objc_msgSend(v7, "isEqualToString:", @"URL") & 1) == 0 && (objc_msgSend(v7, "isEqualToString:", @"Twitter") & 1) == 0 && (objc_msgSend(v7, "isEqualToString:", @"Capital") & 1) == 0 && (objc_msgSend(v7, "isEqualToString:", @"Small") & 1) == 0 && (objc_msgSend(v7, "isEqualToString:", @"Display") & 1) == 0 && (objc_msgSend(v7, "isEqualToString:", @"Keyset") & 1) == 0)
+        if ((objc_msgSend_isEqualToString_(v7) & 1) == 0 && (objc_msgSend_isEqualToString_(v7) & 1) == 0 && (objc_msgSend_isEqualToString_(v7) & 1) == 0 && (objc_msgSend_isEqualToString_(v7) & 1) == 0 && (objc_msgSend_isEqualToString_(v7) & 1) == 0 && (objc_msgSend_isEqualToString_(v7) & 1) == 0 && (objc_msgSend_isEqualToString_(v7) & 1) == 0 && (objc_msgSend_isEqualToString_(v7) & 1) == 0 && (objc_msgSend_isEqualToString_(v7) & 1) == 0 && (objc_msgSend_isEqualToString_(v7) & 1) == 0 && (objc_msgSend_isEqualToString_(v7) & 1) == 0)
         {
           [v10 addObject:v7];
         }
@@ -300,9 +397,9 @@ LABEL_11:
         goto LABEL_11;
       }
 
-      if (([v5 isEqualToString:@"Never"] & 1) == 0)
+      if ((objc_msgSend_isEqualToString_(v5) & 1) == 0)
       {
-        if (![v5 isEqualToString:@"Hardware"])
+        if (!objc_msgSend_isEqualToString_(v5))
         {
           goto LABEL_11;
         }
@@ -386,19 +483,19 @@ uint64_t UIKeyboardCheckSpellingEnabled()
   return v1;
 }
 
-uint64_t UIKeyboardAutocorrectSpellingForInputMode()
+uint64_t UIKeyboardAutocorrectSpellingForInputMode(uint64_t a1)
 {
   if (UIKeyboardAutocorrectSpellingFlag != 1)
   {
     return 0;
   }
 
-  v0 = TIInputModeGetNormalizedIdentifier();
-  v1 = TIGetInputModeProperties();
-  v2 = [v1 objectForKey:*MEMORY[0x1E69D9790]];
-  v3 = [v2 BOOLValue];
+  v1 = TIInputModeGetNormalizedIdentifier();
+  v2 = TIGetInputModeProperties();
+  v3 = [v2 objectForKey:*MEMORY[0x1E69D9790]];
+  v4 = [v3 BOOLValue];
 
-  return v3;
+  return v4;
 }
 
 id UIKeyboardGetKeyGlyphImage(void *a1)
@@ -451,15 +548,15 @@ id UIKeyboardGetKeyGlyphImage(void *a1)
 id UIKeyboardGetCandidateUISingleLineFont()
 {
   v0 = [UIApp preferredContentSizeCategory];
-  v1 = [v0 isEqualToString:@"UICTContentSizeCategoryXL"];
+  isEqualToString = objc_msgSend_isEqualToString_(v0);
   v2 = 20.0;
-  if ((v1 & 1) == 0)
+  if ((isEqualToString & 1) == 0)
   {
-    v3 = [v0 isEqualToString:{@"UICTContentSizeCategoryXXL", 20.0}];
+    v3 = objc_msgSend_isEqualToString_(v0, 20.0);
     v2 = 22.0;
     if ((v3 & 1) == 0)
     {
-      if (([v0 isEqualToString:{@"UICTContentSizeCategoryXXXL", 22.0}] & 1) != 0 || (IsAccessibilityContentSizeCategory = _UIContentSizeCategoryIsAccessibilityContentSizeCategory(v0, v4), v2 = 18.0, IsAccessibilityContentSizeCategory))
+      if ((objc_msgSend_isEqualToString_(v0, 22.0) & 1) != 0 || (IsAccessibilityContentSizeCategory = _UIContentSizeCategoryIsAccessibilityContentSizeCategory(v0, v4), v2 = 18.0, IsAccessibilityContentSizeCategory))
       {
         v2 = 24.0;
       }
@@ -515,7 +612,7 @@ id _shortcutEditorController(void *a1)
     v6 = TIInputModeGetLanguageWithRegion();
     if ([v1 _containsCJScripts])
     {
-      if ([v5 isEqualToString:@"Pinyin"])
+      if (objc_msgSend_isEqualToString_(v5))
       {
         v7 = [v1 _stringByTranscribingFromLanguage:v6];
         v8 = [v7 _stringByApplyingTransform:*MEMORY[0x1E695E9A0]];
@@ -551,22 +648,22 @@ LABEL_16:
         goto LABEL_23;
       }
 
-      if ([v5 isEqualToString:@"Zhuyin"])
+      if (objc_msgSend_isEqualToString_(v5))
       {
         v9 = [v1 _stringByTransliteratingToZhuyin];
         goto LABEL_11;
       }
 
       v10 = UIKeyboardGetCurrentUILanguage();
-      if ([v10 isEqualToString:@"ja"])
+      if (objc_msgSend_isEqualToString_(v10))
       {
 
         goto LABEL_8;
       }
 
-      v11 = [v6 isEqualToString:@"ja_JP"];
+      isEqualToString = objc_msgSend_isEqualToString_(v6);
 
-      if (v11)
+      if (isEqualToString)
       {
         goto LABEL_8;
       }
@@ -590,9 +687,9 @@ LABEL_23:
   return v2;
 }
 
-void sub_189A62C14(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_189A62C14(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -637,7 +734,7 @@ uint64_t ___swapInCompletionForShortcutEditor_block_invoke(uint64_t a1)
   return v3();
 }
 
-uint64_t __TextInputUILibraryCore_block_invoke_11()
+uint64_t __TextInputUILibraryCore_block_invoke_11(uint64_t a1)
 {
   result = _sl_dlopen();
   qword_1ED49EF78 = result;
@@ -690,7 +787,7 @@ LABEL_10:
   return result;
 }
 
-uint64_t __KeyboardSettingsLibraryCore_block_invoke()
+uint64_t __KeyboardSettingsLibraryCore_block_invoke(uint64_t a1)
 {
   result = _sl_dlopen();
   qword_1ED49EF88 = result;
@@ -728,6 +825,13 @@ BOOL _UIGetEnableLayoutAwareShortcutsAutomatic()
   }
 
   return byte_1ED48B2A4 && v1;
+}
+
+void sub_189A686E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, ...)
+{
+  va_start(va, a32);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
 }
 
 id TIGetEnableColorAdaptiveKeyboardValue()
@@ -768,7 +872,7 @@ void __TIGetEnableColorAdaptiveKeyboardBackdropValue_block_invoke()
   [v0 _configureKey:@"EnableColorAdaptiveKeyboardBackdrop" domain:@"com.apple.keyboard" defaultValue:MEMORY[0x1E695E118]];
 }
 
-uint64_t __TextInputUILibraryCore_block_invoke_12()
+uint64_t __TextInputUILibraryCore_block_invoke_12(uint64_t a1)
 {
   result = _sl_dlopen();
   qword_1ED49EFD8 = result;
@@ -797,11 +901,11 @@ id TIGetTypoTrackerButtonValue()
   return v1;
 }
 
-void sub_189A7140C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_189A7140C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v9 - 80), 8);
+  _Block_object_dispose((v16 - 80), 8);
   _Unwind_Resume(a1);
 }
 
@@ -1036,22 +1140,22 @@ CGMutablePathRef UIInputSwitcherCreatePopupPath(int a1, int a2, char a3, uint64_
   return MutableCopy;
 }
 
-void sub_189A7AB2C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_189A7AB2C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va1, a7);
-  va_start(va, a7);
-  v8 = va_arg(va1, void);
-  v10 = va_arg(va1, void);
-  v11 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
+  va_start(va1, a13);
+  va_start(va, a13);
+  v14 = va_arg(va1, void);
+  v16 = va_arg(va1, void);
+  v17 = va_arg(va1, void);
+  v18 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_189A7DAA8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_189A7DAA8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1093,17 +1197,17 @@ id get_SFAutomaticPasswordInputViewControllerClass()
   return v1;
 }
 
-void sub_189A80E44(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_189A80E44(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void *__getTCCAccessPreflightSymbolLoc_block_invoke(uint64_t a1)
+void *__getTCCAccessPreflightSymbolLoc_block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = TCCLibrary();
-  result = dlsym(v2, "TCCAccessPreflight");
+  v3 = TCCLibrary();
+  result = dlsym(v3, "TCCAccessPreflight");
   *(*(*(a1 + 32) + 8) + 24) = result;
   off_1ED49C040 = *(*(*(a1 + 32) + 8) + 24);
   return result;
@@ -1146,7 +1250,7 @@ LABEL_7:
   return v0;
 }
 
-uint64_t __TCCLibraryCore_block_invoke()
+uint64_t __TCCLibraryCore_block_invoke(uint64_t a1)
 {
   result = _sl_dlopen();
   TCCLibraryCore_frameworkLibrary = result;
@@ -1168,14 +1272,14 @@ void __TIGetKeyboardExtensionNoAutoFallbackValue_block_invoke()
   [v0 _configureKey:@"KeyboardExtensionNoAutoFallback" domain:@"com.apple.keyboard" defaultValue:MEMORY[0x1E695E110]];
 }
 
-uint64_t __SafariServicesLibraryCore_block_invoke_1()
+uint64_t __SafariServicesLibraryCore_block_invoke_1(uint64_t a1)
 {
   result = _sl_dlopen();
   qword_1ED49C058 = result;
   return result;
 }
 
-uint64_t __TextInputUILibraryCore_block_invoke_13()
+uint64_t __TextInputUILibraryCore_block_invoke_13(uint64_t a1)
 {
   result = _sl_dlopen();
   qword_1ED499388 = result;
@@ -1200,24 +1304,24 @@ BOOL UIInputViewControllerRequiresInputModeSwitchKey()
   return v2;
 }
 
-void sub_189A87F78(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_189A87F78(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_189A895D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+void sub_189A895D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, ...)
 {
-  va_start(va, a16);
+  va_start(va, a23);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v16 - 120), 8);
+  _Block_object_dispose((v23 - 120), 8);
   _Unwind_Resume(a1);
 }
 
-void sub_189A8B440(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_189A8B440(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1232,82 +1336,82 @@ void sub_189A8C19C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 uint64_t visualStyleFromString(void *a1)
 {
   v1 = a1;
-  if ([v1 isEqualToString:@"iPhone-Standard"])
+  if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 1;
   }
 
-  else if ([v1 isEqualToString:@"iPhone-Dictation"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 2;
   }
 
-  else if ([v1 isEqualToString:@"iPhone-Alert"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 3;
   }
 
-  else if ([v1 isEqualToString:@"iPhone-Emoji"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 4;
   }
 
-  else if ([v1 isEqualToString:@"iPhone-Passcode"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 5;
   }
 
-  else if ([v1 isEqualToString:@"Wildcat-50On"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 101;
   }
 
-  else if ([v1 isEqualToString:@"Wildcat-Standard"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 102;
   }
 
-  else if ([v1 isEqualToString:@"Wildcat-Dictation"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 103;
   }
 
-  else if ([v1 isEqualToString:@"Wildcat-Alert"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 104;
   }
 
-  else if ([v1 isEqualToString:@"Wildcat-Passcode"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 105;
   }
 
-  else if ([v1 isEqualToString:@"Wildcat-Split"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 106;
   }
 
-  else if ([v1 isEqualToString:@"Wildcat-Split-Full-Width"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 107;
   }
 
-  else if ([v1 isEqualToString:@"Wildcat-Emoji"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 108;
   }
 
-  else if ([v1 isEqualToString:@"Wildcat-Emoji-Split"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 109;
   }
 
-  else if ([v1 isEqualToString:@"Monolith-Standard"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 201;
   }
 
-  else if ([v1 isEqualToString:@"Car-Standard"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 301;
   }
@@ -1462,227 +1566,227 @@ __CFString *enumStringForVisualStyle(int a1)
 uint64_t interactionTypeFromString(void *a1)
 {
   v1 = a1;
-  if ([v1 isEqualToString:@"None"])
+  if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 0;
   }
 
-  else if ([v1 isEqualToString:@"String"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 1;
   }
 
-  else if ([v1 isEqualToString:@"String-Popup"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 2;
   }
 
-  else if ([v1 isEqualToString:@"CandidateList"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 3;
   }
 
-  else if ([v1 isEqualToString:@"Delete"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 4;
   }
 
-  else if ([v1 isEqualToString:@"Dictation"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 5;
   }
 
-  else if ([v1 isEqualToString:@"Dismiss"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 6;
   }
 
-  else if ([v1 isEqualToString:@"Drag"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 7;
   }
 
-  else if ([v1 isEqualToString:@"Handwriting"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 8;
   }
 
-  else if ([v1 isEqualToString:@"International"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 9;
   }
 
-  else if ([v1 isEqualToString:@"KeyplaneSwitch"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 10;
   }
 
-  else if ([v1 isEqualToString:@"More"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 11;
   }
 
-  else if ([v1 isEqualToString:@"Redo"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 12;
   }
 
-  else if ([v1 isEqualToString:@"Return"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 13;
   }
 
-  else if ([v1 isEqualToString:@"Shift"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 14;
   }
 
-  else if ([v1 isEqualToString:@"Space"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 15;
   }
 
-  else if ([v1 isEqualToString:@"String-Flick"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 16;
   }
 
-  else if ([v1 isEqualToString:@"Undo"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 17;
   }
 
-  else if ([v1 isEqualToString:@"EmojiInputView"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 18;
   }
 
-  else if ([v1 isEqualToString:@"EmojiCategoryControl"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 19;
   }
 
-  else if ([v1 isEqualToString:@"MultitapComplete"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 20;
   }
 
-  else if ([v1 isEqualToString:@"MultitapReverse"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 21;
   }
 
-  else if ([v1 isEqualToString:@"RecentInput"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 22;
   }
 
-  else if ([v1 isEqualToString:@"Clear"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 23;
   }
 
-  else if ([v1 isEqualToString:@"RevealHiddenCandidates"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 24;
   }
 
-  else if ([v1 isEqualToString:@"SelectNextCandidate"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 25;
   }
 
-  else if ([v1 isEqualToString:@"SelectPreviousCandidate"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 26;
   }
 
-  else if ([v1 isEqualToString:@"AcceptAutocorrection"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 27;
   }
 
-  else if ([v1 isEqualToString:@"Bold"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 28;
   }
 
-  else if ([v1 isEqualToString:@"Italic"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 29;
   }
 
-  else if ([v1 isEqualToString:@"Underline"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 30;
   }
 
-  else if ([v1 isEqualToString:@"Cut"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 31;
   }
 
-  else if ([v1 isEqualToString:@"Copy"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 32;
   }
 
-  else if ([v1 isEqualToString:@"Paste"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 33;
   }
 
-  else if ([v1 isEqualToString:@"LeftArrow"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 34;
   }
 
-  else if ([v1 isEqualToString:@"RightArrow"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 35;
   }
 
-  else if ([v1 isEqualToString:@"AssertLayoutTag"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 36;
   }
 
-  else if ([v1 isEqualToString:@"Tab"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 37;
   }
 
-  else if ([v1 isEqualToString:@"Caps-Lock"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 38;
   }
 
-  else if ([v1 isEqualToString:@"Dictation-Display"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 39;
   }
 
-  else if ([v1 isEqualToString:@"MessageWriteboard"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 40;
   }
 
-  else if ([v1 isEqualToString:@"MultitapForward"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 41;
   }
 
-  else if ([v1 isEqualToString:@"EmojiSearchControl"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 42;
   }
 
-  else if ([v1 isEqualToString:@"CandidateExtension"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 43;
   }
 
-  else if ([v1 isEqualToString:@"CustomAction"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 44;
   }
@@ -1711,292 +1815,292 @@ __CFString *enumStringForInteractionType(unsigned int a1)
 uint64_t displayTypeFromString(void *a1)
 {
   v1 = a1;
-  if ([v1 isEqualToString:@"String"])
+  if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 0;
   }
 
-  else if ([v1 isEqualToString:@"CandidateList"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 1;
   }
 
-  else if ([v1 isEqualToString:@"Command"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 2;
   }
 
-  else if ([v1 isEqualToString:@"Delete"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 3;
   }
 
-  else if ([v1 isEqualToString:@"Dictation"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 4;
   }
 
-  else if ([v1 isEqualToString:@"Dismiss"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 5;
   }
 
-  else if ([v1 isEqualToString:@"Drag"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 6;
   }
 
-  else if ([v1 isEqualToString:@"DualString"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 7;
   }
 
-  else if ([v1 isEqualToString:@"DynamicString"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 8;
   }
 
-  else if ([v1 isEqualToString:@"Emoji"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 9;
   }
 
-  else if ([v1 isEqualToString:@"TenKeyKeyplaneSwitchOff"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 10;
   }
 
-  else if ([v1 isEqualToString:@"TenKeyKeyplaneSwitchOn"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 11;
   }
 
-  else if ([v1 isEqualToString:@"Handwriting"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 12;
   }
 
-  else if ([v1 isEqualToString:@"International"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 13;
   }
 
-  else if ([v1 isEqualToString:@"KeyplaneSwitch"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 14;
   }
 
-  else if ([v1 isEqualToString:@"LeftDarkAndNoRightDivider"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 15;
   }
 
-  else if ([v1 isEqualToString:@"LightBottom"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 16;
   }
 
-  else if ([v1 isEqualToString:@"LightBottomAndRight"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 17;
   }
 
-  else if ([v1 isEqualToString:@"More"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 18;
   }
 
-  else if ([v1 isEqualToString:@"NoRightDivider"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 19;
   }
 
-  else if ([v1 isEqualToString:@"NumberPad"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 20;
   }
 
-  else if ([v1 isEqualToString:@"Return"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 21;
   }
 
-  else if ([v1 isEqualToString:@"ReverseVerticalDark"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 22;
   }
 
-  else if ([v1 isEqualToString:@"Shift"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 23;
   }
 
-  else if ([v1 isEqualToString:@"SmallKana"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 24;
   }
 
-  else if ([v1 isEqualToString:@"Space"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 25;
   }
 
-  else if ([v1 isEqualToString:@"Tab"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 26;
   }
 
-  else if ([v1 isEqualToString:@"Top-Level-Domain"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 27;
   }
 
-  else if ([v1 isEqualToString:@"Top-Level-Domain-Variant"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 28;
   }
 
-  else if ([v1 isEqualToString:@"TwoVerticalDark"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 29;
   }
 
-  else if ([v1 isEqualToString:@"TwoVerticalLight"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 30;
   }
 
-  else if ([v1 isEqualToString:@"VoicedKey"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 31;
   }
 
-  else if ([v1 isEqualToString:@"MultitapComplete"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 32;
   }
 
-  else if ([v1 isEqualToString:@"MultitapReverse"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 33;
   }
 
-  else if ([v1 isEqualToString:@"WALongVowelSign"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 34;
   }
 
-  else if ([v1 isEqualToString:@"TenKeyRoman"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 35;
   }
 
-  else if ([v1 isEqualToString:@"EmojiInputView"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 36;
   }
 
-  else if ([v1 isEqualToString:@"EmojiCategoryControl"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 37;
   }
 
-  else if ([v1 isEqualToString:@"Letter-Line"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 38;
   }
 
-  else if ([v1 isEqualToString:@"Bold"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 39;
   }
 
-  else if ([v1 isEqualToString:@"Italic"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 40;
   }
 
-  else if ([v1 isEqualToString:@"Underline"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 41;
   }
 
-  else if ([v1 isEqualToString:@"Cut"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 42;
   }
 
-  else if ([v1 isEqualToString:@"Copy"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 43;
   }
 
-  else if ([v1 isEqualToString:@"Paste"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 44;
   }
 
-  else if ([v1 isEqualToString:@"LeftArrow"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 45;
   }
 
-  else if ([v1 isEqualToString:@"RightArrow"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 46;
   }
 
-  else if ([v1 isEqualToString:@"PredictionActive"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 47;
   }
 
-  else if ([v1 isEqualToString:@"UCBSelectionBackground"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 48;
   }
 
-  else if ([v1 isEqualToString:@"BIU"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 49;
   }
 
-  else if ([v1 isEqualToString:@"Divider"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 50;
   }
 
-  else if ([v1 isEqualToString:@"Caps-Lock"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 51;
   }
 
-  else if ([v1 isEqualToString:@"Dictation-Display"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 52;
   }
 
-  else if ([v1 isEqualToString:@"MessageWriteboard"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 53;
   }
 
-  else if ([v1 isEqualToString:@"KeyplaneSwitchCollapsed"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 54;
   }
 
-  else if ([v1 isEqualToString:@"EmojiSearchControl"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 55;
   }
 
-  else if ([v1 isEqualToString:@"CustomAction"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 56;
   }
 
-  else if ([v1 isEqualToString:@"Image"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 57;
   }
@@ -2025,67 +2129,67 @@ __CFString *enumStringForDisplayType(unsigned int a1)
 uint64_t variantsTypeFromString(void *a1)
 {
   v1 = a1;
-  if ([v1 isEqualToString:@"accents"])
+  if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 1;
   }
 
-  else if ([v1 isEqualToString:@"currency"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 3;
   }
 
-  else if ([v1 isEqualToString:@"email"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 4;
   }
 
-  else if ([v1 isEqualToString:@"immediate-accents"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 5;
   }
 
-  else if ([v1 isEqualToString:@"input-modes"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 6;
   }
 
-  else if ([v1 isEqualToString:@"URL"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 7;
   }
 
-  else if ([v1 isEqualToString:@"keyplane-accents"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 8;
   }
 
-  else if ([v1 isEqualToString:@"BIU"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 9;
   }
 
-  else if ([v1 isEqualToString:@"skin-tone-emoji-accents"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 10;
   }
 
-  else if ([v1 isEqualToString:@"prepopulated-accents"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 11;
   }
 
-  else if ([v1 isEqualToString:@"extended-skin-tone-emoji-selector"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 12;
   }
 
-  else if ([v1 isEqualToString:@"prepopulated-extended-skin-tone-emoji"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 13;
   }
 
-  else if ([v1 isEqualToString:@"keyplane-switcher"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 14;
   }
@@ -2114,242 +2218,242 @@ uint64_t enumStringForVariantsType(int a1)
 uint64_t attributeValueFromString(void *a1)
 {
   v1 = a1;
-  if ([v1 isEqualToString:@"10key"])
+  if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 1;
   }
 
-  else if ([v1 isEqualToString:@"center"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 2;
   }
 
-  else if ([v1 isEqualToString:@"dark"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 3;
   }
 
-  else if ([v1 isEqualToString:@"disabled"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 4;
   }
 
-  else if ([v1 isEqualToString:@"enabled"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 5;
   }
 
-  else if ([v1 isEqualToString:@"extended-symbols"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 6;
   }
 
-  else if ([v1 isEqualToString:@"flick"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 7;
   }
 
-  else if ([v1 isEqualToString:@"glyph"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 8;
   }
 
-  else if ([v1 isEqualToString:@"handwriting"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 9;
   }
 
-  else if ([v1 isEqualToString:@"highlighted"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 10;
   }
 
-  else if ([v1 isEqualToString:@"japanese50on"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 11;
   }
 
-  else if ([v1 isEqualToString:@"UIKeyboardTypeASCIICapable"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 12;
   }
 
-  else if ([v1 isEqualToString:@"UIKeyboardTypeDecimalPad"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 13;
   }
 
-  else if ([v1 isEqualToString:@"UIKeyboardTypeDefault"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 14;
   }
 
-  else if ([v1 isEqualToString:@"UIKeyboardTypeEmailAddress"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 15;
   }
 
-  else if ([v1 isEqualToString:@"UIKeyboardTypeNamePhonePad"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 16;
   }
 
-  else if ([v1 isEqualToString:@"UIKeyboardTypeNumberPad"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 17;
   }
 
-  else if ([v1 isEqualToString:@"UIKeyboardTypeNumbersAndPunctuation"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 18;
   }
 
-  else if ([v1 isEqualToString:@"UIKeyboardTypePhonePad"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 19;
   }
 
-  else if ([v1 isEqualToString:@"UIKeyboardTypeURL"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 20;
   }
 
-  else if ([v1 isEqualToString:@"left"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 21;
   }
 
-  else if ([v1 isEqualToString:@"letters"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 22;
   }
 
-  else if ([v1 isEqualToString:@"light"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 23;
   }
 
-  else if ([v1 isEqualToString:@"name"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 24;
   }
 
-  else if ([v1 isEqualToString:@"no"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 25;
   }
 
-  else if ([v1 isEqualToString:@"numbers"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 26;
   }
 
-  else if ([v1 isEqualToString:@"phonepad"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 27;
   }
 
-  else if ([v1 isEqualToString:@"pressed"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 28;
   }
 
-  else if ([v1 isEqualToString:@"right"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 29;
   }
 
-  else if ([v1 isEqualToString:@"straight"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 30;
   }
 
-  else if ([v1 isEqualToString:@"symbols"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 31;
   }
 
-  else if ([v1 isEqualToString:@"yes"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 32;
   }
 
-  else if ([v1 isEqualToString:@"chinese10key"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 33;
   }
 
-  else if ([v1 isEqualToString:@"korean10key"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 34;
   }
 
-  else if ([v1 isEqualToString:@"japanese-aiu"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 35;
   }
 
-  else if ([v1 isEqualToString:@"strictly-left"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 36;
   }
 
-  else if ([v1 isEqualToString:@"strictly-right"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 37;
   }
 
-  else if ([v1 isEqualToString:@"emoji"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 38;
   }
 
-  else if ([v1 isEqualToString:@"dictation"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 39;
   }
 
-  else if ([v1 isEqualToString:@"popup-menu"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 40;
   }
 
-  else if ([v1 isEqualToString:@"high"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 41;
   }
 
-  else if ([v1 isEqualToString:@"linear"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 42;
   }
 
-  else if ([v1 isEqualToString:@"fixed-left"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 43;
   }
 
-  else if ([v1 isEqualToString:@"fixed-right"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 44;
   }
 
-  else if ([v1 isEqualToString:@"cased"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 45;
   }
 
-  else if ([v1 isEqualToString:@"literal"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 46;
   }
 
-  else if ([v1 isEqualToString:@"none"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 47;
   }
 
-  else if ([v1 isEqualToString:@"linear-slim"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 48;
   }
@@ -2378,47 +2482,47 @@ __CFString *enumStringForAttributeValue(int a1)
 uint64_t themeTypeFromString(void *a1)
 {
   v1 = a1;
-  if ([v1 isEqualToString:@"UIKBThemeDefault"])
+  if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 0;
   }
 
-  else if ([v1 isEqualToString:@"UIKBThemeBlue"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 1;
   }
 
-  else if ([v1 isEqualToString:@"UIKBThemeDarkGray"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 2;
   }
 
-  else if ([v1 isEqualToString:@"UIKBThemeDarkSteel"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 3;
   }
 
-  else if ([v1 isEqualToString:@"UIKBThemeDarkWood"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 4;
   }
 
-  else if ([v1 isEqualToString:@"UIKBThemeLightGray"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 5;
   }
 
-  else if ([v1 isEqualToString:@"UIKBThemeLightSteel"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 6;
   }
 
-  else if ([v1 isEqualToString:@"UIKBThemeMidGray"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 7;
   }
 
-  else if ([v1 isEqualToString:@"UIKBThemeMidSteel"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = 8;
   }
@@ -2434,517 +2538,517 @@ uint64_t themeTypeFromString(void *a1)
 __CFString *stringForAttributeName(void *a1)
 {
   v1 = a1;
-  if ([v1 isEqualToString:@"adaptive-keys"])
+  if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = @"UIKBAttributeNameAdaptiveKeys";
   }
 
-  else if ([v1 isEqualToString:@"autoshift"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = @"UIKBAttributeNameAutoshift";
   }
 
-  else if ([v1 isEqualToString:@"diacritic-forward-compose"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = @"UIKBAttributeNameDiacriticForwardCompose";
   }
 
-  else if ([v1 isEqualToString:@"display-corner"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = @"UIKBAttributeNameDisplayCorner";
   }
 
-  else if ([v1 isEqualToString:@"DisplayImage"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = @"UIKBAttributeNameDisplayImage";
   }
 
-  else if ([v1 isEqualToString:@"drag-threshold"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = @"UIKBAttributeNameDragThreshold";
   }
 
-  else if ([v1 isEqualToString:@"gesture-keyplane"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = @"UIKBAttributeNameGestureKeyplane";
   }
 
-  else if ([v1 isEqualToString:@"grid-layout"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = @"UIKBAttributeNameGridLayout";
   }
 
-  else if ([v1 isEqualToString:@"group-neighbor"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = @"UIKBAttributeNameGroupNeighbor";
   }
 
-  else if ([v1 isEqualToString:@"home-indicator"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = @"UIKBAttributeNameHomeIndicator";
   }
 
-  else if ([v1 isEqualToString:@"ignore-hand-bias"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = @"UIKBAttributeNameIgnoreHandBias";
   }
 
-  else if ([v1 isEqualToString:@"ignore-shift-state"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = @"UIKBAttributeNameIgnoreShiftState";
   }
 
-  else if ([v1 isEqualToString:@"is-alphabetic-plane"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = @"UIKBAttributeNameIsAlphabeticPlane";
   }
 
-  else if ([v1 isEqualToString:@"is-kana-plane"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = @"UIKBAttributeNameIsKanaPlane";
   }
 
-  else if ([v1 isEqualToString:@"is-kana-keyboard"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = @"UIKBAttributeNameIsKanaKeyboard";
   }
 
-  else if ([v1 isEqualToString:@"keycharging"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = @"UIKBAttributeNameKeyCharging";
   }
 
-  else if ([v1 isEqualToString:@"label"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = @"UIKBAttributeNameLabel";
   }
 
-  else if ([v1 isEqualToString:@"looks-like-shift-alternate"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = @"UIKBAttributeNameLooksLikeShiftAlternate";
   }
 
-  else if ([v1 isEqualToString:@"merge-as-more-key"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = @"UIKBAttributeNameMergeAsMoreKey";
   }
 
-  else if ([v1 isEqualToString:@"modify-for-writeboard-key"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = @"UIKBAttributeNameModifyForWriteboardKey";
   }
 
-  else if ([v1 isEqualToString:@"more-after"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = @"UIKBAttributeNameMoreAfter";
   }
 
-  else if ([v1 isEqualToString:@"more-alternate"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = @"UIKBAttributeNameMoreAlternate";
   }
 
-  else if ([v1 isEqualToString:@"more-alternate-small-display"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = @"UIKBAttributeNameMoreAlternateSmallDisplay";
   }
 
-  else if ([v1 isEqualToString:@"more-rendering"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = @"UIKBAttributeNameMoreRendering";
   }
 
-  else if ([v1 isEqualToString:@"no-language-indicator"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = @"UIKBAttributeNameNoLanguageIndicator";
   }
 
-  else if ([v1 isEqualToString:@"notusecandidateselection"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = @"UIKBAttributeNameNotUseCandidateSelection";
   }
 
-  else if ([v1 isEqualToString:@"popup-bias"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = @"UIKBAttributeNamePopupBias";
   }
 
-  else if ([v1 isEqualToString:@"rendering"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = @"UIKBAttributeNameRendering";
   }
 
-  else if ([v1 isEqualToString:@"restable"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = @"UIKBAttributeNameRestable";
   }
 
-  else if ([v1 isEqualToString:@"shift"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = @"UIKBAttributeNameShift";
   }
 
-  else if ([v1 isEqualToString:@"shift-after"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = @"UIKBAttributeNameShiftAfter";
   }
 
-  else if ([v1 isEqualToString:@"shift-alternate"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = @"UIKBAttributeNameShiftAlternate";
   }
 
-  else if ([v1 isEqualToString:@"shift-alternate-small-display"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = @"UIKBAttributeNameShiftAlternateSmallDisplay";
   }
 
-  else if ([v1 isEqualToString:@"shift-is-plane-chooser"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = @"UIKBAttributeNameShiftIsPlaneChooser";
   }
 
-  else if ([v1 isEqualToString:@"shift-rendering"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = @"UIKBAttributeNameShiftRendering";
   }
 
-  else if ([v1 isEqualToString:@"shouldclearcachedattributes"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = @"UIKBAttributeNameShouldClearCachedAttributes";
   }
 
-  else if ([v1 isEqualToString:@"shouldskipcandidateselection"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = @"UIKBAttributeNameShouldSkipCandidateSelection";
   }
 
-  else if ([v1 isEqualToString:@"shouldskipcandidateselectionforvariants"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = @"UIKBAttributeNameShouldSkipCandidateSelectionForVariants";
   }
 
-  else if ([v1 isEqualToString:@"shouldsuppressdragretest"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = @"UIKBAttributeNameShouldSuppressDragRetest";
   }
 
-  else if ([v1 isEqualToString:@"slide-down"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = @"UIKBAttributeNameSlideDown";
   }
 
-  else if ([v1 isEqualToString:@"split-after"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = @"UIKBAttributeNameSplitAfter";
   }
 
-  else if ([v1 isEqualToString:@"split-alternate"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = @"UIKBAttributeNameSplitAlternate";
   }
 
-  else if ([v1 isEqualToString:@"state"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = @"UIKBAttributeNameState";
   }
 
-  else if ([v1 isEqualToString:@"supported-types"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = @"UIKBAttributeNameSupportedTypes";
   }
 
-  else if ([v1 isEqualToString:@"supports-continuous-path"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = @"UIKBAttributeNameSupportsContinuousPath";
   }
 
-  else if ([v1 isEqualToString:@"supports-multitap"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = @"UIKBAttributeNameSupportsMultitap";
   }
 
-  else if ([v1 isEqualToString:@"text-alignment"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = @"UIKBAttributeNameTextAlignment";
   }
 
-  else if ([v1 isEqualToString:@"tint"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = @"UIKBAttributeNameTint";
   }
 
-  else if ([v1 isEqualToString:@"variant-popup-bias"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = @"UIKBAttributeNameVariantPopupBias";
   }
 
-  else if ([v1 isEqualToString:@"variant-type"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = @"UIKBAttributeNameVariantType";
   }
 
-  else if ([v1 isEqualToString:@"visible"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = @"UIKBAttributeNameVisible";
   }
 
-  else if ([v1 isEqualToString:@"UIKeyboardTypeASCIICapableNumberPad"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = @"UIKBAttributeValueKeyboardTypeASCIICapableNumberPadStr";
   }
 
-  else if ([v1 isEqualToString:@"UIKeyboardTypeASCIICapable"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = @"UIKBAttributeValueKeyboardTypeASCIICapableStr";
   }
 
-  else if ([v1 isEqualToString:@"UIKeyboardTypeDecimalPad"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = @"UIKBAttributeValueKeyboardTypeDecimalPadStr";
   }
 
-  else if ([v1 isEqualToString:@"UIKeyboardTypeDefault"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = @"UIKBAttributeValueKeyboardTypeDefaultStr";
   }
 
-  else if ([v1 isEqualToString:@"UIKeyboardTypeEmailAddress"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = @"UIKBAttributeValueKeyboardTypeEmailAddressStr";
   }
 
-  else if ([v1 isEqualToString:@"UIKeyboardTypeNamePhonePad"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = @"UIKBAttributeValueKeyboardTypeNamePhonePadStr";
   }
 
-  else if ([v1 isEqualToString:@"UIKeyboardTypeNumberPad"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = @"UIKBAttributeValueKeyboardTypeNumberPadStr";
   }
 
-  else if ([v1 isEqualToString:@"UIKeyboardTypeNumbersAndPunctuation"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = @"UIKBAttributeValueKeyboardTypeNumbersAndPunctuationStr";
   }
 
-  else if ([v1 isEqualToString:@"UIKeyboardTypePhonePad"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = @"UIKBAttributeValueKeyboardTypePhonePadStr";
   }
 
-  else if ([v1 isEqualToString:@"UIKeyboardTypeTwitter"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = @"UIKBAttributeValueKeyboardTypeTwitterStr";
   }
 
-  else if ([v1 isEqualToString:@"UIKeyboardTypeURL"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = @"UIKBAttributeValueKeyboardTypeURLStr";
   }
 
-  else if ([v1 isEqualToString:@"UIKeyboardTypeWebSearch"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = @"UIKBAttributeValueKeyboardTypeWebSearchStr";
   }
 
-  else if ([v1 isEqualToString:@"KBabstract"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = @"UIKBTreePropertyAbstract";
   }
 
-  else if ([v1 isEqualToString:@"KBactiveGeometriesList"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = @"UIKBTreePropertyActiveGeometriesList";
   }
 
-  else if ([v1 isEqualToString:@"KBcachedGestureLayout"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = @"UIKBTreePropertyCachedGestureLayout";
   }
 
-  else if ([v1 isEqualToString:@"KBCachedKeyboardType"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = @"UIKBTreePropertyCachedKeyboardType";
   }
 
-  else if ([v1 isEqualToString:@"KBclipCorners"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = @"UIKBTreePropertyClipCorners";
   }
 
-  else if ([v1 isEqualToString:@"KBdisplayRowHint"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = @"UIKBTreePropertyDisplayRowHint";
   }
 
-  else if ([v1 isEqualToString:@"KBdisplayString"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = @"UIKBTreePropertyDisplayString";
   }
 
-  else if ([v1 isEqualToString:@"KBdisplayType"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = @"UIKBTreePropertyDisplayType";
   }
 
-  else if ([v1 isEqualToString:@"KBdisplayTypeHint"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = @"UIKBTreePropertyDisplayTypeHint";
   }
 
-  else if ([v1 isEqualToString:@"KBdynamic"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = @"UIKBTreePropertyDynamicLayout";
   }
 
-  else if ([v1 isEqualToString:@"KBflickDirection"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = @"UIKBTreePropertyFlickDirection";
   }
 
-  else if ([v1 isEqualToString:@"KBforceMultitap"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = @"UIKBTreePropertyForceMultitap";
   }
 
-  else if ([v1 isEqualToString:@"KBgeometriesList"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = @"UIKBTreePropertyGeometriesList";
   }
 
-  else if ([v1 isEqualToString:@"KBgeometry"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = @"UIKBTreePropertyGeometry";
   }
 
-  else if ([v1 isEqualToString:@"KBgestureKey"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = @"UIKBTreePropertyGestureKey";
   }
 
-  else if ([v1 isEqualToString:@"KBghost"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = @"UIKBTreePropertyGhost";
   }
 
-  else if ([v1 isEqualToString:@"KBhighlightedVariantsList"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = @"UIKBTreePropertyHighlightedVariantsList";
   }
 
-  else if ([v1 isEqualToString:@"KBhint"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = @"UIKBTreePropertyHint";
   }
 
-  else if ([v1 isEqualToString:@"KBinteractionType"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = @"UIKBTreePropertyInteractionType";
   }
 
-  else if ([v1 isEqualToString:@"KBunionFrame"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = @"UIKBTreePropertyKeyUnionFrame";
   }
 
-  else if ([v1 isEqualToString:@"KBunionPaddedFrame"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = @"UIKBTreePropertyKeyUnionPaddedFrame";
   }
 
-  else if ([v1 isEqualToString:@"KBlocalizationKey"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = @"UIKBTreePropertyLocalizationKey";
   }
 
-  else if ([v1 isEqualToString:@"KBname"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = @"UIKBTreePropertyName";
   }
 
-  else if ([v1 isEqualToString:@"KBoverrideDisplayString"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = @"UIKBTreePropertyOverrideDisplayString";
   }
 
-  else if ([v1 isEqualToString:@"KBother"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = @"UIKBTreePropertyParent";
   }
 
-  else if ([v1 isEqualToString:@"KBparentKey"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = @"UIKBTreePropertyParentKey";
   }
 
-  else if ([v1 isEqualToString:@"KBpopupDirection"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = @"UIKBTreePropertyPopupDirection";
   }
 
-  else if ([v1 isEqualToString:@"KBpreventPaddle"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = @"UIKBTreePropertyPreventPaddle";
   }
 
-  else if ([v1 isEqualToString:@"KBrepresentedString"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = @"UIKBTreePropertyRepresentedString";
   }
 
-  else if ([v1 isEqualToString:@"KBRowSetVariantType"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = @"UIKBTreePropertyRowSetVariantType";
   }
 
-  else if ([v1 isEqualToString:@"KBsecondaryDisplayStrings"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = @"UIKBTreePropertySecondaryDisplayStrings";
   }
 
-  else if ([v1 isEqualToString:@"KBsecondaryRepresentedStrings"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = @"UIKBTreePropertySecondaryRepresentedStrings";
   }
 
-  else if ([v1 isEqualToString:@"KBselectedVariantIndex"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = @"UIKBTreePropertySelectedVariantIndex";
   }
 
-  else if ([v1 isEqualToString:@"KBselectedVariantIndices"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = @"UIKBTreePropertySelectedVariantIndices";
   }
 
-  else if ([v1 isEqualToString:@"KBshape"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = @"UIKBTreePropertyShape";
   }
 
-  else if ([v1 isEqualToString:@"KBsplitMode"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = @"UIKBTreePropertySplitMode";
   }
 
-  else if ([v1 isEqualToString:@"KBtheme"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = @"UIKBTreePropertyTheme";
   }
 
-  else if ([v1 isEqualToString:@"KBToggleKeys"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = @"UIKBTreePropertyTogglePrefix";
   }
 
-  else if ([v1 isEqualToString:@"KBvisualStyle"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = @"UIKBTreePropertyVisualStyle";
   }
 
-  else if ([v1 isEqualToString:@"KBvisualStyling"])
+  else if (objc_msgSend_isEqualToString_(v1))
   {
     v2 = @"UIKBTreePropertyVisualStyling";
   }
@@ -2974,6 +3078,13 @@ uint64_t textAlignmentFromAttribute(int a1)
   {
     return v1;
   }
+}
+
+void sub_189AA3210(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, ...)
+{
+  va_start(va, a46);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
 }
 
 id nameByRemovingHash(void *a1)
@@ -3014,9 +3125,9 @@ LABEL_6:
   return v6;
 }
 
-void sub_189AAB1AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_189AAB1AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3103,9 +3214,16 @@ LABEL_9:
   return v20;
 }
 
-void sub_189AB11B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_189AAF22C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, ...)
 {
-  va_start(va, a8);
+  va_start(va, a30);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_189AB11B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+{
+  va_start(va, a15);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3178,6 +3296,13 @@ LABEL_13:
   return v13;
 }
 
+void sub_189AB6474(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, ...)
+{
+  va_start(va, a28);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
 void sub_189AB8AE0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, id location)
 {
   objc_destroyWeak((v16 + 32));
@@ -3246,7 +3371,7 @@ void ___isSystemHUDProcess_block_invoke()
   else
   {
     v0 = _UIMainBundleIdentifier();
-    byte_1ED49F019 = [v0 isEqualToString:@"com.apple.Spotlight"];
+    byte_1ED49F019 = objc_msgSend_isEqualToString_(v0);
   }
 }
 
@@ -3318,8 +3443,9 @@ LABEL_14:
   return v8;
 }
 
-void *UIKBRectsCreate(void *a1, void *a2, int a3)
+void *UIKBRectsCreate(void *a1, void *a2, uint64_t a3)
 {
+  v3 = a3;
   v5 = a1;
   v6 = a2;
   v7 = v6;
@@ -3356,12 +3482,12 @@ void *UIKBRectsCreate(void *a1, void *a2, int a3)
     *(v8 + 21) = 0;
     if ([v5 visualStyle] == 1 || objc_msgSend(v5, "visualStyle") == 2 || objc_msgSend(v5, "visualStyle") == 3 || objc_msgSend(v5, "visualStyle") == 5 || objc_msgSend(v5, "visualStyle") == 4 || objc_msgSend(v5, "visualStyle") == 103)
     {
-      UIKBRectsInit_iPhone(v8, v5, v7, a3);
+      UIKBRectsInit_iPhone(v8, v5, v7, v3);
     }
 
     else if ([v5 visualStyle] == 102 || objc_msgSend(v5, "visualStyle") == 104 || objc_msgSend(v5, "visualStyle") == 105 || objc_msgSend(v5, "visualStyle") == 101 || objc_msgSend(v5, "visualStyle") == 106 || objc_msgSend(v5, "visualStyle") == 107 || objc_msgSend(v5, "visualStyle") == 108 || objc_msgSend(v5, "visualStyle") == 109)
     {
-      UIKBRectsInit_Wildcat(v8, v5, v7, a3);
+      UIKBRectsInit_Wildcat(v8, v5, v7, v3);
     }
 
     *v8 = CGRectIntegral(*v8);
@@ -3874,26 +4000,26 @@ const __CTLine *UIKBCreateFitCTLine(void *a1, uint64_t a2, double *a3, void *a4,
   [v31 setKeycapsFallback:v29];
 
   [v31 setSelector:a5];
-  v32 = UIKBCreateFitCTLineWithSymbolStyle(v30, v31, a4, a9, a10, a11, a12);
+  v32 = UIKBCreateFitCTLineWithSymbolStyle(v30, v31, a9, a10, a11, a12, a4);
 
   return v32;
 }
 
-const __CTLine *UIKBCreateFitCTLineWithSymbolStyle(void *a1, void *a2, void *a3, double a4, double a5, double a6, CGFloat a7)
+const __CTLine *UIKBCreateFitCTLineWithSymbolStyle(void *a1, void *a2, double a3, double a4, double a5, CGFloat a6, void *a7)
 {
   v11 = a1;
   v12 = a2;
   v13 = v12;
-  v14 = a6 + -4.0;
+  v14 = a5 + -4.0;
   while (1)
   {
-    UIKBGetFontAttributesWithSymbolStyle(v12, v13, a3);
+    UIKBGetFontAttributesWithSymbolStyle(v12, v13, a7);
     v15 = CTLineCreateWithString();
     v22 = 0.0;
     ascent = 0.0;
     TypographicBounds = CTLineGetTypographicBounds(v15, &ascent, &v22, 0);
     v17 = [v13 isVertical] ? ascent + v22 : TypographicBounds;
-    v18 = v17 <= v14 && ascent + v22 <= a7;
+    v18 = v17 <= v14 && ascent + v22 <= a6;
     if (v18 || [v13 ignoreTextMarginOnKey])
     {
       break;
@@ -3934,13 +4060,13 @@ uint64_t UIKBGetFontAttributesWithSymbolStyle(uint64_t a1, void *a2, void *a3)
   v3 = a2;
   v4 = _AXSEnhanceTextLegibilityEnabled() != 0;
   v5 = [v3 fontName];
-  v121 = [v5 isEqualToString:@"UIKBRenderFactorySystemFontName"];
+  isEqualToString = objc_msgSend_isEqualToString_(v5);
 
   v6 = [v3 fontName];
-  v115 = [v6 isEqualToString:@"UIKBRenderFactoryWordsSystemCompactFontName"];
+  v115 = objc_msgSend_isEqualToString_(v6);
 
   v7 = [v3 fontName];
-  if ([v7 isEqualToString:@"UIKBRenderFactorySystemCompactFontName"])
+  if (objc_msgSend_isEqualToString_(v7))
   {
     v113 = 1;
   }
@@ -3948,15 +4074,15 @@ uint64_t UIKBGetFontAttributesWithSymbolStyle(uint64_t a1, void *a2, void *a3)
   else
   {
     v8 = [v3 fontName];
-    v113 = [v8 isEqualToString:@".SFCompact-Bold"];
+    v113 = objc_msgSend_isEqualToString_(v8);
   }
 
   v9 = [v3 fontName];
-  v10 = [v9 isEqualToString:qword_1ED49F068];
+  v10 = objc_msgSend_isEqualToString_(v9);
 
   v11 = UIKeyboardGetCurrentInputMode();
-  v12 = UIKeyboardRequiresFontFallbacksForInputMode();
-  v13 = UIKeyboardFontFallbackLanguageForInputMode();
+  v12 = UIKeyboardRequiresFontFallbacksForInputMode(v11);
+  v13 = UIKeyboardFontFallbackLanguageForInputMode(v11);
   v14 = v13;
   v116 = v11;
   if (v13)
@@ -3978,11 +4104,11 @@ uint64_t UIKBGetFontAttributesWithSymbolStyle(uint64_t a1, void *a2, void *a3)
 
   v120 = v19;
   v114 = v12;
-  v122 = ([v19 isEqualToString:qword_1ED49F070] ^ 1) & v12;
+  v122 = (objc_msgSend_isEqualToString_(v19) ^ 1) & v12;
   [v3 fontSize];
   v21 = v20;
   v22 = *&qword_1ED49F078;
-  if (v121)
+  if (isEqualToString)
   {
     [v3 fontWeight];
     v24 = v23 != *&qword_1ED49F080;
@@ -4077,7 +4203,7 @@ uint64_t UIKBGetFontAttributesWithSymbolStyle(uint64_t a1, void *a2, void *a3)
     CFDictionaryRemoveValue(qword_1ED49F098, v52);
   }
 
-  if (!v121)
+  if (!isEqualToString)
   {
     if (v115)
     {
@@ -4319,8 +4445,8 @@ uint64_t UIKBCreateCTFontWithSymbolStyle(void *a1)
   v75[1] = *MEMORY[0x1E69E9840];
   v1 = a1;
   v2 = UIKeyboardGetCurrentInputMode();
-  v3 = UIKeyboardRequiresFontFallbacksForInputMode();
-  v4 = UIKeyboardFontFallbackLanguageForInputMode();
+  v3 = UIKeyboardRequiresFontFallbacksForInputMode(v2);
+  v4 = UIKeyboardFontFallbackLanguageForInputMode(v2);
   v5 = v4;
   if (v4)
   {
@@ -4340,15 +4466,15 @@ uint64_t UIKBCreateCTFontWithSymbolStyle(void *a1)
   v10 = [MEMORY[0x1E695DF58] canonicalLanguageIdentifierFromString:v9];
 
   v11 = [v1 fontName];
-  v12 = [v11 isEqualToString:qword_1ED49F0C0];
+  isEqualToString = objc_msgSend_isEqualToString_(v11);
 
   v69 = v3;
-  v13 = ([v10 isEqualToString:qword_1ED49F0E0] ^ 1) & v3;
+  v13 = (objc_msgSend_isEqualToString_(v10) ^ 1) & v3;
   v14 = [v1 fontName];
-  v15 = [v14 isEqualToString:@"UIKBRenderFactorySystemFontName"];
+  v15 = objc_msgSend_isEqualToString_(v14);
 
   v16 = [v1 fontName];
-  if ([v16 isEqualToString:@"UIKBRenderFactorySystemCompactFontName"])
+  if (objc_msgSend_isEqualToString_(v16))
   {
     v17 = 1;
   }
@@ -4356,10 +4482,10 @@ uint64_t UIKBCreateCTFontWithSymbolStyle(void *a1)
   else
   {
     v18 = [v1 fontName];
-    v17 = [v18 isEqualToString:@".SFCompact-Bold"];
+    v17 = objc_msgSend_isEqualToString_(v18);
   }
 
-  if (v13 & 1 | ((v12 & 1) == 0) || ([v1 fontSize], v19 != *&qword_1ED49F0C8) && (objc_msgSend(v1, "fontSize"), v20 > 0.0) || v15 && (objc_msgSend(v1, "fontWeight"), v21 != *&qword_1ED49F0D0) && (objc_msgSend(v1, "fontWeight"), v22 != 0.0))
+  if (v13 & 1 | ((isEqualToString & 1) == 0) || ([v1 fontSize], v19 != *&qword_1ED49F0C8) && (objc_msgSend(v1, "fontSize"), v20 > 0.0) || v15 && (objc_msgSend(v1, "fontWeight"), v21 != *&qword_1ED49F0D0) && (objc_msgSend(v1, "fontWeight"), v22 != 0.0))
   {
     [v1 fontSize];
     v24 = v23;
@@ -4376,7 +4502,7 @@ uint64_t UIKBCreateCTFontWithSymbolStyle(void *a1)
     }
 
     v26 = [v1 fontName];
-    v27 = [v26 isEqualToString:@"UIKBRenderFactorySystemFontName"];
+    v27 = objc_msgSend_isEqualToString_(v26);
 
     if (v27)
     {
@@ -4491,19 +4617,20 @@ uint64_t UIKBCreateCTFontWithSymbolStyle(void *a1)
   return v67;
 }
 
-uint64_t UIKBGlyphForCharacter(uint64_t a1, __int16 a2, void *a3, double a4, double a5, double a6)
+uint64_t UIKBGlyphForCharacter(uint64_t a1, uint64_t a2, void *a3, double a4, double a5, double a6)
 {
+  v6 = a2;
   v11 = a3;
   v12 = [UIKBTextStyle styleWithFontName:a1 withFontSize:a4];
   [v12 setFontWeight:a5];
   [v12 setFontWidth:a6];
   [v12 setKeycapsFallback:v11];
 
-  v13 = UIKBGlyphForCharacterWithSymbolStyle(a2, v12);
+  v13 = UIKBGlyphForCharacterWithSymbolStyle(v6, v12);
   return v13;
 }
 
-uint64_t UIKBGlyphForCharacterWithSymbolStyle(__int16 a1, void *a2)
+uint64_t UIKBGlyphForCharacterWithSymbolStyle(unsigned __int16 a1, void *a2)
 {
   v28 = *MEMORY[0x1E69E9840];
   v3 = a2;
@@ -4650,7 +4777,7 @@ CTFontRef UIKBCTFontForInputMode(void *a1, void *a2, CGFloat a3)
 
   else
   {
-    if (UIKeyboardRequiresFontFallbacksForInputMode())
+    if (UIKeyboardRequiresFontFallbacksForInputMode(v5))
     {
       Mutable = CFDictionaryCreateMutable(0, 0, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
       v13 = [MEMORY[0x1E695DF58] canonicalLanguageIdentifierFromString:v7];
@@ -4687,117 +4814,118 @@ void __UIKBCTFontForInputMode_block_invoke()
   qword_1ED49F0E8 = v0;
 }
 
-CGImageRef UIKBCreateFadeClipImage(int a1, int a2, CGFloat a3, CGFloat a4, CGFloat a5, CGFloat a6, CGFloat a7, CGFloat a8, CGFloat a9, CGFloat a10, CGFloat a11)
+CGImageRef UIKBCreateFadeClipImage(CGColorSpaceRef a1, int a2, CGFloat a3, CGFloat a4, CGFloat a5, CGFloat a6, CGFloat a7, CGFloat a8, CGFloat a9, CGFloat a10, CGFloat a11)
 {
-  v50 = *MEMORY[0x1E69E9840];
+  v12 = a1;
+  v44 = *MEMORY[0x1E69E9840];
   if (!UIKBCreateFadeClipImage_colorspace)
   {
     UIKBCreateFadeClipImage_colorspace = CGColorSpaceCreateWithName(*MEMORY[0x1E695F1C8]);
   }
 
-  v25 = UIKBScale();
+  v19 = UIKBScale();
   *components = xmmword_18A64B720;
-  v26 = CGColorCreate(UIKBCreateFadeClipImage_colorspace, components);
-  v27 = vcvtpd_u64_f64(a5 * v25);
-  v28 = CGBitmapContextCreate(0, v27, vcvtpd_u64_f64(a6 * v25), 8uLL, v27, UIKBCreateFadeClipImage_colorspace, 0);
-  CGAffineTransformMakeScale(&transform, v25, v25);
-  CGContextConcatCTM(v28, &transform);
+  v20 = CGColorCreate(UIKBCreateFadeClipImage_colorspace, components);
+  v21 = vcvtpd_u64_f64(a5 * v19);
+  v22 = CGBitmapContextCreate(0, v21, vcvtpd_u64_f64(a6 * v19), 8uLL, v21, UIKBCreateFadeClipImage_colorspace, 0);
+  CGAffineTransformMakeScale(&transform, v19, v19);
+  CGContextConcatCTM(v22, &transform);
   *&transform.a = xmmword_18A67EA40;
-  v29 = CGColorCreate(UIKBCreateFadeClipImage_colorspace, &transform.a);
-  CGContextSetFillColorWithColor(v28, v29);
-  v51.origin.x = a3;
-  v51.origin.y = a4;
-  v51.size.width = a5;
-  v51.size.height = a6;
-  CGContextFillRect(v28, v51);
-  CGColorRelease(v29);
-  v47[0] = a11;
-  v47[1] = 1.0;
-  v30 = CGColorCreate(UIKBCreateFadeClipImage_colorspace, v47);
-  v31 = [MEMORY[0x1E695DEC8] arrayWithObjects:{v26, v30, 0}];
-  CGColorRelease(v30);
-  CGColorRelease(v26);
-  v32 = CGGradientCreateWithColors(UIKBCreateFadeClipImage_colorspace, v31, 0);
-  v52.origin.x = a7;
-  v52.origin.y = a8;
-  v52.size.width = a9;
-  v52.size.height = a10;
-  v53 = CGRectOffset(v52, -a3, -a4);
-  x = v53.origin.x;
-  y = v53.origin.y;
-  width = v53.size.width;
-  height = v53.size.height;
-  CGContextClipToRect(v28, v53);
-  if (a1)
+  v23 = CGColorCreate(UIKBCreateFadeClipImage_colorspace, &transform.a);
+  CGContextSetFillColorWithColor(v22, v23);
+  v45.origin.x = a3;
+  v45.origin.y = a4;
+  v45.size.width = a5;
+  v45.size.height = a6;
+  CGContextFillRect(v22, v45);
+  CGColorRelease(v23);
+  v41[0] = a11;
+  v41[1] = 1.0;
+  v24 = CGColorCreate(UIKBCreateFadeClipImage_colorspace, v41);
+  v25 = [MEMORY[0x1E695DEC8] arrayWithObjects:{v20, v24, 0}];
+  CGColorRelease(v24);
+  CGColorRelease(v20);
+  v26 = CGGradientCreateWithColors(UIKBCreateFadeClipImage_colorspace, v25, 0);
+  v46.origin.x = a7;
+  v46.origin.y = a8;
+  v46.size.width = a9;
+  v46.size.height = a10;
+  v47 = CGRectOffset(v46, -a3, -a4);
+  x = v47.origin.x;
+  y = v47.origin.y;
+  width = v47.size.width;
+  height = v47.size.height;
+  CGContextClipToRect(v22, v47);
+  if (v12)
   {
-    v37 = y;
+    v31 = y;
   }
 
   else
   {
-    v37 = y + height;
+    v31 = y + height;
   }
 
-  if (a1)
+  if (v12)
   {
-    v38 = y + height;
-  }
-
-  else
-  {
-    v38 = y;
-  }
-
-  if (a1)
-  {
-    v39 = x;
+    v32 = y + height;
   }
 
   else
   {
-    v39 = x + width;
+    v32 = y;
   }
 
-  if (a1)
+  if (v12)
   {
-    v40 = x + width;
+    v33 = x;
   }
 
   else
   {
-    v40 = x;
+    v33 = x + width;
+  }
+
+  if (v12)
+  {
+    v34 = x + width;
+  }
+
+  else
+  {
+    v34 = x;
   }
 
   if (a2)
   {
-    v41 = v39;
+    v35 = v33;
   }
 
   else
   {
-    v41 = x;
+    v35 = x;
   }
 
   if (a2)
   {
-    v37 = y;
-    v42 = v40;
+    v31 = y;
+    v36 = v34;
   }
 
   else
   {
-    v42 = x;
+    v36 = x;
   }
 
   if (a2)
   {
-    v38 = y;
+    v32 = y;
   }
 
-  CGContextDrawLinearGradient(v28, v32, *(&v37 - 1), *(&v38 - 1), 0);
-  CGGradientRelease(v32);
-  Image = CGBitmapContextCreateImage(v28);
-  CGContextRelease(v28);
+  CGContextDrawLinearGradient(v22, v26, *(&v31 - 1), *(&v32 - 1), 0);
+  CGGradientRelease(v26);
+  Image = CGBitmapContextCreateImage(v22);
+  CGContextRelease(v22);
 
   return Image;
 }
@@ -5119,16 +5247,16 @@ LABEL_36:
         y = v171.origin.y;
         width = v171.size.width;
         height = v171.size.height;
-        if ([v50 isEqualToString:@"right"])
+        if (objc_msgSend_isEqualToString_(v50))
         {
-          v96 = 1;
+          isEqualToString = 1;
           v97 = x;
         }
 
         else
         {
-          v96 = [v50 isEqualToString:@"strictly-right"];
-          if (v96)
+          isEqualToString = objc_msgSend_isEqualToString_(v50);
+          if (isEqualToString)
           {
             v97 = x;
           }
@@ -5296,7 +5424,7 @@ LABEL_130:
           v98 = v162;
           y = v155;
           v105 = v153;
-          if (v96)
+          if (isEqualToString)
           {
             if (v128 >= v158)
             {
@@ -5354,7 +5482,7 @@ LABEL_114:
           v136 = (v158 / v135);
           v137 = (v135 - vcvtpd_s64_f64((v66 + 1.0) / (v136 + 1.0)));
           v138 = v104 * v137;
-          if (((v49 == 106) ^ v96))
+          if (((v49 == 106) ^ isEqualToString))
           {
             _NF = v132 < v137;
             v139 = v134 + v104 * (v137 - v132);
@@ -5398,7 +5526,7 @@ LABEL_114:
         }
 
         v99 = v157 * v158 + v151;
-        if (v96)
+        if (isEqualToString)
         {
           if (v128 >= v158)
           {
@@ -5551,6 +5679,13 @@ LABEL_78:
 LABEL_20:
 }
 
+void sub_189AC1A6C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, ...)
+{
+  va_start(va, a28);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
 void UIKBRectsInit_Wildcat(uint64_t a1, void *a2, void *a3, int a4)
 {
   v90 = a2;
@@ -5648,9 +5783,9 @@ LABEL_22:
       {
         _MergedGlobals_1174 = 5;
         v34 = [v32 name];
-        v35 = [v34 isEqualToString:@"EmojiPopupKey"];
+        isEqualToString = objc_msgSend_isEqualToString_(v34);
 
-        if (v35)
+        if (isEqualToString)
         {
           v36 = [v33 subtrees];
           _MergedGlobals_1174 = [v36 count];
@@ -5993,9 +6128,9 @@ LABEL_3:
   {
     if (v10 && v11)
     {
-      v13 = [v10 isEqual:v11];
+      isEqual = objc_msgSend_isEqual_(v10);
 
-      if (v13)
+      if (isEqual)
       {
         goto LABEL_12;
       }
@@ -6252,7 +6387,7 @@ LABEL_28:
 id _UIFocusGroupUnresolvedIdentifierForEnvironment(void *a1)
 {
   v1 = a1;
-  if (_UIFocusEnvironmentIsViewOrViewControllerOrRespondsToSelector(v1))
+  if (_UIFocusEnvironmentIsViewOrViewControllerOrRespondsToSelector(v1, sel_focusGroupIdentifier))
   {
     [v1 focusGroupIdentifier];
   }
@@ -6307,10 +6442,10 @@ uint64_t _UIFocusGroupPriorityForItem(void *a1, id a2, id a3)
   return v8;
 }
 
-void sub_189AC68FC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_189AC68FC(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   a9.super_class = UIKBHandwritingStrokeView;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
@@ -6465,10 +6600,10 @@ LABEL_35:
   *(a1 + 64) = v28;
 }
 
-void sub_189AC9134(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_189AC9134(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   a9.super_class = UIKBHandwritingView;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
@@ -6512,59 +6647,75 @@ LABEL_7:
   return result;
 }
 
-uint64_t ___ZL23AudioToolboxLibraryCorePPc_block_invoke()
+uint64_t ___ZL23AudioToolboxLibraryCorePPc_block_invoke(uint64_t a1)
 {
   result = _sl_dlopen();
   qword_1ED49A750 = result;
   return result;
 }
 
-void sub_189ACE5DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_189ACE5DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_189ADDC30(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, char a32, uint64_t a33, uint64_t a34, uint64_t a35, char a36)
+void sub_189ADDC30(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, ...)
 {
+  va_start(va, a35);
   _Block_object_dispose(&a32, 8);
-  _Block_object_dispose(&a36, 8);
-  _Block_object_dispose((v36 - 216), 8);
-  _Block_object_dispose((v36 - 184), 8);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v35 - 216), 8);
+  _Block_object_dispose((v35 - 184), 8);
   _Unwind_Resume(a1);
 }
 
-void sub_189AE1710(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_189AE1710(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-__CFString *_labelColorSecondary(int a1)
+void sub_189AE805C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, ...)
 {
-  v2 = _AXDarkenSystemColors();
-  v3 = UIKBColorBlack_Alpha80;
-  if (v2)
+  va_start(va, a31);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_189AFE23C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, ...)
+{
+  va_start(va, a27);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+__CFString *_labelColorSecondary(uint64_t a1, uint64_t a2)
+{
+  v2 = a1;
+  v3 = _AXDarkenSystemColors();
+  v4 = UIKBColorBlack_Alpha80;
+  if (v3)
   {
-    v4 = UIKBColorWhite_Alpha85;
+    v5 = UIKBColorWhite_Alpha85;
   }
 
   else
   {
-    v3 = UIKBColorBlack_Alpha60;
-    v4 = UIKBColorWhite_Alpha50;
+    v4 = UIKBColorBlack_Alpha60;
+    v5 = UIKBColorWhite_Alpha50;
   }
 
-  if (!a1)
+  if (!v2)
   {
-    v3 = v4;
+    v4 = v5;
   }
 
-  v5 = *v3;
+  v6 = *v4;
 
-  return v5;
+  return v6;
 }
 
 uint64_t geometryPositionSort(void *a1, void *a2, void *a3)
@@ -6627,6 +6778,13 @@ void sub_189B15C80(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
+void sub_189B1702C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, ...)
+{
+  va_start(va, a27);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
 void centroidCGPathApplierFunction(void *a1, uint64_t a2)
 {
   v3 = a1;
@@ -6658,9 +6816,9 @@ void centroidCGPathApplierFunction(void *a1, uint64_t a2)
 LABEL_6:
 }
 
-void sub_189B189C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, ...)
+void sub_189B189C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, ...)
 {
-  va_start(va, a14);
+  va_start(va, a21);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6743,9 +6901,9 @@ id _UICalendarSanitizeWithCalendar(void *a1, void *a2)
     if (v3)
     {
       v5 = [a1 calendar];
-      v6 = [v5 isEqual:v3];
+      isEqual = objc_msgSend_isEqual_(v5);
 
-      if ((v6 & 1) == 0)
+      if ((isEqual & 1) == 0)
       {
         v7 = [a1 calendar];
         v8 = [v7 dateFromComponents:a1];
@@ -6824,9 +6982,16 @@ LABEL_9:
   return v5;
 }
 
-void sub_189B213B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_189B21000(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, ...)
 {
-  va_start(va, a11);
+  va_start(va, a38);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_189B213B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
+{
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6838,9 +7003,9 @@ void ___nonPersistentCacheForKey_block_invoke()
   _MergedGlobals_1181 = v0;
 }
 
-void sub_189B29908(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_189B29908(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6858,16 +7023,16 @@ uint64_t _translateToTIContinuousPathState(uint64_t result)
   }
 }
 
-void sub_189B2C438(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_189B2C438(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_189B36838(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_189B36838(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -7001,7 +7166,7 @@ void sub_189B4ABF4(_Unwind_Exception *a1)
 
 BOOL isFlickOutOfBounds(double a1, double a2, double a3, double a4)
 {
-  v6 = +[UIKeyboard activeKeyboard];
+  v6 = [UIKeyboard activeKeyboard:a1];
   v7 = [v6 interfaceOrientation] - 5;
 
   v8 = UIKeyboardGetSafeDeviceIdiom() & 0xFFFFFFFFFFFFFFFBLL;
@@ -7015,10 +7180,11 @@ BOOL isFlickOutOfBounds(double a1, double a2, double a3, double a4)
   return vabdd_f64(a2, a4) > v10;
 }
 
-void sub_189B52034(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, char a31)
+void sub_189B52034(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, ...)
 {
-  _Block_object_dispose(&a31, 8);
-  _Block_object_dispose((v31 - 192), 8);
+  va_start(va, a30);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v30 - 192), 8);
   _Unwind_Resume(a1);
 }
 
@@ -7060,7 +7226,7 @@ void sub_189B57684(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-uint64_t __TextInputUILibraryCore_block_invoke_14()
+uint64_t __TextInputUILibraryCore_block_invoke_14(uint64_t a1)
 {
   result = _sl_dlopen();
   TextInputUILibraryCore_frameworkLibrary_6 = result;
@@ -7079,9 +7245,9 @@ id getFlickPopupInfoArray(void *a1, void *a2)
     v7 = UIKeyboardRomanAccentVariants(v4, v6, 38);
 
     v8 = [v7 objectForKey:@"Direction"];
-    v9 = [v8 isEqualToString:@"flick"];
+    isEqualToString = objc_msgSend_isEqualToString_(v8);
 
-    if (v9)
+    if (isEqualToString)
     {
       v10 = [v7 objectForKey:v3];
     }
@@ -7124,16 +7290,16 @@ id getAFSpeechCorrectionInfoClass()
   return v1;
 }
 
-void sub_189B586C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_189B586C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_189B589F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_189B589F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -7162,23 +7328,23 @@ id getAFSpeechMessagesContextClass()
   return v1;
 }
 
-void sub_189B597B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_189B597B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_189B59ADC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_189B59ADC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_189B5A034(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_189B5A034(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -7207,25 +7373,26 @@ id getAFSpeechRequestOptionsClass()
   return v1;
 }
 
-void sub_189B5A21C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_189B5A21C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_189B5D17C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, ...)
+void sub_189B5D17C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, ...)
 {
-  va_start(va, a14);
+  va_start(va, a21);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v14 - 160), 8);
+  _Block_object_dispose((v21 - 160), 8);
   _Unwind_Resume(a1);
 }
 
-void sub_189B5D8CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, char a26)
+void sub_189B5D8CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, ...)
 {
-  _Block_object_dispose(&a26, 8);
-  _Block_object_dispose((v26 - 176), 8);
+  va_start(va, a25);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v25 - 176), 8);
   _Unwind_Resume(a1);
 }
 
@@ -7262,9 +7429,9 @@ void getAFOfflineDictationStatusHighQualityKey()
   }
 }
 
-void sub_189B5F9CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_189B5F9CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -7302,21 +7469,21 @@ void getAFOfflineDictationStatusInstalledKey()
   }
 }
 
-void sub_189B5FB30(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_189B5FB30(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_189B5FE60(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_189B5FE60(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-uint64_t __AssistantServicesLibraryCore_block_invoke_0()
+uint64_t __AssistantServicesLibraryCore_block_invoke_0(uint64_t a1)
 {
   result = _sl_dlopen();
   AssistantServicesLibraryCore_frameworkLibrary_0 = result;
@@ -7503,9 +7670,16 @@ void sub_189B6117C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_189B64AF0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_189B632E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, ...)
 {
-  va_start(va, a6);
+  va_start(va, a40);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_189B64AF0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+{
+  va_start(va, a11);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -7530,9 +7704,9 @@ __CFString *stringForState(unsigned int a1)
   }
 }
 
-void sub_189B6AC94(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_189B6AC94(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -7561,38 +7735,39 @@ id getSISchemaUEILaunchContextClass()
   return v1;
 }
 
-void sub_189B6AD84(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_189B6AD84(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_189B6D0A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_189B6D0A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_189B6D360(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, char a27)
+void sub_189B6D360(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
 {
-  _Block_object_dispose(&a27, 8);
-  _Block_object_dispose((v27 - 144), 8);
-  _Block_object_dispose((v27 - 112), 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_189B6F93C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
-{
-  va_start(va, a3);
+  va_start(va, a26);
   _Block_object_dispose(va, 8);
+  _Block_object_dispose((v26 - 144), 8);
+  _Block_object_dispose((v26 - 112), 8);
   _Unwind_Resume(a1);
 }
 
-void sub_189B700B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_189B6F93C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
   va_start(va, a5);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_189B700B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+{
+  va_start(va, a9);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -7601,6 +7776,13 @@ void sub_189B722C4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 {
   objc_destroyWeak((v19 + 56));
   objc_destroyWeak(&location);
+  _Unwind_Resume(a1);
+}
+
+void sub_189B73054(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, ...)
+{
+  va_start(va, a28);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -7628,9 +7810,9 @@ id getSISchemaUEIDictationInputModeSwitchContextClass()
   return v1;
 }
 
-void sub_189B7313C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_189B7313C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -7659,16 +7841,16 @@ id getSISchemaUEIDictationInputModeSwitchEndedClass()
   return v1;
 }
 
-void sub_189B7321C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_189B7321C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_189B752EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_189B752EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -7697,9 +7879,9 @@ id getSISchemaUEIDictationVoiceCommandExecutedClass()
   return v1;
 }
 
-void sub_189B7824C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_189B7824C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -7728,9 +7910,9 @@ id getSISchemaUUIDClass()
   return v1;
 }
 
-void sub_189B7832C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_189B7832C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -7759,79 +7941,93 @@ id getAFAggregatorClass()
   return v1;
 }
 
-void sub_189B79BB8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_189B79BB8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_189B7B2F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
+void sub_189B7B2F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, ...)
 {
-  va_start(va, a17);
+  va_start(va, a24);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_189B7C174(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_189B7BB94(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, ...)
 {
-  va_start(va, a7);
+  va_start(va, a29);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_189B7C3B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_189B7C028(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
 {
-  va_start(va, a7);
+  va_start(va, a26);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_189B7C590(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_189B7C174(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_189B7CBCC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_189B7C3B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a6);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_189B7DAA4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_189B7C590(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a3);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_189B7E628(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_189B7CBCC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
   va_start(va, a11);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_189B80518(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_189B7DAA4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a7);
+  va_start(va, a5);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_189B80D50(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_189B7E628(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a7);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_189B80ED0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_189B80518(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_189B80D50(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+{
+  va_start(va, a13);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_189B80ED0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+{
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -7885,9 +8081,16 @@ id getSISchemaUEIDictationEuclidSpeechAlternativesSelectedClass()
   return v1;
 }
 
-void sub_189B86224(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_189B86224(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_189B86594(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
+{
+  va_start(va, a26);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -7938,7 +8141,7 @@ LABEL_10:
   return result;
 }
 
-uint64_t __OnBoardingKitLibraryCore_block_invoke()
+uint64_t __OnBoardingKitLibraryCore_block_invoke(uint64_t a1)
 {
   result = _sl_dlopen();
   qword_1ED4988C0 = result;
@@ -7991,14 +8194,14 @@ LABEL_10:
   return result;
 }
 
-uint64_t __VoiceTriggerUILibraryCore_block_invoke()
+uint64_t __VoiceTriggerUILibraryCore_block_invoke(uint64_t a1)
 {
   result = _sl_dlopen();
   qword_1ED4988D0 = result;
   return result;
 }
 
-uint64_t __CallKitLibraryCore_block_invoke()
+uint64_t __CallKitLibraryCore_block_invoke(uint64_t a1)
 {
   result = _sl_dlopen();
   qword_1ED4988E0 = result;
@@ -8058,14 +8261,14 @@ LABEL_7:
   }
 }
 
-uint64_t __SiriInstrumentationLibraryCore_block_invoke()
+uint64_t __SiriInstrumentationLibraryCore_block_invoke(uint64_t a1)
 {
   result = _sl_dlopen();
   SiriInstrumentationLibraryCore_frameworkLibrary = result;
   return result;
 }
 
-uint64_t __AssistantServicesLibraryCore_block_invoke_1()
+uint64_t __AssistantServicesLibraryCore_block_invoke_1(uint64_t a1)
 {
   result = _sl_dlopen();
   AssistantServicesLibraryCore_frameworkLibrary_1 = result;
@@ -8602,7 +8805,7 @@ LABEL_10:
   return result;
 }
 
-uint64_t __RemoteTextInputLibraryCore_block_invoke_0()
+uint64_t __RemoteTextInputLibraryCore_block_invoke_0(uint64_t a1)
 {
   result = _sl_dlopen();
   qword_1ED498930 = result;
@@ -8704,33 +8907,33 @@ void __getSISchemaEuclidConfusionPairClass_block_invoke(uint64_t a1)
   }
 }
 
-void sub_189B8B944(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_189B8B944(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va1, a9);
-  va_start(va, a9);
-  v10 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
+  va_start(va1, a16);
+  va_start(va, a16);
   v17 = va_arg(va1, void);
-  v18 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
+  v24 = va_arg(va1, void);
+  v25 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_189B8C0C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_189B8C0C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_189B8D088(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_189B8D088(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -8759,23 +8962,23 @@ id getAFSpeechPhraseClass()
   return v1;
 }
 
-void sub_189B8D54C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_189B8D54C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_189B8D678(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_189B8D678(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_189B8D904(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_189B8D904(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -8841,49 +9044,50 @@ id getSFSpeechAssetManagerClass()
   return v1;
 }
 
-void sub_189B90D98(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_189B90D98(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_189B9102C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_189B9102C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_189B91158(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_189B91158(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_189B923B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_189B923B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_189B9534C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_189B9534C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v11 - 64), 8);
+  _Block_object_dispose((v18 - 64), 8);
   _Unwind_Resume(a1);
 }
 
-void sub_189B957CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, char a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, char a32)
+void sub_189B957CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, ...)
 {
+  va_start(va, a31);
   _Block_object_dispose(&a16, 8);
-  _Block_object_dispose(&a32, 8);
-  _Block_object_dispose((v32 - 200), 8);
-  _Block_object_dispose((v32 - 168), 8);
-  _Block_object_dispose((v32 - 136), 8);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v31 - 200), 8);
+  _Block_object_dispose((v31 - 168), 8);
+  _Block_object_dispose((v31 - 136), 8);
   _Unwind_Resume(a1);
 }
 
@@ -8906,7 +9110,7 @@ void __getAFSpeechInterpretationClass_block_invoke(uint64_t a1)
   }
 }
 
-uint64_t __AssistantServicesLibraryCore_block_invoke_2()
+uint64_t __AssistantServicesLibraryCore_block_invoke_2(uint64_t a1)
 {
   result = _sl_dlopen();
   AssistantServicesLibraryCore_frameworkLibrary_2 = result;
@@ -8932,7 +9136,7 @@ void __getAFSpeechPhraseClass_block_invoke(uint64_t a1)
   }
 }
 
-uint64_t __SpeechLibraryCore_block_invoke()
+uint64_t __SpeechLibraryCore_block_invoke(uint64_t a1)
 {
   result = _sl_dlopen();
   SpeechLibraryCore_frameworkLibrary = result;
@@ -9012,9 +9216,9 @@ id getSUICFlamesViewClass()
   return v1;
 }
 
-void sub_189B99214(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_189B99214(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -9065,16 +9269,16 @@ LABEL_10:
   return result;
 }
 
-uint64_t __SiriUICoreLibraryCore_block_invoke()
+uint64_t __SiriUICoreLibraryCore_block_invoke(uint64_t a1)
 {
   result = _sl_dlopen();
   qword_1ED498EF0 = result;
   return result;
 }
 
-void sub_189BA1A04(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_189BA1A04(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -9103,9 +9307,9 @@ id getEMFEmojiTokenClass()
   return v1;
 }
 
-void sub_189BA506C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_189BA506C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -9156,7 +9360,7 @@ LABEL_10:
   return result;
 }
 
-uint64_t __EmojiFoundationLibraryCore_block_invoke_1()
+uint64_t __EmojiFoundationLibraryCore_block_invoke_1(uint64_t a1)
 {
   result = _sl_dlopen();
   qword_1ED49F338 = result;
@@ -9182,281 +9386,81 @@ __CFString *_NSStringFromUIWindowingControlStyleType(uint64_t a1)
   }
 }
 
-void sub_189BA78D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_189BA78D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void getEMFEmojiCategoryPrepopulated()
+void getEMFEmojiCategoryPrepopulated(uint64_t a1, uint64_t a2)
 {
-  v6 = 0;
-  v7 = &v6;
-  v8 = 0x2020000000;
-  v0 = getEMFEmojiCategoryPrepopulatedSymbolLoc_ptr;
-  v9 = getEMFEmojiCategoryPrepopulatedSymbolLoc_ptr;
+  v8 = 0;
+  v9 = &v8;
+  v10 = 0x2020000000;
+  v2 = getEMFEmojiCategoryPrepopulatedSymbolLoc_ptr;
+  v11 = getEMFEmojiCategoryPrepopulatedSymbolLoc_ptr;
   if (!getEMFEmojiCategoryPrepopulatedSymbolLoc_ptr)
   {
-    v1 = EmojiFoundationLibrary_0();
-    v7[3] = dlsym(v1, "EMFEmojiCategoryPrepopulated");
-    getEMFEmojiCategoryPrepopulatedSymbolLoc_ptr = v7[3];
-    v0 = v7[3];
+    v3 = EmojiFoundationLibrary_0();
+    v9[3] = dlsym(v3, "EMFEmojiCategoryPrepopulated");
+    getEMFEmojiCategoryPrepopulatedSymbolLoc_ptr = v9[3];
+    v2 = v9[3];
   }
 
-  _Block_object_dispose(&v6, 8);
-  if (v0)
+  _Block_object_dispose(&v8, 8);
+  if (v2)
   {
-    v2 = *v0;
+    v4 = *v2;
 
-    v3 = v2;
+    v5 = v4;
   }
 
   else
   {
-    v4 = [MEMORY[0x1E696AAA8] currentHandler];
-    v5 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"NSString *getEMFEmojiCategoryPrepopulated(void)"];
-    [v4 handleFailureInFunction:v5 file:@"UIKeyboardEmojiCategory.m" lineNumber:42 description:{@"%s", dlerror()}];
+    v6 = [MEMORY[0x1E696AAA8] currentHandler];
+    v7 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"NSString *getEMFEmojiCategoryPrepopulated(void)"];
+    [v6 handleFailureInFunction:v7 file:@"UIKeyboardEmojiCategory.m" lineNumber:42 description:{@"%s", dlerror()}];
 
     __break(1u);
   }
 }
 
-void sub_189BA7A34(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_189BA7A34(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void getEMFEmojiCategoryPeople()
+void getEMFEmojiCategoryPeople(uint64_t a1, uint64_t a2)
 {
-  v6 = 0;
-  v7 = &v6;
-  v8 = 0x2020000000;
-  v0 = getEMFEmojiCategoryPeopleSymbolLoc_ptr;
-  v9 = getEMFEmojiCategoryPeopleSymbolLoc_ptr;
+  v8 = 0;
+  v9 = &v8;
+  v10 = 0x2020000000;
+  v2 = getEMFEmojiCategoryPeopleSymbolLoc_ptr;
+  v11 = getEMFEmojiCategoryPeopleSymbolLoc_ptr;
   if (!getEMFEmojiCategoryPeopleSymbolLoc_ptr)
   {
-    v1 = EmojiFoundationLibrary_0();
-    v7[3] = dlsym(v1, "EMFEmojiCategoryPeople");
-    getEMFEmojiCategoryPeopleSymbolLoc_ptr = v7[3];
-    v0 = v7[3];
+    v3 = EmojiFoundationLibrary_0();
+    v9[3] = dlsym(v3, "EMFEmojiCategoryPeople");
+    getEMFEmojiCategoryPeopleSymbolLoc_ptr = v9[3];
+    v2 = v9[3];
   }
 
-  _Block_object_dispose(&v6, 8);
-  if (v0)
+  _Block_object_dispose(&v8, 8);
+  if (v2)
   {
-    v2 = *v0;
+    v4 = *v2;
 
-    v3 = v2;
-  }
-
-  else
-  {
-    v4 = [MEMORY[0x1E696AAA8] currentHandler];
-    v5 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"NSString *getEMFEmojiCategoryPeople(void)"];
-    [v4 handleFailureInFunction:v5 file:@"UIKeyboardEmojiCategory.m" lineNumber:34 description:{@"%s", dlerror()}];
-
-    __break(1u);
-  }
-}
-
-void sub_189BA7B98(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
-{
-  va_start(va, a7);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-void getEMFEmojiCategoryNature()
-{
-  v6 = 0;
-  v7 = &v6;
-  v8 = 0x2020000000;
-  v0 = getEMFEmojiCategoryNatureSymbolLoc_ptr;
-  v9 = getEMFEmojiCategoryNatureSymbolLoc_ptr;
-  if (!getEMFEmojiCategoryNatureSymbolLoc_ptr)
-  {
-    v1 = EmojiFoundationLibrary_0();
-    v7[3] = dlsym(v1, "EMFEmojiCategoryNature");
-    getEMFEmojiCategoryNatureSymbolLoc_ptr = v7[3];
-    v0 = v7[3];
-  }
-
-  _Block_object_dispose(&v6, 8);
-  if (v0)
-  {
-    v2 = *v0;
-
-    v3 = v2;
+    v5 = v4;
   }
 
   else
   {
-    v4 = [MEMORY[0x1E696AAA8] currentHandler];
-    v5 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"NSString *getEMFEmojiCategoryNature(void)"];
-    [v4 handleFailureInFunction:v5 file:@"UIKeyboardEmojiCategory.m" lineNumber:35 description:{@"%s", dlerror()}];
-
-    __break(1u);
-  }
-}
-
-void sub_189BA7CFC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
-{
-  va_start(va, a7);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-void getEMFEmojiCategoryFoodAndDrink()
-{
-  v6 = 0;
-  v7 = &v6;
-  v8 = 0x2020000000;
-  v0 = getEMFEmojiCategoryFoodAndDrinkSymbolLoc_ptr;
-  v9 = getEMFEmojiCategoryFoodAndDrinkSymbolLoc_ptr;
-  if (!getEMFEmojiCategoryFoodAndDrinkSymbolLoc_ptr)
-  {
-    v1 = EmojiFoundationLibrary_0();
-    v7[3] = dlsym(v1, "EMFEmojiCategoryFoodAndDrink");
-    getEMFEmojiCategoryFoodAndDrinkSymbolLoc_ptr = v7[3];
-    v0 = v7[3];
-  }
-
-  _Block_object_dispose(&v6, 8);
-  if (v0)
-  {
-    v2 = *v0;
-
-    v3 = v2;
-  }
-
-  else
-  {
-    v4 = [MEMORY[0x1E696AAA8] currentHandler];
-    v5 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"NSString *getEMFEmojiCategoryFoodAndDrink(void)"];
-    [v4 handleFailureInFunction:v5 file:@"UIKeyboardEmojiCategory.m" lineNumber:36 description:{@"%s", dlerror()}];
-
-    __break(1u);
-  }
-}
-
-void sub_189BA7E60(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
-{
-  va_start(va, a7);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-void getEMFEmojiCategoryActivity()
-{
-  v6 = 0;
-  v7 = &v6;
-  v8 = 0x2020000000;
-  v0 = getEMFEmojiCategoryActivitySymbolLoc_ptr;
-  v9 = getEMFEmojiCategoryActivitySymbolLoc_ptr;
-  if (!getEMFEmojiCategoryActivitySymbolLoc_ptr)
-  {
-    v1 = EmojiFoundationLibrary_0();
-    v7[3] = dlsym(v1, "EMFEmojiCategoryActivity");
-    getEMFEmojiCategoryActivitySymbolLoc_ptr = v7[3];
-    v0 = v7[3];
-  }
-
-  _Block_object_dispose(&v6, 8);
-  if (v0)
-  {
-    v2 = *v0;
-
-    v3 = v2;
-  }
-
-  else
-  {
-    v4 = [MEMORY[0x1E696AAA8] currentHandler];
-    v5 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"NSString *getEMFEmojiCategoryActivity(void)"];
-    [v4 handleFailureInFunction:v5 file:@"UIKeyboardEmojiCategory.m" lineNumber:37 description:{@"%s", dlerror()}];
-
-    __break(1u);
-  }
-}
-
-void sub_189BA7FC4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
-{
-  va_start(va, a7);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-void getEMFEmojiCategoryTravelAndPlaces()
-{
-  v6 = 0;
-  v7 = &v6;
-  v8 = 0x2020000000;
-  v0 = getEMFEmojiCategoryTravelAndPlacesSymbolLoc_ptr;
-  v9 = getEMFEmojiCategoryTravelAndPlacesSymbolLoc_ptr;
-  if (!getEMFEmojiCategoryTravelAndPlacesSymbolLoc_ptr)
-  {
-    v1 = EmojiFoundationLibrary_0();
-    v7[3] = dlsym(v1, "EMFEmojiCategoryTravelAndPlaces");
-    getEMFEmojiCategoryTravelAndPlacesSymbolLoc_ptr = v7[3];
-    v0 = v7[3];
-  }
-
-  _Block_object_dispose(&v6, 8);
-  if (v0)
-  {
-    v2 = *v0;
-
-    v3 = v2;
-  }
-
-  else
-  {
-    v4 = [MEMORY[0x1E696AAA8] currentHandler];
-    v5 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"NSString *getEMFEmojiCategoryTravelAndPlaces(void)"];
-    [v4 handleFailureInFunction:v5 file:@"UIKeyboardEmojiCategory.m" lineNumber:38 description:{@"%s", dlerror()}];
-
-    __break(1u);
-  }
-}
-
-void sub_189BA8128(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
-{
-  va_start(va, a7);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-void getEMFEmojiCategoryObjects()
-{
-  v6 = 0;
-  v7 = &v6;
-  v8 = 0x2020000000;
-  v0 = getEMFEmojiCategoryObjectsSymbolLoc_ptr;
-  v9 = getEMFEmojiCategoryObjectsSymbolLoc_ptr;
-  if (!getEMFEmojiCategoryObjectsSymbolLoc_ptr)
-  {
-    v1 = EmojiFoundationLibrary_0();
-    v7[3] = dlsym(v1, "EMFEmojiCategoryObjects");
-    getEMFEmojiCategoryObjectsSymbolLoc_ptr = v7[3];
-    v0 = v7[3];
-  }
-
-  _Block_object_dispose(&v6, 8);
-  if (v0)
-  {
-    v2 = *v0;
-
-    v3 = v2;
-  }
-
-  else
-  {
-    v4 = [MEMORY[0x1E696AAA8] currentHandler];
-    v5 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"NSString *getEMFEmojiCategoryObjects(void)"];
-    [v4 handleFailureInFunction:v5 file:@"UIKeyboardEmojiCategory.m" lineNumber:39 description:{@"%s", dlerror()}];
+    v6 = [MEMORY[0x1E696AAA8] currentHandler];
+    v7 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"NSString *getEMFEmojiCategoryPeople(void)"];
+    [v6 handleFailureInFunction:v7 file:@"UIKeyboardEmojiCategory.m" lineNumber:34 description:{@"%s", dlerror()}];
 
     __break(1u);
   }

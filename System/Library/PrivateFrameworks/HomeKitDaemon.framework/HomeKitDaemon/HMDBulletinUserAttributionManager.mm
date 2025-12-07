@@ -57,7 +57,7 @@ uint64_t __90__HMDBulletinUserAttributionManager_removeAttributedUserUUIDForTarg
 
 void __90__HMDBulletinUserAttributionManager_removeAttributedUserUUIDForTargetStateCharacteristic___block_invoke_2(uint64_t a1, void *a2)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [*(a1 + 32) userAttributions];
   [v4 removeObject:v3];
@@ -70,22 +70,21 @@ void __90__HMDBulletinUserAttributionManager_removeAttributedUserUUIDForTargetSt
     v8 = HMFGetLogIdentifier();
     v9 = [v3 targetCharacteristicInstanceID];
     v10 = [v3 value];
-    v12 = 138543874;
-    v13 = v8;
-    v14 = 2112;
-    v15 = v9;
-    v16 = 2112;
-    v17 = v10;
-    _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Removed user attribution for characteristic with instanceID=%@ value=%@", &v12, 0x20u);
+    v11 = 138543874;
+    v12 = v8;
+    v13 = 2112;
+    v14 = v9;
+    v15 = 2112;
+    v16 = v10;
+    _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Removed user attribution for characteristic with instanceID=%@ value=%@", &v11, 0x20u);
   }
 
   objc_autoreleasePoolPop(v5);
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (id)attributedUserUUIDForCurrentStateCharacteristic:(id)characteristic destination:(id)destination
 {
-  v95 = *MEMORY[0x277D85DE8];
+  v94 = *MEMORY[0x277D85DE8];
   characteristicCopy = characteristic;
   destinationCopy = destination;
   v7 = objc_autoreleasePoolPush();
@@ -95,9 +94,9 @@ void __90__HMDBulletinUserAttributionManager_removeAttributedUserUUIDForTargetSt
   {
     v10 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v86 = v10;
-    v87 = 2112;
-    v88 = characteristicCopy;
+    v85 = v10;
+    v86 = 2112;
+    v87 = characteristicCopy;
     _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_INFO, "%{public}@Attempting to retrieve user attribution for current state characteristic=%@", buf, 0x16u);
   }
 
@@ -108,27 +107,27 @@ void __90__HMDBulletinUserAttributionManager_removeAttributedUserUUIDForTargetSt
 
   service = [characteristicCopy service];
   characteristics = [service characteristics];
-  v83[0] = MEMORY[0x277D85DD0];
-  v83[1] = 3221225472;
-  v83[2] = __97__HMDBulletinUserAttributionManager_attributedUserUUIDForCurrentStateCharacteristic_destination___block_invoke;
-  v83[3] = &unk_278687EB0;
-  v75 = v13;
-  v84 = v75;
-  v16 = [characteristics na_firstObjectPassingTest:v83];
+  v82[0] = MEMORY[0x277D85DD0];
+  v82[1] = 3221225472;
+  v82[2] = __97__HMDBulletinUserAttributionManager_attributedUserUUIDForCurrentStateCharacteristic_destination___block_invoke;
+  v82[3] = &unk_278687EB0;
+  v74 = v13;
+  v83 = v74;
+  v16 = [characteristics na_firstObjectPassingTest:v82];
 
   if (v16)
   {
     os_unfair_lock_lock_with_options();
     userAttributions = [(HMDBulletinUserAttributionManager *)selfCopy userAttributions];
-    v80[0] = MEMORY[0x277D85DD0];
-    v80[1] = 3221225472;
-    v80[2] = __97__HMDBulletinUserAttributionManager_attributedUserUUIDForCurrentStateCharacteristic_destination___block_invoke_40;
-    v80[3] = &unk_278678800;
+    v79[0] = MEMORY[0x277D85DD0];
+    v79[1] = 3221225472;
+    v79[2] = __97__HMDBulletinUserAttributionManager_attributedUserUUIDForCurrentStateCharacteristic_destination___block_invoke_40;
+    v79[3] = &unk_278678800;
     v18 = v16;
-    v81 = v18;
+    v80 = v18;
     v19 = characteristicCopy;
-    v82 = v19;
-    v20 = [userAttributions na_firstObjectPassingTest:v80];
+    v81 = v19;
+    v20 = [userAttributions na_firstObjectPassingTest:v79];
 
     os_unfair_lock_unlock(&selfCopy->_lock);
     if (!v20)
@@ -142,11 +141,11 @@ void __90__HMDBulletinUserAttributionManager_removeAttributedUserUUIDForTargetSt
         instanceID = [v18 instanceID];
         value = [v19 value];
         *buf = 138543874;
-        v86 = v40;
-        v87 = 2112;
-        v88 = instanceID;
-        v89 = 2112;
-        v90 = value;
+        v85 = v40;
+        v86 = 2112;
+        v87 = instanceID;
+        v88 = 2112;
+        v89 = value;
         _os_log_impl(&dword_229538000, v39, OS_LOG_TYPE_INFO, "%{public}@No saved tuple found for target state characteristic with instanceID=%@ and value=%@", buf, 0x20u);
       }
 
@@ -170,9 +169,9 @@ void __90__HMDBulletinUserAttributionManager_removeAttributedUserUUIDForTargetSt
         v29 = HMFGetLogIdentifier();
         HMDSecureClassBulletinUserAttributionTime();
         *buf = 138543618;
-        v86 = v29;
-        v87 = 2048;
-        v88 = v30;
+        v85 = v29;
+        v86 = 2048;
+        v87 = v30;
         _os_log_impl(&dword_229538000, v28, OS_LOG_TYPE_INFO, "%{public}@TargetState changed date is too far apart from CurrentState changed date (%ld seconds), these are likely different operations, therefore we do not know who triggered this operation.", buf, 0x16u);
       }
 
@@ -205,11 +204,11 @@ LABEL_40:
         v54 = HMFGetLogIdentifier();
         shortDescription = [v19 shortDescription];
         *buf = 138543874;
-        v86 = v54;
-        v87 = 2112;
-        v88 = shortDescription;
-        v89 = 2112;
-        v90 = userUUID;
+        v85 = v54;
+        v86 = 2112;
+        v87 = shortDescription;
+        v88 = 2112;
+        v89 = userUUID;
         _os_log_impl(&dword_229538000, v53, OS_LOG_TYPE_INFO, "%{public}@Not returning attributedUserUUID for current state characteristic=%@ because the attributedUser cannot be determined from uuid=%@", buf, 0x20u);
       }
 
@@ -227,13 +226,13 @@ LABEL_40:
       {
         v50 = HMFGetLogIdentifier();
         *buf = 138544130;
-        v86 = v50;
-        v87 = 2112;
-        v88 = userUUID;
-        v89 = 2112;
-        v90 = v19;
-        v91 = 2112;
-        v92 = v46;
+        v85 = v50;
+        v86 = 2112;
+        v87 = userUUID;
+        v88 = 2112;
+        v89 = v19;
+        v90 = 2112;
+        v91 = v46;
         _os_log_impl(&dword_229538000, v49, OS_LOG_TYPE_INFO, "%{public}@Returning attributedUserUUID=%@ (owner) for current state characteristic=%@ for destinationUser=%@", buf, 0x2Au);
       }
 
@@ -242,14 +241,14 @@ LABEL_40:
       goto LABEL_39;
     }
 
-    v73 = [HMDDeviceHandle deviceHandleForDestination:destinationCopy];
-    if (v73)
+    v72 = [HMDDeviceHandle deviceHandleForDestination:destinationCopy];
+    if (v72)
     {
-      v79 = 0;
+      v78 = 0;
       accountRegistry = [(HMDBulletinUserAttributionManager *)selfCopy accountRegistry];
-      v57 = [accountRegistry deviceForHandle:v73 exists:&v79];
+      v57 = [accountRegistry deviceForHandle:v72 exists:&v78];
 
-      if ((v79 & 1) == 0)
+      if ((v78 & 1) == 0)
       {
         context = objc_autoreleasePoolPush();
         v58 = selfCopy;
@@ -258,11 +257,11 @@ LABEL_40:
         {
           v60 = HMFGetLogIdentifier();
           *buf = 138543874;
-          v86 = v60;
-          v87 = 2112;
-          v88 = v19;
-          v89 = 2112;
-          v90 = destinationCopy;
+          v85 = v60;
+          v86 = 2112;
+          v87 = v19;
+          v88 = 2112;
+          v89 = destinationCopy;
           _os_log_impl(&dword_229538000, v59, OS_LOG_TYPE_INFO, "%{public}@Not returning attributedUserUUID for current state characteristic=%@ because we cannot determine an account for the device with destination=%@", buf, 0x20u);
         }
 
@@ -281,16 +280,16 @@ LABEL_39:
     }
 
     users = [home users];
-    v77[0] = MEMORY[0x277D85DD0];
-    v77[1] = 3221225472;
-    v77[2] = __97__HMDBulletinUserAttributionManager_attributedUserUUIDForCurrentStateCharacteristic_destination___block_invoke_43;
-    v77[3] = &unk_278688680;
+    v76[0] = MEMORY[0x277D85DD0];
+    v76[1] = 3221225472;
+    v76[2] = __97__HMDBulletinUserAttributionManager_attributedUserUUIDForCurrentStateCharacteristic_destination___block_invoke_43;
+    v76[3] = &unk_278688680;
     v57 = v57;
-    v78 = v57;
-    contexta = [users na_firstObjectPassingTest:v77];
+    v77 = v57;
+    contexta = [users na_firstObjectPassingTest:v76];
 
     LODWORD(users) = [contexta isAdministrator];
-    v70 = objc_autoreleasePoolPush();
+    v69 = objc_autoreleasePoolPush();
     v62 = selfCopy;
     v63 = HMFGetOSLogHandle();
     v64 = os_log_type_enabled(v63, OS_LOG_TYPE_INFO);
@@ -300,17 +299,17 @@ LABEL_39:
       {
         v65 = HMFGetLogIdentifier();
         *buf = 138544130;
-        v86 = v65;
-        v87 = 2112;
-        v88 = userUUID;
-        v89 = 2112;
-        v90 = v19;
-        v91 = 2112;
-        v92 = contexta;
+        v85 = v65;
+        v86 = 2112;
+        v87 = userUUID;
+        v88 = 2112;
+        v89 = v19;
+        v90 = 2112;
+        v91 = contexta;
         _os_log_impl(&dword_229538000, v63, OS_LOG_TYPE_INFO, "%{public}@Returning attributedUserUUID=%@ for current state characteristic=%@ for destinationUser=%@ (who is an admin)", buf, 0x2Au);
       }
 
-      objc_autoreleasePoolPop(v70);
+      objc_autoreleasePoolPop(v69);
       v36 = userUUID;
     }
 
@@ -318,22 +317,22 @@ LABEL_39:
     {
       if (v64)
       {
-        v69 = HMFGetLogIdentifier();
+        v68 = HMFGetLogIdentifier();
         v66 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(contexta, "privilege")}];
         *buf = 138544386;
-        v86 = v69;
-        v87 = 2112;
-        v88 = v19;
-        v89 = 2112;
-        v90 = v46;
-        v91 = 2112;
-        v92 = contexta;
-        v93 = 2112;
-        v94 = v66;
+        v85 = v68;
+        v86 = 2112;
+        v87 = v19;
+        v88 = 2112;
+        v89 = v46;
+        v90 = 2112;
+        v91 = contexta;
+        v92 = 2112;
+        v93 = v66;
         _os_log_impl(&dword_229538000, v63, OS_LOG_TYPE_INFO, "%{public}@Not returning attributedUserUUID for current state characteristic=%@ because the attributedUser=%@ is not the owner and the user we are sending to (destinationUser=%@) is not an admin. %@", buf, 0x34u);
       }
 
-      objc_autoreleasePoolPop(v70);
+      objc_autoreleasePoolPop(v69);
       v36 = 0;
     }
 
@@ -347,17 +346,15 @@ LABEL_39:
   {
     v35 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v86 = v35;
-    v87 = 2112;
-    v88 = characteristicCopy;
+    v85 = v35;
+    v86 = 2112;
+    v87 = characteristicCopy;
     _os_log_impl(&dword_229538000, v34, OS_LOG_TYPE_DEBUG, "%{public}@No targetStateCounterpart available for characteristic=%@", buf, 0x16u);
   }
 
   objc_autoreleasePoolPop(v32);
   v36 = 0;
 LABEL_41:
-
-  v67 = *MEMORY[0x277D85DE8];
 
   return v36;
 }
@@ -405,26 +402,26 @@ uint64_t __97__HMDBulletinUserAttributionManager_attributedUserUUIDForCurrentSta
 
 - (void)saveAttributedUserUUID:(id)d forTargetStateCharacteristic:(id)characteristic
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   dCopy = d;
   characteristicCopy = characteristic;
   v8 = [MEMORY[0x277CBEB58] set];
   os_unfair_lock_lock_with_options();
   userAttributions = [(HMDBulletinUserAttributionManager *)self userAttributions];
-  v27[0] = MEMORY[0x277D85DD0];
-  v27[1] = 3221225472;
-  v27[2] = __89__HMDBulletinUserAttributionManager_saveAttributedUserUUID_forTargetStateCharacteristic___block_invoke;
-  v27[3] = &unk_2786787D8;
-  v10 = v8;
-  v28 = v10;
-  [userAttributions na_each:v27];
-
   v26[0] = MEMORY[0x277D85DD0];
   v26[1] = 3221225472;
-  v26[2] = __89__HMDBulletinUserAttributionManager_saveAttributedUserUUID_forTargetStateCharacteristic___block_invoke_2;
+  v26[2] = __89__HMDBulletinUserAttributionManager_saveAttributedUserUUID_forTargetStateCharacteristic___block_invoke;
   v26[3] = &unk_2786787D8;
-  v26[4] = self;
-  [v10 na_each:v26];
+  v10 = v8;
+  v27 = v10;
+  [userAttributions na_each:v26];
+
+  v25[0] = MEMORY[0x277D85DD0];
+  v25[1] = 3221225472;
+  v25[2] = __89__HMDBulletinUserAttributionManager_saveAttributedUserUUID_forTargetStateCharacteristic___block_invoke_2;
+  v25[3] = &unk_2786787D8;
+  v25[4] = self;
+  [v10 na_each:v25];
   v11 = objc_opt_new();
   instanceID = [characteristicCopy instanceID];
   [v11 setTargetCharacteristicInstanceID:instanceID];
@@ -444,34 +441,32 @@ uint64_t __97__HMDBulletinUserAttributionManager_attributedUserUUIDForCurrentSta
   v17 = HMFGetOSLogHandle();
   if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
   {
-    v23 = dCopy;
+    v22 = dCopy;
     v18 = HMFGetLogIdentifier();
     userUUID = [v11 userUUID];
     targetCharacteristicInstanceID = [v11 targetCharacteristicInstanceID];
     value2 = [v11 value];
     *buf = 138544130;
-    v30 = v18;
-    v31 = 2112;
-    v32 = userUUID;
-    v33 = 2112;
-    v34 = targetCharacteristicInstanceID;
-    v35 = 2112;
-    v36 = value2;
+    v29 = v18;
+    v30 = 2112;
+    v31 = userUUID;
+    v32 = 2112;
+    v33 = targetCharacteristicInstanceID;
+    v34 = 2112;
+    v35 = value2;
     _os_log_impl(&dword_229538000, v17, OS_LOG_TYPE_INFO, "%{public}@Saved attributedUserUUID=%@ for targetCharacteristicInstanceID=%@ value=%@", buf, 0x2Au);
 
-    dCopy = v23;
+    dCopy = v22;
   }
 
   objc_autoreleasePoolPop(context);
   os_unfair_lock_unlock(&self->_lock);
-  v25[0] = MEMORY[0x277D85DD0];
-  v25[1] = 3221225472;
-  v25[2] = __89__HMDBulletinUserAttributionManager_saveAttributedUserUUID_forTargetStateCharacteristic___block_invoke_38;
-  v25[3] = &unk_2786787D8;
-  v25[4] = selfCopy;
-  [v10 na_each:v25];
-
-  v22 = *MEMORY[0x277D85DE8];
+  v24[0] = MEMORY[0x277D85DD0];
+  v24[1] = 3221225472;
+  v24[2] = __89__HMDBulletinUserAttributionManager_saveAttributedUserUUID_forTargetStateCharacteristic___block_invoke_38;
+  v24[3] = &unk_2786787D8;
+  v24[4] = selfCopy;
+  [v10 na_each:v24];
 }
 
 void __89__HMDBulletinUserAttributionManager_saveAttributedUserUUID_forTargetStateCharacteristic___block_invoke(uint64_t a1, void *a2)
@@ -499,7 +494,7 @@ void __89__HMDBulletinUserAttributionManager_saveAttributedUserUUID_forTargetSta
 
 void __89__HMDBulletinUserAttributionManager_saveAttributedUserUUID_forTargetStateCharacteristic___block_invoke_38(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
   v5 = *(a1 + 32);
@@ -508,15 +503,14 @@ void __89__HMDBulletinUserAttributionManager_saveAttributedUserUUID_forTargetSta
   {
     v7 = HMFGetLogIdentifier();
     v8 = [v3 targetCharacteristicInstanceID];
-    v10 = 138543618;
-    v11 = v7;
-    v12 = 2112;
-    v13 = v8;
-    _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_INFO, "%{public}@Removed orphaned user attribution for characteristic with instanceID=%@", &v10, 0x16u);
+    v9 = 138543618;
+    v10 = v7;
+    v11 = 2112;
+    v12 = v8;
+    _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_INFO, "%{public}@Removed orphaned user attribution for characteristic with instanceID=%@", &v9, 0x16u);
   }
 
   objc_autoreleasePoolPop(v4);
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (HMDBulletinUserAttributionManager)initWithAccountRegistry:(id)registry
@@ -779,10 +773,9 @@ LABEL_22:
 
 void __48__HMDBulletinUserAttributionManager_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v17_114804;
-  logCategory__hmf_once_v17_114804 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v17_114804;
+  logCategory__hmf_once_v17_114804 = v0;
 }
 
 @end

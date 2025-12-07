@@ -44,19 +44,19 @@
       v6 = v5;
       if (v5)
       {
-        [(HDHRSOriginInformation *)v5 operatingSystemVersion];
+        objc_msgSend_operatingSystemVersion(v5);
         if (v15 != self->_operatingSystemVersion.majorVersion)
         {
           goto LABEL_15;
         }
 
-        [(HDHRSOriginInformation *)v6 operatingSystemVersion];
+        objc_msgSend_operatingSystemVersion(v6);
         if (v14 != self->_operatingSystemVersion.minorVersion)
         {
           goto LABEL_15;
         }
 
-        [(HDHRSOriginInformation *)v6 operatingSystemVersion];
+        objc_msgSend_operatingSystemVersion(v6);
         minorVersion = v13;
       }
 

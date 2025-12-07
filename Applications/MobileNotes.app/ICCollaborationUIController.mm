@@ -972,7 +972,7 @@ LABEL_6:
     v14 = os_log_create("com.apple.notes", "Collaboration");
     if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
-      sub_1004DFCF8(v6);
+      sub_1004DFCF8(v6, v9);
     }
 
     v13 = v14;

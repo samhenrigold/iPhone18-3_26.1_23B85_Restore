@@ -46,31 +46,31 @@
 
 - (id)remListIDsWithAllLists:(id)lists
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   listsCopy = lists;
   if ([(NSArray *)self->_calendars count]|| self->noCalendarNoResult)
   {
     v5 = [MEMORY[0x1E695DF70] arrayWithCapacity:{-[NSArray count](self->_calendars, "count")}];
+    v18 = 0u;
     v19 = 0u;
     v20 = 0u;
     v21 = 0u;
-    v22 = 0u;
     v6 = self->_calendars;
-    v7 = [(NSArray *)v6 countByEnumeratingWithState:&v19 objects:v23 count:16];
+    v7 = [(NSArray *)v6 countByEnumeratingWithState:&v18 objects:v22 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v20;
+      v9 = *v19;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v20 != v9)
+          if (*v19 != v9)
           {
             objc_enumerationMutation(v6);
           }
 
-          v11 = *(*(&v19 + 1) + 8 * i);
+          v11 = *(*(&v18 + 1) + 8 * i);
           frozenObject = [v11 frozenObject];
           objc_opt_class();
           isKindOfClass = objc_opt_isKindOfClass();
@@ -83,7 +83,7 @@
           }
         }
 
-        v8 = [(NSArray *)v6 countByEnumeratingWithState:&v19 objects:v23 count:16];
+        v8 = [(NSArray *)v6 countByEnumeratingWithState:&v18 objects:v22 count:16];
       }
 
       while (v8);
@@ -96,8 +96,6 @@
   {
     v16 = [listsCopy valueForKey:@"objectID"];
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 
   return v16;
 }

@@ -76,29 +76,30 @@
   }
 
   objc_opt_class();
-  if (objc_opt_isKindOfClass())
+  isKindOfClass = objc_opt_isKindOfClass();
+  if (isKindOfClass)
   {
     newNativeStorePageRequest = [requestCopy newNativeStorePageRequest];
-    v20[0] = MEMORY[0x277D85DD0];
-    v20[1] = 3221225472;
-    v20[2] = __83__SKScriptInterface_SKScriptStoreSheetRequest__showStoreSheetWithRequest_animated___block_invoke;
-    v20[3] = &unk_2781F9570;
-    v20[4] = self;
-    v21 = newNativeStorePageRequest;
+    v23[0] = MEMORY[0x277D85DD0];
+    v23[1] = 3221225472;
+    v23[2] = __83__SKScriptInterface_SKScriptStoreSheetRequest__showStoreSheetWithRequest_animated___block_invoke;
+    v23[3] = &unk_2781F9570;
+    v23[4] = self;
+    v24 = newNativeStorePageRequest;
     animatedCopy = animated;
-    v16 = newNativeStorePageRequest;
-    v17 = SKUIWebCoreFramework();
-    v18 = SKUIWeakLinkedSymbolForString("WebThreadRunOnMainThread", v17);
-    if (v18)
+    v18 = newNativeStorePageRequest;
+    v20 = SKUIWebCoreFramework(v18, v19);
+    v21 = SKUIWeakLinkedSymbolForString("WebThreadRunOnMainThread", v20);
+    if (v21)
     {
-      v18(v20);
+      v21(v23);
     }
   }
 
   else
   {
-    v19 = SKUIWebCoreFramework();
-    [SKUIWeakLinkedClassForString(&cfstr_Webscriptobjec.isa v19)];
+    v22 = SKUIWebCoreFramework(isKindOfClass, v16);
+    [SKUIWeakLinkedClassForString(&cfstr_Webscriptobjec.isa v22)];
   }
 }
 

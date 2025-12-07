@@ -23,84 +23,84 @@
 
     if (v10)
     {
-      v11 = [objc_alloc(objc_opt_class()) initWithEntity:v10 insertIntoManagedObjectContext:contextCopy];
+      v13 = [objc_alloc(objc_opt_class()) initWithEntity:v10 insertIntoManagedObjectContext:contextCopy];
     }
 
     else
     {
-      v13 = FTCServiceLog();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+      v15 = FTCServiceLog(v11, v12);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
       {
-        v31 = 138412546;
-        v32 = @"ConversationLink";
-        v33 = 2112;
-        v34 = contextCopy;
-        _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "Could not find entity description with name %@ in managed object context %@. Falling back to convenience initializer.", &v31, 0x16u);
+        v33 = 138412546;
+        v34 = @"ConversationLink";
+        v35 = 2112;
+        v36 = contextCopy;
+        _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "Could not find entity description with name %@ in managed object context %@. Falling back to convenience initializer.", &v33, 0x16u);
       }
 
-      v11 = [objc_alloc(objc_opt_class()) initWithContext:contextCopy];
+      v13 = [objc_alloc(objc_opt_class()) initWithContext:contextCopy];
     }
 
-    v12 = v11;
+    v14 = v13;
     invitedHandles = [descriptorCopy invitedHandles];
     if (invitedHandles)
     {
-      v15 = [FTManagedHandle managedHandlesForTUHandles:invitedHandles inManagedObjectContext:contextCopy];
+      v17 = [FTManagedHandle managedHandlesForTUHandles:invitedHandles inManagedObjectContext:contextCopy];
     }
 
     else
     {
-      v15 = 0;
+      v17 = 0;
     }
 
-    [v12 setActivated:{objc_msgSend(descriptorCopy, "isActivated")}];
+    [v14 setActivated:{objc_msgSend(descriptorCopy, "isActivated")}];
     creationDate = [descriptorCopy creationDate];
-    [v12 setCreationDate:creationDate];
+    [v14 setCreationDate:creationDate];
 
     deletionDate = [descriptorCopy deletionDate];
-    [v12 setDeletionDate:deletionDate];
+    [v14 setDeletionDate:deletionDate];
 
     expirationDate = [descriptorCopy expirationDate];
-    [v12 setExpirationDate:expirationDate];
+    [v14 setExpirationDate:expirationDate];
 
     groupUUID = [descriptorCopy groupUUID];
-    [v12 setGroupUUID:groupUUID];
+    [v14 setGroupUUID:groupUUID];
 
-    [v12 setInvitedHandles:v15];
+    [v14 setInvitedHandles:v17];
     originator = [descriptorCopy originator];
     identifier = [originator identifier];
-    [v12 setOriginatorIdentifier:identifier];
+    [v14 setOriginatorIdentifier:identifier];
 
     originator2 = [descriptorCopy originator];
     handle = [originator2 handle];
-    v24 = [FTManagedHandle managedHandleForTUHandle:handle inManagedObjectContext:contextCopy];
-    [v12 setOriginatorHandle:v24];
+    v26 = [FTManagedHandle managedHandleForTUHandle:handle inManagedObjectContext:contextCopy];
+    [v14 setOriginatorHandle:v26];
 
     originator3 = [descriptorCopy originator];
-    [v12 setOriginatorRevision:{objc_msgSend(originator3, "revision")}];
+    [v14 setOriginatorRevision:{objc_msgSend(originator3, "revision")}];
 
     pseudonym = [descriptorCopy pseudonym];
-    [v12 setPseudonym:pseudonym];
+    [v14 setPseudonym:pseudonym];
 
     publicKey = [descriptorCopy publicKey];
-    [v12 setPublicKey:publicKey];
+    [v14 setPublicKey:publicKey];
 
     privateKey = [descriptorCopy privateKey];
-    [v12 setPrivateKey:privateKey];
+    [v14 setPrivateKey:privateKey];
 
     name = [descriptorCopy name];
-    [v12 setName:name];
+    [v14 setName:name];
 
-    [v12 setLifetimeType:{objc_msgSend(descriptorCopy, "linkLifetimeScope")}];
-    [v12 setDeleteReason:{objc_msgSend(descriptorCopy, "deleteReason")}];
+    [v14 setLifetimeType:{objc_msgSend(descriptorCopy, "linkLifetimeScope")}];
+    [v14 setDeleteReason:{objc_msgSend(descriptorCopy, "deleteReason")}];
   }
 
   else
   {
-    v12 = 0;
+    v14 = 0;
   }
 
-  return v12;
+  return v14;
 }
 
 - (id)description

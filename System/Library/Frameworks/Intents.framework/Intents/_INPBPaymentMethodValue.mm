@@ -3,6 +3,7 @@
 - (_INPBPaymentMethodValue)initWithCoder:(id)coder;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)dictionaryRepresentation;
+- (id)typeAsString:(int)string;
 - (int)StringAsType:(id)type;
 - (unint64_t)hash;
 - (void)encodeWithCoder:(id)coder;
@@ -275,7 +276,6 @@ LABEL_27:
 
   if (identificationHint)
   {
-    identificationHint = self->_identificationHint;
     PBDataWriterWriteStringField();
   }
 
@@ -283,25 +283,23 @@ LABEL_27:
 
   if (name)
   {
-    name = self->_name;
     PBDataWriterWriteStringField();
   }
 
   if ([(_INPBPaymentMethodValue *)self hasType])
   {
-    type = self->_type;
     PBDataWriterWriteInt32Field();
   }
 
   valueMetadata = [(_INPBPaymentMethodValue *)self valueMetadata];
 
-  v12 = toCopy;
+  v9 = toCopy;
   if (valueMetadata)
   {
     valueMetadata2 = [(_INPBPaymentMethodValue *)self valueMetadata];
     PBDataWriterWriteSubmessage();
 
-    v12 = toCopy;
+    v9 = toCopy;
   }
 }
 
@@ -351,6 +349,21 @@ LABEL_27:
   else
   {
     v4 = 1;
+  }
+
+  return v4;
+}
+
+- (id)typeAsString:(int)string
+{
+  if ((string - 1) >= 8)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E72805D0[string - 1];
   }
 
   return v4;

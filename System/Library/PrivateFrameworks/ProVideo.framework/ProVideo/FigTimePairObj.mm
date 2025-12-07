@@ -50,7 +50,7 @@
   v5 = [coder decodeObjectOfClass:objc_opt_class() forKey:@"first"];
   if (v5)
   {
-    [v5 time];
+    objc_msgSend_time(v5);
   }
 
   else
@@ -64,7 +64,7 @@
   v6 = [coder decodeObjectOfClass:objc_opt_class() forKey:@"second"];
   if (v6)
   {
-    [v6 time];
+    objc_msgSend_time(v6);
   }
 
   else

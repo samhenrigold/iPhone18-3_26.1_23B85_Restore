@@ -171,7 +171,6 @@ LABEL_8:
   has = self->_has;
   if ((has & 4) != 0)
   {
-    wifiIn = self->_wifiIn;
     PBDataWriterWriteUint64Field();
     has = self->_has;
     if ((has & 8) == 0)
@@ -191,7 +190,6 @@ LABEL_5:
     goto LABEL_5;
   }
 
-  wifiOut = self->_wifiOut;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 1) == 0)
@@ -203,7 +201,6 @@ LABEL_6:
     }
 
 LABEL_12:
-    cellOut = self->_cellOut;
     PBDataWriterWriteUint64Field();
     if ((*&self->_has & 0x10) == 0)
     {
@@ -214,7 +211,6 @@ LABEL_12:
   }
 
 LABEL_11:
-  cellIn = self->_cellIn;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 2) != 0)
@@ -229,7 +225,6 @@ LABEL_7:
   }
 
 LABEL_13:
-  numConnections = self->_numConnections;
 
   PBDataWriterWriteUint32Field();
 }

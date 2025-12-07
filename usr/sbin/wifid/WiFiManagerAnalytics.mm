@@ -11,6 +11,7 @@
 - (void)_populateSlowWiFiNotificationMessage:(__CFDictionary *)message andReply:(id)reply;
 - (void)_register;
 - (void)getDeviceAnalyticsConfigurationWithCompletion:(id)completion;
+- (void)prepareMessageForSubmission:(unsigned int)submission withData:(void *)data andReply:(id)reply;
 - (void)setDeviceAnalyticsConfiguration:(id)configuration;
 - (void)setWiFiManagerQueue:(id)queue;
 - (void)submitWiFiAnalytics:(id)analytics data:(id)data;
@@ -151,6 +152,59 @@
   v8 = completionCopy;
   v6 = completionCopy;
   [v5 triggerDeviceAnalyticsStoreMigrationAndReply:v7];
+}
+
+- (void)prepareMessageForSubmission:(unsigned int)submission withData:(void *)data andReply:(id)reply
+{
+  v6 = *&submission;
+  v17[0] = _NSConcreteStackBlock;
+  v17[1] = 3221225472;
+  v17[2] = sub_10010C118;
+  v17[3] = &unk_100262B08;
+  submissionCopy = submission;
+  replyCopy = reply;
+  v17[4] = self;
+  v18 = replyCopy;
+  v9 = objc_retainBlock(v17);
+  if (v6)
+  {
+    wifiManagerQueue = self->_wifiManagerQueue;
+    v11 = objc_autoreleasePoolPush();
+    if (wifiManagerQueue)
+    {
+      if (off_100298C40)
+      {
+        [off_100298C40 WFLog:3 message:{"%s Received call to prepare message with identifier: 0x%x", "-[WiFiManagerAnalytics prepareMessageForSubmission:withData:andReply:]", v6}];
+      }
+
+      objc_autoreleasePoolPop(v11);
+      serialQ = [(WiFiManagerAnalytics *)self serialQ];
+      block[0] = _NSConcreteStackBlock;
+      block[1] = 3221225472;
+      block[2] = sub_10010C3D4;
+      block[3] = &unk_100262B30;
+      v16 = v6;
+      block[4] = self;
+      dataCopy = data;
+      v14 = v9;
+      dispatch_async(serialQ, block);
+    }
+
+    else
+    {
+      if (off_100298C40)
+      {
+        [off_100298C40 WFLog:4 message:{"Nobody set the _wifiManagerQueue, can't prepare metric with id: %u. Bailing", v6}];
+      }
+
+      objc_autoreleasePoolPop(v11);
+    }
+  }
+
+  else
+  {
+    sub_1001ABE30(replyCopy);
+  }
 }
 
 - (WiFiManagerAnalytics)init

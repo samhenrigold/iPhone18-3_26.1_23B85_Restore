@@ -241,37 +241,37 @@ LABEL_39:
 
 - (id)serializeWithError:(id *)error
 {
-  v61 = *MEMORY[0x277D85DE8];
-  v59 = 0u;
-  v60 = 0u;
-  v57 = 0u;
+  v60 = *MEMORY[0x277D85DE8];
   v58 = 0u;
-  v55 = 0u;
+  v59 = 0u;
   v56 = 0u;
-  v53 = 0u;
+  v57 = 0u;
   v54 = 0u;
-  v51 = 0u;
+  v55 = 0u;
   v52 = 0u;
-  v49 = 0u;
+  v53 = 0u;
   v50 = 0u;
-  v47 = 0u;
+  v51 = 0u;
   v48 = 0u;
-  v45 = 0u;
+  v49 = 0u;
   v46 = 0u;
-  v43 = 0u;
+  v47 = 0u;
   v44 = 0u;
-  v41 = 0u;
+  v45 = 0u;
   v42 = 0u;
+  v43 = 0u;
   v40 = 0u;
+  v41 = 0u;
+  v39 = 0u;
   TLV8BufferInit();
   operationType = [(HAPWiFiConfigurationControl *)self operationType];
 
   if (operationType)
   {
     operationType2 = [(HAPWiFiConfigurationControl *)self operationType];
-    v39 = 0;
-    v7 = [operationType2 serializeWithError:&v39];
-    v8 = v39;
+    v38 = 0;
+    v7 = [operationType2 serializeWithError:&v38];
+    v8 = v38;
 
     if (v8)
     {
@@ -292,9 +292,9 @@ LABEL_39:
   if (cookie)
   {
     cookie2 = [(HAPWiFiConfigurationControl *)self cookie];
-    v38 = 0;
-    v7 = [cookie2 serializeWithError:&v38];
-    v8 = v38;
+    v37 = 0;
+    v7 = [cookie2 serializeWithError:&v37];
+    v8 = v37;
 
     if (v8)
     {
@@ -318,9 +318,9 @@ LABEL_39:
   }
 
   updateStatus2 = [(HAPWiFiConfigurationControl *)self updateStatus];
-  v37 = 0;
-  v7 = [updateStatus2 serializeWithError:&v37];
-  v8 = v37;
+  v36 = 0;
+  v7 = [updateStatus2 serializeWithError:&v36];
+  v8 = v36;
 
   if (v8)
   {
@@ -356,9 +356,9 @@ LABEL_13:
   if (operationTimeout)
   {
     operationTimeout2 = [(HAPWiFiConfigurationControl *)self operationTimeout];
-    v36 = 0;
-    v7 = [operationTimeout2 serializeWithError:&v36];
-    v8 = v36;
+    v35 = 0;
+    v7 = [operationTimeout2 serializeWithError:&v35];
+    v8 = v35;
 
     if (v8)
     {
@@ -379,9 +379,9 @@ LABEL_13:
   if (countryCodeConfiguration)
   {
     countryCodeConfiguration2 = [(HAPWiFiConfigurationControl *)self countryCodeConfiguration];
-    v35 = 0;
-    v7 = [countryCodeConfiguration2 serializeWithError:&v35];
-    v8 = v35;
+    v34 = 0;
+    v7 = [countryCodeConfiguration2 serializeWithError:&v34];
+    v8 = v34;
 
     if (!v8)
     {
@@ -424,9 +424,9 @@ LABEL_30:
   if (stationConfiguration)
   {
     stationConfiguration2 = [(HAPWiFiConfigurationControl *)self stationConfiguration];
-    v34 = 0;
-    v7 = [stationConfiguration2 serializeWithError:&v34];
-    v8 = v34;
+    v33 = 0;
+    v7 = [stationConfiguration2 serializeWithError:&v33];
+    v8 = v33;
 
     if (v8)
     {
@@ -434,44 +434,44 @@ LABEL_30:
     }
 
     bytes2 = [v7 bytes];
-    v29 = bytes2 + [v7 length];
+    v28 = bytes2 + [v7 length];
     do
     {
-      if ((v29 - bytes2) >= 255)
+      if ((v28 - bytes2) >= 255)
       {
-        v30 = 255;
+        v29 = 255;
       }
 
       else
       {
-        v30 = v29 - bytes2;
+        v29 = v28 - bytes2;
       }
 
-      v31 = TLV8BufferAppend();
-      if (v31)
+      v30 = TLV8BufferAppend();
+      if (v30)
       {
-        v32 = 0;
-      }
-
-      else
-      {
-        v32 = v30;
-      }
-
-      bytes2 += v32;
-      if (v31)
-      {
-        v33 = 1;
+        v31 = 0;
       }
 
       else
       {
-        v33 = bytes2 >= v29;
+        v31 = v29;
+      }
+
+      bytes2 += v31;
+      if (v30)
+      {
+        v32 = 1;
+      }
+
+      else
+      {
+        v32 = bytes2 >= v28;
       }
     }
 
-    while (!v33);
-    v16 = v31;
+    while (!v32);
+    v16 = v30;
 
     if (v16)
     {
@@ -479,12 +479,10 @@ LABEL_30:
     }
   }
 
-  v17 = [MEMORY[0x277CBEA90] dataWithBytes:v40 length:?];
+  v17 = [MEMORY[0x277CBEA90] dataWithBytes:v39 length:?];
   v8 = 0;
 LABEL_35:
   TLV8BufferFree();
-
-  v26 = *MEMORY[0x277D85DE8];
 
   return v17;
 }

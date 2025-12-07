@@ -76,7 +76,7 @@
 
 - (void)createMovieUIViewBackground
 {
-  v3 = [TSUImage imageNamed:@"ib_media_movie_transport_bg" inBundle:THBundle()];
+  v3 = [TSUImage imageNamed:@"ib_media_movie_transport_bg" inBundle:THBundle(self, a2)];
   [(THCustomLayerView *)[(THWAVTransportUI *)self movieUIView] setContentsFromImage:v3];
   [v3 size];
   v5 = 1.0 / v4;
@@ -232,7 +232,7 @@
       imageNameForPauseButton = [(THWAVTransportUI *)self imageNameForPlayButton];
     }
 
-    [(UIButton *)playButton setImageNamed:imageNameForPauseButton inBundle:THBundle()];
+    [(UIButton *)playButton setImageNamed:imageNameForPauseButton inBundle:THBundle(imageNameForPauseButton, v5)];
     playButton2 = [(THWAVTransportUI *)self playButton];
     if ([(THWAVTransportController *)[(THWAVTransportUI *)self transportController] movieIsPlaying])
     {
@@ -244,21 +244,21 @@
       imageNameForPauseButtonPressed = [(THWAVTransportUI *)self imageNameForPlayButtonPressed];
     }
 
-    [(UIButton *)playButton2 setAlternateImageNamed:imageNameForPauseButtonPressed inBundle:THBundle()];
+    [(UIButton *)playButton2 setAlternateImageNamed:imageNameForPauseButtonPressed inBundle:THBundle(imageNameForPauseButtonPressed, v8)];
   }
 
   if ([(THWAVTransportUI *)self scrubber])
   {
     scrubber = [(THWAVTransportUI *)self scrubber];
-    [(THWAVTransportController *)[(THWAVTransportUI *)self transportController] duration];
-    *&v8 = v8;
-    [(THWDetailSlider *)scrubber setDuration:roundf(*&v8)];
-    scrubber2 = [(THWAVTransportUI *)self scrubber];
-    [(THWAVTransportController *)[(THWAVTransportUI *)self transportController] currentTime];
+    objc_msgSend_duration([(THWAVTransportUI *)self transportController]);
     *&v10 = v10;
-    *&v10 = roundf(*&v10);
+    [(THWDetailSlider *)scrubber setDuration:roundf(*&v10)];
+    scrubber2 = [(THWAVTransportUI *)self scrubber];
+    objc_msgSend_currentTime([(THWAVTransportUI *)self transportController]);
+    *&v12 = v12;
+    *&v12 = roundf(*&v12);
 
-    [(THWDetailSlider *)scrubber2 setValue:v10];
+    [(THWDetailSlider *)scrubber2 setValue:v12];
   }
 }
 
@@ -371,22 +371,26 @@
 
 - (void)configureButtonsForPlaying
 {
-  [(UIButton *)[(THWAVTransportUI *)self playButton] setImageNamed:[(THWAVTransportUI *)self imageNameForPauseButton] inBundle:THBundle()];
   playButton = [(THWAVTransportUI *)self playButton];
+  imageNameForPauseButton = [(THWAVTransportUI *)self imageNameForPauseButton];
+  [(UIButton *)playButton setImageNamed:imageNameForPauseButton inBundle:THBundle(imageNameForPauseButton, v5)];
+  playButton2 = [(THWAVTransportUI *)self playButton];
   imageNameForPauseButtonPressed = [(THWAVTransportUI *)self imageNameForPauseButtonPressed];
-  v5 = THBundle();
+  v9 = THBundle(imageNameForPauseButtonPressed, v8);
 
-  [(UIButton *)playButton setAlternateImageNamed:imageNameForPauseButtonPressed inBundle:v5];
+  [(UIButton *)playButton2 setAlternateImageNamed:imageNameForPauseButtonPressed inBundle:v9];
 }
 
 - (void)configureButtonsForPaused
 {
-  [(UIButton *)[(THWAVTransportUI *)self playButton] setImageNamed:[(THWAVTransportUI *)self imageNameForPlayButton] inBundle:THBundle()];
   playButton = [(THWAVTransportUI *)self playButton];
+  imageNameForPlayButton = [(THWAVTransportUI *)self imageNameForPlayButton];
+  [(UIButton *)playButton setImageNamed:imageNameForPlayButton inBundle:THBundle(imageNameForPlayButton, v5)];
+  playButton2 = [(THWAVTransportUI *)self playButton];
   imageNameForPlayButtonPressed = [(THWAVTransportUI *)self imageNameForPlayButtonPressed];
-  v5 = THBundle();
+  v9 = THBundle(imageNameForPlayButtonPressed, v8);
 
-  [(UIButton *)playButton setAlternateImageNamed:imageNameForPlayButtonPressed inBundle:v5];
+  [(UIButton *)playButton2 setAlternateImageNamed:imageNameForPlayButtonPressed inBundle:v9];
 }
 
 - (void)rateChanged:(double)changed

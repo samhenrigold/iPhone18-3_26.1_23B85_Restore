@@ -54,7 +54,7 @@
 
 + (id)aggregateObservationsThroughHistoryForSingleDetection:(id)detection visitSnapshotBuffer:(id)buffer intervisitSnapshotBuffer:(id)snapshotBuffer clock:(id)clock
 {
-  v65 = *MEMORY[0x277D85DE8];
+  v64 = *MEMORY[0x277D85DE8];
   detectionCopy = detection;
   bufferCopy = buffer;
   snapshotBufferCopy = snapshotBuffer;
@@ -62,32 +62,32 @@
   v13 = 0;
   if (detectionCopy && clockCopy)
   {
-    v51 = clockCopy;
+    v50 = clockCopy;
     v14 = objc_alloc_init(MEMORY[0x277CBEB18]);
-    v52 = bufferCopy;
+    v51 = bufferCopy;
     if (bufferCopy)
     {
-      v50 = snapshotBufferCopy;
-      v61 = 0u;
-      v62 = 0u;
-      v59 = 0u;
+      v49 = snapshotBufferCopy;
       v60 = 0u;
+      v61 = 0u;
+      v58 = 0u;
+      v59 = 0u;
       obj = [bufferCopy bufferCopy];
-      v15 = [obj countByEnumeratingWithState:&v59 objects:v64 count:16];
+      v15 = [obj countByEnumeratingWithState:&v58 objects:v63 count:16];
       if (v15)
       {
         v16 = v15;
-        v17 = *v60;
+        v17 = *v59;
         do
         {
           for (i = 0; i != v16; ++i)
           {
-            if (*v60 != v17)
+            if (*v59 != v17)
             {
               objc_enumerationMutation(obj);
             }
 
-            v19 = *(*(&v59 + 1) + 8 * i);
+            v19 = *(*(&v58 + 1) + 8 * i);
             earliestUtAdvertisements = [v19 earliestUtAdvertisements];
             address = [detectionCopy address];
             v22 = [earliestUtAdvertisements objectForKeyedSubscript:address];
@@ -110,37 +110,37 @@
             }
           }
 
-          v16 = [obj countByEnumeratingWithState:&v59 objects:v64 count:16];
+          v16 = [obj countByEnumeratingWithState:&v58 objects:v63 count:16];
         }
 
         while (v16);
       }
 
-      snapshotBufferCopy = v50;
+      snapshotBufferCopy = v49;
     }
 
     if (snapshotBufferCopy)
     {
-      v57 = 0u;
-      v58 = 0u;
-      v55 = 0u;
       v56 = 0u;
+      v57 = 0u;
+      v54 = 0u;
+      v55 = 0u;
       bufferCopy = [snapshotBufferCopy bufferCopy];
-      v30 = [bufferCopy countByEnumeratingWithState:&v55 objects:v63 count:16];
+      v30 = [bufferCopy countByEnumeratingWithState:&v54 objects:v62 count:16];
       if (v30)
       {
         v31 = v30;
-        v32 = *v56;
+        v32 = *v55;
         do
         {
           for (j = 0; j != v31; ++j)
           {
-            if (*v56 != v32)
+            if (*v55 != v32)
             {
               objc_enumerationMutation(bufferCopy);
             }
 
-            accumulatedDeviceMetrics = [*(*(&v55 + 1) + 8 * j) accumulatedDeviceMetrics];
+            accumulatedDeviceMetrics = [*(*(&v54 + 1) + 8 * j) accumulatedDeviceMetrics];
             address3 = [detectionCopy address];
             v36 = [accumulatedDeviceMetrics objectForKeyedSubscript:address3];
 
@@ -151,7 +151,7 @@
             }
           }
 
-          v31 = [bufferCopy countByEnumeratingWithState:&v55 objects:v63 count:16];
+          v31 = [bufferCopy countByEnumeratingWithState:&v54 objects:v62 count:16];
         }
 
         while (v31);
@@ -170,136 +170,130 @@
     v44 = snapshotBufferCopy;
     immediacyType = [detectionCopy immediacyType];
     accessoryInfo = [detectionCopy accessoryInfo];
-    v49 = immediacyType;
+    v48 = immediacyType;
     snapshotBufferCopy = v44;
-    v13 = -[TASuspiciousDevice initWithLatestAdv:detectionSummary:date:locHistory:detectionMetrics:detectionType:immediacyType:accessoryInfo:forceSurfaceReason:](obja, "initWithLatestAdv:detectionSummary:date:locHistory:detectionMetrics:detectionType:immediacyType:accessoryInfo:forceSurfaceReason:", latestAdvertisement, detectionSummary, v51, v41, detectionMetrics, detectionType, v49, accessoryInfo, [detectionCopy forceSurfaceReason]);
+    v13 = -[TASuspiciousDevice initWithLatestAdv:detectionSummary:date:locHistory:detectionMetrics:detectionType:immediacyType:accessoryInfo:forceSurfaceReason:](obja, "initWithLatestAdv:detectionSummary:date:locHistory:detectionMetrics:detectionType:immediacyType:accessoryInfo:forceSurfaceReason:", latestAdvertisement, detectionSummary, v50, v41, detectionMetrics, detectionType, v48, accessoryInfo, [detectionCopy forceSurfaceReason]);
 
-    clockCopy = v51;
-    bufferCopy = v52;
+    clockCopy = v50;
+    bufferCopy = v51;
   }
-
-  v47 = *MEMORY[0x277D85DE8];
 
   return v13;
 }
 
 + (id)aggregateObservationsThroughHistoryForDetectionResults:(id)results visitSnapshotBuffer:(id)buffer intervisitSnapshotBuffer:(id)snapshotBuffer clock:(id)clock
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   resultsCopy = results;
   bufferCopy = buffer;
   snapshotBufferCopy = snapshotBuffer;
   clockCopy = clock;
   v13 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
   v14 = resultsCopy;
-  v15 = [v14 countByEnumeratingWithState:&v22 objects:v26 count:16];
+  v15 = [v14 countByEnumeratingWithState:&v21 objects:v25 count:16];
   if (v15)
   {
     v16 = v15;
-    v17 = *v23;
+    v17 = *v22;
     do
     {
       for (i = 0; i != v16; ++i)
       {
-        if (*v23 != v17)
+        if (*v22 != v17)
         {
           objc_enumerationMutation(v14);
         }
 
-        v19 = [TAFilterObservationAggregator aggregateObservationsThroughHistoryForSingleDetection:*(*(&v22 + 1) + 8 * i) visitSnapshotBuffer:bufferCopy intervisitSnapshotBuffer:snapshotBufferCopy clock:clockCopy, v22];
+        v19 = [TAFilterObservationAggregator aggregateObservationsThroughHistoryForSingleDetection:*(*(&v21 + 1) + 8 * i) visitSnapshotBuffer:bufferCopy intervisitSnapshotBuffer:snapshotBufferCopy clock:clockCopy, v21];
         [v13 addObject:v19];
       }
 
-      v16 = [v14 countByEnumeratingWithState:&v22 objects:v26 count:16];
+      v16 = [v14 countByEnumeratingWithState:&v21 objects:v25 count:16];
     }
 
     while (v16);
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 
   return v13;
 }
 
 + (void)attachAISInfo:(id)info deviceRecord:(id)record
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   infoCopy = info;
   recordCopy = record;
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
-  v7 = [infoCopy countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v7 = [infoCopy countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v16;
+    v9 = *v15;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v16 != v9)
+        if (*v15 != v9)
         {
           objc_enumerationMutation(infoCopy);
         }
 
-        v11 = *(*(&v15 + 1) + 8 * i);
+        v11 = *(*(&v14 + 1) + 8 * i);
         address = [v11 address];
         v13 = [recordCopy getAccessoryInfo:address];
 
         [v11 setAccessoryInfo:v13];
       }
 
-      v8 = [infoCopy countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v8 = [infoCopy countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v8);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 + (id)normalizeDualT18PoshAdvertisersAsPosh:(id)posh deviceRecord:(id)record
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   poshCopy = posh;
   recordCopy = record;
   v7 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(poshCopy, "count")}];
+  v33 = 0u;
   v34 = 0u;
   v35 = 0u;
   v36 = 0u;
-  v37 = 0u;
   v8 = poshCopy;
-  v9 = [v8 countByEnumeratingWithState:&v34 objects:v38 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v33 objects:v37 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v35;
-    v29 = v8;
-    v30 = recordCopy;
-    v28 = *v35;
+    v11 = *v34;
+    v28 = v8;
+    v29 = recordCopy;
+    v27 = *v34;
     do
     {
       v12 = 0;
       do
       {
-        if (*v35 != v11)
+        if (*v34 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = *(*(&v34 + 1) + 8 * v12);
+        v13 = *(*(&v33 + 1) + 8 * v12);
         address = [v13 address];
         v15 = [recordCopy getLatestAdvertisement:address];
 
         if ([v15 isApple] && objc_msgSend(v15, "isPosh") && (objc_msgSend(v13, "latestAdvertisement"), v16 = objc_claimAutoreleasedReturnValue(), v17 = objc_msgSend(v16, "isPosh"), v16, (v17 & 1) == 0))
         {
-          v33 = [TASuspiciousDevice alloc];
+          v32 = [TASuspiciousDevice alloc];
           detectionSummary = [v13 detectionSummary];
           date = [v13 date];
           locationHistory = [v13 locationHistory];
@@ -308,15 +302,15 @@
           immediacyType = [v13 immediacyType];
           [v13 accessoryInfo];
           v23 = v22 = v7;
-          v24 = -[TASuspiciousDevice initWithLatestAdv:detectionSummary:date:locHistory:detectionMetrics:detectionType:immediacyType:accessoryInfo:forceSurfaceReason:](v33, "initWithLatestAdv:detectionSummary:date:locHistory:detectionMetrics:detectionType:immediacyType:accessoryInfo:forceSurfaceReason:", v15, detectionSummary, date, locationHistory, detectionMetrics, detectionType, immediacyType, v23, [v13 forceSurfaceReason]);
+          v24 = -[TASuspiciousDevice initWithLatestAdv:detectionSummary:date:locHistory:detectionMetrics:detectionType:immediacyType:accessoryInfo:forceSurfaceReason:](v32, "initWithLatestAdv:detectionSummary:date:locHistory:detectionMetrics:detectionType:immediacyType:accessoryInfo:forceSurfaceReason:", v15, detectionSummary, date, locationHistory, detectionMetrics, detectionType, immediacyType, v23, [v13 forceSurfaceReason]);
 
           v7 = v22;
-          v8 = v29;
+          v8 = v28;
 
-          v11 = v28;
+          v11 = v27;
           [v22 addObject:v24];
 
-          recordCopy = v30;
+          recordCopy = v29;
         }
 
         else
@@ -328,14 +322,12 @@
       }
 
       while (v10 != v12);
-      v25 = [v8 countByEnumeratingWithState:&v34 objects:v38 count:16];
+      v25 = [v8 countByEnumeratingWithState:&v33 objects:v37 count:16];
       v10 = v25;
     }
 
     while (v25);
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 
   return v7;
 }

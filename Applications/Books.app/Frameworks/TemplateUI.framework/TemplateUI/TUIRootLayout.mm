@@ -45,7 +45,7 @@
 
 - (void)computeLayout
 {
-  v3 = [(TUILayout *)self box];
+  v3 = objc_msgSend_box(self, a2);
   contentModels = [v3 contentModels];
   v5 = [contentModels count];
 
@@ -59,7 +59,7 @@
     [controller addError:v8];
   }
 
-  v9 = [(TUILayout *)self box];
+  v9 = objc_msgSend_box(self);
   contentModel = [v9 contentModel];
 
   controller2 = [(TUILayout *)self controller];
@@ -69,12 +69,12 @@
   [v12 setContainingWidth:?];
   [(TUILayout *)self containingHeight];
   [v12 setContainingHeight:?];
-  [v12 validateLayout];
+  objc_msgSend_validateLayout(v12);
   v27 = 0u;
   v28 = 0u;
   v25 = 0u;
   v26 = 0u;
-  v13 = [(TUILayout *)self box];
+  v13 = objc_msgSend_box(self, 0);
   navBarModels = [v13 navBarModels];
 
   v15 = [navBarModels countByEnumeratingWithState:&v25 objects:v29 count:16];
@@ -99,7 +99,7 @@
         [(TUILayout *)self containingWidth];
         [v21 setContainingWidth:?];
         [v21 setContainingHeight:44.0];
-        [v21 validateLayout];
+        objc_msgSend_validateLayout(v21);
 
         v18 = v18 + 1;
       }
@@ -120,10 +120,10 @@
 - (void)onChildRenderModelInvalidate:(id)invalidate
 {
   invalidateCopy = invalidate;
-  v5 = [(TUILayout *)self box];
+  v5 = objc_msgSend_box(self);
   navBarModels = [v5 navBarModels];
-  model = [invalidateCopy model];
-  v8 = [navBarModels containsObject:model];
+  v7 = objc_msgSend_model(invalidateCopy);
+  v8 = [navBarModels containsObject:v7];
 
   if (v8)
   {

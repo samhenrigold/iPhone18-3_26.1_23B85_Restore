@@ -14,34 +14,34 @@
 
 + (id)appStoreAccountIdentifierForPersona:(id)persona
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   personaCopy = persona;
   if (personaCopy)
   {
     v4 = [DMCAccountUtilities _appleAccountWithPersonaID:personaCopy];
-    v5 = v4;
+    v6 = v4;
     if (v4)
     {
       ams_DSID = [v4 ams_DSID];
-      v7 = *DMCLogObjects();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+      v9 = *DMCLogObjects(ams_DSID, v8);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
-        v11 = 138543618;
-        v12 = personaCopy;
-        v13 = 2114;
-        v14 = ams_DSID;
-        _os_log_impl(&dword_1B1630000, v7, OS_LOG_TYPE_DEFAULT, "appStoreAccountIdentifierForPersona FOUND persona:%{public}@ -> accountIdentifier:%{public}@", &v11, 0x16u);
+        v12 = 138543618;
+        v13 = personaCopy;
+        v14 = 2114;
+        v15 = ams_DSID;
+        _os_log_impl(&dword_1B1630000, v9, OS_LOG_TYPE_DEFAULT, "appStoreAccountIdentifierForPersona FOUND persona:%{public}@ -> accountIdentifier:%{public}@", &v12, 0x16u);
       }
     }
 
     else
     {
-      v8 = *DMCLogObjects();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+      v10 = *DMCLogObjects(0, v5);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
-        v11 = 138543362;
-        v12 = personaCopy;
-        _os_log_impl(&dword_1B1630000, v8, OS_LOG_TYPE_DEFAULT, "appStoreAccountIdentifierForPersona NOT FOUND persona:%{public}@", &v11, 0xCu);
+        v12 = 138543362;
+        v13 = personaCopy;
+        _os_log_impl(&dword_1B1630000, v10, OS_LOG_TYPE_DEFAULT, "appStoreAccountIdentifierForPersona NOT FOUND persona:%{public}@", &v12, 0xCu);
       }
 
       ams_DSID = 0;
@@ -52,8 +52,6 @@
   {
     ams_DSID = 0;
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 
   return ams_DSID;
 }
@@ -76,32 +74,32 @@
 
 + (id)_appleAccountWithPersonaID:(id)d
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   dCopy = d;
   defaultStore = [MEMORY[0x1E6959A48] defaultStore];
   v5 = [defaultStore accountTypeWithAccountTypeIdentifier:*MEMORY[0x1E69597F8]];
   [defaultStore accountsWithAccountType:v5];
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
-  v6 = v21 = 0u;
-  v7 = [v6 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v6 = v20 = 0u;
+  v7 = [v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v7)
   {
     v8 = v7;
-    v17 = v5;
-    v9 = *v19;
+    v16 = v5;
+    v9 = *v18;
     v10 = *MEMORY[0x1E69597A0];
     while (2)
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v19 != v9)
+        if (*v18 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v12 = *(*(&v18 + 1) + 8 * i);
+        v12 = *(*(&v17 + 1) + 8 * i);
         v13 = [v12 objectForKeyedSubscript:v10];
         objc_opt_class();
         if (objc_opt_isKindOfClass() & 1) != 0 && ([v13 isEqualToString:dCopy])
@@ -112,7 +110,7 @@
         }
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
       if (v8)
       {
         continue;
@@ -123,15 +121,13 @@
 
     v14 = 0;
 LABEL_12:
-    v5 = v17;
+    v5 = v16;
   }
 
   else
   {
     v14 = 0;
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 
   return v14;
 }
@@ -204,35 +200,36 @@ void __136__DMCAccountUtilities_signInAccountsWithTypes_authenticationResult_per
             v6 = [v12 _signIniCloudAccountWithAuthenticationResult:v13 personaID:v14 baseViewController:v15 outError:&v33];
             v16 = v33;
 LABEL_11:
-            v22 = v16;
+            v24 = v16;
             goto LABEL_15;
           }
 
-          if ([v11 isEqualToString:v9])
+          v17 = [v11 isEqualToString:v9];
+          if (v17)
           {
-            v17 = *(a1 + 40);
-            v18 = *(a1 + 48);
-            v19 = *(a1 + 80);
-            v20 = *(a1 + 56);
-            v21 = *(a1 + 64);
+            v19 = *(a1 + 40);
+            v20 = *(a1 + 48);
+            v21 = *(a1 + 80);
+            v22 = *(a1 + 56);
+            v23 = *(a1 + 64);
             v32 = 0;
-            v6 = [v17 _signIniTunesAccountWithAuthenticationResult:v18 personaID:v20 canMakeAccountActive:v19 baseViewController:v21 outError:&v32];
+            v6 = [v19 _signIniTunesAccountWithAuthenticationResult:v20 personaID:v22 canMakeAccountActive:v21 baseViewController:v23 outError:&v32];
             v16 = v32;
             goto LABEL_11;
           }
 
-          v23 = *DMCLogObjects();
-          if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+          v25 = *DMCLogObjects(v17, v18);
+          if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
           {
             *buf = v30;
             v39 = v11;
-            _os_log_impl(&dword_1B1630000, v23, OS_LOG_TYPE_ERROR, "DMCAccountUtilities: Unsupported account type: %@", buf, 0xCu);
+            _os_log_impl(&dword_1B1630000, v25, OS_LOG_TYPE_ERROR, "DMCAccountUtilities: Unsupported account type: %@", buf, 0xCu);
           }
 
-          v22 = [MEMORY[0x1E696ABC0] errorWithDomain:v31 code:4 userInfo:0];
+          v24 = [MEMORY[0x1E696ABC0] errorWithDomain:v31 code:4 userInfo:0];
 LABEL_15:
-          v24 = v22;
-          if (v22 || (v6 & 1) == 0)
+          v26 = v24;
+          if (v24 || (v6 & 1) == 0)
           {
             goto LABEL_25;
           }
@@ -243,37 +240,33 @@ LABEL_15:
         v5 = [v2 countByEnumeratingWithState:&v34 objects:v40 count:16];
         if (!v5)
         {
-          v24 = 0;
+          v26 = 0;
           goto LABEL_25;
         }
       }
     }
 
-    v24 = 0;
+    v26 = 0;
     v6 = 0;
 LABEL_25:
 
-    v28 = *(a1 + 72);
-    if (v28)
+    v29 = *(a1 + 72);
+    if (v29)
     {
-      (*(v28 + 16))(v28, v6 & 1, v24);
+      (*(v29 + 16))(v29, v6 & 1, v26);
     }
-
-    goto LABEL_28;
   }
 
-  v25 = *(a1 + 72);
-  if (!v25)
+  else
   {
-LABEL_28:
-    v29 = *MEMORY[0x1E69E9840];
-    return;
+    v27 = *(a1 + 72);
+    if (v27)
+    {
+      v28 = *(v27 + 16);
+
+      v28();
+    }
   }
-
-  v26 = *(v25 + 16);
-  v27 = *MEMORY[0x1E69E9840];
-
-  v26();
 }
 
 - (BOOL)_signIniCloudAccountWithAuthenticationResult:(id)result personaID:(id)d baseViewController:(id)controller outError:(id *)error
@@ -281,39 +274,39 @@ LABEL_28:
   resultCopy = result;
   dCopy = d;
   controllerCopy = controller;
+  v33 = 0;
+  v34 = &v33;
+  v35 = 0x3032000000;
+  v36 = __Block_byref_object_copy__1;
+  v37 = __Block_byref_object_dispose__1;
+  v38 = 0;
+  v29 = 0;
+  v30 = &v29;
+  v31 = 0x2020000000;
   v32 = 0;
-  v33 = &v32;
-  v34 = 0x3032000000;
-  v35 = __Block_byref_object_copy__1;
-  v36 = __Block_byref_object_dispose__1;
-  v37 = 0;
-  v28 = 0;
-  v29 = &v28;
-  v30 = 0x2020000000;
-  v31 = 0;
-  v22[0] = MEMORY[0x1E69E9820];
-  v22[1] = 3221225472;
-  v22[2] = __106__DMCAccountUtilities__signIniCloudAccountWithAuthenticationResult_personaID_baseViewController_outError___block_invoke;
-  v22[3] = &unk_1E7ADC398;
+  v23[0] = MEMORY[0x1E69E9820];
+  v23[1] = 3221225472;
+  v23[2] = __106__DMCAccountUtilities__signIniCloudAccountWithAuthenticationResult_personaID_baseViewController_outError___block_invoke;
+  v23[3] = &unk_1E7ADC398;
   v13 = resultCopy;
-  v23 = v13;
+  v24 = v13;
   v14 = controllerCopy;
-  v24 = v14;
+  v25 = v14;
   selfCopy = self;
-  v26 = &v28;
-  v27 = &v32;
-  v15 = MEMORY[0x1B2731A20](v22);
-  v16 = v15;
+  v27 = &v29;
+  v28 = &v33;
+  v15 = MEMORY[0x1B2731A20](v23);
+  v17 = v15;
   if (dCopy)
   {
-    v17 = *DMCLogObjects();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
+    v18 = *DMCLogObjects(v15, v16);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
     {
-      *v21 = 0;
-      _os_log_impl(&dword_1B1630000, v17, OS_LOG_TYPE_DEBUG, "DMCAccountUtilities: Has enterprise persona, will sign in iCloud under enterprise persona", v21, 2u);
+      *v22 = 0;
+      _os_log_impl(&dword_1B1630000, v18, OS_LOG_TYPE_DEBUG, "DMCAccountUtilities: Has enterprise persona, will sign in iCloud under enterprise persona", v22, 2u);
     }
 
-    v18 = [DMCPersonaHelper performBlockUnderPersona:dCopy block:v16];
+    v19 = [DMCPersonaHelper performBlockUnderPersona:dCopy block:v17];
   }
 
   else
@@ -323,42 +316,43 @@ LABEL_28:
 
   if (error)
   {
-    *error = v33[5];
+    *error = v34[5];
   }
 
-  v19 = *(v29 + 24);
+  v20 = *(v30 + 24);
 
-  _Block_object_dispose(&v28, 8);
-  _Block_object_dispose(&v32, 8);
+  _Block_object_dispose(&v29, 8);
+  _Block_object_dispose(&v33, 8);
 
-  return v19;
+  return v20;
 }
 
 void __106__DMCAccountUtilities__signIniCloudAccountWithAuthenticationResult_personaID_baseViewController_outError___block_invoke(uint64_t a1)
 {
   v23 = *MEMORY[0x1E69E9840];
-  if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
+  v2 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT);
+  if (v2)
   {
-    v2 = +[DMCPersonaHelper currentPersonaID];
-    v3 = +[DMCPersonaHelper currentPersonaTypeString];
+    v3 = +[DMCPersonaHelper currentPersonaID];
+    v4 = +[DMCPersonaHelper currentPersonaTypeString];
     *buf = 136315906;
     *&buf[4] = "[DMCAccountUtilities _signIniCloudAccountWithAuthenticationResult:personaID:baseViewController:outError:]_block_invoke";
     *&buf[12] = 1024;
     *&buf[14] = 132;
     *&buf[18] = 2114;
-    *&buf[20] = v2;
+    *&buf[20] = v3;
     *&buf[28] = 2114;
-    *&buf[30] = v3;
+    *&buf[30] = v4;
     _os_log_impl(&dword_1B1630000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "%s (L: %d): Current persona ID: %{public}@, type: %{public}@", buf, 0x26u);
   }
 
-  v4 = objc_alloc_init(DMCAIDAMutableServiceContextClass());
-  [v4 setAuthenticationResults:*(a1 + 32)];
-  [v4 setViewController:*(a1 + 40)];
+  v5 = objc_alloc_init(DMCAIDAMutableServiceContextClass(v2));
+  [v5 setAuthenticationResults:*(a1 + 32)];
+  [v5 setViewController:*(a1 + 40)];
   v18 = 0;
   v19 = &v18;
   v20 = 0x2050000000;
-  v5 = getCDPUIControllerClass_softClass;
+  v6 = getCDPUIControllerClass_softClass;
   v21 = getCDPUIControllerClass_softClass;
   if (!getCDPUIControllerClass_softClass)
   {
@@ -368,56 +362,53 @@ void __106__DMCAccountUtilities__signIniCloudAccountWithAuthenticationResult_per
     *&buf[24] = &unk_1E7ADC1F0;
     *&buf[32] = &v18;
     __getCDPUIControllerClass_block_invoke(buf);
-    v5 = v19[3];
+    v6 = v19[3];
   }
 
-  v6 = v5;
+  v7 = v6;
   _Block_object_dispose(&v18, 8);
-  v7 = [[v5 alloc] initWithPresentingViewController:*(a1 + 40)];
-  [v7 setForceInlinePresentation:1];
-  [v4 setCdpUiProvider:v7];
-  [*(a1 + 48) setCdpUIController:v7];
-  v8 = objc_alloc(DMCAIDAServiceOwnersManagerClass());
-  v9 = [MEMORY[0x1E6959A48] defaultStore];
-  v10 = [v8 initWithAccountStore:v9];
+  v8 = [[v6 alloc] initWithPresentingViewController:*(a1 + 40)];
+  [v8 setForceInlinePresentation:1];
+  [v5 setCdpUiProvider:v8];
+  v9 = objc_alloc(DMCAIDAServiceOwnersManagerClass([*(a1 + 48) setCdpUIController:v8]));
+  v10 = [MEMORY[0x1E6959A48] defaultStore];
+  v11 = [v9 initWithAccountStore:v10];
 
-  v11 = dispatch_semaphore_create(0);
-  v12 = DMCAIDAServiceTypeCloud();
+  v12 = dispatch_semaphore_create(0);
+  v13 = DMCAIDAServiceTypeCloud();
   v15[0] = MEMORY[0x1E69E9820];
   v15[1] = 3221225472;
   v15[2] = __106__DMCAccountUtilities__signIniCloudAccountWithAuthenticationResult_personaID_baseViewController_outError___block_invoke_21;
   v15[3] = &unk_1E7ADC280;
   v17 = *(a1 + 56);
-  v16 = v11;
-  v13 = v11;
-  [v10 signInService:v12 withContext:v4 completion:v15];
+  v16 = v12;
+  v14 = v12;
+  [v11 signInService:v13 withContext:v5 completion:v15];
 
-  dispatch_semaphore_wait(v13, 0xFFFFFFFFFFFFFFFFLL);
-  v14 = *MEMORY[0x1E69E9840];
+  dispatch_semaphore_wait(v14, 0xFFFFFFFFFFFFFFFFLL);
 }
 
 void __106__DMCAccountUtilities__signIniCloudAccountWithAuthenticationResult_personaID_baseViewController_outError___block_invoke_21(uint64_t a1, int a2, void *a3)
 {
   v14 = *MEMORY[0x1E69E9840];
   v5 = a3;
-  v6 = *DMCLogObjects();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v7 = *DMCLogObjects(v5, v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v11[0] = 67109378;
     v11[1] = a2;
     v12 = 2114;
     v13 = v5;
-    _os_log_impl(&dword_1B1630000, v6, OS_LOG_TYPE_DEFAULT, "DMCAccountUtilities: Signing in iCloud account finished with result: %d, error: %{public}@", v11, 0x12u);
+    _os_log_impl(&dword_1B1630000, v7, OS_LOG_TYPE_DEFAULT, "DMCAccountUtilities: Signing in iCloud account finished with result: %d, error: %{public}@", v11, 0x12u);
   }
 
   *(*(*(a1 + 40) + 8) + 24) = a2;
-  v7 = *(*(a1 + 48) + 8);
-  v8 = *(v7 + 40);
-  *(v7 + 40) = v5;
-  v9 = v5;
+  v8 = *(*(a1 + 48) + 8);
+  v9 = *(v8 + 40);
+  *(v8 + 40) = v5;
+  v10 = v5;
 
   dispatch_semaphore_signal(*(a1 + 32));
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)_signIniTunesAccountWithAuthenticationResult:(id)result personaID:(id)d canMakeAccountActive:(BOOL)active baseViewController:(id)controller outError:(id *)error
@@ -426,7 +417,7 @@ void __106__DMCAccountUtilities__signIniCloudAccountWithAuthenticationResult_per
   dCopy = d;
   controllerCopy = controller;
   v13 = DMCAKAuthenticationUsernameKey();
-  v29 = [resultCopy objectForKeyedSubscript:v13];
+  v30 = [resultCopy objectForKeyedSubscript:v13];
 
   v14 = DMCAKAuthenticationPasswordKey();
   v15 = [resultCopy objectForKeyedSubscript:v14];
@@ -453,39 +444,39 @@ void __106__DMCAccountUtilities__signIniCloudAccountWithAuthenticationResult_per
 
   else
   {
+    v45 = 0;
+    v46 = &v45;
+    v47 = 0x3032000000;
+    v48 = __Block_byref_object_copy__1;
+    v49 = __Block_byref_object_dispose__1;
+    v50 = 0;
+    v41 = 0;
+    v42 = &v41;
+    v43 = 0x2020000000;
     v44 = 0;
-    v45 = &v44;
-    v46 = 0x3032000000;
-    v47 = __Block_byref_object_copy__1;
-    v48 = __Block_byref_object_dispose__1;
-    v49 = 0;
-    v40 = 0;
-    v41 = &v40;
-    v42 = 0x2020000000;
-    v43 = 0;
-    v32[0] = MEMORY[0x1E69E9820];
-    v32[1] = 3221225472;
-    v32[2] = __127__DMCAccountUtilities__signIniTunesAccountWithAuthenticationResult_personaID_canMakeAccountActive_baseViewController_outError___block_invoke;
-    v32[3] = &unk_1E7ADC3E8;
+    v33[0] = MEMORY[0x1E69E9820];
+    v33[1] = 3221225472;
+    v33[2] = __127__DMCAccountUtilities__signIniTunesAccountWithAuthenticationResult_personaID_canMakeAccountActive_baseViewController_outError___block_invoke;
+    v33[3] = &unk_1E7ADC3E8;
     activeCopy = active;
-    v33 = controllerCopy;
-    v34 = v29;
-    v35 = v17;
-    v36 = v15;
-    v37 = &v40;
-    v38 = &v44;
-    v24 = MEMORY[0x1B2731A20](v32);
-    v25 = v24;
+    v34 = controllerCopy;
+    v35 = v30;
+    v36 = v17;
+    v37 = v15;
+    v38 = &v41;
+    v39 = &v45;
+    v24 = MEMORY[0x1B2731A20](v33);
+    v26 = v24;
     if (dCopy)
     {
-      v26 = *DMCLogObjects();
-      if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
+      v27 = *DMCLogObjects(v24, v25);
+      if (os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
       {
         *buf = 0;
-        _os_log_impl(&dword_1B1630000, v26, OS_LOG_TYPE_DEBUG, "DMCAccountUtilities: Has enterprise persona, will sign in iTunes under enterprise persona", buf, 2u);
+        _os_log_impl(&dword_1B1630000, v27, OS_LOG_TYPE_DEBUG, "DMCAccountUtilities: Has enterprise persona, will sign in iTunes under enterprise persona", buf, 2u);
       }
 
-      v27 = [DMCPersonaHelper performBlockUnderPersona:dCopy block:v25, v29];
+      v28 = [DMCPersonaHelper performBlockUnderPersona:dCopy block:v26, v30];
     }
 
     else
@@ -495,13 +486,13 @@ void __106__DMCAccountUtilities__signIniCloudAccountWithAuthenticationResult_per
 
     if (error)
     {
-      *error = v45[5];
+      *error = v46[5];
     }
 
-    v23 = *(v41 + 24);
+    v23 = *(v42 + 24);
 
-    _Block_object_dispose(&v40, 8);
-    _Block_object_dispose(&v44, 8);
+    _Block_object_dispose(&v41, 8);
+    _Block_object_dispose(&v45, 8);
   }
 
   return v23 & 1;
@@ -509,68 +500,66 @@ void __106__DMCAccountUtilities__signIniCloudAccountWithAuthenticationResult_per
 
 void __127__DMCAccountUtilities__signIniTunesAccountWithAuthenticationResult_personaID_canMakeAccountActive_baseViewController_outError___block_invoke(uint64_t a1)
 {
-  v24 = *MEMORY[0x1E69E9840];
-  if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
+  v26 = *MEMORY[0x1E69E9840];
+  v2 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT);
+  if (v2)
   {
-    v2 = +[DMCPersonaHelper currentPersonaID];
-    v3 = +[DMCPersonaHelper currentPersonaTypeString];
+    v3 = +[DMCPersonaHelper currentPersonaID];
+    v4 = +[DMCPersonaHelper currentPersonaTypeString];
     *buf = 136315906;
-    *v19 = "[DMCAccountUtilities _signIniTunesAccountWithAuthenticationResult:personaID:canMakeAccountActive:baseViewController:outError:]_block_invoke";
-    *&v19[8] = 1024;
-    *&v19[10] = 188;
-    v20 = 2114;
-    v21 = v2;
+    *v21 = "[DMCAccountUtilities _signIniTunesAccountWithAuthenticationResult:personaID:canMakeAccountActive:baseViewController:outError:]_block_invoke";
+    *&v21[8] = 1024;
+    *&v21[10] = 188;
     v22 = 2114;
     v23 = v3;
+    v24 = 2114;
+    v25 = v4;
     _os_log_impl(&dword_1B1630000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "%s (L: %d): Current persona ID: %{public}@, type: %{public}@", buf, 0x26u);
   }
 
-  v4 = objc_alloc_init(DMCAMSAuthenticateOptionsClass());
-  [v4 setAuthenticationType:0];
-  [v4 setCanMakeAccountActive:*(a1 + 80)];
-  v5 = [objc_alloc(DMCAMSUIAuthenticateTaskClass()) initWithAccount:0 presentingViewController:*(a1 + 32) options:v4];
-  [v5 setUsername:*(a1 + 40)];
-  [v5 setAltDSID:*(a1 + 48)];
-  [v5 setPassword:*(a1 + 56)];
-  v6 = [v5 performAuthentication];
+  v5 = objc_alloc_init(DMCAMSAuthenticateOptionsClass(v2));
+  [v5 setAuthenticationType:0];
+  v6 = [objc_alloc(DMCAMSUIAuthenticateTaskClass(objc_msgSend(v5 setCanMakeAccountActive:{*(a1 + 80)))), "initWithAccount:presentingViewController:options:", 0, *(a1 + 32), v5}];
+  [v6 setUsername:*(a1 + 40)];
+  [v6 setAltDSID:*(a1 + 48)];
+  [v6 setPassword:*(a1 + 56)];
+  v7 = [v6 performAuthentication];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
   {
-    v7 = +[DMCPersonaHelper currentPersonaID];
-    v8 = +[DMCPersonaHelper currentPersonaTypeString];
+    v8 = +[DMCPersonaHelper currentPersonaID];
+    v9 = +[DMCPersonaHelper currentPersonaTypeString];
     *buf = 136315906;
-    *v19 = "[DMCAccountUtilities _signIniTunesAccountWithAuthenticationResult:personaID:canMakeAccountActive:baseViewController:outError:]_block_invoke";
-    *&v19[8] = 1024;
-    *&v19[10] = 198;
-    v20 = 2114;
-    v21 = v7;
+    *v21 = "[DMCAccountUtilities _signIniTunesAccountWithAuthenticationResult:personaID:canMakeAccountActive:baseViewController:outError:]_block_invoke";
+    *&v21[8] = 1024;
+    *&v21[10] = 198;
     v22 = 2114;
     v23 = v8;
+    v24 = 2114;
+    v25 = v9;
     _os_log_impl(&dword_1B1630000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "%s (L: %d): Current persona ID: %{public}@, type: %{public}@", buf, 0x26u);
   }
 
-  v9 = dispatch_semaphore_create(0);
-  v15[0] = MEMORY[0x1E69E9820];
-  v15[1] = 3221225472;
-  v15[2] = __127__DMCAccountUtilities__signIniTunesAccountWithAuthenticationResult_personaID_canMakeAccountActive_baseViewController_outError___block_invoke_23;
-  v15[3] = &unk_1E7ADC3C0;
-  v17 = *(a1 + 64);
-  v10 = v9;
-  v16 = v10;
-  [v6 resultWithCompletion:v15];
-  dispatch_semaphore_wait(v10, 0xFFFFFFFFFFFFFFFFLL);
-  v11 = *DMCLogObjects();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+  v10 = dispatch_semaphore_create(0);
+  v17[0] = MEMORY[0x1E69E9820];
+  v17[1] = 3221225472;
+  v17[2] = __127__DMCAccountUtilities__signIniTunesAccountWithAuthenticationResult_personaID_canMakeAccountActive_baseViewController_outError___block_invoke_23;
+  v17[3] = &unk_1E7ADC3C0;
+  v19 = *(a1 + 64);
+  v11 = v10;
+  v18 = v11;
+  [v7 resultWithCompletion:v17];
+  v12 = dispatch_semaphore_wait(v11, 0xFFFFFFFFFFFFFFFFLL);
+  v14 = *DMCLogObjects(v12, v13);
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
-    v12 = *(*(*(a1 + 64) + 8) + 24);
-    v13 = *(*(*(a1 + 72) + 8) + 40);
+    v15 = *(*(*(a1 + 64) + 8) + 24);
+    v16 = *(*(*(a1 + 72) + 8) + 40);
     *buf = 67109378;
-    *v19 = v12;
-    *&v19[4] = 2114;
-    *&v19[6] = v13;
-    _os_log_impl(&dword_1B1630000, v11, OS_LOG_TYPE_DEFAULT, "DMCAccountUtilities: Signing in iTunes account finished with result: %d, error: %{public}@", buf, 0x12u);
+    *v21 = v15;
+    *&v21[4] = 2114;
+    *&v21[6] = v16;
+    _os_log_impl(&dword_1B1630000, v14, OS_LOG_TYPE_DEFAULT, "DMCAccountUtilities: Signing in iTunes account finished with result: %d, error: %{public}@", buf, 0x12u);
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 void __127__DMCAccountUtilities__signIniTunesAccountWithAuthenticationResult_personaID_canMakeAccountActive_baseViewController_outError___block_invoke_23(uint64_t a1, void *a2, void *a3)
@@ -599,87 +588,81 @@ void __48__DMCAccountUtilities_signOutAllPrimaryAccounts__block_invoke()
 {
   v24[4] = *MEMORY[0x1E69E9840];
   v0 = [MEMORY[0x1E6959A48] defaultStore];
-  v1 = objc_alloc(DMCAIDAServiceOwnersManagerClass());
+  v1 = objc_alloc(DMCAIDAServiceOwnersManagerClass(v0));
   v2 = [MEMORY[0x1E6959A48] defaultStore];
   v3 = [v1 initWithAccountStore:v2];
 
-  v4 = objc_alloc_init(DMCAIDAMutableServiceContextClass());
-  v5 = [v0 dmc_primaryiCloudAccount];
-  v6 = dispatch_semaphore_create(0);
-  v7 = DMCAIDAServiceTypeMessages();
-  v24[0] = v7;
-  v8 = DMCAIDAServiceTypeFaceTime();
-  v24[1] = v8;
-  v9 = DMCAIDAServiceTypeStore();
-  v24[2] = v9;
-  v10 = DMCAIDAServiceTypeGameCenter();
-  v24[3] = v10;
-  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v24 count:4];
+  v5 = objc_alloc_init(DMCAIDAMutableServiceContextClass(v4));
+  v6 = [v0 dmc_primaryiCloudAccount];
+  v7 = dispatch_semaphore_create(0);
+  v8 = DMCAIDAServiceTypeMessages();
+  v24[0] = v8;
+  v9 = DMCAIDAServiceTypeFaceTime();
+  v24[1] = v9;
+  v10 = DMCAIDAServiceTypeStore();
+  v24[2] = v10;
+  v11 = DMCAIDAServiceTypeGameCenter();
+  v24[3] = v11;
+  v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v24 count:4];
   v17 = MEMORY[0x1E69E9820];
   v18 = 3221225472;
   v19 = __48__DMCAccountUtilities_signOutAllPrimaryAccounts__block_invoke_2;
   v20 = &unk_1E7ADC458;
   v21 = v3;
-  v22 = v4;
-  v23 = v6;
-  v12 = v6;
-  v13 = v4;
-  v14 = v3;
-  [v14 signOutOfServices:v11 usingContext:v13 completion:&v17];
+  v22 = v5;
+  v23 = v7;
+  v13 = v7;
+  v14 = v5;
+  v15 = v3;
+  [v15 signOutOfServices:v12 usingContext:v14 completion:&v17];
 
-  dispatch_semaphore_wait(v12, 0xFFFFFFFFFFFFFFFFLL);
-  v15 = [v5 dmc_altDSID];
-  [v0 dmc_removeAccountsWithAltDSID:v15 asynchronous:0];
-
-  v16 = *MEMORY[0x1E69E9840];
+  dispatch_semaphore_wait(v13, 0xFFFFFFFFFFFFFFFFLL);
+  v16 = [v6 dmc_altDSID];
+  [v0 dmc_removeAccountsWithAltDSID:v16 asynchronous:0];
 }
 
 void __48__DMCAccountUtilities_signOutAllPrimaryAccounts__block_invoke_2(uint64_t a1, int a2, void *a3)
 {
   v19 = *MEMORY[0x1E69E9840];
   v5 = a3;
-  v6 = *DMCLogObjects();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v7 = *DMCLogObjects(v5, v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109378;
     v16 = a2;
     v17 = 2114;
     v18 = v5;
-    _os_log_impl(&dword_1B1630000, v6, OS_LOG_TYPE_DEFAULT, "DMCAccountUtilities: signOutOfServices (except Cloud) finished with success: %d, result: %{public}@", buf, 0x12u);
+    _os_log_impl(&dword_1B1630000, v7, OS_LOG_TYPE_DEFAULT, "DMCAccountUtilities: signOutOfServices (except Cloud) finished with success: %d, result: %{public}@", buf, 0x12u);
   }
 
-  v7 = *(a1 + 32);
-  v8 = DMCAIDAServiceTypeCloud();
-  v14 = v8;
-  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v14 count:1];
+  v8 = *(a1 + 32);
+  v9 = DMCAIDAServiceTypeCloud();
+  v14 = v9;
+  v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v14 count:1];
   v12[0] = MEMORY[0x1E69E9820];
   v12[1] = 3221225472;
   v12[2] = __48__DMCAccountUtilities_signOutAllPrimaryAccounts__block_invoke_26;
   v12[3] = &unk_1E7ADC430;
-  v10 = *(a1 + 40);
+  v11 = *(a1 + 40);
   v13 = *(a1 + 48);
-  [v7 signOutOfServices:v9 usingContext:v10 completion:v12];
-
-  v11 = *MEMORY[0x1E69E9840];
+  [v8 signOutOfServices:v10 usingContext:v11 completion:v12];
 }
 
 void __48__DMCAccountUtilities_signOutAllPrimaryAccounts__block_invoke_26(uint64_t a1, int a2, void *a3)
 {
   v11 = *MEMORY[0x1E69E9840];
   v5 = a3;
-  v6 = *DMCLogObjects();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v7 = *DMCLogObjects(v5, v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v8[0] = 67109378;
     v8[1] = a2;
     v9 = 2114;
     v10 = v5;
-    _os_log_impl(&dword_1B1630000, v6, OS_LOG_TYPE_DEFAULT, "DMCAccountUtilities: signOutOfCloud finished with success: %d, result: %{public}@", v8, 0x12u);
+    _os_log_impl(&dword_1B1630000, v7, OS_LOG_TYPE_DEFAULT, "DMCAccountUtilities: signOutOfCloud finished with success: %d, result: %{public}@", v8, 0x12u);
   }
 
   dispatch_semaphore_signal(*(a1 + 32));
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (DMCHangDetectionQueue)signInQueue

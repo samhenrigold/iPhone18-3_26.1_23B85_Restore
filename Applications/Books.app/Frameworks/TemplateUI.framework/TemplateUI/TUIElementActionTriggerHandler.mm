@@ -90,115 +90,116 @@
   invokeCopy = invoke;
   viewCopy = view;
   argumentsCopy = arguments;
-  v13 = TUIActionLog();
+  v13 = TUIActionLog(argumentsCopy);
   if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
   {
     v14 = argumentsCopy;
     v15 = idCopy;
     layoutAttributes = [viewCopy layoutAttributes];
     [layoutAttributes renderModel];
-    v17 = v37 = idCopy;
+    v17 = v41 = idCopy;
     identifier = [v17 identifier];
     [identifier tui_identifierToString];
     v20 = v19 = viewCopy;
     *buf = 138544386;
-    v39 = invokeCopy;
-    v40 = 2114;
-    v41 = v19;
-    v42 = 2048;
-    v43 = v15;
+    v43 = invokeCopy;
+    v44 = 2114;
+    v45 = v19;
+    v46 = 2048;
+    v47 = v15;
     argumentsCopy = v14;
-    v44 = 2112;
-    v45 = v14;
-    v46 = 2114;
-    v47 = v20;
+    v48 = 2112;
+    v49 = v14;
+    v50 = 2114;
+    v51 = v20;
     _os_log_impl(&dword_0, v13, OS_LOG_TYPE_INFO, "invoke trigger='%{public}@ view=%{public}@ allowRefId=%lu arguments=%@ view.id=%{public}@", buf, 0x34u);
 
     viewCopy = v19;
-    idCopy = v37;
+    idCopy = v41;
   }
 
   if (!self->_block)
   {
-    v23 = [(TUIElementTriggerBehaviorMap *)self->_actionsData behaviorDataForTrigger:invokeCopy];
-    behavior = [v23 behavior];
+    v24 = [(TUIElementTriggerBehaviorMap *)self->_actionsData behaviorDataForTrigger:invokeCopy];
+    behavior = [v24 behavior];
     if (behavior)
     {
-      arguments = [v23 arguments];
-      v26 = [arguments dictionaryByAddingEntriesFromDictionary:argumentsCopy];
+      arguments = [v24 arguments];
+      v27 = [arguments dictionaryByAddingEntriesFromDictionary:argumentsCopy];
 
-      v27 = TUIActionLog();
-      if (os_log_type_enabled(v27, OS_LOG_TYPE_INFO))
+      v29 = TUIActionLog(v28);
+      if (os_log_type_enabled(v29, OS_LOG_TYPE_INFO))
       {
-        behavior2 = [v23 behavior];
+        behavior2 = [v24 behavior];
         *buf = 138543618;
-        v39 = behavior2;
-        v40 = 2112;
-        v41 = v26;
-        _os_log_impl(&dword_0, v27, OS_LOG_TYPE_INFO, "invoke: trigger via behavior=%{public}@ arguments=%@", buf, 0x16u);
+        v43 = behavior2;
+        v44 = 2112;
+        v45 = v27;
+        _os_log_impl(&dword_0, v29, OS_LOG_TYPE_INFO, "invoke: trigger via behavior=%{public}@ arguments=%@", buf, 0x16u);
       }
 
       WeakRetained = objc_loadWeakRetained(&self->_actionDelegate);
-      v22 = [WeakRetained handleActionForObject:self->_actionObject withName:behavior arguments:v26];
+      v23 = [WeakRetained handleActionForObject:self->_actionObject withName:behavior arguments:v27];
       goto LABEL_11;
     }
 
-    v22 = 0;
-    if (v23 || !idCopy)
+    v23 = 0;
+    if (v24 || !idCopy)
     {
       goto LABEL_13;
     }
 
-    v26 = [(TUIElementTriggerBehaviorMap *)self->_actionsData refIdForTrigger:invokeCopy];
-    if (![v26 length])
+    v27 = [(TUIElementTriggerBehaviorMap *)self->_actionsData refIdForTrigger:invokeCopy];
+    if (![v27 length])
     {
-      v22 = 0;
+      v23 = 0;
       goto LABEL_12;
     }
 
-    WeakRetained = [viewCopy descendentViewWithRefId:v26];
+    WeakRetained = [viewCopy descendentViewWithRefId:v27];
     layoutAttributes2 = [WeakRetained layoutAttributes];
     renderModel = [layoutAttributes2 renderModel];
 
     if (WeakRetained == viewCopy)
     {
-      v33 = argumentsCopy;
-      v34 = viewCopy;
-      actionHandler = TUIActionLog();
+      v37 = argumentsCopy;
+      v38 = viewCopy;
+      actionHandler = TUIActionLog(v35);
       if (os_log_type_enabled(actionHandler, OS_LOG_TYPE_FAULT))
       {
-        sub_19B6FC(v26, v34, actionHandler);
+        sub_19B6FC(v27, v38, actionHandler);
       }
 
-      v22 = 0;
+      v23 = 0;
     }
 
     else
     {
-      if ((objc_opt_respondsToSelector() & 1) == 0)
+      v36 = objc_opt_respondsToSelector();
+      if ((v36 & 1) == 0)
       {
-        v22 = 0;
+        v23 = 0;
         goto LABEL_29;
       }
 
-      v33 = argumentsCopy;
-      v34 = viewCopy;
-      v35 = TUIActionLog();
-      if (os_log_type_enabled(v35, OS_LOG_TYPE_INFO))
+      v37 = argumentsCopy;
+      v38 = viewCopy;
+      v39 = TUIActionLog(v36);
+      if (os_log_type_enabled(v39, OS_LOG_TYPE_INFO))
       {
         *buf = 138543618;
-        v39 = v26;
-        v40 = 2114;
-        v41 = WeakRetained;
-        _os_log_impl(&dword_0, v35, OS_LOG_TYPE_INFO, "invoke: via refId=%{public}@ descendentView=%{public}@", buf, 0x16u);
+        v43 = v27;
+        v44 = 2114;
+        v45 = WeakRetained;
+        _os_log_impl(&dword_0, v39, OS_LOG_TYPE_INFO, "invoke: via refId=%{public}@ descendentView=%{public}@", buf, 0x16u);
       }
 
       actionHandler = [renderModel actionHandler];
-      v22 = [actionHandler invoke:invokeCopy view:v34 allowRefId:1 arguments:v33];
+      v23 = [actionHandler invoke:invokeCopy view:v38 allowRefId:1 arguments:v37];
     }
 
-    viewCopy = v34;
-    argumentsCopy = v33;
+    viewCopy = v38;
+    argumentsCopy = v37;
 LABEL_29:
 
 LABEL_11:
@@ -208,18 +209,18 @@ LABEL_13:
     goto LABEL_14;
   }
 
-  v21 = TUIActionLog();
-  if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
+  v22 = TUIActionLog(v21);
+  if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
   {
     *buf = 0;
-    _os_log_impl(&dword_0, v21, OS_LOG_TYPE_INFO, "invoke: trigger via block", buf, 2u);
+    _os_log_impl(&dword_0, v22, OS_LOG_TYPE_INFO, "invoke: trigger via block", buf, 2u);
   }
 
   (*(self->_block + 2))();
-  v22 = 1;
+  v23 = 1;
 LABEL_14:
 
-  return v22;
+  return v23;
 }
 
 + (id)argumentsForView:(id)view

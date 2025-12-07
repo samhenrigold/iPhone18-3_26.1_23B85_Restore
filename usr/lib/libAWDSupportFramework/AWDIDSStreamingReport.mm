@@ -230,7 +230,6 @@ LABEL_14:
 {
   if ((*&self->_has & 0x40) != 0)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
   }
 
@@ -247,7 +246,6 @@ LABEL_14:
   has = self->_has;
   if ((has & 0x20) != 0)
   {
-    samplingInterval = self->_samplingInterval;
     PBDataWriterWriteUint64Field();
     has = self->_has;
     if ((has & 2) == 0)
@@ -267,7 +265,6 @@ LABEL_9:
     goto LABEL_9;
   }
 
-  bytesSent = self->_bytesSent;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 8) == 0)
@@ -282,7 +279,6 @@ LABEL_10:
   }
 
 LABEL_20:
-  packetsSent = self->_packetsSent;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 1) == 0)
@@ -297,7 +293,6 @@ LABEL_11:
   }
 
 LABEL_21:
-  bytesReceived = self->_bytesReceived;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 4) == 0)
@@ -312,12 +307,10 @@ LABEL_12:
   }
 
 LABEL_22:
-  packetsReceived = self->_packetsReceived;
   PBDataWriterWriteUint64Field();
   if ((*&self->_has & 0x10) != 0)
   {
 LABEL_13:
-    priority = self->_priority;
     PBDataWriterWriteUint64Field();
   }
 
@@ -532,7 +525,6 @@ LABEL_10:
   v5 = [equal isMemberOfClass:objc_opt_class()];
   if (v5)
   {
-    v6 = *(equal + 88);
     if ((*&self->_has & 0x40) != 0)
     {
       if ((*(equal + 88) & 0x40) == 0 || self->_timestamp != *(equal + 7))
@@ -554,7 +546,6 @@ LABEL_43:
       streamName = self->_streamName;
       if (!(streamName | *(equal + 10)) || (v5 = [(NSString *)streamName isEqual:?]) != 0)
       {
-        v9 = *(equal + 88);
         if ((*&self->_has & 0x20) != 0)
         {
           if ((*(equal + 88) & 0x20) == 0 || self->_samplingInterval != *(equal + 6))

@@ -66,7 +66,7 @@
 
 - (void)setRotationWithYaw:(double)yaw pitch:(double)pitch roll:(double)roll completionHandler:(id)handler
 {
-  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0C9408);
+  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0C9408, &qword_22462F160);
   MEMORY[0x28223BE20](v11 - 8);
   v13 = &v20 - v12;
   v14 = _Block_copy(handler);
@@ -94,7 +94,7 @@
 
 - (void)setActuatorVelocitiesWithActuatorNames:(NSArray *)names velocities:(NSArray *)velocities completionHandler:(id)handler
 {
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0C9408);
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0C9408, &qword_22462F160);
   MEMORY[0x28223BE20](v9 - 8);
   v11 = &v20 - v10;
   v12 = _Block_copy(handler);
@@ -123,7 +123,7 @@
 
 - (void)setRotationalVelocityWithYaw:(double)yaw pitch:(double)pitch roll:(double)roll completionHandler:(id)handler
 {
-  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0C9408);
+  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0C9408, &qword_22462F160);
   MEMORY[0x28223BE20](v11 - 8);
   v13 = &v20 - v12;
   v14 = _Block_copy(handler);
@@ -151,7 +151,7 @@
 
 - (void)setActuatorPositionsWithActuators:(NSArray *)actuators positions:(NSArray *)positions completionHandler:(id)handler
 {
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0C9408);
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0C9408, &qword_22462F160);
   MEMORY[0x28223BE20](v9 - 8);
   v11 = &v20 - v10;
   v12 = _Block_copy(handler);
@@ -180,7 +180,7 @@
 
 - (void)setActuatorVelocitiesWithActuators:(NSArray *)actuators velocities:(NSArray *)velocities completionHandler:(id)handler
 {
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0C9408);
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0C9408, &qword_22462F160);
   MEMORY[0x28223BE20](v9 - 8);
   v11 = &v20 - v10;
   v12 = _Block_copy(handler);
@@ -209,7 +209,7 @@
 
 - (void)getActuatorFeedbackWithActuators:(NSArray *)actuators delegate:(_TtP11DockKitCore25XPCActuatorClientProtocol_ *)delegate occurrence:(int64_t)occurrence completionHandler:(id)handler
 {
-  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0C9408);
+  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0C9408, &qword_22462F160);
   MEMORY[0x28223BE20](v11 - 8);
   v13 = &v21 - v12;
   v14 = _Block_copy(handler);
@@ -239,7 +239,7 @@
 
 - (void)getCurrentFeedbackWithActuators:(NSArray *)actuators completionHandler:(id)handler
 {
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0C9408);
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0C9408, &qword_22462F160);
   MEMORY[0x28223BE20](v7 - 8);
   v9 = &v17 - v8;
   v10 = _Block_copy(handler);
@@ -266,7 +266,7 @@
 
 - (void)stopActuatorFeedbackWithCompletionHandler:(id)handler
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0C9408);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0C9408, &qword_22462F160);
   MEMORY[0x28223BE20](v5 - 8);
   v7 = &v14 - v6;
   v8 = _Block_copy(handler);

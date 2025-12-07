@@ -88,7 +88,7 @@
 
 - (SBWindow)initWithWindowScene:(id)scene rootViewController:(id)controller layoutStrategy:(id)strategy role:(id)role debugName:(id)name
 {
-  v49 = *MEMORY[0x277D85DE8];
+  v50 = *MEMORY[0x277D85DE8];
   sceneCopy = scene;
   controllerCopy = controller;
   strategyCopy = strategy;
@@ -99,86 +99,86 @@
     strategyCopy = [objc_opt_class() defaultLayoutStrategy];
   }
 
-  [strategyCopy frameWithInterfaceOrientation:1 windowScene:sceneCopy];
-  v19 = v18;
-  v21 = v20;
-  v23 = v22;
-  v25 = v24;
-  v26 = SBLogStartup();
-  v27 = v26;
+  v18 = [strategyCopy frameWithInterfaceOrientation:1 windowScene:sceneCopy];
+  v20 = v19;
+  v22 = v21;
+  v24 = v23;
+  v26 = v25;
+  v27 = SBLogStartup(v18);
+  v28 = v27;
   if (sceneCopy)
   {
-    if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
     {
-      v28 = _SBFLoggingMethodProem();
+      v29 = _SBFLoggingMethodProem();
       *buf = 138543618;
-      v46 = v28;
-      v47 = 2114;
-      v48 = sceneCopy;
-      _os_log_impl(&dword_21ED4E000, v27, OS_LOG_TYPE_DEFAULT, "[%{public}@] wiring up with windowScene: %{public}@", buf, 0x16u);
+      v47 = v29;
+      v48 = 2114;
+      v49 = sceneCopy;
+      _os_log_impl(&dword_21ED4E000, v28, OS_LOG_TYPE_DEFAULT, "[%{public}@] wiring up with windowScene: %{public}@", buf, 0x16u);
     }
 
-    v44.receiver = self;
-    v44.super_class = SBWindow;
-    v29 = [(SBWindow *)&v44 _initWithFrame:nameCopy debugName:sceneCopy windowScene:v19, v21, v23, v25];
-    if (!v29)
+    v45.receiver = self;
+    v45.super_class = SBWindow;
+    v30 = [(SBWindow *)&v45 _initWithFrame:nameCopy debugName:sceneCopy windowScene:v20, v22, v24, v26];
+    if (!v30)
     {
       goto LABEL_27;
     }
 
 LABEL_11:
-    v29->_requestedHiddenValue = [(SBWindow *)v29 isHidden];
+    v30->_requestedHiddenValue = [(SBWindow *)v30 isHidden];
     _isSecure = [objc_opt_class() _isSecure];
     if ((_isSecure & 1) == 0)
     {
       defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
-      [defaultCenter addObserver:v29 selector:sel__willEnableSecureRendering_ name:*MEMORY[0x277D66028] object:0];
-      [defaultCenter addObserver:v29 selector:sel__didDisableSecureRendering_ name:*MEMORY[0x277D66020] object:0];
+      [defaultCenter addObserver:v30 selector:sel__willEnableSecureRendering_ name:*MEMORY[0x277D66028] object:0];
+      [defaultCenter addObserver:v30 selector:sel__didDisableSecureRendering_ name:*MEMORY[0x277D66020] object:0];
     }
 
-    objc_storeStrong(&v29->_layoutStrategy, strategyCopy);
-    [(SBWindow *)v29 setClipsToBounds:[(SBWindowLayoutStrategy *)v29->_layoutStrategy shouldClipForWindow:v29]];
-    [(SBWindow *)v29 _setWindowInterfaceOrientation:1];
+    objc_storeStrong(&v30->_layoutStrategy, strategyCopy);
+    [(SBWindow *)v30 setClipsToBounds:[(SBWindowLayoutStrategy *)v30->_layoutStrategy shouldClipForWindow:v30]];
+    [(SBWindow *)v30 _setWindowInterfaceOrientation:1];
     if (roleCopy)
     {
-      [(SBWindow *)v29 _setRoleHint:roleCopy];
+      [(SBWindow *)v30 _setRoleHint:roleCopy];
     }
 
     if (controllerCopy)
     {
-      isHidden = [(SBWindow *)v29 isHidden];
-      [(SBWindow *)v29 setRootViewController:controllerCopy];
-      [(SBWindow *)v29 setHidden:0];
-      [(SBWindow *)v29 setHidden:isHidden];
+      isHidden = [(SBWindow *)v30 isHidden];
+      [(SBWindow *)v30 setRootViewController:controllerCopy];
+      [(SBWindow *)v30 setHidden:0];
+      [(SBWindow *)v30 setHidden:isHidden];
     }
 
-    [(SBWindowLayoutStrategy *)v29->_layoutStrategy addObserver:v29];
+    [(SBWindowLayoutStrategy *)v30->_layoutStrategy addObserver:v30];
     if ((_isSecure & 1) == 0)
     {
-      v34 = objc_opt_class();
-      v35 = sceneCopy;
-      if (v34)
+      v35 = objc_opt_class();
+      v36 = sceneCopy;
+      if (v35)
       {
         if (objc_opt_isKindOfClass())
         {
-          v36 = v35;
+          v37 = v36;
         }
 
         else
         {
-          v36 = 0;
+          v37 = 0;
         }
       }
 
       else
       {
-        v36 = 0;
+        v37 = 0;
       }
 
-      v37 = v36;
+      v38 = v37;
 
-      secureDisplayStateProvider = [v37 secureDisplayStateProvider];
-      v39 = secureDisplayStateProvider;
+      secureDisplayStateProvider = [v38 secureDisplayStateProvider];
+      v40 = secureDisplayStateProvider;
       if (secureDisplayStateProvider)
       {
         authenticationController = secureDisplayStateProvider;
@@ -189,32 +189,32 @@ LABEL_11:
         authenticationController = [SBApp authenticationController];
       }
 
-      v41 = authenticationController;
+      v42 = authenticationController;
 
-      -[SBWindow _updateHidingForSecureRendering:](v29, "_updateHidingForSecureRendering:", [v41 isInSecureDisplayMode]);
+      -[SBWindow _updateHidingForSecureRendering:](v30, "_updateHidingForSecureRendering:", [v42 isInSecureDisplayMode]);
     }
 
     goto LABEL_27;
   }
 
-  if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+  if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
   {
-    [SBWindow initWithWindowScene:a2 rootViewController:v27 layoutStrategy:? role:? debugName:?];
+    [SBWindow initWithWindowScene:a2 rootViewController:v28 layoutStrategy:? role:? debugName:?];
   }
 
-  v30 = SBMainWindowScene();
-  v43.receiver = self;
-  v43.super_class = SBWindow;
-  v29 = [(SBWindow *)&v43 _initWithFrame:nameCopy debugName:v30 windowScene:v19, v21, v23, v25];
+  v31 = SBMainWindowScene();
+  v44.receiver = self;
+  v44.super_class = SBWindow;
+  v30 = [(SBWindow *)&v44 _initWithFrame:nameCopy debugName:v31 windowScene:v20, v22, v24, v26];
 
-  if (v29)
+  if (v30)
   {
     goto LABEL_11;
   }
 
 LABEL_27:
 
-  return v29;
+  return v30;
 }
 
 - (void)dealloc

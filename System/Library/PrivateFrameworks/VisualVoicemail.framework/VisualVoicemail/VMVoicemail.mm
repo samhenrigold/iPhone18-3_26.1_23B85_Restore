@@ -151,7 +151,7 @@ LABEL_24:
   }
 
 LABEL_26:
-  v29 = VMStoreRecordCopyDataPath();
+  v29 = VMStoreRecordCopyDataPath(record);
   if (![v29 length])
   {
 
@@ -163,7 +163,7 @@ LABEL_26:
   v30 = [NSURL fileURLWithPath:v29 isDirectory:0];
   [v9 setDataURL:v30];
 
-  v31 = VMStoreRecordCopyTranscriptionPath();
+  v31 = VMStoreRecordCopyTranscriptionPath(record);
   if ([v31 length])
   {
     v32 = [NSURL fileURLWithPath:v31 isDirectory:0];
@@ -171,7 +171,7 @@ LABEL_26:
   }
 
   v52 = v31;
-  v33 = VMStoreRecordCopySummarizationPath();
+  v33 = VMStoreRecordCopySummarizationPath(record);
   if (![v33 length])
   {
     v42 = vm_vmd_log();

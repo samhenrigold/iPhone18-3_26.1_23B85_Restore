@@ -55,7 +55,7 @@
 
   v11 = [objc_opt_class() visualStyleSetNameForUserInterfaceStyle:userInterfaceStyle];
   v5 = MEMORY[0x1E69AE170];
-  v6 = SBHBundle();
+  v6 = SBHBundle(v11);
   v7 = [v5 _visualStylingProviderForStyleSetNamed:v11 inBundle:v6];
 
   [(SBHVisualStylingView *)self alpha];

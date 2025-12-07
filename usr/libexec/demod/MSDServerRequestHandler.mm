@@ -241,22 +241,22 @@
   synchronousCopy = synchronous;
   requestCopy = request;
   v7 = 0;
-  v22 = 0;
-  v23 = &v22;
-  v24 = 0x3032000000;
-  v25 = sub_1000A805C;
-  v26 = sub_1000A806C;
-  v27 = 0;
+  v23 = 0;
+  v24 = &v23;
+  v25 = 0x3032000000;
+  v26 = sub_1000A805C;
+  v27 = sub_1000A806C;
+  v28 = 0;
   if (synchronousCopy)
   {
-    v19[0] = _NSConcreteStackBlock;
-    v19[1] = 3221225472;
-    v19[2] = sub_1000A8074;
-    v19[3] = &unk_10016C0D0;
-    v21 = &v22;
+    v20[0] = _NSConcreteStackBlock;
+    v20[1] = 3221225472;
+    v20[2] = sub_1000A8074;
+    v20[3] = &unk_10016C0D0;
+    v22 = &v23;
     v7 = dispatch_semaphore_create(0);
-    v20 = v7;
-    [requestCopy setCompletion:v19];
+    v21 = v7;
+    [requestCopy setCompletion:v20];
   }
 
   v8 = objc_opt_class();
@@ -268,20 +268,20 @@
   if (v12)
   {
     dispatchTable2 = [(MSDServerRequestHandler *)self dispatchTable];
-    v14 = [dispatchTable2 objectForKey:v9];
-    v15 = NSSelectorFromString(v14);
+    v15 = [dispatchTable2 objectForKey:v9];
+    v16 = NSSelectorFromString(v15);
 
-    ([(MSDServerRequestHandler *)self methodForSelector:v15])(self, v15, requestCopy);
+    ([(MSDServerRequestHandler *)self methodForSelector:v16])(self, v16, requestCopy);
   }
 
   else
   {
-    v16 = sub_100063A54();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+    v17 = sub_100063A54(v13);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v29 = v9;
-      _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "Unrecognized request: %{public}@, ignoring...", buf, 0xCu);
+      v30 = v9;
+      _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "Unrecognized request: %{public}@, ignoring...", buf, 0xCu);
     }
   }
 
@@ -290,11 +290,11 @@
     dispatch_semaphore_wait(v7, 0xFFFFFFFFFFFFFFFFLL);
   }
 
-  v17 = v23[5];
+  v18 = v24[5];
 
-  _Block_object_dispose(&v22, 8);
+  _Block_object_dispose(&v23, 8);
 
-  return v17;
+  return v18;
 }
 
 - (void)handleIsEnrolled:(id)enrolled
@@ -453,6 +453,7 @@
   selfCopy = self;
   objc_sync_enter(selfCopy);
   hubHostName = [(MSDServerRequestHandler *)selfCopy hubHostName];
+  v7 = hubHostName;
   if (hubHostName)
   {
     hubPort = [(MSDServerRequestHandler *)selfCopy hubPort];
@@ -463,23 +464,23 @@
 
       downloadManager = [(MSDServerRequestHandler *)selfCopy downloadManager];
       [downloadManager downloadFileForRequest:fileCopy];
-      v9 = 0;
+      v10 = 0;
 LABEL_8:
 
       goto LABEL_9;
     }
   }
 
-  v10 = sub_100063A54();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+  v11 = sub_100063A54(hubHostName);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
   {
     getName = [fileCopy getName];
-    sub_1000E6F20(getName, buf, v10);
+    sub_1000E6F20(getName, buf, v11);
   }
 
-  v14 = 0;
-  sub_1000C1390(&v14, 3727744769, @"Input is invalid");
-  v9 = v14;
+  v15 = 0;
+  sub_1000C1390(&v15, 3727744769, @"Input is invalid");
+  v10 = v15;
   objc_sync_exit(selfCopy);
 
   completion = [fileCopy completion];
@@ -487,8 +488,8 @@ LABEL_8:
   if (completion)
   {
     downloadManager = [fileCopy completion];
-    v13 = [[MSDServerResponse alloc] initWithError:v9];
-    (downloadManager)[2](downloadManager, v13);
+    v14 = [[MSDServerResponse alloc] initWithError:v10];
+    (downloadManager)[2](downloadManager, v14);
 
     goto LABEL_8;
   }
@@ -527,7 +528,7 @@ LABEL_9:
 - (id)updateFileDownloadCredentialFromManifestInfo:(id)info
 {
   infoCopy = info;
-  v5 = sub_100063A54();
+  v5 = sub_100063A54(infoCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -625,13 +626,13 @@ LABEL_5:
   if (!error)
   {
     v8 = +[NSFileManager defaultManager];
-    v9 = sub_100063A54();
+    v9 = sub_100063A54(v8);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       appID = [requestCopy appID];
-      v19 = 138543362;
-      v20 = appID;
-      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Checking IPA File for %{public}@", &v19, 0xCu);
+      v20 = 138543362;
+      v21 = appID;
+      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Checking IPA File for %{public}@", &v20, 0xCu);
     }
 
     savePath = [requestCopy savePath];
@@ -640,17 +641,17 @@ LABEL_5:
     if (v12)
     {
       savePath2 = [requestCopy savePath];
-      v14 = [v8 attributesOfItemAtPath:savePath2 error:0];
+      v15 = [v8 attributesOfItemAtPath:savePath2 error:0];
 
-      if ([v14 fileSize])
+      if ([v15 fileSize])
       {
 LABEL_6:
 
         goto LABEL_7;
       }
 
-      v17 = sub_100063A54();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+      v18 = sub_100063A54(0);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
       {
         sub_1000E7050(requestCopy);
       }
@@ -658,17 +659,17 @@ LABEL_6:
 
     else
     {
-      v17 = sub_100063A54();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+      v18 = sub_100063A54(v13);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
       {
         sub_1000E6FCC(requestCopy);
       }
 
-      v14 = 0;
+      v15 = 0;
     }
 
-    v18 = [NSError errorDomainMSDWithCode:3727744512 message:@"Unexpected server response."];
-    [responseCopy setError:v18];
+    v19 = [NSError errorDomainMSDWithCode:3727744512 message:@"Unexpected server response."];
+    [responseCopy setError:v19];
 
     goto LABEL_6;
   }
@@ -690,40 +691,41 @@ LABEL_7:
   fileName = [responseCopy fileName];
   originServer = [responseCopy originServer];
   v9 = [responseCopy conformsToProtocol:&OBJC_PROTOCOL___MSDDownloadFileDetailsProtocol];
-  v10 = sub_100063A54();
-  v11 = v10;
-  if (v9)
+  v10 = v9;
+  v11 = sub_100063A54(v9);
+  v12 = v11;
+  if (v10)
   {
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
-      v17 = 138543618;
-      v18 = fileName;
-      v19 = 2114;
-      v20 = originServer;
-      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Details to download file are: FileName = %{public}@, OriginServer = %{public}@", &v17, 0x16u);
+      v18 = 138543618;
+      v19 = fileName;
+      v20 = 2114;
+      v21 = originServer;
+      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Details to download file are: FileName = %{public}@, OriginServer = %{public}@", &v18, 0x16u);
     }
 
-    v12 = objc_alloc_init(MSDDownloadFileRequest);
-    v13 = +[MSDFileDownloadCredentials sharedInstance];
-    [(MSDCDNServerRequest *)v12 setDownloadCredentials:v13];
+    v13 = objc_alloc_init(MSDDownloadFileRequest);
+    v14 = +[MSDFileDownloadCredentials sharedInstance];
+    [(MSDCDNServerRequest *)v13 setDownloadCredentials:v14];
 
-    fileInfo = [(MSDDownloadFileRequest *)v12 fileInfo];
+    fileInfo = [(MSDDownloadFileRequest *)v13 fileInfo];
     [fileInfo setFile:fileName];
 
-    fileInfo2 = [(MSDDownloadFileRequest *)v12 fileInfo];
+    fileInfo2 = [(MSDDownloadFileRequest *)v13 fileInfo];
     [fileInfo2 setFileHash:fileName];
 
-    [(MSDServerRequest *)v12 setSavePath:pathCopy];
-    [(MSDCDNServerRequest *)v12 setOriginServer:originServer];
+    [(MSDServerRequest *)v13 setSavePath:pathCopy];
+    [(MSDCDNServerRequest *)v13 setOriginServer:originServer];
   }
 
   else
   {
-    sub_1000E70D4(v10, responseCopy);
-    v12 = 0;
+    sub_1000E70D4(v11, responseCopy);
+    v13 = 0;
   }
 
-  return v12;
+  return v13;
 }
 
 - (void)updateHubHostNameAndPort
@@ -738,18 +740,18 @@ LABEL_7:
   hubPort = [device2 hubPort];
   [(MSDServerRequestHandler *)selfCopy setHubPort:hubPort];
 
-  v7 = sub_100063A54();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  v8 = sub_100063A54(v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     hubHostName2 = [(MSDServerRequestHandler *)selfCopy hubHostName];
     hubPort2 = [(MSDServerRequestHandler *)selfCopy hubPort];
-    v10 = 136315650;
-    v11 = "[MSDServerRequestHandler updateHubHostNameAndPort]";
-    v12 = 2114;
-    v13 = hubHostName2;
-    v14 = 2114;
-    v15 = hubPort2;
-    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "%s - updated hub host name: %{public}@ port: %{public}@", &v10, 0x20u);
+    v11 = 136315650;
+    v12 = "[MSDServerRequestHandler updateHubHostNameAndPort]";
+    v13 = 2114;
+    v14 = hubHostName2;
+    v15 = 2114;
+    v16 = hubPort2;
+    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "%s - updated hub host name: %{public}@ port: %{public}@", &v11, 0x20u);
   }
 
   objc_sync_exit(selfCopy);
@@ -771,15 +773,15 @@ LABEL_7:
 
       if (intValue == 1)
       {
-        v15 = sub_100063A54();
-        if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+        v16 = sub_100063A54(v15);
+        if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
         {
           objc_opt_class();
           sub_100006E3C();
-          v19 = 2114;
-          v20 = pathCopy;
-          v17 = v16;
-          _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "%{public}@: Observed %{public}@ change!", v18, 0x16u);
+          v20 = 2114;
+          v21 = pathCopy;
+          v18 = v17;
+          _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "%{public}@: Observed %{public}@ change!", v19, 0x16u);
         }
 
         [(MSDServerRequestHandler *)self updateHubHostNameAndPort];

@@ -34,14 +34,12 @@
 
 + (id)cacheBoundaryStrategies
 {
-  v7[2] = *MEMORY[0x277D85DE8];
+  v6[2] = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277CFBDC0] boundingStrategyWithTTL:3600.0];
-  v7[0] = v2;
+  v6[0] = v2;
   v3 = [MEMORY[0x277CFBDC0] boundingStrategyWithCapacity:100];
-  v7[1] = v3;
-  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:2];
-
-  v5 = *MEMORY[0x277D85DE8];
+  v6[1] = v3;
+  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:2];
 
   return v4;
 }

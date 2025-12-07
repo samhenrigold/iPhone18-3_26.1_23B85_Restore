@@ -1,14 +1,14 @@
 @interface DOMNode(UIWebBrowserViewPrivate)
-- (uint64_t)_startAssistingDocumentView:()UIWebBrowserViewPrivate;
-- (uint64_t)_stopAssistingDocumentView:()UIWebBrowserViewPrivate;
 - (void)_nextAssistedNode;
 - (void)_previousAssistedNode;
+- (void)_startAssistingDocumentView:()UIWebBrowserViewPrivate;
+- (void)_stopAssistingDocumentView:()UIWebBrowserViewPrivate;
 - (void)_textFormElement;
 @end
 
 @implementation DOMNode(UIWebBrowserViewPrivate)
 
-- (uint64_t)_startAssistingDocumentView:()UIWebBrowserViewPrivate
+- (void)_startAssistingDocumentView:()UIWebBrowserViewPrivate
 {
   result = [self isContentEditable];
   if (result)
@@ -20,7 +20,7 @@
   return result;
 }
 
-- (uint64_t)_stopAssistingDocumentView:()UIWebBrowserViewPrivate
+- (void)_stopAssistingDocumentView:()UIWebBrowserViewPrivate
 {
   result = [self isContentEditable];
   if (result)

@@ -120,20 +120,19 @@ void __36__TUMomentsControllerXPCClient_init__block_invoke(uint64_t a1)
 {
   v6 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
+  v2 = WeakRetained;
   if (WeakRetained)
   {
-    v2 = TUDefaultLog();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+    v3 = TUDefaultLog(WeakRetained);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       v4 = 136315138;
       v5 = "com.apple.telephonyutilities.callservicesdaemon.connectionrequest";
-      _os_log_impl(&dword_1956FD000, v2, OS_LOG_TYPE_DEFAULT, "Handling %s by setting up XPC connection", &v4, 0xCu);
+      _os_log_impl(&dword_1956FD000, v3, OS_LOG_TYPE_DEFAULT, "Handling %s by setting up XPC connection", &v4, 0xCu);
     }
 
-    [WeakRetained _registerConnection];
+    [v2 _registerConnection];
   }
-
-  v3 = *MEMORY[0x1E69E9840];
 }
 
 - (void)dealloc
@@ -182,7 +181,7 @@ void __120__TUMomentsControllerXPCClient_registerStreamToken_requesterID_remoteI
 void __120__TUMomentsControllerXPCClient_registerStreamToken_requesterID_remoteIDSDestinations_remoteMomentsAvailable_completion___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = TUDefaultLog();
+  v4 = TUDefaultLog(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __120__TUMomentsControllerXPCClient_registerStreamToken_requesterID_remoteIDSDestinations_remoteMomentsAvailable_completion___block_invoke_2_cold_1();
@@ -221,7 +220,7 @@ void __65__TUMomentsControllerXPCClient_unregisterStreamToken_completion___block
 void __65__TUMomentsControllerXPCClient_unregisterStreamToken_completion___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = TUDefaultLog();
+  v4 = TUDefaultLog(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __65__TUMomentsControllerXPCClient_unregisterStreamToken_completion___block_invoke_2_cold_1();
@@ -267,7 +266,7 @@ void __110__TUMomentsControllerXPCClient_startRequestWithMediaType_forStreamToke
 void __110__TUMomentsControllerXPCClient_startRequestWithMediaType_forStreamToken_requesteeID_destinationID_completion___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = TUDefaultLog();
+  v4 = TUDefaultLog(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __110__TUMomentsControllerXPCClient_startRequestWithMediaType_forStreamToken_requesteeID_destinationID_completion___block_invoke_2_cold_1();
@@ -308,7 +307,7 @@ void __71__TUMomentsControllerXPCClient_endRequestWithTransactionID_completion__
 void __71__TUMomentsControllerXPCClient_endRequestWithTransactionID_completion___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = TUDefaultLog();
+  v4 = TUDefaultLog(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __71__TUMomentsControllerXPCClient_endRequestWithTransactionID_completion___block_invoke_2_cold_1();
@@ -364,7 +363,7 @@ void __65__TUMomentsControllerXPCClient_prewarmAudioClientWithCompletion___block
 void __65__TUMomentsControllerXPCClient_prewarmAudioClientWithCompletion___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = TUDefaultLog();
+  v4 = TUDefaultLog(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __65__TUMomentsControllerXPCClient_prewarmAudioClientWithCompletion___block_invoke_2_cold_1();
@@ -403,7 +402,7 @@ void __78__TUMomentsControllerXPCClient_startRecordingMessageWithMediaType_compl
 void __78__TUMomentsControllerXPCClient_startRecordingMessageWithMediaType_completion___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = TUDefaultLog();
+  v4 = TUDefaultLog(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __78__TUMomentsControllerXPCClient_startRecordingMessageWithMediaType_completion___block_invoke_2_cold_1();
@@ -444,7 +443,7 @@ void __71__TUMomentsControllerXPCClient_endRecordingMessageWithUUID_completion__
 void __71__TUMomentsControllerXPCClient_endRecordingMessageWithUUID_completion___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = TUDefaultLog();
+  v4 = TUDefaultLog(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __71__TUMomentsControllerXPCClient_endRecordingMessageWithUUID_completion___block_invoke_2_cold_1();
@@ -485,7 +484,7 @@ void __71__TUMomentsControllerXPCClient_discardVideoMessageWithUUID_completion__
 void __71__TUMomentsControllerXPCClient_discardVideoMessageWithUUID_completion___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = TUDefaultLog();
+  v4 = TUDefaultLog(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __71__TUMomentsControllerXPCClient_discardVideoMessageWithUUID_completion___block_invoke_2_cold_1();
@@ -526,7 +525,7 @@ void __71__TUMomentsControllerXPCClient_sendVideoMessageWithRequest_completion__
 void __71__TUMomentsControllerXPCClient_sendVideoMessageWithRequest_completion___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = TUDefaultLog();
+  v4 = TUDefaultLog(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __71__TUMomentsControllerXPCClient_sendVideoMessageWithRequest_completion___block_invoke_2_cold_1();
@@ -567,7 +566,7 @@ void __68__TUMomentsControllerXPCClient_saveVideoMessageWithUUID_completion___bl
 void __68__TUMomentsControllerXPCClient_saveVideoMessageWithUUID_completion___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = TUDefaultLog();
+  v4 = TUDefaultLog(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __68__TUMomentsControllerXPCClient_saveVideoMessageWithUUID_completion___block_invoke_2_cold_1();
@@ -608,7 +607,7 @@ void __78__TUMomentsControllerXPCClient_resetVideoMessagingWithSessionUUID_compl
 void __78__TUMomentsControllerXPCClient_resetVideoMessagingWithSessionUUID_completion___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = TUDefaultLog();
+  v4 = TUDefaultLog(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __78__TUMomentsControllerXPCClient_resetVideoMessagingWithSessionUUID_completion___block_invoke_2_cold_1();
@@ -649,7 +648,7 @@ void __63__TUMomentsControllerXPCClient_prewarmMediaRequest_completion___block_i
 void __63__TUMomentsControllerXPCClient_prewarmMediaRequest_completion___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = TUDefaultLog();
+  v4 = TUDefaultLog(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __63__TUMomentsControllerXPCClient_prewarmMediaRequest_completion___block_invoke_2_cold_1();
@@ -690,7 +689,7 @@ void __61__TUMomentsControllerXPCClient_startMediaRequest_completion___block_inv
 void __61__TUMomentsControllerXPCClient_startMediaRequest_completion___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = TUDefaultLog();
+  v4 = TUDefaultLog(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __61__TUMomentsControllerXPCClient_startMediaRequest_completion___block_invoke_2_cold_1();
@@ -731,7 +730,7 @@ void __67__TUMomentsControllerXPCClient_endMediaRequestWithUUID_completion___blo
 void __67__TUMomentsControllerXPCClient_endMediaRequestWithUUID_completion___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = TUDefaultLog();
+  v4 = TUDefaultLog(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __78__TUMomentsControllerXPCClient_resetVideoMessagingWithSessionUUID_completion___block_invoke_2_cold_1();
@@ -752,20 +751,20 @@ void __67__TUMomentsControllerXPCClient_endMediaRequestWithUUID_completion___blo
 void __51__TUMomentsControllerXPCClient__registerConnection__block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = TUDefaultLog();
+  v3 = TUDefaultLog(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __51__TUMomentsControllerXPCClient__registerConnection__block_invoke_cold_1();
   }
 }
 
-void __51__TUMomentsControllerXPCClient__registerConnection__block_invoke_8()
+void __51__TUMomentsControllerXPCClient__registerConnection__block_invoke_8(uint64_t a1)
 {
-  v0 = TUDefaultLog();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
+  v1 = TUDefaultLog(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
   {
-    *v1 = 0;
-    _os_log_impl(&dword_1956FD000, v0, OS_LOG_TYPE_DEFAULT, "Registered moments connection", v1, 2u);
+    *v2 = 0;
+    _os_log_impl(&dword_1956FD000, v1, OS_LOG_TYPE_DEFAULT, "Registered moments connection", v2, 2u);
   }
 }
 
@@ -829,7 +828,7 @@ void __45__TUMomentsControllerXPCClient_xpcConnection__block_invoke(uint64_t a1)
 
 void __45__TUMomentsControllerXPCClient_xpcConnection__block_invoke_2(uint64_t a1)
 {
-  v2 = TUDefaultLog();
+  v2 = TUDefaultLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *v6 = 0;
@@ -862,7 +861,7 @@ void __45__TUMomentsControllerXPCClient_xpcConnection__block_invoke_12(uint64_t 
 
 void __45__TUMomentsControllerXPCClient_xpcConnection__block_invoke_2_13(uint64_t a1)
 {
-  v2 = TUDefaultLog();
+  v2 = TUDefaultLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *v4 = 0;
@@ -1114,21 +1113,19 @@ uint64_t __67__TUMomentsControllerXPCClient_momentsControllerClientXPCInterface_
 
 void __67__TUMomentsControllerXPCClient_momentsControllerServerXPCInterface__block_invoke()
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v0 = [MEMORY[0x1E696B0D0] interfaceWithProtocol:&unk_1F0A0A280];
   v1 = momentsControllerServerXPCInterface_momentsControllerServerXPCInterface;
   momentsControllerServerXPCInterface_momentsControllerServerXPCInterface = v0;
 
   v2 = momentsControllerServerXPCInterface_momentsControllerServerXPCInterface;
   v3 = MEMORY[0x1E695DFD8];
+  v6 = objc_opt_class();
   v7 = objc_opt_class();
   v8 = objc_opt_class();
-  v9 = objc_opt_class();
-  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v7 count:3];
-  v5 = [v3 setWithArray:{v4, v7, v8}];
+  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v6 count:3];
+  v5 = [v3 setWithArray:{v4, v6, v7}];
   [v2 setClasses:v5 forSelector:sel_sendVideoMessageWithRequest_completion_ argumentIndex:0 ofReply:0];
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (TUMomentsControllerDataSourceDelegate)delegate
@@ -1136,118 +1133,6 @@ void __67__TUMomentsControllerXPCClient_momentsControllerServerXPCInterface__blo
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
 
   return WeakRetained;
-}
-
-void __120__TUMomentsControllerXPCClient_registerStreamToken_requesterID_remoteIDSDestinations_remoteMomentsAvailable_completion___block_invoke_2_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_1956FD000, v0, v1, "Error registering stream token: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __65__TUMomentsControllerXPCClient_unregisterStreamToken_completion___block_invoke_2_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_1956FD000, v0, v1, "Error unregistering stream token: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __110__TUMomentsControllerXPCClient_startRequestWithMediaType_forStreamToken_requesteeID_destinationID_completion___block_invoke_2_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_1956FD000, v0, v1, "Error starting request: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __71__TUMomentsControllerXPCClient_endRequestWithTransactionID_completion___block_invoke_2_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_1956FD000, v0, v1, "Error ending request: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __65__TUMomentsControllerXPCClient_prewarmAudioClientWithCompletion___block_invoke_2_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_1956FD000, v0, v1, "Error prewarming audio client: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __78__TUMomentsControllerXPCClient_startRecordingMessageWithMediaType_completion___block_invoke_2_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_1956FD000, v0, v1, "Error starting recording video message: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __71__TUMomentsControllerXPCClient_endRecordingMessageWithUUID_completion___block_invoke_2_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_1956FD000, v0, v1, "Error ending recording video message: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __71__TUMomentsControllerXPCClient_discardVideoMessageWithUUID_completion___block_invoke_2_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_1956FD000, v0, v1, "Error discarding video message: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __71__TUMomentsControllerXPCClient_sendVideoMessageWithRequest_completion___block_invoke_2_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_1956FD000, v0, v1, "Error sending video message: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __68__TUMomentsControllerXPCClient_saveVideoMessageWithUUID_completion___block_invoke_2_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_1956FD000, v0, v1, "Error saving video message: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __78__TUMomentsControllerXPCClient_resetVideoMessagingWithSessionUUID_completion___block_invoke_2_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_1956FD000, v0, v1, "Error resetting video messaging: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __63__TUMomentsControllerXPCClient_prewarmMediaRequest_completion___block_invoke_2_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_1956FD000, v0, v1, "Error prewarming media request: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __61__TUMomentsControllerXPCClient_startMediaRequest_completion___block_invoke_2_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_1956FD000, v0, v1, "Error Starting media request: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __51__TUMomentsControllerXPCClient__registerConnection__block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_1956FD000, v0, v1, "Error registering moments connection: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 @end

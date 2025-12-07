@@ -15,6 +15,8 @@
   selfCopy = self;
   sub_10001A7D4(v8, v10, ofNeighbors, selfCopy, v7);
   _Block_release(v7);
+
+  v10, v12, v13, v14, v15, v16, v17, v18;
 }
 
 - (void)distanceBetweenSource:(id)source target:(id)target reply:(id)reply
@@ -28,6 +30,10 @@
   selfCopy = self;
   sub_10001AC9C(v7, v9, v10, v12, selfCopy, v6);
   _Block_release(v6);
+
+  v9, v14, v15, v16, v17, v18, v19, v20;
+
+  v12, v21, v22, v23, v24, v25, v26, v27;
 }
 
 - (void)computeEmbeddings:(id)embeddings reply:(id)reply
@@ -38,6 +44,8 @@
   selfCopy = self;
   sub_10001B090(v6, selfCopy, v5);
   _Block_release(v5);
+
+  v6, v8, v9, v10, v11, v12, v13, v14;
 }
 
 @end

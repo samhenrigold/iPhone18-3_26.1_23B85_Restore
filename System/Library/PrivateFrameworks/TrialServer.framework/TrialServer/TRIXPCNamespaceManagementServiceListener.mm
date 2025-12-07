@@ -96,7 +96,7 @@
   promise = self->_promise;
   if (connectionCopy)
   {
-    [connectionCopy auditToken];
+    objc_msgSend_auditToken(connectionCopy);
   }
 
   else
@@ -118,16 +118,15 @@
 
 void __79__TRIXPCNamespaceManagementServiceListener_listener_shouldAcceptNewConnection___block_invoke(uint64_t a1)
 {
-  v2 = objc_autoreleasePoolPush();
-  v3 = MEMORY[0x277D425A0];
-  v4 = *(a1 + 32);
-  v5 = objc_opt_class();
-  v6 = NSStringFromClass(v5);
-  v7 = [v3 autoreleasingSerialQueueWithLabel:objc_msgSend(v6 qosClass:{"UTF8String"), 17}];
-  v8 = qword_281597708;
-  qword_281597708 = v7;
+  v1 = objc_autoreleasePoolPush();
+  v2 = MEMORY[0x277D425A0];
+  v3 = objc_opt_class();
+  v4 = NSStringFromClass(v3);
+  v5 = [v2 autoreleasingSerialQueueWithLabel:objc_msgSend(v4 qosClass:{"UTF8String"), 17}];
+  v6 = qword_281597708;
+  qword_281597708 = v5;
 
-  objc_autoreleasePoolPop(v2);
+  objc_autoreleasePoolPop(v1);
 }
 
 @end

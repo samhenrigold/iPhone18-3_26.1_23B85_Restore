@@ -259,27 +259,27 @@ void __71__BPSNotificationMuteSettingsManager_isMutedForTodaySectionIdentifier__
   }
 }
 
-void __60__BPSNotificationMuteSettingsManager_addSectionIdentifiers___block_invoke(uint64_t a1)
+void __60__BPSNotificationMuteSettingsManager_addSectionIdentifiers___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v9 = _BPSToday();
-  v2 = [*(*(a1 + 32) + 8) objectForKeyedSubscript:?];
+  v10 = _BPSToday();
+  v3 = [*(*(a1 + 32) + 8) objectForKeyedSubscript:?];
 
-  if (!v2)
+  if (!v3)
   {
-    v3 = [MEMORY[0x277CBEB58] set];
-    [*(*(a1 + 32) + 8) setObject:v3 forKeyedSubscript:v9];
+    v4 = [MEMORY[0x277CBEB58] set];
+    [*(*(a1 + 32) + 8) setObject:v4 forKeyedSubscript:v10];
   }
 
-  v4 = [*(*(a1 + 32) + 8) objectForKeyedSubscript:v9];
-  v5 = [v4 count];
+  v5 = [*(*(a1 + 32) + 8) objectForKeyedSubscript:v10];
+  v6 = [v5 count];
 
-  v6 = [*(*(a1 + 32) + 8) objectForKeyedSubscript:v9];
-  [v6 unionSet:*(a1 + 40)];
+  v7 = [*(*(a1 + 32) + 8) objectForKeyedSubscript:v10];
+  [v7 unionSet:*(a1 + 40)];
 
-  v7 = [*(*(a1 + 32) + 8) objectForKeyedSubscript:v9];
-  v8 = [v7 count];
+  v8 = [*(*(a1 + 32) + 8) objectForKeyedSubscript:v10];
+  v9 = [v8 count];
 
-  if (v8 != v5)
+  if (v9 != v6)
   {
     [*(a1 + 32) _queue_sync];
     *(*(*(a1 + 48) + 8) + 24) = 1;
@@ -301,19 +301,19 @@ void __60__BPSNotificationMuteSettingsManager_addSectionIdentifiers___block_invo
   dispatch_sync(queue, v7);
 }
 
-void __63__BPSNotificationMuteSettingsManager_removeSectionIdentifiers___block_invoke(uint64_t a1)
+void __63__BPSNotificationMuteSettingsManager_removeSectionIdentifiers___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v7 = _BPSToday();
-  v2 = [*(*(a1 + 32) + 8) objectForKeyedSubscript:v7];
-  v3 = [v2 count];
+  v8 = _BPSToday();
+  v3 = [*(*(a1 + 32) + 8) objectForKeyedSubscript:v8];
+  v4 = [v3 count];
 
-  v4 = [*(*(a1 + 32) + 8) objectForKeyedSubscript:v7];
-  [v4 minusSet:*(a1 + 40)];
+  v5 = [*(*(a1 + 32) + 8) objectForKeyedSubscript:v8];
+  [v5 minusSet:*(a1 + 40)];
 
-  v5 = [*(*(a1 + 32) + 8) objectForKeyedSubscript:v7];
-  v6 = [v5 count];
+  v6 = [*(*(a1 + 32) + 8) objectForKeyedSubscript:v8];
+  v7 = [v6 count];
 
-  if (v6 != v3)
+  if (v7 != v4)
   {
     [*(a1 + 32) _queue_sync];
   }

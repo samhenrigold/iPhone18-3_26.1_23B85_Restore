@@ -2,12 +2,14 @@
 - (BOOL)setupPhraseSpotter;
 - (CSVTUITrainingSession)initWithUtteranceId:(int64_t)id sessionNumber:(int64_t)number Locale:(id)locale audioSession:(id)session keywordDetector:(id)detector speechRecognizer:(id)recognizer speechRecognitionRequest:(id)request sessionDelegate:(id)self0 sessionDispatchQueue:(id)self1 zeroCounter:(id)self2 completion:(id)self3;
 - (CSVTUITrainingSession)initWithUtteranceId:(int64_t)id sessionNumber:(int64_t)number Locale:(id)locale vtAssetConfigVersion:(id)version audioSession:(id)session keywordDetector:(id)detector speechRecognizer:(id)recognizer speechRecognitionRequest:(id)self0 sessionDelegate:(id)self1 sessionDispatchQueue:(id)self2 mhUUID:(id)self3 zeroCounter:(id)self4 completionWithResult:(id)self5;
+- (id)createDigitalZeroReporterWithVoiceTriggerEventInfo:(id)info withSessionStatus:(int)status;
 - (int)getTrainingAudioStatusWithVTEI:(id)i digitalZeroReporter:(id)reporter;
 - (int64_t)numSamplesInPCMBuffer;
 - (void)_registerEndPointTimeout;
 - (void)audioSessionDidStopRecording:(int64_t)recording;
 - (void)audioSessionUnsupportedAudioRoute;
 - (void)closeSessionWithCompletion:(id)completion;
+- (void)closeSessionWithStatus:(int)status successfully:(BOOL)successfully;
 - (void)closeSessionWithStatus:(int)status successfully:(BOOL)successfully complete:(id)complete;
 - (void)closeSessionWithStatus:(int)status successfully:(BOOL)successfully voiceTriggerEventInfo:(id)info completeWithResult:(id)result;
 - (void)didDetectBeginOfSpeech;
@@ -56,18 +58,18 @@ void __49__CSVTUITrainingSession__registerEndPointTimeout__block_invoke(uint64_t
 
 - (void)speechRecognitionTask:(id)task didHypothesizeTranscription:(id)transcription
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   taskCopy = task;
   transcriptionCopy = transcription;
   v7 = MEMORY[0x277D015D8];
   v8 = *MEMORY[0x277D015D8];
   if (os_log_type_enabled(*MEMORY[0x277D015D8], OS_LOG_TYPE_DEFAULT))
   {
-    v14 = 136315394;
-    v15 = "[CSVTUITrainingSession speechRecognitionTask:didHypothesizeTranscription:]";
-    v16 = 2082;
-    v17 = "[CSVTUITrainingSession speechRecognitionTask:didHypothesizeTranscription:]";
-    _os_log_impl(&dword_225E12000, v8, OS_LOG_TYPE_DEFAULT, "%s %{public}s called", &v14, 0x16u);
+    v13 = 136315394;
+    v14 = "[CSVTUITrainingSession speechRecognitionTask:didHypothesizeTranscription:]";
+    v15 = 2082;
+    v16 = "[CSVTUITrainingSession speechRecognitionTask:didHypothesizeTranscription:]";
+    _os_log_impl(&dword_225E12000, v8, OS_LOG_TYPE_DEFAULT, "%s %{public}s called", &v13, 0x16u);
   }
 
   formattedString = [transcriptionCopy formattedString];
@@ -77,27 +79,25 @@ void __49__CSVTUITrainingSession__registerEndPointTimeout__block_invoke(uint64_t
   v12 = *v7;
   if (os_log_type_enabled(*v7, OS_LOG_TYPE_DEFAULT))
   {
-    v14 = 136315394;
-    v15 = "[CSVTUITrainingSession speechRecognitionTask:didHypothesizeTranscription:]";
-    v16 = 2114;
-    v17 = v11;
-    _os_log_impl(&dword_225E12000, v12, OS_LOG_TYPE_DEFAULT, "%s recognized text = %{public}@", &v14, 0x16u);
+    v13 = 136315394;
+    v14 = "[CSVTUITrainingSession speechRecognitionTask:didHypothesizeTranscription:]";
+    v15 = 2114;
+    v16 = v11;
+    _os_log_impl(&dword_225E12000, v12, OS_LOG_TYPE_DEFAULT, "%s recognized text = %{public}@", &v13, 0x16u);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)stopMasterTimer
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = *MEMORY[0x277D015D8];
   if (os_log_type_enabled(*MEMORY[0x277D015D8], OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 136315394;
-    v8 = "[CSVTUITrainingSession stopMasterTimer]";
-    v9 = 2082;
-    v10 = "[CSVTUITrainingSession stopMasterTimer]";
-    _os_log_impl(&dword_225E12000, v3, OS_LOG_TYPE_DEFAULT, "%s %{public}s called", &v7, 0x16u);
+    v6 = 136315394;
+    v7 = "[CSVTUITrainingSession stopMasterTimer]";
+    v8 = 2082;
+    v9 = "[CSVTUITrainingSession stopMasterTimer]";
+    _os_log_impl(&dword_225E12000, v3, OS_LOG_TYPE_DEFAULT, "%s %{public}s called", &v6, 0x16u);
   }
 
   masterTimer = self->_masterTimer;
@@ -107,33 +107,30 @@ void __49__CSVTUITrainingSession__registerEndPointTimeout__block_invoke(uint64_t
     v5 = self->_masterTimer;
     self->_masterTimer = 0;
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleMasterTimeout:(id)timeout
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v4 = *MEMORY[0x277D015D8];
   if (os_log_type_enabled(*MEMORY[0x277D015D8], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v10 = "[CSVTUITrainingSession handleMasterTimeout:]";
+    v9 = "[CSVTUITrainingSession handleMasterTimeout:]";
     _os_log_impl(&dword_225E12000, v4, OS_LOG_TYPE_DEFAULT, "%s Master Timeout Fired", buf, 0xCu);
   }
 
   objc_initWeak(buf, self);
   queue = self->_queue;
-  v7[0] = MEMORY[0x277D85DD0];
-  v7[1] = 3221225472;
-  v7[2] = __45__CSVTUITrainingSession_handleMasterTimeout___block_invoke;
-  v7[3] = &unk_2785791F0;
-  objc_copyWeak(&v8, buf);
-  v7[4] = self;
-  dispatch_async(queue, v7);
-  objc_destroyWeak(&v8);
+  v6[0] = MEMORY[0x277D85DD0];
+  v6[1] = 3221225472;
+  v6[2] = __45__CSVTUITrainingSession_handleMasterTimeout___block_invoke;
+  v6[3] = &unk_2785791F0;
+  objc_copyWeak(&v7, buf);
+  v6[4] = self;
+  dispatch_async(queue, v6);
+  objc_destroyWeak(&v7);
   objc_destroyWeak(buf);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __45__CSVTUITrainingSession_handleMasterTimeout___block_invoke(uint64_t a1)
@@ -155,37 +152,32 @@ uint64_t __45__CSVTUITrainingSession_handleMasterTimeout___block_invoke(uint64_t
 
 - (void)startMasterTimerWithTimeout:(float)timeout
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v5 = *MEMORY[0x277D015D8];
   if (os_log_type_enabled(*MEMORY[0x277D015D8], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v10 = "[CSVTUITrainingSession startMasterTimerWithTimeout:]";
-    v11 = 2082;
-    v12 = "[CSVTUITrainingSession startMasterTimerWithTimeout:]";
+    v9 = "[CSVTUITrainingSession startMasterTimerWithTimeout:]";
+    v10 = 2082;
+    v11 = "[CSVTUITrainingSession startMasterTimerWithTimeout:]";
     _os_log_impl(&dword_225E12000, v5, OS_LOG_TYPE_DEFAULT, "%s %{public}s CALLED", buf, 0x16u);
   }
 
   if (timeout != 0.0)
   {
-    v7[0] = MEMORY[0x277D85DD0];
-    v7[1] = 3221225472;
-    v7[2] = __53__CSVTUITrainingSession_startMasterTimerWithTimeout___block_invoke;
-    v7[3] = &unk_278579190;
-    v7[4] = self;
+    v6[0] = MEMORY[0x277D85DD0];
+    v6[1] = 3221225472;
+    v6[2] = __53__CSVTUITrainingSession_startMasterTimerWithTimeout___block_invoke;
+    v6[3] = &unk_278579190;
+    v6[4] = self;
     timeoutCopy = timeout;
-    dispatch_async(MEMORY[0x277D85CD0], v7);
+    dispatch_async(MEMORY[0x277D85CD0], v6);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __53__CSVTUITrainingSession_startMasterTimerWithTimeout___block_invoke(uint64_t a1)
 {
-  v2 = [MEMORY[0x277CBEBB8] scheduledTimerWithTimeInterval:*(a1 + 32) target:sel_handleMasterTimeout_ selector:0 userInfo:1 repeats:*(a1 + 40)];
-  v3 = *(a1 + 32);
-  v4 = *(v3 + 104);
-  *(v3 + 104) = v2;
+  *(*(a1 + 32) + 104) = [MEMORY[0x277CBEBB8] scheduledTimerWithTimeInterval:*(a1 + 32) target:sel_handleMasterTimeout_ selector:0 userInfo:1 repeats:*(a1 + 40)];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -234,29 +226,28 @@ uint64_t __53__CSVTUITrainingSession_startMasterTimerWithTimeout___block_invoke(
 
 - (void)didDetectEndOfSpeech:(int64_t)speech
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v5 = *MEMORY[0x277D015D8];
   if (os_log_type_enabled(*MEMORY[0x277D015D8], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v11 = "[CSVTUITrainingSession didDetectEndOfSpeech:]";
-    v12 = 2050;
+    v10 = "[CSVTUITrainingSession didDetectEndOfSpeech:]";
+    v11 = 2050;
     speechCopy = speech;
     _os_log_impl(&dword_225E12000, v5, OS_LOG_TYPE_DEFAULT, "%s End of speech detected with endpoint type: %{public}ld", buf, 0x16u);
   }
 
   objc_initWeak(buf, self);
   queue = self->_queue;
-  v8[0] = MEMORY[0x277D85DD0];
-  v8[1] = 3221225472;
-  v8[2] = __46__CSVTUITrainingSession_didDetectEndOfSpeech___block_invoke;
-  v8[3] = &unk_278578C60;
-  objc_copyWeak(v9, buf);
-  v9[1] = speech;
-  dispatch_async(queue, v8);
-  objc_destroyWeak(v9);
+  v7[0] = MEMORY[0x277D85DD0];
+  v7[1] = 3221225472;
+  v7[2] = __46__CSVTUITrainingSession_didDetectEndOfSpeech___block_invoke;
+  v7[3] = &unk_278578C60;
+  objc_copyWeak(v8, buf);
+  v8[1] = speech;
+  dispatch_async(queue, v7);
+  objc_destroyWeak(v8);
   objc_destroyWeak(buf);
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __46__CSVTUITrainingSession_didDetectEndOfSpeech___block_invoke(uint64_t a1)
@@ -272,12 +263,12 @@ void __46__CSVTUITrainingSession_didDetectEndOfSpeech___block_invoke(uint64_t a1
 
 - (void)didDetectBeginOfSpeech
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = *MEMORY[0x277D015D8];
   if (os_log_type_enabled(*MEMORY[0x277D015D8], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v8 = "[CSVTUITrainingSession didDetectBeginOfSpeech]";
+    v7 = "[CSVTUITrainingSession didDetectBeginOfSpeech]";
     _os_log_impl(&dword_225E12000, v3, OS_LOG_TYPE_DEFAULT, "%s Begin of speech detected", buf, 0xCu);
   }
 
@@ -288,22 +279,20 @@ void __46__CSVTUITrainingSession_didDetectEndOfSpeech___block_invoke(uint64_t a1
   block[3] = &unk_2785797A8;
   block[4] = self;
   dispatch_async(queue, block);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)audioSessionUnsupportedAudioRoute
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v3 = *MEMORY[0x277D015D8];
   if (os_log_type_enabled(*MEMORY[0x277D015D8], OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 136315138;
-    v6 = "[CSVTUITrainingSession audioSessionUnsupportedAudioRoute]";
-    _os_log_impl(&dword_225E12000, v3, OS_LOG_TYPE_DEFAULT, "%s Unsupported", &v5, 0xCu);
+    v4 = 136315138;
+    v5 = "[CSVTUITrainingSession audioSessionUnsupportedAudioRoute]";
+    _os_log_impl(&dword_225E12000, v3, OS_LOG_TYPE_DEFAULT, "%s Unsupported", &v4, 0xCu);
   }
 
   [(CSVTUITrainingSession *)self closeSessionWithStatus:4 successfully:0];
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)audioSessionDidStopRecording:(int64_t)recording
@@ -341,6 +330,34 @@ void __46__CSVTUITrainingSession_didDetectEndOfSpeech___block_invoke(uint64_t a1
   return v6;
 }
 
+- (id)createDigitalZeroReporterWithVoiceTriggerEventInfo:(id)info withSessionStatus:(int)status
+{
+  v4 = *&status;
+  utteranceId_low = LODWORD(self->_utteranceId);
+  v7 = [info objectForKey:*MEMORY[0x277D01CF8]];
+  unsignedIntegerValue = [v7 unsignedIntegerValue];
+  v9 = @"Siri";
+  if (!unsignedIntegerValue)
+  {
+    v9 = @"Hey Siri";
+  }
+
+  v10 = v9;
+
+  v11 = [CSVTUISelfLoggingDigitalZeroReporter alloc];
+  locale = self->_locale;
+  mhUUID = self->_mhUUID;
+  speechStartDetected = self->_speechStartDetected;
+  vtAssetConfigVersion = self->_vtAssetConfigVersion;
+  isRunningTwoPass = [(CSVTUIKeywordDetectorProtocol *)self->_keywordDetector isRunningTwoPass];
+  BYTE2(v19) = self->_didFirstPassTrigger;
+  BYTE1(v19) = isRunningTwoPass;
+  LOBYTE(v19) = speechStartDetected;
+  v17 = [CSVTUISelfLoggingDigitalZeroReporter initWithSiriSetupID:v11 PageNumber:"initWithSiriSetupID:PageNumber:withPhId:withLocale:withVTAssetConfigVersion:withSessionStatus:didDetectSpeechStart:didUseTwoPassDetector:didFirstPassTrigger:" withPhId:mhUUID withLocale:utteranceId_low withVTAssetConfigVersion:v10 withSessionStatus:locale didDetectSpeechStart:vtAssetConfigVersion didUseTwoPassDetector:v4 didFirstPassTrigger:v19];
+
+  return v17;
+}
+
 - (void)logTrainingSessionCompleteWithVoiceTriggerEventInfo:(id)info
 {
   utteranceId_low = LODWORD(self->_utteranceId);
@@ -376,31 +393,31 @@ void __46__CSVTUITrainingSession_didDetectEndOfSpeech___block_invoke(uint64_t a1
 
 - (int64_t)numSamplesInPCMBuffer
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   v2 = self->_pcmBufArray;
-  v3 = [(NSMutableArray *)v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v3 = [(NSMutableArray *)v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v3)
   {
     v4 = v3;
     v5 = 0;
-    v6 = *v11;
+    v6 = *v10;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v11 != v6)
+        if (*v10 != v6)
         {
           objc_enumerationMutation(v2);
         }
 
-        v5 += [*(*(&v10 + 1) + 8 * i) frameLength];
+        v5 += [*(*(&v9 + 1) + 8 * i) frameLength];
       }
 
-      v4 = [(NSMutableArray *)v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v4 = [(NSMutableArray *)v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v4);
@@ -411,7 +428,6 @@ void __46__CSVTUITrainingSession_didDetectEndOfSpeech___block_invoke(uint64_t a1
     v5 = 0;
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -429,12 +445,12 @@ void __46__CSVTUITrainingSession_didDetectEndOfSpeech___block_invoke(uint64_t a1
 
 - (void)trimBeginingOfPCMBufferWithVoiceTriggerEventInfo:(id)info
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   infoCopy = info;
   v5 = [infoCopy objectForKeyedSubscript:*MEMORY[0x277D01F00]];
   unsignedIntegerValue = [v5 unsignedIntegerValue];
 
-  v29 = infoCopy;
+  v28 = infoCopy;
   v7 = [infoCopy objectForKeyedSubscript:*MEMORY[0x277D01E78]];
   unsignedIntegerValue2 = [v7 unsignedIntegerValue];
 
@@ -498,9 +514,9 @@ LABEL_13:
   if (os_log_type_enabled(*MEMORY[0x277D015D8], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v31 = "[CSVTUITrainingSession trimBeginingOfPCMBufferWithVoiceTriggerEventInfo:]";
-    v32 = 2050;
-    v33 = v10;
+    v30 = "[CSVTUITrainingSession trimBeginingOfPCMBufferWithVoiceTriggerEventInfo:]";
+    v31 = 2050;
+    v32 = v10;
     _os_log_impl(&dword_225E12000, v19, OS_LOG_TYPE_DEFAULT, "%s correctSampleSize:    [%{public}ld]", buf, 0x16u);
     v19 = *v18;
   }
@@ -508,9 +524,9 @@ LABEL_13:
   if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v31 = "[CSVTUITrainingSession trimBeginingOfPCMBufferWithVoiceTriggerEventInfo:]";
-    v32 = 2050;
-    v33 = v13;
+    v30 = "[CSVTUITrainingSession trimBeginingOfPCMBufferWithVoiceTriggerEventInfo:]";
+    v31 = 2050;
+    v32 = v13;
     _os_log_impl(&dword_225E12000, v19, OS_LOG_TYPE_DEFAULT, "%s accumSampleSize:      [%{public}ld]", buf, 0x16u);
     v19 = *v18;
   }
@@ -518,9 +534,9 @@ LABEL_13:
   if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v31 = "[CSVTUITrainingSession trimBeginingOfPCMBufferWithVoiceTriggerEventInfo:]";
-    v32 = 2050;
-    v33 = v12;
+    v30 = "[CSVTUITrainingSession trimBeginingOfPCMBufferWithVoiceTriggerEventInfo:]";
+    v31 = 2050;
+    v32 = v12;
     _os_log_impl(&dword_225E12000, v19, OS_LOG_TYPE_DEFAULT, "%s startBufferIndex:     [%{public}ld]", buf, 0x16u);
     v19 = *v18;
   }
@@ -528,9 +544,9 @@ LABEL_13:
   if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v31 = "[CSVTUITrainingSession trimBeginingOfPCMBufferWithVoiceTriggerEventInfo:]";
-    v32 = 2050;
-    v33 = v17;
+    v30 = "[CSVTUITrainingSession trimBeginingOfPCMBufferWithVoiceTriggerEventInfo:]";
+    v31 = 2050;
+    v32 = v17;
     _os_log_impl(&dword_225E12000, v19, OS_LOG_TYPE_DEFAULT, "%s startBufferSampleSize:[%{public}ld]", buf, 0x16u);
     v19 = *v18;
   }
@@ -538,9 +554,9 @@ LABEL_13:
   if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v31 = "[CSVTUITrainingSession trimBeginingOfPCMBufferWithVoiceTriggerEventInfo:]";
-    v32 = 2050;
-    v33 = v16;
+    v30 = "[CSVTUITrainingSession trimBeginingOfPCMBufferWithVoiceTriggerEventInfo:]";
+    v31 = 2050;
+    v32 = v16;
     _os_log_impl(&dword_225E12000, v19, OS_LOG_TYPE_DEFAULT, "%s samplesToBeDeleted:   [%{public}ld]", buf, 0x16u);
     v19 = *v18;
   }
@@ -551,9 +567,9 @@ LABEL_13:
     v21 = v19;
     v22 = [(NSMutableArray *)pcmBufArray count];
     *buf = 136315394;
-    v31 = "[CSVTUITrainingSession trimBeginingOfPCMBufferWithVoiceTriggerEventInfo:]";
-    v32 = 2050;
-    v33 = v22;
+    v30 = "[CSVTUITrainingSession trimBeginingOfPCMBufferWithVoiceTriggerEventInfo:]";
+    v31 = 2050;
+    v32 = v22;
     _os_log_impl(&dword_225E12000, v21, OS_LOG_TYPE_DEFAULT, "%s Total Number of buffs:[%{public}ld]", buf, 0x16u);
   }
 
@@ -563,7 +579,7 @@ LABEL_13:
     if (os_log_type_enabled(*v18, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v31 = "[CSVTUITrainingSession trimBeginingOfPCMBufferWithVoiceTriggerEventInfo:]";
+      v30 = "[CSVTUITrainingSession trimBeginingOfPCMBufferWithVoiceTriggerEventInfo:]";
       _os_log_impl(&dword_225E12000, v23, OS_LOG_TYPE_DEFAULT, "%s Adjusting the start buffer", buf, 0xCu);
     }
 
@@ -582,14 +598,12 @@ LABEL_13:
     if (os_log_type_enabled(*v18, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v31 = "[CSVTUITrainingSession trimBeginingOfPCMBufferWithVoiceTriggerEventInfo:]";
+      v30 = "[CSVTUITrainingSession trimBeginingOfPCMBufferWithVoiceTriggerEventInfo:]";
       _os_log_impl(&dword_225E12000, v27, OS_LOG_TYPE_DEFAULT, "%s Adjusting the array elements", buf, 0xCu);
     }
 
     [(NSMutableArray *)self->_pcmBufArray removeObjectsInRange:0, v12];
   }
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 - (void)feedSpeechRecognitionWithPCMBuffer
@@ -607,18 +621,18 @@ LABEL_13:
 
 - (void)feedSpeechRecognitionTrailingSamplesWithCompletedBlock:(id)block
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   blockCopy = block;
   v5 = self->_numTrailingSamples + [(CSVTUITrainingSession *)self numSamplesInPCMBuffer];
   self->_numTrailingSamples = v5;
   v6 = *MEMORY[0x277D015D8];
   if (os_log_type_enabled(*MEMORY[0x277D015D8], OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 136315394;
-    v9 = "[CSVTUITrainingSession feedSpeechRecognitionTrailingSamplesWithCompletedBlock:]";
-    v10 = 2050;
-    v11 = v5;
-    _os_log_impl(&dword_225E12000, v6, OS_LOG_TYPE_DEFAULT, "%s feeding tailing: [%{public}ld] samples", &v8, 0x16u);
+    v7 = 136315394;
+    v8 = "[CSVTUITrainingSession feedSpeechRecognitionTrailingSamplesWithCompletedBlock:]";
+    v9 = 2050;
+    v10 = v5;
+    _os_log_impl(&dword_225E12000, v6, OS_LOG_TYPE_DEFAULT, "%s feeding tailing: [%{public}ld] samples", &v7, 0x16u);
   }
 
   [(CSVTUITrainingSession *)self feedSpeechRecognitionWithPCMBuffer];
@@ -626,13 +640,11 @@ LABEL_13:
   {
     blockCopy[2](blockCopy);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleAudioBufferForVTWithAudioInput:(id)input withDetectedBlock:(id)block
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   blockCopy = block;
   v7 = [(CSVTUIKeywordDetectorProtocol *)self->_keywordDetector analyzeWithBuffer:input];
   v8 = [v7 mutableCopy];
@@ -657,15 +669,15 @@ LABEL_13:
       if (os_log_type_enabled(*MEMORY[0x277D015D8], OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136316162;
-        v32 = "[CSVTUITrainingSession handleAudioBufferForVTWithAudioInput:withDetectedBlock:]";
-        v33 = 2114;
-        v34 = *&v8;
-        v35 = 2050;
-        v36 = unsignedIntegerValue;
-        v37 = 2050;
-        v38 = unsignedIntegerValue2;
-        v39 = 2050;
-        v40 = unsignedIntegerValue3;
+        v31 = "[CSVTUITrainingSession handleAudioBufferForVTWithAudioInput:withDetectedBlock:]";
+        v32 = 2114;
+        v33 = *&v8;
+        v34 = 2050;
+        v35 = unsignedIntegerValue;
+        v36 = 2050;
+        v37 = unsignedIntegerValue2;
+        v38 = 2050;
+        v39 = unsignedIntegerValue3;
         _os_log_impl(&dword_225E12000, v17, OS_LOG_TYPE_DEFAULT, "%s Triggered! Event info: %{public}@\n%{public}9lld %{public}9lld %{public}9lld", buf, 0x34u);
       }
 
@@ -689,26 +701,24 @@ LABEL_13:
         v25 = [v8 objectForKeyedSubscript:*MEMORY[0x277D01E78]];
         unsignedIntegerValue4 = [v25 unsignedIntegerValue];
         *buf = 136315650;
-        v32 = "[CSVTUITrainingSession handleAudioBufferForVTWithAudioInput:withDetectedBlock:]";
-        v33 = 2050;
-        v34 = v24;
-        v35 = 2050;
-        v36 = unsignedIntegerValue4;
+        v31 = "[CSVTUITrainingSession handleAudioBufferForVTWithAudioInput:withDetectedBlock:]";
+        v32 = 2050;
+        v33 = v24;
+        v34 = 2050;
+        v35 = unsignedIntegerValue4;
         _os_log_impl(&dword_225E12000, v21, OS_LOG_TYPE_DEFAULT, "%s analyzing.... score so far: %{public}5.3f (%{public}ld)", buf, 0x20u);
       }
     }
 
     queue = self->_queue;
-    v29[0] = MEMORY[0x277D85DD0];
-    v29[1] = 3221225472;
-    v29[2] = __80__CSVTUITrainingSession_handleAudioBufferForVTWithAudioInput_withDetectedBlock___block_invoke;
-    v29[3] = &unk_278579350;
-    v29[4] = self;
-    v30 = v8;
-    dispatch_async(queue, v29);
+    v28[0] = MEMORY[0x277D85DD0];
+    v28[1] = 3221225472;
+    v28[2] = __80__CSVTUITrainingSession_handleAudioBufferForVTWithAudioInput_withDetectedBlock___block_invoke;
+    v28[3] = &unk_278579350;
+    v28[4] = self;
+    v29 = v8;
+    dispatch_async(queue, v28);
   }
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 void __80__CSVTUITrainingSession_handleAudioBufferForVTWithAudioInput_withDetectedBlock___block_invoke(uint64_t a1)
@@ -804,7 +814,7 @@ LABEL_8:
 
 void __42__CSVTUITrainingSession_handleAudioInput___block_invoke_2(uint64_t a1, void *a2)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v4 = a2;
   objc_storeStrong((*(a1 + 32) + 192), a2);
   v5 = [*(a1 + 40) requestTriggeredUtterance:v4];
@@ -844,18 +854,16 @@ void __42__CSVTUITrainingSession_handleAudioInput___block_invoke_2(uint64_t a1, 
     v13 = *MEMORY[0x277D015D8];
     if (os_log_type_enabled(*MEMORY[0x277D015D8], OS_LOG_TYPE_DEFAULT))
     {
-      v15 = 136315394;
-      v16 = "[CSVTUITrainingSession handleAudioInput:]_block_invoke_2";
-      v17 = 2050;
-      v18 = v12;
-      _os_log_impl(&dword_225E12000, v13, OS_LOG_TYPE_DEFAULT, "%s Decide to delay ending ASR: [%{public}ld] samples", &v15, 0x16u);
+      v14 = 136315394;
+      v15 = "[CSVTUITrainingSession handleAudioInput:]_block_invoke_2";
+      v16 = 2050;
+      v17 = v12;
+      _os_log_impl(&dword_225E12000, v13, OS_LOG_TYPE_DEFAULT, "%s Decide to delay ending ASR: [%{public}ld] samples", &v14, 0x16u);
       v11 = *(a1 + 32);
     }
 
     *(v11 + 8) = 2;
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __42__CSVTUITrainingSession_handleAudioInput___block_invoke_9(uint64_t a1)
@@ -868,32 +876,31 @@ uint64_t __42__CSVTUITrainingSession_handleAudioInput___block_invoke_9(uint64_t 
 
 - (BOOL)setupPhraseSpotter
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v3 = *MEMORY[0x277D015D8];
   if (os_log_type_enabled(*MEMORY[0x277D015D8], OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 136315394;
-    v7 = "[CSVTUITrainingSession setupPhraseSpotter]";
-    v8 = 2082;
-    v9 = "[CSVTUITrainingSession setupPhraseSpotter]";
-    _os_log_impl(&dword_225E12000, v3, OS_LOG_TYPE_DEFAULT, "%s %{public}s called", &v6, 0x16u);
+    v5 = 136315394;
+    v6 = "[CSVTUITrainingSession setupPhraseSpotter]";
+    v7 = 2082;
+    v8 = "[CSVTUITrainingSession setupPhraseSpotter]";
+    _os_log_impl(&dword_225E12000, v3, OS_LOG_TYPE_DEFAULT, "%s %{public}s called", &v5, 0x16u);
   }
 
   [(CSVTUIKeywordDetectorProtocol *)self->_keywordDetector reset];
-  v4 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
 - (void)resumeTraining
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = *MEMORY[0x277D015D8];
   if (os_log_type_enabled(*MEMORY[0x277D015D8], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v8 = "[CSVTUITrainingSession resumeTraining]";
-    v9 = 2082;
-    v10 = "[CSVTUITrainingSession resumeTraining]";
+    v7 = "[CSVTUITrainingSession resumeTraining]";
+    v8 = 2082;
+    v9 = "[CSVTUITrainingSession resumeTraining]";
     _os_log_impl(&dword_225E12000, v3, OS_LOG_TYPE_DEFAULT, "%s %{public}s Called", buf, 0x16u);
   }
 
@@ -904,18 +911,17 @@ uint64_t __42__CSVTUITrainingSession_handleAudioInput___block_invoke_9(uint64_t 
   block[3] = &unk_2785797A8;
   block[4] = self;
   dispatch_async(queue, block);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __39__CSVTUITrainingSession_resumeTraining__block_invoke(uint64_t a1)
+void *__39__CSVTUITrainingSession_resumeTraining__block_invoke(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v2 = *MEMORY[0x277D015D8];
   if (os_log_type_enabled(*MEMORY[0x277D015D8], OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 136315138;
-    v7 = "[CSVTUITrainingSession resumeTraining]_block_invoke";
-    _os_log_impl(&dword_225E12000, v2, OS_LOG_TYPE_DEFAULT, "%s Will resume training", &v6, 0xCu);
+    v5 = 136315138;
+    v6 = "[CSVTUITrainingSession resumeTraining]_block_invoke";
+    _os_log_impl(&dword_225E12000, v2, OS_LOG_TYPE_DEFAULT, "%s Will resume training", &v5, 0xCu);
   }
 
   [*(a1 + 32) stopMasterTimer];
@@ -923,20 +929,19 @@ uint64_t __39__CSVTUITrainingSession_resumeTraining__block_invoke(uint64_t a1)
   [*(a1 + 32) startMasterTimerWithTimeout:v3];
   result = [*(*(a1 + 32) + 112) removeAllObjects];
   *(*(a1 + 32) + 122) = 0;
-  v5 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 - (void)suspendTraining
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = *MEMORY[0x277D015D8];
   if (os_log_type_enabled(*MEMORY[0x277D015D8], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v8 = "[CSVTUITrainingSession suspendTraining]";
-    v9 = 2082;
-    v10 = "[CSVTUITrainingSession suspendTraining]";
+    v7 = "[CSVTUITrainingSession suspendTraining]";
+    v8 = 2082;
+    v9 = "[CSVTUITrainingSession suspendTraining]";
     _os_log_impl(&dword_225E12000, v3, OS_LOG_TYPE_DEFAULT, "%s %{public}s Called", buf, 0x16u);
   }
 
@@ -947,18 +952,17 @@ uint64_t __39__CSVTUITrainingSession_resumeTraining__block_invoke(uint64_t a1)
   block[3] = &unk_2785797A8;
   block[4] = self;
   dispatch_async(queue, block);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __40__CSVTUITrainingSession_suspendTraining__block_invoke(uint64_t a1)
+void *__40__CSVTUITrainingSession_suspendTraining__block_invoke(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v2 = *MEMORY[0x277D015D8];
   if (os_log_type_enabled(*MEMORY[0x277D015D8], OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 136315138;
-    v7 = "[CSVTUITrainingSession suspendTraining]_block_invoke";
-    _os_log_impl(&dword_225E12000, v2, OS_LOG_TYPE_DEFAULT, "%s Will suspend training", &v6, 0xCu);
+    v5 = 136315138;
+    v6 = "[CSVTUITrainingSession suspendTraining]_block_invoke";
+    _os_log_impl(&dword_225E12000, v2, OS_LOG_TYPE_DEFAULT, "%s Will suspend training", &v5, 0xCu);
   }
 
   [*(*(a1 + 32) + 112) removeAllObjects];
@@ -966,7 +970,6 @@ uint64_t __40__CSVTUITrainingSession_suspendTraining__block_invoke(uint64_t a1)
   LODWORD(v3) = 20.0;
   result = [*(a1 + 32) startMasterTimerWithTimeout:v3];
   *(*(a1 + 32) + 122) = 1;
-  v5 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -990,14 +993,14 @@ uint64_t __40__CSVTUITrainingSession_suspendTraining__block_invoke(uint64_t a1)
 
 void __102__CSVTUITrainingSession_closeSessionWithStatus_successfully_voiceTriggerEventInfo_completeWithResult___block_invoke(uint64_t a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   if (([*(a1 + 32) resultAlreadyReported] & 1) != 0 || (v2 = *(a1 + 32), !*(v2 + 144)))
   {
     v5 = *MEMORY[0x277D015D8];
     if (os_log_type_enabled(*MEMORY[0x277D015D8], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v13 = "[CSVTUITrainingSession closeSessionWithStatus:successfully:voiceTriggerEventInfo:completeWithResult:]_block_invoke_2";
+      v12 = "[CSVTUITrainingSession closeSessionWithStatus:successfully:voiceTriggerEventInfo:completeWithResult:]_block_invoke_2";
       _os_log_impl(&dword_225E12000, v5, OS_LOG_TYPE_DEFAULT, "%s Already reported status or no callback", buf, 0xCu);
     }
   }
@@ -1009,49 +1012,47 @@ void __102__CSVTUITrainingSession_closeSessionWithStatus_successfully_voiceTrigg
     {
       v4 = *(a1 + 56);
       *buf = 136315394;
-      v13 = "[CSVTUITrainingSession closeSessionWithStatus:successfully:voiceTriggerEventInfo:completeWithResult:]_block_invoke";
-      v14 = 1026;
-      v15 = v4;
+      v12 = "[CSVTUITrainingSession closeSessionWithStatus:successfully:voiceTriggerEventInfo:completeWithResult:]_block_invoke";
+      v13 = 1026;
+      v14 = v4;
       _os_log_impl(&dword_225E12000, v3, OS_LOG_TYPE_DEFAULT, "%s returning status to UI : %{public}d", buf, 0x12u);
       v2 = *(a1 + 32);
     }
 
-    v7[0] = MEMORY[0x277D85DD0];
-    v7[1] = 3221225472;
-    v7[2] = __102__CSVTUITrainingSession_closeSessionWithStatus_successfully_voiceTriggerEventInfo_completeWithResult___block_invoke_3;
-    v7[3] = &unk_278578BE8;
-    v7[4] = v2;
-    v8 = *(a1 + 40);
-    v10 = *(a1 + 56);
-    v11 = *(a1 + 60);
-    v9 = *(a1 + 48);
-    dispatch_async(MEMORY[0x277D85CD0], v7);
+    v6[0] = MEMORY[0x277D85DD0];
+    v6[1] = 3221225472;
+    v6[2] = __102__CSVTUITrainingSession_closeSessionWithStatus_successfully_voiceTriggerEventInfo_completeWithResult___block_invoke_3;
+    v6[3] = &unk_278578BE8;
+    v6[4] = v2;
+    v7 = *(a1 + 40);
+    v9 = *(a1 + 56);
+    v10 = *(a1 + 60);
+    v8 = *(a1 + 48);
+    dispatch_async(MEMORY[0x277D85CD0], v6);
   }
 
   *(*(a1 + 32) + 120) = 1;
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __102__CSVTUITrainingSession_closeSessionWithStatus_successfully_voiceTriggerEventInfo_completeWithResult___block_invoke_3(uint64_t a1)
 {
-  v7 = [*(a1 + 32) createDigitalZeroReporterWithVoiceTriggerEventInfo:*(a1 + 40) withSessionStatus:*(a1 + 56)];
-  if (v7)
-  {
-    [*(*(a1 + 32) + 184) stopCountingZeroStatisticsWithReporter:v7];
-    [v7 logDigitalZeroDetectionComplete];
-  }
-
-  v2 = -[CSVTUITrainingResult initWithSessionId:sessionStatus:audioStatus:]([CSVTUITrainingResult alloc], "initWithSessionId:sessionStatus:audioStatus:", 0, *(a1 + 56), [*(a1 + 32) getTrainingAudioStatusWithVTEI:*(a1 + 40) digitalZeroReporter:v7]);
-  v3 = *(a1 + 60);
-  (*(*(*(a1 + 32) + 144) + 16))();
-  v4 = *(a1 + 32);
-  v5 = *(v4 + 144);
-  *(v4 + 144) = 0;
-
-  v6 = *(a1 + 48);
+  v6 = [*(a1 + 32) createDigitalZeroReporterWithVoiceTriggerEventInfo:*(a1 + 40) withSessionStatus:*(a1 + 56)];
   if (v6)
   {
-    (*(v6 + 16))();
+    [*(*(a1 + 32) + 184) stopCountingZeroStatisticsWithReporter:v6];
+    [v6 logDigitalZeroDetectionComplete];
+  }
+
+  v2 = -[CSVTUITrainingResult initWithSessionId:sessionStatus:audioStatus:]([CSVTUITrainingResult alloc], "initWithSessionId:sessionStatus:audioStatus:", 0, *(a1 + 56), [*(a1 + 32) getTrainingAudioStatusWithVTEI:*(a1 + 40) digitalZeroReporter:v6]);
+  (*(*(*(a1 + 32) + 144) + 16))();
+  v3 = *(a1 + 32);
+  v4 = *(v3 + 144);
+  *(v3 + 144) = 0;
+
+  v5 = *(a1 + 48);
+  if (v5)
+  {
+    (*(v5 + 16))();
   }
 
   if (*(a1 + 40))
@@ -1077,14 +1078,14 @@ void __102__CSVTUITrainingSession_closeSessionWithStatus_successfully_voiceTrigg
 
 void __70__CSVTUITrainingSession_closeSessionWithStatus_successfully_complete___block_invoke(uint64_t a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   if (([*(a1 + 32) resultAlreadyReported] & 1) != 0 || (v2 = *(a1 + 32), !*(v2 + 136)))
   {
     v5 = *MEMORY[0x277D015D8];
     if (os_log_type_enabled(*MEMORY[0x277D015D8], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v12 = "[CSVTUITrainingSession closeSessionWithStatus:successfully:complete:]_block_invoke_2";
+      v11 = "[CSVTUITrainingSession closeSessionWithStatus:successfully:complete:]_block_invoke_2";
       _os_log_impl(&dword_225E12000, v5, OS_LOG_TYPE_DEFAULT, "%s Already reported status or no callback", buf, 0xCu);
     }
   }
@@ -1096,9 +1097,9 @@ void __70__CSVTUITrainingSession_closeSessionWithStatus_successfully_complete___
     {
       v4 = *(a1 + 48);
       *buf = 136315394;
-      v12 = "[CSVTUITrainingSession closeSessionWithStatus:successfully:complete:]_block_invoke";
-      v13 = 1026;
-      v14 = v4;
+      v11 = "[CSVTUITrainingSession closeSessionWithStatus:successfully:complete:]_block_invoke";
+      v12 = 1026;
+      v13 = v4;
       _os_log_impl(&dword_225E12000, v3, OS_LOG_TYPE_DEFAULT, "%s returning status to UI : %{public}d", buf, 0x12u);
       v2 = *(a1 + 32);
     }
@@ -1108,34 +1109,66 @@ void __70__CSVTUITrainingSession_closeSessionWithStatus_successfully_complete___
     block[2] = __70__CSVTUITrainingSession_closeSessionWithStatus_successfully_complete___block_invoke_1;
     block[3] = &unk_278578BC0;
     block[4] = v2;
-    v9 = *(a1 + 48);
-    v10 = *(a1 + 52);
-    v8 = *(a1 + 40);
+    v8 = *(a1 + 48);
+    v9 = *(a1 + 52);
+    v7 = *(a1 + 40);
     dispatch_async(MEMORY[0x277D85CD0], block);
   }
 
   *(*(a1 + 32) + 120) = 1;
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __70__CSVTUITrainingSession_closeSessionWithStatus_successfully_complete___block_invoke_1(uint64_t a1)
 {
-  v2 = *(a1 + 48);
-  v3 = *(a1 + 52);
   (*(*(*(a1 + 32) + 136) + 16))();
-  v4 = *(a1 + 32);
-  v5 = *(v4 + 136);
-  *(v4 + 136) = 0;
+  v2 = *(a1 + 32);
+  v3 = *(v2 + 136);
+  *(v2 + 136) = 0;
 
   result = *(a1 + 40);
   if (result)
   {
-    v7 = *(result + 16);
+    v5 = *(result + 16);
 
-    return v7();
+    return v5();
   }
 
   return result;
+}
+
+- (void)closeSessionWithStatus:(int)status successfully:(BOOL)successfully
+{
+  successfullyCopy = successfully;
+  v5 = *&status;
+  v14 = *MEMORY[0x277D85DE8];
+  v7 = MEMORY[0x277D015D8];
+  v8 = *MEMORY[0x277D015D8];
+  if (os_log_type_enabled(*MEMORY[0x277D015D8], OS_LOG_TYPE_DEFAULT))
+  {
+    v10 = 136315394;
+    v11 = "[CSVTUITrainingSession closeSessionWithStatus:successfully:]";
+    v12 = 1026;
+    v13 = v5;
+    _os_log_impl(&dword_225E12000, v8, OS_LOG_TYPE_DEFAULT, "%s Called with status : %{public}d", &v10, 0x12u);
+  }
+
+  if (self->_trainingCompletion)
+  {
+    v9 = *v7;
+    if (os_log_type_enabled(*v7, OS_LOG_TYPE_DEFAULT))
+    {
+      v10 = 136315138;
+      v11 = "[CSVTUITrainingSession closeSessionWithStatus:successfully:]";
+      _os_log_impl(&dword_225E12000, v9, OS_LOG_TYPE_DEFAULT, "%s closeSession tracking BOOL, calling old completion", &v10, 0xCu);
+    }
+
+    [(CSVTUITrainingSession *)self closeSessionWithStatus:v5 successfully:successfullyCopy complete:0];
+  }
+
+  else
+  {
+    [(CSVTUITrainingSession *)self closeSessionWithStatus:v5 successfully:successfullyCopy voiceTriggerEventInfo:self->_voiceTriggerEventInfo completeWithResult:0];
+  }
 }
 
 - (void)closeSessionWithCompletion:(id)completion
@@ -1187,7 +1220,7 @@ void __52__CSVTUITrainingSession_closeSessionWithCompletion___block_invoke(uint6
   dispatch_async(queue, block);
 }
 
-uint64_t __38__CSVTUITrainingSession_startTraining__block_invoke(uint64_t a1)
+void *__38__CSVTUITrainingSession_startTraining__block_invoke(uint64_t a1)
 {
   [*(a1 + 32) setupPhraseSpotter];
   LODWORD(v2) = 10.0;

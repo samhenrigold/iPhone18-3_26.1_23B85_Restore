@@ -19,9 +19,9 @@
   dsCopy = ds;
   facadeCopy = facade;
   blockCopy = block;
-  v19.receiver = self;
-  v19.super_class = CRKClassKitPersonIDObservation;
-  v11 = [(CRKClassKitPersonIDObservation *)&v19 init];
+  v20.receiver = self;
+  v20.super_class = CRKClassKitPersonIDObservation;
+  v11 = [(CRKClassKitPersonIDObservation *)&v20 init];
   v12 = v11;
   if (v11)
   {
@@ -32,22 +32,22 @@
 
     if (v12->_dataObserver)
     {
-      v17[0] = MEMORY[0x277D85DD0];
-      v17[1] = 3221225472;
-      v17[2] = __73__CRKClassKitPersonIDObservation_initWithPersonIDs_classKitFacade_block___block_invoke;
-      v17[3] = &unk_278DC1CA0;
-      v18 = blockCopy;
-      [(CRKClassKitDataObserver *)v12->_dataObserver setDataChanged:v17];
+      v18[0] = MEMORY[0x277D85DD0];
+      v18[1] = 3221225472;
+      v18[2] = __73__CRKClassKitPersonIDObservation_initWithPersonIDs_classKitFacade_block___block_invoke;
+      v18[3] = &unk_278DC1CA0;
+      v19 = blockCopy;
+      [(CRKClassKitDataObserver *)v12->_dataObserver setDataChanged:v18];
       [(CRKClassKitFacade *)v12->_classKitFacade registerDataObserver:v12->_dataObserver];
-      v15 = v18;
+      v16 = v19;
     }
 
     else
     {
-      v15 = _CRKLogASM_7();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+      v16 = _CRKLogASM_7(v15);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
-        [CRKClassKitPersonIDObservation initWithPersonIDs:v15 classKitFacade:? block:?];
+        [CRKClassKitPersonIDObservation initWithPersonIDs:v16 classKitFacade:? block:?];
       }
     }
   }
@@ -67,7 +67,7 @@ void __73__CRKClassKitPersonIDObservation_initWithPersonIDs_classKitFacade_block
 
 uint64_t __73__CRKClassKitPersonIDObservation_initWithPersonIDs_classKitFacade_block___block_invoke_2(uint64_t a1)
 {
-  v2 = _CRKLogASM_7();
+  v2 = _CRKLogASM_7(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *v4 = 0;

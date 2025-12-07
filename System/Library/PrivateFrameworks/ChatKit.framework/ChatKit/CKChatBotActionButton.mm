@@ -33,13 +33,13 @@
 - (void)touchedButton
 {
   selfCopy = self;
-  sub_190B9618C();
+  sub_190B9618C(selfCopy);
 }
 
 - (void)layoutSubviews
 {
   selfCopy = self;
-  sub_190B964A8();
+  sub_190B964A8(selfCopy);
 }
 
 - (CGSize)sizeThatFits:(CGSize)fits

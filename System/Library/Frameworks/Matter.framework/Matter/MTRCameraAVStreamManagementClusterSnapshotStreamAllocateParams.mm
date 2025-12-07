@@ -94,7 +94,7 @@
 
 - (ChipError)_encodeToTLVReader:(PacketBufferTLVReader *)reader
 {
-  LOBYTE(v36) = 0;
+  v36[0] = 0;
   LOBYTE(v39) = 0;
   v37 = 0;
   *v38 = 0;
@@ -102,7 +102,7 @@
   v35[1] = 0;
   v34 = v35;
   imageCodec = [(MTRCameraAVStreamManagementClusterSnapshotStreamAllocateParams *)self imageCodec];
-  LOBYTE(v36) = [imageCodec unsignedCharValue];
+  v36[0] = [imageCodec unsignedCharValue];
 
   maxFrameRate = [(MTRCameraAVStreamManagementClusterSnapshotStreamAllocateParams *)self maxFrameRate];
   LOWORD(v37) = [maxFrameRate unsignedShortValue];
@@ -154,7 +154,7 @@
     v32 = 0;
     sub_238EA16C4(&v29, &v33, 0);
     sub_2393C7BF0(v28, &v29, 0xFFFFFFFF);
-    v20 = sub_238F03D78(&v36, v28, 0x100uLL);
+    v20 = sub_238F03D78(v36, v28, 0x100uLL);
     v22 = v20;
     if (v20 || (v20 = sub_238DD2EFC(v28, &v33), v22 = v20, v20))
     {

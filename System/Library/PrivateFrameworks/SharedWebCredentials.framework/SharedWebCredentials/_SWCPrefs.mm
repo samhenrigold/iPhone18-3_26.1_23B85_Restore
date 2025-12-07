@@ -110,32 +110,32 @@
     dispatch_once(&qword_280B218B8, &__block_literal_global_36);
   }
 
-  return _MergedGlobals_2;
+  return _MergedGlobals_2[0];
 }
 
 - (id)descriptionOfAllPrefs
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   context = objc_autoreleasePoolPush();
   v3 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
-  v4 = [&unk_2877A7468 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v4 = [&unk_2877A7468 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v4)
   {
-    v5 = *v17;
+    v5 = *v16;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v17 != v5)
+        if (*v16 != v5)
         {
           objc_enumerationMutation(&unk_2877A7468);
         }
 
-        v7 = *(*(&v16 + 1) + 8 * i);
+        v7 = *(*(&v15 + 1) + 8 * i);
         v8 = CFPreferencesCopyAppValue(v7, @"com.apple.SharedWebCredentials");
         v9 = v8;
         if (v8)
@@ -151,7 +151,7 @@
         [v3 setObject:v10 forKeyedSubscript:v7];
       }
 
-      v4 = [&unk_2877A7468 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v4 = [&unk_2877A7468 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v4);
@@ -162,7 +162,6 @@
 
   v12 = [v3 copy];
   objc_autoreleasePoolPop(context);
-  v13 = *MEMORY[0x277D85DE8];
 
   return v12;
 }

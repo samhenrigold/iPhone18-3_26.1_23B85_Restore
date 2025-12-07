@@ -79,7 +79,7 @@
     v22 = [NSString stringWithUTF8String:sqlite3_errmsg(database)];
     v30 = @"SQL";
     v31 = v20;
-    [NSDictionary dictionaryWithObjects:&v31 forKeys:&v30 count:1];
+    objc_msgSend_dictionaryWithObjects_forKeys_count_(NSDictionary);
     v23 = [NSException exceptionWithName:NSInternalInconsistencyException reason:v22 userInfo:objc_claimAutoreleasedReturnValue()];
     objc_exception_throw(v23);
   }
@@ -89,7 +89,7 @@
   {
     v28 = @"SQL";
     v29 = v20;
-    [NSDictionary dictionaryWithObjects:&v29 forKeys:&v28 count:1];
+    objc_msgSend_dictionaryWithObjects_forKeys_count_(NSDictionary);
     v24 = [NSException exceptionWithName:NSInternalInconsistencyException reason:@"UPDATE statement didn't affect any rows userInfo:meaning record unsuccessfully inserted", objc_claimAutoreleasedReturnValue()];
     objc_exception_throw(v24);
   }

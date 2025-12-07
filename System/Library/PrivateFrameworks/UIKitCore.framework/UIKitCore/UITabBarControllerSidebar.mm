@@ -23,7 +23,6 @@
 - (id)_visualStyle;
 - (uint64_t)_operationForInsertingItemsFromSession:(void *)session intoTabGroup:(uint64_t)group atIndex:;
 - (uint64_t)_resolvedLayout;
-- (uint64_t)_sidebarAction:(void *)action group:(void *)group operationForAcceptingItemsFromDropSession:;
 - (void)_didEndDisplayingTab:(uint64_t)tab;
 - (void)_editingStateDidChange:(uint64_t)change;
 - (void)_initWithTabBarController:(void *)controller;
@@ -38,6 +37,7 @@
 - (void)_setSidebarViewDelegate:(uint64_t)delegate;
 - (void)_setToolbarItems:(id)items;
 - (void)_sidebarAction:(void *)action group:(void *)group acceptItemsFromDropSession:;
+- (void)_sidebarAction:(void *)action group:(void *)group operationForAcceptingItemsFromDropSession:;
 - (void)_tabModel;
 - (void)_updateInitialSidebarVisibilityIfPossible;
 - (void)_visibilityDidChangeForTabs:(uint64_t)tabs;
@@ -637,10 +637,10 @@ LABEL_9:
     goto LABEL_8;
   }
 
-  v7 = [(UIContentConfiguration *)v12 isEqual:v6];
+  isEqual = objc_msgSend_isEqual_(v12);
 
   v8 = v12;
-  if ((v7 & 1) == 0)
+  if ((isEqual & 1) == 0)
   {
 LABEL_8:
     v6 = self->_headerContentConfiguration;
@@ -684,10 +684,10 @@ LABEL_9:
     goto LABEL_8;
   }
 
-  v7 = [(UIContentConfiguration *)v12 isEqual:v6];
+  isEqual = objc_msgSend_isEqual_(v12);
 
   v8 = v12;
-  if ((v7 & 1) == 0)
+  if ((isEqual & 1) == 0)
   {
 LABEL_8:
     v6 = self->_footerContentConfiguration;
@@ -1165,17 +1165,17 @@ LABEL_8:
   return session;
 }
 
-- (uint64_t)_sidebarAction:(void *)action group:(void *)group operationForAcceptingItemsFromDropSession:
+- (void)_sidebarAction:(void *)action group:(void *)group operationForAcceptingItemsFromDropSession:
 {
   v7 = a2;
   actionCopy = action;
   groupCopy = group;
   if (self)
   {
-    if ((*(self + 8) & 0x400) != 0)
+    if ((*(self + 4) & 0x400) != 0)
     {
       delegate = [self delegate];
-      v11 = [delegate tabBarController:*(self + 40) sidebar:self sidebarAction:v7 group:actionCopy operationForAcceptingItemsFromDropSession:groupCopy];
+      v11 = [delegate tabBarController:*(self + 5) sidebar:self sidebarAction:v7 group:actionCopy operationForAcceptingItemsFromDropSession:groupCopy];
     }
 
     else
@@ -1187,7 +1187,7 @@ LABEL_8:
       }
 
       delegate = [self _delegate];
-      v11 = [delegate _tabBarController:*(self + 40) sidebar:self sidebarAction:v7 group:actionCopy operationForAcceptingItemsFromDropSession:groupCopy];
+      v11 = [delegate _tabBarController:*(self + 5) sidebar:self sidebarAction:v7 group:actionCopy operationForAcceptingItemsFromDropSession:groupCopy];
     }
 
     self = v11;
@@ -1396,10 +1396,10 @@ LABEL_8:
     goto LABEL_18;
   }
 
-  v8 = [(NSArray *)v19 isEqual:v7];
+  isEqual = objc_msgSend_isEqual_(v19);
 
   v9 = v19;
-  if ((v8 & 1) == 0)
+  if ((isEqual & 1) == 0)
   {
     goto LABEL_8;
   }

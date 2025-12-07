@@ -3,6 +3,7 @@
 - (NLTokenIDBasedLanguageModelState)initWithSession:(id)session options:(id)options context:(id)context contextTokenIDArray:(id)array;
 - (id)conditionalProbabilitiesForTokenIDs:(const unsigned int *)ds count:(unint64_t)count;
 - (id)conditionalProbabilityForToken:(id)token;
+- (id)conditionalProbabilityForTokenID:(unsigned int)d;
 - (id)contextTokenIDArrayForContext:(id)context;
 - (id)copyWithZone:(_NSZone *)zone;
 - (unsigned)contextTokenIDs;
@@ -171,6 +172,21 @@ void __66__NLTokenIDBasedLanguageModelState_contextTokenIDArrayForContext___bloc
   }
 
   return v4;
+}
+
+- (id)conditionalProbabilityForTokenID:(unsigned int)d
+{
+  v3 = *&d;
+  contextTokenIDs = [(NLTokenIDBasedLanguageModelState *)self contextTokenIDs];
+  session = [(NLLanguageModelState *)self session];
+  v7 = [session conditionalProbabilityForTokenID:v3 contextTokenIDs:contextTokenIDs length:{-[NLTokenIDBasedLanguageModelState contextLength](self, "contextLength")}];
+
+  if (contextTokenIDs)
+  {
+    free(contextTokenIDs);
+  }
+
+  return v7;
 }
 
 - (id)conditionalProbabilitiesForTokenIDs:(const unsigned int *)ds count:(unint64_t)count

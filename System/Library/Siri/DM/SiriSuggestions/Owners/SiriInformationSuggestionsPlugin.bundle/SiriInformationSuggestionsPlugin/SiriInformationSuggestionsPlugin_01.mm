@@ -1,565 +1,3 @@
-uint64_t specialized static InformationSuggestion.suggestionMatched(_:)(void *a1)
-{
-  v2 = [a1 domainUseCase];
-  if (v2)
-  {
-    v3 = v2;
-    v4 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-    v6 = v5;
-
-    v7 = [a1 infoDomain];
-    if (v7)
-    {
-      v8 = v7;
-      v9 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-      v11 = v10;
-
-      if (one-time initialization token for serverMappings != -1)
-      {
-        swift_once();
-      }
-
-      v12 = static InformationSuggestion.serverMappings;
-      if (*(&dword_10 + static InformationSuggestion.serverMappings))
-      {
-        v13 = specialized __RawDictionaryStorage.find<A>(_:)(v9, v11);
-        v15 = v14;
-
-        if (v15)
-        {
-          v16 = *(*&stru_20.segname[v12 + 16] + 8 * v13);
-          if (*(v16 + 16))
-          {
-
-            v17 = specialized __RawDictionaryStorage.find<A>(_:)(v4, v6);
-            v19 = v18;
-
-            if (v19)
-            {
-              v20 = *(*(v16 + 56) + 16 * v17);
-
-              return v20;
-            }
-          }
-        }
-      }
-
-      else
-      {
-      }
-    }
-  }
-
-  return 25;
-}
-
-uint64_t specialized static InformationSuggestionsPluginOwnerDefinitionFactory.enabledLocales(for:)(char a1)
-{
-  v2 = InformationSuggestion.rawValue.getter(a1);
-  v3 = v1;
-  if (v2 == 0xD000000000000011 && 0x800000000001BF60 == v1)
-  {
-    goto LABEL_3;
-  }
-
-  v4 = _stringCompareWithSmolCheck(_:_:expecting:)();
-
-  if (v4)
-  {
-    goto LABEL_5;
-  }
-
-  if (v2 == 0xD000000000000017 && 0x800000000001BF80 == v3)
-  {
-LABEL_3:
-
-LABEL_5:
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy10Foundation6LocaleVGMd, &_ss23_ContiguousArrayStorageCy10Foundation6LocaleVGMR);
-    v5 = *(type metadata accessor for Locale() - 8);
-    v6 = *(v5 + 72);
-    v7 = (*(v5 + 80) + 32) & ~*(v5 + 80);
-    v8 = swift_allocObject();
-    *(v8 + 16) = xmmword_1AD90;
-LABEL_6:
-    Locale.init(identifier:)();
-    return v8;
-  }
-
-  v10 = _stringCompareWithSmolCheck(_:_:expecting:)();
-
-  if (v10)
-  {
-    goto LABEL_5;
-  }
-
-  if (v2 == 0xD000000000000015 && 0x800000000001BFA0 == v3)
-  {
-
-LABEL_14:
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy10Foundation6LocaleVGMd, &_ss23_ContiguousArrayStorageCy10Foundation6LocaleVGMR);
-    v12 = *(type metadata accessor for Locale() - 8);
-    v13 = *(v12 + 72);
-    v14 = (*(v12 + 80) + 32) & ~*(v12 + 80);
-    v8 = swift_allocObject();
-    *(v8 + 16) = xmmword_1B580;
-    Locale.init(identifier:)();
-    goto LABEL_6;
-  }
-
-  v11 = _stringCompareWithSmolCheck(_:_:expecting:)();
-
-  if (v11)
-  {
-    goto LABEL_14;
-  }
-
-  if (v2 == 0xD000000000000019 && 0x800000000001BE70 == v3)
-  {
-
-LABEL_19:
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy10Foundation6LocaleVGMd, &_ss23_ContiguousArrayStorageCy10Foundation6LocaleVGMR);
-    v16 = *(type metadata accessor for Locale() - 8);
-    v17 = *(v16 + 72);
-    v18 = (*(v16 + 80) + 32) & ~*(v16 + 80);
-    v8 = swift_allocObject();
-    *(v8 + 16) = xmmword_1B600;
-    Locale.init(identifier:)();
-    Locale.init(identifier:)();
-    Locale.init(identifier:)();
-    Locale.init(identifier:)();
-    Locale.init(identifier:)();
-    Locale.init(identifier:)();
-    Locale.init(identifier:)();
-    Locale.init(identifier:)();
-    Locale.init(identifier:)();
-    Locale.init(identifier:)();
-    Locale.init(identifier:)();
-    Locale.init(identifier:)();
-    Locale.init(identifier:)();
-    Locale.init(identifier:)();
-    Locale.init(identifier:)();
-    Locale.init(identifier:)();
-    Locale.init(identifier:)();
-    Locale.init(identifier:)();
-    Locale.init(identifier:)();
-    Locale.init(identifier:)();
-    Locale.init(identifier:)();
-    Locale.init(identifier:)();
-    Locale.init(identifier:)();
-    Locale.init(identifier:)();
-    Locale.init(identifier:)();
-    Locale.init(identifier:)();
-    Locale.init(identifier:)();
-    Locale.init(identifier:)();
-    goto LABEL_6;
-  }
-
-  v15 = _stringCompareWithSmolCheck(_:_:expecting:)();
-
-  if (v15)
-  {
-    goto LABEL_19;
-  }
-
-  return static SuggestionConstants.t41Locales.getter();
-}
-
-uint64_t sub_17240()
-{
-  v1 = *(v0 + 24);
-
-  return _swift_deallocObject(v0, 32, 7);
-}
-
-unint64_t _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfC32SiriInformationSuggestionsPlugin0D10SuggestionO_Say0cE3Kit6SignalCGTt0g5Tf4g_n(uint64_t a1)
-{
-  v1 = *(a1 + 16);
-  if (v1)
-  {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCy32SiriInformationSuggestionsPlugin0D10SuggestionOSay0cE3Kit6SignalCGGMd, &_ss18_DictionaryStorageCy32SiriInformationSuggestionsPlugin0D10SuggestionOSay0cE3Kit6SignalCGGMR);
-    v3 = static _DictionaryStorage.allocate(capacity:)();
-
-    for (i = (a1 + 40); ; i += 2)
-    {
-      v5 = *(i - 8);
-      v6 = *i;
-
-      result = specialized __RawDictionaryStorage.find<A>(_:)(v5);
-      if (v8)
-      {
-        break;
-      }
-
-      *(v3 + ((result >> 3) & 0x1FFFFFFFFFFFFFF8) + 64) |= 1 << result;
-      *(v3[6] + result) = v5;
-      *(v3[7] + 8 * result) = v6;
-      v9 = v3[2];
-      v10 = __OFADD__(v9, 1);
-      v11 = v9 + 1;
-      if (v10)
-      {
-        goto LABEL_10;
-      }
-
-      v3[2] = v11;
-      if (!--v1)
-      {
-
-        return v3;
-      }
-    }
-
-    __break(1u);
-LABEL_10:
-    __break(1u);
-  }
-
-  else
-  {
-    return &_swiftEmptyDictionarySingleton;
-  }
-
-  return result;
-}
-
-unint64_t specialized _NativeDictionary.merge<A>(_:isUnique:uniquingKeysWith:)(unint64_t result, char a2, void *a3)
-{
-  v3 = *(result + 16);
-  if (!v3)
-  {
-    return result;
-  }
-
-  LOBYTE(v5) = a2;
-  v6 = result;
-  v7 = *(result + 32);
-  v8 = *(result + 40);
-  v9 = *a3;
-
-  result = specialized __RawDictionaryStorage.find<A>(_:)(v7);
-  v11 = v9[2];
-  v12 = (v10 & 1) == 0;
-  v13 = __OFADD__(v11, v12);
-  v14 = v11 + v12;
-  if (v13)
-  {
-LABEL_23:
-    __break(1u);
-    goto LABEL_24;
-  }
-
-  LOBYTE(v15) = v10;
-  if (v9[3] < v14)
-  {
-    specialized _NativeDictionary._copyOrMoveAndResize(capacity:moveElements:)(v14, v5 & 1);
-    v16 = *a3;
-    result = specialized __RawDictionaryStorage.find<A>(_:)(v7);
-    if ((v15 & 1) == (v17 & 1))
-    {
-      goto LABEL_7;
-    }
-
-LABEL_5:
-    result = KEY_TYPE_OF_DICTIONARY_VIOLATES_HASHABLE_REQUIREMENTS(_:)();
-    __break(1u);
-  }
-
-  if (v5)
-  {
-LABEL_7:
-    v18 = *a3;
-    if (v15)
-    {
-      goto LABEL_8;
-    }
-
-LABEL_11:
-    v18[(result >> 6) + 8] |= 1 << result;
-    *(v18[6] + result) = v7;
-    *(v18[7] + 8 * result) = v8;
-    v24 = v18[2];
-    v13 = __OFADD__(v24, 1);
-    v25 = v24 + 1;
-    if (v13)
-    {
-LABEL_24:
-      __break(1u);
-      return result;
-    }
-
-    v18[2] = v25;
-    v15 = v3 - 1;
-    if (v3 != 1)
-    {
-      goto LABEL_14;
-    }
-
-    return result;
-  }
-
-  v23 = result;
-  specialized _NativeDictionary.copy()();
-  result = v23;
-  v18 = *a3;
-  if ((v15 & 1) == 0)
-  {
-    goto LABEL_11;
-  }
-
-LABEL_8:
-  v19 = *(v18[7] + 8 * result);
-  v20 = result;
-
-  v21 = v18[7];
-  v22 = *(v21 + 8 * v20);
-  *(v21 + 8 * v20) = v19;
-
-  v15 = v3 - 1;
-  if (v3 != 1)
-  {
-LABEL_14:
-    v5 = (v6 + 56);
-    v3 = 1;
-    while (1)
-    {
-      v8 = *(v5 - 8);
-      v6 = *v5;
-      v30 = *a3;
-
-      result = specialized __RawDictionaryStorage.find<A>(_:)(v8);
-      v32 = v30[2];
-      v33 = (v31 & 1) == 0;
-      v13 = __OFADD__(v32, v33);
-      v34 = v32 + v33;
-      if (v13)
-      {
-        goto LABEL_23;
-      }
-
-      v7 = v31;
-      if (v30[3] < v34)
-      {
-        specialized _NativeDictionary._copyOrMoveAndResize(capacity:moveElements:)(v34, 1);
-        v35 = *a3;
-        result = specialized __RawDictionaryStorage.find<A>(_:)(v8);
-        if ((v7 & 1) != (v36 & 1))
-        {
-          goto LABEL_5;
-        }
-      }
-
-      v37 = *a3;
-      if (v7)
-      {
-        v26 = *(v37[7] + 8 * result);
-        v27 = result;
-
-        v28 = v37[7];
-        v29 = *(v28 + 8 * v27);
-        *(v28 + 8 * v27) = v26;
-      }
-
-      else
-      {
-        v37[(result >> 6) + 8] |= 1 << result;
-        *(v37[6] + result) = v8;
-        *(v37[7] + 8 * result) = v6;
-        v38 = v37[2];
-        v13 = __OFADD__(v38, 1);
-        v39 = v38 + 1;
-        if (v13)
-        {
-          goto LABEL_24;
-        }
-
-        v37[2] = v39;
-      }
-
-      v5 += 2;
-      if (!--v15)
-      {
-        return result;
-      }
-    }
-  }
-
-  return result;
-}
-
-{
-  v3 = *(result + 16);
-  if (!v3)
-  {
-    return result;
-  }
-
-  LOBYTE(i) = a2;
-  v6 = result;
-  v8 = *(result + 32);
-  v7 = *(result + 40);
-  v9 = *(result + 56);
-  v43 = *(result + 48);
-  v10 = *a3;
-
-  result = specialized __RawDictionaryStorage.find<A>(_:)(v8, v7);
-  v12 = v10[2];
-  v13 = (v11 & 1) == 0;
-  v14 = __OFADD__(v12, v13);
-  v15 = v12 + v13;
-  if (v14)
-  {
-LABEL_23:
-    __break(1u);
-    goto LABEL_24;
-  }
-
-  LOBYTE(v16) = v11;
-  if (v10[3] < v15)
-  {
-    specialized _NativeDictionary._copyOrMoveAndResize(capacity:moveElements:)(v15, i & 1);
-    v17 = *a3;
-    result = specialized __RawDictionaryStorage.find<A>(_:)(v8, v7);
-    if ((v16 & 1) == (v18 & 1))
-    {
-      goto LABEL_7;
-    }
-
-LABEL_5:
-    result = KEY_TYPE_OF_DICTIONARY_VIOLATES_HASHABLE_REQUIREMENTS(_:)();
-    __break(1u);
-  }
-
-  if (i)
-  {
-LABEL_7:
-    v19 = *a3;
-    if (v16)
-    {
-      goto LABEL_8;
-    }
-
-LABEL_11:
-    v19[(result >> 6) + 8] |= 1 << result;
-    v24 = (v19[6] + 16 * result);
-    *v24 = v8;
-    v24[1] = v7;
-    v25 = (v19[7] + 16 * result);
-    *v25 = v43;
-    v25[1] = v9;
-    v26 = v19[2];
-    v14 = __OFADD__(v26, 1);
-    v27 = v26 + 1;
-    if (v14)
-    {
-LABEL_24:
-      __break(1u);
-      return result;
-    }
-
-    v19[2] = v27;
-    v16 = v3 - 1;
-    if (v3 != 1)
-    {
-      goto LABEL_14;
-    }
-
-    return result;
-  }
-
-  v23 = result;
-  specialized _NativeDictionary.copy()();
-  result = v23;
-  v19 = *a3;
-  if ((v16 & 1) == 0)
-  {
-    goto LABEL_11;
-  }
-
-LABEL_8:
-  v20 = result;
-
-  v21 = (v19[7] + 16 * v20);
-  v22 = v21[1];
-  *v21 = v43;
-  v21[1] = v9;
-
-  v16 = v3 - 1;
-  if (v3 != 1)
-  {
-LABEL_14:
-    for (i = (v6 + 88); ; i += 4)
-    {
-      v7 = *(i - 3);
-      v9 = *(i - 2);
-      v3 = *(i - 1);
-      v6 = *i;
-      v31 = *a3;
-
-      result = specialized __RawDictionaryStorage.find<A>(_:)(v7, v9);
-      v33 = v31[2];
-      v34 = (v32 & 1) == 0;
-      v14 = __OFADD__(v33, v34);
-      v35 = v33 + v34;
-      if (v14)
-      {
-        break;
-      }
-
-      v8 = v32;
-      if (v31[3] < v35)
-      {
-        specialized _NativeDictionary._copyOrMoveAndResize(capacity:moveElements:)(v35, 1);
-        v36 = *a3;
-        result = specialized __RawDictionaryStorage.find<A>(_:)(v7, v9);
-        if ((v8 & 1) != (v37 & 1))
-        {
-          goto LABEL_5;
-        }
-      }
-
-      v38 = *a3;
-      if (v8)
-      {
-        v28 = result;
-
-        v29 = (v38[7] + 16 * v28);
-        v30 = v29[1];
-        *v29 = v3;
-        v29[1] = v6;
-      }
-
-      else
-      {
-        v38[(result >> 6) + 8] |= 1 << result;
-        v39 = (v38[6] + 16 * result);
-        *v39 = v7;
-        v39[1] = v9;
-        v40 = (v38[7] + 16 * result);
-        *v40 = v3;
-        v40[1] = v6;
-        v41 = v38[2];
-        v14 = __OFADD__(v41, 1);
-        v42 = v41 + 1;
-        if (v14)
-        {
-          goto LABEL_24;
-        }
-
-        v38[2] = v42;
-      }
-
-      if (!--v16)
-      {
-        return result;
-      }
-    }
-
-    goto LABEL_23;
-  }
-
-  return result;
-}
-
 unint64_t specialized AppBundleIdentifier.init(rawValue:)(Swift::String string)
 {
   object = string._object;
@@ -578,18 +16,18 @@ unint64_t specialized AppBundleIdentifier.init(rawValue:)(Swift::String string)
   }
 }
 
-uint64_t specialized InformationSuggestion.init(rawValue:)()
+unint64_t specialized InformationSuggestion.init(rawValue:)(uint64_t a1, uint64_t a2)
 {
-  v0 = _findStringSwitchCaseWithCache(cases:string:cache:)();
+  v2 = _findStringSwitchCaseWithCache(cases:string:cache:)();
 
-  if (v0 >= 0x19)
+  if (v2 >= 0x19)
   {
     return 25;
   }
 
   else
   {
-    return v0;
+    return v2;
   }
 }
 
@@ -651,9 +89,6 @@ unint64_t lazy protocol witness table accessor for type SuggestionOverrideDialog
 
 uint64_t sub_1796C()
 {
-  v1 = *(v0 + 24);
-
-  v2 = *(v0 + 40);
 
   return _swift_deallocObject(v0, 49, 7);
 }
@@ -688,7 +123,6 @@ uint64_t __swift_instantiateConcreteTypeFromMangledNameAbstractV2(uint64_t *a1, 
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContextInMetadataState2();
     *a1 = result;
   }
@@ -1116,7 +550,6 @@ uint64_t partial apply for closure #1 in static InformationSuggestion.parameterF
 
 uint64_t sub_18134()
 {
-  v1 = *(v0 + 24);
 
   return _swift_deallocObject(v0, 32, 7);
 }
@@ -1140,7 +573,7 @@ uint64_t outlined init with copy of Any?(uint64_t a1, uint64_t a2, uint64_t *a3,
   return a2;
 }
 
-uint64_t _s18SiriSuggestionsKit11DomainOwnerCAcA0E0AAWlTm_0(unint64_t *a1, uint64_t a2, void (*a3)(uint64_t))
+uint64_t _s18SiriSuggestionsKit11DomainOwnerCAcA0E0AAWlTm_0(unint64_t *a1, uint64_t a2, uint64_t (*a3)(uint64_t), uint64_t a4)
 {
   result = *a1;
   if (!result)
@@ -1157,21 +590,20 @@ uint64_t static RelatedQuestionsDefinition.addRelatedQuestionsSuggestion(_:)()
 {
   v0 = type metadata accessor for DialogDetails();
   v1 = *(v0 - 8);
-  v2 = *(v1 + 64);
   __chkstk_darwin(v0);
-  v4 = &v7[-((v3 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  v3 = &v6[-((v2 + 15) & 0xFFFFFFFFFFFFFFF0)];
   type metadata accessor for INInformationUseCaseIntent();
   static SuggestionTransformers.mapAsyncINIntentValue<A>(extractor:)();
   static SuggestionConstants.relatedQuestionsSuggestionId.getter();
-  *v4 = &async function pointer to specialized thunk for @escaping @callee_guaranteed (@in_guaranteed DialogProperties) -> (@out Any);
-  v4[1] = 0;
-  (*(v1 + 104))(v4, enum case for DialogDetails.catTemplateCallback(_:), v0);
-  v8 = v9;
-  v5 = dispatch thunk of SuggestionOwnerDefinitionBuilder.add(suggestionId:dialogDetails:builder:)();
+  *v3 = &async function pointer to specialized thunk for @escaping @callee_guaranteed (@in_guaranteed DialogProperties) -> (@out Any);
+  v3[1] = 0;
+  (*(v1 + 104))(v3, enum case for DialogDetails.catTemplateCallback(_:), v0);
+  v7 = v8;
+  v4 = dispatch thunk of SuggestionOwnerDefinitionBuilder.add(suggestionId:dialogDetails:builder:)();
 
-  (*(v1 + 8))(v4, v0);
-  __swift_destroy_boxed_opaque_existential_1Tm(v9);
-  return v5;
+  (*(v1 + 8))(v3, v0);
+  __swift_destroy_boxed_opaque_existential_1Tm(v8);
+  return v4;
 }
 
 uint64_t static RelatedQuestionsDefinition.relatedQuestionsUtteranceMapper@Sendable (_:)@<X0>(void *a1@<X0>, void *a2@<X8>)
@@ -1198,134 +630,124 @@ uint64_t static RelatedQuestionsDefinition.relatedQuestionsUtteranceMapper@Senda
 
 uint64_t closure #1 in static RelatedQuestionsDefinition.addRelatedQuestionsSuggestion(_:)(uint64_t a1, uint64_t a2)
 {
-  *&v51 = a2;
+  *&v38 = a2;
   v3 = type metadata accessor for SiriSuggestions.IntentType();
-  v4 = *(*(v3 - 8) + 64);
   __chkstk_darwin(v3 - 8);
-  *&v52 = &v47 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s13SiriUtilities11TransformerVyypypSgGMd, &_s13SiriUtilities11TransformerVyypypSgGMR);
-  v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
-  __chkstk_darwin(v6);
-  v10 = &v47 - v9;
-  v11 = *(a1 + 24);
-  v50 = *(a1 + 40);
-  v47 = v11;
-  v49 = __swift_project_boxed_opaque_existential_1Tm(a1, v11);
-  v48 = static SuggestionConstants.serverExampleUtterance.getter();
-  v12 = static SuggestionConstants.serverExampleUtterance.getter();
-  v14 = v13;
-  v15 = type metadata accessor for FromContextResolver();
-  v16 = swift_allocObject();
-  v16[2] = v12;
-  v16[3] = v14;
-  v16[4] = &async function pointer to closure #1 in closure #1 in static RelatedQuestionsDefinition.addRelatedQuestionsSuggestion(_:);
-  v16[5] = 0;
-  *&v64 = v15;
-  *(&v64 + 1) = lazy protocol witness table accessor for type FromContextResolver and conformance FromContextResolver(&lazy protocol witness table cache variable for type FromContextResolver and conformance FromContextResolver, type metadata accessor for FromContextResolver);
-  v63[0] = v16;
+  *&v39 = &v34 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s13SiriUtilities11TransformerVyypypSgGMd, &_s13SiriUtilities11TransformerVyypypSgGMR);
+  v6 = *(v5 - 8);
+  __chkstk_darwin(v5);
+  v8 = &v34 - v7;
+  v9 = *(a1 + 24);
+  v37 = *(a1 + 40);
+  v34 = v9;
+  v36 = __swift_project_boxed_opaque_existential_1Tm(a1, v9);
+  v35 = static SuggestionConstants.serverExampleUtterance.getter();
+  v10 = static SuggestionConstants.serverExampleUtterance.getter();
+  v12 = v11;
+  v13 = type metadata accessor for FromContextResolver();
+  v14 = swift_allocObject();
+  v14[2] = v10;
+  v14[3] = v12;
+  v14[4] = &async function pointer to closure #1 in closure #1 in static RelatedQuestionsDefinition.addRelatedQuestionsSuggestion(_:);
+  v14[5] = 0;
+  *&v51 = v13;
+  *(&v51 + 1) = lazy protocol witness table accessor for type FromContextResolver and conformance FromContextResolver(&lazy protocol witness table cache variable for type FromContextResolver and conformance FromContextResolver, type metadata accessor for FromContextResolver, &protocol conformance descriptor for FromContextResolver);
+  v50[0] = v14;
   static SuggestionConstants.serverExampleUtterance.getter();
   if (one-time initialization token for utteranceToLoggingIdTransformer != -1)
   {
     swift_once();
   }
 
-  v17 = __swift_project_value_buffer(v6, static RelatedQuestionsDefinition.utteranceToLoggingIdTransformer);
-  (*(v7 + 16))(v10, v17, v6);
-  outlined init with copy of CandidateSuggestion(v51, v66);
-  v18 = type metadata accessor for ResolvableParameter();
-  v19 = *(v18 + 48);
-  v20 = *(v18 + 52);
+  v15 = __swift_project_value_buffer(v5, static RelatedQuestionsDefinition.utteranceToLoggingIdTransformer);
+  (*(v6 + 16))(v8, v15, v5);
+  outlined init with copy of CandidateSuggestion(v38, v53);
+  type metadata accessor for ResolvableParameter();
   swift_allocObject();
   ResolvableParameter.init(typeIdentifier:required:loggingKeyTransformer:asyncIntentTransformer:)();
-  v67 = v47;
-  v68 = v50;
-  __swift_allocate_boxed_opaque_existential_0Tm(v66);
+  v54 = v34;
+  v55 = v37;
+  __swift_allocate_boxed_opaque_existential_0Tm(v53);
   SuggestionDetailsBuilder.parameter(parameterName:resolver:resolveParam:)();
 
-  outlined destroy of Resolver?(v63);
-  v21 = v68;
-  v51 = v67;
-  __swift_project_boxed_opaque_existential_1Tm(v66, v67);
-  *&v61 = type metadata accessor for SiriSuggestions.IntentMatch();
-  *(&v61 + 1) = &protocol witness table for SiriSuggestions.IntentMatch;
-  __swift_allocate_boxed_opaque_existential_0Tm(v60);
+  outlined destroy of Resolver?(v50);
+  v16 = v55;
+  v38 = v54;
+  __swift_project_boxed_opaque_existential_1Tm(v53, v54);
+  *&v48 = type metadata accessor for SiriSuggestions.IntentMatch();
+  *(&v48 + 1) = &protocol witness table for SiriSuggestions.IntentMatch;
+  __swift_allocate_boxed_opaque_existential_0Tm(v47);
   type metadata accessor for INInformationUseCaseIntent();
   static SiriSuggestions.IntentType.inIntent(intentType:)();
-  v22 = swift_allocObject();
-  *(v22 + 16) = implicit closure #1 in closure #1 in static RelatedQuestionsDefinition.addRelatedQuestionsSuggestion(_:);
-  *(v22 + 24) = 0;
+  v17 = swift_allocObject();
+  *(v17 + 16) = implicit closure #1 in closure #1 in static RelatedQuestionsDefinition.addRelatedQuestionsSuggestion(_:);
+  *(v17 + 24) = 0;
   SiriSuggestions.IntentMatch.init(intentType:matcher:)();
-  v64 = v51;
-  v65 = v21;
-  __swift_allocate_boxed_opaque_existential_0Tm(v63);
+  v51 = v38;
+  v52 = v16;
+  __swift_allocate_boxed_opaque_existential_0Tm(v50);
   dispatch thunk of SuggestionDetailsBuilder.intentMatch(_:)();
-  __swift_destroy_boxed_opaque_existential_1Tm(v60);
-  v23 = v65;
-  v51 = v64;
-  __swift_project_boxed_opaque_existential_1Tm(v63, v64);
+  __swift_destroy_boxed_opaque_existential_1Tm(v47);
+  v18 = v52;
+  v38 = v51;
+  __swift_project_boxed_opaque_existential_1Tm(v50, v51);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy18SiriSuggestionsKit19VersionedInvocationVGMd, &_ss23_ContiguousArrayStorageCy18SiriSuggestionsKit19VersionedInvocationVGMR);
-  v24 = *(type metadata accessor for VersionedInvocation() - 8);
-  v25 = *(v24 + 72);
-  v26 = (*(v24 + 80) + 32) & ~*(v24 + 80);
-  v27 = swift_allocObject();
-  v52 = xmmword_1AD90;
-  *(v27 + 16) = xmmword_1AD90;
+  type metadata accessor for VersionedInvocation();
+  v19 = swift_allocObject();
+  v39 = xmmword_1AD90;
+  *(v19 + 16) = xmmword_1AD90;
   static VersionedInvocations.latest.getter();
-  v61 = v51;
-  v62 = v23;
-  __swift_allocate_boxed_opaque_existential_0Tm(v60);
+  v48 = v38;
+  v49 = v18;
+  __swift_allocate_boxed_opaque_existential_0Tm(v47);
   dispatch thunk of SuggestionDetailsBuilder.validForInvocationTypes(_:)();
 
-  v28 = v62;
-  v51 = v61;
-  __swift_project_boxed_opaque_existential_1Tm(v60, v61);
+  v20 = v49;
+  v38 = v48;
+  __swift_project_boxed_opaque_existential_1Tm(v47, v48);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy18SiriSuggestionsKit15DeliveryVehicleOGMd, &_ss23_ContiguousArrayStorageCy18SiriSuggestionsKit15DeliveryVehicleOGMR);
-  v29 = type metadata accessor for DeliveryVehicle();
-  v30 = *(v29 - 8);
-  v31 = *(v30 + 72);
-  v32 = (*(v30 + 80) + 32) & ~*(v30 + 80);
-  v33 = swift_allocObject();
-  *(v33 + 16) = v52;
-  (*(v30 + 104))(v33 + v32, enum case for DeliveryVehicle.assistantSuggestions(_:), v29);
-  v58 = v51;
-  v59 = v28;
-  __swift_allocate_boxed_opaque_existential_0Tm(v57);
+  v21 = type metadata accessor for DeliveryVehicle();
+  v22 = *(v21 - 8);
+  v23 = (*(v22 + 80) + 32) & ~*(v22 + 80);
+  v24 = swift_allocObject();
+  *(v24 + 16) = v39;
+  (*(v22 + 104))(v24 + v23, enum case for DeliveryVehicle.assistantSuggestions(_:), v21);
+  v45 = v38;
+  v46 = v20;
+  __swift_allocate_boxed_opaque_existential_0Tm(v44);
   dispatch thunk of SuggestionDetailsBuilder.enabledDeliveryVehicles(_:)();
 
-  v34 = v59;
-  v51 = v58;
-  __swift_project_boxed_opaque_existential_1Tm(v57, v58);
+  v25 = v46;
+  v38 = v45;
+  __swift_project_boxed_opaque_existential_1Tm(v44, v45);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy10Foundation6LocaleVGMd, &_ss23_ContiguousArrayStorageCy10Foundation6LocaleVGMR);
-  v35 = *(type metadata accessor for Locale() - 8);
-  v36 = *(v35 + 72);
-  v37 = (*(v35 + 80) + 32) & ~*(v35 + 80);
-  *(swift_allocObject() + 16) = v52;
+  type metadata accessor for Locale();
+  *(swift_allocObject() + 16) = v39;
   Locale.init(identifier:)();
-  v55 = v51;
-  v56 = v34;
-  __swift_allocate_boxed_opaque_existential_0Tm(v54);
+  v42 = v38;
+  v43 = v25;
+  __swift_allocate_boxed_opaque_existential_0Tm(v41);
   dispatch thunk of SuggestionDetailsBuilder.enabledLocales(_:)();
 
-  v38 = v55;
-  v39 = __swift_project_boxed_opaque_existential_1Tm(v54, v55);
-  v40 = *(v38 - 8);
-  v41 = *(v40 + 64);
-  __chkstk_darwin(v39);
-  v43 = &v47 - ((v42 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v44 = type metadata accessor for InfoServerSuggestionAssetProvider();
-  v45 = swift_allocObject();
-  v53[3] = v44;
-  v53[4] = lazy protocol witness table accessor for type FromContextResolver and conformance FromContextResolver(&lazy protocol witness table cache variable for type InfoServerSuggestionAssetProvider and conformance InfoServerSuggestionAssetProvider, type metadata accessor for InfoServerSuggestionAssetProvider);
-  v53[0] = v45;
+  v26 = v42;
+  v27 = __swift_project_boxed_opaque_existential_1Tm(v41, v42);
+  v28 = *(v26 - 8);
+  __chkstk_darwin(v27);
+  v30 = &v34 - ((v29 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v31 = type metadata accessor for InfoServerSuggestionAssetProvider();
+  v32 = swift_allocObject();
+  v40[3] = v31;
+  v40[4] = lazy protocol witness table accessor for type FromContextResolver and conformance FromContextResolver(&lazy protocol witness table cache variable for type InfoServerSuggestionAssetProvider and conformance InfoServerSuggestionAssetProvider, type metadata accessor for InfoServerSuggestionAssetProvider, &protocol conformance descriptor for InfoServerSuggestionAssetProvider);
+  v40[0] = v32;
   dispatch thunk of SuggestionDetailsBuilder.assetsProvider(_:)();
-  (*(v40 + 8))(v43, v38);
-  __swift_destroy_boxed_opaque_existential_1Tm(v53);
-  __swift_destroy_boxed_opaque_existential_1Tm(v54);
-  __swift_destroy_boxed_opaque_existential_1Tm(v57);
-  __swift_destroy_boxed_opaque_existential_1Tm(v60);
-  __swift_destroy_boxed_opaque_existential_1Tm(v63);
-  return __swift_destroy_boxed_opaque_existential_1Tm(v66);
+  (*(v28 + 8))(v30, v26);
+  __swift_destroy_boxed_opaque_existential_1Tm(v40);
+  __swift_destroy_boxed_opaque_existential_1Tm(v41);
+  __swift_destroy_boxed_opaque_existential_1Tm(v44);
+  __swift_destroy_boxed_opaque_existential_1Tm(v47);
+  __swift_destroy_boxed_opaque_existential_1Tm(v50);
+  return __swift_destroy_boxed_opaque_existential_1Tm(v53);
 }
 
 uint64_t RelatedQuestionsDefinition.utteranceToLoggingIdTransformer.unsafeMutableAddressor()
@@ -1424,7 +846,7 @@ double closure #1 in variable initialization expression of static RelatedQuestio
       outlined init with copy of Any(v42, v41);
       v33 = String.init<A>(describing:)();
       v35 = v34;
-      __swift_destroy_boxed_opaque_existential_1Tm(&v42[0]._countAndFlagsBits);
+      __swift_destroy_boxed_opaque_existential_1Tm(v42);
       v36 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v33, v35, v40);
 
       *(v30 + 4) = v36;
@@ -1436,7 +858,7 @@ double closure #1 in variable initialization expression of static RelatedQuestio
     else
     {
 
-      __swift_destroy_boxed_opaque_existential_1Tm(&v42[0]._countAndFlagsBits);
+      __swift_destroy_boxed_opaque_existential_1Tm(v42);
     }
 
     result = 0.0;
@@ -1469,9 +891,9 @@ _BYTE **closure #1 in OSLogArguments.append(_:)(_BYTE **result, uint64_t a2, uin
   return result;
 }
 
-uint64_t closure #1 in OSLogArguments.append(_:)(uint64_t **a1, uint64_t a2, uint64_t *a3, uint64_t (*a4)(void))
+uint64_t closure #1 in OSLogArguments.append(_:)(unint64_t **a1, uint64_t a2, uint64_t *a3, uint64_t (*a4)(unint64_t **, uint64_t))
 {
-  v6 = a4();
+  v6 = a4(a1, a2);
   v8 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v6, v7, a3);
 
   v10 = *a1;
@@ -1480,7 +902,7 @@ uint64_t closure #1 in OSLogArguments.append(_:)(uint64_t **a1, uint64_t a2, uin
   return result;
 }
 
-uint64_t getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(uint64_t a1, unint64_t a2, uint64_t *a3)
+unint64_t getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(uint64_t a1, unint64_t a2, uint64_t *a3)
 {
 
   v6 = specialized _StringGuts._deconstructUTF8<A>(scratch:)(v11, 0, 0, 1, a1, a2);
@@ -1538,13 +960,6 @@ uint64_t sub_19534()
   (*(v2 + 8))(v0 + v4, v1);
 
   return _swift_deallocObject(v0, v4 + v5, v3 | 7);
-}
-
-uint64_t partial apply for implicit closure #2 in implicit closure #1 in static RelatedQuestionsDefinition.treatUtterance(_:)()
-{
-  v1 = *(type metadata accessor for CharacterSet() - 8);
-  v2 = v0 + ((*(v1 + 80) + 16) & ~*(v1 + 80));
-  return CharacterSet.contains(_:)() & 1;
 }
 
 unint64_t specialized _StringGuts._deconstructUTF8<A>(scratch:)(unint64_t *a1, void *__dst, uint64_t a3, char a4, uint64_t a5, unint64_t a6)
@@ -1609,16 +1024,14 @@ LABEL_8:
   }
 }
 
-char *_StringGuts._allocateForDeconstruct()(uint64_t a1, unint64_t a2)
+void *_StringGuts._allocateForDeconstruct()(uint64_t a1, unint64_t a2)
 {
-  v4 = specialized _copyCollectionToContiguousArray<A>(_:)(a1, a2);
+  v3 = specialized _copyCollectionToContiguousArray<A>(_:)(a1, a2);
   specialized Array.append<A>(contentsOf:)(&outlined read-only object #0 of _StringGuts._allocateForDeconstruct());
-  result = v4;
-  v3 = *(v4 + 2) - 1;
-  return result;
+  return v3;
 }
 
-char *specialized _copyCollectionToContiguousArray<A>(_:)(uint64_t a1, unint64_t a2)
+void *specialized _copyCollectionToContiguousArray<A>(_:)(uint64_t a1, unint64_t a2)
 {
   if ((a2 & 0x1000000000000000) != 0)
   {
@@ -1638,7 +1051,7 @@ char *specialized _copyCollectionToContiguousArray<A>(_:)(uint64_t a1, unint64_t
 
   if (!v5)
   {
-    return &_swiftEmptyArrayStorage;
+    return _swiftEmptyArrayStorage;
   }
 
   v6 = _ss22_ContiguousArrayBufferV19_uninitializedCount15minimumCapacityAByxGSi_SitcfCs5UInt8V_Tt1gq5(v5, 0);
@@ -1647,7 +1060,7 @@ char *specialized _copyCollectionToContiguousArray<A>(_:)(uint64_t a1, unint64_t
   {
     v15[0] = a1;
     v15[1] = a2 & 0xFFFFFFFFFFFFFFLL;
-    memcpy(v6 + 32, v15, HIBYTE(a2) & 0xF);
+    memcpy(v6 + 4, v15, HIBYTE(a2) & 0xF);
     return v7;
   }
 
@@ -1664,7 +1077,7 @@ char *specialized _copyCollectionToContiguousArray<A>(_:)(uint64_t a1, unint64_t
   if (v4 >= v9)
   {
 LABEL_9:
-    memcpy(v7 + 32, v8, v9);
+    memcpy(v7 + 4, v8, v9);
     if (v9 != v4)
     {
       while (1)
@@ -1674,7 +1087,7 @@ LABEL_13:
         v10 = String.UTF8View._foreignCount()();
         if (!v10)
         {
-          return &_swiftEmptyArrayStorage;
+          return _swiftEmptyArrayStorage;
         }
 
         v11 = v10;
@@ -1700,6 +1113,88 @@ LABEL_20:
   return result;
 }
 
+uint64_t specialized Array.append<A>(contentsOf:)(uint64_t result)
+{
+  v2 = *(result + 16);
+  v3 = *v1;
+  v4 = *(*v1 + 16);
+  v5 = v4 + v2;
+  if (__OFADD__(v4, v2))
+  {
+    __break(1u);
+LABEL_16:
+    __break(1u);
+    goto LABEL_17;
+  }
+
+  v6 = result;
+  result = swift_isUniquelyReferenced_nonNull_native();
+  if (result && v5 <= *(v3 + 24) >> 1)
+  {
+    if (*(v6 + 16))
+    {
+      goto LABEL_5;
+    }
+
+    goto LABEL_13;
+  }
+
+  if (v4 <= v5)
+  {
+    v11 = v4 + v2;
+  }
+
+  else
+  {
+    v11 = v4;
+  }
+
+  result = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(result, v11, 1, v3);
+  v3 = result;
+  if (!*(v6 + 16))
+  {
+LABEL_13:
+
+    if (!v2)
+    {
+      goto LABEL_14;
+    }
+
+    goto LABEL_16;
+  }
+
+LABEL_5:
+  v7 = *(v3 + 16);
+  if ((*(v3 + 24) >> 1) - v7 < v2)
+  {
+LABEL_17:
+    __break(1u);
+    goto LABEL_18;
+  }
+
+  memcpy((v3 + v7 + 32), (v6 + 32), v2);
+
+  if (!v2)
+  {
+LABEL_14:
+    *v1 = v3;
+    return result;
+  }
+
+  v8 = *(v3 + 16);
+  v9 = __OFADD__(v8, v2);
+  v10 = v8 + v2;
+  if (!v9)
+  {
+    *(v3 + 16) = v10;
+    goto LABEL_14;
+  }
+
+LABEL_18:
+  __break(1u);
+  return result;
+}
+
 void *_ss22_ContiguousArrayBufferV19_uninitializedCount15minimumCapacityAByxGSi_SitcfCs5UInt8V_Tt1gq5(uint64_t a1, uint64_t a2)
 {
   if (a2 <= a1)
@@ -1714,7 +1209,7 @@ void *_ss22_ContiguousArrayBufferV19_uninitializedCount15minimumCapacityAByxGSi_
 
   if (!v2)
   {
-    return &_swiftEmptyArrayStorage;
+    return _swiftEmptyArrayStorage;
   }
 
   __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys5UInt8VGMd, &_ss23_ContiguousArrayStorageCys5UInt8VGMR);
@@ -1776,7 +1271,7 @@ char *specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapaci
 
   else
   {
-    v10 = &_swiftEmptyArrayStorage;
+    v10 = _swiftEmptyArrayStorage;
   }
 
   v12 = v10 + 32;
@@ -1913,12 +1408,11 @@ uint64_t outlined destroy of Resolver?(uint64_t a1)
 
 uint64_t sub_19D34()
 {
-  v1 = *(v0 + 24);
 
   return _swift_deallocObject(v0, 32, 7);
 }
 
-uint64_t lazy protocol witness table accessor for type FromContextResolver and conformance FromContextResolver(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t lazy protocol witness table accessor for type FromContextResolver and conformance FromContextResolver(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)

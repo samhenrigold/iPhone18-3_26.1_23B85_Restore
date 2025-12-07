@@ -94,7 +94,6 @@
 - (id)supportsAlarmKitWithBundleID:(id)d error:(id *)error
 {
   sub_1BBBF53F4();
-  v5 = *((*(&self->super.isa + OBJC_IVAR____TtC8AlarmKit18AlarmAuthorization_client))[2] + OBJC_IVAR____TtC8AlarmKitP33_5624AB39E48C05673B65736F2442C9F09Singleton_queue);
   selfCopy = self;
   sub_1BBBF5534();
 

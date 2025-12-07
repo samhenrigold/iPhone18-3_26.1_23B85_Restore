@@ -15,120 +15,120 @@
   v11 = v10;
   [pathCopy boundsCenter];
   v13 = v12;
-  v62 = v14;
-  v75.origin.x = v5;
-  v75.origin.y = v7;
-  v75.size.width = v9;
-  v75.size.height = v11;
-  MinX = CGRectGetMinX(v75);
-  v76.origin.x = v5;
-  v76.origin.y = v7;
-  v76.size.width = v9;
-  v76.size.height = v11;
-  MaxX = CGRectGetMaxX(v76);
-  v77.origin.x = v5;
-  v77.origin.y = v7;
-  v77.size.width = v9;
-  v77.size.height = v11;
-  MinY = CGRectGetMinY(v77);
-  v78.origin.x = v5;
-  v78.origin.y = v7;
-  v78.size.width = v9;
-  v78.size.height = v11;
-  MaxY = CGRectGetMaxY(v78);
-  GAX_CGPointGetAngleFormedBySegmentToPoint(v13, v62, MinX);
-  v61 = v19;
-  GAX_CGPointGetAngleFormedBySegmentToPoint(v13, v62, MaxX);
-  v21 = v20;
-  GAX_CGPointGetAngleFormedBySegmentToPoint(v13, v62, MaxX);
+  v66 = v14;
+  v79.origin.x = v5;
+  v79.origin.y = v7;
+  v79.size.width = v9;
+  v79.size.height = v11;
+  MinX = CGRectGetMinX(v79);
+  v80.origin.x = v5;
+  v80.origin.y = v7;
+  v80.size.width = v9;
+  v80.size.height = v11;
+  MaxX = CGRectGetMaxX(v80);
+  v81.origin.x = v5;
+  v81.origin.y = v7;
+  v81.size.width = v9;
+  v81.size.height = v11;
+  MinY = CGRectGetMinY(v81);
+  v82.origin.x = v5;
+  v82.origin.y = v7;
+  v82.size.width = v9;
+  v82.size.height = v11;
+  MaxY = CGRectGetMaxY(v82);
+  GAX_CGPointGetAngleFormedBySegmentToPoint(v19, v13, v66, MinX);
+  v65 = v20;
+  GAX_CGPointGetAngleFormedBySegmentToPoint(v21, v13, v66, MaxX);
   v23 = v22;
-  GAX_CGPointGetAngleFormedBySegmentToPoint(v13, v62, MinX);
-  v24 = 1;
-  v74[0] = 1;
-  v74[1] = v61;
-  v74[2] = v21;
-  v74[3] = 2;
-  v74[4] = v21;
-  v74[5] = v23;
-  v74[6] = 3;
-  v74[7] = v23;
-  v74[8] = v25;
-  v74[9] = 4;
-  v74[10] = v25;
-  v74[11] = 0x400921FB54442D18;
-  v74[12] = 4;
-  v74[13] = 0xC00921FB54442D18;
-  v74[14] = v61;
-  v72 = 0;
-  v73[0] = 1;
-  *&v73[1] = MinX;
-  *&v73[2] = MinY;
-  *&v73[3] = MaxX;
-  *&v73[4] = MinY;
-  v73[5] = 2;
-  *&v73[6] = MaxX;
-  *&v73[7] = MinY;
-  *&v73[8] = MaxX;
-  *&v73[9] = MaxY;
-  v73[10] = 3;
-  *&v73[11] = MaxX;
-  *&v73[12] = MaxY;
-  *&v73[13] = MinX;
-  *&v73[14] = MaxY;
-  v73[15] = 4;
-  *&v73[16] = MinX;
-  *&v73[17] = MaxY;
-  *&v73[18] = MinX;
-  *&v73[19] = MinY;
-  v69 = 0;
-  v71 = 0u;
+  GAX_CGPointGetAngleFormedBySegmentToPoint(v24, v13, v66, MaxX);
+  v26 = v25;
+  GAX_CGPointGetAngleFormedBySegmentToPoint(v27, v13, v66, MinX);
+  v28 = 1;
+  v78[0] = 1;
+  v78[1] = v65;
+  v78[2] = v23;
+  v78[3] = 2;
+  v78[4] = v23;
+  v78[5] = v26;
+  v78[6] = 3;
+  v78[7] = v26;
+  v78[8] = v29;
+  v78[9] = 4;
+  v78[10] = v29;
+  v78[11] = 0x400921FB54442D18;
+  v78[12] = 4;
+  v78[13] = 0xC00921FB54442D18;
+  v78[14] = v65;
+  v76 = 0;
+  v77[0] = 1;
+  *&v77[1] = MinX;
+  *&v77[2] = MinY;
+  *&v77[3] = MaxX;
+  *&v77[4] = MinY;
+  v77[5] = 2;
+  *&v77[6] = MaxX;
+  *&v77[7] = MinY;
+  *&v77[8] = MaxX;
+  *&v77[9] = MaxY;
+  v77[10] = 3;
+  *&v77[11] = MaxX;
+  *&v77[12] = MaxY;
+  *&v77[13] = MinX;
+  *&v77[14] = MaxY;
+  v77[15] = 4;
+  *&v77[16] = MinX;
+  *&v77[17] = MaxY;
+  *&v77[18] = MinX;
+  *&v77[19] = MinY;
+  v73 = 0;
+  v75 = 0u;
   if (AXCArrayCreate())
   {
-    v26 = 0;
+    v30 = 0;
     do
     {
-      v27 = v26;
-      if (v26 == 3)
+      v31 = v30;
+      if (v30 == 3)
       {
         break;
       }
 
-      v28 = qword_42000[v26 + 1];
-      v29 = AXCArrayCreate();
-      *(&v69 + v28) = v29;
-      v26 = v27 + 1;
+      v32 = qword_42000[v30 + 1];
+      v33 = AXCArrayCreate();
+      *(&v73 + v32) = v33;
+      v30 = v31 + 1;
     }
 
-    while (v29);
-    v24 = v27 < 3;
+    while (v33);
+    v28 = v31 < 3;
   }
 
-  v30 = AXCArrayCreate();
-  v31 = v30;
-  v65 = 0;
-  v66 = &v65;
-  v67 = 0x2020000000;
-  v68 = 1;
-  v60 = pathCopy;
-  if (!v24 && v30)
+  v34 = AXCArrayCreate();
+  v35 = v34;
+  v69 = 0;
+  v70 = &v69;
+  v71 = 0x2020000000;
+  v72 = 1;
+  v64 = pathCopy;
+  if (!v28 && v34)
   {
-    v64[0] = _NSConcreteStackBlock;
-    v64[1] = 3221225472;
-    v64[2] = sub_1DD08;
-    v64[3] = &unk_5D970;
-    *&v64[5] = v13;
-    *&v64[6] = v62;
-    v64[7] = 5;
-    v64[8] = v74;
-    v64[4] = &v65;
-    v64[9] = &v69;
-    v64[10] = v30;
-    [pathCopy enumerateElementsUsingBlock:v64];
-    v32 = *(&v69 + v66[3]);
+    v68[0] = _NSConcreteStackBlock;
+    v68[1] = 3221225472;
+    v68[2] = sub_1DD08;
+    v68[3] = &unk_5D970;
+    *&v68[5] = v13;
+    *&v68[6] = v66;
+    v68[7] = 5;
+    v68[8] = v78;
+    v68[4] = &v69;
+    v68[9] = &v73;
+    v68[10] = v34;
+    [pathCopy enumerateElementsUsingBlock:v68];
+    v36 = *(&v73 + v70[3]);
     Count = AXCArrayGetCount();
     if (Count)
     {
-      v34 = 0;
+      v38 = 0;
       for (i = 0; i != Count; ++i)
       {
         if (i >= AXCArrayGetCount())
@@ -137,42 +137,42 @@
           _AXAssert();
         }
 
-        v63 = *(_AXCArrayGetUnderlyingArray() + v34);
-        v36 = AXCArrayGetCount();
+        v67 = *(_AXCArrayGetUnderlyingArray() + v38);
+        v40 = AXCArrayGetCount();
         _AXCArrayPrepareForInsertingElementAtIndex();
-        *(_AXCArrayGetUnderlyingArray() + 16 * v36) = v63;
-        v34 += 16;
+        *(_AXCArrayGetUnderlyingArray() + 16 * v40) = v67;
+        v38 += 16;
       }
     }
 
-    if (v32)
+    if (v36)
     {
-      CFRelease(v32);
+      CFRelease(v36);
     }
 
-    v37 = 0;
-    v38 = v66[3];
-    *(&v69 + v38) = v31;
+    v41 = 0;
+    v42 = v70[3];
+    *(&v73 + v42) = v35;
     do
     {
-      if (v38 == qword_42000[v37])
+      if (v42 == qword_42000[v41])
       {
         goto LABEL_19;
       }
 
-      ++v37;
+      ++v41;
     }
 
-    while (v37 != 4);
-    LOBYTE(v37) = 0;
+    while (v41 != 4);
+    LOBYTE(v41) = 0;
 LABEL_19:
-    v31 = 0;
-    v39 = 0;
+    v35 = 0;
+    v43 = 0;
     while (1)
     {
-      v40 = qword_42000[(v39 + v37) & 3];
-      v41 = AXCArrayGetCount();
-      if (v41)
+      v44 = qword_42000[(v43 + v41) & 3];
+      v45 = AXCArrayGetCount();
+      if (v45)
       {
         if (!AXCArrayGetCount())
         {
@@ -181,103 +181,103 @@ LABEL_19:
         }
 
         _AXCArrayGetUnderlyingArray();
-        v42 = v73;
-        v43 = 4;
+        v46 = v77;
+        v47 = 4;
         do
         {
-          if (v40 == *v42)
+          if (v44 == *v46)
           {
             break;
           }
 
-          v42 += 5;
-          --v43;
+          v46 += 5;
+          --v47;
         }
 
-        while (v43);
+        while (v47);
         AX_CGPointGetDistanceToPoint();
         AX_CGPointGetDistanceToPoint();
         AX_CGPointGetDistanceToPoint();
-        v45 = v44;
-        if (v44 > 0.0)
+        v49 = v48;
+        if (v48 > 0.0)
         {
-          v46 = 0;
-          v47 = 0;
+          v50 = 0;
+          v51 = 0;
           while (1)
           {
-            if (v47 >= AXCArrayGetCount())
+            if (v51 >= AXCArrayGetCount())
             {
               AXCArrayGetCount();
               _AXAssert();
             }
 
             UnderlyingArray = _AXCArrayGetUnderlyingArray();
-            v49 = *(UnderlyingArray + v46);
-            v50 = *(UnderlyingArray + v46 + 8);
+            v53 = *(UnderlyingArray + v50);
+            v54 = *(UnderlyingArray + v50 + 8);
             AX_CGPointGetDistanceToPoint();
-            v52 = v51;
-            if (!v31)
+            v56 = v55;
+            if (!v35)
             {
-              v31 = AXCArrayCreate();
-              if (!v31)
+              v35 = AXCArrayCreate();
+              if (!v35)
               {
                 goto LABEL_41;
               }
             }
 
-            v53 = AXCArrayGetCount();
+            v57 = AXCArrayGetCount();
             _AXCArrayPrepareForInsertingElementAtIndex();
-            v54 = _AXCArrayGetUnderlyingArray() + 32 * v53;
-            *v54 = v49;
-            *(v54 + 8) = v50;
-            ++v47;
-            *(v54 + 16) = v40;
-            *(v54 + 24) = v52 / v45;
-            v46 += 16;
-            if (v47 >= v41)
+            v58 = _AXCArrayGetUnderlyingArray() + 32 * v57;
+            *v58 = v53;
+            *(v58 + 8) = v54;
+            ++v51;
+            *(v58 + 16) = v44;
+            *(v58 + 24) = v56 / v49;
+            v50 += 16;
+            if (v51 >= v45)
             {
               goto LABEL_35;
             }
           }
         }
 
-        if (v31)
+        if (v35)
         {
-          CFRelease(v31);
+          CFRelease(v35);
           goto LABEL_40;
         }
       }
 
 LABEL_35:
-      if (v39++ > 2)
+      if (v43++ > 2)
       {
         goto LABEL_41;
       }
     }
   }
 
-  if (v30)
+  if (v34)
   {
-    CFRelease(v30);
+    CFRelease(v34);
 LABEL_40:
-    v31 = 0;
+    v35 = 0;
   }
 
 LABEL_41:
   for (j = 0; j != 4; ++j)
   {
-    v57 = qword_42000[j];
-    v58 = *(&v69 + v57);
-    if (v58)
+    v61 = qword_42000[j];
+    v62 = *(&v73 + v61);
+    if (v62)
     {
-      CFRelease(v58);
-      *(&v69 + v57) = 0;
+      CFRelease(v62);
+      *(&v73 + v61) = 0;
     }
   }
 
-  _Block_object_dispose(&v65, 8);
+  _Block_object_dispose(&v69, 8);
 
-  return v31;
+  return v35;
 }
 
 + (id)smoothPathForFingerPath:(id)path probabilityOfMatch:(double *)match

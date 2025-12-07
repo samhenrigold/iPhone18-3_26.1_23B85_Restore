@@ -10,7 +10,10 @@
 - (void)presentSetupControllerForPlaceholderMode:(id)mode;
 - (void)setSpecifier:(id)specifier;
 - (void)setupNavigationController:(id)controller createDefaultModeConfigurationForMode:(id)mode;
+- (void)showConfigurationForModeIdentifier:(id)identifier animate:(BOOL)animate;
+- (void)viewDidAppear:(BOOL)appear;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation FCUISettingsListController
@@ -63,6 +66,38 @@
     v15 = NSStringFromSelector("shouldPresentSetupFlow");
     [(FCUISettingsDeferredURLState *)deferredURLState addObserver:self forKeyPath:v15 options:1 context:&off_20F70];
   }
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v7.receiver = self;
+  v7.super_class = FCUISettingsListController;
+  [(FCUISettingsListController *)&v7 viewDidAppear:appear];
+  deferredURLState = self->_deferredURLState;
+  if (deferredURLState)
+  {
+    if ([(FCUISettingsDeferredURLState *)deferredURLState shouldPresentSetupFlow])
+    {
+      view = [(FCUISettingsListController *)self view];
+      window = [view window];
+
+      if (window)
+      {
+        [(FCUISettingsListController *)self _processSetupFlowRequest];
+      }
+    }
+  }
+
+  [(FCUISettingsListController *)self emitNavigationEvent];
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v5.receiver = self;
+  v5.super_class = FCUISettingsListController;
+  [(FCUISettingsListController *)&v5 viewWillAppear:appear];
+  specifierDataSource = [(FCUISettingsListController *)self specifierDataSource];
+  [specifierDataSource reloadSpecifiers];
 }
 
 - (void)handleURL:(id)l withCompletion:(id)completion
@@ -144,6 +179,22 @@
   v11 = [FCUISetupNavigationController setupNavigationControllerForMode:v12];
   [v11 setSetupDelegate:self];
   [(FCUISettingsListController *)self presentViewController:v11 animated:1 completion:0];
+}
+
+- (void)showConfigurationForModeIdentifier:(id)identifier animate:(BOOL)animate
+{
+  animateCopy = animate;
+  v6 = [(FCUISettingsListController *)self specifierForID:identifier];
+  if (v6)
+  {
+    v7 = [(FCUISettingsListController *)self selectSpecifier:v6];
+    if (v7)
+    {
+      [(FCUISettingsListController *)self showController:v7 animate:animateCopy];
+    }
+  }
+
+  _objc_release_x1();
 }
 
 - (void)setupNavigationController:(id)controller createDefaultModeConfigurationForMode:(id)mode

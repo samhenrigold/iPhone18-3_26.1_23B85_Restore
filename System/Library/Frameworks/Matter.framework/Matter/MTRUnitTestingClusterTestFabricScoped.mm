@@ -68,8 +68,8 @@
   fabricSensitiveInt8uList = [(MTRUnitTestingClusterTestFabricScoped *)self fabricSensitiveInt8uList];
   [(MTRUnitTestingClusterTestFabricScoped *)v4 setFabricSensitiveInt8uList:fabricSensitiveInt8uList];
 
-  fabricIndex = [(MTRUnitTestingClusterTestFabricScoped *)self fabricIndex];
-  [(MTRUnitTestingClusterTestFabricScoped *)v4 setFabricIndex:fabricIndex];
+  v12 = objc_msgSend_fabricIndex(self);
+  [(MTRUnitTestingClusterTestFabricScoped *)v4 setFabricIndex:v12];
 
   return v4;
 }

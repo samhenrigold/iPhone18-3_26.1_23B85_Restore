@@ -13,40 +13,40 @@
 
 - (TSDCheckableTableViewCell)initWithReuseIdentifier:(id)identifier showsCheckboxOnRight:(BOOL)right
 {
-  v8.receiver = self;
-  v8.super_class = TSDCheckableTableViewCell;
-  v5 = [(TSDCheckableTableViewCell *)&v8 initWithStyle:0 reuseIdentifier:identifier];
-  v6 = v5;
+  v9.receiver = self;
+  v9.super_class = TSDCheckableTableViewCell;
+  v5 = [(TSDCheckableTableViewCell *)&v9 initWithStyle:0 reuseIdentifier:identifier];
+  v7 = v5;
   if (v5)
   {
     v5->mShowsCheckboxOnRight = right;
     if (!right)
     {
       [-[TSDCheckableTableViewCell imageView](v5 "imageView")];
-      [-[TSDCheckableTableViewCell imageView](v6 "imageView")];
+      [-[TSDCheckableTableViewCell imageView](v7 "imageView")];
     }
   }
 
-  return v6;
+  return v7;
 }
 
 - (TSDCheckableTableViewCell)initWithReuseIdentifier:(id)identifier showsCheckboxOnRight:(BOOL)right style:(int64_t)style
 {
-  v9.receiver = self;
-  v9.super_class = TSDCheckableTableViewCell;
-  v6 = [(TSDCheckableTableViewCell *)&v9 initWithStyle:style reuseIdentifier:identifier];
-  v7 = v6;
+  v10.receiver = self;
+  v10.super_class = TSDCheckableTableViewCell;
+  v6 = [(TSDCheckableTableViewCell *)&v10 initWithStyle:style reuseIdentifier:identifier];
+  v8 = v6;
   if (v6)
   {
     v6->mShowsCheckboxOnRight = right;
     if (!right)
     {
       [-[TSDCheckableTableViewCell imageView](v6 "imageView")];
-      [-[TSDCheckableTableViewCell imageView](v7 "imageView")];
+      [-[TSDCheckableTableViewCell imageView](v8 "imageView")];
     }
   }
 
-  return v7;
+  return v8;
 }
 
 - (void)dealloc

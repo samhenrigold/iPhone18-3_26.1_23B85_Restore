@@ -136,12 +136,12 @@
 
 - (unsigned)RGBAValue
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
+  v5 = 0.0;
   v6 = 0.0;
   v7 = 0.0;
   v8 = 0.0;
-  v9 = 0.0;
-  if (![(WFColor *)self getRed:&v9 green:&v8 blue:&v7 alpha:&v6])
+  if (![(WFColor *)self getRed:&v8 green:&v7 blue:&v6 alpha:&v5])
   {
     v3 = os_log_create("com.apple.shortcuts", "General");
     if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
@@ -152,8 +152,7 @@
     }
   }
 
-  v4 = *MEMORY[0x1E69E9840];
-  return ((v9 * 255.0) << 24) | ((v8 * 255.0) << 16) | ((v7 * 255.0) << 8) | (v6 * 255.0);
+  return ((v8 * 255.0) << 24) | ((v7 * 255.0) << 16) | ((v6 * 255.0) << 8) | (v5 * 255.0);
 }
 
 + (id)workflowGradientPalette
@@ -383,82 +382,78 @@ LABEL_11:
 
 void __51__WFColor_WorkflowPalette__workflowGradientPalette__block_invoke()
 {
-  v18[15] = *MEMORY[0x1E69E9840];
-  v17 = WFWorkflowGradientFromRGBA(3881920767, 3680263423, 3260237823, 3125427711);
-  v18[0] = v17;
-  v16 = WFWorkflowGradientFromRGBA(4035143167, 3950730239, 3226876415, 3008246527);
-  v18[1] = v16;
-  v15 = WFWorkflowGradientFromRGBA(3953481727, 3869068543, 2825198335, 2707297279);
-  v18[2] = v15;
-  v14 = WFWorkflowGradientFromRGBA(4038803711, 3736876031, 2827687423, 2238516735);
-  v18[3] = v14;
-  v13 = WFWorkflowGradientFromRGBA(1707237887, 1488475391, 997931519, 930821375);
-  v18[4] = v13;
+  v17[15] = *MEMORY[0x1E69E9840];
+  v16 = WFWorkflowGradientFromRGBA(3881920767, 3680263423, 3260237823, 3125427711);
+  v17[0] = v16;
+  v15 = WFWorkflowGradientFromRGBA(4035143167, 3950730239, 3226876415, 3008246527);
+  v17[1] = v15;
+  v14 = WFWorkflowGradientFromRGBA(3953481727, 3869068543, 2825198335, 2707297279);
+  v17[2] = v14;
+  v13 = WFWorkflowGradientFromRGBA(4038803711, 3736876031, 2827687423, 2238516735);
+  v17[3] = v13;
+  v12 = WFWorkflowGradientFromRGBA(1707237887, 1488475391, 997931519, 930821375);
+  v17[4] = v12;
   v0 = WFWorkflowGradientFromRGBA(717727999, 650093055, 343237119, 258890751);
-  v18[5] = v0;
+  v17[5] = v0;
   v1 = WFWorkflowGradientFromRGBA(1051521279, 1992222463, 224894975, 106729983);
-  v18[6] = v1;
+  v17[6] = v1;
   v2 = WFWorkflowGradientFromRGBA(998242303, 998438911, 406836735, 1520105727);
-  v18[7] = v2;
+  v17[7] = v2;
   v3 = WFWorkflowGradientFromRGBA(1113307391, 1113307391, 224894975, 106729983);
-  v18[8] = v3;
+  v17[8] = v3;
   v4 = WFWorkflowGradientFromRGBA(2018359551, 1816373503, 1412728319, 1244623871);
-  v18[9] = v4;
+  v17[9] = v4;
   v5 = WFWorkflowGradientFromRGBA(2893339903, 2674380799, 2119996671, 1850574335);
-  v18[10] = v5;
+  v17[10] = v5;
   v6 = WFWorkflowGradientFromRGBA(3867791103, 3648635135, 2992140543, 2705809407);
-  v18[11] = v6;
+  v17[11] = v6;
   v7 = WFWorkflowGradientFromRGBA(2156499967, 2038598911, 1600548607, 1364878335);
-  v18[12] = v7;
+  v17[12] = v7;
   v8 = WFWorkflowGradientFromRGBA(2376241151, 2376241151, 1954379007, 1752393983);
-  v18[13] = v8;
+  v17[13] = v8;
   v9 = WFWorkflowGradientFromRGBA(2727046911, 2946071807, 2138534911, 2154983167);
-  v18[14] = v9;
-  v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v18 count:15];
+  v17[14] = v9;
+  v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v17 count:15];
   v11 = workflowGradientPalette_workflowGradientPalette;
   workflowGradientPalette_workflowGradientPalette = v10;
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 void __43__WFColor_WorkflowPalette__workflowPalette__block_invoke()
 {
-  v18[15] = *MEMORY[0x1E69E9840];
-  v17 = [WFColor colorWithRGBAValue:4282601983];
-  v18[0] = v17;
-  v16 = [WFColor colorWithRGBAValue:4251333119];
-  v18[1] = v16;
-  v15 = [WFColor colorWithRGBAValue:4271458815];
-  v18[2] = v15;
-  v14 = [WFColor colorWithRGBAValue:4274264319];
-  v18[3] = v14;
-  v13 = [WFColor colorWithRGBAValue:4292093695];
-  v18[4] = v13;
+  v17[15] = *MEMORY[0x1E69E9840];
+  v16 = [WFColor colorWithRGBAValue:4282601983];
+  v17[0] = v16;
+  v15 = [WFColor colorWithRGBAValue:4251333119];
+  v17[1] = v15;
+  v14 = [WFColor colorWithRGBAValue:4271458815];
+  v17[2] = v14;
+  v13 = [WFColor colorWithRGBAValue:4274264319];
+  v17[3] = v13;
+  v12 = [WFColor colorWithRGBAValue:4292093695];
+  v17[4] = v12;
   v0 = [WFColor colorWithRGBAValue:431817727];
-  v18[5] = v0;
+  v17[5] = v0;
   v1 = [WFColor colorWithRGBAValue:1440408063];
-  v18[6] = v1;
+  v17[6] = v1;
   v2 = [WFColor colorWithRGBAValue:463140863];
-  v18[7] = v2;
+  v17[7] = v2;
   v3 = [WFColor colorWithRGBAValue:946986751];
-  v18[8] = v3;
+  v17[8] = v3;
   v4 = [WFColor colorWithRGBAValue:2071128575];
-  v18[9] = v4;
+  v17[9] = v4;
   v5 = [WFColor colorWithRGBAValue:3679049983];
-  v18[10] = v5;
+  v17[10] = v5;
   v6 = [WFColor colorWithRGBAValue:3980825855];
-  v18[11] = v6;
+  v17[11] = v6;
   v7 = [WFColor colorWithRGBAValue:255];
-  v18[12] = v7;
+  v17[12] = v7;
   v8 = [WFColor colorWithRGBAValue:3031607807];
-  v18[13] = v8;
+  v17[13] = v8;
   v9 = [WFColor colorWithRGBAValue:2846468607];
-  v18[14] = v9;
-  v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v18 count:15];
+  v17[14] = v9;
+  v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v17 count:15];
   v11 = workflowPalette_workflowPalette;
   workflowPalette_workflowPalette = v10;
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 + (id)workflowPalette
@@ -540,44 +535,42 @@ LABEL_8:
 
 void __72__WFColor_WorkflowPalette__paletteGradientFallingBackToDefaultGradient___block_invoke()
 {
-  v4[16] = *MEMORY[0x1E69E9840];
-  v3[0] = &unk_1F2930D68;
-  v3[1] = &unk_1F2930D98;
-  v4[0] = &unk_1F2930D80;
-  v4[1] = &unk_1F2930DB0;
-  v3[2] = &unk_1F2930DC8;
-  v3[3] = &unk_1F2930DF8;
-  v4[2] = &unk_1F2930DE0;
-  v4[3] = &unk_1F2930E10;
-  v3[4] = &unk_1F2930E28;
-  v3[5] = &unk_1F2930E58;
-  v4[4] = &unk_1F2930E40;
-  v4[5] = &unk_1F2930E70;
-  v3[6] = &unk_1F2930E88;
-  v3[7] = &unk_1F2930EA0;
-  v4[6] = &unk_1F2930E70;
-  v4[7] = &unk_1F2930EB8;
-  v3[8] = &unk_1F2930ED0;
-  v3[9] = &unk_1F2930F00;
-  v4[8] = &unk_1F2930EE8;
-  v4[9] = &unk_1F2930F18;
-  v3[10] = &unk_1F2930F30;
-  v3[11] = &unk_1F2930F60;
-  v4[10] = &unk_1F2930F48;
-  v4[11] = &unk_1F2930F78;
-  v3[12] = &unk_1F2930F90;
-  v3[13] = &unk_1F2930FC0;
-  v4[12] = &unk_1F2930FA8;
-  v4[13] = &unk_1F2930FD8;
-  v3[14] = &unk_1F2930FF0;
-  v3[15] = &unk_1F2931020;
-  v4[14] = &unk_1F2931008;
-  v4[15] = &unk_1F2931038;
-  v0 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v4 forKeys:v3 count:16];
+  v3[16] = *MEMORY[0x1E69E9840];
+  v2[0] = &unk_1F2930D68;
+  v2[1] = &unk_1F2930D98;
+  v3[0] = &unk_1F2930D80;
+  v3[1] = &unk_1F2930DB0;
+  v2[2] = &unk_1F2930DC8;
+  v2[3] = &unk_1F2930DF8;
+  v3[2] = &unk_1F2930DE0;
+  v3[3] = &unk_1F2930E10;
+  v2[4] = &unk_1F2930E28;
+  v2[5] = &unk_1F2930E58;
+  v3[4] = &unk_1F2930E40;
+  v3[5] = &unk_1F2930E70;
+  v2[6] = &unk_1F2930E88;
+  v2[7] = &unk_1F2930EA0;
+  v3[6] = &unk_1F2930E70;
+  v3[7] = &unk_1F2930EB8;
+  v2[8] = &unk_1F2930ED0;
+  v2[9] = &unk_1F2930F00;
+  v3[8] = &unk_1F2930EE8;
+  v3[9] = &unk_1F2930F18;
+  v2[10] = &unk_1F2930F30;
+  v2[11] = &unk_1F2930F60;
+  v3[10] = &unk_1F2930F48;
+  v3[11] = &unk_1F2930F78;
+  v2[12] = &unk_1F2930F90;
+  v2[13] = &unk_1F2930FC0;
+  v3[12] = &unk_1F2930FA8;
+  v3[13] = &unk_1F2930FD8;
+  v2[14] = &unk_1F2930FF0;
+  v2[15] = &unk_1F2931020;
+  v3[14] = &unk_1F2931008;
+  v3[15] = &unk_1F2931038;
+  v0 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v3 forKeys:v2 count:16];
   v1 = paletteGradientFallingBackToDefaultGradient__colorToGradientIndexMapping;
   paletteGradientFallingBackToDefaultGradient__colorToGradientIndexMapping = v0;
-
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 + (WFColor)colorWithPaletteColor:(unint64_t)color
@@ -590,47 +583,45 @@ void __72__WFColor_WorkflowPalette__paletteGradientFallingBackToDefaultGradient_
 
 + (id)workflowPaletteNames
 {
-  v20[15] = *MEMORY[0x1E69E9840];
-  v19 = WFLocalizedString(@"Red");
-  v20[0] = v19;
-  v18 = WFLocalizedString(@"Orange");
-  v20[1] = v18;
-  v17 = WFLocalizedString(@"Tangerine");
-  v20[2] = v17;
-  v16 = WFLocalizedString(@"Yellow");
-  v20[3] = v16;
-  v15 = WFLocalizedString(@"Lime");
-  v20[4] = v15;
-  v14 = WFLocalizedString(@"Teal");
-  v20[5] = v14;
+  v19[15] = *MEMORY[0x1E69E9840];
+  v18 = WFLocalizedString(@"Red");
+  v19[0] = v18;
+  v17 = WFLocalizedString(@"Orange");
+  v19[1] = v17;
+  v16 = WFLocalizedString(@"Tangerine");
+  v19[2] = v16;
+  v15 = WFLocalizedString(@"Yellow");
+  v19[3] = v15;
+  v14 = WFLocalizedString(@"Lime");
+  v19[4] = v14;
+  v13 = WFLocalizedString(@"Teal");
+  v19[5] = v13;
   v2 = WFLocalizedString(@"Cyan");
-  v20[6] = v2;
+  v19[6] = v2;
   v3 = WFLocalizedString(@"Blue");
-  v20[7] = v3;
+  v19[7] = v3;
   v4 = WFLocalizedString(@"Navy");
-  v20[8] = v4;
+  v19[8] = v4;
   v5 = WFLocalizedString(@"Grape");
-  v20[9] = v5;
+  v19[9] = v5;
   v6 = WFLocalizedString(@"Purple");
-  v20[10] = v6;
+  v19[10] = v6;
   v7 = WFLocalizedString(@"Pink");
-  v20[11] = v7;
+  v19[11] = v7;
   v8 = WFLocalizedString(@"Gray Blue");
-  v20[12] = v8;
+  v19[12] = v8;
   v9 = WFLocalizedString(@"Gray Green");
-  v20[13] = v9;
+  v19[13] = v9;
   v10 = WFLocalizedString(@"Gray Brown");
-  v20[14] = v10;
-  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v20 count:15];
-
-  v12 = *MEMORY[0x1E69E9840];
+  v19[14] = v10;
+  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v19 count:15];
 
   return v11;
 }
 
 - (void)encodeWithCoder:(id)coder
 {
-  v19[1] = *MEMORY[0x1E69E9840];
+  v18[1] = *MEMORY[0x1E69E9840];
   coderCopy = coder;
   [coderCopy encodeInteger:-[WFColor representationType](self forKey:{"representationType"), @"representationType"}];
   representationType = [(WFColor *)self representationType];
@@ -654,31 +645,29 @@ void __72__WFColor_WorkflowPalette__paletteGradientFallingBackToDefaultGradient_
 
   else
   {
-    v16 = 0.0;
-    v17 = 0.0;
-    v14 = 0.0;
     v15 = 0.0;
-    if ([(WFColor *)self getRed:&v17 green:&v16 blue:&v15 alpha:&v14])
+    v16 = 0.0;
+    v13 = 0.0;
+    v14 = 0.0;
+    if ([(WFColor *)self getRed:&v16 green:&v15 blue:&v14 alpha:&v13])
     {
-      [coderCopy encodeDouble:@"redComponent" forKey:v17];
-      [coderCopy encodeDouble:@"greenComponent" forKey:v16];
-      [coderCopy encodeDouble:@"blueComponent" forKey:v15];
-      [coderCopy encodeDouble:@"alphaComponent" forKey:v14];
+      [coderCopy encodeDouble:@"redComponent" forKey:v16];
+      [coderCopy encodeDouble:@"greenComponent" forKey:v15];
+      [coderCopy encodeDouble:@"blueComponent" forKey:v14];
+      [coderCopy encodeDouble:@"alphaComponent" forKey:v13];
     }
 
     else
     {
       v9 = MEMORY[0x1E696ABC0];
       v10 = WFColorErrorDomain;
-      v18 = *MEMORY[0x1E696A578];
-      v19[0] = @"Unable to convert color to RGB color space for serialization";
-      v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v19 forKeys:&v18 count:1];
+      v17 = *MEMORY[0x1E696A578];
+      v18[0] = @"Unable to convert color to RGB color space for serialization";
+      v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v18 forKeys:&v17 count:1];
       v12 = [v9 errorWithDomain:v10 code:1 userInfo:v11];
       [coderCopy failWithError:v12];
     }
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (WFColor)initWithCoder:(id)coder
@@ -1103,7 +1092,7 @@ LABEL_17:
 
 - (BOOL)getRed:(double *)red green:(double *)green blue:(double *)blue alpha:(double *)alpha
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   cGColor = [(WFColor *)self CGColor];
   if (cGColor)
   {
@@ -1113,8 +1102,8 @@ LABEL_17:
     ColorSpace = CGColorGetColorSpace(v11);
     if (Components)
     {
+      v24 = 0u;
       v25 = 0u;
-      v26 = 0u;
       v15 = CGColorSpaceGetName(ColorSpace);
       v16 = v15;
       if (v15)
@@ -1149,15 +1138,15 @@ LABEL_17:
         v21 = 0;
 LABEL_21:
 
-        goto LABEL_22;
+        return v21;
       }
 
-      v17 = &v25 + 1;
-      v18 = &v26;
-      *(&v26 + 1) = Alpha;
-      v19 = &v26 + 1;
+      v17 = &v24 + 1;
+      v18 = &v25;
+      *(&v25 + 1) = Alpha;
+      v19 = &v25 + 1;
       CGColorTransformRelease();
-      Components = &v25;
+      Components = &v24;
 LABEL_11:
       if (red)
       {
@@ -1184,10 +1173,7 @@ LABEL_11:
     }
   }
 
-  v21 = 0;
-LABEL_22:
-  v23 = *MEMORY[0x1E69E9840];
-  return v21;
+  return 0;
 }
 
 - (id)description
@@ -1257,7 +1243,7 @@ LABEL_22:
 
 - (WFColor)initWithDisplayP3Red:(double)red green:(double)green blue:(double)blue alpha:(double)alpha
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   v7 = CGColorSpaceCreateWithName(*MEMORY[0x1E695F0B8]);
   v8.f64[0] = red;
   v8.f64[1] = green;
@@ -1266,12 +1252,11 @@ LABEL_22:
   v14.f64[0] = blue;
   v14.f64[1] = alpha;
   *components = vbicq_s8(vbslq_s8(vcgtq_f64(v8, _Q1), _Q1, v8), vcltzq_f64(v8));
-  v24 = vbicq_s8(vbslq_s8(vcgtq_f64(v14, _Q1), _Q1, v14), vcltzq_f64(v14));
+  v23 = vbicq_s8(vbslq_s8(vcgtq_f64(v14, _Q1), _Q1, v14), vcltzq_f64(v14));
   v15 = CGColorCreate(v7, components);
   v16 = [(WFColor *)self initWithCGColor:v15];
   CGColorSpaceRelease(v7);
   CGColorRelease(v15);
-  v17 = *MEMORY[0x1E69E9840];
   return v16;
 }
 
@@ -1299,7 +1284,6 @@ LABEL_22:
   v15 = [(WFColor *)self initWithCGColor:v14];
   CGColorSpaceRelease(v12);
   CGColorRelease(v14);
-  v16 = *MEMORY[0x1E69E9840];
   return v15;
 }
 
@@ -1325,7 +1309,6 @@ LABEL_22:
   v11 = [(WFColor *)self initWithCGColor:v10];
   CGColorSpaceRelease(v8);
   CGColorRelease(v10);
-  v12 = *MEMORY[0x1E69E9840];
   return v11;
 }
 
@@ -1563,7 +1546,7 @@ LABEL_19:
 
 + (WFColor)colorWithFocusColorName:(id)name
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   nameCopy = name;
   if (colorWithFocusColorName__onceToken != -1)
   {
@@ -1582,17 +1565,15 @@ LABEL_19:
     v7 = getWFVoiceShortcutClientLogObject();
     if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
     {
-      v10 = 136315394;
-      v11 = "+[WFColor(Focus) colorWithFocusColorName:]";
-      v12 = 2112;
-      v13 = nameCopy;
-      _os_log_impl(&dword_1B1DE3000, v7, OS_LOG_TYPE_FAULT, "%s Given a Focus color (%@), but we couldn't map it to a WFColor. Are there new Focus colors?", &v10, 0x16u);
+      v9 = 136315394;
+      v10 = "+[WFColor(Focus) colorWithFocusColorName:]";
+      v11 = 2112;
+      v12 = nameCopy;
+      _os_log_impl(&dword_1B1DE3000, v7, OS_LOG_TYPE_FAULT, "%s Given a Focus color (%@), but we couldn't map it to a WFColor. Are there new Focus colors?", &v9, 0x16u);
     }
 
     v6 = 0;
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 
   return v6;
 }
@@ -1619,45 +1600,43 @@ void __42__WFColor_Focus__colorWithFocusColorName___block_invoke()
 
 void __63__WFColor_IconicSymbolUtilities__tintColorForBundleIdentifier___block_invoke()
 {
-  v15[11] = *MEMORY[0x1E69E9840];
-  v14[0] = @"com.apple.mobiletimer";
-  v13 = [WFColor colorWithSystemColor:5];
-  v15[0] = v13;
-  v14[1] = @"com.apple.iBooks";
+  v14[11] = *MEMORY[0x1E69E9840];
+  v13[0] = @"com.apple.mobiletimer";
+  v12 = [WFColor colorWithSystemColor:5];
+  v14[0] = v12;
+  v13[1] = @"com.apple.iBooks";
   v0 = [WFColor colorWithSystemColor:5];
-  v15[1] = v0;
-  v14[2] = @"com.apple.mobilenotes";
+  v14[1] = v0;
+  v13[2] = @"com.apple.mobilenotes";
   v1 = [WFColor colorWithSystemColor:6];
-  v15[2] = v1;
-  v14[3] = @"com.apple.Pages";
+  v14[2] = v1;
+  v13[3] = @"com.apple.Pages";
   v2 = [WFColor colorWithSystemColor:5];
-  v15[3] = v2;
-  v14[4] = @"com.apple.Numbers";
+  v14[3] = v2;
+  v13[4] = @"com.apple.Numbers";
   v3 = [WFColor colorWithSystemColor:3];
-  v15[4] = v3;
-  v14[5] = @"com.apple.Keynote";
+  v14[4] = v3;
+  v13[5] = @"com.apple.Keynote";
   v4 = [WFColor colorWithRed:0.15 green:0.74 blue:1.0 alpha:1.0];
-  v15[5] = v4;
-  v14[6] = @"com.apple.podcasts";
+  v14[5] = v4;
+  v13[6] = @"com.apple.podcasts";
   v5 = [WFColor colorWithSystemColor:8];
-  v15[6] = v5;
-  v14[7] = @"com.apple.mobilephone";
+  v14[6] = v5;
+  v13[7] = @"com.apple.mobilephone";
   v6 = [WFColor colorWithSystemColor:3];
-  v15[7] = v6;
-  v14[8] = @"com.apple.facetime";
+  v14[7] = v6;
+  v13[8] = @"com.apple.facetime";
   v7 = [WFColor colorWithSystemColor:3];
-  v15[8] = v7;
-  v14[9] = @"com.apple.Music";
+  v14[8] = v7;
+  v13[9] = @"com.apple.Music";
   v8 = [WFColor colorWithRed:1.0 green:0.38 blue:0.47 alpha:1.0];
-  v15[9] = v8;
-  v14[10] = @"com.shazam.Shazam";
+  v14[9] = v8;
+  v13[10] = @"com.shazam.Shazam";
   v9 = [WFColor colorWithSystemColor:4];
-  v15[10] = v9;
-  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:v14 count:11];
+  v14[10] = v9;
+  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:v13 count:11];
   v11 = tintColorForBundleIdentifier__bundleIdentifierMapping;
   tintColorForBundleIdentifier__bundleIdentifierMapping = v10;
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 @end

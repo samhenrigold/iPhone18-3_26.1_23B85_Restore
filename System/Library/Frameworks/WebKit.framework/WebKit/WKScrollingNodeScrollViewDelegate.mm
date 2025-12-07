@@ -62,7 +62,7 @@
     v4 = *(m_ptr + 1);
     if (v4)
     {
-      ++*(v4 + 32);
+      ++*(v4 + 8);
       v7 = WTF::dynamic_objc_cast<WKBaseScrollView>(scroll);
       v8 = v7;
       if (v7)
@@ -76,10 +76,10 @@
       v13.y = v11;
       WebCore::FloatPoint::FloatPoint(v14, &v13);
       WebKit::ScrollingTreeScrollingNodeDelegateIOS::scrollViewDidScroll(v4, self->_inUserInteraction, v14[0], v14[1]);
-      v12 = *(v4 + 32);
+      v12 = *(v4 + 8);
       if (v12)
       {
-        *(v4 + 32) = v12 - 1;
+        *(v4 + 8) = v12 - 1;
       }
 
       else
@@ -104,11 +104,11 @@
       {
         WebCore::ScrollingTreeScrollingNodeDelegate::scrollingTree(&v16, v4);
         v5 = v16;
-        WTF::ThreadSafeWeakPtrControlBlock::makeStrongReferenceIfPossible<WebKit::RemoteMediaPlayerManager>(*(v4 + 16), *(v4 + 8), &v17);
+        WTF::ThreadSafeWeakPtrControlBlock::makeStrongReferenceIfPossible<WebKit::RemoteMediaPlayerManager>(&v17, *(v4 + 16), *(v4 + 8));
         v6 = v17;
         v17 = 0;
-        WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebCore::ScrollingTreeNode,(WTF::DestructionThread)0>::deref((v6 + 8), v7);
-        (*(*v5 + 176))(v5, *(v6 + 56), *(v6 + 64));
+        WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebCore::ScrollingTreeNode,(WTF::DestructionThread)0>::deref(v6 + 1, v7);
+        (*(*v5 + 176))(v5, v6[7], v6[8]);
         v9 = v16;
         v16 = 0;
         if (v9)
@@ -119,11 +119,11 @@
 
       WebCore::ScrollingTreeScrollingNodeDelegate::scrollingTree(&v16, v4);
       v10 = v16;
-      WTF::ThreadSafeWeakPtrControlBlock::makeStrongReferenceIfPossible<WebKit::RemoteMediaPlayerManager>(*(v4 + 16), *(v4 + 8), &v17);
+      WTF::ThreadSafeWeakPtrControlBlock::makeStrongReferenceIfPossible<WebKit::RemoteMediaPlayerManager>(&v17, *(v4 + 16), *(v4 + 8));
       v11 = v17;
       v17 = 0;
-      WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebCore::ScrollingTreeNode,(WTF::DestructionThread)0>::deref((v11 + 8), v12);
-      (*(*v10 + 184))(v10, *(v11 + 56), *(v11 + 64));
+      WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebCore::ScrollingTreeNode,(WTF::DestructionThread)0>::deref(v11 + 1, v12);
+      (*(*v10 + 184))(v10, v11[7], v11[8]);
       v14 = v16;
       v16 = 0;
       if (v14)
@@ -193,12 +193,12 @@
         }
       }
 
-      WTF::ThreadSafeWeakPtrControlBlock::makeStrongReferenceIfPossible<WebKit::RemoteMediaPlayerManager>(*(v6 + 16), *(v6 + 8), &v71);
+      WTF::ThreadSafeWeakPtrControlBlock::makeStrongReferenceIfPossible<WebKit::RemoteMediaPlayerManager>(&v71, *(v6 + 16), *(v6 + 8));
       v18 = v71;
       v71 = 0;
       WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebCore::ScrollingTreeNode,(WTF::DestructionThread)0>::deref(v18 + 1, v19);
       v20 = WebCore::ScrollingTreeScrollingNode::currentHorizontalSnapPointIndex(v18);
-      WTF::ThreadSafeWeakPtrControlBlock::makeStrongReferenceIfPossible<WebKit::RemoteMediaPlayerManager>(*(v6 + 16), *(v6 + 8), &v71);
+      WTF::ThreadSafeWeakPtrControlBlock::makeStrongReferenceIfPossible<WebKit::RemoteMediaPlayerManager>(&v71, *(v6 + 16), *(v6 + 8));
       v21 = v71;
       v71 = 0;
       WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebCore::ScrollingTreeNode,(WTF::DestructionThread)0>::deref(v21 + 1, v22);
@@ -223,7 +223,7 @@
         goto LABEL_52;
       }
 
-      WTF::ThreadSafeWeakPtrControlBlock::makeStrongReferenceIfPossible<WebKit::RemoteMediaPlayerManager>(*(v28 + 16), *(v28 + 8), &v71);
+      WTF::ThreadSafeWeakPtrControlBlock::makeStrongReferenceIfPossible<WebKit::RemoteMediaPlayerManager>(&v71, *(v28 + 16), *(v28 + 8));
       v29 = v71;
       v71 = 0;
       WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebCore::ScrollingTreeNode,(WTF::DestructionThread)0>::deref(v29 + 1, v30);
@@ -236,7 +236,7 @@
         v33 = *&v32;
         v71 = v32;
         v72 = v34;
-        WTF::ThreadSafeWeakPtrControlBlock::makeStrongReferenceIfPossible<WebKit::RemoteMediaPlayerManager>(*(v6 + 16), *(v6 + 8), &v75);
+        WTF::ThreadSafeWeakPtrControlBlock::makeStrongReferenceIfPossible<WebKit::RemoteMediaPlayerManager>(&v75, *(v6 + 16), *(v6 + 8));
         v35 = v75;
         v75 = 0;
         WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebCore::ScrollingTreeNode,(WTF::DestructionThread)0>::deref((v35 + 8), v36);
@@ -260,7 +260,7 @@
         v40 = *&v39;
         v71 = v39;
         v72 = v41;
-        WTF::ThreadSafeWeakPtrControlBlock::makeStrongReferenceIfPossible<WebKit::RemoteMediaPlayerManager>(*(v6 + 16), *(v6 + 8), &v75);
+        WTF::ThreadSafeWeakPtrControlBlock::makeStrongReferenceIfPossible<WebKit::RemoteMediaPlayerManager>(&v75, *(v6 + 16), *(v6 + 8));
         v42 = v75;
         v75 = 0;
         WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebCore::ScrollingTreeNode,(WTF::DestructionThread)0>::deref((v42 + 8), v43);
@@ -283,7 +283,7 @@
         JUMPOUT(0x19DDDCEE0);
       }
 
-      WTF::ThreadSafeWeakPtrControlBlock::makeStrongReferenceIfPossible<WebKit::RemoteMediaPlayerManager>(*(v47 + 16), *(v47 + 8), &v71);
+      WTF::ThreadSafeWeakPtrControlBlock::makeStrongReferenceIfPossible<WebKit::RemoteMediaPlayerManager>(&v71, *(v47 + 16), *(v47 + 8));
       v48 = v71;
       v71 = 0;
       WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebCore::ScrollingTreeNode,(WTF::DestructionThread)0>::deref(v48 + 1, v49);
@@ -308,7 +308,7 @@
         JUMPOUT(0x19DDDCF40);
       }
 
-      WTF::ThreadSafeWeakPtrControlBlock::makeStrongReferenceIfPossible<WebKit::RemoteMediaPlayerManager>(*(v52 + 16), *(v52 + 8), &v71);
+      WTF::ThreadSafeWeakPtrControlBlock::makeStrongReferenceIfPossible<WebKit::RemoteMediaPlayerManager>(&v71, *(v52 + 16), *(v52 + 8));
       v53 = v71;
       v71 = 0;
       WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebCore::ScrollingTreeNode,(WTF::DestructionThread)0>::deref(v53 + 1, v54);
@@ -334,12 +334,12 @@ LABEL_35:
         JUMPOUT(0x19DDDCF00);
       }
 
-      WTF::ThreadSafeWeakPtrControlBlock::makeStrongReferenceIfPossible<WebKit::RemoteMediaPlayerManager>(*(v57 + 16), *(v57 + 8), &v71);
+      WTF::ThreadSafeWeakPtrControlBlock::makeStrongReferenceIfPossible<WebKit::RemoteMediaPlayerManager>(&v71, *(v57 + 16), *(v57 + 8));
       v58 = v71;
       v71 = 0;
       WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebCore::ScrollingTreeNode,(WTF::DestructionThread)0>::deref(v58 + 1, v59);
       v60 = WebCore::ScrollingTreeScrollingNode::currentHorizontalSnapPointIndex(v58);
-      WTF::ThreadSafeWeakPtrControlBlock::makeStrongReferenceIfPossible<WebKit::RemoteMediaPlayerManager>(*(v6 + 16), *(v6 + 8), &v71);
+      WTF::ThreadSafeWeakPtrControlBlock::makeStrongReferenceIfPossible<WebKit::RemoteMediaPlayerManager>(&v71, *(v6 + 16), *(v6 + 8));
       v61 = v71;
       v71 = 0;
       WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebCore::ScrollingTreeNode,(WTF::DestructionThread)0>::deref(v61 + 1, v62);
@@ -349,7 +349,7 @@ LABEL_35:
         v64 = v63;
         WebCore::ScrollingTreeScrollingNodeDelegate::scrollingTree(&v75, v6);
         v65 = v75;
-        WTF::ThreadSafeWeakPtrControlBlock::makeStrongReferenceIfPossible<WebKit::RemoteMediaPlayerManager>(*(v6 + 16), *(v6 + 8), &v71);
+        WTF::ThreadSafeWeakPtrControlBlock::makeStrongReferenceIfPossible<WebKit::RemoteMediaPlayerManager>(&v71, *(v6 + 16), *(v6 + 8));
         v66 = v71;
         v71 = 0;
         WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebCore::ScrollingTreeNode,(WTF::DestructionThread)0>::deref(v66 + 1, v67);
@@ -385,8 +385,8 @@ LABEL_52:
     v5 = *(m_ptr + 1);
     if (v5)
     {
-      v7 = *(v5 + 32) + 1;
-      *(v5 + 32) = v7;
+      v7 = *(v5 + 8) + 1;
+      *(v5 + 8) = v7;
       if (self->_inUserInteraction && !decelerate)
       {
         self->_inUserInteraction = 0;
@@ -396,12 +396,12 @@ LABEL_52:
         WebCore::FloatPoint::FloatPoint(v11, &v10);
         WebKit::ScrollingTreeScrollingNodeDelegateIOS::scrollViewDidScroll(v5, self->_inUserInteraction, v11[0], v11[1]);
         WebKit::ScrollingTreeScrollingNodeDelegateIOS::scrollDidEnd(v5);
-        v7 = *(v5 + 32);
+        v7 = *(v5 + 8);
       }
 
       if (v7)
       {
-        *(v5 + 32) = v7 - 1;
+        *(v5 + 8) = v7 - 1;
       }
 
       else
@@ -420,8 +420,8 @@ LABEL_52:
     v4 = *(m_ptr + 1);
     if (v4)
     {
-      v6 = *(v4 + 32) + 1;
-      *(v4 + 32) = v6;
+      v6 = *(v4 + 8) + 1;
+      *(v4 + 8) = v6;
       if (self->_inUserInteraction)
       {
         self->_inUserInteraction = 0;
@@ -431,12 +431,12 @@ LABEL_52:
         WebCore::FloatPoint::FloatPoint(v10, &v9);
         WebKit::ScrollingTreeScrollingNodeDelegateIOS::scrollViewDidScroll(v4, self->_inUserInteraction, v10[0], v10[1]);
         WebKit::ScrollingTreeScrollingNodeDelegateIOS::scrollDidEnd(v4);
-        v6 = *(v4 + 32);
+        v6 = *(v4 + 8);
       }
 
       if (v6)
       {
-        *(v4 + 32) = v6 - 1;
+        *(v4 + 8) = v6 - 1;
       }
 
       else
@@ -621,7 +621,7 @@ LABEL_27:
       v12 = *(v8 + 8);
       if (v12)
       {
-        WebKit::RemoteScrollingCoordinatorProxy::protectedWebPageProxy(v12, &v18);
+        WebKit::RemoteScrollingCoordinatorProxy::protectedWebPageProxy(&v18, v12);
         v13 = v18;
         v14 = *(v18 + 56);
         if (v14)

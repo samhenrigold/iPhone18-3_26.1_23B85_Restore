@@ -374,7 +374,7 @@ uint64_t __76__AVCaptionConversionValidator_validateCaptionConversionWithWarning
         v10 = [v8 _figCaptionData];
         if (v8)
         {
-          [v8 timeRange];
+          objc_msgSend_timeRange(v8);
         }
 
         else
@@ -481,7 +481,7 @@ uint64_t __46__AVCaptionConversionValidator_stopValidating__block_invoke(uint64_
   return v3;
 }
 
-uint64_t __40__AVCaptionConversionValidator_warnings__block_invoke(uint64_t a1)
+void *__40__AVCaptionConversionValidator_warnings__block_invoke(uint64_t a1)
 {
   result = [*(*(*(a1 + 32) + 8) + 96) copy];
   *(*(*(a1 + 40) + 8) + 40) = result;

@@ -12,7 +12,7 @@
   selfCopy = self;
   [v2 removeHeartRhythmAvailabilityObserver_];
   v4.receiver = selfCopy;
-  v4.super_class = type metadata accessor for HeartPromotionAvailability();
+  v4.super_class = type metadata accessor for HeartPromotionAvailability(0);
   [(HeartPromotionAvailability *)&v4 dealloc];
 }
 

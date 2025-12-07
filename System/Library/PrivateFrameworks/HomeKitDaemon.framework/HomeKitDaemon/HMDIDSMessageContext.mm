@@ -18,12 +18,12 @@
     v12 = [(HMDIDSMessageContext *)&v18 init];
     if (v12)
     {
-      v13 = [identifierCopy copy];
+      v13 = objc_msgSend_copy(identifierCopy);
       identifier = v12->_identifier;
       v12->_identifier = v13;
 
       objc_storeStrong(&v12->_destination, destination);
-      v15 = [infoCopy copy];
+      v15 = objc_msgSend_copy(infoCopy);
       userInfo = v12->_userInfo;
       v12->_userInfo = v15;
     }

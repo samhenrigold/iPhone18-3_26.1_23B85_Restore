@@ -1,4 +1,5 @@
 @interface MTLLegacySVComputeCommandEncoder
+- (BOOL)encodeEndDoWhile:(id)while offset:(unint64_t)offset comparison:(unint64_t)comparison referenceValue:(unsigned int)value;
 - (BOOL)encodeEndIf;
 - (BOOL)encodeEndWhile;
 - (MTLLegacySVComputeCommandEncoder)initWithComputeCommandEncoder:(id)encoder commandBuffer:(id)buffer descriptor:(id)descriptor encoderID:(unsigned int)d;
@@ -9,6 +10,8 @@
 - (void)dispatchThreads:(id *)threads threadsPerThreadgroup:(id *)threadgroup;
 - (void)dispatchThreadsWithIndirectBuffer:(id)buffer indirectBufferOffset:(unint64_t)offset;
 - (void)encodeStartDoWhile;
+- (void)encodeStartIf:(id)if offset:(unint64_t)offset comparison:(unint64_t)comparison referenceValue:(unsigned int)value;
+- (void)encodeStartWhile:(id)while offset:(unint64_t)offset comparison:(unint64_t)comparison referenceValue:(unsigned int)value;
 - (void)endEncoding;
 - (void)executeCommandsInBuffer:(id)buffer indirectBuffer:(id)indirectBuffer indirectBufferOffset:(unint64_t)offset;
 - (void)executeCommandsInBuffer:(id)buffer withRange:(_NSRange)range;
@@ -222,7 +225,7 @@
 
 - (void)setComputePipelineStateBuffers:(id)buffers
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   if ((*(&self->_options->var0 + 2) & 0x80) != 0)
   {
     if ([buffers globalConstantsBuffer])
@@ -231,42 +234,41 @@
       -[MTLLegacySVComputeCommandEncoder useResource:usage:](self, "useResource:usage:", [buffers globalConstantsBuffer], 1);
     }
 
-    v19 = 0u;
-    v20 = 0u;
     v17 = 0u;
     v18 = 0u;
+    v15 = 0u;
+    v16 = 0u;
     binaryFunctionData = [buffers binaryFunctionData];
-    v10 = [binaryFunctionData countByEnumeratingWithState:&v17 objects:v21 count:16];
-    if (v10)
+    v9 = [binaryFunctionData countByEnumeratingWithState:&v15 objects:v19 count:16];
+    if (v9)
     {
-      v11 = v10;
-      v12 = *v18;
+      v10 = v9;
+      v11 = *v16;
       do
       {
-        for (i = 0; i != v11; ++i)
+        for (i = 0; i != v10; ++i)
         {
-          if (*v18 != v12)
+          if (*v16 != v11)
           {
             objc_enumerationMutation(binaryFunctionData);
           }
 
-          v14 = *(*(&v17 + 1) + 8 * i);
-          if (*(v14 + 8))
+          v13 = *(*(&v15 + 1) + 8 * i);
+          if (*(v13 + 8))
           {
             [(MTLToolsCommandEncoder *)self addRetainedObject:?];
-            [(MTLLegacySVComputeCommandEncoder *)self useResource:*(v14 + 8) usage:1];
+            [(MTLLegacySVComputeCommandEncoder *)self useResource:*(v13 + 8) usage:1];
           }
         }
 
-        v11 = [binaryFunctionData countByEnumeratingWithState:&v17 objects:v21 count:16];
+        v10 = [binaryFunctionData countByEnumeratingWithState:&v15 objects:v19 count:16];
       }
 
-      while (v11);
+      while (v10);
     }
 
-    v16 = [objc_msgSend(buffers "globalConstantsBuffer")];
-    [(MTLToolsObject *)self->super.super.super._baseObject setBytes:&v16 length:8 atIndex:12];
-    v15 = *MEMORY[0x277D85DE8];
+    v14 = [objc_msgSend(buffers "globalConstantsBuffer")];
+    [(MTLToolsObject *)self->super.super.super._baseObject setBytes:&v14 length:8 atIndex:12];
   }
 
   else
@@ -274,7 +276,6 @@
     baseObject = self->super.super.super._baseObject;
     globalConstantsBuffer = [buffers globalConstantsBuffer];
     constantOffset = [buffers constantOffset];
-    v8 = *MEMORY[0x277D85DE8];
 
     [(MTLToolsObject *)baseObject setBuffer:globalConstantsBuffer offset:constantOffset atIndex:12];
   }
@@ -705,12 +706,50 @@
   *(&self->_commandBufferJumpNestingLevel + 1) = v3 + 1;
 }
 
+- (BOOL)encodeEndDoWhile:(id)while offset:(unint64_t)offset comparison:(unint64_t)comparison referenceValue:(unsigned int)value
+{
+  --*(&self->_commandBufferJumpNestingLevel + 1);
+  v7.receiver = self;
+  v7.super_class = MTLLegacySVComputeCommandEncoder;
+  return [(MTLToolsComputeCommandEncoder *)&v7 encodeEndDoWhile:while offset:offset comparison:comparison referenceValue:*&value];
+}
+
+- (void)encodeStartIf:(id)if offset:(unint64_t)offset comparison:(unint64_t)comparison referenceValue:(unsigned int)value
+{
+  v8.receiver = self;
+  v8.super_class = MTLLegacySVComputeCommandEncoder;
+  [(MTLToolsComputeCommandEncoder *)&v8 encodeStartIf:if offset:offset comparison:comparison referenceValue:*&value];
+  v7 = *(&self->_commandBufferJumpNestingLevel + 1);
+  if (!v7)
+  {
+    RestoreInternalState(self);
+    v7 = *(&self->_commandBufferJumpNestingLevel + 1);
+  }
+
+  *(&self->_commandBufferJumpNestingLevel + 1) = v7 + 1;
+}
+
 - (BOOL)encodeEndIf
 {
   --*(&self->_commandBufferJumpNestingLevel + 1);
   v3.receiver = self;
   v3.super_class = MTLLegacySVComputeCommandEncoder;
   return [(MTLToolsComputeCommandEncoder *)&v3 encodeEndIf];
+}
+
+- (void)encodeStartWhile:(id)while offset:(unint64_t)offset comparison:(unint64_t)comparison referenceValue:(unsigned int)value
+{
+  v8.receiver = self;
+  v8.super_class = MTLLegacySVComputeCommandEncoder;
+  [(MTLToolsComputeCommandEncoder *)&v8 encodeStartWhile:while offset:offset comparison:comparison referenceValue:*&value];
+  v7 = *(&self->_commandBufferJumpNestingLevel + 1);
+  if (!v7)
+  {
+    RestoreInternalState(self);
+    v7 = *(&self->_commandBufferJumpNestingLevel + 1);
+  }
+
+  *(&self->_commandBufferJumpNestingLevel + 1) = v7 + 1;
 }
 
 - (BOOL)encodeEndWhile

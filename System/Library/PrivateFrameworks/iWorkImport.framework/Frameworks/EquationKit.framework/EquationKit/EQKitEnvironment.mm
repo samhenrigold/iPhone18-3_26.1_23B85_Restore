@@ -12,7 +12,7 @@
     return 0;
   }
 
-  return MEMORY[0x2821F9670](EQKitEnvironmentInstance, sel_dataForEnvironment_, environment, v4);
+  return MEMORY[0x2821F9670](EQKitEnvironmentInstance, sel_dataForEnvironment_);
 }
 
 @end

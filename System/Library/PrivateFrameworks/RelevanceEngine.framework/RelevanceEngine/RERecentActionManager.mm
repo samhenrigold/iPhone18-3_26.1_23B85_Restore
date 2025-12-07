@@ -83,7 +83,7 @@
 
 void __57__RERecentActionManager__storePerformAction_date_remote___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v20[1] = *MEMORY[0x277D85DE8];
+  v19[1] = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 48));
   if (WeakRetained)
   {
@@ -105,43 +105,23 @@ void __57__RERecentActionManager__storePerformAction_date_remote___block_invoke(
     [WeakRetained[1] lock];
     v8 = [WeakRetained[2] objectForKeyedSubscript:*(a1 + 40)];
     v9 = v8;
-    if (!v8)
+    if (v8 && (([v8 remote] & 1) == 0 && (*(a1 + 56) & 1) != 0 || (objc_msgSend(v9, "date"), v10 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v6, "date"), v11 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v10, "laterDate:", v11), v12 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v9, "date"), v13 = objc_claimAutoreleasedReturnValue(), v17 = objc_msgSend(v12, "isEqualToDate:", v13), v13, v12, v11, v10, (v17 & 1) != 0)))
     {
-      goto LABEL_10;
-    }
-
-    if ([v8 remote] & 1) == 0 && (*(a1 + 56))
-    {
-      goto LABEL_9;
-    }
-
-    v10 = [v9 date];
-    v11 = [v6 date];
-    v12 = [v10 laterDate:v11];
-    v13 = [v9 date];
-    v18 = [v12 isEqualToDate:v13];
-
-    if (v18)
-    {
-LABEL_9:
       [WeakRetained[1] unlock];
     }
 
     else
     {
-LABEL_10:
       [WeakRetained[2] setObject:v6 forKeyedSubscript:*(a1 + 40)];
       [WeakRetained[1] unlock];
       v14 = [MEMORY[0x277CCAB98] defaultCenter];
       v15 = *(a1 + 40);
-      v19 = @"RERecentActionManagerUpdatedActionKey";
-      v20[0] = v15;
-      v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:&v19 count:1];
+      v18 = @"RERecentActionManagerUpdatedActionKey";
+      v19[0] = v15;
+      v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:&v18 count:1];
       [v14 postNotificationName:@"RERecentActionManagerDidUpdateAction" object:0 userInfo:v16];
     }
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_dataForAction:(id)action

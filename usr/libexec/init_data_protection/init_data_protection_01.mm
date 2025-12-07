@@ -1,3 +1,143 @@
+_BYTE *embeddedtest_escape_json_string(_BYTE *a1, int a2)
+{
+  result = malloc_type_calloc(1uLL, (2 * a2) | 1u, 0x100004077774924uLL);
+  if (!result)
+  {
+    sub_100015854();
+  }
+
+  v4 = result;
+  while (1)
+  {
+    v5 = *a1;
+    if (v5 > 0x21)
+    {
+      if (v5 == 92 || v5 == 34)
+      {
+        *v4 = 92;
+        v4[1] = v5;
+        v4 += 2;
+        goto LABEL_11;
+      }
+
+      goto LABEL_10;
+    }
+
+    if (v5 == 10)
+    {
+      *v4 = 28252;
+      v4 += 2;
+      goto LABEL_11;
+    }
+
+    if (!*a1)
+    {
+      return result;
+    }
+
+LABEL_10:
+    *v4++ = v5;
+LABEL_11:
+    ++a1;
+  }
+}
+
+char *embeddedtest_create_json_string_from_array(void *a1, unsigned int a2, const char *a3, uint64_t (*a4)(void))
+{
+  if (a2)
+  {
+    v7 = 0;
+    v8 = a2;
+    do
+    {
+      v9 = a4(*a1);
+      v10 = v9;
+      if (v7)
+      {
+        v11 = strlen(v7);
+        v12 = v11 + strlen(v10) + 2;
+        v13 = malloc_type_realloc(v7, v12, 0xD5B6415BuLL);
+        if (!v13)
+        {
+          sub_100015890();
+        }
+
+        v7 = v13;
+        snprintf(v13, v12, a3, v13, v10);
+        if (v10)
+        {
+          free(v10);
+        }
+      }
+
+      else
+      {
+        v7 = v9;
+      }
+
+      ++a1;
+      --v8;
+    }
+
+    while (v8);
+    if (v7)
+    {
+      return v7;
+    }
+  }
+
+  return malloc_type_calloc(1uLL, 8uLL, 0x10040436913F5uLL);
+}
+
+uint64_t embeddedtest_results_save_to_file(uint64_t a1, const char *a2)
+{
+  if (!a1)
+  {
+    v9 = "Results object must be provided to save to disk";
+LABEL_9:
+    v10 = 1;
+    goto LABEL_13;
+  }
+
+  if (!a2)
+  {
+    v9 = "Filepath must be provided to save to disk";
+    goto LABEL_9;
+  }
+
+  v3 = embeddedtest_results_copy_json_representation(a1);
+  if (!v3)
+  {
+    sub_1000158CC();
+  }
+
+  v4 = v3;
+  v5 = fopen(a2, "w+");
+  if (v5)
+  {
+    v6 = v5;
+    v7 = fputs(v4, v5);
+    fclose(v6);
+    free(v4);
+    if (v7 > 0)
+    {
+      return 0;
+    }
+
+    v9 = "Unable to write full json to file";
+  }
+
+  else
+  {
+    v9 = "Unable to open requested file";
+  }
+
+  v10 = 4;
+LABEL_13:
+
+  return embeddedtest_error_get_error(v10, v9);
+}
+
 _BYTE *embeddedtest_test_case_result_create(char a1, const char *a2)
 {
   if (a2)
@@ -248,7 +388,7 @@ uint64_t sub_10001086C(uint64_t a1)
   return embeddedtest_error_get_error(2, v2);
 }
 
-uint64_t embeddedtest_test_case_statistic_create(uint64_t a1)
+unsigned __int8 *embeddedtest_test_case_statistic_create(uint64_t a1)
 {
   if (a1)
   {
@@ -428,39 +568,37 @@ void sub_100010BE4(uint64_t a1)
   }
 }
 
-void *embeddedtest_test_case_statistic_copy_json_representation(uint64_t a1)
+void *embeddedtest_test_case_statistic_copy_json_representation(const char **a1)
 {
-  v20 = 0;
-  json_string_from_array = embeddedtest_create_json_string_from_array(*(a1 + 24), *(a1 + 20), "%s,%s", embeddedtest_test_case_statistic_bucket_copy_json_representation);
-  if ((*(a1 + 8) & 0xFE) == 2)
+  v6 = 0;
+  json_string_from_array = embeddedtest_create_json_string_from_array(a1[3], *(a1 + 5), "%s,%s", embeddedtest_test_case_statistic_bucket_copy_json_representation);
+  v3 = json_string_from_array;
+  if ((a1[1] & 0xFE) == 2)
   {
-    v17 = *(a1 + 16);
-    embeddedtest_asprintf(&v20, "{Name:%s,Instances:%d,Buckets:{%s}}", v2, v3, v4, v5, v6, v7, *a1);
-    v9 = json_string_from_array;
-    if (!json_string_from_array)
+    embeddedtest_asprintf(&v6, "{Name:%s,Instances:%d,Buckets:{%s}}", *a1, *(a1 + 4), json_string_from_array);
+    v4 = v3;
+    if (!v3)
     {
-      return v20;
+      return v6;
     }
 
     goto LABEL_7;
   }
 
-  v9 = embeddedtest_create_json_string_from_array(*(a1 + 40), *(a1 + 32), "%s,%s", embeddedtest_test_case_statistic_metric_copy_json_representation);
-  v18 = *(a1 + 16);
-  v19 = *(a1 + 12);
-  embeddedtest_asprintf(&v20, "{Name:%s,Instances:%d,Failure Count:%d,Failure Buckets:{%s},Metrics:[%s]}", v10, v11, v12, v13, v14, v15, *a1);
-  if (json_string_from_array)
+  v4 = embeddedtest_create_json_string_from_array(a1[5], *(a1 + 8), "%s,%s", embeddedtest_test_case_statistic_metric_copy_json_representation);
+  embeddedtest_asprintf(&v6, "{Name:%s,Instances:%d,Failure Count:%d,Failure Buckets:{%s},Metrics:[%s]}", *a1, *(a1 + 4), *(a1 + 3), v3, v4);
+  if (v3)
   {
-    free(json_string_from_array);
+    free(v3);
   }
 
-  if (v9)
+  if (v4)
   {
 LABEL_7:
-    free(v9);
+    free(v4);
   }
 
-  return v20;
+  return v6;
 }
 
 uint64_t embeddedtest_test_case_statistic_add_result(uint64_t a1, uint64_t a2)
@@ -970,8 +1108,8 @@ void *embeddedtest_results_copy_json_representation(uint64_t a1)
   json_string_from_array = embeddedtest_create_json_string_from_array(*(a1 + 16), *(a1 + 24), "%s,%s", embeddedtest_info_pair_copy_json_representation);
   v3 = embeddedtest_create_json_string_from_array(*a1, *(a1 + 8), "%s,%s", embeddedtest_issue_aggregate_copy_json_representation);
   v4 = embeddedtest_create_json_string_from_array(*(a1 + 32), *(a1 + 40), "%s,%s", embeddedtest_test_case_statistic_copy_json_representation);
-  v12 = 0;
-  embeddedtest_asprintf(&v12, "{Info:{%s},Issues:[%s],Test Cases:[%s]}", v5, v6, v7, v8, v9, v10, json_string_from_array);
+  v6 = 0;
+  embeddedtest_asprintf(&v6, "{Info:{%s},Issues:[%s],Test Cases:[%s]}", json_string_from_array, v3, v4);
   if (json_string_from_array)
   {
     free(json_string_from_array);
@@ -987,7 +1125,7 @@ void *embeddedtest_results_copy_json_representation(uint64_t a1)
     free(v4);
   }
 
-  return v12;
+  return v6;
 }
 
 _BYTE *embeddedtest_results_create_from_resume_data(uint64_t a1)
@@ -1196,15 +1334,15 @@ uint64_t embeddedtest_results_add_test_case(uint64_t a1, uint64_t a2)
     embeddedtest_log_error(v4);
     v6 = embeddedtest_issue_create();
     __s1 = 0;
-    embeddedtest_asprintf(&__s1, "Had to drop an instance of %s (%d)", v7, v8, v9, v10, v11, v12, name);
+    embeddedtest_asprintf(&__s1, "Had to drop an instance of %s (%d)", name, v4);
     embeddedtest_issue_set_reason(v6, __s1);
     if (__s1)
     {
       free(__s1);
     }
 
-    v13 = time(0);
-    embeddedtest_issue_set_time(v6, v13);
+    v7 = time(0);
+    embeddedtest_issue_set_time(v6, v7);
     embeddedtest_issue_set_class(v6, 3);
     embeddedtest_issue_set_group(v6, "libembeddedtest");
     embeddedtest_results_add_issue(a1, v6);
@@ -1214,45 +1352,45 @@ uint64_t embeddedtest_results_add_test_case(uint64_t a1, uint64_t a2)
 
   if (*(a1 + 44) == 1 && embeddedtest_test_case_result_is_histogram(a2))
   {
-    v15 = "Unit test results only accept pass fail test cases";
-    v16 = 3;
+    v9 = "Unit test results only accept pass fail test cases";
+    v10 = 3;
 LABEL_12:
 
-    return embeddedtest_error_get_error(v16, v15);
+    return embeddedtest_error_get_error(v10, v9);
   }
 
-  v17 = sub_100011EEC(a1, name);
-  if (!v17)
+  v11 = sub_100011EEC(a1, name);
+  if (!v11)
   {
-    v18 = embeddedtest_test_case_statistic_create(a2);
-    if (!v18)
+    v12 = embeddedtest_test_case_statistic_create(a2);
+    if (!v12)
     {
       sub_100015F5C();
     }
 
-    v19 = v18;
-    v20 = malloc_type_realloc(*(a1 + 32), 8 * (*(a1 + 40) + 1), 0x2004093837F09uLL);
-    *(a1 + 32) = v20;
-    if (!v20)
+    v13 = v12;
+    v14 = malloc_type_realloc(*(a1 + 32), 8 * (*(a1 + 40) + 1), 0x2004093837F09uLL);
+    *(a1 + 32) = v14;
+    if (!v14)
     {
       sub_100015F20();
     }
 
     v4 = 0;
-    v21 = *(a1 + 40);
-    v20[v21] = v19;
-    *(a1 + 40) = v21 + 1;
+    v15 = *(a1 + 40);
+    v14[v15] = v13;
+    *(a1 + 40) = v15 + 1;
     return v4;
   }
 
   if (*(a1 + 44) == 1)
   {
-    v15 = "Unit test results cannot accept two instances of the same test case";
-    v16 = 1;
+    v9 = "Unit test results cannot accept two instances of the same test case";
+    v10 = 1;
     goto LABEL_12;
   }
 
-  return embeddedtest_test_case_statistic_add_result(v17, a2);
+  return embeddedtest_test_case_statistic_add_result(v11, a2);
 }
 
 uint64_t embeddedtest_results_add_issue(uint64_t a1, uint64_t a2)
@@ -1263,15 +1401,15 @@ uint64_t embeddedtest_results_add_issue(uint64_t a1, uint64_t a2)
     v5 = v4;
     v6 = embeddedtest_issue_create();
     __s1 = 0;
-    embeddedtest_asprintf(&__s1, "Had to drop an issue (%d)", v7, v8, v9, v10, v11, v12, v5);
+    embeddedtest_asprintf(&__s1, "Had to drop an issue (%d)", v5);
     embeddedtest_issue_set_reason(v6, __s1);
     if (__s1)
     {
       free(__s1);
     }
 
-    v13 = time(0);
-    embeddedtest_issue_set_time(v6, v13);
+    v7 = time(0);
+    embeddedtest_issue_set_time(v6, v7);
     embeddedtest_issue_set_class(v6, 3);
     embeddedtest_issue_set_group(v6, "libembeddedtest");
     embeddedtest_results_add_issue(a1, v6);
@@ -1279,31 +1417,31 @@ uint64_t embeddedtest_results_add_issue(uint64_t a1, uint64_t a2)
     return v5;
   }
 
-  v15 = sub_100011F5C(a1, a2);
-  if (!v15)
+  v9 = sub_100011F5C(a1, a2);
+  if (!v9)
   {
-    v16 = embeddedtest_issue_aggregate_create(a2);
-    if (!v16)
+    v10 = embeddedtest_issue_aggregate_create(a2);
+    if (!v10)
     {
       sub_100015FD4();
     }
 
-    v17 = v16;
-    v18 = malloc_type_realloc(*a1, 8 * (*(a1 + 8) + 1), 0x2004093837F09uLL);
-    *a1 = v18;
-    if (!v18)
+    v11 = v10;
+    v12 = malloc_type_realloc(*a1, 8 * (*(a1 + 8) + 1), 0x2004093837F09uLL);
+    *a1 = v12;
+    if (!v12)
     {
       sub_100015F98();
     }
 
     v5 = 0;
-    v19 = *(a1 + 8);
-    v18[v19] = v17;
-    *(a1 + 8) = v19 + 1;
+    v13 = *(a1 + 8);
+    v12[v13] = v11;
+    *(a1 + 8) = v13 + 1;
     return v5;
   }
 
-  return embeddedtest_issue_aggregate_merge_with_issue(v15, a2);
+  return embeddedtest_issue_aggregate_merge_with_issue(v9, a2);
 }
 
 uint64_t sub_100011EEC(uint64_t a1, const char *a2)
@@ -1497,7 +1635,7 @@ char *embeddedtest_convert_error_class_to_string(char a1)
   }
 }
 
-uint64_t embeddedtest_issue_set_reason(void **a1, char *__s1)
+uint64_t embeddedtest_issue_set_reason(char **a1, char *__s1)
 {
   if (a1)
   {
@@ -1698,14 +1836,12 @@ void embeddedtest_issue_aggregate_free(void **a1)
   }
 }
 
-void *embeddedtest_issue_aggregate_copy_json_representation(uint64_t *a1)
+void *embeddedtest_issue_aggregate_copy_json_representation(uint64_t a1)
 {
-  embeddedtest_convert_error_class_to_string(*(a1 + 24));
-  v11 = 0;
-  v10 = *(a1 + 2);
-  v9 = *a1;
-  embeddedtest_asprintf(&v11, "{Group:%s,Reason:%s,Class:%s,Count:%d}", v2, v3, v4, v5, v6, v7, a1[2]);
-  return v11;
+  v2 = embeddedtest_convert_error_class_to_string(*(a1 + 24));
+  v4 = 0;
+  embeddedtest_asprintf(&v4, "{Group:%s,Reason:%s,Class:%s,Count:%d}", *(a1 + 16), *a1, v2, *(a1 + 8));
+  return v4;
 }
 
 uint64_t embeddedtest_issue_aggregate_merge_with_issue(uint64_t a1, uint64_t a2)
@@ -1953,18 +2089,17 @@ void embeddedtest_test_case_statistic_bucket_free(void **a1)
 
 void *embeddedtest_test_case_statistic_bucket_copy_json_representation(uint64_t a1)
 {
-  v13 = 0;
+  v6 = 0;
   v2 = *a1;
   v3 = strlen(*a1);
   v4 = embeddedtest_escape_json_string(v2, v3);
-  v12 = *(a1 + 8);
-  embeddedtest_asprintf(&v13, "%s:%d", v5, v6, v7, v8, v9, v10, v4);
+  embeddedtest_asprintf(&v6, "%s:%d", v4, *(a1 + 8));
   if (v4)
   {
     free(v4);
   }
 
-  return v13;
+  return v6;
 }
 
 void *embeddedtest_test_case_statistic_bucket_create_from_buffer(uint64_t a1, _DWORD *a2)
@@ -2104,12 +2239,11 @@ void embeddedtest_info_pair_free(void **a1)
   }
 }
 
-void *embeddedtest_info_pair_copy_json_representation(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void *embeddedtest_info_pair_copy_json_representation(const char **a1)
 {
-  v10 = 0;
-  v9 = a1[1];
-  embeddedtest_asprintf(&v10, "%s:%s", a3, a4, a5, a6, a7, a8, *a1);
-  return v10;
+  v2 = 0;
+  embeddedtest_asprintf(&v2, "%s:%s", *a1, a1[1]);
+  return v2;
 }
 
 char **embeddedtest_info_pair_create_from_buffer(uint64_t a1, _DWORD *a2)
@@ -2130,21 +2264,39 @@ char **embeddedtest_info_pair_create_from_buffer(uint64_t a1, _DWORD *a2)
   return v6;
 }
 
-uint64_t sub_10001309C(uint64_t a1, _BYTE *a2)
+uint64_t sub_10001309C(uint64_t a1, BOOL *a2)
 {
   result = 0;
   if (a1 && a2)
   {
-    if (Img4DecodePayloadPropertiesExists(a1))
+    v7 = -86;
+    if (!Img4DecodePayloadPropertiesExists(a1, &v7))
     {
-      return 0;
+      if (v7 != 1)
+      {
+        *a2 = 0;
+        return 1;
+      }
+
+      Img4DecodePayloadPropertyExistsByTag(a1, 0xE000000072646467, a2);
+      if (v5 == 1)
+      {
+        v6 = 0;
+        goto LABEL_10;
+      }
+
+      if (!v5)
+      {
+        v6 = 1;
+LABEL_10:
+        *a2 = v6;
+        return 1;
+      }
+
+      fprintf(__stderrp, "Img4DecodePayloadPropertyExistsByTag('rddg') returned %d\n", v5);
     }
 
-    else
-    {
-      *a2 = 0;
-      return 1;
-    }
+    return 0;
   }
 
   return result;
@@ -2455,7 +2607,7 @@ uint64_t DERImg4DecodePayloadCompression(uint64_t a1, uint64_t a2)
   return result;
 }
 
-uint64_t DERImg4DecodePayloadWithProperties(uint64_t a1, unint64_t a2)
+uint64_t DERImg4DecodePayloadWithProperties(uint64_t a1, void *a2)
 {
   result = 6;
   if (a1)
@@ -2470,10 +2622,10 @@ uint64_t DERImg4DecodePayloadWithProperties(uint64_t a1, unint64_t a2)
           return 2;
         }
 
-        else if (!*(a2 + 80) || (sub_10000E2EC(), result = DERImg4DecodePayloadCompression(v7, v8), !result))
+        else if (!a2[10] || (sub_10000E2EC(), result = DERImg4DecodePayloadCompression(v7, v8), !result))
         {
-          v6 = *(a2 + 96);
-          v5 = a2 + 96;
+          v6 = a2[12];
+          v5 = a2 + 12;
           if (!v6)
           {
             return 0;
@@ -2525,7 +2677,7 @@ uint64_t DERImg4DecodePayloadProperties(uint64_t result, _OWORD *a2)
   return result;
 }
 
-uint64_t DERImg4DecodePayload(uint64_t a1, unint64_t a2)
+uint64_t DERImg4DecodePayload(uint64_t a1, _OWORD *a2)
 {
   result = 6;
   if (a1 && a2)
@@ -2544,8 +2696,8 @@ uint64_t DERImg4DecodePayload(uint64_t a1, unint64_t a2)
 
         else
         {
-          v6 = *(a2 + 80);
-          v5 = a2 + 80;
+          v6 = *(a2 + 10);
+          v5 = a2 + 5;
           if (!v6)
           {
             return 0;
@@ -2565,13 +2717,13 @@ uint64_t DERImg4DecodePayload(uint64_t a1, unint64_t a2)
     {
       v7 = v11[1];
       *a2 = v11[0];
-      *(a2 + 16) = v7;
+      a2[1] = v7;
       v8 = v11[3];
-      *(a2 + 32) = v11[2];
-      *(a2 + 48) = v8;
+      a2[2] = v11[2];
+      a2[3] = v8;
       v9 = v11[5];
-      *(a2 + 64) = v11[4];
-      *(a2 + 80) = v9;
+      a2[4] = v11[4];
+      a2[5] = v9;
     }
   }
 
@@ -2610,7 +2762,7 @@ uint64_t DERImg4DecodeRestoreInfo(uint64_t result, _OWORD *a2)
   return result;
 }
 
-uint64_t DERImg4DecodePropertyWithItem(uint64_t a1, uint64_t a2, unint64_t a3, unint64_t a4)
+uint64_t DERImg4DecodePropertyWithItem(uint64_t a1, uint64_t a2, unint64_t a3, void *a4)
 {
   v8 = 0;
   v9[0] = 0;
@@ -2627,8 +2779,8 @@ uint64_t DERImg4DecodePropertyWithItem(uint64_t a1, uint64_t a2, unint64_t a3, u
       if ((v8 | 0xE000000000000000) == a2)
       {
         result = 0;
-        *(a4 + 16) = a2 | 0xE000000000000000;
-        *(a4 + 40) = a3;
+        a4[2] = a2 | 0xE000000000000000;
+        a4[5] = a3;
       }
 
       else
@@ -2641,7 +2793,7 @@ uint64_t DERImg4DecodePropertyWithItem(uint64_t a1, uint64_t a2, unint64_t a3, u
   return result;
 }
 
-unint64_t *DERImg4DecodeFindProperty(unint64_t *a1, uint64_t a2, unint64_t a3, unint64_t a4)
+unint64_t *DERImg4DecodeFindProperty(unint64_t *a1, uint64_t a2, unint64_t a3, void *a4)
 {
   v8[0] = 0;
   v8[1] = 0;
@@ -2654,25 +2806,25 @@ unint64_t *DERImg4DecodeFindProperty(unint64_t *a1, uint64_t a2, unint64_t a3, u
   return result;
 }
 
-uint64_t Img4DecodePayloadPropertiesExists(uint64_t a1)
+uint64_t Img4DecodePayloadPropertiesExists(uint64_t a1, uint64_t a2)
 {
   if (!a1)
   {
     return 6;
   }
 
-  sub_10000E93C(a1);
+  sub_10000E93C(a1, a2);
   result = 6;
-  if (v1)
+  if (v2)
   {
-    v5 = *(v2 + 8);
-    v4 = v2 + 8;
-    if (v5)
+    v6 = *(v3 + 8);
+    v5 = v3 + 8;
+    if (v6)
     {
-      result = DERImg4DecodePayloadWithProperties(v4, v6);
+      result = DERImg4DecodePayloadWithProperties(v5, v7);
       if (!result)
       {
-        *v1 = v7 != 0;
+        *v2 = v7[12] != 0;
       }
     }
   }
@@ -2820,7 +2972,7 @@ uint64_t Img4DecodeComputeDigest(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t
   return result;
 }
 
-uint64_t SEPART_decode(uint64_t *a1, void *a2, void *a3, uint64_t *a4, uint64_t a5)
+uint64_t SEPART_decode(uint64_t *a1, void *a2, void *a3, uint64_t *a4, uint64_t a5, uint64_t a6)
 {
   if (!a5)
   {
@@ -2834,9 +2986,9 @@ uint64_t SEPART_decode(uint64_t *a1, void *a2, void *a3, uint64_t *a4, uint64_t 
   {
     *a2 = 0;
     *a3 = 0;
-    v10 = ccder_decode_tl();
-    *a4 = v10;
-    return v10 + *a3;
+    v11 = ccder_decode_tl();
+    *a4 = v11;
+    return v11 + *a3;
   }
 
   return result;

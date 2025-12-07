@@ -58,7 +58,6 @@
 - (void)sizeLayer:(id)layer toFitAtScale:(double)scale
 {
   layerCopy = layer;
-  baseStyle = self->_baseStyle;
   if (objc_opt_respondsToSelector())
   {
     [(BKDisplayAnnotationStyle *)self->_baseStyle sizeLayer:layerCopy toFitAtScale:scale];

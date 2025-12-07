@@ -7,6 +7,7 @@
 - (void)close;
 - (void)dealloc;
 - (void)finishDocument;
+- (void)finishWithOrgApacheLuceneIndexFieldInfos:(id)infos withInt:(int)int;
 - (void)writeFieldWithOrgApacheLuceneIndexFieldInfo:(id)info withOrgApacheLuceneIndexIndexableField:(id)field;
 @end
 
@@ -17,7 +18,7 @@
   indexWriter = self->indexWriter_;
   v5[0] = self->fieldsStream_;
   v5[1] = indexWriter;
-  v4 = [IOSObjectArray arrayWithObjects:v5 count:2 type:JavaIoCloseable_class_()];
+  v4 = [IOSObjectArray arrayWithObjects:v5 count:2 type:JavaIoCloseable_class_(self, a2)];
   OrgApacheLuceneUtilIOUtils_closeWithJavaIoCloseableArray_(v4);
   JreStrongAssign(&self->fieldsStream_, 0);
   JreStrongAssign(&self->indexWriter_, 0);
@@ -94,28 +95,28 @@ LABEL_16:
 
 - (id)flush
 {
-  v1 = *(self + 24);
+  v1 = *(result + 24);
   if (!v1)
   {
     goto LABEL_26;
   }
 
-  v3 = *(self + 32);
+  v3 = *(result + 32);
   if (!v3)
   {
     goto LABEL_26;
   }
 
-  [v1 writeIndexWithInt:*(self + 92) withLong:{objc_msgSend(v3, "getFilePointer")}];
-  v4 = *(self + 80);
-  v5 = *(self + 92);
+  [v1 writeIndexWithInt:*(result + 92) withLong:{objc_msgSend(v3, "getFilePointer")}];
+  v4 = *(result + 80);
+  v5 = *(result + 92);
   v6 = (v5 - 1);
   if (v6 >= 1)
   {
     v7 = (v5 - 2);
     while (1)
     {
-      v8 = *(self + 80);
+      v8 = *(result + 80);
       if (!v8)
       {
         break;
@@ -144,7 +145,7 @@ LABEL_16:
         IOSArray_throwOutOfBoundsWithMsg(v11, v6);
       }
 
-      *(v4 + 12 + 4 * v6) = v10 - *(*(self + 80) + 12 + 4 * v7);
+      *(v4 + 12 + 4 * v6) = v10 - *(*(result + 80) + 12 + 4 * v7);
       v7 = (v7 - 1);
       if (v6-- <= 1)
       {
@@ -157,44 +158,44 @@ LABEL_26:
   }
 
 LABEL_16:
-  v13 = *(self + 64);
+  v13 = *(result + 64);
   if (!v13)
   {
     goto LABEL_26;
   }
 
   v14 = *(v13 + 24);
-  v15 = *(self + 56);
-  result = sub_100105088(self, *(self + 88), *(self + 92), *(self + 72), v4, v14 >= 2 * v15);
+  v15 = *(result + 56);
+  v16 = sub_100105088(result, *(result + 88), *(result + 92), *(result + 72), v4, v14 >= 2 * v15);
   if (v14 < 2 * v15)
   {
-    v21 = *(self + 40);
+    v21 = *(result + 40);
     if (!v21)
     {
       goto LABEL_26;
     }
 
-    result = [v21 compressWithByteArray:*(*(self + 64) + 16) withInt:0 withInt:*(*(self + 64) + 24) withOrgApacheLuceneStoreDataOutput:*(self + 32)];
+    v16 = [v21 compressWithByteArray:*(*(result + 64) + 16) withInt:0 withInt:*(*(result + 64) + 24) withOrgApacheLuceneStoreDataOutput:*(result + 32)];
   }
 
   else
   {
-    v17 = *(self + 64);
+    v17 = *(result + 64);
     v18 = *(v17 + 24);
     if (v18 >= 1)
     {
       v19 = 0;
       do
       {
-        v20 = *(self + 40);
+        v20 = *(result + 40);
         if (!v20)
         {
           goto LABEL_26;
         }
 
-        result = [v20 compressWithByteArray:*(v17 + 16) withInt:v19 withInt:JavaLangMath_minWithInt_withInt_(*(self + 56) withOrgApacheLuceneStoreDataOutput:{v18 - v19), *(self + 32)}];
-        v19 = (*(self + 56) + v19);
-        v17 = *(self + 64);
+        v16 = [v20 compressWithByteArray:*(v17 + 16) withInt:v19 withInt:JavaLangMath_minWithInt_withInt_(*(result + 56) withOrgApacheLuceneStoreDataOutput:{v18 - v19), *(result + 32)}];
+        v19 = (*(result + 56) + v19);
+        v17 = *(result + 64);
         v18 = *(v17 + 24);
       }
 
@@ -202,11 +203,11 @@ LABEL_16:
     }
   }
 
-  *(self + 88) += *(self + 92);
-  *(self + 92) = 0;
-  *(*(self + 64) + 24) = 0;
-  ++*(self + 96);
-  return result;
+  *(result + 88) += *(result + 92);
+  *(result + 92) = 0;
+  *(*(result + 64) + 24) = 0;
+  ++*(result + 96);
+  return v16;
 }
 
 - (BOOL)triggerFlush
@@ -250,9 +251,9 @@ LABEL_16:
     }
 
     [field name];
-    v45 = JreStrcat("$$$", v38, v39, v40, v41, v42, v43, v44, @"field ");
+    v47 = JreStrcat("$$$", v40, v41, v42, v43, v44, v45, v46, @"field ");
 LABEL_51:
-    v46 = new_JavaLangIllegalArgumentException_initWithNSString_(v45);
+    v48 = new_JavaLangIllegalArgumentException_initWithNSString_(v47);
     goto LABEL_52;
   }
 
@@ -293,7 +294,7 @@ LABEL_51:
         }
 
         [numericValue getClass];
-        v45 = JreStrcat("$@", v47, v48, v49, v50, v51, v52, v53, @"cannot store numeric type ");
+        v47 = JreStrcat("$@", v49, v50, v51, v52, v53, v54, v55, @"cannot store numeric type ");
         goto LABEL_51;
       }
     }
@@ -384,16 +385,16 @@ LABEL_49:
     v34 = self->bufferedDocs_;
     [numericValue floatValue];
 
-    OrgApacheLuceneCodecsCompressingCompressingStoredFieldsWriter_writeZFloatWithOrgApacheLuceneStoreDataOutput_withFloat_(v34, v35);
+    OrgApacheLuceneCodecsCompressingCompressingStoredFieldsWriter_writeZFloatWithOrgApacheLuceneStoreDataOutput_withFloat_(v34, v35, v36);
     return;
   }
 
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
-    v46 = new_JavaLangAssertionError_initWithId_(@"Cannot get here");
+    v48 = new_JavaLangAssertionError_initWithId_(@"Cannot get here");
 LABEL_52:
-    objc_exception_throw(v46);
+    objc_exception_throw(v48);
   }
 
   if (!numericValue)
@@ -401,10 +402,40 @@ LABEL_52:
     goto LABEL_49;
   }
 
-  v36 = self->bufferedDocs_;
+  v37 = self->bufferedDocs_;
   [numericValue doubleValue];
 
-  OrgApacheLuceneCodecsCompressingCompressingStoredFieldsWriter_writeZDoubleWithOrgApacheLuceneStoreDataOutput_withDouble_(v36, v37);
+  OrgApacheLuceneCodecsCompressingCompressingStoredFieldsWriter_writeZDoubleWithOrgApacheLuceneStoreDataOutput_withDouble_(v37, v38, v39);
+}
+
+- (void)finishWithOrgApacheLuceneIndexFieldInfos:(id)infos withInt:(int)int
+{
+  v8 = *&int;
+  if (self->numBufferedDocs_ >= 1)
+  {
+    [OrgApacheLuceneCodecsCompressingCompressingStoredFieldsWriter flush]_0(self);
+    ++self->numDirtyChunks_;
+  }
+
+  if (self->docBase_ != v8)
+  {
+    v13 = JreStrcat("$I$I", a2, infos, *&int, v4, v5, v6, v7, @"Wrote ");
+    v14 = new_JavaLangRuntimeException_initWithNSString_(v13);
+    objc_exception_throw(v14);
+  }
+
+  indexWriter = self->indexWriter_;
+  if (!indexWriter || (fieldsStream = self->fieldsStream_) == 0)
+  {
+    JreThrowNullPointerException();
+  }
+
+  [(OrgApacheLuceneCodecsCompressingCompressingStoredFieldsIndexWriter *)indexWriter finishWithInt:v8 withLong:[(OrgApacheLuceneStoreIndexOutput *)fieldsStream getFilePointer]];
+  [(OrgApacheLuceneStoreDataOutput *)self->fieldsStream_ writeVLongWithLong:self->numChunks_];
+  [(OrgApacheLuceneStoreDataOutput *)self->fieldsStream_ writeVLongWithLong:self->numDirtyChunks_];
+  v12 = self->fieldsStream_;
+
+  OrgApacheLuceneCodecsCodecUtil_writeFooterWithOrgApacheLuceneStoreIndexOutput_(v12);
 }
 
 - (int)mergeWithOrgApacheLuceneIndexMergeState:(id)state

@@ -17,24 +17,24 @@
 
 + (id)resultFromLegacyDictionary:(id)dictionary
 {
-  v27[16] = *MEMORY[0x1E69E9840];
+  v28[16] = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   v4 = [dictionaryCopy objectForKeyedSubscript:@"attributes"];
-  v18 = [v4 objectForKeyedSubscript:@"humanActions"];
+  v19 = [v4 objectForKeyedSubscript:@"humanActions"];
 
-  memset(&v26, 0, sizeof(v26));
-  CMTimeRangeMakeFromDictionary(&v26, dictionaryCopy);
-  start = v26.start;
-  duration = v26.duration;
-  if ((v26.start.flags & 1) == 0)
+  memset(&v27, 0, sizeof(v27));
+  CMTimeRangeMakeFromDictionary(&v27, dictionaryCopy);
+  start = v27.start;
+  duration = v27.duration;
+  if ((v27.start.flags & 1) == 0)
   {
     goto LABEL_2;
   }
 
   v5 = 0;
-  if ((v26.duration.flags & 1) != 0 && !v26.duration.epoch && (v26.duration.value & 0x8000000000000000) == 0)
+  if ((v27.duration.flags & 1) != 0 && !v27.duration.epoch && (v27.duration.value & 0x8000000000000000) == 0)
   {
-    if (![v18 count])
+    if (![v19 count])
     {
 LABEL_2:
       v5 = 0;
@@ -42,56 +42,56 @@ LABEL_2:
     }
 
     v5 = objc_alloc_init(VCPProtoFilesystemMovieHumanActionClassificationResult);
-    v23 = start;
-    Seconds = CMTimeGetSeconds(&v23);
+    v24 = start;
+    Seconds = CMTimeGetSeconds(&v24);
     *&Seconds = Seconds;
     [(VCPProtoFilesystemMovieHumanActionClassificationResult *)v5 setStart:Seconds];
-    v23 = duration;
-    v7 = CMTimeGetSeconds(&v23);
+    v24 = duration;
+    v7 = CMTimeGetSeconds(&v24);
     *&v7 = v7;
     [(VCPProtoFilesystemMovieHumanActionClassificationResult *)v5 setDuration:v7];
-    [v18 count];
-    MEMORY[0x1EEE9AC00]();
-    v9 = &v17 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-    v21 = 0u;
+    v8 = [v19 count];
+    MEMORY[0x1EEE9AC00](v8);
+    v10 = &v18 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
     v22 = 0u;
-    v19 = 0u;
+    v23 = 0u;
     v20 = 0u;
-    allKeys = [v18 allKeys];
-    v11 = [allKeys countByEnumeratingWithState:&v19 objects:v27 count:16];
-    if (v11)
+    v21 = 0u;
+    allKeys = [v19 allKeys];
+    v12 = [allKeys countByEnumeratingWithState:&v20 objects:v28 count:16];
+    if (v12)
     {
-      v17 = &v17;
-      LODWORD(v12) = 0;
-      v13 = *v20;
+      v18 = &v18;
+      LODWORD(v13) = 0;
+      v14 = *v21;
       do
       {
-        v14 = 0;
-        v15 = v12;
+        v15 = 0;
+        v16 = v13;
         do
         {
-          if (*v20 != v13)
+          if (*v21 != v14)
           {
             objc_enumerationMutation(allKeys);
           }
 
-          v12 = (v15 + 1);
-          *&v9[4 * v15++] = [*(*(&v19 + 1) + 8 * v14++) longLongValue];
+          v13 = (v16 + 1);
+          *&v10[4 * v16++] = [*(*(&v20 + 1) + 8 * v15++) longLongValue];
         }
 
-        while (v11 != v14);
-        v11 = [allKeys countByEnumeratingWithState:&v19 objects:v27 count:16];
+        while (v12 != v15);
+        v12 = [allKeys countByEnumeratingWithState:&v20 objects:v28 count:16];
       }
 
-      while (v11);
+      while (v12);
     }
 
     else
     {
-      v12 = 0;
+      v13 = 0;
     }
 
-    [(VCPProtoFilesystemMovieHumanActionClassificationResult *)v5 setIdentifiers:v9 count:v12];
+    [(VCPProtoFilesystemMovieHumanActionClassificationResult *)v5 setIdentifiers:v10 count:v13];
   }
 
 LABEL_17:
@@ -112,10 +112,10 @@ LABEL_17:
   }
 
   memset(&v17, 0, sizeof(v17));
-  [(VCPProtoFilesystemMovieHumanActionClassificationResult *)self start];
+  objc_msgSend_start(self);
   CMTimeMakeWithSeconds(&v17, v8, 600);
   memset(&v16, 0, sizeof(v16));
-  [(VCPProtoFilesystemMovieHumanActionClassificationResult *)self duration];
+  objc_msgSend_duration(self);
   CMTimeMakeWithSeconds(&v16, v9, 600);
   memset(&v15, 0, sizeof(v15));
   start.start = v17;

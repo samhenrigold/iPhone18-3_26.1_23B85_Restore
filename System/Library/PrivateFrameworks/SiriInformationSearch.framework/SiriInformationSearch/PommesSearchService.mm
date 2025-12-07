@@ -9,29 +9,28 @@
 - (void)searchInfiEntityWithRequest:(_TtC21SiriInformationSearch22PommesSearchRequestXPC *)request completionHandler:(id)handler
 {
   v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd, &_sScPSgMR);
-  v8 = *(*(v7 - 8) + 64);
-  MEMORY[0x28223BE20](v7 - 8, v9);
-  v11 = &v18 - v10;
-  v12 = _Block_copy(handler);
+  MEMORY[0x28223BE20](v7 - 8);
+  v9 = &v16 - v8;
+  v10 = _Block_copy(handler);
+  v11 = swift_allocObject();
+  v11[2] = request;
+  v11[3] = v10;
+  v11[4] = self;
+  v12 = type metadata accessor for TaskPriority();
+  (*(*(v12 - 8) + 56))(v9, 1, 1, v12);
   v13 = swift_allocObject();
-  v13[2] = request;
-  v13[3] = v12;
-  v13[4] = self;
-  v14 = type metadata accessor for TaskPriority();
-  (*(*(v14 - 8) + 56))(v11, 1, 1, v14);
-  v15 = swift_allocObject();
-  v15[2] = 0;
-  v15[3] = 0;
-  v15[4] = &async function pointer to partial apply for @objc closure #1 in PommesSearchService.searchInfiEntity(request:);
-  v15[5] = v13;
-  v16 = swift_allocObject();
-  v16[2] = 0;
-  v16[3] = 0;
-  v16[4] = &_sIeghH_IeAgH_TRTA_54Tu;
-  v16[5] = v15;
+  v13[2] = 0;
+  v13[3] = 0;
+  v13[4] = &async function pointer to partial apply for @objc closure #1 in PommesSearchService.searchInfiEntity(request:);
+  v13[5] = v11;
+  v14 = swift_allocObject();
+  v14[2] = 0;
+  v14[3] = 0;
+  v14[4] = &_sIeghH_IeAgH_TRTA_54Tu;
+  v14[5] = v13;
   requestCopy = request;
 
-  _sScTss5NeverORs_rlE4name8priority9operationScTyxABGSSSg_ScPSgxyYaYAcntcfCyt_Tt2gq5(0, 0, v11, &_sIeAgH_ytIeAgHr_TRTA_59Tu, v16);
+  _sScTss5NeverORs_rlE4name8priority9operationScTyxABGSSSg_ScPSgxyYaYAcntcfCyt_Tt2gq5(0, 0, v9, &_sIeAgH_ytIeAgHr_TRTA_59Tu, v14);
 }
 
 - (void)invalidateWithCachedResponse:(id)response
@@ -44,29 +43,28 @@
 - (void)searchToolGlobalSearchWithRequest:(_TtC21SiriInformationSearch26SearchToolGlobalRequestXPC *)request completionHandler:(id)handler
 {
   v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd, &_sScPSgMR);
-  v8 = *(*(v7 - 8) + 64);
-  MEMORY[0x28223BE20](v7 - 8, v9);
-  v11 = &v18 - v10;
-  v12 = _Block_copy(handler);
+  MEMORY[0x28223BE20](v7 - 8);
+  v9 = &v16 - v8;
+  v10 = _Block_copy(handler);
+  v11 = swift_allocObject();
+  v11[2] = request;
+  v11[3] = v10;
+  v11[4] = self;
+  v12 = type metadata accessor for TaskPriority();
+  (*(*(v12 - 8) + 56))(v9, 1, 1, v12);
   v13 = swift_allocObject();
-  v13[2] = request;
-  v13[3] = v12;
-  v13[4] = self;
-  v14 = type metadata accessor for TaskPriority();
-  (*(*(v14 - 8) + 56))(v11, 1, 1, v14);
-  v15 = swift_allocObject();
-  v15[2] = 0;
-  v15[3] = 0;
-  v15[4] = &async function pointer to partial apply for @objc closure #1 in PommesSearchService.searchToolGlobalSearch(request:);
-  v15[5] = v13;
-  v16 = swift_allocObject();
-  v16[2] = 0;
-  v16[3] = 0;
-  v16[4] = &_sIeghH_IeAgH_TRTATu;
-  v16[5] = v15;
+  v13[2] = 0;
+  v13[3] = 0;
+  v13[4] = &async function pointer to partial apply for @objc closure #1 in PommesSearchService.searchToolGlobalSearch(request:);
+  v13[5] = v11;
+  v14 = swift_allocObject();
+  v14[2] = 0;
+  v14[3] = 0;
+  v14[4] = &_sIeghH_IeAgH_TRTATu;
+  v14[5] = v13;
   requestCopy = request;
 
-  _sScTss5NeverORs_rlE4name8priority9operationScTyxABGSSSg_ScPSgxyYaYAcntcfCyt_Tt2gq5(0, 0, v11, &_sIeAgH_ytIeAgHr_TRTATu, v16);
+  _sScTss5NeverORs_rlE4name8priority9operationScTyxABGSSSg_ScPSgxyYaYAcntcfCyt_Tt2gq5(0, 0, v9, &_sIeAgH_ytIeAgHr_TRTATu, v14);
 }
 
 @end

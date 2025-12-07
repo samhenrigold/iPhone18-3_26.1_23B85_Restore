@@ -32,7 +32,7 @@
 
   v6 = sub_1909B330C(v8);
 
-  sub_19022EEA4(v8, &unk_1EAD551C0);
+  sub_19022EEA4(v8, &unk_1EAD551C0, &unk_190DD9790);
   return v6 & 1;
 }
 

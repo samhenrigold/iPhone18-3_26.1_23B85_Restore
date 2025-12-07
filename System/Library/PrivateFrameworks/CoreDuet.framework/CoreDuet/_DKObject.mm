@@ -235,39 +235,39 @@ LABEL_16:
 + (id)objectFromManagedObject:(id)object readMetadata:(BOOL)metadata excludedMetadataKeys:(id)keys cache:(id)cache
 {
   metadataCopy = metadata;
-  v33[4] = *MEMORY[0x1E69E9840];
+  v32[4] = *MEMORY[0x1E69E9840];
   objectCopy = object;
   keysCopy = keys;
   cacheCopy = cache;
-  v33[0] = objc_opt_class();
-  v33[1] = objc_opt_class();
-  v33[2] = objc_opt_class();
-  v33[3] = objc_opt_class();
-  v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v33 count:4];
+  v32[0] = objc_opt_class();
+  v32[1] = objc_opt_class();
+  v32[2] = objc_opt_class();
+  v32[3] = objc_opt_class();
+  v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v32 count:4];
   v11 = objectCopy;
   entity = [objectCopy entity];
   name = [entity name];
 
-  v30 = 0u;
-  v31 = 0u;
-  v28 = 0u;
   v29 = 0u;
+  v30 = 0u;
+  v27 = 0u;
+  v28 = 0u;
   v14 = v10;
-  v15 = [v14 countByEnumeratingWithState:&v28 objects:v32 count:16];
+  v15 = [v14 countByEnumeratingWithState:&v27 objects:v31 count:16];
   if (v15)
   {
     v16 = v15;
-    v17 = *v29;
+    v17 = *v28;
     while (2)
     {
       for (i = 0; i != v16; ++i)
       {
-        if (*v29 != v17)
+        if (*v28 != v17)
         {
           objc_enumerationMutation(v14);
         }
 
-        v19 = *(*(&v28 + 1) + 8 * i);
+        v19 = *(*(&v27 + 1) + 8 * i);
         entityName = [v19 entityName];
         v21 = [name isEqualToString:entityName];
 
@@ -282,7 +282,7 @@ LABEL_16:
         }
       }
 
-      v16 = [v14 countByEnumeratingWithState:&v28 objects:v32 count:16];
+      v16 = [v14 countByEnumeratingWithState:&v27 objects:v31 count:16];
       if (v16)
       {
         continue;
@@ -294,8 +294,6 @@ LABEL_16:
 
   v23 = 0;
 LABEL_12:
-
-  v24 = *MEMORY[0x1E69E9840];
 
   return v23;
 }

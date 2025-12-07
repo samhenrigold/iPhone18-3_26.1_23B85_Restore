@@ -21,8 +21,11 @@
 - (void)runURLSizerWithID:(id)d reply:(id)reply;
 - (void)setAppPathListPathOnDisk:(id)disk reply:(id)reply;
 - (void)setAppPathListPathOnDisktoDefaultWithReply:(id)reply;
+- (void)setAppSizerMaxRerunTimeout:(unsigned int)timeout reply:(id)reply;
 - (void)setAppSizerResultsFilteringOptionsToDefaultWithReply:(id)reply;
+- (void)setEnableTTR:(BOOL)r reply:(id)reply;
 - (void)setForceSDAAbort:(id)abort;
+- (void)setForceTTR:(BOOL)r reply:(id)reply;
 - (void)setForceTelemetry:(id)telemetry;
 - (void)unregisterPaths:(id)paths reply:(id)reply;
 @end
@@ -1172,6 +1175,62 @@ LABEL_5:
       _Block_object_dispose(&v32, 8);
     }
   }
+}
+
+- (void)setForceTTR:(BOOL)r reply:(id)reply
+{
+  rCopy = r;
+  replyCopy = reply;
+  v6 = SALog();
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+  {
+    sub_10003C368();
+  }
+
+  [SATapToRadar setForceTTR:rCopy];
+  replyCopy[2](replyCopy, 0);
+
+  v7 = SALog();
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+  {
+    sub_10003C3E8(v7, v8, v9, v10, v11, v12, v13, v14);
+  }
+}
+
+- (void)setEnableTTR:(BOOL)r reply:(id)reply
+{
+  rCopy = r;
+  replyCopy = reply;
+  v6 = SALog();
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+  {
+    sub_10003C460();
+  }
+
+  [SATapToRadar setEnableTTR:rCopy];
+  replyCopy[2](replyCopy, 0);
+
+  v7 = SALog();
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+  {
+    sub_10003C4E0(v7, v8, v9, v10, v11, v12, v13, v14);
+  }
+}
+
+- (void)setAppSizerMaxRerunTimeout:(unsigned int)timeout reply:(id)reply
+{
+  v4 = *&timeout;
+  replyCopy = reply;
+  v6 = SALog();
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+  {
+    sub_10003C558();
+  }
+
+  v7 = objc_opt_new();
+  [v7 setAppSizerMaxRerunTimeout:v4];
+
+  replyCopy[2](replyCopy, 0);
 }
 
 - (void)getLastTelemetryData:(id)data

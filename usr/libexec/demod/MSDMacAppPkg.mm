@@ -8,13 +8,13 @@
 + (BOOL)isMacApp:(id)app
 {
   appCopy = app;
-  v23 = 0;
+  v24 = 0;
   v4 = [NSBundle bundleWithPath:appCopy];
   v5 = v4;
   if (!v4)
   {
-    v8 = sub_100063A54();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = sub_100063A54(0);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       sub_1000CDA6C();
     }
@@ -26,55 +26,55 @@
 
   if (!infoDictionary)
   {
-    v8 = sub_100063A54();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = sub_100063A54(v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       sub_1000CD9EC();
     }
 
 LABEL_19:
-    v17 = 0;
+    v18 = 0;
     goto LABEL_20;
   }
 
   infoDictionary2 = [v5 infoDictionary];
-  v8 = [infoDictionary2 objectForKey:@"CFBundleSupportedPlatforms"];
+  v9 = [infoDictionary2 objectForKey:@"CFBundleSupportedPlatforms"];
 
-  if (v8)
+  if (v9)
   {
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v21 = 0u;
       v22 = 0u;
-      v19 = 0u;
+      v23 = 0u;
       v20 = 0u;
-      v9 = v8;
-      v10 = [v9 countByEnumeratingWithState:&v19 objects:v24 count:16];
-      if (v10)
+      v21 = 0u;
+      v10 = v9;
+      v11 = [v10 countByEnumeratingWithState:&v20 objects:v25 count:16];
+      if (v11)
       {
-        v11 = v10;
-        v12 = *v20;
+        v12 = v11;
+        v13 = *v21;
         while (2)
         {
-          for (i = 0; i != v11; i = i + 1)
+          for (i = 0; i != v12; i = i + 1)
           {
-            if (*v20 != v12)
+            if (*v21 != v13)
             {
-              objc_enumerationMutation(v9);
+              objc_enumerationMutation(v10);
             }
 
-            if ([*(*(&v19 + 1) + 8 * i) isEqualToString:{@"MacOSX", v19}])
+            if ([*(*(&v20 + 1) + 8 * i) isEqualToString:{@"MacOSX", v20}])
             {
 
-              v17 = 1;
-              v8 = v9;
+              v18 = 1;
+              v9 = v10;
               goto LABEL_20;
             }
           }
 
-          v11 = [v9 countByEnumeratingWithState:&v19 objects:v24 count:16];
-          if (v11)
+          v12 = [v10 countByEnumeratingWithState:&v20 objects:v25 count:16];
+          if (v12)
           {
             continue;
           }
@@ -85,13 +85,13 @@ LABEL_19:
     }
   }
 
-  v14 = +[NSFileManager defaultManager];
-  v15 = [appCopy stringByAppendingPathComponent:@"Contents/MacOS"];
-  v16 = [v14 fileExistsAtPath:v15 isDirectory:&v23];
-  v17 = v16 & v23;
+  v15 = +[NSFileManager defaultManager];
+  v16 = [appCopy stringByAppendingPathComponent:@"Contents/MacOS"];
+  v17 = [v15 fileExistsAtPath:v16 isDirectory:&v24];
+  v18 = v17 & v24;
 
 LABEL_20:
-  return v17;
+  return v18;
 }
 
 + (id)codeSignaturePath:(id)path

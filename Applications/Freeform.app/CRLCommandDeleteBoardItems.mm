@@ -12,7 +12,7 @@
 - (NSSet)boardItems
 {
   type metadata accessor for CRLBoardItem(0);
-  sub_100A0CF5C(&qword_1019FCB80, type metadata accessor for CRLBoardItem);
+  sub_100A0CF5C(&qword_1019FCB80, type metadata accessor for CRLBoardItem, &protocol conformance descriptor for NSObject);
 
   v2.super.isa = Set._bridgeToObjectiveC()().super.isa;
 
@@ -22,7 +22,7 @@
 - (_TtC8Freeform26CRLCommandDeleteBoardItems)initWithBoardItemsToDelete:(id)delete
 {
   type metadata accessor for CRLBoardItem(0);
-  sub_100A0CF5C(&qword_1019FCB80, type metadata accessor for CRLBoardItem);
+  sub_100A0CF5C(&qword_1019FCB80, type metadata accessor for CRLBoardItem, &protocol conformance descriptor for NSObject);
   static Set._unconditionallyBridgeFromObjectiveC(_:)();
   isa = Set._bridgeToObjectiveC()().super.isa;
 
@@ -34,14 +34,13 @@
 - (_TtC8Freeform26CRLCommandDeleteBoardItems)initWithBoardItemsToDelete:(id)delete canDeleteNewlyCreatedItems:(BOOL)items
 {
   type metadata accessor for CRLBoardItem(0);
-  sub_100A0CF5C(&qword_1019FCB80, type metadata accessor for CRLBoardItem);
+  sub_100A0CF5C(&qword_1019FCB80, type metadata accessor for CRLBoardItem, &protocol conformance descriptor for NSObject);
   v5 = static Set._unconditionallyBridgeFromObjectiveC(_:)();
   return sub_100A0AC3C(v5, items);
 }
 
 - (_TtC8Freeform26CRLCommandDeleteBoardItems)initWithBoardItemToDelete:(id)delete
 {
-  sub_1005B981C(&unk_1019F4D60);
   inited = swift_initStackObject();
   *(inited + 16) = xmmword_101465920;
   *(inited + 32) = delete;
@@ -50,7 +49,7 @@
   swift_setDeallocating();
   swift_arrayDestroy();
   type metadata accessor for CRLBoardItem(0);
-  sub_100A0CF5C(&qword_1019FCB80, type metadata accessor for CRLBoardItem);
+  sub_100A0CF5C(&qword_1019FCB80, type metadata accessor for CRLBoardItem, &protocol conformance descriptor for NSObject);
   isa = Set._bridgeToObjectiveC()().super.isa;
 
   v8 = [(CRLCommandDeleteBoardItems *)self initWithBoardItemsToDelete:isa];

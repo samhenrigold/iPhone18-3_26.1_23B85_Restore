@@ -49,7 +49,7 @@
   [(NSMutableDictionary *)backgroundImages enumerateKeysAndObjectsUsingBlock:v4];
 }
 
-uint64_t __59__SUToolbarAppearance_enumerateBackgroundImagesUsingBlock___block_invoke(uint64_t a1, void *a2)
+void *__59__SUToolbarAppearance_enumerateBackgroundImagesUsingBlock___block_invoke(uint64_t a1, void *a2)
 {
   v3 = [a2 componentsSeparatedByString:@":"];
   result = [v3 count];

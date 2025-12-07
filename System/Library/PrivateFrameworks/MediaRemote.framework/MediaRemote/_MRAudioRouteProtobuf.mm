@@ -3,6 +3,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)typeAsString:(int)string;
 - (int)StringAsType:(id)type;
 - (int)type;
 - (unint64_t)hash;
@@ -28,55 +29,70 @@
   }
 }
 
+- (id)typeAsString:(int)string
+{
+  if (string >= 0xA)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E769F4F0[string];
+  }
+
+  return v4;
+}
+
 - (int)StringAsType:(id)type
 {
   typeCopy = type;
-  if ([typeCopy isEqualToString:@"Unknown"])
+  if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 0;
   }
 
-  else if ([typeCopy isEqualToString:@"DeviceSpeaker"])
+  else if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 1;
   }
 
-  else if ([typeCopy isEqualToString:@"LineOut"])
+  else if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 2;
   }
 
-  else if ([typeCopy isEqualToString:@"Headphones"])
+  else if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 3;
   }
 
-  else if ([typeCopy isEqualToString:@"BluetoothHeadphones"])
+  else if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 4;
   }
 
-  else if ([typeCopy isEqualToString:@"BluetoothSpeaker"])
+  else if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 5;
   }
 
-  else if ([typeCopy isEqualToString:@"USBAudio"])
+  else if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 6;
   }
 
-  else if ([typeCopy isEqualToString:@"CarAudio"])
+  else if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 7;
   }
 
-  else if ([typeCopy isEqualToString:@"HDMI"])
+  else if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 8;
   }
 
-  else if ([typeCopy isEqualToString:@"AirPlay"])
+  else if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 9;
   }
@@ -179,7 +195,6 @@
   toCopy = to;
   if (*&self->_has)
   {
-    type = self->_type;
     PBDataWriterWriteInt32Field();
   }
 
@@ -191,14 +206,12 @@
   has = self->_has;
   if ((has & 4) != 0)
   {
-    supportsSpatialization = self->_supportsSpatialization;
     PBDataWriterWriteBOOLField();
     has = self->_has;
   }
 
   if ((has & 2) != 0)
   {
-    spatializationEnabled = self->_spatializationEnabled;
     PBDataWriterWriteBOOLField();
   }
 }
@@ -274,7 +287,6 @@
   }
 
   has = self->_has;
-  v6 = *(equalCopy + 24);
   if (has)
   {
     if ((*(equalCopy + 24) & 1) == 0 || self->_type != *(equalCopy + 4))
@@ -306,7 +318,6 @@
       goto LABEL_18;
     }
 
-    v10 = *(equalCopy + 21);
     if (self->_supportsSpatialization)
     {
       if ((*(equalCopy + 21) & 1) == 0)
@@ -326,7 +337,7 @@
     goto LABEL_18;
   }
 
-  v8 = (*(equalCopy + 24) & 2) == 0;
+  v7 = (*(equalCopy + 24) & 2) == 0;
   if ((has & 2) != 0)
   {
     if ((*(equalCopy + 24) & 2) != 0)
@@ -342,18 +353,18 @@
       else if (!*(equalCopy + 20))
       {
 LABEL_26:
-        v8 = 1;
+        v7 = 1;
         goto LABEL_19;
       }
     }
 
 LABEL_18:
-    v8 = 0;
+    v7 = 0;
   }
 
 LABEL_19:
 
-  return v8;
+  return v7;
 }
 
 - (unint64_t)hash

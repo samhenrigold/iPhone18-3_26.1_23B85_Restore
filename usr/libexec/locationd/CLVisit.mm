@@ -8,9 +8,9 @@
 {
   if (visit)
   {
-    [objc_msgSend(visit "location")];
+    [objc_msgSend_location(visit a2)];
     v6 = v5;
-    [objc_msgSend(visit "location")];
+    [objc_msgSend_location(visit) longitude];
     v8 = CLLocationCoordinate2DMake(v6, v7);
     if ([visit placeInference])
     {
@@ -22,7 +22,7 @@
       v9 = 0;
     }
 
-    [objc_msgSend(visit "location")];
+    [objc_msgSend_location(visit) horizontalUncertainty];
     v12 = v11;
     entry = [visit entry];
     exit = [visit exit];

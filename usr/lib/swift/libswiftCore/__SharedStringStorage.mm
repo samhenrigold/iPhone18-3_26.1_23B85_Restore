@@ -17,10 +17,9 @@
 
 - (unint64_t)hash
 {
-  v2 = *self->_countAndFlags;
-  if (v2 < 0)
+  if ((*self->_countAndFlags & 0x8000000000000000) != 0)
   {
-    return _swift_stdlib_CFStringHashCString(*self->start, v2 & 0xFFFFFFFFFFFFLL);
+    return _swift_stdlib_CFStringHashCString();
   }
 
   else

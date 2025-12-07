@@ -46,29 +46,29 @@ LABEL_9:
 
 - (BOOL)_setAnchorsFromJournal:(id)journal
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   v4 = [(HKHRLearnHypertensionJournalEntryProvider *)self journal:journal];
   timeIntervals = [v4 timeIntervals];
 
-  v6 = [timeIntervals countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v6 = [timeIntervals countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v18;
+    v8 = *v17;
     while (2)
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v18 != v8)
+        if (*v17 != v8)
         {
           objc_enumerationMutation(timeIntervals);
         }
 
-        v10 = *(*(&v17 + 1) + 8 * i);
+        v10 = *(*(&v16 + 1) + 8 * i);
         dayWindowType = [v10 dayWindowType];
         if (dayWindowType == 1)
         {
@@ -96,7 +96,7 @@ LABEL_9:
         }
       }
 
-      v7 = [timeIntervals countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v7 = [timeIntervals countByEnumeratingWithState:&v16 objects:v20 count:16];
       if (v7)
       {
         continue;
@@ -119,13 +119,12 @@ LABEL_17:
     v14 = 0;
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   return v14;
 }
 
 - (id)journalEntryForSample:(id)sample
 {
-  v71 = *MEMORY[0x277D85DE8];
+  v70 = *MEMORY[0x277D85DE8];
   sampleCopy = sample;
   _HKInitializeLogging();
   v5 = HKHRBloodPressureLogForCategory(1);
@@ -157,7 +156,7 @@ LABEL_17:
     }
   }
 
-  v62 = _timeZone;
+  v61 = _timeZone;
   endDate = [sampleCopy endDate];
   v15 = [v10 startOfDayForDate:endDate];
 
@@ -165,18 +164,18 @@ LABEL_17:
   v17 = [v10 nextDateAfterDate:v15 matchingComponents:bedtime options:512];
 
   wakeup = [(HKHRLearnHypertensionJournalEntryProvider *)self wakeup];
-  v61 = v15;
+  v60 = v15;
   v19 = [v10 nextDateAfterDate:v15 matchingComponents:wakeup options:512];
 
-  v63[0] = MEMORY[0x277D85DD0];
-  v63[1] = 3221225472;
-  v63[2] = __67__HKHRLearnHypertensionJournalEntryProvider_journalEntryForSample___block_invoke;
-  v63[3] = &unk_27860A8F0;
+  v62[0] = MEMORY[0x277D85DD0];
+  v62[1] = 3221225472;
+  v62[2] = __67__HKHRLearnHypertensionJournalEntryProvider_journalEntryForSample___block_invoke;
+  v62[3] = &unk_27860A8F0;
   v20 = sampleCopy;
-  v64 = v20;
-  v21 = MEMORY[0x22AAC4F80](v63);
+  v63 = v20;
+  v21 = MEMORY[0x22AAC4F80](v62);
   v22 = objc_alloc_init(MEMORY[0x277CBEB18]);
-  v59 = v21;
+  v58 = v21;
   (*(v21 + 16))(v21, v19, v17, v10, v22);
   _HKInitializeLogging();
   v23 = HKHRBloodPressureLogForCategory(1);
@@ -219,13 +218,13 @@ LABEL_17:
         [*(v28 + 2728) hkhr_ISO8601StringForDate:v29];
         v38 = v37 = v17;
         *buf = 136446978;
-        v66 = "[HKHRLearnHypertensionJournalEntryProvider journalEntryForSample:]";
-        v67 = 2114;
-        v68 = uUID;
-        v69 = 2112;
-        *v70 = v38;
-        *&v70[8] = 2048;
-        *&v70[10] = v32;
+        v65 = "[HKHRLearnHypertensionJournalEntryProvider journalEntryForSample:]";
+        v66 = 2114;
+        v67 = uUID;
+        v68 = 2112;
+        *v69 = v38;
+        *&v69[8] = 2048;
+        *&v69[10] = v32;
         _os_log_debug_impl(&dword_228942000, v35, OS_LOG_TYPE_DEBUG, "[%{public}s] sampleUUID:(%{public}@) date:%@ diff:%f", buf, 0x2Au);
 
         v17 = v37;
@@ -254,7 +253,7 @@ LABEL_23:
 
   v39 = v26 - 1;
   v40 = [v22 objectAtIndexedSubscript:v26 - 1];
-  v60 = v19;
+  v59 = v19;
   v41 = v19;
   v42 = v17;
   v43 = [v41 hk_isBeforeOrEqualToDate:v17];
@@ -269,24 +268,24 @@ LABEL_23:
     if (os_log_type_enabled(v47, OS_LOG_TYPE_DEBUG))
     {
       uUID2 = [v20 UUID];
-      v56 = [MEMORY[0x277CBEAA8] hkhr_ISO8601StringForDate:v40];
+      v55 = [MEMORY[0x277CBEAA8] hkhr_ISO8601StringForDate:v40];
       *buf = 136447234;
-      v66 = "[HKHRLearnHypertensionJournalEntryProvider journalEntryForSample:]";
-      v57 = "bedtime";
-      v67 = 2114;
-      v69 = 1024;
-      v68 = uUID2;
+      v65 = "[HKHRLearnHypertensionJournalEntryProvider journalEntryForSample:]";
+      v56 = "bedtime";
+      v66 = 2114;
+      v68 = 1024;
+      v67 = uUID2;
       if (v44 == v43)
       {
-        v57 = "wakeup";
+        v56 = "wakeup";
       }
 
-      *v70 = v39;
-      *&v70[4] = 2112;
-      v58 = v56;
-      *&v70[6] = v56;
-      *&v70[14] = 2080;
-      *&v70[16] = v57;
+      *v69 = v39;
+      *&v69[4] = 2112;
+      v57 = v55;
+      *&v69[6] = v55;
+      *&v69[14] = 2080;
+      *&v69[16] = v56;
       _os_log_debug_impl(&dword_228942000, v47, OS_LOG_TYPE_DEBUG, "[%{public}s] sampleUUID:(%{public}@) STOP: found closest at index:%d date:%@ type:%s", buf, 0x30u);
     }
   }
@@ -296,8 +295,6 @@ LABEL_23:
   v50 = [HKHRLearnHypertensionJournalEntry alloc];
   uUID3 = [v20 UUID];
   v52 = [(HKHRLearnHypertensionJournalEntry *)v50 initWithSampleUUID:uUID3 dayWindowType:v48 dayIndex:v49];
-
-  v53 = *MEMORY[0x277D85DE8];
 
   return v52;
 }
@@ -343,90 +340,75 @@ void __67__HKHRLearnHypertensionJournalEntryProvider_journalEntryForSample___blo
 
 - (void)initWithJournal:(NSObject *)a3 .cold.1(uint64_t a1, void *a2, NSObject *a3)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v5 = objc_opt_class();
   v6 = v5;
   v7 = [a2 UUID];
-  v9 = 138412802;
-  v10 = v5;
-  v11 = 2112;
-  v12 = v7;
-  v13 = 2048;
-  v14 = [a2 scheduleType];
-  _os_log_error_impl(&dword_228942000, a3, OS_LOG_TYPE_ERROR, "[%@] Journal ID:(%@) scheduleTypeUnsupported:%ld ", &v9, 0x20u);
-
-  v8 = *MEMORY[0x277D85DE8];
+  v8 = 138412802;
+  v9 = v5;
+  v10 = 2112;
+  v11 = v7;
+  v12 = 2048;
+  v13 = [a2 scheduleType];
+  _os_log_error_impl(&dword_228942000, a3, OS_LOG_TYPE_ERROR, "[%@] Journal ID:(%@) scheduleTypeUnsupported:%ld ", &v8, 0x20u);
 }
 
 - (void)_setAnchorsFromJournal:(NSObject *)a3 .cold.1(uint64_t a1, void *a2, NSObject *a3)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v5 = objc_opt_class();
   v6 = v5;
-  v8 = 138412546;
-  v9 = v5;
-  v10 = 2048;
-  v11 = [a2 dayWindowType];
-  _os_log_error_impl(&dword_228942000, a3, OS_LOG_TYPE_ERROR, "[%@] Unsupported HKHRBloodPressureJournalDayWindowType: %ld ", &v8, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
+  v7 = 138412546;
+  v8 = v5;
+  v9 = 2048;
+  v10 = [a2 dayWindowType];
+  _os_log_error_impl(&dword_228942000, a3, OS_LOG_TYPE_ERROR, "[%@] Unsupported HKHRBloodPressureJournalDayWindowType: %ld ", &v7, 0x16u);
 }
 
 - (void)journalEntryForSample:(void *)a1 .cold.1(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [a1 UUID];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_1();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)journalEntryForSample:(void *)a1 .cold.2(void *a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
   v3 = [a1 UUID];
   v4 = [a2 name];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_1();
   _os_log_debug_impl(v5, v6, v7, v8, v9, 0x20u);
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)journalEntryForSample:(NSObject *)a3 .cold.3(void *a1, void *a2, NSObject *a3)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v6 = [a1 UUID];
   v7 = MEMORY[0x277CBEAA8];
   v8 = [a1 endDate];
   v9 = [v7 hkhr_ISO8601StringForDate:v8];
   v10 = [a2 count];
   v11 = [MEMORY[0x277CBEAA8] hkhr_prettyStringForDateArray:a2];
-  v14[0] = 136447234;
+  v13[0] = 136447234;
   OUTLINED_FUNCTION_0();
-  v15 = v6;
-  v16 = 2112;
-  v17 = v9;
-  v18 = 2048;
-  v19 = v10;
-  v20 = 2112;
-  v21 = v12;
-  _os_log_debug_impl(&dword_228942000, a3, OS_LOG_TYPE_DEBUG, "[%{public}s] sampleUUID:(%{public}@) sampleDate:%@ | %ld dates to scan:%@", v14, 0x34u);
-
-  v13 = *MEMORY[0x277D85DE8];
+  v14 = v6;
+  v15 = 2112;
+  v16 = v9;
+  v17 = 2048;
+  v18 = v10;
+  v19 = 2112;
+  v20 = v12;
+  _os_log_debug_impl(&dword_228942000, a3, OS_LOG_TYPE_DEBUG, "[%{public}s] sampleUUID:(%{public}@) sampleDate:%@ | %ld dates to scan:%@", v13, 0x34u);
 }
 
 void __67__HKHRLearnHypertensionJournalEntryProvider_journalEntryForSample___block_invoke_cold_1(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [*(a1 + 32) UUID];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_1();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 @end

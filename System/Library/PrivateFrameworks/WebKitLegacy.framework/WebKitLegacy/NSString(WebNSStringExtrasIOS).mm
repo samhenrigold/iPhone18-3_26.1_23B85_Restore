@@ -1,5 +1,5 @@
 @interface NSString(WebNSStringExtrasIOS)
-- (uint64_t)_web_bestURLForUserTypedString;
+- (void)_web_bestURLForUserTypedString;
 - (void)_web_possibleURLsForForUserTypedString:()WebNSStringExtrasIOS;
 @end
 
@@ -116,7 +116,7 @@ LABEL_5:
   return array;
 }
 
-- (uint64_t)_web_bestURLForUserTypedString
+- (void)_web_bestURLForUserTypedString
 {
   _web_possibleURLsForUserTypedString = [self _web_possibleURLsForUserTypedString];
   result = [_web_possibleURLsForUserTypedString count];

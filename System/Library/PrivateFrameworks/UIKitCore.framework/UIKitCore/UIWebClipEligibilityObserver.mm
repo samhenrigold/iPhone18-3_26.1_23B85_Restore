@@ -52,9 +52,9 @@ void __46__UIWebClipEligibilityObserver_sharedObserver__block_invoke()
     block[10] = v3;
     mainBundle = [MEMORY[0x1E696AAE8] mainBundle];
     bundleIdentifier = [mainBundle bundleIdentifier];
-    v7 = [bundleIdentifier isEqualToString:@"com.apple.springboard"];
+    isEqualToString = objc_msgSend_isEqualToString_(bundleIdentifier);
 
-    if (v7)
+    if (isEqualToString)
     {
       block[0] = MEMORY[0x1E69E9820];
       block[1] = 3221225472;

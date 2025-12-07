@@ -1,4 +1,7 @@
 @interface FPXPCAutomaticErrorProxy
+- (FPXPCAutomaticErrorProxy)initWithConnection:(id)connection protocol:(id)protocol orError:(id)error name:(id)name requestPid:(int)pid;
+- (FPXPCAutomaticErrorProxy)initWithConnection:(id)connection protocol:(id)protocol orError:(id)error name:(id)name requestPid:(int)pid requestWillBegin:(id)begin;
+- (FPXPCAutomaticErrorProxy)initWithConnection:(id)connection protocol:(id)protocol orError:(id)error name:(id)name requestPid:(int)pid requestWillBegin:(id)begin requestDidBegin:(id)didBegin;
 - (FPXPCAutomaticErrorProxy)initWithRemoteObjectProxy:(id)proxy protocol:(id)protocol orError:(id)error name:(id)name requestPid:(int)pid requestWillBegin:(id)begin requestDidBegin:(id)didBegin;
 - (id)_requestWillBegin:(SEL)begin requestID:(id)d;
 - (id)copyWithZone:(_NSZone *)zone;
@@ -30,18 +33,57 @@
   return selfCopy;
 }
 
+- (FPXPCAutomaticErrorProxy)initWithConnection:(id)connection protocol:(id)protocol orError:(id)error name:(id)name requestPid:(int)pid
+{
+  v7 = *&pid;
+  nameCopy = name;
+  errorCopy = error;
+  protocolCopy = protocol;
+  remoteObjectProxy = [connection remoteObjectProxy];
+  v16 = [(FPXPCAutomaticErrorProxy *)self initWithRemoteObjectProxy:remoteObjectProxy protocol:protocolCopy orError:errorCopy name:nameCopy requestPid:v7 requestWillBegin:0 requestDidBegin:0];
+
+  return v16;
+}
+
+- (FPXPCAutomaticErrorProxy)initWithConnection:(id)connection protocol:(id)protocol orError:(id)error name:(id)name requestPid:(int)pid requestWillBegin:(id)begin
+{
+  v8 = *&pid;
+  beginCopy = begin;
+  nameCopy = name;
+  errorCopy = error;
+  protocolCopy = protocol;
+  remoteObjectProxy = [connection remoteObjectProxy];
+  v19 = [(FPXPCAutomaticErrorProxy *)self initWithRemoteObjectProxy:remoteObjectProxy protocol:protocolCopy orError:errorCopy name:nameCopy requestPid:v8 requestWillBegin:beginCopy requestDidBegin:0];
+
+  return v19;
+}
+
+- (FPXPCAutomaticErrorProxy)initWithConnection:(id)connection protocol:(id)protocol orError:(id)error name:(id)name requestPid:(int)pid requestWillBegin:(id)begin requestDidBegin:(id)didBegin
+{
+  v10 = *&pid;
+  didBeginCopy = didBegin;
+  beginCopy = begin;
+  nameCopy = name;
+  errorCopy = error;
+  protocolCopy = protocol;
+  remoteObjectProxy = [connection remoteObjectProxy];
+  v22 = [(FPXPCAutomaticErrorProxy *)self initWithRemoteObjectProxy:remoteObjectProxy protocol:protocolCopy orError:errorCopy name:nameCopy requestPid:v10 requestWillBegin:beginCopy requestDidBegin:didBeginCopy];
+
+  return v22;
+}
+
 - (FPXPCAutomaticErrorProxy)initWithRemoteObjectProxy:(id)proxy protocol:(id)protocol orError:(id)error name:(id)name requestPid:(int)pid requestWillBegin:(id)begin requestDidBegin:(id)didBegin
 {
-  v38[1] = *MEMORY[0x1E69E9840];
+  v37[1] = *MEMORY[0x1E69E9840];
   proxyCopy = proxy;
   protocolCopy = protocol;
   errorCopy = error;
   nameCopy = name;
   beginCopy = begin;
   didBeginCopy = didBegin;
-  v36.receiver = self;
-  v36.super_class = FPXPCAutomaticErrorProxy;
-  v20 = [(FPXPCAutomaticErrorProxy *)&v36 init];
+  v35.receiver = self;
+  v35.super_class = FPXPCAutomaticErrorProxy;
+  v20 = [(FPXPCAutomaticErrorProxy *)&v35 init];
   v21 = v20;
   if (v20)
   {
@@ -58,9 +100,9 @@
     {
       v24 = MEMORY[0x1E696ABC0];
       v25 = *MEMORY[0x1E696A250];
-      v37 = *MEMORY[0x1E696A278];
-      v38[0] = @"FPXPCAutomaticErrorProxy started out with invalid object";
-      error = [MEMORY[0x1E695DF20] dictionaryWithObjects:v38 forKeys:&v37 count:1];
+      v36 = *MEMORY[0x1E696A278];
+      v37[0] = @"FPXPCAutomaticErrorProxy started out with invalid object";
+      error = [MEMORY[0x1E695DF20] dictionaryWithObjects:v37 forKeys:&v36 count:1];
       v26 = [v24 errorWithDomain:v25 code:4099 userInfo:error];
       v27 = v21->_error;
       v21->_error = v26;
@@ -79,7 +121,6 @@
     v21->_sanitizeErrors = [objc_opt_class() sanitizeErrors];
   }
 
-  v32 = *MEMORY[0x1E69E9840];
   return v21;
 }
 
@@ -197,12 +238,12 @@
   v6 = MEMORY[0x1E696AD98];
   atomic_fetch_add_explicit(&_requestIDCounter, 1uLL, memory_order_relaxed);
   v50 = [v6 numberWithUnsignedLongLong:?];
-  pthread_main_np();
+  v7 = pthread_main_np();
   v83 = 0;
-  v7 = telemetry_default_log();
-  spid = os_signpost_id_generate(v7);
+  v8 = telemetry_default_log(v7);
+  spid = os_signpost_id_generate(v8);
 
-  v8 = NSStringFromSelector([invocationCopy selector]);
+  v9 = NSStringFromSelector([invocationCopy selector]);
   if (forwardInvocation__once_token != -1)
   {
     [FPXPCAutomaticErrorProxy forwardInvocation:];
@@ -210,7 +251,7 @@
 
   if (forwardInvocation__internal_build == 1 && self->_generateSignposts)
   {
-    v49 = [v8 isEqualToString:@"_t_setFilePresenterObserver:"] ^ 1;
+    v49 = [v9 isEqualToString:@"_t_setFilePresenterObserver:"] ^ 1;
   }
 
   else
@@ -220,7 +261,7 @@
 
   HIDWORD(v44) = v5 != 0x7FFFFFFFFFFFFFFFLL;
   LODWORD(v44) = v5 == 0x7FFFFFFFFFFFFFFFLL;
-  v9 = [MEMORY[0x1E695DF00] now];
+  v10 = [MEMORY[0x1E695DF00] now];
   v79 = 0;
   v80 = &v79;
   v81 = 0x2020000000;
@@ -228,41 +269,40 @@
   if (self->_pid)
   {
     section = __fp_create_section();
-    v11 = fp_current_or_default_log();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+    v12 = fp_current_or_default_log();
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
     {
       name = self->_name;
-      pid = self->_pid;
       v14 = FPExecutableNameForProcessIdentifier();
-      v15 = self->_pid;
+      pid = self->_pid;
       *buf = 134219010;
       *&buf[4] = section;
       *&buf[12] = 2114;
-      *&buf[14] = v8;
+      *&buf[14] = v9;
       *&buf[22] = 2112;
       v86 = name;
       LOWORD(v87) = 2112;
       *(&v87 + 2) = v14;
       WORD5(v87) = 1024;
-      HIDWORD(v87) = v15;
-      _os_log_debug_impl(&dword_1AAAE1000, v11, OS_LOG_TYPE_DEBUG, "[DEBUG] ┣%llx sending %{public}@ to %@ on behalf of %@[%d]", buf, 0x30u);
+      HIDWORD(v87) = pid;
+      _os_log_debug_impl(&dword_1AAAE1000, v12, OS_LOG_TYPE_DEBUG, "[DEBUG] ┣%llx sending %{public}@ to %@ on behalf of %@[%d]", buf, 0x30u);
     }
   }
 
   else
   {
     section = __fp_create_section();
-    v11 = fp_current_or_default_log();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+    v12 = fp_current_or_default_log();
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
     {
       v43 = self->_name;
       *buf = 134218498;
       *&buf[4] = section;
       *&buf[12] = 2114;
-      *&buf[14] = v8;
+      *&buf[14] = v9;
       *&buf[22] = 2112;
       v86 = v43;
-      _os_log_debug_impl(&dword_1AAAE1000, v11, OS_LOG_TYPE_DEBUG, "[DEBUG] ┣%llx sending %{public}@ to %@", buf, 0x20u);
+      _os_log_debug_impl(&dword_1AAAE1000, v12, OS_LOG_TYPE_DEBUG, "[DEBUG] ┣%llx sending %{public}@ to %@", buf, 0x20u);
     }
   }
 
@@ -291,11 +331,11 @@
     v67 = &unk_1E793DE60;
     v76 = v49;
     v75[1] = spid;
-    v68 = v9;
+    v68 = v10;
     v73 = &v79;
     v75[2] = section;
     v69 = v18;
-    v70 = v8;
+    v70 = v9;
     objc_copyWeak(v75, &location);
     v72 = v16;
     v77 = v45;
@@ -322,7 +362,7 @@
   v62 = v49;
   v58 = &v79;
   v59 = spid;
-  v22 = v9;
+  v22 = v10;
   v53 = v22;
   selfCopy = self;
   v23 = invocationCopy;
@@ -331,7 +371,7 @@
   v60 = v17;
   v56 = v83;
   v61 = v21;
-  v24 = v8;
+  v24 = v9;
   v57 = v24;
   v25 = _Block_copy(aBlock);
   target = self->_target;
@@ -393,20 +433,21 @@ LABEL_28:
       v36[3] = v37 | 0x80;
     }
 
-    if (pthread_main_np())
+    v38 = pthread_main_np();
+    if (v38)
     {
       v80[3] |= 0x40uLL;
     }
 
-    v38 = telemetry_default_log();
-    v39 = v38;
-    if ((spid - 1) <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v38))
+    v39 = telemetry_default_log(v38);
+    v40 = v39;
+    if ((spid - 1) <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v39))
     {
-      v40 = v24;
+      v41 = v24;
       uTF8String = [v24 UTF8String];
       *v84 = 136446210;
       *&v84[4] = uTF8String;
-      _os_signpost_emit_with_name_impl(&dword_1AAAE1000, v39, OS_SIGNPOST_INTERVAL_BEGIN, spid, "ClientXPC", "selector=%{public,signpost.telemetry:string1,name=selector}s", v84, 0xCu);
+      _os_signpost_emit_with_name_impl(&dword_1AAAE1000, v40, OS_SIGNPOST_INTERVAL_BEGIN, spid, "ClientXPC", "selector=%{public,signpost.telemetry:string1,name=selector}s", v84, 0xCu);
     }
   }
 
@@ -420,7 +461,6 @@ LABEL_28:
   _Block_object_dispose(buf, 8);
 
   _Block_object_dispose(&v79, 8);
-  v42 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __46__FPXPCAutomaticErrorProxy_forwardInvocation___block_invoke()
@@ -469,7 +509,7 @@ void __46__FPXPCAutomaticErrorProxy_forwardInvocation___block_invoke_17(uint64_t
 
 void __46__FPXPCAutomaticErrorProxy_forwardInvocation___block_invoke_19(uint64_t a1, void *a2)
 {
-  v34[2] = *MEMORY[0x1E69E9840];
+  v32[2] = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (*(a1 + 100) == 1)
   {
@@ -510,11 +550,11 @@ LABEL_11:
   v13 = MEMORY[0x1E696ABC0];
   v14 = [v5 code];
   v15 = *MEMORY[0x1E696A278];
-  v34[0] = *MEMORY[0x1E696AA08];
-  v34[1] = v15;
+  v32[0] = *MEMORY[0x1E696AA08];
+  v32[1] = v15;
   *buf = v5;
   *&buf[8] = v12;
-  v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:buf forKeys:v34 count:2];
+  v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:buf forKeys:v32 count:2];
   v17 = [v13 errorWithDomain:v8 code:v14 userInfo:v16];
 
 LABEL_12:
@@ -535,17 +575,16 @@ LABEL_13:
       {
         v23 = [v3 fp_prettyDescription];
         v24 = *(a1 + 64);
-        v25 = *(a1 + 96);
-        v26 = FPExecutableNameForProcessIdentifier();
-        v27 = *(a1 + 96);
+        v25 = FPExecutableNameForProcessIdentifier();
+        v26 = *(a1 + 96);
         *buf = 138413058;
         *&buf[4] = v23;
         *&buf[12] = 2114;
         *&buf[14] = v24;
-        v30 = 2114;
+        v28 = 2114;
+        v29 = v25;
+        v30 = 1024;
         v31 = v26;
-        v32 = 1024;
-        v33 = v27;
         _os_log_debug_impl(&dword_1AAAE1000, v21, OS_LOG_TYPE_DEBUG, "[DEBUG] Received error %@ while sending %{public}@ on behalf of %{public}@[%d]", buf, 0x26u);
       }
     }
@@ -555,8 +594,6 @@ LABEL_13:
       __46__FPXPCAutomaticErrorProxy_forwardInvocation___block_invoke_19_cold_1(v3, a1, v21);
     }
   }
-
-  v28 = *MEMORY[0x1E69E9840];
 }
 
 - (id)methodSignatureForSelector:(SEL)selector
@@ -578,31 +615,28 @@ LABEL_13:
 
 void __46__FPXPCAutomaticErrorProxy_forwardInvocation___block_invoke_17_cold_1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v3 = *(a1 + 40);
   v4 = *(a1 + 48);
-  v6 = 134218498;
-  v7 = a2;
-  v8 = 2112;
-  v9 = v3;
-  v10 = 2114;
-  v11 = v4;
-  _os_log_debug_impl(&dword_1AAAE1000, log, OS_LOG_TYPE_DEBUG, "[DEBUG] ┳%llx received reply from %@ for %{public}@", &v6, 0x20u);
-  v5 = *MEMORY[0x1E69E9840];
+  v5 = 134218498;
+  v6 = a2;
+  v7 = 2112;
+  v8 = v3;
+  v9 = 2114;
+  v10 = v4;
+  _os_log_debug_impl(&dword_1AAAE1000, log, OS_LOG_TYPE_DEBUG, "[DEBUG] ┳%llx received reply from %@ for %{public}@", &v5, 0x20u);
 }
 
 void __46__FPXPCAutomaticErrorProxy_forwardInvocation___block_invoke_19_cold_1(void *a1, uint64_t a2, NSObject *a3)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v5 = [a1 fp_prettyDescription];
   v6 = *(a2 + 64);
-  v8 = 138412546;
-  v9 = v5;
-  v10 = 2114;
-  v11 = v6;
-  _os_log_debug_impl(&dword_1AAAE1000, a3, OS_LOG_TYPE_DEBUG, "[DEBUG] Received error %@ while sending %{public}@", &v8, 0x16u);
-
-  v7 = *MEMORY[0x1E69E9840];
+  v7 = 138412546;
+  v8 = v5;
+  v9 = 2114;
+  v10 = v6;
+  _os_log_debug_impl(&dword_1AAAE1000, a3, OS_LOG_TYPE_DEBUG, "[DEBUG] Received error %@ while sending %{public}@", &v7, 0x16u);
 }
 
 @end

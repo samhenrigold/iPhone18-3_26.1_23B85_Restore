@@ -182,22 +182,16 @@
 {
   requestCopy = request;
   dCopy = d;
-  v28[0] = @"min-peers";
-  v11 = +[NSNumber numberWithUnsignedInteger:](NSNumber, "numberWithUnsignedInteger:", [requestCopy minPlayers]);
-  v29[0] = v11;
-  v28[1] = @"max-peers";
-  v12 = +[NSNumber numberWithUnsignedInteger:](NSNumber, "numberWithUnsignedInteger:", [requestCopy maxPlayers]);
-  v29[1] = v12;
-  v28[2] = @"requires-guest-player-capability";
-  v13 = +[NSNumber numberWithBool:](NSNumber, "numberWithBool:", [requestCopy hasGuestPlayers]);
-  v29[2] = v13;
-  v14 = [NSDictionary dictionaryWithObjects:v29 forKeys:v28 count:3];
-  v15 = [NSMutableDictionary dictionaryWithDictionary:v14];
+  v23 = +[NSNumber numberWithUnsignedInteger:](NSNumber, "numberWithUnsignedInteger:", [requestCopy minPlayers]);
+  v24 = +[NSNumber numberWithUnsignedInteger:](NSNumber, "numberWithUnsignedInteger:", [requestCopy maxPlayers]);
+  v25 = +[NSNumber numberWithBool:](NSNumber, "numberWithBool:", [requestCopy hasGuestPlayers]);
+  v11 = objc_msgSend_dictionaryWithObjects_forKeys_count_(NSDictionary);
+  v12 = [NSMutableDictionary dictionaryWithDictionary:v11];
 
   if (count)
   {
-    v16 = [NSNumber numberWithInteger:count];
-    [v15 setObject:v16 forKey:@"num-players"];
+    v13 = [NSNumber numberWithInteger:count];
+    [v12 setObject:v13 forKey:@"num-players"];
   }
 
   queueName = [requestCopy queueName];
@@ -205,45 +199,39 @@
   if (queueName)
   {
     queueName2 = [requestCopy queueName];
-    [v15 setObject:queueName2 forKey:@"queue-name"];
+    [v12 setObject:queueName2 forKey:@"queue-name"];
 
     properties = [requestCopy properties];
 
     if (properties)
     {
       properties2 = [requestCopy properties];
-      [v15 setObject:properties2 forKey:@"properties"];
+      [v12 setObject:properties2 forKey:@"properties"];
     }
   }
 
   else
   {
-    v26[0] = @"bucket-id";
-    v21 = +[NSNumber numberWithUnsignedInteger:](NSNumber, "numberWithUnsignedInteger:", [requestCopy playerGroup]);
-    v27[0] = v21;
-    v26[1] = @"conn-info";
-    v22 = [NSNumber numberWithInteger:info];
-    v27[1] = v22;
-    v26[2] = @"flags";
-    v23 = +[NSString stringWithFormat:](NSString, "stringWithFormat:", @"%#.8x", [requestCopy playerAttributes]);
-    v27[2] = v23;
-    v24 = [NSDictionary dictionaryWithObjects:v27 forKeys:v26 count:3];
-    [v15 addEntriesFromDictionary:v24];
+    v20 = +[NSNumber numberWithUnsignedInteger:](NSNumber, "numberWithUnsignedInteger:", [requestCopy playerGroup]);
+    v21 = [NSNumber numberWithInteger:info];
+    v22 = +[NSString stringWithFormat:](NSString, "stringWithFormat:", @"%#.8x", [requestCopy playerAttributes]);
+    v18 = objc_msgSend_dictionaryWithObjects_forKeys_count_(NSDictionary);
+    [v12 addEntriesFromDictionary:v18];
 
     if (dCopy)
     {
-      [v15 setObject:dCopy forKey:@"match-id"];
+      [v12 setObject:dCopy forKey:@"match-id"];
     }
   }
 
-  return v15;
+  return v12;
 }
 
 + (id)makePlayersDictionaryForMatchRequest:(id)request transportContext:(id)context
 {
   requestCopy = request;
   contextCopy = context;
-  v42 = +[NSMutableArray array];
+  v41 = +[NSMutableArray array];
   localPlayerID = [contextCopy localPlayerID];
   v8 = localPlayerID;
   if (localPlayerID)
@@ -262,105 +250,104 @@
   v12 = @"player-id";
   if (properties)
   {
-    v61[1] = @"properties";
-    v62[0] = v10;
-    v61[0] = @"player-id";
+    v63 = @"properties";
+    v64 = v10;
+    v62 = @"player-id";
     properties2 = [requestCopy properties];
-    v62[1] = properties2;
-    v14 = [NSDictionary dictionaryWithObjects:v62 forKeys:v61 count:2];
+    v13 = objc_msgSend_dictionaryWithObjects_forKeys_count_(NSDictionary);
   }
 
   else
   {
-    v59 = @"player-id";
-    v60 = v10;
-    v14 = [NSDictionary dictionaryWithObjects:&v60 forKeys:&v59 count:1];
+    v60 = @"player-id";
+    v61 = v10;
+    v13 = objc_msgSend_dictionaryWithObjects_forKeys_count_(NSDictionary);
   }
 
-  v37 = v14;
-  [v42 addObject:v14];
+  v36 = v13;
+  [v41 addObject:v13];
   recipientPlayerIDs = [requestCopy recipientPlayerIDs];
-  v16 = [NSMutableSet setWithArray:recipientPlayerIDs];
+  v15 = [NSMutableSet setWithArray:recipientPlayerIDs];
 
   representedPlayerIDs = [contextCopy representedPlayerIDs];
 
   if (representedPlayerIDs)
   {
     representedPlayerIDs2 = [contextCopy representedPlayerIDs];
-    [v16 addObjectsFromArray:representedPlayerIDs2];
+    [v15 addObjectsFromArray:representedPlayerIDs2];
   }
 
-  v38 = contextCopy;
-  v51 = 0u;
-  v52 = 0u;
-  v49 = 0u;
+  v37 = contextCopy;
   v50 = 0u;
-  obj = v16;
-  v19 = [obj countByEnumeratingWithState:&v49 objects:v58 count:16];
-  if (v19)
+  v51 = 0u;
+  v48 = 0u;
+  v49 = 0u;
+  obj = v15;
+  v18 = [obj countByEnumeratingWithState:&v48 objects:v59 count:16];
+  if (v18)
   {
-    v20 = v19;
-    v21 = *v50;
-    v40 = requestCopy;
-    v41 = v10;
-    v39 = *v50;
+    v19 = v18;
+    v20 = *v49;
+    v39 = requestCopy;
+    v40 = v10;
+    v38 = *v49;
     do
     {
-      v22 = 0;
-      v43 = v20;
+      v21 = 0;
+      v42 = v19;
       do
       {
-        if (*v50 != v21)
+        if (*v49 != v20)
         {
           objc_enumerationMutation(obj);
         }
 
-        v23 = *(*(&v49 + 1) + 8 * v22);
-        if (([v23 isEqualToString:v10] & 1) == 0)
+        v22 = *(*(&v48 + 1) + 8 * v21);
+        if (([v22 isEqualToString:v10] & 1) == 0)
         {
-          v24 = v12;
-          v47 = 0u;
-          v48 = 0u;
-          v45 = 0u;
+          v23 = v12;
           v46 = 0u;
+          v47 = 0u;
+          v44 = 0u;
+          v45 = 0u;
           recipientProperties = [requestCopy recipientProperties];
-          v26 = [recipientProperties countByEnumeratingWithState:&v45 objects:v57 count:16];
-          if (v26)
+          v25 = [recipientProperties countByEnumeratingWithState:&v44 objects:v58 count:16];
+          if (v25)
           {
-            v27 = v26;
-            v28 = *v46;
+            v26 = v25;
+            v27 = *v45;
             while (2)
             {
-              for (i = 0; i != v27; i = i + 1)
+              for (i = 0; i != v26; i = i + 1)
               {
-                if (*v46 != v28)
+                if (*v45 != v27)
                 {
                   objc_enumerationMutation(recipientProperties);
                 }
 
-                v30 = *(*(&v45 + 1) + 8 * i);
-                playerID = [v30 playerID];
-                v32 = [playerID isEqualToString:v23];
+                v29 = *(*(&v44 + 1) + 8 * i);
+                playerID = [v29 playerID];
+                v31 = [playerID isEqualToString:v22];
 
-                if (v32)
+                if (v31)
                 {
-                  v12 = v24;
-                  v55[0] = v24;
-                  v55[1] = @"properties";
-                  v56[0] = v23;
-                  requestCopy = v40;
-                  recipientProperties2 = [v40 recipientProperties];
-                  v34 = [recipientProperties2 objectForKeyedSubscript:v30];
-                  v56[1] = v34;
-                  v35 = [NSDictionary dictionaryWithObjects:v56 forKeys:v55 count:2];
-                  [v42 addObject:v35];
+                  v12 = v23;
+                  v54 = v23;
+                  v55 = @"properties";
+                  v56 = v22;
+                  requestCopy = v39;
+                  recipientProperties2 = [v39 recipientProperties];
+                  v33 = [recipientProperties2 objectForKeyedSubscript:v29];
+                  v57 = v33;
+                  v34 = objc_msgSend_dictionaryWithObjects_forKeys_count_(NSDictionary);
+                  [v41 addObject:v34];
 
                   goto LABEL_25;
                 }
               }
 
-              v27 = [recipientProperties countByEnumeratingWithState:&v45 objects:v57 count:16];
-              if (v27)
+              v26 = [recipientProperties countByEnumeratingWithState:&v44 objects:v58 count:16];
+              if (v26)
               {
                 continue;
               }
@@ -369,30 +356,30 @@
             }
           }
 
-          v12 = v24;
-          v53 = v24;
-          v54 = v23;
-          recipientProperties = [NSDictionary dictionaryWithObjects:&v54 forKeys:&v53 count:1];
-          [v42 addObject:recipientProperties];
-          requestCopy = v40;
+          v12 = v23;
+          v52 = v23;
+          v53 = v22;
+          recipientProperties = objc_msgSend_dictionaryWithObjects_forKeys_count_(NSDictionary);
+          [v41 addObject:recipientProperties];
+          requestCopy = v39;
 LABEL_25:
 
-          v10 = v41;
-          v21 = v39;
-          v20 = v43;
+          v10 = v40;
+          v20 = v38;
+          v19 = v42;
         }
 
-        v22 = v22 + 1;
+        v21 = v21 + 1;
       }
 
-      while (v22 != v20);
-      v20 = [obj countByEnumeratingWithState:&v49 objects:v58 count:16];
+      while (v21 != v19);
+      v19 = [obj countByEnumeratingWithState:&v48 objects:v59 count:16];
     }
 
-    while (v20);
+    while (v19);
   }
 
-  return v42;
+  return v41;
 }
 
 - (void)cancelOutstandingMatchRequestWithHandler:(id)handler
@@ -424,11 +411,11 @@ LABEL_25:
     v14 = matchingGroup;
     if (v10 && v12 && matchingGroup)
     {
-      v26[0] = @"rid";
-      v26[1] = @"bucket-id";
-      v27[0] = v10;
-      v27[1] = v12;
-      v15 = [NSDictionary dictionaryWithObjects:v27 forKeys:v26 count:2];
+      v26 = @"rid";
+      v27 = @"bucket-id";
+      v28 = v10;
+      v29 = v12;
+      v15 = objc_msgSend_dictionaryWithObjects_forKeys_count_(NSDictionary);
       matchingGroup2 = [v9 matchingGroup];
       v22[0] = _NSConcreteStackBlock;
       v22[1] = 3221225472;
@@ -453,11 +440,11 @@ LABEL_22:
     if (os_log_type_enabled(os_log_GKMatch, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138412802;
-      v29 = v10;
-      v30 = 2112;
-      v31 = v12;
+      v31 = v10;
       v32 = 2112;
-      v33 = v14;
+      v33 = v12;
+      v34 = 2112;
+      v35 = v14;
       _os_log_debug_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEBUG, "cancelOutstandingMatchRequestWithHandler early return with rid: %@, group: %@, matchingGroup: %@", buf, 0x20u);
       if (!handlerCopy)
       {
@@ -483,7 +470,7 @@ LABEL_22:
   if (os_log_type_enabled(os_log_GKMatch, OS_LOG_TYPE_INFO))
   {
     *buf = 138412290;
-    v29 = v9;
+    v31 = v9;
     _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_INFO, "cancelOutstandingMatchRequestWithHandler early return due to: cannot transit to canceled state, or response is nil. Response: %@", buf, 0xCu);
   }
 
@@ -1450,7 +1437,7 @@ LABEL_16:
   v28 = [NSNumber numberWithInteger:automatched];
   v29 = [NSString stringWithFormat:@"%@", v28];
   v48 = v29;
-  v30 = [NSDictionary dictionaryWithObjects:&v48 forKeys:&v47 count:1];
+  v30 = objc_msgSend_dictionaryWithObjects_forKeys_count_(NSDictionary);
   v31 = [v30 mutableCopy];
   [(GKMultiplayerGroupRequest *)v27 setRequestData:v31];
 
@@ -1532,30 +1519,30 @@ LABEL_16:
   v14 = [NSDictionary dictionaryWithObjectsAndKeys:v13, @"s", 0];
   v26 = v10;
   pushToken = [v10 pushToken];
-  v29[0] = @"session-token";
+  v29 = @"session-token";
   sessionToken = [inviteCopy sessionToken];
-  v30[0] = sessionToken;
-  v29[1] = @"peer-id";
+  v35 = sessionToken;
+  v30 = @"peer-id";
   peerID = [inviteCopy peerID];
-  v30[1] = peerID;
-  v29[2] = @"peer-push-token";
+  v36 = peerID;
+  v31 = @"peer-push-token";
   peerPushToken = [inviteCopy peerPushToken];
 
-  v30[2] = peerPushToken;
-  v29[3] = @"self-push-token";
+  v37 = peerPushToken;
+  v32 = @"self-push-token";
   v19 = pushToken;
   if (!pushToken)
   {
     v19 = +[NSData data];
   }
 
-  v30[3] = v19;
-  v29[4] = @"reason";
+  v38 = v19;
+  v33 = @"reason";
   v20 = [NSNumber numberWithInteger:reason];
-  v29[5] = @"client-data";
-  v30[4] = v20;
-  v30[5] = v14;
-  v21 = [NSDictionary dictionaryWithObjects:v30 forKeys:v29 count:6];
+  v34 = @"client-data";
+  v39 = v20;
+  v40 = v14;
+  v21 = objc_msgSend_dictionaryWithObjects_forKeys_count_(NSDictionary);
 
   if (!pushToken)
   {
@@ -1747,7 +1734,7 @@ LABEL_16:
   v66 = 0u;
   obj = [updateCopy playerTokenMap];
   v49 = updateCopy;
-  v50 = [obj countByEnumeratingWithState:&v63 objects:v76 count:16];
+  v50 = [obj countByEnumeratingWithState:&v63 objects:v88 count:16];
   if (v50)
   {
     v48 = *v64;
@@ -1770,7 +1757,7 @@ LABEL_16:
         playerTokenMap = [updateCopy playerTokenMap];
         v10 = [playerTokenMap objectForKeyedSubscript:v8];
 
-        v11 = [v10 countByEnumeratingWithState:&v59 objects:v75 count:16];
+        v11 = [v10 countByEnumeratingWithState:&v59 objects:v87 count:16];
         if (v11)
         {
           v12 = v11;
@@ -1785,15 +1772,15 @@ LABEL_16:
               }
 
               v15 = *(*(&v59 + 1) + 8 * i);
-              v73[0] = @"id";
-              v73[1] = @"push-token";
-              v74[0] = v8;
-              v74[1] = v15;
-              v16 = [NSDictionary dictionaryWithObjects:v74 forKeys:v73 count:2];
+              v83 = @"id";
+              v84 = @"push-token";
+              v85 = v8;
+              v86 = v15;
+              v16 = objc_msgSend_dictionaryWithObjects_forKeys_count_(NSDictionary);
               [v6 addObject:v16];
             }
 
-            v12 = [v10 countByEnumeratingWithState:&v59 objects:v75 count:16];
+            v12 = [v10 countByEnumeratingWithState:&v59 objects:v87 count:16];
           }
 
           while (v12);
@@ -1804,30 +1791,30 @@ LABEL_16:
       }
 
       while ((v51 + 1) != v50);
-      v50 = [obj countByEnumeratingWithState:&v63 objects:v76 count:16];
+      v50 = [obj countByEnumeratingWithState:&v63 objects:v88 count:16];
     }
 
     while (v50);
   }
 
-  v71[0] = @"bundle-id";
+  v77 = @"bundle-id";
   clientProxy = [(GKService *)self clientProxy];
   bundleIdentifier = [clientProxy bundleIdentifier];
-  v72[0] = bundleIdentifier;
-  v71[1] = GKSuggestedTransportVersionPushShortKey;
+  v80 = bundleIdentifier;
+  v78 = GKSuggestedTransportVersionPushShortKey;
   transportVersionToUse = [updateCopy transportVersionToUse];
-  v72[1] = transportVersionToUse;
-  v71[2] = GKInviteSessionIDKey;
+  v81 = transportVersionToUse;
+  v79 = GKInviteSessionIDKey;
   sessionID = [updateCopy sessionID];
-  v72[2] = sessionID;
-  [NSDictionary dictionaryWithObjects:v72 forKeys:v71 count:3];
+  v82 = sessionID;
+  objc_msgSend_dictionaryWithObjects_forKeys_count_(NSDictionary);
   v22 = v21 = updateCopy;
   v52 = [NSMutableDictionary dictionaryWithDictionary:v22];
 
-  v69[0] = @"session-token";
+  v69 = @"session-token";
   sessionToken = [v21 sessionToken];
-  v70[0] = sessionToken;
-  v69[1] = @"self-push-token";
+  v73 = sessionToken;
+  v70 = @"self-push-token";
   v24 = +[GKDataRequestManager sharedManager];
   pushToken = [v24 pushToken];
   v26 = pushToken;
@@ -1836,13 +1823,13 @@ LABEL_16:
     v26 = +[NSData data];
   }
 
-  v70[1] = v26;
-  v69[2] = @"reason";
+  v74 = v26;
+  v71 = @"reason";
   v27 = [NSNumber numberWithInt:3];
-  v69[3] = @"peers";
-  v70[2] = v27;
-  v70[3] = v6;
-  v28 = [NSDictionary dictionaryWithObjects:v70 forKeys:v69 count:4];
+  v72 = @"peers";
+  v75 = v27;
+  v76 = v6;
+  v28 = objc_msgSend_dictionaryWithObjects_forKeys_count_(NSDictionary);
   v29 = [NSMutableDictionary dictionaryWithDictionary:v28];
 
   if (!pushToken)
@@ -1936,9 +1923,9 @@ LABEL_16:
     clientProxy = [(GKService *)self clientProxy];
     bundleIdentifier = [clientProxy bundleIdentifier];
     *buf = 138412546;
-    v61 = withCopy;
-    v62 = 2112;
-    v63 = bundleIdentifier;
+    v69 = withCopy;
+    v70 = 2112;
+    v71 = bundleIdentifier;
     _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_INFO, "Request TTRLogsWith: %@, for client proxy: %@", buf, 0x16u);
   }
 
@@ -1949,7 +1936,7 @@ LABEL_16:
   v55 = 0u;
   v56 = 0u;
   playersAndPushTokens = [withCopy playersAndPushTokens];
-  v14 = [playersAndPushTokens countByEnumeratingWithState:&v53 objects:v59 count:16];
+  v14 = [playersAndPushTokens countByEnumeratingWithState:&v53 objects:v67 count:16];
   if (v14)
   {
     v15 = v14;
@@ -1967,16 +1954,16 @@ LABEL_16:
         [v12 addObject:serverRepresentation];
       }
 
-      v15 = [playersAndPushTokens countByEnumeratingWithState:&v53 objects:v59 count:16];
+      v15 = [playersAndPushTokens countByEnumeratingWithState:&v53 objects:v67 count:16];
     }
 
     while (v15);
   }
 
-  v57[0] = @"session-token";
+  v57 = @"session-token";
   v19 = +[NSData data];
-  v58[0] = v19;
-  v57[1] = @"self-push-token";
+  v62 = v19;
+  v58 = @"self-push-token";
   v20 = +[GKDataRequestManager sharedManager];
   pushToken = [v20 pushToken];
   v22 = pushToken;
@@ -1985,16 +1972,16 @@ LABEL_16:
     v22 = +[NSData data];
   }
 
-  v58[1] = v22;
-  v57[2] = @"reason";
+  v63 = v22;
+  v59 = @"reason";
   v23 = [NSNumber numberWithInt:100];
-  v58[2] = v23;
-  v58[3] = v12;
-  v57[3] = @"peers";
-  v57[4] = GKTTRBulletinKeyRadarID;
+  v64 = v23;
+  v65 = v12;
+  v60 = @"peers";
+  v61 = GKTTRBulletinKeyRadarID;
   radarID = [withCopy radarID];
-  v58[4] = radarID;
-  v25 = [NSDictionary dictionaryWithObjects:v58 forKeys:v57 count:5];
+  v66 = radarID;
+  v25 = objc_msgSend_dictionaryWithObjects_forKeys_count_(NSDictionary);
   v26 = [NSMutableDictionary dictionaryWithDictionary:v25];
 
   if (!pushToken)
@@ -2740,13 +2727,11 @@ LABEL_16:
     if (os_log_type_enabled(os_log_GKMatch, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v24 = identifierCopy;
+      v22 = identifierCopy;
       _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_INFO, "GKMultiplayerService fileMultiplayerTTR with callbackIdentifier: %@", buf, 0xCu);
     }
 
-    v21 = GKTTRBulletinKeyType;
-    v22 = &off_100382490;
-    v15 = [NSDictionary dictionaryWithObjects:&v22 forKeys:&v21 count:1];
+    v15 = objc_msgSend_dictionaryWithObjects_forKeys_count_(NSDictionary, GKTTRBulletinKeyType, &off_100382490);
     v16 = [NSMutableDictionary dictionaryWithDictionary:v15];
 
     ttrHelper = [(GKMultiplayerMatchService *)self ttrHelper];
@@ -2792,13 +2777,13 @@ LABEL_16:
       _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_INFO, "GKMultiplayerServicePrivate uploadLogsForRadar:", v21, 2u);
     }
 
-    v22[0] = GKTTRBulletinKeyType;
-    v22[1] = GKTTRBulletinKeyRadarID;
-    v23[0] = &off_100382490;
-    v23[1] = radarCopy;
-    v22[2] = GKTTRBulletinKeyRequesterPlayerAlias;
-    v23[2] = fromCopy;
-    v15 = [NSDictionary dictionaryWithObjects:v23 forKeys:v22 count:3];
+    v22 = GKTTRBulletinKeyType;
+    v23 = GKTTRBulletinKeyRadarID;
+    v25 = &off_100382490;
+    v26 = radarCopy;
+    v24 = GKTTRBulletinKeyRequesterPlayerAlias;
+    v27 = fromCopy;
+    v15 = objc_msgSend_dictionaryWithObjects_forKeys_count_(NSDictionary);
     v16 = [NSMutableDictionary dictionaryWithDictionary:v15];
 
     ttrHelper = [(GKMultiplayerMatchService *)self ttrHelper];

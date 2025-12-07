@@ -8,11 +8,11 @@
 
 - (FBKSUserLoginInfo)initWithDictionary:(id)dictionary
 {
-  v64 = *MEMORY[0x1E69E9840];
+  v63 = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
-  v61.receiver = self;
-  v61.super_class = FBKSUserLoginInfo;
-  v5 = [(FBKSUserLoginInfo *)&v61 init];
+  v60.receiver = self;
+  v60.super_class = FBKSUserLoginInfo;
+  v5 = [(FBKSUserLoginInfo *)&v60 init];
   if (v5)
   {
     v6 = [dictionaryCopy objectForKeyedSubscript:@"default_email"];
@@ -64,27 +64,27 @@
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        v51 = v27;
-        v59 = 0u;
-        v60 = 0u;
-        v57 = 0u;
+        v50 = v27;
         v58 = 0u;
+        v59 = 0u;
+        v56 = 0u;
+        v57 = 0u;
         v28 = v27;
-        v29 = [v28 countByEnumeratingWithState:&v57 objects:v63 count:16];
+        v29 = [v28 countByEnumeratingWithState:&v56 objects:v62 count:16];
         if (v29)
         {
           v30 = v29;
-          v31 = *v58;
+          v31 = *v57;
           do
           {
             for (i = 0; i != v30; ++i)
             {
-              if (*v58 != v31)
+              if (*v57 != v31)
               {
                 objc_enumerationMutation(v28);
               }
 
-              v33 = *(*(&v57 + 1) + 8 * i);
+              v33 = *(*(&v56 + 1) + 8 * i);
               objc_opt_class();
               if (objc_opt_isKindOfClass())
               {
@@ -96,13 +96,13 @@
               }
             }
 
-            v30 = [v28 countByEnumeratingWithState:&v57 objects:v63 count:16];
+            v30 = [v28 countByEnumeratingWithState:&v56 objects:v62 count:16];
           }
 
           while (v30);
         }
 
-        v27 = v51;
+        v27 = v50;
       }
     }
 
@@ -119,28 +119,28 @@
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        v52 = v22;
-        v50 = dictionaryCopy;
-        v55 = 0u;
-        v56 = 0u;
-        v53 = 0u;
+        v51 = v22;
+        v49 = dictionaryCopy;
         v54 = 0u;
+        v55 = 0u;
+        v52 = 0u;
+        v53 = 0u;
         v40 = v39;
-        v41 = [v40 countByEnumeratingWithState:&v53 objects:v62 count:16];
+        v41 = [v40 countByEnumeratingWithState:&v52 objects:v61 count:16];
         if (v41)
         {
           v42 = v41;
-          v43 = *v54;
+          v43 = *v53;
           do
           {
             for (j = 0; j != v42; ++j)
             {
-              if (*v54 != v43)
+              if (*v53 != v43)
               {
                 objc_enumerationMutation(v40);
               }
 
-              v45 = *(*(&v53 + 1) + 8 * j);
+              v45 = *(*(&v52 + 1) + 8 * j);
               objc_opt_class();
               if (objc_opt_isKindOfClass())
               {
@@ -148,14 +148,14 @@
               }
             }
 
-            v42 = [v40 countByEnumeratingWithState:&v53 objects:v62 count:16];
+            v42 = [v40 countByEnumeratingWithState:&v52 objects:v61 count:16];
           }
 
           while (v42);
         }
 
-        dictionaryCopy = v50;
-        v22 = v52;
+        dictionaryCopy = v49;
+        v22 = v51;
       }
     }
 
@@ -164,7 +164,6 @@
     v5->_signedConsents = v46;
   }
 
-  v48 = *MEMORY[0x1E69E9840];
   return v5;
 }
 

@@ -43,64 +43,65 @@
 
 - (id)initBase
 {
-  v13.receiver = self;
-  v13.super_class = EPMassUnpairer;
-  v2 = [(EPMassUnpairer *)&v13 init];
+  v15.receiver = self;
+  v15.super_class = EPMassUnpairer;
+  v2 = [(EPMassUnpairer *)&v15 init];
+  v3 = v2;
   if (v2)
   {
-    v3 = sub_1000A9948();
-    v4 = os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT);
+    v4 = sub_1000A9948(v2);
+    v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
 
-    if (v4)
+    if (v5)
     {
-      v5 = sub_1000A9948();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+      v7 = sub_1000A9948(v6);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
-        v6 = objc_opt_class();
-        v7 = NSStringFromClass(v6);
+        v8 = objc_opt_class();
+        v9 = NSStringFromClass(v8);
         *buf = 138412546;
-        v15 = v7;
-        v16 = 2048;
-        v17 = v2;
-        _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "init %@[%p]", buf, 0x16u);
+        v17 = v9;
+        v18 = 2048;
+        v19 = v3;
+        _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "init %@[%p]", buf, 0x16u);
       }
     }
 
-    v8 = +[NSMutableArray array];
-    peersToUnpair = v2->_peersToUnpair;
-    v2->_peersToUnpair = v8;
+    v10 = +[NSMutableArray array];
+    peersToUnpair = v3->_peersToUnpair;
+    v3->_peersToUnpair = v10;
 
-    v10 = +[NSMutableSet set];
-    devicesUnpaired = v2->_devicesUnpaired;
-    v2->_devicesUnpaired = v10;
+    v12 = +[NSMutableSet set];
+    devicesUnpaired = v3->_devicesUnpaired;
+    v3->_devicesUnpaired = v12;
   }
 
-  return v2;
+  return v3;
 }
 
 - (void)dealloc
 {
-  v3 = sub_1000A9948();
+  v3 = sub_1000A9948(self);
   v4 = os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT);
 
   if (v4)
   {
-    v5 = sub_1000A9948();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = sub_1000A9948(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = objc_opt_class();
-      v7 = NSStringFromClass(v6);
+      v7 = objc_opt_class();
+      v8 = NSStringFromClass(v7);
       *buf = 138412546;
-      v10 = v7;
-      v11 = 2048;
+      v11 = v8;
+      v12 = 2048;
       selfCopy = self;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "dealloc %@[%p]", buf, 0x16u);
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "dealloc %@[%p]", buf, 0x16u);
     }
   }
 
-  v8.receiver = self;
-  v8.super_class = EPMassUnpairer;
-  [(EPMassUnpairer *)&v8 dealloc];
+  v9.receiver = self;
+  v9.super_class = EPMassUnpairer;
+  [(EPMassUnpairer *)&v9 dealloc];
 }
 
 - (EPMassUnpairer)initWithDelegate:(id)delegate UUIDs:(id)ds
@@ -153,10 +154,10 @@
   if ([(EPResource *)agent availability]!= 1)
   {
     [(NSMutableArray *)self->_peersToUnpair removeAllObjects];
-    v46 = 0;
-    v47 = 32;
+    v51 = 0;
+    v52 = 32;
 LABEL_43:
-    *(&self->super.isa + v47) = v46;
+    *(&self->super.isa + v52) = v51;
     goto LABEL_44;
   }
 
@@ -166,110 +167,115 @@ LABEL_43:
   }
 
   self->_unpairing = 1;
-  v4 = sub_1000A98C0();
+  v4 = sub_1000A98C0(1);
   v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
 
   if (v5)
   {
-    v6 = sub_1000A98C0();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = sub_1000A98C0(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Calling CBPairingAgent retrievePairedPeers", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Calling CBPairingAgent retrievePairedPeers", buf, 2u);
     }
   }
 
   agent = [(EPPairingAgent *)self->_agent agent];
   retrievePairedPeers = [agent retrievePairedPeers];
-  v9 = [retrievePairedPeers mutableCopy];
+  v10 = [retrievePairedPeers mutableCopy];
 
-  v56 = 0u;
-  v57 = 0u;
-  v54 = 0u;
-  v55 = 0u;
-  v10 = v9;
-  v11 = [v10 countByEnumeratingWithState:&v54 objects:v63 count:16];
-  if (v11)
+  v61 = 0u;
+  v62 = 0u;
+  v59 = 0u;
+  v60 = 0u;
+  v11 = v10;
+  v12 = [v11 countByEnumeratingWithState:&v59 objects:v68 count:16];
+  if (v12)
   {
-    v12 = v11;
-    v13 = *v55;
+    v13 = v12;
+    v14 = *v60;
     do
     {
-      v14 = 0;
-      do
+      for (i = 0; i != v13; i = i + 1)
       {
-        if (*v55 != v13)
+        if (*v60 != v14)
         {
-          objc_enumerationMutation(v10);
+          objc_enumerationMutation(v11);
         }
 
-        v15 = *(*(&v54 + 1) + 8 * v14);
+        v16 = *(*(&v59 + 1) + 8 * i);
         requestedUUIDs = self->_requestedUUIDs;
-        if (!requestedUUIDs || ([*(*(&v54 + 1) + 8 * v14) identifier], v17 = objc_claimAutoreleasedReturnValue(), v18 = -[NSSet containsObject:](requestedUUIDs, "containsObject:", v17), v17, v18))
+        if (requestedUUIDs)
         {
-          [(NSMutableArray *)self->_peersToUnpair addObject:v15];
-        }
+          identifier = [*(*(&v59 + 1) + 8 * i) identifier];
+          v19 = [(NSSet *)requestedUUIDs containsObject:identifier];
 
-        v14 = v14 + 1;
-      }
-
-      while (v12 != v14);
-      v12 = [v10 countByEnumeratingWithState:&v54 objects:v63 count:16];
-    }
-
-    while (v12);
-  }
-
-  v52 = 0u;
-  v53 = 0u;
-  v50 = 0u;
-  v51 = 0u;
-  v19 = self->_peersToUnpair;
-  v20 = [(NSMutableArray *)v19 countByEnumeratingWithState:&v50 objects:v62 count:16];
-  if (v20)
-  {
-    v22 = v20;
-    v23 = *v51;
-    *&v21 = 138412290;
-    v49 = v21;
-    do
-    {
-      v24 = 0;
-      do
-      {
-        if (*v51 != v23)
-        {
-          objc_enumerationMutation(v19);
-        }
-
-        v25 = *(*(&v50 + 1) + 8 * v24);
-        v26 = sub_1000A98C0();
-        v27 = os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT);
-
-        if (v27)
-        {
-          v28 = sub_1000A98C0();
-          if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
+          if (!v19)
           {
-            identifier = [v25 identifier];
-            uUIDString = [identifier UUIDString];
-            *buf = v49;
-            v59 = uUIDString;
-            _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_DEFAULT, "Calling CBPairingAgent unpairPeer: %@", buf, 0xCu);
+            continue;
           }
         }
 
-        v31 = [(EPPairingAgent *)self->_agent agent:v49];
-        [v31 unpairPeer:v25];
-
-        v24 = v24 + 1;
+        [(NSMutableArray *)self->_peersToUnpair addObject:v16];
       }
 
-      while (v22 != v24);
-      v22 = [(NSMutableArray *)v19 countByEnumeratingWithState:&v50 objects:v62 count:16];
+      v13 = [v11 countByEnumeratingWithState:&v59 objects:v68 count:16];
     }
 
-    while (v22);
+    while (v13);
+  }
+
+  v57 = 0u;
+  v58 = 0u;
+  v55 = 0u;
+  v56 = 0u;
+  v20 = self->_peersToUnpair;
+  v21 = [(NSMutableArray *)v20 countByEnumeratingWithState:&v55 objects:v67 count:16];
+  if (v21)
+  {
+    v23 = v21;
+    v24 = *v56;
+    *&v22 = 138412290;
+    v54 = v22;
+    do
+    {
+      v25 = 0;
+      do
+      {
+        if (*v56 != v24)
+        {
+          objc_enumerationMutation(v20);
+        }
+
+        v26 = *(*(&v55 + 1) + 8 * v25);
+        v27 = sub_1000A98C0(v21);
+        v28 = os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT);
+
+        if (v28)
+        {
+          v30 = sub_1000A98C0(v29);
+          if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
+          {
+            identifier2 = [v26 identifier];
+            uUIDString = [identifier2 UUIDString];
+            *buf = v54;
+            v64 = uUIDString;
+            _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_DEFAULT, "Calling CBPairingAgent unpairPeer: %@", buf, 0xCu);
+          }
+        }
+
+        v33 = [(EPPairingAgent *)self->_agent agent:v54];
+        [v33 unpairPeer:v26];
+
+        v25 = v25 + 1;
+      }
+
+      while (v23 != v25);
+      v21 = [(NSMutableArray *)v20 countByEnumeratingWithState:&v55 objects:v67 count:16];
+      v23 = v21;
+    }
+
+    while (v21);
   }
 
   if (self->_unpairing)
@@ -277,54 +283,53 @@ LABEL_43:
 LABEL_48:
     if (![(NSMutableArray *)self->_peersToUnpair count])
     {
-      [(EPMassUnpairer *)self setTimerDuration:0 withBlock:0.0];
-      v32 = sub_1000A98C0();
-      v33 = os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT);
+      v34 = sub_1000A98C0([(EPMassUnpairer *)self setTimerDuration:0 withBlock:0.0]);
+      v35 = os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT);
 
-      if (v33)
+      if (v35)
       {
-        v34 = sub_1000A98C0();
-        if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
+        v37 = sub_1000A98C0(v36);
+        if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
-          _os_log_impl(&_mh_execute_header, v34, OS_LOG_TYPE_DEFAULT, "All peers unpaired!", buf, 2u);
+          _os_log_impl(&_mh_execute_header, v37, OS_LOG_TYPE_DEFAULT, "All peers unpaired!", buf, 2u);
         }
       }
 
-      v35 = self->_agent;
+      v38 = self->_agent;
       self->_agent = 0;
 
       WeakRetained = objc_loadWeakRetained(&self->_delegate);
-      v37 = objc_opt_respondsToSelector();
+      v40 = objc_opt_respondsToSelector();
 
-      if (v37)
+      if (v40)
       {
-        v38 = sub_1000A98C0();
-        v39 = os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT);
+        v42 = sub_1000A98C0(v41);
+        v43 = os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT);
 
-        if (v39)
+        if (v43)
         {
-          v40 = sub_1000A98C0();
-          if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
+          v45 = sub_1000A98C0(v44);
+          if (os_log_type_enabled(v45, OS_LOG_TYPE_DEFAULT))
           {
-            v41 = objc_loadWeakRetained(&self->_delegate);
-            v42 = objc_opt_class();
-            v43 = NSStringFromClass(v42);
-            v44 = objc_loadWeakRetained(&self->_delegate);
+            v46 = objc_loadWeakRetained(&self->_delegate);
+            v47 = objc_opt_class();
+            v48 = NSStringFromClass(v47);
+            v49 = objc_loadWeakRetained(&self->_delegate);
             *buf = 138412546;
-            v59 = v43;
-            v60 = 2048;
-            v61 = v44;
-            _os_log_impl(&_mh_execute_header, v40, OS_LOG_TYPE_DEFAULT, "Calling unpairerDidFinishUnpairing: on %@[%p]", buf, 0x16u);
+            v64 = v48;
+            v65 = 2048;
+            v66 = v49;
+            _os_log_impl(&_mh_execute_header, v45, OS_LOG_TYPE_DEFAULT, "Calling unpairerDidFinishUnpairing: on %@[%p]", buf, 0x16u);
           }
         }
 
-        v45 = objc_loadWeakRetained(&self->_delegate);
-        [v45 unpairer:self didFinishUnpairingDevices:self->_devicesUnpaired];
+        v50 = objc_loadWeakRetained(&self->_delegate);
+        [v50 unpairer:self didFinishUnpairingDevices:self->_devicesUnpaired];
       }
 
-      v46 = 1;
-      v47 = 33;
+      v51 = 1;
+      v52 = 33;
       goto LABEL_43;
     }
   }
@@ -340,19 +345,19 @@ LABEL_44:
 - (void)pairingAgent:(id)agent peerDidUnpair:(id)unpair
 {
   unpairCopy = unpair;
-  v6 = sub_1000A98C0();
+  v6 = sub_1000A98C0(unpairCopy);
   v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
 
   if (v7)
   {
-    v8 = sub_1000A98C0();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = sub_1000A98C0(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       identifier = [unpairCopy identifier];
       uUIDString = [identifier UUIDString];
-      v13 = 138412290;
-      v14 = uUIDString;
-      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "CBPairingAgentDelegate pairingAgent:peerDidUnpair %@", &v13, 0xCu);
+      v14 = 138412290;
+      v15 = uUIDString;
+      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "CBPairingAgentDelegate pairingAgent:peerDidUnpair %@", &v14, 0xCu);
     }
   }
 

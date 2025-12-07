@@ -5,6 +5,7 @@
 - (RCDurationFormatter)init;
 - (RCDurationIntegers)durationIntegersFromDuration:(SEL)duration byReplacingDigitsWithDigit:(double)digit style:(int64_t)style;
 - (RCDurationStrings)durationStringsFromDurationIntegers:(SEL)integers hideComponentOptions:(RCDurationIntegers *)options style:(int64_t)style shouldPadMinute:(int64_t)minute;
+- (id)_onQueueStringFromDuration:(double)duration byReplacingDigitsWithDigit:(int64_t)digit hideComponentOptions:(int64_t)options style:(int64_t)style shouldPadMinute:(BOOL)minute;
 - (id)localizedStringFromDurationStrings:(RCDurationStrings *)strings style:(int64_t)style;
 - (id)stringFromDuration:(double)duration hideComponentOptions:(int64_t)options style:(int64_t)style shouldPadMinute:(BOOL)minute;
 - (id)stringFromDuration:(double)duration replacingDigitsWithDigit:(unint64_t)digit style:(int64_t)style;
@@ -29,9 +30,11 @@
 
 uint64_t __38__RCDurationFormatter_sharedFormatter__block_invoke()
 {
-  sharedFormatter_sharedInstance = objc_alloc_init(RCDurationFormatter);
+  v0 = objc_alloc_init(RCDurationFormatter);
+  v1 = sharedFormatter_sharedInstance;
+  sharedFormatter_sharedInstance = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 - (RCDurationFormatter)init
@@ -190,6 +193,32 @@ uint64_t __85__RCDurationFormatter_stringFromDuration_hideComponentOptions_style
   *(v3 + 40) = v2;
 
   return MEMORY[0x2821F96F8](v2, v4);
+}
+
+- (id)_onQueueStringFromDuration:(double)duration byReplacingDigitsWithDigit:(int64_t)digit hideComponentOptions:(int64_t)options style:(int64_t)style shouldPadMinute:(BOOL)minute
+{
+  v15 = 0u;
+  v16 = 0u;
+  objc_msgSend_durationIntegersFromDuration_byReplacingDigitsWithDigit_style_(self, a2, digit, style, duration);
+  memset(v14, 0, sizeof(v14));
+  v12 = v15;
+  v13 = v16;
+  objc_msgSend_durationStringsFromDurationIntegers_hideComponentOptions_style_shouldPadMinute_(self);
+  __copy_constructor_8_8_s0_s8_s16_s24(v11, v14);
+  if (self)
+  {
+    v9 = [(RCDurationFormatter *)self localizedStringFromDurationStrings:v11 style:style];
+  }
+
+  else
+  {
+    __destructor_8_s0_s8_s16_s24(v11);
+    v9 = 0;
+  }
+
+  __destructor_8_s0_s8_s16_s24(v14);
+
+  return v9;
 }
 
 - (RCDurationIntegers)durationIntegersFromDuration:(SEL)duration byReplacingDigitsWithDigit:(double)digit style:(int64_t)style
@@ -430,7 +459,7 @@ uint64_t __85__RCDurationFormatter_stringFromDuration_hideComponentOptions_style
 
 - (void)_replaceComponentPlaceholderForType:(unint64_t)type withString:(id)string inLocalizedDataFormatTemplate:(id)template
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   stringCopy = string;
   templateCopy = template;
   if (stringCopy)
@@ -446,33 +475,33 @@ uint64_t __85__RCDurationFormatter_stringFromDuration_hideComponentOptions_style
     }
 
     [v9 sortedArrayUsingComparator:&__block_literal_global_23];
+    v16 = 0u;
     v17 = 0u;
     v18 = 0u;
-    v19 = 0u;
-    v10 = v20 = 0u;
-    v11 = [v10 countByEnumeratingWithState:&v17 objects:v21 count:16];
+    v10 = v19 = 0u;
+    v11 = [v10 countByEnumeratingWithState:&v16 objects:v20 count:16];
     if (v11)
     {
       v12 = v11;
-      v13 = *v18;
+      v13 = *v17;
       while (2)
       {
         for (i = 0; i != v12; ++i)
         {
-          if (*v18 != v13)
+          if (*v17 != v13)
           {
             objc_enumerationMutation(v10);
           }
 
-          v15 = *(*(&v17 + 1) + 8 * i);
-          if ([templateCopy containsString:{v15, v17}])
+          v15 = *(*(&v16 + 1) + 8 * i);
+          if ([templateCopy containsString:{v15, v16}])
           {
             [templateCopy replaceOccurrencesOfString:v15 withString:stringCopy options:0 range:{0, objc_msgSend(templateCopy, "length")}];
             goto LABEL_15;
           }
         }
 
-        v12 = [v10 countByEnumeratingWithState:&v17 objects:v21 count:16];
+        v12 = [v10 countByEnumeratingWithState:&v16 objects:v20 count:16];
         if (v12)
         {
           continue;
@@ -484,8 +513,6 @@ uint64_t __85__RCDurationFormatter_stringFromDuration_hideComponentOptions_style
 
 LABEL_15:
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __100__RCDurationFormatter__replaceComponentPlaceholderForType_withString_inLocalizedDataFormatTemplate___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -549,22 +576,20 @@ uint64_t __100__RCDurationFormatter__replaceComponentPlaceholderForType_withStri
 
 void __55__RCDurationFormatter__dateTimeFormatTemplateForStyle___block_invoke()
 {
-  v4[5] = *MEMORY[0x277D85DE8];
-  v3[0] = &unk_2881AE058;
-  v3[1] = &unk_2881AE070;
-  v4[0] = @"HHmmssSS";
-  v4[1] = @"HHmmss";
-  v3[2] = &unk_2881AE088;
-  v3[3] = &unk_2881AE0A0;
-  v4[2] = @"mmssSS";
-  v4[3] = @"mmss";
-  v3[4] = &unk_2881AE0B8;
-  v4[4] = @"sSS";
-  v0 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v4 forKeys:v3 count:5];
+  v3[5] = *MEMORY[0x277D85DE8];
+  v2[0] = &unk_2881AE058;
+  v2[1] = &unk_2881AE070;
+  v3[0] = @"HHmmssSS";
+  v3[1] = @"HHmmss";
+  v2[2] = &unk_2881AE088;
+  v2[3] = &unk_2881AE0A0;
+  v3[2] = @"mmssSS";
+  v3[3] = @"mmss";
+  v2[4] = &unk_2881AE0B8;
+  v3[4] = @"sSS";
+  v0 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v3 forKeys:v2 count:5];
   v1 = _dateTimeFormatTemplateForStyle__styleToDateTimeFormat;
   _dateTimeFormatTemplateForStyle__styleToDateTimeFormat = v0;
-
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 - (void)stringFromDuration:(uint64_t)a1 replacingDigitsWithDigit:(uint64_t)a2 style:.cold.1(uint64_t a1, uint64_t a2)

@@ -20,7 +20,7 @@
   sessionCopy = session;
   optionsCopy = options;
   selfCopy = self;
-  sub_1000AEEE0();
+  sub_1000AEEE0(sceneCopy);
 }
 
 - (BOOL)handleEvent:(id)event

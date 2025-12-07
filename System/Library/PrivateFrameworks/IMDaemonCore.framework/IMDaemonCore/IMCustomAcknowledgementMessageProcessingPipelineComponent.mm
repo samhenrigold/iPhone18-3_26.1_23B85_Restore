@@ -48,7 +48,7 @@
 
 - (id)runIndividuallyWithInput:(id)input
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   inputCopy = input;
   mEMORY[0x277D1A9B8] = [MEMORY[0x277D1A9B8] sharedFeatureFlags];
   isPollsEnabled = [mEMORY[0x277D1A9B8] isPollsEnabled];
@@ -63,14 +63,14 @@
       {
         gUID = [inputCopy GUID];
         *buf = 138412290;
-        v19 = gUID;
+        v18 = gUID;
         _os_log_impl(&dword_22B4CC000, v8, OS_LOG_TYPE_INFO, "<IMCustomAcknowledgementMessageProcessingPipelineComponent> Started processing for Message GUID: %@", buf, 0xCu);
       }
     }
 
-    v17.receiver = self;
-    v17.super_class = IMCustomAcknowledgementMessageProcessingPipelineComponent;
-    v10 = [(IMTextMessageProcessingPipelineComponent *)&v17 runIndividuallyWithInput:inputCopy];
+    v16.receiver = self;
+    v16.super_class = IMCustomAcknowledgementMessageProcessingPipelineComponent;
+    v10 = [(IMTextMessageProcessingPipelineComponent *)&v16 runIndividuallyWithInput:inputCopy];
   }
 
   else
@@ -82,7 +82,7 @@
       {
         gUID2 = [inputCopy GUID];
         *buf = 138412290;
-        v19 = gUID2;
+        v18 = gUID2;
         _os_log_impl(&dword_22B4CC000, v11, OS_LOG_TYPE_INFO, "<IMCustomAcknowledgementMessageProcessingPipelineComponent> Rejecting message with GUID: %@", buf, 0xCu);
       }
     }
@@ -91,8 +91,6 @@
     v14 = [v13 initWithDomain:*MEMORY[0x277D18DF8] code:23 userInfo:0];
     v10 = [objc_alloc(MEMORY[0x277D18E08]) initWithError:v14];
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v10;
 }

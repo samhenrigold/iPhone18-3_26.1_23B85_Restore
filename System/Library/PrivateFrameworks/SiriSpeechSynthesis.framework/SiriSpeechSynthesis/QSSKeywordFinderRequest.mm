@@ -43,7 +43,7 @@ flatbuffers::DetachedBuffer *__39__QSSKeywordFinderRequest_flatbuffData__block_i
 
 - (Offset<siri::speech::schema_fb::KeywordFinderRequest>)addObjectToBuffer:(void *)buffer
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   speech_id = [(QSSKeywordFinderRequest *)self speech_id];
   v6 = speech_id;
   if (!speech_id)
@@ -64,7 +64,7 @@ flatbuffers::DetachedBuffer *__39__QSSKeywordFinderRequest_flatbuffData__block_i
 
   uTF8String2 = [(__CFString *)session_id UTF8String];
   v12 = strlen(uTF8String2);
-  v31 = flatbuffers::FlatBufferBuilder::CreateString(buffer, uTF8String2, v12);
+  v29 = flatbuffers::FlatBufferBuilder::CreateString(buffer, uTF8String2, v12);
 
   language = [(QSSKeywordFinderRequest *)self language];
   v14 = language;
@@ -75,7 +75,7 @@ flatbuffers::DetachedBuffer *__39__QSSKeywordFinderRequest_flatbuffData__block_i
 
   uTF8String3 = [(__CFString *)language UTF8String];
   v16 = strlen(uTF8String3);
-  v30 = flatbuffers::FlatBufferBuilder::CreateString(buffer, uTF8String3, v16);
+  v28 = flatbuffers::FlatBufferBuilder::CreateString(buffer, uTF8String3, v16);
 
   keywords = [(QSSKeywordFinderRequest *)self keywords];
   v18 = [keywords count];
@@ -89,16 +89,11 @@ flatbuffers::DetachedBuffer *__39__QSSKeywordFinderRequest_flatbuffData__block_i
     std::vector<flatbuffers::Offset<siri::speech::schema_fb::RecognitionToken>>::__throw_length_error[abi:ne200100]();
   }
 
-  v36 = 0u;
-  v37 = 0u;
-  v34 = 0u;
-  v35 = 0u;
+  memset(v32, 0, sizeof(v32));
   obj = [(QSSKeywordFinderRequest *)self keywords];
-  if ([obj countByEnumeratingWithState:&v34 objects:v38 count:16])
+  if ([obj countByEnumeratingWithState:v32 objects:v33 count:16])
   {
-    *v35;
-    *v35;
-    [**(&v34 + 1) addObjectToBuffer:buffer];
+    [**(&v32[0] + 1) addObjectToBuffer:buffer];
     std::__allocate_at_least[abi:ne200100]<std::allocator<flatbuffers::Offset<siri::speech::schema_fb::RecognitionToken>>>(1uLL);
   }
 
@@ -114,8 +109,8 @@ flatbuffers::DetachedBuffer *__39__QSSKeywordFinderRequest_flatbuffData__block_i
   v24 = *(buffer + 12);
   v25 = *(buffer + 10);
   flatbuffers::FlatBufferBuilder::AddOffset<flatbuffers::Vector<unsigned char>>(buffer, 4, String);
-  flatbuffers::FlatBufferBuilder::AddOffset<flatbuffers::Vector<unsigned char>>(buffer, 6, v31);
-  flatbuffers::FlatBufferBuilder::AddOffset<flatbuffers::Vector<unsigned char>>(buffer, 8, v30);
+  flatbuffers::FlatBufferBuilder::AddOffset<flatbuffers::Vector<unsigned char>>(buffer, 6, v29);
+  flatbuffers::FlatBufferBuilder::AddOffset<flatbuffers::Vector<unsigned char>>(buffer, 8, v28);
   if (v19)
   {
     v26 = flatbuffers::FlatBufferBuilder::ReferTo(buffer, v19);
@@ -124,9 +119,7 @@ flatbuffers::DetachedBuffer *__39__QSSKeywordFinderRequest_flatbuffData__block_i
 
   flatbuffers::FlatBufferBuilder::AddOffset<flatbuffers::Vector<unsigned char>>(buffer, 12, v21);
   flatbuffers::FlatBufferBuilder::AddElement<unsigned char>(buffer, 14, enable_sanitization);
-  v27.var0 = flatbuffers::FlatBufferBuilder::EndTable(buffer, v23 - v24 + v25);
-  v28 = *MEMORY[0x277D85DE8];
-  return v27;
+  return flatbuffers::FlatBufferBuilder::EndTable(buffer, v23 - v24 + v25);
 }
 
 - (BOOL)enable_sanitization

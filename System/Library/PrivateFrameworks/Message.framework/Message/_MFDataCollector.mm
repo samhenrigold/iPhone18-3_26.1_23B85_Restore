@@ -1,4 +1,5 @@
 @interface _MFDataCollector
++ (void)writeData:(id)data library:(id)library message:(id)message isPartial:(BOOL)partial;
 - (_MFDataCollector)initWithLibrary:(id)library message:(id)message part:(id)part partial:(BOOL)partial incomplete:(BOOL)incomplete relaxDataProtection:(BOOL)protection data:(id)data;
 - (id)pathForStorage;
 - (int64_t)appendData:(id)data;
@@ -44,9 +45,21 @@
   return v19;
 }
 
++ (void)writeData:(id)data library:(id)library message:(id)message isPartial:(BOOL)partial
+{
+  partialCopy = partial;
+  dataCopy = data;
+  libraryCopy = library;
+  messageCopy = message;
+  v11 = objc_autoreleasePoolPush();
+  v12 = [[_MFDataCollector alloc] initWithLibrary:libraryCopy message:messageCopy part:0 partial:partialCopy incomplete:0 relaxDataProtection:0 data:dataCopy];
+  [(_MFDataCollector *)v12 done];
+
+  objc_autoreleasePoolPop(v11);
+}
+
 - (id)pathForStorage
 {
-  v3 = *MEMORY[0x1E69E9840];
   part = self->_part;
   library = self->_library;
   if (part)
@@ -58,18 +71,16 @@
   {
     [(MFMailMessageLibrary *)library dataPathForMessage:self->_message type:self->_partial];
   }
-  v6 = ;
-  v7 = [v6 ef_pathByReplacingRelativePathWithFolderName:@"mbox"];
-  v8 = MFPersistenceLog();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+  v5 = ;
+  v6 = [v5 ef_pathByReplacingRelativePathWithFolderName:@"mbox"];
+  v7 = MFPersistenceLog();
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
     [(MFLibraryMessage *)self->_message libraryID];
     [_MFDataCollector pathForStorage];
   }
 
-  v9 = *MEMORY[0x1E69E9840];
-
-  return v7;
+  return v6;
 }
 
 - (int64_t)appendData:(id)data
@@ -91,11 +102,9 @@
 
 - (void)done
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)pathForStorage

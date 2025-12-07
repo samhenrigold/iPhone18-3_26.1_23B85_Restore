@@ -1,4 +1,4 @@
-void sub_29AB797D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, char a12, void *a13, uint64_t a14, char a15, void *a16, uint64_t a17, char a18, void *a19)
+void sub_29AB797D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13, uint64_t a14, uint64_t a15, void *a16, uint64_t a17, uint64_t a18, void *a19)
 {
   sub_29A1602D4(&a12, a13);
   sub_29A1602D4(&a15, a16);
@@ -6,7 +6,7 @@ void sub_29AB797D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-uint64_t *sub_29AB7980C(uint64_t **a1, uint64_t *a2, uint64_t *a3)
+uint64_t *sub_29AB7980C(uint64_t ***a1, uint64_t *a2, uint64_t *a3)
 {
   v5 = sub_29A153CF4(a1, &v8, a2);
   result = *v5;
@@ -51,7 +51,7 @@ unint64_t pxrInternal__aapl__pxrReserved__::TfSingleton<pxrInternal__aapl__pxrRe
 
 unint64_t pxrInternal__aapl__pxrReserved__::TfSingleton<pxrInternal__aapl__pxrReserved__::GlfContextCaps>::_CreateInstance(unint64_t *a1)
 {
-  pxrInternal__aapl__pxrReserved__::ArchGetDemangled((0x800000029B6C595CLL & 0x7FFFFFFFFFFFFFFFLL), &v11);
+  pxrInternal__aapl__pxrReserved__::ArchGetDemangled(&v11.__r_.__value_.__l.__data_, (0x800000029B6C595CLL & 0x7FFFFFFFFFFFFFFFLL));
   v2 = std::string::insert(&v11, 0, "Create Singleton ");
   v3 = *&v2->__r_.__value_.__l.__data_;
   v15 = v2->__r_.__value_.__r.__words[2];
@@ -127,7 +127,7 @@ unint64_t pxrInternal__aapl__pxrReserved__::TfSingleton<pxrInternal__aapl__pxrRe
   return v6;
 }
 
-void sub_29AB79AF0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, uint64_t a11, int a12, __int16 a13, char a14, char a15, char a16, uint64_t a17, void *__p, uint64_t a19, int a20, __int16 a21, char a22, char a23)
+void sub_29AB79AF0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, uint64_t a11, int a12, __int16 a13, char a14, char a15, uint64_t a16, uint64_t a17, void *__p, uint64_t a19, int a20, __int16 a21, char a22, char a23)
 {
   pxrInternal__aapl__pxrReserved__::Tf_SingletonPyGILDropper::~Tf_SingletonPyGILDropper(&a10);
   sub_29A0E9CEC(&a16);
@@ -378,7 +378,7 @@ BOOL sub_29AB7A08C(int a1)
   return v3 == 2;
 }
 
-void sub_29AB7A0F0()
+void sub_29AB7A0F0(uint64_t result, uint64_t a2)
 {
   if (!atomic_load(pxrInternal__aapl__pxrReserved__::GLF_ENABLE_DIAGNOSTIC_TRACE))
   {
@@ -386,29 +386,29 @@ void sub_29AB7A0F0()
   }
 }
 
-void pxrInternal__aapl__pxrReserved__::GlfPostPendingGLErrors(uint64_t a1)
+void pxrInternal__aapl__pxrReserved__::GlfPostPendingGLErrors(uint64_t **a1)
 {
-  v2 = (pxrInternal__aapl__pxrReserved__::internal::GLApi::glGetError)();
-  if (v2)
+  Error = pxrInternal__aapl__pxrReserved__::internal::GLApi::glGetError(a1);
+  if (Error)
   {
-    Error = v2;
+    v3 = Error;
     v4 = *MEMORY[0x29EDC9538];
     v5 = 256;
     v6 = *(MEMORY[0x29EDC9538] + 24);
     do
     {
-      v7 = pxrInternal__aapl__pxrReserved__::internal::GLApi::gluErrorString(Error);
-      sub_29A00B6DC(&v29);
+      v7 = pxrInternal__aapl__pxrReserved__::internal::GLApi::gluErrorString(v3);
+      sub_29A00B6DC(&v28);
       if (v7)
       {
-        v8 = sub_29A00911C(&v29, "GL error: ", 10);
+        v8 = sub_29A00911C(&v28, "GL error: ", 10);
         v9 = strlen(v7);
         sub_29A00911C(v8, v7, v9);
       }
 
       else
       {
-        v10 = sub_29A00911C(&v29, "GL error code: 0x", 17);
+        v10 = sub_29A00911C(&v28, "GL error code: 0x", 17);
         *(v10 + *(*v10 - 24) + 8) = *(v10 + *(*v10 - 24) + 8) & 0xFFFFFFB5 | 8;
         v11 = MEMORY[0x29C2C1EE0]();
         *(v11 + *(*v11 - 24) + 8) = *(v11 + *(*v11 - 24) + 8) & 0xFFFFFFB5 | 2;
@@ -417,12 +417,12 @@ void pxrInternal__aapl__pxrReserved__::GlfPostPendingGLErrors(uint64_t a1)
       v12 = *(a1 + 23);
       if ((v12 & 0x80u) != 0)
       {
-        v12 = *(a1 + 8);
+        v12 = a1[1];
       }
 
       if (v12)
       {
-        v13 = sub_29A00911C(&v29, ", reported from ", 16);
+        v13 = sub_29A00911C(&v28, ", reported from ", 16);
         v14 = *(a1 + 23);
         if (v14 >= 0)
         {
@@ -441,7 +441,7 @@ void pxrInternal__aapl__pxrReserved__::GlfPostPendingGLErrors(uint64_t a1)
 
         else
         {
-          v16 = *(a1 + 8);
+          v16 = a1[1];
         }
 
         sub_29A00911C(v13, v15, v16);
@@ -450,80 +450,79 @@ void pxrInternal__aapl__pxrReserved__::GlfPostPendingGLErrors(uint64_t a1)
       if (sub_29AB7A08C(1))
       {
         std::stringbuf::str();
-        v17 = std::string::append(&v28, "\n");
+        v17 = std::string::append(&v27, "\n");
         v18 = *&v17->__r_.__value_.__l.__data_;
-        v25 = v17->__r_.__value_.__r.__words[2];
+        v24 = v17->__r_.__value_.__r.__words[2];
         *__p = v18;
         v17->__r_.__value_.__l.__size_ = 0;
         v17->__r_.__value_.__r.__words[2] = 0;
         v17->__r_.__value_.__r.__words[0] = 0;
         pxrInternal__aapl__pxrReserved__::TfDebug::Helper::Msg(__p);
-        if (SHIBYTE(v25) < 0)
+        if (SHIBYTE(v24) < 0)
         {
           operator delete(__p[0]);
         }
 
-        if (SHIBYTE(v28.__r_.__value_.__r.__words[2]) < 0)
+        if (SHIBYTE(v27.__r_.__value_.__r.__words[2]) < 0)
         {
-          operator delete(v28.__r_.__value_.__l.__data_);
+          operator delete(v27.__r_.__value_.__l.__data_);
         }
       }
 
       __p[0] = "glf/diagnostic.cpp";
       __p[1] = "GlfPostPendingGLErrors";
-      v25 = 67;
-      v26 = "void pxrInternal__aapl__pxrReserved__::GlfPostPendingGLErrors(const std::string &)";
-      v27 = 0;
+      v24 = 67;
+      v25 = "void pxrInternal__aapl__pxrReserved__::GlfPostPendingGLErrors(const std::string &)";
+      v26 = 0;
       std::stringbuf::str();
-      pxrInternal__aapl__pxrReserved__::Tf_PostErrorHelper(__p, 3, &v28);
-      if (SHIBYTE(v28.__r_.__value_.__r.__words[2]) < 0)
+      pxrInternal__aapl__pxrReserved__::Tf_PostErrorHelper(__p, 3, &v27);
+      if (SHIBYTE(v27.__r_.__value_.__r.__words[2]) < 0)
       {
-        operator delete(v28.__r_.__value_.__l.__data_);
+        operator delete(v27.__r_.__value_.__l.__data_);
       }
 
-      v29 = v4;
-      *(&v29 + *(v4 - 3)) = v6;
-      v30 = MEMORY[0x29EDC9570] + 16;
-      if (v32 < 0)
+      v28 = v4;
+      *(&v28 + *(v4 - 3)) = v6;
+      v29 = MEMORY[0x29EDC9570] + 16;
+      if (v31 < 0)
       {
-        operator delete(v31[7].__locale_);
+        operator delete(v30[7].__locale_);
       }
 
-      v30 = MEMORY[0x29EDC9568] + 16;
-      std::locale::~locale(v31);
+      v29 = MEMORY[0x29EDC9568] + 16;
+      std::locale::~locale(v30);
       std::ostream::~ostream();
-      v19 = MEMORY[0x29C2C4390](&v33);
+      v19 = MEMORY[0x29C2C4390](&v32);
       if (!--v5)
       {
         break;
       }
 
-      Error = pxrInternal__aapl__pxrReserved__::internal::GLApi::glGetError(v19);
+      v3 = pxrInternal__aapl__pxrReserved__::internal::GLApi::glGetError(v19);
     }
 
-    while (Error);
-    v20 = sub_29AB7A08C(1);
-    if (v20)
+    while (v3);
+    if (sub_29AB7A08C(1))
     {
-      pxrInternal__aapl__pxrReserved__::TfGetStackTrace(__p, v20);
-      if (v25 >= 0)
+      pxrInternal__aapl__pxrReserved__::TfGetStackTrace();
+      if (v24 >= 0)
       {
-        v23 = __p;
+        v22 = __p;
       }
 
       else
       {
-        v23 = __p[0];
+        v22 = __p[0];
       }
 
-      pxrInternal__aapl__pxrReserved__::TfStringPrintf("==== GL Error Stack ====\n%s\n", v21, v22, v23);
-      pxrInternal__aapl__pxrReserved__::TfDebug::Helper::Msg(&v29);
-      if (SHIBYTE(v31[0].__locale_) < 0)
+      pxrInternal__aapl__pxrReserved__::TfStringPrintf("==== GL Error Stack ====\n%s\n", v20, v21, v22);
+      pxrInternal__aapl__pxrReserved__::TfDebug::Helper::Msg(&v28);
+      if (SHIBYTE(v30[0].__locale_) < 0)
       {
-        operator delete(v29);
+        operator delete(v28);
       }
 
-      if (SHIBYTE(v25) < 0)
+      if (SHIBYTE(v24) < 0)
       {
         operator delete(__p[0]);
       }
@@ -565,37 +564,36 @@ void pxrInternal__aapl__pxrReserved__::GlfDefaultDebugOutputMessageCallback(pxrI
   {
     v10 = a3;
     __p = "glf/diagnostic.cpp";
-    v20 = "GlfDefaultDebugOutputMessageCallback";
-    v21 = 106;
-    v22 = "void pxrInternal__aapl__pxrReserved__::GlfDefaultDebugOutputMessageCallback(GLenum, GLenum, GLuint, GLenum, GLsizei, const GLchar *, const GLvoid *)";
-    v23 = 0;
+    v19 = "GlfDefaultDebugOutputMessageCallback";
+    v20 = 106;
+    v21 = "void pxrInternal__aapl__pxrReserved__::GlfDefaultDebugOutputMessageCallback(GLenum, GLenum, GLuint, GLenum, GLsizei, const GLchar *, const GLvoid *)";
+    v22 = 0;
     v11 = pxrInternal__aapl__pxrReserved__::GlfDebugEnumToString(this);
     v12 = pxrInternal__aapl__pxrReserved__::GlfDebugEnumToString(a4);
     pxrInternal__aapl__pxrReserved__::Tf_PostErrorHelper(&__p, 3, "GL debug output: source: %s type: %s id: %d severity: %s message: %s", v11, "GL_DEBUG_TYPE_ERROR", v10, v12, a6);
-    v13 = sub_29AB7A08C(1);
-    if (v13)
+    if (sub_29AB7A08C(1))
     {
-      pxrInternal__aapl__pxrReserved__::TfGetStackTrace(v17, v13);
-      if (v18 >= 0)
+      pxrInternal__aapl__pxrReserved__::TfGetStackTrace();
+      if (v17 >= 0)
       {
-        v16 = v17;
+        v15 = &v16;
       }
 
       else
       {
-        v16 = v17[0];
+        v15 = v16;
       }
 
-      pxrInternal__aapl__pxrReserved__::TfStringPrintf("==== GL Error Stack ====\n%s\n", v14, v15, v16);
+      pxrInternal__aapl__pxrReserved__::TfStringPrintf("==== GL Error Stack ====\n%s\n", v13, v14, v15);
       pxrInternal__aapl__pxrReserved__::TfDebug::Helper::Msg(&__p);
-      if (SHIBYTE(v21) < 0)
+      if (SHIBYTE(v20) < 0)
       {
         operator delete(__p);
       }
 
-      if (v18 < 0)
+      if (v17 < 0)
       {
-        operator delete(v17[0]);
+        operator delete(v16);
       }
     }
   }
@@ -603,10 +601,10 @@ void pxrInternal__aapl__pxrReserved__::GlfDefaultDebugOutputMessageCallback(pxrI
   else
   {
     __p = "glf/diagnostic.cpp";
-    v20 = "GlfDefaultDebugOutputMessageCallback";
-    v21 = 112;
-    v22 = "void pxrInternal__aapl__pxrReserved__::GlfDefaultDebugOutputMessageCallback(GLenum, GLenum, GLuint, GLenum, GLsizei, const GLchar *, const GLvoid *)";
-    v23 = 0;
+    v19 = "GlfDefaultDebugOutputMessageCallback";
+    v20 = 112;
+    v21 = "void pxrInternal__aapl__pxrReserved__::GlfDefaultDebugOutputMessageCallback(GLenum, GLenum, GLuint, GLenum, GLsizei, const GLchar *, const GLvoid *)";
+    v22 = 0;
     pxrInternal__aapl__pxrReserved__::Tf_PostWarningHelper(&__p, "GL debug output: %s", a3, a4, a5, a6, a7, a8, a6);
   }
 }
@@ -751,11 +749,12 @@ uint64_t sub_29AB7AA1C()
 
 void pxrInternal__aapl__pxrReserved__::GlfDebugGroup::~GlfDebugGroup(pxrInternal__aapl__pxrReserved__::GlfDebugGroup *this)
 {
-  if (sub_29AB7AA1C())
+  v1 = sub_29AB7AA1C();
+  if (v1)
   {
     if (pxrInternal__aapl__pxrReserved__::internal::GLApi::GARCH_GL_KHR_debug == 1)
     {
-      pxrInternal__aapl__pxrReserved__::internal::GLApi::glPopDebugGroup();
+      pxrInternal__aapl__pxrReserved__::internal::GLApi::glPopDebugGroup(v1);
     }
   }
 }
@@ -970,7 +969,7 @@ void sub_29AB7AFE4(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_29AB7AFFC(pxrInternal__aapl__pxrReserved__::GlfGLContext *a1@<X0>, uint64_t a2@<X8>)
+void sub_29AB7AFFC(pxrInternal__aapl__pxrReserved__::GlfGLContext *a1@<X0>, char **a2@<X8>)
 {
   IsInitialized = pxrInternal__aapl__pxrReserved__::GlfGLContext::IsInitialized(a1);
   if (IsInitialized && pxrInternal__aapl__pxrReserved__::ArchIsMainThread(IsInitialized))
@@ -982,11 +981,11 @@ void sub_29AB7AFFC(pxrInternal__aapl__pxrReserved__::GlfGLContext *a1@<X0>, uint
   else
   {
     *a2 = 0;
-    *(a2 + 8) = 0;
+    a2[1] = 0;
   }
 }
 
-void sub_29AB7B050()
+void sub_29AB7B050(uint64_t result, uint64_t a2)
 {
   if (!atomic_load(pxrInternal__aapl__pxrReserved__::GLF_DRAW_TARGETS_NUM_SAMPLES))
   {
@@ -994,10 +993,11 @@ void sub_29AB7B050()
   }
 }
 
-uint64_t pxrInternal__aapl__pxrReserved__::GlfDrawTarget::New@<X0>(void *a1@<X0>, int a2@<W1>, void *a3@<X8>)
+uint64_t pxrInternal__aapl__pxrReserved__::GlfDrawTarget::New@<X0>(void *a1@<X0>, uint64_t a2@<X1>, void *a3@<X8>)
 {
+  v3 = a2;
   v6 = operator new(0x50uLL);
-  result = pxrInternal__aapl__pxrReserved__::GlfDrawTarget::GlfDrawTarget(v6, a1, a2);
+  result = pxrInternal__aapl__pxrReserved__::GlfDrawTarget::GlfDrawTarget(v6, a1, v3);
   *a3 = v6;
   return result;
 }
@@ -1124,7 +1124,7 @@ uint64_t pxrInternal__aapl__pxrReserved__::GlfDrawTarget::_GenFrameBuffer(pxrInt
   return pxrInternal__aapl__pxrReserved__::internal::GLApi::glBindFramebuffer(36009, *(this + 9));
 }
 
-void pxrInternal__aapl__pxrReserved__::GlfDrawTarget::GlfDrawTarget(uint64_t a1, uint64_t a2)
+void pxrInternal__aapl__pxrReserved__::GlfDrawTarget::GlfDrawTarget(uint64_t a1, uint64_t *a2)
 {
   *(a1 + 8) = 1;
   *(a1 + 16) = 0;
@@ -1149,14 +1149,14 @@ void sub_29AB7B584(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_29AB7B5C4(uint64_t a1)
+void sub_29AB7B5C4(uint64_t *a1)
 {
-  if (*(a1 + 8))
+  if (a1[1])
   {
     pxrInternal__aapl__pxrReserved__::TfRefPtr<pxrInternal__aapl__pxrReserved__::Tf_Remnant>::operator->();
   }
 
-  sub_29B2C2800();
+  sub_29B2C2800(v1);
 }
 
 void pxrInternal__aapl__pxrReserved__::GlfDrawTarget::Bind(pxrInternal__aapl__pxrReserved__::GlfDrawTarget *this)
@@ -1308,7 +1308,7 @@ void sub_29AB7BAB0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 void pxrInternal__aapl__pxrReserved__::GlfDrawTarget::~GlfDrawTarget(pxrInternal__aapl__pxrReserved__::GlfDrawTarget *this)
 {
   *this = &unk_2A2072600;
-  v2 = this + 64;
+  v2 = (this + 64);
   if ((*(**(this + 8) + 16))(*(this + 8)))
   {
     pxrInternal__aapl__pxrReserved__::GlfGLContextScopeHolder::GlfGLContextScopeHolder(v18, v2);
@@ -1387,39 +1387,39 @@ void pxrInternal__aapl__pxrReserved__::GlfDrawTarget::_DeleteAttachments(pxrInte
   }
 }
 
-void pxrInternal__aapl__pxrReserved__::GlfDrawTarget::AddAttachment(uint64_t a1, __int128 *a2, int a3, int a4, int a5)
+void pxrInternal__aapl__pxrReserved__::GlfDrawTarget::AddAttachment(uint64_t a1, char *a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   if (*(a1 + 40) <= 0)
   {
     *&__dst = "glf/drawTarget.cpp";
     *(&__dst + 1) = "AddAttachment";
-    v22 = 141;
-    v23 = "void pxrInternal__aapl__pxrReserved__::GlfDrawTarget::AddAttachment(const std::string &, GLenum, GLenum, GLenum)";
-    v24 = 0;
+    v21 = 141;
+    v22 = "void pxrInternal__aapl__pxrReserved__::GlfDrawTarget::AddAttachment(const std::string &, GLenum, GLenum, GLenum)";
+    v23 = 0;
     pxrInternal__aapl__pxrReserved__::Tf_PostErrorHelper(&__dst, 1, "Cannot change the size of an unbound GlfDrawTarget");
   }
 
   Attachments = pxrInternal__aapl__pxrReserved__::GlfDrawTarget::_GetAttachments(a1);
   if (Attachments + 8 == sub_29A01BCCC(Attachments, a2))
   {
-    pxrInternal__aapl__pxrReserved__::GlfDrawTarget::Attachment::New(*(Attachments + 16), a3, a4, a5, *(a1 + 44), *(a1 + 52), __p);
-    sub_29AB7DE20(&__dst, a2, __p);
+    pxrInternal__aapl__pxrReserved__::GlfDrawTarget::Attachment::New(*(Attachments + 16), a3, a4, a5, *(a1 + 44), *(a1 + 52), &__p);
+    sub_29AB7DE20(&__dst, a2, &__p);
     sub_29AB7DF00(Attachments, &__dst, &__dst);
-    sub_29AB7DED0(&v23);
-    if (SHIBYTE(v22) < 0)
+    sub_29AB7DED0(&v22);
+    if (SHIBYTE(v21) < 0)
     {
       operator delete(__dst);
     }
 
-    v13 = sub_29AB7C0D4(__p);
+    v13 = sub_29AB7C0D4(&__p);
     if (!(*(*v13 + 24))(v13))
     {
       *&__dst = "glf/drawTarget.cpp";
       *(&__dst + 1) = "AddAttachment";
-      v22 = 159;
-      v23 = "void pxrInternal__aapl__pxrReserved__::GlfDrawTarget::AddAttachment(const std::string &, GLenum, GLenum, GLenum)";
-      v24 = 0;
-      if (*(a2 + 23) >= 0)
+      v21 = 159;
+      v22 = "void pxrInternal__aapl__pxrReserved__::GlfDrawTarget::AddAttachment(const std::string &, GLenum, GLenum, GLenum)";
+      v23 = 0;
+      if (a2[23] >= 0)
       {
         v16 = a2;
       }
@@ -1433,29 +1433,29 @@ void pxrInternal__aapl__pxrReserved__::GlfDrawTarget::AddAttachment(uint64_t a1,
       pxrInternal__aapl__pxrReserved__::Tf_FailedVerifyHelper(&__dst, "attachment->GetGlTextureName() > 0", v17);
     }
 
-    pxrInternal__aapl__pxrReserved__::GlfDrawTarget::_BindAttachment(a1, __p);
-    sub_29AB7DED0(__p);
+    pxrInternal__aapl__pxrReserved__::GlfDrawTarget::_BindAttachment(a1, &__p);
+    sub_29AB7DED0(&__p);
   }
 
   else
   {
     *&__dst = "glf/drawTarget.cpp";
     *(&__dst + 1) = "AddAttachment";
-    v22 = 165;
-    v23 = "void pxrInternal__aapl__pxrReserved__::GlfDrawTarget::AddAttachment(const std::string &, GLenum, GLenum, GLenum)";
-    v24 = 0;
+    v21 = 165;
+    v22 = "void pxrInternal__aapl__pxrReserved__::GlfDrawTarget::AddAttachment(const std::string &, GLenum, GLenum, GLenum)";
+    v23 = 0;
     std::operator+<char>();
     v11 = std::string::append(&v18, " already exists for this DrawTarget");
     v12 = *&v11->__r_.__value_.__l.__data_;
-    v20 = v11->__r_.__value_.__r.__words[2];
-    *__p = v12;
+    __p.__r_.__value_.__r.__words[2] = v11->__r_.__value_.__r.__words[2];
+    *&__p.__r_.__value_.__l.__data_ = v12;
     v11->__r_.__value_.__l.__size_ = 0;
     v11->__r_.__value_.__r.__words[2] = 0;
     v11->__r_.__value_.__r.__words[0] = 0;
-    pxrInternal__aapl__pxrReserved__::Tf_PostErrorHelper(&__dst, 1, __p);
-    if (SHIBYTE(v20) < 0)
+    pxrInternal__aapl__pxrReserved__::Tf_PostErrorHelper(&__dst, 1, &__p);
+    if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(__p[0]);
+      operator delete(__p.__r_.__value_.__l.__data_);
     }
 
     if (SHIBYTE(v18.__r_.__value_.__r.__words[2]) < 0)
@@ -1476,10 +1476,15 @@ uint64_t pxrInternal__aapl__pxrReserved__::GlfDrawTarget::_GetAttachments(pxrInt
   return sub_29AB7B768(v1) + 24;
 }
 
-pxrInternal__aapl__pxrReserved__::GlfTexture *pxrInternal__aapl__pxrReserved__::GlfDrawTarget::Attachment::New@<X0>(int a1@<W0>, int a2@<W1>, int a3@<W2>, int a4@<W3>, uint64_t a5@<X4>, int a6@<W5>, pxrInternal__aapl__pxrReserved__::GlfTexture **a7@<X8>)
+pxrInternal__aapl__pxrReserved__::GlfTexture *pxrInternal__aapl__pxrReserved__::GlfDrawTarget::Attachment::New@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X5>, pxrInternal__aapl__pxrReserved__::GlfTexture **a7@<X8>)
 {
+  v7 = a6;
+  v9 = a4;
+  v10 = a3;
+  v11 = a2;
+  v12 = a1;
   v14 = operator new(0x58uLL);
-  result = pxrInternal__aapl__pxrReserved__::GlfDrawTarget::Attachment::Attachment(v14, a1, a2, a3, a4, a5, a6);
+  result = pxrInternal__aapl__pxrReserved__::GlfDrawTarget::Attachment::Attachment(v14, v12, v11, v10, v9, a5, v7);
   *a7 = v14;
   return result;
 }
@@ -1517,23 +1522,23 @@ void pxrInternal__aapl__pxrReserved__::GlfDrawTarget::DeleteAttachment(pxrIntern
   v4 = sub_29A01BCCC(Attachments, a2);
   if (Attachments + 1 == v4)
   {
-    v11[0] = "glf/drawTarget.cpp";
-    v11[1] = "DeleteAttachment";
-    v11[2] = 179;
-    v11[3] = "void pxrInternal__aapl__pxrReserved__::GlfDrawTarget::DeleteAttachment(const std::string &)";
-    v12 = 0;
+    v10[0] = "glf/drawTarget.cpp";
+    v10[1] = "DeleteAttachment";
+    v10[2] = 179;
+    v10[3] = "void pxrInternal__aapl__pxrReserved__::GlfDrawTarget::DeleteAttachment(const std::string &)";
+    v11 = 0;
     std::operator+<char>();
     v6 = std::string::append(&v8, " does not exist for this DrawTarget");
     v7 = *&v6->__r_.__value_.__l.__data_;
-    v10 = v6->__r_.__value_.__r.__words[2];
-    *__p = v7;
+    __p.__r_.__value_.__r.__words[2] = v6->__r_.__value_.__r.__words[2];
+    *&__p.__r_.__value_.__l.__data_ = v7;
     v6->__r_.__value_.__l.__size_ = 0;
     v6->__r_.__value_.__r.__words[2] = 0;
     v6->__r_.__value_.__r.__words[0] = 0;
-    pxrInternal__aapl__pxrReserved__::Tf_PostErrorHelper(v11, 1, __p);
-    if (SHIBYTE(v10) < 0)
+    pxrInternal__aapl__pxrReserved__::Tf_PostErrorHelper(v10, 1, &__p);
+    if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(__p[0]);
+      operator delete(__p.__r_.__value_.__l.__data_);
     }
 
     if (SHIBYTE(v8.__r_.__value_.__r.__words[2]) < 0)
@@ -1586,7 +1591,7 @@ uint64_t pxrInternal__aapl__pxrReserved__::GlfDrawTarget::GetAttachment@<X0>(pxr
   return result;
 }
 
-void pxrInternal__aapl__pxrReserved__::GlfDrawTarget::CloneAttachments(uint64_t a1, uint64_t a2)
+void pxrInternal__aapl__pxrReserved__::GlfDrawTarget::CloneAttachments(uint64_t a1, uint64_t *a2)
 {
   v3 = sub_29B2C26A4(a2);
   if (!(v4 & 1 | v3))
@@ -1667,9 +1672,9 @@ pxrInternal__aapl__pxrReserved__::Tf_RefPtr_UniqueChangedCounter **pxrInternal__
   return this;
 }
 
-void sub_29AB7C560(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_29AB7C560(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_29AB7DED0(va);
   _Unwind_Resume(a1);
 }
@@ -1810,8 +1815,8 @@ void pxrInternal__aapl__pxrReserved__::GlfDrawTarget::Resolve(pxrInternal__aapl_
 
 LABEL_11:
     v7 = **a1;
-    pxrInternal__aapl__pxrReserved__::internal::GLApi::glBindFramebuffer(36008, *(v7 + 8));
-    pxrInternal__aapl__pxrReserved__::internal::GLApi::glBindFramebuffer(36009, *(v7 + 9));
+    pxrInternal__aapl__pxrReserved__::internal::GLApi::glBindFramebuffer(36008, *(v7 + 32));
+    pxrInternal__aapl__pxrReserved__::internal::GLApi::glBindFramebuffer(36009, *(v7 + 36));
   }
 
 LABEL_12:
@@ -2539,20 +2544,20 @@ void pxrInternal__aapl__pxrReserved__::GlfDrawTarget::Attachment::GetTextureInfo
   }
 }
 
-void sub_29AB7DCA8(uint64_t a1)
+void sub_29AB7DCA8(uint64_t *a1)
 {
   *a1 = &unk_2A20726C0;
-  sub_29AB7DD74(a1 + 24, *(a1 + 32));
-  sub_29A0F6078((a1 + 16), v2);
+  sub_29AB7DD74((a1 + 3), a1[4]);
+  sub_29A0F6078(a1 + 2, v2);
 
   pxrInternal__aapl__pxrReserved__::TfRefBase::~TfRefBase(a1);
 }
 
-void sub_29AB7DD0C(uint64_t a1)
+void sub_29AB7DD0C(uint64_t *a1)
 {
   *a1 = &unk_2A20726C0;
-  sub_29AB7DD74(a1 + 24, *(a1 + 32));
-  sub_29A0F6078((a1 + 16), v2);
+  sub_29AB7DD74((a1 + 3), a1[4]);
+  sub_29A0F6078(a1 + 2, v2);
   pxrInternal__aapl__pxrReserved__::TfRefBase::~TfRefBase(a1);
 
   operator delete(v3);
@@ -2581,7 +2586,7 @@ void sub_29AB7DDD0(uint64_t a1)
   }
 }
 
-void *sub_29AB7DE20(void *__dst, __int128 *a2, void *a3)
+char *sub_29AB7DE20(char *__dst, __int128 *a2, void *a3)
 {
   if (*(a2 + 23) < 0)
   {
@@ -2591,11 +2596,11 @@ void *sub_29AB7DE20(void *__dst, __int128 *a2, void *a3)
   else
   {
     v5 = *a2;
-    __dst[2] = *(a2 + 2);
+    *(__dst + 2) = *(a2 + 2);
     *__dst = v5;
   }
 
-  __dst[3] = *a3;
+  *(__dst + 3) = *a3;
   sub_29B293C98(__dst + 3);
   return __dst;
 }
@@ -2610,13 +2615,13 @@ void sub_29AB7DE84(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t *sub_29AB7DF00(uint64_t **a1, const void **a2, __int128 *a3)
+uint64_t *sub_29AB7DF00(uint64_t ***a1, const void **a2, __int128 *a3)
 {
   v5 = sub_29A00B0D0(a1, &v8, a2);
   result = *v5;
   if (!*v5)
   {
-    sub_29AB7DF80(a1, a3, &v7);
+    sub_29AB7DF80(a1, &v7, a3);
     sub_29A00B204(a1, v8, v5, v7);
     return v7;
   }
@@ -2624,14 +2629,14 @@ uint64_t *sub_29AB7DF00(uint64_t **a1, const void **a2, __int128 *a3)
   return result;
 }
 
-void *sub_29AB7DF80@<X0>(uint64_t a1@<X0>, __int128 *a2@<X1>, void *a3@<X8>)
+void *sub_29AB7DF80@<X0>(uint64_t a1@<X0>, void *a2@<X8>, __int128 *a3@<X1>)
 {
   v6 = operator new(0x40uLL);
-  *a3 = v6;
-  a3[1] = a1;
-  a3[2] = 0;
-  result = sub_29AB7DFEC(v6 + 4, a2);
-  *(a3 + 16) = 1;
+  *a2 = v6;
+  a2[1] = a1;
+  a2[2] = 0;
+  result = sub_29AB7DFEC(v6 + 4, a3);
+  *(a2 + 16) = 1;
   return result;
 }
 
@@ -2688,7 +2693,7 @@ pxrInternal__aapl__pxrReserved__::GlfTextureTokens_StaticTokenType *sub_29AB7E0A
   return result;
 }
 
-pxrInternal__aapl__pxrReserved__::GlfTextureTokens_StaticTokenType *sub_29AB7E0EC()
+atomic_uint **sub_29AB7E0EC()
 {
   v0 = operator new(0x28uLL);
   pxrInternal__aapl__pxrReserved__::GlfTextureTokens_StaticTokenType::GlfTextureTokens_StaticTokenType(v0);
@@ -2787,29 +2792,29 @@ void pxrInternal__aapl__pxrReserved__::GlfGLContext::~GlfGLContext(pxrInternal__
   pxrInternal__aapl__pxrReserved__::GlfGLContextRegistry::Remove(v2, this);
 }
 
-void pxrInternal__aapl__pxrReserved__::GlfGLContext::GetCurrentGLContext(unint64_t *a1@<X8>)
+void pxrInternal__aapl__pxrReserved__::GlfGLContext::GetCurrentGLContext(pxrInternal__aapl__pxrReserved__::GarchNSGLContextState **__return_ptr a1@<X8>)
 {
-  v2 = atomic_load(&pxrInternal__aapl__pxrReserved__::TfSingleton<pxrInternal__aapl__pxrReserved__::GlfGLContextRegistry>::_instance);
-  if (!v2)
+  v1 = atomic_load(&pxrInternal__aapl__pxrReserved__::TfSingleton<pxrInternal__aapl__pxrReserved__::GlfGLContextRegistry>::_instance);
+  if (!v1)
   {
     pxrInternal__aapl__pxrReserved__::TfSingleton<pxrInternal__aapl__pxrReserved__::GlfGLContextRegistry>::_CreateInstance();
   }
 
-  pxrInternal__aapl__pxrReserved__::GlfGLContextRegistry::GetCurrent(v2, a1);
+  pxrInternal__aapl__pxrReserved__::GlfGLContextRegistry::GetCurrent(v1, a1);
 }
 
 void pxrInternal__aapl__pxrReserved__::GlfGLContext::GetSharedGLContext(char **a1@<X8>)
 {
-  v2 = atomic_load(&pxrInternal__aapl__pxrReserved__::TfSingleton<pxrInternal__aapl__pxrReserved__::GlfGLContextRegistry>::_instance);
-  if (!v2)
+  v1 = atomic_load(&pxrInternal__aapl__pxrReserved__::TfSingleton<pxrInternal__aapl__pxrReserved__::GlfGLContextRegistry>::_instance);
+  if (!v1)
   {
     pxrInternal__aapl__pxrReserved__::TfSingleton<pxrInternal__aapl__pxrReserved__::GlfGLContextRegistry>::_CreateInstance();
   }
 
-  pxrInternal__aapl__pxrReserved__::GlfGLContextRegistry::GetShared(v2, a1);
+  pxrInternal__aapl__pxrReserved__::GlfGLContextRegistry::GetShared(v1, a1);
 }
 
-void pxrInternal__aapl__pxrReserved__::GlfGLContext::MakeCurrent(unint64_t *a1)
+void pxrInternal__aapl__pxrReserved__::GlfGLContext::MakeCurrent(pxrInternal__aapl__pxrReserved__::GarchNSGLContextState **a1)
 {
   v2 = *a1;
   if (v2 && (v2 = (*(*v2 + 16))(v2), v2))
@@ -2961,7 +2966,7 @@ void sub_29AB7E7C4(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void pxrInternal__aapl__pxrReserved__::GlfGLContextScopeHolder::_MakeNewContextCurrent(unint64_t *this)
+void pxrInternal__aapl__pxrReserved__::GlfGLContextScopeHolder::_MakeNewContextCurrent(pxrInternal__aapl__pxrReserved__::GarchNSGLContextState **this)
 {
   if (*this)
   {
@@ -2969,27 +2974,27 @@ void pxrInternal__aapl__pxrReserved__::GlfGLContextScopeHolder::_MakeNewContextC
   }
 }
 
-void pxrInternal__aapl__pxrReserved__::GlfGLContextScopeHolder::~GlfGLContextScopeHolder(pxrInternal__aapl__pxrReserved__::GlfGLContextScopeHolder *this)
+void pxrInternal__aapl__pxrReserved__::GlfGLContextScopeHolder::~GlfGLContextScopeHolder(pxrInternal__aapl__pxrReserved__::GarchNSGLContextState **this)
 {
   if (*this)
   {
     pxrInternal__aapl__pxrReserved__::GlfGLContext::MakeCurrent(this + 2);
   }
 
-  v2 = *(this + 3);
+  v2 = this[3];
   if (v2)
   {
     sub_29A014BEC(v2);
   }
 
-  v3 = *(this + 1);
+  v3 = this[1];
   if (v3)
   {
     sub_29A014BEC(v3);
   }
 }
 
-void pxrInternal__aapl__pxrReserved__::GlfGLContextScopeHolder::_RestoreOldContext(pxrInternal__aapl__pxrReserved__::GlfGLContextScopeHolder *this)
+void pxrInternal__aapl__pxrReserved__::GlfGLContextScopeHolder::_RestoreOldContext(pxrInternal__aapl__pxrReserved__::GarchNSGLContextState **this)
 {
   if (*this)
   {
@@ -2999,23 +3004,23 @@ void pxrInternal__aapl__pxrReserved__::GlfGLContextScopeHolder::_RestoreOldConte
 
 void pxrInternal__aapl__pxrReserved__::GlfGLRawContext::New(void *a1@<X8>)
 {
-  v3 = operator new(0x18uLL);
-  pxrInternal__aapl__pxrReserved__::GarchNSGLContextState::GarchNSGLContextState(&v6);
-  pxrInternal__aapl__pxrReserved__::GlfGLContext::GlfGLContext(v3);
-  v5 = v6;
-  v4 = v7;
-  *v3 = &unk_2A2072770;
-  v3[1] = v5;
-  v3[2] = v4;
-  if (v4)
+  v2 = operator new(0x18uLL);
+  pxrInternal__aapl__pxrReserved__::GarchNSGLContextState::GarchNSGLContextState(&v5);
+  pxrInternal__aapl__pxrReserved__::GlfGLContext::GlfGLContext(v2);
+  v4 = v5;
+  v3 = v6;
+  *v2 = &unk_2A2072770;
+  v2[1] = v4;
+  v2[2] = v3;
+  if (v3)
   {
-    atomic_fetch_add_explicit(&v4->__shared_owners_, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(&v3->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  sub_29AB7EBC8(a1, v3);
-  if (v7)
+  sub_29AB7EBC8(a1, v2);
+  if (v6)
   {
-    sub_29A014BEC(v7);
+    sub_29A014BEC(v6);
   }
 }
 
@@ -3050,21 +3055,21 @@ void *pxrInternal__aapl__pxrReserved__::GlfGLRawContext::GlfGLRawContext(pxrInte
   return result;
 }
 
-void *pxrInternal__aapl__pxrReserved__::GlfGLRawContext::New@<X0>(pxrInternal__aapl__pxrReserved__::GlfGLRawContext *this@<X0>, void *a2@<X8>)
+uint64_t *pxrInternal__aapl__pxrReserved__::GlfGLRawContext::New@<X0>(uint64_t *__return_ptr a1@<X8>, pxrInternal__aapl__pxrReserved__::GlfGLRawContext *this@<X0>)
 {
-  v5 = operator new(0x18uLL);
-  pxrInternal__aapl__pxrReserved__::GlfGLContext::GlfGLContext(v5);
-  v7 = *this;
-  v6 = *(this + 1);
-  *v5 = &unk_2A2072770;
-  v5[1] = v7;
-  v5[2] = v6;
-  if (v6)
+  v4 = operator new(0x18uLL);
+  pxrInternal__aapl__pxrReserved__::GlfGLContext::GlfGLContext(v4);
+  v6 = *this;
+  v5 = *(this + 1);
+  *v4 = &unk_2A2072770;
+  v4[1] = v6;
+  v4[2] = v5;
+  if (v5)
   {
-    atomic_fetch_add_explicit((v6 + 8), 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit((v5 + 8), 1uLL, memory_order_relaxed);
   }
 
-  return sub_29AB7EBC8(a2, v5);
+  return sub_29AB7EBC8(a1, v4);
 }
 
 void pxrInternal__aapl__pxrReserved__::GlfGLRawContext::~GlfGLRawContext(pxrInternal__aapl__pxrReserved__::GlfGLRawContext *this)
@@ -3225,7 +3230,7 @@ void sub_29AB7EDE0()
   pxrInternal__aapl__pxrReserved__::GlfGLContextScopeHolder::~GlfGLContextScopeHolder(v7);
 }
 
-void sub_29AB7EEBC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, char a15, uint64_t a16, uint64_t a17, char a18)
+void sub_29AB7EEBC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, char a15, uint64_t a16, uint64_t a17, pxrInternal__aapl__pxrReserved__::GarchNSGLContextState *a18)
 {
   if (a14 < 0)
   {
@@ -3422,12 +3427,12 @@ std::string *pxrInternal__aapl__pxrReserved__::GlfSimpleLight::SetDomeLightTextu
   return std::string::operator=((this + 304), a2 + 1);
 }
 
-__int128 *pxrInternal__aapl__pxrReserved__::GlfSimpleLight::SetPostSurfaceParams(uint64_t a1, void *a2, const std::string *a3, __int128 *a4)
+__int128 *pxrInternal__aapl__pxrReserved__::GlfSimpleLight::SetPostSurfaceParams(std::string *a1, void *a2, const std::string *a3, __int128 *a4)
 {
-  sub_29A166F2C((a1 + 328), a2);
-  std::string::operator=((a1 + 336), a3);
+  sub_29A166F2C(&a1[13].__r_.__value_.__r.__words[2], a2);
+  std::string::operator=(a1 + 14, a3);
 
-  return sub_29A4AB3CC((a1 + 360), a4);
+  return sub_29A4AB3CC(&a1[15], a4);
 }
 
 BOOL pxrInternal__aapl__pxrReserved__::GlfSimpleLight::operator==(uint64_t a1, uint64_t a2)
@@ -3579,9 +3584,9 @@ void *sub_29AB7F8A0(void *result, char *__src, char *a3, unint64_t a4)
 
 pxrInternal__aapl__pxrReserved__::GlfSimpleLightingContext *pxrInternal__aapl__pxrReserved__::GlfSimpleLightingContext::New@<X0>(pxrInternal__aapl__pxrReserved__::GlfSimpleLightingContext **a1@<X8>)
 {
-  v3 = operator new(0x1C8uLL);
-  result = pxrInternal__aapl__pxrReserved__::GlfSimpleLightingContext::GlfSimpleLightingContext(v3);
-  *a1 = v3;
+  v2 = operator new(0x1C8uLL);
+  result = pxrInternal__aapl__pxrReserved__::GlfSimpleLightingContext::GlfSimpleLightingContext(v2);
+  *a1 = v2;
   return result;
 }
 
@@ -3621,32 +3626,32 @@ void sub_29AB7FADC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 void pxrInternal__aapl__pxrReserved__::GlfSimpleLightingContext::~GlfSimpleLightingContext(pxrInternal__aapl__pxrReserved__::GlfSimpleLightingContext *this)
 {
   *this = &unk_2A2072848;
-  v1 = *(this + 55);
+  v2 = *(this + 55);
   *(this + 55) = 0;
-  if (v1)
+  if (v2)
   {
-    sub_29AB82B78(this + 440, v1);
+    sub_29AB82B78(this + 440, v2);
   }
 
-  sub_29AB81F64();
+  sub_29AB81F64(this + 54);
 }
 
 {
   pxrInternal__aapl__pxrReserved__::GlfSimpleLightingContext::~GlfSimpleLightingContext(this);
 }
 
-void pxrInternal__aapl__pxrReserved__::GlfSimpleLightingContext::SetLights(uint64_t a1, __int128 **a2)
+void pxrInternal__aapl__pxrReserved__::GlfSimpleLightingContext::SetLights(uint64_t result, __int128 **a2)
 {
-  v3 = (a1 + 24);
-  if ((a1 + 24) != a2)
+  v3 = (result + 24);
+  if ((result + 24) != a2)
   {
-    sub_29AB81F94(a1 + 24, *a2, a2[1], 0xFAFAFAFAFAFAFAFBLL * ((a2[1] - *a2) >> 3));
+    sub_29AB81F94((result + 24), *a2, a2[1], 0xFAFAFAFAFAFAFAFBLL * ((a2[1] - *a2) >> 3));
   }
 
-  *(a1 + 448) = 0;
-  *(a1 + 451) = 0;
-  v4 = 0xFAFAFAFAFAFAFAFBLL * ((*(a1 + 32) - *(a1 + 24)) >> 3);
-  *(a1 + 401) = 0;
+  *(result + 448) = 0;
+  *(result + 451) = 0;
+  v4 = 0xFAFAFAFAFAFAFAFBLL * ((*(result + 32) - *(result + 24)) >> 3);
+  *(result + 401) = 0;
   if (v4 >= 1)
   {
     v5 = 0;
@@ -3660,7 +3665,7 @@ void pxrInternal__aapl__pxrReserved__::GlfSimpleLightingContext::SetLights(uint6
       }
     }
 
-    *(a1 + 401) = 1;
+    *(result + 401) = 1;
   }
 }
 
@@ -3789,26 +3794,23 @@ uint64_t pxrInternal__aapl__pxrReserved__::GlfSimpleLightingContext::SetUseColor
   return this;
 }
 
-void sub_29AB80018(uint64_t a1)
+void sub_29AB80018(uint64_t *a1)
 {
-  if (*(a1 + 8))
+  if (a1[1])
   {
     pxrInternal__aapl__pxrReserved__::TfRefPtr<pxrInternal__aapl__pxrReserved__::Tf_Remnant>::operator->();
   }
 
-  sub_29B2C2960();
+  sub_29B2C2960(v1);
 }
 
-uint64_t pxrInternal__aapl__pxrReserved__::GlfSimpleLightingContext::InitSamplerUnitBindings(uint64_t a1, uint64_t a2)
+void pxrInternal__aapl__pxrReserved__::GlfSimpleLightingContext::InitSamplerUnitBindings(uint64_t a1, uint64_t *a2)
 {
   v3 = sub_29AB80170((a1 + 48));
-  result = pxrInternal__aapl__pxrReserved__::GlfSimpleShadowArray::GetNumShadowMapPasses(v3);
-  if (result)
+  if (pxrInternal__aapl__pxrReserved__::GlfSimpleShadowArray::GetNumShadowMapPasses(v3))
   {
     sub_29AB80018(a2);
   }
-
-  return result;
 }
 
 void sub_29AB80154(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13, int a14, __int16 a15, char a16, char a17)
@@ -3837,181 +3839,181 @@ uint64_t sub_29AB80170(uint64_t *a1)
   return result;
 }
 
-void pxrInternal__aapl__pxrReserved__::GlfSimpleLightingContext::BindUniformBlocks(uint64_t a1, uint64_t a2)
+void pxrInternal__aapl__pxrReserved__::GlfSimpleLightingContext::BindUniformBlocks(uint64_t a1, uint64_t *a2)
 {
-  v83 = *MEMORY[0x29EDCA608];
-  pxrInternal__aapl__pxrReserved__::GlfDebugGroup::GlfDebugGroup(&v82, "void pxrInternal__aapl__pxrReserved__::GlfSimpleLightingContext::BindUniformBlocks(const GlfBindingMapPtr &)");
+  v84 = *MEMORY[0x29EDCA608];
+  pxrInternal__aapl__pxrReserved__::GlfDebugGroup::GlfDebugGroup(&v83, "void pxrInternal__aapl__pxrReserved__::GlfSimpleLightingContext::BindUniformBlocks(const GlfBindingMapPtr &)");
   if (!*(a1 + 408))
   {
-    pxrInternal__aapl__pxrReserved__::GlfUniformBlock::New("_lightingUniformBlock", &v74);
-    *(a1 + 408) = v74;
-    *&v74 = 0;
+    pxrInternal__aapl__pxrReserved__::GlfUniformBlock::New(&v75, "_lightingUniformBlock");
+    *(a1 + 408) = v75;
+    *&v75 = 0;
     pxrInternal__aapl__pxrReserved__::TfRefPtr<pxrInternal__aapl__pxrReserved__::GlfUniformBlock>::_RemoveRef();
   }
 
   if (!*(a1 + 416))
   {
-    pxrInternal__aapl__pxrReserved__::GlfUniformBlock::New("_shadowUniformBlock", &v74);
-    *(a1 + 416) = v74;
-    *&v74 = 0;
+    pxrInternal__aapl__pxrReserved__::GlfUniformBlock::New(&v75, "_shadowUniformBlock");
+    *(a1 + 416) = v75;
+    *&v75 = 0;
     pxrInternal__aapl__pxrReserved__::TfRefPtr<pxrInternal__aapl__pxrReserved__::GlfUniformBlock>::_RemoveRef();
   }
 
   if (!*(a1 + 424))
   {
-    pxrInternal__aapl__pxrReserved__::GlfUniformBlock::New("_materialUniformBlock", &v74);
-    *(a1 + 424) = v74;
-    *&v74 = 0;
+    pxrInternal__aapl__pxrReserved__::GlfUniformBlock::New(&v75, "_materialUniformBlock");
+    *(a1 + 424) = v75;
+    *&v75 = 0;
     pxrInternal__aapl__pxrReserved__::TfRefPtr<pxrInternal__aapl__pxrReserved__::GlfUniformBlock>::_RemoveRef();
   }
 
   if (*(a1 + 448) == 1 && (*(a1 + 449) & 1) != 0 || (v5 = *(a1 + 24), v4 = *(a1 + 32), v6 = v4 - v5, v4 == v5))
   {
-    v18 = 0;
+    v15 = 0;
   }
 
   else
   {
     v7 = pxrInternal__aapl__pxrReserved__::GlfSimpleLightingContext::ComputeNumShadowsUsed(a1);
     v8 = 0xFAFAFAFAFAFAFAFBLL * (v6 >> 3);
-    v10 = MEMORY[0x2A1C7C4A8](v7, 144 * v7, v9);
-    v12 = (&v57 - v11);
-    v15 = MEMORY[0x2A1C7C4A8](v10, v13, v14);
-    v64 = &v57 - v15 * v16;
-    v57 = v17;
-    bzero(v64, v17);
-    bzero(v12, (192 * v8) | 0x10);
-    v80 = 0u;
+    v9 = MEMORY[0x2A1C7C4A8](v7);
+    v11 = (&v58 - v10);
+    v12 = MEMORY[0x2A1C7C4A8](v9);
+    v65 = &v58 - v12 * v13;
+    v58 = v14;
+    bzero(v65, v14);
+    bzero(v11, (192 * v8) | 0x10);
     v81 = 0u;
-    v78 = 0u;
+    v82 = 0u;
     v79 = 0u;
-    v76 = 0u;
+    v80 = 0u;
     v77 = 0u;
-    v74 = 0u;
+    v78 = 0u;
     v75 = 0u;
-    pxrInternal__aapl__pxrReserved__::GfMatrix4d::GetInverse((a1 + 56), 0, 0.0, &v74);
-    v58 = (192 * v8) | 0x10;
-    v59 = a2;
-    v18 = 0;
-    v19 = *(a1 + 400);
-    v20 = *(a1 + 402);
-    *v12 = v19;
-    v12[1] = v20;
-    v60 = v12;
-    if (v19 == 1 && v8 >= 1)
+    v76 = 0u;
+    pxrInternal__aapl__pxrReserved__::GfMatrix4d::GetInverse(&v75, (a1 + 56), 0, 0.0);
+    v59 = (192 * v8) | 0x10;
+    v60 = a2;
+    v15 = 0;
+    v16 = *(a1 + 400);
+    v17 = *(a1 + 402);
+    *v11 = v16;
+    v11[1] = v17;
+    v61 = v11;
+    if (v16 == 1 && v8 >= 1)
     {
-      v21 = 0;
       v18 = 0;
-      v22 = v60 + 16;
-      v63 = v8 & 0x7FFFFFFF;
-      v23 = v60 + 128;
-      v61 = v60 + 16;
+      v15 = 0;
+      v19 = v61 + 16;
+      v64 = v8 & 0x7FFFFFFF;
+      v20 = v61 + 128;
+      v62 = v61 + 16;
       do
       {
-        v24 = (*(a1 + 24) + 408 * v21);
-        Position = pxrInternal__aapl__pxrReserved__::GlfSimpleLight::GetPosition(v24);
-        v26 = &v22[192 * v21];
-        *v26 = vcvt_hight_f32_f64(vcvt_f32_f64(vaddq_f64(vaddq_f64(vaddq_f64(vmulq_n_f64(*(a1 + 56), *Position), vmulq_n_f64(*(a1 + 88), Position[1])), vmulq_n_f64(*(a1 + 120), Position[2])), vmulq_n_f64(*(a1 + 152), Position[3]))), vaddq_f64(vaddq_f64(vaddq_f64(vmulq_n_f64(*(a1 + 72), *Position), vmulq_n_f64(*(a1 + 104), Position[1])), vmulq_n_f64(*(a1 + 136), Position[2])), vmulq_n_f64(*(a1 + 168), Position[3])));
-        Diffuse = pxrInternal__aapl__pxrReserved__::GlfSimpleLight::GetDiffuse(v24);
-        v26[2].i32[0] = *Diffuse;
-        v26[2].i32[1] = Diffuse[1];
-        v26[2].i32[2] = Diffuse[2];
-        v26[2].i32[3] = Diffuse[3];
-        Ambient = pxrInternal__aapl__pxrReserved__::GlfSimpleLight::GetAmbient(v24);
-        v26[1].i32[0] = *Ambient;
-        v26[1].i32[1] = Ambient[1];
-        v26[1].i32[2] = Ambient[2];
-        v26[1].i32[3] = Ambient[3];
-        Specular = pxrInternal__aapl__pxrReserved__::GlfSimpleLight::GetSpecular(v24);
-        v26[3].i32[0] = *Specular;
-        v26[3].i32[1] = Specular[1];
-        v26[3].i32[2] = Specular[2];
-        v26[3].i32[3] = Specular[3];
-        SpotDirection = pxrInternal__aapl__pxrReserved__::GlfSimpleLight::GetSpotDirection(v24);
-        v26[4].i32[0] = sub_29A144F00((a1 + 56), SpotDirection).u32[0];
-        v26[4].i32[1] = v31;
-        v26[4].i32[2] = v32;
-        Attenuation = pxrInternal__aapl__pxrReserved__::GlfSimpleLight::GetAttenuation(v24);
-        v26[6].i32[0] = *Attenuation;
-        v26[6].i32[1] = Attenuation[1];
-        v26[6].i32[2] = Attenuation[2];
-        v26[5].i32[0] = *pxrInternal__aapl__pxrReserved__::GlfSimpleLight::GetSpotCutoff(v24);
-        v26[5].i32[1] = *pxrInternal__aapl__pxrReserved__::GlfSimpleLight::GetSpotFalloff(v24);
-        Transform = pxrInternal__aapl__pxrReserved__::GlfSimpleLight::GetTransform(v24);
-        pxrInternal__aapl__pxrReserved__::GfMatrix4d::GetInverse(Transform, 0, 0.0, &v66);
+        v21 = (*(a1 + 24) + 408 * v18);
+        Position = pxrInternal__aapl__pxrReserved__::GlfSimpleLight::GetPosition(v21);
+        v23 = &v19[192 * v18];
+        *v23 = vcvt_hight_f32_f64(vcvt_f32_f64(vaddq_f64(vaddq_f64(vaddq_f64(vmulq_n_f64(*(a1 + 56), *Position), vmulq_n_f64(*(a1 + 88), Position[1])), vmulq_n_f64(*(a1 + 120), Position[2])), vmulq_n_f64(*(a1 + 152), Position[3]))), vaddq_f64(vaddq_f64(vaddq_f64(vmulq_n_f64(*(a1 + 72), *Position), vmulq_n_f64(*(a1 + 104), Position[1])), vmulq_n_f64(*(a1 + 136), Position[2])), vmulq_n_f64(*(a1 + 168), Position[3])));
+        Diffuse = pxrInternal__aapl__pxrReserved__::GlfSimpleLight::GetDiffuse(v21);
+        v23[2].i32[0] = *Diffuse;
+        v23[2].i32[1] = Diffuse[1];
+        v23[2].i32[2] = Diffuse[2];
+        v23[2].i32[3] = Diffuse[3];
+        pxrInternal__aapl__pxrReserved__::GlfSimpleLight::GetAmbient(v21);
+        v23[1].i32[0] = *v25;
+        v23[1].i32[1] = v25[1];
+        v23[1].i32[2] = v25[2];
+        v23[1].i32[3] = v25[3];
+        Specular = pxrInternal__aapl__pxrReserved__::GlfSimpleLight::GetSpecular(v21);
+        v23[3].i32[0] = *Specular;
+        v23[3].i32[1] = Specular[1];
+        v23[3].i32[2] = Specular[2];
+        v23[3].i32[3] = Specular[3];
+        SpotDirection = pxrInternal__aapl__pxrReserved__::GlfSimpleLight::GetSpotDirection(v21);
+        v23[4].i32[0] = sub_29A144F00((a1 + 56), SpotDirection).u32[0];
+        v23[4].i32[1] = v28;
+        v23[4].i32[2] = v29;
+        Attenuation = pxrInternal__aapl__pxrReserved__::GlfSimpleLight::GetAttenuation(v21);
+        v23[6].i32[0] = *Attenuation;
+        v23[6].i32[1] = Attenuation[1];
+        v23[6].i32[2] = Attenuation[2];
+        v23[5].i32[0] = *pxrInternal__aapl__pxrReserved__::GlfSimpleLight::GetSpotCutoff(v21);
+        v23[5].i32[1] = *pxrInternal__aapl__pxrReserved__::GlfSimpleLight::GetSpotFalloff(v21);
+        Transform = pxrInternal__aapl__pxrReserved__::GlfSimpleLight::GetTransform(v21);
+        pxrInternal__aapl__pxrReserved__::GfMatrix4d::GetInverse(&v67, Transform, 0, 0.0);
         for (i = 0; i != 4; ++i)
         {
-          *&v23[16 * i] = vcvt_hight_f32_f64(vcvt_f32_f64(*(&v66 + 2 * i)), *(&v66 + 2 * i + 1));
+          *&v20[16 * i] = vcvt_hight_f32_f64(vcvt_f32_f64(*(&v67 + 2 * i)), *(&v67 + 2 * i + 1));
         }
 
-        v26[11].i32[2] = pxrInternal__aapl__pxrReserved__::GlfSimpleLight::HasShadow(v24);
-        v26[11].i32[3] = pxrInternal__aapl__pxrReserved__::GlfSimpleLight::IsDomeLight(v24);
-        if (v26[11].i32[2])
+        v23[11].i32[2] = pxrInternal__aapl__pxrReserved__::GlfSimpleLight::HasShadow(v21);
+        v23[11].i32[3] = pxrInternal__aapl__pxrReserved__::GlfSimpleLight::IsDomeLight(v21);
+        if (v23[11].i32[2])
         {
-          ShadowIndexStart = pxrInternal__aapl__pxrReserved__::GlfSimpleLight::GetShadowIndexStart(v24);
-          v26[11].i32[0] = ShadowIndexStart;
-          ShadowIndexEnd = pxrInternal__aapl__pxrReserved__::GlfSimpleLight::GetShadowIndexEnd(v24);
-          v26[11].i32[1] = ShadowIndexEnd;
+          ShadowIndexStart = pxrInternal__aapl__pxrReserved__::GlfSimpleLight::GetShadowIndexStart(v21);
+          v23[11].i32[0] = ShadowIndexStart;
+          ShadowIndexEnd = pxrInternal__aapl__pxrReserved__::GlfSimpleLight::GetShadowIndexEnd(v21);
+          v23[11].i32[1] = ShadowIndexEnd;
           if (ShadowIndexStart <= ShadowIndexEnd)
           {
-            v62 = v21;
-            v38 = ShadowIndexStart;
-            v39 = ShadowIndexEnd + 1;
-            v40 = &v64[144 * ShadowIndexStart];
+            v63 = v18;
+            v35 = ShadowIndexStart;
+            v36 = ShadowIndexEnd + 1;
+            v37 = &v65[144 * ShadowIndexStart];
             do
             {
-              v72 = 0u;
               v73 = 0u;
-              v70 = 0u;
+              v74 = 0u;
               v71 = 0u;
-              v68 = 0u;
+              v72 = 0u;
               v69 = 0u;
-              v66 = 0u;
+              v70 = 0u;
               v67 = 0u;
-              v41 = sub_29AB80170((a1 + 48));
-              pxrInternal__aapl__pxrReserved__::GlfSimpleShadowArray::GetWorldToShadowMatrix(v41, v38, v65);
-              v70 = v78;
+              v68 = 0u;
+              v38 = sub_29AB80170((a1 + 48));
+              pxrInternal__aapl__pxrReserved__::GlfSimpleShadowArray::GetWorldToShadowMatrix(v66, v38, v35);
               v71 = v79;
               v72 = v80;
               v73 = v81;
-              v66 = v74;
+              v74 = v82;
               v67 = v75;
               v68 = v76;
               v69 = v77;
-              pxrInternal__aapl__pxrReserved__::GfMatrix4d::operator*=(&v66, v65);
-              memset(v65, 0, sizeof(v65));
-              pxrInternal__aapl__pxrReserved__::GfMatrix4d::GetInverse(&v66, 0, 0.0, v65);
-              ShadowBias = pxrInternal__aapl__pxrReserved__::GlfSimpleLight::GetShadowBias(v24);
-              v43 = &v64[144 * v38];
-              v43[33] = ShadowBias;
-              ShadowBlur = pxrInternal__aapl__pxrReserved__::GlfSimpleLight::GetShadowBlur(v24);
-              v45 = 0;
-              v43[32] = ShadowBlur;
+              v70 = v78;
+              pxrInternal__aapl__pxrReserved__::GfMatrix4d::operator*=(&v67, v66);
+              memset(v66, 0, sizeof(v66));
+              pxrInternal__aapl__pxrReserved__::GfMatrix4d::GetInverse(v66, &v67, 0, 0.0);
+              ShadowBias = pxrInternal__aapl__pxrReserved__::GlfSimpleLight::GetShadowBias(v21);
+              v40 = &v65[144 * v35];
+              v40[33] = ShadowBias;
+              ShadowBlur = pxrInternal__aapl__pxrReserved__::GlfSimpleLight::GetShadowBlur(v21);
+              v42 = 0;
+              v40[32] = ShadowBlur;
               do
               {
-                *&v40[16 * v45] = vcvt_hight_f32_f64(vcvt_f32_f64(*(&v66 + 2 * v45)), *(&v66 + 2 * v45 + 1));
-                ++v45;
+                *&v37[16 * v42] = vcvt_hight_f32_f64(vcvt_f32_f64(*(&v67 + 2 * v42)), *(&v67 + 2 * v42 + 1));
+                ++v42;
               }
 
-              while (v45 != 4);
+              while (v42 != 4);
               for (j = 0; j != 4; ++j)
               {
-                *&v40[16 * j + 64] = vcvt_hight_f32_f64(vcvt_f32_f64(v65[2 * j]), v65[2 * j + 1]);
+                *&v37[16 * j + 64] = vcvt_hight_f32_f64(vcvt_f32_f64(v66[2 * j]), v66[2 * j + 1]);
               }
 
-              ++v38;
-              v40 += 144;
+              ++v35;
+              v37 += 144;
             }
 
-            while (v39 != v38);
-            v18 = 1;
-            v22 = v61;
-            v21 = v62;
+            while (v36 != v35);
+            v15 = 1;
+            v19 = v62;
+            v18 = v63;
           }
 
           else
           {
-            v18 = 1;
+            v15 = 1;
           }
         }
 
@@ -4020,68 +4022,79 @@ void pxrInternal__aapl__pxrReserved__::GlfSimpleLightingContext::BindUniformBloc
           break;
         }
 
-        ++v21;
-        v23 += 192;
+        ++v18;
+        v20 += 192;
       }
 
-      while (v21 < v63);
+      while (v18 < v64);
     }
 
-    v47 = sub_29AB809F4((a1 + 408));
-    a2 = v59;
-    pxrInternal__aapl__pxrReserved__::GlfUniformBlock::Update(v47, v60, v58);
+    v44 = sub_29AB809F4((a1 + 408));
+    a2 = v60;
+    pxrInternal__aapl__pxrReserved__::GlfUniformBlock::Update(v44, v61, v59);
     *(a1 + 448) = 1;
-    if (v18)
+    if (v15)
     {
-      v48 = sub_29AB809F4((a1 + 416));
-      pxrInternal__aapl__pxrReserved__::GlfUniformBlock::Update(v48, v64, v57);
+      v45 = sub_29AB809F4((a1 + 416));
+      pxrInternal__aapl__pxrReserved__::GlfUniformBlock::Update(v45, v65, v58);
       *(a1 + 449) = 1;
     }
   }
 
-  v49 = sub_29AB809F4((a1 + 408));
-  v50 = atomic_load(&qword_2A17486F8);
-  if (!v50)
+  v46 = sub_29AB809F4((a1 + 408));
+  v47 = atomic_load(&qword_2A17486F8);
+  if (!v47)
   {
-    v50 = sub_29AB8254C();
+    v47 = sub_29AB8254C();
   }
 
-  if ((*v50 & 0xFFFFFFFFFFFFFFF8) == 0)
+  if ((*v47 & 0xFFFFFFFFFFFFFFF8) != 0)
   {
-    pxrInternal__aapl__pxrReserved__::TfToken::_GetEmptyString(v50);
+    EmptyString = ((*v47 & 0xFFFFFFFFFFFFFFF8) + 16);
   }
 
-  pxrInternal__aapl__pxrReserved__::GlfUniformBlock::Bind(v49, a2);
-  if (v18)
+  else
   {
-    v51 = sub_29AB809F4((a1 + 416));
-    v52 = atomic_load(&qword_2A17486F8);
-    if (!v52)
+    EmptyString = pxrInternal__aapl__pxrReserved__::TfToken::_GetEmptyString(v47);
+  }
+
+  pxrInternal__aapl__pxrReserved__::GlfUniformBlock::Bind(v46, a2, EmptyString);
+  if (v15)
+  {
+    v49 = sub_29AB809F4((a1 + 416));
+    v50 = atomic_load(&qword_2A17486F8);
+    if (!v50)
     {
-      v52 = sub_29AB8254C();
+      v50 = sub_29AB8254C();
     }
 
-    if ((*(v52 + 1) & 0xFFFFFFFFFFFFFFF8) == 0)
+    if ((v50[1] & 0xFFFFFFFFFFFFFFF8) != 0)
     {
-      pxrInternal__aapl__pxrReserved__::TfToken::_GetEmptyString(v52);
+      v51 = ((v50[1] & 0xFFFFFFFFFFFFFFF8) + 16);
     }
 
-    pxrInternal__aapl__pxrReserved__::GlfUniformBlock::Bind(v51, a2);
+    else
+    {
+      v51 = pxrInternal__aapl__pxrReserved__::TfToken::_GetEmptyString(v50);
+    }
+
+    pxrInternal__aapl__pxrReserved__::GlfUniformBlock::Bind(v49, a2, v51);
   }
 
   if ((*(a1 + 450) & 1) == 0)
   {
-    v78 = 0u;
     v79 = 0u;
-    v74 = *pxrInternal__aapl__pxrReserved__::GlfSimpleMaterial::GetAmbient((a1 + 312));
-    v75 = *pxrInternal__aapl__pxrReserved__::GlfSimpleMaterial::GetDiffuse((a1 + 312));
-    v76 = *pxrInternal__aapl__pxrReserved__::GlfSimpleMaterial::GetSpecular((a1 + 312));
-    v77 = *pxrInternal__aapl__pxrReserved__::GlfSimpleMaterial::GetEmission((a1 + 312));
+    v80 = 0u;
+    pxrInternal__aapl__pxrReserved__::GlfSimpleMaterial::GetAmbient((a1 + 312));
+    v75 = *v52;
+    v76 = *pxrInternal__aapl__pxrReserved__::GlfSimpleMaterial::GetDiffuse((a1 + 312));
+    v77 = *pxrInternal__aapl__pxrReserved__::GlfSimpleMaterial::GetSpecular((a1 + 312));
+    v78 = *pxrInternal__aapl__pxrReserved__::GlfSimpleMaterial::GetEmission((a1 + 312));
     Shininess = pxrInternal__aapl__pxrReserved__::GlfSimpleMaterial::GetShininess((a1 + 312));
-    *&v79 = Shininess;
-    v78 = *(a1 + 384);
+    *&v80 = Shininess;
+    v79 = *(a1 + 384);
     v54 = sub_29AB809F4((a1 + 424));
-    pxrInternal__aapl__pxrReserved__::GlfUniformBlock::Update(v54, &v74, 96);
+    pxrInternal__aapl__pxrReserved__::GlfUniformBlock::Update(v54, &v75, 0x60u);
     *(a1 + 450) = 1;
   }
 
@@ -4092,14 +4105,19 @@ void pxrInternal__aapl__pxrReserved__::GlfSimpleLightingContext::BindUniformBloc
     v56 = sub_29AB8254C();
   }
 
-  if ((*(v56 + 2) & 0xFFFFFFFFFFFFFFF8) == 0)
+  if ((v56[2] & 0xFFFFFFFFFFFFFFF8) != 0)
   {
-    pxrInternal__aapl__pxrReserved__::TfToken::_GetEmptyString(v56);
+    v57 = ((v56[2] & 0xFFFFFFFFFFFFFFF8) + 16);
   }
 
-  pxrInternal__aapl__pxrReserved__::GlfUniformBlock::Bind(v55, a2);
+  else
+  {
+    v57 = pxrInternal__aapl__pxrReserved__::TfToken::_GetEmptyString(v56);
+  }
+
+  pxrInternal__aapl__pxrReserved__::GlfUniformBlock::Bind(v55, a2, v57);
   pxrInternal__aapl__pxrReserved__::GlfSimpleLightingContext::_BindPostSurfaceShaderParams(a1, a2);
-  pxrInternal__aapl__pxrReserved__::GlfDebugGroup::~GlfDebugGroup(&v82);
+  pxrInternal__aapl__pxrReserved__::GlfDebugGroup::~GlfDebugGroup(&v83);
 }
 
 uint64_t sub_29AB809F4(uint64_t *a1)
@@ -4118,7 +4136,7 @@ uint64_t sub_29AB809F4(uint64_t *a1)
   return result;
 }
 
-uint64_t *pxrInternal__aapl__pxrReserved__::GlfSimpleLightingContext::_BindPostSurfaceShaderParams(uint64_t a1, uint64_t a2)
+uint64_t *pxrInternal__aapl__pxrReserved__::GlfSimpleLightingContext::_BindPostSurfaceShaderParams(uint64_t a1, uint64_t *a2)
 {
   if ((*(a1 + 451) & 1) == 0)
   {
@@ -4139,19 +4157,24 @@ uint64_t *pxrInternal__aapl__pxrReserved__::GlfSimpleLightingContext::_BindPostS
         v7 = sub_29AB8254C();
       }
 
-      if ((*(v7 + 3) & 0xFFFFFFFFFFFFFFF8) == 0)
+      if ((v7[3] & 0xFFFFFFFFFFFFFFF8) != 0)
       {
-        pxrInternal__aapl__pxrReserved__::TfToken::_GetEmptyString(v7);
+        EmptyString = ((v7[3] & 0xFFFFFFFFFFFFFFF8) + 16);
       }
 
-      return pxrInternal__aapl__pxrReserved__::GlfUniformBlock::Bind(v6, a2);
+      else
+      {
+        EmptyString = pxrInternal__aapl__pxrReserved__::TfToken::_GetEmptyString(v7);
+      }
+
+      return pxrInternal__aapl__pxrReserved__::GlfUniformBlock::Bind(v6, a2, EmptyString);
     }
   }
 
   return result;
 }
 
-uint64_t pxrInternal__aapl__pxrReserved__::GlfSimpleLightingContext::BindSamplers(uint64_t a1, uint64_t a2)
+uint64_t pxrInternal__aapl__pxrReserved__::GlfSimpleLightingContext::BindSamplers(uint64_t a1, uint64_t *a2)
 {
   v3 = sub_29AB80170((a1 + 48));
   if (pxrInternal__aapl__pxrReserved__::GlfSimpleShadowArray::GetNumShadowMapPasses(v3))
@@ -4162,7 +4185,7 @@ uint64_t pxrInternal__aapl__pxrReserved__::GlfSimpleLightingContext::BindSampler
       v6 = sub_29AB8254C();
     }
 
-    v7 = *(v6 + 32) & 0xFFFFFFFFFFFFFFF8;
+    v7 = v6[4] & 0xFFFFFFFFFFFFFFF8;
     if (v7)
     {
       v8 = (v7 + 16);
@@ -4194,7 +4217,7 @@ void sub_29AB80C78(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t pxrInternal__aapl__pxrReserved__::GlfSimpleLightingContext::UnbindSamplers(uint64_t a1, uint64_t a2)
+uint64_t pxrInternal__aapl__pxrReserved__::GlfSimpleLightingContext::UnbindSamplers(uint64_t a1, uint64_t *a2)
 {
   v3 = sub_29AB80170((a1 + 48));
   if (pxrInternal__aapl__pxrReserved__::GlfSimpleShadowArray::GetNumShadowMapPasses(v3))
@@ -4205,7 +4228,7 @@ uint64_t pxrInternal__aapl__pxrReserved__::GlfSimpleLightingContext::UnbindSampl
       v6 = sub_29AB8254C();
     }
 
-    v7 = *(v6 + 32) & 0xFFFFFFFFFFFFFFF8;
+    v7 = v6[4] & 0xFFFFFFFFFFFFFFF8;
     if (v7)
     {
       v8 = (v7 + 16);
@@ -4239,7 +4262,7 @@ void sub_29AB80DD4(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 void pxrInternal__aapl__pxrReserved__::GlfSimpleLightingContext::SetStateFromOpenGL(pxrInternal__aapl__pxrReserved__::GlfSimpleLightingContext *this)
 {
-  v33 = *MEMORY[0x29EDCA608];
+  v28 = *MEMORY[0x29EDCA608];
   v2 = pxrInternal__aapl__pxrReserved__::internal::GLApi::glIsEnabled(2896) == 1;
   if (*(this + 400) != v2)
   {
@@ -4247,108 +4270,108 @@ void pxrInternal__aapl__pxrReserved__::GlfSimpleLightingContext::SetStateFromOpe
     *(this + 448) = 0;
   }
 
-  pxrInternal__aapl__pxrReserved__::internal::GLApi::glGetDoublev(2982, v28);
-  v26 = 0u;
-  v27 = 0u;
-  v24 = 0u;
-  v25 = 0u;
-  v22 = 0u;
-  v23 = 0u;
-  v20 = 0u;
+  pxrInternal__aapl__pxrReserved__::internal::GLApi::glGetDoublev(2982, v23);
   v21 = 0u;
-  pxrInternal__aapl__pxrReserved__::GfMatrix4d::GetInverse(v28, 0, 0.0, &v20);
-  v19 = 0;
-  pxrInternal__aapl__pxrReserved__::internal::GLApi::glGetIntegerv(3377, &v19);
-  memset(v18, 0, sizeof(v18));
-  sub_29AB8136C(v18, v19);
-  v29[0] = xmmword_29B43C8B0;
-  pxrInternal__aapl__pxrReserved__::GlfSimpleLight::GlfSimpleLight(v17, v29);
-  if (v19 >= 1)
+  v22 = 0u;
+  v19 = 0u;
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
+  v15 = 0u;
+  v16 = 0u;
+  pxrInternal__aapl__pxrReserved__::GfMatrix4d::GetInverse(&v15, v23, 0, 0.0);
+  v14 = 0;
+  pxrInternal__aapl__pxrReserved__::internal::GLApi::glGetIntegerv(3377, &v14);
+  memset(v13, 0, sizeof(v13));
+  sub_29AB8136C(v13, v14);
+  v24[0] = xmmword_29B43C8B0;
+  pxrInternal__aapl__pxrReserved__::GlfSimpleLight::GlfSimpleLight(v12, v24);
+  if (v14 >= 1)
   {
-    for (i = 0; i < v19; ++i)
+    for (i = 0; i < v14; ++i)
     {
       if (pxrInternal__aapl__pxrReserved__::internal::GLApi::glIsEnabled((i + 0x4000)))
       {
-        pxrInternal__aapl__pxrReserved__::internal::GLApi::glGetLightfv((i + 0x4000), 4611, v29);
-        v31 = vcvt_hight_f32_f64(vcvt_f32_f64(vaddq_f64(vaddq_f64(vaddq_f64(vmulq_n_f64(v20, v29[0].n128_f32[0]), vmulq_n_f64(v22, v29[0].n128_f32[1])), vmulq_n_f64(v24, v29[0].n128_f32[2])), vmulq_n_f64(v26, v29[0].n128_f32[3]))), vaddq_f64(vaddq_f64(vaddq_f64(vmulq_n_f64(v21, v29[0].n128_f32[0]), vmulq_n_f64(v23, v29[0].n128_f32[1])), vmulq_n_f64(v25, v29[0].n128_f32[2])), vmulq_n_f64(v27, v29[0].n128_f32[3])));
-        pxrInternal__aapl__pxrReserved__::GlfSimpleLight::SetPosition(v17, &v31);
-        pxrInternal__aapl__pxrReserved__::internal::GLApi::glGetLightfv((i + 0x4000), 4608, &v32);
-        v31 = v32;
-        pxrInternal__aapl__pxrReserved__::GlfSimpleLight::SetAmbient(v17, &v31);
-        pxrInternal__aapl__pxrReserved__::internal::GLApi::glGetLightfv((i + 0x4000), 4609, &v32);
-        v31 = v32;
-        pxrInternal__aapl__pxrReserved__::GlfSimpleLight::SetDiffuse(v17, &v31);
-        pxrInternal__aapl__pxrReserved__::internal::GLApi::glGetLightfv((i + 0x4000), 4610, &v32);
-        v31 = v32;
-        pxrInternal__aapl__pxrReserved__::GlfSimpleLight::SetSpecular(v17, &v31);
-        pxrInternal__aapl__pxrReserved__::internal::GLApi::glGetLightfv((i + 0x4000), 4612, &v31);
-        v13 = v31.n128_u64[0];
-        v14 = v31.n128_u32[2];
-        LODWORD(v15) = sub_29A144F00(&v20, &v13).u32[0];
-        HIDWORD(v15) = v4;
-        v16 = v5;
-        pxrInternal__aapl__pxrReserved__::GlfSimpleLight::SetSpotDirection(v17, &v15);
-        LODWORD(v13) = 0;
-        pxrInternal__aapl__pxrReserved__::internal::GLApi::glGetLightfv((i + 0x4000), 4614, &v13);
-        pxrInternal__aapl__pxrReserved__::GlfSimpleLight::SetSpotCutoff(v17, &v13);
-        pxrInternal__aapl__pxrReserved__::internal::GLApi::glGetLightfv((i + 0x4000), 4613, &v13);
-        pxrInternal__aapl__pxrReserved__::GlfSimpleLight::SetSpotFalloff(v17, &v13);
-        pxrInternal__aapl__pxrReserved__::internal::GLApi::glGetLightfv((i + 0x4000), 4615, &v13);
-        LODWORD(v15) = v13;
-        pxrInternal__aapl__pxrReserved__::internal::GLApi::glGetLightfv((i + 0x4000), 4616, &v13);
-        HIDWORD(v15) = v13;
-        pxrInternal__aapl__pxrReserved__::internal::GLApi::glGetLightfv((i + 0x4000), 4617, &v13);
-        v16 = v13;
-        pxrInternal__aapl__pxrReserved__::GlfSimpleLight::SetAttenuation(v17, &v15);
-        sub_29AB81454(v18, v17);
+        pxrInternal__aapl__pxrReserved__::internal::GLApi::glGetLightfv((i + 0x4000), 4611, v24);
+        v26 = vcvt_hight_f32_f64(vcvt_f32_f64(vaddq_f64(vaddq_f64(vaddq_f64(vmulq_n_f64(v15, v24[0].n128_f32[0]), vmulq_n_f64(v17, v24[0].n128_f32[1])), vmulq_n_f64(v19, v24[0].n128_f32[2])), vmulq_n_f64(v21, v24[0].n128_f32[3]))), vaddq_f64(vaddq_f64(vaddq_f64(vmulq_n_f64(v16, v24[0].n128_f32[0]), vmulq_n_f64(v18, v24[0].n128_f32[1])), vmulq_n_f64(v20, v24[0].n128_f32[2])), vmulq_n_f64(v22, v24[0].n128_f32[3])));
+        pxrInternal__aapl__pxrReserved__::GlfSimpleLight::SetPosition(v12, &v26);
+        pxrInternal__aapl__pxrReserved__::internal::GLApi::glGetLightfv((i + 0x4000), 4608, &v27);
+        v26 = v27;
+        pxrInternal__aapl__pxrReserved__::GlfSimpleLight::SetAmbient(v12, &v26);
+        pxrInternal__aapl__pxrReserved__::internal::GLApi::glGetLightfv((i + 0x4000), 4609, &v27);
+        v26 = v27;
+        pxrInternal__aapl__pxrReserved__::GlfSimpleLight::SetDiffuse(v12, &v26);
+        pxrInternal__aapl__pxrReserved__::internal::GLApi::glGetLightfv((i + 0x4000), 4610, &v27);
+        v26 = v27;
+        pxrInternal__aapl__pxrReserved__::GlfSimpleLight::SetSpecular(v12, &v26);
+        pxrInternal__aapl__pxrReserved__::internal::GLApi::glGetLightfv((i + 0x4000), 4612, &v26);
+        v8 = v26.n128_u64[0];
+        v9 = v26.n128_u32[2];
+        LODWORD(v10) = sub_29A144F00(&v15, &v8).u32[0];
+        HIDWORD(v10) = v4;
+        v11 = v5;
+        pxrInternal__aapl__pxrReserved__::GlfSimpleLight::SetSpotDirection(v12, &v10);
+        LODWORD(v8) = 0;
+        pxrInternal__aapl__pxrReserved__::internal::GLApi::glGetLightfv((i + 0x4000), 4614, &v8);
+        pxrInternal__aapl__pxrReserved__::GlfSimpleLight::SetSpotCutoff(v12, &v8);
+        pxrInternal__aapl__pxrReserved__::internal::GLApi::glGetLightfv((i + 0x4000), 4613, &v8);
+        pxrInternal__aapl__pxrReserved__::GlfSimpleLight::SetSpotFalloff(v12, &v8);
+        pxrInternal__aapl__pxrReserved__::internal::GLApi::glGetLightfv((i + 0x4000), 4615, &v8);
+        LODWORD(v10) = v8;
+        pxrInternal__aapl__pxrReserved__::internal::GLApi::glGetLightfv((i + 0x4000), 4616, &v8);
+        HIDWORD(v10) = v8;
+        pxrInternal__aapl__pxrReserved__::internal::GLApi::glGetLightfv((i + 0x4000), 4617, &v8);
+        v11 = v8;
+        pxrInternal__aapl__pxrReserved__::GlfSimpleLight::SetAttenuation(v12, &v10);
+        sub_29AB81454(v13, v12);
       }
     }
   }
 
-  pxrInternal__aapl__pxrReserved__::GlfSimpleLightingContext::SetLights(this, v18);
-  v6 = pxrInternal__aapl__pxrReserved__::GlfSimpleMaterial::GlfSimpleMaterial(v29);
-  LODWORD(v15) = 0;
-  pxrInternal__aapl__pxrReserved__::internal::GLApi::glGetMaterialfv(1028, 4608, &v32, v6);
-  v31 = v32;
-  *&v7 = pxrInternal__aapl__pxrReserved__::GlfSimpleMaterial::SetAmbient(v29, &v31).n128_u64[0];
-  pxrInternal__aapl__pxrReserved__::internal::GLApi::glGetMaterialfv(1028, 4609, &v32, v7);
-  v31 = v32;
-  *&v8 = pxrInternal__aapl__pxrReserved__::GlfSimpleMaterial::SetDiffuse(v29, &v31).n128_u64[0];
-  pxrInternal__aapl__pxrReserved__::internal::GLApi::glGetMaterialfv(1028, 4610, &v32, v8);
-  v31 = v32;
-  *&v9 = pxrInternal__aapl__pxrReserved__::GlfSimpleMaterial::SetSpecular(v29, &v31).n128_u64[0];
-  pxrInternal__aapl__pxrReserved__::internal::GLApi::glGetMaterialfv(1028, 5632, &v32, v9);
-  v31 = v32;
-  *&v10 = pxrInternal__aapl__pxrReserved__::GlfSimpleMaterial::SetEmission(v29, &v31).n128_u64[0];
-  pxrInternal__aapl__pxrReserved__::internal::GLApi::glGetMaterialfv(1028, 5633, &v15, v10);
-  LODWORD(v15) = fmaxf(*&v15, 0.0001);
-  pxrInternal__aapl__pxrReserved__::GlfSimpleMaterial::SetShininess(v29, *&v15);
-  if (pxrInternal__aapl__pxrReserved__::GlfSimpleMaterial::operator!=(this + 312, v29))
+  pxrInternal__aapl__pxrReserved__::GlfSimpleLightingContext::SetLights(this, v13);
+  pxrInternal__aapl__pxrReserved__::GlfSimpleMaterial::GlfSimpleMaterial(v24);
+  LODWORD(v10) = 0;
+  pxrInternal__aapl__pxrReserved__::internal::GLApi::glGetMaterialfv(1028, 4608, &v27);
+  v26 = v27;
+  pxrInternal__aapl__pxrReserved__::GlfSimpleMaterial::SetAmbient(v24, &v26);
+  pxrInternal__aapl__pxrReserved__::internal::GLApi::glGetMaterialfv(1028, 4609, &v27);
+  v26 = v27;
+  pxrInternal__aapl__pxrReserved__::GlfSimpleMaterial::SetDiffuse(v24, &v26);
+  pxrInternal__aapl__pxrReserved__::internal::GLApi::glGetMaterialfv(1028, 4610, &v27);
+  v26 = v27;
+  pxrInternal__aapl__pxrReserved__::GlfSimpleMaterial::SetSpecular(v24, &v26);
+  pxrInternal__aapl__pxrReserved__::internal::GLApi::glGetMaterialfv(1028, 5632, &v27);
+  v26 = v27;
+  pxrInternal__aapl__pxrReserved__::GlfSimpleMaterial::SetEmission(v24, &v26);
+  pxrInternal__aapl__pxrReserved__::internal::GLApi::glGetMaterialfv(1028, 5633, &v10);
+  LODWORD(v10) = fmaxf(*&v10, 0.0001);
+  pxrInternal__aapl__pxrReserved__::GlfSimpleMaterial::SetShininess(v24, *&v10);
+  if (pxrInternal__aapl__pxrReserved__::GlfSimpleMaterial::operator!=(this + 312, v24))
   {
-    v11 = v29[3];
-    *(this + 344) = v29[2];
-    *(this + 360) = v11;
-    *(this + 47) = v30;
-    v12 = v29[1];
-    *(this + 312) = v29[0];
-    *(this + 328) = v12;
+    v6 = v24[3];
+    *(this + 344) = v24[2];
+    *(this + 360) = v6;
+    *(this + 47) = v25;
+    v7 = v24[1];
+    *(this + 312) = v24[0];
+    *(this + 328) = v7;
     *(this + 450) = 0;
   }
 
-  pxrInternal__aapl__pxrReserved__::internal::GLApi::glGetFloatv(2899, &v31);
-  if (*(this + 96) != v31.n128_f32[0] || *(this + 97) != v31.n128_f32[1] || *(this + 98) != v31.n128_f32[2] || *(this + 99) != v31.n128_f32[3])
+  pxrInternal__aapl__pxrReserved__::internal::GLApi::glGetFloatv(2899, &v26);
+  if (*(this + 96) != v26.n128_f32[0] || *(this + 97) != v26.n128_f32[1] || *(this + 98) != v26.n128_f32[2] || *(this + 99) != v26.n128_f32[3])
   {
-    *(this + 24) = v31;
+    *(this + 24) = v26;
     *(this + 450) = 0;
   }
 
-  pxrInternal__aapl__pxrReserved__::GlfSimpleMaterial::~GlfSimpleMaterial(v29);
-  pxrInternal__aapl__pxrReserved__::GlfSimpleLight::~GlfSimpleLight(v17);
-  v17[0].n128_u64[0] = v18;
-  sub_29AB81EE0(v17);
+  pxrInternal__aapl__pxrReserved__::GlfSimpleMaterial::~GlfSimpleMaterial(v24);
+  pxrInternal__aapl__pxrReserved__::GlfSimpleLight::~GlfSimpleLight(v12);
+  v12[0].n128_u64[0] = v13;
+  sub_29AB81EE0(v12);
 }
 
-void sub_29AB812E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, void **a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, char a63)
+void sub_29AB812E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, char *a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, char a63)
 {
   pxrInternal__aapl__pxrReserved__::GlfSimpleMaterial::~GlfSimpleMaterial((v63 - 176));
   pxrInternal__aapl__pxrReserved__::GlfSimpleLight::~GlfSimpleLight(&a12);
@@ -4357,7 +4380,7 @@ void sub_29AB812E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void *sub_29AB8136C(void *result, unint64_t a2)
+char **sub_29AB8136C(char **result, unint64_t a2)
 {
   if (0xFAFAFAFAFAFAFAFBLL * ((result[2] - *result) >> 3) < a2)
   {
@@ -4376,14 +4399,14 @@ void *sub_29AB8136C(void *result, unint64_t a2)
     v7 = v4 + 408 * v6;
     v14 = (v4 + v3);
     v15 = v7;
-    v8 = *(v2 + 8);
+    v8 = v2[1];
     v9 = v4 + v3 + *v2 - v8;
     sub_29AB828C8(v2, *v2, v8, v9);
     v10 = *v2;
     *v2 = v9;
-    *(v2 + 8) = v5;
-    v11 = *(v2 + 16);
-    *(v2 + 16) = v7;
+    v2[1] = v5;
+    v11 = v2[2];
+    v2[2] = v7;
     v14 = v10;
     v15 = v11;
     v12 = v10;
@@ -4394,9 +4417,9 @@ void *sub_29AB8136C(void *result, unint64_t a2)
   return result;
 }
 
-void sub_29AB81440(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_29AB81440(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_29AB8296C(va);
   _Unwind_Resume(a1);
 }
@@ -4601,7 +4624,7 @@ uint64_t pxrInternal__aapl__pxrReserved__::GlfSimpleLightingContext::_PostSurfac
       }
 
       std::string::append(a1, "    color.rgb *= color.a;\n    return color;\n}\n\n");
-      pxrInternal__aapl__pxrReserved__::GlfUniformBlock::New("_postSurfaceShaderUniformBlock", __p);
+      pxrInternal__aapl__pxrReserved__::GlfUniformBlock::New(__p, "_postSurfaceShaderUniformBlock");
       *(a1 + 24) = __p[0];
       __p[0] = 0;
       pxrInternal__aapl__pxrReserved__::TfRefPtr<pxrInternal__aapl__pxrReserved__::GlfUniformBlock>::_RemoveRef();
@@ -4660,10 +4683,10 @@ uint64_t pxrInternal__aapl__pxrReserved__::GlfSimpleLightingContext::_PostSurfac
   return MEMORY[0x29C2C4390](&v71);
 }
 
-void pxrInternal__aapl__pxrReserved__::GlfSimpleLightingContext::_ComputePostSurfaceShaderState(pxrInternal__aapl__pxrReserved__::GlfSimpleLightingContext *this)
+void pxrInternal__aapl__pxrReserved__::GlfSimpleLightingContext::_ComputePostSurfaceShaderState(uint64_t this)
 {
-  v3 = *(this + 3);
-  v4 = *(this + 4);
+  v3 = *(this + 24);
+  v4 = *(this + 32);
   v2 = (this + 24);
   if (v3 == v4)
   {
@@ -4728,13 +4751,13 @@ void pxrInternal__aapl__pxrReserved__::GlfSimpleLightingContext::_ComputePostSur
     while (v3 != v4);
   }
 
-  v15 = *(this + 55);
+  v15 = *(this + 440);
   if (!v15 || *(v15 + 32) != v5)
   {
     v16 = operator new(0x28uLL);
     sub_29AB81E54(v16, v5, v2);
-    v17 = *(this + 55);
-    *(this + 55) = v16;
+    v17 = *(this + 440);
+    *(this + 440) = v16;
     if (v17)
     {
       sub_29AB82B78(this + 440, v17);
@@ -4784,7 +4807,7 @@ uint64_t *pxrInternal__aapl__pxrReserved__::GlfSimpleLightingContext::ComputeSha
     }
   }
 
-  if (atomic_load_explicit(&qword_2A1748700, memory_order_acquire))
+  if (atomic_load_explicit(byte_2A1748700, memory_order_acquire))
   {
     return &qword_2A1748708;
   }
@@ -4827,11 +4850,11 @@ void sub_29AB81EE0(void ***a1)
   }
 }
 
-void sub_29AB81F94(uint64_t a1, __int128 *a2, __int128 *a3, unint64_t a4)
+void sub_29AB81F94(pxrInternal__aapl__pxrReserved__::GlfSimpleLight **a1, __int128 *a2, __int128 *a3, unint64_t a4)
 {
   v6 = a2;
   v8 = *a1;
-  if (0xFAFAFAFAFAFAFAFBLL * ((*(a1 + 16) - *a1) >> 3) < a4)
+  if (0xFAFAFAFAFAFAFAFBLL * ((a1[2] - *a1) >> 3) < a4)
   {
     sub_29AB8213C(a1);
     if (a4 > 0xA0A0A0A0A0A0A0)
@@ -4839,13 +4862,13 @@ void sub_29AB81F94(uint64_t a1, __int128 *a2, __int128 *a3, unint64_t a4)
       sub_29A00C9A4();
     }
 
-    v9 = 0xF5F5F5F5F5F5F5F6 * ((*(a1 + 16) - *a1) >> 3);
+    v9 = 0xF5F5F5F5F5F5F5F6 * ((a1[2] - *a1) >> 3);
     if (v9 <= a4)
     {
       v9 = a4;
     }
 
-    if (0xFAFAFAFAFAFAFAFBLL * ((*(a1 + 16) - *a1) >> 3) >= 0x50505050505050)
+    if (0xFAFAFAFAFAFAFAFBLL * ((a1[2] - *a1) >> 3) >= 0x50505050505050)
     {
       v10 = 0xA0A0A0A0A0A0A0;
     }
@@ -4856,13 +4879,13 @@ void sub_29AB81F94(uint64_t a1, __int128 *a2, __int128 *a3, unint64_t a4)
     }
 
     sub_29AB8219C(a1, v10);
-    v11 = sub_29AB821EC(a1, v6, a3, *(a1 + 8));
+    v11 = sub_29AB821EC(a1, v6, a3, a1[1]);
 LABEL_15:
-    *(a1 + 8) = v11;
+    a1[1] = v11;
     return;
   }
 
-  v12 = *(a1 + 8);
+  v12 = a1[1];
   v13 = v12 - v8;
   if (0xFAFAFAFAFAFAFAFBLL * ((v12 - v8) >> 3) < a4)
   {
@@ -4874,12 +4897,12 @@ LABEL_15:
       {
         sub_29AB82464(v8, v15);
         v15 = (v15 + 408);
-        v8 = (v8 + 408);
+        v8 += 408;
         v14 -= 408;
       }
 
       while (v14);
-      v12 = *(a1 + 8);
+      v12 = a1[1];
     }
 
     v11 = sub_29AB821EC(a1, (v6 + v13), a3, v12);
@@ -4892,11 +4915,11 @@ LABEL_15:
     {
       sub_29AB82464(v8, v6);
       v6 = (v6 + 408);
-      v8 = (v8 + 408);
+      v8 += 408;
     }
 
     while (v6 != a3);
-    v12 = *(a1 + 8);
+    v12 = a1[1];
   }
 
   while (v12 != v8)
@@ -4905,10 +4928,10 @@ LABEL_15:
     pxrInternal__aapl__pxrReserved__::GlfSimpleLight::~GlfSimpleLight(v12);
   }
 
-  *(a1 + 8) = v8;
+  a1[1] = v8;
 }
 
-void sub_29AB8213C(void **a1)
+void sub_29AB8213C(char **a1)
 {
   v1 = *a1;
   if (*a1)
@@ -5077,15 +5100,15 @@ uint64_t sub_29AB82464(uint64_t a1, __int128 *a2)
   return a1;
 }
 
-unint64_t sub_29AB8254C()
+uint64_t *sub_29AB8254C()
 {
   v22 = *MEMORY[0x29EDCA608];
   v0 = operator new(0x40uLL);
-  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(v0, "Lighting", 0);
-  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(v0 + 1, "Shadow", 0);
-  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(v0 + 2, "Material", 0);
-  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(v0 + 3, "PostSurfaceShaderParams", 0);
-  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(v0 + 4, "shadowCompareTextures", 0);
+  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(v0, "Lighting");
+  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(v0 + 1, "Shadow");
+  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(v0 + 2, "Material");
+  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(v0 + 3, "PostSurfaceShaderParams");
+  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(v0 + 4, "shadowCompareTextures");
   v1 = v0 + 5;
   v2 = *v0;
   v17 = v2;
@@ -5252,7 +5275,7 @@ uint64_t sub_29AB82814(uint64_t a1)
   return a1;
 }
 
-void sub_29AB828C8(uint64_t a1, __int128 *a2, __int128 *a3, uint64_t a4)
+void sub_29AB828C8(uint64_t a1, pxrInternal__aapl__pxrReserved__::GlfSimpleLight *a2, pxrInternal__aapl__pxrReserved__::GlfSimpleLight *a3, uint64_t a4)
 {
   if (a2 != a3)
   {
@@ -5337,9 +5360,9 @@ void sub_29AB829BC(void *a1, __int128 *a2)
   sub_29A00C9A4();
 }
 
-void sub_29AB82AF0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_29AB82AF0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   sub_29AB8296C(va);
   _Unwind_Resume(a1);
 }
@@ -5352,7 +5375,7 @@ uint64_t sub_29AB82B04(uint64_t a1, uint64_t *a2)
     v5 = 1;
     do
     {
-      if ((sub_29A153D90(a1, a2, v2 + 4) & 1) == 0)
+      if (!sub_29A153D90(a1, a2, v2 + 4))
       {
         if (!sub_29A153D90(a1, v2 + 4, a2))
         {
@@ -5375,7 +5398,7 @@ void sub_29AB82B78(uint64_t a1, uint64_t a2)
 {
   if (a2)
   {
-    sub_29AB81F64();
+    sub_29AB81F64((a2 + 24));
   }
 }
 
@@ -5668,7 +5691,7 @@ void pxrInternal__aapl__pxrReserved__::GlfSimpleShadowArray::_FreeTextures(pxrIn
   }
 }
 
-void sub_29AB832EC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, char a16)
+void sub_29AB832EC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, pxrInternal__aapl__pxrReserved__::GarchNSGLContextState *a16)
 {
   if (a15 < 0)
   {
@@ -5679,20 +5702,20 @@ void sub_29AB832EC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_29AB8331C(void *a1, unint64_t a2, __int128 *a3)
+void sub_29AB8331C(void *result, unint64_t a2, __int128 *a3)
 {
-  v3 = (a1[1] - *a1) >> 7;
+  v3 = (result[1] - *result) >> 7;
   if (a2 <= v3)
   {
     if (a2 < v3)
     {
-      a1[1] = *a1 + (a2 << 7);
+      result[1] = *result + (a2 << 7);
     }
   }
 
   else
   {
-    sub_29AB84384(a1, a2 - v3, a3);
+    sub_29AB84384(result, a2 - v3, a3);
   }
 }
 
@@ -5874,7 +5897,7 @@ LABEL_2:
   return this;
 }
 
-double pxrInternal__aapl__pxrReserved__::GlfSimpleShadowArray::GetWorldToShadowMatrix@<D0>(pxrInternal__aapl__pxrReserved__::GlfSimpleShadowArray *this@<X0>, unint64_t a2@<X1>, uint64_t a3@<X8>)
+double pxrInternal__aapl__pxrReserved__::GlfSimpleShadowArray::GetWorldToShadowMatrix@<D0>(uint64_t *__return_ptr a1@<X8>, pxrInternal__aapl__pxrReserved__::GlfSimpleShadowArray *this@<X0>, unint64_t a3@<X1>)
 {
   v55 = 0u;
   v56 = 0u;
@@ -5929,8 +5952,8 @@ double pxrInternal__aapl__pxrReserved__::GlfSimpleShadowArray::GetWorldToShadowM
   v56 = v22;
   v53 = v24;
   v54 = v23;
-  pxrInternal__aapl__pxrReserved__::GlfSimpleShadowArray::GetViewMatrix(this, a2, v32);
-  pxrInternal__aapl__pxrReserved__::GlfSimpleShadowArray::GetProjectionMatrix(this, a2, v31);
+  pxrInternal__aapl__pxrReserved__::GlfSimpleShadowArray::GetViewMatrix(this, a3, v32);
+  pxrInternal__aapl__pxrReserved__::GlfSimpleShadowArray::GetProjectionMatrix(this, a3, v31);
   v37 = v32[4];
   v38 = v32[5];
   v39 = v32[6];
@@ -5950,18 +5973,18 @@ double pxrInternal__aapl__pxrReserved__::GlfSimpleShadowArray::GetWorldToShadowM
   v44 = v36;
   pxrInternal__aapl__pxrReserved__::GfMatrix4d::operator*=(&v41, v57);
   v25 = v46;
-  *(a3 + 64) = v45;
-  *(a3 + 80) = v25;
+  *(a1 + 4) = v45;
+  *(a1 + 5) = v25;
   v26 = v48;
-  *(a3 + 96) = v47;
-  *(a3 + 112) = v26;
+  *(a1 + 6) = v47;
+  *(a1 + 7) = v26;
   v27 = v42;
-  *a3 = v41;
-  *(a3 + 16) = v27;
+  *a1 = v41;
+  *(a1 + 1) = v27;
   v28 = v44;
-  *(a3 + 32) = v43;
-  *(a3 + 48) = v28;
-  return pxrInternal__aapl__pxrReserved__::GfMatrix4d::operator*=(a3, &v49);
+  *(a1 + 2) = v43;
+  *(a1 + 3) = v28;
+  return pxrInternal__aapl__pxrReserved__::GfMatrix4d::operator*=(a1, &v49);
 }
 
 void pxrInternal__aapl__pxrReserved__::GlfSimpleShadowArray::BeginCapture(pxrInternal__aapl__pxrReserved__::GlfSimpleShadowArray *this, unint64_t a2, int a3)
@@ -6048,101 +6071,101 @@ void pxrInternal__aapl__pxrReserved__::GlfSimpleShadowArray::EndCapture(pxrInter
   if (sub_29AB7A08C(3))
   {
     ShadowMapSize = pxrInternal__aapl__pxrReserved__::GlfSimpleShadowArray::GetShadowMapSize(this, a2);
-    v29[0] = ShadowMapSize;
-    v29[1] = 0xC00000000;
-    v30 = 1;
+    v30[0] = ShadowMapSize;
+    v30[1] = 0xC00000000;
+    v31 = 1;
     v5 = (HIDWORD(ShadowMapSize) * ShadowMapSize);
-    sub_29A0121C0(v28, v5);
-    v32 = v28[0];
+    sub_29A0121C0(v29, v5);
+    v33 = v29[0];
     Pixels = pxrInternal__aapl__pxrReserved__::internal::GLApi::glReadPixels(0, 0, ShadowMapSize, HIDWORD(ShadowMapSize), 6402, 5126);
     if (v5 >= 1)
     {
-      v7 = v28[0];
-      v8 = -3.4028e38;
-      v9 = 3.4028e38;
-      v10 = (HIDWORD(ShadowMapSize) * ShadowMapSize);
+      v8 = v29[0];
+      v9 = -3.4028e38;
+      v10 = 3.4028e38;
+      v11 = (HIDWORD(ShadowMapSize) * ShadowMapSize);
       do
       {
-        v11 = *v7++;
-        v12 = v11;
-        if (v11 < v9)
+        v12 = *v8++;
+        v13 = v12;
+        if (v12 < v10)
         {
-          v9 = v12;
+          v10 = v13;
         }
 
-        if (v12 > v8)
+        if (v13 > v9)
         {
-          v8 = v12;
+          v9 = v13;
         }
 
-        --v10;
+        --v11;
       }
 
-      while (v10);
-      v13 = v28[0];
-      v14 = v8 - v9;
+      while (v11);
+      v14 = v29[0];
+      v15 = v9 - v10;
       do
       {
-        *v13 = (*v13 - v9) / v14;
-        ++v13;
+        *v14 = (*v14 - v10) / v15;
+        ++v14;
         --v5;
       }
 
       while (v5);
     }
 
-    TmpDir = pxrInternal__aapl__pxrReserved__::ArchGetTmpDir(Pixels);
-    pxrInternal__aapl__pxrReserved__::TfStringPrintf("%s/GlfSimpleShadowArray.index_%zu.tif", v16, v17, TmpDir, a2);
-    pxrInternal__aapl__pxrReserved__::ArchNormPath(&__p, &v27);
-    if (v26 < 0)
+    TmpDir = pxrInternal__aapl__pxrReserved__::ArchGetTmpDir(Pixels, v7);
+    pxrInternal__aapl__pxrReserved__::TfStringPrintf("%s/GlfSimpleShadowArray.index_%zu.tif", v17, v18, TmpDir, a2);
+    pxrInternal__aapl__pxrReserved__::ArchNormPath(&__p, &v28);
+    if (v27 < 0)
     {
       operator delete(__p);
     }
 
-    pxrInternal__aapl__pxrReserved__::HioImage::OpenForWriting(&v27, &__p);
-    v23 = 0;
-    v18 = (*(*__p + 32))(__p, v29, &v23);
-    sub_29A184A10(&v23, 0);
-    v21 = &v27;
-    if ((v27.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+    pxrInternal__aapl__pxrReserved__::HioImage::OpenForWriting(&v28, &__p);
+    v24 = 0;
+    v19 = (*(*__p + 32))(__p, v30, &v24);
+    sub_29A184A10(&v24, 0);
+    v22 = &v28;
+    if ((v28.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
     {
-      v21 = v27.__r_.__value_.__r.__words[0];
+      v22 = v28.__r_.__value_.__r.__words[0];
     }
 
-    if (v18)
+    if (v19)
     {
-      pxrInternal__aapl__pxrReserved__::TfDebug::Helper::Msg("Wrote shadow texture: %s\n", v19, v20, v21);
+      pxrInternal__aapl__pxrReserved__::TfDebug::Helper::Msg("Wrote shadow texture: %s\n", v20, v21, v22);
     }
 
     else
     {
-      pxrInternal__aapl__pxrReserved__::TfDebug::Helper::Msg("Failed to write shadow texture: %s\n", v19, v20, v21);
+      pxrInternal__aapl__pxrReserved__::TfDebug::Helper::Msg("Failed to write shadow texture: %s\n", v20, v21, v22);
     }
 
-    if (v25)
+    if (v26)
     {
-      sub_29A014BEC(v25);
+      sub_29A014BEC(v26);
     }
 
-    if (SHIBYTE(v27.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v28.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v27.__r_.__value_.__l.__data_);
+      operator delete(v28.__r_.__value_.__l.__data_);
     }
 
-    if (v28[0])
+    if (v29[0])
     {
-      v28[1] = v28[0];
-      operator delete(v28[0]);
+      v29[1] = v29[0];
+      operator delete(v29[0]);
     }
   }
 
   pxrInternal__aapl__pxrReserved__::GlfSimpleShadowArray::_UnbindFramebuffer(this);
   pxrInternal__aapl__pxrReserved__::internal::GLApi::glViewport(*(this + 35), *(this + 36), *(this + 37), *(this + 38));
-  v22 = sub_29A008E78(v29, "void pxrInternal__aapl__pxrReserved__::GlfSimpleShadowArray::EndCapture(size_t)");
-  pxrInternal__aapl__pxrReserved__::GlfPostPendingGLErrors(v22);
-  if (v31 < 0)
+  v23 = sub_29A008E78(v30, "void pxrInternal__aapl__pxrReserved__::GlfSimpleShadowArray::EndCapture(size_t)");
+  pxrInternal__aapl__pxrReserved__::GlfPostPendingGLErrors(v23);
+  if (v32 < 0)
   {
-    operator delete(v29[0]);
+    operator delete(v30[0]);
   }
 }
 
@@ -6527,13 +6550,13 @@ void pxrInternal__aapl__pxrReserved__::GlfTestGLContextRegistrationInterface::~G
 
 void *pxrInternal__aapl__pxrReserved__::GlfTestGLContextRegistrationInterface::GetShared@<X0>(void *a1@<X8>)
 {
-  v3 = operator new(0x10uLL);
-  SharedContext = pxrInternal__aapl__pxrReserved__::_GetSharedContext(v3);
-  pxrInternal__aapl__pxrReserved__::GlfGLContext::GlfGLContext(v3);
-  *v3 = &unk_2A2072928;
-  *(v3 + 1) = SharedContext;
+  v2 = operator new(0x10uLL);
+  SharedContext = pxrInternal__aapl__pxrReserved__::_GetSharedContext(v2);
+  pxrInternal__aapl__pxrReserved__::GlfGLContext::GlfGLContext(v2);
+  *v2 = &unk_2A2072928;
+  *(v2 + 1) = SharedContext;
 
-  return sub_29AB84A80(a1, v3);
+  return sub_29AB84A80(a1, v2);
 }
 
 void *pxrInternal__aapl__pxrReserved__::GlfTestGLContext::GlfTestGLContext(pxrInternal__aapl__pxrReserved__::GlfTestGLContext *this, const pxrInternal__aapl__pxrReserved__::Glf_TestGLContextPrivate *a2)
@@ -6553,15 +6576,15 @@ void *pxrInternal__aapl__pxrReserved__::GlfTestGLContext::GlfTestGLContext(pxrIn
 
 void pxrInternal__aapl__pxrReserved__::GlfTestGLContextRegistrationInterface::GetCurrent(void *a1@<X8>)
 {
-  v3 = pxrInternal__aapl__pxrReserved__::Glf_TestGLContextPrivate::_currenGLContext;
+  v2 = pxrInternal__aapl__pxrReserved__::Glf_TestGLContextPrivate::_currenGLContext;
   if (pxrInternal__aapl__pxrReserved__::Glf_TestGLContextPrivate::_currenGLContext)
   {
-    v4 = operator new(0x10uLL);
-    pxrInternal__aapl__pxrReserved__::GlfGLContext::GlfGLContext(v4);
-    *v4 = &unk_2A2072928;
-    v4[1] = v3;
+    v3 = operator new(0x10uLL);
+    pxrInternal__aapl__pxrReserved__::GlfGLContext::GlfGLContext(v3);
+    *v3 = &unk_2A2072928;
+    v3[1] = v2;
 
-    sub_29AB84A80(a1, v4);
+    sub_29AB84A80(a1, v3);
   }
 
   else
@@ -6780,12 +6803,12 @@ void pxrInternal__aapl__pxrReserved__::GlfTextureTokens_StaticTokenType::~GlfTex
   }
 }
 
-pxrInternal__aapl__pxrReserved__::GlfTextureTokens_StaticTokenType *pxrInternal__aapl__pxrReserved__::GlfTextureTokens_StaticTokenType::GlfTextureTokens_StaticTokenType(atomic_uint **this)
+atomic_uint **pxrInternal__aapl__pxrReserved__::GlfTextureTokens_StaticTokenType::GlfTextureTokens_StaticTokenType(atomic_uint **this)
 {
   v13 = *MEMORY[0x29EDCA608];
-  v2 = pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this, "texels", 0);
-  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(v2 + 8, "layout", 0);
-  v3 = this + 2;
+  v2 = pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this, "texels");
+  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(v2 + 1, "layout");
+  v3 = (this + 2);
   v4 = *this;
   v11 = v4;
   if ((v4 & 7) != 0)
@@ -6959,18 +6982,18 @@ void pxrInternal__aapl__pxrReserved__::GlfUniformBlock::~GlfUniformBlock(pxrInte
   operator delete(v1);
 }
 
-pxrInternal__aapl__pxrReserved__::GlfUniformBlock *pxrInternal__aapl__pxrReserved__::GlfUniformBlock::New@<X0>(pxrInternal__aapl__pxrReserved__::GlfUniformBlock *this@<X0>, pxrInternal__aapl__pxrReserved__::GlfUniformBlock **a2@<X8>)
+pxrInternal__aapl__pxrReserved__::GlfUniformBlock *pxrInternal__aapl__pxrReserved__::GlfUniformBlock::New@<X0>(pxrInternal__aapl__pxrReserved__::GlfUniformBlock **__return_ptr a1@<X8>, pxrInternal__aapl__pxrReserved__::GlfUniformBlock *this@<X0>)
 {
-  v5 = operator new(0x38uLL);
-  result = pxrInternal__aapl__pxrReserved__::GlfUniformBlock::GlfUniformBlock(v5, this);
-  *a2 = v5;
+  v4 = operator new(0x38uLL);
+  result = pxrInternal__aapl__pxrReserved__::GlfUniformBlock::GlfUniformBlock(v4, this);
+  *a1 = v4;
   return result;
 }
 
-uint64_t pxrInternal__aapl__pxrReserved__::GlfUniformBlock::Bind(uint64_t a1, uint64_t a2)
+unint64_t pxrInternal__aapl__pxrReserved__::GlfUniformBlock::Bind(uint64_t a1, uint64_t *a2, uint64_t a3)
 {
   result = sub_29B2C2ADC(a2);
-  if (v4 & 1 | result)
+  if (v5 & 1 | result)
   {
     sub_29AB80018(a2);
   }
@@ -6978,7 +7001,7 @@ uint64_t pxrInternal__aapl__pxrReserved__::GlfUniformBlock::Bind(uint64_t a1, ui
   return result;
 }
 
-void pxrInternal__aapl__pxrReserved__::GlfUniformBlock::Update(pxrInternal__aapl__pxrReserved__::GlfUniformBlock *this, const void *a2, int a3)
+void pxrInternal__aapl__pxrReserved__::GlfUniformBlock::Update(pxrInternal__aapl__pxrReserved__::GlfUniformBlock *this, const void *a2, unsigned int a3)
 {
   pxrInternal__aapl__pxrReserved__::GlfDebugGroup::GlfDebugGroup(&v6, "void pxrInternal__aapl__pxrReserved__::GlfUniformBlock::Update(const void *, int)");
   pxrInternal__aapl__pxrReserved__::internal::GLApi::glBindBuffer(35345, *(this + 6));
@@ -7423,7 +7446,7 @@ LABEL_28:
 
 double pxrInternal__aapl__pxrReserved__::GlfCheckGLFrameBufferStatus(uint64_t a1, uint64_t a2)
 {
-  v3 = pxrInternal__aapl__pxrReserved__::internal::GLApi::glCheckFramebufferStatus();
+  v3 = pxrInternal__aapl__pxrReserved__::internal::GLApi::glCheckFramebufferStatus(a1);
   if (v3 > 36057)
   {
     if (v3 <= 36059)
@@ -7724,6 +7747,10 @@ BOOL pxrInternal__aapl__pxrReserved__::operator==(uint64_t a1, uint64_t a2)
   }
 
   return memcmp(v17, v21, v11) == 0;
+}
+
+{
+  return *a1 == *a2 && *(a1 + 4) == *(a2 + 4) && *(a1 + 12) == *(a2 + 12) && pxrInternal__aapl__pxrReserved__::UsdSkelTopology::operator==(a1 + 24, a2 + 24);
 }
 
 {
@@ -9258,71 +9285,6 @@ double pxrInternal__aapl__pxrReserved__::HgiComputePipelineDesc::HgiComputePipel
   return result;
 }
 
-BOOL pxrInternal__aapl__pxrReserved__::operator!=(void *a1, void *a2)
-{
-  return !pxrInternal__aapl__pxrReserved__::operator==(a1, a2);
-}
-
-{
-  return !pxrInternal__aapl__pxrReserved__::operator==(a1, a2);
-}
-
-{
-  return !pxrInternal__aapl__pxrReserved__::operator==(a1, a2);
-}
-
-{
-  return !pxrInternal__aapl__pxrReserved__::operator==(a1, a2);
-}
-
-{
-  return !pxrInternal__aapl__pxrReserved__::operator==(a1, a2);
-}
-
-{
-  return !pxrInternal__aapl__pxrReserved__::operator==(a1, a2);
-}
-
-{
-  return !pxrInternal__aapl__pxrReserved__::operator==(a1, a2);
-}
-
-{
-  return !pxrInternal__aapl__pxrReserved__::operator==(a1, a2);
-}
-
-{
-  return !pxrInternal__aapl__pxrReserved__::operator==(a1, a2);
-}
-
-{
-  return !pxrInternal__aapl__pxrReserved__::operator==(a1, a2);
-}
-
-{
-  return !pxrInternal__aapl__pxrReserved__::operator==(a1, a2);
-}
-
-{
-  return !pxrInternal__aapl__pxrReserved__::operator==(a1, a2);
-}
-
-{
-  return !pxrInternal__aapl__pxrReserved__::operator==(a1, a2);
-}
-
-{
-  return *a1 != *a2 || a1[1] != a2[1];
-}
-
-{
-  return (*a2 ^ *a1) > 7uLL;
-}
-
-{
-  return (*a2 ^ *a1) > 7uLL;
-}
-
 pxrInternal__aapl__pxrReserved__::HgiComputePipeline *pxrInternal__aapl__pxrReserved__::HgiComputePipeline::HgiComputePipeline(pxrInternal__aapl__pxrReserved__::HgiComputePipeline *this, const pxrInternal__aapl__pxrReserved__::HgiComputePipelineDesc *a2)
 {
   *this = &unk_2A2072D00;
@@ -9374,13 +9336,13 @@ void pxrInternal__aapl__pxrReserved__::HgiComputePipeline::~HgiComputePipeline(v
 
 void sub_29AB86504()
 {
-  pxrInternal__aapl__pxrReserved__::TfEnum::_AddName(qword_2A2072D20, 0, "HGI_DEBUG_DEVICE_CAPABILITIES", 0);
+  pxrInternal__aapl__pxrReserved__::TfEnum::_AddName(&unk_2A2072D20, 0, "HGI_DEBUG_DEVICE_CAPABILITIES", 0);
   v0 = sub_29AB865CC();
   pxrInternal__aapl__pxrReserved__::TfDebug::_RegisterDebugSymbolImpl(v0, "HGI_DEBUG_DEVICE_CAPABILITIES", "Hgi report when device capabilities are initialized and dump contents");
-  pxrInternal__aapl__pxrReserved__::TfEnum::_AddName(qword_2A2072D20, 1, "HGI_DEBUG_INSTANCE_CREATION", 0);
+  pxrInternal__aapl__pxrReserved__::TfEnum::_AddName(&unk_2A2072D20, 1, "HGI_DEBUG_INSTANCE_CREATION", 0);
   v1 = sub_29AB865CC();
   pxrInternal__aapl__pxrReserved__::TfDebug::_RegisterDebugSymbolImpl(v1 + 4, "HGI_DEBUG_INSTANCE_CREATION", "Hgi report when attempting to create an Hgi instance");
-  pxrInternal__aapl__pxrReserved__::TfEnum::_AddName(qword_2A2072D20, 2, "HGI_DEBUG_IS_SUPPORTED", 0);
+  pxrInternal__aapl__pxrReserved__::TfEnum::_AddName(&unk_2A2072D20, 2, "HGI_DEBUG_IS_SUPPORTED", 0);
   v2 = sub_29AB865CC() + 8;
 
   pxrInternal__aapl__pxrReserved__::TfDebug::_RegisterDebugSymbolImpl(v2, "HGI_DEBUG_IS_SUPPORTED", "Hgi debug info when IsBackendSupported() is false");
@@ -9849,4 +9811,45 @@ BOOL sub_29AB87224(uint64_t *a1, uint64_t *a2)
 
   while (v2 != v3);
   return result;
+}
+
+void pxrInternal__aapl__pxrReserved__::HgiGraphicsPipeline::HgiGraphicsPipeline(pxrInternal__aapl__pxrReserved__::HgiGraphicsPipeline *this, const pxrInternal__aapl__pxrReserved__::HgiGraphicsPipelineDesc *a2)
+{
+  *this = &unk_2A2072DE8;
+  if (*(a2 + 23) < 0)
+  {
+    sub_29A008D14(this + 8, *a2, *(a2 + 1));
+  }
+
+  else
+  {
+    v4 = *a2;
+    *(this + 3) = *(a2 + 2);
+    *(this + 8) = v4;
+  }
+
+  v5 = *(a2 + 120);
+  v6 = *(a2 + 136);
+  v7 = *(a2 + 152);
+  v8 = *(a2 + 21);
+  v9 = *(a2 + 56);
+  v10 = *(a2 + 72);
+  v11 = *(a2 + 88);
+  v12 = *(a2 + 104);
+  v13 = *(a2 + 24);
+  v14 = *(a2 + 40);
+  *(this + 23) = 0;
+  *(this + 3) = v14;
+  *(this + 2) = v13;
+  *(this + 7) = v12;
+  *(this + 6) = v11;
+  *(this + 5) = v10;
+  *(this + 4) = v9;
+  *(this + 22) = v8;
+  *(this + 10) = v7;
+  *(this + 9) = v6;
+  *(this + 8) = v5;
+  *(this + 24) = 0;
+  *(this + 25) = 0;
+  std::vector<pxrInternal__aapl__pxrReserved__::HgiVertexBufferDesc>::__init_with_size[abi:ne200100]<pxrInternal__aapl__pxrReserved__::HgiVertexBufferDesc*,pxrInternal__aapl__pxrReserved__::HgiVertexBufferDesc*>();
 }

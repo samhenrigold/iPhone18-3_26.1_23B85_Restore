@@ -154,11 +154,11 @@
   v8 = qword_1025D4638;
   if (os_log_type_enabled(qword_1025D4638, OS_LOG_TYPE_INFO))
   {
-    v9 = 136446466;
-    v10 = [objc_msgSend(error "localizedDescription")];
-    v11 = 2082;
-    v12 = [objc_msgSend(userInfo "localizedDescription")];
-    _os_log_impl(dword_100000000, v8, OS_LOG_TYPE_INFO, "@GtsSync, CsError, 2, service, %{public}s, underlying, %{public}s", &v9, 0x16u);
+    v10 = 136446466;
+    v11 = [objc_msgSend(error "localizedDescription")];
+    v12 = 2082;
+    v13 = [objc_msgSend(userInfo "localizedDescription")];
+    _os_log_impl(dword_100000000, v8, OS_LOG_TYPE_INFO, "@GtsSync, CsError, 2, service, %{public}s, underlying, %{public}s", &v10, 0x16u);
   }
 
   if (sub_10000A100(121, 2))
@@ -166,7 +166,7 @@
     sub_101887674();
   }
 
-  sub_1004660C0(self->fManager);
+  sub_1004660C0(self->fManager, v9);
 }
 
 - (unsigned)syncSession:(id)session enqueueChanges:(id)changes error:(id *)error

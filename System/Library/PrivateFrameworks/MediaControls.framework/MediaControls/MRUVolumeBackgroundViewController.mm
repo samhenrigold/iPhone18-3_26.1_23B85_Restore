@@ -740,7 +740,7 @@ void __66__MRUVolumeBackgroundViewController_didTapSpatialAudioModeButton___bloc
   [conversationAwarenessController setConversationAwarenessEnabled:v5 completion:v8];
 }
 
-uint64_t __79__MRUVolumeBackgroundViewController_conversationAwarenessButtonDidChangeValue___block_invoke(uint64_t a1, uint64_t a2)
+void *__79__MRUVolumeBackgroundViewController_conversationAwarenessButtonDidChangeValue___block_invoke(uint64_t a1, uint64_t a2)
 {
   v3 = *(a1 + 32);
   if (a2)

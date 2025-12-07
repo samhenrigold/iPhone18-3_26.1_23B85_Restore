@@ -14,6 +14,7 @@
 - (void)setObjects:(id)objects;
 - (void)setQuery:(id)query;
 - (void)updateResults;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation WFGiphyViewController
@@ -101,35 +102,35 @@
 
 - (void)done
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v3 = objc_opt_new();
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   collectionView = [(WFGiphyViewController *)self collectionView];
   indexPathsForSelectedItems = [collectionView indexPathsForSelectedItems];
 
-  v6 = [indexPathsForSelectedItems countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v6 = [indexPathsForSelectedItems countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v17;
+    v8 = *v16;
     do
     {
       v9 = 0;
       do
       {
-        if (*v17 != v8)
+        if (*v16 != v8)
         {
           objc_enumerationMutation(indexPathsForSelectedItems);
         }
 
-        [v3 addIndex:{objc_msgSend(*(*(&v16 + 1) + 8 * v9++), "item")}];
+        [v3 addIndex:{objc_msgSend(*(*(&v15 + 1) + 8 * v9++), "item")}];
       }
 
       while (v7 != v9);
-      v7 = [indexPathsForSelectedItems countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v7 = [indexPathsForSelectedItems countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v7);
@@ -145,8 +146,6 @@
     v14 = [objects objectsAtIndexes:v3];
     [delegate2 giphyViewController:self didSelectObjects:v14];
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateResults
@@ -237,12 +236,58 @@ LABEL_4:
   }
 }
 
+- (void)viewWillAppear:(BOOL)appear
+{
+  v28.receiver = self;
+  v28.super_class = WFGiphyViewController;
+  [(WFGiphyViewController *)&v28 viewWillAppear:appear];
+  view = [(WFGiphyViewController *)self view];
+  [view bounds];
+  v5 = CGRectGetWidth(v29) / 125.0;
+  v6 = ceil(v5);
+  v7 = vcvtpd_u64_f64(v5);
+
+  view2 = [(WFGiphyViewController *)self view];
+  [view2 bounds];
+  Width = CGRectGetWidth(v30);
+  v10 = (v7 - 1);
+  collectionViewLayout = [(WFGiphyViewController *)self collectionViewLayout];
+  [collectionViewLayout minimumInteritemSpacing];
+  v13 = (Width - v10 * v12) / v6;
+
+  collectionViewLayout2 = [(WFGiphyViewController *)self collectionViewLayout];
+  [collectionViewLayout2 setItemSize:{v13, v13}];
+
+  v15 = *MEMORY[0x277D768C8];
+  v16 = *(MEMORY[0x277D768C8] + 8);
+  v17 = *(MEMORY[0x277D768C8] + 16);
+  v18 = *(MEMORY[0x277D768C8] + 24);
+  collectionView = [(WFGiphyViewController *)self collectionView];
+  [collectionView setContentInset:{v15, v16, v17, v18}];
+
+  collectionView2 = [(WFGiphyViewController *)self collectionView];
+  [collectionView2 setScrollIndicatorInsets:{v15, v16, v17, v18}];
+
+  v21 = objc_alloc(MEMORY[0x277D755E8]);
+  v22 = [MEMORY[0x277D79FC8] actionKitImageNamed:@"GiphyLogo"];
+  uIImage = [v22 UIImage];
+  v24 = [v21 initWithImage:uIImage];
+
+  secondaryLabelColor = [MEMORY[0x277D75348] secondaryLabelColor];
+  [v24 setTintColor:secondaryLabelColor];
+
+  [v24 sizeToFit];
+  v26 = [objc_alloc(MEMORY[0x277D751E0]) initWithCustomView:v24];
+  navigationItem = [(WFGiphyViewController *)self navigationItem];
+  [navigationItem setLeftBarButtonItem:v26];
+}
+
 - (void)loadView
 {
-  v79[14] = *MEMORY[0x277D85DE8];
-  v78.receiver = self;
-  v78.super_class = WFGiphyViewController;
-  [(WFGiphyViewController *)&v78 loadView];
+  v78[14] = *MEMORY[0x277D85DE8];
+  v77.receiver = self;
+  v77.super_class = WFGiphyViewController;
+  [(WFGiphyViewController *)&v77 loadView];
   systemBackgroundColor = [MEMORY[0x277D75348] systemBackgroundColor];
   view = [(WFGiphyViewController *)self view];
   [view setBackgroundColor:systemBackgroundColor];
@@ -299,72 +344,72 @@ LABEL_4:
   [v16 setTextAlignment:1];
   [v10 addSubview:v16];
   view4 = [(WFGiphyViewController *)self view];
-  v55 = MEMORY[0x277CCAAD0];
+  v54 = MEMORY[0x277CCAAD0];
   widthAnchor = [v10 widthAnchor];
   widthAnchor2 = [view4 widthAnchor];
-  v74 = [widthAnchor constraintEqualToAnchor:widthAnchor2 constant:-60.0];
-  v79[0] = v74;
+  v73 = [widthAnchor constraintEqualToAnchor:widthAnchor2 constant:-60.0];
+  v78[0] = v73;
   centerXAnchor = [v10 centerXAnchor];
   centerXAnchor2 = [view4 centerXAnchor];
-  v70 = [centerXAnchor constraintEqualToAnchor:centerXAnchor2];
-  v79[1] = v70;
+  v69 = [centerXAnchor constraintEqualToAnchor:centerXAnchor2];
+  v78[1] = v69;
   centerYAnchor = [v10 centerYAnchor];
   centerYAnchor2 = [view4 centerYAnchor];
-  v67 = [centerYAnchor constraintEqualToAnchor:centerYAnchor2];
-  v79[2] = v67;
+  v66 = [centerYAnchor constraintEqualToAnchor:centerYAnchor2];
+  v78[2] = v66;
   topAnchor = [v12 topAnchor];
   topAnchor2 = [v10 topAnchor];
-  v63 = [topAnchor constraintEqualToAnchor:topAnchor2];
-  v79[3] = v63;
+  v62 = [topAnchor constraintEqualToAnchor:topAnchor2];
+  v78[3] = v62;
   leadingAnchor = [v12 leadingAnchor];
   leadingAnchor2 = [v10 leadingAnchor];
-  v60 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
-  v79[4] = v60;
-  v71 = v12;
+  v59 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
+  v78[4] = v59;
+  v70 = v12;
   trailingAnchor = [v12 trailingAnchor];
   trailingAnchor2 = [v10 trailingAnchor];
-  v56 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2];
-  v79[5] = v56;
+  v55 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2];
+  v78[5] = v55;
   topAnchor3 = [v16 topAnchor];
   bottomAnchor = [v12 bottomAnchor];
-  v51 = [topAnchor3 constraintEqualToAnchor:bottomAnchor constant:10.0];
-  v79[6] = v51;
+  v50 = [topAnchor3 constraintEqualToAnchor:bottomAnchor constant:10.0];
+  v78[6] = v50;
   leadingAnchor3 = [v16 leadingAnchor];
   leadingAnchor4 = [v10 leadingAnchor];
-  v48 = [leadingAnchor3 constraintEqualToAnchor:leadingAnchor4];
-  v79[7] = v48;
-  v64 = v16;
+  v47 = [leadingAnchor3 constraintEqualToAnchor:leadingAnchor4];
+  v78[7] = v47;
+  v63 = v16;
   trailingAnchor3 = [v16 trailingAnchor];
   trailingAnchor4 = [v10 trailingAnchor];
-  v45 = [trailingAnchor3 constraintEqualToAnchor:trailingAnchor4];
-  v79[8] = v45;
+  v44 = [trailingAnchor3 constraintEqualToAnchor:trailingAnchor4];
+  v78[8] = v44;
   bottomAnchor2 = [v16 bottomAnchor];
   bottomAnchor3 = [v10 bottomAnchor];
-  v42 = [bottomAnchor2 constraintEqualToAnchor:bottomAnchor3];
-  v79[9] = v42;
+  v41 = [bottomAnchor2 constraintEqualToAnchor:bottomAnchor3];
+  v78[9] = v41;
   topAnchor4 = [v7 topAnchor];
   v21 = view4;
   topAnchor5 = [view4 topAnchor];
-  v39 = [topAnchor4 constraintEqualToAnchor:topAnchor5];
-  v79[10] = v39;
+  v38 = [topAnchor4 constraintEqualToAnchor:topAnchor5];
+  v78[10] = v38;
   v22 = v7;
   leadingAnchor5 = [v7 leadingAnchor];
   leadingAnchor6 = [view4 leadingAnchor];
   v24 = [leadingAnchor5 constraintEqualToAnchor:leadingAnchor6];
-  v79[11] = v24;
-  v58 = v22;
+  v78[11] = v24;
+  v57 = v22;
   bottomAnchor4 = [v22 bottomAnchor];
   v26 = v21;
-  v54 = v21;
+  v53 = v21;
   bottomAnchor5 = [v21 bottomAnchor];
   v28 = [bottomAnchor4 constraintEqualToAnchor:bottomAnchor5];
-  v79[12] = v28;
+  v78[12] = v28;
   trailingAnchor5 = [v22 trailingAnchor];
   trailingAnchor6 = [v26 trailingAnchor];
   v31 = [trailingAnchor5 constraintEqualToAnchor:trailingAnchor6];
-  v79[13] = v31;
-  v32 = [MEMORY[0x277CBEA60] arrayWithObjects:v79 count:14];
-  [v55 activateConstraints:v32];
+  v78[13] = v31;
+  v32 = [MEMORY[0x277CBEA60] arrayWithObjects:v78 count:14];
+  [v54 activateConstraints:v32];
 
   query = [(WFGiphyViewController *)selfCopy query];
   navigationItem = [(WFGiphyViewController *)selfCopy navigationItem];
@@ -373,7 +418,6 @@ LABEL_4:
   [searchBar setText:query];
 
   [(WFGiphyViewController *)selfCopy updateResults];
-  v37 = *MEMORY[0x277D85DE8];
 }
 
 - (WFGiphyViewController)initWithQuery:(id)query selectMultiple:(BOOL)multiple

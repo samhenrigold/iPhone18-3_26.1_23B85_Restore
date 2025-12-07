@@ -51,109 +51,109 @@
 
 - (uint64_t)cacheMetadataForObjectsWithIDs:(uint64_t)ds andRecordsWithIDs:(void *)iDs inStore:(void *)store withManagedObjectContext:(uint64_t)context mirroringOptions:(void *)options error:
 {
-  v230 = *MEMORY[0x1E69E9840];
+  v229 = *MEMORY[0x1E69E9840];
   if (!self)
   {
-    v151 = 0;
-    goto LABEL_169;
+    v150 = 0;
+    return v150 & 1;
   }
 
-  v210 = 0;
-  v141 = objc_alloc_init(MEMORY[0x1E696AAC8]);
-  v160 = [objc_alloc(MEMORY[0x1E695DFA8]) initWithArray:ds];
-  v144 = [objc_alloc(MEMORY[0x1E695DFA8]) initWithArray:ds];
-  v159 = objc_alloc_init(MEMORY[0x1E695DFA8]);
+  v209 = 0;
+  v140 = objc_alloc_init(MEMORY[0x1E696AAC8]);
+  v159 = [objc_alloc(MEMORY[0x1E695DFA8]) initWithArray:ds];
+  v143 = [objc_alloc(MEMORY[0x1E695DFA8]) initWithArray:ds];
+  v158 = objc_alloc_init(MEMORY[0x1E695DFA8]);
+  v160 = objc_alloc_init(MEMORY[0x1E695DF90]);
   v161 = objc_alloc_init(MEMORY[0x1E695DF90]);
   v162 = objc_alloc_init(MEMORY[0x1E695DF90]);
-  v163 = objc_alloc_init(MEMORY[0x1E695DF90]);
   if ([a2 count])
   {
-    v9 = [NSCKRecordMetadata createMapOfMetadataMatchingObjectIDs:a2 inStore:iDs inManagedObjectContext:store error:&v210];
+    v9 = [NSCKRecordMetadata createMapOfMetadataMatchingObjectIDs:a2 inStore:iDs inManagedObjectContext:store error:&v209];
     v10 = v9;
     v11 = v9 != 0;
     if (v9)
     {
-      v209[0] = MEMORY[0x1E69E9820];
-      v209[1] = 3221225472;
-      v209[2] = __132__PFCloudKitMetadataCache_cacheMetadataForObjectsWithIDs_andRecordsWithIDs_inStore_withManagedObjectContext_mirroringOptions_error___block_invoke;
-      v209[3] = &unk_1E6EC4890;
-      v209[4] = self;
-      v209[5] = v161;
-      v209[6] = v162;
-      v209[7] = v163;
-      v209[8] = v144;
-      v209[9] = v160;
-      [v9 enumerateKeysAndObjectsUsingBlock:v209];
+      v208[0] = MEMORY[0x1E69E9820];
+      v208[1] = 3221225472;
+      v208[2] = __132__PFCloudKitMetadataCache_cacheMetadataForObjectsWithIDs_andRecordsWithIDs_inStore_withManagedObjectContext_mirroringOptions_error___block_invoke;
+      v208[3] = &unk_1E6EC4890;
+      v208[4] = self;
+      v208[5] = v160;
+      v208[6] = v161;
+      v208[7] = v162;
+      v208[8] = v143;
+      v208[9] = v159;
+      [v9 enumerateKeysAndObjectsUsingBlock:v208];
     }
 
     else
     {
-      v12 = v210;
+      v12 = v209;
     }
 
-    v148 = v11;
+    v147 = v11;
   }
 
   else
   {
-    v148 = 1;
+    v147 = 1;
   }
 
-  if ([v144 count])
+  if ([v143 count])
   {
     context = objc_autoreleasePoolPush();
-    v13 = +[NSCKRecordMetadata metadataForRecordIDs:fromStore:inManagedObjectContext:error:](NSCKRecordMetadata, [v144 allObjects], iDs, store, &v210);
+    v13 = +[NSCKRecordMetadata metadataForRecordIDs:fromStore:inManagedObjectContext:error:](NSCKRecordMetadata, [v143 allObjects], iDs, store, &v209);
     v14 = v13;
     if (!v13)
     {
-      v148 = 0;
-      v26 = v210;
+      v147 = 0;
+      v26 = v209;
       goto LABEL_31;
     }
 
-    v207 = 0u;
-    v208 = 0u;
-    v205 = 0u;
     v206 = 0u;
-    v15 = [v13 countByEnumeratingWithState:&v205 objects:v223 count:16];
+    v207 = 0u;
+    v204 = 0u;
+    v205 = 0u;
+    v15 = [v13 countByEnumeratingWithState:&v204 objects:v222 count:16];
     if (!v15)
     {
       goto LABEL_31;
     }
 
-    v155 = *v206;
+    v154 = *v205;
     while (1)
     {
       for (i = 0; i != v15; ++i)
       {
-        if (*v206 != v155)
+        if (*v205 != v154)
         {
           objc_enumerationMutation(v14);
         }
 
-        v17 = *(*(&v205 + 1) + 8 * i);
+        v17 = *(*(&v204 + 1) + 8 * i);
         v18 = objc_autoreleasePoolPush();
         createObjectIDForLinkedRow = [(NSCKRecordMetadata *)v17 createObjectIDForLinkedRow];
         [self[2] setObject:v17 forKey:createObjectIDForLinkedRow];
         v20 = objc_alloc_init(MEMORY[0x1E695DFA8]);
         [self[6] setObject:v20 forKey:createObjectIDForLinkedRow];
-        v21 = [v161 objectForKey:{objc_msgSend(v17, "entityId")}];
+        v21 = [v160 objectForKey:{objc_msgSend(v17, "entityId")}];
         if (!v21)
         {
           v21 = objc_alloc_init(MEMORY[0x1E695DFA8]);
-          [v161 setObject:v21 forKey:{objc_msgSend(v17, "entityId")}];
+          [v160 setObject:v21 forKey:{objc_msgSend(v17, "entityId")}];
         }
 
         [v21 addObject:{objc_msgSend(v17, "entityPK")}];
 
         lastExportedTransactionNumber = [v17 lastExportedTransactionNumber];
-        v23 = [v162 objectForKey:{objc_msgSend(v17, "entityId")}];
-        v24 = [v163 objectForKey:createObjectIDForLinkedRow];
+        v23 = [v161 objectForKey:{objc_msgSend(v17, "entityId")}];
+        v24 = [v162 objectForKey:createObjectIDForLinkedRow];
         if (lastExportedTransactionNumber)
         {
           if ([v23 compare:lastExportedTransactionNumber] != 1)
           {
-            [v162 setObject:lastExportedTransactionNumber forKey:{objc_msgSend(v17, "entityId")}];
+            [v161 setObject:lastExportedTransactionNumber forKey:{objc_msgSend(v17, "entityId")}];
           }
 
           if ([v24 compare:lastExportedTransactionNumber] != 1)
@@ -166,25 +166,25 @@
         {
           if (!v23)
           {
-            [v162 setObject:&unk_1EF435E48 forKey:{objc_msgSend(v17, "entityId")}];
+            [v161 setObject:&unk_1EF435E48 forKey:{objc_msgSend(v17, "entityId")}];
           }
 
           if (!v24)
           {
             lastExportedTransactionNumber = &unk_1EF435E48;
 LABEL_26:
-            [v163 setObject:lastExportedTransactionNumber forKey:createObjectIDForLinkedRow];
+            [v162 setObject:lastExportedTransactionNumber forKey:createObjectIDForLinkedRow];
           }
         }
 
         createRecordID = [(NSCKRecordMetadata *)v17 createRecordID];
-        [v160 addObject:createRecordID];
+        [v159 addObject:createRecordID];
         [self[3] setObject:v17 forKey:createRecordID];
 
         objc_autoreleasePoolPop(v18);
       }
 
-      v15 = [v14 countByEnumeratingWithState:&v205 objects:v223 count:16];
+      v15 = [v14 countByEnumeratingWithState:&v204 objects:v222 count:16];
       if (!v15)
       {
 LABEL_31:
@@ -194,46 +194,46 @@ LABEL_31:
     }
   }
 
-  if (!v148)
+  if (!v147)
   {
 LABEL_159:
-    v158 = 0;
-    v151 = 0;
+    v157 = 0;
+    v150 = 0;
     goto LABEL_160;
   }
 
-  allObjects = [v160 allObjects];
-  v28 = [NSCKMirroredRelationship fetchMirroredRelationshipsMatchingRelatingRecords:allObjects andRelatingRecordIDs:iDs fromStore:store inManagedObjectContext:&v210 error:?];
+  allObjects = [v159 allObjects];
+  v28 = [NSCKMirroredRelationship fetchMirroredRelationshipsMatchingRelatingRecords:allObjects andRelatingRecordIDs:iDs fromStore:store inManagedObjectContext:&v209 error:?];
   if (!v28)
   {
-    v91 = v210;
+    v91 = v209;
 LABEL_107:
-    v158 = 0;
-    v151 = 0;
+    v157 = 0;
+    v150 = 0;
     goto LABEL_160;
   }
 
-  v156 = [objc_msgSend(store "persistentStoreCoordinator")];
-  v203 = 0u;
-  v204 = 0u;
-  v201 = 0u;
+  v155 = [objc_msgSend(store "persistentStoreCoordinator")];
   v202 = 0u;
-  v29 = [v28 countByEnumeratingWithState:&v201 objects:v222 count:16];
+  v203 = 0u;
+  v200 = 0u;
+  v201 = 0u;
+  v29 = [v28 countByEnumeratingWithState:&v200 objects:v221 count:16];
   if (v29)
   {
-    v30 = *v202;
+    v30 = *v201;
     do
     {
       for (j = 0; j != v29; ++j)
       {
-        if (*v202 != v30)
+        if (*v201 != v30)
         {
           objc_enumerationMutation(v28);
         }
 
-        v32 = *(*(&v201 + 1) + 8 * j);
+        v32 = *(*(&v200 + 1) + 8 * j);
         v33 = objc_autoreleasePoolPush();
-        v34 = [objc_msgSend(objc_msgSend(objc_msgSend(v156 "entitiesByName")];
+        v34 = [objc_msgSend(objc_msgSend(objc_msgSend(v155 "entitiesByName")];
         if (v34)
         {
           v35 = +[PFCloudKitSerializer mtmKeyForObjectWithRecordName:relatedToObjectWithRecordName:byRelationship:withInverse:](PFCloudKitSerializer, [v32 recordName], objc_msgSend(v32, "relatedRecordName"), v34, objc_msgSend(v34, "inverseRelationship"));
@@ -245,11 +245,11 @@ LABEL_107:
             {
               v43 = [objc_msgSend(self[4] objectForKey:{v36), "objectForKey:", v35}];
               *buf = 138412802;
-              v225 = v35;
-              v226 = 2112;
-              v227 = v32;
-              v228 = 2112;
-              v229 = v43;
+              v224 = v35;
+              v225 = 2112;
+              v226 = v32;
+              v227 = 2112;
+              v228 = v43;
               _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, "CoreData: fault: Already have a mirrored relationship registered for this key: %@\n%@\n%@\n", buf, 0x20u);
             }
 
@@ -258,11 +258,11 @@ LABEL_107:
             {
               v44 = [objc_msgSend(self[4] objectForKey:{v36), "objectForKey:", v35}];
               *buf = 138412802;
-              v225 = v35;
-              v226 = 2112;
-              v227 = v32;
-              v228 = 2112;
-              v229 = v44;
+              v224 = v35;
+              v225 = 2112;
+              v226 = v32;
+              v227 = 2112;
+              v228 = v44;
               _os_log_fault_impl(&dword_18565F000, v38, OS_LOG_TYPE_FAULT, "CoreData: Already have a mirrored relationship registered for this key: %@\n%@\n%@", buf, 0x20u);
             }
           }
@@ -280,48 +280,48 @@ LABEL_107:
           [self[3] setObject:v32 forKey:createRecordID2];
 
           createRecordIDForRecord = [(NSCKMirroredRelationship *)v32 createRecordIDForRecord];
-          [v159 addObject:createRecordIDForRecord];
+          [v158 addObject:createRecordIDForRecord];
 
           createRecordIDForRelatedRecord = [(NSCKMirroredRelationship *)v32 createRecordIDForRelatedRecord];
-          [v159 addObject:createRecordIDForRelatedRecord];
+          [v158 addObject:createRecordIDForRelatedRecord];
         }
 
         objc_autoreleasePoolPop(v33);
       }
 
-      v29 = [v28 countByEnumeratingWithState:&v201 objects:v222 count:16];
+      v29 = [v28 countByEnumeratingWithState:&v200 objects:v221 count:16];
     }
 
     while (v29);
   }
 
-  [v159 minusSet:v160];
-  v45 = +[NSCKRecordMetadata metadataForRecordIDs:fromStore:inManagedObjectContext:error:](NSCKRecordMetadata, [v159 allObjects], iDs, store, &v210);
+  [v158 minusSet:v159];
+  v45 = +[NSCKRecordMetadata metadataForRecordIDs:fromStore:inManagedObjectContext:error:](NSCKRecordMetadata, [v158 allObjects], iDs, store, &v209);
   v46 = v45;
   if (!v45)
   {
-    v92 = v210;
+    v92 = v209;
     goto LABEL_107;
   }
 
-  v199 = 0u;
-  v200 = 0u;
-  v197 = 0u;
   v198 = 0u;
-  v47 = [v45 countByEnumeratingWithState:&v197 objects:v221 count:16];
+  v199 = 0u;
+  v196 = 0u;
+  v197 = 0u;
+  v47 = [v45 countByEnumeratingWithState:&v196 objects:v220 count:16];
   if (v47)
   {
-    v48 = *v198;
+    v48 = *v197;
     do
     {
       for (k = 0; k != v47; ++k)
       {
-        if (*v198 != v48)
+        if (*v197 != v48)
         {
           objc_enumerationMutation(v46);
         }
 
-        v50 = *(*(&v197 + 1) + 8 * k);
+        v50 = *(*(&v196 + 1) + 8 * k);
         v51 = objc_autoreleasePoolPush();
         createObjectIDForLinkedRow2 = [(NSCKRecordMetadata *)v50 createObjectIDForLinkedRow];
         [self[2] setObject:v50 forKey:createObjectIDForLinkedRow2];
@@ -332,56 +332,56 @@ LABEL_107:
         objc_autoreleasePoolPop(v51);
       }
 
-      v47 = [v46 countByEnumeratingWithState:&v197 objects:v221 count:16];
+      v47 = [v46 countByEnumeratingWithState:&v196 objects:v220 count:16];
     }
 
     while (v47);
   }
 
   v54 = [objc_msgSend(iDs "_persistentStoreCoordinator")];
-  v195 = 0u;
-  v196 = 0u;
-  v193 = 0u;
   v194 = 0u;
+  v195 = 0u;
+  v192 = 0u;
+  v193 = 0u;
   obj = self[4];
-  v55 = [obj countByEnumeratingWithState:&v193 objects:v220 count:16];
+  v55 = [obj countByEnumeratingWithState:&v192 objects:v219 count:16];
   if (v55)
   {
-    v147 = *v194;
+    v146 = *v193;
     do
     {
       v56 = 0;
-      v149 = v55;
+      v148 = v55;
       do
       {
-        if (*v194 != v147)
+        if (*v193 != v146)
         {
           objc_enumerationMutation(obj);
         }
 
-        v57 = *(*(&v193 + 1) + 8 * v56);
+        v57 = *(*(&v192 + 1) + 8 * v56);
         v58 = objc_autoreleasePoolPush();
         v59 = [self[4] objectForKey:v57];
         contexta = v58;
-        v157 = v56;
-        v191 = 0u;
-        v192 = 0u;
-        v189 = 0u;
+        v156 = v56;
         v190 = 0u;
-        v60 = [v59 countByEnumeratingWithState:&v189 objects:v219 count:16];
+        v191 = 0u;
+        v188 = 0u;
+        v189 = 0u;
+        v60 = [v59 countByEnumeratingWithState:&v188 objects:v218 count:16];
         if (v60)
         {
-          v61 = *v190;
+          v61 = *v189;
           do
           {
             for (m = 0; m != v60; ++m)
             {
-              if (*v190 != v61)
+              if (*v189 != v61)
               {
                 objc_enumerationMutation(v59);
               }
 
-              v63 = *(*(&v189 + 1) + 8 * m);
+              v63 = *(*(&v188 + 1) + 8 * m);
               v64 = [v59 objectForKey:v63];
               v65 = [objc_msgSend(objc_msgSend(objc_msgSend(v54 "entitiesByName")];
               createRecordIDForRecord2 = [(NSCKMirroredRelationship *)v64 createRecordIDForRecord];
@@ -411,18 +411,18 @@ LABEL_107:
               }
             }
 
-            v60 = [v59 countByEnumeratingWithState:&v189 objects:v219 count:16];
+            v60 = [v59 countByEnumeratingWithState:&v188 objects:v218 count:16];
           }
 
           while (v60);
         }
 
         objc_autoreleasePoolPop(contexta);
-        v56 = v157 + 1;
+        v56 = v156 + 1;
       }
 
-      while (v157 + 1 != v149);
-      v55 = [obj countByEnumeratingWithState:&v193 objects:v220 count:16];
+      while (v156 + 1 != v148);
+      v55 = [obj countByEnumeratingWithState:&v192 objects:v219 count:16];
     }
 
     while (v55);
@@ -432,39 +432,39 @@ LABEL_107:
   v73 = +[NSFetchRequest fetchRequestWithEntityName:](NSFetchRequest, "fetchRequestWithEntityName:", +[NSCKRecordZoneMetadata entityPath]);
   iDsCopy = iDs;
   -[NSFetchRequest setAffectedStores:](v73, "setAffectedStores:", [MEMORY[0x1E695DEC8] arrayWithObjects:&iDsCopy count:1]);
-  v74 = [store executeFetchRequest:v73 error:&v210];
+  v74 = [store executeFetchRequest:v73 error:&v209];
   v75 = v74;
   if (!v74)
   {
-    v150 = 0;
-    v93 = v210;
+    v149 = 0;
+    v93 = v209;
     goto LABEL_110;
   }
 
-  v187 = 0u;
-  v188 = 0u;
-  v185 = 0u;
   v186 = 0u;
-  v76 = [v74 countByEnumeratingWithState:&v185 objects:v217 count:16];
+  v187 = 0u;
+  v184 = 0u;
+  v185 = 0u;
+  v76 = [v74 countByEnumeratingWithState:&v184 objects:v216 count:16];
   if (!v76)
   {
-    v150 = 1;
+    v149 = 1;
     goto LABEL_110;
   }
 
-  v77 = *v186;
-  v150 = 1;
+  v77 = *v185;
+  v149 = 1;
   do
   {
     v78 = 0;
     do
     {
-      if (*v186 != v77)
+      if (*v185 != v77)
       {
         objc_enumerationMutation(v75);
       }
 
-      v79 = *(*(&v185 + 1) + 8 * v78);
+      v79 = *(*(&v184 + 1) + 8 * v78);
       v80 = objc_autoreleasePoolPush();
       createRecordZoneID = [(NSCKRecordZoneMetadata *)v79 createRecordZoneID];
       [self[1] setObject:v79 forKey:createRecordZoneID];
@@ -507,7 +507,7 @@ LABEL_96:
         binaryData = 0;
       }
 
-      v86 = [(PFCloudKitArchivingUtilities *)v82 shareFromEncodedData:binaryData inZoneWithID:createRecordZoneID error:&v210];
+      v86 = [(PFCloudKitArchivingUtilities *)v82 shareFromEncodedData:binaryData inZoneWithID:createRecordZoneID error:&v209];
       v87 = v86;
       if (v86)
       {
@@ -520,8 +520,8 @@ LABEL_96:
         goto LABEL_96;
       }
 
-      v89 = v210;
-      v150 = 0;
+      v89 = v209;
+      v149 = 0;
 
       v88 = 0;
 LABEL_98:
@@ -535,70 +535,70 @@ LABEL_98:
     }
 
     while (v76 != v78);
-    v90 = [v75 countByEnumeratingWithState:&v185 objects:v217 count:16];
+    v90 = [v75 countByEnumeratingWithState:&v184 objects:v216 count:16];
     v76 = v90;
   }
 
   while (v90);
 LABEL_110:
   objc_autoreleasePoolPop(v72);
-  if ((v150 & 1) == 0)
+  if ((v149 & 1) == 0)
   {
     goto LABEL_159;
   }
 
-  v158 = objc_alloc_init(MEMORY[0x1E695DF70]);
-  v183 = 0u;
-  v184 = 0u;
-  v181 = 0u;
+  v157 = objc_alloc_init(MEMORY[0x1E695DF70]);
   v182 = 0u;
-  v94 = [v161 countByEnumeratingWithState:&v181 objects:v216 count:16];
+  v183 = 0u;
+  v180 = 0u;
+  v181 = 0u;
+  v94 = [v160 countByEnumeratingWithState:&v180 objects:v215 count:16];
   if (v94)
   {
-    v95 = *v182;
+    v95 = *v181;
     do
     {
       for (n = 0; n != v94; ++n)
       {
-        if (*v182 != v95)
+        if (*v181 != v95)
         {
-          objc_enumerationMutation(v161);
+          objc_enumerationMutation(v160);
         }
 
-        v97 = *(*(&v181 + 1) + 8 * n);
+        v97 = *(*(&v180 + 1) + 8 * n);
         v98 = objc_autoreleasePoolPush();
-        v99 = [v162 objectForKey:v97];
-        [v158 addObject:{objc_msgSend(MEMORY[0x1E696AE18], "predicateWithFormat:", @"TRANSACTIONID > %@ AND ENTITY = %@ AND ENTITYPK IN %@", v99, v97, objc_msgSend(v161, "objectForKey:", v97))}];
+        v99 = [v161 objectForKey:v97];
+        [v157 addObject:{objc_msgSend(MEMORY[0x1E696AE18], "predicateWithFormat:", @"TRANSACTIONID > %@ AND ENTITY = %@ AND ENTITYPK IN %@", v99, v97, objc_msgSend(v160, "objectForKey:", v97))}];
         objc_autoreleasePoolPop(v98);
       }
 
-      v94 = [v161 countByEnumeratingWithState:&v181 objects:v216 count:16];
+      v94 = [v160 countByEnumeratingWithState:&v180 objects:v215 count:16];
     }
 
     while (v94);
   }
 
-  v179 = 0u;
-  v180 = 0u;
-  v177 = 0u;
   v178 = 0u;
-  v100 = [v158 countByEnumeratingWithState:&v177 objects:v215 count:16];
+  v179 = 0u;
+  v176 = 0u;
+  v177 = 0u;
+  v100 = [v157 countByEnumeratingWithState:&v176 objects:v214 count:16];
   if (v100)
   {
-    v132 = *v178;
-    v151 = 1;
+    v131 = *v177;
+    v150 = 1;
 LABEL_120:
-    v135 = 0;
-    v131 = v100;
+    v134 = 0;
+    v130 = v100;
     while (1)
     {
-      if (*v178 != v132)
+      if (*v177 != v131)
       {
-        objc_enumerationMutation(v158);
+        objc_enumerationMutation(v157);
       }
 
-      v101 = *(*(&v177 + 1) + 8 * v135);
-      v133 = objc_autoreleasePoolPush();
+      v101 = *(*(&v176 + 1) + 8 * v134);
+      v132 = objc_autoreleasePoolPush();
       v102 = +[NSFetchRequest fetchRequestWithEntityName:](NSFetchRequest, "fetchRequestWithEntityName:", [(NSEntityDescription *)+[NSPersistentHistoryChange name] entityDescription];
       [(NSFetchRequest *)v102 setPredicate:v101];
       v103 = [NSPersistentHistoryChangeRequest fetchHistoryWithFetchRequest:v102];
@@ -606,65 +606,65 @@ LABEL_120:
       [(NSPersistentHistoryChangeRequest *)v103 setUseQueryGenerationToken:1];
       iDsCopy2 = iDs;
       -[NSPersistentStoreRequest setAffectedStores:](v103, "setAffectedStores:", [MEMORY[0x1E695DEC8] arrayWithObjects:&iDsCopy2 count:1]);
-      v104 = [store executeRequest:v103 error:&v210];
+      v104 = [store executeRequest:v103 error:&v209];
       v105 = v104;
       if (v104)
       {
         result = [v104 result];
-        v175 = 0u;
-        v176 = 0u;
-        v173 = 0u;
         v174 = 0u;
-        v107 = [result countByEnumeratingWithState:&v173 objects:v213 count:16];
+        v175 = 0u;
+        v172 = 0u;
+        v173 = 0u;
+        v107 = [result countByEnumeratingWithState:&v172 objects:v212 count:16];
         if (v107)
         {
-          v134 = result;
-          v130 = v105;
-          v137 = *v174;
+          v133 = result;
+          v129 = v105;
+          v136 = *v173;
           do
           {
             obja = 0;
-            v136 = v107;
+            v135 = v107;
             do
             {
-              if (*v174 != v137)
+              if (*v173 != v136)
               {
-                objc_enumerationMutation(v134);
+                objc_enumerationMutation(v133);
               }
 
-              v108 = *(*(&v173 + 1) + 8 * obja);
-              v140 = objc_autoreleasePoolPush();
+              v108 = *(*(&v172 + 1) + 8 * obja);
+              v139 = objc_autoreleasePoolPush();
               if (![PFCloudKitHistoryAnalyzer isPrivateTransaction:v108])
               {
-                v171 = 0u;
-                v172 = 0u;
-                v169 = 0u;
                 v170 = 0u;
+                v171 = 0u;
+                v168 = 0u;
+                v169 = 0u;
                 changes = [v108 changes];
-                v110 = [changes countByEnumeratingWithState:&v169 objects:v212 count:16];
+                v110 = [changes countByEnumeratingWithState:&v168 objects:v211 count:16];
                 if (v110)
                 {
-                  v111 = *v170;
+                  v111 = *v169;
                   contextb = changes;
                   do
                   {
                     for (ii = 0; ii != v110; ++ii)
                     {
-                      if (*v170 != v111)
+                      if (*v169 != v111)
                       {
                         objc_enumerationMutation(contextb);
                       }
 
-                      v113 = *(*(&v169 + 1) + 8 * ii);
+                      v113 = *(*(&v168 + 1) + 8 * ii);
                       v114 = objc_autoreleasePoolPush();
-                      v115 = [v163 objectForKey:{objc_msgSend(v113, "changedObjectID")}];
+                      v115 = [v162 objectForKey:{objc_msgSend(v113, "changedObjectID")}];
                       if (!v115)
                       {
                         v116 = _PFLogGetLogStream(17);
                         if (os_log_type_enabled(v116, OS_LOG_TYPE_ERROR))
                         {
                           *buf = 138412290;
-                          v225 = v113;
+                          v224 = v113;
                           _os_log_error_impl(&dword_18565F000, v116, OS_LOG_TYPE_ERROR, "CoreData: fault: Didn't get a minimum transaction number for change: %@\n", buf, 0xCu);
                         }
 
@@ -673,7 +673,7 @@ LABEL_120:
                         if (os_log_type_enabled(v117, OS_LOG_TYPE_FAULT))
                         {
                           *buf = 138412290;
-                          v225 = v113;
+                          v224 = v113;
                           _os_log_fault_impl(&dword_18565F000, v117, OS_LOG_TYPE_FAULT, "CoreData: Didn't get a minimum transaction number for change: %@", buf, 0xCu);
                         }
                       }
@@ -684,28 +684,28 @@ LABEL_120:
                         v119 = [self[6] objectForKey:{objc_msgSend(v113, "changedObjectID")}];
                         if (v119)
                         {
-                          v167 = 0u;
-                          v168 = 0u;
-                          v165 = 0u;
                           v166 = 0u;
+                          v167 = 0u;
+                          v164 = 0u;
+                          v165 = 0u;
                           updatedProperties = [v113 updatedProperties];
-                          v121 = [updatedProperties countByEnumeratingWithState:&v165 objects:v211 count:16];
+                          v121 = [updatedProperties countByEnumeratingWithState:&v164 objects:v210 count:16];
                           if (v121)
                           {
-                            v122 = *v166;
+                            v122 = *v165;
                             do
                             {
                               for (jj = 0; jj != v121; ++jj)
                               {
-                                if (*v166 != v122)
+                                if (*v165 != v122)
                                 {
                                   objc_enumerationMutation(updatedProperties);
                                 }
 
-                                [v119 addObject:{objc_msgSend(*(*(&v165 + 1) + 8 * jj), "name")}];
+                                [v119 addObject:{objc_msgSend(*(*(&v164 + 1) + 8 * jj), "name")}];
                               }
 
-                              v121 = [updatedProperties countByEnumeratingWithState:&v165 objects:v211 count:16];
+                              v121 = [updatedProperties countByEnumeratingWithState:&v164 objects:v210 count:16];
                             }
 
                             while (v121);
@@ -716,41 +716,41 @@ LABEL_120:
                       objc_autoreleasePoolPop(v114);
                     }
 
-                    v110 = [contextb countByEnumeratingWithState:&v169 objects:v212 count:16];
+                    v110 = [contextb countByEnumeratingWithState:&v168 objects:v211 count:16];
                   }
 
                   while (v110);
                 }
               }
 
-              objc_autoreleasePoolPop(v140);
+              objc_autoreleasePoolPop(v139);
               obja = obja + 1;
             }
 
-            while (obja != v136);
-            v107 = [v134 countByEnumeratingWithState:&v173 objects:v213 count:16];
+            while (obja != v135);
+            v107 = [v133 countByEnumeratingWithState:&v172 objects:v212 count:16];
           }
 
           while (v107);
-          v105 = v130;
+          v105 = v129;
         }
       }
 
       else
       {
-        v151 = 0;
-        v124 = v210;
+        v150 = 0;
+        v124 = v209;
       }
 
-      objc_autoreleasePoolPop(v133);
+      objc_autoreleasePoolPop(v132);
       if (!v105)
       {
         break;
       }
 
-      if (++v135 == v131)
+      if (++v134 == v130)
       {
-        v100 = [v158 countByEnumeratingWithState:&v177 objects:v215 count:16];
+        v100 = [v157 countByEnumeratingWithState:&v176 objects:v214 count:16];
         if (v100)
         {
           goto LABEL_120;
@@ -763,15 +763,15 @@ LABEL_120:
 
   else
   {
-    v151 = 1;
+    v150 = 1;
   }
 
 LABEL_160:
-  [v141 drain];
+  [v140 drain];
 
-  if ((v151 & 1) == 0)
+  if ((v150 & 1) == 0)
   {
-    v125 = v210;
+    v125 = v209;
     if (v125)
     {
       if (options)
@@ -786,9 +786,9 @@ LABEL_160:
       if (os_log_type_enabled(v126, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315394;
-        v225 = "/Library/Caches/com.apple.xbs/Sources/Persistence/PFCloudKitMetadataCache.m";
-        v226 = 1024;
-        LODWORD(v227) = 419;
+        v224 = "/Library/Caches/com.apple.xbs/Sources/Persistence/PFCloudKitMetadataCache.m";
+        v225 = 1024;
+        LODWORD(v226) = 419;
         _os_log_error_impl(&dword_18565F000, v126, OS_LOG_TYPE_ERROR, "CoreData: fault: Illegal attempt to return an error without one in %s:%d\n", buf, 0x12u);
       }
 
@@ -796,17 +796,15 @@ LABEL_160:
       if (os_log_type_enabled(v127, OS_LOG_TYPE_FAULT))
       {
         *buf = 136315394;
-        v225 = "/Library/Caches/com.apple.xbs/Sources/Persistence/PFCloudKitMetadataCache.m";
-        v226 = 1024;
-        LODWORD(v227) = 419;
+        v224 = "/Library/Caches/com.apple.xbs/Sources/Persistence/PFCloudKitMetadataCache.m";
+        v225 = 1024;
+        LODWORD(v226) = 419;
         _os_log_fault_impl(&dword_18565F000, v127, OS_LOG_TYPE_FAULT, "CoreData: Illegal attempt to return an error without one in %s:%d", buf, 0x12u);
       }
     }
   }
 
-LABEL_169:
-  v128 = *MEMORY[0x1E69E9840];
-  return v151 & 1;
+  return v150 & 1;
 }
 
 void __132__PFCloudKitMetadataCache_cacheMetadataForObjectsWithIDs_andRecordsWithIDs_inStore_withManagedObjectContext_mirroringOptions_error___block_invoke(uint64_t a1, uint64_t a2, void *a3)
@@ -871,44 +869,40 @@ LABEL_14:
 
 - (uint64_t)recordMetadataForRecordID:(uint64_t)d
 {
-  v12 = *MEMORY[0x1E69E9840];
-  if (d)
+  v11 = *MEMORY[0x1E69E9840];
+  if (!d)
   {
-    v3 = [*(d + 24) objectForKey:a2];
-    if (v3)
-    {
-      objc_opt_class();
-      if ((objc_opt_isKindOfClass() & 1) == 0)
-      {
-        LogStream = _PFLogGetLogStream(17);
-        if (os_log_type_enabled(LogStream, OS_LOG_TYPE_ERROR))
-        {
-          v8 = 138412546;
-          v9 = a2;
-          v10 = 2112;
-          v11 = v3;
-          _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, "CoreData: fault: Expected to get an instance of NSCKRecordMetadata for this recordID: %@ but got: %@\n", &v8, 0x16u);
-        }
+    return 0;
+  }
 
-        v5 = _PFLogGetLogStream(17);
-        if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
-        {
-          v8 = 138412546;
-          v9 = a2;
-          v10 = 2112;
-          v11 = v3;
-          _os_log_fault_impl(&dword_18565F000, v5, OS_LOG_TYPE_FAULT, "CoreData: Expected to get an instance of NSCKRecordMetadata for this recordID: %@ but got: %@", &v8, 0x16u);
-        }
+  v3 = [*(d + 24) objectForKey:a2];
+  if (v3)
+  {
+    objc_opt_class();
+    if ((objc_opt_isKindOfClass() & 1) == 0)
+    {
+      LogStream = _PFLogGetLogStream(17);
+      if (os_log_type_enabled(LogStream, OS_LOG_TYPE_ERROR))
+      {
+        v7 = 138412546;
+        v8 = a2;
+        v9 = 2112;
+        v10 = v3;
+        _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, "CoreData: fault: Expected to get an instance of NSCKRecordMetadata for this recordID: %@ but got: %@\n", &v7, 0x16u);
+      }
+
+      v5 = _PFLogGetLogStream(17);
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
+      {
+        v7 = 138412546;
+        v8 = a2;
+        v9 = 2112;
+        v10 = v3;
+        _os_log_fault_impl(&dword_18565F000, v5, OS_LOG_TYPE_FAULT, "CoreData: Expected to get an instance of NSCKRecordMetadata for this recordID: %@ but got: %@", &v7, 0x16u);
       }
     }
   }
 
-  else
-  {
-    v3 = 0;
-  }
-
-  v6 = *MEMORY[0x1E69E9840];
   return v3;
 }
 
@@ -946,7 +940,7 @@ LABEL_14:
 
 - (void)cacheZoneMetadata:(uint64_t)metadata
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   if (metadata)
   {
     createRecordZoneID = [(NSCKRecordZoneMetadata *)a2 createRecordZoneID];
@@ -955,30 +949,28 @@ LABEL_14:
       LogStream = _PFLogGetLogStream(17);
       if (os_log_type_enabled(LogStream, OS_LOG_TYPE_ERROR))
       {
-        v8 = *(metadata + 8);
-        v10 = 138412546;
-        v11 = a2;
-        v12 = 2112;
-        v13 = v8;
-        _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, "CoreData: fault: Attempting to cache zone metadata but already have one: %@\n%@\n", &v10, 0x16u);
+        v7 = *(metadata + 8);
+        v9 = 138412546;
+        v10 = a2;
+        v11 = 2112;
+        v12 = v7;
+        _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, "CoreData: fault: Attempting to cache zone metadata but already have one: %@\n%@\n", &v9, 0x16u);
       }
 
       v6 = _PFLogGetLogStream(17);
       if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
       {
-        v9 = *(metadata + 8);
-        v10 = 138412546;
-        v11 = a2;
-        v12 = 2112;
-        v13 = v9;
-        _os_log_fault_impl(&dword_18565F000, v6, OS_LOG_TYPE_FAULT, "CoreData: Attempting to cache zone metadata but already have one: %@\n%@", &v10, 0x16u);
+        v8 = *(metadata + 8);
+        v9 = 138412546;
+        v10 = a2;
+        v11 = 2112;
+        v12 = v8;
+        _os_log_fault_impl(&dword_18565F000, v6, OS_LOG_TYPE_FAULT, "CoreData: Attempting to cache zone metadata but already have one: %@\n%@", &v9, 0x16u);
       }
     }
 
     [*(metadata + 8) setObject:a2 forKey:createRecordZoneID];
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 @end

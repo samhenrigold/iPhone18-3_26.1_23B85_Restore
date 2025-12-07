@@ -1,7 +1,7 @@
 @interface BWMultiCamClientCompositingNode
 - (BOOL)_attemptMovieFileBufferPairing;
 - (BWMultiCamClientCompositingNode)initWithIndexOfInputProvidingOutputSampleBuffer:(unsigned int)buffer compositingStrategy:(signed __int16)strategy gainMapSupported:(BOOL)supported clientCompositingCallback:(id)callback;
-- (CMSampleBufferRef)_copyCompositionPictureInPictureRectMetadataSampleBuffer:(CMSampleBufferRef)result pts:(CMTime *)pts;
+- (CMSampleBufferRef)_copyCompositionPictureInPictureRectMetadataSampleBuffer:(double)buffer pts:;
 - (CMSampleBufferRef)_newSampleBufferWithOriginalPresentationTimesStamp:(CMSampleBufferRef)result;
 - (double)_compositionPictureInPictureRectFromClientCompositingMetadata:(uint64_t)metadata;
 - (double)_normalizedCompositionPictureInPictureRect:(uint64_t)rect;
@@ -157,7 +157,7 @@
   [BWNode didSelectFormat:sel_didSelectFormat_forInput_forAttachedMediaKey_ forInput:? forAttachedMediaKey:?];
   if ([input index] == self->_indexOfInputProvidingOutputSampleBuffer)
   {
-    if ([key isEqualToString:@"PrimaryFormat"])
+    if (objc_msgSend_isEqualToString_(key))
     {
       [(BWNodeOutput *)self->super._output setFormat:format];
       v9 = -[BWPixelBufferPool initWithVideoFormat:capacity:name:]([BWPixelBufferPool alloc], "initWithVideoFormat:capacity:name:", format, [input delayedBufferCount], @"Multi Cam Client Compositing Output");
@@ -166,7 +166,7 @@
 
     else
     {
-      if (![key isEqualToString:0x1F217BF50])
+      if (!objc_msgSend_isEqualToString_(key))
       {
         return;
       }
@@ -410,26 +410,11 @@ LABEL_23:
   if (self)
   {
     cf = 0;
-    v30 = 0;
+    v34[0] = 0;
     os_unfair_lock_lock((self + 168));
     index = [buffer index];
-    v7 = *(self + 128);
-    if (index == v7)
-    {
-      if (a2)
-      {
-        v8 = CFRetain(a2);
-      }
-
-      else
-      {
-        v8 = 0;
-      }
-
-      *(self + 176) = v8;
-    }
-
-    else
+    v8 = *(self + 128);
+    if (index == v8)
     {
       if (a2)
       {
@@ -441,37 +426,52 @@ LABEL_23:
         v9 = 0;
       }
 
-      *(self + 184) = v9;
-      v8 = *(self + 176);
-    }
-
-    if (v8)
-    {
-      v10 = *(self + 184) == 0;
+      *(self + 176) = v9;
     }
 
     else
     {
-      v10 = 1;
-    }
-
-    v11 = *(self + 192);
-    if (v11)
-    {
-      if (index == v7)
+      if (a2)
       {
-        if (v8)
-        {
-          v8 = CFRetain(v8);
-        }
-
-        v12 = 0;
-        cf = v8;
+        v10 = CFRetain(a2);
       }
 
       else
       {
-        v12 = v11;
+        v10 = 0;
+      }
+
+      *(self + 184) = v10;
+      v9 = *(self + 176);
+    }
+
+    if (v9)
+    {
+      v11 = *(self + 184) == 0;
+    }
+
+    else
+    {
+      v11 = 1;
+    }
+
+    v12 = *(self + 192);
+    if (v12)
+    {
+      if (index == v8)
+      {
+        if (v9)
+        {
+          v9 = CFRetain(v9);
+        }
+
+        v13 = 0;
+        cf = v9;
+      }
+
+      else
+      {
+        v13 = v12;
       }
 
       *(self + 192) = 0;
@@ -479,92 +479,92 @@ LABEL_23:
 
     else
     {
-      v12 = 0;
+      v13 = 0;
     }
 
     os_unfair_lock_unlock((self + 168));
-    if (!v10)
+    if (!v11)
     {
-      -[BWMultiCamClientCompositingNode _invokeClientCompositingCallbackForSettingsID:primarySampleBuffer:secondarySampleBuffer:outputSampleBufferOut:compositingMetadataOut:](self, [*(self + 144) settingsID], *(self + 176), *(self + 184), &cf, &v30);
-      [(BWMultiCamClientCompositingNode *)self _compositionPictureInPictureRectFromClientCompositingMetadata:v30];
+      -[BWMultiCamClientCompositingNode _invokeClientCompositingCallbackForSettingsID:primarySampleBuffer:secondarySampleBuffer:outputSampleBufferOut:compositingMetadataOut:](self, [*(self + 144) settingsID], *(self + 176), *(self + 184), &cf, v34);
+      [(BWMultiCamClientCompositingNode *)self _compositionPictureInPictureRectFromClientCompositingMetadata:?];
       OUTLINED_FUNCTION_2_3();
-      if (!CGRectIsNull(v31))
+      if (!CGRectIsNull(v36))
       {
-        v32.origin.x = OUTLINED_FUNCTION_3();
-        if (!CGRectIsEmpty(v32))
+        v37.origin.x = OUTLINED_FUNCTION_3();
+        if (!CGRectIsEmpty(v37))
         {
           OUTLINED_FUNCTION_3();
-          v33.origin.x = [BWMultiCamClientCompositingNode _normalizedCompositionPictureInPictureRect:v27];
-          DictionaryRepresentation = CGRectCreateDictionaryRepresentation(v33);
+          v38.origin.x = [BWMultiCamClientCompositingNode _normalizedCompositionPictureInPictureRect:v28];
+          DictionaryRepresentation = CGRectCreateDictionaryRepresentation(v38);
           BWStillImageSetProcessingFlagsForSampleBuffer(cf, 0x4000000);
           [CMGetAttachment(cf *off_1E798A3C8];
         }
       }
 
-      v13 = [v30 objectForKeyedSubscript:FigCaptureClientCompositingMetadataCoreImageGainMapPropertiesKey];
-      if (v13)
+      v14 = [v34[0] objectForKeyedSubscript:FigCaptureClientCompositingMetadataCoreImageGainMapPropertiesKey];
+      if (v14)
       {
-        v14 = v13;
+        v15 = v14;
         dictionary = [MEMORY[0x1E695DF90] dictionary];
-        [dictionary setObject:objc_msgSend(v14 forKeyedSubscript:{"objectForKeyedSubscript:", *MEMORY[0x1E695FA00]), *off_1E798A608}];
-        v16 = *MEMORY[0x1E695FA20];
-        [dictionary setObject:objc_msgSend(v14 forKeyedSubscript:{"objectForKeyedSubscript:", *MEMORY[0x1E695FA20]), *off_1E798A610}];
-        [dictionary setObject:objc_msgSend(v14 forKeyedSubscript:{"objectForKeyedSubscript:", *MEMORY[0x1E695FA08]), *off_1E798A618}];
-        [dictionary setObject:objc_msgSend(v14 forKeyedSubscript:{"objectForKeyedSubscript:", v16), *off_1E798A620}];
-        v17 = [v14 objectForKeyedSubscript:@"kCIImageRepresentationISOGainMapGamma"];
-        if (v17)
+        [dictionary setObject:objc_msgSend(v15 forKeyedSubscript:{"objectForKeyedSubscript:", *MEMORY[0x1E695FA00]), *off_1E798A608}];
+        v17 = *MEMORY[0x1E695FA20];
+        [dictionary setObject:objc_msgSend(v15 forKeyedSubscript:{"objectForKeyedSubscript:", *MEMORY[0x1E695FA20]), *off_1E798A610}];
+        [dictionary setObject:objc_msgSend(v15 forKeyedSubscript:{"objectForKeyedSubscript:", *MEMORY[0x1E695FA08]), *off_1E798A618}];
+        [dictionary setObject:objc_msgSend(v15 forKeyedSubscript:{"objectForKeyedSubscript:", v17), *off_1E798A620}];
+        v18 = [v15 objectForKeyedSubscript:@"kCIImageRepresentationISOGainMapGamma"];
+        if (v18)
         {
-          v18 = v17;
+          v19 = v18;
         }
 
         else
         {
-          v18 = &unk_1F224CBE0;
+          v19 = &unk_1F224CBE0;
         }
 
-        [dictionary setObject:v18 forKeyedSubscript:*off_1E798A628];
-        [dictionary setObject:objc_msgSend(v14 forKeyedSubscript:{"objectForKeyedSubscript:", *MEMORY[0x1E695FA10]), *off_1E798A638}];
-        [dictionary setObject:objc_msgSend(v14 forKeyedSubscript:{"objectForKeyedSubscript:", *MEMORY[0x1E695FA18]), *off_1E798A648}];
+        [dictionary setObject:v19 forKeyedSubscript:*off_1E798A628];
+        [dictionary setObject:objc_msgSend(v15 forKeyedSubscript:{"objectForKeyedSubscript:", *MEMORY[0x1E695FA10]), *off_1E798A638}];
+        [dictionary setObject:objc_msgSend(v15 forKeyedSubscript:{"objectForKeyedSubscript:", *MEMORY[0x1E695FA18]), *off_1E798A648}];
         AttachedMedia = BWSampleBufferGetAttachedMedia(cf, 0x1F217BF50);
-        v20 = *off_1E798A3C8;
-        v21 = CMGetAttachment(AttachedMedia, *off_1E798A3C8, 0);
-        v22 = [v21 mutableCopy];
-        v23 = *off_1E798A640;
-        v24 = [objc_msgSend(v21 objectForKeyedSubscript:{*off_1E798A640), "mutableCopy"}];
-        [v24 addEntriesFromDictionary:dictionary];
-        [v22 setObject:v24 forKeyedSubscript:v23];
-        CMSetAttachment(AttachedMedia, v20, v22, 1u);
+        v21 = *off_1E798A3C8;
+        v22 = CMGetAttachment(AttachedMedia, *off_1E798A3C8, 0);
+        v23 = [v22 mutableCopy];
+        v24 = *off_1E798A640;
+        v25 = [objc_msgSend(v22 objectForKeyedSubscript:{*off_1E798A640), "mutableCopy"}];
+        [v25 addEntriesFromDictionary:dictionary];
+        [v23 setObject:v25 forKeyedSubscript:v24];
+        CMSetAttachment(AttachedMedia, v21, v23, 1u);
       }
     }
 
-    if (cf | v12)
+    if (cf | v13)
     {
       if (cf)
       {
         [*(self + 16) emitSampleBuffer:?];
-        if (v12)
+        if (v13)
         {
           OUTLINED_FUNCTION_1_9();
-          FigDebugAssert3();
+          FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v30, v31, v32, v3, cf, v34[0], v34[1], v35);
         }
       }
 
-      else if (v12)
+      else if (v13)
       {
-        [*(self + 16) emitNodeError:v12];
+        [*(self + 16) emitNodeError:v13];
       }
 
-      v25 = *(self + 176);
-      if (v25)
-      {
-        CFRelease(v25);
-        *(self + 176) = 0;
-      }
-
-      v26 = *(self + 184);
+      v26 = *(self + 176);
       if (v26)
       {
         CFRelease(v26);
+        *(self + 176) = 0;
+      }
+
+      v27 = *(self + 184);
+      if (v27)
+      {
+        CFRelease(v27);
         *(self + 184) = 0;
       }
 
@@ -582,6 +582,8 @@ LABEL_23:
 {
   index = [input index];
   indexOfInputProvidingOutputSampleBuffer = self->_indexOfInputProvidingOutputSampleBuffer;
+  v25[0] = 0;
+  v24 = 0;
   os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
   os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
   OUTLINED_FUNCTION_1_4();
@@ -646,7 +648,7 @@ LABEL_23:
         if (v10)
         {
           OUTLINED_FUNCTION_1_9();
-          FigDebugAssert3();
+          FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v16, v17, v18, v19, v20, v21, v22, v23);
         }
       }
 
@@ -672,38 +674,38 @@ LABEL_23:
   }
 
   cf = 0;
-  v17 = **&MEMORY[0x1E6960C70];
-  v16 = 0;
+  v19 = **&MEMORY[0x1E6960C70];
+  v18 = 0;
   getSynchronizedBufferPair = [self[20] getSynchronizedBufferPair];
   v4 = getSynchronizedBufferPair;
   v5 = v3;
   if (getSynchronizedBufferPair && v3)
   {
-    -[BWMultiCamClientCompositingNode _invokeClientCompositingCallbackForSettingsID:primarySampleBuffer:secondarySampleBuffer:outputSampleBufferOut:compositingMetadataOut:](self, [self[19] settingsID], getSynchronizedBufferPair, v3, &cf, &v16);
-    [(BWMultiCamClientCompositingNode *)self _compositionPictureInPictureRectFromClientCompositingMetadata:v16];
+    -[BWMultiCamClientCompositingNode _invokeClientCompositingCallbackForSettingsID:primarySampleBuffer:secondarySampleBuffer:outputSampleBufferOut:compositingMetadataOut:](self, [self[19] settingsID], getSynchronizedBufferPair, v3, &cf, &v18);
+    [(BWMultiCamClientCompositingNode *)self _compositionPictureInPictureRectFromClientCompositingMetadata:v18];
     OUTLINED_FUNCTION_2_3();
-    CMSampleBufferGetPresentationTimeStamp(&v17, cf);
-    v15 = *&v17.value;
+    CMSampleBufferGetPresentationTimeStamp(&v19, cf);
+    v17 = *&v19.value;
     OUTLINED_FUNCTION_5_93();
-    OUTLINED_FUNCTION_3();
-    v7 = [BWMultiCamClientCompositingNode _copyCompositionPictureInPictureRectMetadataSampleBuffer:v10 pts:v11];
-    v12 = cf;
+    v10 = OUTLINED_FUNCTION_3();
+    v7 = [(BWMultiCamClientCompositingNode *)v11 _copyCompositionPictureInPictureRectMetadataSampleBuffer:v12 pts:v10];
+    v13 = cf;
     goto LABEL_14;
   }
 
   if (getSynchronizedBufferPair)
   {
-    v12 = CFRetain(getSynchronizedBufferPair);
-    cf = v12;
-    CMSampleBufferGetPresentationTimeStamp(&v17, v12);
-    v15 = *&v17.value;
-    v13 = OUTLINED_FUNCTION_5_93();
-    v7 = [BWMultiCamClientCompositingNode _copyCompositionPictureInPictureRectMetadataSampleBuffer:v13 pts:v14];
+    v13 = CFRetain(getSynchronizedBufferPair);
+    cf = v13;
+    CMSampleBufferGetPresentationTimeStamp(&v19, v13);
+    v17 = *&v19.value;
+    v14 = OUTLINED_FUNCTION_5_93();
+    v7 = [(BWMultiCamClientCompositingNode *)v14 _copyCompositionPictureInPictureRectMetadataSampleBuffer:v15 pts:v16];
 LABEL_14:
-    v6 = v12 != 0;
-    if (v12)
+    v6 = v13 != 0;
+    if (v13)
     {
-      [self[2] emitSampleBuffer:{v12, v15}];
+      [self[2] emitSampleBuffer:{v13, v17}];
     }
 
     v8 = v7 == 0;
@@ -931,16 +933,16 @@ LABEL_23:
   return v4.origin.x;
 }
 
-- (CMSampleBufferRef)_copyCompositionPictureInPictureRectMetadataSampleBuffer:(CMSampleBufferRef)result pts:(CMTime *)pts
+- (CMSampleBufferRef)_copyCompositionPictureInPictureRectMetadataSampleBuffer:(double)buffer pts:
 {
   if (result)
   {
-    v3 = result;
+    v4 = result;
     sampleBufferOut = 0;
-    v11 = 0;
+    v12 = 0;
     [BWMultiCamClientCompositingNode _normalizedCompositionPictureInPictureRect:?];
     OUTLINED_FUNCTION_2_3();
-    v4 = *MEMORY[0x1E695E480];
+    v5 = *MEMORY[0x1E695E480];
     if (!FigBoxedMetadataCreateForConstruction())
     {
       OUTLINED_FUNCTION_3();
@@ -948,17 +950,17 @@ LABEL_23:
       {
         BlockBuffer = FigBoxedMetadataGetBlockBuffer();
         memcpy(&__dst, MEMORY[0x1E6960CF0], sizeof(__dst));
-        __dst.presentationTimeStamp = *pts;
+        __dst.presentationTimeStamp = *a2;
         DataLength = CMBlockBufferGetDataLength(BlockBuffer);
-        v7 = *(v3 + 30);
-        v8 = DataLength;
-        CMSampleBufferCreate(v4, BlockBuffer, 1u, 0, 0, v7, 1, 1, &__dst, 1, &v8, &sampleBufferOut);
+        v8 = *(v4 + 30);
+        v9 = DataLength;
+        CMSampleBufferCreate(v5, BlockBuffer, 1u, 0, 0, v8, 1, 1, &__dst, 1, &v9, &sampleBufferOut);
       }
     }
 
-    if (v11)
+    if (v12)
     {
-      CFRelease(v11);
+      CFRelease(v12);
     }
 
     return sampleBufferOut;
@@ -1058,15 +1060,14 @@ LABEL_23:
   }
 
   v14 = BWPixelBufferDimensionsFromSampleBuffer(a2);
-  v15 = BWPixelBufferDimensionsFromSampleBuffer(faces) >> 32;
+  v15 = BWPixelBufferDimensionsFromSampleBuffer(faces);
   v16 = *off_1E798A3C8;
   v17 = CMGetAttachment(a2, *off_1E798A3C8, 0);
   v18 = CMGetAttachment(faces, v16, 0);
   v19 = *off_1E798B218;
   v20 = [v17 objectForKeyedSubscript:*off_1E798B218];
   v21 = [v18 objectForKeyedSubscript:v19];
-  v22 = v15;
-  FigCaptureFrontCameraRotationAngle();
+  FigCaptureFrontCameraRotationAngle(v21, v22);
   if (!CGFloatNearlyEqualToFloatWithTolerance())
   {
     v23 = 0;
@@ -1074,115 +1075,117 @@ LABEL_23:
   }
 
   v23 = [objc_alloc(MEMORY[0x1E695DF70]) initWithArray:v20];
-  v101[0] = MEMORY[0x1E69E9820];
-  v101[1] = 3221225472;
-  v101[2] = __145__BWMultiCamClientCompositingNode__updateOutputSampleBufferDetectedFaces_withSecondarySampleBufferDetectedFaces_compositionPictureInPictureRect___block_invoke;
-  v101[3] = &unk_1E799E0C8;
-  v101[9] = v14;
-  *&v101[5] = detectedFaces;
-  *&v101[6] = rect;
-  *&v101[7] = a6;
-  *&v101[8] = a7;
-  v101[4] = self;
-  v24 = [v23 filterUsingPredicate:{objc_msgSend(MEMORY[0x1E696AE18], "predicateWithBlock:", v101)}];
-  v99 = 0u;
-  v100 = 0u;
-  v97 = 0u;
-  v98 = 0u;
-  v32 = OUTLINED_FUNCTION_8_66(v24, v25, v26, v27, v28, v29, v30, v31, v19, v17, faces, a2, v69, v71, v72, v74, v75, v77, *&v78.a, *&v78.b, *&v78.c, *&v78.d, *&v78.tx, *&v78.ty, v79, *(&v79 + 1), v80, *(&v80 + 1), v81, v82, v83, v84, v85, v86, v87, v88, v89, v90, v91, v92, v93, v94, v95, v96, 0);
+  v106[0] = MEMORY[0x1E69E9820];
+  v106[1] = 3221225472;
+  v106[2] = __145__BWMultiCamClientCompositingNode__updateOutputSampleBufferDetectedFaces_withSecondarySampleBufferDetectedFaces_compositionPictureInPictureRect___block_invoke;
+  v106[3] = &unk_1E799E0C8;
+  v106[9] = v14;
+  *&v106[5] = detectedFaces;
+  *&v106[6] = rect;
+  *&v106[7] = a6;
+  *&v106[8] = a7;
+  v106[4] = self;
+  v24 = [v23 filterUsingPredicate:{objc_msgSend(MEMORY[0x1E696AE18], "predicateWithBlock:", v106)}];
+  v104 = 0u;
+  v105 = 0u;
+  v102 = 0u;
+  v103 = 0u;
+  v32 = OUTLINED_FUNCTION_8_66(v24, v25, v26, v27, v28, v29, v30, v31, v19, v17, faces, a2, v74, v76, v77, v79, v80, v82, *&v83.a, *&v83.b, *&v83.c, *&v83.d, *&v83.tx, *&v83.ty, v84, *(&v84 + 1), v85, *(&v85 + 1), v86, v87, v88, v89, v90, v91, v92, v93, v94, v95, v96, v97, v98, v99, v100, v101);
   if (!v32)
   {
     goto LABEL_17;
   }
 
   v33 = v32;
-  v34 = *v98;
-  v73 = *(MEMORY[0x1E695F050] + 16);
-  v76 = *MEMORY[0x1E695F050];
-  v70 = xmmword_1AD046840;
+  v34 = *v103;
+  v78 = *(MEMORY[0x1E695F050] + 16);
+  v81 = *MEMORY[0x1E695F050];
+  v75 = xmmword_1AD046840;
+  v35 = v15 / a6;
   do
   {
     for (i = 0; i != v33; ++i)
     {
-      if (*v98 != v34)
+      if (*v103 != v34)
       {
         objc_enumerationMutation(v21);
       }
 
-      v36 = *(*(&v97 + 1) + 8 * i);
-      v79 = v76;
-      v80 = v73;
+      v37 = *(*(&v102 + 1) + 8 * i);
+      v84 = v81;
+      v85 = v78;
       CGRectIfPresent = FigCFDictionaryGetCGRectIfPresent();
       if (CGRectIfPresent)
       {
-        FigCaptureDenormalizeCropRect(*&v79, *(&v79 + 1), *&v80, *(&v80 + 1));
-        *&v79 = v45;
-        *(&v79 + 1) = v46;
-        *&v80 = v47;
-        *(&v80 + 1) = v48;
-        if (FigCaptureFrontCameraRotationAngle() == 90)
+        v46 = FigCaptureDenormalizeCropRect(v15, *&v84, *(&v84 + 1), *&v85, *(&v85 + 1));
+        *&v84 = v47;
+        *(&v84 + 1) = v48;
+        *&v85 = v49;
+        *(&v85 + 1) = v50;
+        v52 = FigCaptureFrontCameraRotationAngle(v46, v51);
+        if (v52 == 90)
         {
-          v49 = *(&v79 + 1);
-          v50 = *&v79;
-          v51 = *(&v80 + 1);
-          v52 = *&v80;
+          v54 = *(&v84 + 1);
+          v55 = *&v84;
+          v56 = *(&v85 + 1);
+          v57 = *&v85;
           goto LABEL_13;
         }
 
-        v53 = FigCaptureFrontCameraRotationAngle();
-        v50 = *(&v79 + 1);
-        v49 = *&v79;
-        v52 = *(&v80 + 1);
-        v51 = *&v80;
-        if (v53 == 180)
+        v58 = FigCaptureFrontCameraRotationAngle(v52, v53);
+        v55 = *(&v84 + 1);
+        v54 = *&v84;
+        v57 = *(&v85 + 1);
+        v56 = *&v85;
+        if (v58 == 180)
         {
-          v78.b = 0.0;
-          v78.c = 0.0;
-          v78.a = 1.0;
-          *&v78.d = v70;
-          v78.ty = v22;
-          *&v49 = CGRectApplyAffineTransform(*&v49, &v78);
+          v83.b = 0.0;
+          v83.c = 0.0;
+          v83.a = 1.0;
+          *&v83.d = v75;
+          v83.ty = SHIDWORD(v15);
+          *&v54 = CGRectApplyAffineTransform(*&v54, &v83);
 LABEL_13:
-          *&v79 = v49;
-          *(&v79 + 1) = v50;
-          *&v80 = v51;
-          *(&v80 + 1) = v52;
+          *&v84 = v54;
+          *(&v84 + 1) = v55;
+          *&v85 = v56;
+          *(&v85 + 1) = v57;
         }
 
-        FigCaptureMetadataUtilitiesNormalizeCropRect(v49, v50, v51, v52);
-        *&v80 = v54;
-        *(&v80 + 1) = v55;
-        *&v79 = detectedFaces + v56;
-        *(&v79 + 1) = rect + v57;
-        FigCaptureNormalizeCropRect(detectedFaces + v56, rect + v57, v54, v55);
-        *&v79 = v58;
-        *(&v79 + 1) = v59;
-        *&v80 = v60;
-        *(&v80 + 1) = v61;
-        v62 = [objc_alloc(MEMORY[0x1E695DF90]) initWithDictionary:v36];
+        FigCaptureMetadataUtilitiesNormalizeCropRect(v54, v55, v56, v57, v35, v35);
+        *&v85 = v59;
+        *(&v85 + 1) = v60;
+        *&v84 = detectedFaces + v61;
+        *(&v84 + 1) = rect + v62;
+        FigCaptureNormalizeCropRect(v14, detectedFaces + v61, rect + v62, v59, v60);
+        *&v84 = v63;
+        *(&v84 + 1) = v64;
+        *&v85 = v65;
+        *(&v85 + 1) = v66;
+        v67 = [objc_alloc(MEMORY[0x1E695DF90]) initWithDictionary:v37];
         FigCFDictionarySetCGRect();
-        [v23 addObject:v62];
+        [v23 addObject:v67];
 
         continue;
       }
     }
 
-    v33 = OUTLINED_FUNCTION_8_66(CGRectIfPresent, v38, v39, v40, v41, v42, v43, v44, v65, v66, v67, target, v70, *(&v70 + 1), v73, *(&v73 + 1), v76, *(&v76 + 1), *&v78.a, *&v78.b, *&v78.c, *&v78.d, *&v78.tx, *&v78.ty, v79, *(&v79 + 1), v80, *(&v80 + 1), v81, v82, v83, v84, v85, v86, v87, v88, v89, v90, v91, v92, v93, v94, v95, v96, v97);
+    v33 = OUTLINED_FUNCTION_8_66(CGRectIfPresent, v39, v40, v41, v42, v43, v44, v45, v70, v71, v72, target, v75, *(&v75 + 1), v78, *(&v78 + 1), v81, *(&v81 + 1), *&v83.a, *&v83.b, *&v83.c, *&v83.d, *&v83.tx, *&v83.ty, v84, *(&v84 + 1), v85, *(&v85 + 1), v86, v87, v88, v89, v90, v91, v92, v93, v94, v95, v96, v97, v98, v99, v100, v101);
   }
 
   while (v33);
 LABEL_17:
-  [v66 setObject:v23 forKeyedSubscript:v65];
-  v63 = CMGetAttachment(target, @"DetectedFacesArrayHasBeenStabilized", 0);
-  v64 = CMGetAttachment(v67, @"DetectedFacesArrayHasBeenStabilized", 0);
-  if ([v23 count] && (objc_msgSend(v63, "BOOLValue") & 1) == 0 && objc_msgSend(v64, "BOOLValue"))
+  [v71 setObject:v23 forKeyedSubscript:v70];
+  v68 = CMGetAttachment(target, @"DetectedFacesArrayHasBeenStabilized", 0);
+  v69 = CMGetAttachment(v72, @"DetectedFacesArrayHasBeenStabilized", 0);
+  if ([v23 count] && (objc_msgSend(v68, "BOOLValue") & 1) == 0 && objc_msgSend(v69, "BOOLValue"))
   {
     CMSetAttachment(target, @"DetectedFacesArrayHasBeenStabilized", *MEMORY[0x1E695E4D0], 1u);
   }
 
   else if (![v23 count])
   {
-    if ([v63 BOOLValue])
+    if ([v68 BOOLValue])
     {
       CMRemoveAttachment(target, @"DetectedFacesArrayHasBeenStabilized");
     }
@@ -1191,12 +1194,11 @@ LABEL_17:
 LABEL_24:
 }
 
-uint64_t __145__BWMultiCamClientCompositingNode__updateOutputSampleBufferDetectedFaces_withSecondarySampleBufferDetectedFaces_compositionPictureInPictureRect___block_invoke(uint64_t a1)
+void __145__BWMultiCamClientCompositingNode__updateOutputSampleBufferDetectedFaces_withSecondarySampleBufferDetectedFaces_compositionPictureInPictureRect___block_invoke(uint64_t a1, uint64_t a2)
 {
   v9 = *MEMORY[0x1E695F050];
   v10 = *(MEMORY[0x1E695F050] + 16);
-  result = FigCFDictionaryGetCGRectIfPresent();
-  if (result)
+  if (FigCFDictionaryGetCGRectIfPresent())
   {
     v3 = *(a1 + 72);
     v4 = *(a1 + 76);
@@ -1210,21 +1212,13 @@ uint64_t __145__BWMultiCamClientCompositingNode__updateOutputSampleBufferDetecte
     v11.size.height = v8;
     if (CGRectIntersectsRect(v11, *(a1 + 40)))
     {
-      v13.origin.x = v5;
-      v13.origin.y = v6;
-      v13.size.width = v7;
-      v13.size.height = v8;
-      v12 = CGRectIntersection(*(a1 + 40), v13);
-      return v12.size.width * v12.size.height / (v7 * v8) <= *(*(a1 + 32) + 252) / 100.0;
-    }
-
-    else
-    {
-      return 1;
+      v12.origin.x = v5;
+      v12.origin.y = v6;
+      v12.size.width = v7;
+      v12.size.height = v8;
+      CGRectIntersection(*(a1 + 40), v12);
     }
   }
-
-  return result;
 }
 
 @end

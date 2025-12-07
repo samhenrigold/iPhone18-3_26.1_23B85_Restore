@@ -4,6 +4,8 @@
 - (void)lazySyncForAccounts:(id)accounts reply:(id)reply;
 - (void)manualSyncForAccountID:(id)d reply:(id)reply;
 - (void)queueMetricsEventNotingExpiry:(id)expiry appID:(id)d reply:(id)reply;
+- (void)setAutoPlayState:(BOOL)state forAccountID:(id)d reply:(id)reply;
+- (void)setPersonalizationState:(BOOL)state forAccountID:(id)d reply:(id)reply;
 @end
 
 @implementation AMSDAccountCachedServerDataService
@@ -38,6 +40,36 @@
   v10 = replyCopy;
   v8 = replyCopy;
   [v7 dataWithAccounts:dsCopy completionHandler:v9];
+}
+
+- (void)setAutoPlayState:(BOOL)state forAccountID:(id)d reply:(id)reply
+{
+  stateCopy = state;
+  replyCopy = reply;
+  dCopy = d;
+  v9 = +[_TtC12amsaccountsd23CachedServerDataService sharedService];
+  v11[0] = _NSConcreteStackBlock;
+  v11[1] = 3221225472;
+  v11[2] = sub_10003E76C;
+  v11[3] = &unk_1002AFE78;
+  v12 = replyCopy;
+  v10 = replyCopy;
+  [v9 changeAutoPlayFor:dCopy to:stateCopy completionHandler:v11];
+}
+
+- (void)setPersonalizationState:(BOOL)state forAccountID:(id)d reply:(id)reply
+{
+  stateCopy = state;
+  replyCopy = reply;
+  dCopy = d;
+  v9 = +[_TtC12amsaccountsd23CachedServerDataService sharedService];
+  v11[0] = _NSConcreteStackBlock;
+  v11[1] = 3221225472;
+  v11[2] = sub_10003E8E0;
+  v11[3] = &unk_1002AFE78;
+  v12 = replyCopy;
+  v10 = replyCopy;
+  [v9 changePersonalizationFor:dCopy to:stateCopy completionHandler:v11];
 }
 
 - (void)queueMetricsEventNotingExpiry:(id)expiry appID:(id)d reply:(id)reply

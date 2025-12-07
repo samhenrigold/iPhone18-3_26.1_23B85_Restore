@@ -27,33 +27,33 @@
 
 + (void)applyEntries:(id)entries withProfile:(id)profile
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   entriesCopy = entries;
   profileCopy = profile;
   v7 = objc_alloc_init(MEMORY[0x277CBEB18]);
   v8 = objc_alloc_init(MEMORY[0x277CBEB18]);
   database = [profileCopy database];
-  v30 = 0;
-  v25[0] = MEMORY[0x277D85DD0];
-  v25[1] = 3221225472;
-  v25[2] = __58__ACHEarnedInstanceJournalEntry_applyEntries_withProfile___block_invoke;
-  v25[3] = &unk_278490FC0;
-  v26 = entriesCopy;
-  v27 = profileCopy;
+  v29 = 0;
+  v24[0] = MEMORY[0x277D85DD0];
+  v24[1] = 3221225472;
+  v24[2] = __58__ACHEarnedInstanceJournalEntry_applyEntries_withProfile___block_invoke;
+  v24[3] = &unk_278490FC0;
+  v25 = entriesCopy;
+  v26 = profileCopy;
   v10 = v7;
-  v28 = v10;
+  v27 = v10;
   v11 = v8;
-  v29 = v11;
-  v22[0] = MEMORY[0x277D85DD0];
-  v22[1] = 3221225472;
-  v22[2] = __58__ACHEarnedInstanceJournalEntry_applyEntries_withProfile___block_invoke_2;
-  v22[3] = &unk_278490E30;
-  v12 = v27;
-  v23 = v12;
-  v13 = v26;
-  v24 = v13;
-  v14 = [(HDHealthEntity *)ACHEarnedInstanceEntity performWriteTransactionWithHealthDatabase:database error:&v30 block:v25 inaccessibilityHandler:v22];
-  v15 = v30;
+  v28 = v11;
+  v21[0] = MEMORY[0x277D85DD0];
+  v21[1] = 3221225472;
+  v21[2] = __58__ACHEarnedInstanceJournalEntry_applyEntries_withProfile___block_invoke_2;
+  v21[3] = &unk_278490E30;
+  v12 = v26;
+  v22 = v12;
+  v13 = v25;
+  v23 = v13;
+  v14 = [(HDHealthEntity *)ACHEarnedInstanceEntity performWriteTransactionWithHealthDatabase:database error:&v29 block:v24 inaccessibilityHandler:v21];
+  v15 = v29;
 
   if (v14)
   {
@@ -77,45 +77,43 @@
     if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412546;
-      v32 = v13;
-      v33 = 2114;
-      v34 = v15;
+      v31 = v13;
+      v32 = 2114;
+      v33 = v15;
       _os_log_impl(&dword_221DDC000, v20, OS_LOG_TYPE_DEFAULT, "Error applying journaled earned instances: %@: %{public}@", buf, 0x16u);
     }
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __58__ACHEarnedInstanceJournalEntry_applyEntries_withProfile___block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   v4 = 0x278490000uLL;
-  v27 = a2;
-  v26 = [v27 databaseForEntityClass:objc_opt_class()];
+  v26 = a2;
+  v25 = [v26 databaseForEntityClass:objc_opt_class()];
+  v31 = 0u;
   v32 = 0u;
   v33 = 0u;
   v34 = 0u;
-  v35 = 0u;
   obj = *(a1 + 32);
-  v5 = [obj countByEnumeratingWithState:&v32 objects:v37 count:16];
+  v5 = [obj countByEnumeratingWithState:&v31 objects:v36 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v33;
-    LOBYTE(v29) = 1;
+    v7 = *v32;
+    LOBYTE(v28) = 1;
     while (1)
     {
       v8 = 0;
-      v28 = v6;
+      v27 = v6;
       do
       {
-        if (*v33 != v7)
+        if (*v32 != v7)
         {
           objc_enumerationMutation(obj);
         }
 
-        v9 = *(*(&v32 + 1) + 8 * v8);
+        v9 = *(*(&v31 + 1) + 8 * v8);
         v10 = [v9 action];
         if (v10 != 1)
         {
@@ -125,7 +123,7 @@ uint64_t __58__ACHEarnedInstanceJournalEntry_applyEntries_withProfile___block_in
           }
 
           v11 = [v9 earnedInstance];
-          v12 = ACHEarnedInstanceSyncIdentityFromEarnedInstance(v11, [v9 useLegacySyncIdentity], *(a1 + 40), v27);
+          v12 = ACHEarnedInstanceSyncIdentityFromEarnedInstance(v11, [v9 useLegacySyncIdentity], *(a1 + 40), v26);
 
           v13 = v4;
           v14 = *(v4 + 248);
@@ -133,7 +131,7 @@ uint64_t __58__ACHEarnedInstanceJournalEntry_applyEntries_withProfile___block_in
           v16 = [v9 provenance];
           [v12 entity];
           v18 = v17 = a1;
-          v19 = [v14 _insertEarnedInstance:v15 provenance:v16 syncIdentity:objc_msgSend(v18 database:"persistentID") error:{v26, a3}];
+          v19 = [v14 _insertEarnedInstance:v15 provenance:v16 syncIdentity:objc_msgSend(v18 database:"persistentID") error:{v25, a3}];
 
           if (v19)
           {
@@ -146,21 +144,21 @@ uint64_t __58__ACHEarnedInstanceJournalEntry_applyEntries_withProfile___block_in
 
           else
           {
-            LOBYTE(v29) = 0;
+            LOBYTE(v28) = 0;
           }
 
           v4 = v13;
           a1 = v17;
-          v6 = v28;
+          v6 = v27;
           goto LABEL_14;
         }
 
         v22 = [v9 earnedInstance];
-        v36 = v22;
-        v12 = [MEMORY[0x277CBEA60] arrayWithObjects:&v36 count:1];
+        v35 = v22;
+        v12 = [MEMORY[0x277CBEA60] arrayWithObjects:&v35 count:1];
 
-        v29 = [*(v4 + 248) removeEarnedInstances:v12 profile:*(a1 + 40) error:a3];
-        if (v29)
+        v28 = [*(v4 + 248) removeEarnedInstances:v12 profile:*(a1 + 40) error:a3];
+        if (v28)
         {
           v23 = *(a1 + 56);
           v19 = [v9 earnedInstance];
@@ -173,7 +171,7 @@ LABEL_16:
       }
 
       while (v6 != v8);
-      v6 = [obj countByEnumeratingWithState:&v32 objects:v37 count:16];
+      v6 = [obj countByEnumeratingWithState:&v31 objects:v36 count:16];
       if (!v6)
       {
         goto LABEL_20;
@@ -181,11 +179,10 @@ LABEL_16:
     }
   }
 
-  LOBYTE(v29) = 1;
+  LOBYTE(v28) = 1;
 LABEL_20:
 
-  v24 = *MEMORY[0x277D85DE8];
-  return v29 & 1;
+  return v28 & 1;
 }
 
 uint64_t __58__ACHEarnedInstanceJournalEntry_applyEntries_withProfile___block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3)

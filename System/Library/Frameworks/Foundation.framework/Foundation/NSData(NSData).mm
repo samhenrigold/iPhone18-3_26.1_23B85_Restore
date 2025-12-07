@@ -1,4 +1,6 @@
 @interface NSData(NSData)
++ (_NSClrDat)_newZeroingDataWithBytes:()NSData length:;
++ (_NSClrDat)_newZeroingDataWithBytesNoCopy:()NSData length:deallocator:;
 + (__objc2_class)allocWithZone:()NSData;
 + (id)_alloc;
 + (id)data;
@@ -12,8 +14,6 @@
 + (id)dataWithContentsOfURL:()NSData options:error:;
 + (id)dataWithContentsOfURL:()NSData options:maxLength:error:;
 + (id)dataWithData:()NSData;
-+ (uint64_t)_newZeroingDataWithBytes:()NSData length:;
-+ (uint64_t)_newZeroingDataWithBytesNoCopy:()NSData length:deallocator:;
 - (NSString)_base64EncodingAsString:()NSData withOptions:;
 - (dispatch_data_t)replacementObjectForCoder:()NSData;
 - (id)_asciiDescription;
@@ -21,8 +21,10 @@
 - (id)description;
 - (id)initWithCoder:()NSData;
 - (id)subdataWithRange:()NSData;
+- (objc_class)_initWithBase64EncodedObject:()NSData options:;
+- (objc_class)initWithContentsOfFile:()NSData options:maxLength:error:;
+- (objc_class)initWithContentsOfURL:()NSData options:maxLength:error:;
 - (uint64_t)_decodeBase64EncodedCharacterBuffer:()NSData length:options:buffer:bufferLength:state:;
-- (uint64_t)_initWithBase64EncodedObject:()NSData options:;
 - (uint64_t)_isCompact;
 - (uint64_t)base64EncodedDataWithOptions:()NSData;
 - (uint64_t)base64EncodedStringWithOptions:()NSData;
@@ -36,10 +38,8 @@
 - (uint64_t)initWithBase64Encoding:()NSData;
 - (uint64_t)initWithBytes:()NSData length:copy:freeWhenDone:bytesAreVM:;
 - (uint64_t)initWithContentsOfFile:()NSData;
-- (uint64_t)initWithContentsOfFile:()NSData options:maxLength:error:;
 - (uint64_t)initWithContentsOfMappedFile:()NSData;
 - (uint64_t)initWithContentsOfURL:()NSData;
-- (uint64_t)initWithContentsOfURL:()NSData options:maxLength:error:;
 - (uint64_t)initWithData:()NSData;
 - (uint64_t)isEqual:()NSData;
 - (uint64_t)isEqualToData:()NSData;
@@ -504,12 +504,12 @@ LABEL_16:
     return self;
   }
 
-  v2 = [self length];
-  v3 = NSAllocateMemoryPages(v2);
-  [self getBytes:v3 length:v2];
-  v4 = dispatch_data_create(v3, v2, 0, *MEMORY[0x1E69E9660]);
+  v4 = [self length];
+  v5 = NSAllocateMemoryPages(v4);
+  [self getBytes:v5 length:v4];
+  v6 = dispatch_data_create(v5, v4, 0, *MEMORY[0x1E69E9660]);
 
-  return v4;
+  return v6;
 }
 
 - (void)getBytes:()NSData
@@ -673,7 +673,7 @@ LABEL_22:
   }
 
 LABEL_10:
-  v14 = [self bytes] + a4;
+  v14 = a4 + [self bytes];
   if (v6 < 0x80000)
   {
     goto LABEL_14;
@@ -1220,7 +1220,7 @@ LABEL_10:
   }
 }
 
-- (uint64_t)initWithContentsOfFile:()NSData options:maxLength:error:
+- (objc_class)initWithContentsOfFile:()NSData options:maxLength:error:
 {
   v20[1] = *MEMORY[0x1E69E9840];
   if (!a3)
@@ -1267,7 +1267,7 @@ LABEL_10:
   return result;
 }
 
-- (uint64_t)initWithContentsOfURL:()NSData options:maxLength:error:
+- (objc_class)initWithContentsOfURL:()NSData options:maxLength:error:
 {
   v18[1] = *MEMORY[0x1E69E9840];
   if (!a3)
@@ -1433,14 +1433,14 @@ LABEL_11:
   return [selfCopy2 initWithBytes:bytes length:v9 copy:v10 freeWhenDone:0 bytesAreVM:0];
 }
 
-+ (uint64_t)_newZeroingDataWithBytes:()NSData length:
++ (_NSClrDat)_newZeroingDataWithBytes:()NSData length:
 {
   v6 = [_NSClrDat alloc];
 
   return [(NSConcreteData *)v6 initWithBytes:a3 length:a4 copy:1 deallocator:0];
 }
 
-+ (uint64_t)_newZeroingDataWithBytesNoCopy:()NSData length:deallocator:
++ (_NSClrDat)_newZeroingDataWithBytesNoCopy:()NSData length:deallocator:
 {
   v8 = [_NSClrDat alloc];
 
@@ -1772,7 +1772,7 @@ LABEL_56:
   return v20 ^ 1u;
 }
 
-- (uint64_t)_initWithBase64EncodedObject:()NSData options:
+- (objc_class)_initWithBase64EncodedObject:()NSData options:
 {
   v30 = a4;
   v39 = *MEMORY[0x1E69E9840];

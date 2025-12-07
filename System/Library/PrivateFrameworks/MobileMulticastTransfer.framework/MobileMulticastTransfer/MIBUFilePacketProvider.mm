@@ -18,11 +18,11 @@
 
 - (MIBUFilePacketProvider)initWithPayloadSize:(unint64_t)size inputFile:(id)file
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   fileCopy = file;
-  v15.receiver = self;
-  v15.super_class = MIBUFilePacketProvider;
-  v8 = [(MIBUFilePacketProvider *)&v15 init];
+  v14.receiver = self;
+  v14.super_class = MIBUFilePacketProvider;
+  v8 = [(MIBUFilePacketProvider *)&v14 init];
   if (v8)
   {
     if (MIBUOnceToken != -1)
@@ -35,8 +35,8 @@
     {
       *buf = 134218242;
       sizeCopy = size;
-      v18 = 2114;
-      v19 = fileCopy;
+      v17 = 2114;
+      v18 = fileCopy;
       _os_log_impl(&dword_259B04000, v9, OS_LOG_TYPE_DEFAULT, "Initialize packet provider with payload size: %lu input file: %{public}@", buf, 0x16u);
     }
 
@@ -49,7 +49,6 @@
     objc_storeStrong(&v8->_inputFile, file);
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
@@ -88,7 +87,7 @@ void __56__MIBUFilePacketProvider_initWithPayloadSize_inputFile___block_invoke()
   return v3;
 }
 
-uint64_t __35__MIBUFilePacketProvider_bootstrap__block_invoke(uint64_t a1)
+void *__35__MIBUFilePacketProvider_bootstrap__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _openIOChannel];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -132,7 +131,7 @@ uint64_t __35__MIBUFilePacketProvider_bootstrap__block_invoke(uint64_t a1)
   return v3;
 }
 
-uint64_t __33__MIBUFilePacketProvider_hasNext__block_invoke(uint64_t a1)
+void *__33__MIBUFilePacketProvider_hasNext__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _hasNext];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -158,7 +157,7 @@ uint64_t __33__MIBUFilePacketProvider_hasNext__block_invoke(uint64_t a1)
   return v3;
 }
 
-uint64_t __32__MIBUFilePacketProvider_rewind__block_invoke(uint64_t a1)
+void *__32__MIBUFilePacketProvider_rewind__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _reopenIOChannel];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -178,7 +177,7 @@ uint64_t __32__MIBUFilePacketProvider_rewind__block_invoke(uint64_t a1)
 
 - (BOOL)_openIOChannel
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   dispatch_assert_queue_V2(self->_queue);
   if (MIBUOnceToken != -1)
   {
@@ -190,16 +189,16 @@ uint64_t __32__MIBUFilePacketProvider_rewind__block_invoke(uint64_t a1)
   {
     inputFile = self->_inputFile;
     *buf = 138543362;
-    v23 = inputFile;
+    v21 = inputFile;
     _os_log_impl(&dword_259B04000, v3, OS_LOG_TYPE_DEFAULT, "Opening IO channel for file: %{public}@", buf, 0xCu);
   }
 
   if (!self->_fileChannel)
   {
     defaultManager = [MEMORY[0x277CCAA00] defaultManager];
-    v10 = dispatch_io_create_with_path(0, [(NSString *)self->_inputFile fileSystemRepresentation], 0, 0, self->_queue, &__block_literal_global_12_0);
+    v9 = dispatch_io_create_with_path(0, [(NSString *)self->_inputFile fileSystemRepresentation], 0, 0, self->_queue, &__block_literal_global_12_0);
     fileChannel = self->_fileChannel;
-    self->_fileChannel = v10;
+    self->_fileChannel = v9;
 
     if (!self->_fileChannel)
     {
@@ -208,32 +207,32 @@ uint64_t __32__MIBUFilePacketProvider_rewind__block_invoke(uint64_t a1)
       goto LABEL_19;
     }
 
-    v12 = self->_inputFile;
-    v21 = 0;
-    v13 = [defaultManager attributesOfItemAtPath:v12 error:&v21];
-    v14 = v21;
-    fileSize = [v13 fileSize];
+    v11 = self->_inputFile;
+    v19 = 0;
+    v12 = [defaultManager attributesOfItemAtPath:v11 error:&v19];
+    v13 = v19;
+    fileSize = [v12 fileSize];
 
     if (!fileSize)
     {
-      [(MIBUFilePacketProvider *)v14 _openIOChannel];
+      [(MIBUFilePacketProvider *)v13 _openIOChannel];
       v6 = 0;
       goto LABEL_19;
     }
 
     payloadSize = self->_payloadSize;
-    v17 = fileSize / payloadSize;
+    v16 = fileSize / payloadSize;
     if (fileSize % payloadSize)
     {
-      ++v17;
+      ++v16;
     }
 
-    self->_packetCount = v17;
+    self->_packetCount = v16;
     self->_packetID = 0;
     self->_atEOF = 0;
     if (MIBUOnceToken == -1)
     {
-      v18 = MIBUConnObj;
+      v17 = MIBUConnObj;
       if (!os_log_type_enabled(MIBUConnObj, OS_LOG_TYPE_DEFAULT))
       {
 LABEL_18:
@@ -241,7 +240,6 @@ LABEL_18:
         v6 = 1;
 LABEL_19:
 
-        v20 = *MEMORY[0x277D85DE8];
         return v6;
       }
     }
@@ -249,7 +247,7 @@ LABEL_19:
     else
     {
       [MIBUFilePacketProvider _openIOChannel];
-      v18 = MIBUConnObj;
+      v17 = MIBUConnObj;
       if (!os_log_type_enabled(MIBUConnObj, OS_LOG_TYPE_DEFAULT))
       {
         goto LABEL_18;
@@ -258,14 +256,14 @@ LABEL_19:
 
     packetCount = self->_packetCount;
     *buf = 134218752;
-    v23 = fileSize;
+    v21 = fileSize;
+    v22 = 2048;
+    v23 = payloadSize + 16;
     v24 = 2048;
-    v25 = payloadSize + 16;
+    v25 = payloadSize;
     v26 = 2048;
-    v27 = payloadSize;
-    v28 = 2048;
-    v29 = packetCount;
-    _os_log_impl(&dword_259B04000, v18, OS_LOG_TYPE_DEFAULT, "File size: %lu, Packet size: %lu, Payload size: %lu, Packet count: %llu", buf, 0x2Au);
+    v27 = packetCount;
+    _os_log_impl(&dword_259B04000, v17, OS_LOG_TYPE_DEFAULT, "File size: %lu, Packet size: %lu, Payload size: %lu, Packet count: %llu", buf, 0x2Au);
     goto LABEL_18;
   }
 
@@ -275,7 +273,7 @@ LABEL_19:
     v5 = MIBUConnObj;
     if (!os_log_type_enabled(MIBUConnObj, OS_LOG_TYPE_DEFAULT))
     {
-      goto LABEL_9;
+      return 1;
     }
 
     goto LABEL_8;
@@ -289,10 +287,7 @@ LABEL_8:
     _os_log_impl(&dword_259B04000, v5, OS_LOG_TYPE_DEFAULT, "IO channel already opened!", buf, 2u);
   }
 
-LABEL_9:
-  v6 = 1;
-  v7 = *MEMORY[0x277D85DE8];
-  return v6;
+  return 1;
 }
 
 void __40__MIBUFilePacketProvider__openIOChannel__block_invoke()
@@ -327,10 +322,11 @@ void __40__MIBUFilePacketProvider__openIOChannel__block_invoke_6()
   }
 }
 
-void __40__MIBUFilePacketProvider__openIOChannel__block_invoke_9(uint64_t a1, int a2)
+void __40__MIBUFilePacketProvider__openIOChannel__block_invoke_9(uint64_t a1, uint64_t a2)
 {
   if (a2)
   {
+    v2 = a2;
     if (MIBUOnceToken != -1)
     {
       __40__MIBUFilePacketProvider__openIOChannel__block_invoke_9_cold_1();
@@ -339,7 +335,7 @@ void __40__MIBUFilePacketProvider__openIOChannel__block_invoke_9(uint64_t a1, in
     v3 = MIBUConnObj;
     if (os_log_type_enabled(MIBUConnObj, OS_LOG_TYPE_ERROR))
     {
-      __40__MIBUFilePacketProvider__openIOChannel__block_invoke_9_cold_2(a2, v3);
+      __40__MIBUFilePacketProvider__openIOChannel__block_invoke_9_cold_2(v2, v3);
     }
   }
 
@@ -441,7 +437,7 @@ void __40__MIBUFilePacketProvider__openIOChannel__block_invoke_24()
 
 - (void)_closeIOChannel
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   dispatch_assert_queue_V2(self->_queue);
   if (MIBUOnceToken != -1)
   {
@@ -452,9 +448,9 @@ void __40__MIBUFilePacketProvider__openIOChannel__block_invoke_24()
   if (os_log_type_enabled(MIBUConnObj, OS_LOG_TYPE_DEFAULT))
   {
     inputFile = self->_inputFile;
-    v18 = 138543362;
-    v19 = inputFile;
-    _os_log_impl(&dword_259B04000, v3, OS_LOG_TYPE_DEFAULT, "Closing IO channel for file: %{public}@", &v18, 0xCu);
+    v15 = 138543362;
+    v16 = inputFile;
+    _os_log_impl(&dword_259B04000, v3, OS_LOG_TYPE_DEFAULT, "Closing IO channel for file: %{public}@", &v15, 0xCu);
   }
 
   fileChannel = self->_fileChannel;
@@ -465,33 +461,28 @@ void __40__MIBUFilePacketProvider__openIOChannel__block_invoke_24()
     self->_fileChannel = 0;
 
     self->_atEOF = 0;
-    v7 = *MEMORY[0x277D85DE8];
     return;
   }
 
   if (MIBUOnceToken == -1)
   {
-    v8 = MIBUConnObj;
+    v7 = MIBUConnObj;
     if (!os_log_type_enabled(MIBUConnObj, OS_LOG_TYPE_ERROR))
     {
-LABEL_9:
-      v16 = *MEMORY[0x277D85DE8];
       return;
     }
+
+LABEL_11:
+    [(MIBUFilePacketProvider *)v7 _closeIOChannel:v8];
+    return;
   }
 
-  else
+  [MIBUFilePacketProvider _closeIOChannel];
+  v7 = MIBUConnObj;
+  if (os_log_type_enabled(MIBUConnObj, OS_LOG_TYPE_ERROR))
   {
-    [MIBUFilePacketProvider _closeIOChannel];
-    v8 = MIBUConnObj;
-    if (!os_log_type_enabled(MIBUConnObj, OS_LOG_TYPE_ERROR))
-    {
-      goto LABEL_9;
-    }
+    goto LABEL_11;
   }
-
-  [(MIBUFilePacketProvider *)v8 _closeIOChannel:v9];
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 void __41__MIBUFilePacketProvider__closeIOChannel__block_invoke()
@@ -844,23 +835,21 @@ void __73__MIBUFilePacketProvider__encodePacketWithPayload_packetCount_packetUID
 
 void __40__MIBUFilePacketProvider__openIOChannel__block_invoke_9_cold_2(int a1, NSObject *a2)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v3[0] = 67109120;
-  v3[1] = a1;
-  _os_log_error_impl(&dword_259B04000, a2, OS_LOG_TYPE_ERROR, "IO channel closed with error: %d", v3, 8u);
-  v2 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v2[0] = 67109120;
+  v2[1] = a1;
+  _os_log_error_impl(&dword_259B04000, a2, OS_LOG_TYPE_ERROR, "IO channel closed with error: %d", v2, 8u);
 }
 
 void __77__MIBUFilePacketProvider__readIOChannelOfPacketCount_withCompletion_inQueue___block_invoke_32_cold_2(uint64_t a1, int a2, os_log_t log)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = *(a1 + 64);
-  v5 = 134218240;
-  v6 = v3;
-  v7 = 1024;
-  v8 = a2;
-  _os_log_error_impl(&dword_259B04000, log, OS_LOG_TYPE_ERROR, "Failed to read %lu bytes from IO channel: %d", &v5, 0x12u);
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 134218240;
+  v5 = v3;
+  v6 = 1024;
+  v7 = a2;
+  _os_log_error_impl(&dword_259B04000, log, OS_LOG_TYPE_ERROR, "Failed to read %lu bytes from IO channel: %d", &v4, 0x12u);
 }
 
 @end

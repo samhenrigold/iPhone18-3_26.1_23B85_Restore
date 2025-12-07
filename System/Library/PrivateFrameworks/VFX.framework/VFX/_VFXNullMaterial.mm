@@ -17,13 +17,13 @@
 
 - (_VFXNullMaterial)initWithCoder:(id)coder
 {
-  v7.receiver = self;
-  v7.super_class = _VFXNullMaterial;
-  result = [(VFXMaterial *)&v7 initWithCoder:coder];
+  v6.receiver = self;
+  v6.super_class = _VFXNullMaterial;
+  result = [(VFXMaterial *)&v6 initWithCoder:coder];
   if (result)
   {
 
-    return objc_msgSend_nullMaterial(_VFXNullMaterial, v4, v5, v6);
+    return objc_msgSend_nullMaterial(_VFXNullMaterial, v4, v5);
   }
 
   return result;

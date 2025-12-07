@@ -226,7 +226,7 @@
 
 - (id)_displayableAppDescriptor
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   bundleIdentifier = [self bundleIdentifier];
   displayableBundleIdentifier = [self displayableBundleIdentifier];
   v4 = [bundleIdentifier isEqualToString:displayableBundleIdentifier];
@@ -240,9 +240,9 @@
   {
     v6 = objc_alloc(MEMORY[0x1E69635F8]);
     displayableBundleIdentifier2 = [self displayableBundleIdentifier];
-    v14 = 0;
-    v8 = [v6 initWithBundleIdentifier:displayableBundleIdentifier2 allowPlaceholder:0 error:&v14];
-    v9 = v14;
+    v13 = 0;
+    v8 = [v6 initWithBundleIdentifier:displayableBundleIdentifier2 allowPlaceholder:0 error:&v13];
+    v9 = v13;
 
     if (v8)
     {
@@ -257,15 +257,13 @@
       if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v16 = v9;
+        v15 = v9;
         _os_log_error_impl(&dword_1B1DE3000, v10, OS_LOG_TYPE_ERROR, "Unable to get an app record for the displayable app, returning the launchable app instead. (%@)", buf, 0xCu);
       }
 
       appDescriptor = [self appDescriptor];
     }
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 
   return appDescriptor;
 }

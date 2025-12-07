@@ -4,6 +4,7 @@
 - (void)_learnMoreTapped;
 - (void)onCodeDetected:(id)detected completion:(id)completion;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation SSCellularPlanScanViewController
@@ -53,6 +54,25 @@
   [headerView addAccessoryButton:accessoryButton];
 }
 
+- (void)viewWillAppear:(BOOL)appear
+{
+  v5.receiver = self;
+  v5.super_class = SSCellularPlanScanViewController;
+  [(SSScanViewController *)&v5 viewWillAppear:appear];
+  self->_confirmationCodeRequired = 0;
+  self->_transferViaQRCode = 0;
+  if (self->_withBackButton)
+  {
+    [(UIViewController *)self configureNavigationItem];
+  }
+
+  else
+  {
+    delegate = [(SSScanViewController *)self delegate];
+    [delegate setCancelNavigationBarItems:self];
+  }
+}
+
 - (void)onCodeDetected:(id)detected completion:(id)completion
 {
   detectedCopy = detected;
@@ -80,7 +100,7 @@
 
   else
   {
-    v11 = _TSLogDomain();
+    v11 = _TSLogDomain(0);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       [SSCellularPlanScanViewController onCodeDetected:v11 completion:?];
@@ -144,7 +164,7 @@ void __77__SSCellularPlanScanViewController__addNewPlanWithCardData_confirmation
 
 void __77__SSCellularPlanScanViewController__addNewPlanWithCardData_confirmationCode___block_invoke_2(uint64_t a1)
 {
-  v2 = _TSLogDomain();
+  v2 = _TSLogDomain(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     __77__SSCellularPlanScanViewController__addNewPlanWithCardData_confirmationCode___block_invoke_2_cold_1(a1, v2);
@@ -190,25 +210,24 @@ LABEL_12:
         v13 = [v10 alertControllerWithTitle:v11 message:v12 preferredStyle:1];
 
         v14 = MEMORY[0x277D750F8];
-        v15 = *(a1 + 40);
-        v16 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-        v17 = [v16 localizedStringForKey:@"ERROR_OK" value:&stru_28753DF48 table:@"Localizable"];
-        v22[0] = MEMORY[0x277D85DD0];
-        v22[1] = 3221225472;
-        v22[2] = __77__SSCellularPlanScanViewController__addNewPlanWithCardData_confirmationCode___block_invoke_62;
-        v22[3] = &unk_279B44228;
-        v23 = *(a1 + 32);
-        v24 = WeakRetained;
-        v25 = *(a1 + 40);
-        v18 = [v14 actionWithTitle:v17 style:1 handler:v22];
-        [v13 addAction:v18];
+        v15 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+        v16 = [v15 localizedStringForKey:@"ERROR_OK" value:&stru_28753DF48 table:@"Localizable"];
+        v21[0] = MEMORY[0x277D85DD0];
+        v21[1] = 3221225472;
+        v21[2] = __77__SSCellularPlanScanViewController__addNewPlanWithCardData_confirmationCode___block_invoke_62;
+        v21[3] = &unk_279B44228;
+        v22 = *(a1 + 32);
+        v23 = WeakRetained;
+        v24 = *(a1 + 40);
+        v17 = [v14 actionWithTitle:v16 style:1 handler:v21];
+        [v13 addAction:v17];
 
-        v19 = [WeakRetained navigationController];
-        v20 = [v19 visibleViewController];
-        [v20 presentViewController:v13 animated:1 completion:0];
+        v18 = [WeakRetained navigationController];
+        v19 = [v18 visibleViewController];
+        [v19 presentViewController:v13 animated:1 completion:0];
 
-        v21 = [WeakRetained delegate];
-        [v21 receivedResponse];
+        v20 = [WeakRetained delegate];
+        [v20 receivedResponse];
 
         goto LABEL_12;
       }
@@ -218,7 +237,7 @@ LABEL_12:
 LABEL_13:
 }
 
-uint64_t __77__SSCellularPlanScanViewController__addNewPlanWithCardData_confirmationCode___block_invoke_62(uint64_t a1)
+void *__77__SSCellularPlanScanViewController__addNewPlanWithCardData_confirmationCode___block_invoke_62(uint64_t a1)
 {
   result = [*(a1 + 32) code];
   if (result == 2)
@@ -239,23 +258,21 @@ uint64_t __77__SSCellularPlanScanViewController__addNewPlanWithCardData_confirma
 
 - (void)onCodeDetected:(os_log_t)log completion:.cold.1(os_log_t log)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v2 = 136315138;
-  v3 = "[SSCellularPlanScanViewController onCodeDetected:completion:]";
-  _os_log_error_impl(&dword_262AA8000, log, OS_LOG_TYPE_ERROR, "[E]missing completion @%s", &v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v1 = 136315138;
+  v2 = "[SSCellularPlanScanViewController onCodeDetected:completion:]";
+  _os_log_error_impl(&dword_262AA8000, log, OS_LOG_TYPE_ERROR, "[E]missing completion @%s", &v1, 0xCu);
 }
 
 void __77__SSCellularPlanScanViewController__addNewPlanWithCardData_confirmationCode___block_invoke_2_cold_1(uint64_t a1, NSObject *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
-  v4 = 138412546;
-  v5 = v2;
-  v6 = 2080;
-  v7 = "[SSCellularPlanScanViewController _addNewPlanWithCardData:confirmationCode:]_block_invoke_2";
-  _os_log_error_impl(&dword_262AA8000, a2, OS_LOG_TYPE_ERROR, "[E]error: %@ @%s", &v4, 0x16u);
-  v3 = *MEMORY[0x277D85DE8];
+  v3 = 138412546;
+  v4 = v2;
+  v5 = 2080;
+  v6 = "[SSCellularPlanScanViewController _addNewPlanWithCardData:confirmationCode:]_block_invoke_2";
+  _os_log_error_impl(&dword_262AA8000, a2, OS_LOG_TYPE_ERROR, "[E]error: %@ @%s", &v3, 0x16u);
 }
 
 @end

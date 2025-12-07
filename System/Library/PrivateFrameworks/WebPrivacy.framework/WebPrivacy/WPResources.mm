@@ -86,266 +86,236 @@ uint64_t __29__WPResources_sharedInstance__block_invoke()
 
 - (void)_requestSource:(unsigned __int8)source options:(id)options completionHandler:(id)handler
 {
-  v12[4] = *MEMORY[0x277D85DE8];
+  v11[4] = *MEMORY[0x277D85DE8];
   optionsCopy = options;
   handlerCopy = handler;
   v9 = WebPrivacy::Client::shared(handlerCopy);
   afterUpdates = [optionsCopy afterUpdates];
-  v12[0] = &unk_2882BD8D0;
-  v12[1] = MEMORY[0x2743DC460](handlerCopy);
-  v12[3] = v12;
-  WebPrivacy::Client::getList(v9, source, &afterUpdates, v12);
-  std::__function::__value_func<void ()(WebPrivacy::MessageError,Platform::ArrayView<unsigned char> &&)>::~__value_func[abi:nn200100](v12);
-
-  v10 = *MEMORY[0x277D85DE8];
+  v11[0] = &unk_2882BD8D0;
+  v11[1] = MEMORY[0x2743DC460](handlerCopy);
+  v11[3] = v11;
+  WebPrivacy::Client::getList(v9, source, &afterUpdates, v11);
+  std::__function::__value_func<void ()(WebPrivacy::MessageError,Platform::ArrayView<unsigned char> &&)>::~__value_func[abi:nn200100](v11);
 }
 
 - (void)requestTrackerBlockerContentExtension:(id)extension completionHandler:(id)handler
 {
-  v10[4] = *MEMORY[0x277D85DE8];
+  v9[4] = *MEMORY[0x277D85DE8];
   extensionCopy = extension;
   handlerCopy = handler;
   v7 = WebPrivacy::Client::shared(handlerCopy);
   afterUpdates = [extensionCopy afterUpdates];
-  v10[0] = &unk_2882BD918;
-  v10[1] = MEMORY[0x2743DC460](handlerCopy);
-  v10[3] = v10;
-  WebPrivacy::Client::getList(v7, 1, &afterUpdates, v10);
-  std::__function::__value_func<void ()(WebPrivacy::MessageError,Platform::ArrayView<unsigned char> &&)>::~__value_func[abi:nn200100](v10);
-
-  v8 = *MEMORY[0x277D85DE8];
+  v9[0] = &unk_2882BD918;
+  v9[1] = MEMORY[0x2743DC460](handlerCopy);
+  v9[3] = v9;
+  WebPrivacy::Client::getList(v7, 1, &afterUpdates, v9);
+  std::__function::__value_func<void ()(WebPrivacy::MessageError,Platform::ArrayView<unsigned char> &&)>::~__value_func[abi:nn200100](v9);
 }
 
 - (void)requestResourceMonitorRulesData:(id)data completionHandler:(id)handler
 {
-  v10[4] = *MEMORY[0x277D85DE8];
+  v9[4] = *MEMORY[0x277D85DE8];
   dataCopy = data;
   handlerCopy = handler;
   v7 = WebPrivacy::Client::shared(handlerCopy);
   afterUpdates = [dataCopy afterUpdates];
-  v10[0] = &unk_2882BD960;
-  v10[1] = MEMORY[0x2743DC460](handlerCopy);
-  v10[3] = v10;
-  WebPrivacy::Client::getList(v7, 10, &afterUpdates, v10);
-  std::__function::__value_func<void ()(WebPrivacy::MessageError,Platform::ArrayView<unsigned char> &&)>::~__value_func[abi:nn200100](v10);
-
-  v8 = *MEMORY[0x277D85DE8];
+  v9[0] = &unk_2882BD960;
+  v9[1] = MEMORY[0x2743DC460](handlerCopy);
+  v9[3] = v9;
+  WebPrivacy::Client::getList(v7, 10, &afterUpdates, v9);
+  std::__function::__value_func<void ()(WebPrivacy::MessageError,Platform::ArrayView<unsigned char> &&)>::~__value_func[abi:nn200100](v9);
 }
 
 - (void)requestTrackerQueryParameters:(id)parameters completionHandler:(id)handler
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   parametersCopy = parameters;
   handlerCopy = handler;
   inited = objc_initWeak(&location, self);
   v9 = WebPrivacy::Client::shared(inited);
   afterUpdates = [parametersCopy afterUpdates];
   objc_copyWeak(&to, &location);
-  v13 = MEMORY[0x2743DC460](handlerCopy);
-  v18 = 0;
-  v16 = &unk_2882BD9A8;
-  objc_moveWeak(v17, &to);
-  v10 = v13;
-  v13 = 0;
-  v17[1] = v10;
-  v18 = &v16;
+  v12 = MEMORY[0x2743DC460](handlerCopy);
+  v17 = 0;
+  v15 = &unk_2882BD9A8;
+  objc_moveWeak(v16, &to);
+  v10 = v12;
+  v12 = 0;
+  v16[1] = v10;
+  v17 = &v15;
   objc_destroyWeak(&to);
-  WebPrivacy::Client::getList(v9, 2, &afterUpdates, &v16);
-  std::__function::__value_func<void ()(WebPrivacy::MessageError,Platform::ArrayView<unsigned char> &&)>::~__value_func[abi:nn200100](&v16);
+  WebPrivacy::Client::getList(v9, 2, &afterUpdates, &v15);
+  std::__function::__value_func<void ()(WebPrivacy::MessageError,Platform::ArrayView<unsigned char> &&)>::~__value_func[abi:nn200100](&v15);
   objc_destroyWeak(&location);
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)requestLinkFilteringData:(id)data completionHandler:(id)handler
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   handlerCopy = handler;
   inited = objc_initWeak(&location, self);
   v9 = WebPrivacy::Client::shared(inited);
   afterUpdates = [dataCopy afterUpdates];
   objc_copyWeak(&to, &location);
-  v13 = MEMORY[0x2743DC460](handlerCopy);
-  v18 = 0;
-  v16 = &unk_2882BD9F0;
-  objc_moveWeak(v17, &to);
-  v10 = v13;
-  v13 = 0;
-  v17[1] = v10;
-  v18 = &v16;
+  v12 = MEMORY[0x2743DC460](handlerCopy);
+  v17 = 0;
+  v15 = &unk_2882BD9F0;
+  objc_moveWeak(v16, &to);
+  v10 = v12;
+  v12 = 0;
+  v16[1] = v10;
+  v17 = &v15;
   objc_destroyWeak(&to);
-  WebPrivacy::Client::getList(v9, 2, &afterUpdates, &v16);
-  std::__function::__value_func<void ()(WebPrivacy::MessageError,Platform::ArrayView<unsigned char> &&)>::~__value_func[abi:nn200100](&v16);
+  WebPrivacy::Client::getList(v9, 2, &afterUpdates, &v15);
+  std::__function::__value_func<void ()(WebPrivacy::MessageError,Platform::ArrayView<unsigned char> &&)>::~__value_func[abi:nn200100](&v15);
   objc_destroyWeak(&location);
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)requestAllowedLinkFilteringData:(id)data completionHandler:(id)handler
 {
-  v10[4] = *MEMORY[0x277D85DE8];
+  v9[4] = *MEMORY[0x277D85DE8];
   dataCopy = data;
   handlerCopy = handler;
   v7 = WebPrivacy::Client::shared(handlerCopy);
   afterUpdates = [dataCopy afterUpdates];
-  v10[0] = &unk_2882BDA38;
-  v10[1] = MEMORY[0x2743DC460](handlerCopy);
-  v10[3] = v10;
-  WebPrivacy::Client::getList(v7, 5, &afterUpdates, v10);
-  std::__function::__value_func<void ()(WebPrivacy::MessageError,Platform::ArrayView<unsigned char> &&)>::~__value_func[abi:nn200100](v10);
-
-  v8 = *MEMORY[0x277D85DE8];
+  v9[0] = &unk_2882BDA38;
+  v9[1] = MEMORY[0x2743DC460](handlerCopy);
+  v9[3] = v9;
+  WebPrivacy::Client::getList(v7, 5, &afterUpdates, v9);
+  std::__function::__value_func<void ()(WebPrivacy::MessageError,Platform::ArrayView<unsigned char> &&)>::~__value_func[abi:nn200100](v9);
 }
 
 - (void)requestTrackerDomainNames:(id)names completionHandler:(id)handler
 {
-  v10[4] = *MEMORY[0x277D85DE8];
+  v9[4] = *MEMORY[0x277D85DE8];
   namesCopy = names;
   handlerCopy = handler;
   v7 = WebPrivacy::Client::shared(handlerCopy);
   afterUpdates = [namesCopy afterUpdates];
-  v10[0] = &unk_2882BDA80;
-  v10[1] = MEMORY[0x2743DC460](handlerCopy);
-  v10[3] = v10;
-  WebPrivacy::Client::getList(v7, 3, &afterUpdates, v10);
-  std::__function::__value_func<void ()(WebPrivacy::MessageError,Platform::ArrayView<unsigned char> &&)>::~__value_func[abi:nn200100](v10);
-
-  v8 = *MEMORY[0x277D85DE8];
+  v9[0] = &unk_2882BDA80;
+  v9[1] = MEMORY[0x2743DC460](handlerCopy);
+  v9[3] = v9;
+  WebPrivacy::Client::getList(v7, 3, &afterUpdates, v9);
+  std::__function::__value_func<void ()(WebPrivacy::MessageError,Platform::ArrayView<unsigned char> &&)>::~__value_func[abi:nn200100](v9);
 }
 
 - (void)requestTrackerDomainNamesData:(id)data completionHandler:(id)handler
 {
-  v10[4] = *MEMORY[0x277D85DE8];
+  v9[4] = *MEMORY[0x277D85DE8];
   dataCopy = data;
   handlerCopy = handler;
   v7 = WebPrivacy::Client::shared(handlerCopy);
   afterUpdates = [dataCopy afterUpdates];
-  v10[0] = &unk_2882BDAC8;
-  v10[1] = MEMORY[0x2743DC460](handlerCopy);
-  v10[3] = v10;
-  WebPrivacy::Client::getList(v7, 3, &afterUpdates, v10);
-  std::__function::__value_func<void ()(WebPrivacy::MessageError,Platform::ArrayView<unsigned char> &&)>::~__value_func[abi:nn200100](v10);
-
-  v8 = *MEMORY[0x277D85DE8];
+  v9[0] = &unk_2882BDAC8;
+  v9[1] = MEMORY[0x2743DC460](handlerCopy);
+  v9[3] = v9;
+  WebPrivacy::Client::getList(v7, 3, &afterUpdates, v9);
+  std::__function::__value_func<void ()(WebPrivacy::MessageError,Platform::ArrayView<unsigned char> &&)>::~__value_func[abi:nn200100](v9);
 }
 
 - (void)requestTrackerNetworkAddresses:(id)addresses completionHandler:(id)handler
 {
-  v10[4] = *MEMORY[0x277D85DE8];
+  v9[4] = *MEMORY[0x277D85DE8];
   addressesCopy = addresses;
   handlerCopy = handler;
   v7 = WebPrivacy::Client::shared(handlerCopy);
   afterUpdates = [addressesCopy afterUpdates];
-  v10[0] = &unk_2882BDB10;
-  v10[1] = MEMORY[0x2743DC460](handlerCopy);
-  v10[3] = v10;
-  WebPrivacy::Client::getList(v7, 4, &afterUpdates, v10);
-  std::__function::__value_func<void ()(WebPrivacy::MessageError,Platform::ArrayView<unsigned char> &&)>::~__value_func[abi:nn200100](v10);
-
-  v8 = *MEMORY[0x277D85DE8];
+  v9[0] = &unk_2882BDB10;
+  v9[1] = MEMORY[0x2743DC460](handlerCopy);
+  v9[3] = v9;
+  WebPrivacy::Client::getList(v7, 4, &afterUpdates, v9);
+  std::__function::__value_func<void ()(WebPrivacy::MessageError,Platform::ArrayView<unsigned char> &&)>::~__value_func[abi:nn200100](v9);
 }
 
 - (void)requestStorageAccessUserAgentStringQuirksData:(id)data completionHandler:(id)handler
 {
-  v10[4] = *MEMORY[0x277D85DE8];
+  v9[4] = *MEMORY[0x277D85DE8];
   dataCopy = data;
   handlerCopy = handler;
   v7 = WebPrivacy::Client::shared(handlerCopy);
   afterUpdates = [dataCopy afterUpdates];
-  v10[0] = &unk_2882BDB58;
-  v10[1] = MEMORY[0x2743DC460](handlerCopy);
-  v10[3] = v10;
-  WebPrivacy::Client::getList(v7, 6, &afterUpdates, v10);
-  std::__function::__value_func<void ()(WebPrivacy::MessageError,Platform::ArrayView<unsigned char> &&)>::~__value_func[abi:nn200100](v10);
-
-  v8 = *MEMORY[0x277D85DE8];
+  v9[0] = &unk_2882BDB58;
+  v9[1] = MEMORY[0x2743DC460](handlerCopy);
+  v9[3] = v9;
+  WebPrivacy::Client::getList(v7, 6, &afterUpdates, v9);
+  std::__function::__value_func<void ()(WebPrivacy::MessageError,Platform::ArrayView<unsigned char> &&)>::~__value_func[abi:nn200100](v9);
 }
 
 - (void)requestStorageAccessPromptQuirksData:(id)data completionHandler:(id)handler
 {
-  v10[4] = *MEMORY[0x277D85DE8];
+  v9[4] = *MEMORY[0x277D85DE8];
   dataCopy = data;
   handlerCopy = handler;
   v7 = WebPrivacy::Client::shared(handlerCopy);
   afterUpdates = [dataCopy afterUpdates];
-  v10[0] = &unk_2882BDBA0;
-  v10[1] = MEMORY[0x2743DC460](handlerCopy);
-  v10[3] = v10;
-  WebPrivacy::Client::getList(v7, 7, &afterUpdates, v10);
-  std::__function::__value_func<void ()(WebPrivacy::MessageError,Platform::ArrayView<unsigned char> &&)>::~__value_func[abi:nn200100](v10);
-
-  v8 = *MEMORY[0x277D85DE8];
+  v9[0] = &unk_2882BDBA0;
+  v9[1] = MEMORY[0x2743DC460](handlerCopy);
+  v9[3] = v9;
+  WebPrivacy::Client::getList(v7, 7, &afterUpdates, v9);
+  std::__function::__value_func<void ()(WebPrivacy::MessageError,Platform::ArrayView<unsigned char> &&)>::~__value_func[abi:nn200100](v9);
 }
 
 - (void)requestRestrictedOpenerDomains:(id)domains completionHandler:(id)handler
 {
-  v10[4] = *MEMORY[0x277D85DE8];
+  v9[4] = *MEMORY[0x277D85DE8];
   domainsCopy = domains;
   handlerCopy = handler;
   v7 = WebPrivacy::Client::shared(handlerCopy);
   afterUpdates = [domainsCopy afterUpdates];
-  v10[0] = &unk_2882BDBE8;
-  v10[1] = MEMORY[0x2743DC460](handlerCopy);
-  v10[3] = v10;
-  WebPrivacy::Client::getList(v7, 8, &afterUpdates, v10);
-  std::__function::__value_func<void ()(WebPrivacy::MessageError,Platform::ArrayView<unsigned char> &&)>::~__value_func[abi:nn200100](v10);
-
-  v8 = *MEMORY[0x277D85DE8];
+  v9[0] = &unk_2882BDBE8;
+  v9[1] = MEMORY[0x2743DC460](handlerCopy);
+  v9[3] = v9;
+  WebPrivacy::Client::getList(v7, 8, &afterUpdates, v9);
+  std::__function::__value_func<void ()(WebPrivacy::MessageError,Platform::ArrayView<unsigned char> &&)>::~__value_func[abi:nn200100](v9);
 }
 
 - (void)requestFingerprintingScripts:(id)scripts completionHandler:(id)handler
 {
-  v10[4] = *MEMORY[0x277D85DE8];
+  v9[4] = *MEMORY[0x277D85DE8];
   scriptsCopy = scripts;
   handlerCopy = handler;
   v7 = WebPrivacy::Client::shared(handlerCopy);
   afterUpdates = [scriptsCopy afterUpdates];
-  v10[0] = &unk_2882BDC30;
-  v10[1] = MEMORY[0x2743DC460](handlerCopy);
-  v10[3] = v10;
-  WebPrivacy::Client::getList(v7, 9, &afterUpdates, v10);
-  std::__function::__value_func<void ()(WebPrivacy::MessageError,Platform::ArrayView<unsigned char> &&)>::~__value_func[abi:nn200100](v10);
-
-  v8 = *MEMORY[0x277D85DE8];
+  v9[0] = &unk_2882BDC30;
+  v9[1] = MEMORY[0x2743DC460](handlerCopy);
+  v9[3] = v9;
+  WebPrivacy::Client::getList(v7, 9, &afterUpdates, v9);
+  std::__function::__value_func<void ()(WebPrivacy::MessageError,Platform::ArrayView<unsigned char> &&)>::~__value_func[abi:nn200100](v9);
 }
 
 - (void)loadTrackerBlockerRuleListForStore:(id)store completionHandler:(id)handler
 {
-  v12[4] = *MEMORY[0x277D85DE8];
+  v11[4] = *MEMORY[0x277D85DE8];
   storeCopy = store;
   handlerCopy = handler;
   v7 = WebPrivacy::Client::shared(handlerCopy);
-  v11 = 1;
+  v10 = 1;
   v8 = MEMORY[0x2743DC460](handlerCopy);
   v9 = storeCopy;
-  v12[0] = &unk_2882BDC78;
-  v12[1] = v8;
-  v12[2] = v9;
-  v12[3] = v12;
-  WebPrivacy::Client::getList(v7, 1, &v11, v12);
-  std::__function::__value_func<void ()(WebPrivacy::MessageError,Platform::ArrayView<unsigned char> &&)>::~__value_func[abi:nn200100](v12);
-
-  v10 = *MEMORY[0x277D85DE8];
+  v11[0] = &unk_2882BDC78;
+  v11[1] = v8;
+  v11[2] = v9;
+  v11[3] = v11;
+  WebPrivacy::Client::getList(v7, 1, &v10, v11);
+  std::__function::__value_func<void ()(WebPrivacy::MessageError,Platform::ArrayView<unsigned char> &&)>::~__value_func[abi:nn200100](v11);
 }
 
 - (void)prepareResourceMonitorRulesForStore:(id)store completionHandler:(id)handler
 {
-  v12[4] = *MEMORY[0x277D85DE8];
+  v11[4] = *MEMORY[0x277D85DE8];
   storeCopy = store;
   handlerCopy = handler;
   v7 = WebPrivacy::Client::shared(handlerCopy);
-  v11 = 1;
+  v10 = 1;
   v8 = MEMORY[0x2743DC460](handlerCopy);
   v9 = storeCopy;
-  v12[0] = &unk_2882BDCE0;
-  v12[1] = v8;
-  v12[2] = v9;
-  v12[3] = v12;
-  WebPrivacy::Client::getList(v7, 10, &v11, v12);
-  std::__function::__value_func<void ()(WebPrivacy::MessageError,Platform::ArrayView<unsigned char> &&)>::~__value_func[abi:nn200100](v12);
-
-  v10 = *MEMORY[0x277D85DE8];
+  v11[0] = &unk_2882BDCE0;
+  v11[1] = v8;
+  v11[2] = v9;
+  v11[3] = v11;
+  WebPrivacy::Client::getList(v7, 10, &v10, v11);
+  std::__function::__value_func<void ()(WebPrivacy::MessageError,Platform::ArrayView<unsigned char> &&)>::~__value_func[abi:nn200100](v11);
 }
 
 - (void)_doWithCachedLinkFilteringData:(id)data
@@ -362,7 +332,7 @@ uint64_t __29__WPResources_sharedInstance__block_invoke()
   if (![*(self + 1) count])
   {
     v3 = WebPrivacy::Client::shared(0);
-    WebPrivacy::Client::getList(v3, 2u, &v12);
+    WebPrivacy::Client::getList(v3, 2, &v12);
     if (v12)
     {
       Platform::SharedMemory::view(v12);
@@ -374,7 +344,7 @@ uint64_t __29__WPResources_sharedInstance__block_invoke()
         v6 = v11;
         if (!v11)
         {
-          scopedQueryParameters = [v10 scopedQueryParameters];
+          scopedQueryParameters = [(WPLinkFilteringData *)v10 scopedQueryParameters];
           v8 = *(self + 1);
           *(self + 1) = scopedQueryParameters;
 
@@ -421,11 +391,11 @@ uint64_t __29__WPResources_sharedInstance__block_invoke()
 
 - (void)_requestSource:options:completionHandler:
 {
-  v19[1] = *MEMORY[0x277D85DE8];
+  v18[1] = *MEMORY[0x277D85DE8];
   v4 = *a2;
-  WebPrivacy::createSourceString(a3, &v16);
-  v5 = v16;
-  v6 = v17;
+  WebPrivacy::createSourceString(a3, &v15);
+  v5 = v15;
+  v6 = v16;
   v7 = *(self + 8);
   v8 = v5;
   v9 = v6;
@@ -437,7 +407,7 @@ uint64_t __29__WPResources_sharedInstance__block_invoke()
   else if (v4)
   {
     v10 = MEMORY[0x277CCA9B8];
-    v18 = *MEMORY[0x277CCA470];
+    v17 = *MEMORY[0x277CCA470];
     if (v4 > 3)
     {
       v11 = "Invalid";
@@ -449,8 +419,8 @@ uint64_t __29__WPResources_sharedInstance__block_invoke()
     }
 
     v12 = [MEMORY[0x277CCACA8] stringWithUTF8String:v11];
-    v19[0] = v12;
-    v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:&v18 count:1];
+    v18[0] = v12;
+    v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:&v17 count:1];
     v14 = [v10 errorWithDomain:@"WebPrivacyErrorDomain" code:v4 userInfo:v13];
     (v7)[2](v7, 0, v14);
   }
@@ -459,8 +429,6 @@ uint64_t __29__WPResources_sharedInstance__block_invoke()
   {
     (v7)[2](v7, 0, v9);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (uint64_t)_requestSource:options:completionHandler:
@@ -503,19 +471,19 @@ uint64_t __29__WPResources_sharedInstance__block_invoke()
 
 - (void)requestTrackerQueryParameters:completionHandler:
 {
-  v37[1] = *MEMORY[0x277D85DE8];
-  v28 = *a2;
-  WebPrivacy::createLinkFilteringData(a3, &v33);
+  v36[1] = *MEMORY[0x277D85DE8];
+  v27 = *a2;
+  WebPrivacy::createLinkFilteringData(a3, &v32);
   WeakRetained = objc_loadWeakRetained((self + 8));
   if (WeakRetained)
   {
-    v5 = v33 == 0;
+    v5 = v32 == 0;
 
     if (!v5)
     {
       v6 = objc_loadWeakRetained((self + 8));
       std::mutex::lock((v6 + 16));
-      scopedQueryParameters = [v33 scopedQueryParameters];
+      scopedQueryParameters = [(WPLinkFilteringData *)v32 scopedQueryParameters];
       v8 = *(v6 + 1);
       *(v6 + 1) = scopedQueryParameters;
 
@@ -524,25 +492,25 @@ uint64_t __29__WPResources_sharedInstance__block_invoke()
   }
 
   v9 = objc_opt_new();
-  [v33 scopedQueryParameters];
+  [(WPLinkFilteringData *)v32 scopedQueryParameters];
+  v30 = 0u;
   v31 = 0u;
-  v32 = 0u;
-  v29 = 0u;
-  v10 = v30 = 0u;
-  v11 = [v10 countByEnumeratingWithState:&v29 objects:v35 count:16];
+  v28 = 0u;
+  v10 = v29 = 0u;
+  v11 = [v10 countByEnumeratingWithState:&v28 objects:v34 count:16];
   if (v11)
   {
-    v12 = *v30;
+    v12 = *v29;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v30 != v12)
+        if (*v29 != v12)
         {
           objc_enumerationMutation(v10);
         }
 
-        v14 = *(*(&v29 + 1) + 8 * i);
+        v14 = *(*(&v28 + 1) + 8 * i);
         v15 = [v10 objectForKeyedSubscript:v14];
         domains = [v15 domains];
         v17 = [domains count] == 0;
@@ -553,13 +521,13 @@ uint64_t __29__WPResources_sharedInstance__block_invoke()
         }
       }
 
-      v11 = [v10 countByEnumeratingWithState:&v29 objects:v35 count:16];
+      v11 = [v10 countByEnumeratingWithState:&v28 objects:v34 count:16];
     }
 
     while (v11);
   }
 
-  v18 = v34;
+  v18 = v33;
   v19 = *(self + 16);
   v20 = v9;
   v21 = v18;
@@ -568,24 +536,24 @@ uint64_t __29__WPResources_sharedInstance__block_invoke()
     v19[2](v19, v20, 0);
   }
 
-  else if (v28)
+  else if (v27)
   {
     v22 = MEMORY[0x277CCA9B8];
-    v36 = *MEMORY[0x277CCA470];
-    if (v28 > 3)
+    v35 = *MEMORY[0x277CCA470];
+    if (v27 > 3)
     {
       v23 = "Invalid";
     }
 
     else
     {
-      v23 = off_279EAF488[v28 - 1];
+      v23 = off_279EAF488[v27 - 1];
     }
 
     v24 = [MEMORY[0x277CCACA8] stringWithUTF8String:v23];
-    v37[0] = v24;
-    v25 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v37 forKeys:&v36 count:1];
-    v26 = [v22 errorWithDomain:@"WebPrivacyErrorDomain" code:v28 userInfo:v25];
+    v36[0] = v24;
+    v25 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v36 forKeys:&v35 count:1];
+    v26 = [v22 errorWithDomain:@"WebPrivacyErrorDomain" code:v27 userInfo:v25];
     (v19)[2](v19, 0, v26);
   }
 
@@ -593,8 +561,6 @@ uint64_t __29__WPResources_sharedInstance__block_invoke()
   {
     (v19)[2](v19, 0, v21);
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 - (uint64_t)requestTrackerQueryParameters:completionHandler:
@@ -619,7 +585,7 @@ uint64_t __29__WPResources_sharedInstance__block_invoke()
     {
       v7 = objc_loadWeakRetained((self + 8));
       std::mutex::lock((v7 + 16));
-      scopedQueryParameters = [v10 scopedQueryParameters];
+      scopedQueryParameters = [(WPLinkFilteringData *)v10 scopedQueryParameters];
       v9 = *(v7 + 1);
       *(v7 + 1) = scopedQueryParameters;
 
@@ -671,11 +637,11 @@ uint64_t __29__WPResources_sharedInstance__block_invoke()
 
 - (void)requestTrackerDomainNamesData:completionHandler:
 {
-  v19[1] = *MEMORY[0x277D85DE8];
+  v18[1] = *MEMORY[0x277D85DE8];
   v4 = *a2;
-  WebPrivacy::createTrackerDomainNamesData(a3, &v16);
-  v5 = v16;
-  v6 = v17;
+  WebPrivacy::createTrackerDomainNamesData(a3, &v15);
+  v5 = v15;
+  v6 = v16;
   v7 = *(self + 8);
   v8 = v5;
   v9 = v6;
@@ -687,7 +653,7 @@ uint64_t __29__WPResources_sharedInstance__block_invoke()
   else if (v4)
   {
     v10 = MEMORY[0x277CCA9B8];
-    v18 = *MEMORY[0x277CCA470];
+    v17 = *MEMORY[0x277CCA470];
     if (v4 > 3)
     {
       v11 = "Invalid";
@@ -699,8 +665,8 @@ uint64_t __29__WPResources_sharedInstance__block_invoke()
     }
 
     v12 = [MEMORY[0x277CCACA8] stringWithUTF8String:v11];
-    v19[0] = v12;
-    v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:&v18 count:1];
+    v18[0] = v12;
+    v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:&v17 count:1];
     v14 = [v10 errorWithDomain:@"WebPrivacyErrorDomain" code:v4 userInfo:v13];
     (v7)[2](v7, 0, v14);
   }
@@ -709,8 +675,6 @@ uint64_t __29__WPResources_sharedInstance__block_invoke()
   {
     (v7)[2](v7, 0, v9);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (uint64_t)requestTrackerDomainNamesData:completionHandler:
@@ -723,11 +687,11 @@ uint64_t __29__WPResources_sharedInstance__block_invoke()
 
 - (void)requestTrackerNetworkAddresses:completionHandler:
 {
-  v19[1] = *MEMORY[0x277D85DE8];
+  v18[1] = *MEMORY[0x277D85DE8];
   v4 = *a2;
-  WebPrivacy::createTrackerNetworkAddressesList(a3, &v16);
-  v5 = v16;
-  v6 = v17;
+  WebPrivacy::createTrackerNetworkAddressesList(a3, &v15);
+  v5 = v15;
+  v6 = v16;
   v7 = *(self + 8);
   v8 = v5;
   v9 = v6;
@@ -739,7 +703,7 @@ uint64_t __29__WPResources_sharedInstance__block_invoke()
   else if (v4)
   {
     v10 = MEMORY[0x277CCA9B8];
-    v18 = *MEMORY[0x277CCA470];
+    v17 = *MEMORY[0x277CCA470];
     if (v4 > 3)
     {
       v11 = "Invalid";
@@ -751,8 +715,8 @@ uint64_t __29__WPResources_sharedInstance__block_invoke()
     }
 
     v12 = [MEMORY[0x277CCACA8] stringWithUTF8String:v11];
-    v19[0] = v12;
-    v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:&v18 count:1];
+    v18[0] = v12;
+    v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:&v17 count:1];
     v14 = [v10 errorWithDomain:@"WebPrivacyErrorDomain" code:v4 userInfo:v13];
     (v7)[2](v7, 0, v14);
   }
@@ -761,8 +725,6 @@ uint64_t __29__WPResources_sharedInstance__block_invoke()
   {
     (v7)[2](v7, 0, v9);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (uint64_t)requestTrackerNetworkAddresses:completionHandler:
@@ -775,11 +737,11 @@ uint64_t __29__WPResources_sharedInstance__block_invoke()
 
 - (void)requestStorageAccessUserAgentStringQuirksData:completionHandler:
 {
-  v19[1] = *MEMORY[0x277D85DE8];
+  v18[1] = *MEMORY[0x277D85DE8];
   v4 = *a2;
-  WebPrivacy::createStorageAccessUserAgentStringQuirksData(a3, &v16);
-  v5 = v16;
-  v6 = v17;
+  WebPrivacy::createStorageAccessUserAgentStringQuirksData(a3, &v15);
+  v5 = v15;
+  v6 = v16;
   v7 = *(self + 8);
   v8 = v5;
   v9 = v6;
@@ -791,7 +753,7 @@ uint64_t __29__WPResources_sharedInstance__block_invoke()
   else if (v4)
   {
     v10 = MEMORY[0x277CCA9B8];
-    v18 = *MEMORY[0x277CCA470];
+    v17 = *MEMORY[0x277CCA470];
     if (v4 > 3)
     {
       v11 = "Invalid";
@@ -803,8 +765,8 @@ uint64_t __29__WPResources_sharedInstance__block_invoke()
     }
 
     v12 = [MEMORY[0x277CCACA8] stringWithUTF8String:v11];
-    v19[0] = v12;
-    v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:&v18 count:1];
+    v18[0] = v12;
+    v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:&v17 count:1];
     v14 = [v10 errorWithDomain:@"WebPrivacyErrorDomain" code:v4 userInfo:v13];
     (v7)[2](v7, 0, v14);
   }
@@ -813,8 +775,6 @@ uint64_t __29__WPResources_sharedInstance__block_invoke()
   {
     (v7)[2](v7, 0, v9);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (uint64_t)requestStorageAccessUserAgentStringQuirksData:completionHandler:
@@ -827,11 +787,11 @@ uint64_t __29__WPResources_sharedInstance__block_invoke()
 
 - (void)requestStorageAccessPromptQuirksData:completionHandler:
 {
-  v19[1] = *MEMORY[0x277D85DE8];
+  v18[1] = *MEMORY[0x277D85DE8];
   v4 = *a2;
-  WebPrivacy::createStorageAccessPromptQuirksData(a3, &v16);
-  v5 = v16;
-  v6 = v17;
+  WebPrivacy::createStorageAccessPromptQuirksData(a3, &v15);
+  v5 = v15;
+  v6 = v16;
   v7 = *(self + 8);
   v8 = v5;
   v9 = v6;
@@ -843,7 +803,7 @@ uint64_t __29__WPResources_sharedInstance__block_invoke()
   else if (v4)
   {
     v10 = MEMORY[0x277CCA9B8];
-    v18 = *MEMORY[0x277CCA470];
+    v17 = *MEMORY[0x277CCA470];
     if (v4 > 3)
     {
       v11 = "Invalid";
@@ -855,8 +815,8 @@ uint64_t __29__WPResources_sharedInstance__block_invoke()
     }
 
     v12 = [MEMORY[0x277CCACA8] stringWithUTF8String:v11];
-    v19[0] = v12;
-    v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:&v18 count:1];
+    v18[0] = v12;
+    v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:&v17 count:1];
     v14 = [v10 errorWithDomain:@"WebPrivacyErrorDomain" code:v4 userInfo:v13];
     (v7)[2](v7, 0, v14);
   }
@@ -865,8 +825,6 @@ uint64_t __29__WPResources_sharedInstance__block_invoke()
   {
     (v7)[2](v7, 0, v9);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (uint64_t)requestStorageAccessPromptQuirksData:completionHandler:
@@ -879,11 +837,11 @@ uint64_t __29__WPResources_sharedInstance__block_invoke()
 
 - (void)requestRestrictedOpenerDomains:completionHandler:
 {
-  v19[1] = *MEMORY[0x277D85DE8];
+  v18[1] = *MEMORY[0x277D85DE8];
   v4 = *a2;
-  WebPrivacy::createRestrictedOpenerDomains(a3, &v16);
-  v5 = v16;
-  v6 = v17;
+  WebPrivacy::createRestrictedOpenerDomains(a3, &v15);
+  v5 = v15;
+  v6 = v16;
   v7 = *(self + 8);
   v8 = v5;
   v9 = v6;
@@ -895,7 +853,7 @@ uint64_t __29__WPResources_sharedInstance__block_invoke()
   else if (v4)
   {
     v10 = MEMORY[0x277CCA9B8];
-    v18 = *MEMORY[0x277CCA470];
+    v17 = *MEMORY[0x277CCA470];
     if (v4 > 3)
     {
       v11 = "Invalid";
@@ -907,8 +865,8 @@ uint64_t __29__WPResources_sharedInstance__block_invoke()
     }
 
     v12 = [MEMORY[0x277CCACA8] stringWithUTF8String:v11];
-    v19[0] = v12;
-    v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:&v18 count:1];
+    v18[0] = v12;
+    v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:&v17 count:1];
     v14 = [v10 errorWithDomain:@"WebPrivacyErrorDomain" code:v4 userInfo:v13];
     (v7)[2](v7, 0, v14);
   }
@@ -917,8 +875,6 @@ uint64_t __29__WPResources_sharedInstance__block_invoke()
   {
     (v7)[2](v7, 0, v9);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (uint64_t)requestRestrictedOpenerDomains:completionHandler:
@@ -931,11 +887,11 @@ uint64_t __29__WPResources_sharedInstance__block_invoke()
 
 - (void)requestFingerprintingScripts:completionHandler:
 {
-  v19[1] = *MEMORY[0x277D85DE8];
+  v18[1] = *MEMORY[0x277D85DE8];
   v4 = *a2;
-  WebPrivacy::createFingerprintingScripts(a3, &v16);
-  v5 = v16;
-  v6 = v17;
+  WebPrivacy::createFingerprintingScripts(a3, &v15);
+  v5 = v15;
+  v6 = v16;
   v7 = *(self + 8);
   v8 = v5;
   v9 = v6;
@@ -947,7 +903,7 @@ uint64_t __29__WPResources_sharedInstance__block_invoke()
   else if (v4)
   {
     v10 = MEMORY[0x277CCA9B8];
-    v18 = *MEMORY[0x277CCA470];
+    v17 = *MEMORY[0x277CCA470];
     if (v4 > 3)
     {
       v11 = "Invalid";
@@ -959,8 +915,8 @@ uint64_t __29__WPResources_sharedInstance__block_invoke()
     }
 
     v12 = [MEMORY[0x277CCACA8] stringWithUTF8String:v11];
-    v19[0] = v12;
-    v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:&v18 count:1];
+    v18[0] = v12;
+    v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:&v17 count:1];
     v14 = [v10 errorWithDomain:@"WebPrivacyErrorDomain" code:v4 userInfo:v13];
     (v7)[2](v7, 0, v14);
   }
@@ -969,8 +925,6 @@ uint64_t __29__WPResources_sharedInstance__block_invoke()
   {
     (v7)[2](v7, 0, v9);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (uint64_t)requestFingerprintingScripts:completionHandler:
@@ -984,7 +938,7 @@ uint64_t __29__WPResources_sharedInstance__block_invoke()
 - (void)loadTrackerBlockerRuleListForStore:completionHandler:
 {
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_1(&dword_273D20000, v0, v1, "Failed to request tracker block list rules: invalid database state", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_0_1(&dword_273D20000, v0, v1, "Failed to request tracker block list rules: invalid database state", v2, v3, v4, v5);
 }
 
 - (id)loadTrackerBlockerRuleListForStore:completionHandler:
@@ -999,7 +953,7 @@ uint64_t __29__WPResources_sharedInstance__block_invoke()
 - (void)prepareResourceMonitorRulesForStore:completionHandler:
 {
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_1(&dword_273D20000, v0, v1, "Failed to request resource monitor url rules: invalid database state", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_0_1(&dword_273D20000, v0, v1, "Failed to request resource monitor url rules: invalid database state", v2, v3, v4, v5);
 }
 
 - (id)prepareResourceMonitorRulesForStore:completionHandler:

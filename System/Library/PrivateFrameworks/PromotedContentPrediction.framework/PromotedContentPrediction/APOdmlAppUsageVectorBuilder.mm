@@ -9,9 +9,9 @@
   andCopy = and;
   betweenCopy = between;
   v7 = objc_alloc_init(APOdmlBiomeSQLQuery);
-  v9 = objc_msgSend_query_startDate_endDate_(v7, v8, @"App.InFocus", betweenCopy, andCopy);
+  v8 = [(APOdmlBiomeSQLQuery *)v7 query:@"App.InFocus" startDate:betweenCopy endDate:andCopy];
 
-  return v9;
+  return v8;
 }
 
 @end

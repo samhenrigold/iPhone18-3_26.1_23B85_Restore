@@ -9,7 +9,7 @@
 
 - (id)spotlightQueryScore:(id)score error:(id *)error
 {
-  v43[1] = *MEMORY[0x1E69E9840];
+  v42[1] = *MEMORY[0x1E69E9840];
   scoreCopy = score;
   cachedTopicScores = [(PPTopicStore *)self->_topicStore cachedTopicScores];
   if (!cachedTopicScores)
@@ -17,9 +17,9 @@
     if (error)
     {
       v17 = MEMORY[0x1E696ABC0];
-      v42 = *MEMORY[0x1E696A578];
-      v43[0] = @"Topic stored did not return scores";
-      v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v43 forKeys:&v42 count:1];
+      v41 = *MEMORY[0x1E696A578];
+      v42[0] = @"Topic stored did not return scores";
+      v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v42 forKeys:&v41 count:1];
       *error = [v17 errorWithDomain:@"PPErrorDomain" code:1 userInfo:v18];
     }
 
@@ -29,7 +29,7 @@
       goto LABEL_12;
     }
 
-    *v36 = 0;
+    *v35 = 0;
     v19 = "Topic stored did not return scores while computing score for spotlight";
     goto LABEL_21;
   }
@@ -44,10 +44,10 @@ LABEL_12:
       goto LABEL_17;
     }
 
-    *v36 = 0;
+    *v35 = 0;
     v19 = "PPSpotlightScoring: nil spotlightQueryScore for item with nil attributes";
 LABEL_21:
-    _os_log_error_impl(&dword_1A7FD3000, v13, OS_LOG_TYPE_ERROR, v19, v36, 2u);
+    _os_log_error_impl(&dword_1A7FD3000, v13, OS_LOG_TYPE_ERROR, v19, v35, 2u);
     goto LABEL_12;
   }
 
@@ -58,25 +58,25 @@ LABEL_21:
   qidStrings = [v10 qidStrings];
   v12 = [qidStrings count];
 
-  *v36 = 0;
-  v37 = v36;
-  v38 = 0x2020000000;
-  v39 = 0;
-  v32 = 0;
-  v33 = &v32;
-  v34 = 0x2020000000;
-  v35 = 0;
-  v24 = MEMORY[0x1E69E9820];
-  v25 = 3221225472;
-  v26 = __48__PPSpotlightScoring_spotlightQueryScore_error___block_invoke;
-  v27 = &unk_1E77F7AA8;
-  v30 = &v32;
+  *v35 = 0;
+  v36 = v35;
+  v37 = 0x2020000000;
+  v38 = 0;
+  v31 = 0;
+  v32 = &v31;
+  v33 = 0x2020000000;
+  v34 = 0;
+  v23 = MEMORY[0x1E69E9820];
+  v24 = 3221225472;
+  v25 = __48__PPSpotlightScoring_spotlightQueryScore_error___block_invoke;
+  v26 = &unk_1E77F7AA8;
+  v29 = &v31;
   v13 = v10;
-  v28 = v13;
-  v31 = v36;
-  v29 = cachedTopicScores;
-  [v29 enumerateKeysAndObjectsUsingBlock:&v24];
-  v14 = sqrt(v12) * sqrt(v33[3]);
+  v27 = v13;
+  v30 = v35;
+  v28 = cachedTopicScores;
+  [v28 enumerateKeysAndObjectsUsingBlock:&v23];
+  v14 = sqrt(v12) * sqrt(v32[3]);
   if (v14 == 0.0)
   {
     v15 = pp_universal_search_log_handle();
@@ -91,23 +91,21 @@ LABEL_21:
 
   else
   {
-    v20 = *(v37 + 3) / v14;
+    v20 = *(v36 + 3) / v14;
     v21 = pp_universal_search_log_handle();
     if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
     {
       *buf = 134217984;
-      v41 = v20;
+      v40 = v20;
       _os_log_debug_impl(&dword_1A7FD3000, v21, OS_LOG_TYPE_DEBUG, "PPSpotlightScoring: spotlightQueryScore of %f", buf, 0xCu);
     }
 
-    v16 = [MEMORY[0x1E696AD98] numberWithDouble:{v20, v24, v25, v26, v27, v28}];
+    v16 = [MEMORY[0x1E696AD98] numberWithDouble:{v20, v23, v24, v25, v26, v27}];
   }
 
-  _Block_object_dispose(&v32, 8);
-  _Block_object_dispose(v36, 8);
+  _Block_object_dispose(&v31, 8);
+  _Block_object_dispose(v35, 8);
 LABEL_17:
-
-  v22 = *MEMORY[0x1E69E9840];
 
   return v16;
 }
@@ -135,29 +133,28 @@ void __48__PPSpotlightScoring_spotlightQueryScore_error___block_invoke(uint64_t 
 
 - (void)dealloc
 {
-  sandboxExtensionHandle = self->_sandboxExtensionHandle;
   if (sandbox_extension_release() == -1)
   {
-    v4 = pp_universal_search_log_handle();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v3 = pp_universal_search_log_handle();
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
-      _os_log_error_impl(&dword_1A7FD3000, v4, OS_LOG_TYPE_ERROR, "PPSpotlightScoring was unable to release the sandbox extension", buf, 2u);
+      _os_log_error_impl(&dword_1A7FD3000, v3, OS_LOG_TYPE_ERROR, "PPSpotlightScoring was unable to release the sandbox extension", buf, 2u);
     }
   }
 
-  v5.receiver = self;
-  v5.super_class = PPSpotlightScoring;
-  [(PPSpotlightScoring *)&v5 dealloc];
+  v4.receiver = self;
+  v4.super_class = PPSpotlightScoring;
+  [(PPSpotlightScoring *)&v4 dealloc];
 }
 
 - (PPSpotlightScoring)initWithTopicStore:(id)store
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   storeCopy = store;
-  v17.receiver = self;
-  v17.super_class = PPSpotlightScoring;
-  v6 = [(PPSpotlightScoring *)&v17 init];
+  v16.receiver = self;
+  v16.super_class = PPSpotlightScoring;
+  v6 = [(PPSpotlightScoring *)&v16 init];
   v7 = v6;
   if (!v6)
   {
@@ -166,16 +163,16 @@ void __48__PPSpotlightScoring_spotlightQueryScore_error___block_invoke(uint64_t 
 
   objc_storeStrong(&v6->_topicStore, store);
   topicStore = v7->_topicStore;
-  v16 = 0;
-  v9 = [(PPTopicStore *)topicStore topicCacheSandboxExtensionToken:&v16];
-  v10 = v16;
+  v15 = 0;
+  v9 = [(PPTopicStore *)topicStore topicCacheSandboxExtensionToken:&v15];
+  v10 = v15;
   if (!v9)
   {
     v9 = pp_universal_search_log_handle();
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v19 = v10;
+      v18 = v10;
       _os_log_error_impl(&dword_1A7FD3000, v9, OS_LOG_TYPE_ERROR, "PPSpotlightScoring was unable to get the sandbox extension: %@", buf, 0xCu);
     }
 
@@ -204,7 +201,6 @@ LABEL_5:
   v12 = v7;
 LABEL_12:
 
-  v14 = *MEMORY[0x1E69E9840];
   return v12;
 }
 

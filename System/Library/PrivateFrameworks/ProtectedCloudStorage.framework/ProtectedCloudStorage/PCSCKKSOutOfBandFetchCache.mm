@@ -78,31 +78,31 @@ uint64_t __35__PCSCKKSOutOfBandFetchCache_cache__block_invoke()
 
 void __58__PCSCKKSOutOfBandFetchCache_getCurrentIdentities_result___block_invoke(uint64_t a1)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v2 = [objc_alloc(MEMORY[0x1E695DFA8]) initWithSet:*(a1 + 32)];
   if ([*(a1 + 40) identities])
   {
-    v17 = 0u;
-    v18 = 0u;
-    v15 = 0u;
     v16 = 0u;
+    v17 = 0u;
+    v14 = 0u;
+    v15 = 0u;
     v3 = *(a1 + 32);
-    v4 = [v3 countByEnumeratingWithState:&v15 objects:v19 count:16];
+    v4 = [v3 countByEnumeratingWithState:&v14 objects:v18 count:16];
     if (v4)
     {
       v5 = v4;
       Mutable = 0;
-      v7 = *v16;
+      v7 = *v15;
       do
       {
         for (i = 0; i != v5; ++i)
         {
-          if (*v16 != v7)
+          if (*v15 != v7)
           {
             objc_enumerationMutation(v3);
           }
 
-          v9 = *(*(&v15 + 1) + 8 * i);
+          v9 = *(*(&v14 + 1) + 8 * i);
           v10 = PCSIdentitySetCopyCurrentIdentityWithError([*(a1 + 40) identities], v9, 0);
           if (v10)
           {
@@ -119,7 +119,7 @@ void __58__PCSCKKSOutOfBandFetchCache_getCurrentIdentities_result___block_invoke
           }
         }
 
-        v5 = [v3 countByEnumeratingWithState:&v15 objects:v19 count:16];
+        v5 = [v3 countByEnumeratingWithState:&v14 objects:v18 count:16];
       }
 
       while (v5);
@@ -149,8 +149,6 @@ void __58__PCSCKKSOutOfBandFetchCache_getCurrentIdentities_result___block_invoke
   {
     CFRelease(Mutable);
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)cacheCurrentIdentityFetchResult:(_PCSIdentitySetData *)result notFound:(id)found
@@ -240,31 +238,31 @@ uint64_t __71__PCSCKKSOutOfBandFetchCache_cacheCurrentIdentityFetchResult_notFou
 
 void __67__PCSCKKSOutOfBandFetchCache_getPCSIdentities_forServiceID_result___block_invoke(uint64_t a1)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v2 = [objc_alloc(MEMORY[0x1E695DFA8]) initWithSet:*(a1 + 32)];
   if ([*(a1 + 40) identities])
   {
-    v19 = 0u;
-    v20 = 0u;
-    v17 = 0u;
     v18 = 0u;
+    v19 = 0u;
+    v16 = 0u;
+    v17 = 0u;
     v3 = *(a1 + 32);
-    v4 = [v3 countByEnumeratingWithState:&v17 objects:v21 count:16];
+    v4 = [v3 countByEnumeratingWithState:&v16 objects:v20 count:16];
     if (v4)
     {
       v5 = v4;
       Mutable = 0;
-      v7 = *v18;
+      v7 = *v17;
       do
       {
         for (i = 0; i != v5; ++i)
         {
-          if (*v18 != v7)
+          if (*v17 != v7)
           {
             objc_enumerationMutation(v3);
           }
 
-          v9 = *(*(&v17 + 1) + 8 * i);
+          v9 = *(*(&v16 + 1) + 8 * i);
           v10 = PCSIdentitySetCopyIdentity([*(a1 + 40) identities], v9);
           if (v10)
           {
@@ -284,7 +282,7 @@ void __67__PCSCKKSOutOfBandFetchCache_getPCSIdentities_forServiceID_result___blo
           }
         }
 
-        v5 = [v3 countByEnumeratingWithState:&v17 objects:v21 count:16];
+        v5 = [v3 countByEnumeratingWithState:&v16 objects:v20 count:16];
       }
 
       while (v5);
@@ -320,8 +318,6 @@ void __67__PCSCKKSOutOfBandFetchCache_getPCSIdentities_forServiceID_result___blo
   {
     CFRelease(Mutable);
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)cachePCSIdentityFetchResult:(_PCSIdentitySetData *)result notFound:(id)found serviceID:(unsigned int)d
@@ -432,7 +428,7 @@ uint64_t __77__PCSCKKSOutOfBandFetchCache_cachePCSIdentityFetchResult_notFound_s
   return v7;
 }
 
-uint64_t __43__PCSCKKSOutOfBandFetchCache_copyIdentity___block_invoke(uint64_t a1)
+void *__43__PCSCKKSOutOfBandFetchCache_copyIdentity___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) identities];
   if (result)

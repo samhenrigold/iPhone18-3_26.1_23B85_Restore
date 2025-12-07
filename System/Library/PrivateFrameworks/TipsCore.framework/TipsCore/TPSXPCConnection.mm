@@ -5,18 +5,18 @@
 
 void __27___TPSXPCConnection_resume__block_invoke(uint64_t a1)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 48));
   v3 = +[TPSLogger data];
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = *(a1 + 32);
     v5 = *(a1 + 40);
-    v9 = 138412546;
-    v10 = v4;
-    v11 = 2112;
-    v12 = v5;
-    _os_log_impl(&dword_1C00A7000, v3, OS_LOG_TYPE_DEFAULT, "%@Connection to %@ interrupted", &v9, 0x16u);
+    v8 = 138412546;
+    v9 = v4;
+    v10 = 2112;
+    v11 = v5;
+    _os_log_impl(&dword_1C00A7000, v3, OS_LOG_TYPE_DEFAULT, "%@Connection to %@ interrupted", &v8, 0x16u);
   }
 
   v6 = [WeakRetained interruptionHandler];
@@ -25,24 +25,22 @@ void __27___TPSXPCConnection_resume__block_invoke(uint64_t a1)
   {
     (*(v6 + 16))(v6);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __27___TPSXPCConnection_resume__block_invoke_12(uint64_t a1)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 48));
   v3 = +[TPSLogger data];
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = *(a1 + 32);
     v5 = *(a1 + 40);
-    v9 = 138412546;
-    v10 = v4;
-    v11 = 2112;
-    v12 = v5;
-    _os_log_impl(&dword_1C00A7000, v3, OS_LOG_TYPE_DEFAULT, "%@Connection to %@ invalidated", &v9, 0x16u);
+    v8 = 138412546;
+    v9 = v4;
+    v10 = 2112;
+    v11 = v5;
+    _os_log_impl(&dword_1C00A7000, v3, OS_LOG_TYPE_DEFAULT, "%@Connection to %@ invalidated", &v8, 0x16u);
   }
 
   v6 = [WeakRetained invalidationHandler];
@@ -51,8 +49,6 @@ void __27___TPSXPCConnection_resume__block_invoke_12(uint64_t a1)
   {
     (*(v6 + 16))(v6);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __44___TPSXPCConnection_setInterruptionHandler___block_invoke(uint64_t a1)

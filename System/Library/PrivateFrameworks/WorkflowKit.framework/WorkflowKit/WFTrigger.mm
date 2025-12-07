@@ -32,7 +32,7 @@
 
 - (id)localizedPastTenseDescription
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   isAllowedToRunAutomatically = [objc_opt_class() isAllowedToRunAutomatically];
   v4 = getWFTriggersLogObject();
   v5 = v4;
@@ -40,12 +40,12 @@
   {
     if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
     {
-      v11 = 136315394;
-      v12 = "[WFTrigger localizedPastTenseDescription]";
-      v13 = 2114;
-      v14 = objc_opt_class();
-      v6 = v14;
-      _os_log_impl(&dword_1CA256000, v5, OS_LOG_TYPE_FAULT, "%s Subclasses MUST override -localizedPastTenseDescription (but %{public}@ didn't)", &v11, 0x16u);
+      v10 = 136315394;
+      v11 = "[WFTrigger localizedPastTenseDescription]";
+      v12 = 2114;
+      v13 = objc_opt_class();
+      v6 = v13;
+      _os_log_impl(&dword_1CA256000, v5, OS_LOG_TYPE_FAULT, "%s Subclasses MUST override -localizedPastTenseDescription (but %{public}@ didn't)", &v10, 0x16u);
     }
 
     localizedDescriptionWithConfigurationSummary = [(WFTrigger *)self localizedDescriptionWithConfigurationSummary];
@@ -55,60 +55,55 @@
   {
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      v11 = 136315394;
-      v12 = "[WFTrigger localizedPastTenseDescription]";
-      v13 = 2112;
-      v14 = objc_opt_class();
-      v8 = v14;
-      _os_log_impl(&dword_1CA256000, v5, OS_LOG_TYPE_ERROR, "%s Shouldn't have used -localizedPastTenseDescription for %@, because it should always ask before running", &v11, 0x16u);
+      v10 = 136315394;
+      v11 = "[WFTrigger localizedPastTenseDescription]";
+      v12 = 2112;
+      v13 = objc_opt_class();
+      v8 = v13;
+      _os_log_impl(&dword_1CA256000, v5, OS_LOG_TYPE_ERROR, "%s Shouldn't have used -localizedPastTenseDescription for %@, because it should always ask before running", &v10, 0x16u);
     }
 
     localizedDescriptionWithConfigurationSummary = &stru_1F4A1C408;
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 
   return localizedDescriptionWithConfigurationSummary;
 }
 
 - (id)localizedDescriptionWithConfigurationSummary
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v2 = getWFTriggersLogObject();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
   {
-    v9 = 136315394;
-    v10 = "[WFTrigger localizedDescriptionWithConfigurationSummary]";
-    v11 = 2114;
-    v12 = objc_opt_class();
-    v3 = v12;
-    _os_log_impl(&dword_1CA256000, v2, OS_LOG_TYPE_FAULT, "%s Subclasses MUST override -localizedDescriptionWithConfigurationSummary (but %{public}@ didn't)", &v9, 0x16u);
+    v8 = 136315394;
+    v9 = "[WFTrigger localizedDescriptionWithConfigurationSummary]";
+    v10 = 2114;
+    v11 = objc_opt_class();
+    v3 = v11;
+    _os_log_impl(&dword_1CA256000, v2, OS_LOG_TYPE_FAULT, "%s Subclasses MUST override -localizedDescriptionWithConfigurationSummary (but %{public}@ didn't)", &v8, 0x16u);
   }
 
   v4 = objc_opt_class();
   defaultContext = [MEMORY[0x1E69E0BE0] defaultContext];
   v6 = [v4 localizedDisplayNameWithContext:defaultContext];
 
-  v7 = *MEMORY[0x1E69E9840];
-
   return v6;
 }
 
 - (BOOL)hasValidConfiguration
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v2 = getWFTriggersLogObject();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
   {
-    v6 = 136315394;
-    v7 = "[WFTrigger hasValidConfiguration]";
-    v8 = 2114;
-    v9 = objc_opt_class();
-    v3 = v9;
-    _os_log_impl(&dword_1CA256000, v2, OS_LOG_TYPE_FAULT, "%s Subclasses MUST override -hasValidConfiguration (but %{public}@ didn't)", &v6, 0x16u);
+    v5 = 136315394;
+    v6 = "[WFTrigger hasValidConfiguration]";
+    v7 = 2114;
+    v8 = objc_opt_class();
+    v3 = v8;
+    _os_log_impl(&dword_1CA256000, v2, OS_LOG_TYPE_FAULT, "%s Subclasses MUST override -hasValidConfiguration (but %{public}@ didn't)", &v5, 0x16u);
   }
 
-  v4 = *MEMORY[0x1E69E9840];
   return 0;
 }
 
@@ -121,39 +116,37 @@
 
 - (id)offIcon
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v2 = getWFTriggersLogObject();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
   {
     v3 = objc_opt_class();
     v4 = NSStringFromClass(v3);
-    v7 = 136315394;
-    v8 = "[WFTrigger offIcon]";
-    v9 = 2114;
-    v10 = v4;
-    _os_log_impl(&dword_1CA256000, v2, OS_LOG_TYPE_FAULT, "%s Subclass MUST override, but %{public}@ didn't", &v7, 0x16u);
+    v6 = 136315394;
+    v7 = "[WFTrigger offIcon]";
+    v8 = 2114;
+    v9 = v4;
+    _os_log_impl(&dword_1CA256000, v2, OS_LOG_TYPE_FAULT, "%s Subclass MUST override, but %{public}@ didn't", &v6, 0x16u);
   }
 
-  v5 = *MEMORY[0x1E69E9840];
   return 0;
 }
 
 - (id)onIcon
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v2 = getWFTriggersLogObject();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
   {
     v3 = objc_opt_class();
     v4 = NSStringFromClass(v3);
-    v7 = 136315394;
-    v8 = "[WFTrigger onIcon]";
-    v9 = 2114;
-    v10 = v4;
-    _os_log_impl(&dword_1CA256000, v2, OS_LOG_TYPE_FAULT, "%s Subclass MUST override, but %{public}@ didn't", &v7, 0x16u);
+    v6 = 136315394;
+    v7 = "[WFTrigger onIcon]";
+    v8 = 2114;
+    v9 = v4;
+    _os_log_impl(&dword_1CA256000, v2, OS_LOG_TYPE_FAULT, "%s Subclass MUST override, but %{public}@ didn't", &v6, 0x16u);
   }
 
-  v5 = *MEMORY[0x1E69E9840];
   return 0;
 }
 
@@ -218,26 +211,24 @@
 
 - (id)serializedData
 {
-  v15 = *MEMORY[0x1E69E9840];
-  v8 = 0;
-  v3 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:self requiringSecureCoding:1 error:&v8];
-  v4 = v8;
+  v14 = *MEMORY[0x1E69E9840];
+  v7 = 0;
+  v3 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:self requiringSecureCoding:1 error:&v7];
+  v4 = v7;
   if (!v3)
   {
     v5 = getWFTriggersLogObject();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315650;
-      v10 = "[WFTrigger serializedData]";
-      v11 = 2112;
+      v9 = "[WFTrigger serializedData]";
+      v10 = 2112;
       selfCopy = self;
-      v13 = 2114;
-      v14 = v4;
+      v12 = 2114;
+      v13 = v4;
       _os_log_impl(&dword_1CA256000, v5, OS_LOG_TYPE_ERROR, "%s failed to serialize trigger (%@): %{public}@", buf, 0x20u);
     }
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 
   return v3;
 }
@@ -300,77 +291,73 @@
 
 + (id)offLabel
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v2 = getWFTriggersLogObject();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
   {
     v3 = objc_opt_class();
     v4 = NSStringFromClass(v3);
-    v7 = 136315394;
-    v8 = "+[WFTrigger offLabel]";
-    v9 = 2114;
-    v10 = v4;
-    _os_log_impl(&dword_1CA256000, v2, OS_LOG_TYPE_FAULT, "%s Subclass MUST override, but %{public}@ didn't", &v7, 0x16u);
+    v6 = 136315394;
+    v7 = "+[WFTrigger offLabel]";
+    v8 = 2114;
+    v9 = v4;
+    _os_log_impl(&dword_1CA256000, v2, OS_LOG_TYPE_FAULT, "%s Subclass MUST override, but %{public}@ didn't", &v6, 0x16u);
   }
 
-  v5 = *MEMORY[0x1E69E9840];
   return 0;
 }
 
 + (id)onLabel
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v2 = getWFTriggersLogObject();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
   {
     v3 = objc_opt_class();
     v4 = NSStringFromClass(v3);
-    v7 = 136315394;
-    v8 = "+[WFTrigger onLabel]";
-    v9 = 2114;
-    v10 = v4;
-    _os_log_impl(&dword_1CA256000, v2, OS_LOG_TYPE_FAULT, "%s Subclass MUST override, but %{public}@ didn't", &v7, 0x16u);
+    v6 = 136315394;
+    v7 = "+[WFTrigger onLabel]";
+    v8 = 2114;
+    v9 = v4;
+    _os_log_impl(&dword_1CA256000, v2, OS_LOG_TYPE_FAULT, "%s Subclass MUST override, but %{public}@ didn't", &v6, 0x16u);
   }
 
-  v5 = *MEMORY[0x1E69E9840];
   return 0;
 }
 
 + (id)offIcon
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v2 = getWFTriggersLogObject();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
   {
     v3 = objc_opt_class();
     v4 = NSStringFromClass(v3);
-    v7 = 136315394;
-    v8 = "+[WFTrigger offIcon]";
-    v9 = 2114;
-    v10 = v4;
-    _os_log_impl(&dword_1CA256000, v2, OS_LOG_TYPE_FAULT, "%s Subclass MUST override, but %{public}@ didn't", &v7, 0x16u);
+    v6 = 136315394;
+    v7 = "+[WFTrigger offIcon]";
+    v8 = 2114;
+    v9 = v4;
+    _os_log_impl(&dword_1CA256000, v2, OS_LOG_TYPE_FAULT, "%s Subclass MUST override, but %{public}@ didn't", &v6, 0x16u);
   }
 
-  v5 = *MEMORY[0x1E69E9840];
   return 0;
 }
 
 + (id)onIcon
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v2 = getWFTriggersLogObject();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
   {
     v3 = objc_opt_class();
     v4 = NSStringFromClass(v3);
-    v7 = 136315394;
-    v8 = "+[WFTrigger onIcon]";
-    v9 = 2114;
-    v10 = v4;
-    _os_log_impl(&dword_1CA256000, v2, OS_LOG_TYPE_FAULT, "%s Subclass MUST override, but %{public}@ didn't", &v7, 0x16u);
+    v6 = 136315394;
+    v7 = "+[WFTrigger onIcon]";
+    v8 = 2114;
+    v9 = v4;
+    _os_log_impl(&dword_1CA256000, v2, OS_LOG_TYPE_FAULT, "%s Subclass MUST override, but %{public}@ didn't", &v6, 0x16u);
   }
 
-  v5 = *MEMORY[0x1E69E9840];
   return 0;
 }
 
@@ -396,48 +383,46 @@
 
 + (id)localizedDisplayExplanation
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v2 = getWFTriggersLogObject();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
   {
-    v6 = 136315394;
-    v7 = "+[WFTrigger localizedDisplayExplanation]";
-    v8 = 2114;
-    v9 = objc_opt_class();
-    v3 = v9;
-    _os_log_impl(&dword_1CA256000, v2, OS_LOG_TYPE_FAULT, "%s Subclasses MUST override +localizedDisplayExplanation (but %{public}@ didn't)", &v6, 0x16u);
+    v5 = 136315394;
+    v6 = "+[WFTrigger localizedDisplayExplanation]";
+    v7 = 2114;
+    v8 = objc_opt_class();
+    v3 = v8;
+    _os_log_impl(&dword_1CA256000, v2, OS_LOG_TYPE_FAULT, "%s Subclasses MUST override +localizedDisplayExplanation (but %{public}@ didn't)", &v5, 0x16u);
   }
 
-  v4 = *MEMORY[0x1E69E9840];
   return &stru_1F4A1C408;
 }
 
 + (id)localizedDisplayNameWithContext:(id)context
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v3 = getWFTriggersLogObject();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
   {
-    v7 = 136315394;
-    v8 = "+[WFTrigger localizedDisplayNameWithContext:]";
-    v9 = 2114;
-    v10 = objc_opt_class();
-    v4 = v10;
-    _os_log_impl(&dword_1CA256000, v3, OS_LOG_TYPE_FAULT, "%s Subclasses MUST override +localizedDisplayName (but %{public}@ didn't)", &v7, 0x16u);
+    v6 = 136315394;
+    v7 = "+[WFTrigger localizedDisplayNameWithContext:]";
+    v8 = 2114;
+    v9 = objc_opt_class();
+    v4 = v9;
+    _os_log_impl(&dword_1CA256000, v3, OS_LOG_TYPE_FAULT, "%s Subclasses MUST override +localizedDisplayName (but %{public}@ didn't)", &v6, 0x16u);
   }
 
-  v5 = *MEMORY[0x1E69E9840];
   return &stru_1F4A1C408;
 }
 
 + (id)triggerWithSerializedData:(id)data
 {
-  v28[2] = *MEMORY[0x1E69E9840];
+  v27[2] = *MEMORY[0x1E69E9840];
   dataCopy = data;
   v4 = objc_alloc_init(WFTriggerMigrator);
-  v21 = 0;
-  v5 = [objc_alloc(MEMORY[0x1E696ACD0]) initForReadingFromData:dataCopy error:&v21];
-  v6 = v21;
+  v20 = 0;
+  v5 = [objc_alloc(MEMORY[0x1E696ACD0]) initForReadingFromData:dataCopy error:&v20];
+  v6 = v20;
   [v5 setClass:objc_opt_class() forClassName:@"LSApplicationProxy"];
   [v5 setDelegate:v4];
   if (!v5)
@@ -447,9 +432,9 @@
     {
       localizedDescription = [v6 localizedDescription];
       *buf = 136315394;
-      v23 = "+[WFTrigger triggerWithSerializedData:]";
-      v24 = 2112;
-      v25 = localizedDescription;
+      v22 = "+[WFTrigger triggerWithSerializedData:]";
+      v23 = 2112;
+      v24 = localizedDescription;
       _os_log_impl(&dword_1CA256000, v11, OS_LOG_TYPE_ERROR, "%s Failed to create NSKeyedUnarchiver due to error: %@", buf, 0x16u);
     }
 
@@ -457,9 +442,9 @@
   }
 
   v7 = MEMORY[0x1E695DFD8];
-  v28[0] = objc_opt_class();
-  v28[1] = objc_opt_class();
-  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v28 count:2];
+  v27[0] = objc_opt_class();
+  v27[1] = objc_opt_class();
+  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v27 count:2];
   v9 = [v7 setWithArray:v8];
   v10 = [v5 decodeObjectOfClasses:v9 forKey:*MEMORY[0x1E696A508]];
 
@@ -470,11 +455,11 @@
     {
       v18 = [dataCopy length];
       *buf = 136315650;
-      v23 = "+[WFTrigger triggerWithSerializedData:]";
-      v24 = 2048;
-      v25 = v18;
-      v26 = 2114;
-      v27 = v6;
+      v22 = "+[WFTrigger triggerWithSerializedData:]";
+      v23 = 2048;
+      v24 = v18;
+      v25 = 2114;
+      v26 = v6;
       _os_log_impl(&dword_1CA256000, v17, OS_LOG_TYPE_ERROR, "%s Failed to unarchive WFTrigger from data (length=%lu) error: %{public}@", buf, 0x20u);
     }
 
@@ -506,8 +491,6 @@ LABEL_10:
   }
 
 LABEL_12:
-
-  v19 = *MEMORY[0x1E69E9840];
 
   return v12;
 }

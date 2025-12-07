@@ -1,13 +1,13 @@
 @interface LSPlugInKitProxy(IconServicesAdditions)
+- (BOOL)__IS_canProvideIcon;
 - (id)__IS_iconDataForVariant:()IconServicesAdditions withOptions:;
-- (uint64_t)__IS_canProvideIcon;
 - (uint64_t)__IS_isMessagesApp;
 - (uint64_t)__IS_isWatchApp;
 @end
 
 @implementation LSPlugInKitProxy(IconServicesAdditions)
 
-- (uint64_t)__IS_canProvideIcon
+- (BOOL)__IS_canProvideIcon
 {
   if (__IS_canProvideIcon_onceToken != -1)
   {

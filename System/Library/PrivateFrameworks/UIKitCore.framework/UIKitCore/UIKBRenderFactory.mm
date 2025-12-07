@@ -520,8 +520,8 @@ LABEL_15:
   v47[1] = *MEMORY[0x1E69E9840];
   switcherCopy = switcher;
   keyCopy = key;
-  geometry = [switcherCopy geometry];
-  [geometry setDetachedVariants:1];
+  v8 = objc_msgSend_geometry(switcherCopy);
+  [v8 setDetachedVariants:1];
 
   renderConfig = [(UIKBRenderFactory *)self renderConfig];
   lightKeyboard = [renderConfig lightKeyboard];
@@ -575,8 +575,8 @@ LABEL_15:
   v31 = v30;
   v33 = v32;
 
-  geometry2 = [switcherCopy geometry];
-  [geometry2 displayFrame];
+  v34 = objc_msgSend_geometry(switcherCopy);
+  [v34 displayFrame];
   v50.origin.x = v27;
   v50.origin.y = v29;
   v50.size.width = v31;
@@ -587,21 +587,21 @@ LABEL_15:
   width = v49.size.width;
   height = v49.size.height;
 
-  geometry3 = [switcherCopy geometry];
-  [geometry3 setDisplayFrame:{x, y, width, height}];
+  v39 = objc_msgSend_geometry(switcherCopy);
+  [v39 setDisplayFrame:{x, y, width, height}];
 
   v40 = [UIKBRenderGeometry geometryWithFrame:v27 paddedFrame:v29, v31, v33, v27, v29, v31, v33];
   v47[0] = v40;
   v41 = [MEMORY[0x1E695DEC8] arrayWithObjects:v47 count:1];
   [switcherCopy setVariantGeometries:v41];
 
-  geometry4 = [switcherCopy geometry];
-  [geometry4 setPopupBias:40];
+  v42 = objc_msgSend_geometry(switcherCopy);
+  [v42 setPopupBias:40];
 
   [(UIKBRenderFactory *)self keyCornerRadius];
   v44 = v43;
-  geometry5 = [switcherCopy geometry];
-  [geometry5 setRoundRectRadius:v44];
+  v45 = objc_msgSend_geometry(switcherCopy);
+  [v45 setRoundRectRadius:v44];
 }
 
 - (void)modifyTraitsForDividerVariant:(id)variant withKey:(id)key
@@ -678,19 +678,19 @@ LABEL_15:
     v57 = v14;
     [subtrees2 enumerateObjectsUsingBlock:v51];
 
-    geometry = [v18 geometry];
-    [geometry displayFrame];
+    v19 = objc_msgSend_geometry(v18);
+    [v19 displayFrame];
     v21 = v20;
     v23 = v22;
     v25 = v24;
     v27 = v26;
-    geometry2 = [v18 geometry];
-    [geometry2 setDisplayFrame:{v15 + v21, v23 + 0.0, v25 - (v15 + v13), v27 - (0.0 + 0.0)}];
+    v28 = objc_msgSend_geometry(v18);
+    [v28 setDisplayFrame:{v15 + v21, v23 + 0.0, v25 - (v15 + v13), v27 - (0.0 + 0.0)}];
 
-    geometry3 = [v18 geometry];
-    LODWORD(geometry2) = [geometry3 popupBias];
+    v29 = objc_msgSend_geometry(v18);
+    LODWORD(v28) = [v29 popupBias];
 
-    if (geometry2 == 2)
+    if (v28 == 2)
     {
       variantGeometries = [v18 variantGeometries];
       if (variantPopupBias == v50)
@@ -712,24 +712,24 @@ LABEL_15:
 
       [lastObject frame];
       MinX = CGRectGetMinX(v82);
-      geometry4 = [v18 geometry];
-      [geometry4 displayFrame];
+      v35 = objc_msgSend_geometry(v18);
+      [v35 displayFrame];
       v36 = CGRectGetMinX(v83);
 
       [v33 frame];
       MaxX = CGRectGetMaxX(v84);
-      geometry5 = [v18 geometry];
-      [geometry5 displayFrame];
+      v38 = objc_msgSend_geometry(v18);
+      [v38 displayFrame];
       v39 = CGRectGetMaxX(v85);
 
-      geometry6 = [v18 geometry];
-      [geometry6 displayFrame];
+      v40 = objc_msgSend_geometry(v18);
+      [v40 displayFrame];
       v42 = v41;
       v44 = v43;
       v46 = v45;
       v48 = v47;
-      geometry7 = [v18 geometry];
-      [geometry7 setDisplayFrame:{(MinX - v36 + MaxX - v39) * 0.5 + v42, v44 + 0.0, v46 - ((MinX - v36 + MaxX - v39) * 0.5 - (MinX - v36 + MaxX - v39) * 0.5), v48}];
+      v49 = objc_msgSend_geometry(v18);
+      [v49 setDisplayFrame:{(MinX - v36 + MaxX - v39) * 0.5 + v42, v44 + 0.0, v46 - ((MinX - v36 + MaxX - v39) * 0.5 - (MinX - v36 + MaxX - v39) * 0.5), v48}];
     }
   }
 
@@ -760,7 +760,7 @@ void __59__UIKBRenderFactory_modifyTraitsForDividerVariant_withKey___block_invok
       *(v17 + 40) = v16;
       [v34 frame];
       MidX = CGRectGetMidX(v36);
-      v19 = [*(a1 + 32) geometry];
+      v19 = objc_msgSend_geometry(*(a1 + 32));
       [v19 frame];
       v20 = MidX > CGRectGetMidX(v37);
     }
@@ -770,7 +770,7 @@ void __59__UIKBRenderFactory_modifyTraitsForDividerVariant_withKey___block_invok
       *(v17 + 56) = v16;
       [v34 frame];
       v29 = CGRectGetMidX(v38);
-      v19 = [*(a1 + 32) geometry];
+      v19 = objc_msgSend_geometry(*(a1 + 32));
       [v19 frame];
       v20 = v29 >= CGRectGetMidX(v39);
     }
@@ -908,12 +908,12 @@ void __59__UIKBRenderFactory_modifyTraitsForDividerVariant_withKey___block_invok
 {
   v34 = *MEMORY[0x1E69E9840];
   traitsCopy = traits;
-  geometry = [traitsCopy geometry];
-  [geometry roundRectRadius];
+  v5 = objc_msgSend_geometry(traitsCopy);
+  [v5 roundRectRadius];
   [(UIKBRenderFactory *)self RivenFactor:?];
   v7 = v6;
-  geometry2 = [traitsCopy geometry];
-  [geometry2 setRoundRectRadius:v7];
+  v8 = objc_msgSend_geometry(traitsCopy);
+  [v8 setRoundRectRadius:v7];
 
   symbolStyle = [traitsCopy symbolStyle];
   [symbolStyle fontSize];
@@ -1045,8 +1045,8 @@ void __59__UIKBRenderFactory_modifyTraitsForDividerVariant_withKey___block_invok
 
   [(UIKBRenderFactory *)self keyCornerRadius];
   v7 = v6;
-  geometry = [traitsCopy geometry];
-  [geometry setRoundRectRadius:v7];
+  v8 = objc_msgSend_geometry(traitsCopy);
+  [v8 setRoundRectRadius:v7];
 
   [traitsCopy setBlurBlending:1];
 }
@@ -1339,7 +1339,7 @@ LABEL_35:
 
   if (!-[UIKBRenderFactory lightweightFactory](self, "lightweightFactory") && [keyCopy displayTypeHint] != 12)
   {
-    geometry = [v8 geometry];
+    v74 = objc_msgSend_geometry(v8);
     symbolStyle = [v8 symbolStyle];
     controlOpacities = [v8 controlOpacities];
     blendForm2 = [v8 blendForm];
@@ -1349,7 +1349,7 @@ LABEL_35:
     v62 = symbolStyle;
     v63 = blurBlending;
     segmentTraits = v59;
-    v64 = [(UIKBRenderFactory *)self traitsHashStringForKey:keyCopy withGeometry:geometry withSymbolStyle:symbolStyle controlOpacities:controlOpacities blendForm:blendForm2 blurBlending:v63 renderConfig:renderConfig2];
+    v64 = [(UIKBRenderFactory *)self traitsHashStringForKey:keyCopy withGeometry:v74 withSymbolStyle:symbolStyle controlOpacities:controlOpacities blendForm:blendForm2 blurBlending:v63 renderConfig:renderConfig2];
     [v8 setHashString:v64];
   }
 
@@ -1600,12 +1600,12 @@ LABEL_11:
     if (displayType == 13)
     {
       representedString = [keyCopy representedString];
-      v17 = [representedString isEqualToString:@"EmojiInternational"];
+      isEqualToString = objc_msgSend_isEqualToString_(representedString);
 
-      if (!v17)
+      if (!isEqualToString)
       {
         overrideDisplayString = [keyCopy overrideDisplayString];
-        v25 = [overrideDisplayString isEqualToString:@"emoji"];
+        v25 = objc_msgSend_isEqualToString_(overrideDisplayString);
 
         if (!v25)
         {
@@ -1765,7 +1765,7 @@ LABEL_104:
       if ([keyCopy displayTypeHint] != 11)
       {
         displayString5 = [keyCopy displayString];
-        if ([displayString5 isEqualToString:@"undo"])
+        if (objc_msgSend_isEqualToString_(displayString5))
         {
           renderConfig3 = [(UIKBRenderFactory *)self renderConfig];
           colorAdaptiveBackground = [renderConfig3 colorAdaptiveBackground];
@@ -1789,7 +1789,7 @@ LABEL_20:
       goto LABEL_36;
     case 0xCu:
       displayString6 = [keyCopy displayString];
-      if ([displayString6 isEqualToString:@"redo"])
+      if (objc_msgSend_isEqualToString_(displayString6))
       {
         renderConfig4 = [(UIKBRenderFactory *)self renderConfig];
         colorAdaptiveBackground2 = [renderConfig4 colorAdaptiveBackground];
@@ -1826,7 +1826,7 @@ LABEL_121:
         else
         {
           displayString7 = [keyCopy displayString];
-          v106 = [displayString7 isEqualToString:@"゛゜小"];
+          v106 = objc_msgSend_isEqualToString_(displayString7);
 
           if (!v106)
           {
@@ -2014,7 +2014,7 @@ LABEL_167:
 
 LABEL_142:
   representedString2 = [keyCopy representedString];
-  v87 = [representedString2 isEqualToString:@"‌"];
+  v87 = objc_msgSend_isEqualToString_(representedString2);
 
   if (v87)
   {
@@ -2023,7 +2023,7 @@ LABEL_142:
   }
 
   displayString13 = [keyCopy displayString];
-  v90 = [displayString13 isEqualToString:@"Search"];
+  v90 = objc_msgSend_isEqualToString_(displayString13);
 
   if (!v90)
   {
@@ -2178,7 +2178,7 @@ LABEL_81:
     }
 
     overrideDisplayString8 = [keyCopy overrideDisplayString];
-    if (!overrideDisplayString8 || (v52 = overrideDisplayString8, [keyCopy overrideDisplayString], v53 = objc_claimAutoreleasedReturnValue(), objc_msgSend(keyCopy, "displayString"), v54 = objc_claimAutoreleasedReturnValue(), v55 = objc_msgSend(v53, "isEqualToString:", v54), v54, v53, v52, (v55 & 1) != 0))
+    if (!overrideDisplayString8 || (v52 = overrideDisplayString8, [keyCopy overrideDisplayString], v53 = objc_claimAutoreleasedReturnValue(), objc_msgSend(keyCopy, "displayString"), v54 = objc_claimAutoreleasedReturnValue(), v55 = objc_msgSend_isEqualToString_(v53), v54, v53, v52, (v55 & 1) != 0))
     {
       renderConfig5 = [(UIKBRenderFactory *)self renderConfig];
       if ([renderConfig5 colorAdaptiveBackground])
@@ -2189,14 +2189,14 @@ LABEL_76:
       }
 
       displayString19 = [v5 displayString];
-      if ([displayString19 isEqualToString:@"⮐"])
+      if (objc_msgSend_isEqualToString_(displayString19))
       {
 
         goto LABEL_76;
       }
 
       displayString20 = [v5 displayString];
-      v62 = [displayString20 isEqualToString:@"⮑"];
+      v62 = objc_msgSend_isEqualToString_(displayString20);
 
       if (v62)
       {
@@ -2310,21 +2310,21 @@ LABEL_15:
       v6 = overrideDisplayString;
       overrideDisplayString2 = [keyCopy overrideDisplayString];
       displayString = [keyCopy displayString];
-      v9 = [overrideDisplayString2 isEqualToString:displayString];
+      isEqualToString = objc_msgSend_isEqualToString_(overrideDisplayString2);
     }
 
     else
     {
-      v9 = 1;
+      isEqualToString = 1;
     }
   }
 
   else
   {
-    v9 = 0;
+    isEqualToString = 0;
   }
 
-  return v9 & 1;
+  return isEqualToString & 1;
 }
 
 - (void)addLayoutSegment:(id)segment
@@ -2669,8 +2669,8 @@ LABEL_6:
   v89.size.width = v34;
   v89.size.height = v36;
   v49 = Width - CGRectGetMaxX(v89);
-  geometry = [rect_24 geometry];
-  [geometry setLayoutMargins:{rect_16, rect_8, v47, v49}];
+  v50 = objc_msgSend_geometry(rect_24);
+  [v50 setLayoutMargins:{rect_16, rect_8, v47, v49}];
 
   [v26 popupRect];
   v52 = v51;
@@ -2697,12 +2697,12 @@ LABEL_6:
   y = v92.origin.y;
   v73 = v92.size.width;
   v74 = v92.size.height;
-  geometry2 = [rect_24 geometry];
-  [geometry2 setDisplayFrame:{x, y, v73, v74}];
+  v75 = objc_msgSend_geometry(rect_24);
+  [v75 setDisplayFrame:{x, y, v73, v74}];
 
   [rect_24 setBlurBlending:1];
-  geometry3 = [rect_24 geometry];
-  [geometry3 setPopupBias:40];
+  v76 = objc_msgSend_geometry(rect_24);
+  [v76 setPopupBias:40];
 
   v77 = [UIKBTextStyle styleWithFontName:nameCopy withFallbackFontName:fontNameCopy withFontSize:22.0];
 
@@ -2782,27 +2782,27 @@ void __51__UIKBRenderFactory__characterSetForGlyphSelectors__block_invoke()
   return v7;
 }
 
-void __51__UIKBRenderFactory_glyphSelectorForDisplayString___block_invoke()
+void __51__UIKBRenderFactory_glyphSelectorForDisplayString___block_invoke(uint64_t a1)
 {
-  v11[1] = *MEMORY[0x1E69E9840];
-  v0 = MEMORY[0x1E695DF58];
-  v1 = _UIKitBundle();
-  v2 = [v1 preferredLocalizations];
-  v3 = [v2 firstObject];
-  v4 = [v0 canonicalLanguageIdentifierFromString:v3];
+  v12[1] = *MEMORY[0x1E69E9840];
+  v1 = MEMORY[0x1E695DF58];
+  v2 = _UIKitBundle();
+  v3 = [v2 preferredLocalizations];
+  v4 = [v3 firstObject];
+  v5 = [v1 canonicalLanguageIdentifierFromString:v4];
 
-  v5 = [MEMORY[0x1E695DF58] componentsFromLocaleIdentifier:v4];
-  v6 = [v5 objectForKey:*MEMORY[0x1E695D9B0]];
-  LODWORD(v3) = [v6 isEqualToString:@"zh"];
+  v6 = [MEMORY[0x1E695DF58] componentsFromLocaleIdentifier:v5];
+  v7 = [v6 objectForKey:*MEMORY[0x1E695D9B0]];
+  LODWORD(v4) = objc_msgSend_isEqualToString_(v7);
 
-  if (v3)
+  if (v4)
   {
-    v7 = [objc_opt_class() _characterSetForGlyphSelectors];
-    v10 = v7;
-    v11[0] = &unk_1EFE31198;
-    v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:&v10 count:1];
-    v9 = qword_1ED49F118;
-    qword_1ED49F118 = v8;
+    v8 = [objc_opt_class() _characterSetForGlyphSelectors];
+    v11 = v8;
+    v12[0] = &unk_1EFE31198;
+    v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:&v11 count:1];
+    v10 = qword_1ED49F118;
+    qword_1ED49F118 = v9;
   }
 }
 

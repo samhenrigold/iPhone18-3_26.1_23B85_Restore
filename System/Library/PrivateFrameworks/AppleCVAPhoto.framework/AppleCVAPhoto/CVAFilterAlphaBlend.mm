@@ -11,19 +11,19 @@
 {
   queueCopy = queue;
   callbackCopy = callback;
-  [(CVAFilterAlphaBlend *)self getTexturePlanesFromPixelBuffer:*buffer.m_ptr usage:1];
+  objc_msgSend_getTexturePlanesFromPixelBuffer_usage_(self);
   v31 = v45;
   v32 = v44;
   v44 = 0;
   v45 = 0;
 
-  [(CVAFilterAlphaBlend *)self getTexturePlanesFromPixelBuffer:*second.m_ptr usage:1];
+  objc_msgSend_getTexturePlanesFromPixelBuffer_usage_(self);
   v14 = v44;
   v15 = v45;
   v44 = 0;
   v45 = 0;
 
-  [(CVAFilterAlphaBlend *)self getTexturePlanesFromPixelBuffer:*pixelBuffer.m_ptr usage:2];
+  objc_msgSend_getTexturePlanesFromPixelBuffer_usage_(self);
   v16 = v44;
   v17 = v45;
   v44 = 0;

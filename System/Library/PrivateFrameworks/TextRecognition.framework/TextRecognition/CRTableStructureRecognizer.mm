@@ -236,7 +236,7 @@ LABEL_15:
 
 - (CRTableStructureRecognizerInputFeatures)extractFeaturesFromImage:(SEL)image numConfigurationRegions:(id)regions lines:(int64_t)lines
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   regionsCopy = regions;
   v11 = a6;
   v12 = [v11 count];
@@ -248,43 +248,44 @@ LABEL_15:
     _os_log_impl(&dword_1B40D2000, v13, OS_LOG_TYPE_DEBUG, "Num Regions: %d", buf, 8u);
   }
 
-  [(CRTableStructureRecognizer *)self normalizedLineRegions:v11 numConfigurationRegions:lines usingMinMaxNorm:_regionMinMaxNorm];
+  objc_msgSend_normalizedLineRegions_numConfigurationRegions_usingMinMaxNorm_(self);
   v14 = [regionsCopy imageByScalingToWidth:_modelImageSize height:_modelImageSize];
   v15 = v14;
   *buf = 0u;
-  v23 = 0u;
+  v24 = 0u;
   if (v14)
   {
-    [v14 createFloatBuffer];
+    objc_msgSend_createFloatBuffer(v14);
   }
 
-  std::vector<float>::vector[abi:ne200100](&__b, lines);
+  v18 = 0;
+  std::vector<float>::vector[abi:ne200100](&__b, lines, &v18);
   memset(__b, 1, 4 * v12);
   *&retstr->var0.var0 = 0u;
   *&retstr->var0.var2 = 0u;
   *&retstr->var1.var1 = 0u;
   if (&__p != retstr)
   {
-    std::vector<float>::__assign_with_size[abi:ne200100]<float *,float *>(retstr, __p, v21, (v21 - __p) >> 2);
+    std::vector<float>::__assign_with_size[abi:ne200100]<float *,float *>(retstr, __p, v22, (v22 - __p) >> 2);
   }
 
   if (&retstr->var1 != &__b)
   {
-    std::vector<float>::__assign_with_size[abi:ne200100]<float *,float *>(&retstr->var1.var0, __b, v19, (v19 - __b) >> 2);
+    std::vector<float>::__assign_with_size[abi:ne200100]<float *,float *>(&retstr->var1, __b, v20, (v20 - __b) >> 2);
   }
 
-  v16 = v23;
+  v16 = v24;
   *&retstr->var2.data = *buf;
   *&retstr->var2.width = v16;
   if (__b)
   {
-    v19 = __b;
+    v20 = __b;
     operator delete(__b);
   }
 
   if (__p)
   {
-    v21 = __p;
+    v22 = __p;
     operator delete(__p);
   }
 
@@ -556,7 +557,7 @@ LABEL_25:
     _os_signpost_emit_with_name_impl(&dword_1B40D2000, v98, OS_SIGNPOST_INTERVAL_BEGIN, v96, "OCRTableStructureInferenceTime", "", buf, 2u);
   }
 
-  [(CRTableStructureRecognizer *)self extractFeaturesFromImage:v117 numConfigurationRegions:v58 lines:v62];
+  objc_msgSend_extractFeaturesFromImage_numConfigurationRegions_lines_(self);
   v99 = [(CRTableStructureRecognizer *)self recognizeTableStructure:&v160 numConfigurationRegions:v58];
   if (CRSignpostLog_onceToken != -1)
   {
@@ -576,7 +577,7 @@ LABEL_25:
     goto LABEL_80;
   }
 
-  [v99 programTokenIdxs];
+  objc_msgSend_programTokenIdxs(v99);
   v102 = *&buf[8];
   v103 = *buf;
   if (*buf)
@@ -599,7 +600,7 @@ LABEL_80:
     goto LABEL_95;
   }
 
-  [v99 programTokenIdxs];
+  objc_msgSend_programTokenIdxs(v99);
   v104 = **buf;
   noTableIndex = self->_noTableIndex;
   *&buf[8] = *buf;
@@ -614,7 +615,7 @@ LABEL_80:
     }
   }
 
-  [(CRTableStructureRecognizer *)self parseResult:v99];
+  objc_msgSend_parseResult_(self);
   v107 = CROSLogForCategory(5);
   if (os_log_type_enabled(v107, OS_LOG_TYPE_DEBUG))
   {
@@ -875,7 +876,7 @@ LABEL_15:
   v100 = 0;
   v101 = 0;
   std::vector<unsigned long>::__init_with_size[abi:ne200100]<unsigned long const*,unsigned long const*>(&v100, &__p, v107, 4uLL);
-  v17 = CoreRecognition::EspressoModelWrapper::bindInput(v15, v16);
+  v17 = CoreRecognition::EspressoModelWrapper::bindInput(v15, v16, "line_regions", &v100);
   if (v100)
   {
     v101 = v100;
@@ -896,7 +897,7 @@ LABEL_15:
   v100 = 0;
   v101 = 0;
   std::vector<unsigned long>::__init_with_size[abi:ne200100]<unsigned long const*,unsigned long const*>(&v100, &__p, v107, 4uLL);
-  v20 = CoreRecognition::EspressoModelWrapper::bindInput(v18, v19);
+  v20 = CoreRecognition::EspressoModelWrapper::bindInput(v18, v19, "image", &v100);
   if (v100)
   {
     v101 = v100;
@@ -917,7 +918,7 @@ LABEL_15:
   v100 = 0;
   v101 = 0;
   std::vector<unsigned long>::__init_with_size[abi:ne200100]<unsigned long const*,unsigned long const*>(&v100, &__p, v107, 4uLL);
-  v23 = CoreRecognition::EspressoModelWrapper::bindInput(v21, v22);
+  v23 = CoreRecognition::EspressoModelWrapper::bindInput(v21, v22, "mask", &v100);
   if (v100)
   {
     v101 = v100;
@@ -993,8 +994,8 @@ LABEL_24:
       v92 = 0;
       v93 = 0;
       v91 = 0;
-      std::vector<unsigned long>::__init_with_size[abi:ne200100]<unsigned long const*,unsigned long const*>(&v91, &buf, &__p, 4uLL);
-      v33 = CoreRecognition::EspressoModelWrapper::bindInput(v30, v31);
+      std::vector<unsigned long>::__init_with_size[abi:ne200100]<unsigned long const*,unsigned long const*>(&v91, buf.i64, &__p, 4uLL);
+      v33 = CoreRecognition::EspressoModelWrapper::bindInput(v30, v31, "y_prev", &v91);
       if (v91)
       {
         v92 = v91;
@@ -1013,8 +1014,8 @@ LABEL_24:
       v92 = 0;
       v93 = 0;
       v91 = 0;
-      std::vector<unsigned long>::__init_with_size[abi:ne200100]<unsigned long const*,unsigned long const*>(&v91, &buf, &__p, 4uLL);
-      v36 = CoreRecognition::EspressoModelWrapper::bindInput(v34, v35);
+      std::vector<unsigned long>::__init_with_size[abi:ne200100]<unsigned long const*,unsigned long const*>(&v91, buf.i64, &__p, 4uLL);
+      v36 = CoreRecognition::EspressoModelWrapper::bindInput(v34, v35, "decoder_state_h", &v91);
       if (v91)
       {
         v92 = v91;
@@ -1033,8 +1034,8 @@ LABEL_24:
       v92 = 0;
       v93 = 0;
       v91 = 0;
-      std::vector<unsigned long>::__init_with_size[abi:ne200100]<unsigned long const*,unsigned long const*>(&v91, &buf, &__p, 4uLL);
-      v39 = CoreRecognition::EspressoModelWrapper::bindInput(v37, v38);
+      std::vector<unsigned long>::__init_with_size[abi:ne200100]<unsigned long const*,unsigned long const*>(&v91, buf.i64, &__p, 4uLL);
+      v39 = CoreRecognition::EspressoModelWrapper::bindInput(v37, v38, "decoder_state_c", &v91);
       if (v91)
       {
         v92 = v91;
@@ -1054,8 +1055,8 @@ LABEL_24:
       v92 = 0;
       v93 = 0;
       v91 = 0;
-      std::vector<unsigned long>::__init_with_size[abi:ne200100]<unsigned long const*,unsigned long const*>(&v91, &buf, &__p, 4uLL);
-      v42 = CoreRecognition::EspressoModelWrapper::bindInput(v40, v41);
+      std::vector<unsigned long>::__init_with_size[abi:ne200100]<unsigned long const*,unsigned long const*>(&v91, buf.i64, &__p, 4uLL);
+      v42 = CoreRecognition::EspressoModelWrapper::bindInput(v40, v41, "encoded_regions_projected", &v91);
       if (v91)
       {
         v92 = v91;
@@ -1075,8 +1076,8 @@ LABEL_24:
       v92 = 0;
       v93 = 0;
       v91 = 0;
-      std::vector<unsigned long>::__init_with_size[abi:ne200100]<unsigned long const*,unsigned long const*>(&v91, &buf, &__p, 4uLL);
-      v45 = CoreRecognition::EspressoModelWrapper::bindInput(v43, v44);
+      std::vector<unsigned long>::__init_with_size[abi:ne200100]<unsigned long const*,unsigned long const*>(&v91, buf.i64, &__p, 4uLL);
+      v45 = CoreRecognition::EspressoModelWrapper::bindInput(v43, v44, "encoded_regions", &v91);
       if (v91)
       {
         v92 = v91;
@@ -1096,8 +1097,8 @@ LABEL_24:
       v92 = 0;
       v93 = 0;
       v91 = 0;
-      std::vector<unsigned long>::__init_with_size[abi:ne200100]<unsigned long const*,unsigned long const*>(&v91, &buf, &__p, 4uLL);
-      v48 = CoreRecognition::EspressoModelWrapper::bindInput(v46, v47);
+      std::vector<unsigned long>::__init_with_size[abi:ne200100]<unsigned long const*,unsigned long const*>(&v91, buf.i64, &__p, 4uLL);
+      v48 = CoreRecognition::EspressoModelWrapper::bindInput(v46, v47, "mask", &v91);
       if (v91)
       {
         v92 = v91;
@@ -1482,7 +1483,7 @@ LABEL_26:
 
 - (CRTableStructureRecognizerResultParsed)parseResult:(SEL)result
 {
-  v87 = *MEMORY[0x1E69E9840];
+  v88 = *MEMORY[0x1E69E9840];
   v6 = a4;
   v7 = v6;
   *&retstr->rowHeights.__begin_ = 0u;
@@ -1498,14 +1499,14 @@ LABEL_26:
     goto LABEL_114;
   }
 
-  [v6 programTokenIdxs];
+  objc_msgSend_programTokenIdxs(v6);
   v8 = *buf;
   if (*&buf[8] != *buf)
   {
-    [v7 programTokenIdxs];
+    objc_msgSend_programTokenIdxs(v7);
     v9 = *__p;
     rowsIndex = self->_rowsIndex;
-    v81 = __p;
+    v82 = __p;
     operator delete(__p);
     if (*buf)
     {
@@ -1518,8 +1519,8 @@ LABEL_26:
       goto LABEL_114;
     }
 
-    v79 = 1;
-    [v7 programTokenIdxs];
+    v80 = 1;
+    objc_msgSend_programTokenIdxs(v7);
     v11 = *buf;
     if (*&buf[8] - *buf < 5uLL)
     {
@@ -1532,9 +1533,9 @@ LABEL_26:
 
     else
     {
-      [v7 programTokenIdxs];
-      v12 = self->_rowsIndex == *(__p + v79);
-      v81 = __p;
+      objc_msgSend_programTokenIdxs(v7);
+      v12 = self->_rowsIndex == *(__p + v80);
+      v82 = __p;
       operator delete(__p);
       v11 = *buf;
       if (!*buf)
@@ -1542,75 +1543,74 @@ LABEL_26:
 LABEL_13:
         if (v12)
         {
-          ++v79;
+          ++v80;
         }
 
-        [v7 programTokenIdxs];
-        [(CRTableStructureRecognizer *)self readBinValuesStartingAtIndex:&v79 tokenIndexes:v78];
-        if (v78[0])
+        objc_msgSend_programTokenIdxs(v7);
+        objc_msgSend_readBinValuesStartingAtIndex_tokenIndexes_(self);
+        if (v78)
         {
-          v78[1] = v78[0];
-          operator delete(v78[0]);
+          v79 = v78;
+          operator delete(v78);
         }
 
         v8 = __p;
-        if (__p == v81)
+        if (__p == v82)
         {
           goto LABEL_111;
         }
 
-        v13 = v79;
-        [v7 programTokenIdxs];
-        v14 = *buf;
-        if (v13 >= (*&buf[8] - *buf) >> 2)
+        objc_msgSend_programTokenIdxs(v7);
+        v13 = *buf;
+        if (v80 >= ((*&buf[8] - *buf) >> 2))
         {
-          v15 = 1;
+          v14 = 1;
           if (!*buf)
           {
 LABEL_23:
-            if (v15)
+            if (v14)
             {
               goto LABEL_110;
             }
 
-            v16 = ++v79;
-            [v7 programTokenIdxs];
-            v17 = *buf;
-            if (v16 >= (*&buf[8] - *buf) >> 2)
+            v15 = ++v80;
+            objc_msgSend_programTokenIdxs(v7);
+            v16 = *buf;
+            if (v15 >= (*&buf[8] - *buf) >> 2)
             {
-              v18 = 0;
+              v17 = 0;
             }
 
             else
             {
-              [v7 programTokenIdxs];
-              v18 = self->_colsIndex == *(v76 + v79);
+              objc_msgSend_programTokenIdxs(v7);
+              v17 = self->_colsIndex == *(v76 + v80);
               v77 = v76;
               operator delete(v76);
-              v17 = *buf;
+              v16 = *buf;
+            }
+
+            if (v16)
+            {
+              *&buf[8] = v16;
+              operator delete(v16);
             }
 
             if (v17)
             {
-              *&buf[8] = v17;
-              operator delete(v17);
+              ++v80;
             }
 
-            if (v18)
+            objc_msgSend_programTokenIdxs(v7);
+            objc_msgSend_readBinValuesStartingAtIndex_tokenIndexes_(self);
+            if (v74)
             {
-              ++v79;
+              v75 = v74;
+              operator delete(v74);
             }
 
-            [v7 programTokenIdxs];
-            [(CRTableStructureRecognizer *)self readBinValuesStartingAtIndex:&v79 tokenIndexes:v75];
-            if (v75[0])
-            {
-              v75[1] = v75[0];
-              operator delete(v75[0]);
-            }
-
-            v19 = v76;
-            v20 = v77;
+            v18 = v76;
+            v19 = v77;
             if (v76 == v77)
             {
               goto LABEL_108;
@@ -1618,60 +1618,60 @@ LABEL_23:
 
             if (&retstr->rowHeights != &__p)
             {
-              std::vector<double>::__assign_with_size[abi:ne200100]<double *,double *>(&retstr->rowHeights.__begin_, __p, v81, (v81 - __p) >> 3);
-              v19 = v76;
-              v20 = v77;
+              std::vector<double>::__assign_with_size[abi:ne200100]<double *,double *>(&retstr->rowHeights, __p, v82, (v82 - __p) >> 3);
+              v18 = v76;
+              v19 = v77;
             }
 
             if (&retstr->columnWidths != &v76)
             {
-              std::vector<double>::__assign_with_size[abi:ne200100]<double *,double *>(&retstr->columnWidths.__begin_, v19, v20, (v20 - v19) >> 3);
-              v19 = v76;
-              v20 = v77;
+              std::vector<double>::__assign_with_size[abi:ne200100]<double *,double *>(&retstr->columnWidths, v18, v19, (v19 - v18) >> 3);
+              v18 = v76;
+              v19 = v77;
             }
 
-            retstr->numRows = (v81 - __p) >> 3;
-            retstr->numColumns = (v20 - v19) >> 3;
-            v21 = v79;
-            [v7 programTokenIdxs];
-            v23 = *buf;
-            if (v21 >= (*&buf[8] - *buf) >> 2)
+            retstr->numRows = (v82 - __p) >> 3;
+            retstr->numColumns = (v19 - v18) >> 3;
+            v20 = v80;
+            objc_msgSend_programTokenIdxs(v7);
+            v22 = *buf;
+            if (v20 >= (*&buf[8] - *buf) >> 2)
             {
-              v24 = 0;
+              v23 = 0;
             }
 
             else
             {
-              [v7 programTokenIdxs];
-              v24 = self->_eopIndex == *(v72 + v79);
-              v73 = v72;
-              operator delete(v72);
-              v23 = *buf;
+              objc_msgSend_programTokenIdxs(v7);
+              v23 = self->_eopIndex == *(v71 + v80);
+              v72 = v71;
+              operator delete(v71);
+              v22 = *buf;
+            }
+
+            if (v22)
+            {
+              *&buf[8] = v22;
+              operator delete(v22);
             }
 
             if (v23)
-            {
-              *&buf[8] = v23;
-              operator delete(v23);
-            }
-
-            if (v24)
             {
               retstr->valid = 1;
               goto LABEL_107;
             }
 
+            v71 = 0;
             v72 = 0;
+            v24 = &off_1EB894000;
             v73 = 0;
-            v25 = &off_1EB894000;
-            v74 = 0;
-            v26 = v79;
-            *&v22 = 134218752;
-            v70 = v22;
+            v25 = v80;
+            *&v21 = 134218752;
+            v69 = v21;
             while (1)
             {
-              [v7 programTokenIdxs];
-              if (v26 >= ((*&buf[8] - *buf) >> 2))
+              objc_msgSend_programTokenIdxs(v7, v69);
+              if (v25 >= ((*&buf[8] - *buf) >> 2))
               {
                 if (*buf)
                 {
@@ -1680,14 +1680,14 @@ LABEL_23:
                 }
 
 LABEL_96:
-                if (&retstr->merges != &v72)
+                if (&retstr->merges != &v71)
                 {
-                  std::vector<CRTableStructureMerge>::__assign_with_size[abi:ne200100]<CRTableStructureMerge*,CRTableStructureMerge*>(&retstr->merges.__begin_, v72, v73, (v73 - v72) >> 5);
+                  std::vector<CRTableStructureMerge>::__assign_with_size[abi:ne200100]<CRTableStructureMerge*,CRTableStructureMerge*>(&retstr->merges, v71, v72, (v72 - v71) >> 5);
                 }
 
-                v66 = v79;
-                [v7 programTokenIdxs];
-                if (v66 >= (*&buf[8] - *buf) >> 2)
+                v65 = v80;
+                objc_msgSend_programTokenIdxs(v7);
+                if (v65 >= (*&buf[8] - *buf) >> 2)
                 {
                   if (*buf)
                   {
@@ -1698,36 +1698,36 @@ LABEL_96:
 
                 else
                 {
-                  [v7 programTokenIdxs];
-                  v67 = v71[v79];
+                  objc_msgSend_programTokenIdxs(v7);
+                  v66 = v70[v80];
                   eopIndex = self->_eopIndex;
-                  operator delete(v71);
+                  operator delete(v70);
                   if (*buf)
                   {
                     *&buf[8] = *buf;
                     operator delete(*buf);
                   }
 
-                  if (eopIndex == v67)
+                  if (eopIndex == v66)
                   {
 LABEL_102:
                     retstr->valid = 1;
                   }
                 }
 
-                if (v72)
+                if (v71)
                 {
-                  v73 = v72;
-                  operator delete(v72);
+                  v72 = v71;
+                  operator delete(v71);
                 }
 
 LABEL_107:
-                v19 = v76;
+                v18 = v76;
 LABEL_108:
-                if (v19)
+                if (v18)
                 {
-                  v77 = v19;
-                  operator delete(v19);
+                  v77 = v18;
+                  operator delete(v18);
                 }
 
 LABEL_110:
@@ -1735,7 +1735,7 @@ LABEL_110:
 LABEL_111:
                 if (v8)
                 {
-                  v81 = v8;
+                  v82 = v8;
 LABEL_113:
                   operator delete(v8);
                 }
@@ -1743,71 +1743,71 @@ LABEL_113:
                 goto LABEL_114;
               }
 
-              [v7 programTokenIdxs];
-              v27 = v71[v79];
+              objc_msgSend_programTokenIdxs(v7);
+              v26 = v70[v80];
               mergeIndex = self->_mergeIndex;
-              operator delete(v71);
+              operator delete(v70);
               if (*buf)
               {
                 *&buf[8] = *buf;
                 operator delete(*buf);
               }
 
-              if (mergeIndex != v27)
+              if (mergeIndex != v26)
               {
                 goto LABEL_96;
               }
 
-              v29 = v79;
-              v30 = v25[363];
-              [v7 programTokenIdxs];
-              v31 = *buf;
-              v32 = *&buf[8];
+              v28 = v80;
+              v29 = v24[363];
+              objc_msgSend_programTokenIdxs(v7);
+              v30 = *buf;
+              v31 = *&buf[8];
               if (*buf)
               {
                 *&buf[8] = *buf;
                 operator delete(*buf);
               }
 
-              if (&v30[v29] >= (v32 - v31) >> 2)
+              if (&v29[v28] >= (v31 - v30) >> 2)
               {
                 goto LABEL_102;
               }
 
-              ++v79;
-              if (v25[363])
+              ++v80;
+              if (v24[363])
               {
-                v33 = 0;
+                v32 = 0;
                 while (1)
                 {
                   p_numColumns = &retstr->numColumns;
-                  if ((v33 & 1) == 0)
+                  if ((v32 & 1) == 0)
                   {
                     p_numColumns = retstr;
                   }
 
                   numRows = p_numColumns->numRows;
-                  [v7 programTokenIdxs];
-                  if (self->_lowestNumberIndex > *(*buf + 4 * (v33 + v79)))
+                  objc_msgSend_programTokenIdxs(v7);
+                  if (self->_lowestNumberIndex > *(*buf + 4 * (v32 + v80)))
                   {
                     break;
                   }
 
-                  [v7 programTokenIdxs];
-                  v36 = v71[v33 + v79];
-                  operator delete(v71);
+                  objc_msgSend_programTokenIdxs(v7);
+                  v35 = v70[v32 + v80];
+                  operator delete(v70);
                   if (*buf)
                   {
                     *&buf[8] = *buf;
                     operator delete(*buf);
                   }
 
-                  if (numRows < v36)
+                  if (numRows < v35)
                   {
                     goto LABEL_84;
                   }
 
-                  if (v25[363] <= ++v33)
+                  if (v24[363] <= ++v32)
                   {
                     goto LABEL_62;
                   }
@@ -1816,14 +1816,14 @@ LABEL_113:
                 *&buf[8] = *buf;
                 operator delete(*buf);
 LABEL_84:
-                [v7 programTokenIdxs];
-                v60 = *(*buf + 4 * (v79 + v33));
-                v61 = self->_mergeIndex;
+                objc_msgSend_programTokenIdxs(v7);
+                v59 = *(*buf + 4 * (v80 + v32));
+                v60 = self->_mergeIndex;
                 *&buf[8] = *buf;
                 operator delete(*buf);
-                if (v61 == v60)
+                if (v60 == v59)
                 {
-                  v26 = v79 + 1;
+                  v25 = v80 + 1;
                   goto LABEL_93;
                 }
               }
@@ -1831,151 +1831,151 @@ LABEL_84:
               else
               {
 LABEL_62:
-                [v7 programTokenIdxs];
-                v37 = *(*buf + 4 * v79);
+                objc_msgSend_programTokenIdxs(v7);
+                v36 = *(*buf + 4 * v80);
                 lowestNumberIndex = self->_lowestNumberIndex;
                 *&buf[8] = *buf;
                 operator delete(*buf);
-                [v7 programTokenIdxs];
-                v39 = *(*buf + 4 * v79 + 4);
-                v40 = self->_lowestNumberIndex;
+                objc_msgSend_programTokenIdxs(v7);
+                v38 = *(*buf + 4 * v80 + 4);
+                v39 = self->_lowestNumberIndex;
                 *&buf[8] = *buf;
                 operator delete(*buf);
-                [v7 programTokenIdxs];
-                v41 = *(*buf + 4 * v79 + 12);
-                v42 = self->_lowestNumberIndex;
+                objc_msgSend_programTokenIdxs(v7);
+                v40 = *(*buf + 4 * v80 + 12);
+                v41 = self->_lowestNumberIndex;
                 *&buf[8] = *buf;
                 operator delete(*buf);
-                [v7 programTokenIdxs];
-                v43 = v37 - lowestNumberIndex;
-                v44 = v39 - v40;
-                v45 = v41 - v42;
-                v46 = *(*buf + 4 * v79 + 8) - self->_lowestNumberIndex;
+                objc_msgSend_programTokenIdxs(v7);
+                v42 = v36 - lowestNumberIndex;
+                v43 = v38 - v39;
+                v44 = v40 - v41;
+                v45 = *(*buf + 4 * v80 + 8) - self->_lowestNumberIndex;
                 *&buf[8] = *buf;
                 operator delete(*buf);
+                v46 = v71;
                 v47 = v72;
-                v48 = v73;
-                if (v72 == v73)
+                if (v71 == v72)
                 {
 LABEL_74:
-                  if (v73 >= v74)
+                  if (v72 >= v73)
                   {
-                    v56 = v73 - v72;
-                    v57 = (v73 - v72) >> 5;
-                    v58 = v57 + 1;
-                    if ((v57 + 1) >> 59)
+                    v55 = v72 - v71;
+                    v56 = (v72 - v71) >> 5;
+                    v57 = v56 + 1;
+                    if ((v56 + 1) >> 59)
                     {
                       std::vector<unsigned long>::__throw_length_error[abi:ne200100]();
                     }
 
-                    v59 = v74 - v72;
-                    if ((v74 - v72) >> 4 > v58)
+                    v58 = v73 - v71;
+                    if ((v73 - v71) >> 4 > v57)
                     {
-                      v58 = v59 >> 4;
+                      v57 = v58 >> 4;
                     }
 
-                    if (v59 >= 0x7FFFFFFFFFFFFFE0)
+                    if (v58 >= 0x7FFFFFFFFFFFFFE0)
                     {
-                      v58 = 0x7FFFFFFFFFFFFFFLL;
+                      v57 = 0x7FFFFFFFFFFFFFFLL;
                     }
 
-                    if (v58)
+                    if (v57)
                     {
-                      std::__allocate_at_least[abi:ne200100]<std::allocator<CGRect>>(&v72, v58);
+                      std::__allocate_at_least[abi:ne200100]<std::allocator<CGRect>>(&v71, v57);
                     }
 
-                    v64 = (32 * v57);
-                    *v64 = v43;
-                    v64[1] = v45;
-                    v64[2] = v44;
-                    v64[3] = v46;
-                    v55 = (32 * v57 + 32);
-                    memcpy(0, v47, v56);
-                    v65 = v72;
-                    v72 = 0;
-                    v73 = v55;
-                    v74 = 0;
-                    if (v65)
+                    v63 = (32 * v56);
+                    *v63 = v42;
+                    v63[1] = v44;
+                    v63[2] = v43;
+                    v63[3] = v45;
+                    v54 = (32 * v56 + 32);
+                    memcpy(0, v46, v55);
+                    v64 = v71;
+                    v71 = 0;
+                    v72 = v54;
+                    v73 = 0;
+                    if (v64)
                     {
-                      operator delete(v65);
+                      operator delete(v64);
                     }
                   }
 
                   else
                   {
-                    *v73 = v43;
-                    *(v48 + 1) = v45;
-                    v55 = v48 + 32;
-                    *(v48 + 2) = v44;
-                    *(v48 + 3) = v46;
+                    *v72 = v42;
+                    *(v47 + 1) = v44;
+                    v54 = v47 + 32;
+                    *(v47 + 2) = v43;
+                    *(v47 + 3) = v45;
                   }
 
-                  v25 = &off_1EB894000;
-                  v73 = v55;
+                  v24 = &off_1EB894000;
+                  v72 = v54;
                 }
 
                 else
                 {
-                  v49 = (v72 + 16);
+                  v48 = (v71 + 16);
                   while (1)
                   {
-                    v51 = *(v49 - 2);
-                    v50 = v49 - 2;
-                    v53 = v43 >= v51;
-                    v52 = v43 - v51;
-                    v53 = !v53 || v52 >= *(v49 - 1);
-                    if (!v53 && v44 >= *v49 && v44 - *v49 < v49[1])
+                    v50 = *(v48 - 2);
+                    v49 = v48 - 2;
+                    v52 = v42 >= v50;
+                    v51 = v42 - v50;
+                    v52 = !v52 || v51 >= *(v48 - 1);
+                    if (!v52 && v43 >= *v48 && v43 - *v48 < v48[1])
                     {
                       break;
                     }
 
-                    v49 += 4;
-                    if (v50 + 4 == v73)
+                    v48 += 4;
+                    if (v49 + 4 == v72)
                     {
                       goto LABEL_74;
                     }
                   }
 
-                  v62 = CROSLogForCategory(5);
-                  if (os_log_type_enabled(v62, OS_LOG_TYPE_DEBUG))
+                  v61 = CROSLogForCategory(5);
+                  if (os_log_type_enabled(v61, OS_LOG_TYPE_DEBUG))
                   {
-                    *buf = v70;
-                    *&buf[4] = v43;
+                    *buf = v69;
+                    *&buf[4] = v42;
                     *&buf[12] = 2048;
-                    *&buf[14] = v44;
-                    v83 = 2048;
-                    v84 = v41 - v42;
-                    v85 = 2048;
-                    v86 = v46;
-                    _os_log_impl(&dword_1B40D2000, v62, OS_LOG_TYPE_DEBUG, "Cell %li %li was previously merged - dropping current merge: %li %li", buf, 0x2Au);
+                    *&buf[14] = v43;
+                    v84 = 2048;
+                    v85 = v40 - v41;
+                    v86 = 2048;
+                    v87 = v45;
+                    _os_log_impl(&dword_1B40D2000, v61, OS_LOG_TYPE_DEBUG, "Cell %li %li was previously merged - dropping current merge: %li %li", buf, 0x2Au);
                   }
 
-                  v25 = &off_1EB894000;
+                  v24 = &off_1EB894000;
                 }
               }
 
-              v26 = v79 + *(v25 + 726);
+              v25 = v80 + *(v24 + 726);
 LABEL_93:
-              v79 = v26;
+              v80 = v25;
             }
           }
         }
 
         else
         {
-          [v7 programTokenIdxs];
-          v15 = self->_colsIndex != *(v76 + v79);
+          objc_msgSend_programTokenIdxs(v7);
+          v14 = self->_colsIndex != *(v76 + v80);
           v77 = v76;
           operator delete(v76);
-          v14 = *buf;
+          v13 = *buf;
           if (!*buf)
           {
             goto LABEL_23;
           }
         }
 
-        *&buf[8] = v14;
-        operator delete(v14);
+        *&buf[8] = v13;
+        operator delete(v13);
         goto LABEL_23;
       }
     }
@@ -2193,7 +2193,7 @@ LABEL_114:
 
   if (v157)
   {
-    [(CRTableStructureRecognizerResult *)v157 rows];
+    objc_msgSend_rows(v157);
     v38 = __C;
     v144 = v180;
     if (__C)
@@ -2202,7 +2202,7 @@ LABEL_114:
       operator delete(__C);
     }
 
-    [(CRTableStructureRecognizerResult *)v157 columns];
+    objc_msgSend_columns(v157);
     v39 = v144 - v38;
     v40 = __C;
     v148 = v180;
@@ -2263,12 +2263,12 @@ LABEL_114:
         v48 = v45;
         do
         {
-          [(CRTableStructureRecognizerResult *)v157 columns];
+          objc_msgSend_columns(v157, v141);
           v49 = *(v173 + v46);
           v50 = *(v173 + v46 + 8);
           v51 = *(v173 + v46 + 16);
           v52 = *(v173 + v46 + 24);
-          [(CRTableStructureRecognizerResult *)v157 rows];
+          objc_msgSend_rows(v157);
           v194.origin.x = v49;
           v194.origin.y = v50;
           v194.size.width = v51;
@@ -2314,7 +2314,7 @@ LABEL_114:
     for (i = 0; ; i = v145 + 1)
     {
       v56 = v158;
-      [(CRTableStructureRecognizerResult *)v157 merges];
+      objc_msgSend_merges(v157, v141);
       v57 = (v174 - v173) >> 5;
       if (v173)
       {
@@ -2327,7 +2327,7 @@ LABEL_114:
         break;
       }
 
-      [(CRTableStructureRecognizerResult *)v157 merges];
+      objc_msgSend_merges(v157);
       v145 = i;
       v58 = (v173 + 32 * i);
       v59 = v58[1];
@@ -2550,7 +2550,7 @@ LABEL_104:
 
       while (1)
       {
-        [(CRTableStructureRecognizerResult *)v157 rectForCells];
+        objc_msgSend_rectForCells(v157);
         v95 = *(__p + v93);
         v96 = *(__p + v93 + 8);
         v97 = *(__p + v93 + 16);
@@ -2764,37 +2764,37 @@ LABEL_128:
 
 - (id)tableGroupRegionFromResult:(id)result recognizedLines:(id)lines
 {
-  v94 = *MEMORY[0x1E69E9840];
+  v101 = *MEMORY[0x1E69E9840];
   resultCopy = result;
   linesCopy = lines;
   tableQuad = [resultCopy tableQuad];
-  v90[0] = 0;
-  v90[1] = 0;
+  v97[0] = 0;
+  v97[1] = 0;
   __asm { FMOV            V1.2D, #1.0 }
 
-  v91 = xmmword_1B42AF250;
-  v92 = _Q1;
-  v93 = xmmword_1B42AF260;
+  v98 = xmmword_1B42AF250;
+  v99 = _Q1;
+  v100 = xmmword_1B42AF260;
   [tableQuad topLeft];
-  v89[0] = v13;
-  v89[1] = v14;
+  v89 = v13;
+  v90 = v14;
   [tableQuad topRight];
-  v89[2] = v15;
-  v89[3] = v16;
+  v91 = v15;
+  v92 = v16;
   [tableQuad bottomRight];
-  v89[4] = v17;
-  v89[5] = v18;
+  v93 = v17;
+  v94 = v18;
   [tableQuad bottomLeft];
-  v89[6] = v19;
-  v89[7] = v20;
-  *v21.f32 = computeHomographyMatrix(v90, v89);
+  v95 = v19;
+  v96 = v20;
+  *v21.f32 = computeHomographyMatrix(v97);
   v80 = v22;
   v82 = v21;
   v78 = v23;
   v24 = MEMORY[0x1E695DF70];
   if (resultCopy)
   {
-    [resultCopy rows];
+    objc_msgSend_rows(resultCopy);
     v25 = (v87 - __p) >> 5;
   }
 
@@ -2824,7 +2824,7 @@ LABEL_128:
   v79 = v28;
   if (resultCopy)
   {
-    [resultCopy rows];
+    objc_msgSend_rows(resultCopy);
     v29 = __p;
     if (__p != v87)
     {
@@ -2835,16 +2835,16 @@ LABEL_128:
         v32 = v29[2];
         v33 = v29[3];
         [tableQuad normalizationSize];
-        v96.width = v34;
-        v96.height = v35;
+        v103.width = v34;
+        v103.height = v35;
         v72.columns[1] = v81;
         v72.columns[2] = v79;
         v72.columns[0] = v83;
-        v99.origin.x = v30;
-        v99.origin.y = v31;
-        v99.size.width = v32;
-        v99.size.height = v33;
-        v36 = transformRectWithHomography(v99, v96, v72);
+        v106.origin.x = v30;
+        v106.origin.y = v31;
+        v106.size.width = v32;
+        v106.size.height = v33;
+        v36 = transformRectWithHomography(v106, v103, v72);
         [v77 addObject:v36];
 
         v29 += 4;
@@ -2861,7 +2861,7 @@ LABEL_128:
     }
 
     v37 = MEMORY[0x1E695DF70];
-    [resultCopy columns];
+    objc_msgSend_columns(resultCopy);
     v38 = (v87 - __p) >> 5;
   }
 
@@ -2883,7 +2883,7 @@ LABEL_128:
 
   if (resultCopy)
   {
-    [resultCopy columns];
+    objc_msgSend_columns(resultCopy);
     v39 = __p;
     if (__p != v87)
     {
@@ -2894,16 +2894,16 @@ LABEL_128:
         v42 = v39[2];
         v43 = v39[3];
         [tableQuad normalizationSize];
-        v97.width = v44;
-        v97.height = v45;
+        v104.width = v44;
+        v104.height = v45;
         v73.columns[1] = v81;
         v73.columns[2] = v79;
         v73.columns[0] = v83;
-        v100.origin.x = v40;
-        v100.origin.y = v41;
-        v100.size.width = v42;
-        v100.size.height = v43;
-        v46 = transformRectWithHomography(v100, v97, v73);
+        v107.origin.x = v40;
+        v107.origin.y = v41;
+        v107.size.width = v42;
+        v107.size.height = v43;
+        v46 = transformRectWithHomography(v107, v104, v73);
         [v76 addObject:v46];
 
         v39 += 4;
@@ -2920,7 +2920,7 @@ LABEL_128:
     }
 
     v47 = MEMORY[0x1E695DF70];
-    [resultCopy rectForCells];
+    objc_msgSend_rectForCells(resultCopy);
     v48 = (v87 - __p) >> 5;
   }
 
@@ -2945,7 +2945,7 @@ LABEL_128:
   {
     for (i = 0; ; ++i)
     {
-      [resultCopy rectForCells];
+      objc_msgSend_rectForCells(resultCopy);
       v51 = (v87 - __p) >> 5;
       if (__p)
       {
@@ -2958,7 +2958,7 @@ LABEL_128:
         break;
       }
 
-      [resultCopy rectForCells];
+      objc_msgSend_rectForCells(resultCopy);
       v52 = (__p + 32 * i);
       v53 = *v52;
       v54 = v52[1];
@@ -2966,25 +2966,25 @@ LABEL_128:
       v56 = v52[3];
       v87 = __p;
       operator delete(__p);
-      v101.origin.x = v53;
-      v101.origin.y = v54;
-      v101.size.width = v55;
-      v101.size.height = v56;
-      if (!CGRectIsEmpty(v101))
+      v108.origin.x = v53;
+      v108.origin.y = v54;
+      v108.size.width = v55;
+      v108.size.height = v56;
+      if (!CGRectIsEmpty(v108))
       {
         [tableQuad normalizationSize];
-        v98.width = v57;
-        v98.height = v58;
+        v105.width = v57;
+        v105.height = v58;
         v74.columns[1] = v81;
         v74.columns[2] = v79;
         v74.columns[0] = v83;
-        v102.origin.x = v53;
-        v102.origin.y = v54;
-        v102.size.width = v55;
-        v102.size.height = v56;
-        v59 = transformRectWithHomography(v102, v98, v74);
+        v109.origin.x = v53;
+        v109.origin.y = v54;
+        v109.size.width = v55;
+        v109.size.height = v56;
+        v59 = transformRectWithHomography(v109, v105, v74);
         array = [MEMORY[0x1E695DF70] array];
-        [resultCopy textLineIndexesForCells];
+        objc_msgSend_textLineIndexesForCells(resultCopy);
         v61 = __p + 24 * i;
         v62 = *v61;
         v63 = v61[1];
@@ -2998,11 +2998,11 @@ LABEL_128:
         }
 
         v65 = [CRTableCellGroupRegion alloc];
-        [resultCopy rowsForCells];
+        objc_msgSend_rowsForCells(resultCopy);
         v66 = (v85[0] + 16 * i);
         v67 = *v66;
         v68 = v66[1];
-        [resultCopy columnsForCells];
+        objc_msgSend_columnsForCells(resultCopy);
         v69 = [(CRTableCellGroupRegion *)v65 initWithBoundingQuad:v59 layoutDirection:0 subregions:array rows:v67 columns:v68, v84[2 * i], v84[2 * i + 1]];
         [v75 addObject:v69];
 
@@ -3082,7 +3082,7 @@ LABEL_9:
   normCopy = norm;
   v60 = [normCopy count];
   v68 = 0;
-  std::vector<float>::vector[abi:ne200100](retstr, 8 * a5);
+  std::vector<float>::vector[abi:ne200100](retstr, 8 * a5, &v68);
   v64 = 0u;
   v65 = 0u;
   v66 = 0u;

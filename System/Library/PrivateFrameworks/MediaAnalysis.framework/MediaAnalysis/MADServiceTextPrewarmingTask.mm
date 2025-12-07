@@ -37,79 +37,79 @@
 
 - (BOOL)run:(id *)p_isa
 {
-  v53 = *MEMORY[0x1E69E9840];
-  v5 = VCPSignPostLog();
+  v55 = *MEMORY[0x1E69E9840];
+  v5 = VCPSignPostLog(self);
   v6 = os_signpost_id_generate(v5);
 
-  v7 = VCPSignPostLog();
-  v8 = v7;
-  v9 = v6 - 1;
-  if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v7))
+  v8 = VCPSignPostLog(v7);
+  v9 = v8;
+  v10 = v6 - 1;
+  if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v8))
   {
     signpostPayload = self->_signpostPayload;
     *buf = 138412290;
-    v52 = signpostPayload;
-    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v8, OS_SIGNPOST_INTERVAL_BEGIN, v6, "MADServiceTextPrewarmingTask_Run", "%@", buf, 0xCu);
+    v54 = signpostPayload;
+    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v9, OS_SIGNPOST_INTERVAL_BEGIN, v6, "MADServiceTextPrewarmingTask_Run", "%@", buf, 0xCu);
   }
 
+  v46 = 0u;
+  v47 = 0u;
   v44 = 0u;
   v45 = 0u;
-  v42 = 0u;
-  v43 = 0u;
-  v11 = self->_requests;
-  v12 = [(NSArray *)v11 countByEnumeratingWithState:&v42 objects:v50 count:16];
-  if (v12)
+  v12 = self->_requests;
+  v13 = [(NSArray *)v12 countByEnumeratingWithState:&v44 objects:v52 count:16];
+  if (v13)
   {
-    v13 = v12;
-    v14 = *v43;
-    obj = v11;
-    v38 = v6 - 1;
-    v39 = v6;
+    v14 = v13;
+    v15 = *v45;
+    obj = v12;
+    v40 = v6 - 1;
+    v41 = v6;
 LABEL_6:
-    v15 = 0;
+    v16 = 0;
     while (1)
     {
-      if (*v43 != v14)
+      if (*v45 != v15)
       {
         objc_enumerationMutation(obj);
       }
 
-      v16 = *(*(&v42 + 1) + 8 * v15);
+      v17 = *(*(&v44 + 1) + 8 * v16);
       if ([(VCPMABaseTask *)self isCanceled])
       {
         break;
       }
 
-      v17 = objc_opt_class();
-      v18 = NSStringFromClass(v17);
+      v18 = objc_opt_class();
+      v19 = NSStringFromClass(v18);
       if (MediaAnalysisLogLevel() >= 6 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO))
       {
         *buf = 138412290;
-        v52 = v18;
+        v54 = v19;
         _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO, "Prewarming %@", buf, 0xCu);
       }
 
-      if (![v16 isMemberOfClass:objc_opt_class()])
+      if (![v17 isMemberOfClass:objc_opt_class()])
       {
         if (MediaAnalysisLogLevel() >= 3 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
         {
           *buf = 138412290;
-          v52 = v18;
+          v54 = v19;
           _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%@ does not support prewarming", buf, 0xCu);
         }
 
         completionHandler = obj;
         if (p_isa)
         {
-          v33 = MEMORY[0x1E696ABC0];
-          v34 = *MEMORY[0x1E696A768];
-          v46 = *MEMORY[0x1E696A578];
-          v30 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@ does not support prewarming", v18];
-          v47 = v30;
-          v32 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v47 forKeys:&v46 count:1];
-          v35 = [v33 errorWithDomain:v34 code:-50 userInfo:v32];
-          v36 = *p_isa;
-          *p_isa = v35;
+          v35 = MEMORY[0x1E696ABC0];
+          v36 = *MEMORY[0x1E696A768];
+          v48 = *MEMORY[0x1E696A578];
+          v32 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@ does not support prewarming", v19];
+          v49 = v32;
+          v34 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v49 forKeys:&v48 count:1];
+          v37 = [v35 errorWithDomain:v36 code:-50 userInfo:v34];
+          v38 = *p_isa;
+          *p_isa = v37;
 
 LABEL_34:
         }
@@ -118,33 +118,33 @@ LABEL_34:
         goto LABEL_37;
       }
 
-      v19 = objc_autoreleasePoolPush();
-      v41 = 0;
-      v20 = [MADTextEmbeddingTask prewarmRequest:v16 error:&v41];
-      v21 = v41;
-      v22 = v21;
-      if (p_isa && !v20)
+      v20 = objc_autoreleasePoolPush();
+      v43 = 0;
+      v21 = [MADTextEmbeddingTask prewarmRequest:v17 error:&v43];
+      v22 = v43;
+      v23 = v22;
+      if (p_isa && !v21)
       {
-        v23 = [v21 copy];
-        v24 = *p_isa;
-        *p_isa = v23;
+        v24 = [v22 copy];
+        v25 = *p_isa;
+        *p_isa = v24;
       }
 
-      objc_autoreleasePoolPop(v19);
-      if (!v20)
+      objc_autoreleasePoolPop(v20);
+      if (!v21)
       {
         LOBYTE(p_isa) = 0;
         completionHandler = obj;
         goto LABEL_37;
       }
 
-      if (v13 == ++v15)
+      if (v14 == ++v16)
       {
-        v11 = obj;
-        v13 = [(NSArray *)obj countByEnumeratingWithState:&v42 objects:v50 count:16];
-        v9 = v38;
-        v6 = v39;
-        if (v13)
+        v12 = obj;
+        v14 = [(NSArray *)obj countByEnumeratingWithState:&v44 objects:v52 count:16];
+        v10 = v40;
+        v6 = v41;
+        if (v14)
         {
           goto LABEL_6;
         }
@@ -162,15 +162,15 @@ LABEL_34:
     completionHandler = obj;
     if (p_isa)
     {
-      v28 = MEMORY[0x1E696ABC0];
-      v29 = *MEMORY[0x1E696A768];
-      v48 = *MEMORY[0x1E696A578];
-      v18 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Request was canceled"];
-      v49 = v18;
-      v30 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v49 forKeys:&v48 count:1];
-      v31 = [v28 errorWithDomain:v29 code:-128 userInfo:v30];
-      v32 = *p_isa;
-      *p_isa = v31;
+      v30 = MEMORY[0x1E696ABC0];
+      v31 = *MEMORY[0x1E696A768];
+      v50 = *MEMORY[0x1E696A578];
+      v19 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Request was canceled"];
+      v51 = v19;
+      v32 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v51 forKeys:&v50 count:1];
+      v33 = [v30 errorWithDomain:v31 code:-128 userInfo:v32];
+      v34 = *p_isa;
+      *p_isa = v33;
       goto LABEL_34;
     }
   }
@@ -179,13 +179,13 @@ LABEL_34:
   {
 LABEL_20:
 
-    v25 = VCPSignPostLog();
-    p_isa = &v25->isa;
-    if (v9 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v25))
+    v27 = VCPSignPostLog(v26);
+    p_isa = &v27->isa;
+    if (v10 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v27))
     {
-      v26 = self->_signpostPayload;
+      v28 = self->_signpostPayload;
       *buf = 138412290;
-      v52 = v26;
+      v54 = v28;
       _os_signpost_emit_with_name_impl(&dword_1C9B70000, p_isa, OS_SIGNPOST_INTERVAL_END, v6, "MADServiceTextPrewarmingTask_Run", "%@", buf, 0xCu);
     }
 

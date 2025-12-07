@@ -2458,22 +2458,33 @@
 
 - (void)_updateUserPreferencesForFilterUsage
 {
-  v4 = +[CAMUserPreferences preferences];
+  v5 = +[CAMUserPreferences preferences];
   _currentMode = [(CAMViewfinderViewController *)self _currentMode];
-  switch(_currentMode)
+  if (_currentMode == 6)
   {
-    case 6:
-      [v4 setPortraitModeLastCapturedEffectFilterType:{-[CAMViewfinderViewController _portraitModeEffectFilterType](self, "_portraitModeEffectFilterType")}];
-      break;
-    case 4:
-      [v4 setSquareModeLastCapturedEffectFilterType:{-[CAMViewfinderViewController _squareModeEffectFilterType](self, "_squareModeEffectFilterType")}];
-      break;
-    case 0:
-      [v4 setPhotoModeLastCapturedEffectFilterType:{-[CAMViewfinderViewController _photoModeEffectFilterType](self, "_photoModeEffectFilterType")}];
-      break;
+    _currentMode = [v5 setPortraitModeLastCapturedEffectFilterType:{-[CAMViewfinderViewController _portraitModeEffectFilterType](self, "_portraitModeEffectFilterType")}];
   }
 
-  MEMORY[0x1EEE66BB8]();
+  else if (_currentMode == 4)
+  {
+    _currentMode = [v5 setSquareModeLastCapturedEffectFilterType:{-[CAMViewfinderViewController _squareModeEffectFilterType](self, "_squareModeEffectFilterType")}];
+  }
+
+  else
+  {
+    v4 = v5;
+    if (_currentMode)
+    {
+      goto LABEL_8;
+    }
+
+    _currentMode = [v5 setPhotoModeLastCapturedEffectFilterType:{-[CAMViewfinderViewController _photoModeEffectFilterType](self, "_photoModeEffectFilterType")}];
+  }
+
+  v4 = v5;
+LABEL_8:
+
+  MEMORY[0x1EEE66BB8](_currentMode, v4);
 }
 
 - (void)_updateFilterScrubberAfterCapture
@@ -5820,7 +5831,7 @@ LABEL_6:
   }
 
 LABEL_4:
-  v13 = CAMErrorIsVideoCaptureRequestError(errorCopy, -28003) ^ 1;
+  v13 = CAMErrorIsVideoCaptureRequestError(errorCopy, 0xFFFFFFFFFFFF929DLL) ^ 1;
 LABEL_7:
   if (!(isCapturingNightModeImage & 1 | ((([responseCopy stoppedUnexpectedly] | v13) & 1) == 0)))
   {
@@ -16970,7 +16981,7 @@ void __98__CAMViewfinderViewController__snapshotAndFadeDisappearingView_parentVi
   v9 = *(a1 + 32);
   if (v9)
   {
-    [v9 transform];
+    objc_msgSend_transform(v9);
   }
 
   else
@@ -17118,7 +17129,7 @@ void __98__CAMViewfinderViewController__snapshotAndFadeDisappearingView_parentVi
   [badgeTray setVisibleBadges:v28 animated:animatedCopy];
 }
 
-uint64_t __62__CAMViewfinderViewController__updateBadgeVisibilityAnimated___block_invoke(uint64_t a1)
+void *__62__CAMViewfinderViewController__updateBadgeVisibilityAnimated___block_invoke(uint64_t a1)
 {
   [*(*(a1 + 32) + 1760) setAlpha:{(objc_msgSend(*(a1 + 32), "_shouldHidePortraitModeInstructionLabelForGraphConfiguration:", *(a1 + 40)) ^ 1)}];
   [*(*(a1 + 32) + 1768) setAlpha:{objc_msgSend(*(a1 + 32), "_shouldShowCleanLensesInstructionLabelForGraphConfiguration:", *(a1 + 40))}];
@@ -20823,7 +20834,7 @@ BOOL __51__CAMViewfinderViewController__advancedPhotoFormat__block_invoke(uint64
 {
   _currentGraphConfiguration = [self _currentGraphConfiguration];
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_1A3640000, v2, v3, "Photo format picker tapped from unsupported configuration: %{public}@", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_0(&dword_1A3640000, v2, v3, "Photo format picker tapped from unsupported configuration: %{public}@", v4, v5, v6, v7);
 }
 
 - (void)_handlePhotoFormatPickerChangedPhotoFormat:(id)format
@@ -22126,7 +22137,7 @@ LABEL_21:
 - (void)_handleTimerButtonChangedTimerDuration
 {
   _timerButton = [(CAMViewfinderViewController *)self _timerButton];
-  -[CAMViewfinderViewController _setResolvedTimerDuration:](self, "_setResolvedTimerDuration:", [_timerButton duration]);
+  [(CAMViewfinderViewController *)self _setResolvedTimerDuration:objc_msgSend_duration(_timerButton)];
 }
 
 - (void)handleUserChangedToLivePhotoMode:(int64_t)mode
@@ -22696,7 +22707,7 @@ uint64_t __79__CAMViewfinderViewController__fallbackToValidProResVideoConfigurat
   [(CAMViewfinderViewController *)self _attemptShutterPressWithBlock:v5];
 }
 
-uint64_t __69__CAMViewfinderViewController_dynamicShutterControlGesturesDidBegin___block_invoke(uint64_t a1, uint64_t a2)
+void *__69__CAMViewfinderViewController_dynamicShutterControlGesturesDidBegin___block_invoke(uint64_t a1, uint64_t a2)
 {
   v4 = +[CAMCaptureCapabilities capabilities];
   v5 = [v4 isCTMVideoCaptureSupportedForMode:{objc_msgSend(*(a1 + 32), "_currentMode")}];
@@ -25063,7 +25074,7 @@ void __88__CAMViewfinderViewController__performCaptureAnimationWithDuration_curv
   captureOrientation = 1;
   CAMTransformCorrectingForOrientation(1, &v23);
   memset(&v22, 0, sizeof(v22));
-  [(CAMViewfinderViewController *)self customPreviewViewTransform];
+  objc_msgSend_customPreviewViewTransform(self);
   switch(style)
   {
     case 2:
@@ -25440,7 +25451,7 @@ uint64_t __70__CAMViewfinderViewController__updateUIForCaptureOrientationAnimate
   [v4 setCenter:?];
   if (_topBar)
   {
-    [_topBar transform];
+    objc_msgSend_transform(_topBar);
   }
 
   else
@@ -26734,7 +26745,7 @@ LABEL_41:
     v21 = 0u;
     v18 = 0u;
     v19 = 0u;
-    [(CAMViewfinderViewController *)self _dynamicShutterSettingsForGraphConfiguration:configurationCopy];
+    objc_msgSend__dynamicShutterSettingsForGraphConfiguration_(self);
     v10.var0 = [(CAMViewfinderViewController *)self _dynamicShutterPrivateSettingsForGraphConfiguration:configurationCopy];
 
     _dynamicShutterControl2 = [(CAMViewfinderViewController *)self _dynamicShutterControl];
@@ -35313,7 +35324,7 @@ void __112__CAMViewfinderViewController_readUserPreferencesAndHandleChangesWithO
   }
 }
 
-uint64_t __77__CAMViewfinderViewController_cameraRollControllerDidFullyPresentCameraRoll___block_invoke(uint64_t a1)
+void *__77__CAMViewfinderViewController_cameraRollControllerDidFullyPresentCameraRoll___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) sessionIdentifier];
   if (result == *(a1 + 40))
@@ -37007,24 +37018,24 @@ LABEL_7:
   }
 }
 
-uint64_t __90__CAMViewfinderViewController__dismissDescriptionOverlayView_withDuration_fromUserAction___block_invoke(uint64_t result, void *a2, uint64_t a3, _BYTE *a4)
+void *__90__CAMViewfinderViewController__dismissDescriptionOverlayView_withDuration_fromUserAction___block_invoke(void *result, void *a2, uint64_t a3, _BYTE *a4)
 {
-  if (*(result + 32) == a3)
+  if (result[4] == a3)
   {
     v5 = result;
     result = [a2 integerValue];
-    *(*(*(v5 + 40) + 8) + 24) = result;
+    *(*(v5[5] + 8) + 24) = result;
     *a4 = 1;
   }
 
   return result;
 }
 
-uint64_t __90__CAMViewfinderViewController__dismissDescriptionOverlayView_withDuration_fromUserAction___block_invoke_2(uint64_t result)
+id *__90__CAMViewfinderViewController__dismissDescriptionOverlayView_withDuration_fromUserAction___block_invoke_2(id *result)
 {
-  if ((*(result + 48) & 1) == 0)
+  if ((result[6] & 1) == 0)
   {
-    return [*(result + 32) _embedDescriptionOverlayView:0 forMode:*(*(*(result + 40) + 8) + 24)];
+    return [result[4] _embedDescriptionOverlayView:0 forMode:*(*(result[5] + 1) + 24)];
   }
 
   return result;
@@ -37171,13 +37182,13 @@ LABEL_13:
   _Block_object_dispose(&v16, 8);
 }
 
-uint64_t __69__CAMViewfinderViewController_descriptionOverlayViewDidSelectDetail___block_invoke(uint64_t result, void *a2, uint64_t a3, _BYTE *a4)
+void *__69__CAMViewfinderViewController_descriptionOverlayViewDidSelectDetail___block_invoke(void *result, void *a2, uint64_t a3, _BYTE *a4)
 {
-  if (*(result + 32) == a3)
+  if (result[4] == a3)
   {
     v5 = result;
     result = [a2 integerValue];
-    *(*(*(v5 + 40) + 8) + 24) = result;
+    *(*(v5[5] + 8) + 24) = result;
     *a4 = 1;
   }
 
@@ -39865,7 +39876,7 @@ void __66__CAMViewfinderViewController__handlePillPressForCurrentMRCAction__bloc
 {
   v1 = CAMDebugStringForControlDisableReasons(a1);
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_1A3640000, v2, v3, "Shutter control should already be disabled for reasons: %{public}@", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_0(&dword_1A3640000, v2, v3, "Shutter control should already be disabled for reasons: %{public}@", v4, v5, v6, v7);
 }
 
 - (void)dynamicShutterControlDidShortPress:.cold.1()
@@ -39950,6 +39961,24 @@ void __66__CAMViewfinderViewController__handlePillPressForCurrentMRCAction__bloc
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_0_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
+}
+
+- (void)dynamicShutterControlDidPressPauseResumeButton:(void *)a1 .cold.1(void *a1)
+{
+  v1 = [a1 _currentMode];
+  if (v1 > 9)
+  {
+    v8 = 0;
+  }
+
+  else
+  {
+    v8 = off_1E76FA1E8[v1];
+  }
+
+  LODWORD(v9) = 138543362;
+  *(&v9 + 4) = v8;
+  OUTLINED_FUNCTION_0(&dword_1A3640000, v2, v3, "Dynamic Shutter: Attempted pause video in a mode that doesn't support it: %{public}@", v4, v5, v6, v7, v9, DWORD2(v9));
 }
 
 - (void)dynamicShutterControlDidPressPauseResumeButton:.cold.2()

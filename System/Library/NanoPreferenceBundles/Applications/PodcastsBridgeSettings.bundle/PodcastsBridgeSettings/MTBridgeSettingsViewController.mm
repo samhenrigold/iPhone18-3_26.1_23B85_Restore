@@ -32,6 +32,8 @@
 - (void)dealloc;
 - (void)extensionAccessDidChange;
 - (void)observeValueForKeyPath:(id)path ofObject:(id)object change:(id)change context:(void *)context;
+- (void)viewDidAppear:(BOOL)appear;
+- (void)viewDidDisappear:(BOOL)disappear;
 - (void)viewDidLayoutSubviews;
 - (void)viewDidLoad;
 @end
@@ -95,6 +97,23 @@
   v3.super_class = MTBridgeSettingsViewController;
   [(MTBridgeSettingsViewController *)&v3 viewDidLayoutSubviews];
   [(MTBridgeSettingsViewController *)self _updateHeaderSize];
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = MTBridgeSettingsViewController;
+  [(MTBridgeSettingsViewController *)&v4 viewDidAppear:appear];
+  [(MTBridgeSettingsViewController *)self _updateHeaderAndSyncProgress];
+  [(NMBUISyncInfoController *)self->_syncInfoController beginObservingSyncInfo];
+}
+
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  v4.receiver = self;
+  v4.super_class = MTBridgeSettingsViewController;
+  [(MTBridgeSettingsViewController *)&v4 viewDidDisappear:disappear];
+  [(NMBUISyncInfoController *)self->_syncInfoController endObservingSyncInfo];
 }
 
 - (id)specifiers

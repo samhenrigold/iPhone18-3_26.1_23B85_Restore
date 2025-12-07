@@ -88,11 +88,10 @@
 
 - (void)specifiers
 {
-  v9 = *MEMORY[0x277D85DE8];
   v1 = [self description];
-  OUTLINED_FUNCTION_0_0(&dword_247875000, v2, v3, "failed to clear Followup error:%@", v4, v5, v6, v7, 2u);
-
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = v1;
+  OUTLINED_FUNCTION_0_0(&dword_247875000, v2, v3, "failed to clear Followup error:%@", v4, v5, v6, v7, v8, DWORD2(v8));
 }
 
 @end

@@ -184,7 +184,7 @@ LABEL_6:
   return v9 & 1;
 }
 
-uint64_t __53__SUClient_composeReviewWithViewController_animated___block_invoke(uint64_t a1, int a2)
+id *__53__SUClient_composeReviewWithViewController_animated___block_invoke(uint64_t a1, int a2)
 {
   result = [*(a1 + 32) object];
   if (result)
@@ -199,7 +199,7 @@ uint64_t __53__SUClient_composeReviewWithViewController_animated___block_invoke(
 
   if (!v5)
   {
-    result = [*(result + 24) client:result presentModalViewController:*(a1 + 40) animated:*(a1 + 56)];
+    result = [result[3] client:result presentModalViewController:*(a1 + 40) animated:*(a1 + 56)];
     *(*(*(a1 + 48) + 8) + 24) = result;
   }
 
@@ -508,15 +508,21 @@ LABEL_24:
   shouldLog = [mEMORY[0x1E69D4938] shouldLog];
   if ([mEMORY[0x1E69D4938] shouldLogToDisk])
   {
-    v6 = shouldLog | 2;
+    LODWORD(v6) = shouldLog | 2;
   }
 
   else
   {
-    v6 = shouldLog;
+    LODWORD(v6) = shouldLog;
   }
 
-  if (!os_log_type_enabled([mEMORY[0x1E69D4938] OSLogObject], OS_LOG_TYPE_DEBUG))
+  oSLogObject = [mEMORY[0x1E69D4938] OSLogObject];
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEBUG))
+  {
+    v6 = v6;
+  }
+
+  else
   {
     v6 &= 2u;
   }
@@ -525,15 +531,13 @@ LABEL_24:
   {
     v12 = 138412290;
     v13 = objc_opt_class();
-    LODWORD(v11) = 12;
-    v10 = &v12;
-    v7 = _os_log_send_and_compose_impl();
-    if (v7)
+    v8 = _os_log_send_and_compose_impl(v6, 0, 0, 0, &dword_1C21AF000, oSLogObject, 2, "%@: Purging caches to enter background", &v12, 12);
+    if (v8)
     {
-      v8 = v7;
-      v9 = [MEMORY[0x1E696AEC0] stringWithCString:v7 encoding:{4, &v12, v11}];
-      free(v8);
-      v10 = v9;
+      v9 = v8;
+      v10 = [MEMORY[0x1E696AEC0] stringWithCString:v8 encoding:4];
+      free(v9);
+      v11 = v10;
       SSFileLog();
     }
   }
@@ -564,15 +568,21 @@ LABEL_24:
   shouldLog = [mEMORY[0x1E69D4938] shouldLog];
   if ([mEMORY[0x1E69D4938] shouldLogToDisk])
   {
-    v6 = shouldLog | 2;
+    LODWORD(v6) = shouldLog | 2;
   }
 
   else
   {
-    v6 = shouldLog;
+    LODWORD(v6) = shouldLog;
   }
 
-  if (!os_log_type_enabled([mEMORY[0x1E69D4938] OSLogObject], OS_LOG_TYPE_DEBUG))
+  oSLogObject = [mEMORY[0x1E69D4938] OSLogObject];
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEBUG))
+  {
+    v6 = v6;
+  }
+
+  else
   {
     v6 &= 2u;
   }
@@ -581,15 +591,13 @@ LABEL_24:
   {
     v12 = 138412290;
     v13 = objc_opt_class();
-    LODWORD(v11) = 12;
-    v10 = &v12;
-    v7 = _os_log_send_and_compose_impl();
-    if (v7)
+    v8 = _os_log_send_and_compose_impl(v6, 0, 0, 0, &dword_1C21AF000, oSLogObject, 2, "%@: Removing all cached responses after memory warning", &v12, 12);
+    if (v8)
     {
-      v8 = v7;
-      v9 = [MEMORY[0x1E696AEC0] stringWithCString:v7 encoding:{4, &v12, v11}];
-      free(v8);
-      v10 = v9;
+      v9 = v8;
+      v10 = [MEMORY[0x1E696AEC0] stringWithCString:v8 encoding:4];
+      free(v9);
+      v11 = v10;
       SSFileLog();
     }
   }

@@ -18,27 +18,27 @@
 - (void)startDiscoveringAccessoryServers
 {
   selfCopy = self;
-  sub_1000D828C();
+  sub_1000D828C(selfCopy, v2);
 }
 
 - (void)stopDiscoveringAccessoryServers
 {
   selfCopy = self;
-  sub_1000D82E0();
+  sub_1000D82E0(selfCopy, v2);
 }
 
 - (void)connectToBTLEAccessoryServer:(id)server
 {
   serverCopy = server;
   selfCopy = self;
-  sub_1000E49D4("HAP requested BLE connect, ignoring.");
+  sub_1000E49D4("HAP requested BLE connect, ignoring.", selfCopy);
 }
 
 - (void)disconnectFromBTLEAccessoryServer:(id)server
 {
   serverCopy = server;
   selfCopy = self;
-  sub_1000D8A6C(server);
+  sub_1000D8A6C(server, selfCopy);
 }
 
 - (void)setConnectionLatency:(int64_t)latency forPeripheral:(id)peripheral
@@ -109,7 +109,7 @@ LABEL_3:
   selfCopy2 = self;
   v16 = 0xF000000000000000;
 LABEL_6:
-  sub_1000E4B34(v9, v11, "updateBroadcastKey(%s)");
+  sub_1000E4B34(v9, v11, "updateBroadcastKey(%s)", v19);
   sub_1000A452C(keyCopy, v16);
 }
 
@@ -172,7 +172,7 @@ LABEL_6:
     encryptionCopy = encryption;
     selfCopy = self;
     v9 = swift_dynamicCastObjCProtocolUnconditional();
-    objc_allocWithZone(type metadata accessor for DKPairSetupSession());
+    objc_allocWithZone(type metadata accessor for DKPairSetupSession(0));
     sessionCopy = session;
     v11 = selfCopy;
     v12 = sub_1000B2F34(0, type, encryptionCopy, v9);

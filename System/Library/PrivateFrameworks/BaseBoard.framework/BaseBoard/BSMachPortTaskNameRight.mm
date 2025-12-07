@@ -108,7 +108,7 @@ void __37__BSMachPortTaskNameRight_auditToken__block_invoke(uint64_t a1, task_na
       v8 = MEMORY[0x1E696AEC0];
       v9 = BSProcessDescriptionForPID(v4);
       v10 = [v8 stringWithFormat:@"task_name_for_pid:%@", v9];
-      v6 = _BSMachPortRightDescription(3u, 0, v10, tn, 0);
+      v6 = _BSMachPortRightDescription(3, 0, v10, tn, 0);
 
       v11 = [(BSMachPortRight *)self _initWithPort:3 type:0 owner:v6 trace:?];
       if (v11)

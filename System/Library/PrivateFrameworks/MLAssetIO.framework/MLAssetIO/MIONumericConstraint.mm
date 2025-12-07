@@ -27,11 +27,11 @@
 
 - (MIONumericConstraint)initWithEnumeratedNumbers:(id)numbers
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   numbersCopy = numbers;
-  v28.receiver = self;
-  v28.super_class = MIONumericConstraint;
-  v5 = [(MIONumericConstraint *)&v28 init];
+  v27.receiver = self;
+  v27.super_class = MIONumericConstraint;
+  v5 = [(MIONumericConstraint *)&v27 init];
   if (![numbersCopy count])
   {
     [MEMORY[0x1E695DF30] raise:*MEMORY[0x1E695D940] format:@"MIONumericConstraint cannot be initialized with the empty enumerated numbers."];
@@ -41,27 +41,27 @@
   {
     v6 = [numbersCopy objectAtIndexedSubscript:0];
     v7 = [numbersCopy objectAtIndexedSubscript:0];
+    v23 = 0u;
     v24 = 0u;
     v25 = 0u;
     v26 = 0u;
-    v27 = 0u;
     v8 = numbersCopy;
-    v9 = [v8 countByEnumeratingWithState:&v24 objects:v29 count:16];
+    v9 = [v8 countByEnumeratingWithState:&v23 objects:v28 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v25;
+      v11 = *v24;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v25 != v11)
+          if (*v24 != v11)
           {
             objc_enumerationMutation(v8);
           }
 
-          v13 = *(*(&v24 + 1) + 8 * i);
-          if ([(NSNumber *)v6 compare:v13, v24]== NSOrderedDescending)
+          v13 = *(*(&v23 + 1) + 8 * i);
+          if ([(NSNumber *)v6 compare:v13, v23]== NSOrderedDescending)
           {
             v14 = v13;
 
@@ -76,7 +76,7 @@
           }
         }
 
-        v10 = [v8 countByEnumeratingWithState:&v24 objects:v29 count:16];
+        v10 = [v8 countByEnumeratingWithState:&v23 objects:v28 count:16];
       }
 
       while (v10);
@@ -95,7 +95,6 @@
     v5->_enumeratedNumbers = v20;
   }
 
-  v22 = *MEMORY[0x1E69E9840];
   return v5;
 }
 

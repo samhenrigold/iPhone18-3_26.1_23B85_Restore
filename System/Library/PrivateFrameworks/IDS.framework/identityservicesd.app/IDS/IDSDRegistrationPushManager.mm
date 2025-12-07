@@ -461,11 +461,11 @@
             v17 = [dCopy length];
             registration = [v16 registration];
             userID = [registration userID];
-            v20 = [dCopy isEqualToIgnoringCase:userID];
+            v20 = objc_msgSend_isEqualToIgnoringCase_(dCopy);
 
             registration2 = [v16 registration];
             profileID = [registration2 profileID];
-            if ([dCopy isEqualToIgnoringCase:profileID])
+            if (objc_msgSend_isEqualToIgnoringCase_(dCopy))
             {
               registration3 = [v16 registration];
               v24 = [registration3 registrationType] == 1;
@@ -478,7 +478,7 @@
 
             registration4 = [v16 registration];
             idsUserID = [registration4 idsUserID];
-            v27 = [dCopy isEqualToIgnoringCase:idsUserID];
+            v27 = objc_msgSend_isEqualToIgnoringCase_(dCopy);
 
             if ((v17 == 0 || v24) | v20 & 1 | v27 & 1)
             {

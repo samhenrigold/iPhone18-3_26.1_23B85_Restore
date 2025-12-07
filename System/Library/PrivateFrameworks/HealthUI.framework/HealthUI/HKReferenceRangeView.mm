@@ -299,87 +299,105 @@
   [(HKReferenceRangeViewConfiguration *)self->_configuration referenceRangeViewHeight];
   [dynamicTypeAnchorFont _scaledValueForValue:?];
   UIRoundToViewScale();
+  v13 = v12;
 
   UIRoundToViewScale();
-  v12 = 2.0;
-  if (!referenceRangeViewBorderColor)
+  v15 = v14;
+  if (referenceRangeViewBorderColor)
   {
-    v12 = 1.5;
+    v16 = 0.0;
   }
 
-  v128 = v12;
+  else
+  {
+    v16 = 1.5;
+  }
+
+  v17 = 2.0;
+  if (!referenceRangeViewBorderColor)
+  {
+    v17 = 1.5;
+  }
+
+  v145 = v17;
   currentValueLabel2 = [(HKReferenceRangeView *)self currentValueLabel];
   [currentValueLabel2 frame];
-  CGRectGetHeight(v133);
+  Height = CGRectGetHeight(v151);
   [(HKReferenceRangeViewConfiguration *)self->_configuration currentValueToReferenceValuePadding];
+  v21 = Height + v20;
 
   referenceRangeContainerView = [(HKReferenceRangeView *)self referenceRangeContainerView];
   [referenceRangeContainerView frame];
 
   [(HKReferenceRangeViewConfiguration *)self->_configuration horizontalPadding];
-  v127 = v5;
-  v15 = hk_rectRoundToViewScale(self);
-  v17 = v16;
-  v19 = v18;
-  v21 = v20;
+  v144 = v5;
+  v24 = hk_rectRoundToViewScale(self, v23, v21, v5 + v23 * -2.0, v13);
+  v26 = v25;
+  v28 = v27;
+  v30 = v29;
   referenceRangeContainerView2 = [(HKReferenceRangeView *)self referenceRangeContainerView];
-  [referenceRangeContainerView2 setFrame:{v15, v17, v19, v21}];
+  [referenceRangeContainerView2 setFrame:{v24, v26, v28, v30}];
 
   referenceRangeContainerView3 = [(HKReferenceRangeView *)self referenceRangeContainerView];
   layer = [referenceRangeContainerView3 layer];
-  [layer setCornerRadius:v21 * 0.5];
+  [layer setCornerRadius:v30 * 0.5];
 
   referenceRangeContainerView4 = [(HKReferenceRangeView *)self referenceRangeContainerView];
   [referenceRangeContainerView4 setHidden:0];
 
   showOutOfRangeIndicator = self->_showOutOfRangeIndicator;
   outOfRangeLabel2 = [(HKReferenceRangeView *)self outOfRangeLabel];
-  v28 = outOfRangeLabel2;
-  v130 = v15;
+  v37 = outOfRangeLabel2;
+  v147 = v24;
+  v148 = v15;
   if (showOutOfRangeIndicator)
   {
     [outOfRangeLabel2 frame];
-    v30 = v29;
-    v31 = v15;
-    v33 = v32;
+    v39 = v38;
+    v40 = v24;
+    v42 = v41;
 
     if (self->_valueDirection)
     {
-      v34 = v31 + v19 + -7.5 - v30;
+      v43 = v40 + v28 + -7.5 - v39;
     }
 
     else
     {
-      v34 = v31 + 7.5;
+      v43 = v40 + 7.5;
     }
 
     outOfRangeLabel3 = [(HKReferenceRangeView *)self outOfRangeLabel];
-    [outOfRangeLabel3 setFrame:{v34, v17 + (v21 - v33) * 0.5, v30, v33}];
+    v45 = v43;
+    v15 = v148;
+    [outOfRangeLabel3 setFrame:{v45, v26 + (v30 - v42) * 0.5, v39, v42}];
 
     outOfRangeLabel2 = [(HKReferenceRangeView *)self outOfRangeLabel];
-    v28 = outOfRangeLabel2;
-    v36 = 0;
+    v37 = outOfRangeLabel2;
+    v46 = 0;
   }
 
   else
   {
-    v36 = 1;
+    v46 = 1;
   }
 
-  [outOfRangeLabel2 setHidden:v36];
+  [outOfRangeLabel2 setHidden:v46];
 
   currentValueView = [(HKReferenceRangeView *)self currentValueView];
   [currentValueView setHidden:showOutOfRangeIndicator];
 
+  v48 = v28 + v15 * -2.0;
   referenceRangeView = [(HKReferenceRangeView *)self referenceRangeView];
   [referenceRangeView frame];
 
-  v39 = self->_showOutOfRangeIndicator;
-  if (v39)
+  v50 = v16 + fmax(self->_lowValueXPosition, 0.0) * v48;
+  v51 = self->_showOutOfRangeIndicator;
+  if (v51)
   {
     if (self->_valueDirection)
     {
-      LOBYTE(v39) = 1;
+      LOBYTE(v51) = 1;
     }
 
     else
@@ -387,96 +405,107 @@
       referenceRangeContainerView = self->_referenceRangeContainerView;
       [(UILabel *)self->_outOfRangeLabel frame];
       [(UIView *)referenceRangeContainerView convertRect:self fromView:?];
-      CGRectGetMaxX(v134);
-      LOBYTE(v39) = self->_showOutOfRangeIndicator;
+      v53 = CGRectGetMaxX(v152) + 7.5;
+      if (v50 < v53)
+      {
+        v50 = v53;
+      }
+
+      LOBYTE(v51) = self->_showOutOfRangeIndicator;
     }
   }
 
-  v129 = v17;
-  if (v39 && self->_valueDirection == 2)
+  v54 = -(v50 - self->_highValueXPosition * v48) - v16 + v15 * 2.0;
+  v146 = v26;
+  if (v51 && self->_valueDirection == 2)
   {
-    v41 = self->_referenceRangeContainerView;
+    v55 = self->_referenceRangeContainerView;
     [(UILabel *)self->_outOfRangeLabel frame];
-    [(UIView *)v41 convertRect:self fromView:?];
-    CGRectGetMinX(v135);
+    [(UIView *)v55 convertRect:self fromView:?];
+    v56 = CGRectGetMinX(v153) - v50 + -7.5;
+    if (v54 >= v56)
+    {
+      v54 = v56;
+    }
   }
 
-  v42 = hk_rectRoundToViewScale(self);
-  v44 = v43;
-  v46 = v45;
-  v48 = v47;
+  v57 = hk_rectRoundToViewScale(self, v50, v16, v54, v13 + v16 * -2.0);
+  v59 = v58;
+  v61 = v60;
+  v63 = v62;
   referenceRangeView2 = [(HKReferenceRangeView *)self referenceRangeView];
-  [referenceRangeView2 setFrame:{v42, v44, v46, v48}];
+  [referenceRangeView2 setFrame:{v57, v59, v61, v63}];
 
   referenceRangeView3 = [(HKReferenceRangeView *)self referenceRangeView];
   layer2 = [referenceRangeView3 layer];
-  [layer2 setCornerRadius:v48 * 0.5];
+  [layer2 setCornerRadius:v63 * 0.5];
 
-  v136.origin.x = v42;
-  v136.origin.y = v44;
-  rect = v46;
-  v136.size.width = v46;
-  v136.size.height = v48;
-  CGRectInset(v136, v128, v128);
+  v154.origin.x = v57;
+  v154.origin.y = v59;
+  rect = v61;
+  v154.size.width = v61;
+  v154.size.height = v63;
+  v155 = CGRectInset(v154, v145, v145);
+  y = v155.origin.y;
   UIRoundToViewScale();
-  v52 = hk_rectRoundToViewScale(self);
-  v54 = v53;
-  v56 = v55;
-  v58 = v57;
+  v69 = hk_rectRoundToViewScale(self, v145 + v16 + self->_currentValueXPosition * v48, y, v68, v68);
+  v71 = v70;
+  v73 = v72;
+  v75 = v74;
   currentValueView2 = [(HKReferenceRangeView *)self currentValueView];
-  [currentValueView2 setFrame:{v52, v54, v56, v58}];
+  [currentValueView2 setFrame:{v69, v71, v73, v75}];
 
   currentValueView3 = [(HKReferenceRangeView *)self currentValueView];
   layer3 = [currentValueView3 layer];
-  [layer3 setCornerRadius:v58 * 0.5];
+  [layer3 setCornerRadius:v75 * 0.5];
 
   if (v3)
   {
     lowValueLabel2 = [(HKReferenceRangeView *)self lowValueLabel];
     [lowValueLabel2 frame];
-    v64 = v63;
-    v66 = v65;
+    v81 = v80;
+    v83 = v82;
 
     referenceRangeContainerView5 = [(HKReferenceRangeView *)self referenceRangeContainerView];
     [referenceRangeContainerView5 frame];
-    MaxY = CGRectGetMaxY(v137);
+    MaxY = CGRectGetMaxY(v156);
     dynamicTypeAnchorFont2 = [(HKReferenceRangeView *)self dynamicTypeAnchorFont];
     [(HKReferenceRangeViewConfiguration *)self->_configuration referenceValueYOffset];
     [dynamicTypeAnchorFont2 _scaledValueForValue:?];
-    v71 = MaxY + v70;
+    v88 = MaxY + v87;
 
-    [(HKReferenceRangeView *)self _assureLabelFrameWithinBounds:v130 + v42, v71, v64, v66];
-    v73 = v72;
-    v75 = v74;
-    v77 = v76;
-    v79 = v78;
+    [(HKReferenceRangeView *)self _assureLabelFrameWithinBounds:v147 + v57, v88, v81, v83];
+    v90 = v89;
+    v92 = v91;
+    v94 = v93;
+    v96 = v95;
     lowValueLabel3 = [(HKReferenceRangeView *)self lowValueLabel];
-    [lowValueLabel3 setFrame:{v73, v75, v77, v79}];
+    [lowValueLabel3 setFrame:{v90, v92, v94, v96}];
 
     lowValueLabel4 = [(HKReferenceRangeView *)self lowValueLabel];
     [lowValueLabel4 setHidden:0];
 
     highValueLabel2 = [(HKReferenceRangeView *)self highValueLabel];
     [highValueLabel2 frame];
-    v84 = v83;
-    v86 = v85;
+    v101 = v100;
+    v103 = v102;
 
-    v138.origin.x = v42;
-    v138.origin.y = v44;
-    v138.size.width = rect;
-    v138.size.height = v48;
-    v87 = v130 + CGRectGetMaxX(v138) - v84;
+    v157.origin.x = v57;
+    v157.origin.y = v59;
+    v157.size.width = rect;
+    v157.size.height = v63;
+    v104 = v147 + CGRectGetMaxX(v157) - v101;
     lowValueLabel5 = [(HKReferenceRangeView *)self lowValueLabel];
     [lowValueLabel5 frame];
-    v90 = v89;
+    v107 = v106;
 
-    [(HKReferenceRangeView *)self _assureLabelFrameWithinBounds:v87, v90, v84, v86];
-    v92 = v91;
-    v94 = v93;
-    v96 = v95;
-    v98 = v97;
+    [(HKReferenceRangeView *)self _assureLabelFrameWithinBounds:v104, v107, v101, v103];
+    v109 = v108;
+    v111 = v110;
+    v113 = v112;
+    v115 = v114;
     highValueLabel3 = [(HKReferenceRangeView *)self highValueLabel];
-    [highValueLabel3 setFrame:{v92, v94, v96, v98}];
+    [highValueLabel3 setFrame:{v109, v111, v113, v115}];
 
     highValueLabel4 = [(HKReferenceRangeView *)self highValueLabel];
     [highValueLabel4 setHidden:0];
@@ -484,48 +513,48 @@
 
   currentValueLabel3 = [(HKReferenceRangeView *)self currentValueLabel];
   [currentValueLabel3 frame];
-  v103 = v102;
-  v105 = v104;
-  v107 = v106;
-  v109 = v108;
+  v120 = v119;
+  v122 = v121;
+  v124 = v123;
+  v126 = v125;
 
-  v139.origin.x = v103;
-  v139.origin.y = v105;
-  v139.size.width = v107;
-  v139.size.height = v109;
-  v110 = v129 - CGRectGetHeight(v139);
+  v158.origin.x = v120;
+  v158.origin.y = v122;
+  v158.size.width = v124;
+  v158.size.height = v126;
+  v127 = v146 - CGRectGetHeight(v158);
   [(HKReferenceRangeViewConfiguration *)self->_configuration currentValueToReferenceValuePadding];
-  v112 = v110 - v111;
+  v129 = v127 - v128;
   valueDirection = self->_valueDirection;
   [(HKReferenceRangeViewConfiguration *)self->_configuration horizontalPadding];
-  v115 = v114;
+  v132 = v131;
   if (valueDirection == 1)
   {
-    v140.origin.x = v103;
-    v140.origin.y = v112;
-    v140.size.width = v107;
-    v140.size.height = v109;
-    CGRectGetWidth(v140);
+    v159.origin.x = v120;
+    v159.origin.y = v129;
+    v159.size.width = v124;
+    v159.size.height = v126;
+    CGRectGetWidth(v159);
     UIRoundToViewScale();
-    if (v115 >= v116)
+    if (v132 >= v133)
     {
-      v116 = v115;
+      v133 = v132;
     }
   }
 
   else
   {
-    v116 = v114 + 7.5;
-    v107 = v127 + (v115 + 7.5) * -2.0;
+    v133 = v131 + 7.5;
+    v124 = v144 + (v132 + 7.5) * -2.0;
   }
 
-  [(HKReferenceRangeView *)self _assureLabelFrameWithinBounds:v116, v112, v107, v109];
-  v118 = v117;
-  v120 = v119;
-  v122 = v121;
-  v124 = v123;
+  [(HKReferenceRangeView *)self _assureLabelFrameWithinBounds:v133, v129, v124, v126];
+  v135 = v134;
+  v137 = v136;
+  v139 = v138;
+  v141 = v140;
   currentValueLabel4 = [(HKReferenceRangeView *)self currentValueLabel];
-  [currentValueLabel4 setFrame:{v118, v120, v122, v124}];
+  [currentValueLabel4 setFrame:{v135, v137, v139, v141}];
 
   currentValueLabel5 = [(HKReferenceRangeView *)self currentValueLabel];
   [currentValueLabel5 setHidden:0];
@@ -538,20 +567,34 @@
   y = bounds.origin.y;
   v7 = fmax(bounds.origin.x, 0.0);
   [(HKReferenceRangeView *)self bounds];
-  CGRectGetWidth(v13);
-  v14.origin.x = v7;
-  v14.origin.y = y;
-  v14.size.width = width;
-  v14.size.height = height;
-  CGRectGetWidth(v14);
-  [(HKReferenceRangeView *)self bounds];
-  CGRectGetWidth(v15);
+  v8 = CGRectGetWidth(v17);
+  v18.origin.x = v7;
+  v18.origin.y = y;
+  v18.size.width = width;
+  v18.size.height = height;
+  v9 = v8 - CGRectGetWidth(v18);
+  if (v9 < v7)
+  {
+    v7 = v9;
+  }
 
-  v8 = hk_rectRoundToViewScale(self);
-  result.size.height = v11;
-  result.size.width = v10;
-  result.origin.y = v9;
-  result.origin.x = v8;
+  [(HKReferenceRangeView *)self bounds];
+  v10 = CGRectGetWidth(v19);
+  if (v10 >= width)
+  {
+    v11 = width;
+  }
+
+  else
+  {
+    v11 = v10;
+  }
+
+  v12 = hk_rectRoundToViewScale(self, v7, y, v11, height);
+  result.size.height = v15;
+  result.size.width = v14;
+  result.origin.y = v13;
+  result.origin.x = v12;
   return result;
 }
 

@@ -7,93 +7,93 @@
 
 - (PKPaletteToolPickerBackgroundContentView)init
 {
-  v58[8] = *MEMORY[0x1E69E9840];
-  v56.receiver = self;
-  v56.super_class = PKPaletteToolPickerBackgroundContentView;
-  v2 = [(PKPaletteToolPickerBackgroundContentView *)&v56 init];
+  v59[8] = *MEMORY[0x1E69E9840];
+  v57.receiver = self;
+  v57.super_class = PKPaletteToolPickerBackgroundContentView;
+  v2 = [(PKPaletteToolPickerBackgroundContentView *)&v57 init];
   if (v2)
   {
     if (_UISolariumEnabled())
     {
-      v3 = objc_alloc_init(PKPaletteToolPickerEdgeView);
+      v4 = objc_alloc_init(PKPaletteToolPickerEdgeView);
       topOrLeadingEdgeView = v2->_topOrLeadingEdgeView;
-      v2->_topOrLeadingEdgeView = v3;
+      v2->_topOrLeadingEdgeView = v4;
 
       [(PKPaletteToolPickerEdgeView *)v2->_topOrLeadingEdgeView setTranslatesAutoresizingMaskIntoConstraints:0];
       [(PKPaletteToolPickerBackgroundContentView *)v2 addSubview:v2->_topOrLeadingEdgeView];
-      v5 = objc_alloc_init(PKPaletteToolPickerEdgeView);
+      v6 = objc_alloc_init(PKPaletteToolPickerEdgeView);
       bottomOrTrailingEdgeView = v2->_bottomOrTrailingEdgeView;
-      v2->_bottomOrTrailingEdgeView = v5;
+      v2->_bottomOrTrailingEdgeView = v6;
 
       [(PKPaletteToolPickerEdgeView *)v2->_bottomOrTrailingEdgeView setTranslatesAutoresizingMaskIntoConstraints:0];
       [(PKPaletteToolPickerBackgroundContentView *)v2 addSubview:v2->_bottomOrTrailingEdgeView];
       topAnchor = [(PKPaletteToolPickerEdgeView *)v2->_topOrLeadingEdgeView topAnchor];
       topAnchor2 = [(PKPaletteToolPickerBackgroundContentView *)v2 topAnchor];
-      v50 = [topAnchor constraintEqualToAnchor:topAnchor2];
-      v58[0] = v50;
+      v51 = [topAnchor constraintEqualToAnchor:topAnchor2];
+      v59[0] = v51;
       leadingAnchor = [(PKPaletteToolPickerEdgeView *)v2->_topOrLeadingEdgeView leadingAnchor];
       leadingAnchor2 = [(PKPaletteToolPickerBackgroundContentView *)v2 leadingAnchor];
-      v44 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
-      v58[1] = v44;
+      v45 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
+      v59[1] = v45;
       bottomAnchor = [(PKPaletteToolPickerEdgeView *)v2->_topOrLeadingEdgeView bottomAnchor];
       bottomAnchor2 = [(PKPaletteToolPickerBackgroundContentView *)v2 bottomAnchor];
-      v38 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2];
-      v58[2] = v38;
+      v39 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2];
+      v59[2] = v39;
       widthAnchor = [(PKPaletteToolPickerEdgeView *)v2->_topOrLeadingEdgeView widthAnchor];
-      v34 = [widthAnchor constraintEqualToConstant:15.0];
-      v58[3] = v34;
+      v35 = [widthAnchor constraintEqualToConstant:15.0];
+      v59[3] = v35;
       topAnchor3 = [(PKPaletteToolPickerEdgeView *)v2->_bottomOrTrailingEdgeView topAnchor];
       topAnchor4 = [(PKPaletteToolPickerBackgroundContentView *)v2 topAnchor];
-      v28 = [topAnchor3 constraintEqualToAnchor:topAnchor4];
-      v58[4] = v28;
+      v29 = [topAnchor3 constraintEqualToAnchor:topAnchor4];
+      v59[4] = v29;
       bottomAnchor3 = [(PKPaletteToolPickerEdgeView *)v2->_bottomOrTrailingEdgeView bottomAnchor];
       bottomAnchor4 = [(PKPaletteToolPickerBackgroundContentView *)v2 bottomAnchor];
-      v8 = [bottomAnchor3 constraintEqualToAnchor:bottomAnchor4];
-      v58[5] = v8;
+      v9 = [bottomAnchor3 constraintEqualToAnchor:bottomAnchor4];
+      v59[5] = v9;
       trailingAnchor = [(PKPaletteToolPickerEdgeView *)v2->_bottomOrTrailingEdgeView trailingAnchor];
       trailingAnchor2 = [(PKPaletteToolPickerBackgroundContentView *)v2 trailingAnchor];
-      v11 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2];
-      v58[6] = v11;
+      v12 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2];
+      v59[6] = v12;
       widthAnchor2 = [(PKPaletteToolPickerEdgeView *)v2->_bottomOrTrailingEdgeView widthAnchor];
-      v13 = [widthAnchor2 constraintEqualToConstant:15.0];
-      v58[7] = v13;
-      v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v58 count:8];
+      v14 = [widthAnchor2 constraintEqualToConstant:15.0];
+      v59[7] = v14;
+      v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v59 count:8];
       horizontalLayoutConstraints = v2->_horizontalLayoutConstraints;
-      v2->_horizontalLayoutConstraints = v14;
+      v2->_horizontalLayoutConstraints = v15;
 
       topAnchor5 = [(PKPaletteToolPickerEdgeView *)v2->_topOrLeadingEdgeView topAnchor];
       topAnchor6 = [(PKPaletteToolPickerBackgroundContentView *)v2 topAnchor];
-      v51 = [topAnchor5 constraintEqualToAnchor:topAnchor6];
-      v57[0] = v51;
+      v52 = [topAnchor5 constraintEqualToAnchor:topAnchor6];
+      v58[0] = v52;
       leadingAnchor3 = [(PKPaletteToolPickerEdgeView *)v2->_topOrLeadingEdgeView leadingAnchor];
       leadingAnchor4 = [(PKPaletteToolPickerBackgroundContentView *)v2 leadingAnchor];
-      v45 = [leadingAnchor3 constraintEqualToAnchor:leadingAnchor4];
-      v57[1] = v45;
+      v46 = [leadingAnchor3 constraintEqualToAnchor:leadingAnchor4];
+      v58[1] = v46;
       trailingAnchor3 = [(PKPaletteToolPickerEdgeView *)v2->_topOrLeadingEdgeView trailingAnchor];
       trailingAnchor4 = [(PKPaletteToolPickerBackgroundContentView *)v2 trailingAnchor];
-      v39 = [trailingAnchor3 constraintEqualToAnchor:trailingAnchor4];
-      v57[2] = v39;
+      v40 = [trailingAnchor3 constraintEqualToAnchor:trailingAnchor4];
+      v58[2] = v40;
       heightAnchor = [(PKPaletteToolPickerEdgeView *)v2->_topOrLeadingEdgeView heightAnchor];
-      v35 = [heightAnchor constraintEqualToConstant:15.0];
-      v57[3] = v35;
+      v36 = [heightAnchor constraintEqualToConstant:15.0];
+      v58[3] = v36;
       leadingAnchor5 = [(PKPaletteToolPickerEdgeView *)v2->_bottomOrTrailingEdgeView leadingAnchor];
       leadingAnchor6 = [(PKPaletteToolPickerBackgroundContentView *)v2 leadingAnchor];
-      v29 = [leadingAnchor5 constraintEqualToAnchor:leadingAnchor6];
-      v57[4] = v29;
+      v30 = [leadingAnchor5 constraintEqualToAnchor:leadingAnchor6];
+      v58[4] = v30;
       bottomAnchor5 = [(PKPaletteToolPickerEdgeView *)v2->_bottomOrTrailingEdgeView bottomAnchor];
       bottomAnchor6 = [(PKPaletteToolPickerBackgroundContentView *)v2 bottomAnchor];
-      v18 = [bottomAnchor5 constraintEqualToAnchor:bottomAnchor6];
-      v57[5] = v18;
+      v19 = [bottomAnchor5 constraintEqualToAnchor:bottomAnchor6];
+      v58[5] = v19;
       trailingAnchor5 = [(PKPaletteToolPickerEdgeView *)v2->_bottomOrTrailingEdgeView trailingAnchor];
       trailingAnchor6 = [(PKPaletteToolPickerBackgroundContentView *)v2 trailingAnchor];
-      v21 = [trailingAnchor5 constraintEqualToAnchor:trailingAnchor6];
-      v57[6] = v21;
+      v22 = [trailingAnchor5 constraintEqualToAnchor:trailingAnchor6];
+      v58[6] = v22;
       heightAnchor2 = [(PKPaletteToolPickerEdgeView *)v2->_bottomOrTrailingEdgeView heightAnchor];
-      v23 = [heightAnchor2 constraintEqualToConstant:15.0];
-      v57[7] = v23;
-      v24 = [MEMORY[0x1E695DEC8] arrayWithObjects:v57 count:8];
+      v24 = [heightAnchor2 constraintEqualToConstant:15.0];
+      v58[7] = v24;
+      v25 = [MEMORY[0x1E695DEC8] arrayWithObjects:v58 count:8];
       verticalLayoutConstraints = v2->_verticalLayoutConstraints;
-      v2->_verticalLayoutConstraints = v24;
+      v2->_verticalLayoutConstraints = v25;
     }
 
     [(PKPaletteToolPickerBackgroundContentView *)v2 _updateUI];
@@ -106,84 +106,84 @@
 {
   if (result)
   {
-    v1 = result;
+    v2 = result;
     result = _UISolariumEnabled();
     if ((result & 1) == 0)
     {
-      [MEMORY[0x1E696ACD8] deactivateConstraints:*(v1 + 424)];
-      [MEMORY[0x1E696ACD8] deactivateConstraints:*(v1 + 432)];
-      v2 = *(v1 + 448);
-      v3 = 3;
-      if (!v2)
+      [MEMORY[0x1E696ACD8] deactivateConstraints:*(v2 + 424)];
+      [MEMORY[0x1E696ACD8] deactivateConstraints:*(v2 + 432)];
+      v3 = *(v2 + 448);
+      v4 = 3;
+      if (!v3)
       {
-        v3 = 2;
+        v4 = 2;
       }
 
-      [MEMORY[0x1E696ACD8] activateConstraints:*(v1 + OBJC_IVAR___PKPaletteToolPickerBackgroundContentView__topOrLeadingEdgeView[v3])];
-      v4 = *(v1 + 448);
-      v5 = *(v1 + 408);
-      if (v5 && *(v5 + 432) != v4)
+      [MEMORY[0x1E696ACD8] activateConstraints:*(v2 + OBJC_IVAR___PKPaletteToolPickerBackgroundContentView__topOrLeadingEdgeView[v4])];
+      v5 = *(v2 + 448);
+      v6 = *(v2 + 408);
+      if (v6 && *(v6 + 432) != v5)
       {
-        *(v5 + 432) = v4;
-        [(PKPaletteToolPickerEdgeView *)v5 _updateUI];
-        v4 = *(v1 + 448);
-      }
-
-      v6 = *(v1 + 416);
-      if (v6 && *(v6 + 432) != v4)
-      {
-        *(v6 + 432) = v4;
+        *(v6 + 432) = v5;
         [(PKPaletteToolPickerEdgeView *)v6 _updateUI];
-        v4 = *(v1 + 448);
+        v5 = *(v2 + 448);
       }
 
-      if (v4 == 1)
+      v7 = *(v2 + 416);
+      if (v7 && *(v7 + 432) != v5)
       {
-        v7 = *(v1 + 440) ^ 1;
+        *(v7 + 432) = v5;
+        [(PKPaletteToolPickerEdgeView *)v7 _updateUI];
+        v5 = *(v2 + 448);
       }
 
-      else
+      if (v5 == 1)
       {
-        v7 = 0;
-      }
-
-      v8 = *(v1 + 408);
-      v9 = v7 & 1;
-      if (v8 && *(v8 + 424) != v9)
-      {
-        *(v8 + 424) = v9;
-        [(PKPaletteToolPickerEdgeView *)v8 _updateUI];
-      }
-
-      if (v2)
-      {
-        v10 = v9;
+        v8 = *(v2 + 440) ^ 1;
       }
 
       else
       {
-        v10 = 1;
+        v8 = 0;
       }
 
-      v11 = *(v1 + 416);
-      if (v11)
+      v9 = *(v2 + 408);
+      v10 = v8 & 1;
+      if (v9 && *(v9 + 424) != v10)
       {
-        if (*(v11 + 424) == v10 || (*(v11 + 424) = v10, [(PKPaletteToolPickerEdgeView *)v11 _updateUI], (v11 = *(v1 + 416)) != 0))
+        *(v9 + 424) = v10;
+        [(PKPaletteToolPickerEdgeView *)v9 _updateUI];
+      }
+
+      if (v3)
+      {
+        v11 = v10;
+      }
+
+      else
+      {
+        v11 = 1;
+      }
+
+      v12 = *(v2 + 416);
+      if (v12)
+      {
+        if (*(v12 + 424) == v11 || (*(v12 + 424) = v11, [(PKPaletteToolPickerEdgeView *)v12 _updateUI], (v12 = *(v2 + 416)) != 0))
         {
-          v12 = v4 == 1;
-          if (*(v11 + 425) != v12)
+          v13 = v5 == 1;
+          if (*(v12 + 425) != v13)
           {
-            *(v11 + 425) = v12;
-            [(PKPaletteToolPickerEdgeView *)v11 _updateUI];
+            *(v12 + 425) = v13;
+            [(PKPaletteToolPickerEdgeView *)v12 _updateUI];
           }
         }
       }
 
-      [*(v1 + 408) setHidden:(*(v1 + 441) & 1) == 0];
-      v13 = *(v1 + 416);
-      v14 = (*(v1 + 442) & 1) == 0;
+      [*(v2 + 408) setHidden:(*(v2 + 441) & 1) == 0];
+      v14 = *(v2 + 416);
+      v15 = (*(v2 + 442) & 1) == 0;
 
-      return [v13 setHidden:v14];
+      return [v14 setHidden:v15];
     }
   }
 

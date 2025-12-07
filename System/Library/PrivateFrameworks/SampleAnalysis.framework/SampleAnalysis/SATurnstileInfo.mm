@@ -3,6 +3,7 @@
 + (id)turnstileInfoWithKCDataTurnstileInfo:(void *)info portName:(unint64_t)name flags:(unint64_t)flags domain:;
 - (BOOL)_displaysContentForPid:(uint64_t)pid tid:(int)tid threadPriority:(char)priority options:(void *)options displayString:(uint64_t)string nameCallback:;
 - (BOOL)addSelfToBuffer:(id *)buffer bufferLength:(unint64_t)length withCompletedSerializationDictionary:(id)dictionary;
+- (BOOL)displaysSameContentAs:(uint64_t)as forPid:(uint64_t)pid tid:(char)tid displayOptions:;
 - (BOOL)isEqual:(id)equal;
 - (NSString)debugDescription;
 - (SATurnstileInfo)init;
@@ -10,8 +11,7 @@
 - (id)descriptionForPid:(int)pid tid:(unint64_t)tid threadPriority:(int)priority options:(unint64_t)options nameCallback:(id)callback;
 - (int)blockingPid;
 - (int64_t)compare:(id)compare;
-- (uint64_t)displaysSameContentAs:(uint64_t)as forPid:(uint64_t)pid tid:(char)tid displayOptions:;
-- (uint64_t)matchesKCDataTurnstileInfo:(uint64_t)info portName:(uint64_t)name flags:(uint64_t)flags domain:;
+- (uint64_t)matchesKCDataTurnstileInfo:(uint64_t)info portName:(void *)name flags:(void *)flags domain:;
 - (unint64_t)blockingTid;
 - (void)addSelfToSerializationDictionary:(id)dictionary;
 - (void)populateReferencesUsingBuffer:(const void *)buffer bufferLength:(unint64_t)length andDeserializationDictionary:(id)dictionary andDataBufferDictionary:(id)bufferDictionary;
@@ -57,47 +57,47 @@
 
 + (id)turnstileInfoWithKCDataTurnstileInfo:(void *)info portName:(unint64_t)name flags:(unint64_t)flags domain:
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v9 = objc_opt_self();
   if (info)
   {
     v10 = [SATurnstileInfoWithPortLabel alloc];
     if (v10)
     {
-      v19.receiver = v10;
-      v19.super_class = SATurnstileInfoWithPortLabel;
-      v11 = objc_msgSendSuper2(&v19, sel_initWithKCDataTurnstileInfo_, a2);
+      v18.receiver = v10;
+      v18.super_class = SATurnstileInfoWithPortLabel;
+      v11 = objc_msgSendSuper2(&v18, sel_initWithKCDataTurnstileInfo_, a2);
       v12 = v11;
       if (v11)
       {
         objc_storeStrong(v11 + 4, info);
         if (name >= 0x10000)
         {
-          v15 = *__error();
-          v16 = _sa_logt();
-          if (os_log_type_enabled(v16, OS_LOG_TYPE_FAULT))
+          v14 = *__error();
+          v15 = _sa_logt();
+          if (os_log_type_enabled(v15, OS_LOG_TYPE_FAULT))
           {
             *buf = 134217984;
             flagsCopy = name;
-            _os_log_fault_impl(&dword_1E0E2F000, v16, OS_LOG_TYPE_FAULT, "port label flags 0x%llx is too large", buf, 0xCu);
+            _os_log_fault_impl(&dword_1E0E2F000, v15, OS_LOG_TYPE_FAULT, "port label flags 0x%llx is too large", buf, 0xCu);
           }
 
-          *__error() = v15;
+          *__error() = v14;
         }
 
         *(v12 + 40) = name;
         if (flags >= 0x100)
         {
-          v17 = *__error();
-          v18 = _sa_logt();
-          if (os_log_type_enabled(v18, OS_LOG_TYPE_FAULT))
+          v16 = *__error();
+          v17 = _sa_logt();
+          if (os_log_type_enabled(v17, OS_LOG_TYPE_FAULT))
           {
             *buf = 134217984;
             flagsCopy = flags;
-            _os_log_fault_impl(&dword_1E0E2F000, v18, OS_LOG_TYPE_FAULT, "port label domain %llu is too large", buf, 0xCu);
+            _os_log_fault_impl(&dword_1E0E2F000, v17, OS_LOG_TYPE_FAULT, "port label domain %llu is too large", buf, 0xCu);
           }
 
-          *__error() = v17;
+          *__error() = v16;
         }
 
         *(v12 + 42) = flags;
@@ -114,8 +114,6 @@
   {
     v12 = [[v9 alloc] initWithKCDataTurnstileInfo:a2];
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 
   return v12;
 }
@@ -201,7 +199,7 @@
   }
 }
 
-- (uint64_t)matchesKCDataTurnstileInfo:(uint64_t)info portName:(uint64_t)name flags:(uint64_t)flags domain:
+- (uint64_t)matchesKCDataTurnstileInfo:(uint64_t)info portName:(void *)name flags:(void *)flags domain:
 {
   if (!self || *(self + 16) != *(a2 + 8) || *(self + 8) != *(a2 + 16) || *(self + 9) != *(a2 + 17) || *(self + 24) != *(a2 + 18) || [self portDomain] != flags || objc_msgSend(self, "portFlags") != name)
   {
@@ -266,7 +264,7 @@
   }
 }
 
-- (uint64_t)displaysSameContentAs:(uint64_t)as forPid:(uint64_t)pid tid:(char)tid displayOptions:
+- (BOOL)displaysSameContentAs:(uint64_t)as forPid:(uint64_t)pid tid:(char)tid displayOptions:
 {
   if (!result)
   {
@@ -406,10 +404,10 @@ LABEL_22:
 
 - (BOOL)_displaysContentForPid:(uint64_t)pid tid:(int)tid threadPriority:(char)priority options:(void *)options displayString:(uint64_t)string nameCallback:
 {
-  *&v46[5] = *MEMORY[0x1E69E9840];
+  *&v39[5] = *MEMORY[0x1E69E9840];
   if (!result)
   {
-    goto LABEL_62;
+    return result;
   }
 
   optionsCopy = options;
@@ -417,33 +415,33 @@ LABEL_22:
   {
     v17 = *__error();
     v14 = _sa_logt();
-    v35 = string != 0;
+    v34 = string != 0;
     optionsCopy = optionsCopy != 0;
     if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       *buf = 67109376;
-      v46[0] = optionsCopy;
-      LOWORD(v46[1]) = 1024;
-      *(&v46[1] + 2) = v35;
+      v39[0] = optionsCopy;
+      LOWORD(v39[1]) = 1024;
+      *(&v39[1] + 2) = v34;
       _os_log_error_impl(&dword_1E0E2F000, v14, OS_LOG_TYPE_ERROR, "string_out:%d StringForPidAndTid:%d", buf, 0xEu);
     }
 
     *__error() = v17;
-    _SASetCrashLogMessage(3339, "string_out:%d StringForPidAndTid:%d", v36, v37, v38, v39, v40, v41, optionsCopy);
+    _SASetCrashLogMessage(3339, "string_out:%d StringForPidAndTid:%d", optionsCopy, v34);
     _os_crash();
     __break(1u);
 LABEL_68:
-    v42 = *__error();
-    v43 = _sa_logt();
-    if (os_log_type_enabled(v43, OS_LOG_TYPE_FAULT))
+    v35 = *__error();
+    v36 = _sa_logt();
+    if (os_log_type_enabled(v36, OS_LOG_TYPE_FAULT))
     {
-      v44 = *(v14 + v7[152]);
+      v37 = *(v14 + v7[152]);
       *buf = 134217984;
-      *v46 = v44;
-      _os_log_fault_impl(&dword_1E0E2F000, v43, OS_LOG_TYPE_FAULT, "Unknown turnstile flags 0x%llx", buf, 0xCu);
+      *v39 = v37;
+      _os_log_fault_impl(&dword_1E0E2F000, v36, OS_LOG_TYPE_FAULT, "Unknown turnstile flags 0x%llx", buf, 0xCu);
     }
 
-    *__error() = v42;
+    *__error() = v35;
     [v17 appendFormat:@" with unknown flags 0x%llx", *(v14 + v7[152])];
 LABEL_58:
     if (*(v14 + 9) != 1)
@@ -454,7 +452,7 @@ LABEL_58:
     v33 = v17;
     *optionsCopy = v17;
 
-    goto LABEL_61;
+    return 1;
   }
 
   v14 = result;
@@ -470,9 +468,7 @@ LABEL_58:
 LABEL_6:
     if (!optionsCopy)
     {
-LABEL_61:
-      result = 1;
-      goto LABEL_62;
+      return 1;
     }
 
 LABEL_7:
@@ -632,8 +628,7 @@ LABEL_55:
 
   if ((v23 & 8) == 0)
   {
-    result = 0;
-    goto LABEL_62;
+    return 0;
   }
 
   v25 = *(v14 + 16);
@@ -643,8 +638,6 @@ LABEL_55:
     goto LABEL_7;
   }
 
-LABEL_62:
-  v34 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -659,28 +652,26 @@ LABEL_62:
 
 - (BOOL)addSelfToBuffer:(id *)buffer bufferLength:(unint64_t)length withCompletedSerializationDictionary:(id)dictionary
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   if ([(SATurnstileInfo *)self sizeInBytesForSerializedVersion]!= length)
   {
-    v12 = *__error();
-    v13 = _sa_logt();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v11 = *__error();
+    v12 = _sa_logt();
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      v14 = [(SATurnstileInfo *)self debugDescription];
+      v13 = [(SATurnstileInfo *)self debugDescription];
       *buf = 136315650;
-      uTF8String = [v14 UTF8String];
-      v25 = 2048;
+      uTF8String = [v13 UTF8String];
+      v17 = 2048;
       sizeInBytesForSerializedVersion = [(SATurnstileInfo *)self sizeInBytesForSerializedVersion];
-      v27 = 2048;
+      v19 = 2048;
       lengthCopy = length;
-      _os_log_error_impl(&dword_1E0E2F000, v13, OS_LOG_TYPE_ERROR, "%s: size %lu != buffer length %lu", buf, 0x20u);
+      _os_log_error_impl(&dword_1E0E2F000, v12, OS_LOG_TYPE_ERROR, "%s: size %lu != buffer length %lu", buf, 0x20u);
     }
 
-    *__error() = v12;
-    v15 = [(SATurnstileInfo *)self debugDescription];
-    uTF8String2 = [v15 UTF8String];
-    [(SATurnstileInfo *)self sizeInBytesForSerializedVersion];
-    _SASetCrashLogMessage(5880, "%s: size %lu != buffer length %lu", v17, v18, v19, v20, v21, v22, uTF8String2);
+    *__error() = v11;
+    v14 = [(SATurnstileInfo *)self debugDescription];
+    _SASetCrashLogMessage(5880, "%s: size %lu != buffer length %lu", [v14 UTF8String], -[SATurnstileInfo sizeInBytesForSerializedVersion](self, "sizeInBytesForSerializedVersion"), length);
 
     _os_crash();
     __break(1u);
@@ -696,7 +687,6 @@ LABEL_62:
 
   *(&buffer->var5 + 4) = [(SABlockingInfo *)self portFlags];
   *(&buffer->var6 + 4) = [(SABlockingInfo *)self portDomain];
-  v10 = *MEMORY[0x1E69E9840];
   return 1;
 }
 
@@ -714,7 +704,7 @@ LABEL_62:
 
 + (id)newInstanceWithoutReferencesFromSerializedBuffer:(const void *)buffer bufferLength:(unint64_t)length
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   if (*buffer >= 3u)
   {
     goto LABEL_17;
@@ -722,40 +712,40 @@ LABEL_62:
 
   if (length <= 0x13)
   {
-    v9 = *__error();
-    v10 = _sa_logt();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v8 = *__error();
+    v9 = _sa_logt();
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       *buf = 134218240;
       lengthCopy2 = length;
-      v28 = 2048;
-      v29 = 20;
-      _os_log_error_impl(&dword_1E0E2F000, v10, OS_LOG_TYPE_ERROR, "bufferLength %lu < serialized SATurnstileInfo struct %lu", buf, 0x16u);
+      v15 = 2048;
+      v16 = 20;
+      _os_log_error_impl(&dword_1E0E2F000, v9, OS_LOG_TYPE_ERROR, "bufferLength %lu < serialized SATurnstileInfo struct %lu", buf, 0x16u);
     }
 
-    *__error() = v9;
-    _SASetCrashLogMessage(5910, "bufferLength %lu < serialized SATurnstileInfo struct %lu", v11, v12, v13, v14, v15, v16, length);
+    *__error() = v8;
+    _SASetCrashLogMessage(5910, "bufferLength %lu < serialized SATurnstileInfo struct %lu", length, 20);
     _os_crash();
     __break(1u);
 LABEL_14:
-    v17 = *__error();
-    v18 = _sa_logt();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+    v10 = *__error();
+    v11 = _sa_logt();
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       *buf = 134218240;
       lengthCopy2 = length;
-      v28 = 2048;
-      v29 = 44;
-      _os_log_error_impl(&dword_1E0E2F000, v18, OS_LOG_TYPE_ERROR, "bufferLength %lu < serialized SATurnstileInfo_v2 struct %lu", buf, 0x16u);
+      v15 = 2048;
+      v16 = 44;
+      _os_log_error_impl(&dword_1E0E2F000, v11, OS_LOG_TYPE_ERROR, "bufferLength %lu < serialized SATurnstileInfo_v2 struct %lu", buf, 0x16u);
     }
 
-    *__error() = v17;
-    _SASetCrashLogMessage(5916, "bufferLength %lu < serialized SATurnstileInfo_v2 struct %lu", v19, v20, v21, v22, v23, v24, length);
+    *__error() = v10;
+    _SASetCrashLogMessage(5916, "bufferLength %lu < serialized SATurnstileInfo_v2 struct %lu", length, 44);
     _os_crash();
     __break(1u);
 LABEL_17:
-    v25 = [SAException exceptionWithName:@"Decoding failure" reason:@"Unknown SATurnstileInfo version" userInfo:0];
-    objc_exception_throw(v25);
+    v12 = [SAException exceptionWithName:@"Decoding failure" reason:@"Unknown SATurnstileInfo version" userInfo:0];
+    objc_exception_throw(v12);
   }
 
   if (*(buffer + 1) < 2u)
@@ -783,13 +773,12 @@ LABEL_10:
   v6->super._priority = *(buffer + 10);
   v6->super._numHops = *(buffer + 11);
   v6->super._flags = *(buffer + 12);
-  v7 = *MEMORY[0x1E69E9840];
   return v6;
 }
 
 - (void)populateReferencesUsingBuffer:(const void *)buffer bufferLength:(unint64_t)length andDeserializationDictionary:(id)dictionary andDataBufferDictionary:(id)bufferDictionary
 {
-  v47 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   if (*buffer >= 4u)
   {
     goto LABEL_21;
@@ -797,88 +786,84 @@ LABEL_10:
 
   if (length <= 0x13)
   {
-    v16 = *__error();
-    v17 = _sa_logt();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    v14 = *__error();
+    v15 = _sa_logt();
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       *buf = 134218240;
       lengthCopy2 = length;
-      v45 = 2048;
-      v46 = 20;
-      _os_log_error_impl(&dword_1E0E2F000, v17, OS_LOG_TYPE_ERROR, "bufferLength %lu < serialized SATurnstileInfo struct %lu", buf, 0x16u);
+      v25 = 2048;
+      v26 = 20;
+      _os_log_error_impl(&dword_1E0E2F000, v15, OS_LOG_TYPE_ERROR, "bufferLength %lu < serialized SATurnstileInfo struct %lu", buf, 0x16u);
     }
 
-    *__error() = v16;
-    _SASetCrashLogMessage(5945, "bufferLength %lu < serialized SATurnstileInfo struct %lu", v18, v19, v20, v21, v22, v23, length);
+    *__error() = v14;
+    _SASetCrashLogMessage(5945, "bufferLength %lu < serialized SATurnstileInfo struct %lu", length, 20);
     _os_crash();
     __break(1u);
-    goto LABEL_15;
-  }
-
-  if (*(buffer + 1) < 2u)
-  {
-LABEL_11:
-    v15 = *MEMORY[0x1E69E9840];
-    return;
-  }
-
-  if (length <= 0x2B)
-  {
 LABEL_15:
-    v24 = *__error();
+    v16 = *__error();
     self = _sa_logt();
     if (os_log_type_enabled(&self->super.super, OS_LOG_TYPE_ERROR))
     {
       *buf = 134218240;
       lengthCopy2 = length;
-      v45 = 2048;
-      v46 = 44;
+      v25 = 2048;
+      v26 = 44;
       _os_log_error_impl(&dword_1E0E2F000, &self->super.super, OS_LOG_TYPE_ERROR, "bufferLength %lu < serialized SATurnstileInfo_v2 struct %lu", buf, 0x16u);
     }
 
-    *__error() = v24;
-    _SASetCrashLogMessage(5949, "bufferLength %lu < serialized SATurnstileInfo_v2 struct %lu", v25, v26, v27, v28, v29, v30, length);
+    *__error() = v16;
+    _SASetCrashLogMessage(5949, "bufferLength %lu < serialized SATurnstileInfo_v2 struct %lu", length, 44);
     _os_crash();
     __break(1u);
-    goto LABEL_18;
+LABEL_18:
+    v17 = *__error();
+    v18 = _sa_logt();
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+    {
+      ClassName = object_getClassName(self);
+      *buf = 136315138;
+      lengthCopy2 = ClassName;
+      _os_log_error_impl(&dword_1E0E2F000, v18, OS_LOG_TYPE_ERROR, "turnstile info with port info, but class is %s", buf, 0xCu);
+    }
+
+    *__error() = v17;
+    v20 = object_getClassName(self);
+    _SASetCrashLogMessage(5955, "turnstile info with port info, but class is %s", v20);
+    _os_crash();
+    __break(1u);
+LABEL_21:
+    v21 = [SAException exceptionWithName:@"Decoding failure" reason:@"Unknown SATurnstileInfo version" userInfo:0];
+    objc_exception_throw(v21);
+  }
+
+  if (*(buffer + 1) < 2u)
+  {
+    return;
+  }
+
+  if (length <= 0x2B)
+  {
+    goto LABEL_15;
   }
 
   if (*(buffer + 20) == 0xFFFFFFFFFFFFFFFFLL && !*(buffer + 36))
   {
-    goto LABEL_11;
+    return;
   }
 
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
-LABEL_18:
-    v31 = *__error();
-    v32 = _sa_logt();
-    if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
-    {
-      ClassName = object_getClassName(self);
-      *buf = 136315138;
-      lengthCopy2 = ClassName;
-      _os_log_error_impl(&dword_1E0E2F000, v32, OS_LOG_TYPE_ERROR, "turnstile info with port info, but class is %s", buf, 0xCu);
-    }
-
-    *__error() = v31;
-    v34 = object_getClassName(self);
-    _SASetCrashLogMessage(5955, "turnstile info with port info, but class is %s", v35, v36, v37, v38, v39, v40, v34);
-    _os_crash();
-    __break(1u);
-LABEL_21:
-    v41 = [SAException exceptionWithName:@"Decoding failure" reason:@"Unknown SATurnstileInfo version" userInfo:0];
-    objc_exception_throw(v41);
+    goto LABEL_18;
   }
 
   v11 = *(buffer + 20);
   selfCopy = self;
   v13 = objc_opt_class();
-  v42 = _SASerializableInstanceForIndexUsingDeserializationDictionaryAndDataBufferDictionaryAndClass(v11, dictionary, bufferDictionary, v13, 0);
+  v22 = _SASerializableInstanceForIndexUsingDeserializationDictionaryAndDataBufferDictionaryAndClass(v11, dictionary, bufferDictionary, v13, 0);
   [(SATurnstileInfo *)selfCopy setPortName:?];
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 @end

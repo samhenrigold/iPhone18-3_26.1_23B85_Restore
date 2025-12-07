@@ -31,319 +31,314 @@
 
 - (id)evaluate:(id *)evaluate
 {
-  v61 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v5 = OdmlLogForCategory(0xBuLL);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v59 = 138412290;
-    v60 = objc_opt_class();
-    v6 = v60;
-    _os_log_impl(&dword_260ECB000, v5, OS_LOG_TYPE_DEFAULT, "[%@]: Evaluation begins.", &v59, 0xCu);
+    v23 = 138412290;
+    v24 = objc_opt_class();
+    v6 = v24;
+    _os_log_impl(&dword_260ECB000, v5, OS_LOG_TYPE_DEFAULT, "[%@]: Evaluation begins.", &v23, 0xCu);
   }
 
-  v9 = objc_msgSend_netURL(self, v7, v8);
-  v11 = objc_msgSend__evaluate_error_(self, v10, v9, evaluate);
+  netURL = [(APOdmlEspressoEvaluator *)self netURL];
+  v8 = [(APOdmlEspressoEvaluator *)self _evaluate:netURL error:evaluate];
 
-  if (v11)
+  if (v8)
   {
-    v14 = objc_msgSend_dictionary(MEMORY[0x277CBEB38], v12, v13);
-    v15 = MEMORY[0x277CCABB0];
-    v18 = objc_msgSend_trainingSetSize(self, v16, v17);
-    v20 = objc_msgSend_numberWithUnsignedInteger_(v15, v19, v18);
-    objc_msgSend_setValue_forKey_(v14, v21, v20, @"NumRows");
+    dictionary = [MEMORY[0x277CBEB38] dictionary];
+    v10 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[APOdmlEspressoEvaluator trainingSetSize](self, "trainingSetSize")}];
+    [dictionary setValue:v10 forKey:@"NumRows"];
 
-    v24 = objc_msgSend_recipe(self, v22, v23);
-    v27 = objc_msgSend_batchSize(v24, v25, v26);
-    objc_msgSend_setValue_forKey_(v14, v28, v27, @"BatchSize");
+    recipe = [(APOdmlEspressoEvaluator *)self recipe];
+    batchSize = [recipe batchSize];
+    [dictionary setValue:batchSize forKey:@"BatchSize"];
 
-    v31 = objc_msgSend_recipe(self, v29, v30);
-    v34 = objc_msgSend_localIterationsCount(v31, v32, v33);
-    objc_msgSend_setValue_forKey_(v14, v35, v34, @"LocalIterationsCount");
+    recipe2 = [(APOdmlEspressoEvaluator *)self recipe];
+    localIterationsCount = [recipe2 localIterationsCount];
+    [dictionary setValue:localIterationsCount forKey:@"LocalIterationsCount"];
 
-    v38 = objc_msgSend_recipe(self, v36, v37);
-    v41 = objc_msgSend_learningRate(v38, v39, v40);
-    objc_msgSend_setValue_forKey_(v14, v42, v41, @"LearningRate");
+    recipe3 = [(APOdmlEspressoEvaluator *)self recipe];
+    learningRate = [recipe3 learningRate];
+    [dictionary setValue:learningRate forKey:@"LearningRate"];
 
-    v43 = OdmlLogForCategory(0xBuLL);
-    if (os_log_type_enabled(v43, OS_LOG_TYPE_DEFAULT))
+    v17 = OdmlLogForCategory(0xBuLL);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v59) = 0;
-      _os_log_impl(&dword_260ECB000, v43, OS_LOG_TYPE_DEFAULT, "Preparing to evaluate with the following inputs", &v59, 2u);
+      LOWORD(v23) = 0;
+      _os_log_impl(&dword_260ECB000, v17, OS_LOG_TYPE_DEFAULT, "Preparing to evaluate with the following inputs", &v23, 2u);
     }
 
-    objc_msgSend_logWithLoggerKey_message_category_(APOdmlLogUtility, v44, @"TrainingParameters", v14, 11);
-    v46 = objc_msgSend_objectForKey_(v11, v45, @"Metrics");
-    v49 = objc_msgSend_recipe(self, v47, v48);
-    v52 = objc_msgSend_weightNames(v49, v50, v51);
-    objc_msgSend_setValue_forKey_(v46, v53, v52, @"UpdatedModelIndices");
+    [APOdmlLogUtility logWithLoggerKey:@"TrainingParameters" message:dictionary category:11];
+    v18 = [v8 objectForKey:@"Metrics"];
+    recipe4 = [(APOdmlEspressoEvaluator *)self recipe];
+    weightNames = [recipe4 weightNames];
+    [v18 setValue:weightNames forKey:@"UpdatedModelIndices"];
 
-    v56 = objc_msgSend_copy(v11, v54, v55);
+    v21 = [v8 copy];
   }
 
   else
   {
-    v56 = 0;
+    v21 = 0;
   }
 
-  v57 = *MEMORY[0x277D85DE8];
-
-  return v56;
+  return v21;
 }
 
 - (id)_evaluate:(id)_evaluate error:(id *)error
 {
-  v162 = *MEMORY[0x277D85DE8];
+  v82 = *MEMORY[0x277D85DE8];
   _evaluateCopy = _evaluate;
   v7 = OdmlLogForCategory(0xBuLL);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v161 = _evaluateCopy;
+    v81 = _evaluateCopy;
     _os_log_impl(&dword_260ECB000, v7, OS_LOG_TYPE_DEFAULT, "Evaluation in C begins with netpath: %@", buf, 0xCu);
   }
 
   v8 = [APOdmlEspressoFacade alloc];
-  v11 = objc_msgSend_recipe(self, v9, v10);
-  v13 = objc_msgSend_initWithEspressoNetURL_recipe_error_(v8, v12, _evaluateCopy, v11, error);
+  recipe = [(APOdmlEspressoEvaluator *)self recipe];
+  v10 = [(APOdmlEspressoFacade *)v8 initWithEspressoNetURL:_evaluateCopy recipe:recipe error:error];
 
-  if (!v13)
+  if (!v10)
   {
-    v25 = OdmlLogForCategory(0xBuLL);
-    if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+    v14 = OdmlLogForCategory(0xBuLL);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
-      _os_log_impl(&dword_260ECB000, v25, OS_LOG_TYPE_ERROR, "Failed to initialize the Espresso network.", buf, 2u);
+      _os_log_impl(&dword_260ECB000, v14, OS_LOG_TYPE_ERROR, "Failed to initialize the Espresso network.", buf, 2u);
     }
 
     goto LABEL_54;
   }
 
-  v16 = objc_msgSend_builder(self, v14, v15);
-  v19 = objc_msgSend_requiredFeatures(v13, v17, v18);
-  objc_msgSend_addRequiredFeatures_(v16, v20, v19);
+  builder = [(APOdmlEspressoEvaluator *)self builder];
+  requiredFeatures = [(APOdmlEspressoFacade *)v10 requiredFeatures];
+  [builder addRequiredFeatures:requiredFeatures];
 
-  v23 = objc_msgSend_builder(self, v21, v22);
-  v25 = objc_msgSend_generateTrainingSet_(v23, v24, error);
+  builder2 = [(APOdmlEspressoEvaluator *)self builder];
+  v14 = [builder2 generateTrainingSet:error];
 
-  if (!v25 || !objc_msgSend_count(v25, v26, v27))
+  if (!v14 || ![v14 count])
   {
-    v120 = OdmlLogForCategory(0xBuLL);
-    if (os_log_type_enabled(v120, OS_LOG_TYPE_ERROR))
+    v45 = OdmlLogForCategory(0xBuLL);
+    if (os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
-      _os_log_impl(&dword_260ECB000, v120, OS_LOG_TYPE_ERROR, "Failed to find any training row.", buf, 2u);
+      _os_log_impl(&dword_260ECB000, v45, OS_LOG_TYPE_ERROR, "Failed to find any training row.", buf, 2u);
     }
 
     if (error && !*error)
     {
-      objc_msgSend__setError_errorCode_(self, v121, error, 8012);
+      [(APOdmlEspressoEvaluator *)self _setError:error errorCode:8012];
     }
 
     goto LABEL_54;
   }
 
-  v28 = OdmlLogForCategory(0xBuLL);
-  if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
+  v15 = OdmlLogForCategory(0xBuLL);
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v161 = v25;
-    _os_log_impl(&dword_260ECB000, v28, OS_LOG_TYPE_DEFAULT, "Generated the following training rows: %@", buf, 0xCu);
+    v81 = v14;
+    _os_log_impl(&dword_260ECB000, v15, OS_LOG_TYPE_DEFAULT, "Generated the following training rows: %@", buf, 0xCu);
   }
 
-  v31 = objc_msgSend_count(v25, v29, v30);
-  objc_msgSend_setTrainingSetSize_(self, v32, v31);
-  v35 = objc_msgSend_recipe(self, v33, v34);
-  v38 = objc_msgSend_batchSize(v35, v36, v37);
-  v41 = objc_msgSend_unsignedIntegerValue(v38, v39, v40);
+  [(APOdmlEspressoEvaluator *)self setTrainingSetSize:[v14 count]];
+  recipe2 = [(APOdmlEspressoEvaluator *)self recipe];
+  batchSize = [recipe2 batchSize];
+  unsignedIntegerValue = [batchSize unsignedIntegerValue];
 
-  if (!v41)
+  if (!unsignedIntegerValue)
   {
-    v122 = OdmlLogForCategory(0xBuLL);
-    if (os_log_type_enabled(v122, OS_LOG_TYPE_ERROR))
+    v46 = OdmlLogForCategory(0xBuLL);
+    if (os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
-      _os_log_impl(&dword_260ECB000, v122, OS_LOG_TYPE_ERROR, "Batch size should not be zero.", buf, 2u);
+      _os_log_impl(&dword_260ECB000, v46, OS_LOG_TYPE_ERROR, "Batch size should not be zero.", buf, 2u);
     }
 
-    objc_msgSend__setError_errorCode_(self, v123, error, 8037);
+    [(APOdmlEspressoEvaluator *)self _setError:error errorCode:8037];
 LABEL_54:
-    v115 = 0;
+    dictionary = 0;
     goto LABEL_55;
   }
 
-  if (objc_msgSend_trainingSetSize(self, v42, v43) < v41)
+  if ([(APOdmlEspressoEvaluator *)self trainingSetSize]< unsignedIntegerValue)
   {
-    v41 = objc_msgSend_trainingSetSize(self, v44, v45);
+    unsignedIntegerValue = [(APOdmlEspressoEvaluator *)self trainingSetSize];
   }
 
-  if (objc_msgSend_changeEspressoBatchSize_error_(v13, v44, v41, error))
+  if ([(APOdmlEspressoFacade *)v10 changeEspressoBatchSize:unsignedIntegerValue error:error])
   {
-    if (objc_msgSend_finalizeEspressoPipeline_(v13, v46, error))
+    if ([(APOdmlEspressoFacade *)v10 finalizeEspressoPipeline:error])
     {
-      v47 = OdmlLogForCategory(0xBuLL);
-      if (os_log_type_enabled(v47, OS_LOG_TYPE_DEFAULT))
+      v19 = OdmlLogForCategory(0xBuLL);
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_260ECB000, v47, OS_LOG_TYPE_DEFAULT, "Weights after initialization:\n", buf, 2u);
+        _os_log_impl(&dword_260ECB000, v19, OS_LOG_TYPE_DEFAULT, "Weights after initialization:\n", buf, 2u);
       }
 
-      v153 = objc_msgSend_retrieveWeights_(v13, v48, error);
-      if (!v153)
+      v73 = [(APOdmlEspressoFacade *)v10 retrieveWeights:error];
+      if (!v73)
       {
-        v128 = OdmlLogForCategory(0xBuLL);
-        if (os_log_type_enabled(v128, OS_LOG_TYPE_ERROR))
+        v50 = OdmlLogForCategory(0xBuLL);
+        if (os_log_type_enabled(v50, OS_LOG_TYPE_ERROR))
         {
           *buf = 0;
-          _os_log_impl(&dword_260ECB000, v128, OS_LOG_TYPE_ERROR, "Failed to find any weights before training.", buf, 2u);
+          _os_log_impl(&dword_260ECB000, v50, OS_LOG_TYPE_ERROR, "Failed to find any weights before training.", buf, 2u);
         }
 
-        objc_msgSend__setError_errorCode_(self, v129, error, 8029);
-        v115 = 0;
+        [(APOdmlEspressoEvaluator *)self _setError:error errorCode:8029];
+        dictionary = 0;
         goto LABEL_94;
       }
 
-      v51 = objc_msgSend_retrieveWeights2D_(v13, v49, error);
-      if (!v51)
+      v20 = [(APOdmlEspressoFacade *)v10 retrieveWeights2D:error];
+      if (!v20)
       {
-        v130 = OdmlLogForCategory(0xBuLL);
-        if (os_log_type_enabled(v130, OS_LOG_TYPE_ERROR))
+        v51 = OdmlLogForCategory(0xBuLL);
+        if (os_log_type_enabled(v51, OS_LOG_TYPE_ERROR))
         {
           *buf = 0;
-          _os_log_impl(&dword_260ECB000, v130, OS_LOG_TYPE_ERROR, "Failed to retrieve weights by preserving the shape.", buf, 2u);
+          _os_log_impl(&dword_260ECB000, v51, OS_LOG_TYPE_ERROR, "Failed to retrieve weights by preserving the shape.", buf, 2u);
         }
 
-        objc_msgSend__setError_errorCode_(self, v131, error, 8029);
-        v115 = 0;
+        [(APOdmlEspressoEvaluator *)self _setError:error errorCode:8029];
+        dictionary = 0;
         goto LABEL_93;
       }
 
-      objc_msgSend_logWithLoggerKey_message_category_(APOdmlLogUtility, v50, @"ModelWeightsBeforeTraining", v51, 11);
-      v148 = v51;
-      v149 = objc_msgSend_computeAccuracyAndLoss_error_(v13, v52, v25, error);
-      if (v149)
+      [APOdmlLogUtility logWithLoggerKey:@"ModelWeightsBeforeTraining" message:v20 category:11];
+      v68 = v20;
+      v69 = [(APOdmlEspressoFacade *)v10 computeAccuracyAndLoss:v14 error:error];
+      if (v69)
       {
-        if (objc_msgSend_trainWithTrainingSet_error_(v13, v53, v25, error))
+        if ([(APOdmlEspressoFacade *)v10 trainWithTrainingSet:v14 error:error])
         {
-          v141 = objc_msgSend_computeAccuracyAndLoss_error_(v13, v54, v25, error);
-          if (v141)
+          v61 = [(APOdmlEspressoFacade *)v10 computeAccuracyAndLoss:v14 error:error];
+          if (v61)
           {
-            v55 = OdmlLogForCategory(0xBuLL);
-            if (os_log_type_enabled(v55, OS_LOG_TYPE_DEFAULT))
+            v21 = OdmlLogForCategory(0xBuLL);
+            if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 0;
-              _os_log_impl(&dword_260ECB000, v55, OS_LOG_TYPE_DEFAULT, "Weights after training:\n", buf, 2u);
+              _os_log_impl(&dword_260ECB000, v21, OS_LOG_TYPE_DEFAULT, "Weights after training:\n", buf, 2u);
             }
 
-            v58 = objc_msgSend_retrieveWeights_(v13, v56, error);
-            v140 = v58;
-            if (v58)
+            v22 = [(APOdmlEspressoFacade *)v10 retrieveWeights:error];
+            v60 = v22;
+            if (v22)
             {
-              v60 = objc_msgSend_retrieveWeights2D_(v13, v57, error);
-              v139 = v60;
-              if (v60)
+              v23 = [(APOdmlEspressoFacade *)v10 retrieveWeights2D:error];
+              v59 = v23;
+              if (v23)
               {
-                objc_msgSend_logWithLoggerKey_message_category_(APOdmlLogUtility, v59, @"ModelWeightsAfterTraining", v60, 11);
-                v138 = objc_msgSend__computeModelDeltas_weightsAfter_error_(self, v61, v153, v58, 0);
-                v62 = 0x277CBE000uLL;
-                v145 = objc_msgSend_array(MEMORY[0x277CBEB18], v63, v64);
-                v146 = objc_msgSend_array(MEMORY[0x277CBEB18], v65, v66);
-                v147 = objc_msgSend_array(MEMORY[0x277CBEB18], v67, v68);
-                v157 = 0u;
-                v158 = 0u;
-                v155 = 0u;
-                v156 = 0u;
-                obj = v25;
-                v72 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v69, &v155, v159, 16);
-                if (v72)
+                [APOdmlLogUtility logWithLoggerKey:@"ModelWeightsAfterTraining" message:v23 category:11];
+                v58 = [(APOdmlEspressoEvaluator *)self _computeModelDeltas:v73 weightsAfter:v22 error:0];
+                v24 = 0x277CBE000uLL;
+                array = [MEMORY[0x277CBEB18] array];
+                array2 = [MEMORY[0x277CBEB18] array];
+                array3 = [MEMORY[0x277CBEB18] array];
+                v77 = 0u;
+                v78 = 0u;
+                v75 = 0u;
+                v76 = 0u;
+                obj = v14;
+                v25 = [obj countByEnumeratingWithState:&v75 objects:v79 count:16];
+                if (v25)
                 {
-                  v144 = *v156;
+                  v64 = *v76;
                   while (2)
                   {
-                    v73 = 0;
-                    v143 = v72;
+                    v26 = 0;
+                    v63 = v25;
                     do
                     {
-                      if (*v156 != v144)
+                      if (*v76 != v64)
                       {
                         objc_enumerationMutation(obj);
                       }
 
-                      v150 = v73;
-                      v74 = *(*(&v155 + 1) + 8 * v73);
-                      v75 = objc_msgSend_array(*(v62 + 2840), v70, v71);
-                      v151 = v75;
-                      objc_msgSend_addObject_(v75, v76, v74);
-                      v154 = objc_msgSend_computeClientPttr_error_(v13, v77, v75, error);
-                      if (!v154)
+                      v70 = v26;
+                      v27 = *(*(&v75 + 1) + 8 * v26);
+                      array4 = [*(v24 + 2840) array];
+                      v71 = array4;
+                      [array4 addObject:v27];
+                      v74 = [(APOdmlEspressoFacade *)v10 computeClientPttr:array4 error:error];
+                      if (!v74)
                       {
-                        v136 = OdmlLogForCategory(0xBuLL);
-                        if (os_log_type_enabled(v136, OS_LOG_TYPE_ERROR))
+                        v56 = OdmlLogForCategory(0xBuLL);
+                        if (os_log_type_enabled(v56, OS_LOG_TYPE_ERROR))
                         {
                           *buf = 0;
-                          _os_log_impl(&dword_260ECB000, v136, OS_LOG_TYPE_ERROR, "Failed to compute clientPttr after training.", buf, 2u);
+                          _os_log_impl(&dword_260ECB000, v56, OS_LOG_TYPE_ERROR, "Failed to compute clientPttr after training.", buf, 2u);
                         }
 
-                        v115 = 0;
-                        v118 = obj;
+                        dictionary = 0;
+                        v44 = obj;
                         goto LABEL_85;
                       }
 
-                      v78 = OdmlLogForCategory(0xBuLL);
-                      if (os_log_type_enabled(v78, OS_LOG_TYPE_DEFAULT))
+                      v29 = OdmlLogForCategory(0xBuLL);
+                      if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
                       {
                         *buf = 138412290;
-                        v161 = v154;
-                        _os_log_impl(&dword_260ECB000, v78, OS_LOG_TYPE_DEFAULT, "clientPttr: %@", buf, 0xCu);
+                        v81 = v74;
+                        _os_log_impl(&dword_260ECB000, v29, OS_LOG_TYPE_DEFAULT, "clientPttr: %@", buf, 0xCu);
                       }
 
-                      objc_msgSend_addObject_(v145, v79, v154);
-                      v82 = objc_msgSend_features(v74, v80, v81);
-                      v152 = objc_msgSend_objectForKeyedSubscript_(v82, v83, @"pTTRLogit");
+                      [array addObject:v74];
+                      features = [v27 features];
+                      v72 = [features objectForKeyedSubscript:@"pTTRLogit"];
 
-                      if (objc_msgSend_count(v152, v84, v85))
+                      if ([v72 count])
                       {
-                        v87 = objc_msgSend_objectAtIndexedSubscript_(v152, v86, 0);
-                        v88 = MEMORY[0x277CCABB0];
-                        objc_msgSend_floatValue(v154, v89, v90);
-                        v92 = v91;
-                        objc_msgSend_floatValue(v87, v93, v94);
-                        *&v96 = v92 - v95;
-                        v99 = objc_msgSend_numberWithFloat_(v88, v97, v98, v96);
-                        v100 = OdmlLogForCategory(0xBuLL);
-                        if (os_log_type_enabled(v100, OS_LOG_TYPE_DEFAULT))
+                        v31 = [v72 objectAtIndexedSubscript:0];
+                        v32 = MEMORY[0x277CCABB0];
+                        [v74 floatValue];
+                        v34 = v33;
+                        [v31 floatValue];
+                        *&v36 = v34 - v35;
+                        v37 = [v32 numberWithFloat:v36];
+                        v38 = OdmlLogForCategory(0xBuLL);
+                        if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
                         {
                           *buf = 138412290;
-                          v161 = v99;
-                          _os_log_impl(&dword_260ECB000, v100, OS_LOG_TYPE_DEFAULT, "deltaPttr: %@", buf, 0xCu);
+                          v81 = v37;
+                          _os_log_impl(&dword_260ECB000, v38, OS_LOG_TYPE_DEFAULT, "deltaPttr: %@", buf, 0xCu);
                         }
 
-                        objc_msgSend_addObject_(v146, v101, v99);
+                        [array2 addObject:v37];
                       }
 
                       else
                       {
-                        v102 = OdmlLogForCategory(0xBuLL);
-                        if (os_log_type_enabled(v102, OS_LOG_TYPE_ERROR))
+                        v39 = OdmlLogForCategory(0xBuLL);
+                        if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
                         {
                           *buf = 0;
-                          _os_log_impl(&dword_260ECB000, v102, OS_LOG_TYPE_ERROR, "server side PTTR does not exist for a trainingRow", buf, 2u);
+                          _os_log_impl(&dword_260ECB000, v39, OS_LOG_TYPE_ERROR, "server side PTTR does not exist for a trainingRow", buf, 2u);
                         }
 
-                        v87 = objc_msgSend_numberWithFloat_(MEMORY[0x277CCABB0], v103, v104, 0.0);
-                        objc_msgSend_addObject_(v146, v105, v87);
+                        v31 = [MEMORY[0x277CCABB0] numberWithFloat:0.0];
+                        [array2 addObject:v31];
                       }
 
-                      v108 = objc_msgSend_builder(self, v106, v107);
-                      v110 = objc_msgSend_metricsForTrainingRow_withClientPttr_(v108, v109, v74, v154);
+                      builder3 = [(APOdmlEspressoEvaluator *)self builder];
+                      v41 = [builder3 metricsForTrainingRow:v27 withClientPttr:v74];
 
-                      objc_msgSend_addObject_(v147, v111, v110);
-                      v73 = v150 + 1;
-                      v62 = 0x277CBE000;
+                      [array3 addObject:v41];
+                      v26 = v70 + 1;
+                      v24 = 0x277CBE000;
                     }
 
-                    while (v143 != v150 + 1);
-                    v72 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v70, &v155, v159, 16);
-                    if (v72)
+                    while (v63 != v70 + 1);
+                    v25 = [obj countByEnumeratingWithState:&v75 objects:v79 count:16];
+                    if (v25)
                     {
                       continue;
                     }
@@ -352,160 +347,159 @@ LABEL_54:
                   }
                 }
 
-                v112 = OdmlLogForCategory(0xBuLL);
-                if (os_log_type_enabled(v112, OS_LOG_TYPE_DEFAULT))
+                v42 = OdmlLogForCategory(0xBuLL);
+                if (os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
                 {
                   *buf = 138412290;
-                  v161 = v147;
-                  _os_log_impl(&dword_260ECB000, v112, OS_LOG_TYPE_DEFAULT, "tapAndImpressionMetrics: %@", buf, 0xCu);
+                  v81 = array3;
+                  _os_log_impl(&dword_260ECB000, v42, OS_LOG_TYPE_DEFAULT, "tapAndImpressionMetrics: %@", buf, 0xCu);
                 }
 
-                v115 = objc_msgSend_dictionary(MEMORY[0x277CBEB38], v113, v114);
-                objc_msgSend_setValue_forKey_(v115, v116, v138, @"Deltas");
-                v118 = objc_msgSend__generateMetrics_postTrainingMetrics_tapAndImpressionMetrics_deltaPttrMetrics_(self, v117, v149, v141, v147, v146);
-                objc_msgSend_setValue_forKey_(v115, v119, v118, @"Metrics");
+                dictionary = [MEMORY[0x277CBEB38] dictionary];
+                [dictionary setValue:v58 forKey:@"Deltas"];
+                v44 = [(APOdmlEspressoEvaluator *)self _generateMetrics:v69 postTrainingMetrics:v61 tapAndImpressionMetrics:array3 deltaPttrMetrics:array2];
+                [dictionary setValue:v44 forKey:@"Metrics"];
 LABEL_85:
 
-                v137 = v138;
+                v57 = v58;
               }
 
               else
               {
-                v137 = OdmlLogForCategory(0xBuLL);
-                if (os_log_type_enabled(v137, OS_LOG_TYPE_ERROR))
+                v57 = OdmlLogForCategory(0xBuLL);
+                if (os_log_type_enabled(v57, OS_LOG_TYPE_ERROR))
                 {
                   *buf = 0;
-                  _os_log_impl(&dword_260ECB000, v137, OS_LOG_TYPE_ERROR, "Failed to retrieve weights after training by preserving the shape.", buf, 2u);
+                  _os_log_impl(&dword_260ECB000, v57, OS_LOG_TYPE_ERROR, "Failed to retrieve weights after training by preserving the shape.", buf, 2u);
                 }
 
-                v115 = 0;
+                dictionary = 0;
               }
 
-              v135 = v139;
+              v55 = v59;
             }
 
             else
             {
-              v135 = OdmlLogForCategory(0xBuLL);
-              if (os_log_type_enabled(v135, OS_LOG_TYPE_ERROR))
+              v55 = OdmlLogForCategory(0xBuLL);
+              if (os_log_type_enabled(v55, OS_LOG_TYPE_ERROR))
               {
                 *buf = 0;
-                _os_log_impl(&dword_260ECB000, v135, OS_LOG_TYPE_ERROR, "Failed to find any weight after training.", buf, 2u);
+                _os_log_impl(&dword_260ECB000, v55, OS_LOG_TYPE_ERROR, "Failed to find any weight after training.", buf, 2u);
               }
 
-              v115 = 0;
+              dictionary = 0;
             }
 
-            v134 = v140;
+            v54 = v60;
           }
 
           else
           {
-            v134 = OdmlLogForCategory(0xBuLL);
-            if (os_log_type_enabled(v134, OS_LOG_TYPE_ERROR))
+            v54 = OdmlLogForCategory(0xBuLL);
+            if (os_log_type_enabled(v54, OS_LOG_TYPE_ERROR))
             {
               *buf = 0;
-              _os_log_impl(&dword_260ECB000, v134, OS_LOG_TYPE_ERROR, "Failed to compute accuracy and loss after training.", buf, 2u);
+              _os_log_impl(&dword_260ECB000, v54, OS_LOG_TYPE_ERROR, "Failed to compute accuracy and loss after training.", buf, 2u);
             }
 
-            v115 = 0;
+            dictionary = 0;
           }
 
-          v132 = v141;
+          v52 = v61;
           goto LABEL_92;
         }
 
-        v132 = OdmlLogForCategory(0xBuLL);
-        if (os_log_type_enabled(v132, OS_LOG_TYPE_ERROR))
+        v52 = OdmlLogForCategory(0xBuLL);
+        if (os_log_type_enabled(v52, OS_LOG_TYPE_ERROR))
         {
           *buf = 0;
-          v133 = "Failed to train the model";
+          v53 = "Failed to train the model";
           goto LABEL_74;
         }
       }
 
       else
       {
-        v132 = OdmlLogForCategory(0xBuLL);
-        if (os_log_type_enabled(v132, OS_LOG_TYPE_ERROR))
+        v52 = OdmlLogForCategory(0xBuLL);
+        if (os_log_type_enabled(v52, OS_LOG_TYPE_ERROR))
         {
           *buf = 0;
-          v133 = "Failed to find preTrainingMetrics.";
+          v53 = "Failed to find preTrainingMetrics.";
 LABEL_74:
-          _os_log_impl(&dword_260ECB000, v132, OS_LOG_TYPE_ERROR, v133, buf, 2u);
+          _os_log_impl(&dword_260ECB000, v52, OS_LOG_TYPE_ERROR, v53, buf, 2u);
         }
       }
 
-      v115 = 0;
+      dictionary = 0;
 LABEL_92:
 
-      v51 = v148;
+      v20 = v68;
 LABEL_93:
 
 LABEL_94:
-      v126 = v153;
+      v48 = v73;
       goto LABEL_95;
     }
 
-    v126 = OdmlLogForCategory(0xBuLL);
-    if (os_log_type_enabled(v126, OS_LOG_TYPE_ERROR))
+    v48 = OdmlLogForCategory(0xBuLL);
+    if (os_log_type_enabled(v48, OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
-      v127 = "Failed to finalize the Espresso pipeline.";
+      v49 = "Failed to finalize the Espresso pipeline.";
       goto LABEL_62;
     }
   }
 
   else
   {
-    v126 = OdmlLogForCategory(0xBuLL);
-    if (os_log_type_enabled(v126, OS_LOG_TYPE_ERROR))
+    v48 = OdmlLogForCategory(0xBuLL);
+    if (os_log_type_enabled(v48, OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
-      v127 = "Failed to change input shape.";
+      v49 = "Failed to change input shape.";
 LABEL_62:
-      _os_log_impl(&dword_260ECB000, v126, OS_LOG_TYPE_ERROR, v127, buf, 2u);
+      _os_log_impl(&dword_260ECB000, v48, OS_LOG_TYPE_ERROR, v49, buf, 2u);
     }
   }
 
-  v115 = 0;
+  dictionary = 0;
 LABEL_95:
 
 LABEL_55:
-  v124 = *MEMORY[0x277D85DE8];
 
-  return v115;
+  return dictionary;
 }
 
 - (id)_computeModelDeltas:(id)deltas weightsAfter:(id)after error:(id *)error
 {
   deltasCopy = deltas;
   afterCopy = after;
-  v12 = objc_msgSend_count(deltasCopy, v10, v11);
-  if (v12 != objc_msgSend_count(afterCopy, v13, v14))
+  v10 = [deltasCopy count];
+  if (v10 != [afterCopy count])
   {
-    objc_msgSend__setError_errorCode_(self, v15, error, 8029);
+    [(APOdmlEspressoEvaluator *)self _setError:error errorCode:8029];
   }
 
-  v19 = objc_msgSend_array(MEMORY[0x277CBEB18], v15, v16);
-  for (i = 0; i < objc_msgSend_count(deltasCopy, v17, v18); ++i)
+  array = [MEMORY[0x277CBEB18] array];
+  for (i = 0; i < [deltasCopy count]; ++i)
   {
-    v23 = objc_msgSend_objectAtIndexedSubscript_(deltasCopy, v21, i);
-    objc_msgSend_floatValue(v23, v24, v25);
-    v27 = v26;
+    v13 = [deltasCopy objectAtIndexedSubscript:i];
+    [v13 floatValue];
+    v15 = v14;
 
-    v29 = objc_msgSend_objectAtIndexedSubscript_(afterCopy, v28, i);
-    objc_msgSend_floatValue(v29, v30, v31);
-    v33 = v32;
+    v16 = [afterCopy objectAtIndexedSubscript:i];
+    [v16 floatValue];
+    v18 = v17;
 
-    *&v34 = v33 - v27;
-    v37 = objc_msgSend_numberWithFloat_(MEMORY[0x277CCABB0], v35, v36, v34);
-    objc_msgSend_addObject_(v19, v38, v37);
+    *&v19 = v18 - v15;
+    v20 = [MEMORY[0x277CCABB0] numberWithFloat:v19];
+    [array addObject:v20];
   }
 
-  v39 = objc_msgSend_copy(v19, v21, v22);
+  v21 = [array copy];
 
-  return v39;
+  return v21;
 }
 
 - (id)_generateMetrics:(id)metrics postTrainingMetrics:(id)trainingMetrics tapAndImpressionMetrics:(id)impressionMetrics deltaPttrMetrics:(id)pttrMetrics
@@ -514,36 +508,36 @@ LABEL_55:
   trainingMetricsCopy = trainingMetrics;
   impressionMetricsCopy = impressionMetrics;
   pttrMetricsCopy = pttrMetrics;
-  v15 = objc_msgSend_dictionary(MEMORY[0x277CBEB38], v13, v14);
-  if (objc_msgSend_count(metricsCopy, v16, v17) == 2)
+  dictionary = [MEMORY[0x277CBEB38] dictionary];
+  if ([metricsCopy count] == 2)
   {
-    v20 = objc_msgSend_objectAtIndexedSubscript_(metricsCopy, v18, 0);
-    objc_msgSend_setValue_forKey_(v15, v21, v20, @"PreTrainingAccuracy");
+    v14 = [metricsCopy objectAtIndexedSubscript:0];
+    [dictionary setValue:v14 forKey:@"PreTrainingAccuracy"];
 
-    v23 = objc_msgSend_objectAtIndexedSubscript_(metricsCopy, v22, 1);
-    objc_msgSend_setValue_forKey_(v15, v24, v23, @"PreTrainingLoss");
+    v15 = [metricsCopy objectAtIndexedSubscript:1];
+    [dictionary setValue:v15 forKey:@"PreTrainingLoss"];
   }
 
-  if (objc_msgSend_count(trainingMetricsCopy, v18, v19) == 2)
+  if ([trainingMetricsCopy count] == 2)
   {
-    v26 = objc_msgSend_objectAtIndexedSubscript_(trainingMetricsCopy, v25, 0);
-    objc_msgSend_setValue_forKey_(v15, v27, v26, @"PostTrainingAccuracy");
+    v16 = [trainingMetricsCopy objectAtIndexedSubscript:0];
+    [dictionary setValue:v16 forKey:@"PostTrainingAccuracy"];
 
-    v29 = objc_msgSend_objectAtIndexedSubscript_(trainingMetricsCopy, v28, 1);
-    objc_msgSend_setValue_forKey_(v15, v30, v29, @"PostTrainingLoss");
+    v17 = [trainingMetricsCopy objectAtIndexedSubscript:1];
+    [dictionary setValue:v17 forKey:@"PostTrainingLoss"];
   }
 
-  objc_msgSend_setValue_forKey_(v15, v25, impressionMetricsCopy, @"AdditionalMetrics");
-  objc_msgSend_setValue_forKey_(v15, v31, pttrMetricsCopy, @"delta_pTTR");
+  [dictionary setValue:impressionMetricsCopy forKey:@"AdditionalMetrics"];
+  [dictionary setValue:pttrMetricsCopy forKey:@"delta_pTTR"];
 
-  return v15;
+  return dictionary;
 }
 
 - (BOOL)_setError:(id *)error errorCode:(int64_t)code
 {
   if (error)
   {
-    *error = objc_msgSend_errorWithDomain_code_userInfo_(MEMORY[0x277CCA9B8], a2, @"APODMLDESPluginErrorDomain", code, 0);
+    *error = [MEMORY[0x277CCA9B8] errorWithDomain:@"APODMLDESPluginErrorDomain" code:code userInfo:0];
   }
 
   return error != 0;

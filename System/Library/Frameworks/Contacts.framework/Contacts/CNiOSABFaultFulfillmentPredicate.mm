@@ -225,7 +225,7 @@ uint64_t __107__CNiOSABFaultFulfillmentPredicate_cn_copyPeopleInAddressBook_fetc
   return result;
 }
 
-void __107__CNiOSABFaultFulfillmentPredicate_cn_copyPeopleInAddressBook_fetchRequest_matchInfos_environment_nserror___block_invoke_4(uint64_t a1, void *a2, _BYTE *a3)
+void __107__CNiOSABFaultFulfillmentPredicate_cn_copyPeopleInAddressBook_fetchRequest_matchInfos_environment_nserror___block_invoke_4(void *a1, void *a2, _BYTE *a3)
 {
   v5 = a2;
   v6 = [objc_opt_class() os_log];
@@ -235,10 +235,10 @@ void __107__CNiOSABFaultFulfillmentPredicate_cn_copyPeopleInAddressBook_fetchReq
     _os_log_impl(&dword_1954A0000, v6, OS_LOG_TYPE_INFO, "Using the faultfulfillment predicate with optional keys, this may be slow.", v8, 2u);
   }
 
-  v7 = (*(*(a1 + 40) + 16))();
+  v7 = (*(a1[5] + 16))();
   if (v7)
   {
-    *(*(*(a1 + 48) + 8) + 24) = 1;
+    *(*(a1[6] + 8) + 24) = 1;
     *a3 = 1;
   }
 }

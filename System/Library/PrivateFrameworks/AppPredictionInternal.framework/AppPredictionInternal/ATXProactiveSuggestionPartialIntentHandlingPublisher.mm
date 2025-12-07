@@ -27,18 +27,18 @@
 
 - (id)partialIntentUIFeedbackPublisher
 {
-  v15[2] = *MEMORY[0x277D85DE8];
+  v14[2] = *MEMORY[0x277D85DE8];
   uiFeedbackPublisher = self->_uiFeedbackPublisher;
   intentPublisher = self->_intentPublisher;
-  v15[0] = self->_appLaunchPublisher;
-  v15[1] = intentPublisher;
-  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:2];
-  v14[0] = MEMORY[0x277D85DD0];
-  v14[1] = 3221225472;
-  v14[2] = __88__ATXProactiveSuggestionPartialIntentHandlingPublisher_partialIntentUIFeedbackPublisher__block_invoke;
-  v14[3] = &unk_278597CB8;
-  v14[4] = self;
-  v6 = [(BPSPublisher *)uiFeedbackPublisher orderedMergeWithOthers:v5 comparator:v14];
+  v14[0] = self->_appLaunchPublisher;
+  v14[1] = intentPublisher;
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:2];
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 3221225472;
+  v13[2] = __88__ATXProactiveSuggestionPartialIntentHandlingPublisher_partialIntentUIFeedbackPublisher__block_invoke;
+  v13[3] = &unk_278597CB8;
+  v13[4] = self;
+  v6 = [(BPSPublisher *)uiFeedbackPublisher orderedMergeWithOthers:v5 comparator:v13];
 
   v7 = objc_alloc(MEMORY[0x277CEBCD0]);
   v8 = objc_opt_new();
@@ -46,8 +46,6 @@
 
   v10 = [v6 scanWithInitial:v9 nextPartialResult:&__block_literal_global_184];
   v11 = [v10 flatMapWithTransform:&__block_literal_global_29_2];
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v11;
 }
@@ -144,37 +142,38 @@ id __88__ATXProactiveSuggestionPartialIntentHandlingPublisher_partialIntentUIFee
   else
   {
     objc_opt_class();
-    if (objc_opt_isKindOfClass())
+    isKindOfClass = objc_opt_isKindOfClass();
+    if (isKindOfClass)
     {
-      v8 = eventCopy;
-      session = [v8 session];
+      v9 = eventCopy;
+      session = [v9 session];
       sessionEndDate = [session sessionEndDate];
 
       if (!sessionEndDate)
       {
-        [(ATXProactiveSuggestionPartialIntentHandlingPublisher *)a2 _timestampFromEvent:v8];
+        [(ATXProactiveSuggestionPartialIntentHandlingPublisher *)a2 _timestampFromEvent:v9];
       }
 
-      v11 = MEMORY[0x277CCABB0];
-      session2 = [v8 session];
+      v12 = MEMORY[0x277CCABB0];
+      session2 = [v9 session];
       sessionEndDate2 = [session2 sessionEndDate];
       [sessionEndDate2 timeIntervalSinceReferenceDate];
-      v7 = [v11 numberWithDouble:?];
+      v7 = [v12 numberWithDouble:?];
     }
 
     else
     {
-      v14 = __atxlog_handle_blending_ecosystem();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+      v15 = __atxlog_handle_blending_ecosystem(isKindOfClass);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
-        [(ATXProactiveSuggestionPartialIntentHandlingPublisher *)self _timestampFromEvent:eventCopy, v14];
+        [(ATXProactiveSuggestionPartialIntentHandlingPublisher *)self _timestampFromEvent:eventCopy, v15];
       }
 
-      v15 = MEMORY[0x277CBEAD8];
-      v16 = *MEMORY[0x277CBE658];
-      v17 = objc_opt_class();
-      v18 = NSStringFromClass(v17);
-      [v15 raise:v16 format:{@"%@ - _timestampFromEvent invoked with unknown object: %@", v18, eventCopy}];
+      v16 = MEMORY[0x277CBEAD8];
+      v17 = *MEMORY[0x277CBE658];
+      v18 = objc_opt_class();
+      v19 = NSStringFromClass(v18);
+      [v16 raise:v17 format:{@"%@ - _timestampFromEvent invoked with unknown object: %@", v19, eventCopy}];
 
       v7 = &unk_283A57098;
     }
@@ -185,16 +184,14 @@ id __88__ATXProactiveSuggestionPartialIntentHandlingPublisher_partialIntentUIFee
 
 - (void)_timestampFromEvent:(NSObject *)a3 .cold.1(uint64_t a1, uint64_t a2, NSObject *a3)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v5 = objc_opt_class();
   v6 = NSStringFromClass(v5);
-  v8 = 138412546;
-  v9 = v6;
-  v10 = 2112;
-  v11 = a2;
-  _os_log_error_impl(&dword_2263AA000, a3, OS_LOG_TYPE_ERROR, "%@ - _timestampFromEvent invoked with unknown object: %@", &v8, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
+  v7 = 138412546;
+  v8 = v6;
+  v9 = 2112;
+  v10 = a2;
+  _os_log_error_impl(&dword_2263AA000, a3, OS_LOG_TYPE_ERROR, "%@ - _timestampFromEvent invoked with unknown object: %@", &v7, 0x16u);
 }
 
 - (void)_timestampFromEvent:(uint64_t)a3 .cold.2(uint64_t a1, uint64_t a2, uint64_t a3)

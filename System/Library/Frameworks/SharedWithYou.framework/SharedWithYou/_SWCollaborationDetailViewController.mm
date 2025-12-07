@@ -11,6 +11,7 @@
 - (void)setItemProvider:(id)provider;
 - (void)setListContentView:(id)view;
 - (void)setManageButtonTitle:(id)title;
+- (void)setShowManageButton:(BOOL)button;
 @end
 
 @implementation _SWCollaborationDetailViewController
@@ -72,6 +73,13 @@
   }
 }
 
+- (void)setShowManageButton:(BOOL)button
+{
+  buttonCopy = button;
+  viewModel = [(_SWCollaborationDetailViewController *)self viewModel];
+  [viewModel setShowManageButton:buttonCopy];
+}
+
 - (_SWCollaborationDetailViewController)initWithItemProvider:(id)provider
 {
   if (provider)
@@ -122,9 +130,11 @@
   viewModel = [(_SWCollaborationDetailViewController *)selfCopy viewModel];
   swift_getKeyPath();
   swift_getKeyPath();
-  sub_1BBC40ABC();
+  sub_1BBC40ABC(&v6);
 
-  return v5;
+  v4 = v6;
+
+  return v4;
 }
 
 - (void)setCollaborationHighlight:(id)highlight

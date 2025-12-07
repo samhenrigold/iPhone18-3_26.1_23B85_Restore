@@ -1,8 +1,89 @@
-BOOL sub_23EBDCF40(const __CFString *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void sub_23EBDCCB4(const char *a1, uint64_t a2)
+{
+  if (a2)
+  {
+    v2 = a2;
+    v4 = *MEMORY[0x277CBECE8];
+    Mutable = CFArrayCreateMutable(*MEMORY[0x277CBECE8], 1, MEMORY[0x277CBF128]);
+    if (Mutable)
+    {
+      v11 = sub_23EB6FDFC(v4, Mutable, "%O", v5, v6, v7, v8, v9, v2);
+      if (!v11)
+      {
+        sub_23EBDC50C(a1, Mutable);
+LABEL_14:
+
+        CFRelease(Mutable);
+        return;
+      }
+
+      v12 = v11;
+    }
+
+    else
+    {
+      v12 = -6728;
+    }
+  }
+
+  else
+  {
+    Mutable = 0;
+    v12 = -6705;
+  }
+
+  if (dword_27E382C08 <= 800 && (dword_27E382C08 != -1 || sub_23EB74AC8(&dword_27E382C08, 0x320u)))
+  {
+    sub_23EB75374(&dword_27E382C08, "void dlog_user__NetworkDictionary(const char *, CFDictionaryRef)", 800, "err: %d", v12);
+  }
+
+  if (Mutable)
+  {
+    goto LABEL_14;
+  }
+}
+
+uint64_t sub_23EBDCDD0(const __CFString *a1)
 {
   if (dword_27E382C08 <= 800 && (dword_27E382C08 != -1 || sub_23EB74AC8(&dword_27E382C08, 0x320u)))
   {
-    sub_23EB75374(&dword_27E382C08, "Boolean _BaseStationIs80211g(CFDictionaryRef)", 800, "\n", a5, a6, a7, a8, v12);
+    sub_23EB75374(&dword_27E382C08, "Boolean _BaseStationHasPPPoEAvailable(CFDictionaryRef)", 800, "\n");
+  }
+
+  if (a1 && (v4 = 0, sub_23EB6FF14(a1, &v4, "%ks.%kC:int", "txt", 1937327724), !v2))
+  {
+    return (v4 >> 10) & 1;
+  }
+
+  else
+  {
+    return 0;
+  }
+}
+
+uint64_t sub_23EBDCE88(const __CFString *a1)
+{
+  if (dword_27E382C08 <= 800 && (dword_27E382C08 != -1 || sub_23EB74AC8(&dword_27E382C08, 0x320u)))
+  {
+    sub_23EB75374(&dword_27E382C08, "Boolean _BaseStationHasDHCPLease(CFDictionaryRef)", 800, "\n");
+  }
+
+  if (a1 && (v4 = 0, sub_23EB6FF14(a1, &v4, "%ks.%kC:int", "txt", 1937327724), !v2))
+  {
+    return (v4 >> 11) & 1;
+  }
+
+  else
+  {
+    return 0;
+  }
+}
+
+BOOL sub_23EBDCF40(const __CFString *a1)
+{
+  if (dword_27E382C08 <= 800 && (dword_27E382C08 != -1 || sub_23EB74AC8(&dword_27E382C08, 0x320u)))
+  {
+    sub_23EB75374(&dword_27E382C08, "Boolean _BaseStationIs80211g(CFDictionaryRef)", 800, "\n");
   }
 
   if (!a1)
@@ -10,15 +91,15 @@ BOOL sub_23EBDCF40(const __CFString *a1, uint64_t a2, uint64_t a3, uint64_t a4, 
     return 0;
   }
 
-  v9 = sub_23EB6A2C0(a1, a2, a3, a4, a5, a6, a7, a8);
-  return v9 == 3 || v9 == 102;
+  v2 = sub_23EB6A2C0(a1);
+  return v2 == 3 || v2 == 102;
 }
 
-BOOL sub_23EBDCFD0(const __CFString *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+BOOL sub_23EBDCFD0(const __CFString *a1)
 {
   if (dword_27E382C08 <= 800 && (dword_27E382C08 != -1 || sub_23EB74AC8(&dword_27E382C08, 0x320u)))
   {
-    sub_23EB75374(&dword_27E382C08, "Boolean _BaseStationIsTooNewToSetUp(CFDictionaryRef)", 800, "\n", a5, a6, a7, a8, v11);
+    sub_23EB75374(&dword_27E382C08, "Boolean _BaseStationIsTooNewToSetUp(CFDictionaryRef)", 800, "\n");
   }
 
   if (!a1)
@@ -26,85 +107,85 @@ BOOL sub_23EBDCFD0(const __CFString *a1, uint64_t a2, uint64_t a3, uint64_t a4, 
     return 0;
   }
 
-  v9 = sub_23EB6A2C0(a1, a2, a3, a4, a5, a6, a7, a8);
-  return sub_23EC136C0(v9) == 0;
+  v2 = sub_23EB6A2C0(a1);
+  return sub_23EC136C0(v2) == 0;
 }
 
-uint64_t sub_23EBDD05C(CFArrayRef theArray, __CFArray **a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t sub_23EBDD05C(CFArrayRef theArray, __CFArray **a2)
 {
   if (dword_27E382C08 <= 800 && (dword_27E382C08 != -1 || sub_23EB74AC8(&dword_27E382C08, 0x320u)))
   {
-    sub_23EB75374(&dword_27E382C08, "OSStatus _CopyAllUnconfiguredBaseStations(CFArrayRef, CFDictionaryRef *)", 800, "\n", a5, a6, a7, a8, v38);
+    sub_23EB75374(&dword_27E382C08, "OSStatus _CopyAllUnconfiguredBaseStations(CFArrayRef, CFDictionaryRef *)", 800, "\n");
   }
 
-  v10 = 4294960591;
+  v4 = 4294960591;
   if (theArray && a2)
   {
     Count = CFArrayGetCount(theArray);
     if (Count)
     {
-      v12 = Count;
-      v13 = *MEMORY[0x277CBECE8];
+      v6 = Count;
+      v7 = *MEMORY[0x277CBECE8];
       Mutable = CFDictionaryCreateMutable(*MEMORY[0x277CBECE8], 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
       if (Mutable)
       {
-        v15 = Mutable;
-        v39 = 0;
-        if (v12 >= 1)
+        v9 = Mutable;
+        v20 = 0;
+        if (v6 >= 1)
         {
-          v16 = 0;
+          v10 = 0;
           while (1)
           {
-            ValueAtIndex = CFArrayGetValueAtIndex(theArray, v16);
+            ValueAtIndex = CFArrayGetValueAtIndex(theArray, v10);
             if (!ValueAtIndex)
             {
 LABEL_21:
-              v10 = 4294960568;
+              v4 = 4294960568;
               goto LABEL_24;
             }
 
-            v25 = ValueAtIndex;
-            if (sub_23EB6B0C8(ValueAtIndex, v18, v19, v20, v21, v22, v23, v24))
+            v12 = ValueAtIndex;
+            if (sub_23EB6B0C8(ValueAtIndex))
             {
-              sub_23EB6FF14(v25, &v39, "%ks", v26, v27, v28, v29, v30, "name");
-              if (v31)
+              sub_23EB6FF14(v12, &v20, "%ks", "name");
+              if (v13)
               {
                 break;
               }
 
-              if (!v39)
+              if (!v20)
               {
                 goto LABEL_21;
               }
 
-              v31 = sub_23EB6FDFC(v13, v15, "%kO=%O", v32, v33, v34, v35, v36, v39);
-              if (v31)
+              v13 = sub_23EB6FDFC(v7, v9, "%kO=%O", v14, v15, v16, v17, v18, v20);
+              if (v13)
               {
                 break;
               }
             }
 
-            if (v12 == ++v16)
+            if (v6 == ++v10)
             {
               goto LABEL_17;
             }
           }
 
-          v10 = v31;
+          v4 = v13;
           goto LABEL_24;
         }
 
 LABEL_17:
-        if (!CFDictionaryGetCount(v15))
+        if (!CFDictionaryGetCount(v9))
         {
-          v10 = 4294960569;
+          v4 = 4294960569;
 LABEL_24:
-          CFRelease(v15);
-          return v10;
+          CFRelease(v9);
+          return v4;
         }
 
-        v10 = 0;
-        *a2 = v15;
+        v4 = 0;
+        *a2 = v9;
       }
 
       else
@@ -119,14 +200,14 @@ LABEL_24:
     }
   }
 
-  return v10;
+  return v4;
 }
 
-uint64_t sub_23EBDD20C(CFArrayRef theArray, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t sub_23EBDD20C(CFArrayRef theArray)
 {
   if (dword_27E382C08 <= 800 && (dword_27E382C08 != -1 || sub_23EB74AC8(&dword_27E382C08, 0x320u)))
   {
-    sub_23EB75374(&dword_27E382C08, "CFIndex _ConfiguredBaseStationCount(CFArrayRef)", 800, "\n", a5, a6, a7, a8, v22);
+    sub_23EB75374(&dword_27E382C08, "CFIndex _ConfiguredBaseStationCount(CFArrayRef)", 800, "\n");
   }
 
   if (!theArray)
@@ -140,9 +221,9 @@ uint64_t sub_23EBDD20C(CFArrayRef theArray, uint64_t a2, uint64_t a3, uint64_t a
     return 0;
   }
 
-  v10 = Count;
-  v11 = 0;
-  for (i = 0; i != v10; ++i)
+  v3 = Count;
+  v4 = 0;
+  for (i = 0; i != v3; ++i)
   {
     ValueAtIndex = CFArrayGetValueAtIndex(theArray, i);
     if (!ValueAtIndex)
@@ -150,163 +231,163 @@ uint64_t sub_23EBDD20C(CFArrayRef theArray, uint64_t a2, uint64_t a3, uint64_t a
       break;
     }
 
-    if (!sub_23EB6B0C8(ValueAtIndex, v14, v15, v16, v17, v18, v19, v20))
+    if (!sub_23EB6B0C8(ValueAtIndex))
     {
-      ++v11;
+      ++v4;
     }
   }
 
-  return v11;
+  return v4;
 }
 
-uint64_t sub_23EBDD2D4(const __CFString *a1, const void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t sub_23EBDD2D4(const __CFString *a1, const void *a2)
 {
   if (dword_27E382C08 <= 800 && (dword_27E382C08 != -1 || sub_23EB74AC8(&dword_27E382C08, 0x320u)))
   {
-    sub_23EB75374(&dword_27E382C08, "Boolean _BaseStationHasPreviousConfig(CFDictionaryRef, CFDictionaryRef)", 800, "\n", a5, a6, a7, a8, v26);
+    sub_23EB75374(&dword_27E382C08, "Boolean _BaseStationHasPreviousConfig(CFDictionaryRef, CFDictionaryRef)", 800, "\n");
   }
 
+  v4 = 0;
   v10 = 0;
-  v27 = 0;
   if (a1 && a2)
   {
-    v29 = 0;
-    v30 = 0;
-    v28 = 0;
-    v16 = sub_23EB71A18(a2, &v27);
-    v10 = 0;
-    v17 = v27;
-    if (!v16 && v27)
+    v12 = 0;
+    v13 = 0;
+    v11 = 0;
+    v5 = sub_23EB71A18(a2, &v10);
+    v4 = 0;
+    v6 = v10;
+    if (!v5 && v10)
     {
-      v29 = 0;
-      sub_23EB6FF14(a1, &v30, "%ks", v11, v12, v13, v14, v15, "raMA");
-      v10 = 0;
-      if (!v18)
+      v12 = 0;
+      sub_23EB6FF14(a1, &v13, "%ks", "raMA");
+      v4 = 0;
+      if (!v7)
       {
-        if (v30)
+        if (v13)
         {
-          if (!CFDictionaryContainsKey(a1, @"raM2") || (sub_23EB6FF14(a1, &v29, "%ks", v19, v20, v21, v22, v23, "raM2"), v10 = 0, !v24) && v29)
+          if (!CFDictionaryContainsKey(a1, @"raM2") || (sub_23EB6FF14(a1, &v12, "%ks", "raM2"), v4 = 0, !v8) && v12)
           {
-            while (sub_23EB71AC0(v27, &v28, 0))
+            while (sub_23EB71AC0(v10, &v11, 0))
             {
-              if (sub_23EBAFDF4(v30, v28) & 1) != 0 || v29 && (sub_23EBAFDF4(v29, v28))
+              if (sub_23EBAFDF4(v13, v11) & 1) != 0 || v12 && (sub_23EBAFDF4(v12, v11))
               {
-                v10 = 1;
+                v4 = 1;
                 goto LABEL_20;
               }
             }
 
-            v10 = 0;
+            v4 = 0;
           }
         }
       }
 
 LABEL_20:
-      v17 = v27;
+      v6 = v10;
     }
 
-    if (v17)
+    if (v6)
     {
-      sub_23EB71AB4(v17);
+      sub_23EB71AB4(v6);
     }
   }
 
-  return v10;
+  return v4;
 }
 
-uint64_t sub_23EBDD458(const __CFString *a1, const void *a2, void *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t sub_23EBDD458(const __CFString *a1, const void *a2, void *a3)
 {
   if (dword_27E382C08 <= 800 && (dword_27E382C08 != -1 || sub_23EB74AC8(&dword_27E382C08, 0x320u)))
   {
-    sub_23EB75374(&dword_27E382C08, "OSStatus _GetConfigFilePathForBaseStation(CFDictionaryRef, CFDictionaryRef, CFStringRef *)", 800, "\n", a5, a6, a7, a8, v31);
+    sub_23EB75374(&dword_27E382C08, "OSStatus _GetConfigFilePathForBaseStation(CFDictionaryRef, CFDictionaryRef, CFStringRef *)", 800, "\n");
   }
 
-  v37 = 0;
-  v35 = 0;
-  v36 = 0;
-  v33 = 0;
-  v34 = 0;
-  v32 = 0;
-  v11 = 4294960591;
+  v16 = 0;
+  v14 = 0;
+  v15 = 0;
+  v12 = 0;
+  v13 = 0;
+  v11 = 0;
+  v6 = 4294960591;
   if (!a1 || !a2 || !a3)
   {
     goto LABEL_10;
   }
 
-  v12 = sub_23EB71A18(a2, &v33);
-  if (v12)
+  v7 = sub_23EB71A18(a2, &v12);
+  if (v7)
   {
     goto LABEL_9;
   }
 
-  if (!v33)
+  if (!v12)
   {
     return 4294960568;
   }
 
-  v36 = 0;
-  v32 = 0;
-  sub_23EB6FF14(a1, &v37, "%ks", v13, v14, v15, v16, v17, "raMA");
-  v11 = v19;
-  if (!v19)
+  v15 = 0;
+  v11 = 0;
+  sub_23EB6FF14(a1, &v16, "%ks", "raMA");
+  v6 = v9;
+  if (!v9)
   {
-    if (v37)
+    if (v16)
     {
-      if (!CFDictionaryContainsKey(a1, @"raM2") || (sub_23EB6FF14(a1, &v36, "%ks", v20, v21, v22, v23, v24, "raM2"), v11 = v25, !v25) && v36)
+      if (!CFDictionaryContainsKey(a1, @"raM2") || (sub_23EB6FF14(a1, &v15, "%ks", "raM2"), v6 = v10, !v10) && v15)
       {
-        if (sub_23EB71AC0(v33, &v35, &v34))
+        if (sub_23EB71AC0(v12, &v14, &v13))
         {
-          while ((sub_23EBAFDF4(v37, v35) & 1) == 0 && (!v36 || !sub_23EBAFDF4(v36, v35)))
+          while ((sub_23EBAFDF4(v16, v14) & 1) == 0 && (!v15 || !sub_23EBAFDF4(v15, v14)))
           {
-            v11 = 4294960569;
-            if (!sub_23EB71AC0(v33, &v35, &v34))
+            v6 = 4294960569;
+            if (!sub_23EB71AC0(v12, &v14, &v13))
             {
               goto LABEL_10;
             }
           }
 
-          sub_23EB6FF14(v34, &v32, "%ks", v26, v27, v28, v29, v30, "path");
-          if (v12)
+          sub_23EB6FF14(v13, &v11, "%ks", "path");
+          if (v7)
           {
 LABEL_9:
-            v11 = v12;
+            v6 = v7;
             goto LABEL_10;
           }
 
-          if (v32)
+          if (v11)
           {
-            v11 = 0;
-            *a3 = v32;
+            v6 = 0;
+            *a3 = v11;
           }
 
           else
           {
-            v11 = 4294960568;
+            v6 = 4294960568;
           }
         }
 
         else
         {
-          v11 = 4294960569;
+          v6 = 4294960569;
         }
       }
     }
   }
 
 LABEL_10:
-  if (v33)
+  if (v12)
   {
-    sub_23EB71AB4(v33);
+    sub_23EB71AB4(v12);
   }
 
-  return v11;
+  return v6;
 }
 
-BOOL sub_23EBDD648(uint64_t a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+BOOL sub_23EBDD648(uint64_t a1, const char *a2, uint64_t a3, uint64_t a4)
 {
   if (dword_27E382C08 <= 800 && (dword_27E382C08 != -1 || sub_23EB74AC8(&dword_27E382C08, 0x320u)))
   {
-    sub_23EB75374(&dword_27E382C08, "Boolean _NetworkIs80211g(CFDictionaryRef)", 800, "\n", a5, a6, a7, a8, v12);
+    sub_23EB75374(&dword_27E382C08, "Boolean _NetworkIs80211g(CFDictionaryRef)", 800, "\n");
   }
 
   if (!a1)
@@ -314,15 +395,15 @@ BOOL sub_23EBDD648(uint64_t a1, const char *a2, uint64_t a3, uint64_t a4, uint64
     return 0;
   }
 
-  v9 = sub_23EC0FA70(a1, a2);
-  return v9 == 3 || v9 == 102;
+  v5 = sub_23EC0FA70(a1, a2, a3, a4);
+  return v5 == 3 || v5 == 102;
 }
 
-uint64_t sub_23EBDD6D8(uint64_t a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t sub_23EBDD6D8(uint64_t a1, const char *a2, uint64_t a3, uint64_t a4)
 {
   if (dword_27E382C08 <= 800 && (dword_27E382C08 != -1 || sub_23EB74AC8(&dword_27E382C08, 0x320u)))
   {
-    sub_23EB75374(&dword_27E382C08, "Boolean _NetworkIsTooNewToSetUp(CFDictionaryRef)", 800, "\n", a5, a6, a7, a8, v10);
+    sub_23EB75374(&dword_27E382C08, "Boolean _NetworkIsTooNewToSetUp(CFDictionaryRef)", 800, "\n");
   }
 
   if (!a1)
@@ -330,7 +411,7 @@ uint64_t sub_23EBDD6D8(uint64_t a1, const char *a2, uint64_t a3, uint64_t a4, ui
     return 0;
   }
 
-  result = sub_23EC0FA70(a1, a2);
+  result = sub_23EC0FA70(a1, a2, a3, a4);
   if (result)
   {
     return sub_23EC136C0(result) == 0;
@@ -339,11 +420,11 @@ uint64_t sub_23EBDD6D8(uint64_t a1, const char *a2, uint64_t a3, uint64_t a4, ui
   return result;
 }
 
-uint64_t sub_23EBDD768(CFArrayRef theArray, __CFArray **a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t sub_23EBDD768(CFArrayRef theArray, __CFArray **a2)
 {
   if (dword_27E382C08 <= 800 && (dword_27E382C08 != -1 || sub_23EB74AC8(&dword_27E382C08, 0x320u)))
   {
-    sub_23EB75374(&dword_27E382C08, "OSStatus _CopyAllUnconfiguredNetworks(CFArrayRef, CFDictionaryRef *)", 800, "\n", a5, a6, a7, a8, v32);
+    sub_23EB75374(&dword_27E382C08, "OSStatus _CopyAllUnconfiguredNetworks(CFArrayRef, CFDictionaryRef *)", 800, "\n");
   }
 
   if (!a2)
@@ -362,91 +443,91 @@ uint64_t sub_23EBDD768(CFArrayRef theArray, __CFArray **a2, uint64_t a3, uint64_
     return 4294960569;
   }
 
-  v11 = Count;
-  v12 = *MEMORY[0x277CBECE8];
+  v5 = Count;
+  v6 = *MEMORY[0x277CBECE8];
   Mutable = CFDictionaryCreateMutable(*MEMORY[0x277CBECE8], 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
   if (!Mutable)
   {
     return 4294960568;
   }
 
-  v14 = Mutable;
-  v33 = 0;
-  if (v11 >= 1)
+  v8 = Mutable;
+  v23 = 0;
+  if (v5 >= 1)
   {
-    v15 = 0;
+    v9 = 0;
     while (1)
     {
-      ValueAtIndex = CFArrayGetValueAtIndex(theArray, v15);
+      ValueAtIndex = CFArrayGetValueAtIndex(theArray, v9);
       if (!ValueAtIndex)
       {
 LABEL_22:
-        v30 = 4294960568;
+        v21 = 4294960568;
         goto LABEL_25;
       }
 
-      v18 = ValueAtIndex;
-      if (sub_23EC0F9F4(ValueAtIndex, v17))
+      v14 = ValueAtIndex;
+      if (sub_23EC0F9F4(ValueAtIndex, v11, v12, v13))
       {
-        sub_23EB6FF14(v18, &v33, "%kO", v19, v20, v21, v22, v23, @"SSID_STR");
-        if (v24)
+        sub_23EB6FF14(v14, &v23, "%kO", @"SSID_STR");
+        if (v15)
         {
           break;
         }
 
-        if (!v33)
+        if (!v23)
         {
           goto LABEL_22;
         }
 
-        v24 = sub_23EB6FDFC(v12, v14, "%kO=%O", v25, v26, v27, v28, v29, v33);
-        if (v24)
+        v15 = sub_23EB6FDFC(v6, v8, "%kO=%O", v16, v17, v18, v19, v20, v23);
+        if (v15)
         {
           break;
         }
       }
 
-      if (v11 == ++v15)
+      if (v5 == ++v9)
       {
         goto LABEL_17;
       }
     }
 
-    v30 = v24;
+    v21 = v15;
     goto LABEL_25;
   }
 
 LABEL_17:
-  if (!CFDictionaryGetCount(v14))
+  if (!CFDictionaryGetCount(v8))
   {
-    v30 = 4294960569;
+    v21 = 4294960569;
 LABEL_25:
-    CFRelease(v14);
-    return v30;
+    CFRelease(v8);
+    return v21;
   }
 
-  v30 = 0;
-  *a2 = v14;
-  return v30;
+  v21 = 0;
+  *a2 = v8;
+  return v21;
 }
 
-uint64_t sub_23EBDD91C(const void *a1, __CFDictionary **a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t sub_23EBDD91C(const void *a1, __CFDictionary **a2)
 {
   if (dword_27E382C08 <= 800 && (dword_27E382C08 != -1 || sub_23EB74AC8(&dword_27E382C08, 0x320u)))
   {
-    sub_23EB75374(&dword_27E382C08, "OSStatus _CopyNetworksFilter80211g(CFDictionaryRef, CFDictionaryRef *)", 800, "\n", a5, a6, a7, a8, v21);
+    sub_23EB75374(&dword_27E382C08, "OSStatus _CopyNetworksFilter80211g(CFDictionaryRef, CFDictionaryRef *)", 800, "\n");
   }
 
-  v24 = 0;
-  v10 = 4294960591;
+  v13 = 0;
+  v4 = 4294960591;
   if (a1 && a2)
   {
-    v22 = 0;
-    v23 = 0;
-    v10 = sub_23EB71A18(a1, &v24);
-    if (!v10)
+    v11 = 0;
+    v12 = 0;
+    v4 = sub_23EB71A18(a1, &v13);
+    if (!v4)
     {
-      if (!v24)
+      if (!v13)
       {
         return 4294960568;
       }
@@ -454,48 +535,48 @@ uint64_t sub_23EBDD91C(const void *a1, __CFDictionary **a2, uint64_t a3, uint64_
       Mutable = CFDictionaryCreateMutable(*MEMORY[0x277CBECE8], 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
       if (Mutable)
       {
-        v12 = Mutable;
-        while (sub_23EB71AC0(v24, &v23, &v22))
+        v6 = Mutable;
+        while (sub_23EB71AC0(v13, &v12, &v11))
         {
-          if (!sub_23EBDD648(v22, v13, v14, v15, v16, v17, v18, v19))
+          if (!sub_23EBDD648(v11, v7, v8, v9))
           {
-            CFDictionarySetValue(v12, v23, v22);
+            CFDictionarySetValue(v6, v12, v11);
           }
         }
 
-        if (CFDictionaryGetCount(v12))
+        if (CFDictionaryGetCount(v6))
         {
-          v10 = 0;
-          *a2 = v12;
+          v4 = 0;
+          *a2 = v6;
         }
 
         else
         {
-          CFRelease(v12);
-          v10 = 4294960569;
+          CFRelease(v6);
+          v4 = 4294960569;
         }
       }
 
       else
       {
-        v10 = 4294960568;
+        v4 = 4294960568;
       }
     }
 
-    if (v24)
+    if (v13)
     {
-      sub_23EB71AB4(v24);
+      sub_23EB71AB4(v13);
     }
   }
 
-  return v10;
+  return v4;
 }
 
-uint64_t sub_23EBDDA70(CFArrayRef theArray, __CFArray **a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t sub_23EBDDA70(CFArrayRef theArray, __CFArray **a2)
 {
   if (dword_27E382C08 <= 800 && (dword_27E382C08 != -1 || sub_23EB74AC8(&dword_27E382C08, 0x320u)))
   {
-    sub_23EB75374(&dword_27E382C08, "OSStatus _CopyNetworksFilterDuplicateNames(CFArrayRef, CFArrayRef *)", 800, "\n", a5, a6, a7, a8, v28);
+    sub_23EB75374(&dword_27E382C08, "OSStatus _CopyNetworksFilterDuplicateNames(CFArrayRef, CFArrayRef *)", 800, "\n");
   }
 
   if (!a2)
@@ -514,63 +595,63 @@ uint64_t sub_23EBDDA70(CFArrayRef theArray, __CFArray **a2, uint64_t a3, uint64_
     return 4294960569;
   }
 
-  v11 = Count;
-  v12 = *MEMORY[0x277CBECE8];
+  v5 = Count;
+  v6 = *MEMORY[0x277CBECE8];
   Mutable = CFArrayCreateMutable(*MEMORY[0x277CBECE8], 0, MEMORY[0x277CBF128]);
   if (!Mutable)
   {
     return 4294960568;
   }
 
-  v14 = Mutable;
-  if (v11 >= 1)
+  v8 = Mutable;
+  if (v5 >= 1)
   {
-    v15 = 0;
+    v9 = 0;
     while (1)
     {
-      ValueAtIndex = CFArrayGetValueAtIndex(theArray, v15);
+      ValueAtIndex = CFArrayGetValueAtIndex(theArray, v9);
       if (!ValueAtIndex)
       {
-        v26 = 4294960568;
+        v22 = 4294960568;
         goto LABEL_25;
       }
 
-      v18 = ValueAtIndex;
-      v19 = sub_23EC0F94C(ValueAtIndex, v17);
-      if (v19)
+      v14 = ValueAtIndex;
+      v15 = sub_23EC0F94C(ValueAtIndex, v11, v12, v13);
+      if (v15)
       {
-        if (sub_23EB6B6FC(v19, 0, v14) == -1)
+        if (sub_23EB6B6FC(v15, 0, v8) == -1)
         {
-          v25 = sub_23EB6FDFC(v12, v14, "%O", v20, v21, v22, v23, v24, v18);
-          if (v25)
+          v21 = sub_23EB6FDFC(v6, v8, "%O", v16, v17, v18, v19, v20, v14);
+          if (v21)
           {
             break;
           }
         }
       }
 
-      if (v11 == ++v15)
+      if (v5 == ++v9)
       {
         goto LABEL_16;
       }
     }
 
-    v26 = v25;
+    v22 = v21;
     goto LABEL_25;
   }
 
 LABEL_16:
-  if (!CFArrayGetCount(v14))
+  if (!CFArrayGetCount(v8))
   {
-    v26 = 4294960569;
+    v22 = 4294960569;
 LABEL_25:
-    CFRelease(v14);
-    return v26;
+    CFRelease(v8);
+    return v22;
   }
 
-  v26 = 0;
-  *a2 = v14;
-  return v26;
+  v22 = 0;
+  *a2 = v8;
+  return v22;
 }
 
 uint64_t sub_23EBDDBF8(CFArrayRef theArray, const __CFDictionary *a2, CFTypeRef *a3)
@@ -585,202 +666,228 @@ uint64_t sub_23EBDDBF8(CFArrayRef theArray, const __CFDictionary *a2, CFTypeRef 
   {
     if (CFArrayGetCount(theArray))
     {
-      if (sub_23EB6A1FC(a2) - 3 <= 1 && !sub_23EB6A264(a2))
+      if (sub_23EB6A1FC(a2) - 3 > 1)
       {
-        sub_23EC0FA80(a2, v6);
-        sub_23EC0FAA4(a2, v7);
+        v9 = 36;
       }
 
-      v9 = sub_23EC0FAEC(theArray);
-      if (v9)
+      else
       {
-        v10 = v9;
-        if (CFArrayGetCount(v9))
+        v9 = 36;
+        if (!sub_23EB6A264(a2))
         {
-          v8 = sub_23EBDDA70(v10, &cf, v11, v12, v13, v14, v15, v16);
-          CFRelease(v10);
-          if (!v8)
+          if (sub_23EC0FA80(a2, v6, v7, v8))
           {
-            v17 = cf;
+            LODWORD(v9) = 36;
+          }
+
+          else
+          {
+            LODWORD(v9) = 292;
+          }
+
+          if (sub_23EC0FAA4(a2, v10, v11, v12))
+          {
+            v9 = v9;
+          }
+
+          else
+          {
+            v9 = v9 | 0x200;
+          }
+        }
+      }
+
+      v14 = sub_23EC0FAEC(theArray, v9);
+      if (v14)
+      {
+        v15 = v14;
+        if (CFArrayGetCount(v14))
+        {
+          v13 = sub_23EBDDA70(v15, &cf);
+          CFRelease(v15);
+          if (!v13)
+          {
+            v16 = cf;
             if (!cf)
             {
               return 4294960568;
             }
 
-            v8 = 0;
+            v13 = 0;
             if (a3)
             {
               *a3 = cf;
-              return v8;
+              return v13;
             }
 
-LABEL_18:
-            CFRelease(v17);
-            return v8;
+LABEL_24:
+            CFRelease(v16);
+            return v13;
           }
 
-LABEL_17:
-          v17 = cf;
+LABEL_23:
+          v16 = cf;
           if (!cf)
           {
-            return v8;
+            return v13;
           }
 
-          goto LABEL_18;
+          goto LABEL_24;
         }
 
-        CFRelease(v10);
+        CFRelease(v15);
       }
     }
 
-    v8 = 4294960569;
-    goto LABEL_17;
+    v13 = 4294960569;
+    goto LABEL_23;
   }
 
   return 4294960569;
 }
 
-BOOL sub_23EBDDD20(const __CFString *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+BOOL sub_23EBDDD20(const __CFString *a1)
 {
   if (dword_27E382C08 <= 800 && (dword_27E382C08 != -1 || sub_23EB74AC8(&dword_27E382C08, 0x320u)))
   {
-    sub_23EB75374(&dword_27E382C08, "Boolean _HostNotUsingWireless(CFDictionaryRef)", 800, "\n", a5, a6, a7, a8, v10);
+    sub_23EB75374(&dword_27E382C08, "Boolean _HostNotUsingWireless(CFDictionaryRef)", 800, "\n");
   }
 
-  v11 = 0;
-  sub_23EB6FF14(a1, &v11, "%ks:BOOL", a4, a5, a6, a7, a8, "BSAutoGuessContext_HostNotUsingWireless");
-  return v11 != 0;
+  v3 = 0;
+  sub_23EB6FF14(a1, &v3, "%ks:BOOL", "BSAutoGuessContext_HostNotUsingWireless");
+  return v3 != 0;
 }
 
-BOOL sub_23EBDDDC4(const __CFString *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+BOOL sub_23EBDDDC4(const __CFString *a1)
 {
   if (dword_27E382C08 <= 800 && (dword_27E382C08 != -1 || sub_23EB74AC8(&dword_27E382C08, 0x320u)))
   {
-    sub_23EB75374(&dword_27E382C08, "Boolean _HostHasPreferredNetworkSupport(CFDictionaryRef)", 800, "\n", a5, a6, a7, a8, v10);
+    sub_23EB75374(&dword_27E382C08, "Boolean _HostHasPreferredNetworkSupport(CFDictionaryRef)", 800, "\n");
   }
 
-  v11 = 0;
-  sub_23EB6FF14(a1, &v11, "%ks:BOOL", a4, a5, a6, a7, a8, "BSAutoGuessContext_HostHasPreferredNetworkSupport");
-  return v11 != 0;
+  v3 = 0;
+  sub_23EB6FF14(a1, &v3, "%ks:BOOL", "BSAutoGuessContext_HostHasPreferredNetworkSupport");
+  return v3 != 0;
 }
 
-uint64_t sub_23EBDDE68(CFDictionaryRef theDict, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t sub_23EBDDE68(CFDictionaryRef theDict, void *a2)
 {
   if (dword_27E382C08 <= 800 && (dword_27E382C08 != -1 || sub_23EB74AC8(&dword_27E382C08, 0x320u)))
   {
-    sub_23EB75374(&dword_27E382C08, "OSStatus _GetTheOnlyDictionaryKey(CFDictionaryRef, CFStringRef *)", 800, "\n", a5, a6, a7, a8, v12);
+    sub_23EB75374(&dword_27E382C08, "OSStatus _GetTheOnlyDictionaryKey(CFDictionaryRef, CFStringRef *)", 800, "\n");
   }
 
-  v13 = 0;
-  v10 = 4294960591;
+  v7 = 0;
+  v4 = 4294960591;
   if (theDict && a2)
   {
-    v12 = 0;
+    v6 = 0;
     if (CFDictionaryGetCount(theDict) == 1)
     {
-      v10 = sub_23EB71A18(theDict, &v13);
-      if (!v10)
+      v4 = sub_23EB71A18(theDict, &v7);
+      if (!v4)
       {
-        if (!v13)
+        if (!v7)
         {
           return 4294960568;
         }
 
-        sub_23EB71AC0(v13, &v12, 0);
-        if (v12)
+        sub_23EB71AC0(v7, &v6, 0);
+        if (v6)
         {
-          v10 = 0;
-          *a2 = v12;
+          v4 = 0;
+          *a2 = v6;
         }
 
         else
         {
-          v10 = 4294960569;
+          v4 = 4294960569;
         }
       }
     }
 
     else
     {
-      v10 = 4294960586;
+      v4 = 4294960586;
     }
 
-    if (v13)
+    if (v7)
     {
-      sub_23EB71AB4(v13);
+      sub_23EB71AB4(v7);
     }
   }
 
-  return v10;
+  return v4;
 }
 
-uint64_t sub_23EBDDF6C(CFDictionaryRef theDict, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t sub_23EBDDF6C(CFDictionaryRef theDict, void *a2)
 {
   if (dword_27E382C08 <= 800 && (dword_27E382C08 != -1 || sub_23EB74AC8(&dword_27E382C08, 0x320u)))
   {
-    sub_23EB75374(&dword_27E382C08, "OSStatus _GetTheOnlyDictionaryValue(CFDictionaryRef, CFTypeRef *)", 800, "\n", a5, a6, a7, a8, v12);
+    sub_23EB75374(&dword_27E382C08, "OSStatus _GetTheOnlyDictionaryValue(CFDictionaryRef, CFTypeRef *)", 800, "\n");
   }
 
-  v13 = 0;
-  v10 = 4294960591;
+  v7 = 0;
+  v4 = 4294960591;
   if (theDict && a2)
   {
-    v12 = 0;
+    v6 = 0;
     if (CFDictionaryGetCount(theDict) == 1)
     {
-      v10 = sub_23EB71A18(theDict, &v13);
-      if (!v10)
+      v4 = sub_23EB71A18(theDict, &v7);
+      if (!v4)
       {
-        if (!v13)
+        if (!v7)
         {
           return 4294960568;
         }
 
-        sub_23EB71AC0(v13, 0, &v12);
-        if (v12)
+        sub_23EB71AC0(v7, 0, &v6);
+        if (v6)
         {
-          v10 = 0;
-          *a2 = v12;
+          v4 = 0;
+          *a2 = v6;
         }
 
         else
         {
-          v10 = 4294960569;
+          v4 = 4294960569;
         }
       }
     }
 
     else
     {
-      v10 = 4294960586;
+      v4 = 4294960586;
     }
 
-    if (v13)
+    if (v7)
     {
-      sub_23EB71AB4(v13);
+      sub_23EB71AB4(v7);
     }
   }
 
-  return v10;
+  return v4;
 }
 
-void sub_23EBDE070(const __CFString *a1, const __CFArray *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void sub_23EBDE070(const __CFString *a1, const __CFArray *a2)
 {
   if (dword_27E382C08 <= 800 && (dword_27E382C08 != -1 || sub_23EB74AC8(&dword_27E382C08, 0x320u)))
   {
-    sub_23EB75374(&dword_27E382C08, "OSStatus _UpdateBrowsedBaseStationsWithBrowseInfo(CFDictionaryRef, CFMutableArrayRef)", 800, "\n", a5, a6, a7, a8, v26);
+    sub_23EB75374(&dword_27E382C08, "OSStatus _UpdateBrowsedBaseStationsWithBrowseInfo(CFDictionaryRef, CFMutableArrayRef)", 800, "\n");
   }
 
   if (a1)
   {
     if (a2)
     {
-      v27 = 0;
-      v28 = 0;
-      sub_23EB6FF14(a1, &v28, "%ks", a4, a5, a6, a7, a8, "raMA");
-      if (!v10)
+      v11 = 0;
+      v12 = 0;
+      sub_23EB6FF14(a1, &v12, "%ks", "raMA");
+      if (!v4)
       {
-        if (v28)
+        if (v12)
         {
           Count = CFArrayGetCount(a2);
           if (Count < 1)
@@ -788,7 +895,7 @@ void sub_23EBDE070(const __CFString *a1, const __CFArray *a2, uint64_t a3, uint6
 LABEL_19:
             if (dword_27E382C08 <= 800 && (dword_27E382C08 != -1 || sub_23EB74AC8(&dword_27E382C08, 0x320u)))
             {
-              sub_23EB75374(&dword_27E382C08, "OSStatus _UpdateBrowsedBaseStationsWithBrowseInfo(CFDictionaryRef, CFMutableArrayRef)", 800, "tempMACAddress: %@ was not found -- appending", v13, v14, v15, v16, v28);
+              sub_23EB75374(&dword_27E382C08, "OSStatus _UpdateBrowsedBaseStationsWithBrowseInfo(CFDictionaryRef, CFMutableArrayRef)", 800, "tempMACAddress: %@ was not found -- appending", v12);
             }
 
             CFArrayAppendValue(a2, a1);
@@ -796,42 +903,42 @@ LABEL_19:
 
           else
           {
-            v17 = Count;
-            v18 = 0;
+            v6 = Count;
+            v7 = 0;
             while (1)
             {
-              sub_23EB6FF14(a2, &v27, "[*].%ks", v12, v13, v14, v15, v16, v18);
-              if (v23)
+              sub_23EB6FF14(a2, &v11, "[*].%ks", v7, "raMA");
+              if (v8)
               {
                 break;
               }
 
-              v24 = v27;
-              if (!v27)
+              v9 = v11;
+              if (!v11)
               {
                 break;
               }
 
               if (dword_27E382C08 <= 800)
               {
-                if (dword_27E382C08 != -1 || (v25 = sub_23EB74AC8(&dword_27E382C08, 0x320u), v24 = v27, v25))
+                if (dword_27E382C08 != -1 || (v10 = sub_23EB74AC8(&dword_27E382C08, 0x320u), v9 = v11, v10))
                 {
-                  sub_23EB75374(&dword_27E382C08, "OSStatus _UpdateBrowsedBaseStationsWithBrowseInfo(CFDictionaryRef, CFMutableArrayRef)", 800, "Comparing nextMACAddress: %@ and tempMACAddress: %@", v19, v20, v21, v22, v24);
-                  v24 = v27;
+                  sub_23EB75374(&dword_27E382C08, "OSStatus _UpdateBrowsedBaseStationsWithBrowseInfo(CFDictionaryRef, CFMutableArrayRef)", 800, "Comparing nextMACAddress: %@ and tempMACAddress: %@", v9, v12);
+                  v9 = v11;
                 }
               }
 
-              if (sub_23EBAFDF4(v24, v28))
+              if (sub_23EBAFDF4(v9, v12))
               {
                 if (dword_27E382C08 <= 800 && (dword_27E382C08 != -1 || sub_23EB74AC8(&dword_27E382C08, 0x320u)))
                 {
-                  sub_23EB75374(&dword_27E382C08, "OSStatus _UpdateBrowsedBaseStationsWithBrowseInfo(CFDictionaryRef, CFMutableArrayRef)", 800, "tempMACAddress: %@ was found", v13, v14, v15, v16, v28);
+                  sub_23EB75374(&dword_27E382C08, "OSStatus _UpdateBrowsedBaseStationsWithBrowseInfo(CFDictionaryRef, CFMutableArrayRef)", 800, "tempMACAddress: %@ was found", v12);
                 }
 
                 return;
               }
 
-              if (v17 == ++v18)
+              if (v6 == ++v7)
               {
                 goto LABEL_19;
               }
@@ -843,11 +950,11 @@ LABEL_19:
   }
 }
 
-void sub_23EBDE2BC(CFArrayRef theArray, const __CFArray *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void sub_23EBDE2BC(CFArrayRef theArray, const __CFArray *a2)
 {
   if (dword_27E382C08 <= 800 && (dword_27E382C08 != -1 || sub_23EB74AC8(&dword_27E382C08, 0x320u)))
   {
-    sub_23EB75374(&dword_27E382C08, "OSStatus _UpdateBrowsedBaseStationsWithRecords(CFArrayRef, CFMutableArrayRef)", 800, "\n", a5, a6, a7, a8, v26);
+    sub_23EB75374(&dword_27E382C08, "OSStatus _UpdateBrowsedBaseStationsWithRecords(CFArrayRef, CFMutableArrayRef)", 800, "\n");
   }
 
   if (theArray)
@@ -857,52 +964,53 @@ void sub_23EBDE2BC(CFArrayRef theArray, const __CFArray *a2, uint64_t a3, uint64
       Count = CFArrayGetCount(theArray);
       if (Count >= 1)
       {
-        v16 = Count;
-        v17 = 0;
-        v27 = 0;
+        v5 = Count;
+        v6 = 0;
+        v9 = 0;
         do
         {
-          sub_23EB6FF14(theArray, &v27, "[*]", v11, v12, v13, v14, v15, v17);
-          if (v24)
+          sub_23EB6FF14(theArray, &v9, "[*]", v6);
+          if (v7)
           {
             break;
           }
 
-          if (!v27)
+          if (!v9)
           {
             break;
           }
 
-          sub_23EBDE070(v27, a2, v18, v19, v20, v21, v22, v23);
-          if (v25)
+          sub_23EBDE070(v9, a2);
+          if (v8)
           {
             break;
           }
 
-          ++v17;
+          ++v6;
         }
 
-        while (v16 != v17);
+        while (v5 != v6);
       }
     }
   }
 }
 
-void sub_23EBDE3B8(__CFArray *a1, const __CFString *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void sub_23EBDE3B8(__CFArray *a1, const __CFString *a2)
 {
   if (a1)
   {
+    v3 = a2;
     if (a2)
     {
-      *v16 = 0;
-      sub_23EB6FF14(a2, v16, "%kO", a4, a5, a6, a7, a8, @"SSID_STR");
-      if (!v10)
+      *v10 = 0;
+      sub_23EB6FF14(a2, v10, "%kO", @"SSID_STR");
+      if (!v4)
       {
-        if (*v16)
+        if (*v10)
         {
-          if (sub_23EB6B6FC(*v16, 0, a1) == -1)
+          if (sub_23EB6B6FC(*v10, 0, a1) == -1)
           {
-            sub_23EB6FDFC(*MEMORY[0x277CBECE8], a1, "%O", v11, v12, v13, v14, v15, a2);
+            sub_23EB6FDFC(*MEMORY[0x277CBECE8], a1, "%O", v5, v6, v7, v8, v9, v3);
           }
         }
       }
@@ -910,32 +1018,32 @@ void sub_23EBDE3B8(__CFArray *a1, const __CFString *a2, uint64_t a3, uint64_t a4
   }
 }
 
-uint64_t sub_23EBDE464(const __CFString *a1, const __CFArray *a2, void *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t sub_23EBDE464(const __CFString *a1, const __CFArray *a2, void *a3)
 {
   if (dword_27E382C08 <= 800 && (dword_27E382C08 != -1 || sub_23EB74AC8(&dword_27E382C08, 0x320u)))
   {
-    sub_23EB75374(&dword_27E382C08, "OSStatus _GetLocalBrowseInfoForRemoteBase(CFDictionaryRef, CFArrayRef, CFDictionaryRef *)", 800, "\n", a5, a6, a7, a8, v16);
+    sub_23EB75374(&dword_27E382C08, "OSStatus _GetLocalBrowseInfoForRemoteBase(CFDictionaryRef, CFArrayRef, CFDictionaryRef *)", 800, "\n");
   }
 
-  v11 = 4294960591;
+  v6 = 4294960591;
   if (a1)
   {
     if (a2)
     {
       if (a3)
       {
-        v17 = 0;
-        sub_23EB6FF14(a1, &v17, "%ks.%ks", a4, a5, a6, a7, a8, "txt");
-        v11 = v12;
-        if (!v12)
+        v11 = 0;
+        sub_23EB6FF14(a1, &v11, "%ks.%ks", "txt", "raMA");
+        v6 = v7;
+        if (!v7)
         {
-          if (v17)
+          if (v11)
           {
-            v14 = sub_23EB6B3A8(a2, v17);
-            v11 = 4294960569;
-            if (v14 != -1)
+            v9 = sub_23EB6B3A8(a2, v11);
+            v6 = 4294960569;
+            if (v9 != -1)
             {
-              ValueAtIndex = CFArrayGetValueAtIndex(a2, v14);
+              ValueAtIndex = CFArrayGetValueAtIndex(a2, v9);
               *a3 = ValueAtIndex;
               if (ValueAtIndex)
               {
@@ -958,22 +1066,23 @@ uint64_t sub_23EBDE464(const __CFString *a1, const __CFArray *a2, void *a3, uint
     }
   }
 
-  return v11;
+  return v6;
 }
 
-uint64_t sub_23EBDE570(CFDictionaryRef theDict, CFTypeRef *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t sub_23EBDE570(CFDictionaryRef theDict, CFTypeRef *a2)
 {
   if (dword_27E382C08 <= 800 && (dword_27E382C08 != -1 || sub_23EB74AC8(&dword_27E382C08, 0x320u)))
   {
-    sub_23EB75374(&dword_27E382C08, "OSStatus _CreateBrowseInfoForRemoteBase(CFDictionaryRef, CFDictionaryRef *)", 800, "\n", a5, a6, a7, a8, v16);
+    sub_23EB75374(&dword_27E382C08, "OSStatus _CreateBrowseInfoForRemoteBase(CFDictionaryRef, CFDictionaryRef *)", 800, "\n");
   }
 
   result = 4294960591;
   if (theDict && a2)
   {
-    if (CFDictionaryGetValue(theDict, @"txt"))
+    Value = CFDictionaryGetValue(theDict, @"txt");
+    if (Value)
     {
-      result = sub_23EB6F348(*MEMORY[0x277CBECE8], a2, "{%##O%##O}", v11, v12, v13, v14, v15, theDict);
+      result = sub_23EB6F348(*MEMORY[0x277CBECE8], a2, "{%##O%##O}", theDict, Value);
       if (!result)
       {
         if (*a2)
@@ -997,39 +1106,39 @@ uint64_t sub_23EBDE570(CFDictionaryRef theDict, CFTypeRef *a2, uint64_t a3, uint
   return result;
 }
 
-uint64_t sub_23EBDE648(const void *a1, __CFArray **a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t sub_23EBDE648(const void *a1, __CFArray **a2)
 {
   if (dword_27E382C08 <= 800 && (dword_27E382C08 != -1 || sub_23EB74AC8(&dword_27E382C08, 0x320u)))
   {
-    sub_23EB75374(&dword_27E382C08, "OSStatus _RemoteBrowseResultsToBaseStationArray(CFDictionaryRef, CFArrayRef *)", 800, "\n", a5, a6, a7, a8, v27);
+    sub_23EB75374(&dword_27E382C08, "OSStatus _RemoteBrowseResultsToBaseStationArray(CFDictionaryRef, CFArrayRef *)", 800, "\n");
   }
 
-  v30 = 0;
-  v10 = 4294960591;
+  v17 = 0;
+  v4 = 4294960591;
   if (a1 && a2)
   {
     cf = 0;
     theDict = 0;
-    v11 = *MEMORY[0x277CBECE8];
+    v5 = *MEMORY[0x277CBECE8];
     Mutable = CFArrayCreateMutable(*MEMORY[0x277CBECE8], 0, MEMORY[0x277CBF128]);
     if (Mutable)
     {
-      v13 = Mutable;
-      v14 = sub_23EB71A18(a1, &v30);
-      if (v14)
+      v7 = Mutable;
+      v8 = sub_23EB71A18(a1, &v17);
+      if (v8)
       {
 LABEL_9:
-        v10 = v14;
+        v4 = v8;
       }
 
       else
       {
-        if (v30)
+        if (v17)
         {
-          while (sub_23EB71AC0(v30, 0, &theDict))
+          while (sub_23EB71AC0(v17, 0, &theDict))
           {
-            v14 = sub_23EBDE570(theDict, &cf, v15, v16, v17, v18, v19, v20);
-            if (v14)
+            v8 = sub_23EBDE570(theDict, &cf);
+            if (v8)
             {
               goto LABEL_9;
             }
@@ -1039,60 +1148,60 @@ LABEL_9:
               goto LABEL_19;
             }
 
-            v10 = sub_23EB6FDFC(v11, v13, "%O", v21, v22, v23, v24, v25, cf);
+            v4 = sub_23EB6FDFC(v5, v7, "%O", v9, v10, v11, v12, v13, cf);
             if (cf)
             {
               CFRelease(cf);
               cf = 0;
             }
 
-            if (v10)
+            if (v4)
             {
               goto LABEL_20;
             }
           }
 
-          v10 = 0;
-          *a2 = v13;
+          v4 = 0;
+          *a2 = v7;
           goto LABEL_21;
         }
 
 LABEL_19:
-        v10 = 4294960568;
+        v4 = 4294960568;
       }
 
 LABEL_20:
-      CFRelease(v13);
+      CFRelease(v7);
     }
 
     else
     {
-      v10 = 4294960568;
+      v4 = 4294960568;
     }
 
 LABEL_21:
-    if (v30)
+    if (v17)
     {
-      sub_23EB71AB4(v30);
+      sub_23EB71AB4(v17);
     }
   }
 
-  return v10;
+  return v4;
 }
 
-uint64_t sub_23EBDE7C0(uint64_t a1, const __CFDictionary *a2, uint64_t a3, _BYTE *a4, void *a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t sub_23EBDE7C0(uint64_t a1, const __CFDictionary *a2, int a3, _BYTE *a4, void *a5)
 {
-  v53 = 0;
+  v21 = 0;
   cf = 0;
   if (a4)
   {
     *a4 = 0;
   }
 
-  v51 = 0;
-  v52 = 0;
-  sub_23EBDCB98("_CopyAllNeededSettingsFromBaseStation for base:\n", a2, a3, a4, a5, a6, a7, a8);
-  v13 = 4294960591;
+  v19 = 0;
+  v20 = 0;
+  sub_23EBDCB98("_CopyAllNeededSettingsFromBaseStation for base:\n", a2);
+  v10 = 4294960591;
   if (!a1 || !a2 || !a5)
   {
     goto LABEL_18;
@@ -1103,103 +1212,103 @@ uint64_t sub_23EBDE7C0(uint64_t a1, const __CFDictionary *a2, uint64_t a3, _BYTE
     goto LABEL_7;
   }
 
-  v21 = sub_23EB6B0C8(a2, v14, v15, v16, v17, v18, v19, v20);
-  if (!(sub_23EBDCF40(a2, v22, v23, v24, v25, v26, v27, v28) | v21))
+  v11 = sub_23EB6B0C8(a2);
+  if (!(sub_23EBDCF40(a2) | v11))
   {
-    v29 = sub_23EBAF4FC("AMarAMalAMawiFiWANarSDarVCawforPgBhdnEhdRLysPIawPIalVStnLCAtFAnslFesRSarFbsuSYHPWPyslFystSysgIys", &cf);
-    if (v29)
+    v12 = sub_23EBAF4FC("AMarAMalAMawiFiWANarSDarVCawforPgBhdnEhdRLysPIawPIalVStnLCAtFAnslFesRSarFbsuSYHPWPyslFystSysgIys", &cf);
+    if (v12)
     {
       goto LABEL_17;
     }
 
     if (!cf)
     {
-      v13 = 4294960568;
+      v10 = 4294960568;
       goto LABEL_20;
     }
   }
 
-  v29 = sub_23EBB0E1C(&v53);
-  if (v29)
+  v12 = sub_23EBB0E1C(&v21, a2);
+  if (v12)
   {
     goto LABEL_17;
   }
 
-  if (!v53)
+  if (!v21)
   {
     goto LABEL_40;
   }
 
-  v37 = sub_23EB6AE14(a2, v30, v31, v32, v33, v34, v35, v36);
-  if (!v37)
+  v13 = sub_23EB6AE14(a2);
+  if (!v13)
   {
 LABEL_7:
-    v13 = 4294960569;
+    v10 = 4294960569;
     goto LABEL_18;
   }
 
-  if (!v21)
+  if (!v11)
   {
-    v44 = v37;
+    v16 = v13;
     if (dword_27E382C08 <= 800 && (dword_27E382C08 != -1 || sub_23EB74AC8(&dword_27E382C08, 0x320u)))
     {
-      sub_23EB75374(&dword_27E382C08, "OSStatus _CopyAllNeededSettingsFromBaseStation(AutoGuessContextRef, CFDictionaryRef, Boolean, Boolean *, CFDictionaryRef *)", 800, "Calling back for password promptflag: %d\n", v38, v39, v40, v41, a3);
+      sub_23EB75374(&dword_27E382C08, "OSStatus _CopyAllNeededSettingsFromBaseStation(AutoGuessContextRef, CFDictionaryRef, Boolean, Boolean *, CFDictionaryRef *)", 800, "Calling back for password promptflag: %d\n", a3);
     }
 
-    v45 = sub_23EBECA80(*(a1 + 48), @"keychainBaseStationType", a2, &v52, v38, v39, v40, v41);
-    v13 = v45;
-    if (a3 && v45 == -6727)
+    v17 = sub_23EBECA80(*(a1 + 48), @"keychainBaseStationType", a2, &v20);
+    v10 = v17;
+    if (a3 && v17 == -6727)
     {
-      v13 = sub_23EBECE2C(*(a1 + 48), @"keychainBaseStationType", v44, &v52, v46, v47, v48, v49);
+      v10 = sub_23EBECE2C(*(a1 + 48), @"keychainBaseStationType", v16, &v20);
     }
 
-    if (v13)
+    if (v10)
     {
       goto LABEL_18;
     }
 
-    if (!v52)
+    if (!v20)
     {
       goto LABEL_40;
     }
 
-    sub_23EBB3DBC(v53, 1651721296, v52);
-    if (v52)
+    sub_23EBB3DBC(v21, 1651721296, v20);
+    if (v20)
     {
-      CFRelease(v52);
-      v52 = 0;
+      CFRelease(v20);
+      v20 = 0;
     }
   }
 
-  v42 = sub_23EBB14AC(v53, cf, 1);
-  if (a4 && v42 == -6768)
+  v14 = sub_23EBB14AC(v21, cf, 1);
+  if (a4 && v14 == -6768)
   {
     *a4 = 1;
     goto LABEL_7;
   }
 
-  if (v42)
+  if (v14)
   {
     goto LABEL_7;
   }
 
-  v29 = sub_23EBB4234(v53, &v51);
-  if (v29)
+  v12 = sub_23EBB4234(v21, &v19);
+  if (v12)
   {
 LABEL_17:
-    v13 = v29;
+    v10 = v12;
     goto LABEL_18;
   }
 
-  if (v51)
+  if (v19)
   {
-    v13 = 0;
-    *a5 = v51;
+    v10 = 0;
+    *a5 = v19;
     goto LABEL_18;
   }
 
 LABEL_40:
-  v13 = 4294960568;
+  v10 = 4294960568;
 LABEL_18:
   if (cf)
   {
@@ -1208,24 +1317,24 @@ LABEL_18:
   }
 
 LABEL_20:
-  if (v53)
+  if (v21)
   {
-    sub_23EBB0D6C(v53);
+    sub_23EBB0D6C(v21);
   }
 
-  return v13;
+  return v10;
 }
 
-uint64_t sub_23EBDEA14(uint64_t a1, const __CFDictionary *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t sub_23EBDEA14(uint64_t a1, const __CFDictionary *a2)
 {
   cf = 0;
-  v14 = 0;
+  v5 = 0;
   if (a1)
   {
     if (a2)
     {
-      sub_23EBDCB98("_IsSecurityErrorWithBase for base:\n", a2, a3, a4, a5, a6, a7, a8);
-      sub_23EBDE7C0(a1, a2, 0, &v14, &cf, v10, v11, v12);
+      sub_23EBDCB98("_IsSecurityErrorWithBase for base:\n", a2);
+      sub_23EBDE7C0(a1, a2, 0, &v5, &cf);
       if (cf)
       {
         CFRelease(cf);
@@ -1233,10 +1342,10 @@ uint64_t sub_23EBDEA14(uint64_t a1, const __CFDictionary *a2, uint64_t a3, uint6
     }
   }
 
-  return v14;
+  return v5;
 }
 
-uint64_t sub_23EBDEA88(uint64_t a1, const __CFString *a2, uint64_t a3, CFTypeRef *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t sub_23EBDEA88(uint64_t a1, const __CFString *a2, int a3, CFTypeRef *a4)
 {
   cf = 0;
   if (!a1)
@@ -1244,45 +1353,45 @@ uint64_t sub_23EBDEA88(uint64_t a1, const __CFString *a2, uint64_t a3, CFTypeRef
     return 4294960591;
   }
 
-  v58 = 0;
-  v59 = 0;
-  v9 = 4294960591;
+  v29 = 0;
+  v30 = 0;
+  v5 = 4294960591;
   if (!a4 || !a2 || !*(a1 + 16))
   {
     goto LABEL_7;
   }
 
-  sub_23EBDCB98("Get cached settings for base station:\n", a2, a3, a4, a5, a6, a7, a8);
-  sub_23EB6FF14(a2, &v59, "%ks", v13, v14, v15, v16, v17, "raMA");
-  if (v18)
+  sub_23EBDCB98("Get cached settings for base station:\n", a2);
+  sub_23EB6FF14(a2, &v30, "%ks", "raMA");
+  if (v9)
   {
 LABEL_6:
-    v9 = v18;
+    v5 = v9;
     goto LABEL_7;
   }
 
-  if (!v59)
+  if (!v30)
   {
     goto LABEL_35;
   }
 
-  v58 = 0;
+  v29 = 0;
   if (!CFDictionaryContainsKey(a2, @"raM2"))
   {
     goto LABEL_20;
   }
 
-  sub_23EB6FF14(a2, &v58, "%ks", v20, v21, v22, v23, v24, "raM2");
-  if (v18)
+  sub_23EB6FF14(a2, &v29, "%ks", "raM2");
+  if (v9)
   {
     goto LABEL_6;
   }
 
-  v25 = v58;
-  if (!v58)
+  v11 = v29;
+  if (!v29)
   {
 LABEL_35:
-    v9 = 4294960568;
+    v5 = 4294960568;
     goto LABEL_7;
   }
 
@@ -1291,96 +1400,99 @@ LABEL_35:
     if (dword_27E382C08 != -1)
     {
 LABEL_19:
-      sub_23EB75374(&dword_27E382C08, "OSStatus _CopyCachedSettingsForBaseStation(AutoGuessContextRef, CFDictionaryRef, Boolean, CFDictionaryRef *)", 800, "inBaseStation has Radio MAC Address 2: %@", v21, v22, v23, v24, v25);
+      sub_23EB75374(&dword_27E382C08, "OSStatus _CopyCachedSettingsForBaseStation(AutoGuessContextRef, CFDictionaryRef, Boolean, CFDictionaryRef *)", 800, "inBaseStation has Radio MAC Address 2: %@", v11);
       goto LABEL_20;
     }
 
     if (sub_23EB74AC8(&dword_27E382C08, 0x320u))
     {
-      v25 = v58;
+      v11 = v29;
       goto LABEL_19;
     }
   }
 
 LABEL_20:
-  sub_23EB6FF14(*(a1 + 16), &cf, "%kO:obj", v20, v21, v22, v23, v24, v59);
-  v9 = v31;
-  if (v31 == -6727 && v58)
+  sub_23EB6FF14(*(a1 + 16), &cf, "%kO:obj", v30);
+  v5 = v12;
+  if (v12 == -6727 && v29)
   {
-    sub_23EB6FF14(*(a1 + 16), &cf, "%kO:obj", v26, v27, v28, v29, v30, v58);
-    v9 = v32;
+    sub_23EB6FF14(*(a1 + 16), &cf, "%kO:obj", v29);
+    v5 = v13;
   }
 
-  if (!v9)
+  if (!v5)
   {
 LABEL_42:
     if (cf)
     {
       if (CFDictionaryGetCount(cf))
       {
-        v9 = 0;
+        v5 = 0;
         *a4 = cf;
-        return v9;
+        return v5;
       }
 
-      v9 = 4294960569;
+      v5 = 4294960569;
       goto LABEL_7;
     }
 
     return 4294960568;
   }
 
-  if (v9 == -6727)
+  if (v5 == -6727)
   {
-    v33 = sub_23EBDE7C0(a1, a2, a3, 0, &cf, v28, v29, v30);
-    if (v33 == -6727)
+    v14 = sub_23EBDE7C0(a1, a2, a3, 0, &cf);
+    if (v14 == -6727)
     {
-      v48 = *MEMORY[0x277CBECE8];
-      cf = CFDictionaryCreate(*MEMORY[0x277CBECE8], 0, 0, 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
-      if (!cf)
+      v20 = *MEMORY[0x277CBECE8];
+      v21 = CFDictionaryCreate(*MEMORY[0x277CBECE8], 0, 0, 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
+      cf = v21;
+      if (!v21)
       {
         return 4294960568;
       }
 
-      v18 = sub_23EB6FDFC(v48, *(a1 + 16), "%kO=%O", v49, v50, v51, v52, v53, v59);
-      if (v18)
+      v28 = v21;
+      v9 = sub_23EB6FDFC(v20, *(a1 + 16), "%kO=%O", v22, v23, v24, v25, v26, v30);
+      if (v9)
       {
         goto LABEL_6;
       }
 
       if (dword_27E382C08 <= 800 && (dword_27E382C08 != -1 || sub_23EB74AC8(&dword_27E382C08, 0x320u)))
       {
-        sub_23EB75374(&dword_27E382C08, "OSStatus _CopyCachedSettingsForBaseStation(AutoGuessContextRef, CFDictionaryRef, Boolean, CFDictionaryRef *)", 800, "Added BLANK settings for %@ to cache.\n", v54, v55, v56, v57, v59);
+        sub_23EB75374(&dword_27E382C08, "OSStatus _CopyCachedSettingsForBaseStation(AutoGuessContextRef, CFDictionaryRef, Boolean, CFDictionaryRef *)", 800, "Added BLANK settings for %@ to cache.\n", v30, v28);
       }
 
       goto LABEL_42;
     }
 
-    v9 = v33;
-    if (!v33)
+    v5 = v14;
+    if (!v14)
     {
       if (!cf)
       {
         return 4294960568;
       }
 
-      sub_23EB6FF14(cf, &v59, "%kC", v34, v35, v36, v37, v38, 1918979393);
-      if (v18)
+      sub_23EB6FF14(cf, &v30, "%kC", 1918979393);
+      if (v9)
       {
         goto LABEL_6;
       }
 
-      if (v59)
+      if (v30)
       {
-        v18 = sub_23EB6FDFC(*MEMORY[0x277CBECE8], *(a1 + 16), "%kO=%O", v39, v40, v41, v42, v43, v59);
-        if (v18)
+        v27 = cf;
+        v9 = sub_23EB6FDFC(*MEMORY[0x277CBECE8], *(a1 + 16), "%kO=%O", v15, v16, v17, v18, v19, v30);
+        if (v9)
         {
           goto LABEL_6;
         }
 
         if (dword_27E382C08 <= 800 && (dword_27E382C08 != -1 || sub_23EB74AC8(&dword_27E382C08, 0x320u)))
         {
-          sub_23EB75374(&dword_27E382C08, "OSStatus _CopyCachedSettingsForBaseStation(AutoGuessContextRef, CFDictionaryRef, Boolean, CFDictionaryRef *)", 800, "Added settings for %@ to cache.\n", v44, v45, v46, v47, v59);
+          sub_23EB75374(&dword_27E382C08, "OSStatus _CopyCachedSettingsForBaseStation(AutoGuessContextRef, CFDictionaryRef, Boolean, CFDictionaryRef *)", 800, "Added settings for %@ to cache.\n", v30, v27);
         }
 
         goto LABEL_42;
@@ -1396,47 +1508,47 @@ LABEL_7:
     CFRelease(cf);
   }
 
-  return v9;
+  return v5;
 }
 
-void sub_23EBDEDF0(const __CFString *a1, int *a2, CFTypeRef *a3, BOOL *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void sub_23EBDEDF0(const __CFString *a1, int *a2, CFTypeRef *a3, BOOL *a4)
 {
   if (dword_27E382C08 <= 800 && (dword_27E382C08 != -1 || sub_23EB74AC8(&dword_27E382C08, 0x320u)))
   {
-    sub_23EB75374(&dword_27E382C08, "OSStatus _NetworkInfoFromSettingsDictionary(CFDictionaryRef, BSNetworkMode *, CFStringRef *, Boolean *)", 800, "\n", a5, a6, a7, a8, v16);
+    sub_23EB75374(&dword_27E382C08, "OSStatus _NetworkInfoFromSettingsDictionary(CFDictionaryRef, BSNetworkMode *, CFStringRef *, Boolean *)", 800, "\n");
   }
 
   if (a1)
   {
     if (a2)
     {
-      v17 = 0;
-      sub_23EB6FF14(a1, &v17, "%kC", a4, a5, a6, a7, a8, 1466517097);
-      if (!v15)
+      v9 = 0;
+      sub_23EB6FF14(a1, &v9, "%kC", 1466517097);
+      if (!v8)
       {
-        if (v17)
+        if (v9)
         {
-          sub_23EBEF00C(v17, a2, a3, a4, 0, v12, v13, v14);
+          sub_23EBEF00C(v9, a2, a3, a4, 0);
         }
       }
     }
   }
 }
 
-uint64_t sub_23EBDEECC(uint64_t a1, int *a2, CFTypeRef *a3, void *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t sub_23EBDEECC(uint64_t a1, int *a2, CFTypeRef *a3, void *a4)
 {
   number = 0;
   cf = 0;
   if (dword_27E382C08 <= 800 && (dword_27E382C08 != -1 || sub_23EB74AC8(&dword_27E382C08, 0x320u)))
   {
-    sub_23EB75374(&dword_27E382C08, "OSStatus _NetworkAndRouterInfoFromInstance(BSRef, BSNetworkMode *, CFStringRef *, BSRouterMode *)", 800, "\n", a5, a6, a7, a8, number);
+    sub_23EB75374(&dword_27E382C08, "OSStatus _NetworkAndRouterInfoFromInstance(BSRef, BSNetworkMode *, CFStringRef *, BSRouterMode *)", 800, "\n", number);
   }
 
-  v12 = 4294960591;
+  v8 = 4294960591;
   if (a1 && a2)
   {
-    v13 = sub_23EBB3F30(a1, 1466517097, &cf);
-    if (v13)
+    v9 = sub_23EBB3F30(a1, 1466517097, &cf);
+    if (v9)
     {
       goto LABEL_13;
     }
@@ -1444,15 +1556,15 @@ uint64_t sub_23EBDEECC(uint64_t a1, int *a2, CFTypeRef *a3, void *a4, uint64_t a
     if (!a4)
     {
 LABEL_12:
-      sub_23EBEF00C(cf, a2, a3, 0, 0, v14, v15, v16);
+      sub_23EBEF00C(cf, a2, a3, 0, 0);
       goto LABEL_13;
     }
 
-    v13 = sub_23EBB3F30(a1, 1651724877, &number);
-    if (v13)
+    v9 = sub_23EBB3F30(a1, 1651724877, &number);
+    if (v9)
     {
 LABEL_13:
-      v12 = v13;
+      v8 = v9;
       goto LABEL_14;
     }
 
@@ -1463,12 +1575,12 @@ LABEL_13:
         goto LABEL_12;
       }
 
-      v12 = 4294960553;
+      v8 = 4294960553;
     }
 
     else
     {
-      v12 = 4294960568;
+      v8 = 4294960568;
     }
   }
 
@@ -1484,28 +1596,28 @@ LABEL_14:
     CFRelease(number);
   }
 
-  return v12;
+  return v8;
 }
 
-uint64_t sub_23EBDF004(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t sub_23EBDF004(uint64_t a1)
 {
   if (dword_27E382C08 <= 800 && (dword_27E382C08 != -1 || sub_23EB74AC8(&dword_27E382C08, 0x320u)))
   {
-    sub_23EB75374(&dword_27E382C08, "Boolean _ConflictingDHCPRange(BSRef)", 800, "\n", a5, a6, a7, a8, v12);
+    sub_23EB75374(&dword_27E382C08, "Boolean _ConflictingDHCPRange(BSRef)", 800, "\n");
   }
 
   cf = 0;
   if (a1 && !sub_23EBB4DE4(a1, 2002864464) && sub_23EBAE7A0(a1, 1684554343, &cf))
   {
-    v9 = sub_23EBAE7A0(a1, 1684555118, &cf) ^ 1;
+    v2 = sub_23EBAE7A0(a1, 1684555118, &cf) ^ 1;
   }
 
   else
   {
-    v9 = 1;
+    v2 = 1;
   }
 
-  v10 = cf;
+  v3 = cf;
   if (cf && dword_27E382C08 <= 800)
   {
     if (dword_27E382C08 == -1)
@@ -1513,37 +1625,36 @@ uint64_t sub_23EBDF004(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
       if (!sub_23EB74AC8(&dword_27E382C08, 0x320u))
       {
 LABEL_16:
-        v10 = cf;
+        v3 = cf;
         goto LABEL_17;
       }
 
-      v10 = cf;
+      v3 = cf;
     }
 
-    sub_23EB75374(&dword_27E382C08, "Boolean _ConflictingDHCPRange(BSRef)", 800, "errorString: %@\n", a5, a6, a7, a8, v10);
+    sub_23EB75374(&dword_27E382C08, "Boolean _ConflictingDHCPRange(BSRef)", 800, "errorString: %@\n", v3);
     goto LABEL_16;
   }
 
 LABEL_17:
-  if (v10)
+  if (v3)
   {
-    CFRelease(v10);
+    CFRelease(v3);
   }
 
-  return v9;
+  return v2;
 }
 
-uint64_t sub_23EBDF140(uint64_t a1, const __CFString *a2, uint64_t a3, uint64_t *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t sub_23EBDF140(uint64_t a1, const __CFString *a2, int a3, uint64_t *a4)
 {
   cf = 0;
   theData = 0;
-  v8 = 4294960591;
+  v4 = 4294960591;
   if (a1 && a2 && a4)
   {
-    v11 = a3;
-    sub_23EBDCB98("_BaseStationCountOfPortsInUse for base station:\n", a2, a3, a4, a5, a6, a7, a8);
-    v17 = sub_23EBDEA88(a1, a2, 0, &cf, v13, v14, v15, v16);
-    if (v17)
+    sub_23EBDCB98("_BaseStationCountOfPortsInUse for base station:\n", a2);
+    v9 = sub_23EBDEA88(a1, a2, 0, &cf);
+    if (v9)
     {
       goto LABEL_5;
     }
@@ -1553,45 +1664,96 @@ uint64_t sub_23EBDF140(uint64_t a1, const __CFString *a2, uint64_t a3, uint64_t 
       return 4294960568;
     }
 
-    sub_23EB6FF14(cf, &theData, "%kC", v18, v19, v20, v21, v22, 1346918739);
-    if (v17)
+    sub_23EB6FF14(cf, &theData, "%kC", 1346918739);
+    if (v9)
     {
 LABEL_5:
-      v8 = v17;
+      v4 = v9;
     }
 
     else if (theData && (BytePtr = CFDataGetBytePtr(theData)) != 0)
     {
-      v25 = BytePtr;
-      v26 = v11 != 0;
+      v12 = BytePtr;
+      v13 = a3 != 0;
       Length = CFDataGetLength(theData);
-      v32 = 0;
-      v33 = (Length >> 2) - v26;
-      if (Length >> 2 > v26)
+      v15 = 0;
+      v16 = (Length >> 2) - v13;
+      if (Length >> 2 > v13)
       {
-        v34 = &v25[4 * v26];
+        v17 = &v12[4 * v13];
         do
         {
-          v35 = *v34;
-          v34 += 4;
-          if (v35)
+          v18 = *v17;
+          v17 += 4;
+          if (v18)
           {
-            ++v32;
+            ++v15;
           }
 
-          --v33;
+          --v16;
         }
 
-        while (v33);
+        while (v16);
       }
 
       if (dword_27E382C08 <= 800 && (dword_27E382C08 != -1 || sub_23EB74AC8(&dword_27E382C08, 0x320u)))
       {
-        sub_23EB75374(&dword_27E382C08, "OSStatus _BaseStationCountOfPortsInUse(AutoGuessContextRef, CFDictionaryRef, eWhichPorts, CFIndex *)", 800, "portsInUseCountIs: %d", v28, v29, v30, v31, v32);
+        sub_23EB75374(&dword_27E382C08, "OSStatus _BaseStationCountOfPortsInUse(AutoGuessContextRef, CFDictionaryRef, eWhichPorts, CFIndex *)", 800, "portsInUseCountIs: %d", v15);
       }
 
+      v4 = 0;
+      *a4 = v15;
+    }
+
+    else
+    {
+      v4 = 4294960568;
+    }
+  }
+
+  if (cf)
+  {
+    CFRelease(cf);
+  }
+
+  return v4;
+}
+
+uint64_t sub_23EBDF2B4(uint64_t a1, const __CFString *a2, uint64_t a3, _BYTE *a4)
+{
+  v5 = a3;
+  if (dword_27E382C08 <= 800 && (dword_27E382C08 != -1 || sub_23EB74AC8(&dword_27E382C08, 0x320u)))
+  {
+    sub_23EB75374(&dword_27E382C08, "OSStatus _BaseStationHasFeature(AutoGuessContextRef, CFDictionaryRef, ACPFeatureCode, Boolean *)", 800, "\n");
+  }
+
+  theData = 0;
+  cf = 0;
+  v8 = 4294960591;
+  if (a1 && a2 && a4)
+  {
+    v9 = sub_23EBDEA88(a1, a2, 0, &cf);
+    if (v9)
+    {
+      goto LABEL_9;
+    }
+
+    if (!cf)
+    {
+      return 4294960568;
+    }
+
+    sub_23EB6FF14(cf, &theData, "%kC", 1717920116);
+    if (v9)
+    {
+LABEL_9:
+      v8 = v9;
+    }
+
+    else if (theData)
+    {
       v8 = 0;
-      *a4 = v32;
+      *a4 = sub_23EBEF2E4(theData, v5);
     }
 
     else
@@ -1608,61 +1770,11 @@ LABEL_5:
   return v8;
 }
 
-uint64_t sub_23EBDF2B4(uint64_t a1, const __CFString *a2, int a3, _BYTE *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t sub_23EBDF3D8(uint64_t a1, CFDictionaryRef theDict)
 {
   if (dword_27E382C08 <= 800 && (dword_27E382C08 != -1 || sub_23EB74AC8(&dword_27E382C08, 0x320u)))
   {
-    sub_23EB75374(&dword_27E382C08, "OSStatus _BaseStationHasFeature(AutoGuessContextRef, CFDictionaryRef, ACPFeatureCode, Boolean *)", 800, "\n", a5, a6, a7, a8, v20);
-  }
-
-  theData = 0;
-  cf = 0;
-  v12 = 4294960591;
-  if (a1 && a2 && a4)
-  {
-    v13 = sub_23EBDEA88(a1, a2, 0, &cf, a5, a6, a7, a8);
-    if (v13)
-    {
-      goto LABEL_9;
-    }
-
-    if (!cf)
-    {
-      return 4294960568;
-    }
-
-    sub_23EB6FF14(cf, &theData, "%kC", v14, v15, v16, v17, v18, 1717920116);
-    if (v13)
-    {
-LABEL_9:
-      v12 = v13;
-    }
-
-    else if (theData)
-    {
-      v12 = 0;
-      *a4 = sub_23EBEF2E4(theData, a3);
-    }
-
-    else
-    {
-      v12 = 4294960568;
-    }
-  }
-
-  if (cf)
-  {
-    CFRelease(cf);
-  }
-
-  return v12;
-}
-
-uint64_t sub_23EBDF3D8(uint64_t a1, CFDictionaryRef theDict, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
-{
-  if (dword_27E382C08 <= 800 && (dword_27E382C08 != -1 || sub_23EB74AC8(&dword_27E382C08, 0x320u)))
-  {
-    sub_23EB75374(&dword_27E382C08, "Boolean _BaseStationIsSimultaneousDualBand(AutoGuessContextRef, CFDictionaryRef)", 800, "\n", a5, a6, a7, a8, v11);
+    sub_23EB75374(&dword_27E382C08, "Boolean _BaseStationIsSimultaneousDualBand(AutoGuessContextRef, CFDictionaryRef)", 800, "\n");
   }
 
   result = 0;
@@ -1678,108 +1790,108 @@ uint64_t sub_23EBDF3D8(uint64_t a1, CFDictionaryRef theDict, uint64_t a3, uint64
   return result;
 }
 
-uint64_t sub_23EBDF480(uint64_t a1, const __CFString *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t sub_23EBDF480(uint64_t a1, const __CFString *a2)
 {
   if (dword_27E382C08 <= 800 && (dword_27E382C08 != -1 || sub_23EB74AC8(&dword_27E382C08, 0x320u)))
   {
-    sub_23EB75374(&dword_27E382C08, "Boolean _BaseStationIsAudioPortInUse(AutoGuessContextRef, CFDictionaryRef)", 800, "\n", a5, a6, a7, a8, v13);
+    sub_23EB75374(&dword_27E382C08, "Boolean _BaseStationIsAudioPortInUse(AutoGuessContextRef, CFDictionaryRef)", 800, "\n");
   }
 
   result = 0;
   if (a1 && a2)
   {
-    v14 = 0;
-    sub_23EB6FF14(a2, &v14, "%ks.%kC:int", a4, a5, a6, a7, a8, "txt");
-    v12 = v11;
+    v7 = 0;
+    sub_23EB6FF14(a2, &v7, "%ks.%kC:int", "txt", 1937327724);
+    v6 = v5;
     result = 0;
-    if (!v12)
+    if (!v6)
     {
-      return v14 >> 7;
+      return v7 >> 7;
     }
   }
 
   return result;
 }
 
-uint64_t sub_23EBDF544(uint64_t a1, const __CFString *a2, const __CFString *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t sub_23EBDF544(uint64_t a1, const __CFString *a2, const __CFString *a3)
 {
   theData = 0;
-  v63 = 0;
-  v61 = 0;
-  v60 = 0;
-  v59 = 0;
-  v64 = 0;
-  v65 = 0;
-  v14 = sub_23EBDEA88(a1, a2, 0, &v65, a5, a6, a7, a8);
-  v15 = v65;
-  v16 = 1;
-  if (!v14 && v65)
+  v24 = 0;
+  v22 = 0;
+  v21 = 0;
+  v20 = 0;
+  v25 = 0;
+  v26 = 0;
+  v5 = sub_23EBDEA88(a1, a2, 0, &v26);
+  v6 = v26;
+  v7 = 1;
+  if (!v5 && v26)
   {
-    v17 = sub_23EBDEA88(a1, a3, 0, &v64, v10, v11, v12, v13);
-    v23 = 1;
-    if (v17)
+    v8 = sub_23EBDEA88(a1, a3, 0, &v25);
+    v9 = 1;
+    if (v8)
     {
       goto LABEL_9;
     }
 
-    if (!v64)
+    if (!v25)
     {
       goto LABEL_9;
     }
 
-    sub_23EB6FF14(v65, &theData, "%kC", v18, v19, v20, v21, v22, 1717920116);
-    v23 = 1;
-    if (v29 || !theData)
+    sub_23EB6FF14(v26, &theData, "%kC", 1717920116);
+    v9 = 1;
+    if (v10 || !theData)
     {
       goto LABEL_9;
     }
 
-    sub_23EB6FF14(v64, &v63, "%kC", v24, v25, v26, v27, v28, 1466517097);
-    if (!v35)
+    sub_23EB6FF14(v25, &v24, "%kC", 1466517097);
+    if (!v11)
     {
-      if (v63)
+      if (v24)
       {
-        sub_23EB6FF14(v63, &v60, "%ks", v30, v31, v32, v33, v34, "radios");
-        if (!v42)
+        sub_23EB6FF14(v24, &v21, "%ks", "radios");
+        if (!v13)
         {
-          if (v60)
+          if (v21)
           {
-            sub_23EB6FF14(v60, &v61, "[*].%ks:int", v37, v38, v39, v40, v41, 0);
-            if (!v43)
+            sub_23EB6FF14(v21, &v22, "[*].%ks:int", 0, "raSt");
+            if (!v14)
             {
-              if (v61 == 1 && !sub_23EBEF2E4(theData, 1112757313))
+              if (v22 == 1 && !sub_23EBEF2E4(theData, 1112757313))
               {
                 goto LABEL_27;
               }
 
-              v44 = sub_23EBEF2E4(theData, 1852787795);
-              v45 = sub_23EBEF2E4(theData, 1852788045);
-              if (v44 | v45)
+              v15 = sub_23EBEF2E4(theData, 1852787795);
+              v16 = sub_23EBEF2E4(theData, 1852788045);
+              if (v15 | v16)
               {
-                v51 = v45;
-                sub_23EB6FF14(v60, &v59, "[*].%ks:int", v46, v47, v48, v49, v50, 0);
-                if (!v57)
+                v17 = v16;
+                sub_23EB6FF14(v21, &v20, "[*].%ks:int", 0, "raWM");
+                if (!v18)
                 {
-                  if ((v59 - 1) < 3)
+                  if ((v20 - 1) < 3)
                   {
-                    v23 = v44 == 0;
+                    v9 = v15 == 0;
                     goto LABEL_9;
                   }
 
-                  if (v59 == 4)
+                  if (v20 == 4)
                   {
-                    if (v51)
+                    if (v17)
                     {
 LABEL_27:
-                      v23 = 0;
+                      v9 = 0;
                       goto LABEL_9;
                     }
 
-                    if (v44)
+                    if (v15)
                     {
-                      v58 = 0;
-                      sub_23EB6FF14(v60, &v58, "[*].%ks:BOOL", v52, v53, v54, v55, v56, 0);
-                      v23 = v58 ^ 1;
+                      v19 = 0;
+                      sub_23EB6FF14(v21, &v19, "[*].%ks:BOOL", 0, "rTSN");
+                      v9 = v19 ^ 1;
                       goto LABEL_9;
                     }
                   }
@@ -1791,81 +1903,81 @@ LABEL_27:
       }
     }
 
-    v23 = 1;
+    v9 = 1;
 LABEL_9:
-    v16 = v23 & 1;
-    v15 = v65;
+    v7 = v9 & 1;
+    v6 = v26;
   }
 
-  if (v15)
+  if (v6)
   {
-    CFRelease(v15);
-    v65 = 0;
+    CFRelease(v6);
+    v26 = 0;
   }
 
-  if (v64)
+  if (v25)
   {
-    CFRelease(v64);
+    CFRelease(v25);
   }
 
-  return v16;
+  return v7;
 }
 
-uint64_t sub_23EBDF780(uint64_t a1, const __CFString *a2, const __CFArray *a3, const __CFString **a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t sub_23EBDF780(uint64_t a1, const __CFString *a2, const __CFArray *a3, const __CFArray **a4)
 {
   if (dword_27E382C08 <= 800 && (dword_27E382C08 != -1 || sub_23EB74AC8(&dword_27E382C08, 0x320u)))
   {
-    sub_23EB75374(&dword_27E382C08, "Boolean _BaseStationIsInSTAMode(AutoGuessContextRef, CFDictionaryRef, CFArrayRef, CFStringRef *)", 800, "\n", a5, a6, a7, a8, v52);
+    sub_23EB75374(&dword_27E382C08, "Boolean _BaseStationIsInSTAMode(AutoGuessContextRef, CFDictionaryRef, CFArrayRef, CFStringRef *)", 800, "\n");
   }
 
   result = 0;
-  v55 = 0;
+  v23 = 0;
   if (!a1 || !a2 || !a4)
   {
     return result;
   }
 
-  v58 = 0;
+  v26 = 0;
   cf = 0;
-  v56 = 0;
-  v13 = sub_23EBDEA88(a1, a2, 0, &cf, a5, a6, a7, a8);
-  if (v13 == -6727)
+  v24 = 0;
+  v9 = sub_23EBDEA88(a1, a2, 0, &cf);
+  if (v9 == -6727)
   {
-    *v54 = 0;
-    sub_23EB6FF14(a2, v54, "%ks.%ks", v14, v15, v16, v17, v18, "txt");
-    if (!v28)
+    *v22 = 0;
+    sub_23EB6FF14(a2, v22, "%ks.%ks", "txt", "raMA");
+    if (!v14)
     {
-      if (*v54)
+      if (*v22)
       {
-        *v53 = 0;
-        sub_23EB6FF14(a2, v53, "%ks.%ks", v23, v24, v25, v26, v27, "txt");
-        if ((v29 == -6727 || !v29 && *v53) && sub_23EB6B8F0(*v54, 0, a3) == -1 && (!*v53 || sub_23EB6B8F0(*v53, 0, a3) == -1))
+        *v21 = 0;
+        sub_23EB6FF14(a2, v21, "%ks.%ks", "txt", "raM2");
+        if ((v15 == -6727 || !v15 && *v21) && sub_23EB6B8F0(*v22, 0, a3) == -1 && (!*v21 || sub_23EB6B8F0(*v21, 0, a3) == -1))
         {
-          sub_23EB6FF14(a2, &v58, "%ks.%kC:int", v30, v31, v32, v33, v34, "txt");
-          if (!v40)
+          sub_23EB6FF14(a2, &v26, "%ks.%kC:int", "txt", 1937327724);
+          if (!v16)
           {
-            sub_23EB6FF14(a2, &v55, "%ks.%ks", v35, v36, v37, v38, v39, "txt");
-            if (v41 == -6727)
+            sub_23EB6FF14(a2, &v23, "%ks.%ks", "txt", "raNm");
+            if (v17 == -6727)
             {
-              v49 = sub_23EB6AE58(a2, v42, v43, v44, v45, v46, v47, v48);
-              v55 = v49;
-              v50 = v49 == 0;
+              v18 = sub_23EB6AE58(a2);
+              v23 = v18;
+              v19 = v18 == 0;
             }
 
             else
             {
-              v51 = v41;
-              v49 = v55;
-              v50 = v51 != 0;
+              v20 = v17;
+              v18 = v23;
+              v19 = v20 != 0;
             }
 
-            if (!v50 && v49)
+            if (!v19 && v18)
             {
-              v21 = (*(&v58 + 1) & 0x180) == 0;
+              v12 = (*(&v26 + 1) & 0x180) == 0;
 LABEL_16:
-              if (v21)
+              if (v12)
               {
-                *a4 = v55;
+                *a4 = v23;
                 return 1;
               }
             }
@@ -1877,7 +1989,7 @@ LABEL_16:
     return 0;
   }
 
-  if (v13)
+  if (v9)
   {
     return 0;
   }
@@ -1885,19 +1997,19 @@ LABEL_16:
   result = cf;
   if (cf)
   {
-    sub_23EBDEDF0(cf, &v56, &v55, 0, v15, v16, v17, v18);
-    v20 = v19;
+    sub_23EBDEDF0(cf, &v24, &v23, 0);
+    v11 = v10;
     if (cf)
     {
       CFRelease(cf);
     }
 
     result = 0;
-    if (!v20)
+    if (!v11)
     {
-      if (v55)
+      if (v23)
       {
-        v21 = v56 == 1;
+        v12 = v24 == 1;
         goto LABEL_16;
       }
     }
@@ -1906,19 +2018,19 @@ LABEL_16:
   return result;
 }
 
-CFTypeRef sub_23EBDF9E8(uint64_t a1, const __CFString *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+CFTypeRef sub_23EBDF9E8(uint64_t a1, const __CFString *a2)
 {
   if (dword_27E382C08 <= 800 && (dword_27E382C08 != -1 || sub_23EB74AC8(&dword_27E382C08, 0x320u)))
   {
-    sub_23EB75374(&dword_27E382C08, "Boolean _BaseStationIsNATEnabled(AutoGuessContextRef, CFDictionaryRef)", 800, "\n", a5, a6, a7, a8, v18);
+    sub_23EB75374(&dword_27E382C08, "Boolean _BaseStationIsNATEnabled(AutoGuessContextRef, CFDictionaryRef)", 800, "\n");
   }
 
   result = 0;
   if (a1 && a2)
   {
-    v20 = 0;
+    v8 = 0;
     cf = 0;
-    if (sub_23EBDEA88(a1, a2, 0, &cf, a5, a6, a7, a8))
+    if (sub_23EBDEA88(a1, a2, 0, &cf))
     {
       return 0;
     }
@@ -1926,16 +2038,16 @@ CFTypeRef sub_23EBDF9E8(uint64_t a1, const __CFString *a2, uint64_t a3, uint64_t
     result = cf;
     if (cf)
     {
-      sub_23EB6FF14(cf, &v20, "%kC:BOOL", v11, v12, v13, v14, v15, 1918979649);
-      v17 = v16;
+      sub_23EB6FF14(cf, &v8, "%kC:BOOL", 1918979649);
+      v6 = v5;
       if (cf)
       {
         CFRelease(cf);
       }
 
-      if (!v17)
+      if (!v6)
       {
-        return (v20 != 0);
+        return (v8 != 0);
       }
 
       return 0;
@@ -1945,20 +2057,20 @@ CFTypeRef sub_23EBDF9E8(uint64_t a1, const __CFString *a2, uint64_t a3, uint64_t
   return result;
 }
 
-CFTypeRef sub_23EBDFAD8(uint64_t a1, const __CFString *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+CFTypeRef sub_23EBDFAD8(uint64_t a1, const __CFString *a2)
 {
   if (dword_27E382C08 <= 800 && (dword_27E382C08 != -1 || sub_23EB74AC8(&dword_27E382C08, 0x320u)))
   {
-    sub_23EB75374(&dword_27E382C08, "Boolean _BaseStationIsCreatingGuestNetwork(AutoGuessContextRef, CFDictionaryRef)", 800, "\n", a5, a6, a7, a8, cf);
+    sub_23EB75374(&dword_27E382C08, "Boolean _BaseStationIsCreatingGuestNetwork(AutoGuessContextRef, CFDictionaryRef)", 800, "\n");
   }
 
   result = 0;
   if (a1 && a2)
   {
-    v19 = 0;
-    v18 = 0;
+    v9 = 0;
+    v8 = 0;
     cf = 0;
-    if (sub_23EBDEA88(a1, a2, 0, &cf, a5, a6, a7, a8))
+    if (sub_23EBDEA88(a1, a2, 0, &cf))
     {
       return 0;
     }
@@ -1966,16 +2078,16 @@ CFTypeRef sub_23EBDFAD8(uint64_t a1, const __CFString *a2, uint64_t a3, uint64_t
     result = cf;
     if (cf)
     {
-      sub_23EBDEDF0(cf, &v19, 0, &v18, v11, v12, v13, v14);
-      v16 = v15;
+      sub_23EBDEDF0(cf, &v9, 0, &v8);
+      v6 = v5;
       if (cf)
       {
         CFRelease(cf);
       }
 
-      if (!v16)
+      if (!v6)
       {
-        return v18;
+        return v8;
       }
 
       return 0;
@@ -1985,21 +2097,21 @@ CFTypeRef sub_23EBDFAD8(uint64_t a1, const __CFString *a2, uint64_t a3, uint64_t
   return result;
 }
 
-BOOL sub_23EBDFBC0(uint64_t a1, const __CFString *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+BOOL sub_23EBDFBC0(uint64_t a1, const __CFString *a2)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   if (dword_27E382C08 <= 800 && (dword_27E382C08 != -1 || sub_23EB74AC8(&dword_27E382C08, 0x320u)))
   {
-    sub_23EB75374(&dword_27E382C08, "Boolean _BaseStationHasPublicRoutableIP(AutoGuessContextRef, CFDictionaryRef)", 800, "\n", a5, a6, a7, a8, v18);
+    sub_23EB75374(&dword_27E382C08, "Boolean _BaseStationHasPublicRoutableIP(AutoGuessContextRef, CFDictionaryRef)", 800, "\n");
   }
 
-  v10 = 0;
+  v4 = 0;
   cf = 0;
   if (a1 && a2)
   {
     theString = 0;
-    v19 = 0;
-    if (sub_23EBDEA88(a1, a2, 0, &cf, a5, a6, a7, a8))
+    v7 = 0;
+    if (sub_23EBDEA88(a1, a2, 0, &cf))
     {
       goto LABEL_8;
     }
@@ -2009,16 +2121,16 @@ BOOL sub_23EBDFBC0(uint64_t a1, const __CFString *a2, uint64_t a3, uint64_t a4, 
       return 0;
     }
 
-    sub_23EB6FF14(cf, &theString, "%kC", v11, v12, v13, v14, v15, 2002864464);
-    if (v16 || !theString || !CFStringGetCString(theString, buffer, 256, 0x8000100u) || sub_23EB7DE5C(buffer, 0, &v19, 0, 0, 0, 0))
+    sub_23EB6FF14(cf, &theString, "%kC", 2002864464);
+    if (v5 || !theString || !CFStringGetCString(theString, buffer, 256, 0x8000100u) || sub_23EB7DE5C(buffer, 0, &v7, 0, 0, 0, 0))
     {
 LABEL_8:
-      v10 = 0;
+      v4 = 0;
     }
 
     else
     {
-      v10 = sub_23EB7D870(bswap32(v19));
+      v4 = sub_23EB7D870(bswap32(v7));
     }
 
     if (cf)
@@ -2027,33 +2139,33 @@ LABEL_8:
     }
   }
 
-  return v10;
+  return v4;
 }
 
-CFTypeRef sub_23EBDFD3C(uint64_t a1, const __CFString *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+CFTypeRef sub_23EBDFD3C(uint64_t a1, const __CFString *a2)
 {
   if (dword_27E382C08 <= 800 && (dword_27E382C08 != -1 || sub_23EB74AC8(&dword_27E382C08, 0x320u)))
   {
-    sub_23EB75374(&dword_27E382C08, "Boolean _BaseStationIsInCreateMode(AutoGuessContextRef, CFDictionaryRef)", 800, "\n", a5, a6, a7, a8, v21);
+    sub_23EB75374(&dword_27E382C08, "Boolean _BaseStationIsInCreateMode(AutoGuessContextRef, CFDictionaryRef)", 800, "\n");
   }
 
   result = 0;
   if (a1 && a2)
   {
-    v24 = 0;
+    v12 = 0;
     cf = 0;
-    v22 = 0;
-    v11 = sub_23EBDEA88(a1, a2, 0, &cf, a5, a6, a7, a8);
-    if (v11 == -6727)
+    v10 = 0;
+    v5 = sub_23EBDEA88(a1, a2, 0, &cf);
+    if (v5 == -6727)
     {
-      sub_23EB6FF14(a2, &v24, "%ks.%kC:int", v12, v13, v14, v15, v16, "txt");
-      if (!v20)
+      sub_23EB6FF14(a2, &v12, "%ks.%kC:int", "txt", 1937327724);
+      if (!v9)
       {
-        return ((v24 & 0x10000) == 0);
+        return ((v12 & 0x10000) == 0);
       }
     }
 
-    else if (!v11)
+    else if (!v5)
     {
       result = cf;
       if (!cf)
@@ -2061,16 +2173,16 @@ CFTypeRef sub_23EBDFD3C(uint64_t a1, const __CFString *a2, uint64_t a3, uint64_t
         return result;
       }
 
-      sub_23EBDEDF0(cf, &v22, 0, 0, v13, v14, v15, v16);
-      v18 = v17;
+      sub_23EBDEDF0(cf, &v10, 0, 0);
+      v7 = v6;
       if (cf)
       {
         CFRelease(cf);
       }
 
-      if (!v18)
+      if (!v7)
       {
-        return (v22 == 0);
+        return (v10 == 0);
       }
     }
 
@@ -2080,7 +2192,7 @@ CFTypeRef sub_23EBDFD3C(uint64_t a1, const __CFString *a2, uint64_t a3, uint64_t
   return result;
 }
 
-void sub_23EBDFE68(uint64_t a1, const __CFString *a2, const void *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void sub_23EBDFE68(uint64_t a1, const __CFString *a2, const void *a3, int a4)
 {
   cf = a3;
   if (!a1 || !a2 || !*(a1 + 16))
@@ -2089,29 +2201,29 @@ void sub_23EBDFE68(uint64_t a1, const __CFString *a2, const void *a3, uint64_t a
   }
 
   key = 0;
-  sub_23EBDCB98("_SetCachedSettingsForBaseStation:\n", a2, a3, a4, a5, a6, a7, a8);
+  sub_23EBDCB98("_SetCachedSettingsForBaseStation:\n", a2);
   if (a3)
   {
-    sub_23EB6FF14(a2, &key, "%ks", v12, v13, v14, v15, v16, "raMA");
-    if (v17 || !key)
+    sub_23EB6FF14(a2, &key, "%ks", "raMA");
+    if (v8 || !key)
     {
       return;
     }
 
-    v38 = 0;
+    v16 = 0;
     if (!CFDictionaryContainsKey(a2, @"raM2"))
     {
       goto LABEL_15;
     }
 
-    sub_23EB6FF14(a2, &v38, "%ks", v18, v19, v20, v21, v22, "raM2");
-    if (v27)
+    sub_23EB6FF14(a2, &v16, "%ks", "raM2");
+    if (v9)
     {
       return;
     }
 
-    v28 = v38;
-    if (!v38)
+    v10 = v16;
+    if (!v16)
     {
       return;
     }
@@ -2131,48 +2243,48 @@ LABEL_15:
           CFDictionaryRemoveValue(*(a1 + 16), key);
           if (dword_27E382C08 <= 800 && (dword_27E382C08 != -1 || sub_23EB74AC8(&dword_27E382C08, 0x320u)))
           {
-            sub_23EB75374(&dword_27E382C08, "OSStatus _SetCachedSettingsForBaseStation(AutoGuessContextRef, CFDictionaryRef, CFDictionaryRef, Boolean)", 800, "inContext->cachedBaseSttings contains tempMACAddress: %@ -- removing", v30, v31, v32, v33, key);
+            sub_23EB75374(&dword_27E382C08, "OSStatus _SetCachedSettingsForBaseStation(AutoGuessContextRef, CFDictionaryRef, CFDictionaryRef, Boolean)", 800, "inContext->cachedBaseSttings contains tempMACAddress: %@ -- removing", key);
           }
         }
 
-        else if (v38)
+        else if (v16)
         {
-          if (CFDictionaryContainsKey(*(a1 + 16), v38))
+          if (CFDictionaryContainsKey(*(a1 + 16), v16))
           {
-            CFDictionaryRemoveValue(*(a1 + 16), v38);
+            CFDictionaryRemoveValue(*(a1 + 16), v16);
             if (dword_27E382C08 <= 800 && (dword_27E382C08 != -1 || sub_23EB74AC8(&dword_27E382C08, 0x320u)))
             {
-              sub_23EB75374(&dword_27E382C08, "OSStatus _SetCachedSettingsForBaseStation(AutoGuessContextRef, CFDictionaryRef, CFDictionaryRef, Boolean)", 800, "inContext->cachedBaseSttings contains tempMACAddress2: %@ -- removing", v30, v31, v32, v33, v38);
+              sub_23EB75374(&dword_27E382C08, "OSStatus _SetCachedSettingsForBaseStation(AutoGuessContextRef, CFDictionaryRef, CFDictionaryRef, Boolean)", 800, "inContext->cachedBaseSttings contains tempMACAddress2: %@ -- removing", v16);
             }
           }
         }
 
-        if (!sub_23EB6FDFC(*MEMORY[0x277CBECE8], *(a1 + 16), "%kO=%O", v29, v30, v31, v32, v33, key) && dword_27E382C08 <= 800 && (dword_27E382C08 != -1 || sub_23EB74AC8(&dword_27E382C08, 0x320u)))
+        if (!sub_23EB6FDFC(*MEMORY[0x277CBECE8], *(a1 + 16), "%kO=%O", v11, v12, v13, v14, v15, key) && dword_27E382C08 <= 800 && (dword_27E382C08 != -1 || sub_23EB74AC8(&dword_27E382C08, 0x320u)))
         {
-          sub_23EB75374(&dword_27E382C08, "OSStatus _SetCachedSettingsForBaseStation(AutoGuessContextRef, CFDictionaryRef, CFDictionaryRef, Boolean)", 800, "Added settings for %@ to cache.\n", v34, v35, v36, v37, key);
+          sub_23EB75374(&dword_27E382C08, "OSStatus _SetCachedSettingsForBaseStation(AutoGuessContextRef, CFDictionaryRef, CFDictionaryRef, Boolean)", 800, "Added settings for %@ to cache.\n", key, a3);
         }
 
         return;
       }
 
-      v28 = v38;
+      v10 = v16;
     }
 
-    sub_23EB75374(&dword_27E382C08, "OSStatus _SetCachedSettingsForBaseStation(AutoGuessContextRef, CFDictionaryRef, CFDictionaryRef, Boolean)", 800, "inBaseStation has Radio MAC Address 2: %@", v23, v24, v25, v26, v28);
+    sub_23EB75374(&dword_27E382C08, "OSStatus _SetCachedSettingsForBaseStation(AutoGuessContextRef, CFDictionaryRef, CFDictionaryRef, Boolean)", 800, "inBaseStation has Radio MAC Address 2: %@", v10);
     goto LABEL_15;
   }
 
-  if (!sub_23EBDEA88(a1, a2, a4, &cf, v13, v14, v15, v16) && cf)
+  if (!sub_23EBDEA88(a1, a2, a4, &cf) && cf)
   {
     CFRelease(cf);
   }
 }
 
-void sub_23EBE0134(uint64_t a1, CFArrayRef theArray, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void sub_23EBE0134(uint64_t a1, CFArrayRef theArray)
 {
   if (dword_27E382C08 <= 800 && (dword_27E382C08 != -1 || sub_23EB74AC8(&dword_27E382C08, 0x320u)))
   {
-    sub_23EB75374(&dword_27E382C08, "OSStatus _CacheNeededSettingsForBaseStationList(AutoGuessContextRef, CFArrayRef)", 800, "\n", a5, a6, a7, a8, v25);
+    sub_23EB75374(&dword_27E382C08, "OSStatus _CacheNeededSettingsForBaseStationList(AutoGuessContextRef, CFArrayRef)", 800, "\n");
   }
 
   if (a1)
@@ -2182,55 +2294,56 @@ void sub_23EBE0134(uint64_t a1, CFArrayRef theArray, uint64_t a3, uint64_t a4, u
       Count = CFArrayGetCount(theArray);
       if (Count >= 1)
       {
-        v16 = Count;
-        v17 = 0;
-        v26 = 0;
+        v5 = Count;
+        v6 = 0;
+        v10 = 0;
         do
         {
-          sub_23EB6FF14(theArray, &v26, "[*]", v11, v12, v13, v14, v15, v17);
-          if (v22 || !v26)
+          sub_23EB6FF14(theArray, &v10, "[*]", v6);
+          if (v7 || !v10)
           {
             break;
           }
 
-          sub_23EBDFE68(a1, v26, 0, 0, v18, v19, v20, v21);
-          if (v23 && v23 != -6727)
+          sub_23EBDFE68(a1, v10, 0, 0);
+          if (v8 && v8 != -6727)
           {
             break;
           }
 
-          ++v17;
+          ++v6;
         }
 
-        while (v16 != v17);
+        while (v5 != v6);
       }
     }
   }
 }
 
-uint64_t sub_23EBE0244(uint64_t a1, const char *a2, uint64_t a3, unsigned int a4, void *a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t sub_23EBE0244(uint64_t a1, const char *a2, uint64_t a3, uint64_t a4, void *a5)
 {
+  v6 = a4;
   if (dword_27E382C08 <= 800 && (dword_27E382C08 != -1 || sub_23EB74AC8(&dword_27E382C08, 0x320u)))
   {
-    sub_23EB75374(&dword_27E382C08, "OSStatus _JoinNetworkAndBrowseForBaseStations(AutoGuessContextRef, CFDictionaryRef, Boolean, uint32_t, CFArrayRef *)", 800, "\n", a5, a6, a7, a8, v24);
+    sub_23EB75374(&dword_27E382C08, "OSStatus _JoinNetworkAndBrowseForBaseStations(AutoGuessContextRef, CFDictionaryRef, Boolean, uint32_t, CFArrayRef *)", 800, "\n");
   }
 
   result = 4294960591;
   if (a1 && a2 && a5)
   {
-    v13 = sub_23EC0F94C(a2, a2);
-    if (v13)
+    v10 = sub_23EC0F94C(a2, a2, a3, a4);
+    if (v10)
     {
-      if (sub_23EBEBC34(*(a1 + 48), v13, 0, v14, v15, v16, v17, v18) || (result = sub_23EBEE390(*(a1 + 48), a2, 0, 0, 0, v21, v22, v23), !result))
+      if (sub_23EBEBC34(*(a1 + 48), v10, 0) || (result = sub_23EBEE390(*(a1 + 48), a2, 0, 0, 0), !result))
       {
-        v25 = 0;
-        result = sub_23EBED960(*(a1 + 48), a4, &v25, v19, v20, v21, v22, v23);
+        v11 = 0;
+        result = sub_23EBED960(*(a1 + 48), v6, &v11);
         if (!result)
         {
-          if (v25)
+          if (v11)
           {
             result = 0;
-            *a5 = v25;
+            *a5 = v11;
           }
 
           else
@@ -2250,15 +2363,15 @@ uint64_t sub_23EBE0244(uint64_t a1, const char *a2, uint64_t a3, unsigned int a4
   return result;
 }
 
-uint64_t sub_23EBE0354(uint64_t a1, CFArrayRef theArray, uint64_t a3, unsigned int a4, CFTypeRef *a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t sub_23EBE0354(uint64_t a1, CFArrayRef theArray, uint64_t a3, uint64_t a4, CFTypeRef *a5)
 {
   if (dword_27E382C08 <= 800 && (dword_27E382C08 != -1 || sub_23EB74AC8(&dword_27E382C08, 0x320u)))
   {
-    sub_23EB75374(&dword_27E382C08, "OSStatus _JoinANetworkAndBrowseForBaseStations(AutoGuessContextRef, CFArrayRef, Boolean, uint32_t, CFArrayRef *)", 800, "\n", a5, a6, a7, a8, v27);
+    sub_23EB75374(&dword_27E382C08, "OSStatus _JoinANetworkAndBrowseForBaseStations(AutoGuessContextRef, CFArrayRef, Boolean, uint32_t, CFArrayRef *)", 800, "\n");
   }
 
   cf = 0;
-  v12 = 4294960591;
+  v9 = 4294960591;
   if (a1 && theArray && a5)
   {
     Count = CFArrayGetCount(theArray);
@@ -2269,51 +2382,53 @@ uint64_t sub_23EBE0354(uint64_t a1, CFArrayRef theArray, uint64_t a3, unsigned i
 
     else
     {
-      v19 = Count;
-      v20 = 0;
-      v29 = 0;
+      v11 = Count;
+      v12 = 0;
+      v18 = 0;
       while (1)
       {
-        sub_23EB6FF14(theArray, &v29, "[*]", v14, v15, v16, v17, v18, v20);
-        if (v21)
+        sub_23EB6FF14(theArray, &v18, "[*]", v12);
+        if (v13)
         {
-          v12 = v21;
+          v9 = v13;
           goto LABEL_25;
         }
 
-        if (!v29)
+        if (!v18)
         {
           break;
         }
 
-        v25 = sub_23EBE0244(a1, v29, 0, a4, &cf, v22, v23, v24);
-        v12 = v25;
-        if (v25 != -6723)
+        v14 = sub_23EBE0244(a1, v18, 0, a4, &cf);
+        v9 = v14;
+        if (v14 != -6723)
         {
-          if (!v25)
+          if (!v14)
           {
             if (!cf)
             {
               return 4294960568;
             }
 
-            v12 = 0;
+            v9 = 0;
             *a5 = cf;
-            return v12;
+            return v9;
           }
 
           if (dword_27E382C08 <= 800 && (dword_27E382C08 != -1 || sub_23EB74AC8(&dword_27E382C08, 0x320u)))
           {
-            v30 = &stru_285145FE8;
-            if (v29)
+            v15 = &stru_285145FE8;
+            v19 = &stru_285145FE8;
+            if (v18)
             {
-              sub_23EB6FF14(v29, &v30, "%kO", v14, v15, v16, v17, v18, @"SSID_STR");
+              sub_23EB6FF14(v18, &v19, "%kO", @"SSID_STR");
+              v15 = v19;
             }
 
-            sub_23EB75374(&dword_27E382C08, "OSStatus _JoinANetworkAndBrowseForBaseStations(AutoGuessContextRef, CFArrayRef, Boolean, uint32_t, CFArrayRef *)", 800, "Err: %d, joining/browsing network: %@", v15, v16, v17, v18, v12);
+            sub_23EB75374(&dword_27E382C08, "OSStatus _JoinANetworkAndBrowseForBaseStations(AutoGuessContextRef, CFArrayRef, Boolean, uint32_t, CFArrayRef *)", 800, "Err: %d, joining/browsing network: %@", v9, v15);
           }
 
-          if (v19 != ++v20)
+          if (v11 != ++v12)
           {
             continue;
           }
@@ -2322,7 +2437,7 @@ uint64_t sub_23EBE0354(uint64_t a1, CFArrayRef theArray, uint64_t a3, unsigned i
         goto LABEL_25;
       }
 
-      v12 = 4294960568;
+      v9 = 4294960568;
 LABEL_25:
       if (cf)
       {
@@ -2331,41 +2446,40 @@ LABEL_25:
     }
   }
 
-  return v12;
+  return v9;
 }
 
-uint64_t sub_23EBE0544(uint64_t a1, CFArrayRef theArray, const __CFString *a3, uint64_t a4, uint64_t *a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t sub_23EBE0544(uint64_t a1, CFArrayRef theArray, const __CFString *a3, uint64_t a4, uint64_t *a5)
 {
-  v9 = a4;
   if (dword_27E382C08 <= 800)
   {
     if (dword_27E382C08 != -1 || sub_23EB74AC8(&dword_27E382C08, 0x320u))
     {
-      sub_23EB75374(&dword_27E382C08, "OSStatus _CopyScanInfoForNetwork(AutoGuessContextRef, CFMutableArrayRef, CFStringRef, WiFiType, CFDictionaryRef *)", 800, "\n", a5, a6, a7, a8, v38);
+      sub_23EB75374(&dword_27E382C08, "OSStatus _CopyScanInfoForNetwork(AutoGuessContextRef, CFMutableArrayRef, CFStringRef, WiFiType, CFDictionaryRef *)", 800, "\n");
     }
 
     if (dword_27E382C08 <= 800 && (dword_27E382C08 != -1 || sub_23EB74AC8(&dword_27E382C08, 0x320u)))
     {
-      sub_23EB75374(&dword_27E382C08, "OSStatus _CopyScanInfoForNetwork(AutoGuessContextRef, CFMutableArrayRef, CFStringRef, WiFiType, CFDictionaryRef *)", 800, "_CopyScanInfoForNetwork %@\n", a5, a6, a7, a8, a3);
+      sub_23EB75374(&dword_27E382C08, "OSStatus _CopyScanInfoForNetwork(AutoGuessContextRef, CFMutableArrayRef, CFStringRef, WiFiType, CFDictionaryRef *)", 800, "_CopyScanInfoForNetwork %@\n", a3);
     }
   }
 
-  sub_23EBDC50C("Scanned networks", theArray, a3, a4, a5, a6, a7, a8);
+  sub_23EBDC50C("Scanned networks", theArray);
   result = 4294960591;
   if (a1 && a3 && a5)
   {
-    v14 = sub_23EB6B7D0(a3, v9, 0, theArray);
-    if (v14 != -1)
+    v11 = sub_23EB6B7D0(a3, a4, 0, theArray);
+    if (v11 != -1)
     {
-      ValueAtIndex = CFArrayGetValueAtIndex(theArray, v14);
+      ValueAtIndex = CFArrayGetValueAtIndex(theArray, v11);
       if (ValueAtIndex)
       {
-        v20 = ValueAtIndex;
+        v13 = ValueAtIndex;
         CFRetain(ValueAtIndex);
-        sub_23EBDCCB4("foundScanInfo from BSAssistant_IndexOfNetworkNameInNetworkList", v20, v21, v22, v23, v24, v25, v26);
+        sub_23EBDCCB4("foundScanInfo from BSAssistant_IndexOfNetworkNameInNetworkList", v13);
 LABEL_15:
         result = 0;
-        *a5 = v20;
+        *a5 = v13;
         return result;
       }
 
@@ -2374,24 +2488,24 @@ LABEL_15:
 
     if (dword_27E382C08 <= 800 && (dword_27E382C08 != -1 || sub_23EB74AC8(&dword_27E382C08, 0x320u)))
     {
-      sub_23EB75374(&dword_27E382C08, "OSStatus _CopyScanInfoForNetwork(AutoGuessContextRef, CFMutableArrayRef, CFStringRef, WiFiType, CFDictionaryRef *)", 800, "Callback will direct scan to find it if not visible\n", v15, v16, v17, v18, v38);
+      sub_23EB75374(&dword_27E382C08, "OSStatus _CopyScanInfoForNetwork(AutoGuessContextRef, CFMutableArrayRef, CFStringRef, WiFiType, CFDictionaryRef *)", 800, "Callback will direct scan to find it if not visible\n");
     }
 
-    v39 = 0;
-    result = sub_23EBEC4F4(*(a1 + 48), a3, v9, &v39, v15, v16, v17, v18);
+    v19 = 0;
+    result = sub_23EBEC4F4(*(a1 + 48), a3, a4, &v19);
     if (!result)
     {
-      if (!v39)
+      if (!v19)
       {
         return 4294960568;
       }
 
-      result = sub_23EB6FDFC(*MEMORY[0x277CBECE8], theArray, "%O", v27, v28, v29, v30, v31, v39);
+      result = sub_23EB6FDFC(*MEMORY[0x277CBECE8], theArray, "%O", v14, v15, v16, v17, v18, v19);
       if (!result)
       {
-        sub_23EBDCCB4("foundScanInfo from callback\n", v39, v32, v33, v34, v35, v36, v37);
-        v20 = v39;
-        if (v39)
+        sub_23EBDCCB4("foundScanInfo from callback\n", v19);
+        v13 = v19;
+        if (v19)
         {
           goto LABEL_15;
         }
@@ -2404,36 +2518,36 @@ LABEL_15:
   return result;
 }
 
-uint64_t sub_23EBE0748(uint64_t a1, const __CFArray *a2, CFArrayRef theArray, __CFArray **a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t sub_23EBE0748(uint64_t a1, const __CFArray *a2, CFArrayRef theArray, __CFArray **a4)
 {
   if (dword_27E382C08 <= 800 && (dword_27E382C08 != -1 || sub_23EB74AC8(&dword_27E382C08, 0x320u)))
   {
-    sub_23EB75374(&dword_27E382C08, "OSStatus _CopyScanInfoForNetworksNamed(AutoGuessContextRef, CFMutableArrayRef, CFArrayRef, CFArrayRef *)", 800, "\n", a5, a6, a7, a8, v34);
+    sub_23EB75374(&dword_27E382C08, "OSStatus _CopyScanInfoForNetworksNamed(AutoGuessContextRef, CFMutableArrayRef, CFArrayRef, CFArrayRef *)", 800, "\n");
   }
 
-  v12 = 4294960591;
+  v8 = 4294960591;
   if (a1 && theArray && a4)
   {
     Count = CFArrayGetCount(theArray);
     if (Count)
     {
-      v14 = Count;
-      v15 = *MEMORY[0x277CBECE8];
+      v10 = Count;
+      v11 = *MEMORY[0x277CBECE8];
       Mutable = CFArrayCreateMutable(*MEMORY[0x277CBECE8], 0, MEMORY[0x277CBF128]);
       if (Mutable)
       {
-        v22 = Mutable;
-        v36 = 0;
-        if (v14 >= 1)
+        v13 = Mutable;
+        v23 = 0;
+        if (v10 >= 1)
         {
-          v23 = 0;
+          v14 = 0;
           while (1)
           {
             cf = 0;
-            sub_23EB6FF14(theArray, &v36, "[*]", v17, v18, v19, v20, v21, v23);
-            if (v24 || (v24 = sub_23EBE0544(a1, a2, v36, 3, &cf, v25, v26, v27), v24))
+            sub_23EB6FF14(theArray, &v23, "[*]", v14);
+            if (v15 || (v15 = sub_23EBE0544(a1, a2, v23, 3, &cf), v15))
             {
-              v12 = v24;
+              v8 = v15;
               goto LABEL_26;
             }
 
@@ -2442,38 +2556,38 @@ uint64_t sub_23EBE0748(uint64_t a1, const __CFArray *a2, CFArrayRef theArray, __
               break;
             }
 
-            v12 = sub_23EB6FDFC(v15, v22, "%O", v28, v29, v30, v31, v32, cf);
+            v8 = sub_23EB6FDFC(v11, v13, "%O", v16, v17, v18, v19, v20, cf);
             if (cf)
             {
               CFRelease(cf);
             }
 
-            if (v12)
+            if (v8)
             {
               goto LABEL_26;
             }
 
-            if (v14 == ++v23)
+            if (v10 == ++v14)
             {
               goto LABEL_19;
             }
           }
 
-          v12 = 4294960568;
+          v8 = 4294960568;
           goto LABEL_26;
         }
 
 LABEL_19:
-        if (!CFArrayGetCount(v22))
+        if (!CFArrayGetCount(v13))
         {
-          v12 = 4294960569;
+          v8 = 4294960569;
 LABEL_26:
-          CFRelease(v22);
-          return v12;
+          CFRelease(v13);
+          return v8;
         }
 
-        v12 = 0;
-        *a4 = v22;
+        v8 = 0;
+        *a4 = v13;
       }
 
       else
@@ -2488,55 +2602,55 @@ LABEL_26:
     }
   }
 
-  return v12;
+  return v8;
 }
 
-uint64_t sub_23EBE0908(uint64_t a1, uint64_t a2, CFDictionaryRef theDict, CFTypeRef *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t sub_23EBE0908(uint64_t a1, int a2, CFDictionaryRef theDict, CFTypeRef *a4)
 {
   if (dword_27E382C08 <= 800 && (dword_27E382C08 != -1 || sub_23EB74AC8(&dword_27E382C08, 0x320u)))
   {
-    sub_23EB75374(&dword_27E382C08, "OSStatus _AskUserToChooseFromList(AutoGuessContextRef, eAssistantCallback, CFDictionaryRef, CFStringRef *)", 800, "\n", a5, a6, a7, a8, v39);
+    sub_23EB75374(&dword_27E382C08, "OSStatus _AskUserToChooseFromList(AutoGuessContextRef, eAssistantCallback, CFDictionaryRef, CFStringRef *)", 800, "\n");
   }
 
   cf = 0;
   context = 0;
-  v12 = 4294960591;
+  v8 = 4294960591;
   if (theDict && a1 && (a2 - 7) >= 0xFFFFFFFE && CFDictionaryGetCount(theDict) >= 2)
   {
-    v13 = sub_23EBE9E2C(*(a1 + 48), &context);
-    if (v13)
+    v9 = sub_23EBE9E2C(*(a1 + 48), &context);
+    if (v9)
     {
 LABEL_10:
-      v12 = v13;
+      v8 = v9;
       goto LABEL_11;
     }
 
     if (context)
     {
-      v13 = sub_23EBEB5E8(context, @"BSAssistantCallback_AskUserDictionary", theDict, v14, v15, v16, v17, v18);
-      if (v13)
+      v9 = sub_23EBEB5E8(context, @"BSAssistantCallback_AskUserDictionary", theDict, v10, v11, v12, v13, v14);
+      if (v9)
       {
         goto LABEL_10;
       }
 
-      v13 = sub_23EBEA59C(context, a2, v20, v21, v22, v23, v24, v25);
-      if (v13)
+      v9 = sub_23EBEA59C(context, a2);
+      if (v9)
       {
         goto LABEL_10;
       }
 
-      v13 = sub_23EBEA92C(context, v26, v27, v28, v29, v30, v31, v32);
-      if (v13)
+      v9 = sub_23EBEA92C(context);
+      if (v9)
       {
         goto LABEL_10;
       }
 
-      v12 = *(context + 8);
-      if (!v12)
+      v8 = *(context + 8);
+      if (!v8)
       {
-        sub_23EB6FF14(*(context + 3), &cf, "%ks:obj", v33, v34, v35, v36, v37, "BSAssistantCallback_String");
-        v12 = v38;
-        if (!v38)
+        sub_23EB6FF14(*(context + 3), &cf, "%ks:obj", "BSAssistantCallback_String");
+        v8 = v16;
+        if (!v16)
         {
           *a4 = cf;
           cf = 0;
@@ -2546,7 +2660,7 @@ LABEL_10:
 
     else
     {
-      v12 = 4294960568;
+      v8 = 4294960568;
     }
   }
 
@@ -2557,10 +2671,10 @@ LABEL_11:
     CFRelease(cf);
   }
 
-  return v12;
+  return v8;
 }
 
-BOOL sub_23EBE0A74(const __CFString *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+BOOL sub_23EBE0A74(const __CFString *a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   if (!(a1 | a2))
   {
@@ -2574,14 +2688,14 @@ BOOL sub_23EBE0A74(const __CFString *a1, uint64_t a2, uint64_t a3, uint64_t a4, 
       return 0;
     }
 
-    return sub_23EC0FA18(a2, a2) != 0;
+    return sub_23EC0FA18(a2, a2, a3, a4) != 0;
   }
 
-  v9 = sub_23EB6C0E0(a1, a2, a3, a4, a5, a6, a7, a8);
-  result = v9 != 0;
-  if (!v9 && a2)
+  v5 = sub_23EB6C0E0(a1);
+  result = v5 != 0;
+  if (!v5 && a2)
   {
-    return sub_23EC0FA18(a2, a2) != 0;
+    return sub_23EC0FA18(a2, a2, a3, a4) != 0;
   }
 
   return result;
@@ -2682,10 +2796,10 @@ LABEL_16:
       CFDictionarySetValue(v21, @"BSAutoGuess_UnconfiguredBase", a7);
       if (sub_23EBE0AE4(a6))
       {
-        v38 = sub_23EBDEA88(a12, a7, 0, &cf, v34, v35, v36, v37);
-        if (v38 == -6727)
+        v34 = sub_23EBDEA88(a12, a7, 0, &cf);
+        if (v34 == -6727)
         {
-          if (!sub_23EBDEA14(a12, a7, v39, v40, v41, v42, v43, v44))
+          if (!sub_23EBDEA14(a12, a7))
           {
             v33 = 4294960569;
             goto LABEL_45;
@@ -2696,8 +2810,8 @@ LABEL_16:
 
         else
         {
-          v33 = v38;
-          if (v38)
+          v33 = v34;
+          if (v34)
           {
             goto LABEL_45;
           }
@@ -2722,8 +2836,8 @@ LABEL_16:
       goto LABEL_40;
     }
 
-    v45 = sub_23EBDEA88(a12, a9, 0, &cf, v34, v35, v36, v37);
-    if (v45 == -6727)
+    v35 = sub_23EBDEA88(a12, a9, 0, &cf);
+    if (v35 == -6727)
     {
 LABEL_39:
       CFDictionarySetValue(v21, @"BSAutoGuess_SourceBase", a9);
@@ -2731,15 +2845,15 @@ LABEL_40:
       CFArrayAppendValue(*(a12 + 8), v21);
       if (dword_27E382C08 <= 800 && (dword_27E382C08 != -1 || sub_23EB74AC8(&dword_27E382C08, 0x320u)))
       {
-        sub_23EB75374(&dword_27E382C08, "OSStatus __SetupOfferToDoSomething(BaseStationAutoGuessStates, CFArrayRef, BSNetworkMode, int32_t, CFStringRef, CFStringRef, CFDictionaryRef, CFDictionaryRef, CFDictionaryRef, CFDictionaryRef, CFArrayRef, AutoGuessContextRef)", 800, "Reason: %d Recommendation: %@\n", v46, v47, v48, v49, a4);
+        sub_23EB75374(&dword_27E382C08, "OSStatus __SetupOfferToDoSomething(BaseStationAutoGuessStates, CFArrayRef, BSNetworkMode, int32_t, CFStringRef, CFStringRef, CFDictionaryRef, CFDictionaryRef, CFDictionaryRef, CFDictionaryRef, CFArrayRef, AutoGuessContextRef)", 800, "Reason: %d Recommendation: %@\n", a4, a6);
       }
 
       v33 = 0;
       goto LABEL_45;
     }
 
-    v33 = v45;
-    if (v45)
+    v33 = v35;
+    if (v35)
     {
       goto LABEL_45;
     }
@@ -2764,38 +2878,38 @@ LABEL_48:
   return 4294960568;
 }
 
-uint64_t sub_23EBE0F68(CFDictionaryRef theDict, const void *a2, const __CFString **a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t sub_23EBE0F68(CFDictionaryRef theDict, const void *a2, const __CFString **a3)
 {
   if (dword_27E382C08 <= 800 && (dword_27E382C08 != -1 || sub_23EB74AC8(&dword_27E382C08, 0x320u)))
   {
-    sub_23EB75374(&dword_27E382C08, "OSStatus _IntelligentlyChooseABaseToConfigure(CFDictionaryRef, CFDictionaryRef, CFDictionaryRef *)", 800, "\n", a5, a6, a7, a8, theDicta);
+    sub_23EB75374(&dword_27E382C08, "OSStatus _IntelligentlyChooseABaseToConfigure(CFDictionaryRef, CFDictionaryRef, CFDictionaryRef *)", 800, "\n");
   }
 
-  v38 = 0;
-  v39 = 0;
-  v40 = 0;
+  v13 = 0;
+  v14 = 0;
+  v15 = 0;
   theDicta = 0;
   if (theDict && CFDictionaryGetCount(theDict))
   {
-    v11 = sub_23EB71A18(theDict, &v40);
-    if (!v11)
+    v6 = sub_23EB71A18(theDict, &v15);
+    if (!v6)
     {
-      if (v40)
+      if (v15)
       {
-        if (sub_23EB71AC0(v40, &v39, &v38))
+        if (sub_23EB71AC0(v15, &v14, &v13))
         {
-          v19 = 0;
-          v11 = 0;
+          v7 = 0;
+          v6 = 0;
           while (1)
           {
-            if (sub_23EB6B5A0(v38, v12, v13, v14, v15, v16, v17, v18))
+            if (sub_23EB6B5A0(v13))
             {
-              sub_23EBDCB98("Base station has WAN link", v38, v21, v22, v23, v24, v25, v26);
-              v27 = sub_23EBB7360(v38, @"local.", @"_airport._tcp", @"wan", 2u, 1, &theDicta);
-              v11 = v27;
-              if (v27 != -6735)
+              sub_23EBDCB98("Base station has WAN link", v13);
+              v8 = sub_23EBB7360(v13, @"local.", @"_airport._tcp", @"wan", 2u, 1, &theDicta);
+              v6 = v8;
+              if (v8 != -6735)
               {
-                if (v27)
+                if (v8)
                 {
                   goto LABEL_24;
                 }
@@ -2805,7 +2919,7 @@ uint64_t sub_23EBE0F68(CFDictionaryRef theDict, const void *a2, const __CFString
                   goto LABEL_31;
                 }
 
-                v11 = 0;
+                v6 = 0;
                 if (CFDictionaryGetCount(theDicta))
                 {
                   break;
@@ -2813,56 +2927,56 @@ uint64_t sub_23EBE0F68(CFDictionaryRef theDict, const void *a2, const __CFString
               }
             }
 
-            if (sub_23EB6B268(v38, v20, v21, v22, v23, v24, v25, v26))
+            if (sub_23EB6B268(v13))
             {
-              v35 = v38;
-              v36 = "Base station has restore profile";
+              v10 = v13;
+              v11 = "Base station has restore profile";
 LABEL_34:
-              sub_23EBDCB98(v36, v35, v28, v29, v30, v31, v32, v33);
+              sub_23EBDCB98(v11, v10);
               break;
             }
 
-            if (a2 && sub_23EBDD2D4(v38, a2, v28, v29, v30, v31, v32, v33))
+            if (a2 && sub_23EBDD2D4(v13, a2))
             {
-              v35 = v38;
-              v36 = "Base station has previous config files";
+              v10 = v13;
+              v11 = "Base station has previous config files";
               goto LABEL_34;
             }
 
-            if (!v19)
+            if (!v7)
             {
-              v19 = v38;
+              v7 = v13;
             }
 
-            if (!sub_23EB71AC0(v40, &v39, &v38))
+            if (!sub_23EB71AC0(v15, &v14, &v13))
             {
               goto LABEL_36;
             }
           }
 
-          v19 = v38;
+          v7 = v13;
 LABEL_36:
-          if (v19)
+          if (v7)
           {
-            *a3 = v19;
+            *a3 = v7;
             goto LABEL_26;
           }
         }
 
-        v11 = 4294960569;
+        v6 = 4294960569;
       }
 
       else
       {
 LABEL_31:
-        v11 = 4294960568;
+        v6 = 4294960568;
       }
     }
   }
 
   else
   {
-    v11 = 4294960591;
+    v6 = 4294960591;
   }
 
 LABEL_24:
@@ -2878,19 +2992,19 @@ LABEL_26:
     theDicta = 0;
   }
 
-  if (v40)
+  if (v15)
   {
-    sub_23EB71AB4(v40);
+    sub_23EB71AB4(v15);
   }
 
-  return v11;
+  return v6;
 }
 
-void sub_23EBE1188(uint64_t a1, const __CFString *a2, const __CFString *a3, int *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void sub_23EBE1188(uint64_t a1, const __CFString *a2, const __CFString *a3, int *a4)
 {
   if (dword_27E382C08 <= 800 && (dword_27E382C08 != -1 || sub_23EB74AC8(&dword_27E382C08, 0x320u)))
   {
-    sub_23EB75374(&dword_27E382C08, "OSStatus _ShouldNewBaseStationReplaceExistingBaseStation(AutoGuessContextRef, CFDictionaryRef, CFDictionaryRef, eReplaceMode *)", 800, "\n", a5, a6, a7, a8, v71);
+    sub_23EB75374(&dword_27E382C08, "OSStatus _ShouldNewBaseStationReplaceExistingBaseStation(AutoGuessContextRef, CFDictionaryRef, CFDictionaryRef, eReplaceMode *)", 800, "\n");
   }
 
   if (a3)
@@ -2901,93 +3015,93 @@ void sub_23EBE1188(uint64_t a1, const __CFString *a2, const __CFString *a3, int 
       {
         if (a4)
         {
-          v75 = 0;
-          v76 = 0;
-          v74 = 0;
+          v18 = 0;
+          v19 = 0;
+          v17 = 0;
           *a4 = 0;
-          sub_23EBDF544(a1, a2, a3, a4, a5, a6, a7, a8);
-          sub_23EB6FF14(a3, &v75, "%kO.%kO:int", v12, v13, v14, v15, v16, @"txt");
-          if (!v24)
+          sub_23EBDF544(a1, a2, a3);
+          sub_23EB6FF14(a3, &v18, "%kO.%kO:int", @"txt", @"syAP");
+          if (!v8)
           {
             if (dword_27E382C08 <= 800 && (dword_27E382C08 != -1 || sub_23EB74AC8(&dword_27E382C08, 0x320u)))
             {
-              sub_23EB75374(&dword_27E382C08, "OSStatus _ShouldNewBaseStationReplaceExistingBaseStation(AutoGuessContextRef, CFDictionaryRef, CFDictionaryRef, eReplaceMode *)", 800, "-- existingProdID2 is: %d", v20, v21, v22, v23, v75);
+              sub_23EB75374(&dword_27E382C08, "OSStatus _ShouldNewBaseStationReplaceExistingBaseStation(AutoGuessContextRef, CFDictionaryRef, CFDictionaryRef, eReplaceMode *)", 800, "-- existingProdID2 is: %d", v18);
             }
 
-            v25 = 2;
-            if (v75 == 3 || v75 == 102)
+            v9 = 2;
+            if (v18 == 3 || v18 == 102)
             {
               goto LABEL_16;
             }
 
-            v26 = *a4;
+            v10 = *a4;
             if (*a4)
             {
               goto LABEL_18;
             }
 
-            if (!sub_23EB6C1A0(a3, v17, v18, v19, v20, v21, v22, v23))
+            if (!sub_23EB6C1A0(a3))
             {
-              v25 = 3;
+              v9 = 3;
               goto LABEL_16;
             }
 
-            v26 = *a4;
+            v10 = *a4;
             if (*a4)
             {
               goto LABEL_18;
             }
 
-            v76 = -1;
-            if (v75 == 104)
+            v19 = -1;
+            if (v18 == 104)
             {
-              if (sub_23EBDF140(a1, a3, 1, &v76, v29, v30, v31, v32) || v76 == -1)
+              if (sub_23EBDF140(a1, a3, 1, &v19) || v19 == -1)
               {
                 return;
               }
 
-              if (v76 > 1)
+              if (v19 > 1)
               {
                 goto LABEL_61;
               }
 
-              v26 = *a4;
+              v10 = *a4;
               if (*a4)
               {
                 goto LABEL_18;
               }
             }
 
-            if (sub_23EBDF480(a1, a3, v27, v28, v29, v30, v31, v32))
+            if (sub_23EBDF480(a1, a3))
             {
-              sub_23EBDCB98("Existing base station has audio port in use:\n", a3, v33, v34, v35, v36, v37, v38);
-              if (sub_23EBDF2B4(a1, a2, 1632923251, &v74 + 1, v39, v40, v41, v42))
+              sub_23EBDCB98("Existing base station has audio port in use:\n", a3);
+              if (sub_23EBDF2B4(a1, a2, 1632923251, &v17 + 1))
               {
                 return;
               }
 
-              v49 = HIBYTE(v74) ? "New base station has audio port:\n" : "New base station does not have audio port:\n";
-              sub_23EBDCB98(v49, a2, v43, v44, v45, v46, v47, v48);
-              if (!HIBYTE(v74))
+              v11 = HIBYTE(v17) ? "New base station has audio port:\n" : "New base station does not have audio port:\n";
+              sub_23EBDCB98(v11, a2);
+              if (!HIBYTE(v17))
               {
 LABEL_60:
-                v26 = *a4;
+                v10 = *a4;
                 goto LABEL_18;
               }
             }
 
-            sub_23EB6FF14(a2, &v75 + 4, "%ks.%kC:int", v34, v35, v36, v37, v38, "txt");
-            if (v50)
+            sub_23EB6FF14(a2, &v18 + 4, "%ks.%kC:int", "txt", 1937326416);
+            if (v12)
             {
               return;
             }
 
-            v51 = sub_23EB4BDAC(v75);
-            if (v51 <= sub_23EB4BDAC(HIDWORD(v75)))
+            v13 = sub_23EB4BDAC(v18);
+            if (v13 <= sub_23EB4BDAC(HIDWORD(v18)))
             {
               if (dword_27E382C08 <= 800 && (dword_27E382C08 != -1 || sub_23EB74AC8(&dword_27E382C08, 0x320u)))
               {
-                sub_23EB75374(&dword_27E382C08, "OSStatus _ShouldNewBaseStationReplaceExistingBaseStation(AutoGuessContextRef, CFDictionaryRef, CFDictionaryRef, eReplaceMode *)", 800, "Existing base station has less ethernet ports than the new base station", v54, v55, v56, v57, v72);
+                sub_23EB75374(&dword_27E382C08, "OSStatus _ShouldNewBaseStationReplaceExistingBaseStation(AutoGuessContextRef, CFDictionaryRef, CFDictionaryRef, eReplaceMode *)", 800, "Existing base station has less ethernet ports than the new base station");
               }
             }
 
@@ -2995,43 +3109,43 @@ LABEL_60:
             {
               if (dword_27E382C08 <= 800 && (dword_27E382C08 != -1 || sub_23EB74AC8(&dword_27E382C08, 0x320u)))
               {
-                sub_23EB75374(&dword_27E382C08, "OSStatus _ShouldNewBaseStationReplaceExistingBaseStation(AutoGuessContextRef, CFDictionaryRef, CFDictionaryRef, eReplaceMode *)", 800, "Existing base station has more ethernet ports than the new base station", v54, v55, v56, v57, v72);
+                sub_23EB75374(&dword_27E382C08, "OSStatus _ShouldNewBaseStationReplaceExistingBaseStation(AutoGuessContextRef, CFDictionaryRef, CFDictionaryRef, eReplaceMode *)", 800, "Existing base station has more ethernet ports than the new base station");
               }
 
-              v58 = v76;
-              if (v76 == -1)
+              v14 = v19;
+              if (v19 == -1)
               {
-                if (sub_23EBDF140(a1, a3, 1, &v76, v54, v55, v56, v57))
+                if (sub_23EBDF140(a1, a3, 1, &v19))
                 {
                   return;
                 }
 
-                v58 = v76;
-                if (v76 == -1)
+                v14 = v19;
+                if (v19 == -1)
                 {
                   return;
                 }
               }
 
-              if (v58 >= sub_23EB4BDAC(HIDWORD(v75)))
+              if (v14 >= sub_23EB4BDAC(HIDWORD(v18)))
               {
                 goto LABEL_60;
               }
             }
 
-            if (!sub_23EBDF3D8(a1, a2, v52, v53, v54, v55, v56, v57) || sub_23EBDF3D8(a1, a3, v59, v60, v61, v62, v63, v64))
+            if (!sub_23EBDF3D8(a1, a2) || sub_23EBDF3D8(a1, a3))
             {
-              v26 = *a4;
+              v10 = *a4;
               if (!*a4)
               {
-                v70 = sub_23EBDF2B4(a1, a2, 825319779, &v74, v61, v62, v63, v64);
-                if (!v70 && v74)
+                v15 = sub_23EBDF2B4(a1, a2, 825319779, &v17);
+                if (!v15 && v17)
                 {
-                  v73 = 0;
-                  v70 = sub_23EBDF2B4(a1, a3, 825319779, &v73, v66, v67, v68, v69);
-                  if (!v70)
+                  v16 = 0;
+                  v15 = sub_23EBDF2B4(a1, a3, 825319779, &v16);
+                  if (!v15)
                   {
-                    if (v73)
+                    if (v16)
                     {
                       goto LABEL_56;
                     }
@@ -3039,7 +3153,7 @@ LABEL_60:
                     goto LABEL_55;
                   }
 
-                  if ((v75 - 1) < 0x76)
+                  if ((v18 - 1) < 0x76)
                   {
 LABEL_55:
                     *a4 = 1;
@@ -3047,12 +3161,12 @@ LABEL_55:
                 }
 
 LABEL_56:
-                if (*a4 && !sub_23EBDF544(a1, a2, a3, v65, v66, v67, v68, v69))
+                if (*a4 && !sub_23EBDF544(a1, a2, a3))
                 {
                   *a4 = 0;
                 }
 
-                if (v70)
+                if (v15)
                 {
                   return;
                 }
@@ -3061,19 +3175,19 @@ LABEL_56:
               }
 
 LABEL_18:
-              v25 = 1;
-              if (v26 <= 3 && v26 != 1)
+              v9 = 1;
+              if (v10 <= 3 && v10 != 1)
               {
                 return;
               }
 
 LABEL_16:
-              *a4 = v25;
+              *a4 = v9;
               return;
             }
 
 LABEL_61:
-            v25 = 1;
+            v9 = 1;
             goto LABEL_16;
           }
         }
@@ -3082,17 +3196,17 @@ LABEL_61:
   }
 }
 
-uint64_t sub_23EBE15C4(uint64_t a1, CFArrayRef theArray, const __CFArray *a3, const __CFArray **a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t sub_23EBE15C4(uint64_t a1, CFArrayRef theArray, const __CFArray *a3, const __CFArray **a4)
 {
   if (dword_27E382C08 <= 800 && (dword_27E382C08 != -1 || sub_23EB74AC8(&dword_27E382C08, 0x320u)))
   {
-    sub_23EB75374(&dword_27E382C08, "OSStatus _CopyAllNetworksForBaseStationsInSTAMode(AutoGuessContextRef, CFArrayRef, CFMutableArrayRef, CFArrayRef *)", 800, "\n", a5, a6, a7, a8, v50);
+    sub_23EB75374(&dword_27E382C08, "OSStatus _CopyAllNetworksForBaseStationsInSTAMode(AutoGuessContextRef, CFArrayRef, CFMutableArrayRef, CFArrayRef *)", 800, "\n");
   }
 
-  v12 = 4294960591;
+  v8 = 4294960591;
   if (!a1 || !theArray || !a4)
   {
-    return v12;
+    return v8;
   }
 
   Count = CFArrayGetCount(theArray);
@@ -3101,39 +3215,39 @@ uint64_t sub_23EBE15C4(uint64_t a1, CFArrayRef theArray, const __CFArray *a3, co
     return 4294960569;
   }
 
-  v14 = Count;
-  v15 = *MEMORY[0x277CBECE8];
+  v10 = Count;
+  v11 = *MEMORY[0x277CBECE8];
   Mutable = CFArrayCreateMutable(*MEMORY[0x277CBECE8], 0, MEMORY[0x277CBF128]);
   if (!Mutable)
   {
     return 4294960568;
   }
 
-  v17 = Mutable;
-  v51 = v15;
+  v13 = Mutable;
+  v25 = v11;
   value = 0;
-  if (v14 >= 1)
+  if (v10 >= 1)
   {
-    for (i = 0; v14 != i; ++i)
+    for (i = 0; v10 != i; ++i)
     {
       ValueAtIndex = CFArrayGetValueAtIndex(theArray, i);
       if (!ValueAtIndex)
       {
 LABEL_36:
-        v12 = 4294960568;
+        v8 = 4294960568;
         goto LABEL_38;
       }
 
-      v27 = ValueAtIndex;
-      if (!sub_23EB6C0E0(ValueAtIndex, v20, v21, v22, v23, v24, v25, v26) && sub_23EBDF780(a1, v27, a3, &value, v28, v29, v30, v31) && value)
+      v16 = ValueAtIndex;
+      if (!sub_23EB6C0E0(ValueAtIndex) && sub_23EBDF780(a1, v16, a3, &value) && value)
       {
-        v54.length = CFArrayGetCount(v17);
-        v54.location = 0;
-        if (CFArrayContainsValue(v17, v54, value))
+        v28.length = CFArrayGetCount(v13);
+        v28.location = 0;
+        if (CFArrayContainsValue(v13, v28, value))
         {
           if (dword_27E382C08 <= 800 && (dword_27E382C08 != -1 || sub_23EB74AC8(&dword_27E382C08, 0x320u)))
           {
-            sub_23EB75374(&dword_27E382C08, "OSStatus _CopyAllNetworksForBaseStationsInSTAMode(AutoGuessContextRef, CFArrayRef, CFMutableArrayRef, CFArrayRef *)", 800, "Already added STA network: %@\n", v32, v33, v34, v35, value);
+            sub_23EB75374(&dword_27E382C08, "OSStatus _CopyAllNetworksForBaseStationsInSTAMode(AutoGuessContextRef, CFArrayRef, CFMutableArrayRef, CFArrayRef *)", 800, "Already added STA network: %@\n", value);
           }
         }
 
@@ -3142,14 +3256,14 @@ LABEL_36:
           cf = 0;
           if (dword_27E382C08 <= 800 && (dword_27E382C08 != -1 || sub_23EB74AC8(&dword_27E382C08, 0x320u)))
           {
-            sub_23EB75374(&dword_27E382C08, "OSStatus _CopyAllNetworksForBaseStationsInSTAMode(AutoGuessContextRef, CFArrayRef, CFMutableArrayRef, CFArrayRef *)", 800, "Adding STA network: %@ if it is scannable\n", v32, v33, v34, v35, value);
+            sub_23EB75374(&dword_27E382C08, "OSStatus _CopyAllNetworksForBaseStationsInSTAMode(AutoGuessContextRef, CFArrayRef, CFMutableArrayRef, CFArrayRef *)", 800, "Adding STA network: %@ if it is scannable\n", value);
           }
 
-          v36 = sub_23EBE0544(a1, a3, value, 3, &cf, v33, v34, v35);
-          if (v36 != -6727)
+          v17 = sub_23EBE0544(a1, a3, value, 3, &cf);
+          if (v17 != -6727)
           {
-            v12 = v36;
-            if (v36)
+            v8 = v17;
+            if (v17)
             {
               goto LABEL_38;
             }
@@ -3161,14 +3275,14 @@ LABEL_36:
 
             CFRelease(cf);
             cf = 0;
-            sub_23EBDCB98("Base station is in STA mode:\n", v27, v37, v38, v39, v40, v41, v42);
-            v48 = sub_23EB6FDFC(v51, v17, "%O", v43, v44, v45, v46, v47, value);
-            if (v48)
+            sub_23EBDCB98("Base station is in STA mode:\n", v16);
+            v23 = sub_23EB6FDFC(v25, v13, "%O", v18, v19, v20, v21, v22, value);
+            if (v23)
             {
-              v12 = v48;
+              v8 = v23;
 LABEL_38:
-              CFRelease(v17);
-              return v12;
+              CFRelease(v13);
+              return v8;
             }
           }
         }
@@ -3176,25 +3290,25 @@ LABEL_38:
     }
   }
 
-  if (!CFArrayGetCount(v17))
+  if (!CFArrayGetCount(v13))
   {
-    v12 = 4294960569;
+    v8 = 4294960569;
     goto LABEL_38;
   }
 
-  v12 = 0;
-  *a4 = v17;
-  return v12;
+  v8 = 0;
+  *a4 = v13;
+  return v8;
 }
 
-uint64_t sub_23EBE188C(uint64_t a1, char a2, CFArrayRef theArray, __CFArray **a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t sub_23EBE188C(uint64_t a1, char a2, CFArrayRef theArray, __CFArray **a4)
 {
   if (dword_27E382C08 <= 800 && (dword_27E382C08 != -1 || sub_23EB74AC8(&dword_27E382C08, 0x320u)))
   {
-    sub_23EB75374(&dword_27E382C08, "OSStatus _NarrowBaseStationList(AutoGuessContextRef, eNarrowBaseStationList, CFArrayRef, CFArrayRef *)", 800, "\n", a5, a6, a7, a8, v30);
+    sub_23EB75374(&dword_27E382C08, "OSStatus _NarrowBaseStationList(AutoGuessContextRef, eNarrowBaseStationList, CFArrayRef, CFArrayRef *)", 800, "\n");
   }
 
-  v12 = 4294960591;
+  v8 = 4294960591;
   if (a1)
   {
     if (theArray)
@@ -3204,55 +3318,55 @@ uint64_t sub_23EBE188C(uint64_t a1, char a2, CFArrayRef theArray, __CFArray **a4
         Count = CFArrayGetCount(theArray);
         if (Count)
         {
-          v14 = Count;
-          v15 = *MEMORY[0x277CBECE8];
+          v10 = Count;
+          v11 = *MEMORY[0x277CBECE8];
           Mutable = CFArrayCreateMutable(*MEMORY[0x277CBECE8], 0, MEMORY[0x277CBF128]);
           if (Mutable)
           {
-            v17 = Mutable;
-            if (v14 >= 1)
+            v13 = Mutable;
+            if (v10 >= 1)
             {
-              v18 = 0;
+              v14 = 0;
               while (1)
               {
-                ValueAtIndex = CFArrayGetValueAtIndex(theArray, v18);
+                ValueAtIndex = CFArrayGetValueAtIndex(theArray, v14);
                 if (!ValueAtIndex)
                 {
-                  v12 = 4294960568;
+                  v8 = 4294960568;
                   goto LABEL_23;
                 }
 
-                v27 = ValueAtIndex;
-                if ((a2 & 1) == 0 || !sub_23EBDCF40(ValueAtIndex, v20, v21, v22, v23, v24, v25, v26))
+                v21 = ValueAtIndex;
+                if ((a2 & 1) == 0 || !sub_23EBDCF40(ValueAtIndex))
                 {
-                  v28 = sub_23EB6FDFC(v15, v17, "%O", v22, v23, v24, v25, v26, v27);
-                  if (v28)
+                  v22 = sub_23EB6FDFC(v11, v13, "%O", v16, v17, v18, v19, v20, v21);
+                  if (v22)
                   {
                     break;
                   }
                 }
 
-                if (v14 == ++v18)
+                if (v10 == ++v14)
                 {
                   goto LABEL_17;
                 }
               }
 
-              v12 = v28;
+              v8 = v22;
               goto LABEL_23;
             }
 
 LABEL_17:
-            if (!CFArrayGetCount(v17))
+            if (!CFArrayGetCount(v13))
             {
-              v12 = 4294960569;
+              v8 = 4294960569;
 LABEL_23:
-              CFRelease(v17);
-              return v12;
+              CFRelease(v13);
+              return v8;
             }
 
-            v12 = 0;
-            *a4 = v17;
+            v8 = 0;
+            *a4 = v13;
           }
 
           else
@@ -3264,14 +3378,14 @@ LABEL_23:
     }
   }
 
-  return v12;
+  return v8;
 }
 
-uint64_t sub_23EBE1A10(uint64_t a1, CFArrayRef theArray, uint64_t *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t sub_23EBE1A10(uint64_t a1, CFArrayRef theArray, uint64_t *a3)
 {
   if (dword_27E382C08 <= 800 && (dword_27E382C08 != -1 || sub_23EB74AC8(&dword_27E382C08, 0x320u)))
   {
-    sub_23EB75374(&dword_27E382C08, "OSStatus _NarrowBaseStationListToBestOneToExtend(AutoGuessContextRef, CFArrayRef, CFDictionaryRef *)", 800, "\n", a5, a6, a7, a8, v60);
+    sub_23EB75374(&dword_27E382C08, "OSStatus _NarrowBaseStationListToBestOneToExtend(AutoGuessContextRef, CFArrayRef, CFDictionaryRef *)", 800, "\n");
   }
 
   result = 4294960591;
@@ -3280,90 +3394,90 @@ uint64_t sub_23EBE1A10(uint64_t a1, CFArrayRef theArray, uint64_t *a3, uint64_t 
     Count = CFArrayGetCount(theArray);
     if (Count)
     {
-      v13 = Count;
+      v8 = Count;
       if (Count >= 1)
       {
-        v14 = 0;
-        v15 = 0;
+        v9 = 0;
+        v10 = 0;
         do
         {
-          ValueAtIndex = CFArrayGetValueAtIndex(theArray, v14);
+          ValueAtIndex = CFArrayGetValueAtIndex(theArray, v9);
           if (!ValueAtIndex)
           {
             return 4294960568;
           }
 
-          v23 = ValueAtIndex;
-          if (sub_23EBDF9E8(a1, ValueAtIndex, v17, v18, v19, v20, v21, v22))
+          v12 = ValueAtIndex;
+          if (sub_23EBDF9E8(a1, ValueAtIndex))
           {
-            if (v15)
+            if (v10)
             {
-              sub_23EBDCB98("_BaseStationIsNATEnabled true again for base so clearing found base:\n", v23, v24, v25, v26, v27, v28, v29);
+              sub_23EBDCB98("_BaseStationIsNATEnabled true again for base so clearing found base:\n", v12);
               goto LABEL_20;
             }
 
-            sub_23EBDCB98("_BaseStationIsNATEnabled true for base:\n", v23, v24, v25, v26, v27, v28, v29);
-            v15 = v23;
+            sub_23EBDCB98("_BaseStationIsNATEnabled true for base:\n", v12);
+            v10 = v12;
           }
 
-          ++v14;
+          ++v9;
         }
 
-        while (v13 != v14);
-        if (v15)
+        while (v8 != v9);
+        if (v10)
         {
 LABEL_17:
           result = 0;
-          *a3 = v15;
+          *a3 = v10;
           return result;
         }
 
 LABEL_20:
-        if (v13 >= 1)
+        if (v8 >= 1)
         {
-          v30 = 0;
-          v15 = 0;
+          v13 = 0;
+          v10 = 0;
           while (1)
           {
-            v31 = CFArrayGetValueAtIndex(theArray, v30);
-            if (!v31)
+            v14 = CFArrayGetValueAtIndex(theArray, v13);
+            if (!v14)
             {
               return 4294960568;
             }
 
-            v38 = v31;
-            if (sub_23EBDFAD8(a1, v31, v32, v33, v34, v35, v36, v37))
+            v15 = v14;
+            if (sub_23EBDFAD8(a1, v14))
             {
-              if (v15)
+              if (v10)
               {
-                sub_23EBDCB98("_BaseStationIsCreatingGuestNetwork true again for base so clearing found base:\n", v38, v39, v40, v41, v42, v43, v44);
+                sub_23EBDCB98("_BaseStationIsCreatingGuestNetwork true again for base so clearing found base:\n", v15);
 LABEL_30:
-                v45 = 0;
-                v15 = 0;
+                v16 = 0;
+                v10 = 0;
                 while (1)
                 {
-                  v46 = CFArrayGetValueAtIndex(theArray, v45);
-                  if (!v46)
+                  v17 = CFArrayGetValueAtIndex(theArray, v16);
+                  if (!v17)
                   {
                     return 4294960568;
                   }
 
-                  v53 = v46;
-                  if (sub_23EBDF3D8(a1, v46, v47, v48, v49, v50, v51, v52))
+                  v18 = v17;
+                  if (sub_23EBDF3D8(a1, v17))
                   {
-                    if (v15)
+                    if (v10)
                     {
-                      sub_23EBDCB98("_BaseStationIsSimultaneousDualBand true again for base so clearing found base:\n", v53, v54, v55, v56, v57, v58, v59);
+                      sub_23EBDCB98("_BaseStationIsSimultaneousDualBand true again for base so clearing found base:\n", v18);
                       return 4294960569;
                     }
 
-                    sub_23EBDCB98("_BaseStationIsSimultaneousDualBand true for base:\n", v53, v54, v55, v56, v57, v58, v59);
-                    v15 = v53;
+                    sub_23EBDCB98("_BaseStationIsSimultaneousDualBand true for base:\n", v18);
+                    v10 = v18;
                   }
 
-                  if (v13 == ++v45)
+                  if (v8 == ++v16)
                   {
-                    if (v15)
+                    if (v10)
                     {
                       goto LABEL_17;
                     }
@@ -3373,13 +3487,13 @@ LABEL_30:
                 }
               }
 
-              sub_23EBDCB98("_BaseStationIsCreatingGuestNetwork true for base:\n", v38, v39, v40, v41, v42, v43, v44);
-              v15 = v38;
+              sub_23EBDCB98("_BaseStationIsCreatingGuestNetwork true for base:\n", v15);
+              v10 = v15;
             }
 
-            if (v13 == ++v30)
+            if (v8 == ++v13)
             {
-              if (v15)
+              if (v10)
               {
                 goto LABEL_17;
               }
@@ -3406,18 +3520,18 @@ void sub_23EBE1C34(CFArrayRef theArray, uint64_t a2, const __CFDate *a3, const _
 {
   if (theArray && a4)
   {
-    v15 = 0;
-    sub_23EB6BA5C(theArray, a3, &v15);
-    if (v12 == -6727)
+    v10 = 0;
+    sub_23EB6BA5C(theArray, a3, &v10);
+    if (v7 == -6727)
     {
-      sub_23EB6FF14(theArray, &v15, "[*]", v7, v8, v9, v10, v11, a2);
-      if (v13)
+      sub_23EB6FF14(theArray, &v10, "[*]", a2);
+      if (v8)
       {
         return;
       }
 
-      v14 = v15;
-      if (!v15)
+      v9 = v10;
+      if (!v10)
       {
         return;
       }
@@ -3425,29 +3539,28 @@ void sub_23EBE1C34(CFArrayRef theArray, uint64_t a2, const __CFDate *a3, const _
 
     else
     {
-      v14 = v15;
-      if (!v15)
+      v9 = v10;
+      if (!v10)
       {
         return;
       }
     }
 
-    *a4 = v14;
+    *a4 = v9;
   }
 }
 
-uint64_t sub_23EBE1CE0(uint64_t a1, const __CFArray *a2, CFArrayRef theArray, const __CFString *a4, uint64_t a5, __CFArray **a6, uint64_t a7, uint64_t a8)
+uint64_t sub_23EBE1CE0(uint64_t a1, const __CFArray *a2, CFArrayRef theArray, const __CFString *a4, char a5, __CFArray **a6)
 {
-  v9 = a5;
   if (dword_27E382C08 <= 800 && (dword_27E382C08 != -1 || sub_23EB74AC8(&dword_27E382C08, 0x320u)))
   {
-    sub_23EB75374(&dword_27E382C08, "OSStatus _CopyNetworksScannableInPreferredList(AutoGuessContextRef, CFMutableArrayRef, CFArrayRef, CFDictionaryRef, ScanOptions, CFArrayRef *)", 800, "\n", a5, a6, a7, a8, v79);
+    sub_23EB75374(&dword_27E382C08, "OSStatus _CopyNetworksScannableInPreferredList(AutoGuessContextRef, CFMutableArrayRef, CFArrayRef, CFDictionaryRef, ScanOptions, CFArrayRef *)", 800, "\n");
   }
 
-  v14 = 4294960591;
-  if (!a1 || !a6 || (v9 & 3) == 0)
+  v12 = 4294960591;
+  if (!a1 || !a6 || (a5 & 3) == 0)
   {
-    return v14;
+    return v12;
   }
 
   if (!theArray || !CFArrayGetCount(theArray))
@@ -3456,61 +3569,61 @@ uint64_t sub_23EBE1CE0(uint64_t a1, const __CFArray *a2, CFArrayRef theArray, co
   }
 
   *a6 = 0;
-  v15 = *MEMORY[0x277CBECE8];
+  v13 = *MEMORY[0x277CBECE8];
   Mutable = CFArrayCreateMutable(*MEMORY[0x277CBECE8], 0, MEMORY[0x277CBF128]);
   if (!Mutable)
   {
     return 4294960568;
   }
 
-  v22 = Mutable;
-  v23 = 0;
+  v15 = Mutable;
+  v16 = 0;
   theArraya = 0;
-  v87 = 0;
+  v66 = 0;
   cf = 0;
   theString1 = 0;
   theDate = 0;
   theString2 = 0;
-  v83 = 0;
-  if ((v9 & 2) != 0)
+  v62 = 0;
+  if ((a5 & 2) != 0)
   {
-    theArraya = CFArrayCreateMutable(v15, 0, MEMORY[0x277CBF128]);
+    theArraya = CFArrayCreateMutable(v13, 0, MEMORY[0x277CBF128]);
     if (!theArraya)
     {
-      v26 = 0;
+      v19 = 0;
       otherDate = 0;
       goto LABEL_21;
     }
 
     Current = CFAbsoluteTimeGetCurrent();
-    v23 = CFDateCreate(v15, Current + -1209600.0);
-    if (!v23)
+    v16 = CFDateCreate(v13, Current + -1209600.0);
+    if (!v16)
     {
       otherDate = 0;
       goto LABEL_78;
     }
   }
 
-  otherDate = v23;
+  otherDate = v16;
   if (!a4)
   {
     theString2 = 0;
     goto LABEL_23;
   }
 
-  sub_23EB6FF14(a4, &theString2, "%kO", v17, v18, v19, v20, v21, @"SSID_STR");
-  if (v25)
+  sub_23EB6FF14(a4, &theString2, "%kO", @"SSID_STR");
+  if (v18)
   {
-    v14 = v25;
+    v12 = v18;
 LABEL_82:
-    v26 = theArraya;
+    v19 = theArraya;
     goto LABEL_83;
   }
 
   if (!theString2)
   {
 LABEL_78:
-    v14 = 4294960568;
+    v12 = 4294960568;
     goto LABEL_82;
   }
 
@@ -3521,34 +3634,34 @@ LABEL_23:
     goto LABEL_81;
   }
 
-  v80 = v22;
+  v59 = v15;
   theDate = 0;
   if (Count < 1)
   {
 LABEL_55:
-    v22 = v80;
+    v15 = v59;
     if (theArraya)
     {
-      v62 = CFArrayGetCount(theArraya);
-      if (v62)
+      v44 = CFArrayGetCount(theArraya);
+      if (v44)
       {
-        v63 = v62 >= 6 ? 6 : v62;
-        if (v62 >= 1)
+        v45 = v44 >= 6 ? 6 : v44;
+        if (v44 >= 1)
         {
-          v26 = theArraya;
+          v19 = theArraya;
           ValueAtIndex = CFArrayGetValueAtIndex(theArraya, 0);
           theString1 = ValueAtIndex;
           if (ValueAtIndex)
           {
-            v68 = ValueAtIndex;
-            v69 = 0;
+            v47 = ValueAtIndex;
+            v48 = 0;
             do
             {
-              v70 = sub_23EBE0544(a1, a2, v68, 3, &cf, v65, v66, v67);
-              if (v70 != -6727)
+              v49 = sub_23EBE0544(a1, a2, v47, 3, &cf);
+              if (v49 != -6727)
               {
-                v14 = v70;
-                if (v70)
+                v12 = v49;
+                if (v49)
                 {
                   goto LABEL_82;
                 }
@@ -3558,7 +3671,7 @@ LABEL_55:
                   goto LABEL_78;
                 }
 
-                if (sub_23EC0F928(cf, v71))
+                if (sub_23EC0F928(cf, v50, v51, v52))
                 {
                   if (cf)
                   {
@@ -3566,100 +3679,100 @@ LABEL_55:
                     cf = 0;
                   }
 
-                  sub_23EBDCCB4("Skipping IBSS network", 0, v72, v73, v74, v75, v76, v77);
+                  sub_23EBDCCB4("Skipping IBSS network", 0);
                 }
 
                 else
                 {
-                  v14 = sub_23EB6FDFC(v15, v80, "%O", v73, v74, v75, v76, v77, cf);
+                  v12 = sub_23EB6FDFC(v13, v59, "%O", v53, v54, v55, v56, v57, cf);
                   if (cf)
                   {
                     CFRelease(cf);
                     cf = 0;
                   }
 
-                  if (v14)
+                  if (v12)
                   {
                     goto LABEL_82;
                   }
 
-                  if ((v9 & 8) != 0)
+                  if ((a5 & 8) != 0)
                   {
                     goto LABEL_79;
                   }
                 }
               }
 
-              if (++v69 >= v63)
+              if (++v48 >= v45)
               {
                 goto LABEL_79;
               }
 
-              v68 = CFArrayGetValueAtIndex(theArraya, v69);
-              theString1 = v68;
-              v14 = 4294960568;
+              v47 = CFArrayGetValueAtIndex(theArraya, v48);
+              theString1 = v47;
+              v12 = 4294960568;
             }
 
-            while (v68);
+            while (v47);
             goto LABEL_82;
           }
 
 LABEL_21:
-          v14 = 4294960568;
+          v12 = 4294960568;
           goto LABEL_83;
         }
       }
     }
 
 LABEL_79:
-    if (CFArrayGetCount(v80))
+    if (CFArrayGetCount(v59))
     {
-      v14 = 0;
-      *a6 = v80;
-      v26 = theArraya;
+      v12 = 0;
+      *a6 = v59;
+      v19 = theArraya;
       goto LABEL_84;
     }
 
 LABEL_81:
-    v14 = 4294960569;
+    v12 = 4294960569;
     goto LABEL_82;
   }
 
-  v28 = 0;
+  v21 = 0;
   while (1)
   {
-    v29 = Count;
-    sub_23EBE1C34(theArray, v28, theDate, &v87);
-    if (v30)
+    v22 = Count;
+    sub_23EBE1C34(theArray, v21, theDate, &v66);
+    if (v23)
     {
       goto LABEL_89;
     }
 
-    if (!v87)
+    if (!v66)
     {
       break;
     }
 
-    sub_23EB6FF14(v87, &v83, "%ks:int", v31, v32, v33, v34, v35, "WiFiShim_PreferredNetwork_SecMode");
-    if (v30)
+    sub_23EB6FF14(v66, &v62, "%ks:int", "WiFiShim_PreferredNetwork_SecMode");
+    if (v23)
     {
 LABEL_89:
-      v14 = v30;
+      v12 = v23;
       goto LABEL_91;
     }
 
-    if (v83 - 9 <= 3)
+    if (v62 - 9 <= 3)
     {
       if (dword_27E382C08 <= 800 && (dword_27E382C08 != -1 || sub_23EB74AC8(&dword_27E382C08, 0x320u)))
       {
-        sub_23EB75374(&dword_27E382C08, "OSStatus _CopyNetworksScannableInPreferredList(AutoGuessContextRef, CFMutableArrayRef, CFArrayRef, CFDictionaryRef, ScanOptions, CFArrayRef *)", 800, "skipping Enterprise preferred network: %@\n", v37, v38, v39, v40, v87);
+        sub_23EB75374(&dword_27E382C08, "OSStatus _CopyNetworksScannableInPreferredList(AutoGuessContextRef, CFMutableArrayRef, CFArrayRef, CFDictionaryRef, ScanOptions, CFArrayRef *)", 800, "skipping Enterprise preferred network: %@\n", v66);
       }
 
       goto LABEL_54;
     }
 
-    sub_23EB6FF14(v87, &theString1, "%ks", v36, v37, v38, v39, v40, "WiFiShim_PreferredNetwork_SSID");
-    if (v30)
+    sub_23EB6FF14(v66, &theString1, "%ks", "WiFiShim_PreferredNetwork_SSID");
+    if (v23)
     {
       goto LABEL_89;
     }
@@ -3669,11 +3782,11 @@ LABEL_89:
       break;
     }
 
-    sub_23EB6FF14(v87, &theDate, "%ks", v41, v42, v43, v44, v45, "WiFiShim_PreferredNetwork_TimeAssociated");
-    if (v46 != -6727)
+    sub_23EB6FF14(v66, &theDate, "%ks", "WiFiShim_PreferredNetwork_TimeAssociated");
+    if (v24 != -6727)
     {
-      v14 = v46;
-      if (v46)
+      v12 = v24;
+      if (v24)
       {
         goto LABEL_91;
       }
@@ -3689,64 +3802,64 @@ LABEL_89:
       goto LABEL_54;
     }
 
-    v47 = sub_23EB6B7D0(theString1, 3, 0, a2);
-    if (v47 == -1)
+    v25 = sub_23EB6B7D0(theString1, 3, 0, a2);
+    if (v25 == -1)
     {
-      if ((v9 & 2) == 0 || (v9 & 4) != 0 && v83 < 2 || theDate && CFDateCompare(theDate, otherDate, 0) != kCFCompareGreaterThan)
+      if ((a5 & 2) == 0 || (a5 & 4) != 0 && v62 < 2 || theDate && CFDateCompare(theDate, otherDate, 0) != kCFCompareGreaterThan)
       {
         goto LABEL_54;
       }
 
-      v30 = sub_23EB6FDFC(v15, theArraya, "%O", v48, v49, v50, v51, v52, theString1);
+      v23 = sub_23EB6FDFC(v13, theArraya, "%O", v26, v27, v28, v29, v30, theString1);
     }
 
     else
     {
-      if ((v9 & 1) == 0)
+      if ((a5 & 1) == 0)
       {
         goto LABEL_54;
       }
 
-      v53 = CFArrayGetValueAtIndex(a2, v47);
-      cf = v53;
-      if (!v53)
+      v31 = CFArrayGetValueAtIndex(a2, v25);
+      cf = v31;
+      if (!v31)
       {
         break;
       }
 
-      v55 = v53;
-      if (sub_23EC0F9F4(v53, v54) || sub_23EC0F928(v55, v56))
+      v35 = v31;
+      if (sub_23EC0F9F4(v31, v32, v33, v34) || sub_23EC0F928(v35, v36, v37, v38))
       {
         goto LABEL_54;
       }
 
-      v30 = sub_23EB6FDFC(v15, v80, "%O", v57, v58, v59, v60, v61, v55);
+      v23 = sub_23EB6FDFC(v13, v59, "%O", v39, v40, v41, v42, v43, v35);
     }
 
-    if (v30)
+    if (v23)
     {
       goto LABEL_89;
     }
 
 LABEL_54:
-    ++v28;
-    Count = v29;
-    if (v29 == v28)
+    ++v21;
+    Count = v22;
+    if (v22 == v21)
     {
       goto LABEL_55;
     }
   }
 
-  v14 = 4294960568;
+  v12 = 4294960568;
 LABEL_91:
-  v26 = theArraya;
-  v22 = v80;
+  v19 = theArraya;
+  v15 = v59;
 LABEL_83:
-  CFRelease(v22);
+  CFRelease(v15);
 LABEL_84:
-  if (v26)
+  if (v19)
   {
-    CFRelease(v26);
+    CFRelease(v19);
   }
 
   if (otherDate)
@@ -3754,7 +3867,7 @@ LABEL_84:
     CFRelease(otherDate);
   }
 
-  return v14;
+  return v12;
 }
 
 uint64_t sub_23EBE220C(uint64_t a1, CFArrayRef theArray, const __CFArray *a3, const __CFArray *a4, CFMutableArrayRef *a5)
@@ -3779,50 +3892,50 @@ uint64_t sub_23EBE220C(uint64_t a1, CFArrayRef theArray, const __CFArray *a3, co
     return 4294960568;
   }
 
-  v20 = Mutable;
-  v41 = 0;
+  v15 = Mutable;
+  v31 = 0;
   cf = 0;
-  v39 = 0;
-  v40 = 0;
+  v29 = 0;
+  v30 = 0;
   if (v12 >= 1)
   {
     for (i = 0; v12 != i; ++i)
     {
-      sub_23EB6FF14(theArray, &v41, "[*]", v15, v16, v17, v18, v19, i);
-      if (v22)
+      sub_23EB6FF14(theArray, &v31, "[*]", i);
+      if (v17)
       {
 LABEL_30:
-        v5 = v22;
+        v5 = v17;
         goto LABEL_34;
       }
 
-      v28 = v41;
-      if (!v41)
+      v18 = v31;
+      if (!v31)
       {
         goto LABEL_32;
       }
 
       if (a3)
       {
-        sub_23EB6FF14(v41, &v40, "%ks.%ks", v23, v24, v25, v26, v27, "txt");
-        if (v22)
+        sub_23EB6FF14(v31, &v30, "%ks.%ks", "txt", "raMA");
+        if (v17)
         {
           goto LABEL_30;
         }
 
-        if (!v40)
+        if (!v30)
         {
           v5 = 0;
 LABEL_34:
-          CFRelease(v20);
+          CFRelease(v15);
           return v5;
         }
 
-        v29 = sub_23EB6B3A8(a3, v40);
-        if (v29 != -1)
+        v19 = sub_23EB6B3A8(a3, v30);
+        if (v19 != -1)
         {
-          ValueAtIndex = CFArrayGetValueAtIndex(a3, v29);
-          v41 = ValueAtIndex;
+          ValueAtIndex = CFArrayGetValueAtIndex(a3, v19);
+          v31 = ValueAtIndex;
           if (!ValueAtIndex)
           {
             v5 = 4294960586;
@@ -3830,8 +3943,8 @@ LABEL_34:
           }
 
 LABEL_24:
-          v22 = sub_23EB6FDFC(v13, v20, "%O", v31, v32, v33, v34, v35, ValueAtIndex);
-          if (v22)
+          v17 = sub_23EB6FDFC(v13, v15, "%O", v21, v22, v23, v24, v25, ValueAtIndex);
+          if (v17)
           {
             goto LABEL_30;
           }
@@ -3839,28 +3952,28 @@ LABEL_24:
           continue;
         }
 
-        v28 = v41;
+        v18 = v31;
       }
 
-      sub_23EB6FF14(v28, &v39, "%ks.%ks", v23, v24, v25, v26, v27, "txt");
-      if (v36 != -6727)
+      sub_23EB6FF14(v18, &v29, "%ks.%ks", "txt", "raNm");
+      if (v26 != -6727)
       {
-        v5 = v36;
-        if (v36)
+        v5 = v26;
+        if (v26)
         {
           goto LABEL_34;
         }
 
-        if (!v39)
+        if (!v29)
         {
           goto LABEL_32;
         }
 
-        v37 = sub_23EBE0544(a1, a4, v39, 3, &cf, v17, v18, v19);
-        if (v37 != -6727)
+        v27 = sub_23EBE0544(a1, a4, v29, 3, &cf);
+        if (v27 != -6727)
         {
-          v5 = v37;
-          if (v37)
+          v5 = v27;
+          if (v27)
           {
             goto LABEL_34;
           }
@@ -3874,152 +3987,152 @@ LABEL_32:
 
           CFRelease(cf);
           cf = 0;
-          ValueAtIndex = v41;
+          LODWORD(ValueAtIndex) = v31;
           goto LABEL_24;
         }
       }
     }
   }
 
-  if (!CFArrayGetCount(v20))
+  if (!CFArrayGetCount(v15))
   {
     v5 = 4294960569;
     goto LABEL_34;
   }
 
   v5 = 0;
-  *a5 = v20;
+  *a5 = v15;
   return v5;
 }
 
-uint64_t sub_23EBE2440(uint64_t a1, const __CFString *a2, CFArrayRef theArray, const __CFArray *a4, CFMutableArrayRef *a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t sub_23EBE2440(uint64_t a1, const __CFString *a2, CFArrayRef theArray, const __CFArray *a4, CFMutableArrayRef *a5)
 {
   if (dword_27E382C08 <= 800 && (dword_27E382C08 != -1 || sub_23EB74AC8(&dword_27E382C08, 0x320u)))
   {
-    sub_23EB75374(&dword_27E382C08, "OSStatus _BaseStationsBrowsedAndCreatingNetworksVisibleToBaseStation(AutoGuessContextRef, CFDictionaryRef, CFArrayRef, CFArrayRef, CFArrayRef *)", 800, "\n", a5, a6, a7, a8, v52);
+    sub_23EB75374(&dword_27E382C08, "OSStatus _BaseStationsBrowsedAndCreatingNetworksVisibleToBaseStation(AutoGuessContextRef, CFDictionaryRef, CFArrayRef, CFArrayRef, CFArrayRef *)", 800, "\n");
   }
 
-  v13 = 4294960569;
+  v10 = 4294960569;
   if (!theArray)
   {
-    return v13;
+    return v10;
   }
 
   if (!a4)
   {
-    return v13;
+    return v10;
   }
 
   if (!CFArrayGetCount(theArray))
   {
-    return v13;
+    return v10;
   }
 
   if (!CFArrayGetCount(a4))
   {
-    return v13;
+    return v10;
   }
 
-  v13 = 4294960591;
+  v10 = 4294960591;
   if (!a1 || !a5)
   {
-    return v13;
+    return v10;
   }
 
   *a5 = 0;
-  v14 = *MEMORY[0x277CBECE8];
+  v11 = *MEMORY[0x277CBECE8];
   Mutable = CFArrayCreateMutable(*MEMORY[0x277CBECE8], 0, MEMORY[0x277CBF128]);
   if (!Mutable)
   {
     return 4294960568;
   }
 
-  v20 = Mutable;
-  v55 = 0;
-  v56 = 0;
-  v54 = 0;
-  v21 = sub_23EBDF2B4(a1, a2, 1852787795, &v54, v16, v17, v18, v19);
-  v13 = v21;
-  if (v54)
+  v13 = Mutable;
+  v32 = 0;
+  v33 = 0;
+  v31 = 0;
+  v14 = sub_23EBDF2B4(a1, a2, 1852787795, &v31);
+  v10 = v14;
+  if (v31)
   {
-    v22 = v21 == 0;
+    v15 = v14 == 0;
   }
 
   else
   {
-    v22 = 0;
+    v15 = 0;
   }
 
-  if (v22)
+  if (v15)
   {
-    v23 = 30;
+    v16 = 30;
   }
 
   else
   {
-    v23 = 22;
+    v16 = 22;
   }
 
   Count = CFArrayGetCount(a4);
   if (Count >= 1)
   {
-    v30 = Count;
-    v53 = v14;
-    v31 = 0;
+    v18 = Count;
+    v30 = v11;
+    v19 = 0;
     while (1)
     {
-      sub_23EB6FF14(a4, &v56, "[*]", v25, v26, v27, v28, v29, v31);
-      if (v32)
+      sub_23EB6FF14(a4, &v33, "[*]", v19);
+      if (v20)
       {
 LABEL_36:
-        v13 = v32;
+        v10 = v20;
         goto LABEL_42;
       }
 
-      if (!v56)
+      if (!v33)
       {
         goto LABEL_38;
       }
 
-      if (sub_23EC0FB00(v56, v23))
+      if (sub_23EC0FB00(v33, v16))
       {
-        sub_23EBDCCB4("Skipping IBSS, non-secure, enterprise, or legacy sec mode network: %@\n", v56, v33, v34, v35, v36, v37, v38);
+        sub_23EBDCCB4("Skipping IBSS, non-secure, enterprise, or legacy sec mode network: %@\n", v33);
       }
 
       else
       {
-        sub_23EB6FF14(v56, &v55, "%kO", v34, v35, v36, v37, v38, @"BSSID");
-        if (v32)
+        sub_23EB6FF14(v33, &v32, "%kO", @"BSSID");
+        if (v20)
         {
           goto LABEL_36;
         }
 
-        if (!v55)
+        if (!v32)
         {
 LABEL_38:
-          v13 = 4294960568;
+          v10 = 4294960568;
           goto LABEL_42;
         }
 
-        v39 = sub_23EB6B3A8(theArray, v55);
-        if (v39 != -1)
+        v21 = sub_23EB6B3A8(theArray, v32);
+        if (v21 != -1)
         {
-          ValueAtIndex = CFArrayGetValueAtIndex(theArray, v39);
+          ValueAtIndex = CFArrayGetValueAtIndex(theArray, v21);
           if (!ValueAtIndex)
           {
-            v13 = 4294960586;
+            v10 = 4294960586;
 LABEL_42:
-            CFRelease(v20);
-            return v13;
+            CFRelease(v13);
+            return v10;
           }
 
-          v48 = ValueAtIndex;
-          if (!sub_23EB6B0C8(ValueAtIndex, v41, v42, v43, v44, v45, v46, v47) && !sub_23EB6B674(a2, v48, v49, v25, v26, v27, v28, v29) && (!CFArrayGetCount(v20) || sub_23EB6B3A8(v20, v55) == -1))
+          v23 = ValueAtIndex;
+          if (!sub_23EB6B0C8(ValueAtIndex) && !sub_23EB6B674(a2, v23) && (!CFArrayGetCount(v13) || sub_23EB6B3A8(v13, v32) == -1))
           {
-            if (sub_23EBDFD3C(a1, v48, v50, v25, v26, v27, v28, v29))
+            if (sub_23EBDFD3C(a1, v23))
             {
-              v32 = sub_23EB6FDFC(v53, v20, "%O", v25, v26, v27, v28, v29, v48);
-              if (v32)
+              v20 = sub_23EB6FDFC(v30, v13, "%O", v24, v25, v26, v27, v28, v23);
+              if (v20)
               {
                 goto LABEL_36;
               }
@@ -4028,29 +4141,29 @@ LABEL_42:
         }
       }
 
-      if (v30 == ++v31)
+      if (v18 == ++v19)
       {
-        v13 = 0;
+        v10 = 0;
         break;
       }
     }
   }
 
-  if (!CFArrayGetCount(v20))
+  if (!CFArrayGetCount(v13))
   {
-    v13 = 4294960569;
+    v10 = 4294960569;
     goto LABEL_42;
   }
 
-  *a5 = v20;
-  return v13;
+  *a5 = v13;
+  return v10;
 }
 
-BOOL sub_23EBE26E8(const __CFString *a1, CFArrayRef theArray, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+BOOL sub_23EBE26E8(const __CFString *a1, CFArrayRef theArray)
 {
   if (dword_27E382C08 <= 800 && (dword_27E382C08 != -1 || sub_23EB74AC8(&dword_27E382C08, 0x320u)))
   {
-    sub_23EB75374(&dword_27E382C08, "Boolean _WirelessNetworkVisibleInNetworkScan(CFStringRef, CFArrayRef)", 800, "\n", a5, a6, a7, a8, v11);
+    sub_23EB75374(&dword_27E382C08, "Boolean _WirelessNetworkVisibleInNetworkScan(CFStringRef, CFArrayRef)", 800, "\n");
   }
 
   result = 0;
@@ -4065,11 +4178,11 @@ BOOL sub_23EBE26E8(const __CFString *a1, CFArrayRef theArray, uint64_t a3, uint6
   return result;
 }
 
-uint64_t sub_23EBE277C(CFDictionaryRef theDict, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t sub_23EBE277C(CFDictionaryRef theDict)
 {
   if (dword_27E382C08 <= 800 && (dword_27E382C08 != -1 || sub_23EB74AC8(&dword_27E382C08, 0x320u)))
   {
-    sub_23EB75374(&dword_27E382C08, "Boolean _UnconfiguredBaseStationIsSpecifiedByBonjourRecord(CFDictionaryRef)", 800, "\n", a5, a6, a7, a8, v10);
+    sub_23EB75374(&dword_27E382C08, "Boolean _UnconfiguredBaseStationIsSpecifiedByBonjourRecord(CFDictionaryRef)", 800, "\n");
   }
 
   if (!theDict)
@@ -4086,21 +4199,21 @@ uint64_t sub_23EBE277C(CFDictionaryRef theDict, uint64_t a2, uint64_t a3, uint64
   return result;
 }
 
-BOOL sub_23EBE2820(CFDictionaryRef theDict, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+BOOL sub_23EBE2820(CFDictionaryRef theDict)
 {
   if (dword_27E382C08 <= 800 && (dword_27E382C08 != -1 || sub_23EB74AC8(&dword_27E382C08, 0x320u)))
   {
-    sub_23EB75374(&dword_27E382C08, "Boolean _UnconfiguredBaseStationIsSpecifiedByWirelessScanRecord(CFDictionaryRef)", 800, "\n", a5, a6, a7, a8, v10);
+    sub_23EB75374(&dword_27E382C08, "Boolean _UnconfiguredBaseStationIsSpecifiedByWirelessScanRecord(CFDictionaryRef)", 800, "\n");
   }
 
   return theDict && !CFDictionaryContainsKey(theDict, @"BSAutoGuessContext_ChosenUnconfiguredBrowseRecord") && CFDictionaryContainsKey(theDict, @"BSAutoGuessContext_ChosenUnconfiguredScanRecord") != 0;
 }
 
-BOOL sub_23EBE28C4(CFDictionaryRef theDict, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+BOOL sub_23EBE28C4(CFDictionaryRef theDict)
 {
   if (dword_27E382C08 <= 800 && (dword_27E382C08 != -1 || sub_23EB74AC8(&dword_27E382C08, 0x320u)))
   {
-    sub_23EB75374(&dword_27E382C08, "Boolean _UnconfiguredBaseStationInContextDictionary(CFDictionaryRef)", 800, "\n", a5, a6, a7, a8, v17);
+    sub_23EB75374(&dword_27E382C08, "Boolean _UnconfiguredBaseStationInContextDictionary(CFDictionaryRef)", 800, "\n");
   }
 
   if (!theDict)
@@ -4108,12 +4221,12 @@ BOOL sub_23EBE28C4(CFDictionaryRef theDict, uint64_t a2, uint64_t a3, uint64_t a
     return 0;
   }
 
-  if (sub_23EBE277C(theDict, a2, a3, a4, a5, a6, a7, a8))
+  if (sub_23EBE277C(theDict))
   {
     return 1;
   }
 
-  result = sub_23EBE2820(theDict, v9, v10, v11, v12, v13, v14, v15);
+  result = sub_23EBE2820(theDict);
   if (result)
   {
     return 1;
@@ -4122,11 +4235,11 @@ BOOL sub_23EBE28C4(CFDictionaryRef theDict, uint64_t a2, uint64_t a3, uint64_t a
   return result;
 }
 
-uint64_t sub_23EBE2958(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t sub_23EBE2958(void *a1)
 {
   if (dword_27E382C08 <= 800 && (dword_27E382C08 != -1 || sub_23EB74AC8(&dword_27E382C08, 0x320u)))
   {
-    sub_23EB75374(&dword_27E382C08, "OSStatus BSAutoGuess_Create(AutoGuessContextRef *)", 800, "BSAutoGuess_Create\n", a5, a6, a7, a8, v27);
+    sub_23EB75374(&dword_27E382C08, "OSStatus BSAutoGuess_Create(AutoGuessContextRef *)", 800, "BSAutoGuess_Create\n");
   }
 
   if (!a1)
@@ -4134,85 +4247,85 @@ uint64_t sub_23EBE2958(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t
     return 4294960591;
   }
 
-  v9 = malloc_type_calloc(1uLL, 0x38uLL, 0x1060040837169E1uLL);
-  if (!v9)
+  v2 = malloc_type_calloc(1uLL, 0x38uLL, 0x1060040837169E1uLL);
+  if (!v2)
   {
     return 4294960568;
   }
 
-  v17 = v9;
-  *(v9 + 28) = 0u;
-  *v9 = 0u;
-  v9[1] = 0u;
-  v25 = sub_23EBE9B10(v9 + 6, v10, v11, v12, v13, v14, v15, v16);
-  if (!v25)
+  v3 = v2;
+  *(v2 + 28) = 0u;
+  *v2 = 0u;
+  v2[1] = 0u;
+  v4 = sub_23EBE9B10(v2 + 6);
+  if (!v4)
   {
-    if (*(v17 + 6))
+    if (*(v3 + 6))
     {
-      v25 = 0;
-      *a1 = v17;
-      return v25;
+      v4 = 0;
+      *a1 = v3;
+      return v4;
     }
 
-    v25 = 4294960568;
+    v4 = 4294960568;
   }
 
-  sub_23EBE2A44(v17, v18, v19, v20, v21, v22, v23, v24);
-  return v25;
+  sub_23EBE2A44(v3);
+  return v4;
 }
 
-uint64_t sub_23EBE2A44(const void **a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t sub_23EBE2A44(const void **a1)
 {
   if (!a1)
   {
     return 4294960591;
   }
 
-  v9 = *a1;
-  if (v9)
+  v2 = *a1;
+  if (v2)
   {
-    CFRelease(v9);
+    CFRelease(v2);
     *a1 = 0;
   }
 
-  v10 = a1[1];
-  if (v10)
+  v3 = a1[1];
+  if (v3)
   {
-    CFRelease(v10);
+    CFRelease(v3);
     a1[1] = 0;
   }
 
-  v11 = a1[2];
-  if (v11)
+  v4 = a1[2];
+  if (v4)
   {
-    CFRelease(v11);
+    CFRelease(v4);
     a1[2] = 0;
   }
 
-  v12 = a1[3];
-  if (v12)
+  v5 = a1[3];
+  if (v5)
   {
-    CFRelease(v12);
+    CFRelease(v5);
     a1[3] = 0;
   }
 
-  v13 = a1[4];
-  if (v13)
+  v6 = a1[4];
+  if (v6)
   {
-    CFRelease(v13);
+    CFRelease(v6);
     a1[4] = 0;
   }
 
-  sub_23EBE9CC0(a1[6], a2, a3, a4, a5, a6, a7, a8);
+  sub_23EBE9CC0(a1[6]);
   free(a1);
   return 0;
 }
 
-uint64_t sub_23EBE2AD8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t sub_23EBE2AD8(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (dword_27E382C08 <= 800 && (dword_27E382C08 != -1 || sub_23EB74AC8(&dword_27E382C08, 0x320u)))
   {
-    sub_23EB75374(&dword_27E382C08, "OSStatus BSAutoGuess_SetAssistantCallback(AutoGuessContextRef, assistant_callback_t, void *)", 800, " \n", a5, a6, a7, a8, v13);
+    sub_23EB75374(&dword_27E382C08, "OSStatus BSAutoGuess_SetAssistantCallback(AutoGuessContextRef, assistant_callback_t, void *)", 800, " \n");
   }
 
   if (!a1)
@@ -4220,16 +4333,16 @@ uint64_t sub_23EBE2AD8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
     return 4294960591;
   }
 
-  v11 = *(a1 + 48);
+  v6 = *(a1 + 48);
 
-  return sub_23EBEA4E8(v11, a2, a3, a4, a5, a6, a7, a8);
+  return sub_23EBEA4E8(v6, a2, a3);
 }
 
-uint64_t sub_23EBE2B88(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t sub_23EBE2B88(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (dword_27E382C08 <= 800 && (dword_27E382C08 != -1 || sub_23EB74AC8(&dword_27E382C08, 0x320u)))
   {
-    sub_23EB75374(&dword_27E382C08, "OSStatus BSAutoGuess_SetProgressCallback(AutoGuessContextRef, assistant_progress_t, void *)", 800, " \n", a5, a6, a7, a8, v13);
+    sub_23EB75374(&dword_27E382C08, "OSStatus BSAutoGuess_SetProgressCallback(AutoGuessContextRef, assistant_progress_t, void *)", 800, " \n");
   }
 
   if (!a1)
@@ -4237,16 +4350,16 @@ uint64_t sub_23EBE2B88(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
     return 4294960591;
   }
 
-  v11 = *(a1 + 48);
+  v6 = *(a1 + 48);
 
-  return sub_23EBEAA74(v11, a2, a3, a4, a5, a6, a7, a8);
+  return sub_23EBEAA74(v6, a2, a3);
 }
 
-uint64_t sub_23EBE2C38(uint64_t *a1, CFDictionaryRef theDict, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t sub_23EBE2C38(void *a1, CFDictionaryRef theDict)
 {
   if (dword_27E382C08 <= 800 && (dword_27E382C08 != -1 || sub_23EB74AC8(&dword_27E382C08, 0x320u)))
   {
-    sub_23EB75374(&dword_27E382C08, "OSStatus BSAutoGuess_PerformGuess(AutoGuessContextRef, CFDictionaryRef)", 800, "Auto Guess START\n", a5, a6, a7, a8, v24);
+    sub_23EB75374(&dword_27E382C08, "OSStatus BSAutoGuess_PerformGuess(AutoGuessContextRef, CFDictionaryRef)", 800, "Auto Guess START\n");
   }
 
   result = 4294960591;
@@ -4262,10 +4375,10 @@ uint64_t sub_23EBE2C38(uint64_t *a1, CFDictionaryRef theDict, uint64_t a3, uint6
       {
         global_queue = dispatch_get_global_queue(0, 0);
         dispatch_async_f(global_queue, a1, sub_23EBE2D48);
-        result = sub_23EBEA0DC(a1[6], v13, v14, v15, v16, v17, v18, v19);
+        result = sub_23EBEA0DC(a1[6]);
         if (!result)
         {
-          sub_23EBEAB18(a1[6], 17, 0, 0, v20, v21, v22, v23);
+          sub_23EBEAB18(a1[6], 17, 0, 0);
           return 0;
         }
       }
@@ -4285,165 +4398,168 @@ uint64_t sub_23EBE2C38(uint64_t *a1, CFDictionaryRef theDict, uint64_t a3, uint6
   return result;
 }
 
-int *sub_23EBE2D48(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+int *sub_23EBE2D48(uint64_t a1)
 {
   ValueAtIndex = 0;
-  v1144 = 0;
-  v1142 = 0;
-  v1139 = 0;
-  v1140 = -1;
-  v1141 = -1;
+  v1223 = 0;
+  v1221 = 0;
+  v1218 = 0;
+  v1219 = -1;
+  v1220 = -1;
   theArray = 0;
   cf = 0;
-  v1135 = 0;
+  v1214 = 0;
   theDict = 0;
-  v1145 = 0;
-  v9 = MEMORY[0x277CBECE8];
-  if (!a1 || (v10 = *a1) == 0 || !CFDictionaryGetCount(v10))
+  v1224 = 0;
+  v2 = MEMORY[0x277CBECE8];
+  if (!a1 || (v3 = *a1) == 0 || !CFDictionaryGetCount(v3))
   {
     Mutable = 0;
     goto LABEL_8;
   }
 
   Value = CFDictionaryGetValue(*a1, @"BSAutoGuessContext_HostCurrentWirelessAssociation");
-  v12 = CFDictionaryGetValue(*a1, @"BSAutoGuessContext_HostPreferredNetworks");
-  v13 = CFDictionaryGetValue(*a1, @"BSAutoGuessContext_HostPrevConfigFiles");
+  v5 = CFDictionaryGetValue(*a1, @"BSAutoGuessContext_HostPreferredNetworks");
+  v6 = CFDictionaryGetValue(*a1, @"BSAutoGuessContext_HostPrevConfigFiles");
   *(a1 + 24) = CFDictionaryGetValue(*a1, @"BSAutoGuessContext_HostBrowsedBaseStations");
   *(a1 + 16) = CFDictionaryGetValue(*a1, @"BSAutoGuessContext_CachedBaseStationSettings");
   *(a1 + 32) = CFDictionaryGetValue(*a1, @"BSAutoGuessContext_HostScannedNetworks");
-  v21 = sub_23EBDDD20(*a1, v14, v15, v16, v17, v18, v19, v20);
-  v29 = sub_23EBDDDC4(*a1, v22, v23, v24, v25, v26, v27, v28);
-  v30 = *v9;
-  Mutable = CFArrayCreateMutable(*v9, 0, MEMORY[0x277CBF128]);
+  v7 = sub_23EBDDD20(*a1);
+  v8 = sub_23EBDDDC4(*a1);
+  v9 = *v2;
+  Mutable = CFArrayCreateMutable(*v2, 0, MEMORY[0x277CBF128]);
   if (!Mutable)
   {
 LABEL_8:
-    v34 = 0;
-    v35 = 4294960591;
+    v13 = 0;
+    v14 = 0;
+    v15 = 4294960591;
 LABEL_9:
-    v36 = 1;
+    v16 = 1;
     goto LABEL_10;
   }
 
-  v32 = *(a1 + 16);
-  if (v32)
+  v11 = *(a1 + 16);
+  if (v11)
   {
-    MutableCopy = CFDictionaryCreateMutableCopy(v30, 0, v32);
+    MutableCopy = CFDictionaryCreateMutableCopy(v9, 0, v11);
   }
 
   else
   {
-    MutableCopy = CFDictionaryCreateMutable(v30, 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
+    MutableCopy = CFDictionaryCreateMutable(v9, 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
   }
 
   *(a1 + 16) = MutableCopy;
-  if (!MutableCopy || ((v37 = *(a1 + 24)) == 0 ? (v38 = CFArrayCreateMutable(v30, 0, MEMORY[0x277CBF128])) : (v38 = CFArrayCreateMutableCopy(v30, 0, v37)), (*(a1 + 24) = v38) == 0 || ((v39 = *(a1 + 32)) == 0 ? (v40 = CFArrayCreateMutable(v30, 0, MEMORY[0x277CBF128])) : (v40 = CFArrayCreateMutableCopy(v30, 0, v39)), (*(a1 + 32) = v40) == 0)))
+  if (!MutableCopy || ((v17 = *(a1 + 24)) == 0 ? (v18 = CFArrayCreateMutable(v9, 0, MEMORY[0x277CBF128])) : (v18 = CFArrayCreateMutableCopy(v9, 0, v17)), (*(a1 + 24) = v18) == 0 || ((v19 = *(a1 + 32)) == 0 ? (v20 = CFArrayCreateMutable(v9, 0, MEMORY[0x277CBF128])) : (v20 = CFArrayCreateMutableCopy(v9, 0, v19)), (*(a1 + 32) = v20) == 0)))
   {
-    v34 = 0;
-    v35 = 4294960568;
+    v13 = 0;
+    v14 = 0;
+    v15 = 4294960568;
     goto LABEL_9;
   }
 
-  v1133 = v29;
+  v1212 = v8;
   if (dword_27E382C08 >= 801)
   {
-    v45 = Value;
-    v44 = Value != 0;
+    v24 = Value;
+    v23 = Value != 0;
   }
 
   else
   {
     if (dword_27E382C08 != -1 || sub_23EB74AC8(&dword_27E382C08, 0x320u))
     {
-      sub_23EB75374(&dword_27E382C08, "void __BSAutoGuessConfiguration(void *)", 800, "State machine starting... \n", a5, a6, a7, a8, v1123);
+      sub_23EB75374(&dword_27E382C08, "void __BSAutoGuessConfiguration(void *)", 800, "State machine starting... \n");
     }
 
-    v42 = dword_27E382C08;
-    v43 = Value;
-    v44 = Value != 0;
-    v45 = v43;
-    if (v43 && dword_27E382C08 <= 800)
+    v21 = dword_27E382C08;
+    v22 = Value;
+    v23 = Value != 0;
+    v24 = v22;
+    if (v22 && dword_27E382C08 <= 800)
     {
       if (dword_27E382C08 != -1 || sub_23EB74AC8(&dword_27E382C08, 0x320u))
       {
-        sub_23EB75374(&dword_27E382C08, "void __BSAutoGuessConfiguration(void *)", 800, "currentAssociationNetworkDict: %@\n", a5, a6, a7, a8, v45);
+        sub_23EB75374(&dword_27E382C08, "void __BSAutoGuessConfiguration(void *)", 800, "currentAssociationNetworkDict: %@\n", v24);
       }
 
-      v42 = dword_27E382C08;
+      v21 = dword_27E382C08;
     }
 
-    if (v12 && v42 <= 800)
+    if (v5 && v21 <= 800)
     {
-      if (v42 != -1 || sub_23EB74AC8(&dword_27E382C08, 0x320u))
+      if (v21 != -1 || sub_23EB74AC8(&dword_27E382C08, 0x320u))
       {
-        sub_23EB75374(&dword_27E382C08, "void __BSAutoGuessConfiguration(void *)", 800, "myHostPreferredNetworks: %@\n", a5, a6, a7, a8, v12);
+        sub_23EB75374(&dword_27E382C08, "void __BSAutoGuessConfiguration(void *)", 800, "myHostPreferredNetworks: %@\n", v5);
       }
 
-      v42 = dword_27E382C08;
+      v21 = dword_27E382C08;
     }
 
-    if (v13 && v42 <= 800 && (v42 != -1 || sub_23EB74AC8(&dword_27E382C08, 0x320u)))
+    if (v6 && v21 <= 800 && (v21 != -1 || sub_23EB74AC8(&dword_27E382C08, 0x320u)))
     {
-      sub_23EB75374(&dword_27E382C08, "void __BSAutoGuessConfiguration(void *)", 800, "myHostPreviousConfigFiles: %@\n", a5, a6, a7, a8, v13);
+      sub_23EB75374(&dword_27E382C08, "void __BSAutoGuessConfiguration(void *)", 800, "myHostPreviousConfigFiles: %@\n", v6);
     }
 
     if (dword_27E382C08 <= 800)
     {
       if (dword_27E382C08 != -1 || sub_23EB74AC8(&dword_27E382C08, 0x320u))
       {
-        sub_23EB75374(&dword_27E382C08, "void __BSAutoGuessConfiguration(void *)", 800, "noWirelessOnHost: %d\n", a5, a6, a7, a8, v21);
+        sub_23EB75374(&dword_27E382C08, "void __BSAutoGuessConfiguration(void *)", 800, "noWirelessOnHost: %d\n", v7);
       }
 
       if (dword_27E382C08 <= 800 && (dword_27E382C08 != -1 || sub_23EB74AC8(&dword_27E382C08, 0x320u)))
       {
-        sub_23EB75374(&dword_27E382C08, "void __BSAutoGuessConfiguration(void *)", 800, "hostHasPreferredNetworkSupport: %d\n", a5, a6, a7, a8, v29);
+        sub_23EB75374(&dword_27E382C08, "void __BSAutoGuessConfiguration(void *)", 800, "hostHasPreferredNetworkSupport: %d\n", v8);
       }
     }
   }
 
-  sub_23EBDC01C("obj->browsedBaseStations: \n", *(a1 + 24), v41, a4, a5, a6, a7, a8);
-  sub_23EBDC50C("obj->scannedNetworks: \n", *(a1 + 32), v46, v47, v48, v49, v50, v51);
-  v1132 = v44;
-  if (!v44)
+  sub_23EBDC01C("obj->browsedBaseStations: \n", *(a1 + 24));
+  sub_23EBDC50C("obj->scannedNetworks: \n", *(a1 + 32));
+  v1211 = v23;
+  if (!v23)
   {
     goto LABEL_64;
   }
 
-  v1146[0] = 0;
-  v57 = v45;
-  sub_23EB6FF14(v45, v1146, "%kO", v52, v53, v54, v55, v56, @"SSID_STR");
-  v35 = v58;
-  v9 = MEMORY[0x277CBECE8];
-  if (v58)
+  v1225[0] = 0;
+  v25 = v24;
+  sub_23EB6FF14(v24, v1225, "%kO", @"SSID_STR");
+  v15 = v26;
+  v2 = MEMORY[0x277CBECE8];
+  if (v26)
   {
 LABEL_60:
-    v34 = 0;
+    v13 = 0;
+    v14 = 0;
     goto LABEL_9;
   }
 
-  if (!v1146[0])
+  if (!v1225[0])
   {
-    goto LABEL_969;
+    goto LABEL_1020;
   }
 
-  if (sub_23EB6B6FC(v1146[0], 0, *(a1 + 32)) == -1)
+  if (sub_23EB6B6FC(v1225[0], 0, *(a1 + 32)) == -1)
   {
-    v35 = sub_23EBEC4F4(*(a1 + 48), v1146[0], 3, &theDict, v59, v60, v61, v62);
-    if (v35)
+    v15 = sub_23EBEC4F4(*(a1 + 48), v1225[0], 3, &theDict);
+    if (v15)
     {
       goto LABEL_60;
     }
 
     if (theDict)
     {
-      v35 = sub_23EB6FDFC(v30, *(a1 + 32), "%O", a4, a5, a6, a7, a8, theDict);
+      v15 = sub_23EB6FDFC(v9, *(a1 + 32), "%O", v975, v976, v977, v978, v979, theDict);
       if (theDict)
       {
         CFRelease(theDict);
         theDict = 0;
       }
 
-      if (v35)
+      if (v15)
       {
         goto LABEL_60;
       }
@@ -4451,914 +4567,1482 @@ LABEL_60:
       goto LABEL_63;
     }
 
-LABEL_969:
-    v35 = 4294960568;
+LABEL_1020:
+    v15 = 4294960568;
     goto LABEL_60;
   }
 
 LABEL_63:
-  v45 = v57;
+  v24 = v25;
 LABEL_64:
-  v63 = sub_23EBEDC9C(*(a1 + 48), 300);
-  if (v63)
+  v27 = sub_23EBEDC9C(*(a1 + 48), 300);
+  if (v27)
   {
-    v35 = v63;
-    v34 = 0;
-    v36 = 1;
-    goto LABEL_68;
+    v15 = v27;
+    v13 = 0;
+    v14 = 0;
+    v16 = 1;
+LABEL_68:
+    v2 = MEMORY[0x277CBECE8];
+    goto LABEL_10;
   }
 
-  sub_23EBEAB18(*(a1 + 48), 15, 0, 0, a5, a6, a7, a8);
+  sub_23EBEAB18(*(a1 + 48), 15, 0, 0);
   if (sub_23EBEA238(*(a1 + 48)))
   {
-    v36 = 0;
-    v34 = 0;
-    v35 = 4294960573;
+    v16 = 0;
+    v13 = 0;
+    v14 = 1;
+    v15 = 4294960573;
     goto LABEL_68;
   }
 
-  v1129 = v13;
-  v1130 = v12;
-  v66 = "(%d) No unconfigured networks are visible because Wi-Fi is disabled.";
-  v34 = 0;
-  v1131 = 0;
-  v1128 = 0;
-  v1125 = 0;
-  if (!v21)
+  v1208 = v6;
+  v1209 = v5;
+  v35 = "(%d) No unconfigured networks are visible because Wi-Fi is disabled.";
+  v13 = 0;
+  v1210 = 0;
+  v1207 = 0;
+  v1204 = 0;
+  if (!v7)
   {
-    v66 = "(%d) No unconfigured networks are visible in Wi-Fi scans.";
+    v35 = "(%d) No unconfigured networks are visible in Wi-Fi scans.";
   }
 
-  v1126 = v66;
-  v1127 = v21;
-  v67 = 1;
-  v68 = v45;
-  v9 = MEMORY[0x277CBECE8];
-  while (v67 <= 601)
+  v1205 = v35;
+  v1206 = v7;
+  v14 = 1;
+  v36 = v24;
+  v2 = MEMORY[0x277CBECE8];
+  while (v14 <= 601)
   {
-    if (v67 <= 401)
+    if (v14 <= 401)
     {
-      if (v67 > 102)
+      if (v14 > 102)
       {
-        if (v67 <= 104)
+        if (v14 > 104)
         {
-          if (v67 != 103)
+          if (v14 != 105)
           {
             if (dword_27E382C08 <= 800 && (dword_27E382C08 != -1 || sub_23EB74AC8(&dword_27E382C08, 0x320u)))
             {
-              sub_23EB75374(&dword_27E382C08, "void __BSAutoGuessConfiguration(void *)", 800, "\n********************************************************************************\n* Entering state: %d (%s)\n********************************************************************************\n\n", a5, a6, a7, a8, 104);
+              sub_23EB75374(&dword_27E382C08, "void __BSAutoGuessConfiguration(void *)", 800, "\n********************************************************************************\n* Entering state: %d (%s)\n********************************************************************************\n\n", 401, "AnyBrowsedConfigAppleBasesCreatingNetwork");
             }
 
-            if (sub_23EB6C0E0(v1144, v64, v65, a4, a5, a6, a7, a8))
+            sub_23EBEAB18(*(a1 + 48), 15, 0, 0);
+            v142 = sub_23EBE2440(a1, v1223, *(a1 + 24), *(a1 + 32), &theArray);
+            if (v142)
             {
-              v67 = 105;
-              v117 = "(%d) This base station is a STA-only device.";
-              v118 = "CHOSEN_BASE_STATION_IS_STA_ONLY_TRUE";
-            }
-
-            else
-            {
-              sub_23EBDFE68(a1, v1144, 0, 0, a5, a6, a7, a8);
-              if (v505 == -6768)
+              v15 = v142;
+              if (v142 == -6727)
               {
-                v67 = 1102;
-                v117 = "(%d) Security error reading chosen base. We don't support it with this software.";
-                v118 = "CHOSEN_BASE_STATION_IS_OLDFW_TRUE";
+                v1224 = 0;
+                goto LABEL_465;
+              }
+
+              v16 = 0;
+LABEL_1214:
+              v14 = 401;
+              goto LABEL_10;
+            }
+
+            if (!theArray)
+            {
+              v16 = 0;
+              v15 = 4294960568;
+              goto LABEL_1214;
+            }
+
+            Count = CFArrayGetCount(theArray);
+            v1224 = Count;
+            if (Count == 1)
+            {
+              sub_23EBDC01C("State 401 count == 1 configed base creating network: \n", theArray);
+              ValueAtIndex = CFArrayGetValueAtIndex(theArray, 0);
+              CFRetain(ValueAtIndex);
+              v673 = ValueAtIndex;
+              v1225[0] = &stru_285145FE8;
+              if (ValueAtIndex)
+              {
+                sub_23EB6FF14(ValueAtIndex, v1225, "%ks", "name");
+                v674 = v1225[0];
+                v673 = ValueAtIndex;
               }
 
               else
               {
-                v35 = v505;
-                if (v505)
+                v674 = &stru_285145FE8;
+              }
+
+              v1201 = v674;
+              v1202 = sub_23EBDBFC4(v673);
+              sub_23EBDBF78("(%d) One existing configured base station named %@ is creating a network called %@.", v826, v827, v828, v829, v830, v831, v832, 401);
+              sub_23EBE9710(Mutable, byte_27E383C00, "HOST_BROWSED_BASE_STATIONS_CREATING_NETWORK_IS_ONE_TRUE", v833, v834, v835, v836, v837);
+              v14 = 402;
+              goto LABEL_466;
+            }
+
+            if (!Count)
+            {
+LABEL_465:
+              sub_23EBDBF78("(%d) No existing configured base stations are creating a network.", v143, v144, v145, v146, v147, v148, v149, 401);
+              sub_23EBE9710(Mutable, byte_27E383C00, "HOST_BROWSED_BASE_STATIONS_CREATING_NETWORK_IS_ZERO_TRUE", v409, v410, v411, v412, v413);
+              v14 = 403;
+LABEL_466:
+              if (theArray)
+              {
+                CFRelease(theArray);
+                theArray = 0;
+              }
+
+              if (dword_27E382C08 > 800 || dword_27E382C08 == -1 && !sub_23EB74AC8(&dword_27E382C08, 0x320u))
+              {
+                goto LABEL_994;
+              }
+
+              v285 = 401;
+              goto LABEL_993;
+            }
+
+            if (Count < 2)
+            {
+              v14 = 401;
+              goto LABEL_466;
+            }
+
+            key = 0;
+            sub_23EBDC01C("State 401 count >= 2 configed bases creating network: \n", theArray);
+            v15 = sub_23EBE188C(a1, 1, theArray, &key);
+            if (theArray)
+            {
+              CFRelease(theArray);
+            }
+
+            theArray = key;
+            if (v15 != -6727)
+            {
+              if (v15)
+              {
+                goto LABEL_1362;
+              }
+
+              if (!key)
+              {
+LABEL_1363:
+                v16 = 0;
+                v15 = 4294960568;
+                goto LABEL_1364;
+              }
+
+              v693 = CFArrayGetCount(key);
+              v1224 = v693;
+              if (v693 == 1)
+              {
+                sub_23EBDC01C("State 401 (2) count == 1 configed base creating network: \n", theArray);
+                ValueAtIndex = CFArrayGetValueAtIndex(theArray, 0);
+                CFRetain(ValueAtIndex);
+                v931 = ValueAtIndex;
+                v1225[0] = &stru_285145FE8;
+                if (ValueAtIndex)
                 {
-                  v36 = 0;
-                  goto LABEL_10;
+                  sub_23EB6FF14(ValueAtIndex, v1225, "%ks", "name");
+                  v932 = v1225[0];
+                  v931 = ValueAtIndex;
                 }
 
-                v67 = 103;
-                v117 = "(%d) This base station is not a STA-only device.";
-                v118 = "CHOSEN_BASE_STATION_IS_STA_ONLY_FALSE";
+                else
+                {
+                  v932 = &stru_285145FE8;
+                }
+
+                v1201 = v932;
+                v1202 = sub_23EBDBFC4(v931);
+                sub_23EBDBF78("(%d) One non G-Only configured base station named %@ is creating a network called %@.", v948, v949, v950, v951, v952, v953, v954, 401);
+                sub_23EBE9710(Mutable, byte_27E383C00, "HOST_BROWSED_BASE_STATIONS_CREATING_NETWORK_IS_ONE_TRUE", v955, v956, v957, v958, v959);
+LABEL_1009:
+                v14 = 402;
+                goto LABEL_1010;
+              }
+
+              if (!v693)
+              {
+                sub_23EBDBF78("(%d) No non G-Only configured base stations are creating a network.", v694, v695, v696, v697, v698, v699, v700, 401);
+                sub_23EBE9710(Mutable, byte_27E383C00, "HOST_BROWSED_BASE_STATIONS_CREATING_NETWORK_IS_ZERO_TRUE", v701, v702, v703, v704, v705);
+                v14 = 403;
+LABEL_1010:
+                v2 = MEMORY[0x277CBECE8];
+                goto LABEL_466;
+              }
+
+              if (v693 >= 2)
+              {
+                sub_23EBDC01C("State 401 (2) count >= 2 non G-Only configed bases creating network: \n", theArray);
+                v933 = sub_23EBE1A10(a1, theArray, &ValueAtIndex);
+                if (v933 == -6727)
+                {
+                  v1201 = v1224;
+                  sub_23EBDBF78("(%d) %d existing configured base stations are creating networks. However, one could not be automatically chosen.", v934, v935, v936, v937, v938, v939, v940, 401);
+                  sub_23EBE98EC(Mutable, byte_27E383C00, "HOST_BROWSED_BASE_STATIONS_CREATING_NETWORK_IS_GREATER_THAN_ONE_TRUE", v1224, v960, v961, v962, v963);
+                  cf = theArray;
+                  CFRetain(theArray);
+                  v14 = 1407;
+                  goto LABEL_1010;
+                }
+
+                v15 = v933;
+                if (!v933)
+                {
+                  if (!ValueAtIndex)
+                  {
+                    goto LABEL_1363;
+                  }
+
+                  CFRetain(ValueAtIndex);
+                  v941 = v1224;
+                  v942 = ValueAtIndex;
+                  v1225[0] = &stru_285145FE8;
+                  if (ValueAtIndex)
+                  {
+                    sub_23EB6FF14(ValueAtIndex, v1225, "%ks", "name");
+                    v943 = v1225[0];
+                    v942 = ValueAtIndex;
+                  }
+
+                  else
+                  {
+                    v943 = &stru_285145FE8;
+                  }
+
+                  v1202 = v943;
+                  v1203 = sub_23EBDBFC4(v942);
+                  v1201 = v941;
+                  sub_23EBDBF78("(%d) %d existing configured base stations are creating networks. The base station named %@ which creates the network called %@ was automatically chosen.", v964, v965, v966, v967, v968, v969, v970, 401);
+                  sub_23EBE98EC(Mutable, byte_27E383C00, "HOST_BROWSED_BASE_STATIONS_CREATING_NETWORK_IS_GREATER_THAN_ONE_TRUE", v1224, v971, v972, v973, v974);
+                  goto LABEL_1009;
+                }
+
+LABEL_1362:
+                v16 = 0;
+LABEL_1364:
+                v14 = 401;
+                goto LABEL_68;
               }
             }
 
-            sub_23EBDBF78(v117, v115, v116, a4, a5, a6, a7, a8, 104);
-            sub_23EBE9710(Mutable, byte_27E383C00, v118, v648, v649, v650, v651, v652);
-            if (dword_27E382C08 <= 800 && (dword_27E382C08 != -1 || sub_23EB74AC8(&dword_27E382C08, 0x320u)))
-            {
-              v306 = 104;
-              goto LABEL_944;
-            }
-
-            goto LABEL_945;
+            v14 = 401;
+            goto LABEL_1010;
           }
 
           if (dword_27E382C08 <= 800 && (dword_27E382C08 != -1 || sub_23EB74AC8(&dword_27E382C08, 0x320u)))
           {
-            sub_23EB75374(&dword_27E382C08, "void __BSAutoGuessConfiguration(void *)", 800, "\n********************************************************************************\n* Entering state: %d (%s)\n********************************************************************************\n\n", a5, a6, a7, a8, 103);
+            sub_23EB75374(&dword_27E382C08, "void __BSAutoGuessConfiguration(void *)", 800, "\n********************************************************************************\n* Entering state: %d (%s)\n********************************************************************************\n\n", 105, "IsAssociatedToNetworkForSTAOnlyDevice");
           }
 
-          if (sub_23EB6B268(v1144, v64, v65, a4, a5, a6, a7, a8))
+          v1221 = 0;
+          if (!v1211)
           {
-            v1146[0] = &stru_285145FE8;
-            if (v1144)
-            {
-              sub_23EB6FF14(v1144, v1146, "%ks", v251, v252, v253, v254, v255, "name");
-            }
-
-            sub_23EBDBF78("(%d) The chosen base station %@ has a restore profile.", v249, v250, v251, v252, v253, v254, v255, 103);
-            goto LABEL_826;
+            goto LABEL_439;
           }
 
-          if (sub_23EBDD2D4(v1144, v1129, v250, v251, v252, v253, v254, v255))
+          v1225[0] = 0;
+          key = 0;
+          v259 = sub_23EB6A1FC(v1210);
+          sub_23EB6FF14(v36, v1225, "%kO", @"SSID_STR");
+          if (v260)
           {
-            v1146[0] = &stru_285145FE8;
-            if (v1144)
+            v15 = v260;
+            goto LABEL_1218;
+          }
+
+          if (!v1225[0])
+          {
+            goto LABEL_1104;
+          }
+
+          v261 = sub_23EB6B7D0(v1225[0], 3, 0, *(a1 + 32));
+          if (v261 == -1)
+          {
+            v15 = 4294960560;
+            goto LABEL_1218;
+          }
+
+          key = CFArrayGetValueAtIndex(*(a1 + 32), v261);
+          if (!key)
+          {
+            goto LABEL_1104;
+          }
+
+          if (v1210 && (v259 - 3) <= 1)
+          {
+            if (sub_23EC0FA80(v1210, v262, v263, v264) || !sub_23EC0FAC8(key, v28, v29, v30))
             {
-              sub_23EB6FF14(v1144, v1146, "%ks", v549, v550, v551, v552, v553, "name");
+              if (key)
+              {
+                goto LABEL_322;
+              }
             }
 
-            sub_23EBDBF78("(%d) The chosen base station %@ has a previous configuration file.", v547, v548, v549, v550, v551, v552, v553, 103);
-LABEL_826:
-            v67 = 602;
-            v769 = "TEXT_RECORD_HAS_PROFILE_OR_PREVIOUS_CONFIG_FILE_TRUE";
+            else
+            {
+              v815 = sub_23EBE0544(a1, *(a1 + 32), v1225[0], 1, &key);
+              if (v815 != -6727)
+              {
+                v15 = v815;
+                if (v815)
+                {
+                  goto LABEL_1218;
+                }
+
+                if (!key)
+                {
+LABEL_1104:
+                  v15 = 4294960568;
+LABEL_1218:
+                  v16 = 0;
+                  v14 = 105;
+                  goto LABEL_10;
+                }
+
+LABEL_322:
+                if (sub_23EC0FAA4(v1210, v28, v29, v30))
+                {
+                  if (key)
+                  {
+                    goto LABEL_324;
+                  }
+                }
+
+                else if (!sub_23EC0FA3C(key, v28, v29, v30) && key)
+                {
+                  goto LABEL_324;
+                }
+              }
+            }
           }
 
           else
           {
-            v1146[0] = &stru_285145FE8;
-            if (v1144)
+LABEL_324:
+            v265 = CFArrayCreateMutable(v9, 1, MEMORY[0x277CBF128]);
+            theArray = v265;
+            if (!v265)
             {
-              sub_23EB6FF14(v1144, v1146, "%ks", v549, v550, v551, v552, v553, "name");
+              goto LABEL_1104;
             }
 
-            sub_23EBDBF78("(%d) The chosen base station %@ does not have a restore profile or previous configuration file.", v547, v548, v549, v550, v551, v552, v553, 103);
-            v67 = 501;
-            v769 = "TEXT_RECORD_HAS_PROFILE_OR_PREVIOUS_CONFIG_FILE_FALSE";
-          }
-
-          sub_23EBE9710(Mutable, byte_27E383C00, v769, v596, v597, v598, v599, v600);
-          if (dword_27E382C08 > 800 || dword_27E382C08 == -1 && !sub_23EB74AC8(&dword_27E382C08, 0x320u))
-          {
-            goto LABEL_945;
-          }
-
-          v306 = 103;
-          goto LABEL_944;
-        }
-
-        if (v67 != 105)
-        {
-          if (dword_27E382C08 <= 800 && (dword_27E382C08 != -1 || sub_23EB74AC8(&dword_27E382C08, 0x320u)))
-          {
-            sub_23EB75374(&dword_27E382C08, "void __BSAutoGuessConfiguration(void *)", 800, "\n********************************************************************************\n* Entering state: %d (%s)\n********************************************************************************\n\n", a5, a6, a7, a8, 401);
-          }
-
-          sub_23EBEAB18(*(a1 + 48), 15, 0, 0, a5, a6, a7, a8);
-          v172 = sub_23EBE2440(a1, v1144, *(a1 + 24), *(a1 + 32), &theArray, v169, v170, v171);
-          if (v172)
-          {
-            v35 = v172;
-            if (v172 != -6727)
+            CFArrayAppendValue(v265, key);
+            if (v1210)
             {
-              v36 = 0;
-              goto LABEL_10;
+              v266 = v1210;
             }
 
-            v1145 = 0;
-LABEL_465:
-            sub_23EBDBF78("(%d) No existing configured base stations are creating a network.", v173, v174, a4, a5, a6, a7, a8, 401);
-            sub_23EBE9710(Mutable, byte_27E383C00, "HOST_BROWSED_BASE_STATIONS_CREATING_NETWORK_IS_ZERO_TRUE", v395, v396, v397, v398, v399);
-            v67 = 403;
-LABEL_466:
+            else
+            {
+              v266 = v1223;
+            }
+
+            v15 = sub_23EBDDBF8(theArray, v266, 0);
             if (theArray)
             {
               CFRelease(theArray);
               theArray = 0;
             }
 
-            if (dword_27E382C08 > 800 || dword_27E382C08 == -1 && !sub_23EB74AC8(&dword_27E382C08, 0x320u))
+            if (v15 != -6727)
             {
-              goto LABEL_945;
-            }
-
-            v306 = 401;
-            goto LABEL_944;
-          }
-
-          if (!theArray)
-          {
-            v36 = 0;
-            v35 = 4294960568;
-            goto LABEL_10;
-          }
-
-          Count = CFArrayGetCount(theArray);
-          v1145 = Count;
-          if (Count == 1)
-          {
-            sub_23EBDC01C("State 401 count == 1 configed base creating network: \n", theArray, v174, a4, a5, a6, a7, a8);
-            ValueAtIndex = CFArrayGetValueAtIndex(theArray, 0);
-            CFRetain(ValueAtIndex);
-            v680 = ValueAtIndex;
-            v1146[0] = &stru_285145FE8;
-            if (ValueAtIndex)
-            {
-              sub_23EB6FF14(ValueAtIndex, v1146, "%ks", v675, v676, v677, v678, v679, "name");
-              v680 = ValueAtIndex;
-            }
-
-            sub_23EBDBFC4(v680, v673, v674, v675, v676, v677, v678, v679);
-            sub_23EBDBF78("(%d) One existing configured base station named %@ is creating a network called %@.", v804, v805, v806, v807, v808, v809, v810, 401);
-            sub_23EBE9710(Mutable, byte_27E383C00, "HOST_BROWSED_BASE_STATIONS_CREATING_NETWORK_IS_ONE_TRUE", v811, v812, v813, v814, v815);
-            v67 = 402;
-            goto LABEL_466;
-          }
-
-          if (!Count)
-          {
-            goto LABEL_465;
-          }
-
-          if (Count < 2)
-          {
-            v67 = 401;
-            goto LABEL_466;
-          }
-
-          key = 0;
-          sub_23EBDC01C("State 401 count >= 2 configed bases creating network: \n", theArray, v174, a4, a5, a6, a7, a8);
-          v35 = sub_23EBE188C(a1, 1, theArray, &key, v697, v698, v699, v700);
-          if (theArray)
-          {
-            CFRelease(theArray);
-          }
-
-          theArray = key;
-          if (v35 != -6727)
-          {
-            if (v35)
-            {
-              goto LABEL_1296;
-            }
-
-            if (!key)
-            {
-LABEL_1297:
-              v36 = 0;
-              v35 = 4294960568;
-              goto LABEL_68;
-            }
-
-            v701 = CFArrayGetCount(key);
-            v1145 = v701;
-            if (v701 == 1)
-            {
-              sub_23EBDC01C("State 401 (2) count == 1 configed base creating network: \n", theArray, v703, v704, a5, a6, a7, a8);
-              ValueAtIndex = CFArrayGetValueAtIndex(theArray, 0);
-              CFRetain(ValueAtIndex);
-              v906 = ValueAtIndex;
-              v1146[0] = &stru_285145FE8;
-              if (ValueAtIndex)
+              if (v15)
               {
-                sub_23EB6FF14(ValueAtIndex, v1146, "%ks", v901, v902, v903, v904, v905, "name");
-                v906 = ValueAtIndex;
+                goto LABEL_1218;
               }
 
-              sub_23EBDBFC4(v906, v899, v900, v901, v902, v903, v904, v905);
-              sub_23EBDBF78("(%d) One non G-Only configured base station named %@ is creating a network called %@.", v927, v928, v929, v930, v931, v932, v933, 401);
-              sub_23EBE9710(Mutable, byte_27E383C00, "HOST_BROWSED_BASE_STATIONS_CREATING_NETWORK_IS_ONE_TRUE", v934, v935, v936, v937, v938);
-LABEL_959:
-              v67 = 402;
-              goto LABEL_960;
-            }
-
-            if (!v701)
-            {
-              sub_23EBDBF78("(%d) No non G-Only configured base stations are creating a network.", v702, v703, v704, a5, a6, a7, a8, 401);
-              sub_23EBE9710(Mutable, byte_27E383C00, "HOST_BROWSED_BASE_STATIONS_CREATING_NETWORK_IS_ZERO_TRUE", v705, v706, v707, v708, v709);
-              v67 = 403;
-LABEL_960:
-              v9 = MEMORY[0x277CBECE8];
-              goto LABEL_466;
-            }
-
-            if (v701 >= 2)
-            {
-              sub_23EBDC01C("State 401 (2) count >= 2 non G-Only configed bases creating network: \n", theArray, v703, v704, a5, a6, a7, a8);
-              v912 = sub_23EBE1A10(a1, theArray, &ValueAtIndex, v907, v908, v909, v910, v911);
-              if (v912 == -6727)
-              {
-                sub_23EBDBF78("(%d) %d existing configured base stations are creating networks. However, one could not be automatically chosen.", v913, v914, a4, a5, a6, a7, a8, 401);
-                sub_23EBE98EC(Mutable, byte_27E383C00, "HOST_BROWSED_BASE_STATIONS_CREATING_NETWORK_IS_GREATER_THAN_ONE_TRUE", v1145, v939, v940, v941, v942);
-                cf = theArray;
-                CFRetain(theArray);
-                v67 = 1407;
-                goto LABEL_960;
-              }
-
-              v35 = v912;
-              if (v912)
-              {
-LABEL_1296:
-                v36 = 0;
-                goto LABEL_68;
-              }
-
-              if (!ValueAtIndex)
-              {
-                goto LABEL_1297;
-              }
-
-              CFRetain(ValueAtIndex);
-              v922 = ValueAtIndex;
-              v1146[0] = &stru_285145FE8;
-              if (ValueAtIndex)
-              {
-                sub_23EB6FF14(ValueAtIndex, v1146, "%ks", v917, v918, v919, v920, v921, "name");
-                v922 = ValueAtIndex;
-              }
-
-              sub_23EBDBFC4(v922, v915, v916, v917, v918, v919, v920, v921);
-              sub_23EBDBF78("(%d) %d existing configured base stations are creating networks. The base station named %@ which creates the network called %@ was automatically chosen.", v943, v944, v945, v946, v947, v948, v949, 401);
-              sub_23EBE98EC(Mutable, byte_27E383C00, "HOST_BROWSED_BASE_STATIONS_CREATING_NETWORK_IS_GREATER_THAN_ONE_TRUE", v1145, v950, v951, v952, v953);
-              goto LABEL_959;
+              v1221 = key;
+              CFRetain(key);
             }
           }
 
-          v67 = 401;
-          goto LABEL_960;
-        }
-
-        if (dword_27E382C08 <= 800 && (dword_27E382C08 != -1 || sub_23EB74AC8(&dword_27E382C08, 0x320u)))
-        {
-          sub_23EB75374(&dword_27E382C08, "void __BSAutoGuessConfiguration(void *)", 800, "\n********************************************************************************\n* Entering state: %d (%s)\n********************************************************************************\n\n", a5, a6, a7, a8, 105);
-        }
-
-        v1142 = 0;
-        if (!v1132)
-        {
-          goto LABEL_439;
-        }
-
-        v1146[0] = 0;
-        key = 0;
-        v277 = sub_23EB6A1FC(v1131);
-        sub_23EB6FF14(v68, v1146, "%kO", v278, v279, v280, v281, v282, @"SSID_STR");
-        if (v283)
-        {
-          v35 = v283;
-          goto LABEL_1160;
-        }
-
-        if (!v1146[0])
-        {
-          goto LABEL_1052;
-        }
-
-        v284 = sub_23EB6B7D0(v1146[0], 3, 0, *(a1 + 32));
-        if (v284 == -1)
-        {
-          v35 = 4294960560;
-          goto LABEL_1160;
-        }
-
-        key = CFArrayGetValueAtIndex(*(a1 + 32), v284);
-        if (!key)
-        {
-          goto LABEL_1052;
-        }
-
-        if (v1131 && (v277 - 3) <= 1)
-        {
-          if (sub_23EC0FA80(v1131, v285) || !sub_23EC0FAC8(key, v64))
+          if (v1221)
           {
-            if (key)
-            {
-              goto LABEL_322;
-            }
+            v1225[0] = &stru_285145FE8;
+            sub_23EB6FF14(v1221, v1225, "%ks.%ks", "txt", "raNm");
+            v1201 = v1225[0];
+            sub_23EBDBF78("(%d) Current network called %@ will be joined by STA-only device.", v267, v268, v269, v270, v271, v272, v273, 105);
+            v14 = 1403;
+            v279 = "CURRENT_NETWORK_FOR_STA_ONLY_TO_JOIN_IS_TRUE";
           }
 
           else
           {
-            v795 = sub_23EBE0544(a1, *(a1 + 32), v1146[0], 1, &key, a6, a7, a8);
-            if (v795 != -6727)
-            {
-              v35 = v795;
-              if (v795)
-              {
-                goto LABEL_1160;
-              }
-
-              if (!key)
-              {
-LABEL_1052:
-                v35 = 4294960568;
-LABEL_1160:
-                v36 = 0;
-                goto LABEL_10;
-              }
-
-LABEL_322:
-              if (sub_23EC0FAA4(v1131, v64))
-              {
-                if (key)
-                {
-                  goto LABEL_324;
-                }
-              }
-
-              else if (!sub_23EC0FA3C(key, v64) && key)
-              {
-                goto LABEL_324;
-              }
-            }
-          }
-        }
-
-        else
-        {
-LABEL_324:
-          v286 = CFArrayCreateMutable(v30, 1, MEMORY[0x277CBF128]);
-          theArray = v286;
-          if (!v286)
-          {
-            goto LABEL_1052;
-          }
-
-          CFArrayAppendValue(v286, key);
-          if (v1131)
-          {
-            v287 = v1131;
-          }
-
-          else
-          {
-            v287 = v1144;
-          }
-
-          v35 = sub_23EBDDBF8(theArray, v287, 0);
-          if (theArray)
-          {
-            CFRelease(theArray);
-            theArray = 0;
-          }
-
-          if (v35 != -6727)
-          {
-            if (v35)
-            {
-              goto LABEL_1160;
-            }
-
-            v1142 = key;
-            CFRetain(key);
-          }
-        }
-
-        if (v1142)
-        {
-          v1146[0] = &stru_285145FE8;
-          sub_23EB6FF14(v1142, v1146, "%ks.%ks", a4, a5, a6, a7, a8, "txt");
-          sub_23EBDBF78("(%d) Current network called %@ will be joined by STA-only device.", v288, v289, v290, v291, v292, v293, v294, 105);
-          v67 = 1403;
-          v300 = "CURRENT_NETWORK_FOR_STA_ONLY_TO_JOIN_IS_TRUE";
-        }
-
-        else
-        {
 LABEL_439:
-          sub_23EBDBF78("(%d) No current network for the STA-only device to join.", v64, v65, a4, a5, a6, a7, a8, 105);
-          v67 = 700;
-          v300 = "CURRENT_NETWORK_FOR_STA_ONLY_TO_JOIN_IS_FALSE";
+            sub_23EBDBF78("(%d) No current network for the STA-only device to join.", v28, v29, v30, v31, v32, v33, v34, 105);
+            v14 = 700;
+            v279 = "CURRENT_NETWORK_FOR_STA_ONLY_TO_JOIN_IS_FALSE";
+          }
+
+          sub_23EBE9710(Mutable, byte_27E383C00, v279, v274, v275, v276, v277, v278);
+          if (dword_27E382C08 > 800 || dword_27E382C08 == -1 && !sub_23EB74AC8(&dword_27E382C08, 0x320u))
+          {
+            goto LABEL_994;
+          }
+
+          v285 = 105;
+          goto LABEL_993;
         }
 
-        sub_23EBE9710(Mutable, byte_27E383C00, v300, v295, v296, v297, v298, v299);
-        if (dword_27E382C08 > 800 || dword_27E382C08 == -1 && !sub_23EB74AC8(&dword_27E382C08, 0x320u))
-        {
-          goto LABEL_945;
-        }
-
-        v306 = 105;
-        goto LABEL_944;
-      }
-
-      if (v67 > 100)
-      {
-        if (v67 != 101)
+        if (v14 == 103)
         {
           if (dword_27E382C08 <= 800 && (dword_27E382C08 != -1 || sub_23EB74AC8(&dword_27E382C08, 0x320u)))
           {
-            sub_23EB75374(&dword_27E382C08, "void __BSAutoGuessConfiguration(void *)", 800, "\n********************************************************************************\n* Entering state: %d (%s)\n********************************************************************************\n\n", a5, a6, a7, a8, 102);
+            sub_23EB75374(&dword_27E382C08, "void __BSAutoGuessConfiguration(void *)", 800, "\n********************************************************************************\n* Entering state: %d (%s)\n********************************************************************************\n\n", 103, "HasRestoreProfileOrPreviousConfigFile");
           }
 
-          sub_23EBEAB18(*(a1 + 48), 16, 0, v1144, a5, a6, a7, a8);
-          if (sub_23EBDCF40(v1144, v153, v154, v155, v156, v157, v158, v159))
+          if (sub_23EB6B268(v1223))
           {
-            v67 = 1101;
-            v167 = "(%d) This base station is an 802.11g model. We don't support it with this software.";
-            v168 = "CHOSEN_BASE_STATION_IS_80211G_TRUE";
+            v1225[0] = &stru_285145FE8;
+            if (v1223)
+            {
+              sub_23EB6FF14(v1223, v1225, "%ks", "name");
+              v236 = v1225[0];
+            }
+
+            else
+            {
+              v236 = &stru_285145FE8;
+            }
+
+            v1201 = v236;
+            sub_23EBDBF78("(%d) The chosen base station %@ has a restore profile.", v229, v230, v231, v232, v233, v234, v235, 103);
+            goto LABEL_861;
+          }
+
+          if (sub_23EBDD2D4(v1223, v1208))
+          {
+            v1225[0] = &stru_285145FE8;
+            if (v1223)
+            {
+              sub_23EB6FF14(v1223, v1225, "%ks", "name");
+              v544 = v1225[0];
+            }
+
+            else
+            {
+              v544 = &stru_285145FE8;
+            }
+
+            v1201 = v544;
+            sub_23EBDBF78("(%d) The chosen base station %@ has a previous configuration file.", v537, v538, v539, v540, v541, v542, v543, 103);
+LABEL_861:
+            v14 = 602;
+            v782 = "TEXT_RECORD_HAS_PROFILE_OR_PREVIOUS_CONFIG_FILE_TRUE";
           }
 
           else
           {
-            v506 = sub_23EBDCFD0(v1144, v160, v161, v162, v163, v164, v165, v166);
-            v507 = !v506;
-            if (v506)
+            v1225[0] = &stru_285145FE8;
+            if (v1223)
             {
-              v167 = "(%d) This base station is too new to be set up with this software.";
+              sub_23EB6FF14(v1223, v1225, "%ks", "name");
+              v711 = v1225[0];
             }
 
             else
             {
-              v167 = "(%d) This base station is not an 802.11g model. OK to continue.";
+              v711 = &stru_285145FE8;
             }
 
-            if (v507)
-            {
-              v168 = "CHOSEN_BASE_STATION_IS_80211G_FALSE";
-            }
-
-            else
-            {
-              v168 = "CHOSEN_BASE_STATION_IS_TOO_NEW_TRUE";
-            }
-
-            if (v507)
-            {
-              v67 = 104;
-            }
-
-            else
-            {
-              v67 = 1104;
-            }
+            v1201 = v711;
+            sub_23EBDBF78("(%d) The chosen base station %@ does not have a restore profile or previous configuration file.", v537, v538, v539, v540, v541, v542, v543, 103);
+            v14 = 501;
+            v782 = "TEXT_RECORD_HAS_PROFILE_OR_PREVIOUS_CONFIG_FILE_FALSE";
           }
 
-          sub_23EBDBF78(v167, v160, v161, v162, v163, v164, v165, v166, 102);
-          sub_23EBE9710(Mutable, byte_27E383C00, v168, v508, v509, v510, v511, v512);
+          sub_23EBE9710(Mutable, byte_27E383C00, v782, v598, v599, v600, v601, v602);
           if (dword_27E382C08 > 800 || dword_27E382C08 == -1 && !sub_23EB74AC8(&dword_27E382C08, 0x320u))
           {
-            goto LABEL_945;
+            goto LABEL_994;
           }
 
-          v306 = 102;
-          goto LABEL_944;
+          v285 = 103;
+          goto LABEL_993;
         }
 
         if (dword_27E382C08 <= 800 && (dword_27E382C08 != -1 || sub_23EB74AC8(&dword_27E382C08, 0x320u)))
         {
-          sub_23EB75374(&dword_27E382C08, "void __BSAutoGuessConfiguration(void *)", 800, "\n********************************************************************************\n* Entering state: %d (%s)\n********************************************************************************\n\n", a5, a6, a7, a8, 101);
+          sub_23EB75374(&dword_27E382C08, "void __BSAutoGuessConfiguration(void *)", 800, "\n********************************************************************************\n* Entering state: %d (%s)\n********************************************************************************\n\n", 104, "IsSTAOnlyDevice");
         }
 
-        v256 = sub_23EBDD05C(*(a1 + 24), &theDict, v65, a4, a5, a6, a7, a8);
-        if (v256 == -6727)
+        if (sub_23EB6C0E0(v1223))
         {
-          v1145 = 0;
+          v14 = 105;
+          v80 = "(%d) This base station is a STA-only device.";
+          v81 = "CHOSEN_BASE_STATION_IS_STA_ONLY_TRUE";
         }
 
         else
         {
-          v35 = v256;
-          if (v256)
+          sub_23EBDFE68(a1, v1223, 0, 0);
+          if (v503 == -6768)
           {
-            goto LABEL_1145;
+            v14 = 1102;
+            v80 = "(%d) Security error reading chosen base. We don't support it with this software.";
+            v81 = "CHOSEN_BASE_STATION_IS_OLDFW_TRUE";
+          }
+
+          else
+          {
+            v15 = v503;
+            if (v503)
+            {
+              v16 = 0;
+              v14 = 104;
+              goto LABEL_10;
+            }
+
+            v14 = 103;
+            v80 = "(%d) This base station is not a STA-only device.";
+            v81 = "CHOSEN_BASE_STATION_IS_STA_ONLY_FALSE";
+          }
+        }
+
+        sub_23EBDBF78(v80, v73, v74, v75, v76, v77, v78, v79, 104);
+        sub_23EBE9710(Mutable, byte_27E383C00, v81, v650, v651, v652, v653, v654);
+        if (dword_27E382C08 <= 800 && (dword_27E382C08 != -1 || sub_23EB74AC8(&dword_27E382C08, 0x320u)))
+        {
+          v285 = 104;
+LABEL_993:
+          sub_23EB75374(&dword_27E382C08, "void __BSAutoGuessConfiguration(void *)", 800, "\n********************************************************************************\n* Exiting state: %d\n********************************************************************************\n\n", v285);
+        }
+      }
+
+      else
+      {
+        if (v14 > 100)
+        {
+          if (v14 != 101)
+          {
+            if (dword_27E382C08 <= 800 && (dword_27E382C08 != -1 || sub_23EB74AC8(&dword_27E382C08, 0x320u)))
+            {
+              sub_23EB75374(&dword_27E382C08, "void __BSAutoGuessConfiguration(void *)", 800, "\n********************************************************************************\n* Entering state: %d (%s)\n********************************************************************************\n\n", 102, "IsChosenBaseStationConfigurable");
+            }
+
+            sub_23EBEAB18(*(a1 + 48), 16, 0, v1223);
+            if (sub_23EBDCF40(v1223))
+            {
+              v14 = 1101;
+              v140 = "(%d) This base station is an 802.11g model. We don't support it with this software.";
+              v141 = "CHOSEN_BASE_STATION_IS_80211G_TRUE";
+            }
+
+            else
+            {
+              v504 = sub_23EBDCFD0(v1223);
+              v505 = !v504;
+              if (v504)
+              {
+                v140 = "(%d) This base station is too new to be set up with this software.";
+              }
+
+              else
+              {
+                v140 = "(%d) This base station is not an 802.11g model. OK to continue.";
+              }
+
+              if (v505)
+              {
+                v141 = "CHOSEN_BASE_STATION_IS_80211G_FALSE";
+              }
+
+              else
+              {
+                v141 = "CHOSEN_BASE_STATION_IS_TOO_NEW_TRUE";
+              }
+
+              if (v505)
+              {
+                v14 = 104;
+              }
+
+              else
+              {
+                v14 = 1104;
+              }
+            }
+
+            sub_23EBDBF78(v140, v133, v134, v135, v136, v137, v138, v139, 102);
+            sub_23EBE9710(Mutable, byte_27E383C00, v141, v506, v507, v508, v509, v510);
+            if (dword_27E382C08 > 800 || dword_27E382C08 == -1 && !sub_23EB74AC8(&dword_27E382C08, 0x320u))
+            {
+              goto LABEL_994;
+            }
+
+            v285 = 102;
+            goto LABEL_993;
+          }
+
+          if (dword_27E382C08 <= 800 && (dword_27E382C08 != -1 || sub_23EB74AC8(&dword_27E382C08, 0x320u)))
+          {
+            sub_23EB75374(&dword_27E382C08, "void __BSAutoGuessConfiguration(void *)", 800, "\n********************************************************************************\n* Entering state: %d (%s)\n********************************************************************************\n\n", 101, "AnyUnconfiguredAppleBaseStationsDiscovered");
+          }
+
+          v237 = sub_23EBDD05C(*(a1 + 24), &theDict);
+          if (v237 != -6727)
+          {
+            v15 = v237;
+            if (v237)
+            {
+              goto LABEL_1198;
+            }
+
+            if (theDict)
+            {
+              v1224 = CFDictionaryGetCount(theDict);
+              sub_23EBDC8C0("State 101 unconfigured bases: \n", theDict);
+              if (v1224 != 1)
+              {
+                if (v1224)
+                {
+                  if (v1224 >= 2)
+                  {
+                    v15 = sub_23EBE0F68(theDict, v1208, &v1223);
+                    if (theDict)
+                    {
+                      CFRelease(theDict);
+                      theDict = 0;
+                    }
+
+                    if (v15)
+                    {
+                      v16 = 0;
+                    }
+
+                    else
+                    {
+                      if (v1223)
+                      {
+                        CFRetain(v1223);
+                        v252 = v1224;
+                        v253 = &stru_285145FE8;
+                        v1225[0] = &stru_285145FE8;
+                        if (v1223)
+                        {
+                          sub_23EB6FF14(v1223, v1225, "%ks", "name");
+                          v253 = v1225[0];
+                        }
+
+                        v1201 = v252;
+                        v1202 = v253;
+                        sub_23EBDBF78("(%d) Found %d unconfigured base stations and automatically chose to configure the base station named %@.", v245, v246, v247, v248, v249, v250, v251, 101);
+                        v14 = 102;
+                        v258 = "NUMBER_UNCONFIGURED_BASES_DISCOVERED_IS_GREATER_THAN_ONE_TRUE";
+                        v2 = MEMORY[0x277CBECE8];
+                        goto LABEL_506;
+                      }
+
+                      v16 = 0;
+                      v15 = 4294960568;
+                    }
+
+                    v14 = 101;
+                    goto LABEL_68;
+                  }
+
+                  v14 = 101;
+LABEL_507:
+                  if (dword_27E382C08 > 800 || dword_27E382C08 == -1 && !sub_23EB74AC8(&dword_27E382C08, 0x320u))
+                  {
+                    goto LABEL_994;
+                  }
+
+                  v285 = 101;
+                  goto LABEL_993;
+                }
+
+LABEL_505:
+                sub_23EBDBF78("(%d) No unconfigured base stations are on the current network.", v238, v239, v240, v241, v242, v243, v244, 101);
+                v14 = 801;
+                v258 = "NUMBER_UNCONFIGURED_BASES_DISCOVERED_IS_ZERO_TRUE";
+                goto LABEL_506;
+              }
+
+              v15 = sub_23EBDDF6C(theDict, &v1223);
+              if (theDict)
+              {
+                CFRelease(theDict);
+                theDict = 0;
+              }
+
+              if (!v15)
+              {
+                if (!v1223)
+                {
+                  goto LABEL_1199;
+                }
+
+                CFRetain(v1223);
+                v1225[0] = &stru_285145FE8;
+                if (v1223)
+                {
+                  sub_23EB6FF14(v1223, v1225, "%ks", "name");
+                  v692 = v1225[0];
+                }
+
+                else
+                {
+                  v692 = &stru_285145FE8;
+                }
+
+                v1201 = v692;
+                sub_23EBDBF78("(%d) One unconfigured base station %@ is connected and has been chosen.", v685, v686, v687, v688, v689, v690, v691, 101);
+                v14 = 102;
+                v258 = "NUMBER_UNCONFIGURED_BASES_DISCOVERED_IS_ONE_TRUE";
+LABEL_506:
+                sub_23EBE98EC(Mutable, byte_27E383C00, v258, v1224, v254, v255, v256, v257);
+                goto LABEL_507;
+              }
+
+LABEL_1198:
+              v16 = 0;
+            }
+
+            else
+            {
+LABEL_1199:
+              v16 = 0;
+              v15 = 4294960568;
+            }
+
+            v14 = 101;
+            goto LABEL_10;
+          }
+
+          v1224 = 0;
+          goto LABEL_505;
+        }
+
+        if (v14 != 1)
+        {
+          if (dword_27E382C08 <= 800 && (dword_27E382C08 != -1 || sub_23EB74AC8(&dword_27E382C08, 0x320u)))
+          {
+            sub_23EB75374(&dword_27E382C08, "void __BSAutoGuessConfiguration(void *)", 800, "\n********************************************************************************\n* Entering state: %d (%s)\n********************************************************************************\n\n", 10, "WhatTypeOfRecordWasSpecified");
+          }
+
+          v54 = sub_23EBE277C(*a1);
+          v55 = *a1;
+          if (v54)
+          {
+            sub_23EB6FF14(v55, &v1223, "%ks", "BSAutoGuessContext_ChosenUnconfiguredBrowseRecord");
+            if (v56)
+            {
+              goto LABEL_1193;
+            }
+
+            if (v1223)
+            {
+              CFRetain(v1223);
+              sub_23EBDCB98("Base station is specified by a bonjour record", v1223);
+              v1225[0] = &stru_285145FE8;
+              if (v1223)
+              {
+                sub_23EB6FF14(v1223, v1225, "%ks", "name");
+                v64 = v1225[0];
+              }
+
+              else
+              {
+                v64 = &stru_285145FE8;
+              }
+
+              v1201 = v64;
+              sub_23EBDBF78("(%d) The base station named %@ was specified with a Bonjour record.", v57, v58, v59, v60, v61, v62, v63, 10);
+              v14 = 102;
+              v644 = "SIG_UNCONFIGURED_BASE_SPECIFIED_BY_BONJOUR_RECORD_TRUE";
+              goto LABEL_886;
+            }
+
+LABEL_1194:
+            v16 = 0;
+            v15 = 4294960568;
+LABEL_1195:
+            v14 = 10;
+            goto LABEL_10;
+          }
+
+          if (sub_23EBE2820(v55))
+          {
+            sub_23EB6FF14(*a1, &v1221, "%ks", "BSAutoGuessContext_ChosenUnconfiguredScanRecord");
+            if (v56)
+            {
+LABEL_1193:
+              v15 = v56;
+              v16 = 0;
+              goto LABEL_1195;
+            }
+
+            if (!v1221)
+            {
+              goto LABEL_1194;
+            }
+
+            CFRetain(v1221);
+            sub_23EBDCCB4("Base station is specified by a wireless scan record", v1221);
+            v1225[0] = &stru_285145FE8;
+            if (v1221)
+            {
+              sub_23EB6FF14(v1221, v1225, "%kO", @"SSID_STR");
+              v502 = v1225[0];
+            }
+
+            else
+            {
+              v502 = &stru_285145FE8;
+            }
+
+            v1201 = v502;
+            sub_23EBDBF78("(%d) The base station named %@ was specified with a Wi-Fi scan", v495, v496, v497, v498, v499, v500, v501, 10);
+            v14 = 807;
+            v644 = "SIG_UNCONFIGURED_BASE_SPECIFIED_BY_WIRELESS_SCAN_RECORD_TRUE";
+LABEL_886:
+            sub_23EBE9710(Mutable, byte_27E383C00, v644, v639, v640, v641, v642, v643);
+          }
+
+          else
+          {
+            v14 = 10;
+          }
+
+          if (dword_27E382C08 > 800 || dword_27E382C08 == -1 && !sub_23EB74AC8(&dword_27E382C08, 0x320u))
+          {
+            goto LABEL_994;
+          }
+
+          v285 = 10;
+          goto LABEL_993;
+        }
+
+        if (dword_27E382C08 <= 800 && (dword_27E382C08 != -1 || sub_23EB74AC8(&dword_27E382C08, 0x320u)))
+        {
+          sub_23EB75374(&dword_27E382C08, "void __BSAutoGuessConfiguration(void *)", 800, "\n********************************************************************************\n* Entering state: %d (%s)\n********************************************************************************\n\n", 1, "CallerSpecifiedUnconfiguredBaseStation");
+        }
+
+        if (sub_23EBE28C4(*a1))
+        {
+          if (dword_27E382C08 <= 800 && (dword_27E382C08 != -1 || sub_23EB74AC8(&dword_27E382C08, 0x320u)))
+          {
+            sub_23EB75374(&dword_27E382C08, "void __BSAutoGuessConfiguration(void *)", 800, "Unconfigured base station passed in to state machine");
+          }
+
+          sub_23EBDBF78("(%d) The user chose a specific base station to set up", v217, v218, v219, v220, v221, v222, v223, 1);
+          sub_23EBE9710(Mutable, byte_27E383C00, "SIG_UNCONFIGURED_BASE_IN_IOCONTEXT_DICTIONARY_TRUE", v224, v225, v226, v227, v228);
+          v14 = 10;
+LABEL_588:
+          if (dword_27E382C08 > 800 || dword_27E382C08 == -1 && !sub_23EB74AC8(&dword_27E382C08, 0x320u))
+          {
+            goto LABEL_994;
+          }
+
+          v285 = 1;
+          goto LABEL_993;
+        }
+
+        if (dword_27E382C08 <= 800)
+        {
+          if (dword_27E382C08 != -1 || sub_23EB74AC8(&dword_27E382C08, 0x320u))
+          {
+            sub_23EB75374(&dword_27E382C08, "void __BSAutoGuessConfiguration(void *)", 800, "(%d) No unconfigured base station passed in to state machine", 1);
+          }
+
+          v14 = 101;
+          goto LABEL_588;
+        }
+
+        v14 = 101;
+      }
+    }
+
+    else
+    {
+      if (v14 > 501)
+      {
+        if (v14 > 503)
+        {
+          if (v14 == 504)
+          {
+            if (dword_27E382C08 <= 800 && (dword_27E382C08 != -1 || sub_23EB74AC8(&dword_27E382C08, 0x320u)))
+            {
+              sub_23EB75374(&dword_27E382C08, "void __BSAutoGuessConfiguration(void *)", 800, "\n********************************************************************************\n* Entering state: %d (%s)\n********************************************************************************\n\n", 504, "NumberHostBrowsedBaseStations");
+            }
+
+            v294 = sub_23EBDD20C(*(a1 + 24));
+            v1224 = v294;
+            if (v294)
+            {
+              v1201 = v294;
+              sub_23EBDBF78("(%d) %d existing base stations have been found.", v295, v296, v297, v298, v299, v300, v301, 504);
+              v14 = 401;
+              v307 = "HOST_BASE_STATIONS_BROWSED_TRUE";
+            }
+
+            else
+            {
+              sub_23EBDBF78("(%d) No existing base stations have been found.", v295, v296, v297, v298, v299, v300, v301, 504);
+              v14 = 700;
+              v307 = "HOST_BASE_STATIONS_BROWSED_FALSE";
+            }
+
+            sub_23EBE9710(Mutable, byte_27E383C00, v307, v302, v303, v304, v305, v306);
+            if (dword_27E382C08 > 800 || dword_27E382C08 == -1 && !sub_23EB74AC8(&dword_27E382C08, 0x320u))
+            {
+              goto LABEL_994;
+            }
+
+            v285 = 504;
+          }
+
+          else if (v14 == 505)
+          {
+            if (dword_27E382C08 <= 800 && (dword_27E382C08 != -1 || sub_23EB74AC8(&dword_27E382C08, 0x320u)))
+            {
+              sub_23EB75374(&dword_27E382C08, "void __BSAutoGuessConfiguration(void *)", 800, "\n********************************************************************************\n* Entering state: %d (%s)\n********************************************************************************\n\n", 505, "HasDHCPLease");
+            }
+
+            if (sub_23EBDCE88(v1223))
+            {
+              v1225[0] = &stru_285145FE8;
+              if (v1223)
+              {
+                sub_23EB6FF14(v1223, v1225, "%ks", "name");
+                v392 = v1225[0];
+              }
+
+              else
+              {
+                v392 = &stru_285145FE8;
+              }
+
+              v1201 = v392;
+              sub_23EBDBF78("(%d) The base station named %@ has a DHCP lease.", v385, v386, v387, v388, v389, v390, v391, 505);
+              v14 = 506;
+              v620 = "BASE_HAS_DHCP_LEASE_TRUE";
+            }
+
+            else
+            {
+              v1225[0] = &stru_285145FE8;
+              if (v1223)
+              {
+                sub_23EB6FF14(v1223, v1225, "%ks", "name");
+                v564 = v1225[0];
+              }
+
+              else
+              {
+                v564 = &stru_285145FE8;
+              }
+
+              v1201 = v564;
+              sub_23EBDBF78("(%d) The base station named %@ does not have a DHCP lease.", v385, v386, v387, v388, v389, v390, v391, 505);
+              v14 = 503;
+              v620 = "BASE_HAS_DHCP_LEASE_FALSE";
+            }
+
+            sub_23EBE9710(Mutable, byte_27E383C00, v620, v615, v616, v617, v618, v619);
+            if (dword_27E382C08 > 800 || dword_27E382C08 == -1 && !sub_23EB74AC8(&dword_27E382C08, 0x320u))
+            {
+              goto LABEL_994;
+            }
+
+            v285 = 505;
+          }
+
+          else
+          {
+            if (dword_27E382C08 <= 800 && (dword_27E382C08 != -1 || sub_23EB74AC8(&dword_27E382C08, 0x320u)))
+            {
+              sub_23EB75374(&dword_27E382C08, "void __BSAutoGuessConfiguration(void *)", 800, "\n********************************************************************************\n* Entering state: %d (%s)\n********************************************************************************\n\n", 506, "HasPublicRoutableIPAddress");
+            }
+
+            if (sub_23EBDFBC0(a1, v1223))
+            {
+              v1225[0] = &stru_285145FE8;
+              if (v1223)
+              {
+                sub_23EB6FF14(v1223, v1225, "%ks", "name");
+                v44 = v1225[0];
+              }
+
+              else
+              {
+                v44 = &stru_285145FE8;
+              }
+
+              v1201 = v44;
+              sub_23EBDBF78("(%d) The base station named %@ has a public routable IP address.", v37, v38, v39, v40, v41, v42, v43, 506);
+              v14 = 1701;
+              v608 = "BASE_HAS_PUBLIC_ROUTABLE_IP_TRUE";
+            }
+
+            else
+            {
+              v1225[0] = &stru_285145FE8;
+              if (v1223)
+              {
+                sub_23EB6FF14(v1223, v1225, "%ks", "name");
+                v562 = v1225[0];
+              }
+
+              else
+              {
+                v562 = &stru_285145FE8;
+              }
+
+              v1201 = v562;
+              sub_23EBDBF78("(%d) The base station named %@ does not have a public routable IP address.", v37, v38, v39, v40, v41, v42, v43, 506);
+              v14 = 503;
+              v608 = "BASE_HAS_PUBLIC_ROUTABLE_IP_FALSE";
+            }
+
+            sub_23EBE9710(Mutable, byte_27E383C00, v608, v603, v604, v605, v606, v607);
+            if (dword_27E382C08 > 800 || dword_27E382C08 == -1 && !sub_23EB74AC8(&dword_27E382C08, 0x320u))
+            {
+              goto LABEL_994;
+            }
+
+            v285 = 506;
+          }
+
+          goto LABEL_993;
+        }
+
+        if (v14 == 502)
+        {
+          if (dword_27E382C08 <= 800 && (dword_27E382C08 != -1 || sub_23EB74AC8(&dword_27E382C08, 0x320u)))
+          {
+            sub_23EB75374(&dword_27E382C08, "void __BSAutoGuessConfiguration(void *)", 800, "\n********************************************************************************\n* Entering state: %d (%s)\n********************************************************************************\n\n", 502, "UnconfiguredWANReportsPPPoEServerAvailable");
+          }
+
+          if (sub_23EBDCDD0(v1223))
+          {
+            v1225[0] = &stru_285145FE8;
+            if (v1223)
+            {
+              sub_23EB6FF14(v1223, v1225, "%ks", "name");
+              v384 = v1225[0];
+            }
+
+            else
+            {
+              v384 = &stru_285145FE8;
+            }
+
+            v1201 = v384;
+            sub_23EBDBF78("(%d) A PPPoE server is available to the base station named %@.", v377, v378, v379, v380, v381, v382, v383, 502);
+            v14 = 1701;
+            v614 = "BASE_HAS_PPPOE_AVAILABLE_TRUE";
+          }
+
+          else
+          {
+            v1225[0] = &stru_285145FE8;
+            if (v1223)
+            {
+              sub_23EB6FF14(v1223, v1225, "%ks", "name");
+              v563 = v1225[0];
+            }
+
+            else
+            {
+              v563 = &stru_285145FE8;
+            }
+
+            v1201 = v563;
+            sub_23EBDBF78("(%d) A PPPoE server is not available to the base station named %@.", v377, v378, v379, v380, v381, v382, v383, 502);
+            v14 = 505;
+            v614 = "BASE_HAS_PPPOE_AVAILABLE_FALSE";
+          }
+
+          sub_23EBE9710(Mutable, byte_27E383C00, v614, v609, v610, v611, v612, v613);
+          if (dword_27E382C08 > 800 || dword_27E382C08 == -1 && !sub_23EB74AC8(&dword_27E382C08, 0x320u))
+          {
+            goto LABEL_994;
+          }
+
+          v285 = 502;
+          goto LABEL_993;
+        }
+
+        if (dword_27E382C08 <= 800 && (dword_27E382C08 != -1 || sub_23EB74AC8(&dword_27E382C08, 0x320u)))
+        {
+          sub_23EB75374(&dword_27E382C08, "void __BSAutoGuessConfiguration(void *)", 800, "\n********************************************************************************\n* Entering state: %d (%s)\n********************************************************************************\n\n", 503, "NumberAirPortBaseStationsOnWAN");
+        }
+
+        v1224 = 0;
+        v195 = sub_23EBB7360(v1223, @"local.", @"_airport._tcp", 0, 2u, 1, &theDict);
+        if (v195 != -6735)
+        {
+          v15 = v195;
+          v1225[0] = 0;
+          if (v195)
+          {
+            goto LABEL_1105;
           }
 
           if (!theDict)
           {
-LABEL_1146:
-            v36 = 0;
-            v35 = 4294960568;
-            goto LABEL_10;
+            goto LABEL_1166;
           }
 
-          v1145 = CFDictionaryGetCount(theDict);
-          sub_23EBDC8C0("State 101 unconfigured bases: \n", theDict, v259, v260, v261, v262, v263, v264);
-          if (v1145 == 1)
+          v203 = CFDictionaryGetCount(theDict);
+          v196 = theDict;
+          if (v203)
           {
-            v35 = sub_23EBDDF6C(theDict, &v1144, v258, a4, a5, a6, a7, a8);
+            sub_23EBDC8C0("State 501 remote browse results \n", theDict);
+            v15 = sub_23EBDE648(theDict, v1225);
             if (theDict)
             {
               CFRelease(theDict);
               theDict = 0;
             }
 
-            if (v35)
+            if (v15)
             {
-LABEL_1145:
-              v36 = 0;
-              goto LABEL_10;
+LABEL_1105:
+              v16 = 0;
+              goto LABEL_1272;
             }
 
-            if (!v1144)
+            if (!v1225[0])
             {
-              goto LABEL_1146;
+              goto LABEL_1166;
             }
 
-            CFRetain(v1144);
-            v1146[0] = &stru_285145FE8;
-            if (v1144)
+            v15 = sub_23EBE220C(a1, v1225[0], *(a1 + 24), *(a1 + 32), &theArray);
+            if (v1225[0])
             {
-              sub_23EB6FF14(v1144, v1146, "%ks", v692, v693, v694, v695, v696, "name");
+              CFRelease(v1225[0]);
+              v1225[0] = 0;
             }
 
-            sub_23EBDBF78("(%d) One unconfigured base station %@ is connected and has been chosen.", v690, v691, v692, v693, v694, v695, v696, 101);
-            v67 = 102;
-            v276 = "NUMBER_UNCONFIGURED_BASES_DISCOVERED_IS_ONE_TRUE";
-            goto LABEL_506;
-          }
-
-          if (v1145)
-          {
-            if (v1145 < 2)
+            if (v15 == -6727)
             {
-              v67 = 101;
+              v1224 = 0;
             }
 
             else
             {
-              v35 = sub_23EBE0F68(theDict, v1129, &v1144, a4, a5, a6, a7, a8);
-              if (theDict)
+              if (v15)
               {
-                CFRelease(theDict);
-                theDict = 0;
+                goto LABEL_1105;
               }
 
-              if (v35)
+              if (!theArray)
               {
-                v36 = 0;
-                goto LABEL_68;
+LABEL_1166:
+                v16 = 0;
+                v15 = 4294960568;
+                goto LABEL_1272;
               }
 
-              if (!v1144)
-              {
-                v36 = 0;
-                v35 = 4294960568;
-                goto LABEL_68;
-              }
-
-              CFRetain(v1144);
-              v1146[0] = &stru_285145FE8;
-              if (v1144)
-              {
-                sub_23EB6FF14(v1144, v1146, "%ks", v267, v268, v269, v270, v271, "name");
-              }
-
-              sub_23EBDBF78("(%d) Found %d unconfigured base stations and automatically chose to configure the base station named %@.", v265, v266, v267, v268, v269, v270, v271, 101);
-              v67 = 102;
-              v276 = "NUMBER_UNCONFIGURED_BASES_DISCOVERED_IS_GREATER_THAN_ONE_TRUE";
-              v9 = MEMORY[0x277CBECE8];
-LABEL_506:
-              sub_23EBE98EC(Mutable, byte_27E383C00, v276, v1145, v272, v273, v274, v275);
+              v1224 = CFArrayGetCount(theArray);
             }
+          }
 
-            if (dword_27E382C08 > 800 || dword_27E382C08 == -1 && !sub_23EB74AC8(&dword_27E382C08, 0x320u))
-            {
-              goto LABEL_945;
-            }
-
-            v306 = 101;
-            goto LABEL_944;
+          else if (theDict)
+          {
+            CFRelease(theDict);
+            theDict = 0;
           }
         }
 
-        sub_23EBDBF78("(%d) No unconfigured base stations are on the current network.", v257, v258, a4, a5, a6, a7, a8, 101);
-        v67 = 801;
-        v276 = "NUMBER_UNCONFIGURED_BASES_DISCOVERED_IS_ZERO_TRUE";
-        goto LABEL_506;
-      }
-
-      if (v67 != 1)
-      {
-        if (dword_27E382C08 <= 800 && (dword_27E382C08 != -1 || sub_23EB74AC8(&dword_27E382C08, 0x320u)))
+        if (v1224 != 1)
         {
-          sub_23EB75374(&dword_27E382C08, "void __BSAutoGuessConfiguration(void *)", 800, "\n********************************************************************************\n* Entering state: %d (%s)\n********************************************************************************\n\n", a5, a6, a7, a8, 10);
-        }
-
-        v92 = sub_23EBE277C(*a1, v64, v65, a4, a5, a6, a7, a8);
-        v93 = *a1;
-        if (v92)
-        {
-          sub_23EB6FF14(v93, &v1144, "%ks", v87, v88, v89, v90, v91, "BSAutoGuessContext_ChosenUnconfiguredBrowseRecord");
-          if (v94)
+          if (!v1224)
           {
-            goto LABEL_1141;
+            v1225[0] = &stru_285145FE8;
+            if (v1223)
+            {
+              sub_23EB6FF14(v1223, v1225, "%ks", "name");
+              v713 = v1225[0];
+            }
+
+            else
+            {
+              v713 = &stru_285145FE8;
+            }
+
+            v1201 = v713;
+            sub_23EBDBF78("(%d) No base stations are detected on the WAN port of the base station named %@.", v196, v197, v198, v199, v200, v201, v202, 503);
+            sub_23EBE98EC(Mutable, byte_27E383C00, "NUMBER_BASE_STATIONS_ON_WAN_PORT_IS_ZERO_TRUE", v1224, v733, v734, v735, v736);
+            v14 = 504;
+            goto LABEL_965;
           }
 
-          if (!v1144)
+          if (v1224 < 2)
           {
-LABEL_1142:
-            v36 = 0;
-            v35 = 4294960568;
-            goto LABEL_10;
-          }
-
-          CFRetain(v1144);
-          sub_23EBDCB98("Base station is specified by a bonjour record", v1144, v95, v96, v97, v98, v99, v100);
-          v1146[0] = &stru_285145FE8;
-          if (v1144)
-          {
-            sub_23EB6FF14(v1144, v1146, "%ks", v103, v104, v105, v106, v107, "name");
-          }
-
-          sub_23EBDBF78("(%d) The base station named %@ was specified with a Bonjour record.", v101, v102, v103, v104, v105, v106, v107, 10);
-          v67 = 102;
-          v642 = "SIG_UNCONFIGURED_BASE_SPECIFIED_BY_BONJOUR_RECORD_TRUE";
-LABEL_850:
-          sub_23EBE9710(Mutable, byte_27E383C00, v642, v637, v638, v639, v640, v641);
-        }
-
-        else
-        {
-          if (sub_23EBE2820(v93, v85, v86, v87, v88, v89, v90, v91))
-          {
-            sub_23EB6FF14(*a1, &v1142, "%ks", v491, a5, a6, a7, a8, "BSAutoGuessContext_ChosenUnconfiguredScanRecord");
-            if (v94)
-            {
-LABEL_1141:
-              v35 = v94;
-              v36 = 0;
-              goto LABEL_10;
-            }
-
-            if (!v1142)
-            {
-              goto LABEL_1142;
-            }
-
-            CFRetain(v1142);
-            sub_23EBDCCB4("Base station is specified by a wireless scan record", v1142, v492, v493, v494, v495, v496, v497);
-            v1146[0] = &stru_285145FE8;
-            if (v1142)
-            {
-              sub_23EB6FF14(v1142, v1146, "%kO", v500, v501, v502, v503, v504, @"SSID_STR");
-            }
-
-            sub_23EBDBF78("(%d) The base station named %@ was specified with a Wi-Fi scan", v498, v499, v500, v501, v502, v503, v504, 10);
-            v67 = 807;
-            v642 = "SIG_UNCONFIGURED_BASE_SPECIFIED_BY_WIRELESS_SCAN_RECORD_TRUE";
-            goto LABEL_850;
-          }
-
-          v67 = 10;
-        }
-
-        if (dword_27E382C08 > 800 || dword_27E382C08 == -1 && !sub_23EB74AC8(&dword_27E382C08, 0x320u))
-        {
-          goto LABEL_945;
-        }
-
-        v306 = 10;
-        goto LABEL_944;
-      }
-
-      if (dword_27E382C08 <= 800 && (dword_27E382C08 != -1 || sub_23EB74AC8(&dword_27E382C08, 0x320u)))
-      {
-        sub_23EB75374(&dword_27E382C08, "void __BSAutoGuessConfiguration(void *)", 800, "\n********************************************************************************\n* Entering state: %d (%s)\n********************************************************************************\n\n", a5, a6, a7, a8, 1);
-      }
-
-      if (sub_23EBE28C4(*a1, v64, v65, a4, a5, a6, a7, a8))
-      {
-        if (dword_27E382C08 <= 800 && (dword_27E382C08 != -1 || sub_23EB74AC8(&dword_27E382C08, 0x320u)))
-        {
-          sub_23EB75374(&dword_27E382C08, "void __BSAutoGuessConfiguration(void *)", 800, "Unconfigured base station passed in to state machine", a5, a6, a7, a8, v1123);
-        }
-
-        sub_23EBDBF78("(%d) The user chose a specific base station to set up", v241, v242, v243, a5, a6, a7, a8, 1);
-        sub_23EBE9710(Mutable, byte_27E383C00, "SIG_UNCONFIGURED_BASE_IN_IOCONTEXT_DICTIONARY_TRUE", v244, v245, v246, v247, v248);
-        v67 = 10;
-LABEL_588:
-        if (dword_27E382C08 > 800 || dword_27E382C08 == -1 && !sub_23EB74AC8(&dword_27E382C08, 0x320u))
-        {
-          goto LABEL_945;
-        }
-
-        v306 = 1;
-        goto LABEL_944;
-      }
-
-      if (dword_27E382C08 <= 800)
-      {
-        if (dword_27E382C08 != -1 || sub_23EB74AC8(&dword_27E382C08, 0x320u))
-        {
-          sub_23EB75374(&dword_27E382C08, "void __BSAutoGuessConfiguration(void *)", 800, "(%d) No unconfigured base station passed in to state machine", a5, a6, a7, a8, 1);
-        }
-
-        v67 = 101;
-        goto LABEL_588;
-      }
-
-      v67 = 101;
-    }
-
-    else if (v67 <= 501)
-    {
-      if (v67 > 403)
-      {
-        if (v67 == 404)
-        {
-          if (dword_27E382C08 <= 800 && (dword_27E382C08 != -1 || sub_23EB74AC8(&dword_27E382C08, 0x320u)))
-          {
-            sub_23EB75374(&dword_27E382C08, "void __BSAutoGuessConfiguration(void *)", 800, "\n********************************************************************************\n* Entering state: %d (%s)\n********************************************************************************\n\n", a5, a6, a7, a8, 404);
-          }
-
-          v330 = sub_23EBE15C4(a1, *(a1 + 24), *(a1 + 32), &theArray, a5, a6, a7, a8);
-          if (v330)
-          {
-            v35 = v330;
-            if (v330 != -6727)
-            {
-              goto LABEL_1217;
-            }
-
-            v1145 = 0;
-LABEL_374:
-            sub_23EBDBF78("(%d) No existing configured base stations are joined to a network.", v331, v332, a4, a5, a6, a7, a8, 404);
-            v67 = 700;
-            v338 = "NUMBER_BROWSED_BASE_STATIONS_IN_STA_MODE_NETWORKS_IS_ZERO_TRUE";
-LABEL_856:
-            sub_23EBE9710(Mutable, byte_27E383C00, v338, v333, v334, v335, v336, v337);
-          }
-
-          else
-          {
-            if (!theArray)
-            {
-              goto LABEL_1113;
-            }
-
-            v476 = CFArrayGetCount(theArray);
-            v1145 = v476;
-            if (v476 == 1)
-            {
-              v477 = CFArrayGetValueAtIndex(theArray, 0);
-              if (!v477)
-              {
-                goto LABEL_1113;
-              }
-
-              v478 = sub_23EBE0544(a1, *(a1 + 32), v477, 3, &theDict, a6, a7, a8);
-              if (v478)
-              {
-                v35 = v478;
-LABEL_1217:
-                v36 = 0;
-                goto LABEL_10;
-              }
-
-              if (!theDict)
-              {
-LABEL_1113:
-                v36 = 0;
-                v35 = 4294960568;
-                goto LABEL_10;
-              }
-
-              v1142 = theDict;
-              CFRetain(theDict);
-              if (theDict)
-              {
-                CFRelease(theDict);
-                theDict = 0;
-              }
-
-              v1146[0] = &stru_285145FE8;
-              if (v1142)
-              {
-                sub_23EB6FF14(v1142, v1146, "%kO", v481, v482, v483, v484, v485, @"SSID_STR");
-              }
-
-              sub_23EBDBF78("(%d) All the existing configured base stations are joining the same network called %@.", v479, v480, v481, v482, v483, v484, v485, 404);
-              v67 = 1403;
-              v338 = "NUMBER_BROWSED_BASE_STATIONS_IN_STA_MODE_NETWORKS_IS_ONE_TRUE";
-              goto LABEL_856;
-            }
-
-            if (v476 < 2)
-            {
-              goto LABEL_374;
-            }
-
-            sub_23EBDBF78("(%d) The existing configured base stations are joined to %d different networks.", v331, v332, a4, a5, a6, a7, a8, 404);
-            sub_23EBE98EC(Mutable, byte_27E383C00, "NUMBER_BROWSED_BASE_STATIONS_IN_STA_MODE_NETWORKS_IS_GREATER_THAN_ONE_TRUE", v1145, v576, v577, v578, v579);
-            v35 = sub_23EBE0748(a1, *(a1 + 32), theArray, &cf, v580, v581, v582, v583);
+            v14 = 503;
+LABEL_965:
             if (theArray)
             {
               CFRelease(theArray);
               theArray = 0;
             }
 
-            if (v35)
+            if (dword_27E382C08 > 800 || dword_27E382C08 == -1 && !sub_23EB74AC8(&dword_27E382C08, 0x320u))
             {
-              v36 = 0;
+              goto LABEL_994;
+            }
+
+            v285 = 503;
+            goto LABEL_993;
+          }
+
+          if (sub_23EBE1A10(a1, theArray, &ValueAtIndex) == -6727)
+          {
+            v731 = v1224;
+            v1225[0] = &stru_285145FE8;
+            if (v1223)
+            {
+              sub_23EB6FF14(v1223, v1225, "%ks", "name");
+              v732 = v1225[0];
+            }
+
+            else
+            {
+              v732 = &stru_285145FE8;
+            }
+
+            v1201 = v731;
+            v1202 = v732;
+            sub_23EBDBF78("(%d) %d base stations are detected on the WAN port of the base station named %@. However, one could not be automatically chosen as a canidate for extension.", v724, v725, v726, v727, v728, v729, v730, 503);
+            sub_23EBE98EC(Mutable, byte_27E383C00, "NUMBER_BASE_STATIONS_ON_WAN_PORT_IS_GREATER_THAN_ONE_TRUE", v1224, v913, v914, v915, v916);
+            cf = theArray;
+            CFRetain(theArray);
+            v14 = 1502;
+LABEL_964:
+            v2 = MEMORY[0x277CBECE8];
+            goto LABEL_965;
+          }
+
+          v816 = sub_23EBDE464(ValueAtIndex, *(a1 + 24), &ValueAtIndex);
+          if (v816 && (v15 = v816, v816 != -6727))
+          {
+            v16 = 0;
+          }
+
+          else
+          {
+            if (ValueAtIndex)
+            {
+              CFRetain(ValueAtIndex);
+              v824 = v1224;
+              v1225[0] = &stru_285145FE8;
+              if (v1223)
+              {
+                sub_23EB6FF14(v1223, v1225, "%ks", "name");
+                v825 = v1225[0];
+              }
+
+              else
+              {
+                v825 = &stru_285145FE8;
+              }
+
+              v917 = &stru_285145FE8;
+              v1225[0] = &stru_285145FE8;
+              if (ValueAtIndex)
+              {
+                sub_23EB6FF14(ValueAtIndex, v1225, "%ks", "name");
+                v917 = v1225[0];
+              }
+
+              v1202 = v825;
+              v1203 = v917;
+              v1201 = v824;
+              sub_23EBDBF78("(%d) %d base stations are detected on the WAN port of the base station named %@. The base station named %@ was automatically chosen as a canidate for extension.", v817, v818, v819, v820, v821, v822, v823, 503);
+              sub_23EBE98EC(Mutable, byte_27E383C00, "NUMBER_BASE_STATIONS_ON_WAN_PORT_IS_GREATER_THAN_ONE_TRUE", v1224, v918, v919, v920, v921);
+              v14 = 1501;
+              goto LABEL_964;
+            }
+
+            v16 = 0;
+            v15 = 4294960569;
+          }
+
+          v14 = 503;
+          goto LABEL_68;
+        }
+
+        ValueAtIndex = CFArrayGetValueAtIndex(theArray, 0);
+        v714 = CFArrayGetValueAtIndex(theArray, 0);
+        v715 = sub_23EBDE464(v714, *(a1 + 24), &ValueAtIndex);
+        if (v715)
+        {
+          v15 = v715;
+          if (v715 != -6727)
+          {
+            goto LABEL_1105;
+          }
+        }
+
+        if (ValueAtIndex)
+        {
+          CFRetain(ValueAtIndex);
+          v1225[0] = &stru_285145FE8;
+          if (ValueAtIndex)
+          {
+            sub_23EB6FF14(ValueAtIndex, v1225, "%ks", "name");
+            v723 = v1225[0];
+          }
+
+          else
+          {
+            v723 = &stru_285145FE8;
+          }
+
+          v1225[0] = &stru_285145FE8;
+          if (v1223)
+          {
+            sub_23EB6FF14(v1223, v1225, "%ks", "name");
+            v742 = v1225[0];
+          }
+
+          else
+          {
+            v742 = &stru_285145FE8;
+          }
+
+          v1201 = v723;
+          v1202 = v742;
+          sub_23EBDBF78("(%d) One base station named %@ is detected on the WAN port of the base station named %@.", v716, v717, v718, v719, v720, v721, v722, 503);
+          sub_23EBE98EC(Mutable, byte_27E383C00, "NUMBER_BASE_STATIONS_ON_WAN_PORT_IS_ONE_TRUE", v1224, v743, v744, v745, v746);
+          v14 = 1501;
+          goto LABEL_965;
+        }
+
+        v16 = 0;
+        v15 = 4294960569;
+LABEL_1272:
+        v14 = 503;
+        goto LABEL_10;
+      }
+
+      if (v14 > 403)
+      {
+        if (v14 == 404)
+        {
+          if (dword_27E382C08 <= 800 && (dword_27E382C08 != -1 || sub_23EB74AC8(&dword_27E382C08, 0x320u)))
+          {
+            sub_23EB75374(&dword_27E382C08, "void __BSAutoGuessConfiguration(void *)", 800, "\n********************************************************************************\n* Entering state: %d (%s)\n********************************************************************************\n\n", 404, "AnyOtherBrowsedConfAppleBasesInSTAMode");
+          }
+
+          v316 = sub_23EBE15C4(a1, *(a1 + 24), *(a1 + 32), &theArray);
+          if (v316)
+          {
+            v15 = v316;
+            if (v316 != -6727)
+            {
+              goto LABEL_1276;
+            }
+
+            v1224 = 0;
+LABEL_374:
+            sub_23EBDBF78("(%d) No existing configured base stations are joined to a network.", v317, v318, v319, v320, v321, v322, v323, 404);
+            v14 = 700;
+            v329 = "NUMBER_BROWSED_BASE_STATIONS_IN_STA_MODE_NETWORKS_IS_ZERO_TRUE";
+LABEL_893:
+            sub_23EBE9710(Mutable, byte_27E383C00, v329, v324, v325, v326, v327, v328);
+          }
+
+          else
+          {
+            if (!theArray)
+            {
+              goto LABEL_1165;
+            }
+
+            v479 = CFArrayGetCount(theArray);
+            v1224 = v479;
+            if (v479 == 1)
+            {
+              v480 = CFArrayGetValueAtIndex(theArray, 0);
+              if (!v480)
+              {
+                goto LABEL_1165;
+              }
+
+              v481 = sub_23EBE0544(a1, *(a1 + 32), v480, 3, &theDict);
+              if (v481)
+              {
+                v15 = v481;
+LABEL_1276:
+                v16 = 0;
+              }
+
+              else
+              {
+                if (theDict)
+                {
+                  v1221 = theDict;
+                  CFRetain(theDict);
+                  if (theDict)
+                  {
+                    CFRelease(theDict);
+                    theDict = 0;
+                  }
+
+                  v1225[0] = &stru_285145FE8;
+                  if (v1221)
+                  {
+                    sub_23EB6FF14(v1221, v1225, "%kO", @"SSID_STR");
+                    v489 = v1225[0];
+                  }
+
+                  else
+                  {
+                    v489 = &stru_285145FE8;
+                  }
+
+                  v1201 = v489;
+                  sub_23EBDBF78("(%d) All the existing configured base stations are joining the same network called %@.", v482, v483, v484, v485, v486, v487, v488, 404);
+                  v14 = 1403;
+                  v329 = "NUMBER_BROWSED_BASE_STATIONS_IN_STA_MODE_NETWORKS_IS_ONE_TRUE";
+                  goto LABEL_893;
+                }
+
+LABEL_1165:
+                v16 = 0;
+                v15 = 4294960568;
+              }
+
+              v14 = 404;
               goto LABEL_10;
             }
 
-            v67 = 1406;
+            if (v479 < 2)
+            {
+              goto LABEL_374;
+            }
+
+            v1201 = v479;
+            sub_23EBDBF78("(%d) The existing configured base stations are joined to %d different networks.", v317, v318, v319, v320, v321, v322, v323, 404);
+            sub_23EBE98EC(Mutable, byte_27E383C00, "NUMBER_BROWSED_BASE_STATIONS_IN_STA_MODE_NETWORKS_IS_GREATER_THAN_ONE_TRUE", v1224, v582, v583, v584, v585);
+            v15 = sub_23EBE0748(a1, *(a1 + 32), theArray, &cf);
+            if (theArray)
+            {
+              CFRelease(theArray);
+              theArray = 0;
+            }
+
+            if (v15)
+            {
+              v16 = 0;
+              v14 = 1406;
+              goto LABEL_10;
+            }
+
+            v14 = 1406;
             if (!cf)
             {
-              v36 = 0;
-              v35 = 4294960568;
+              v16 = 0;
+              v15 = 4294960568;
               goto LABEL_10;
             }
           }
@@ -5371,170 +6055,242 @@ LABEL_1113:
 
           if (dword_27E382C08 > 800 || dword_27E382C08 == -1 && !sub_23EB74AC8(&dword_27E382C08, 0x320u))
           {
-            goto LABEL_945;
+            goto LABEL_994;
           }
 
-          v306 = 404;
-          goto LABEL_944;
+          v285 = 404;
+          goto LABEL_993;
         }
 
         if (dword_27E382C08 <= 800 && (dword_27E382C08 != -1 || sub_23EB74AC8(&dword_27E382C08, 0x320u)))
         {
-          sub_23EB75374(&dword_27E382C08, "void __BSAutoGuessConfiguration(void *)", 800, "\n********************************************************************************\n* Entering state: %d (%s)\n********************************************************************************\n\n", a5, a6, a7, a8, 501);
+          sub_23EB75374(&dword_27E382C08, "void __BSAutoGuessConfiguration(void *)", 800, "\n********************************************************************************\n* Entering state: %d (%s)\n********************************************************************************\n\n", 501, "UnconfiguredBaseStationHasEthernetLink");
         }
 
-        v1145 = 0;
-        v195 = sub_23EBDF140(a1, v1144, 0, &v1145, a5, a6, a7, a8);
-        if (v195)
+        v1224 = 0;
+        v169 = sub_23EBDF140(a1, v1223, 0, &v1224);
+        if (v169)
         {
-          v35 = v195;
-          if (v195 != -6727)
+          v15 = v169;
+          if (v169 != -6727)
           {
-            v36 = 0;
+            v16 = 0;
+            v14 = 501;
             goto LABEL_10;
           }
         }
 
-        if (v1145)
+        if (v1224)
         {
-          v1146[0] = &stru_285145FE8;
-          if (v1144)
+          v1225[0] = &stru_285145FE8;
+          if (v1223)
           {
-            sub_23EB6FF14(v1144, v1146, "%ks", a4, a5, a6, a7, a8, "name");
+            sub_23EB6FF14(v1223, v1225, "%ks", "name");
+            v177 = v1225[0];
           }
 
-          sub_23EBDBF78("(%d) An Ethernet port of the base station named %@ is plugged in.", v196, v197, a4, a5, a6, a7, a8, 501);
-          v67 = 502;
-          v624 = "BASE_HAS_WAN_PLUGGED_IN_TRUE";
+          else
+          {
+            v177 = &stru_285145FE8;
+          }
+
+          v1201 = v177;
+          sub_23EBDBF78("(%d) An Ethernet port of the base station named %@ is plugged in.", v170, v171, v172, v173, v174, v175, v176, 501);
+          v14 = 502;
+          v626 = "BASE_HAS_WAN_PLUGGED_IN_TRUE";
         }
 
         else
         {
-          v1146[0] = &stru_285145FE8;
-          if (v1144)
+          v1225[0] = &stru_285145FE8;
+          if (v1223)
           {
-            sub_23EB6FF14(v1144, v1146, "%ks", a4, a5, a6, a7, a8, "name");
+            sub_23EB6FF14(v1223, v1225, "%ks", "name");
+            v565 = v1225[0];
           }
 
-          sub_23EBDBF78("(%d) An Ethernet port of the base station named %@ is not plugged in.", v196, v197, a4, a5, a6, a7, a8, 501);
-          v67 = 504;
-          v624 = "BASE_HAS_WAN_PLUGGED_IN_FALSE";
+          else
+          {
+            v565 = &stru_285145FE8;
+          }
+
+          v1201 = v565;
+          sub_23EBDBF78("(%d) An Ethernet port of the base station named %@ is not plugged in.", v170, v171, v172, v173, v174, v175, v176, 501);
+          v14 = 504;
+          v626 = "BASE_HAS_WAN_PLUGGED_IN_FALSE";
         }
 
-        sub_23EBE9710(Mutable, byte_27E383C00, v624, v619, v620, v621, v622, v623);
+        sub_23EBE9710(Mutable, byte_27E383C00, v626, v621, v622, v623, v624, v625);
         if (dword_27E382C08 <= 800 && (dword_27E382C08 != -1 || sub_23EB74AC8(&dword_27E382C08, 0x320u)))
         {
-          v306 = 501;
-          goto LABEL_944;
+          v285 = 501;
+          goto LABEL_993;
         }
       }
 
       else
       {
-        if (v67 == 402)
+        if (v14 == 402)
         {
           LODWORD(key) = 0;
           if (dword_27E382C08 <= 800 && (dword_27E382C08 != -1 || sub_23EB74AC8(&dword_27E382C08, 0x320u)))
           {
-            sub_23EB75374(&dword_27E382C08, "void __BSAutoGuessConfiguration(void *)", 800, "\n********************************************************************************\n* Entering state: %d (%s)\n********************************************************************************\n\n", a5, a6, a7, a8, 402);
+            sub_23EB75374(&dword_27E382C08, "void __BSAutoGuessConfiguration(void *)", 800, "\n********************************************************************************\n* Entering state: %d (%s)\n********************************************************************************\n\n", 402, "IsExistingDeviceInferior");
           }
 
           LODWORD(key) = 0;
-          sub_23EBE1188(a1, v1144, ValueAtIndex, &key, a5, a6, a7, a8);
+          sub_23EBE1188(a1, v1223, ValueAtIndex, &key);
           switch(key)
           {
             case 3:
-              v1146[0] = &stru_285145FE8;
+              v1225[0] = &stru_285145FE8;
               if (ValueAtIndex)
               {
-                sub_23EB6FF14(ValueAtIndex, v1146, "%ks", v325, v326, v327, v328, v329, "name");
+                sub_23EB6FF14(ValueAtIndex, v1225, "%ks", "name");
+                v580 = v1225[0];
               }
 
-              v1146[0] = &stru_285145FE8;
-              if (v1144)
+              else
               {
-                sub_23EB6FF14(v1144, v1146, "%ks", v325, v326, v327, v328, v329, "name");
+                v580 = &stru_285145FE8;
               }
 
-              sub_23EBDBF78("(%d) The existing base station named %@ is unconfigurable (non-SRP FW) but will be replaced by the new base station named %@", v323, v324, v325, v326, v327, v328, v329, 402);
-              v67 = 1409;
-              v768 = "PREVIOUS_DEVICE_IS_UNCONFIGURABLE_OLD_FW_TRUE";
+              v1225[0] = &stru_285145FE8;
+              if (v1223)
+              {
+                sub_23EB6FF14(v1223, v1225, "%ks", "name");
+                v779 = v1225[0];
+              }
+
+              else
+              {
+                v779 = &stru_285145FE8;
+              }
+
+              v1201 = v580;
+              v1202 = v779;
+              sub_23EBDBF78("(%d) The existing base station named %@ is unconfigurable (non-SRP FW) but will be replaced by the new base station named %@", v308, v309, v310, v311, v312, v313, v314, 402);
+              v14 = 1409;
+              v778 = "PREVIOUS_DEVICE_IS_UNCONFIGURABLE_OLD_FW_TRUE";
               break;
             case 2:
-              v1146[0] = &stru_285145FE8;
+              v1225[0] = &stru_285145FE8;
               if (ValueAtIndex)
               {
-                sub_23EB6FF14(ValueAtIndex, v1146, "%ks", v325, v326, v327, v328, v329, "name");
+                sub_23EB6FF14(ValueAtIndex, v1225, "%ks", "name");
+                v579 = v1225[0];
               }
 
-              v1146[0] = &stru_285145FE8;
-              if (v1144)
+              else
               {
-                sub_23EB6FF14(v1144, v1146, "%ks", v325, v326, v327, v328, v329, "name");
+                v579 = &stru_285145FE8;
               }
 
-              sub_23EBDBF78("(%d) The existing base station named %@ is unconfigurable (Q61/P81) but will be replaced by the new base station named %@", v323, v324, v325, v326, v327, v328, v329, 402);
-              v67 = 1408;
-              v768 = "PREVIOUS_DEVICE_IS_UNCONFIGURABLE_Q61_P81_TRUE";
+              v1225[0] = &stru_285145FE8;
+              if (v1223)
+              {
+                sub_23EB6FF14(v1223, v1225, "%ks", "name");
+                v772 = v1225[0];
+              }
+
+              else
+              {
+                v772 = &stru_285145FE8;
+              }
+
+              v1201 = v579;
+              v1202 = v772;
+              sub_23EBDBF78("(%d) The existing base station named %@ is unconfigurable (Q61/P81) but will be replaced by the new base station named %@", v308, v309, v310, v311, v312, v313, v314, 402);
+              v14 = 1408;
+              v778 = "PREVIOUS_DEVICE_IS_UNCONFIGURABLE_Q61_P81_TRUE";
               break;
             case 1:
-              v1146[0] = &stru_285145FE8;
+              v1225[0] = &stru_285145FE8;
               if (ValueAtIndex)
               {
-                sub_23EB6FF14(ValueAtIndex, v1146, "%ks", v325, v326, v327, v328, v329, "name");
+                sub_23EB6FF14(ValueAtIndex, v1225, "%ks", "name");
+                v315 = v1225[0];
               }
 
-              v1146[0] = &stru_285145FE8;
-              if (v1144)
+              else
               {
-                sub_23EB6FF14(v1144, v1146, "%ks", v325, v326, v327, v328, v329, "name");
+                v315 = &stru_285145FE8;
               }
 
-              sub_23EBDBF78("(%d) The existing base station named %@ is inferior to the new base station named %@", v323, v324, v325, v326, v327, v328, v329, 402);
-              v67 = 1402;
-              v768 = "EXISTING_DEVICE_IS_INFERIOR_TRUE";
+              v1225[0] = &stru_285145FE8;
+              if (v1223)
+              {
+                sub_23EB6FF14(v1223, v1225, "%ks", "name");
+                v780 = v1225[0];
+              }
+
+              else
+              {
+                v780 = &stru_285145FE8;
+              }
+
+              v1201 = v315;
+              v1202 = v780;
+              sub_23EBDBF78("(%d) The existing base station named %@ is inferior to the new base station named %@", v308, v309, v310, v311, v312, v313, v314, 402);
+              v14 = 1402;
+              v778 = "EXISTING_DEVICE_IS_INFERIOR_TRUE";
               break;
             default:
-              v1146[0] = &stru_285145FE8;
+              v1225[0] = &stru_285145FE8;
               if (ValueAtIndex)
               {
-                sub_23EB6FF14(ValueAtIndex, v1146, "%ks", v325, v326, v327, v328, v329, "name");
+                sub_23EB6FF14(ValueAtIndex, v1225, "%ks", "name");
+                v581 = v1225[0];
               }
 
-              v1146[0] = &stru_285145FE8;
-              if (v1144)
+              else
               {
-                sub_23EB6FF14(v1144, v1146, "%ks", v325, v326, v327, v328, v329, "name");
+                v581 = &stru_285145FE8;
               }
 
-              sub_23EBDBF78("(%d) Existing base station named %@ is not inferior to the new base station named %@", v323, v324, v325, v326, v327, v328, v329, 402);
-              v67 = 1401;
-              v768 = "EXISTING_DEVICE_IS_INFERIOR_FALSE";
+              v1225[0] = &stru_285145FE8;
+              if (v1223)
+              {
+                sub_23EB6FF14(v1223, v1225, "%ks", "name");
+                v781 = v1225[0];
+              }
+
+              else
+              {
+                v781 = &stru_285145FE8;
+              }
+
+              v1201 = v581;
+              v1202 = v781;
+              sub_23EBDBF78("(%d) Existing base station named %@ is not inferior to the new base station named %@", v308, v309, v310, v311, v312, v313, v314, 402);
+              v14 = 1401;
+              v778 = "EXISTING_DEVICE_IS_INFERIOR_FALSE";
               break;
           }
 
-          sub_23EBE9710(Mutable, byte_27E383C00, v768, v763, v764, v765, v766, v767);
+          sub_23EBE9710(Mutable, byte_27E383C00, v778, v773, v774, v775, v776, v777);
           if (dword_27E382C08 > 800 || dword_27E382C08 == -1 && !sub_23EB74AC8(&dword_27E382C08, 0x320u))
           {
-            goto LABEL_945;
+            goto LABEL_994;
           }
 
-          v306 = 402;
-          goto LABEL_944;
+          v285 = 402;
+          goto LABEL_993;
         }
 
         LOBYTE(key) = 0;
         if (dword_27E382C08 <= 800 && (dword_27E382C08 != -1 || sub_23EB74AC8(&dword_27E382C08, 0x320u)))
         {
-          sub_23EB75374(&dword_27E382C08, "void __BSAutoGuessConfiguration(void *)", 800, "\n********************************************************************************\n* Entering state: %d (%s)\n********************************************************************************\n\n", a5, a6, a7, a8, 403);
+          sub_23EB75374(&dword_27E382C08, "void __BSAutoGuessConfiguration(void *)", 800, "\n********************************************************************************\n* Entering state: %d (%s)\n********************************************************************************\n\n", 403, "ChosenBaseSupportsSTAMode");
         }
 
-        v122 = sub_23EBDF2B4(a1, v1144, 1112757313, &key, a5, a6, a7, a8);
-        if (v122)
+        v90 = sub_23EBDF2B4(a1, v1223, 1112757313, &key);
+        if (v90)
         {
-LABEL_1051:
-          v35 = v122;
-          v36 = 0;
+LABEL_1103:
+          v15 = v90;
+          v16 = 0;
+          v14 = 403;
           goto LABEL_68;
         }
 
@@ -5543,22 +6299,22 @@ LABEL_1051:
           goto LABEL_444;
         }
 
-        v125 = sub_23EB6A2C0(v1144, v123, v124, a4, a5, a6, a7, a8);
-        if (v125 >= 0x77)
+        v98 = sub_23EB6A2C0(v1223);
+        if (v98 >= 0x77)
         {
-          v126 = v125;
-          LOBYTE(v1146[0]) = 0;
-          v122 = sub_23EBDF2B4(a1, v1144, 1632923251, v1146, a5, a6, a7, a8);
-          if (v122)
+          v99 = v98;
+          LOBYTE(v1225[0]) = 0;
+          v90 = sub_23EBDF2B4(a1, v1223, 1632923251, v1225);
+          if (v90)
           {
-            goto LABEL_1051;
+            goto LABEL_1103;
           }
 
-          if (!LOBYTE(v1146[0]))
+          if (!LOBYTE(v1225[0]))
           {
             if (dword_27E382C08 <= 800 && (dword_27E382C08 != -1 || sub_23EB74AC8(&dword_27E382C08, 0x320u)))
             {
-              sub_23EB75374(&dword_27E382C08, "void __BSAutoGuessConfiguration(void *)", 800, "Ignoring kACPFeatureCodeBeingSTA for this product id:(%d)", a5, a6, a7, a8, v126);
+              sub_23EB75374(&dword_27E382C08, "void __BSAutoGuessConfiguration(void *)", 800, "Ignoring kACPFeatureCodeBeingSTA for this product id:(%d)", v99);
             }
 
             LOBYTE(key) = 0;
@@ -5567,1143 +6323,910 @@ LABEL_1051:
 
         if (key)
         {
-          v1146[0] = &stru_285145FE8;
-          if (v1144)
+          v1225[0] = &stru_285145FE8;
+          if (v1223)
           {
-            sub_23EB6FF14(v1144, v1146, "%ks", a4, a5, a6, a7, a8, "name");
+            sub_23EB6FF14(v1223, v1225, "%ks", "name");
+            v100 = v1225[0];
           }
 
-          sub_23EBDBF78("(%d) Chosen base station named %@ supports STA mode", v123, v124, a4, a5, a6, a7, a8, 403);
-          v67 = 404;
-          v636 = "CHOSEN_BASE_STATION_SUPPORTS_STA_TRUE";
+          else
+          {
+            v100 = &stru_285145FE8;
+          }
+
+          v1201 = v100;
+          sub_23EBDBF78("(%d) Chosen base station named %@ supports STA mode", v91, v92, v93, v94, v95, v96, v97, 403);
+          v14 = 404;
+          v638 = "CHOSEN_BASE_STATION_SUPPORTS_STA_TRUE";
         }
 
         else
         {
 LABEL_444:
-          v1146[0] = &stru_285145FE8;
-          if (v1144)
+          v1225[0] = &stru_285145FE8;
+          if (v1223)
           {
-            sub_23EB6FF14(v1144, v1146, "%ks", a4, a5, a6, a7, a8, "name");
+            sub_23EB6FF14(v1223, v1225, "%ks", "name");
+            v393 = v1225[0];
           }
 
-          sub_23EBDBF78("(%d) Chosen base station named %@ does not support STA mode", v123, v124, a4, a5, a6, a7, a8, 403);
-          v67 = 700;
-          v636 = "CHOSEN_BASE_STATION_SUPPORTS_STA_FALSE";
+          else
+          {
+            v393 = &stru_285145FE8;
+          }
+
+          v1201 = v393;
+          sub_23EBDBF78("(%d) Chosen base station named %@ does not support STA mode", v91, v92, v93, v94, v95, v96, v97, 403);
+          v14 = 700;
+          v638 = "CHOSEN_BASE_STATION_SUPPORTS_STA_FALSE";
         }
 
-        sub_23EBE9710(Mutable, byte_27E383C00, v636, v631, v632, v633, v634, v635);
+        sub_23EBE9710(Mutable, byte_27E383C00, v638, v633, v634, v635, v636, v637);
         if (dword_27E382C08 <= 800 && (dword_27E382C08 != -1 || sub_23EB74AC8(&dword_27E382C08, 0x320u)))
         {
-          v306 = 403;
-          goto LABEL_944;
+          v285 = 403;
+          goto LABEL_993;
         }
       }
     }
 
-    else
-    {
-      if (v67 > 503)
-      {
-        if (v67 == 504)
-        {
-          if (dword_27E382C08 <= 800 && (dword_27E382C08 != -1 || sub_23EB74AC8(&dword_27E382C08, 0x320u)))
-          {
-            sub_23EB75374(&dword_27E382C08, "void __BSAutoGuessConfiguration(void *)", 800, "\n********************************************************************************\n* Entering state: %d (%s)\n********************************************************************************\n\n", a5, a6, a7, a8, 504);
-          }
-
-          v1145 = sub_23EBDD20C(*(a1 + 24), v64, v65, a4, a5, a6, a7, a8);
-          if (v1145)
-          {
-            sub_23EBDBF78("(%d) %d existing base stations have been found.", v310, v311, v312, v313, v314, v315, v316, 504);
-            v67 = 401;
-            v322 = "HOST_BASE_STATIONS_BROWSED_TRUE";
-          }
-
-          else
-          {
-            sub_23EBDBF78("(%d) No existing base stations have been found.", v310, v311, v312, v313, v314, v315, v316, 504);
-            v67 = 700;
-            v322 = "HOST_BASE_STATIONS_BROWSED_FALSE";
-          }
-
-          sub_23EBE9710(Mutable, byte_27E383C00, v322, v317, v318, v319, v320, v321);
-          if (dword_27E382C08 > 800 || dword_27E382C08 == -1 && !sub_23EB74AC8(&dword_27E382C08, 0x320u))
-          {
-            goto LABEL_945;
-          }
-
-          v306 = 504;
-        }
-
-        else if (v67 == 505)
-        {
-          if (dword_27E382C08 <= 800 && (dword_27E382C08 != -1 || sub_23EB74AC8(&dword_27E382C08, 0x320u)))
-          {
-            sub_23EB75374(&dword_27E382C08, "void __BSAutoGuessConfiguration(void *)", 800, "\n********************************************************************************\n* Entering state: %d (%s)\n********************************************************************************\n\n", a5, a6, a7, a8, 505);
-          }
-
-          if (sub_23EBDCE88(v1144, v64, v65, a4, a5, a6, a7, a8))
-          {
-            v1146[0] = &stru_285145FE8;
-            if (v1144)
-            {
-              sub_23EB6FF14(v1144, v1146, "%ks", v381, v382, v383, v384, v385, "name");
-            }
-
-            sub_23EBDBF78("(%d) The base station named %@ has a DHCP lease.", v379, v380, v381, v382, v383, v384, v385, 505);
-            v67 = 506;
-            v618 = "BASE_HAS_DHCP_LEASE_TRUE";
-          }
-
-          else
-          {
-            v1146[0] = &stru_285145FE8;
-            if (v1144)
-            {
-              sub_23EB6FF14(v1144, v1146, "%ks", v381, v382, v383, v384, v385, "name");
-            }
-
-            sub_23EBDBF78("(%d) The base station named %@ does not have a DHCP lease.", v379, v380, v381, v382, v383, v384, v385, 505);
-            v67 = 503;
-            v618 = "BASE_HAS_DHCP_LEASE_FALSE";
-          }
-
-          sub_23EBE9710(Mutable, byte_27E383C00, v618, v613, v614, v615, v616, v617);
-          if (dword_27E382C08 > 800 || dword_27E382C08 == -1 && !sub_23EB74AC8(&dword_27E382C08, 0x320u))
-          {
-            goto LABEL_945;
-          }
-
-          v306 = 505;
-        }
-
-        else
-        {
-          if (dword_27E382C08 <= 800 && (dword_27E382C08 != -1 || sub_23EB74AC8(&dword_27E382C08, 0x320u)))
-          {
-            sub_23EB75374(&dword_27E382C08, "void __BSAutoGuessConfiguration(void *)", 800, "\n********************************************************************************\n* Entering state: %d (%s)\n********************************************************************************\n\n", a5, a6, a7, a8, 506);
-          }
-
-          if (sub_23EBDFBC0(a1, v1144, v65, a4, a5, a6, a7, a8))
-          {
-            v1146[0] = &stru_285145FE8;
-            if (v1144)
-            {
-              sub_23EB6FF14(v1144, v1146, "%ks", v71, v72, v73, v74, v75, "name");
-            }
-
-            sub_23EBDBF78("(%d) The base station named %@ has a public routable IP address.", v69, v70, v71, v72, v73, v74, v75, 506);
-            v67 = 1701;
-            v606 = "BASE_HAS_PUBLIC_ROUTABLE_IP_TRUE";
-          }
-
-          else
-          {
-            v1146[0] = &stru_285145FE8;
-            if (v1144)
-            {
-              sub_23EB6FF14(v1144, v1146, "%ks", v71, v72, v73, v74, v75, "name");
-            }
-
-            sub_23EBDBF78("(%d) The base station named %@ does not have a public routable IP address.", v69, v70, v71, v72, v73, v74, v75, 506);
-            v67 = 503;
-            v606 = "BASE_HAS_PUBLIC_ROUTABLE_IP_FALSE";
-          }
-
-          sub_23EBE9710(Mutable, byte_27E383C00, v606, v601, v602, v603, v604, v605);
-          if (dword_27E382C08 > 800 || dword_27E382C08 == -1 && !sub_23EB74AC8(&dword_27E382C08, 0x320u))
-          {
-            goto LABEL_945;
-          }
-
-          v306 = 506;
-        }
-
-        goto LABEL_944;
-      }
-
-      if (v67 == 502)
-      {
-        if (dword_27E382C08 <= 800 && (dword_27E382C08 != -1 || sub_23EB74AC8(&dword_27E382C08, 0x320u)))
-        {
-          sub_23EB75374(&dword_27E382C08, "void __BSAutoGuessConfiguration(void *)", 800, "\n********************************************************************************\n* Entering state: %d (%s)\n********************************************************************************\n\n", a5, a6, a7, a8, 502);
-        }
-
-        if (sub_23EBDCDD0(v1144, v64, v65, a4, a5, a6, a7, a8))
-        {
-          v1146[0] = &stru_285145FE8;
-          if (v1144)
-          {
-            sub_23EB6FF14(v1144, v1146, "%ks", v374, v375, v376, v377, v378, "name");
-          }
-
-          sub_23EBDBF78("(%d) A PPPoE server is available to the base station named %@.", v372, v373, v374, v375, v376, v377, v378, 502);
-          v67 = 1701;
-          v612 = "BASE_HAS_PPPOE_AVAILABLE_TRUE";
-        }
-
-        else
-        {
-          v1146[0] = &stru_285145FE8;
-          if (v1144)
-          {
-            sub_23EB6FF14(v1144, v1146, "%ks", v374, v375, v376, v377, v378, "name");
-          }
-
-          sub_23EBDBF78("(%d) A PPPoE server is not available to the base station named %@.", v372, v373, v374, v375, v376, v377, v378, 502);
-          v67 = 505;
-          v612 = "BASE_HAS_PPPOE_AVAILABLE_FALSE";
-        }
-
-        sub_23EBE9710(Mutable, byte_27E383C00, v612, v607, v608, v609, v610, v611);
-        if (dword_27E382C08 > 800 || dword_27E382C08 == -1 && !sub_23EB74AC8(&dword_27E382C08, 0x320u))
-        {
-          goto LABEL_945;
-        }
-
-        v306 = 502;
-        goto LABEL_944;
-      }
-
-      if (dword_27E382C08 <= 800 && (dword_27E382C08 != -1 || sub_23EB74AC8(&dword_27E382C08, 0x320u)))
-      {
-        sub_23EB75374(&dword_27E382C08, "void __BSAutoGuessConfiguration(void *)", 800, "\n********************************************************************************\n* Entering state: %d (%s)\n********************************************************************************\n\n", a5, a6, a7, a8, 503);
-      }
-
-      v1145 = 0;
-      v218 = sub_23EBB7360(v1144, @"local.", @"_airport._tcp", 0, 2u, 1, &theDict);
-      if (v218 != -6735)
-      {
-        v35 = v218;
-        v1146[0] = 0;
-        if (v218)
-        {
-          goto LABEL_1053;
-        }
-
-        if (!theDict)
-        {
-          goto LABEL_1114;
-        }
-
-        v221 = CFDictionaryGetCount(theDict);
-        v219 = theDict;
-        if (v221)
-        {
-          sub_23EBDC8C0("State 501 remote browse results \n", theDict, v220, a4, a5, a6, a7, a8);
-          v35 = sub_23EBDE648(theDict, v1146, v222, v223, v224, v225, v226, v227);
-          if (theDict)
-          {
-            CFRelease(theDict);
-            theDict = 0;
-          }
-
-          if (v35)
-          {
-LABEL_1053:
-            v36 = 0;
-            goto LABEL_10;
-          }
-
-          if (!v1146[0])
-          {
-            goto LABEL_1114;
-          }
-
-          v35 = sub_23EBE220C(a1, v1146[0], *(a1 + 24), *(a1 + 32), &theArray);
-          if (v1146[0])
-          {
-            CFRelease(v1146[0]);
-            v1146[0] = 0;
-          }
-
-          if (v35 == -6727)
-          {
-            v1145 = 0;
-          }
-
-          else
-          {
-            if (v35)
-            {
-              goto LABEL_1053;
-            }
-
-            if (!theArray)
-            {
-LABEL_1114:
-              v36 = 0;
-              v35 = 4294960568;
-              goto LABEL_10;
-            }
-
-            v1145 = CFArrayGetCount(theArray);
-          }
-        }
-
-        else if (theDict)
-        {
-          CFRelease(theDict);
-          theDict = 0;
-        }
-      }
-
-      if (v1145 == 1)
-      {
-        ValueAtIndex = CFArrayGetValueAtIndex(theArray, 0);
-        v715 = CFArrayGetValueAtIndex(theArray, 0);
-        v721 = sub_23EBDE464(v715, *(a1 + 24), &ValueAtIndex, v716, v717, v718, v719, v720);
-        if (v721)
-        {
-          v35 = v721;
-          if (v721 != -6727)
-          {
-            goto LABEL_1053;
-          }
-        }
-
-        if (!ValueAtIndex)
-        {
-          v36 = 0;
-          v35 = 4294960569;
-          goto LABEL_10;
-        }
-
-        CFRetain(ValueAtIndex);
-        v1146[0] = &stru_285145FE8;
-        if (ValueAtIndex)
-        {
-          sub_23EB6FF14(ValueAtIndex, v1146, "%ks", v724, v725, v726, v727, v728, "name");
-        }
-
-        v1146[0] = &stru_285145FE8;
-        if (v1144)
-        {
-          sub_23EB6FF14(v1144, v1146, "%ks", v724, v725, v726, v727, v728, "name");
-        }
-
-        sub_23EBDBF78("(%d) One base station named %@ is detected on the WAN port of the base station named %@.", v722, v723, v724, v725, v726, v727, v728, 503);
-        sub_23EBE98EC(Mutable, byte_27E383C00, "NUMBER_BASE_STATIONS_ON_WAN_PORT_IS_ONE_TRUE", v1145, v744, v745, v746, v747);
-        v67 = 1501;
-      }
-
-      else if (v1145)
-      {
-        if (v1145 < 2)
-        {
-          v67 = 503;
-        }
-
-        else
-        {
-          if (sub_23EBE1A10(a1, theArray, &ValueAtIndex, a4, a5, a6, a7, a8) == -6727)
-          {
-            v1146[0] = &stru_285145FE8;
-            if (v1144)
-            {
-              sub_23EB6FF14(v1144, v1146, "%ks", v731, v732, v733, v734, v735, "name");
-            }
-
-            sub_23EBDBF78("(%d) %d base stations are detected on the WAN port of the base station named %@. However, one could not be automatically chosen as a canidate for extension.", v729, v730, v731, v732, v733, v734, v735, 503);
-            sub_23EBE98EC(Mutable, byte_27E383C00, "NUMBER_BASE_STATIONS_ON_WAN_PORT_IS_GREATER_THAN_ONE_TRUE", v1145, v882, v883, v884, v885);
-            cf = theArray;
-            CFRetain(theArray);
-            v67 = 1502;
-          }
-
-          else
-          {
-            v796 = sub_23EBDE464(ValueAtIndex, *(a1 + 24), &ValueAtIndex, v731, v732, v733, v734, v735);
-            if (v796)
-            {
-              v35 = v796;
-              if (v796 != -6727)
-              {
-                v36 = 0;
-                goto LABEL_68;
-              }
-            }
-
-            if (!ValueAtIndex)
-            {
-              v36 = 0;
-              v35 = 4294960569;
-              goto LABEL_68;
-            }
-
-            CFRetain(ValueAtIndex);
-            v1146[0] = &stru_285145FE8;
-            if (v1144)
-            {
-              sub_23EB6FF14(v1144, v1146, "%ks", v799, v800, v801, v802, v803, "name");
-            }
-
-            v1146[0] = &stru_285145FE8;
-            if (ValueAtIndex)
-            {
-              sub_23EB6FF14(ValueAtIndex, v1146, "%ks", v799, v800, v801, v802, v803, "name");
-            }
-
-            sub_23EBDBF78("(%d) %d base stations are detected on the WAN port of the base station named %@. The base station named %@ was automatically chosen as a canidate for extension.", v797, v798, v799, v800, v801, v802, v803, 503);
-            sub_23EBE98EC(Mutable, byte_27E383C00, "NUMBER_BASE_STATIONS_ON_WAN_PORT_IS_GREATER_THAN_ONE_TRUE", v1145, v886, v887, v888, v889);
-            v67 = 1501;
-          }
-
-          v9 = MEMORY[0x277CBECE8];
-        }
-      }
-
-      else
-      {
-        v1146[0] = &stru_285145FE8;
-        if (v1144)
-        {
-          sub_23EB6FF14(v1144, v1146, "%ks", a4, a5, a6, a7, a8, "name");
-        }
-
-        sub_23EBDBF78("(%d) No base stations are detected on the WAN port of the base station named %@.", v219, v220, a4, a5, a6, a7, a8, 503);
-        sub_23EBE98EC(Mutable, byte_27E383C00, "NUMBER_BASE_STATIONS_ON_WAN_PORT_IS_ZERO_TRUE", v1145, v736, v737, v738, v739);
-        v67 = 504;
-      }
-
-      if (theArray)
-      {
-        CFRelease(theArray);
-        theArray = 0;
-      }
-
-      if (dword_27E382C08 <= 800 && (dword_27E382C08 != -1 || sub_23EB74AC8(&dword_27E382C08, 0x320u)))
-      {
-        v306 = 503;
-        goto LABEL_944;
-      }
-    }
-
-LABEL_945:
-    v35 = 4294960573;
+LABEL_994:
+    v15 = 4294960573;
     if (sub_23EBEA238(*(a1 + 48)))
     {
-      goto LABEL_1009;
+      goto LABEL_1060;
     }
   }
 
-  if (v67 <= 700)
+  if (v14 <= 700)
   {
-    if (v67 <= 605)
+    if (v14 <= 605)
     {
-      if (v67 > 603)
+      if (v14 > 603)
       {
-        if (v67 == 604)
+        if (v14 == 604)
         {
           if (dword_27E382C08 <= 800 && (dword_27E382C08 != -1 || sub_23EB74AC8(&dword_27E382C08, 0x320u)))
           {
-            sub_23EB75374(&dword_27E382C08, "void __BSAutoGuessConfiguration(void *)", 800, "\n********************************************************************************\n* Entering state: %d (%s)\n********************************************************************************\n\n", a5, a6, a7, a8, 604);
+            sub_23EB75374(&dword_27E382C08, "void __BSAutoGuessConfiguration(void *)", 800, "\n********************************************************************************\n* Entering state: %d (%s)\n********************************************************************************\n\n", 604, "CheckRestoreConfigIsBridgeMode");
           }
 
-          if (v1140 == 3)
+          if (v1219 == 3)
           {
-            v130 = sub_23EBE0B4C(604, Mutable, v1141, 0xFFFFFFFFLL, v1139, @"BSSetupRecommend_OfferRestore", v1144, 0, 0, 0, 0, a1);
-            if (v130)
+            v14 = 604;
+            v109 = sub_23EBE0B4C(604, Mutable, v1220, 0xFFFFFFFFLL, v1218, @"BSSetupRecommend_OfferRestore", v1223, 0, 0, 0, 0, a1);
+            if (v109)
             {
-              goto LABEL_1008;
+              goto LABEL_1059;
             }
 
-            v1146[0] = &stru_285145FE8;
-            if (v1144)
+            v1225[0] = &stru_285145FE8;
+            if (v1223)
             {
-              sub_23EB6FF14(v1144, v1146, "%ks", a4, a5, a6, a7, a8, "name");
+              sub_23EB6FF14(v1223, v1225, "%ks", "name");
+              v368 = v1225[0];
             }
 
-            sub_23EBDBF78("(%d) The chosen base station named %@ previous configuration is bridge mode and can be restored.", v368, v369, a4, a5, a6, a7, a8, 604);
-            v67 = 501;
-            v647 = "RESTORE_PROFILE_ROUTER_MODE_IS_BRIDGE_TRUE";
+            else
+            {
+              v368 = &stru_285145FE8;
+            }
+
+            v1201 = v368;
+            sub_23EBDBF78("(%d) The chosen base station named %@ previous configuration is bridge mode and can be restored.", v361, v362, v363, v364, v365, v366, v367, 604);
+            v14 = 501;
+            v649 = "RESTORE_PROFILE_ROUTER_MODE_IS_BRIDGE_TRUE";
           }
 
           else
           {
-            v1146[0] = &stru_285145FE8;
-            if (v1144)
+            v1225[0] = &stru_285145FE8;
+            if (v1223)
             {
-              sub_23EB6FF14(v1144, v1146, "%ks", a4, a5, a6, a7, a8, "name");
+              sub_23EB6FF14(v1223, v1225, "%ks", "name");
+              v407 = v1225[0];
             }
 
-            sub_23EBDBF78("(%d) The chosen base station named %@ previous configuration is not bridge mode.", v64, v65, a4, a5, a6, a7, a8, 604);
-            v67 = 608;
-            v647 = "RESTORE_PROFILE_ROUTER_MODE_IS_BRIDGE_FALSE";
+            else
+            {
+              v407 = &stru_285145FE8;
+            }
+
+            v1201 = v407;
+            sub_23EBDBF78("(%d) The chosen base station named %@ previous configuration is not bridge mode.", v28, v29, v30, v31, v32, v33, v34, 604);
+            v14 = 608;
+            v649 = "RESTORE_PROFILE_ROUTER_MODE_IS_BRIDGE_FALSE";
           }
 
-          sub_23EBE98EC(Mutable, byte_27E383C00, v647, v1145, v643, v644, v645, v646);
+          sub_23EBE98EC(Mutable, byte_27E383C00, v649, v1224, v645, v646, v647, v648);
           if (dword_27E382C08 > 800 || dword_27E382C08 == -1 && !sub_23EB74AC8(&dword_27E382C08, 0x320u))
           {
-            goto LABEL_945;
+            goto LABEL_994;
           }
 
-          v306 = 604;
+          v285 = 604;
         }
 
         else
         {
           if (dword_27E382C08 <= 800 && (dword_27E382C08 != -1 || sub_23EB74AC8(&dword_27E382C08, 0x320u)))
           {
-            sub_23EB75374(&dword_27E382C08, "void __BSAutoGuessConfiguration(void *)", 800, "\n********************************************************************************\n* Entering state: %d (%s)\n********************************************************************************\n\n", a5, a6, a7, a8, 605);
+            sub_23EB75374(&dword_27E382C08, "void __BSAutoGuessConfiguration(void *)", 800, "\n********************************************************************************\n* Entering state: %d (%s)\n********************************************************************************\n\n", 605, "RestoreConfigIsWirelessDisabled-CheckUnconfiguredBaseWANLink");
           }
 
-          if (sub_23EB6B5A0(v1144, v64, v65, a4, a5, a6, a7, a8))
+          if (sub_23EB6B5A0(v1223))
           {
-            v1146[0] = &stru_285145FE8;
-            if (v1144)
+            v1225[0] = &stru_285145FE8;
+            if (v1223)
             {
-              sub_23EB6FF14(v1144, v1146, "%ks", v200, v201, v202, v203, v204, "name");
+              sub_23EB6FF14(v1223, v1225, "%ks", "name");
+              v185 = v1225[0];
             }
 
-            sub_23EBDBF78("(%d) The chosen base station named %@ indicates its WAN port is connected.", v198, v199, v200, v201, v202, v203, v204, 605);
-            v67 = 604;
-            v595 = "WAN_LINK_TRUE";
+            else
+            {
+              v185 = &stru_285145FE8;
+            }
+
+            v1201 = v185;
+            sub_23EBDBF78("(%d) The chosen base station named %@ indicates its WAN port is connected.", v178, v179, v180, v181, v182, v183, v184, 605);
+            v14 = 604;
+            v597 = "WAN_LINK_TRUE";
           }
 
           else
           {
-            v130 = sub_23EBE0B4C(605, Mutable, v1141, 3, 0, @"BSSetupRecommend_OfferNoRestore", v1144, 0, 0, 0, 0, a1);
-            if (v130)
+            v14 = 605;
+            v109 = sub_23EBE0B4C(605, Mutable, v1220, 3, 0, @"BSSetupRecommend_OfferNoRestore", v1223, 0, 0, 0, 0, a1);
+            if (v109)
             {
-              goto LABEL_1008;
+              goto LABEL_1059;
             }
 
-            v1146[0] = &stru_285145FE8;
-            if (v1144)
+            v1225[0] = &stru_285145FE8;
+            if (v1223)
             {
-              sub_23EB6FF14(v1144, v1146, "%ks", a4, a5, a6, a7, a8, "name");
+              sub_23EB6FF14(v1223, v1225, "%ks", "name");
+              v526 = v1225[0];
             }
 
-            sub_23EBDBF78("(%d) The chosen base station named %@ indicates its WAN port is not connected.", v515, v516, a4, a5, a6, a7, a8, 605);
-            v67 = 501;
-            v595 = "WAN_LINK_FALSE";
+            else
+            {
+              v526 = &stru_285145FE8;
+            }
+
+            v1201 = v526;
+            sub_23EBDBF78("(%d) The chosen base station named %@ indicates its WAN port is not connected.", v519, v520, v521, v522, v523, v524, v525, 605);
+            v14 = 501;
+            v597 = "WAN_LINK_FALSE";
           }
 
-          sub_23EBE9710(Mutable, byte_27E383C00, v595, v590, v591, v592, v593, v594);
+          sub_23EBE9710(Mutable, byte_27E383C00, v597, v592, v593, v594, v595, v596);
           if (dword_27E382C08 > 800 || dword_27E382C08 == -1 && !sub_23EB74AC8(&dword_27E382C08, 0x320u))
           {
-            goto LABEL_945;
+            goto LABEL_994;
           }
 
-          v306 = 605;
+          v285 = 605;
         }
 
-        goto LABEL_944;
+        goto LABEL_993;
       }
 
-      if (v67 != 602)
+      if (v14 != 602)
       {
         if (dword_27E382C08 <= 800 && (dword_27E382C08 != -1 || sub_23EB74AC8(&dword_27E382C08, 0x320u)))
         {
-          sub_23EB75374(&dword_27E382C08, "void __BSAutoGuessConfiguration(void *)", 800, "\n********************************************************************************\n* Entering state: %d (%s)\n********************************************************************************\n\n", a5, a6, a7, a8, 603);
+          sub_23EB75374(&dword_27E382C08, "void __BSAutoGuessConfiguration(void *)", 800, "\n********************************************************************************\n* Entering state: %d (%s)\n********************************************************************************\n\n", 603, "RestoreConfigIsCreateMode-CheckUnconfiguredBaseWANLink");
         }
 
-        if (sub_23EB6B5A0(v1144, v64, v65, a4, a5, a6, a7, a8))
+        if (sub_23EB6B5A0(v1223))
         {
-          v1146[0] = &stru_285145FE8;
-          if (v1144)
+          v1225[0] = &stru_285145FE8;
+          if (v1223)
           {
-            sub_23EB6FF14(v1144, v1146, "%ks", v110, v111, v112, v113, v114, "name");
+            sub_23EB6FF14(v1223, v1225, "%ks", "name");
+            v72 = v1225[0];
           }
 
-          sub_23EBDBF78("(%d) The chosen base station named %@ indicates its WAN port is connected.", v108, v109, v110, v111, v112, v113, v114, 603);
-          v67 = 604;
-          v589 = "WAN_LINK_TRUE";
+          else
+          {
+            v72 = &stru_285145FE8;
+          }
+
+          v1201 = v72;
+          sub_23EBDBF78("(%d) The chosen base station named %@ indicates its WAN port is connected.", v65, v66, v67, v68, v69, v70, v71, 603);
+          v14 = 604;
+          v591 = "WAN_LINK_TRUE";
         }
 
         else
         {
-          v130 = sub_23EBE0B4C(603, Mutable, v1141, 0xFFFFFFFFLL, v1139, @"BSSetupRecommend_OfferRestore", v1144, 0, 0, 0, 0, a1);
-          if (v130)
+          v14 = 603;
+          v109 = sub_23EBE0B4C(603, Mutable, v1220, 0xFFFFFFFFLL, v1218, @"BSSetupRecommend_OfferRestore", v1223, 0, 0, 0, 0, a1);
+          if (v109)
           {
-            goto LABEL_1008;
+            goto LABEL_1059;
           }
 
-          v1146[0] = &stru_285145FE8;
-          if (v1144)
+          v1225[0] = &stru_285145FE8;
+          if (v1223)
           {
-            sub_23EB6FF14(v1144, v1146, "%ks", a4, a5, a6, a7, a8, "name");
+            sub_23EB6FF14(v1223, v1225, "%ks", "name");
+            v518 = v1225[0];
           }
 
-          sub_23EBDBF78("(%d) The chosen base station named %@ indicates its WAN port is not connected.", v513, v514, a4, a5, a6, a7, a8, 603);
-          v67 = 501;
-          v589 = "WAN_LINK_FALSE";
+          else
+          {
+            v518 = &stru_285145FE8;
+          }
+
+          v1201 = v518;
+          sub_23EBDBF78("(%d) The chosen base station named %@ indicates its WAN port is not connected.", v511, v512, v513, v514, v515, v516, v517, 603);
+          v14 = 501;
+          v591 = "WAN_LINK_FALSE";
         }
 
-        sub_23EBE9710(Mutable, byte_27E383C00, v589, v584, v585, v586, v587, v588);
+        sub_23EBE9710(Mutable, byte_27E383C00, v591, v586, v587, v588, v589, v590);
         if (dword_27E382C08 > 800 || dword_27E382C08 == -1 && !sub_23EB74AC8(&dword_27E382C08, 0x320u))
         {
-          goto LABEL_945;
+          goto LABEL_994;
         }
 
-        v306 = 603;
-        goto LABEL_944;
+        v285 = 603;
+        goto LABEL_993;
       }
 
       key = 0;
       if (dword_27E382C08 <= 800 && (dword_27E382C08 != -1 || sub_23EB74AC8(&dword_27E382C08, 0x320u)))
       {
-        sub_23EB75374(&dword_27E382C08, "void __BSAutoGuessConfiguration(void *)", 800, "\n********************************************************************************\n* Entering state: %d (%s)\n********************************************************************************\n\n", a5, a6, a7, a8, 602);
+        sub_23EB75374(&dword_27E382C08, "void __BSAutoGuessConfiguration(void *)", 800, "\n********************************************************************************\n* Entering state: %d (%s)\n********************************************************************************\n\n", 602, "NetworkModeOfProfileOrPreviousConfigFile");
       }
 
-      sub_23EBEAB18(*(a1 + 48), 14, 0, 0, a5, a6, a7, a8);
-      v339 = sub_23EBB0E1C(&v1135);
-      if (v339)
+      sub_23EBEAB18(*(a1 + 48), 14, 0, 0);
+      v330 = sub_23EBB0E1C(&v1214, v1223);
+      if (v330)
       {
-        goto LABEL_1010;
+        goto LABEL_1061;
       }
 
-      if (!v1135)
+      if (!v1214)
       {
-        goto LABEL_1012;
+        goto LABEL_1063;
       }
 
-      v339 = sub_23EBDEA88(a1, v1144, 0, &key, a5, a6, a7, a8);
-      if (v339)
+      v330 = sub_23EBDEA88(a1, v1223, 0, &key);
+      if (v330)
       {
-LABEL_1010:
-        v35 = v339;
-LABEL_1011:
-        v36 = 0;
-        goto LABEL_10;
+LABEL_1061:
+        v15 = v330;
+LABEL_1062:
+        v16 = 0;
       }
 
-      if (!key)
+      else
       {
-        goto LABEL_1012;
-      }
+        if (!key)
+        {
+          goto LABEL_1063;
+        }
 
-      v35 = sub_23EBB1354(v1135, key);
-      if (key)
-      {
-        CFRelease(key);
-        key = 0;
-      }
+        v15 = sub_23EBB1354(v1214, key);
+        if (key)
+        {
+          CFRelease(key);
+          key = 0;
+        }
 
-      if (v35)
-      {
-        goto LABEL_1011;
-      }
+        if (v15)
+        {
+          goto LABEL_1062;
+        }
 
-      if (!sub_23EB6B268(v1144, v340, v341, a4, a5, a6, a7, a8))
-      {
-        goto LABEL_399;
-      }
+        if (sub_23EB6B268(v1223))
+        {
+          v331 = sub_23EBB6418(v1214);
+          if (dword_27E382C08 <= 800 && (dword_27E382C08 != -1 || sub_23EB74AC8(&dword_27E382C08, 0x320u)))
+          {
+            sub_23EB75374(&dword_27E382C08, "void __BSAutoGuessConfiguration(void *)", 800, "BSSwitchToRestoreProfile err: %m\n", v331, v1201, v1202, v1203);
+          }
 
-      v348 = sub_23EBB6418(v1135);
-      if (dword_27E382C08 <= 800 && (dword_27E382C08 != -1 || sub_23EB74AC8(&dword_27E382C08, 0x320u)))
-      {
-        sub_23EB75374(&dword_27E382C08, "void __BSAutoGuessConfiguration(void *)", 800, "BSSwitchToRestoreProfile err: %m\n", v344, v345, v346, v347, v348);
-      }
+          if (!v331)
+          {
+            goto LABEL_624;
+          }
+        }
 
-      if (v348)
-      {
-LABEL_399:
-        if (!sub_23EBDD2D4(v1144, v1129, v342, v343, v344, v345, v346, v347))
+        if (!sub_23EBDD2D4(v1223, v1208))
         {
           goto LABEL_400;
         }
 
-        v1146[0] = 0;
-        v339 = sub_23EBDD458(v1144, v1129, v1146, v351, v344, v345, v346, v347);
-        if (v339)
+        v1225[0] = 0;
+        v330 = sub_23EBDD458(v1223, v1208, v1225);
+        if (v330)
         {
-          goto LABEL_1010;
+          goto LABEL_1061;
         }
 
-        if (!v1146[0])
+        if (v1225[0])
         {
-LABEL_1012:
-          v36 = 0;
-          v35 = 4294960568;
-          goto LABEL_10;
-        }
+          v339 = sub_23EBB1108(v1214, v1225[0], 0);
+          if (dword_27E382C08 <= 800 && (dword_27E382C08 != -1 || sub_23EB74AC8(&dword_27E382C08, 0x320u)))
+          {
+            sub_23EB75374(&dword_27E382C08, "void __BSAutoGuessConfiguration(void *)", 800, "BSImportFromConfigFile err: %m\n", v339);
+          }
 
-        v352 = sub_23EBB1108(v1135, v1146[0], 0);
-        if (dword_27E382C08 <= 800 && (dword_27E382C08 != -1 || sub_23EB74AC8(&dword_27E382C08, 0x320u)))
-        {
-          sub_23EB75374(&dword_27E382C08, "void __BSAutoGuessConfiguration(void *)", 800, "BSImportFromConfigFile err: %m\n", v344, v345, v346, v347, v352);
-        }
-
-        if (v352)
-        {
+          if (v339)
+          {
 LABEL_400:
-          v1146[0] = &stru_285145FE8;
-          if (v1144)
-          {
-            sub_23EB6FF14(v1144, v1146, "%ks", v351, v344, v345, v346, v347, "name");
-          }
-
-          sub_23EBDBF78("(%d) The chosen base station %@ does not actually have a restore profile.", v349, v350, v351, v344, v345, v346, v347, 602);
-          v67 = 501;
-          v658 = "TEXT_RECORD_HAS_PROFILE_OR_PREVIOUS_CONFIG_FILE_FALSE";
-LABEL_932:
-          sub_23EBE9710(Mutable, byte_27E383C00, v658, v653, v654, v655, v656, v657);
-LABEL_933:
-          if (dword_27E382C08 > 800 || dword_27E382C08 == -1 && !sub_23EB74AC8(&dword_27E382C08, 0x320u))
-          {
-            goto LABEL_945;
-          }
-
-          v306 = 602;
-          goto LABEL_944;
-        }
-      }
-
-      v339 = sub_23EBDEECC(v1135, &v1141, &v1139, &v1140, v344, v345, v346, v347);
-      if (v339)
-      {
-        goto LABEL_1010;
-      }
-
-      v67 = 602;
-      if (v1141 <= 2)
-      {
-        if (v1141)
-        {
-          if (v1141 != 1)
-          {
-            goto LABEL_933;
-          }
-
-          v1146[0] = &stru_285145FE8;
-          if (v1144)
-          {
-            sub_23EB6FF14(v1144, v1146, "%ks", a4, a5, a6, a7, a8, "name");
-          }
-
-          sub_23EBDBF78("(%d) The previous settings for the chosen base station named %@ are configured to Join a network called %@.", v569, v570, a4, a5, a6, a7, a8, 602);
-          v67 = 606;
-          v658 = "RESTORE_PROFILE_NETWORK_MODE_JOIN_TRUE";
-        }
-
-        else
-        {
-          v1146[0] = &stru_285145FE8;
-          if (v1144)
-          {
-            sub_23EB6FF14(v1144, v1146, "%ks", a4, a5, a6, a7, a8, "name");
-          }
-
-          sub_23EBDBF78("(%d) The previous settings for the chosen base station named %@ are configured to Create a network called %@.", v569, v570, a4, a5, a6, a7, a8, 602);
-          v67 = 603;
-          v658 = "RESTORE_PROFILE_NETWORK_MODE_CREATE_TRUE";
-        }
-      }
-
-      else
-      {
-        switch(v1141)
-        {
-          case 3:
-            v1146[0] = &stru_285145FE8;
-            if (v1144)
+            v1225[0] = &stru_285145FE8;
+            if (v1223)
             {
-              sub_23EB6FF14(v1144, v1146, "%ks", a4, a5, a6, a7, a8, "name");
+              sub_23EB6FF14(v1223, v1225, "%ks", "name");
+              v340 = v1225[0];
             }
 
-            sub_23EBDBF78("(%d) The previous settings for the chosen base station named %@ are configured with Wi-Fi disabled.", v569, v570, a4, a5, a6, a7, a8, 602);
-            v67 = 605;
-            v658 = "BASE_STATION_WIRELESS_ENABLED_FALSE";
-            break;
-          case 10:
-            v1146[0] = &stru_285145FE8;
-            if (v1144)
+            else
             {
-              sub_23EB6FF14(v1144, v1146, "%ks", a4, a5, a6, a7, a8, "name");
+              v340 = &stru_285145FE8;
             }
 
-            sub_23EBDBF78("(%d) The previous settings for the chosen base station named %@ are configured to Extend a network called %@ using WDS.", v569, v570, a4, a5, a6, a7, a8, 602);
-            v67 = 606;
-            v658 = "RESTORE_PROFILE_NETWORK_MODE_WDS_TRUE";
-            break;
-          case 20:
-            v1146[0] = &stru_285145FE8;
-            if (v1144)
+            v1201 = v340;
+            sub_23EBDBF78("(%d) The chosen base station %@ does not actually have a restore profile.", v332, v333, v334, v335, v336, v337, v338, 602);
+            v14 = 501;
+            v660 = "TEXT_RECORD_HAS_PROFILE_OR_PREVIOUS_CONFIG_FILE_FALSE";
+LABEL_981:
+            sub_23EBE9710(Mutable, byte_27E383C00, v660, v655, v656, v657, v658, v659);
+LABEL_982:
+            if (dword_27E382C08 > 800 || dword_27E382C08 == -1 && !sub_23EB74AC8(&dword_27E382C08, 0x320u))
             {
-              sub_23EB6FF14(v1144, v1146, "%ks", a4, a5, a6, a7, a8, "name");
+              goto LABEL_994;
             }
 
-            sub_23EBDBF78("(%d) The previous settings for the chosen base station named %@ are configured to Extend a network called %@ using DWDS.", v569, v570, a4, a5, a6, a7, a8, 602);
-            v67 = 606;
-            v658 = "RESTORE_PROFILE_NETWORK_MODE_DWDS_EXTENDER_TRUE";
-            break;
-          default:
-            goto LABEL_933;
+            v285 = 602;
+            goto LABEL_993;
+          }
+
+LABEL_624:
+          v330 = sub_23EBDEECC(v1214, &v1220, &v1218, &v1219);
+          if (v330)
+          {
+            goto LABEL_1061;
+          }
+
+          v14 = 602;
+          if (v1220 <= 2)
+          {
+            if (v1220)
+            {
+              if (v1220 != 1)
+              {
+                goto LABEL_982;
+              }
+
+              v1225[0] = &stru_285145FE8;
+              if (v1223)
+              {
+                sub_23EB6FF14(v1223, v1225, "%ks", "name");
+                v712 = v1225[0];
+              }
+
+              else
+              {
+                v712 = &stru_285145FE8;
+              }
+
+              v1201 = v712;
+              v1202 = v1218;
+              sub_23EBDBF78("(%d) The previous settings for the chosen base station named %@ are configured to Join a network called %@.", v566, v567, v568, v569, v570, v571, v572, 602);
+              v14 = 606;
+              v660 = "RESTORE_PROFILE_NETWORK_MODE_JOIN_TRUE";
+            }
+
+            else
+            {
+              v1225[0] = &stru_285145FE8;
+              if (v1223)
+              {
+                sub_23EB6FF14(v1223, v1225, "%ks", "name");
+                v840 = v1225[0];
+              }
+
+              else
+              {
+                v840 = &stru_285145FE8;
+              }
+
+              v1201 = v840;
+              v1202 = v1218;
+              sub_23EBDBF78("(%d) The previous settings for the chosen base station named %@ are configured to Create a network called %@.", v566, v567, v568, v569, v570, v571, v572, 602);
+              v14 = 603;
+              v660 = "RESTORE_PROFILE_NETWORK_MODE_CREATE_TRUE";
+            }
+          }
+
+          else
+          {
+            switch(v1220)
+            {
+              case 3:
+                v838 = &stru_285145FE8;
+                v1225[0] = &stru_285145FE8;
+                if (v1223)
+                {
+                  sub_23EB6FF14(v1223, v1225, "%ks", "name");
+                  v838 = v1225[0];
+                }
+
+                v1201 = v838;
+                sub_23EBDBF78("(%d) The previous settings for the chosen base station named %@ are configured with Wi-Fi disabled.", v566, v567, v568, v569, v570, v571, v572, 602);
+                v14 = 605;
+                v660 = "BASE_STATION_WIRELESS_ENABLED_FALSE";
+                break;
+              case 10:
+                v1225[0] = &stru_285145FE8;
+                if (v1223)
+                {
+                  sub_23EB6FF14(v1223, v1225, "%ks", "name");
+                  v839 = v1225[0];
+                }
+
+                else
+                {
+                  v839 = &stru_285145FE8;
+                }
+
+                v1201 = v839;
+                v1202 = v1218;
+                sub_23EBDBF78("(%d) The previous settings for the chosen base station named %@ are configured to Extend a network called %@ using WDS.", v566, v567, v568, v569, v570, v571, v572, 602);
+                v14 = 606;
+                v660 = "RESTORE_PROFILE_NETWORK_MODE_WDS_TRUE";
+                break;
+              case 20:
+                v1225[0] = &stru_285145FE8;
+                if (v1223)
+                {
+                  sub_23EB6FF14(v1223, v1225, "%ks", "name");
+                  v573 = v1225[0];
+                }
+
+                else
+                {
+                  v573 = &stru_285145FE8;
+                }
+
+                v1201 = v573;
+                v1202 = v1218;
+                sub_23EBDBF78("(%d) The previous settings for the chosen base station named %@ are configured to Extend a network called %@ using DWDS.", v566, v567, v568, v569, v570, v571, v572, 602);
+                v14 = 606;
+                v660 = "RESTORE_PROFILE_NETWORK_MODE_DWDS_EXTENDER_TRUE";
+                break;
+              default:
+                goto LABEL_982;
+            }
+          }
+
+          v2 = MEMORY[0x277CBECE8];
+          goto LABEL_981;
         }
+
+LABEL_1063:
+        v16 = 0;
+        v15 = 4294960568;
       }
 
-      v9 = MEMORY[0x277CBECE8];
-      goto LABEL_932;
+      v14 = 602;
+      goto LABEL_10;
     }
 
-    if (v67 <= 607)
+    if (v14 > 607)
     {
-      if (v67 == 606)
+      if (v14 != 608)
       {
         if (dword_27E382C08 <= 800 && (dword_27E382C08 != -1 || sub_23EB74AC8(&dword_27E382C08, 0x320u)))
         {
-          sub_23EB75374(&dword_27E382C08, "void __BSAutoGuessConfiguration(void *)", 800, "\n********************************************************************************\n* Entering state: %d (%s)\n********************************************************************************\n\n", a5, a6, a7, a8, 606);
+          sub_23EB75374(&dword_27E382C08, "void __BSAutoGuessConfiguration(void *)", 800, "\n********************************************************************************\n* Entering state: %d (%s)\n********************************************************************************\n\n", 700, "PreferredNetworksConsidered");
         }
 
-        if (sub_23EBE26E8(v1139, *(a1 + 32), v65, a4, a5, a6, a7, a8))
+        if (v1207)
         {
-          v130 = sub_23EBE0B4C(606, Mutable, v1141, 0xFFFFFFFFLL, v1139, @"BSSetupRecommend_OfferRestore", v1144, 0, 0, 0, 0, a1);
-          if (v130)
+          sub_23EBDBF78("(%d) Already looked at preferred networks.", v28, v29, v30, v31, v32, v33, v34, 700);
+          sub_23EBE9710(Mutable, byte_27E383C00, "CONSIDERED_PREFERRED_NETWORKS_TRUE", v186, v187, v188, v189, v190);
+          if (sub_23EBE0A74(v1223, v1210, v191, v192))
           {
-            goto LABEL_1008;
+            if (v1210)
+            {
+              v193 = v1210;
+            }
+
+            else
+            {
+              v193 = v1223;
+            }
+
+            v194 = sub_23EBDDBF8(*(a1 + 32), v193, &cf);
+            if (v194 != -6727)
+            {
+              v15 = v194;
+              if (v194)
+              {
+                v16 = 0;
+              }
+
+              else
+              {
+                if (cf)
+                {
+                  v14 = 1406;
+                  goto LABEL_668;
+                }
+
+                v16 = 0;
+                v15 = 4294960568;
+              }
+
+              v14 = 700;
+              goto LABEL_10;
+            }
+
+            v14 = 1103;
           }
 
-          sub_23EBDBF78("(%d) The network called %@ is visible in the Wi-Fi scan.", v360, v361, a4, a5, a6, a7, a8, 606);
-          v67 = 501;
-          v367 = "WIRELESS_NETWORK_VISIBLE_IN_NETWORK_SCAN_TRUE";
+          else
+          {
+            v14 = 1701;
+          }
         }
 
         else
         {
-          sub_23EBDBF78("(%d) The network called %@ is not visible in the Wi-Fi scan.", v353, v354, v355, v356, v357, v358, v359, 606);
-          v67 = 607;
-          v367 = "WIRELESS_NETWORK_VISIBLE_IN_NETWORK_SCAN_FALSE";
+          sub_23EBDBF78("(%d) Will look at preferred networks.", v28, v29, v30, v31, v32, v33, v34, 700);
+          sub_23EBE9710(Mutable, byte_27E383C00, "CONSIDERED_PREFERRED_NETWORKS_FALSE", v574, v575, v576, v577, v578);
+          v14 = 701;
+          v1207 = 1;
         }
 
-        sub_23EBE9710(Mutable, byte_27E383C00, v367, v362, v363, v364, v365, v366);
+LABEL_668:
         if (dword_27E382C08 > 800 || dword_27E382C08 == -1 && !sub_23EB74AC8(&dword_27E382C08, 0x320u))
         {
-          goto LABEL_945;
+          goto LABEL_994;
         }
 
-        v306 = 606;
-        goto LABEL_944;
+        v285 = 700;
+        goto LABEL_993;
       }
 
       if (dword_27E382C08 <= 800 && (dword_27E382C08 != -1 || sub_23EB74AC8(&dword_27E382C08, 0x320u)))
       {
-        sub_23EB75374(&dword_27E382C08, "void __BSAutoGuessConfiguration(void *)", 800, "\n********************************************************************************\n* Entering state: %d (%s)\n********************************************************************************\n\n", a5, a6, a7, a8, 607);
+        sub_23EB75374(&dword_27E382C08, "void __BSAutoGuessConfiguration(void *)", 800, "\n********************************************************************************\n* Entering state: %d (%s)\n********************************************************************************\n\n", 608, "RestoreConfig - Look for DHCP Range Conflict");
       }
 
-      v127 = sub_23EBE0544(a1, *(a1 + 32), v1139, 3, &theDict, a6, a7, a8);
-      v35 = v127;
-      if ((v127 & 0xFFFFFFF7) == 0xFFFFE5B1)
+      if (sub_23EBDF004(v1214))
       {
-        if (v127 == -6735)
+        v14 = 608;
+        v109 = sub_23EBE0B4C(608, Mutable, v1220, 4, 0, @"BSSetupRecommend_OfferNoRestore", v1223, 0, 0, 0, 0, a1);
+        if (v109)
         {
-          v130 = sub_23EBE0B4C(607, Mutable, v1141, 1, v1139, @"BSSetupRecommend_OfferNoRestore", v1144, 0, 0, 0, 0, a1);
-          goto LABEL_677;
+          goto LABEL_1059;
         }
 
-        if (v127 == -6727)
+        v1225[0] = &stru_285145FE8;
+        if (v1223)
         {
-          v130 = sub_23EBE0B4C(607, Mutable, v1141, 2, v1139, @"BSSetupRecommend_OfferNoRestore", v1144, 0, 0, 0, 0, a1);
-LABEL_677:
-          if (v130)
-          {
-LABEL_1008:
-            v35 = v130;
-LABEL_1009:
-            v36 = 0;
-            goto LABEL_10;
-          }
+          sub_23EB6FF14(v1223, v1225, "%ks", "name");
+          v376 = v1225[0];
         }
 
-        sub_23EBDBF78("(%d) The network called %@ is not found in a directed Wi-Fi scan.", v128, v129, a4, a5, a6, a7, a8, 607);
-        v393 = "WIRELESS_NETWORK_VISIBLE_IN_DIRECT_NETWORK_SCAN_FALSE";
+        else
+        {
+          v376 = &stru_285145FE8;
+        }
+
+        v1201 = v376;
+        sub_23EBDBF78("(%d) The DHCP range in the the previous settings of the chosen base station named %@ conflicts with the network the WAN port is plugged in to.", v369, v370, v371, v372, v373, v374, v375, 608);
+        v632 = "DHCP_RANGE_CONFLICT_TRUE";
       }
 
       else
       {
-        if (v127)
+        v14 = 608;
+        v109 = sub_23EBE0B4C(608, Mutable, v1220, 0xFFFFFFFFLL, v1218, @"BSSetupRecommend_OfferRestore", v1223, 0, 0, 0, 0, a1);
+        if (v109)
         {
-          v36 = 0;
-          goto LABEL_10;
+          goto LABEL_1059;
         }
 
-        if (!theDict)
+        v1225[0] = &stru_285145FE8;
+        if (v1223)
         {
-          v36 = 0;
-          v35 = 4294960568;
-          goto LABEL_10;
+          sub_23EB6FF14(v1223, v1225, "%ks", "name");
+          v561 = v1225[0];
         }
 
-        v130 = sub_23EBE0B4C(607, Mutable, v1141, 0xFFFFFFFFLL, v1139, @"BSSetupRecommend_OfferRestore", v1144, 0, 0, 0, 0, a1);
-        if (v130)
+        else
         {
-          goto LABEL_1008;
+          v561 = &stru_285145FE8;
         }
 
-        sub_23EBDBF78("(%d) The network called %@ is found in a directed Wi-Fi scan.", v386, v387, a4, a5, a6, a7, a8, 607);
-        v393 = "WIRELESS_NETWORK_VISIBLE_IN_DIRECT_NETWORK_SCAN_TRUE";
+        v1201 = v561;
+        sub_23EBDBF78("(%d) The DHCP range in the previous settings of the chosen base station named %@ does not conflict with the network the WAN port is plugged in to.", v554, v555, v556, v557, v558, v559, v560, 608);
+        v632 = "DHCP_RANGE_CONFLICT_FALSE";
       }
 
-      sub_23EBE9710(Mutable, byte_27E383C00, v393, v388, v389, v390, v391, v392);
-      if (theDict)
+      sub_23EBE9710(Mutable, byte_27E383C00, v632, v627, v628, v629, v630, v631);
+      sub_23EBB0D6C(v1214);
+      v1214 = 0;
+      if (dword_27E382C08 > 800 || dword_27E382C08 == -1 && !sub_23EB74AC8(&dword_27E382C08, 0x320u))
       {
-        CFRelease(theDict);
-        theDict = 0;
+        goto LABEL_790;
       }
 
-      if (v1139)
-      {
-        CFRelease(v1139);
-        v1139 = 0;
-      }
-
-      if (dword_27E382C08 <= 800 && (dword_27E382C08 != -1 || sub_23EB74AC8(&dword_27E382C08, 0x320u)))
-      {
-        v663 = 607;
-        goto LABEL_768;
-      }
-
-      goto LABEL_769;
+      v661 = 608;
+      goto LABEL_789;
     }
 
-    if (v67 == 608)
+    if (v14 == 606)
     {
       if (dword_27E382C08 <= 800 && (dword_27E382C08 != -1 || sub_23EB74AC8(&dword_27E382C08, 0x320u)))
       {
-        sub_23EB75374(&dword_27E382C08, "void __BSAutoGuessConfiguration(void *)", 800, "\n********************************************************************************\n* Entering state: %d (%s)\n********************************************************************************\n\n", a5, a6, a7, a8, 608);
+        sub_23EB75374(&dword_27E382C08, "void __BSAutoGuessConfiguration(void *)", 800, "\n********************************************************************************\n* Entering state: %d (%s)\n********************************************************************************\n\n", 606, "RestoreConfig - Check for Network Visible");
       }
 
-      if (sub_23EBDF004(v1135, v64, v65, a4, a5, a6, a7, a8))
+      if (sub_23EBE26E8(v1218, *(a1 + 32)))
       {
-        v130 = sub_23EBE0B4C(608, Mutable, v1141, 4, 0, @"BSSetupRecommend_OfferNoRestore", v1144, 0, 0, 0, 0, a1);
-        if (v130)
+        v14 = 606;
+        v109 = sub_23EBE0B4C(606, Mutable, v1220, 0xFFFFFFFFLL, v1218, @"BSSetupRecommend_OfferRestore", v1223, 0, 0, 0, 0, a1);
+        if (v109)
         {
-          goto LABEL_1008;
+          goto LABEL_1059;
         }
 
-        v1146[0] = &stru_285145FE8;
-        if (v1144)
-        {
-          sub_23EB6FF14(v1144, v1146, "%ks", a4, a5, a6, a7, a8, "name");
-        }
-
-        sub_23EBDBF78("(%d) The DHCP range in the the previous settings of the chosen base station named %@ conflicts with the network the WAN port is plugged in to.", v370, v371, a4, a5, a6, a7, a8, 608);
-        v630 = "DHCP_RANGE_CONFLICT_TRUE";
+        v1201 = v1218;
+        sub_23EBDBF78("(%d) The network called %@ is visible in the Wi-Fi scan.", v348, v349, v350, v351, v352, v353, v354, 606);
+        v14 = 501;
+        v360 = "WIRELESS_NETWORK_VISIBLE_IN_NETWORK_SCAN_TRUE";
       }
 
       else
       {
-        v130 = sub_23EBE0B4C(608, Mutable, v1141, 0xFFFFFFFFLL, v1139, @"BSSetupRecommend_OfferRestore", v1144, 0, 0, 0, 0, a1);
-        if (v130)
-        {
-          goto LABEL_1008;
-        }
-
-        v1146[0] = &stru_285145FE8;
-        if (v1144)
-        {
-          sub_23EB6FF14(v1144, v1146, "%ks", a4, a5, a6, a7, a8, "name");
-        }
-
-        sub_23EBDBF78("(%d) The DHCP range in the previous settings of the chosen base station named %@ does not conflict with the network the WAN port is plugged in to.", v567, v568, a4, a5, a6, a7, a8, 608);
-        v630 = "DHCP_RANGE_CONFLICT_FALSE";
+        v1201 = v1218;
+        sub_23EBDBF78("(%d) The network called %@ is not visible in the Wi-Fi scan.", v341, v342, v343, v344, v345, v346, v347, 606);
+        v14 = 607;
+        v360 = "WIRELESS_NETWORK_VISIBLE_IN_NETWORK_SCAN_FALSE";
       }
 
-      sub_23EBE9710(Mutable, byte_27E383C00, v630, v625, v626, v627, v628, v629);
-      sub_23EBB0D6C(v1135);
-      v1135 = 0;
-      if (dword_27E382C08 <= 800 && (dword_27E382C08 != -1 || sub_23EB74AC8(&dword_27E382C08, 0x320u)))
+      sub_23EBE9710(Mutable, byte_27E383C00, v360, v355, v356, v357, v358, v359);
+      if (dword_27E382C08 > 800 || dword_27E382C08 == -1 && !sub_23EB74AC8(&dword_27E382C08, 0x320u))
       {
-        v663 = 608;
-LABEL_768:
-        sub_23EB75374(&dword_27E382C08, "void __BSAutoGuessConfiguration(void *)", 800, "\n********************************************************************************\n* Exiting state: %d\n********************************************************************************\n\n", v659, v660, v661, v662, v663);
+        goto LABEL_994;
       }
 
-LABEL_769:
-      v67 = 501;
-      goto LABEL_945;
+      v285 = 606;
+      goto LABEL_993;
     }
 
     if (dword_27E382C08 <= 800 && (dword_27E382C08 != -1 || sub_23EB74AC8(&dword_27E382C08, 0x320u)))
     {
-      sub_23EB75374(&dword_27E382C08, "void __BSAutoGuessConfiguration(void *)", 800, "\n********************************************************************************\n* Entering state: %d (%s)\n********************************************************************************\n\n", a5, a6, a7, a8, 700);
+      sub_23EB75374(&dword_27E382C08, "void __BSAutoGuessConfiguration(void *)", 800, "\n********************************************************************************\n* Entering state: %d (%s)\n********************************************************************************\n\n", 607, "RestoreConfig - Check for Network via Direct Scan");
     }
 
-    if (v1128)
+    v101 = sub_23EBE0544(a1, *(a1 + 32), v1218, 3, &theDict);
+    v15 = v101;
+    if ((v101 & 0xFFFFFFF7) != 0xFFFFE5B1)
     {
-      sub_23EBDBF78("(%d) Already looked at preferred networks.", v64, v65, a4, a5, a6, a7, a8, 700);
-      sub_23EBE9710(Mutable, byte_27E383C00, "CONSIDERED_PREFERRED_NETWORKS_TRUE", v205, v206, v207, v208, v209);
-      if (sub_23EBE0A74(v1144, v1131, v210, v211, v212, v213, v214, v215))
+      if (v101)
       {
-        if (v1131)
-        {
-          v216 = v1131;
-        }
-
-        else
-        {
-          v216 = v1144;
-        }
-
-        v217 = sub_23EBDDBF8(*(a1 + 32), v216, &cf);
-        if (v217 == -6727)
-        {
-          v67 = 1103;
-        }
-
-        else
-        {
-          v35 = v217;
-          if (v217)
-          {
-            v36 = 0;
-            goto LABEL_10;
-          }
-
-          if (!cf)
-          {
-            v36 = 0;
-            v35 = 4294960568;
-            goto LABEL_10;
-          }
-
-          v67 = 1406;
-        }
+        v16 = 0;
+LABEL_1216:
+        v14 = 607;
+        goto LABEL_10;
       }
 
-      else
+      if (!theDict)
       {
-        v67 = 1701;
+        v16 = 0;
+        v15 = 4294960568;
+        goto LABEL_1216;
       }
+
+      v14 = 607;
+      v109 = sub_23EBE0B4C(607, Mutable, v1220, 0xFFFFFFFFLL, v1218, @"BSSetupRecommend_OfferRestore", v1223, 0, 0, 0, 0, a1);
+      if (v109)
+      {
+        goto LABEL_1059;
+      }
+
+      v1201 = v1218;
+      sub_23EBDBF78("(%d) The network called %@ is found in a directed Wi-Fi scan.", v394, v395, v396, v397, v398, v399, v400, 607);
+      v406 = "WIRELESS_NETWORK_VISIBLE_IN_DIRECT_NETWORK_SCAN_TRUE";
+      goto LABEL_692;
+    }
+
+    if (v101 == -6735)
+    {
+      v14 = 607;
+      v109 = sub_23EBE0B4C(607, Mutable, v1220, 1, v1218, @"BSSetupRecommend_OfferNoRestore", v1223, 0, 0, 0, 0, a1);
     }
 
     else
     {
-      sub_23EBDBF78("(%d) Will look at preferred networks.", v64, v65, a4, a5, a6, a7, a8, 700);
-      sub_23EBE9710(Mutable, byte_27E383C00, "CONSIDERED_PREFERRED_NETWORKS_FALSE", v571, v572, v573, v574, v575);
-      v67 = 701;
-      v1128 = 1;
+      if (v101 != -6727)
+      {
+LABEL_691:
+        v1201 = v1218;
+        sub_23EBDBF78("(%d) The network called %@ is not found in a directed Wi-Fi scan.", v102, v103, v104, v105, v106, v107, v108, 607);
+        v406 = "WIRELESS_NETWORK_VISIBLE_IN_DIRECT_NETWORK_SCAN_FALSE";
+LABEL_692:
+        sub_23EBE9710(Mutable, byte_27E383C00, v406, v401, v402, v403, v404, v405);
+        if (theDict)
+        {
+          CFRelease(theDict);
+          theDict = 0;
+        }
+
+        if (v1218)
+        {
+          CFRelease(v1218);
+          v1218 = 0;
+        }
+
+        if (dword_27E382C08 > 800 || dword_27E382C08 == -1 && !sub_23EB74AC8(&dword_27E382C08, 0x320u))
+        {
+          goto LABEL_790;
+        }
+
+        v661 = 607;
+LABEL_789:
+        sub_23EB75374(&dword_27E382C08, "void __BSAutoGuessConfiguration(void *)", 800, "\n********************************************************************************\n* Exiting state: %d\n********************************************************************************\n\n", v661);
+LABEL_790:
+        v14 = 501;
+        goto LABEL_994;
+      }
+
+      v14 = 607;
+      v109 = sub_23EBE0B4C(607, Mutable, v1220, 2, v1218, @"BSSetupRecommend_OfferNoRestore", v1223, 0, 0, 0, 0, a1);
     }
 
-    if (dword_27E382C08 <= 800 && (dword_27E382C08 != -1 || sub_23EB74AC8(&dword_27E382C08, 0x320u)))
+    if (v109)
     {
-      v306 = 700;
-      goto LABEL_944;
+LABEL_1059:
+      v15 = v109;
+LABEL_1060:
+      v16 = 0;
+      goto LABEL_10;
     }
 
-    goto LABEL_945;
+    goto LABEL_691;
   }
 
-  if (v67 > 801)
+  if (v14 > 801)
   {
-    if (v67 >= 807)
+    if (v14 >= 807)
     {
-      if (v67 <= 807)
+      if (v14 <= 807)
       {
         if (dword_27E382C08 <= 800 && (dword_27E382C08 != -1 || sub_23EB74AC8(&dword_27E382C08, 0x320u)))
         {
-          sub_23EB75374(&dword_27E382C08, "void __BSAutoGuessConfiguration(void *)", 800, "\n********************************************************************************\n* Entering state: %d (%s)\n********************************************************************************\n\n", a5, a6, a7, a8, 807);
+          sub_23EB75374(&dword_27E382C08, "void __BSAutoGuessConfiguration(void *)", 800, "\n********************************************************************************\n* Entering state: %d (%s)\n********************************************************************************\n\n", 807, "IsChosenNetworkConfigurable");
         }
 
-        if (sub_23EBDD648(v1142, v64, v65, a4, a5, a6, a7, a8))
+        if (sub_23EBDD648(v1221, v28, v29, v30))
         {
-          v67 = 1802;
-          v235 = "(%d) This network is an 802.11g model. We don't support it with this software.";
-          v236 = "CHOSEN_NETWORK_IS_80211G_TRUE";
+          v14 = 1802;
+          v211 = "(%d) This network is an 802.11g model. We don't support it with this software.";
+          v212 = "CHOSEN_NETWORK_IS_80211G_TRUE";
         }
 
-        else if (sub_23EBDD6D8(v1142, v228, v229, v230, v231, v232, v233, v234))
+        else if (sub_23EBDD6D8(v1221, v204, v205, v206))
         {
-          v1131 = v1142;
-          v1142 = 0;
-          v67 = 1104;
-          v235 = "(%d) This network is too new to be set up with this software.";
-          v236 = "CHOSEN_NETWORK_IS_TOO_NEW_TRUE";
+          v1210 = v1221;
+          v1221 = 0;
+          v14 = 1104;
+          v211 = "(%d) This network is too new to be set up with this software.";
+          v212 = "CHOSEN_NETWORK_IS_TOO_NEW_TRUE";
         }
 
         else
         {
-          v67 = 808;
-          v235 = "(%d) This network is not an 802.11g model. OK to continue.";
-          v236 = "CHOSEN_NETWORK_IS_80211G_FALSE";
+          v14 = 808;
+          v211 = "(%d) This network is not an 802.11g model. OK to continue.";
+          v212 = "CHOSEN_NETWORK_IS_80211G_FALSE";
         }
 
-        sub_23EBDBF78(v235, v228, v229, v230, v231, v232, v233, v234, 807);
-        sub_23EBE9710(Mutable, byte_27E383C00, v236, v710, v711, v712, v713, v714);
+        sub_23EBDBF78(v211, v204, v205, v206, v207, v208, v209, v210, 807);
+        sub_23EBE9710(Mutable, byte_27E383C00, v212, v706, v707, v708, v709, v710);
         if (dword_27E382C08 > 800 || dword_27E382C08 == -1 && !sub_23EB74AC8(&dword_27E382C08, 0x320u))
         {
-          goto LABEL_945;
+          goto LABEL_994;
         }
 
-        v306 = 807;
-        goto LABEL_944;
+        v285 = 807;
+        goto LABEL_993;
       }
 
-      if (v67 <= 1100)
+      if (v14 <= 1100)
       {
         if (dword_27E382C08 <= 800 && (dword_27E382C08 != -1 || sub_23EB74AC8(&dword_27E382C08, 0x320u)))
         {
-          sub_23EB75374(&dword_27E382C08, "void __BSAutoGuessConfiguration(void *)", 800, "\n********************************************************************************\n* Entering state: %d (%s)\n********************************************************************************\n\n", a5, a6, a7, a8, 808);
+          sub_23EB75374(&dword_27E382C08, "void __BSAutoGuessConfiguration(void *)", 800, "\n********************************************************************************\n* Entering state: %d (%s)\n********************************************************************************\n\n", 808, "IsSTAOnlyNetwork");
         }
 
-        if (sub_23EC0FA18(v1142, v64))
+        if (sub_23EC0FA18(v1221, v28, v29, v30))
         {
-          v1131 = v1142;
-          v1142 = 0;
-          v67 = 105;
-          v83 = "(%d) This network is a STA-only device.";
-          v84 = "CHOSEN_NETWORK_IS_STA_ONLY_TRUE";
+          v1210 = v1221;
+          v1221 = 0;
+          v14 = 105;
+          v52 = "(%d) This network is a STA-only device.";
+          v53 = "CHOSEN_NETWORK_IS_STA_ONLY_TRUE";
         }
 
         else
         {
-          v67 = 802;
-          v83 = "(%d) This network is not a STA-only device.";
-          v84 = "CHOSEN_NETWORK_IS_STA_ONLY_FALSE";
+          v14 = 802;
+          v52 = "(%d) This network is not a STA-only device.";
+          v53 = "CHOSEN_NETWORK_IS_STA_ONLY_FALSE";
         }
 
-        sub_23EBDBF78(v83, v76, v77, v78, v79, v80, v81, v82, 808);
-        sub_23EBE9710(Mutable, byte_27E383C00, v84, v486, v487, v488, v489, v490);
+        sub_23EBDBF78(v52, v45, v46, v47, v48, v49, v50, v51, 808);
+        sub_23EBE9710(Mutable, byte_27E383C00, v53, v490, v491, v492, v493, v494);
         if (dword_27E382C08 > 800 || dword_27E382C08 == -1 && !sub_23EB74AC8(&dword_27E382C08, 0x320u))
         {
-          goto LABEL_945;
+          goto LABEL_994;
         }
 
-        v306 = 808;
-        goto LABEL_944;
+        v285 = 808;
+        goto LABEL_993;
       }
 
-      if (v67 <= 1405)
+      if (v14 <= 1405)
       {
-        if (v67 > 1200)
+        if (v14 > 1200)
         {
-          if (v67 > 1401)
+          if (v14 > 1401)
           {
-            if (v67 == 1402)
+            if (v14 == 1402)
             {
               if (dword_27E382C08 <= 800 && (dword_27E382C08 != -1 || sub_23EB74AC8(&dword_27E382C08, 0x320u)))
               {
-                sub_23EB75374(&dword_27E382C08, "void __BSAutoGuessConfiguration(void *)", 800, "\n********************************************************************************\n* Entering state: %d (%s)\n********************************************************************************\n\n", a5, a6, a7, a8, 1402);
+                sub_23EB75374(&dword_27E382C08, "void __BSAutoGuessConfiguration(void *)", 800, "\n********************************************************************************\n* Entering state: %d (%s)\n********************************************************************************\n\n", 1402, "ReplacePreviouslyConfiguredDevice");
               }
 
-              v1031 = sub_23EBE0B4C(1402, Mutable, -1, 0xFFFFFFFFLL, 0, @"BSSetupRecommend_OfferReplace", v1144, 0, ValueAtIndex, 0, 0, a1);
-              if (v1031)
+              v1094 = sub_23EBE0B4C(1402, Mutable, -1, 0xFFFFFFFFLL, 0, @"BSSetupRecommend_OfferReplace", v1223, 0, ValueAtIndex, 0, 0, a1);
+              if (v1094)
               {
-                v35 = v1031;
-                v36 = 0;
+                v15 = v1094;
+                v16 = 0;
+                v14 = 1402;
                 goto LABEL_68;
               }
 
-              v1146[0] = &stru_285145FE8;
+              v1225[0] = &stru_285145FE8;
               if (ValueAtIndex)
               {
-                sub_23EB6FF14(ValueAtIndex, v1146, "%ks", a4, a5, a6, a7, a8, "name");
+                sub_23EB6FF14(ValueAtIndex, v1225, "%ks", "name");
               }
 
-              v1146[0] = &stru_285145FE8;
-              if (v1144)
+              v1225[0] = &stru_285145FE8;
+              if (v1223)
               {
-                sub_23EB6FF14(v1144, v1146, "%ks", a4, a5, a6, a7, a8, "name");
+                sub_23EB6FF14(v1223, v1225, "%ks", "name");
               }
 
-              sub_23EBDBF78("(%d) Offer to Replace the existing base station named %@ with the chosen base station named %@.", v1032, v1033, a4, a5, a6, a7, a8, 1402);
-              sub_23EBE9710(Mutable, byte_27E383C00, "REPLACE_PREVIOUSLY_CONFIGURED_DEVICE", v1090, v1091, v1092, v1093, v1094);
-              v9 = MEMORY[0x277CBECE8];
-              if (dword_27E382C08 > 800 || dword_27E382C08 == -1 && !sub_23EB74AC8(&dword_27E382C08, 0x320u))
+              v988 = 1402;
+              sub_23EBDBF78("(%d) Offer to Replace the existing base station named %@ with the chosen base station named %@.", v1095, v1096, v1097, v1098, v1099, v1100, v1101, 1402);
+              sub_23EBE9710(Mutable, byte_27E383C00, "REPLACE_PREVIOUSLY_CONFIGURED_DEVICE", v1170, v1171, v1172, v1173, v1174);
+              v2 = MEMORY[0x277CBECE8];
+              if (dword_27E382C08 <= 800)
               {
-                goto LABEL_1283;
+                if (dword_27E382C08 == -1 && !sub_23EB74AC8(&dword_27E382C08, 0x320u))
+                {
+                  v988 = 1402;
+                  goto LABEL_1347;
+                }
+
+                goto LABEL_1346;
               }
             }
 
@@ -6711,1172 +7234,1450 @@ LABEL_769:
             {
               if (dword_27E382C08 <= 800 && (dword_27E382C08 != -1 || sub_23EB74AC8(&dword_27E382C08, 0x320u)))
               {
-                sub_23EB75374(&dword_27E382C08, "void __BSAutoGuessConfiguration(void *)", 800, "\n********************************************************************************\n* Entering state: %d (%s)\n********************************************************************************\n\n", a5, a6, a7, a8, 1403);
+                sub_23EB75374(&dword_27E382C08, "void __BSAutoGuessConfiguration(void *)", 800, "\n********************************************************************************\n* Entering state: %d (%s)\n********************************************************************************\n\n", 1403, "JoinWirelessNetwork");
               }
 
               theArray = 0;
-              if (sub_23EBE0A74(v1144, v1131, v65, a4, a5, a6, a7, a8))
+              if (sub_23EBE0A74(v1223, v1210, v29, v30))
               {
-                v994 = (v1131 ? v1131 : v1144);
-                v995 = sub_23EBDDBF8(*(a1 + 32), v994, &theArray);
-                if (v995)
+                v1037 = (v1210 ? v1210 : v1223);
+                v1038 = sub_23EBDDBF8(*(a1 + 32), v1037, &theArray);
+                if (v1038)
                 {
-                  v35 = v995;
-                  if (v995 != -6727)
+                  v15 = v1038;
+                  if (v1038 != -6727)
                   {
-                    goto LABEL_1043;
+                    goto LABEL_1095;
                   }
                 }
               }
 
-              v35 = sub_23EBE0B4C(1403, Mutable, -1, 0xFFFFFFFFLL, 0, @"BSSetupRecommend_OfferJoinNetwork", v1144, v1131, 0, v1142, theArray, a1);
+              v15 = sub_23EBE0B4C(1403, Mutable, -1, 0xFFFFFFFFLL, 0, @"BSSetupRecommend_OfferJoinNetwork", v1223, v1210, 0, v1221, theArray, a1);
               if (theArray)
               {
                 CFRelease(theArray);
                 theArray = 0;
               }
 
-              if (v35)
+              if (v15)
               {
-LABEL_1043:
-                v36 = 0;
+LABEL_1095:
+                v16 = 0;
+                v14 = 1403;
                 goto LABEL_68;
               }
 
-              v1146[0] = &stru_285145FE8;
-              if (v1142)
+              v1225[0] = &stru_285145FE8;
+              if (v1221)
               {
-                sub_23EB6FF14(v1142, v1146, "%kO", a4, a5, a6, a7, a8, @"SSID_STR");
+                sub_23EB6FF14(v1221, v1225, "%kO", @"SSID_STR");
               }
 
-              if (v1144)
+              if (v1223)
               {
-                v1146[0] = &stru_285145FE8;
-                sub_23EB6FF14(v1144, v1146, "%ks", a4, a5, a6, a7, a8, "name");
+                v1225[0] = &stru_285145FE8;
+                sub_23EB6FF14(v1223, v1225, "%ks", "name");
               }
 
               else
               {
-                v1146[0] = &stru_285145FE8;
-                if (v1131)
+                v1225[0] = &stru_285145FE8;
+                if (v1210)
                 {
-                  sub_23EB6FF14(v1131, v1146, "%kO", a4, a5, a6, a7, a8, @"SSID_STR");
+                  sub_23EB6FF14(v1210, v1225, "%kO", @"SSID_STR");
                 }
               }
 
-              sub_23EBDBF78("(%d) Offer to Join the network called %@ with the chosen base station named %@.", v996, v997, a4, a5, a6, a7, a8, 1403);
-              sub_23EBE9710(Mutable, byte_27E383C00, "JOIN_WIRELESS_NETWORK", v1115, v1116, v1117, v1118, v1119);
-              v9 = MEMORY[0x277CBECE8];
-              if (dword_27E382C08 > 800 || dword_27E382C08 == -1 && !sub_23EB74AC8(&dword_27E382C08, 0x320u))
+              v988 = 1403;
+              sub_23EBDBF78("(%d) Offer to Join the network called %@ with the chosen base station named %@.", v1039, v1040, v1041, v1042, v1043, v1044, v1045, 1403);
+              sub_23EBE9710(Mutable, byte_27E383C00, "JOIN_WIRELESS_NETWORK", v1195, v1196, v1197, v1198, v1199);
+              v2 = MEMORY[0x277CBECE8];
+              if (dword_27E382C08 <= 800)
               {
-                goto LABEL_1283;
+                if (dword_27E382C08 == -1 && !sub_23EB74AC8(&dword_27E382C08, 0x320u))
+                {
+                  v988 = 1403;
+                  goto LABEL_1347;
+                }
+
+                goto LABEL_1346;
               }
             }
           }
 
-          else if (v67 == 1201)
-          {
-            if (dword_27E382C08 <= 800 && (dword_27E382C08 != -1 || sub_23EB74AC8(&dword_27E382C08, 0x320u)))
-            {
-              sub_23EB75374(&dword_27E382C08, "void __BSAutoGuessConfiguration(void *)", 800, "\n********************************************************************************\n* Entering state: %d (%s)\n********************************************************************************\n\n", a5, a6, a7, a8, 1201);
-            }
-
-            v1016 = sub_23EBE0F24(1201, Mutable, a1);
-            if (v1016)
-            {
-              v35 = v1016;
-              v36 = 0;
-              goto LABEL_68;
-            }
-
-            sub_23EBDBF78("(%d) Cannot find any unconfigured AirPort base stations and all configured devices appear to be functioning normally.", v1017, v1018, a4, a5, a6, a7, a8, 1201);
-            sub_23EBE9710(Mutable, byte_27E383C00, "NOTHING_FOUND_TO_CONFIGURE", v1060, v1061, v1062, v1063, v1064);
-            v9 = MEMORY[0x277CBECE8];
-            if (dword_27E382C08 > 800 || dword_27E382C08 == -1 && !sub_23EB74AC8(&dword_27E382C08, 0x320u))
-            {
-              goto LABEL_1283;
-            }
-          }
-
           else
           {
-            if (dword_27E382C08 <= 800 && (dword_27E382C08 != -1 || sub_23EB74AC8(&dword_27E382C08, 0x320u)))
+            if (v14 != 1201)
             {
-              sub_23EB75374(&dword_27E382C08, "void __BSAutoGuessConfiguration(void *)", 800, "\n********************************************************************************\n* Entering state: %d (%s)\n********************************************************************************\n\n", a5, a6, a7, a8, 1401);
+              if (dword_27E382C08 <= 800 && (dword_27E382C08 != -1 || sub_23EB74AC8(&dword_27E382C08, 0x320u)))
+              {
+                sub_23EB75374(&dword_27E382C08, "void __BSAutoGuessConfiguration(void *)", 800, "\n********************************************************************************\n* Entering state: %d (%s)\n********************************************************************************\n\n", 1401, "ExtendPreviouslyConfiguredDevice");
+              }
+
+              v1001 = sub_23EBE0B4C(1401, Mutable, -1, 0xFFFFFFFFLL, 0, @"BSSetupRecommend_OfferExtendWirelessly", v1223, 0, ValueAtIndex, 0, 0, a1);
+              if (v1001)
+              {
+                v15 = v1001;
+                v16 = 0;
+                v14 = 1401;
+                goto LABEL_68;
+              }
+
+              v1225[0] = &stru_285145FE8;
+              if (ValueAtIndex)
+              {
+                sub_23EB6FF14(ValueAtIndex, v1225, "%ks", "name");
+              }
+
+              v1225[0] = &stru_285145FE8;
+              if (v1223)
+              {
+                sub_23EB6FF14(v1223, v1225, "%ks", "name");
+              }
+
+              v988 = 1401;
+              sub_23EBDBF78("(%d) Offer to Extend the existing base station named %@ wirelessly with the chosen base station named %@.", v1002, v1003, v1004, v1005, v1006, v1007, v1008, 1401);
+              sub_23EBE9710(Mutable, byte_27E383C00, "EXTEND_PREVIOUSLY_CONFIGURED_DEVICE_WIRELESSLY", v1185, v1186, v1187, v1188, v1189);
+              v2 = MEMORY[0x277CBECE8];
+              if (dword_27E382C08 > 800)
+              {
+                goto LABEL_1347;
+              }
+
+              if (dword_27E382C08 == -1 && !sub_23EB74AC8(&dword_27E382C08, 0x320u))
+              {
+                v988 = 1401;
+                goto LABEL_1347;
+              }
+
+              goto LABEL_1346;
             }
 
-            v973 = sub_23EBE0B4C(1401, Mutable, -1, 0xFFFFFFFFLL, 0, @"BSSetupRecommend_OfferExtendWirelessly", v1144, 0, ValueAtIndex, 0, 0, a1);
-            if (v973)
+            if (dword_27E382C08 <= 800 && (dword_27E382C08 != -1 || sub_23EB74AC8(&dword_27E382C08, 0x320u)))
             {
-              v35 = v973;
-              v36 = 0;
+              sub_23EB75374(&dword_27E382C08, "void __BSAutoGuessConfiguration(void *)", 800, "\n********************************************************************************\n* Entering state: %d (%s)\n********************************************************************************\n\n", 1201, "NothingToConfigure");
+            }
+
+            v1074 = sub_23EBE0F24(1201, Mutable, a1);
+            if (v1074)
+            {
+              v15 = v1074;
+              v16 = 0;
+              v14 = 1201;
               goto LABEL_68;
             }
 
-            v1146[0] = &stru_285145FE8;
-            if (ValueAtIndex)
+            v988 = 1201;
+            sub_23EBDBF78("(%d) Cannot find any unconfigured AirPort base stations and all configured devices appear to be functioning normally.", v1075, v1076, v1077, v1078, v1079, v1080, v1081, 1201);
+            sub_23EBE9710(Mutable, byte_27E383C00, "NOTHING_FOUND_TO_CONFIGURE", v1140, v1141, v1142, v1143, v1144);
+            v2 = MEMORY[0x277CBECE8];
+            if (dword_27E382C08 <= 800)
             {
-              sub_23EB6FF14(ValueAtIndex, v1146, "%ks", a4, a5, a6, a7, a8, "name");
-            }
+              if (dword_27E382C08 != -1 || sub_23EB74AC8(&dword_27E382C08, 0x320u))
+              {
+                goto LABEL_1346;
+              }
 
-            v1146[0] = &stru_285145FE8;
-            if (v1144)
-            {
-              sub_23EB6FF14(v1144, v1146, "%ks", a4, a5, a6, a7, a8, "name");
-            }
-
-            sub_23EBDBF78("(%d) Offer to Extend the existing base station named %@ wirelessly with the chosen base station named %@.", v974, v975, a4, a5, a6, a7, a8, 1401);
-            sub_23EBE9710(Mutable, byte_27E383C00, "EXTEND_PREVIOUSLY_CONFIGURED_DEVICE_WIRELESSLY", v1105, v1106, v1107, v1108, v1109);
-            v9 = MEMORY[0x277CBECE8];
-            if (dword_27E382C08 > 800 || dword_27E382C08 == -1 && !sub_23EB74AC8(&dword_27E382C08, 0x320u))
-            {
-              goto LABEL_1283;
+              v988 = 1201;
             }
           }
         }
 
-        else if (v67 > 1102)
+        else if (v14 > 1102)
         {
-          if (v67 == 1103)
+          if (v14 == 1103)
           {
             if (dword_27E382C08 <= 800 && (dword_27E382C08 != -1 || sub_23EB74AC8(&dword_27E382C08, 0x320u)))
             {
-              sub_23EB75374(&dword_27E382C08, "void __BSAutoGuessConfiguration(void *)", 800, "\n********************************************************************************\n* Entering state: %d (%s)\n********************************************************************************\n\n", a5, a6, a7, a8, 1103);
+              sub_23EB75374(&dword_27E382C08, "void __BSAutoGuessConfiguration(void *)", 800, "\n********************************************************************************\n* Entering state: %d (%s)\n********************************************************************************\n\n", 1103, "TellUserNoNetworkFoundForSTAOnlyDevice");
             }
 
-            sub_23EBE0B4C(1103, Mutable, -1, 0xFFFFFFFFLL, 0, @"BSSetupRecommend_NoNetworkToJoin", v1144, v1131, 0, 0, 0, a1);
-            sub_23EBDBF78("(%d) No network was found for the STA-only device.", v1019, v1020, v1021, v1022, v1023, v1024, v1025, 1103);
-            sub_23EBE9710(Mutable, byte_27E383C00, "TELL_USER_NO_NETWORK_FOR_STA_ONLY", v1026, v1027, v1028, v1029, v1030);
-            v9 = MEMORY[0x277CBECE8];
-            if (dword_27E382C08 > 800 || dword_27E382C08 == -1 && !sub_23EB74AC8(&dword_27E382C08, 0x320u))
+            v988 = 1103;
+            sub_23EBE0B4C(1103, Mutable, -1, 0xFFFFFFFFLL, 0, @"BSSetupRecommend_NoNetworkToJoin", v1223, v1210, 0, 0, 0, a1);
+            sub_23EBDBF78("(%d) No network was found for the STA-only device.", v1082, v1083, v1084, v1085, v1086, v1087, v1088, 1103);
+            sub_23EBE9710(Mutable, byte_27E383C00, "TELL_USER_NO_NETWORK_FOR_STA_ONLY", v1089, v1090, v1091, v1092, v1093);
+            v2 = MEMORY[0x277CBECE8];
+            if (dword_27E382C08 > 800)
             {
-              goto LABEL_1283;
+              goto LABEL_1347;
             }
+
+            if (dword_27E382C08 != -1 || sub_23EB74AC8(&dword_27E382C08, 0x320u))
+            {
+              goto LABEL_1346;
+            }
+
+            v988 = 1103;
           }
 
           else
           {
             if (dword_27E382C08 <= 800 && (dword_27E382C08 != -1 || sub_23EB74AC8(&dword_27E382C08, 0x320u)))
             {
-              sub_23EB75374(&dword_27E382C08, "void __BSAutoGuessConfiguration(void *)", 800, "\n********************************************************************************\n* Entering state: %d (%s)\n********************************************************************************\n\n", a5, a6, a7, a8, 1104);
+              sub_23EB75374(&dword_27E382C08, "void __BSAutoGuessConfiguration(void *)", 800, "\n********************************************************************************\n* Entering state: %d (%s)\n********************************************************************************\n\n", 1104, "TellUserDeviceIsTooNewToSetUp");
             }
 
-            sub_23EBE0B4C(1104, Mutable, -1, 0xFFFFFFFFLL, 0, @"BSSetupRecommend_DeviceIsTooNewToSetUp", v1144, v1131, 0, 0, 0, a1);
-            sub_23EBDBF78("(%d) Device is too new to set up.", v982, v983, v984, v985, v986, v987, v988, 1104);
-            sub_23EBE9710(Mutable, byte_27E383C00, "TELL_USER_DEVICE_IS_TOO_NEW_TO_SET_UP", v989, v990, v991, v992, v993);
-            v9 = MEMORY[0x277CBECE8];
-            if (dword_27E382C08 > 800 || dword_27E382C08 == -1 && !sub_23EB74AC8(&dword_27E382C08, 0x320u))
+            v988 = 1104;
+            sub_23EBE0B4C(1104, Mutable, -1, 0xFFFFFFFFLL, 0, @"BSSetupRecommend_DeviceIsTooNewToSetUp", v1223, v1210, 0, 0, 0, a1);
+            sub_23EBDBF78("(%d) Device is too new to set up.", v1025, v1026, v1027, v1028, v1029, v1030, v1031, 1104);
+            sub_23EBE9710(Mutable, byte_27E383C00, "TELL_USER_DEVICE_IS_TOO_NEW_TO_SET_UP", v1032, v1033, v1034, v1035, v1036);
+            v2 = MEMORY[0x277CBECE8];
+            if (dword_27E382C08 > 800)
             {
-              goto LABEL_1283;
+              goto LABEL_1347;
             }
+
+            if (dword_27E382C08 != -1 || sub_23EB74AC8(&dword_27E382C08, 0x320u))
+            {
+              goto LABEL_1346;
+            }
+
+            v988 = 1104;
           }
         }
 
-        else if (v67 == 1101)
+        else if (v14 == 1101)
         {
           if (dword_27E382C08 <= 800 && (dword_27E382C08 != -1 || sub_23EB74AC8(&dword_27E382C08, 0x320u)))
           {
-            sub_23EB75374(&dword_27E382C08, "void __BSAutoGuessConfiguration(void *)", 800, "\n********************************************************************************\n* Entering state: %d (%s)\n********************************************************************************\n\n", a5, a6, a7, a8, 1101);
+            sub_23EB75374(&dword_27E382C08, "void __BSAutoGuessConfiguration(void *)", 800, "\n********************************************************************************\n* Entering state: %d (%s)\n********************************************************************************\n\n", 1101, "TellUserToUseAUFor80211g");
           }
 
-          sub_23EBE0B4C(1101, Mutable, -1, 0xFFFFFFFFLL, 0, @"BSSetupRecommend_UseAUFor80211g", v1144, 0, 0, 0, 0, a1);
-          sub_23EBDBF78("(%d) Use AirPort Utility for 802.11g to configure this base station.", v1004, v1005, v1006, v1007, v1008, v1009, v1010, 1101);
-          sub_23EBE9710(Mutable, byte_27E383C00, "TELL_USER_USE_AU_FOR_80211G", v1011, v1012, v1013, v1014, v1015);
-          v9 = MEMORY[0x277CBECE8];
-          if (dword_27E382C08 > 800 || dword_27E382C08 == -1 && !sub_23EB74AC8(&dword_27E382C08, 0x320u))
+          v988 = 1101;
+          sub_23EBE0B4C(1101, Mutable, -1, 0xFFFFFFFFLL, 0, @"BSSetupRecommend_UseAUFor80211g", v1223, 0, 0, 0, 0, a1);
+          sub_23EBDBF78("(%d) Use AirPort Utility for 802.11g to configure this base station.", v1062, v1063, v1064, v1065, v1066, v1067, v1068, 1101);
+          sub_23EBE9710(Mutable, byte_27E383C00, "TELL_USER_USE_AU_FOR_80211G", v1069, v1070, v1071, v1072, v1073);
+          v2 = MEMORY[0x277CBECE8];
+          if (dword_27E382C08 > 800)
           {
-            goto LABEL_1283;
+            goto LABEL_1347;
           }
+
+          if (dword_27E382C08 != -1 || sub_23EB74AC8(&dword_27E382C08, 0x320u))
+          {
+            goto LABEL_1346;
+          }
+
+          v988 = 1101;
         }
 
         else
         {
           if (dword_27E382C08 <= 800 && (dword_27E382C08 != -1 || sub_23EB74AC8(&dword_27E382C08, 0x320u)))
           {
-            sub_23EB75374(&dword_27E382C08, "void __BSAutoGuessConfiguration(void *)", 800, "\n********************************************************************************\n* Entering state: %d (%s)\n********************************************************************************\n\n", a5, a6, a7, a8, 1102);
+            sub_23EB75374(&dword_27E382C08, "void __BSAutoGuessConfiguration(void *)", 800, "\n********************************************************************************\n* Entering state: %d (%s)\n********************************************************************************\n\n", 1102, "TellUserAFirmwareUpdateIsRequired");
           }
 
-          sub_23EBE0B4C(1102, Mutable, -1, 0xFFFFFFFFLL, 0, @"BSSetupRecommend_FirmwareUpdateRequired", v1144, 0, 0, 0, 0, a1);
-          sub_23EBDBF78("(%d) A firmware update is required before configuring this base station.", v957, v958, v959, v960, v961, v962, v963, 1102);
-          sub_23EBE9710(Mutable, byte_27E383C00, "TELL_USER_FIRMWARE_UPDATE_REQUIRED", v964, v965, v966, v967, v968);
-          v9 = MEMORY[0x277CBECE8];
-          if (dword_27E382C08 > 800 || dword_27E382C08 == -1 && !sub_23EB74AC8(&dword_27E382C08, 0x320u))
+          v988 = 1102;
+          sub_23EBE0B4C(1102, Mutable, -1, 0xFFFFFFFFLL, 0, @"BSSetupRecommend_FirmwareUpdateRequired", v1223, 0, 0, 0, 0, a1);
+          sub_23EBDBF78("(%d) A firmware update is required before configuring this base station.", v989, v990, v991, v992, v993, v994, v995, 1102);
+          sub_23EBE9710(Mutable, byte_27E383C00, "TELL_USER_FIRMWARE_UPDATE_REQUIRED", v996, v997, v998, v999, v1000);
+          v2 = MEMORY[0x277CBECE8];
+          if (dword_27E382C08 > 800)
           {
-            goto LABEL_1283;
+            goto LABEL_1347;
           }
-        }
 
-        goto LABEL_1282;
+          if (dword_27E382C08 != -1 || sub_23EB74AC8(&dword_27E382C08, 0x320u))
+          {
+            goto LABEL_1346;
+          }
+
+          v988 = 1102;
+        }
       }
 
-      if (v67 <= 1500)
+      else if (v14 <= 1500)
       {
-        if (v67 > 1407)
+        if (v14 <= 1407)
         {
-          if (v67 == 1408)
+          if (v14 == 1406)
           {
             if (dword_27E382C08 <= 800 && (dword_27E382C08 != -1 || sub_23EB74AC8(&dword_27E382C08, 0x320u)))
             {
-              sub_23EB75374(&dword_27E382C08, "void __BSAutoGuessConfiguration(void *)", 800, "\n********************************************************************************\n* Entering state: %d (%s)\n********************************************************************************\n\n", a5, a6, a7, a8, 1408);
+              sub_23EB75374(&dword_27E382C08, "void __BSAutoGuessConfiguration(void *)", 800, "\n********************************************************************************\n* Entering state: %d (%s)\n********************************************************************************\n\n", 1406, "AskUserWhichNetworkToJoin");
             }
 
-            v1043 = sub_23EBE0B4C(1408, Mutable, -1, 1, 0, @"BSSetupRecommend_OfferReplaceSourceIsUnconfigurable", v1144, 0, ValueAtIndex, 0, 0, a1);
-            if (v1043)
+            v1118 = sub_23EBE0B4C(1406, Mutable, -1, 0xFFFFFFFFLL, 0, @"BSSetupRecommend_AskUserChooseNetworkToJoin", v1223, v1210, 0, 0, cf, a1);
+            if (v1118)
             {
-              v35 = v1043;
-              v36 = 0;
+              v15 = v1118;
+              v16 = 0;
+              v14 = 1406;
               goto LABEL_68;
             }
 
-            v1146[0] = &stru_285145FE8;
-            if (ValueAtIndex)
+            if (v1223)
             {
-              sub_23EB6FF14(ValueAtIndex, v1146, "%ks", a4, a5, a6, a7, a8, "name");
-            }
-
-            v1146[0] = &stru_285145FE8;
-            if (v1144)
-            {
-              sub_23EB6FF14(v1144, v1146, "%ks", a4, a5, a6, a7, a8, "name");
-            }
-
-            sub_23EBDBF78("(%d) Offer to Replace the existing base station named %@ with the chosen base station named %@ . The existing base station is a Q61 or P81.", v1044, v1045, a4, a5, a6, a7, a8, 1408);
-            sub_23EBE9710(Mutable, byte_27E383C00, "REPLACE_PREVIOUSLY_CONFIGURED_DEVICE_UNCONFIGURABLE", v1100, v1101, v1102, v1103, v1104);
-            v9 = MEMORY[0x277CBECE8];
-            if (dword_27E382C08 > 800 || dword_27E382C08 == -1 && !sub_23EB74AC8(&dword_27E382C08, 0x320u))
-            {
-              goto LABEL_1283;
-            }
-          }
-
-          else
-          {
-            if (dword_27E382C08 <= 800 && (dword_27E382C08 != -1 || sub_23EB74AC8(&dword_27E382C08, 0x320u)))
-            {
-              sub_23EB75374(&dword_27E382C08, "void __BSAutoGuessConfiguration(void *)", 800, "\n********************************************************************************\n* Entering state: %d (%s)\n********************************************************************************\n\n", a5, a6, a7, a8, 1409);
-            }
-
-            v998 = sub_23EBE0B4C(1409, Mutable, -1, 2, 0, @"BSSetupRecommend_OfferReplaceSourceIsUnconfigurable", v1144, 0, ValueAtIndex, 0, 0, a1);
-            if (v998)
-            {
-              v35 = v998;
-              v36 = 0;
-              goto LABEL_68;
-            }
-
-            v1146[0] = &stru_285145FE8;
-            if (ValueAtIndex)
-            {
-              sub_23EB6FF14(ValueAtIndex, v1146, "%ks", a4, a5, a6, a7, a8, "name");
-            }
-
-            v1146[0] = &stru_285145FE8;
-            if (v1144)
-            {
-              sub_23EB6FF14(v1144, v1146, "%ks", a4, a5, a6, a7, a8, "name");
-            }
-
-            sub_23EBDBF78("(%d) Offer to Replace the existing base station named %@ with the chosen base station named %@ . The existing base station is unconfigurable.", v999, v1000, a4, a5, a6, a7, a8, 1409);
-            sub_23EBE9710(Mutable, byte_27E383C00, "REPLACE_PREVIOUSLY_CONFIGURED_DEVICE_UNCONFIGURABLE", v1110, v1111, v1112, v1113, v1114);
-            v9 = MEMORY[0x277CBECE8];
-            if (dword_27E382C08 > 800 || dword_27E382C08 == -1 && !sub_23EB74AC8(&dword_27E382C08, 0x320u))
-            {
-              goto LABEL_1283;
-            }
-          }
-
-          goto LABEL_1282;
-        }
-
-        if (v67 == 1406)
-        {
-          if (dword_27E382C08 <= 800 && (dword_27E382C08 != -1 || sub_23EB74AC8(&dword_27E382C08, 0x320u)))
-          {
-            sub_23EB75374(&dword_27E382C08, "void __BSAutoGuessConfiguration(void *)", 800, "\n********************************************************************************\n* Entering state: %d (%s)\n********************************************************************************\n\n", a5, a6, a7, a8, 1406);
-          }
-
-          v1040 = sub_23EBE0B4C(1406, Mutable, -1, 0xFFFFFFFFLL, 0, @"BSSetupRecommend_AskUserChooseNetworkToJoin", v1144, v1131, 0, 0, cf, a1);
-          if (v1040)
-          {
-            v35 = v1040;
-            v36 = 0;
-            goto LABEL_68;
-          }
-
-          if (v1144)
-          {
-            v1146[0] = &stru_285145FE8;
-            sub_23EB6FF14(v1144, v1146, "%ks", a4, a5, a6, a7, a8, "name");
-          }
-
-          else
-          {
-            v1146[0] = &stru_285145FE8;
-            if (v1131)
-            {
-              sub_23EB6FF14(v1131, v1146, "%kO", a4, a5, a6, a7, a8, @"SSID_STR");
-            }
-          }
-
-          sub_23EBDBF78("(%d) Unable to make a configuration suggestion for the chosen base station or network named %@.", v1041, v1042, a4, a5, a6, a7, a8, 1406);
-          sub_23EBE9710(Mutable, byte_27E383C00, "JOIN_WIRELESS_NETWORK", v1095, v1096, v1097, v1098, v1099);
-          if (cf)
-          {
-            CFRelease(cf);
-            cf = 0;
-          }
-
-          if (dword_27E382C08 <= 800)
-          {
-            v9 = MEMORY[0x277CBECE8];
-            if (dword_27E382C08 == -1 && !sub_23EB74AC8(&dword_27E382C08, 0x320u))
-            {
-              goto LABEL_1283;
-            }
-
-            goto LABEL_1282;
-          }
-        }
-
-        else
-        {
-          if (dword_27E382C08 <= 800 && (dword_27E382C08 != -1 || sub_23EB74AC8(&dword_27E382C08, 0x320u)))
-          {
-            sub_23EB75374(&dword_27E382C08, "void __BSAutoGuessConfiguration(void *)", 800, "\n********************************************************************************\n* Entering state: %d (%s)\n********************************************************************************\n\n", a5, a6, a7, a8, 1407);
-          }
-
-          v976 = sub_23EBE0B4C(1407, Mutable, -1, 0xFFFFFFFFLL, 0, @"BSSetupRecommend_AskUserChooseBaseWireless", v1144, 0, 0, 0, cf, a1);
-          if (v976)
-          {
-            v35 = v976;
-            v36 = 0;
-            goto LABEL_68;
-          }
-
-          v1146[0] = &stru_285145FE8;
-          if (v1144)
-          {
-            sub_23EB6FF14(v1144, v1146, "%ks", a4, a5, a6, a7, a8, "name");
-          }
-
-          sub_23EBDBF78("(%d) Unable to make a configuration suggestion for the chosen base station named %@.", v977, v978, a4, a5, a6, a7, a8, 1407);
-          sub_23EBE9710(Mutable, byte_27E383C00, "EXTEND_PREVIOUSLY_CONFIGURED_DEVICE_WIRELESSLY", v1080, v1081, v1082, v1083, v1084);
-          if (cf)
-          {
-            CFRelease(cf);
-            cf = 0;
-          }
-
-          if (dword_27E382C08 <= 800)
-          {
-            v9 = MEMORY[0x277CBECE8];
-            if (dword_27E382C08 == -1 && !sub_23EB74AC8(&dword_27E382C08, 0x320u))
-            {
-              goto LABEL_1283;
-            }
-
-            goto LABEL_1282;
-          }
-        }
-      }
-
-      else if (v67 <= 1700)
-      {
-        if (v67 == 1501)
-        {
-          if (dword_27E382C08 <= 800 && (dword_27E382C08 != -1 || sub_23EB74AC8(&dword_27E382C08, 0x320u)))
-          {
-            sub_23EB75374(&dword_27E382C08, "void __BSAutoGuessConfiguration(void *)", 800, "\n********************************************************************************\n* Entering state: %d (%s)\n********************************************************************************\n\n", a5, a6, a7, a8, 1501);
-          }
-
-          v1001 = sub_23EBE0B4C(1501, Mutable, -1, 0xFFFFFFFFLL, 0, @"BSSetupRecommend_OfferExtendOverEthernet", v1144, 0, ValueAtIndex, 0, 0, a1);
-          if (v1001)
-          {
-            v35 = v1001;
-            v36 = 0;
-            goto LABEL_68;
-          }
-
-          v1146[0] = &stru_285145FE8;
-          if (ValueAtIndex)
-          {
-            sub_23EB6FF14(ValueAtIndex, v1146, "%ks", a4, a5, a6, a7, a8, "name");
-          }
-
-          v1146[0] = &stru_285145FE8;
-          if (v1144)
-          {
-            sub_23EB6FF14(v1144, v1146, "%ks", a4, a5, a6, a7, a8, "name");
-          }
-
-          sub_23EBDBF78("(%d) Offer to Extend the existing base station named %@ over ethernet with the chosen base station named %@.", v1002, v1003, a4, a5, a6, a7, a8, 1501);
-          sub_23EBE9710(Mutable, byte_27E383C00, "EXTEND_USING_OTHER_BASE_CONFIGURATION_OVER_ETHERNET", v1085, v1086, v1087, v1088, v1089);
-          v9 = MEMORY[0x277CBECE8];
-          if (dword_27E382C08 > 800 || dword_27E382C08 == -1 && !sub_23EB74AC8(&dword_27E382C08, 0x320u))
-          {
-            goto LABEL_1283;
-          }
-
-          goto LABEL_1282;
-        }
-
-        if (dword_27E382C08 <= 800 && (dword_27E382C08 != -1 || sub_23EB74AC8(&dword_27E382C08, 0x320u)))
-        {
-          sub_23EB75374(&dword_27E382C08, "void __BSAutoGuessConfiguration(void *)", 800, "\n********************************************************************************\n* Entering state: %d (%s)\n********************************************************************************\n\n", a5, a6, a7, a8, 1502);
-        }
-
-        v979 = sub_23EBE0B4C(1502, Mutable, -1, 0xFFFFFFFFLL, 0, @"BSSetupRecommend_AskUserChooseBaseWired", v1144, 0, 0, 0, cf, a1);
-        if (v979)
-        {
-          v35 = v979;
-          v36 = 0;
-          goto LABEL_68;
-        }
-
-        v1146[0] = &stru_285145FE8;
-        if (v1144)
-        {
-          sub_23EB6FF14(v1144, v1146, "%ks", a4, a5, a6, a7, a8, "name");
-        }
-
-        sub_23EBDBF78("(%d) Unable to make a configuration suggestion for the chosen base station named %@.", v980, v981, a4, a5, a6, a7, a8, 1502);
-        sub_23EBE9710(Mutable, byte_27E383C00, "ASK_USER_WHAT_TO_DO_2", v1055, v1056, v1057, v1058, v1059);
-        if (cf)
-        {
-          CFRelease(cf);
-          cf = 0;
-        }
-
-        if (dword_27E382C08 <= 800)
-        {
-          v9 = MEMORY[0x277CBECE8];
-          if (dword_27E382C08 == -1 && !sub_23EB74AC8(&dword_27E382C08, 0x320u))
-          {
-            goto LABEL_1283;
-          }
-
-          goto LABEL_1282;
-        }
-      }
-
-      else
-      {
-        if (v67 == 1701)
-        {
-          if (dword_27E382C08 <= 800 && (dword_27E382C08 != -1 || sub_23EB74AC8(&dword_27E382C08, 0x320u)))
-          {
-            sub_23EB75374(&dword_27E382C08, "void __BSAutoGuessConfiguration(void *)", 800, "\n********************************************************************************\n* Entering state: %d (%s)\n********************************************************************************\n\n", a5, a6, a7, a8, 1701);
-          }
-
-          v1034 = sub_23EBE0B4C(1701, Mutable, -1, 0xFFFFFFFFLL, 0, @"BSSetupRecommend_OfferCreate", v1144, 0, 0, 0, 0, a1);
-          if (v1034)
-          {
-            v35 = v1034;
-            v36 = 0;
-            goto LABEL_68;
-          }
-
-          v1146[0] = &stru_285145FE8;
-          if (v1144)
-          {
-            sub_23EB6FF14(v1144, v1146, "%ks", a4, a5, a6, a7, a8, "name");
-          }
-
-          sub_23EBDBF78("(%d) Offer to Create a Wi-Fi network with the chosen base station named %@.", v1035, v1036, a4, a5, a6, a7, a8, 1701);
-          sub_23EBE9710(Mutable, byte_27E383C00, "OFFER_TO_CREATE_NETWORK", v1065, v1066, v1067, v1068, v1069);
-          v9 = MEMORY[0x277CBECE8];
-          if (dword_27E382C08 > 800 || dword_27E382C08 == -1 && !sub_23EB74AC8(&dword_27E382C08, 0x320u))
-          {
-            goto LABEL_1283;
-          }
-
-          goto LABEL_1282;
-        }
-
-        if (v67 == 1801)
-        {
-          if (dword_27E382C08 <= 800 && (dword_27E382C08 != -1 || sub_23EB74AC8(&dword_27E382C08, 0x320u)))
-          {
-            sub_23EB75374(&dword_27E382C08, "void __BSAutoGuessConfiguration(void *)", 800, "\n********************************************************************************\n* Entering state: %d (%s)\n********************************************************************************\n\n", a5, a6, a7, a8, 1801);
-          }
-
-          v1037 = sub_23EBE0EE0(1801, Mutable, a1);
-          if (v1037)
-          {
-            v35 = v1037;
-            v36 = 0;
-            goto LABEL_68;
-          }
-
-          sub_23EBDBF78("(%d) The new AirPort base station needs to be plugged in to your current network using an Ethernet cable.", v1038, v1039, a4, a5, a6, a7, a8, 1801);
-          sub_23EBE9710(Mutable, byte_27E383C00, "TELL_USER_CANNOT_FIND_DEVICES", v1070, v1071, v1072, v1073, v1074);
-          v9 = MEMORY[0x277CBECE8];
-          if (dword_27E382C08 > 800 || dword_27E382C08 == -1 && !sub_23EB74AC8(&dword_27E382C08, 0x320u))
-          {
-            goto LABEL_1283;
-          }
-
-          goto LABEL_1282;
-        }
-
-        if (dword_27E382C08 <= 800 && (dword_27E382C08 != -1 || sub_23EB74AC8(&dword_27E382C08, 0x320u)))
-        {
-          sub_23EB75374(&dword_27E382C08, "void __BSAutoGuessConfiguration(void *)", 800, "\n********************************************************************************\n* Entering state: %d (%s)\n********************************************************************************\n\n", a5, a6, a7, a8, 1802);
-        }
-
-        v954 = sub_23EBE0B4C(1802, Mutable, -1, 0xFFFFFFFFLL, 0, @"BSSetupRecommend_UseAUFor80211g", 0, v1142, 0, 0, 0, a1);
-        if (v954)
-        {
-          v35 = v954;
-          v36 = 0;
-          goto LABEL_68;
-        }
-
-        sub_23EBDBF78("(%d) Use AirPort Utility for 802.11g to configure this network.", v955, v956, a4, a5, a6, a7, a8, 1802);
-        sub_23EBE9710(Mutable, byte_27E383C00, "TELL_USER_USE_AU_FOR_80211G", v1075, v1076, v1077, v1078, v1079);
-        if (v1142)
-        {
-          CFRelease(v1142);
-          v1142 = 0;
-        }
-
-        if (dword_27E382C08 <= 800)
-        {
-          v9 = MEMORY[0x277CBECE8];
-          if (dword_27E382C08 == -1 && !sub_23EB74AC8(&dword_27E382C08, 0x320u))
-          {
-            goto LABEL_1283;
-          }
-
-LABEL_1282:
-          sub_23EB75374(&dword_27E382C08, "void __BSAutoGuessConfiguration(void *)", 800, "\n********************************************************************************\n* Exiting state: %d\n********************************************************************************\n\n", v969, v970, v971, v972, v67);
-LABEL_1283:
-          v1120 = sub_23EC0C218();
-          if (!v1120)
-          {
-            v1120 = sub_23EBEA18C(*(a1 + 48), v1121, v1122, a4, a5, a6, a7, a8);
-          }
-
-          v35 = v1120;
-          v36 = 0;
-          goto LABEL_10;
-        }
-      }
-
-      v9 = MEMORY[0x277CBECE8];
-      goto LABEL_1283;
-    }
-
-    if (v67 != 802)
-    {
-      key = 0;
-      if (dword_27E382C08 <= 800 && (dword_27E382C08 != -1 || sub_23EB74AC8(&dword_27E382C08, 0x320u)))
-      {
-        sub_23EB75374(&dword_27E382C08, "void __BSAutoGuessConfiguration(void *)", 800, "\n********************************************************************************\n* Entering state: %d (%s)\n********************************************************************************\n\n", a5, a6, a7, a8, 806);
-      }
-
-      v35 = sub_23EBDD91C(v34, &theDict, v65, a4, a5, a6, a7, a8);
-      if (v34)
-      {
-        CFRelease(v34);
-      }
-
-      if (v35 == -6727)
-      {
-        v1145 = 0;
-      }
-
-      else
-      {
-        if (v35)
-        {
-          goto LABEL_1292;
-        }
-
-        if (!theDict)
-        {
-LABEL_1147:
-          v35 = 4294960568;
-          goto LABEL_1292;
-        }
-
-        v1145 = CFDictionaryGetCount(theDict);
-        sub_23EBDCA2C("State 806 filtered records: \n", theDict, v133, v134, v135, v136, v137, v138);
-        if (v1145 == 1)
-        {
-          v664 = sub_23EBDDE68(theDict, &key, v132, a4, a5, a6, a7, a8);
-          if (v664)
-          {
-            v35 = v664;
-            goto LABEL_1292;
-          }
-
-          if (!key)
-          {
-            goto LABEL_1147;
-          }
-
-          v665 = CFDictionaryGetValue(theDict, key);
-          v1142 = v665;
-          if (!v665)
-          {
-            v35 = 4294960569;
-            goto LABEL_1292;
-          }
-
-          CFRetain(v665);
-          v1146[0] = &stru_285145FE8;
-          if (v1142)
-          {
-            sub_23EB6FF14(v1142, v1146, "%kO", v668, v669, v670, v671, v672, @"SSID_STR");
-          }
-
-          sub_23EBDBF78("(%d) Found %d unconfigured network in Wi-Fi scans after filtering and the network is named %@.", v666, v667, v668, v669, v670, v671, v672, 806);
-          v67 = 807;
-          v152 = "NUMBER_UNCONFIGURED_APPLE_NETWORKS_VISIBLE_IS_ONE_TRUE";
-LABEL_454:
-          sub_23EBE98EC(Mutable, byte_27E383C00, v152, v1145, v148, v149, v150, v151);
-          goto LABEL_455;
-        }
-
-        if (v1145)
-        {
-          if (v1145 >= 2)
-          {
-            v139 = sub_23EBE0908(a1, 6, theDict, &key, a5, a6, a7, a8);
-            if (v139)
-            {
-              v35 = v139;
-            }
-
-            else if (key)
-            {
-              v140 = CFDictionaryGetValue(theDict, key);
-              v1142 = v140;
-              if (v140)
-              {
-                CFRetain(v140);
-                v1146[0] = &stru_285145FE8;
-                if (v1142)
-                {
-                  sub_23EB6FF14(v1142, v1146, "%kO", v143, v144, v145, v146, v147, @"SSID_STR");
-                }
-
-                sub_23EBDBF78("(%d) Found %d unconfigured networks in Wi-Fi scans and the user chose to configure the one called %@.", v141, v142, v143, v144, v145, v146, v147, 806);
-                v67 = 807;
-                v1125 = 1;
-                v152 = "NUMBER_UNCONFIGURED_APPLE_NETWORKS_VISIBLE_IS_GREATER_THAN_ONE_TRUE";
-                v9 = MEMORY[0x277CBECE8];
-                goto LABEL_454;
-              }
-
-              v35 = 4294960569;
+              v1225[0] = &stru_285145FE8;
+              sub_23EB6FF14(v1223, v1225, "%ks", "name");
             }
 
             else
             {
-              v35 = 4294960568;
+              v1225[0] = &stru_285145FE8;
+              if (v1210)
+              {
+                sub_23EB6FF14(v1210, v1225, "%kO", @"SSID_STR");
+              }
             }
 
-            v9 = MEMORY[0x277CBECE8];
-LABEL_1292:
-            v36 = 0;
-            v34 = 0;
-            goto LABEL_10;
+            sub_23EBDBF78("(%d) Unable to make a configuration suggestion for the chosen base station or network named %@.", v1119, v1120, v1121, v1122, v1123, v1124, v1125, 1406);
+            sub_23EBE9710(Mutable, byte_27E383C00, "JOIN_WIRELESS_NETWORK", v1175, v1176, v1177, v1178, v1179);
+            if (cf)
+            {
+              CFRelease(cf);
+              cf = 0;
+            }
+
+            if (dword_27E382C08 <= 800)
+            {
+              v2 = MEMORY[0x277CBECE8];
+              if (dword_27E382C08 == -1 && !sub_23EB74AC8(&dword_27E382C08, 0x320u))
+              {
+                v988 = 1406;
+                goto LABEL_1347;
+              }
+
+              goto LABEL_1346;
+            }
+
+            v988 = 1406;
           }
 
-          v67 = 806;
-LABEL_455:
-          if (theDict)
+          else
           {
-            CFRelease(theDict);
-            theDict = 0;
+            if (dword_27E382C08 <= 800 && (dword_27E382C08 != -1 || sub_23EB74AC8(&dword_27E382C08, 0x320u)))
+            {
+              sub_23EB75374(&dword_27E382C08, "void __BSAutoGuessConfiguration(void *)", 800, "\n********************************************************************************\n* Entering state: %d (%s)\n********************************************************************************\n\n", 1407, "AskUserWhichNetworkToExtend");
+            }
+
+            v1009 = sub_23EBE0B4C(1407, Mutable, -1, 0xFFFFFFFFLL, 0, @"BSSetupRecommend_AskUserChooseBaseWireless", v1223, 0, 0, 0, cf, a1);
+            if (v1009)
+            {
+              v15 = v1009;
+              v16 = 0;
+              v14 = 1407;
+              goto LABEL_68;
+            }
+
+            v1225[0] = &stru_285145FE8;
+            if (v1223)
+            {
+              sub_23EB6FF14(v1223, v1225, "%ks", "name");
+            }
+
+            sub_23EBDBF78("(%d) Unable to make a configuration suggestion for the chosen base station named %@.", v1010, v1011, v1012, v1013, v1014, v1015, v1016, 1407);
+            sub_23EBE9710(Mutable, byte_27E383C00, "EXTEND_PREVIOUSLY_CONFIGURED_DEVICE_WIRELESSLY", v1160, v1161, v1162, v1163, v1164);
+            if (cf)
+            {
+              CFRelease(cf);
+              cf = 0;
+            }
+
+            if (dword_27E382C08 <= 800)
+            {
+              v2 = MEMORY[0x277CBECE8];
+              if (dword_27E382C08 == -1 && !sub_23EB74AC8(&dword_27E382C08, 0x320u))
+              {
+                v988 = 1407;
+                goto LABEL_1347;
+              }
+
+              goto LABEL_1346;
+            }
+
+            v988 = 1407;
           }
 
+LABEL_1316:
+          v2 = MEMORY[0x277CBECE8];
+          goto LABEL_1347;
+        }
+
+        if (v14 == 1408)
+        {
           if (dword_27E382C08 <= 800 && (dword_27E382C08 != -1 || sub_23EB74AC8(&dword_27E382C08, 0x320u)))
           {
-            sub_23EB75374(&dword_27E382C08, "void __BSAutoGuessConfiguration(void *)", 800, "\n********************************************************************************\n* Exiting state: %d\n********************************************************************************\n\n", a5, a6, a7, a8, 806);
+            sub_23EB75374(&dword_27E382C08, "void __BSAutoGuessConfiguration(void *)", 800, "\n********************************************************************************\n* Entering state: %d (%s)\n********************************************************************************\n\n", 1408, "ReplacePreviouslyConfiguredDeviceQ61P81");
           }
 
-          v34 = 0;
-          goto LABEL_945;
+          v1126 = sub_23EBE0B4C(1408, Mutable, -1, 1, 0, @"BSSetupRecommend_OfferReplaceSourceIsUnconfigurable", v1223, 0, ValueAtIndex, 0, 0, a1);
+          if (v1126)
+          {
+            v15 = v1126;
+            v16 = 0;
+            v14 = 1408;
+            goto LABEL_68;
+          }
+
+          v1225[0] = &stru_285145FE8;
+          if (ValueAtIndex)
+          {
+            sub_23EB6FF14(ValueAtIndex, v1225, "%ks", "name");
+          }
+
+          v1225[0] = &stru_285145FE8;
+          if (v1223)
+          {
+            sub_23EB6FF14(v1223, v1225, "%ks", "name");
+          }
+
+          v988 = 1408;
+          sub_23EBDBF78("(%d) Offer to Replace the existing base station named %@ with the chosen base station named %@ . The existing base station is a Q61 or P81.", v1127, v1128, v1129, v1130, v1131, v1132, v1133, 1408);
+          sub_23EBE9710(Mutable, byte_27E383C00, "REPLACE_PREVIOUSLY_CONFIGURED_DEVICE_UNCONFIGURABLE", v1180, v1181, v1182, v1183, v1184);
+          v2 = MEMORY[0x277CBECE8];
+          if (dword_27E382C08 <= 800)
+          {
+            if (dword_27E382C08 == -1 && !sub_23EB74AC8(&dword_27E382C08, 0x320u))
+            {
+              v988 = 1408;
+              goto LABEL_1347;
+            }
+
+            goto LABEL_1346;
+          }
+        }
+
+        else
+        {
+          if (dword_27E382C08 <= 800 && (dword_27E382C08 != -1 || sub_23EB74AC8(&dword_27E382C08, 0x320u)))
+          {
+            sub_23EB75374(&dword_27E382C08, "void __BSAutoGuessConfiguration(void *)", 800, "\n********************************************************************************\n* Entering state: %d (%s)\n********************************************************************************\n\n", 1409, "ReplacePreviouslyConfiguredDeviceNonSRPFirmware");
+          }
+
+          v1046 = sub_23EBE0B4C(1409, Mutable, -1, 2, 0, @"BSSetupRecommend_OfferReplaceSourceIsUnconfigurable", v1223, 0, ValueAtIndex, 0, 0, a1);
+          if (v1046)
+          {
+            v15 = v1046;
+            v16 = 0;
+            v14 = 1409;
+            goto LABEL_68;
+          }
+
+          v1225[0] = &stru_285145FE8;
+          if (ValueAtIndex)
+          {
+            sub_23EB6FF14(ValueAtIndex, v1225, "%ks", "name");
+          }
+
+          v1225[0] = &stru_285145FE8;
+          if (v1223)
+          {
+            sub_23EB6FF14(v1223, v1225, "%ks", "name");
+          }
+
+          v988 = 1409;
+          sub_23EBDBF78("(%d) Offer to Replace the existing base station named %@ with the chosen base station named %@ . The existing base station is unconfigurable.", v1047, v1048, v1049, v1050, v1051, v1052, v1053, 1409);
+          sub_23EBE9710(Mutable, byte_27E383C00, "REPLACE_PREVIOUSLY_CONFIGURED_DEVICE_UNCONFIGURABLE", v1190, v1191, v1192, v1193, v1194);
+          v2 = MEMORY[0x277CBECE8];
+          if (dword_27E382C08 <= 800)
+          {
+            if (dword_27E382C08 == -1 && !sub_23EB74AC8(&dword_27E382C08, 0x320u))
+            {
+              v988 = 1409;
+              goto LABEL_1347;
+            }
+
+            goto LABEL_1346;
+          }
         }
       }
 
-      sub_23EBDBF78("(%d) Found zero unconfigured networks in Wi-Fi scans after filtering.", v131, v132, a4, a5, a6, a7, a8, 806);
-      v67 = 1201;
-      v152 = "NUMBER_UNCONFIGURED_APPLE_NETWORKS_VISIBLE_IS_ZERO_TRUE";
+      else if (v14 <= 1700)
+      {
+        if (v14 == 1501)
+        {
+          if (dword_27E382C08 <= 800 && (dword_27E382C08 != -1 || sub_23EB74AC8(&dword_27E382C08, 0x320u)))
+          {
+            sub_23EB75374(&dword_27E382C08, "void __BSAutoGuessConfiguration(void *)", 800, "\n********************************************************************************\n* Entering state: %d (%s)\n********************************************************************************\n\n", 1501, "ExtendUsingAnotherABSConfiguration");
+          }
+
+          v1054 = sub_23EBE0B4C(1501, Mutable, -1, 0xFFFFFFFFLL, 0, @"BSSetupRecommend_OfferExtendOverEthernet", v1223, 0, ValueAtIndex, 0, 0, a1);
+          if (v1054)
+          {
+            v15 = v1054;
+            v16 = 0;
+            v14 = 1501;
+            goto LABEL_68;
+          }
+
+          v1225[0] = &stru_285145FE8;
+          if (ValueAtIndex)
+          {
+            sub_23EB6FF14(ValueAtIndex, v1225, "%ks", "name");
+          }
+
+          v1225[0] = &stru_285145FE8;
+          if (v1223)
+          {
+            sub_23EB6FF14(v1223, v1225, "%ks", "name");
+          }
+
+          v988 = 1501;
+          sub_23EBDBF78("(%d) Offer to Extend the existing base station named %@ over ethernet with the chosen base station named %@.", v1055, v1056, v1057, v1058, v1059, v1060, v1061, 1501);
+          sub_23EBE9710(Mutable, byte_27E383C00, "EXTEND_USING_OTHER_BASE_CONFIGURATION_OVER_ETHERNET", v1165, v1166, v1167, v1168, v1169);
+          v2 = MEMORY[0x277CBECE8];
+          if (dword_27E382C08 <= 800)
+          {
+            if (dword_27E382C08 == -1 && !sub_23EB74AC8(&dword_27E382C08, 0x320u))
+            {
+              v988 = 1501;
+              goto LABEL_1347;
+            }
+
+            goto LABEL_1346;
+          }
+        }
+
+        else
+        {
+          if (dword_27E382C08 <= 800 && (dword_27E382C08 != -1 || sub_23EB74AC8(&dword_27E382C08, 0x320u)))
+          {
+            sub_23EB75374(&dword_27E382C08, "void __BSAutoGuessConfiguration(void *)", 800, "\n********************************************************************************\n* Entering state: %d (%s)\n********************************************************************************\n\n", 1502, "AskUserWhichToExtendWired");
+          }
+
+          v1017 = sub_23EBE0B4C(1502, Mutable, -1, 0xFFFFFFFFLL, 0, @"BSSetupRecommend_AskUserChooseBaseWired", v1223, 0, 0, 0, cf, a1);
+          if (v1017)
+          {
+            v15 = v1017;
+            v16 = 0;
+            v14 = 1502;
+            goto LABEL_68;
+          }
+
+          v1225[0] = &stru_285145FE8;
+          if (v1223)
+          {
+            sub_23EB6FF14(v1223, v1225, "%ks", "name");
+          }
+
+          sub_23EBDBF78("(%d) Unable to make a configuration suggestion for the chosen base station named %@.", v1018, v1019, v1020, v1021, v1022, v1023, v1024, 1502);
+          sub_23EBE9710(Mutable, byte_27E383C00, "ASK_USER_WHAT_TO_DO_2", v1135, v1136, v1137, v1138, v1139);
+          if (cf)
+          {
+            CFRelease(cf);
+            cf = 0;
+          }
+
+          if (dword_27E382C08 > 800)
+          {
+            v988 = 1502;
+            goto LABEL_1316;
+          }
+
+          v2 = MEMORY[0x277CBECE8];
+          if (dword_27E382C08 != -1 || sub_23EB74AC8(&dword_27E382C08, 0x320u))
+          {
+            goto LABEL_1346;
+          }
+
+          v988 = 1502;
+        }
+      }
+
+      else if (v14 == 1701)
+      {
+        if (dword_27E382C08 <= 800 && (dword_27E382C08 != -1 || sub_23EB74AC8(&dword_27E382C08, 0x320u)))
+        {
+          sub_23EB75374(&dword_27E382C08, "void __BSAutoGuessConfiguration(void *)", 800, "\n********************************************************************************\n* Entering state: %d (%s)\n********************************************************************************\n\n", 1701, "Offer to Create Network");
+        }
+
+        v1102 = sub_23EBE0B4C(1701, Mutable, -1, 0xFFFFFFFFLL, 0, @"BSSetupRecommend_OfferCreate", v1223, 0, 0, 0, 0, a1);
+        if (v1102)
+        {
+          v15 = v1102;
+          v16 = 0;
+          v14 = 1701;
+          goto LABEL_68;
+        }
+
+        v1225[0] = &stru_285145FE8;
+        if (v1223)
+        {
+          sub_23EB6FF14(v1223, v1225, "%ks", "name");
+        }
+
+        v988 = 1701;
+        sub_23EBDBF78("(%d) Offer to Create a Wi-Fi network with the chosen base station named %@.", v1103, v1104, v1105, v1106, v1107, v1108, v1109, 1701);
+        sub_23EBE9710(Mutable, byte_27E383C00, "OFFER_TO_CREATE_NETWORK", v1145, v1146, v1147, v1148, v1149);
+        v2 = MEMORY[0x277CBECE8];
+        if (dword_27E382C08 <= 800)
+        {
+          if (dword_27E382C08 != -1 || sub_23EB74AC8(&dword_27E382C08, 0x320u))
+          {
+            goto LABEL_1346;
+          }
+
+          v988 = 1701;
+        }
+      }
+
+      else
+      {
+        if (v14 != 1801)
+        {
+          if (dword_27E382C08 <= 800 && (dword_27E382C08 != -1 || sub_23EB74AC8(&dword_27E382C08, 0x320u)))
+          {
+            sub_23EB75374(&dword_27E382C08, "void __BSAutoGuessConfiguration(void *)", 800, "\n********************************************************************************\n* Entering state: %d (%s)\n********************************************************************************\n\n", 1802, "TellUserToUseAUFor80211g");
+          }
+
+          v980 = sub_23EBE0B4C(1802, Mutable, -1, 0xFFFFFFFFLL, 0, @"BSSetupRecommend_UseAUFor80211g", 0, v1221, 0, 0, 0, a1);
+          if (v980)
+          {
+            v15 = v980;
+            v16 = 0;
+            v14 = 1802;
+            goto LABEL_68;
+          }
+
+          sub_23EBDBF78("(%d) Use AirPort Utility for 802.11g to configure this network.", v981, v982, v983, v984, v985, v986, v987, 1802);
+          sub_23EBE9710(Mutable, byte_27E383C00, "TELL_USER_USE_AU_FOR_80211G", v1155, v1156, v1157, v1158, v1159);
+          if (v1221)
+          {
+            CFRelease(v1221);
+            v1221 = 0;
+          }
+
+          if (dword_27E382C08 <= 800)
+          {
+            v2 = MEMORY[0x277CBECE8];
+            if (dword_27E382C08 == -1 && !sub_23EB74AC8(&dword_27E382C08, 0x320u))
+            {
+              v988 = 1802;
+              goto LABEL_1347;
+            }
+
+LABEL_1346:
+            sub_23EB75374(&dword_27E382C08, "void __BSAutoGuessConfiguration(void *)", 800, "\n********************************************************************************\n* Exiting state: %d\n********************************************************************************\n\n", v14);
+            v988 = v14;
+            goto LABEL_1347;
+          }
+
+          v988 = 1802;
+          goto LABEL_1316;
+        }
+
+        if (dword_27E382C08 <= 800 && (dword_27E382C08 != -1 || sub_23EB74AC8(&dword_27E382C08, 0x320u)))
+        {
+          sub_23EB75374(&dword_27E382C08, "void __BSAutoGuessConfiguration(void *)", 800, "\n********************************************************************************\n* Entering state: %d (%s)\n********************************************************************************\n\n", 1801, "Host Wi-Fi disabled, Tell user to plug in unconfigured device via Ethernet");
+        }
+
+        v1110 = sub_23EBE0EE0(1801, Mutable, a1);
+        if (v1110)
+        {
+          v15 = v1110;
+          v16 = 0;
+          v14 = 1801;
+          goto LABEL_68;
+        }
+
+        v988 = 1801;
+        sub_23EBDBF78("(%d) The new AirPort base station needs to be plugged in to your current network using an Ethernet cable.", v1111, v1112, v1113, v1114, v1115, v1116, v1117, 1801);
+        sub_23EBE9710(Mutable, byte_27E383C00, "TELL_USER_CANNOT_FIND_DEVICES", v1150, v1151, v1152, v1153, v1154);
+        v2 = MEMORY[0x277CBECE8];
+        if (dword_27E382C08 <= 800)
+        {
+          if (dword_27E382C08 != -1 || sub_23EB74AC8(&dword_27E382C08, 0x320u))
+          {
+            goto LABEL_1346;
+          }
+
+          v988 = 1801;
+        }
+      }
+
+LABEL_1347:
+      v1200 = sub_23EC0C218();
+      if (!v1200)
+      {
+        v1200 = sub_23EBEA18C(*(a1 + 48));
+      }
+
+      v15 = v1200;
+      v16 = 0;
+      v14 = v988;
+      goto LABEL_10;
+    }
+
+    if (v14 != 802)
+    {
+      key = 0;
+      if (dword_27E382C08 <= 800 && (dword_27E382C08 != -1 || sub_23EB74AC8(&dword_27E382C08, 0x320u)))
+      {
+        sub_23EB75374(&dword_27E382C08, "void __BSAutoGuessConfiguration(void *)", 800, "\n********************************************************************************\n* Entering state: %d (%s)\n********************************************************************************\n\n", 806, "Count unconfigured Apple Networks which are not 802.11g");
+      }
+
+      v15 = sub_23EBDD91C(v13, &theDict);
+      if (v13)
+      {
+        CFRelease(v13);
+      }
+
+      if (v15 == -6727)
+      {
+        v1224 = 0;
+      }
+
+      else
+      {
+        if (v15)
+        {
+          goto LABEL_1357;
+        }
+
+        if (!theDict)
+        {
+LABEL_1201:
+          v15 = 4294960568;
+          goto LABEL_1357;
+        }
+
+        v1224 = CFDictionaryGetCount(theDict);
+        sub_23EBDCA2C("State 806 filtered records: \n", theDict);
+        if (v1224 == 1)
+        {
+          v662 = sub_23EBDDE68(theDict, &key);
+          if (v662)
+          {
+            v15 = v662;
+          }
+
+          else
+          {
+            if (!key)
+            {
+              goto LABEL_1201;
+            }
+
+            v663 = CFDictionaryGetValue(theDict, key);
+            v1221 = v663;
+            if (v663)
+            {
+              CFRetain(v663);
+              v671 = v1224;
+              v1225[0] = &stru_285145FE8;
+              if (v1221)
+              {
+                sub_23EB6FF14(v1221, v1225, "%kO", @"SSID_STR");
+                v672 = v1225[0];
+              }
+
+              else
+              {
+                v672 = &stru_285145FE8;
+              }
+
+              v1201 = v671;
+              v1202 = v672;
+              sub_23EBDBF78("(%d) Found %d unconfigured network in Wi-Fi scans after filtering and the network is named %@.", v664, v665, v666, v667, v668, v669, v670, 806);
+              v14 = 807;
+              v132 = "NUMBER_UNCONFIGURED_APPLE_NETWORKS_VISIBLE_IS_ONE_TRUE";
+              goto LABEL_454;
+            }
+
+            v15 = 4294960569;
+          }
+
+          goto LABEL_1357;
+        }
+
+        if (v1224)
+        {
+          if (v1224 < 2)
+          {
+            v14 = 806;
+            goto LABEL_455;
+          }
+
+          v117 = sub_23EBE0908(a1, 6, theDict, &key);
+          if (v117)
+          {
+            v15 = v117;
+          }
+
+          else if (key)
+          {
+            v118 = CFDictionaryGetValue(theDict, key);
+            v1221 = v118;
+            if (v118)
+            {
+              CFRetain(v118);
+              v126 = v1224;
+              v127 = &stru_285145FE8;
+              v1225[0] = &stru_285145FE8;
+              if (v1221)
+              {
+                sub_23EB6FF14(v1221, v1225, "%kO", @"SSID_STR");
+                v127 = v1225[0];
+              }
+
+              v1201 = v126;
+              v1202 = v127;
+              sub_23EBDBF78("(%d) Found %d unconfigured networks in Wi-Fi scans and the user chose to configure the one called %@.", v119, v120, v121, v122, v123, v124, v125, 806);
+              v14 = 807;
+              v1204 = 1;
+              v132 = "NUMBER_UNCONFIGURED_APPLE_NETWORKS_VISIBLE_IS_GREATER_THAN_ONE_TRUE";
+              v2 = MEMORY[0x277CBECE8];
+LABEL_454:
+              sub_23EBE98EC(Mutable, byte_27E383C00, v132, v1224, v128, v129, v130, v131);
+LABEL_455:
+              if (theDict)
+              {
+                CFRelease(theDict);
+                theDict = 0;
+              }
+
+              if (dword_27E382C08 <= 800 && (dword_27E382C08 != -1 || sub_23EB74AC8(&dword_27E382C08, 0x320u)))
+              {
+                sub_23EB75374(&dword_27E382C08, "void __BSAutoGuessConfiguration(void *)", 800, "\n********************************************************************************\n* Exiting state: %d\n********************************************************************************\n\n", 806);
+              }
+
+              v13 = 0;
+              goto LABEL_994;
+            }
+
+            v15 = 4294960569;
+          }
+
+          else
+          {
+            v15 = 4294960568;
+          }
+
+          v2 = MEMORY[0x277CBECE8];
+LABEL_1357:
+          v16 = 0;
+          v13 = 0;
+          v14 = 806;
+          goto LABEL_10;
+        }
+      }
+
+      sub_23EBDBF78("(%d) Found zero unconfigured networks in Wi-Fi scans after filtering.", v110, v111, v112, v113, v114, v115, v116, 806);
+      v14 = 1201;
+      v132 = "NUMBER_UNCONFIGURED_APPLE_NETWORKS_VISIBLE_IS_ZERO_TRUE";
       goto LABEL_454;
     }
 
     if (dword_27E382C08 <= 800 && (dword_27E382C08 != -1 || sub_23EB74AC8(&dword_27E382C08, 0x320u)))
     {
-      sub_23EB75374(&dword_27E382C08, "void __BSAutoGuessConfiguration(void *)", 800, "\n********************************************************************************\n* Entering state: %d (%s)\n********************************************************************************\n\n", a5, a6, a7, a8, 802);
+      sub_23EB75374(&dword_27E382C08, "void __BSAutoGuessConfiguration(void *)", 800, "\n********************************************************************************\n* Entering state: %d (%s)\n********************************************************************************\n\n", 802, "Can we switch networks on this host?");
     }
 
-    if (v1127)
+    if (v1206)
     {
-      sub_23EBDBF78("(%d) The computer has wireless disabled and cannot switch networks", v64, v65, a4, a5, a6, a7, a8, 802);
-      sub_23EBE98EC(Mutable, byte_27E383C00, "CAN_SWITCH_NETWORKS_FALSE", v1145, v237, v238, v239, v240);
-      v67 = 1801;
-LABEL_789:
-      if (v1142)
+      sub_23EBDBF78("(%d) The computer has wireless disabled and cannot switch networks", v28, v29, v30, v31, v32, v33, v34, 802);
+      sub_23EBE98EC(Mutable, byte_27E383C00, "CAN_SWITCH_NETWORKS_FALSE", v1224, v213, v214, v215, v216);
+      v14 = 1801;
+LABEL_813:
+      if (v1221)
       {
-        CFRelease(v1142);
-        v1142 = 0;
+        CFRelease(v1221);
+        v1221 = 0;
       }
 
       if (dword_27E382C08 > 800 || dword_27E382C08 == -1 && !sub_23EB74AC8(&dword_27E382C08, 0x320u))
       {
-        goto LABEL_945;
+        goto LABEL_994;
       }
 
-      v306 = 802;
-      goto LABEL_944;
+      v285 = 802;
+      goto LABEL_993;
     }
 
     key = 0;
-    sub_23EBE0134(a1, *(a1 + 24), v65, a4, a5, a6, a7, a8);
-    if (v517)
-    {
-      goto LABEL_1112;
-    }
-
-    sub_23EBDCCB4("State 802 join network: \n", v1142, v518, a4, a5, a6, a7, a8);
-    sub_23EBEAB18(*(a1 + 48), 5, 0, v1142, v519, v520, v521, v522);
-    v527 = sub_23EBEEA6C(*(a1 + 48), v1142, v1125 == 0, &key, v523, v524, v525, v526);
+    sub_23EBE0134(a1, *(a1 + 24));
     if (v527)
     {
-      v35 = v527;
+      goto LABEL_1164;
+    }
+
+    sub_23EBDCCB4("State 802 join network: \n", v1221);
+    sub_23EBEAB18(*(a1 + 48), 5, 0, v1221);
+    v528 = sub_23EBEEA6C(*(a1 + 48), v1221, v1204 == 0, &key);
+    if (v528)
+    {
+      v15 = v528;
     }
 
     else if (key)
     {
-      sub_23EBEAB18(*(a1 + 48), 6, 0, v1142, a5, a6, a7, a8);
-      sub_23EBDCB98("State 802 save base station: \n", key, v528, v529, v530, v531, v532, v533);
-      sub_23EBDE070(key, *(a1 + 24), v534, v535, v536, v537, v538, v539);
-      if (!v517)
+      sub_23EBEAB18(*(a1 + 48), 6, 0, v1221);
+      sub_23EBDCB98("State 802 save base station: \n", key);
+      sub_23EBDE070(key, *(a1 + 24));
+      if (!v527)
       {
-        v1144 = key;
-        sub_23EBDFE68(a1, key, 0, 0, a5, a6, a7, a8);
-        if (!v517)
+        v1223 = key;
+        sub_23EBDFE68(a1, key, 0, 0);
+        if (!v527)
         {
-          sub_23EBEAB18(*(a1 + 48), 16, 0, v1144, a5, a6, a7, a8);
-          v1146[0] = &stru_285145FE8;
-          if (v1142)
+          sub_23EBEAB18(*(a1 + 48), 16, 0, v1223);
+          v1225[0] = &stru_285145FE8;
+          if (v1221)
           {
-            sub_23EB6FF14(v1142, v1146, "%kO", v542, v543, v544, v545, v546, @"SSID_STR");
+            sub_23EB6FF14(v1221, v1225, "%kO", @"SSID_STR");
+            v536 = v1225[0];
           }
 
-          v1146[0] = &stru_285145FE8;
-          if (v1144)
+          else
           {
-            sub_23EB6FF14(v1144, v1146, "%ks", v542, v543, v544, v545, v546, "name");
+            v536 = &stru_285145FE8;
           }
 
-          sub_23EBDBF78("(%d) The computer has Wi-Fi enabled and can switch networks. Switched to the network called %@ to configure the AirPort base station named %@", v540, v541, v542, v543, v544, v545, v546, 802);
-          sub_23EBE98EC(Mutable, byte_27E383C00, "CAN_SWITCH_NETWORKS_TRUE", v1145, v740, v741, v742, v743);
-          v67 = 103;
-          goto LABEL_789;
+          v1225[0] = &stru_285145FE8;
+          if (v1223)
+          {
+            sub_23EB6FF14(v1223, v1225, "%ks", "name");
+            v737 = v1225[0];
+          }
+
+          else
+          {
+            v737 = &stru_285145FE8;
+          }
+
+          v1201 = v536;
+          v1202 = v737;
+          sub_23EBDBF78("(%d) The computer has Wi-Fi enabled and can switch networks. Switched to the network called %@ to configure the AirPort base station named %@", v529, v530, v531, v532, v533, v534, v535, 802);
+          sub_23EBE98EC(Mutable, byte_27E383C00, "CAN_SWITCH_NETWORKS_TRUE", v1224, v738, v739, v740, v741);
+          v14 = 103;
+          goto LABEL_813;
         }
       }
 
-LABEL_1112:
-      v35 = v517;
+LABEL_1164:
+      v15 = v527;
     }
 
     else
     {
-      v35 = 4294960568;
+      v15 = 4294960568;
     }
 
-    v36 = 0;
+    v16 = 0;
+    v14 = 802;
     goto LABEL_10;
   }
 
-  if (v67 > 702)
+  if (v14 <= 702)
   {
-    if (v67 != 703)
+    if (v14 != 701)
     {
       if (dword_27E382C08 <= 800 && (dword_27E382C08 != -1 || sub_23EB74AC8(&dword_27E382C08, 0x320u)))
       {
-        sub_23EB75374(&dword_27E382C08, "void __BSAutoGuessConfiguration(void *)", 800, "\n********************************************************************************\n* Entering state: %d (%s)\n********************************************************************************\n\n", a5, a6, a7, a8, 801);
+        sub_23EB75374(&dword_27E382C08, "void __BSAutoGuessConfiguration(void *)", 800, "\n********************************************************************************\n* Entering state: %d (%s)\n********************************************************************************\n\n", 702, "Look for Visible Preferred Apple Networks");
       }
 
-      v175 = sub_23EBDD768(*(a1 + 32), &theDict, v65, a4, a5, a6, a7, a8);
-      if (v175 == -6727)
+      v82 = sub_23EBE1CE0(a1, *(a1 + 32), v1209, v36, 1, &theArray);
+      if (v82)
       {
-        v1145 = 0;
-      }
-
-      else
-      {
-        v35 = v175;
-        if (v175)
+        v15 = v82;
+        if (v82 != -6727)
         {
-          goto LABEL_1226;
+          goto LABEL_1205;
         }
 
-        if (!theDict)
-        {
-          v36 = 0;
-          v35 = 4294960568;
-          goto LABEL_10;
-        }
-
-        v1145 = CFDictionaryGetCount(theDict);
-        sub_23EBDCA2C("State 801 scan records: \n", theDict, v178, v179, v180, v181, v182, v183);
-        if (v1145 == 1)
-        {
-          key = 0;
-          v681 = sub_23EBDDE68(theDict, &key, v177, a4, a5, a6, a7, a8);
-          if (v681)
-          {
-            v35 = v681;
-LABEL_1226:
-            v36 = 0;
-            goto LABEL_10;
-          }
-
-          if (!key)
-          {
-            v35 = 4294960568;
-LABEL_1231:
-            v36 = 0;
-            goto LABEL_68;
-          }
-
-          v682 = CFDictionaryGetValue(theDict, key);
-          v1142 = v682;
-          if (!v682)
-          {
-            v35 = 4294960569;
-            goto LABEL_1231;
-          }
-
-          CFRetain(v682);
-          v1146[0] = &stru_285145FE8;
-          if (v1142)
-          {
-            sub_23EB6FF14(v1142, v1146, "%kO", v685, v686, v687, v688, v689, @"SSID_STR");
-          }
-
-          sub_23EBDBF78("(%d) One unconfigured network called %@ is visible in Wi-Fi scans and has been chosen.", v683, v684, v685, v686, v687, v688, v689, 801);
-          sub_23EBE98EC(Mutable, byte_27E383C00, "NUMBER_UNCONFIGURED_APPLE_NETWORKS_VISIBLE_IS_ONE_TRUE", v1145, v830, v831, v832, v833);
-          if (theDict)
-          {
-            CFRelease(theDict);
-            theDict = 0;
-          }
-
-          v67 = 807;
-          goto LABEL_500;
-        }
-
-        if (v1145)
-        {
-          if (v1145 < 2)
-          {
-            v67 = 801;
-          }
-
-          else
-          {
-            v34 = theDict;
-            CFRetain(theDict);
-            if (theDict)
-            {
-              CFRelease(theDict);
-              theDict = 0;
-            }
-
-            sub_23EBDBF78("(%d) %d unconfigured network are visible in Wi-Fi scans", v184, v185, v186, v187, v188, v189, v190, 801);
-            sub_23EBE98EC(Mutable, byte_27E383C00, "NUMBER_UNCONFIGURED_APPLE_NETWORKS_VISIBLE_IS_GREATER_THAN_ONE_TRUE", v1145, v191, v192, v193, v194);
-            v67 = 806;
-          }
-
-LABEL_500:
-          if (dword_27E382C08 > 800 || dword_27E382C08 == -1 && !sub_23EB74AC8(&dword_27E382C08, 0x320u))
-          {
-            goto LABEL_945;
-          }
-
-          v306 = 801;
-          goto LABEL_944;
-        }
-      }
-
-      sub_23EBDBF78(v1126, v176, v177, a4, a5, a6, a7, a8, 801);
-      sub_23EBE98EC(Mutable, byte_27E383C00, "NUMBER_UNCONFIGURED_APPLE_NETWORKS_VISIBLE_IS_ZERO_TRUE", v1145, v439, v440, v441, v442);
-      if (theDict)
-      {
-        CFRelease(theDict);
-        theDict = 0;
-      }
-
-      v67 = 1201;
-      goto LABEL_500;
-    }
-
-    if (dword_27E382C08 <= 800 && (dword_27E382C08 != -1 || sub_23EB74AC8(&dword_27E382C08, 0x320u)))
-    {
-      sub_23EB75374(&dword_27E382C08, "void __BSAutoGuessConfiguration(void *)", 800, "\n********************************************************************************\n* Entering state: %d (%s)\n********************************************************************************\n\n", a5, a6, a7, a8, 703);
-    }
-
-    v307 = sub_23EBE1CE0(a1, *(a1 + 32), v1130, v68, 14, &theArray, a7, a8);
-    if (v307)
-    {
-      v35 = v307;
-      if (v307 != -6727)
-      {
-        goto LABEL_1149;
-      }
-
-      v1145 = 0;
-      goto LABEL_524;
-    }
-
-    if (!theArray)
-    {
-      goto LABEL_1144;
-    }
-
-    v1145 = CFArrayGetCount(theArray);
-    if (!v1145)
-    {
-LABEL_524:
-      sub_23EBDBF78("(%d) There are no preferred networks found using a directed Wi-Fi scan.", v308, v309, a4, a5, a6, a7, a8, 703);
-      sub_23EBE9710(Mutable, byte_27E383C00, "HIDDEN_PREFERRED_NETWORK_FALSE", v463, v464, v465, v466, v467);
-      if (sub_23EBE0A74(v1144, v1131, v468, v469, v470, v471, v472, v473))
-      {
-        if (v1131)
-        {
-          v474 = v1131;
-        }
-
-        else
-        {
-          v474 = v1144;
-        }
-
-        v475 = sub_23EBDDBF8(*(a1 + 32), v474, &cf);
-        if (v475 == -6727)
-        {
-          v67 = 1103;
-        }
-
-        else
-        {
-          v35 = v475;
-          if (v475)
-          {
-            goto LABEL_1149;
-          }
-
-          if (!cf)
-          {
-LABEL_1144:
-            v36 = 0;
-            v35 = 4294960568;
-            goto LABEL_10;
-          }
-
-          v67 = 1406;
-        }
-      }
-
-      else
-      {
-        v67 = 1701;
-      }
-
-      goto LABEL_938;
-    }
-
-    key = 0;
-    sub_23EBDC50C("State 703 scan records: \n", theArray, v309, a4, a5, a6, a7, a8);
-    sub_23EB6FF14(theArray, &key, "[*]", v443, v444, v445, v446, v447, 0);
-    if (v448)
-    {
-      goto LABEL_1148;
-    }
-
-    if (!key)
-    {
-      goto LABEL_1161;
-    }
-
-    sub_23EBDE3B8(*(a1 + 32), key, v449, a4, a5, a6, a7, a8);
-    if (v448)
-    {
-LABEL_1148:
-      v35 = v448;
-LABEL_1149:
-      v36 = 0;
-      goto LABEL_10;
-    }
-
-    if (sub_23EBE0A74(v1144, v1131, v450, a4, a5, a6, a7, a8))
-    {
-      if (v1131)
-      {
-        v454 = v1131;
-      }
-
-      else
-      {
-        v454 = v1144;
-      }
-
-      v455 = sub_23EBDDBF8(theArray, v454, 0);
-      if (v455 != -6727)
-      {
-        v35 = v455;
-        if (v455)
-        {
-          goto LABEL_1149;
-        }
-
-        v1142 = key;
-        CFRetain(key);
-        v1146[0] = &stru_285145FE8;
-        if (v1142)
-        {
-          sub_23EB6FF14(v1142, v1146, "%kO", v458, v459, v460, v461, v462, @"SSID_STR");
-        }
-
-        sub_23EBDBF78("(%d) Found one hidden preferred network called %@ that can be joined by STA-only device.", v456, v457, v458, v459, v460, v461, v462, 703);
-        sub_23EBE9710(Mutable, byte_27E383C00, "HIDDEN_PREFERRED_NETWORK_TRUE", v877, v878, v879, v880, v881);
-        v67 = 1403;
-        goto LABEL_914;
-      }
-
-      if (theArray)
-      {
-        CFRelease(theArray);
-        theArray = 0;
-      }
-
-      if (v1131)
-      {
-        v770 = v1131;
-      }
-
-      else
-      {
-        v770 = v1144;
-      }
-
-      v771 = sub_23EBDDBF8(*(a1 + 32), v770, &theArray);
-      if (v771 != -6727)
-      {
-        v35 = v771;
-        v9 = MEMORY[0x277CBECE8];
-        if (v771)
-        {
-          goto LABEL_1149;
-        }
-
-        if (theArray)
-        {
-          v1145 = CFArrayGetCount(theArray);
-          v781 = theArray;
-          if (v1145 == 1)
-          {
-            v782 = CFArrayGetValueAtIndex(theArray, 0);
-            v1142 = v782;
-            if (!v782)
-            {
-              goto LABEL_1161;
-            }
-
-            CFRetain(v782);
-            v1146[0] = &stru_285145FE8;
-            if (v1142)
-            {
-              sub_23EB6FF14(v1142, v1146, "%kO", v785, v786, v787, v788, v789, @"SSID_STR");
-            }
-
-            sub_23EBDBF78("(%d) Found one network called %@ that can be joined by STA-only device (after re-filtering all networks).", v783, v784, v785, v786, v787, v788, v789, 703);
-            sub_23EBE9710(Mutable, byte_27E383C00, "HIDDEN_PREFERRED_NETWORK_TRUE", v790, v791, v792, v793, v794);
-            v67 = 1403;
-          }
-
-          else
-          {
-            theArray = 0;
-            cf = v781;
-            sub_23EBDBF78("(%d) Found %d networks that could be joined by STA-only device (after re-filtering all networks).", v774, v775, v776, v777, v778, v779, v780, 703);
-            sub_23EBE98EC(Mutable, byte_27E383C00, "HIDDEN_PREFERRED_NETWORK_TRUE", v1145, v895, v896, v897, v898);
-            v67 = 1406;
-          }
-
-          goto LABEL_938;
-        }
-
-LABEL_1161:
-        v35 = 4294960568;
-LABEL_1162:
-        v36 = 0;
-        goto LABEL_68;
-      }
-
-      sub_23EBDBF78("(%d) There are no networks available (after re-filtering all networks).", v772, v773, a4, a5, a6, a7, a8, 703);
-      sub_23EBE9710(Mutable, byte_27E383C00, "HIDDEN_PREFERRED_NETWORK_FALSE", v872, v873, v874, v875, v876);
-      v67 = 1103;
-    }
-
-    else
-    {
-      v755 = sub_23EBE0244(a1, key, 0, 0xFu, &theArray, v451, v452, v453);
-      if (!v755)
-      {
-        if (!theArray)
-        {
-          goto LABEL_1161;
-        }
-
-        sub_23EBDC01C("State 703 adding browse record: \n", theArray, v757, a4, a5, a6, a7, a8);
-        sub_23EBDE2BC(theArray, *(a1 + 24), v834, v835, v836, v837, v838, v839);
-        v35 = v842;
+        v1224 = 0;
+LABEL_489:
+        sub_23EBDBF78("(%d) There are no preferred networks visible in the Wi-Fi scan.", v83, v84, v85, v86, v87, v88, v89, 702);
+        sub_23EBE9710(Mutable, byte_27E383C00, "VISIBLE_PREFERRED_NETWORK_FALSE", v448, v449, v450, v451, v452);
+        v14 = 703;
+LABEL_490:
         if (theArray)
         {
           CFRelease(theArray);
           theArray = 0;
         }
 
-        v9 = MEMORY[0x277CBECE8];
-        if (v35)
+        if (dword_27E382C08 > 800 || dword_27E382C08 == -1 && !sub_23EB74AC8(&dword_27E382C08, 0x320u))
         {
-          goto LABEL_1149;
+          goto LABEL_994;
         }
 
-        v1146[0] = &stru_285145FE8;
-        if (key)
-        {
-          sub_23EB6FF14(key, v1146, "%kO", a4, a5, a6, a7, a8, @"SSID_STR");
-        }
-
-        sub_23EBDBF78("(%d) The hidden preferred network called %@ was found using a directed Wi-Fi scan.", v840, v841, a4, a5, a6, a7, a8, 703);
-        sub_23EBE9710(Mutable, byte_27E383C00, "HIDDEN_PREFERRED_NETWORK_TRUE", v843, v844, v845, v846, v847);
-        v67 = 401;
-        goto LABEL_938;
+        v285 = 702;
+        goto LABEL_993;
       }
 
-      if (v755 == -6723)
+      if (theArray)
       {
-        v35 = v755;
-        goto LABEL_1162;
+        v1224 = CFArrayGetCount(theArray);
+        if (!v1224)
+        {
+          goto LABEL_489;
+        }
+
+        sub_23EBDC50C("State 702 scan records: \n", theArray);
+        v416 = sub_23EBE0A74(v1223, v1210, v414, v415);
+        v417 = theArray;
+        theArray = 0;
+        if (v416)
+        {
+          if (v1210)
+          {
+            v418 = v1210;
+          }
+
+          else
+          {
+            v418 = v1223;
+          }
+
+          v15 = sub_23EBDDBF8(v417, v418, &theArray);
+          if (v417)
+          {
+            CFRelease(v417);
+          }
+
+          if (v15 != -6727)
+          {
+            if (v15)
+            {
+              goto LABEL_1359;
+            }
+
+            if (!theArray)
+            {
+              goto LABEL_1278;
+            }
+
+            v426 = CFArrayGetCount(theArray);
+            v1224 = v426;
+            if (v426 == 1)
+            {
+              v434 = CFArrayGetValueAtIndex(theArray, 0);
+              v1221 = v434;
+              if (!v434)
+              {
+                goto LABEL_1278;
+              }
+
+              CFRetain(v434);
+              v442 = &stru_285145FE8;
+              v1225[0] = &stru_285145FE8;
+              if (v1221)
+              {
+                sub_23EB6FF14(v1221, v1225, "%kO", @"SSID_STR");
+                v442 = v1225[0];
+              }
+
+              v1201 = v442;
+              sub_23EBDBF78("(%d) Found one preferred network called %@ that can be joined by STA-only device.", v435, v436, v437, v438, v439, v440, v441, 702);
+              goto LABEL_488;
+            }
+
+            v1201 = v426;
+            sub_23EBDBF78("(%d) Found %d preferred networks that could be joined by STA-only device.", v427, v428, v429, v430, v431, v432, v433, 702);
+            sub_23EBE98EC(Mutable, byte_27E383C00, "NUMBER_PREFERRED_NETWORKS_FOR_STA_ONLY_TO_JOIN_IS_GREATER_THAN_ONE_TRUE", v1224, v872, v873, v874, v875);
+            if (theArray)
+            {
+              CFRelease(theArray);
+              theArray = 0;
+            }
+
+            if (v1210)
+            {
+              v876 = v1210;
+            }
+
+            else
+            {
+              v876 = v1223;
+            }
+
+            v877 = sub_23EBDDBF8(*(a1 + 32), v876, &theArray);
+            if (v877 == -6727)
+            {
+              sub_23EBDBF78("(%d) There are no networks available (after re-filtering all networks).", v878, v879, v880, v881, v882, v883, v884, 702);
+              sub_23EBE9710(Mutable, byte_27E383C00, "VISIBLE_PREFERRED_NETWORK_FALSE", v922, v923, v924, v925, v926);
+              v14 = 703;
+              goto LABEL_1006;
+            }
+
+            v15 = v877;
+            if (v877)
+            {
+              goto LABEL_1359;
+            }
+
+            if (theArray)
+            {
+              v885 = CFArrayGetCount(theArray);
+              v1224 = v885;
+              v893 = theArray;
+              if (v885 == 1)
+              {
+                v894 = CFArrayGetValueAtIndex(theArray, 0);
+                v1221 = v894;
+                if (!v894)
+                {
+                  goto LABEL_1278;
+                }
+
+                CFRetain(v894);
+                v902 = &stru_285145FE8;
+                v1225[0] = &stru_285145FE8;
+                if (v1221)
+                {
+                  sub_23EB6FF14(v1221, v1225, "%kO", @"SSID_STR", v1201);
+                  v902 = v1225[0];
+                }
+
+                v1201 = v902;
+                sub_23EBDBF78("(%d) Found one network called %@ that can be joined by STA-only device (after re-filtering all networks).", v895, v896, v897, v898, v899, v900, v901, 702);
+LABEL_488:
+                sub_23EBE9710(Mutable, byte_27E383C00, "NUMBER_PREFERRED_NETWORKS_FOR_STA_ONLY_TO_JOIN_IS_ONE_TRUE", v443, v444, v445, v446, v447);
+                v14 = 1403;
+              }
+
+              else
+              {
+                theArray = 0;
+                cf = v893;
+                v1201 = v885;
+                sub_23EBDBF78("(%d) Found %d networks that could be joined by STA-only device (after re-filtering all networks).", v886, v887, v888, v889, v890, v891, v892, 702);
+                sub_23EBE98EC(Mutable, byte_27E383C00, "NUMBER_PREFERRED_NETWORKS_FOR_STA_ONLY_TO_JOIN_IS_GREATER_THAN_ONE_TRUE", v1224, v944, v945, v946, v947);
+                v14 = 1406;
+              }
+
+LABEL_1006:
+              v2 = MEMORY[0x277CBECE8];
+              goto LABEL_490;
+            }
+
+LABEL_1278:
+            v16 = 0;
+            v15 = 4294960568;
+            goto LABEL_1360;
+          }
+
+          sub_23EBDBF78("(%d) There are no preferred networks available after filtering.", v419, v420, v421, v422, v423, v424, v425, 702);
+LABEL_858:
+          sub_23EBE9710(Mutable, byte_27E383C00, "VISIBLE_PREFERRED_NETWORK_FALSE", v754, v755, v756, v757, v758);
+          v14 = 703;
+          goto LABEL_490;
+        }
+
+        v15 = sub_23EBE0354(a1, v417, 0, 15, &theArray);
+        if (v417)
+        {
+          CFRelease(v417);
+        }
+
+        if (!v15)
+        {
+          if (!theArray)
+          {
+            goto LABEL_1278;
+          }
+
+          sub_23EBDC01C("State 702 adding browse record: \n", theArray);
+          sub_23EBDE2BC(theArray, *(a1 + 24));
+          if (!v841)
+          {
+            sub_23EBDBF78("(%d) At least one of your preferred networks is visible in the Wi-Fi scan.", v842, v843, v844, v845, v846, v847, v848, 702);
+            sub_23EBE9710(Mutable, byte_27E383C00, "VISIBLE_PREFERRED_NETWORK_TRUE", v849, v850, v851, v852, v853);
+            v14 = 401;
+            goto LABEL_1006;
+          }
+
+          v15 = v841;
+LABEL_1359:
+          v16 = 0;
+LABEL_1360:
+          v14 = 702;
+          goto LABEL_68;
+        }
+
+        if (v15 != -6723)
+        {
+          v1201 = v15;
+          sub_23EBDBF78("(%d) There are no preferred networks successfully joined and base stations found. err: %d", v747, v748, v749, v750, v751, v752, v753, 702);
+          goto LABEL_858;
+        }
+
+LABEL_1205:
+        v16 = 0;
       }
 
-      sub_23EBDBF78("(%d) There are no preferred networks found using a directed Wi-Fi scan and base stations found. err: %d", v756, v757, a4, a5, a6, a7, a8, 703);
-      sub_23EBE9710(Mutable, byte_27E383C00, "HIDDEN_PREFERRED_NETWORK_FALSE", v758, v759, v760, v761, v762);
-      v67 = 1701;
+      else
+      {
+        v16 = 0;
+        v15 = 4294960568;
+      }
+
+      v14 = 702;
+      goto LABEL_10;
     }
 
-LABEL_914:
-    v9 = MEMORY[0x277CBECE8];
-LABEL_938:
+    if (dword_27E382C08 <= 800 && (dword_27E382C08 != -1 || sub_23EB74AC8(&dword_27E382C08, 0x320u)))
+    {
+      sub_23EB75374(&dword_27E382C08, "void __BSAutoGuessConfiguration(void *)", 800, "\n********************************************************************************\n* Entering state: %d (%s)\n********************************************************************************\n\n", 701, "HostHasPreferredNetworkSupport");
+    }
+
+    if (v1212)
+    {
+      sub_23EBDBF78("(%d) The computer has support for accessing the preferred networks list.", v28, v29, v30, v31, v32, v33, v34, 701);
+      sub_23EBE9710(Mutable, byte_27E383C00, "HOST_SUPPORTS_PREFERRED_NETWORK_ACCESS_TRUE", v280, v281, v282, v283, v284);
+      v14 = 702;
+      goto LABEL_341;
+    }
+
+    sub_23EBDBF78("(%d) The computer does not have support for accessing the preferred networks list.", v28, v29, v30, v31, v32, v33, v34, 701);
+    sub_23EBE9710(Mutable, byte_27E383C00, "HOST_SUPPORTS_PREFERRED_NETWORK_ACCESS_FALSE", v545, v546, v547, v548, v549);
+    if (sub_23EBE0A74(v1223, v1210, v550, v551))
+    {
+      if (v1210)
+      {
+        v552 = v1210;
+      }
+
+      else
+      {
+        v552 = v1223;
+      }
+
+      v553 = sub_23EBDDBF8(*(a1 + 32), v552, &cf);
+      if (v553 != -6727)
+      {
+        v15 = v553;
+        if (v553)
+        {
+          v16 = 0;
+        }
+
+        else
+        {
+          if (cf)
+          {
+            v14 = 1406;
+            goto LABEL_341;
+          }
+
+          v16 = 0;
+          v15 = 4294960568;
+        }
+
+        v14 = 701;
+        goto LABEL_10;
+      }
+
+      v14 = 1103;
+    }
+
+    else
+    {
+      v14 = 1701;
+    }
+
+LABEL_341:
+    if (dword_27E382C08 > 800 || dword_27E382C08 == -1 && !sub_23EB74AC8(&dword_27E382C08, 0x320u))
+    {
+      goto LABEL_994;
+    }
+
+    v285 = 701;
+    goto LABEL_993;
+  }
+
+  if (v14 != 703)
+  {
+    if (dword_27E382C08 <= 800 && (dword_27E382C08 != -1 || sub_23EB74AC8(&dword_27E382C08, 0x320u)))
+    {
+      sub_23EB75374(&dword_27E382C08, "void __BSAutoGuessConfiguration(void *)", 800, "\n********************************************************************************\n* Entering state: %d (%s)\n********************************************************************************\n\n", 801, "Count the number of unconfigured Apple networks which are visible");
+    }
+
+    v150 = sub_23EBDD768(*(a1 + 32), &theDict);
+    if (v150 != -6727)
+    {
+      v15 = v150;
+      if (v150)
+      {
+        goto LABEL_1287;
+      }
+
+      if (theDict)
+      {
+        v1224 = CFDictionaryGetCount(theDict);
+        sub_23EBDCA2C("State 801 scan records: \n", theDict);
+        if (v1224 != 1)
+        {
+          if (v1224)
+          {
+            if (v1224 < 2)
+            {
+              v14 = 801;
+            }
+
+            else
+            {
+              v13 = theDict;
+              CFRetain(theDict);
+              if (theDict)
+              {
+                CFRelease(theDict);
+                theDict = 0;
+              }
+
+              v1201 = v1224;
+              sub_23EBDBF78("(%d) %d unconfigured network are visible in Wi-Fi scans", v158, v159, v160, v161, v162, v163, v164, 801);
+              sub_23EBE98EC(Mutable, byte_27E383C00, "NUMBER_UNCONFIGURED_APPLE_NETWORKS_VISIBLE_IS_GREATER_THAN_ONE_TRUE", v1224, v165, v166, v167, v168);
+              v14 = 806;
+            }
+
+LABEL_500:
+            if (dword_27E382C08 > 800 || dword_27E382C08 == -1 && !sub_23EB74AC8(&dword_27E382C08, 0x320u))
+            {
+              goto LABEL_994;
+            }
+
+            v285 = 801;
+            goto LABEL_993;
+          }
+
+LABEL_497:
+          sub_23EBDBF78(v1205, v151, v152, v153, v154, v155, v156, v157, 801);
+          sub_23EBE98EC(Mutable, byte_27E383C00, "NUMBER_UNCONFIGURED_APPLE_NETWORKS_VISIBLE_IS_ZERO_TRUE", v1224, v453, v454, v455, v456);
+          if (theDict)
+          {
+            CFRelease(theDict);
+            theDict = 0;
+          }
+
+          v14 = 1201;
+          goto LABEL_500;
+        }
+
+        key = 0;
+        v675 = sub_23EBDDE68(theDict, &key);
+        if (!v675)
+        {
+          if (key)
+          {
+            v676 = CFDictionaryGetValue(theDict, key);
+            v1221 = v676;
+            if (v676)
+            {
+              CFRetain(v676);
+              v1225[0] = &stru_285145FE8;
+              if (v1221)
+              {
+                sub_23EB6FF14(v1221, v1225, "%kO", @"SSID_STR");
+                v684 = v1225[0];
+              }
+
+              else
+              {
+                v684 = &stru_285145FE8;
+              }
+
+              v1201 = v684;
+              sub_23EBDBF78("(%d) One unconfigured network called %@ is visible in Wi-Fi scans and has been chosen.", v677, v678, v679, v680, v681, v682, v683, 801);
+              sub_23EBE98EC(Mutable, byte_27E383C00, "NUMBER_UNCONFIGURED_APPLE_NETWORKS_VISIBLE_IS_ONE_TRUE", v1224, v854, v855, v856, v857);
+              if (theDict)
+              {
+                CFRelease(theDict);
+                theDict = 0;
+              }
+
+              v14 = 807;
+              goto LABEL_500;
+            }
+
+            v15 = 4294960569;
+          }
+
+          else
+          {
+            v15 = 4294960568;
+          }
+
+          v16 = 0;
+          v14 = 801;
+          goto LABEL_68;
+        }
+
+        v15 = v675;
+LABEL_1287:
+        v16 = 0;
+      }
+
+      else
+      {
+        v16 = 0;
+        v15 = 4294960568;
+      }
+
+      v14 = 801;
+      goto LABEL_10;
+    }
+
+    v1224 = 0;
+    goto LABEL_497;
+  }
+
+  if (dword_27E382C08 <= 800 && (dword_27E382C08 != -1 || sub_23EB74AC8(&dword_27E382C08, 0x320u)))
+  {
+    sub_23EB75374(&dword_27E382C08, "void __BSAutoGuessConfiguration(void *)", 800, "\n********************************************************************************\n* Entering state: %d (%s)\n********************************************************************************\n\n", 703, "Look for Hidden Preferred Apple Networks via Directed Scan");
+  }
+
+  v286 = sub_23EBE1CE0(a1, *(a1 + 32), v1209, v36, 14, &theArray);
+  if (v286)
+  {
+    v15 = v286;
+    if (v286 != -6727)
+    {
+      goto LABEL_1203;
+    }
+
+    v1224 = 0;
+LABEL_524:
+    sub_23EBDBF78("(%d) There are no preferred networks found using a directed Wi-Fi scan.", v287, v288, v289, v290, v291, v292, v293, 703);
+    sub_23EBE9710(Mutable, byte_27E383C00, "HIDDEN_PREFERRED_NETWORK_FALSE", v470, v471, v472, v473, v474);
+    if (sub_23EBE0A74(v1223, v1210, v475, v476))
+    {
+      if (v1210)
+      {
+        v477 = v1210;
+      }
+
+      else
+      {
+        v477 = v1223;
+      }
+
+      v478 = sub_23EBDDBF8(*(a1 + 32), v477, &cf);
+      if (v478 == -6727)
+      {
+        v14 = 1103;
+      }
+
+      else
+      {
+        v15 = v478;
+        if (v478)
+        {
+          goto LABEL_1203;
+        }
+
+        if (!cf)
+        {
+LABEL_1197:
+          v16 = 0;
+          v15 = 4294960568;
+          goto LABEL_1204;
+        }
+
+        v14 = 1406;
+      }
+    }
+
+    else
+    {
+      v14 = 1701;
+    }
+
+LABEL_987:
     if (theArray)
     {
       CFRelease(theArray);
@@ -7885,327 +8686,237 @@ LABEL_938:
 
     if (dword_27E382C08 > 800 || dword_27E382C08 == -1 && !sub_23EB74AC8(&dword_27E382C08, 0x320u))
     {
-      goto LABEL_945;
+      goto LABEL_994;
     }
 
-    v306 = 703;
-    goto LABEL_944;
-  }
-
-  if (v67 == 701)
-  {
-    if (dword_27E382C08 <= 800 && (dword_27E382C08 != -1 || sub_23EB74AC8(&dword_27E382C08, 0x320u)))
-    {
-      sub_23EB75374(&dword_27E382C08, "void __BSAutoGuessConfiguration(void *)", 800, "\n********************************************************************************\n* Entering state: %d (%s)\n********************************************************************************\n\n", a5, a6, a7, a8, 701);
-    }
-
-    if (v1133)
-    {
-      sub_23EBDBF78("(%d) The computer has support for accessing the preferred networks list.", v64, v65, a4, a5, a6, a7, a8, 701);
-      sub_23EBE9710(Mutable, byte_27E383C00, "HOST_SUPPORTS_PREFERRED_NETWORK_ACCESS_TRUE", v301, v302, v303, v304, v305);
-      v67 = 702;
-    }
-
-    else
-    {
-      sub_23EBDBF78("(%d) The computer does not have support for accessing the preferred networks list.", v64, v65, a4, a5, a6, a7, a8, 701);
-      sub_23EBE9710(Mutable, byte_27E383C00, "HOST_SUPPORTS_PREFERRED_NETWORK_ACCESS_FALSE", v554, v555, v556, v557, v558);
-      if (sub_23EBE0A74(v1144, v1131, v559, v560, v561, v562, v563, v564))
-      {
-        if (v1131)
-        {
-          v565 = v1131;
-        }
-
-        else
-        {
-          v565 = v1144;
-        }
-
-        v566 = sub_23EBDDBF8(*(a1 + 32), v565, &cf);
-        if (v566 == -6727)
-        {
-          v67 = 1103;
-        }
-
-        else
-        {
-          v35 = v566;
-          if (v566)
-          {
-            v36 = 0;
-            goto LABEL_10;
-          }
-
-          if (!cf)
-          {
-            v36 = 0;
-            v35 = 4294960568;
-            goto LABEL_10;
-          }
-
-          v67 = 1406;
-        }
-      }
-
-      else
-      {
-        v67 = 1701;
-      }
-    }
-
-    if (dword_27E382C08 <= 800 && (dword_27E382C08 != -1 || sub_23EB74AC8(&dword_27E382C08, 0x320u)))
-    {
-      v306 = 701;
-LABEL_944:
-      sub_23EB75374(&dword_27E382C08, "void __BSAutoGuessConfiguration(void *)", 800, "\n********************************************************************************\n* Exiting state: %d\n********************************************************************************\n\n", a5, a6, a7, a8, v306);
-      goto LABEL_945;
-    }
-
-    goto LABEL_945;
-  }
-
-  if (dword_27E382C08 <= 800 && (dword_27E382C08 != -1 || sub_23EB74AC8(&dword_27E382C08, 0x320u)))
-  {
-    sub_23EB75374(&dword_27E382C08, "void __BSAutoGuessConfiguration(void *)", 800, "\n********************************************************************************\n* Entering state: %d (%s)\n********************************************************************************\n\n", a5, a6, a7, a8, 702);
-  }
-
-  v119 = sub_23EBE1CE0(a1, *(a1 + 32), v1130, v68, 1, &theArray, a7, a8);
-  if (v119)
-  {
-    v35 = v119;
-    if (v119 != -6727)
-    {
-      goto LABEL_1150;
-    }
-
-    v1145 = 0;
-    goto LABEL_489;
+    v285 = 703;
+    goto LABEL_993;
   }
 
   if (!theArray)
   {
-    v36 = 0;
-    v35 = 4294960568;
-    goto LABEL_10;
+    goto LABEL_1197;
   }
 
-  v1145 = CFArrayGetCount(theArray);
-  if (!v1145)
+  v1224 = CFArrayGetCount(theArray);
+  if (!v1224)
   {
-LABEL_489:
-    sub_23EBDBF78("(%d) There are no preferred networks visible in the Wi-Fi scan.", v120, v121, a4, a5, a6, a7, a8, 702);
-    sub_23EBE9710(Mutable, byte_27E383C00, "VISIBLE_PREFERRED_NETWORK_FALSE", v434, v435, v436, v437, v438);
-    v67 = 703;
-    goto LABEL_490;
+    goto LABEL_524;
   }
 
-  sub_23EBDC50C("State 702 scan records: \n", theArray, v121, a4, a5, a6, a7, a8);
-  v406 = sub_23EBE0A74(v1144, v1131, v400, v401, v402, v403, v404, v405);
-  v410 = theArray;
-  theArray = 0;
-  if (v406)
+  key = 0;
+  sub_23EBDC50C("State 703 scan records: \n", theArray);
+  sub_23EB6FF14(theArray, &key, "[*]", 0);
+  if (v457)
   {
-    if (v1131)
-    {
-      v411 = v1131;
-    }
+    goto LABEL_1202;
+  }
 
-    else
-    {
-      v411 = v1144;
-    }
+  if (!key)
+  {
+    goto LABEL_1219;
+  }
 
-    v35 = sub_23EBDDBF8(v410, v411, &theArray);
-    if (v410)
+  sub_23EBDE3B8(*(a1 + 32), key);
+  if (!v457)
+  {
+    if (sub_23EBE0A74(v1223, v1210, v458, v459))
     {
-      CFRelease(v410);
-    }
-
-    if (v35 != -6727)
-    {
-      if (v35)
+      if (v1210)
       {
-        goto LABEL_1294;
+        v460 = v1210;
       }
 
-      if (!theArray)
+      else
       {
-        goto LABEL_1218;
+        v460 = v1223;
       }
 
-      v1145 = CFArrayGetCount(theArray);
-      if (v1145 == 1)
+      v461 = sub_23EBDDBF8(theArray, v460, 0);
+      if (v461 != -6727)
       {
-        v421 = CFArrayGetValueAtIndex(theArray, 0);
-        v1142 = v421;
-        if (!v421)
+        v15 = v461;
+        if (v461)
         {
-          goto LABEL_1218;
+          goto LABEL_1203;
         }
 
-        CFRetain(v421);
-        v1146[0] = &stru_285145FE8;
-        if (v1142)
+        v1221 = key;
+        CFRetain(key);
+        v1225[0] = &stru_285145FE8;
+        if (v1221)
         {
-          sub_23EB6FF14(v1142, v1146, "%kO", v424, v425, v426, v427, v428, @"SSID_STR");
+          sub_23EB6FF14(v1221, v1225, "%kO", @"SSID_STR");
+          v469 = v1225[0];
         }
 
-        sub_23EBDBF78("(%d) Found one preferred network called %@ that can be joined by STA-only device.", v422, v423, v424, v425, v426, v427, v428, 702);
-        goto LABEL_488;
+        else
+        {
+          v469 = &stru_285145FE8;
+        }
+
+        v1201 = v469;
+        sub_23EBDBF78("(%d) Found one hidden preferred network called %@ that can be joined by STA-only device.", v462, v463, v464, v465, v466, v467, v468, 703);
+        sub_23EBE9710(Mutable, byte_27E383C00, "HIDDEN_PREFERRED_NETWORK_TRUE", v908, v909, v910, v911, v912);
+        v14 = 1403;
+        goto LABEL_957;
       }
 
-      sub_23EBDBF78("(%d) Found %d preferred networks that could be joined by STA-only device.", v414, v415, v416, v417, v418, v419, v420, 702);
-      sub_23EBE98EC(Mutable, byte_27E383C00, "NUMBER_PREFERRED_NETWORKS_FOR_STA_ONLY_TO_JOIN_IS_GREATER_THAN_ONE_TRUE", v1145, v848, v849, v850, v851);
       if (theArray)
       {
         CFRelease(theArray);
         theArray = 0;
       }
 
-      if (v1131)
+      if (v1210)
       {
-        v852 = v1131;
+        v783 = v1210;
       }
 
       else
       {
-        v852 = v1144;
+        v783 = v1223;
       }
 
-      v853 = sub_23EBDDBF8(*(a1 + 32), v852, &theArray);
-      if (v853 == -6727)
+      v784 = sub_23EBDDBF8(*(a1 + 32), v783, &theArray);
+      if (v784 != -6727)
       {
-        sub_23EBDBF78("(%d) There are no networks available (after re-filtering all networks).", v854, v855, a4, a5, a6, a7, a8, 702);
-        sub_23EBE9710(Mutable, byte_27E383C00, "VISIBLE_PREFERRED_NETWORK_FALSE", v890, v891, v892, v893, v894);
-        v67 = 703;
-      }
-
-      else
-      {
-        v35 = v853;
-        if (v853)
+        v15 = v784;
+        v2 = MEMORY[0x277CBECE8];
+        if (v784)
         {
-          goto LABEL_1294;
+          goto LABEL_1203;
         }
 
+        if (theArray)
+        {
+          v792 = CFArrayGetCount(theArray);
+          v1224 = v792;
+          v800 = theArray;
+          if (v792 == 1)
+          {
+            v801 = CFArrayGetValueAtIndex(theArray, 0);
+            v1221 = v801;
+            if (!v801)
+            {
+              goto LABEL_1219;
+            }
+
+            CFRetain(v801);
+            v809 = &stru_285145FE8;
+            v1225[0] = &stru_285145FE8;
+            if (v1221)
+            {
+              sub_23EB6FF14(v1221, v1225, "%kO", @"SSID_STR");
+              v809 = v1225[0];
+            }
+
+            v1201 = v809;
+            sub_23EBDBF78("(%d) Found one network called %@ that can be joined by STA-only device (after re-filtering all networks).", v802, v803, v804, v805, v806, v807, v808, 703);
+            sub_23EBE9710(Mutable, byte_27E383C00, "HIDDEN_PREFERRED_NETWORK_TRUE", v810, v811, v812, v813, v814);
+            v14 = 1403;
+          }
+
+          else
+          {
+            theArray = 0;
+            cf = v800;
+            v1201 = v792;
+            sub_23EBDBF78("(%d) Found %d networks that could be joined by STA-only device (after re-filtering all networks).", v793, v794, v795, v796, v797, v798, v799, 703);
+            sub_23EBE98EC(Mutable, byte_27E383C00, "HIDDEN_PREFERRED_NETWORK_TRUE", v1224, v927, v928, v929, v930);
+            v14 = 1406;
+          }
+
+          goto LABEL_987;
+        }
+
+LABEL_1219:
+        v15 = 4294960568;
+LABEL_1220:
+        v16 = 0;
+        v14 = 703;
+        goto LABEL_68;
+      }
+
+      sub_23EBDBF78("(%d) There are no networks available (after re-filtering all networks).", v785, v786, v787, v788, v789, v790, v791, 703);
+      sub_23EBE9710(Mutable, byte_27E383C00, "HIDDEN_PREFERRED_NETWORK_FALSE", v903, v904, v905, v906, v907);
+      v14 = 1103;
+    }
+
+    else
+    {
+      v759 = sub_23EBE0244(a1, key, 0, 15, &theArray);
+      if (!v759)
+      {
         if (!theArray)
         {
-LABEL_1218:
-          v36 = 0;
-          v35 = 4294960568;
-          goto LABEL_68;
+          goto LABEL_1219;
         }
 
-        v1145 = CFArrayGetCount(theArray);
-        v863 = theArray;
-        if (v1145 == 1)
+        sub_23EBDC01C("State 703 adding browse record: \n", theArray);
+        sub_23EBDE2BC(theArray, *(a1 + 24));
+        v15 = v865;
+        if (theArray)
         {
-          v864 = CFArrayGetValueAtIndex(theArray, 0);
-          v1142 = v864;
-          if (!v864)
-          {
-            goto LABEL_1218;
-          }
-
-          CFRetain(v864);
-          v1146[0] = &stru_285145FE8;
-          if (v1142)
-          {
-            sub_23EB6FF14(v1142, v1146, "%kO", v867, v868, v869, v870, v871, @"SSID_STR");
-          }
-
-          sub_23EBDBF78("(%d) Found one network called %@ that can be joined by STA-only device (after re-filtering all networks).", v865, v866, v867, v868, v869, v870, v871, 702);
-LABEL_488:
-          sub_23EBE9710(Mutable, byte_27E383C00, "NUMBER_PREFERRED_NETWORKS_FOR_STA_ONLY_TO_JOIN_IS_ONE_TRUE", v429, v430, v431, v432, v433);
-          v67 = 1403;
-        }
-
-        else
-        {
+          CFRelease(theArray);
           theArray = 0;
-          cf = v863;
-          sub_23EBDBF78("(%d) Found %d networks that could be joined by STA-only device (after re-filtering all networks).", v856, v857, v858, v859, v860, v861, v862, 702);
-          sub_23EBE98EC(Mutable, byte_27E383C00, "NUMBER_PREFERRED_NETWORKS_FOR_STA_ONLY_TO_JOIN_IS_GREATER_THAN_ONE_TRUE", v1145, v923, v924, v925, v926);
-          v67 = 1406;
         }
+
+        v866 = &stru_285145FE8;
+        v2 = MEMORY[0x277CBECE8];
+        if (v15)
+        {
+          goto LABEL_1203;
+        }
+
+        v1225[0] = &stru_285145FE8;
+        if (key)
+        {
+          sub_23EB6FF14(key, v1225, "%kO", @"SSID_STR");
+          v866 = v1225[0];
+        }
+
+        v1201 = v866;
+        sub_23EBDBF78("(%d) The hidden preferred network called %@ was found using a directed Wi-Fi scan.", v858, v859, v860, v861, v862, v863, v864, 703);
+        sub_23EBE9710(Mutable, byte_27E383C00, "HIDDEN_PREFERRED_NETWORK_TRUE", v867, v868, v869, v870, v871);
+        v14 = 401;
+        goto LABEL_987;
       }
+
+      if (v759 == -6723)
+      {
+        v15 = v759;
+        goto LABEL_1220;
+      }
+
+      v1201 = v759;
+      sub_23EBDBF78("(%d) There are no preferred networks found using a directed Wi-Fi scan and base stations found. err: %d", v760, v761, v762, v763, v764, v765, v766, 703);
+      sub_23EBE9710(Mutable, byte_27E383C00, "HIDDEN_PREFERRED_NETWORK_FALSE", v767, v768, v769, v770, v771);
+      v14 = 1701;
+    }
 
 LABEL_957:
-      v9 = MEMORY[0x277CBECE8];
-LABEL_490:
-      if (theArray)
-      {
-        CFRelease(theArray);
-        theArray = 0;
-      }
-
-      if (dword_27E382C08 > 800 || dword_27E382C08 == -1 && !sub_23EB74AC8(&dword_27E382C08, 0x320u))
-      {
-        goto LABEL_945;
-      }
-
-      v306 = 702;
-      goto LABEL_944;
-    }
-
-    sub_23EBDBF78("(%d) There are no preferred networks available after filtering.", v412, v413, a4, a5, a6, a7, a8, 702);
-LABEL_824:
-    sub_23EBE9710(Mutable, byte_27E383C00, "VISIBLE_PREFERRED_NETWORK_FALSE", v750, v751, v752, v753, v754);
-    v67 = 703;
-    goto LABEL_490;
+    v2 = MEMORY[0x277CBECE8];
+    goto LABEL_987;
   }
 
-  v35 = sub_23EBE0354(a1, v410, 0, 0xFu, &theArray, v407, v408, v409);
-  if (v410)
-  {
-    CFRelease(v410);
-  }
-
-  if (v35)
-  {
-    if (v35 == -6723)
-    {
-LABEL_1150:
-      v36 = 0;
-      goto LABEL_10;
-    }
-
-    sub_23EBDBF78("(%d) There are no preferred networks successfully joined and base stations found. err: %d", v748, v749, a4, a5, a6, a7, a8, 702);
-    goto LABEL_824;
-  }
-
-  if (!theArray)
-  {
-    goto LABEL_1218;
-  }
-
-  sub_23EBDC01C("State 702 adding browse record: \n", theArray, v749, a4, a5, a6, a7, a8);
-  sub_23EBDE2BC(theArray, *(a1 + 24), v816, v817, v818, v819, v820, v821);
-  if (!v822)
-  {
-    sub_23EBDBF78("(%d) At least one of your preferred networks is visible in the Wi-Fi scan.", v823, v824, a4, a5, a6, a7, a8, 702);
-    sub_23EBE9710(Mutable, byte_27E383C00, "VISIBLE_PREFERRED_NETWORK_TRUE", v825, v826, v827, v828, v829);
-    v67 = 401;
-    goto LABEL_957;
-  }
-
-  v35 = v822;
-LABEL_1294:
-  v36 = 0;
-LABEL_68:
-  v9 = MEMORY[0x277CBECE8];
+LABEL_1202:
+  v15 = v457;
+LABEL_1203:
+  v16 = 0;
+LABEL_1204:
+  v14 = 703;
 LABEL_10:
   if (dword_27E382C08 <= 800 && (dword_27E382C08 != -1 || sub_23EB74AC8(&dword_27E382C08, 0x320u)))
   {
-    sub_23EB75374(&dword_27E382C08, "void __BSAutoGuessConfiguration(void *)", 800, "State machine exiting... err: %d state: %d\n", a5, a6, a7, a8, v35);
+    sub_23EB75374(&dword_27E382C08, "void __BSAutoGuessConfiguration(void *)", 800, "State machine exiting... err: %d state: %d\n", v15, v14);
   }
 
-  if (v36)
+  if (v16)
   {
     if (!a1)
     {
-      goto LABEL_1124;
+      goto LABEL_1176;
     }
   }
 
@@ -8214,28 +8925,28 @@ LABEL_10:
     sub_23EBEE150(*(a1 + 48));
   }
 
-  *(a1 + 40) = v35;
-  v1146[0] = 0;
-  if (!sub_23EB6F348(*v9, v1146, "{%ks=%i%ks=%O}", a4, a5, a6, a7, a8, "BSAutoGuessComplete_ErrorResult"))
+  *(a1 + 40) = v15;
+  v1225[0] = 0;
+  if (!sub_23EB6F348(*v2, v1225, "{%ks=%i%ks=%O}", "BSAutoGuessComplete_ErrorResult", v15, "BSAutoGuessComplete_Suggestions", *(a1 + 8)))
   {
-    if (!v1146[0])
+    if (!v1225[0])
     {
-      goto LABEL_1124;
+      goto LABEL_1176;
     }
 
-    sub_23EBEAB18(*(a1 + 48), 18, *(a1 + 40), v1146[0], v1046, v1047, v1048, v1049);
+    sub_23EBEAB18(*(a1 + 48), 18, *(a1 + 40), v1225[0]);
     if (dword_27E382C08 <= 800 && (dword_27E382C08 != -1 || sub_23EB74AC8(&dword_27E382C08, 0x320u)))
     {
-      sub_23EB75374(&dword_27E382C08, "void _BSAutoGuess_NotifyComplete(AutoGuessContextRef)", 800, "Auto Guess END\n", v1050, v1051, v1052, v1053, v1124);
+      sub_23EB75374(&dword_27E382C08, "void _BSAutoGuess_NotifyComplete(AutoGuessContextRef)", 800, "Auto Guess END\n");
     }
   }
 
-  if (v1146[0])
+  if (v1225[0])
   {
-    CFRelease(v1146[0]);
+    CFRelease(v1225[0]);
   }
 
-LABEL_1124:
+LABEL_1176:
   if (Mutable)
   {
     CFRelease(Mutable);
@@ -8253,21 +8964,21 @@ LABEL_1124:
     theDict = 0;
   }
 
-  if (v1139)
+  if (v1218)
   {
-    CFRelease(v1139);
-    v1139 = 0;
+    CFRelease(v1218);
+    v1218 = 0;
   }
 
-  if (v1142)
+  if (v1221)
   {
-    CFRelease(v1142);
-    v1142 = 0;
+    CFRelease(v1221);
+    v1221 = 0;
   }
 
-  if (v34)
+  if (v13)
   {
-    CFRelease(v34);
+    CFRelease(v13);
   }
 
   if (cf)
@@ -8276,20 +8987,20 @@ LABEL_1124:
     cf = 0;
   }
 
-  result = v1135;
-  if (v1135)
+  result = v1214;
+  if (v1214)
   {
-    return sub_23EBB0D6C(v1135);
+    return sub_23EBB0D6C(v1214);
   }
 
   return result;
 }
 
-uint64_t sub_23EBE967C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t sub_23EBE967C(uint64_t a1)
 {
   if (dword_27E382C08 <= 800 && (dword_27E382C08 != -1 || sub_23EB74AC8(&dword_27E382C08, 0x320u)))
   {
-    sub_23EB75374(&dword_27E382C08, "OSStatus BSAutoGuess_Cancel(AutoGuessContextRef)", 800, "\n", a5, a6, a7, a8, v11);
+    sub_23EB75374(&dword_27E382C08, "OSStatus BSAutoGuess_Cancel(AutoGuessContextRef)", 800, "\n");
   }
 
   if (!a1)
@@ -8297,83 +9008,99 @@ uint64_t sub_23EBE967C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
     return 4294960591;
   }
 
-  v9 = *(a1 + 48);
+  v2 = *(a1 + 48);
 
-  return sub_23EBEA004(v9, a2, a3, a4, a5, a6, a7, a8);
+  return sub_23EBEA004(v2);
 }
 
-void sub_23EBE9710(const __CFArray *a1, _BYTE *a2, _BYTE *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void sub_23EBE9710(const __CFArray *a1, const char *a2, const char *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   if (a1 && a2 && a3 && *a2 && *a3 && !sub_23EB6FDFC(*MEMORY[0x277CBECE8], a1, "{%ks=%s%ks=%s%ks=%b}", a4, a5, a6, a7, a8, "KEY_TITLE"))
   {
     if (dword_27E382C08 <= 800 && (dword_27E382C08 != -1 || sub_23EB74AC8(&dword_27E382C08, 0x320u)))
     {
       Count = CFArrayGetCount(a1);
-      sub_23EB75374(&dword_27E382C08, "void LogUnconfigGuessCriterionTrue(CFMutableArrayRef, const char *, const char *)", 800, "\nAuto Guess step: %d\n\t%s\t\t:\t%s\n\t%s\t:\t%s\n", v10, v11, v12, v13, Count + 1);
+      sub_23EB75374(&dword_27E382C08, "void LogUnconfigGuessCriterionTrue(CFMutableArrayRef, const char *, const char *)", 800, "\nAuto Guess step: %d\n\t%s\t\t:\t%s\n\t%s\t:\t%s\n", Count + 1, "KEY_TITLE", a2, "KEY_SIGNATURE", a3);
     }
 
-    v14 = MEMORY[0x277D85CD0];
+    v12 = MEMORY[0x277D85CD0];
 
-    dispatch_sync_f(v14, a1, sub_23EBE985C);
+    dispatch_sync_f(v12, a1, sub_23EBE985C);
   }
 }
 
-void sub_23EBE985C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void sub_23EBE985C(uint64_t a1)
 {
-  v12 = 0;
+  v5 = 0;
   if (a1)
   {
-    v8 = sub_23EB6F348(*MEMORY[0x277CBECE8], &v12, "{%ks=%O}", a4, a5, a6, a7, a8, "BSAutoGuess_StateTrace");
-    v9 = v12;
-    if (v8)
+    v1 = sub_23EB6F348(*MEMORY[0x277CBECE8], &v5, "{%ks=%O}", "BSAutoGuess_StateTrace", a1);
+    v2 = v5;
+    if (v1)
     {
-      v10 = 1;
+      v3 = 1;
     }
 
     else
     {
-      v10 = v12 == 0;
+      v3 = v5 == 0;
     }
 
-    if (!v10)
+    if (!v3)
     {
       LocalCenter = CFNotificationCenterGetLocalCenter();
       if (LocalCenter)
       {
-        CFNotificationCenterPostNotificationWithOptions(LocalCenter, @"com.apple.airport.autoguess.debug.progress", 0, v12, 1uLL);
+        CFNotificationCenterPostNotificationWithOptions(LocalCenter, @"com.apple.airport.autoguess.debug.progress", 0, v5, 1uLL);
       }
 
-      v9 = v12;
+      v2 = v5;
     }
 
-    if (v9)
+    if (v2)
     {
-      CFRelease(v9);
+      CFRelease(v2);
     }
   }
 }
 
-void sub_23EBE98EC(const __CFArray *a1, _BYTE *a2, _BYTE *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void sub_23EBE98EC(const __CFArray *a1, const char *a2, const char *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  if (a1 && a2 && a3 && *a2 && *a3 && !sub_23EB6FDFC(*MEMORY[0x277CBECE8], a1, "{%ks=%s%ks=%s%ks=%i%ks=%b}", a4, a5, a6, a7, a8, "KEY_TITLE"))
+  if (a1)
   {
-    if (dword_27E382C08 <= 800 && (dword_27E382C08 != -1 || sub_23EB74AC8(&dword_27E382C08, 0x320u)))
+    if (a2)
     {
-      Count = CFArrayGetCount(a1);
-      sub_23EB75374(&dword_27E382C08, "void LogUnconfigGuessCriterionTrueWithInt32Value(CFMutableArrayRef, const char *, const char *, int32_t)", 800, "\nAuto Guess step: %d\n\t%s\t\t:\t%s\n\t%s\t:\t%s\n\t%s\t\t:\t%d\n", v10, v11, v12, v13, Count + 1);
+      if (a3)
+      {
+        if (*a2)
+        {
+          if (*a3)
+          {
+            v10 = a4;
+            if (!sub_23EB6FDFC(*MEMORY[0x277CBECE8], a1, "{%ks=%s%ks=%s%ks=%i%ks=%b}", a4, a5, a6, a7, a8, "KEY_TITLE"))
+            {
+              if (dword_27E382C08 <= 800 && (dword_27E382C08 != -1 || sub_23EB74AC8(&dword_27E382C08, 0x320u)))
+              {
+                Count = CFArrayGetCount(a1);
+                sub_23EB75374(&dword_27E382C08, "void LogUnconfigGuessCriterionTrueWithInt32Value(CFMutableArrayRef, const char *, const char *, int32_t)", 800, "\nAuto Guess step: %d\n\t%s\t\t:\t%s\n\t%s\t:\t%s\n\t%s\t\t:\t%d\n", Count + 1, "KEY_TITLE", a2, "KEY_SIGNATURE", a3, "KEY_VALUE", v10);
+              }
+
+              v13 = MEMORY[0x277D85CD0];
+
+              dispatch_sync_f(v13, a1, sub_23EBE985C);
+            }
+          }
+        }
+      }
     }
-
-    v14 = MEMORY[0x277D85CD0];
-
-    dispatch_sync_f(v14, a1, sub_23EBE985C);
   }
 }
 
-BOOL sub_23EBE9A58(const __CFString *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+BOOL sub_23EBE9A58(const __CFString *a1)
 {
   if (dword_27E382C48 <= 800 && (dword_27E382C48 != -1 || sub_23EB74AC8(&dword_27E382C48, 0x320u)))
   {
-    sub_23EB75374(&dword_27E382C48, "Boolean BSAssistant_RefObjGood(CFTypeRef)", 800, "inRefObj: %@ \n", a5, a6, a7, a8, a1);
+    sub_23EB75374(&dword_27E382C48, "Boolean BSAssistant_RefObjGood(CFTypeRef)", 800, "inRefObj: %@ \n", a1);
   }
 
   if (a1 && (TypeID = CFStringGetTypeID(), TypeID == CFGetTypeID(a1)))
@@ -8387,11 +9114,11 @@ BOOL sub_23EBE9A58(const __CFString *a1, uint64_t a2, uint64_t a3, uint64_t a4, 
   }
 }
 
-uint64_t sub_23EBE9B10(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t sub_23EBE9B10(void *a1)
 {
   if (dword_27E382C48 <= 800 && (dword_27E382C48 != -1 || sub_23EB74AC8(&dword_27E382C48, 0x320u)))
   {
-    sub_23EB75374(&dword_27E382C48, "OSStatus BSAssistant_ContextCreate(AssistantContextRef *)", 800, " \n", a5, a6, a7, a8, v31);
+    sub_23EB75374(&dword_27E382C48, "OSStatus BSAssistant_ContextCreate(AssistantContextRef *)", 800, " \n");
   }
 
   if (!a1)
@@ -8399,56 +9126,56 @@ uint64_t sub_23EBE9B10(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t
     return 4294960591;
   }
 
-  v9 = malloc_type_calloc(1uLL, 0x68uLL, 0x10A0040E715EC04uLL);
-  if (!v9)
+  v2 = malloc_type_calloc(1uLL, 0x68uLL, 0x10A0040E715EC04uLL);
+  if (!v2)
   {
     return 4294960568;
   }
 
-  v16 = v9;
-  v9[9] = 0;
-  *v9 = 0u;
-  *(v9 + 1) = 0u;
-  *(v9 + 16) = 257;
-  *(v9 + 6) = 0;
-  *(v9 + 8) = 0;
-  *(v9 + 9) = 0;
-  v17 = *MEMORY[0x277CBECE8];
-  v18 = sub_23EB652C0(*MEMORY[0x277CBECE8], @"BSAssistant", v10, v11, v12, v13, v14, v15);
-  *(v16 + 12) = v18;
-  if (!v18 || (Mutable = CFStringCreateMutable(v17, 10), (*(v16 + 10) = Mutable) == 0))
+  v3 = v2;
+  v2[9] = 0;
+  *v2 = 0u;
+  *(v2 + 1) = 0u;
+  *(v2 + 16) = 257;
+  *(v2 + 6) = 0;
+  *(v2 + 8) = 0;
+  *(v2 + 9) = 0;
+  v4 = *MEMORY[0x277CBECE8];
+  v5 = sub_23EB652C0(*MEMORY[0x277CBECE8], @"BSAssistant");
+  *(v3 + 12) = v5;
+  if (!v5 || (Mutable = CFStringCreateMutable(v4, 10), (*(v3 + 10) = Mutable) == 0))
   {
-    v29 = 4294960568;
+    v9 = 4294960568;
 LABEL_19:
-    sub_23EBE9CC0(v16, v19, v20, v21, v22, v23, v24, v25);
-    return v29;
+    sub_23EBE9CC0(v3);
+    return v9;
   }
 
-  v27 = Mutable;
+  v7 = Mutable;
   if (dword_27E382C48 <= 800 && (dword_27E382C48 != -1 || sub_23EB74AC8(&dword_27E382C48, 0x320u)))
   {
-    sub_23EB75374(&dword_27E382C48, "OSStatus _RefObjSetGood(CFTypeRef)", 800, "inRefObj: %@ \n", v22, v23, v24, v25, v27);
+    sub_23EB75374(&dword_27E382C48, "OSStatus _RefObjSetGood(CFTypeRef)", 800, "inRefObj: %@ \n", v7);
   }
 
   TypeID = CFStringGetTypeID();
-  if (TypeID != CFGetTypeID(v27))
+  if (TypeID != CFGetTypeID(v7))
   {
-    v29 = 4294960591;
+    v9 = 4294960591;
     goto LABEL_19;
   }
 
-  CFStringReplaceAll(v27, @"GOOD");
-  v29 = 0;
-  v16[22] = 1634561902;
-  *a1 = v16;
-  return v29;
+  CFStringReplaceAll(v7, @"GOOD");
+  v9 = 0;
+  v3[22] = 1634561902;
+  *a1 = v3;
+  return v9;
 }
 
-uint64_t sub_23EBE9CC0(_DWORD *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t sub_23EBE9CC0(_DWORD *a1)
 {
   if (dword_27E382C48 <= 800 && (dword_27E382C48 != -1 || sub_23EB74AC8(&dword_27E382C48, 0x320u)))
   {
-    sub_23EB75374(&dword_27E382C48, "OSStatus BSAssistant_ContextRelease(AssistantContextRef)", 800, " \n", a5, a6, a7, a8, v15);
+    sub_23EB75374(&dword_27E382C48, "OSStatus BSAssistant_ContextRelease(AssistantContextRef)", 800, " \n");
   }
 
   if (!a1 || a1[22] != 1634561902)
@@ -8456,17 +9183,17 @@ uint64_t sub_23EBE9CC0(_DWORD *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64
     return 4294960578;
   }
 
-  v9 = *(a1 + 6);
-  if (v9)
+  v2 = *(a1 + 6);
+  if (v2)
   {
-    CFRelease(v9);
+    CFRelease(v2);
     *(a1 + 6) = 0;
   }
 
-  v10 = *(a1 + 12);
-  if (v10)
+  v3 = *(a1 + 12);
+  if (v3)
   {
-    CFRelease(v10);
+    CFRelease(v3);
     *(a1 + 12) = 0;
   }
 
@@ -8474,25 +9201,25 @@ uint64_t sub_23EBE9CC0(_DWORD *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64
   *(a1 + 2) = 0;
   *(a1 + 8) = 0;
   *(a1 + 9) = 0;
-  v11 = *(a1 + 10);
-  if (!v11)
+  v4 = *(a1 + 10);
+  if (!v4)
   {
     goto LABEL_19;
   }
 
   if (dword_27E382C48 <= 800 && (dword_27E382C48 != -1 || sub_23EB74AC8(&dword_27E382C48, 0x320u)))
   {
-    sub_23EB75374(&dword_27E382C48, "OSStatus _RefObjSetDone(CFTypeRef)", 800, "inRefObj: %@ \n", a5, a6, a7, a8, v11);
+    sub_23EB75374(&dword_27E382C48, "OSStatus _RefObjSetDone(CFTypeRef)", 800, "inRefObj: %@ \n", v4);
   }
 
   TypeID = CFStringGetTypeID();
-  if (TypeID == CFGetTypeID(v11))
+  if (TypeID == CFGetTypeID(v4))
   {
-    CFStringReplaceAll(v11, @"bad!");
-    v13 = *(a1 + 10);
-    if (v13)
+    CFStringReplaceAll(v4, @"bad!");
+    v6 = *(a1 + 10);
+    if (v6)
     {
-      CFRelease(v13);
+      CFRelease(v6);
     }
 
 LABEL_19:
@@ -8601,11 +9328,11 @@ uint64_t sub_23EBE9F5C(char *a1)
   return 0;
 }
 
-uint64_t sub_23EBEA004(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t sub_23EBEA004(uint64_t a1)
 {
   if (dword_27E382C48 <= 800 && (dword_27E382C48 != -1 || sub_23EB74AC8(&dword_27E382C48, 0x320u)))
   {
-    sub_23EB75374(&dword_27E382C48, "OSStatus BSAssistant_Cancel(AssistantContextRef)", 800, "\n", a5, a6, a7, a8, v15);
+    sub_23EB75374(&dword_27E382C48, "OSStatus BSAssistant_Cancel(AssistantContextRef)", 800, "\n");
   }
 
   if (!a1 || *(a1 + 88) != 1634561902)
@@ -8613,32 +9340,32 @@ uint64_t sub_23EBEA004(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
     return 4294960578;
   }
 
-  v9 = *(a1 + 36);
-  if (v9 != 2)
+  v2 = *(a1 + 36);
+  if (v2 != 2)
   {
-    if (!v9)
+    if (!v2)
     {
       return 4294960576;
     }
 
     *(a1 + 36) = 2;
-    v11 = *(a1 + 64);
-    if (v11)
+    v4 = *(a1 + 64);
+    if (v4)
     {
-      v12 = *(v11 + 40);
-      if (v12)
+      v5 = *(v4 + 40);
+      if (v5)
       {
-        dispatch_semaphore_signal(v12);
+        dispatch_semaphore_signal(v5);
       }
     }
 
-    v13 = *(a1 + 72);
-    if (v13)
+    v6 = *(a1 + 72);
+    if (v6)
     {
-      v14 = *(v13 + 40);
-      if (v14)
+      v7 = *(v6 + 40);
+      if (v7)
       {
-        dispatch_semaphore_signal(v14);
+        dispatch_semaphore_signal(v7);
       }
     }
   }
@@ -8646,11 +9373,11 @@ uint64_t sub_23EBEA004(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
   return 4294960525;
 }
 
-uint64_t sub_23EBEA0DC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t sub_23EBEA0DC(uint64_t a1)
 {
   if (dword_27E382C48 <= 800 && (dword_27E382C48 != -1 || sub_23EB74AC8(&dword_27E382C48, 0x320u)))
   {
-    sub_23EB75374(&dword_27E382C48, "OSStatus BSAssistant_SetToRunningState(AssistantContextRef)", 800, "\n", a5, a6, a7, a8, v10);
+    sub_23EB75374(&dword_27E382C48, "OSStatus BSAssistant_SetToRunningState(AssistantContextRef)", 800, "\n");
   }
 
   if (!a1 || *(a1 + 88) != 1634561902)
@@ -8668,11 +9395,11 @@ uint64_t sub_23EBEA0DC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
   return result;
 }
 
-uint64_t sub_23EBEA18C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t sub_23EBEA18C(uint64_t a1)
 {
   if (dword_27E382C48 <= 800 && (dword_27E382C48 != -1 || sub_23EB74AC8(&dword_27E382C48, 0x320u)))
   {
-    sub_23EB75374(&dword_27E382C48, "OSStatus BSAssistant_SetToIdleState(AssistantContextRef)", 800, "\n", a5, a6, a7, a8, v10);
+    sub_23EB75374(&dword_27E382C48, "OSStatus BSAssistant_SetToIdleState(AssistantContextRef)", 800, "\n");
   }
 
   if (!a1 || *(a1 + 88) != 1634561902)
@@ -8698,11 +9425,11 @@ uint64_t sub_23EBEA18C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
   return result;
 }
 
-uint64_t sub_23EBEA268(uint64_t a1, _BYTE *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t sub_23EBEA268(uint64_t a1, _BYTE *a2)
 {
   if (dword_27E382C48 <= 800 && (dword_27E382C48 != -1 || sub_23EB74AC8(&dword_27E382C48, 0x320u)))
   {
-    sub_23EB75374(&dword_27E382C48, "OSStatus BSAssistant_GetSaveBasePasswordToKeychain(AssistantContextRef, Boolean *)", 800, " \n", a5, a6, a7, a8, v11);
+    sub_23EB75374(&dword_27E382C48, "OSStatus BSAssistant_GetSaveBasePasswordToKeychain(AssistantContextRef, Boolean *)", 800, " \n");
   }
 
   if (!a1 || *(a1 + 88) != 1634561902)
@@ -8720,11 +9447,11 @@ uint64_t sub_23EBEA268(uint64_t a1, _BYTE *a2, uint64_t a3, uint64_t a4, uint64_
   return result;
 }
 
-uint64_t sub_23EBEA310(uint64_t a1, char a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t sub_23EBEA310(uint64_t a1, char a2)
 {
   if (dword_27E382C48 <= 800 && (dword_27E382C48 != -1 || sub_23EB74AC8(&dword_27E382C48, 0x320u)))
   {
-    sub_23EB75374(&dword_27E382C48, "OSStatus BSAssistant_SetSaveBasePasswordToKeychain(AssistantContextRef, Boolean)", 800, " \n", a5, a6, a7, a8, v11);
+    sub_23EB75374(&dword_27E382C48, "OSStatus BSAssistant_SetSaveBasePasswordToKeychain(AssistantContextRef, Boolean)", 800, " \n");
   }
 
   if (!a1 || *(a1 + 88) != 1634561902)
@@ -8737,11 +9464,11 @@ uint64_t sub_23EBEA310(uint64_t a1, char a2, uint64_t a3, uint64_t a4, uint64_t 
   return result;
 }
 
-uint64_t sub_23EBEA3A8(uint64_t a1, _BYTE *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t sub_23EBEA3A8(uint64_t a1, _BYTE *a2)
 {
   if (dword_27E382C48 <= 800 && (dword_27E382C48 != -1 || sub_23EB74AC8(&dword_27E382C48, 0x320u)))
   {
-    sub_23EB75374(&dword_27E382C48, "OSStatus BSAssistant_GetSaveWiFiPasswordToKeychain(AssistantContextRef, Boolean *)", 800, " \n", a5, a6, a7, a8, v11);
+    sub_23EB75374(&dword_27E382C48, "OSStatus BSAssistant_GetSaveWiFiPasswordToKeychain(AssistantContextRef, Boolean *)", 800, " \n");
   }
 
   if (!a1 || *(a1 + 88) != 1634561902)
@@ -8759,11 +9486,11 @@ uint64_t sub_23EBEA3A8(uint64_t a1, _BYTE *a2, uint64_t a3, uint64_t a4, uint64_
   return result;
 }
 
-uint64_t sub_23EBEA450(uint64_t a1, char a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t sub_23EBEA450(uint64_t a1, char a2)
 {
   if (dword_27E382C48 <= 800 && (dword_27E382C48 != -1 || sub_23EB74AC8(&dword_27E382C48, 0x320u)))
   {
-    sub_23EB75374(&dword_27E382C48, "OSStatus BSAssistant_SetSaveWiFiPasswordToKeychain(AssistantContextRef, Boolean)", 800, " \n", a5, a6, a7, a8, v11);
+    sub_23EB75374(&dword_27E382C48, "OSStatus BSAssistant_SetSaveWiFiPasswordToKeychain(AssistantContextRef, Boolean)", 800, " \n");
   }
 
   if (!a1 || *(a1 + 88) != 1634561902)
@@ -8776,11 +9503,11 @@ uint64_t sub_23EBEA450(uint64_t a1, char a2, uint64_t a3, uint64_t a4, uint64_t 
   return result;
 }
 
-uint64_t sub_23EBEA4E8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t sub_23EBEA4E8(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (dword_27E382C48 <= 800 && (dword_27E382C48 != -1 || sub_23EB74AC8(&dword_27E382C48, 0x320u)))
   {
-    sub_23EB75374(&dword_27E382C48, "OSStatus BSAssistant_SetAssistantCallback(AssistantContextRef, assistant_callback_t, void *)", 800, " \n", a5, a6, a7, a8, v12);
+    sub_23EB75374(&dword_27E382C48, "OSStatus BSAssistant_SetAssistantCallback(AssistantContextRef, assistant_callback_t, void *)", 800, " \n");
   }
 
   if (!a1 || *(a1 + 88) != 1634561902)
@@ -8799,7 +9526,7 @@ uint64_t sub_23EBEA4E8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
   return result;
 }
 
-uint64_t sub_23EBEA59C(void *context, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t sub_23EBEA59C(void *context, int a2)
 {
   if (!context)
   {
@@ -8816,13 +9543,13 @@ uint64_t sub_23EBEA59C(void *context, uint64_t a2, uint64_t a3, uint64_t a4, uin
     return 4294960591;
   }
 
-  v9 = context[1];
-  if (!v9 || *(v9 + 88) != 1634561902 || !*v9)
+  v3 = context[1];
+  if (!v3 || *(v3 + 88) != 1634561902 || !*v3)
   {
     return 4294960591;
   }
 
-  if (*(v9 + 36) == 2)
+  if (*(v3 + 36) == 2)
   {
     return 4294960573;
   }
@@ -8836,34 +9563,34 @@ uint64_t sub_23EBEA59C(void *context, uint64_t a2, uint64_t a3, uint64_t a4, uin
   *(context + 8) = 0;
   if (dword_27E382C48 <= 800 && (dword_27E382C48 != -1 || sub_23EB74AC8(&dword_27E382C48, 0x320u)))
   {
-    sub_23EB75374(&dword_27E382C48, "OSStatus BSAssistant_CallbackPerform(AssistantCallbackContextRef, eAssistantCallback)", 800, " %d...\n", a5, a6, a7, a8, a2);
+    sub_23EB75374(&dword_27E382C48, "OSStatus BSAssistant_CallbackPerform(AssistantCallbackContextRef, eAssistantCallback)", 800, " %d...\n", a2);
   }
 
   dispatch_async_f(MEMORY[0x277D85CD0], context, sub_23EBEA6B4);
   return 0;
 }
 
-uint64_t sub_23EBEA6B4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t sub_23EBEA6B4(void *a1)
 {
   if (dword_27E382C48 <= 800 && (dword_27E382C48 != -1 || sub_23EB74AC8(&dword_27E382C48, 0x320u)))
   {
-    sub_23EB75374(&dword_27E382C48, "void __BSAssistant_PerformCallbackOnMain(void *)", 800, "\n", a5, a6, a7, a8, v12);
+    sub_23EB75374(&dword_27E382C48, "void __BSAssistant_PerformCallbackOnMain(void *)", 800, "\n");
   }
 
   if (a1 && *a1 == 1634561902)
   {
-    v9 = *(a1 + 8);
-    if (v9 && *v9 && *(a1 + 24) && *(a1 + 16))
+    v2 = a1[1];
+    if (v2 && *v2 && a1[3] && *(a1 + 4))
     {
-      if (*(v9 + 36) == 2)
+      if (*(v2 + 36) == 2)
       {
-        v10 = 4294960573;
+        v3 = 4294960573;
       }
 
       else
       {
-        result = (*v9)(a1);
-        v10 = result;
+        result = (*v2)(a1);
+        v3 = result;
         if (!result)
         {
           return result;
@@ -8873,24 +9600,24 @@ uint64_t sub_23EBEA6B4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
 
     else
     {
-      v10 = 4294960591;
+      v3 = 4294960591;
     }
   }
 
   else
   {
-    v10 = 4294960578;
+    v3 = 4294960578;
   }
 
   if (dword_27E382C48 <= 800 && (dword_27E382C48 != -1 || sub_23EB74AC8(&dword_27E382C48, 0x320u)))
   {
-    sub_23EB75374(&dword_27E382C48, "void __BSAssistant_PerformCallbackOnMain(void *)", 800, "failing err: %#m\n", a5, a6, a7, a8, v10);
+    sub_23EB75374(&dword_27E382C48, "void __BSAssistant_PerformCallbackOnMain(void *)", 800, "failing err: %#m\n", v3);
   }
 
-  return sub_23EBEB6CC(a1, v10, a3, a4, a5, a6, a7, a8);
+  return sub_23EBEB6CC(a1, v3);
 }
 
-uint64_t sub_23EBEA814(void *context, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t sub_23EBEA814(void *context, int a2)
 {
   if (!context)
   {
@@ -8907,13 +9634,13 @@ uint64_t sub_23EBEA814(void *context, uint64_t a2, uint64_t a3, uint64_t a4, uin
     return 4294960591;
   }
 
-  v9 = context[1];
-  if (!v9 || *(v9 + 88) != 1634561902 || !*v9)
+  v3 = context[1];
+  if (!v3 || *(v3 + 88) != 1634561902 || !*v3)
   {
     return 4294960591;
   }
 
-  if (*(v9 + 36) == 2)
+  if (*(v3 + 36) == 2)
   {
     return 4294960573;
   }
@@ -8927,14 +9654,14 @@ uint64_t sub_23EBEA814(void *context, uint64_t a2, uint64_t a3, uint64_t a4, uin
   *(context + 8) = 0;
   if (dword_27E382C48 <= 800 && (dword_27E382C48 != -1 || sub_23EB74AC8(&dword_27E382C48, 0x320u)))
   {
-    sub_23EB75374(&dword_27E382C48, "OSStatus BSAssistant_CallbackPerformSync(AssistantCallbackContextRef, eAssistantCallback)", 800, " %d...\n", a5, a6, a7, a8, a2);
+    sub_23EB75374(&dword_27E382C48, "OSStatus BSAssistant_CallbackPerformSync(AssistantCallbackContextRef, eAssistantCallback)", 800, " %d...\n", a2);
   }
 
   dispatch_sync_f(MEMORY[0x277D85CD0], context, sub_23EBEA6B4);
   return 0;
 }
 
-uint64_t sub_23EBEA92C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t sub_23EBEA92C(uint64_t a1)
 {
   if (!a1)
   {
@@ -8946,26 +9673,26 @@ uint64_t sub_23EBEA92C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
     return 4294960578;
   }
 
-  v9 = *(a1 + 8);
-  if (!v9 || *(v9 + 88) != 1634561902 || !*(a1 + 40))
+  v2 = *(a1 + 8);
+  if (!v2 || *(v2 + 88) != 1634561902 || !*(a1 + 40))
   {
     return 4294960591;
   }
 
-  if (*(v9 + 36) == 2)
+  if (*(v2 + 36) == 2)
   {
     return 4294960573;
   }
 
   if (dword_27E382C48 <= 800 && (dword_27E382C48 != -1 || sub_23EB74AC8(&dword_27E382C48, 0x320u)))
   {
-    sub_23EB75374(&dword_27E382C48, "OSStatus BSAssistant_Wait(AssistantCallbackContextRef)", 800, " SLEEP... inContext->callbackResult: %#m\n", a5, a6, a7, a8, *(a1 + 32));
+    sub_23EB75374(&dword_27E382C48, "OSStatus BSAssistant_Wait(AssistantCallbackContextRef)", 800, " SLEEP... inContext->callbackResult: %#m\n", *(a1 + 32));
   }
 
   dispatch_semaphore_wait(*(a1 + 40), 0xFFFFFFFFFFFFFFFFLL);
   if (dword_27E382C48 <= 800 && (dword_27E382C48 != -1 || sub_23EB74AC8(&dword_27E382C48, 0x320u)))
   {
-    sub_23EB75374(&dword_27E382C48, "OSStatus BSAssistant_Wait(AssistantCallbackContextRef)", 800, " AWAKE...\n", v11, v12, v13, v14, v15);
+    sub_23EB75374(&dword_27E382C48, "OSStatus BSAssistant_Wait(AssistantCallbackContextRef)", 800, " AWAKE...\n");
   }
 
   if (*(*(a1 + 8) + 36) == 2)
@@ -8979,11 +9706,11 @@ uint64_t sub_23EBEA92C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
   }
 }
 
-uint64_t sub_23EBEAA74(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t sub_23EBEAA74(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (dword_27E382C48 <= 800 && (dword_27E382C48 != -1 || sub_23EB74AC8(&dword_27E382C48, 0x320u)))
   {
-    sub_23EB75374(&dword_27E382C48, "OSStatus BSAssistant_SetProgressCallback(AssistantContextRef, assistant_progress_t, void *)", 800, " \n", a5, a6, a7, a8, v12);
+    sub_23EB75374(&dword_27E382C48, "OSStatus BSAssistant_SetProgressCallback(AssistantContextRef, assistant_progress_t, void *)", 800, " \n");
   }
 
   if (!a1 || *(a1 + 88) != 1634561902)
@@ -8997,714 +9724,35 @@ uint64_t sub_23EBEAA74(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
   return result;
 }
 
-void sub_23EBEAB18(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void sub_23EBEAB18(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   if (dword_27E382C48 <= 800 && (dword_27E382C48 != -1 || sub_23EB74AC8(&dword_27E382C48, 0x320u)))
   {
-    sub_23EB75374(&dword_27E382C48, "void BSAssistant_ProgressStatus_Dict(AssistantContextRef, int, OSStatus, CFDictionaryRef)", 800, "inSelector: %d inStatus %#m\n", a5, a6, a7, a8, a2);
+    sub_23EB75374(&dword_27E382C48, "void BSAssistant_ProgressStatus_Dict(AssistantContextRef, int, OSStatus, CFDictionaryRef)", 800, "inSelector: %d inStatus %#m\n", a2);
   }
 
   if (a1 && *(a1 + 88) == 1634561902 && *(a1 + 16))
   {
-    v20 = 0;
-    v21 = 0;
-    v11 = *MEMORY[0x277CBECE8];
-    v12 = a4 ? sub_23EB6F348(v11, &v20, "{%ks=%i%ks=%i%ks={%ks=%O}}", a4, a5, a6, a7, a8, "kProgressParam_ProgressSelector") : sub_23EB6F348(v11, &v20, "{%ks=%i%ks=%i}", a4, a5, a6, a7, a8, "kProgressParam_ProgressSelector");
-    if (!v12 && v20 != 0)
+    v12 = 0;
+    v13 = 0;
+    v8 = *MEMORY[0x277CBECE8];
+    v9 = a4 ? sub_23EB6F348(v8, &v12, "{%ks=%i%ks=%i%ks={%ks=%O}}", "kProgressParam_ProgressSelector", a2, "kProgressParam_OSStatus", a3, "kProgressParam_DictionaryParam", "BSAssistantProgressKey_DictionaryParameter", a4) : sub_23EB6F348(v8, &v12, "{%ks=%i%ks=%i}", "kProgressParam_ProgressSelector", a2, "kProgressParam_OSStatus", a3);
+    if (!v9 && v12 != 0)
     {
-      v19 = sub_23EBEAC98(a1, v20, &v21, v13, v14, v15, v16, v17);
-      if (v20)
+      v11 = sub_23EBEAC98(a1, v12, &v13);
+      if (v12)
       {
-        CFRelease(v20);
-        v20 = 0;
+        CFRelease(v12);
+        v12 = 0;
       }
 
-      if (!v19)
+      if (!v11)
       {
-        if (v21)
+        if (v13)
         {
-          dispatch_async_f(MEMORY[0x277D85CD0], v21, sub_23EBEADC4);
+          dispatch_async_f(MEMORY[0x277D85CD0], v13, sub_23EBEADC4);
         }
       }
     }
   }
-}
-
-uint64_t sub_23EBEAC98(uint64_t a1, const void *a2, void *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
-{
-  if (dword_27E382C48 <= 800 && (dword_27E382C48 != -1 || sub_23EB74AC8(&dword_27E382C48, 0x320u)))
-  {
-    sub_23EB75374(&dword_27E382C48, "OSStatus __ProgressContext_Create(AssistantContextRef, CFDictionaryRef, __ProgressContextRef *)", 800, " \n", a5, a6, a7, a8, v23);
-  }
-
-  if (*(a1 + 88) != 1634561902)
-  {
-    return 4294960578;
-  }
-
-  if (!a3)
-  {
-    return 4294960591;
-  }
-
-  v11 = malloc_type_calloc(1uLL, 0x20uLL, 0x10E0040E9A6435BuLL);
-  if (!v11)
-  {
-    return 4294960568;
-  }
-
-  v19 = v11;
-  *v11 = a1;
-  v11[1] = a2;
-  if (a2)
-  {
-    CFRetain(a2);
-  }
-
-  if (*(a1 + 88) != 1634561902)
-  {
-    v21 = 4294960578;
-LABEL_18:
-    sub_23EBEF364(v19, v12, v13, v14, v15, v16, v17, v18);
-    return v21;
-  }
-
-  v20 = *(a1 + 80);
-  if (!v20)
-  {
-    v21 = 4294960591;
-    goto LABEL_18;
-  }
-
-  v19[3] = v20;
-  CFRetain(v20);
-  v21 = 0;
-  *(v19 + 4) = 1634561902;
-  *a3 = v19;
-  return v21;
-}
-
-void sub_23EBEADC4(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
-{
-  if (a1)
-  {
-    v21 = 0;
-    v20 = 0;
-    v19 = 0;
-    if (*(a1 + 4) == 1634561902 && sub_23EBE9A58(a1[3], a2, a3, a4, a5, a6, a7, a8))
-    {
-      v9 = *a1;
-      if (*a1)
-      {
-        if (*(v9 + 88) == 1634561902)
-        {
-          if (*(v9 + 16))
-          {
-            v10 = a1[1];
-            if (v10)
-            {
-              sub_23EB6FF14(v10, &v21, "%ks:int", a4, a5, a6, a7, a8, "kProgressParam_ProgressSelector");
-              if (!v11)
-              {
-                sub_23EB6FF14(a1[1], &v20, "%ks:err", a4, a5, a6, a7, a8, "kProgressParam_OSStatus");
-                if (!v12)
-                {
-                  sub_23EB6FF14(a1[1], &v19, "%ks", a4, a5, a6, a7, a8, "kProgressParam_DictionaryParam");
-                  if (!v13)
-                  {
-                    goto LABEL_13;
-                  }
-
-                  if (v13 == -6727)
-                  {
-                    v19 = 0;
-LABEL_13:
-                    if (dword_27E382C48 <= 800 && (dword_27E382C48 != -1 || sub_23EB74AC8(&dword_27E382C48, 0x320u)))
-                    {
-                      sub_23EB75374(&dword_27E382C48, "void __Progress_CallbackOnMain(void *)", 800, "selector: %d status %#m\n", a5, a6, a7, a8, v21);
-                    }
-
-                    (*(*a1 + 16))(v21, v20, v19, *(*a1 + 24));
-                    sub_23EBEF42C(v21, v20, v19, v14, v15, v16, v17, v18);
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-
-    sub_23EBEF364(a1, a2, a3, a4, a5, a6, a7, a8);
-  }
-}
-
-void sub_23EBEAF44(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
-{
-  if (dword_27E382C48 <= 800 && (dword_27E382C48 != -1 || sub_23EB74AC8(&dword_27E382C48, 0x320u)))
-  {
-    sub_23EB75374(&dword_27E382C48, "void BSAssistant_ProgressStatusWithSubSelector_Dict(AssistantContextRef, int, int, OSStatus, CFDictionaryRef)", 800, "inSelector: %d inStatus %#m\n", a5, a6, a7, a8, a2);
-  }
-
-  if (a1)
-  {
-    if (*(a1 + 88) == 1634561902)
-    {
-      if (*(a1 + 16))
-      {
-        v16 = 0;
-        v17 = 0;
-        if (!sub_23EB6F348(*MEMORY[0x277CBECE8], &v16, "{%ks=%i%ks=%i%ks={%ks=%O%ks=%i}}", a4, a5, a6, a7, a8, "kProgressParam_ProgressSelector"))
-        {
-          if (v16)
-          {
-            v15 = sub_23EBEAC98(a1, v16, &v17, v10, v11, v12, v13, v14);
-            if (v16)
-            {
-              CFRelease(v16);
-              v16 = 0;
-            }
-
-            if (!v15)
-            {
-              if (v17)
-              {
-                dispatch_async_f(MEMORY[0x277D85CD0], v17, sub_23EBEADC4);
-              }
-            }
-          }
-        }
-      }
-    }
-  }
-}
-
-void sub_23EBEB0B0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
-{
-  if (dword_27E382C48 <= 800 && (dword_27E382C48 != -1 || sub_23EB74AC8(&dword_27E382C48, 0x320u)))
-  {
-    sub_23EB75374(&dword_27E382C48, "void BSAssistant_ProgressStatus_String(AssistantContextRef, int, OSStatus, CFStringRef)", 800, "inSelector: %d inStatus %#m\n", a5, a6, a7, a8, a2);
-  }
-
-  if (a1 && *(a1 + 88) == 1634561902 && *(a1 + 16))
-  {
-    v20 = 0;
-    v21 = 0;
-    v11 = *MEMORY[0x277CBECE8];
-    v12 = a4 ? sub_23EB6F348(v11, &v20, "{%ks=%i%ks=%i%ks={%ks=%O}}", a4, a5, a6, a7, a8, "kProgressParam_ProgressSelector") : sub_23EB6F348(v11, &v20, "{%ks=%i%ks=%i}", a4, a5, a6, a7, a8, "kProgressParam_ProgressSelector");
-    if (!v12 && v20 != 0)
-    {
-      v19 = sub_23EBEAC98(a1, v20, &v21, v13, v14, v15, v16, v17);
-      if (v20)
-      {
-        CFRelease(v20);
-        v20 = 0;
-      }
-
-      if (!v19)
-      {
-        if (v21)
-        {
-          dispatch_async_f(MEMORY[0x277D85CD0], v21, sub_23EBEADC4);
-        }
-      }
-    }
-  }
-}
-
-void sub_23EBEB230(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
-{
-  if (dword_27E382C48 <= 800 && (dword_27E382C48 != -1 || sub_23EB74AC8(&dword_27E382C48, 0x320u)))
-  {
-    sub_23EB75374(&dword_27E382C48, "void BSAssistant_ProgressStatus_Number(AssistantContextRef, int, OSStatus, CFIndex)", 800, "inSelector: %d inStatus %#m\n", a5, a6, a7, a8, a2);
-  }
-
-  if (a1)
-  {
-    if (*(a1 + 88) == 1634561902)
-    {
-      if (*(a1 + 16))
-      {
-        v16 = 0;
-        v17 = 0;
-        if (!sub_23EB6F348(*MEMORY[0x277CBECE8], &v16, "{%ks=%i%ks=%i%ks={%ks=%i}}", a4, a5, a6, a7, a8, "kProgressParam_ProgressSelector"))
-        {
-          if (v16)
-          {
-            v15 = sub_23EBEAC98(a1, v16, &v17, v10, v11, v12, v13, v14);
-            if (v16)
-            {
-              CFRelease(v16);
-              v16 = 0;
-            }
-
-            if (!v15)
-            {
-              if (v17)
-              {
-                dispatch_async_f(MEMORY[0x277D85CD0], v17, sub_23EBEADC4);
-              }
-            }
-          }
-        }
-      }
-    }
-  }
-}
-
-uint64_t sub_23EBEB384(uint64_t a1, _DWORD *a2)
-{
-  if (!a1)
-  {
-    return 4294960591;
-  }
-
-  result = 4294960591;
-  if (a2)
-  {
-    if (*(a1 + 88) == 1634561902)
-    {
-      result = 0;
-      *a2 = *(a1 + 40);
-    }
-  }
-
-  return result;
-}
-
-uint64_t sub_23EBEB3C0(uint64_t a1, unsigned int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
-{
-  if (!a1 || *(a1 + 88) != 1634561902)
-  {
-    return 4294960591;
-  }
-
-  if (a2 > 2)
-  {
-    return 4294960586;
-  }
-
-  *(a1 + 40) = a2;
-  sub_23EBEB230(a1, 13, 0, a2, a5, a6, a7, a8);
-  return 0;
-}
-
-uint64_t sub_23EBEB420(uint64_t a1, CFDictionaryRef *a2)
-{
-  if (!a1 || *(a1 + 88) != 1634561902)
-  {
-    return 4294960578;
-  }
-
-  v3 = *(a1 + 48);
-  if (!v3)
-  {
-    return 4294960578;
-  }
-
-  Copy = CFDictionaryCreateCopy(*MEMORY[0x277CBECE8], v3);
-  *a2 = Copy;
-  if (Copy)
-  {
-    return 0;
-  }
-
-  else
-  {
-    return 4294960568;
-  }
-}
-
-void sub_23EBEB494(uint64_t a1, uint64_t a2, void *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
-{
-  if (a1)
-  {
-    if (*a1 == 1634561902)
-    {
-      v13[3] = v8;
-      v13[4] = v9;
-      if (a3)
-      {
-        if (a2)
-        {
-          v11 = *(a1 + 24);
-          if (v11)
-          {
-            v13[0] = 0;
-            sub_23EB6FF14(v11, v13, "%kO", a4, a5, a6, a7, a8, a2);
-            if (!v12)
-            {
-              if (v13[0])
-              {
-                *a3 = v13[0];
-              }
-            }
-          }
-        }
-      }
-    }
-  }
-}
-
-void sub_23EBEB52C(uint64_t a1, uint64_t a2, _DWORD *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
-{
-  if (a1)
-  {
-    if (*a1 == 1634561902)
-    {
-      v14 = v8;
-      v15 = v9;
-      if (a3)
-      {
-        if (a2)
-        {
-          v11 = *(a1 + 24);
-          if (v11)
-          {
-            v13 = 0;
-            sub_23EB6FF14(v11, &v13, "%kO:int", a4, a5, a6, a7, a8, a2);
-            if (!v12)
-            {
-              *a3 = v13;
-            }
-          }
-        }
-      }
-    }
-  }
-}
-
-uint64_t sub_23EBEB5B8(uint64_t a1, const void *a2)
-{
-  if (a1 && *a1 == 1634561902 && a2 && (v2 = *(a1 + 24)) != 0)
-  {
-    return CFDictionaryContainsKey(v2, a2);
-  }
-
-  else
-  {
-    return 0;
-  }
-}
-
-uint64_t sub_23EBEB5E8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
-{
-  if (!a1 || *a1 != 1634561902)
-  {
-    return 4294960578;
-  }
-
-  result = 4294960591;
-  if (a3 && a2)
-  {
-    v10 = *(a1 + 24);
-    if (v10)
-    {
-      return sub_23EB6FDFC(*MEMORY[0x277CBECE8], v10, "%kO=%O", a4, a5, a6, a7, a8, a2);
-    }
-  }
-
-  return result;
-}
-
-uint64_t sub_23EBEB65C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
-{
-  if (!a1 || *a1 != 1634561902)
-  {
-    return 4294960578;
-  }
-
-  result = 4294960591;
-  if (a2)
-  {
-    v10 = *(a1 + 24);
-    if (v10)
-    {
-      return sub_23EB6FDFC(*MEMORY[0x277CBECE8], v10, "%kO=%i", a4, a5, a6, a7, a8, a2);
-    }
-  }
-
-  return result;
-}
-
-uint64_t sub_23EBEB6CC(void *context, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
-{
-  if (!context)
-  {
-    return 4294960578;
-  }
-
-  if (*context != 1634561902)
-  {
-    return 4294960578;
-  }
-
-  if (!context[5])
-  {
-    return 4294960591;
-  }
-
-  *(context + 8) = a2;
-  if (dword_27E382C48 <= 800 && (dword_27E382C48 != -1 || sub_23EB74AC8(&dword_27E382C48, 0x320u)))
-  {
-    sub_23EB75374(&dword_27E382C48, "OSStatus BSAssistant_CallbackWithFinalResult(AssistantCallbackContextRef, OSStatus)", 800, " %d result: %#m ...\n", a5, a6, a7, a8, *(context + 4));
-  }
-
-  dispatch_async_f(MEMORY[0x277D85CD0], context, sub_23EBEB7B0);
-  return 0;
-}
-
-intptr_t sub_23EBEB7B0(intptr_t result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
-{
-  v8 = result;
-  if (dword_27E382C48 > 800 || dword_27E382C48 == -1 && (result = sub_23EB74AC8(&dword_27E382C48, 0x320u), !result))
-  {
-    if (!v8)
-    {
-      return result;
-    }
-  }
-
-  else
-  {
-    result = sub_23EB75374(&dword_27E382C48, "void __BSAssistant_CallbackWithFinalResultOnMain(void *)", 800, " %d result: %#m...\n", a5, a6, a7, a8, *(v8 + 16));
-  }
-
-  if (*v8 == 1634561902)
-  {
-    result = *(v8 + 40);
-    if (result)
-    {
-
-      return dispatch_semaphore_signal(result);
-    }
-  }
-
-  return result;
-}
-
-uint64_t sub_23EBEB874(uint64_t a1, uint64_t a2, uint64_t a3, CFTypeRef *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
-{
-  if (dword_27E382C48 <= 800 && (dword_27E382C48 != -1 || sub_23EB74AC8(&dword_27E382C48, 0x320u)))
-  {
-    sub_23EB75374(&dword_27E382C48, "OSStatus BSAssistant_CopyConfigurationChangeLogs(AssistantContextRef, CFStringRef, CFArrayRef, CFArrayRef *)", 800, "\n", a5, a6, a7, a8, v38);
-  }
-
-  context = 0;
-  if (!a1 || *(a1 + 88) != 1634561902)
-  {
-    return 4294960578;
-  }
-
-  if (!a4)
-  {
-    return 4294960591;
-  }
-
-  cf = 0;
-  v12 = sub_23EBE9E2C(a1, &context);
-  v19 = context;
-  if (v12)
-  {
-    v20 = v12;
-    if (!context)
-    {
-      return v20;
-    }
-
-    goto LABEL_28;
-  }
-
-  if (context)
-  {
-    if (!a2)
-    {
-      goto LABEL_35;
-    }
-
-    if (*context != 1634561902)
-    {
-      v20 = 4294960578;
-      goto LABEL_28;
-    }
-
-    v22 = *(context + 3);
-    if (!v22)
-    {
-      v20 = 4294960591;
-      goto LABEL_28;
-    }
-
-    v23 = sub_23EB6FDFC(*MEMORY[0x277CBECE8], v22, "%kO=%O", v14, v15, v16, v17, v18, @"BSAssistantCallback_String");
-    if (!v23)
-    {
-LABEL_35:
-      if (!a3 || (v23 = sub_23EBEB5E8(v19, @"BSAssistantCallback_StringList", a3, v14, v15, v16, v17, v18), !v23))
-      {
-        v23 = sub_23EBEA59C(v19, 11, v13, v14, v15, v16, v17, v18);
-        if (!v23)
-        {
-          v31 = sub_23EBEA92C(v19, v24, v25, v26, v27, v28, v29, v30);
-          v20 = *(v19 + 8);
-          if (v20)
-          {
-            goto LABEL_28;
-          }
-
-          v20 = v31;
-          if (v31)
-          {
-            goto LABEL_28;
-          }
-
-          sub_23EBEB494(v19, @"BSAssistantCallback_ConfigChangeLogs", &cf, v32, v33, v34, v35, v36);
-          if (!v23)
-          {
-            v37 = cf;
-            if (cf)
-            {
-              *a4 = cf;
-              CFRetain(v37);
-              v20 = 0;
-            }
-
-            else
-            {
-              v20 = 4294960568;
-            }
-
-            goto LABEL_28;
-          }
-        }
-      }
-    }
-
-    v20 = v23;
-LABEL_28:
-    sub_23EBE9F5C(v19);
-    return v20;
-  }
-
-  return 4294960568;
-}
-
-uint64_t sub_23EBEBA44(uint64_t a1, CFTypeRef *a2, CFTypeRef *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
-{
-  if (dword_27E382C48 <= 800 && (dword_27E382C48 != -1 || sub_23EB74AC8(&dword_27E382C48, 0x320u)))
-  {
-    sub_23EB75374(&dword_27E382C48, "OSStatus BSAssistant_CopyCurrentNetworkAssociationInfo(AssistantContextRef, CFStringRef *, CFStringRef *)", 800, "\n", a5, a6, a7, a8, v49);
-  }
-
-  context = 0;
-  if (!a1 || *(a1 + 88) != 1634561902)
-  {
-    return 4294960578;
-  }
-
-  if (!(a2 | a3))
-  {
-    return 4294960591;
-  }
-
-  cf = 0;
-  v52 = 0;
-  v50 = 0;
-  v11 = sub_23EBE9E2C(a1, &context);
-  v18 = context;
-  if (v11)
-  {
-    v19 = v11;
-    if (!context)
-    {
-      return v19;
-    }
-
-    goto LABEL_20;
-  }
-
-  if (context)
-  {
-    v21 = sub_23EBEA59C(context, 8, v12, v13, v14, v15, v16, v17);
-    if (!v21)
-    {
-      v29 = sub_23EBEA92C(v18, v22, v23, v24, v25, v26, v27, v28);
-      v19 = *(v18 + 8);
-      if (v19)
-      {
-        goto LABEL_20;
-      }
-
-      v19 = v29;
-      if (v29)
-      {
-        goto LABEL_20;
-      }
-
-      sub_23EBEB494(v18, @"BSAssistantCallback_AssociationInfo", &v52, v30, v31, v32, v33, v34);
-      if (!v21)
-      {
-        if (!v52)
-        {
-          goto LABEL_34;
-        }
-
-        if (!a2)
-        {
-LABEL_27:
-          if (!a3)
-          {
-LABEL_33:
-            v19 = 0;
-            goto LABEL_20;
-          }
-
-          sub_23EB6FF14(v52, &v50, "%kO", v35, v36, v37, v38, v39, @"BSSID");
-          v19 = v46;
-          if (v46 == -6727)
-          {
-            sub_23EB6FF14(v52, &v50, "%kO", v41, v42, v43, v44, v45, @"BSSID");
-            v19 = v47;
-          }
-
-          if (v19)
-          {
-            goto LABEL_20;
-          }
-
-          v48 = v50;
-          if (v50)
-          {
-            *a3 = v50;
-            CFRetain(v48);
-            goto LABEL_33;
-          }
-
-LABEL_34:
-          v19 = 4294960568;
-          goto LABEL_20;
-        }
-
-        sub_23EB6FF14(v52, &cf, "%kO", v35, v36, v37, v38, v39, @"SSID_STR");
-        if (!v21)
-        {
-          v40 = cf;
-          if (!cf)
-          {
-            goto LABEL_34;
-          }
-
-          *a2 = cf;
-          CFRetain(v40);
-          goto LABEL_27;
-        }
-      }
-    }
-
-    v19 = v21;
-LABEL_20:
-    sub_23EBE9F5C(v18);
-    return v19;
-  }
-
-  return 4294960568;
 }

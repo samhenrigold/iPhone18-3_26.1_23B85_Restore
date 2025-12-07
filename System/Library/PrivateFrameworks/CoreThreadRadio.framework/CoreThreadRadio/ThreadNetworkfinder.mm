@@ -58,7 +58,7 @@ void __49__ThreadNetworkfinder_startScan_queue_timeInSec___block_invoke(uint64_t
   borderAgentFinder = self->_borderAgentFinder;
   if (borderAgentFinder)
   {
-    [(THBorderAgentFinder *)borderAgentFinder stop];
+    objc_msgSend_stop(borderAgentFinder, a2);
   }
 }
 

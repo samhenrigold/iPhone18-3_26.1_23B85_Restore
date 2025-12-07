@@ -123,7 +123,7 @@
 
 - (BOOL)_executeFile:(id)file onDb:(id)db becameLocked:(BOOL *)locked
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   fileCopy = file;
   dbCopy = db;
   if (self->_inMemory)
@@ -132,34 +132,34 @@
     [currentHandler handleFailureInMethod:a2 object:self file:@"_PASDatabaseJournal.m" lineNumber:242 description:{@"Invalid parameter not satisfying: %@", @"!_inMemory"}];
   }
 
-  v20 = 1;
+  v19 = 1;
   v11 = [(NSString *)self->_directoryPath stringByAppendingPathComponent:fileCopy];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEBUG))
   {
     *buf = 138412290;
-    v22 = v11;
+    v21 = v11;
     _os_log_debug_impl(&dword_1A7F47000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEBUG, "executing journal file: %@", buf, 0xCu);
   }
 
     ;
   }
 
-  if (v20 != 1)
+  if (v19 != 1)
   {
     goto LABEL_15;
   }
 
   defaultManager = [MEMORY[0x1E696AC08] defaultManager];
-  v19 = 0;
-  [defaultManager removeItemAtPath:v11 error:&v19];
-  v14 = v19;
+  v18 = 0;
+  [defaultManager removeItemAtPath:v11 error:&v18];
+  v14 = v18;
 
   if (!v14)
   {
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEBUG))
     {
       *buf = 138412290;
-      v22 = v11;
+      v21 = v11;
       _os_log_debug_impl(&dword_1A7F47000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEBUG, "_PASDatabaseJournal deleted journal file: %@", buf, 0xCu);
     }
 
@@ -172,22 +172,21 @@ LABEL_15:
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     *buf = 138412546;
-    v22 = v11;
-    v23 = 2112;
-    v24 = v14;
+    v21 = v11;
+    v22 = 2112;
+    v23 = v14;
     _os_log_error_impl(&dword_1A7F47000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "_PASDatabaseJournal unable to delete journal file: %@: %@", buf, 0x16u);
   }
 
   v15 = 0;
 LABEL_16:
 
-  v16 = *MEMORY[0x1E69E9840];
   return v15;
 }
 
 - (BOOL)_executeNextRecordFromFile:(id)file onDb:(id)db becameLocked:(BOOL *)locked deleteFile:(BOOL *)deleteFile
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   fileCopy = file;
   dbCopy = db;
   v11 = objc_autoreleasePoolPush();
@@ -204,9 +203,9 @@ LABEL_16:
   v16 = objc_opt_class();
   v17 = objc_opt_class();
   v18 = [v14 setWithObjects:{v15, v16, v17, objc_opt_class(), 0}];
-  v32 = 0;
-  v19 = [MEMORY[0x1E696ACD0] unarchivedObjectOfClasses:v18 fromData:v13 error:&v32];
-  v20 = v32;
+  v31 = 0;
+  v19 = [MEMORY[0x1E696ACD0] unarchivedObjectOfClasses:v18 fromData:v13 error:&v31];
+  v20 = v31;
 
   objc_autoreleasePoolPop(v11);
   if (!v19)
@@ -214,9 +213,9 @@ LABEL_16:
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
       *buf = 138412546;
-      v34 = fileCopy;
-      v35 = 2112;
-      v36 = v20;
+      v33 = fileCopy;
+      v34 = 2112;
+      v35 = v20;
       _os_log_error_impl(&dword_1A7F47000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "Got nil after trying to unarchive a db journal at %@: %@", buf, 0x16u);
     }
 
@@ -230,7 +229,7 @@ LABEL_16:
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v34 = fileCopy;
+      v33 = fileCopy;
       _os_log_error_impl(&dword_1A7F47000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "No __query key set in journal file: %@", buf, 0xCu);
     }
 
@@ -241,21 +240,20 @@ LABEL_13:
 
   v22 = [v19 objectForKeyedSubscript:@"__query"];
   v23 = [_PASDatabaseJournal _binderForDictionary:v19];
-  v28[0] = MEMORY[0x1E69E9820];
-  v28[1] = 3221225472;
-  v28[2] = __79___PASDatabaseJournal__executeNextRecordFromFile_onDb_becameLocked_deleteFile___block_invoke;
-  v28[3] = &unk_1E77F1D70;
-  v29 = v19;
+  v27[0] = MEMORY[0x1E69E9820];
+  v27[1] = 3221225472;
+  v27[2] = __79___PASDatabaseJournal__executeNextRecordFromFile_onDb_becameLocked_deleteFile___block_invoke;
+  v27[3] = &unk_1E77F1D70;
+  v28 = v19;
   deleteFileCopy = deleteFile;
   lockedCopy = locked;
   v24 = v19;
-  [dbCopy prepAndRunQuery:v22 onPrep:v23 onRow:0 onError:v28];
+  [dbCopy prepAndRunQuery:v22 onPrep:v23 onRow:0 onError:v27];
 
 LABEL_6:
   v25 = 1;
 LABEL_14:
 
-  v26 = *MEMORY[0x1E69E9840];
   return v25;
 }
 
@@ -378,7 +376,7 @@ LABEL_14:
 
 + (id)journalWithDbPath:(id)path
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   pathCopy = path;
   pthread_mutex_lock(&journalWithDbPath__lock);
   if (!journalWithDbPath__instances)
@@ -410,9 +408,9 @@ LABEL_14:
 
     defaultManager = [MEMORY[0x1E696AC08] defaultManager];
     v18 = *(v10 + 16);
-    v23 = 0;
-    v19 = [defaultManager createDirectoryAtPath:v18 withIntermediateDirectories:1 attributes:0 error:&v23];
-    v20 = v23;
+    v22 = 0;
+    v19 = [defaultManager createDirectoryAtPath:v18 withIntermediateDirectories:1 attributes:0 error:&v22];
+    v20 = v22;
 
     if (v19)
     {
@@ -424,7 +422,7 @@ LABEL_14:
       if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v25 = v20;
+        v24 = v20;
         _os_log_error_impl(&dword_1A7F47000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "_PASDatabaseJournal unable to create directory for storing journals: %@", buf, 0xCu);
       }
 
@@ -433,8 +431,6 @@ LABEL_14:
   }
 
   pthread_mutex_unlock(&journalWithDbPath__lock);
-
-  v21 = *MEMORY[0x1E69E9840];
 
   return v10;
 }

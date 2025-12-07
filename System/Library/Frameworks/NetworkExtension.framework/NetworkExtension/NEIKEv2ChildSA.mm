@@ -1,16 +1,16 @@
 @interface NEIKEv2ChildSA
 - (BOOL)isRekeying;
+- (NSObject)initWithConfiguration:(int)configuration childID:(void *)d ikeSA:;
 - (_BYTE)configuredInitiatorTrafficSelectors;
 - (_BYTE)configuredResponderTrafficSelectors;
 - (_BYTE)initiatorTrafficSelectors;
 - (_BYTE)responderTrafficSelectors;
 - (id)configProposalsWithoutKEM;
 - (id)description;
+- (id)generateInitialValues;
 - (id)ikeSA;
-- (id)initWithConfiguration:(int)configuration childID:(void *)d ikeSA:;
 - (id)preferredKEMProtocol;
 - (uint64_t)generateAllValues;
-- (uint64_t)generateInitialValues;
 - (uint64_t)generateLocalValuesForKEMProtocol:(void *)protocol;
 - (uint64_t)processCurrentKeyExchange;
 - (uint64_t)processPrimaryKeyExchange;
@@ -97,9 +97,9 @@
   return v13;
 }
 
-- (id)initWithConfiguration:(int)configuration childID:(void *)d ikeSA:
+- (NSObject)initWithConfiguration:(int)configuration childID:(void *)d ikeSA:
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   v7 = a2;
   dCopy = d;
   if (!self)
@@ -110,19 +110,19 @@
 
   if (v7)
   {
-    v27.receiver = self;
-    v27.super_class = NEIKEv2ChildSA;
-    v9 = [&v27 init];
+    v26.receiver = self;
+    v26.super_class = NEIKEv2ChildSA;
+    v9 = [&v26 init];
     if (v9)
     {
       v11 = v9;
       objc_setProperty_atomic(v9, v10, v7, 48);
-      *(v11 + 9) = 1;
+      BYTE1(v11[1].isa) = 1;
       objc_setProperty_atomic(v11, v12, 0, 56);
-      *(v11 + 4) = configuration;
-      *(v11 + 4) = 3;
+      LODWORD(v11[2].isa) = configuration;
+      v11[4].isa = 3;
       objc_setProperty_atomic(v11, v13, 0, 40);
-      *(v11 + 8) = 0;
+      LOBYTE(v11[1].isa) = 0;
       objc_opt_self();
       v14 = nextDatabaseReqID_nextReqid;
       if ((nextDatabaseReqID_nextReqid + 1) >> 14)
@@ -136,7 +136,7 @@
       }
 
       nextDatabaseReqID_nextReqid = v15;
-      *(v11 + 6) = v14;
+      WORD2(v11[1].isa) = v14;
       objc_opt_self();
       v16 = nextDatabaseReqID_nextReqid;
       if ((nextDatabaseReqID_nextReqid + 1) >> 14)
@@ -150,12 +150,12 @@
       }
 
       nextDatabaseReqID_nextReqid = v17;
-      *(v11 + 7) = v16;
-      objc_storeWeak(v11 + 3, dCopy);
+      HIWORD(v11[1].isa) = v16;
+      objc_storeWeak(&v11[3].isa, dCopy);
       self = ne_log_large_obj();
       if (os_log_type_enabled(self, OS_LOG_TYPE_INFO))
       {
-        v19 = *(v11 + 4);
+        isa = v11[2].isa;
         if (dCopy)
         {
           Property = objc_getProperty(dCopy, v18, 32, 1);
@@ -169,11 +169,11 @@
         v21 = Property;
         v23 = objc_getProperty(v11, v22, 48, 1);
         *buf = 67109634;
-        *v29 = v19;
-        *&v29[4] = 2112;
-        *&v29[6] = v21;
-        v30 = 2112;
-        v31 = v23;
+        *v28 = isa;
+        *&v28[4] = 2112;
+        *&v28[6] = v21;
+        v29 = 2112;
+        v30 = v23;
         _os_log_impl(&dword_1BA83C000, self, OS_LOG_TYPE_INFO, "Created Child SA %u (off of %@) with configuration %@", buf, 0x1Cu);
       }
 
@@ -190,12 +190,12 @@
 
   else
   {
-    v26 = ne_log_obj();
-    if (os_log_type_enabled(v26, OS_LOG_TYPE_FAULT))
+    v25 = ne_log_obj();
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_FAULT))
     {
       *buf = 136315138;
-      *v29 = "[NEIKEv2ChildSA initWithConfiguration:childID:ikeSA:]";
-      _os_log_fault_impl(&dword_1BA83C000, v26, OS_LOG_TYPE_FAULT, "%s called with null configuration", buf, 0xCu);
+      *v28 = "[NEIKEv2ChildSA initWithConfiguration:childID:ikeSA:]";
+      _os_log_fault_impl(&dword_1BA83C000, v25, OS_LOG_TYPE_FAULT, "%s called with null configuration", buf, 0xCu);
     }
   }
 
@@ -203,13 +203,12 @@
 LABEL_14:
 
 LABEL_15:
-  v24 = *MEMORY[0x1E69E9840];
   return v11;
 }
 
 - (void)setState:(void *)state error:
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   stateCopy = state;
   if (self)
   {
@@ -224,29 +223,29 @@ LABEL_15:
         if (v10)
         {
           SessionStateString = NEIKEv2CreateSessionStateString(*(self + 32));
-          v24 = 138413058;
+          v23 = 138413058;
           selfCopy4 = self;
-          v26 = 2112;
-          v27 = SessionStateString;
-          v28 = 2112;
+          v25 = 2112;
+          v26 = SessionStateString;
+          v27 = 2112;
           Property = objc_getProperty(self, v12, 40, 1);
-          v30 = 2112;
-          v31 = stateCopy;
+          v29 = 2112;
+          v30 = stateCopy;
           v13 = "%@ not changing state %@ nor error %@ -> %@";
           v14 = v9;
           v15 = 42;
 LABEL_11:
-          _os_log_impl(&dword_1BA83C000, v14, OS_LOG_TYPE_DEFAULT, v13, &v24, v15);
+          _os_log_impl(&dword_1BA83C000, v14, OS_LOG_TYPE_DEFAULT, v13, &v23, v15);
         }
       }
 
       else if (v10)
       {
         SessionStateString = NEIKEv2CreateSessionStateString(*(self + 32));
-        v24 = 138412546;
+        v23 = 138412546;
         selfCopy4 = self;
-        v26 = 2112;
-        v27 = SessionStateString;
+        v25 = 2112;
+        v26 = SessionStateString;
         v13 = "%@ not changing state %@ nor error";
         v14 = v9;
         v15 = 22;
@@ -262,21 +261,21 @@ LABEL_11:
       {
         v16 = NEIKEv2CreateSessionStateString(*(self + 32));
         v17 = NEIKEv2CreateSessionStateString(a2);
-        v24 = 138413314;
+        v23 = 138413314;
         selfCopy4 = self;
-        v26 = 2112;
-        v27 = v16;
-        v28 = 2112;
+        v25 = 2112;
+        v26 = v16;
+        v27 = 2112;
         Property = v17;
-        v30 = 2112;
-        v31 = objc_getProperty(self, v18, 40, 1);
-        v32 = 2112;
-        v33 = stateCopy;
+        v29 = 2112;
+        v30 = objc_getProperty(self, v18, 40, 1);
+        v31 = 2112;
+        v32 = stateCopy;
         v19 = "%@ state %@ -> %@ error %@ -> %@";
         v20 = v9;
         v21 = 52;
 LABEL_15:
-        _os_log_impl(&dword_1BA83C000, v20, OS_LOG_TYPE_DEFAULT, v19, &v24, v21);
+        _os_log_impl(&dword_1BA83C000, v20, OS_LOG_TYPE_DEFAULT, v19, &v23, v21);
       }
     }
 
@@ -284,11 +283,11 @@ LABEL_15:
     {
       v16 = NEIKEv2CreateSessionStateString(*(self + 32));
       v17 = NEIKEv2CreateSessionStateString(a2);
-      v24 = 138412802;
+      v23 = 138412802;
       selfCopy4 = self;
-      v26 = 2112;
-      v27 = v16;
-      v28 = 2112;
+      v25 = 2112;
+      v26 = v16;
+      v27 = 2112;
       Property = v17;
       v19 = "%@ state %@ -> %@";
       v20 = v9;
@@ -302,8 +301,6 @@ LABEL_15:
   }
 
 LABEL_17:
-
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setConfigProposalsWithoutKEM:(id)self
@@ -316,7 +313,7 @@ LABEL_17:
 
 - (id)configProposalsWithoutKEM
 {
-  v25[1] = *MEMORY[0x1E69E9840];
+  v24[1] = *MEMORY[0x1E69E9840];
   if (self)
   {
     selfCopy = self;
@@ -338,34 +335,34 @@ LABEL_20:
         copyWithoutKEM[8] = 1;
       }
 
-      v25[0] = copyWithoutKEM;
-      array = [MEMORY[0x1E695DEC8] arrayWithObjects:v25 count:1];
+      v24[0] = copyWithoutKEM;
+      array = [MEMORY[0x1E695DEC8] arrayWithObjects:v24 count:1];
       objc_setProperty_atomic(selfCopy, v8, array, 208);
     }
 
     else
     {
       copyWithoutKEM = objc_alloc_init(MEMORY[0x1E695DFA0]);
+      v19 = 0u;
       v20 = 0u;
       v21 = 0u;
       v22 = 0u;
-      v23 = 0u;
       v9 = v4;
-      v10 = [v9 countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v10 = [v9 countByEnumeratingWithState:&v19 objects:v23 count:16];
       if (v10)
       {
         v11 = v10;
-        v12 = *v21;
+        v12 = *v20;
         do
         {
           for (i = 0; i != v11; ++i)
           {
-            if (*v21 != v12)
+            if (*v20 != v12)
             {
               objc_enumerationMutation(v9);
             }
 
-            copyWithoutKEM2 = [(NEIKEv2ChildSAProposal *)*(*(&v20 + 1) + 8 * i) copyWithoutKEM];
+            copyWithoutKEM2 = [(NEIKEv2ChildSAProposal *)*(*(&v19 + 1) + 8 * i) copyWithoutKEM];
             v15 = [copyWithoutKEM count];
             if (copyWithoutKEM2)
             {
@@ -375,7 +372,7 @@ LABEL_20:
             [copyWithoutKEM addObject:copyWithoutKEM2];
           }
 
-          v11 = [v9 countByEnumeratingWithState:&v20 objects:v24 count:16];
+          v11 = [v9 countByEnumeratingWithState:&v19 objects:v23 count:16];
         }
 
         while (v11);
@@ -396,7 +393,6 @@ LABEL_19:
   }
 
 LABEL_21:
-  v18 = *MEMORY[0x1E69E9840];
 
   return self;
 }
@@ -404,7 +400,7 @@ LABEL_21:
 - (uint64_t)shouldGenerateNewDHKeys
 {
   selfCopy = self;
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   if (self)
   {
     v3 = objc_getProperty(self, a2, 184, 1);
@@ -413,27 +409,27 @@ LABEL_21:
       goto LABEL_3;
     }
 
-    v20 = 0u;
-    v21 = 0u;
-    v18 = 0u;
     v19 = 0u;
+    v20 = 0u;
+    v17 = 0u;
+    v18 = 0u;
     firstObject = objc_getProperty(selfCopy, v4, 176, 1);
-    v7 = [firstObject countByEnumeratingWithState:&v18 objects:v24 count:16];
+    v7 = [firstObject countByEnumeratingWithState:&v17 objects:v23 count:16];
     if (v7)
     {
       v9 = v7;
-      v10 = *v19;
+      v10 = *v18;
       while (2)
       {
         v11 = 0;
         do
         {
-          if (*v19 != v10)
+          if (*v18 != v10)
           {
             objc_enumerationMutation(firstObject);
           }
 
-          kemProtocol = [(NEIKEv2ChildSAProposal *)*(*(&v18 + 1) + 8 * v11) kemProtocol];
+          kemProtocol = [(NEIKEv2ChildSAProposal *)*(*(&v17 + 1) + 8 * v11) kemProtocol];
           method = [kemProtocol method];
 
           if (method)
@@ -446,7 +442,7 @@ LABEL_21:
         }
 
         while (v9 != v11);
-        v9 = [firstObject countByEnumeratingWithState:&v18 objects:v24 count:16];
+        v9 = [firstObject countByEnumeratingWithState:&v17 objects:v23 count:16];
         if (v9)
         {
           continue;
@@ -474,7 +470,7 @@ LABEL_3:
         if (os_log_type_enabled(firstObject, OS_LOG_TYPE_FAULT))
         {
           *buf = 136315138;
-          v23 = "[NEIKEv2ChildSA shouldGenerateNewDHKeys]";
+          v22 = "[NEIKEv2ChildSA shouldGenerateNewDHKeys]";
           _os_log_fault_impl(&dword_1BA83C000, firstObject, OS_LOG_TYPE_FAULT, "%s called with null proposal", buf, 0xCu);
         }
 
@@ -489,7 +485,6 @@ LABEL_3:
 LABEL_19:
   }
 
-  v16 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 
@@ -640,7 +635,7 @@ LABEL_19:
 
 - (id)preferredKEMProtocol
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   if (objc_getProperty(self, a2, 96, 1))
   {
     kemProtocol2 = objc_getProperty(self, v3, 96, 1);
@@ -653,26 +648,26 @@ LABEL_19:
     goto LABEL_4;
   }
 
-  v22 = 0u;
-  v23 = 0u;
-  v20 = 0u;
   v21 = 0u;
+  v22 = 0u;
+  v19 = 0u;
+  v20 = 0u;
   firstObject = objc_getProperty(self, v6, 176, 1);
-  v9 = [firstObject countByEnumeratingWithState:&v20 objects:v26 count:16];
+  v9 = [firstObject countByEnumeratingWithState:&v19 objects:v25 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v21;
+    v11 = *v20;
     while (2)
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v21 != v11)
+        if (*v20 != v11)
         {
           objc_enumerationMutation(firstObject);
         }
 
-        v13 = *(*(&v20 + 1) + 8 * i);
+        v13 = *(*(&v19 + 1) + 8 * i);
         kemProtocol = [(NEIKEv2ChildSAProposal *)v13 kemProtocol];
         method = [kemProtocol method];
 
@@ -683,7 +678,7 @@ LABEL_19:
         }
       }
 
-      v10 = [firstObject countByEnumeratingWithState:&v20 objects:v26 count:16];
+      v10 = [firstObject countByEnumeratingWithState:&v19 objects:v25 count:16];
       if (v10)
       {
         continue;
@@ -717,7 +712,7 @@ LABEL_20:
   if (os_log_type_enabled(firstObject, OS_LOG_TYPE_FAULT))
   {
     *buf = 136315138;
-    v25 = "[NEIKEv2ChildSA preferredKEMProtocol]";
+    v24 = "[NEIKEv2ChildSA preferredKEMProtocol]";
     _os_log_fault_impl(&dword_1BA83C000, firstObject, OS_LOG_TYPE_FAULT, "%s called with null proposal", buf, 0xCu);
   }
 
@@ -725,14 +720,13 @@ LABEL_20:
 LABEL_21:
 
 LABEL_22:
-  v18 = *MEMORY[0x1E69E9840];
 
   return kemProtocol2;
 }
 
 void __50__NEIKEv2ChildSA_startSALifetimeTimerWithSession___block_invoke(uint64_t a1)
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v3 = objc_loadWeakRetained((a1 + 40));
   v4 = v3;
@@ -768,9 +762,9 @@ void __50__NEIKEv2ChildSA_startSALifetimeTimerWithSession___block_invoke(uint64_
       {
         v15 = *(a1 + 48);
         *buf = 138412546;
-        v31 = WeakRetained;
-        v32 = 2048;
-        v33 = v15;
+        v30 = WeakRetained;
+        v31 = 2048;
+        v32 = v15;
         _os_log_impl(&dword_1BA83C000, v14, OS_LOG_TYPE_INFO, "%@: Setting Child SA hard lifetime timer for %llu seconds", buf, 0x16u);
       }
 
@@ -781,23 +775,21 @@ void __50__NEIKEv2ChildSA_startSALifetimeTimerWithSession___block_invoke(uint64_
       dispatch_source_set_timer(v19, v20, 0xFFFFFFFFFFFFFFFFLL, 0);
 
       v22 = objc_getProperty(WeakRetained, v21, 216, 1);
-      v27[0] = MEMORY[0x1E69E9820];
-      v27[1] = 3221225472;
-      v27[2] = __50__NEIKEv2ChildSA_startSALifetimeTimerWithSession___block_invoke_6;
-      v27[3] = &unk_1E7F07B80;
+      v26[0] = MEMORY[0x1E69E9820];
+      v26[1] = 3221225472;
+      v26[2] = __50__NEIKEv2ChildSA_startSALifetimeTimerWithSession___block_invoke_6;
+      v26[3] = &unk_1E7F07B80;
       v23 = v22;
-      objc_copyWeak(&v28, (a1 + 32));
-      objc_copyWeak(&v29, (a1 + 40));
-      dispatch_source_set_event_handler(v23, v27);
+      objc_copyWeak(&v27, (a1 + 32));
+      objc_copyWeak(&v28, (a1 + 40));
+      dispatch_source_set_event_handler(v23, v26);
 
       v25 = objc_getProperty(WeakRetained, v24, 216, 1);
       dispatch_activate(v25);
-      objc_destroyWeak(&v29);
       objc_destroyWeak(&v28);
+      objc_destroyWeak(&v27);
     }
   }
-
-  v26 = *MEMORY[0x1E69E9840];
 }
 
 void __50__NEIKEv2ChildSA_startSALifetimeTimerWithSession___block_invoke_6(uint64_t a1)
@@ -823,7 +815,7 @@ void __50__NEIKEv2ChildSA_startSALifetimeTimerWithSession___block_invoke_6(uint6
 
 - (uint64_t)generateLocalValuesForKEMProtocol:(void *)protocol
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v4 = a2;
   if (protocol)
   {
@@ -834,9 +826,9 @@ void __50__NEIKEv2ChildSA_startSALifetimeTimerWithSession___block_invoke_6(uint6
       v6 = ne_log_obj();
       if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
       {
-        v14 = 136315138;
-        v15 = "[NEIKEv2ChildSA(Crypto) generateLocalValuesForKEMProtocol:]";
-        _os_log_fault_impl(&dword_1BA83C000, v6, OS_LOG_TYPE_FAULT, "%s called with null !self.currentKEHandler", &v14, 0xCu);
+        v13 = 136315138;
+        v14 = "[NEIKEv2ChildSA(Crypto) generateLocalValuesForKEMProtocol:]";
+        _os_log_fault_impl(&dword_1BA83C000, v6, OS_LOG_TYPE_FAULT, "%s called with null !self.currentKEHandler", &v13, 0xCu);
       }
     }
 
@@ -856,9 +848,9 @@ void __50__NEIKEv2ChildSA_startSALifetimeTimerWithSession___block_invoke_6(uint6
       v6 = ne_log_obj();
       if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
       {
-        v14 = 138412290;
-        v15 = v4;
-        _os_log_error_impl(&dword_1BA83C000, v6, OS_LOG_TYPE_ERROR, "Failed to get handler for KE method %@", &v14, 0xCu);
+        v13 = 138412290;
+        v14 = v4;
+        _os_log_error_impl(&dword_1BA83C000, v6, OS_LOG_TYPE_ERROR, "Failed to get handler for KE method %@", &v13, 0xCu);
       }
     }
   }
@@ -866,17 +858,16 @@ void __50__NEIKEv2ChildSA_startSALifetimeTimerWithSession___block_invoke_6(uint6
   v7 = 0;
 LABEL_8:
 
-  v12 = *MEMORY[0x1E69E9840];
   return v7;
 }
 
-- (uint64_t)generateInitialValues
+- (id)generateInitialValues
 {
   selfCopy = self;
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   if (self)
   {
-    WeakRetained = objc_loadWeakRetained((self + 24));
+    WeakRetained = objc_loadWeakRetained(self + 3);
     v4 = WeakRetained;
     if (WeakRetained)
     {
@@ -891,9 +882,9 @@ LABEL_8:
       v12 = ne_log_obj();
       if (os_log_type_enabled(v12, OS_LOG_TYPE_FAULT))
       {
-        v16 = 67109120;
-        LODWORD(v17) = nonceSize;
-        _os_log_fault_impl(&dword_1BA83C000, v12, OS_LOG_TYPE_FAULT, "Invalid nonce size %u", &v16, 8u);
+        v15 = 67109120;
+        LODWORD(v16) = nonceSize;
+        _os_log_fault_impl(&dword_1BA83C000, v12, OS_LOG_TYPE_FAULT, "Invalid nonce size %u", &v15, 8u);
       }
     }
 
@@ -904,8 +895,7 @@ LABEL_8:
 
       if (![(NEIKEv2ChildSA *)selfCopy shouldGenerateNewDHKeys])
       {
-        selfCopy = 1;
-        goto LABEL_15;
+        return 1;
       }
 
       preferredKEMProtocol = [(NEIKEv2ChildSA *)selfCopy preferredKEMProtocol];
@@ -915,15 +905,15 @@ LABEL_8:
         selfCopy = [(NEIKEv2ChildSA *)selfCopy generateLocalValuesForKEMProtocol:v12];
 LABEL_13:
 
-        goto LABEL_15;
+        return selfCopy;
       }
 
-      v15 = ne_log_obj();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_FAULT))
+      v14 = ne_log_obj();
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_FAULT))
       {
-        v16 = 138412290;
-        v17 = v12;
-        _os_log_fault_impl(&dword_1BA83C000, v15, OS_LOG_TYPE_FAULT, "KE method %@ is not Diffie-Hellman", &v16, 0xCu);
+        v15 = 138412290;
+        v16 = v12;
+        _os_log_fault_impl(&dword_1BA83C000, v14, OS_LOG_TYPE_FAULT, "KE method %@ is not Diffie-Hellman", &v15, 0xCu);
       }
     }
 
@@ -931,15 +921,13 @@ LABEL_13:
     goto LABEL_13;
   }
 
-LABEL_15:
-  v13 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 
 - (uint64_t)processCurrentKeyExchange
 {
   selfCopy = self;
-  v20 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   if (self)
   {
     self = objc_getProperty(self, a2, 112, 1);
@@ -949,20 +937,19 @@ LABEL_15:
 
   if (!selfCopy2)
   {
-    v15 = ne_log_obj();
-    if (!os_log_type_enabled(v15, OS_LOG_TYPE_FAULT))
+    v14 = ne_log_obj();
+    if (!os_log_type_enabled(v14, OS_LOG_TYPE_FAULT))
     {
 LABEL_11:
 
-      v17 = *MEMORY[0x1E69E9840];
       return 0;
     }
 
-    v18 = 136315138;
-    v19 = "[NEIKEv2ChildSA(Crypto) processCurrentKeyExchange]";
-    v16 = "%s called with null self.currentKEHandler";
+    v16 = 136315138;
+    v17 = "[NEIKEv2ChildSA(Crypto) processCurrentKeyExchange]";
+    v15 = "%s called with null self.currentKEHandler";
 LABEL_14:
-    _os_log_fault_impl(&dword_1BA83C000, v15, OS_LOG_TYPE_FAULT, v16, &v18, 0xCu);
+    _os_log_fault_impl(&dword_1BA83C000, v14, OS_LOG_TYPE_FAULT, v15, &v16, 0xCu);
     goto LABEL_11;
   }
 
@@ -970,15 +957,15 @@ LABEL_14:
 
   if (!v5)
   {
-    v15 = ne_log_obj();
-    if (!os_log_type_enabled(v15, OS_LOG_TYPE_FAULT))
+    v14 = ne_log_obj();
+    if (!os_log_type_enabled(v14, OS_LOG_TYPE_FAULT))
     {
       goto LABEL_11;
     }
 
-    v18 = 136315138;
-    v19 = "[NEIKEv2ChildSA(Crypto) processCurrentKeyExchange]";
-    v16 = "%s called with null self.remoteKeyExchangeData";
+    v16 = 136315138;
+    v17 = "[NEIKEv2ChildSA(Crypto) processCurrentKeyExchange]";
+    v15 = "%s called with null self.remoteKeyExchangeData";
     goto LABEL_14;
   }
 
@@ -997,7 +984,6 @@ LABEL_14:
   v11 = Property;
   v12 = [v11 processPeerPayload:v8];
 
-  v13 = *MEMORY[0x1E69E9840];
   return v12;
 }
 
@@ -1033,11 +1019,10 @@ LABEL_14:
 
 - (uint64_t)generateAllValues
 {
-  v122 = *MEMORY[0x1E69E9840];
+  v121 = *MEMORY[0x1E69E9840];
   if (!self)
   {
-    v93 = 0;
-    goto LABEL_101;
+    return 0;
   }
 
   WeakRetained = objc_loadWeakRetained((self + 24));
@@ -1048,7 +1033,7 @@ LABEL_14:
     if (os_log_type_enabled(log, OS_LOG_TYPE_FAULT))
     {
       *buf = 136315138;
-      v121 = "[NEIKEv2ChildSA(Crypto) generateAllValues]";
+      v120 = "[NEIKEv2ChildSA(Crypto) generateAllValues]";
       _os_log_fault_impl(&dword_1BA83C000, log, OS_LOG_TYPE_FAULT, "%s called with null ikeSA", buf, 0xCu);
     }
 
@@ -1063,7 +1048,7 @@ LABEL_14:
     if (os_log_type_enabled(v34, OS_LOG_TYPE_FAULT))
     {
       *buf = 136315138;
-      v121 = "[NEIKEv2ChildSA(Crypto) generateAllValues]";
+      v120 = "[NEIKEv2ChildSA(Crypto) generateAllValues]";
       _os_log_fault_impl(&dword_1BA83C000, v34, OS_LOG_TYPE_FAULT, "%s called with null ikeProposal", buf, 0xCu);
     }
 
@@ -1073,12 +1058,12 @@ LABEL_14:
   v6 = objc_getProperty(self, v5, 56, 1);
   if (!v6)
   {
-    v97 = ne_log_obj();
-    if (os_log_type_enabled(v97, OS_LOG_TYPE_FAULT))
+    v96 = ne_log_obj();
+    if (os_log_type_enabled(v96, OS_LOG_TYPE_FAULT))
     {
       *buf = 136315138;
-      v121 = "[NEIKEv2ChildSA(Crypto) generateAllValues]";
-      _os_log_fault_impl(&dword_1BA83C000, v97, OS_LOG_TYPE_FAULT, "%s called with null childProposal", buf, 0xCu);
+      v120 = "[NEIKEv2ChildSA(Crypto) generateAllValues]";
+      _os_log_fault_impl(&dword_1BA83C000, v96, OS_LOG_TYPE_FAULT, "%s called with null childProposal", buf, 0xCu);
     }
 
     v34 = 0;
@@ -1087,7 +1072,7 @@ LABEL_114:
     goto LABEL_99;
   }
 
-  v107 = v6;
+  v106 = v6;
   if (*(self + 9))
   {
     v8 = 80;
@@ -1124,17 +1109,17 @@ LABEL_114:
 
     if (!initiatorNonce2)
     {
-      v106 = v14;
+      v105 = v14;
       v33 = ne_log_obj();
-      v34 = v107;
+      v34 = v106;
       if (os_log_type_enabled(v33, OS_LOG_TYPE_FAULT))
       {
         *buf = 136315138;
-        v121 = "[NEIKEv2ChildSA(Crypto) generateAllValues]";
+        v120 = "[NEIKEv2ChildSA(Crypto) generateAllValues]";
         _os_log_fault_impl(&dword_1BA83C000, v33, OS_LOG_TYPE_FAULT, "%s called with null ikeSA.initiatorNonce", buf, 0xCu);
       }
 
-      v117 = 0;
+      v116 = 0;
       goto LABEL_97;
     }
 
@@ -1148,12 +1133,12 @@ LABEL_114:
       if (os_log_type_enabled(v91, OS_LOG_TYPE_FAULT))
       {
         *buf = 136315138;
-        v121 = "[NEIKEv2ChildSA(Crypto) generateAllValues]";
+        v120 = "[NEIKEv2ChildSA(Crypto) generateAllValues]";
         _os_log_fault_impl(&dword_1BA83C000, v91, OS_LOG_TYPE_FAULT, "%s called with null ikeSA.responderNonce", buf, 0xCu);
       }
 
-      v117 = 0;
-      v34 = v107;
+      v116 = 0;
+      v34 = v106;
 
       goto LABEL_98;
     }
@@ -1167,30 +1152,30 @@ LABEL_114:
     v24 = v14;
     v25 = initiatorNonce;
     objc_setProperty_atomic(self, v22, 0, 120);
-    v115 = 0u;
-    v116 = 0u;
-    v113 = 0u;
     v114 = 0u;
+    v115 = 0u;
+    v112 = 0u;
+    v113 = 0u;
     v27 = objc_getProperty(self, v26, 136, 1);
-    v28 = [v27 countByEnumeratingWithState:&v113 objects:v119 count:16];
+    v28 = [v27 countByEnumeratingWithState:&v112 objects:v118 count:16];
     if (v28)
     {
       v29 = v28;
       v30 = 0;
-      v31 = *v114;
+      v31 = *v113;
       do
       {
         for (i = 0; i != v29; ++i)
         {
-          if (*v114 != v31)
+          if (*v113 != v31)
           {
             objc_enumerationMutation(v27);
           }
 
-          v30 += [*(*(&v113 + 1) + 8 * i) length];
+          v30 += [*(*(&v112 + 1) + 8 * i) length];
         }
 
-        v29 = [v27 countByEnumeratingWithState:&v113 objects:v119 count:16];
+        v29 = [v27 countByEnumeratingWithState:&v112 objects:v118 count:16];
       }
 
       while (v29);
@@ -1214,51 +1199,51 @@ LABEL_114:
   v36 = [v14 length];
   v37 = v35 + v36 + [v23 length] + v30;
   v38 = [(NSMutableData *)MEMORY[0x1E695DF88] mutableSensitiveDataWithMaxCapacity:v37];
-  v106 = v14;
+  v105 = v14;
   if (!v38)
   {
-    v98 = ne_log_obj();
-    if (os_log_type_enabled(v98, OS_LOG_TYPE_FAULT))
+    v97 = ne_log_obj();
+    if (os_log_type_enabled(v97, OS_LOG_TYPE_FAULT))
     {
       *buf = 134217984;
-      v121 = v37;
-      _os_log_fault_impl(&dword_1BA83C000, v98, OS_LOG_TYPE_FAULT, "[NEMutableSensitiveData mutableSensitiveDataWithMaxCapacity:%zu] failed", buf, 0xCu);
+      v120 = v37;
+      _os_log_fault_impl(&dword_1BA83C000, v97, OS_LOG_TYPE_FAULT, "[NEMutableSensitiveData mutableSensitiveDataWithMaxCapacity:%zu] failed", buf, 0xCu);
     }
 
     v39 = 0;
-    v117 = 0;
-    v34 = v107;
+    v116 = 0;
+    v34 = v106;
     goto LABEL_96;
   }
 
   v39 = v38;
   [(__CFData *)v38 appendData:v23];
-  v105 = initiatorNonce;
+  v104 = initiatorNonce;
   [(__CFData *)v39 appendData:initiatorNonce];
   [(__CFData *)v39 appendData:v14];
-  v111 = 0u;
-  v112 = 0u;
-  v109 = 0u;
   v110 = 0u;
+  v111 = 0u;
+  v108 = 0u;
+  v109 = 0u;
   v41 = objc_getProperty(self, v40, 136, 1);
-  v42 = [v41 countByEnumeratingWithState:&v109 objects:v118 count:16];
+  v42 = [v41 countByEnumeratingWithState:&v108 objects:v117 count:16];
   if (v42)
   {
     v43 = v42;
-    v44 = *v110;
+    v44 = *v109;
     do
     {
       for (j = 0; j != v43; ++j)
       {
-        if (*v110 != v44)
+        if (*v109 != v44)
         {
           objc_enumerationMutation(v41);
         }
 
-        [(__CFData *)v39 appendData:*(*(&v109 + 1) + 8 * j)];
+        [(__CFData *)v39 appendData:*(*(&v108 + 1) + 8 * j)];
       }
 
-      v43 = [v41 countByEnumeratingWithState:&v109 objects:v118 count:16];
+      v43 = [v41 countByEnumeratingWithState:&v108 objects:v117 count:16];
     }
 
     while (v43);
@@ -1270,46 +1255,46 @@ LABEL_114:
   Hkdf = CCKDFParametersCreateHkdf();
   if (Hkdf)
   {
-    v99 = Hkdf;
-    v100 = ne_log_obj();
-    v34 = v107;
-    if (os_log_type_enabled(v100, OS_LOG_TYPE_FAULT))
+    v98 = Hkdf;
+    v99 = ne_log_obj();
+    v34 = v106;
+    if (os_log_type_enabled(v99, OS_LOG_TYPE_FAULT))
     {
       *buf = 67109120;
-      LODWORD(v121) = v99;
-      _os_log_fault_impl(&dword_1BA83C000, v100, OS_LOG_TYPE_FAULT, "CCKDFParametersCreateHkdf failed %d", buf, 8u);
+      LODWORD(v120) = v98;
+      _os_log_fault_impl(&dword_1BA83C000, v99, OS_LOG_TYPE_FAULT, "CCKDFParametersCreateHkdf failed %d", buf, 8u);
     }
 
-    v117 = 0;
-    initiatorNonce = v105;
+    v116 = 0;
+    initiatorNonce = v104;
     goto LABEL_96;
   }
 
-  v34 = v107;
-  if ([v107 protocol]== 3)
+  v34 = v106;
+  if ([v106 protocol]== 3)
   {
-    integrityProtocol = [(NEIKEv2ChildSAProposal *)v107 integrityProtocol];
+    integrityProtocol = [(NEIKEv2ChildSAProposal *)v106 integrityProtocol];
     keyLength = [(NEIKEv2IntegrityProtocol *)integrityProtocol keyLength];
 
-    encryptionProtocol = [(NEIKEv2ChildSAProposal *)v107 encryptionProtocol];
+    encryptionProtocol = [(NEIKEv2ChildSAProposal *)v106 encryptionProtocol];
     keyMaterialLength = [(NEIKEv2EncryptionProtocol *)encryptionProtocol keyMaterialLength];
   }
 
   else
   {
-    if ([v107 protocol]!= 240)
+    if ([v106 protocol]!= 240)
     {
       v90 = ne_log_obj();
-      initiatorNonce = v105;
+      initiatorNonce = v104;
       if (os_log_type_enabled(v90, OS_LOG_TYPE_FAULT))
       {
-        v96 = NEIKEv2ProtocolIDCreateString([v107 protocol]);
+        v95 = NEIKEv2ProtocolIDCreateString([v106 protocol]);
         *buf = 138412290;
-        v121 = v96;
+        v120 = v95;
         _os_log_fault_impl(&dword_1BA83C000, v90, OS_LOG_TYPE_FAULT, "Unsupported SA protocol %@", buf, 0xCu);
       }
 
-      v117 = 0;
+      v116 = 0;
       goto LABEL_96;
     }
 
@@ -1320,24 +1305,24 @@ LABEL_114:
 
   v55 = 2 * (keyLength + keyMaterialLength);
   v56 = [(NSMutableData *)MEMORY[0x1E695DF88] mutableSensitiveDataPrefilledWithMaxCapacity:v55];
-  v104 = v56;
+  v103 = v56;
   if (!v56)
   {
-    v101 = ne_log_obj();
-    if (os_log_type_enabled(v101, OS_LOG_TYPE_FAULT))
+    v100 = ne_log_obj();
+    if (os_log_type_enabled(v100, OS_LOG_TYPE_FAULT))
     {
       *buf = 67109120;
-      LODWORD(v121) = v55;
-      _os_log_fault_impl(&dword_1BA83C000, v101, OS_LOG_TYPE_FAULT, "[NEMutableSensitiveData mutableSensitiveDataPrefilledWithMaxCapacity:%u] failed", buf, 8u);
+      LODWORD(v120) = v55;
+      _os_log_fault_impl(&dword_1BA83C000, v100, OS_LOG_TYPE_FAULT, "[NEMutableSensitiveData mutableSensitiveDataPrefilledWithMaxCapacity:%u] failed", buf, 8u);
     }
 
-    v117 = 0;
-    initiatorNonce = v105;
+    v116 = 0;
+    initiatorNonce = v104;
     goto LABEL_95;
   }
 
   v58 = v56;
-  v103 = keyLength;
+  v102 = keyLength;
   v59 = objc_getProperty(v4, v57, 216, 1);
   prfProtocol = [(NEIKEv2IKESAProposal *)log prfProtocol];
   [(NEIKEv2PRFProtocol *)prfProtocol ccDigest];
@@ -1350,16 +1335,16 @@ LABEL_114:
   CCKDFParametersDestroy();
   if (v62)
   {
-    v102 = ne_log_obj();
-    initiatorNonce = v105;
-    if (os_log_type_enabled(v102, OS_LOG_TYPE_FAULT))
+    v101 = ne_log_obj();
+    initiatorNonce = v104;
+    if (os_log_type_enabled(v101, OS_LOG_TYPE_FAULT))
     {
       *buf = 67109120;
-      LODWORD(v121) = v62;
-      _os_log_fault_impl(&dword_1BA83C000, v102, OS_LOG_TYPE_FAULT, "CCHKDFExpand failed %d", buf, 8u);
+      LODWORD(v120) = v62;
+      _os_log_fault_impl(&dword_1BA83C000, v101, OS_LOG_TYPE_FAULT, "CCHKDFExpand failed %d", buf, 8u);
     }
 
-    v117 = 0;
+    v116 = 0;
     goto LABEL_94;
   }
 
@@ -1392,7 +1377,7 @@ LABEL_114:
   if (!v69)
   {
     v89 = ne_log_obj();
-    initiatorNonce = v105;
+    initiatorNonce = v104;
     if (!os_log_type_enabled(v89, OS_LOG_TYPE_FAULT))
     {
 LABEL_88:
@@ -1401,22 +1386,22 @@ LABEL_93:
       v59 = 0;
       v39 = 0;
       v23 = 0;
-      v117 = 0;
+      v116 = 0;
       goto LABEL_94;
     }
 
     *buf = 67109120;
-    LODWORD(v121) = keyMaterialLength;
+    LODWORD(v120) = keyMaterialLength;
 LABEL_103:
     _os_log_fault_impl(&dword_1BA83C000, v89, OS_LOG_TYPE_FAULT, "[NESensitiveData sensitiveDataWithBytes:length:%u] failed", buf, 8u);
     goto LABEL_88;
   }
 
   v70 = &bytes[keyMaterialLength];
-  initiatorNonce = v105;
-  if (v103)
+  initiatorNonce = v104;
+  if (v102)
   {
-    v72 = [(NSData *)MEMORY[0x1E695DEF0] sensitiveDataWithBytes:v70 length:v103];
+    v72 = [(NSData *)MEMORY[0x1E695DEF0] sensitiveDataWithBytes:v70 length:v102];
     if (*(self + 9))
     {
       v73 = 168;
@@ -1452,13 +1437,13 @@ LABEL_92:
       }
 
       *buf = 67109120;
-      LODWORD(v121) = v103;
+      LODWORD(v120) = v102;
 LABEL_105:
       _os_log_fault_impl(&dword_1BA83C000, v92, OS_LOG_TYPE_FAULT, "[NESensitiveData sensitiveDataWithBytes:length:%u] failed", buf, 8u);
       goto LABEL_92;
     }
 
-    v70 += v103;
+    v70 += v102;
   }
 
   v78 = [(NSData *)MEMORY[0x1E695DEF0] sensitiveDataWithBytes:v70 length:keyMaterialLength];
@@ -1495,13 +1480,13 @@ LABEL_105:
     }
 
     *buf = 67109120;
-    LODWORD(v121) = keyMaterialLength;
+    LODWORD(v120) = keyMaterialLength;
     goto LABEL_103;
   }
 
-  if (v103)
+  if (v102)
   {
-    v84 = [(NSData *)MEMORY[0x1E695DEF0] sensitiveDataWithBytes:v103 length:?];
+    v84 = [(NSData *)MEMORY[0x1E695DEF0] sensitiveDataWithBytes:v102 length:?];
     v85 = (*(self + 9) & 1) != 0 ? 152 : 168;
     objc_setProperty_atomic(self, v83, v84, v85);
 
@@ -1517,7 +1502,7 @@ LABEL_105:
       }
 
       *buf = 67109120;
-      LODWORD(v121) = v103;
+      LODWORD(v120) = v102;
       goto LABEL_105;
     }
   }
@@ -1525,22 +1510,20 @@ LABEL_105:
   v59 = 0;
   v39 = 0;
   v23 = 0;
-  v117 = 1;
+  v116 = 1;
 LABEL_94:
 
-  v34 = v107;
+  v34 = v106;
 LABEL_95:
 
 LABEL_96:
 LABEL_97:
 
 LABEL_98:
-  v93 = v117;
+  v93 = v116;
 LABEL_99:
 
 LABEL_100:
-LABEL_101:
-  v94 = *MEMORY[0x1E69E9840];
   return v93;
 }
 

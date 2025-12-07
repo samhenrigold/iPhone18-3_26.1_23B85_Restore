@@ -3,6 +3,7 @@
 - (BOOL)registeredForBatteryConditioningState;
 - (CAFBatteryConditioningStateCharacteristic)batteryConditioningStateCharacteristic;
 - (unsigned)batteryConditioningState;
+- (void)_characteristicDidUpdate:(id)update fromGroupUpdate:(BOOL)groupUpdate;
 - (void)registerObserver:(id)observer;
 - (void)unregisterObserver:(id)observer;
 @end
@@ -84,6 +85,33 @@
   batteryConditioningStateValue = [batteryConditioningStateCharacteristic batteryConditioningStateValue];
 
   return batteryConditioningStateValue;
+}
+
+- (void)_characteristicDidUpdate:(id)update fromGroupUpdate:(BOOL)groupUpdate
+{
+  groupUpdateCopy = groupUpdate;
+  updateCopy = update;
+  characteristicType = [updateCopy characteristicType];
+  if (![characteristicType isEqual:@"0x000000004000000B"])
+  {
+    goto LABEL_4;
+  }
+
+  uniqueIdentifier = [updateCopy uniqueIdentifier];
+  batteryConditioningStateCharacteristic = [(CAFBatteryConditioning *)self batteryConditioningStateCharacteristic];
+  uniqueIdentifier2 = [batteryConditioningStateCharacteristic uniqueIdentifier];
+  v11 = [uniqueIdentifier isEqual:uniqueIdentifier2];
+
+  if (v11)
+  {
+    characteristicType = [(CAFService *)self observers];
+    [characteristicType batteryConditioningService:self didUpdateBatteryConditioningState:{-[CAFBatteryConditioning batteryConditioningState](self, "batteryConditioningState")}];
+LABEL_4:
+  }
+
+  v12.receiver = self;
+  v12.super_class = CAFBatteryConditioning;
+  [(CAFService *)&v12 _characteristicDidUpdate:updateCopy fromGroupUpdate:groupUpdateCopy];
 }
 
 - (BOOL)registeredForBatteryConditioningState

@@ -27,7 +27,7 @@
   {
     v14 = [MEMORY[0x277D3A860] assetIsCinematicVideo:audiovisualAsset];
     audioMixMode = [(PEAudioMixModeAction *)self audioMixMode];
-    if (![audioMixMode isEqualToString:*MEMORY[0x277D3A9F0]] || (v14 & 1) != 0)
+    if (!objc_msgSend_isEqualToString_(audioMixMode) || (v14 & 1) != 0)
     {
       v19 = [MEMORY[0x277D2D048] cinematicAudioRenderingVersionFromAsset:audiovisualAsset];
       v20 = *MEMORY[0x277D3A9E0];

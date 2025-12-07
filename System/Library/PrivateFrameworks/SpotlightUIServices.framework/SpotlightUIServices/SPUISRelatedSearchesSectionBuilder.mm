@@ -9,10 +9,9 @@
 
 + (id)supportedBundleIds
 {
-  v5[1] = *MEMORY[0x277D85DE8];
-  v5[0] = @"com.apple.parsec.related_search";
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:1];
-  v3 = *MEMORY[0x277D85DE8];
+  v4[1] = *MEMORY[0x277D85DE8];
+  v4[0] = @"com.apple.parsec.related_search";
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:1];
 
   return v2;
 }
@@ -45,7 +44,7 @@
 - (id)buildCardSections
 {
   selfCopy = self;
-  v54 = *MEMORY[0x277D85DE8];
+  v53 = *MEMORY[0x277D85DE8];
   queryContext = [(SPUISSectionBuilder *)self queryContext];
   searchEntities = [queryContext searchEntities];
   firstObject = [searchEntities firstObject];
@@ -59,7 +58,7 @@
   }
 
   tokenText = [firstObject tokenText];
-  v44 = queryContext;
+  v43 = queryContext;
   if ([tokenText length] && -[__CFString length](searchString, "length") && (-[__CFString isEqualToString:](searchString, "isEqualToString:", tokenText) & 1) == 0 && (objc_msgSend(firstObject, "isPhotosEntitySearch") & 1) == 0)
   {
     v10 = MEMORY[0x277CCACA8];
@@ -78,7 +77,7 @@ LABEL_12:
     searchString = v9;
   }
 
-  v43 = tokenText;
+  v42 = tokenText;
   if (!searchString)
   {
     searchString = &stru_287C50EE8;
@@ -88,35 +87,35 @@ LABEL_12:
   resultSet = [section resultSet];
   array = [resultSet array];
 
-  v49 = 0u;
-  v50 = 0u;
-  v47 = 0u;
   v48 = 0u;
+  v49 = 0u;
+  v46 = 0u;
+  v47 = 0u;
   v15 = array;
-  v16 = [v15 countByEnumeratingWithState:&v47 objects:v53 count:16];
-  v45 = firstObject;
+  v16 = [v15 countByEnumeratingWithState:&v46 objects:v52 count:16];
+  v44 = firstObject;
   if (v16)
   {
     v17 = v16;
-    v42 = selfCopy;
-    v18 = *v48;
+    v41 = selfCopy;
+    v18 = *v47;
     while (2)
     {
       for (i = 0; i != v17; ++i)
       {
-        if (*v48 != v18)
+        if (*v47 != v18)
         {
           objc_enumerationMutation(v15);
         }
 
-        v20 = *(*(&v47 + 1) + 8 * i);
+        v20 = *(*(&v46 + 1) + 8 * i);
         inlineCard = [v20 inlineCard];
         cardSections = [inlineCard cardSections];
         firstObject2 = [cardSections firstObject];
         command = [firstObject2 command];
 
-        title = [v20 title];
-        text = [title text];
+        v25 = objc_msgSend_title(v20);
+        text = [v25 text];
         if ([text isEqualToString:searchString])
         {
 
@@ -142,7 +141,7 @@ LABEL_29:
         }
       }
 
-      v17 = [v15 countByEnumeratingWithState:&v47 objects:v53 count:16];
+      v17 = [v15 countByEnumeratingWithState:&v46 objects:v52 count:16];
       if (v17)
       {
         continue;
@@ -153,8 +152,8 @@ LABEL_29:
 
     v29 = 0;
 LABEL_30:
-    firstObject = v45;
-    selfCopy = v42;
+    firstObject = v44;
+    selfCopy = v41;
   }
 
   else
@@ -162,9 +161,9 @@ LABEL_30:
     v29 = 0;
   }
 
-  v46.receiver = selfCopy;
-  v46.super_class = SPUISRelatedSearchesSectionBuilder;
-  buildCardSections = [(SPUISSectionBuilder *)&v46 buildCardSections];
+  v45.receiver = selfCopy;
+  v45.super_class = SPUISRelatedSearchesSectionBuilder;
+  buildCardSections = [(SPUISSectionBuilder *)&v45 buildCardSections];
   isContactEntitySearch = [firstObject isContactEntitySearch];
   if ((v29 & 1) == 0)
   {
@@ -181,8 +180,8 @@ LABEL_30:
     v33 = [MEMORY[0x277D4C3A0] textWithString:searchString];
     [v33 setIsEmphasized:1];
     v34 = objc_opt_new();
-    v52 = v33;
-    v35 = [MEMORY[0x277CBEA60] arrayWithObjects:&v52 count:1];
+    v51 = v33;
+    v35 = [MEMORY[0x277CBEA60] arrayWithObjects:&v51 count:1];
     [v34 setFormattedTextPieces:v35];
 
     v36 = objc_opt_new();
@@ -193,15 +192,13 @@ LABEL_30:
     [v37 setResultIdentifier:v32];
     [v37 setCardSectionId:v32];
     [v37 setCommand:v36];
-    v51 = v37;
-    v38 = [MEMORY[0x277CBEA60] arrayWithObjects:&v51 count:1];
+    v50 = v37;
+    v38 = [MEMORY[0x277CBEA60] arrayWithObjects:&v50 count:1];
     v39 = [v38 arrayByAddingObjectsFromArray:buildCardSections];
 
     buildCardSections = v39;
-    firstObject = v45;
+    firstObject = v44;
   }
-
-  v40 = *MEMORY[0x277D85DE8];
 
   return buildCardSections;
 }

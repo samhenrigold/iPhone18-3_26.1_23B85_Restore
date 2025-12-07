@@ -43,12 +43,12 @@
   return v2;
 }
 
-void __39__DMTCoreWiFiBackedWiFiPrimitives_init__block_invoke()
+void __39__DMTCoreWiFiBackedWiFiPrimitives_init__block_invoke(uint64_t a1)
 {
-  v0 = _DMTLogGeneral();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+  v1 = _DMTLogGeneral(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
-    __39__DMTCoreWiFiBackedWiFiPrimitives_init__block_invoke_cold_1(v0);
+    __39__DMTCoreWiFiBackedWiFiPrimitives_init__block_invoke_cold_1(v1);
   }
 }
 
@@ -78,24 +78,25 @@ void __39__DMTCoreWiFiBackedWiFiPrimitives_init__block_invoke()
 
     if (!joinNetworkTimeout)
     {
-      if ([(DMTCoreWiFiBackedWiFiPrimitives *)self wifiInterfacesAvailable])
+      wifiInterfacesAvailable = [(DMTCoreWiFiBackedWiFiPrimitives *)self wifiInterfacesAvailable];
+      if (wifiInterfacesAvailable)
       {
         [(DMTCoreWiFiBackedWiFiPrimitives *)self setJoinNetworkCompletion:completionCopy];
         [(DMTCoreWiFiBackedWiFiPrimitives *)self scanForNetworksWithCredentials:credentialCopy];
-        v11 = [MEMORY[0x277CBEBB8] scheduledTimerWithTimeInterval:self target:sel_networkJoinTimeOutDidFire_ selector:0 userInfo:0 repeats:timeout];
-        [(DMTCoreWiFiBackedWiFiPrimitives *)self setJoinNetworkTimeout:v11];
+        v12 = [MEMORY[0x277CBEBB8] scheduledTimerWithTimeInterval:self target:sel_networkJoinTimeOutDidFire_ selector:0 userInfo:0 repeats:timeout];
+        [(DMTCoreWiFiBackedWiFiPrimitives *)self setJoinNetworkTimeout:v12];
       }
 
       else
       {
-        v12 = _DMTLogGeneral();
-        if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+        v13 = _DMTLogGeneral(wifiInterfacesAvailable);
+        if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
         {
-          [DMTCoreWiFiBackedWiFiPrimitives joinWiFiNetworkWithCredential:v12 timeout:? completion:?];
+          [DMTCoreWiFiBackedWiFiPrimitives joinWiFiNetworkWithCredential:v13 timeout:? completion:?];
         }
 
-        v13 = DMTErrorWithCodeAndUserInfo(50, 0);
-        completionCopy[2](completionCopy, 0, v13);
+        v14 = DMTErrorWithCodeAndUserInfo(50, 0);
+        completionCopy[2](completionCopy, 0, v14);
       }
     }
   }
@@ -106,14 +107,14 @@ void __39__DMTCoreWiFiBackedWiFiPrimitives_init__block_invoke()
   completionCopy = completion;
   wifiNetworkName = [(DMTCoreWiFiBackedWiFiPrimitives *)self wifiNetworkName];
 
-  v6 = _DMTLogGeneral();
-  v7 = os_log_type_enabled(v6, OS_LOG_TYPE_INFO);
+  v7 = _DMTLogGeneral(v6);
+  v8 = os_log_type_enabled(v7, OS_LOG_TYPE_INFO);
   if (wifiNetworkName)
   {
-    if (v7)
+    if (v8)
     {
-      *v9 = 0;
-      _os_log_impl(&dword_24891B000, v6, OS_LOG_TYPE_INFO, "Disassociating from network…", v9, 2u);
+      *v10 = 0;
+      _os_log_impl(&dword_24891B000, v7, OS_LOG_TYPE_INFO, "Disassociating from network…", v10, 2u);
     }
 
     wiFiInterface = [(DMTCoreWiFiBackedWiFiPrimitives *)self wiFiInterface];
@@ -124,10 +125,10 @@ void __39__DMTCoreWiFiBackedWiFiPrimitives_init__block_invoke()
 
   else
   {
-    if (v7)
+    if (v8)
     {
       *buf = 0;
-      _os_log_impl(&dword_24891B000, v6, OS_LOG_TYPE_INFO, "Network is not currently associated, disassociation not necessary", buf, 2u);
+      _os_log_impl(&dword_24891B000, v7, OS_LOG_TYPE_INFO, "Network is not currently associated, disassociation not necessary", buf, 2u);
     }
   }
 }
@@ -136,25 +137,26 @@ void __39__DMTCoreWiFiBackedWiFiPrimitives_init__block_invoke()
 {
   v13 = *MEMORY[0x277D85DE8];
   isCancelled = [(DMTCoreWiFiBackedWiFiPrimitives *)self isCancelled];
-  v5 = _DMTLogGeneral();
-  v6 = os_log_type_enabled(v5, OS_LOG_TYPE_INFO);
-  if (isCancelled)
+  v5 = isCancelled;
+  v6 = _DMTLogGeneral(isCancelled);
+  v7 = os_log_type_enabled(v6, OS_LOG_TYPE_INFO);
+  if (v5)
   {
-    if (v6)
+    if (v7)
     {
-      v7 = NSStringFromSelector(a2);
+      v8 = NSStringFromSelector(a2);
       v11 = 138543362;
-      v12 = v7;
-      _os_log_impl(&dword_24891B000, v5, OS_LOG_TYPE_INFO, "%{public}@ called again while already cancelled", &v11, 0xCu);
+      v12 = v8;
+      _os_log_impl(&dword_24891B000, v6, OS_LOG_TYPE_INFO, "%{public}@ called again while already cancelled", &v11, 0xCu);
     }
   }
 
   else
   {
-    if (v6)
+    if (v7)
     {
       LOWORD(v11) = 0;
-      _os_log_impl(&dword_24891B000, v5, OS_LOG_TYPE_INFO, "Cancelling Wi-Fi join", &v11, 2u);
+      _os_log_impl(&dword_24891B000, v6, OS_LOG_TYPE_INFO, "Cancelling Wi-Fi join", &v11, 2u);
     }
 
     [(DMTCoreWiFiBackedWiFiPrimitives *)self setCancelled:1];
@@ -168,13 +170,11 @@ void __39__DMTCoreWiFiBackedWiFiPrimitives_init__block_invoke()
       [(DMTCoreWiFiBackedWiFiPrimitives *)self setJoinNetworkTimeout:0];
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)networkJoinTimeOutDidFire:(id)fire
 {
-  v4 = _DMTLogGeneral();
+  v4 = _DMTLogGeneral(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     *v9 = 0;
@@ -248,19 +248,20 @@ void __66__DMTCoreWiFiBackedWiFiPrimitives_scanForNetworksWithCredentials___bloc
 
 - (void)foundNetworks:(id)networks forCredential:(id)credential error:(id)error
 {
-  v28[1] = *MEMORY[0x277D85DE8];
+  v29[1] = *MEMORY[0x277D85DE8];
   networksCopy = networks;
   credentialCopy = credential;
   errorCopy = error;
-  if ([(DMTCoreWiFiBackedWiFiPrimitives *)self isCancelled])
+  isCancelled = [(DMTCoreWiFiBackedWiFiPrimitives *)self isCancelled];
+  if (isCancelled)
   {
-    v11 = _DMTLogGeneral();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+    v12 = _DMTLogGeneral(isCancelled);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
     {
-      LOWORD(v25) = 0;
-      v12 = "Found networks after being cancelled, bailing out.";
+      LOWORD(v26) = 0;
+      v13 = "Found networks after being cancelled, bailing out.";
 LABEL_11:
-      _os_log_impl(&dword_24891B000, v11, OS_LOG_TYPE_INFO, v12, &v25, 2u);
+      _os_log_impl(&dword_24891B000, v12, OS_LOG_TYPE_INFO, v13, &v26, 2u);
       goto LABEL_12;
     }
 
@@ -271,11 +272,11 @@ LABEL_11:
 
   if (!joinNetworkTimeout)
   {
-    v11 = _DMTLogGeneral();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+    v12 = _DMTLogGeneral(v15);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
     {
-      LOWORD(v25) = 0;
-      v12 = "Found networks after timeout has occurred, bailing out.";
+      LOWORD(v26) = 0;
+      v13 = "Found networks after timeout has occurred, bailing out.";
       goto LABEL_11;
     }
 
@@ -286,32 +287,32 @@ LABEL_12:
 
   if (errorCopy)
   {
-    v14 = _DMTLogGeneral();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    v16 = _DMTLogGeneral(v15);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
-      [DMTCoreWiFiBackedWiFiPrimitives foundNetworks:errorCopy forCredential:v14 error:?];
+      [DMTCoreWiFiBackedWiFiPrimitives foundNetworks:errorCopy forCredential:v16 error:?];
     }
 
     joinNetworkCompletion = [(DMTCoreWiFiBackedWiFiPrimitives *)self joinNetworkCompletion];
-    v27 = *MEMORY[0x277CCA7E8];
-    v28[0] = errorCopy;
-    v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v28 forKeys:&v27 count:1];
-    v17 = DMTErrorWithCodeAndUserInfo(55, v16);
-    (joinNetworkCompletion)[2](joinNetworkCompletion, 0, v17);
+    v28 = *MEMORY[0x277CCA7E8];
+    v29[0] = errorCopy;
+    v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v29 forKeys:&v28 count:1];
+    v19 = DMTErrorWithCodeAndUserInfo(55, v18);
+    (joinNetworkCompletion)[2](joinNetworkCompletion, 0, v19);
 
     [(DMTCoreWiFiBackedWiFiPrimitives *)self setJoinNetworkCompletion:0];
   }
 
   else
   {
-    v19 = [networksCopy count];
-    v20 = _DMTLogGeneral();
-    v21 = v20;
-    if (v19)
+    v20 = [networksCopy count];
+    v21 = _DMTLogGeneral(v20);
+    v22 = v21;
+    if (v20)
     {
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
       {
-        [DMTCoreWiFiBackedWiFiPrimitives foundNetworks:networksCopy forCredential:v21 error:?];
+        [DMTCoreWiFiBackedWiFiPrimitives foundNetworks:networksCopy forCredential:v22 error:?];
       }
 
       firstObject = [networksCopy firstObject];
@@ -320,12 +321,12 @@ LABEL_12:
 
     else
     {
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
       {
         networkName = [credentialCopy networkName];
-        v25 = 138477827;
-        v26 = networkName;
-        _os_log_impl(&dword_24891B000, v21, OS_LOG_TYPE_INFO, "No network matching %{private}@ were found", &v25, 0xCu);
+        v26 = 138477827;
+        v27 = networkName;
+        _os_log_impl(&dword_24891B000, v22, OS_LOG_TYPE_INFO, "No network matching %{private}@ were found", &v26, 0xCu);
       }
 
       firstObject = DMTErrorWithCodeAndUserInfo(53, 0);
@@ -337,8 +338,6 @@ LABEL_12:
   }
 
 LABEL_13:
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)joinNetworkWithCredential:(id)credential scanRecord:(id)record
@@ -387,18 +386,19 @@ void __72__DMTCoreWiFiBackedWiFiPrimitives_joinNetworkWithCredential_scanRecord_
 
 - (void)didJoinNetworkWithError:(id)error
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   errorCopy = error;
-  if ([(DMTCoreWiFiBackedWiFiPrimitives *)self isCancelled])
+  isCancelled = [(DMTCoreWiFiBackedWiFiPrimitives *)self isCancelled];
+  if (isCancelled)
   {
-    v5 = _DMTLogGeneral();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+    v6 = _DMTLogGeneral(isCancelled);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
       *buf = 138543362;
-      v15 = errorCopy;
-      v6 = "Associate network returned after being cancelled with error: %{public}@";
+      v16 = errorCopy;
+      v7 = "Associate network returned after being cancelled with error: %{public}@";
 LABEL_9:
-      _os_log_impl(&dword_24891B000, v5, OS_LOG_TYPE_INFO, v6, buf, 0xCu);
+      _os_log_impl(&dword_24891B000, v6, OS_LOG_TYPE_INFO, v7, buf, 0xCu);
     }
   }
 
@@ -410,22 +410,22 @@ LABEL_9:
     {
       if (errorCopy)
       {
-        v12 = *MEMORY[0x277CCA7E8];
-        v13 = errorCopy;
-        v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v13 forKeys:&v12 count:1];
-        v5 = DMTErrorWithCodeAndUserInfo(55, v8);
+        v13 = *MEMORY[0x277CCA7E8];
+        v14 = errorCopy;
+        v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v14 forKeys:&v13 count:1];
+        v6 = DMTErrorWithCodeAndUserInfo(55, v10);
       }
 
       else
       {
-        v5 = 0;
+        v6 = 0;
       }
 
       joinNetworkTimeout2 = [(DMTCoreWiFiBackedWiFiPrimitives *)self joinNetworkTimeout];
       [joinNetworkTimeout2 invalidate];
 
       joinNetworkCompletion = [(DMTCoreWiFiBackedWiFiPrimitives *)self joinNetworkCompletion];
-      (joinNetworkCompletion)[2](joinNetworkCompletion, v5 == 0, v5);
+      (joinNetworkCompletion)[2](joinNetworkCompletion, v6 == 0, v6);
 
       [(DMTCoreWiFiBackedWiFiPrimitives *)self setJoinNetworkCompletion:0];
       [(DMTCoreWiFiBackedWiFiPrimitives *)self setJoinNetworkTimeout:0];
@@ -433,36 +433,32 @@ LABEL_9:
 
     else
     {
-      v5 = _DMTLogGeneral();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+      v6 = _DMTLogGeneral(v9);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
       {
         *buf = 138543362;
-        v15 = errorCopy;
-        v6 = "Associate network returned after the timeout occurred with error: %{public}@";
+        v16 = errorCopy;
+        v7 = "Associate network returned after the timeout occurred with error: %{public}@";
         goto LABEL_9;
       }
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)foundNetworks:(uint64_t)a1 forCredential:(NSObject *)a2 error:.cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_error_impl(&dword_24891B000, a2, OS_LOG_TYPE_ERROR, "Error scanning for networks: %{public}@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_error_impl(&dword_24891B000, a2, OS_LOG_TYPE_ERROR, "Error scanning for networks: %{public}@", &v2, 0xCu);
 }
 
 - (void)foundNetworks:(uint64_t)a1 forCredential:(NSObject *)a2 error:.cold.2(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_debug_impl(&dword_24891B000, a2, OS_LOG_TYPE_DEBUG, "Network(s) found: %{public}@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_debug_impl(&dword_24891B000, a2, OS_LOG_TYPE_DEBUG, "Network(s) found: %{public}@", &v2, 0xCu);
 }
 
 @end

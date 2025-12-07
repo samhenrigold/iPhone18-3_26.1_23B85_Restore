@@ -88,19 +88,17 @@
   location = gramRange.location;
   v13 = range.length;
   v14 = range.location;
-  v26[2] = *MEMORY[0x277D85DE8];
+  v25[2] = *MEMORY[0x277D85DE8];
   vocabCopy = vocab;
   v18 = [SGStringPreprocessingTransformer withMethods:methods];
-  v26[0] = v18;
-  LOBYTE(v25) = 0;
+  v25[0] = v18;
   LOBYTE(v24) = 0;
-  v19 = [MEMORY[0x277D41F28] withBucketSize:size characterNGramRange:v14 tokenNGramRange:v13 shouldNormalizeTokens:location shouldNormalizeCharacters:length localeForNonwordTokens:0 tokenizeNewlines:v24 idVectorLength:0 extraIdOptions:v25 vectorizerStrategy:length vectorNormalization:options vocab:{strategy, normalization, vocabCopy}];
+  LOBYTE(v23) = 0;
+  v19 = [MEMORY[0x277D41F28] withBucketSize:size characterNGramRange:v14 tokenNGramRange:v13 shouldNormalizeTokens:location shouldNormalizeCharacters:length localeForNonwordTokens:0 tokenizeNewlines:v23 idVectorLength:0 extraIdOptions:v24 vectorizerStrategy:length vectorNormalization:options vocab:{strategy, normalization, vocabCopy}];
 
-  v26[1] = v19;
-  v20 = [MEMORY[0x277CBEA60] arrayWithObjects:v26 count:2];
+  v25[1] = v19;
+  v20 = [MEMORY[0x277CBEA60] arrayWithObjects:v25 count:2];
   v21 = [SGPipelineTransformer withTransformers:v20];
-
-  v22 = *MEMORY[0x277D85DE8];
 
   return v21;
 }

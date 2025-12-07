@@ -38,7 +38,7 @@ uint64_t __32___TVTumblerView_layoutSubviews__block_invoke(uint64_t a1)
   return [v6 performSelector:sel__enableMove withObject:0 afterDelay:0.1];
 }
 
-uint64_t __32___TVTumblerView_layoutSubviews__block_invoke_2(uint64_t a1)
+void *__32___TVTumblerView_layoutSubviews__block_invoke_2(uint64_t a1)
 {
   if ([*(a1 + 32) focusedItemIndex] != *(a1 + 48))
   {

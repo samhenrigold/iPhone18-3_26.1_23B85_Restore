@@ -11,7 +11,7 @@
   sub_258D564D4();
   *(&self->super.isa + OBJC_IVAR____TtC18MessagesSettingsUI29CKWrappedPreferencesSpecifier_specifier) = specifierCopy;
   v6.receiver = self;
-  v6.super_class = type metadata accessor for CKWrappedPreferencesSpecifier();
+  v6.super_class = type metadata accessor for CKWrappedPreferencesSpecifier(0);
   return [(CKWrappedPreferencesSpecifier *)&v6 init];
 }
 

@@ -207,25 +207,23 @@ LABEL_19:
 
 - (NSDictionary)dictionaryRepresentation
 {
-  v12[5] = *MEMORY[0x277D85DE8];
-  v11[0] = @"channel_id";
+  v11[5] = *MEMORY[0x277D85DE8];
+  v10[0] = @"channel_id";
   channelID = [(PKPublicChannel *)self channelID];
-  v12[0] = channelID;
-  v11[1] = @"channel_topic";
+  v11[0] = channelID;
+  v10[1] = @"channel_topic";
   channelTopic = [(PKPublicChannel *)self channelTopic];
-  v12[1] = channelTopic;
-  v11[2] = @"environment";
+  v11[1] = channelTopic;
+  v10[2] = @"environment";
   environment = [(PKPublicChannel *)self environment];
-  v12[2] = environment;
-  v11[3] = @"token_name";
+  v11[2] = environment;
+  v10[3] = @"token_name";
   tokenName = [(PKPublicChannel *)self tokenName];
-  v12[3] = tokenName;
-  v11[4] = @"checkpoint";
+  v11[3] = tokenName;
+  v10[4] = @"checkpoint";
   v7 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:{-[PKPublicChannel checkpoint](self, "checkpoint")}];
-  v12[4] = v7;
-  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:5];
-
-  v9 = *MEMORY[0x277D85DE8];
+  v11[4] = v7;
+  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:v10 count:5];
 
   return v8;
 }

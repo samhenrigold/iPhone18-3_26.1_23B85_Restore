@@ -60,9 +60,9 @@
     {
       if ([-[MPLayer effectContainers](self "effectContainers")])
       {
-        [objc_msgSend(-[MPLayer effectContainers](self "effectContainers")];
+        objc_msgSend_duration([-[MPLayer effectContainers](self "effectContainers")]);
         v7 = v6;
-        [transition duration];
+        objc_msgSend_duration(transition);
         if (v8 > v7)
         {
           [transition setDuration:v7];
@@ -161,7 +161,7 @@
 
   else
   {
-    [(MPLayer *)self duration];
+    objc_msgSend_duration(self);
     v11 = v10;
     v45 = 0u;
     v46 = 0u;
@@ -183,11 +183,11 @@
 
           v16 = *(*(&v45 + 1) + 8 * j);
           [v16 setParentLayer:self];
-          [v16 duration];
+          objc_msgSend_duration(v16);
           v11 = v11 + v17;
           if ([v16 transition])
           {
-            [objc_msgSend(v16 "transition")];
+            objc_msgSend_duration([v16 transition]);
             v11 = v11 - v18;
           }
         }
@@ -291,7 +291,7 @@
 
     else
     {
-      [(MPLayer *)self duration];
+      objc_msgSend_duration(self);
       v7 = v8;
       v9 = 1;
     }
@@ -305,11 +305,11 @@
         if (v9)
         {
           [(MPLayer *)self reconnectTransitionForEffectContainerAtIndex:i];
-          [v12 duration];
+          objc_msgSend_duration(v12);
           v7 = v7 - v13;
           if ([v12 transition])
           {
-            [objc_msgSend(v12 "transition")];
+            objc_msgSend_duration([v12 transition]);
             v7 = v7 + v14;
           }
         }
@@ -460,7 +460,7 @@
     if (introTransition)
     {
       [(MCContainerSerializer *)self->_layerSerializer setInitialTransitionID:[(MPTransition *)introTransition transitionID]];
-      [(MPTransition *)self->_introTransition duration];
+      objc_msgSend_duration(self->_introTransition);
       [(MCContainerSerializer *)self->_layerSerializer setInitialTransitionDuration:?];
       [(MPTransition *)self->_introTransition applyFormattedAttributes];
     }

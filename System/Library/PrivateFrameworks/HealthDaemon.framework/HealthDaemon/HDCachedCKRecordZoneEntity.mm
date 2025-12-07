@@ -17,25 +17,22 @@
 
 + (id)foreignKeys
 {
-  v7[1] = *MEMORY[0x277D85DE8];
-  v6 = @"database_id";
+  v6[1] = *MEMORY[0x277D85DE8];
+  v5 = @"database_id";
   v2 = +[(HDHealthEntity *)HDCachedCKDatabaseEntity];
-  v7[0] = v2;
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:&v6 count:1];
-
-  v4 = *MEMORY[0x277D85DE8];
+  v6[0] = v2;
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:&v5 count:1];
 
   return v3;
 }
 
 + (id)uniquedColumns
 {
-  v5[3] = *MEMORY[0x277D85DE8];
-  v5[0] = @"database_id";
-  v5[1] = @"zone_name";
-  v5[2] = @"owner_name";
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:3];
-  v3 = *MEMORY[0x277D85DE8];
+  v4[3] = *MEMORY[0x277D85DE8];
+  v4[0] = @"database_id";
+  v4[1] = @"zone_name";
+  v4[2] = @"owner_name";
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:3];
 
   return v2;
 }
@@ -92,23 +89,19 @@ LABEL_8:
 
 id __106__HDCachedCKRecordZoneEntity_insertWithDatabaseID_zoneName_ownerName_serverChangeToken_transaction_error___block_invoke(uint64_t a1)
 {
-  v1 = *(a1 + 32);
-  v2 = objc_opt_self();
-  v3 = MEMORY[0x277CCACA8];
-  v4 = [v2 disambiguatedDatabaseTable];
-  v5 = [v3 stringWithFormat:@"INSERT INTO %@ (%@, %@, %@, %@, %@, %@) VALUES (?, ?, ?, ?, ?, ?)", v4, @"database_id", @"zone_name", @"owner_name", @"server_change_token", @"needs_fetch", @"zone_state"];
+  v1 = objc_opt_self();
+  v2 = MEMORY[0x277CCACA8];
+  v3 = [v1 disambiguatedDatabaseTable];
+  v4 = [v2 stringWithFormat:@"INSERT INTO %@ (%@, %@, %@, %@, %@, %@) VALUES (?, ?, ?, ?, ?, ?)", v3, @"database_id", @"zone_name", @"owner_name", @"server_change_token", @"needs_fetch", @"zone_state"];
 
-  return v5;
+  return v4;
 }
 
 uint64_t __106__HDCachedCKRecordZoneEntity_insertWithDatabaseID_zoneName_ownerName_serverChangeToken_transaction_error___block_invoke_2(void *a1, sqlite3_stmt *a2)
 {
   sqlite3_bind_int64(a2, 1, a1[7]);
-  v4 = a1[4];
   HDSQLiteBindFoundationValueToStatement();
-  v5 = a1[5];
   HDSQLiteBindFoundationValueToStatement();
-  v6 = a1[6];
   HDSQLiteBindFoundationValueToStatement();
   HDSQLiteBindFoundationValueToStatement();
 
@@ -117,7 +110,7 @@ uint64_t __106__HDCachedCKRecordZoneEntity_insertWithDatabaseID_zoneName_ownerNa
 
 + (BOOL)updateServerChangeToken:(id)token databaseID:(int64_t)d zoneName:(id)name ownerName:(id)ownerName transaction:(id)transaction error:(id *)error
 {
-  v28[1] = *MEMORY[0x277D85DE8];
+  v27[1] = *MEMORY[0x277D85DE8];
   tokenCopy = token;
   nameCopy = name;
   ownerNameCopy = ownerName;
@@ -134,15 +127,15 @@ uint64_t __106__HDCachedCKRecordZoneEntity_insertWithDatabaseID_zoneName_ownerNa
 LABEL_5:
     v20 = [transactionCopy databaseForEntityClass:self];
     v21 = HDPredicateForDatabaseIDAndRecordZone(d, nameCopy, ownerNameCopy);
-    v28[0] = @"server_change_token";
-    v22 = [MEMORY[0x277CBEA60] arrayWithObjects:v28 count:1];
-    v26[0] = MEMORY[0x277D85DD0];
-    v26[1] = 3221225472;
-    v26[2] = __102__HDCachedCKRecordZoneEntity_updateServerChangeToken_databaseID_zoneName_ownerName_transaction_error___block_invoke;
-    v26[3] = &unk_278614508;
-    v27 = v18;
+    v27[0] = @"server_change_token";
+    v22 = [MEMORY[0x277CBEA60] arrayWithObjects:v27 count:1];
+    v25[0] = MEMORY[0x277D85DD0];
+    v25[1] = 3221225472;
+    v25[2] = __102__HDCachedCKRecordZoneEntity_updateServerChangeToken_databaseID_zoneName_ownerName_transaction_error___block_invoke;
+    v25[3] = &unk_278614508;
+    v26 = v18;
     v23 = v18;
-    v19 = [self updateProperties:v22 predicate:v21 database:v20 error:error bindingHandler:v26];
+    v19 = [self updateProperties:v22 predicate:v21 database:v20 error:error bindingHandler:v25];
 
     goto LABEL_6;
   }
@@ -150,7 +143,6 @@ LABEL_5:
   v19 = 0;
 LABEL_6:
 
-  v24 = *MEMORY[0x277D85DE8];
   return v19;
 }
 
@@ -560,13 +552,13 @@ uint64_t __117__HDCachedCKRecordZoneEntity_serverChangeTokenForContainerIdentifi
 
 uint64_t __125__HDCachedCKRecordZoneEntity_enumerateCKRecordZoneIDsWithContainerIdentifier_databaseScope_profile_error_enumerationHandler___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v24[4] = *MEMORY[0x277D85DE8];
+  v23[4] = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = *(a1 + 32);
   v7 = *(a1 + 48);
-  v23 = 0;
-  v8 = [HDCachedCKDatabaseEntity entityForContainerIdentifier:v6 databaseScope:v7 userRecordName:0 transaction:v5 shouldCreate:0 error:&v23];
-  v9 = v23;
+  v22 = 0;
+  v8 = [HDCachedCKDatabaseEntity entityForContainerIdentifier:v6 databaseScope:v7 userRecordName:0 transaction:v5 shouldCreate:0 error:&v22];
+  v9 = v22;
   v10 = v9;
   if (v8)
   {
@@ -587,17 +579,17 @@ uint64_t __125__HDCachedCKRecordZoneEntity_enumerateCKRecordZoneIDsWithContainer
       v14 = HDPredicateForDatabaseID([v8 persistentID]);
       v15 = [v12 queryWithDatabase:v13 predicate:v14];
 
-      v24[0] = @"zone_name";
-      v24[1] = @"owner_name";
-      v24[2] = @"needs_fetch";
-      v24[3] = @"zone_state";
-      v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:4];
-      v21[0] = MEMORY[0x277D85DD0];
-      v21[1] = 3221225472;
-      v21[2] = __125__HDCachedCKRecordZoneEntity_enumerateCKRecordZoneIDsWithContainerIdentifier_databaseScope_profile_error_enumerationHandler___block_invoke_2;
-      v21[3] = &unk_2786145A8;
-      v22 = *(a1 + 40);
-      v17 = [v15 enumerateProperties:v16 error:a3 enumerationHandler:v21];
+      v23[0] = @"zone_name";
+      v23[1] = @"owner_name";
+      v23[2] = @"needs_fetch";
+      v23[3] = @"zone_state";
+      v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:4];
+      v20[0] = MEMORY[0x277D85DD0];
+      v20[1] = 3221225472;
+      v20[2] = __125__HDCachedCKRecordZoneEntity_enumerateCKRecordZoneIDsWithContainerIdentifier_databaseScope_profile_error_enumerationHandler___block_invoke_2;
+      v20[3] = &unk_2786145A8;
+      v21 = *(a1 + 40);
+      v17 = [v15 enumerateProperties:v16 error:a3 enumerationHandler:v20];
     }
 
     else
@@ -619,20 +611,19 @@ uint64_t __125__HDCachedCKRecordZoneEntity_enumerateCKRecordZoneIDsWithContainer
     v17 = 0;
   }
 
-  v19 = *MEMORY[0x277D85DE8];
   return v17;
 }
 
-uint64_t __125__HDCachedCKRecordZoneEntity_enumerateCKRecordZoneIDsWithContainerIdentifier_databaseScope_profile_error_enumerationHandler___block_invoke_2(uint64_t a1)
+uint64_t __125__HDCachedCKRecordZoneEntity_enumerateCKRecordZoneIDsWithContainerIdentifier_databaseScope_profile_error_enumerationHandler___block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v2 = HDSQLiteColumnWithNameAsString();
-  v3 = HDSQLiteColumnWithNameAsString();
+  v4 = HDSQLiteColumnWithNameAsString();
+  v5 = HDSQLiteColumnWithNameAsString();
   HDSQLiteColumnWithNameAsBoolean();
   HDSQLiteColumnWithNameAsInt64();
-  v4 = [objc_alloc(MEMORY[0x277CBC5F8]) initWithZoneName:v2 ownerName:v3];
-  v5 = (*(*(a1 + 32) + 16))();
+  v6 = [objc_alloc(MEMORY[0x277CBC5F8]) initWithZoneName:v4 ownerName:v5];
+  v7 = (*(*(a1 + 32) + 16))();
 
-  return v5;
+  return v7;
 }
 
 + (BOOL)deleteZoneWithContainerIdentifier:(id)identifier databaseScope:(int64_t)scope zoneName:(id)name ownerName:(id)ownerName profile:(id)profile error:(id *)error
@@ -845,9 +836,7 @@ id __125__HDCachedCKRecordZoneEntity_requiresFetchForZoneWithContainerIdentifier
 uint64_t __125__HDCachedCKRecordZoneEntity_requiresFetchForZoneWithContainerIdentifier_databaseScope_zoneName_ownerName_transaction_error___block_invoke_2(uint64_t a1, sqlite3_stmt *a2)
 {
   sqlite3_bind_int64(a2, 1, [*(a1 + 32) persistentID]);
-  v3 = *(a1 + 40);
   HDSQLiteBindFoundationValueToStatement();
-  v4 = *(a1 + 48);
 
   return HDSQLiteBindFoundationValueToStatement();
 }
@@ -926,9 +915,7 @@ uint64_t __118__HDCachedCKRecordZoneEntity_setRequiresFetch_containerIdentifier_
 {
   sqlite3_bind_int64(a2, 1, *(a1 + 56));
   sqlite3_bind_int64(a2, 2, [*(a1 + 32) persistentID]);
-  v4 = *(a1 + 40);
   HDSQLiteBindFoundationValueToStatement();
-  v5 = *(a1 + 48);
 
   return HDSQLiteBindFoundationValueToStatement();
 }
@@ -1031,9 +1018,7 @@ uint64_t __116__HDCachedCKRecordZoneEntity_setZoneEntityState_containerIdentifie
 {
   sqlite3_bind_int64(a2, 1, *(a1 + 56));
   sqlite3_bind_int64(a2, 2, [*(a1 + 32) persistentID]);
-  v4 = *(a1 + 40);
   HDSQLiteBindFoundationValueToStatement();
-  v5 = *(a1 + 48);
 
   return HDSQLiteBindFoundationValueToStatement();
 }

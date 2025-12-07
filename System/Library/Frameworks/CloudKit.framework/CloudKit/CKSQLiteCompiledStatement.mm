@@ -21,6 +21,8 @@
 - (NSNumber)offset;
 - (id)_fillFetchedValues;
 - (id)addBindingVariable:(id)variable withAssociatedProperty:(id)property;
+- (id)bindValue:(id)value ofType:(unsigned int)type atIndex:(int)index;
+- (id)bindValueColumn:(id)column type:(unsigned int)type value:(id)value;
 - (id)boundObjects;
 - (id)cksqlcs_appendSQLConstantValueToString:(id)string;
 - (id)compile;
@@ -46,7 +48,7 @@
 
 - (id)_fillFetchedValues
 {
-  v75 = *MEMORY[0x1E69E9840];
+  v74 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained(&self->_table);
   if (self->_resultInfoCount)
   {
@@ -144,7 +146,7 @@ LABEL_9:
         if (os_log_type_enabled(ck_log_facility_sql, OS_LOG_TYPE_FAULT))
         {
           *buf = 67109120;
-          v74 = v66;
+          v73 = v66;
           _os_log_fault_impl(&dword_1883EA000, v67, OS_LOG_TYPE_FAULT, "Invalid UUID length in database: %d", buf, 8u);
         }
 
@@ -164,19 +166,19 @@ LABEL_4:
       {
         v35 = sqlite3_column_bytes(self->_handle, v4);
         v37 = objc_msgSend_dataWithBytes_length_(MEMORY[0x1E695DEF0], v36, v9, v35);
-        v70 = v34;
+        v69 = v34;
         v38 = v6;
         v39 = v5;
         v40 = *&v13[8 * v4];
         v41 = objc_opt_class();
         v43 = objc_msgSend_objectClassesForProperty_(v41, v42, v40);
-        v71 = 0;
-        v9 = objc_msgSend_unarchivedObjectOfClass_fromDatabaseArchive_error_(CKSQLiteDatabase, v44, v43, v37, &v71);
-        v19 = v71;
+        v70 = 0;
+        v9 = objc_msgSend_unarchivedObjectOfClass_fromDatabaseArchive_error_(CKSQLiteDatabase, v44, v43, v37, &v70);
+        v19 = v70;
 
         v5 = v39;
         v6 = v38;
-        v34 = v70;
+        v34 = v69;
 
         v7 = 0x1E696A000;
       }
@@ -215,9 +217,9 @@ LABEL_11:
         {
           objc_msgSend_tableForReferenceProperty_(WeakRetained, v54, *&v13[8 * v4]);
           v57 = v56 = v7;
-          v72 = 0;
-          v9 = objc_msgSend_referentForDatabaseReferenceValue_error_(v57, v58, v55, &v72);
-          v19 = v72;
+          v71 = 0;
+          v9 = objc_msgSend_referentForDatabaseReferenceValue_error_(v57, v58, v55, &v71);
+          v19 = v71;
 
           v7 = v56;
         }
@@ -285,8 +287,6 @@ LABEL_7:
 
   v19 = 0;
 LABEL_55:
-
-  v68 = *MEMORY[0x1E69E9840];
 
   return v19;
 }
@@ -572,34 +572,34 @@ LABEL_31:
 
 + (id)statementForUpdatingColumns:(id)columns inTable:(id)table
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   columnsCopy = columns;
   tableCopy = table;
   v7 = MEMORY[0x1E696AD60];
   v10 = objc_msgSend_dbTableName(tableCopy, v8, v9);
   v12 = objc_msgSend_stringWithFormat_(v7, v11, @"UPDATE '%@' SET ", v10);
 
-  v30 = 0u;
-  v31 = 0u;
-  v28 = 0u;
   v29 = 0u;
+  v30 = 0u;
+  v27 = 0u;
+  v28 = 0u;
   v13 = columnsCopy;
-  v15 = objc_msgSend_countByEnumeratingWithState_objects_count_(v13, v14, &v28, v32, 16);
+  v15 = objc_msgSend_countByEnumeratingWithState_objects_count_(v13, v14, &v27, v31, 16);
   if (v15)
   {
     v17 = v15;
-    v18 = *v29;
+    v18 = *v28;
     v19 = 1;
     do
     {
       for (i = 0; i != v17; ++i)
       {
-        if (*v29 != v18)
+        if (*v28 != v18)
         {
           objc_enumerationMutation(v13);
         }
 
-        v21 = *(*(&v28 + 1) + 8 * i);
+        v21 = *(*(&v27 + 1) + 8 * i);
         if ((v19 & 1) == 0)
         {
           objc_msgSend_appendString_(v12, v16, @",");
@@ -609,7 +609,7 @@ LABEL_31:
         v19 = 0;
       }
 
-      v17 = objc_msgSend_countByEnumeratingWithState_objects_count_(v13, v16, &v28, v32, 16);
+      v17 = objc_msgSend_countByEnumeratingWithState_objects_count_(v13, v16, &v27, v31, 16);
       v19 = 0;
     }
 
@@ -619,14 +619,12 @@ LABEL_31:
   v22 = [self alloc];
   v24 = objc_msgSend_initWithTable_sql_(v22, v23, tableCopy, v12);
 
-  v25 = *MEMORY[0x1E69E9840];
-
   return v24;
 }
 
 + (id)statementForInserting:(id)inserting orUpdating:(id)updating inTable:(id)table
 {
-  v54 = *MEMORY[0x1E69E9840];
+  v53 = *MEMORY[0x1E69E9840];
   insertingCopy = inserting;
   updatingCopy = updating;
   tableCopy = table;
@@ -645,30 +643,30 @@ LABEL_31:
   if (objc_msgSend_count(updatingCopy, v25, v26))
   {
     selfCopy = self;
-    v48 = insertingCopy;
+    v47 = insertingCopy;
     objc_msgSend_appendString_(v16, v27, @" ON CONFLICT DO UPDATE SET ");
-    v51 = 0u;
-    v52 = 0u;
-    v49 = 0u;
     v50 = 0u;
-    v47 = updatingCopy;
+    v51 = 0u;
+    v48 = 0u;
+    v49 = 0u;
+    v46 = updatingCopy;
     v29 = updatingCopy;
-    v31 = objc_msgSend_countByEnumeratingWithState_objects_count_(v29, v30, &v49, v53, 16);
+    v31 = objc_msgSend_countByEnumeratingWithState_objects_count_(v29, v30, &v48, v52, 16);
     if (v31)
     {
       v33 = v31;
-      v34 = *v50;
+      v34 = *v49;
       v35 = 1;
       do
       {
         for (i = 0; i != v33; ++i)
         {
-          if (*v50 != v34)
+          if (*v49 != v34)
           {
             objc_enumerationMutation(v29);
           }
 
-          v37 = *(*(&v49 + 1) + 8 * i);
+          v37 = *(*(&v48 + 1) + 8 * i);
           if ((v35 & 1) == 0)
           {
             objc_msgSend_appendString_(v16, v32, @", ");
@@ -678,15 +676,15 @@ LABEL_31:
           v35 = 0;
         }
 
-        v33 = objc_msgSend_countByEnumeratingWithState_objects_count_(v29, v32, &v49, v53, 16);
+        v33 = objc_msgSend_countByEnumeratingWithState_objects_count_(v29, v32, &v48, v52, 16);
         v35 = 0;
       }
 
       while (v33);
     }
 
-    updatingCopy = v47;
-    insertingCopy = v48;
+    updatingCopy = v46;
+    insertingCopy = v47;
     self = selfCopy;
   }
 
@@ -694,8 +692,6 @@ LABEL_31:
   objc_msgSend_appendFormat_(v16, v39, @" RETURNING %@", v38);
   v41 = objc_msgSend_allocWithResultCapacity_(self, v40, 1);
   v43 = objc_msgSend_initWithTable_sql_resultColumn_resultColumnType_(v41, v42, tableCopy, v16, v38, 1);
-
-  v44 = *MEMORY[0x1E69E9840];
 
   return v43;
 }
@@ -1288,6 +1284,220 @@ LABEL_18:
   }
 
   return v15;
+}
+
+- (id)bindValue:(id)value ofType:(unsigned int)type atIndex:(int)index
+{
+  v5 = *&index;
+  v6 = *&type;
+  valueCopy = value;
+  if (!self->_handle)
+  {
+    v13 = objc_msgSend_compile(self, v8, v9);
+    if (v13)
+    {
+      v14 = v13;
+      goto LABEL_39;
+    }
+  }
+
+  if (!valueCopy)
+  {
+    if (sqlite3_bind_null(self->_handle, v5))
+    {
+      v14 = objc_msgSend_sqlErrorWithMessage_(self->_db, v15, @"Failed to bind NULL value");
+    }
+
+    else
+    {
+      v14 = 0;
+    }
+
+    v17 = objc_msgSend_boundObjects(self, v15, v16);
+    objc_msgSend_addObject_(v17, v18, @"<NULL>");
+
+    valueCopy = 0;
+    goto LABEL_39;
+  }
+
+  if (v6 <= 0x5Fu)
+  {
+    if (v6 <= 2u)
+    {
+      if (!v6)
+      {
+        v11 = objc_msgSend_cksqlcs_bindValue_index_db_(valueCopy, v8, self->_handle, v5, self->_db);
+        goto LABEL_37;
+      }
+
+      if (v6 == 1)
+      {
+        goto LABEL_5;
+      }
+
+      if (v6 != 2)
+      {
+        goto LABEL_35;
+      }
+
+      goto LABEL_24;
+    }
+
+    if (v6 > 7u)
+    {
+      if (v6 == 8)
+      {
+        objc_msgSend_errorWithDomain_code_format_(CKPrettyError, v8, @"CKErrorDomain", 1, @"Cannot bind using object reference type");
+        v11 = LABEL_36:;
+        goto LABEL_37;
+      }
+
+      if (v6 != 9)
+      {
+        goto LABEL_35;
+      }
+
+      v19 = objc_msgSend_absoluteString(valueCopy, v8, v9);
+
+      valueCopy = v19;
+    }
+
+    else if (v6 != 3)
+    {
+      if (v6 == 5)
+      {
+        goto LABEL_24;
+      }
+
+      goto LABEL_35;
+    }
+
+    v11 = objc_msgSend_cksqlcs_bindText_index_db_(valueCopy, v8, self->_handle, v5, self->_db);
+    goto LABEL_37;
+  }
+
+  if (v6 < 0x6Bu)
+  {
+LABEL_5:
+    v11 = objc_msgSend_cksqlcs_bindInt64_index_db_(valueCopy, v8, self->_handle, v5, self->_db);
+LABEL_37:
+    v14 = v11;
+    goto LABEL_38;
+  }
+
+  if (v6 <= 0x85u)
+  {
+    if (v6 - 107 >= 2)
+    {
+      if (v6 != 132)
+      {
+        goto LABEL_35;
+      }
+
+LABEL_32:
+      v11 = objc_msgSend_cksqlcs_bindBlob_index_db_(valueCopy, v8, self->_handle, v5, self->_db);
+      goto LABEL_37;
+    }
+
+LABEL_24:
+    v11 = objc_msgSend_cksqlcs_bindDouble_index_db_(valueCopy, v8, self->_handle, v5, self->_db);
+    goto LABEL_37;
+  }
+
+  if (v6 == 134)
+  {
+    goto LABEL_32;
+  }
+
+  if (v6 != 135)
+  {
+LABEL_35:
+    objc_msgSend_errorWithDomain_code_format_(CKPrettyError, v8, @"CKErrorDomain", 1, @"Attempted to bind using unknown type %u", v6);
+    goto LABEL_36;
+  }
+
+  v20 = objc_autoreleasePoolPush();
+  v26 = 0;
+  v22 = objc_msgSend_databaseArchiveWithObject_error_(CKSQLiteDatabase, v21, valueCopy, &v26);
+  v14 = v26;
+
+  objc_autoreleasePoolPop(v20);
+  valueCopy = v22;
+  if (!v14)
+  {
+    goto LABEL_32;
+  }
+
+LABEL_38:
+  v23 = objc_msgSend_boundObjects(self, v8, v12);
+  objc_msgSend_addObject_(v23, v24, valueCopy);
+
+LABEL_39:
+
+  return v14;
+}
+
+- (id)bindValueColumn:(id)column type:(unsigned int)type value:(id)value
+{
+  v6 = *&type;
+  v26[1] = *MEMORY[0x1E69E9840];
+  columnCopy = column;
+  valueCopy = value;
+  if (!self->_handle)
+  {
+    v24 = objc_msgSend_compile(self, v9, v10);
+    if (v24)
+    {
+      v23 = v24;
+      goto LABEL_15;
+    }
+  }
+
+  v12 = objc_msgSend_length(columnCopy, v9, v10);
+  v13 = v26 - ((v12 + 17) & 0xFFFFFFFFFFFFFFF0);
+  *v13 = 58;
+  objc_msgSend_getCString_maxLength_encoding_(columnCopy, v14, (v13 + 1), v12 + 1, 1);
+  v15 = sqlite3_bind_parameter_index(self->_handle, v13);
+  if (!v15)
+  {
+    v23 = objc_msgSend_errorWithDomain_code_format_(CKPrettyError, v16, @"CKErrorDomain", 1, @"No binding index for %@", columnCopy);
+    goto LABEL_15;
+  }
+
+  v17 = v15;
+  if (v6 != 8)
+  {
+    v22 = valueCopy;
+    objc_msgSend_bindValue_ofType_atIndex_(self, v16, valueCopy, v6, v15);
+    v23 = LABEL_13:;
+    goto LABEL_14;
+  }
+
+  if (!valueCopy)
+  {
+    v22 = 0;
+LABEL_12:
+    objc_msgSend_bindValue_ofType_atIndex_(self, v16, v22, 1, v17);
+    goto LABEL_13;
+  }
+
+  WeakRetained = objc_loadWeakRetained(&self->_table);
+  v20 = objc_msgSend_tableForReferenceProperty_(WeakRetained, v19, columnCopy);
+
+  v26[0] = 0;
+  v22 = objc_msgSend_databaseReferenceIDForSavedReferent_error_(v20, v21, valueCopy, v26);
+  v23 = v26[0];
+
+  if (!v23)
+  {
+    goto LABEL_12;
+  }
+
+LABEL_14:
+  valueCopy = v22;
+LABEL_15:
+
+  return v23;
 }
 
 - (void)enumerateResultColumnsWithFetchedValues:(id)values block:(id)block

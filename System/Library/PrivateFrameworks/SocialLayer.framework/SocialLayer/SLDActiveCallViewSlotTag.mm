@@ -1,7 +1,9 @@
 @interface SLDActiveCallViewSlotTag
++ (id)tagForMaxWidth:(double)width callActive:(BOOL)active activeCallGroupPhotoData:(id)data activeCallDisplayName:(id)name;
 - (BOOL)isCallActive;
 - (BOOL)isEqual:(id)equal;
 - (SLDActiveCallViewSlotTag)initWithCoder:(id)coder;
+- (SLDActiveCallViewSlotTag)initWithMaxWidth:(double)width callActive:(BOOL)active activeCallGroupPhotoData:(id)data activeCallDisplayName:(id)name;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)resolvedStyleForStyle:(id)style;
@@ -10,6 +12,16 @@
 @end
 
 @implementation SLDActiveCallViewSlotTag
+
++ (id)tagForMaxWidth:(double)width callActive:(BOOL)active activeCallGroupPhotoData:(id)data activeCallDisplayName:(id)name
+{
+  activeCopy = active;
+  nameCopy = name;
+  dataCopy = data;
+  v11 = [[SLDActiveCallViewSlotTag alloc] initWithMaxWidth:activeCopy callActive:dataCopy activeCallGroupPhotoData:nameCopy activeCallDisplayName:width];
+
+  return v11;
+}
 
 - (id)description
 {
@@ -25,6 +37,34 @@
   v7 = [v3 stringWithFormat:@"<SLDActiveCallViewSlotTag: %p> maxWidth:[%@], callActive: [%@]", self, maxWidthNumber, v6];
 
   return v7;
+}
+
+- (SLDActiveCallViewSlotTag)initWithMaxWidth:(double)width callActive:(BOOL)active activeCallGroupPhotoData:(id)data activeCallDisplayName:(id)name
+{
+  activeCopy = active;
+  dataCopy = data;
+  nameCopy = name;
+  v21.receiver = self;
+  v21.super_class = SLDActiveCallViewSlotTag;
+  v13 = [(SLDActiveCallViewSlotTag *)&v21 init];
+  v15 = v13;
+  if (v13)
+  {
+    v13->_maxWidth = width;
+    *&v14 = width;
+    v16 = [MEMORY[0x277CCABB0] numberWithFloat:v14];
+    maxWidthNumber = v15->_maxWidthNumber;
+    v15->_maxWidthNumber = v16;
+
+    v18 = [MEMORY[0x277CCABB0] numberWithBool:activeCopy];
+    callActiveNumber = v15->_callActiveNumber;
+    v15->_callActiveNumber = v18;
+
+    objc_storeStrong(&v15->_activeCallGroupPhotoData, data);
+    objc_storeStrong(&v15->_activeCallDisplayName, name);
+  }
+
+  return v15;
 }
 
 - (BOOL)isCallActive

@@ -16,18 +16,18 @@
 {
   v8 = sub_1D78B3294();
   v9 = *(v8 - 8);
-  MEMORY[0x1EEE9AC00](v8);
-  v11 = &v14 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v8, v10);
+  v12 = &v15 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_1D78B3254();
   if (!interaction && swift_unknownObjectWeakLoadStrong())
   {
     selfCopy = self;
-    sub_1D78B259C(v11);
+    sub_1D78B259C(v12);
 
     swift_unknownObjectRelease();
   }
 
-  (*(v9 + 8))(v11, v8);
+  (*(v9 + 8))(v12, v8);
   return interaction != 0;
 }
 

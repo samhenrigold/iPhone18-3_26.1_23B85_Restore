@@ -11,6 +11,7 @@
 - (void)purgeExpiredImagesInEphemeralStore;
 - (void)purgeImageWithIdentifier:(id)identifier completion:(id)completion;
 - (void)retrieveImageWithIdentifier:(id)identifier completion:(id)completion;
+- (void)storeImage:(id)image scaled:(BOOL)scaled qualityOfService:(unsigned int)service storeType:(unint64_t)type completion:(id)completion;
 - (void)storeUserContext:(id)context forBundleIdentifier:(id)identifier;
 @end
 
@@ -70,7 +71,7 @@
   v8 = servingConnection;
   if (servingConnection)
   {
-    [servingConnection auditToken];
+    objc_msgSend_auditToken(servingConnection);
   }
 
   else
@@ -103,8 +104,8 @@
   bundleIdentifier = [v11 bundleIdentifier];
   if (v11 && ([v11 protocol], v13 = objc_claimAutoreleasedReturnValue(), v14 = objc_msgSend(v13, "isEqualToString:", @"com.apple.share-services"), v13, v14))
   {
-    v35 = v11;
-    v15 = [NSArray arrayWithObjects:&v35 count:1];
+    v36 = v11;
+    v15 = [NSArray arrayWithObjects:&v36 count:1];
     v16 = INSupportedIntentsByExtensions();
 
     if (![v16 count])
@@ -125,35 +126,35 @@
     v23 = 0;
     if ([v16 count] && bundleIdentifier2)
     {
-      v28 = bundleIdentifier2;
-      v29 = bundleIdentifier;
+      v29 = bundleIdentifier2;
+      v30 = bundleIdentifier;
       v24 = dCopy;
       v25 = v16;
-      v31 = 0;
-      v32 = &v31;
-      v33 = 0x2020000000;
+      v32 = 0;
+      v33 = &v32;
+      v34 = 0x2020000000;
       v26 = off_10000C7D8;
-      v34 = off_10000C7D8;
+      v35 = off_10000C7D8;
       if (!off_10000C7D8)
       {
         *buf = _NSConcreteStackBlock;
         *&buf[8] = 3221225472;
         *&buf[16] = sub_1000019BC;
         *&buf[24] = &unk_100008388;
-        v37 = &v31;
+        v38 = &v32;
         sub_1000019BC(buf);
-        v26 = v32[3];
+        v26 = v33[3];
       }
 
-      _Block_object_dispose(&v31, 8);
+      _Block_object_dispose(&v32, 8);
       if (!v26)
       {
-        dlerror();
-        abort_report_np();
+        v28 = dlerror();
+        abort_report_np("%s", v28);
         __break(1u);
       }
 
-      v23 = v26(v28, v29, v24, v25);
+      v23 = v26(v29, v30, v24, v25);
     }
   }
 
@@ -538,6 +539,29 @@ LABEL_32:
   }
 
   [(INImageFilePersistence *)self->_filePersistence retrieveImageWithIdentifier:identifierCopy completion:completionCopy];
+}
+
+- (void)storeImage:(id)image scaled:(BOOL)scaled qualityOfService:(unsigned int)service storeType:(unint64_t)type completion:(id)completion
+{
+  v9 = *&service;
+  scaledCopy = scaled;
+  imageCopy = image;
+  completionCopy = completion;
+  v14 = INSiriLogContextIntents;
+  if (os_log_type_enabled(INSiriLogContextIntents, OS_LOG_TYPE_INFO))
+  {
+    *buf = 136315394;
+    v20 = "[INHService storeImage:scaled:qualityOfService:storeType:completion:]";
+    v21 = 2112;
+    v22 = imageCopy;
+    _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_INFO, "%s Storing image %@ with INImageFilePersistence", buf, 0x16u);
+  }
+
+  filePersistence = self->_filePersistence;
+  v18 = 0;
+  v16 = [(INImageFilePersistence *)filePersistence storeImage:imageCopy scaled:scaledCopy qualityOfService:v9 storeType:type error:&v18];
+  v17 = v18;
+  completionCopy[2](completionCopy, v16, v17);
 }
 
 - (INHService)initWithServingConnection:(id)connection

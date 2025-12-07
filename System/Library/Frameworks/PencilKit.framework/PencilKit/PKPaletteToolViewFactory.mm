@@ -12,8 +12,8 @@
   {
     if (!v3)
     {
-      v24 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:@"Tool parameter can not be nil." userInfo:0];
-      objc_exception_throw(v24);
+      v25 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:@"Tool parameter can not be nil." userInfo:0];
+      objc_exception_throw(v25);
     }
 
     v5 = [v3 ink];
@@ -48,25 +48,26 @@
         _configuration2 = [v4 ink];
         identifier2 = [_configuration2 identifier];
         v12 = [v4 ink];
-        customConfigurationCopy = +[PKToolConfiguration defaultConfigurationForToolWithIdentifier:inkVersion:](PKToolConfiguration, identifier2, [v12 version]);
+        v13 = objc_msgSend_version(v12);
+        customConfigurationCopy = [PKToolConfiguration defaultConfigurationForToolWithIdentifier:identifier2 inkVersion:v13];
       }
     }
 
     _toolPickerItemIdentifier = [v4 _toolPickerItemIdentifier];
-    v14 = [v4 ink];
-    variant = [v14 variant];
-    v16 = [PKPaletteToolView toolViewWithToolIdentifier:identifier itemIdentifier:_toolPickerItemIdentifier variant:variant configuration:customConfigurationCopy];
+    v15 = [v4 ink];
+    variant = [v15 variant];
+    v17 = [PKPaletteToolView toolViewWithToolIdentifier:identifier itemIdentifier:_toolPickerItemIdentifier variant:variant configuration:customConfigurationCopy];
 
-    v17 = [v4 ink];
-    properties = [v17 properties];
-    [v16 setToolProperties:properties];
+    v18 = [v4 ink];
+    properties = [v18 properties];
+    [v17 setToolProperties:properties];
 
-    v19 = [v4 ink];
-    LODWORD(properties) = [v19 _isHandwritingInk];
+    v20 = [v4 ink];
+    LODWORD(properties) = [v20 _isHandwritingInk];
 
     if (properties)
     {
-      tool = [v16 tool];
+      tool = [v17 tool];
       handwritingTool = [tool handwritingTool];
       localeIdentifier = [v4 localeIdentifier];
       [handwritingTool setLocaleIdentifier:localeIdentifier];
@@ -75,10 +76,10 @@
 
   else
   {
-    v16 = 0;
+    v17 = 0;
   }
 
-  return v16;
+  return v17;
 }
 
 @end

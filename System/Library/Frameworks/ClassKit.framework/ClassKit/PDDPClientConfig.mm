@@ -198,7 +198,6 @@ LABEL_5:
   has = self->_has;
   if ((has & 4) != 0)
   {
-    recordActivity = self->_recordActivity;
     PBDataWriterWriteBOOLField();
     has = self->_has;
     if ((has & 8) == 0)
@@ -218,85 +217,79 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  sendToCloudKit = self->_sendToCloudKit;
   PBDataWriterWriteBOOLField();
   if ((*&self->_has & 0x10) != 0)
   {
 LABEL_4:
-    sendToOnramp = self->_sendToOnramp;
     PBDataWriterWriteBOOLField();
   }
 
 LABEL_5:
-  v30 = 0u;
-  v31 = 0u;
-  v28 = 0u;
-  v29 = 0u;
-  v7 = self->_excludeAppIds;
-  v8 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v28 objects:v33 count:16];
-  if (v8)
-  {
-    v9 = v8;
-    v10 = *v29;
-    do
-    {
-      for (i = 0; i != v9; i = i + 1)
-      {
-        if (*v29 != v10)
-        {
-          objc_enumerationMutation(v7);
-        }
-
-        v12 = *(*(&v28 + 1) + 8 * i);
-        PBDataWriterWriteStringField();
-      }
-
-      v9 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v28 objects:v33 count:16];
-    }
-
-    while (v9);
-  }
-
-  v26 = 0u;
-  v27 = 0u;
+  v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
-  v13 = self->_hostAllowLists;
-  v14 = [(NSMutableArray *)v13 countByEnumeratingWithState:&v24 objects:v32 count:16];
-  if (v14)
+  v21 = 0u;
+  v22 = 0u;
+  v6 = self->_excludeAppIds;
+  v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v21 objects:v26 count:16];
+  if (v7)
   {
-    v15 = v14;
-    v16 = *v25;
+    v8 = v7;
+    v9 = *v22;
     do
     {
-      for (j = 0; j != v15; j = j + 1)
+      for (i = 0; i != v8; ++i)
       {
-        if (*v25 != v16)
+        if (*v22 != v9)
         {
-          objc_enumerationMutation(v13);
+          objc_enumerationMutation(v6);
         }
 
-        v18 = *(*(&v24 + 1) + 8 * j);
         PBDataWriterWriteStringField();
       }
 
-      v15 = [(NSMutableArray *)v13 countByEnumeratingWithState:&v24 objects:v32 count:16];
+      v8 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v21 objects:v26 count:16];
     }
 
-    while (v15);
+    while (v8);
   }
 
-  v19 = self->_has;
-  if (v19)
+  v19 = 0u;
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
+  v11 = self->_hostAllowLists;
+  v12 = [(NSMutableArray *)v11 countByEnumeratingWithState:&v17 objects:v25 count:16];
+  if (v12)
   {
-    cloudKitSyncFetchGracePeriod = self->_cloudKitSyncFetchGracePeriod;
+    v13 = v12;
+    v14 = *v18;
+    do
+    {
+      for (j = 0; j != v13; ++j)
+      {
+        if (*v18 != v14)
+        {
+          objc_enumerationMutation(v11);
+        }
+
+        PBDataWriterWriteStringField();
+      }
+
+      v13 = [(NSMutableArray *)v11 countByEnumeratingWithState:&v17 objects:v25 count:16];
+    }
+
+    while (v13);
+  }
+
+  v16 = self->_has;
+  if (v16)
+  {
     PBDataWriterWriteInt32Field();
-    v19 = self->_has;
+    v16 = self->_has;
   }
 
-  if ((v19 & 2) != 0)
+  if ((v16 & 2) != 0)
   {
-    isContextTrackingAllowed = self->_isContextTrackingAllowed;
     PBDataWriterWriteBOOLField();
   }
 }
@@ -506,7 +499,6 @@ LABEL_5:
     goto LABEL_37;
   }
 
-  v5 = *(equalCopy + 36);
   if ((*&self->_has & 4) != 0)
   {
     if ((*(equalCopy + 36) & 4) == 0)
@@ -514,7 +506,6 @@ LABEL_5:
       goto LABEL_37;
     }
 
-    v8 = *(equalCopy + 33);
     if (self->_recordActivity)
     {
       if ((*(equalCopy + 33) & 1) == 0)
@@ -541,7 +532,6 @@ LABEL_5:
       goto LABEL_37;
     }
 
-    v9 = *(equalCopy + 34);
     if (self->_sendToCloudKit)
     {
       if ((*(equalCopy + 34) & 1) == 0)
@@ -568,7 +558,6 @@ LABEL_5:
       goto LABEL_37;
     }
 
-    v10 = *(equalCopy + 35);
     if (self->_sendToOnramp)
     {
       if ((*(equalCopy + 35) & 1) == 0)
@@ -616,7 +605,7 @@ LABEL_5:
     goto LABEL_37;
   }
 
-  v11 = (*(equalCopy + 36) & 2) == 0;
+  v7 = (*(equalCopy + 36) & 2) == 0;
   if ((*&self->_has & 2) != 0)
   {
     if ((*(equalCopy + 36) & 2) != 0)
@@ -634,17 +623,17 @@ LABEL_5:
         goto LABEL_37;
       }
 
-      v11 = 1;
+      v7 = 1;
       goto LABEL_38;
     }
 
 LABEL_37:
-    v11 = 0;
+    v7 = 0;
   }
 
 LABEL_38:
 
-  return v11;
+  return v7;
 }
 
 - (unint64_t)hash

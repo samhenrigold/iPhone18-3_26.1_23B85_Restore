@@ -5,6 +5,7 @@
 - (void)cleanupDataclassSpecifiers;
 - (void)setAccountManager:(id)manager;
 - (void)viewDidLoad;
+- (void)viewWillDisappear:(BOOL)disappear;
 @end
 
 @implementation ICSDataclassDetailViewController
@@ -24,16 +25,26 @@
 
 - (void)viewDidLoad
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v4 = *self;
   title = [a2 title];
-  v7 = 138412546;
-  v8 = v4;
-  v9 = 2112;
-  v10 = title;
-  _os_log_debug_impl(&dword_275819000, a3, OS_LOG_TYPE_DEBUG, "Dataclass (%@) - title (%@)", &v7, 0x16u);
+  v6 = 138412546;
+  v7 = v4;
+  v8 = 2112;
+  v9 = title;
+  _os_log_debug_impl(&dword_275819000, a3, OS_LOG_TYPE_DEBUG, "Dataclass (%@) - title (%@)", &v6, 0x16u);
+}
 
-  v6 = *MEMORY[0x277D85DE8];
+- (void)viewWillDisappear:(BOOL)disappear
+{
+  v5.receiver = self;
+  v5.super_class = ICSDataclassDetailViewController;
+  [(ACUIDataclassConfigurationViewController *)&v5 viewWillDisappear:disappear];
+  specifierProvider = self->_specifierProvider;
+  if (specifierProvider)
+  {
+    [(ICSDataclassDetailSpecifierProvider *)specifierProvider presenterWillDisappear];
+  }
 }
 
 - (void)_initSpecifiers
@@ -76,24 +87,24 @@
 
 - (id)tableView:(id)view cellForRowAtIndexPath:(id)path
 {
-  v11.receiver = self;
-  v11.super_class = ICSDataclassDetailViewController;
-  v4 = [(ACUIDataclassConfigurationViewController *)&v11 tableView:view cellForRowAtIndexPath:path];
+  v12.receiver = self;
+  v12.super_class = ICSDataclassDetailViewController;
+  v4 = [(ACUIDataclassConfigurationViewController *)&v12 tableView:view cellForRowAtIndexPath:path];
   specifier = [v4 specifier];
   v6 = [specifier propertyForKey:*MEMORY[0x277D3FEA8]];
   bOOLValue = [v6 BOOLValue];
 
   if (bOOLValue)
   {
-    v8 = LogSubsystem();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+    v9 = LogSubsystem(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
     {
-      [ICSDataclassDetailViewController tableView:specifier cellForRowAtIndexPath:v8];
+      [ICSDataclassDetailViewController tableView:specifier cellForRowAtIndexPath:v9];
     }
 
-    v9 = [objc_alloc(MEMORY[0x277D750E8]) initWithActivityIndicatorStyle:100];
-    [v9 startAnimating];
-    [v4 setAccessoryView:v9];
+    v10 = [objc_alloc(MEMORY[0x277D750E8]) initWithActivityIndicatorStyle:100];
+    [v10 startAnimating];
+    [v4 setAccessoryView:v10];
   }
 
   return v4;
@@ -109,13 +120,11 @@
 
 - (void)tableView:(void *)a1 cellForRowAtIndexPath:(NSObject *)a2 .cold.1(void *a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v3 = [a1 identifier];
-  v5 = 138412290;
-  v6 = v3;
-  _os_log_debug_impl(&dword_275819000, a2, OS_LOG_TYPE_DEBUG, "Adding spinner to specifier: %@", &v5, 0xCu);
-
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 138412290;
+  v5 = v3;
+  _os_log_debug_impl(&dword_275819000, a2, OS_LOG_TYPE_DEBUG, "Adding spinner to specifier: %@", &v4, 0xCu);
 }
 
 @end

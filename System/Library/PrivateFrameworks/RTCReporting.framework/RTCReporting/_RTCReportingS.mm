@@ -5,6 +5,7 @@
 + (id)createEphemeralSessionWithSessionInfo:(id)info userInfo:(id)userInfo error:(id *)error;
 + (id)getPersistentIdentifierForDNU:(BOOL)u;
 + (id)newHierarchyTokenFromParentToken:(id)token;
+- (BOOL)registerPeriodicTaskForModule:(unsigned int)module needToUpdate:(BOOL)update needToReport:(BOOL)report serviceBlock:(id)block;
 - (BOOL)sendMessageWithCategory:(unsigned __int16)category type:(unsigned __int16)type payload:(id)payload error:(id *)error;
 - (BOOL)sendMessageWithDictionary:(id)dictionary error:(id *)error;
 - (BOOL)uploadDataArray:(id)array completionHandler:(id)handler;
@@ -33,22 +34,22 @@
 + (id)newHierarchyTokenFromParentToken:(id)token
 {
   tokenCopy = token;
-  static _RTCReportingS.newHierarchyTokenFromParentToken(_:)();
-  v5 = v4;
+  static _RTCReportingS.newHierarchyTokenFromParentToken(_:)(token);
+  v6 = v5;
 
-  return v5;
+  return v6;
 }
 
 - (_RTCReportingS)initWithSessionInfo:(id)info userInfo:(id)userInfo frameworksToCheck:(id)check
 {
-  sub_223C48258();
-  sub_223C48258();
+  v6 = sub_223C48258();
+  v7 = sub_223C48258();
   if (check)
   {
     sub_223C483A8();
   }
 
-  _RTCReportingS.init(sessionInfo:userInfo:frameworksToCheck:)();
+  _RTCReportingS.init(sessionInfo:userInfo:frameworksToCheck:)(v6, v7);
   return result;
 }
 
@@ -68,16 +69,18 @@
 
   if (v8)
   {
-    *(swift_allocObject() + 16) = v8;
-    v10 = sub_223C45140;
+    v10 = swift_allocObject();
+    *(v10 + 16) = v8;
+    v11 = sub_223C45140;
   }
 
   else
   {
+    v11 = 0;
     v10 = 0;
   }
 
-  return _RTCReportingS.init(sessionInfo:userInfo:frameworksToCheck:aggregationBlock:)(v9, userInfo, check, v10);
+  return _RTCReportingS.init(sessionInfo:userInfo:frameworksToCheck:aggregationBlock:)(v9, userInfo, check, v11, v10);
 }
 
 - (void)startConfigurationWithCompletionHandler:(id)handler
@@ -85,18 +88,21 @@
   v4 = _Block_copy(handler);
   if (v4)
   {
-    *(swift_allocObject() + 16) = v4;
-    v5 = sub_223C34774;
+    v5 = v4;
+    v6 = swift_allocObject();
+    *(v6 + 16) = v5;
+    v7 = sub_223C34774;
   }
 
   else
   {
-    v5 = 0;
+    v7 = 0;
+    v6 = 0;
   }
 
   selfCopy = self;
-  _RTCReportingS.startConfiguration(completionHandler:)();
-  sub_223C28024(v5);
+  _RTCReportingS.startConfiguration(completionHandler:)(v7, v6);
+  sub_223C28024(v7, v6);
 }
 
 - (BOOL)sendMessageWithCategory:(unsigned __int16)category type:(unsigned __int16)type payload:(id)payload error:(id *)error
@@ -235,7 +241,7 @@
 {
   swift_unknownObjectRetain();
   selfCopy = self;
-  _RTCReportingS.messageSentDelegate.setter();
+  _RTCReportingS.messageSentDelegate.setter(delegate);
 }
 
 - (void)fetchReportingStatesWithUserInfo:(id)info fetchComplete:(id)complete
@@ -256,7 +262,7 @@
 
   selfCopy = self;
   _RTCReportingS.fetchReportingStates(userInfo:fetchComplete:)(v6, v5, v7);
-  sub_223C28024(v5);
+  sub_223C28024(v5, v7);
 }
 
 - (void)flushMessagesWithCompletion:(id)completion
@@ -264,18 +270,21 @@
   v4 = _Block_copy(completion);
   if (v4)
   {
-    *(swift_allocObject() + 16) = v4;
-    v5 = sub_223C45A90;
+    v5 = v4;
+    v6 = swift_allocObject();
+    *(v6 + 16) = v5;
+    v7 = sub_223C45A90;
   }
 
   else
   {
-    v5 = 0;
+    v7 = 0;
+    v6 = 0;
   }
 
   selfCopy = self;
   _RTCReportingS.flushMessages(completion:)();
-  sub_223C28024(v5);
+  sub_223C28024(v7, v6);
 }
 
 + (id)getPersistentIdentifierForDNU:(BOOL)u
@@ -345,6 +354,19 @@
   _RTCReportingS.stopLogTimer()();
 }
 
+- (BOOL)registerPeriodicTaskForModule:(unsigned int)module needToUpdate:(BOOL)update needToReport:(BOOL)report serviceBlock:(id)block
+{
+  v8 = *&module;
+  v10 = _Block_copy(block);
+  v11 = swift_allocObject();
+  *(v11 + 16) = v10;
+  selfCopy = self;
+  _RTCReportingS.registerPeriodicTask(module:needToUpdate:needToReport:serviceBlock:)(v8, update, report, sub_223C4512C, v11);
+  v14 = v13;
+
+  return v14 & 1;
+}
+
 - (void)unregisterPeriodTaskForModule:(unsigned int)module
 {
   selfCopy = self;
@@ -356,14 +378,20 @@
   v6 = _Block_copy(handler);
   if (v6)
   {
-    *(swift_allocObject() + 16) = v6;
+    v7 = swift_allocObject();
+    *(v7 + 16) = v6;
     v6 = sub_223C45A98;
+  }
+
+  else
+  {
+    v7 = 0;
   }
 
   lCopy = l;
   selfCopy = self;
   _RTCReportingS.uploadFile(URL:completionHandler:)();
-  sub_223C28024(v6);
+  sub_223C28024(v6, v7);
 
   return 0;
 }
@@ -374,13 +402,19 @@
   sub_223C483A8();
   if (v5)
   {
-    *(swift_allocObject() + 16) = v5;
+    v6 = swift_allocObject();
+    *(v6 + 16) = v5;
     v5 = sub_223C45110;
+  }
+
+  else
+  {
+    v6 = 0;
   }
 
   selfCopy = self;
   _RTCReportingS.uploadFile(URL:completionHandler:)();
-  sub_223C28024(v5);
+  sub_223C28024(v5, v6);
 
   return 0;
 }
@@ -404,7 +438,7 @@
 
   selfCopy = self;
   _RTCReportingS.terminateSession(completion:)(v7, v6);
-  sub_223C28024(v7);
+  sub_223C28024(v7, v6);
 }
 
 + (id)_privacyLogs:(id *)logs

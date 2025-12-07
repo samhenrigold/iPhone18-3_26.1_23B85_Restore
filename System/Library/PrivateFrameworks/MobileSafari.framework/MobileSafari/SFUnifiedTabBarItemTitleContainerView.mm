@@ -392,7 +392,7 @@ uint64_t __61__SFUnifiedTabBarItemTitleContainerView__layoutArrangedViews__block
 
   else
   {
-    return [MEMORY[0x1E69DD250] performWithoutAnimation:?];
+    return [MEMORY[0x1E69DD250] performWithoutAnimation:a3];
   }
 }
 
@@ -2307,12 +2307,13 @@ uint64_t __86__SFUnifiedTabBarItemTitleContainerView__layOutFakeClearButtonUsing
       v16 = v15;
       v18 = v17;
 
-      if (_SFPointIsInvalid())
+      IsInvalid = _SFPointIsInvalid(v16, v18);
+      if (IsInvalid)
       {
-        v19 = WBS_LOG_CHANNEL_PREFIXTabBar();
-        if (os_log_type_enabled(v19, OS_LOG_TYPE_FAULT))
+        v21 = WBS_LOG_CHANNEL_PREFIXTabBar(IsInvalid, v20);
+        if (os_log_type_enabled(v21, OS_LOG_TYPE_FAULT))
         {
-          [(SFUnifiedTabBarItemTitleContainerView *)v19 _layoutSquishedAccessoryView:viewCopy forView:v8];
+          [(SFUnifiedTabBarItemTitleContainerView *)v21 _layoutSquishedAccessoryView:viewCopy forView:v8];
         }
       }
 
@@ -2320,7 +2321,7 @@ uint64_t __86__SFUnifiedTabBarItemTitleContainerView__layOutFakeClearButtonUsing
       {
         [viewCopy setCenter:{v16, v18}];
         [viewCopy frame];
-        [viewCopy setFrame:_SFRoundRectToPixels(v20)];
+        [viewCopy setFrame:_SFRoundRectToPixels(v22)];
         [v8 alpha];
         [viewCopy setAlpha:?];
       }

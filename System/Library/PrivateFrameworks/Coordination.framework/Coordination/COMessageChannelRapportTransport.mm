@@ -143,7 +143,7 @@ void __49__COMessageChannelRapportTransport_activeMembers__block_invoke(uint64_t
 
 void __63__COMessageChannelRapportTransport_addHomeKitGroupIdentifiers___block_invoke(uint64_t a1)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) groupHKIdentifiers];
 
   if (v2)
@@ -170,11 +170,11 @@ void __63__COMessageChannelRapportTransport_addHomeKitGroupIdentifiers___block_i
     {
       v10 = *(a1 + 32);
       v11 = *(a1 + 40);
-      v20 = 134218242;
-      v21 = v10;
-      v22 = 2112;
-      v23 = v11;
-      _os_log_impl(&dword_244328000, v9, OS_LOG_TYPE_DEFAULT, "%p Adding HomeKit identifiers %@ after activation", &v20, 0x16u);
+      v19 = 134218242;
+      v20 = v10;
+      v21 = 2112;
+      v22 = v11;
+      _os_log_impl(&dword_244328000, v9, OS_LOG_TYPE_DEFAULT, "%p Adding HomeKit identifiers %@ after activation", &v19, 0x16u);
     }
 
     *(*(*(a1 + 48) + 8) + 24) = 1;
@@ -193,39 +193,37 @@ void __63__COMessageChannelRapportTransport_addHomeKitGroupIdentifiers___block_i
       [*(*(*(a1 + 56) + 8) + 40) addObject:v18];
     }
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 void __63__COMessageChannelRapportTransport_addHomeKitGroupIdentifiers___block_invoke_22(uint64_t a1)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v2 = COLogForCategory(9);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
     __63__COMessageChannelRapportTransport_addHomeKitGroupIdentifiers___block_invoke_22_cold_1(a1, v2);
   }
 
-  v14 = 0u;
-  v15 = 0u;
-  v12 = 0u;
   v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
   v3 = *(*(*(a1 + 48) + 8) + 40);
-  v4 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v13;
+    v6 = *v12;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v13 != v6)
+        if (*v12 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = *(*(&v12 + 1) + 8 * i);
+        v8 = *(*(&v11 + 1) + 8 * i);
         v9 = *(a1 + 40);
         v10 = [v8 homeKitIdentifier];
         LODWORD(v9) = [v9 containsObject:v10];
@@ -236,89 +234,85 @@ void __63__COMessageChannelRapportTransport_addHomeKitGroupIdentifiers___block_i
         }
       }
 
-      v5 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v5);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removeHomeKitGroupIdentifiers:(id)identifiers
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   identifiersCopy = identifiers;
   v5 = COLogForCategory(9);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134218242;
     selfCopy = self;
-    v13 = 2112;
-    v14 = identifiersCopy;
+    v12 = 2112;
+    v13 = identifiersCopy;
     _os_log_impl(&dword_244328000, v5, OS_LOG_TYPE_DEFAULT, "%p Removing HomeKit identifiers %@", buf, 0x16u);
   }
 
   queue = self->_queue;
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __66__COMessageChannelRapportTransport_removeHomeKitGroupIdentifiers___block_invoke;
-  v9[3] = &unk_278E12368;
-  v9[4] = self;
-  v10 = identifiersCopy;
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __66__COMessageChannelRapportTransport_removeHomeKitGroupIdentifiers___block_invoke;
+  v8[3] = &unk_278E12368;
+  v8[4] = self;
+  v9 = identifiersCopy;
   v7 = identifiersCopy;
-  dispatch_async(queue, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  dispatch_async(queue, v8);
 }
 
 void __66__COMessageChannelRapportTransport_removeHomeKitGroupIdentifiers___block_invoke(uint64_t a1)
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) activeMemberDevices];
-  v23 = [v2 copy];
+  v22 = [v2 copy];
 
-  v34 = 0u;
-  v35 = 0u;
-  v32 = 0u;
   v33 = 0u;
+  v34 = 0u;
+  v31 = 0u;
+  v32 = 0u;
   obj = *(a1 + 40);
-  v24 = [obj countByEnumeratingWithState:&v32 objects:v41 count:16];
-  if (v24)
+  v23 = [obj countByEnumeratingWithState:&v31 objects:v40 count:16];
+  if (v23)
   {
-    v22 = *v33;
+    v21 = *v32;
     do
     {
       v3 = 0;
       do
       {
-        if (*v33 != v22)
+        if (*v32 != v21)
         {
           objc_enumerationMutation(obj);
         }
 
-        v25 = v3;
-        v4 = *(*(&v32 + 1) + 8 * v3);
+        v24 = v3;
+        v4 = *(*(&v31 + 1) + 8 * v3);
+        v27 = 0u;
         v28 = 0u;
         v29 = 0u;
         v30 = 0u;
-        v31 = 0u;
-        v5 = v23;
-        v6 = [v5 countByEnumeratingWithState:&v28 objects:v40 count:16];
+        v5 = v22;
+        v6 = [v5 countByEnumeratingWithState:&v27 objects:v39 count:16];
         if (v6)
         {
           v7 = v6;
-          v8 = *v29;
+          v8 = *v28;
           do
           {
             for (i = 0; i != v7; ++i)
             {
-              if (*v29 != v8)
+              if (*v28 != v8)
               {
                 objc_enumerationMutation(v5);
               }
 
-              v10 = *(*(&v28 + 1) + 8 * i);
+              v10 = *(*(&v27 + 1) + 8 * i);
               v11 = [v10 homeKitIdentifier];
               v12 = [v4 UUIDString];
               v13 = [v11 isEqualToString:v12];
@@ -330,9 +324,9 @@ void __66__COMessageChannelRapportTransport_removeHomeKitGroupIdentifiers___bloc
                 {
                   v15 = *(a1 + 32);
                   *buf = 134218242;
-                  v37 = v15;
-                  v38 = 2112;
-                  v39 = v10;
+                  v36 = v15;
+                  v37 = 2112;
+                  v38 = v10;
                   _os_log_impl(&dword_244328000, v14, OS_LOG_TYPE_DEFAULT, "%p Removing member %@ from active member list", buf, 0x16u);
                 }
 
@@ -343,32 +337,30 @@ void __66__COMessageChannelRapportTransport_removeHomeKitGroupIdentifiers___bloc
               }
             }
 
-            v7 = [v5 countByEnumeratingWithState:&v28 objects:v40 count:16];
+            v7 = [v5 countByEnumeratingWithState:&v27 objects:v39 count:16];
           }
 
           while (v7);
         }
 
-        v3 = v25 + 1;
+        v3 = v24 + 1;
       }
 
-      while (v25 + 1 != v24);
-      v24 = [obj countByEnumeratingWithState:&v32 objects:v41 count:16];
+      while (v24 + 1 != v23);
+      v23 = [obj countByEnumeratingWithState:&v31 objects:v40 count:16];
     }
 
-    while (v24);
+    while (v23);
   }
 
   v19 = *(a1 + 32);
-  v26[0] = MEMORY[0x277D85DD0];
-  v26[1] = 3221225472;
-  v26[2] = __66__COMessageChannelRapportTransport_removeHomeKitGroupIdentifiers___block_invoke_23;
-  v26[3] = &unk_278E12368;
-  v26[4] = v19;
-  v27 = *(a1 + 40);
-  [v19 _withLock:v26];
-
-  v20 = *MEMORY[0x277D85DE8];
+  v25[0] = MEMORY[0x277D85DD0];
+  v25[1] = 3221225472;
+  v25[2] = __66__COMessageChannelRapportTransport_removeHomeKitGroupIdentifiers___block_invoke_23;
+  v25[3] = &unk_278E12368;
+  v25[4] = v19;
+  v26 = *(a1 + 40);
+  [v19 _withLock:v25];
 }
 
 void __66__COMessageChannelRapportTransport_removeHomeKitGroupIdentifiers___block_invoke_23(uint64_t a1)
@@ -389,7 +381,7 @@ void __66__COMessageChannelRapportTransport_removeHomeKitGroupIdentifiers___bloc
 
 - (void)activateWithCompletion:(id)completion
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   objc_initWeak(&location, self);
   v5 = COLogForCategory(9);
@@ -398,67 +390,65 @@ void __66__COMessageChannelRapportTransport_removeHomeKitGroupIdentifiers___bloc
     requestIdentifier = [(COMessageChannelRapportTransport *)self requestIdentifier];
     *buf = 134218242;
     selfCopy = self;
-    v32 = 2112;
-    v33 = requestIdentifier;
+    v31 = 2112;
+    v32 = requestIdentifier;
     _os_log_impl(&dword_244328000, v5, OS_LOG_TYPE_DEFAULT, "%p Going to register handler for %@", buf, 0x16u);
   }
 
   companionLinkClient = self->_companionLinkClient;
   requestIdentifier2 = [(COMessageChannelRapportTransport *)self requestIdentifier];
-  v27[0] = MEMORY[0x277D85DD0];
-  v27[1] = 3221225472;
-  v27[2] = __59__COMessageChannelRapportTransport_activateWithCompletion___block_invoke;
-  v27[3] = &unk_278E123B8;
-  objc_copyWeak(&v28, &location);
-  [(RPCompanionLinkClient *)companionLinkClient registerRequestID:requestIdentifier2 options:0 handler:v27];
+  v26[0] = MEMORY[0x277D85DD0];
+  v26[1] = 3221225472;
+  v26[2] = __59__COMessageChannelRapportTransport_activateWithCompletion___block_invoke;
+  v26[3] = &unk_278E123B8;
+  objc_copyWeak(&v27, &location);
+  [(RPCompanionLinkClient *)companionLinkClient registerRequestID:requestIdentifier2 options:0 handler:v26];
 
   v9 = self->_companionLinkClient;
-  v25[0] = MEMORY[0x277D85DD0];
-  v25[1] = 3221225472;
-  v25[2] = __59__COMessageChannelRapportTransport_activateWithCompletion___block_invoke_3;
-  v25[3] = &unk_278E123E0;
-  objc_copyWeak(&v26, &location);
-  [(RPCompanionLinkClient *)v9 setDeviceChangedHandler:v25];
+  v24[0] = MEMORY[0x277D85DD0];
+  v24[1] = 3221225472;
+  v24[2] = __59__COMessageChannelRapportTransport_activateWithCompletion___block_invoke_3;
+  v24[3] = &unk_278E123E0;
+  objc_copyWeak(&v25, &location);
+  [(RPCompanionLinkClient *)v9 setDeviceChangedHandler:v24];
   v10 = self->_companionLinkClient;
-  v23[0] = MEMORY[0x277D85DD0];
-  v23[1] = 3221225472;
-  v23[2] = __59__COMessageChannelRapportTransport_activateWithCompletion___block_invoke_2_27;
-  v23[3] = &unk_278E12408;
-  objc_copyWeak(&v24, &location);
-  [(RPCompanionLinkClient *)v10 setLocalDeviceUpdatedHandler:v23];
+  v22[0] = MEMORY[0x277D85DD0];
+  v22[1] = 3221225472;
+  v22[2] = __59__COMessageChannelRapportTransport_activateWithCompletion___block_invoke_2_27;
+  v22[3] = &unk_278E12408;
+  objc_copyWeak(&v23, &location);
+  [(RPCompanionLinkClient *)v10 setLocalDeviceUpdatedHandler:v22];
   v11 = self->_companionLinkClient;
-  v21[0] = MEMORY[0x277D85DD0];
-  v21[1] = 3221225472;
-  v21[2] = __59__COMessageChannelRapportTransport_activateWithCompletion___block_invoke_2_30;
-  v21[3] = &unk_278E12408;
-  objc_copyWeak(&v22, &location);
-  [(RPCompanionLinkClient *)v11 setDeviceFoundHandler:v21];
+  v20[0] = MEMORY[0x277D85DD0];
+  v20[1] = 3221225472;
+  v20[2] = __59__COMessageChannelRapportTransport_activateWithCompletion___block_invoke_2_30;
+  v20[3] = &unk_278E12408;
+  objc_copyWeak(&v21, &location);
+  [(RPCompanionLinkClient *)v11 setDeviceFoundHandler:v20];
   v12 = self->_companionLinkClient;
-  v19[0] = MEMORY[0x277D85DD0];
-  v19[1] = 3221225472;
-  v19[2] = __59__COMessageChannelRapportTransport_activateWithCompletion___block_invoke_2_32;
-  v19[3] = &unk_278E12408;
-  objc_copyWeak(&v20, &location);
-  [(RPCompanionLinkClient *)v12 setDeviceLostHandler:v19];
+  v18[0] = MEMORY[0x277D85DD0];
+  v18[1] = 3221225472;
+  v18[2] = __59__COMessageChannelRapportTransport_activateWithCompletion___block_invoke_2_32;
+  v18[3] = &unk_278E12408;
+  objc_copyWeak(&v19, &location);
+  [(RPCompanionLinkClient *)v12 setDeviceLostHandler:v18];
   v13 = self->_companionLinkClient;
-  v16[0] = MEMORY[0x277D85DD0];
-  v16[1] = 3221225472;
-  v16[2] = __59__COMessageChannelRapportTransport_activateWithCompletion___block_invoke_2_34;
-  v16[3] = &unk_278E12458;
-  objc_copyWeak(&v18, &location);
+  v15[0] = MEMORY[0x277D85DD0];
+  v15[1] = 3221225472;
+  v15[2] = __59__COMessageChannelRapportTransport_activateWithCompletion___block_invoke_2_34;
+  v15[3] = &unk_278E12458;
+  objc_copyWeak(&v17, &location);
   v14 = completionCopy;
-  v17 = v14;
-  [(RPCompanionLinkClient *)v13 activateWithCompletion:v16];
+  v16 = v14;
+  [(RPCompanionLinkClient *)v13 activateWithCompletion:v15];
 
-  objc_destroyWeak(&v18);
-  objc_destroyWeak(&v20);
-  objc_destroyWeak(&v22);
-  objc_destroyWeak(&v24);
-  objc_destroyWeak(&v26);
-  objc_destroyWeak(&v28);
+  objc_destroyWeak(&v17);
+  objc_destroyWeak(&v19);
+  objc_destroyWeak(&v21);
+  objc_destroyWeak(&v23);
+  objc_destroyWeak(&v25);
+  objc_destroyWeak(&v27);
   objc_destroyWeak(&location);
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void __59__COMessageChannelRapportTransport_activateWithCompletion___block_invoke(uint64_t a1, void *a2, void *a3, void *a4)
@@ -485,7 +475,7 @@ void __59__COMessageChannelRapportTransport_activateWithCompletion___block_invok
 
 void __59__COMessageChannelRapportTransport_activateWithCompletion___block_invoke_3(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   if (WeakRetained)
@@ -494,28 +484,26 @@ void __59__COMessageChannelRapportTransport_activateWithCompletion___block_invok
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134218242;
-      v11 = WeakRetained;
-      v12 = 2112;
-      v13 = v3;
+      v10 = WeakRetained;
+      v11 = 2112;
+      v12 = v3;
       _os_log_impl(&dword_244328000, v5, OS_LOG_TYPE_DEFAULT, "%p device changed %@", buf, 0x16u);
     }
 
     v6 = WeakRetained[7];
-    v8[0] = MEMORY[0x277D85DD0];
-    v8[1] = 3221225472;
-    v8[2] = __59__COMessageChannelRapportTransport_activateWithCompletion___block_invoke_25;
-    v8[3] = &unk_278E12368;
-    v8[4] = WeakRetained;
-    v9 = v3;
-    dispatch_async(v6, v8);
+    v7[0] = MEMORY[0x277D85DD0];
+    v7[1] = 3221225472;
+    v7[2] = __59__COMessageChannelRapportTransport_activateWithCompletion___block_invoke_25;
+    v7[3] = &unk_278E12368;
+    v7[4] = WeakRetained;
+    v8 = v3;
+    dispatch_async(v6, v7);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __59__COMessageChannelRapportTransport_activateWithCompletion___block_invoke_2_27(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   if (WeakRetained)
@@ -524,28 +512,26 @@ void __59__COMessageChannelRapportTransport_activateWithCompletion___block_invok
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134218242;
-      v11 = WeakRetained;
-      v12 = 2112;
-      v13 = v3;
+      v10 = WeakRetained;
+      v11 = 2112;
+      v12 = v3;
       _os_log_impl(&dword_244328000, v5, OS_LOG_TYPE_DEFAULT, "%p local device updated %@", buf, 0x16u);
     }
 
     v6 = WeakRetained[7];
-    v8[0] = MEMORY[0x277D85DD0];
-    v8[1] = 3221225472;
-    v8[2] = __59__COMessageChannelRapportTransport_activateWithCompletion___block_invoke_28;
-    v8[3] = &unk_278E12368;
-    v8[4] = WeakRetained;
-    v9 = v3;
-    dispatch_async(v6, v8);
+    v7[0] = MEMORY[0x277D85DD0];
+    v7[1] = 3221225472;
+    v7[2] = __59__COMessageChannelRapportTransport_activateWithCompletion___block_invoke_28;
+    v7[3] = &unk_278E12368;
+    v7[4] = WeakRetained;
+    v8 = v3;
+    dispatch_async(v6, v7);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __59__COMessageChannelRapportTransport_activateWithCompletion___block_invoke_2_30(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   if (WeakRetained)
@@ -554,28 +540,26 @@ void __59__COMessageChannelRapportTransport_activateWithCompletion___block_invok
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134218242;
-      v11 = WeakRetained;
-      v12 = 2112;
-      v13 = v3;
+      v10 = WeakRetained;
+      v11 = 2112;
+      v12 = v3;
       _os_log_impl(&dword_244328000, v5, OS_LOG_TYPE_DEFAULT, "%p device found %@", buf, 0x16u);
     }
 
     v6 = WeakRetained[7];
-    v8[0] = MEMORY[0x277D85DD0];
-    v8[1] = 3221225472;
-    v8[2] = __59__COMessageChannelRapportTransport_activateWithCompletion___block_invoke_31;
-    v8[3] = &unk_278E12368;
-    v8[4] = WeakRetained;
-    v9 = v3;
-    dispatch_async(v6, v8);
+    v7[0] = MEMORY[0x277D85DD0];
+    v7[1] = 3221225472;
+    v7[2] = __59__COMessageChannelRapportTransport_activateWithCompletion___block_invoke_31;
+    v7[3] = &unk_278E12368;
+    v7[4] = WeakRetained;
+    v8 = v3;
+    dispatch_async(v6, v7);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __59__COMessageChannelRapportTransport_activateWithCompletion___block_invoke_2_32(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   if (WeakRetained)
@@ -584,23 +568,21 @@ void __59__COMessageChannelRapportTransport_activateWithCompletion___block_invok
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134218242;
-      v11 = WeakRetained;
-      v12 = 2112;
-      v13 = v3;
+      v10 = WeakRetained;
+      v11 = 2112;
+      v12 = v3;
       _os_log_impl(&dword_244328000, v5, OS_LOG_TYPE_DEFAULT, "%p device lost %@", buf, 0x16u);
     }
 
     v6 = WeakRetained[7];
-    v8[0] = MEMORY[0x277D85DD0];
-    v8[1] = 3221225472;
-    v8[2] = __59__COMessageChannelRapportTransport_activateWithCompletion___block_invoke_33;
-    v8[3] = &unk_278E12368;
-    v8[4] = WeakRetained;
-    v9 = v3;
-    dispatch_async(v6, v8);
+    v7[0] = MEMORY[0x277D85DD0];
+    v7[1] = 3221225472;
+    v7[2] = __59__COMessageChannelRapportTransport_activateWithCompletion___block_invoke_33;
+    v7[3] = &unk_278E12368;
+    v7[4] = WeakRetained;
+    v8 = v3;
+    dispatch_async(v6, v7);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __59__COMessageChannelRapportTransport_activateWithCompletion___block_invoke_2_34(uint64_t a1, void *a2)
@@ -631,7 +613,7 @@ void __59__COMessageChannelRapportTransport_activateWithCompletion___block_invok
 
 - (void)sendRequest:(id)request to:(id)to withCompletionHandler:(id)handler
 {
-  v33[2] = *MEMORY[0x277D85DE8];
+  v32[2] = *MEMORY[0x277D85DE8];
   requestCopy = request;
   toCopy = to;
   handlerCopy = handler;
@@ -640,13 +622,13 @@ void __59__COMessageChannelRapportTransport_activateWithCompletion___block_invok
 
   if (v12)
   {
-    v32[0] = @"data";
+    v31[0] = @"data";
     v13 = [(COMessageChannelRapportTransport *)self _serializedDataForRequest:requestCopy];
-    v33[0] = v13;
-    v32[1] = @"className";
+    v32[0] = v13;
+    v31[1] = @"className";
     v14 = [(COMessageChannelRapportTransport *)self _payloadTypeFromClass:objc_opt_class()];
-    v33[1] = v14;
-    v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v33 forKeys:v32 count:2];
+    v32[1] = v14;
+    v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v32 forKeys:v31 count:2];
 
     requestIdentifier = [(COMessageChannelRapportTransport *)self requestIdentifier];
     v17 = COLogForCategory(9);
@@ -654,24 +636,24 @@ void __59__COMessageChannelRapportTransport_activateWithCompletion___block_invok
     {
       *buf = 134218498;
       selfCopy = self;
-      v28 = 2112;
-      v29 = requestIdentifier;
-      v30 = 2112;
-      v31 = toCopy;
+      v27 = 2112;
+      v28 = requestIdentifier;
+      v29 = 2112;
+      v30 = toCopy;
       _os_log_impl(&dword_244328000, v17, OS_LOG_TYPE_DEFAULT, "%p sending message %@ to member %@", buf, 0x20u);
     }
 
     companionLinkClient = [(COMessageChannelRapportTransport *)self companionLinkClient];
     effectiveIdentifier = [v12 effectiveIdentifier];
-    v23[0] = MEMORY[0x277D85DD0];
-    v23[1] = 3221225472;
-    v23[2] = __73__COMessageChannelRapportTransport_sendRequest_to_withCompletionHandler___block_invoke;
-    v23[3] = &unk_278E12480;
-    v23[4] = self;
-    v24 = requestIdentifier;
-    v25 = handlerCopy;
+    v22[0] = MEMORY[0x277D85DD0];
+    v22[1] = 3221225472;
+    v22[2] = __73__COMessageChannelRapportTransport_sendRequest_to_withCompletionHandler___block_invoke;
+    v22[3] = &unk_278E12480;
+    v22[4] = self;
+    v23 = requestIdentifier;
+    v24 = handlerCopy;
     v20 = requestIdentifier;
-    [companionLinkClient sendRequestID:v20 request:v15 destinationID:effectiveIdentifier options:0 responseHandler:v23];
+    [companionLinkClient sendRequestID:v20 request:v15 destinationID:effectiveIdentifier options:0 responseHandler:v22];
   }
 
   else
@@ -679,13 +661,11 @@ void __59__COMessageChannelRapportTransport_activateWithCompletion___block_invok
     v21 = [MEMORY[0x277CCA9B8] errorWithDomain:@"COMessageChannelErrorDomain" code:-1111 userInfo:0];
     (*(handlerCopy + 2))(handlerCopy, 0, v21);
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 void __73__COMessageChannelRapportTransport_sendRequest_to_withCompletionHandler___block_invoke(void *a1, void *a2, void *a3, void *a4)
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = a4;
   v9 = [a3 objectForKey:*MEMORY[0x277D442F8]];
@@ -697,21 +677,21 @@ void __73__COMessageChannelRapportTransport_sendRequest_to_withCompletionHandler
     v12 = a1[4];
     v13 = a1[5];
     *buf = 134218754;
-    v23 = v12;
-    v24 = 2112;
-    v25 = v13;
-    v26 = 2048;
-    v27 = v10;
-    v28 = 2114;
-    v29 = v8;
+    v22 = v12;
+    v23 = 2112;
+    v24 = v13;
+    v25 = 2048;
+    v26 = v10;
+    v27 = 2114;
+    v28 = v8;
     _os_log_impl(&dword_244328000, v11, OS_LOG_TYPE_DEFAULT, "%p received callback for request %@. XID = 0x%llX. Error = %{public}@", buf, 0x2Au);
   }
 
   if (v8)
   {
-    v20 = *MEMORY[0x277CCA7E8];
-    v21 = v8;
-    v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v21 forKeys:&v20 count:1];
+    v19 = *MEMORY[0x277CCA7E8];
+    v20 = v8;
+    v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v20 forKeys:&v19 count:1];
     v15 = [MEMORY[0x277CCA9B8] errorWithDomain:@"COMessageChannelErrorDomain" code:-1204 userInfo:v14];
     (*(a1[6] + 16))();
   }
@@ -738,13 +718,11 @@ void __73__COMessageChannelRapportTransport_sendRequest_to_withCompletionHandler
   {
     (*(a1[6] + 16))();
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_onqueue_handleIncomingRequest:(id)request options:(id)options responseHandler:(id)handler
 {
-  v79 = *MEMORY[0x277D85DE8];
+  v78 = *MEMORY[0x277D85DE8];
   requestCopy = request;
   optionsCopy = options;
   handlerCopy = handler;
@@ -786,10 +764,10 @@ void __73__COMessageChannelRapportTransport_sendRequest_to_withCompletionHandler
   {
     *buf = 134218498;
     selfCopy5 = self;
-    v68 = 2114;
-    v69 = v11;
-    v70 = 2048;
-    v71 = unsignedIntegerValue;
+    v67 = 2114;
+    v68 = v11;
+    v69 = 2048;
+    v70 = unsignedIntegerValue;
     _os_log_impl(&dword_244328000, v21, OS_LOG_TYPE_DEFAULT, "%p incoming request from IDS=%{public}@. XID = 0x%llX", buf, 0x20u);
   }
 
@@ -807,29 +785,29 @@ void __73__COMessageChannelRapportTransport_sendRequest_to_withCompletionHandler
     companionLinkClient3 = [(COMessageChannelRapportTransport *)self companionLinkClient];
     activeDevices = [companionLinkClient3 activeDevices];
 
-    v64 = 0u;
-    v65 = 0u;
-    v62 = 0u;
     v63 = 0u;
+    v64 = 0u;
+    v61 = 0u;
+    v62 = 0u;
     v37 = activeDevices;
-    v38 = [v37 countByEnumeratingWithState:&v62 objects:v78 count:16];
+    v38 = [v37 countByEnumeratingWithState:&v61 objects:v77 count:16];
     if (v38)
     {
       v39 = v38;
-      v56 = requestCopy;
-      v58 = unsignedIntegerValue;
+      v55 = requestCopy;
+      v57 = unsignedIntegerValue;
       v40 = handlerCopy;
-      v41 = *v63;
+      v41 = *v62;
       while (2)
       {
         for (i = 0; i != v39; ++i)
         {
-          if (*v63 != v41)
+          if (*v62 != v41)
           {
             objc_enumerationMutation(v37);
           }
 
-          v43 = *(*(&v62 + 1) + 8 * i);
+          v43 = *(*(&v61 + 1) + 8 * i);
           idsDeviceIdentifier = [v43 idsDeviceIdentifier];
           if ([idsDeviceIdentifier isEqualToString:v11])
           {
@@ -844,8 +822,8 @@ void __73__COMessageChannelRapportTransport_sendRequest_to_withCompletionHandler
               {
                 *buf = 134218242;
                 selfCopy5 = self;
-                v68 = 2114;
-                v69 = v11;
+                v67 = 2114;
+                v68 = v11;
                 _os_log_impl(&dword_244328000, v46, OS_LOG_TYPE_DEFAULT, "%p did not find an active member for IDS=%{public}@ so creating one on demand", buf, 0x16u);
               }
 
@@ -868,14 +846,14 @@ void __73__COMessageChannelRapportTransport_sendRequest_to_withCompletionHandler
               handlerCopy = v40;
             }
 
-            unsignedIntegerValue = v58;
+            unsignedIntegerValue = v57;
 
-            requestCopy = v56;
+            requestCopy = v55;
             goto LABEL_52;
           }
         }
 
-        v39 = [v37 countByEnumeratingWithState:&v62 objects:v78 count:16];
+        v39 = [v37 countByEnumeratingWithState:&v61 objects:v77 count:16];
         if (v39)
         {
           continue;
@@ -886,8 +864,8 @@ void __73__COMessageChannelRapportTransport_sendRequest_to_withCompletionHandler
 
       identifier = 0;
       handlerCopy = v40;
-      requestCopy = v56;
-      unsignedIntegerValue = v58;
+      requestCopy = v55;
+      unsignedIntegerValue = v57;
     }
 
     else
@@ -906,7 +884,7 @@ LABEL_46:
       goto LABEL_47;
     }
 
-    v57 = unsignedIntegerValue;
+    v56 = unsignedIntegerValue;
     v23 = [requestCopy objectForKey:@"data"];
     objc_opt_class();
     if ((objc_opt_isKindOfClass() & 1) == 0)
@@ -914,29 +892,29 @@ LABEL_46:
       goto LABEL_42;
     }
 
-    v54 = handlerCopy;
-    v55 = requestCopy;
+    v53 = handlerCopy;
+    v54 = requestCopy;
     v24 = [requestCopy objectForKey:@"className"];
     v25 = NSClassFromString(v24);
     if (v25)
     {
-      v61 = 0;
-      v26 = [MEMORY[0x277CCAAC8] unarchivedObjectOfClass:v25 fromData:v23 error:&v61];
-      v27 = v61;
+      v60 = 0;
+      v26 = [MEMORY[0x277CCAAC8] unarchivedObjectOfClass:v25 fromData:v23 error:&v60];
+      v27 = v60;
       if (!v27)
       {
 
 LABEL_40:
-        handlerCopy = v54;
+        handlerCopy = v53;
         if (v26)
         {
-          v59[0] = MEMORY[0x277D85DD0];
-          v59[1] = 3221225472;
-          v59[2] = __91__COMessageChannelRapportTransport__onqueue_handleIncomingRequest_options_responseHandler___block_invoke;
-          v59[3] = &unk_278E124A8;
-          v59[4] = self;
-          v60 = v54;
-          [delegate2 didReceiveRequest:v26 from:identifier withCompletionHandler:v59];
+          v58[0] = MEMORY[0x277D85DD0];
+          v58[1] = 3221225472;
+          v58[2] = __91__COMessageChannelRapportTransport__onqueue_handleIncomingRequest_options_responseHandler___block_invoke;
+          v58[3] = &unk_278E124A8;
+          v58[4] = self;
+          v59 = v53;
+          [delegate2 didReceiveRequest:v26 from:identifier withCompletionHandler:v58];
 
 LABEL_45:
           goto LABEL_46;
@@ -949,12 +927,12 @@ LABEL_42:
         {
           *buf = 134218754;
           selfCopy5 = self;
-          v68 = 2114;
-          v69 = 0;
-          v70 = 2048;
-          v71 = v57;
-          v72 = 2114;
-          v73 = v26;
+          v67 = 2114;
+          v68 = 0;
+          v69 = 2048;
+          v70 = v56;
+          v71 = 2114;
+          v72 = v26;
           _os_log_error_impl(&dword_244328000, v50, OS_LOG_TYPE_ERROR, "%p failed to encode incoming request %{public}@ XID=0x%llX. error = %{public}@", buf, 0x2Au);
         }
 
@@ -963,21 +941,21 @@ LABEL_42:
       }
 
       v28 = v27;
-      v52 = MEMORY[0x277CCA9B8];
-      v53 = v23;
-      v76 = *MEMORY[0x277CCA7E8];
-      v77 = v27;
-      v29 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v77 forKeys:&v76 count:1];
-      v30 = [v52 errorWithDomain:@"COMessageChannelErrorDomain" code:-1104 userInfo:v29];
+      v51 = MEMORY[0x277CCA9B8];
+      v52 = v23;
+      v75 = *MEMORY[0x277CCA7E8];
+      v76 = v27;
+      v29 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v76 forKeys:&v75 count:1];
+      v30 = [v51 errorWithDomain:@"COMessageChannelErrorDomain" code:-1104 userInfo:v29];
     }
 
     else
     {
-      v53 = v23;
+      v52 = v23;
       v48 = MEMORY[0x277CCA9B8];
-      v74 = @"COMessageChannelUnknownClassErrorKey";
-      v75 = v24;
-      v29 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v75 forKeys:&v74 count:1];
+      v73 = @"COMessageChannelUnknownClassErrorKey";
+      v74 = v24;
+      v29 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v74 forKeys:&v73 count:1];
       v30 = [v48 errorWithDomain:@"COMessageChannelErrorDomain" code:-1104 userInfo:v29];
       v28 = 0;
       v26 = 0;
@@ -986,29 +964,29 @@ LABEL_42:
     if (v30)
     {
       v49 = COLogForCategory(9);
-      requestCopy = v55;
-      v23 = v53;
+      requestCopy = v54;
+      v23 = v52;
       if (os_log_type_enabled(v49, OS_LOG_TYPE_ERROR))
       {
         *buf = 134218754;
         selfCopy5 = self;
-        v68 = 2114;
-        v69 = v26;
-        v70 = 2048;
-        v71 = v57;
-        v72 = 2114;
-        v73 = v30;
+        v67 = 2114;
+        v68 = v26;
+        v69 = 2048;
+        v70 = v56;
+        v71 = 2114;
+        v72 = v30;
         _os_log_error_impl(&dword_244328000, v49, OS_LOG_TYPE_ERROR, "%p failed to encode incoming request %{public}@ XID=0x%llX. error = %{public}@", buf, 0x2Au);
       }
 
-      handlerCopy = v54;
-      (v54)[2](v54, 0, 0, v30);
+      handlerCopy = v53;
+      (v53)[2](v53, 0, 0, v30);
 
       goto LABEL_45;
     }
 
-    requestCopy = v55;
-    v23 = v53;
+    requestCopy = v54;
+    v23 = v52;
     goto LABEL_40;
   }
 
@@ -1017,19 +995,17 @@ LABEL_42:
   {
     *buf = 134218240;
     selfCopy5 = self;
-    v68 = 2048;
-    v69 = unsignedIntegerValue;
+    v67 = 2048;
+    v68 = unsignedIntegerValue;
     _os_log_impl(&dword_244328000, identifier, OS_LOG_TYPE_DEFAULT, "%p incoming request (XID = 0x%llX) from device not in our group, not creating one on demand", buf, 0x16u);
   }
 
 LABEL_47:
-
-  v51 = *MEMORY[0x277D85DE8];
 }
 
 void __91__COMessageChannelRapportTransport__onqueue_handleIncomingRequest_options_responseHandler___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v13[2] = *MEMORY[0x277D85DE8];
+  v12[2] = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (v6)
@@ -1042,12 +1018,12 @@ void __91__COMessageChannelRapportTransport__onqueue_handleIncomingRequest_optio
     if (v5)
     {
       v8 = [*(a1 + 32) _serializeDataForResponse:v5];
-      v12[0] = @"data";
-      v12[1] = @"className";
-      v13[0] = v8;
+      v11[0] = @"data";
+      v11[1] = @"className";
+      v12[0] = v8;
       v9 = [*(a1 + 32) _payloadTypeFromClass:objc_opt_class()];
-      v13[1] = v9;
-      v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:2];
+      v12[1] = v9;
+      v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:2];
 
       (*(*(a1 + 40) + 16))();
       goto LABEL_6;
@@ -1058,22 +1034,20 @@ void __91__COMessageChannelRapportTransport__onqueue_handleIncomingRequest_optio
 
   v7();
 LABEL_6:
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_onqueue_handleDeviceFound:(id)found
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   foundCopy = found;
   v5 = COLogForCategory(9);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v12 = 134218242;
+    v11 = 134218242;
     selfCopy2 = self;
-    v14 = 2112;
-    v15 = foundCopy;
-    _os_log_impl(&dword_244328000, v5, OS_LOG_TYPE_DEFAULT, "%p handling device found %@", &v12, 0x16u);
+    v13 = 2112;
+    v14 = foundCopy;
+    _os_log_impl(&dword_244328000, v5, OS_LOG_TYPE_DEFAULT, "%p handling device found %@", &v11, 0x16u);
   }
 
   if ([(COMessageChannelRapportTransport *)self _onqueue_devicePresentInGroup:foundCopy])
@@ -1081,11 +1055,11 @@ LABEL_6:
     v6 = COLogForCategory(9);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v12 = 134218242;
+      v11 = 134218242;
       selfCopy2 = self;
-      v14 = 2112;
-      v15 = foundCopy;
-      _os_log_impl(&dword_244328000, v6, OS_LOG_TYPE_DEFAULT, "%p found device is in our group %@", &v12, 0x16u);
+      v13 = 2112;
+      v14 = foundCopy;
+      _os_log_impl(&dword_244328000, v6, OS_LOG_TYPE_DEFAULT, "%p found device is in our group %@", &v11, 0x16u);
     }
 
     delegate = [(COMessageChannelRapportTransport *)self delegate];
@@ -1110,22 +1084,20 @@ LABEL_6:
       }
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_onqueue_handleDeviceLost:(id)lost
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   lostCopy = lost;
   v5 = COLogForCategory(9);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = 134218242;
+    v10 = 134218242;
     selfCopy2 = self;
-    v13 = 2112;
-    v14 = lostCopy;
-    _os_log_impl(&dword_244328000, v5, OS_LOG_TYPE_DEFAULT, "%p device lost %@", &v11, 0x16u);
+    v12 = 2112;
+    v13 = lostCopy;
+    _os_log_impl(&dword_244328000, v5, OS_LOG_TYPE_DEFAULT, "%p device lost %@", &v10, 0x16u);
   }
 
   if ([(COMessageChannelRapportTransport *)self _onqueue_devicePresentInGroup:lostCopy])
@@ -1133,11 +1105,11 @@ LABEL_6:
     v6 = COLogForCategory(9);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = 134218242;
+      v10 = 134218242;
       selfCopy2 = self;
-      v13 = 2112;
-      v14 = lostCopy;
-      _os_log_impl(&dword_244328000, v6, OS_LOG_TYPE_DEFAULT, "%p lost device is in our group %@", &v11, 0x16u);
+      v12 = 2112;
+      v13 = lostCopy;
+      _os_log_impl(&dword_244328000, v6, OS_LOG_TYPE_DEFAULT, "%p lost device is in our group %@", &v10, 0x16u);
     }
 
     delegate = [(COMessageChannelRapportTransport *)self delegate];
@@ -1150,21 +1122,19 @@ LABEL_6:
       [delegate didLoseMember:v8];
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_onqueue_handleDeviceUpdated:(id)updated
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   updatedCopy = updated;
   v5 = COLogForCategory(9);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134218242;
     selfCopy = self;
-    v26 = 2112;
-    v27 = updatedCopy;
+    v25 = 2112;
+    v26 = updatedCopy;
     _os_log_impl(&dword_244328000, v5, OS_LOG_TYPE_DEFAULT, "%p device updated %@", buf, 0x16u);
   }
 
@@ -1176,29 +1146,29 @@ LABEL_6:
 
     if (v8)
     {
-      v21 = 0u;
-      v22 = 0u;
-      v19 = 0u;
       v20 = 0u;
+      v21 = 0u;
+      v18 = 0u;
+      v19 = 0u;
       activeMemberDevices = [(COMessageChannelRapportTransport *)self activeMemberDevices];
       allKeys = [activeMemberDevices allKeys];
 
-      v11 = [allKeys countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v11 = [allKeys countByEnumeratingWithState:&v18 objects:v22 count:16];
       if (v11)
       {
         v12 = v11;
-        v13 = *v20;
+        v13 = *v19;
         while (2)
         {
           v14 = 0;
           do
           {
-            if (*v20 != v13)
+            if (*v19 != v13)
             {
               objc_enumerationMutation(allKeys);
             }
 
-            homeKitIdentifier2 = [*(*(&v19 + 1) + 8 * v14) homeKitIdentifier];
+            homeKitIdentifier2 = [*(*(&v18 + 1) + 8 * v14) homeKitIdentifier];
             uUIDString = [homeKitIdentifier UUIDString];
             v17 = [homeKitIdentifier2 isEqualToString:uUIDString];
 
@@ -1212,7 +1182,7 @@ LABEL_6:
           }
 
           while (v12 != v14);
-          v12 = [allKeys countByEnumeratingWithState:&v19 objects:v23 count:16];
+          v12 = [allKeys countByEnumeratingWithState:&v18 objects:v22 count:16];
           if (v12)
           {
             continue;
@@ -1227,8 +1197,6 @@ LABEL_6:
   }
 
 LABEL_15:
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_onqueue_devicePresentInGroup:(id)group
@@ -1373,50 +1341,31 @@ void __75__COMessageChannelRapportTransport__onqueue_activeMemberWithIDSIdentifi
 
 void __63__COMessageChannelRapportTransport_addHomeKitGroupIdentifiers___block_invoke_22_cold_1(uint64_t a1, NSObject *a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   v3 = *(*(*(a1 + 48) + 8) + 40);
-  v5 = 134218242;
-  v6 = v2;
-  v7 = 2112;
-  v8 = v3;
-  _os_log_debug_impl(&dword_244328000, a2, OS_LOG_TYPE_DEBUG, "%p checking active rapport devices %@", &v5, 0x16u);
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 134218242;
+  v5 = v2;
+  v6 = 2112;
+  v7 = v3;
+  _os_log_debug_impl(&dword_244328000, a2, OS_LOG_TYPE_DEBUG, "%p checking active rapport devices %@", &v4, 0x16u);
 }
 
 - (void)_onqueue_handleIncomingRequest:(uint64_t)a1 options:(uint64_t)a2 responseHandler:(NSObject *)a3 .cold.1(uint64_t a1, uint64_t a2, NSObject *a3)
 {
-  *v4 = 134218242;
-  *&v4[4] = a1;
-  *&v4[12] = 2114;
-  *&v4[14] = a2;
-  OUTLINED_FUNCTION_1(&dword_244328000, a2, a3, "%p incoming request %{public}@ does not have an IDS identifier field", *v4, *&v4[8], *&v4[16], *MEMORY[0x277D85DE8]);
-  v3 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_onqueue_handleIncomingRequest:options:responseHandler:.cold.2()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_244328000, v0, v1, "%p unable to produce an on-demand member from device %@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_onqueue_handleDeviceFound:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_244328000, v0, v1, "%p Unable to produce a member for device %@");
-  v2 = *MEMORY[0x277D85DE8];
+  *v3 = 134218242;
+  *&v3[4] = a1;
+  *&v3[12] = 2114;
+  *&v3[14] = a2;
+  OUTLINED_FUNCTION_1(&dword_244328000, a2, a3, "%p incoming request %{public}@ does not have an IDS identifier field", *v3, *&v3[8], *&v3[16], *MEMORY[0x277D85DE8]);
 }
 
 - (void)_onqueue_memberFromRPCompanionLinkDevice:.cold.1()
 {
-  v4 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
-  v3 = 0;
-  _os_log_error_impl(&dword_244328000, v0, OS_LOG_TYPE_ERROR, "%p failed to create a member for device. IDS identifier = %@", v2, 0x16u);
-  v1 = *MEMORY[0x277D85DE8];
+  v2 = 0;
+  _os_log_error_impl(&dword_244328000, v0, OS_LOG_TYPE_ERROR, "%p failed to create a member for device. IDS identifier = %@", v1, 0x16u);
 }
 
 @end

@@ -84,17 +84,17 @@ void __67__WBSPageZoomPreferenceManager_getPageZoomFactorForURL_usingBlock___blo
 
 uint64_t __67__WBSPageZoomPreferenceManager_getPageZoomFactorForURL_usingBlock___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   [WeakRetained _pageZoomStepToZoomFactor:a2];
   v6 = v5;
 
-  v7 = WBS_LOG_CHANNEL_PREFIXPerSitePreferences();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+  v9 = WBS_LOG_CHANNEL_PREFIXPerSitePreferences(v7, v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
   {
-    v9 = 134217984;
-    v10 = v6;
-    _os_log_impl(&dword_1BB6F3000, v7, OS_LOG_TYPE_INFO, "Loading website with page zoom factor: %f", &v9, 0xCu);
+    v11 = 134217984;
+    v12 = v6;
+    _os_log_impl(&dword_1BB6F3000, v9, OS_LOG_TYPE_INFO, "Loading website with page zoom factor: %f", &v11, 0xCu);
   }
 
   return (*(*(a1 + 32) + 16))(v6);
@@ -142,20 +142,21 @@ void __70__WBSPageZoomPreferenceManager_resetZoomLevelOnURL_completionHandler___
   }
 }
 
-uint64_t __70__WBSPageZoomPreferenceManager_resetZoomLevelOnURL_completionHandler___block_invoke_2(uint64_t a1, char a2)
+uint64_t __70__WBSPageZoomPreferenceManager_resetZoomLevelOnURL_completionHandler___block_invoke_2(uint64_t a1, uint64_t a2)
 {
   if ((a2 & 1) == 0)
   {
-    v3 = WBS_LOG_CHANNEL_PREFIXPerSitePreferences();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v3 = WBS_LOG_CHANNEL_PREFIXPerSitePreferences(a1, a2);
+    v4 = os_log_type_enabled(v3, OS_LOG_TYPE_ERROR);
+    if (v4)
     {
       __70__WBSPageZoomPreferenceManager_resetZoomLevelOnURL_completionHandler___block_invoke_2_cold_1(v3);
     }
 
-    v4 = WBS_LOG_CHANNEL_PREFIXPerSitePreferences();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
+    v6 = WBS_LOG_CHANNEL_PREFIXPerSitePreferences(v4, v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
-      __70__WBSPageZoomPreferenceManager_resetZoomLevelOnURL_completionHandler___block_invoke_2_cold_2(a1, v4);
+      __70__WBSPageZoomPreferenceManager_resetZoomLevelOnURL_completionHandler___block_invoke_2_cold_2(a1, v6);
     }
   }
 
@@ -295,29 +296,30 @@ uint64_t __52__WBSPageZoomPreferenceManager__getDefaultZoomStep___block_invoke(u
 {
   domainCopy = domain;
   blockCopy = block;
-  v8 = WBS_LOG_CHANNEL_PREFIXPerSitePreferences();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+  v9 = WBS_LOG_CHANNEL_PREFIXPerSitePreferences(blockCopy, v8);
+  v10 = os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG);
+  if (v10)
   {
-    [WBSPageZoomPreferenceManager _getZoomStepForDomain:v8 usingBlock:?];
+    [WBSPageZoomPreferenceManager _getZoomStepForDomain:v9 usingBlock:?];
   }
 
-  v9 = WBS_LOG_CHANNEL_PREFIXPerSitePreferences();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+  v12 = WBS_LOG_CHANNEL_PREFIXPerSitePreferences(v10, v11);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
   {
-    [WBSPageZoomPreferenceManager _getZoomStepForDomain:domainCopy usingBlock:v9];
+    [WBSPageZoomPreferenceManager _getZoomStepForDomain:domainCopy usingBlock:v12];
   }
 
   pageZoomPreference = self->_pageZoomPreference;
-  v13[0] = MEMORY[0x1E69E9820];
-  v13[1] = 3221225472;
-  v13[2] = __65__WBSPageZoomPreferenceManager__getZoomStepForDomain_usingBlock___block_invoke;
-  v13[3] = &unk_1E7FC8E48;
-  v13[4] = self;
-  v14 = domainCopy;
-  v15 = blockCopy;
-  v11 = blockCopy;
-  v12 = domainCopy;
-  [(WBSPerSitePreferenceManager *)self getValueOfPreference:pageZoomPreference forDomain:v12 withTimeout:0 usingBlock:v13];
+  v16[0] = MEMORY[0x1E69E9820];
+  v16[1] = 3221225472;
+  v16[2] = __65__WBSPageZoomPreferenceManager__getZoomStepForDomain_usingBlock___block_invoke;
+  v16[3] = &unk_1E7FC8E48;
+  v16[4] = self;
+  v17 = domainCopy;
+  v18 = blockCopy;
+  v14 = blockCopy;
+  v15 = domainCopy;
+  [(WBSPerSitePreferenceManager *)self getValueOfPreference:pageZoomPreference forDomain:v15 withTimeout:0 usingBlock:v16];
 }
 
 void __65__WBSPageZoomPreferenceManager__getZoomStepForDomain_usingBlock___block_invoke(uint64_t a1, void *a2, int a3)
@@ -490,12 +492,12 @@ void __86__WBSPageZoomPreferenceManager__incrementOrDecreaseZoomStep_forURL_comp
   }
 }
 
-uint64_t __86__WBSPageZoomPreferenceManager__incrementOrDecreaseZoomStep_forURL_completionHandler___block_invoke_4(uint64_t a1, char a2)
+uint64_t __86__WBSPageZoomPreferenceManager__incrementOrDecreaseZoomStep_forURL_completionHandler___block_invoke_4(uint64_t a1, uint64_t a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   if ((a2 & 1) == 0)
   {
-    v3 = WBS_LOG_CHANNEL_PREFIXPerSitePreferences();
+    v3 = WBS_LOG_CHANNEL_PREFIXPerSitePreferences(a1, a2);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       __86__WBSPageZoomPreferenceManager__incrementOrDecreaseZoomStep_forURL_completionHandler___block_invoke_4_cold_1(v3);
@@ -506,12 +508,12 @@ uint64_t __86__WBSPageZoomPreferenceManager__incrementOrDecreaseZoomStep_forURL_
   [WeakRetained _pageZoomStepToZoomFactor:*(a1 + 48)];
   v6 = v5;
 
-  v7 = WBS_LOG_CHANNEL_PREFIXPerSitePreferences();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+  v9 = WBS_LOG_CHANNEL_PREFIXPerSitePreferences(v7, v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
   {
-    v9 = 134217984;
-    v10 = v6;
-    _os_log_impl(&dword_1BB6F3000, v7, OS_LOG_TYPE_INFO, "Updating website with page zoom factor: %f", &v9, 0xCu);
+    v11 = 134217984;
+    v12 = v6;
+    _os_log_impl(&dword_1BB6F3000, v9, OS_LOG_TYPE_INFO, "Updating website with page zoom factor: %f", &v11, 0xCu);
   }
 
   return (*(*(a1 + 32) + 16))(v6);

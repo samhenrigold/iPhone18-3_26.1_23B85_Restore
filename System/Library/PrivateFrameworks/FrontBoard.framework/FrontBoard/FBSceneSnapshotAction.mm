@@ -8,7 +8,7 @@
 
 - (FBSceneSnapshotAction)initWithScene:(id)scene requests:(id)requests expirationInterval:(double)interval responseHandler:(id)handler
 {
-  v55 = *MEMORY[0x1E69E9840];
+  v54 = *MEMORY[0x1E69E9840];
   sceneCopy = scene;
   requestsCopy = requests;
   handlerCopy = handler;
@@ -16,14 +16,14 @@
   v13 = MEMORY[0x1E696AEC0];
   v14 = objc_opt_class();
   v15 = NSStringFromClass(v14);
-  v43 = identifier;
+  v42 = identifier;
   v16 = [v13 stringWithFormat:@"<%@: %p %@>", v15, self, identifier];;
 
   v17 = FBLogCommon();
   if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v54 = v16;
+    v53 = v16;
     _os_log_impl(&dword_1A89DD000, v17, OS_LOG_TYPE_DEFAULT, "Created: %{public}@", buf, 0xCu);
   }
 
@@ -44,10 +44,10 @@
     selfCopy = self;
     v28 = v16;
     v30 = v29 = handlerCopy;
-    v52[0] = v30;
+    v51[0] = v30;
     v31 = [MEMORY[0x1E69C7570] invalidateAfterInterval:interval];
-    v52[1] = v31;
-    v32 = [MEMORY[0x1E695DEC8] arrayWithObjects:v52 count:2];
+    v51[1] = v31;
+    v32 = [MEMORY[0x1E695DEC8] arrayWithObjects:v51 count:2];
     v21 = [v23 initWithExplanation:v25 target:v26 attributes:v32];
 
     v22 = &off_1A8A71000;
@@ -55,27 +55,27 @@
     v16 = v28;
     self = selfCopy;
 
-    v50[0] = MEMORY[0x1E69E9820];
-    v50[1] = 3221225472;
-    v50[2] = __83__FBSceneSnapshotAction_initWithScene_requests_expirationInterval_responseHandler___block_invoke;
-    v50[3] = &unk_1E783D040;
-    v51 = v16;
-    [v21 setInvalidationHandler:v50];
+    v49[0] = MEMORY[0x1E69E9820];
+    v49[1] = 3221225472;
+    v49[2] = __83__FBSceneSnapshotAction_initWithScene_requests_expirationInterval_responseHandler___block_invoke;
+    v49[3] = &unk_1E783D040;
+    v50 = v16;
+    [v21 setInvalidationHandler:v49];
   }
 
-  v46[0] = MEMORY[0x1E69E9820];
-  v46[1] = *(v22 + 454);
-  v46[2] = __83__FBSceneSnapshotAction_initWithScene_requests_expirationInterval_responseHandler___block_invoke_13;
-  v46[3] = &unk_1E783D150;
+  v45[0] = MEMORY[0x1E69E9820];
+  v45[1] = *(v22 + 454);
+  v45[2] = __83__FBSceneSnapshotAction_initWithScene_requests_expirationInterval_responseHandler___block_invoke_13;
+  v45[3] = &unk_1E783D150;
   v33 = v16;
-  v47 = v33;
+  v46 = v33;
   v34 = v21;
-  v48 = v34;
+  v47 = v34;
   v35 = handlerCopy;
-  v49 = v35;
-  v45.receiver = self;
-  v45.super_class = FBSceneSnapshotAction;
-  v36 = [(FBSSceneSnapshotAction *)&v45 initWithRequests:requestsCopy expirationInterval:v46 responseHandler:interval];
+  v48 = v35;
+  v44.receiver = self;
+  v44.super_class = FBSceneSnapshotAction;
+  v36 = [(FBSSceneSnapshotAction *)&v44 initWithRequests:requestsCopy expirationInterval:v45 responseHandler:interval];
   if (v36)
   {
     identifier3 = [sceneCopy identifier];
@@ -88,7 +88,6 @@
     [v34 acquireWithError:0];
   }
 
-  v40 = *MEMORY[0x1E69E9840];
   return v36;
 }
 
@@ -104,7 +103,7 @@ void __83__FBSceneSnapshotAction_initWithScene_requests_expirationInterval_respo
 
 void __83__FBSceneSnapshotAction_initWithScene_requests_expirationInterval_responseHandler___block_invoke_13(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = [v3 error];
   v5 = FBLogCommon();
@@ -121,11 +120,11 @@ void __83__FBSceneSnapshotAction_initWithScene_requests_expirationInterval_respo
       v7 = @"success";
     }
 
-    v10 = 138543618;
-    v11 = v6;
-    v12 = 2114;
-    v13 = v7;
-    _os_log_impl(&dword_1A89DD000, v5, OS_LOG_TYPE_DEFAULT, "Got response for %{public}@: %{public}@", &v10, 0x16u);
+    v9 = 138543618;
+    v10 = v6;
+    v11 = 2114;
+    v12 = v7;
+    _os_log_impl(&dword_1A89DD000, v5, OS_LOG_TYPE_DEFAULT, "Got response for %{public}@: %{public}@", &v9, 0x16u);
     if (v4)
     {
     }
@@ -137,8 +136,6 @@ void __83__FBSceneSnapshotAction_initWithScene_requests_expirationInterval_respo
   {
     (*(v8 + 16))(v8, v3);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)dealloc
@@ -151,35 +148,32 @@ void __83__FBSceneSnapshotAction_initWithScene_requests_expirationInterval_respo
 
 - (void)invalidate
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v3 = FBLogCommon();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     description = self->_description;
     *buf = 138543362;
-    v8 = description;
+    v7 = description;
     _os_log_impl(&dword_1A89DD000, v3, OS_LOG_TYPE_DEFAULT, "Invalidating: %{public}@", buf, 0xCu);
   }
 
   [(RBSAssertion *)self->_assertion invalidate];
-  v6.receiver = self;
-  v6.super_class = FBSceneSnapshotAction;
-  [(FBSSceneSnapshotAction *)&v6 invalidate];
-  v5 = *MEMORY[0x1E69E9840];
+  v5.receiver = self;
+  v5.super_class = FBSceneSnapshotAction;
+  [(FBSSceneSnapshotAction *)&v5 invalidate];
 }
 
 void __83__FBSceneSnapshotAction_initWithScene_requests_expirationInterval_responseHandler___block_invoke_cold_1(uint64_t a1, void *a2, NSObject *a3)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v4 = *(a1 + 32);
   v5 = [a2 succinctDescription];
-  v7 = 138543618;
-  v8 = v4;
-  v9 = 2114;
-  v10 = v5;
-  _os_log_error_impl(&dword_1A89DD000, a3, OS_LOG_TYPE_ERROR, "Assertion invalidated for %{public}@: %{public}@", &v7, 0x16u);
-
-  v6 = *MEMORY[0x1E69E9840];
+  v6 = 138543618;
+  v7 = v4;
+  v8 = 2114;
+  v9 = v5;
+  _os_log_error_impl(&dword_1A89DD000, a3, OS_LOG_TYPE_ERROR, "Assertion invalidated for %{public}@: %{public}@", &v6, 0x16u);
 }
 
 @end

@@ -25,7 +25,6 @@
   [navigationItem setLeftBarButtonItem:v4];
 
   sub_10052098C();
-  sub_100520B30();
   view = [v2 view];
   if (view)
   {
@@ -42,14 +41,16 @@
 
 - (void)viewWillAppear:(BOOL)appear
 {
+  appearCopy = appear;
   selfCopy = self;
-  sub_10051FEF4(appear);
+  sub_10051FEF4(appearCopy);
 }
 
 - (void)viewDidDisappear:(BOOL)disappear
 {
+  disappearCopy = disappear;
   selfCopy = self;
-  sub_100520108(disappear);
+  sub_100520108(disappearCopy);
 }
 
 - (void)traitCollectionDidChange:(id)change
@@ -84,12 +85,13 @@
   v3 = *(&self->super.super.super.super.isa + OBJC_IVAR____TtC6FindMy31FMFindUnknownItemViewController_scrollHandler);
   if (v3)
   {
+    v5 = *&self->super.mediator[OBJC_IVAR____TtC6FindMy31FMFindUnknownItemViewController_scrollHandler];
     scrollCopy = scroll;
     selfCopy = self;
-    sub_100062900(v3);
-    v3(scrollCopy);
+    v8 = sub_100062900(v3, v5);
+    v3(scrollCopy, v8);
 
-    sub_10001835C(v3);
+    sub_10001835C(v3, v5);
   }
 }
 
@@ -99,7 +101,7 @@
   v7 = *(v6 - 8);
   __chkstk_darwin(v6);
   v9 = &v20 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v10 = sub_10007EBC0(&unk_1006C2670);
+  v10 = sub_10007EBC0(&unk_1006C2670, &qword_10055DDB0);
   __chkstk_darwin(v10 - 8);
   v12 = &v20 - v11;
   static IndexPath._unconditionallyBridgeFromObjectiveC(_:)();
@@ -130,7 +132,7 @@
   static IndexPath._unconditionallyBridgeFromObjectiveC(_:)();
   viewCopy = view;
   selfCopy = self;
-  sub_100528A18();
+  sub_100528A18(v9);
 
   (*(v7 + 8))(v9, v6);
 }

@@ -24,7 +24,7 @@
 
 - (void)_postUpdateEventRouterEventIfDifferent:(id)different
 {
-  v64 = *MEMORY[0x277D85DE8];
+  v63 = *MEMORY[0x277D85DE8];
   differentCopy = different;
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -33,9 +33,9 @@
   {
     v8 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v59 = v8;
-    v60 = 2112;
-    v61 = differentCopy;
+    v58 = v8;
+    v59 = 2112;
+    v60 = differentCopy;
     _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Posting audio analysis event for bulletin: %@", buf, 0x16u);
   }
 
@@ -63,7 +63,7 @@
       {
         v40 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v59 = v40;
+        v58 = v40;
         _os_log_impl(&dword_229538000, v39, OS_LOG_TYPE_ERROR, "%{public}@nil topic", buf, 0xCu);
       }
 
@@ -74,17 +74,17 @@
     context3 = [(HMDAudioAnalysisEventSubscriber *)selfCopy context];
     eventStoreReadHandle = [context3 eventStoreReadHandle];
 
-    v55 = eventStoreReadHandle;
+    v54 = eventStoreReadHandle;
     v21 = [eventStoreReadHandle lastEventForTopic:v18];
-    v54 = v21;
+    v53 = v21;
     if (!v21)
     {
       goto LABEL_21;
     }
 
-    v56 = 0;
-    v22 = [MEMORY[0x277CD1848] decodeBulletinsFromEvent:v21 error:&v56];
-    v23 = v56;
+    v55 = 0;
+    v22 = [MEMORY[0x277CD1848] decodeBulletinsFromEvent:v21 error:&v55];
+    v23 = v55;
     if (!v23)
     {
       if (v22)
@@ -93,7 +93,7 @@
       }
     }
 
-    v52 = v13;
+    v51 = v13;
     context = objc_autoreleasePoolPush();
     v24 = selfCopy;
     v25 = HMFGetOSLogHandle();
@@ -101,22 +101,22 @@
     {
       v26 = HMFGetLogIdentifier();
       *buf = 138543874;
-      v59 = v26;
-      v60 = 2112;
-      v61 = v18;
-      v62 = 2112;
-      v63 = v23;
+      v58 = v26;
+      v59 = 2112;
+      v60 = v18;
+      v61 = 2112;
+      v62 = v23;
       _os_log_impl(&dword_229538000, v25, OS_LOG_TYPE_INFO, "%{public}@Error reading stored event for topic %@, error: %@", buf, 0x20u);
     }
 
     objc_autoreleasePoolPop(context);
-    v13 = v52;
+    v13 = v51;
     if (v22)
     {
 LABEL_11:
       v27 = v13;
       v28 = [v22 checkIfBulletinExists:{v13, context}];
-      v53 = objc_autoreleasePoolPush();
+      v52 = objc_autoreleasePoolPush();
       v29 = selfCopy;
       v30 = HMFGetOSLogHandle();
       v31 = os_log_type_enabled(v30, OS_LOG_TYPE_INFO);
@@ -126,13 +126,13 @@ LABEL_11:
         {
           v32 = HMFGetLogIdentifier();
           *buf = 138543618;
-          v59 = v32;
-          v60 = 2112;
-          v61 = v27;
+          v58 = v32;
+          v59 = 2112;
+          v60 = v27;
           _os_log_impl(&dword_229538000, v30, OS_LOG_TYPE_INFO, "%{public}@Bulletin:%@ exists in events", buf, 0x16u);
         }
 
-        objc_autoreleasePoolPop(v53);
+        objc_autoreleasePoolPop(v52);
         v13 = v27;
         goto LABEL_28;
       }
@@ -141,13 +141,13 @@ LABEL_11:
       {
         v46 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v59 = v46;
-        v60 = 2112;
-        v61 = v27;
+        v58 = v46;
+        v59 = 2112;
+        v60 = v27;
         _os_log_impl(&dword_229538000, v30, OS_LOG_TYPE_INFO, "%{public}@Adding bulletin:%@ to events", buf, 0x16u);
       }
 
-      objc_autoreleasePoolPop(v53);
+      objc_autoreleasePoolPop(v52);
       v13 = v27;
       v45 = [v22 bulletinsByAddingOrReplacingBulletin:v27];
     }
@@ -162,15 +162,15 @@ LABEL_21:
       {
         v44 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v59 = v44;
-        v60 = 2112;
-        v61 = v13;
+        v58 = v44;
+        v59 = 2112;
+        v60 = v13;
         _os_log_impl(&dword_229538000, v43, OS_LOG_TYPE_INFO, "%{public}@Adding new bulletin:%@ to events", buf, 0x16u);
       }
 
       objc_autoreleasePoolPop(v41);
-      v57 = v13;
-      v45 = [MEMORY[0x277CBEA60] arrayWithObjects:&v57 count:1];
+      v56 = v13;
+      v45 = [MEMORY[0x277CBEA60] arrayWithObjects:&v56 count:1];
       v22 = 0;
     }
 
@@ -193,14 +193,12 @@ LABEL_29:
   {
     v36 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v59 = v36;
+    v58 = v36;
     _os_log_impl(&dword_229538000, v35, OS_LOG_TYPE_ERROR, "%{public}@nil event source", buf, 0xCu);
   }
 
   objc_autoreleasePoolPop(v33);
 LABEL_30:
-
-  v50 = *MEMORY[0x277D85DE8];
 }
 
 - (id)transformHMDBulletinToHMBulletin:(id)bulletin
@@ -225,7 +223,7 @@ LABEL_30:
 
 - (void)_handleAudioAnalysisEventMessage:(id)message
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -233,11 +231,11 @@ LABEL_30:
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     v8 = HMFGetLogIdentifier();
-    v21 = 138543618;
-    v22 = v8;
-    v23 = 2112;
-    v24 = messageCopy;
-    _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Received audio analysis notification message %@", &v21, 0x16u);
+    v20 = 138543618;
+    v21 = v8;
+    v22 = 2112;
+    v23 = messageCopy;
+    _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Received audio analysis notification message %@", &v20, 0x16u);
   }
 
   objc_autoreleasePoolPop(v5);
@@ -265,12 +263,11 @@ LABEL_30:
   [context3 submitLogEvent:v16];
 
   [messageCopy respondWithPayload:0];
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_postBulletinNotificationWithBulletin:(id)bulletin
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   bulletinCopy = bulletin;
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -278,11 +275,11 @@ LABEL_30:
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     v8 = HMFGetLogIdentifier();
-    v13 = 138543618;
-    v14 = v8;
-    v15 = 2112;
-    v16 = bulletinCopy;
-    _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Posting audio analysis bulletin notification: %@", &v13, 0x16u);
+    v12 = 138543618;
+    v13 = v8;
+    v14 = 2112;
+    v15 = bulletinCopy;
+    _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Posting audio analysis bulletin notification: %@", &v12, 0x16u);
   }
 
   objc_autoreleasePoolPop(v5);
@@ -302,8 +299,6 @@ LABEL_30:
     [bulletinBoard insertAudioAnalysisEventNotification:bulletinCopy];
 LABEL_7:
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_postOrUpdateNotificationWithBulletin:(id)bulletin
@@ -316,16 +311,16 @@ LABEL_7:
 - (id)mediaSystemLastKnownEventKeyForAccessoryUUID:(id)d pairedAccessoryUUID:(id)iD reason:(unint64_t)reason
 {
   v5 = 0;
-  v19[2] = *MEMORY[0x277D85DE8];
+  v18[2] = *MEMORY[0x277D85DE8];
   if (d && iD)
   {
     iDCopy = iD;
     uUIDString = [d UUIDString];
-    v19[0] = uUIDString;
+    v18[0] = uUIDString;
     uUIDString2 = [iDCopy UUIDString];
 
-    v19[1] = uUIDString2;
-    v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:2];
+    v18[1] = uUIDString2;
+    v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:2];
 
     v12 = [v11 sortedArrayUsingSelector:sel_compare_];
 
@@ -336,19 +331,17 @@ LABEL_7:
     v5 = [v13 stringWithFormat:@"accessory:%@.accessory:%@.reason.%@", v14, v15, v16];
   }
 
-  v17 = *MEMORY[0x277D85DE8];
-
   return v5;
 }
 
 - (void)_postOrUpdateNotificationWithBulletin:(id)bulletin stereoPairedAccessory:(id)accessory
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   bulletinCopy = bulletin;
   accessoryCopy = accessory;
   context = [(HMDAudioAnalysisEventSubscriber *)self context];
   uuid = [context uuid];
-  v26 = accessoryCopy;
+  v25 = accessoryCopy;
   uuid2 = [accessoryCopy uuid];
   v11 = -[HMDAudioAnalysisEventSubscriber mediaSystemLastKnownEventKeyForAccessoryUUID:pairedAccessoryUUID:reason:](self, "mediaSystemLastKnownEventKeyForAccessoryUUID:pairedAccessoryUUID:reason:", uuid, uuid2, [bulletinCopy reason]);
 
@@ -359,9 +352,9 @@ LABEL_7:
   {
     v15 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v31 = v15;
-    v32 = 2112;
-    v33 = v11;
+    v30 = v15;
+    v31 = 2112;
+    v32 = v11;
     _os_log_impl(&dword_229538000, v14, OS_LOG_TYPE_INFO, "%{public}@Comparing key for stereo paired accessory: %@", buf, 0x16u);
   }
 
@@ -373,23 +366,21 @@ LABEL_7:
   context3 = [bulletinCopy context];
   accessory = [context3 accessory];
   notificationUUID = [bulletinCopy notificationUUID];
-  v27[0] = MEMORY[0x277D85DD0];
-  v27[1] = 3221225472;
-  v27[2] = __95__HMDAudioAnalysisEventSubscriber__postOrUpdateNotificationWithBulletin_stereoPairedAccessory___block_invoke;
-  v27[3] = &unk_278674260;
-  v27[4] = selfCopy;
-  v28 = v11;
-  v29 = bulletinCopy;
+  v26[0] = MEMORY[0x277D85DD0];
+  v26[1] = 3221225472;
+  v26[2] = __95__HMDAudioAnalysisEventSubscriber__postOrUpdateNotificationWithBulletin_stereoPairedAccessory___block_invoke;
+  v26[3] = &unk_278674260;
+  v26[4] = selfCopy;
+  v27 = v11;
+  v28 = bulletinCopy;
   v23 = bulletinCopy;
   v24 = v11;
-  [audioAnalysisStereoPairController compareOrUpdateRecentAudioAnalysisStereoPairEvent:v16 key:v24 accessory:accessory notificationUUID:notificationUUID window:20 completion:v27];
-
-  v25 = *MEMORY[0x277D85DE8];
+  [audioAnalysisStereoPairController compareOrUpdateRecentAudioAnalysisStereoPairEvent:v16 key:v24 accessory:accessory notificationUUID:notificationUUID window:20 completion:v26];
 }
 
 void __95__HMDAudioAnalysisEventSubscriber__postOrUpdateNotificationWithBulletin_stereoPairedAccessory___block_invoke(uint64_t a1, char a2, void *a3, void *a4)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v7 = a3;
   v8 = a4;
   if (a2)
@@ -420,17 +411,15 @@ void __95__HMDAudioAnalysisEventSubscriber__postOrUpdateNotificationWithBulletin
     {
       v18 = HMFGetLogIdentifier();
       v19 = *(a1 + 40);
-      v21 = 138543618;
-      v22 = v18;
-      v23 = 2112;
-      v24 = v19;
-      _os_log_impl(&dword_229538000, v17, OS_LOG_TYPE_INFO, "%{public}@Home found existing recent notification for key: %@", &v21, 0x16u);
+      v20 = 138543618;
+      v21 = v18;
+      v22 = 2112;
+      v23 = v19;
+      _os_log_impl(&dword_229538000, v17, OS_LOG_TYPE_INFO, "%{public}@Home found existing recent notification for key: %@", &v20, 0x16u);
     }
 
     objc_autoreleasePoolPop(v15);
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)postOrUpdateNotificationWithBulletinIfneeded:(id)ifneeded
@@ -451,7 +440,7 @@ void __95__HMDAudioAnalysisEventSubscriber__postOrUpdateNotificationWithBulletin
 
 - (void)postNotificationForEvent:(id)event
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   eventCopy = event;
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -463,17 +452,17 @@ void __95__HMDAudioAnalysisEventSubscriber__postOrUpdateNotificationWithBulletin
     v10 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(eventCopy, "reason")}];
     v11 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(eventCopy, "state")}];
     notificationUUID = [eventCopy notificationUUID];
-    v18 = 138544386;
-    v19 = v8;
-    v20 = 2112;
-    v21 = accessoryUUID;
-    v22 = 2112;
-    v23 = v10;
-    v24 = 2112;
-    v25 = v11;
-    v26 = 2112;
-    v27 = notificationUUID;
-    _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Posting notification from accessoryUUID: %@, reason: %@, state: %@, notificationUUID: %@", &v18, 0x34u);
+    v17 = 138544386;
+    v18 = v8;
+    v19 = 2112;
+    v20 = accessoryUUID;
+    v21 = 2112;
+    v22 = v10;
+    v23 = 2112;
+    v24 = v11;
+    v25 = 2112;
+    v26 = notificationUUID;
+    _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Posting notification from accessoryUUID: %@, reason: %@, state: %@, notificationUUID: %@", &v17, 0x34u);
   }
 
   objc_autoreleasePoolPop(v5);
@@ -490,17 +479,15 @@ void __95__HMDAudioAnalysisEventSubscriber__postOrUpdateNotificationWithBulletin
     if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
     {
       v16 = HMFGetLogIdentifier();
-      v18 = 138543618;
-      v19 = v16;
-      v20 = 2112;
-      v21 = eventCopy;
-      _os_log_impl(&dword_229538000, v15, OS_LOG_TYPE_INFO, "%{public}@Notification predicate evaluation failed, not posting the notification for bulletin: %@", &v18, 0x16u);
+      v17 = 138543618;
+      v18 = v16;
+      v19 = 2112;
+      v20 = eventCopy;
+      _os_log_impl(&dword_229538000, v15, OS_LOG_TYPE_INFO, "%{public}@Notification predicate evaluation failed, not posting the notification for bulletin: %@", &v17, 0x16u);
     }
 
     objc_autoreleasePoolPop(v13);
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)deregisterForMessages
@@ -512,14 +499,14 @@ void __95__HMDAudioAnalysisEventSubscriber__postOrUpdateNotificationWithBulletin
 
 - (void)registerForMessages
 {
-  v13[2] = *MEMORY[0x277D85DE8];
+  v12[2] = *MEMORY[0x277D85DE8];
   v3 = +[HMDRemoteMessagePolicy defaultSecurePolicy];
-  v13[0] = v3;
+  v12[0] = v3;
   context = [(HMDAudioAnalysisEventSubscriber *)self context];
   home = [context home];
   v6 = [HMDUserMessagePolicy userMessagePolicyWithHome:home userPrivilege:0 remoteAccessRequired:0];
-  v13[1] = v6;
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:2];
+  v12[1] = v6;
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:2];
 
   context2 = [(HMDAudioAnalysisEventSubscriber *)self context];
   dispatcher = [context2 dispatcher];
@@ -528,8 +515,6 @@ void __95__HMDAudioAnalysisEventSubscriber__postOrUpdateNotificationWithBulletin
   context3 = [(HMDAudioAnalysisEventSubscriber *)self context];
   dispatcher2 = [context3 dispatcher];
   [dispatcher2 registerForMessage:@"HMDAudioAnalysisPrimaryResidentRouteEventRequestMessage" receiver:self policies:v7 selector:sel__handleAudioAnalysisEventMessage_];
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)configureWithContext:(id)context
@@ -657,7 +642,7 @@ uint64_t __67__HMDAudioAnalysisEventSubscriber_stereoPairedCounterpartAccessory_
 
 - (BOOL)shouldPublishEvent:(id)event
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   eventCopy = event;
   if (!_os_feature_enabled_impl())
   {
@@ -677,13 +662,13 @@ uint64_t __67__HMDAudioAnalysisEventSubscriber_stereoPairedCounterpartAccessory_
       v12 = HMFGetLogIdentifier();
       context2 = [eventCopy context];
       uuid = [context2 uuid];
-      v19 = 138543618;
-      v20 = v12;
-      v21 = 2112;
-      v22 = uuid;
+      v18 = 138543618;
+      v19 = v12;
+      v20 = 2112;
+      v21 = uuid;
       v15 = "%{public}@Notification is not enabled for uuid %@";
 LABEL_9:
-      _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_INFO, v15, &v19, 0x16u);
+      _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_INFO, v15, &v18, 0x16u);
     }
 
 LABEL_10:
@@ -705,10 +690,10 @@ LABEL_10:
       v12 = HMFGetLogIdentifier();
       context2 = [eventCopy context];
       uuid = [context2 uuid];
-      v19 = 138543618;
-      v20 = v12;
-      v21 = 2112;
-      v22 = uuid;
+      v18 = 138543618;
+      v19 = v12;
+      v20 = 2112;
+      v21 = uuid;
       v15 = "%{public}@Notification does not have a condition set for uuid %@";
       goto LABEL_9;
     }
@@ -720,7 +705,6 @@ LABEL_4:
   isAudioAnalysisEventNotificationEnabled = 1;
 LABEL_11:
 
-  v17 = *MEMORY[0x277D85DE8];
   return isAudioAnalysisEventNotificationEnabled;
 }
 
@@ -747,10 +731,9 @@ LABEL_11:
 
 void __46__HMDAudioAnalysisEventSubscriber_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v3_54433;
-  logCategory__hmf_once_v3_54433 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v3_54433;
+  logCategory__hmf_once_v3_54433 = v0;
 }
 
 @end

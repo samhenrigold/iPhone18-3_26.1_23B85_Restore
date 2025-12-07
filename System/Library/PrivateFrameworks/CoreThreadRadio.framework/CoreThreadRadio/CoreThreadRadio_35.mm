@@ -1,7 +1,2467 @@
+uint64_t ot::Mle::Mle::Enable(ot::Mle::Mle *this, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  ot::Logger::LogAtLevel<(ot::LogLevel)5>(&ot::Mle::kLogModuleName, "Enabled", a3, a4, a5, a6, a7, a8);
+  ot::Mle::Mle::UpdateLinkLocalAddress(this);
+  v10 = ot::Ip6::Udp::Socket::Open((this + 544));
+  if (!v10)
+  {
+    return ot::Ip6::Udp::Socket::Bind((this + 544), 19788, 1);
+  }
+
+  return v10;
+}
+
+void ot::Mle::Mle::UpdateLinkLocalAddress(ot::Mle::Mle *this)
+{
+  v1 = ot::GetProvider<ot::InstanceLocator>::Get<ot::ThreadNetif>(this);
+  ot::Ip6::Netif::RemoveUnicastAddress(v1, (this + 992));
+  ot::Ip6::Netif::UnicastAddress::GetAddress((this + 992));
+  Iid = ot::Ip6::Address::GetIid(v2);
+  v3 = ot::GetProvider<ot::InstanceLocator>::Get<ot::Mac::Mac>(this);
+  ExtAddress = ot::Mac::Mac::GetExtAddress(v3);
+  ot::Ip6::InterfaceIdentifier::SetFromExtAddress(Iid, ExtAddress);
+  v5 = ot::GetProvider<ot::InstanceLocator>::Get<ot::ThreadNetif>(this);
+  ot::Ip6::Netif::AddUnicastAddress(v5, (this + 992));
+  v6 = ot::GetProvider<ot::InstanceLocator>::Get<ot::Notifier>(this);
+  ot::Notifier::Signal(v6, 8);
+}
+
+uint64_t ot::Mle::Mle::ScheduleMessageTransmissionTimer(ot::Mle::Mle *this)
+{
+  Uint32InRange = 0;
+  if (*(this + 130) == 1 && *(this + 143))
+  {
+    Uint32InRange = ot::Random::NonCrypto::GetUint32InRange(0x1194, 0x157Cu);
+    goto LABEL_21;
+  }
+
+  v4 = *(this + 137);
+  if (*(this + 137))
+  {
+    if (v4 == 1)
+    {
+      Uint32InRange = 100;
+      goto LABEL_21;
+    }
+
+    if (v4 == 2)
+    {
+      v1 = ot::GetProvider<ot::InstanceLocator>::Get<ot::Mac::Mac>(this);
+      if (ot::Mac::Mac::IsCslEnabled(v1))
+      {
+        v2 = ot::GetProvider<ot::InstanceLocator>::Get<ot::Mac::Mac>(this);
+        Uint32InRange = ot::Mac::Mac::GetCslPeriodInMsec(v2) + 1000;
+      }
+
+      else
+      {
+        Uint32InRange = 1000;
+      }
+
+      goto LABEL_21;
+    }
+  }
+
+  if (*(this + 135) && *(this + 135) == 1)
+  {
+    Uint32InRange = 1000;
+  }
+
+  else if (ot::Mle::Mle::IsChild(this) && ot::Mle::Mle::IsRxOnWhenIdle(this))
+  {
+    Uint32InRange = ot::Time::SecToMsec(*(this + 39)) - 4000;
+  }
+
+LABEL_21:
+  if (Uint32InRange)
+  {
+    return ot::TimerMilli::Start((this + 936), Uint32InRange);
+  }
+
+  else
+  {
+    return ot::TimerMilli::Stop((this + 936));
+  }
+}
+
+uint64_t ot::Mle::Mle::Disable(ot::Mle::Mle *this, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  ot::Logger::LogAtLevel<(ot::LogLevel)5>(&ot::Mle::kLogModuleName, "Disabled", a3, a4, a5, a6, a7, a8);
+  ot::Mle::Mle::Stop(this, 0);
+  v11 = ot::Ip6::Udp::Socket::Close((this + 544));
+  if (!v11)
+  {
+    v8 = ot::GetProvider<ot::InstanceLocator>::Get<ot::ThreadNetif>(this);
+    ot::Ip6::Netif::RemoveUnicastAddress(v8, (this + 992));
+  }
+
+  return v11;
+}
+
+void *ot::Mle::Mle::Stop(uint64_t a1, char a2)
+{
+  if (a2 == 1)
+  {
+    active = ot::GetProvider<ot::InstanceLocator>::Get<ot::MeshCoP::ActiveDatasetManager>(a1);
+    ot::MeshCoP::DatasetManager::Restore(active);
+    IgnoreError();
+    v3 = ot::GetProvider<ot::InstanceLocator>::Get<ot::MeshCoP::PendingDatasetManager>(a1);
+    ot::MeshCoP::DatasetManager::Restore(v3);
+    IgnoreError();
+  }
+
+  if (!ot::Mle::Mle::IsDisabled(a1))
+  {
+    v4 = ot::GetProvider<ot::InstanceLocator>::Get<ot::KeyManager>(a1);
+    ot::KeyManager::Stop(v4);
+    ot::Mle::Mle::SetStateDetached(a1);
+    v5 = ot::GetProvider<ot::InstanceLocator>::Get<ot::ThreadNetif>(a1);
+    ot::Ip6::Netif::UnsubscribeMulticast(v5, (a1 + 1112));
+    v6 = ot::GetProvider<ot::InstanceLocator>::Get<ot::ThreadNetif>(a1);
+    ot::Ip6::Netif::UnsubscribeMulticast(v6, (a1 + 1088));
+    v7 = ot::GetProvider<ot::InstanceLocator>::Get<ot::ThreadNetif>(a1);
+    ot::Ip6::Netif::RemoveUnicastAddress(v7, (a1 + 1056));
+    v8 = ot::GetProvider<ot::InstanceLocator>::Get<ot::ThreadNetif>(a1);
+    ot::Ip6::Netif::RemoveUnicastAddress(v8, (a1 + 1024));
+    if (ot::Mle::Mle::GetCslPeripheral(a1))
+    {
+      v11 = ot::GetProvider<ot::InstanceLocator>::Get<ot::Mle::MleRouter>(a1);
+      CslPeripheral = ot::Mle::Mle::GetCslPeripheral(a1);
+      ot::Mle::MleRouter::RemoveNeighbor(v11, CslPeripheral);
+    }
+
+    ot::Mle::Mle::SetRole(a1, 0);
+  }
+
+  ot::TimerMilli::Stop((a1 + 960));
+  return ot::Callback<void (*)(void *),(ot::CallbackContextPosition)0>::InvokeAndClearIfSet<>((a1 + 808));
+}
+
+uint64_t ot::Mle::Mle::Start(_BYTE *a1, char a2)
+{
+  v17 = 0;
+  v2 = ot::GetProvider<ot::InstanceLocator>::Get<ot::Radio>(a1);
+  if (ot::Radio::GetPromiscuous(v2))
+  {
+    return 13;
+  }
+
+  else
+  {
+    v3 = ot::GetProvider<ot::InstanceLocator>::Get<ot::ThreadNetif>(a1);
+    if (ot::ThreadNetif::IsUp(v3))
+    {
+      v4 = ot::GetProvider<ot::InstanceLocator>::Get<ot::Mac::Mac>(a1);
+      if (ot::Mac::Mac::GetPanId(v4) == 0xFFFF)
+      {
+        v15 = ot::GetProvider<ot::InstanceLocator>::Get<ot::Mac::Mac>(a1);
+        RandomPanId = ot::Mac::GenerateRandomPanId(v15);
+        ot::Mac::Mac::SetPanId(v15, RandomPanId);
+      }
+
+      ot::Mle::Mle::SetStateDetached(a1);
+      v6 = ot::GetProvider<ot::InstanceLocator>::Get<ot::ThreadNetif>(a1);
+      ot::Ip6::Netif::AddUnicastAddress(v6, (a1 + 1024));
+      v7 = ot::GetProvider<ot::InstanceLocator>::Get<ot::ThreadNetif>(a1);
+      ot::Ip6::Netif::SubscribeMulticast(v7, (a1 + 1088));
+      v8 = ot::GetProvider<ot::InstanceLocator>::Get<ot::ThreadNetif>(a1);
+      ot::Ip6::Netif::SubscribeMulticast(v8, (a1 + 1112));
+      Rloc16 = ot::Mle::Mle::GetRloc16(a1);
+      ot::Mle::Mle::SetRloc16(a1, Rloc16);
+      ot::Mle::Mle::ResetAttachCounter(a1);
+      v10 = ot::GetProvider<ot::InstanceLocator>::Get<ot::KeyManager>(a1);
+      ot::KeyManager::Start(v10);
+      if (!a2)
+      {
+        a1[133] = 1;
+      }
+
+      if (a2 == 1 || ot::Mle::Mle::GetRloc16(a1) == 65534)
+      {
+        ot::Mle::Mle::Attach(a1, 0);
+      }
+
+      else
+      {
+        v11 = ot::Mle::Mle::GetRloc16(a1);
+        if (ot::Mle::IsRouterRloc16(v11, v12))
+        {
+          v13 = ot::GetProvider<ot::InstanceLocator>::Get<ot::Mle::MleRouter>(a1);
+          if (ot::Mle::MleRouter::BecomeRouter(v13, 2u))
+          {
+            ot::Mle::Mle::Attach(a1, 0);
+          }
+        }
+
+        else
+        {
+          a1[139] = 0;
+          ot::Mle::Mle::SendChildUpdateRequest(a1);
+          IgnoreError();
+        }
+      }
+    }
+
+    else
+    {
+      return 13;
+    }
+  }
+
+  return v17;
+}
+
+uint64_t ot::Radio::GetPromiscuous(ot::Radio *this)
+{
+  ot::Radio::GetInstancePtr(this);
+  return otPlatRadioGetPromiscuous();
+}
+
+{
+  return ot::Radio::GetPromiscuous(this);
+}
+
+void ot::Mle::Mle::SetStateDetached(ot::Mle::Mle *this)
+{
+  v1 = ot::GetProvider<ot::InstanceLocator>::Get<ot::BackboneRouter::Local>(this);
+  ot::BackboneRouter::Local::Reset(v1);
+  v2 = ot::GetProvider<ot::InstanceLocator>::Get<ot::BackboneRouter::Leader>(this);
+  ot::BackboneRouter::Leader::Reset(v2);
+  if (ot::Mle::Mle::IsAttached(this))
+  {
+    ot::Mle::Mle::UpdateLastDetachTime(this);
+    ot::Mle::Mle::Store(this);
+  }
+
+  if (ot::Mle::Mle::IsLeader(this))
+  {
+    v15 = ot::GetProvider<ot::InstanceLocator>::Get<ot::ThreadNetif>(this);
+    v3 = ot::GetProvider<ot::InstanceLocator>::Get<ot::Mle::MleRouter>(this);
+    ot::Ip6::Netif::RemoveUnicastAddress(v15, (v3 + 35712));
+  }
+
+  ot::Mle::Mle::SetRole(this, 1);
+  ot::Mle::Mle::SetAttachState(this, 0);
+  ot::TimerMilli::Stop((this + 888));
+  ot::TimerMilli::Stop((this + 936));
+  *(this + 137) = 0;
+  *(this + 139) = 0;
+  *(this + 135) = 0;
+  *(this + 140) = 0;
+  *(this + 129) &= ~0x10u;
+  v4 = ot::GetProvider<ot::InstanceLocator>::Get<ot::MeshForwarder>(this);
+  ot::MeshForwarder::SetRxOnWhenIdle(v4, 1, v5, v6, v7, v8, v9, v10);
+  v11 = ot::GetProvider<ot::InstanceLocator>::Get<ot::Mac::Mac>(this);
+  ot::Mac::Mac::SetBeaconEnabled(v11, 0);
+  v12 = ot::GetProvider<ot::InstanceLocator>::Get<ot::Mle::MleRouter>(this);
+  ot::Mle::MleRouter::ClearAlternateRloc16(v12);
+  v13 = ot::GetProvider<ot::InstanceLocator>::Get<ot::Mle::MleRouter>(this);
+  ot::Mle::MleRouter::HandleDetachStart(v13);
+  v14 = ot::GetProvider<ot::InstanceLocator>::Get<ot::Mac::Mac>(this);
+  ot::Mac::Mac::UpdateCsl(v14, 0);
+}
+
+void ot::Mle::Mle::SetRloc16(ot::Mle::Mle *this, unsigned __int16 a2)
+{
+  Rloc16 = ot::Mle::Mle::GetRloc16(this);
+  if (a2 != Rloc16)
+  {
+    ot::Logger::LogAtLevel<(ot::LogLevel)3>(&ot::Mle::kLogModuleName, "RLOC16 %04x -> %04x", v2, v3, v4, v5, v6, v7, Rloc16, a2);
+  }
+
+  v8 = ot::GetProvider<ot::InstanceLocator>::Get<ot::ThreadNetif>(this);
+  if (ot::Ip6::Netif::HasUnicastAddress(v8, (this + 1056)))
+  {
+    ot::Ip6::Netif::UnicastAddress::GetAddress((this + 1056));
+    Iid = ot::Ip6::Address::GetIid(v9);
+    if (ot::Ip6::InterfaceIdentifier::GetLocator(Iid, v11) != a2)
+    {
+      v12 = ot::GetProvider<ot::InstanceLocator>::Get<ot::ThreadNetif>(this);
+      ot::Ip6::Netif::RemoveUnicastAddress(v12, (this + 1056));
+      v20 = ot::GetProvider<ot::InstanceLocator>::Get<ot::Tmf::Agent>(this);
+      ot::Ip6::Netif::UnicastAddress::GetAddress((this + 1056));
+      ot::Coap::CoapBase::ClearRequests(v20, v13);
+    }
+  }
+
+  v14 = ot::GetProvider<ot::InstanceLocator>::Get<ot::Mac::Mac>(this);
+  ot::Mac::Mac::SetShortAddress(v14, a2);
+  *(this + 72) = a2;
+  if (a2 == 65534)
+  {
+    v19 = ot::GetProvider<ot::InstanceLocator>::Get<ot::Mle::MleRouter>(this);
+    ot::Mle::MleRouter::ClearAlternateRloc16(v19);
+  }
+
+  else
+  {
+    ot::Ip6::Netif::UnicastAddress::GetAddress((this + 1056));
+    v16 = ot::Ip6::Address::GetIid(v15);
+    ot::Ip6::InterfaceIdentifier::SetLocator(v16, a2);
+    v17 = ot::GetProvider<ot::InstanceLocator>::Get<ot::ThreadNetif>(this);
+    ot::Ip6::Netif::AddUnicastAddress(v17, (this + 1056));
+    v18 = ot::GetProvider<ot::InstanceLocator>::Get<ot::AddressResolver>(this);
+    ot::AddressResolver::RestartAddressQueries(v18);
+  }
+}
+
+void ot::Mle::Mle::Attach(uint64_t a1, char a2)
+{
+  if (!ot::Mle::Mle::IsDisabled(a1) && !ot::Mle::Mle::IsAttaching(a1))
+  {
+    if (!ot::Mle::Mle::IsDetached(a1))
+    {
+      ot::Mle::Mle::ResetAttachCounter(a1);
+    }
+
+    if (*(a1 + 133) == 1)
+    {
+      active = ot::GetProvider<ot::InstanceLocator>::Get<ot::MeshCoP::ActiveDatasetManager>(a1);
+      if (ot::MeshCoP::DatasetManager::Restore(active))
+      {
+        *(a1 + 133) = 0;
+      }
+
+      else
+      {
+        *(a1 + 133) = 2;
+      }
+    }
+
+    ot::Mle::Mle::SetAttachState(a1, 2u);
+    *(a1 + 134) = a2;
+    if (a2 == 2)
+    {
+      ++*(a1 + 630);
+      ++*(a1 + 802);
+    }
+
+    else if (ot::Mle::Mle::IsFullThreadDevice(a1))
+    {
+      v3 = ot::GetProvider<ot::InstanceLocator>::Get<ot::Mle::MleRouter>(a1);
+      ot::Mle::MleRouter::StopAdvertiseTrickleTimer(v3);
+    }
+
+    AttachStartDelay = ot::Mle::Mle::GetAttachStartDelay(a1);
+    ot::TimerMilli::Start((a1 + 888), AttachStartDelay);
+    if (ot::Mle::Mle::IsDetached(a1))
+    {
+      ot::Mle::Mle::IncrementAttachCounter(a1);
+      ++*(a1 + 798);
+      if (!ot::Mle::Mle::IsRxOnWhenIdle(a1))
+      {
+        v5 = ot::GetProvider<ot::InstanceLocator>::Get<ot::Mac::Mac>(a1);
+        ot::Mac::Mac::SetRxOnWhenIdle(v5, 0, v6, v7, v8, v9, v10, v11);
+      }
+    }
+  }
+}
+
+void ot::Mle::Mle::SetRole(ot::Mle::Mle *a1, char a2)
+{
+  v26 = a1;
+  v25 = a2;
+  v24 = *(a1 + 130);
+  v23 = 0;
+  v2 = ot::GetProvider<ot::InstanceLocator>::Get<ot::Uptime>(a1);
+  ot::Uptime::GetUptime(v2, v27, 24);
+  v3 = ot::GetProvider<ot::InstanceLocator>::Get<ot::AppMetricsManager>(a1);
+  ot::AppMetricsManager::UpdateSystemWideThreadMeshReachabilityStatusLastTimestamp(v3, 8u);
+  v4 = ot::GetProvider<ot::InstanceLocator>::Get<ot::Notifier>(a1);
+  if (!ot::Notifier::Update<ot::Mle::DeviceRole>(v4, a1 + 130, &v25, 4))
+  {
+    v19 = ot::Mle::RoleToString(v24);
+    v5 = ot::Mle::RoleToString(*(a1 + 130));
+    ot::Logger::LogAtLevel<(ot::LogLevel)3>(&ot::Mle::kLogModuleName, "%s Role %s -> %s", v6, v7, v8, v9, v10, v11, v27, v19, v5);
+    ot::Mle::Mle::UpdateRoleTimeCounters(a1, v24);
+    v20 = *(a1 + 130);
+    if (*(a1 + 130))
+    {
+      switch(v20)
+      {
+        case 1:
+          ++*(a1 + 309);
+          ++*(a1 + 395);
+          break;
+        case 2:
+          ++*(a1 + 310);
+          ++*(a1 + 396);
+          ot::Mle::Mle::SignalChildConnectionSuccess(a1);
+          *(a1 + 64) = 1;
+          break;
+        case 3:
+          ++*(a1 + 311);
+          ++*(a1 + 397);
+          break;
+        case 4:
+          ++*(a1 + 312);
+          ++*(a1 + 398);
+          break;
+      }
+    }
+
+    else
+    {
+      ++*(a1 + 308);
+      ++*(a1 + 394);
+    }
+
+    ot::Mle::Mle::SetThreadCoexConfig(a1, 0, *(a1 + 130), *(a1 + 132));
+    if (!ot::Mle::Mle::IsChild(a1) && v24)
+    {
+      ot::Neighbor::SetState(a1 + 192, 0);
+    }
+
+    if (v24 == 1 && ot::Mle::Mle::IsChild(a1))
+    {
+      DeviceMode = ot::Mle::Mle::GetDeviceMode(a1);
+      *(a1 + 129) = *(a1 + 129) & 0xEF | (16 * !ot::Mle::DeviceMode::IsRxOnWhenIdle(&DeviceMode));
+    }
+  }
+
+  if (v23)
+  {
+    v12 = otThreadErrorToString(v23);
+    ot::Logger::LogAtLevel<(ot::LogLevel)5>(&ot::Mle::kLogModuleName, "Error %s while configuring the role", v13, v14, v15, v16, v17, v18, v12);
+  }
+}
+
+void *ot::Callback<void (*)(void *),(ot::CallbackContextPosition)0>::InvokeAndClearIfSet<>(__int128 *a1)
+{
+  v3 = a1;
+  v2 = *a1;
+  ot::CallbackBase<void (*)(void *)>::Clear(a1);
+  return ot::Callback<void (*)(void *),(ot::CallbackContextPosition)0>::InvokeIfSet<>(&v2);
+}
+
+{
+  return ot::Callback<void (*)(void *),(ot::CallbackContextPosition)0>::InvokeAndClearIfSet<>(a1);
+}
+
+void *ot::ClearAllBytes<otMleCounters>(void *a1)
+{
+  return memset(a1, 0, 0x48uLL);
+}
+
+{
+  return ot::ClearAllBytes<otMleCounters>(a1);
+}
+
+unint64_t ot::Mle::Mle::UpdateRoleTimeCounters(ot::InstanceLocator *a1, char a2)
+{
+  v2 = ot::GetProvider<ot::InstanceLocator>::Get<ot::Uptime>(a1);
+  result = ot::Uptime::GetUptime(v2);
+  v5 = result - *(a1 + 22);
+  *(a1 + 22) = result;
+  *(a1 + 84) += v5;
+  if (a2)
+  {
+    switch(a2)
+    {
+      case 1:
+        *(a1 + 80) += v5;
+        break;
+      case 2:
+        *(a1 + 81) += v5;
+        break;
+      case 3:
+        *(a1 + 82) += v5;
+        break;
+      case 4:
+        *(a1 + 83) += v5;
+        break;
+    }
+  }
+
+  else
+  {
+    *(a1 + 79) += v5;
+  }
+
+  return result;
+}
+
+uint64_t ot::Mle::Mle::setFirmwareUpdate(ot::Mle::Mle *this, char a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  ot::Mle::fwUpdateEnabled = a2 & 1;
+  ot::Logger::LogAtLevel<(ot::LogLevel)4>(&ot::Mle::kLogModuleName, "BT Load: %s: fwUpdateEnabled=[%d]", a3, a4, a5, a6, a7, a8, "setFirmwareUpdate", a2 & 1);
+  if (ot::Mle::Mle::IsFullRouter(this))
+  {
+    ot::Logger::LogAtLevel<(ot::LogLevel)4>(&ot::Mle::kLogModuleName, "BT Load: %s: In Full router mode:fwUpdateEnabled=[%d]", v8, v9, v10, v11, v12, v13, "setFirmwareUpdate", ot::Mle::fwUpdateEnabled & 1);
+    ot::Mle::Mle::SetThreadCoexConfig(this, 0, *(this + 130), *(this + 132));
+    return 0;
+  }
+
+  else
+  {
+    ot::Logger::LogAtLevel<(ot::LogLevel)4>(&ot::Mle::kLogModuleName, "BT Load: %s: Not Full router mode failed to set Coex Priority: fwUpdateEnabled=[%d]: error=[%d]", v8, v9, v10, v11, v12, v13, "setFirmwareUpdate", ot::Mle::fwUpdateEnabled & 1, 13);
+    return 13;
+  }
+}
+
+BOOL ot::Mle::Mle::IsFullRouter(ot::Mle::Mle *this)
+{
+  return ot::Mle::Mle::IsRxOnWhenIdle(this) && ot::Mle::Mle::IsFullThreadDevice(this);
+}
+
+{
+  return ot::Mle::Mle::IsFullRouter(this);
+}
+
+void ot::Mle::Mle::SetThreadCoexConfig(ot::InstanceLocator *a1, unsigned __int8 a2, unsigned __int8 a3, unsigned __int8 a4)
+{
+  v124 = a1;
+  v123 = a2;
+  v122 = a3;
+  v121 = a4;
+  v107 = a1;
+  v120 = 0;
+  v119 = 3;
+  v118 = 0;
+  v117 = 0;
+  v116 = 0;
+  v115 = 0;
+  v114 = 0;
+  AudioTaskId = ot::Mle::Mle::getAudioTaskId(a1);
+  hasHIDConnected = ot::Mle::Mle::hasHIDConnected(v107);
+  v111 = 0;
+  v108 = v123;
+  v109 = ot::Mle::RoleToString(v122);
+  v4 = ot::Mle::Mle::AttachStateToString(v121);
+  ot::Logger::LogAtLevel<(ot::LogLevel)4>(&ot::Mle::kLogModuleName, "BT Load: %s: Attach state change:%d role:%s, Attach state:%s", v5, v6, v7, v8, v9, v10, "SetThreadCoexConfig", v123 & 1, v109, v4);
+  v110 = v122;
+  if (!v122)
+  {
+    ot::Logger::LogAtLevel<(ot::LogLevel)4>(&ot::Mle::kLogModuleName, "BT Load: %s Thread will go to OFFLINE, reset Thread priority/fragment size/data poll timeout/duty cycle.", v11, v12, v13, v14, v15, v16, "SetThreadCoexConfig");
+    Instance = ot::InstanceLocator::GetInstance(v107);
+    v120 = otPlatVendorCoexThreadClear(Instance);
+    goto LABEL_45;
+  }
+
+  switch(v110)
+  {
+    case 1:
+      ot::Logger::LogAtLevel<(ot::LogLevel)4>(&ot::Mle::kLogModuleName, "BT Load: %s During Detached role, ChildupdateReq/Attach State change will happen, config the Thread Coex setting", v11, v12, v13, v14, v15, v16, "SetThreadCoexConfig");
+      v111 = ot::Mle::Mle::getHIDEqual1125Count(v107) > 0;
+      v18 = ot::InstanceLocator::GetInstance(v107);
+      v120 = otPlatVendorCoexThreadDetached(v18, v123 & 1, v121, AudioTaskId, hasHIDConnected, v111);
+      break;
+    case 2:
+      v106 = ot::Mle::RoleToString(v122);
+      v19 = ot::InstanceLocator::GetInstance(v107);
+      IsCslEnabled = otLinkIsCslEnabled(v19);
+      ot::Logger::LogAtLevel<(ot::LogLevel)3>(&ot::Mle::kLogModuleName, "BT Load: %s Device role is Child, we will adjust the coex config base on BT task, new role=%s, CslEnabled = %d", v21, v22, v23, v24, v25, v26, "SetThreadCoexConfig", v106, IsCslEnabled);
+      v27 = ot::InstanceLocator::GetInstance(v107);
+      if (otLinkIsCslEnabled(v27))
+      {
+        v28 = ot::InstanceLocator::GetInstance(v107);
+        v120 = otLinkSetPollPeriod(v28, 0x3E8u);
+        if (v120)
+        {
+          break;
+        }
+      }
+
+      else
+      {
+        v29 = ot::InstanceLocator::GetInstance(v107);
+        v120 = otLinkSetPollPeriod(v29, 0x1C2u);
+        if (v120)
+        {
+          break;
+        }
+      }
+
+      v120 = ot::Mle::Mle::adjustPriorityAndFragmentToBTLoad(v107, ot::Mle::current_coex_radioload);
+      if (!v120)
+      {
+        ot::Logger::LogAtLevel<(ot::LogLevel)4>(&ot::Mle::kLogModuleName, "BT Load: Attach procedure is complete, set RX on IDLE use QOS Percentage Policy config to FALSE", v30, v31, v32, v33, v34, v35);
+        ot::InstanceLocator::GetInstance(v107);
+        if ((otPlatRadioGetRcp2Vendor2Enabled() & 1) == 0)
+        {
+          v36 = ot::InstanceLocator::GetInstance(v107);
+          v120 = otPlatVendorSetRxOnIdleUseQOSPercentagePolicyConfig(v36, 0);
+        }
+      }
+
+      break;
+    case 4:
+    case 3:
+      IsSleepyRouter = ot::Mle::Mle::IsSleepyRouter(v107);
+      v37 = ot::Mle::Mle::WorAttachStateToString(v107, *(v107 + 128));
+      ot::Logger::LogAtLevel<(ot::LogLevel)4>(&ot::Mle::kLogModuleName, "BT Load: Device role is Router/Leader, and Sleepy Router Config: %d, Peripheral Attach State: %s", v38, v39, v40, v41, v42, v43, IsSleepyRouter, v37);
+      if (ot::Mle::Mle::IsSleepyRouter(v107))
+      {
+        if (*(v107 + 128))
+        {
+          v119 = 4;
+        }
+
+        else
+        {
+          v118 = 1;
+          if (*(v107 + 65))
+          {
+            v119 = 3;
+          }
+
+          else
+          {
+            v119 = 5;
+          }
+
+          if (!ot::Mle::Mle::isThreadAlwaysOnFeatureEnabled(v107))
+          {
+            v85 = ot::GetProvider<ot::InstanceLocator>::Get<ot::MeshForwarder>(v107);
+            ot::MeshForwarder::SetRxOnWhenIdle(v85, 1, v86, v87, v88, v89, v90, v91);
+          }
+        }
+      }
+
+      else
+      {
+        if (ot::Mle::Mle::isThreadAlwaysOnFeatureEnabled(v107))
+        {
+          v51 = ot::GetProvider<ot::InstanceLocator>::Get<ot::MeshForwarder>(v107);
+          ot::MeshForwarder::SetRxOnWhenIdle(v51, 1, v52, v53, v54, v55, v56, v57);
+        }
+
+        if (ot::Mle::fwUpdateEnabled)
+        {
+          v58 = ot::GetProvider<ot::InstanceLocator>::Get<ot::Mle::MleRouter>(v107);
+          if (ot::Mle::MleRouter::HasChildrenInStateAnyExceptInvalid(v58))
+          {
+            ot::InstanceLocator::GetInstance(v107);
+            if (otPlatRadioGetRcp2Vendor2Enabled())
+            {
+              ot::Logger::LogAtLevel<(ot::LogLevel)4>(&ot::Mle::kLogModuleName, "BT Load: fwUpdate enabled, Device role is Router/Leader:COEX_THREAD_PRIORITY_HAS_ANY_CHILD_OR_NEIGHBOR", v65, v66, v67, v68, v69, v70);
+              v119 = 6;
+            }
+
+            else
+            {
+              ot::Logger::LogAtLevel<(ot::LogLevel)4>(&ot::Mle::kLogModuleName, "BT Load: fwUpdate enabled, Device role is Router/Leader:COEX_THREAD_PRIORITY_HIGH", v65, v66, v67, v68, v69, v70);
+              v119 = 3;
+            }
+
+            ot::Mle::Mle::adjustDutyCycleForFR(v107, ot::Mle::current_coex_radioload, &v116, &v115, &v114);
+          }
+
+          else
+          {
+            ot::Logger::LogAtLevel<(ot::LogLevel)4>(&ot::Mle::kLogModuleName, "BT Load: fwUpdate enabled, Device role is Router/Leader: Default COEX_THREAD_SCAN_PRIORITY", v59, v60, v61, v62, v63, v64);
+            v119 = 5;
+            v118 = 1;
+          }
+        }
+
+        else
+        {
+          ot::InstanceLocator::GetInstance(v107);
+          if (otPlatRadioGetRcp2Vendor2Enabled())
+          {
+            v77 = ot::GetProvider<ot::InstanceLocator>::Get<ot::ChildTable>(v107);
+            if (ot::ChildTable::HasChildren(v77, 0) || (v84 = ot::GetProvider<ot::InstanceLocator>::Get<ot::RouterTable>(v107), ot::RouterTable::GetNeighborCount(v84, 1u)))
+            {
+              ot::Logger::LogAtLevel<(ot::LogLevel)4>(&ot::Mle::kLogModuleName, "BT Load: fwUpdate disabled, Device role is Router/Leader: COEX_THREAD_PRIORITY_HAS_ANY_CHILD_OR_NEIGHBOR", v78, v79, v80, v81, v82, v83);
+              v119 = 6;
+              ot::Mle::Mle::adjustDutyCycleForFR(v107, ot::Mle::current_coex_radioload, &v116, &v115, &v114);
+            }
+
+            else
+            {
+              ot::Logger::LogAtLevel<(ot::LogLevel)4>(&ot::Mle::kLogModuleName, "BT Load: fwUpdate disabled, Device role is Router/Leader: COEX_THREAD_PRIORITY_HIGH", v78, v79, v80, v81, v82, v83);
+              v119 = 3;
+              ot::Mle::Mle::adjustDutyCycleForFR(v107, ot::Mle::current_coex_radioload, &v116, &v115, &v114);
+            }
+          }
+
+          else
+          {
+            ot::Logger::LogAtLevel<(ot::LogLevel)4>(&ot::Mle::kLogModuleName, "BT Load: fwUpdate disabled, Device role is Router/Leader: Default COEX_THREAD_PRIORITY_HIGH", v71, v72, v73, v74, v75, v76);
+            v119 = 3;
+            ot::Mle::Mle::adjustDutyCycleForFR(v107, ot::Mle::current_coex_radioload, &v116, &v115, &v114);
+          }
+        }
+      }
+
+      v104[9] = v104;
+      ot::Logger::LogAtLevel<(ot::LogLevel)3>(&ot::Mle::kLogModuleName, "BT Load: %s Set Thread coex config: priority to %d, OverridePriority to %d, OverridePriorityDuration to %d us, max fragment size to %d, data poll timeout to %d, and DutyCycleHigh(x) %u, DutyCycleInterval(y) %u, DatapollAlign %u and Qos percentage Policy", v45, v46, v47, v48, v49, v50, "SetThreadCoexConfig", v119, v118, v117, 127, 100, v116, v115, v114);
+      v92 = ot::InstanceLocator::GetInstance(v107);
+      v120 = otPlatVendorSetPriority(v92, v119, v118, v117);
+      if (!v120)
+      {
+        v93 = ot::InstanceLocator::GetInstance(v107);
+        otLinkSetFragmentSize(v93, 0x7Fu);
+        v94 = ot::InstanceLocator::GetInstance(v107);
+        otLinkSetDataPollTimeoutCoex(v94, 100);
+        ot::InstanceLocator::GetInstance(v107);
+        if ((otPlatRadioGetRcp2Vendor2Enabled() & 1) == 0)
+        {
+          v95 = ot::InstanceLocator::GetInstance(v107);
+          v120 = otPlatVendorSetRxOnIdleUseQOSPercentagePolicyConfig(v95, 0);
+          if (!v120)
+          {
+            v96 = ot::InstanceLocator::GetInstance(v107);
+            v120 = otPlatVendorSetDutyCycle(v96, v116, v115, v114);
+          }
+        }
+      }
+
+      break;
+  }
+
+LABEL_45:
+  if (v120)
+  {
+    v97 = otThreadErrorToString(v120);
+    ot::Logger::LogAtLevel<(ot::LogLevel)5>(&ot::Mle::kLogModuleName, "BT Load: %s Error %s while configuring the thread coex setting.", v98, v99, v100, v101, v102, v103, "SetThreadCoexConfig", v97);
+  }
+}
+
+void ot::Mle::Mle::SignalChildConnectionSuccess(ot::Mle::Mle *this)
+{
+  ot::InstanceLocator::GetInstance(this);
+  if (!otPlatVendorGetThreadJoinSession() && ot::Mle::Mle::isThreadStateMachineEnabled(this))
+  {
+    ot::Mle::Mle::GetDeviceMode(this);
+    if (ot::Mle::Mle::IsMinimalEndDevice(this))
+    {
+      ot::Logger::LogAtLevel<(ot::LogLevel)3>(&ot::Mle::kLogModuleName, "%s: ThreadConnection: Attach attempt %d successful in SED/SSED mode", v1, v2, v3, v4, v5, v6, "SignalChildConnectionSuccess", *(this + 74));
+      ot::Mle::Mle::ResetAttachCounter(this);
+      ot::Logger::LogAtLevel<(ot::LogLevel)3>(&ot::Mle::kLogModuleName, "%s: ThreadConnection: On successful Attach, reset mAttachCounter=%d", v7, v8, v9, v10, v11, v12, "SignalChildConnectionSuccess", *(this + 74));
+      v13 = ot::GetProvider<ot::InstanceLocator>::Get<ot::Notifier>(this);
+      ot::Notifier::Signal(v13, &_mh_execute_header);
+    }
+  }
+}
+
+uint64_t ot::Mle::Mle::adjustPriorityAndFragmentToBTLoad(ot::Mle::Mle *this, uint64_t a2)
+{
+  v72 = this;
+  v71 = a2;
+  v54 = this;
+  v70 = 0;
+  v69 = a2;
+  AudioTaskId = ot::Mle::Mle::getAudioTaskId(this);
+  HIDLess1125Count = ot::Mle::Mle::getHIDLess1125Count(v54);
+  HIDEqual1125Count = ot::Mle::Mle::getHIDEqual1125Count(v54);
+  HIDGreater1125Count = ot::Mle::Mle::getHIDGreater1125Count(v54);
+  v64 = 0;
+  v63 = 0;
+  v62 = 0;
+  v61 = 127;
+  v60 = 100;
+  v59 = 0;
+  v58 = 0;
+  v57 = 0;
+  v56 = 0;
+  WiFiStateId = ot::Mle::Mle::getWiFiStateId(v54);
+  v46 = v69;
+  v47 = HIDLess1125Count;
+  v48 = HIDEqual1125Count;
+  v49 = HIDGreater1125Count;
+  v50 = ot::Mle::Mle::BTAudioTaskIDToStrings(v54, AudioTaskId);
+  v51 = ot::Mle::Mle::WifiAssotiatedTypeToStrings(v54, WiFiStateId);
+  v52 = ot::Mle::RoleToString(*(v54 + 130));
+  v2 = ot::Mle::Mle::AttachStateToString(*(v54 + 132));
+  v53 = v38;
+  ot::Logger::LogAtLevel<(ot::LogLevel)3>(&ot::Mle::kLogModuleName, "BT Load: %s Load is %x, # HID < 11.25 is %d, # HID = 11.25 is %d, # HID > 11.25 is %d, btAudioTask is %s, wifiAssociatedType is %s, current node_role is %s, current attach_state is %s", v3, v4, v5, v6, v7, v8, "adjustPriorityAndFragmentToBTLoad", v69, HIDLess1125Count, HIDEqual1125Count, HIDGreater1125Count, v50, v51, v52, v2);
+  if (!*(v54 + 130) || *(v54 + 130) == 1)
+  {
+    ot::Logger::LogAtLevel<(ot::LogLevel)3>(&ot::Mle::kLogModuleName, "BT Load: %s Thread is not associated yet. Don't/No need to change priority/fragment size.", v9, v10, v11, v12, v13, v14, "adjustPriorityAndFragmentToBTLoad");
+    return v70;
+  }
+
+  if (*(v54 + 130) == 3 || *(v54 + 130) == 4)
+  {
+    ot::Logger::LogAtLevel<(ot::LogLevel)3>(&ot::Mle::kLogModuleName, "BT Load: %s Device is sleepy router, will tune the priority/frament setting for it later", v9, v10, v11, v12, v13, v14, "adjustPriorityAndFragmentToBTLoad");
+    return v70;
+  }
+
+  ot::Logger::LogAtLevel<(ot::LogLevel)3>(&ot::Mle::kLogModuleName, "BT Load: %s BT audio task change to %d", v9, v10, v11, v12, v13, v14, "adjustPriorityAndFragmentToBTLoad", AudioTaskId);
+  v45 = AudioTaskId;
+  if (AudioTaskId)
+  {
+    if (v45 == 2 || v45 == 1)
+    {
+      goto LABEL_22;
+    }
+
+    if (v45 != 4 && v45 != 3)
+    {
+      if ((v45 - 5) <= 2)
+      {
+LABEL_22:
+        v64 = 2;
+        v61 = 63;
+        v60 = 100;
+        Instance = ot::InstanceLocator::GetInstance(v54);
+        if (!otLinkIsCslEnabled(Instance))
+        {
+          ot::Logger::LogAtLevel<(ot::LogLevel)3>(&ot::Mle::kLogModuleName, "BT Load: %s X/Y will kick in and alignment will enable for priority 2 case.", v15, v16, v17, v18, v19, v20, "adjustPriorityAndFragmentToBTLoad");
+          v58 = 2500;
+          v57 = 60000;
+          v56 = 1;
+        }
+
+        if (AudioTaskId == 2 || AudioTaskId == 5 || AudioTaskId == 1 || AudioTaskId == 6)
+        {
+          v59 = 60;
+        }
+
+        else
+        {
+          v59 = 60;
+        }
+
+        goto LABEL_43;
+      }
+
+      if (v45 != 8)
+      {
+        if (v45 != 10 && v45 != 9)
+        {
+          goto LABEL_43;
+        }
+
+        goto LABEL_22;
+      }
+    }
+
+    v64 = 1;
+    v63 = 1;
+    v62 = 15000;
+    v61 = 127;
+    v60 = 100;
+    if (ot::Mle::Mle::hasHIDConnected(v54))
+    {
+      if (WiFiStateId == 2)
+      {
+        v61 = 63;
+      }
+
+      v56 = 1;
+      v59 = 60;
+      v58 = 2500;
+      v57 = 60000;
+    }
+  }
+
+  else if (ot::Mle::Mle::hasHIDConnected(v54))
+  {
+    ot::Logger::LogAtLevel<(ot::LogLevel)3>(&ot::Mle::kLogModuleName, "BT Load: %s There is no audio task, but the HID is connected.", v22, v23, v24, v25, v26, v27, "adjustPriorityAndFragmentToBTLoad");
+    v64 = 1;
+    v60 = 100;
+    v56 = 1;
+    v59 = 60;
+    v58 = 2500;
+    v57 = 60000;
+    if (HIDEqual1125Count)
+    {
+      v57 = 90000;
+    }
+
+    if (WiFiStateId == 2)
+    {
+      v61 = 63;
+      v63 = 1;
+    }
+
+    else
+    {
+      v63 = 2;
+    }
+
+    v62 = 15000;
+  }
+
+  else
+  {
+    ot::Logger::LogAtLevel<(ot::LogLevel)3>(&ot::Mle::kLogModuleName, "BT Load: %s There is no BT audio/non-audio activity, config coex based on SED/SSED.", v22, v23, v24, v25, v26, v27, "adjustPriorityAndFragmentToBTLoad");
+    v28 = ot::InstanceLocator::GetInstance(v54);
+    if (otLinkIsCslEnabled(v28))
+    {
+      v64 = 2;
+    }
+
+    else
+    {
+      v64 = 1;
+      if (WiFiStateId == 2)
+      {
+        v63 = 1;
+      }
+
+      else
+      {
+        v63 = 2;
+      }
+
+      v62 = 40000;
+    }
+  }
+
+LABEL_43:
+  v39 = &v64;
+  v40 = &v61;
+  v41 = &v60;
+  v42 = &v58;
+  v43 = &v57;
+  v44 = &v56;
+  v38[10] = v38;
+  ot::Logger::LogAtLevel<(ot::LogLevel)3>(&ot::Mle::kLogModuleName, "BT Load: %s Set Thread coex config: priority to %d, overridePriority to %d, overridePriorityDuration to %d us, max fragment size to %d, data poll timeout to %d, dt_high(x) %u, dt_interval(y) %u, dt_datapoll_align %u, B2BDataPollDelay %d ms", v15, v16, v17, v18, v19, v20, "adjustPriorityAndFragmentToBTLoad", v64, v63, v62, v61, v60, v58, v57, v56 & 1, v59);
+  v29 = ot::InstanceLocator::GetInstance(v54);
+  otPlatVendorCoexConfigTest(v29, v39, v40, v41, v42, v43, v44);
+  ot::InstanceLocator::GetInstance(v54);
+  if (otPlatRadioGetRcp2Vendor2Enabled())
+  {
+    if (!ot::Mle::Mle::IsFullRouter(v54))
+    {
+      v64 = 1;
+      v30 = ot::InstanceLocator::GetInstance(v54);
+      v70 = otPlatVendorSetPriority(v30, v64, v63, v62);
+      if (v70)
+      {
+        return v70;
+      }
+    }
+  }
+
+  else
+  {
+    v31 = ot::InstanceLocator::GetInstance(v54);
+    v70 = otPlatVendorSetPriority(v31, v64, v63, v62);
+    if (v70)
+    {
+      return v70;
+    }
+  }
+
+  v32 = ot::InstanceLocator::GetInstance(v54);
+  otLinkSetFragmentSize(v32, v61);
+  v33 = ot::InstanceLocator::GetInstance(v54);
+  otLinkSetDataPollTimeoutCoex(v33, v60);
+  ot::InstanceLocator::GetInstance(v54);
+  if ((otPlatRadioGetRcp2Vendor2Enabled() & 1) != 0 || (v34 = ot::InstanceLocator::GetInstance(v54), !otPlatVendorSetDutyCycle(v34, v58, v57, v56 & 1)))
+  {
+    v35 = ot::InstanceLocator::GetInstance(v54);
+    otLinkSetB2BDataPollDelay(v35, v59);
+    v36 = ot::InstanceLocator::GetInstance(v54);
+    otLinkSetSessionPriority(v36, v64);
+  }
+
+  return v70;
+}
+
+void ot::Mle::Mle::adjustDutyCycleForFR(ot::Mle::Mle *this, unint64_t a2, unsigned int *a3, unsigned int *a4, BOOL *a5)
+{
+  AudioTaskId = ot::Mle::Mle::getAudioTaskId(this);
+  *a5 = 0;
+  if (ot::Mle::Mle::hasHIDConnected(this))
+  {
+    ot::Logger::LogAtLevel<(ot::LogLevel)3>(&ot::Mle::kLogModuleName, "BT Load: %s There is HID connected, don't config the x/y setting for FR.", v5, v6, v7, v8, v9, v10, "adjustDutyCycleForFR");
+  }
+
+  else if (AudioTaskId)
+  {
+    v11 = ot::Mle::Mle::BTAudioTaskIDToStrings(this, AudioTaskId);
+    ot::Logger::LogAtLevel<(ot::LogLevel)3>(&ot::Mle::kLogModuleName, "BT Load: %s There is BT audio task %s, config the x/y setting as %d/%d for FR.", v12, v13, v14, v15, v16, v17, "adjustDutyCycleForFR", v11, 10000, 120000);
+    *a3 = 10000;
+    *a4 = 120000;
+  }
+
+  else
+  {
+    ot::Logger::LogAtLevel<(ot::LogLevel)3>(&ot::Mle::kLogModuleName, "BT Load: %s There is no BT audio task, config the x/y setting as %d/%d for FR.", v5, v6, v7, v8, v9, v10, "adjustDutyCycleForFR", 10000, 60000);
+    *a3 = 10000;
+    *a4 = 60000;
+  }
+}
+
+const char *ot::Mle::Mle::BTAudioTaskIDToStrings(ot::Mle::Mle *this, unsigned __int8 a2)
+{
+  if (a2 >= ot::GetArrayLength<char const*,(unsigned short)11>())
+  {
+    return "invalid BTAudioTaskID";
+  }
+
+  else
+  {
+    return ot::Mle::Mle::BTAudioTaskIDToStrings(unsigned char)::BTAudioTaskIDStrings[a2];
+  }
+}
+
+{
+  return ot::Mle::Mle::BTAudioTaskIDToStrings(this, a2);
+}
+
+uint64_t ot::Mle::Mle::adjustDutyCycleForSRDiscoverScan(ot::Mle::Mle *this, char a2)
+{
+  v27[4] = 0;
+  *v27 = ot::Mle::Mle::getAudioTaskId(this);
+  v26 = 0;
+  v25 = 0;
+  if (a2)
+  {
+    if (ot::Mle::Mle::hasHIDConnected(this) || v27[0])
+    {
+      v26 = 5000;
+      v25 = 60000;
+      v23 = ot::Mle::Mle::BTAudioTaskIDToStrings(this, v27[0]);
+      hasHIDConnected = ot::Mle::Mle::hasHIDConnected(this);
+      ot::Logger::LogAtLevel<(ot::LogLevel)3>(&ot::Mle::kLogModuleName, "BT Load: %s There is BT audio task: %s or HID is connected: %d, config the x/y setting as %d/%d for SR discovery scan.", v15, v16, v17, v18, v19, v20, "adjustDutyCycleForSRDiscoverScan", v23, hasHIDConnected, 5000, 60000);
+    }
+
+    else
+    {
+      v26 = 10000;
+      v25 = 60000;
+      ot::Logger::LogAtLevel<(ot::LogLevel)3>(&ot::Mle::kLogModuleName, "BT Load: %s There is no BT activity, config the x/y setting as %d/%d for SR discovery scan.", v8, v9, v10, v11, v12, v13, "adjustDutyCycleForSRDiscoverScan", 10000, 60000);
+    }
+  }
+
+  else
+  {
+    ot::Logger::LogAtLevel<(ot::LogLevel)3>(&ot::Mle::kLogModuleName, "BT Load: %s SR discovery scan is done, config the x/y setting as %d/%d to remove it.", v2, v3, v4, v5, v6, v7, "adjustDutyCycleForSRDiscoverScan", 0, 0);
+  }
+
+  ot::InstanceLocator::GetInstance(this);
+  if ((otPlatRadioGetRcp2Vendor2Enabled() & 1) == 0)
+  {
+    Instance = ot::InstanceLocator::GetInstance(this);
+    otPlatVendorSetDutyCycle(Instance, v26, v25, 0);
+  }
+
+  return *&v27[1];
+}
+
+const char *ot::Mle::Mle::WifiAssotiatedTypeToStrings(ot::Mle::Mle *this, unsigned __int8 a2)
+{
+  if (a2 >= ot::GetArrayLength<char const*,(unsigned short)5>())
+  {
+    return "invalid WifiAssotiatedType";
+  }
+
+  else
+  {
+    return ot::Mle::Mle::WifiAssotiatedTypeToStrings(unsigned char)::WifiAssotiatedTypeStrings[a2];
+  }
+}
+
+{
+  return ot::Mle::Mle::WifiAssotiatedTypeToStrings(this, a2);
+}
+
+uint64_t ot::Mle::Mle::getPrioritizedWindowSize(ot::Mle::Mle *this)
+{
+  if (ot::Mle::Mle::hasHIDConnected(this) || ot::Mle::Mle::getAudioEscoLeaScoAosStatus(this))
+  {
+    return 5;
+  }
+
+  else
+  {
+    return 10;
+  }
+}
+
+void ot::Mle::Mle::SetCoexLoadMapValue(ot::Mle::Mle *this, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  v31 = this;
+  v30 = a2;
+  v27 = this;
+  v29 = 0;
+  v28 = &unk_10053A000;
+  ot::Logger::LogAtLevel<(ot::LogLevel)3>(&ot::Mle::kLogModuleName, "BT Load: %s Setting Coex Load from: %llx -> to :%llx", a3, a4, a5, a6, a7, a8, "SetCoexLoadMapValue", ot::Mle::current_coex_radioload, a2);
+  if (ot::Mle::current_coex_radioload == v30)
+  {
+    ot::Logger::LogAtLevel<(ot::LogLevel)3>(&ot::Mle::kLogModuleName, "BT Load: %s New load is same as current load, hence ignoring this event", v8, v9, v10, v11, v12, v13, "SetCoexLoadMapValue");
+  }
+
+  else
+  {
+    ot::Mle::current_coex_radioload = v30;
+    if (ot::Mle::Mle::isThreadSessionEnabled(v27))
+    {
+      ot::Logger::LogAtLevel<(ot::LogLevel)3>(&ot::Mle::kLogModuleName, "BT Load: %s Thread is On, change Coex Config based on new coex radioload", v14, v15, v16, v17, v18, v19, "SetCoexLoadMapValue");
+      ot::Mle::Mle::SetThreadCoexConfig(v27, 0, *(v27 + 130), *(v27 + 132));
+    }
+
+    v20 = otThreadErrorToString(v29);
+    ot::Logger::LogAtLevel<(ot::LogLevel)3>(&ot::Mle::kLogModuleName, "BT Load: %s SetCoexLoadMapValue returend %s", v21, v22, v23, v24, v25, v26, "SetCoexLoadMapValue", v20);
+  }
+
+  ot::Mle::Mle::LogCoExLoad(v27);
+  if (ot::Mle::Mle::IsSleepyRouter(v27))
+  {
+    ot::Mle::Mle::HandleDynamicCSLPeriod(v27);
+  }
+}
+
+void ot::Mle::Mle::LogCoExLoad(ot::Mle::Mle *this)
+{
+  v24 = this;
+  v8 = this;
+  AudioTaskId = ot::Mle::Mle::getAudioTaskId(this);
+  BTLoad = ot::Mle::Mle::getBTLoad(v8);
+  HIDLess1125Count = ot::Mle::Mle::getHIDLess1125Count(v8);
+  HIDEqual1125Count = ot::Mle::Mle::getHIDEqual1125Count(v8);
+  HIDGreater1125Count = ot::Mle::Mle::getHIDGreater1125Count(v8);
+  WiFiStateId = ot::Mle::Mle::getWiFiStateId(v8);
+  WiFiP2PStatus = ot::Mle::Mle::getWiFiP2PStatus(v8);
+  v9 = BTLoad;
+  v10 = HIDLess1125Count;
+  v11 = HIDEqual1125Count;
+  v12 = HIDGreater1125Count;
+  v13 = ot::Mle::Mle::BTAudioTaskIDToStrings(v8, AudioTaskId);
+  v14 = ot::Mle::Mle::WifiAssotiatedTypeToStrings(v8, WiFiStateId);
+  v15 = WiFiP2PStatus;
+  v16 = ot::Mle::RoleToString(*(v8 + 130));
+  v1 = ot::Mle::Mle::AttachStateToString(*(v8 + 132));
+  ot::Logger::LogAtLevel<(ot::LogLevel)3>(&ot::Mle::kLogModuleName, "BT Load: %s Load is %x, # HID < 11.25 is %d, # HID = 11.25 is %d, # HID > 11.25 is %d, btAudioTask is %s, Wifi Associated type is %s, wifi p2p status is %d, current node_role is %s, current attach_state is %s", v2, v3, v4, v5, v6, v7, "LogCoExLoad", BTLoad, HIDLess1125Count, HIDEqual1125Count, HIDGreater1125Count, v13, v14, WiFiP2PStatus, v16, v1);
+}
+
+void ot::Mle::Mle::HandleDynamicCSLPeriod(ot::Mle::Mle *this)
+{
+  v1 = ot::GetProvider<ot::InstanceLocator>::Get<ot::Mac::Mac>(this);
+  CslPeriod = ot::Mac::Mac::GetCslPeriod(v1);
+  if (ot::Mle::Mle::isThreadStateMachineEnabled(this) && (ot::Mle::Mle::getAudioTaskId(this) || ot::Mle::Mle::hasHIDConnected(this)) && ot::Mle::Mle::IsCslPeripheralAttached(this) && CslPeriod == 250 && (ot::Mle::Mle::getAudioTaskId(this) > 0 || ot::Mle::Mle::hasHIDConnected(this)))
+  {
+    AudioTaskId = ot::Mle::Mle::getAudioTaskId(this);
+    v11 = ot::Mle::Mle::BTAudioTaskIDToStrings(this, AudioTaskId);
+    hasHIDConnected = ot::Mle::Mle::hasHIDConnected(this);
+    v10 = "Has";
+    if (!hasHIDConnected)
+    {
+      v10 = "No";
+    }
+
+    ot::Logger::LogAtLevel<(ot::LogLevel)4>(&ot::Mle::kLogModuleName, "BT Load: %s WED stays at same eCSL period after change in BT Load. Audio Task ID is %s, %s HID connected", v3, v4, v5, v6, v7, v8, "HandleDynamicCSLPeriod", v11, v10);
+  }
+}
+
+uint64_t ot::Notifier::Update<ot::Mle::DeviceRole>(void *a1, _BYTE *a2, _BYTE *a3, uint64_t a4)
+{
+  v5 = 0;
+  if (*a2 == *a3)
+  {
+    ot::Notifier::SignalIfFirst(a1, a4);
+    return 24;
+  }
+
+  else
+  {
+    *a2 = *a3;
+    ot::Notifier::Signal(a1, a4);
+  }
+
+  return v5;
+}
+
+{
+  return ot::Notifier::Update<ot::Mle::DeviceRole>(a1, a2, a3, a4);
+}
+
+void ot::Mle::Mle::SetAttachState(ot::InstanceLocator *result, unsigned __int8 a2)
+{
+  v20 = result;
+  v19 = a2;
+  v18 = result;
+  if (a2 != *(result + 132))
+  {
+    v16 = ot::Mle::Mle::AttachStateToString(*(v18 + 132));
+    v2 = ot::Mle::Mle::AttachStateToString(v19);
+    v17 = &ot::Mle::kLogModuleName;
+    ot::Logger::LogAtLevel<(ot::LogLevel)4>(&ot::Mle::kLogModuleName, "AttachState %s -> %s", v3, v4, v5, v6, v7, v8, v16, v2);
+    v9 = ot::Mle::RoleToString(*(v18 + 130));
+    ot::Logger::LogAtLevel<(ot::LogLevel)4>(v17, "BT Load: In %s, mRole is %s", v10, v11, v12, v13, v14, v15, "SetAttachState", v9);
+    ot::Mle::Mle::SetThreadCoexConfig(v18, 1u, *(v18 + 130), v19);
+    *(v18 + 132) = v19;
+  }
+}
+
+uint64_t ot::Mle::Mle::IncrementAttachCounter(uint64_t this)
+{
+  if (!++*(this + 148))
+  {
+    --*(this + 148);
+  }
+
+  ++*(this + 626);
+  return this;
+}
+
+uint64_t ot::Mle::Mle::GenerateMleIid(ot::Mle::Mle *this)
+{
+  ot::Ip6::Netif::UnicastAddress::GetAddress((this + 1024));
+  Iid = ot::Ip6::Address::GetIid(v1);
+  return ot::Ip6::InterfaceIdentifier::GenerateRandom(Iid, v3, v4);
+}
+
+void ot::Mle::Mle::Restore(ot::Mle::Mle *this)
+{
+  v147 = this;
+  active = ot::GetProvider<ot::InstanceLocator>::Get<ot::MeshCoP::ActiveDatasetManager>(this);
+  ot::MeshCoP::DatasetManager::Restore(active);
+  IgnoreError();
+  v2 = ot::GetProvider<ot::InstanceLocator>::Get<ot::MeshCoP::PendingDatasetManager>(this);
+  ot::MeshCoP::DatasetManager::Restore(v2);
+  IgnoreError();
+  v3 = ot::GetProvider<ot::InstanceLocator>::Get<ot::DuaManager>(this);
+  ot::DuaManager::Restore(v3);
+  v4 = ot::GetProvider<ot::InstanceLocator>::Get<ot::Settings>(this);
+  v146 = ot::Settings::Read<ot::SettingsBase::NetworkInfo>(v4, v149);
+  if (v146)
+  {
+    v5 = ot::ErrorToString(v146);
+    ot::Logger::LogAtLevel<(ot::LogLevel)5>(&ot::Mle::kLogModuleName, "%s: Read NetworkInfo failed, error=%s.", v6, v7, v8, v9, v10, v11, "Restore", v5);
+    if (v146 == 23)
+    {
+      ot::Logger::LogAtLevel<(ot::LogLevel)5>(&ot::Mle::kLogModuleName, "%s: Clear mWasChild for new home setting file.", v12, v13, v14, v15, v16, v17, "Restore");
+      *(this + 64) = 0;
+    }
+  }
+
+  else
+  {
+    v128 = ot::GetProvider<ot::InstanceLocator>::Get<ot::KeyManager>(this);
+    KeySequence = ot::SettingsBase::NetworkInfo::GetKeySequence(v149, v18);
+    ot::KeyManager::SetCurrentKeySequence(v128, KeySequence, 0);
+    v129 = ot::GetProvider<ot::InstanceLocator>::Get<ot::KeyManager>(this);
+    MleFrameCounter = ot::SettingsBase::NetworkInfo::GetMleFrameCounter(v149, v129);
+    ot::KeyManager::SetMleFrameCounter(v129, MleFrameCounter);
+    v130 = ot::GetProvider<ot::InstanceLocator>::Get<ot::KeyManager>(this);
+    MacFrameCounter = ot::SettingsBase::NetworkInfo::GetMacFrameCounter(v149, v130);
+    ot::KeyManager::SetAllMacFrameCounters(v130, MacFrameCounter, 0);
+    v23 = ot::SettingsBase::NetworkInfo::GetKeySequence(v149, v22);
+    ot::Logger::LogAtLevel<(ot::LogLevel)3>(&ot::Mle::kLogModuleName, "%s: Setting Key Sequence: %u", v24, v25, v26, v27, v28, v29, "Restore", v23);
+    v31 = ot::SettingsBase::NetworkInfo::GetMleFrameCounter(v149, v30);
+    ot::Logger::LogAtLevel<(ot::LogLevel)3>(&ot::Mle::kLogModuleName, "%s: Setting MLE Frame Counter: %u", v32, v33, v34, v35, v36, v37, "Restore", v31);
+    v39 = ot::SettingsBase::NetworkInfo::GetMacFrameCounter(v149, v38);
+    ot::Logger::LogAtLevel<(ot::LogLevel)3>(&ot::Mle::kLogModuleName, "%s: Setting All MAC Frame Counter: %u", v40, v41, v42, v43, v44, v45, "Restore", v39);
+    if (ot::SettingsBase::NetworkInfo::GetVersion(v149, v46) == 4)
+    {
+      v126 = ot::GetProvider<ot::InstanceLocator>::Get<ot::Mac::Mac>(this);
+      ExtAddress = ot::SettingsBase::NetworkInfo::GetExtAddress(v149);
+      ot::Mac::Mac::SetExtAddress(v126, ExtAddress);
+      ot::Ip6::Netif::UnicastAddress::GetAddress((this + 1024));
+      v127 = v48;
+      MeshLocalIid = ot::SettingsBase::NetworkInfo::GetMeshLocalIid(v149);
+      ot::Ip6::Address::SetIid(v127, MeshLocalIid);
+      if (ot::SettingsBase::NetworkInfo::GetRole(v149) - 2 <= 2)
+      {
+        *(this + 64) = ot::SettingsBase::NetworkInfo::GetWasChildStatus(v149);
+        v125 = *(this + 64);
+        WasChildStatus = ot::SettingsBase::NetworkInfo::GetWasChildStatus(v149);
+        ot::Logger::LogAtLevel<(ot::LogLevel)3>(&ot::Mle::kLogModuleName, "%s: Setting mWasChild to: %d, settings value: %d", v51, v52, v53, v54, v55, v56, "Restore", v125 & 1, WasChildStatus & 1);
+        Role = ot::SettingsBase::NetworkInfo::GetRole(v149);
+        if (Role == 3 || ot::SettingsBase::NetworkInfo::GetRole(v149) == 4)
+        {
+          rep = std::chrono::system_clock::now().__d_.__rep_;
+          v144 = std::chrono::time_point<std::chrono::system_clock,std::chrono::duration<long long,std::ratio<1l,1000000l>>>::time_since_epoch[abi:dn200100](&rep);
+          v141 = 1;
+          std::chrono::duration<long long,std::ratio<1l,1000l>>::duration[abi:dn200100]<int,0>(&v142, &v141);
+          v145 = std::chrono::operator/[abi:dn200100]<long long,std::ratio<1l,1000000l>,long long,std::ratio<1l,1000l>>(&v144, &v142);
+          LastDetachTime = ot::SettingsBase::NetworkInfo::GetLastDetachTime(v149);
+          if (v145 > LastDetachTime)
+          {
+            ot::Logger::LogAtLevel<(ot::LogLevel)5>(&ot::Mle::kLogModuleName, "Router Restore: now(%llu), last detach time (%llu) diff_ms(%llu),routerRestoreThreshold(%u)", v58, v59, v60, v61, v62, v63, v145, LastDetachTime, v145 - LastDetachTime, 120000);
+            if (v145 - LastDetachTime > 0x1D4C0)
+            {
+              ot::Logger::LogAtLevel<(ot::LogLevel)5>(&ot::Mle::kLogModuleName, "Router Restore: now is greater than last detach time, reset RLOC and exit restore", v64, v65, v66, v67, v68, v69);
+              v70 = ot::GetProvider<ot::InstanceLocator>::Get<ot::Mac::Mac>(this);
+              ot::Mac::Mac::SetShortAddress(v70, 65534);
+              *(this + 72) = -2;
+              return;
+            }
+          }
+        }
+
+        v122 = ot::GetProvider<ot::InstanceLocator>::Get<ot::Mac::Mac>(this);
+        Rloc16 = ot::SettingsBase::NetworkInfo::GetRloc16(v149, v71);
+        ot::Mac::Mac::SetShortAddress(v122, Rloc16);
+        *(this + 72) = ot::SettingsBase::NetworkInfo::GetRloc16(v149, v73);
+        v123 = ot::GetProvider<ot::InstanceLocator>::Get<ot::Mac::Mac>(this);
+        v74 = ot::SettingsBase::NetworkInfo::GetExtAddress(v149);
+        ot::Mac::Mac::SetExtAddress(v123, v74);
+        ot::Ip6::Netif::UnicastAddress::GetAddress((this + 1024));
+        v124 = v75;
+        v76 = ot::SettingsBase::NetworkInfo::GetMeshLocalIid(v149);
+        ot::Ip6::Address::SetIid(v124, v76);
+        if (ot::SettingsBase::NetworkInfo::GetRloc16(v149, v77) != 65534)
+        {
+          v79 = ot::SettingsBase::NetworkInfo::GetRloc16(v149, v78);
+          if (ot::Mle::IsChildRloc16(v79, v80))
+          {
+            v81 = ot::GetProvider<ot::InstanceLocator>::Get<ot::Settings>(this);
+            if (ot::Settings::Read<ot::SettingsBase::ParentInfo>(v81, v148))
+            {
+              v83 = ot::SettingsBase::NetworkInfo::GetRloc16(v149, v82);
+              ot::Logger::LogAtLevel<(ot::LogLevel)2>(&ot::Mle::kLogModuleName, "Invalid settings - no saved parent info with valid end-device RLOC16 0x%04x", v84, v85, v86, v87, v88, v89, v83);
+              return;
+            }
+
+            ot::Parent::Clear((this + 192));
+            v90 = ot::SettingsBase::ParentInfo::GetExtAddress(v148);
+            ot::Neighbor::SetExtAddress(this + 24, v90);
+            Version = ot::SettingsBase::ParentInfo::GetVersion(v148, v91);
+            ot::Neighbor::SetVersion(this + 192, Version);
+            ot::Mle::DeviceMode::DeviceMode(&v139, 11);
+            ot::Neighbor::SetDeviceMode(this + 192, v139);
+            v94 = ot::SettingsBase::NetworkInfo::GetRloc16(v149, v93);
+            v95 = ot::Mle::RouterIdFromRloc16(v94);
+            v96 = ot::Mle::Rloc16FromRouterId(v95);
+            ot::Neighbor::SetRloc16(this + 192, v96);
+            v136 = std::chrono::system_clock::now().__d_.__rep_;
+            v137 = std::chrono::time_point<std::chrono::system_clock,std::chrono::duration<long long,std::ratio<1l,1000000l>>>::time_since_epoch[abi:dn200100](&v136);
+            v134 = 1;
+            std::chrono::duration<long long,std::ratio<1l,1000l>>::duration[abi:dn200100]<int,0>(&v135, &v134);
+            v138 = std::chrono::operator/[abi:dn200100]<long long,std::ratio<1l,1000000l>,long long,std::ratio<1l,1000l>>(&v137, &v135);
+            LastHeardTime = ot::SettingsBase::ParentInfo::GetLastHeardTime(v148);
+            if (v138 > LastHeardTime)
+            {
+              if (ot::Mle::Mle::isThreadCertEnabled(this))
+              {
+                v132 = 240000;
+              }
+
+              else
+              {
+                ot::Logger::LogAtLevel<(ot::LogLevel)5>(&ot::Mle::kLogModuleName, "%s: Cert Flag disabled", v103, v104, v105, v106, v107, v108, "Restore");
+                v132 = 30000;
+              }
+
+              ot::Logger::LogAtLevel<(ot::LogLevel)5>(&ot::Mle::kLogModuleName, "Parent Restore: now(%llu), last heard time (%llu) diff_ms(%llu),kParentRestoreThreshold_ms(%u)", v103, v104, v105, v106, v107, v108, v138, LastHeardTime, v138 - LastHeardTime, v132);
+              if (v138 - LastHeardTime > v132)
+              {
+                ot::Logger::LogAtLevel<(ot::LogLevel)5>(&ot::Mle::kLogModuleName, "Parent Restore: now is greater than last heard time, reset RLOC", v109, v110, v111, v112, v113, v114);
+                ot::Neighbor::SetState(this + 192, 0);
+                ot::Neighbor::SetRloc16(this + 192, 65534);
+              }
+
+              else
+              {
+                ot::Logger::LogAtLevel<(ot::LogLevel)5>(&ot::Mle::kLogModuleName, "Parent Restore now(%llu) is less than last heard time(%llu), dont reset RLOC ", v109, v110, v111, v112, v113, v114, v138, LastHeardTime);
+                ot::Neighbor::SetState(this + 192, 1);
+              }
+            }
+
+            else
+            {
+              ot::Logger::LogAtLevel<(ot::LogLevel)2>(&ot::Mle::kLogModuleName, "Parent Restore now(%llu) is less than last heard time(%llu), dont reset RLOC,possible wrap around", v97, v98, v99, v100, v101, v102, v138, LastHeardTime);
+              ot::Neighbor::SetState(this + 192, 1);
+            }
+
+            *(this + 73) = ot::Neighbor::GetRloc16((this + 192));
+          }
+
+          else
+          {
+            v120 = ot::GetProvider<ot::InstanceLocator>::Get<ot::Mle::MleRouter>(this);
+            v115 = ot::Mle::Mle::GetRloc16(this);
+            v116 = ot::Mle::RouterIdFromRloc16(v115);
+            ot::Mle::MleRouter::SetRouterId(v120, v116);
+            v121 = ot::GetProvider<ot::InstanceLocator>::Get<ot::Mle::MleRouter>(this);
+            PreviousPartitionId = ot::SettingsBase::NetworkInfo::GetPreviousPartitionId(v149, v117);
+            ot::Mle::MleRouter::SetPreviousPartitionId(v121, PreviousPartitionId);
+            v119 = ot::GetProvider<ot::InstanceLocator>::Get<ot::ChildTable>(this);
+            ot::ChildTable::Restore(v119);
+          }
+
+          *(this + 129) = *(this + 129) & 0xDF | (32 * (ot::SettingsBase::NetworkInfo::GetRole(v149) == 4));
+          *(this + 129) = *(this + 129) & 0xFB | 4;
+        }
+      }
+    }
+  }
+}
+
+uint64_t ot::Settings::Read<ot::SettingsBase::NetworkInfo>(ot::InstanceLocator *a1, ot::SettingsBase::NetworkInfo *a2)
+{
+  ot::SettingsBase::NetworkInfo::Init(a2);
+  return ot::Settings::ReadEntry(a1, 3u, a2, 0x2Fu);
+}
+
+{
+  return ot::Settings::Read<ot::SettingsBase::NetworkInfo>(a1, a2);
+}
+
+uint64_t ot::KeyManager::SetMleFrameCounter(uint64_t this, int a2)
+{
+  *(this + 56) = a2;
+  return this;
+}
+
+{
+  return ot::KeyManager::SetMleFrameCounter(this, a2);
+}
+
+uint64_t std::chrono::operator/[abi:dn200100]<long long,std::ratio<1l,1000000l>,long long,std::ratio<1l,1000l>>(void *a1, uint64_t a2)
+{
+  v7 = a1;
+  v6 = a2;
+  v5 = *a1;
+  v3 = std::__tree_iterator<std::__value_type<ot::Ip6::InterfaceIdentifier,ot::matterSubscriptionInfo>,std::__tree_node<std::__value_type<ot::Ip6::InterfaceIdentifier,ot::matterSubscriptionInfo>,void *> *,long>::__get_np[abi:dn200100](&v5);
+  std::chrono::duration<long long,std::ratio<1l,1000000l>>::duration[abi:dn200100]<long long,std::ratio<1l,1000l>,0>(&v4, v6);
+  return v3 / std::__tree_iterator<std::__value_type<ot::Ip6::InterfaceIdentifier,ot::matterSubscriptionInfo>,std::__tree_node<std::__value_type<ot::Ip6::InterfaceIdentifier,ot::matterSubscriptionInfo>,void *> *,long>::__get_np[abi:dn200100](&v4);
+}
+
+uint64_t ot::SettingsBase::NetworkInfo::GetLastDetachTime(ot::SettingsBase::NetworkInfo *this)
+{
+  return *(this + 38);
+}
+
+{
+  return ot::SettingsBase::NetworkInfo::GetLastDetachTime(this);
+}
+
+uint64_t ot::Settings::Read<ot::SettingsBase::ParentInfo>(ot::InstanceLocator *a1, ot::SettingsBase::ParentInfo *a2)
+{
+  ot::SettingsBase::ParentInfo::Init(a2);
+  return ot::Settings::ReadEntry(a1, 4u, a2, 0x16u);
+}
+
+{
+  return ot::Settings::Read<ot::SettingsBase::ParentInfo>(a1, a2);
+}
+
+uint64_t ot::Mle::MleRouter::SetPreviousPartitionId(uint64_t this, int a2)
+{
+  *(this + 35696) = a2;
+  return this;
+}
+
+{
+  return ot::Mle::MleRouter::SetPreviousPartitionId(this, a2);
+}
+
+uint64_t ot::Mle::Mle::StoreParentInfo(ot::Mle::Mle *this)
+{
+  v39 = this;
+  v28 = this;
+  v38 = 0;
+  v37 = 0;
+  if (!ot::Mle::Mle::IsAttached(this) || !ot::Mle::Mle::IsChild(v28))
+  {
+    goto LABEL_7;
+  }
+
+  v26 = v40;
+  ot::SettingsBase::ParentInfo::Init(v40);
+  ot::Neighbor::GetExtAddress((v28 + 192));
+  ot::SettingsBase::ParentInfo::SetExtAddress(v40, v1);
+  Version = ot::Neighbor::GetVersion((v28 + 192));
+  ot::SettingsBase::ParentInfo::SetVersion(v40, Version);
+  v27 = v28 + 344;
+  ot::Neighbor::GetExtAddress((v28 + 192));
+  Parent = ot::NeighborTable::FindParent((v28 + 344), v3, 1);
+  v36 = Parent;
+  if (!Parent)
+  {
+    v38 = 23;
+    goto LABEL_8;
+  }
+
+  v23 = &Now;
+  Now = ot::TimerMilli::GetNow(Parent);
+  LastHeard = ot::Neighbor::GetLastHeard(v36);
+  v37 = ot::Time::operator-(&Now, &LastHeard);
+  rep = std::chrono::system_clock::now().__d_.__rep_;
+  v24 = &v32;
+  v32 = std::chrono::time_point<std::chrono::system_clock,std::chrono::duration<long long,std::ratio<1l,1000000l>>>::time_since_epoch[abi:dn200100](&rep);
+  v29 = 1;
+  v25 = &v30;
+  std::chrono::duration<long long,std::ratio<1l,1000l>>::duration[abi:dn200100]<int,0>(&v30, &v29);
+  v33 = std::chrono::operator/[abi:dn200100]<long long,std::ratio<1l,1000000l>,long long,std::ratio<1l,1000l>>(&v32, &v30);
+  v37 = v33 - v37;
+  ot::SettingsBase::ParentInfo::SetLastHeardTime(v40, v37);
+  v5 = ot::GetProvider<ot::InstanceLocator>::Get<ot::Settings>(v28);
+  v6 = ot::Settings::Save<ot::SettingsBase::ParentInfo>(v5, v40);
+  v38 = v6;
+  if (!v6)
+  {
+LABEL_7:
+    IsAttached = ot::Mle::Mle::IsAttached(v28);
+    IsChild = ot::Mle::Mle::IsChild(v28);
+    ot::Logger::LogAtLevel<(ot::LogLevel)5>(&ot::Mle::kLogModuleName, "Store Parent Information isAttached=%d isChild=%d lastTransactionTime=%llu", v8, v9, v10, v11, v12, v13, IsAttached, IsChild, v37);
+  }
+
+LABEL_8:
+  if (v38)
+  {
+    v14 = ot::ErrorToString(v38);
+    ot::Logger::LogAtLevel<(ot::LogLevel)2>(&ot::Mle::kLogModuleName, "Store Parent Information failed error=%s", v15, v16, v17, v18, v19, v20, v14);
+  }
+
+  return v38;
+}
+
+BOOL ot::Mle::Mle::IsAttached(ot::Mle::Mle *this)
+{
+  v3 = 1;
+  if (!ot::Mle::Mle::IsChild(this))
+  {
+    v3 = 1;
+    if (!ot::Mle::Mle::IsRouter(this))
+    {
+      return ot::Mle::Mle::IsLeader(this);
+    }
+  }
+
+  return v3;
+}
+
+uint64_t ot::SettingsBase::ParentInfo::Init(ot::SettingsBase::ParentInfo *this)
+{
+  ot::Clearable<ot::SettingsBase::ParentInfo>::Clear(this);
+  return ot::SettingsBase::ParentInfo::SetVersion(this, 2u);
+}
+
+{
+  return ot::SettingsBase::ParentInfo::Init(this);
+}
+
+uint64_t ot::SettingsBase::ParentInfo::SetExtAddress(uint64_t this, const ot::Mac::ExtAddress *a2)
+{
+  *(this + 12) = *a2;
+  return this;
+}
+
+{
+  return ot::SettingsBase::ParentInfo::SetExtAddress(this, a2);
+}
+
+uint64_t ot::SettingsBase::ParentInfo::SetVersion(ot::SettingsBase::ParentInfo *this, unsigned __int16 a2)
+{
+  result = ot::LittleEndian::HostSwap16(a2);
+  *(this + 10) = result;
+  return result;
+}
+
+{
+  return ot::SettingsBase::ParentInfo::SetVersion(this, a2);
+}
+
+uint64_t ot::SettingsBase::ParentInfo::SetLastHeardTime(uint64_t this, uint64_t a2)
+{
+  *(this + 4) = a2;
+  return this;
+}
+
+{
+  return ot::SettingsBase::ParentInfo::SetLastHeardTime(this, a2);
+}
+
+uint64_t ot::Settings::Save<ot::SettingsBase::ParentInfo>(ot::InstanceLocator *a1, ot::SettingsBase::NetworkInfo *a2)
+{
+  return ot::Settings::SaveEntry(a1, 4u, a2, v3, 0x16u);
+}
+
+{
+  return ot::Settings::Save<ot::SettingsBase::ParentInfo>(a1, a2);
+}
+
+uint64_t ot::Mle::Mle::Store(ot::Mle::Mle *this)
+{
+  v35 = 0;
+  if (!ot::Mle::Mle::IsCslPeripheralAttaching(this))
+  {
+    ot::SettingsBase::NetworkInfo::Init(v36);
+    if (ot::Mle::Mle::IsAttached(this))
+    {
+      ot::SettingsBase::NetworkInfo::SetRole(v36, *(this + 130));
+      Rloc16 = ot::Mle::Mle::GetRloc16(this);
+      ot::SettingsBase::NetworkInfo::SetRloc16(v36, Rloc16);
+      PartitionId = ot::Mle::LeaderData::GetPartitionId((this + 184));
+      ot::SettingsBase::NetworkInfo::SetPreviousPartitionId(v36, PartitionId);
+      v3 = ot::GetProvider<ot::InstanceLocator>::Get<ot::Mac::Mac>(this);
+      ExtAddress = ot::Mac::Mac::GetExtAddress(v3);
+      ot::SettingsBase::NetworkInfo::SetExtAddress(v36, ExtAddress);
+      ot::Ip6::Netif::UnicastAddress::GetAddress((this + 1024));
+      Iid = ot::Ip6::Address::GetIid(v5);
+      ot::SettingsBase::NetworkInfo::SetMeshLocalIid(v36, Iid);
+      ot::SettingsBase::NetworkInfo::SetVersion(v36, 4u);
+      ot::Logger::LogAtLevel<(ot::LogLevel)5>(&ot::Mle::kLogModuleName, "Store Last detach time=%llu", v7, v8, v9, v10, v11, v12, *(this + 110));
+      ot::SettingsBase::NetworkInfo::SetLastDetachTime(v36, *(this + 110));
+      ot::SettingsBase::NetworkInfo::SetWasChildStatus(v36, *(this + 64) & 1);
+      if (ot::Mle::Mle::IsChild(this))
+      {
+        ot::Mle::Mle::StoreParentInfo(this);
+      }
+    }
+
+    else
+    {
+      v13 = ot::GetProvider<ot::InstanceLocator>::Get<ot::Settings>(this);
+      if (ot::Settings::Read<ot::SettingsBase::NetworkInfo>(v13, v36))
+      {
+        return v35;
+      }
+    }
+
+    v14 = ot::GetProvider<ot::InstanceLocator>::Get<ot::KeyManager>(this);
+    CurrentKeySequence = ot::KeyManager::GetCurrentKeySequence(v14);
+    ot::SettingsBase::NetworkInfo::SetKeySequence(v36, CurrentKeySequence);
+    v16 = ot::GetProvider<ot::InstanceLocator>::Get<ot::KeyManager>(this);
+    MleFrameCounter = ot::KeyManager::GetMleFrameCounter(v16);
+    ot::SettingsBase::NetworkInfo::SetMleFrameCounter(v36, MleFrameCounter + 1000);
+    v18 = ot::GetProvider<ot::InstanceLocator>::Get<ot::KeyManager>(this);
+    MaximumMacFrameCounter = ot::KeyManager::GetMaximumMacFrameCounter(v18);
+    ot::SettingsBase::NetworkInfo::SetMacFrameCounter(v36, MaximumMacFrameCounter + 1000);
+    v20 = ot::Mle::DeviceMode::Get((this + 131));
+    ot::SettingsBase::NetworkInfo::SetDeviceMode(v36, v20);
+    v21 = ot::GetProvider<ot::InstanceLocator>::Get<ot::Settings>(this);
+    v35 = ot::Settings::Save<ot::SettingsBase::NetworkInfo>(v21, v36);
+    if (!v35)
+    {
+      v32 = ot::GetProvider<ot::InstanceLocator>::Get<ot::KeyManager>(this);
+      v23 = ot::SettingsBase::NetworkInfo::GetMleFrameCounter(v36, v22);
+      ot::KeyManager::SetStoredMleFrameCounter(v32, v23);
+      v33 = ot::GetProvider<ot::InstanceLocator>::Get<ot::KeyManager>(this);
+      MacFrameCounter = ot::SettingsBase::NetworkInfo::GetMacFrameCounter(v36, v33);
+      ot::KeyManager::SetStoredMacFrameCounter(v33, MacFrameCounter);
+      ot::Logger::LogAtLevel<(ot::LogLevel)5>(&ot::Mle::kLogModuleName, "Store Network Information", v25, v26, v27, v28, v29, v30);
+    }
+  }
+
+  return v35;
+}
+
+uint64_t ot::SettingsBase::NetworkInfo::Init(ot::SettingsBase::NetworkInfo *this)
+{
+  ot::Clearable<ot::SettingsBase::NetworkInfo>::Clear(this);
+  return ot::SettingsBase::NetworkInfo::SetVersion(this, 2u);
+}
+
+{
+  return ot::SettingsBase::NetworkInfo::Init(this);
+}
+
+_BYTE *ot::SettingsBase::NetworkInfo::SetRole(_BYTE *this, char a2)
+{
+  *this = a2;
+  return this;
+}
+
+{
+  return ot::SettingsBase::NetworkInfo::SetRole(this, a2);
+}
+
+uint64_t ot::SettingsBase::NetworkInfo::SetRloc16(ot::SettingsBase::NetworkInfo *this, unsigned __int16 a2)
+{
+  result = ot::LittleEndian::HostSwap16(a2);
+  *(this + 1) = result;
+  return result;
+}
+
+{
+  return ot::SettingsBase::NetworkInfo::SetRloc16(this, a2);
+}
+
+uint64_t ot::SettingsBase::NetworkInfo::SetPreviousPartitionId(ot::SettingsBase::NetworkInfo *this, unsigned int a2)
+{
+  result = ot::LittleEndian::HostSwap32(a2);
+  *(this + 4) = result;
+  return result;
+}
+
+{
+  return ot::SettingsBase::NetworkInfo::SetPreviousPartitionId(this, a2);
+}
+
+uint64_t ot::SettingsBase::NetworkInfo::SetExtAddress(uint64_t this, const ot::Mac::ExtAddress *a2)
+{
+  *(this + 20) = *a2;
+  return this;
+}
+
+{
+  return ot::SettingsBase::NetworkInfo::SetExtAddress(this, a2);
+}
+
+uint64_t ot::SettingsBase::NetworkInfo::SetMeshLocalIid(uint64_t this, const ot::Ip6::InterfaceIdentifier *a2)
+{
+  *(this + 28) = *a2;
+  return this;
+}
+
+{
+  return ot::SettingsBase::NetworkInfo::SetMeshLocalIid(this, a2);
+}
+
+uint64_t ot::SettingsBase::NetworkInfo::SetVersion(ot::SettingsBase::NetworkInfo *this, unsigned __int16 a2)
+{
+  result = ot::LittleEndian::HostSwap16(a2);
+  *(this + 18) = result;
+  return result;
+}
+
+{
+  return ot::SettingsBase::NetworkInfo::SetVersion(this, a2);
+}
+
+uint64_t ot::SettingsBase::NetworkInfo::SetLastDetachTime(uint64_t this, uint64_t a2)
+{
+  *(this + 38) = a2;
+  return this;
+}
+
+{
+  return ot::SettingsBase::NetworkInfo::SetLastDetachTime(this, a2);
+}
+
+uint64_t ot::SettingsBase::NetworkInfo::SetWasChildStatus(uint64_t this, char a2)
+{
+  *(this + 46) = a2 & 1;
+  return this;
+}
+
+{
+  return ot::SettingsBase::NetworkInfo::SetWasChildStatus(this, a2);
+}
+
+uint64_t ot::SettingsBase::NetworkInfo::SetKeySequence(ot::SettingsBase::NetworkInfo *this, unsigned int a2)
+{
+  result = ot::LittleEndian::HostSwap32(a2);
+  *(this + 1) = result;
+  return result;
+}
+
+{
+  return ot::SettingsBase::NetworkInfo::SetKeySequence(this, a2);
+}
+
+uint64_t ot::SettingsBase::NetworkInfo::SetMleFrameCounter(ot::SettingsBase::NetworkInfo *this, unsigned int a2)
+{
+  result = ot::LittleEndian::HostSwap32(a2);
+  *(this + 2) = result;
+  return result;
+}
+
+{
+  return ot::SettingsBase::NetworkInfo::SetMleFrameCounter(this, a2);
+}
+
+uint64_t ot::KeyManager::GetMleFrameCounter(ot::KeyManager *this)
+{
+  return *(this + 14);
+}
+
+{
+  return ot::KeyManager::GetMleFrameCounter(this);
+}
+
+uint64_t ot::SettingsBase::NetworkInfo::SetMacFrameCounter(ot::SettingsBase::NetworkInfo *this, unsigned int a2)
+{
+  result = ot::LittleEndian::HostSwap32(a2);
+  *(this + 3) = result;
+  return result;
+}
+
+{
+  return ot::SettingsBase::NetworkInfo::SetMacFrameCounter(this, a2);
+}
+
+uint64_t ot::KeyManager::GetMaximumMacFrameCounter(ot::KeyManager *this)
+{
+  return ot::Mac::LinkFrameCounters::GetMaximum((this + 52));
+}
+
+{
+  return ot::KeyManager::GetMaximumMacFrameCounter(this);
+}
+
+uint64_t ot::SettingsBase::NetworkInfo::SetDeviceMode(uint64_t this, char a2)
+{
+  *(this + 1) = a2;
+  return this;
+}
+
+{
+  return ot::SettingsBase::NetworkInfo::SetDeviceMode(this, a2);
+}
+
+uint64_t ot::Settings::Save<ot::SettingsBase::NetworkInfo>(ot::InstanceLocator *a1, ot::SettingsBase::NetworkInfo *a2)
+{
+  return ot::Settings::SaveEntry(a1, 3u, a2, v3, 0x2Fu);
+}
+
+{
+  return ot::Settings::Save<ot::SettingsBase::NetworkInfo>(a1, a2);
+}
+
+uint64_t ot::KeyManager::SetStoredMleFrameCounter(uint64_t this, int a2)
+{
+  *(this + 64) = a2;
+  return this;
+}
+
+{
+  return ot::KeyManager::SetStoredMleFrameCounter(this, a2);
+}
+
+uint64_t ot::KeyManager::SetStoredMacFrameCounter(uint64_t this, int a2)
+{
+  *(this + 60) = a2;
+  return this;
+}
+
+{
+  return ot::KeyManager::SetStoredMacFrameCounter(this, a2);
+}
+
+uint64_t ot::Mle::Mle::UpdateLastDetachTime(ot::Mle::Mle *this)
+{
+  v8 = this;
+  rep = std::chrono::system_clock::now().__d_.__rep_;
+  v6 = std::chrono::time_point<std::chrono::system_clock,std::chrono::duration<long long,std::ratio<1l,1000000l>>>::time_since_epoch[abi:dn200100](&rep);
+  v3 = 1;
+  std::chrono::duration<long long,std::ratio<1l,1000l>>::duration[abi:dn200100]<int,0>(&v4, &v3);
+  v7 = std::chrono::operator/[abi:dn200100]<long long,std::ratio<1l,1000000l>,long long,std::ratio<1l,1000l>>(&v6, &v4);
+  return ot::Mle::Mle::SetLastDetachTime(this, v7);
+}
+
+uint64_t ot::Mle::Mle::SetLastDetachTime(uint64_t this, uint64_t a2)
+{
+  *(this + 880) = a2;
+  return this;
+}
+
+{
+  return ot::Mle::Mle::SetLastDetachTime(this, a2);
+}
+
+uint64_t ot::Mle::Mle::BecomeDetached(ot::Mle::Mle *this)
+{
+  v12 = 0;
+  if (ot::Mle::Mle::IsDisabled(this))
+  {
+    return 13;
+  }
+
+  else if (!ot::Mle::Mle::IsDetached(this) || *(this + 132) != 2)
+  {
+    if (!*(this + 133))
+    {
+      v1 = ot::GetProvider<ot::InstanceLocator>::Get<ot::MeshCoP::PendingDatasetManager>(this);
+      ot::MeshCoP::DatasetManager::Restore(v1);
+      IgnoreError();
+    }
+
+    ot::Mle::Mle::SetStateDetached(this);
+    ot::Neighbor::SetState(this + 192, 0);
+    ot::Mle::Mle::SetRloc16(this, 0xFFFEu);
+    isThreadStateMachineEnabled = ot::Mle::Mle::isThreadStateMachineEnabled(this);
+    ot::InstanceLocator::GetInstance(this);
+    if (!otPlatVendorGetThreadJoinSession() && isThreadStateMachineEnabled && (ot::Mle::Mle::GetDeviceMode(this), ot::Mle::Mle::IsMinimalEndDevice(this)))
+    {
+      if (*(this + 74))
+      {
+        ot::Logger::LogAtLevel<(ot::LogLevel)3>(&ot::Mle::kLogModuleName, "ThreadConnection: Attach SED/SSED attempt %d unsuccessful, stop retries", v2, v3, v4, v5, v6, v7, *(this + 74));
+        *(this + 74) = 0;
+        v8 = ot::GetProvider<ot::InstanceLocator>::Get<ot::Notifier>(this);
+        ot::Notifier::Signal(v8, 0x200000000);
+      }
+
+      else
+      {
+        ot::Logger::LogAtLevel<(ot::LogLevel)3>(&ot::Mle::kLogModuleName, "ThreadConnection: Attach SED/SSED attempt %d unsuccessful, will continue more retries", v2, v3, v4, v5, v6, v7, *(this + 74));
+        ot::Mle::Mle::Attach(this, 0);
+      }
+    }
+
+    else
+    {
+      ot::Mle::Mle::Attach(this, 0);
+    }
+  }
+
+  return v12;
+}
+
+uint64_t ot::Mle::Mle::BecomeChild(ot::Mle::Mle *this)
+{
+  v3 = 0;
+  if (ot::Mle::Mle::IsDisabled(this))
+  {
+    return 13;
+  }
+
+  else if (ot::Mle::Mle::IsAttaching(this))
+  {
+    return 5;
+  }
+
+  else
+  {
+    ot::Mle::Mle::Attach(this, 0);
+  }
+
+  return v3;
+}
+
+BOOL ot::Mle::Mle::IsAttaching(ot::Mle::Mle *this)
+{
+  return *(this + 132) != 0;
+}
+
+{
+  return ot::Mle::Mle::IsAttaching(this);
+}
+
+uint64_t ot::Mle::Mle::SearchForBetterParent(ot::Mle::Mle *this)
+{
+  v3 = 0;
+  if (ot::Mle::Mle::IsChild(this))
+  {
+    ot::Mle::Mle::Attach(this, 4);
+  }
+
+  else
+  {
+    return 13;
+  }
+
+  return v3;
+}
+
+uint64_t ot::Mle::Mle::GetAttachStartDelay(ot::Mle::Mle *this)
+{
+  v19 = 1;
+  if (ot::Mle::Mle::IsDetached(this))
+  {
+    if (*(this + 74))
+    {
+      v17 = *(this + 74) - 1;
+      if (v17 >= 0x20uLL || (1 << v17) > 0x27)
+      {
+        v19 = ot::Random::NonCrypto::AddJitter(0x2710, 0x7D0u);
+      }
+
+      else
+      {
+        v19 = 251 << v17;
+      }
+
+      Uint32InRange = ot::Random::NonCrypto::GetUint32InRange(0, 0x32u);
+      if (Uint32InRange != 0 && Uint32InRange + v19 >= v19)
+      {
+        v19 += Uint32InRange;
+      }
+
+      v15 = *(this + 74);
+      v7 = ot::ToUlong(v19 / 0x3E8);
+      ot::Logger::LogAtLevel<(ot::LogLevel)3>(&ot::Mle::kLogModuleName, "Attach attempt %u unsuccessful, will try again in %lu.%03u seconds", v8, v9, v10, v11, v12, v13, v15, v7, v19 % 0x3E8);
+    }
+
+    else
+    {
+      v19 = 20;
+      ot::Logger::LogAtLevel<(ot::LogLevel)3>(&ot::Mle::kLogModuleName, "Delay before 1st Attach Attempt: %d", v1, v2, v3, v4, v5, v6, 20);
+    }
+  }
+
+  return v19;
+}
+
+BOOL ot::Mle::Mle::IsRouterOrLeader(ot::Mle::Mle *this)
+{
+  v3 = 1;
+  if (!ot::Mle::Mle::IsRouter(this))
+  {
+    return ot::Mle::Mle::IsLeader(this);
+  }
+
+  return v3;
+}
+
+_BYTE *ot::Mac::Mac::SetBeaconEnabled(_BYTE *this, char a2)
+{
+  *this = *this & 0xEF | (16 * (a2 & 1));
+  return this;
+}
+
+{
+  return ot::Mac::Mac::SetBeaconEnabled(this, a2);
+}
+
+void ot::Mle::Mle::SetStateChild(ot::Mle::Mle *this, unsigned __int16 a2)
+{
+  if (ot::Mle::Mle::IsLeader(this))
+  {
+    v7 = ot::GetProvider<ot::InstanceLocator>::Get<ot::ThreadNetif>(this);
+    v2 = ot::GetProvider<ot::InstanceLocator>::Get<ot::Mle::MleRouter>(this);
+    ot::Ip6::Netif::RemoveUnicastAddress(v7, (v2 + 35712));
+  }
+
+  ot::Mle::Mle::SetRloc16(this, a2);
+  ot::Mle::Mle::SetRole(this, 2);
+  ot::Mle::Mle::SetAttachState(this, 0);
+  ot::TimerMilli::Start((this + 888), 0x4E20u);
+  *(this + 133) = 0;
+  *(this + 139) = 0;
+  *(this + 140) = 0;
+  v3 = ot::GetProvider<ot::InstanceLocator>::Get<ot::Mac::Mac>(this);
+  ot::Mac::Mac::SetBeaconEnabled(v3, 0);
+  ot::Mle::Mle::ScheduleMessageTransmissionTimer(this);
+  if (ot::Mle::Mle::IsFullThreadDevice(this))
+  {
+    v4 = ot::GetProvider<ot::InstanceLocator>::Get<ot::Mle::MleRouter>(this);
+    ot::Mle::MleRouter::HandleChildStart(v4, *(this + 134));
+  }
+
+  ot::Mle::Mle::InformPreviousChannel(this);
+  if (*(this + 73) != 65534)
+  {
+    v6 = *(this + 73);
+    if (v6 != ot::Neighbor::GetRloc16((this + 192)))
+    {
+      ++*(this + 340);
+      ++*(this + 402);
+      ot::Mle::Mle::InformPreviousParent(this);
+    }
+  }
+
+  *(this + 73) = ot::Neighbor::GetRloc16((this + 192));
+  v5 = ot::GetProvider<ot::InstanceLocator>::Get<ot::Mac::Mac>(this);
+  ot::Mac::Mac::UpdateCsl(v5, 0);
+}
+
+uint64_t ot::Mle::Mle::InformPreviousChannel(uint64_t this)
+{
+  v3 = this;
+  if (*(this + 152) != 0xFFFF)
+  {
+    if (ot::Mle::Mle::IsChild(this) || (this = ot::Mle::Mle::IsRouter(v3), (this & 1) != 0))
+    {
+      if (!ot::Mle::Mle::IsFullThreadDevice(v3) || ot::Mle::Mle::IsRouter(v3) || (v1 = ot::GetProvider<ot::InstanceLocator>::Get<ot::Mle::MleRouter>(v3), this = ot::Mle::MleRouter::IsRouterRoleTransitionPending(v1), (this & 1) == 0))
+      {
+        *(v3 + 76) = -1;
+        v2 = ot::GetProvider<ot::InstanceLocator>::Get<ot::AnnounceBeginServer>(v3);
+        return ot::AnnounceBeginServer::SendAnnounce(v2, 1 << *(v3 + 142), 3, 0x3E8u);
+      }
+    }
+  }
+
+  return this;
+}
+
+void ot::Mle::Mle::InformPreviousParent(ot::Mle::Mle *this)
+{
+  v15 = this;
+  v14 = 0;
+  v13 = 0;
+  ot::Ip6::MessageInfo::MessageInfo(v12);
+  v1 = ot::GetProvider<ot::InstanceLocator>::Get<ot::Ip6::Ip6>(this);
+  v13 = ot::Ip6::Ip6::NewMessage(v1, 0);
+  if (v13)
+  {
+    v14 = ot::Message::SetLength(v13, 0);
+    if (!v14)
+    {
+      ot::Mle::Mle::GetMeshLocalEid(this);
+      ot::Ip6::MessageInfo::SetSockAddr(v12, v2);
+      ot::Ip6::MessageInfo::GetPeerAddr(v12);
+      ot::Ip6::Address::SetToRoutingLocator(v3, (this + 984), *(this + 73));
+      v4 = ot::GetProvider<ot::InstanceLocator>::Get<ot::Ip6::Ip6>(this);
+      v14 = ot::Ip6::Ip6::SendDatagram(v4, v13, v12, 0x3Bu);
+      if (!v14)
+      {
+        ot::Logger::LogAtLevel<(ot::LogLevel)3>(&ot::Mle::kLogModuleName, "Sending message to inform previous parent 0x%04x", v5, v6, v7, v8, v9, v10, *(this + 73));
+      }
+    }
+  }
+
+  else
+  {
+    v14 = 3;
+  }
+
+  ot::Logger::LogOnError(&ot::Mle::kLogModuleName, v14, "inform previous parent");
+  if (v14)
+  {
+    if (v13)
+    {
+      ot::Message::Free(v13);
+    }
+  }
+}
+
+void ot::Mle::Mle::SetTimeout(ot::Mle::Mle *this, unsigned int a2)
+{
+  v4 = ot::Max<unsigned int>(a2, 5u);
+  if (*(this + 39) != v4)
+  {
+    *(this + 39) = v4;
+    v2 = ot::GetProvider<ot::InstanceLocator>::Get<ot::DataPollSender>(this);
+    ot::DataPollSender::RecalculatePollPeriod(v2);
+    if (ot::Mle::Mle::IsChild(this))
+    {
+      ot::Mle::Mle::SendChildUpdateRequest(this);
+      IgnoreError();
+    }
+  }
+}
+
+uint64_t ot::Mle::Mle::SetDeviceMode(ot::Mle::Mle *a1, char a2)
+{
+  v39 = a2;
+  v38 = a1;
+  v34 = a1;
+  v37 = 0;
+  v36 = *(a1 + 131);
+  if (ot::Mle::DeviceMode::IsValid(&v39))
+  {
+    if (ot::Unequatable<ot::Mle::DeviceMode>::operator!=(v34 + 131, &v39))
+    {
+      v2 = v34;
+      v33 = &v39;
+      *(v34 + 131) = v39;
+      v3 = ot::GetProvider<ot::InstanceLocator>::Get<ot::Utils::HistoryTracker>(v2);
+      ot::Utils::HistoryTracker::RecordNetworkInfo(v3);
+      v31 = ot::Mle::DeviceMode::Get(&v36);
+      v32 = ot::Mle::DeviceMode::Get((v34 + 131));
+      v30 = v40;
+      ot::Mle::DeviceMode::ToString((v34 + 131), v40);
+      v4 = ot::String<(unsigned short)45>::AsCString(v40);
+      ot::Logger::LogAtLevel<(ot::LogLevel)3>(&ot::Mle::kLogModuleName, "Mode 0x%02x -> 0x%02x [%s]", v5, v6, v7, v8, v9, v10, v31, v32, v4);
+      ot::Mle::Mle::Store(v34);
+      IgnoreError();
+      if (!ot::Mle::DeviceMode::IsFullThreadDevice(v33))
+      {
+        v11 = ot::GetProvider<ot::InstanceLocator>::Get<ot::Mle::MleRouter>(v34);
+        ot::Mle::MleRouter::ClearAlternateRloc16(v11);
+      }
+
+      if (!ot::Mle::Mle::IsAttached(v34))
+      {
+        goto LABEL_17;
+      }
+
+      v35 = 0;
+      if (ot::Mle::Mle::IsFullRouter(v34))
+      {
+        ot::Logger::LogAtLevel<(ot::LogLevel)3>(&ot::Mle::kLogModuleName, "%s: Node type is Full Router", v12, v13, v14, v15, v16, v17, "SetDeviceMode");
+        ot::Mle::Mle::SetThreadCoexConfig(v34, 0, 4u, 0);
+      }
+
+      IsFullThreadDevice = ot::Mle::DeviceMode::IsFullThreadDevice(&v36);
+      v18 = ot::Mle::DeviceMode::IsFullThreadDevice((v34 + 131));
+      if (IsFullThreadDevice != v18)
+      {
+        v35 = 1;
+      }
+
+      if ((*(v34 + 129) & 0x10) == 0 && ot::Mle::DeviceMode::IsRxOnWhenIdle(&v36) && !ot::Mle::DeviceMode::IsRxOnWhenIdle((v34 + 131)))
+      {
+        v35 = 1;
+      }
+
+      if (v35)
+      {
+        ot::Mle::Mle::ResetAttachCounter(v34);
+        ot::Mle::Mle::BecomeDetached(v34);
+        IgnoreError();
+      }
+
+      else
+      {
+LABEL_17:
+        if (ot::Mle::Mle::IsDetached(v34))
+        {
+          ot::Mle::Mle::ResetAttachCounter(v34);
+          ot::Mle::Mle::SetStateDetached(v34);
+          ot::Mle::Mle::Attach(v34, 0);
+        }
+
+        else if (ot::Mle::Mle::IsChild(v34))
+        {
+          Rloc16 = ot::Mle::Mle::GetRloc16(v34);
+          ot::Mle::Mle::SetStateChild(v34, Rloc16);
+          ot::Mle::Mle::SendChildUpdateRequest(v34);
+          IgnoreError();
+        }
+      }
+    }
+  }
+
+  else
+  {
+    v37 = 7;
+  }
+
+  if (ot::Mle::Mle::IsSleepyRouter(v34) || ot::Mle::Mle::IsMinimalEndDevice(v34))
+  {
+    ot::Logger::LogAtLevel<(ot::LogLevel)3>(&ot::Mle::kLogModuleName, "%s: Remove any children before transitioning to Sleepy Router or SED Role", v20, v21, v22, v23, v24, v25, "SetDeviceMode");
+    v26 = ot::GetProvider<ot::InstanceLocator>::Get<ot::Mle::MleRouter>(v34);
+    ot::Mle::MleRouter::RemoveChildren(v26);
+    v27 = ot::GetProvider<ot::InstanceLocator>::Get<ot::MessagePool>(v34);
+    ot::MessagePool::ReclaimAllBuffers(v27);
+  }
+
+  return v37;
+}
+
+uint64_t ot::Mle::DeviceMode::IsValid(ot::Mle::DeviceMode *this)
+{
+  return 1;
+}
+
+{
+  return ot::Mle::DeviceMode::IsValid(this);
+}
+
+BOOL ot::Unequatable<ot::Mle::DeviceMode>::operator!=(const void *a1, const void *a2)
+{
+  return !ot::Equatable<ot::Mle::DeviceMode>::operator==(a1, a2);
+}
+
+{
+  return ot::Unequatable<ot::Mle::DeviceMode>::operator!=(a1, a2);
+}
+
+uint64_t ot::Mle::Mle::SetLeaderData(ot::Mle::Mle *this, const ot::Mle::LeaderData *a2)
+{
+  PartitionId = ot::Mle::LeaderData::GetPartitionId(a2);
+  Weighting = ot::Mle::LeaderData::GetWeighting(a2);
+  LeaderRouterId = ot::Mle::LeaderData::GetLeaderRouterId(a2);
+  return ot::Mle::Mle::SetLeaderData(this, PartitionId, Weighting, LeaderRouterId);
+}
+
+uint64_t ot::Mle::Mle::SetLeaderData(ot::Mle::Mle *this, int a2, char a3, char a4)
+{
+  if (ot::Mle::LeaderData::GetPartitionId((this + 184)) == a2)
+  {
+    v7 = ot::GetProvider<ot::InstanceLocator>::Get<ot::Notifier>(this);
+    ot::Notifier::SignalIfFirst(v7, 128);
+  }
+
+  else
+  {
+    v4 = ot::GetProvider<ot::InstanceLocator>::Get<ot::Mle::MleRouter>(this);
+    ot::Mle::MleRouter::HandlePartitionChange(v4);
+    v5 = ot::GetProvider<ot::InstanceLocator>::Get<ot::Notifier>(this);
+    ot::Notifier::Signal(v5, 128);
+    ++*(this + 314);
+    ++*(this + 400);
+    v6 = ot::GetProvider<ot::InstanceLocator>::Get<ot::AppMetricsManager>(this);
+    ot::AppMetricsManager::UpdateSystemWideThreadMeshReachabilityStatusLastTimestamp(v6, 9u);
+  }
+
+  ot::Mle::LeaderData::SetPartitionId(this + 46, a2);
+  ot::Mle::LeaderData::SetWeighting(this + 184, a3);
+  return ot::Mle::LeaderData::SetLeaderRouterId(this + 184, a4);
+}
+
+_DWORD *ot::Mle::LeaderData::SetPartitionId(_DWORD *this, int a2)
+{
+  *this = a2;
+  return this;
+}
+
+{
+  return ot::Mle::LeaderData::SetPartitionId(this, a2);
+}
+
+uint64_t ot::Mle::LeaderData::SetWeighting(uint64_t this, char a2)
+{
+  *(this + 4) = a2;
+  return this;
+}
+
+{
+  return ot::Mle::LeaderData::SetWeighting(this, a2);
+}
+
+uint64_t ot::Mle::LeaderData::SetLeaderRouterId(uint64_t this, char a2)
+{
+  *(this + 7) = a2;
+  return this;
+}
+
+{
+  return ot::Mle::LeaderData::SetLeaderRouterId(this, a2);
+}
+
+uint64_t ot::Mle::Mle::GetLeaderRloc16(ot::Mle::Mle *this)
+{
+  LeaderId = ot::Mle::Mle::GetLeaderId(this);
+  return ot::Mle::Rloc16FromRouterId(LeaderId);
+}
+
+{
+  return ot::Mle::Mle::GetLeaderRloc16(this);
+}
+
+uint64_t ot::Mle::CommissionerAloc16FromId(ot::Mle *this)
+{
+  return ((this & 7) - 976);
+}
+
+{
+  return ot::Mle::CommissionerAloc16FromId(this);
+}
+
+uint64_t ot::Mle::ServiceAlocFromId(ot::Mle *this)
+{
+  return this + 64528;
+}
+
+{
+  return ot::Mle::ServiceAlocFromId(this);
+}
+
+uint64_t ot::Mle::Mle::GetLeaderData(ot::Mle::Mle *this)
+{
+  v1 = ot::GetProvider<ot::InstanceLocator>::Get<ot::NetworkData::Leader>(this);
+  Version = ot::NetworkData::Leader::GetVersion(v1, 0);
+  ot::Mle::LeaderData::SetDataVersion(this + 184, Version);
+  v3 = ot::GetProvider<ot::InstanceLocator>::Get<ot::NetworkData::Leader>(this);
+  v4 = ot::NetworkData::Leader::GetVersion(v3, 1);
+  ot::Mle::LeaderData::SetStableDataVersion(this + 184, v4);
+  return this + 184;
+}
+
+uint64_t ot::Mle::LeaderData::SetDataVersion(uint64_t this, char a2)
+{
+  *(this + 5) = a2;
+  return this;
+}
+
+{
+  return ot::Mle::LeaderData::SetDataVersion(this, a2);
+}
+
+uint64_t ot::NetworkData::Leader::GetVersion(uint64_t a1, char a2)
+{
+  if (a2)
+  {
+    return *(a1 + 10);
+  }
+
+  else
+  {
+    return *(a1 + 11);
+  }
+}
+
+{
+  return ot::NetworkData::Leader::GetVersion(a1, a2);
+}
+
+uint64_t ot::Mle::LeaderData::SetStableDataVersion(uint64_t this, char a2)
+{
+  *(this + 6) = a2;
+  return this;
+}
+
+{
+  return ot::Mle::LeaderData::SetStableDataVersion(this, a2);
+}
+
+BOOL ot::Mle::Mle::HasUnregisteredAddress(ot::Mle::Mle *this)
+{
+  v17 = this;
+  v16 = 0;
+  v1 = ot::GetProvider<ot::InstanceLocator>::Get<ot::ThreadNetif>(this);
+  ot::Ip6::Netif::GetUnicastAddresses(v1);
+  v15[1] = v2;
+  v15[0] = ot::LinkedList<ot::Ip6::Netif::UnicastAddress>::begin(v2);
+  v14 = ot::LinkedList<ot::Ip6::Netif::UnicastAddress>::end();
+  while (ot::ItemPtrIterator<ot::Ip6::Netif::UnicastAddress,ot::LinkedList<ot::Ip6::Netif::UnicastAddress>::Iterator>::operator!=(v15, &v14))
+  {
+    v13 = ot::ItemPtrIterator<ot::Ip6::Netif::UnicastAddress,ot::LinkedList<ot::Ip6::Netif::UnicastAddress>::Iterator>::operator*(v15);
+    ot::Ip6::Netif::UnicastAddress::GetAddress(v13);
+    if (!ot::Ip6::Address::IsLinkLocalUnicast(v3, v4))
+    {
+      ot::Ip6::Netif::UnicastAddress::GetAddress(v13);
+      if (!ot::Mle::Mle::IsRoutingLocator(this, v5))
+      {
+        ot::Ip6::Netif::UnicastAddress::GetAddress(v13);
+        if (!ot::Mle::Mle::IsAnycastLocator(this, v6))
+        {
+          ot::Ip6::Netif::UnicastAddress::GetAddress(v13);
+          v11 = v7;
+          ot::Mle::Mle::GetMeshLocalEid(this);
+          if (ot::Unequatable<ot::Ip6::Address>::operator!=(v11, v8))
+          {
+            return 1;
+          }
+        }
+      }
+    }
+
+    ot::ItemPtrIterator<ot::Ip6::Netif::UnicastAddress,ot::LinkedList<ot::Ip6::Netif::UnicastAddress>::Iterator>::operator++(v15);
+  }
+
+  if (!ot::Mle::Mle::IsRxOnWhenIdle(this))
+  {
+    v9 = ot::GetProvider<ot::InstanceLocator>::Get<ot::ThreadNetif>(this);
+    return ot::Ip6::Netif::HasAnyExternalMulticastAddress(v9);
+  }
+
+  return v16;
+}
+
+BOOL ot::Mle::Mle::IsRoutingLocator(ot::Mle::Mle *this, const ot::Ip6::Address *a2)
+{
+  v5 = 0;
+  if (ot::Mle::Mle::IsMeshLocalAddress(this, a2))
+  {
+    Iid = ot::Ip6::Address::GetIid(a2);
+    return ot::Ip6::InterfaceIdentifier::IsRoutingLocator(Iid, v3);
+  }
+
+  return v5;
+}
+
+BOOL ot::Mle::Mle::IsAnycastLocator(ot::Mle::Mle *this, const ot::Ip6::Address *a2)
+{
+  v5 = 0;
+  if (ot::Mle::Mle::IsMeshLocalAddress(this, a2))
+  {
+    Iid = ot::Ip6::Address::GetIid(a2);
+    return ot::Ip6::InterfaceIdentifier::IsAnycastLocator(Iid, v3);
+  }
+
+  return v5;
+}
+
+BOOL ot::Ip6::Netif::HasAnyExternalMulticastAddress(ot::Ip6::Netif *this)
+{
+  v2[3] = this;
+  ot::Ip6::Netif::ExternalMulticastAddress::Iterator::Iterator(v2, this, 0);
+  return !ot::ItemPtrIterator<ot::Ip6::Netif::ExternalMulticastAddress,ot::Ip6::Netif::ExternalMulticastAddress::Iterator>::IsDone(v2);
+}
+
+{
+  return ot::Ip6::Netif::HasAnyExternalMulticastAddress(this);
+}
+
+uint64_t ot::Mle::Mle::SetCslTimeout(uint64_t this, int a2)
+{
+  v4 = this;
+  if (*(this + 160) != a2)
+  {
+    *(this + 160) = a2;
+    v2 = ot::GetProvider<ot::InstanceLocator>::Get<ot::DataPollSender>(this);
+    ot::DataPollSender::RecalculatePollPeriod(v2);
+    v3 = ot::GetProvider<ot::InstanceLocator>::Get<ot::Mac::Mac>(v4);
+    this = ot::Mac::Mac::IsCslEnabled(v3);
+    if (this)
+    {
+      return ot::Mle::Mle::ScheduleChildUpdateRequest(v4);
+    }
+  }
+
+  return this;
+}
+
 uint64_t ot::Mle::Mle::InitNeighbor(ot::Mle::Mle *this, ot::Neighbor *a2, ot::Ip6::MessageInfo **a3)
 {
-  PeerAddr = ot::Ip6::MessageInfo::GetPeerAddr(a3[1]);
-  Iid = ot::Ip6::Address::GetIid(PeerAddr);
+  ot::Ip6::MessageInfo::GetPeerAddr(a3[1]);
+  Iid = ot::Ip6::Address::GetIid(v3);
   ot::Neighbor::GetExtAddress(a2);
   ot::Ip6::InterfaceIdentifier::ConvertToExtAddress(Iid, v4);
   LinkInfo = ot::Neighbor::GetLinkInfo(a2);
@@ -14,98 +2474,103 @@ uint64_t ot::Mle::Mle::InitNeighbor(ot::Mle::Mle *this, ot::Neighbor *a2, ot::Ip
   return ot::Neighbor::SetLastHeard(a2, Now);
 }
 
-void ot::Mle::Mle::HandleNotifierEvents(_BYTE *a1, uint64_t a2)
+void ot::Mle::Mle::HandleNotifierEvents(ot::Mle::Mle *a1, uint64_t a2)
 {
-  v28 = a2;
-  v27 = a1;
+  v35 = a2;
+  v34 = a1;
+  v32 = a1;
   if (!ot::Mle::Mle::IsDisabled(a1))
   {
-    if (ot::Events::Contains(&v28, 4) && ot::Mle::Mle::IsChild(a1) && !ot::Mle::Mle::IsFullThreadDevice(a1) && a1[136] == 1)
+    if (ot::Events::Contains(&v35, 4) && ot::Mle::Mle::IsChild(v32) && !ot::Mle::Mle::IsFullThreadDevice(v32) && *(v32 + 136) == 1)
     {
-      a1[136] = 0;
-      ot::Mle::Mle::ScheduleChildUpdateRequest(a1);
+      v2 = v32;
+      *(v32 + 136) = 0;
+      ot::Mle::Mle::ScheduleChildUpdateRequest(v2);
     }
 
-    if (ot::Events::ContainsAny(&v28, 3))
+    if (ot::Events::ContainsAny(&v35, 3))
     {
-      v24 = ot::GetProvider<ot::InstanceLocator>::Get<ot::ThreadNetif>(a1);
-      Address = ot::Ip6::Netif::UnicastAddress::GetAddress((a1 + 1024));
-      if (!ot::Ip6::Netif::HasUnicastAddress(v24, Address))
+      v31 = ot::GetProvider<ot::InstanceLocator>::Get<ot::ThreadNetif>(v32);
+      ot::Ip6::Netif::UnicastAddress::GetAddress((v32 + 1024));
+      if (!ot::Ip6::Netif::HasUnicastAddress(v31, v3))
       {
-        v3 = ot::Ip6::Netif::UnicastAddress::GetAddress((a1 + 1024));
-        Iid = ot::Ip6::Address::GetIid(v3);
-        ot::Ip6::InterfaceIdentifier::GenerateRandom(Iid);
-        v5 = ot::GetProvider<ot::InstanceLocator>::Get<ot::ThreadNetif>(a1);
-        ot::Ip6::Netif::AddUnicastAddress(v5, (a1 + 1024));
-        v6 = ot::GetProvider<ot::InstanceLocator>::Get<ot::Notifier>(a1);
-        ot::Notifier::Signal(v6, 16);
+        ot::Ip6::Netif::UnicastAddress::GetAddress((v32 + 1024));
+        Iid = ot::Ip6::Address::GetIid(v4);
+        ot::Ip6::InterfaceIdentifier::GenerateRandom(Iid, v6, v7);
+        v8 = ot::GetProvider<ot::InstanceLocator>::Get<ot::ThreadNetif>(v32);
+        ot::Ip6::Netif::AddUnicastAddress(v8, (v32 + 1024));
+        v9 = ot::GetProvider<ot::InstanceLocator>::Get<ot::Notifier>(v32);
+        ot::Notifier::Signal(v9, 16);
       }
 
-      if (ot::Mle::Mle::IsChild(a1) && !ot::Mle::Mle::IsFullThreadDevice(a1))
+      if (ot::Mle::Mle::IsChild(v32) && !ot::Mle::Mle::IsFullThreadDevice(v32))
       {
-        ot::Mle::Mle::ScheduleChildUpdateRequest(a1);
-      }
-    }
-
-    if (ot::Events::ContainsAny(&v28, 12288) && ot::Mle::Mle::IsChild(a1) && !ot::Mle::Mle::IsFullThreadDevice(a1))
-    {
-      if (!ot::Mle::Mle::IsRxOnWhenIdle(a1) || (Parent = ot::Mle::Mle::GetParent(a1), !ot::Neighbor::IsThreadVersion1p1(Parent)))
-      {
-        ot::Mle::Mle::ScheduleChildUpdateRequest(a1);
+        ot::Mle::Mle::ScheduleChildUpdateRequest(v32);
       }
     }
 
-    if (ot::Events::Contains(&v28, 512))
+    if (ot::Events::ContainsAny(&v35, 12288) && ot::Mle::Mle::IsChild(v32) && !ot::Mle::Mle::IsFullThreadDevice(v32))
     {
-      if (ot::Mle::Mle::IsFullThreadDevice(a1))
+      if (!ot::Mle::Mle::IsRxOnWhenIdle(v32) || (Parent = ot::Mle::Mle::GetParent(v32), !ot::Neighbor::IsThreadVersion1p1(Parent)))
       {
-        v8 = ot::GetProvider<ot::InstanceLocator>::Get<ot::Mle::MleRouter>(a1);
-        ot::Mle::MleRouter::HandleNetworkDataUpdateRouter(v8);
+        ot::Mle::Mle::ScheduleChildUpdateRequest(v32);
+      }
+    }
+
+    if (ot::Events::Contains(&v35, 512))
+    {
+      if (ot::Mle::Mle::IsFullThreadDevice(v32))
+      {
+        v11 = ot::GetProvider<ot::InstanceLocator>::Get<ot::Mle::MleRouter>(v32);
+        ot::Mle::MleRouter::HandleNetworkDataUpdateRouter(v11);
       }
 
-      else if (ot::Mle::Mle::IsChild(a1) && !ot::Events::Contains(&v28, 4))
+      else if (ot::Mle::Mle::IsChild(v32) && !ot::Events::Contains(&v35, 4))
       {
-        ot::Mle::Mle::ScheduleChildUpdateRequest(a1);
+        ot::Mle::Mle::ScheduleChildUpdateRequest(v32);
       }
 
-      v9 = ot::GetProvider<ot::InstanceLocator>::Get<ot::BackboneRouter::Leader>(a1);
-      ot::BackboneRouter::Leader::Update(v9);
-      ot::Mle::Mle::UpdateServiceAlocs(a1);
-      v10 = ot::GetProvider<ot::InstanceLocator>::Get<ot::Dhcp6::Server>(a1);
-      ot::Dhcp6::Server::UpdateService(v10);
+      v12 = ot::GetProvider<ot::InstanceLocator>::Get<ot::BackboneRouter::Leader>(v32);
+      ot::BackboneRouter::Leader::Update(v12);
+      ot::Mle::Mle::UpdateServiceAlocs(v32);
+      v13 = ot::GetProvider<ot::InstanceLocator>::Get<ot::Dhcp6::Server>(v32);
+      ot::Dhcp6::Server::UpdateService(v13);
       IgnoreError();
-      v11 = ot::GetProvider<ot::InstanceLocator>::Get<ot::Dhcp6::Client>(a1);
-      ot::Dhcp6::Client::UpdateAddresses(v11);
+      v14 = ot::GetProvider<ot::InstanceLocator>::Get<ot::Dhcp6::Client>(v32);
+      ot::Dhcp6::Client::UpdateAddresses(v14);
     }
 
-    if (ot::Events::ContainsAny(&v28, 260) && (ot::Events::Contains(&v28, 256) || ot::Mle::Mle::IsAttached(a1)))
+    if (ot::Events::ContainsAny(&v35, 260) && (ot::Events::Contains(&v35, 256) || ot::Mle::Mle::IsAttached(v32)))
     {
-      ot::Mle::Mle::Store(a1);
+      ot::Mle::Mle::Store(v32);
       IgnoreError();
     }
 
-    if (ot::Events::Contains(&v28, 0x100000))
+    if (ot::Events::Contains(&v35, 0x100000))
     {
-      v12 = ot::GetProvider<ot::InstanceLocator>::Get<ot::Mle::MleRouter>(a1);
-      ot::Mle::MleRouter::HandleSecurityPolicyChanged(v12);
+      v15 = ot::GetProvider<ot::InstanceLocator>::Get<ot::Mle::MleRouter>(v32);
+      ot::Mle::MleRouter::HandleSecurityPolicyChanged(v15);
     }
 
-    if (ot::Events::Contains(&v28, 0x400000))
+    if (ot::Events::Contains(&v35, 0x400000))
     {
-      v13 = ot::GetProvider<ot::InstanceLocator>::Get<ot::Mac::Mac>(a1);
-      v26 = *ot::Mac::Mac::GetSupportedChannelMask(v13);
-      v14 = ot::GetProvider<ot::InstanceLocator>::Get<ot::Mac::Mac>(a1);
-      PanChannel = ot::Mac::Mac::GetPanChannel(v14);
-      if (!ot::Mac::ChannelMask::ContainsChannel(&v26, PanChannel))
+      v16 = ot::GetProvider<ot::InstanceLocator>::Get<ot::Mac::Mac>(v32);
+      v17 = *ot::Mac::Mac::GetSupportedChannelMask(v16);
+      v30 = &v33;
+      v33 = v17;
+      v18 = ot::GetProvider<ot::InstanceLocator>::Get<ot::Mac::Mac>(v32);
+      PanChannel = ot::Mac::Mac::GetPanChannel(v18);
+      if (!ot::Mac::ChannelMask::ContainsChannel(&v33, PanChannel))
       {
-        if (a1[130])
+        if (*(v32 + 130))
         {
-          v16 = ot::GetProvider<ot::InstanceLocator>::Get<ot::Mac::Mac>(a1);
-          v23 = ot::Mac::Mac::GetPanChannel(v16);
-          ot::Mac::ChannelMask::ToString(&v26, v29);
-          ot::String<(unsigned short)45>::AsCString(v29);
-          ot::Logger::LogAtLevel<(ot::LogLevel)2>(&ot::Mle::kLogModuleName, "Channel %u is not in the supported channel mask %s, detach the network gracefully!", v17, v18, v19, v20, v21, v22, v23);
-          ot::Mle::Mle::DetachGracefully(a1, 0, 0);
+          v20 = ot::GetProvider<ot::InstanceLocator>::Get<ot::Mac::Mac>(v32);
+          v29 = ot::Mac::Mac::GetPanChannel(v20);
+          v28 = v36;
+          ot::Mac::ChannelMask::ToString(&v33, v36);
+          v21 = ot::String<(unsigned short)45>::AsCString(v36);
+          ot::Logger::LogAtLevel<(ot::LogLevel)2>(&ot::Mle::kLogModuleName, "Channel %u is not in the supported channel mask %s, detach the network gracefully!", v22, v23, v24, v25, v26, v27, v29, v21);
+          ot::Mle::Mle::DetachGracefully(v32, 0, 0);
           IgnoreError();
         }
       }
@@ -219,7 +2684,7 @@ uint64_t ot::Mle::Mle::DetachGracefully(ot::Mle::Mle *this, void (*a2)(void *), 
 
     else if (v5 == 2)
     {
-      ot::Mle::Mle::SendChildUpdateRequest(this, 2);
+      ot::Mle::Mle::SendChildUpdateRequest(this, 2u);
       IgnoreError();
     }
 
@@ -255,9 +2720,9 @@ ot::Mle::Mle::ServiceAloc *ot::Mle::Mle::FindInServiceAlocs(ot::Mle::Mle *this, 
 
 uint64_t ot::Mle::Mle::ServiceAloc::GetAloc16(ot::Mle::Mle::ServiceAloc *this)
 {
-  Address = ot::Ip6::Netif::UnicastAddress::GetAddress(this);
-  Iid = ot::Ip6::Address::GetIid(Address);
-  return ot::Ip6::InterfaceIdentifier::GetLocator(Iid);
+  ot::Ip6::Netif::UnicastAddress::GetAddress(this);
+  Iid = ot::Ip6::Address::GetIid(v1);
+  return ot::Ip6::InterfaceIdentifier::GetLocator(Iid, v3);
 }
 
 {
@@ -293,8 +2758,8 @@ uint64_t ot::Mle::Mle::ServiceAloc::MarkAsNotInUse(ot::Mle::Mle::ServiceAloc *th
 
 uint64_t ot::Mle::Mle::ServiceAloc::SetAloc16(ot::Mle::Mle::ServiceAloc *this, unsigned __int16 a2)
 {
-  Address = ot::Ip6::Netif::UnicastAddress::GetAddress(this);
-  Iid = ot::Ip6::Address::GetIid(Address);
+  ot::Ip6::Netif::UnicastAddress::GetAddress(this);
+  Iid = ot::Ip6::Address::GetIid(v2);
   return ot::Ip6::InterfaceIdentifier::SetLocator(Iid, a2);
 }
 
@@ -411,70 +2876,70 @@ BOOL ot::Mle::Mle::HasMoreChannelsToAnnounce(ot::Mle::Mle *this)
 
 uint64_t ot::Mle::Mle::SendChildIdRequest(ot::Mle::Mle *this)
 {
-  v20 = this;
-  *&v19[1] = 0;
-  v19[0] = 3;
-  v18 = 0;
+  v19 = this;
+  *&v18[1] = 0;
+  v18[0] = 3;
+  v17 = 0;
   ot::Neighbor::GetExtAddress((this + 192));
-  v16 = v1;
+  v15 = v1;
   ot::Neighbor::GetExtAddress((this + 368));
-  if (ot::Equatable<ot::Mac::ExtAddress>::operator==(v16, v2))
+  if (ot::Equatable<ot::Mac::ExtAddress>::operator==(v15, v2))
   {
     if (ot::Mle::Mle::IsChild(this))
     {
-      ot::Logger::LogAtLevel<(ot::LogLevel)4>(&ot::Mle::kLogModuleName, "Already attached to candidate parent", v3, v4, v5, v6, v7, v8, v14);
-      *&v19[1] = 24;
+      ot::Logger::LogAtLevel<(ot::LogLevel)4>(&ot::Mle::kLogModuleName, "Already attached to candidate parent", v3, v4, v5, v6, v7, v8);
+      *&v18[1] = 24;
       goto LABEL_23;
     }
 
     ot::Neighbor::SetState(this + 192, 0);
   }
 
-  v18 = ot::Mle::Mle::NewMleMessage(this, 11);
-  if (v18)
+  v17 = ot::Mle::Mle::NewMleMessage(this, 11);
+  if (v17)
   {
-    *&v19[1] = ot::Mle::Mle::TxMessage::AppendResponseTlv(v18, (this + 513));
-    if (!*&v19[1])
+    *&v18[1] = ot::Mle::Mle::TxMessage::AppendResponseTlv(v17, (this + 513));
+    if (!*&v18[1])
     {
-      *&v19[1] = ot::Mle::Mle::TxMessage::AppendLinkAndMleFrameCounterTlvs(v18);
-      if (!*&v19[1])
+      *&v18[1] = ot::Mle::Mle::TxMessage::AppendLinkAndMleFrameCounterTlvs(v17);
+      if (!*&v18[1])
       {
-        *&v19[1] = ot::Mle::Mle::TxMessage::AppendModeTlv(v18, *(this + 131));
-        if (!*&v19[1])
+        *&v18[1] = ot::Mle::Mle::TxMessage::AppendModeTlv(v17, *(this + 131));
+        if (!*&v18[1])
         {
-          *&v19[1] = ot::Mle::Mle::TxMessage::AppendTimeoutTlv(v18, *(this + 39));
-          if (!*&v19[1])
+          *&v18[1] = ot::Mle::Mle::TxMessage::AppendTimeoutTlv(v17, *(this + 39));
+          if (!*&v18[1])
           {
-            *&v19[1] = ot::Mle::Mle::TxMessage::AppendVersionTlv(v18);
-            if (!*&v19[1])
+            *&v18[1] = ot::Mle::Mle::TxMessage::AppendVersionTlv(v17);
+            if (!*&v18[1])
             {
               v9 = ot::GetProvider<ot::InstanceLocator>::Get<ot::SupervisionListener>(this);
               Interval = ot::SupervisionListener::GetInterval(v9);
-              *&v19[1] = ot::Mle::Mle::TxMessage::AppendSupervisionIntervalTlv(v18, Interval);
-              if (!*&v19[1])
+              *&v18[1] = ot::Mle::Mle::TxMessage::AppendSupervisionIntervalTlv(v17, Interval);
+              if (!*&v18[1])
               {
                 if (!ot::Mle::Mle::IsFullThreadDevice(this))
                 {
-                  *&v19[1] = ot::Mle::Mle::TxMessage::AppendAddressRegistrationTlv(v18, *(this + 136));
-                  if (*&v19[1])
+                  *&v18[1] = ot::Mle::Mle::TxMessage::AppendAddressRegistrationTlv(v17, *(this + 136));
+                  if (*&v18[1])
                   {
                     goto LABEL_23;
                   }
 
-                  *v19 = (v19[0] - 1);
+                  *v18 = (v18[0] - 1);
                 }
 
-                *&v19[1] = ot::Mle::Mle::TxMessage::AppendTlvRequestTlv(v18, ot::Mle::Mle::SendChildIdRequest(void)::kTlvs, v19[0]);
-                if (!*&v19[1])
+                *&v18[1] = ot::Mle::Mle::TxMessage::AppendTlvRequestTlv(v17, ot::Mle::Mle::SendChildIdRequest(void)::kTlvs, v18[0]);
+                if (!*&v18[1])
                 {
-                  *&v19[1] = ot::Mle::Mle::TxMessage::AppendActiveAndPendingTimestampTlvs(v18);
-                  if (!*&v19[1])
+                  *&v18[1] = ot::Mle::Mle::TxMessage::AppendActiveAndPendingTimestampTlvs(v17);
+                  if (!*&v18[1])
                   {
                     ot::Neighbor::SetState(this + 368, 7);
                     ot::Neighbor::GetExtAddress((this + 368));
-                    ot::Ip6::Address::SetToLinkLocalAddress(&v17, v11);
-                    *&v19[1] = ot::Mle::Mle::TxMessage::SendTo(v18, &v17);
-                    if (!*&v19[1])
+                    ot::Ip6::Address::SetToLinkLocalAddress(&v16, v11);
+                    *&v18[1] = ot::Mle::Mle::TxMessage::SendTo(v17, &v16);
+                    if (!*&v18[1])
                     {
                       if (*(this + 136) == 1)
                       {
@@ -486,7 +2951,7 @@ uint64_t ot::Mle::Mle::SendChildIdRequest(ot::Mle::Mle *this)
                         v12 = 2;
                       }
 
-                      ot::Mle::Mle::Log(0, v12, &v17);
+                      ot::Mle::Mle::Log(0, v12, &v16);
                     }
                   }
                 }
@@ -500,16 +2965,16 @@ uint64_t ot::Mle::Mle::SendChildIdRequest(ot::Mle::Mle *this)
 
   else
   {
-    *&v19[1] = 3;
+    *&v18[1] = 3;
   }
 
 LABEL_23:
-  if (*&v19[1] && v18)
+  if (*&v18[1] && v17)
   {
-    ot::Message::Free(v18);
+    ot::Message::Free(v17);
   }
 
-  return *&v19[1];
+  return *&v18[1];
 }
 
 void ot::Mle::Mle::ProcessAnnounce(ot::Mle::Mle *this, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
@@ -521,7 +2986,7 @@ void ot::Mle::Mle::ProcessAnnounce(ot::Mle::Mle *this, uint64_t a2, uint64_t a3,
     __assert_rtn("ProcessAnnounce", "mle.cpp", 5388, "mAttachState == kAttachStateProcessAnnounce");
   }
 
-  ot::Logger::LogAtLevel<(ot::LogLevel)3>(&ot::Mle::kLogModuleName, "Processing Announce - channel %d, panid 0x%02x", a3, a4, a5, a6, a7, a8, v14);
+  ot::Logger::LogAtLevel<(ot::LogLevel)3>(&ot::Mle::kLogModuleName, "Processing Announce - channel %d, panid 0x%02x", a3, a4, a5, a6, a7, a8, v14, v13);
   ot::Mle::Mle::Stop(this, 0);
   v8 = ot::GetProvider<ot::InstanceLocator>::Get<ot::Mac::Mac>(this);
   *(this + 142) = ot::Mac::Mac::GetPanChannel(v8);
@@ -537,59 +3002,59 @@ void ot::Mle::Mle::ProcessAnnounce(ot::Mle::Mle *this, uint64_t a2, uint64_t a3,
   IgnoreError();
 }
 
-void ot::Mle::Mle::SendParentRequest(uint64_t a1, char a2)
+void ot::Mle::Mle::SendParentRequest(uint64_t a1, uint64_t a2, unsigned __int16 a3)
 {
-  v8 = a1;
-  v7 = a2;
+  v9 = a1;
+  v8 = a2;
   appended = 0;
+  v6 = 0;
   v5 = 0;
-  v4 = 0;
-  ot::Mle::TxChallenge::GenerateRandom((a1 + 360));
-  if (v7)
+  ot::Mle::TxChallenge::GenerateRandom((a1 + 360), a2, a3);
+  if (v8)
   {
-    if (v7 == 1)
+    if (v8 == 1)
     {
-      v4 = -64;
-      ot::Ip6::Address::SetToLinkLocalAllRoutersMulticast(&v3);
+      v5 = -64;
+      ot::Ip6::Address::SetToLinkLocalAllRoutersMulticast(&v4);
     }
   }
 
   else
   {
-    v4 = 0x80;
-    ot::Ip6::Address::SetToLinkLocalAllRoutersMulticast(&v3);
+    v5 = 0x80;
+    ot::Ip6::Address::SetToLinkLocalAllRoutersMulticast(&v4);
   }
 
-  v5 = ot::Mle::Mle::NewMleMessage(a1, 9);
-  if (v5)
+  v6 = ot::Mle::Mle::NewMleMessage(a1, 9);
+  if (v6)
   {
-    appended = ot::Mle::Mle::TxMessage::AppendModeTlv(v5, *(a1 + 131));
+    appended = ot::Mle::Mle::TxMessage::AppendModeTlv(v6, *(a1 + 131));
     if (!appended)
     {
-      appended = ot::Mle::Mle::TxMessage::AppendChallengeTlv(v5, (a1 + 360));
+      appended = ot::Mle::Mle::TxMessage::AppendChallengeTlv(v6, (a1 + 360));
       if (!appended)
       {
-        appended = ot::Mle::Mle::TxMessage::AppendScanMaskTlv(v5, v4);
+        appended = ot::Mle::Mle::TxMessage::AppendScanMaskTlv(v6, v5);
         if (!appended)
         {
-          appended = ot::Mle::Mle::TxMessage::AppendVersionTlv(v5);
+          appended = ot::Mle::Mle::TxMessage::AppendVersionTlv(v6);
           if (!appended)
           {
-            ot::Ip6::Address::SetToLinkLocalAllRoutersMulticast(&v3);
-            appended = ot::Mle::Mle::TxMessage::SendTo(v5, &v3);
+            ot::Ip6::Address::SetToLinkLocalAllRoutersMulticast(&v4);
+            appended = ot::Mle::Mle::TxMessage::SendTo(v6, &v4);
             if (!appended)
             {
-              if (v7)
+              if (v8)
               {
-                if (v7 == 1)
+                if (v8 == 1)
                 {
-                  ot::Mle::Mle::Log(0, 14, &v3);
+                  ot::Mle::Mle::Log(0, 0xEu, &v4);
                 }
               }
 
               else
               {
-                ot::Mle::Mle::Log(0, 13, &v3);
+                ot::Mle::Mle::Log(0, 0xDu, &v4);
               }
             }
           }
@@ -605,9 +3070,9 @@ void ot::Mle::Mle::SendParentRequest(uint64_t a1, char a2)
 
   if (appended)
   {
-    if (v5)
+    if (v6)
     {
-      ot::Message::Free(v5);
+      ot::Message::Free(v6);
     }
   }
 }
@@ -664,7 +3129,7 @@ void ot::Mle::Mle::SendAnnounce(ot::Mle::Mle *a1, unsigned __int8 a2, char a3)
 
 uint64_t ot::Mle::Mle::Reattach(ot::Mle::Mle *this)
 {
-  v31 = 0;
+  v30 = 0;
   if (*(this + 133) == 2)
   {
     v1 = ot::GetProvider<ot::InstanceLocator>::Get<ot::MeshCoP::PendingDatasetManager>(this);
@@ -680,7 +3145,7 @@ uint64_t ot::Mle::Mle::Reattach(ot::Mle::Mle *this)
       IgnoreError();
       *(this + 133) = 3;
       ot::Mle::Mle::SetAttachState(this, 2u);
-      v31 = ot::Random::NonCrypto::GetUint32InRange(0, 0x32u) + 1;
+      v30 = ot::Random::NonCrypto::GetUint32InRange(0, 0x32u) + 1;
     }
   }
 
@@ -694,24 +3159,24 @@ uint64_t ot::Mle::Mle::Reattach(ot::Mle::Mle *this)
 
   if (!*(this + 133))
   {
-    v29 = *(this + 134);
+    v28 = *(this + 134);
     if (*(this + 134))
     {
-      switch(v29)
+      switch(v28)
       {
         case 1:
           goto LABEL_22;
         case 2:
-          return v31;
+          return v30;
         case 3:
 LABEL_22:
           ot::Mle::Mle::Attach(this, 0);
-          return v31;
+          return v30;
       }
 
-      if (v29 != 4)
+      if (v28 != 4)
       {
-        return v31;
+        return v30;
       }
     }
 
@@ -730,7 +3195,7 @@ LABEL_22:
     {
       if (!ot::Mle::Mle::IsFullThreadDevice(this) || (v18 = ot::GetProvider<ot::InstanceLocator>::Get<ot::Mle::MleRouter>(this), ot::Mle::MleRouter::BecomeLeader(v18, 0)))
       {
-        ot::Logger::LogAtLevel<(ot::LogLevel)2>(&ot::Mle::kLogModuleName, "Device becomes detached - fail to become a leader", v12, v13, v14, v15, v16, v17, v28);
+        ot::Logger::LogAtLevel<(ot::LogLevel)2>(&ot::Mle::kLogModuleName, "Device becomes detached - fail to become a leader", v12, v13, v14, v15, v16, v17);
         ot::Mle::Mle::BecomeDetached(this);
         IgnoreError();
       }
@@ -744,13 +3209,13 @@ LABEL_22:
       v5 = ot::GetProvider<ot::InstanceLocator>::Get<ot::Mac::Mac>(this);
       ot::Mac::Mac::SetPanId(v5, *(this + 76));
       *(this + 76) = -1;
-      ot::Logger::LogAtLevel<(ot::LogLevel)2>(&ot::Mle::kLogModuleName, "Device becomes detached - different PAN ID", v6, v7, v8, v9, v10, v11, v28);
+      ot::Logger::LogAtLevel<(ot::LogLevel)2>(&ot::Mle::kLogModuleName, "Device becomes detached - different PAN ID", v6, v7, v8, v9, v10, v11);
       ot::Mle::Mle::BecomeDetached(this);
       IgnoreError();
     }
   }
 
-  return v31;
+  return v30;
 }
 
 void ot::Mle::Mle::DelayedResponseMetadata::ReadFrom(ot::Mle::Mle::DelayedResponseMetadata *this, const ot::Message *a2)
@@ -765,7 +3230,7 @@ void ot::Mle::Mle::DelayedResponseMetadata::ReadFrom(ot::Mle::Mle::DelayedRespon
   IgnoreError();
 }
 
-void ot::Mle::Mle::SendDelayedResponse(ot::InstanceLocator *a1, ot::Message *a2, ot::Mle::Mle::DelayedResponseMetadata *a3)
+void ot::Mle::Mle::SendDelayedResponse(ot::Mle::Mle *a1, ot::Message *a2, ot::Mle::Mle::DelayedResponseMetadata *a3)
 {
   ot::Mle::Mle::DelayedResponseMetadata::RemoveFrom(a3, a2);
   if (ot::Message::GetSubType(a2) != 11 || (appended = ot::Mle::Mle::TxMessage::AppendActiveAndPendingTimestampTlvs(a2)) == 0)
@@ -773,7 +3238,7 @@ void ot::Mle::Mle::SendDelayedResponse(ot::InstanceLocator *a1, ot::Message *a2,
     appended = ot::Mle::Mle::TxMessage::SendTo(a2, a3);
     if (!appended)
     {
-      ot::Mle::Mle::Log(0, 11, a3);
+      ot::Mle::Mle::Log(0, 0xBu, a3);
       if (!ot::Mle::Mle::IsRxOnWhenIdle(a1))
       {
         v3 = ot::GetProvider<ot::InstanceLocator>::Get<ot::DataPollSender>(a1);
@@ -809,8 +3274,8 @@ uint64_t ot::Mle::Mle::TxMessage::SendTo(ot::Mle::Mle::TxMessage *this, __n128 *
   ot::Ip6::MessageInfo::MessageInfo(v14);
   ot::Ip6::MessageInfo::SetPeerAddr(v14, v18);
   v2 = ot::GetProvider<ot::Message>::Get<ot::Mle::Mle>(this);
-  Address = ot::Ip6::Netif::UnicastAddress::GetAddress((v2 + 992));
-  ot::Ip6::MessageInfo::SetSockAddr(v14, Address);
+  ot::Ip6::Netif::UnicastAddress::GetAddress((v2 + 992));
+  ot::Ip6::MessageInfo::SetSockAddr(v14, v3);
   ot::Ip6::MessageInfo::SetPeerPort(v14, 19788);
   ot::Ip6::MessageInfo::SetHopLimit(v14, 255);
   ot::Message::Read<unsigned char>(this, v16, &v15);
@@ -845,7 +3310,7 @@ LABEL_4:
   return v17;
 }
 
-BOOL ot::Mle::Mle::RemoveDelayedMessage(uint64_t a1, unsigned __int8 a2, char a3, const void *a4)
+BOOL ot::Mle::Mle::RemoveDelayedMessage(uint64_t a1, unsigned __int8 a2, unsigned __int8 a3, const void *a4)
 {
   v18 = a1;
   v17 = a2;
@@ -870,7 +3335,7 @@ BOOL ot::Mle::Mle::RemoveDelayedMessage(uint64_t a1, unsigned __int8 a2, char a3
     if (SubType == v17 && (!v15 || ot::Equatable<ot::Ip6::Address>::operator==(v10, v15)))
     {
       ot::MessageQueue::DequeueAndFree((a1 + 352), v11);
-      ot::Mle::Mle::Log(3, v16, v10);
+      ot::Mle::Mle::Log(3u, v16, v10);
     }
 
     ot::ItemPtrIterator<ot::Message,ot::Message::Iterator>::operator++(v13, v8);
@@ -879,7 +3344,7 @@ BOOL ot::Mle::Mle::RemoveDelayedMessage(uint64_t a1, unsigned __int8 a2, char a3
   return result;
 }
 
-ot::Buffer *ot::Mle::Mle::NewMleMessage(uint64_t a1, char a2)
+ot::Message *ot::Mle::Mle::NewMleMessage(uint64_t a1, char a2)
 {
   v12 = a1;
   v11 = a2;
@@ -1000,79 +3465,81 @@ uint64_t ot::Mle::Mle::TxMessage::AppendLinkAndMleFrameCounterTlvs(ot::Mle::Mle:
 
 uint64_t ot::Mle::Mle::TxMessage::AppendAddressRegistrationTlv(ot::Message *a1, char a2)
 {
-  v58 = a1;
-  v57 = a2;
+  v61 = a1;
+  v60 = a2;
   appended = 0;
-  v52 = 0;
+  v55 = 0;
   Length = ot::Message::GetLength(a1);
-  ot::Mle::Tlv::SetType(v55, 19);
-  appended = ot::Message::Append<ot::Mle::Tlv>(a1, v55);
+  ot::Mle::Tlv::SetType(v58, 19);
+  appended = ot::Message::Append<ot::Mle::Tlv>(a1, v58);
   if (!appended)
   {
     v2 = ot::GetProvider<ot::Message>::Get<ot::Mle::Mle>(a1);
-    MeshLocalEid = ot::Mle::Mle::GetMeshLocalEid(v2);
-    appended = ot::Mle::Mle::TxMessage::AppendCompressedAddressEntry(a1, 0, MeshLocalEid);
-    if (!appended && v57 != 1)
+    ot::Mle::Mle::GetMeshLocalEid(v2);
+    appended = ot::Mle::Mle::TxMessage::AppendCompressedAddressEntry(a1, 0, v3);
+    if (!appended && v60 != 1)
     {
-      ++v52;
-      v40 = ot::GetProvider<ot::Message>::Get<ot::ThreadNetif>(a1);
+      ++v55;
+      v43 = ot::GetProvider<ot::Message>::Get<ot::ThreadNetif>(a1);
       v4 = ot::GetProvider<ot::Message>::Get<ot::DuaManager>(a1);
-      DomainUnicastAddress = ot::DuaManager::GetDomainUnicastAddress(v4);
-      if (ot::Ip6::Netif::HasUnicastAddress(v40, DomainUnicastAddress))
+      ot::DuaManager::GetDomainUnicastAddress(v4);
+      if (ot::Ip6::Netif::HasUnicastAddress(v43, v5))
       {
-        v39 = ot::GetProvider<ot::Message>::Get<ot::NetworkData::Leader>(a1);
+        v42 = ot::GetProvider<ot::Message>::Get<ot::NetworkData::Leader>(a1);
         v6 = ot::GetProvider<ot::Message>::Get<ot::DuaManager>(a1);
-        v7 = ot::DuaManager::GetDomainUnicastAddress(v6);
-        if (!ot::NetworkData::Leader::GetContext(v39, v7, v53))
+        ot::DuaManager::GetDomainUnicastAddress(v6);
+        if (!ot::NetworkData::Leader::GetContext(v42, v7, v56))
         {
-          v38 = v54;
+          v41 = v57;
           v8 = ot::GetProvider<ot::Message>::Get<ot::DuaManager>(a1);
-          v9 = ot::DuaManager::GetDomainUnicastAddress(v8);
-          appended = ot::Mle::Mle::TxMessage::AppendCompressedAddressEntry(a1, v38, v9);
+          ot::DuaManager::GetDomainUnicastAddress(v8);
+          appended = ot::Mle::Mle::TxMessage::AppendCompressedAddressEntry(a1, v41, v9);
           if (appended)
           {
             goto LABEL_31;
           }
 
-          ++v52;
+          ++v55;
         }
       }
 
       v10 = ot::GetProvider<ot::Message>::Get<ot::ThreadNetif>(a1);
       ot::Ip6::Netif::GetUnicastAddresses(v10);
-      v50[1] = v11;
-      v50[0] = ot::LinkedList<ot::Ip6::Netif::UnicastAddress>::begin(v11);
-      v49 = ot::LinkedList<ot::Ip6::Netif::UnicastAddress>::end();
-      while (ot::ItemPtrIterator<ot::Ip6::Netif::UnicastAddress,ot::LinkedList<ot::Ip6::Netif::UnicastAddress>::Iterator>::operator!=(v50, &v49))
+      v53[1] = v11;
+      v53[0] = ot::LinkedList<ot::Ip6::Netif::UnicastAddress>::begin(v11);
+      v52 = ot::LinkedList<ot::Ip6::Netif::UnicastAddress>::end();
+      while (ot::ItemPtrIterator<ot::Ip6::Netif::UnicastAddress,ot::LinkedList<ot::Ip6::Netif::UnicastAddress>::Iterator>::operator!=(v53, &v52))
       {
-        v48 = ot::ItemPtrIterator<ot::Ip6::Netif::UnicastAddress,ot::LinkedList<ot::Ip6::Netif::UnicastAddress>::Iterator>::operator*(v50);
-        Address = ot::Ip6::Netif::UnicastAddress::GetAddress(v48);
-        if (!ot::Ip6::Address::IsLinkLocalUnicast(Address))
+        v51 = ot::ItemPtrIterator<ot::Ip6::Netif::UnicastAddress,ot::LinkedList<ot::Ip6::Netif::UnicastAddress>::Iterator>::operator*(v53);
+        ot::Ip6::Netif::UnicastAddress::GetAddress(v51);
+        if (!ot::Ip6::Address::IsLinkLocalUnicast(v12, v13))
         {
-          v37 = ot::GetProvider<ot::Message>::Get<ot::Mle::Mle>(a1);
-          v13 = ot::Ip6::Netif::UnicastAddress::GetAddress(v48);
-          if (!ot::Mle::Mle::IsRoutingLocator(v37, v13))
+          v40 = ot::GetProvider<ot::Message>::Get<ot::Mle::Mle>(a1);
+          ot::Ip6::Netif::UnicastAddress::GetAddress(v51);
+          if (!ot::Mle::Mle::IsRoutingLocator(v40, v14))
           {
-            v36 = ot::GetProvider<ot::Message>::Get<ot::Mle::Mle>(a1);
-            v14 = ot::Ip6::Netif::UnicastAddress::GetAddress(v48);
-            if (!ot::Mle::Mle::IsAnycastLocator(v36, v14))
+            v39 = ot::GetProvider<ot::Message>::Get<ot::Mle::Mle>(a1);
+            ot::Ip6::Netif::UnicastAddress::GetAddress(v51);
+            if (!ot::Mle::Mle::IsAnycastLocator(v39, v15))
             {
-              v35 = ot::Ip6::Netif::UnicastAddress::GetAddress(v48);
-              v15 = ot::GetProvider<ot::Message>::Get<ot::Mle::Mle>(a1);
-              v16 = ot::Mle::Mle::GetMeshLocalEid(v15);
-              if (!ot::Equatable<ot::Ip6::Address>::operator==(v35, v16))
+              ot::Ip6::Netif::UnicastAddress::GetAddress(v51);
+              v38 = v16;
+              v17 = ot::GetProvider<ot::Message>::Get<ot::Mle::Mle>(a1);
+              ot::Mle::Mle::GetMeshLocalEid(v17);
+              if (!ot::Equatable<ot::Ip6::Address>::operator==(v38, v18))
               {
-                v34 = ot::Ip6::Netif::UnicastAddress::GetAddress(v48);
-                v17 = ot::GetProvider<ot::Message>::Get<ot::DuaManager>(a1);
-                v18 = ot::DuaManager::GetDomainUnicastAddress(v17);
-                if (!ot::Equatable<ot::Ip6::Address>::operator==(v34, v18))
+                ot::Ip6::Netif::UnicastAddress::GetAddress(v51);
+                v37 = v19;
+                v20 = ot::GetProvider<ot::Message>::Get<ot::DuaManager>(a1);
+                ot::DuaManager::GetDomainUnicastAddress(v20);
+                if (!ot::Equatable<ot::Ip6::Address>::operator==(v37, v21))
                 {
-                  v33 = ot::GetProvider<ot::Message>::Get<ot::NetworkData::Leader>(a1);
-                  v19 = ot::Ip6::Netif::UnicastAddress::GetAddress(v48);
-                  if (ot::NetworkData::Leader::GetContext(v33, v19, v53))
+                  v36 = ot::GetProvider<ot::Message>::Get<ot::NetworkData::Leader>(a1);
+                  ot::Ip6::Netif::UnicastAddress::GetAddress(v51);
+                  if (ot::NetworkData::Leader::GetContext(v36, v22, v56))
                   {
-                    v21 = ot::Ip6::Netif::UnicastAddress::GetAddress(v48);
-                    appended = ot::Mle::Mle::TxMessage::AppendAddressEntry(a1, v21);
+                    ot::Ip6::Netif::UnicastAddress::GetAddress(v51);
+                    appended = ot::Mle::Mle::TxMessage::AppendAddressEntry(a1, v24);
                     if (appended)
                     {
                       goto LABEL_31;
@@ -1081,16 +3548,16 @@ uint64_t ot::Mle::Mle::TxMessage::AppendAddressRegistrationTlv(ot::Message *a1, 
 
                   else
                   {
-                    v32 = v54;
-                    v20 = ot::Ip6::Netif::UnicastAddress::GetAddress(v48);
-                    appended = ot::Mle::Mle::TxMessage::AppendCompressedAddressEntry(a1, v32, v20);
+                    v35 = v57;
+                    ot::Ip6::Netif::UnicastAddress::GetAddress(v51);
+                    appended = ot::Mle::Mle::TxMessage::AppendCompressedAddressEntry(a1, v35, v23);
                     if (appended)
                     {
                       goto LABEL_31;
                     }
                   }
 
-                  if (++v52 >= 0x10u)
+                  if (++v55 >= 0x10u)
                   {
                     goto LABEL_31;
                   }
@@ -1100,40 +3567,40 @@ uint64_t ot::Mle::Mle::TxMessage::AppendAddressRegistrationTlv(ot::Message *a1, 
           }
         }
 
-        ot::ItemPtrIterator<ot::Ip6::Netif::UnicastAddress,ot::LinkedList<ot::Ip6::Netif::UnicastAddress>::Iterator>::operator++(v50);
+        ot::ItemPtrIterator<ot::Ip6::Netif::UnicastAddress,ot::LinkedList<ot::Ip6::Netif::UnicastAddress>::Iterator>::operator++(v53);
       }
 
-      v22 = ot::GetProvider<ot::Message>::Get<ot::Mle::Mle>(a1);
-      if (!ot::Mle::Mle::IsRxOnWhenIdle(v22) || (v23 = ot::GetProvider<ot::Message>::Get<ot::Mle::Mle>(a1), Parent = ot::Mle::Mle::GetParent(v23), !ot::Neighbor::IsThreadVersion1p1(Parent)))
+      v25 = ot::GetProvider<ot::Message>::Get<ot::Mle::Mle>(a1);
+      if (!ot::Mle::Mle::IsRxOnWhenIdle(v25) || (v26 = ot::GetProvider<ot::Message>::Get<ot::Mle::Mle>(a1), Parent = ot::Mle::Mle::GetParent(v26), !ot::Neighbor::IsThreadVersion1p1(Parent)))
       {
-        v25 = ot::GetProvider<ot::Message>::Get<ot::ThreadNetif>(a1);
-        v59 = ot::Ip6::Netif::IterateExternalMulticastAddresses(v25, 0);
-        v60 = v26;
-        v45 = v59;
-        v46 = v26;
-        v47 = &v45;
-        ot::Ip6::Netif::ExternalMulticastAddress::Iterator::Builder::begin(&v45, v44);
-        ot::Ip6::Netif::ExternalMulticastAddress::Iterator::Builder::end(v47, v43);
-        while (ot::ItemPtrIterator<ot::Ip6::Netif::ExternalMulticastAddress,ot::Ip6::Netif::ExternalMulticastAddress::Iterator>::operator!=(v44, v43))
+        v28 = ot::GetProvider<ot::Message>::Get<ot::ThreadNetif>(a1);
+        v62 = ot::Ip6::Netif::IterateExternalMulticastAddresses(v28, 0);
+        v63 = v29;
+        v48 = v62;
+        v49 = v29;
+        v50 = &v48;
+        ot::Ip6::Netif::ExternalMulticastAddress::Iterator::Builder::begin(v47, &v48);
+        ot::Ip6::Netif::ExternalMulticastAddress::Iterator::Builder::end(v46, v50);
+        while (ot::ItemPtrIterator<ot::Ip6::Netif::ExternalMulticastAddress,ot::Ip6::Netif::ExternalMulticastAddress::Iterator>::operator!=(v47, v46))
         {
-          v42 = ot::ItemPtrIterator<ot::Ip6::Netif::ExternalMulticastAddress,ot::Ip6::Netif::ExternalMulticastAddress::Iterator>::operator*(v44);
-          v27 = ot::GetProvider<ot::Message>::Get<ot::Mle::Mle>(a1);
-          if (!ot::Mle::Mle::IsRxOnWhenIdle(v27) || (v28 = ot::Ip6::Netif::MulticastAddress::GetAddress(v42), ot::Ip6::Address::IsMulticastLargerThanRealmLocal(v28)))
+          v45 = ot::ItemPtrIterator<ot::Ip6::Netif::ExternalMulticastAddress,ot::Ip6::Netif::ExternalMulticastAddress::Iterator>::operator*(v47);
+          v30 = ot::GetProvider<ot::Message>::Get<ot::Mle::Mle>(a1);
+          if (!ot::Mle::Mle::IsRxOnWhenIdle(v30) || (ot::Ip6::Netif::MulticastAddress::GetAddress(v45), ot::Ip6::Address::IsMulticastLargerThanRealmLocal(v31)))
           {
-            v29 = ot::Ip6::Netif::MulticastAddress::GetAddress(v42);
-            appended = ot::Mle::Mle::TxMessage::AppendAddressEntry(a1, v29);
+            ot::Ip6::Netif::MulticastAddress::GetAddress(v45);
+            appended = ot::Mle::Mle::TxMessage::AppendAddressEntry(a1, v32);
             if (appended)
             {
               break;
             }
 
-            if (++v52 >= 0x10u)
+            if (++v55 >= 0x10u)
             {
               break;
             }
           }
 
-          ot::ItemPtrIterator<ot::Ip6::Netif::ExternalMulticastAddress,ot::Ip6::Netif::ExternalMulticastAddress::Iterator>::operator++(v44);
+          ot::ItemPtrIterator<ot::Ip6::Netif::ExternalMulticastAddress,ot::Ip6::Netif::ExternalMulticastAddress::Iterator>::operator++(v47);
         }
       }
     }
@@ -1142,9 +3609,9 @@ uint64_t ot::Mle::Mle::TxMessage::AppendAddressRegistrationTlv(ot::Message *a1, 
 LABEL_31:
   if (!appended)
   {
-    v30 = ot::Message::GetLength(a1);
-    ot::Tlv::SetLength(v55, v30 - Length - 2);
-    ot::Message::Write<ot::Mle::Tlv>(a1, Length, v55);
+    v33 = ot::Message::GetLength(a1);
+    ot::Tlv::SetLength(v58, v33 - Length - 2);
+    ot::Message::Write<ot::Mle::Tlv>(a1, Length, v58);
   }
 
   return appended;
@@ -1165,7 +3632,7 @@ uint64_t ot::Mle::Mle::SendDataRequestAfterDelay(ot::Mle::Mle *this, const ot::I
   return ot::Mle::Mle::SendDataRequest(this, a2, ot::Mle::Mle::SendDataRequestAfterDelay(ot::Ip6::Address const&,unsigned short)::kTlvs, v3, a3, 0);
 }
 
-uint64_t ot::Mle::Mle::SendDataRequest(ot::Mle::Mle *a1, const ot::Ip6::Address *a2, unsigned __int8 *a3, unsigned __int8 a4, unsigned __int16 a5, uint64_t a6)
+uint64_t ot::Mle::Mle::SendDataRequest(ot::Mle::Mle *a1, const ot::Ip6::Address *a2, unsigned __int8 *a3, unsigned __int8 a4, unsigned __int16 a5, unsigned __int8 *a6)
 {
   ot::Mle::Mle::RemoveDelayedDataRequestMessage(a1, a2);
   v10 = ot::Mle::Mle::NewMleMessage(a1, 7);
@@ -1181,7 +3648,7 @@ uint64_t ot::Mle::Mle::SendDataRequest(ot::Mle::Mle *a1, const ot::Ip6::Address 
           appended = ot::Mle::Mle::TxMessage::SendAfterDelay(v10, a2, a5);
           if (!appended)
           {
-            ot::Mle::Mle::Log(2, 7, a2);
+            ot::Mle::Mle::Log(2u, 7u, a2);
           }
         }
 
@@ -1193,7 +3660,7 @@ uint64_t ot::Mle::Mle::SendDataRequest(ot::Mle::Mle *a1, const ot::Ip6::Address 
             appended = ot::Mle::Mle::TxMessage::SendTo(v10, a2);
             if (!appended)
             {
-              ot::Mle::Mle::Log(0, 7, a2);
+              ot::Mle::Mle::Log(0, 7u, a2);
               if (!ot::Mle::Mle::IsRxOnWhenIdle(a1))
               {
                 v7 = ot::GetProvider<ot::InstanceLocator>::Get<ot::DataPollSender>(a1);
@@ -1259,100 +3726,100 @@ BOOL ot::Notifier::IsPending(ot::Notifier *this)
   return ot::Notifier::IsPending(this);
 }
 
-uint64_t ot::Mle::Mle::SendChildUpdateRequest(uint64_t a1, char a2)
+uint64_t ot::Mle::Mle::SendChildUpdateRequest(uint64_t a1, unsigned __int8 a2)
 {
-  v38 = a1;
-  v37 = a2;
+  v40 = a1;
+  v39 = a2;
   appended = 0;
-  v34 = 0;
-  v33 = 0;
+  v36 = 0;
+  v35 = 0;
   if (!ot::Neighbor::IsStateValidOrRestoring((a1 + 192)))
   {
-    ot::Logger::LogAtLevel<(ot::LogLevel)2>(&ot::Mle::kLogModuleName, "No valid parent when sending Child Update Request requestMode=%d", v2, v3, v4, v5, v6, v7, v37);
+    ot::Logger::LogAtLevel<(ot::LogLevel)2>(&ot::Mle::kLogModuleName, "No valid parent when sending Child Update Request requestMode=%d", v2, v3, v4, v5, v6, v7, v39);
     ot::Mle::Mle::BecomeDetached(a1);
     IgnoreError();
     goto LABEL_36;
   }
 
-  if (v37 != 2)
+  if (v39 != 2)
   {
     *(a1 + 137) = 2;
     ot::Mle::Mle::ScheduleMessageTransmissionTimer(a1);
   }
 
-  v34 = ot::Mle::Mle::NewMleMessage(a1, 13);
-  if (!v34)
+  v36 = ot::Mle::Mle::NewMleMessage(a1, 13);
+  if (!v36)
   {
     appended = 3;
     goto LABEL_36;
   }
 
-  appended = ot::Mle::Mle::TxMessage::AppendModeTlv(v34, *(a1 + 131));
+  appended = ot::Mle::Mle::TxMessage::AppendModeTlv(v36, *(a1 + 131));
   if (appended)
   {
     goto LABEL_36;
   }
 
-  if (v37 == 1 || ot::Mle::Mle::IsDetached(a1))
+  if (v39 == 1 || ot::Mle::Mle::IsDetached(a1))
   {
-    ot::Mle::TxChallenge::GenerateRandom((a1 + 360));
-    appended = ot::Mle::Mle::TxMessage::AppendChallengeTlv(v34, (a1 + 360));
+    ot::Mle::TxChallenge::GenerateRandom((a1 + 360), v8, v9);
+    appended = ot::Mle::Mle::TxMessage::AppendChallengeTlv(v36, (a1 + 360));
     if (appended)
     {
       goto LABEL_36;
     }
   }
 
-  v31 = *(a1 + 130);
+  v33 = *(a1 + 130);
   if (!*(a1 + 130))
   {
 LABEL_29:
     __assert_rtn("SendChildUpdateRequest", "mle.cpp", 3315, "false");
   }
 
-  switch(v31)
+  switch(v33)
   {
     case 1:
-      v33 = 1;
+      v35 = 1;
       break;
     case 2:
-      appended = ot::Mle::Mle::TxMessage::AppendSourceAddressTlv(v34);
+      appended = ot::Mle::Mle::TxMessage::AppendSourceAddressTlv(v36);
       if (appended)
       {
         goto LABEL_36;
       }
 
-      appended = ot::Mle::Mle::TxMessage::AppendLeaderDataTlv(v34);
+      appended = ot::Mle::Mle::TxMessage::AppendLeaderDataTlv(v36);
       if (appended)
       {
         goto LABEL_36;
       }
 
-      v8 = v37 == 2 ? ot::Mle::Mle::TxMessage::AppendTimeoutTlv(v34, 0) : ot::Mle::Mle::TxMessage::AppendTimeoutTlv(v34, *(a1 + 156));
-      appended = v8;
-      if (v8)
+      v10 = v39 == 2 ? ot::Mle::Mle::TxMessage::AppendTimeoutTlv(v36, 0) : ot::Mle::Mle::TxMessage::AppendTimeoutTlv(v36, *(a1 + 156));
+      appended = v10;
+      if (v10)
       {
         goto LABEL_36;
       }
 
-      v9 = ot::GetProvider<ot::InstanceLocator>::Get<ot::SupervisionListener>(a1);
-      Interval = ot::SupervisionListener::GetInterval(v9);
-      appended = ot::Mle::Mle::TxMessage::AppendSupervisionIntervalTlv(v34, Interval);
+      v11 = ot::GetProvider<ot::InstanceLocator>::Get<ot::SupervisionListener>(a1);
+      Interval = ot::SupervisionListener::GetInterval(v11);
+      appended = ot::Mle::Mle::TxMessage::AppendSupervisionIntervalTlv(v36, Interval);
       if (appended)
       {
         goto LABEL_36;
       }
 
-      v11 = ot::GetProvider<ot::InstanceLocator>::Get<ot::Mac::Mac>(a1);
-      if (ot::Mac::Mac::IsCslEnabled(v11))
+      v13 = ot::GetProvider<ot::InstanceLocator>::Get<ot::Mac::Mac>(a1);
+      if (ot::Mac::Mac::IsCslEnabled(v13))
       {
-        appended = ot::Mle::Mle::TxMessage::AppendCslChannelTlv(v34);
+        appended = ot::Mle::Mle::TxMessage::AppendCslChannelTlv(v36);
         if (appended)
         {
           goto LABEL_36;
         }
 
-        appended = ot::Mle::Mle::TxMessage::AppendCslTimeoutTlv(v34);
+        appended = ot::Mle::Mle::TxMessage::AppendCslTimeoutTlv(v36);
         if (appended)
         {
           goto LABEL_36;
@@ -1365,36 +3832,36 @@ LABEL_29:
       goto LABEL_29;
   }
 
-  if (ot::Mle::Mle::IsFullThreadDevice(a1) || (appended = ot::Mle::Mle::TxMessage::AppendAddressRegistrationTlv(v34, v33)) == 0)
+  if (ot::Mle::Mle::IsFullThreadDevice(a1) || (appended = ot::Mle::Mle::TxMessage::AppendAddressRegistrationTlv(v36, v35)) == 0)
   {
     ot::Neighbor::GetExtAddress((a1 + 192));
-    ot::Ip6::Address::SetToLinkLocalAddress(&v35, v12);
-    appended = ot::Mle::Mle::TxMessage::SendTo(v34, &v35);
+    ot::Ip6::Address::SetToLinkLocalAddress(&v37, v14);
+    appended = ot::Mle::Mle::TxMessage::SendTo(v36, &v37);
     if (!appended)
     {
-      ot::Mle::Mle::Log(0, 5, &v35);
+      ot::Mle::Mle::Log(0, 5u, &v37);
       if (ot::Mle::Mle::IsRxOnWhenIdle(a1))
       {
-        v22 = ot::GetProvider<ot::InstanceLocator>::Get<ot::MeshForwarder>(a1);
-        ot::MeshForwarder::SetRxOnWhenIdle(v22, 1, v23, v24, v25, v26, v27, v28);
+        v24 = ot::GetProvider<ot::InstanceLocator>::Get<ot::MeshForwarder>(a1);
+        ot::MeshForwarder::SetRxOnWhenIdle(v24, 1, v25, v26, v27, v28, v29, v30);
       }
 
       else
       {
-        v13 = ot::GetProvider<ot::InstanceLocator>::Get<ot::MeshForwarder>(a1);
-        ot::MeshForwarder::SetRxOnWhenIdle(v13, 0, v14, v15, v16, v17, v18, v19);
-        v30 = ot::GetProvider<ot::InstanceLocator>::Get<ot::DataPollSender>(a1);
-        v20 = ot::GetProvider<ot::InstanceLocator>::Get<ot::Mac::Mac>(a1);
-        IsCslEnabled = ot::Mac::Mac::IsCslEnabled(v20);
-        ot::DataPollSender::SetAttachMode(v30, !IsCslEnabled);
+        v15 = ot::GetProvider<ot::InstanceLocator>::Get<ot::MeshForwarder>(a1);
+        ot::MeshForwarder::SetRxOnWhenIdle(v15, 0, v16, v17, v18, v19, v20, v21);
+        v32 = ot::GetProvider<ot::InstanceLocator>::Get<ot::DataPollSender>(a1);
+        v22 = ot::GetProvider<ot::InstanceLocator>::Get<ot::Mac::Mac>(a1);
+        IsCslEnabled = ot::Mac::Mac::IsCslEnabled(v22);
+        ot::DataPollSender::SetAttachMode(v32, !IsCslEnabled);
       }
     }
   }
 
 LABEL_36:
-  if (appended && v34)
+  if (appended && v36)
   {
-    ot::Message::Free(v34);
+    ot::Message::Free(v36);
   }
 
   return appended;
@@ -1549,7 +4016,7 @@ uint64_t ot::Mle::Mle::SendChildUpdateResponse(ot::Mle::Mle *this, const ot::Mle
         appended = ot::Mle::Mle::TxMessage::SendTo(v14, a4);
         if (!appended)
         {
-          ot::Mle::Mle::Log(0, 6, a4);
+          ot::Mle::Mle::Log(0, 6u, a4);
           if ((v13 & 1) != 0 && ot::Mle::Mle::HasUnregisteredAddress(this))
           {
             ot::Mle::Mle::SendChildUpdateRequest(this);
@@ -1596,8 +4063,8 @@ uint64_t ot::Mle::Mle::TxMessage::AppendLinkFrameCounterTlv(ot::Mle::Mle::TxMess
 {
   v1 = ot::GetProvider<ot::Message>::Get<ot::KeyManager>(this);
   MaximumMacFrameCounter = ot::KeyManager::GetMaximumMacFrameCounter(v1);
-  ot::Message::GetSubType(this);
-  ot::Logger::LogAtLevel<(ot::LogLevel)4>(&ot::Mle::kLogModuleName, "Mle::TxMessage::AppendLinkFrameCounterTlv frameCounterTlv=%u, mleMsgSubType=%d", v2, v3, v4, v5, v6, v7, MaximumMacFrameCounter);
+  SubType = ot::Message::GetSubType(this);
+  ot::Logger::LogAtLevel<(ot::LogLevel)4>(&ot::Mle::kLogModuleName, "Mle::TxMessage::AppendLinkFrameCounterTlv frameCounterTlv=%u, mleMsgSubType=%d", v3, v4, v5, v6, v7, v8, MaximumMacFrameCounter, SubType);
   return ot::Tlv::Append<ot::UintTlvInfo<(unsigned char)5,unsigned int>>(this, MaximumMacFrameCounter);
 }
 
@@ -1605,11 +4072,11 @@ uint64_t ot::Mle::Mle::TxMessage::AppendMleFrameCounterTlv(ot::Mle::Mle::TxMessa
 {
   v1 = ot::GetProvider<ot::Message>::Get<ot::KeyManager>(this);
   MleFrameCounter = ot::KeyManager::GetMleFrameCounter(v1);
-  ot::Message::GetSubType(this);
-  ot::Logger::LogAtLevel<(ot::LogLevel)4>(&ot::Mle::kLogModuleName, "Mle::TxMessage::AppendMleFrameCounterTlv mleFrameCounterTlv:%u mleMsgSubType=%d", v2, v3, v4, v5, v6, v7, MleFrameCounter);
-  v8 = ot::GetProvider<ot::Message>::Get<ot::KeyManager>(this);
-  v9 = ot::KeyManager::GetMleFrameCounter(v8);
-  return ot::Tlv::Append<ot::UintTlvInfo<(unsigned char)8,unsigned int>>(this, v9);
+  SubType = ot::Message::GetSubType(this);
+  ot::Logger::LogAtLevel<(ot::LogLevel)4>(&ot::Mle::kLogModuleName, "Mle::TxMessage::AppendMleFrameCounterTlv mleFrameCounterTlv:%u mleMsgSubType=%d", v3, v4, v5, v6, v7, v8, MleFrameCounter, SubType);
+  v9 = ot::GetProvider<ot::Message>::Get<ot::KeyManager>(this);
+  v10 = ot::KeyManager::GetMleFrameCounter(v9);
+  return ot::Tlv::Append<ot::UintTlvInfo<(unsigned char)8,unsigned int>>(this, v10);
 }
 
 void ot::Mle::Mle::SendAnnounce(ot::Mle::Mle *a1, unsigned __int8 a2, __n128 *a3, char a4)
@@ -1729,7 +4196,7 @@ uint64_t ot::Mle::Mle::TxMessage::AppendActiveTimestampTlv(ot::Mle::Mle::TxMessa
 
 uint64_t ot::Tlv::Append<ot::UintTlvInfo<(unsigned char)21,unsigned short>>(uint64_t a1, unsigned __int16 a2)
 {
-  return ot::Tlv::AppendUintTlv<unsigned short>(a1, 21, a2);
+  return ot::Tlv::AppendUintTlv<unsigned short>(a1, 0x15u, a2);
 }
 
 {
@@ -1830,97 +4297,101 @@ uint64_t ot::Mle::Mle::SendLinkProbe(ot::Mle::Mle *this, __n128 *a2, char a3, ch
 
 uint64_t ot::Mle::Mle::ProcessMessageSecurity(ot::InstanceLocator *a1, char a2, ot::Message *a3, ot::Ip6::MessageInfo *a4, unsigned __int16 a5, ot::Mle::Mle::SecurityHeader *a6)
 {
-  v29 = a1;
-  v28 = a2;
-  v27 = a3;
-  v26 = a4;
-  v25 = a5;
-  v24 = a6;
-  v23 = 0;
-  ot::Crypto::AesCcm::AesCcm(v32);
-  v20 = (ot::Message::GetLength(v27) - v25);
-  SockAddr = ot::Ip6::MessageInfo::GetSockAddr(v26);
-  PeerAddr = ot::Ip6::MessageInfo::GetPeerAddr(v26);
-  if (v28 && v28 == 1)
+  v35 = a1;
+  v34 = a2;
+  v33 = a3;
+  v32 = a4;
+  v31 = a5;
+  v30 = a6;
+  v29 = 0;
+  ot::Crypto::AesCcm::AesCcm(v38);
+  v26 = (ot::Message::GetLength(v33) - v31);
+  ot::Ip6::MessageInfo::GetSockAddr(v32);
+  v25 = v6;
+  ot::Ip6::MessageInfo::GetPeerAddr(v32);
+  v24 = v7;
+  if (v34 && v34 == 1)
   {
-    SockAddr = ot::Ip6::MessageInfo::GetPeerAddr(v26);
-    PeerAddr = ot::Ip6::MessageInfo::GetSockAddr(v26);
-    if (v25 + 5 > ot::Message::GetLength(v27))
+    ot::Ip6::MessageInfo::GetPeerAddr(v32);
+    v25 = v8;
+    ot::Ip6::MessageInfo::GetSockAddr(v32);
+    v24 = v9;
+    if (v31 + 5 > ot::Message::GetLength(v33))
     {
-      v23 = 6;
+      v29 = 6;
       goto LABEL_16;
     }
 
-    LOWORD(v20) = v20 - 4;
+    LOWORD(v26) = v26 - 4;
   }
 
-  Iid = ot::Ip6::Address::GetIid(SockAddr);
-  ot::Ip6::InterfaceIdentifier::ConvertToExtAddress(Iid, v30);
-  FrameCounter = ot::Mle::Mle::SecurityHeader::GetFrameCounter(v24);
-  ot::Crypto::AesCcm::GenerateNonce(v30, FrameCounter, 5, v31, v8);
-  KeyId = ot::Mle::Mle::SecurityHeader::GetKeyId(v24);
-  v9 = ot::GetProvider<ot::InstanceLocator>::Get<ot::KeyManager>(a1);
-  if (KeyId == ot::KeyManager::GetCurrentKeySequence(v9))
+  Iid = ot::Ip6::Address::GetIid(v25);
+  ot::Ip6::InterfaceIdentifier::ConvertToExtAddress(Iid, v36);
+  FrameCounter = ot::Mle::Mle::SecurityHeader::GetFrameCounter(v30, v11);
+  ot::Crypto::AesCcm::GenerateNonce(v36, FrameCounter, 5, &v37, v13);
+  KeyId = ot::Mle::Mle::SecurityHeader::GetKeyId(v30, v14);
+  v15 = ot::GetProvider<ot::InstanceLocator>::Get<ot::KeyManager>(a1);
+  if (KeyId == ot::KeyManager::GetCurrentKeySequence(v15))
   {
-    v10 = ot::GetProvider<ot::InstanceLocator>::Get<ot::KeyManager>(a1);
-    CurrentMleKey = ot::KeyManager::GetCurrentMleKey(v10);
+    v16 = ot::GetProvider<ot::InstanceLocator>::Get<ot::KeyManager>(a1);
+    CurrentMleKey = ot::KeyManager::GetCurrentMleKey(v16);
   }
 
   else
   {
-    v11 = ot::GetProvider<ot::InstanceLocator>::Get<ot::KeyManager>(a1);
-    CurrentMleKey = ot::KeyManager::GetTemporaryMleKey(v11, KeyId);
+    v17 = ot::GetProvider<ot::InstanceLocator>::Get<ot::KeyManager>(a1);
+    CurrentMleKey = ot::KeyManager::GetTemporaryMleKey(v17, KeyId);
   }
 
-  ot::Crypto::AesCcm::SetKey(v32, CurrentMleKey);
-  ot::Crypto::AesCcm::Init(v32, 0x2Au, v20, 4u, v31, 0xDu);
-  ot::Crypto::AesCcm::Header<ot::Ip6::Address>(v32, SockAddr);
-  ot::Crypto::AesCcm::Header<ot::Ip6::Address>(v32, PeerAddr);
-  ot::Crypto::AesCcm::Header<ot::Mle::Mle::SecurityHeader>(v32, v24);
-  ot::Crypto::AesCcm::Payload(v32, v27, v25, v20, v28);
-  ot::Crypto::AesCcm::Finalize(v32, v22);
-  if (v28)
+  ot::Crypto::AesCcm::SetKey(v38, CurrentMleKey);
+  ot::Crypto::AesCcm::Init(v38, 0x2Au, v26, 4u, &v37, 0xDu);
+  ot::Crypto::AesCcm::Header<ot::Ip6::Address>(v38, v25);
+  ot::Crypto::AesCcm::Header<ot::Ip6::Address>(v38, v24);
+  ot::Crypto::AesCcm::Header<ot::Mle::Mle::SecurityHeader>(v38, v30);
+  ot::Crypto::AesCcm::Payload(v38, v33, v31, v26, v34);
+  ot::Crypto::AesCcm::Finalize(v38, v28);
+  if (v34)
   {
-    v15 = v27;
-    Length = ot::Message::GetLength(v27);
-    if (ot::Message::Compare<unsigned char [4]>(v15, Length - 4, v22))
+    v21 = v33;
+    Length = ot::Message::GetLength(v33);
+    if (ot::Message::Compare<unsigned char [4]>(v21, Length - 4, v28))
     {
-      ot::Message::RemoveFooter(v27, 4u);
+      ot::Message::RemoveFooter(v33, 4u);
     }
 
     else
     {
-      v23 = 8;
+      v29 = 8;
     }
   }
 
   else
   {
-    v23 = ot::Message::Append<unsigned char [4]>(v27, v22);
+    v29 = ot::Message::Append<unsigned char [4]>(v33, v28);
   }
 
 LABEL_16:
-  v14 = v23;
-  ot::Crypto::AesCcm::~AesCcm(v32);
-  return v14;
+  v20 = v29;
+  ot::Crypto::AesCcm::~AesCcm(v38);
+  return v20;
 }
 
-uint64_t ot::Mle::Mle::SecurityHeader::GetFrameCounter(ot::Mle::Mle::SecurityHeader *this)
+uint64_t ot::Mle::Mle::SecurityHeader::GetFrameCounter(ot::Mle::Mle::SecurityHeader *this, unsigned int a2)
 {
   return ot::LittleEndian::HostSwap32(*(this + 1));
 }
 
 {
-  return ot::Mle::Mle::SecurityHeader::GetFrameCounter(this);
+  return ot::Mle::Mle::SecurityHeader::GetFrameCounter(this, a2);
 }
 
-uint64_t ot::Mle::Mle::SecurityHeader::GetKeyId(ot::Mle::Mle::SecurityHeader *this)
+uint64_t ot::Mle::Mle::SecurityHeader::GetKeyId(ot::Mle::Mle::SecurityHeader *this, unsigned int a2)
 {
-  return ot::BigEndian::HostSwap32(*(this + 5));
+  return ot::BigEndian::HostSwap32(*(this + 5), a2);
 }
 
 {
-  return ot::Mle::Mle::SecurityHeader::GetKeyId(this);
+  return ot::Mle::Mle::SecurityHeader::GetKeyId(this, a2);
 }
 
 uint64_t ot::KeyManager::GetCurrentMleKey(ot::KeyManager *this)
@@ -1959,7 +4430,7 @@ uint64_t ot::Message::Append<unsigned char [4]>(ot::Message *a1, const void *a2)
   return ot::Message::Append<unsigned char [4]>(a1, a2);
 }
 
-BOOL ot::Message::Compare<unsigned char [4]>(ot::Message *a1, unsigned __int16 a2, const unsigned __int8 *a3)
+BOOL ot::Message::Compare<unsigned char [4]>(ot::Message *a1, unsigned __int16 a2, char *a3)
 {
   return ot::Message::CompareBytes(a1, a2, a3, 4u, 0);
 }
@@ -1995,12 +4466,12 @@ uint64_t ot::Neighbor::GetMleFrameCounter(ot::Neighbor *this)
   return ot::Neighbor::GetMleFrameCounter(this);
 }
 
-void ot::Mle::Mle::HandleAdvertisement(ot::Mle::Mle *this, ot::Neighbor **a2)
+void ot::Mle::Mle::HandleAdvertisement(ot::Mle::Mle *this, ot::Ip6::MessageInfo **a2)
 {
-  v32 = this;
-  v31 = a2;
+  v31 = this;
+  v30 = a2;
   LeaderDataTlv = 0;
-  v29 = 0;
+  v28 = 0;
   if (!ot::Mle::Mle::IsFullThreadDevice(this))
   {
     goto LABEL_28;
@@ -2009,7 +4480,7 @@ void ot::Mle::Mle::HandleAdvertisement(ot::Mle::Mle *this, ot::Neighbor **a2)
   ot::InstanceLocator::GetInstance(this);
   if (!otPlatVendorGetThreadJoinSession() && ot::Mle::Mle::isThreadStateMachineEnabled(this))
   {
-    ot::Logger::LogAtLevel<(ot::LogLevel)3>(&ot::Mle::kLogModuleName, "ThreadConnection: Received Advertisements in Sleepy Router/Full Router Role", v2, v3, v4, v5, v6, v7, v20);
+    ot::Logger::LogAtLevel<(ot::LogLevel)3>(&ot::Mle::kLogModuleName, "ThreadConnection: Received Advertisements in Sleepy Router/Full Router Role", v2, v3, v4, v5, v6, v7);
     v8 = ot::GetProvider<ot::InstanceLocator>::Get<ot::Notifier>(this);
     ot::Notifier::Signal(v8, 0x400000000);
   }
@@ -2022,15 +4493,15 @@ LABEL_28:
       goto LABEL_25;
     }
 
-    LeaderDataTlv = ot::Tlv::Find<ot::UintTlvInfo<(unsigned char)0,unsigned short>>(*v31, &v29);
+    LeaderDataTlv = ot::Tlv::Find<ot::UintTlvInfo<(unsigned char)0,unsigned short>>(*v30, &v28);
     if (LeaderDataTlv)
     {
       goto LABEL_25;
     }
 
-    PeerAddr = ot::Ip6::MessageInfo::GetPeerAddr(v31[1]);
-    ot::Mle::Mle::Log(1, 0, PeerAddr, v29);
-    LeaderDataTlv = ot::Mle::Mle::RxMessage::ReadLeaderDataTlv(*v31, v28, v10, v11, v12, v13);
+    ot::Ip6::MessageInfo::GetPeerAddr(v30[1]);
+    ot::Mle::Mle::Log(1u, 0, v9, v28);
+    LeaderDataTlv = ot::Mle::Mle::RxMessage::ReadLeaderDataTlv(*v30, v27, v10, v11, v12, v13);
     if (LeaderDataTlv)
     {
       goto LABEL_25;
@@ -2039,7 +4510,7 @@ LABEL_28:
     if (ot::Mle::Mle::IsFullThreadDevice(this))
     {
       v14 = ot::GetProvider<ot::InstanceLocator>::Get<ot::Mle::MleRouter>(this);
-      LeaderDataTlv = ot::Mle::MleRouter::HandleAdvertisement(v14, v31, v29, v28);
+      LeaderDataTlv = ot::Mle::MleRouter::HandleAdvertisement(v14, v30, v28, v27);
       if (LeaderDataTlv)
       {
         goto LABEL_25;
@@ -2048,7 +4519,7 @@ LABEL_28:
 
     if (ot::Mle::Mle::IsChild(this))
     {
-      if (v31[3] != (this + 192))
+      if (v30[3] != (this + 192))
       {
 LABEL_25:
         ot::Mle::Mle::LogProcessError(0, LeaderDataTlv);
@@ -2056,21 +4527,21 @@ LABEL_25:
       }
 
       Rloc16 = ot::Neighbor::GetRloc16((this + 192));
-      if (Rloc16 != v29)
+      if (Rloc16 != v28)
       {
         ot::Mle::Mle::BecomeDetached(this);
         IgnoreError();
         goto LABEL_25;
       }
 
-      PartitionId = ot::Mle::LeaderData::GetPartitionId(v28);
-      if (PartitionId != ot::Mle::LeaderData::GetPartitionId((this + 184)) || (LeaderRouterId = ot::Mle::LeaderData::GetLeaderRouterId(v28), LeaderId = ot::Mle::Mle::GetLeaderId(this), v17 = LeaderRouterId, LeaderRouterId != LeaderId))
+      PartitionId = ot::Mle::LeaderData::GetPartitionId(v27);
+      if (PartitionId != ot::Mle::LeaderData::GetPartitionId((this + 184)) || (LeaderRouterId = ot::Mle::LeaderData::GetLeaderRouterId(v27), LeaderId = ot::Mle::Mle::GetLeaderId(this), v17 = LeaderRouterId, LeaderRouterId != LeaderId))
       {
-        ot::Mle::Mle::SetLeaderData(this, v28);
-        v22 = ot::GetProvider<ot::InstanceLocator>::Get<ot::Mle::MleRouter>(this);
-        v21 = v31;
+        ot::Mle::Mle::SetLeaderData(this, v27);
+        v21 = ot::GetProvider<ot::InstanceLocator>::Get<ot::Mle::MleRouter>(this);
+        v20 = v30;
         RouterId = ot::Neighbor::GetRouterId((this + 192));
-        v17 = ot::Mle::MleRouter::ReadAndProcessRouteTlvOnFed(v22, v21, RouterId);
+        v17 = ot::Mle::MleRouter::ReadAndProcessRouteTlvOnFed(v21, v20, RouterId);
         LeaderDataTlv = v17;
         if (v17)
         {
@@ -2084,25 +4555,25 @@ LABEL_25:
       ot::Neighbor::SetLastHeard(this + 192, Now);
     }
 
-    else if (!ot::Mle::Mle::RxInfo::IsNeighborStateValid(v31))
+    else if (!ot::Mle::Mle::RxInfo::IsNeighborStateValid(v30))
     {
       goto LABEL_25;
     }
 
-    if ((*(this + 129) & 1) != 0 || ot::Mle::Mle::IsNetworkDataNewer(this, v28))
+    if ((*(this + 129) & 1) != 0 || ot::Mle::Mle::IsNetworkDataNewer(this, v27))
     {
       Uint16InRange = ot::Random::NonCrypto::GetUint16InRange(0, 0x3E8u);
-      v19 = ot::Ip6::MessageInfo::GetPeerAddr(v31[1]);
+      ot::Ip6::MessageInfo::GetPeerAddr(v30[1]);
       ot::Mle::Mle::SendDataRequestAfterDelay(this, v19, Uint16InRange);
       IgnoreError();
     }
 
-    *(v31 + 32) = 2;
+    *(v30 + 32) = 2;
     goto LABEL_25;
   }
 }
 
-void ot::Mle::Mle::HandleDataResponse(ot::Mle::Mle *this, ot::Neighbor **a2)
+void ot::Mle::Mle::HandleDataResponse(ot::Mle::Mle *this, ot::Ip6::MessageInfo **a2)
 {
   v33 = this;
   v32 = a2;
@@ -2110,15 +4581,15 @@ void ot::Mle::Mle::HandleDataResponse(ot::Mle::Mle *this, ot::Neighbor **a2)
   v30 = 0;
   v29 = 0;
   v28 = 0;
-  PeerAddr = ot::Ip6::MessageInfo::GetPeerAddr(a2[1]);
-  ot::Mle::Mle::Log(1, 8, PeerAddr);
+  ot::Ip6::MessageInfo::GetPeerAddr(a2[1]);
+  ot::Mle::Mle::Log(1u, 8u, v2);
   if (ot::Mle::Mle::RxInfo::IsNeighborStateValid(v32))
   {
     if (!ot::Tlv::FindTlvValueOffsetRange(*v32, 0x59, &v26, v3))
     {
       v24 = ot::GetProvider<ot::InstanceLocator>::Get<ot::LinkMetrics::Initiator>(this);
       v23 = *v32;
-      v4 = ot::Ip6::MessageInfo::GetPeerAddr(v32[1]);
+      ot::Ip6::MessageInfo::GetPeerAddr(v32[1]);
       ot::LinkMetrics::Initiator::HandleReport(v24, v23, &v26, v4);
     }
 
@@ -2168,187 +4639,165 @@ void ot::Mle::Mle::HandleDataResponse(ot::Mle::Mle *this, ot::Neighbor **a2)
     LeaderDataTlv = 2;
   }
 
-  ot::Mle::Mle::LogProcessError(8, LeaderDataTlv);
+  ot::Mle::Mle::LogProcessError(8u, LeaderDataTlv);
 }
 
 void ot::Mle::Mle::HandleParentResponse(ot::Mle::Mle *this, ot::Ip6::MessageInfo **a2)
 {
-  v213 = this;
-  v212 = a2;
-  v194 = this;
+  v200 = this;
+  v199 = a2;
+  v181 = this;
   VersionTlv = 0;
   AverageRss = ot::Message::GetAverageRss(*a2);
-  v209 = 0;
-  v208 = 0;
-  v206 = 0;
-  v205 = 0;
-  v204 = 0;
-  v202 = 0;
-  v201 = 0;
-  if (!ot::Mle::Mle::isThreadCertEnabled(v194))
+  v196 = 0;
+  v195 = 0;
+  v193 = 0;
+  v192 = 0;
+  v191 = 0;
+  v189 = 0;
+  v188 = 0;
+  if (!ot::Mle::Mle::isThreadCertEnabled(v181))
   {
-    v193 = &ot::Mle::kLogModuleName;
+    v180 = &ot::Mle::kLogModuleName;
     ot::Logger::LogAtLevel<(ot::LogLevel)5>(&ot::Mle::kLogModuleName, "%s: Cert Flag disabled", v2, v3, v4, v5, v6, v7, "HandleParentResponse");
-    v8 = ot::Mle::Mle::AttachStateToString(*(v194 + 132));
+    v8 = ot::Mle::Mle::AttachStateToString(*(v181 + 132));
     ot::Logger::LogAtLevel<(ot::LogLevel)4>(&ot::Mle::kLogModuleName, "Parent response received in mAttachState:%s", v9, v10, v11, v12, v13, v14, v8);
-    if (*(v194 + 132) != 3 && *(v194 + 132) != 4)
+    if (*(v181 + 132) != 3 && *(v181 + 132) != 4)
     {
       VersionTlv = 13;
       goto LABEL_55;
     }
   }
 
-  VersionTlv = ot::Tlv::Find<ot::UintTlvInfo<(unsigned char)0,unsigned short>>(*v212, &v208);
+  VersionTlv = ot::Tlv::Find<ot::UintTlvInfo<(unsigned char)0,unsigned short>>(*v199, &v195);
   if (!VersionTlv)
   {
-    PeerAddr = ot::Ip6::MessageInfo::GetPeerAddr(v212[1]);
-    ot::Mle::Mle::Log(1, 15, PeerAddr, v208);
-    VersionTlv = ot::Mle::Mle::RxMessage::ReadVersionTlv(*v212, &v209);
+    ot::Ip6::MessageInfo::GetPeerAddr(v199[1]);
+    ot::Mle::Mle::Log(1u, 0xFu, v15, v195);
+    VersionTlv = ot::Mle::Mle::RxMessage::ReadVersionTlv(*v199, &v196);
     if (!VersionTlv)
     {
-      VersionTlv = ot::Mle::Mle::RxMessage::ReadAndMatchResponseTlvWith(*v212, v194 + 360);
+      VersionTlv = ot::Mle::Mle::RxMessage::ReadAndMatchResponseTlvWith(*v199, v181 + 360);
       if (!VersionTlv)
       {
-        v16 = ot::Ip6::MessageInfo::GetPeerAddr(v212[1]);
+        ot::Ip6::MessageInfo::GetPeerAddr(v199[1]);
         Iid = ot::Ip6::Address::GetIid(v16);
-        ot::Ip6::InterfaceIdentifier::ConvertToExtAddress(Iid, v217);
-        if (ot::Mle::Mle::IsChild(v194))
+        ot::Ip6::InterfaceIdentifier::ConvertToExtAddress(Iid, v204);
+        if (ot::Mle::Mle::IsChild(v181))
         {
-          ot::Neighbor::GetExtAddress((v194 + 192));
-          if (ot::Equatable<ot::Mac::ExtAddress>::operator==(v22, v217))
+          ot::Neighbor::GetExtAddress((v181 + 192));
+          if (ot::Equatable<ot::Mac::ExtAddress>::operator==(v22, v204))
           {
-            *(v194 + 129) = *(v194 + 129) & 0xF7 | 8;
+            *(v181 + 129) = *(v181 + 129) & 0xF7 | 8;
           }
         }
 
-        VersionTlv = ot::Mle::Mle::RxMessage::ReadLeaderDataTlv(*v212, &v207, v18, v19, v20, v21);
+        VersionTlv = ot::Mle::Mle::RxMessage::ReadLeaderDataTlv(*v199, &v194, v18, v19, v20, v21);
         if (!VersionTlv)
         {
-          VersionTlv = ot::Tlv::Find<ot::UintTlvInfo<(unsigned char)16,unsigned char>>(*v212, &v206);
+          VersionTlv = ot::Tlv::Find<ot::UintTlvInfo<(unsigned char)16,unsigned char>>(*v199, &v193);
           if (!VersionTlv)
           {
-            v23 = ot::GetProvider<ot::InstanceLocator>::Get<ot::Mac::Mac>(v194);
+            v23 = ot::GetProvider<ot::InstanceLocator>::Get<ot::Mac::Mac>(v181);
             v24 = ot::Mac::Mac::ComputeLinkMargin(v23, AverageRss);
-            v205 = ot::Min<unsigned char>(v24, v206);
-            v204 = ot::LinkQualityForLinkMargin(v205);
-            VersionTlv = ot::Tlv::FindTlv<ot::Mle::ConnectivityTlv>(*v212, v203, v25, v26, v27, v28);
+            v192 = ot::Min<unsigned char>(v24, v193);
+            v191 = ot::LinkQualityForLinkMargin(v192);
+            VersionTlv = ot::Tlv::FindTlv<ot::Mle::ConnectivityTlv>(*v199, v190, v25, v26, v27, v28);
             if (!VersionTlv)
             {
-              PartitionId = ot::Mle::LeaderData::GetPartitionId(&v207);
-              v185 = AverageRss;
-              v186 = v204;
-              v182 = v203;
-              ParentPriority = ot::Mle::ConnectivityTlv::GetParentPriority(v203);
-              LinkQuality1 = ot::Mle::ConnectivityTlv::GetLinkQuality1(v203);
-              LinkQuality2 = ot::Mle::ConnectivityTlv::GetLinkQuality2(v203);
-              LinkQuality3 = ot::Mle::ConnectivityTlv::GetLinkQuality3(v203);
-              v29 = ot::Ip6::MessageInfo::GetPeerAddr(v212[1]);
-              v183 = v216;
-              ot::Ip6::Address::ToString(v29, v216);
-              v191 = &v131;
-              v132 = v185;
-              v133 = v186;
-              v134 = ParentPriority;
-              v135 = LinkQuality1;
-              v136 = LinkQuality2;
-              v137 = LinkQuality3;
-              v138 = ot::String<(unsigned short)40>::AsCString(v216);
-              v139 = v208;
-              ot::Logger::LogAtLevel<(ot::LogLevel)4>(&ot::Mle::kLogModuleName, "Partition ID: %u, RSSI: %d, Link quality: %u, Priority: %d, LQI1: %u, LQI2: %u, LQI3: %u (%s,0x%04x)", v30, v31, v32, v33, v34, v35, PartitionId);
-              CslClockAccuracyTlv = ot::Mle::Mle::RxMessage::ReadCslClockAccuracyTlv(*v212, v200, v36, v37, v38, v39);
+              PartitionId = ot::Mle::LeaderData::GetPartitionId(&v194);
+              v172 = AverageRss;
+              v173 = v191;
+              v169 = v190;
+              ParentPriority = ot::Mle::ConnectivityTlv::GetParentPriority(v190);
+              LinkQuality1 = ot::Mle::ConnectivityTlv::GetLinkQuality1(v190);
+              LinkQuality2 = ot::Mle::ConnectivityTlv::GetLinkQuality2(v190);
+              LinkQuality3 = ot::Mle::ConnectivityTlv::GetLinkQuality3(v190);
+              ot::Ip6::MessageInfo::GetPeerAddr(v199[1]);
+              v170 = v203;
+              ot::Ip6::Address::ToString(v203, v29);
+              v30 = ot::String<(unsigned short)40>::AsCString(v203);
+              v178 = &v133;
+              ot::Logger::LogAtLevel<(ot::LogLevel)4>(&ot::Mle::kLogModuleName, "Partition ID: %u, RSSI: %d, Link quality: %u, Priority: %d, LQI1: %u, LQI2: %u, LQI3: %u (%s,0x%04x)", v31, v32, v33, v34, v35, v36, PartitionId, v172, v173, ParentPriority, LinkQuality1, LinkQuality2, LinkQuality3, v30, v195);
+              CslClockAccuracyTlv = ot::Mle::Mle::RxMessage::ReadCslClockAccuracyTlv(*v199, v187, v37, v38, v39, v40);
               if (CslClockAccuracyTlv)
               {
                 if (CslClockAccuracyTlv != 23)
                 {
-                  ot::Logger::LogAtLevel<(ot::LogLevel)2>(&ot::Mle::kLogModuleName, "Parent Response parse error: Could not read CSL accuracy TLV", v40, v41, v42, v43, v44, v45, v131);
+                  ot::Logger::LogAtLevel<(ot::LogLevel)2>(&ot::Mle::kLogModuleName, "Parent Response parse error: Could not read CSL accuracy TLV", v41, v42, v43, v44, v45, v46);
                   VersionTlv = 6;
                   goto LABEL_55;
                 }
 
-                ot::Mac::CslAccuracy::Init(v200);
+                ot::Mac::CslAccuracy::Init(v187);
               }
 
-              v46 = v194;
-              *(v212 + 32) = 1;
-              if (ot::Mle::Mle::IsFullThreadDevice(v46) && !ot::Mle::Mle::IsDetached(v194))
+              v47 = v181;
+              *(v199 + 32) = 1;
+              if (ot::Mle::Mle::IsFullThreadDevice(v47) && !ot::Mle::Mle::IsDetached(v181))
               {
-                v163 = &v207;
-                v160 = ot::Mle::LeaderData::GetPartitionId(&v207);
-                v47 = ot::Mle::LeaderData::GetPartitionId((v194 + 184));
-                v199 = v160 == v47;
-                v164 = v203;
-                IdSequence = ot::Mle::ConnectivityTlv::GetIdSequence(v203);
-                v48 = ot::GetProvider<ot::InstanceLocator>::Get<ot::RouterTable>(v194);
-                RouterIdSequence = ot::RouterTable::GetRouterIdSequence(v48);
-                v198 = IdSequence == RouterIdSequence;
-                v162 = ot::Mle::ConnectivityTlv::GetIdSequence(v164);
-                v50 = ot::GetProvider<ot::InstanceLocator>::Get<ot::RouterTable>(v194);
-                v51 = ot::RouterTable::GetRouterIdSequence(v50);
-                v197 = ot::SerialNumber::IsGreater<unsigned char>(v162, v51);
-                v165 = v199;
-                v166 = v198;
-                v167 = v197;
-                v168 = *(v194 + 134);
-                v169 = v199;
-                v170 = v198;
-                v171 = v197;
-                v172 = *(v194 + 134);
-                v173 = ot::Mle::LeaderData::GetPartitionId((v194 + 184));
-                v52 = ot::GetProvider<ot::InstanceLocator>::Get<ot::RouterTable>(v194);
-                v174 = ot::RouterTable::GetRouterIdSequence(v52);
-                Weighting = ot::Mle::LeaderData::GetWeighting((v194 + 184));
-                v53 = ot::GetProvider<ot::InstanceLocator>::Get<ot::Mle::MleRouter>(v194);
-                IsSingleton = ot::Mle::MleRouter::IsSingleton(v53);
-                v177 = ot::Mle::LeaderData::GetPartitionId(v163);
-                v178 = ot::Mle::ConnectivityTlv::GetIdSequence(v164);
-                v179 = ot::Mle::LeaderData::GetWeighting(v163);
-                ActiveRouters = ot::Mle::ConnectivityTlv::GetActiveRouters(v164);
-                v180 = &v131;
-                v132 = v166;
-                v133 = v167;
-                v134 = v168;
-                v135 = v169;
-                v136 = v170;
-                v137 = v171;
-                v138 = v172;
-                v139 = v173;
-                v140 = v174;
-                v141 = Weighting;
-                v142 = IsSingleton;
-                v143 = v177;
-                v144 = v178;
-                v145 = v179;
-                v146 = ActiveRouters;
-                ot::Logger::LogAtLevel<(ot::LogLevel)4>(&ot::Mle::kLogModuleName, "Parent Response isPartIdSame=%d, isIdSeqSame=%d, isIdSeqGreater=%d,mAttachMode=%d cur:[partId:%u, idSeq:%u wt:%u, isSingleton:%d] other:[partId:%u, idSeq:%u wt:%u acRtrs:%u] ", v135, v168, v168, v132, v165, v55, v165);
-                v181 = *(v194 + 134);
-                switch(v181)
+                v150 = &v194;
+                v147 = ot::Mle::LeaderData::GetPartitionId(&v194);
+                v48 = ot::Mle::LeaderData::GetPartitionId((v181 + 184));
+                v186 = v147 == v48;
+                v151 = v190;
+                IdSequence = ot::Mle::ConnectivityTlv::GetIdSequence(v190);
+                v49 = ot::GetProvider<ot::InstanceLocator>::Get<ot::RouterTable>(v181);
+                RouterIdSequence = ot::RouterTable::GetRouterIdSequence(v49);
+                v185 = IdSequence == RouterIdSequence;
+                v149 = ot::Mle::ConnectivityTlv::GetIdSequence(v151);
+                v51 = ot::GetProvider<ot::InstanceLocator>::Get<ot::RouterTable>(v181);
+                v52 = ot::RouterTable::GetRouterIdSequence(v51);
+                v184 = ot::SerialNumber::IsGreater<unsigned char>(v149, v52);
+                v152 = v186;
+                v153 = v185;
+                v154 = v184;
+                v155 = *(v181 + 134);
+                v156 = v186;
+                v157 = v185;
+                v158 = v184;
+                v159 = *(v181 + 134);
+                v160 = ot::Mle::LeaderData::GetPartitionId((v181 + 184));
+                v53 = ot::GetProvider<ot::InstanceLocator>::Get<ot::RouterTable>(v181);
+                v161 = ot::RouterTable::GetRouterIdSequence(v53);
+                Weighting = ot::Mle::LeaderData::GetWeighting((v181 + 184));
+                v54 = ot::GetProvider<ot::InstanceLocator>::Get<ot::Mle::MleRouter>(v181);
+                IsSingleton = ot::Mle::MleRouter::IsSingleton(v54);
+                v164 = ot::Mle::LeaderData::GetPartitionId(v150);
+                v165 = ot::Mle::ConnectivityTlv::GetIdSequence(v151);
+                v166 = ot::Mle::LeaderData::GetWeighting(v150);
+                ActiveRouters = ot::Mle::ConnectivityTlv::GetActiveRouters(v151);
+                v167 = &v133;
+                ot::Logger::LogAtLevel<(ot::LogLevel)4>(&ot::Mle::kLogModuleName, "Parent Response isPartIdSame=%d, isIdSeqSame=%d, isIdSeqGreater=%d,mAttachMode=%d cur:[partId:%u, idSeq:%u wt:%u, isSingleton:%d] other:[partId:%u, idSeq:%u wt:%u acRtrs:%u] ", v156, v155, v155, v153, v152, v56, v152, v153, v154, v155, v156, v157, v158, v159, v160, v161, Weighting, IsSingleton, v164, v165, v166, ActiveRouters);
+                v168 = *(v181 + 134);
+                switch(v168)
                 {
                   case 0:
                     goto LABEL_27;
                   case 1:
-                    if (!v199 || !v197)
+                    if (!v186 || !v184)
                     {
                       goto LABEL_55;
                     }
 
                     break;
                   case 2:
-                    if (v199)
+                    if (v186)
                     {
                       goto LABEL_55;
                     }
 
-                    v159 = ot::Mle::ConnectivityTlv::IsSingleton(v203);
-                    v56 = ot::GetProvider<ot::InstanceLocator>::Get<ot::Mle::MleRouter>(v194);
-                    v57 = ot::Mle::MleRouter::IsSingleton(v56);
-                    if (ot::Mle::MleRouter::ComparePartitions(v159, &v207, v57, (v194 + 184), v58) <= 0)
+                    v146 = ot::Mle::ConnectivityTlv::IsSingleton(v190);
+                    v57 = ot::GetProvider<ot::InstanceLocator>::Get<ot::Mle::MleRouter>(v181);
+                    v58 = ot::Mle::MleRouter::IsSingleton(v57);
+                    if (ot::Mle::MleRouter::ComparePartitions(v146, &v194, v58, (v181 + 184), v59) <= 0)
                     {
                       goto LABEL_55;
                     }
 
                     break;
                   case 3:
-                    if (!v199 || !v198 && !v197)
+                    if (!v186 || !v185 && !v184)
                     {
                       goto LABEL_55;
                     }
@@ -2356,7 +4805,7 @@ void ot::Mle::Mle::HandleParentResponse(ot::Mle::Mle *this, ot::Ip6::MessageInfo
                     break;
                   case 4:
 LABEL_27:
-                    if (v199 && !v197)
+                    if (v186 && !v184)
                     {
                       goto LABEL_55;
                     }
@@ -2365,120 +4814,112 @@ LABEL_27:
                 }
               }
 
-              if (!ot::Neighbor::IsStateParentResponse((v194 + 368)))
+              if (!ot::Neighbor::IsStateParentResponse((v181 + 368)))
               {
                 goto LABEL_47;
               }
 
-              ot::Neighbor::GetExtAddress((v194 + 368));
-              if (!ot::Unequatable<ot::Mac::ExtAddress>::operator!=(v59, v217))
+              ot::Neighbor::GetExtAddress((v181 + 368));
+              if (!ot::Unequatable<ot::Mac::ExtAddress>::operator!=(v60, v204))
               {
                 goto LABEL_47;
               }
 
-              v196 = 0;
-              if (ot::Mle::Mle::IsFullThreadDevice(v194))
+              v183 = 0;
+              if (ot::Mle::Mle::IsFullThreadDevice(v181))
               {
-                v60 = ot::Mle::ConnectivityTlv::IsSingleton(v203);
-                v196 = ot::Mle::MleRouter::ComparePartitions(v60, &v207, (*(v194 + 540) & 1), (v194 + 532), v61);
+                v61 = ot::Mle::ConnectivityTlv::IsSingleton(v190);
+                v183 = ot::Mle::MleRouter::ComparePartitions(v61, &v194, (*(v181 + 540) & 1), (v181 + 532), v62);
               }
 
-              if ((v196 & 0x80000000) == 0 && (v196 || ot::Mle::Mle::IsBetterParent(v194, v208, v205, v203, v209, v200)))
+              if ((v183 & 0x80000000) == 0 && (v183 || ot::Mle::Mle::IsBetterParent(v181, v195, v192, v190, v196, v187)))
               {
 LABEL_47:
-                VersionTlv = ot::Mle::Mle::RxMessage::ReadFrameCounterTlvs(*v212, &v202, &v201);
+                VersionTlv = ot::Mle::Mle::RxMessage::ReadFrameCounterTlvs(*v199, &v189, &v188);
                 if (!VersionTlv)
                 {
-                  v62 = ot::Ip6::MessageInfo::GetPeerAddr(v212[1]);
-                  v158 = v215;
-                  ot::Ip6::Address::ToString(v62, v215);
-                  v132 = ot::String<(unsigned short)40>::AsCString(v158);
-                  v133 = v202;
-                  v134 = v201;
-                  ot::Logger::LogAtLevel<(ot::LogLevel)4>(&ot::Mle::kLogModuleName, "%s Rx from %s linkFrameCounter=%d mleFrameCounter=%d", v63, v64, v65, v66, v67, v68, "HandleParentResponse");
-                  VersionTlv = ot::Mle::Mle::RxMessage::ReadChallengeTlv(*v212, (v194 + 513), v69, v70);
+                  ot::Ip6::MessageInfo::GetPeerAddr(v199[1]);
+                  v145 = v202;
+                  ot::Ip6::Address::ToString(v202, v63);
+                  v64 = ot::String<(unsigned short)40>::AsCString(v145);
+                  ot::Logger::LogAtLevel<(ot::LogLevel)4>(&ot::Mle::kLogModuleName, "%s Rx from %s linkFrameCounter=%d mleFrameCounter=%d", v65, v66, v67, v68, v69, v70, "HandleParentResponse", v64, v189, v188);
+                  VersionTlv = ot::Mle::Mle::RxMessage::ReadChallengeTlv(*v199, (v181 + 513), v71, v72);
                   if (!VersionTlv)
                   {
-                    ot::Mle::Mle::InitNeighbor(v194, (v194 + 368), v212);
-                    ot::Neighbor::SetRloc16(v194 + 368, v208);
-                    LinkFrameCounters = ot::Neighbor::GetLinkFrameCounters((v194 + 368));
-                    ot::Mac::LinkFrameCounters::SetAll(LinkFrameCounters, v202);
-                    ot::Neighbor::SetLinkAckFrameCounter(v194 + 368, v202);
-                    ot::Neighbor::SetMleFrameCounter(v194 + 368, v201);
-                    ot::Neighbor::SetVersion(v194 + 368, v209);
-                    v147 = v194 + 368;
-                    ot::Mle::DeviceMode::DeviceMode(&v195, 11);
-                    ot::Neighbor::SetDeviceMode(v147, v195);
-                    v148 = v194 + 368;
-                    v72 = ot::LinkQualityForLinkMargin(v206);
-                    ot::Router::SetLinkQualityOut(v148, v72);
-                    ot::Neighbor::SetState(v194 + 368, 3);
-                    ot::Neighbor::SetKeySequence(v194 + 368, *(v212 + 5));
-                    v149 = (v194 + 368);
-                    v151 = v203;
-                    LeaderCost = ot::Mle::ConnectivityTlv::GetLeaderCost(v203);
-                    ot::Parent::SetLeaderCost(v149, LeaderCost);
-                    v150 = v200;
-                    ClockAccuracy = ot::Mac::CslAccuracy::GetClockAccuracy(v200);
-                    v157 = &ot::Mle::kLogModuleName;
-                    ot::Logger::LogAtLevel<(ot::LogLevel)4>(&ot::Mle::kLogModuleName, "ClockAccuracy Info-HandleParentResponse: Accuracy - %d", v75, v76, v77, v78, v79, v80, ClockAccuracy);
-                    Uncertainty = ot::Mac::CslAccuracy::GetUncertainty(v150);
-                    ot::Logger::LogAtLevel<(ot::LogLevel)4>(v157, "ClockUncertainity Info-HandleParentResponse: Uncertainity - %d", v82, v83, v84, v85, v86, v87, Uncertainty);
-                    ot::Parent::SetCslAccuracy(v194 + 368, v150);
-                    v88 = ot::Mle::ConnectivityTlv::GetParentPriority(v151);
-                    v89 = v151;
-                    *(v194 + 522) = v88;
-                    v90 = ot::Mle::ConnectivityTlv::GetLinkQuality3(v89);
-                    v91 = v151;
-                    *(v194 + 523) = v90;
-                    v92 = ot::Mle::ConnectivityTlv::GetLinkQuality2(v91);
-                    v93 = v151;
-                    *(v194 + 524) = v92;
-                    v94 = ot::Mle::ConnectivityTlv::GetLinkQuality1(v93);
-                    v95 = v151;
-                    *(v194 + 525) = v94;
-                    SedBufferSize = ot::Mle::ConnectivityTlv::GetSedBufferSize(v95);
-                    v97 = v151;
-                    *(v194 + 263) = SedBufferSize;
-                    SedDatagramCount = ot::Mle::ConnectivityTlv::GetSedDatagramCount(v97);
-                    v99 = v194;
-                    v100 = SedDatagramCount;
-                    v101 = v151;
-                    *(v194 + 528) = v100;
-                    *(v99 + 532) = v207;
-                    v102 = ot::Mle::ConnectivityTlv::IsSingleton(v101);
-                    v103 = v194;
-                    *(v194 + 540) = v102;
-                    *(v103 + 529) = v205;
-                    v104 = ot::Ip6::MessageInfo::GetPeerAddr(v212[1]);
-                    v152 = v214;
-                    ot::Ip6::Address::ToString(v104, v214);
-                    v153 = ot::String<(unsigned short)40>::AsCString(v152);
-                    Rloc16 = ot::Neighbor::GetRloc16((v194 + 368));
-                    v155 = v202;
-                    v156 = v201;
-                    v105 = ot::Mle::Mle::AttachStateToString(*(v194 + 132));
-                    v132 = Rloc16;
-                    v133 = v155;
-                    v134 = v156;
-                    v135 = v105;
-                    v136 = v204;
-                    ot::Logger::LogAtLevel<(ot::LogLevel)4>(v157, "Added new parent candidate: %s (0x%x) ,linkFc:%u, mleFc:%u, mAttachState:%s, linkQuality:%d", v106, v107, v108, v109, v110, v111, v153);
-                    if (!ot::Mle::Mle::isThreadCertEnabled(v194))
+                    ot::Mle::Mle::InitNeighbor(v181, (v181 + 368), v199);
+                    ot::Neighbor::SetRloc16(v181 + 368, v195);
+                    LinkFrameCounters = ot::Neighbor::GetLinkFrameCounters((v181 + 368));
+                    ot::Mac::LinkFrameCounters::SetAll(LinkFrameCounters, v189);
+                    ot::Neighbor::SetLinkAckFrameCounter(v181 + 368, v189);
+                    ot::Neighbor::SetMleFrameCounter(v181 + 368, v188);
+                    ot::Neighbor::SetVersion(v181 + 368, v196);
+                    v134 = v181 + 368;
+                    ot::Mle::DeviceMode::DeviceMode(&v182, 11);
+                    ot::Neighbor::SetDeviceMode(v134, v182);
+                    v135 = v181 + 368;
+                    v74 = ot::LinkQualityForLinkMargin(v193);
+                    ot::Router::SetLinkQualityOut(v135, v74);
+                    ot::Neighbor::SetState(v181 + 368, 3);
+                    ot::Neighbor::SetKeySequence(v181 + 368, *(v199 + 5));
+                    v136 = (v181 + 368);
+                    v138 = v190;
+                    LeaderCost = ot::Mle::ConnectivityTlv::GetLeaderCost(v190);
+                    ot::Parent::SetLeaderCost(v136, LeaderCost);
+                    v137 = v187;
+                    ClockAccuracy = ot::Mac::CslAccuracy::GetClockAccuracy(v187);
+                    v144 = &ot::Mle::kLogModuleName;
+                    ot::Logger::LogAtLevel<(ot::LogLevel)4>(&ot::Mle::kLogModuleName, "ClockAccuracy Info-HandleParentResponse: Accuracy - %d", v77, v78, v79, v80, v81, v82, ClockAccuracy);
+                    Uncertainty = ot::Mac::CslAccuracy::GetUncertainty(v137);
+                    ot::Logger::LogAtLevel<(ot::LogLevel)4>(v144, "ClockUncertainity Info-HandleParentResponse: Uncertainity - %d", v84, v85, v86, v87, v88, v89, Uncertainty);
+                    ot::Parent::SetCslAccuracy(v181 + 368, v137);
+                    v90 = ot::Mle::ConnectivityTlv::GetParentPriority(v138);
+                    v91 = v138;
+                    *(v181 + 522) = v90;
+                    v92 = ot::Mle::ConnectivityTlv::GetLinkQuality3(v91);
+                    v93 = v138;
+                    *(v181 + 523) = v92;
+                    v94 = ot::Mle::ConnectivityTlv::GetLinkQuality2(v93);
+                    v95 = v138;
+                    *(v181 + 524) = v94;
+                    v96 = ot::Mle::ConnectivityTlv::GetLinkQuality1(v95);
+                    v97 = v138;
+                    *(v181 + 525) = v96;
+                    SedBufferSize = ot::Mle::ConnectivityTlv::GetSedBufferSize(v97);
+                    v99 = v138;
+                    *(v181 + 263) = SedBufferSize;
+                    SedDatagramCount = ot::Mle::ConnectivityTlv::GetSedDatagramCount(v99);
+                    v101 = v181;
+                    v102 = SedDatagramCount;
+                    v103 = v138;
+                    *(v181 + 528) = v102;
+                    *(v101 + 532) = v194;
+                    v104 = ot::Mle::ConnectivityTlv::IsSingleton(v103);
+                    v105 = v181;
+                    *(v181 + 540) = v104;
+                    *(v105 + 529) = v192;
+                    ot::Ip6::MessageInfo::GetPeerAddr(v199[1]);
+                    v139 = v201;
+                    ot::Ip6::Address::ToString(v201, v106);
+                    v140 = ot::String<(unsigned short)40>::AsCString(v139);
+                    Rloc16 = ot::Neighbor::GetRloc16((v181 + 368));
+                    v142 = v189;
+                    v143 = v188;
+                    v107 = ot::Mle::Mle::AttachStateToString(*(v181 + 132));
+                    ot::Logger::LogAtLevel<(ot::LogLevel)4>(v144, "Added new parent candidate: %s (0x%x) ,linkFc:%u, mleFc:%u, mAttachState:%s, linkQuality:%d", v108, v109, v110, v111, v112, v113, v140, Rloc16, v142, v143, v107, v191);
+                    if (!ot::Mle::Mle::isThreadCertEnabled(v181))
                     {
-                      ot::Logger::LogAtLevel<(ot::LogLevel)5>(&ot::Mle::kLogModuleName, "%s: Cert Flag disabled", v112, v113, v114, v115, v116, v117, "HandleParentResponse");
-                      if (v204 == 3 && (*(v194 + 132) == 3 || *(v194 + 132) == 4))
+                      ot::Logger::LogAtLevel<(ot::LogLevel)5>(&ot::Mle::kLogModuleName, "%s: Cert Flag disabled", v114, v115, v116, v117, v118, v119, "HandleParentResponse");
+                      if (v191 == 3 && (*(v181 + 132) == 3 || *(v181 + 132) == 4))
                       {
-                        ot::Logger::LogAtLevel<(ot::LogLevel)4>(&ot::Mle::kLogModuleName, "Found new parent candidate with linkQuality: %d, stopping the attach timer", v118, v119, v120, v121, v122, v123, v204);
-                        ot::TimerMilli::Stop((v194 + 888));
-                        ot::TimerMilli::Start((v194 + 888), 0);
+                        ot::Logger::LogAtLevel<(ot::LogLevel)4>(&ot::Mle::kLogModuleName, "Found new parent candidate with linkQuality: %d, stopping the attach timer", v120, v121, v122, v123, v124, v125, v191);
+                        ot::TimerMilli::Stop((v181 + 888));
+                        ot::TimerMilli::Start((v181 + 888), 0);
                       }
 
                       else
                       {
-                        v124 = ot::Mle::Mle::AttachStateToString(*(v194 + 132));
-                        v132 = v204;
-                        ot::Logger::LogAtLevel<(ot::LogLevel)4>(&ot::Mle::kLogModuleName, "Not handling parent response in mAttachState:%s, linkQuality:%d ", v125, v126, v127, v128, v129, v130, v124);
+                        v126 = ot::Mle::Mle::AttachStateToString(*(v181 + 132));
+                        ot::Logger::LogAtLevel<(ot::LogLevel)4>(&ot::Mle::kLogModuleName, "Not handling parent response in mAttachState:%s, linkQuality:%d ", v127, v128, v129, v130, v131, v132, v126, v191);
                       }
                     }
                   }
@@ -2492,10 +4933,10 @@ LABEL_47:
   }
 
 LABEL_55:
-  ot::Mle::Mle::LogProcessError(15, VersionTlv);
+  ot::Mle::Mle::LogProcessError(0xFu, VersionTlv);
 }
 
-void ot::Mle::Mle::HandleChildIdResponse(ot::Mle::Mle *this, ot::Neighbor **a2)
+void ot::Mle::Mle::HandleChildIdResponse(ot::Mle::Mle *this, ot::Ip6::MessageInfo **a2)
 {
   v50 = this;
   v49 = a2;
@@ -2505,8 +4946,8 @@ void ot::Mle::Mle::HandleChildIdResponse(ot::Mle::Mle *this, ot::Neighbor **a2)
   LeaderDataTlv = ot::Tlv::Find<ot::UintTlvInfo<(unsigned char)0,unsigned short>>(*a2, &v46);
   if (!LeaderDataTlv)
   {
-    PeerAddr = ot::Ip6::MessageInfo::GetPeerAddr(v49[1]);
-    ot::Mle::Mle::Log(1, 4, PeerAddr, v46);
+    ot::Ip6::MessageInfo::GetPeerAddr(v49[1]);
+    ot::Mle::Mle::Log(1u, 4u, v2, v46);
     if (!ot::Mle::Mle::RxInfo::IsNeighborStateValid(v49))
     {
       LeaderDataTlv = 8;
@@ -2527,10 +4968,10 @@ void ot::Mle::Mle::HandleChildIdResponse(ot::Mle::Mle *this, ot::Neighbor **a2)
         LeaderDataTlv = ot::Mle::Mle::RxMessage::ReadLeaderDataTlv(*v49, v47, v3, v4, v5, v6);
         if (!LeaderDataTlv && ot::Mle::Mle::RxMessage::ContainsTlv(*v49, 0xCu, v7, v8))
         {
-          v42 = ot::Tlv::Find<ot::SimpleTlvInfo<(unsigned char)22,ot::MeshCoP::Timestamp>>(*v49, v44);
-          if (v42)
+          v41 = ot::Tlv::Find<ot::SimpleTlvInfo<(unsigned char)22,ot::MeshCoP::Timestamp>>(*v49, v44);
+          if (v41)
           {
-            if (v42 != 23)
+            if (v41 != 23)
             {
               LeaderDataTlv = 6;
               goto LABEL_29;
@@ -2542,16 +4983,16 @@ void ot::Mle::Mle::HandleChildIdResponse(ot::Mle::Mle *this, ot::Neighbor **a2)
             LeaderDataTlv = ot::Mle::Mle::RxMessage::ReadAndSaveActiveDataset(*v49, v44);
             if (LeaderDataTlv == 23)
             {
-              v41 = 0;
+              v40 = 0;
             }
 
             else
             {
-              v41 = LeaderDataTlv;
+              v40 = LeaderDataTlv;
             }
 
-            LeaderDataTlv = v41;
-            if (v41)
+            LeaderDataTlv = v40;
+            if (v40)
             {
               goto LABEL_29;
             }
@@ -2563,10 +5004,10 @@ void ot::Mle::Mle::HandleChildIdResponse(ot::Mle::Mle *this, ot::Neighbor **a2)
             ot::MeshCoP::DatasetManager::Clear(v9);
           }
 
-          v40 = ot::Tlv::Find<ot::SimpleTlvInfo<(unsigned char)23,ot::MeshCoP::Timestamp>>(*v49, v44);
-          if (v40)
+          v39 = ot::Tlv::Find<ot::SimpleTlvInfo<(unsigned char)23,ot::MeshCoP::Timestamp>>(*v49, v44);
+          if (v39)
           {
-            if (v40 != 23)
+            if (v39 != 23)
             {
               LeaderDataTlv = 6;
               goto LABEL_29;
@@ -2584,35 +5025,35 @@ void ot::Mle::Mle::HandleChildIdResponse(ot::Mle::Mle *this, ot::Neighbor **a2)
 
           ot::Mle::Mle::SetStateDetached(this);
           ot::Mle::Mle::SetLeaderData(this, v47);
-          v39 = ot::GetProvider<ot::InstanceLocator>::Get<ot::Mle::MleRouter>(this);
-          v38 = v49;
+          v38 = ot::GetProvider<ot::InstanceLocator>::Get<ot::Mle::MleRouter>(this);
+          v37 = v49;
           v11 = ot::Mle::RouterIdFromRloc16(v46);
-          LeaderDataTlv = ot::Mle::MleRouter::ReadAndProcessRouteTlvOnFed(v39, v38, v11);
+          LeaderDataTlv = ot::Mle::MleRouter::ReadAndProcessRouteTlvOnFed(v38, v37, v11);
           if (!LeaderDataTlv)
           {
             ot::Mle::Mle::ParentCandidate::CopyTo((this + 368), (this + 192));
             ot::Mle::Mle::ParentCandidate::Clear((this + 368));
+            v43 = *ot::Parent::GetCslAccuracy((this + 192));
+            ot::Logger::LogAtLevel<(ot::LogLevel)4>(&ot::Mle::kLogModuleName, "ClockAccuracy Info-ChildIdResponse: Accuracy - %d", v12, v13, v14, v15, v16, v17, v43);
+            v36 = ot::GetProvider<ot::InstanceLocator>::Get<ot::Mac::Mac>(this);
             CslAccuracy = ot::Parent::GetCslAccuracy((this + 192));
-            ot::Logger::LogAtLevel<(ot::LogLevel)4>(&ot::Mle::kLogModuleName, "ClockAccuracy Info-ChildIdResponse: Accuracy - %d", v13, v14, v15, v16, v17, v18, *CslAccuracy);
-            v37 = ot::GetProvider<ot::InstanceLocator>::Get<ot::Mac::Mac>(this);
-            v19 = ot::Parent::GetCslAccuracy((this + 192));
-            ot::Mac::Mac::SetCslParentAccuracy(v37, v19);
+            ot::Mac::Mac::SetCslParentAccuracy(v36, CslAccuracy);
             ot::Neighbor::SetRloc16(this + 192, v46);
-            ot::Mle::Mle::RxMessage::ReadAndSetNetworkDataTlv(*v49, v47, v20, v21);
+            ot::Mle::Mle::RxMessage::ReadAndSetNetworkDataTlv(*v49, v47, v19, v20);
             IgnoreError();
             ot::Mle::Mle::SetStateChild(this, v45);
             if (ot::Mle::Mle::IsRxOnWhenIdle(this))
             {
-              v30 = ot::GetProvider<ot::InstanceLocator>::Get<ot::MeshForwarder>(this);
-              ot::MeshForwarder::SetRxOnWhenIdle(v30, 1, v31, v32, v33, v34, v35, v36);
+              v29 = ot::GetProvider<ot::InstanceLocator>::Get<ot::MeshForwarder>(this);
+              ot::MeshForwarder::SetRxOnWhenIdle(v29, 1, v30, v31, v32, v33, v34, v35);
             }
 
             else
             {
-              v22 = ot::GetProvider<ot::InstanceLocator>::Get<ot::DataPollSender>(this);
-              ot::DataPollSender::SetAttachMode(v22, 0);
-              v23 = ot::GetProvider<ot::InstanceLocator>::Get<ot::MeshForwarder>(this);
-              ot::MeshForwarder::SetRxOnWhenIdle(v23, 0, v24, v25, v26, v27, v28, v29);
+              v21 = ot::GetProvider<ot::InstanceLocator>::Get<ot::DataPollSender>(this);
+              ot::DataPollSender::SetAttachMode(v21, 0);
+              v22 = ot::GetProvider<ot::InstanceLocator>::Get<ot::MeshForwarder>(this);
+              ot::MeshForwarder::SetRxOnWhenIdle(v22, 0, v23, v24, v25, v26, v27, v28);
             }
 
             *(v49 + 32) = 2;
@@ -2623,78 +5064,78 @@ void ot::Mle::Mle::HandleChildIdResponse(ot::Mle::Mle *this, ot::Neighbor **a2)
   }
 
 LABEL_29:
-  ot::Mle::Mle::LogProcessError(4, LeaderDataTlv);
+  ot::Mle::Mle::LogProcessError(4u, LeaderDataTlv);
 }
 
 void ot::Mle::Mle::HandleAnnounce(ot::Mle::Mle *this, ot::Ip6::MessageInfo **a2)
 {
-  v30 = this;
-  v29 = a2;
-  v28 = 0;
+  v33 = this;
+  v32 = a2;
+  v31 = 0;
   Channel = 0;
-  v24 = 0;
-  PeerAddr = ot::Ip6::MessageInfo::GetPeerAddr(a2[1]);
-  ot::Mle::Mle::Log(1, 1, PeerAddr);
-  v28 = ot::Tlv::Find<ot::SimpleTlvInfo<(unsigned char)20,ot::Mle::ChannelTlvValue>>(*v29, v27);
-  if (!v28)
+  v27 = 0;
+  ot::Ip6::MessageInfo::GetPeerAddr(a2[1]);
+  ot::Mle::Mle::Log(1u, 1u, v2);
+  v31 = ot::Tlv::Find<ot::SimpleTlvInfo<(unsigned char)20,ot::Mle::ChannelTlvValue>>(*v32, v30);
+  if (!v31)
   {
-    Channel = ot::Mle::ChannelTlvValue::GetChannel(v27);
-    v28 = ot::Tlv::Find<ot::SimpleTlvInfo<(unsigned char)22,ot::MeshCoP::Timestamp>>(*v29, v26);
-    if (!v28)
+    Channel = ot::Mle::ChannelTlvValue::GetChannel(v30, v3);
+    v31 = ot::Tlv::Find<ot::SimpleTlvInfo<(unsigned char)22,ot::MeshCoP::Timestamp>>(*v32, v29);
+    if (!v31)
     {
-      v28 = ot::Tlv::Find<ot::UintTlvInfo<(unsigned char)21,unsigned short>>(*v29, &v24);
-      if (!v28)
+      v31 = ot::Tlv::Find<ot::UintTlvInfo<(unsigned char)21,unsigned short>>(*v32, &v27);
+      if (!v31)
       {
-        *(v29 + 32) = 2;
-        IsOrphanAnnounce = ot::MeshCoP::Timestamp::IsOrphanAnnounce(v26);
+        *(v32 + 32) = 2;
+        IsOrphanAnnounce = ot::MeshCoP::Timestamp::IsOrphanAnnounce(v29, v4);
         active = ot::GetProvider<ot::InstanceLocator>::Get<ot::MeshCoP::ActiveDatasetManager>(this);
         Timestamp = ot::MeshCoP::DatasetManager::GetTimestamp(active);
-        v22 = ot::MeshCoP::Timestamp::Compare(v26, Timestamp, v5);
-        v19 = Channel;
-        v6 = ot::GetProvider<ot::InstanceLocator>::Get<ot::Mac::Mac>(this);
-        v20 = 0;
-        if (v19 == ot::Mac::Mac::GetPanChannel(v6))
+        v25 = ot::MeshCoP::Timestamp::Compare(v29, Timestamp, v7);
+        v22 = Channel;
+        v8 = ot::GetProvider<ot::InstanceLocator>::Get<ot::Mac::Mac>(this);
+        v23 = 0;
+        if (v22 == ot::Mac::Mac::GetPanChannel(v8))
         {
-          v18 = v24;
-          v7 = ot::GetProvider<ot::InstanceLocator>::Get<ot::Mac::Mac>(this);
-          v20 = v18 == ot::Mac::Mac::GetPanId(v7);
+          v21 = v27;
+          v9 = ot::GetProvider<ot::InstanceLocator>::Get<ot::Mac::Mac>(this);
+          v23 = v21 == ot::Mac::Mac::GetPanId(v9);
         }
 
-        if (IsOrphanAnnounce || v22 < 0)
+        if (IsOrphanAnnounce || v25 < 0)
         {
-          if (!IsOrphanAnnounce || !v20)
+          if (!IsOrphanAnnounce || !v23)
           {
             ot::Mle::Mle::SendAnnounce(this, Channel);
-            v17 = Channel;
-            v8 = ot::Ip6::MessageInfo::GetPeerAddr(*(v29 + 1));
-            ot::Mle::Mle::SendAnnounce(this, v17, v8, 0);
+            v20 = Channel;
+            ot::Ip6::MessageInfo::GetPeerAddr(v32[1]);
+            ot::Mle::Mle::SendAnnounce(this, v20, v10, 0);
           }
         }
 
-        else if (v22 <= 0)
+        else if (v25 <= 0)
         {
-          v15 = ot::GetProvider<ot::InstanceLocator>::Get<ot::AnnounceSender>(this);
-          ot::AnnounceSender::UpdateOnReceivedAnnounce(v15);
+          v18 = ot::GetProvider<ot::InstanceLocator>::Get<ot::AnnounceSender>(this);
+          ot::AnnounceSender::UpdateOnReceivedAnnounce(v18);
         }
 
-        else if (!ot::Mle::Mle::IsDetached(this) || !v20)
+        else if (!ot::Mle::Mle::IsDetached(this) || !v23)
         {
-          if (*(this + 132) != 1 || (v16 = *(this + 21), v16 < ot::MeshCoP::Timestamp::GetSeconds(v26)))
+          if (*(this + 132) != 1 || (v19 = *(this + 21), v19 < ot::MeshCoP::Timestamp::GetSeconds(v29, v11)))
           {
-            *(this + 21) = ot::MeshCoP::Timestamp::GetSeconds(v26);
+            *(this + 21) = ot::MeshCoP::Timestamp::GetSeconds(v29, v11);
             *(this + 142) = Channel;
-            *(this + 76) = v24;
+            *(this + 76) = v27;
             ot::Mle::Mle::SetAttachState(this, 1u);
             ot::TimerMilli::Start((this + 888), 0xFAu);
             ot::Mle::Mle::ResetAttachCounter(this);
-            ot::Logger::LogAtLevel<(ot::LogLevel)3>(&ot::Mle::kLogModuleName, "Delay processing Announce - channel %d, panid 0x%02x", v9, v10, v11, v12, v13, v14, Channel);
+            ot::Logger::LogAtLevel<(ot::LogLevel)3>(&ot::Mle::kLogModuleName, "Delay processing Announce - channel %d, panid 0x%02x", v12, v13, v14, v15, v16, v17, Channel, v27);
           }
         }
       }
     }
   }
 
-  ot::Mle::Mle::LogProcessError(1, v28);
+  ot::Mle::Mle::LogProcessError(1u, v31);
 }
 
 void ot::Mle::Mle::HandleChildUpdateRequest(ot::Mle::Mle *this, ot::Mle::Mle::RxInfo *a2)
@@ -2709,8 +5150,8 @@ void ot::Mle::Mle::HandleChildUpdateRequest(ot::Mle::Mle *this, ot::Mle::Mle::Rx
   updated = ot::Tlv::Find<ot::UintTlvInfo<(unsigned char)0,unsigned short>>(*v25, &v23);
   if (!updated)
   {
-    PeerAddr = ot::Ip6::MessageInfo::GetPeerAddr(*(v25 + 1));
-    ot::Mle::Mle::Log(1, 5, PeerAddr, v23);
+    ot::Ip6::MessageInfo::GetPeerAddr(*(v25 + 1));
+    ot::Mle::Mle::Log(1u, 5u, v2, v23);
     ChallengeTlv = ot::Mle::Mle::RxMessage::ReadChallengeTlv(*v25, v29, v3, v4);
     if (ChallengeTlv)
     {
@@ -2725,14 +5166,14 @@ void ot::Mle::Mle::HandleChildUpdateRequest(ot::Mle::Mle *this, ot::Mle::Mle::Rx
 
     else
     {
-      ot::Mle::Mle::TlvList::Add(v27, 4);
-      ot::Mle::Mle::TlvList::Add(v27, 8);
-      ot::Mle::Mle::TlvList::Add(v27, 5);
+      ot::Mle::Mle::TlvList::Add(v27, 4u);
+      ot::Mle::Mle::TlvList::Add(v27, 8u);
+      ot::Mle::Mle::TlvList::Add(v27, 5u);
     }
 
     if (*(v25 + 3) != this + 192)
     {
-      ot::Mle::Mle::TlvList::Add(v27, 17);
+      ot::Mle::Mle::TlvList::Add(v27, 0x11u);
       goto LABEL_19;
     }
 
@@ -2763,7 +5204,7 @@ void ot::Mle::Mle::HandleChildUpdateRequest(ot::Mle::Mle *this, ot::Mle::Mle::Rx
 
       if (!ot::Mle::Mle::RxMessage::ReadCslClockAccuracyTlv(*v25, v21, v10, v11, v12, v13))
       {
-        ot::Mle::Mle::TlvList::Add(v27, 85);
+        ot::Mle::Mle::TlvList::Add(v27, 0x55u);
       }
 
 LABEL_19:
@@ -2784,7 +5225,7 @@ LABEL_19:
 
       *(v25 + 32) = 2;
       ot::Mle::Mle::ProcessKeySequence(this, v25);
-      v16 = ot::Ip6::MessageInfo::GetPeerAddr(*(v25 + 1));
+      ot::Ip6::MessageInfo::GetPeerAddr(*(v25 + 1));
       updated = ot::Mle::Mle::SendChildUpdateResponse(this, v27, v29, v16);
       goto LABEL_24;
     }
@@ -2795,23 +5236,23 @@ LABEL_12:
   }
 
 LABEL_24:
-  ot::Mle::Mle::LogProcessError(5, updated);
+  ot::Mle::Mle::LogProcessError(5u, updated);
 }
 
-void ot::Mle::Mle::HandleChildUpdateResponse(ot::Mle::Mle *this, ot::Mle::Mle::RxMessage **a2)
+void ot::Mle::Mle::HandleChildUpdateResponse(ot::Mle::Mle *this, ot::Ip6::MessageInfo **a2)
 {
-  v61 = this;
-  v60 = a2;
+  v64 = this;
+  v63 = a2;
   ModeTlv = 0;
+  v61 = 0;
+  ot::Mle::RxChallenge::RxChallenge(v66);
+  v59 = 0;
   v58 = 0;
-  ot::Mle::RxChallenge::RxChallenge(v63);
+  v57 = 0;
   v56 = 0;
-  v55 = 0;
-  v54 = 0;
-  *v53 = 0;
-  PeerAddr = ot::Ip6::MessageInfo::GetPeerAddr(v60[1]);
-  ot::Mle::Mle::Log(1, 6, PeerAddr);
-  ResponseTlv = ot::Mle::Mle::RxMessage::ReadResponseTlv(*v60, v63, v3, v4);
+  ot::Ip6::MessageInfo::GetPeerAddr(v63[1]);
+  ot::Mle::Mle::Log(1u, 6u, v2);
+  ResponseTlv = ot::Mle::Mle::RxMessage::ReadResponseTlv(*v63, v66, v3, v4);
   if (ResponseTlv)
   {
     if (ResponseTlv != 23)
@@ -2820,13 +5261,13 @@ void ot::Mle::Mle::HandleChildUpdateResponse(ot::Mle::Mle *this, ot::Mle::Mle::R
       goto LABEL_48;
     }
 
-    ot::Mle::RxChallenge::Clear(v63);
+    ot::Mle::RxChallenge::Clear(v66);
   }
 
-  v49 = *(this + 130);
-  if (v49 == 1)
+  v52 = *(this + 130);
+  if (v52 == 1)
   {
-    if (!ot::Mle::RxChallenge::operator==(v63, this + 360))
+    if (!ot::Mle::RxChallenge::operator==(v66, this + 360))
     {
       ModeTlv = 8;
       goto LABEL_48;
@@ -2835,42 +5276,42 @@ void ot::Mle::Mle::HandleChildUpdateResponse(ot::Mle::Mle *this, ot::Mle::Mle::R
 
   else
   {
-    if (v49 != 2)
+    if (v52 != 2)
     {
       __assert_rtn("HandleChildUpdateResponse", "mle.cpp", 5094, "false");
     }
 
-    if (v60[3] != (this + 192) || !ot::Neighbor::IsStateValid((this + 192)))
+    if (v63[3] != (this + 192) || !ot::Neighbor::IsStateValid((this + 192)))
     {
       ModeTlv = 8;
       goto LABEL_48;
     }
   }
 
-  if (ot::Tlv::Find<ot::Mle::StatusTlv>(*v60, &v58))
+  if (ot::Tlv::Find<ot::Mle::StatusTlv>(*v63, &v61))
   {
-    ModeTlv = ot::Mle::Mle::RxMessage::ReadModeTlv(*v60, &v57);
+    ModeTlv = ot::Mle::Mle::RxMessage::ReadModeTlv(*v63, &v60);
     if (!ModeTlv)
     {
-      if (ot::Equatable<ot::Mle::DeviceMode>::operator==(&v57, this + 131))
+      if (ot::Equatable<ot::Mle::DeviceMode>::operator==(&v60, this + 131))
       {
-        v48 = *(this + 130);
-        if (v48 == 1)
+        v51 = *(this + 130);
+        if (v51 == 1)
         {
-          ModeTlv = ot::Mle::Mle::RxMessage::ReadFrameCounterTlvs(*v60, &v56, &v55);
+          ModeTlv = ot::Mle::Mle::RxMessage::ReadFrameCounterTlvs(*v63, &v59, &v58);
           if (ModeTlv)
           {
             goto LABEL_48;
           }
 
-          v5 = ot::Ip6::MessageInfo::GetPeerAddr(v60[1]);
-          ot::Ip6::Address::ToString(v5, v62);
-          ot::String<(unsigned short)40>::AsCString(v62);
-          ot::Logger::LogAtLevel<(ot::LogLevel)4>(&ot::Mle::kLogModuleName, "%s Rx from %s linkFrameCounter=%d mleFrameCounter=%d", v6, v7, v8, v9, v10, v11, "HandleChildUpdateResponse");
+          ot::Ip6::MessageInfo::GetPeerAddr(v63[1]);
+          ot::Ip6::Address::ToString(v65, v5);
+          v6 = ot::String<(unsigned short)40>::AsCString(v65);
+          ot::Logger::LogAtLevel<(ot::LogLevel)4>(&ot::Mle::kLogModuleName, "%s Rx from %s linkFrameCounter=%d mleFrameCounter=%d", v7, v8, v9, v10, v11, v12, "HandleChildUpdateResponse", v6, v59, v58);
           LinkFrameCounters = ot::Neighbor::GetLinkFrameCounters((this + 192));
-          ot::Mac::LinkFrameCounters::SetAll(LinkFrameCounters, v56);
-          ot::Neighbor::SetLinkAckFrameCounter(this + 192, v56);
-          ot::Neighbor::SetMleFrameCounter(this + 192, v55);
+          ot::Mac::LinkFrameCounters::SetAll(LinkFrameCounters, v59);
+          ot::Neighbor::SetLinkAckFrameCounter(this + 192, v59);
+          ot::Neighbor::SetMleFrameCounter(this + 192, v58);
           ot::Neighbor::SetState(this + 192, 7);
           Rloc16 = ot::Mle::Mle::GetRloc16(this);
           ot::Mle::Mle::SetStateChild(this, Rloc16);
@@ -2881,32 +5322,32 @@ void ot::Mle::Mle::HandleChildUpdateResponse(ot::Mle::Mle *this, ot::Mle::Mle::R
           }
         }
 
-        else if (v48 != 2)
+        else if (v51 != 2)
         {
           __assert_rtn("HandleChildUpdateResponse", "mle.cpp", 5196, "false");
         }
 
-        ModeTlv = ot::Tlv::Find<ot::UintTlvInfo<(unsigned char)0,unsigned short>>(*v60, &v54);
+        ModeTlv = ot::Tlv::Find<ot::UintTlvInfo<(unsigned char)0,unsigned short>>(*v63, &v57);
         if (!ModeTlv)
         {
-          if (ot::Mle::Mle::HasMatchingRouterIdWith(this, v54))
+          if (ot::Mle::Mle::HasMatchingRouterIdWith(this, v57, v15))
           {
-            ModeTlv = ot::Mle::Mle::HandleLeaderData(this, v60, v14, v15, v16, v17);
+            ModeTlv = ot::Mle::Mle::HandleLeaderData(this, v63, v16, v17, v18, v19);
             if (!ModeTlv)
             {
-              v47 = ot::Tlv::Find<ot::UintTlvInfo<(unsigned char)2,unsigned int>>(*v60, v53);
-              if (v47)
+              v50 = ot::Tlv::Find<ot::UintTlvInfo<(unsigned char)2,unsigned int>>(*v63, &v56);
+              if (v50)
               {
-                if (v47 != 23)
+                if (v50 != 23)
                 {
                   ModeTlv = 6;
                   goto LABEL_48;
                 }
               }
 
-              else if (*v53 || !ot::Mle::Mle::IsDetachingGracefully(this))
+              else if (v56 || !ot::Mle::Mle::IsDetachingGracefully(this))
               {
-                *(this + 39) = *v53;
+                *(this + 39) = v56;
               }
 
               else
@@ -2914,7 +5355,7 @@ void ot::Mle::Mle::HandleChildUpdateResponse(ot::Mle::Mle *this, ot::Mle::Mle::R
                 ot::Mle::Mle::Stop(this);
               }
 
-              CslClockAccuracyTlv = ot::Mle::Mle::RxMessage::ReadCslClockAccuracyTlv(*v60, v52, v18, v19, v20, v21);
+              CslClockAccuracyTlv = ot::Mle::Mle::RxMessage::ReadCslClockAccuracyTlv(*v63, v55, v20, v21, v22, v23);
               if (CslClockAccuracyTlv)
               {
                 if (CslClockAccuracyTlv != 23)
@@ -2926,38 +5367,38 @@ void ot::Mle::Mle::HandleChildUpdateResponse(ot::Mle::Mle *this, ot::Mle::Mle::R
 
               else
               {
-                v22 = ot::GetProvider<ot::InstanceLocator>::Get<ot::Mac::Mac>(this);
-                ot::Mac::Mac::SetCslParentAccuracy(v22, v52);
-                ClockAccuracy = ot::Mac::CslAccuracy::GetClockAccuracy(v52);
-                ot::Mac::CslAccuracy::GetUncertainty(v52);
-                ot::Logger::LogAtLevel<(ot::LogLevel)4>(&ot::Mle::kLogModuleName, "ClockAccuracy Info-ChildUpdateResponse: Accuracy - %d, Uncertainty - %d", v23, v24, v25, v26, v27, v28, ClockAccuracy);
+                v24 = ot::GetProvider<ot::InstanceLocator>::Get<ot::Mac::Mac>(this);
+                ot::Mac::Mac::SetCslParentAccuracy(v24, v55);
+                ClockAccuracy = ot::Mac::CslAccuracy::GetClockAccuracy(v55);
+                Uncertainty = ot::Mac::CslAccuracy::GetUncertainty(v55);
+                ot::Logger::LogAtLevel<(ot::LogLevel)4>(&ot::Mle::kLogModuleName, "ClockAccuracy Info-ChildUpdateResponse: Accuracy - %d, Uncertainty - %d", v26, v27, v28, v29, v30, v31, ClockAccuracy, Uncertainty);
               }
 
               if (ot::Mle::Mle::IsRxOnWhenIdle(this))
               {
-                v37 = ot::GetProvider<ot::InstanceLocator>::Get<ot::MeshForwarder>(this);
-                ot::MeshForwarder::SetRxOnWhenIdle(v37, 1, v38, v39, v40, v41, v42, v43);
+                v40 = ot::GetProvider<ot::InstanceLocator>::Get<ot::MeshForwarder>(this);
+                ot::MeshForwarder::SetRxOnWhenIdle(v40, 1, v41, v42, v43, v44, v45, v46);
               }
 
               else
               {
-                v29 = ot::GetProvider<ot::InstanceLocator>::Get<ot::DataPollSender>(this);
-                ot::DataPollSender::SetAttachMode(v29, 0);
-                v30 = ot::GetProvider<ot::InstanceLocator>::Get<ot::MeshForwarder>(this);
-                ot::MeshForwarder::SetRxOnWhenIdle(v30, 0, v31, v32, v33, v34, v35, v36);
+                v32 = ot::GetProvider<ot::InstanceLocator>::Get<ot::DataPollSender>(this);
+                ot::DataPollSender::SetAttachMode(v32, 0);
+                v33 = ot::GetProvider<ot::InstanceLocator>::Get<ot::MeshForwarder>(this);
+                ot::MeshForwarder::SetRxOnWhenIdle(v33, 0, v34, v35, v36, v37, v38, v39);
               }
 
-              if (ot::Mle::RxChallenge::IsEmpty(v63))
+              if (ot::Mle::RxChallenge::IsEmpty(v66))
               {
-                v44 = 2;
+                v47 = 2;
               }
 
               else
               {
-                v44 = 1;
+                v47 = 1;
               }
 
-              *(v60 + 32) = v44;
+              *(v63 + 32) = v47;
             }
           }
 
@@ -2990,7 +5431,7 @@ LABEL_48:
     ot::Mle::Mle::ScheduleMessageTransmissionTimer(this);
   }
 
-  ot::Mle::Mle::LogProcessError(6, ModeTlv);
+  ot::Mle::Mle::LogProcessError(6u, ModeTlv);
 }
 
 void ot::Mle::Mle::HandleLinkMetricsManagementRequest(ot::Mle::Mle *this, ot::Ip6::MessageInfo **a2)
@@ -2999,15 +5440,15 @@ void ot::Mle::Mle::HandleLinkMetricsManagementRequest(ot::Mle::Mle *this, ot::Ip
   v8 = a2;
   v7 = 0;
   v6 = 0;
-  PeerAddr = ot::Ip6::MessageInfo::GetPeerAddr(a2[1]);
-  ot::Mle::Mle::Log(1, 28, PeerAddr);
+  ot::Ip6::MessageInfo::GetPeerAddr(a2[1]);
+  ot::Mle::Mle::Log(1u, 0x1Cu, v2);
   if (ot::Mle::Mle::RxInfo::IsNeighborStateValid(v8))
   {
     v3 = ot::GetProvider<ot::InstanceLocator>::Get<ot::LinkMetrics::Subject>(this);
     v7 = ot::LinkMetrics::Subject::HandleManagementRequest(v3, *v8, *(v8 + 3), &v6);
     if (!v7)
     {
-      v4 = ot::Ip6::MessageInfo::GetPeerAddr(*(v8 + 1));
+      ot::Ip6::MessageInfo::GetPeerAddr(*(v8 + 1));
       v7 = ot::Mle::Mle::SendLinkMetricsManagementResponse(this, v4, v6);
       *(v8 + 32) = 2;
     }
@@ -3018,37 +5459,37 @@ void ot::Mle::Mle::HandleLinkMetricsManagementRequest(ot::Mle::Mle *this, ot::Ip
     v7 = 13;
   }
 
-  ot::Mle::Mle::LogProcessError(28, v7);
+  ot::Mle::Mle::LogProcessError(0x1Cu, v7);
 }
 
 void ot::Mle::Mle::HandleLinkMetricsManagementResponse(ot::Mle::Mle *this, ot::Ip6::MessageInfo **a2)
 {
-  PeerAddr = ot::Ip6::MessageInfo::GetPeerAddr(a2[1]);
-  ot::Mle::Mle::Log(1, 29, PeerAddr);
+  ot::Ip6::MessageInfo::GetPeerAddr(a2[1]);
+  ot::Mle::Mle::Log(1u, 0x1Du, v2);
   if (ot::Mle::Mle::RxInfo::IsNeighborStateValid(a2))
   {
     v5 = ot::GetProvider<ot::InstanceLocator>::Get<ot::LinkMetrics::Initiator>(this);
     v4 = *a2;
-    v3 = ot::Ip6::MessageInfo::GetPeerAddr(a2[1]);
+    ot::Ip6::MessageInfo::GetPeerAddr(a2[1]);
     v7 = ot::LinkMetrics::Initiator::HandleManagementResponse(v5, v4, v3);
     *(a2 + 32) = 2;
-    ot::Mle::Mle::LogProcessError(29, v7);
+    ot::Mle::Mle::LogProcessError(0x1Du, v7);
   }
 
   else
   {
-    ot::Mle::Mle::LogProcessError(29, 13);
+    ot::Mle::Mle::LogProcessError(0x1Du, 13);
   }
 }
 
-void ot::Mle::Mle::HandleLinkProbe(ot::Mle::Mle *this, ot::Neighbor **a2)
+void ot::Mle::Mle::HandleLinkProbe(ot::Mle::Mle *this, ot::Ip6::MessageInfo **a2)
 {
   v13 = this;
   v12 = a2;
   v11 = 0;
   v10 = 0;
-  PeerAddr = ot::Ip6::MessageInfo::GetPeerAddr(a2[1]);
-  ot::Mle::Mle::Log(1, 30, PeerAddr);
+  ot::Ip6::MessageInfo::GetPeerAddr(a2[1]);
+  ot::Mle::Mle::Log(1u, 0x1Eu, v2);
   if (ot::Mle::Mle::RxInfo::IsNeighborStateValid(v12))
   {
     v3 = ot::GetProvider<ot::InstanceLocator>::Get<ot::LinkMetrics::Subject>(this);
@@ -3073,68 +5514,68 @@ void ot::Mle::Mle::HandleLinkProbe(ot::Mle::Mle *this, ot::Neighbor **a2)
     v11 = 13;
   }
 
-  ot::Mle::Mle::LogProcessError(30, v11);
+  ot::Mle::Mle::LogProcessError(0x1Eu, v11);
 }
 
 void ot::Mle::Mle::ProcessKeySequence(ot::Mle::Mle *this, ot::Mle::Mle::RxInfo *a2)
 {
-  v40 = 0;
-  v38 = *(a2 + 5);
+  v43 = 0;
+  v41 = *(a2 + 5);
   v2 = ot::GetProvider<ot::InstanceLocator>::Get<ot::KeyManager>(this);
-  if (v38 > ot::KeyManager::GetCurrentKeySequence(v2))
+  if (v41 > ot::KeyManager::GetCurrentKeySequence(v2))
   {
-    v36 = *(a2 + 5);
+    v39 = *(a2 + 5);
     v3 = ot::GetProvider<ot::InstanceLocator>::Get<ot::KeyManager>(this);
-    v41 = v36 - ot::KeyManager::GetCurrentKeySequence(v3) == 1;
-    v37 = *(a2 + 32);
+    v44 = v39 - ot::KeyManager::GetCurrentKeySequence(v3) == 1;
+    v40 = *(a2 + 32);
     if (*(a2 + 32))
     {
-      if (v37 == 1)
+      if (v40 == 1)
       {
-        v40 = 0;
-        v35 = *(a2 + 5);
+        v43 = 0;
+        v38 = *(a2 + 5);
         v4 = ot::GetProvider<ot::InstanceLocator>::Get<ot::KeyManager>(this);
-        ot::KeyManager::GetCurrentKeySequence(v4);
-        ot::Logger::LogAtLevel<(ot::LogLevel)4>(&ot::Mle::kLogModuleName, "%s Authoritative MLE msg with keySeq:%u, mCurrSeq:%u received, update keysequence", v5, v6, v7, v8, v9, v10, "ProcessKeySequence");
+        CurrentKeySequence = ot::KeyManager::GetCurrentKeySequence(v4);
+        ot::Logger::LogAtLevel<(ot::LogLevel)4>(&ot::Mle::kLogModuleName, "%s Authoritative MLE msg with keySeq:%u, mCurrSeq:%u received, update keysequence", v6, v7, v8, v9, v10, v11, "ProcessKeySequence", v38, CurrentKeySequence);
       }
 
-      else if (v37 == 2)
+      else if (v40 == 2)
       {
         if (!ot::Mle::Mle::RxInfo::IsNeighborStateValid(a2))
         {
           return;
         }
 
-        if (!v41)
+        if (!v44)
         {
           Rloc16 = ot::Neighbor::GetRloc16(*(a2 + 3));
-          ot::Logger::LogAtLevel<(ot::LogLevel)4>(&ot::Mle::kLogModuleName, "Large key seq jump in peer class msg from 0x%04x ", v12, v13, v14, v15, v16, v17, Rloc16);
+          ot::Logger::LogAtLevel<(ot::LogLevel)4>(&ot::Mle::kLogModuleName, "Large key seq jump in peer class msg from 0x%04x ", v13, v14, v15, v16, v17, v18, Rloc16);
           ot::Mle::Mle::ReestablishLinkWithNeighbor(this, *(a2 + 3));
           return;
         }
 
-        v34 = *(a2 + 5);
-        v18 = ot::GetProvider<ot::InstanceLocator>::Get<ot::KeyManager>(this);
-        ot::KeyManager::GetCurrentKeySequence(v18);
-        ot::Logger::LogAtLevel<(ot::LogLevel)4>(&ot::Mle::kLogModuleName, "%s Peer MLE msg with keySeq:%u mCurrSeq:%u received, update keysequence", v19, v20, v21, v22, v23, v24, "ProcessKeySequence");
-        v40 = 1;
+        v37 = *(a2 + 5);
+        v19 = ot::GetProvider<ot::InstanceLocator>::Get<ot::KeyManager>(this);
+        v20 = ot::KeyManager::GetCurrentKeySequence(v19);
+        ot::Logger::LogAtLevel<(ot::LogLevel)4>(&ot::Mle::kLogModuleName, "%s Peer MLE msg with keySeq:%u mCurrSeq:%u received, update keysequence", v21, v22, v23, v24, v25, v26, "ProcessKeySequence", v37, v20);
+        v43 = 1;
       }
 
-      if (v41)
+      if (v44)
       {
-        v40 |= 2u;
+        v43 |= 2u;
       }
 
-      v32 = ot::GetProvider<ot::InstanceLocator>::Get<ot::KeyManager>(this);
-      ot::KeyManager::SetCurrentKeySequence(v32, *(a2 + 5), v40);
+      v35 = ot::GetProvider<ot::InstanceLocator>::Get<ot::KeyManager>(this);
+      ot::KeyManager::SetCurrentKeySequence(v35, *(a2 + 5), v43);
     }
 
     else
     {
-      v33 = *(a2 + 5);
-      v25 = ot::GetProvider<ot::InstanceLocator>::Get<ot::KeyManager>(this);
-      ot::KeyManager::GetCurrentKeySequence(v25);
-      ot::Logger::LogAtLevel<(ot::LogLevel)2>(&ot::Mle::kLogModuleName, "%s Unknown MLE msg with keySeq:%u, mCurrSeq:%u received", v26, v27, v28, v29, v30, v31, "ProcessKeySequence");
+      v36 = *(a2 + 5);
+      v27 = ot::GetProvider<ot::InstanceLocator>::Get<ot::KeyManager>(this);
+      v28 = ot::KeyManager::GetCurrentKeySequence(v27);
+      ot::Logger::LogAtLevel<(ot::LogLevel)2>(&ot::Mle::kLogModuleName, "%s Unknown MLE msg with keySeq:%u, mCurrSeq:%u received", v29, v30, v31, v32, v33, v34, "ProcessKeySequence", v36, v28);
     }
   }
 }
@@ -3160,28 +5601,28 @@ void ot::Mle::Mle::ReestablishLinkWithNeighbor(ot::Mle::Mle *this, ot::Neighbor 
   {
     if (ot::Mle::Mle::IsChild(this) && a2 == (this + 192))
     {
-      ot::Mle::Mle::SendChildUpdateRequest(this, 1);
+      ot::Mle::Mle::SendChildUpdateRequest(this, 1u);
       IgnoreError();
     }
 
     else if (ot::Mle::Mle::IsFullThreadDevice(this))
     {
       Rloc16 = ot::Neighbor::GetRloc16(a2);
-      if (ot::Mle::IsRouterRloc16(Rloc16))
+      if (ot::Mle::IsRouterRloc16(Rloc16, v3))
       {
-        v3 = ot::GetProvider<ot::InstanceLocator>::Get<ot::Mle::MleRouter>(this);
-        ot::Mle::MleRouter::SendLinkRequest(v3, a2);
+        v4 = ot::GetProvider<ot::InstanceLocator>::Get<ot::Mle::MleRouter>(this);
+        ot::Mle::MleRouter::SendLinkRequest(v4, a2);
         IgnoreError();
       }
 
       else
       {
-        v4 = ot::GetProvider<ot::InstanceLocator>::Get<ot::ChildTable>(this);
-        if (ot::ChildTable::Contains(v4, a2))
+        v5 = ot::GetProvider<ot::InstanceLocator>::Get<ot::ChildTable>(this);
+        if (ot::ChildTable::Contains(v5, a2))
         {
           ot::Neighbor::SetState(a2, 6);
-          v5 = ot::GetProvider<ot::InstanceLocator>::Get<ot::Mle::MleRouter>(this);
-          ot::Mle::MleRouter::SendChildUpdateRequest(v5, a2);
+          v6 = ot::GetProvider<ot::InstanceLocator>::Get<ot::Mle::MleRouter>(this);
+          ot::Mle::MleRouter::SendChildUpdateRequest(v6, a2);
           IgnoreError();
         }
       }
@@ -3198,21 +5639,21 @@ uint64_t ot::Tlv::Find<ot::UintTlvInfo<(unsigned char)0,unsigned short>>(const o
   return ot::Tlv::Find<ot::UintTlvInfo<(unsigned char)0,unsigned short>>(a1, a2);
 }
 
-void ot::Mle::Mle::Log(char a1, char a2, ot::Ip6::Address *a3, unsigned __int16 a4)
+void ot::Mle::Mle::Log(unsigned __int8 a1, unsigned __int8 a2, ot::Ip6::Address *a3, unsigned __int16 a4)
 {
-  ot::String<(unsigned short)17>::String(v16);
+  ot::String<(unsigned short)17>::String(v20);
   if (a4 != 65534)
   {
-    ot::StringWriter::Append(v16, ",0x%04x", a4);
+    ot::StringWriter::Append(v20, ",0x%04x", a4);
   }
 
-  v10 = ot::Mle::Mle::MessageActionToString(a1);
-  ot::Mle::Mle::MessageTypeToString(a2);
-  ot::Mle::Mle::MessageTypeActionToSuffixString(a2, a1);
-  ot::Ip6::Address::ToString(a3, v15);
-  ot::String<(unsigned short)40>::AsCString(v15);
-  ot::String<(unsigned short)17>::AsCString(v16);
-  ot::Logger::LogAtLevel<(ot::LogLevel)4>(&ot::Mle::kLogModuleName, "%s %s%s (%s%s)", v4, v5, v6, v7, v8, v9, v10);
+  v11 = ot::Mle::Mle::MessageActionToString(a1);
+  v12 = ot::Mle::Mle::MessageTypeToString(a2);
+  v13 = ot::Mle::Mle::MessageTypeActionToSuffixString(a2, a1);
+  ot::Ip6::Address::ToString(v19, a3);
+  v14 = ot::String<(unsigned short)40>::AsCString(v19);
+  v4 = ot::String<(unsigned short)17>::AsCString(v20);
+  ot::Logger::LogAtLevel<(ot::LogLevel)4>(&ot::Mle::kLogModuleName, "%s %s%s (%s%s)", v5, v6, v7, v8, v9, v10, v11, v12, v13, v14, v4);
 }
 
 uint64_t ot::Mle::Mle::RxMessage::ReadLeaderDataTlv(ot::Mle::Mle::RxMessage *this, ot::Mle::LeaderData *a2, uint64_t a3, uint64_t a4, ot::Tlv *a5, unsigned __int16 *a6)
@@ -3380,8 +5821,8 @@ uint64_t ot::Mle::Mle::HandleLeaderData(ot::Mle::Mle *this, ot::Mle::Mle::RxMess
 LABEL_38:
   if (v28)
   {
-    SockAddr = ot::Ip6::MessageInfo::GetSockAddr(v35[1]);
-    if (ot::Ip6::Address::IsMulticast(SockAddr))
+    ot::Ip6::MessageInfo::GetSockAddr(v35[1]);
+    if (ot::Ip6::Address::IsMulticast(v17))
     {
       Uint16InRange = ot::Random::NonCrypto::GetUint16InRange(0, 0x3E8u);
     }
@@ -3391,8 +5832,8 @@ LABEL_38:
       Uint16InRange = 10;
     }
 
-    PeerAddr = ot::Ip6::MessageInfo::GetPeerAddr(v35[1]);
-    ot::Mle::Mle::SendDataRequestAfterDelay(this, PeerAddr, Uint16InRange);
+    ot::Ip6::MessageInfo::GetPeerAddr(v35[1]);
+    ot::Mle::Mle::SendDataRequestAfterDelay(this, v18, Uint16InRange);
     IgnoreError();
   }
 
@@ -3509,65 +5950,65 @@ uint64_t ot::Mle::Mle::RxMessage::ReadAndSetNetworkDataTlv(ot::Mle::Mle::RxMessa
 
 BOOL ot::Mle::Mle::IsBetterParent(ot::Mle::Mle *this, unsigned __int16 a2, unsigned __int8 a3, const ot::Mle::ConnectivityTlv *a4, unsigned __int16 a5, const ot::Mac::CslAccuracy *a6)
 {
-  v44 = this;
-  v43 = a2;
-  v42 = a3;
-  v41 = a4;
-  v40 = a5;
-  v39 = a6;
-  v38 = 0;
-  v37 = 0;
-  v36 = 0;
+  v51 = this;
+  v50 = a2;
+  v49 = a3;
+  v48 = a4;
+  v47 = a5;
+  v46 = a6;
+  v45 = 0;
+  v44 = 0;
+  v43 = 0;
   *__str = 0;
   *&__str[3] = 0;
-  *v34 = 0;
-  *&v34[3] = 0;
+  *v41 = 0;
+  *&v41[3] = 0;
   snprintf(__str, 7uLL, "0x%04x", a2);
   Rloc16 = ot::Neighbor::GetRloc16((this + 368));
-  snprintf(v34, 7uLL, "0x%04x", Rloc16);
-  v33 = ot::LinkQualityForLinkMargin(v42);
+  snprintf(v41, 7uLL, "0x%04x", Rloc16);
+  v40 = ot::LinkQualityForLinkMargin(v49);
   TwoWayLinkQuality = ot::Router::GetTwoWayLinkQuality((this + 368));
-  v38 = ot::ThreeWayCompare<ot::LinkQuality>(v33, TwoWayLinkQuality);
-  if (!v38)
+  v45 = ot::ThreeWayCompare<ot::LinkQuality>(v40, TwoWayLinkQuality);
+  if (!v45)
   {
-    IsRouterRloc16 = ot::Mle::IsRouterRloc16(v43);
-    v8 = ot::Neighbor::GetRloc16((this + 368));
-    v9 = ot::Mle::IsRouterRloc16(v8);
-    v38 = ot::ThreeWayCompare<BOOL>(IsRouterRloc16, v9);
-    if (!v38)
+    IsRouterRloc16 = ot::Mle::IsRouterRloc16(v50, v8);
+    v9 = ot::Neighbor::GetRloc16((this + 368));
+    v11 = ot::Mle::IsRouterRloc16(v9, v10);
+    v45 = ot::ThreeWayCompare<BOOL>(IsRouterRloc16, v11);
+    if (!v45)
     {
-      ParentPriority = ot::Mle::ConnectivityTlv::GetParentPriority(v41);
-      v38 = ot::ThreeWayCompare<signed char>(ParentPriority, *(this + 522));
-      if (!v38)
+      ParentPriority = ot::Mle::ConnectivityTlv::GetParentPriority(v48);
+      v45 = ot::ThreeWayCompare<signed char>(ParentPriority, *(this + 522));
+      if (!v45)
       {
-        LinkQuality3 = ot::Mle::ConnectivityTlv::GetLinkQuality3(v41);
-        v38 = ot::ThreeWayCompare<unsigned char>(LinkQuality3, *(this + 523));
-        if (!v38)
+        LinkQuality3 = ot::Mle::ConnectivityTlv::GetLinkQuality3(v48);
+        v45 = ot::ThreeWayCompare<unsigned char>(LinkQuality3, *(this + 523));
+        if (!v45)
         {
-          v30 = v40;
+          v37 = v47;
           Version = ot::Neighbor::GetVersion((this + 368));
-          v38 = ot::ThreeWayCompare<unsigned short>(v30, Version);
-          if (!v38)
+          v45 = ot::ThreeWayCompare<unsigned short>(v37, Version);
+          if (!v45)
           {
-            SedBufferSize = ot::Mle::ConnectivityTlv::GetSedBufferSize(v41);
-            v38 = ot::ThreeWayCompare<unsigned short>(SedBufferSize, *(this + 263));
-            if (!v38)
+            SedBufferSize = ot::Mle::ConnectivityTlv::GetSedBufferSize(v48);
+            v45 = ot::ThreeWayCompare<unsigned short>(SedBufferSize, *(this + 263));
+            if (!v45)
             {
-              SedDatagramCount = ot::Mle::ConnectivityTlv::GetSedDatagramCount(v41);
-              v38 = ot::ThreeWayCompare<unsigned char>(SedDatagramCount, *(this + 528));
-              if (!v38)
+              SedDatagramCount = ot::Mle::ConnectivityTlv::GetSedDatagramCount(v48);
+              v45 = ot::ThreeWayCompare<unsigned char>(SedDatagramCount, *(this + 528));
+              if (!v45)
               {
-                LinkQuality2 = ot::Mle::ConnectivityTlv::GetLinkQuality2(v41);
-                v38 = ot::ThreeWayCompare<unsigned char>(LinkQuality2, *(this + 524));
-                if (!v38)
+                LinkQuality2 = ot::Mle::ConnectivityTlv::GetLinkQuality2(v48);
+                v45 = ot::ThreeWayCompare<unsigned char>(LinkQuality2, *(this + 524));
+                if (!v45)
                 {
-                  LinkQuality1 = ot::Mle::ConnectivityTlv::GetLinkQuality1(v41);
-                  v38 = ot::ThreeWayCompare<unsigned char>(LinkQuality1, *(this + 525));
-                  if (!v38)
+                  LinkQuality1 = ot::Mle::ConnectivityTlv::GetLinkQuality1(v48);
+                  v45 = ot::ThreeWayCompare<unsigned char>(LinkQuality1, *(this + 525));
+                  if (!v45)
                   {
-                    if (ot::Mle::Mle::IsRxOnWhenIdle(this) || (v37 = ot::Mle::Mle::CalcParentCslMetric(this, v39), CslAccuracy = ot::Parent::GetCslAccuracy((this + 368)), v36 = ot::Mle::Mle::CalcParentCslMetric(this, CslAccuracy), (v38 = ot::ThreeWayCompare<unsigned long long>(v36, v37)) == 0))
+                    if (ot::Mle::Mle::IsRxOnWhenIdle(this) || (v44 = ot::Mle::Mle::CalcParentCslMetric(this, v46), CslAccuracy = ot::Parent::GetCslAccuracy((this + 368)), v43 = ot::Mle::Mle::CalcParentCslMetric(this, CslAccuracy), (v45 = ot::ThreeWayCompare<unsigned long long>(v43, v44)) == 0))
                     {
-                      v38 = ot::ThreeWayCompare<unsigned char>(v42, *(this + 529));
+                      v45 = ot::ThreeWayCompare<unsigned char>(v49, *(this + 529));
                     }
                   }
                 }
@@ -3579,25 +6020,41 @@ BOOL ot::Mle::Mle::IsBetterParent(ot::Mle::Mle *this, unsigned __int16 a2, unsig
     }
   }
 
-  v19 = v38;
-  ot::Neighbor::GetRloc16((this + 368));
-  ot::Mle::ConnectivityTlv::GetParentPriority(v41);
-  v20 = *(this + 522);
-  ot::Mle::ConnectivityTlv::GetLinkQuality3(v41);
-  v21 = *(this + 523);
-  v22 = ot::Mle::ConnectivityTlv::GetLinkQuality2(v41);
-  v23 = *(this + 524);
-  v24 = ot::Mle::ConnectivityTlv::GetLinkQuality1(v41);
-  v25 = *(this + 525);
-  v26 = v40;
-  ot::Neighbor::GetVersion((this + 368));
-  ot::Mle::ConnectivityTlv::GetSedBufferSize(v41);
-  v27 = *(this + 263);
-  ot::Mle::ConnectivityTlv::GetSedDatagramCount(v41);
-  v28 = *(this + 528);
-  v29 = *(this + 529);
-  ot::Logger::LogAtLevel<(ot::LogLevel)4>(&ot::Mle::kLogModuleName, "IsBetterParent rval:%d, rloc:[0x%x, 0x%x], pPrio:[%d %d], lq3:[%d %d], lq2:[%d %d], lq1:[%d %d], vers:[%d %d], sedBufSz:[%d %d], sedDgmCnt:[%d %d], lm:[%d %d] cslAcc:[%lld,%lld], Verdict Better Parent: %s", v26, v25, v24, v23, v22, v21, v19);
-  return v38 > 0;
+  v21 = v45;
+  v22 = v50;
+  v23 = ot::Neighbor::GetRloc16((this + 368));
+  v24 = ot::Mle::ConnectivityTlv::GetParentPriority(v48);
+  v25 = *(this + 522);
+  v26 = ot::Mle::ConnectivityTlv::GetLinkQuality3(v48);
+  v27 = *(this + 523);
+  v28 = ot::Mle::ConnectivityTlv::GetLinkQuality2(v48);
+  v29 = *(this + 524);
+  v30 = ot::Mle::ConnectivityTlv::GetLinkQuality1(v48);
+  v31 = *(this + 525);
+  v32 = v47;
+  v33 = ot::Neighbor::GetVersion((this + 368));
+  v34 = ot::Mle::ConnectivityTlv::GetSedBufferSize(v48);
+  v35 = *(this + 263);
+  v36 = ot::Mle::ConnectivityTlv::GetSedDatagramCount(v48);
+  if (v45)
+  {
+    if (v45 <= 0)
+    {
+      ot::Logger::LogAtLevel<(ot::LogLevel)4>(&ot::Mle::kLogModuleName, "IsBetterParent rval:%d, rloc:[0x%x, 0x%x], pPrio:[%d %d], lq3:[%d %d], lq2:[%d %d], lq1:[%d %d], vers:[%d %d], sedBufSz:[%d %d], sedDgmCnt:[%d %d], lm:[%d %d] cslAcc:[%lld,%lld], Verdict Better Parent: %s", v32, v31, v30, v29, v28, v27, v21, v22, v23, v24, v25, v26, v27, v28, v29, v30, v31, v32, v33, v34, v35, v36, *(this + 528), v49, *(this + 529), v44, v43, v41);
+    }
+
+    else
+    {
+      ot::Logger::LogAtLevel<(ot::LogLevel)4>(&ot::Mle::kLogModuleName, "IsBetterParent rval:%d, rloc:[0x%x, 0x%x], pPrio:[%d %d], lq3:[%d %d], lq2:[%d %d], lq1:[%d %d], vers:[%d %d], sedBufSz:[%d %d], sedDgmCnt:[%d %d], lm:[%d %d] cslAcc:[%lld,%lld], Verdict Better Parent: %s", v32, v31, v30, v29, v28, v27, v21, v22, v23, v24, v25, v26, v27, v28, v29, v30, v31, v32, v33, v34, v35, v36, *(this + 528), v49, *(this + 529), v44, v43, __str);
+    }
+  }
+
+  else
+  {
+    ot::Logger::LogAtLevel<(ot::LogLevel)4>(&ot::Mle::kLogModuleName, "IsBetterParent rval:%d, rloc:[0x%x, 0x%x], pPrio:[%d %d], lq3:[%d %d], lq2:[%d %d], lq1:[%d %d], vers:[%d %d], sedBufSz:[%d %d], sedDgmCnt:[%d %d], lm:[%d %d] cslAcc:[%lld,%lld], Verdict Better Parent: %s", v32, v31, v30, v29, v28, v27, v21, v22, v23, v24, v25, v26, v27, v28, v29, v30, v31, v32, v33, v34, v35, v36, *(this + 528), v49, *(this + 529), v44, v43, "both parents are equal");
+  }
+
+  return v45 > 0;
 }
 
 uint64_t ot::ThreeWayCompare<ot::LinkQuality>(unsigned __int8 a1, unsigned __int8 a2)
@@ -3677,13 +6134,13 @@ uint64_t ot::Mle::ConnectivityTlv::GetLinkQuality3(ot::Mle::ConnectivityTlv *thi
 
 uint64_t ot::Mle::ConnectivityTlv::GetSedBufferSize(ot::Mle::ConnectivityTlv *this)
 {
-  v3 = 1280;
+  v4 = 1280;
   if (ot::Mle::ConnectivityTlv::IsSedBufferingIncluded(this))
   {
-    return ot::BigEndian::HostSwap16(*(this + 9));
+    return ot::BigEndian::HostSwap16(*(this + 9), v1);
   }
 
-  return v3;
+  return v4;
 }
 
 {
@@ -3927,7 +6384,7 @@ ot::Mle::Mle::TlvList *ot::Mle::Mle::TlvList::TlvList(ot::Mle::Mle::TlvList *thi
   return this;
 }
 
-void ot::Mle::Mle::TlvList::Add(ot::Mle::Mle::TlvList *this, char a2)
+void ot::Mle::Mle::TlvList::Add(ot::Mle::Mle::TlvList *this, unsigned __int8 a2)
 {
   v10 = this;
   v9 = a2;
@@ -4141,31 +6598,34 @@ const char *ot::Mle::Mle::MessageTypeActionToSuffixString(char a1, char a2)
   return v5;
 }
 
-void ot::Mle::Mle::LogError(char a1, char a2, int a3)
+void ot::Mle::Mle::LogError(uint64_t result, unsigned __int8 a2, int a3)
 {
+  v25 = result;
+  v24 = a2;
+  v23 = a3;
   if (a3)
   {
-    if (a1 == 1 && (a3 == 2 || a3 == 4))
+    if (v25 == 1 && (v23 == 2 || v23 == 4))
     {
-      ot::Mle::Mle::MessageTypeToString(a2);
-      ot::Mle::Mle::MessageTypeActionToSuffixString(a2, a1);
-      ot::ErrorToString(a3);
-      ot::Logger::LogAtLevel<(ot::LogLevel)4>(&ot::Mle::kLogModuleName, "Failed to %s %s%s: %s", v3, v4, v5, v6, v7, v8, "process");
+      v21 = ot::Mle::Mle::MessageTypeToString(v24);
+      v22 = ot::Mle::Mle::MessageTypeActionToSuffixString(v24, v25);
+      v3 = ot::ErrorToString(v23);
+      ot::Logger::LogAtLevel<(ot::LogLevel)4>(&ot::Mle::kLogModuleName, "Failed to %s %s%s: %s", v4, v5, v6, v7, v8, v9, "process", v21, v22, v3);
     }
 
     else
     {
-      v9 = "send";
-      if (a1)
+      v10 = "send";
+      if (v25)
       {
-        v9 = "process";
+        v10 = "process";
       }
 
-      v16 = v9;
-      ot::Mle::Mle::MessageTypeToString(a2);
-      ot::Mle::Mle::MessageTypeActionToSuffixString(a2, a1);
-      ot::ErrorToString(a3);
-      ot::Logger::LogAtLevel<(ot::LogLevel)2>(&ot::Mle::kLogModuleName, "Failed to %s %s%s: %s", v10, v11, v12, v13, v14, v15, v16);
+      v18 = v10;
+      v19 = ot::Mle::Mle::MessageTypeToString(v24);
+      v20 = ot::Mle::Mle::MessageTypeActionToSuffixString(v24, v25);
+      v11 = ot::ErrorToString(v23);
+      ot::Logger::LogAtLevel<(ot::LogLevel)2>(&ot::Mle::kLogModuleName, "Failed to %s %s%s: %s", v12, v13, v14, v15, v16, v17, v18, v19, v20, v11);
     }
   }
 }
@@ -4218,14 +6678,14 @@ uint64_t ot::Mac::CslAccuracy::GetUncertaintyInMicrosec(ot::Mac::CslAccuracy *th
 uint64_t ot::Mle::Mle::AttachCslPeripheral(ot::Mle::Mle *this, const ot::Mac::ExtAddress *a2, unsigned int a3, unsigned __int8 a4, char a5, char a6, unsigned __int8 a7)
 {
   v7 = ot::Mle::Mle::WorAttachStateToString(this, *(this + 128));
-  ot::Logger::LogAtLevel<(ot::LogLevel)4>(&ot::Mle::kLogModuleName, "mCslPeripheralAttachState = %s, %s", v8, v9, v10, v11, v12, v13, v7);
+  ot::Logger::LogAtLevel<(ot::LogLevel)4>(&ot::Mle::kLogModuleName, "mCslPeripheralAttachState = %s, %s", v8, v9, v10, v11, v12, v13, v7, "AttachCslPeripheral");
   Instance = ot::InstanceLocator::GetInstance(this);
   DeviceRole = otThreadGetDeviceRole(Instance);
   if (DeviceRole == 4)
   {
     if (*(this + 128))
     {
-      v69 = 13;
+      v70 = 13;
     }
 
     else
@@ -4243,7 +6703,7 @@ uint64_t ot::Mle::Mle::AttachCslPeripheral(ot::Mle::Mle *this, const ot::Mac::Ex
         *(this + 872) = a4;
         *(this + 128) = 1;
         v29 = ot::Mle::Mle::WorAttachStateToString(this, *(this + 128));
-        ot::Logger::LogAtLevel<(ot::LogLevel)4>(&ot::Mle::kLogModuleName, "mCslPeripheralAttachState = %s, %s", v30, v31, v32, v33, v34, v35, v29);
+        ot::Logger::LogAtLevel<(ot::LogLevel)4>(&ot::Mle::kLogModuleName, "mCslPeripheralAttachState = %s, %s", v30, v31, v32, v33, v34, v35, v29, "AttachCslPeripheral");
         ot::Mle::Mle::SetThreadCoexConfig(this, 0, *(this + 130), *(this + 132));
         if (!ot::Mle::Mle::IsRxOnWhenIdle(this))
         {
@@ -4251,16 +6711,16 @@ uint64_t ot::Mle::Mle::AttachCslPeripheral(ot::Mle::Mle *this, const ot::Mac::Ex
           ot::MeshForwarder::SetRxOnWhenIdle(v36, 0, v37, v38, v39, v40, v41, v42);
         }
 
-        ot::WakeupTxScheduler::WakeUpPatternToInterval((this + 72), a4);
-        ot::Logger::LogAtLevel<(ot::LogLevel)4>(&ot::Mle::kLogModuleName, "In %s, aIntervalUs is %d, aDurationMs is %d, aWakeupPattern is %d", v43, v44, v45, v46, v47, v48, "AttachCslPeripheral");
-        v69 = ot::WakeupTxScheduler::WakeUp((this + 72), a2, a3, a4, a7, v49, v50, v51);
+        v43 = ot::WakeupTxScheduler::WakeUpPatternToInterval((this + 72), a4);
+        ot::Logger::LogAtLevel<(ot::LogLevel)4>(&ot::Mle::kLogModuleName, "In %s, aIntervalUs is %d, aDurationMs is %d, aWakeupPattern is %d", v44, v45, v46, v47, v48, v49, "AttachCslPeripheral", v43, a3, a4);
+        v70 = ot::WakeupTxScheduler::WakeUp((this + 72), a2, a3, a4, a7, v50, v51, v52);
       }
 
       else
       {
         *(this + 857) = 0;
         ot::Logger::LogAtLevel<(ot::LogLevel)4>(&ot::Mle::kLogModuleName, "Wakeup retry exceeded %s", v15, v16, v17, v18, v19, v20, "AttachCslPeripheral");
-        v69 = 1;
+        v70 = 1;
         v28 = ot::GetProvider<ot::InstanceLocator>::Get<ot::Notifier>(this);
         ot::Notifier::Signal(v28, 0x2000000000);
       }
@@ -4270,39 +6730,39 @@ uint64_t ot::Mle::Mle::AttachCslPeripheral(ot::Mle::Mle *this, const ot::Mac::Ex
   else
   {
     v21 = otThreadDeviceRoleToString(DeviceRole);
-    ot::Logger::LogAtLevel<(ot::LogLevel)4>(&ot::Mle::kLogModuleName, "Central has to be in Leader role to wakeup, current role = %s, %s", v22, v23, v24, v25, v26, v27, v21);
-    v69 = 13;
+    ot::Logger::LogAtLevel<(ot::LogLevel)4>(&ot::Mle::kLogModuleName, "Central has to be in Leader role to wakeup, current role = %s, %s", v22, v23, v24, v25, v26, v27, v21, "AttachCslPeripheral");
+    v70 = 13;
   }
 
-  if (v69 == 13)
+  if (v70 == 13)
   {
-    v52 = ot::Mle::Mle::WorAttachStateToString(this, *(this + 128));
-    ot::Logger::LogAtLevel<(ot::LogLevel)4>(&ot::Mle::kLogModuleName, "mCslPeripheralAttachState = %s, Attach called in invalid state, %s", v53, v54, v55, v56, v57, v58, v52);
+    v53 = ot::Mle::Mle::WorAttachStateToString(this, *(this + 128));
+    ot::Logger::LogAtLevel<(ot::LogLevel)4>(&ot::Mle::kLogModuleName, "mCslPeripheralAttachState = %s, Attach called in invalid state, %s", v54, v55, v56, v57, v58, v59, v53, "AttachCslPeripheral");
     return 13;
   }
 
   else
   {
-    if (v69)
+    if (v70)
     {
       *(this + 128) = 0;
-      v59 = ot::Mle::Mle::WorAttachStateToString(this, *(this + 128));
-      ot::Logger::LogAtLevel<(ot::LogLevel)4>(&ot::Mle::kLogModuleName, "mCslPeripheralAttachState = %s, %s", v60, v61, v62, v63, v64, v65, v59);
+      v60 = ot::Mle::Mle::WorAttachStateToString(this, *(this + 128));
+      ot::Logger::LogAtLevel<(ot::LogLevel)4>(&ot::Mle::kLogModuleName, "mCslPeripheralAttachState = %s, %s", v61, v62, v63, v64, v65, v66, v60, "AttachCslPeripheral");
     }
 
-    return v69;
+    return v70;
   }
 }
 
 void ot::Mle::Mle::HandleCslWakeupTxInitiatedStartAttachTimer(ot::Mle::Mle *this)
 {
   v1 = ot::Mle::Mle::WorAttachStateToString(this, *(this + 128));
-  ot::Logger::LogAtLevel<(ot::LogLevel)4>(&ot::Mle::kLogModuleName, "mCslPeripheralAttachState = %s, %s", v2, v3, v4, v5, v6, v7, v1);
+  ot::Logger::LogAtLevel<(ot::LogLevel)4>(&ot::Mle::kLogModuleName, "mCslPeripheralAttachState = %s, %s", v2, v3, v4, v5, v6, v7, v1, "HandleCslWakeupTxInitiatedStartAttachTimer");
   *(this + 128) = 2;
   ConnectionWindowUs = ot::WakeupTxScheduler::GetConnectionWindowUs((this + 72));
   ot::TimerMicro::Start((this + 832), ConnectionWindowUs + 1000 * *(this + 217));
   v9 = ot::Mle::Mle::WorAttachStateToString(this, *(this + 128));
-  ot::Logger::LogAtLevel<(ot::LogLevel)4>(&ot::Mle::kLogModuleName, "mCslPeripheralAttachState = %s, %s", v10, v11, v12, v13, v14, v15, v9);
+  ot::Logger::LogAtLevel<(ot::LogLevel)4>(&ot::Mle::kLogModuleName, "mCslPeripheralAttachState = %s, %s", v10, v11, v12, v13, v14, v15, v9, "HandleCslWakeupTxInitiatedStartAttachTimer");
   ot::Logger::LogAtLevel<(ot::LogLevel)4>(&ot::Mle::kLogModuleName, "%s: Connection window open, mCslPeripheralAttachTimer.Start timer", v16, v17, v18, v19, v20, v21, "HandleCslWakeupTxInitiatedStartAttachTimer");
 }
 
@@ -4326,7 +6786,7 @@ uint64_t ot::WakeupTxScheduler::GetTxEndTime(ot::WakeupTxScheduler *this)
 
 uint64_t ot::Mle::Mle::DetachCslPeripheral(ot::Mle::Mle *this)
 {
-  v24 = 0;
+  v25 = 0;
   CslPeripheral = ot::Mle::Mle::GetCslPeripheral(this);
   if (ot::Mle::Mle::IsCslPeripheralAttached(this))
   {
@@ -4334,19 +6794,19 @@ uint64_t ot::Mle::Mle::DetachCslPeripheral(ot::Mle::Mle *this)
     {
       *(this + 128) = 4;
       v1 = ot::Mle::Mle::WorAttachStateToString(this, *(this + 128));
-      ot::Logger::LogAtLevel<(ot::LogLevel)4>(&ot::Mle::kLogModuleName, "mCslPeripheralAttachState = %s, %s", v2, v3, v4, v5, v6, v7, v1);
+      ot::Logger::LogAtLevel<(ot::LogLevel)4>(&ot::Mle::kLogModuleName, "mCslPeripheralAttachState = %s, %s", v2, v3, v4, v5, v6, v7, v1, "DetachCslPeripheral");
       if (ot::IndirectSender::ChildInfo::GetIndirectMessageCount((CslPeripheral + 144)) <= 0)
       {
         *(this + 856) = *(this + 856) & 0xFE | 1;
-        v14 = ot::GetProvider<ot::InstanceLocator>::Get<ot::ChildSupervisor>(this);
-        ot::ChildSupervisor::SendMessage(v14, CslPeripheral);
-        ot::Logger::LogAtLevel<(ot::LogLevel)4>(&ot::Mle::kLogModuleName, "%s: Sending DetachCslPeripheral", v15, v16, v17, v18, v19, v20, "DetachCslPeripheral");
+        v15 = ot::GetProvider<ot::InstanceLocator>::Get<ot::ChildSupervisor>(this);
+        ot::ChildSupervisor::SendMessage(v15, CslPeripheral);
+        ot::Logger::LogAtLevel<(ot::LogLevel)4>(&ot::Mle::kLogModuleName, "%s: Sending DetachCslPeripheral", v16, v17, v18, v19, v20, v21, "DetachCslPeripheral");
       }
 
       else
       {
-        ot::IndirectSender::ChildInfo::GetIndirectMessageCount((CslPeripheral + 144));
-        ot::Logger::LogAtLevel<(ot::LogLevel)4>(&ot::Mle::kLogModuleName, "%s: Deferring DetachCslPeripheral as there are (%d) Indirect TX Messages in Q", v8, v9, v10, v11, v12, v13, "DetachCslPeripheral");
+        IndirectMessageCount = ot::IndirectSender::ChildInfo::GetIndirectMessageCount((CslPeripheral + 144));
+        ot::Logger::LogAtLevel<(ot::LogLevel)4>(&ot::Mle::kLogModuleName, "%s: Deferring DetachCslPeripheral as there are (%d) Indirect TX Messages in Q", v9, v10, v11, v12, v13, v14, "DetachCslPeripheral", IndirectMessageCount);
       }
     }
 
@@ -4361,10 +6821,10 @@ uint64_t ot::Mle::Mle::DetachCslPeripheral(ot::Mle::Mle *this)
     return 13;
   }
 
-  return v24;
+  return v25;
 }
 
-void ot::Mle::Mle::HandleSentFrameToNeighbor(ot::Mle::Mle *this, ot::Neighbor *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void ot::Mle::Mle::HandleSentFrameToNeighbor(ot::InstanceLocator *this, ot::Neighbor *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   if (*(this + 128) == 4)
   {
@@ -4399,7 +6859,7 @@ uint64_t ot::Mle::Mle::WedWakeUpPattern(ot::Mle::Mle *this)
   ot::Mle::Mle::LogCoExLoad(this);
   if (ot::Mle::Mle::getAudioTaskId(this) == 6)
   {
-    ot::Logger::LogAtLevel<(ot::LogLevel)4>(&ot::Mle::kLogModuleName, "BT Load: %s BT audio task is LEA 5ms(%d), set the wake up pattern as %d", v1, v2, v3, v4, v5, v6, "WedWakeUpPattern");
+    ot::Logger::LogAtLevel<(ot::LogLevel)4>(&ot::Mle::kLogModuleName, "BT Load: %s BT audio task is LEA 5ms(%d), set the wake up pattern as %d", v1, v2, v3, v4, v5, v6, "WedWakeUpPattern", 6, 4);
   }
 
   WiFiStateId = ot::Mle::Mle::getWiFiStateId(this);
@@ -4476,7 +6936,7 @@ LABEL_23:
     v20 = 2;
   }
 
-  ot::Logger::LogAtLevel<(ot::LogLevel)4>(&ot::Mle::kLogModuleName, "BT Load: %s, set WED wakeup pattern %d", v9, v10, v11, v12, v13, v14, "WedWakeUpPattern");
+  ot::Logger::LogAtLevel<(ot::LogLevel)4>(&ot::Mle::kLogModuleName, "BT Load: %s, set WED wakeup pattern %d", v9, v10, v11, v12, v13, v14, "WedWakeUpPattern", v20);
   return v20;
 }
 
@@ -4493,7 +6953,7 @@ uint64_t ot::Mle::Mle::getEcslPeriod(ot::Mle::Mle *this)
     v9 = 250;
   }
 
-  ot::Logger::LogAtLevel<(ot::LogLevel)4>(&ot::Mle::kLogModuleName, "%s, eCSL Period= %d mSec", v1, v2, v3, v4, v5, v6, "getEcslPeriod");
+  ot::Logger::LogAtLevel<(ot::LogLevel)4>(&ot::Mle::kLogModuleName, "%s, eCSL Period= %d mSec", v1, v2, v3, v4, v5, v6, "getEcslPeriod", 160 * v9 / 0x3E8);
   return v9;
 }
 
@@ -4656,7 +7116,7 @@ uint64_t ot::Tlv::Append<ot::UintTlvInfo<(unsigned char)8,unsigned int>>(ot::Tlv
 
 uint64_t ot::Tlv::Append<ot::UintTlvInfo<(unsigned char)10,unsigned short>>(uint64_t a1, unsigned __int16 a2)
 {
-  return ot::Tlv::AppendUintTlv<unsigned short>(a1, 10, a2);
+  return ot::Tlv::AppendUintTlv<unsigned short>(a1, 0xAu, a2);
 }
 
 {
@@ -4676,7 +7136,7 @@ uint64_t ot::Mle::LeaderDataTlv::Init(ot::Mle::LeaderDataTlv *this)
 uint64_t ot::Mle::LeaderDataTlv::Set(ot::Mle::LeaderDataTlv *this, const ot::Mle::LeaderData *a2)
 {
   PartitionId = ot::Mle::LeaderData::GetPartitionId(a2);
-  *(this + 2) = ot::BigEndian::HostSwap32(PartitionId);
+  *(this + 2) = ot::BigEndian::HostSwap32(PartitionId, v3);
   *(this + 6) = ot::Mle::LeaderData::GetWeighting(a2);
   *(this + 7) = ot::Mle::LeaderData::GetDataVersion(a2, 0);
   *(this + 8) = ot::Mle::LeaderData::GetDataVersion(a2, 1);
@@ -4689,41 +7149,43 @@ uint64_t ot::Mle::LeaderDataTlv::Set(ot::Mle::LeaderDataTlv *this, const ot::Mle
   return ot::Mle::LeaderDataTlv::Set(this, a2);
 }
 
-uint64_t ot::Mle::Mle::TxMessage::AppendNetworkDataTlv(ot::Message *a1, char a2)
+uint64_t ot::Mle::Mle::TxMessage::AppendNetworkDataTlv(ot::Message *a1, unsigned __int8 a2)
 {
-  v22 = a1;
-  v21 = a2;
-  v20 = 0;
-  v19 = 0;
+  v26 = a1;
+  v25 = a2;
+  v24 = 0;
+  v23 = 0;
   if (*(ot::GetProvider<ot::Message>::Get<ot::Mle::Mle>(a1) + 129))
   {
-    v20 = 13;
+    v24 = 13;
   }
 
   else
   {
-    v19 = -2;
+    v23 = -2;
     v8 = ot::GetProvider<ot::Message>::Get<ot::NetworkData::Leader>(a1);
-    ot::NetworkData::NetworkData::CopyNetworkData(v8, v21, v23, &v19);
+    ot::NetworkData::NetworkData::CopyNetworkData(v8, v25, v27, &v23);
     IgnoreError();
-    v20 = ot::Tlv::Append<ot::TlvInfo<(unsigned char)12>>(a1, v23, v19);
+    v24 = ot::Tlv::Append<ot::TlvInfo<(unsigned char)12>>(a1, v27, v23);
   }
 
-  if (v20)
+  if (v24)
   {
     ot::Logger::LogAtLevel<(ot::LogLevel)2>(&ot::Mle::kLogModuleName, "%s Network data TLV could not be sent as mRetrieveNewNetworkData is true", v2, v3, v4, v5, v6, v7, "AppendNetworkDataTlv");
   }
 
   else
   {
+    v19 = v23;
+    v20 = v25;
     v9 = ot::GetProvider<ot::Message>::Get<ot::NetworkData::Leader>(a1);
-    ot::NetworkData::Leader::GetVersion(v9, 0);
+    Version = ot::NetworkData::Leader::GetVersion(v9, 0);
     v10 = ot::GetProvider<ot::Message>::Get<ot::NetworkData::Leader>(a1);
-    ot::NetworkData::Leader::GetVersion(v10, 1);
-    ot::Logger::LogAtLevel<(ot::LogLevel)5>(&ot::Mle::kLogModuleName, "%s Network data len =%d ,Type=%d, leaderDataFull:%d, leaderDataSubset:%d", v11, v12, v13, v14, v15, v16, "AppendNetworkDataTlv");
+    v11 = ot::NetworkData::Leader::GetVersion(v10, 1);
+    ot::Logger::LogAtLevel<(ot::LogLevel)5>(&ot::Mle::kLogModuleName, "%s Network data len =%d ,Type=%d, leaderDataFull:%d, leaderDataSubset:%d", v12, v13, v14, v15, v16, v17, "AppendNetworkDataTlv", v19, v20, Version, v11);
   }
 
-  return v20;
+  return v24;
 }
 
 uint64_t ot::Tlv::Append<ot::TlvInfo<(unsigned char)12>>(ot::Tlv *a1, void *a2, unsigned __int8 a3)
@@ -4824,24 +7286,6 @@ uint64_t ot::Ip6::Netif::IterateExternalMulticastAddresses(uint64_t a1, char a2)
   return ot::Ip6::Netif::IterateExternalMulticastAddresses(a1, a2);
 }
 
-uint64_t ot::Ip6::Netif::ExternalMulticastAddress::Iterator::Builder::begin@<X0>(ot::Ip6::Netif::ExternalMulticastAddress::Iterator::Builder *this@<X0>, uint64_t a2@<X8>)
-{
-  return ot::Ip6::Netif::ExternalMulticastAddress::Iterator::Iterator(a2, *this, *(this + 8));
-}
-
-{
-  return ot::Ip6::Netif::ExternalMulticastAddress::Iterator::Builder::begin(this, a2);
-}
-
-void *ot::Ip6::Netif::ExternalMulticastAddress::Iterator::Builder::end@<X0>(ot::Ip6::Netif::ExternalMulticastAddress::Iterator::Builder *this@<X0>, void *a2@<X8>)
-{
-  return ot::Ip6::Netif::ExternalMulticastAddress::Iterator::Iterator(a2, *this);
-}
-
-{
-  return ot::Ip6::Netif::ExternalMulticastAddress::Iterator::Builder::end(this, a2);
-}
-
 BOOL ot::ItemPtrIterator<ot::Ip6::Netif::ExternalMulticastAddress,ot::Ip6::Netif::ExternalMulticastAddress::Iterator>::operator!=(void *a1, void *a2)
 {
   return *a1 != *a2;
@@ -4898,7 +7342,7 @@ uint64_t ot::Message::Append<ot::Ip6::InterfaceIdentifier>(ot::Message *a1, cons
 
 uint64_t ot::Tlv::Append<ot::UintTlvInfo<(unsigned char)27,unsigned short>>(uint64_t a1, unsigned __int16 a2)
 {
-  return ot::Tlv::AppendUintTlv<unsigned short>(a1, 27, a2);
+  return ot::Tlv::AppendUintTlv<unsigned short>(a1, 0x1Bu, a2);
 }
 
 {
@@ -5081,7 +7525,7 @@ uint64_t ot::Mle::Mle::SecurityHeader::SetFrameCounter(ot::Mle::Mle::SecurityHea
 uint64_t ot::Mle::Mle::SecurityHeader::SetKeyId(ot::Mle::Mle::SecurityHeader *this, unsigned int a2)
 {
   v4 = a2;
-  result = ot::BigEndian::HostSwap32(a2);
+  result = ot::BigEndian::HostSwap32(a2, a2);
   *(this + 5) = result;
   *(this + 9) = (v4 & 0x7F) + 1;
   return result;
@@ -5252,7 +7696,7 @@ uint64_t ot::GetProvider<ot::Message>::Get<ot::RouterTable>(ot::Message *a1)
   return ot::GetProvider<ot::Message>::Get<ot::RouterTable>(a1);
 }
 
-uint64_t ot::Mle::Mle::TxMessage::AppendDatasetTlv(ot::Message *a1, char a2)
+uint64_t ot::Mle::Mle::TxMessage::AppendDatasetTlv(ot::Tlv *a1, char a2)
 {
   v10 = 23;
   v9 = 0;
@@ -5365,7 +7809,7 @@ BOOL ot::Mle::LeaderDataTlv::IsValid(ot::Mle::LeaderDataTlv *this)
 
 uint64_t ot::Mle::LeaderDataTlv::Get(ot::Mle::LeaderDataTlv *this, ot::Mle::LeaderData *a2)
 {
-  v2 = ot::BigEndian::HostSwap32(*(this + 2));
+  v2 = ot::BigEndian::HostSwap32(*(this + 2), a2);
   ot::Mle::LeaderData::SetPartitionId(a2, v2);
   ot::Mle::LeaderData::SetWeighting(a2, *(this + 6));
   ot::Mle::LeaderData::SetDataVersion(a2, *(this + 7));
@@ -5624,15 +8068,10 @@ BOOL ot::ItemPtrIterator<ot::Ip6::Netif::ExternalMulticastAddress,ot::Ip6::Netif
   return ot::ItemPtrIterator<ot::Ip6::Netif::ExternalMulticastAddress,ot::Ip6::Netif::ExternalMulticastAddress::Iterator>::IsDone(a1);
 }
 
-ot::Mle::ChannelTlvValue *ot::Mle::ChannelTlvValue::ChannelTlvValue(ot::Mle::ChannelTlvValue *this, char a2, unsigned __int16 a3)
-{
-  ot::Mle::ChannelTlvValue::ChannelTlvValue(this, a2, a3);
-  return this;
-}
-
+ot::Mle::ChannelTlvValue *ot::Mle::ChannelTlvValue::ChannelTlvValue(ot::Mle::ChannelTlvValue *this, unsigned __int16 a2, unsigned __int16 a3)
 {
   *this = a2;
-  v3 = ot::BigEndian::HostSwap16(a3);
+  v3 = ot::BigEndian::HostSwap16(a3, a2);
   result = this;
   *(this + 1) = v3;
   return result;
@@ -5725,9 +8164,10 @@ uint64_t ot::Message::Append<ot::Mle::Mle::DelayedResponseMetadata>(ot::Message 
 
 uint64_t ot::Ip6::Udp::SocketIn<ot::Mle::Mle,&ot::Mle::Mle::HandleUdpReceive>::HandleUdpReceive(ot::Mle::Mle *a1, uint64_t a2, uint64_t a3)
 {
-  v5 = ot::AsCoreType<otMessage>(a2);
-  v3 = ot::AsCoreType<otMessageInfo>(a3);
-  return ot::Mle::Mle::HandleUdpReceive(a1, v5, v3);
+  ot::AsCoreType<otMessage>(a2);
+  v6 = v3;
+  ot::AsCoreType<otMessageInfo>(a3);
+  return ot::Mle::Mle::HandleUdpReceive(a1, v6, v4);
 }
 
 void *ot::ClearAllBytes<ot::Mle::LeaderData>(void *result)
@@ -5892,7 +8332,7 @@ uint64_t ot::Mle::MleRouter::SetRouterId(uint64_t this, char a2)
   return this;
 }
 
-uint64_t ot::Mle::MleRouter::HandlePartitionChange(ot::Mle::MleRouter *this)
+void ot::Mle::MleRouter::HandlePartitionChange(ot::Mle::MleRouter *this)
 {
   *(this + 8924) = ot::Mle::LeaderData::GetPartitionId((this + 184));
   *(this + 35700) = ot::RouterTable::GetRouterIdSequence((this + 30904));
@@ -5902,7 +8342,7 @@ uint64_t ot::Mle::MleRouter::HandlePartitionChange(ot::Mle::MleRouter *this)
   v2 = ot::GetProvider<ot::InstanceLocator>::Get<ot::Tmf::Agent>(this);
   ot::Coap::CoapBase::AbortTransaction(v2, ot::Mle::MleRouter::HandleAddressSolicitResponse, this);
   IgnoreError();
-  return ot::RouterTable::Clear((this + 30904));
+  ot::RouterTable::Clear((this + 30904));
 }
 
 uint64_t ot::Mle::MleRouter::HandleAddressSolicitResponse(unsigned __int8 *a1, uint64_t a2, uint64_t a3, int a4)
@@ -6020,20 +8460,20 @@ uint64_t ot::Mle::MleRouter::BecomeRouter(uint64_t a1, unsigned __int8 a2)
 
   else if (ot::Mle::MleRouter::IsRouterEligible(a1))
   {
-    ot::Logger::LogAtLevel<(ot::LogLevel)4>(&ot::Mle::kLogModuleName, "Attempt to become router", v2, v3, v4, v5, v6, v7, v18);
+    ot::Logger::LogAtLevel<(ot::LogLevel)4>(&ot::Mle::kLogModuleName, "Attempt to become router", v2, v3, v4, v5, v6, v7);
     v8 = ot::GetProvider<ot::InstanceLocator>::Get<ot::MeshForwarder>(a1);
     ot::MeshForwarder::SetRxOnWhenIdle(v8, 1, v9, v10, v11, v12, v13, v14);
     ot::Mle::MleRouter::RouterRoleTransition::StopTimeout((a1 + 35702));
-    v20 = *(a1 + 130);
-    if (v20 == 1)
+    v19 = *(a1 + 130);
+    if (v19 == 1)
     {
-      v19 = 1;
+      v18 = 1;
       if ((*(a1 + 129) & 0x20) == 0)
       {
-        v19 = ot::ChildTable::GetNumChildren((a1 + 1200), 1u) >= 6;
+        v18 = ot::ChildTable::GetNumChildren((a1 + 1200), 1u) >= 6;
       }
 
-      if (v19)
+      if (v18)
       {
         v15 = 6;
       }
@@ -6044,8 +8484,8 @@ uint64_t ot::Mle::MleRouter::BecomeRouter(uint64_t a1, unsigned __int8 a2)
       }
 
       *(a1 + 143) = v15;
-      v22 = ot::Mle::MleRouter::SendLinkRequest(a1, 0);
-      if (!v22)
+      v21 = ot::Mle::MleRouter::SendLinkRequest(a1, 0);
+      if (!v21)
       {
         --*(a1 + 143);
         ot::Mle::Mle::ScheduleMessageTransmissionTimer(a1);
@@ -6056,7 +8496,7 @@ uint64_t ot::Mle::MleRouter::BecomeRouter(uint64_t a1, unsigned __int8 a2)
 
     else
     {
-      if (v20 != 2)
+      if (v19 != 2)
       {
         __assert_rtn("BecomeRouter", "mle_router.cpp", 320, "false");
       }
@@ -6070,7 +8510,7 @@ uint64_t ot::Mle::MleRouter::BecomeRouter(uint64_t a1, unsigned __int8 a2)
     return 27;
   }
 
-  return v22;
+  return v21;
 }
 
 _BYTE *ot::Mle::MleRouter::RouterRoleTransition::StopTimeout(_BYTE *this)
@@ -6085,38 +8525,38 @@ _BYTE *ot::Mle::MleRouter::RouterRoleTransition::StopTimeout(_BYTE *this)
 
 uint64_t ot::Mle::MleRouter::SendLinkRequest(ot::Mle::MleRouter *this, ot::Neighbor *a2)
 {
-  v12 = this;
-  v11 = a2;
+  v16 = this;
+  v15 = a2;
   appended = 0;
-  v9 = 0;
+  v13 = 0;
   if (*(this + 35616))
   {
     goto LABEL_35;
   }
 
-  ot::Clearable<ot::Ip6::Address>::Clear(&v8);
-  v9 = ot::Mle::Mle::NewMleMessage(this, 0);
-  if (!v9)
+  ot::Clearable<ot::Ip6::Address>::Clear(&v12);
+  v13 = ot::Mle::Mle::NewMleMessage(this, 0);
+  if (!v13)
   {
     appended = 3;
     goto LABEL_35;
   }
 
-  appended = ot::Mle::Mle::TxMessage::AppendVersionTlv(v9);
+  appended = ot::Mle::Mle::TxMessage::AppendVersionTlv(v13);
   if (appended)
   {
     goto LABEL_35;
   }
 
-  v6 = *(this + 130);
+  v10 = *(this + 130);
   if (!*(this + 130))
   {
     __assert_rtn("SendLinkRequest", "mle_router.cpp", 726, "false");
   }
 
-  if (v6 == 1)
+  if (v10 == 1)
   {
-    appended = ot::Mle::Mle::TxMessage::AppendTlvRequestTlv<(unsigned char)2>(v9, ot::Mle::MleRouter::SendLinkRequest(ot::Neighbor *)::kDetachedTlvs);
+    appended = ot::Mle::Mle::TxMessage::AppendTlvRequestTlv<(unsigned char)2>(v13, ot::Mle::MleRouter::SendLinkRequest(ot::Neighbor *)::kDetachedTlvs);
     if (appended)
     {
       goto LABEL_35;
@@ -6125,15 +8565,15 @@ uint64_t ot::Mle::MleRouter::SendLinkRequest(ot::Mle::MleRouter *this, ot::Neigh
     goto LABEL_25;
   }
 
-  if (v6 == 2)
+  if (v10 == 2)
   {
-    appended = ot::Mle::Mle::TxMessage::AppendSourceAddressTlv(v9);
+    appended = ot::Mle::Mle::TxMessage::AppendSourceAddressTlv(v13);
     if (appended)
     {
       goto LABEL_35;
     }
 
-    appended = ot::Mle::Mle::TxMessage::AppendLeaderDataTlv(v9);
+    appended = ot::Mle::Mle::TxMessage::AppendLeaderDataTlv(v13);
     if (appended)
     {
       goto LABEL_35;
@@ -6142,14 +8582,14 @@ uint64_t ot::Mle::MleRouter::SendLinkRequest(ot::Mle::MleRouter *this, ot::Neigh
     goto LABEL_25;
   }
 
-  if (v6 != 4 && v6 != 3)
+  if (v10 != 4 && v10 != 3)
   {
     goto LABEL_25;
   }
 
-  if (v11 && ot::Neighbor::IsStateValid(v11))
+  if (v15 && ot::Neighbor::IsStateValid(v15))
   {
-    appended = ot::Mle::Mle::TxMessage::AppendTlvRequestTlv<(unsigned char)2>(v9, ot::Mle::MleRouter::SendLinkRequest(ot::Neighbor *)::kValidNeighborTlvs);
+    appended = ot::Mle::Mle::TxMessage::AppendTlvRequestTlv<(unsigned char)2>(v13, ot::Mle::MleRouter::SendLinkRequest(ot::Neighbor *)::kValidNeighborTlvs);
     if (appended)
     {
       goto LABEL_35;
@@ -6158,26 +8598,26 @@ uint64_t ot::Mle::MleRouter::SendLinkRequest(ot::Mle::MleRouter *this, ot::Neigh
 
   else
   {
-    appended = ot::Mle::Mle::TxMessage::AppendTlvRequestTlv<(unsigned char)1>(v9, &ot::Mle::MleRouter::SendLinkRequest(ot::Neighbor *)::kRouterTlvs);
+    appended = ot::Mle::Mle::TxMessage::AppendTlvRequestTlv<(unsigned char)1>(v13, &ot::Mle::MleRouter::SendLinkRequest(ot::Neighbor *)::kRouterTlvs);
     if (appended)
     {
       goto LABEL_35;
     }
   }
 
-  appended = ot::Mle::Mle::TxMessage::AppendSourceAddressTlv(v9);
+  appended = ot::Mle::Mle::TxMessage::AppendSourceAddressTlv(v13);
   if (!appended)
   {
-    appended = ot::Mle::Mle::TxMessage::AppendLeaderDataTlv(v9);
+    appended = ot::Mle::Mle::TxMessage::AppendLeaderDataTlv(v13);
     if (!appended)
     {
 LABEL_25:
-      if (v11)
+      if (v15)
       {
-        if (ot::Neighbor::IsStateValid(v11))
+        if (ot::Neighbor::IsStateValid(v15))
         {
-          ot::Mle::TxChallenge::GenerateRandom(v13);
-          appended = ot::Mle::Mle::TxMessage::AppendChallengeTlv(v9, v13);
+          ot::Mle::TxChallenge::GenerateRandom(v17, v4, v5);
+          appended = ot::Mle::Mle::TxMessage::AppendChallengeTlv(v13, v17);
           if (appended)
           {
             goto LABEL_35;
@@ -6186,45 +8626,45 @@ LABEL_25:
 
         else
         {
-          ot::Neighbor::GenerateChallenge(v11);
-          v5 = v9;
-          Challenge = ot::Neighbor::GetChallenge(v11);
-          appended = ot::Mle::Mle::TxMessage::AppendChallengeTlv(v5, Challenge);
+          ot::Neighbor::GenerateChallenge(v15, v4, v5);
+          v9 = v13;
+          Challenge = ot::Neighbor::GetChallenge(v15);
+          appended = ot::Mle::Mle::TxMessage::AppendChallengeTlv(v9, Challenge);
           if (appended)
           {
             goto LABEL_35;
           }
         }
 
-        ot::Neighbor::GetExtAddress(v11);
-        ot::Ip6::Address::SetToLinkLocalAddress(&v8, v3);
+        ot::Neighbor::GetExtAddress(v15);
+        ot::Ip6::Address::SetToLinkLocalAddress(&v12, v7);
       }
 
       else
       {
-        ot::Mle::TxChallenge::GenerateRandom((this + 35617));
+        ot::Mle::TxChallenge::GenerateRandom((this + 35617), v2, v3);
         *(this + 35616) = 2;
-        appended = ot::Mle::Mle::TxMessage::AppendChallengeTlv(v9, (this + 35617));
+        appended = ot::Mle::Mle::TxMessage::AppendChallengeTlv(v13, (this + 35617));
         if (appended)
         {
           goto LABEL_35;
         }
 
-        ot::Ip6::Address::SetToLinkLocalAllRoutersMulticast(&v8);
+        ot::Ip6::Address::SetToLinkLocalAllRoutersMulticast(&v12);
       }
 
-      appended = ot::Mle::Mle::TxMessage::SendTo(v9, &v8);
+      appended = ot::Mle::Mle::TxMessage::SendTo(v13, &v12);
       if (!appended)
       {
-        ot::Mle::Mle::Log(0, 26, &v8);
+        ot::Mle::Mle::Log(0, 0x1Au, &v12);
       }
     }
   }
 
 LABEL_35:
-  if (appended && v9)
+  if (appended && v13)
   {
-    ot::Message::Free(v9);
+    ot::Message::Free(v13);
   }
 
   return appended;
@@ -6260,8 +8700,8 @@ uint64_t ot::Mle::MleRouter::SendAddressSolicit(ot::InstanceLocator *a1, unsigne
             if (!v13)
             {
               *(a1 + 35632) = *(a1 + 35632) & 0xFD | 2;
-              PeerAddr = ot::Ip6::MessageInfo::GetPeerAddr(v12);
-              ot::Mle::Mle::Log(0, 19, PeerAddr);
+              ot::Ip6::MessageInfo::GetPeerAddr(v12);
+              ot::Mle::Mle::Log(0, 0x13u, v8);
             }
           }
         }
@@ -6300,15 +8740,15 @@ uint64_t ot::Mle::MleRouter::BecomeLeader(ot::Mle::MleRouter *this, char a2)
 
     else if (ot::Mle::MleRouter::IsRouterEligible(this))
     {
-      if ((a2 & 1) != 0 && ot::Mle::Mle::IsAttached(this) && (v25 = *(this + 35631), ot::Mle::LeaderData::GetWeighting((this + 184)), ot::Logger::LogAtLevel<(ot::LogLevel)3>(&ot::Mle::kLogModuleName, "Leader re-election [BecomeLeader] Weight[%d] LeaderWeight[%d]", v3, v4, v5, v6, v7, v8, v25), v24 = *(this + 35631), v24 <= ot::Mle::LeaderData::GetWeighting((this + 184))))
+      if ((a2 & 1) != 0 && ot::Mle::Mle::IsAttached(this) && (v25 = *(this + 35631), Weighting = ot::Mle::LeaderData::GetWeighting((this + 184)), ot::Logger::LogAtLevel<(ot::LogLevel)3>(&ot::Mle::kLogModuleName, "Leader re-election [BecomeLeader] Weight[%d] LeaderWeight[%d]", v4, v5, v6, v7, v8, v9, v25, Weighting), v24 = *(this + 35631), v24 <= ot::Mle::LeaderData::GetWeighting((this + 184))))
       {
         return 27;
       }
 
       else
       {
-        v9 = ot::RouterTable::Clear((this + 30904));
-        Uint32 = ot::Random::NonCrypto::GetUint32(v9);
+        ot::RouterTable::Clear((this + 30904));
+        Uint32 = ot::Random::NonCrypto::GetUint32(v10);
         if (ot::Mle::Mle::IsSleepyRouter(this))
         {
           do
@@ -6334,8 +8774,7 @@ uint64_t ot::Mle::MleRouter::BecomeLeader(ot::Mle::MleRouter *this, char a2)
           Uint8InRange = v23;
         }
 
-        v22 = *(this + 35690);
-        ot::Logger::LogAtLevel<(ot::LogLevel)3>(&ot::Mle::kLogModuleName, "%s: leaderId[%d], mPreviousRouterId[%d]", v10, v11, v12, v13, v14, v15, "BecomeLeader");
+        ot::Logger::LogAtLevel<(ot::LogLevel)3>(&ot::Mle::kLogModuleName, "%s: leaderId[%d], mPreviousRouterId[%d]", v11, v12, v13, v14, v15, v16, "BecomeLeader", Uint8InRange, *(this + 35690));
         ot::Mle::Mle::SetLeaderData(this, Uint32, *(this + 35631), Uint8InRange);
         v29 = ot::RouterTable::Allocate((this + 30904), Uint8InRange);
         if (!v29)
@@ -6344,15 +8783,15 @@ uint64_t ot::Mle::MleRouter::BecomeLeader(ot::Mle::MleRouter *this, char a2)
         }
 
         ot::Mle::MleRouter::SetRouterId(this, Uint8InRange);
-        v16 = ot::GetProvider<ot::InstanceLocator>::Get<ot::Mac::Mac>(this);
-        ExtAddress = ot::Mac::Mac::GetExtAddress(v16);
+        v17 = ot::GetProvider<ot::InstanceLocator>::Get<ot::Mac::Mac>(this);
+        ExtAddress = ot::Mac::Mac::GetExtAddress(v17);
         ot::Neighbor::SetExtAddress(v29, ExtAddress);
-        v18 = ot::GetProvider<ot::InstanceLocator>::Get<ot::NetworkData::Leader>(this);
-        ot::NetworkData::Leader::Reset(v18);
-        v19 = ot::GetProvider<ot::InstanceLocator>::Get<ot::MeshCoP::Leader>(this);
-        ot::MeshCoP::Leader::SetEmptyCommissionerData(v19);
-        v20 = ot::Mle::Rloc16FromRouterId(Uint8InRange);
-        ot::Mle::MleRouter::SetStateLeader(this, v20, 0);
+        v19 = ot::GetProvider<ot::InstanceLocator>::Get<ot::NetworkData::Leader>(this);
+        ot::NetworkData::Leader::Reset(v19);
+        v20 = ot::GetProvider<ot::InstanceLocator>::Get<ot::MeshCoP::Leader>(this);
+        ot::MeshCoP::Leader::SetEmptyCommissionerData(v20);
+        v21 = ot::Mle::Rloc16FromRouterId(Uint8InRange);
+        ot::Mle::MleRouter::SetStateLeader(this, v21, 0);
       }
     }
 
@@ -6370,7 +8809,7 @@ uint64_t ot::Mle::MleRouter::BecomeLeader(ot::Mle::MleRouter *this, char a2)
   return v30;
 }
 
-uint64_t ot::Mle::MleRouter::StopLeader(ot::Mle::MleRouter *this)
+ot::Ip6::Netif::MulticastAddress *ot::Mle::MleRouter::StopLeader(ot::Mle::MleRouter *this)
 {
   ot::Mle::MleRouter::StopAdvertiseTrickleTimer(this);
   v1 = ot::GetProvider<ot::InstanceLocator>::Get<ot::ThreadNetif>(this);
@@ -6491,8 +8930,8 @@ void ot::Mle::MleRouter::SendAddressRelease(ot::Mle::MleRouter *this)
         v11 = ot::Coap::CoapBase::SendMessage(v6, v9, v10);
         if (!v11)
         {
-          PeerAddr = ot::Ip6::MessageInfo::GetPeerAddr(v10);
-          ot::Mle::Mle::Log(0, 16, PeerAddr);
+          ot::Ip6::MessageInfo::GetPeerAddr(v10);
+          ot::Mle::Mle::Log(0, 0x10u, v7);
         }
       }
     }
@@ -6508,7 +8947,7 @@ void ot::Mle::MleRouter::SendAddressRelease(ot::Mle::MleRouter *this)
     ot::Message::Free(v9);
   }
 
-  ot::Mle::Mle::LogSendError(16, v11);
+  ot::Mle::Mle::LogSendError(0x10u, v11);
 }
 
 BOOL ot::Mle::MleRouter::RemoveChildren(ot::Mle::MleRouter *this)
@@ -6559,82 +8998,86 @@ uint64_t ot::RouterTable::GetActiveRouterCount(ot::RouterTable *this)
   return ot::RouterTable::GetActiveRouterCount(this);
 }
 
-void ot::Mle::MleRouter::SetStateRouterOrLeader(uint64_t a1, char a2, unsigned __int16 a3, char a4)
+void ot::Mle::MleRouter::SetStateRouterOrLeader(ot::Mle::Mle *a1, char a2, unsigned __int16 a3, char a4)
 {
-  v40 = a1;
-  v39 = a2;
-  v38 = a3;
-  v37 = a4;
+  v43 = a1;
+  v42 = a2;
+  v41 = a3;
+  v40 = a4;
+  v32 = a1;
   if (a2 == 4)
   {
-    active = ot::GetProvider<ot::InstanceLocator>::Get<ot::MeshCoP::ActiveDatasetManager>(a1);
+    active = ot::GetProvider<ot::InstanceLocator>::Get<ot::MeshCoP::ActiveDatasetManager>(v32);
     ot::MeshCoP::DatasetManager::Restore(active);
     IgnoreError();
-    v5 = ot::GetProvider<ot::InstanceLocator>::Get<ot::MeshCoP::PendingDatasetManager>(a1);
+    v5 = ot::GetProvider<ot::InstanceLocator>::Get<ot::MeshCoP::PendingDatasetManager>(v32);
     ot::MeshCoP::DatasetManager::Restore(v5);
     IgnoreError();
   }
 
-  ot::Mle::Mle::SetRloc16(a1, v38);
-  ot::Mle::Mle::SetRole(a1, v39);
-  ot::Mle::Mle::SetAttachState(a1, 0);
-  ot::Mle::Mle::ResetAttachCounter(a1);
-  ot::TimerMilli::Stop((a1 + 888));
-  ot::TimerMilli::Stop((a1 + 936));
-  ot::Mle::MleRouter::StopAdvertiseTrickleTimer(a1);
-  ot::Mle::MleRouter::ResetAdvertiseInterval(a1);
-  v6 = ot::GetProvider<ot::InstanceLocator>::Get<ot::ThreadNetif>(a1);
+  ot::Mle::Mle::SetRloc16(v32, v41);
+  ot::Mle::Mle::SetRole(v32, v42);
+  ot::Mle::Mle::SetAttachState(v32, 0);
+  ot::Mle::Mle::ResetAttachCounter(v32);
+  ot::TimerMilli::Stop((v32 + 888));
+  ot::TimerMilli::Stop((v32 + 936));
+  ot::Mle::MleRouter::StopAdvertiseTrickleTimer(v32);
+  ot::Mle::MleRouter::ResetAdvertiseInterval(v32);
+  v6 = ot::GetProvider<ot::InstanceLocator>::Get<ot::ThreadNetif>(v32);
   ot::Ip6::Netif::SubscribeAllRoutersMulticast(v6);
-  *(a1 + 35692) = ot::Mle::LeaderData::GetPartitionId((a1 + 184));
-  v28 = ot::GetProvider<ot::InstanceLocator>::Get<ot::Mac::Mac>(a1);
-  IsRxOnWhenIdle = ot::Mle::Mle::IsRxOnWhenIdle(a1);
-  ot::Mac::Mac::SetBeaconEnabled(v28, IsRxOnWhenIdle);
-  if (v39 == 4)
+  PartitionId = ot::Mle::LeaderData::GetPartitionId((v32 + 184));
+  v8 = v32;
+  *(v32 + 8923) = PartitionId;
+  v31 = ot::GetProvider<ot::InstanceLocator>::Get<ot::Mac::Mac>(v8);
+  IsRxOnWhenIdle = ot::Mle::Mle::IsRxOnWhenIdle(v32);
+  ot::Mac::Mac::SetBeaconEnabled(v31, IsRxOnWhenIdle);
+  if (v42 == 4)
   {
-    Address = ot::Ip6::Netif::UnicastAddress::GetAddress((a1 + 35712));
-    ot::Mle::Mle::GetLeaderAloc(a1, Address);
-    v9 = ot::GetProvider<ot::InstanceLocator>::Get<ot::ThreadNetif>(a1);
-    ot::Ip6::Netif::AddUnicastAddress(v9, (a1 + 35712));
-    v10 = ot::GetProvider<ot::InstanceLocator>::Get<ot::TimeTicker>(a1);
-    ot::TimeTicker::RegisterReceiver(v10, 1);
-    v11 = ot::GetProvider<ot::InstanceLocator>::Get<ot::NetworkData::Leader>(a1);
-    ot::NetworkData::Leader::Start(v11, v37);
-    v12 = ot::GetProvider<ot::InstanceLocator>::Get<ot::MeshCoP::ActiveDatasetManager>(a1);
-    ot::MeshCoP::ActiveDatasetManager::StartLeader(v12);
-    v13 = ot::GetProvider<ot::InstanceLocator>::Get<ot::MeshCoP::PendingDatasetManager>(a1);
-    ot::MeshCoP::PendingDatasetManager::StartLeader(v13);
-    v14 = ot::GetProvider<ot::InstanceLocator>::Get<ot::AddressResolver>(a1);
-    ot::AddressResolver::Clear(v14);
+    v30 = 35712;
+    ot::Ip6::Netif::UnicastAddress::GetAddress((v32 + 35712));
+    ot::Mle::Mle::GetLeaderAloc(v32, v10);
+    v11 = ot::GetProvider<ot::InstanceLocator>::Get<ot::ThreadNetif>(v32);
+    ot::Ip6::Netif::AddUnicastAddress(v11, (v32 + 35712));
+    v12 = ot::GetProvider<ot::InstanceLocator>::Get<ot::TimeTicker>(v32);
+    ot::TimeTicker::RegisterReceiver(v12, 1);
+    v13 = ot::GetProvider<ot::InstanceLocator>::Get<ot::NetworkData::Leader>(v32);
+    ot::NetworkData::Leader::Start(v13, v40);
+    v14 = ot::GetProvider<ot::InstanceLocator>::Get<ot::MeshCoP::ActiveDatasetManager>(v32);
+    ot::MeshCoP::ActiveDatasetManager::StartLeader(v14);
+    v15 = ot::GetProvider<ot::InstanceLocator>::Get<ot::MeshCoP::PendingDatasetManager>(v32);
+    ot::MeshCoP::PendingDatasetManager::StartLeader(v15);
+    v16 = ot::GetProvider<ot::InstanceLocator>::Get<ot::AddressResolver>(v32);
+    ot::AddressResolver::Clear(v16);
   }
 
-  v15 = ot::GetProvider<ot::InstanceLocator>::Get<ot::ChildTable>(a1);
-  v35 = ot::ChildTable::Iterate(v15, 1);
-  v36 = &v35;
-  v43 = ot::ChildTable::IteratorBuilder::begin(&v35);
-  v44 = v16;
-  v33 = v43;
-  v34 = v16;
-  v41 = ot::ChildTable::IteratorBuilder::end(v36);
-  v42 = v17;
-  v31 = v41;
-  v32 = v17;
-  while (ot::ItemPtrIterator<ot::Child,ot::ChildTable::Iterator>::operator!=(&v33, &v31))
+  v17 = ot::GetProvider<ot::InstanceLocator>::Get<ot::ChildTable>(v32);
+  v38 = ot::ChildTable::Iterate(v17, 1);
+  v39 = &v38;
+  v46 = ot::ChildTable::IteratorBuilder::begin(&v38);
+  v47 = v18;
+  v36 = v46;
+  v37 = v18;
+  v44 = ot::ChildTable::IteratorBuilder::end(v39);
+  v45 = v19;
+  v34 = v44;
+  v35 = v19;
+  while (ot::ItemPtrIterator<ot::Child,ot::ChildTable::Iterator>::operator!=(&v36, &v34))
   {
-    v30 = ot::ItemPtrIterator<ot::Child,ot::ChildTable::Iterator>::operator*(&v33);
-    Rloc16 = ot::Neighbor::GetRloc16(v30);
-    if (ot::Mle::RouterIdFromRloc16(Rloc16) != *(a1 + 35689))
+    v33 = ot::ItemPtrIterator<ot::Child,ot::ChildTable::Iterator>::operator*(&v36);
+    Rloc16 = ot::Neighbor::GetRloc16(v33);
+    if (ot::Mle::RouterIdFromRloc16(Rloc16) != *(v32 + 35689))
     {
-      ot::Mle::MleRouter::RemoveNeighbor(a1, v30);
+      ot::Mle::MleRouter::RemoveNeighbor(v32, v33);
     }
 
-    ot::ItemPtrIterator<ot::Child,ot::ChildTable::Iterator>::operator++(&v33);
+    ot::ItemPtrIterator<ot::Child,ot::ChildTable::Iterator>::operator++(&v36);
   }
 
-  v19 = ot::GetProvider<ot::InstanceLocator>::Get<ot::Mac::Mac>(a1);
-  ot::Mac::Mac::UpdateCsl(v19, 0);
-  PartitionId = ot::Mle::LeaderData::GetPartitionId((a1 + 184));
-  v21 = ot::ToUlong(PartitionId);
-  ot::Logger::LogAtLevel<(ot::LogLevel)3>(&ot::Mle::kLogModuleName, "Partition ID 0x%lx", v22, v23, v24, v25, v26, v27, v21);
+  v21 = ot::GetProvider<ot::InstanceLocator>::Get<ot::Mac::Mac>(v32);
+  ot::Mac::Mac::UpdateCsl(v21, 0);
+  v22 = ot::Mle::LeaderData::GetPartitionId((v32 + 184));
+  v23 = ot::ToUlong(v22);
+  ot::Logger::LogAtLevel<(ot::LogLevel)3>(&ot::Mle::kLogModuleName, "Partition ID 0x%lx", v24, v25, v26, v27, v28, v29, v23);
 }
 
 uint64_t ot::Mle::MleRouter::ResetAdvertiseInterval(ot::Mle::MleRouter *this)
@@ -6675,7 +9118,7 @@ void ot::Mle::MleRouter::RemoveNeighbor(ot::Mle::MleRouter *this, ot::Neighbor *
     else
     {
       Rloc16 = ot::Neighbor::GetRloc16(a2);
-      if (ot::Mle::IsChildRloc16(Rloc16))
+      if (ot::Mle::IsChildRloc16(Rloc16, v3))
       {
         if (!ot::ChildTable::Contains((this + 1200), a2))
         {
@@ -6687,13 +9130,13 @@ void ot::Mle::MleRouter::RemoveNeighbor(ot::Mle::MleRouter *this, ot::Neighbor *
           ot::NeighborTable::Signal((this + 344), 1u, a2);
         }
 
-        v3 = ot::GetProvider<ot::InstanceLocator>::Get<ot::IndirectSender>(this);
-        ot::IndirectSender::ClearAllMessagesForSleepyChild(v3, a2);
+        v4 = ot::GetProvider<ot::InstanceLocator>::Get<ot::IndirectSender>(this);
+        ot::IndirectSender::ClearAllMessagesForSleepyChild(v4, a2);
         if (ot::Neighbor::IsFullThreadDevice(a2))
         {
-          v23 = ot::GetProvider<ot::InstanceLocator>::Get<ot::AddressResolver>(this);
-          v4 = ot::Neighbor::GetRloc16(a2);
-          ot::AddressResolver::RemoveEntriesForRloc16(v23, v4);
+          v24 = ot::GetProvider<ot::InstanceLocator>::Get<ot::AddressResolver>(this);
+          v5 = ot::Neighbor::GetRloc16(a2);
+          ot::AddressResolver::RemoveEntriesForRloc16(v24, v5);
         }
 
         ot::ChildTable::RemoveStoredChild((this + 1200), a2);
@@ -6725,15 +9168,15 @@ void ot::Mle::MleRouter::RemoveNeighbor(ot::Mle::MleRouter *this, ot::Neighbor *
     if (a2 == ot::Mle::Mle::GetCslPeripheral(this))
     {
       *(this + 128) = 0;
-      v7 = ot::Mle::Mle::WorAttachStateToString(this, *(this + 128));
-      ot::Logger::LogAtLevel<(ot::LogLevel)4>(&ot::Mle::kLogModuleName, "mCslPeripheralAttachState = %s, %s", v8, v9, v10, v11, v12, v13, v7);
-      v14 = ot::GetProvider<ot::InstanceLocator>::Get<ot::Mac::Mac>(this);
-      ot::Mac::Mac::UpdateCsl(v14, 0);
+      v8 = ot::Mle::Mle::WorAttachStateToString(this, *(this + 128));
+      ot::Logger::LogAtLevel<(ot::LogLevel)4>(&ot::Mle::kLogModuleName, "mCslPeripheralAttachState = %s, %s", v9, v10, v11, v12, v13, v14, v8, "RemoveNeighbor");
+      v15 = ot::GetProvider<ot::InstanceLocator>::Get<ot::Mac::Mac>(this);
+      ot::Mac::Mac::UpdateCsl(v15, 0);
       ot::Mle::Mle::SetCslPeripheral(this, 0);
       ot::Neighbor::GetExtAddress(a2);
-      ot::Mac::ExtAddress::ToString(v15, v26);
-      v16 = ot::String<(unsigned short)17>::AsCString(v26);
-      ot::Logger::LogAtLevel<(ot::LogLevel)4>(&ot::Mle::kLogModuleName, "CSL peripheral %s detached", v17, v18, v19, v20, v21, v22, v16);
+      ot::Mac::ExtAddress::ToString(v16, v27);
+      v17 = ot::String<(unsigned short)17>::AsCString(v27);
+      ot::Logger::LogAtLevel<(ot::LogLevel)4>(&ot::Mle::kLogModuleName, "CSL peripheral %s detached", v18, v19, v20, v21, v22, v23, v17);
       ot::Mle::Mle::SetPeripheralDetachState(this, 0);
       ot::Mle::Mle::SetThreadCoexConfig(this, 0, *(this + 130), *(this + 132));
     }
@@ -6755,41 +9198,41 @@ void ot::Mle::MleRouter::HandleAdvertiseTrickleTimer(ot::Mle::MleRouter *this)
 
 void ot::Mle::MleRouter::SendAdvertisement(ot::Mle::MleRouter *this)
 {
-  v14 = this;
+  v13 = this;
   appended = 0;
-  v11 = 0;
+  v10 = 0;
   if (!ot::Mle::Mle::IsAttaching(this))
   {
     if (ot::Mle::Mle::IsSleepyRouter(this))
     {
-      ot::Logger::LogAtLevel<(ot::LogLevel)2>(&ot::Mle::kLogModuleName, "ThreadConnection: Supress sending any advertisements", v1, v2, v3, v4, v5, v6, v8);
+      ot::Logger::LogAtLevel<(ot::LogLevel)2>(&ot::Mle::kLogModuleName, "ThreadConnection: Supress sending any advertisements", v1, v2, v3, v4, v5, v6);
     }
 
     if (ot::Mle::Mle::IsRxOnWhenIdle(this) && (*(this + 35632) & 2) == 0)
     {
-      v11 = ot::Mle::Mle::NewMleMessage(this, 4);
-      if (v11)
+      v10 = ot::Mle::Mle::NewMleMessage(this, 4);
+      if (v10)
       {
-        appended = ot::Mle::Mle::TxMessage::AppendSourceAddressTlv(v11);
+        appended = ot::Mle::Mle::TxMessage::AppendSourceAddressTlv(v10);
         if (!appended)
         {
-          appended = ot::Mle::Mle::TxMessage::AppendLeaderDataTlv(v11);
+          appended = ot::Mle::Mle::TxMessage::AppendLeaderDataTlv(v10);
           if (!appended)
           {
-            ot::Message::SetSubType(v11, 12);
-            v9 = *(this + 130);
-            if (v9 <= 1)
+            ot::Message::SetSubType(v10, 12);
+            v8 = *(this + 130);
+            if (v8 <= 1)
             {
               __assert_rtn("SendAdvertisement", "mle_router.cpp", 669, "false");
             }
 
-            if (v9 == 2 || v9 != 4 && v9 != 3 || (v7 = ot::Mle::Mle::TxMessage::AppendRouteTlv(v11, 0), (appended = v7) == 0))
+            if (v8 == 2 || v8 != 4 && v8 != 3 || (v7 = ot::Mle::Mle::TxMessage::AppendRouteTlv(v10, 0), (appended = v7) == 0))
             {
-              ot::Ip6::Address::SetToLinkLocalAllNodesMulticast(&v12);
-              appended = ot::Mle::Mle::TxMessage::SendTo(v11, &v12);
+              ot::Ip6::Address::SetToLinkLocalAllNodesMulticast(&v11);
+              appended = ot::Mle::Mle::TxMessage::SendTo(v10, &v11);
               if (!appended)
               {
-                ot::Mle::Mle::Log(0, 0, &v12);
+                ot::Mle::Mle::Log(0, 0, &v11);
               }
             }
           }
@@ -6803,9 +9246,9 @@ void ot::Mle::MleRouter::SendAdvertisement(ot::Mle::MleRouter *this)
     }
   }
 
-  if (appended && v11)
+  if (appended && v10)
   {
-    ot::Message::Free(v11);
+    ot::Message::Free(v10);
   }
 
   ot::Mle::Mle::LogSendError(0, appended);
@@ -6852,13 +9295,13 @@ uint64_t ot::Mle::Mle::TxMessage::AppendTlvRequestTlv<(unsigned char)1>(ot::Mle:
   return ot::Mle::Mle::TxMessage::AppendTlvRequestTlv<(unsigned char)1>(a1, a2);
 }
 
-void ot::Neighbor::GenerateChallenge(ot::Neighbor *this)
+void ot::Neighbor::GenerateChallenge(ot::Neighbor *this, uint64_t a2, unsigned __int16 a3)
 {
-  ot::Mle::TxChallenge::GenerateRandom((this + 12));
+  ot::Mle::TxChallenge::GenerateRandom((this + 12), a2, a3);
 }
 
 {
-  ot::Neighbor::GenerateChallenge(this);
+  ot::Neighbor::GenerateChallenge(this, a2, a3);
 }
 
 uint64_t ot::Neighbor::GetChallenge(ot::Neighbor *this)
@@ -6870,18 +9313,18 @@ uint64_t ot::Neighbor::GetChallenge(ot::Neighbor *this)
   return ot::Neighbor::GetChallenge(this);
 }
 
-void ot::Mle::MleRouter::HandleLinkRequest(ot::Mle::MleRouter *this, ot::Neighbor **a2)
+void ot::Mle::MleRouter::HandleLinkRequest(ot::Mle::MleRouter *this, ot::Ip6::MessageInfo **a2)
 {
-  v97 = this;
-  v96 = a2;
+  v103 = this;
+  v102 = a2;
   ChallengeTlv = 0;
-  v94 = 0;
-  ot::Mle::RxChallenge::RxChallenge(v103);
-  v93 = 0;
-  v91 = 0;
-  ot::Mle::Mle::TlvList::TlvList(v102);
-  PeerAddr = ot::Ip6::MessageInfo::GetPeerAddr(v96[1]);
-  ot::Mle::Mle::Log(1, 26, PeerAddr);
+  v100 = 0;
+  ot::Mle::RxChallenge::RxChallenge(v109);
+  v99 = 0;
+  v97 = 0;
+  ot::Mle::Mle::TlvList::TlvList(v108);
+  ot::Ip6::MessageInfo::GetPeerAddr(v102[1]);
+  ot::Mle::Mle::Log(1u, 0x1Au, v2);
   if (!ot::Mle::Mle::IsRouterOrLeader(this))
   {
     ChallengeTlv = 13;
@@ -6900,26 +9343,26 @@ void ot::Mle::MleRouter::HandleLinkRequest(ot::Mle::MleRouter *this, ot::Neighbo
     goto LABEL_40;
   }
 
-  ChallengeTlv = ot::Mle::Mle::RxMessage::ReadChallengeTlv(*v96, v103, v3, v4);
+  ChallengeTlv = ot::Mle::Mle::RxMessage::ReadChallengeTlv(*v102, v109, v3, v4);
   if (!ChallengeTlv)
   {
-    ChallengeTlv = ot::Mle::Mle::RxMessage::ReadVersionTlv(*v96, &v93);
+    ChallengeTlv = ot::Mle::Mle::RxMessage::ReadVersionTlv(*v102, &v99);
     if (!ChallengeTlv)
     {
-      if (v93 < 2u)
+      if (v99 < 2u)
       {
         ChallengeTlv = 6;
-        ot::Logger::LogAtLevel<(ot::LogLevel)2>(&ot::Mle::kLogModuleName, "Link request Parse error", v5, v6, v7, v8, v9, v10, v79);
-        ot::Logger::LogAtLevel<(ot::LogLevel)2>(&ot::Mle::kLogModuleName, "version:%d less than Thread 1.1 version:%d", v11, v12, v13, v14, v15, v16, v93);
+        ot::Logger::LogAtLevel<(ot::LogLevel)2>(&ot::Mle::kLogModuleName, "Link request Parse error", v5, v6, v7, v8, v9, v10);
+        ot::Logger::LogAtLevel<(ot::LogLevel)2>(&ot::Mle::kLogModuleName, "version:%d less than Thread 1.1 version:%d", v11, v12, v13, v14, v15, v16, v99, 2);
         goto LABEL_40;
       }
 
-      LeaderDataTlv = ot::Mle::Mle::RxMessage::ReadLeaderDataTlv(*v96, v92, v5, v6, v7, v8);
+      LeaderDataTlv = ot::Mle::Mle::RxMessage::ReadLeaderDataTlv(*v102, v98, v5, v6, v7, v8);
       if (LeaderDataTlv)
       {
         if (LeaderDataTlv != 23)
         {
-          ot::Logger::LogAtLevel<(ot::LogLevel)2>(&ot::Mle::kLogModuleName, "Link request Parse error ReadLeaderData failed", v17, v18, v19, v20, v21, v22, v79);
+          ot::Logger::LogAtLevel<(ot::LogLevel)2>(&ot::Mle::kLogModuleName, "Link request Parse error ReadLeaderData failed", v17, v18, v19, v20, v21, v22);
           ChallengeTlv = 6;
           goto LABEL_40;
         }
@@ -6927,7 +9370,7 @@ void ot::Mle::MleRouter::HandleLinkRequest(ot::Mle::MleRouter *this, ot::Neighbo
 
       else
       {
-        PartitionId = ot::Mle::LeaderData::GetPartitionId(v92);
+        PartitionId = ot::Mle::LeaderData::GetPartitionId(v98);
         if (PartitionId != ot::Mle::LeaderData::GetPartitionId((this + 184)))
         {
           ChallengeTlv = 13;
@@ -6935,116 +9378,116 @@ void ot::Mle::MleRouter::HandleLinkRequest(ot::Mle::MleRouter *this, ot::Neighbo
         }
       }
 
-      v87 = ot::Tlv::Find<ot::UintTlvInfo<(unsigned char)0,unsigned short>>(*v96, &v91);
-      if (v87)
+      v93 = ot::Tlv::Find<ot::UintTlvInfo<(unsigned char)0,unsigned short>>(*v102, &v97);
+      if (v93)
       {
-        if (v87 != 23)
+        if (v93 != 23)
         {
-          v65 = ot::ErrorToString(6);
-          ot::Logger::LogAtLevel<(ot::LogLevel)2>(&ot::Mle::kLogModuleName, "HandleLinkRequest source address TLV unhandled case. Exit here error:%s", v66, v67, v68, v69, v70, v71, v65);
+          v70 = ot::ErrorToString(6);
+          ot::Logger::LogAtLevel<(ot::LogLevel)2>(&ot::Mle::kLogModuleName, "HandleLinkRequest source address TLV unhandled case. Exit here error:%s", v71, v72, v73, v74, v75, v76, v70);
           ChallengeTlv = 6;
           goto LABEL_40;
         }
 
-        if (!ot::Mle::Mle::RxInfo::IsNeighborStateValid(v96) || (Rloc16 = ot::Neighbor::GetRloc16(v96[3]), !ot::Mle::IsRouterRloc16(Rloc16)))
+        if (!ot::Mle::Mle::RxInfo::IsNeighborStateValid(v102) || (v54 = ot::Neighbor::GetRloc16(v102[3]), !ot::Mle::IsRouterRloc16(v54, v55)))
         {
           ChallengeTlv = 2;
-          if (v96[3])
+          if (v102[3])
           {
-            v82 = ot::ErrorToString(ChallengeTlv);
-            ot::Neighbor::GetState(v96[3]);
-            IsStateValid = ot::Neighbor::IsStateValid(v96[3]);
-            ot::Neighbor::GetRloc16(v96[3]);
-            ot::Logger::LogAtLevel<(ot::LogLevel)2>(&ot::Mle::kLogModuleName, "HandleLinkRequest source address TLV not found (router coming out of reset) error:%s nbr.state:%d isNbrStateValid:%d nbr.rloc16:0x%x", v52, v53, v54, v55, v56, v57, v82);
+            v85 = ot::ErrorToString(ChallengeTlv);
+            State = ot::Neighbor::GetState(v102[3]);
+            IsStateValid = ot::Neighbor::IsStateValid(v102[3]);
+            Rloc16 = ot::Neighbor::GetRloc16(v102[3]);
+            ot::Logger::LogAtLevel<(ot::LogLevel)2>(&ot::Mle::kLogModuleName, "HandleLinkRequest source address TLV not found (router coming out of reset) error:%s nbr.state:%d isNbrStateValid:%d nbr.rloc16:0x%x", v57, v58, v59, v60, v61, v62, v85, State, IsStateValid, Rloc16);
           }
 
           else
           {
-            v58 = ot::ErrorToString(ChallengeTlv);
-            ot::Logger::LogAtLevel<(ot::LogLevel)2>(&ot::Mle::kLogModuleName, "HandleLinkRequest source address TLV not found (router coming out of reset) error:%s aNeighbor NULL ", v59, v60, v61, v62, v63, v64, v58);
+            v63 = ot::ErrorToString(ChallengeTlv);
+            ot::Logger::LogAtLevel<(ot::LogLevel)2>(&ot::Mle::kLogModuleName, "HandleLinkRequest source address TLV not found (router coming out of reset) error:%s aNeighbor NULL ", v64, v65, v66, v67, v68, v69, v63);
           }
 
           goto LABEL_40;
         }
 
-        v94 = v96[3];
+        v100 = v102[3];
       }
 
-      else if (ot::Mle::IsRouterRloc16(v91))
+      else if (ot::Mle::IsRouterRloc16(v97, v23))
       {
-        ot::RouterTable::FindRouterByRloc16((this + 30904), v91);
-        v94 = v31;
-        if (!v31)
+        ot::RouterTable::FindRouterByRloc16((this + 30904), v97);
+        v100 = v32;
+        if (!v32)
         {
           ChallengeTlv = 6;
-          ot::Logger::LogAtLevel<(ot::LogLevel)2>(&ot::Mle::kLogModuleName, "Link request Parse error Neighbor src address is NULL:sourceAddress:%x", v25, v26, v27, v28, v29, v30, v91);
+          ot::Logger::LogAtLevel<(ot::LogLevel)2>(&ot::Mle::kLogModuleName, "Link request Parse error Neighbor src address is NULL:sourceAddress:%x", v26, v27, v28, v29, v30, v31, v97);
           goto LABEL_40;
         }
 
-        if (ot::Neighbor::IsStateLinkRequest(v94))
+        if (ot::Neighbor::IsStateLinkRequest(v100))
         {
           ChallengeTlv = 24;
           goto LABEL_40;
         }
 
-        if (ot::Neighbor::IsStateValid(v94))
+        if (ot::Neighbor::IsStateValid(v100))
         {
-          v32 = ot::Ip6::MessageInfo::GetPeerAddr(v96[1]);
-          Iid = ot::Ip6::Address::GetIid(v32);
-          ot::Ip6::InterfaceIdentifier::ConvertToExtAddress(Iid, v101);
-          State = ot::Neighbor::GetState(v94);
-          ot::Neighbor::GetExtAddress(v94);
-          ot::Mac::ExtAddress::ToString(v34, v100);
-          ot::String<(unsigned short)17>::AsCString(v100);
-          ot::Logger::LogAtLevel<(ot::LogLevel)5>(&ot::Mle::kLogModuleName, "Current neighbor state: %u nbr.extAddr:%s", v35, v36, v37, v38, v39, v40, State);
-          ot::Neighbor::GetExtAddress(v94);
-          if (!ot::Equatable<ot::Mac::ExtAddress>::operator==(v41, v101))
+          ot::Ip6::MessageInfo::GetPeerAddr(v102[1]);
+          Iid = ot::Ip6::Address::GetIid(v33);
+          ot::Ip6::InterfaceIdentifier::ConvertToExtAddress(Iid, v107);
+          v92 = ot::Neighbor::GetState(v100);
+          ot::Neighbor::GetExtAddress(v100);
+          ot::Mac::ExtAddress::ToString(v35, v106);
+          v36 = ot::String<(unsigned short)17>::AsCString(v106);
+          ot::Logger::LogAtLevel<(ot::LogLevel)5>(&ot::Mle::kLogModuleName, "Current neighbor state: %u nbr.extAddr:%s", v37, v38, v39, v40, v41, v42, v92, v36);
+          ot::Neighbor::GetExtAddress(v100);
+          if (!ot::Equatable<ot::Mac::ExtAddress>::operator==(v43, v107))
           {
             ChallengeTlv = 6;
-            v85 = ot::Neighbor::GetState(v94);
-            ot::Neighbor::GetExtAddress(v94);
-            ot::Mac::ExtAddress::ToString(v42, v99);
-            ot::String<(unsigned short)17>::AsCString(v99);
-            ot::Mac::ExtAddress::ToString(v101, v98);
-            ot::String<(unsigned short)17>::AsCString(v98);
-            ot::Logger::LogAtLevel<(ot::LogLevel)2>(&ot::Mle::kLogModuleName, "Link request Parse error, nbr.state:%d nbr.extAddr(%s) != extAddr(%s)", v43, v44, v45, v46, v47, v48, v85);
+            v90 = ot::Neighbor::GetState(v100);
+            ot::Neighbor::GetExtAddress(v100);
+            ot::Mac::ExtAddress::ToString(v44, v105);
+            v91 = ot::String<(unsigned short)17>::AsCString(v105);
+            ot::Mac::ExtAddress::ToString(v107, v104);
+            v45 = ot::String<(unsigned short)17>::AsCString(v104);
+            ot::Logger::LogAtLevel<(ot::LogLevel)2>(&ot::Mle::kLogModuleName, "Link request Parse error, nbr.state:%d nbr.extAddr(%s) != extAddr(%s)", v46, v47, v48, v49, v50, v51, v90, v91, v45);
             goto LABEL_40;
           }
 
-          v83 = v94;
-          DataVersion = ot::Mle::LeaderData::GetDataVersion(v92, 0);
-          ot::Neighbor::SetLeaderFullDataVersion(v83, DataVersion);
-          v84 = v94;
-          v50 = ot::Mle::LeaderData::GetDataVersion(v92, 1);
-          ot::Neighbor::SetLeaderStableDataVersion(v84, v50);
+          v88 = v100;
+          DataVersion = ot::Mle::LeaderData::GetDataVersion(v98, 0);
+          ot::Neighbor::SetLeaderFullDataVersion(v88, DataVersion);
+          v89 = v100;
+          v53 = ot::Mle::LeaderData::GetDataVersion(v98, 1);
+          ot::Neighbor::SetLeaderStableDataVersion(v89, v53);
         }
 
         else
         {
-          ot::Mle::Mle::InitNeighbor(this, v94, v96);
-          ot::Neighbor::SetState(v94, 5);
+          ot::Mle::Mle::InitNeighbor(this, v100, v102);
+          ot::Neighbor::SetState(v100, 5);
         }
       }
 
-      TlvRequestTlv = ot::Mle::Mle::RxMessage::ReadTlvRequestTlv(*v96, v102, v23, v24);
+      TlvRequestTlv = ot::Mle::Mle::RxMessage::ReadTlvRequestTlv(*v102, v108, v24, v25);
       if (TlvRequestTlv && TlvRequestTlv != 23)
       {
-        v72 = ot::ErrorToString(6);
-        ot::Logger::LogAtLevel<(ot::LogLevel)2>(&ot::Mle::kLogModuleName, "HandleLinkRequest Request TLV unhandled case. Exit here error:%s", v73, v74, v75, v76, v77, v78, v72);
+        v77 = ot::ErrorToString(6);
+        ot::Logger::LogAtLevel<(ot::LogLevel)2>(&ot::Mle::kLogModuleName, "HandleLinkRequest Request TLV unhandled case. Exit here error:%s", v78, v79, v80, v81, v82, v83, v77);
         ChallengeTlv = 6;
       }
 
       else
       {
-        *(v96 + 32) = 2;
-        ot::Mle::Mle::ProcessKeySequence(this, v96);
-        ChallengeTlv = ot::Mle::MleRouter::SendLinkAccept(this, v96, v94, v102, v103);
+        *(v102 + 32) = 2;
+        ot::Mle::Mle::ProcessKeySequence(this, v102);
+        ChallengeTlv = ot::Mle::MleRouter::SendLinkAccept(this, v102, v100, v108, v109);
       }
     }
   }
 
 LABEL_40:
-  ot::Mle::Mle::LogProcessError(26, ChallengeTlv);
+  ot::Mle::Mle::LogProcessError(0x1Au, ChallengeTlv);
 }
 
 BOOL ot::Neighbor::IsStateLinkRequest(ot::Neighbor *this)
@@ -7074,44 +9517,44 @@ uint64_t ot::Mle::MleRouter::SendLinkAccept(ot::Mle::MleRouter *this, ot::Messag
     v5 = 2;
   }
 
-  v31 = v5;
-  v32 = ot::Mle::Mle::NewMleMessage(this, v5);
-  if (!v32)
+  v35 = v5;
+  v36 = ot::Mle::Mle::NewMleMessage(this, v5);
+  if (!v36)
   {
     appended = 3;
     goto LABEL_44;
   }
 
-  appended = ot::Mle::Mle::TxMessage::AppendVersionTlv(v32);
+  appended = ot::Mle::Mle::TxMessage::AppendVersionTlv(v36);
   if (!appended)
   {
-    appended = ot::Mle::Mle::TxMessage::AppendSourceAddressTlv(v32);
+    appended = ot::Mle::Mle::TxMessage::AppendSourceAddressTlv(v36);
     if (!appended)
     {
-      appended = ot::Mle::Mle::TxMessage::AppendResponseTlv(v32, a5);
+      appended = ot::Mle::Mle::TxMessage::AppendResponseTlv(v36, a5);
       if (!appended)
       {
-        appended = ot::Mle::Mle::TxMessage::AppendLinkAndMleFrameCounterTlvs(v32);
+        appended = ot::Mle::Mle::TxMessage::AppendLinkAndMleFrameCounterTlvs(v36);
         if (!appended)
         {
-          v24 = ot::GetProvider<ot::InstanceLocator>::Get<ot::Mac::Mac>(this);
+          v28 = ot::GetProvider<ot::InstanceLocator>::Get<ot::Mac::Mac>(this);
           AverageRss = ot::Message::GetAverageRss(*a2);
-          v30 = ot::Mac::Mac::ComputeLinkMargin(v24, AverageRss);
-          appended = ot::Mle::Mle::TxMessage::AppendLinkMarginTlv(v32, v30);
+          v34 = ot::Mac::Mac::ComputeLinkMargin(v28, AverageRss);
+          appended = ot::Mle::Mle::TxMessage::AppendLinkMarginTlv(v36, v34);
           if (!appended)
           {
-            if (!a3 || (v7 = ot::Neighbor::GetRloc16(a3), !ot::Mle::IsRouterRloc16(v7)) || (appended = ot::Mle::Mle::TxMessage::AppendLeaderDataTlv(v32)) == 0)
+            if (!a3 || (v7 = ot::Neighbor::GetRloc16(a3), !ot::Mle::IsRouterRloc16(v7, v8)) || (appended = ot::Mle::Mle::TxMessage::AppendLeaderDataTlv(v36)) == 0)
             {
               ot::Array<unsigned char,(unsigned short)32,unsigned char>::begin();
-              v29 = v8;
-              v28 = ot::Array<unsigned char,(unsigned short)32,unsigned char>::end(a4);
-              while (v29 != v28)
+              v33 = v9;
+              v32 = ot::Array<unsigned char,(unsigned short)32,unsigned char>::end(a4);
+              while (v33 != v32)
               {
-                v23 = *v29;
-                switch(v23)
+                v27 = *v33;
+                switch(v27)
                 {
                   case 9:
-                    appended = ot::Mle::Mle::TxMessage::AppendRouteTlv(v32, a3);
+                    appended = ot::Mle::Mle::TxMessage::AppendRouteTlv(v36, a3);
                     if (appended)
                     {
                       goto LABEL_44;
@@ -7126,7 +9569,7 @@ uint64_t ot::Mle::MleRouter::SendLinkAccept(ot::Mle::MleRouter *this, ot::Messag
                     }
 
                     Rloc16 = ot::Neighbor::GetRloc16(a3);
-                    appended = ot::Mle::Mle::TxMessage::AppendAddress16Tlv(v32, Rloc16);
+                    appended = ot::Mle::Mle::TxMessage::AppendAddress16Tlv(v36, Rloc16);
                     if (appended)
                     {
                       goto LABEL_44;
@@ -7140,74 +9583,75 @@ uint64_t ot::Mle::MleRouter::SendLinkAccept(ot::Mle::MleRouter *this, ot::Messag
                     goto LABEL_44;
                 }
 
-                ++v29;
+                ++v33;
               }
 
               if (a3 && !ot::Neighbor::IsStateValid(a3))
               {
-                ot::Neighbor::GenerateChallenge(a3);
+                ot::Neighbor::GenerateChallenge(a3, v11, v12);
                 Challenge = ot::Neighbor::GetChallenge(a3);
-                appended = ot::Mle::Mle::TxMessage::AppendChallengeTlv(v32, Challenge);
+                appended = ot::Mle::Mle::TxMessage::AppendChallengeTlv(v36, Challenge);
                 if (appended)
                 {
                   goto LABEL_44;
                 }
 
-                v11 = ot::Mle::Mle::TxMessage::AppendTlvRequestTlv<(unsigned char)1>(v32, &ot::Mle::MleRouter::SendLinkAccept(ot::Mle::Mle::RxInfo const&,ot::Neighbor *,ot::Mle::Mle::TlvList const&,ot::Mle::RxChallenge const&)::kRouterTlvs);
-                appended = v11;
-                if (v11)
+                v14 = ot::Mle::Mle::TxMessage::AppendTlvRequestTlv<(unsigned char)1>(v36, &ot::Mle::MleRouter::SendLinkAccept(ot::Mle::Mle::RxInfo const&,ot::Neighbor *,ot::Mle::Mle::TlvList const&,ot::Mle::RxChallenge const&)::kRouterTlvs);
+                appended = v14;
+                if (v14)
                 {
                   goto LABEL_44;
                 }
 
-                Now = ot::TimerMilli::GetNow(v11);
+                Now = ot::TimerMilli::GetNow(v14);
                 ot::Neighbor::SetLastHeard(a3, Now);
                 ot::Neighbor::SetState(a3, 5);
               }
 
-              SockAddr = ot::Ip6::MessageInfo::GetSockAddr(a2[1]);
-              if (ot::Ip6::Address::IsMulticast(SockAddr))
+              ot::Ip6::MessageInfo::GetSockAddr(a2[1]);
+              if (ot::Ip6::Address::IsMulticast(v15))
               {
-                PeerAddr = ot::Ip6::MessageInfo::GetPeerAddr(a2[1]);
+                ot::Ip6::MessageInfo::GetPeerAddr(a2[1]);
+                v26 = v16;
                 Uint16InRange = ot::Random::NonCrypto::GetUint16InRange(0, 0x3E8u);
-                appended = ot::Mle::Mle::TxMessage::SendAfterDelay(v32, PeerAddr, Uint16InRange + 1);
+                appended = ot::Mle::Mle::TxMessage::SendAfterDelay(v36, v26, Uint16InRange + 1);
                 if (!appended)
                 {
-                  if (v31 == 1)
+                  if (v35 == 1)
                   {
-                    v14 = 23;
+                    v18 = 23;
                   }
 
                   else
                   {
-                    v14 = 24;
+                    v18 = 24;
                   }
 
-                  v21 = v14;
-                  v15 = ot::Ip6::MessageInfo::GetPeerAddr(a2[1]);
-                  ot::Mle::Mle::Log(2, v21, v15);
+                  v25 = v18;
+                  ot::Ip6::MessageInfo::GetPeerAddr(a2[1]);
+                  ot::Mle::Mle::Log(2u, v25, v19);
                 }
               }
 
               else
               {
-                v16 = ot::Ip6::MessageInfo::GetPeerAddr(a2[1]);
-                appended = ot::Mle::Mle::TxMessage::SendTo(v32, v16);
+                ot::Ip6::MessageInfo::GetPeerAddr(a2[1]);
+                appended = ot::Mle::Mle::TxMessage::SendTo(v36, v20);
                 if (!appended)
                 {
-                  if (v31 == 1)
+                  if (v35 == 1)
                   {
-                    v17 = 23;
+                    v21 = 23;
                   }
 
                   else
                   {
-                    v17 = 24;
+                    v21 = 24;
                   }
 
-                  v20 = v17;
-                  v18 = ot::Ip6::MessageInfo::GetPeerAddr(a2[1]);
-                  ot::Mle::Mle::Log(0, v20, v18);
+                  v24 = v21;
+                  ot::Ip6::MessageInfo::GetPeerAddr(a2[1]);
+                  ot::Mle::Mle::Log(0, v24, v22);
                 }
               }
             }
@@ -7218,9 +9662,9 @@ uint64_t ot::Mle::MleRouter::SendLinkAccept(ot::Mle::MleRouter *this, ot::Messag
   }
 
 LABEL_44:
-  if (appended && v32)
+  if (appended && v36)
   {
-    ot::Message::Free(v32);
+    ot::Message::Free(v36);
   }
 
   return appended;
@@ -7228,24 +9672,25 @@ LABEL_44:
 
 uint64_t ot::Mle::MleRouter::HandleLinkAccept(ot::Mle::MleRouter *this, ot::Mle::Mle::RxInfo *a2, char a3)
 {
-  v80 = this;
-  v79 = a2;
-  v78 = a3;
+  v82 = this;
+  v81 = a2;
+  v80 = a3;
   ResponseTlv = 0;
-  *&v76[6] = 0;
-  v76[5] = 0;
-  ot::Mle::RxChallenge::RxChallenge(v85);
-  *v76 = 0;
+  *&v78[3] = 0;
+  HIBYTE(v78[2]) = 0;
+  v78[1] = 0;
+  ot::Mle::RxChallenge::RxChallenge(v87);
+  v78[0] = 0;
+  v77 = 0;
+  v76 = 0;
   v75 = 0;
   v74 = 0;
-  v73 = 0;
-  *v72 = 0;
-  v70 = 0;
-  v69 = 0;
-  ResponseTlv = ot::Tlv::Find<ot::UintTlvInfo<(unsigned char)0,unsigned short>>(*v79, v76);
+  v72 = 0;
+  v71 = 0;
+  ResponseTlv = ot::Tlv::Find<ot::UintTlvInfo<(unsigned char)0,unsigned short>>(*v81, v78);
   if (!ResponseTlv)
   {
-    if (v78)
+    if (v80)
     {
       v3 = 24;
     }
@@ -7255,67 +9700,67 @@ uint64_t ot::Mle::MleRouter::HandleLinkAccept(ot::Mle::MleRouter *this, ot::Mle:
       v3 = 23;
     }
 
-    v66 = v3;
-    PeerAddr = ot::Ip6::MessageInfo::GetPeerAddr(*(v79 + 1));
-    ot::Mle::Mle::Log(1, v66, PeerAddr, *v76);
-    if (!ot::Mle::IsRouterRloc16(*v76))
+    v68 = v3;
+    ot::Ip6::MessageInfo::GetPeerAddr(*(v81 + 1));
+    ot::Mle::Mle::Log(1u, v68, v4, v78[0]);
+    if (!ot::Mle::IsRouterRloc16(v78[0], v5))
     {
       return 6;
     }
 
-    v73 = ot::Mle::RouterIdFromRloc16(*v76);
-    ot::RouterTable::FindRouterById((this + 30904), v73);
-    *&v76[6] = v7;
-    v65 = v7 ? ot::Neighbor::GetState(*&v76[6]) : 0;
-    v76[5] = v65;
-    ResponseTlv = ot::Mle::Mle::RxMessage::ReadResponseTlv(*v79, v85, v5, v6);
+    v75 = ot::Mle::RouterIdFromRloc16(v78[0]);
+    ot::RouterTable::FindRouterById((this + 30904), v75);
+    *&v78[3] = v8;
+    v67 = v8 ? ot::Neighbor::GetState(*&v78[3]) : 0;
+    HIBYTE(v78[2]) = v67;
+    ResponseTlv = ot::Mle::Mle::RxMessage::ReadResponseTlv(*v81, v87, v6, v7);
     if (!ResponseTlv)
     {
-      if (v76[5])
+      if (HIBYTE(v78[2]))
       {
-        if (v76[5] == 5)
+        if (HIBYTE(v78[2]) == 5)
         {
-          Challenge = ot::Neighbor::GetChallenge(*&v76[6]);
-          if (!ot::Mle::RxChallenge::operator==(v85, Challenge))
+          Challenge = ot::Neighbor::GetChallenge(*&v78[3]);
+          if (!ot::Mle::RxChallenge::operator==(v87, Challenge))
           {
             return 8;
           }
         }
 
-        else if (v76[5] != 7)
+        else if (HIBYTE(v78[2]) != 7)
         {
           return 8;
         }
       }
 
-      else if (!*(this + 143) && !*(this + 35616) || !ot::Mle::RxChallenge::operator==(v85, this + 35617))
+      else if (!*(this + 143) && !*(this + 35616) || !ot::Mle::RxChallenge::operator==(v87, this + 35617))
       {
         return 8;
       }
 
-      if (*(v79 + 3))
+      if (*(v81 + 3))
       {
-        Rloc16 = ot::Neighbor::GetRloc16(*(v79 + 3));
-        if (Rloc16 != *v76)
+        Rloc16 = ot::Neighbor::GetRloc16(*(v81 + 3));
+        if (Rloc16 != v78[0])
         {
-          ot::Mle::MleRouter::RemoveNeighbor(this, *(v79 + 3));
+          ot::Mle::MleRouter::RemoveNeighbor(this, *(v81 + 3));
         }
       }
 
-      ResponseTlv = ot::Mle::Mle::RxMessage::ReadVersionTlv(*v79, &v76[2]);
+      ResponseTlv = ot::Mle::Mle::RxMessage::ReadVersionTlv(*v81, &v78[1]);
       if (!ResponseTlv)
       {
-        ResponseTlv = ot::Mle::Mle::RxMessage::ReadFrameCounterTlvs(*v79, &v75, &v74);
+        ResponseTlv = ot::Mle::Mle::RxMessage::ReadFrameCounterTlvs(*v81, &v77, &v76);
         if (!ResponseTlv)
         {
-          v10 = ot::Ip6::MessageInfo::GetPeerAddr(*(v79 + 1));
-          ot::Ip6::Address::ToString(v10, v83);
-          ot::String<(unsigned short)40>::AsCString(v83);
-          ot::Logger::LogAtLevel<(ot::LogLevel)4>(&ot::Mle::kLogModuleName, "%s Rx from %s linkFrameCounter=%d mleFrameCounter=%d", v11, v12, v13, v14, v15, v16, "HandleLinkAccept");
-          v64 = ot::Tlv::Find<ot::UintTlvInfo<(unsigned char)16,unsigned char>>(*v79, &v70);
-          if (v64)
+          ot::Ip6::MessageInfo::GetPeerAddr(*(v81 + 1));
+          ot::Ip6::Address::ToString(v85, v11);
+          v12 = ot::String<(unsigned short)40>::AsCString(v85);
+          ot::Logger::LogAtLevel<(ot::LogLevel)4>(&ot::Mle::kLogModuleName, "%s Rx from %s linkFrameCounter=%d mleFrameCounter=%d", v13, v14, v15, v16, v17, v18, "HandleLinkAccept", v12, v77, v76);
+          v66 = ot::Tlv::Find<ot::UintTlvInfo<(unsigned char)16,unsigned char>>(*v81, &v72);
+          if (v66)
           {
-            if (v64 != 23)
+            if (v66 != 23)
             {
               return 6;
             }
@@ -7325,52 +9770,52 @@ uint64_t ot::Mle::MleRouter::HandleLinkAccept(ot::Mle::MleRouter *this, ot::Mle:
               return 23;
             }
 
-            v70 = 0;
+            v72 = 0;
           }
 
-          v63 = *(this + 130);
+          v65 = *(this + 130);
           if (!*(this + 130))
           {
             __assert_rtn("HandleLinkAccept", "mle_router.cpp", 1285, "false");
           }
 
-          if (v63 != 1)
+          if (v65 != 1)
           {
-            if (v63 == 2)
+            if (v65 == 2)
             {
-              if (!*&v76[6])
+              if (!*&v78[3])
               {
                 return ResponseTlv;
               }
             }
 
-            else if (v63 == 4 || v63 == 3)
+            else if (v65 == 4 || v65 == 3)
             {
-              if (!*&v76[6])
+              if (!*&v78[3])
               {
                 return ResponseTlv;
               }
 
-              ResponseTlv = ot::Mle::Mle::RxMessage::ReadLeaderDataTlv(*v79, &v71, v17, v18, v19, v20);
+              ResponseTlv = ot::Mle::Mle::RxMessage::ReadLeaderDataTlv(*v81, &v73, v19, v20, v21, v22);
               if (ResponseTlv)
               {
                 return ResponseTlv;
               }
 
-              PartitionId = ot::Mle::LeaderData::GetPartitionId(&v71);
+              PartitionId = ot::Mle::LeaderData::GetPartitionId(&v73);
               if (PartitionId != ot::Mle::LeaderData::GetPartitionId((this + 184)))
               {
                 return ResponseTlv;
               }
 
-              if ((*(this + 129) & 1) != 0 || (DataVersion = ot::Mle::LeaderData::GetDataVersion(&v71, 0), v34 = ot::GetProvider<ot::InstanceLocator>::Get<ot::NetworkData::Leader>(this), Version = ot::NetworkData::Leader::GetVersion(v34, 0), ot::SerialNumber::IsGreater<unsigned char>(DataVersion, Version)))
+              if ((*(this + 129) & 1) != 0 || (DataVersion = ot::Mle::LeaderData::GetDataVersion(&v73, 0), v36 = ot::GetProvider<ot::InstanceLocator>::Get<ot::NetworkData::Leader>(this), Version = ot::NetworkData::Leader::GetVersion(v36, 0), ot::SerialNumber::IsGreater<unsigned char>(DataVersion, Version)))
               {
-                v40 = ot::Ip6::MessageInfo::GetPeerAddr(*(v79 + 1));
-                ot::Mle::Mle::SendDataRequest(this, v40);
+                ot::Ip6::MessageInfo::GetPeerAddr(*(v81 + 1));
+                ot::Mle::Mle::SendDataRequest(this, v42);
                 IgnoreError();
               }
 
-              RouteTlv = ot::Mle::Mle::RxMessage::ReadRouteTlv(*v79, v84, v36, v37, v38, v39);
+              RouteTlv = ot::Mle::Mle::RxMessage::ReadRouteTlv(*v81, v86, v38, v39, v40, v41);
               if (RouteTlv)
               {
                 if (RouteTlv != 23)
@@ -7381,33 +9826,33 @@ uint64_t ot::Mle::MleRouter::HandleLinkAccept(ot::Mle::MleRouter *this, ot::Mle:
 
               else
               {
-                if (!ot::Mle::RouteTlv::IsRouterIdSet(v84, v73))
+                if (!ot::Mle::RouteTlv::IsRouterIdSet(v86, v75))
                 {
                   return 6;
                 }
 
-                if (ot::RouterTable::IsRouteTlvIdSequenceMoreRecent((this + 30904), v84))
+                if (ot::RouterTable::IsRouteTlvIdSequenceMoreRecent((this + 30904), v86))
                 {
-                  ResponseTlv = ot::Mle::MleRouter::ProcessRouteTlv(this, v84, v79);
+                  ResponseTlv = ot::Mle::MleRouter::ProcessRouteTlv(this, v86, v81);
                   if (ResponseTlv)
                   {
                     return ResponseTlv;
                   }
 
-                  ot::RouterTable::FindRouterById((this + 30904), v73);
-                  *&v76[6] = v41;
-                  if (!v41)
+                  ot::RouterTable::FindRouterById((this + 30904), v75);
+                  *&v78[3] = v43;
+                  if (!v43)
                   {
                     __assert_rtn("HandleLinkAccept", "mle_router.cpp", 1265, "router != nullptr");
                   }
                 }
 
-                v69 = 1;
+                v71 = 1;
               }
 
-              if (v73 != *(this + 35689))
+              if (v75 != *(this + 35689))
               {
-                NextHop = ot::Router::GetNextHop(*&v76[6]);
+                NextHop = ot::Router::GetNextHop(*&v78[3]);
                 if (!ot::Mle::IsRouterIdValid(NextHop))
                 {
                   ot::Mle::MleRouter::ResetAdvertiseInterval(this);
@@ -7418,90 +9863,90 @@ uint64_t ot::Mle::MleRouter::HandleLinkAccept(ot::Mle::MleRouter *this, ot::Mle:
             goto LABEL_74;
           }
 
-          ResponseTlv = ot::Tlv::Find<ot::UintTlvInfo<(unsigned char)10,unsigned short>>(*v79, v72);
+          ResponseTlv = ot::Tlv::Find<ot::UintTlvInfo<(unsigned char)10,unsigned short>>(*v81, &v74);
           if (!ResponseTlv)
           {
-            v21 = ot::Mle::Mle::GetRloc16(this);
-            if (v21 != *v72)
+            v23 = ot::Mle::Mle::GetRloc16(this);
+            if (v23 != v74)
             {
               return 2;
             }
 
-            ResponseTlv = ot::Mle::Mle::RxMessage::ReadLeaderDataTlv(*v79, &v71, v22, v23, v24, v25);
+            ResponseTlv = ot::Mle::Mle::RxMessage::ReadLeaderDataTlv(*v81, &v73, v24, v25, v26, v27);
             if (!ResponseTlv)
             {
-              ot::Mle::Mle::SetLeaderData(this, &v71);
+              ot::Mle::Mle::SetLeaderData(this, &v73);
               ot::RouterTable::Clear((this + 30904));
-              ResponseTlv = ot::Mle::Mle::RxMessage::ReadRouteTlv(*v79, v84, v26, v27, v28, v29);
+              ResponseTlv = ot::Mle::Mle::RxMessage::ReadRouteTlv(*v81, v86, v28, v29, v30, v31);
               if (!ResponseTlv)
               {
-                ResponseTlv = ot::Mle::MleRouter::ProcessRouteTlv(this, v84, v79);
+                ResponseTlv = ot::Mle::MleRouter::ProcessRouteTlv(this, v86, v81);
                 if (!ResponseTlv)
                 {
-                  ot::RouterTable::FindRouterById((this + 30904), v73);
-                  *&v76[6] = v30;
-                  if (v30)
+                  ot::RouterTable::FindRouterById((this + 30904), v75);
+                  *&v78[3] = v32;
+                  if (v32)
                   {
                     LeaderRloc16 = ot::Mle::Mle::GetLeaderRloc16(this);
                     if (LeaderRloc16 == ot::Mle::Mle::GetRloc16(this))
                     {
-                      v31 = ot::Mle::Mle::GetRloc16(this);
-                      ot::Mle::MleRouter::SetStateLeader(this, v31, 1);
+                      v33 = ot::Mle::Mle::GetRloc16(this);
+                      ot::Mle::MleRouter::SetStateLeader(this, v33, 1);
                     }
 
                     else
                     {
-                      v32 = ot::Mle::Mle::GetRloc16(this);
-                      ot::Mle::MleRouter::SetStateRouter(this, v32);
+                      v34 = ot::Mle::Mle::GetRloc16(this);
+                      ot::Mle::MleRouter::SetStateRouter(this, v34);
                     }
 
                     *(this + 143) = 0;
                     *(this + 129) = *(this + 129) & 0xFE | 1;
-                    v33 = ot::Ip6::MessageInfo::GetPeerAddr(*(v79 + 1));
-                    ot::Mle::Mle::SendDataRequest(this, v33);
+                    ot::Ip6::MessageInfo::GetPeerAddr(*(v81 + 1));
+                    ot::Mle::Mle::SendDataRequest(this, v35);
                     IgnoreError();
-                    v69 = 1;
+                    v71 = 1;
 LABEL_74:
-                    ot::Mle::Mle::InitNeighbor(this, *&v76[6], v79);
-                    ot::Neighbor::SetRloc16(*&v76[6], *v76);
-                    LinkFrameCounters = ot::Neighbor::GetLinkFrameCounters(*&v76[6]);
-                    ot::Mac::LinkFrameCounters::SetAll(LinkFrameCounters, v75);
-                    ot::Neighbor::SetLinkAckFrameCounter(*&v76[6], v75);
-                    ot::Neighbor::SetMleFrameCounter(*&v76[6], v74);
-                    ot::Neighbor::SetVersion(*&v76[6], *&v76[2]);
-                    v54 = *&v76[6];
-                    ot::Mle::DeviceMode::DeviceMode(&v68, 11);
-                    ot::Neighbor::SetDeviceMode(v54, v68);
-                    v55 = *&v76[6];
-                    v44 = ot::LinkQualityForLinkMargin(v70);
-                    ot::Router::SetLinkQualityOut(v55, v44);
-                    ot::Neighbor::SetState(*&v76[6], 7);
-                    ot::Neighbor::SetKeySequence(*&v76[6], *(v79 + 5));
-                    v56 = *&v76[6];
-                    v45 = ot::Mle::LeaderData::GetDataVersion(&v71, 0);
-                    ot::Neighbor::SetLeaderFullDataVersion(v56, v45);
-                    v57 = *&v76[6];
-                    v46 = ot::Mle::LeaderData::GetDataVersion(&v71, 1);
-                    ot::Neighbor::SetLeaderStableDataVersion(v57, v46);
-                    v58 = *&v76[6];
-                    RouterIdSequence = ot::Mle::RouteTlv::GetRouterIdSequence(v84);
-                    ot::Neighbor::SetIdSeqNum(v58, RouterIdSequence);
-                    ot::NeighborTable::Signal((this + 344), 3u, *&v76[6]);
-                    if (v69)
+                    ot::Mle::Mle::InitNeighbor(this, *&v78[3], v81);
+                    ot::Neighbor::SetRloc16(*&v78[3], v78[0]);
+                    LinkFrameCounters = ot::Neighbor::GetLinkFrameCounters(*&v78[3]);
+                    ot::Mac::LinkFrameCounters::SetAll(LinkFrameCounters, v77);
+                    ot::Neighbor::SetLinkAckFrameCounter(*&v78[3], v77);
+                    ot::Neighbor::SetMleFrameCounter(*&v78[3], v76);
+                    ot::Neighbor::SetVersion(*&v78[3], v78[1]);
+                    v56 = *&v78[3];
+                    ot::Mle::DeviceMode::DeviceMode(&v70, 11);
+                    ot::Neighbor::SetDeviceMode(v56, v70);
+                    v57 = *&v78[3];
+                    v46 = ot::LinkQualityForLinkMargin(v72);
+                    ot::Router::SetLinkQualityOut(v57, v46);
+                    ot::Neighbor::SetState(*&v78[3], 7);
+                    ot::Neighbor::SetKeySequence(*&v78[3], *(v81 + 5));
+                    v58 = *&v78[3];
+                    v47 = ot::Mle::LeaderData::GetDataVersion(&v73, 0);
+                    ot::Neighbor::SetLeaderFullDataVersion(v58, v47);
+                    v59 = *&v78[3];
+                    v48 = ot::Mle::LeaderData::GetDataVersion(&v73, 1);
+                    ot::Neighbor::SetLeaderStableDataVersion(v59, v48);
+                    v60 = *&v78[3];
+                    RouterIdSequence = ot::Mle::RouteTlv::GetRouterIdSequence(v86);
+                    ot::Neighbor::SetIdSeqNum(v60, RouterIdSequence);
+                    ot::NeighborTable::Signal((this + 344), 3u, *&v78[3]);
+                    if (v71)
                     {
-                      ot::RouterTable::UpdateRoutes((this + 30904), v84, v73);
+                      ot::RouterTable::UpdateRoutes((this + 30904), v86, v75);
                     }
 
-                    *(v79 + 32) = 1;
-                    ot::Mle::Mle::ProcessKeySequence(this, v79);
-                    if (v78)
+                    *(v81 + 32) = 1;
+                    ot::Mle::Mle::ProcessKeySequence(this, v81);
+                    if (v80)
                     {
-                      ot::Mle::RxChallenge::RxChallenge(v82);
-                      ot::Mle::Mle::TlvList::TlvList(v81);
-                      ResponseTlv = ot::Mle::Mle::RxMessage::ReadChallengeTlv(*v79, v82, v48, v49);
+                      ot::Mle::RxChallenge::RxChallenge(v84);
+                      ot::Mle::Mle::TlvList::TlvList(v83);
+                      ResponseTlv = ot::Mle::Mle::RxMessage::ReadChallengeTlv(*v81, v84, v50, v51);
                       if (!ResponseTlv)
                       {
-                        TlvRequestTlv = ot::Mle::Mle::RxMessage::ReadTlvRequestTlv(*v79, v81, v50, v51);
+                        TlvRequestTlv = ot::Mle::Mle::RxMessage::ReadTlvRequestTlv(*v81, v83, v52, v53);
                         if (TlvRequestTlv && TlvRequestTlv != 23)
                         {
                           return 6;
@@ -7509,7 +9954,7 @@ LABEL_74:
 
                         else
                         {
-                          return ot::Mle::MleRouter::SendLinkAccept(this, v79, *&v76[6], v81, v82);
+                          return ot::Mle::MleRouter::SendLinkAccept(this, v81, *&v78[3], v83, v84);
                         }
                       }
                     }
@@ -7524,2233 +9969,4 @@ LABEL_74:
   }
 
   return ResponseTlv;
-}
-
-uint64_t ot::Mle::MleRouter::ProcessRouteTlv(ot::Mle::MleRouter *this, const ot::Mle::RouteTlv *a2, ot::Neighbor **a3)
-{
-  v16 = 0;
-  Rloc16 = -2;
-  if (a3[3])
-  {
-    v3 = ot::GetProvider<ot::InstanceLocator>::Get<ot::RouterTable>(this);
-    if (ot::RouterTable::Contains(v3, a3[3]))
-    {
-      Rloc16 = ot::Neighbor::GetRloc16(a3[3]);
-    }
-  }
-
-  RouterIdSequence = ot::Mle::RouteTlv::GetRouterIdSequence(a2);
-  RouterIdMask = ot::Mle::RouteTlv::GetRouterIdMask(a2);
-  ot::RouterTable::UpdateRouterIdSet((this + 30904), RouterIdSequence, RouterIdMask);
-  if (ot::Mle::Mle::IsRouter(this) && !ot::RouterTable::IsAllocated((this + 30904), *(this + 35689)))
-  {
-    ot::Logger::LogAtLevel<(ot::LogLevel)2>(&ot::Mle::kLogModuleName, "Error while processing Route TLV - Router ID: %d", v5, v6, v7, v8, v9, v10, *(this + 35689));
-    ot::Mle::Mle::BecomeDetached(this);
-    IgnoreError();
-    v16 = 4;
-  }
-
-  if (Rloc16 != 65534)
-  {
-    v11 = ot::GetProvider<ot::InstanceLocator>::Get<ot::NeighborTable>(this);
-    a3[3] = ot::NeighborTable::FindNeighbor(v11, Rloc16, 1);
-  }
-
-  return v16;
-}
-
-uint64_t ot::Router::GetNextHop(ot::Router *this)
-{
-  return *(this + 140);
-}
-
-{
-  return ot::Router::GetNextHop(this);
-}
-
-uint64_t ot::Neighbor::SetIdSeqNum(uint64_t this, char a2)
-{
-  *(this + 33) = a2;
-  return this;
-}
-
-{
-  return ot::Neighbor::SetIdSeqNum(this, a2);
-}
-
-uint64_t ot::Mle::RouteTlv::GetRouterIdSequence(ot::Mle::RouteTlv *this)
-{
-  return *(this + 2);
-}
-
-{
-  return ot::Mle::RouteTlv::GetRouterIdSequence(this);
-}
-
-BOOL ot::RouterTable::Contains(ot::RouterTable *this, const ot::Neighbor *a2)
-{
-  return ot::Array<ot::Router,(unsigned short)32,unsigned char>::IsInArrayBuffer(this + 8, a2);
-}
-
-{
-  return ot::RouterTable::Contains(this, a2);
-}
-
-uint64_t ot::Mle::RouteTlv::GetRouterIdMask(ot::Mle::RouteTlv *this)
-{
-  return this + 3;
-}
-
-{
-  return ot::Mle::RouteTlv::GetRouterIdMask(this);
-}
-
-uint64_t ot::Mle::MleRouter::ReadAndProcessRouteTlvOnFed(ot::Mle::MleRouter *this, ot::Mle::Mle::RxMessage **a2, unsigned __int8 a3)
-{
-  v10 = 0;
-  if (ot::Mle::Mle::IsFullThreadDevice(this))
-  {
-    RouteTlv = ot::Mle::Mle::RxMessage::ReadRouteTlv(*a2, v13, v3, v4, v5, v6);
-    if (RouteTlv)
-    {
-      if (RouteTlv != 23)
-      {
-        return 6;
-      }
-    }
-
-    else
-    {
-      v10 = ot::Mle::MleRouter::ProcessRouteTlv(this, v13, a2);
-      if (!v10)
-      {
-        ot::RouterTable::UpdateRoutesOnFed(this + 30904, v13, a3);
-        *(this + 129) &= ~2u;
-      }
-    }
-  }
-
-  return v10;
-}
-
-BOOL ot::Mle::MleRouter::IsSingleton(ot::Mle::MleRouter *this)
-{
-  v3 = 1;
-  if (ot::Mle::Mle::IsAttached(this) && (ot::Mle::MleRouter::IsRouterEligible(this) & 1) != 0)
-  {
-    return ot::RouterTable::GetActiveRouterCount((this + 30904)) <= 1;
-  }
-
-  return v3;
-}
-
-uint64_t ot::Mle::MleRouter::ComparePartitions(ot::Mle::MleRouter *this, ot::Mle::LeaderData *a2, const ot::Mle::LeaderData *a3, ot::Mle::LeaderData *a4, const ot::Mle::LeaderData *a5)
-{
-  v20 = this;
-  v18 = a3;
-  Weighting = ot::Mle::LeaderData::GetWeighting(a2);
-  v5 = ot::Mle::LeaderData::GetWeighting(a4);
-  v16 = ot::ThreeWayCompare<unsigned char>(Weighting, v5);
-  if (!v16)
-  {
-    v16 = ot::ThreeWayCompare<BOOL>((v20 ^ 1) & 1, (v18 ^ 1) & 1);
-    if (!v16)
-    {
-      PartitionId = ot::Mle::LeaderData::GetPartitionId(a2);
-      v6 = ot::Mle::LeaderData::GetPartitionId(a4);
-      v16 = ot::ThreeWayCompare<unsigned int>(PartitionId, v6);
-    }
-  }
-
-  ot::Mle::LeaderData::GetWeighting(a2);
-  ot::Mle::LeaderData::GetWeighting(a4);
-  ot::Mle::LeaderData::GetPartitionId(a2);
-  ot::Mle::LeaderData::GetPartitionId(a4);
-  ot::Logger::LogAtLevel<(ot::LogLevel)4>(&ot::Mle::kLogModuleName, "MleRouter::ComparePartitions rval:%d, weighting:[%u %u], !singleton:[%d %d], partId:[%u %u]", v7, v8, v9, v10, v11, v12, v16);
-  return v16;
-}
-
-uint64_t ot::ThreeWayCompare<unsigned int>(unsigned int a1, unsigned int a2)
-{
-  if (a1 == a2)
-  {
-    return 0;
-  }
-
-  else if (a1 > a2)
-  {
-    return 1;
-  }
-
-  else
-  {
-    return -1;
-  }
-}
-
-{
-  return ot::ThreeWayCompare<unsigned int>(a1, a2);
-}
-
-uint64_t ot::Mle::MleRouter::HandleAdvertisement(ot::Mle::MleRouter *this, ot::Neighbor **a2, unsigned __int16 a3, const ot::Mle::LeaderData *a4)
-{
-  v124 = this;
-  v123 = a2;
-  v122 = a3;
-  v121 = a4;
-  v113 = this;
-  *&v120[1] = 0;
-  v114 = ot::GetProvider<ot::InstanceLocator>::Get<ot::Mac::Mac>(this);
-  AverageRss = ot::Message::GetAverageRss(*v123);
-  *v120 = ot::Mac::Mac::ComputeLinkMargin(v114, AverageRss);
-  v119 = 0;
-  v118 = 0;
-  if (ot::Mle::Mle::IsCslPeripheralAttaching(v113) || ot::Mle::Mle::IsCslPeripheralAttached(v113))
-  {
-    *&v120[1] = 2;
-  }
-
-  else
-  {
-    RouteTlv = ot::Mle::Mle::RxMessage::ReadRouteTlv(*v123, v125, v5, v6, v7, v8);
-    if (RouteTlv)
-    {
-      if (RouteTlv != 23)
-      {
-        *&v120[1] = 6;
-        goto LABEL_61;
-      }
-
-      ot::Tlv::SetLength(v125, 0);
-    }
-
-    PartitionId = ot::Mle::LeaderData::GetPartitionId(v121);
-    if (PartitionId == ot::Mle::LeaderData::GetPartitionId((v113 + 184)))
-    {
-      LeaderRouterId = ot::Mle::LeaderData::GetLeaderRouterId(v121);
-      if (LeaderRouterId == ot::Mle::Mle::GetLeaderId(v113))
-      {
-        if (ot::Mle::IsRouterRloc16(v122) && ot::Mle::RouteTlv::IsValid(v125))
-        {
-          v118 = ot::Mle::RouterIdFromRloc16(v122);
-          v90 = ot::Mle::Rloc16FromRouterId(v118);
-          v87 = 0;
-          DataVersion = ot::Mle::LeaderData::GetDataVersion(v121, 0);
-          v88 = 1;
-          v92 = ot::Mle::LeaderData::GetDataVersion(v121, 1);
-          v93 = ot::Mle::LeaderData::GetDataVersion(v113 + 184, 0);
-          v94 = ot::Mle::LeaderData::GetDataVersion(v113 + 184, 1);
-          v89 = v125;
-          RouterIdSequence = ot::Mle::RouteTlv::GetRouterIdSequence(v125);
-          v67 = DataVersion;
-          v68 = v92;
-          v69 = v93;
-          v70 = v94;
-          v71 = RouterIdSequence;
-          IsRouteTlvIdSequenceMoreRecent = ot::RouterTable::IsRouteTlvIdSequenceMoreRecent((v113 + 30904), v125);
-          ot::Logger::LogAtLevel<(ot::LogLevel)4>(&ot::Mle::kLogModuleName, "MLE Advertisement received from router (0x%04x), aleaderDataVersion:[full:%d stable:%d] myLeaderDataVer:[full:%d, stable:%d] ,routeTlvIdSeqNum(%d), isRouteTlvIdSeqNumMoreRecent(%d)", v27, v28, v29, v30, v31, v32, v90);
-          if (!ot::Mle::Mle::RxInfo::IsNeighborStateValid(v123) || !ot::RouterTable::IsRouteTlvIdSequenceMoreRecent((v113 + 30904), v125) || (*&v120[1] = ot::Mle::MleRouter::ProcessRouteTlv(v113, v125, v123)) == 0)
-          {
-            if (ot::Mle::Mle::IsChild(v113))
-            {
-              if (v123[3] == (v113 + 192))
-              {
-                v119 = (v113 + 192);
-                if (ot::Neighbor::GetRloc16((v113 + 192)) != v122)
-                {
-                  Rloc16 = ot::Neighbor::GetRloc16((v113 + 192));
-                  v67 = v122;
-                  ot::Logger::LogAtLevel<(ot::LogLevel)2>(&ot::Mle::kLogModuleName, "RLOC16 of the parent mismatches parentRloc16:0x%x sourceAddr:0x%x", v34, v35, v36, v37, v38, v39, Rloc16);
-                  ot::Mle::Mle::BecomeDetached(v113);
-                  IgnoreError();
-                  *&v120[1] = 16;
-                  goto LABEL_61;
-                }
-
-                if (!ot::Mle::MleRouter::RouterRoleTransition::IsPending((v113 + 35702)) && ot::RouterTable::GetActiveRouterCount((v113 + 30904)) < *(v113 + 35629))
-                {
-                  ot::Mle::MleRouter::RouterRoleTransition::StartTimeout((v113 + 35702));
-                }
-
-                updated = ot::RouterTable::UpdateRoutesOnFed(v113 + 30904, v125, v118);
-              }
-
-              else
-              {
-                ot::RouterTable::FindRouterById((v113 + 30904), v118);
-                v119 = v41;
-                if (!v41)
-                {
-                  goto LABEL_61;
-                }
-
-                updated = ot::Neighbor::IsStateValid(v119);
-                if ((updated & 1) == 0)
-                {
-                  updated = ot::Neighbor::IsStateLinkRequest(v119);
-                  if ((updated & 1) == 0)
-                  {
-                    updated = ot::RouterTable::GetNeighborCount(v113 + 30904, 1u);
-                    if (updated < *(v113 + 35704))
-                    {
-                      ot::Mle::Mle::InitNeighbor(v113, v119, v123);
-                      ot::Neighbor::SetState(v119, 5);
-                      ot::Mle::MleRouter::SendLinkRequest(v113, v119);
-                      IgnoreError();
-                      *&v120[1] = 4;
-                      goto LABEL_61;
-                    }
-                  }
-                }
-              }
-
-              v86 = v119;
-              Now = ot::TimerMilli::GetNow(updated);
-              ot::Neighbor::SetLastHeard(v119, Now);
-              goto LABEL_61;
-            }
-
-            if (ot::Mle::Mle::IsRouter(v113) && (ot::Mle::MleRouter::ShouldDowngrade(v113, v118, v125) & 1) != 0)
-            {
-              ot::Mle::MleRouter::RouterRoleTransition::StartTimeout((v113 + 35702));
-            }
-
-            ot::RouterTable::FindRouterById((v113 + 30904), v118);
-            v119 = v42;
-            if (v42)
-            {
-              v83 = v119;
-              v43 = ot::Mle::LeaderData::GetDataVersion(v121, 0);
-              ot::Neighbor::SetLeaderFullDataVersion(v119, v43);
-              v84 = v119;
-              v44 = ot::Mle::LeaderData::GetDataVersion(v121, 1);
-              ot::Neighbor::SetLeaderStableDataVersion(v119, v44);
-              v85 = v119;
-              v45 = ot::Mle::RouteTlv::GetRouterIdSequence(v125);
-              ot::Neighbor::SetIdSeqNum(v119, v45);
-              if (!ot::Neighbor::IsStateValid(v119) && ot::Mle::Mle::RxInfo::IsNeighborStateValid(v123))
-              {
-                v46 = ot::GetProvider<ot::InstanceLocator>::Get<ot::ChildTable>(v113);
-                if (ot::ChildTable::Contains(v46, v123[3]))
-                {
-                  v47 = ot::Mle::Rloc16FromRouterId(v118);
-                  ot::Logger::LogAtLevel<(ot::LogLevel)4>(&ot::Mle::kLogModuleName, "Advertisement received from former child which is now a router (0x%04x),copy entries from child table to router table and update eid cache", v48, v49, v50, v51, v52, v53, v47);
-                  memcpy(v119, v123[3], 0x8CuLL);
-                  v79 = v119;
-                  v54 = ot::Mle::Rloc16FromRouterId(v118);
-                  ot::Neighbor::SetRloc16(v119, v54);
-                  v80 = v119;
-                  ot::Mle::DeviceMode::DeviceMode(&v116, 11);
-                  ot::Neighbor::SetDeviceMode(v80, v116);
-                  ot::NeighborTable::Signal((v113 + 344), 3u, v119);
-                  v82 = ot::GetProvider<ot::InstanceLocator>::Get<ot::AddressResolver>(v113);
-                  *v81 = ot::Neighbor::GetRloc16(v123[3]);
-                  v55 = ot::Neighbor::GetRloc16(v119);
-                  ot::AddressResolver::ReplaceEntriesForRloc16(v82, v81[0], v55);
-                }
-              }
-
-              IsStateValid = ot::Neighbor::IsStateValid(v119);
-              if (IsStateValid || (IsStateValid = ot::Neighbor::IsStateLinkRequest(v119)) || *(v113 + 35616) || v120[0] < 0xAu)
-              {
-                v78 = v119;
-                v115 = ot::TimerMilli::GetNow(IsStateValid);
-                ot::Neighbor::SetLastHeard(v78, v115);
-                ot::RouterTable::UpdateRoutes((v113 + 30904), v125, v118);
-              }
-
-              else
-              {
-                ot::Mle::Mle::InitNeighbor(v113, v119, v123);
-                ot::Neighbor::SetState(v119, 5);
-                ot::Mle::MleRouter::SendLinkRequest(v113, v119);
-                IgnoreError();
-                v57 = ot::Mle::Rloc16FromRouterId(v118);
-                ot::Logger::LogAtLevel<(ot::LogLevel)2>(&ot::Mle::kLogModuleName, "Advertisement received from router (0x%04x) to which no link exists", v58, v59, v60, v61, v62, v63, v57);
-                *&v120[1] = 4;
-              }
-            }
-          }
-        }
-      }
-
-      else if (ot::Mle::Mle::RxInfo::IsNeighborStateValid(v123) && !ot::Mle::Mle::IsChild(v113))
-      {
-        LeaderId = ot::Mle::Mle::GetLeaderId(v113);
-        v67 = ot::Mle::LeaderData::GetLeaderRouterId(v121);
-        ot::Logger::LogAtLevel<(ot::LogLevel)4>(&ot::Mle::kLogModuleName, "Leader ID mismatch leaderId=%d, leaderData.leaderRouterId=%d", v21, v22, v23, v24, v25, v26, LeaderId);
-        ot::Mle::Mle::BecomeDetached(v113);
-        IgnoreError();
-        *&v120[1] = 2;
-      }
-    }
-
-    else
-    {
-      v9 = ot::Mle::LeaderData::GetPartitionId(v121);
-      v100 = ot::ToUlong(v9);
-      v10 = ot::Mle::LeaderData::GetPartitionId((v113 + 184));
-      v101 = ot::ToUlong(v10);
-      v102 = v120[0];
-      *&v99[1] = v125;
-      IsValid = ot::Mle::RouteTlv::IsValid(v125);
-      v104 = *(v113 + 35701);
-      v105 = ot::Mle::LeaderData::GetPartitionId(v121);
-      v106 = *(v113 + 8924);
-      v107 = ot::Mle::RouteTlv::GetRouterIdSequence(v125);
-      v108 = *(v113 + 35700);
-      IsSingleton = ot::Mle::RouteTlv::IsSingleton(v125);
-      v110 = &v66;
-      v67 = v101;
-      v68 = v120[0];
-      v69 = 10;
-      v70 = IsValid;
-      v71 = v104;
-      IsRouteTlvIdSequenceMoreRecent = v105;
-      v73 = v106;
-      v74 = v107;
-      v75 = v108;
-      v76 = IsSingleton;
-      v77 = ot::Mle::MleRouter::IsSingleton(v113);
-      ot::Logger::LogAtLevel<(ot::LogLevel)3>(&ot::Mle::kLogModuleName, "Different partition (peer:%lu, local:%lu), linkMargin:%d, partitionMergeLinkMargin:%d, routeTlvIsValid:%d, mPrevPartIdTimeout:%d, leaderDataPartId:%d, prevPartId:%d, routerIdSeq:%d, prevPartRouterIdSeq:%d, routeTlvIsSingleton:%d isSingleTon:%d", v11, v12, v13, v14, v15, v16, v100);
-      if (v120[0] >= 0xAu)
-      {
-        if (ot::Mle::RouteTlv::IsValid(v125) && *(v113 + 35701) && (v17 = ot::Mle::LeaderData::GetPartitionId(v121), v17 == *(v113 + 8924)) && (v18 = ot::Mle::RouteTlv::GetRouterIdSequence(v125), !ot::SerialNumber::IsGreater<unsigned char>(v18, *(v113 + 35700))))
-        {
-          *&v120[1] = 2;
-        }
-
-        else if (!ot::Mle::Mle::IsChild(v113) || v123[3] != (v113 + 192))
-        {
-          v99[0] = ot::Mle::RouteTlv::IsSingleton(v125);
-          *v98 = v121;
-          v19 = ot::Mle::MleRouter::IsSingleton(v113);
-          if (ot::Mle::MleRouter::ComparePartitions(v99[0], *v98, v19, (v113 + 184), v20) > 0)
-          {
-            ot::Mle::Mle::Attach(v113, 2);
-          }
-
-          *&v120[1] = 2;
-        }
-      }
-
-      else
-      {
-        *&v120[1] = 34;
-      }
-    }
-  }
-
-LABEL_61:
-  if (v123[3])
-  {
-    v64 = ot::Neighbor::GetRloc16(v123[3]);
-    if (v64 != v122)
-    {
-      ot::Mle::MleRouter::RemoveNeighbor(v113, v123[3]);
-    }
-  }
-
-  return *&v120[1];
-}
-
-BOOL ot::Mle::RouteTlv::IsSingleton(ot::Mle::RouteTlv *this)
-{
-  v3 = 0;
-  if (ot::Mle::RouteTlv::IsValid(this))
-  {
-    return ot::Mle::RouterIdSet::GetNumberOfAllocatedIds((this + 3)) <= 1;
-  }
-
-  return v3;
-}
-
-{
-  return ot::Mle::RouteTlv::IsSingleton(this);
-}
-
-uint64_t ot::Mle::MleRouter::ShouldDowngrade(ot::Mle::MleRouter *this, unsigned __int8 a2, const ot::Mle::RouteTlv *a3)
-{
-  v13 = 0;
-  ActiveRouterCount = ot::RouterTable::GetActiveRouterCount((this + 30904));
-  if (ot::Mle::Mle::IsRouter(this) && ot::RouterTable::IsAllocated((this + 30904), a2) && !ot::Mle::MleRouter::RouterRoleTransition::IsPending((this + 35702)) && ActiveRouterCount > *(this + 35630))
-  {
-    v10 = 0;
-    ot::RouterTable::begin((this + 30904));
-    v9 = v3;
-    v8 = ot::RouterTable::end((this + 30904));
-    while (v9 != v8)
-    {
-      if (ot::Neighbor::IsStateValid(v9) && ot::Router::GetTwoWayLinkQuality(v9) >= 2 && ++v10 >= 7u)
-      {
-        break;
-      }
-
-      v9 = (v9 + 144);
-    }
-
-    if (v10 >= 7u)
-    {
-      v11 = ActiveRouterCount - *(this + 35630);
-      NumChildren = ot::ChildTable::GetNumChildren(this + 600, 0);
-      if (NumChildren < 3 * v11 && (ot::Mle::MleRouter::NeighborHasComparableConnectivity(this, a3, a2) & 1) != 0)
-      {
-        v5 = ot::GetProvider<ot::InstanceLocator>::Get<ot::NetworkData::Notifier>(this);
-        if (!ot::NetworkData::Notifier::IsEligibleForRouterRoleUpgradeAsBorderRouter(v5))
-        {
-          v13 = 1;
-        }
-      }
-    }
-  }
-
-  return v13 & 1;
-}
-
-void ot::Mle::MleRouter::HandleParentRequest(ot::Mle::MleRouter *this, ot::Mle::Mle::RxInfo *a2)
-{
-  v161 = this;
-  *&v160[7] = a2;
-  v152 = this;
-  *&v160[3] = 0;
-  *&v160[1] = 0;
-  v160[0] = 0;
-  ot::Mle::RxChallenge::RxChallenge(v168);
-  NewChild = 0;
-  v157 = 0;
-  PeerAddr = ot::Ip6::MessageInfo::GetPeerAddr(*(*&v160[7] + 8));
-  ot::Mle::Mle::Log(1, 27, PeerAddr);
-  if ((ot::Mle::MleRouter::IsRouterEligible(v152) & 1) == 0)
-  {
-    *&v160[3] = 13;
-    v3 = ot::ErrorToString(13);
-    ot::Logger::LogAtLevel<(ot::LogLevel)2>(&ot::Mle::kLogModuleName, "Parent Request dropped as not router eligible error:%s", v4, v5, v6, v7, v8, v9, v3);
-    goto LABEL_69;
-  }
-
-  IsRxOnWhenIdle = ot::Mle::Mle::IsRxOnWhenIdle(v152);
-  SockAddr = ot::Ip6::MessageInfo::GetSockAddr(*(*&v160[7] + 8));
-  if (IsRxOnWhenIdle != ot::Ip6::Address::IsMulticast(SockAddr))
-  {
-    *&v160[3] = 13;
-    goto LABEL_69;
-  }
-
-  if (ot::Mle::Mle::IsDetached(v152) || ot::Mle::Mle::IsAttaching(v152))
-  {
-    *&v160[3] = 2;
-    IsDetached = ot::Mle::Mle::IsDetached(v152);
-    IsAttaching = ot::Mle::Mle::IsAttaching(v152);
-    ot::Logger::LogAtLevel<(ot::LogLevel)2>(&ot::Mle::kLogModuleName, "Parent Request dropped as isDetached(%d) isAttaching(%d)", v11, v12, v13, v14, v15, v16, IsDetached);
-    goto LABEL_69;
-  }
-
-  if (ot::RouterTable::GetLeaderAge((v152 + 30904)) >= *(v152 + 35628))
-  {
-    *&v160[3] = 2;
-    LeaderAge = ot::RouterTable::GetLeaderAge((v152 + 30904));
-    IsAttaching = *(v152 + 35628);
-    ot::Logger::LogAtLevel<(ot::LogLevel)2>(&ot::Mle::kLogModuleName, "Parent Request dropped as routerTable.leaderAge(%d) nwIdTimeout(%d)", v18, v19, v20, v21, v22, v23, LeaderAge);
-    goto LABEL_69;
-  }
-
-  PathCostToLeader = ot::RouterTable::GetPathCostToLeader((v152 + 30904));
-  if (PathCostToLeader >= 16)
-  {
-    v25 = ot::RouterTable::GetPathCostToLeader((v152 + 30904));
-    ot::Logger::LogAtLevel<(ot::LogLevel)2>(&ot::Mle::kLogModuleName, "Parent Request dropped here LinkCostToLeader:%d", v26, v27, v28, v29, v30, v31, v25);
-    goto LABEL_69;
-  }
-
-  v32 = ot::Ip6::MessageInfo::GetPeerAddr(*(*&v160[7] + 8));
-  Iid = ot::Ip6::Address::GetIid(v32);
-  ot::Ip6::InterfaceIdentifier::ConvertToExtAddress(Iid, __s1);
-  VersionTlv = ot::Mle::Mle::RxMessage::ReadVersionTlv(**&v160[7], &v160[1]);
-  *&v160[3] = VersionTlv;
-  if (!VersionTlv)
-  {
-    *&v160[3] = ot::Tlv::Find<ot::Mle::ScanMaskTlv>(**&v160[7], v160);
-    if (!*&v160[3])
-    {
-      v149 = *(v152 + 130);
-      if (v149 > 1)
-      {
-        if (v149 == 2)
-        {
-          if (!ot::Mle::ScanMaskTlv::IsEndDeviceFlagSet(v160[0]))
-          {
-            goto LABEL_69;
-          }
-
-          if (ot::RouterTable::GetActiveRouterCount((v152 + 30904)) >= 32)
-          {
-            *&v160[3] = 2;
-            goto LABEL_69;
-          }
-        }
-
-        else if ((v149 == 4 || v149 == 3) && !ot::Mle::ScanMaskTlv::IsRouterFlagSet(v160[0]))
-        {
-          goto LABEL_69;
-        }
-
-        *&v160[3] = ot::Mle::Mle::RxMessage::ReadChallengeTlv(**&v160[7], v168, v35, v36);
-        if (*&v160[3])
-        {
-          v38 = ot::ErrorToString(*&v160[3]);
-          ot::Logger::LogAtLevel<(ot::LogLevel)2>(&ot::Mle::kLogModuleName, "Parent Request dropped error:%s as ReadChallenge failed", v39, v40, v41, v42, v43, v44, v38);
-        }
-
-        else
-        {
-          ot::ChildTable::FindChild(v152 + 1200, __s1, 5);
-          NewChild = v45;
-          if (v45)
-          {
-            v147 = &Now;
-            Now = ot::TimerMilli::GetNow(v45);
-            LastHeard = ot::Neighbor::GetLastHeard(NewChild);
-            if (ot::Time::operator-(&Now, &LastHeard) < 0x2BC)
-            {
-              *&v160[3] = 29;
-              goto LABEL_69;
-            }
-          }
-
-          else
-          {
-            NewChild = ot::ChildTable::GetNewChild((v152 + 1200));
-            if (!NewChild)
-            {
-              *&v160[3] = 3;
-              goto LABEL_69;
-            }
-
-            ot::Mle::Mle::InitNeighbor(v152, NewChild, *&v160[7]);
-            ot::Neighbor::SetState(NewChild, 2);
-            if (!ot::Mle::Mle::RxMessage::ReadModeTlv(**&v160[7], &v158))
-            {
-              v156[2] = v158;
-              ot::Child::SetDeviceMode(NewChild, v158);
-              ot::Neighbor::SetVersion(NewChild, *&v160[1]);
-            }
-
-            if (*(v152 + 128) == 2)
-            {
-              CslClockAccuracyTlv = ot::Mle::Mle::RxMessage::ReadCslClockAccuracyTlv(**&v160[7], v156, v46, v47, v48, v49);
-              if (CslClockAccuracyTlv)
-              {
-                if (CslClockAccuracyTlv != 23)
-                {
-                  *&v160[3] = 6;
-                  goto LABEL_69;
-                }
-
-                ot::Mac::CslAccuracy::Init(v156);
-              }
-
-              ot::InstanceLocator::GetInstance(v152);
-              otPlatRadioStopWakeup();
-              ot::Logger::LogAtLevel<(ot::LogLevel)4>(&ot::Mle::kLogModuleName, "Stopping Wakeup after receiving parent request ", v50, v51, v52, v53, v54, v55, v101);
-              v56 = ot::GetProvider<ot::InstanceLocator>::Get<ot::Mac::Mac>(v152);
-              ot::Mac::Mac::SetCslParentAccuracy(v56, v156);
-            }
-          }
-
-          IsStateValidOrRestoring = ot::Neighbor::IsStateValidOrRestoring(NewChild);
-          if (!IsStateValidOrRestoring)
-          {
-            v145 = NewChild;
-            v153 = ot::TimerMilli::GetNow(IsStateValidOrRestoring);
-            ot::Neighbor::SetLastHeard(v145, v153);
-            v146 = NewChild;
-            v58 = ot::Time::MsecToSec(0x1388);
-            ot::Child::SetTimeout(v146, v58);
-          }
-
-          if (!ot::Mle::Mle::RxMessage::ReadModeTlv(**&v160[7], &v158))
-          {
-            if (ot::Mle::DeviceMode::IsRxOnWhenIdle(&v158) && (ot::Mle::Mle::wasChild(v152) & 1) == 0)
-            {
-              ot::Logger::LogAtLevel<(ot::LogLevel)2>(&ot::Mle::kLogModuleName, "Overriding Device Stat,set wasChild:[True]", v59, v60, v61, v62, v63, v64, v101);
-              ot::Mle::Mle::setWasChild(v152, 1);
-            }
-
-            if (!ot::Mle::Mle::IsSleepyRouter(v152) && *(v152 + 35681))
-            {
-              if (!memcmp(__s1, v152 + 35681, 8uLL))
-              {
-                if (ot::Mle::DeviceMode::IsRxOnWhenIdle(&v158))
-                {
-                  v139 = v165;
-                  ot::Mle::DeviceMode::ToString((v152 + 131), v165);
-                  v141 = ot::String<(unsigned short)45>::AsCString(v165);
-                  v140 = v164;
-                  ot::Mle::DeviceMode::ToString(&v158, v164);
-                  IsAttaching = ot::String<(unsigned short)45>::AsCString(v164);
-                  v103 = "Joining device mode is RxOnWhenIdle";
-                  ot::Logger::LogAtLevel<(ot::LogLevel)2>(&ot::Mle::kLogModuleName, "Parent Request accepted from Non-Sleepy Accessories, DUT mode: %s, Joiner Mode: %s: %s", v72, v73, v74, v75, v76, v77, v141);
-                  v78 = ot::GetProvider<ot::InstanceLocator>::Get<ot::Notifier>(v152);
-                  ot::Notifier::Signal(v78, 0x1000000000);
-                }
-
-                else
-                {
-                  v142 = v167;
-                  ot::Mle::DeviceMode::ToString((v152 + 131), v167);
-                  v144 = ot::String<(unsigned short)45>::AsCString(v167);
-                  v143 = v166;
-                  ot::Mle::DeviceMode::ToString(&v158, v166);
-                  IsAttaching = ot::String<(unsigned short)45>::AsCString(v166);
-                  v103 = "Joining device mode is not RxOnWhenIdle";
-                  ot::Logger::LogAtLevel<(ot::LogLevel)2>(&ot::Mle::kLogModuleName, "Parent Request accepted from Sleepy Accessories, DUT mode: %s, Joiner Mode: %s: %s", v65, v66, v67, v68, v69, v70, v144);
-                  v71 = ot::GetProvider<ot::InstanceLocator>::Get<ot::Notifier>(v152);
-                  ot::Notifier::Signal(v71, 0x800000000);
-                }
-              }
-
-              else
-              {
-                v79 = __s1[0];
-                v80 = __s1[1];
-                v123 = __s1[2];
-                v124 = __s1[3];
-                v125 = __s1[4];
-                v126 = __s1[5];
-                v127 = __s1[6];
-                v128 = __s1[7];
-                v120 = 35681;
-                v129 = *(v152 + 35681);
-                v130 = *(v152 + 35682);
-                v131 = *(v152 + 35683);
-                v132 = *(v152 + 35684);
-                v133 = *(v152 + 35685);
-                v134 = *(v152 + 35686);
-                v135 = *(v152 + 35687);
-                v136 = *(v152 + 35688);
-                v121 = v163;
-                ot::Mle::DeviceMode::ToString(&v158, v163);
-                v137 = ot::String<(unsigned short)45>::AsCString(v163);
-                v122 = v162;
-                ot::Mle::DeviceMode::ToString((v152 + 131), v162);
-                v138 = &v101;
-                IsAttaching = v80;
-                v103 = v123;
-                v104 = v124;
-                v105 = v125;
-                v106 = v126;
-                v107 = v127;
-                v108 = v128;
-                v109 = v129;
-                v110 = v130;
-                v111 = v131;
-                v112 = v132;
-                v113 = v133;
-                v114 = v134;
-                v115 = v135;
-                v116 = v136;
-                v117 = v137;
-                v118 = ot::String<(unsigned short)45>::AsCString(v162);
-                ot::Logger::LogAtLevel<(ot::LogLevel)2>(&ot::Mle::kLogModuleName, "Parent Request from Device extaddr =  %02X%02X%02X%02X%02X%02X%02X%02X address mismatch, Expected Device extaddr = %02X%02X%02X%02X%02X%02X%02X%02X, Joiner Mode: %s,  DUT mode: %s", v128, v127, v126, v125, v124, v123, v79);
-              }
-
-              ot::Mle::Mle::SetThreadCoexConfig(v152, 0, *(v152 + 130), *(v152 + 132));
-            }
-          }
-
-          if (*(v152 + 128) == 2)
-          {
-            ot::WakeupTxScheduler::Stop((v152 + 72));
-            v81 = v152;
-            *(v152 + 128) = 3;
-            v82 = ot::Mle::Mle::WorAttachStateToString(v81, *(v81 + 128));
-            IsAttaching = "HandleParentRequest";
-            ot::Logger::LogAtLevel<(ot::LogLevel)4>(&ot::Mle::kLogModuleName, "mCslPeripheralAttachState = %s, %s", v83, v84, v85, v86, v87, v88, v82);
-            ot::Mle::Mle::SetCslPeripheral(v152, NewChild);
-            v119 = NewChild;
-            v89 = ot::Time::MsecToSec(0x3E8);
-            ot::Child::SetTimeout(v119, v89);
-            if (!ot::Mle::Mle::IsRxOnWhenIdle(v152))
-            {
-              v90 = ot::GetProvider<ot::InstanceLocator>::Get<ot::MeshForwarder>(v152);
-              ot::MeshForwarder::SetRxOnWhenIdle(v90, 0, v91, v92, v93, v94, v95, v96);
-            }
-
-            v97 = ot::GetProvider<ot::InstanceLocator>::Get<ot::Mac::Mac>(v152);
-            ot::Mac::Mac::UpdateCsl(v97, 0);
-          }
-
-          v98 = v152;
-          *(*&v160[7] + 32) = 2;
-          ot::Mle::Mle::ProcessKeySequence(v98, *&v160[7]);
-          v99 = ot::Ip6::MessageInfo::GetSockAddr(*(*&v160[7] + 8));
-          if (ot::Ip6::Address::IsMulticast(v99))
-          {
-            if (ot::Mle::ScanMaskTlv::IsEndDeviceFlagSet(v160[0]))
-            {
-              v100 = 1000;
-            }
-
-            else
-            {
-              v100 = 500;
-            }
-
-            v157 = v100;
-          }
-
-          else
-          {
-            v157 = 0;
-          }
-
-          ot::Mle::MleRouter::SendParentResponse(v152, NewChild, v168, v157);
-        }
-      }
-    }
-  }
-
-LABEL_69:
-  ot::Mle::Mle::LogProcessError(27, *&v160[3]);
-}
-
-uint64_t ot::Tlv::Find<ot::Mle::ScanMaskTlv>(const ot::Message *a1, char *a2)
-{
-  return ot::Tlv::FindUintTlv<unsigned char>(a1, 0xEu, a2);
-}
-
-{
-  return ot::Tlv::Find<ot::Mle::ScanMaskTlv>(a1, a2);
-}
-
-BOOL ot::Mle::ScanMaskTlv::IsEndDeviceFlagSet(ot::Mle::ScanMaskTlv *this)
-{
-  return (this & 0x40) != 0;
-}
-
-{
-  return ot::Mle::ScanMaskTlv::IsEndDeviceFlagSet(this);
-}
-
-BOOL ot::Mle::ScanMaskTlv::IsRouterFlagSet(ot::Mle::ScanMaskTlv *this)
-{
-  return this < 0;
-}
-
-{
-  return ot::Mle::ScanMaskTlv::IsRouterFlagSet(this);
-}
-
-uint64_t ot::Mle::Mle::SetCslPeripheral(uint64_t this, ot::Neighbor *a2)
-{
-  *(this + 824) = a2;
-  return this;
-}
-
-{
-  return ot::Mle::Mle::SetCslPeripheral(this, a2);
-}
-
-void ot::Mle::MleRouter::SendParentResponse(ot::Mle::MleRouter *this, ot::Child *a2, const ot::Mle::RxChallenge *a3, unsigned __int16 a4)
-{
-  v15 = this;
-  v14 = a2;
-  v13 = a3;
-  v12 = a4;
-  appended = 0;
-  v9 = ot::Mle::Mle::NewMleMessage(this, 10);
-  if (v9)
-  {
-    ot::Message::SetDirectTransmission(v9);
-    appended = ot::Mle::Mle::TxMessage::AppendSourceAddressTlv(v9);
-    if (!appended)
-    {
-      appended = ot::Mle::Mle::TxMessage::AppendLeaderDataTlv(v9);
-      if (!appended)
-      {
-        appended = ot::Mle::Mle::TxMessage::AppendLinkAndMleFrameCounterTlvs(v9);
-        if (!appended)
-        {
-          appended = ot::Mle::Mle::TxMessage::AppendResponseTlv(v9, v13);
-          if (!appended)
-          {
-            ot::Message::SetSubType(v9, 13);
-            if (!ot::Neighbor::IsThreadVersionCslCapable(v14) || (appended = ot::Mle::Mle::TxMessage::AppendCslClockAccuracyTlv(v9)) == 0)
-            {
-              ot::Child::GenerateChallenge(v14);
-              Challenge = ot::Child::GetChallenge(v14);
-              appended = ot::Mle::Mle::TxMessage::AppendChallengeTlv(v9, Challenge);
-              if (!appended)
-              {
-                if (ot::Mle::Mle::IsCslPeripheralPresent(this) || (LinkInfo = ot::Neighbor::GetLinkInfo(v14), LinkMargin = ot::LinkQualityInfo::GetLinkMargin(LinkInfo), (appended = ot::Mle::Mle::TxMessage::AppendLinkMarginTlv(v9, LinkMargin)) == 0) && (appended = ot::Mle::Mle::TxMessage::AppendConnectivityTlv(v9)) == 0)
-                {
-                  appended = ot::Mle::Mle::TxMessage::AppendVersionTlv(v9);
-                  if (!appended)
-                  {
-                    ot::Neighbor::GetExtAddress(v14);
-                    ot::Ip6::Address::SetToLinkLocalAddress(v10, v7);
-                    appended = ot::Mle::Mle::TxMessage::SendAfterDelay(v9, v10, v12);
-                    if (!appended)
-                    {
-                      ot::Mle::Mle::Log(2, 15, v10);
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-  }
-
-  else
-  {
-    appended = 3;
-  }
-
-  if (appended && v9)
-  {
-    ot::Message::Free(v9);
-  }
-
-  ot::Mle::Mle::LogSendError(15, appended);
-}
-
-uint64_t ot::Mle::MleRouter::SendChildUpdateRequest(ot::Mle::MleRouter *this, ot::Child *a2)
-{
-  v22 = this;
-  v21 = a2;
-  appended = 0;
-  v18 = 0;
-  if (!ot::Neighbor::IsRxOnWhenIdle(a2))
-  {
-    v2 = ot::GetProvider<ot::InstanceLocator>::Get<ot::ChildTable>(this);
-    ChildIndex = ot::ChildTable::GetChildIndex(v2, v21);
-    v3 = ot::GetProvider<ot::InstanceLocator>::Get<ot::MeshForwarder>(this);
-    SendQueue = ot::MeshForwarder::GetSendQueue(v3);
-    v15 = ot::PriorityQueue::begin(SendQueue);
-    v14 = ot::PriorityQueue::end(SendQueue);
-    while (ot::ItemPtrIterator<ot::Message const,ot::Message::ConstIterator>::operator!=(&v15, &v14))
-    {
-      v13 = ot::ItemPtrIterator<ot::Message const,ot::Message::ConstIterator>::operator*(&v15);
-      if (ot::Message::GetChildMask(v13, ChildIndex) && ot::Message::GetSubType(v13) == 8)
-      {
-        if (ot::Neighbor::IsStateRestoring(v21))
-        {
-          goto LABEL_24;
-        }
-
-        v4 = ot::GetProvider<ot::InstanceLocator>::Get<ot::MeshForwarder>(this);
-        ot::MeshForwarder::RemoveMessagesForChild(v4, v21, ot::Mle::MleRouter::IsMessageChildUpdateRequest);
-        break;
-      }
-
-      ot::ItemPtrIterator<ot::Message const,ot::Message::ConstIterator>::operator++(&v15);
-    }
-  }
-
-  v18 = ot::Mle::Mle::NewMleMessage(this, 13);
-  if (v18)
-  {
-    appended = ot::Mle::Mle::TxMessage::AppendSourceAddressTlv(v18);
-    if (!appended)
-    {
-      appended = ot::Mle::Mle::TxMessage::AppendLeaderDataTlv(v18);
-      if (!appended)
-      {
-        v11 = v18;
-        NetworkDataType = ot::Neighbor::GetNetworkDataType(v21);
-        appended = ot::Mle::Mle::TxMessage::AppendNetworkDataTlv(v11, NetworkDataType);
-        if (!appended)
-        {
-          appended = ot::Mle::Mle::TxMessage::AppendActiveAndPendingTimestampTlvs(v18);
-          if (!appended)
-          {
-            if (ot::Neighbor::IsStateValid(v21))
-            {
-              goto LABEL_20;
-            }
-
-            appended = ot::Mle::Mle::TxMessage::AppendTlvRequestTlv<(unsigned char)2>(v18, ot::Mle::MleRouter::SendChildUpdateRequest(ot::Child &)::kTlvs);
-            if (!appended)
-            {
-              if (!ot::Neighbor::IsStateRestored(v21))
-              {
-                ot::Child::GenerateChallenge(v21);
-              }
-
-              v10 = v18;
-              Challenge = ot::Child::GetChallenge(v21);
-              appended = ot::Mle::Mle::TxMessage::AppendChallengeTlv(v10, Challenge);
-              if (!appended)
-              {
-LABEL_20:
-                ot::Neighbor::GetExtAddress(v21);
-                ot::Ip6::Address::SetToLinkLocalAddress(&v19, v7);
-                appended = ot::Mle::Mle::TxMessage::SendTo(v18, &v19);
-                if (!appended)
-                {
-                  if (ot::Neighbor::IsRxOnWhenIdle(v21))
-                  {
-                    ot::Neighbor::SetState(v21, 6);
-                  }
-
-                  Rloc16 = ot::Neighbor::GetRloc16(v21);
-                  ot::Mle::Mle::Log(0, 20, &v19, Rloc16);
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-  }
-
-  else
-  {
-    appended = 3;
-  }
-
-LABEL_24:
-  if (appended && v18)
-  {
-    ot::Message::Free(v18);
-  }
-
-  return appended;
-}
-
-uint64_t ot::Mle::MleRouter::HasNeighborWithGoodLinkQuality(ot::Mle::MleRouter *this)
-{
-  v13 = 1;
-  v9 = ot::GetProvider<ot::InstanceLocator>::Get<ot::Mac::Mac>(this);
-  LinkInfo = ot::Neighbor::GetLinkInfo((this + 192));
-  LastRss = ot::LinkQualityInfo::GetLastRss(LinkInfo);
-  if (ot::Mac::Mac::ComputeLinkMargin(v9, LastRss) < 0xAu)
-  {
-    v12 = ot::GetProvider<ot::InstanceLocator>::Get<ot::RouterTable>(this);
-    ot::RouterTable::begin(v12);
-    v11 = v3;
-    v10 = ot::RouterTable::end(v12);
-    while (v11 != v10)
-    {
-      if (ot::Neighbor::IsStateValid(v11))
-      {
-        v7 = ot::GetProvider<ot::InstanceLocator>::Get<ot::Mac::Mac>(this);
-        v4 = ot::Neighbor::GetLinkInfo(v11);
-        v5 = ot::LinkQualityInfo::GetLastRss(v4);
-        if (ot::Mac::Mac::ComputeLinkMargin(v7, v5) >= 0xAu)
-        {
-          return v13 & 1;
-        }
-      }
-
-      v11 = (v11 + 144);
-    }
-
-    v13 = 0;
-  }
-
-  return v13 & 1;
-}
-
-void ot::Mle::MleRouter::HandleTimeTick(ot::Mle::MleRouter *this)
-{
-  v132 = this;
-  v131 = 0;
-  if (!ot::Mle::Mle::IsFullThreadDevice(this))
-  {
-    v1 = ot::GetProvider<ot::InstanceLocator>::Get<ot::TimeTicker>(this);
-    ot::TimeTicker::UnregisterReceiver(v1, 1);
-    return;
-  }
-
-  if (*(this + 35616))
-  {
-    --*(this + 35616);
-  }
-
-  if (*(this + 35701))
-  {
-    --*(this + 35701);
-  }
-
-  if (*(this + 35705))
-  {
-    if (!--*(this + 35705))
-    {
-      ot::Mle::MleRouter::ClearAlternateRloc16(this);
-    }
-  }
-
-  v131 = ot::Mle::MleRouter::RouterRoleTransition::HandleTimeTick((this + 35702));
-  v104 = *(this + 130);
-  if (!*(this + 130))
-  {
-    __assert_rtn("HandleTimeTick", "mle_router.cpp", 2128, "false");
-  }
-
-  if (v104 == 1)
-  {
-    if (!*(this + 35616) && !*(this + 143))
-    {
-      ot::Mle::Mle::BecomeDetached(this);
-      IgnoreError();
-      return;
-    }
-
-LABEL_41:
-    v28 = ot::GetProvider<ot::InstanceLocator>::Get<ot::ChildTable>(this);
-    v129 = ot::ChildTable::Iterate(v28, 5);
-    v130 = &v129;
-    v140 = ot::ChildTable::IteratorBuilder::begin(&v129);
-    v141 = v29;
-    v127 = v140;
-    v128 = v29;
-    v138 = ot::ChildTable::IteratorBuilder::end(v130);
-    v139 = v30;
-    v125 = v138;
-    v126 = v30;
-    while (ot::ItemPtrIterator<ot::Child,ot::ChildTable::Iterator>::operator!=(&v127, &v125))
-    {
-      v124 = ot::ItemPtrIterator<ot::Child,ot::ChildTable::Iterator>::operator*(&v127);
-      v123 = 0;
-      v122 = 1;
-      v121 = 1;
-      State = ot::Neighbor::GetState(v124);
-      switch(State)
-      {
-        case 0:
-          goto LABEL_71;
-        case 2:
-        case 1:
-          goto LABEL_53;
-        case 3:
-          goto LABEL_54;
-      }
-
-      if (State != 4)
-      {
-        if (State == 5)
-        {
-LABEL_54:
-          __assert_rtn("HandleTimeTick", "mle_router.cpp", 2163, "false");
-        }
-
-        if (State == 7 || State == 6)
-        {
-LABEL_53:
-          Timeout = ot::Child::GetTimeout(v124);
-          v123 = ot::Time::SecToMsec(Timeout);
-        }
-
-        IsCslPeripheralPresent = ot::Mle::Mle::IsCslPeripheralPresent(this);
-        if (IsCslPeripheralPresent)
-        {
-          v121 = 0;
-          IsCslPeripheralPresent = ot::Child::GetSupervisionInterval(v124);
-          v122 = IsCslPeripheralPresent == 0;
-        }
-
-        if (v121)
-        {
-          IsCslPeripheralPresent = ot::CslTxScheduler::ChildInfo::IsCslSynchronized((v124 + 168));
-          if (IsCslPeripheralPresent)
-          {
-            Now = ot::TimerMilli::GetNow(IsCslPeripheralPresent);
-            CslLastHeard = ot::CslTxScheduler::ChildInfo::GetCslLastHeard((v124 + 168));
-            v102 = ot::Time::operator-(&Now, &CslLastHeard);
-            CslTimeout = ot::CslTxScheduler::ChildInfo::GetCslTimeout((v124 + 168));
-            v34 = ot::Time::SecToMsec(CslTimeout);
-            IsCslPeripheralPresent = v102;
-            if (v102 >= v34)
-            {
-              v35 = ot::GetProvider<ot::InstanceLocator>::Get<ot::Mac::Mac>(this);
-              Counters = ot::Mac::Mac::GetCounters(v35);
-              ++*(Counters + 88);
-              Rloc16 = ot::Neighbor::GetRloc16(v124);
-              ot::Neighbor::GetExtAddress(v124);
-              ot::Mac::ExtAddress::ToString(v36, v137);
-              ot::String<(unsigned short)17>::AsCString(v137);
-              ot::Logger::LogAtLevel<(ot::LogLevel)4>(&ot::Mle::kLogModuleName, "Child CSL synchronization expired RLOC16: 0x%04x ExtAddr: %s", v37, v38, v39, v40, v41, v42, Rloc16);
-              ot::CslTxScheduler::ChildInfo::SetCslSynchronized(v124 + 168, 0);
-              ot::CslTxScheduler::ChildInfo::SetCslPrevSnValid(v124 + 168, 0);
-              v43 = ot::GetProvider<ot::InstanceLocator>::Get<ot::CslTxScheduler>(this);
-              ot::CslTxScheduler::Update(v43);
-            }
-
-            else
-            {
-              v122 = 0;
-            }
-          }
-        }
-
-        v100 = 0;
-        if (v122)
-        {
-          v117 = ot::TimerMilli::GetNow(IsCslPeripheralPresent);
-          LastHeard = ot::Neighbor::GetLastHeard(v124);
-          v44 = ot::Time::operator-(&v117, &LastHeard);
-          v100 = v44 >= v123;
-        }
-
-        if (v100)
-        {
-          v99 = ot::Neighbor::GetRloc16(v124);
-          ot::Neighbor::GetExtAddress(v124);
-          ot::Mac::ExtAddress::ToString(v45, v136);
-          ot::String<(unsigned short)17>::AsCString(v136);
-          ot::Neighbor::GetState(v124);
-          ot::Neighbor::GetLinkFailures(v124);
-          v115[1] = ot::Neighbor::GetLastHeard(v124);
-          ot::Logger::LogAtLevel<(ot::LogLevel)2>(&ot::Mle::kLogModuleName, "Child timeout expired, RLOC16: 0x%04x, ExtAddr: %s State:%d LinkFailureCount:%d LastHeard:%d", v46, v47, v48, v49, v50, v51, v99);
-          ot::Mle::MleRouter::RemoveNeighbor(this, v124);
-          ot::Mle::Mle::IncrementChildLossCounter(this);
-          v52 = ot::GetProvider<ot::InstanceLocator>::Get<ot::Mle::MleRouter>(this);
-          IsSleepyRouter = ot::Mle::Mle::IsSleepyRouter(v52);
-          if (IsSleepyRouter)
-          {
-            v115[0] = ot::TimerMilli::GetNow(IsSleepyRouter);
-            v114 = ot::Neighbor::GetLastHeard(v124);
-            v54 = ot::Time::operator-(v115, &v114);
-            ot::Logger::LogAtLevel<(ot::LogLevel)2>(&ot::Mle::kLogModuleName, "Child timeout expired, mCslPeripheralAttachRetryTimer.Start Timeout=%d mSec", v55, v56, v57, v58, v59, v60, v54);
-            v61 = ot::GetProvider<ot::InstanceLocator>::Get<ot::Mle::MleRouter>(this);
-            ot::TimerMicro::Start((v61 + 8), 0x3E8u);
-          }
-        }
-
-        else if (ot::Mle::Mle::IsRouterOrLeader(this) && ot::Neighbor::IsStateRestored(v124))
-        {
-          ot::Mle::MleRouter::SendChildUpdateRequest(this, v124);
-          IgnoreError();
-        }
-      }
-
-LABEL_71:
-      ot::ItemPtrIterator<ot::Child,ot::ChildTable::Iterator>::operator++(&v127);
-    }
-
-    v113 = ot::GetProvider<ot::InstanceLocator>::Get<ot::RouterTable>(this);
-    ot::RouterTable::begin(v113);
-    v112 = v62;
-    v111 = ot::RouterTable::end(v113);
-    while (1)
-    {
-      if (v112 == v111)
-      {
-        ot::RouterTable::HandleTimeTick((this + 30904));
-        ot::Mle::MleRouter::SynchronizeChildNetworkData(this);
-        return;
-      }
-
-      v110 = v112;
-      v109 = 0;
-      v98 = ot::Neighbor::GetRloc16(v112);
-      if (v98 == ot::Mle::Mle::GetRloc16(this))
-      {
-        v97 = v110;
-        v108 = ot::TimerMilli::GetNow(v98);
-        ot::Neighbor::SetLastHeard(v97, v108);
-        goto LABEL_89;
-      }
-
-      v107 = ot::TimerMilli::GetNow(v98);
-      v106 = ot::Neighbor::GetLastHeard(v110);
-      v109 = ot::Time::operator-(&v107, &v106);
-      if (ot::Neighbor::IsStateValid(v110) && v109 >= 0x186A0)
-      {
-        if (v109 >= 0x19258)
-        {
-          v95 = ot::Neighbor::GetRloc16(v110);
-          ot::Neighbor::GetExtAddress(v110);
-          ot::Mac::ExtAddress::ToString(v70, v134);
-          ot::String<(unsigned short)17>::AsCString(v134);
-          ot::Logger::LogAtLevel<(ot::LogLevel)2>(&ot::Mle::kLogModuleName, "Router timeout expired, RLOC16: 0x%04x, ExtAddr: %s", v71, v72, v73, v74, v75, v76, v95);
-          ot::Mle::Mle::IncrementRouterLossCounter(this);
-          ot::Mle::MleRouter::RemoveNeighbor(this, v110);
-          goto LABEL_89;
-        }
-
-        v96 = ot::Neighbor::GetRloc16(v110);
-        ot::Neighbor::GetExtAddress(v110);
-        ot::Mac::ExtAddress::ToString(v63, v135);
-        ot::String<(unsigned short)17>::AsCString(v135);
-        ot::Logger::LogAtLevel<(ot::LogLevel)2>(&ot::Mle::kLogModuleName, "No Adv from router - sending Link Request, RLOC16: 0x%04x, ExtAddr: %s", v64, v65, v66, v67, v68, v69, v96);
-        ot::Mle::MleRouter::SendLinkRequest(this, v110);
-        IgnoreError();
-      }
-
-      if (ot::Neighbor::IsStateLinkRequest(v110) && v109 >= 0x7D0)
-      {
-        v94 = ot::Neighbor::GetRloc16(v110);
-        ot::Neighbor::GetExtAddress(v110);
-        ot::Mac::ExtAddress::ToString(v77, v133);
-        ot::String<(unsigned short)17>::AsCString(v133);
-        ot::Logger::LogAtLevel<(ot::LogLevel)2>(&ot::Mle::kLogModuleName, "Router RLOC16: 0x%04x extAddr:%s - Link Request timeout expired", v78, v79, v80, v81, v82, v83, v94);
-        ot::Mle::Mle::IncrementRouterLossCounter(this);
-        ot::Mle::MleRouter::RemoveNeighbor(this, v110);
-      }
-
-      else if (ot::Mle::Mle::IsLeader(this))
-      {
-        ot::RouterTable::FindNextHopOf((this + 30904), v110);
-        if (!v84 && ot::RouterTable::GetLinkCost((this + 30904), v110) >= 16 && v109 >= 0x15F90)
-        {
-          v85 = ot::Neighbor::GetRloc16(v110);
-          ot::Logger::LogAtLevel<(ot::LogLevel)4>(&ot::Mle::kLogModuleName, "Router 0x%04x ID timeout expired (no route)", v86, v87, v88, v89, v90, v91, v85);
-          RouterId = ot::Neighbor::GetRouterId(v110);
-          ot::RouterTable::Release((this + 30904), RouterId);
-          IgnoreError();
-        }
-      }
-
-LABEL_89:
-      v112 = (v112 + 144);
-    }
-  }
-
-  if (v104 != 2)
-  {
-    if (v104 != 3)
-    {
-      if (v104 != 4)
-      {
-        goto LABEL_41;
-      }
-
-      goto LABEL_36;
-    }
-
-LABEL_28:
-    if (!(ot::RouterTable::GetLeaderAge((this + 30904)) % 0xA))
-    {
-      LeaderAge = ot::RouterTable::GetLeaderAge((this + 30904));
-      v3 = ot::ToUlong(LeaderAge);
-      ot::Logger::LogAtLevel<(ot::LogLevel)5>(&ot::Mle::kLogModuleName, "Leader age %lu", v4, v5, v6, v7, v8, v9, v3);
-    }
-
-    if (ot::RouterTable::GetActiveRouterCount((this + 30904)) > 0 && ot::RouterTable::GetLeaderAge((this + 30904)) >= *(this + 35628))
-    {
-      ot::Logger::LogAtLevel<(ot::LogLevel)4>(&ot::Mle::kLogModuleName, "Leader age timeout", v10, v11, v12, v13, v14, v15, v93);
-      ot::Mle::Mle::Attach(this, 1);
-    }
-
-    if (v131 && ot::RouterTable::GetActiveRouterCount((this + 30904)) > *(this + 35630))
-    {
-      ot::Logger::LogAtLevel<(ot::LogLevel)3>(&ot::Mle::kLogModuleName, "Downgrade to REED", v16, v17, v18, v19, v20, v21, v93);
-      ot::Mle::Mle::Attach(this, 3);
-    }
-
-LABEL_36:
-    if (v131 && (ot::Mle::MleRouter::IsRouterEligible(this) & 1) == 0)
-    {
-      ot::Logger::LogAtLevel<(ot::LogLevel)4>(&ot::Mle::kLogModuleName, "No longer router eligible", v22, v23, v24, v25, v26, v27, v93);
-      ot::Mle::Mle::BecomeDetached(this);
-      IgnoreError();
-    }
-
-    goto LABEL_41;
-  }
-
-  if (!v131)
-  {
-    goto LABEL_28;
-  }
-
-  if (ot::RouterTable::GetActiveRouterCount((this + 30904)) < *(this + 35629) && (ot::Mle::MleRouter::HasNeighborWithGoodLinkQuality(this) & 1) != 0)
-  {
-    ot::Mle::MleRouter::BecomeRouter(this, 2u);
-    IgnoreError();
-  }
-
-  else
-  {
-    ot::Mle::Mle::InformPreviousChannel(this);
-  }
-
-  if (!ot::TrickleTimer::IsRunning((this + 1136)))
-  {
-    ot::Mle::MleRouter::SendAdvertisement(this);
-    ot::TrickleTimer::Start(this + 1136, 1, 0x8B290u, 0x99CF0u, 0xFFFF);
-  }
-}
-
-BOOL ot::Mle::MleRouter::RouterRoleTransition::HandleTimeTick(ot::Mle::MleRouter::RouterRoleTransition *this)
-{
-  v2 = 0;
-  if (*this)
-  {
-    return --*this == 0;
-  }
-
-  return v2;
-}
-
-uint64_t ot::CslTxScheduler::ChildInfo::GetCslLastHeard(ot::CslTxScheduler::ChildInfo *this)
-{
-  return *(this + 3);
-}
-
-{
-  return ot::CslTxScheduler::ChildInfo::GetCslLastHeard(this);
-}
-
-uint64_t ot::CslTxScheduler::ChildInfo::GetCslTimeout(ot::CslTxScheduler::ChildInfo *this)
-{
-  return *(this + 1);
-}
-
-{
-  return ot::CslTxScheduler::ChildInfo::GetCslTimeout(this);
-}
-
-uint64_t ot::Mle::Mle::IncrementChildLossCounter(uint64_t this)
-{
-  ++*(this + 784);
-  return this;
-}
-
-{
-  return ot::Mle::Mle::IncrementChildLossCounter(this);
-}
-
-BOOL ot::Neighbor::IsStateRestored(ot::Neighbor *this)
-{
-  return (*(this + 30) & 0xF) == 1;
-}
-
-{
-  return ot::Neighbor::IsStateRestored(this);
-}
-
-uint64_t ot::Mle::Mle::IncrementRouterLossCounter(uint64_t this)
-{
-  ++*(this + 786);
-  return this;
-}
-
-{
-  return ot::Mle::Mle::IncrementRouterLossCounter(this);
-}
-
-void ot::RouterTable::FindNextHopOf(ot::RouterTable *this, const ot::Router *a2)
-{
-  ot::AsConst<ot::RouterTable>();
-  ot::RouterTable::FindNextHopOf(v2, a2);
-  ot::AsNonConst<ot::Router>();
-}
-
-{
-  ot::RouterTable::FindNextHopOf(this, a2);
-}
-
-uint64_t ot::Mle::MleRouter::SynchronizeChildNetworkData(ot::Mle::MleRouter *this)
-{
-  v16 = this;
-  result = ot::Mle::Mle::IsRouterOrLeader(this);
-  if (result)
-  {
-    v2 = ot::GetProvider<ot::InstanceLocator>::Get<ot::ChildTable>(this);
-    v14 = ot::ChildTable::Iterate(v2, 0);
-    v15 = &v14;
-    v19 = ot::ChildTable::IteratorBuilder::begin(&v14);
-    v20 = v3;
-    v12 = v19;
-    v13 = v3;
-    v17 = ot::ChildTable::IteratorBuilder::end(v15);
-    v18 = v4;
-    v10 = v17;
-    v11 = v4;
-    while (1)
-    {
-      result = ot::ItemPtrIterator<ot::Child,ot::ChildTable::Iterator>::operator!=(&v12, &v10);
-      if ((result & 1) == 0)
-      {
-        break;
-      }
-
-      v9 = ot::ItemPtrIterator<ot::Child,ot::ChildTable::Iterator>::operator*(&v12);
-      if (!ot::Neighbor::IsRxOnWhenIdle(v9))
-      {
-        NetworkDataVersion = ot::Child::GetNetworkDataVersion(v9);
-        v6 = ot::GetProvider<ot::InstanceLocator>::Get<ot::NetworkData::Leader>(this);
-        NetworkDataType = ot::Neighbor::GetNetworkDataType(v9);
-        if (NetworkDataVersion != ot::NetworkData::Leader::GetVersion(v6, NetworkDataType))
-        {
-          result = ot::Mle::MleRouter::SendChildUpdateRequest(this, v9);
-          if (result)
-          {
-            break;
-          }
-        }
-      }
-
-      ot::ItemPtrIterator<ot::Child,ot::ChildTable::Iterator>::operator++(&v12);
-    }
-  }
-
-  return result;
-}
-
-uint64_t ot::Utils::FifoHistogram<unsigned char,(short)24>::GetCount()
-{
-  return 24;
-}
-
-{
-  return ot::Utils::FifoHistogram<unsigned char,(short)24>::GetCount();
-}
-
-void ot::Utils::FifoHistogram<unsigned char,(short)24>::GetData()
-{
-  ;
-}
-
-{
-  ot::Utils::FifoHistogram<unsigned char,(short)24>::GetData();
-}
-
-void *ot::Utils::FifoHistogram<unsigned char,(short)24>::Clear(void *result)
-{
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
-  return result;
-}
-
-{
-  return ot::Utils::FifoHistogram<unsigned char,(short)24>::Clear(result);
-}
-
-uint64_t ot::Mle::MleRouter::HandleConnectedNeighbourTimer(ot::Mle::MleRouter *this)
-{
-  if (ot::Mle::Mle::IsFullThreadDevice(this))
-  {
-    NeighborCount = ot::RouterTable::GetNeighborCount(this + 30904, 1u);
-    ot::Utils::FifoHistogram<unsigned char,(short)24>::Update(this + 35633, NeighborCount);
-    NumChildren = ot::ChildTable::GetNumChildren(this + 600, 0);
-    ot::Utils::FifoHistogram<unsigned char,(short)24>::Update(this + 35657, NumChildren);
-  }
-
-  v3 = ot::Time::SecToMsec(0xE10);
-  return ot::TimerMilli::Start((this + 35760), v3);
-}
-
-__n128 ot::Utils::FifoHistogram<unsigned char,(short)24>::Update(uint64_t a1, char a2)
-{
-  result = *a1;
-  v3 = *(a1 + 16);
-  v4 = *(a1 + 20);
-  v5 = *(a1 + 22);
-  *(a1 + 1) = *a1;
-  *(a1 + 17) = v3;
-  *(a1 + 21) = v4;
-  *(a1 + 23) = v5;
-  *a1 = a2;
-  return result;
-}
-
-BOOL ot::Neighbor::IsThreadVersionCslCapable(ot::Neighbor *this)
-{
-  LOBYTE(v3) = 0;
-  if (ot::Neighbor::IsThreadVersion1p2OrHigher(this))
-  {
-    return !ot::Neighbor::IsRxOnWhenIdle(this);
-  }
-
-  return v3;
-}
-
-{
-  return ot::Neighbor::IsThreadVersionCslCapable(this);
-}
-
-uint64_t ot::Child::GetChallenge(ot::Child *this)
-{
-  return this + 450;
-}
-
-{
-  return ot::Child::GetChallenge(this);
-}
-
-uint64_t ot::Mle::MleRouter::ProcessAddressRegistrationTlv(ot::Mle::MleRouter *this, ot::Tlv **a2, ot::Child *a3)
-{
-  v74 = this;
-  v73 = a2;
-  v72 = a3;
-  TlvValueOffsetRange = 0;
-  v69 = 0;
-  v68 = 0;
-  ot::Array<ot::Child::Ip6AddrEntry,(unsigned short)15,unsigned char>::Array(v66);
-  TlvValueOffsetRange = ot::Tlv::FindTlvValueOffsetRange(*v73, 0x13, &v70, v3);
-  if (TlvValueOffsetRange)
-  {
-    return TlvValueOffsetRange;
-  }
-
-  ot::Child::GetDomainUnicastAddress(v72, v67);
-  if (v4)
-  {
-    ot::Clearable<ot::Ip6::Address>::Clear(v67);
-  }
-
-  if (ot::Child::HasAnyMlrRegisteredAddress(v72))
-  {
-    if (!ot::Neighbor::IsStateValid(v72))
-    {
-      __assert_rtn("ProcessAddressRegistrationTlv", "mle_router.cpp", 2495, "aChild.IsStateValid()");
-    }
-
-    Ip6Addresses = ot::Child::GetIp6Addresses(v72);
-    ot::Array<ot::Child::Ip6AddrEntry,(unsigned short)15,unsigned char>::begin();
-    v64 = v5;
-    v63 = ot::Array<ot::Child::Ip6AddrEntry,(unsigned short)15,unsigned char>::end(Ip6Addresses);
-    while (v64 != v63)
-    {
-      *&v62[1] = v64;
-      if (ot::Ip6::Address::IsMulticastLargerThanRealmLocal(v64) && ot::Child::Ip6AddrEntry::GetMlrState(*&v62[1], v72) == 2)
-      {
-        ot::Array<ot::Ip6::Address,(unsigned short)15,unsigned char>::PushBack(v66, *&v62[1]);
-        IgnoreError();
-      }
-
-      v64 = (v64 + 16);
-    }
-  }
-
-  ot::Child::ClearIp6Addresses(v72);
-  while (!ot::OffsetRange::IsEmpty(&v70))
-  {
-    v62[0] = 0;
-    TlvValueOffsetRange = ot::Message::Read<unsigned char>(*v73, &v70, v62);
-    if (TlvValueOffsetRange)
-    {
-      return TlvValueOffsetRange;
-    }
-
-    ot::OffsetRange::AdvanceOffset(&v70, 1u);
-    ++v69;
-    ot::Clearable<ot::Ip6::Address>::Clear(v61);
-    if (!ot::Mle::AddressRegistrationTlv::IsEntryCompressed(v62[0]))
-    {
-      ot::Message::Read<ot::Ip6::Address>(*v73, &v70, v61);
-      IgnoreError();
-      ot::OffsetRange::AdvanceOffset(&v70, 0x10u);
-      goto LABEL_21;
-    }
-
-    ContextId = ot::Mle::AddressRegistrationTlv::GetContextId(v62[0]);
-    v50 = *v73;
-    Iid = ot::Ip6::Address::GetIid(v61);
-    ot::Message::Read<ot::Ip6::InterfaceIdentifier>(v50, &v70, Iid);
-    IgnoreError();
-    ot::OffsetRange::AdvanceOffset(&v70, 8u);
-    v7 = ot::GetProvider<ot::InstanceLocator>::Get<ot::NetworkData::Leader>(this);
-    if (ot::NetworkData::Leader::GetContext(v7, ContextId, v59))
-    {
-      v49 = ContextId;
-      ot::Neighbor::GetRloc16(v72);
-      ot::Logger::LogAtLevel<(ot::LogLevel)2>(&ot::Mle::kLogModuleName, "Failed to get context %u for compressed address from child 0x%04x", v8, v9, v10, v11, v12, v13, v49);
-    }
-
-    else
-    {
-      ot::Ip6::Address::SetPrefix(v61, v59);
-LABEL_21:
-      ot::Child::AddIp6Address(v72, v61);
-      TlvValueOffsetRange = v14;
-      if (v14)
-      {
-        v47 = ot::ErrorToString(TlvValueOffsetRange);
-        ot::Ip6::Address::ToString(v61, v79);
-        ot::String<(unsigned short)40>::AsCString(v79);
-        ot::Neighbor::GetRloc16(v72);
-        ot::Logger::LogAtLevel<(ot::LogLevel)2>(&ot::Mle::kLogModuleName, "Error %s adding IPv6 address %s to child 0x%04x", v21, v22, v23, v24, v25, v26, v47);
-      }
-
-      else
-      {
-        ++v68;
-        Rloc16 = ot::Neighbor::GetRloc16(v72);
-        ot::Ip6::Address::ToString(v61, v80);
-        ot::String<(unsigned short)40>::AsCString(v80);
-        ot::Logger::LogAtLevel<(ot::LogLevel)4>(&ot::Mle::kLogModuleName, "Child 0x%04x IPv6 address[%u]=%s", v15, v16, v17, v18, v19, v20, Rloc16);
-      }
-
-      if (!ot::Ip6::Address::IsMulticast(v61))
-      {
-        v27 = ot::GetProvider<ot::InstanceLocator>::Get<ot::ChildTable>(this);
-        v57 = ot::ChildTable::Iterate(v27, 1);
-        v58 = &v57;
-        v77 = ot::ChildTable::IteratorBuilder::begin(&v57);
-        v78 = v28;
-        v55 = v77;
-        v56 = v28;
-        v75 = ot::ChildTable::IteratorBuilder::end(v58);
-        v76 = v29;
-        v53 = v75;
-        v54 = v29;
-        while (ot::ItemPtrIterator<ot::Child,ot::ChildTable::Iterator>::operator!=(&v55, &v53))
-        {
-          v52 = ot::ItemPtrIterator<ot::Child,ot::ChildTable::Iterator>::operator*(&v55);
-          if (v52 != v72)
-          {
-            ot::Child::RemoveIp6Address(v52, v61);
-            IgnoreError();
-          }
-
-          ot::ItemPtrIterator<ot::Child,ot::ChildTable::Iterator>::operator++(&v55);
-        }
-
-        v30 = ot::GetProvider<ot::InstanceLocator>::Get<ot::AddressResolver>(this);
-        ot::AddressResolver::RemoveEntryForAddress(v30, v61);
-      }
-    }
-  }
-
-  ot::Mle::MleRouter::SignalDuaAddressEvent(this, v72, v67);
-  v31 = ot::GetProvider<ot::InstanceLocator>::Get<ot::MlrManager>(this);
-  ot::MlrManager::UpdateProxiedSubscriptions(v31, v72, v66);
-  if (v69)
-  {
-    v39 = ot::Neighbor::GetRloc16(v72);
-    ot::Logger::LogAtLevel<(ot::LogLevel)4>(&ot::Mle::kLogModuleName, "Child 0x%04x has %u registered IPv6 address%s, %u address%s stored", v40, v41, v42, v43, v44, v45, v39);
-  }
-
-  else
-  {
-    v32 = ot::Neighbor::GetRloc16(v72);
-    ot::Logger::LogAtLevel<(ot::LogLevel)4>(&ot::Mle::kLogModuleName, "Child 0x%04x has no registered IPv6 address", v33, v34, v35, v36, v37, v38, v32);
-  }
-
-  return 0;
-}
-
-uint64_t ot::Child::HasAnyMlrRegisteredAddress(ot::Child *this)
-{
-  return ot::BitVector<(unsigned short)15>::HasAny(this + 447);
-}
-
-{
-  return ot::Child::HasAnyMlrRegisteredAddress(this);
-}
-
-uint64_t ot::Array<ot::Ip6::Address,(unsigned short)15,unsigned char>::PushBack(uint64_t a1, _OWORD *a2)
-{
-  if (ot::Array<ot::Ip6::Address,(unsigned short)15,unsigned char>::IsFull(a1))
-  {
-    return 3;
-  }
-
-  else
-  {
-    v2 = (*(a1 + 240))++;
-    *(a1 + 16 * v2) = *a2;
-    return 0;
-  }
-}
-
-{
-  return ot::Array<ot::Ip6::Address,(unsigned short)15,unsigned char>::PushBack(a1, a2);
-}
-
-BOOL ot::Mle::AddressRegistrationTlv::IsEntryCompressed(ot::Mle::AddressRegistrationTlv *this)
-{
-  return this < 0;
-}
-
-{
-  return ot::Mle::AddressRegistrationTlv::IsEntryCompressed(this);
-}
-
-uint64_t ot::Mle::AddressRegistrationTlv::GetContextId(ot::Mle::AddressRegistrationTlv *this)
-{
-  return this & 0xF;
-}
-
-{
-  return ot::Mle::AddressRegistrationTlv::GetContextId(this);
-}
-
-uint64_t ot::Message::Read<ot::Ip6::InterfaceIdentifier>(ot::Message *a1, const ot::OffsetRange *a2, char *a3)
-{
-  return ot::Message::Read(a1, a2, a3, 8u);
-}
-
-{
-  return ot::Message::Read<ot::Ip6::InterfaceIdentifier>(a1, a2, a3);
-}
-
-uint64_t ot::Mle::MleRouter::SignalDuaAddressEvent(ot::Mle::MleRouter *this, const ot::Child *a2, const ot::Ip6::Address *a3)
-{
-  v11 = this;
-  v10 = a2;
-  v9 = a3;
-  v8 = 3;
-  ot::Child::GetDomainUnicastAddress(a2, v7);
-  if (v3)
-  {
-    result = ot::Ip6::Address::IsUnspecified(v9);
-    if (result)
-    {
-      return result;
-    }
-
-    v8 = 2;
-  }
-
-  else if (ot::Ip6::Address::IsUnspecified(v9))
-  {
-    v8 = 0;
-  }
-
-  else if (ot::Unequatable<ot::Ip6::Address>::operator!=(v9, v7))
-  {
-    v8 = 1;
-  }
-
-  v5 = ot::GetProvider<ot::InstanceLocator>::Get<ot::DuaManager>(this);
-  return ot::DuaManager::HandleChildDuaAddressEvent(v5, v10, v8);
-}
-
-uint64_t ot::Mle::MleRouter::IsMessageMleSubType(ot::Mle::MleRouter *this, const ot::Message *a2)
-{
-  v4 = 0;
-  SubType = ot::Message::GetSubType(this);
-  if (SubType == 6 || (SubType - 8) <= 2)
-  {
-    v4 = 1;
-  }
-
-  return v4 & 1;
-}
-
-void ot::Mle::MleRouter::HandleChildIdRequest(ot::Mle::MleRouter *this, ot::Tlv **a2)
-{
-  v61 = this;
-  v60 = a2;
-  VersionTlv = 0;
-  v58 = 0;
-  v57 = 0;
-  v56 = 0;
-  v54 = 0;
-  ot::Mle::Mle::TlvList::TlvList(v63);
-  v52 = 0;
-  v51 = 0;
-  v50 = 0;
-  PeerAddr = ot::Ip6::MessageInfo::GetPeerAddr(v60[1]);
-  ot::Mle::Mle::Log(1, 2, PeerAddr);
-  if (ot::Mle::Mle::IsCslPeripheralAttaching(this))
-  {
-    v3 = ot::ToUlong(*(v60 + 4));
-    ot::Logger::LogAtLevel<(ot::LogLevel)4>(&ot::Mle::kLogModuleName, "Received Parent Request FC: %lu", v4, v5, v6, v7, v8, v9, v3);
-  }
-
-  if ((ot::Mle::MleRouter::IsRouterEligible(this) & 1) == 0)
-  {
-    VersionTlv = 13;
-    goto LABEL_52;
-  }
-
-  if (!ot::Mle::Mle::IsAttached(this))
-  {
-    VersionTlv = 13;
-    goto LABEL_52;
-  }
-
-  v10 = ot::Ip6::MessageInfo::GetPeerAddr(v60[1]);
-  Iid = ot::Ip6::Address::GetIid(v10);
-  ot::Ip6::InterfaceIdentifier::ConvertToExtAddress(Iid, v64);
-  ot::ChildTable::FindChild(this + 1200, v64, 5);
-  v52 = v12;
-  if (!v12)
-  {
-    VersionTlv = 24;
-    goto LABEL_52;
-  }
-
-  VersionTlv = ot::Mle::Mle::RxMessage::ReadVersionTlv(*v60, &v58);
-  if (!VersionTlv)
-  {
-    v46 = *v60;
-    Challenge = ot::Child::GetChallenge(v52);
-    VersionTlv = ot::Mle::Mle::RxMessage::ReadAndMatchResponseTlvWith(v46, Challenge);
-    if (!VersionTlv)
-    {
-      v14 = ot::GetProvider<ot::InstanceLocator>::Get<ot::MeshForwarder>(this);
-      ot::MeshForwarder::RemoveMessagesForChild(v14, v52, ot::Mle::MleRouter::IsMessageMleSubType);
-      VersionTlv = ot::Mle::Mle::RxMessage::ReadFrameCounterTlvs(*v60, &v57, &v56);
-      if (!VersionTlv)
-      {
-        v15 = ot::Ip6::MessageInfo::GetPeerAddr(v60[1]);
-        ot::Ip6::Address::ToString(v15, v62);
-        ot::String<(unsigned short)40>::AsCString(v62);
-        ot::Logger::LogAtLevel<(ot::LogLevel)4>(&ot::Mle::kLogModuleName, "%s Rx from %s linkFrameCounter=%d mleFrameCounter=%d", v16, v17, v18, v19, v20, v21, "HandleChildIdRequest");
-        VersionTlv = ot::Mle::Mle::RxMessage::ReadModeTlv(*v60, &v55);
-        if (!VersionTlv)
-        {
-          VersionTlv = ot::Tlv::Find<ot::UintTlvInfo<(unsigned char)2,unsigned int>>(*v60, &v54);
-          if (!VersionTlv)
-          {
-            VersionTlv = ot::Mle::Mle::RxMessage::ReadTlvRequestTlv(*v60, v63, v22, v23);
-            if (!VersionTlv)
-            {
-              v45 = ot::Tlv::Find<ot::UintTlvInfo<(unsigned char)27,unsigned short>>(*v60, &v50);
-              if (v45)
-              {
-                if (v45 != 23)
-                {
-                  VersionTlv = 6;
-                  goto LABEL_52;
-                }
-
-                if (v58 > 4u)
-                {
-                  v24 = 0;
-                }
-
-                else
-                {
-                  v24 = 129;
-                }
-
-                v50 = v24;
-              }
-
-              else
-              {
-                ot::Mle::Mle::TlvList::Add(v63, 27);
-              }
-
-              v44 = ot::Tlv::Find<ot::SimpleTlvInfo<(unsigned char)22,ot::MeshCoP::Timestamp>>(*v60, v53);
-              if (v44)
-              {
-                if (v44 != 23)
-                {
-                  VersionTlv = 6;
-                  goto LABEL_52;
-                }
-              }
-
-              else
-              {
-                active = ot::GetProvider<ot::InstanceLocator>::Get<ot::MeshCoP::ActiveDatasetManager>(this);
-                Timestamp = ot::MeshCoP::DatasetManager::GetTimestamp(active);
-                if (ot::MeshCoP::Timestamp::operator==(v53, Timestamp, v27))
-                {
-                  goto LABEL_28;
-                }
-              }
-
-              ot::Mle::Mle::TlvList::Add(v63, 24);
-LABEL_28:
-              v43 = ot::Tlv::Find<ot::SimpleTlvInfo<(unsigned char)23,ot::MeshCoP::Timestamp>>(*v60, v53);
-              if (v43)
-              {
-                if (v43 != 23)
-                {
-                  VersionTlv = 6;
-                  goto LABEL_52;
-                }
-              }
-
-              else
-              {
-                v28 = ot::GetProvider<ot::InstanceLocator>::Get<ot::MeshCoP::PendingDatasetManager>(this);
-                v29 = ot::MeshCoP::DatasetManager::GetTimestamp(v28);
-                if (ot::MeshCoP::Timestamp::operator==(v53, v29, v30))
-                {
-                  goto LABEL_33;
-                }
-              }
-
-              ot::Mle::Mle::TlvList::Add(v63, 25);
-LABEL_33:
-              if (ot::Array<unsigned char,(unsigned short)32,unsigned char>::GetLength(v63) <= 6)
-              {
-                if (ot::Mle::DeviceMode::IsFullThreadDevice(&v55) || (VersionTlv = ot::Mle::MleRouter::ProcessAddressRegistrationTlv(this, v60, v52)) == 0)
-                {
-                  ot::RouterTable::FindRouter((this + 30904), v64);
-                  v51 = v31;
-                  if (v31)
-                  {
-                    ot::Mle::MleRouter::RemoveNeighbor(this, v51);
-                  }
-
-                  if (ot::Neighbor::IsStateValid(v52))
-                  {
-                    ot::Mle::MleRouter::RemoveNeighbor(this, v52);
-                  }
-
-                  else
-                  {
-                    v32 = ot::Neighbor::SetState(v52, 4);
-                  }
-
-                  v40 = v52;
-                  Now = ot::TimerMilli::GetNow(v32);
-                  ot::Neighbor::SetLastHeard(v40, Now);
-                  LinkFrameCounters = ot::Neighbor::GetLinkFrameCounters(v52);
-                  ot::Mac::LinkFrameCounters::SetAll(LinkFrameCounters, v57);
-                  ot::Neighbor::SetLinkAckFrameCounter(v52, v57);
-                  ot::Neighbor::SetMleFrameCounter(v52, v56);
-                  ot::Neighbor::SetKeySequence(v52, *(v60 + 5));
-                  ot::Child::SetDeviceMode(v52, v55);
-                  ot::Neighbor::SetVersion(v52, v58);
-                  LinkInfo = ot::Neighbor::GetLinkInfo(v52);
-                  AverageRss = ot::Message::GetAverageRss(*v60);
-                  ot::LinkQualityInfo::AddRss(LinkInfo, AverageRss);
-                  ot::Child::SetTimeout(v52, v54);
-                  ot::Child::SetSupervisionInterval(v52, v50);
-                  v42 = v52;
-                  NetworkDataType = ot::Mle::DeviceMode::GetNetworkDataType(&v55);
-                  DataVersion = ot::Mle::LeaderData::GetDataVersion(this + 184, NetworkDataType);
-                  ot::Child::SetNetworkDataVersion(v42, DataVersion);
-                  ot::Child::ClearRequestTlvs(v52);
-                  for (i = 0; i < ot::Array<unsigned char,(unsigned short)32,unsigned char>::GetLength(v63); ++i)
-                  {
-                    v39 = v52;
-                    v37 = ot::Array<unsigned char,(unsigned short)32,unsigned char>::operator[](v63, i);
-                    ot::Child::SetRequestTlv(v39, i, *v37);
-                  }
-
-                  *(v60 + 32) = 1;
-                  ot::Mle::Mle::ProcessKeySequence(this, v60);
-                  v38 = *(this + 130);
-                  if (v38 <= 1)
-                  {
-                    __assert_rtn("HandleChildIdRequest", "mle_router.cpp", 2922, "false");
-                  }
-
-                  if (v38 == 2)
-                  {
-                    ot::Neighbor::SetState(v52, 4);
-                    ot::Mle::MleRouter::BecomeRouter(this, 3u);
-                    IgnoreError();
-                  }
-
-                  else if (v38 == 4 || v38 == 3)
-                  {
-                    VersionTlv = ot::Mle::MleRouter::SendChildIdResponse(this, v52);
-                  }
-                }
-              }
-
-              else
-              {
-                VersionTlv = 6;
-              }
-            }
-          }
-        }
-      }
-    }
-  }
-
-LABEL_52:
-  ot::Mle::Mle::LogProcessError(2, VersionTlv);
-}
-
-uint64_t ot::Tlv::Find<ot::UintTlvInfo<(unsigned char)27,unsigned short>>(const ot::Message *a1, char *a2)
-{
-  return ot::Tlv::FindUintTlv<unsigned short>(a1, 0x1Bu, a2);
-}
-
-{
-  return ot::Tlv::Find<ot::UintTlvInfo<(unsigned char)27,unsigned short>>(a1, a2);
-}
-
-uint64_t ot::Array<unsigned char,(unsigned short)32,unsigned char>::GetLength(uint64_t a1)
-{
-  return *(a1 + 32);
-}
-
-{
-  return ot::Array<unsigned char,(unsigned short)32,unsigned char>::GetLength(a1);
-}
-
-uint64_t ot::Child::SetSupervisionInterval(uint64_t this, __int16 a2)
-{
-  *(this + 458) = a2;
-  return this;
-}
-
-{
-  return ot::Child::SetSupervisionInterval(this, a2);
-}
-
-uint64_t ot::Child::SetNetworkDataVersion(uint64_t this, char a2)
-{
-  *(this + 449) = a2;
-  return this;
-}
-
-{
-  return ot::Child::SetNetworkDataVersion(this, a2);
-}
-
-uint64_t ot::Child::ClearRequestTlvs(uint64_t this)
-{
-  *(this + 450) = -1;
-  *(this + 454) = -1;
-  return this;
-}
-
-{
-  return ot::Child::ClearRequestTlvs(this);
-}
-
-uint64_t ot::Child::SetRequestTlv(uint64_t this, unsigned __int8 a2, char a3)
-{
-  *(this + 450 + a2) = a3;
-  return this;
-}
-
-{
-  return ot::Child::SetRequestTlv(this, a2, a3);
-}
-
-uint64_t ot::Array<unsigned char,(unsigned short)32,unsigned char>::operator[](uint64_t a1, unsigned __int8 a2)
-{
-  return a1 + a2;
-}
-
-{
-  return ot::Array<unsigned char,(unsigned short)32,unsigned char>::operator[](a1, a2);
-}
-
-uint64_t ot::Mle::MleRouter::SendChildIdResponse(ot::Mle::MleRouter *this, ot::Child *a2)
-{
-  v21 = this;
-  v20 = a2;
-  appended = 0;
-  v17 = ot::Mle::Mle::NewMleMessage(this, 12);
-  if (v17)
-  {
-    appended = ot::Mle::Mle::TxMessage::AppendSourceAddressTlv(v17);
-    if (!appended)
-    {
-      appended = ot::Mle::Mle::TxMessage::AppendLeaderDataTlv(v17);
-      if (!appended)
-      {
-        appended = ot::Mle::Mle::TxMessage::AppendActiveAndPendingTimestampTlvs(v17);
-        if (!appended)
-        {
-          if (!ot::Neighbor::GetRloc16(v20) || (Rloc16 = ot::Neighbor::GetRloc16(v20), !ot::Mle::Mle::HasMatchingRouterIdWith(this, Rloc16)))
-          {
-            do
-            {
-              if (++*(this + 17813) > 0x1FFu)
-              {
-                *(this + 17813) = 1;
-              }
-
-              v3 = ot::GetProvider<ot::InstanceLocator>::Get<ot::Mac::Mac>(this);
-              v16 = ot::Mac::Mac::GetShortAddress(v3) | *(this + 17813);
-              ot::ChildTable::FindChild(this + 1200, v16, 5);
-            }
-
-            while (v4);
-            ot::Neighbor::SetRloc16(v20, v16);
-          }
-
-          v5 = ot::Neighbor::GetRloc16(v20);
-          appended = ot::Mle::Mle::TxMessage::AppendAddress16Tlv(v17, v5);
-          if (!appended)
-          {
-            for (i = 0; i < 6u; ++i)
-            {
-              RequestTlv = ot::Child::GetRequestTlv(v20, i);
-              switch(RequestTlv)
-              {
-                case 9:
-                  appended = ot::Mle::Mle::TxMessage::AppendRouteTlv(v17, 0);
-                  if (appended)
-                  {
-                    goto LABEL_39;
-                  }
-
-                  break;
-                case 12:
-                  NetworkDataType = ot::Neighbor::GetNetworkDataType(v20);
-                  appended = ot::Mle::Mle::TxMessage::AppendNetworkDataTlv(v17, NetworkDataType);
-                  if (appended)
-                  {
-                    goto LABEL_39;
-                  }
-
-                  break;
-                case 24:
-                  appended = ot::Mle::Mle::TxMessage::AppendActiveDatasetTlv(v17);
-                  if (appended)
-                  {
-                    goto LABEL_39;
-                  }
-
-                  break;
-                case 25:
-                  appended = ot::Mle::Mle::TxMessage::AppendPendingDatasetTlv(v17);
-                  if (appended)
-                  {
-                    goto LABEL_39;
-                  }
-
-                  break;
-                case 27:
-                  SupervisionInterval = ot::Child::GetSupervisionInterval(v20);
-                  appended = ot::Mle::Mle::TxMessage::AppendSupervisionIntervalTlv(v17, SupervisionInterval);
-                  if (appended)
-                  {
-                    goto LABEL_39;
-                  }
-
-                  break;
-              }
-            }
-
-            if (ot::Neighbor::IsFullThreadDevice(v20) || (appended = ot::Mle::Mle::TxMessage::AppendAddressRegistrationTlv(v17, v20)) == 0)
-            {
-              ot::Mle::MleRouter::SetChildStateToValid(this, v20);
-              if (!ot::Neighbor::IsRxOnWhenIdle(v20))
-              {
-                v8 = ot::GetProvider<ot::InstanceLocator>::Get<ot::IndirectSender>(this);
-                ot::IndirectSender::SetChildUseShortAddress(v8, v20, 0);
-              }
-
-              if (ot::Mle::Mle::IsCslPeripheralPresent(this))
-              {
-                v9 = ot::GetProvider<ot::InstanceLocator>::Get<ot::Mac::Mac>(this);
-                ot::Mac::Mac::UpdateCsl(v9, 0);
-              }
-
-              ot::Neighbor::GetExtAddress(v20);
-              ot::Ip6::Address::SetToLinkLocalAddress(&v18, v10);
-              appended = ot::Mle::Mle::TxMessage::SendTo(v17, &v18);
-              if (!appended)
-              {
-                v11 = ot::Neighbor::GetRloc16(v20);
-                ot::Mle::Mle::Log(0, 4, &v18, v11);
-              }
-            }
-          }
-        }
-      }
-    }
-  }
-
-  else
-  {
-    appended = 3;
-  }
-
-LABEL_39:
-  if (appended && v17)
-  {
-    ot::Message::Free(v17);
-  }
-
-  return appended;
 }

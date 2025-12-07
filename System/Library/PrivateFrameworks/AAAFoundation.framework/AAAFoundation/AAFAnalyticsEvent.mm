@@ -16,13 +16,11 @@
 
 - (void)completeEvent
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   eventName = [self eventName];
-  v5 = 138412290;
-  v6 = eventName;
-  _os_log_error_impl(&dword_1C8644000, a2, OS_LOG_TYPE_ERROR, "Already reported event %@", &v5, 0xCu);
-
-  v4 = *MEMORY[0x1E69E9840];
+  v4 = 138412290;
+  v5 = eventName;
+  _os_log_error_impl(&dword_1C8644000, a2, OS_LOG_TYPE_ERROR, "Already reported event %@", &v4, 0xCu);
 }
 
 - (id)debugDescription
@@ -102,23 +100,24 @@
   categoryCopy = category;
   dataCopy = data;
   dCopy = d;
+  v14 = dCopy;
   if (nameCopy)
   {
-    v14 = [[self alloc] initWithEventName:nameCopy eventCategory:categoryCopy initData:dataCopy altDSID:dCopy];
+    v15 = [[self alloc] initWithEventName:nameCopy eventCategory:categoryCopy initData:dataCopy altDSID:dCopy];
   }
 
   else
   {
-    v15 = _AAFLogSystem();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v16 = _AAFLogSystem(dCopy);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
-      [AAFAnalyticsEvent analyticsEventWithName:v15 eventCategory:? initData:? altDSID:?];
+      [AAFAnalyticsEvent analyticsEventWithName:v16 eventCategory:? initData:? altDSID:?];
     }
 
-    v14 = 0;
+    v15 = 0;
   }
 
-  return v14;
+  return v15;
 }
 
 + (id)analyticsEventWithName:(id)name eventCategory:(id)category followupAnalyticsData:(id)data altDSID:(id)d
@@ -127,24 +126,25 @@
   categoryCopy = category;
   dataCopy = data;
   dCopy = d;
+  v14 = dCopy;
   if (nameCopy && dataCopy)
   {
-    v14 = [[self alloc] initWithEventName:nameCopy eventCategory:categoryCopy initData:0 altDSID:dCopy];
-    [v14 _updateAnalyticsEventWithFollowupAnalyticsInfo:dataCopy];
+    v15 = [[self alloc] initWithEventName:nameCopy eventCategory:categoryCopy initData:0 altDSID:dCopy];
+    [v15 _updateAnalyticsEventWithFollowupAnalyticsInfo:dataCopy];
   }
 
   else
   {
-    v15 = _AAFLogSystem();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v16 = _AAFLogSystem(dCopy);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
-      [AAFAnalyticsEvent analyticsEventWithName:v15 eventCategory:? initData:? altDSID:?];
+      [AAFAnalyticsEvent analyticsEventWithName:v16 eventCategory:? initData:? altDSID:?];
     }
 
-    v14 = 0;
+    v15 = 0;
   }
 
-  return v14;
+  return v15;
 }
 
 - (void)setObject:(id)object forKeyedSubscript:(id)subscript
@@ -162,7 +162,7 @@
 
   else
   {
-    v11 = _AAFLogSystem();
+    v11 = _AAFLogSystem(0);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
     {
       [AAFAnalyticsEvent setObject:v11 forKeyedSubscript:?];

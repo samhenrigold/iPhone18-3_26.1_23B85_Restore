@@ -33,43 +33,43 @@
 
 - (void)_updateTitleOfProfile:(id)profile withContext:(id)context completionHandler:(id)handler
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   profileCopy = profile;
   handlerCopy = handler;
   contextCopy = context;
   randomItemTitle = [contextCopy randomItemTitle];
-  v11 = WBS_LOG_CHANNEL_PREFIXCycler();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+  v12 = WBS_LOG_CHANNEL_PREFIXCycler(randomItemTitle, v11);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
   {
-    v12 = v11;
+    v13 = v12;
     uniqueIdentifier = [profileCopy uniqueIdentifier];
     title = [profileCopy title];
     *buf = 138543874;
-    v28 = uniqueIdentifier;
-    v29 = 2114;
-    v30 = title;
-    v31 = 2114;
-    v32 = randomItemTitle;
-    _os_log_impl(&dword_1BB6F3000, v12, OS_LOG_TYPE_INFO, "Changing title of profile (identifier: %{public}@) from %{public}@ to %{public}@", buf, 0x20u);
+    v29 = uniqueIdentifier;
+    v30 = 2114;
+    v31 = title;
+    v32 = 2114;
+    v33 = randomItemTitle;
+    _os_log_impl(&dword_1BB6F3000, v13, OS_LOG_TYPE_INFO, "Changing title of profile (identifier: %{public}@) from %{public}@ to %{public}@", buf, 0x20u);
   }
 
   topLevelItem = [contextCopy topLevelItem];
   testTarget = [contextCopy testTarget];
 
   uniqueIdentifier2 = [profileCopy uniqueIdentifier];
-  v22[0] = MEMORY[0x1E69E9820];
-  v22[1] = 3221225472;
-  v22[2] = __87__WBSCyclerModifyProfileOperation__updateTitleOfProfile_withContext_completionHandler___block_invoke;
-  v22[3] = &unk_1E7FC5038;
-  v23 = topLevelItem;
-  v24 = profileCopy;
-  v25 = randomItemTitle;
-  v26 = handlerCopy;
-  v18 = randomItemTitle;
-  v19 = profileCopy;
-  v20 = topLevelItem;
-  v21 = handlerCopy;
-  [testTarget setTitle:v18 forBookmarkWithIdentifier:uniqueIdentifier2 reply:v22];
+  v23[0] = MEMORY[0x1E69E9820];
+  v23[1] = 3221225472;
+  v23[2] = __87__WBSCyclerModifyProfileOperation__updateTitleOfProfile_withContext_completionHandler___block_invoke;
+  v23[3] = &unk_1E7FC5038;
+  v24 = topLevelItem;
+  v25 = profileCopy;
+  v26 = randomItemTitle;
+  v27 = handlerCopy;
+  v19 = randomItemTitle;
+  v20 = profileCopy;
+  v21 = topLevelItem;
+  v22 = handlerCopy;
+  [testTarget setTitle:v19 forBookmarkWithIdentifier:uniqueIdentifier2 reply:v23];
 }
 
 void __87__WBSCyclerModifyProfileOperation__updateTitleOfProfile_withContext_completionHandler___block_invoke(uint64_t a1, char a2)
@@ -94,43 +94,43 @@ void __87__WBSCyclerModifyProfileOperation__updateTitleOfProfile_withContext_com
 
 - (void)_updateIconOfProfile:(id)profile withContext:(id)context completionHandler:(id)handler
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   profileCopy = profile;
   handlerCopy = handler;
   contextCopy = context;
   randomSymbolImageName = [contextCopy randomSymbolImageName];
-  v11 = WBS_LOG_CHANNEL_PREFIXCycler();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+  v12 = WBS_LOG_CHANNEL_PREFIXCycler(randomSymbolImageName, v11);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
   {
-    v12 = v11;
+    v13 = v12;
     uniqueIdentifier = [profileCopy uniqueIdentifier];
     symbolImageName = [profileCopy symbolImageName];
     *buf = 138543874;
-    v28 = uniqueIdentifier;
-    v29 = 2114;
-    v30 = symbolImageName;
-    v31 = 2114;
-    v32 = randomSymbolImageName;
-    _os_log_impl(&dword_1BB6F3000, v12, OS_LOG_TYPE_INFO, "Changing icon of profile (identifier: %{public}@) from %{public}@ to %{public}@", buf, 0x20u);
+    v29 = uniqueIdentifier;
+    v30 = 2114;
+    v31 = symbolImageName;
+    v32 = 2114;
+    v33 = randomSymbolImageName;
+    _os_log_impl(&dword_1BB6F3000, v13, OS_LOG_TYPE_INFO, "Changing icon of profile (identifier: %{public}@) from %{public}@ to %{public}@", buf, 0x20u);
   }
 
   topLevelItem = [contextCopy topLevelItem];
   testTarget = [contextCopy testTarget];
 
   uniqueIdentifier2 = [profileCopy uniqueIdentifier];
-  v22[0] = MEMORY[0x1E69E9820];
-  v22[1] = 3221225472;
-  v22[2] = __86__WBSCyclerModifyProfileOperation__updateIconOfProfile_withContext_completionHandler___block_invoke;
-  v22[3] = &unk_1E7FC5038;
-  v23 = topLevelItem;
-  v24 = profileCopy;
-  v25 = randomSymbolImageName;
-  v26 = handlerCopy;
-  v18 = randomSymbolImageName;
-  v19 = profileCopy;
-  v20 = topLevelItem;
-  v21 = handlerCopy;
-  [testTarget setSymbolImageName:v18 forBookmarkWithIdentifier:uniqueIdentifier2 reply:v22];
+  v23[0] = MEMORY[0x1E69E9820];
+  v23[1] = 3221225472;
+  v23[2] = __86__WBSCyclerModifyProfileOperation__updateIconOfProfile_withContext_completionHandler___block_invoke;
+  v23[3] = &unk_1E7FC5038;
+  v24 = topLevelItem;
+  v25 = profileCopy;
+  v26 = randomSymbolImageName;
+  v27 = handlerCopy;
+  v19 = randomSymbolImageName;
+  v20 = profileCopy;
+  v21 = topLevelItem;
+  v22 = handlerCopy;
+  [testTarget setSymbolImageName:v19 forBookmarkWithIdentifier:uniqueIdentifier2 reply:v23];
 }
 
 void __86__WBSCyclerModifyProfileOperation__updateIconOfProfile_withContext_completionHandler___block_invoke(uint64_t a1, char a2)

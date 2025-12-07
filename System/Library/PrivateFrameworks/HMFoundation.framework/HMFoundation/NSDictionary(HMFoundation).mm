@@ -36,9 +36,9 @@
 
 + (NSString)shortDescription
 {
-  v0 = objc_opt_class();
+  v2 = objc_opt_class();
 
-  return NSStringFromClass(v0);
+  return NSStringFromClass(v2);
 }
 
 - (id)shortDescription
@@ -51,28 +51,28 @@
 
 - (id)privateDescription
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:{objc_msgSend(self, "count")}];
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   obj = [self keyEnumerator];
-  v3 = [obj countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v3 = [obj countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v18;
+    v5 = *v17;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v18 != v5)
+        if (*v17 != v5)
         {
           objc_enumerationMutation(obj);
         }
 
-        v7 = *(*(&v17 + 1) + 8 * i);
+        v7 = *(*(&v16 + 1) + 8 * i);
         v8 = [self objectForKeyedSubscript:v7];
         objc_opt_class();
         if (objc_opt_isKindOfClass())
@@ -101,15 +101,13 @@
         [v2 setObject:v12 forKeyedSubscript:v7];
       }
 
-      v4 = [obj countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v4 = [obj countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v4);
   }
 
   v13 = [v2 description];
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v13;
 }
@@ -135,65 +133,63 @@
 
 - (id)hmf_arrayForKey:()HMFoundation ofClasses:
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   v6 = a4;
   v7 = [self hmf_arrayForKey:a3];
   v8 = v7;
   if (v7)
   {
-    v31 = 0u;
-    v32 = 0u;
+    v28 = 0u;
     v29 = 0u;
-    v30 = 0u;
+    v26 = 0u;
+    v27 = 0u;
     v9 = v7;
-    v10 = [v9 countByEnumeratingWithState:&v29 objects:v34 count:16];
+    v10 = [v9 countByEnumeratingWithState:&v26 objects:v31 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v30;
-      v24 = v8;
+      v12 = *v27;
+      v21 = v8;
       while (1)
       {
         v13 = 0;
 LABEL_5:
-        if (*v30 != v12)
+        if (*v27 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        v14 = *(*(&v29 + 1) + 8 * v13);
+        v22 = 0u;
+        v23 = 0u;
+        v24 = 0u;
         v25 = 0u;
-        v26 = 0u;
-        v27 = 0u;
-        v28 = 0u;
-        v15 = v6;
-        v16 = [v15 countByEnumeratingWithState:&v25 objects:v33 count:16];
-        if (!v16)
+        v14 = v6;
+        v15 = [v14 countByEnumeratingWithState:&v22 objects:v30 count:16];
+        if (!v15)
         {
           break;
         }
 
-        v17 = v16;
-        v18 = *v26;
+        v16 = v15;
+        v17 = *v23;
 LABEL_9:
-        v19 = 0;
+        v18 = 0;
         while (1)
         {
-          if (*v26 != v18)
+          if (*v23 != v17)
           {
-            objc_enumerationMutation(v15);
+            objc_enumerationMutation(v14);
           }
 
-          v20 = *(*(&v25 + 1) + 8 * v19);
           if (objc_opt_isKindOfClass())
           {
             break;
           }
 
-          if (v17 == ++v19)
+          if (v16 == ++v18)
           {
-            v17 = [v15 countByEnumeratingWithState:&v25 objects:v33 count:16];
-            if (v17)
+            v16 = [v14 countByEnumeratingWithState:&v22 objects:v30 count:16];
+            if (v16)
             {
               goto LABEL_9;
             }
@@ -207,8 +203,8 @@ LABEL_9:
           goto LABEL_5;
         }
 
-        v11 = [v9 countByEnumeratingWithState:&v29 objects:v34 count:16];
-        v8 = v24;
+        v11 = [v9 countByEnumeratingWithState:&v26 objects:v31 count:16];
+        v8 = v21;
         if (!v11)
         {
           goto LABEL_18;
@@ -217,26 +213,24 @@ LABEL_9:
 
 LABEL_19:
 
-      v21 = 0;
-      v8 = v24;
+      v19 = 0;
+      v8 = v21;
     }
 
     else
     {
 LABEL_18:
 
-      v21 = v9;
+      v19 = v9;
     }
   }
 
   else
   {
-    v21 = 0;
+    v19 = 0;
   }
 
-  v22 = *MEMORY[0x277D85DE8];
-
-  return v21;
+  return v19;
 }
 
 - (void)hmf_mutableArrayForKey:()HMFoundation
@@ -276,7 +270,7 @@ LABEL_18:
 
 - (uint64_t)hmf_BOOLForKey:()HMFoundation isPresent:
 {
-  v5 = [self hmf_numberForKey:?];
+  v5 = [self hmf_numberForKey:a3];
   v6 = v5;
   if (a4)
   {
@@ -298,7 +292,7 @@ LABEL_18:
 
 - (uint64_t)hmf_BOOLForKey:()HMFoundation error:
 {
-  v5 = [self objectForKeyedSubscript:?];
+  v5 = [self objectForKeyedSubscript:a3];
   if (v5)
   {
     objc_opt_class();
@@ -482,24 +476,23 @@ LABEL_18:
 {
   v8[1] = *MEMORY[0x277D85DE8];
   v8[0] = objc_opt_class();
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:1];
-  v3 = [self hmf_unarchivedObjectForKey:@"HMFMessageFlowKey" ofClasses:v2];
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:1];
+  v4 = [self hmf_unarchivedObjectForKey:@"HMFMessageFlowKey" ofClasses:v3];
 
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v4 = v3;
+    v5 = v4;
   }
 
   else
   {
-    v4 = 0;
+    v5 = 0;
   }
 
-  v5 = v4;
+  v6 = v5;
 
-  v6 = *MEMORY[0x277D85DE8];
-  return v4;
+  return v5;
 }
 
 - (void)hmf_nullForKey:()HMFoundation
@@ -523,7 +516,7 @@ LABEL_18:
 
 - (uint64_t)hmf_integerForKey:()HMFoundation error:
 {
-  v5 = [self objectForKeyedSubscript:?];
+  v5 = [self objectForKeyedSubscript:a3];
   if (v5)
   {
     objc_opt_class();
@@ -780,19 +773,19 @@ LABEL_18:
     {
       v13 = objc_autoreleasePoolPush();
       selfCopy = self;
-      v15 = HMFGetOSLogHandle();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+      v16 = HMFGetOSLogHandle(selfCopy, v15);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
-        v16 = HMFGetLogIdentifier(selfCopy);
+        v17 = HMFGetLogIdentifier(selfCopy);
         *buf = 138544130;
-        v21 = v16;
+        v21 = v17;
         v22 = 2112;
         v23 = v8;
         v24 = 2112;
         v25 = v9;
         v26 = 2112;
         v27 = v11;
-        _os_log_impl(&dword_22ADEC000, v15, OS_LOG_TYPE_ERROR, "%{public}@Failed to deserialize object of classes: %@, from data %@, with error: %@", buf, 0x2Au);
+        _os_log_impl(&dword_22ADEC000, v16, OS_LOG_TYPE_ERROR, "%{public}@Failed to deserialize object of classes: %@, from data %@, with error: %@", buf, 0x2Au);
       }
 
       objc_autoreleasePoolPop(v13);
@@ -803,8 +796,6 @@ LABEL_18:
   {
     v10 = 0;
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return v10;
 }

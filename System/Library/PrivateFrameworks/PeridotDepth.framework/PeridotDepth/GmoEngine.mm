@@ -6,11 +6,13 @@
 - (int)blockSmoothing:(void *)smoothing localNa:(const void *)na specsOut:(void *)out numOfFrames:(unint64_t)frames smoothedSpotsLoc:(id *)loc validSpotsIndexes:(void *)indexes numOfValidSpots:(unsigned int *)spots smoothedSNR:(void *)self0 smoothedSNa:(void *)self1;
 - (int)calculateGtErrP95:(id *)p95 spotLocations:(id *)locations result:(float *)result;
 - (int)calculateItpQual:(const PDAnchors *)qual spotLocations:(id *)locations result:(float *)result;
+- (int)calculateSnrLoss:(const PDAnchors *)loss gtSpotLocations:(id *)locations radialTargetFlag:(BOOL)flag gtSnr:(void *)snr snrLoss:(void *)snrLoss;
 - (int)calculateSpecQs:(const GmoProcessBankInputs *)qs pulsesPerphase:(unint64_t)perphase specsOut:(SpecsResults *)out;
 - (int)configureEngineWithSpecConfig:(const PRIConfigSpec *)config;
 - (int)findSpotLocation1D:(float)d spotLocation:(float *)location outBound:(BOOL *)bound;
 - (int)findSpotLocation:(const SpecsResults *)location withAnchors:(const SpConfig *)anchors spotLocationEstimation:(void *)estimation outBound:(void *)bound;
 - (int)getAnchorsWithHysteresis:(id *)hysteresis anchorsWithHist:(PDAnchors *)hist;
+- (int)getAnchorsWithHysteresis:(id *)hysteresis currAnchors:(const PDAnchors *)anchors snrHysteresisPct:(float)pct anchorsWithHist:(PDAnchors *)hist violations:(spViolations *)violations anchorMoveIdx:(void *)idx spotLocationsAtRefDist:(id *)dist anchorsMoved:(unint64_t *)self0;
 - (int)globalEstimation:(id *)estimation estSpotLocAtRefDist:(id *)dist validSpotsIndexes:(const void *)indexes result:(void *)result;
 - (vector<std::vector<unsigned)specPhasePriOrder;
 - (void)calculateGaussianIntegralForFrame:(id *)frame anchors:(const PDAnchors *)anchors spotSize:(float)size integral:(void *)integral;
@@ -920,7 +922,7 @@
 
 - (int)blockSmoothing:(void *)smoothing localNa:(const void *)na specsOut:(void *)out numOfFrames:(unint64_t)frames smoothedSpotsLoc:(id *)loc validSpotsIndexes:(void *)indexes numOfValidSpots:(unsigned int *)spots smoothedSNR:(void *)self0 smoothedSNa:(void *)self1
 {
-  (MEMORY[0x28223BE20])(self, a2, smoothing);
+  MEMORY[0x28223BE20](self, a2, smoothing);
   v43 = v13;
   v65 = *MEMORY[0x277D85DE8];
   *spots = 0;
@@ -1217,6 +1219,13 @@
   v6 = 0;
   LODWORD(v4) = -1.0;
   return [(GmoEngine *)self getAnchorsWithHysteresis:hysteresis currAnchors:v10 snrHysteresisPct:hist anchorsWithHist:v9 violations:v8 anchorMoveIdx:v7 spotLocationsAtRefDist:v4 anchorsMoved:&v6];
+}
+
+- (int)getAnchorsWithHysteresis:(id *)hysteresis currAnchors:(const PDAnchors *)anchors snrHysteresisPct:(float)pct anchorsWithHist:(PDAnchors *)hist violations:(spViolations *)violations anchorMoveIdx:(void *)idx spotLocationsAtRefDist:(id *)dist anchorsMoved:(unint64_t *)self0
+{
+  *moved = 0;
+  v10.i32[0] = 1161527296;
+  peridot::compensateForParallax(self->_unitInfo->var1, hysteresis, 0, dist, v10);
 }
 
 - (void)clipSpotsLocation:(id *)location refSpotsLoc:(id *)loc clippedSpotLocations:(id *)locations numOfClippedSpots:(unint64_t *)spots
@@ -1635,44 +1644,51 @@ LABEL_72:
   }
 
   while (v5 != 448);
-  common::utils::prctile<float>();
+  common::utils::prctile<float>(v29, 0x5Fu);
 }
 
 - (int)calculateItpQual:(const PDAnchors *)qual spotLocations:(id *)locations result:(float *)result
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   [(GmoEngine *)self calculateSnrLoss:qual gtSpotLocations:locations radialTargetFlag:1 gtSnr:v12 snrLoss:v11];
   __asm { FMOV            V0.4S, #1.0 }
 
-  v13 = vsubq_f32(_Q0, v11[0]);
-  v14 = vsubq_f32(_Q0, v11[1]);
-  v15 = vsubq_f32(_Q0, v11[2]);
-  v16 = vsubq_f32(_Q0, v11[3]);
-  v17 = vsubq_f32(_Q0, v11[4]);
-  v18 = vsubq_f32(_Q0, v11[5]);
-  v19 = vsubq_f32(_Q0, v11[6]);
-  v20 = vsubq_f32(_Q0, v11[7]);
-  v21 = vsubq_f32(_Q0, v11[8]);
-  v22 = vsubq_f32(_Q0, v11[9]);
-  v23 = vsubq_f32(_Q0, v11[10]);
-  v24 = vsubq_f32(_Q0, v11[11]);
-  v25 = vsubq_f32(_Q0, v11[12]);
-  v26 = vsubq_f32(_Q0, v11[13]);
-  v27 = vsubq_f32(_Q0, v11[14]);
-  v28 = vsubq_f32(_Q0, v11[15]);
-  v29 = vsubq_f32(_Q0, v11[16]);
-  v30 = vsubq_f32(_Q0, v11[17]);
-  v31 = vsubq_f32(_Q0, v11[18]);
-  v32 = vsubq_f32(_Q0, v11[19]);
-  v33 = vsubq_f32(_Q0, v11[20]);
-  v34 = vsubq_f32(_Q0, v11[21]);
-  v35 = vsubq_f32(_Q0, v11[22]);
-  v36 = vsubq_f32(_Q0, v11[23]);
-  v37 = vsubq_f32(_Q0, v11[24]);
-  v38 = vsubq_f32(_Q0, v11[25]);
-  v39 = vsubq_f32(_Q0, v11[26]);
-  v40 = vsubq_f32(_Q0, v11[27]);
-  common::utils::prctile<float>();
+  v13[0] = vsubq_f32(_Q0, v11[0]);
+  v13[1] = vsubq_f32(_Q0, v11[1]);
+  v13[2] = vsubq_f32(_Q0, v11[2]);
+  v13[3] = vsubq_f32(_Q0, v11[3]);
+  v13[4] = vsubq_f32(_Q0, v11[4]);
+  v13[5] = vsubq_f32(_Q0, v11[5]);
+  v13[6] = vsubq_f32(_Q0, v11[6]);
+  v13[7] = vsubq_f32(_Q0, v11[7]);
+  v13[8] = vsubq_f32(_Q0, v11[8]);
+  v13[9] = vsubq_f32(_Q0, v11[9]);
+  v13[10] = vsubq_f32(_Q0, v11[10]);
+  v13[11] = vsubq_f32(_Q0, v11[11]);
+  v13[12] = vsubq_f32(_Q0, v11[12]);
+  v13[13] = vsubq_f32(_Q0, v11[13]);
+  v13[14] = vsubq_f32(_Q0, v11[14]);
+  v13[15] = vsubq_f32(_Q0, v11[15]);
+  v13[16] = vsubq_f32(_Q0, v11[16]);
+  v13[17] = vsubq_f32(_Q0, v11[17]);
+  v13[18] = vsubq_f32(_Q0, v11[18]);
+  v13[19] = vsubq_f32(_Q0, v11[19]);
+  v13[20] = vsubq_f32(_Q0, v11[20]);
+  v13[21] = vsubq_f32(_Q0, v11[21]);
+  v13[22] = vsubq_f32(_Q0, v11[22]);
+  v13[23] = vsubq_f32(_Q0, v11[23]);
+  v13[24] = vsubq_f32(_Q0, v11[24]);
+  v13[25] = vsubq_f32(_Q0, v11[25]);
+  v13[26] = vsubq_f32(_Q0, v11[26]);
+  v13[27] = vsubq_f32(_Q0, v11[27]);
+  common::utils::prctile<float>(v13, 5u);
+}
+
+- (int)calculateSnrLoss:(const PDAnchors *)loss gtSpotLocations:(id *)locations radialTargetFlag:(BOOL)flag gtSnr:(void *)snr snrLoss:(void *)snrLoss
+{
+  v7 = MEMORY[0x28223BE20](self, a2, loss);
+  v8.i32[0] = 1161527296;
+  peridot::compensateForParallax(*(*(v7 + 24) + 402528), v9, 0, v11, v8);
 }
 
 - (void)calculateGaussianIntegralForFrame:(id *)frame anchors:(const PDAnchors *)anchors spotSize:(float)size integral:(void *)integral
@@ -2022,7 +2038,7 @@ LABEL_5:
 
 - (int)calculateSpecQs:(const GmoProcessBankInputs *)qs pulsesPerphase:(unint64_t)perphase specsOut:(SpecsResults *)out
 {
-  v5 = (MEMORY[0x28223BE20])(self, a2, qs);
+  v5 = MEMORY[0x28223BE20](self, a2, qs);
   __b = v8;
   v98 = v5;
   v116[1018] = *MEMORY[0x277D85DE8];
@@ -2452,7 +2468,7 @@ LABEL_14:
 
 - (int)configureEngineWithSpecConfig:(const PRIConfigSpec *)config
 {
-  v3 = (MEMORY[0x28223BE20])(self, a2, config);
+  v3 = MEMORY[0x28223BE20](self, a2, config);
   v5 = v4;
   v6 = v3;
   v16 = *MEMORY[0x277D85DE8];

@@ -165,51 +165,49 @@
 
 + (id)convertSystemDialogActs:(id)acts
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   actsCopy = acts;
   v5 = objc_alloc_init(MEMORY[0x1E695DF70]);
   if (actsCopy)
   {
-    v15 = 0u;
-    v16 = 0u;
-    v13 = 0u;
     v14 = 0u;
+    v15 = 0u;
+    v12 = 0u;
+    v13 = 0u;
     v6 = actsCopy;
-    v7 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
     if (v7)
     {
-      v8 = *v14;
+      v8 = *v13;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v14 != v8)
+          if (*v13 != v8)
           {
             objc_enumerationMutation(v6);
           }
 
-          v10 = [self convertSystemDialogAct:{*(*(&v13 + 1) + 8 * i), v13}];
+          v10 = [self convertSystemDialogAct:{*(*(&v12 + 1) + 8 * i), v12}];
           if (v10)
           {
             [v5 addObject:v10];
           }
         }
 
-        v7 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
+        v7 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
       }
 
       while (v7);
     }
   }
 
-  v11 = *MEMORY[0x1E69E9840];
-
   return v5;
 }
 
 + (id)convertSystemDialogAct:(id)act
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   actCopy = act;
   v5 = actCopy;
   if (!actCopy)
@@ -257,11 +255,11 @@ LABEL_17:
       v11 = loggerContext(1);
       if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
       {
-        v14 = 136315394;
-        v15 = "+[SiriNLUTypesSDAConverter convertSystemDialogAct:]";
-        v16 = 2112;
-        v17 = v5;
-        _os_log_impl(&dword_1C8774000, v11, OS_LOG_TYPE_INFO, "%s [WARN]: Encountered an unknown SDA %@", &v14, 0x16u);
+        v13 = 136315394;
+        v14 = "+[SiriNLUTypesSDAConverter convertSystemDialogAct:]";
+        v15 = 2112;
+        v16 = v5;
+        _os_log_impl(&dword_1C8774000, v11, OS_LOG_TYPE_INFO, "%s [WARN]: Encountered an unknown SDA %@", &v13, 0x16u);
       }
 
       goto LABEL_20;
@@ -286,8 +284,6 @@ LABEL_17:
   }
 
 LABEL_21:
-
-  v12 = *MEMORY[0x1E69E9840];
 
   return v8;
 }

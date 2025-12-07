@@ -10,6 +10,7 @@
 - (void)_messageExpiredWithSeqno:(unint64_t)seqno identifier:(id)identifier;
 - (void)_notifySessionComplete;
 - (void)_processNextState;
+- (void)_sendSyncBatch:(id)batch nextState:(unsigned int)state;
 - (void)_sendSyncCancelled;
 - (void)_sendSyncCompleteAndRunBlock:(id)block;
 - (void)_sendSyncRestart;
@@ -105,7 +106,7 @@ void __46__SYOutgoingBatchSyncSession_initWithService___block_invoke(uint64_t a1
 
 - (void)setState:(unsigned int)state
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   selfCopy = self;
   objc_sync_enter(selfCopy);
   if (_sync_log_facilities_pred != -1)
@@ -118,23 +119,21 @@ void __46__SYOutgoingBatchSyncSession_initWithService___block_invoke(uint64_t a1
   {
     v6 = objc_opt_class();
     v7 = NSStringFromClass(v6);
-    v9 = 138543618;
-    v10 = v7;
-    v11 = 1024;
+    v8 = 138543618;
+    v9 = v7;
+    v10 = 1024;
     stateCopy = state;
-    _os_log_impl(&dword_1DF835000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@: Setting state to %{companionsync:SYSessionState}d", &v9, 0x12u);
+    _os_log_impl(&dword_1DF835000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@: Setting state to %{companionsync:SYSessionState}d", &v8, 0x12u);
   }
 
   selfCopy->_state = state;
   dispatch_source_merge_data(selfCopy->_stateUpdateSource, 1uLL);
   objc_sync_exit(selfCopy);
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_setStateQuietly:(unsigned int)quietly
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   selfCopy = self;
   objc_sync_enter(selfCopy);
   if (_sync_log_facilities_pred != -1)
@@ -147,17 +146,15 @@ void __46__SYOutgoingBatchSyncSession_initWithService___block_invoke(uint64_t a1
   {
     v6 = objc_opt_class();
     v7 = NSStringFromClass(v6);
-    v9 = 138543618;
-    v10 = v7;
-    v11 = 1024;
+    v8 = 138543618;
+    v9 = v7;
+    v10 = 1024;
     quietlyCopy = quietly;
-    _os_log_impl(&dword_1DF835000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@: Setting state (quietly) to %{companionsync:SYSessionState}d", &v9, 0x12u);
+    _os_log_impl(&dword_1DF835000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@: Setting state (quietly) to %{companionsync:SYSessionState}d", &v8, 0x12u);
   }
 
   selfCopy->_state = quietly;
   objc_sync_exit(selfCopy);
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (double)remainingSessionTime
@@ -319,7 +316,7 @@ void __51__SYOutgoingBatchSyncSession__waitForMessageWindow__block_invoke(uint64
 
 uint64_t __45__SYOutgoingBatchSyncSession__fetchNextBatch__block_invoke(uint64_t a1, void *a2)
 {
-  v25[2] = *MEMORY[0x1E69E9840];
+  v24[2] = *MEMORY[0x1E69E9840];
   v3 = a2;
   state.opaque[0] = 0;
   state.opaque[1] = 0;
@@ -342,17 +339,17 @@ uint64_t __45__SYOutgoingBatchSyncSession__fetchNextBatch__block_invoke(uint64_t
     if ((v10 & 1) == 0)
     {
       v13 = objc_alloc(MEMORY[0x1E696ABC0]);
-      v24[0] = @"SYDelegateProtocolName";
+      v23[0] = @"SYDelegateProtocolName";
       v14 = NSStringFromProtocol(&unk_1F5AE3E50);
-      v24[1] = @"SYDelegateMethodNames";
-      v25[0] = v14;
+      v23[1] = @"SYDelegateMethodNames";
+      v24[0] = v14;
       v15 = NSStringFromSelector(sel_encodeSYChangeForBackwardCompatibility_protocolVersion_);
-      v23[0] = v15;
+      v22[0] = v15;
       v16 = NSStringFromSelector(sel_dataWithSYObject_);
-      v23[1] = v16;
-      v17 = [MEMORY[0x1E695DEC8] arrayWithObjects:v23 count:2];
-      v25[1] = v17;
-      v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v25 forKeys:v24 count:2];
+      v22[1] = v16;
+      v17 = [MEMORY[0x1E695DEC8] arrayWithObjects:v22 count:2];
+      v24[1] = v17;
+      v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v24 forKeys:v23 count:2];
       v19 = [v13 initWithSYError:2020 userInfo:v18];
       [*(a1 + 32) setError:v19];
 
@@ -380,7 +377,6 @@ LABEL_9:
 LABEL_10:
 
   os_activity_scope_leave(&state);
-  v20 = *MEMORY[0x1E69E9840];
   return v12;
 }
 
@@ -410,6 +406,52 @@ void __45__SYOutgoingBatchSyncSession__fetchNextBatch__block_invoke_75(uint64_t 
   if (v8)
   {
     objc_storeStrong((*(*(a1 + 56) + 8) + 40), v7);
+  }
+}
+
+- (void)_sendSyncBatch:(id)batch nextState:(unsigned int)state
+{
+  v4 = *&state;
+  batchCopy = batch;
+  queue = [(SYSession *)self queue];
+  dispatch_assert_queue_V2(queue);
+
+  if ([batchCopy count])
+  {
+    v8 = objc_opt_new();
+    service = [(SYSession *)self service];
+    _newMessageHeader = [service _newMessageHeader];
+    [v8 setHeader:_newMessageHeader];
+
+    identifier = [(SYSession *)self identifier];
+    [v8 setSyncID:identifier];
+
+    ++self->_batchIndex;
+    [v8 setChunkIndex:?];
+    [v8 setObjects:batchCopy];
+    [(SYOutgoingBatchSyncSession *)self setState:8];
+    header = [v8 header];
+    sequenceNumber = [header sequenceNumber];
+
+    [(SYOutgoingBatchSyncSession *)self _setMessageTimerForSeqno:sequenceNumber];
+    syncEngine = [service syncEngine];
+    priority = [(SYSession *)self priority];
+    v16 = [(SYSession *)self combinedEngineOptions:0];
+    wrappedUserContext = [(SYSession *)self wrappedUserContext];
+    v18[0] = MEMORY[0x1E69E9820];
+    v18[1] = 3221225472;
+    v18[2] = __55__SYOutgoingBatchSyncSession__sendSyncBatch_nextState___block_invoke;
+    v18[3] = &unk_1E86CA2A8;
+    v18[4] = self;
+    v18[5] = sequenceNumber;
+    v19 = v4;
+    [syncEngine enqueueSyncRequest:v8 withMessageID:4 priority:priority options:v16 userContext:wrappedUserContext callback:v18];
+  }
+
+  else
+  {
+    [(SYOutgoingBatchSyncSession *)self setState:v4];
+    [(_SYCountedSemaphore *)self->_changeConcurrencySemaphore signal];
   }
 }
 
@@ -444,7 +486,7 @@ void __55__SYOutgoingBatchSyncSession__sendSyncBatch_nextState___block_invoke(ui
 
 - (void)_sendSyncCompleteAndRunBlock:(id)block
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   blockCopy = block;
   queue = [(SYSession *)self queue];
   dispatch_assert_queue_V2(queue);
@@ -487,7 +529,7 @@ void __55__SYOutgoingBatchSyncSession__sendSyncBatch_nextState___block_invoke(ui
         v14 = v13;
         error2 = [(SYSession *)self error];
         *buf = 138412290;
-        v32 = error2;
+        v31 = error2;
         _os_log_impl(&dword_1DF835000, v14, OS_LOG_TYPE_DEFAULT, "Attaching error to end-session: %@", buf, 0xCu);
       }
 
@@ -508,18 +550,17 @@ void __55__SYOutgoingBatchSyncSession__sendSyncBatch_nextState___block_invoke(ui
   priority = [(SYSession *)self priority];
   v24 = [(SYSession *)self combinedEngineOptions:0];
   wrappedUserContext = [(SYSession *)self wrappedUserContext];
-  v28[0] = MEMORY[0x1E69E9820];
-  v28[1] = 3221225472;
-  v28[2] = __59__SYOutgoingBatchSyncSession__sendSyncCompleteAndRunBlock___block_invoke;
-  v28[3] = &unk_1E86CA2D0;
-  v29 = v19;
-  v30 = sequenceNumber;
-  v28[4] = self;
+  v27[0] = MEMORY[0x1E69E9820];
+  v27[1] = 3221225472;
+  v27[2] = __59__SYOutgoingBatchSyncSession__sendSyncCompleteAndRunBlock___block_invoke;
+  v27[3] = &unk_1E86CA2D0;
+  v28 = v19;
+  v29 = sequenceNumber;
+  v27[4] = self;
   v26 = v19;
-  [syncEngine enqueueSyncRequest:v7 withMessageID:5 priority:priority options:v24 userContext:wrappedUserContext callback:v28];
+  [syncEngine enqueueSyncRequest:v7 withMessageID:5 priority:priority options:v24 userContext:wrappedUserContext callback:v27];
 
   self->_hasSentEnd = 1;
-  v27 = *MEMORY[0x1E69E9840];
 }
 
 void __59__SYOutgoingBatchSyncSession__sendSyncCompleteAndRunBlock___block_invoke(uint64_t a1, int a2, void *a3, void *a4)
@@ -620,7 +661,7 @@ void __48__SYOutgoingBatchSyncSession__sendSyncCancelled__block_invoke(uint64_t 
 
 - (void)_sendSyncRestart
 {
-  v10[1] = *MEMORY[0x1E69E9840];
+  v8[1] = *MEMORY[0x1E69E9840];
   queue = [(SYSession *)self queue];
   dispatch_assert_queue_V2(queue);
 
@@ -628,23 +669,21 @@ void __48__SYOutgoingBatchSyncSession__sendSyncCancelled__block_invoke(uint64_t 
   {
     [(NSMutableIndexSet *)self->_ackedBatchIndices removeAllIndexes];
     self->_batchIndex = 0;
-    v4 = *MEMORY[0x1E69E9840];
 
     [(SYOutgoingBatchSyncSession *)self _sendSyncStart];
   }
 
   else
   {
-    v5 = objc_alloc(MEMORY[0x1E696ABC0]);
-    v9 = *MEMORY[0x1E696A578];
-    v10[0] = @"This session does not support being restarted.";
-    v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:&v9 count:1];
-    v7 = [v5 initWithSYError:2008 userInfo:v6];
-    [(SYSession *)self setError:v7];
+    v4 = objc_alloc(MEMORY[0x1E696ABC0]);
+    v7 = *MEMORY[0x1E696A578];
+    v8[0] = @"This session does not support being restarted.";
+    v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:&v7 count:1];
+    v6 = [v4 initWithSYError:2008 userInfo:v5];
+    [(SYSession *)self setError:v6];
 
     self->_errorIsLocal = 1;
     [(SYOutgoingBatchSyncSession *)self setState:5];
-    v8 = *MEMORY[0x1E69E9840];
   }
 }
 
@@ -796,13 +835,13 @@ uint64_t __46__SYOutgoingBatchSyncSession__sessionComplete__block_invoke(uint64_
 
 - (void)_processNextState
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   queue = [(SYSession *)self queue];
   dispatch_assert_queue_V2(queue);
 
-  v10.opaque[0] = 0;
-  v10.opaque[1] = 0;
-  os_activity_scope_enter(self->_sessionActivity, &v10);
+  v9.opaque[0] = 0;
+  v9.opaque[1] = 0;
+  os_activity_scope_enter(self->_sessionActivity, &v9);
   state = [(SYOutgoingBatchSyncSession *)self state];
   if (state > 3)
   {
@@ -827,9 +866,9 @@ uint64_t __46__SYOutgoingBatchSyncSession__sessionComplete__block_invoke(uint64_
           v7 = NSStringFromClass(v6);
           error = [(SYSession *)self error];
           *buf = 138543618;
-          v12 = v7;
-          v13 = 2112;
-          v14 = error;
+          v11 = v7;
+          v12 = 2112;
+          v13 = error;
           _os_log_impl(&dword_1DF835000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@ entered error state. Error = %@", buf, 0x16u);
         }
       }
@@ -861,8 +900,7 @@ uint64_t __46__SYOutgoingBatchSyncSession__sessionComplete__block_invoke(uint64_
   }
 
 LABEL_19:
-  os_activity_scope_leave(&v10);
-  v9 = *MEMORY[0x1E69E9840];
+  os_activity_scope_leave(&v9);
 }
 
 - (void)_installTimers
@@ -897,14 +935,14 @@ LABEL_19:
 
 void __44__SYOutgoingBatchSyncSession__installTimers__block_invoke(uint64_t a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v2 = WeakRetained;
   if (WeakRetained)
   {
-    v8.opaque[0] = 0;
-    v8.opaque[1] = 0;
-    os_activity_scope_enter(WeakRetained[33], &v8);
+    v7.opaque[0] = 0;
+    v7.opaque[1] = 0;
+    os_activity_scope_enter(WeakRetained[33], &v7);
     if (_sync_log_facilities_pred != -1)
     {
       [SYIncomingSyncAllObjectsSession _continueProcessing];
@@ -922,10 +960,8 @@ void __44__SYOutgoingBatchSyncSession__installTimers__block_invoke(uint64_t a1)
     [(os_activity_t *)v2 setError:v6];
 
     [(os_activity_t *)v2 setState:5];
-    os_activity_scope_leave(&v8);
+    os_activity_scope_leave(&v7);
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_setMessageTimerForSeqno:(unint64_t)seqno
@@ -977,7 +1013,7 @@ void __51__SYOutgoingBatchSyncSession__installStateListener__block_invoke(uint64
 
 - (void)start:(id)start
 {
-  v43[1] = *MEMORY[0x1E69E9840];
+  v42[1] = *MEMORY[0x1E69E9840];
   startCopy = start;
   delegate = [(SYSession *)self delegate];
 
@@ -996,28 +1032,28 @@ void __51__SYOutgoingBatchSyncSession__installStateListener__block_invoke(uint64
       if ((v13 & 1) == 0)
       {
         v19 = objc_alloc(MEMORY[0x1E696ABC0]);
-        v40[0] = @"SYDelegateProtocolName";
+        v39[0] = @"SYDelegateProtocolName";
         v20 = NSStringFromProtocol(&unk_1F5AE3E50);
-        v40[1] = @"SYDelegateMethodNames";
-        v41[0] = v20;
+        v39[1] = @"SYDelegateMethodNames";
+        v40[0] = v20;
         v21 = NSStringFromSelector(sel_encodeSYChangeForBackwardCompatibility_protocolVersion_);
-        v39[0] = v21;
+        v38[0] = v21;
         v22 = NSStringFromSelector(sel_dataWithSYObject_);
-        v39[1] = v22;
-        v23 = [MEMORY[0x1E695DEC8] arrayWithObjects:v39 count:2];
-        v41[1] = v23;
-        v24 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v41 forKeys:v40 count:2];
+        v38[1] = v22;
+        v23 = [MEMORY[0x1E695DEC8] arrayWithObjects:v38 count:2];
+        v40[1] = v23;
+        v24 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v40 forKeys:v39 count:2];
         v25 = [v19 initWithSYError:2020 userInfo:v24];
 
         queue = [(SYSession *)self queue];
-        v31[0] = MEMORY[0x1E69E9820];
-        v31[1] = 3221225472;
-        v31[2] = __36__SYOutgoingBatchSyncSession_start___block_invoke_2;
-        v31[3] = &unk_1E86C9E90;
-        v31[4] = self;
-        v32 = v25;
+        v30[0] = MEMORY[0x1E69E9820];
+        v30[1] = 3221225472;
+        v30[2] = __36__SYOutgoingBatchSyncSession_start___block_invoke_2;
+        v30[3] = &unk_1E86C9E90;
+        v30[4] = self;
+        v31 = v25;
         v27 = v25;
-        dispatch_async(queue, v31);
+        dispatch_async(queue, v30);
 
         startCopy[2](startCopy, 0, v27);
         goto LABEL_12;
@@ -1039,19 +1075,19 @@ void __51__SYOutgoingBatchSyncSession__installStateListener__block_invoke(uint64
       v16 = NSStringFromClass(v15);
       identifier = [(SYSession *)self identifier];
       *buf = 138543618;
-      v36 = v16;
-      v37 = 2114;
-      v38 = identifier;
+      v35 = v16;
+      v36 = 2114;
+      v37 = identifier;
       _os_log_impl(&dword_1DF835000, v14, OS_LOG_TYPE_DEFAULT, "Starting %{public}@ with identifier %{public}@", buf, 0x16u);
     }
 
     queue2 = [(SYSession *)self queue];
-    v29[0] = MEMORY[0x1E69E9820];
-    v29[1] = 3221225472;
-    v29[2] = __36__SYOutgoingBatchSyncSession_start___block_invoke_88;
-    v29[3] = &unk_1E86C9FB0;
-    v29[4] = self;
-    dispatch_async(queue2, v29);
+    v28[0] = MEMORY[0x1E69E9820];
+    v28[1] = 3221225472;
+    v28[2] = __36__SYOutgoingBatchSyncSession_start___block_invoke_88;
+    v28[3] = &unk_1E86C9FB0;
+    v28[4] = self;
+    dispatch_async(queue2, v28);
 
     os_activity_scope_leave(&state);
   }
@@ -1059,9 +1095,9 @@ void __51__SYOutgoingBatchSyncSession__installStateListener__block_invoke(uint64
   else
   {
     v7 = objc_alloc(MEMORY[0x1E696ABC0]);
-    v42 = *MEMORY[0x1E696A578];
-    v43[0] = @"You cannot start an SYSession without a delegate.";
-    v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v43 forKeys:&v42 count:1];
+    v41 = *MEMORY[0x1E696A578];
+    v42[0] = @"You cannot start an SYSession without a delegate.";
+    v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v42 forKeys:&v41 count:1];
     v9 = [v7 initWithSYError:2001 userInfo:v8];
 
     queue3 = [(SYSession *)self queue];
@@ -1070,7 +1106,7 @@ void __51__SYOutgoingBatchSyncSession__installStateListener__block_invoke(uint64
     block[2] = __36__SYOutgoingBatchSyncSession_start___block_invoke;
     block[3] = &unk_1E86C9E90;
     block[4] = self;
-    v34 = v9;
+    v33 = v9;
     v11 = v9;
     dispatch_async(queue3, block);
 
@@ -1078,8 +1114,6 @@ void __51__SYOutgoingBatchSyncSession__installStateListener__block_invoke(uint64
   }
 
 LABEL_12:
-
-  v28 = *MEMORY[0x1E69E9840];
 }
 
 void __36__SYOutgoingBatchSyncSession_start___block_invoke(uint64_t a1)
@@ -1149,11 +1183,11 @@ LABEL_6:
 
 - (BOOL)_handleBatchAck:(id)ack error:(id *)error
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   ackCopy = ack;
-  v16.opaque[0] = 0;
-  v16.opaque[1] = 0;
-  os_activity_scope_enter(self->_sessionActivity, &v16);
+  v15.opaque[0] = 0;
+  v15.opaque[1] = 0;
+  os_activity_scope_enter(self->_sessionActivity, &v15);
   syncID = [ackCopy syncID];
   identifier = [(SYSession *)self identifier];
   v9 = [syncID isEqualToString:identifier];
@@ -1177,7 +1211,7 @@ LABEL_6:
       if (os_log_type_enabled(qword_1EDE73420, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v18 = v12;
+        v17 = v12;
         _os_log_impl(&dword_1DF835000, v13, OS_LOG_TYPE_DEFAULT, "Received an error SYBatchChunkAck: %@", buf, 0xCu);
       }
 
@@ -1191,19 +1225,18 @@ LABEL_6:
     *error = [objc_alloc(MEMORY[0x1E696ABC0]) initWithSYError:2006 userInfo:0];
   }
 
-  os_activity_scope_leave(&v16);
+  os_activity_scope_leave(&v15);
 
-  v14 = *MEMORY[0x1E69E9840];
   return v9;
 }
 
 - (BOOL)_handleBatchSyncEndResponse:(id)response error:(id *)error
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   responseCopy = response;
-  v19.opaque[0] = 0;
-  v19.opaque[1] = 0;
-  os_activity_scope_enter(self->_sessionActivity, &v19);
+  v18.opaque[0] = 0;
+  v18.opaque[1] = 0;
+  os_activity_scope_enter(self->_sessionActivity, &v18);
   syncID = [responseCopy syncID];
   identifier = [(SYSession *)self identifier];
   v9 = [syncID isEqualToString:identifier];
@@ -1225,7 +1258,7 @@ LABEL_6:
       if (os_log_type_enabled(qword_1EDE73420, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v21 = v12;
+        v20 = v12;
         _os_log_impl(&dword_1DF835000, v13, OS_LOG_TYPE_DEFAULT, "Received an error SYSyncEndResponse: %@", buf, 0xCu);
       }
 
@@ -1268,21 +1301,19 @@ LABEL_6:
     *error = [objc_alloc(MEMORY[0x1E696ABC0]) initWithSYError:2006 userInfo:0];
   }
 
-  os_activity_scope_leave(&v19);
+  os_activity_scope_leave(&v18);
 
-  v17 = *MEMORY[0x1E69E9840];
   return v9;
 }
 
 - (void)_messageExpiredWithSeqno:(os_log_t)log identifier:.cold.2(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v4 = 134218242;
-  v5 = a2;
-  v6 = 2114;
-  v7 = a1;
-  _os_log_error_impl(&dword_1DF835000, log, OS_LOG_TYPE_ERROR, "Send timed out for message with sequence number %llu, identifier %{public}@", &v4, 0x16u);
-  v3 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
+  v3 = 134218242;
+  v4 = a2;
+  v5 = 2114;
+  v6 = a1;
+  _os_log_error_impl(&dword_1DF835000, log, OS_LOG_TYPE_ERROR, "Send timed out for message with sequence number %llu, identifier %{public}@", &v3, 0x16u);
 }
 
 void __44__SYOutgoingBatchSyncSession__installTimers__block_invoke_cold_2(void *a1, uint8_t *buf, os_log_t log)
@@ -1294,15 +1325,14 @@ void __44__SYOutgoingBatchSyncSession__installTimers__block_invoke_cold_2(void *
 
 - (void)_handleBatchSyncEndResponse:(os_log_t)log error:.cold.2(uint64_t *a1, uint64_t *a2, os_log_t log)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v3 = *a1;
   v4 = *a2;
-  v6[0] = 67109378;
-  v6[1] = v3;
-  v7 = 2114;
-  v8 = v4;
-  _os_log_error_impl(&dword_1DF835000, log, OS_LOG_TYPE_ERROR, "Some sync batches were not acked. We sent {0-%u}, acked %{public}@", v6, 0x12u);
-  v5 = *MEMORY[0x1E69E9840];
+  v5[0] = 67109378;
+  v5[1] = v3;
+  v6 = 2114;
+  v7 = v4;
+  _os_log_error_impl(&dword_1DF835000, log, OS_LOG_TYPE_ERROR, "Some sync batches were not acked. We sent {0-%u}, acked %{public}@", v5, 0x12u);
 }
 
 @end

@@ -6,7 +6,7 @@
 
 - (void)outputMediaDataWillChange:(id)change
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC1930A0);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC1930A0, &qword_1C5BD7440);
   MEMORY[0x1EEE9AC00](v5 - 8);
   v7 = &v18 - v6;
   objc_opt_self();

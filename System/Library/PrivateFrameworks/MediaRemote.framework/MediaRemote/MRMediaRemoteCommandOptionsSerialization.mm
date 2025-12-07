@@ -5,283 +5,281 @@
 
 uint64_t ___MRMediaRemoteCommandOptionsSerialization_block_invoke()
 {
-  v92[85] = *MEMORY[0x1E69E9840];
+  v91[85] = *MEMORY[0x1E69E9840];
   v0 = objc_opt_new();
   v1 = _MRMediaRemoteCommandOptionsSerialization___serialization;
   _MRMediaRemoteCommandOptionsSerialization___serialization = v0;
 
-  v67 = _MRMediaRemoteCommandOptionsSerialization___serialization;
-  v91[0] = @"kMRMediaRemoteOptionIsExternalPlayerCommand";
-  v90 = NSStringFromSelector(sel_externalPlayerCommand);
-  v92[0] = v90;
-  v91[1] = @"kMRMediaRemoteOptionIsNegative";
-  v89 = NSStringFromSelector(sel_negative);
-  v92[1] = v89;
-  v91[2] = @"kMRMediaRemoteOptionMediaType";
-  v88 = NSStringFromSelector(sel_mediaType);
-  v92[2] = v88;
-  v91[3] = @"kMRMediaRemoteOptionPlaybackPosition";
-  v87 = NSStringFromSelector(sel_playbackPosition);
-  v92[3] = v87;
-  v91[4] = @"kMRMediaRemoteOptionBeginSeek";
-  v86 = NSStringFromSelector(sel_beginSeek);
-  v92[4] = v86;
-  v91[5] = @"kMRMediaRemoteOptionEndSeek";
-  v85 = NSStringFromSelector(sel_endSeek);
-  v92[5] = v85;
-  v91[6] = @"kMRMediaRemoteOptionPlaybackRate";
-  v84 = NSStringFromSelector(sel_playbackRate);
-  v92[6] = v84;
-  v91[7] = @"kMRMediaRemoteOptionRepeatMode";
-  v83 = NSStringFromSelector(sel_repeatMode);
-  v92[7] = v83;
-  v91[8] = @"kMRMediaRemoteCommandInfoPreservesRepeatModeKey";
-  v82 = NSStringFromSelector(sel_preservesRepeatMode);
-  v92[8] = v82;
-  v91[9] = @"kMRMediaRemoteOptionShuffleMode";
-  v81 = NSStringFromSelector(sel_shuffleMode);
-  v92[9] = v81;
-  v91[10] = @"kMRMediaRemoteCommandInfoPreservesShuffleModeKey";
-  v80 = NSStringFromSelector(sel_preservesShuffleMode);
-  v92[10] = v80;
-  v91[11] = @"kMRMediaRemoteOptionQueueEndAction";
-  v79 = NSStringFromSelector(sel_queueEndAction);
-  v92[11] = v79;
-  v91[12] = @"kMRMediaRemoteCommandInfoPreservesQueueEndActionKey";
-  v78 = NSStringFromSelector(sel_preservesQueueEndAction);
-  v92[12] = v78;
-  v91[13] = @"kMRMediaRemoteOptionSkipInterval";
-  v77 = NSStringFromSelector(sel_skipInterval);
-  v92[13] = v77;
-  v91[14] = @"kMRMediaRemoteOptionSourceID";
-  v76 = NSStringFromSelector(sel_sourceID);
-  v92[14] = v76;
-  v91[15] = @"kMRMediaRemoteOptionStationHash";
-  v75 = NSStringFromSelector(sel_radioStationHash);
-  v92[15] = v75;
-  v91[16] = @"kMRMediaRemoteOptionStationID";
-  v74 = NSStringFromSelector(sel_radioStationID);
-  v92[16] = v74;
-  v91[17] = @"kMRMediaRemoteOptionSystemAppPlaybackQueueData";
-  v73 = NSStringFromSelector(sel_systemAppPlaybackQueueData);
-  v92[17] = v73;
-  v91[18] = @"MRMediaRemoteOptionSystemAppPlaybackQueue";
-  v72 = NSStringFromSelector(sel_systemAppPlaybackQueue);
-  v92[18] = v72;
-  v91[19] = @"PQso";
-  v71 = NSStringFromSelector(sel_shouldOverrideManuallyCuratedQueue);
-  v92[19] = v71;
-  v91[20] = @"kMRMediaRemoteOptionTrackID";
-  v70 = NSStringFromSelector(sel_trackID);
-  v92[20] = v70;
-  v91[21] = @"kMRMediaRemoteOptionContentItemID";
-  v69 = NSStringFromSelector(sel_contentItemID);
-  v92[21] = v69;
-  v91[22] = @"kMRMediaRemoteOptionDestinationAppDisplayID";
-  v68 = NSStringFromSelector(sel_destinationAppDisplayID);
-  v92[22] = v68;
-  v91[23] = @"kMRMediaRemoteOptionSendOptionsNumber";
-  v66 = NSStringFromSelector(sel_sendOptions);
-  v92[23] = v66;
-  v91[24] = @"kMRMediaRemoteOptionRequestDefermentToPlaybackQueuePosition";
-  v65 = NSStringFromSelector(sel_requestDefermentToPlaybackQueuePosition);
-  v92[24] = v65;
-  v91[25] = @"kMRMediaRemoteOptionRating";
-  v64 = NSStringFromSelector(sel_rating);
-  v92[25] = v64;
-  v91[26] = @"kMRMediaRemoteOptionContextID";
-  v63 = NSStringFromSelector(sel_contextID);
-  v92[26] = v63;
-  v91[27] = @"kMRMediaRemoteOptionDesiredSessionID";
-  v62 = NSStringFromSelector(sel_desiredSessionID);
-  v92[27] = v62;
-  v91[28] = @"kMRMediaRemoteOptionStationURL";
-  v61 = NSStringFromSelector(sel_stationURL);
-  v92[28] = v61;
-  v91[29] = @"kMRMediaRemoteOptionShouldBeginRadioPlayback";
-  v60 = NSStringFromSelector(sel_shouldBeginRadioPlayback);
-  v92[29] = v60;
-  v91[30] = @"kMRMediaRemoteOptionPlaybackQueueInsertionPosition";
-  v59 = NSStringFromSelector(sel_playbackQueueInsertionPosition);
-  v92[30] = v59;
-  v91[31] = @"kMRMediaRemoteOptionPlaybackQueueOffset";
-  v58 = NSStringFromSelector(sel_playbackQueueOffset);
-  v92[31] = v58;
-  v91[32] = @"kMRMediaRemoteOptionPlaybackQueueDestinationOffset";
-  v57 = NSStringFromSelector(sel_playbackQueueDestinationOffset);
-  v92[32] = v57;
-  v91[33] = @"kMRMediaRemoteOptionLanguageOptionData";
-  v56 = NSStringFromSelector(sel_languageOption);
-  v92[33] = v56;
-  v91[34] = @"kMRMediaRemoteOptionInsertAfterContentItemID";
-  v55 = NSStringFromSelector(sel_insertAfterContentItemID);
-  v92[34] = v55;
-  v91[35] = @"kMRMediaRemoteOptionInsertBeforeContentItemID";
-  v54 = NSStringFromSelector(sel_insertBeforeContentItemID);
-  v92[35] = v54;
-  v91[36] = @"kMRMediaRemoteOptionNowPlayingContentItemID";
-  v53 = NSStringFromSelector(sel_nowPlayingContentItemID);
-  v92[36] = v53;
-  v91[37] = @"PQri";
-  v52 = NSStringFromSelector(sel_replaceIntent);
-  v92[37] = v52;
-  v91[38] = @"kMRMediaRemoteOptionCommandID";
-  v51 = NSStringFromSelector(sel_commandID);
-  v92[38] = v51;
-  v91[39] = @"kMRMediaRemoteOptionSenderID";
-  v50 = NSStringFromSelector(sel_senderID);
-  v92[39] = v50;
-  v91[40] = @"kMRMediaRemoteOptionRemoteControlInterfaceIdentifier";
-  v49 = NSStringFromSelector(sel_remoteControlInterface);
-  v92[40] = v49;
-  v91[41] = @"kMRMediaRemoteOptionPlaybackSessionData";
-  v48 = NSStringFromSelector(sel_playbackSession);
-  v92[41] = v48;
-  v91[42] = @"kMRMediaRemoteOptionPlaybackSessionIdentifier";
-  v47 = NSStringFromSelector(sel_playbackSessionIdentifier);
-  v92[42] = v47;
-  v91[43] = @"kMRMediaRemoteOptionPlaybackSessionType";
-  v46 = NSStringFromSelector(sel_playbackSessionType);
-  v92[43] = v46;
-  v91[44] = @"kMRMediaRemoteOptionPlaybackSessionPriority";
-  v45 = NSStringFromSelector(sel_playbackSessionPriority);
-  v92[44] = v45;
-  v91[45] = @"kMRMediaRemoteOptionPlaybackSessionFilePath";
-  v44 = NSStringFromSelector(sel_playbackSessionFilePath);
-  v92[45] = v44;
-  v91[46] = @"kMRMediaRemoteOptionPlaybackSessionRevision";
-  v43 = NSStringFromSelector(sel_playbackSessionRevision);
-  v92[46] = v43;
-  v91[47] = @"kMRMediaRemoteOptionPlaybackSessionMetadata";
-  v42 = NSStringFromSelector(sel_playbackSessionMetadata);
-  v92[47] = v42;
-  v91[48] = @"kMRMediaRemoteOptionUserIdentityData";
-  v41 = NSStringFromSelector(sel_userIdentityData);
-  v92[48] = v41;
-  v91[49] = @"kMRMediaRemoteOptionHomeKitUserIdentifier";
-  v40 = NSStringFromSelector(sel_homeKitUserIdentifier);
-  v92[49] = v40;
-  v91[50] = @"kMRMediaRemoteOptionVerifySupportedCommands";
-  v39 = NSStringFromSelector(sel_verifySupportedCommands);
-  v92[50] = v39;
-  v91[51] = @"kMRMediaRemoteOptionAssistantSetQueueTrueCompletion";
-  v38 = NSStringFromSelector(sel_trueCompletion);
-  v92[51] = v38;
-  v91[52] = @"kMRMediaRemoteOptionCommandTimeout";
-  v37 = NSStringFromSelector(sel_commandTimeout);
-  v92[52] = v37;
-  v91[53] = @"kMRMediaRemoteOptionPlaybackAuthorizationToken";
-  v36 = NSStringFromSelector(sel_playbackAuthorizationToken);
-  v92[53] = v36;
-  v91[54] = @"kMRMediaRemoteOptionEventNoticeType";
-  v35 = NSStringFromSelector(sel_eventNoticeType);
-  v92[54] = v35;
-  v91[55] = @"kMRMediaRemoteOptionEventNoticeIdentifier";
-  v34 = NSStringFromSelector(sel_eventNoticeIdentifier);
-  v92[55] = v34;
-  v91[56] = @"kMRMediaRemoteOptionSharedPlaybackSessionIdentifier";
-  v33 = NSStringFromSelector(sel_sharedPlaybackSessionIdentifier);
-  v92[56] = v33;
-  v91[57] = @"kMRMediaRemoteOptionOriginatingDeviceUID";
-  v32 = NSStringFromSelector(sel_originatingDeviceUID);
-  v92[57] = v32;
-  v91[58] = @"kMRMediaRemoteOptionDestinationDeviceUIDs";
-  v31 = NSStringFromSelector(sel_destinationDeviceUIDs);
-  v92[58] = v31;
-  v91[59] = @"kMRMediaRemoteOptionAlwaysIgnoreDuringCall";
-  v30 = NSStringFromSelector(sel_alwaysIgnoreDuringCall);
-  v92[59] = v30;
-  v91[60] = @"kMRMediaRemoteOptionAlwaysIgnoreDuringSharePlay";
-  v29 = NSStringFromSelector(sel_alwaysIgnoreDuringSharePlay);
-  v92[60] = v29;
-  v91[61] = @"kMRMediaRemoteOptionCommandSequenceUUID";
-  v28 = NSStringFromSelector(sel_commandSequenceUUID);
-  v92[61] = v28;
-  v91[62] = @"kMRMediaRemoteOptionAssistantTTSEndTimestamp";
-  v27 = NSStringFromSelector(sel_assistantTTSEndTimestamp);
-  v92[62] = v27;
-  v91[63] = @"kMRMediaRemoteOptionAssistantCommandSendTimestamp";
-  v26 = NSStringFromSelector(sel_assistantCommandSendTimestamp);
-  v92[63] = v26;
-  v91[64] = @"kMRMediaRemoteOptionVocalsControlActive";
-  v25 = NSStringFromSelector(sel_vocalsControlActive);
-  v92[64] = v25;
-  v91[65] = @"kMRMediaRemoteOptionVocalsControlLevel";
-  v24 = NSStringFromSelector(sel_vocalsControlLevel);
-  v92[65] = v24;
-  v91[66] = @"kMRMediaRemoteOptionVocalsControlMinLevel";
-  v23 = NSStringFromSelector(sel_vocalsControlMinLevel);
-  v92[66] = v23;
-  v91[67] = @"kMRMediaRemoteOptionVocalsControlMaxLevel";
-  v22 = NSStringFromSelector(sel_vocalsControlMaxLevel);
-  v92[67] = v22;
-  v91[68] = @"kMRMediaRemoteOptionVocalsControlContinuous";
-  v21 = NSStringFromSelector(sel_vocalsControlContinuous);
-  v92[68] = v21;
-  v91[69] = @"kMRMediaRemoteOptionOriginatedFromRemoteDevice";
-  v20 = NSStringFromSelector(sel_originatedFromRemoteDevice);
-  v92[69] = v20;
-  v91[70] = @"kMRMediaRemoteOptionSiriTurnIdentifier";
-  v19 = NSStringFromSelector(sel_siriTurnIdentifier);
-  v92[70] = v19;
-  v91[71] = @"kMRMediaRemoteOptionSiriSearchDataSetIdentifier";
-  v18 = NSStringFromSelector(sel_siriSearchDataSetIdentifier);
-  v92[71] = v18;
-  v91[72] = @"kMRMediaRemoteOptionPrepareForSetQueueIsProactive";
-  v17 = NSStringFromSelector(sel_prepareForSetQueueIsProactive);
-  v92[72] = v17;
-  v91[73] = @"kMRMediaRemoteOptionPrepareForSetQueueProactiveReason";
-  v16 = NSStringFromSelector(sel_prepareForSetQueueProactiveReason);
-  v92[73] = v16;
-  v91[74] = @"MRMediaRemoteOptionPrepareForSetQueueProactiveReasonType";
-  v15 = NSStringFromSelector(sel_prepareForSetQueueProactiveReasonType);
-  v92[74] = v15;
-  v91[75] = @"kMRMediaRemoteOptionApplicationUserIdentity";
-  v14 = NSStringFromSelector(sel_applicationUserIdentity);
-  v92[75] = v14;
-  v91[76] = @"kMRMediaRemoteOptionAssociatedParticipantIdentifier";
+  v66 = _MRMediaRemoteCommandOptionsSerialization___serialization;
+  v90[0] = @"kMRMediaRemoteOptionIsExternalPlayerCommand";
+  v89 = NSStringFromSelector(sel_externalPlayerCommand);
+  v91[0] = v89;
+  v90[1] = @"kMRMediaRemoteOptionIsNegative";
+  v88 = NSStringFromSelector(sel_negative);
+  v91[1] = v88;
+  v90[2] = @"kMRMediaRemoteOptionMediaType";
+  v87 = NSStringFromSelector(sel_mediaType);
+  v91[2] = v87;
+  v90[3] = @"kMRMediaRemoteOptionPlaybackPosition";
+  v86 = NSStringFromSelector(sel_playbackPosition);
+  v91[3] = v86;
+  v90[4] = @"kMRMediaRemoteOptionBeginSeek";
+  v85 = NSStringFromSelector(sel_beginSeek);
+  v91[4] = v85;
+  v90[5] = @"kMRMediaRemoteOptionEndSeek";
+  v84 = NSStringFromSelector(sel_endSeek);
+  v91[5] = v84;
+  v90[6] = @"kMRMediaRemoteOptionPlaybackRate";
+  v83 = NSStringFromSelector(sel_playbackRate);
+  v91[6] = v83;
+  v90[7] = @"kMRMediaRemoteOptionRepeatMode";
+  v82 = NSStringFromSelector(sel_repeatMode);
+  v91[7] = v82;
+  v90[8] = @"kMRMediaRemoteCommandInfoPreservesRepeatModeKey";
+  v81 = NSStringFromSelector(sel_preservesRepeatMode);
+  v91[8] = v81;
+  v90[9] = @"kMRMediaRemoteOptionShuffleMode";
+  v80 = NSStringFromSelector(sel_shuffleMode);
+  v91[9] = v80;
+  v90[10] = @"kMRMediaRemoteCommandInfoPreservesShuffleModeKey";
+  v79 = NSStringFromSelector(sel_preservesShuffleMode);
+  v91[10] = v79;
+  v90[11] = @"kMRMediaRemoteOptionQueueEndAction";
+  v78 = NSStringFromSelector(sel_queueEndAction);
+  v91[11] = v78;
+  v90[12] = @"kMRMediaRemoteCommandInfoPreservesQueueEndActionKey";
+  v77 = NSStringFromSelector(sel_preservesQueueEndAction);
+  v91[12] = v77;
+  v90[13] = @"kMRMediaRemoteOptionSkipInterval";
+  v76 = NSStringFromSelector(sel_skipInterval);
+  v91[13] = v76;
+  v90[14] = @"kMRMediaRemoteOptionSourceID";
+  v75 = NSStringFromSelector(sel_sourceID);
+  v91[14] = v75;
+  v90[15] = @"kMRMediaRemoteOptionStationHash";
+  v74 = NSStringFromSelector(sel_radioStationHash);
+  v91[15] = v74;
+  v90[16] = @"kMRMediaRemoteOptionStationID";
+  v73 = NSStringFromSelector(sel_radioStationID);
+  v91[16] = v73;
+  v90[17] = @"kMRMediaRemoteOptionSystemAppPlaybackQueueData";
+  v72 = NSStringFromSelector(sel_systemAppPlaybackQueueData);
+  v91[17] = v72;
+  v90[18] = @"MRMediaRemoteOptionSystemAppPlaybackQueue";
+  v71 = NSStringFromSelector(sel_systemAppPlaybackQueue);
+  v91[18] = v71;
+  v90[19] = @"PQso";
+  v70 = NSStringFromSelector(sel_shouldOverrideManuallyCuratedQueue);
+  v91[19] = v70;
+  v90[20] = @"kMRMediaRemoteOptionTrackID";
+  v69 = NSStringFromSelector(sel_trackID);
+  v91[20] = v69;
+  v90[21] = @"kMRMediaRemoteOptionContentItemID";
+  v68 = NSStringFromSelector(sel_contentItemID);
+  v91[21] = v68;
+  v90[22] = @"kMRMediaRemoteOptionDestinationAppDisplayID";
+  v67 = NSStringFromSelector(sel_destinationAppDisplayID);
+  v91[22] = v67;
+  v90[23] = @"kMRMediaRemoteOptionSendOptionsNumber";
+  v65 = NSStringFromSelector(sel_sendOptions);
+  v91[23] = v65;
+  v90[24] = @"kMRMediaRemoteOptionRequestDefermentToPlaybackQueuePosition";
+  v64 = NSStringFromSelector(sel_requestDefermentToPlaybackQueuePosition);
+  v91[24] = v64;
+  v90[25] = @"kMRMediaRemoteOptionRating";
+  v63 = NSStringFromSelector(sel_rating);
+  v91[25] = v63;
+  v90[26] = @"kMRMediaRemoteOptionContextID";
+  v62 = NSStringFromSelector(sel_contextID);
+  v91[26] = v62;
+  v90[27] = @"kMRMediaRemoteOptionDesiredSessionID";
+  v61 = NSStringFromSelector(sel_desiredSessionID);
+  v91[27] = v61;
+  v90[28] = @"kMRMediaRemoteOptionStationURL";
+  v60 = NSStringFromSelector(sel_stationURL);
+  v91[28] = v60;
+  v90[29] = @"kMRMediaRemoteOptionShouldBeginRadioPlayback";
+  v59 = NSStringFromSelector(sel_shouldBeginRadioPlayback);
+  v91[29] = v59;
+  v90[30] = @"kMRMediaRemoteOptionPlaybackQueueInsertionPosition";
+  v58 = NSStringFromSelector(sel_playbackQueueInsertionPosition);
+  v91[30] = v58;
+  v90[31] = @"kMRMediaRemoteOptionPlaybackQueueOffset";
+  v57 = NSStringFromSelector(sel_playbackQueueOffset);
+  v91[31] = v57;
+  v90[32] = @"kMRMediaRemoteOptionPlaybackQueueDestinationOffset";
+  v56 = NSStringFromSelector(sel_playbackQueueDestinationOffset);
+  v91[32] = v56;
+  v90[33] = @"kMRMediaRemoteOptionLanguageOptionData";
+  v55 = NSStringFromSelector(sel_languageOption);
+  v91[33] = v55;
+  v90[34] = @"kMRMediaRemoteOptionInsertAfterContentItemID";
+  v54 = NSStringFromSelector(sel_insertAfterContentItemID);
+  v91[34] = v54;
+  v90[35] = @"kMRMediaRemoteOptionInsertBeforeContentItemID";
+  v53 = NSStringFromSelector(sel_insertBeforeContentItemID);
+  v91[35] = v53;
+  v90[36] = @"kMRMediaRemoteOptionNowPlayingContentItemID";
+  v52 = NSStringFromSelector(sel_nowPlayingContentItemID);
+  v91[36] = v52;
+  v90[37] = @"PQri";
+  v51 = NSStringFromSelector(sel_replaceIntent);
+  v91[37] = v51;
+  v90[38] = @"kMRMediaRemoteOptionCommandID";
+  v50 = NSStringFromSelector(sel_commandID);
+  v91[38] = v50;
+  v90[39] = @"kMRMediaRemoteOptionSenderID";
+  v49 = NSStringFromSelector(sel_senderID);
+  v91[39] = v49;
+  v90[40] = @"kMRMediaRemoteOptionRemoteControlInterfaceIdentifier";
+  v48 = NSStringFromSelector(sel_remoteControlInterface);
+  v91[40] = v48;
+  v90[41] = @"kMRMediaRemoteOptionPlaybackSessionData";
+  v47 = NSStringFromSelector(sel_playbackSession);
+  v91[41] = v47;
+  v90[42] = @"kMRMediaRemoteOptionPlaybackSessionIdentifier";
+  v46 = NSStringFromSelector(sel_playbackSessionIdentifier);
+  v91[42] = v46;
+  v90[43] = @"kMRMediaRemoteOptionPlaybackSessionType";
+  v45 = NSStringFromSelector(sel_playbackSessionType);
+  v91[43] = v45;
+  v90[44] = @"kMRMediaRemoteOptionPlaybackSessionPriority";
+  v44 = NSStringFromSelector(sel_playbackSessionPriority);
+  v91[44] = v44;
+  v90[45] = @"kMRMediaRemoteOptionPlaybackSessionFilePath";
+  v43 = NSStringFromSelector(sel_playbackSessionFilePath);
+  v91[45] = v43;
+  v90[46] = @"kMRMediaRemoteOptionPlaybackSessionRevision";
+  v42 = NSStringFromSelector(sel_playbackSessionRevision);
+  v91[46] = v42;
+  v90[47] = @"kMRMediaRemoteOptionPlaybackSessionMetadata";
+  v41 = NSStringFromSelector(sel_playbackSessionMetadata);
+  v91[47] = v41;
+  v90[48] = @"kMRMediaRemoteOptionUserIdentityData";
+  v40 = NSStringFromSelector(sel_userIdentityData);
+  v91[48] = v40;
+  v90[49] = @"kMRMediaRemoteOptionHomeKitUserIdentifier";
+  v39 = NSStringFromSelector(sel_homeKitUserIdentifier);
+  v91[49] = v39;
+  v90[50] = @"kMRMediaRemoteOptionVerifySupportedCommands";
+  v38 = NSStringFromSelector(sel_verifySupportedCommands);
+  v91[50] = v38;
+  v90[51] = @"kMRMediaRemoteOptionAssistantSetQueueTrueCompletion";
+  v37 = NSStringFromSelector(sel_trueCompletion);
+  v91[51] = v37;
+  v90[52] = @"kMRMediaRemoteOptionCommandTimeout";
+  v36 = NSStringFromSelector(sel_commandTimeout);
+  v91[52] = v36;
+  v90[53] = @"kMRMediaRemoteOptionPlaybackAuthorizationToken";
+  v35 = NSStringFromSelector(sel_playbackAuthorizationToken);
+  v91[53] = v35;
+  v90[54] = @"kMRMediaRemoteOptionEventNoticeType";
+  v34 = NSStringFromSelector(sel_eventNoticeType);
+  v91[54] = v34;
+  v90[55] = @"kMRMediaRemoteOptionEventNoticeIdentifier";
+  v33 = NSStringFromSelector(sel_eventNoticeIdentifier);
+  v91[55] = v33;
+  v90[56] = @"kMRMediaRemoteOptionSharedPlaybackSessionIdentifier";
+  v32 = NSStringFromSelector(sel_sharedPlaybackSessionIdentifier);
+  v91[56] = v32;
+  v90[57] = @"kMRMediaRemoteOptionOriginatingDeviceUID";
+  v31 = NSStringFromSelector(sel_originatingDeviceUID);
+  v91[57] = v31;
+  v90[58] = @"kMRMediaRemoteOptionDestinationDeviceUIDs";
+  v30 = NSStringFromSelector(sel_destinationDeviceUIDs);
+  v91[58] = v30;
+  v90[59] = @"kMRMediaRemoteOptionAlwaysIgnoreDuringCall";
+  v29 = NSStringFromSelector(sel_alwaysIgnoreDuringCall);
+  v91[59] = v29;
+  v90[60] = @"kMRMediaRemoteOptionAlwaysIgnoreDuringSharePlay";
+  v28 = NSStringFromSelector(sel_alwaysIgnoreDuringSharePlay);
+  v91[60] = v28;
+  v90[61] = @"kMRMediaRemoteOptionCommandSequenceUUID";
+  v27 = NSStringFromSelector(sel_commandSequenceUUID);
+  v91[61] = v27;
+  v90[62] = @"kMRMediaRemoteOptionAssistantTTSEndTimestamp";
+  v26 = NSStringFromSelector(sel_assistantTTSEndTimestamp);
+  v91[62] = v26;
+  v90[63] = @"kMRMediaRemoteOptionAssistantCommandSendTimestamp";
+  v25 = NSStringFromSelector(sel_assistantCommandSendTimestamp);
+  v91[63] = v25;
+  v90[64] = @"kMRMediaRemoteOptionVocalsControlActive";
+  v24 = NSStringFromSelector(sel_vocalsControlActive);
+  v91[64] = v24;
+  v90[65] = @"kMRMediaRemoteOptionVocalsControlLevel";
+  v23 = NSStringFromSelector(sel_vocalsControlLevel);
+  v91[65] = v23;
+  v90[66] = @"kMRMediaRemoteOptionVocalsControlMinLevel";
+  v22 = NSStringFromSelector(sel_vocalsControlMinLevel);
+  v91[66] = v22;
+  v90[67] = @"kMRMediaRemoteOptionVocalsControlMaxLevel";
+  v21 = NSStringFromSelector(sel_vocalsControlMaxLevel);
+  v91[67] = v21;
+  v90[68] = @"kMRMediaRemoteOptionVocalsControlContinuous";
+  v20 = NSStringFromSelector(sel_vocalsControlContinuous);
+  v91[68] = v20;
+  v90[69] = @"kMRMediaRemoteOptionOriginatedFromRemoteDevice";
+  v19 = NSStringFromSelector(sel_originatedFromRemoteDevice);
+  v91[69] = v19;
+  v90[70] = @"kMRMediaRemoteOptionSiriTurnIdentifier";
+  v18 = NSStringFromSelector(sel_siriTurnIdentifier);
+  v91[70] = v18;
+  v90[71] = @"kMRMediaRemoteOptionSiriSearchDataSetIdentifier";
+  v17 = NSStringFromSelector(sel_siriSearchDataSetIdentifier);
+  v91[71] = v17;
+  v90[72] = @"kMRMediaRemoteOptionPrepareForSetQueueIsProactive";
+  v16 = NSStringFromSelector(sel_prepareForSetQueueIsProactive);
+  v91[72] = v16;
+  v90[73] = @"kMRMediaRemoteOptionPrepareForSetQueueProactiveReason";
+  v15 = NSStringFromSelector(sel_prepareForSetQueueProactiveReason);
+  v91[73] = v15;
+  v90[74] = @"MRMediaRemoteOptionPrepareForSetQueueProactiveReasonType";
+  v14 = NSStringFromSelector(sel_prepareForSetQueueProactiveReasonType);
+  v91[74] = v14;
+  v90[75] = @"kMRMediaRemoteOptionApplicationUserIdentity";
+  v13 = NSStringFromSelector(sel_applicationUserIdentity);
+  v91[75] = v13;
+  v90[76] = @"kMRMediaRemoteOptionAssociatedParticipantIdentifier";
   v2 = NSStringFromSelector(sel_associatedParticipantIdentifier);
-  v92[76] = v2;
-  v91[77] = @"kMRMediaRemoteOptionDialogOptions";
+  v91[76] = v2;
+  v90[77] = @"kMRMediaRemoteOptionDialogOptions";
   v3 = NSStringFromSelector(sel_dialogOptions);
-  v92[77] = v3;
-  v91[78] = @"kMRMediaRemoteOptionClientPreferredLanguages";
+  v91[77] = v3;
+  v90[78] = @"kMRMediaRemoteOptionClientPreferredLanguages";
   v4 = NSStringFromSelector(sel_clientPreferredLanguages);
-  v92[78] = v4;
-  v91[79] = @"kMRMediaRemoteOptionSleepTimerTime";
+  v91[78] = v4;
+  v90[79] = @"kMRMediaRemoteOptionSleepTimerTime";
   v5 = NSStringFromSelector(sel_sleepTimerTime);
-  v92[79] = v5;
-  v91[80] = @"kMRMediaRemoteOptionSleepTimerStopMode";
+  v91[79] = v5;
+  v90[80] = @"kMRMediaRemoteOptionSleepTimerStopMode";
   v6 = NSStringFromSelector(sel_sleepTimerStopMode);
-  v92[80] = v6;
-  v91[81] = @"kMRMediaRemoteOptionReferencePosition";
+  v91[80] = v6;
+  v90[81] = @"kMRMediaRemoteOptionReferencePosition";
   v7 = NSStringFromSelector(sel_referencePosition);
-  v92[81] = v7;
-  v91[82] = @"kMRMediaRemoteOptionEnhanceDialogueActive";
+  v91[81] = v7;
+  v90[82] = @"kMRMediaRemoteOptionEnhanceDialogueActive";
   v8 = NSStringFromSelector(sel_enhanceDialogueActive);
-  v92[82] = v8;
-  v91[83] = @"kMRMediaRemoteOptionDelegateAccountData";
+  v91[82] = v8;
+  v90[83] = @"kMRMediaRemoteOptionDelegateAccountData";
   v9 = NSStringFromSelector(sel_delegateAccountData);
-  v92[83] = v9;
-  v91[84] = @"kMRMediaRemoteOptionDelegateAccountDataType";
+  v91[83] = v9;
+  v90[84] = @"kMRMediaRemoteOptionDelegateAccountDataType";
   v10 = NSStringFromSelector(sel_delegateAccountDataType);
-  v92[84] = v10;
-  v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v92 forKeys:v91 count:85];
-  [v67 setDictionaryKeyToProtobufKeyMapping:v11];
+  v91[84] = v10;
+  v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v91 forKeys:v90 count:85];
+  [v66 setDictionaryKeyToProtobufKeyMapping:v11];
 
   [_MRMediaRemoteCommandOptionsSerialization___serialization setProtobufClass:objc_opt_class()];
   [_MRMediaRemoteCommandOptionsSerialization___serialization setDictionaryValueToProtobufValueTransformer:&__block_literal_global_173];
   [_MRMediaRemoteCommandOptionsSerialization___serialization setProtobufValueToDictionaryValueTransformer:&__block_literal_global_183_0];
-  result = [_MRMediaRemoteCommandOptionsSerialization___serialization setProtobufValueToDictionaryPostTransformer:&__block_literal_global_190];
-  v13 = *MEMORY[0x1E69E9840];
-  return result;
+  return [_MRMediaRemoteCommandOptionsSerialization___serialization setProtobufValueToDictionaryPostTransformer:&__block_literal_global_190];
 }
 
 id ___MRMediaRemoteCommandOptionsSerialization_block_invoke_2(uint64_t a1, uint64_t a2, void *a3, void *a4)
 {
   v5 = a3;
   v6 = a4;
-  if ([v5 isEqualToString:@"kMRMediaRemoteOptionRepeatMode"] || objc_msgSend(v5, "isEqualToString:", @"kMRMediaRemoteOptionShuffleMode"))
+  if (objc_msgSend_isEqualToString_(v5) || objc_msgSend_isEqualToString_(v5))
   {
     v7 = [v6 unsignedIntValue];
     v8 = MEMORY[0x1E696AD98];
@@ -298,7 +296,7 @@ id ___MRMediaRemoteCommandOptionsSerialization_block_invoke_2(uint64_t a1, uint6
     goto LABEL_6;
   }
 
-  if ([v5 isEqualToString:@"PQri"])
+  if (objc_msgSend_isEqualToString_(v5))
   {
     v13 = [v6 intValue];
     v8 = MEMORY[0x1E696AD98];
@@ -315,7 +313,7 @@ id ___MRMediaRemoteCommandOptionsSerialization_block_invoke_2(uint64_t a1, uint6
     goto LABEL_6;
   }
 
-  if ([v5 isEqualToString:@"kMRMediaRemoteOptionSendOptionsNumber"])
+  if (objc_msgSend_isEqualToString_(v5))
   {
     v14 = [v6 intValue];
     v8 = MEMORY[0x1E696AD98];
@@ -329,7 +327,7 @@ LABEL_7:
     goto LABEL_8;
   }
 
-  if ([v5 isEqualToString:@"kMRMediaRemoteOptionPlaybackSessionPriority"])
+  if (objc_msgSend_isEqualToString_(v5))
   {
     v15 = [v6 intValue];
     v8 = MEMORY[0x1E696AD98];
@@ -356,7 +354,7 @@ LABEL_7:
     goto LABEL_6;
   }
 
-  if ([v5 isEqualToString:@"kMRMediaRemoteOptionDialogOptions"])
+  if (objc_msgSend_isEqualToString_(v5))
   {
     if ((_NSIsNSDictionary() & 1) == 0)
     {
@@ -377,9 +375,9 @@ id ___MRMediaRemoteCommandOptionsSerialization_block_invoke_3(uint64_t a1, uint6
   v5 = a3;
   v6 = a4;
   v7 = NSStringFromSelector(sel_repeatMode);
-  v8 = [v5 isEqualToString:v7];
+  isEqualToString = objc_msgSend_isEqualToString_(v5);
 
-  if (v8 || (NSStringFromSelector(sel_shuffleMode), v9 = objc_claimAutoreleasedReturnValue(), v10 = [v5 isEqualToString:v9], v9, v10))
+  if (isEqualToString || (NSStringFromSelector(sel_shuffleMode), v9 = objc_claimAutoreleasedReturnValue(), v10 = objc_msgSend_isEqualToString_(v5), v9, v10))
   {
     v11 = [v6 unsignedIntValue];
     v12 = MEMORY[0x1E696AD98];
@@ -403,7 +401,7 @@ LABEL_7:
   }
 
   v17 = NSStringFromSelector(sel_replaceIntent);
-  v18 = [v5 isEqualToString:v17];
+  v18 = objc_msgSend_isEqualToString_(v5);
 
   if (v18)
   {
@@ -423,7 +421,7 @@ LABEL_7:
   }
 
   v20 = NSStringFromSelector(sel_sendOptions);
-  v21 = [v5 isEqualToString:v20];
+  v21 = objc_msgSend_isEqualToString_(v5);
 
   if (v21)
   {
@@ -433,7 +431,7 @@ LABEL_7:
   }
 
   v23 = NSStringFromSelector(sel_playbackSessionPriority);
-  v24 = [v5 isEqualToString:v23];
+  v24 = objc_msgSend_isEqualToString_(v5);
 
   if (v24)
   {
@@ -461,7 +459,7 @@ LABEL_7:
   }
 
   v27 = NSStringFromSelector(sel_dialogOptions);
-  v28 = [v5 isEqualToString:v27];
+  v28 = objc_msgSend_isEqualToString_(v5);
 
   if (v28)
   {

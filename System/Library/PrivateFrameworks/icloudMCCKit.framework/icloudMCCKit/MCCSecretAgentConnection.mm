@@ -12,11 +12,10 @@
 
 - (void)dealloc
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
   selfCopy = self;
-  _os_log_debug_impl(&dword_1D3703000, a2, OS_LOG_TYPE_DEBUG, "%@ deallocated", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(&dword_1D3703000, a2, OS_LOG_TYPE_DEBUG, "%@ deallocated", &v2, 0xCu);
 }
 
 - (MCCSecretAgentConnection)initWithListenerEndpoint:(id)endpoint
@@ -134,7 +133,7 @@ void __39__MCCSecretAgentConnection__connection__block_invoke_3(uint64_t a1)
 
 - (void)_connectionInterruptionHandler
 {
-  v2 = _MCCLogSystem();
+  v2 = _MCCLogSystem(self);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
     [(MCCSecretAgentConnection *)v2 _connectionInterruptionHandler];
@@ -143,7 +142,7 @@ void __39__MCCSecretAgentConnection__connection__block_invoke_3(uint64_t a1)
 
 - (void)_connectionInvalidationHandler
 {
-  v2 = _MCCLogSystem();
+  v2 = _MCCLogSystem(self);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
     [(MCCSecretAgentConnection *)v2 _connectionInvalidationHandler];

@@ -291,7 +291,7 @@ LABEL_14:
         {
           v33 = v32;
           v34 = sub_100007B44();
-          *&v101 = v34;
+          v101.i64[0] = v34;
           v35 = [NSArray arrayWithObjects:&v101 count:1];
           [v33 setFilters:v35];
 
@@ -307,7 +307,7 @@ LABEL_14:
           v88 = v38;
           if (v38)
           {
-            [v38 auditToken];
+            objc_msgSend_auditToken(v38);
           }
 
           else
@@ -541,7 +541,7 @@ void sub_1000035F0(uint64_t a1)
 
 void sub_100004030(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
 {
-  objc_destroyWeak((v67 + 32));
+  objc_destroyWeak((v65 + 32));
   objc_destroyWeak(&location);
   _Unwind_Resume(a1);
 }
@@ -553,9 +553,9 @@ void sub_10000404C(uint64_t a1)
   v2 = *(a1 + 32);
   v3 = *(a1 + 40);
   v4 = *(v2 + 168);
-  v15 = *(v2 + 160);
+  v14 = *(v2 + 160);
   v5 = v3;
-  if (v15)
+  if (v14)
   {
     if (v5)
     {
@@ -580,7 +580,6 @@ void sub_10000404C(uint64_t a1)
       v9 = 0.0;
     }
 
-    height = CGSizeZero.height;
     if (v4)
     {
       width = 0.0;
@@ -593,21 +592,21 @@ void sub_10000404C(uint64_t a1)
 
     if (v4)
     {
-      v12 = -16.6666667;
+      height = -16.6666667;
     }
 
     else
     {
-      v12 = CGSizeZero.height;
+      height = CGSizeZero.height;
     }
 
-    [v15 pkui_setShadowOpacity:v5 withAnimationFactory:v7 completion:v8];
+    [v14 pkui_setShadowOpacity:v5 withAnimationFactory:v7 completion:v8];
+
+    v12 = [Tracker beginTrackingAnimation];
+    [v14 pkui_setShadowRadius:v5 withAdditiveAnimationFactory:v12 completion:v9];
 
     v13 = [Tracker beginTrackingAnimation];
-    [v15 pkui_setShadowRadius:v5 withAdditiveAnimationFactory:v13 completion:v9];
-
-    v14 = [Tracker beginTrackingAnimation];
-    [v15 pkui_setShadowOffset:v5 withAdditiveAnimationFactory:v14 completion:{width, v12}];
+    [v14 pkui_setShadowOffset:v5 withAdditiveAnimationFactory:v13 completion:{width, height}];
   }
 
   else
@@ -667,28 +666,28 @@ double sub_1000042E8(uint64_t a1, double a2, double a3)
 {
   v5 = *(a1 + 56);
   v6 = round((*(a1 + 72) - a2) * 0.5);
-  v63 = 0;
-  v64 = &v63;
-  v7 = v5 + v6;
-  v65 = 0x2020000000;
-  v66 = 0;
   v59 = 0;
   v60 = &v59;
+  v7 = v5 + v6;
   v61 = 0x2020000000;
   v62 = 0;
-  v50[0] = _NSConcreteStackBlock;
-  v50[1] = 3221225472;
-  v50[2] = sub_100004834;
-  v50[3] = &unk_100010668;
-  v55 = a2;
-  v56 = a3;
+  v58[0] = 0;
+  v58[1] = v58;
+  v58[2] = 0x2020000000;
+  v58[3] = 0;
+  v49[0] = _NSConcreteStackBlock;
+  v49[1] = 3221225472;
+  v49[2] = sub_100004834;
+  v49[3] = &unk_100010668;
+  v54 = a2;
+  v55 = a3;
+  v52 = v58;
   v53 = &v59;
-  v54 = &v63;
-  v57 = v5 + v6;
-  v58 = 0;
-  v51 = *(a1 + 32);
-  v52 = *(a1 + 40);
-  v8 = objc_retainBlock(v50);
+  v56 = v5 + v6;
+  v57 = 0;
+  v50 = *(a1 + 32);
+  v51 = *(a1 + 40);
+  v8 = objc_retainBlock(v49);
   v9 = *(a1 + 48);
   v10 = *(v9 + 120);
   if (v10)
@@ -705,7 +704,7 @@ double sub_1000042E8(uint64_t a1, double a2, double a3)
     width = CGSizeZero.width;
   }
 
-  v47 = v7;
+  v46 = v7;
   v14 = *(v9 + 41);
   if (*(v9 + 41))
   {
@@ -718,7 +717,7 @@ double sub_1000042E8(uint64_t a1, double a2, double a3)
   }
 
   [*(v9 + 200) frame];
-  v48 = v17;
+  v47 = v17;
   v18 = *(a1 + 48);
   v19 = 10.0;
   if (v18[22])
@@ -772,15 +771,15 @@ double sub_1000042E8(uint64_t a1, double a2, double a3)
     v25 = 0.0;
   }
 
-  v44 = v15;
+  v43 = v15;
   if (!v15)
   {
     v19 = 0.0;
   }
 
-  v49 = v19;
-  v26 = v64;
-  v64[3] = 0.0;
+  v48 = v19;
+  v26 = v60;
+  v60[3] = 0.0;
   v27 = *(*(a1 + 48) + 120);
   v28 = height + 0.0;
   if (!v27)
@@ -788,7 +787,7 @@ double sub_1000042E8(uint64_t a1, double a2, double a3)
     v28 = 0.0;
   }
 
-  v46 = v16;
+  v45 = v16;
   if (v14 == 2)
   {
     v28 = v16 + v28;
@@ -799,7 +798,7 @@ double sub_1000042E8(uint64_t a1, double a2, double a3)
     v26[3] = v28;
   }
 
-  v26[3] = v49 + v20 + v23 + v24 + v25 + v28;
+  v26[3] = v48 + v20 + v23 + v24 + v25 + v28;
   v29 = *(a1 + 48);
   v30 = v29[22];
   if (v30)
@@ -810,7 +809,7 @@ double sub_1000042E8(uint64_t a1, double a2, double a3)
     v35 = v34;
 
     (v8[2])(v8, *(*(a1 + 48) + 176), 1, v33, v35);
-    v64[3] = v64[3] - v20;
+    v60[3] = v60[3] - v20;
     (v8[2])(v8, 0, 1, 0.0, v20);
     v29 = *(a1 + 48);
   }
@@ -836,7 +835,7 @@ double sub_1000042E8(uint64_t a1, double a2, double a3)
 LABEL_37:
     if (v29[23])
     {
-      v64[3] = v64[3] - v23;
+      v60[3] = v60[3] - v23;
       (v8[2])(v8, 0, 1, 0.0, v23);
       v38 = *(*(a1 + 48) + 192);
     }
@@ -845,15 +844,15 @@ LABEL_37:
     (v8[2])(v8, *(*(a1 + 48) + 192), 1, fmin(v39, a2));
   }
 
-  v64[3] = v64[3] - v24;
+  v60[3] = v60[3] - v24;
   (v8[2])(v8, 0, 1, 0.0, v24);
   v29 = *(a1 + 48);
 LABEL_41:
   if (v29[15])
   {
-    v64[3] = v64[3] - height;
+    v60[3] = v60[3] - height;
     (v8[2])(v8, *(*(a1 + 48) + 120), 1, width, height);
-    v64[3] = v64[3] - v25;
+    v60[3] = v60[3] - v25;
     (v8[2])(v8, 0, 1, 0.0, v25);
     v29 = *(a1 + 48);
   }
@@ -862,24 +861,24 @@ LABEL_41:
   if (v40)
   {
     [v40 sizeThatFits:{a2, 1.79769313e308}];
-    (v8[2])(v8, *(*(a1 + 48) + 136), v44, fmin(v41, a2));
-    v64[3] = v64[3] - v49;
+    (v8[2])(v8, *(*(a1 + 48) + 136), v43, fmin(v41, a2));
+    v60[3] = v60[3] - v48;
     (v8[2])(v8, 0, 1, 0.0);
   }
 
-  v64[3] = 0.0;
-  (v8[2])(v8, *(*(a1 + 48) + 200), v14 == 2, v48, v46);
-  v42 = v60[3];
+  v60[3] = 0.0;
+  (v8[2])(v8, *(*(a1 + 48) + 200), v14 == 2, v47, v45);
 
+  _Block_object_dispose(v58, 8);
   _Block_object_dispose(&v59, 8);
-  _Block_object_dispose(&v63, 8);
-  return v47;
+  return v46;
 }
 
-void sub_1000047F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, char a28, uint64_t a29, uint64_t a30, uint64_t a31, char a32)
+void sub_1000047F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, ...)
 {
+  va_start(va, a31);
   _Block_object_dispose(&a28, 8);
-  _Block_object_dispose(&a32, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -888,9 +887,6 @@ void sub_100004834(uint64_t a1, void *a2, unsigned int a3, double a4, double a5)
   v8 = a2;
   if ((a3 & 1) == 0)
   {
-    v17 = *(a1 + 80);
-    v18 = *(a1 + 88) + *(*(*(a1 + 48) + 8) + 24);
-    v19 = *(a1 + 64);
     if (!v8)
     {
       goto LABEL_8;
@@ -901,33 +897,30 @@ void sub_100004834(uint64_t a1, void *a2, unsigned int a3, double a4, double a5)
 
   v9 = *(*(a1 + 48) + 8);
   v10 = *(v9 + 24);
-  v11 = *(a1 + 64);
-  v12 = *(a1 + 72) - v10;
-  v13 = *(*(*(a1 + 56) + 8) + 24);
-  v14 = fmax(v12 - v13, 0.0);
-  if (v13 > 0.0)
+  v11 = *(a1 + 72) - v10;
+  v12 = *(*(*(a1 + 56) + 8) + 24);
+  v13 = fmax(v11 - v12, 0.0);
+  if (v12 > 0.0)
   {
-    v12 = v14;
+    v11 = v13;
   }
 
-  v15 = *(a1 + 80);
-  v16 = *(a1 + 88) + v10;
-  *(v9 + 24) = fmin(a5, v12) + v10;
+  *(v9 + 24) = fmin(a5, v11) + v10;
   if (v8)
   {
 LABEL_7:
-    v30 = v8;
+    v24 = v8;
     PKSizeAlignedInRect();
+    v15 = v14;
+    v17 = v16;
+    v19 = v18;
     v21 = v20;
-    v23 = v22;
-    v25 = v24;
-    v27 = v26;
-    sub_1000041B8(v30, a3, *(a1 + 32));
-    v28 = *(a1 + 32);
-    v29 = [*(a1 + 40) beginTrackingAnimation];
-    [v30 pkui_setFrame:v28 withAdditiveAnimationFactory:v29 completion:{v21, v23, v25, v27}];
+    sub_1000041B8(v24, a3, *(a1 + 32));
+    v22 = *(a1 + 32);
+    v23 = [*(a1 + 40) beginTrackingAnimation];
+    [v24 pkui_setFrame:v22 withAdditiveAnimationFactory:v23 completion:{v15, v17, v19, v21}];
 
-    v8 = v30;
+    v8 = v24;
   }
 
 LABEL_8:
@@ -1369,7 +1362,7 @@ void sub_100005730(uint64_t a1, void *a2, char a3)
 {
   v5 = a2;
   v6 = v5;
-  if (v5 && (v5[1] & 1) == 0)
+  if (v5 && (v5[8] & 1) == 0)
   {
     v7 = +[UIApplication sharedApplication];
     [v7 pkui_consumeSharedRootAuthenticationContext];
@@ -1710,7 +1703,7 @@ void sub_100006F18(uint64_t a1, void *a2, void *a3, void *a4)
   v9 = a2;
   v7 = a3;
   v8 = a4;
-  if (v9 && *(v9 + 8) != 1)
+  if (v9 && v9[8] != 1)
   {
     if (v7 && v8)
     {
@@ -1832,17 +1825,11 @@ id sub_100007BF4(void *a1, const char *a2)
   return [a1 countByEnumeratingWithState:v3 objects:v2 count:16];
 }
 
-uint64_t sub_100007C10()
+void sub_100007C34(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
-  result = *(*(v0 + 8) + 8 * v1);
-  v3 = *(result + 16);
-  return result;
-}
+  va_start(va, a8);
 
-void sub_100007C34(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
-{
-
-  _os_log_impl(a1, v9, OS_LOG_TYPE_DEFAULT, a4, &a9, 0xCu);
+  _os_log_impl(a1, v8, OS_LOG_TYPE_DEFAULT, a4, va, 0xCu);
 }
 
 int main(int argc, const char **argv, const char **envp)
@@ -1975,10 +1962,11 @@ LABEL_20:
   }
 }
 
-void sub_100007FDC(uint64_t a1, int a2)
+void sub_100007FDC(uint64_t a1, uint64_t a2)
 {
   if (a1)
   {
+    v2 = a2;
     if (*(a1 + 8) & 1) != 0 || ([*(a1 + 144) setAnimating:*(a1 + 41) == 0], (*(a1 + 8)) || !*(a1 + 48))
     {
       v4 = 0;
@@ -2000,7 +1988,7 @@ void sub_100007FDC(uint64_t a1, int a2)
       PKUIViewLayoutIfNeeded();
     }
 
-    sub_1000080E8(a1, v4 & 1, a2, 0);
+    sub_1000080E8(a1, v4 & 1, v2, 0);
   }
 }
 
@@ -2054,7 +2042,7 @@ void sub_1000080E8(uint64_t a1, int a2, int a3, void *a4)
 LABEL_12:
 }
 
-void sub_1000081F8(_BYTE *a1, int a2, int a3)
+void sub_1000081F8(_BYTE *a1, int a2, uint64_t a3)
 {
   if (a1)
   {
@@ -2228,7 +2216,9 @@ uint64_t sub_100008778(NSObject *a1, uint64_t a2, uint64_t a3)
 {
   if (os_log_type_enabled(a1, OS_LOG_TYPE_DEFAULT))
   {
-    sub_100007C34(&_mh_execute_header, v5, v6, "PKRemoteApplicationAuthorizationViewController (%p): already configured once - ignoring configuration request.", v7, v8, v9, v10, 0);
+    LODWORD(v13) = 134217984;
+    *(&v13 + 4) = a2;
+    sub_100007C34(&_mh_execute_header, v6, v7, "PKRemoteApplicationAuthorizationViewController (%p): already configured once - ignoring configuration request.", v8, v9, v10, v11, v13, DWORD2(v13));
   }
 
   return (*(a3 + 16))(a3);
@@ -2258,7 +2248,9 @@ uint64_t sub_1000088D4(NSObject *a1, uint64_t a2, uint64_t a3)
 {
   if (os_log_type_enabled(a1, OS_LOG_TYPE_DEFAULT))
   {
-    sub_100007C34(&_mh_execute_header, v5, v6, "PKRemoteApplicationAuthorizationViewController (%p): already activated once - ignoring activation request.", v7, v8, v9, v10, 0);
+    LODWORD(v13) = 134217984;
+    *(&v13 + 4) = a2;
+    sub_100007C34(&_mh_execute_header, v6, v7, "PKRemoteApplicationAuthorizationViewController (%p): already activated once - ignoring activation request.", v8, v9, v10, v11, v13, DWORD2(v13));
   }
 
   return (*(a3 + 16))(a3);

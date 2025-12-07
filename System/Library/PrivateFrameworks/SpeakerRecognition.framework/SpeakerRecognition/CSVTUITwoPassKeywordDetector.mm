@@ -44,15 +44,15 @@
 
 - (id)analyzeWithBuffer:(id)buffer
 {
-  v82 = *MEMORY[0x277D85DE8];
+  v81 = *MEMORY[0x277D85DE8];
   bufferCopy = buffer;
   v5 = [bufferCopy length];
   v6 = v5 / [MEMORY[0x277D016E0] inputRecordingBytesPerFrame];
   v7 = objc_alloc(MEMORY[0x277D01600]);
   inputRecordingSampleByteDepth = [MEMORY[0x277D016E0] inputRecordingSampleByteDepth];
   sampleCount = [(CSAudioCircularBuffer *)self->_audioBuffer sampleCount];
-  LOBYTE(v70) = [MEMORY[0x277D016E0] inputRecordingIsFloat];
-  v10 = [v7 initWithData:bufferCopy numChannels:1 numSamples:v6 sampleByteDepth:inputRecordingSampleByteDepth startSampleCount:sampleCount hostTime:0 remoteVAD:0 isFloat:v70];
+  LOBYTE(v69) = [MEMORY[0x277D016E0] inputRecordingIsFloat];
+  v10 = [v7 initWithData:bufferCopy numChannels:1 numSamples:v6 sampleByteDepth:inputRecordingSampleByteDepth startSampleCount:sampleCount hostTime:0 remoteVAD:0 isFloat:v69];
   audioBuffer = self->_audioBuffer;
   bytes = [bufferCopy bytes];
 
@@ -80,15 +80,15 @@
             bestEnd = [(CSKeywordAnalyzerNDAPIResult *)self->_firstPassResult bestEnd];
             samplesAtFire = [(CSKeywordAnalyzerNDAPIResult *)self->_firstPassResult samplesAtFire];
             *buf = 136316162;
-            v73 = "[CSVTUITwoPassKeywordDetector analyzeWithBuffer:]";
-            v74 = 2048;
-            v75 = v16;
-            v76 = 2048;
-            v77 = bestStart;
-            v78 = 2048;
-            v79 = bestEnd;
-            v80 = 2048;
-            v81 = samplesAtFire;
+            v72 = "[CSVTUITwoPassKeywordDetector analyzeWithBuffer:]";
+            v73 = 2048;
+            v74 = v16;
+            v75 = 2048;
+            v76 = bestStart;
+            v77 = 2048;
+            v78 = bestEnd;
+            v79 = 2048;
+            v80 = samplesAtFire;
             _os_log_impl(&dword_225E12000, v19, OS_LOG_TYPE_DEFAULT, "%s FirstPass triggered, score %f start %lu end %lu fire %lu", buf, 0x34u);
           }
         }
@@ -121,15 +121,15 @@
         v39 = *MEMORY[0x277D015D8];
         if (numSamples != v38 && os_log_type_enabled(*MEMORY[0x277D015D8], OS_LOG_TYPE_ERROR))
         {
-          v68 = v39;
+          v67 = v39;
           numSamples2 = [v35 numSamples];
           *buf = 136315650;
-          v73 = "[CSVTUITwoPassKeywordDetector analyzeWithBuffer:]";
-          v74 = 2048;
-          v75 = *&numSamples2;
-          v76 = 2048;
-          v77 = v38;
-          _os_log_error_impl(&dword_225E12000, v68, OS_LOG_TYPE_ERROR, "%s numSamplesinAudioChunk %lu not matching requiredNumSamples %lu !", buf, 0x20u);
+          v72 = "[CSVTUITwoPassKeywordDetector analyzeWithBuffer:]";
+          v73 = 2048;
+          v74 = *&numSamples2;
+          v75 = 2048;
+          v76 = v38;
+          _os_log_error_impl(&dword_225E12000, v67, OS_LOG_TYPE_ERROR, "%s numSamplesinAudioChunk %lu not matching requiredNumSamples %lu !", buf, 0x20u);
 
           v39 = *MEMORY[0x277D015D8];
         }
@@ -139,9 +139,9 @@
           v40 = v39;
           numSamples3 = [v35 numSamples];
           *buf = 136315394;
-          v73 = "[CSVTUITwoPassKeywordDetector analyzeWithBuffer:]";
-          v74 = 2048;
-          v75 = *&numSamples3;
+          v72 = "[CSVTUITwoPassKeywordDetector analyzeWithBuffer:]";
+          v73 = 2048;
+          v74 = *&numSamples3;
           _os_log_impl(&dword_225E12000, v40, OS_LOG_TYPE_DEFAULT, "%s Second pass set to analyze %lu samples, stop feeding", buf, 0x16u);
         }
 
@@ -167,8 +167,8 @@
         v50 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(getAnalyzedResultFromFlushedAudio, "phId")}];
         [dictionary setObject:v50 forKey:*MEMORY[0x277D01CF8]];
 
-        v71 = -[CSPhraseDetector phraseDetectorInfoFromPhId:](self->_phraseDetector, "phraseDetectorInfoFromPhId:", [getAnalyzedResultFromFlushedAudio phId]);
-        phraseConfig = [v71 phraseConfig];
+        v70 = -[CSPhraseDetector phraseDetectorInfoFromPhId:](self->_phraseDetector, "phraseDetectorInfoFromPhId:", [getAnalyzedResultFromFlushedAudio phId]);
+        phraseConfig = [v70 phraseConfig];
         name = [phraseConfig name];
 
         if (name)
@@ -205,7 +205,7 @@
             if (os_log_type_enabled(*MEMORY[0x277D015D8], OS_LOG_TYPE_DEFAULT))
             {
               *buf = 136315138;
-              v73 = "[CSVTUITwoPassKeywordDetector analyzeWithBuffer:]";
+              v72 = "[CSVTUITwoPassKeywordDetector analyzeWithBuffer:]";
               _os_log_impl(&dword_225E12000, v61, OS_LOG_TYPE_DEFAULT, "%s Report as rejection since the detected phId is not the default", buf, 0xCu);
               v60 = 0;
             }
@@ -221,9 +221,9 @@
           v64 = v63;
           v65 = [getAnalyzedResultFromFlushedAudio description];
           *buf = 136315394;
-          v73 = "[CSVTUITwoPassKeywordDetector analyzeWithBuffer:]";
-          v74 = 2112;
-          v75 = *&v65;
+          v72 = "[CSVTUITwoPassKeywordDetector analyzeWithBuffer:]";
+          v73 = 2112;
+          v74 = *&v65;
           _os_log_impl(&dword_225E12000, v64, OS_LOG_TYPE_DEFAULT, "%s Phrase detector result: %@", buf, 0x16u);
         }
 
@@ -240,11 +240,11 @@
           v32 = v30;
           sampleCount2 = [(CSAudioCircularBuffer *)v31 sampleCount];
           *buf = 136315650;
-          v73 = "[CSVTUITwoPassKeywordDetector analyzeWithBuffer:]";
-          v74 = 2048;
-          v75 = *&sampleCount2;
-          v76 = 2048;
-          v77 = v29;
+          v72 = "[CSVTUITwoPassKeywordDetector analyzeWithBuffer:]";
+          v73 = 2048;
+          v74 = *&sampleCount2;
+          v75 = 2048;
+          v76 = v29;
           _os_log_impl(&dword_225E12000, v32, OS_LOG_TYPE_DEFAULT, "%s Waiting for the entire audio... samplesInBuffer %lu triggerSampleFedCount %lu", buf, 0x20u);
         }
 
@@ -264,14 +264,12 @@
     if (os_log_type_enabled(*MEMORY[0x277D015D8], OS_LOG_TYPE_ERROR))
     {
       *buf = 136315138;
-      v73 = "[CSVTUITwoPassKeywordDetector analyzeWithBuffer:]";
+      v72 = "[CSVTUITwoPassKeywordDetector analyzeWithBuffer:]";
       _os_log_error_impl(&dword_225E12000, v23, OS_LOG_TYPE_ERROR, "%s Unable to create audio chunk, not feeding to analyzer", buf, 0xCu);
     }
 
     v24 = 0;
   }
-
-  v66 = *MEMORY[0x277D85DE8];
 
   return v24;
 }
@@ -295,11 +293,11 @@
 
 - (CSVTUITwoPassKeywordDetector)initWithAsset:(id)asset supportMph:(BOOL)mph
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   assetCopy = asset;
-  v37.receiver = self;
-  v37.super_class = CSVTUITwoPassKeywordDetector;
-  v7 = [(CSVTUITwoPassKeywordDetector *)&v37 init];
+  v36.receiver = self;
+  v36.super_class = CSVTUITwoPassKeywordDetector;
+  v7 = [(CSVTUITwoPassKeywordDetector *)&v36 init];
   if (v7)
   {
     if (assetCopy)
@@ -317,9 +315,9 @@
         if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 136315394;
-          v39 = "[CSVTUITwoPassKeywordDetector initWithAsset:supportMph:]";
-          v40 = 2112;
-          v41 = v9;
+          v38 = "[CSVTUITwoPassKeywordDetector initWithAsset:supportMph:]";
+          v39 = 2112;
+          v40 = v9;
           _os_log_impl(&dword_225E12000, v12, OS_LOG_TYPE_DEFAULT, "%s Initialized with config path: %@", buf, 0x16u);
         }
 
@@ -359,7 +357,7 @@
       if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315138;
-        v39 = "[CSVTUITwoPassKeywordDetector initWithAsset:supportMph:]";
+        v38 = "[CSVTUITwoPassKeywordDetector initWithAsset:supportMph:]";
         _os_log_error_impl(&dword_225E12000, v12, OS_LOG_TYPE_ERROR, "%s Cannot create CSVTUIKeywordDetector since we cannot initialize NDAPI", buf, 0xCu);
       }
     }
@@ -370,7 +368,7 @@
       if (os_log_type_enabled(*MEMORY[0x277D015D8], OS_LOG_TYPE_ERROR))
       {
         *buf = 136315138;
-        v39 = "[CSVTUITwoPassKeywordDetector initWithAsset:supportMph:]";
+        v38 = "[CSVTUITwoPassKeywordDetector initWithAsset:supportMph:]";
         _os_log_error_impl(&dword_225E12000, v34, OS_LOG_TYPE_ERROR, "%s Cannot create CSVTUIKeywordDetector since there is no asset available", buf, 0xCu);
       }
     }
@@ -383,7 +381,6 @@ LABEL_7:
   v33 = v7;
 LABEL_14:
 
-  v35 = *MEMORY[0x277D85DE8];
   return v33;
 }
 

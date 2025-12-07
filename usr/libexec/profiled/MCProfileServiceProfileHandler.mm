@@ -4,6 +4,8 @@
 - (id)_badIdentityError;
 - (id)_sdpErrorForFinalProfile:(id)profile;
 - (id)fetchFinalProfileWithClient:(id)client outProfileData:(id *)data outError:(id *)error;
+- (void)_releaseDependencyBetweenPersistentID:(id)d andUUID:(id)iD forSystem:(BOOL)system user:(BOOL)user;
+- (void)_retainDependencyBetweenPersistentID:(id)d andUUID:(id)iD forSystem:(BOOL)system user:(BOOL)user;
 - (void)dealloc;
 - (void)didInstallOldGlobalRestrictions:(id)restrictions newGlobalRestrictions:(id)globalRestrictions;
 - (void)removeWithInstaller:(id)installer options:(id)options;
@@ -55,6 +57,30 @@
   v4 = [NSError MCErrorWithDomain:v2 code:24002 descriptionArray:v3 errorType:MCErrorTypeFatal, 0];
 
   return v4;
+}
+
+- (void)_retainDependencyBetweenPersistentID:(id)d andUUID:(id)iD forSystem:(BOOL)system user:(BOOL)user
+{
+  userCopy = user;
+  systemCopy = system;
+  iDCopy = iD;
+  dCopy = d;
+  v12 = +[MCDependencyManager sharedManager];
+  mCHexString = [dCopy MCHexString];
+
+  [v12 addDependent:iDCopy ofParent:mCHexString inDomain:kMCDMCertificateToPayloadUUIDDependencyKey reciprocalDomain:kMCDMPayloadUUIDToCertificateDependencyKey toSystem:systemCopy user:userCopy];
+}
+
+- (void)_releaseDependencyBetweenPersistentID:(id)d andUUID:(id)iD forSystem:(BOOL)system user:(BOOL)user
+{
+  userCopy = user;
+  systemCopy = system;
+  iDCopy = iD;
+  dCopy = d;
+  v12 = +[MCDependencyManager sharedManager];
+  mCHexString = [dCopy MCHexString];
+
+  [v12 removeDependent:iDCopy fromParent:mCHexString inDomain:kMCDMCertificateToPayloadUUIDDependencyKey reciprocalDomain:kMCDMPayloadUUIDToCertificateDependencyKey fromSystem:systemCopy user:userCopy];
 }
 
 - (id)fetchFinalProfileWithClient:(id)client outProfileData:(id *)data outError:(id *)error
@@ -359,7 +385,7 @@ LABEL_31:
 
   if (error)
   {
-    *error = [v12 MCCopyAsPrimaryError];
+    *error = objc_msgSend_MCCopyAsPrimaryError(v12);
   }
 
   v53 = _MCLogObjects[0];
@@ -443,8 +469,8 @@ LABEL_44:
     v10 = _MCLogObjects[0];
     if (os_log_type_enabled(_MCLogObjects[0], OS_LOG_TYPE_DEFAULT))
     {
-      *v17 = 0;
-      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Sending installation confirmation to OTA Profile service. No error check is performed.", v17, 2u);
+      *v16 = 0;
+      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Sending installation confirmation to OTA Profile service. No error check is performed.", v16, 2u);
     }
 
     v11 = [NSPropertyListSerialization dataWithPropertyList:&off_100127328 format:100 options:0 error:0];
@@ -454,15 +480,14 @@ LABEL_44:
       v13 = [NSURL URLWithString:uRLString];
 
       v14 = +[NSMutableData data];
-      identity = self->_identity;
       if (!SecCMSSignDataAndAttributes())
       {
-        v16 = [[DMCHTTPTransaction alloc] initWithURL:v13 method:@"POST"];
-        [v16 setTimeout:45.0];
-        [v16 setUserAgent:kMCProfileUserAgent];
-        [v16 setContentType:@"application/pkcs7-signature"];
-        [v16 setData:v14];
-        [v16 performSynchronously];
+        v15 = [[DMCHTTPTransaction alloc] initWithURL:v13 method:@"POST"];
+        [v15 setTimeout:45.0];
+        [v15 setUserAgent:kMCProfileUserAgent];
+        [v15 setContentType:@"application/pkcs7-signature"];
+        [v15 setData:v14];
+        [v15 performSynchronously];
       }
     }
   }

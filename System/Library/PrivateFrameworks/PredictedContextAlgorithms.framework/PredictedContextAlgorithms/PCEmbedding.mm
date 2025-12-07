@@ -676,7 +676,7 @@ LABEL_13:
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v67 = *MEMORY[0x1E69E9840];
+  v66 = *MEMORY[0x1E69E9840];
   v4 = objc_alloc_init(PCEmbedding);
   bundleIdentifier = [(PCEmbedding *)self bundleIdentifier];
   [(PCEmbedding *)v4 setBundleIdentifier:bundleIdentifier];
@@ -687,35 +687,35 @@ LABEL_13:
   [(PCEmbedding *)v4 setEmbeddingType:[(PCEmbedding *)self embeddingType]];
   activityContextEmbedding = [(PCEmbedding *)self activityContextEmbedding];
 
-  v51 = v4;
+  v50 = v4;
   if (activityContextEmbedding)
   {
     activityContextEmbedding2 = [(PCEmbedding *)self activityContextEmbedding];
     v9 = [activityContextEmbedding2 mutableCopy];
 
-    v62 = 0u;
-    v63 = 0u;
-    v60 = 0u;
     v61 = 0u;
+    v62 = 0u;
+    v59 = 0u;
+    v60 = 0u;
     activityContextEmbedding3 = [(PCEmbedding *)self activityContextEmbedding];
     allKeys = [activityContextEmbedding3 allKeys];
 
-    v12 = [allKeys countByEnumeratingWithState:&v60 objects:v66 count:16];
+    v12 = [allKeys countByEnumeratingWithState:&v59 objects:v65 count:16];
     if (v12)
     {
       v13 = v12;
-      v14 = *v61;
+      v14 = *v60;
       do
       {
         v15 = 0;
         do
         {
-          if (*v61 != v14)
+          if (*v60 != v14)
           {
             objc_enumerationMutation(allKeys);
           }
 
-          v16 = *(*(&v60 + 1) + 8 * v15);
+          v16 = *(*(&v59 + 1) + 8 * v15);
           activityContextEmbedding4 = [(PCEmbedding *)self activityContextEmbedding];
           v18 = [activityContextEmbedding4 objectForKeyedSubscript:v16];
 
@@ -729,15 +729,15 @@ LABEL_13:
         }
 
         while (v13 != v15);
-        v13 = [allKeys countByEnumeratingWithState:&v60 objects:v66 count:16];
+        v13 = [allKeys countByEnumeratingWithState:&v59 objects:v65 count:16];
       }
 
       while (v13);
     }
 
     v20 = [v9 copy];
-    v4 = v51;
-    [(PCEmbedding *)v51 setActivityContextEmbedding:v20];
+    v4 = v50;
+    [(PCEmbedding *)v50 setActivityContextEmbedding:v20];
   }
 
   timeContextEmbedding = [(PCEmbedding *)self timeContextEmbedding];
@@ -747,29 +747,29 @@ LABEL_13:
     timeContextEmbedding2 = [(PCEmbedding *)self timeContextEmbedding];
     v23 = [timeContextEmbedding2 mutableCopy];
 
-    v58 = 0u;
-    v59 = 0u;
-    v56 = 0u;
     v57 = 0u;
+    v58 = 0u;
+    v55 = 0u;
+    v56 = 0u;
     timeContextEmbedding3 = [(PCEmbedding *)self timeContextEmbedding];
     allKeys2 = [timeContextEmbedding3 allKeys];
 
-    v26 = [allKeys2 countByEnumeratingWithState:&v56 objects:v65 count:16];
+    v26 = [allKeys2 countByEnumeratingWithState:&v55 objects:v64 count:16];
     if (v26)
     {
       v27 = v26;
-      v28 = *v57;
+      v28 = *v56;
       do
       {
         v29 = 0;
         do
         {
-          if (*v57 != v28)
+          if (*v56 != v28)
           {
             objc_enumerationMutation(allKeys2);
           }
 
-          v30 = *(*(&v56 + 1) + 8 * v29);
+          v30 = *(*(&v55 + 1) + 8 * v29);
           timeContextEmbedding4 = [(PCEmbedding *)self timeContextEmbedding];
           v32 = [timeContextEmbedding4 objectForKeyedSubscript:v30];
 
@@ -783,15 +783,15 @@ LABEL_13:
         }
 
         while (v27 != v29);
-        v27 = [allKeys2 countByEnumeratingWithState:&v56 objects:v65 count:16];
+        v27 = [allKeys2 countByEnumeratingWithState:&v55 objects:v64 count:16];
       }
 
       while (v27);
     }
 
     v34 = [v23 copy];
-    v4 = v51;
-    [(PCEmbedding *)v51 setTimeContextEmbedding:v34];
+    v4 = v50;
+    [(PCEmbedding *)v50 setTimeContextEmbedding:v34];
   }
 
   locationContextEmbedding = [(PCEmbedding *)self locationContextEmbedding];
@@ -801,29 +801,29 @@ LABEL_13:
     locationContextEmbedding2 = [(PCEmbedding *)self locationContextEmbedding];
     v37 = [locationContextEmbedding2 mutableCopy];
 
-    v54 = 0u;
-    v55 = 0u;
-    v52 = 0u;
     v53 = 0u;
+    v54 = 0u;
+    v51 = 0u;
+    v52 = 0u;
     locationContextEmbedding3 = [(PCEmbedding *)self locationContextEmbedding];
     allKeys3 = [locationContextEmbedding3 allKeys];
 
-    v40 = [allKeys3 countByEnumeratingWithState:&v52 objects:v64 count:16];
+    v40 = [allKeys3 countByEnumeratingWithState:&v51 objects:v63 count:16];
     if (v40)
     {
       v41 = v40;
-      v42 = *v53;
+      v42 = *v52;
       do
       {
         v43 = 0;
         do
         {
-          if (*v53 != v42)
+          if (*v52 != v42)
           {
             objc_enumerationMutation(allKeys3);
           }
 
-          v44 = *(*(&v52 + 1) + 8 * v43);
+          v44 = *(*(&v51 + 1) + 8 * v43);
           locationContextEmbedding4 = [(PCEmbedding *)self locationContextEmbedding];
           v46 = [locationContextEmbedding4 objectForKeyedSubscript:v44];
 
@@ -837,51 +837,50 @@ LABEL_13:
         }
 
         while (v41 != v43);
-        v41 = [allKeys3 countByEnumeratingWithState:&v52 objects:v64 count:16];
+        v41 = [allKeys3 countByEnumeratingWithState:&v51 objects:v63 count:16];
       }
 
       while (v41);
     }
 
     v48 = [v37 copy];
-    v4 = v51;
-    [(PCEmbedding *)v51 setLocationContextEmbedding:v48];
+    v4 = v50;
+    [(PCEmbedding *)v50 setLocationContextEmbedding:v48];
   }
 
-  v49 = *MEMORY[0x1E69E9840];
   return v4;
 }
 
 + (id)embeddingObjectsFromProtobuf:(id)protobuf
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   protobufCopy = protobuf;
   v4 = objc_opt_new();
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   v5 = protobufCopy;
-  v6 = [v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v17;
+    v8 = *v16;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v17 != v8)
+        if (*v16 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v16 + 1) + 8 * i);
+        v10 = *(*(&v15 + 1) + 8 * i);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
           v11 = [PCEmbedding alloc];
-          v12 = [(PCEmbedding *)v11 initWithProtobufEquivalent:v10, v16];
+          v12 = [(PCEmbedding *)v11 initWithProtobufEquivalent:v10, v15];
           if (v12)
           {
             [v4 addObject:v12];
@@ -889,14 +888,13 @@ LABEL_13:
         }
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v7);
   }
 
   v13 = [v4 copy];
-  v14 = *MEMORY[0x1E69E9840];
 
   return v13;
 }
@@ -944,7 +942,7 @@ LABEL_13:
 
 + (double)secondsFromTimeOfDay:(id)day toTimeOfDay:(id)ofDay
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   dayCopy = day;
   ofDayCopy = ofDay;
   v7 = ofDayCopy;
@@ -965,11 +963,11 @@ LABEL_13:
         v16 = _plc_log_get_normal_handle(PCLogCategoryWorkoutPredictor);
         if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
         {
-          v19 = 138412546;
-          v20 = dayCopy;
-          v21 = 2112;
-          v22 = v7;
-          _os_log_impl(&dword_1CEE74000, v16, OS_LOG_TYPE_ERROR, "[secondsFromTimeOfDay] Invalid Parameters: %@, %@", &v19, 0x16u);
+          v18 = 138412546;
+          v19 = dayCopy;
+          v20 = 2112;
+          v21 = v7;
+          _os_log_impl(&dword_1CEE74000, v16, OS_LOG_TYPE_ERROR, "[secondsFromTimeOfDay] Invalid Parameters: %@, %@", &v18, 0x16u);
         }
       }
 
@@ -985,7 +983,6 @@ LABEL_13:
     }
   }
 
-  v17 = *MEMORY[0x1E69E9840];
   return v8;
 }
 

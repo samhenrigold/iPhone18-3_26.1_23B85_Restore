@@ -1,3 +1,243 @@
+uint64_t *std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(uint64_t *result, const void *a2, uint64_t a3, unint64_t a4)
+{
+  if (a4)
+  {
+    std::vector<float>::__vallocate[abi:ne200100](result, a4);
+  }
+
+  return result;
+}
+
+void sub_1DDBD9E6C(_Unwind_Exception *exception_object)
+{
+  v3 = *v1;
+  if (*v1)
+  {
+    *(v1 + 8) = v3;
+    operator delete(v3);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+void std::allocator<DspLib::ThermalSpeakerProtection::SpeakerModel>::allocate_at_least[abi:ne200100](uint64_t a1, unint64_t a2)
+{
+  if (a2 < 0x1C71C71C71C71C8)
+  {
+    operator new();
+  }
+
+  std::__throw_bad_array_new_length[abi:ne200100]();
+}
+
+uint64_t std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<DspLib::ThermalSpeakerProtection::SpeakerModel>,DspLib::ThermalSpeakerProtection::SpeakerModel*>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  v18 = a4;
+  v17 = a4;
+  v15[0] = a1;
+  v15[1] = &v17;
+  v15[2] = &v18;
+  if (a2 == a3)
+  {
+    v16 = 1;
+  }
+
+  else
+  {
+    v5 = a2;
+    v6 = a2;
+    do
+    {
+      *a4 = 0;
+      *(a4 + 8) = 0;
+      *(a4 + 16) = 0;
+      *a4 = *v6;
+      *(a4 + 16) = *(v6 + 16);
+      *(v6 + 8) = 0;
+      *(v6 + 16) = 0;
+      *v6 = 0;
+      v7 = *(v6 + 104);
+      v8 = *(v6 + 120);
+      v9 = *(v6 + 136);
+      *(a4 + 88) = *(v6 + 88);
+      *(a4 + 136) = v9;
+      *(a4 + 120) = v8;
+      *(a4 + 104) = v7;
+      v10 = *(v6 + 24);
+      v11 = *(v6 + 40);
+      v12 = *(v6 + 56);
+      *(a4 + 72) = *(v6 + 72);
+      *(a4 + 56) = v12;
+      *(a4 + 40) = v11;
+      *(a4 + 24) = v10;
+      v6 += 144;
+      a4 += 144;
+    }
+
+    while (v6 != a3);
+    v18 = a4;
+    v16 = 1;
+    while (v5 != a3)
+    {
+      v13 = *v5;
+      if (*v5)
+      {
+        *(v5 + 8) = v13;
+        operator delete(v13);
+      }
+
+      v5 += 144;
+    }
+  }
+
+  return std::__exception_guard_exceptions<std::_AllocatorDestroyRangeReverse<std::allocator<DspLib::ThermalSpeakerProtection::SpeakerModel>,DspLib::ThermalSpeakerProtection::SpeakerModel*>>::~__exception_guard_exceptions[abi:ne200100](v15);
+}
+
+uint64_t std::__exception_guard_exceptions<std::_AllocatorDestroyRangeReverse<std::allocator<DspLib::ThermalSpeakerProtection::SpeakerModel>,DspLib::ThermalSpeakerProtection::SpeakerModel*>>::~__exception_guard_exceptions[abi:ne200100](uint64_t a1)
+{
+  if ((*(a1 + 24) & 1) == 0)
+  {
+    std::_AllocatorDestroyRangeReverse<std::allocator<DspLib::ThermalSpeakerProtection::SpeakerModel>,DspLib::ThermalSpeakerProtection::SpeakerModel*>::operator()[abi:ne200100](a1);
+  }
+
+  return a1;
+}
+
+void std::_AllocatorDestroyRangeReverse<std::allocator<DspLib::ThermalSpeakerProtection::SpeakerModel>,DspLib::ThermalSpeakerProtection::SpeakerModel*>::operator()[abi:ne200100](uint64_t a1)
+{
+  v1 = **(a1 + 16);
+  v2 = **(a1 + 8);
+  if (v1 != v2)
+  {
+    v3 = **(a1 + 16);
+    do
+    {
+      v5 = *(v3 - 144);
+      v3 -= 144;
+      v4 = v5;
+      if (v5)
+      {
+        *(v1 - 136) = v4;
+        operator delete(v4);
+      }
+
+      v1 = v3;
+    }
+
+    while (v3 != v2);
+  }
+}
+
+uint64_t std::__split_buffer<DspLib::ThermalSpeakerProtection::SpeakerModel>::~__split_buffer(uint64_t a1)
+{
+  std::__split_buffer<DspLib::ThermalSpeakerProtection::SpeakerModel>::__destruct_at_end[abi:ne200100](a1, *(a1 + 8));
+  if (*a1)
+  {
+    operator delete(*a1);
+  }
+
+  return a1;
+}
+
+void std::__split_buffer<DspLib::ThermalSpeakerProtection::SpeakerModel>::__destruct_at_end[abi:ne200100](uint64_t a1, uint64_t a2)
+{
+  v2 = *(a1 + 16);
+  while (v2 != a2)
+  {
+    v5 = *(v2 - 144);
+    *(a1 + 16) = v2 - 144;
+    if (v5)
+    {
+      *(v2 - 136) = v5;
+      operator delete(v5);
+      v2 = *(a1 + 16);
+    }
+
+    else
+    {
+      v2 -= 144;
+    }
+  }
+}
+
+uint64_t *DspLib::ChannelBuffer::operator=(uint64_t *result, uint64_t *a2)
+{
+  if (a2 != result)
+  {
+    v2 = *result;
+    *result = *a2;
+    *a2 = v2;
+    v3 = result[1];
+    result[1] = a2[1];
+    a2[1] = v3;
+    v4 = result[2];
+    result[2] = a2[2];
+    a2[2] = v4;
+    v5 = result[3];
+    result[3] = a2[3];
+    a2[3] = v5;
+    v6 = result[4];
+    result[4] = a2[4];
+    a2[4] = v6;
+    v7 = result[5];
+    result[5] = a2[5];
+    a2[5] = v7;
+  }
+
+  return result;
+}
+
+void std::vector<DspLib::RMS>::__vdeallocate(uint64_t *a1)
+{
+  if (*a1)
+  {
+    std::vector<DspLib::RMS>::clear[abi:ne200100](a1);
+    operator delete(*a1);
+    *a1 = 0;
+    a1[1] = 0;
+    a1[2] = 0;
+  }
+}
+
+double DspLib::ChannelBuffer::ChannelBuffer(uint64_t a1, void *a2)
+{
+  result = 0.0;
+  *(a1 + 16) = 0u;
+  *(a1 + 32) = 0u;
+  *a1 = 0u;
+  *a1 = *a2;
+  *a2 = 0;
+  v3 = *(a1 + 8);
+  *(a1 + 8) = a2[1];
+  a2[1] = v3;
+  v4 = *(a1 + 16);
+  *(a1 + 16) = a2[2];
+  a2[2] = v4;
+  v5 = *(a1 + 24);
+  *(a1 + 24) = a2[3];
+  a2[3] = v5;
+  v6 = *(a1 + 32);
+  *(a1 + 32) = a2[4];
+  a2[4] = v6;
+  v7 = *(a1 + 40);
+  *(a1 + 40) = a2[5];
+  a2[5] = v7;
+  return result;
+}
+
+void DspLib::ThermalSpeakerProtection::Algorithm::initialize()
+{
+  v0 = basename("/Library/Caches/com.apple.xbs/Sources/AudioDSP_darwinOS/Source/AudioDSP/InternalAudioUnits/Effects/DspLib/ThermalSpeakerProtection/dsp/DspLibThermalSpeakerProtection.cpp");
+  printf("DSP Sound assertion in %s at line %d\n", v0, 176);
+  OUTLINED_FUNCTION_0(&DspLibDebug::mAssertCounter);
+}
+
+{
+  v0 = basename("/Library/Caches/com.apple.xbs/Sources/AudioDSP_darwinOS/Source/AudioDSP/InternalAudioUnits/Effects/DspLib/ThermalSpeakerProtection/dsp/DspLibThermalSpeakerProtection.cpp");
+  printf("DSP Sound assertion in %s at line %d\n", v0, 175);
+  OUTLINED_FUNCTION_0(&DspLibDebug::mAssertCounter);
+}
+
 void DspLib::ThermalSpeakerProtection::Algorithm::reset()
 {
   v0 = basename("/Library/Caches/com.apple.xbs/Sources/AudioDSP_darwinOS/Source/AudioDSP/InternalAudioUnits/Effects/DspLib/ThermalSpeakerProtection/dsp/DspLibThermalSpeakerProtection.cpp");
@@ -19,26 +259,26 @@ void DspLib::ThermalSpeakerProtection::Algorithm::status()
   OUTLINED_FUNCTION_0(&DspLibDebug::mAssertCounter);
 }
 
-float DspLib::BassQueen::Parameters::min(uint64_t a1, uint64_t a2, unsigned int a3)
+float DspLib::BassQueen::Parameters::min(uint64_t result, uint64_t a2, unsigned int a3)
 {
   if (a3 <= 0x31)
   {
     return DspLib::BassQueen::Parameters::kMinimum[a3];
   }
 
-  v5 = DspLib::LoudspeakerModel::Parameters::mode((a1 + 200));
+  v5 = DspLib::LoudspeakerModel::Parameters::mode((result + 200));
 
   return DspLib::LoudspeakerModel::Parameters::min(v5, a3 - 50);
 }
 
-float DspLib::BassQueen::Parameters::max(uint64_t a1, uint64_t a2, unsigned int a3)
+float DspLib::BassQueen::Parameters::max(uint64_t result, uint64_t a2, unsigned int a3)
 {
   if (a3 <= 0x31)
   {
     return DspLib::BassQueen::Parameters::kMaximum[a3];
   }
 
-  v5 = DspLib::LoudspeakerModel::Parameters::mode((a1 + 200));
+  v5 = DspLib::LoudspeakerModel::Parameters::mode((result + 200));
 
   return DspLib::LoudspeakerModel::Parameters::max(v5, a3 - 50);
 }
@@ -373,8 +613,8 @@ void DspLib::LoudspeakerController::SpeakerSystemModel::initialize(DspLib::Louds
   DspLib::LoudspeakerController::BiquadModel::initialize((this + 160), 4uLL);
   DspLib::LoudspeakerController::BiquadModel::initialize((this + 312), 3uLL);
   DspLib::LoudspeakerManager::ThermalModel::initialize((this + 464), *this / a3);
-  DspLib::AveragingDecimator::setSrcFactor((this + 656), a3, a3 - 1);
-  DspLib::AveragingDecimator::setSrcFactor((this + 704), a3, a3 - 1);
+  DspLib::AveragingDecimator::setSrcFactor(this + 656, a3, a3 - 1);
+  DspLib::AveragingDecimator::setSrcFactor(this + 704, a3, a3 - 1);
 
   DspLib::LoudspeakerController::SpeakerSystemModel::reset(this);
 }
@@ -440,7 +680,7 @@ void *DspLib::LoudspeakerController::SpeakerSystemModel::process(uint64_t a1, ui
   }
 
   v19 = DspLib::LoudspeakerController::SpeakerSystemModel::temperaturePath(a1, a4, a5, a11, a12);
-  v20 = MEMORY[0x1EEE9AC00](v19);
+  MEMORY[0x1EEE9AC00](v19);
   v22 = &v35 - v21;
   if (*(a1 + 112) == 1)
   {
@@ -465,12 +705,12 @@ LABEL_10:
 
   else
   {
-    v27 = MEMORY[0x1EEE9AC00](v20);
-    v29 = (&v35 - v28);
-    MEMORY[0x1EEE9AC00](v27);
+    MEMORY[0x1EEE9AC00](v20);
+    v28 = (&v35 - v27);
+    MEMORY[0x1EEE9AC00](v29);
     v31 = &v35 - v30;
-    *(a1 + 152) = DspLib::LoudspeakerController::EfficiencyModel::processKernel(a1 + 48, v17, a3, v29, a5, (&v35 - v30), a5, *(a1 + 152));
-    DspLib::multiplyAdd(a4, a5, v31, a5, v29, a5, v22);
+    *(a1 + 152) = DspLib::LoudspeakerController::EfficiencyModel::processKernel(a1 + 48, v17, a3, v28, a5, (&v35 - v30), a5, *(a1 + 152));
+    DspLib::multiplyAdd(a4, a5, v31, a5, v28, a5, v22);
   }
 
   v35 = *a6;
@@ -478,7 +718,7 @@ LABEL_10:
   return DspLib::LoudspeakerController::SpeakerSystemModel::powerPath(a1, v22, a5, &v35);
 }
 
-void DspLib::LoudspeakerController::SpeakerSystemModel::voltagePath(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
+double DspLib::LoudspeakerController::SpeakerSystemModel::voltagePath(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
 {
   DspLib::Biquad::Filter::process((a1 + 160), a2, a3, a4, a5);
   DspLib::Biquad::Filter::process((a1 + 312), a2, a3, a6, a7);
@@ -487,15 +727,17 @@ void DspLib::LoudspeakerController::SpeakerSystemModel::voltagePath(uint64_t a1,
 
     DspLib::Biquad::Filter::process((a1 + 752), a2, a3, a9, a10);
   }
+
+  return result;
 }
 
 float32x2_t *DspLib::LoudspeakerController::SpeakerSystemModel::temperaturePath(float32x2_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   v19 = *MEMORY[0x1E69E9840];
-  v8 = MEMORY[0x1EEE9AC00](a1);
-  v17 = &v16 - v9;
-  v18 = v10;
-  result = DspLib::AveragingDecimator::processKernel(v8 + 704, v11, v12, &v17, v13, v14, &a1[90]);
+  MEMORY[0x1EEE9AC00](a1);
+  v17 = &v16 - v8;
+  v18 = v9;
+  result = DspLib::AveragingDecimator::processKernel(v10 + 704, v11, v12, &v17, v13, v14, &a1[90]);
   if (v18)
   {
     return DspLib::LoudspeakerManager::ThermalModel::process(a1 + 58, v17, v18, a4, a5);
@@ -507,10 +749,10 @@ float32x2_t *DspLib::LoudspeakerController::SpeakerSystemModel::temperaturePath(
 void *DspLib::LoudspeakerController::SpeakerSystemModel::powerPath(uint64_t a1, uint64_t a2, uint64_t a3, void **a4)
 {
   v27 = *MEMORY[0x1E69E9840];
-  v6 = MEMORY[0x1EEE9AC00](a1);
-  v25 = &v24 - v7;
-  v26 = v8;
-  result = DspLib::AveragingDecimator::processKernel(v6 + 656, v9, v10, &v25, v11, v12, (a1 + 672));
+  MEMORY[0x1EEE9AC00](a1);
+  v25 = &v24 - v6;
+  v26 = v7;
+  result = DspLib::AveragingDecimator::processKernel(v8 + 656, v9, v10, &v25, v11, v12, (a1 + 672));
   v14 = v26;
   if (v26)
   {
@@ -538,25 +780,27 @@ void *DspLib::LoudspeakerController::SpeakerSystemModel::powerPath(uint64_t a1, 
   return result;
 }
 
-void DspLib::LoudspeakerController::SpeakerSystemModel::displacementZeroState(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
+double DspLib::LoudspeakerController::SpeakerSystemModel::displacementZeroState(_BYTE *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
 {
   DspLib::Biquad::SetupWrapper::reset((a1 + 280));
-  DspLib::Biquad::Filter::process((a1 + 232), a2, a3, a4, a5);
-  if (*(a1 + 904) == 1)
+  DspLib::Biquad::Filter::process(a1 + 29, a2, a3, a4, a5);
+  if (a1[904] == 1)
   {
     DspLib::Biquad::SetupWrapper::reset((a1 + 872));
 
-    DspLib::Biquad::Filter::process((a1 + 824), a2, a3, a6, a7);
+    DspLib::Biquad::Filter::process(a1 + 103, a2, a3, a6, a7);
   }
+
+  return result;
 }
 
 void *DspLib::LoudspeakerController::SpeakerSystemModel::powerPathZeroState(float32x4_t *a1, uint64_t a2, uint64_t a3, uint64_t **a4)
 {
   v22[1] = *MEMORY[0x1E69E9840];
   v6 = (a1[41].f32[2] * (a3 + ((a1[42].i64[1] - a1[42].i64[0]) >> 2)));
-  v7 = MEMORY[0x1EEE9AC00](a1);
-  v9 = v22 - v8;
-  result = DspLib::AveragingDecimator::zeroStateResponse(v7 + 656, v10, v11, v22 - v8, v6);
+  MEMORY[0x1EEE9AC00](a1);
+  v8 = v22 - v7;
+  result = DspLib::AveragingDecimator::zeroStateResponse(v9 + 656, v10, v11, v22 - v7, v6);
   if (v6)
   {
     v13 = 0;
@@ -568,7 +812,7 @@ void *DspLib::LoudspeakerController::SpeakerSystemModel::powerPathZeroState(floa
     v19 = 0uLL;
     do
     {
-      v20 = &v9[4 * v13];
+      v20 = &v8[4 * v13];
       v21 = vld1q_dup_f32(v20);
       v19 = vmlaq_f32(v19, vsubq_f32(v21, v19), v14);
       *(v15 + 4 * v13) = v19.i32[0];
@@ -587,33 +831,33 @@ float32x2_t *DspLib::LoudspeakerController::SpeakerSystemModel::temperaturePathZ
 {
   v13[1] = *MEMORY[0x1E69E9840];
   v6 = (a1[89].f32[0] * (a3 + ((*&a1[91] - *&a1[90]) >> 2)));
-  v7 = MEMORY[0x1EEE9AC00](a1);
-  v9 = v13 - v8;
-  result = DspLib::AveragingDecimator::zeroStateResponse(v7 + 704, v10, v11, v13 - v8, v6);
+  MEMORY[0x1EEE9AC00](a1);
+  v8 = v13 - v7;
+  result = DspLib::AveragingDecimator::zeroStateResponse(v9 + 704, v10, v11, v13 - v7, v6);
   if (v6)
   {
-    return DspLib::LoudspeakerManager::ThermalModel::zeroStateResponse(a1 + 58, v9, v6, a4);
+    return DspLib::LoudspeakerManager::ThermalModel::zeroStateResponse(a1 + 58, v8, v6, a4);
   }
 
   return result;
 }
 
-uint64_t DspLib::LoudspeakerController::SpeakerSystemModel::temperatureZeroInput(uint64_t a1, uint64_t a2, unint64_t a3)
+float32x2_t *DspLib::LoudspeakerController::SpeakerSystemModel::temperatureZeroInput(float32x2_t *a1, uint64_t a2, unint64_t a3)
 {
   v11[1] = *MEMORY[0x1E69E9840];
-  v6 = MEMORY[0x1EEE9AC00](a1);
-  v8 = v11 - v7;
-  DspLib::AveragingDecimator::zeroInputResponse(v6 + 704, (v11 - v7), v9);
-  return DspLib::LoudspeakerManager::ThermalModel::processNoUpdate(a1 + 464, v8, a3, a2, a3);
+  MEMORY[0x1EEE9AC00](a1);
+  v7 = v11 - v6;
+  DspLib::AveragingDecimator::zeroInputResponse(v8 + 704, (v11 - v6), v9);
+  return DspLib::LoudspeakerManager::ThermalModel::processNoUpdate(a1 + 58, v7, a3, a2, a3);
 }
 
 void *DspLib::LoudspeakerController::SpeakerSystemModel::averagePowersZeroInput(float32x4_t *a1, uint64_t a2, uint64_t a3, uint64_t **a4)
 {
   v26 = *MEMORY[0x1E69E9840];
-  v6 = MEMORY[0x1EEE9AC00](a1);
-  v24 = &v23 - v8;
-  v25 = v7;
-  result = DspLib::AveragingDecimator::processKernel(v6 + 656, v9, v10, &v24, *(v6 + 672), (*(v6 + 680) - *(v6 + 672)) >> 2, 0);
+  MEMORY[0x1EEE9AC00](a1);
+  v24 = &v23 - v7;
+  v25 = v6;
+  result = DspLib::AveragingDecimator::processKernel(v8 + 656, v9, v10, &v24, *(v8 + 672), (*(v8 + 680) - *(v8 + 672)) >> 2, 0);
   v12 = v25;
   if (v25)
   {
@@ -767,13 +1011,12 @@ void DspLib::LoudspeakerController::YoYoSmoother::process(DspLib::LoudspeakerCon
   }
 }
 
-void *DspLib::LoudspeakerController::MaskingEstimator::configure(void *this, double a2, unint64_t a3, uint64_t a4)
+void DspLib::LoudspeakerController::MaskingEstimator::configure(DspLib::LoudspeakerController::MaskingEstimator *this, double a2, unint64_t a3, uint64_t a4)
 {
-  v5 = this;
-  if (*this != a2 || a3 != (this[3] - this[2]) >> 2 || this[1] != a4)
+  if (*this != a2 || a3 != (*(this + 3) - *(this + 2)) >> 2 || *(this + 1) != a4)
   {
     v6 = 0;
-    this[1] = a4;
+    *(this + 1) = a4;
     *this = a2;
     v7 = 2 * a3;
     while (1)
@@ -808,7 +1051,7 @@ void *DspLib::LoudspeakerController::MaskingEstimator::configure(void *this, dou
           v12 = v7;
         }
 
-        v5[5] = v12;
+        *(this + 5) = v12;
         if (a3 >= 0x400)
         {
           v13 = 1024;
@@ -819,19 +1062,17 @@ void *DspLib::LoudspeakerController::MaskingEstimator::configure(void *this, dou
           v13 = a3;
         }
 
-        std::vector<float>::resize(v5 + 2, v13);
-        DspLib::makePeriodicHannWindow(v5[2], (v5[3] - v5[2]) >> 2);
-        v14 = v5[2];
-        v15 = (v5[3] - v14) >> 2;
+        std::vector<float>::resize(this + 2, v13);
+        DspLib::makePeriodicHannWindow(*(this + 2), (*(this + 3) - *(this + 2)) >> 2);
+        v14 = *(this + 2);
+        v15 = (*(this + 3) - v14) >> 2;
         v16 = DspLib::norm(v14, v15);
         DspLib::multiply(v14, v15, 1.0 / v16);
-        std::unique_ptr<DspLib::FFT::Transform<(DspLib::FFT::Direction)1>>::reset[abi:ne200100](v5 + 6, 0);
+        std::unique_ptr<DspLib::FFT::Transform<(DspLib::FFT::Direction)1>>::reset[abi:ne200100](this + 6, 0);
         operator new();
       }
     }
   }
-
-  return this;
 }
 
 uint64_t std::unique_ptr<DspLib::FFT::Transform<(DspLib::FFT::Direction)1>>::reset[abi:ne200100](uint64_t *a1, uint64_t a2)
@@ -950,7 +1191,7 @@ uint64_t DspLib::LoudspeakerController::MaskingEstimator::setPressureMapping(uin
 
 void DspLib::LoudspeakerController::MaskingEstimator::process(uint64_t a1, uint64_t a2, unint64_t a3)
 {
-  v4 = MEMORY[0x1EEE9AC00](a1);
+  MEMORY[0x1EEE9AC00](a1);
   if (a3 > (*(v4 + 24) - *(v4 + 16)) >> 2)
   {
     DspLib::multiply();
@@ -959,7 +1200,7 @@ void DspLib::LoudspeakerController::MaskingEstimator::process(uint64_t a1, uint6
   DspLib::multiply();
 }
 
-uint64_t DspLib::LoudspeakerController::MaskingEstimator::status(uint64_t a1, char *__dst)
+void DspLib::LoudspeakerController::MaskingEstimator::status(uint64_t a1, char *__dst)
 {
   DspLib::copy((a1 + 64), 100, __dst);
   v3 = 0;
@@ -972,31 +1213,30 @@ uint64_t DspLib::LoudspeakerController::MaskingEstimator::status(uint64_t a1, ch
 
   while (v3 != 400);
   DspLib::power2dB(__dst, 0x64uLL, 1.0);
-  result = DspLib::add(__dst, 100, 97.0);
+  DspLib::add(__dst, 100, 97.0);
   *(__dst + 99) = 0;
-  return result;
 }
 
-void DspLib::LoudspeakerController::TargetInterpolator::process(float **this, float a2, vDSP_Length a3)
+void DspLib::LoudspeakerController::TargetInterpolator::process(uint64_t this, float a2, vDSP_Length a3)
 {
   if (a3)
   {
     if (*(this + 16) == 1)
     {
-      DspLib::fill(this[3], this[4] - this[3], a2);
+      DspLib::fill(*(this + 24), (*(this + 32) - *(this + 24)) >> 2, a2);
       *(this + 16) = 0;
     }
 
     else
     {
-      DspLib::copy(&this[4][-(this[4] - this[3] - a3)], this[4] - this[3] - a3, this[3]);
-      v6 = &this[3][*this - a3 + this[1]];
+      DspLib::copy((*(this + 32) - 4 * (((*(this + 32) - *(this + 24)) >> 2) - a3)), ((*(this + 32) - *(this + 24)) >> 2) - a3, *(this + 24));
+      v6 = *(this + 24) + 4 * (*this - a3) + 4 * *(this + 8);
       v8 = *(v6 - 4);
       v7 = v6 - 4;
       v9 = v8;
       if (v8 <= a2)
       {
-        v10 = &this[3][*this - a3 + this[1]];
+        v10 = (*(this + 24) + 4 * (*this - a3) + 4 * *(this + 8));
 
         DspLib::fill(v10, a3, a2);
       }
@@ -1048,7 +1288,7 @@ DspLib::LoudspeakerController::Algorithm *DspLib::LoudspeakerController::Algorit
   return this;
 }
 
-void sub_1DDBDC3B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void **a10)
+void sub_1DDBDC3B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *a10)
 {
   DspLib::Log::~Log((v10 + 688));
   DspLib::Log::~Log((v10 + 680));
@@ -1183,20 +1423,20 @@ uint64_t DspLib::LoudspeakerController::Algorithm::initialize(DspLib::Loudspeake
   return v4;
 }
 
-void std::vector<DspLib::LoudspeakerController::Algorithm::SpeakerInfo>::resize(void *a1, unint64_t a2)
+void std::vector<DspLib::LoudspeakerController::Algorithm::SpeakerInfo>::resize(void *result, unint64_t a2)
 {
-  v2 = (a1[1] - *a1) >> 4;
+  v2 = (result[1] - *result) >> 4;
   if (a2 <= v2)
   {
     if (a2 < v2)
     {
-      a1[1] = *a1 + 16 * a2;
+      result[1] = *result + 16 * a2;
     }
   }
 
   else
   {
-    std::vector<DspLib::LoudspeakerController::Algorithm::SpeakerInfo>::__append(a1, a2 - v2);
+    std::vector<DspLib::LoudspeakerController::Algorithm::SpeakerInfo>::__append(result, a2 - v2);
   }
 }
 
@@ -2091,10 +2331,10 @@ uint64_t DspLib::LoudspeakerController::Parameters::individualAmplifierParameter
   return DspLib::copy(v9, 21, a4);
 }
 
-void DspLib::LoudspeakerController::Algorithm::setSpeakerModel(uint64_t a1, uint64_t a2, uint64_t a3, int a4, uint64_t a5)
+void DspLib::LoudspeakerController::Algorithm::setSpeakerModel(uint64_t result, float *a2, uint64_t a3, int a4, uint64_t a5)
 {
   v6 = a2;
-  v7 = (*(a1 + 624) + 4608 * a5);
+  v7 = (*(result + 624) + 4608 * a5);
   if (a4 > 2)
   {
     if (a4 == 3)
@@ -2226,14 +2466,14 @@ uint64_t DspLib::LoudspeakerController::Algorithm::findCLTempMatch(uint64_t this
   if (*(*(this + 624) + 4608 * a3 + 4512) != *(*(this + 624) + 4608 * a3 + 4504))
   {
     v4 = this;
-    v5 = MEMORY[0x1EEE9AC00](this);
-    v7 = v16 - v6;
-    v8 = *(v5 + 592);
-    v12 = DspLib::CircularDelay::read((v9 + v10), v11, v16 - v6, v8);
+    MEMORY[0x1EEE9AC00](this);
+    v6 = v16 - v5;
+    v8 = *(v7 + 592);
+    v12 = DspLib::CircularDelay::read((v9 + v10), v11, v16 - v5, v8);
     v13 = *(v4 + 592);
     MEMORY[0x1EEE9AC00](v12);
     v15 = (v16 - v14);
-    DspLib::add(v7, v8, v16 - v14, -a2);
+    DspLib::add(v6, v8, v16 - v14, -a2);
     return DspLib::minmgvi(v15, v13);
   }
 
@@ -2377,7 +2617,7 @@ caulk::concurrent::messenger ***DspLib::LoudspeakerController::Algorithm::reset(
       DspLib::clear(v3[152], (v3[153] - v3[152]) >> 2);
       DspLib::clear(v3[155], (v3[156] - v3[155]) >> 2);
       DspLib::clear(v3[158], (v3[159] - v3[158]) >> 2);
-      DspLib::MultiChannelLinearDelay::reset((v3 + 161));
+      DspLib::MultiChannelLinearDelay::reset(v3 + 161);
       *(v3 + 464) = 1065353216;
       *(v3 + 472) = 0;
       v3[242] = 0;
@@ -2451,10 +2691,10 @@ caulk::concurrent::messenger ***DspLib::LoudspeakerController::Algorithm::reset(
   return this;
 }
 
-void DspLib::MultiChannelLinearDelay::reset(DspLib::MultiChannelLinearDelay *this)
+void DspLib::MultiChannelLinearDelay::reset(uint64_t **this)
 {
   v1 = *this;
-  v2 = *(this + 1);
+  v2 = this[1];
   while (v1 != v2)
   {
     v3 = *v1;
@@ -2564,16 +2804,16 @@ unint64_t DspLib::LoudspeakerController::Algorithm::inputAnalysis(uint64_t a1, u
 
     else
     {
-      v10 = MEMORY[0x1EEE9AC00](v8);
-      v12 = v62 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-      DspLib::LinearDelay::process(v10, **v65, v65[2], v12, v13);
+      MEMORY[0x1EEE9AC00](v8);
+      v11 = v62 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+      DspLib::LinearDelay::process(v12, **v65, v65[2], v11, v13);
       v14 = (v68 + 24);
-      v15 = DspLib::LinearPhaseFilterbank::consumeInput(v68 + 2288, v12, v69 - *(v68 + 24));
+      v15 = DspLib::LinearPhaseFilterbank::consumeInput(v68 + 2288, v11, v69 - *(v68 + 24));
       *v14 = 0;
     }
 
     v62[5] = v62;
-    v16 = MEMORY[0x1EEE9AC00](v15);
+    MEMORY[0x1EEE9AC00](v15);
     MEMORY[0x1EEE9AC00](v16);
     v18 = v62 - v17;
     v19 = **v65;
@@ -2998,10 +3238,10 @@ uint64_t DspLib::LoudspeakerController::Algorithm::findVelocityTarget@<X0>(DspLi
 
 void *DspLib::LoudspeakerController::Algorithm::findPowerTargets@<X0>(void *result@<X0>, vDSP_Length a2@<X1>, uint64_t a3@<X2>, _OWORD *a4@<X8>)
 {
-  v96 = a3;
-  v99 = a2;
+  v98 = a3;
+  v101 = a2;
   v4 = result;
-  v110 = *MEMORY[0x1E69E9840];
+  v112 = *MEMORY[0x1E69E9840];
   v6 = result[41];
   v7 = 384;
   v8 = a4;
@@ -3018,7 +3258,7 @@ void *DspLib::LoudspeakerController::Algorithm::findPowerTargets@<X0>(void *resu
   }
 
   while (v7);
-  v9 = v6 + v99;
+  v9 = v6 + v101;
   v10 = result[78];
   v11 = result[79];
   for (i = 0.0; v10 != v11; v10 += 4608)
@@ -3059,7 +3299,7 @@ LABEL_15:
     i = i + *v15;
   }
 
-  v106 = 0;
+  v108 = 0;
   v16 = 0;
   if (v9 <= 1)
   {
@@ -3071,24 +3311,24 @@ LABEL_15:
     v17 = v9;
   }
 
-  v18 = 8 - v99;
-  v90 = (result + 63);
-  v102 = result + 57;
-  v100 = result + 51;
-  v98 = (result + 53);
-  v97 = result + 61;
-  v95 = result + 81;
-  v109 = 4348;
-  v105 = 13596;
-  v104 = 4380;
-  v101 = 4 * v17;
-  v108 = xmmword_1DE095150;
-  v107 = xmmword_1DE095160;
+  v18 = 8 - v101;
+  v92 = (result + 63);
+  v104 = result + 57;
+  v102 = result + 51;
+  v100 = (result + 53);
+  v99 = result + 61;
+  v97 = result + 81;
+  v111 = 4348;
+  v107 = 13596;
+  v106 = 4380;
+  v103 = 4 * v17;
+  v110 = xmmword_1DE095150;
+  v109 = xmmword_1DE095160;
   do
   {
-    v103 = &v90;
+    v105 = &v92;
     MEMORY[0x1EEE9AC00](result);
-    v20 = (&v90 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0));
+    v20 = (&v92 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0));
     DspLib::clear(v20, v9);
     if ((*(*v4 + 64))(v4))
     {
@@ -3120,18 +3360,18 @@ LABEL_15:
       }
 
       v29 = DspLib::maxv((v25 + 4 * v18), v28);
-      *(v4[78] + v109) = v29;
+      *(v4[78] + v111) = v29;
       DspLib::add();
     }
 
     if ((*(*v4 + 208))(v4))
     {
-      v30 = v99 == 0;
+      v30 = v101 == 0;
       DspLib::CPUMeasure::pause((v4 + 13));
       if (!v30)
       {
-        v31 = DspLib::maxv(v20, v99);
-        v90[v16] = v31;
+        v31 = DspLib::maxv(v20, v101);
+        v92[v16] = v31;
       }
 
       DspLib::CPUMeasure::resume((v4 + 13));
@@ -3140,31 +3380,31 @@ LABEL_15:
     if (*(v4 + 476))
     {
       v32 = *(v4 + 484);
-      result = DspLib::multiply((v4 + 55), 4, v102, *(v4 + 120));
-      v33 = v102;
+      result = DspLib::multiply((v4 + 55), 4, v104, *(v4 + 120));
+      v33 = v104;
       if (v32)
       {
-        v33 = v100;
+        v33 = v102;
       }
     }
 
     else
     {
-      result = DspLib::multiply((v4 + 55), 4, v102, *(v4 + 120));
-      v33 = v100;
+      result = DspLib::multiply((v4 + 55), 4, v104, *(v4 + 120));
+      v33 = v102;
     }
 
-    v34 = (v33 + 4 * v16);
+    v34 = v33 + v16;
     if (*(v4 + 543) == 1)
     {
       v35 = *v34;
-      v36 = v97 + v16;
-      DspLib::LoudspeakerController::findTarget(v20, v9 - v4[43], 1, v36, *v34 * v98[v16], *v34);
-      v37 = (v96 + 12 * v16);
+      v36 = v99 + v16;
+      DspLib::LoudspeakerController::findTarget(v20, v9 - v4[43], 1, v36, *v34 * v100[v16], *v34);
+      v37 = (v98 + 12 * v16);
       *v37 = v38;
       *(v37 + 1) = v39;
       *(v37 + 2) = v40;
-      *(v95 + v16) = v38;
+      *(v97 + v16) = v38;
       if (*(v4 + 584) == 1)
       {
         v41 = v37[1];
@@ -3195,7 +3435,7 @@ LABEL_15:
         if (result)
         {
           v45 = 0;
-          v46 = v104;
+          v46 = v106;
           v47 = 4;
           do
           {
@@ -3212,60 +3452,60 @@ LABEL_15:
 
       else
       {
-        v94 = v37;
+        v96 = v37;
         v57 = (*(*v4 + 64))(v4);
-        v93 = &v90;
-        MEMORY[0x1EEE9AC00](v57);
-        v59 = &v90 - v58;
-        v91 = (*(*v4 + 64))(v4);
-        v60 = (*(*v4 + 64))(v4);
-        MEMORY[0x1EEE9AC00](v60);
-        v62 = &v90 - v61;
-        v92 = (*(*v4 + 64))(v4);
+        v95 = &v92;
+        v58 = MEMORY[0x1EEE9AC00](v57);
+        v60 = &v92 - v59;
+        v93 = (*(*v4 + 64))(v4, v58);
+        v61 = (*(*v4 + 64))(v4);
+        v62 = MEMORY[0x1EEE9AC00](v61);
+        v64 = &v92 - v63;
+        v94 = (*(*v4 + 64))(v4, v62);
         if ((*(*v4 + 64))(v4))
         {
-          v63 = 0;
-          v64 = 1296;
-          v65 = a4;
+          v65 = 0;
+          v66 = 1296;
+          v67 = a4;
           do
           {
-            v66 = *(v4[78] + v64 - 8);
-            if (0xAAAAAAAAAAAAAAABLL * ((*(v4[78] + v64) - v66) >> 3) <= v16)
+            v68 = *(v4[78] + v66 - 8);
+            if (0xAAAAAAAAAAAAAAABLL * ((*(v4[78] + v66) - v68) >> 3) <= v16)
             {
-              v68 = 0;
-              v69 = 0;
+              v70 = 0;
+              v71 = 0;
             }
 
             else
             {
-              v67 = (v66 + 24 * v16);
-              v68 = *v67;
-              v69 = (v67[1] - *v67) >> 2;
+              v69 = (v68 + 24 * v16);
+              v70 = *v69;
+              v71 = (v69[1] - *v69) >> 2;
             }
 
-            v70 = v69 - v18;
+            v72 = v71 - v18;
             if (v9 - v4[43] == -1)
             {
-              v71 = v70;
+              v73 = v72;
             }
 
             else
             {
-              v71 = v9 - v4[43];
+              v73 = v9 - v4[43];
             }
 
-            v72 = DspLib::maxv((v68 + 4 * v18), v71);
-            *&v59[4 * v63] = v72;
-            *v65 = v72;
-            *&v62[4 * v63++] = v72;
-            v65 += 3;
-            v64 += 4608;
+            v74 = DspLib::maxv((v70 + 4 * v18), v73);
+            *&v60[4 * v65] = v74;
+            *v67 = v74;
+            *&v64[4 * v65++] = v74;
+            v67 += 3;
+            v66 += 4608;
           }
 
-          while (v63 < (*(*v4 + 64))(v4));
+          while (v65 < (*(*v4 + 64))(v4));
         }
 
-        if (v94[1] >= 1.0)
+        if (v96[1] >= 1.0)
         {
           for (k = 4; k != 100; k += 12)
           {
@@ -3275,55 +3515,55 @@ LABEL_15:
 
         else
         {
-          DspLib::waterFillingSolution(v62, v92, *v94);
-          v74 = v73;
+          DspLib::waterFillingSolution(v64, v94, *v96);
+          v76 = v75;
           if ((*(*v4 + 64))(v4))
           {
-            v75 = 0;
-            v76 = 4;
+            v77 = 0;
+            v78 = 4;
             do
             {
-              v77 = *&v59[4 * v75];
-              v78 = 1.0;
-              if (v77 > 0.0)
+              v79 = *&v60[4 * v77];
+              v80 = 1.0;
+              if (v79 > 0.0)
               {
-                v79 = *&v62[4 * v75];
-                if (v79 >= v74)
+                v81 = *&v64[4 * v77];
+                if (v81 >= v76)
                 {
-                  v79 = v74;
+                  v81 = v76;
                 }
 
-                v78 = sqrtf(v79 / v77);
+                v80 = sqrtf(v81 / v79);
               }
 
-              *(a4 + v76) = v78;
-              ++v75;
-              v76 += 12;
+              *(a4 + v78) = v80;
+              ++v77;
+              v78 += 12;
             }
 
-            while (v75 < (*(*v4 + 64))(v4));
+            while (v77 < (*(*v4 + 64))(v4));
           }
 
-          DspLib::waterFillingSolution(v59, v91, v35);
-          v81 = v80;
+          DspLib::waterFillingSolution(v60, v93, v35);
+          v83 = v82;
           if ((*(*v4 + 64))(v4))
           {
-            v82 = 0;
-            v83 = a4;
+            v84 = 0;
+            v85 = a4;
             do
             {
-              v84 = *&v59[4 * v82];
-              if (v84 >= v81)
+              v86 = *&v60[4 * v84];
+              if (v86 >= v83)
               {
-                v84 = v81;
+                v86 = v83;
               }
 
-              *v83 = v84;
-              ++v82;
-              v83 += 3;
+              *v85 = v86;
+              ++v84;
+              v85 += 3;
             }
 
-            while (v82 < (*(*v4 + 64))(v4));
+            while (v84 < (*(*v4 + 64))(v4));
           }
         }
 
@@ -3335,19 +3575,19 @@ LABEL_15:
         result = (*(*v4 + 64))(v4);
         if (result)
         {
-          v87 = 0;
-          v88 = v104;
-          v89 = 4;
+          v89 = 0;
+          v90 = v106;
+          v91 = 4;
           do
           {
-            *(v4[78] + v88) = *(a4 + v89);
+            *(v4[78] + v90) = *(a4 + v91);
             result = (*(*v4 + 64))(v4);
-            ++v87;
-            v89 += 12;
-            v88 += 4608;
+            ++v89;
+            v91 += 12;
+            v90 += 4608;
           }
 
-          while (v87 < result);
+          while (v89 < result);
         }
       }
     }
@@ -3361,12 +3601,12 @@ LABEL_15:
         v50 = 0;
         v51 = v49 - v48 - 4608;
         v52 = vdupq_n_s64(v51 / 0x1200);
-        v53 = v48 + v106;
-        v54 = (v48 + v105);
+        v53 = v48 + v108;
+        v54 = (v48 + v107);
         do
         {
           v55 = vdupq_n_s64(v50);
-          v56 = vmovn_s64(vcgeq_u64(v52, vorrq_s8(v55, v107)));
+          v56 = vmovn_s64(vcgeq_u64(v52, vorrq_s8(v55, v109)));
           if (vuzp1_s16(v56, *v52.i8).u8[0])
           {
             *(v53 + 4380) = 1065353216;
@@ -3377,7 +3617,7 @@ LABEL_15:
             *(v53 + 8988) = 1065353216;
           }
 
-          if (vuzp1_s16(*&v52, vmovn_s64(vcgeq_u64(v52, vorrq_s8(v55, v108)))).i32[1])
+          if (vuzp1_s16(*&v52, vmovn_s64(vcgeq_u64(v52, vorrq_s8(v55, v110)))).i32[1])
           {
             *v54 = 1065353216;
             v54[1152] = 1065353216;
@@ -3393,11 +3633,11 @@ LABEL_15:
     }
 
     ++v16;
-    v109 += 4;
-    v105 += 4;
-    v106 += 4;
+    v111 += 4;
+    v107 += 4;
+    v108 += 4;
     a4 += 6;
-    v104 += 4;
+    v106 += 4;
   }
 
   while (v16 != 4);
@@ -3785,11 +4025,11 @@ uint64_t DspLib::LoudspeakerController::Algorithm::findTargetActivity@<X0>(float
   if (result)
   {
     v11 = 0;
-    v40 = (v3 + 192);
+    v40 = v3 + 192;
     v41 = a3 + 60;
-    v37 = (v3 + 216);
-    v38 = (v3 + 48);
-    v39 = (v3 + 24);
+    v37 = v3 + 216;
+    v38 = v3 + 48;
+    v39 = v3 + 24;
     v12 = v3 + 97;
     for (i = a3 + 966; ; i += 12)
     {
@@ -3816,13 +4056,13 @@ uint64_t DspLib::LoudspeakerController::Algorithm::findTargetActivity@<X0>(float
       }
 
       while (v16 != 4);
-      v20 = *&v40[12 * v11 + 4] < 1.0;
+      v20 = v40[3 * v11 + 1] < 1.0;
       v17[10] = v20;
       v17[4] = (v15 | v20) & 1;
       v17[11] = v14 < 1.0 || v20;
-      v21 = *&v39[12 * v11 + 4] < 1.0 || *&v37[12 * v11 + 4] < 1.0;
+      v21 = v39[3 * v11 + 1] < 1.0 || v37[3 * v11 + 1] < 1.0;
       v22 = v3[3 * v11 + 1];
-      v23 = *&v38[12 * v11 + 4];
+      v23 = v38[3 * v11 + 1];
       if (v22 < 1.0)
       {
         break;
@@ -3945,10 +4185,10 @@ void DspLib::LoudspeakerController::calculatePowerGain(uint64_t a1@<X0>, unint64
   while (v6 != 4);
 }
 
-void DspLib::LoudspeakerController::Algorithm::filterbankAnalysis(void *a1, unint64_t a2, uint64_t a3)
+void DspLib::LoudspeakerController::Algorithm::filterbankAnalysis(void *result, unint64_t a2, uint64_t a3)
 {
-  v3 = a1[78];
-  v4 = a1[79];
+  v3 = result[78];
+  v4 = result[79];
   if (v3 != v4)
   {
     v8 = 0;
@@ -3957,8 +4197,8 @@ void DspLib::LoudspeakerController::Algorithm::filterbankAnalysis(void *a1, unin
       if (*(a3 + v8) == 1)
       {
         v9 = *(v3 + 24);
-        v10 = a1[42];
-        if (v9 == v10 - a2 + (*(*a1 + 232))(a1))
+        v10 = result[42];
+        if (v9 == v10 - a2 + (*(*result + 232))(result))
         {
           v11 = *(v3 + 24);
           if (a2 == -1)
@@ -3992,15 +4232,15 @@ void DspLib::LoudspeakerController::Algorithm::filterbankAnalysis(void *a1, unin
         {
           for (j = *(v3 + 24); ; *(v3 + 24) = j)
           {
-            v19 = a1[44];
-            if (j >= v19 - a2 + (*(*a1 + 232))(a1) || *(v3 + 2528) != 0)
+            v19 = result[44];
+            if (j >= v19 - a2 + (*(*result + 232))(result) || *(v3 + 2528) != 0)
             {
               break;
             }
 
-            v21 = (*(*a1 + 232))(a1);
-            v22 = a1[44];
-            v23 = (*(*a1 + 232))(a1);
+            v21 = (*(*result + 232))(result);
+            v22 = result[44];
+            v23 = (*(*result + 232))(result);
             v24 = *(v3 + 24);
             if (v22 + v23 - (v24 + a2) < v21)
             {
@@ -4022,21 +4262,21 @@ void DspLib::LoudspeakerController::Algorithm::filterbankAnalysis(void *a1, unin
           }
 
           v26 = *(v3 + 24);
-          v27 = a1[42];
-          if (v26 < (*(*a1 + 232))(a1) + v27)
+          v27 = result[42];
+          if (v26 < (*(*result + 232))(result) + v27)
           {
             do
             {
-              v28 = a1[42];
-              v29 = v28 + (*(*a1 + 232))(a1) - (*(v3 + 24) + a2);
-              v30 = v29 % (*(*a1 + 232))(a1);
+              v28 = result[42];
+              v29 = v28 + (*(*result + 232))(result) - (*(v3 + 24) + a2);
+              v30 = v29 % (*(*result + 232))(result);
               if (!v30)
               {
-                v30 = (*(*a1 + 232))(a1);
+                v30 = (*(*result + 232))(result);
               }
 
-              v31 = a1[42];
-              v32 = (*(*a1 + 232))(a1);
+              v31 = result[42];
+              v32 = (*(*result + 232))(result);
               v33 = *(v3 + 24);
               if (v32 + v31 - v33 >= v30)
               {
@@ -4075,10 +4315,10 @@ void DspLib::LoudspeakerController::Algorithm::filterbankAnalysis(void *a1, unin
                 v40 += 8;
               }
 
-              v42 = a1[42];
+              v42 = result[42];
             }
 
-            while (v38 < (*(*a1 + 232))(a1) + v42);
+            while (v38 < (*(*result + 232))(result) + v42);
           }
         }
       }
@@ -4091,7 +4331,7 @@ void DspLib::LoudspeakerController::Algorithm::filterbankAnalysis(void *a1, unin
   }
 }
 
-uint64_t DspLib::LoudspeakerController::Algorithm::calculateGains@<X0>(uint64_t *a1@<X0>, vDSP_Length a2@<X1>, uint64_t *a3@<X2>, uint64_t a4@<X8>)
+uint64_t DspLib::LoudspeakerController::Algorithm::calculateGains@<X0>(uint64_t a1@<X0>, vDSP_Length a2@<X1>, uint64_t *a3@<X2>, uint64_t a4@<X8>)
 {
   v6 = a1;
   v168 = *MEMORY[0x1E69E9840];
@@ -4099,7 +4339,7 @@ uint64_t DspLib::LoudspeakerController::Algorithm::calculateGains@<X0>(uint64_t 
   memset(v158, 0, sizeof(v158));
   v8 = (*(*a1 + 64))(a1);
   DspLib::LoudspeakerController::calculatePowerGain((a3 + 48), v8, v158);
-  v9 = v6[78];
+  v9 = *(v6 + 624);
   v10 = *(v9 + 3992);
   v11 = *(v9 + 3984);
   v12 = *(v9 + 3976);
@@ -4119,25 +4359,25 @@ uint64_t DspLib::LoudspeakerController::Algorithm::calculateGains@<X0>(uint64_t 
     v106 = a4;
     do
     {
-      v15 = v6[78] + 4608 * v157;
-      DspLib::LoudspeakerController::TargetInterpolator::process((v15 + 1952), *(v114 + 3 * v157), v159);
-      DspLib::LoudspeakerController::TargetInterpolator::process((v15 + 2000), *(v113 + 3 * v157), v159);
+      v15 = *(v6 + 624) + 4608 * v157;
+      DspLib::LoudspeakerController::TargetInterpolator::process(v15 + 1952, *(v114 + 3 * v157), v159);
+      DspLib::LoudspeakerController::TargetInterpolator::process(v15 + 2000, *(v113 + 3 * v157), v159);
       v119 = v15;
-      v16 = (v15 + 2096);
+      v16 = v15 + 2096;
       for (i = 384; i != 768; i += 96)
       {
         DspLib::LoudspeakerController::TargetInterpolator::process(v16, *(a3 + 12 * v157 + i), v14);
-        v16 += 6;
+        v16 += 48;
       }
 
       v18 = v119;
-      DspLib::LoudspeakerController::TargetInterpolator::process((v119 + 2048), *(v112 + 3 * v157), v14);
+      DspLib::LoudspeakerController::TargetInterpolator::process((v119 + 256), *(v112 + 3 * v157), v14);
       v20 = v157;
       *(a4 + 4 * v157) = 1065353216;
       v21 = (v111 + 20 * v20);
       *(v21 + 4) = 1065353216;
       *v21 = v115;
-      if (v6[39])
+      if (*(v6 + 312))
       {
         v22 = v107 + 12 * v20;
         if ((*(v22 + 11) & 1) != 0 || *v22 == 1)
@@ -4145,8 +4385,8 @@ uint64_t DspLib::LoudspeakerController::Algorithm::calculateGains@<X0>(uint64_t 
           v116 = v21;
           v108 = v20;
           v109 = &v105;
-          v156 = v159 + v6[45];
-          v155 = (*(v18 + 3976) * (v156 + ((*(v18 + 3992) - *(v18 + 3984)) >> 2)));
+          v156 = v159 + *(v6 + 360);
+          v155 = (*(v18 + 994) * (v156 + ((v18[499] - v18[498]) >> 2)));
           MEMORY[0x1EEE9AC00](v19);
           v154[0] = &v105 - v23;
           v154[1] = v156;
@@ -4155,10 +4395,10 @@ uint64_t DspLib::LoudspeakerController::Algorithm::calculateGains@<X0>(uint64_t 
           v153 = v29;
           if (*(v22 + 2) == 1)
           {
-            DspLib::LoudspeakerController::BiquadModel::zeroInputResponse((v18 + 3472), v26, v27);
-            if (*(v6[78] + 4608 * v157 + 1112) == 1)
+            DspLib::LoudspeakerController::BiquadModel::zeroInputResponse((v18 + 434), v26, v27);
+            if (*(*(v6 + 624) + 4608 * v157 + 1112) == 1)
             {
-              DspLib::LoudspeakerController::BiquadModel::zeroInputResponse((v18 + 4064), v152, v153);
+              DspLib::LoudspeakerController::BiquadModel::zeroInputResponse((v18 + 508), v152, v153);
             }
           }
 
@@ -4167,12 +4407,12 @@ uint64_t DspLib::LoudspeakerController::Algorithm::calculateGains@<X0>(uint64_t 
           v151[1] = v30;
           if (*(v22 + 3) == 1)
           {
-            DspLib::LoudspeakerController::BiquadModel::zeroInputResponse((v18 + 3624), &v105 - v31, v30);
+            DspLib::LoudspeakerController::BiquadModel::zeroInputResponse((v18 + 453), &v105 - v31, v30);
           }
 
-          v118 = (v18 + 3312);
-          v32 = (v18 + 3144);
-          v35 = MEMORY[0x1EEE9AC00](5);
+          v118 = v18 + 414;
+          v32 = (v18 + 393);
+          *&v35 = MEMORY[0x1EEE9AC00](5);
           v37 = &v105 - 4 * v36;
           v38 = 0;
           v167 = 0;
@@ -4190,7 +4430,7 @@ uint64_t DspLib::LoudspeakerController::Algorithm::calculateGains@<X0>(uint64_t 
           v149[0] = v166;
           v149[1] = v33;
           v150 = v34;
-          v44 = MEMORY[0x1EEE9AC00](v33);
+          *&v44 = MEMORY[0x1EEE9AC00](v33);
           v46 = &v105 - ((v45 + 15) & 0xFFFFFFFFFFFFFFF0);
           v47 = 0;
           v165 = 0;
@@ -4207,7 +4447,7 @@ uint64_t DspLib::LoudspeakerController::Algorithm::calculateGains@<X0>(uint64_t 
           v147[0] = v164;
           v147[1] = v41;
           v148 = v42;
-          v52 = MEMORY[0x1EEE9AC00](v41);
+          *&v52 = MEMORY[0x1EEE9AC00](v41);
           v54 = &v105 - v53;
           v55 = 0;
           v163 = 0;
@@ -4234,7 +4474,7 @@ uint64_t DspLib::LoudspeakerController::Algorithm::calculateGains@<X0>(uint64_t 
           v145[0] = v162;
           v145[1] = v48;
           v146 = v56;
-          v60 = MEMORY[0x1EEE9AC00](v48);
+          *&v60 = MEMORY[0x1EEE9AC00](v48);
           v62 = &v105 - ((v61 + 15) & 0xFFFFFFFFFFFFFFF0);
           v63 = 0;
           v161 = 0;
@@ -4251,12 +4491,12 @@ uint64_t DspLib::LoudspeakerController::Algorithm::calculateGains@<X0>(uint64_t 
           v64 = 0;
           v143[0] = v160;
           v143[1] = v57;
-          v65 = v119 + 2576;
+          v65 = v119 + 322;
           v144 = v58;
-          v117 = v119 + 2576;
+          v117 = v119 + 322;
           do
           {
-            DspLib::multiply(*(v65 + v64), v156, *(v149[0] + v64), *v32);
+            DspLib::multiply(v65[v64 / 8], v156, *(v149[0] + v64), *v32);
             if (*(v22 + 2) == 1)
             {
               DspLib::LoudspeakerController::SpeakerSystemModel::displacementZeroState(v118, *(v149[0] + v64), v150, *(v147[0] + v64), v148, *(v145[0] + v64), v146);
@@ -4272,8 +4512,8 @@ uint64_t DspLib::LoudspeakerController::Algorithm::calculateGains@<X0>(uint64_t 
               v71 = *(v143[0] + v64);
               v72 = v14;
               v73 = v119;
-              DspLib::Biquad::SetupWrapper::reset((v119 + 3744));
-              v74 = (v73 + 3696);
+              DspLib::Biquad::SetupWrapper::reset((v119 + 468));
+              v74 = v73 + 462;
               v14 = v72;
               v75 = v70;
               v32 = v69;
@@ -4303,9 +4543,9 @@ uint64_t DspLib::LoudspeakerController::Algorithm::calculateGains@<X0>(uint64_t 
           v142[11] = v105;
           v141 = 0;
           v140 = 0;
-          DspLib::BandCombiner::gainEstimate(v119 + 2616, &DspLib::LoudspeakerController::kUnityGains, 5, 0x100uLL, &v140, 5, &v138);
+          DspLib::BandCombiner::gainEstimate((v119 + 327), &DspLib::LoudspeakerController::kUnityGains, 5, 0x100uLL, &v140, 5, &v138);
           v137 = 0;
-          DspLib::GainSmoother::gainEstimate(v76 + 2888, 0x100uLL, &v137, 1.0);
+          DspLib::GainSmoother::gainEstimate((v76 + 361), 0x100uLL, &v137, 1.0);
           v78 = v77;
           if (*(v22 + 11))
           {
@@ -4314,7 +4554,7 @@ uint64_t DspLib::LoudspeakerController::Algorithm::calculateGains@<X0>(uint64_t 
             v79 = DspLib::LoudspeakerController::Algorithm::calculateGains(unsigned long,DspLib::LoudspeakerController::Algorithm::TargetActivity const&)::$_0::operator()(v142, &v126, v77);
             a4 = v106;
             *(v106 + 4 * v108) = v79;
-            DspLib::GainSmoother::gainEstimate(v76 + 2888, 0x100uLL, &v137, v79);
+            DspLib::GainSmoother::gainEstimate((v76 + 361), 0x100uLL, &v137, v79);
             v78 = v80;
           }
 
@@ -4335,7 +4575,7 @@ uint64_t DspLib::LoudspeakerController::Algorithm::calculateGains@<X0>(uint64_t 
           v134 = v151;
           v135 = v143;
           v136 = &v156;
-          if (*(v6[70] + 16 * v157) != 2)
+          if (*(*(v6 + 560) + 16 * v157) != 2)
           {
             v122 = v115;
             v123 = 1065353216;
@@ -4345,7 +4585,7 @@ uint64_t DspLib::LoudspeakerController::Algorithm::calculateGains@<X0>(uint64_t 
             *(v81 + 4) = v125;
           }
 
-          DspLib::BandCombiner::gainEstimate(v119 + 2616, v116, 5, 0x100uLL, &v140, 5, &v138);
+          DspLib::BandCombiner::gainEstimate((v119 + 327), v116, 5, 0x100uLL, &v140, 5, &v138);
           v82 = v116;
           v83 = 0;
           while (*(&v140 + v83) != 1)
@@ -4363,7 +4603,7 @@ uint64_t DspLib::LoudspeakerController::Algorithm::calculateGains@<X0>(uint64_t 
           {
             v86 = *v85;
             v85 += 2;
-            if (v86 != 1 || *(v82 + v84) < (*(*(v119 + 2864) + v84) * 1.4125))
+            if (v86 != 1 || *(v82 + v84) < (*(v119[358] + v84) * 1.4125))
             {
               *(&v138 + v84) = 1065353216;
             }
@@ -4409,7 +4649,7 @@ LABEL_49:
     while (v92 < result);
   }
 
-  if ((v6[73] & 1) != 0 && (v6[77] & 1) == 0)
+  if ((*(v6 + 584) & 1) != 0 && (*(v6 + 616) & 1) == 0)
   {
     if ((*(*v6 + 64))(v6))
     {
@@ -4449,12 +4689,12 @@ LABEL_49:
 
   else
   {
-    v93 = v6[69];
+    v93 = *(v6 + 552);
     if (v93)
     {
       v94 = 0;
-      v95 = v6[70];
-      v96 = v6[71];
+      v95 = *(v6 + 560);
+      v96 = *(v6 + 568);
       do
       {
         if (v95 != v96)
@@ -4505,235 +4745,235 @@ LABEL_49:
 
 float DspLib::LoudspeakerController::Algorithm::calculateGains(unsigned long,DspLib::LoudspeakerController::Algorithm::TargetActivity const&)::$_0::operator()(uint64_t **a1, float *a2, float a3)
 {
-  v96 = *MEMORY[0x1E69E9840];
+  v97 = *MEMORY[0x1E69E9840];
   v6 = a1[5];
   v7 = **a1;
   v8 = MEMORY[0x1EEE9AC00](a1);
-  v10 = v86 - v9;
-  if (**(v8 + 8) == 1)
+  v10 = v87 - v9;
+  if (**(v11 + 8) == 1)
   {
     DspLib::multiply(**a1[2], a1[2][2], v10, *a2);
     for (i = 1; i != 5; ++i)
     {
-      v12 = DspLib::multiplyAccumulate(v10, v7, *(*a1[2] + 8 * i), a2[i]);
+      v13 = DspLib::multiplyAccumulate(v10, v7, *(*a1[2] + 8 * i), a2[i]);
     }
   }
 
   else
   {
-    v14 = a1[3];
-    v13 = a1[4];
-    v15 = *v13;
-    v16 = (v13[1] - *v13) >> 2;
-    v17 = (*(*v6 + 232))(v6) - *a1[6];
+    v15 = a1[3];
+    v14 = a1[4];
+    v16 = *v14;
+    v17 = (v14[1] - *v14) >> 2;
+    v18 = (*(*v6 + 232))(v6, v8) - *a1[6];
     if (**a1 == -1)
     {
-      v18 = v16 - v17;
+      v19 = v17 - v18;
     }
 
     else
     {
-      v18 = **a1;
+      v19 = **a1;
     }
 
-    v12 = DspLib::multiply(v15 + 4 * v17, v18, v10, *v14);
+    v13 = DspLib::multiply(v16 + 4 * v18, v19, v10, *v15);
   }
 
-  v19 = **a1;
-  v20 = MEMORY[0x1EEE9AC00](v12);
-  v22 = v86 - v21;
+  v20 = **a1;
+  MEMORY[0x1EEE9AC00](v13);
+  v23 = v87 - v22;
   if (*(a1[1] + 4) == 1)
   {
-    v23 = a1[3];
-    DspLib::Biquad::SetupWrapper::reset((v23 + 16));
-    DspLib::Biquad::Filter::process(v23 + 10, v10, v7, v22, v19);
-    v24 = **a1;
-    v26 = MEMORY[0x1EEE9AC00](v25);
-    v90 = v86 - v27;
-    if (v28)
+    v24 = a1[3];
+    DspLib::Biquad::SetupWrapper::reset((v24 + 16));
+    DspLib::Biquad::Filter::process(v24 + 10, v10, v7, v23, v20);
+    v25 = **a1;
+    MEMORY[0x1EEE9AC00](v26);
+    v91 = v87 - v28;
+    if (v29)
     {
       DspLib::multiply();
     }
 
-    v19 = v24;
+    v20 = v25;
   }
 
   else
   {
-    v26 = MEMORY[0x1EEE9AC00](v20);
-    v90 = v86 - v29;
+    MEMORY[0x1EEE9AC00](v21);
+    v91 = v87 - v30;
   }
 
-  v30 = MEMORY[0x1EEE9AC00](v26);
-  v87 = v86 - v31;
-  LODWORD(v31) = *(v32 + 10);
-  v88 = v33;
-  v91 = v33;
-  if (v31 == 1)
+  MEMORY[0x1EEE9AC00](v27);
+  v88 = v87 - v32;
+  LODWORD(v32) = *(v33 + 10);
+  v89 = v34;
+  v92 = v34;
+  if (v32 == 1)
   {
-    v30 = DspLib::LoudspeakerController::SpeakerSystemModel::temperaturePathZeroState(a1[8], v90, v19, v87);
-    v91 = *a1[7];
+    v31 = DspLib::LoudspeakerController::SpeakerSystemModel::temperaturePathZeroState(a1[8], v91, v20, v88);
+    v92 = *a1[7];
   }
 
-  v34 = **a1;
-  v35 = MEMORY[0x1EEE9AC00](v30);
-  v37 = v86 - ((v36 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v38 = MEMORY[0x1EEE9AC00](v35);
-  v40 = (v86 - v39);
-  v41 = MEMORY[0x1EEE9AC00](v38);
-  v89 = (v86 - v42);
-  v43 = MEMORY[0x1EEE9AC00](v41);
-  v46 = &v86[-2 * v45];
-  v47 = 0;
+  v35 = **a1;
+  MEMORY[0x1EEE9AC00](v31);
+  v37 = v87 - ((v36 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v38);
+  v40 = (v87 - v39);
+  MEMORY[0x1EEE9AC00](v41);
+  v90 = (v87 - v42);
+  MEMORY[0x1EEE9AC00](v43);
+  v47 = &v87[-2 * v46];
+  v48 = 0;
+  memset(v96, 0, sizeof(v96));
+  do
+  {
+    *(v96 + v48) = v47;
+    v48 += 8;
+    v47 = (v47 + ((4 * v45) & 0xFFFFFFFFFFFFFFF0) + 16);
+  }
+
+  while (v48 != 32);
+  MEMORY[0x1EEE9AC00](v44);
+  v52 = v87 - ((v51 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v53 = 0;
   memset(v95, 0, sizeof(v95));
   do
   {
-    *(v95 + v47) = v46;
-    v47 += 8;
-    v46 = (v46 + ((4 * v44) & 0xFFFFFFFFFFFFFFF0) + 16);
+    *(v95 + v53) = v52;
+    v53 += 8;
+    v52 += (v50 & 0xFFFFFFFFFFFFFFF0) + 16;
   }
 
-  while (v47 != 32);
-  v48 = MEMORY[0x1EEE9AC00](v43);
-  v51 = v86 - ((v50 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v52 = 0;
-  memset(v94, 0, sizeof(v94));
-  do
-  {
-    *(v94 + v52) = v51;
-    v52 += 8;
-    v51 += (v49 & 0xFFFFFFFFFFFFFFF0) + 16;
-  }
-
-  while (v52 != 32);
+  while (v53 != 32);
   if (*(a1[1] + 5))
   {
-    v53 = *a1[10];
-    v54 = a1[4];
-    v55 = *(a1[9] + v53);
-    if (v55 < *(v54 + 1103))
+    v54 = *a1[10];
+    v55 = a1[4];
+    v56 = *(a1[9] + v54);
+    if (v56 < *(v55 + 1103))
     {
-      v55 = *(v54 + 1103);
+      v56 = *(v55 + 1103);
     }
 
-    if (v55 >= a3)
+    if (v56 >= a3)
     {
-      v55 = a3;
+      v56 = a3;
     }
 
-    v56 = *(a1[11] + 3 * v53 + 193);
-    if (v56 < *(v54 + 1086))
+    v57 = *(a1[11] + 3 * v54 + 193);
+    if (v57 < *(v55 + 1086))
     {
-      v56 = *(v54 + 1086);
+      v57 = *(v55 + 1086);
     }
 
-    if (v56 < v55)
+    if (v57 < v56)
     {
-      v55 = v56;
+      v56 = v57;
     }
 
-    DspLib::multiply(v10, v7, v37, v55);
-    DspLib::LoudspeakerController::EfficiencyModel::processKernel((a1[8] + 6), v37, v34, v40, v34, v89, v34, a1[8][19]);
-    v57 = a1[8];
-    *&v92 = v95;
-    *(&v92 + 1) = 4;
-    *&v93 = v91;
-    DspLib::LoudspeakerController::SpeakerSystemModel::averagePowersZeroInput(v57, v40, v34, &v92);
+    DspLib::multiply(v10, v7, v37, v56);
+    DspLib::LoudspeakerController::EfficiencyModel::processKernel((a1[8] + 6), v37, v35, v40, v35, v90, v35, a1[8][19]);
+    v58 = a1[8];
+    *&v93 = v96;
+    *(&v93 + 1) = 4;
+    *&v94 = v92;
+    DspLib::LoudspeakerController::SpeakerSystemModel::averagePowersZeroInput(v58, v40, v35, &v93);
     DspLib::multiply();
   }
 
-  v58 = MEMORY[0x1EEE9AC00](v48);
-  if (*(v60 + 4) == 1)
+  MEMORY[0x1EEE9AC00](v49);
+  if (*(v61 + 4) == 1)
   {
-    DspLib::LoudspeakerController::BiquadModel::zeroInputResponse((a1[3] + 1), v86 - ((v59 + 15) & 0xFFFFFFFFFFFFFFF0), v34);
+    DspLib::LoudspeakerController::BiquadModel::zeroInputResponse((a1[3] + 1), v87 - ((v60 + 15) & 0xFFFFFFFFFFFFFFF0), v35);
     DspLib::multiply();
   }
 
-  v61 = *a1[7];
-  v62 = MEMORY[0x1EEE9AC00](v58);
-  v86[0] = v86 - v63;
-  v65 = *(v64 + 10);
-  v86[1] = v61;
-  if (v65 == 1)
+  v62 = *a1[7];
+  MEMORY[0x1EEE9AC00](v59);
+  v87[0] = v87 - v64;
+  v66 = *(v65 + 10);
+  v87[1] = v62;
+  if (v66 == 1)
   {
-    v62 = DspLib::LoudspeakerController::SpeakerSystemModel::temperaturePathZeroState(a1[8], v90, v19, v86[0]);
+    v63 = DspLib::LoudspeakerController::SpeakerSystemModel::temperaturePathZeroState(a1[8], v91, v20, v87[0]);
   }
 
-  v66 = MEMORY[0x1EEE9AC00](v62);
-  v69 = v86 - ((v68 + 79) & 0xFFFFFFFFFFFFFFC0);
-  v70 = 0;
-  v92 = 0u;
-  v93 = 0u;
-  do
-  {
-    *(&v92 + v70) = v69;
-    v70 += 8;
-    v69 += ((4 * v67) & 0xFFFFFFFFFFFFFFF0) + 16;
-  }
-
-  while (v70 != 32);
-  if (*(a1[1] + 5))
-  {
-    DspLib::multiply();
-  }
-
+  MEMORY[0x1EEE9AC00](v63);
+  v70 = v87 - ((v69 + 79) & 0xFFFFFFFFFFFFFFC0);
   v71 = 0;
-  v72 = 1.0;
-  v73 = 292;
-  v74 = 2128;
-  v75 = 384;
+  v93 = 0u;
+  v94 = 0u;
+  do
+  {
+    *(&v93 + v71) = v70;
+    v71 += 8;
+    v70 += ((4 * v68) & 0xFFFFFFFFFFFFFFF0) + 16;
+  }
+
+  while (v71 != 32);
+  if (*(a1[1] + 5))
+  {
+    DspLib::multiply();
+  }
+
+  v72 = 0;
+  v73 = 1.0;
+  v74 = 292;
+  v75 = 2128;
+  v76 = 384;
   do
   {
     if (*(v6 + 584) == 1)
     {
-      v76 = a1[11];
-      if (*(v76 + v73) < v72)
+      v77 = a1[11];
+      if (*(v77 + v74) < v73)
       {
-        v72 = *(v76 + v73);
+        v73 = *(v77 + v74);
       }
     }
 
-    else if (*(a1[1] + v71 + 6) == 1)
+    else if (*(a1[1] + v72 + 6) == 1)
     {
-      v77 = (a1[11] + 12 * *a1[10] + v75);
-      DspLib::LoudspeakerController::computeGainsSquared(*(v95 + v71), v91, *(v94 + v71), COERCE_DOUBLE(*v77), v77[1]);
+      v78 = (a1[11] + 12 * *a1[10] + v76);
+      DspLib::LoudspeakerController::computeGainsSquared(*(v96 + v72), v92, *(v95 + v72), COERCE_DOUBLE(*v78), v78[1]);
     }
 
-    ++v71;
-    v73 += 12;
-    v74 += 48;
-    v75 += 96;
+    ++v72;
+    v74 += 12;
+    v75 += 48;
+    v76 += 96;
   }
 
-  while (v71 != 4);
-  v78 = 1.0;
-  if (v72 <= 1.0)
+  while (v72 != 4);
+  v79 = 1.0;
+  if (v73 <= 1.0)
   {
-    v78 = v72;
+    v79 = v73;
   }
 
-  if (v72 >= *(a1[4] + 1103))
+  if (v73 >= *(a1[4] + 1103))
   {
-    v79 = v78;
+    v80 = v79;
   }
 
   else
   {
-    v79 = *(a1[4] + 1103);
+    v80 = *(a1[4] + 1103);
   }
 
   if (*(a1[1] + 10))
   {
-    MEMORY[0x1EEE9AC00](v66);
-    v81 = v86 - v80;
-    v82 = *a1[7];
-    DspLib::LoudspeakerController::SpeakerSystemModel::temperatureZeroInput(a1[8], v86 - v80, v82);
-    v83 = a1[11] + 12 * *a1[10];
-    LODWORD(v84) = *(v83 + 768);
-    DspLib::LoudspeakerController::computeGainsSquared(v81, v82, v87, v84, *(v83 + 772));
+    MEMORY[0x1EEE9AC00](v67);
+    v82 = v87 - v81;
+    v83 = *a1[7];
+    DspLib::LoudspeakerController::SpeakerSystemModel::temperatureZeroInput(a1[8], v87 - v81, v83);
+    v84 = a1[11] + 12 * *a1[10];
+    LODWORD(v85) = *(v84 + 192);
+    DspLib::LoudspeakerController::computeGainsSquared(v82, v83, v88, v85, *(v84 + 193));
   }
 
-  return v79;
+  return v80;
 }
 
 void DspLib::LoudspeakerController::Algorithm::calculateGains(unsigned long,DspLib::LoudspeakerController::Algorithm::TargetActivity const&)::$_1::operator()(uint64_t a1@<X0>, __int128 *a2@<X1>, uint64_t a3@<X8>, float a4@<S0>)
@@ -5313,7 +5553,7 @@ LABEL_7:
   LODWORD(v9) = 0;
   do
   {
-    DspLib::Biquad::Filter::section((a2 + 368), v8, 0, &v45);
+    DspLib::Biquad::Filter::section(&v45, (a2 + 368), v8, 0);
     DspLib::Biquad::write(&v45, a3 + 8 + 20 * v8);
     v9 = (v9 + 1);
     v8 = v9;
@@ -5353,7 +5593,7 @@ LABEL_16:
   LODWORD(v16) = 0;
   do
   {
-    DspLib::Biquad::Filter::section((a2 + 520), v15, 0, &v45);
+    DspLib::Biquad::Filter::section(&v45, (a2 + 520), v15, 0);
     DspLib::Biquad::write(&v45, a3 + 96 + 20 * v15);
     v16 = (v16 + 1);
     v15 = v16;
@@ -5393,7 +5633,7 @@ LABEL_25:
   LODWORD(v22) = 0;
   do
   {
-    DspLib::Biquad::Filter::section((a2 + 48), v21, 0, &v45);
+    DspLib::Biquad::Filter::section(&v45, (a2 + 48), v21, 0);
     DspLib::Biquad::write(&v45, a3 + 184 + 20 * v21);
     v22 = (v22 + 1);
     v21 = v22;
@@ -5432,7 +5672,7 @@ LABEL_34:
   LODWORD(v27) = 0;
   do
   {
-    DspLib::Biquad::Filter::section((a2 + 744), v26, 0, &v45);
+    DspLib::Biquad::Filter::section(&v45, (a2 + 744), v26, 0);
     DspLib::Biquad::write(&v45, a3 + 272 + 20 * v26);
     v27 = (v27 + 1);
     v26 = v27;
@@ -5470,7 +5710,7 @@ LABEL_43:
   LODWORD(v32) = 0;
   do
   {
-    DspLib::Biquad::Filter::section((a2 + 672), v31, 0, &v45);
+    DspLib::Biquad::Filter::section(&v45, (a2 + 672), v31, 0);
     DspLib::Biquad::write(&v45, a3 + 356 + 20 * v31);
     v32 = (v32 + 1);
     v31 = v32;
@@ -5516,7 +5756,7 @@ LABEL_46:
   *(a2 + 4548) = 1065353216;
   DspLib::copy(*(a2 + 2864), (*(a2 + 2872) - *(a2 + 2864)) >> 2, (a3 + 1040));
   DspLib::multiply(a3 + 1040, 5, *(a2 + 3136));
-  DspLib::Biquad::Filter::section((a2 + 4424), 0, 0, &v45);
+  DspLib::Biquad::Filter::section(&v45, (a2 + 4424), 0, 0);
   result = DspLib::Biquad::write(&v45, a3 + 1060);
   if (*(a2 + 4536))
   {
@@ -5534,7 +5774,7 @@ LABEL_46:
       LODWORD(v42) = 0;
       do
       {
-        DspLib::Biquad::Filter::section((a2 + 960), v41, 0, &v45);
+        DspLib::Biquad::Filter::section(&v45, (a2 + 960), v41, 0);
         DspLib::Biquad::write(&v45, a3 + 960 + 20 * v41);
         v42 = (v42 + 1);
         v41 = v42;
@@ -8095,10 +8335,10 @@ void DspLib::Biquad::Filter::initializeStates(DspLib::Biquad::Filter *this, floa
 
         while (v4 > v7);
         v13 = 2 * (v2 != 1);
-        v14 = MEMORY[0x1EEE9AC00](this);
-        v16 = &v34 - v15;
-        v17 = *(this + 6);
-        MEMORY[0x1EEE9AC00](v14);
+        MEMORY[0x1EEE9AC00](this);
+        v15 = &v34 - v14;
+        v16 = *(this + 6);
+        MEMORY[0x1EEE9AC00](v17);
         v19 = &v34 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
         if (v18 >= 0x200)
         {
@@ -8111,26 +8351,26 @@ void DspLib::Biquad::Filter::initializeStates(DspLib::Biquad::Filter *this, floa
         }
 
         bzero(&v34 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0), v20);
-        if (v17)
+        if (v16)
         {
           v21 = 0;
           do
           {
-            *&v19[8 * v21] = &v16[4 * (v21 << v13)];
+            *&v19[8 * v21] = &v15[4 * (v21 << v13)];
             ++v21;
           }
 
-          while (v17 > v21);
+          while (v16 > v21);
         }
 
         __coeffs = v19;
-        *&v38 = v17;
+        *&v38 = v16;
         *(&v38 + 1) = 1;
         DspLib::fill(&__coeffs, a2);
         v22 = *(this + 6);
-        v24 = MEMORY[0x1EEE9AC00](v23);
-        v26 = &v34 - v25;
-        MEMORY[0x1EEE9AC00](v24);
+        MEMORY[0x1EEE9AC00](v23);
+        v25 = &v34 - v24;
+        MEMORY[0x1EEE9AC00](v26);
         v28 = &v34 - ((v27 + 15) & 0xFFFFFFFFFFFFFFF0);
         if (v27 >= 0x200)
         {
@@ -8148,7 +8388,7 @@ void DspLib::Biquad::Filter::initializeStates(DspLib::Biquad::Filter *this, floa
           v30 = 0;
           do
           {
-            *&v28[8 * v30] = &v26[4 * (v30 << (2 * (v22 != 1)))];
+            *&v28[8 * v30] = &v25[4 * (v30 << (2 * (v22 != 1)))];
             ++v30;
           }
 
@@ -8162,7 +8402,7 @@ void DspLib::Biquad::Filter::initializeStates(DspLib::Biquad::Filter *this, floa
           do
           {
             __coeffs = v19;
-            *&v38 = v17;
+            *&v38 = v16;
             *(&v38 + 1) = 1;
             *&v35 = v28;
             *(&v35 + 1) = v22;
@@ -8378,12 +8618,12 @@ void DspLib::Biquad::Filter::setCoefficients(std::span<DspLib::Biquad::Section c
   }
 }
 
-float32_t DspLib::Biquad::Filter::section@<S0>(DspLib::Biquad::Filter *this@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, float32x4_t *a4@<X8>)
+float DspLib::Biquad::Filter::section@<S0>(float *__return_ptr a1@<X8>, DspLib::Biquad::Filter *this@<X0>, uint64_t a3@<X1>, uint64_t a4@<X2>)
 {
-  v4 = (*(this + 3) + 40 * (a3 + *(this + 1) * a2));
-  *a4 = vcvt_hight_f32_f64(vcvt_f32_f64(*v4), v4[1]);
+  v4 = (*(this + 3) + 40 * (a4 + *(this + 1) * a3));
+  *a1 = vcvt_hight_f32_f64(vcvt_f32_f64(*v4), v4[1]);
   result = v4[2].f64[0];
-  a4[1].f32[0] = result;
+  a1[4] = result;
   return result;
 }
 
@@ -8391,45 +8631,46 @@ void DspLib::Biquad::ParametricFilter::initialize(DspLib::Biquad::ParametricFilt
 {
   DspLib::Biquad::Filter::initialize(this, a2, a4);
   std::vector<std::vector<DspLib::Biquad::Section>>::resize(this + 10, *(this + 6));
-  v6 = *(this + 10);
-  v7 = *(this + 11);
-  while (v6 != v7)
+  v7 = *(this + 10);
+  v8 = *(this + 11);
+  while (v7 != v8)
   {
-    std::vector<DspLib::Biquad::Design::ParametricEQ>::resize(v6, *(this + 7));
-    v6 += 3;
+    std::vector<DspLib::Biquad::Design::ParametricEQ>::resize(v7, *(this + 7));
+    v7 += 3;
   }
 
-  if (*(this + 9) != a3)
+  v6.n128_u64[0] = *(this + 9);
+  if (v6.n128_f64[0] != a3)
   {
     *(this + 9) = a3;
-    v8 = *(this + 7);
-    if (v8)
+    v9 = *(this + 7);
+    if (v9)
     {
-      v9 = 0;
       v10 = 0;
-      v11 = *(this + 6);
+      v11 = 0;
+      v12 = *(this + 6);
       do
       {
-        if (v11)
+        if (v12)
         {
-          v12 = 0;
-          v13 = 1;
+          v13 = 0;
+          v14 = 1;
           do
           {
-            v14 = *(*(this + 10) + 24 * v12) + 16 * v9;
-            DspLib::Biquad::ParametricFilter::setParametricEQ(this, *v14, *(v14 + 8), v9, v12);
-            v12 = v13;
-            v11 = *(this + 6);
+            v15 = *(*(this + 10) + 24 * v13) + 16 * v10;
+            DspLib::Biquad::ParametricFilter::setParametricEQ(this, *v15, *(v15 + 8), v10, v13, v6);
+            v13 = v14;
+            v12 = *(this + 6);
           }
 
-          while (v11 > v13++);
-          v8 = *(this + 7);
+          while (v12 > v14++);
+          v9 = *(this + 7);
         }
 
-        v9 = ++v10;
+        v10 = ++v11;
       }
 
-      while (v8 > v10);
+      while (v9 > v11);
     }
   }
 }
@@ -8451,11 +8692,11 @@ void std::vector<DspLib::Biquad::Design::ParametricEQ>::resize(void *a1, unint64
   }
 }
 
-void DspLib::Biquad::ParametricFilter::setParametricEQ(uint64_t a1, unint64_t a2, double *a3, uint64_t a4, vDSP_Length a5)
+void DspLib::Biquad::ParametricFilter::setParametricEQ(uint64_t a1, unint64_t a2, double *a3, uint64_t a4, vDSP_Length a5, __n128 a6)
 {
-  v6 = *&a3;
-  v7 = a2;
-  v9 = HIDWORD(a2);
+  v7 = *&a3;
+  v8 = a2;
+  v10 = HIDWORD(a2);
   if (a5 < 0x41)
   {
     v21 = *(a1 + 72) * 0.49000001;
@@ -8477,96 +8718,98 @@ void DspLib::Biquad::ParametricFilter::setParametricEQ(uint64_t a1, unint64_t a2
     v24 = (*(*(a1 + 80) + 24 * a5) + 16 * a4);
     if (*v24 != 25)
     {
-      v25 = *(a1 + 72);
-      DspLib::Biquad::Design::ParametricEQ::design(v24, v25, 0, a3, &v28);
+      a6.n128_u64[0] = *(a1 + 72);
+      a6.n128_f32[0] = a6.n128_f64[0];
+      DspLib::Biquad::Design::ParametricEQ::design(v24, a6, 0, &v27, a3);
+      v25 = v27;
       v26 = v28;
-      v27 = v29;
-      DspLib::Biquad::Filter::setCoefficients(a1, &v26, 1, a4, a5);
+      DspLib::Biquad::Filter::setCoefficients(a1, &v25, 1, a4, a5);
     }
   }
 
   else if (*(a1 + 48))
   {
-    v10 = 0;
-    v11 = *(&a3 + 1);
-    v12 = 1;
+    v11 = 0;
+    v12 = *(&a3 + 1);
+    v13 = 1;
     do
     {
-      v13 = *(a1 + 72) * 0.49000001;
-      if (*&v9 <= v13)
+      v14 = *(a1 + 72) * 0.49000001;
+      if (*&v10 <= v14)
       {
-        v13 = *&v9;
+        v14 = *&v10;
       }
 
-      if (*&v9 >= 1.0)
+      if (*&v10 >= 1.0)
       {
-        *&v9 = v13;
-      }
-
-      else
-      {
-        LODWORD(v9) = 1065353216;
-      }
-
-      if (v6 <= 40.0)
-      {
-        *&v14 = v6;
+        *&v10 = v14;
       }
 
       else
       {
-        *&v14 = 40.0;
+        LODWORD(v10) = 1065353216;
       }
 
-      if (v6 >= -40.0)
+      if (v7 <= 40.0)
       {
-        v6 = *&v14;
-      }
-
-      else
-      {
-        v6 = -40.0;
-      }
-
-      if (v11 <= 100.0)
-      {
-        *&v15 = v11;
+        *&v15 = v7;
       }
 
       else
       {
-        *&v15 = 100.0;
+        *&v15 = 40.0;
       }
 
-      if (v11 >= 0.1)
+      if (v7 >= -40.0)
       {
-        v11 = *&v15;
+        v7 = *&v15;
       }
 
       else
       {
-        v11 = 0.1;
+        v7 = -40.0;
       }
 
-      v16 = *(*(a1 + 80) + 24 * v10) + 16 * a4;
-      *v16 = v7;
-      *(v16 + 4) = v9;
-      *(v16 + 8) = v6;
-      *(v16 + 12) = v11;
-      v17 = (*(*(a1 + 80) + 24 * v10) + 16 * a4);
-      if (*v17 != 25)
+      if (v12 <= 100.0)
       {
-        v18 = *(a1 + 72);
-        DspLib::Biquad::Design::ParametricEQ::design(v17, v18, 0, a3, &v28);
+        *&v16 = v12;
+      }
+
+      else
+      {
+        *&v16 = 100.0;
+      }
+
+      if (v12 >= 0.1)
+      {
+        v12 = *&v16;
+      }
+
+      else
+      {
+        v12 = 0.1;
+      }
+
+      v17 = *(*(a1 + 80) + 24 * v11) + 16 * a4;
+      *v17 = v8;
+      *(v17 + 4) = v10;
+      *(v17 + 8) = v7;
+      *(v17 + 12) = v12;
+      v18 = (*(*(a1 + 80) + 24 * v11) + 16 * a4);
+      if (*v18 != 25)
+      {
+        a6.n128_u64[0] = *(a1 + 72);
+        a6.n128_f32[0] = a6.n128_f64[0];
+        DspLib::Biquad::Design::ParametricEQ::design(v18, a6, 0, &v27, a3);
+        v25 = v27;
         v26 = v28;
-        v27 = v29;
-        DspLib::Biquad::Filter::setCoefficients(a1, &v26, 1, a4, v10);
+        DspLib::Biquad::Filter::setCoefficients(a1, &v25, 1, a4, v11);
       }
 
-      v10 = v12;
+      v11 = v13;
     }
 
-    while (*(a1 + 48) > v12++);
+    while (*(a1 + 48) > v13++);
   }
 }
 
@@ -8589,26 +8832,26 @@ void DspLib::Biquad::ParametricFilter::uninitialize(DspLib::Biquad::ParametricFi
   std::vector<std::vector<unsigned int>>::clear[abi:ne200100](this + 10);
 }
 
-void DspLib::Biquad::ParametricFilter::setParametricEQs(uint64_t a1, uint64_t a2, unint64_t a3)
+void DspLib::Biquad::ParametricFilter::setParametricEQs(uint64_t a1, uint64_t a2, unint64_t a3, __n128 a4)
 {
-  v3 = *(a1 + 48);
-  if (v3)
+  v4 = *(a1 + 48);
+  if (v4)
   {
-    v7 = 0;
-    for (i = 0; i < v3; v7 = ++i)
+    v8 = 0;
+    for (i = 0; i < v4; v8 = ++i)
     {
       if (a3)
       {
-        v9 = 0;
-        v10 = 1;
+        v10 = 0;
+        v11 = 1;
         do
         {
-          DspLib::Biquad::ParametricFilter::setParametricEQ(a1, *(a2 + 16 * v9), *(a2 + 16 * v9 + 8), v9, v7);
-          v9 = v10;
+          DspLib::Biquad::ParametricFilter::setParametricEQ(a1, *(a2 + 16 * v10), *(a2 + 16 * v10 + 8), v10, v8, a4);
+          v10 = v11;
         }
 
-        while (a3 > v10++);
-        v3 = *(a1 + 48);
+        while (a3 > v11++);
+        v4 = *(a1 + 48);
       }
     }
   }
@@ -8630,6 +8873,7 @@ void DspLib::Biquad::frequencyResponse(void *a1, uint64_t a2, unint64_t a3, uint
 
   else
   {
+    v16 = a8;
     if (a4)
     {
       DspLib::fill(*a4, *(a4 + 8), 1.0);
@@ -8642,7 +8886,8 @@ void DspLib::Biquad::frequencyResponse(void *a1, uint64_t a2, unint64_t a3, uint
 
     if (a7)
     {
-      DspLib::ComplexVector::operator=(a7, 1.0);
+      LODWORD(a8) = 1.0;
+      DspLib::ComplexVector::operator=(a7, a8);
     }
 
     v18 = a1[7];
@@ -8650,7 +8895,7 @@ void DspLib::Biquad::frequencyResponse(void *a1, uint64_t a2, unint64_t a3, uint
     {
       v19 = 0;
       v20 = 0;
-      v21 = a8;
+      v21 = v16;
       v22 = (6.2832 / v21);
       do
       {
@@ -9585,247 +9830,4 @@ uint64_t DspLib::ToneMeister::Parameters::categoryOfFilterType(unint64_t this)
   }
 
   return dword_1DE098170[this];
-}
-
-uint64_t DspLib::ToneMeister::Parameters::filterTypeHasGain(DspLib::ToneMeister::Parameters *this)
-{
-  if (DspLib::ToneMeister::Parameters::categoryOfFilterType(this) == 6)
-  {
-    v2 = 1;
-  }
-
-  else
-  {
-    v3 = DspLib::ToneMeister::Parameters::categoryOfFilterType(this);
-    v4 = 0x1AA7u >> this;
-    if (this > 0xC)
-    {
-      LOBYTE(v4) = 0;
-    }
-
-    if (v3 == 4)
-    {
-      v2 = 1;
-    }
-
-    else
-    {
-      v2 = v4;
-    }
-  }
-
-  return v2 & 1;
-}
-
-BOOL DspLib::isEqual(DspLib *this, double a2, double a3, double a4)
-{
-  if (a2 != 0.0)
-  {
-    a3 = (a3 - a2) / a2;
-  }
-
-  return fabs(a3) * 100.0 <= a4;
-}
-
-float DspLib::sign(DspLib *this, double a2)
-{
-  if (a2 >= 0.0)
-  {
-    v2 = 1.0;
-  }
-
-  else
-  {
-    v2 = -1.0;
-  }
-
-  if (a2 == 0.0)
-  {
-    v2 = 0.0;
-  }
-
-  if (a2 >= 0.0)
-  {
-    result = 1.0;
-  }
-
-  else
-  {
-    result = -1.0;
-  }
-
-  if (!this)
-  {
-    return v2;
-  }
-
-  return result;
-}
-
-void DspLib::dB2Amp(float *a1, uint64_t a2)
-{
-  v2 = a2;
-  v5 = 1038862563;
-  MEMORY[0x1E12BE940](a1, 1, &v5, a1, 1, a2);
-  v4 = v2;
-  vvexpf(a1, a1, &v4);
-}
-
-void DspLib::amp2dBSafe(const float *a1, vDSP_Length __N, float *a3, vDSP_Length a4, float a5)
-{
-  vDSP_vabs(a1, 1, a3, 1, __N);
-  v8 = a5;
-  MEMORY[0x1E12BE8A0](a3, 1, &v8, a3, 1, a4);
-  __B = 1.0;
-  vDSP_vdbcon(a3, 1, &__B, a3, 1, a4, 1u);
-}
-
-void DspLib::amp2dBSafe(void *a1, float a2)
-{
-  if (a1[1])
-  {
-    v4 = 0;
-    v5 = 1;
-    do
-    {
-      DspLib::amp2dBSafe(*(*a1 + 8 * v4), a1[2], *(*a1 + 8 * v4), a1[2], a2);
-      v4 = v5;
-    }
-
-    while (a1[1] > v5++);
-  }
-}
-
-double DspLib::bark2Hz(DspLib *this, double a2)
-{
-  if (a2 < 2.0)
-  {
-    v2 = a2 + -0.3;
-    v3 = 0.85;
-LABEL_5:
-    a2 = v2 / v3;
-    return (a2 + 0.53) * 1960.0 / (26.28 - a2);
-  }
-
-  if (a2 > 20.1)
-  {
-    v2 = a2 + 4.422;
-    v3 = 1.22;
-    goto LABEL_5;
-  }
-
-  return (a2 + 0.53) * 1960.0 / (26.28 - a2);
-}
-
-float DspLib::sum(const float *a1, vDSP_Length __N)
-{
-  __C = 0.0;
-  vDSP_sve(a1, 1, &__C, __N);
-  return __C;
-}
-
-BOOL DspLib::isFinite(void *a1)
-{
-  if (!a1[1])
-  {
-    return 1;
-  }
-
-  v2 = 0;
-  v3 = 1;
-  do
-  {
-    v4 = *(*a1 + 8 * v2);
-    v5 = a1[2];
-    __C = 0.0;
-    vDSP_sve(v4, 1, &__C, v5);
-    result = (LODWORD(__C) & 0x7FFFFFFFu) < 0x7F800000;
-    if ((LODWORD(__C) & 0x7FFFFFFFu) >= 0x7F800000)
-    {
-      break;
-    }
-
-    v2 = v3;
-  }
-
-  while (a1[1] > v3++);
-  return result;
-}
-
-float DspLib::maxMagnitude(const float *a1, vDSP_Length __N)
-{
-  __C = 0.0;
-  vDSP_maxmgv(a1, 1, &__C, __N);
-  return __C;
-}
-
-BOOL DspLib::isSilent(__int128 *a1, float a2)
-{
-  v3 = *a1;
-  v4 = *(a1 + 2);
-  return DspLib::maxMagnitude(&v3) < a2;
-}
-
-float DspLib::maxMagnitude(void *a1)
-{
-  if (!a1[1])
-  {
-    return 0.0;
-  }
-
-  v2 = 0;
-  v3 = 0.0;
-  v4 = 1;
-  do
-  {
-    v5 = *(*a1 + 8 * v2);
-    v6 = a1[2];
-    __C = 0.0;
-    vDSP_maxmgv(v5, 1, &__C, v6);
-    if (v3 < __C)
-    {
-      v3 = __C;
-    }
-
-    v2 = v4;
-  }
-
-  while (a1[1] > v4++);
-  return v3;
-}
-
-void *DspLib::copy(void *__src, uint64_t a2, void *__dst)
-{
-  if (a2)
-  {
-    return memmove(__dst, __src, 4 * a2);
-  }
-
-  return __src;
-}
-
-void *DspLib::copy(void *result, void *a2)
-{
-  v2 = result[1];
-  if (v2)
-  {
-    v4 = result;
-    v5 = 0;
-    v6 = 1;
-    do
-    {
-      v7 = v4[2];
-      if (v7)
-      {
-        result = memmove(*(*a2 + 8 * v5), *(*v4 + 8 * v5), 4 * v7);
-        v2 = v4[1];
-      }
-
-      v5 = v6;
-    }
-
-    while (v2 > v6++);
-  }
-
-  return result;
 }

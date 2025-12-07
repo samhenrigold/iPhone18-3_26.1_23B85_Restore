@@ -37,24 +37,25 @@ uint64_t __46__LACBiomeDialogDonationHelper_sharedInstance__block_invoke()
 - (void)donateEvent:(id)event
 {
   eventCopy = event;
-  if (+[LACAnalyticsUtils shareAnalyticsEnabled])
+  v5 = +[LACAnalyticsUtils shareAnalyticsEnabled];
+  if (v5)
   {
-    v6[0] = MEMORY[0x1E69E9820];
-    v6[1] = 3221225472;
-    v6[2] = __44__LACBiomeDialogDonationHelper_donateEvent___block_invoke;
-    v6[3] = &unk_1E7A956E0;
-    v6[4] = self;
-    v7 = eventCopy;
-    [v7 determineTimeSinceLastSystemUpdateWithCompletion:v6];
+    v7[0] = MEMORY[0x1E69E9820];
+    v7[1] = 3221225472;
+    v7[2] = __44__LACBiomeDialogDonationHelper_donateEvent___block_invoke;
+    v7[3] = &unk_1E7A956E0;
+    v7[4] = self;
+    v8 = eventCopy;
+    [v8 determineTimeSinceLastSystemUpdateWithCompletion:v7];
   }
 
   else
   {
-    v5 = LACLogAnalytics();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = LACLogAnalytics(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_1B0233000, v5, OS_LOG_TYPE_DEFAULT, "Skipping biome donation because D&U flag is disabled", buf, 2u);
+      _os_log_impl(&dword_1B0233000, v6, OS_LOG_TYPE_DEFAULT, "Skipping biome donation because D&U flag is disabled", buf, 2u);
     }
   }
 }

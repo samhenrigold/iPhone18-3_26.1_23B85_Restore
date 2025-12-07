@@ -1,3 +1,714 @@
+void sub_100C6DBE4(id a1)
+{
+  v1 = objc_opt_new();
+  v2 = qword_10195ED10;
+  qword_10195ED10 = v1;
+}
+
+void sub_100C6E9D8(uint64_t a1, void *a2, uint64_t a3)
+{
+  v5 = *(a1 + 32);
+  v6 = a2;
+  v7 = [v5 _storageNodeForExpandedIdentifierPaths:a3];
+  [*(a1 + 40) setObject:v7 forKeyedSubscript:v6];
+}
+
+void sub_100C6EDE0(uint64_t a1, void *a2, void *a3)
+{
+  v10 = a2;
+  v5 = a3;
+  if ([v5 hasPrefix:*(a1 + 32)])
+  {
+    v6 = [v10 expandedValue];
+
+    if (v6)
+    {
+      v7 = [v10 expandedValue];
+      v8 = [v7 BOOLValue];
+
+      v9 = *(a1 + 40);
+      if (v8)
+      {
+        [v9 addObject:v5];
+      }
+
+      else
+      {
+        [v9 removeObject:v5];
+      }
+    }
+  }
+}
+
+void sub_100C6EF9C(void *a1, uint64_t a2, void *a3)
+{
+  v5 = a1[4];
+  v6 = a1[5];
+  v7 = a3;
+  v8 = [v6 identifierPathByAppendingIdentifier:a2];
+  [v5 _visitNode:v7 identifierPath:v8 block:a1[6]];
+}
+
+void sub_100C6F474(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, id location)
+{
+  objc_destroyWeak((v14 + 32));
+  objc_destroyWeak(&location);
+  _Unwind_Resume(a1);
+}
+
+void sub_100C6F498(uint64_t a1, void *a2)
+{
+  v3 = a2;
+  v5[0] = _NSConcreteStackBlock;
+  v5[1] = 3221225472;
+  v5[2] = sub_100C6F550;
+  v5[3] = &unk_101661340;
+  objc_copyWeak(&v7, (a1 + 32));
+  v6 = v3;
+  v4 = v3;
+  dispatch_async(&_dispatch_main_q, v5);
+
+  objc_destroyWeak(&v7);
+}
+
+void sub_100C6F550(uint64_t a1)
+{
+  WeakRetained = objc_loadWeakRetained((a1 + 40));
+  if (WeakRetained)
+  {
+    v5 = WeakRetained;
+    v3 = [*(a1 + 32) copy];
+    v4 = v5[11];
+    v5[11] = v3;
+
+    [v5 rebuildContent];
+    WeakRetained = v5;
+  }
+}
+
+void sub_100C6FB88(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, id location, id a19)
+{
+  objc_destroyWeak((v19 + 56));
+  objc_destroyWeak((v19 + 48));
+  objc_destroyWeak(&location);
+  objc_destroyWeak(&a19);
+  _Unwind_Resume(a1);
+}
+
+void sub_100C6FBBC(uint64_t a1, void *a2)
+{
+  v3 = a2;
+  WeakRetained = objc_loadWeakRetained((a1 + 48));
+  if (WeakRetained)
+  {
+    v5 = objc_loadWeakRetained((a1 + 56));
+    if (v5)
+    {
+      v6 = sub_100035E6C();
+      v7 = v6;
+      if (v3)
+      {
+        if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+        {
+          v9 = 138412546;
+          v10 = v5;
+          v11 = 2112;
+          v12 = v3;
+          _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_ERROR, "NavigationRouteInterrupter: Failed to cancel interruption on entry: %@ with error: %@", &v9, 0x16u);
+        }
+      }
+
+      else
+      {
+        if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+        {
+          v9 = 138412290;
+          v10 = v5;
+          _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_INFO, "NavigationRouteInterrupter: Finished cancelling interruption on entry: %@. Will hint refresh.", &v9, 0xCu);
+        }
+
+        [*(a1 + 32) hintRefreshOfType:11];
+      }
+
+      v8 = *(a1 + 40);
+      if (v8)
+      {
+        (*(v8 + 16))();
+      }
+    }
+  }
+}
+
+void sub_100C6FF3C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, id location, id a19)
+{
+  objc_destroyWeak((v19 + 56));
+  objc_destroyWeak((v19 + 48));
+  objc_destroyWeak(&location);
+  objc_destroyWeak(&a19);
+  _Unwind_Resume(a1);
+}
+
+void sub_100C6FF70(id *a1, void *a2)
+{
+  v3 = a2;
+  WeakRetained = objc_loadWeakRetained(a1 + 6);
+  if (WeakRetained)
+  {
+    v5 = objc_loadWeakRetained(a1 + 7);
+    v6 = v5;
+    if (v5)
+    {
+      v11[0] = _NSConcreteStackBlock;
+      v11[1] = 3221225472;
+      v11[2] = sub_100C70150;
+      v11[3] = &unk_1016605F8;
+      v7 = v5;
+      v12 = v7;
+      v13 = WeakRetained;
+      v14 = a1[5];
+      v8 = objc_retainBlock(v11);
+      v9 = sub_100035E6C();
+      v10 = v9;
+      if (v3)
+      {
+        if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+        {
+          *buf = 138412546;
+          v16 = v7;
+          v17 = 2112;
+          v18 = v3;
+          _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_ERROR, "NavigationRouteInterrupter: Failed to interrupt an entry: %@ with error: %@", buf, 0x16u);
+        }
+      }
+
+      else
+      {
+        if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+        {
+          *buf = 138412290;
+          v16 = v7;
+          _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_INFO, "NavigationRouteInterrupter: Finished interrupting entry: %@. Will hint refresh.", buf, 0xCu);
+        }
+
+        [a1[4] hintRefreshOfType:11];
+      }
+
+      (v8[2])(v8);
+    }
+  }
+}
+
+void sub_100C70150(uint64_t a1)
+{
+  v2 = [*(a1 + 32) historyEntry];
+  objc_opt_class();
+  if (objc_opt_isKindOfClass())
+  {
+    v3 = v2;
+  }
+
+  else
+  {
+    v3 = 0;
+  }
+
+  v4 = v3;
+
+  v5 = [v4 identifier];
+
+  v6 = sub_100035E6C();
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+  {
+    WeakRetained = objc_loadWeakRetained((*(a1 + 40) + 8));
+    v10 = 138412546;
+    v11 = WeakRetained;
+    v12 = 2112;
+    v13 = v5;
+    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_INFO, "NavigationRouteInterrupter: Will notify delegate: %@ of interruption with identifier: %@", &v10, 0x16u);
+  }
+
+  v8 = objc_loadWeakRetained((*(a1 + 40) + 8));
+  [v8 navigationRouteInterrupter:*(a1 + 40) finishedInteruptingEntryWithIdentifier:v5];
+
+  v9 = *(a1 + 48);
+  if (v9)
+  {
+    (*(v9 + 16))();
+  }
+}
+
+void sub_100C70720(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, id location)
+{
+  objc_destroyWeak((v23 + 40));
+  objc_destroyWeak((v22 + 40));
+  objc_destroyWeak(&location);
+  _Unwind_Resume(a1);
+}
+
+void sub_100C7074C(uint64_t a1, void *a2)
+{
+  v4 = a2;
+  WeakRetained = objc_loadWeakRetained((a1 + 40));
+  [WeakRetained setCachedLoadResult:v4];
+
+  (*(*(a1 + 32) + 16))();
+}
+
+void sub_100C707BC(uint64_t a1, void *a2, void *a3)
+{
+  v16 = a2;
+  v5 = a3;
+  WeakRetained = objc_loadWeakRetained((a1 + 40));
+  v7 = [WeakRetained address];
+  v8 = [v7 waypointCompositeName];
+
+  if (v16 && v8)
+  {
+    v9 = [v16 mapItemStorage];
+    v10 = [v9 userValues];
+    v11 = v10;
+    if (v10)
+    {
+      v12 = v10;
+    }
+
+    else
+    {
+      v12 = objc_opt_new();
+    }
+
+    v13 = v12;
+
+    [v13 setName:v8];
+    v14 = [v16 mapItemStorage];
+    [v14 setUserValues:v13];
+  }
+
+  v15 = sub_100C2093C(*(a1 + 32));
+  (v15)[2](v15, v16, v5);
+}
+
+void sub_100C70D84(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  if (a3)
+  {
+    v3 = *(a1 + 32);
+    v4 = [NSString stringWithFormat:@"%@: %@", a2, a3];
+    [v3 addObject:v4];
+  }
+}
+
+void sub_100C70FD4(uint64_t a1, void *a2, void *a3)
+{
+  v14 = a2;
+  v5 = a3;
+  if (v5)
+  {
+    objc_opt_class();
+    if (objc_opt_isKindOfClass() & 1) != 0 || (objc_opt_class(), (objc_opt_isKindOfClass()))
+    {
+      v6 = v5;
+LABEL_11:
+      v12 = *(a1 + 32);
+      v13 = [NSString stringWithFormat:@"%@: %@", v14, v6];
+      [v12 addObject:v13];
+
+      goto LABEL_12;
+    }
+
+    v7 = v5;
+    v8 = objc_opt_class();
+    v9 = NSStringFromClass(v8);
+    if (objc_opt_respondsToSelector())
+    {
+      v10 = [v7 performSelector:"accessibilityIdentifier"];
+      v11 = v10;
+      if (v10 && ![v10 isEqualToString:v9])
+      {
+        v6 = [NSString stringWithFormat:@"%@<%p, %@>", v9, v7, v11];
+
+        goto LABEL_10;
+      }
+    }
+
+    v6 = [NSString stringWithFormat:@"%@<%p>", v9, v7];
+LABEL_10:
+
+    goto LABEL_11;
+  }
+
+LABEL_12:
+}
+
+uint64_t sub_100C72198(uint64_t a1)
+{
+  result = *(a1 + 32);
+  if (result)
+  {
+    return (*(result + 16))();
+  }
+
+  return result;
+}
+
+uint64_t sub_100C72260(uint64_t a1)
+{
+  result = *(a1 + 32);
+  if (result)
+  {
+    return (*(result + 16))();
+  }
+
+  return result;
+}
+
+void sub_100C72308(uint64_t a1)
+{
+  v2 = [*(a1 + 32) testCoordinator];
+  v3 = [v2 pptTestScrollView];
+
+  v4 = *(a1 + 32);
+  v5[0] = _NSConcreteStackBlock;
+  v5[1] = 3221225472;
+  v5[2] = sub_100C723B4;
+  v5[3] = &unk_10164F548;
+  v5[4] = v4;
+  [v4 _performScrollTestOfScrollView:v3 completion:v5];
+}
+
+id sub_100C723B4(uint64_t a1, void *a2)
+{
+  v3 = *(a1 + 32);
+  v4 = a2;
+  v5 = [v3 results];
+  [v5 addEntriesFromDictionary:v4];
+
+  v6 = *(a1 + 32);
+
+  return [v6 finishedTest];
+}
+
+uint64_t sub_100C73A6C(void *a1, void *a2)
+{
+  v3 = a1;
+  v4 = a2;
+  v5 = v4;
+  if (v3 == v4)
+  {
+    v6 = 1;
+  }
+
+  else if ((v3 || !v4) && (!v3 || v4))
+  {
+    v6 = [v3 isEqual:v4];
+  }
+
+  else
+  {
+    v6 = 0;
+  }
+
+  return v6;
+}
+
+uint64_t sub_100C73AE8(void *a1, void *a2)
+{
+  v3 = a1;
+  v4 = a2;
+  v5 = v4;
+  if (v3 == v4)
+  {
+    v6 = 1;
+  }
+
+  else
+  {
+    v6 = 0;
+    if (v3 && v4)
+    {
+      v7 = [v3 searchResult];
+      v8 = [v5 searchResult];
+      v9 = v8;
+      v6 = 0;
+      if (v7 && v8)
+      {
+        v6 = [v7 isEqualToSearchResult:v8 forPurpose:2];
+      }
+    }
+  }
+
+  return v6;
+}
+
+uint64_t sub_100C73CC8(uint64_t a1)
+{
+  result = *(a1 + 32);
+  if (result)
+  {
+    return (*(result + 16))();
+  }
+
+  return result;
+}
+
+uint64_t sub_100C74008(void *a1)
+{
+  v6 = 0u;
+  v7 = 0u;
+  v8 = 0u;
+  v9 = 0u;
+  v1 = a1;
+  v2 = [v1 countByEnumeratingWithState:&v6 objects:v10 count:16];
+  if (v2)
+  {
+    v3 = *v7;
+    while (2)
+    {
+      for (i = 0; i != v2; ++i)
+      {
+        if (*v7 != v3)
+        {
+          objc_enumerationMutation(v1);
+        }
+
+        if (![*(*(&v6 + 1) + 8 * i) type])
+        {
+          v2 = 1;
+          goto LABEL_11;
+        }
+      }
+
+      v2 = [v1 countByEnumeratingWithState:&v6 objects:v10 count:16];
+      if (v2)
+      {
+        continue;
+      }
+
+      break;
+    }
+  }
+
+LABEL_11:
+
+  return v2;
+}
+
+void sub_100C74B18(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, id location)
+{
+  objc_destroyWeak((v14 + 32));
+  objc_destroyWeak(&location);
+  _Unwind_Resume(a1);
+}
+
+void sub_100C74B38(uint64_t a1)
+{
+  WeakRetained = objc_loadWeakRetained((a1 + 32));
+  v1 = [WeakRetained actionHandler];
+
+  if (v1)
+  {
+    v2 = [WeakRetained actionHandler];
+    (v2)[2](v2, WeakRetained);
+  }
+}
+
+id sub_100C7500C()
+{
+  if (qword_10195ED38 != -1)
+  {
+    dispatch_once(&qword_10195ED38, &stru_10164F568);
+  }
+
+  v1 = qword_10195ED30;
+
+  return v1;
+}
+
+void sub_100C75060(id a1)
+{
+  v1 = os_log_create("com.apple.Maps", "PedestrianARUsageMigratorTask");
+  v2 = qword_10195ED30;
+  qword_10195ED30 = v1;
+}
+
+id sub_100C75518(uint64_t a1)
+{
+  v2 = +[NSBundle mainBundle];
+  v3 = v2;
+  if ((a1 - 1) >= 4)
+  {
+    v4 = @"Error: unknown error [Nano]";
+  }
+
+  else
+  {
+    v4 = @"Error: waypoint refinement error [Nano]";
+  }
+
+  v5 = [v2 localizedStringForKey:v4 value:@"localized string not found" table:0];
+
+  return v5;
+}
+
+id sub_100C75F08()
+{
+  if (qword_10195ED48 != -1)
+  {
+    dispatch_once(&qword_10195ED48, &stru_10164F618);
+  }
+
+  v1 = qword_10195ED40;
+
+  return v1;
+}
+
+void sub_100C75F5C(id a1)
+{
+  v1 = os_log_create("com.apple.Maps", "VIOSessionStateManager");
+  v2 = qword_10195ED40;
+  qword_10195ED40 = v1;
+}
+
+void sub_100C76608(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, id location)
+{
+  objc_destroyWeak((v15 + 32));
+  objc_destroyWeak(&location);
+  _Unwind_Resume(a1);
+}
+
+void sub_100C76630(uint64_t a1)
+{
+  v2 = sub_100C75F08();
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
+  {
+    WeakRetained = objc_loadWeakRetained((a1 + 32));
+    v7 = 134349056;
+    v8 = WeakRetained;
+    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_INFO, "[%{public}p] Retry timer fired", &v7, 0xCu);
+  }
+
+  v4 = objc_loadWeakRetained((a1 + 32));
+  [v4 resumeSession];
+
+  v5 = objc_loadWeakRetained((a1 + 32));
+  v6 = [v5 observers];
+  [v6 throttleDidEnd];
+}
+
+void sub_100C782E0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, id location)
+{
+  objc_destroyWeak((v17 + 32));
+  objc_destroyWeak(&location);
+  _Unwind_Resume(a1);
+}
+
+void sub_100C78308(uint64_t a1)
+{
+  v2 = sub_100C75F08();
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
+  {
+    WeakRetained = objc_loadWeakRetained((a1 + 32));
+    v4 = WeakRetained;
+    v5 = @"VIOSessionThrottleEventDeviceMotion";
+    v6 = *(a1 + 48);
+    v7 = *(a1 + 40) == 0;
+    v9 = 134349570;
+    if (v7)
+    {
+      v5 = @"VIOSessionThrottleEventARTrackingState";
+    }
+
+    v10 = WeakRetained;
+    v11 = 2112;
+    v12 = v5;
+    v13 = 2048;
+    v14 = v6;
+    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_INFO, "[%{public}p] Detected consecutive throttle event of type %@ for longer than %f seconds", &v9, 0x20u);
+  }
+
+  v8 = objc_loadWeakRetained((a1 + 32));
+  [v8 throttleSessionWithEventReason:*(a1 + 40)];
+}
+
+void sub_100C7943C(uint64_t a1, void *a2)
+{
+  v3 = a2;
+  --*(*(a1 + 32) + 16);
+  v17 = 0u;
+  v18 = 0u;
+  v15 = 0u;
+  v16 = 0u;
+  v4 = [v3 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  if (v4)
+  {
+    v5 = v4;
+    v6 = *v16;
+    do
+    {
+      v7 = 0;
+      do
+      {
+        if (*v16 != v6)
+        {
+          objc_enumerationMutation(v3);
+        }
+
+        v8 = [[RAPAuxiliaryControlWatch alloc] initWithPropertiesOfDevice:*(*(&v15 + 1) + 8 * v7)];
+        if (v8)
+        {
+          if ([*(*(a1 + 32) + 48) isSameControlAsControl:v8])
+          {
+            if ([(RAPAuxiliaryControlWatch *)v8 isActive])
+            {
+              goto LABEL_13;
+            }
+
+            v9 = *(a1 + 32);
+            v10 = *(v9 + 48);
+            *(v9 + 48) = 0;
+          }
+
+          else
+          {
+            [*(a1 + 32) _addControlIfNotDuplicate:v8];
+            if (![(RAPAuxiliaryControlWatch *)v8 isActive])
+            {
+              goto LABEL_13;
+            }
+
+            v11 = *(a1 + 32);
+            v12 = v8;
+            v10 = *(v11 + 48);
+            *(v11 + 48) = v12;
+          }
+        }
+
+LABEL_13:
+
+        v7 = v7 + 1;
+      }
+
+      while (v5 != v7);
+      v5 = [v3 countByEnumeratingWithState:&v15 objects:v19 count:16];
+    }
+
+    while (v5);
+  }
+
+  v13 = *(a1 + 32);
+  if (*(v13 + 10) == 1)
+  {
+    objc_storeStrong((v13 + 32), *(v13 + 48));
+    *(*(a1 + 32) + 10) = 0;
+  }
+
+  v14 = *(a1 + 40);
+  if (v14)
+  {
+    (*(v14 + 16))();
+  }
+}
+
 uint64_t sub_100C79A9C(uint64_t a1)
 {
   v2 = +[NSNotificationCenter defaultCenter];
@@ -146,6 +857,13 @@ void sub_100C7A5A8(id a1)
   v1 = os_log_create("com.apple.Maps", "RAPSubmissionStatusSyncHandler");
   v2 = qword_10195ED50;
   qword_10195ED50 = v1;
+}
+
+void sub_100C7AD98(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, ...)
+{
+  va_start(va, a60);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
 }
 
 uint64_t sub_100C7ADB8(uint64_t result, uint64_t a2)
@@ -1946,16 +2664,16 @@ id sub_100C923F8(uint64_t a1, void *a2)
   return v5;
 }
 
-void sub_100C9359C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100C9359C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va1, a7);
-  va_start(va, a7);
-  v8 = va_arg(va1, void);
-  v10 = va_arg(va1, void);
-  v11 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
+  va_start(va1, a13);
+  va_start(va, a13);
   v14 = va_arg(va1, void);
+  v16 = va_arg(va1, void);
+  v17 = va_arg(va1, void);
+  v18 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -2929,9 +3647,9 @@ uint64_t sub_100CA0348(uint64_t a1, void *a2)
   return v5;
 }
 
-void sub_100CA0CDC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_100CA0CDC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3329,9 +4047,9 @@ void sub_100CA65CC(uint64_t a1)
   [v2 setHardwareBackButtonBehavior:0 forContext:v3];
 }
 
-void sub_100CA6864(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_100CA6864(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4227,9 +4945,9 @@ void sub_100CB82E4(uint64_t a1)
   [WeakRetained callToActionViewProviderDidFinishResolvingEditState:*(a1 + 32)];
 }
 
-void sub_100CBBCA0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100CBBCA0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4249,9 +4967,9 @@ void sub_100CBBCB8(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
   }
 }
 
-void sub_100CBBF24(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100CBBF24(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4577,9 +5295,9 @@ void sub_100CBD338(uint64_t a1)
   (*(v2 + 16))(v2, v3, *(a1 + 40));
 }
 
-void sub_100CBD70C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100CBD70C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5879,9 +6597,9 @@ void sub_100CD982C(uint64_t a1, void *a2, uint64_t a3)
   }
 }
 
-void sub_100CD9E0C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
+void sub_100CD9E0C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, ...)
 {
-  va_start(va, a17);
+  va_start(va, a24);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6653,9 +7371,9 @@ void sub_100CEBD4C(uint64_t a1)
   }
 }
 
-void sub_100CEDACC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_100CEDACC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6829,7 +7547,7 @@ void sub_100CF5878(uint64_t a1, void *a2)
   }
 }
 
-void sub_100CF5FC0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, char a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, id a29)
+void sub_100CF5FC0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, id a29)
 {
   objc_destroyWeak((v29 + 48));
   _Block_object_dispose(&a18, 8);
@@ -6907,9 +7625,9 @@ void sub_100CF7518(id a1)
   qword_10195EF40 = v1;
 }
 
-void sub_100CF7E00(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100CF7E00(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6929,9 +7647,9 @@ BOOL sub_100CF7E18(uint64_t a1, _DWORD *a2)
   return v4 < v5;
 }
 
-void sub_100CF7FC0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100CF7FC0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -7085,9 +7803,9 @@ void sub_100CF9630(id a1)
   qword_10195EF50 = v1;
 }
 
-void sub_100CFA234(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_100CFA234(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -7209,9 +7927,9 @@ void sub_100CFAC2C(uint64_t a1)
   [v6 registerObserver:*(a1 + 32)];
 }
 
-void sub_100CFAE34(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100CFAE34(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -8042,10 +8760,11 @@ uint64_t sub_100D07FE8(uint64_t a1)
   return v7();
 }
 
-void sub_100D08578(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, char a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, char a37)
+void sub_100D08578(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, ...)
 {
+  va_start(va, a36);
   _Block_object_dispose(&a31, 8);
-  _Block_object_dispose(&a37, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -8086,9 +8805,9 @@ void sub_100D08D44(uint64_t a1)
   [v2 removeObject:*(a1 + 40)];
 }
 
-void sub_100D09228(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_100D09228(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
+  va_start(va, a22);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -8118,9 +8837,9 @@ void sub_100D092B0(uint64_t a1)
   *(v7 + 48) = 0;
 }
 
-void sub_100D09714(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100D09714(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -8171,727 +8890,4 @@ void sub_100D09BA8(id a1, NSError *a2)
   v4 = +[IPCServer sharedServer];
   v3 = [(NSError *)v2 localizedDescription];
   [v4 navigationStateDidChangeTo:2 reason:v3 error:v2];
-}
-
-void sub_100D09C2C(id a1, RouteCollection *a2)
-{
-  v2 = +[IPCServer sharedServer];
-  [v2 navigationStateDidChangeTo:0 reason:@"The directions are now loaded and we're ready for nav"];
-}
-
-void sub_100D0AE54(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, id location)
-{
-  objc_destroyWeak((v15 + 32));
-  objc_destroyWeak(&location);
-  _Unwind_Resume(a1);
-}
-
-void sub_100D0AE78(uint64_t a1, void *a2)
-{
-  v5 = a2;
-  WeakRetained = objc_loadWeakRetained((a1 + 32));
-  v4 = WeakRetained;
-  if (WeakRetained)
-  {
-    [WeakRetained _handleInitialRouteLoaded:v5];
-  }
-}
-
-void sub_100D0B108(uint64_t a1)
-{
-  WeakRetained = objc_loadWeakRetained((a1 + 32));
-  if (WeakRetained)
-  {
-    v3 = WeakRetained;
-    v2 = +[NSNotificationCenter defaultCenter];
-    [v2 removeObserver:v3 name:VKMapViewDidBecomeFullyDrawnNotification object:0];
-
-    [v3 _createAuxiliaryTasksIfNecessaryForPreference:2];
-    WeakRetained = v3;
-  }
-}
-
-id sub_100D0B3F0(uint64_t a1)
-{
-  [*(a1 + 32) layoutIfNeeded];
-  [*(*(a1 + 32) + 8) setAlpha:0.0];
-  v2 = *(*(a1 + 32) + 24);
-
-  return [v2 setAlpha:0.0];
-}
-
-uint64_t sub_100D0B454(uint64_t a1)
-{
-  result = *(a1 + 32);
-  if (result)
-  {
-    return (*(result + 16))();
-  }
-
-  return result;
-}
-
-id sub_100D0B570(uint64_t a1)
-{
-  [*(a1 + 32) layoutIfNeeded];
-  [*(*(a1 + 32) + 8) setAlpha:1.0];
-  v2 = *(*(a1 + 32) + 24);
-
-  return [v2 setAlpha:1.0];
-}
-
-void sub_100D0C748(uint64_t a1, void *a2)
-{
-  v3 = a2;
-  v9 = [[SearchAddressBookOperationMatch alloc] initWithContact:v3 context:*(*(a1 + 32) + 24)];
-
-  if ([(SearchAddressBookOperationMatch *)v9 isGoodMatch])
-  {
-    [*(a1 + 40) addObject:v9];
-    v4 = [(SearchAddressBookOperationMatch *)v9 contact];
-    v5 = [v4 identifier];
-
-    if (v5)
-    {
-      [*(a1 + 48) setObject:v9 forKeyedSubscript:v5];
-    }
-
-    v6 = [(SearchAddressBookOperationMatch *)v9 contact];
-    v7 = [v6 iOSLegacyIdentifier];
-
-    if (v7 >= 1)
-    {
-      v8 = [NSString stringWithFormat:@"%d", v7];
-      [*(a1 + 56) setObject:v9 forKeyedSubscript:v8];
-    }
-  }
-}
-
-void sub_100D0C86C(uint64_t a1, void *a2)
-{
-  v16 = a2;
-  v3 = [v16 contact];
-  v17 = 0u;
-  v18 = 0u;
-  v19 = 0u;
-  v20 = 0u;
-  v4 = [v3 postalAddresses];
-  v5 = [v4 countByEnumeratingWithState:&v17 objects:v21 count:16];
-  if (v5)
-  {
-    v6 = v5;
-    v7 = *v18;
-    do
-    {
-      for (i = 0; i != v6; i = i + 1)
-      {
-        if (*v18 != v7)
-        {
-          objc_enumerationMutation(v4);
-        }
-
-        v9 = *(*(&v17 + 1) + 8 * i);
-        v10 = [v9 value];
-        v11 = [v10 street];
-        v12 = [v11 length];
-
-        if (v12)
-        {
-          v13 = [[AddressBookAddress alloc] initWithContact:v3 addressValue:v9];
-          if ([(AddressBookAddress *)v13 isValid])
-          {
-            v14 = [v16 autocompleteMatchInfo];
-            [*(*(a1 + 32) + 24) setMatchInfo:v14 forObject:v13];
-            v15 = [[AutocompleteItem alloc] initWithLocalCompletion:v13 sourceType:4 sourceSubtype:0 matchInfo:v14];
-            [*(a1 + 40) addObject:v15];
-          }
-        }
-      }
-
-      v6 = [v4 countByEnumeratingWithState:&v17 objects:v21 count:16];
-    }
-
-    while (v6);
-  }
-}
-
-id sub_100D0D344(uint64_t a1, void *a2)
-{
-  v3 = a2;
-  v4 = v3;
-  if (v3 && [v3 length])
-  {
-    v5 = [v4 stringByTrimmingCharactersInSet:*(a1 + 32)];
-
-    v6 = [v5 componentsSeparatedByCharactersInSet:*(a1 + 32)];
-    v15 = 0u;
-    v16 = 0u;
-    v17 = 0u;
-    v18 = 0u;
-    v7 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
-    if (v7)
-    {
-      v8 = v7;
-      v9 = 0;
-      v10 = *v16;
-      do
-      {
-        for (i = 0; i != v8; i = i + 1)
-        {
-          if (*v16 != v10)
-          {
-            objc_enumerationMutation(v6);
-          }
-
-          v12 = *(*(&v15 + 1) + 8 * i);
-          if ([v12 length])
-          {
-            if (!v9)
-            {
-              v9 = +[NSMutableArray array];
-            }
-
-            [v9 addObject:v12];
-          }
-        }
-
-        v8 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
-      }
-
-      while (v8);
-    }
-
-    else
-    {
-      v9 = 0;
-    }
-
-    v4 = v5;
-  }
-
-  else
-  {
-    v9 = 0;
-  }
-
-  v13 = [v9 copy];
-
-  return v13;
-}
-
-void sub_100D0D4E8(uint64_t a1, uint64_t a2)
-{
-  v3 = [*(a1 + 32) objectForKeyedSubscript:a2];
-  if (v3)
-  {
-    v4 = v3;
-    [*(a1 + 40) addObjectsFromArray:v3];
-    v3 = v4;
-  }
-}
-
-id sub_100D0DDDC(uint64_t a1)
-{
-  if (a1)
-  {
-    [MKRatingStringBuilder ratingColorForMapItem:a1];
-  }
-
-  else
-  {
-    +[UIColor systemOrangeColor];
-  }
-  v1 = ;
-
-  return v1;
-}
-
-void sub_100D0FB58(uint64_t a1)
-{
-  WeakRetained = objc_loadWeakRetained((a1 + 32));
-  if (WeakRetained)
-  {
-    v2 = WeakRetained;
-    [WeakRetained _fetchSuggestions];
-    WeakRetained = v2;
-  }
-}
-
-void sub_100D0FD70(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
-{
-  va_start(va, a13);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-uint64_t sub_100D0FD8C(uint64_t result, uint64_t a2)
-{
-  *(result + 40) = *(a2 + 40);
-  *(a2 + 40) = 0;
-  return result;
-}
-
-void sub_100D0FDB4(uint64_t a1)
-{
-  v2 = [*(a1 + 40) copy];
-  v3 = *(a1 + 32);
-  v4 = *(v3 + 48);
-  *(v3 + 48) = v2;
-
-  WeakRetained = objc_loadWeakRetained((*(a1 + 32) + 56));
-  [WeakRetained shortcutsProviderUpdated:*(a1 + 32)];
-}
-
-void sub_100D0FF00(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, id location)
-{
-  objc_destroyWeak((v14 + 32));
-  objc_destroyWeak(&location);
-  _Unwind_Resume(a1);
-}
-
-void sub_100D0FF1C(uint64_t a1, void *a2, void *a3)
-{
-  v8 = a2;
-  v5 = a3;
-  WeakRetained = objc_loadWeakRetained((a1 + 32));
-  v7 = WeakRetained;
-  if (WeakRetained)
-  {
-    [WeakRetained _processTopSuggestions:v8 error:v5];
-  }
-}
-
-void sub_100D10104(uint64_t a1)
-{
-  WeakRetained = objc_loadWeakRetained((a1 + 32));
-  if (WeakRetained)
-  {
-    v2 = WeakRetained;
-    [WeakRetained setSinkAttached:0];
-    WeakRetained = v2;
-  }
-}
-
-void sub_100D101F0(uint64_t a1)
-{
-  WeakRetained = objc_loadWeakRetained((a1 + 32));
-  v3 = WeakRetained;
-  if (WeakRetained)
-  {
-    if (WeakRetained[1])
-    {
-      [WeakRetained setSinkAttached:1];
-    }
-
-    else
-    {
-      v4[0] = _NSConcreteStackBlock;
-      v4[1] = 3221225472;
-      v4[2] = sub_100D102C4;
-      v4[3] = &unk_1016514A8;
-      objc_copyWeak(&v5, (a1 + 32));
-      [v3 _createMapsSuggestionEngineWithCallBack:v4];
-      objc_destroyWeak(&v5);
-    }
-  }
-}
-
-void sub_100D102C4(uint64_t a1, void *a2)
-{
-  v6 = a2;
-  WeakRetained = objc_loadWeakRetained((a1 + 32));
-  v5 = WeakRetained;
-  if (WeakRetained)
-  {
-    objc_storeStrong(WeakRetained + 1, a2);
-    [v5 setSinkAttached:1];
-  }
-}
-
-BOOL sub_100D104F0(id a1, MapsSuggestionsEntry *a2)
-{
-  v2 = a2;
-  v3 = objc_alloc_init(MapsSuggestionsOfflineService);
-  v4 = [(MapsSuggestionsOfflineService *)v3 shouldKeepEntryWhenOffline:v2];
-
-  return v4;
-}
-
-void sub_100D116A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
-{
-  va_start(va, a7);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-uint64_t sub_100D116C0(uint64_t result, uint64_t a2)
-{
-  *(result + 40) = *(a2 + 40);
-  *(a2 + 40) = 0;
-  return result;
-}
-
-void sub_100D116D8(uint64_t a1, void *a2)
-{
-  v3 = [a2 locationDisplayString];
-  v4 = *(*(a1 + 32) + 8);
-  v5 = *(v4 + 40);
-  *(v4 + 40) = v3;
-}
-
-void sub_100D12B58(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
-{
-  va_start(va, a7);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-uint64_t sub_100D12B70(uint64_t result, uint64_t a2)
-{
-  *(result + 40) = *(a2 + 40);
-  *(a2 + 40) = 0;
-  return result;
-}
-
-void sub_100D12B88(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
-{
-  v7 = a2;
-  if ((*(*(a1 + 32) + 16))())
-  {
-    objc_storeStrong((*(*(a1 + 40) + 8) + 40), a2);
-    *a4 = 1;
-  }
-}
-
-id sub_100D12CE0()
-{
-  v0 = MSPSharedTripServiceNameForRawServiceName();
-  if ([v0 isEqualToString:MSPSharedTripServiceSMS])
-  {
-    v1 = @"[Share ETA] SMS";
-LABEL_5:
-    v2 = +[NSBundle mainBundle];
-    v3 = [v2 localizedStringForKey:v1 value:@"localized string not found" table:0];
-
-    goto LABEL_7;
-  }
-
-  if ([v0 isEqualToString:MSPSharedTripServiceRCS])
-  {
-    v1 = @"[Share ETA] RCS";
-    goto LABEL_5;
-  }
-
-  v3 = 0;
-LABEL_7:
-
-  return v3;
-}
-
-void sub_100D133E8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, id location)
-{
-  objc_destroyWeak((v16 + 32));
-  objc_destroyWeak(&location);
-  _Unwind_Resume(a1);
-}
-
-void sub_100D13410(uint64_t a1)
-{
-  WeakRetained = objc_loadWeakRetained((a1 + 32));
-  [WeakRetained finishedTest];
-}
-
-void sub_100D13A04(uint64_t a1)
-{
-  v2 = [*(a1 + 32) mainMKMapView];
-  [v2 _setLocationPulseEnabled:0];
-
-  v3 = [*(a1 + 32) mainVKMapView];
-  v4 = *(a1 + 32);
-  if (*(a1 + 40))
-  {
-    [v4 performSelector:?];
-  }
-
-  else
-  {
-    [v3 _mapstest_jumpToCoords:*(v4 + 73) pitch:*(v4 + 104) yaw:*(v4 + 112) altitudeIsRegionSize:{*(v4 + 120), *(v4 + 88), *(v4 + 96)}];
-  }
-
-  [*(a1 + 32) startedTest];
-  [*(a1 + 32) startedSubTest:@"loadingScene"];
-  [v3 enableTestStatistics];
-  [v3 enableTileStatistics];
-  objc_initWeak(&location, *(a1 + 32));
-  v5 = *(a1 + 32);
-  v6[0] = _NSConcreteStackBlock;
-  v6[1] = 3221225472;
-  v6[2] = sub_100D13B74;
-  v6[3] = &unk_101661B98;
-  objc_copyWeak(&v7, &location);
-  [v5 addFullyDrawnCallback:v6];
-  objc_destroyWeak(&v7);
-  objc_destroyWeak(&location);
-}
-
-void sub_100D13B58(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, id location)
-{
-  objc_destroyWeak((v14 + 32));
-  objc_destroyWeak(&location);
-  _Unwind_Resume(a1);
-}
-
-void sub_100D13B74(uint64_t a1)
-{
-  WeakRetained = objc_loadWeakRetained((a1 + 32));
-  [WeakRetained didFinishJumping];
-}
-
-id sub_100D1403C(uint64_t a1)
-{
-  v2 = [*(a1 + 32) fullyDrawnCallbacks];
-  v3 = [*(a1 + 40) copy];
-  v4 = objc_retainBlock(v3);
-  [v2 addObject:v4];
-
-  v5 = *(a1 + 32);
-
-  return [v5 setupFullyDrawnNotification:"onFullyDrawn:"];
-}
-
-void sub_100D141B4(_Unwind_Exception *a1)
-{
-  objc_destroyWeak((v1 + 32));
-  objc_destroyWeak((v2 - 24));
-  _Unwind_Resume(a1);
-}
-
-void sub_100D141D0(uint64_t a1)
-{
-  WeakRetained = objc_loadWeakRetained((a1 + 32));
-  [WeakRetained finishedSubTest:@"extendedSwitch"];
-  [WeakRetained finishedTest];
-}
-
-void sub_100D143D0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, id location)
-{
-  objc_destroyWeak((v16 + 32));
-  objc_destroyWeak(&location);
-  _Unwind_Resume(a1);
-}
-
-void sub_100D143EC(uint64_t a1)
-{
-  WeakRetained = objc_loadWeakRetained((a1 + 32));
-  [WeakRetained didFinishJumping];
-}
-
-void sub_100D146F4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, id location)
-{
-  objc_destroyWeak((v16 + 40));
-  objc_destroyWeak(&location);
-  _Unwind_Resume(a1);
-}
-
-void sub_100D14718(uint64_t a1)
-{
-  WeakRetained = objc_loadWeakRetained((a1 + 40));
-  if (WeakRetained)
-  {
-    v3 = WeakRetained;
-    [WeakRetained _accessoryButtonTapped:*(a1 + 32)];
-    WeakRetained = v3;
-  }
-}
-
-void sub_100D14AD8(uint64_t a1)
-{
-  v1 = [*(a1 + 32) registrationWithCellClass:objc_opt_class() configurationHandler:&stru_1016515A0];
-  v2 = qword_10195F018;
-  qword_10195F018 = v1;
-}
-
-void sub_100D14B38(id a1, SectionHeaderOutlineCell *a2, NSIndexPath *a3, MapsUIDiffableDataSourceOutlineNodeSnapshot *a4)
-{
-  v8 = a2;
-  v5 = [(MapsUIDiffableDataSourceOutlineNodeSnapshot *)a4 viewModel];
-  if ([v5 conformsToProtocol:&OBJC_PROTOCOL___SectionHeaderOutlineCellModel])
-  {
-    v6 = v5;
-  }
-
-  else
-  {
-    v6 = 0;
-  }
-
-  v7 = v6;
-
-  [(SectionHeaderOutlineCell *)v8 setCellModel:v7];
-}
-
-void sub_100D16110(uint64_t a1, void *a2)
-{
-  v11 = a2;
-  v3 = [v11 photo];
-
-  if (v3)
-  {
-    v4 = *(a1 + 32);
-    v5 = [v11 photo];
-    [v4 addPhoto:v5];
-
-    v6 = *(a1 + 40);
-    v7 = [v11 photo];
-    v8 = [v7 photo];
-    v9 = [v11 photo];
-    v10 = [v9 _maps_diffableDataSourceIdentifier];
-    [v6 addImage:v8 forIdentifier:v10];
-
-    [v11 clearSelectedPhoto];
-  }
-}
-
-void sub_100D1675C(uint64_t a1)
-{
-  v2 = [*(a1 + 32) tableView];
-  [v2 scrollToRowAtIndexPath:*(a1 + 40) atScrollPosition:1 animated:1];
-}
-
-void sub_100D167B8(uint64_t a1)
-{
-  v2 = [*(a1 + 32) tableView];
-  v3 = [v2 cellForRowAtIndexPath:*(a1 + 40)];
-
-  objc_opt_class();
-  if (objc_opt_isKindOfClass())
-  {
-    v4 = v3;
-  }
-
-  else
-  {
-    v4 = 0;
-  }
-
-  v5 = v4;
-
-  [v5 beginEditingCommentIfPossible];
-}
-
-void sub_100D1741C(id a1, RAPCommentQuestion *a2, RAPReportComposerCommentSection *a3)
-{
-  v4 = a3;
-  v5 = a2;
-  v6 = [(RAPReportComposerCommentSection *)v4 headerView];
-  [v6 updateRemainingCharacters];
-
-  v11 = [NSIndexPath indexPathForRow:0 inSection:[(RAPTablePartSection *)v4 sectionIndex]];
-  v7 = [(RAPTablePartSection *)v4 tableView];
-
-  v8 = [v7 cellForRowAtIndexPath:v11];
-
-  objc_opt_class();
-  if (objc_opt_isKindOfClass())
-  {
-    v9 = v8;
-  }
-
-  else
-  {
-    v9 = 0;
-  }
-
-  v10 = v9;
-
-  [v10 setPropertiesFromQuestion:v5];
-}
-
-void sub_100D18060(uint64_t a1, void *a2)
-{
-  v3 = a2;
-  block[0] = _NSConcreteStackBlock;
-  block[1] = 3221225472;
-  block[2] = sub_100D18110;
-  block[3] = &unk_1016605F8;
-  v4 = *(a1 + 32);
-  v5 = *(a1 + 40);
-  v8 = v3;
-  v9 = v4;
-  v10 = v5;
-  v6 = v3;
-  dispatch_async(&_dispatch_main_q, block);
-}
-
-void sub_100D18110(uint64_t a1)
-{
-  if (!*(a1 + 32))
-  {
-    v2 = +[NSMutableSet set];
-    [*(a1 + 40) setSelectedObjectSet:v2];
-  }
-
-  v3 = *(a1 + 48);
-  if (v3)
-  {
-    (*(v3 + 16))(v3, *(a1 + 32));
-  }
-
-  v4 = [*(a1 + 40) resultBlock];
-
-  if (v4)
-  {
-    v5 = [*(a1 + 40) resultBlock];
-    v5[2](v5, *(a1 + 32));
-  }
-}
-
-void sub_100D1882C(uint64_t a1, void *a2)
-{
-  v3 = a2;
-  if (([*(a1 + 32) suppressAnalytics] & 1) == 0)
-  {
-    v18 = 0u;
-    v19 = 0u;
-    v16 = 0u;
-    v17 = 0u;
-    v4 = [*(a1 + 32) selectedObjectSet];
-    v5 = [v4 countByEnumeratingWithState:&v16 objects:v20 count:16];
-    if (v5)
-    {
-      v6 = v5;
-      v7 = *v17;
-      do
-      {
-        v8 = 0;
-        do
-        {
-          if (*v17 != v7)
-          {
-            objc_enumerationMutation(v4);
-          }
-
-          [*(a1 + 32) _instrumentSaveOrRemoveFromCollectionWithMapItem:*(*(&v16 + 1) + 8 * v8) instrumentSave:0];
-          v8 = v8 + 1;
-        }
-
-        while (v6 != v8);
-        v6 = [v4 countByEnumeratingWithState:&v16 objects:v20 count:16];
-      }
-
-      while (v6);
-    }
-  }
-
-  block[0] = _NSConcreteStackBlock;
-  block[1] = 3221225472;
-  block[2] = sub_100D18B3C;
-  block[3] = &unk_1016605F8;
-  v9 = *(a1 + 32);
-  v10 = *(a1 + 40);
-  v13 = v3;
-  v14 = v9;
-  v15 = v10;
-  v11 = v3;
-  dispatch_async(&_dispatch_main_q, block);
 }

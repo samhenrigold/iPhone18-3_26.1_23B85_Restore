@@ -2727,26 +2727,30 @@ uint64_t __67__ML3Container_removeNonLibraryItemsFromContainer_usingConnection__
 
 uint64_t __96__ML3Container_removeAnyNonLibraryItemsInPersistentIDs_fromContainersInLibrary_usingConnection___block_invoke(uint64_t a1, void *a2)
 {
-  v8 = a2;
-  if (![v8 intForColumnIndex:0])
+  v10 = a2;
+  v3 = [v10 intForColumnIndex:0];
+  v4 = v10;
+  if (!v3)
   {
-    v3 = [v8 numberForColumnIndex:1];
-    v4 = [v8 int64ForColumnIndex:2];
-    v5 = [*(a1 + 32) objectForKey:v3];
-    if (v5)
+    v5 = [v10 numberForColumnIndex:1];
+    v6 = [v10 int64ForColumnIndex:2];
+    v7 = [*(a1 + 32) objectForKey:v5];
+    if (v7)
     {
-      v6 = v5;
-      [v5 addIndex:v4];
+      v8 = v7;
+      [v7 addIndex:v6];
     }
 
     else
     {
-      v6 = [MEMORY[0x277CCAB58] indexSetWithIndex:v4];
-      [*(a1 + 32) setObject:v6 forKey:v3];
+      v8 = [MEMORY[0x277CCAB58] indexSetWithIndex:v6];
+      [*(a1 + 32) setObject:v8 forKey:v5];
     }
+
+    v4 = v10;
   }
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v3, v4);
 }
 
 void __96__ML3Container_removeAnyNonLibraryItemsInPersistentIDs_fromContainersInLibrary_usingConnection___block_invoke_2(uint64_t a1, void *a2, void *a3)
@@ -2849,7 +2853,7 @@ void __85__ML3Container__removeMediaTypesFromContainerWithPersistentID_mediaType
 {
   v12[3] = *MEMORY[0x277D85DE8];
   v7 = a1[4];
-  v8 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:?];
+  v8 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:a3];
   v9 = [MEMORY[0x277CCABB0] numberWithLongLong:{a1[6], v8}];
   v12[1] = v9;
   v10 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:a2];
@@ -3710,11 +3714,11 @@ void __84__ML3Container_sagaIDTreeForPlaylistWithIdentifier_inLibrary_persistent
   [*(a1 + 48) addObjectsFromArray:v3];
 }
 
-uint64_t __84__ML3Container_sagaIDTreeForPlaylistWithIdentifier_inLibrary_persistentIDsToIgnore___block_invoke_3(uint64_t result, uint64_t a2, void *a3)
+id *__84__ML3Container_sagaIDTreeForPlaylistWithIdentifier_inLibrary_persistentIDsToIgnore___block_invoke_3(id *result, uint64_t a2, void *a3)
 {
   if (*a3)
   {
-    return [*(result + 32) addObject:?];
+    return [result[4] addObject:?];
   }
 
   return result;

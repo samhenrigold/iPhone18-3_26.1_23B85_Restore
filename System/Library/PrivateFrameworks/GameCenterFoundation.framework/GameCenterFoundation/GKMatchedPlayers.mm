@@ -41,46 +41,44 @@
 
 - (id)description
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   string = [MEMORY[0x277CCAB68] string];
   v4 = objc_opt_class();
   v5 = NSStringFromClass(v4);
   properties = [(GKMatchedPlayers *)self properties];
   [string appendFormat:@"<%@ %p properties:%@, players[properties]:\n", v5, self, properties];
 
-  v20 = 0u;
-  v21 = 0u;
-  v18 = 0u;
   v19 = 0u;
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
   players = [(GKMatchedPlayers *)self players];
-  v8 = [players countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v8 = [players countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v19;
+    v10 = *v18;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v19 != v10)
+        if (*v18 != v10)
         {
           objc_enumerationMutation(players);
         }
 
-        v12 = *(*(&v18 + 1) + 8 * i);
+        v12 = *(*(&v17 + 1) + 8 * i);
         v13 = [v12 description];
         playerProperties = [(GKMatchedPlayers *)self playerProperties];
         v15 = [playerProperties objectForKeyedSubscript:v12];
         [string appendFormat:@"    %@[%@]", v13, v15];
       }
 
-      v9 = [players countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v9 = [players countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v9);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return string;
 }

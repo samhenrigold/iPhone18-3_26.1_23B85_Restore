@@ -1,4 +1,5 @@
 @interface MTRClusterThermostat
+- (MTRClusterThermostat)initWithDevice:(MTRDevice *)device endpoint:(uint16_t)endpoint queue:(dispatch_queue_t)queue;
 - (NSDictionary)readAttributeACCapacityWithParams:(MTRReadParams *)params;
 - (NSDictionary)readAttributeACCapacityformatWithParams:(MTRReadParams *)params;
 - (NSDictionary)readAttributeACCoilTemperatureWithParams:(MTRReadParams *)params;
@@ -1329,6 +1330,17 @@
   v7 = [device readAttributeWithEndpointID:endpointID clusterID:&unk_284C42C68 attributeID:&unk_284C41738 params:v4];
 
   return v7;
+}
+
+- (MTRClusterThermostat)initWithDevice:(MTRDevice *)device endpoint:(uint16_t)endpoint queue:(dispatch_queue_t)queue
+{
+  v6 = endpoint;
+  v8 = device;
+  v9 = queue;
+  v10 = [MEMORY[0x277CCABB0] numberWithUnsignedShort:v6];
+  v11 = [(MTRGenericCluster *)self initWithDevice:v8 endpointID:v10 queue:v9];
+
+  return v11;
 }
 
 - (void)getWeeklyScheduleWithParams:(MTRThermostatClusterGetWeeklyScheduleParams *)params expectedValues:(NSArray *)expectedDataValueDictionaries expectedValueInterval:(NSNumber *)expectedValueIntervalMs completionHandler:(void *)completionHandler

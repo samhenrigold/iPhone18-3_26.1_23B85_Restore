@@ -53,7 +53,7 @@
   }
 
   v15.receiver = self;
-  v15.super_class = type metadata accessor for ChallengeInviteViewController();
+  v15.super_class = type metadata accessor for ChallengeInviteViewController(0);
   v13 = [(ChallengeInviteViewController *)&v15 initWithNibName:v9 bundle:bundle];
 
   return v13;
@@ -65,7 +65,7 @@
   v6 = type metadata accessor for ChallengeInviteContentCardModel(0);
   (*(*(v6 - 8) + 56))(self + v5, 1, 1, v6);
   v10.receiver = self;
-  v10.super_class = type metadata accessor for ChallengeInviteViewController();
+  v10.super_class = type metadata accessor for ChallengeInviteViewController(0);
   coderCopy = coder;
   v8 = [(ChallengeInviteViewController *)&v10 initWithCoder:coderCopy];
 
@@ -83,7 +83,7 @@
   v6 = type metadata accessor for ChallengeInviteContentCardModel(0);
   (*(*(v6 - 8) + 56))(self + v5, 1, 1, v6);
   v8.receiver = self;
-  v8.super_class = type metadata accessor for ChallengeInviteViewController();
+  v8.super_class = type metadata accessor for ChallengeInviteViewController(0);
   return [(ChallengeInviteViewController *)&v8 initWithShouldBeSheetPresentationControllerDelegate:delegateCopy];
 }
 
@@ -100,7 +100,7 @@
 
 - (void)_validateMessageForSending:(MSMessage *)sending conversation:(MSConversation *)conversation associatedText:(NSString *)text completionHandler:(id)handler
 {
-  v11 = sub_1000028DC(&qword_1000555B0);
+  v11 = sub_1000028DC(&qword_1000555B0, &qword_100048360);
   __chkstk_darwin(v11 - 8);
   v13 = &v23 - v12;
   v14 = _Block_copy(handler);

@@ -22,26 +22,26 @@
   color = self->_color;
   if (color)
   {
-    v13 = 0;
-    v14 = &v13;
-    v15 = 0x2020000000;
+    v14 = 0;
+    v15 = &v14;
+    v16 = 0x2020000000;
     v3 = getCGColorGetComponentsSymbolLoc_ptr_136722;
-    v16 = getCGColorGetComponentsSymbolLoc_ptr_136722;
+    v17 = getCGColorGetComponentsSymbolLoc_ptr_136722;
     if (!getCGColorGetComponentsSymbolLoc_ptr_136722)
     {
       v4 = CoreGraphicsLibrary_136724();
-      v14[3] = dlsym(v4, "CGColorGetComponents");
-      getCGColorGetComponentsSymbolLoc_ptr_136722 = v14[3];
-      v3 = v14[3];
+      v15[3] = dlsym(v4, "CGColorGetComponents");
+      getCGColorGetComponentsSymbolLoc_ptr_136722 = v15[3];
+      v3 = v15[3];
     }
 
-    _Block_object_dispose(&v13, 8);
+    _Block_object_dispose(&v14, 8);
     if (!v3)
     {
-      dlerror();
-      v12 = abort_report_np();
-      _Block_object_dispose(&v13, 8);
-      _Unwind_Resume(v12);
+      v12 = dlerror();
+      v13 = abort_report_np("%s", v12);
+      _Block_object_dispose(&v14, 8);
+      _Unwind_Resume(v13);
     }
 
     v5 = v3(color);
@@ -69,27 +69,27 @@
 
 - (NSMeasurement)maximumPowerForChargingConnectorType:(INCarChargingConnectorType)chargingConnectorType
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v4 = chargingConnectorType;
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   powerPerConnectors = [(INCar *)self powerPerConnectors];
-  maximumPower = [powerPerConnectors countByEnumeratingWithState:&v14 objects:v18 count:16];
+  maximumPower = [powerPerConnectors countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (maximumPower)
   {
-    v7 = *v15;
+    v7 = *v14;
     while (2)
     {
       for (i = 0; i != maximumPower; i = i + 1)
       {
-        if (*v15 != v7)
+        if (*v14 != v7)
         {
           objc_enumerationMutation(powerPerConnectors);
         }
 
-        v9 = *(*(&v14 + 1) + 8 * i);
+        v9 = *(*(&v13 + 1) + 8 * i);
         chargingConnector = [v9 chargingConnector];
         v11 = [chargingConnector isEqualToString:v4];
 
@@ -100,7 +100,7 @@
         }
       }
 
-      maximumPower = [powerPerConnectors countByEnumeratingWithState:&v14 objects:v18 count:16];
+      maximumPower = [powerPerConnectors countByEnumeratingWithState:&v13 objects:v17 count:16];
       if (maximumPower)
       {
         continue;
@@ -112,37 +112,35 @@
 
 LABEL_11:
 
-  v12 = *MEMORY[0x1E69E9840];
-
   return maximumPower;
 }
 
 - (void)setMaximumPower:(NSMeasurement *)power forChargingConnectorType:(INCarChargingConnectorType)chargingConnectorType
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v6 = power;
   v7 = chargingConnectorType;
   v8 = [[INCarChargingConnectorPower alloc] initWithChargingConnector:v7 maximumPower:v6];
   [(INCar *)self mutableArrayValueForKey:@"powerPerConnectors"];
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
-  v9 = v21 = 0u;
-  v10 = [v9 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v9 = v20 = 0u;
+  v10 = [v9 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v19;
+    v12 = *v18;
     while (2)
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v19 != v12)
+        if (*v18 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        v14 = *(*(&v18 + 1) + 8 * i);
+        v14 = *(*(&v17 + 1) + 8 * i);
         chargingConnector = [v14 chargingConnector];
         v16 = [chargingConnector isEqualToString:v7];
 
@@ -153,7 +151,7 @@ LABEL_11:
         }
       }
 
-      v11 = [v9 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v17 objects:v21 count:16];
       if (v11)
       {
         continue;
@@ -166,43 +164,42 @@ LABEL_11:
 LABEL_11:
 
   [v9 addObject:v8];
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_dictionaryRepresentation
 {
-  v29[9] = *MEMORY[0x1E69E9840];
+  v28[9] = *MEMORY[0x1E69E9840];
   carIdentifier = self->_carIdentifier;
-  v27 = carIdentifier;
-  v28[0] = @"carIdentifier";
+  v26 = carIdentifier;
+  v27[0] = @"carIdentifier";
   if (!carIdentifier)
   {
     carIdentifier = [MEMORY[0x1E695DFB0] null];
   }
 
-  v24 = carIdentifier;
-  v29[0] = carIdentifier;
-  v28[1] = @"displayName";
+  v23 = carIdentifier;
+  v28[0] = carIdentifier;
+  v27[1] = @"displayName";
   displayName = self->_displayName;
-  v26 = displayName;
+  v25 = displayName;
   if (!displayName)
   {
     displayName = [MEMORY[0x1E695DFB0] null];
   }
 
-  v23 = displayName;
-  v29[1] = displayName;
-  v28[2] = @"year";
+  v22 = displayName;
+  v28[1] = displayName;
+  v27[2] = @"year";
   year = self->_year;
-  v25 = year;
+  v24 = year;
   if (!year)
   {
     year = [MEMORY[0x1E695DFB0] null];
   }
 
-  v22 = year;
-  v29[2] = year;
-  v28[3] = @"make";
+  v21 = year;
+  v28[2] = year;
+  v27[3] = @"make";
   make = self->_make;
   null = make;
   if (!make)
@@ -210,9 +207,9 @@ LABEL_11:
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v21 = null;
-  v29[3] = null;
-  v28[4] = @"model";
+  v20 = null;
+  v28[3] = null;
+  v27[4] = @"model";
   model = self->_model;
   null2 = model;
   if (!model)
@@ -220,11 +217,11 @@ LABEL_11:
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v29[4] = null2;
-  v28[5] = @"color";
+  v28[4] = null2;
+  v27[5] = @"color";
   _colorDictionaryRepresentation = [(INCar *)self _colorDictionaryRepresentation];
-  v29[5] = _colorDictionaryRepresentation;
-  v28[6] = @"headUnit";
+  v28[5] = _colorDictionaryRepresentation;
+  v27[6] = @"headUnit";
   headUnit = self->_headUnit;
   null3 = headUnit;
   if (!headUnit)
@@ -232,8 +229,8 @@ LABEL_11:
     null3 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v29[6] = null3;
-  v28[7] = @"supportedChargingConnectors";
+  v28[6] = null3;
+  v27[7] = @"supportedChargingConnectors";
   supportedChargingConnectors = self->_supportedChargingConnectors;
   null4 = supportedChargingConnectors;
   if (!supportedChargingConnectors)
@@ -241,8 +238,8 @@ LABEL_11:
     null4 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v29[7] = null4;
-  v28[8] = @"powerPerConnectors";
+  v28[7] = null4;
+  v27[8] = @"powerPerConnectors";
   powerPerConnectors = self->_powerPerConnectors;
   null5 = powerPerConnectors;
   if (!powerPerConnectors)
@@ -250,8 +247,8 @@ LABEL_11:
     null5 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v29[8] = null5;
-  v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v29 forKeys:v28 count:9];
+  v28[8] = null5;
+  v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v28 forKeys:v27 count:9];
   if (powerPerConnectors)
   {
     if (supportedChargingConnectors)
@@ -301,6 +298,10 @@ LABEL_20:
   }
 
 LABEL_22:
+  if (!v24)
+  {
+  }
+
   if (!v25)
   {
   }
@@ -308,12 +309,6 @@ LABEL_22:
   if (!v26)
   {
   }
-
-  if (!v27)
-  {
-  }
-
-  v18 = *MEMORY[0x1E69E9840];
 
   return v17;
 }
@@ -387,27 +382,27 @@ LABEL_22:
 
 - (INCar)initWithCoder:(id)coder
 {
-  v54[3] = *MEMORY[0x1E69E9840];
+  v53[3] = *MEMORY[0x1E69E9840];
   v3 = MEMORY[0x1E695DFD8];
   coderCopy = coder;
   v5 = objc_opt_class();
   v6 = [v3 setWithObjects:{v5, objc_opt_class(), 0}];
-  v51 = [coderCopy decodeObjectOfClasses:v6 forKey:@"carIdentifier"];
+  v50 = [coderCopy decodeObjectOfClasses:v6 forKey:@"carIdentifier"];
 
   v7 = MEMORY[0x1E695DFD8];
   v8 = objc_opt_class();
   v9 = [v7 setWithObjects:{v8, objc_opt_class(), 0}];
-  v50 = [coderCopy decodeObjectOfClasses:v9 forKey:@"displayName"];
+  v49 = [coderCopy decodeObjectOfClasses:v9 forKey:@"displayName"];
 
   v10 = MEMORY[0x1E695DFD8];
   v11 = objc_opt_class();
   v12 = [v10 setWithObjects:{v11, objc_opt_class(), 0}];
-  v49 = [coderCopy decodeObjectOfClasses:v12 forKey:@"year"];
+  v48 = [coderCopy decodeObjectOfClasses:v12 forKey:@"year"];
 
   v13 = MEMORY[0x1E695DFD8];
   v14 = objc_opt_class();
   v15 = [v13 setWithObjects:{v14, objc_opt_class(), 0}];
-  v48 = [coderCopy decodeObjectOfClasses:v15 forKey:@"make"];
+  v47 = [coderCopy decodeObjectOfClasses:v15 forKey:@"make"];
 
   v16 = MEMORY[0x1E695DFD8];
   v17 = objc_opt_class();
@@ -434,22 +429,21 @@ LABEL_22:
 
   v35 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"headUnit"];
   v36 = MEMORY[0x1E695DFD8];
-  v54[0] = objc_opt_class();
-  v54[1] = objc_opt_class();
-  v54[2] = objc_opt_class();
-  v37 = [MEMORY[0x1E695DEC8] arrayWithObjects:v54 count:3];
+  v53[0] = objc_opt_class();
+  v53[1] = objc_opt_class();
+  v53[2] = objc_opt_class();
+  v37 = [MEMORY[0x1E695DEC8] arrayWithObjects:v53 count:3];
   v38 = [v36 setWithArray:v37];
   v39 = [coderCopy decodeObjectOfClasses:v38 forKey:@"supportedChargingConnectors"];
 
   v40 = MEMORY[0x1E695DFD8];
-  v53[0] = objc_opt_class();
-  v53[1] = objc_opt_class();
-  v41 = [MEMORY[0x1E695DEC8] arrayWithObjects:v53 count:2];
+  v52[0] = objc_opt_class();
+  v52[1] = objc_opt_class();
+  v41 = [MEMORY[0x1E695DEC8] arrayWithObjects:v52 count:2];
   v42 = [v40 setWithArray:v41];
   v43 = [coderCopy decodeObjectOfClasses:v42 forKey:@"powerPerConnectors"];
 
-  v44 = [(INCar *)self initWithCarIdentifier:v51 displayName:v50 year:v49 make:v48 model:v19 color:SRGB headUnit:v35 supportedChargingConnectors:v39 powerPerConnectors:v43];
-  v45 = *MEMORY[0x1E69E9840];
+  v44 = [(INCar *)self initWithCarIdentifier:v50 displayName:v49 year:v48 make:v47 model:v19 color:SRGB headUnit:v35 supportedChargingConnectors:v39 powerPerConnectors:v43];
   return v44;
 }
 

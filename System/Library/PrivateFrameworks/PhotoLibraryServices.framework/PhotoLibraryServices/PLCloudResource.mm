@@ -326,9 +326,9 @@ LABEL_14:
         if ([v13 type] == type)
         {
           assetUuid = [v13 assetUuid];
-          v15 = [assetUuid isEqualToString:uuidCopy];
+          isEqualToString = objc_msgSend_isEqualToString_(assetUuid);
 
-          if (v15)
+          if (isEqualToString)
           {
             v16 = v13;
             goto LABEL_12;
@@ -399,7 +399,7 @@ LABEL_37:
         v45 = firstObject;
         v46 = v12;
         v30 = [v12 objectForKey:firstObject];
-        v31 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(v30, "count")}];
+        v31 = [MEMORY[0x1E695DF70] arrayWithCapacity:objc_msgSend_count(v30)];
         v55 = 0u;
         v56 = 0u;
         v57 = 0u;

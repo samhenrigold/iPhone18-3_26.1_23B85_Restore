@@ -109,36 +109,34 @@
 
 - (id)attributeDescriptions
 {
-  v26[6] = *MEMORY[0x277D85DE8];
+  v25[6] = *MEMORY[0x277D85DE8];
   v3 = objc_alloc(MEMORY[0x277D0F778]);
-  v25 = [MEMORY[0x277CCABB0] numberWithBool:{-[HMDDatabaseZoneManagerConfiguration isZoneOwner](self, "isZoneOwner")}];
-  v24 = [v3 initWithName:@"Zone Owner" value:v25];
-  v26[0] = v24;
+  v24 = [MEMORY[0x277CCABB0] numberWithBool:{-[HMDDatabaseZoneManagerConfiguration isZoneOwner](self, "isZoneOwner")}];
+  v23 = [v3 initWithName:@"Zone Owner" value:v24];
+  v25[0] = v23;
   v4 = objc_alloc(MEMORY[0x277D0F778]);
-  v23 = [MEMORY[0x277CCABB0] numberWithBool:{-[HMDDatabaseZoneManagerConfiguration shouldCreateZone](self, "shouldCreateZone")}];
-  v22 = [v4 initWithName:@"Should Create Zone" value:v23];
-  v26[1] = v22;
+  v22 = [MEMORY[0x277CCABB0] numberWithBool:{-[HMDDatabaseZoneManagerConfiguration shouldCreateZone](self, "shouldCreateZone")}];
+  v21 = [v4 initWithName:@"Should Create Zone" value:v22];
+  v25[1] = v21;
   v5 = objc_alloc(MEMORY[0x277D0F778]);
   externalRecordTypesForSubscriptions = [(HMDDatabaseZoneManagerConfiguration *)self externalRecordTypesForSubscriptions];
   v6 = [v5 initWithName:@"External Record Types" value:externalRecordTypesForSubscriptions];
-  v26[2] = v6;
+  v25[2] = v6;
   v7 = objc_alloc(MEMORY[0x277D0F778]);
   minimumHomeKitVersion = [(HMDDatabaseZoneManagerConfiguration *)self minimumHomeKitVersion];
   v9 = [v7 initWithName:@"Minumum HomeKit Version" value:minimumHomeKitVersion];
-  v26[3] = v9;
+  v25[3] = v9;
   v10 = objc_alloc(MEMORY[0x277D0F778]);
   requiredSupportedFeatures = [(HMDDatabaseZoneManagerConfiguration *)self requiredSupportedFeatures];
   allObjects = [requiredSupportedFeatures allObjects];
   v13 = [allObjects componentsJoinedByString:{@", "}];
   v14 = [v10 initWithName:@"Required Supported Features" value:v13];
-  v26[4] = v14;
+  v25[4] = v14;
   v15 = objc_alloc(MEMORY[0x277D0F778]);
   cloudZoneConfiguration = [(HMDDatabaseZoneManagerConfiguration *)self cloudZoneConfiguration];
   v17 = [v15 initWithName:@"Cloud Zone Configuration" value:cloudZoneConfiguration];
-  v26[5] = v17;
-  v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v26 count:6];
-
-  v19 = *MEMORY[0x277D85DE8];
+  v25[5] = v17;
+  v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v25 count:6];
 
   return v18;
 }

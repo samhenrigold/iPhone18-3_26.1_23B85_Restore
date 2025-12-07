@@ -47,7 +47,7 @@ void __34__HDSDeviceActivation_signpostLog__block_invoke(uint64_t a1)
 
 - (void)_mae_getActivationStateWithCompletion:(id)completion
 {
-  v18[1] = *MEMORY[0x277D85DE8];
+  v17[1] = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   if (gLogCategory_HDSDeviceActivation <= 30 && (gLogCategory_HDSDeviceActivation != -1 || _LogCategory_Initialize()))
   {
@@ -61,8 +61,8 @@ void __34__HDSDeviceActivation_signpostLog__block_invoke(uint64_t a1)
     v7 = signpostID;
     if (os_signpost_enabled(signpostLog))
     {
-      *v16 = 0;
-      _os_signpost_emit_with_name_impl(&dword_252F78000, signpostLog, OS_SIGNPOST_INTERVAL_BEGIN, v7, "DeviceActivationStepCheckState", "", v16, 2u);
+      *v15 = 0;
+      _os_signpost_emit_with_name_impl(&dword_252F78000, signpostLog, OS_SIGNPOST_INTERVAL_BEGIN, v7, "DeviceActivationStepCheckState", "", v15, 2u);
     }
   }
 
@@ -75,18 +75,16 @@ void __34__HDSDeviceActivation_signpostLog__block_invoke(uint64_t a1)
     v12 = signpostID2;
     if (os_signpost_enabled(signpostLog2))
     {
-      *v16 = 0;
-      _os_signpost_emit_with_name_impl(&dword_252F78000, signpostLog2, OS_SIGNPOST_INTERVAL_END, v12, "DeviceActivationStepCheckState", "", v16, 2u);
+      *v15 = 0;
+      _os_signpost_emit_with_name_impl(&dword_252F78000, signpostLog2, OS_SIGNPOST_INTERVAL_END, v12, "DeviceActivationStepCheckState", "", v15, 2u);
     }
   }
 
-  v17 = @"a";
+  v16 = @"a";
   v13 = [MEMORY[0x277CCABB0] numberWithBool:v9 ^ 1u];
-  v18[0] = v13;
-  v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:&v17 count:1];
+  v17[0] = v13;
+  v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:&v16 count:1];
   completionCopy[2](completionCopy, 0, v14);
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)performActivationStep:(id)step completion:(id)completion
@@ -168,10 +166,9 @@ LABEL_17:
   dispatch_async(v5, v7);
 }
 
-void __56__HDSDeviceActivation__mae_createSessionWithCompletion___block_invoke(uint64_t a1)
+void __56__HDSDeviceActivation__mae_createSessionWithCompletion___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v30[1] = *MEMORY[0x277D85DE8];
-  v2 = *(a1 + 32);
+  v28[1] = *MEMORY[0x277D85DE8];
   v3 = [objc_opt_class() signpostLog];
   v4 = [*(a1 + 32) signpostID];
   if ((v4 - 1) <= 0xFFFFFFFFFFFFFFFDLL)
@@ -184,8 +181,8 @@ void __56__HDSDeviceActivation__mae_createSessionWithCompletion___block_invoke(u
     }
   }
 
-  v26 = 0;
-  v27 = 0;
+  v24 = 0;
+  v25 = 0;
   v6 = MAECreateSessionRequestWithError();
   v7 = 0;
   v8 = 0;
@@ -199,9 +196,9 @@ void __56__HDSDeviceActivation__mae_createSessionWithCompletion___block_invoke(u
     [v11 finishEncoding];
     v12 = [v11 encodedData];
 
-    v29 = @"r";
-    v30[0] = v12;
-    v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v30 forKeys:&v29 count:1];
+    v27 = @"r";
+    v28[0] = v12;
+    v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v28 forKeys:&v27 count:1];
   }
 
   else
@@ -214,16 +211,15 @@ void __56__HDSDeviceActivation__mae_createSessionWithCompletion___block_invoke(u
     v13 = 0;
   }
 
-  v14 = *(a1 + 32);
-  v15 = [objc_opt_class() signpostLog];
-  v16 = [*(a1 + 32) signpostID];
-  if ((v16 - 1) <= 0xFFFFFFFFFFFFFFFDLL)
+  v14 = [objc_opt_class() signpostLog];
+  v15 = [*(a1 + 32) signpostID];
+  if ((v15 - 1) <= 0xFFFFFFFFFFFFFFFDLL)
   {
-    v17 = v16;
-    if (os_signpost_enabled(v15))
+    v16 = v15;
+    if (os_signpost_enabled(v14))
     {
       *buf = 0;
-      _os_signpost_emit_with_name_impl(&dword_252F78000, v15, OS_SIGNPOST_INTERVAL_END, v17, "DeviceActivationStepCreateSession", "", buf, 2u);
+      _os_signpost_emit_with_name_impl(&dword_252F78000, v14, OS_SIGNPOST_INTERVAL_END, v16, "DeviceActivationStepCreateSession", "", buf, 2u);
     }
   }
 
@@ -231,15 +227,13 @@ void __56__HDSDeviceActivation__mae_createSessionWithCompletion___block_invoke(u
   block[1] = 3221225472;
   block[2] = __56__HDSDeviceActivation__mae_createSessionWithCompletion___block_invoke_181;
   block[3] = &unk_279714D60;
-  v18 = *(a1 + 40);
-  v24 = v13;
-  v25 = v18;
-  v23 = v8;
-  v19 = v13;
-  v20 = v8;
+  v17 = *(a1 + 40);
+  v22 = v13;
+  v23 = v17;
+  v21 = v8;
+  v18 = v13;
+  v19 = v8;
   dispatch_async(MEMORY[0x277D85CD0], block);
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_mae_createActivationWithData:(id)data completion:(id)completion
@@ -265,11 +259,10 @@ void __56__HDSDeviceActivation__mae_createSessionWithCompletion___block_invoke(u
   dispatch_async(v9, v12);
 }
 
-void __64__HDSDeviceActivation__mae_createActivationWithData_completion___block_invoke(uint64_t a1)
+void __64__HDSDeviceActivation__mae_createActivationWithData_completion___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v57 = *MEMORY[0x277D85DE8];
+  v54 = *MEMORY[0x277D85DE8];
   v3 = (a1 + 32);
-  v2 = *(a1 + 32);
   v4 = [objc_opt_class() signpostLog];
   v5 = [*v3 signpostID];
   if ((v5 - 1) <= 0xFFFFFFFFFFFFFFFDLL)
@@ -282,86 +275,85 @@ void __64__HDSDeviceActivation__mae_createActivationWithData_completion___block_
     }
   }
 
-  v7 = *(a1 + 40);
-  v51 = 0;
-  v52 = 0;
-  v8 = MAECreateActivationRequestWithError();
+  v48 = 0;
+  v49 = 0;
+  v7 = MAECreateActivationRequestWithError();
+  v8 = 0;
   v9 = 0;
-  v10 = 0;
-  if (v8)
+  if (v7)
   {
-    v11 = [v9 valueForHTTPHeaderField:@"User-Agent"];
-    if (!v11)
+    v10 = [v8 valueForHTTPHeaderField:@"User-Agent"];
+    if (!v10)
     {
       __64__HDSDeviceActivation__mae_createActivationWithData_completion___block_invoke_cold_2(a1, v3);
     }
 
-    v12 = [*v3 _setupUserAgent];
-    v42 = [v12 stringByAppendingFormat:@" %@", v11];
-    [v9 setValue:? forHTTPHeaderField:?];
-    v13 = [MEMORY[0x277CBEAF8] preferredLanguages];
-    v14 = [v13 firstObject];
-    [v9 setValue:v14 forHTTPHeaderField:@"Accept-Language"];
+    v11 = [*v3 _setupUserAgent];
+    v39 = [v11 stringByAppendingFormat:@" %@", v10];
+    [v8 setValue:? forHTTPHeaderField:?];
+    v12 = [MEMORY[0x277CBEAF8] preferredLanguages];
+    v13 = [v12 firstObject];
+    [v8 setValue:v13 forHTTPHeaderField:@"Accept-Language"];
 
     if (IsAppleInternalBuild())
     {
-      v15 = [v9 URL];
-      v16 = [v15 absoluteString];
-      v17 = [v16 hasSuffix:@"/deviceActivation"];
+      v14 = [v8 URL];
+      v15 = [v14 absoluteString];
+      v16 = [v15 hasSuffix:@"/deviceActivation"];
 
-      if (v17)
+      if (v16)
       {
-        v40 = v12;
-        v41 = v11;
-        v18 = [MEMORY[0x277CBEBD0] standardUserDefaults];
-        v19 = [v18 dictionaryForKey:@"CustomActivationHeaders"];
+        v37 = v11;
+        v38 = v10;
+        v17 = [MEMORY[0x277CBEBD0] standardUserDefaults];
+        v18 = [v17 dictionaryForKey:@"CustomActivationHeaders"];
 
-        v49 = 0u;
-        v50 = 0u;
+        v46 = 0u;
         v47 = 0u;
-        v48 = 0u;
-        v20 = v19;
-        v21 = [v20 countByEnumeratingWithState:&v47 objects:v56 count:16];
-        if (v21)
+        v44 = 0u;
+        v45 = 0u;
+        v19 = v18;
+        v20 = [v19 countByEnumeratingWithState:&v44 objects:v53 count:16];
+        if (v20)
         {
-          v22 = v21;
-          v23 = *v48;
+          v21 = v20;
+          v22 = *v45;
           do
           {
-            for (i = 0; i != v22; ++i)
+            for (i = 0; i != v21; ++i)
             {
-              if (*v48 != v23)
+              if (*v45 != v22)
               {
-                objc_enumerationMutation(v20);
+                objc_enumerationMutation(v19);
               }
 
-              v25 = *(*(&v47 + 1) + 8 * i);
-              v26 = [v20 objectForKeyedSubscript:v25];
-              [v9 setValue:v26 forHTTPHeaderField:v25];
+              v24 = *(*(&v44 + 1) + 8 * i);
+              v25 = [v19 objectForKeyedSubscript:v24];
+              [v8 setValue:v25 forHTTPHeaderField:v24];
             }
 
-            v22 = [v20 countByEnumeratingWithState:&v47 objects:v56 count:16];
+            v21 = [v19 countByEnumeratingWithState:&v44 objects:v53 count:16];
           }
 
-          while (v22);
+          while (v21);
         }
 
-        v12 = v40;
-        v11 = v41;
+        v11 = v37;
+        v10 = v38;
       }
     }
 
-    v27 = MEMORY[0x277CCAAB0];
-    v28 = v9;
-    v29 = [[v27 alloc] initRequiringSecureCoding:1];
-    [v29 encodeObject:v28 forKey:@"request"];
+    v26 = MEMORY[0x277CCAAB0];
+    v27 = v8;
+    v28 = [[v26 alloc] initRequiringSecureCoding:1];
+    [v28 encodeObject:v27 forKey:@"request"];
 
-    [v29 finishEncoding];
-    v30 = [v29 encodedData];
+    [v28 finishEncoding];
+    v29 = [v28 encodedData];
 
-    v54 = @"r";
-    v55 = v30;
-    v31 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v55 forKeys:&v54 count:1];
+    v51 = @"r";
+    v52 = v29;
+    v30 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v52 forKeys:&v51 count:1];
   }
 
   else
@@ -371,19 +363,18 @@ void __64__HDSDeviceActivation__mae_createActivationWithData_completion___block_
       __64__HDSDeviceActivation__mae_createActivationWithData_completion___block_invoke_cold_1();
     }
 
-    v31 = 0;
+    v30 = 0;
   }
 
-  v32 = *v3;
-  v33 = [objc_opt_class() signpostLog];
-  v34 = [*v3 signpostID];
-  if ((v34 - 1) <= 0xFFFFFFFFFFFFFFFDLL)
+  v31 = [objc_opt_class() signpostLog];
+  v32 = [*v3 signpostID];
+  if ((v32 - 1) <= 0xFFFFFFFFFFFFFFFDLL)
   {
-    v35 = v34;
-    if (os_signpost_enabled(v33))
+    v33 = v32;
+    if (os_signpost_enabled(v31))
     {
       *buf = 0;
-      _os_signpost_emit_with_name_impl(&dword_252F78000, v33, OS_SIGNPOST_INTERVAL_END, v35, "DeviceActivationStepCreateActivation", "", buf, 2u);
+      _os_signpost_emit_with_name_impl(&dword_252F78000, v31, OS_SIGNPOST_INTERVAL_END, v33, "DeviceActivationStepCreateActivation", "", buf, 2u);
     }
   }
 
@@ -391,15 +382,13 @@ void __64__HDSDeviceActivation__mae_createActivationWithData_completion___block_
   block[1] = 3221225472;
   block[2] = __64__HDSDeviceActivation__mae_createActivationWithData_completion___block_invoke_203;
   block[3] = &unk_279714D60;
-  v36 = *(a1 + 48);
-  v45 = v31;
-  v46 = v36;
-  v44 = v10;
-  v37 = v31;
-  v38 = v10;
+  v34 = *(a1 + 48);
+  v42 = v30;
+  v43 = v34;
+  v41 = v9;
+  v35 = v30;
+  v36 = v9;
   dispatch_async(MEMORY[0x277D85CD0], block);
-
-  v39 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_mae_activateWithData:(id)data headers:(id)headers completion:(id)completion
@@ -427,23 +416,22 @@ void __64__HDSDeviceActivation__mae_createActivationWithData_completion___block_
   dispatch_async(v11, v15);
 }
 
-void __64__HDSDeviceActivation__mae_activateWithData_headers_completion___block_invoke(uint64_t a1)
+void __64__HDSDeviceActivation__mae_activateWithData_headers_completion___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v22[1] = *MEMORY[0x277D85DE8];
-  v2 = *(a1 + 32);
-  if (v2)
+  v19[1] = *MEMORY[0x277D85DE8];
+  v3 = *(a1 + 32);
+  if (v3)
   {
-    v21 = *MEMORY[0x277D288C8];
-    v22[0] = v2;
-    v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:&v21 count:1];
+    v18 = *MEMORY[0x277D288C8];
+    v19[0] = v3;
+    v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:&v18 count:1];
   }
 
   else
   {
-    v3 = 0;
+    v4 = 0;
   }
 
-  v4 = *(a1 + 40);
   v5 = [objc_opt_class() signpostLog];
   v6 = [*(a1 + 40) signpostID];
   if ((v6 - 1) <= 0xFFFFFFFFFFFFFFFDLL)
@@ -456,29 +444,26 @@ void __64__HDSDeviceActivation__mae_activateWithData_headers_completion___block_
     }
   }
 
-  v8 = *(a1 + 48);
-  v9 = MAEActivateDeviceWithError();
-  v10 = 0;
-  v19 = @"a";
-  v11 = [MEMORY[0x277CCABB0] numberWithBool:v9];
-  v20 = v11;
-  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v20 forKeys:&v19 count:1];
+  v8 = MAEActivateDeviceWithError();
+  v9 = 0;
+  v16 = @"a";
+  v10 = [MEMORY[0x277CCABB0] numberWithBool:v8];
+  v17 = v10;
+  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v17 forKeys:&v16 count:1];
 
-  v13 = *(a1 + 40);
-  v14 = [objc_opt_class() signpostLog];
-  v15 = [*(a1 + 40) signpostID];
-  if ((v15 - 1) <= 0xFFFFFFFFFFFFFFFDLL)
+  v12 = [objc_opt_class() signpostLog];
+  v13 = [*(a1 + 40) signpostID];
+  if ((v13 - 1) <= 0xFFFFFFFFFFFFFFFDLL)
   {
-    v16 = v15;
-    if (os_signpost_enabled(v14))
+    v14 = v13;
+    if (os_signpost_enabled(v12))
     {
       *buf = 0;
-      _os_signpost_emit_with_name_impl(&dword_252F78000, v14, OS_SIGNPOST_INTERVAL_END, v16, "DeviceActivationStepActivate", "", buf, 2u);
+      _os_signpost_emit_with_name_impl(&dword_252F78000, v12, OS_SIGNPOST_INTERVAL_END, v14, "DeviceActivationStepActivate", "", buf, 2u);
     }
   }
 
   (*(*(a1 + 56) + 16))();
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_setupUserAgent

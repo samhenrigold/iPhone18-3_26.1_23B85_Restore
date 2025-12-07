@@ -65,7 +65,7 @@
 
 - (void)_processingTimerFired
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   if (IMOSLoggingEnabled())
   {
     v3 = OSLogHandleForIMFoundationCategory();
@@ -90,20 +90,20 @@
   {
     if (!v6)
     {
-      goto LABEL_29;
+      return;
     }
 
     v15 = OSLogHandleForIMFoundationCategory();
     if (!os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
     {
-      goto LABEL_29;
+      return;
     }
 
     *buf = 0;
     v16 = "MessageProcessing: Unable to retrieve ptask from store";
 LABEL_28:
     _os_log_impl(&dword_22B4CC000, v15, OS_LOG_TYPE_INFO, v16, buf, 2u);
-    goto LABEL_29;
+    return;
   }
 
   if (v6)
@@ -113,32 +113,32 @@ LABEL_28:
     {
       v8 = [loadMostRecentMessagePTasks count];
       *buf = 134217984;
-      v24 = v8;
+      v23 = v8;
       _os_log_impl(&dword_22B4CC000, v7, OS_LOG_TYPE_INFO, "Found %ld messages that need processing", buf, 0xCu);
     }
   }
 
-  v20 = 0u;
-  v21 = 0u;
-  v18 = 0u;
   v19 = 0u;
-  v9 = [loadMostRecentMessagePTasks countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
+  v9 = [loadMostRecentMessagePTasks countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v9)
   {
-    v10 = *v19;
+    v10 = *v18;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v19 != v10)
+        if (*v18 != v10)
         {
           objc_enumerationMutation(loadMostRecentMessagePTasks);
         }
 
-        [(IMDMessageProcessingController *)self _indexSpotlightIfNeedForPTask:*(*(&v18 + 1) + 8 * i)];
+        [(IMDMessageProcessingController *)self _indexSpotlightIfNeedForPTask:*(*(&v17 + 1) + 8 * i)];
       }
 
-      v9 = [loadMostRecentMessagePTasks countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v9 = [loadMostRecentMessagePTasks countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v9);
@@ -151,13 +151,13 @@ LABEL_28:
   {
     if (!v13)
     {
-      goto LABEL_29;
+      return;
     }
 
     v15 = OSLogHandleForIMFoundationCategory();
     if (!os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
     {
-      goto LABEL_29;
+      return;
     }
 
     *buf = 0;
@@ -176,8 +176,6 @@ LABEL_28:
   }
 
   [(IMDMessageProcessingController *)self _scheduleDeferredProcessingWithTimeInterval:2.0];
-LABEL_29:
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_indexSpotlightIfNeedForPTask:(id)task

@@ -69,8 +69,9 @@
 
 - (void)_updateRightLabelWithValue:(double)value
 {
-  v4 = AXFormatFloatWithPercentage();
-  [(ASTOnDeviceEyeTrackingSmoothingSliderCell *)self setLabelText:v4];
+  v4 = (value - kAXSAssistiveTouchOnDeviceEyeTrackingSmoothingBufferSizeMinUserPreference) / (kAXSAssistiveTouchOnDeviceEyeTrackingSmoothingBufferSizeMaxUserPreference - kAXSAssistiveTouchOnDeviceEyeTrackingSmoothingBufferSizeMinUserPreference);
+  v5 = AXFormatFloatWithPercentage(v4);
+  [(ASTOnDeviceEyeTrackingSmoothingSliderCell *)self setLabelText:v5];
 }
 
 - (void)handleSliderDidFinishDrag:(id)drag

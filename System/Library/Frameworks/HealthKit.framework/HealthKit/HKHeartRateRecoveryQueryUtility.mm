@@ -13,32 +13,30 @@ void __49___HKHeartRateRecoveryQueryUtility__setupQueries__block_invoke(void *a1
 
   else
   {
-    v7 = a1[4];
-    v8 = [objc_opt_class() workoutRecoveryDateIntervalForWorkout:*(v7 + 16) overlappingWorkouts:v6];
-    v9 = v8;
-    if (v8)
+    v7 = [objc_opt_class() workoutRecoveryDateIntervalForWorkout:*(a1[4] + 16) overlappingWorkouts:v6];
+    v8 = v7;
+    if (v7)
     {
-      v10 = a1[6];
-      v11 = a1[4];
-      if (*(*(v10 + 8) + 24))
+      v9 = a1[6];
+      v10 = a1[4];
+      if (*(*(v9 + 8) + 24))
       {
-        v12 = a1[4];
-        v13 = [objc_opt_class() workoutRecoveryHeartRatesForWorkout:*(v12 + 16) recoveryDateInterval:v9 readings:*(v12 + 48)];
+        v11 = [objc_opt_class() workoutRecoveryHeartRatesForWorkout:*(a1[4] + 16) recoveryDateInterval:v7 readings:*(a1[4] + 48)];
         (*(*(a1[4] + 40) + 16))();
       }
 
       else
       {
-        v14 = v11[2];
-        v15 = a1[5];
-        v16[0] = MEMORY[0x1E69E9820];
-        v16[1] = 3221225472;
-        v16[2] = __49___HKHeartRateRecoveryQueryUtility__setupQueries__block_invoke_2;
-        v16[3] = &unk_1E737DD80;
-        v18 = v10;
-        v16[4] = v11;
-        v17 = v8;
-        [v11 _heartRatesPostWorkout:v14 workoutRecoveryTimePredicate:v15 completionHandler:v16];
+        v12 = v10[2];
+        v13 = a1[5];
+        v14[0] = MEMORY[0x1E69E9820];
+        v14[1] = 3221225472;
+        v14[2] = __49___HKHeartRateRecoveryQueryUtility__setupQueries__block_invoke_2;
+        v14[3] = &unk_1E737DD80;
+        v16 = v9;
+        v14[4] = v10;
+        v15 = v7;
+        [v10 _heartRatesPostWorkout:v12 workoutRecoveryTimePredicate:v13 completionHandler:v14];
       }
     }
 
@@ -51,7 +49,7 @@ void __49___HKHeartRateRecoveryQueryUtility__setupQueries__block_invoke(void *a1
 
 void __49___HKHeartRateRecoveryQueryUtility__setupQueries__block_invoke_2(void *a1, void *a2, uint64_t a3)
 {
-  v9 = a2;
+  v8 = a2;
   *(*(a1[6] + 8) + 24) = 1;
   v6 = a1[4];
   if (a3)
@@ -62,15 +60,14 @@ void __49___HKHeartRateRecoveryQueryUtility__setupQueries__block_invoke_2(void *
   else
   {
     objc_storeStrong((v6 + 48), a2);
-    v7 = a1[4];
-    v8 = [objc_opt_class() workoutRecoveryHeartRatesForWorkout:*(v7 + 16) recoveryDateInterval:a1[5] readings:*(v7 + 48)];
+    v7 = [objc_opt_class() workoutRecoveryHeartRatesForWorkout:*(a1[4] + 16) recoveryDateInterval:a1[5] readings:*(a1[4] + 48)];
     (*(*(a1[4] + 40) + 16))();
   }
 }
 
 void __106___HKHeartRateRecoveryQueryUtility__heartRatesPostWorkout_workoutRecoveryTimePredicate_completionHandler___block_invoke(void *a1, void *a2, void *a3, void *a4, void *a5, char a6, void *a7)
 {
-  v24 = a2;
+  v23 = a2;
   v13 = a3;
   v14 = a4;
   v15 = a5;
@@ -100,7 +97,6 @@ void __106___HKHeartRateRecoveryQueryUtility__heartRatesPostWorkout_workoutRecov
 
   if (a6)
   {
-    v23 = a1[5];
 LABEL_8:
     (*(a1[6] + 16))();
   }

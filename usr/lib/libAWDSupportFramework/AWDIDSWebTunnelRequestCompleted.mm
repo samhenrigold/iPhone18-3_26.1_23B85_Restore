@@ -185,7 +185,6 @@ LABEL_10:
 {
   if ((*&self->_has & 4) != 0)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
   }
 
@@ -197,7 +196,6 @@ LABEL_10:
   has = self->_has;
   if ((has & 2) != 0)
   {
-    timeTaken = self->_timeTaken;
     PBDataWriterWriteUint64Field();
     has = self->_has;
     if ((has & 8) == 0)
@@ -217,7 +215,6 @@ LABEL_7:
     goto LABEL_7;
   }
 
-  deliveryType = self->_deliveryType;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((has & 0x10) == 0)
@@ -229,7 +226,6 @@ LABEL_8:
     }
 
 LABEL_14:
-    requestSize = self->_requestSize;
     PBDataWriterWriteUint64Field();
     if ((*&self->_has & 0x20) == 0)
     {
@@ -240,7 +236,6 @@ LABEL_14:
   }
 
 LABEL_13:
-  tunnelError = self->_tunnelError;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if (has)
@@ -255,7 +250,6 @@ LABEL_9:
   }
 
 LABEL_15:
-  reversePushAttempted = self->_reversePushAttempted;
 
   PBDataWriterWriteBOOLField();
 }
@@ -420,7 +414,6 @@ LABEL_8:
   if (v5)
   {
     has = self->_has;
-    v7 = *(equal + 56);
     if ((has & 4) != 0)
     {
       if ((*(equal + 56) & 4) == 0 || self->_timestamp != *(equal + 3))

@@ -49,7 +49,7 @@
     v5 = __atxlog_handle_heuristic();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      [ATXHeuristicCreateCalendarEventActionMaker _makeAction];
+      [(ATXHeuristicCreateCalendarEventActionMaker *)v3 _makeAction];
     }
 
 LABEL_10:
@@ -140,11 +140,10 @@ LABEL_19:
 
 - (void)_makeAction
 {
-  v9 = *MEMORY[0x277D85DE8];
   heuristic = [self heuristic];
-  OUTLINED_FUNCTION_0_0(&dword_23E3EA000, v2, v3, "Failed to create Intent because of nil ekEvent. Heuristic: %@.", v4, v5, v6, v7, 2u);
-
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = heuristic;
+  OUTLINED_FUNCTION_0_0(&dword_23E3EA000, v2, v3, "Failed to create Intent because of nil ekEvent. Heuristic: %@.", v4, v5, v6, v7, v8, DWORD2(v8));
 }
 
 @end

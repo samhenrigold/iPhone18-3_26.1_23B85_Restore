@@ -80,16 +80,16 @@
 
 - (void)profileDidBecomeReady:(id)ready
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   readyCopy = ready;
   objc_initWeak(&location, self);
   appRefreshSettings = self->_appRefreshSettings;
-  v11[0] = MEMORY[0x277D85DD0];
-  v11[1] = 3221225472;
-  v11[2] = __50__HDAppSubscriptionManager_profileDidBecomeReady___block_invoke;
-  v11[3] = &unk_278616F38;
-  objc_copyWeak(&v12, &location);
-  [(HDBackgroundAppRefreshSettings *)appRefreshSettings registerForUpdates:v11 onQueue:self->_launchQueue];
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = __50__HDAppSubscriptionManager_profileDidBecomeReady___block_invoke;
+  v10[3] = &unk_278616F38;
+  objc_copyWeak(&v11, &location);
+  [(HDBackgroundAppRefreshSettings *)appRefreshSettings registerForUpdates:v10 onQueue:self->_launchQueue];
   self->_shouldScheduleLaunches = [(HDBackgroundAppRefreshSettings *)self->_appRefreshSettings backgroundAppRefreshEnabledGlobally];
   _HKInitializeLogging();
   v6 = *MEMORY[0x277CCC288];
@@ -106,7 +106,7 @@
     }
 
     *buf = 138543362;
-    v15 = v7;
+    v14 = v7;
     _os_log_impl(&dword_228986000, v6, OS_LOG_TYPE_DEFAULT, "Setting should schedule launches %{public}@", buf, 0xCu);
   }
 
@@ -117,25 +117,23 @@
   block[3] = &unk_278613968;
   block[4] = self;
   dispatch_async(launchQueue, block);
-  objc_destroyWeak(&v12);
+  objc_destroyWeak(&v11);
   objc_destroyWeak(&location);
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __50__HDAppSubscriptionManager_profileDidBecomeReady___block_invoke(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   if (WeakRetained)
   {
-    v5 = WeakRetained;
+    v4 = WeakRetained;
     *(WeakRetained + 32) = [WeakRetained[1] backgroundAppRefreshEnabledGlobally];
     _HKInitializeLogging();
     v2 = *MEMORY[0x277CCC288];
     if (os_log_type_enabled(*MEMORY[0x277CCC288], OS_LOG_TYPE_DEFAULT))
     {
-      if (*(v5 + 32))
+      if (*(v4 + 32))
       {
         v3 = @"YES";
       }
@@ -146,20 +144,18 @@ void __50__HDAppSubscriptionManager_profileDidBecomeReady___block_invoke(uint64_
       }
 
       *buf = 138543362;
-      v7 = v3;
+      v6 = v3;
       _os_log_impl(&dword_228986000, v2, OS_LOG_TYPE_DEFAULT, "Updating should schedule launches %{public}@", buf, 0xCu);
     }
 
-    [(HDAppSubscriptionManager *)v5 _queue_scheduleLaunches:0 anchor:0 type:?];
-    WeakRetained = v5;
+    [(HDAppSubscriptionManager *)v4 _queue_scheduleLaunches:0 anchor:0 type:?];
+    WeakRetained = v4;
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_queue_scheduleLaunches:(void *)launches anchor:(uint64_t)anchor type:
 {
-  v88 = *MEMORY[0x277D85DE8];
+  v87 = *MEMORY[0x277D85DE8];
   launchesCopy = launches;
   if (self)
   {
@@ -168,51 +164,51 @@ void __50__HDAppSubscriptionManager_profileDidBecomeReady___block_invoke(uint64_
       if (HDBackgroundObservationSupportedForDataTypeCode(a2))
       {
         anchorCopy = anchor;
-        v58 = launchesCopy;
+        v57 = launchesCopy;
         if (a2 < 0 || (v8 = *(self + 16), [MEMORY[0x277CCABB0] numberWithInteger:a2], v9 = objc_claimAutoreleasedReturnValue(), LOBYTE(v8) = objc_msgSend(v8, "containsObject:", v9), v9, (v8 & 1) != 0))
         {
           v10 = objc_alloc_init(MEMORY[0x277CBEB38]);
           v11 = objc_alloc_init(MEMORY[0x277CBEB18]);
           *&buf = MEMORY[0x277D85DD0];
           *(&buf + 1) = 3221225472;
-          v82 = __93__HDAppSubscriptionManager__updateObservationStatusForDataTypeCode_lastAppLaunchTimes_error___block_invoke;
-          v83 = &unk_2786168E0;
+          v81 = __93__HDAppSubscriptionManager__updateObservationStatusForDataTypeCode_lastAppLaunchTimes_error___block_invoke;
+          v82 = &unk_2786168E0;
           selfCopy = self;
           selfCopy2 = self;
-          v55 = a2;
-          v87 = a2;
+          v54 = a2;
+          v86 = a2;
           v13 = v11;
-          v85 = v13;
-          v57 = v10;
-          v86 = v57;
+          v84 = v13;
+          v56 = v10;
+          v85 = v56;
           if (HKWithAutoreleasePool())
           {
-            v56 = [v13 copy];
+            v55 = objc_msgSend_copy(v13);
           }
 
           else
           {
-            v56 = 0;
+            v55 = 0;
           }
 
-          v53 = 0;
-          if (!v56)
+          v52 = 0;
+          if (!v55)
           {
             v25 = &unk_283CB0B88;
-            if (v58)
+            if (v57)
             {
-              v25 = v58;
+              v25 = v57;
             }
 
             v26 = *(self + 64);
             v27 = MEMORY[0x277CCABB0];
             v28 = v25;
-            v29 = [v27 numberWithInteger:v55];
+            v29 = [v27 numberWithInteger:v54];
             v30 = [v26 objectForKeyedSubscript:v29];
             v31 = [HDAppSubscriptionManager _updateOrCreateSubscription:v30 value:v28 type:anchorCopy];
 
             v32 = *(self + 64);
-            v33 = [MEMORY[0x277CCABB0] numberWithInteger:v55];
+            v33 = [MEMORY[0x277CCABB0] numberWithInteger:v54];
             [v32 setObject:v31 forKeyedSubscript:v33];
 
             _HKInitializeLogging();
@@ -220,18 +216,18 @@ void __50__HDAppSubscriptionManager_profileDidBecomeReady___block_invoke(uint64_
             if (os_log_type_enabled(*MEMORY[0x277CCC288], OS_LOG_TYPE_ERROR))
             {
               LODWORD(buf) = 138543362;
-              *(&buf + 4) = v53;
+              *(&buf + 4) = v52;
               _os_log_error_impl(&dword_228986000, v34, OS_LOG_TYPE_ERROR, "Failed to look up app subscriptions: %{public}@", &buf, 0xCu);
             }
 
             goto LABEL_44;
           }
 
-          if (![v56 count])
+          if (![v55 count])
           {
 LABEL_44:
 
-            launchesCopy = v58;
+            launchesCopy = v57;
             goto LABEL_45;
           }
 
@@ -268,41 +264,41 @@ LABEL_31:
           else if (v23)
           {
             LODWORD(buf) = 134217984;
-            *(&buf + 4) = v55;
+            *(&buf + 4) = v54;
             v24 = "Scheduling launches for %lu";
             goto LABEL_31;
           }
 
 LABEL_33:
-          v36 = v56;
+          v36 = v55;
+          v50 = v56;
           v51 = v57;
-          v52 = v58;
           v37 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(v36, "count")}];
-          v76 = 0;
-          v77 = &v76;
-          v78 = 0x2810000000;
-          v79 = &unk_22929BC4D;
-          v80 = 0;
+          v75 = 0;
+          v76 = &v75;
+          v77 = 0x2810000000;
+          v78 = &unk_22929BC4D;
+          v79 = 0;
           v38 = dispatch_group_create();
+          v71 = 0u;
           v72 = 0u;
           v73 = 0u;
           v74 = 0u;
-          v75 = 0u;
           obj = v36;
-          v39 = [obj countByEnumeratingWithState:&v72 objects:&buf count:16];
+          v39 = [obj countByEnumeratingWithState:&v71 objects:&buf count:16];
           if (v39)
           {
-            v40 = *v73;
+            v40 = *v72;
             do
             {
               for (i = 0; i != v39; ++i)
               {
-                if (*v73 != v40)
+                if (*v72 != v40)
                 {
                   objc_enumerationMutation(obj);
                 }
 
-                v42 = *(*(&v72 + 1) + 8 * i);
+                v42 = *(*(&v71 + 1) + 8 * i);
                 bundleIdentifier = [v42 bundleIdentifier];
                 WeakRetained = objc_loadWeakRetained((selfCopy + 40));
                 [HDAppSubscriptionAppLaunchEntity appSDKVersionTokenForBundleID:bundleIdentifier profile:WeakRetained error:0];
@@ -310,28 +306,28 @@ LABEL_33:
                 if (dyld_version_token_at_least())
                 {
                   dispatch_group_enter(v38);
-                  v66[0] = MEMORY[0x277D85DD0];
-                  v66[1] = 3221225472;
-                  v66[2] = __107__HDAppSubscriptionManager__updateSubscriptionsBasedOnBARSwitchState_lastLaunchTimes_dataCode_anchor_type___block_invoke;
-                  v66[3] = &unk_27861CF20;
-                  v71 = &v76;
-                  v67 = v37;
-                  v68 = v42;
+                  v65[0] = MEMORY[0x277D85DD0];
+                  v65[1] = 3221225472;
+                  v65[2] = __107__HDAppSubscriptionManager__updateSubscriptionsBasedOnBARSwitchState_lastLaunchTimes_dataCode_anchor_type___block_invoke;
+                  v65[3] = &unk_27861CF20;
+                  v70 = &v75;
+                  v66 = v37;
+                  v67 = v42;
                   v45 = bundleIdentifier;
-                  v69 = v45;
-                  v70 = v38;
-                  [selfCopy _isBackgroundAppRefreshDisabledForBundleIdentifier:v45 completion:v66];
+                  v68 = v45;
+                  v69 = v38;
+                  [selfCopy _isBackgroundAppRefreshDisabledForBundleIdentifier:v45 completion:v65];
                 }
 
                 else
                 {
-                  os_unfair_lock_lock(v77 + 8);
+                  os_unfair_lock_lock(v76 + 8);
                   [v37 addObject:v42];
-                  os_unfair_lock_unlock(v77 + 8);
+                  os_unfair_lock_unlock(v76 + 8);
                 }
               }
 
-              v39 = [obj countByEnumeratingWithState:&v72 objects:&buf count:16];
+              v39 = [obj countByEnumeratingWithState:&v71 objects:&buf count:16];
             }
 
             while (v39);
@@ -343,23 +339,23 @@ LABEL_33:
           block[2] = __107__HDAppSubscriptionManager__updateSubscriptionsBasedOnBARSwitchState_lastLaunchTimes_dataCode_anchor_type___block_invoke_320;
           block[3] = &unk_27861CF48;
           block[4] = selfCopy;
-          v61 = v37;
-          v47 = v51;
-          v62 = v47;
-          v64 = v55;
-          v48 = v52;
-          v63 = v48;
-          v65 = anchorCopy;
+          v60 = v37;
+          v47 = v50;
+          v61 = v47;
+          v63 = v54;
+          v48 = v51;
+          v62 = v48;
+          v64 = anchorCopy;
           v49 = v37;
           dispatch_group_notify(v38, v46, block);
 
-          _Block_object_dispose(&v76, 8);
+          _Block_object_dispose(&v75, 8);
           goto LABEL_44;
         }
 
         _HKInitializeLogging();
         v19 = *MEMORY[0x277CCC288];
-        launchesCopy = v58;
+        launchesCopy = v57;
         if (os_log_type_enabled(*MEMORY[0x277CCC288], OS_LOG_TYPE_INFO))
         {
           LODWORD(buf) = 134217984;
@@ -405,13 +401,11 @@ LABEL_22:
   }
 
 LABEL_45:
-
-  v50 = *MEMORY[0x277D85DE8];
 }
 
 void __107__HDAppSubscriptionManager__updateSubscriptionsBasedOnBARSwitchState_lastLaunchTimes_dataCode_anchor_type___block_invoke(uint64_t a1, char a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   if (a2)
   {
     _HKInitializeLogging();
@@ -419,9 +413,9 @@ void __107__HDAppSubscriptionManager__updateSubscriptionsBasedOnBARSwitchState_l
     if (os_log_type_enabled(*MEMORY[0x277CCC288], OS_LOG_TYPE_DEFAULT))
     {
       v4 = *(a1 + 48);
-      v6 = 138543362;
-      v7 = v4;
-      _os_log_impl(&dword_228986000, v3, OS_LOG_TYPE_DEFAULT, "BAR is disabled for app: %{public}@", &v6, 0xCu);
+      v5 = 138543362;
+      v6 = v4;
+      _os_log_impl(&dword_228986000, v3, OS_LOG_TYPE_DEFAULT, "BAR is disabled for app: %{public}@", &v5, 0xCu);
     }
   }
 
@@ -433,20 +427,19 @@ void __107__HDAppSubscriptionManager__updateSubscriptionsBasedOnBARSwitchState_l
   }
 
   dispatch_group_leave(*(a1 + 56));
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __107__HDAppSubscriptionManager__updateSubscriptionsBasedOnBARSwitchState_lastLaunchTimes_dataCode_anchor_type___block_invoke_320(uint64_t a1)
 {
-  v105 = *MEMORY[0x277D85DE8];
+  v104 = *MEMORY[0x277D85DE8];
   v1 = *(a1 + 32);
   v2 = *(a1 + 48);
   v3 = *(a1 + 56);
-  v81 = *(a1 + 64);
-  v79 = *(a1 + 72);
-  v75 = *(a1 + 40);
-  v82 = v2;
-  v85 = v3;
+  v80 = *(a1 + 64);
+  v78 = *(a1 + 72);
+  v74 = *(a1 + 40);
+  v81 = v2;
+  v84 = v3;
   if (!v1)
   {
     goto LABEL_58;
@@ -458,43 +451,43 @@ void __107__HDAppSubscriptionManager__updateSubscriptionsBasedOnBARSwitchState_l
     goto LABEL_57;
   }
 
-  v86 = v1;
-  v74 = WeakRetained;
+  v85 = v1;
+  v73 = WeakRetained;
   v5 = [WeakRetained daemon];
-  v77 = [v5 contentProtectionManager];
+  v76 = [v5 contentProtectionManager];
 
-  v84 = time(0);
+  v83 = time(0);
+  v93 = 0u;
   v94 = 0u;
   v95 = 0u;
   v96 = 0u;
-  v97 = 0u;
-  obj = v75;
-  v83 = [obj countByEnumeratingWithState:&v94 objects:v98 count:16];
-  if (!v83)
+  obj = v74;
+  v82 = [obj countByEnumeratingWithState:&v93 objects:v97 count:16];
+  if (!v82)
   {
     goto LABEL_56;
   }
 
-  v80 = *v95;
-  v6 = v85;
-  if (!v85)
+  v79 = *v94;
+  v6 = v84;
+  if (!v84)
   {
     v6 = &unk_283CB0B88;
   }
 
-  v76 = v6;
+  v75 = v6;
   do
   {
-    for (i = 0; i != v83; ++i)
+    for (i = 0; i != v82; ++i)
     {
-      if (*v95 != v80)
+      if (*v94 != v79)
       {
         objc_enumerationMutation(obj);
       }
 
-      v8 = *(*(&v94 + 1) + 8 * i);
-      v87 = [v8 bundleIdentifier];
-      v9 = [v82 objectForKeyedSubscript:v87];
+      v8 = *(*(&v93 + 1) + 8 * i);
+      v86 = [v8 bundleIdentifier];
+      v9 = [v81 objectForKeyedSubscript:v86];
       _HKInitializeLogging();
       v10 = *MEMORY[0x277CCC288];
       if (os_log_type_enabled(*MEMORY[0x277CCC288], OS_LOG_TYPE_INFO))
@@ -502,12 +495,12 @@ void __107__HDAppSubscriptionManager__updateSubscriptionsBasedOnBARSwitchState_l
         v11 = v10;
         v12 = MEMORY[0x277CCACA8];
         v13 = MEMORY[0x277CCABB0];
-        v14 = v85;
+        v14 = v84;
         v15 = v8;
         v16 = [v13 numberWithInteger:{objc_msgSend(v15, "dataCode")}];
         v17 = [v15 bundleIdentifier];
 
-        v18 = [v12 stringWithFormat:@"%@|%@.%@", v16, v76, v17];
+        v18 = [v12 stringWithFormat:@"%@|%@.%@", v16, v75, v17];
 
         v19 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@%@", @"com.apple.healthd.scheduled.", v18];
 
@@ -565,20 +558,20 @@ void __107__HDAppSubscriptionManager__updateSubscriptionsBasedOnBARSwitchState_l
         *buf = 134218496;
         *&buf[4] = v32;
         *&buf[12] = 2048;
-        *&buf[14] = v84;
+        *&buf[14] = v83;
         *&buf[22] = 2048;
-        v100 = (v32 - v84);
+        v99 = (v32 - v83);
         _os_log_impl(&dword_228986000, v33, OS_LOG_TYPE_DEFAULT, "Next Launch: %lld - Now: %lld - Time Diff: %lld seconds", buf, 0x20u);
       }
 
-      if (_HDIsUnitTesting || v32 <= v84)
+      if (_HDIsUnitTesting || v32 <= v83)
       {
-        if ([v77 isProtectedDataAvailable])
+        if ([v76 isProtectedDataAvailable])
         {
           v43 = v8;
-          v35 = v85;
+          v35 = v84;
           v44 = [v43 bundleIdentifier];
-          v45 = objc_loadWeakRetained((v86 + 40));
+          v45 = objc_loadWeakRetained((v85 + 40));
           v46 = [v45 daemon];
           v47 = [v46 behavior];
           v48 = [v47 isAppleInternalInstall];
@@ -597,17 +590,17 @@ void __107__HDAppSubscriptionManager__updateSubscriptionsBasedOnBARSwitchState_l
 
           v34 = v43;
           v54 = [v34 bundleIdentifier];
-          v55 = [*(v86 + 24) objectForKeyedSubscript:v54];
+          v55 = [*(v85 + 24) objectForKeyedSubscript:v54];
           if (!v55)
           {
             v55 = objc_alloc_init(MEMORY[0x277CBEB38]);
             if (v54)
             {
-              [*(v86 + 24) setObject:v55 forKeyedSubscript:v54];
+              [*(v85 + 24) setObject:v55 forKeyedSubscript:v54];
             }
           }
 
-          if (v85)
+          if (v84)
           {
             v56 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(v34, "dataCode")}];
             v57 = [v55 objectForKeyedSubscript:v56];
@@ -645,16 +638,16 @@ void __107__HDAppSubscriptionManager__updateSubscriptionsBasedOnBARSwitchState_l
             [v57 addObject:&unk_283CB0B88];
           }
 
-          v63 = v86;
+          v63 = v85;
           if (_HDIsUnitTesting)
           {
-            v64 = *(v86 + 104);
+            v64 = *(v85 + 104);
             if (v64)
             {
               v65 = [v34 bundleIdentifier];
               (*(v64 + 16))(v64, v65, 1);
 
-              v63 = v86;
+              v63 = v85;
             }
           }
 
@@ -672,17 +665,17 @@ void __107__HDAppSubscriptionManager__updateSubscriptionsBasedOnBARSwitchState_l
           v68 = [MEMORY[0x277CCABB0] numberWithLong:time(0)];
           v69 = v44;
           v70 = v68;
-          v71 = *(v86 + 56);
+          v71 = *(v85 + 56);
           *buf = MEMORY[0x277D85DD0];
           *&buf[8] = 3221225472;
           *&buf[16] = __64__HDAppSubscriptionManager__updateBundleID_dataCode_launchTime___block_invoke;
-          v100 = &unk_2786131A8;
-          v101 = v86;
+          v99 = &unk_2786131A8;
+          v100 = v85;
           v37 = v69;
-          v102 = v37;
-          v104 = v67;
+          v101 = v37;
+          v103 = v67;
           v72 = v70;
-          v103 = v72;
+          v102 = v72;
           dispatch_async(v71, buf);
         }
 
@@ -696,21 +689,21 @@ void __107__HDAppSubscriptionManager__updateSubscriptionsBasedOnBARSwitchState_l
             _os_log_impl(&dword_228986000, v51, OS_LOG_TYPE_DEFAULT, "Adding code to pending type codes", buf, 2u);
           }
 
-          v52 = *(v86 + 64);
-          v34 = [MEMORY[0x277CCABB0] numberWithInteger:v81];
+          v52 = *(v85 + 64);
+          v34 = [MEMORY[0x277CCABB0] numberWithInteger:v80];
           v35 = [v52 objectForKeyedSubscript:v34];
-          v37 = [HDAppSubscriptionManager _updateOrCreateSubscription:v35 value:v85 type:v79];
-          v53 = *(v86 + 64);
-          v41 = [MEMORY[0x277CCABB0] numberWithInteger:v81];
+          v37 = [HDAppSubscriptionManager _updateOrCreateSubscription:v35 value:v84 type:v78];
+          v53 = *(v85 + 64);
+          v41 = [MEMORY[0x277CCABB0] numberWithInteger:v80];
           [v53 setObject:v37 forKeyedSubscript:v41];
         }
       }
 
       else
       {
-        v34 = [MEMORY[0x277CCABB0] numberWithInteger:v81];
-        v35 = [*(v86 + 72) objectForKeyedSubscript:v34];
-        v36 = [*(v86 + 80) objectForKeyedSubscript:v34];
+        v34 = [MEMORY[0x277CCABB0] numberWithInteger:v80];
+        v35 = [*(v85 + 72) objectForKeyedSubscript:v34];
+        v36 = [*(v85 + 80) objectForKeyedSubscript:v34];
         v37 = v36;
         if (v35)
         {
@@ -727,34 +720,34 @@ void __107__HDAppSubscriptionManager__updateSubscriptionsBasedOnBARSwitchState_l
         if (os_log_type_enabled(*MEMORY[0x277CCC288], OS_LOG_TYPE_DEFAULT))
         {
           *buf = 134349056;
-          *&buf[4] = v32 - v84;
+          *&buf[4] = v32 - v83;
           _os_log_impl(&dword_228986000, v38, OS_LOG_TYPE_DEFAULT, "Setting timer with interval %{public}lld", buf, 0xCu);
         }
 
-        v39 = dispatch_source_create(MEMORY[0x277D85D38], 0, 0, *(v86 + 56));
+        v39 = dispatch_source_create(MEMORY[0x277D85D38], 0, 0, *(v85 + 56));
         v40 = dispatch_walltime(0, 0);
-        dispatch_source_set_timer(v39, v40, 1000000000 * (v32 - v84), 0x1DCD6500uLL);
+        dispatch_source_set_timer(v39, v40, 1000000000 * (v32 - v83), 0x1DCD6500uLL);
         *buf = 0;
         *&buf[8] = buf;
         *&buf[16] = 0x2020000000;
-        v100 = 0;
+        v99 = 0;
         handler[0] = MEMORY[0x277D85DD0];
         handler[1] = 3221225472;
         handler[2] = __112__HDAppSubscriptionManager__queue_scheduleLaunchesForAllowedSubscriptions_lastLaunchTimes_dataCode_anchor_type___block_invoke;
         handler[3] = &unk_27861CF98;
-        v92 = buf;
-        handler[4] = v86;
+        v91 = buf;
+        handler[4] = v85;
         v41 = v39;
-        v89 = v41;
+        v88 = v41;
         v34 = v34;
-        v90 = v34;
-        v91 = v85;
-        v93 = v79;
+        v89 = v34;
+        v90 = v84;
+        v92 = v78;
         dispatch_source_set_event_handler(v41, handler);
         dispatch_resume(v41);
-        [*(v86 + 72) setObject:v41 forKeyedSubscript:v34];
+        [*(v85 + 72) setObject:v41 forKeyedSubscript:v34];
         v42 = [MEMORY[0x277CCABB0] numberWithLongLong:v32];
-        [*(v86 + 80) setObject:v42 forKeyedSubscript:v34];
+        [*(v85 + 80) setObject:v42 forKeyedSubscript:v34];
 
         _Block_object_dispose(buf, 8);
       }
@@ -762,17 +755,16 @@ void __107__HDAppSubscriptionManager__updateSubscriptionsBasedOnBARSwitchState_l
 LABEL_54:
     }
 
-    v83 = [obj countByEnumeratingWithState:&v94 objects:v98 count:16];
+    v82 = [obj countByEnumeratingWithState:&v93 objects:v97 count:16];
   }
 
-  while (v83);
+  while (v82);
 LABEL_56:
 
-  WeakRetained = v74;
+  WeakRetained = v73;
 LABEL_57:
 
 LABEL_58:
-  v73 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_isBackgroundAppRefreshDisabledForBundleIdentifier:(id)identifier completion:(id)completion
@@ -915,7 +907,7 @@ uint64_t __93__HDAppSubscriptionManager__updateObservationStatusForDataTypeCode_
 
 BOOL __93__HDAppSubscriptionManager__updateObservationStatusForDataTypeCode_lastAppLaunchTimes_error___block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   v5 = *(a1 + 56);
   WeakRetained = objc_loadWeakRetained((*(a1 + 32) + 40));
   v7 = [HDAppSubscriptionEntity allSubscriptionsForType:v5 profile:WeakRetained error:a3];
@@ -930,27 +922,27 @@ BOOL __93__HDAppSubscriptionManager__updateObservationStatusForDataTypeCode_last
     }
 
     v10 = objc_alloc_init(MEMORY[0x277CBEB38]);
+    v36 = 0u;
     v37 = 0u;
     v38 = 0u;
     v39 = 0u;
-    v40 = 0u;
-    v31 = v7;
+    v30 = v7;
     v11 = v7;
-    v12 = [v11 countByEnumeratingWithState:&v37 objects:v41 count:16];
+    v12 = [v11 countByEnumeratingWithState:&v36 objects:v40 count:16];
     if (v12)
     {
       v13 = v12;
-      v14 = *v38;
+      v14 = *v37;
       do
       {
         for (i = 0; i != v13; ++i)
         {
-          if (*v38 != v14)
+          if (*v37 != v14)
           {
             objc_enumerationMutation(v11);
           }
 
-          v16 = *(*(&v37 + 1) + 8 * i);
+          v16 = *(*(&v36 + 1) + 8 * i);
           v17 = *(*(a1 + 32) + 16);
           v18 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(v16, "dataCode")}];
           [v17 addObject:v18];
@@ -970,7 +962,7 @@ BOOL __93__HDAppSubscriptionManager__updateObservationStatusForDataTypeCode_last
           }
         }
 
-        v13 = [v11 countByEnumeratingWithState:&v37 objects:v41 count:16];
+        v13 = [v11 countByEnumeratingWithState:&v36 objects:v40 count:16];
       }
 
       while (v13);
@@ -987,60 +979,59 @@ BOOL __93__HDAppSubscriptionManager__updateObservationStatusForDataTypeCode_last
     v24 = objc_loadWeakRetained((v22 + 40));
     v25 = [v24 sourceManager];
 
-    v32[0] = MEMORY[0x277D85DD0];
-    v32[1] = 3221225472;
-    v32[2] = __93__HDAppSubscriptionManager__updateObservationStatusForDataTypeCode_lastAppLaunchTimes_error___block_invoke_3;
-    v32[3] = &unk_27861CFE8;
+    v31[0] = MEMORY[0x277D85DD0];
+    v31[1] = 3221225472;
+    v31[2] = __93__HDAppSubscriptionManager__updateObservationStatusForDataTypeCode_lastAppLaunchTimes_error___block_invoke_3;
+    v31[3] = &unk_27861CFE8;
     v26 = *(a1 + 32);
     v27 = *(a1 + 40);
-    v33 = v25;
-    v34 = v26;
-    v35 = v27;
-    v36 = *(a1 + 48);
+    v32 = v25;
+    v33 = v26;
+    v34 = v27;
+    v35 = *(a1 + 48);
     v28 = v25;
-    [v10 enumerateKeysAndObjectsUsingBlock:v32];
+    [v10 enumerateKeysAndObjectsUsingBlock:v31];
 
-    v7 = v31;
+    v7 = v30;
   }
 
-  v29 = *MEMORY[0x277D85DE8];
   return v7 != 0;
 }
 
 void __93__HDAppSubscriptionManager__updateObservationStatusForDataTypeCode_lastAppLaunchTimes_error___block_invoke_3(uint64_t a1, void *a2, void *a3)
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = objc_autoreleasePoolPush();
   v8 = *(a1 + 32);
-  v31 = 0;
-  v9 = [v8 clientSourceForBundleIdentifier:v5 error:&v31];
-  v10 = v31;
+  v30 = 0;
+  v9 = [v8 clientSourceForBundleIdentifier:v5 error:&v30];
+  v10 = v30;
   v11 = v10;
   if (v9)
   {
     if (([v9 _options] & 4) != 0)
     {
-      v25 = v7;
+      v24 = v7;
       v15 = objc_alloc(MEMORY[0x277CBEB98]);
       v16 = [v6 allKeys];
       v17 = [v15 initWithArray:v16];
       WeakRetained = objc_loadWeakRetained((*(a1 + 40) + 40));
-      v30 = 0;
-      v19 = [HDAuthorizationEntity readAuthorizationStatusesByTypeForBundleIdentifier:v5 types:v17 profile:WeakRetained error:&v30];
-      v13 = v30;
+      v29 = 0;
+      v19 = [HDAuthorizationEntity readAuthorizationStatusesByTypeForBundleIdentifier:v5 types:v17 profile:WeakRetained error:&v29];
+      v13 = v29;
 
       if (v19)
       {
-        v26[0] = MEMORY[0x277D85DD0];
-        v26[1] = 3221225472;
-        v26[2] = __93__HDAppSubscriptionManager__updateObservationStatusForDataTypeCode_lastAppLaunchTimes_error___block_invoke_342;
-        v26[3] = &unk_27861CFC0;
-        v27 = v6;
-        v28 = *(a1 + 48);
-        v29 = v5;
-        [v19 enumerateKeysAndObjectsUsingBlock:v26];
+        v25[0] = MEMORY[0x277D85DD0];
+        v25[1] = 3221225472;
+        v25[2] = __93__HDAppSubscriptionManager__updateObservationStatusForDataTypeCode_lastAppLaunchTimes_error___block_invoke_342;
+        v25[3] = &unk_27861CFC0;
+        v26 = v6;
+        v27 = *(a1 + 48);
+        v28 = v5;
+        [v19 enumerateKeysAndObjectsUsingBlock:v25];
       }
 
       else
@@ -1050,14 +1041,14 @@ void __93__HDAppSubscriptionManager__updateObservationStatusForDataTypeCode_last
         if (os_log_type_enabled(*MEMORY[0x277CCC288], OS_LOG_TYPE_ERROR))
         {
           *buf = 138543618;
-          v33 = v5;
-          v34 = 2114;
-          v35 = v13;
+          v32 = v5;
+          v33 = 2114;
+          v34 = v13;
           _os_log_error_impl(&dword_228986000, v21, OS_LOG_TYPE_ERROR, "Failed to look up authorizations for bundle identifier %{public}@: %{public}@", buf, 0x16u);
         }
       }
 
-      v7 = v25;
+      v7 = v24;
       goto LABEL_15;
     }
 
@@ -1085,9 +1076,9 @@ LABEL_15:
     if (os_log_type_enabled(*MEMORY[0x277CCC288], OS_LOG_TYPE_ERROR))
     {
       *buf = 138543618;
-      v33 = v5;
-      v34 = 2114;
-      v35 = v11;
+      v32 = v5;
+      v33 = 2114;
+      v34 = v11;
       _os_log_error_impl(&dword_228986000, v14, OS_LOG_TYPE_ERROR, "Failed to look up source with bundle identifier %{public}@: %{public}@", buf, 0x16u);
     }
   }
@@ -1104,7 +1095,7 @@ LABEL_15:
     if (os_log_type_enabled(*MEMORY[0x277CCC288], OS_LOG_TYPE_INFO))
     {
       *buf = 138543362;
-      v33 = v5;
+      v32 = v5;
       _os_log_impl(&dword_228986000, v20, OS_LOG_TYPE_INFO, "Source for bundle identifier %{public}@ not found", buf, 0xCu);
     }
   }
@@ -1112,12 +1103,11 @@ LABEL_15:
 LABEL_18:
 
   objc_autoreleasePoolPop(v7);
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 void __93__HDAppSubscriptionManager__updateObservationStatusForDataTypeCode_lastAppLaunchTimes_error___block_invoke_342(uint64_t a1, void *a2, void *a3)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = [*(a1 + 32) objectForKeyedSubscript:v5];
@@ -1137,16 +1127,14 @@ void __93__HDAppSubscriptionManager__updateObservationStatusForDataTypeCode_last
         v9 = *(a1 + 48);
         v10 = v8;
         v11 = [v5 identifier];
-        v13 = 138543618;
-        v14 = v9;
-        v15 = 2112;
-        v16 = v11;
-        _os_log_impl(&dword_228986000, v10, OS_LOG_TYPE_DEFAULT, "Ignoring subscription for %{public}@ to %@ because app does not have authorization to read", &v13, 0x16u);
+        v12 = 138543618;
+        v13 = v9;
+        v14 = 2112;
+        v15 = v11;
+        _os_log_impl(&dword_228986000, v10, OS_LOG_TYPE_DEFAULT, "Ignoring subscription for %{public}@ to %@ because app does not have authorization to read", &v12, 0x16u);
       }
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __63__HDAppSubscriptionManager__launchTimerFired_code_anchor_type___block_invoke(uint64_t a1)
@@ -1232,7 +1220,7 @@ void __64__HDAppSubscriptionManager__updateBundleID_dataCode_launchTime___block_
 - (void)database:(id)database protectedDataDidBecomeAvailable:(BOOL)available
 {
   availableCopy = available;
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   dispatch_assert_queue_V2(self->_launchQueue);
   if (availableCopy)
   {
@@ -1242,14 +1230,14 @@ void __64__HDAppSubscriptionManager__updateBundleID_dataCode_launchTime___block_
     [v7 setCacheScope:1];
     WeakRetained = objc_loadWeakRetained(&self->_profile);
     database = [WeakRetained database];
-    v14[4] = self;
-    v15 = 0;
-    v14[0] = MEMORY[0x277D85DD0];
-    v14[1] = 3221225472;
-    v14[2] = __69__HDAppSubscriptionManager_database_protectedDataDidBecomeAvailable___block_invoke;
-    v14[3] = &unk_278616048;
-    v10 = [database performTransactionWithContext:v7 error:&v15 block:v14 inaccessibilityHandler:0];
-    v11 = v15;
+    v13[4] = self;
+    v14 = 0;
+    v13[0] = MEMORY[0x277D85DD0];
+    v13[1] = 3221225472;
+    v13[2] = __69__HDAppSubscriptionManager_database_protectedDataDidBecomeAvailable___block_invoke;
+    v13[3] = &unk_278616048;
+    v10 = [database performTransactionWithContext:v7 error:&v14 block:v13 inaccessibilityHandler:0];
+    v11 = v14;
 
     if ((v10 & 1) == 0)
     {
@@ -1258,18 +1246,16 @@ void __64__HDAppSubscriptionManager__updateBundleID_dataCode_launchTime___block_
       if (os_log_type_enabled(*MEMORY[0x277CCC288], OS_LOG_TYPE_ERROR))
       {
         *buf = 138543362;
-        v17 = v11;
+        v16 = v11;
         _os_log_error_impl(&dword_228986000, v12, OS_LOG_TYPE_ERROR, "Failed to update scheduled launch times: %{public}@", buf, 0xCu);
       }
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __69__HDAppSubscriptionManager_database_protectedDataDidBecomeAvailable___block_invoke(uint64_t a1)
 {
-  v2 = [*(*(a1 + 32) + 64) copy];
+  v2 = objc_msgSend_copy(*(*(a1 + 32) + 64));
   v4[0] = MEMORY[0x277D85DD0];
   v4[1] = 3221225472;
   v4[2] = __69__HDAppSubscriptionManager_database_protectedDataDidBecomeAvailable___block_invoke_2;
@@ -1377,7 +1363,7 @@ void __43__HDAppSubscriptionManager_removeBundleID___block_invoke(uint64_t a1)
 
 void __96__HDAppSubscriptionManager_subscribeForBundleID_dataCode_frequencyInSeconds_appSDKVersionToken___block_invoke(uint64_t a1)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v1 = *(a1 + 32);
   v2 = *(a1 + 48);
   v3 = *(a1 + 56);
@@ -1407,11 +1393,11 @@ void __96__HDAppSubscriptionManager_subscribeForBundleID_dataCode_frequencyInSec
         if (os_log_type_enabled(*MEMORY[0x277CCC288], OS_LOG_TYPE_DEBUG))
         {
           *buf = 138412802;
-          v21 = v5;
-          v22 = 2048;
-          v23 = v2;
-          v24 = 2048;
-          v25 = v3;
+          v20 = v5;
+          v21 = 2048;
+          v22 = v2;
+          v23 = 2048;
+          v24 = v3;
           _os_log_debug_impl(&dword_228986000, v11, OS_LOG_TYPE_DEBUG, "Ignoring app subscription request since %@ is already subscribed for %ld at freq %llu", buf, 0x20u);
         }
       }
@@ -1441,13 +1427,11 @@ void __96__HDAppSubscriptionManager_subscribeForBundleID_dataCode_frequencyInSec
       if (os_log_type_enabled(*MEMORY[0x277CCC288], OS_LOG_TYPE_ERROR))
       {
         *buf = 134217984;
-        v21 = v2;
+        v20 = v2;
         _os_log_error_impl(&dword_228986000, v12, OS_LOG_TYPE_ERROR, "Ignoring app subscription for unsupported type %ld", buf, 0xCu);
       }
     }
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setAnchor:(id)anchor forDataCode:(int64_t)code type:(int64_t)type
@@ -1491,7 +1475,7 @@ void __96__HDAppSubscriptionManager_subscribeForBundleID_dataCode_frequencyInSec
 
 void __68__HDAppSubscriptionManager_ackForBundleID_dataTypes_anchor_ackTime___block_invoke(uint64_t a1)
 {
-  v49 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   v1 = *(a1 + 32);
   v2 = *(a1 + 48);
   v3 = *(a1 + 56);
@@ -1511,9 +1495,9 @@ void __68__HDAppSubscriptionManager_ackForBundleID_dataTypes_anchor_ackTime___bl
       *&buf[12] = 2112;
       *&buf[14] = v6;
       *&buf[22] = 2112;
-      v47 = v7;
-      LOWORD(v48) = 2112;
-      *(&v48 + 2) = v8;
+      v46 = v7;
+      LOWORD(v47) = 2112;
+      *(&v47 + 2) = v8;
       _os_log_impl(&dword_228986000, v9, OS_LOG_TYPE_INFO, "Acking '%@' with '%@' to anchor %@ and ackTime %@.", buf, 0x2Au);
     }
 
@@ -1537,19 +1521,19 @@ void __68__HDAppSubscriptionManager_ackForBundleID_dataTypes_anchor_ackTime___bl
     v15 = v14;
     if (v14)
     {
-      v40 = 0;
-      v41 = &v40;
-      v42 = 0x2020000000;
-      v43 = 0;
+      v39 = 0;
+      v40 = &v39;
+      v41 = 0x2020000000;
+      v42 = 0;
       *buf = MEMORY[0x277D85DD0];
       *&buf[8] = 3221225472;
       *&buf[16] = __75__HDAppSubscriptionManager__queue_ackForBundleID_dataTypes_anchor_ackTime___block_invoke;
-      v47 = &unk_27861D038;
+      v46 = &unk_27861D038;
       v16 = v14;
-      *&v48 = v16;
-      *(&v48 + 1) = &v40;
+      *&v47 = v16;
+      *(&v47 + 1) = &v39;
       [v6 enumerateObjectsUsingBlock:buf];
-      if (!*(v41 + 24) || ![v6 count])
+      if (!*(v40 + 24) || ![v6 count])
       {
         v17 = [v16 objectForKeyedSubscript:&unk_283CB0B88];
         v18 = v17;
@@ -1571,9 +1555,9 @@ void __68__HDAppSubscriptionManager_ackForBundleID_dataTypes_anchor_ackTime___bl
       v19 = *MEMORY[0x277CCC288];
       if (os_log_type_enabled(*MEMORY[0x277CCC288], OS_LOG_TYPE_DEFAULT))
       {
-        *v44 = 138543362;
-        v45 = v16;
-        _os_log_impl(&dword_228986000, v19, OS_LOG_TYPE_DEFAULT, "Launch anchors after ack %{public}@", v44, 0xCu);
+        *v43 = 138543362;
+        v44 = v16;
+        _os_log_impl(&dword_228986000, v19, OS_LOG_TYPE_DEFAULT, "Launch anchors after ack %{public}@", v43, 0xCu);
       }
 
       if (![v16 count])
@@ -1589,17 +1573,17 @@ void __68__HDAppSubscriptionManager_ackForBundleID_dataTypes_anchor_ackTime___bl
         {
           v24 = MEMORY[0x277CBEBD0];
           v25 = v5;
-          v39 = [v24 standardUserDefaults];
-          v38 = [v39 objectForKey:@"HDBackgroundLaunchInvalidationStringsKey"];
+          v38 = [v24 standardUserDefaults];
+          v37 = [v38 objectForKey:@"HDBackgroundLaunchInvalidationStringsKey"];
           v26 = MEMORY[0x277CCACA8];
           v27 = MEMORY[0x277CBEAA8];
           v28 = v25;
           v29 = [v27 date];
-          v37 = [v26 stringWithFormat:@"[%@]: %@", v29, v28];
+          v36 = [v26 stringWithFormat:@"[%@]: %@", v29, v28];
 
-          if (v38)
+          if (v37)
           {
-            v30 = [v38 stringByAppendingFormat:@"\n%@", v37];
+            v30 = [v37 stringByAppendingFormat:@"\n%@", v36];
             v31 = [v30 componentsSeparatedByString:@"\n"];
             if ([v31 count] <= 0xA)
             {
@@ -1616,10 +1600,10 @@ void __68__HDAppSubscriptionManager_ackForBundleID_dataTypes_anchor_ackTime___bl
 
           else
           {
-            v33 = v37;
+            v33 = v36;
           }
 
-          [v39 setObject:v33 forKey:@"HDBackgroundLaunchInvalidationStringsKey"];
+          [v38 setObject:v33 forKey:@"HDBackgroundLaunchInvalidationStringsKey"];
         }
 
         v34 = *(v1 + 104);
@@ -1632,17 +1616,15 @@ void __68__HDAppSubscriptionManager_ackForBundleID_dataTypes_anchor_ackTime___bl
         v35 = *MEMORY[0x277CCC288];
         if (os_log_type_enabled(*MEMORY[0x277CCC288], OS_LOG_TYPE_DEFAULT))
         {
-          *v44 = 138543362;
-          v45 = v5;
-          _os_log_impl(&dword_228986000, v35, OS_LOG_TYPE_DEFAULT, "Requesting Duet to invalidate launch for %{public}@", v44, 0xCu);
+          *v43 = 138543362;
+          v44 = v5;
+          _os_log_impl(&dword_228986000, v35, OS_LOG_TYPE_DEFAULT, "Requesting Duet to invalidate launch for %{public}@", v43, 0xCu);
         }
       }
 
-      _Block_object_dispose(&v40, 8);
+      _Block_object_dispose(&v39, 8);
     }
   }
-
-  v36 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)unitTesting_isObservingDataTypeCode:(int64_t)code

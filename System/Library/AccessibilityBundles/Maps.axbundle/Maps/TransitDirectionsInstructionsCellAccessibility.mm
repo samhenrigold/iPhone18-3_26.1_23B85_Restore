@@ -14,21 +14,19 @@
 
 - (id)accessibilityElements
 {
-  v7[1] = *MEMORY[0x29EDCA608];
+  v6[1] = *MEMORY[0x29EDCA608];
   v2 = [(TransitDirectionsInstructionsCellAccessibility *)self safeValueForKey:@"_stepView"];
   v3 = v2;
   if (v2 && [v2 isAccessibilityElement])
   {
-    v7[0] = v3;
-    v4 = [MEMORY[0x29EDB8D80] arrayWithObjects:v7 count:1];
+    v6[0] = v3;
+    v4 = [MEMORY[0x29EDB8D80] arrayWithObjects:v6 count:1];
   }
 
   else
   {
     v4 = MEMORY[0x29EDB8E90];
   }
-
-  v5 = *MEMORY[0x29EDCA608];
 
   return v4;
 }

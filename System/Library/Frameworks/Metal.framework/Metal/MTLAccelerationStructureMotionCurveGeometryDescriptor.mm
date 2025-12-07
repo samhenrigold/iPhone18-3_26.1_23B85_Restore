@@ -149,31 +149,7 @@
     }
 
     controlPointCount = [(MTLAccelerationStructureMotionCurveGeometryDescriptor *)self controlPointCount];
-    if (controlPointCount != [equal controlPointCount])
-    {
-      goto LABEL_3;
-    }
-
-    controlPointStride = [(MTLAccelerationStructureMotionCurveGeometryDescriptor *)self controlPointStride];
-    if (controlPointStride != [equal controlPointStride])
-    {
-      goto LABEL_3;
-    }
-
-    controlPointFormat = [(MTLAccelerationStructureMotionCurveGeometryDescriptor *)self controlPointFormat];
-    if (controlPointFormat != [equal controlPointFormat])
-    {
-      goto LABEL_3;
-    }
-
-    radiusFormat = [(MTLAccelerationStructureMotionCurveGeometryDescriptor *)self radiusFormat];
-    if (radiusFormat != [equal radiusFormat])
-    {
-      goto LABEL_3;
-    }
-
-    radiusStride = [(MTLAccelerationStructureMotionCurveGeometryDescriptor *)self radiusStride];
-    if (radiusStride != [equal radiusStride] || (v22 = -[MTLAccelerationStructureMotionCurveGeometryDescriptor indexBuffer](self, "indexBuffer"), v22 != objc_msgSend(equal, "indexBuffer")) || (v23 = -[MTLAccelerationStructureMotionCurveGeometryDescriptor indexBufferOffset](self, "indexBufferOffset"), v23 != objc_msgSend(equal, "indexBufferOffset")) || (v24 = -[MTLAccelerationStructureMotionCurveGeometryDescriptor indexType](self, "indexType"), v24 != objc_msgSend(equal, "indexType")) || (v25 = -[MTLAccelerationStructureMotionCurveGeometryDescriptor segmentCount](self, "segmentCount"), v25 != objc_msgSend(equal, "segmentCount")) || (v26 = -[MTLAccelerationStructureMotionCurveGeometryDescriptor segmentControlPointCount](self, "segmentControlPointCount"), v26 != objc_msgSend(equal, "segmentControlPointCount")) || (v27 = -[MTLAccelerationStructureMotionCurveGeometryDescriptor curveType](self, "curveType"), v27 != objc_msgSend(equal, "curveType")) || (v28 = -[MTLAccelerationStructureMotionCurveGeometryDescriptor curveBasis](self, "curveBasis"), v28 != objc_msgSend(equal, "curveBasis")))
+    if (controlPointCount != [equal controlPointCount] || (v18 = -[MTLAccelerationStructureMotionCurveGeometryDescriptor controlPointStride](self, "controlPointStride"), v18 != objc_msgSend(equal, "controlPointStride")) || (v19 = -[MTLAccelerationStructureMotionCurveGeometryDescriptor controlPointFormat](self, "controlPointFormat"), v19 != objc_msgSend(equal, "controlPointFormat")) || (v20 = -[MTLAccelerationStructureMotionCurveGeometryDescriptor radiusFormat](self, "radiusFormat"), v20 != objc_msgSend(equal, "radiusFormat")) || (v21 = -[MTLAccelerationStructureMotionCurveGeometryDescriptor radiusStride](self, "radiusStride"), v21 != objc_msgSend(equal, "radiusStride")) || (v22 = -[MTLAccelerationStructureMotionCurveGeometryDescriptor indexBuffer](self, "indexBuffer"), v22 != objc_msgSend(equal, "indexBuffer")) || (v23 = -[MTLAccelerationStructureMotionCurveGeometryDescriptor indexBufferOffset](self, "indexBufferOffset"), v23 != objc_msgSend(equal, "indexBufferOffset")) || (v24 = -[MTLAccelerationStructureMotionCurveGeometryDescriptor indexType](self, "indexType"), v24 != objc_msgSend(equal, "indexType")) || (v25 = -[MTLAccelerationStructureMotionCurveGeometryDescriptor segmentCount](self, "segmentCount"), v25 != objc_msgSend(equal, "segmentCount")) || (v26 = -[MTLAccelerationStructureMotionCurveGeometryDescriptor segmentControlPointCount](self, "segmentControlPointCount"), v26 != objc_msgSend(equal, "segmentControlPointCount")) || (v27 = -[MTLAccelerationStructureMotionCurveGeometryDescriptor curveType](self, "curveType"), v27 != objc_msgSend(equal, "curveType")) || (v28 = -[MTLAccelerationStructureMotionCurveGeometryDescriptor curveBasis](self, "curveBasis"), v28 != objc_msgSend(equal, "curveBasis")))
     {
 LABEL_3:
       LOBYTE(v8) = 0;

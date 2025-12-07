@@ -115,39 +115,13 @@
 
 - (void)init
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   biometricMethod = [self biometricMethod];
-  v6 = 138412546;
+  v5 = 138412546;
   selfCopy = self;
-  v8 = 2112;
-  v9 = biometricMethod;
-  _os_log_debug_impl(&dword_1A784E000, a2, OS_LOG_TYPE_DEBUG, "%@ init, method=%@", &v6, 0x16u);
-
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-- (void)authenticationMethod:didStartWithState:.cold.1()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_3();
-  OUTLINED_FUNCTION_1_4(&dword_1A784E000, v0, v1, "%@ didStartWithState:%@");
-  v2 = *MEMORY[0x1E69E9840];
-}
-
-- (void)authenticationMethod:didChangeState:.cold.1()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_3();
-  OUTLINED_FUNCTION_1_4(&dword_1A784E000, v0, v1, "%@ didChangeState:%@");
-  v2 = *MEMORY[0x1E69E9840];
-}
-
-- (void)authenticationMethod:didAuthenticateWithResult:.cold.1()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_3();
-  OUTLINED_FUNCTION_1_4(&dword_1A784E000, v0, v1, "%@ didAuthenticateWithResult:%@");
-  v2 = *MEMORY[0x1E69E9840];
+  v7 = 2112;
+  v8 = biometricMethod;
+  _os_log_debug_impl(&dword_1A784E000, a2, OS_LOG_TYPE_DEBUG, "%@ init, method=%@", &v5, 0x16u);
 }
 
 @end

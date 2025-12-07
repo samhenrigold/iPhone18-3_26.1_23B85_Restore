@@ -11,25 +11,24 @@
 
 - (STAskForTimeRequestReceivedUserNotificationContext)initWithAskForTimeRequestIdentifier:(id)identifier childName:(id)name childDSID:(id)d requestedResourceName:(id)resourceName
 {
-  v19[2] = *MEMORY[0x1E69E9840];
+  v18[2] = *MEMORY[0x1E69E9840];
   nameCopy = name;
   dCopy = d;
   resourceNameCopy = resourceName;
-  v18.receiver = self;
-  v18.super_class = STAskForTimeRequestReceivedUserNotificationContext;
-  v14 = [(STUserNotificationContext *)&v18 initWithIdentifier:identifier];
+  v17.receiver = self;
+  v17.super_class = STAskForTimeRequestReceivedUserNotificationContext;
+  v14 = [(STUserNotificationContext *)&v17 initWithIdentifier:identifier];
   if (v14)
   {
-    v19[0] = nameCopy;
-    v19[1] = resourceNameCopy;
-    v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v19 count:2];
+    v18[0] = nameCopy;
+    v18[1] = resourceNameCopy;
+    v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v18 count:2];
     [(STUserNotificationContext *)v14 setLocalizedUserNotificationBodyArguments:v15];
 
     objc_storeStrong(&v14->_childDSID, d);
     objc_storeStrong(&v14->_childName, name);
   }
 
-  v16 = *MEMORY[0x1E69E9840];
   return v14;
 }
 
@@ -143,7 +142,7 @@ void __103__STAskForTimeRequestReceivedUserNotificationContext_customizeNotifica
 
 uint64_t __103__STAskForTimeRequestReceivedUserNotificationContext_customizeNotificationContent_withCompletionBlock___block_invoke_2(uint64_t a1, void *a2)
 {
-  v16[1] = *MEMORY[0x1E69E9840];
+  v15[1] = *MEMORY[0x1E69E9840];
   if (a2)
   {
     v3 = a2;
@@ -151,17 +150,17 @@ uint64_t __103__STAskForTimeRequestReceivedUserNotificationContext_customizeNoti
     v5 = [v4 stringByDeletingPathExtension];
 
     v6 = MEMORY[0x1E6983268];
-    v15 = *MEMORY[0x1E69833C0];
-    v16[0] = MEMORY[0x1E695E118];
-    v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:&v15 count:1];
-    v13 = 0;
-    v8 = [v6 attachmentWithIdentifier:v5 URL:v3 options:v7 error:&v13];
+    v14 = *MEMORY[0x1E69833C0];
+    v15[0] = MEMORY[0x1E695E118];
+    v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:&v14 count:1];
+    v12 = 0;
+    v8 = [v6 attachmentWithIdentifier:v5 URL:v3 options:v7 error:&v12];
 
-    v9 = v13;
+    v9 = v12;
     if (v8)
     {
-      v14 = v8;
-      v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v14 count:1];
+      v13 = v8;
+      v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v13 count:1];
       [*(a1 + 32) setAttachments:v10];
     }
 
@@ -175,9 +174,7 @@ uint64_t __103__STAskForTimeRequestReceivedUserNotificationContext_customizeNoti
     }
   }
 
-  result = (*(*(a1 + 40) + 16))();
-  v12 = *MEMORY[0x1E69E9840];
-  return result;
+  return (*(*(a1 + 40) + 16))();
 }
 
 - (void)_fetchAndWriteFamilyPhotoURLIfNeeded:(id)needed
@@ -243,41 +240,40 @@ void __91__STAskForTimeRequestReceivedUserNotificationContext__fetchAndWriteFami
   {
     v9 = [MEMORY[0x1E696AC08] defaultManager];
     v10 = a1[5];
-    v21 = 0;
-    v11 = [v9 createDirectoryAtURL:v10 withIntermediateDirectories:1 attributes:0 error:&v21];
-    v12 = v21;
+    v20 = 0;
+    v11 = [v9 createDirectoryAtURL:v10 withIntermediateDirectories:1 attributes:0 error:&v20];
+    v12 = v20;
 
     if (v11)
     {
       v13 = a1[6];
-      v20 = v12;
-      v14 = [v6 writeToURL:v13 options:1 error:&v20];
-      v15 = v20;
+      v19 = v12;
+      v14 = [v6 writeToURL:v13 options:1 error:&v19];
+      v15 = v19;
 
       if (v14)
       {
-        v16 = a1[6];
-        v17 = *(a1[7] + 16);
+        v16 = *(a1[7] + 16);
       }
 
       else
       {
-        v19 = +[STLog ask];
-        if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+        v18 = +[STLog ask];
+        if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
         {
           __91__STAskForTimeRequestReceivedUserNotificationContext__fetchAndWriteFamilyPhotoURLIfNeeded___block_invoke_cold_3();
         }
 
-        v17 = *(a1[7] + 16);
+        v16 = *(a1[7] + 16);
       }
 
-      v17();
+      v16();
     }
 
     else
     {
-      v18 = +[STLog ask];
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+      v17 = +[STLog ask];
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
       {
         __91__STAskForTimeRequestReceivedUserNotificationContext__fetchAndWriteFamilyPhotoURLIfNeeded___block_invoke_cold_2();
       }
@@ -288,48 +284,22 @@ void __91__STAskForTimeRequestReceivedUserNotificationContext__fetchAndWriteFami
   }
 }
 
-void __103__STAskForTimeRequestReceivedUserNotificationContext_customizeNotificationContent_withCompletionBlock___block_invoke_2_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_1(&dword_1B831F000, v0, v1, "Could not create thumbnail attachment: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
 - (void)_fetchAndWriteFamilyPhotoURLIfNeeded:.cold.1()
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_2();
-  _os_log_debug_impl(&dword_1B831F000, v0, OS_LOG_TYPE_DEBUG, "Fetching photo for %@", v2, 0xCu);
-  v1 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(&dword_1B831F000, v0, OS_LOG_TYPE_DEBUG, "Fetching photo for %@", v1, 0xCu);
 }
 
 void __91__STAskForTimeRequestReceivedUserNotificationContext__fetchAndWriteFamilyPhotoURLIfNeeded___block_invoke_cold_1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v3 = *(a1 + 32);
-  v5 = 138412546;
-  v6 = v3;
-  v7 = 2114;
-  v8 = a2;
-  _os_log_error_impl(&dword_1B831F000, log, OS_LOG_TYPE_ERROR, "Could not fetch family photo for %@: %{public}@", &v5, 0x16u);
-  v4 = *MEMORY[0x1E69E9840];
-}
-
-void __91__STAskForTimeRequestReceivedUserNotificationContext__fetchAndWriteFamilyPhotoURLIfNeeded___block_invoke_cold_2()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_1(&dword_1B831F000, v0, v1, "Could not create family photo directory: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __91__STAskForTimeRequestReceivedUserNotificationContext__fetchAndWriteFamilyPhotoURLIfNeeded___block_invoke_cold_3()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_1(&dword_1B831F000, v0, v1, "Could not write family photo data: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
+  v4 = 138412546;
+  v5 = v3;
+  v6 = 2114;
+  v7 = a2;
+  _os_log_error_impl(&dword_1B831F000, log, OS_LOG_TYPE_ERROR, "Could not fetch family photo for %@: %{public}@", &v4, 0x16u);
 }
 
 @end

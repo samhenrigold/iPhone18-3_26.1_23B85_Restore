@@ -1,11 +1,11 @@
 @interface PKSqueezePaletteViewUndoRedoLayout
 - (BOOL)_isLTR;
 - (PKSqueezePaletteView)paletteView;
+- (id)_performRedoAction;
+- (id)_performUndoAction;
+- (id)_updateRedoButtonConstraints;
+- (id)_updateUndoButtonConstraints;
 - (id)initWithUndoButton:(void *)button redoButton:(double)redoButton startAngle:;
-- (uint64_t)_performRedoAction;
-- (uint64_t)_performUndoAction;
-- (uint64_t)_updateRedoButtonConstraints;
-- (uint64_t)_updateUndoButtonConstraints;
 - (void)handleLongPressGestureRecognizer:(void *)recognizer forButton:;
 - (void)setupUI;
 - (void)updateUI;
@@ -77,12 +77,12 @@ void __79__PKSqueezePaletteViewUndoRedoLayout_initWithUndoButton_redoButton_star
   [(PKSqueezePaletteViewUndoRedoLayout *)WeakRetained _performUndoAction];
 }
 
-- (uint64_t)_performUndoAction
+- (id)_performUndoAction
 {
   if (result)
   {
     v1 = result;
-    WeakRetained = objc_loadWeakRetained((result + 88));
+    WeakRetained = objc_loadWeakRetained(result + 11);
     [(PKSqueezePaletteView *)WeakRetained _didUndo];
 
     return [v1 updateUI];
@@ -97,12 +97,12 @@ void __79__PKSqueezePaletteViewUndoRedoLayout_initWithUndoButton_redoButton_star
   [(PKSqueezePaletteViewUndoRedoLayout *)WeakRetained _performRedoAction];
 }
 
-- (uint64_t)_performRedoAction
+- (id)_performRedoAction
 {
   if (result)
   {
     v1 = result;
-    WeakRetained = objc_loadWeakRetained((result + 88));
+    WeakRetained = objc_loadWeakRetained(result + 11);
     [(PKSqueezePaletteView *)WeakRetained _didRedo];
 
     return [v1 updateUI];
@@ -202,12 +202,12 @@ LABEL_16:
   return v3;
 }
 
-- (uint64_t)_updateUndoButtonConstraints
+- (id)_updateUndoButtonConstraints
 {
   if (result)
   {
     v1 = result;
-    WeakRetained = objc_loadWeakRetained((result + 88));
+    WeakRetained = objc_loadWeakRetained(result + 11);
     v3 = WeakRetained;
     if (WeakRetained)
     {
@@ -219,11 +219,11 @@ LABEL_16:
       v4 = 0.0;
     }
 
-    v5 = PKPointOnArc(*MEMORY[0x1E695EFF8], *(MEMORY[0x1E695EFF8] + 8), v4, *(v1 + 40));
+    v5 = PKPointOnArc(*MEMORY[0x1E695EFF8], *(MEMORY[0x1E695EFF8] + 8), v4, *(v1 + 5));
     v7 = v6;
 
-    [*(v1 + 8) setConstant:v5];
-    v8 = *(v1 + 16);
+    [v1[1] setConstant:v5];
+    v8 = v1[2];
 
     return [v8 setConstant:v7];
   }
@@ -231,12 +231,12 @@ LABEL_16:
   return result;
 }
 
-- (uint64_t)_updateRedoButtonConstraints
+- (id)_updateRedoButtonConstraints
 {
   if (result)
   {
     v1 = result;
-    WeakRetained = objc_loadWeakRetained((result + 88));
+    WeakRetained = objc_loadWeakRetained(result + 11);
     v3 = WeakRetained;
     if (WeakRetained)
     {
@@ -248,11 +248,11 @@ LABEL_16:
       v4 = 0.0;
     }
 
-    v5 = PKPointOnArc(*MEMORY[0x1E695EFF8], *(MEMORY[0x1E695EFF8] + 8), v4, *(v1 + 48));
+    v5 = PKPointOnArc(*MEMORY[0x1E695EFF8], *(MEMORY[0x1E695EFF8] + 8), v4, *(v1 + 6));
     v7 = v6;
 
-    [*(v1 + 24) setConstant:v5];
-    v8 = *(v1 + 32);
+    [v1[3] setConstant:v5];
+    v8 = v1[4];
 
     return [v8 setConstant:v7];
   }
@@ -400,8 +400,8 @@ LABEL_16:
 
     *(&self->super.isa + v53) = startAngle + v54 / v56;
 
-    [(PKSqueezePaletteViewUndoRedoLayout *)self _updateUndoButtonConstraints];
-    [(PKSqueezePaletteViewUndoRedoLayout *)self _updateRedoButtonConstraints];
+    [(PKSqueezePaletteViewUndoRedoLayout *)&self->super.isa _updateUndoButtonConstraints];
+    [(PKSqueezePaletteViewUndoRedoLayout *)&self->super.isa _updateRedoButtonConstraints];
     [(UIButton *)self->_undoButton addTarget:self action:sel__didTapUndoButton_ forControlEvents:64];
     [(UIButton *)self->_redoButton addTarget:self action:sel__didTapRedoButton_ forControlEvents:64];
     v57 = [objc_alloc(MEMORY[0x1E69DCC48]) initWithTarget:self action:sel__handleUndoButtonLongPressGestureRecognizer_];
@@ -436,7 +436,7 @@ LABEL_16:
     }
 
     v64 = objc_loadWeakRetained(&self->_paletteView);
-    [(PKSqueezePaletteView *)v64 updateUIStartAngle:1 endAngle:*(&self->super.isa + v62) clockwise:*(&self->super.isa + v63) animated:?];
+    [(PKSqueezePaletteView *)v64 updateUIStartAngle:*(&self->super.isa + v62) endAngle:*(&self->super.isa + v63) clockwise:1u animated:?];
   }
 }
 

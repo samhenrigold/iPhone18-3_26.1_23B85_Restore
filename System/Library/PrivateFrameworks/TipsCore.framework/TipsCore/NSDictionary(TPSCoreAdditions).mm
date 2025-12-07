@@ -28,7 +28,7 @@
 
 - (id)TPSSafeDictionaryForKey:()TPSCoreAdditions
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v4 = a3;
   v5 = [self objectForKeyedSubscript:v4];
   v6 = objc_opt_class();
@@ -40,30 +40,28 @@
       v8 = +[TPSLogger default];
       if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
       {
-        v12 = 138413058;
-        v13 = v5;
-        v14 = 2112;
-        v15 = objc_opt_class();
-        v16 = 2112;
-        v17 = v7;
-        v18 = 2112;
-        v19 = v4;
-        v9 = v15;
-        _os_log_impl(&dword_1C00A7000, v8, OS_LOG_TYPE_INFO, "Unexpected value: %@ with class %@. Expected type: %@ for key %@", &v12, 0x2Au);
+        v11 = 138413058;
+        v12 = v5;
+        v13 = 2112;
+        v14 = objc_opt_class();
+        v15 = 2112;
+        v16 = v7;
+        v17 = 2112;
+        v18 = v4;
+        v9 = v14;
+        _os_log_impl(&dword_1C00A7000, v8, OS_LOG_TYPE_INFO, "Unexpected value: %@ with class %@. Expected type: %@ for key %@", &v11, 0x2Au);
       }
 
       v5 = 0;
     }
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return v5;
 }
 
 - (id)TPSSafeArrayForKey:()TPSCoreAdditions
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v4 = a3;
   v5 = [self objectForKeyedSubscript:v4];
   v6 = objc_opt_class();
@@ -75,30 +73,28 @@
       v8 = +[TPSLogger default];
       if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
       {
-        v12 = 138413058;
-        v13 = v5;
-        v14 = 2112;
-        v15 = objc_opt_class();
-        v16 = 2112;
-        v17 = v7;
-        v18 = 2112;
-        v19 = v4;
-        v9 = v15;
-        _os_log_impl(&dword_1C00A7000, v8, OS_LOG_TYPE_INFO, "Unexpected value: %@ with class %@. Expected type: %@ for key %@", &v12, 0x2Au);
+        v11 = 138413058;
+        v12 = v5;
+        v13 = 2112;
+        v14 = objc_opt_class();
+        v15 = 2112;
+        v16 = v7;
+        v17 = 2112;
+        v18 = v4;
+        v9 = v14;
+        _os_log_impl(&dword_1C00A7000, v8, OS_LOG_TYPE_INFO, "Unexpected value: %@ with class %@. Expected type: %@ for key %@", &v11, 0x2Au);
       }
 
       v5 = 0;
     }
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return v5;
 }
 
 - (id)TPSSafeStringForKey:()TPSCoreAdditions
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v4 = a3;
   v5 = [self objectForKeyedSubscript:v4];
   v6 = objc_opt_class();
@@ -110,30 +106,28 @@
       v8 = +[TPSLogger default];
       if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
       {
-        v12 = 138413058;
-        v13 = v5;
-        v14 = 2112;
-        v15 = objc_opt_class();
-        v16 = 2112;
-        v17 = v7;
-        v18 = 2112;
-        v19 = v4;
-        v9 = v15;
-        _os_log_impl(&dword_1C00A7000, v8, OS_LOG_TYPE_INFO, "Unexpected value: %@ with class %@. Expected type: %@ for key %@", &v12, 0x2Au);
+        v11 = 138413058;
+        v12 = v5;
+        v13 = 2112;
+        v14 = objc_opt_class();
+        v15 = 2112;
+        v16 = v7;
+        v17 = 2112;
+        v18 = v4;
+        v9 = v14;
+        _os_log_impl(&dword_1C00A7000, v8, OS_LOG_TYPE_INFO, "Unexpected value: %@ with class %@. Expected type: %@ for key %@", &v11, 0x2Au);
       }
 
       v5 = 0;
     }
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return v5;
 }
 
 - (id)TPSSafeNumberForKey:()TPSCoreAdditions
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v4 = a3;
   v5 = [self objectForKeyedSubscript:v4];
   v6 = objc_opt_class();
@@ -145,23 +139,21 @@
       v8 = +[TPSLogger default];
       if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
       {
-        v12 = 138413058;
-        v13 = v5;
-        v14 = 2112;
-        v15 = objc_opt_class();
-        v16 = 2112;
-        v17 = v7;
-        v18 = 2112;
-        v19 = v4;
-        v9 = v15;
-        _os_log_impl(&dword_1C00A7000, v8, OS_LOG_TYPE_INFO, "Unexpected value: %@ with class %@. Expected type: %@ for key %@", &v12, 0x2Au);
+        v11 = 138413058;
+        v12 = v5;
+        v13 = 2112;
+        v14 = objc_opt_class();
+        v15 = 2112;
+        v16 = v7;
+        v17 = 2112;
+        v18 = v4;
+        v9 = v14;
+        _os_log_impl(&dword_1C00A7000, v8, OS_LOG_TYPE_INFO, "Unexpected value: %@ with class %@. Expected type: %@ for key %@", &v11, 0x2Au);
       }
 
       v5 = 0;
     }
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return v5;
 }

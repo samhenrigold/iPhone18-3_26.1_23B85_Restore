@@ -194,13 +194,12 @@ void __49__DOCUndoManager_registerUndoOperationForSender___block_invoke_2(uint64
 
 void __49__DOCUndoManager_registerUndoOperationForSender___block_invoke_2_cold_1(uint64_t *a1, uint64_t a2, os_log_t log)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = *a1;
-  v5 = 138543618;
-  v6 = v3;
-  v7 = 2114;
-  v8 = a2;
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 138543618;
+  v5 = v3;
+  v6 = 2114;
+  v7 = a2;
 }
 
 @end

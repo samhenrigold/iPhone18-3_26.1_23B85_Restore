@@ -17,7 +17,6 @@
 - (int)_getSchemaVersion;
 - (unint64_t)rowIDForPartialMessage:(id)message;
 - (void)_ensureCorrectFileOwnership:(id)ownership;
-- (void)_getSchemaVersion;
 - (void)_initializeFilePresentation;
 - (void)_letGoForUnitTests:(id)tests;
 - (void)_onQueueAsync:(id)async;
@@ -258,12 +257,12 @@
 - (BOOL)_openDBFile:(BOOL)file
 {
   fileCopy = file;
-  v48[4] = *MEMORY[0x1E69E9840];
-  v33 = 4227074;
+  v47[4] = *MEMORY[0x1E69E9840];
+  v32 = 4227074;
   v5 = [objc_alloc(MEMORY[0x1E695DFF8]) initFileURLWithPath:self->_path isDirectory:0];
   if (fileCopy)
   {
-    v32 = [objc_alloc(MEMORY[0x1E696ABF8]) initWithFilePresenter:self];
+    v31 = [objc_alloc(MEMORY[0x1E696ABF8]) initWithFilePresenter:self];
     v6 = objc_alloc(MEMORY[0x1E695DFF8]);
     v7 = [(NSString *)self->_path stringByAppendingString:@"-shm"];
     v8 = [v6 initFileURLWithPath:v7 isDirectory:0];
@@ -273,33 +272,33 @@
     v11 = [v9 initFileURLWithPath:v10 isDirectory:0];
 
     v12 = [MEMORY[0x1E696ABF0] readingIntentWithURL:v5 options:0];
-    v48[0] = v12;
+    v47[0] = v12;
     v13 = [MEMORY[0x1E696ABF0] writingIntentWithURL:v5 options:1];
-    v48[1] = v13;
+    v47[1] = v13;
     v14 = [MEMORY[0x1E696ABF0] writingIntentWithURL:v8 options:1];
-    v48[2] = v14;
+    v47[2] = v14;
     v15 = [MEMORY[0x1E696ABF0] writingIntentWithURL:v11 options:1];
-    v48[3] = v15;
-    v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:v48 count:4];
+    v47[3] = v15;
+    v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:v47 count:4];
 
     v17 = dispatch_semaphore_create(0);
     presentedItemOperationQueue = [(SYStatisticStore *)self presentedItemOperationQueue];
-    v43[0] = MEMORY[0x1E69E9820];
-    v43[1] = 3221225472;
-    v43[2] = __32__SYStatisticStore__openDBFile___block_invoke;
-    v43[3] = &unk_1E86CBA28;
-    v43[4] = self;
-    v44 = v5;
-    v45 = v8;
-    v46 = v11;
-    v47 = v17;
+    v42[0] = MEMORY[0x1E69E9820];
+    v42[1] = 3221225472;
+    v42[2] = __32__SYStatisticStore__openDBFile___block_invoke;
+    v42[3] = &unk_1E86CBA28;
+    v42[4] = self;
+    v43 = v5;
+    v44 = v8;
+    v45 = v11;
+    v46 = v17;
     v19 = v17;
     v20 = v11;
     v21 = v8;
-    [v32 coordinateAccessWithIntents:v16 queue:presentedItemOperationQueue byAccessor:v43];
+    [v31 coordinateAccessWithIntents:v16 queue:presentedItemOperationQueue byAccessor:v42];
 
     dispatch_semaphore_wait(v19, 0xFFFFFFFFFFFFFFFFLL);
-    v33 = 4227078;
+    v32 = 4227078;
   }
 
   v22 = [objc_alloc(MEMORY[0x1E696ABF8]) initWithFilePresenter:self];
@@ -313,29 +312,28 @@
     [v23 addObject:v25];
   }
 
-  v39 = 0;
-  v40 = &v39;
-  v41 = 0x2020000000;
-  v42 = 1;
+  v38 = 0;
+  v39 = &v38;
+  v40 = 0x2020000000;
+  v41 = 1;
   v26 = dispatch_semaphore_create(0);
   presentedItemOperationQueue2 = [(SYStatisticStore *)self presentedItemOperationQueue];
-  v34[0] = MEMORY[0x1E69E9820];
-  v34[1] = 3221225472;
-  v34[2] = __32__SYStatisticStore__openDBFile___block_invoke_92;
-  v34[3] = &unk_1E86CBA50;
-  v37 = v33;
-  v38 = fileCopy;
-  v34[4] = self;
-  v36 = &v39;
+  v33[0] = MEMORY[0x1E69E9820];
+  v33[1] = 3221225472;
+  v33[2] = __32__SYStatisticStore__openDBFile___block_invoke_92;
+  v33[3] = &unk_1E86CBA50;
+  v36 = v32;
+  v37 = fileCopy;
+  v33[4] = self;
+  v35 = &v38;
   v28 = v26;
-  v35 = v28;
-  [v22 coordinateAccessWithIntents:v23 queue:presentedItemOperationQueue2 byAccessor:v34];
+  v34 = v28;
+  [v22 coordinateAccessWithIntents:v23 queue:presentedItemOperationQueue2 byAccessor:v33];
 
   dispatch_semaphore_wait(v28, 0xFFFFFFFFFFFFFFFFLL);
-  v29 = *(v40 + 24);
+  v29 = *(v39 + 24);
 
-  _Block_object_dispose(&v39, 8);
-  v30 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v38, 8);
   return v29 & 1;
 }
 
@@ -574,14 +572,12 @@ void __33__SYStatisticStore__onQueueSync___block_invoke(uint64_t a1)
 
 - (void)_openDB
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   selfCopy = self;
   v4 = _SYObfuscate(a2);
-  v6 = 138543362;
-  v7 = v4;
-  _os_log_error_impl(&dword_1DF835000, selfCopy, OS_LOG_TYPE_ERROR, "Error creating parent folder: %{public}@", &v6, 0xCu);
-
-  v5 = *MEMORY[0x1E69E9840];
+  v5 = 138543362;
+  v6 = v4;
+  _os_log_error_impl(&dword_1DF835000, selfCopy, OS_LOG_TYPE_ERROR, "Error creating parent folder: %{public}@", &v5, 0xCu);
 }
 
 void __27__SYStatisticStore__openDB__block_invoke(uint64_t a1)
@@ -957,34 +953,32 @@ double __37__SYStatisticStore__getMachTimestamp__block_invoke()
 
 void __45__SYStatisticStore__keySetForMessageLogTable__block_invoke()
 {
-  v5[20] = *MEMORY[0x1E69E9840];
+  v4[20] = *MEMORY[0x1E69E9840];
   v0 = MEMORY[0x1E695DF20];
-  v5[0] = @"Duration";
-  v5[1] = @"Service";
-  v5[2] = @"Type";
-  v5[3] = @"Identifier";
-  v5[4] = @"ChangeCount";
-  v5[5] = @"VectorClock";
-  v5[6] = @"IsRequest";
-  v5[7] = @"SyncID";
-  v5[8] = @"RequestIdentifier";
-  v5[9] = @"Error";
-  v5[10] = @"WantsResponse";
-  v5[11] = @"GotResponse";
-  v5[12] = @"ChunkIndex";
-  v5[13] = @"WantsDeliveryAck";
-  v5[14] = @"ProtocolVersion";
-  v5[15] = @"MessageSequenceNumber";
-  v5[16] = @"IsResetSyncSession";
-  v5[17] = @"SessionMetadata";
-  v5[18] = @"WantsRollback";
-  v5[19] = @"RequestAccepted";
-  v1 = [MEMORY[0x1E695DEC8] arrayWithObjects:v5 count:20];
+  v4[0] = @"Duration";
+  v4[1] = @"Service";
+  v4[2] = @"Type";
+  v4[3] = @"Identifier";
+  v4[4] = @"ChangeCount";
+  v4[5] = @"VectorClock";
+  v4[6] = @"IsRequest";
+  v4[7] = @"SyncID";
+  v4[8] = @"RequestIdentifier";
+  v4[9] = @"Error";
+  v4[10] = @"WantsResponse";
+  v4[11] = @"GotResponse";
+  v4[12] = @"ChunkIndex";
+  v4[13] = @"WantsDeliveryAck";
+  v4[14] = @"ProtocolVersion";
+  v4[15] = @"MessageSequenceNumber";
+  v4[16] = @"IsResetSyncSession";
+  v4[17] = @"SessionMetadata";
+  v4[18] = @"WantsRollback";
+  v4[19] = @"RequestAccepted";
+  v1 = [MEMORY[0x1E695DEC8] arrayWithObjects:v4 count:20];
   v2 = [v0 sharedKeySetForKeys:v1];
   v3 = _keySetForMessageLogTable___keyset;
   _keySetForMessageLogTable___keyset = v2;
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_unpackMetadata:(id)metadata
@@ -2408,7 +2402,7 @@ void __76__SYStatisticStore_setFileTransferIdentifier_forOutgoingMessagesWithRow
   }
 }
 
-unint64_t __76__SYStatisticStore_setFileTransferIdentifier_forOutgoingMessagesWithRowIDs___block_invoke_2(uint64_t a1, unint64_t a2)
+void *__76__SYStatisticStore_setFileTransferIdentifier_forOutgoingMessagesWithRowIDs___block_invoke_2(uint64_t a1, unint64_t a2)
 {
   [*(a1 + 32) appendFormat:@"'%lu'", a2];
   result = [*(a1 + 40) lastIndex];
@@ -2557,7 +2551,7 @@ LABEL_19:
 
 - (BOOL)_LOCKED_pruneMessageLogForServices:(id)services
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   servicesCopy = services;
   ppStmt = 0;
   if (sqlite3_prepare_v2(self->_db, "DELETE FROM message_log WHERE service=? ORDER BY pk DESC LIMIT -1 OFFSET 250", -1, &ppStmt, 0))
@@ -2578,26 +2572,26 @@ LABEL_19:
 
   else
   {
-    v16 = 0u;
-    v17 = 0u;
-    v14 = 0u;
     v15 = 0u;
+    v16 = 0u;
+    v13 = 0u;
+    v14 = 0u;
     v6 = servicesCopy;
-    v7 = [v6 countByEnumeratingWithState:&v14 objects:v19 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v13 objects:v18 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v15;
+      v9 = *v14;
       while (2)
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v15 != v9)
+          if (*v14 != v9)
           {
             objc_enumerationMutation(v6);
           }
 
-          BindString_0(ppStmt, 1, *(*(&v14 + 1) + 8 * i));
+          BindString_0(ppStmt, 1, *(*(&v13 + 1) + 8 * i));
           v11 = sqlite3_step(ppStmt);
           if (v11 && v11 != 101)
           {
@@ -2618,7 +2612,7 @@ LABEL_19:
           sqlite3_reset(ppStmt);
         }
 
-        v8 = [v6 countByEnumeratingWithState:&v14 objects:v19 count:16];
+        v8 = [v6 countByEnumeratingWithState:&v13 objects:v18 count:16];
         if (v8)
         {
           continue;
@@ -2634,13 +2628,12 @@ LABEL_22:
     sqlite3_finalize(ppStmt);
   }
 
-  v12 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
 - (BOOL)_LOCKED_pruneFileTransferLogForServices:(id)services
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   servicesCopy = services;
   ppStmt = 0;
   if (sqlite3_prepare_v2(self->_db, "DELETE FROM file_transfer_log WHERE service=? ORDER BY pk DESC LIMIT -1 OFFSET 250", -1, &ppStmt, 0))
@@ -2661,26 +2654,26 @@ LABEL_22:
 
   else
   {
-    v16 = 0u;
-    v17 = 0u;
-    v14 = 0u;
     v15 = 0u;
+    v16 = 0u;
+    v13 = 0u;
+    v14 = 0u;
     v6 = servicesCopy;
-    v7 = [v6 countByEnumeratingWithState:&v14 objects:v19 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v13 objects:v18 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v15;
+      v9 = *v14;
       while (2)
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v15 != v9)
+          if (*v14 != v9)
           {
             objc_enumerationMutation(v6);
           }
 
-          BindString_0(ppStmt, 1, *(*(&v14 + 1) + 8 * i));
+          BindString_0(ppStmt, 1, *(*(&v13 + 1) + 8 * i));
           v11 = sqlite3_step(ppStmt);
           if (v11 && v11 != 101)
           {
@@ -2701,7 +2694,7 @@ LABEL_22:
           sqlite3_reset(ppStmt);
         }
 
-        v8 = [v6 countByEnumeratingWithState:&v14 objects:v19 count:16];
+        v8 = [v6 countByEnumeratingWithState:&v13 objects:v18 count:16];
         if (v8)
         {
           continue;
@@ -2717,7 +2710,6 @@ LABEL_22:
     sqlite3_finalize(ppStmt);
   }
 
-  v12 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
@@ -2772,303 +2764,107 @@ void __50__SYStatisticStore_DatabaseTidying___pruneOldData__block_invoke(uint64_
   }
 }
 
-- (void)_tableEmpty:.cold.2()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2_3();
-  OUTLINED_FUNCTION_1_0(&dword_1DF835000, v0, v1, "Error checking for empty table - %{companionsync:sqlite3err, public}d", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
 - (void)_ensureCorrectFileOwnership:(uint64_t)a1 .cold.3(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = *__error();
-  v6 = 138543618;
-  v7 = a1;
-  v8 = 1024;
-  v9 = v4;
-  _os_log_error_impl(&dword_1DF835000, v3, OS_LOG_TYPE_ERROR, "Error chowning path %{public}@, error: %d", &v6, 0x12u);
-
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-void __32__SYStatisticStore__openDBFile___block_invoke_cold_2()
-{
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_4_0();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-void __32__SYStatisticStore__openDBFile___block_invoke_92_cold_2()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2_3();
-  OUTLINED_FUNCTION_1_0(&dword_1DF835000, v0, v1, "Failed to open statistics DB - %{companionsync:sqlite3err, public}d", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-- (void)_getSchemaVersion
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2_3();
-  OUTLINED_FUNCTION_1_0(&dword_1DF835000, v0, v1, "Error fetching schema version - %{companionsync:sqlite3err, public}d", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = 138543618;
+  v6 = a1;
+  v7 = 1024;
+  v8 = v4;
+  _os_log_error_impl(&dword_1DF835000, v3, OS_LOG_TYPE_ERROR, "Error chowning path %{public}@, error: %d", &v5, 0x12u);
 }
 
 void __27__SYStatisticStore__openDB__block_invoke_cold_2()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1_7();
   OUTLINED_FUNCTION_4_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __27__SYStatisticStore__openDB__block_invoke_cold_4()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1_7();
   OUTLINED_FUNCTION_4_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __27__SYStatisticStore__openDB__block_invoke_cold_6()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1_7();
   OUTLINED_FUNCTION_4_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __27__SYStatisticStore__openDB__block_invoke_cold_8()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1_7();
   OUTLINED_FUNCTION_4_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __27__SYStatisticStore__openDB__block_invoke_cold_10()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1_7();
   OUTLINED_FUNCTION_4_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __27__SYStatisticStore__openDB__block_invoke_cold_12()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1_7();
   OUTLINED_FUNCTION_4_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __27__SYStatisticStore__openDB__block_invoke_cold_14()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1_7();
   OUTLINED_FUNCTION_4_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __27__SYStatisticStore__openDB__block_invoke_cold_16()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1_7();
   OUTLINED_FUNCTION_4_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __27__SYStatisticStore__openDB__block_invoke_cold_18()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1_7();
   OUTLINED_FUNCTION_4_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __27__SYStatisticStore__openDB__block_invoke_cold_20()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1_7();
   OUTLINED_FUNCTION_4_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __27__SYStatisticStore__openDB__block_invoke_cold_22()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1_7();
   OUTLINED_FUNCTION_4_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __27__SYStatisticStore__openDB__block_invoke_cold_24()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1_7();
   OUTLINED_FUNCTION_4_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __27__SYStatisticStore__openDB__block_invoke_cold_26()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1_7();
   OUTLINED_FUNCTION_4_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-void __53__SYStatisticStore_recordIncomingMessage_forService___block_invoke_cold_2()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2_3();
-  OUTLINED_FUNCTION_1_0(&dword_1DF835000, v0, v1, "Error inserting incoming message - %{companionsync:sqlite3err, public}d", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __64__SYStatisticStore_updateLastIncomingMessageWithProcessingTime___block_invoke_cold_2()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2_3();
-  OUTLINED_FUNCTION_1_0(&dword_1DF835000, v0, v1, "Error adding processing time to incoming message - %{companionsync:sqlite3err, public}d", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __55__SYStatisticStore_updateLastIncomingMessageWithError___block_invoke_cold_2()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2_3();
-  OUTLINED_FUNCTION_1_0(&dword_1DF835000, v0, v1, "Failed to add error to incoming message - %{companionsync:sqlite3err, public}d", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __51__SYStatisticStore_markLastIncomingMessageComplete__block_invoke_cold_2()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2_3();
-  OUTLINED_FUNCTION_1_0(&dword_1DF835000, v0, v1, "Error marking incoming message as complete - %{companionsync:sqlite3err, public}d", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __53__SYStatisticStore_recordOutgoingMessage_forService___block_invoke_cold_2()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2_3();
-  OUTLINED_FUNCTION_1_0(&dword_1DF835000, v0, v1, "Error reserving db row for outgoing message - %{companionsync:sqlite3err, public}d", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __53__SYStatisticStore_recordOutgoingMessage_forService___block_invoke_179_cold_2()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2_3();
-  OUTLINED_FUNCTION_1_0(&dword_1DF835000, v0, v1, "Error inserting outgoing message - %{companionsync:sqlite3err, public}d", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __55__SYStatisticStore_assignIdentifier_toOutgoingMessage___block_invoke_cold_2()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2_3();
-  OUTLINED_FUNCTION_1_0(&dword_1DF835000, v0, v1, "Error recording identifier for outgoing message - %{companionsync:sqlite3err, public}d", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __94__SYStatisticStore_updateOutgoingMessageWithIdentifier_forService_sentSuccessfully_sendError___block_invoke_cold_2()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2_3();
-  OUTLINED_FUNCTION_1_0(&dword_1DF835000, v0, v1, "Error finding timestamp for ID - %{companionsync:sqlite3err, public}d", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __94__SYStatisticStore_updateOutgoingMessageWithIdentifier_forService_sentSuccessfully_sendError___block_invoke_cold_4()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2_3();
-  OUTLINED_FUNCTION_1_0(&dword_1DF835000, v0, v1, "Error updating outgoing message for ID - %{companionsync:sqlite3err, public}d", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __81__SYStatisticStore_updateOutgoingMessageWithIdentifier_didReceiveResponse_error___block_invoke_cold_2()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2_3();
-  OUTLINED_FUNCTION_1_0(&dword_1DF835000, v0, v1, "Error while updating response state for outgoing message - %{companionsync:sqlite3err, public}d", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __53__SYStatisticStore_confirmDeliveryOfOutgoingMessage___block_invoke_cold_2()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2_3();
-  OUTLINED_FUNCTION_1_0(&dword_1DF835000, v0, v1, "Error while recording delivery confirmation for outgoing message - %{companionsync:sqlite3err, public}d", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __83__SYStatisticStore_recordIncomingFileTransferAtURL_metadata_identifier_forService___block_invoke_cold_2()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2_3();
-  OUTLINED_FUNCTION_1_0(&dword_1DF835000, v0, v1, "Error while recording incoming file transfer - %{companionsync:sqlite3err, public}d", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __89__SYStatisticStore_recordOutgoingFileTransferAtURL_metadata_identifier_error_forService___block_invoke_cold_2()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2_3();
-  OUTLINED_FUNCTION_1_0(&dword_1DF835000, v0, v1, "Error while recording outgoing file transfer - %{companionsync:sqlite3err, public}d", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __84__SYStatisticStore_updateOutgoingFileTransferWithIdentifier_sentSuccessfully_error___block_invoke_cold_2()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2_3();
-  OUTLINED_FUNCTION_1_0(&dword_1DF835000, v0, v1, "Error while updating outgoing file transfer for send-success notification - %{companionsync:sqlite3err, public}d", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __76__SYStatisticStore_setFileTransferIdentifier_forOutgoingMessagesWithRowIDs___block_invoke_cold_2()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_5_4();
-  OUTLINED_FUNCTION_5(&dword_1DF835000, v0, v1, "Error bulk-updating identifiers (statement = %{public}@) - %{companionsync:sqlite3err, public}d");
-  v2 = *MEMORY[0x1E69E9840];
-}
-
-void __50__SYStatisticStore_DatabaseTidying___pruneOldData__block_invoke_cold_2()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2_3();
-  OUTLINED_FUNCTION_1_0(&dword_1DF835000, v0, v1, "Failed to create transaction for DB prune - %{companionsync:sqlite3err, public}d", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __50__SYStatisticStore_DatabaseTidying___pruneOldData__block_invoke_cold_4()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2_3();
-  OUTLINED_FUNCTION_1_0(&dword_1DF835000, v0, v1, "Prune transaction failed to commit - %{companionsync:sqlite3err, public}d", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 @end

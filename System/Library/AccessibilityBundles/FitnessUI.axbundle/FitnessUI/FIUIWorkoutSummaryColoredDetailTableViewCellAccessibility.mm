@@ -32,11 +32,7 @@
 
 uint64_t __79__FIUIWorkoutSummaryColoredDetailTableViewCellAccessibility_accessibilityLabel__block_invoke(uint64_t a1)
 {
-  v2 = *(*(*(a1 + 32) + 8) + 40);
-  v3 = __AXStringForVariables();
-  v4 = *(*(a1 + 32) + 8);
-  v5 = *(v4 + 40);
-  *(v4 + 40) = v3;
+  *(*(*(a1 + 32) + 8) + 40) = __AXStringForVariables();
 
   return _objc_release_x1();
 }

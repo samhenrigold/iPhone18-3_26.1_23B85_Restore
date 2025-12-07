@@ -48,6 +48,7 @@
 - (void)_callNearbyDevicesChanged;
 - (void)_reloadCachedDevices;
 - (void)_reregisterAndReidentify:(BOOL)reidentify;
+- (void)_setIsEnabled:(BOOL)enabled;
 - (void)addAliases:(id)aliases;
 - (void)addDelegate:(id)delegate queue:(id)queue;
 - (void)addRegistrationDelegate:(id)delegate queue:(id)queue;
@@ -350,7 +351,7 @@
 
 - (id)_initWithDictionary:(id)dictionary uniqueID:(id)d serviceName:(id)name
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   dCopy = d;
   nameCopy = name;
@@ -359,7 +360,7 @@
     v11 = +[IDSLogging Accounts];
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      sub_195B26A7C();
+      sub_195B26A7C(self, v11);
     }
 
     selfCopy = 0;
@@ -379,9 +380,9 @@
       }
     }
 
-    v22.receiver = self;
-    v22.super_class = IDSAccount;
-    v16 = [(IDSAccount *)&v22 init];
+    v21.receiver = self;
+    v21.super_class = IDSAccount;
+    v16 = [(IDSAccount *)&v21 init];
     if (v16)
     {
       v17 = [[_IDSAccount alloc] initWithDictionary:dictionaryCopy uniqueID:dCopy serviceName:nameCopy delegateContext:v16];
@@ -393,13 +394,13 @@
     if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
     {
       *buf = 134218754;
-      v24 = v16;
-      v25 = 2112;
-      v26 = dictionaryCopy;
-      v27 = 2112;
-      v28 = dCopy;
-      v29 = 2112;
-      v30 = nameCopy;
+      v23 = v16;
+      v24 = 2112;
+      v25 = dictionaryCopy;
+      v26 = 2112;
+      v27 = dCopy;
+      v28 = 2112;
+      v29 = nameCopy;
       _os_log_impl(&dword_1959FF000, v19, OS_LOG_TYPE_INFO, "Creating new IDSAccount %p with config %@ uniqueID %@ serviceName %@", buf, 0x2Au);
     }
 
@@ -407,13 +408,12 @@
     selfCopy = self;
   }
 
-  v20 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 
 - (IDSAccount)initWithDictionary:(id)dictionary uniqueID:(id)d serviceName:(id)name
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   dCopy = d;
   nameCopy = name;
@@ -422,7 +422,7 @@
     v11 = +[IDSLogging Accounts];
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      sub_195B26A7C();
+      sub_195B26A7C(self, v11);
     }
 
     selfCopy = 0;
@@ -442,34 +442,34 @@
       }
     }
 
-    v29.receiver = self;
-    v29.super_class = IDSAccount;
-    v16 = [(IDSAccount *)&v29 init];
+    v28.receiver = self;
+    v28.super_class = IDSAccount;
+    v16 = [(IDSAccount *)&v28 init];
     if (v16)
     {
       v17 = +[IDSInternalQueueController sharedInstance];
-      v21 = MEMORY[0x1E69E9820];
-      v22 = 3221225472;
-      v23 = sub_195A952A0;
-      v24 = &unk_1E743EEE8;
-      v25 = v16;
-      v26 = dictionaryCopy;
-      v27 = dCopy;
-      v28 = nameCopy;
-      [v17 performBlock:&v21];
+      v20 = MEMORY[0x1E69E9820];
+      v21 = 3221225472;
+      v22 = sub_195A952A0;
+      v23 = &unk_1E743EEE8;
+      v24 = v16;
+      v25 = dictionaryCopy;
+      v26 = dCopy;
+      v27 = nameCopy;
+      [v17 performBlock:&v20];
     }
 
-    v18 = [IDSLogging Accounts:v21];
+    v18 = [IDSLogging Accounts:v20];
     if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
     {
       *buf = 134218754;
-      v31 = v16;
-      v32 = 2112;
-      v33 = dictionaryCopy;
-      v34 = 2112;
-      v35 = dCopy;
-      v36 = 2112;
-      v37 = nameCopy;
+      v30 = v16;
+      v31 = 2112;
+      v32 = dictionaryCopy;
+      v33 = 2112;
+      v34 = dCopy;
+      v35 = 2112;
+      v36 = nameCopy;
       _os_log_impl(&dword_1959FF000, v18, OS_LOG_TYPE_INFO, "Creating new IDSAccount %p with config %@ uniqueID %@ serviceName %@", buf, 0x2Au);
     }
 
@@ -477,13 +477,12 @@
     selfCopy = self;
   }
 
-  v19 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 
 - (IDSAccount)initWithLoginID:(id)d uniqueID:(id)iD serviceName:(id)name
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   dCopy = d;
   iDCopy = iD;
   nameCopy = name;
@@ -499,38 +498,37 @@
     }
   }
 
-  v27.receiver = self;
-  v27.super_class = IDSAccount;
-  v14 = [(IDSAccount *)&v27 init];
+  v26.receiver = self;
+  v26.super_class = IDSAccount;
+  v14 = [(IDSAccount *)&v26 init];
   if (v14)
   {
     v15 = +[IDSInternalQueueController sharedInstance];
-    v19 = MEMORY[0x1E69E9820];
-    v20 = 3221225472;
-    v21 = sub_195A95524;
-    v22 = &unk_1E743EEE8;
-    v23 = v14;
-    v24 = dCopy;
-    v25 = iDCopy;
-    v26 = nameCopy;
-    [v15 performBlock:&v19];
+    v18 = MEMORY[0x1E69E9820];
+    v19 = 3221225472;
+    v20 = sub_195A95524;
+    v21 = &unk_1E743EEE8;
+    v22 = v14;
+    v23 = dCopy;
+    v24 = iDCopy;
+    v25 = nameCopy;
+    [v15 performBlock:&v18];
   }
 
   registration = [MEMORY[0x1E69A6138] registration];
   if (os_log_type_enabled(registration, OS_LOG_TYPE_DEBUG))
   {
     *buf = 134218754;
-    v29 = v14;
-    v30 = 2112;
-    v31 = dCopy;
-    v32 = 2112;
-    v33 = iDCopy;
-    v34 = 2112;
-    v35 = nameCopy;
+    v28 = v14;
+    v29 = 2112;
+    v30 = dCopy;
+    v31 = 2112;
+    v32 = iDCopy;
+    v33 = 2112;
+    v34 = nameCopy;
     _os_log_debug_impl(&dword_1959FF000, registration, OS_LOG_TYPE_DEBUG, "Created new IDSAccount %p with loginID %@ uniqueID %@ serviceName %@", buf, 0x2Au);
   }
 
-  v17 = *MEMORY[0x1E69E9840];
   return v14;
 }
 
@@ -892,6 +890,24 @@
   }
 
   return [(_IDSAccount *)self->_internal _isEnabled];
+}
+
+- (void)_setIsEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  v5 = +[IDSInternalQueueController sharedInstance];
+  assertQueueIsCurrent = [v5 assertQueueIsCurrent];
+
+  if (assertQueueIsCurrent)
+  {
+    utilities = [MEMORY[0x1E69A5270] utilities];
+    if (os_log_type_enabled(utilities, OS_LOG_TYPE_ERROR))
+    {
+      sub_195B33AE4();
+    }
+  }
+
+  [(_IDSAccount *)self->_internal _setIsEnabled:enabledCopy];
 }
 
 - (BOOL)isUsableForOuterMessaging
@@ -1488,11 +1504,11 @@
 
 - (void)registerAccount
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   state.opaque[1] = 0xAAAAAAAAAAAAAAAALL;
-  v8 = _os_activity_create(&dword_1959FF000, "Framework register account", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
+  v7 = _os_activity_create(&dword_1959FF000, "Framework register account", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
   state.opaque[0] = 0xAAAAAAAAAAAAAAAALL;
-  os_activity_scope_enter(v8, &state);
+  os_activity_scope_enter(v7, &state);
   registration = [MEMORY[0x1E69A6138] registration];
   if (os_log_type_enabled(registration, OS_LOG_TYPE_DEFAULT))
   {
@@ -1502,26 +1518,24 @@
   }
 
   v4 = +[IDSInternalQueueController sharedInstance];
-  v6[0] = MEMORY[0x1E69E9820];
-  v6[1] = 3221225472;
-  v6[2] = sub_195A99800;
-  v6[3] = &unk_1E743E878;
-  v6[4] = self;
-  [v4 performBlock:v6];
+  v5[0] = MEMORY[0x1E69E9820];
+  v5[1] = 3221225472;
+  v5[2] = sub_195A99800;
+  v5[3] = &unk_1E743E878;
+  v5[4] = self;
+  [v4 performBlock:v5];
 
   os_activity_scope_leave(&state);
   cut_arc_os_release();
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)unregisterAccount
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   state.opaque[1] = 0xAAAAAAAAAAAAAAAALL;
-  v8 = _os_activity_create(&dword_1959FF000, "Framework unregister account", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
+  v7 = _os_activity_create(&dword_1959FF000, "Framework unregister account", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
   state.opaque[0] = 0xAAAAAAAAAAAAAAAALL;
-  os_activity_scope_enter(v8, &state);
+  os_activity_scope_enter(v7, &state);
   registration = [MEMORY[0x1E69A6138] registration];
   if (os_log_type_enabled(registration, OS_LOG_TYPE_DEFAULT))
   {
@@ -1531,26 +1545,24 @@
   }
 
   v4 = +[IDSInternalQueueController sharedInstance];
-  v6[0] = MEMORY[0x1E69E9820];
-  v6[1] = 3221225472;
-  v6[2] = sub_195A999D4;
-  v6[3] = &unk_1E743E878;
-  v6[4] = self;
-  [v4 performBlock:v6];
+  v5[0] = MEMORY[0x1E69E9820];
+  v5[1] = 3221225472;
+  v5[2] = sub_195A999D4;
+  v5[3] = &unk_1E743E878;
+  v5[4] = self;
+  [v4 performBlock:v5];
 
   os_activity_scope_leave(&state);
   cut_arc_os_release();
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)forceRemoveAccount
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   state.opaque[1] = 0xAAAAAAAAAAAAAAAALL;
-  v8 = _os_activity_create(&dword_1959FF000, "Framework force remove account", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
+  v7 = _os_activity_create(&dword_1959FF000, "Framework force remove account", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
   state.opaque[0] = 0xAAAAAAAAAAAAAAAALL;
-  os_activity_scope_enter(v8, &state);
+  os_activity_scope_enter(v7, &state);
   registration = [MEMORY[0x1E69A6138] registration];
   if (os_log_type_enabled(registration, OS_LOG_TYPE_DEFAULT))
   {
@@ -1560,27 +1572,25 @@
   }
 
   v4 = +[IDSInternalQueueController sharedInstance];
-  v6[0] = MEMORY[0x1E69E9820];
-  v6[1] = 3221225472;
-  v6[2] = sub_195A99BA8;
-  v6[3] = &unk_1E743E878;
-  v6[4] = self;
-  [v4 performBlock:v6];
+  v5[0] = MEMORY[0x1E69E9820];
+  v5[1] = 3221225472;
+  v5[2] = sub_195A99BA8;
+  v5[3] = &unk_1E743E878;
+  v5[4] = self;
+  [v4 performBlock:v5];
 
   os_activity_scope_leave(&state);
   cut_arc_os_release();
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_reregisterAndReidentify:(BOOL)reidentify
 {
   reidentifyCopy = reidentify;
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   state.opaque[1] = 0xAAAAAAAAAAAAAAAALL;
-  v12 = _os_activity_create(&dword_1959FF000, "Framework reregister account", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
+  v11 = _os_activity_create(&dword_1959FF000, "Framework reregister account", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
   state.opaque[0] = 0xAAAAAAAAAAAAAAAALL;
-  os_activity_scope_enter(v12, &state);
+  os_activity_scope_enter(v11, &state);
   registration = [MEMORY[0x1E69A6138] registration];
   if (os_log_type_enabled(registration, OS_LOG_TYPE_DEFAULT))
   {
@@ -1591,34 +1601,32 @@
     }
 
     *buf = 138412546;
-    v14 = v6;
-    v15 = 2112;
+    v13 = v6;
+    v14 = 2112;
     selfCopy = self;
     _os_log_impl(&dword_1959FF000, registration, OS_LOG_TYPE_DEFAULT, "Client requesting to reregister (with reidentify %@) account: %@", buf, 0x16u);
   }
 
   v7 = +[IDSInternalQueueController sharedInstance];
-  v9[0] = MEMORY[0x1E69E9820];
-  v9[1] = 3221225472;
-  v9[2] = sub_195A99DB0;
-  v9[3] = &unk_1E743E8C8;
-  v9[4] = self;
-  v10 = reidentifyCopy;
-  [v7 performBlock:v9];
+  v8[0] = MEMORY[0x1E69E9820];
+  v8[1] = 3221225472;
+  v8[2] = sub_195A99DB0;
+  v8[3] = &unk_1E743E8C8;
+  v8[4] = self;
+  v9 = reidentifyCopy;
+  [v7 performBlock:v8];
 
   os_activity_scope_leave(&state);
   cut_arc_os_release();
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)deactivateAndPurgeIdentify
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   state.opaque[1] = 0xAAAAAAAAAAAAAAAALL;
-  v8 = _os_activity_create(&dword_1959FF000, "Framework deactivate account", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
+  v7 = _os_activity_create(&dword_1959FF000, "Framework deactivate account", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
   state.opaque[0] = 0xAAAAAAAAAAAAAAAALL;
-  os_activity_scope_enter(v8, &state);
+  os_activity_scope_enter(v7, &state);
   registration = [MEMORY[0x1E69A6138] registration];
   if (os_log_type_enabled(registration, OS_LOG_TYPE_DEFAULT))
   {
@@ -1628,17 +1636,15 @@
   }
 
   v4 = +[IDSInternalQueueController sharedInstance];
-  v6[0] = MEMORY[0x1E69E9820];
-  v6[1] = 3221225472;
-  v6[2] = sub_195A99F94;
-  v6[3] = &unk_1E743E878;
-  v6[4] = self;
-  [v4 performBlock:v6];
+  v5[0] = MEMORY[0x1E69E9820];
+  v5[1] = 3221225472;
+  v5[2] = sub_195A99F94;
+  v5[3] = &unk_1E743E878;
+  v5[4] = self;
+  [v4 performBlock:v5];
 
   os_activity_scope_leave(&state);
   cut_arc_os_release();
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_callNearbyDevicesChanged

@@ -186,10 +186,10 @@
                 v28 = *(*(&v81 + 1) + 8 * i);
                 if (![v28 representedElementCategory])
                 {
-                  indexPath = [v28 indexPath];
-                  v30 = [(PUAvalancheReviewController *)self _phAssetAtIndexPath:indexPath];
+                  v29 = objc_msgSend_indexPath(v28);
+                  v30 = [(PUAvalancheReviewController *)self _phAssetAtIndexPath:v29];
                   [v23 addObject:v30];
-                  [v71 setObject:indexPath forKey:v30];
+                  [v71 setObject:v29 forKey:v30];
                 }
               }
 
@@ -809,10 +809,10 @@ void __74__PUAvalancheReviewController_reviewScrubber_willDisplayCell_atIndexPat
         }
 
         v23 = *(*(&v30 + 1) + 8 * v22);
-        indexPath = [v23 indexPath];
+        v24 = objc_msgSend_indexPath(v23, v30);
         if (![v23 representedElementCategory])
         {
-          if (([(PUAvalancheReviewController *)self _horizontalOffsetInCollectionView:draggingCopy forCenteringOnItemAtIndexPath:indexPath], v26 = v25, x == 0.0) || x > 0.0 && v25 > offset->x || x < 0.0 && v25 < offset->x)
+          if (([(PUAvalancheReviewController *)self _horizontalOffsetInCollectionView:draggingCopy forCenteringOnItemAtIndexPath:v24], v26 = v25, x == 0.0) || x > 0.0 && v25 > offset->x || x < 0.0 && v25 < offset->x)
           {
             [v23 center];
             v28 = vabdd_f64(v27, MidX);
@@ -1001,49 +1001,48 @@ void __74__PUAvalancheReviewController_reviewScrubber_willDisplayCell_atIndexPat
   v17 = [v13 count];
   if (v14 && (v18 = v17, v17 >= 1) && assetsCount - v17 >= 1)
   {
-    v31 = buttonCopy;
+    v42 = buttonCopy;
     if (assetsCount - v17 == 1)
     {
-      v20 = PULocalizedString(@"AVALANCHE_KEEP_OTHER_PHOTO_TITLE");
+      v26 = PULocalizedString(@"AVALANCHE_KEEP_OTHER_PHOTO_TITLE");
     }
 
     else
     {
       v19 = PULocalizedString(@"AVALANCHE_KEEP_OTHER_COUNT_PHOTOS_TITLE");
-      v20 = PULocalizedStringWithValidatedFormat(v19, @"%lu");
+      v26 = PULocalizedStringWithValidatedFormat(v19, @"%lu", v20, v21, v22, v23, v24, v25, assetsCount - v18);
     }
 
-    v21 = PULocalizedString(@"AVALANCHE_KEEP_ONLY_COUNT_FAVORITES");
-    v30 = v18;
-    v22 = PULocalizedStringWithValidatedFormat(v21, @"%lu");
+    v27 = PULocalizedString(@"AVALANCHE_KEEP_ONLY_COUNT_FAVORITES");
+    v34 = PULocalizedStringWithValidatedFormat(v27, @"%lu", v28, v29, v30, v31, v32, v33, v18);
 
-    v23 = PULocalizedString(@"AVALANCHE_KEEP_EVERYTHING");
-    v24 = PULocalizedString(@"CANCEL");
-    v25 = [MEMORY[0x1E69DC650] alertControllerWithTitle:v20 message:0 preferredStyle:{0, v30}];
-    v26 = [MEMORY[0x1E69DC648] actionWithTitle:v24 style:1 handler:0];
-    [v25 addAction:v26];
+    v35 = PULocalizedString(@"AVALANCHE_KEEP_EVERYTHING");
+    v36 = PULocalizedString(@"CANCEL");
+    v37 = [MEMORY[0x1E69DC650] alertControllerWithTitle:v26 message:0 preferredStyle:0];
+    v38 = [MEMORY[0x1E69DC648] actionWithTitle:v36 style:1 handler:0];
+    [v37 addAction:v38];
 
-    v33[0] = MEMORY[0x1E69E9820];
-    v33[1] = 3221225472;
-    v33[2] = __49__PUAvalancheReviewController__handleDoneButton___block_invoke;
-    v33[3] = &unk_1E7B7E148;
-    v33[4] = self;
-    v27 = [MEMORY[0x1E69DC648] actionWithTitle:v23 style:0 handler:v33];
-    [v25 addAction:v27];
+    v44[0] = MEMORY[0x1E69E9820];
+    v44[1] = 3221225472;
+    v44[2] = __49__PUAvalancheReviewController__handleDoneButton___block_invoke;
+    v44[3] = &unk_1E7B7E148;
+    v44[4] = self;
+    v39 = [MEMORY[0x1E69DC648] actionWithTitle:v35 style:0 handler:v44];
+    [v37 addAction:v39];
 
-    v32[0] = MEMORY[0x1E69E9820];
-    v32[1] = 3221225472;
-    v32[2] = __49__PUAvalancheReviewController__handleDoneButton___block_invoke_2;
-    v32[3] = &unk_1E7B7E148;
-    v32[4] = self;
-    v28 = [MEMORY[0x1E69DC648] actionWithTitle:v22 style:0 handler:v32];
-    [v25 addAction:v28];
+    v43[0] = MEMORY[0x1E69E9820];
+    v43[1] = 3221225472;
+    v43[2] = __49__PUAvalancheReviewController__handleDoneButton___block_invoke_2;
+    v43[3] = &unk_1E7B7E148;
+    v43[4] = self;
+    v40 = [MEMORY[0x1E69DC648] actionWithTitle:v34 style:0 handler:v43];
+    [v37 addAction:v40];
 
-    [(PUAvalancheReviewController *)self presentViewController:v25 animated:1 completion:0];
-    popoverPresentationController = [v25 popoverPresentationController];
+    [(PUAvalancheReviewController *)self presentViewController:v37 animated:1 completion:0];
+    popoverPresentationController = [v37 popoverPresentationController];
     [popoverPresentationController setPermittedArrowDirections:15];
-    buttonCopy = v31;
-    [popoverPresentationController setBarButtonItem:v31];
+    buttonCopy = v42;
+    [popoverPresentationController setBarButtonItem:v42];
   }
 
   else
@@ -1990,18 +1989,18 @@ LABEL_8:
   [_cachingImageManager requestImageForAsset:v17 targetSize:0 contentMode:v19 options:v33 resultHandler:{v25, v27}];
 }
 
-void __69__PUAvalancheReviewController__updatePhotoForAsset_cell_atIndexPath___block_invoke(uint64_t a1, void *a2, void *a3)
+void __69__PUAvalancheReviewController__updatePhotoForAsset_cell_atIndexPath___block_invoke(id *a1, void *a2, void *a3)
 {
   v21 = a2;
   v5 = a3;
-  if (v21 && [*(a1 + 32) tag] == *(a1 + 48))
+  if (v21 && [a1[4] tag] == a1[6])
   {
     v6 = [v5 objectForKeyedSubscript:*MEMORY[0x1E6978E50]];
     v7 = [v6 BOOLValue];
 
     [v21 size];
     v9 = v8;
-    v10 = [*(a1 + 40) photoImage];
+    v10 = [a1[5] photoImage];
     [v10 size];
     if (v9 >= v11)
     {
@@ -2011,7 +2010,7 @@ void __69__PUAvalancheReviewController__updatePhotoForAsset_cell_atIndexPath___b
     {
       [v21 size];
       v13 = v12;
-      v14 = [*(a1 + 40) photoImage];
+      v14 = [a1[5] photoImage];
       [v14 size];
       v16 = v15;
 
@@ -2021,10 +2020,10 @@ void __69__PUAvalancheReviewController__updatePhotoForAsset_cell_atIndexPath___b
       }
     }
 
-    v17 = [*(a1 + 40) placeHolderImage];
-    if (!v17 || (v18 = v17, [*(a1 + 40) placeHolderImage], v19 = objc_claimAutoreleasedReturnValue(), v20 = (v19 == 0) | v7, v19, v18, (v20 & 1) == 0))
+    v17 = [a1[5] placeHolderImage];
+    if (!v17 || (v18 = v17, [a1[5] placeHolderImage], v19 = objc_claimAutoreleasedReturnValue(), v20 = (v19 == 0) | v7, v19, v18, (v20 & 1) == 0))
     {
-      [*(a1 + 40) setPhotoImage:v21];
+      [a1[5] setPhotoImage:v21];
     }
   }
 
@@ -2246,17 +2245,16 @@ LABEL_4:
   if (v5)
   {
     v6 = PULocalizedString(@"REVIEW_COUNT_PHOTOS_SELECTED_TITLE_TEXT");
-    v8 = v5;
-    v9 = PULocalizedStringWithValidatedFormat(v6, @"%lu");
+    v14 = PULocalizedStringWithValidatedFormat(v6, @"%lu", v7, v8, v9, v10, v11, v12, v5);
   }
 
   else
   {
-    v9 = PULocalizedString(@"EMPTY_REVIEW_TITLE_TEXT");
+    v14 = PULocalizedString(@"EMPTY_REVIEW_TITLE_TEXT");
   }
 
   navigationItem = [(PUAvalancheReviewController *)self navigationItem];
-  [navigationItem setTitle:v9];
+  [navigationItem setTitle:v14];
   [navigationItem setPrompt:0];
 }
 

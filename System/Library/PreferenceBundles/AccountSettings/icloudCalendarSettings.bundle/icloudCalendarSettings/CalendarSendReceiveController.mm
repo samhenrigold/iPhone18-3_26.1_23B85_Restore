@@ -356,7 +356,7 @@ LABEL_31:
     goto LABEL_32;
   }
 
-  v20 = _CalLogSystem();
+  v20 = _CalLogSystem(0);
   if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
   {
     sub_B51C(pathCopy, v20);
@@ -369,26 +369,26 @@ LABEL_32:
 {
   sendCopy = send;
   v5 = objc_alloc_init(NSMutableArray);
-  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
+  v24 = 0u;
   obj = self->_emailList;
-  v6 = [(NSMutableArray *)obj countByEnumeratingWithState:&v20 objects:v26 count:16];
+  v6 = [(NSMutableArray *)obj countByEnumeratingWithState:&v21 objects:v27 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v21;
+    v8 = *v22;
     do
     {
       for (i = 0; i != v7; i = i + 1)
       {
-        if (*v21 != v8)
+        if (*v22 != v8)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = *(*(&v20 + 1) + 8 * i);
+        v10 = *(*(&v21 + 1) + 8 * i);
         v11 = [CalInviteEmail alloc];
         toDictionary = [v10 toDictionary];
         v13 = [(CalInviteEmail *)v11 initWithDictionary:toDictionary];
@@ -401,19 +401,19 @@ LABEL_32:
         [v5 addObject:v13];
       }
 
-      v7 = [(NSMutableArray *)obj countByEnumeratingWithState:&v20 objects:v26 count:16];
+      v7 = [(NSMutableArray *)obj countByEnumeratingWithState:&v21 objects:v27 count:16];
     }
 
     while (v7);
   }
 
-  v17 = _CalLogSystem();
-  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+  v18 = _CalLogSystem(v17);
+  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
   {
     address3 = [sendCopy address];
     *buf = 138412290;
-    v25 = address3;
-    _os_log_impl(&dword_0, v17, OS_LOG_TYPE_DEFAULT, "selected address for send receive is %@", buf, 0xCu);
+    v26 = address3;
+    _os_log_impl(&dword_0, v18, OS_LOG_TYPE_DEFAULT, "selected address for send receive is %@", buf, 0xCu);
   }
 
   [(CalendarSendReceiveController *)self _updateSettingsForEmail:v5];
@@ -423,7 +423,7 @@ LABEL_32:
 {
   receiveCopy = receive;
   optionCopy = option;
-  v7 = _CalLogSystem();
+  v7 = _CalLogSystem(optionCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     address = [receiveCopy address];

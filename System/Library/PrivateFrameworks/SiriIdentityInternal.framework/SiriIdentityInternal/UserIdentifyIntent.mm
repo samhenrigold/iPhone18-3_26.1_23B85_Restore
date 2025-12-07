@@ -25,14 +25,15 @@
 
 - (UserIdentifyIntent)initWithDomain:(id)domain verb:(id)verb parametersByName:(id)name
 {
-  sub_266E9D024();
+  v6 = sub_266E9D024();
+  v8 = v7;
   sub_266E9D024();
   if (name)
   {
     sub_266E9CFC4();
   }
 
-  return UserIdentifyIntent.init(domain:verb:parametersByName:)();
+  return UserIdentifyIntent.init(domain:verb:parametersByName:)(v6, v8);
 }
 
 @end

@@ -22,34 +22,34 @@
 
 - (void)startTaskGroup
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   v3 = dispatch_group_create();
-  v29[0] = 0;
-  v29[1] = v29;
-  v29[2] = 0x3032000000;
-  v29[3] = __Block_byref_object_copy_;
-  v29[4] = __Block_byref_object_dispose_;
-  v30 = 0;
+  v28[0] = 0;
+  v28[1] = v28;
+  v28[2] = 0x3032000000;
+  v28[3] = __Block_byref_object_copy_;
+  v28[4] = __Block_byref_object_dispose_;
+  v29 = 0;
+  v24 = 0u;
   v25 = 0u;
   v26 = 0u;
   v27 = 0u;
-  v28 = 0u;
   obj = self->_reportJunkActions;
-  v4 = [(NSArray *)obj countByEnumeratingWithState:&v25 objects:v31 count:16];
+  v4 = [(NSArray *)obj countByEnumeratingWithState:&v24 objects:v30 count:16];
   if (v4)
   {
-    v5 = *v26;
+    v5 = *v25;
     do
     {
       v6 = 0;
       do
       {
-        if (*v26 != v5)
+        if (*v25 != v5)
         {
           objc_enumerationMutation(obj);
         }
 
-        v7 = *(*(&v25 + 1) + 8 * v6);
+        v7 = *(*(&v24 + 1) + 8 * v6);
         v8 = [CalDAVPostAuditFailureTask alloc];
         resourceURL = [v7 resourceURL];
         v10 = [(CalDAVPostAuditFailureTask *)v8 initWithResourceURL:resourceURL reason:0];
@@ -59,17 +59,17 @@
 
         objc_initWeak(&location, self);
         objc_initWeak(&from, v10);
-        v18[0] = MEMORY[0x277D85DD0];
-        v18[1] = 3221225472;
-        v18[2] = __43__CalDAVReportJunkTaskGroup_startTaskGroup__block_invoke;
-        v18[3] = &unk_278D668A0;
-        objc_copyWeak(&v21, &location);
-        objc_copyWeak(&v22, &from);
-        v20 = v29;
-        v18[4] = v7;
+        v17[0] = MEMORY[0x277D85DD0];
+        v17[1] = 3221225472;
+        v17[2] = __43__CalDAVReportJunkTaskGroup_startTaskGroup__block_invoke;
+        v17[3] = &unk_278D668A0;
+        objc_copyWeak(&v20, &location);
+        objc_copyWeak(&v21, &from);
+        v19 = v28;
+        v17[4] = v7;
         v12 = v3;
-        v19 = v12;
-        [(CalDAVPostAuditFailureTask *)v10 setCompletionBlock:v18];
+        v18 = v12;
+        [(CalDAVPostAuditFailureTask *)v10 setCompletionBlock:v17];
         outstandingTasks = [(CoreDAVTaskGroup *)self outstandingTasks];
         [outstandingTasks addObject:v10];
 
@@ -77,8 +77,8 @@
         taskManager = [(CoreDAVTaskGroup *)self taskManager];
         [taskManager submitQueuedCoreDAVTask:v10];
 
-        objc_destroyWeak(&v22);
         objc_destroyWeak(&v21);
+        objc_destroyWeak(&v20);
         objc_destroyWeak(&from);
         objc_destroyWeak(&location);
 
@@ -86,7 +86,7 @@
       }
 
       while (v4 != v6);
-      v4 = [(NSArray *)obj countByEnumeratingWithState:&v25 objects:v31 count:16];
+      v4 = [(NSArray *)obj countByEnumeratingWithState:&v24 objects:v30 count:16];
     }
 
     while (v4);
@@ -97,11 +97,9 @@
   block[2] = __43__CalDAVReportJunkTaskGroup_startTaskGroup__block_invoke_2;
   block[3] = &unk_278D668C8;
   block[4] = self;
-  block[5] = v29;
+  block[5] = v28;
   dispatch_group_notify(v3, MEMORY[0x277D85CD0], block);
-  _Block_object_dispose(v29, 8);
-
-  v15 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(v28, 8);
 }
 
 void __43__CalDAVReportJunkTaskGroup_startTaskGroup__block_invoke(uint64_t a1)

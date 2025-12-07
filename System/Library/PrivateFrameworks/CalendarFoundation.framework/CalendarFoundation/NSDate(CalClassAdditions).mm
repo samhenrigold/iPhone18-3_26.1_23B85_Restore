@@ -15,6 +15,7 @@
 + (id)nextRoundedChunkForDuration:()CalClassAdditions;
 + (id)nextRoundedHour;
 - (BOOL)CalIsBetweenStartDate:()CalClassAdditions endDate:;
+- (char)midnightOffsetMinutes:()CalClassAdditions;
 - (id)CalDateByComponentwiseAddingComponents:()CalClassAdditions inCalendar:;
 - (id)CalDateByComponentwiseAddingHours:()CalClassAdditions inCalendar:;
 - (id)CalDateByComponentwiseAddingMinutes:()CalClassAdditions inCalendar:;
@@ -81,7 +82,6 @@
 - (uint64_t)localizedWeekdayMonthDayYearStringShortened:()CalClassAdditions;
 - (uint64_t)localizedWeekdayMonthYearStringShortened:()CalClassAdditions;
 - (uint64_t)localizedYearMonthAndDayStringShortened:()CalClassAdditions;
-- (uint64_t)midnightOffsetMinutes:()CalClassAdditions;
 - (uint64_t)minuteInCalendar:()CalClassAdditions;
 - (uint64_t)monthInCalendar:()CalClassAdditions;
 - (uint64_t)rangeOfDayInLocalizedDateString:()CalClassAdditions;
@@ -129,9 +129,9 @@
     +[NSDate(CalClassAdditions) calGMT];
   }
 
-  v1 = calGMT_gmt;
+  v2 = calGMT_gmt;
 
-  return v1;
+  return v2;
 }
 
 - (id)dateInTimeZone:()CalClassAdditions fromTimeZone:
@@ -1799,7 +1799,7 @@ LABEL_28:
   return v16;
 }
 
-- (uint64_t)midnightOffsetMinutes:()CalClassAdditions
+- (char)midnightOffsetMinutes:()CalClassAdditions
 {
   v3 = [a3 components:96 fromDate:self];
   hour = [v3 hour];
@@ -2042,234 +2042,193 @@ LABEL_5:
 - (void)printComparisonToDate:()CalClassAdditions .cold.1()
 {
   OUTLINED_FUNCTION_4_0();
-  v13 = *MEMORY[0x1E69E9840];
   v2 = [v1 calendar];
   v3 = [v2 calendarIdentifier];
   v4 = [v0 calendar];
-  v12 = [v4 calendarIdentifier];
-  OUTLINED_FUNCTION_3_0(&dword_1B990D000, v5, v6, "Calendar: %@ vs %@", v7, v8, v9, v10, 2u);
-
-  v11 = *MEMORY[0x1E69E9840];
+  v5 = [v4 calendarIdentifier];
+  *v12 = 138412546;
+  *&v12[4] = v3;
+  *&v12[12] = 2112;
+  *&v12[14] = v5;
+  OUTLINED_FUNCTION_3_0(&dword_1B990D000, v6, v7, "Calendar: %@ vs %@", v8, v9, v10, v11, *v12, *&v12[8], *&v12[16]);
 }
 
 - (void)printComparisonToDate:()CalClassAdditions .cold.2()
 {
   OUTLINED_FUNCTION_4_0();
-  v12 = *MEMORY[0x1E69E9840];
   v2 = [v1 timeZone];
   v3 = [v0 timeZone];
   OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_3_0(&dword_1B990D000, v4, v5, "TimeZone: %@ vs %@", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_3_0(&dword_1B990D000, v4, v5, "TimeZone: %@ vs %@", v6, v7, v8, v9);
 }
 
 - (void)printComparisonToDate:()CalClassAdditions .cold.3()
 {
   OUTLINED_FUNCTION_4_0();
-  v1 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_2_0();
-  [v2 era];
+  [v1 era];
   [OUTLINED_FUNCTION_6_0() numberWithInteger:?];
   objc_claimAutoreleasedReturnValue();
   [OUTLINED_FUNCTION_1_0() era];
-  v3 = [OUTLINED_FUNCTION_5_0() numberWithInteger:?];
+  v2 = [OUTLINED_FUNCTION_5_0() numberWithInteger:?];
   OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_3_0(&dword_1B990D000, v4, v5, "Era: %@ vs %@", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_3_0(&dword_1B990D000, v3, v4, "Era: %@ vs %@", v5, v6, v7, v8);
 }
 
 - (void)printComparisonToDate:()CalClassAdditions .cold.4()
 {
   OUTLINED_FUNCTION_4_0();
-  v1 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_2_0();
-  [v2 year];
+  [v1 year];
   [OUTLINED_FUNCTION_6_0() numberWithInteger:?];
   objc_claimAutoreleasedReturnValue();
   [OUTLINED_FUNCTION_1_0() year];
-  v3 = [OUTLINED_FUNCTION_5_0() numberWithInteger:?];
+  v2 = [OUTLINED_FUNCTION_5_0() numberWithInteger:?];
   OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_3_0(&dword_1B990D000, v4, v5, "Year: %@ vs %@", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_3_0(&dword_1B990D000, v3, v4, "Year: %@ vs %@", v5, v6, v7, v8);
 }
 
 - (void)printComparisonToDate:()CalClassAdditions .cold.5()
 {
   OUTLINED_FUNCTION_4_0();
-  v1 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_2_0();
-  [v2 quarter];
+  [v1 quarter];
   [OUTLINED_FUNCTION_6_0() numberWithInteger:?];
   objc_claimAutoreleasedReturnValue();
   [OUTLINED_FUNCTION_1_0() quarter];
-  v3 = [OUTLINED_FUNCTION_5_0() numberWithInteger:?];
+  v2 = [OUTLINED_FUNCTION_5_0() numberWithInteger:?];
   OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_3_0(&dword_1B990D000, v4, v5, "quarter: %@ vs %@", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_3_0(&dword_1B990D000, v3, v4, "quarter: %@ vs %@", v5, v6, v7, v8);
 }
 
 - (void)printComparisonToDate:()CalClassAdditions .cold.6()
 {
   OUTLINED_FUNCTION_4_0();
-  v1 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_2_0();
-  [v2 month];
+  [v1 month];
   [OUTLINED_FUNCTION_6_0() numberWithInteger:?];
   objc_claimAutoreleasedReturnValue();
   [OUTLINED_FUNCTION_1_0() month];
-  v3 = [OUTLINED_FUNCTION_5_0() numberWithInteger:?];
+  v2 = [OUTLINED_FUNCTION_5_0() numberWithInteger:?];
   OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_3_0(&dword_1B990D000, v4, v5, "month: %@ vs %@", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_3_0(&dword_1B990D000, v3, v4, "month: %@ vs %@", v5, v6, v7, v8);
 }
 
 - (void)printComparisonToDate:()CalClassAdditions .cold.7()
 {
   OUTLINED_FUNCTION_4_0();
-  v1 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_2_0();
-  [v2 day];
+  [v1 day];
   [OUTLINED_FUNCTION_6_0() numberWithInteger:?];
   objc_claimAutoreleasedReturnValue();
   [OUTLINED_FUNCTION_1_0() day];
-  v3 = [OUTLINED_FUNCTION_5_0() numberWithInteger:?];
+  v2 = [OUTLINED_FUNCTION_5_0() numberWithInteger:?];
   OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_3_0(&dword_1B990D000, v4, v5, "day: %@ vs %@", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_3_0(&dword_1B990D000, v3, v4, "day: %@ vs %@", v5, v6, v7, v8);
 }
 
 - (void)printComparisonToDate:()CalClassAdditions .cold.8()
 {
   OUTLINED_FUNCTION_4_0();
-  v1 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_2_0();
-  [v2 weekOfMonth];
+  [v1 weekOfMonth];
   [OUTLINED_FUNCTION_6_0() numberWithInteger:?];
   objc_claimAutoreleasedReturnValue();
   [OUTLINED_FUNCTION_1_0() weekOfMonth];
-  v3 = [OUTLINED_FUNCTION_5_0() numberWithInteger:?];
+  v2 = [OUTLINED_FUNCTION_5_0() numberWithInteger:?];
   OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_3_0(&dword_1B990D000, v4, v5, "weekOfMonth: %@ vs %@", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_3_0(&dword_1B990D000, v3, v4, "weekOfMonth: %@ vs %@", v5, v6, v7, v8);
 }
 
 - (void)printComparisonToDate:()CalClassAdditions .cold.9()
 {
   OUTLINED_FUNCTION_4_0();
-  v1 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_2_0();
-  [v2 weekOfYear];
+  [v1 weekOfYear];
   [OUTLINED_FUNCTION_6_0() numberWithInteger:?];
   objc_claimAutoreleasedReturnValue();
   [OUTLINED_FUNCTION_1_0() weekOfYear];
-  v3 = [OUTLINED_FUNCTION_5_0() numberWithInteger:?];
+  v2 = [OUTLINED_FUNCTION_5_0() numberWithInteger:?];
   OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_3_0(&dword_1B990D000, v4, v5, "weekOfYear: %@ vs %@", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_3_0(&dword_1B990D000, v3, v4, "weekOfYear: %@ vs %@", v5, v6, v7, v8);
 }
 
 - (void)printComparisonToDate:()CalClassAdditions .cold.10()
 {
   OUTLINED_FUNCTION_4_0();
-  v1 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_2_0();
-  [v2 weekday];
+  [v1 weekday];
   [OUTLINED_FUNCTION_6_0() numberWithInteger:?];
   objc_claimAutoreleasedReturnValue();
   [OUTLINED_FUNCTION_1_0() weekday];
-  v3 = [OUTLINED_FUNCTION_5_0() numberWithInteger:?];
+  v2 = [OUTLINED_FUNCTION_5_0() numberWithInteger:?];
   OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_3_0(&dword_1B990D000, v4, v5, "weekday: %@ vs %@", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_3_0(&dword_1B990D000, v3, v4, "weekday: %@ vs %@", v5, v6, v7, v8);
 }
 
 - (void)printComparisonToDate:()CalClassAdditions .cold.11()
 {
   OUTLINED_FUNCTION_4_0();
-  v1 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_2_0();
-  [v2 weekdayOrdinal];
+  [v1 weekdayOrdinal];
   [OUTLINED_FUNCTION_6_0() numberWithInteger:?];
   objc_claimAutoreleasedReturnValue();
   [OUTLINED_FUNCTION_1_0() weekdayOrdinal];
-  v3 = [OUTLINED_FUNCTION_5_0() numberWithInteger:?];
+  v2 = [OUTLINED_FUNCTION_5_0() numberWithInteger:?];
   OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_3_0(&dword_1B990D000, v4, v5, "weekdayOrdinal: %@ vs %@", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_3_0(&dword_1B990D000, v3, v4, "weekdayOrdinal: %@ vs %@", v5, v6, v7, v8);
 }
 
 - (void)printComparisonToDate:()CalClassAdditions .cold.12()
 {
   OUTLINED_FUNCTION_4_0();
-  v1 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_2_0();
-  [v2 hour];
+  [v1 hour];
   [OUTLINED_FUNCTION_6_0() numberWithInteger:?];
   objc_claimAutoreleasedReturnValue();
   [OUTLINED_FUNCTION_1_0() hour];
-  v3 = [OUTLINED_FUNCTION_5_0() numberWithInteger:?];
+  v2 = [OUTLINED_FUNCTION_5_0() numberWithInteger:?];
   OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_3_0(&dword_1B990D000, v4, v5, "hour: %@ vs %@", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_3_0(&dword_1B990D000, v3, v4, "hour: %@ vs %@", v5, v6, v7, v8);
 }
 
 - (void)printComparisonToDate:()CalClassAdditions .cold.13()
 {
   OUTLINED_FUNCTION_4_0();
-  v1 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_2_0();
-  [v2 minute];
+  [v1 minute];
   [OUTLINED_FUNCTION_6_0() numberWithInteger:?];
   objc_claimAutoreleasedReturnValue();
   [OUTLINED_FUNCTION_1_0() minute];
-  v3 = [OUTLINED_FUNCTION_5_0() numberWithInteger:?];
+  v2 = [OUTLINED_FUNCTION_5_0() numberWithInteger:?];
   OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_3_0(&dword_1B990D000, v4, v5, "minute %@ vs %@", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_3_0(&dword_1B990D000, v3, v4, "minute %@ vs %@", v5, v6, v7, v8);
 }
 
 - (void)printComparisonToDate:()CalClassAdditions .cold.14()
 {
   OUTLINED_FUNCTION_4_0();
-  v1 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_2_0();
-  [v2 second];
+  [v1 second];
   [OUTLINED_FUNCTION_6_0() numberWithInteger:?];
   objc_claimAutoreleasedReturnValue();
   [OUTLINED_FUNCTION_1_0() second];
-  v3 = [OUTLINED_FUNCTION_5_0() numberWithInteger:?];
+  v2 = [OUTLINED_FUNCTION_5_0() numberWithInteger:?];
   OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_3_0(&dword_1B990D000, v4, v5, "second: %@ vs %@", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_3_0(&dword_1B990D000, v3, v4, "second: %@ vs %@", v5, v6, v7, v8);
 }
 
 - (void)printComparisonToDate:()CalClassAdditions .cold.15()
 {
   OUTLINED_FUNCTION_4_0();
-  v1 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_2_0();
-  [v2 nanosecond];
+  [v1 nanosecond];
   [OUTLINED_FUNCTION_6_0() numberWithInteger:?];
   objc_claimAutoreleasedReturnValue();
   [OUTLINED_FUNCTION_1_0() nanosecond];
-  v3 = [OUTLINED_FUNCTION_5_0() numberWithInteger:?];
+  v2 = [OUTLINED_FUNCTION_5_0() numberWithInteger:?];
   OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_3_0(&dword_1B990D000, v4, v5, "nanosecond: %@ vs %@", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_3_0(&dword_1B990D000, v3, v4, "nanosecond: %@ vs %@", v5, v6, v7, v8);
 }
 
 @end

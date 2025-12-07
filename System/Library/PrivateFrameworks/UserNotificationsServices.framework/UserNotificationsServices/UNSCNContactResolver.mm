@@ -20,20 +20,20 @@
 
 - (UNSCNContactResolver)init
 {
-  v14[4] = *MEMORY[0x277D85DE8];
-  v13.receiver = self;
-  v13.super_class = UNSCNContactResolver;
-  v2 = [(UNSCNContactResolver *)&v13 init];
+  v13[4] = *MEMORY[0x277D85DE8];
+  v12.receiver = self;
+  v12.super_class = UNSCNContactResolver;
+  v2 = [(UNSCNContactResolver *)&v12 init];
   if (v2)
   {
     v3 = [MEMORY[0x277CBDA78] descriptorForRequiredKeysForStyle:0];
     v4 = *MEMORY[0x277CBD098];
-    v14[0] = v3;
-    v14[1] = v4;
+    v13[0] = v3;
+    v13[1] = v4;
     v5 = *MEMORY[0x277CBD138];
-    v14[2] = *MEMORY[0x277CBCFC0];
-    v14[3] = v5;
-    v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:4];
+    v13[2] = *MEMORY[0x277CBCFC0];
+    v13[3] = v5;
+    v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:4];
     contactStoreSearchKeys = v2->_contactStoreSearchKeys;
     v2->_contactStoreSearchKeys = v6;
 
@@ -45,22 +45,21 @@
     v2->_contactStore = v9;
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return v2;
 }
 
 - (id)resultForContactIdentifier:(id)identifier emailAddress:(id)address phoneNumber:(id)number userIdentifier:(id)userIdentifier username:(id)username bundleIdentifier:(id)bundleIdentifier
 {
-  v68 = *MEMORY[0x277D85DE8];
+  v69 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   addressCopy = address;
   numberCopy = number;
   userIdentifierCopy = userIdentifier;
   usernameCopy = username;
   bundleIdentifierCopy = bundleIdentifier;
-  v57 = [MEMORY[0x277CBEAA8] now];
+  v58 = [MEMORY[0x277CBEAA8] now];
   v18 = objc_alloc_init(MEMORY[0x277CCAB68]);
-  v58 = identifierCopy;
+  v59 = identifierCopy;
   if ([identifierCopy length])
   {
     v19 = [(UNSCNContactResolver *)self resultForContactIdentifier:identifierCopy];
@@ -74,7 +73,7 @@
   }
 
   v21 = addressCopy;
-  v59 = usernameCopy;
+  v60 = usernameCopy;
   if (([v19 isStrongestMatch] & 1) == 0 && objc_msgSend(numberCopy, "length"))
   {
     v22 = numberCopy;
@@ -94,7 +93,7 @@
     [v18 appendString:v28];
 
     v21 = addressCopy;
-    usernameCopy = v59;
+    usernameCopy = v60;
   }
 
   if (([v19 isStrongestMatch] & 1) == 0 && objc_msgSend(v21, "length"))
@@ -116,7 +115,7 @@
 
     v21 = addressCopy;
     numberCopy = v29;
-    usernameCopy = v59;
+    usernameCopy = v60;
   }
 
   if (([v19 isStrongestMatch] & 1) == 0)
@@ -142,7 +141,7 @@
       numberCopy = v36;
     }
 
-    usernameCopy = v59;
+    usernameCopy = v60;
   }
 
   if (([v19 isStrongestMatch] & 1) == 0 && objc_msgSend(usernameCopy, "length"))
@@ -162,39 +161,38 @@
     v49 = [v47 stringWithFormat:@"\tusername - %@: %@ preferResult:%d", un_logDigest4, v44, v45];
     [v18 appendString:v49];
 
-    usernameCopy = v59;
+    usernameCopy = v60;
     v21 = addressCopy;
     numberCopy = v43;
   }
 
-  if ([v19 isSuggestedContact])
+  isSuggestedContact = [v19 isSuggestedContact];
+  if (isSuggestedContact)
   {
-    v50 = UNSLogCommunicationNotifications();
-    if (os_log_type_enabled(v50, OS_LOG_TYPE_DEFAULT))
+    v51 = UNSLogCommunicationNotifications(isSuggestedContact);
+    if (os_log_type_enabled(v51, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_270B08000, v50, OS_LOG_TYPE_DEFAULT, "_UNCNContactResolver rejecting pure suggested contact. Not yet supported.", buf, 2u);
+      _os_log_impl(&dword_270B08000, v51, OS_LOG_TYPE_DEFAULT, "_UNCNContactResolver rejecting pure suggested contact. Not yet supported.", buf, 2u);
     }
 
     v19 = 0;
   }
 
-  v51 = [MEMORY[0x277CBEAA8] now];
-  [v51 timeIntervalSinceDate:v57];
-  v53 = v52;
-  v54 = UNSLogCommunicationNotifications();
-  if (os_log_type_enabled(v54, OS_LOG_TYPE_DEFAULT))
+  v52 = [MEMORY[0x277CBEAA8] now];
+  v53 = [v52 timeIntervalSinceDate:v58];
+  v55 = v54;
+  v56 = UNSLogCommunicationNotifications(v53);
+  if (os_log_type_enabled(v56, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134349570;
-    v63 = v53;
-    v64 = 2112;
-    v65 = v19;
-    v66 = 2112;
-    v67 = v18;
-    _os_log_impl(&dword_270B08000, v54, OS_LOG_TYPE_DEFAULT, "_UNCNContactResolver found results in %{public}fms:\n\tFinal match:%@\n%@", buf, 0x20u);
+    v64 = v55;
+    v65 = 2112;
+    v66 = v19;
+    v67 = 2112;
+    v68 = v18;
+    _os_log_impl(&dword_270B08000, v56, OS_LOG_TYPE_DEFAULT, "_UNCNContactResolver found results in %{public}fms:\n\tFinal match:%@\n%@", buf, 0x20u);
   }
-
-  v55 = *MEMORY[0x277D85DE8];
 
   return v19;
 }
@@ -202,7 +200,7 @@
 - (id)confirm:(BOOL)confirm match:(id)match
 {
   confirmCopy = confirm;
-  v103 = *MEMORY[0x277D85DE8];
+  v106 = *MEMORY[0x277D85DE8];
   matchCopy = match;
   v7 = @"reject";
   if (confirmCopy)
@@ -222,184 +220,186 @@
     if (isSuggestedContact)
     {
       obj = identifierOfMatchLabel;
-      v76 = v10;
-      v14 = v10;
-      v15 = v14;
+      v79 = v10;
+      v15 = v10;
+      v16 = v15;
       selfCopy2 = self;
       if (confirmCopy)
       {
-        copyWithCuratingAllSuggestions = [v14 copyWithCuratingAllSuggestions];
-        v18 = [copyWithCuratingAllSuggestions mutableCopy];
+        copyWithCuratingAllSuggestions = [v15 copyWithCuratingAllSuggestions];
+        v19 = [copyWithCuratingAllSuggestions mutableCopy];
 
-        v19 = objc_alloc_init(MEMORY[0x277CBDBB8]);
+        v20 = objc_alloc_init(MEMORY[0x277CBDBB8]);
 LABEL_7:
-        v20 = isSuggestedContact;
-        [v19 confirmSuggestion:v15];
+        v21 = isSuggestedContact;
+        [v20 confirmSuggestion:v16];
 LABEL_33:
         contactStore = selfCopy2->_contactStore;
-        v79 = 0;
-        [(CNContactStore *)contactStore executeSaveRequest:v19 error:&v79];
-        v30 = v79;
-        v21 = 0;
-        if (v30 || !v18)
+        v82 = 0;
+        [(CNContactStore *)contactStore executeSaveRequest:v20 error:&v82];
+        v32 = v82;
+        v22 = 0;
+        if (v32 || !v19)
         {
           goto LABEL_45;
         }
 
-        v32 = objc_alloc_init(MEMORY[0x277CBDBA0]);
-        v33 = v32;
-        if (v20)
+        v34 = objc_alloc_init(MEMORY[0x277CBDBA0]);
+        v35 = v34;
+        if (v21)
         {
-          [v32 addContact:v18 toContainerWithIdentifier:0];
+          [v34 addContact:v19 toContainerWithIdentifier:0];
         }
 
         else
         {
-          [v32 updateContact:v18];
+          [v34 updateContact:v19];
         }
 
-        v73 = v8;
-        v34 = selfCopy2->_contactStore;
-        v78 = 0;
-        [(CNContactStore *)v34 executeSaveRequest:v33 error:&v78];
-        v30 = v78;
-        if (v30)
+        v76 = v8;
+        v36 = selfCopy2->_contactStore;
+        v81 = 0;
+        [(CNContactStore *)v36 executeSaveRequest:v35 error:&v81];
+        v37 = v81;
+        v32 = v37;
+        if (v37)
         {
-          v35 = UNSLogCommunicationNotifications();
-          if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
+          v38 = UNSLogCommunicationNotifications(v37);
+          if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
           {
-            localizedDescription = [v30 localizedDescription];
+            localizedDescription = [v32 localizedDescription];
             *buf = 136446978;
-            v93 = "[UNSCNContactResolver confirm:match:]";
-            v94 = 2114;
-            v95 = v73;
-            v96 = 2114;
-            v97 = localizedDescription;
-            v98 = 2114;
-            v99 = matchCopy;
-            _os_log_error_impl(&dword_270B08000, v35, OS_LOG_TYPE_ERROR, "%{public}s: Failed to %{public}@ match. Save request error %{public}@. Match:%{public}@", buf, 0x2Au);
+            v96 = "[UNSCNContactResolver confirm:match:]";
+            v97 = 2114;
+            v98 = v76;
+            v99 = 2114;
+            v100 = localizedDescription;
+            v101 = 2114;
+            v102 = matchCopy;
+            _os_log_error_impl(&dword_270B08000, v38, OS_LOG_TYPE_ERROR, "%{public}s: Failed to %{public}@ match. Save request error %{public}@. Match:%{public}@", buf, 0x2Au);
 
-            v8 = v73;
-            v21 = 0;
+            v8 = v76;
+            v22 = 0;
             goto LABEL_44;
           }
 
-          v21 = 0;
+          v22 = 0;
         }
 
         else
         {
-          identifier = [v18 identifier];
-          v37 = [(UNSCNContactResolver *)selfCopy2 _fullnameForCNContact:v18];
-          v21 = [UNSCNContactResolverResult resultWithCNContactIdentifier:identifier cnContactFullname:v37 suggestedContact:0 matchType:0 matchTypeSuggested:0 identifierOfMatchLabel:0];
+          identifier = [v19 identifier];
+          v40 = [(UNSCNContactResolver *)selfCopy2 _fullnameForCNContact:v19];
+          v22 = [UNSCNContactResolverResult resultWithCNContactIdentifier:identifier cnContactFullname:v40 suggestedContact:0 matchType:0 matchTypeSuggested:0 identifierOfMatchLabel:0];
 
-          v35 = UNSLogCommunicationNotifications();
-          if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
+          v38 = UNSLogCommunicationNotifications(v41);
+          if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 136446722;
-            v93 = "[UNSCNContactResolver confirm:match:]";
-            v94 = 2114;
-            v8 = v73;
-            v95 = v73;
-            v96 = 2114;
-            v97 = v21;
-            _os_log_impl(&dword_270B08000, v35, OS_LOG_TYPE_DEFAULT, "%{public}s: Succeeded to %{public}@ match. New match or nil:%{public}@", buf, 0x20u);
+            v96 = "[UNSCNContactResolver confirm:match:]";
+            v97 = 2114;
+            v8 = v76;
+            v98 = v76;
+            v99 = 2114;
+            v100 = v22;
+            _os_log_impl(&dword_270B08000, v38, OS_LOG_TYPE_DEFAULT, "%{public}s: Succeeded to %{public}@ match. New match or nil:%{public}@", buf, 0x20u);
 LABEL_44:
 
 LABEL_45:
             identifierOfMatchLabel = obj;
-            v10 = v76;
+            v10 = v79;
 LABEL_46:
 
             goto LABEL_47;
           }
         }
 
-        v8 = v73;
+        v8 = v76;
         goto LABEL_44;
       }
 
-      v19 = objc_alloc_init(MEMORY[0x277CBDBB8]);
-      v18 = 0;
+      v20 = objc_alloc_init(MEMORY[0x277CBDBB8]);
+      v19 = 0;
 LABEL_32:
-      [v19 rejectSuggestion:v15];
-      v20 = 0;
+      [v20 rejectSuggestion:v16];
+      v21 = 0;
       goto LABEL_33;
     }
 
-    if ([matchCopy isMatchTypeSuggested] && -[NSObject length](identifierOfMatchLabel, "length"))
+    isMatchTypeSuggested = [matchCopy isMatchTypeSuggested];
+    if (isMatchTypeSuggested && (isMatchTypeSuggested = [identifierOfMatchLabel length]) != 0)
     {
-      v18 = 0;
+      v19 = 0;
       if (matchType > 1)
       {
         if (matchType == 2)
         {
-          v82 = 0u;
+          v85 = 0u;
+          v86 = 0u;
           v83 = 0u;
-          v80 = 0u;
-          v81 = 0u;
+          v84 = 0u;
           obja = [v10 phoneNumbers];
-          v48 = [obja countByEnumeratingWithState:&v80 objects:v100 count:16];
-          if (v48)
+          v51 = [obja countByEnumeratingWithState:&v83 objects:v103 count:16];
+          if (v51)
           {
-            v49 = v48;
-            v77 = v10;
-            v72 = v8;
-            v50 = *v81;
+            v52 = v51;
+            v80 = v10;
+            v75 = v8;
+            v53 = *v84;
 LABEL_63:
-            v51 = 0;
+            v54 = 0;
             while (1)
             {
-              if (*v81 != v50)
+              if (*v84 != v53)
               {
                 objc_enumerationMutation(obja);
               }
 
-              v52 = *(*(&v80 + 1) + 8 * v51);
-              identifier2 = [v52 identifier];
-              v54 = [identifier2 isEqualToString:identifierOfMatchLabel];
+              v55 = *(*(&v83 + 1) + 8 * v54);
+              identifier2 = [v55 identifier];
+              v57 = [identifier2 isEqualToString:identifierOfMatchLabel];
 
-              if (v54)
+              if (v57)
               {
                 break;
               }
 
-              if (v49 == ++v51)
+              if (v52 == ++v54)
               {
-                v49 = [obja countByEnumeratingWithState:&v80 objects:v100 count:16];
-                if (v49)
+                v52 = [obja countByEnumeratingWithState:&v83 objects:v103 count:16];
+                if (v52)
                 {
                   goto LABEL_63;
                 }
 
 LABEL_69:
-                v15 = 0;
+                v16 = 0;
                 goto LABEL_78;
               }
             }
 
-            v15 = v52;
+            v16 = v55;
             if (confirmCopy)
             {
-              v10 = v77;
-              v18 = [v77 mutableCopy];
-              phoneNumbers = [v77 phoneNumbers];
-              v67 = [phoneNumbers mutableCopy];
+              v10 = v80;
+              v19 = [v80 mutableCopy];
+              phoneNumbers = [v80 phoneNumbers];
+              v70 = [phoneNumbers mutableCopy];
 
-              v68 = objc_alloc(MEMORY[0x277CBDB20]);
-              value = [v15 value];
-              service = [v68 initWithLabel:0 value:value];
+              v71 = objc_alloc(MEMORY[0x277CBDB20]);
+              value = [v16 value];
+              service = [v71 initWithLabel:0 value:value];
 
-              v60 = v67;
-              [v67 addObject:service];
-              [v18 setPhoneNumbers:v67];
+              v63 = v70;
+              [v70 addObject:service];
+              [v19 setPhoneNumbers:v70];
               goto LABEL_77;
             }
 
 LABEL_78:
-            v18 = 0;
-            v8 = v72;
-            v10 = v77;
+            v19 = 0;
+            v8 = v75;
+            v10 = v80;
             goto LABEL_79;
           }
         }
@@ -411,40 +411,40 @@ LABEL_78:
             goto LABEL_28;
           }
 
-          v90 = 0u;
+          v93 = 0u;
+          v94 = 0u;
           v91 = 0u;
-          v88 = 0u;
-          v89 = 0u;
+          v92 = 0u;
           obja = [v10 socialProfiles];
-          v41 = [obja countByEnumeratingWithState:&v88 objects:v102 count:16];
-          if (v41)
+          v44 = [obja countByEnumeratingWithState:&v91 objects:v105 count:16];
+          if (v44)
           {
-            v42 = v41;
-            v77 = v10;
-            v72 = v8;
-            v43 = *v89;
+            v45 = v44;
+            v80 = v10;
+            v75 = v8;
+            v46 = *v92;
 LABEL_52:
-            v44 = 0;
+            v47 = 0;
             while (1)
             {
-              if (*v89 != v43)
+              if (*v92 != v46)
               {
                 objc_enumerationMutation(obja);
               }
 
-              v45 = *(*(&v88 + 1) + 8 * v44);
-              identifier3 = [v45 identifier];
-              v47 = [identifier3 isEqualToString:identifierOfMatchLabel];
+              v48 = *(*(&v91 + 1) + 8 * v47);
+              identifier3 = [v48 identifier];
+              v50 = [identifier3 isEqualToString:identifierOfMatchLabel];
 
-              if (v47)
+              if (v50)
               {
                 break;
               }
 
-              if (v42 == ++v44)
+              if (v45 == ++v47)
               {
-                v42 = [obja countByEnumeratingWithState:&v88 objects:v102 count:16];
-                if (v42)
+                v45 = [obja countByEnumeratingWithState:&v91 objects:v105 count:16];
+                if (v45)
                 {
                   goto LABEL_52;
                 }
@@ -453,35 +453,35 @@ LABEL_52:
               }
             }
 
-            v15 = v45;
+            v16 = v48;
             if (!confirmCopy)
             {
               goto LABEL_78;
             }
 
-            v10 = v77;
-            v18 = [v77 mutableCopy];
-            socialProfiles = [v77 socialProfiles];
-            v71 = [socialProfiles mutableCopy];
+            v10 = v80;
+            v19 = [v80 mutableCopy];
+            socialProfiles = [v80 socialProfiles];
+            v74 = [socialProfiles mutableCopy];
 
-            value2 = [v15 value];
+            value2 = [v16 value];
             service = [value2 service];
 
-            v63 = objc_alloc(MEMORY[0x277CBDB20]);
-            value3 = [v15 value];
-            v65 = [v63 initWithLabel:service value:value3];
+            v66 = objc_alloc(MEMORY[0x277CBDB20]);
+            value3 = [v16 value];
+            v68 = [v66 initWithLabel:service value:value3];
 
-            v60 = v71;
-            [v71 addObject:v65];
-            [v18 setSocialProfiles:v71];
+            v63 = v74;
+            [v74 addObject:v68];
+            [v19 setSocialProfiles:v74];
 
             goto LABEL_77;
           }
         }
 
 LABEL_70:
-        v15 = 0;
-        v18 = 0;
+        v16 = 0;
+        v19 = 0;
         goto LABEL_80;
       }
 
@@ -492,40 +492,40 @@ LABEL_70:
           goto LABEL_28;
         }
 
-        v86 = 0u;
+        v89 = 0u;
+        v90 = 0u;
         v87 = 0u;
-        v84 = 0u;
-        v85 = 0u;
+        v88 = 0u;
         obja = [v10 emailAddresses];
-        v22 = [obja countByEnumeratingWithState:&v84 objects:v101 count:16];
-        if (v22)
+        v24 = [obja countByEnumeratingWithState:&v87 objects:v104 count:16];
+        if (v24)
         {
-          v23 = v22;
-          v77 = v10;
-          v72 = v8;
-          v24 = *v85;
+          v25 = v24;
+          v80 = v10;
+          v75 = v8;
+          v26 = *v88;
 LABEL_18:
-          v25 = 0;
+          v27 = 0;
           while (1)
           {
-            if (*v85 != v24)
+            if (*v88 != v26)
             {
               objc_enumerationMutation(obja);
             }
 
-            v26 = *(*(&v84 + 1) + 8 * v25);
-            identifier4 = [v26 identifier];
-            v28 = [identifier4 isEqualToString:identifierOfMatchLabel];
+            v28 = *(*(&v87 + 1) + 8 * v27);
+            identifier4 = [v28 identifier];
+            v30 = [identifier4 isEqualToString:identifierOfMatchLabel];
 
-            if (v28)
+            if (v30)
             {
               break;
             }
 
-            if (v23 == ++v25)
+            if (v25 == ++v27)
             {
-              v23 = [obja countByEnumeratingWithState:&v84 objects:v101 count:16];
-              if (v23)
+              v25 = [obja countByEnumeratingWithState:&v87 objects:v104 count:16];
+              if (v25)
               {
                 goto LABEL_18;
               }
@@ -534,37 +534,37 @@ LABEL_18:
             }
           }
 
-          v15 = v26;
+          v16 = v28;
           if (!confirmCopy)
           {
             goto LABEL_78;
           }
 
-          v10 = v77;
-          v18 = [v77 mutableCopy];
-          emailAddresses = [v77 emailAddresses];
-          v56 = [emailAddresses mutableCopy];
+          v10 = v80;
+          v19 = [v80 mutableCopy];
+          emailAddresses = [v80 emailAddresses];
+          v59 = [emailAddresses mutableCopy];
 
-          v57 = objc_alloc(MEMORY[0x277CBDB20]);
-          value4 = [v15 value];
-          service = [v57 initWithLabel:0 value:value4];
+          v60 = objc_alloc(MEMORY[0x277CBDB20]);
+          value4 = [v16 value];
+          service = [v60 initWithLabel:0 value:value4];
 
-          v60 = v56;
-          [v56 addObject:service];
-          [v18 setEmailAddresses:v56];
+          v63 = v59;
+          [v59 addObject:service];
+          [v19 setEmailAddresses:v59];
 LABEL_77:
-          v8 = v72;
+          v8 = v75;
 
 LABEL_79:
           isSuggestedContact = 0;
 LABEL_80:
 
-          if (v15)
+          if (v16)
           {
             obj = identifierOfMatchLabel;
-            v76 = v10;
+            v79 = v10;
             selfCopy2 = self;
-            v19 = objc_alloc_init(MEMORY[0x277CBDBB8]);
+            v20 = objc_alloc_init(MEMORY[0x277CBDBB8]);
             if (confirmCopy)
             {
               goto LABEL_7;
@@ -574,22 +574,22 @@ LABEL_80:
           }
 
 LABEL_28:
-          v30 = UNSLogCommunicationNotifications();
-          if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+          v32 = UNSLogCommunicationNotifications(isMatchTypeSuggested);
+          if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
           {
             [UNSCNContactResolver confirm:match:];
           }
 
-          v15 = 0;
-          v21 = 0;
+          v16 = 0;
+          v22 = 0;
           goto LABEL_46;
         }
 
         goto LABEL_70;
       }
 
-      v29 = UNSLogCommunicationNotifications();
-      if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+      v31 = UNSLogCommunicationNotifications(isMatchTypeSuggested);
+      if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
       {
         [UNSCNContactResolver confirm:match:];
       }
@@ -597,31 +597,30 @@ LABEL_28:
 
     else
     {
-      v29 = UNSLogCommunicationNotifications();
-      if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+      v31 = UNSLogCommunicationNotifications(isMatchTypeSuggested);
+      if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
       {
         [UNSCNContactResolver confirm:match:];
       }
     }
 
-    v18 = 0;
+    v19 = 0;
     goto LABEL_28;
   }
 
-  identifierOfMatchLabel = UNSLogCommunicationNotifications();
+  identifierOfMatchLabel = UNSLogCommunicationNotifications(v11);
   if (os_log_type_enabled(identifierOfMatchLabel, OS_LOG_TYPE_ERROR))
   {
     [UNSCNContactResolver confirm:match:];
   }
 
-  v15 = 0;
-  v18 = 0;
-  v21 = 0;
+  v16 = 0;
+  v19 = 0;
+  v22 = 0;
 LABEL_47:
 
-  v38 = v21;
-  v39 = *MEMORY[0x277D85DE8];
-  return v21;
+  v42 = v22;
+  return v22;
 }
 
 - (id)resultForContactIdentifier:(id)identifier
@@ -664,32 +663,32 @@ LABEL_47:
 
 - (id)matchThatMatchesPhoneNumber:(id)number forContact:(id)contact
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   numberCopy = number;
   contactCopy = contact;
+  v25 = 0u;
   v26 = 0u;
   v27 = 0u;
   v28 = 0u;
-  v29 = 0u;
   phoneNumbers = [contactCopy phoneNumbers];
-  v9 = [phoneNumbers countByEnumeratingWithState:&v26 objects:v30 count:16];
+  v9 = [phoneNumbers countByEnumeratingWithState:&v25 objects:v29 count:16];
   if (v9)
   {
     v10 = v9;
     selfCopy = self;
-    v24 = contactCopy;
-    v25 = 0;
-    v11 = *v27;
+    v23 = contactCopy;
+    v24 = 0;
+    v11 = *v26;
     while (2)
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v27 != v11)
+        if (*v26 != v11)
         {
           objc_enumerationMutation(phoneNumbers);
         }
 
-        v13 = *(*(&v26 + 1) + 8 * i);
+        v13 = *(*(&v25 + 1) + 8 * i);
         value = [v13 value];
         lastFourDigits = [value lastFourDigits];
         lastFourDigits2 = [numberCopy lastFourDigits];
@@ -701,14 +700,14 @@ LABEL_47:
           {
             v18 = v13;
 
-            if (![(UNSCNContactResolver *)selfCopy _isSuggestedForContact:v24]&& ![(UNSCNContactResolver *)selfCopy _isSuggestedForLabeledValue:v18])
+            if (![(UNSCNContactResolver *)selfCopy _isSuggestedForContact:v23]&& ![(UNSCNContactResolver *)selfCopy _isSuggestedForLabeledValue:v18])
             {
 
-              v25 = v18;
+              v24 = v18;
               goto LABEL_16;
             }
 
-            v25 = v18;
+            v24 = v18;
           }
         }
 
@@ -717,7 +716,7 @@ LABEL_47:
         }
       }
 
-      v10 = [phoneNumbers countByEnumeratingWithState:&v26 objects:v30 count:16];
+      v10 = [phoneNumbers countByEnumeratingWithState:&v25 objects:v29 count:16];
       if (v10)
       {
         continue;
@@ -728,17 +727,17 @@ LABEL_47:
 
 LABEL_16:
 
-    v19 = v25;
-    if (v25)
+    v19 = v24;
+    if (v24)
     {
-      contactCopy = v24;
-      v20 = [(UNSCNContactResolver *)selfCopy _matchForContact:v24 matchingLabel:v25 matchType:2];
+      contactCopy = v23;
+      v20 = [(UNSCNContactResolver *)selfCopy _matchForContact:v23 matchingLabel:v24 matchType:2];
     }
 
     else
     {
       v20 = 0;
-      contactCopy = v24;
+      contactCopy = v23;
     }
   }
 
@@ -748,8 +747,6 @@ LABEL_16:
     v19 = 0;
     v20 = 0;
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 
   return v20;
 }
@@ -772,30 +769,30 @@ LABEL_16:
 
 - (id)_matchThatMatchesEmailAddress:(id)address forContact:(id)contact
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   addressCopy = address;
   contactCopy = contact;
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
   emailAddresses = [contactCopy emailAddresses];
-  v9 = [emailAddresses countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v9 = [emailAddresses countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v9)
   {
     v10 = v9;
     v11 = 0;
-    v12 = *v21;
+    v12 = *v20;
     while (2)
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v21 != v12)
+        if (*v20 != v12)
         {
           objc_enumerationMutation(emailAddresses);
         }
 
-        v14 = *(*(&v20 + 1) + 8 * i);
+        v14 = *(*(&v19 + 1) + 8 * i);
         value = [v14 value];
         if (![value caseInsensitiveCompare:addressCopy])
         {
@@ -812,7 +809,7 @@ LABEL_16:
         }
       }
 
-      v10 = [emailAddresses countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v10 = [emailAddresses countByEnumeratingWithState:&v19 objects:v23 count:16];
       if (v10)
       {
         continue;
@@ -839,47 +836,41 @@ LABEL_14:
   v17 = 0;
 LABEL_18:
 
-  v18 = *MEMORY[0x277D85DE8];
-
   return v17;
 }
 
 - (id)bestMatchForUsername:(id)username bundleIdentifier:(id)identifier
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   v6 = MEMORY[0x277CBDB68];
   identifierCopy = identifier;
   usernameCopy = username;
   v9 = objc_alloc_init(v6);
   [v9 setUsername:usernameCopy];
 
-  v14[0] = identifierCopy;
-  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:1];
+  v13[0] = identifierCopy;
+  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:1];
   [v9 setBundleIdentifiers:v10];
 
   v11 = [(UNSCNContactResolver *)self bestMatchForSocialProfile:v9 bundleIdentifier:identifierCopy];
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v11;
 }
 
 - (id)bestMatchForUserIdentifier:(id)identifier bundleIdentifier:(id)bundleIdentifier
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   v6 = MEMORY[0x277CBDB68];
   bundleIdentifierCopy = bundleIdentifier;
   identifierCopy = identifier;
   v9 = objc_alloc_init(v6);
   [v9 setUserIdentifier:identifierCopy];
 
-  v14[0] = bundleIdentifierCopy;
-  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:1];
+  v13[0] = bundleIdentifierCopy;
+  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:1];
   [v9 setBundleIdentifiers:v10];
 
   v11 = [(UNSCNContactResolver *)self bestMatchForSocialProfile:v9 bundleIdentifier:bundleIdentifierCopy];
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v11;
 }
@@ -905,56 +896,56 @@ LABEL_18:
 
 - (id)_matchThatMatchesSocialProfile:(id)profile bundleIdentifier:(id)identifier forContact:(id)contact
 {
-  v51 = *MEMORY[0x277D85DE8];
+  v50 = *MEMORY[0x277D85DE8];
   profileCopy = profile;
   identifierCopy = identifier;
   contactCopy = contact;
+  v44 = 0u;
   v45 = 0u;
   v46 = 0u;
   v47 = 0u;
-  v48 = 0u;
   socialProfiles = [contactCopy socialProfiles];
-  v31 = [socialProfiles countByEnumeratingWithState:&v45 objects:v50 count:16];
-  if (v31)
+  v30 = [socialProfiles countByEnumeratingWithState:&v44 objects:v49 count:16];
+  if (v30)
   {
     v9 = 0;
     obj = socialProfiles;
-    v30 = *v46;
+    v29 = *v45;
     v10 = profileCopy;
-    v35 = contactCopy;
+    v34 = contactCopy;
     while (2)
     {
       v11 = 0;
       do
       {
-        if (*v46 != v30)
+        if (*v45 != v29)
         {
           objc_enumerationMutation(obj);
         }
 
-        v32 = v11;
-        v34 = *(*(&v45 + 1) + 8 * v11);
-        value = [v34 value];
+        v31 = v11;
+        v33 = *(*(&v44 + 1) + 8 * v11);
+        value = [v33 value];
+        v40 = 0u;
         v41 = 0u;
         v42 = 0u;
         v43 = 0u;
-        v44 = 0u;
         bundleIdentifiers = [value bundleIdentifiers];
-        v40 = [bundleIdentifiers countByEnumeratingWithState:&v41 objects:v49 count:16];
-        if (v40)
+        v39 = [bundleIdentifiers countByEnumeratingWithState:&v40 objects:v48 count:16];
+        if (v39)
         {
-          v39 = *v42;
+          v38 = *v41;
           v13 = v9;
           do
           {
-            for (i = 0; i != v40; ++i)
+            for (i = 0; i != v39; ++i)
             {
-              if (*v42 != v39)
+              if (*v41 != v38)
               {
                 objc_enumerationMutation(bundleIdentifiers);
               }
 
-              v15 = [*(*(&v41 + 1) + 8 * i) isEqual:identifierCopy];
+              v15 = [*(*(&v40 + 1) + 8 * i) isEqual:identifierCopy];
               username = [value username];
               if ([username length])
               {
@@ -1003,9 +994,9 @@ LABEL_18:
 
               if ((v15 & (v20 | v25)) == 1)
               {
-                v9 = v34;
+                v9 = v33;
 
-                if ([(UNSCNContactResolver *)self _isSuggestedForContact:v35])
+                if ([(UNSCNContactResolver *)self _isSuggestedForContact:v34])
                 {
                   v13 = v9;
                 }
@@ -1022,27 +1013,27 @@ LABEL_18:
             }
 
             v9 = v13;
-            v40 = [bundleIdentifiers countByEnumeratingWithState:&v41 objects:v49 count:16];
+            v39 = [bundleIdentifiers countByEnumeratingWithState:&v40 objects:v48 count:16];
           }
 
-          while (v40);
+          while (v39);
         }
 
 LABEL_29:
 
-        contactCopy = v35;
-        if (![(UNSCNContactResolver *)self _isSuggestedForContact:v35]&& v9 && ![(UNSCNContactResolver *)self _isSuggestedForLabeledValue:v9])
+        contactCopy = v34;
+        if (![(UNSCNContactResolver *)self _isSuggestedForContact:v34]&& v9 && ![(UNSCNContactResolver *)self _isSuggestedForLabeledValue:v9])
         {
 
           goto LABEL_37;
         }
 
-        v11 = v32 + 1;
+        v11 = v31 + 1;
       }
 
-      while (v32 + 1 != v31);
-      v31 = [obj countByEnumeratingWithState:&v45 objects:v50 count:16];
-      if (v31)
+      while (v31 + 1 != v30);
+      v30 = [obj countByEnumeratingWithState:&v44 objects:v49 count:16];
+      if (v30)
       {
         continue;
       }
@@ -1057,7 +1048,7 @@ LABEL_29:
     }
 
 LABEL_37:
-    v26 = [(UNSCNContactResolver *)self _matchForContact:v35 matchingLabel:v9 matchType:3];
+    v26 = [(UNSCNContactResolver *)self _matchForContact:v34 matchingLabel:v9 matchType:3];
   }
 
   else
@@ -1069,8 +1060,6 @@ LABEL_37:
   }
 
 LABEL_39:
-
-  v27 = *MEMORY[0x277D85DE8];
 
   return v26;
 }
@@ -1086,12 +1075,13 @@ LABEL_39:
   v25 = predicateCopy;
   v10 = [(CNContactStore *)contactStore unifiedContactsMatchingPredicate:predicateCopy keysToFetch:contactStoreSearchKeys error:&v30];
   v11 = v30;
+  v12 = v11;
   if (v11)
   {
-    v12 = UNSLogCommunicationNotifications();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v13 = UNSLogCommunicationNotifications(v11);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      [UNSCNContactResolver bestMatchForPredicate:v11 contactToMatch:v12];
+      [UNSCNContactResolver bestMatchForPredicate:v12 contactToMatch:v13];
     }
   }
 
@@ -1099,42 +1089,42 @@ LABEL_39:
   v29 = 0u;
   v26 = 0u;
   v27 = 0u;
-  v13 = v10;
-  v14 = [v13 countByEnumeratingWithState:&v26 objects:v31 count:16];
-  if (v14)
+  v14 = v10;
+  v15 = [v14 countByEnumeratingWithState:&v26 objects:v31 count:16];
+  if (v15)
   {
-    v15 = v14;
-    v16 = 0;
-    v17 = *v27;
+    v16 = v15;
+    v17 = 0;
+    v18 = *v27;
 LABEL_7:
-    v18 = 0;
+    v19 = 0;
     while (1)
     {
-      if (*v27 != v17)
+      if (*v27 != v18)
       {
-        objc_enumerationMutation(v13);
+        objc_enumerationMutation(v14);
       }
 
-      v19 = matchCopy[2](matchCopy, *(*(&v26 + 1) + 8 * v18));
-      v20 = v19;
-      if (v19 && [v19 isStrongerMatchThanOtherMatch:v16])
+      v20 = matchCopy[2](matchCopy, *(*(&v26 + 1) + 8 * v19));
+      v21 = v20;
+      if (v20 && [v20 isStrongerMatchThanOtherMatch:v17])
       {
-        v21 = v20;
+        v22 = v21;
 
-        v16 = v21;
+        v17 = v22;
       }
 
-      isStrongestMatch = [v16 isStrongestMatch];
+      isStrongestMatch = [v17 isStrongestMatch];
 
       if (isStrongestMatch)
       {
         break;
       }
 
-      if (v15 == ++v18)
+      if (v16 == ++v19)
       {
-        v15 = [v13 countByEnumeratingWithState:&v26 objects:v31 count:16];
-        if (v15)
+        v16 = [v14 countByEnumeratingWithState:&v26 objects:v31 count:16];
+        if (v16)
         {
           goto LABEL_7;
         }
@@ -1146,12 +1136,10 @@ LABEL_7:
 
   else
   {
-    v16 = 0;
+    v17 = 0;
   }
 
-  v23 = *MEMORY[0x277D85DE8];
-
-  return v16;
+  return v17;
 }
 
 - (id)contactForIdentifier:(id)identifier
@@ -1159,13 +1147,14 @@ LABEL_7:
   identifierCopy = identifier;
   contactStore = self->_contactStore;
   contactStoreSearchKeys = self->_contactStoreSearchKeys;
-  v11 = 0;
-  v7 = [(CNContactStore *)contactStore unifiedContactWithIdentifier:identifierCopy keysToFetch:contactStoreSearchKeys error:&v11];
-  v8 = v11;
+  v12 = 0;
+  v7 = [(CNContactStore *)contactStore unifiedContactWithIdentifier:identifierCopy keysToFetch:contactStoreSearchKeys error:&v12];
+  v8 = v12;
+  v9 = v8;
   if (v8)
   {
-    v9 = UNSLogCommunicationNotifications();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v10 = UNSLogCommunicationNotifications(v8);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       [UNSCNContactResolver contactForIdentifier:];
     }
@@ -1192,60 +1181,48 @@ LABEL_7:
 
 - (void)confirm:match:.cold.1()
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v3 = 136446722;
+  v2 = 136446722;
   OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1_0(&dword_270B08000, v0, v1, "%{public}s: Cannot %{public}@ contact match on contact identifier. Contact identifiers can't be suggested. Match:%{public}@", v3);
-  v2 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_0(&dword_270B08000, v0, v1, "%{public}s: Cannot %{public}@ contact match on contact identifier. Contact identifiers can't be suggested. Match:%{public}@", v2);
 }
 
 - (void)confirm:match:.cold.2()
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v3 = 136446722;
+  v2 = 136446722;
   OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1_0(&dword_270B08000, v0, v1, "%{public}s: Nothing to %{public}@ on match. Match:%{public}@", v3);
-  v2 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_0(&dword_270B08000, v0, v1, "%{public}s: Nothing to %{public}@ on match. Match:%{public}@", v2);
 }
 
 - (void)confirm:match:.cold.3()
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v3 = 136446722;
+  v2 = 136446722;
   OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1_0(&dword_270B08000, v0, v1, "%{public}s: Could not create save request for %{public}@ match. Match:%{public}@", v3);
-  v2 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_0(&dword_270B08000, v0, v1, "%{public}s: Could not create save request for %{public}@ match. Match:%{public}@", v2);
 }
 
 - (void)confirm:match:.cold.4()
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v3 = 136446722;
+  v2 = 136446722;
   OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1_0(&dword_270B08000, v0, v1, "%{public}s: Unable to find suggested contact to %{public}@ match. Match:%{public}@", v3);
-  v2 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_0(&dword_270B08000, v0, v1, "%{public}s: Unable to find suggested contact to %{public}@ match. Match:%{public}@", v2);
 }
 
 - (void)bestMatchForPredicate:(void *)a1 contactToMatch:(NSObject *)a2 .cold.1(void *a1, NSObject *a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = [a1 localizedDescription];
-  v5 = 136446466;
-  v6 = "[UNSCNContactResolver bestMatchForPredicate:contactToMatch:]";
-  v7 = 2114;
-  v8 = v3;
-  _os_log_error_impl(&dword_270B08000, a2, OS_LOG_TYPE_ERROR, "%{public}s: Error querying for contacts based on predicate. Error:%{public}@", &v5, 0x16u);
-
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 136446466;
+  v5 = "[UNSCNContactResolver bestMatchForPredicate:contactToMatch:]";
+  v6 = 2114;
+  v7 = v3;
+  _os_log_error_impl(&dword_270B08000, a2, OS_LOG_TYPE_ERROR, "%{public}s: Error querying for contacts based on predicate. Error:%{public}@", &v4, 0x16u);
 }
 
 - (void)contactForIdentifier:.cold.1()
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v3 = 136446722;
+  v2 = 136446722;
   OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1_0(&dword_270B08000, v0, v1, "%{public}s: Error querying for contact based on identifier:%{public}@ error:%{public}@", v3);
-  v2 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_0(&dword_270B08000, v0, v1, "%{public}s: Error querying for contact based on identifier:%{public}@ error:%{public}@", v2);
 }
 
 @end

@@ -7,11 +7,11 @@
 
 + (NSArray)allowedTopLevelClasses
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB98FCB8);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB98FCB8, &unk_1B7816800);
   v2 = swift_allocObject();
   *(v2 + 16) = xmmword_1B7807CD0;
   *(v2 + 32) = type metadata accessor for StorableColor();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB98FCD0);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB98FCD0, &qword_1B780C120);
   v3 = sub_1B7800C18();
 
   return v3;

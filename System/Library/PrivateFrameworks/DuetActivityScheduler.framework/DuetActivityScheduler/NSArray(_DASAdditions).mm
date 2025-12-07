@@ -15,38 +15,38 @@
 
 + (id)arrayWithIntersectionOf:()_DASAdditions and:
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v5 = a3;
   v6 = a4;
   v7 = objc_autoreleasePoolPush();
   array = [MEMORY[0x1E695DF70] array];
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   v9 = v5;
-  v10 = [v9 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v19;
+    v12 = *v18;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v19 != v12)
+        if (*v18 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        v14 = *(*(&v18 + 1) + 8 * i);
-        if ([v6 containsObject:{v14, v18}])
+        v14 = *(*(&v17 + 1) + 8 * i);
+        if ([v6 containsObject:{v14, v17}])
         {
           [array addObject:v14];
         }
       }
 
-      v11 = [v9 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v11);
@@ -55,77 +55,75 @@
   v15 = [array copy];
   objc_autoreleasePoolPop(v7);
 
-  v16 = *MEMORY[0x1E69E9840];
-
   return v15;
 }
 
 + (id)arrayWithUnionOf:()_DASAdditions and:
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   v5 = a3;
   v6 = a4;
   v7 = objc_autoreleasePoolPush();
   array = [MEMORY[0x1E695DF70] array];
+  v27 = 0u;
   v28 = 0u;
   v29 = 0u;
   v30 = 0u;
-  v31 = 0u;
   v9 = v5;
-  v10 = [v9 countByEnumeratingWithState:&v28 objects:v33 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v27 objects:v32 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v29;
+    v12 = *v28;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v29 != v12)
+        if (*v28 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        v14 = *(*(&v28 + 1) + 8 * i);
+        v14 = *(*(&v27 + 1) + 8 * i);
         if (([array containsObject:v14] & 1) == 0)
         {
           [array addObject:v14];
         }
       }
 
-      v11 = [v9 countByEnumeratingWithState:&v28 objects:v33 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v27 objects:v32 count:16];
     }
 
     while (v11);
   }
 
-  v26 = 0u;
-  v27 = 0u;
-  v24 = 0u;
   v25 = 0u;
+  v26 = 0u;
+  v23 = 0u;
+  v24 = 0u;
   v15 = v6;
-  v16 = [v15 countByEnumeratingWithState:&v24 objects:v32 count:16];
+  v16 = [v15 countByEnumeratingWithState:&v23 objects:v31 count:16];
   if (v16)
   {
     v17 = v16;
-    v18 = *v25;
+    v18 = *v24;
     do
     {
       for (j = 0; j != v17; ++j)
       {
-        if (*v25 != v18)
+        if (*v24 != v18)
         {
           objc_enumerationMutation(v15);
         }
 
-        v20 = *(*(&v24 + 1) + 8 * j);
-        if (([array containsObject:{v20, v24}] & 1) == 0)
+        v20 = *(*(&v23 + 1) + 8 * j);
+        if (([array containsObject:{v20, v23}] & 1) == 0)
         {
           [array addObject:v20];
         }
       }
 
-      v17 = [v15 countByEnumeratingWithState:&v24 objects:v32 count:16];
+      v17 = [v15 countByEnumeratingWithState:&v23 objects:v31 count:16];
     }
 
     while (v17);
@@ -134,14 +132,12 @@
   v21 = [array copy];
   objc_autoreleasePoolPop(v7);
 
-  v22 = *MEMORY[0x1E69E9840];
-
   return v21;
 }
 
 + (id)array:()_DASAdditions withItemsIn:
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   v5 = a3;
   v6 = a4;
   v7 = v6;
@@ -152,33 +148,33 @@
       v8 = v5;
       v9 = objc_autoreleasePoolPush();
       array = [MEMORY[0x1E695DF70] array];
+      v20 = 0u;
       v21 = 0u;
       v22 = 0u;
       v23 = 0u;
-      v24 = 0u;
       v11 = v8;
-      v12 = [v11 countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v12 = [v11 countByEnumeratingWithState:&v20 objects:v24 count:16];
       if (v12)
       {
         v13 = v12;
-        v14 = *v22;
+        v14 = *v21;
         do
         {
           for (i = 0; i != v13; ++i)
           {
-            if (*v22 != v14)
+            if (*v21 != v14)
             {
               objc_enumerationMutation(v11);
             }
 
-            v16 = *(*(&v21 + 1) + 8 * i);
-            if ([v7 containsObject:{v16, v21}])
+            v16 = *(*(&v20 + 1) + 8 * i);
+            if ([v7 containsObject:{v16, v20}])
             {
               [array addObject:v16];
             }
           }
 
-          v13 = [v11 countByEnumeratingWithState:&v21 objects:v25 count:16];
+          v13 = [v11 countByEnumeratingWithState:&v20 objects:v24 count:16];
         }
 
         while (v13);
@@ -206,18 +202,16 @@
     v11 = 0;
   }
 
-  v19 = *MEMORY[0x1E69E9840];
-
   return v11;
 }
 
 + (id)arrayWithObjectsFrom:()_DASAdditions
 {
-  v43 = *MEMORY[0x1E69E9840];
+  v42 = *MEMORY[0x1E69E9840];
   v10 = a3;
   v11 = [v10 count];
   v12 = [MEMORY[0x1E695DFA8] setWithObject:v10];
-  v40 = &a10;
+  v39 = &a10;
   v13 = a9;
   if (v13)
   {
@@ -226,7 +220,7 @@
     {
       v11 += [v14 count];
       [v12 addObject:v14];
-      v15 = v40++;
+      v15 = v39++;
       v16 = *v15;
 
       v14 = v16;
@@ -249,103 +243,101 @@ LABEL_5:
     }
 
     v18 = [MEMORY[0x1E695DF70] arrayWithCapacity:1 << (log2((v17 - 1)) + 1)];
+    v35 = 0u;
     v36 = 0u;
     v37 = 0u;
     v38 = 0u;
-    v39 = 0u;
     v14 = v12;
-    v19 = [v14 countByEnumeratingWithState:&v36 objects:v42 count:16];
+    v19 = [v14 countByEnumeratingWithState:&v35 objects:v41 count:16];
     if (v19)
     {
       v20 = v19;
-      v31 = v10;
-      v21 = *v37;
+      v30 = v10;
+      v21 = *v36;
       do
       {
         for (i = 0; i != v20; ++i)
         {
-          if (*v37 != v21)
+          if (*v36 != v21)
           {
             objc_enumerationMutation(v14);
           }
 
-          v23 = *(*(&v36 + 1) + 8 * i);
+          v23 = *(*(&v35 + 1) + 8 * i);
+          v31 = 0u;
           v32 = 0u;
           v33 = 0u;
           v34 = 0u;
-          v35 = 0u;
           v24 = v23;
-          v25 = [v24 countByEnumeratingWithState:&v32 objects:v41 count:16];
+          v25 = [v24 countByEnumeratingWithState:&v31 objects:v40 count:16];
           if (v25)
           {
             v26 = v25;
-            v27 = *v33;
+            v27 = *v32;
             do
             {
               for (j = 0; j != v26; ++j)
               {
-                if (*v33 != v27)
+                if (*v32 != v27)
                 {
                   objc_enumerationMutation(v24);
                 }
 
-                [v18 addObject:*(*(&v32 + 1) + 8 * j)];
+                [v18 addObject:*(*(&v31 + 1) + 8 * j)];
               }
 
-              v26 = [v24 countByEnumeratingWithState:&v32 objects:v41 count:16];
+              v26 = [v24 countByEnumeratingWithState:&v31 objects:v40 count:16];
             }
 
             while (v26);
           }
         }
 
-        v20 = [v14 countByEnumeratingWithState:&v36 objects:v42 count:16];
+        v20 = [v14 countByEnumeratingWithState:&v35 objects:v41 count:16];
       }
 
       while (v20);
-      v10 = v31;
+      v10 = v30;
     }
   }
-
-  v29 = *MEMORY[0x1E69E9840];
 
   return v18;
 }
 
 - (uint64_t)anyItemsIntersectArray:()_DASAdditions
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v4 = a3;
   v5 = v4;
   if (v4)
   {
-    v16 = 0u;
-    v17 = 0u;
-    v14 = 0u;
     v15 = 0u;
+    v16 = 0u;
+    v13 = 0u;
+    v14 = 0u;
     v6 = v4;
-    v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v15;
+      v9 = *v14;
       while (2)
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v15 != v9)
+          if (*v14 != v9)
           {
             objc_enumerationMutation(v6);
           }
 
-          if ([self containsObject:{*(*(&v14 + 1) + 8 * i), v14}])
+          if ([self containsObject:{*(*(&v13 + 1) + 8 * i), v13}])
           {
             v11 = 1;
             goto LABEL_12;
           }
         }
 
-        v8 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+        v8 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
         if (v8)
         {
           continue;
@@ -364,13 +356,12 @@ LABEL_12:
     v11 = 0;
   }
 
-  v12 = *MEMORY[0x1E69E9840];
   return v11;
 }
 
 - (double)mean
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v2 = 0.0;
   if ([self count])
   {
@@ -380,74 +371,73 @@ LABEL_12:
 
     if (isKindOfClass)
     {
-      v15 = 0u;
-      v16 = 0u;
-      v13 = 0u;
       v14 = 0u;
+      v15 = 0u;
+      v12 = 0u;
+      v13 = 0u;
       selfCopy = self;
-      v6 = [selfCopy countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v6 = [selfCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
       if (v6)
       {
         v7 = v6;
-        v8 = *v14;
+        v8 = *v13;
         do
         {
           v9 = 0;
           do
           {
-            if (*v14 != v8)
+            if (*v13 != v8)
             {
               objc_enumerationMutation(selfCopy);
             }
 
-            [*(*(&v13 + 1) + 8 * v9) doubleValue];
+            [*(*(&v12 + 1) + 8 * v9) doubleValue];
             v2 = v2 + v10;
             ++v9;
           }
 
           while (v7 != v9);
-          v7 = [selfCopy countByEnumeratingWithState:&v13 objects:v17 count:16];
+          v7 = [selfCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
         }
 
         while (v7);
       }
 
-      v2 = v2 / [selfCopy count];
+      return v2 / [selfCopy count];
     }
   }
 
-  v11 = *MEMORY[0x1E69E9840];
   return v2;
 }
 
 - (double)standardDeviationWithMean:()_DASAdditions
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
+  v11 = 0u;
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
-  v16 = 0u;
   selfCopy = self;
-  v4 = [selfCopy countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v4 = [selfCopy countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v14;
+    v6 = *v12;
     v7 = 0.0;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v14 != v6)
+        if (*v12 != v6)
         {
           objc_enumerationMutation(selfCopy);
         }
 
-        [*(*(&v13 + 1) + 8 * i) doubleValue];
+        [*(*(&v11 + 1) + 8 * i) doubleValue];
         v7 = v7 + (v9 - a2) * (v9 - a2);
       }
 
-      v5 = [selfCopy countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v5 = [selfCopy countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v5);
@@ -458,9 +448,7 @@ LABEL_12:
     v7 = 0.0;
   }
 
-  v10 = [selfCopy count];
-  v11 = *MEMORY[0x1E69E9840];
-  return sqrt(v7 / (v10 - 1));
+  return sqrt(v7 / ([selfCopy count] - 1));
 }
 
 - (double)standardDeviation

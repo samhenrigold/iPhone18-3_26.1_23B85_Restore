@@ -80,37 +80,41 @@
   shouldLog = [v5 shouldLog];
   if ([v5 shouldLogToDisk])
   {
-    v7 = shouldLog | 2;
+    LODWORD(v7) = shouldLog | 2;
   }
 
   else
   {
-    v7 = shouldLog;
+    LODWORD(v7) = shouldLog;
   }
 
   oSLogObject = [v5 OSLogObject];
-  if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+  {
+    v7 = v7;
+  }
+
+  else
   {
     v7 &= 2u;
   }
 
   if (!v7)
   {
-    goto LABEL_11;
+    goto LABEL_12;
   }
 
-  LODWORD(v18) = 138412290;
-  *(&v18 + 4) = objc_opt_class();
-  v9 = *(&v18 + 4);
-  LODWORD(v17) = 12;
-  v10 = _os_log_send_and_compose_impl();
+  v17 = 138412290;
+  v18 = objc_opt_class();
+  v9 = v18;
+  v10 = _os_log_send_and_compose_impl(v7, 0, 0, 0, &dword_1D48BA000, oSLogObject, 16, "%@: Someone is calling setInitialPassword:. This method is deprecated and will be passed to setPasswordEquivalentToken: which may not be what the caller intended.", &v17, 12);
 
   if (v10)
   {
-    oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v10 encoding:{4, &v18, v17, v18}];
+    oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v10 encoding:4];
     free(v10);
     SSFileLog(v5, @"%@", v11, v12, v13, v14, v15, v16, oSLogObject);
-LABEL_11:
+LABEL_12:
   }
 
   [(SSMutableAuthenticationContext *)self setPasswordEquivalentToken:passwordCopy];

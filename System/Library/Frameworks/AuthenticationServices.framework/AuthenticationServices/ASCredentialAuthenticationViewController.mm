@@ -42,21 +42,22 @@ void __82___ASCredentialAuthenticationViewController_initWithExtension_credentia
   v6 = [v5 _auxiliaryConnection];
   v7 = SFCredentialIdentityStoreIdentifierCreateWithConnectionToExtension();
 
-  if ([v4 isEqual:v7])
+  v8 = [v4 isEqual:v7];
+  if (v8)
   {
     [v3 provideCredentialWithoutUserInteractionForRequest:*(*(a1 + 40) + 1032)];
   }
 
   else
   {
-    v8 = WBS_LOG_CHANNEL_PREFIXCredentialProviderExtension();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v10 = WBS_LOG_CHANNEL_PREFIXCredentialProviderExtension(v8, v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      __82___ASCredentialAuthenticationViewController_initWithExtension_credentialIdentity___block_invoke_cold_1(v4, v7, v8);
+      __82___ASCredentialAuthenticationViewController_initWithExtension_credentialIdentity___block_invoke_cold_1(v4, v7, v10);
     }
 
-    v9 = [*(a1 + 40) extension];
-    [v9 _kill:9];
+    v11 = [*(a1 + 40) extension];
+    [v11 _kill:9];
   }
 }
 
@@ -94,12 +95,13 @@ void __83___ASCredentialAuthenticationViewController__nonUIRequestDidRequireUser
 void __81___ASCredentialAuthenticationViewController__requestDidFailWithError_completion___block_invoke(uint64_t a1, char a2, void *a3)
 {
   v5 = a3;
+  v7 = v5;
   if ((a2 & 1) == 0)
   {
-    v6 = WBS_LOG_CHANNEL_PREFIXCredentialProviderExtension();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v8 = WBS_LOG_CHANNEL_PREFIXCredentialProviderExtension(v5, v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      __81___ASCredentialAuthenticationViewController__requestDidFailWithError_completion___block_invoke_cold_1(v6, v5);
+      __81___ASCredentialAuthenticationViewController__requestDidFailWithError_completion___block_invoke_cold_1(v8, v7);
     }
   }
 
@@ -108,25 +110,22 @@ void __81___ASCredentialAuthenticationViewController__requestDidFailWithError_co
 
 void __82___ASCredentialAuthenticationViewController_initWithExtension_credentialIdentity___block_invoke_cold_1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v4 = 138543618;
-  v5 = a1;
-  v6 = 2114;
-  v7 = a2;
-  _os_log_error_impl(&dword_1B1C8D000, log, OS_LOG_TYPE_ERROR, "Refusing to send credential identity with store identifier [%{public}@] to to extension with store identifier [%{public}@]", &v4, 0x16u);
-  v3 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
+  v3 = 138543618;
+  v4 = a1;
+  v5 = 2114;
+  v6 = a2;
+  _os_log_error_impl(&dword_1B1C8D000, log, OS_LOG_TYPE_ERROR, "Refusing to send credential identity with store identifier [%{public}@] to to extension with store identifier [%{public}@]", &v3, 0x16u);
 }
 
 void __81___ASCredentialAuthenticationViewController__requestDidFailWithError_completion___block_invoke_cold_1(void *a1, void *a2)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v3 = a1;
   v4 = [a2 safari_privacyPreservingDescription];
-  v6 = 138543362;
-  v7 = v4;
-  _os_log_error_impl(&dword_1B1C8D000, v3, OS_LOG_TYPE_ERROR, "Failed to remove credential identity store with error: %{public}@", &v6, 0xCu);
-
-  v5 = *MEMORY[0x1E69E9840];
+  v5 = 138543362;
+  v6 = v4;
+  _os_log_error_impl(&dword_1B1C8D000, v3, OS_LOG_TYPE_ERROR, "Failed to remove credential identity store with error: %{public}@", &v5, 0xCu);
 }
 
 @end

@@ -271,19 +271,19 @@ id __71__PXImportDeleteAction_observeValueForKeyPath_ofObject_change_context___b
   _Block_object_dispose(buf, 8);
 }
 
-void __42__PXImportDeleteAction__performMockAction__block_invoke(uint64_t a1)
+void __42__PXImportDeleteAction__performMockAction__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  v2 = _importDataLog();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v10 = *MEMORY[0x1E69E9840];
+  v3 = _importDataLog();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = [*(a1 + 32) count];
-    v4 = *(a1 + 72);
+    v4 = [*(a1 + 32) count];
+    v5 = *(a1 + 72);
     *buf = 134218240;
-    v6 = v3;
-    v7 = 1024;
-    v8 = v4;
-    _os_log_impl(&dword_1A3C1C000, v2, OS_LOG_TYPE_DEFAULT, "Fake delete of %lu items (done=%d)", buf, 0x12u);
+    v7 = v4;
+    v8 = 1024;
+    v9 = v5;
+    _os_log_impl(&dword_1A3C1C000, v3, OS_LOG_TYPE_DEFAULT, "Fake delete of %lu items (done=%d)", buf, 0x12u);
   }
 
   [*(a1 + 40) importSource:*(a1 + 48) didRemoveAssets:*(a1 + 32)];

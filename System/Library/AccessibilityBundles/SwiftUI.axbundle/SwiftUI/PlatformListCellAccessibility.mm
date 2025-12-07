@@ -15,13 +15,13 @@
 
 - (id)accessibilityLabel
 {
-  v30 = *MEMORY[0x29EDCA608];
-  v28.receiver = self;
-  v28.super_class = PlatformListCellAccessibility;
-  accessibilityLabel = [(PlatformListCellAccessibility *)&v28 accessibilityLabel];
+  v29 = *MEMORY[0x29EDCA608];
+  v27.receiver = self;
+  v27.super_class = PlatformListCellAccessibility;
+  accessibilityLabel = [(PlatformListCellAccessibility *)&v27 accessibilityLabel];
   if (![accessibilityLabel length])
   {
-    v27 = 0;
+    v26 = 0;
     objc_opt_class();
     v3 = __UIAccessibilityCastAsClass();
     contentView = [v3 contentView];
@@ -29,16 +29,16 @@
     firstObject = [subviews firstObject];
     v7 = [firstObject _accessibilityFindUnsortedDescendantsPassingTest:&__block_literal_global_0];
 
-    v25 = 0u;
-    v26 = 0u;
-    v23 = 0u;
     v24 = 0u;
+    v25 = 0u;
+    v22 = 0u;
+    v23 = 0u;
     v8 = v7;
-    v9 = [v8 countByEnumeratingWithState:&v23 objects:v29 count:16];
+    v9 = [v8 countByEnumeratingWithState:&v22 objects:v28 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v24;
+      v11 = *v23;
       v12 = MEMORY[0x29EDBD918];
       do
       {
@@ -46,12 +46,12 @@
         v14 = accessibilityLabel;
         do
         {
-          if (*v24 != v11)
+          if (*v23 != v11)
           {
             objc_enumerationMutation(v8);
           }
 
-          v15 = *(*(&v23 + 1) + 8 * v13);
+          v15 = *(*(&v22 + 1) + 8 * v13);
           accessibilityLabel2 = [v15 accessibilityLabel];
           accessibilityLanguage = [v15 accessibilityLanguage];
           if (accessibilityLanguage)
@@ -62,8 +62,8 @@
             accessibilityLabel2 = v18;
           }
 
-          v21 = accessibilityLabel2;
-          v22 = @"__AXStringForVariablesSentinel";
+          v20 = accessibilityLabel2;
+          v21 = @"__AXStringForVariablesSentinel";
           accessibilityLabel = __UIAXStringForVariables();
 
           ++v13;
@@ -71,14 +71,12 @@
         }
 
         while (v10 != v13);
-        v10 = [v8 countByEnumeratingWithState:&v23 objects:v29 count:{16, accessibilityLabel2, @"__AXStringForVariablesSentinel"}];
+        v10 = [v8 countByEnumeratingWithState:&v22 objects:v28 count:{16, accessibilityLabel2, @"__AXStringForVariablesSentinel"}];
       }
 
       while (v10);
     }
   }
-
-  v19 = *MEMORY[0x29EDCA608];
 
   return accessibilityLabel;
 }

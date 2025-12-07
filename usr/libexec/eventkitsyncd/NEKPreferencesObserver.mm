@@ -3,6 +3,7 @@
 - (BOOL)handleDarwinNotificationOfName:(id)name;
 - (BOOL)showDeclinedEvents;
 - (NEKPreferencesObserver)init;
+- (void)_broadcastBool:(BOOL)bool forKey:(id)key;
 - (void)migratePrefsIfNecessary;
 - (void)rebroadcastAlertInviteeDeclinesChangeNotification;
 - (void)rebroadcastAllObservedNotifications;
@@ -65,7 +66,7 @@
 
 - (void)migratePrefsIfNecessary
 {
-  if ((sub_100016740() & 1) == 0)
+  if ((sub_100016740(self, a2) & 1) == 0)
   {
     v3 = [(NPSDomainAccessor *)self->_domainAccessor integerForKey:@"com.apple.NanoCalendar.PrefSync.PrefMigrationSeed"];
     if (v3 != 2)
@@ -135,6 +136,19 @@ LABEL_10:
   [(NEKPreferencesObserver *)self rebroadcastAlertInviteeDeclinesChangeNotification];
 }
 
+- (void)_broadcastBool:(BOOL)bool forKey:(id)key
+{
+  boolCopy = bool;
+  domainAccessor = self->_domainAccessor;
+  keyCopy = key;
+  [(NPSDomainAccessor *)domainAccessor setBool:boolCopy forKey:keyCopy];
+  synchronize = [(NPSDomainAccessor *)self->_domainAccessor synchronize];
+  npsManager = self->_npsManager;
+  v10 = [NSSet setWithObject:keyCopy];
+
+  [(NPSManager *)npsManager synchronizeNanoDomain:@"com.apple.mobilecal" keys:v10];
+}
+
 - (BOOL)alertInviteeDeclines
 {
   v6 = 0;
@@ -154,11 +168,11 @@ LABEL_10:
 - (BOOL)handleDarwinNotificationOfName:(id)name
 {
   nameCopy = name;
-  v13 = 0;
-  v14 = &v13;
-  v15 = 0x2020000000;
-  v16 = 0;
-  if (!sub_100016740())
+  v14 = 0;
+  v15 = &v14;
+  v16 = 0x2020000000;
+  v17 = 0;
+  if (!sub_100016740(nameCopy, v5))
   {
     if ([nameCopy isEqualToString:@"CalEventDeclineEventPrefChanged"])
     {
@@ -171,16 +185,16 @@ LABEL_10:
       {
         objc_initWeak(&location, self);
         keysToDirectMirrorCompanionToGizmo = self->_keysToDirectMirrorCompanionToGizmo;
-        v8[0] = _NSConcreteStackBlock;
-        v8[1] = 3221225472;
-        v8[2] = sub_100026560;
-        v8[3] = &unk_1000B5260;
-        objc_copyWeak(&v11, &location);
-        v9 = nameCopy;
-        v10 = &v13;
-        [(NSDictionary *)keysToDirectMirrorCompanionToGizmo enumerateKeysAndObjectsUsingBlock:v8];
+        v9[0] = _NSConcreteStackBlock;
+        v9[1] = 3221225472;
+        v9[2] = sub_100026560;
+        v9[3] = &unk_1000B5260;
+        objc_copyWeak(&v12, &location);
+        v10 = nameCopy;
+        v11 = &v14;
+        [(NSDictionary *)keysToDirectMirrorCompanionToGizmo enumerateKeysAndObjectsUsingBlock:v9];
 
-        objc_destroyWeak(&v11);
+        objc_destroyWeak(&v12);
         objc_destroyWeak(&location);
         goto LABEL_11;
       }
@@ -195,7 +209,7 @@ LABEL_10:
   {
     [(NEKPreferencesObserver *)self applyRebroadcastShowDeclinedEvents];
 LABEL_10:
-    *(v14 + 24) = 1;
+    *(v15 + 24) = 1;
     goto LABEL_11;
   }
 
@@ -206,10 +220,10 @@ LABEL_10:
   }
 
 LABEL_11:
-  v5 = *(v14 + 24);
-  _Block_object_dispose(&v13, 8);
+  v6 = *(v15 + 24);
+  _Block_object_dispose(&v14, 8);
 
-  return v5;
+  return v6;
 }
 
 @end

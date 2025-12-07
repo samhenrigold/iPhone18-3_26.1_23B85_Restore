@@ -246,137 +246,152 @@
   v7 = v6;
   v9 = v8;
   v11 = v10;
+  v13 = v12;
   text = [(UITextView *)self->_titleTextView text];
   if ([text length])
   {
     text2 = [(UITextView *)self->_titleTextView text];
-    v14 = text2;
+    v16 = text2;
     if (text2 == @" ")
     {
-      v15 = 0;
+      v17 = 0;
     }
 
     else if (text2)
     {
-      v15 = [(__CFString *)text2 isEqualToString:@" "]^ 1;
+      v17 = [(__CFString *)text2 isEqualToString:@" "]^ 1;
     }
 
     else
     {
-      v15 = 1;
+      v17 = 1;
     }
   }
 
   else
   {
-    v15 = 0;
+    v17 = 0;
   }
 
   text3 = [(UITextView *)self->_valueTextView text];
-  v17 = [text3 length];
+  v19 = [text3 length];
 
-  if (v15)
+  if (v17)
   {
-    [(UITextView *)self->_titleTextView sizeThatFits:v11, 1.79769313e308];
-    v19 = v18;
+    [(UITextView *)self->_titleTextView sizeThatFits:*&v11, 1.79769313e308];
     v21 = v20;
-    if (v17)
+    v23 = v22;
+    if (v19)
     {
 LABEL_11:
-      [(UITextView *)self->_valueTextView sizeThatFits:v11, 1.79769313e308];
-      v23 = v22;
+      [(UITextView *)self->_valueTextView sizeThatFits:*&v11, 1.79769313e308];
       v25 = v24;
+      v27 = v26;
       goto LABEL_14;
     }
   }
 
   else
   {
-    v19 = *MEMORY[0x1E695F060];
-    v21 = *(MEMORY[0x1E695F060] + 8);
-    if (v17)
+    v21 = *MEMORY[0x1E695F060];
+    v23 = *(MEMORY[0x1E695F060] + 8);
+    if (v19)
     {
       goto LABEL_11;
     }
   }
 
-  v23 = *MEMORY[0x1E695F060];
-  v25 = *(MEMORY[0x1E695F060] + 8);
+  v25 = *MEMORY[0x1E695F060];
+  v27 = *(MEMORY[0x1E695F060] + 8);
 LABEL_14:
   [(PKBackFieldTableCell *)self _shouldReverseLayoutDirection];
   cellStyle = [(PKPassField *)self->_field cellStyle];
   if (cellStyle >= 3)
   {
-    v34 = v25;
-    v35 = v7;
-    v28 = 0.0;
-    v29 = 0.0;
+    v36 = v27;
+    v37 = v13;
+    v38 = v7;
     v30 = 0.0;
-    v7 = 0.0;
-    v32 = 0.0;
-    v33 = 0.0;
     v31 = 0.0;
+    v32 = 0.0;
+    *&v7 = 0.0;
+    v34 = 0.0;
+    v35 = 0.0;
+    v33 = 0.0;
     MaxY = 0.0;
     if (cellStyle == 3)
     {
-      v7 = v35;
-      if (v17)
+      v7 = v38;
+      v39 = v37;
+      if (v19)
       {
-        v28 = v34;
-        if (v15)
+        v30 = v36;
+        if (v17)
         {
-          v30 = v9 + 7.0;
-          v36 = v9 + 7.0;
-          v37 = v11;
-          MaxY = CGRectGetMaxY(*&v35);
-          v38 = 58.0;
-          v33 = v11;
-          v31 = v7;
+          v32 = *&v9 + 7.0;
+          v40 = *&v9 + 7.0;
+          v41 = v11;
+          MaxY = CGRectGetMaxY(*&v38);
+          v42 = 58.0;
+          v35 = *&v11;
+          v33 = *&v7;
         }
 
         else
         {
-          PKContentAlignmentMake();
-          PKSizeAlignedInRect();
-          v7 = v54;
-          v30 = v55;
-          v11 = v56;
-          v28 = v57;
-          v21 = 0.0;
-          v38 = 48.0;
-          v33 = 0.0;
+          v85 = PKContentAlignmentMake();
+          v86.n128_u64[0] = v11;
+          v87.n128_f64[0] = v30;
+          v88.n128_u64[0] = v7;
+          v89.n128_u64[0] = v9;
+          v90.n128_u64[0] = v11;
+          v91.n128_u64[0] = v39;
+          PKSizeAlignedInRect(v85, v86, v87, v88, v89, v90, v91, v92);
+          v7 = v93;
+          v32 = v94;
+          v11 = v95;
+          v30 = v96;
+          v23 = 0.0;
+          v42 = 48.0;
+          v35 = 0.0;
           MaxY = 0.0;
-          v31 = 0.0;
+          v33 = 0.0;
         }
       }
 
-      else if (v15)
+      else if (v17)
       {
-        PKContentAlignmentMake();
-        PKSizeAlignedInRect();
-        v31 = v50;
-        MaxY = v51;
-        v33 = v52;
-        v21 = v53;
-        v38 = 48.0;
-        v11 = 0.0;
-        v30 = 0.0;
-        v7 = 0.0;
+        v73 = PKContentAlignmentMake();
+        v74.n128_u64[0] = v11;
+        v75.n128_f64[0] = v23;
+        v76.n128_u64[0] = v7;
+        v77.n128_u64[0] = v9;
+        v78.n128_u64[0] = v11;
+        v79.n128_u64[0] = v39;
+        PKSizeAlignedInRect(v73, v74, v75, v76, v77, v78, v79, v80);
+        v33 = v81;
+        MaxY = v82;
+        v35 = v83;
+        v23 = v84;
+        v42 = 48.0;
+        *&v11 = 0.0;
+        v32 = 0.0;
+        *&v7 = 0.0;
       }
 
       else
       {
-        v11 = 0.0;
-        v38 = 48.0;
-        v30 = 0.0;
-        v7 = 0.0;
-        v21 = 0.0;
+        *&v11 = 0.0;
+        v42 = 48.0;
+        v32 = 0.0;
+        *&v7 = 0.0;
+        v23 = 0.0;
         MaxY = 0.0;
       }
 
-      self->_computedHeight = fmax(v38, v28 + 7.0 + v21 + 7.0);
-      v29 = v11;
-      v32 = v21;
+      self->_computedHeight = fmax(v42, v30 + 7.0 + v23 + 7.0);
+      v31 = *&v11;
+      v34 = v23;
       if (outCopy)
       {
         goto LABEL_24;
@@ -388,21 +403,21 @@ LABEL_14:
 
   else
   {
-    if (v19 + v23 + 10.0 > v11)
+    if (v21 + v25 + 10.0 > *&v11)
     {
-      v62.origin.y = v9 + 7.0;
-      v62.origin.x = v7;
-      MaxY = v9 + 7.0;
-      v62.size.width = v11;
-      v62.size.height = v21;
-      v27 = CGRectGetMaxY(v62);
-      self->_computedHeight = fmax(v21 + v25 + 7.0 + 7.0, 58.0);
-      v28 = v25;
-      v29 = v11;
-      v30 = v27 + 2.0;
-      v31 = v7;
-      v32 = v21;
-      v33 = v11;
+      v101.origin.y = *&v9 + 7.0;
+      *&v101.origin.x = v7;
+      MaxY = *&v9 + 7.0;
+      *&v101.size.width = v11;
+      v101.size.height = v23;
+      v29 = CGRectGetMaxY(v101);
+      self->_computedHeight = fmax(v23 + v27 + 7.0 + 7.0, 58.0);
+      v30 = v27;
+      v31 = *&v11;
+      v32 = v29 + 2.0;
+      v33 = *&v7;
+      v34 = v23;
+      v35 = *&v11;
       if (!outCopy)
       {
         goto LABEL_25;
@@ -411,35 +426,50 @@ LABEL_14:
       goto LABEL_24;
     }
 
-    self->_computedHeight = fmax(fmax(v21, v25) + 7.0 + 7.0, 48.0);
-    PKContentAlignmentMake();
-    PKSizeAlignedInRect();
-    v58 = v39;
-    MaxY = v40;
-    v42 = v41;
-    v32 = v43;
-    PKContentAlignmentMake();
-    PKSizeAlignedInRect();
-    v31 = v58;
-    v33 = v42;
-    v7 = v44;
-    v30 = v45;
-    v29 = v46;
-    v28 = v47;
+    self->_computedHeight = fmax(fmax(v23, v27) + 7.0 + 7.0, 48.0);
+    v43 = PKContentAlignmentMake();
+    v44.n128_f64[0] = v21;
+    v45.n128_f64[0] = v23;
+    v46.n128_u64[0] = v7;
+    v47.n128_u64[0] = v9;
+    v48.n128_u64[0] = v11;
+    v49.n128_u64[0] = v13;
+    PKSizeAlignedInRect(v43, v44, v45, v46, v47, v48, v49, v50);
+    v51 = v9;
+    v97 = v52;
+    MaxY = v53;
+    v55 = v54;
+    v56 = v13;
+    v57 = *&v27;
+    v34 = v58;
+    v59 = PKContentAlignmentMake();
+    v60.n128_f64[0] = v25;
+    v61.n128_u64[0] = v57;
+    v62.n128_u64[0] = v7;
+    v63.n128_u64[0] = v51;
+    v64.n128_u64[0] = v11;
+    v65.n128_u64[0] = v56;
+    PKSizeAlignedInRect(v59, v60, v61, v62, v63, v64, v65, v66);
+    v33 = v97;
+    v35 = v55;
+    v7 = v67;
+    v32 = v68;
+    v31 = v69;
+    v30 = v70;
   }
 
   if (outCopy)
   {
 LABEL_24:
-    [(UITextView *)self->_titleTextView setFrame:v31, MaxY, v33, v32];
-    [(UITextView *)self->_valueTextView setFrame:v7, v30, v29, v28];
+    [(UITextView *)self->_titleTextView setFrame:v33, MaxY, v35, v34];
+    [(UITextView *)self->_valueTextView setFrame:*&v7, v32, v31, v30];
   }
 
 LABEL_25:
   computedHeight = self->_computedHeight;
-  v49 = width;
+  v72 = width;
   result.height = computedHeight;
-  result.width = v49;
+  result.width = v72;
   return result;
 }
 

@@ -17,7 +17,7 @@
 
 - (void)submitFailureEventWithFailureCode:(unint64_t)code error:(id)error
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   v7 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -26,21 +26,19 @@
   {
     v10 = HMFGetLogIdentifier();
     v11 = HMDMediaDestinationManagerFailureCodeAsString(code);
-    v15 = 138543874;
-    v16 = v10;
-    v17 = 2112;
-    v18 = v11;
-    v19 = 2112;
-    v20 = errorCopy;
-    _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_INFO, "%{public}@Submitting failure event with failure code: %@ error: %@", &v15, 0x20u);
+    v14 = 138543874;
+    v15 = v10;
+    v16 = 2112;
+    v17 = v11;
+    v18 = 2112;
+    v19 = errorCopy;
+    _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_INFO, "%{public}@Submitting failure event with failure code: %@ error: %@", &v14, 0x20u);
   }
 
   objc_autoreleasePoolPop(v7);
   v12 = [[HMDMediaDestinationManagerFailureEvent alloc] initWithFailureCode:code error:errorCopy];
   logEventSubmitter = [(HMDMediaDestinationManagerMetricsDispatcher *)selfCopy logEventSubmitter];
   [logEventSubmitter submitLogEvent:v12];
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (HMDMediaDestinationManagerMetricsDispatcher)initWithIdentifier:(id)identifier logEventSubmitter:(id)submitter
@@ -74,12 +72,11 @@
 
 uint64_t __58__HMDMediaDestinationManagerMetricsDispatcher_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v2_191153;
-  logCategory__hmf_once_v2_191153 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v2_191153;
+  logCategory__hmf_once_v2_191153 = v0;
 
-  return MEMORY[0x2821F96F8](v1, v2);
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 @end

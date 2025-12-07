@@ -21,7 +21,6 @@
 
 - (void)setKey:(id)key
 {
-  v10 = *MEMORY[0x277D85DE8];
   keyCopy = key;
   if (!keyCopy)
   {
@@ -36,13 +35,10 @@
     v7 = keyCopy;
     apple::aiml::flatbuffers2::FlatBufferBuilder::AddOffset<apple::aiml::flatbuffers2::String>(self->_bldr->var0, 4, [v7 unsignedIntValue]);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setVal:(id)val
 {
-  v10 = *MEMORY[0x277D85DE8];
   valCopy = val;
   if (!valCopy)
   {
@@ -57,8 +53,6 @@
     v7 = valCopy;
     apple::aiml::flatbuffers2::FlatBufferBuilder::AddOffset<apple::aiml::flatbuffers2::String>(self->_bldr->var0, 6, [v7 unsignedIntValue]);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 @end

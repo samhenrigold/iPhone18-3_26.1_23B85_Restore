@@ -17,7 +17,7 @@
   }
 
   v11 = objc_opt_class();
-  if (v11 == objc_opt_class() && ([elementCopy getAttribute:@"type"], v12 = objc_claimAutoreleasedReturnValue(), v13 = objc_msgSend(v12, "isEqualToString:", @"browse"), v12, v13))
+  if (v11 == objc_opt_class() && ([elementCopy getAttribute:@"type"], v12 = objc_claimAutoreleasedReturnValue(), isEqualToString = objc_msgSend_isEqualToString_(v12), v12, isEqualToString))
   {
     v14 = parentCopy;
     v15 = v14;
@@ -72,8 +72,9 @@
 
 void __31__SKUIHeaderViewElement_button__block_invoke(uint64_t a1, void *a2, _BYTE *a3)
 {
-  v6 = a2;
-  if (SKUIIKViewElementTypeIsButton([v6 elementType]))
+  v8 = a2;
+  v6 = [v8 elementType];
+  if (SKUIIKViewElementTypeIsButton(v6, v7))
   {
     objc_storeStrong((*(*(a1 + 32) + 8) + 40), a2);
     *a3 = 1;

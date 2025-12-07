@@ -210,7 +210,6 @@ LABEL_8:
   has = self->_has;
   if (has)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
     has = self->_has;
     if ((has & 2) == 0)
@@ -230,7 +229,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  type4BlankingCount = self->_type4BlankingCount;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 8) == 0)
@@ -245,7 +243,6 @@ LABEL_4:
   }
 
 LABEL_11:
-  type4ResumeCount = self->_type4ResumeCount;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 4) == 0)
@@ -260,7 +257,6 @@ LABEL_5:
   }
 
 LABEL_12:
-  type4BlankingTimeInMS = self->_type4BlankingTimeInMS;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 0x10) == 0)
@@ -272,7 +268,6 @@ LABEL_6:
     }
 
 LABEL_14:
-    type7ResumeCount = self->_type7ResumeCount;
     PBDataWriterWriteUint64Field();
     if ((*&self->_has & 0x20) == 0)
     {
@@ -283,7 +278,6 @@ LABEL_14:
   }
 
 LABEL_13:
-  type7BlankingCount = self->_type7BlankingCount;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 0x40) != 0)
@@ -298,7 +292,6 @@ LABEL_7:
   }
 
 LABEL_15:
-  type7BlankingTimeInMS = self->_type7BlankingTimeInMS;
 
   PBDataWriterWriteUint64Field();
 }

@@ -7,6 +7,7 @@
 - (void)_animateAlongsideTransitionFinishedWithContext:(id)context;
 - (void)_animateAlongsideTransitionStartedWithContext:(id)context;
 - (void)_destroyViewControllers;
+- (void)_dismissAlertWithDelay:(double)delay temporarily:(BOOL)temporarily completion:(id)completion;
 - (void)_dismissCoachingViews;
 - (void)_dismissToastWithDelay:(double)delay completion:(id)completion;
 - (void)_handleBioLockout:(id)lockout;
@@ -15,20 +16,27 @@
 - (void)_handleSensorActiveWithCompletion:(id)completion;
 - (void)_handleToastPresentedWithCompletion:(id)completion;
 - (void)_hideGlyphWithSpecialUi:(BOOL)ui;
+- (void)_presentAlertAnimated:(BOOL)animated specialUi:(BOOL)ui;
 - (void)_presentToastWithCompletion:(id)completion;
 - (void)_processCoachingFeedback:(int64_t)feedback;
 - (void)_setActionButtons;
+- (void)_setGlyphState:(int64_t)state animated:(BOOL)animated;
+- (void)_setGlyphToNoMatchWithSpecialUi:(BOOL)ui;
 - (void)_setupToastWithGlyph:(id)glyph;
 - (void)_shake:(BOOL)_shake;
 - (void)_showFailAlert;
 - (void)_updatePearlViews;
+- (void)_updateSecureFaceIDViewForRotationStarting:(BOOL)starting;
 - (void)dealloc;
 - (void)dismissChildWithCompletionHandler:(id)handler;
+- (void)dismissViewControllerAnimated:(BOOL)animated completion:(id)completion;
 - (void)loadView;
 - (void)mechanismEvent:(int64_t)event value:(id)value reply:(id)reply;
 - (void)setSuspended:(BOOL)suspended;
 - (void)uiCancelByGestureIfPossible;
 - (void)uiEvent:(int64_t)event options:(id)options;
+- (void)viewDidAppear:(BOOL)appear;
+- (void)viewDidMoveToWindow:(id)window shouldAppearOrDisappear:(BOOL)disappear;
 - (void)viewWillLayoutSubviews;
 - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id)coordinator;
 @end
@@ -53,7 +61,7 @@
 - (id)_createGlyphViewForRetryUI:(BOOL)i
 {
   iCopy = i;
-  v5 = LADynamicIslandAvailable();
+  v5 = LADynamicIslandAvailable(self, a2);
   options = [(TransitionViewController *)self options];
   v7 = LACLightweightUIModeFromOptions();
 
@@ -106,24 +114,25 @@ LABEL_3:
   v15 = LACLogFaceIDUI();
   if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
   {
-    v23 = 138412290;
-    v24 = v14;
-    _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_INFO, "glyph created: %@", &v23, 0xCu);
+    v27 = 138412290;
+    v28 = v14;
+    _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_INFO, "glyph created: %@", &v27, 0xCu);
   }
 
-  if ((LADynamicIslandAvailable() & 1) == 0 && v7)
+  v18 = LADynamicIslandAvailable(v16, v17);
+  if ((v18 & 1) == 0 && v7)
   {
-    v16 = +[UIColor systemBlueColor];
-    [v14 setIdleColor:v16 animated:0];
+    v20 = +[UIColor systemBlueColor];
+    [v14 setIdleColor:v20 animated:0];
   }
 
-  if (LADynamicIslandAvailable())
+  if (LADynamicIslandAvailable(v18, v19))
   {
     options2 = [(TransitionViewController *)self options];
-    v18 = [options2 objectForKeyedSubscript:&off_1000AF560];
-    v19 = [v18 objectForKeyedSubscript:&off_1000AF578];
-    v20 = [v19 objectForKeyedSubscript:&off_1000AF590];
-    integerValue = [v20 integerValue];
+    v22 = [options2 objectForKeyedSubscript:&off_1000AF560];
+    v23 = [v22 objectForKeyedSubscript:&off_1000AF578];
+    v24 = [v23 objectForKeyedSubscript:&off_1000AF590];
+    integerValue = [v24 integerValue];
 
     if (integerValue == 2)
     {
@@ -163,6 +172,71 @@ LABEL_22:
   [(FaceIdViewController *)self _updatePearlViews];
 }
 
+- (void)viewDidAppear:(BOOL)appear
+{
+  v9.receiver = self;
+  v9.super_class = FaceIdViewController;
+  [(TransitionViewController *)&v9 viewDidAppear:appear];
+  self->_animationStart = 0.0;
+  if (self->_silentFallback)
+  {
+    v4 = [LAErrorHelper silentInternalErrorWithMessage:@"Silent UI fallback"];
+    [(TransitionViewController *)self uiFailureWithError:v4];
+LABEL_3:
+
+    return;
+  }
+
+  if (!self->_hwIssueEvent)
+  {
+    internalInfo = [(TransitionViewController *)self internalInfo];
+    v4 = [internalInfo objectForKeyedSubscript:@"FaceIdWithButton"];
+
+    if ([v4 intValue] == 2)
+    {
+      v7 = LACLogFaceIDUI();
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 138543362;
+        selfCopy3 = self;
+        _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "%{public}@ will suspend to wait for a double press", buf, 0xCu);
+      }
+
+      [(FaceIdViewController *)self setSuspended:1];
+    }
+
+    else
+    {
+      if ([(FaceIdToastViewController *)self->_toastController lightweightUI])
+      {
+        v8 = LACLogFaceIDUI();
+        if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+        {
+          *buf = 138543362;
+          selfCopy3 = self;
+          _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "%{public}@ will suspend because of lightweight UI", buf, 0xCu);
+        }
+
+        [(FaceIdViewController *)self setSuspended:1];
+      }
+
+      [(FaceIdViewController *)self _presentToast];
+    }
+
+    goto LABEL_3;
+  }
+
+  v5 = LACLogFaceIDUI();
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 138543362;
+    selfCopy3 = self;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "%{public}@ is showing HW event UI", buf, 0xCu);
+  }
+
+  [(FaceIdViewController *)self _showFailAlert];
+}
+
 - (void)_presentToastWithCompletion:(id)completion
 {
   completionCopy = completion;
@@ -188,8 +262,8 @@ LABEL_22:
 
       *buf = 138543618;
       selfCopy = self;
-      v18 = 2114;
-      v19 = v6;
+      v20 = 2114;
+      v21 = v6;
       _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Will not present Face ID glyph because %{public}@ is %{public}@", buf, 0x16u);
     }
 
@@ -237,22 +311,22 @@ LABEL_10:
   if (self->_toastWasUsedForJindoPresentation)
   {
     [(FaceIdToastViewController *)self->_toastController dismissWithDelay:&__block_literal_global_59 completion:0.0];
-    [(FaceIdViewController *)self _setupToastWithGlyph:self->_glyphView];
+    v13 = [(FaceIdViewController *)self _setupToastWithGlyph:self->_glyphView];
   }
 
-  if (LADynamicIslandAvailable())
+  if (LADynamicIslandAvailable(v13, v14))
   {
     self->_toastWasUsedForJindoPresentation = 1;
   }
 
   toastController = self->_toastController;
-  v14[0] = _NSConcreteStackBlock;
-  v14[1] = 3221225472;
-  v14[2] = __52__FaceIdViewController__presentToastWithCompletion___block_invoke_2;
-  v14[3] = &unk_1000AA568;
-  v14[4] = self;
-  v15 = completionCopy;
-  [(PresentationViewController *)toastController presentOnParentViewController:self animated:0 completionHandler:v14];
+  v16[0] = _NSConcreteStackBlock;
+  v16[1] = 3221225472;
+  v16[2] = __52__FaceIdViewController__presentToastWithCompletion___block_invoke_2;
+  v16[3] = &unk_1000AA568;
+  v16[4] = self;
+  v17 = completionCopy;
+  [(PresentationViewController *)toastController presentOnParentViewController:self animated:0 completionHandler:v16];
 
 LABEL_11:
 }
@@ -319,20 +393,31 @@ void __60__FaceIdViewController__handleToastPresentedWithCompletion___block_invo
   }
 }
 
+- (void)viewDidMoveToWindow:(id)window shouldAppearOrDisappear:(BOOL)disappear
+{
+  v8.receiver = self;
+  v8.super_class = FaceIdViewController;
+  [(FaceIdViewController *)&v8 viewDidMoveToWindow:window shouldAppearOrDisappear:disappear];
+  tintColor = self->_tintColor;
+  view = [(FaceIdViewController *)self view];
+  window = [view window];
+  [window setTintColor:tintColor];
+}
+
 - (void)uiCancelByGestureIfPossible
 {
   v3 = LACLogFaceIDUI();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     pearlUIState = self->_pearlUIState;
-    v5 = 138543618;
+    v7 = 138543618;
     selfCopy = self;
-    v7 = 1024;
-    v8 = pearlUIState;
-    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "%{public}@ requested cancel while in state:%d", &v5, 0x12u);
+    v9 = 1024;
+    v10 = pearlUIState;
+    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "%{public}@ requested cancel while in state:%d", &v7, 0x12u);
   }
 
-  if (LADynamicIslandAvailable())
+  if (LADynamicIslandAvailable(v5, v6))
   {
     goto LABEL_7;
   }
@@ -350,16 +435,16 @@ LABEL_7:
 
 - (void)_showFailAlert
 {
-  objc_initWeak(&location, self);
-  v3 = LADynamicIslandAvailable();
+  inited = objc_initWeak(&location, self);
+  v5 = LADynamicIslandAvailable(inited, v4);
   alertController = [(FaceIdViewController *)self alertController];
 
   if (!alertController)
   {
-    if (v3)
+    if (v5)
     {
-      v7 = objc_loadWeakRetained(&location);
-      [v7 _presentAlertAnimated:1 specialUi:1];
+      v9 = objc_loadWeakRetained(&location);
+      [v9 _presentAlertAnimated:1 specialUi:1];
 
       goto LABEL_11;
     }
@@ -374,14 +459,14 @@ LABEL_7:
       if (window)
       {
         toastController3 = [(FaceIdViewController *)self toastController];
-        v6 = v12;
-        v12[0] = _NSConcreteStackBlock;
-        v12[1] = 3221225472;
-        v12[2] = __38__FaceIdViewController__showFailAlert__block_invoke_2;
-        v12[3] = &unk_1000AAD00;
-        objc_copyWeak(&v13, &location);
-        v14 = 0;
-        [toastController3 dismissWithDelay:v12 completion:0.0];
+        v8 = v14;
+        v14[0] = _NSConcreteStackBlock;
+        v14[1] = 3221225472;
+        v14[2] = __38__FaceIdViewController__showFailAlert__block_invoke_2;
+        v14[3] = &unk_1000AAD00;
+        objc_copyWeak(&v15, &location);
+        v16 = 0;
+        [toastController3 dismissWithDelay:v14 completion:0.0];
         goto LABEL_3;
       }
     }
@@ -396,17 +481,17 @@ LABEL_7:
 
   [(FaceIdViewController *)self setDismissingTemporarily:1];
   toastController3 = [(FaceIdViewController *)self alertController];
-  v6 = v15;
-  v15[0] = _NSConcreteStackBlock;
-  v15[1] = 3221225472;
-  v15[2] = __38__FaceIdViewController__showFailAlert__block_invoke;
-  v15[3] = &unk_1000AAD00;
-  objc_copyWeak(&v16, &location);
-  v17 = v3;
-  [toastController3 dismissViewControllerAnimated:0 completion:v15];
+  v8 = v17;
+  v17[0] = _NSConcreteStackBlock;
+  v17[1] = 3221225472;
+  v17[2] = __38__FaceIdViewController__showFailAlert__block_invoke;
+  v17[3] = &unk_1000AAD00;
+  objc_copyWeak(&v18, &location);
+  v19 = v5;
+  [toastController3 dismissViewControllerAnimated:0 completion:v17];
 LABEL_3:
 
-  objc_destroyWeak(v6 + 4);
+  objc_destroyWeak(v8 + 4);
 LABEL_11:
   objc_destroyWeak(&location);
 }
@@ -432,15 +517,179 @@ void __38__FaceIdViewController__showFailAlert__block_invoke_2(uint64_t a1)
   [WeakRetained _presentAlertAnimated:1 specialUi:*(a1 + 40)];
 }
 
-id __56__FaceIdViewController__presentAlertAnimated_specialUi___block_invoke(uint64_t a1)
+- (void)_presentAlertAnimated:(BOOL)animated specialUi:(BOOL)ui
 {
-  v2 = LACLogFaceIDUI();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  uiCopy = ui;
+  if (ui)
   {
-    v3 = *(a1 + 32);
-    v5 = 138543362;
-    v6 = v3;
-    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "Will dismiss %{public}@", &v5, 0xCu);
+    options = [(TransitionViewController *)self options];
+    v8 = [options objectForKeyedSubscript:&off_1000AF5A8];
+    bOOLValue = [v8 BOOLValue];
+
+    if (bOOLValue)
+    {
+      [(FaceIdViewController *)self _setGlyphToNoMatchWithSpecialUi:1];
+      [(FaceIdViewController *)self _shake:1];
+      [(FaceIdViewController *)self setSuspended:1];
+      v10 = self->_toastController;
+      v11 = dispatch_time(0, 500000000);
+      block[0] = _NSConcreteStackBlock;
+      block[1] = 3221225472;
+      block[2] = __56__FaceIdViewController__presentAlertAnimated_specialUi___block_invoke;
+      block[3] = &unk_1000AA3C0;
+      v51 = v10;
+      v12 = v10;
+      dispatch_after(v11, &_dispatch_main_q, block);
+
+      return;
+    }
+  }
+
+  objc_initWeak(&location, self);
+  v13 = objc_opt_new();
+  [(FaceIdViewController *)self setAlertController:v13];
+
+  alertController = [(FaceIdViewController *)self alertController];
+  [alertController setPreferredStyle:1];
+
+  v47[0] = _NSConcreteStackBlock;
+  v47[1] = 3221225472;
+  v47[2] = __56__FaceIdViewController__presentAlertAnimated_specialUi___block_invoke_2;
+  v47[3] = &unk_1000AA370;
+  objc_copyWeak(&v48, &location);
+  alertController2 = [(FaceIdViewController *)self alertController];
+  [alertController2 setOnDismiss:v47];
+
+  if (!uiCopy)
+  {
+    if ([(FaceIdToastViewController *)self->_toastController lightweightUI])
+    {
+      v16 = +[LACSecureFaceIDUIUtilities sharedInstance];
+      isActive = [v16 isActive];
+
+      if (isActive)
+      {
+        v18 = LACLogFaceIDUI();
+        if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+        {
+          *buf = 0;
+          _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "Will replace the small glyph with standard one", buf, 2u);
+        }
+
+        toastController = self->_toastController;
+        self->_toastController = 0;
+
+        [(LAUIPearlGlyphView *)self->_glyphView removeFromSuperview];
+        v20 = [(FaceIdViewController *)self _createGlyphViewForRetryUI:1];
+        glyphView = self->_glyphView;
+        self->_glyphView = v20;
+      }
+    }
+  }
+
+  alertController3 = [(FaceIdViewController *)self alertController];
+  v23 = alertController3;
+  if (uiCopy)
+  {
+    v24 = 0;
+  }
+
+  else
+  {
+    v24 = self->_glyphView;
+  }
+
+  [alertController3 setGlyph:v24];
+
+  if (self->_pearlUIState == 6)
+  {
+    [(FaceIdViewController *)self _hideGlyphWithSpecialUi:uiCopy];
+    alertController4 = [(FaceIdViewController *)self alertController];
+    v26 = [NSBundle bundleForClass:objc_opt_class()];
+    v27 = [v26 localizedStringForKey:@"PEARL_LOCKOUT" value:&stru_1000ADB50 table:@"MobileUI"];
+    [alertController4 setTitle:v27];
+
+    alertController5 = [(FaceIdViewController *)self alertController];
+    v29 = [NSBundle bundleForClass:objc_opt_class()];
+    v30 = [v29 localizedStringForKey:@"PEARL_LOCKOUT_DESCRIPTION" value:&stru_1000ADB50 table:@"MobileUI"];
+    [alertController5 setMessage:v30];
+LABEL_23:
+
+    goto LABEL_24;
+  }
+
+  if (!self->_hwIssueEvent)
+  {
+    alertController6 = [(FaceIdViewController *)self alertController];
+    v37 = [NSBundle bundleForClass:objc_opt_class()];
+    v38 = [v37 localizedStringForKey:@"PEARL_FAILED" value:&stru_1000ADB50 table:@"MobileUI"];
+    [alertController6 setTitle:v38];
+
+    alertController7 = [(FaceIdViewController *)self alertController];
+    authenticationSubtitle = [(TransitionViewController *)self authenticationSubtitle];
+    [alertController7 setMessage:authenticationSubtitle];
+
+    [(FaceIdViewController *)self _setGlyphToNoMatchWithSpecialUi:uiCopy];
+    if (uiCopy)
+    {
+      [(FaceIdViewController *)self _shake:1];
+    }
+
+    goto LABEL_24;
+  }
+
+  [(FaceIdViewController *)self _hideGlyphWithSpecialUi:uiCopy];
+  alertController8 = [(FaceIdViewController *)self alertController];
+  v32 = [NSBundle bundleForClass:objc_opt_class()];
+  v33 = [v32 localizedStringForKey:@"PEARL_HW_ISSUE_TITLE" value:&stru_1000ADB50 table:@"MobileUI"];
+  [alertController8 setTitle:v33];
+
+  hwIssueEvent = self->_hwIssueEvent;
+  if (hwIssueEvent == 9)
+  {
+    v35 = @"PEARL_HW_ISSUE_LOW_TEMPERATURE";
+    goto LABEL_22;
+  }
+
+  if (hwIssueEvent == 10)
+  {
+    v35 = @"PEARL_HW_ISSUE_HIGH_TEMPERATURE";
+LABEL_22:
+    alertController5 = [(FaceIdViewController *)self alertController];
+    v29 = [NSBundle bundleForClass:objc_opt_class()];
+    v30 = [v29 localizedStringForKey:v35 value:&stru_1000ADB50 table:@"MobileUI"];
+    [alertController5 setMessage:v30];
+    goto LABEL_23;
+  }
+
+LABEL_24:
+  [(FaceIdViewController *)self _setActionButtons];
+  [(FaceIdViewController *)self _dismissCoachingViews];
+  dimmingView = [(FaceIdViewController *)self dimmingView];
+  [dimmingView setDimEnabled:0];
+
+  v42[0] = _NSConcreteStackBlock;
+  v42[1] = 3221225472;
+  v42[2] = __56__FaceIdViewController__presentAlertAnimated_specialUi___block_invoke_88;
+  v42[3] = &unk_1000AA7E0;
+  objc_copyWeak(&v43, &location);
+  animatedCopy = animated;
+  v45 = uiCopy;
+  dispatch_async(&_dispatch_main_q, v42);
+  objc_destroyWeak(&v43);
+  objc_destroyWeak(&v48);
+  objc_destroyWeak(&location);
+}
+
+id __56__FaceIdViewController__presentAlertAnimated_specialUi___block_invoke(uint64_t a1, uint64_t a2)
+{
+  v3 = LACLogFaceIDUI();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+  {
+    v4 = *(a1 + 32);
+    v6 = 138543362;
+    v7 = v4;
+    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "Will dismiss %{public}@", &v6, 0xCu);
   }
 
   return [*(a1 + 32) dismissWithDelay:&__block_literal_global_66 completion:0.0];
@@ -512,6 +761,23 @@ void __56__FaceIdViewController__presentAlertAnimated_specialUi___block_invoke_2
     toastController = [(FaceIdViewController *)self alertController];
     [toastController setGlyph:0];
   }
+}
+
+- (void)_setGlyphToNoMatchWithSpecialUi:(BOOL)ui
+{
+  uiCopy = ui;
+  if (ui)
+  {
+    [(LAUIPearlGlyphView *)self->_glyphView setShakeEnabled:0];
+  }
+
+  else
+  {
+    glyphView = [(FaceIdViewController *)self glyphView];
+    [glyphView setStyle:2 animated:0];
+  }
+
+  [(FaceIdViewController *)self _setGlyphState:4 animated:uiCopy];
 }
 
 - (void)setSuspended:(BOOL)suspended
@@ -958,36 +1224,34 @@ void __41__FaceIdViewController__setActionButtons__block_invoke(uint64_t a1)
     {
       if ([v6 isEqualToString:@"Enter Passcode"])
       {
-        v7 = *(a1 + 32);
-        v8 = [NSBundle bundleForClass:objc_opt_class()];
-        v9 = [v8 localizedStringForKey:@"ENTER_PASSCODE_ONLY" value:&stru_1000ADB50 table:@"MobileUI"];
+        v7 = [NSBundle bundleForClass:objc_opt_class()];
+        v8 = [v7 localizedStringForKey:@"ENTER_PASSCODE_ONLY" value:&stru_1000ADB50 table:@"MobileUI"];
 
         *(*(*(a1 + 64) + 8) + 24) = 1;
         *(*(*(a1 + 56) + 8) + 24) = 0;
-        v6 = v9;
+        v6 = v8;
       }
     }
 
     else
     {
-      v10 = *(a1 + 32);
-      v11 = [NSBundle bundleForClass:objc_opt_class()];
-      v6 = [v11 localizedStringForKey:@"ENTER_PASSWORD" value:&stru_1000ADB50 table:@"MobileUI"];
+      v9 = [NSBundle bundleForClass:objc_opt_class()];
+      v6 = [v9 localizedStringForKey:@"ENTER_PASSWORD" value:&stru_1000ADB50 table:@"MobileUI"];
     }
 
     if ([v6 length])
     {
-      v12 = *(*(a1 + 32) + 304);
-      v14 = _NSConcreteStackBlock;
-      v15 = 3221225472;
-      v16 = __41__FaceIdViewController__setActionButtons__block_invoke_115;
-      v17 = &unk_1000AAD88;
-      v18[1] = *(a1 + 96);
-      objc_copyWeak(v18, (a1 + 88));
-      v13 = [LACUIBiometryAlertAction actionWithType:1 title:v6 shouldDismissAlert:0 handler:&v14];
-      [v12 addCustomAction:{v13, v14, v15, v16, v17}];
+      v10 = *(*(a1 + 32) + 304);
+      v12 = _NSConcreteStackBlock;
+      v13 = 3221225472;
+      v14 = __41__FaceIdViewController__setActionButtons__block_invoke_115;
+      v15 = &unk_1000AAD88;
+      v16[1] = *(a1 + 96);
+      objc_copyWeak(v16, (a1 + 88));
+      v11 = [LACUIBiometryAlertAction actionWithType:1 title:v6 shouldDismissAlert:0 handler:&v12];
+      [v10 addCustomAction:{v11, v12, v13, v14, v15}];
 
-      objc_destroyWeak(v18);
+      objc_destroyWeak(v16);
     }
 
     else
@@ -1734,6 +1998,27 @@ LABEL_20:
   self->_alertController = 0;
 }
 
+- (void)dismissViewControllerAnimated:(BOOL)animated completion:(id)completion
+{
+  animatedCopy = animated;
+  completionCopy = completion;
+  objc_initWeak(&location, self);
+  v9[0] = _NSConcreteStackBlock;
+  v9[1] = 3221225472;
+  v9[2] = __65__FaceIdViewController_dismissViewControllerAnimated_completion___block_invoke;
+  v9[3] = &unk_1000AA658;
+  objc_copyWeak(&v11, &location);
+  v7 = completionCopy;
+  v10 = v7;
+  v8.receiver = self;
+  v8.super_class = FaceIdViewController;
+  [(FaceIdViewController *)&v8 dismissViewControllerAnimated:animatedCopy completion:v9];
+  self->_dismissed = 1;
+
+  objc_destroyWeak(&v11);
+  objc_destroyWeak(&location);
+}
+
 uint64_t __65__FaceIdViewController_dismissViewControllerAnimated_completion___block_invoke(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 40));
@@ -1851,6 +2136,35 @@ id __58__FaceIdViewController_dismissChildWithCompletionHandler___block_invoke_3
   _objc_release_x1();
 }
 
+- (void)_dismissAlertWithDelay:(double)delay temporarily:(BOOL)temporarily completion:(id)completion
+{
+  temporarilyCopy = temporarily;
+  completionCopy = completion;
+  [(FaceIdViewController *)self setDismissingTemporarily:temporarilyCopy];
+  if (self->_alertController)
+  {
+    objc_initWeak(&location, self);
+    alertController = self->_alertController;
+    v11[0] = _NSConcreteStackBlock;
+    v11[1] = 3221225472;
+    v11[2] = __70__FaceIdViewController__dismissAlertWithDelay_temporarily_completion___block_invoke;
+    v11[3] = &unk_1000AAE70;
+    v12 = completionCopy;
+    objc_copyWeak(&v13, &location);
+    [(FaceIdAlertViewController *)alertController dismissWithDelay:v11 completion:delay];
+    v10 = self->_alertController;
+    self->_alertController = 0;
+
+    objc_destroyWeak(&v13);
+    objc_destroyWeak(&location);
+  }
+
+  else if (completionCopy)
+  {
+    completionCopy[2](completionCopy, delay);
+  }
+}
+
 void __70__FaceIdViewController__dismissAlertWithDelay_temporarily_completion___block_invoke(uint64_t a1)
 {
   v2 = *(a1 + 32);
@@ -1861,6 +2175,28 @@ void __70__FaceIdViewController__dismissAlertWithDelay_temporarily_completion___
 
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   [WeakRetained setDismissingTemporarily:0];
+}
+
+- (void)_setGlyphState:(int64_t)state animated:(BOOL)animated
+{
+  animatedCopy = animated;
+  toastController = self->_toastController;
+  if (toastController)
+  {
+
+    [FaceIdToastViewController setGlyphState:"setGlyphState:animated:" animated:?];
+  }
+
+  else
+  {
+    glyphView = self->_glyphView;
+    if (glyphView && [(LAUIPearlGlyphView *)glyphView state]!= state)
+    {
+      v9 = self->_glyphView;
+
+      [(LAUIPearlGlyphView *)v9 setState:state animated:animatedCopy withCompletion:&__block_literal_global_189];
+    }
+  }
 }
 
 - (void)_updatePearlViews
@@ -1958,6 +2294,36 @@ LABEL_18:
   [(LAUIHorizontalArrowView *)v18 setAnimating:v19];
 }
 
+- (void)_updateSecureFaceIDViewForRotationStarting:(BOOL)starting
+{
+  startingCopy = starting;
+  v5 = +[LACSecureFaceIDUIUtilities sharedInstance];
+  isActive = [v5 isActive];
+
+  if (isActive)
+  {
+    glyphView = [(FaceIdViewController *)self glyphView];
+    remainingMinDisplayTimeInterval = [glyphView remainingMinDisplayTimeInterval];
+    [remainingMinDisplayTimeInterval doubleValue];
+    v10 = v9;
+
+    if (startingCopy && v10 > 0.0)
+    {
+      v11 = LACLogFaceIDUI();
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      {
+        [(FaceIdViewController *)v11 _updateSecureFaceIDViewForRotationStarting:v10];
+      }
+    }
+
+    else
+    {
+      glyphView2 = [(FaceIdViewController *)self glyphView];
+      [glyphView2 setHidden:startingCopy];
+    }
+  }
+}
+
 - (BOOL)processHomeButtonPressed
 {
   v3 = LADynamicIslandActive();
@@ -1991,10 +2357,10 @@ LABEL_18:
 
 - (void)uiEvent:(int64_t)event options:(id)options
 {
-  v6.receiver = self;
-  v6.super_class = FaceIdViewController;
-  [(TransitionViewController *)&v6 uiEvent:event options:options];
-  if (LADynamicIslandAvailable())
+  v8.receiver = self;
+  v8.super_class = FaceIdViewController;
+  v6 = [(TransitionViewController *)&v8 uiEvent:event options:options];
+  if (LADynamicIslandAvailable(v6, v7))
   {
     if ((event | 4) == 6)
     {

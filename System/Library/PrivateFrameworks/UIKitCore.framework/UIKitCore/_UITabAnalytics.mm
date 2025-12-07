@@ -18,9 +18,9 @@
     dispatch_once(&qword_1ED49CBA0, &__block_literal_global_81);
   }
 
-  v0 = _MergedGlobals_1021;
+  v1 = _MergedGlobals_1021;
 
-  return v0;
+  return v1;
 }
 
 - (void)userDidToggleSidebar:(uint64_t)sidebar source:

@@ -204,38 +204,37 @@
     {
       objc_storeStrong(&self->_displayedUpperLabelText, timeSubstringToSeparatorText);
       objc_storeStrong(&self->_displayedLowerLabelText, timeSubstringFromSeparatorText);
-      sub_3768(self->_device, &v27);
-      v8 = *(&v27 + 1);
-      sub_3768(self->_device, &v25);
-      v9 = v8 - v26;
+      sub_3768(self->_device, &v26);
+      v8 = *(&v26 + 1);
+      sub_3768(self->_device, &v24);
+      v9 = v8 - v25;
+      v22 = 0u;
       v23 = 0u;
-      v24 = 0u;
-      sub_3768(self->_device, v22);
-      [NTKMagmaTimeRenderer renderTimeWithHour:timeSubstringToSeparatorText minute:timeSubstringFromSeparatorText fontSize:v22[0] lineSpacing:v9];
+      sub_3768(self->_device, v21);
+      objc_msgSend_renderTimeWithHour_minute_fontSize_lineSpacing_(NTKMagmaTimeRenderer, *v21, v9);
       [(NTKMagmaEffectsView *)self bounds];
-      [v23 size];
+      [v22 size];
       [(NTKMagmaEffectsView *)self bounds];
-      sub_3768(self->_device, &v21);
-      device = self->_device;
+      sub_3768(self->_device, &v20);
       CLKPointRoundForDevice();
-      v12 = v11;
-      v14 = v13;
+      v11 = v10;
+      v13 = v12;
       quad = self->_quad;
-      [v23 size];
-      [(NTKMagmaQuad *)quad setScreenBoundRect:v12, v14, v16, v17];
-      [(NTKMagmaQuad *)self->_quad updateTimeTextureWithImage:v23 tritiumImage:v12 origin:v14];
+      [v22 size];
+      [(NTKMagmaQuad *)quad setScreenBoundRect:v11, v13, v15, v16];
+      [(NTKMagmaQuad *)self->_quad updateTimeTextureWithImage:v22 tritiumImage:v11 origin:v13];
       if (self->_showingOverrideTime)
       {
-        v18 = 1;
+        v17 = 1;
       }
 
       else
       {
         overrideDate = [v5 overrideDate];
-        v18 = overrideDate != 0;
+        v17 = overrideDate != 0;
       }
 
-      if (!self->_inTritium && !self->_paused && !v18)
+      if (!self->_inTritium && !self->_paused && !v17)
       {
         [(NTKMagmaEffectsView *)self _triggerTimeChangeAnimation];
       }
@@ -279,74 +278,82 @@
 - (void)applyDeviceMotion:(id)motion
 {
   motionCopy = motion;
-  v42 = motionCopy;
+  v50 = motionCopy;
   if (motionCopy)
   {
     [motionCopy rotationRate];
-    v40 = v6;
-    v41 = v5;
+    v48 = v6;
+    v49 = v5;
     v8 = v7;
-    [v42 userAcceleration];
-    v38 = v10;
-    v39 = v9;
-    TuningWithDefault = NTKMagmaGetTuningWithDefault(@"MagmaSpinMax", 1.0);
-    v12 = NTKMagmaGetTuningWithDefault(@"MagmaSpinMultiplier", 1.3);
-    v13 = NTKMagmaGetTuningWithDefault(@"MagmaSpinNoise", 1.3);
-    v14 = v8 * v12;
-    if (v8 * v12 < -TuningWithDefault)
+    [v50 userAcceleration];
+    v46 = v10;
+    v47 = v9;
+    NTKMagmaGetTuningWithDefault();
+    v12 = v11;
+    NTKMagmaGetTuningWithDefault();
+    v14 = v13;
+    NTKMagmaGetTuningWithDefault();
+    v16 = v15;
+    v17 = v8 * v14;
+    if (v8 * v14 < -v12)
     {
-      v14 = -TuningWithDefault;
+      v17 = -v12;
     }
 
-    if (v14 >= TuningWithDefault)
+    if (v17 >= v12)
     {
-      v15 = TuningWithDefault;
+      v18 = v12;
     }
 
     else
     {
-      v15 = v14;
+      v18 = v17;
     }
 
-    v16 = NTKMagmaGetTuningWithDefault(@"MagmaLateralMax", 2.0);
-    v36 = NTKMagmaGetTuningWithDefault(@"MagmaLateralMultiplier", 1.0);
-    v17 = NTKMagmaGetTuningWithDefault(@"MagmaLateralNoise", 1.0);
-    v18.f64[0] = v40;
-    v18.f64[1] = v41;
-    v19 = vcvt_f32_f64(vmulq_n_f64(vnegq_f64(v18), v36));
-    v20 = sqrtf(vaddv_f32(vmul_f32(v19, v19)));
-    if (v20 > 0.0)
+    NTKMagmaGetTuningWithDefault();
+    v20 = v19;
+    NTKMagmaGetTuningWithDefault();
+    v44 = v21;
+    NTKMagmaGetTuningWithDefault();
+    v23 = v22;
+    v24.f64[0] = v48;
+    v24.f64[1] = v49;
+    v25 = vcvt_f32_f64(vmulq_n_f64(vnegq_f64(v24), v44));
+    v26 = sqrtf(vaddv_f32(vmul_f32(v25, v25)));
+    if (v26 > 0.0)
     {
-      v21 = fmin(v16 / v20, 1.0);
-      v19 = vmul_n_f32(v19, v21);
+      v27 = fmin(v20 / v26, 1.0);
+      v25 = vmul_n_f32(v25, v27);
     }
 
-    v22 = -v15;
-    v23 = NTKMagmaGetTuningWithDefault(@"MagmaLinearMax", 2.0);
-    v37 = NTKMagmaGetTuningWithDefault(@"MagmaLinearMultiplier", 1.0);
-    v24 = NTKMagmaGetTuningWithDefault(@"MagmaLinearNoise", 1.0);
-    v25.f64[0] = v39;
-    v26.f64[0] = v39;
-    v26.f64[1] = -v38;
-    v27 = vcvt_f32_f64(vmulq_n_f64(v26, v37));
-    v28 = sqrtf(vaddv_f32(vmul_f32(v27, v27)));
-    if (v28 > 0.0)
+    v28 = -v18;
+    NTKMagmaGetTuningWithDefault();
+    v30 = v29;
+    NTKMagmaGetTuningWithDefault();
+    v45 = v31;
+    NTKMagmaGetTuningWithDefault();
+    v33.f64[0] = v47;
+    v34.f64[0] = v47;
+    v34.f64[1] = -v46;
+    v35 = vcvt_f32_f64(vmulq_n_f64(v34, *&v45));
+    v36 = sqrtf(vaddv_f32(vmul_f32(v35, v35)));
+    if (v36 > 0.0)
     {
-      v29 = fmin(v23 / v28, 1.0);
-      v27 = vmul_n_f32(v27, v29);
+      v37 = fmin(v30 / v36, 1.0);
+      v35 = vmul_n_f32(v35, v37);
     }
 
-    v30.f64[0] = v41;
-    v30.f64[1] = v40;
-    *&v30.f64[0] = vcvt_f32_f64(v30);
-    v25.f64[1] = v38;
-    v31 = vcvt_f32_f64(v25);
-    v32 = v13 * v22 + sqrtf(vaddv_f32(vmul_f32(*&v30.f64[0], *&v30.f64[0]))) * v17 + sqrtf(vaddv_f32(vmul_f32(v31, v31))) * v24;
-    [(NTKMagmaMotionEffect *)self->_motionEffect setLinear:COERCE_DOUBLE(vadd_f32(v19, v27))];
-    *&v33 = v22;
-    [(NTKMagmaMotionEffect *)self->_motionEffect setSpin:v33];
+    v38.f64[0] = v49;
+    v38.f64[1] = v48;
+    *&v38.f64[0] = vcvt_f32_f64(v38);
+    v33.f64[1] = v46;
+    v39 = vcvt_f32_f64(v33);
+    v40 = v16 * v28 + sqrtf(vaddv_f32(vmul_f32(*&v38.f64[0], *&v38.f64[0]))) * v23 + sqrtf(vaddv_f32(vmul_f32(v39, v39))) * v32;
+    [(NTKMagmaMotionEffect *)self->_motionEffect setLinear:COERCE_DOUBLE(vadd_f32(v25, v35)), v45];
+    *&v41 = v28;
+    [(NTKMagmaMotionEffect *)self->_motionEffect setSpin:v41];
     motionEffect = self->_motionEffect;
-    *&v35 = v32;
+    *&v43 = v40;
   }
 
   else
@@ -354,10 +361,10 @@
     [(NTKMagmaMotionEffect *)self->_motionEffect setLinear:0.0];
     [(NTKMagmaMotionEffect *)self->_motionEffect setSpin:0.0];
     motionEffect = self->_motionEffect;
-    v35 = 0.0;
+    v43 = 0.0;
   }
 
-  [(NTKMagmaMotionEffect *)motionEffect setNoise:v35];
+  [(NTKMagmaMotionEffect *)motionEffect setNoise:v43];
 }
 
 - (void)_loadSwoosh
@@ -403,13 +410,12 @@
     return;
   }
 
-  palette = self->_palette;
   objc_opt_class();
   isKindOfClass = objc_opt_isKindOfClass();
-  v5 = self->_palette;
+  palette = self->_palette;
   if ((isKindOfClass & 1) == 0)
   {
-    if (([(NTKMagmaColorPalette *)v5 isRainbowColor]& 1) != 0)
+    if (([(NTKMagmaColorPalette *)palette isRainbowColor]& 1) != 0)
     {
       goto LABEL_9;
     }
@@ -417,16 +423,16 @@
     goto LABEL_15;
   }
 
-  v35 = v5;
-  fromPalette = [(NTKMagmaColorPalette *)v35 fromPalette];
-  toPalette = [(NTKMagmaColorPalette *)v35 toPalette];
+  v34 = palette;
+  fromPalette = [(NTKMagmaColorPalette *)v34 fromPalette];
+  toPalette = [(NTKMagmaColorPalette *)v34 toPalette];
   if (([toPalette isTritium] & 1) == 0)
   {
     backgroundStyle = [fromPalette backgroundStyle];
     if (backgroundStyle == [toPalette backgroundStyle])
     {
-      [(NTKMagmaColorPalette *)v35 transitionFraction];
-      if (v9 < 0.5)
+      [(NTKMagmaColorPalette *)v34 transitionFraction];
+      if (v8 < 0.5)
       {
         isRainbowColor = [fromPalette isRainbowColor];
 
@@ -441,7 +447,7 @@ LABEL_9:
           return;
         }
 
-        v11 = 1;
+        v10 = 1;
         goto LABEL_16;
       }
 
@@ -453,66 +459,66 @@ LABEL_9:
       }
 
 LABEL_15:
-      v11 = 0;
+      v10 = 0;
 LABEL_16:
       [(CLKDevice *)self->_device screenBounds];
-      v14 = v13;
-      v16 = v15;
+      v13 = v12;
+      v15 = v14;
       [(CLKDevice *)self->_device screenScale];
-      v18 = v17;
-      v19 = (v14 * v17);
-      v20 = (v16 * v17);
+      v17 = v16;
+      v18 = (v13 * v16);
+      v19 = (v15 * v16);
       DeviceRGB = CGColorSpaceCreateDeviceRGB();
-      v22 = CGBitmapContextCreate(0, v19, v20, 8uLL, 4 * v19, DeviceRGB, 0x4001u);
-      if (v11)
+      v21 = CGBitmapContextCreate(0, v18, v19, 8uLL, 4 * v18, DeviceRGB, 0x4001u);
+      if (v10)
       {
-        v23 = NTKImageNamed();
-        cGImage = [v23 CGImage];
-        v40.origin.x = 0.0;
-        v40.origin.y = 0.0;
-        v40.size.width = v19;
-        v40.size.height = v20;
-        CGContextDrawImage(v22, v40, cGImage);
+        v22 = NTKImageNamed();
+        cGImage = [v22 CGImage];
+        v39.origin.x = 0.0;
+        v39.origin.y = 0.0;
+        v39.size.width = v18;
+        v39.size.height = v19;
+        CGContextDrawImage(v21, v39, cGImage);
         self->_rainbowIsLoaded = 1;
       }
 
       else
       {
-        v25 = +[CAGradientLayer layer];
-        v37[0] = @"frame";
+        v24 = +[CAGradientLayer layer];
+        v36[0] = @"frame";
+        v25 = +[NSNull null];
+        v37[0] = v25;
+        v36[1] = @"contentsScale";
         v26 = +[NSNull null];
-        v38[0] = v26;
-        v37[1] = @"contentsScale";
+        v37[1] = v26;
+        v36[2] = @"colors";
         v27 = +[NSNull null];
-        v38[1] = v27;
-        v37[2] = @"colors";
-        v28 = +[NSNull null];
-        v38[2] = v28;
-        v29 = [NSDictionary dictionaryWithObjects:v38 forKeys:v37 count:3];
-        [v25 setActions:v29];
+        v37[2] = v27;
+        v28 = [NSDictionary dictionaryWithObjects:v37 forKeys:v36 count:3];
+        [v24 setActions:v28];
 
         [(NTKMagmaEffectsView *)self bounds];
-        [v25 setFrame:?];
-        [v25 setContentsScale:v18];
+        [v24 setFrame:?];
+        [v24 setContentsScale:v17];
         maskedBackgroundStart = [(NTKMagmaColorPalette *)self->_palette maskedBackgroundStart];
-        v36[0] = [maskedBackgroundStart CGColor];
+        v35[0] = [maskedBackgroundStart CGColor];
         maskedBackgroundEnd = [(NTKMagmaColorPalette *)self->_palette maskedBackgroundEnd];
-        v36[1] = [maskedBackgroundEnd CGColor];
-        v32 = [NSArray arrayWithObjects:v36 count:2];
-        [v25 setColors:v32];
+        v35[1] = [maskedBackgroundEnd CGColor];
+        v31 = [NSArray arrayWithObjects:v35 count:2];
+        [v24 setColors:v31];
 
-        CGContextTranslateCTM(v22, 0.0, v20);
-        CGContextScaleCTM(v22, v18, -v18);
-        [v25 renderInContext:v22];
+        CGContextTranslateCTM(v21, 0.0, v19);
+        CGContextScaleCTM(v21, v17, -v17);
+        [v24 renderInContext:v21];
         self->_rainbowIsLoaded = 0;
       }
 
-      Image = CGBitmapContextCreateImage(v22);
-      v34 = [UIImage imageWithCGImage:Image scale:0 orientation:v18];
+      Image = CGBitmapContextCreateImage(v21);
+      v33 = [UIImage imageWithCGImage:Image scale:0 orientation:v17];
       CGImageRelease(Image);
       CGColorSpaceRelease(DeviceRGB);
-      CGContextRelease(v22);
-      [(NTKMagmaQuad *)self->_quad updateBackgroundTextureWithImage:v34];
+      CGContextRelease(v21);
+      [(NTKMagmaQuad *)self->_quad updateBackgroundTextureWithImage:v33];
 
       return;
     }
@@ -525,10 +531,9 @@ LABEL_16:
   v4 = [swoosh colorWithAlphaComponent:0.6];
 
   swoosh2 = [(NTKMagmaColorPalette *)self->_palette swoosh];
-  buttonHighlightFraction = self->_buttonHighlightFraction;
-  v7 = NTKInterpolateBetweenColors();
+  v6 = NTKInterpolateBetweenColors();
 
-  return v7;
+  return v6;
 }
 
 - (void)setColorPalette:(id)palette
@@ -613,24 +618,26 @@ LABEL_16:
   if (v4 - self->_lastTapTime >= 0.1)
   {
     self->_lastTapTime = v4;
-    TuningWithDefault = NTKMagmaGetTuningWithDefault(@"MagmaTouchMultiplier", -138.0);
-    v9 = NTKMagmaGetTuningWithDefault(@"MagmaTouchSize", 0.35);
-    v8.f64[0] = x;
-    v8.f64[1] = y;
-    v6 = COERCE_DOUBLE(vcvt_f32_f64(v8));
+    NTKMagmaGetTuningWithDefault();
+    v6 = v5;
+    NTKMagmaGetTuningWithDefault();
+    v11 = v7;
+    v10.f64[0] = x;
+    v10.f64[1] = y;
+    v8 = COERCE_DOUBLE(vcvt_f32_f64(v10));
     quad = self->_quad;
-    *v8.f64 = TuningWithDefault;
-    *&v9 = v9;
-    if (TuningWithDefault <= 0.0)
+    *v10.f64 = v6;
+    *&v11 = v11;
+    if (v6 <= 0.0)
     {
 
-      [(NTKMagmaQuad *)quad applyQuadraticRepuslorWithOrigin:v6 magnitude:v8.f64[0] radius:v9];
+      [(NTKMagmaQuad *)quad applyQuadraticRepuslorWithOrigin:v8 magnitude:v10.f64[0] radius:v11];
     }
 
     else
     {
 
-      [(NTKMagmaQuad *)quad applyUniformRepuslorWithOrigin:v6 magnitude:v8.f64[0] radius:v9];
+      [(NTKMagmaQuad *)quad applyUniformRepuslorWithOrigin:v8 magnitude:v10.f64[0] radius:v11];
     }
   }
 }

@@ -31,17 +31,17 @@
 
 - (id)_fileSizeForPath:(id)path
 {
-  v7 = 0;
-  v4 = [+[NSFileManager defaultManager](NSFileManager attributesOfItemAtPath:"attributesOfItemAtPath:error:" error:path, &v7];
+  v8 = 0;
+  v4 = [+[NSFileManager defaultManager](NSFileManager attributesOfItemAtPath:"attributesOfItemAtPath:error:" error:path, &v8];
   if (v4)
   {
     return [(NSDictionary *)v4 objectForKeyedSubscript:NSFileSize];
   }
 
-  v6 = BCDefaultLog();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+  v7 = BCDefaultLog(0, v5);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
   {
-    sub_13398(path, &v7, v6);
+    sub_13398(path, &v8, v7);
   }
 
   return 0;
@@ -78,49 +78,51 @@
   }
 
   v11 = [NSNumber numberWithUnsignedLongLong:unsignedLongLongValue];
+  v13 = v11;
   if (v11)
   {
-    v12 = BCDefaultLog();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v14 = BCDefaultLog(v11, v12);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
-      v14 = 138412802;
-      v15 = [entry objectForKeyedSubscript:@"Artist"];
-      v16 = 2112;
-      v17 = [entry objectForKeyedSubscript:@"Name"];
+      v16 = 138412802;
+      v17 = [entry objectForKeyedSubscript:@"Artist"];
       v18 = 2112;
-      v19 = v11;
-      _os_log_impl(&dword_0, v12, OS_LOG_TYPE_DEFAULT, "[BCGenerateDownloadSizePlistProducer] Adding 'Estimated Download Size' for {%@ - %@}: %@", &v14, 0x20u);
+      v19 = [entry objectForKeyedSubscript:@"Name"];
+      v20 = 2112;
+      v21 = v13;
+      _os_log_impl(&dword_0, v14, OS_LOG_TYPE_DEFAULT, "[BCGenerateDownloadSizePlistProducer] Adding 'Estimated Download Size' for {%@ - %@}: %@", &v16, 0x20u);
     }
 
-    [entry setObject:v11 forKeyedSubscript:@"Estimated Download Size"];
+    [entry setObject:v13 forKeyedSubscript:@"Estimated Download Size"];
   }
 
-  return v11;
+  return v13;
 }
 
 - (id)_addSizeOnDiskFromITunesMetadataDictionary:(id)dictionary toEntry:(id)entry
 {
   v5 = [dictionary objectForKeyedSubscript:@"BKAllocatedSize"];
+  v7 = v5;
   if (v5)
   {
-    v6 = BCDefaultLog();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v8 = BCDefaultLog(v5, v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = 138544130;
-      v9 = @"BKAllocatedSize";
-      v10 = 2112;
-      v11 = [entry objectForKeyedSubscript:@"Artist"];
+      v10 = 138544130;
+      v11 = @"BKAllocatedSize";
       v12 = 2112;
-      v13 = [entry objectForKeyedSubscript:@"Name"];
+      v13 = [entry objectForKeyedSubscript:@"Artist"];
       v14 = 2112;
-      v15 = v5;
-      _os_log_impl(&dword_0, v6, OS_LOG_TYPE_DEFAULT, "[BCGenerateDownloadSizePlistProducer] Adding 'Size On Disk' based on %{public}@ for {%@ - %@}: %@", &v8, 0x2Au);
+      v15 = [entry objectForKeyedSubscript:@"Name"];
+      v16 = 2112;
+      v17 = v7;
+      _os_log_impl(&dword_0, v8, OS_LOG_TYPE_DEFAULT, "[BCGenerateDownloadSizePlistProducer] Adding 'Size On Disk' based on %{public}@ for {%@ - %@}: %@", &v10, 0x2Au);
     }
 
-    [entry setObject:v5 forKeyedSubscript:@"Size On Disk"];
+    [entry setObject:v7 forKeyedSubscript:@"Size On Disk"];
   }
 
-  return v5;
+  return v7;
 }
 
 - (void)_addComputedSizeOnDiskToEntries:(id)entries
@@ -128,117 +130,112 @@
   entriesCopy = entries;
   if ([entries count])
   {
-    v40 = 0u;
     v41 = 0u;
-    v38 = 0u;
+    v42 = 0u;
     v39 = 0u;
-    v5 = [entriesCopy countByEnumeratingWithState:&v38 objects:v48 count:16];
+    v40 = 0u;
+    v5 = [entriesCopy countByEnumeratingWithState:&v39 objects:v49 count:16];
     if (v5)
     {
       v7 = v5;
-      v8 = *v39;
+      v8 = *v40;
       v9 = @"Path";
       v10 = @"Size On Disk";
-      v11 = &ATGetDiskUsageForPath_ptr;
       *&v6 = 138412546;
-      v36 = v6;
+      v37 = v6;
       do
       {
-        v12 = 0;
-        v37 = v7;
+        v11 = 0;
+        v38 = v7;
         do
         {
-          if (*v39 != v8)
+          if (*v40 != v8)
           {
             objc_enumerationMutation(entriesCopy);
           }
 
-          v13 = *(*(&v38 + 1) + 8 * v12);
-          v14 = v11[76];
-          v15 = objc_opt_class();
-          v16 = BCDynamicCast(v15, [v13 objectForKeyedSubscript:v9]);
-          if (!v16)
+          v12 = *(*(&v39 + 1) + 8 * v11);
+          v13 = objc_opt_class();
+          v14 = BCDynamicCast(v13, [v12 objectForKeyedSubscript:v9]);
+          if (!v14)
           {
-            v27 = BCDefaultLog();
-            if (!os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+            v28 = BCDefaultLog(0, v15);
+            if (!os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
             {
               goto LABEL_15;
             }
 
-            v28 = [v13 objectForKeyedSubscript:@"Artist"];
-            v29 = [v13 objectForKeyedSubscript:@"Name"];
-            *buf = v36;
-            v43 = v28;
-            v11 = &ATGetDiskUsageForPath_ptr;
-            v44 = 2112;
-            v45 = v29;
-            v30 = v27;
-            v31 = "[BCGenerateDownloadSizePlistProducer] Path not found before getting disk usage for {%@ - %@}";
+            v29 = [v12 objectForKeyedSubscript:@"Artist"];
+            v30 = [v12 objectForKeyedSubscript:@"Name"];
+            *buf = v37;
+            v44 = v29;
+            v45 = 2112;
+            v46 = v30;
+            v31 = v28;
+            v32 = "[BCGenerateDownloadSizePlistProducer] Path not found before getting disk usage for {%@ - %@}";
 LABEL_18:
-            _os_log_error_impl(&dword_0, v30, OS_LOG_TYPE_ERROR, v31, buf, 0x16u);
+            _os_log_error_impl(&dword_0, v31, OS_LOG_TYPE_ERROR, v32, buf, 0x16u);
             goto LABEL_15;
           }
 
-          v17 = v16;
-          if (![v16 length])
+          v16 = v14;
+          if (![v14 length])
           {
-            v32 = BCDefaultLog();
-            if (!os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
+            v33 = BCDefaultLog(0, v17);
+            if (!os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
             {
               goto LABEL_15;
             }
 
-            v33 = [v13 objectForKeyedSubscript:@"Artist"];
-            v34 = [v13 objectForKeyedSubscript:@"Name"];
-            *buf = v36;
-            v43 = v33;
-            v11 = &ATGetDiskUsageForPath_ptr;
-            v44 = 2112;
-            v45 = v34;
-            v30 = v32;
-            v31 = "[BCGenerateDownloadSizePlistProducer] Path is empty before getting disk usage for {%@ - %@}";
+            v34 = [v12 objectForKeyedSubscript:@"Artist"];
+            v35 = [v12 objectForKeyedSubscript:@"Name"];
+            *buf = v37;
+            v44 = v34;
+            v45 = 2112;
+            v46 = v35;
+            v31 = v33;
+            v32 = "[BCGenerateDownloadSizePlistProducer] Path is empty before getting disk usage for {%@ - %@}";
             goto LABEL_18;
           }
 
-          [[(NSString *)self->super._path stringByDeletingLastPathComponent] stringByAppendingPathComponent:v17];
+          [[(NSString *)self->super._path stringByDeletingLastPathComponent] stringByAppendingPathComponent:v16];
           v18 = ATGetDiskUsageForPath();
-          v19 = BCDefaultLog();
-          if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+          v20 = BCDefaultLog(v18, v19);
+          if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
           {
-            v20 = v9;
-            v21 = v8;
-            v22 = v10;
-            v23 = entriesCopy;
+            v21 = v9;
+            v22 = v8;
+            v23 = v10;
+            v24 = entriesCopy;
             selfCopy = self;
-            v25 = [v13 objectForKeyedSubscript:@"Artist"];
-            v26 = [v13 objectForKeyedSubscript:@"Name"];
+            v26 = [v12 objectForKeyedSubscript:@"Artist"];
+            v27 = [v12 objectForKeyedSubscript:@"Name"];
             *buf = 138412802;
-            v43 = v25;
+            v44 = v26;
             self = selfCopy;
-            entriesCopy = v23;
-            v10 = v22;
-            v8 = v21;
-            v9 = v20;
-            v7 = v37;
-            v44 = 2112;
-            v45 = v26;
-            v46 = 2048;
-            v47 = v18;
-            _os_log_impl(&dword_0, v19, OS_LOG_TYPE_DEFAULT, "[BCGenerateDownloadSizePlistProducer] Adding 'Size On Disk' based on disk usage for {%@ - %@}: %llu", buf, 0x20u);
+            entriesCopy = v24;
+            v10 = v23;
+            v8 = v22;
+            v9 = v21;
+            v7 = v38;
+            v45 = 2112;
+            v46 = v27;
+            v47 = 2048;
+            v48 = v18;
+            _os_log_impl(&dword_0, v20, OS_LOG_TYPE_DEFAULT, "[BCGenerateDownloadSizePlistProducer] Adding 'Size On Disk' based on disk usage for {%@ - %@}: %llu", buf, 0x20u);
           }
 
-          [v13 setObject:+[NSNumber numberWithUnsignedLongLong:](NSNumber forKeyedSubscript:{"numberWithUnsignedLongLong:", v18, v36), v10}];
-          v11 = &ATGetDiskUsageForPath_ptr;
+          [v12 setObject:+[NSNumber numberWithUnsignedLongLong:](NSNumber forKeyedSubscript:{"numberWithUnsignedLongLong:", v18, v37), v10}];
 LABEL_15:
-          v12 = v12 + 1;
+          v11 = v11 + 1;
         }
 
-        while (v7 != v12);
-        v35 = [entriesCopy countByEnumeratingWithState:&v38 objects:v48 count:16];
-        v7 = v35;
+        while (v7 != v11);
+        v36 = [entriesCopy countByEnumeratingWithState:&v39 objects:v49 count:16];
+        v7 = v36;
       }
 
-      while (v35);
+      while (v36);
     }
   }
 }
@@ -250,66 +247,66 @@ LABEL_15:
   v7 = BCDynamicCast(v6, [entry objectForKeyedSubscript:@"Path"]);
   if (!v7)
   {
-    v13 = BCDefaultLog();
-    v10 = os_log_type_enabled(v13, OS_LOG_TYPE_ERROR);
-    if (!v10)
+    v16 = BCDefaultLog(0, v8);
+    v12 = os_log_type_enabled(v16, OS_LOG_TYPE_ERROR);
+    if (!v12)
     {
-      return v10;
+      return v12;
     }
 
     sub_13574(entry);
 LABEL_13:
-    LOBYTE(v10) = 0;
-    return v10;
+    LOBYTE(v12) = 0;
+    return v12;
   }
 
-  v8 = v7;
+  v9 = v7;
   if (![v7 length])
   {
-    v14 = BCDefaultLog();
-    v10 = os_log_type_enabled(v14, OS_LOG_TYPE_ERROR);
-    if (!v10)
+    v17 = BCDefaultLog(0, v10);
+    v12 = os_log_type_enabled(v17, OS_LOG_TYPE_ERROR);
+    if (!v12)
     {
-      return v10;
+      return v12;
     }
 
     sub_134CC(entry);
     goto LABEL_13;
   }
 
-  v9 = [[(NSString *)self->super._path stringByDeletingLastPathComponent] stringByAppendingPathComponent:v8];
-  v10 = [(NSFileManager *)v5 isDirectoryPath:v9];
-  if (!v10)
+  v11 = [[(NSString *)self->super._path stringByDeletingLastPathComponent] stringByAppendingPathComponent:v9];
+  v12 = [(NSFileManager *)v5 isDirectoryPath:v11];
+  if (!v12)
   {
-    return v10;
+    return v12;
   }
 
-  v11 = [NSDictionary dictionaryWithContentsOfFile:[(NSString *)v9 stringByAppendingPathComponent:@"iTunesMetadata.plist"]];
-  if (!v11)
+  v13 = [NSDictionary dictionaryWithContentsOfFile:[(NSString *)v11 stringByAppendingPathComponent:@"iTunesMetadata.plist"]];
+  if (!v13)
   {
-    v15 = BCDefaultLog();
-    v10 = os_log_type_enabled(v15, OS_LOG_TYPE_ERROR);
-    if (!v10)
+    v18 = BCDefaultLog(0, v14);
+    v12 = os_log_type_enabled(v18, OS_LOG_TYPE_ERROR);
+    if (!v12)
     {
-      return v10;
+      return v12;
     }
 
     sub_13424(entry);
     goto LABEL_13;
   }
 
-  v12 = v11;
-  if ([(BCGenerateDownloadSizePlistProducer *)self _addEstimatedDownloadSizeFromITunesMetadataDictionary:v11 assetPath:v9 toEntry:entry])
+  v15 = v13;
+  if ([(BCGenerateDownloadSizePlistProducer *)self _addEstimatedDownloadSizeFromITunesMetadataDictionary:v13 assetPath:v11 toEntry:entry])
   {
-    LOBYTE(v10) = 1;
+    LOBYTE(v12) = 1;
   }
 
   else
   {
-    LOBYTE(v10) = [(BCGenerateDownloadSizePlistProducer *)self _addSizeOnDiskFromITunesMetadataDictionary:v12 toEntry:entry]!= 0;
+    LOBYTE(v12) = [(BCGenerateDownloadSizePlistProducer *)self _addSizeOnDiskFromITunesMetadataDictionary:v15 toEntry:entry]!= 0;
   }
 
-  return v10;
+  return v12;
 }
 
 - (id)produceData

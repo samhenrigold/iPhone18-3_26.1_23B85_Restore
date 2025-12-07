@@ -20,13 +20,13 @@
 - (void)viewDidLoad
 {
   selfCopy = self;
-  sub_27483EA3C();
+  sub_27483EA3C(selfCopy);
 }
 
 - (void)viewWillLayoutSubviews
 {
   selfCopy = self;
-  sub_27483F1DC();
+  sub_27483F1DC(selfCopy);
 }
 
 - (id)tableView:(id)view cellForRowAtIndexPath:(id)path

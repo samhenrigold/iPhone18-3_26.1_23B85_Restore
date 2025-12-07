@@ -14,21 +14,22 @@
   if (v4)
   {
     objc_opt_class();
-    if (objc_opt_isKindOfClass())
+    isKindOfClass = objc_opt_isKindOfClass();
+    if (isKindOfClass)
     {
-      v5 = [objc_alloc(MEMORY[0x277CCAD78]) initWithUUIDString:v4];
-      if (v5)
+      v7 = [objc_alloc(MEMORY[0x277CCAD78]) initWithUUIDString:v4];
+      if (v7)
       {
-        v6 = [ATXLocationVisitDuetEvent alloc];
+        v8 = [ATXLocationVisitDuetEvent alloc];
         startDate = [self startDate];
         endDate = [self endDate];
-        v9 = [(ATXLocationVisitDuetEvent *)v6 initWithLocationOfInterestIdentifier:v5 startDate:startDate endDate:endDate];
+        v11 = [(ATXLocationVisitDuetEvent *)v8 initWithLocationOfInterestIdentifier:v7 startDate:startDate endDate:endDate];
 
         goto LABEL_13;
       }
 
-      v10 = __atxlog_handle_default();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      v12 = __atxlog_handle_default(0);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
         [(_DKEvent(ATXLocationVisitDuetEvent) *)v4 atx_convertToLocationVisitEvent];
       }
@@ -36,8 +37,8 @@
 
     else
     {
-      v5 = __atxlog_handle_default();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+      v7 = __atxlog_handle_default(isKindOfClass);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
         [(_DKEvent(ATXLocationVisitDuetEvent) *)v4 atx_convertToLocationVisitEvent];
       }
@@ -46,26 +47,25 @@
 
   else
   {
-    v5 = __atxlog_handle_default();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v7 = __atxlog_handle_default(v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      [(_DKEvent(ATXLocationVisitDuetEvent) *)v5 atx_convertToLocationVisitEvent];
+      [(_DKEvent(ATXLocationVisitDuetEvent) *)v7 atx_convertToLocationVisitEvent];
     }
   }
 
-  v9 = 0;
+  v11 = 0;
 LABEL_13:
 
-  return v9;
+  return v11;
 }
 
 - (void)atx_convertToLocationVisitEvent
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
   selfCopy = self;
-  _os_log_error_impl(&dword_2263AA000, a2, OS_LOG_TYPE_ERROR, "Failed to convert %@ to an NSUUID", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_2263AA000, a2, OS_LOG_TYPE_ERROR, "Failed to convert %@ to an NSUUID", &v2, 0xCu);
 }
 
 @end

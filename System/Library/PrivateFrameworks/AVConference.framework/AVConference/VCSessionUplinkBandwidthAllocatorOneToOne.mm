@@ -675,7 +675,7 @@ LABEL_12:
       videoCallMicrophoneBandwidthTable = [v20 microphoneOnlyBandwidthTable];
     }
 
-    selfCopy4 = [VCSessionUplinkBandwidthAllocatorOneToOne valueForNetworkBitrate:videoCallMicrophoneBandwidthTable networkBitrate:v5, *v45, *&v45[16], v46, selfCopy4];
+    selfCopy4 = [VCSessionUplinkBandwidthAllocatorOneToOne valueForNetworkBitrate:videoCallMicrophoneBandwidthTable networkBitrate:v5, *v45, *&v45[8], v46, selfCopy4];
     v23 = [-[NSMutableDictionary objectForKeyedSubscript:](self->_streamTokenToTableEntryMap objectForKeyedSubscript:{objc_msgSend(MEMORY[0x1E696AD98], "numberWithInteger:", token)), "streamGroupID"}];
     if (objc_opt_class() == self)
     {

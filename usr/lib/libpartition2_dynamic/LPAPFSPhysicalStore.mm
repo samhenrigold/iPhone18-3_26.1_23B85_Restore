@@ -9,39 +9,38 @@
 
 + (id)supportedContentTypes
 {
-  v7[3] = *MEMORY[0x29EDCA608];
+  v6[3] = *MEMORY[0x29EDCA608];
   if (objc_opt_class() == self)
   {
-    v7[0] = LPAPFSPhysicalStoreMediaUUID[0];
-    v7[1] = LPAPFSPhysicalStoreDiagsMediaUUID[0];
-    v7[2] = LPAPFSPhysicalStoreRecoveryMediaUUID[0];
-    v3 = [MEMORY[0x29EDB8D80] arrayWithObjects:v7 count:3];
+    v6[0] = LPAPFSPhysicalStoreMediaUUID[0];
+    v6[1] = LPAPFSPhysicalStoreDiagsMediaUUID[0];
+    v6[2] = LPAPFSPhysicalStoreRecoveryMediaUUID[0];
+    v3 = [MEMORY[0x29EDB8D80] arrayWithObjects:v6 count:3];
   }
 
   else
   {
-    v6.receiver = self;
-    v6.super_class = &OBJC_METACLASS___LPAPFSPhysicalStore;
-    v3 = objc_msgSendSuper2(&v6, sel_supportedContentTypes);
+    v5.receiver = self;
+    v5.super_class = &OBJC_METACLASS___LPAPFSPhysicalStore;
+    v3 = objc_msgSendSuper2(&v5, sel_supportedContentTypes);
   }
-
-  v4 = *MEMORY[0x29EDCA608];
 
   return v3;
 }
 
 - (int)role
 {
-  v8 = *MEMORY[0x29EDCA608];
+  v9[1] = *MEMORY[0x29EDCA608];
   content = [(LPMedia *)self content];
   v3 = content;
   if (!content)
   {
-    _os_log_pack_size();
-    v5 = _os_log_pack_fill();
-    *v5 = 136315138;
-    *(v5 + 4) = "[LPAPFSPhysicalStore role]";
-    _LPLogPack(1);
+    v5 = _os_log_pack_size();
+    v6 = v9 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+    v7 = _os_log_pack_fill(v6, v5, 0, &dword_2997D0000, "%s : Failed to get content type.", v9[0]);
+    *v7 = 136315138;
+    *(v7 + 4) = "[LPAPFSPhysicalStore role]";
+    _LPLogPack(1, v6);
     goto LABEL_7;
   }
 
@@ -61,131 +60,130 @@ LABEL_7:
   v4 = 1;
 LABEL_8:
 
-  v6 = *MEMORY[0x29EDCA608];
   return v4;
 }
 
 - (id)parent
 {
-  v25 = *MEMORY[0x29EDCA608];
-  v23 = 0;
-  if (MEMORY[0x29C29F270]([(LPMedia *)self ioMedia], "IOService", 3, &v23))
+  v26 = *MEMORY[0x29EDCA608];
+  v24 = 0;
+  if (MEMORY[0x29C29F270]([(LPMedia *)self ioMedia], "IOService", 3, &v24))
   {
-    _os_log_pack_size();
-    v2 = _os_log_pack_fill();
-    *v2 = 136315138;
-    *(v2 + 4) = "[LPAPFSPhysicalStore parent]";
-    _LPLogPack(1);
+    v2 = _os_log_pack_size();
+    v3 = &v20 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
+    v4 = _os_log_pack_fill(v3, v2, 0, &dword_2997D0000, "%s : Unable to get the iterator for entry.", v20);
+    *v4 = 136315138;
+    *(v4 + 4) = "[LPAPFSPhysicalStore parent]";
+    _LPLogPack(1, v3);
 LABEL_3:
-    v3 = 0;
+    v5 = 0;
     goto LABEL_4;
   }
 
-  v6 = IOIteratorNext(v23);
-  if (!v6)
+  v7 = IOIteratorNext(v24);
+  if (!v7)
   {
     goto LABEL_3;
   }
 
-  v7 = v6;
-  v3 = 0;
+  v8 = v7;
+  v5 = 0;
   do
   {
-    if (IOObjectConformsTo(v7, "IOMedia") && (CFProperty = IORegistryEntryCreateCFProperty(v7, @"Content", 0, 0)) != 0)
+    if (IOObjectConformsTo(v8, "IOMedia") && (CFProperty = IORegistryEntryCreateCFProperty(v8, @"Content", 0, 0)) != 0)
     {
-      v9 = CFProperty;
-      v10 = CFGetTypeID(CFProperty);
-      if (v10 == CFStringGetTypeID())
+      v10 = CFProperty;
+      v11 = CFGetTypeID(CFProperty);
+      if (v11 == CFStringGetTypeID())
       {
+        v23 = 0u;
         v22 = 0u;
         v21 = 0u;
         v20 = 0u;
-        v19 = 0u;
-        v11 = +[LPPartitionMedia contentTypesForPartitionMedia];
-        v12 = [v11 countByEnumeratingWithState:&v19 objects:v24 count:16];
-        if (v12)
+        v12 = +[LPPartitionMedia contentTypesForPartitionMedia];
+        v13 = [v12 countByEnumeratingWithState:&v20 objects:v25 count:16];
+        if (v13)
         {
-          v13 = v12;
-          v14 = 0;
-          v15 = *v20;
+          v14 = v13;
+          v15 = 0;
+          v16 = *v21;
           do
           {
-            for (i = 0; i != v13; ++i)
+            for (i = 0; i != v14; ++i)
             {
-              if (*v20 != v15)
+              if (*v21 != v16)
               {
-                objc_enumerationMutation(v11);
+                objc_enumerationMutation(v12);
               }
 
-              if (CFStringCompare(*(*(&v19 + 1) + 8 * i), v9, 0) == kCFCompareEqualTo)
+              if (CFStringCompare(*(*(&v20 + 1) + 8 * i), v10, 0) == kCFCompareEqualTo)
               {
-                v17 = [(LPMedia *)[LPPartitionMedia alloc] initWithIOMediaObject:v7];
+                v18 = [(LPMedia *)[LPPartitionMedia alloc] initWithIOMediaObject:v8];
 
-                v14 = 1;
-                v3 = v17;
+                v15 = 1;
+                v5 = v18;
               }
             }
 
-            v13 = [v11 countByEnumeratingWithState:&v19 objects:v24 count:16];
+            v14 = [v12 countByEnumeratingWithState:&v20 objects:v25 count:16];
           }
 
-          while (v13);
+          while (v14);
         }
 
         else
         {
-          v14 = 0;
+          v15 = 0;
         }
       }
 
       else
       {
-        v14 = 0;
+        v15 = 0;
       }
 
-      CFRelease(v9);
+      CFRelease(v10);
     }
 
     else
     {
-      v14 = 0;
+      v15 = 0;
     }
 
-    v18 = IOIteratorNext(v23);
-    if (!v18)
+    v19 = IOIteratorNext(v24);
+    if (!v19)
     {
       break;
     }
 
-    v7 = v18;
+    v8 = v19;
   }
 
-  while ((v14 & 1) == 0);
+  while ((v15 & 1) == 0);
 LABEL_4:
-  v4 = *MEMORY[0x29EDCA608];
 
-  return v3;
+  return v5;
 }
 
 - (id)container
 {
-  v18[3] = *MEMORY[0x29EDCA608];
-  v12 = 0;
-  IORegistryEntryGetRegistryEntryID([(LPMedia *)self ioMedia], &v12);
-  v17[0] = @"IOParentMatch";
-  v15 = @"IORegistryEntryID";
-  v2 = [MEMORY[0x29EDBA070] numberWithUnsignedLongLong:v12];
-  v16 = v2;
-  v3 = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:&v16 forKeys:&v15 count:1];
-  v18[0] = v3;
-  v18[1] = @"IOMedia";
-  v17[1] = @"IOProviderClass";
-  v17[2] = @"IOPropertyMatch";
-  v13 = @"Content";
-  v14 = LPAPFSContainerMediaTypeUUID[0];
-  v4 = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:&v14 forKeys:&v13 count:1];
-  v18[2] = v4;
-  v5 = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v18 forKeys:v17 count:3];
+  v17[3] = *MEMORY[0x29EDCA608];
+  v11 = 0;
+  IORegistryEntryGetRegistryEntryID([(LPMedia *)self ioMedia], &v11);
+  v16[0] = @"IOParentMatch";
+  v14 = @"IORegistryEntryID";
+  v2 = [MEMORY[0x29EDBA070] numberWithUnsignedLongLong:v11];
+  v15 = v2;
+  v3 = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:&v15 forKeys:&v14 count:1];
+  v17[0] = v3;
+  v17[1] = @"IOMedia";
+  v16[1] = @"IOProviderClass";
+  v16[2] = @"IOPropertyMatch";
+  v12 = @"Content";
+  v13 = LPAPFSContainerMediaTypeUUID[0];
+  v4 = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:&v13 forKeys:&v12 count:1];
+  v17[2] = v4;
+  v5 = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v17 forKeys:v16 count:3];
 
   LODWORD(v3) = +[LPMedia IOMainPort];
   v6 = v5;
@@ -201,8 +199,6 @@ LABEL_4:
   {
     v9 = 0;
   }
-
-  v10 = *MEMORY[0x29EDCA608];
 
   return v9;
 }

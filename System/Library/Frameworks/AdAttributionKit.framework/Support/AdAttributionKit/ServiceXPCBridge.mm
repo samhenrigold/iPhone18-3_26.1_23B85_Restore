@@ -14,138 +14,133 @@
 - (void)handleHeartbeatWithReply:(id)reply
 {
   v5 = sub_10000CDE0(&qword_100239EE0, &qword_1001B3640);
-  v6 = *(*(v5 - 8) + 64);
   __chkstk_darwin(v5 - 8);
-  v8 = &v14 - v7;
-  v9 = _Block_copy(reply);
-  v10 = swift_allocObject();
-  *(v10 + 16) = v9;
-  v11 = OBJC_IVAR____TtC20AttributionKitDaemon16ServiceXPCBridge_service;
-  v12 = type metadata accessor for TaskPriority();
-  (*(*(v12 - 8) + 56))(v8, 1, 1, v12);
+  v7 = &v13 - v6;
+  v8 = _Block_copy(reply);
+  v9 = swift_allocObject();
+  *(v9 + 16) = v8;
+  v10 = OBJC_IVAR____TtC20AttributionKitDaemon16ServiceXPCBridge_service;
+  v11 = type metadata accessor for TaskPriority();
+  (*(*(v11 - 8) + 56))(v7, 1, 1, v11);
   selfCopy = self;
-  sub_1001717F8("Heartbeat", 9, 2, sub_10009DA9C, v10, self + v11, v8, &unk_1001C33D0, 0);
+  sub_1001717F8("Heartbeat", 9, 2, sub_10009DA9C, v9, self + v10, v7, &unk_1001C33D0, 0);
 
-  sub_10000DAF8(v8, &qword_100239EE0, &qword_1001B3640);
+  sub_10000DAF8(v7, &qword_100239EE0, &qword_1001B3640);
 }
 
 - (void)updateConversionValue:(id)value reply:(id)reply
 {
   v7 = sub_10000CDE0(&qword_100239EE0, &qword_1001B3640);
-  v8 = *(*(v7 - 8) + 64);
   __chkstk_darwin(v7 - 8);
-  v10 = &v22 - v9;
-  v11 = _Block_copy(reply);
+  v9 = &v21 - v8;
+  v10 = _Block_copy(reply);
   valueCopy = value;
   selfCopy = self;
-  v14 = static Data._unconditionallyBridgeFromObjectiveC(_:)();
-  v16 = v15;
+  v13 = static Data._unconditionallyBridgeFromObjectiveC(_:)();
+  v15 = v14;
 
-  v17 = swift_allocObject();
-  *(v17 + 16) = v11;
-  v18 = OBJC_IVAR____TtC20AttributionKitDaemon16ServiceXPCBridge_service;
-  v19 = type metadata accessor for TaskPriority();
-  (*(*(v19 - 8) + 56))(v10, 1, 1, v19);
+  v16 = swift_allocObject();
+  *(v16 + 16) = v10;
+  v17 = OBJC_IVAR____TtC20AttributionKitDaemon16ServiceXPCBridge_service;
+  v18 = type metadata accessor for TaskPriority();
+  (*(*(v18 - 8) + 56))(v9, 1, 1, v18);
+  v19 = swift_allocObject();
+  *(v19 + 16) = v13;
+  *(v19 + 24) = v15;
   v20 = swift_allocObject();
-  *(v20 + 16) = v14;
-  *(v20 + 24) = v16;
-  v21 = swift_allocObject();
-  *(v21 + 16) = &unk_1001C33C0;
-  *(v21 + 24) = v20;
-  sub_1000438D8(v14, v16);
+  *(v20 + 16) = &unk_1001C33C0;
+  *(v20 + 24) = v19;
+  sub_1000438D8(v13, v15);
 
-  sub_1001717F8("Update Postback", 15, 2, sub_10009DA9C, v17, selfCopy + v18, v10, &unk_1001C33C8, v21);
+  sub_1001717F8("Update Postback", 15, 2, sub_10009DA9C, v16, selfCopy + v17, v9, &unk_1001C33C8, v20);
 
-  sub_10001BABC(v14, v16);
-  sub_10000DAF8(v10, &qword_100239EE0, &qword_1001B3640);
+  sub_10001BABC(v13, v15);
+  sub_10000DAF8(v9, &qword_100239EE0, &qword_1001B3640);
 }
 
 - (void)preflightImpressionWithAdvertisedItemID:(unint64_t)d compactJWS:(id)s adNetworkID:(id)iD reply:(id)reply
 {
   v9 = sub_10000CDE0(&qword_100239EE0, &qword_1001B3640);
-  v10 = *(*(v9 - 8) + 64);
   __chkstk_darwin(v9 - 8);
-  v12 = &v26 - v11;
-  v13 = _Block_copy(reply);
-  v14 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-  v16 = v15;
-  v17 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-  v19 = v18;
-  v20 = swift_allocObject();
-  *(v20 + 16) = v13;
-  v21 = OBJC_IVAR____TtC20AttributionKitDaemon16ServiceXPCBridge_service;
-  v22 = type metadata accessor for TaskPriority();
-  (*(*(v22 - 8) + 56))(v12, 1, 1, v22);
+  v11 = &v25 - v10;
+  v12 = _Block_copy(reply);
+  v13 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+  v15 = v14;
+  v16 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+  v18 = v17;
+  v19 = swift_allocObject();
+  *(v19 + 16) = v12;
+  v20 = OBJC_IVAR____TtC20AttributionKitDaemon16ServiceXPCBridge_service;
+  v21 = type metadata accessor for TaskPriority();
+  (*(*(v21 - 8) + 56))(v11, 1, 1, v21);
+  v22 = swift_allocObject();
+  v22[2] = d;
+  v22[3] = v13;
+  v22[4] = v15;
+  v22[5] = v16;
+  v22[6] = v18;
   v23 = swift_allocObject();
-  v23[2] = d;
-  v23[3] = v14;
-  v23[4] = v16;
-  v23[5] = v17;
-  v23[6] = v19;
-  v24 = swift_allocObject();
-  *(v24 + 16) = &unk_1001C33A8;
-  *(v24 + 24) = v23;
+  *(v23 + 16) = &unk_1001C33A8;
+  *(v23 + 24) = v22;
   selfCopy = self;
 
-  sub_1001717F8("Preflight Impression", 20, 2, sub_10009DA9C, v20, self + v21, v12, &unk_1001C33B0, v24);
+  sub_1001717F8("Preflight Impression", 20, 2, sub_10009DA9C, v19, self + v20, v11, &unk_1001C33B0, v23);
 
-  sub_10000DAF8(v12, &qword_100239EE0, &qword_1001B3640);
+  sub_10000DAF8(v11, &qword_100239EE0, &qword_1001B3640);
 }
 
 - (void)startViewWithAdvertisedItemID:(unint64_t)d compactJWS:(id)s reply:(id)reply
 {
   v8 = sub_10000CDE0(&qword_100239EE0, &qword_1001B3640);
-  v9 = *(*(v8 - 8) + 64);
   __chkstk_darwin(v8 - 8);
-  v11 = &v22 - v10;
-  v12 = _Block_copy(reply);
-  v13 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-  v15 = v14;
-  v16 = swift_allocObject();
-  *(v16 + 16) = v12;
-  v17 = OBJC_IVAR____TtC20AttributionKitDaemon16ServiceXPCBridge_service;
-  v18 = type metadata accessor for TaskPriority();
-  (*(*(v18 - 8) + 56))(v11, 1, 1, v18);
+  v10 = &v21 - v9;
+  v11 = _Block_copy(reply);
+  v12 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+  v14 = v13;
+  v15 = swift_allocObject();
+  *(v15 + 16) = v11;
+  v16 = OBJC_IVAR____TtC20AttributionKitDaemon16ServiceXPCBridge_service;
+  v17 = type metadata accessor for TaskPriority();
+  (*(*(v17 - 8) + 56))(v10, 1, 1, v17);
+  v18 = swift_allocObject();
+  v18[2] = d;
+  v18[3] = v12;
+  v18[4] = v14;
   v19 = swift_allocObject();
-  v19[2] = d;
-  v19[3] = v13;
-  v19[4] = v15;
-  v20 = swift_allocObject();
-  *(v20 + 16) = &unk_1001C3390;
-  *(v20 + 24) = v19;
+  *(v19 + 16) = &unk_1001C3390;
+  *(v19 + 24) = v18;
   selfCopy = self;
 
-  sub_1001717F8("Start View", 10, 2, sub_10009DA9C, v16, self + v17, v11, &unk_1001C3398, v20);
+  sub_1001717F8("Start View", 10, 2, sub_10009DA9C, v15, self + v16, v10, &unk_1001C3398, v19);
 
-  sub_10000DAF8(v11, &qword_100239EE0, &qword_1001B3640);
+  sub_10000DAF8(v10, &qword_100239EE0, &qword_1001B3640);
 }
 
 - (void)endViewWithAdvertisedItemID:(unint64_t)d compactJWS:(id)s reply:(id)reply
 {
   v8 = sub_10000CDE0(&qword_100239EE0, &qword_1001B3640);
-  v9 = *(*(v8 - 8) + 64);
   __chkstk_darwin(v8 - 8);
-  v11 = &v22 - v10;
-  v12 = _Block_copy(reply);
-  v13 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-  v15 = v14;
-  v16 = swift_allocObject();
-  *(v16 + 16) = v12;
-  v17 = OBJC_IVAR____TtC20AttributionKitDaemon16ServiceXPCBridge_service;
-  v18 = type metadata accessor for TaskPriority();
-  (*(*(v18 - 8) + 56))(v11, 1, 1, v18);
+  v10 = &v21 - v9;
+  v11 = _Block_copy(reply);
+  v12 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+  v14 = v13;
+  v15 = swift_allocObject();
+  *(v15 + 16) = v11;
+  v16 = OBJC_IVAR____TtC20AttributionKitDaemon16ServiceXPCBridge_service;
+  v17 = type metadata accessor for TaskPriority();
+  (*(*(v17 - 8) + 56))(v10, 1, 1, v17);
+  v18 = swift_allocObject();
+  v18[2] = d;
+  v18[3] = v12;
+  v18[4] = v14;
   v19 = swift_allocObject();
-  v19[2] = d;
-  v19[3] = v13;
-  v19[4] = v15;
-  v20 = swift_allocObject();
-  *(v20 + 16) = &unk_1001C3378;
-  *(v20 + 24) = v19;
+  *(v19 + 16) = &unk_1001C3378;
+  *(v19 + 24) = v18;
   selfCopy = self;
 
-  sub_1001717F8("End View", 8, 2, sub_10009DA9C, v16, self + v17, v11, &unk_1001C3380, v20);
+  sub_1001717F8("End View", 8, 2, sub_10009DA9C, v15, self + v16, v10, &unk_1001C3380, v19);
 
-  sub_10000DAF8(v11, &qword_100239EE0, &qword_1001B3640);
+  sub_10000DAF8(v10, &qword_100239EE0, &qword_1001B3640);
 }
 
 - (void)processTapWithAdvertisedItemID:(unint64_t)d compactJWS:(id)s eventMessage:(id)message reengagementURL:(id)l reply:(id)reply
@@ -154,88 +149,86 @@
   messageCopy = message;
   selfCopy = self;
   v9 = sub_10000CDE0(&qword_100239EE0, &qword_1001B3640);
-  v10 = *(*(v9 - 8) + 64);
   __chkstk_darwin(v9 - 8);
-  v12 = &v36 - v11;
-  v13 = sub_10000CDE0(&qword_10023C230, &qword_1001B4FB0);
-  v14 = *(v13 - 8);
-  v15 = *(v14 + 64);
-  v16 = __chkstk_darwin(v13 - 8);
-  v17 = &v36 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v16);
-  v19 = &v36 - v18;
-  v20 = _Block_copy(reply);
-  v21 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-  v23 = v22;
+  v11 = &v35 - v10;
+  v12 = sub_10000CDE0(&qword_10023C230, &qword_1001B4FB0);
+  v13 = *(v12 - 8);
+  v14 = *(v13 + 64);
+  v15 = __chkstk_darwin(v12 - 8);
+  v16 = &v35 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v15);
+  v18 = &v35 - v17;
+  v19 = _Block_copy(reply);
+  v20 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+  v22 = v21;
   if (l)
   {
     static URL._unconditionallyBridgeFromObjectiveC(_:)();
-    v24 = type metadata accessor for URL();
-    (*(*(v24 - 8) + 56))(v19, 0, 1, v24);
+    v23 = type metadata accessor for URL();
+    (*(*(v23 - 8) + 56))(v18, 0, 1, v23);
   }
 
   else
   {
-    v25 = type metadata accessor for URL();
-    (*(*(v25 - 8) + 56))(v19, 1, 1, v25);
+    v24 = type metadata accessor for URL();
+    (*(*(v24 - 8) + 56))(v18, 1, 1, v24);
   }
 
-  v26 = swift_allocObject();
-  *(v26 + 16) = v20;
-  v27 = OBJC_IVAR____TtC20AttributionKitDaemon16ServiceXPCBridge_service;
-  v28 = type metadata accessor for TaskPriority();
-  (*(*(v28 - 8) + 56))(v12, 1, 1, v28);
-  sub_10001B8EC(v19, v17);
-  v29 = (*(v14 + 80) + 48) & ~*(v14 + 80);
-  v30 = swift_allocObject();
-  v31 = messageCopy;
-  v30[2] = dCopy;
-  v30[3] = v21;
-  v30[4] = v23;
-  v30[5] = v31;
-  sub_100054734(v17, v30 + v29);
-  v32 = swift_allocObject();
-  *(v32 + 16) = &unk_1001C3360;
-  *(v32 + 24) = v30;
-  v33 = v31;
+  v25 = swift_allocObject();
+  *(v25 + 16) = v19;
+  v26 = OBJC_IVAR____TtC20AttributionKitDaemon16ServiceXPCBridge_service;
+  v27 = type metadata accessor for TaskPriority();
+  (*(*(v27 - 8) + 56))(v11, 1, 1, v27);
+  sub_10001B8EC(v18, v16);
+  v28 = (*(v13 + 80) + 48) & ~*(v13 + 80);
+  v29 = swift_allocObject();
+  v30 = messageCopy;
+  v29[2] = dCopy;
+  v29[3] = v20;
+  v29[4] = v22;
+  v29[5] = v30;
+  sub_100054734(v16, v29 + v28);
+  v31 = swift_allocObject();
+  *(v31 + 16) = &unk_1001C3360;
+  *(v31 + 24) = v29;
+  v32 = v30;
+  v33 = selfCopy;
   v34 = selfCopy;
-  v35 = selfCopy;
 
-  sub_1001717F8("Process Tap", 11, 2, sub_10009DA9C, v26, v34 + v27, v12, &unk_1001C3368, v32);
+  sub_1001717F8("Process Tap", 11, 2, sub_10009DA9C, v25, v33 + v26, v11, &unk_1001C3368, v31);
 
-  sub_10000DAF8(v12, &qword_100239EE0, &qword_1001B3640);
-  sub_10000DAF8(v19, &qword_10023C230, &qword_1001B4FB0);
+  sub_10000DAF8(v11, &qword_100239EE0, &qword_1001B3640);
+  sub_10000DAF8(v18, &qword_10023C230, &qword_1001B4FB0);
 }
 
 - (void)reportDeveloperBillingEvent:(id)event reply:(id)reply
 {
   v7 = sub_10000CDE0(&qword_100239EE0, &qword_1001B3640);
-  v8 = *(*(v7 - 8) + 64);
   __chkstk_darwin(v7 - 8);
-  v10 = &v22 - v9;
-  v11 = _Block_copy(reply);
+  v9 = &v21 - v8;
+  v10 = _Block_copy(reply);
   eventCopy = event;
   selfCopy = self;
-  v14 = static Data._unconditionallyBridgeFromObjectiveC(_:)();
-  v16 = v15;
+  v13 = static Data._unconditionallyBridgeFromObjectiveC(_:)();
+  v15 = v14;
 
-  v17 = swift_allocObject();
-  *(v17 + 16) = v11;
-  v18 = OBJC_IVAR____TtC20AttributionKitDaemon16ServiceXPCBridge_service;
-  v19 = type metadata accessor for TaskPriority();
-  (*(*(v19 - 8) + 56))(v10, 1, 1, v19);
+  v16 = swift_allocObject();
+  *(v16 + 16) = v10;
+  v17 = OBJC_IVAR____TtC20AttributionKitDaemon16ServiceXPCBridge_service;
+  v18 = type metadata accessor for TaskPriority();
+  (*(*(v18 - 8) + 56))(v9, 1, 1, v18);
+  v19 = swift_allocObject();
+  *(v19 + 16) = v13;
+  *(v19 + 24) = v15;
   v20 = swift_allocObject();
-  *(v20 + 16) = v14;
-  *(v20 + 24) = v16;
-  v21 = swift_allocObject();
-  *(v21 + 16) = &unk_1001C3338;
-  *(v21 + 24) = v20;
-  sub_1000438D8(v14, v16);
+  *(v20 + 16) = &unk_1001C3338;
+  *(v20 + 24) = v19;
+  sub_1000438D8(v13, v15);
 
-  sub_1001717F8("Report Developer Billing Event", 30, 2, sub_1000849C4, v17, selfCopy + v18, v10, &unk_1001C3348, v21);
+  sub_1001717F8("Report Developer Billing Event", 30, 2, sub_1000849C4, v16, selfCopy + v17, v9, &unk_1001C3348, v20);
 
-  sub_10001BABC(v14, v16);
-  sub_10000DAF8(v10, &qword_100239EE0, &qword_1001B3640);
+  sub_10001BABC(v13, v15);
+  sub_10000DAF8(v9, &qword_100239EE0, &qword_1001B3640);
 }
 
 - (_TtC20AttributionKitDaemon16ServiceXPCBridge)init

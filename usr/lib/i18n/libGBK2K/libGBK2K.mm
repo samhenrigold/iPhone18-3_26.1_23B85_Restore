@@ -144,7 +144,7 @@ uint64_t _citrus_GBK2K_stdenc_cstomb(uint64_t a1, void *a2, unint64_t a3, int a4
   return _citrus_GBK2K_wcrtomb_priv(*(a1 + 8), a2, a3, a5, a6, a7);
 }
 
-uint64_t _citrus_GBK2K_stdenc_mbtowc(uint64_t a1, int *a2, char **a3, uint64_t a4, int *a5, void *a6, uint64_t a7)
+uint64_t _citrus_GBK2K_stdenc_mbtowc(uint64_t a1, unsigned int *a2, char **a3, uint64_t a4, int *a5, void *a6, uint64_t a7)
 {
   v9 = _citrus_GBK2K_mbrtowc_priv(*(a1 + 8), a2, a3, a4, a5, a6);
   v10 = v9;
@@ -264,13 +264,13 @@ LABEL_33:
     return v8;
   }
 
-  v11 = (a5 + 1);
+  v11 = a5 + 1;
   v12 = *a5;
   while (1)
   {
     v13 = *v6++;
     *a5 = v12 + 1;
-    v11[v12] = v13;
+    *(v11 + v12) = v13;
     v12 = *a5;
     if (*a5 > 2)
     {

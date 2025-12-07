@@ -11,8 +11,7 @@
 {
   v5 = type metadata accessor for DispatchPredicate();
   v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
-  MEMORY[0x28223BE20](v5);
+  MEMORY[0x28223BE20](v5, v7);
   v9 = (&v15 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0));
   v10 = *(&self->super.isa + OBJC_IVAR___WOCoreLocationProvider_queue);
   *v9 = v10;
@@ -48,8 +47,7 @@
 {
   v5 = type metadata accessor for DispatchPredicate();
   v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
-  MEMORY[0x28223BE20](v5);
+  MEMORY[0x28223BE20](v5, v7);
   v9 = (&v13 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0));
   v10 = *(&self->super.isa + OBJC_IVAR___WOCoreLocationProvider_queue);
   *v9 = v10;

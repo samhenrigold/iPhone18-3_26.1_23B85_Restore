@@ -50,12 +50,11 @@
 
 - (void)acknowledgeWithEventStore:(uint64_t)a1 error:(NSObject *)a2 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 56);
-  v4 = 138543362;
-  v5 = v2;
-  _os_log_error_impl(&dword_1A805E000, a2, OS_LOG_TYPE_ERROR, "Attempted to acknowledge calendar invite reply notification with objectID %{public}@, but it was not found. Silently ignoring this request.", &v4, 0xCu);
-  v3 = *MEMORY[0x1E69E9840];
+  v3 = 138543362;
+  v4 = v2;
+  _os_log_error_impl(&dword_1A805E000, a2, OS_LOG_TYPE_ERROR, "Attempted to acknowledge calendar invite reply notification with objectID %{public}@, but it was not found. Silently ignoring this request.", &v3, 0xCu);
 }
 
 @end

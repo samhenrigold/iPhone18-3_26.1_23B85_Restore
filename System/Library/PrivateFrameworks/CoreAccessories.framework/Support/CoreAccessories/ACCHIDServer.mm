@@ -4,7 +4,11 @@
 - (BOOL)listener:(id)listener shouldAcceptNewConnection:(id)connection;
 - (BOOL)shouldAcceptXPCConnection:(id)connection;
 - (NSXPCConnection)activeConnection;
+- (void)getReportResponse:(id)response componentID:(unsigned __int16)d reportType:(unsigned __int8)type reportID:(unsigned __int8)iD report:(id)report;
+- (void)inReport:(id)report componentID:(unsigned __int16)d report:(id)a5;
+- (void)registerHIDDescriptor:(id)descriptor componentID:(unsigned __int16)d dictionary:(id)dictionary;
 - (void)unregisterAllDescriptors:(id)descriptors;
+- (void)unregisterHIDDescriptor:(id)descriptor componentID:(unsigned __int16)d;
 @end
 
 @implementation ACCHIDServer
@@ -295,6 +299,15 @@ void __51__ACCHIDServer_listener_shouldAcceptNewConnection___block_invoke_71(id 
   return v8;
 }
 
+- (void)registerHIDDescriptor:(id)descriptor componentID:(unsigned __int16)d dictionary:(id)dictionary
+{
+  dCopy = d;
+  dictionaryCopy = dictionary;
+  descriptorCopy = descriptor;
+  remoteObject = [(ACCHIDServer *)self remoteObject];
+  [remoteObject registerHIDDescriptor:descriptorCopy componentID:dCopy dictionary:dictionaryCopy withReply:&__block_literal_global_75];
+}
+
 void __61__ACCHIDServer_registerHIDDescriptor_componentID_dictionary___block_invoke(id a1, NSString *a2)
 {
   v2 = a2;
@@ -330,6 +343,14 @@ void __61__ACCHIDServer_registerHIDDescriptor_componentID_dictionary___block_inv
     v7 = v2;
     _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_INFO, "[#HID] registerHIDDescriptor descriptorUUID: %@", &v6, 0xCu);
   }
+}
+
+- (void)unregisterHIDDescriptor:(id)descriptor componentID:(unsigned __int16)d
+{
+  dCopy = d;
+  descriptorCopy = descriptor;
+  remoteObject = [(ACCHIDServer *)self remoteObject];
+  [remoteObject unregisterHIDDescriptor:descriptorCopy componentID:dCopy withReply:&__block_literal_global_78];
 }
 
 void __52__ACCHIDServer_unregisterHIDDescriptor_componentID___block_invoke(id a1, BOOL a2)
@@ -407,6 +428,15 @@ void __41__ACCHIDServer_unregisterAllDescriptors___block_invoke(id a1, BOOL a2)
   }
 }
 
+- (void)inReport:(id)report componentID:(unsigned __int16)d report:(id)a5
+{
+  dCopy = d;
+  v8 = a5;
+  reportCopy = report;
+  remoteObject = [(ACCHIDServer *)self remoteObject];
+  [remoteObject inReport:reportCopy componentID:dCopy report:v8 withReply:&__block_literal_global_82_0];
+}
+
 void __44__ACCHIDServer_inReport_componentID_report___block_invoke(id a1, BOOL a2)
 {
   if (gLogObjects)
@@ -439,6 +469,17 @@ void __44__ACCHIDServer_inReport_componentID_report___block_invoke(id a1, BOOL a
   {
     __44__ACCHIDServer_inReport_componentID_report___block_invoke_cold_2();
   }
+}
+
+- (void)getReportResponse:(id)response componentID:(unsigned __int16)d reportType:(unsigned __int8)type reportID:(unsigned __int8)iD report:(id)report
+{
+  iDCopy = iD;
+  typeCopy = type;
+  dCopy = d;
+  reportCopy = report;
+  responseCopy = response;
+  remoteObject = [(ACCHIDServer *)self remoteObject];
+  [remoteObject getReportResponse:responseCopy componentID:dCopy reportType:typeCopy reportID:iDCopy report:reportCopy withReply:&__block_literal_global_84_0];
 }
 
 void __73__ACCHIDServer_getReportResponse_componentID_reportType_reportID_report___block_invoke(id a1, BOOL a2)

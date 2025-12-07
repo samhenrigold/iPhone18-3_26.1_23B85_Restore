@@ -80,8 +80,7 @@ void __65__SBStartupTransitionToApp_performTransitionWithCompletionBlock___block
     {
       if (v15 == v13 && v13 == [*MEMORY[0x277D76620] activeInterfaceOrientation])
       {
-        [v3 setInterfaceOrientation:v13];
-        v16 = SBLogWorkspace();
+        v16 = SBLogWorkspace([v3 setInterfaceOrientation:v13]);
         if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
         {
           v17[0] = 67109378;

@@ -27,30 +27,30 @@
 
 - (id)getLocalizedString:(id)string
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   stringCopy = string;
   if (stringCopy)
   {
-    v15 = 0u;
-    v16 = 0u;
-    v13 = 0u;
     v14 = 0u;
+    v15 = 0u;
+    v12 = 0u;
+    v13 = 0u;
     stringTable = [(HMLocalization *)self stringTable];
-    v6 = [stringTable countByEnumeratingWithState:&v13 objects:v17 count:16];
+    v6 = [stringTable countByEnumeratingWithState:&v12 objects:v16 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v14;
+      v8 = *v13;
       while (2)
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v14 != v8)
+          if (*v13 != v8)
           {
             objc_enumerationMutation(stringTable);
           }
 
-          v10 = [(NSBundle *)self->_bundle localizedStringForKey:stringCopy value:&stru_1F0E92498 table:*(*(&v13 + 1) + 8 * i)];
+          v10 = [(NSBundle *)self->_bundle localizedStringForKey:stringCopy value:&stru_1F0E92498 table:*(*(&v12 + 1) + 8 * i)];
           if (![stringCopy isEqualToString:v10])
           {
 
@@ -58,7 +58,7 @@
           }
         }
 
-        v7 = [stringTable countByEnumeratingWithState:&v13 objects:v17 count:16];
+        v7 = [stringTable countByEnumeratingWithState:&v12 objects:v16 count:16];
         if (v7)
         {
           continue;
@@ -78,15 +78,13 @@
 
 LABEL_13:
 
-  v11 = *MEMORY[0x1E69E9840];
-
   return v10;
 }
 
 - (void)_updateLocalizedStrings
 {
   selfCopy = self;
-  v39 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   v3 = MEMORY[0x1E696AAE8];
   if (self)
   {
@@ -98,26 +96,26 @@ LABEL_13:
   v6 = [v3 preferredLocalizationsFromArray:localizations forPreferences:preferredLanguages];
 
   v7 = [MEMORY[0x1E695DF70] arrayWithArray:&unk_1F0EFE0C8];
-  v35 = 0u;
-  v36 = 0u;
-  v33 = 0u;
   v34 = 0u;
+  v35 = 0u;
+  v32 = 0u;
+  v33 = 0u;
   obj = v6;
-  v9 = [obj countByEnumeratingWithState:&v33 objects:v38 count:16];
+  v9 = [obj countByEnumeratingWithState:&v32 objects:v37 count:16];
   if (v9)
   {
-    v10 = *v34;
+    v10 = *v33;
     while (2)
     {
       v11 = 0;
       do
       {
-        if (*v34 != v10)
+        if (*v33 != v10)
         {
           objc_enumerationMutation(obj);
         }
 
-        v12 = *(*(&v33 + 1) + 8 * v11);
+        v12 = *(*(&v32 + 1) + 8 * v11);
         if (selfCopy)
         {
           Property = objc_getProperty(selfCopy, v8, 24, 1);
@@ -143,24 +141,24 @@ LABEL_13:
         if ([v15 count] || objc_msgSend(v17, "count"))
         {
           v19 = [v15 arrayByAddingObjectsFromArray:v17];
-          v31 = 0u;
-          v32 = 0u;
-          v29 = 0u;
           v30 = 0u;
-          v20 = [v19 countByEnumeratingWithState:&v29 objects:v37 count:16];
+          v31 = 0u;
+          v28 = 0u;
+          v29 = 0u;
+          v20 = [v19 countByEnumeratingWithState:&v28 objects:v36 count:16];
           if (v20)
           {
-            v21 = *v30;
+            v21 = *v29;
             do
             {
               for (i = 0; i != v20; ++i)
               {
-                if (*v30 != v21)
+                if (*v29 != v21)
                 {
                   objc_enumerationMutation(v19);
                 }
 
-                lastPathComponent = [*(*(&v29 + 1) + 8 * i) lastPathComponent];
+                lastPathComponent = [*(*(&v28 + 1) + 8 * i) lastPathComponent];
                 stringByDeletingPathExtension = [lastPathComponent stringByDeletingPathExtension];
 
                 if (([v7 containsObject:stringByDeletingPathExtension] & 1) == 0)
@@ -169,7 +167,7 @@ LABEL_13:
                 }
               }
 
-              v20 = [v19 countByEnumeratingWithState:&v29 objects:v37 count:16];
+              v20 = [v19 countByEnumeratingWithState:&v28 objects:v36 count:16];
             }
 
             while (v20);
@@ -182,7 +180,7 @@ LABEL_13:
       }
 
       while (v9 != v11);
-      v18 = [obj countByEnumeratingWithState:&v33 objects:v38 count:16];
+      v18 = [obj countByEnumeratingWithState:&v32 objects:v37 count:16];
       v9 = v18;
       if (v18)
       {
@@ -201,7 +199,6 @@ LABEL_30:
   selfCopy->_stringTable = v25;
 
   os_unfair_lock_unlock(&selfCopy->_lock);
-  v27 = *MEMORY[0x1E69E9840];
 }
 
 - (void)handleLocaleDidChange:(id)change

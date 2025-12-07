@@ -31,21 +31,21 @@
 
 - (BOOL)validateOperation
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   database = [(FCCKSecureDatabaseResetOperation *)self database];
 
   if (!database && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     v7 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"zone reset operation requires a private database"];
-    v11 = 136315906;
-    v12 = "[FCCKSecureDatabaseResetOperation validateOperation]";
-    v13 = 2080;
-    v14 = "FCCKSecureDatabaseResetOperation.m";
-    v15 = 1024;
-    v16 = 43;
-    v17 = 2114;
-    v18 = v7;
-    _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v11, 0x26u);
+    v10 = 136315906;
+    v11 = "[FCCKSecureDatabaseResetOperation validateOperation]";
+    v12 = 2080;
+    v13 = "FCCKSecureDatabaseResetOperation.m";
+    v14 = 1024;
+    v15 = 43;
+    v16 = 2114;
+    v17 = v7;
+    _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v10, 0x26u);
   }
 
   database2 = [(FCCKSecureDatabaseResetOperation *)self database];
@@ -58,33 +58,22 @@
   {
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v10 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"zone reset is only valid when encryption is enabled"];
-      v11 = 136315906;
-      v12 = "[FCCKSecureDatabaseResetOperation validateOperation]";
-      v13 = 2080;
-      v14 = "FCCKSecureDatabaseResetOperation.m";
-      v15 = 1024;
-      v16 = 47;
-      v17 = 2114;
-      v18 = v10;
-      _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v11, 0x26u);
+      v9 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"zone reset is only valid when encryption is enabled"];
+      v10 = 136315906;
+      v11 = "[FCCKSecureDatabaseResetOperation validateOperation]";
+      v12 = 2080;
+      v13 = "FCCKSecureDatabaseResetOperation.m";
+      v14 = 1024;
+      v15 = 47;
+      v16 = 2114;
+      v17 = v9;
+      _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v10, 0x26u);
     }
 
     v6 = 0;
   }
 
-  if (database)
-  {
-    result = v6;
-  }
-
-  else
-  {
-    result = 0;
-  }
-
-  v9 = *MEMORY[0x1E69E9840];
-  return result;
+  return database && v6;
 }
 
 - (void)performOperation
@@ -295,7 +284,7 @@ uint64_t __50__FCCKSecureDatabaseResetOperation__recreateZones__block_invoke_3(u
 
 void __58__FCCKSecureDatabaseResetOperation__restoreSecureSentinel__block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v26[1] = *MEMORY[0x1E69E9840];
+  v25[1] = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = MEMORY[0x1E695BA60];
@@ -313,27 +302,25 @@ void __58__FCCKSecureDatabaseResetOperation__restoreSecureSentinel__block_invoke
   v14 = [*(a1 + 32) database];
   [(FCCKPrivateDatabaseOperation *)v13 setDatabase:v14];
 
-  v26[0] = v12;
-  v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v26 count:1];
+  v25[0] = v12;
+  v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v25 count:1];
   [(FCCKPrivateSaveRecordsOperation *)v13 setRecordsToSave:v15];
 
   [(FCCKPrivateSaveRecordsOperation *)v13 setSavePolicy:0];
   [(FCCKPrivateDatabaseOperation *)v13 setSkipPreflight:1];
   [(FCCKPrivateDatabaseOperation *)v13 setHandleIdentityLoss:0];
-  v20 = MEMORY[0x1E69E9820];
-  v21 = 3221225472;
-  v22 = __58__FCCKSecureDatabaseResetOperation__restoreSecureSentinel__block_invoke_3;
-  v23 = &unk_1E7C42428;
-  v24 = v5;
-  v25 = v6;
+  v19 = MEMORY[0x1E69E9820];
+  v20 = 3221225472;
+  v21 = __58__FCCKSecureDatabaseResetOperation__restoreSecureSentinel__block_invoke_3;
+  v22 = &unk_1E7C42428;
+  v23 = v5;
+  v24 = v6;
   v16 = v6;
   v17 = v5;
-  [(FCCKPrivateSaveRecordsOperation *)v13 setSaveRecordsCompletionBlock:&v20];
-  [*(a1 + 32) associateChildOperation:{v13, v20, v21, v22, v23}];
+  [(FCCKPrivateSaveRecordsOperation *)v13 setSaveRecordsCompletionBlock:&v19];
+  [*(a1 + 32) associateChildOperation:{v13, v19, v20, v21, v22}];
   v18 = [*(a1 + 32) database];
   [(FCCKPrivateDatabase *)v18 addOperation:v13];
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __58__FCCKSecureDatabaseResetOperation__restoreSecureSentinel__block_invoke_3(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -490,13 +477,13 @@ id __55__FCCKSecureDatabaseResetOperation__rawZonesToRecreate__block_invoke(uint
 
 void __53__FCCKSecureDatabaseResetOperation__rawRecordsToSave__block_invoke(uint64_t a1, void *a2)
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   v3 = a2;
+  v29 = 0u;
   v30 = 0u;
   v31 = 0u;
   v32 = 0u;
-  v33 = 0u;
-  v24 = a1;
+  v23 = a1;
   v4 = [*(a1 + 32) database];
   v5 = v4;
   if (v4)
@@ -512,42 +499,42 @@ void __53__FCCKSecureDatabaseResetOperation__rawRecordsToSave__block_invoke(uint
   v7 = v6;
 
   obj = v7;
-  v25 = [v7 countByEnumeratingWithState:&v30 objects:v35 count:16];
-  if (v25)
+  v24 = [v7 countByEnumeratingWithState:&v29 objects:v34 count:16];
+  if (v24)
   {
-    v23 = *v31;
+    v22 = *v30;
     do
     {
-      for (i = 0; i != v25; ++i)
+      for (i = 0; i != v24; ++i)
       {
-        if (*v31 != v23)
+        if (*v30 != v22)
         {
           objc_enumerationMutation(obj);
         }
 
-        v9 = *(*(&v30 + 1) + 8 * i);
+        v9 = *(*(&v29 + 1) + 8 * i);
+        v25 = 0u;
         v26 = 0u;
         v27 = 0u;
         v28 = 0u;
-        v29 = 0u;
-        v10 = [*(v24 + 32) database];
+        v10 = [*(v23 + 32) database];
         v11 = [(FCCKPrivateDatabase *)v10 zoneIDsUsingSecureContainer];
 
-        v12 = [v11 countByEnumeratingWithState:&v26 objects:v34 count:16];
+        v12 = [v11 countByEnumeratingWithState:&v25 objects:v33 count:16];
         if (v12)
         {
           v13 = v12;
-          v14 = *v27;
+          v14 = *v26;
           do
           {
             for (j = 0; j != v13; ++j)
             {
-              if (*v27 != v14)
+              if (*v26 != v14)
               {
                 objc_enumerationMutation(v11);
               }
 
-              v16 = *(*(&v26 + 1) + 8 * j);
+              v16 = *(*(&v25 + 1) + 8 * j);
               v17 = [v16 zoneName];
               v18 = [v9 canHelpRestoreZoneName:v17];
 
@@ -559,20 +546,18 @@ void __53__FCCKSecureDatabaseResetOperation__rawRecordsToSave__block_invoke(uint
               }
             }
 
-            v13 = [v11 countByEnumeratingWithState:&v26 objects:v34 count:16];
+            v13 = [v11 countByEnumeratingWithState:&v25 objects:v33 count:16];
           }
 
           while (v13);
         }
       }
 
-      v25 = [obj countByEnumeratingWithState:&v30 objects:v35 count:16];
+      v24 = [obj countByEnumeratingWithState:&v29 objects:v34 count:16];
     }
 
-    while (v25);
+    while (v24);
   }
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 id __53__FCCKSecureDatabaseResetOperation__rawRecordsToSave__block_invoke_2(uint64_t a1, void *a2)

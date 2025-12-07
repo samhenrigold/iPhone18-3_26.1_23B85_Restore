@@ -240,9 +240,11 @@ void __57__GKGameRecord_partitionGameRecords_returniOS_returnMac___block_invoke(
 
 uint64_t __43__GKGameRecord_internalRepresentationCache__block_invoke()
 {
-  sInternalRepresentationCache = objc_alloc_init(MEMORY[0x277CBEA78]);
+  v0 = objc_alloc_init(MEMORY[0x277CBEA78]);
+  v1 = sInternalRepresentationCache;
+  sInternalRepresentationCache = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 + (void)invalidateCacheForPlayer:(id)player game:(id)game
@@ -400,36 +402,36 @@ void __73__GKGameRecord_loadGameRecordsForPlayer_bundleIDs_withCompletionHandler
 
 void __73__GKGameRecord_loadGameRecordsForPlayer_bundleIDs_withCompletionHandler___block_invoke_2(uint64_t a1)
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) count];
-  v33 = 0;
-  v34 = &v33;
-  v35 = 0x3032000000;
-  v36 = __Block_byref_object_copy__2;
-  v37 = __Block_byref_object_dispose__2;
-  v38 = 0;
+  v32 = 0;
+  v33 = &v32;
+  v34 = 0x3032000000;
+  v35 = __Block_byref_object_copy__2;
+  v36 = __Block_byref_object_dispose__2;
+  v37 = 0;
   if (v2)
   {
     v3 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:v2];
-    v31 = 0u;
-    v32 = 0u;
     v30 = 0u;
+    v31 = 0u;
     v29 = 0u;
+    v28 = 0u;
     v4 = *(a1 + 32);
-    v5 = [v4 countByEnumeratingWithState:&v29 objects:v40 count:16];
+    v5 = [v4 countByEnumeratingWithState:&v28 objects:v39 count:16];
     if (v5)
     {
-      v6 = *v30;
+      v6 = *v29;
       do
       {
         for (i = 0; i != v5; ++i)
         {
-          if (*v30 != v6)
+          if (*v29 != v6)
           {
             objc_enumerationMutation(v4);
           }
 
-          v8 = *(*(&v29 + 1) + 8 * i);
+          v8 = *(*(&v28 + 1) + 8 * i);
           v9 = [v8 bundleIdentifier];
           if (v9)
           {
@@ -437,35 +439,35 @@ void __73__GKGameRecord_loadGameRecordsForPlayer_bundleIDs_withCompletionHandler
           }
         }
 
-        v5 = [v4 countByEnumeratingWithState:&v29 objects:v40 count:16];
+        v5 = [v4 countByEnumeratingWithState:&v28 objects:v39 count:16];
       }
 
       while (v5);
     }
 
     v10 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:*(a1 + 80)];
-    v11 = v34[5];
-    v34[5] = v10;
+    v11 = v33[5];
+    v33[5] = v10;
 
-    v27 = 0u;
-    v28 = 0u;
-    v25 = 0u;
     v26 = 0u;
+    v27 = 0u;
+    v24 = 0u;
+    v25 = 0u;
     v12 = *(a1 + 40);
-    v13 = [v12 countByEnumeratingWithState:&v25 objects:v39 count:16];
+    v13 = [v12 countByEnumeratingWithState:&v24 objects:v38 count:16];
     if (v13)
     {
-      v14 = *v26;
+      v14 = *v25;
       do
       {
         for (j = 0; j != v13; ++j)
         {
-          if (*v26 != v14)
+          if (*v25 != v14)
           {
             objc_enumerationMutation(v12);
           }
 
-          v16 = *(*(&v25 + 1) + 8 * j);
+          v16 = *(*(&v24 + 1) + 8 * j);
           v17 = [*(a1 + 88) cacheKeyForPlayer:*(a1 + 48) bundleIdentifier:v16];
           v18 = [v3 objectForKey:v16];
           if (v18)
@@ -479,10 +481,10 @@ void __73__GKGameRecord_loadGameRecordsForPlayer_bundleIDs_withCompletionHandler
           }
 
           v19 = [[GKGameRecord alloc] initWithInternalRepresentation:v18 player:*(a1 + 48)];
-          [v34[5] addObject:v19];
+          [v33[5] addObject:v19];
         }
 
-        v13 = [v12 countByEnumeratingWithState:&v25 objects:v39 count:16];
+        v13 = [v12 countByEnumeratingWithState:&v24 objects:v38 count:16];
       }
 
       while (v13);
@@ -493,26 +495,23 @@ void __73__GKGameRecord_loadGameRecordsForPlayer_bundleIDs_withCompletionHandler
   block[1] = 3221225472;
   block[2] = __73__GKGameRecord_loadGameRecordsForPlayer_bundleIDs_withCompletionHandler___block_invoke_30;
   block[3] = &unk_2785DDCD8;
-  v23 = *(a1 + 72);
-  v24 = &v33;
-  v22 = *(a1 + 64);
+  v22 = *(a1 + 72);
+  v23 = &v32;
+  v21 = *(a1 + 64);
   dispatch_async(MEMORY[0x277D85CD0], block);
 
-  _Block_object_dispose(&v33, 8);
-  v20 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v32, 8);
 }
 
 void __67__GKGameRecord_loadGameRecordForPlayer_game_withCompletionHandler___block_invoke_cold_1(void *a1, void *a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = a1;
-  v5 = 134218242;
-  v6 = [a2 count];
-  v7 = 2112;
-  v8 = a2;
-  _os_log_debug_impl(&dword_227904000, v3, OS_LOG_TYPE_DEBUG, "passed in 1 game and got %lu records: %@, will only use the first one", &v5, 0x16u);
-
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 134218242;
+  v5 = [a2 count];
+  v6 = 2112;
+  v7 = a2;
+  _os_log_debug_impl(&dword_227904000, v3, OS_LOG_TYPE_DEBUG, "passed in 1 game and got %lu records: %@, will only use the first one", &v4, 0x16u);
 }
 
 @end

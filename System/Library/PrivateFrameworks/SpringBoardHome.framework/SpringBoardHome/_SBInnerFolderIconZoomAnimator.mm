@@ -77,7 +77,7 @@
   traitCollection = [(SBIconView *)self->_folderIconView traitCollection];
   v8 = SBHIconListLayoutFolderIconGridCellSize(v4);
   v10 = v9;
-  [v4 iconImageInfo];
+  objc_msgSend_iconImageInfo(v4);
   v12 = v11;
   v14 = v13;
   v16 = v15;
@@ -111,13 +111,13 @@
   [(SBIconZoomAnimator *)self enumerateIconsAndIconViewsWithHandler:v27];
   [_iconImageView sbh_removeGlass];
   v23 = objc_alloc(MEMORY[0x1E69DD250]);
-  [_iconImageView bounds];
+  objc_msgSend_bounds(_iconImageView);
   v24 = [v23 initWithFrame:?];
   glassView = self->_glassView;
   self->_glassView = v24;
 
   [(UIView *)self->_glassView sbh_applyFolderGlass];
-  [_iconImageView iconImageInfo];
+  objc_msgSend_iconImageInfo(_iconImageView);
   [(UIView *)self->_glassView _setContinuousCornerRadius:v26];
   [_iconImageView insertSubview:self->_glassView atIndex:0];
 }
@@ -195,8 +195,8 @@
   v15 = 0u;
   v12 = 0u;
   v13 = 0u;
-  iconListViews = [(SBFolderView *)self->_folderView iconListViews];
-  v6 = [iconListViews countByEnumeratingWithState:&v12 objects:v17 count:16];
+  v5 = objc_msgSend_iconListViews(self->_folderView, 0);
+  v6 = [v5 countByEnumeratingWithState:&v12 objects:v17 count:16];
   if (v6)
   {
     v7 = v6;
@@ -208,7 +208,7 @@
       {
         if (*v13 != v8)
         {
-          objc_enumerationMutation(iconListViews);
+          objc_enumerationMutation(v5);
         }
 
         v10 = *(*(&v12 + 1) + 8 * v9);
@@ -223,7 +223,7 @@
       }
 
       while (v7 != v9);
-      v7 = [iconListViews countByEnumeratingWithState:&v12 objects:v17 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v12 objects:v17 count:16];
     }
 
     while (v7);
@@ -285,7 +285,7 @@
 - (void)_applyIconCornerRadiusForZoomFraction:(double)fraction
 {
   _iconImageView = [(SBIconView *)self->_folderIconView _iconImageView];
-  [_iconImageView iconImageInfo];
+  objc_msgSend_iconImageInfo(_iconImageView);
   v7 = v6;
   [(SBFloatyFolderView *)self->_folderView cornerRadius];
   v9 = v8 + (v7 - v8) * fraction - v7;

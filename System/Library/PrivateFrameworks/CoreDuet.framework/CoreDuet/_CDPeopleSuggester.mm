@@ -219,7 +219,7 @@
 
 - (id)suggestPeopleWithError:(id *)error
 {
-  v131 = *MEMORY[0x1E69E9840];
+  v130 = *MEMORY[0x1E69E9840];
   v4 = _os_activity_create(&dword_191750000, "CoreDuet: suggestPeople sync", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
   state.opaque[0] = 0;
   state.opaque[1] = 0;
@@ -234,7 +234,7 @@
 
   selfCopy = self;
   objc_sync_enter(selfCopy);
-  v94 = selfCopy;
+  v93 = selfCopy;
   if (selfCopy->_enableCaching)
   {
     cache = selfCopy->_cache;
@@ -255,7 +255,7 @@
           _os_signpost_emit_with_name_impl(&dword_191750000, v9, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "PeopleSuggester", "Early-out: Cache hit enableTelemetry=YES ", &state, 2u);
         }
 
-        suggestions = [(_CDCachedPeopleSuggestion *)v94->_cache suggestions];
+        suggestions = [(_CDCachedPeopleSuggestion *)v93->_cache suggestions];
         goto LABEL_88;
       }
 
@@ -281,22 +281,22 @@
     _os_signpost_emit_with_name_impl(&dword_191750000, v13, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "SuggestPeople", " enableTelemetry=YES ", &state, 2u);
   }
 
-  context = [(_CDPeopleSuggester *)v94 context];
-  settings = [(_CDPeopleSuggester *)v94 settings];
-  v91 = [objc_opt_class() createAdvisorSettingsFromContext:context settings:settings];
-  v14 = [(_CDInteractionAdvising *)v94->_advisor adviseInteractionsUsingSettings:?];
+  context = [(_CDPeopleSuggester *)v93 context];
+  settings = [(_CDPeopleSuggester *)v93 settings];
+  v90 = [objc_opt_class() createAdvisorSettingsFromContext:context settings:settings];
+  v14 = [(_CDInteractionAdvising *)v93->_advisor adviseInteractionsUsingSettings:?];
   v15 = [v14 mutableCopy];
 
   v16 = objc_opt_new();
-  v99 = objc_opt_new();
-  v98 = v16;
-  context2 = [(_CDPeopleSuggester *)v94 context];
+  v98 = objc_opt_new();
+  v97 = v16;
+  context2 = [(_CDPeopleSuggester *)v93 context];
   activeInteraction = [context2 activeInteraction];
 
   if (activeInteraction)
   {
     v19 = objc_alloc_init(_CDAdvisedInteraction);
-    context3 = [(_CDPeopleSuggester *)v94 context];
+    context3 = [(_CDPeopleSuggester *)v93 context];
     activeInteraction2 = [context3 activeInteraction];
 
     recipients = [activeInteraction2 recipients];
@@ -327,28 +327,28 @@
     v27 = 0;
   }
 
-  v121 = 0u;
-  v122 = 0u;
-  v119 = 0u;
   v120 = 0u;
+  v121 = 0u;
+  v118 = 0u;
+  v119 = 0u;
   obj = v15;
-  v28 = [obj countByEnumeratingWithState:&v119 objects:v129 count:16];
+  v28 = [obj countByEnumeratingWithState:&v118 objects:v128 count:16];
   if (v28)
   {
-    v29 = *v120;
+    v29 = *v119;
     v30 = 1;
     do
     {
       for (i = 0; i != v28; ++i)
       {
-        if (*v120 != v29)
+        if (*v119 != v29)
         {
           objc_enumerationMutation(obj);
         }
 
-        v32 = *(*(&v119 + 1) + 8 * i);
+        v32 = *(*(&v118 + 1) + 8 * i);
         contact = [v32 contact];
-        v34 = [v99 containsObject:contact];
+        v34 = [v98 containsObject:contact];
 
         if ((v34 & 1) == 0)
         {
@@ -356,8 +356,8 @@
           [v32 score];
           [(_CDSuggestedPerson *)v35 setScore:?];
           [(_CDSuggestedPerson *)v35 setRank:v30];
-          v128 = v32;
-          v36 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v128 count:1];
+          v127 = v32;
+          v36 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v127 count:1];
           [(_CDSuggestedPerson *)v35 setInteractions:v36];
 
           contact2 = [v32 contact];
@@ -366,11 +366,11 @@
           bundleId2 = [v32 bundleId];
           [(_CDSuggestedPerson *)v35 setInteractionBundleID:bundleId2];
 
-          [v98 addObject:v35];
+          [v97 addObject:v35];
           contact3 = [(_CDSuggestedPerson *)v35 contact];
-          [v99 addObject:contact3];
+          [v98 addObject:contact3];
 
-          v40 = [v98 count];
+          v40 = [v97 count];
           LOBYTE(v40) = v40 == [settings maxNumberOfPeopleSuggested];
 
           if (v40)
@@ -382,7 +382,7 @@
         }
       }
 
-      v28 = [obj countByEnumeratingWithState:&v119 objects:v129 count:16];
+      v28 = [obj countByEnumeratingWithState:&v118 objects:v128 count:16];
     }
 
     while (v28);
@@ -390,44 +390,44 @@
 
 LABEL_33:
 
-  v102 = objc_opt_new();
-  context4 = [(_CDPeopleSuggester *)v94 context];
+  v101 = objc_opt_new();
+  context4 = [(_CDPeopleSuggester *)v93 context];
   nearbyPeople = [context4 nearbyPeople];
   v43 = [nearbyPeople count];
 
   if (v43)
   {
-    context5 = [(_CDPeopleSuggester *)v94 context];
+    context5 = [(_CDPeopleSuggester *)v93 context];
     nearbyPeople2 = [context5 nearbyPeople];
-    v100 = [nearbyPeople2 mutableCopy];
+    v99 = [nearbyPeople2 mutableCopy];
 
-    v95 = [v100 mutableCopy];
-    v46 = v98;
-    [v95 intersectSet:v99];
-    if ([v95 count])
+    v94 = [v99 mutableCopy];
+    v46 = v97;
+    [v94 intersectSet:v98];
+    if ([v94 count])
     {
-      v117 = 0u;
-      v118 = 0u;
-      v115 = 0u;
       v116 = 0u;
-      v47 = v98;
-      v48 = [v47 countByEnumeratingWithState:&v115 objects:v127 count:16];
+      v117 = 0u;
+      v114 = 0u;
+      v115 = 0u;
+      v47 = v97;
+      v48 = [v47 countByEnumeratingWithState:&v114 objects:v126 count:16];
       if (v48)
       {
-        v92 = 0;
-        v49 = *v116;
+        v91 = 0;
+        v49 = *v115;
         while (2)
         {
           for (j = 0; j != v48; ++j)
           {
-            if (*v116 != v49)
+            if (*v115 != v49)
             {
               objc_enumerationMutation(v47);
             }
 
-            v51 = *(*(&v115 + 1) + 8 * j);
+            v51 = *(*(&v114 + 1) + 8 * j);
             contact4 = [v51 contact];
-            v53 = [v95 containsObject:contact4];
+            v53 = [v94 containsObject:contact4];
 
             if (!v53)
             {
@@ -435,30 +435,30 @@ LABEL_33:
             }
 
             contact5 = [v51 contact];
-            [v95 removeObject:contact5];
+            [v94 removeObject:contact5];
 
-            v113 = 0u;
-            v114 = 0u;
-            v111 = 0u;
             v112 = 0u;
+            v113 = 0u;
+            v110 = 0u;
+            v111 = 0u;
             interactions = [v51 interactions];
-            v56 = [interactions countByEnumeratingWithState:&v111 objects:v126 count:16];
+            v56 = [interactions countByEnumeratingWithState:&v110 objects:v125 count:16];
             if (v56)
             {
-              v57 = *v112;
+              v57 = *v111;
               do
               {
                 for (k = 0; k != v56; ++k)
                 {
-                  if (*v112 != v57)
+                  if (*v111 != v57)
                   {
                     objc_enumerationMutation(interactions);
                   }
 
-                  [*(*(&v111 + 1) + 8 * k) addReason:10];
+                  [*(*(&v110 + 1) + 8 * k) addReason:10];
                 }
 
-                v56 = [interactions countByEnumeratingWithState:&v111 objects:v126 count:16];
+                v56 = [interactions countByEnumeratingWithState:&v110 objects:v125 count:16];
               }
 
               while (v56);
@@ -467,27 +467,27 @@ LABEL_33:
             [v51 rank];
             if (v59 > v27)
             {
-              [v102 insertObject:v51 atIndex:v27++];
-              v92 = 1;
+              [v101 insertObject:v51 atIndex:v27++];
+              v91 = 1;
             }
 
             else
             {
 LABEL_50:
-              [v102 addObject:v51];
+              [v101 addObject:v51];
             }
 
-            if (![v95 count])
+            if (![v94 count])
             {
               v60 = [v47 indexOfObject:v51];
               v61 = [v47 subarrayWithRange:{v60 + 1, objc_msgSend(v47, "count") - (v60 + 1)}];
-              [v102 addObjectsFromArray:v61];
+              [v101 addObjectsFromArray:v61];
 
               goto LABEL_58;
             }
           }
 
-          v48 = [v47 countByEnumeratingWithState:&v115 objects:v127 count:16];
+          v48 = [v47 countByEnumeratingWithState:&v114 objects:v126 count:16];
           if (v48)
           {
             continue;
@@ -499,48 +499,48 @@ LABEL_50:
 
       else
       {
-        v92 = 0;
+        v91 = 0;
       }
 
 LABEL_58:
 
-      v46 = v98;
+      v46 = v97;
     }
 
     else
     {
-      v92 = 0;
+      v91 = 0;
     }
 
-    [v100 minusSet:v99];
-    if ([v100 count])
+    [v99 minusSet:v98];
+    if ([v99 count])
     {
-      if ((v92 & 1) == 0)
+      if ((v91 & 1) == 0)
       {
         v62 = v46;
 
-        v102 = v62;
+        v101 = v62;
       }
 
-      v109 = 0u;
-      v110 = 0u;
-      v107 = 0u;
       v108 = 0u;
-      v101 = v100;
-      v63 = [v101 countByEnumeratingWithState:&v107 objects:v125 count:16];
+      v109 = 0u;
+      v106 = 0u;
+      v107 = 0u;
+      v100 = v99;
+      v63 = [v100 countByEnumeratingWithState:&v106 objects:v124 count:16];
       if (v63)
       {
-        v64 = *v108;
+        v64 = *v107;
         do
         {
           for (m = 0; m != v63; ++m)
           {
-            if (*v108 != v64)
+            if (*v107 != v64)
             {
-              objc_enumerationMutation(v101);
+              objc_enumerationMutation(v100);
             }
 
-            v66 = *(*(&v107 + 1) + 8 * m);
+            v66 = *(*(&v106 + 1) + 8 * m);
             v67 = objc_alloc_init(_CDSuggestedPerson);
             [(_CDSuggestedPerson *)v67 setContact:v66];
             [(_CDSuggestedPerson *)v67 setInteractionBundleID:0];
@@ -552,15 +552,15 @@ LABEL_58:
             [(_CDSuggestedPerson *)v67 score];
             [(_CDAdvisedInteraction *)v68 setScore:?];
             [(_CDAdvisedInteraction *)v68 addReason:10];
-            v124 = v68;
-            v70 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v124 count:1];
+            v123 = v68;
+            v70 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v123 count:1];
             [(_CDSuggestedPerson *)v67 setInteractions:v70];
 
-            [v102 insertObject:v67 atIndex:v27];
+            [v101 insertObject:v67 atIndex:v27];
             ++v27;
           }
 
-          v63 = [v101 countByEnumeratingWithState:&v107 objects:v125 count:16];
+          v63 = [v100 countByEnumeratingWithState:&v106 objects:v124 count:16];
         }
 
         while (v63);
@@ -569,10 +569,10 @@ LABEL_58:
       goto LABEL_71;
     }
 
-    if (v92)
+    if (v91)
     {
 LABEL_71:
-      v71 = [v102 count];
+      v71 = [v101 count];
       maxNumberOfPeopleSuggested = [settings maxNumberOfPeopleSuggested];
       if (v71 >= maxNumberOfPeopleSuggested)
       {
@@ -584,32 +584,32 @@ LABEL_71:
         v73 = v71;
       }
 
-      v74 = [v102 subarrayWithRange:{0, v73}];
+      v74 = [v101 subarrayWithRange:{0, v73}];
       v75 = [v74 mutableCopy];
 
-      v105 = 0u;
-      v106 = 0u;
-      v103 = 0u;
       v104 = 0u;
+      v105 = 0u;
+      v102 = 0u;
+      v103 = 0u;
       v76 = v75;
-      v77 = [v76 countByEnumeratingWithState:&v103 objects:v123 count:16];
+      v77 = [v76 countByEnumeratingWithState:&v102 objects:v122 count:16];
       if (v77)
       {
-        v78 = *v104;
+        v78 = *v103;
         v79 = 1;
         do
         {
           for (n = 0; n != v77; ++n)
           {
-            if (*v104 != v78)
+            if (*v103 != v78)
             {
               objc_enumerationMutation(v76);
             }
 
-            [*(*(&v103 + 1) + 8 * n) setRank:v79++];
+            [*(*(&v102 + 1) + 8 * n) setRank:v79++];
           }
 
-          v77 = [v76 countByEnumeratingWithState:&v103 objects:v123 count:16];
+          v77 = [v76 countByEnumeratingWithState:&v102 objects:v122 count:16];
         }
 
         while (v77);
@@ -621,26 +621,26 @@ LABEL_71:
     }
   }
 
-  v81 = v98;
+  v81 = v97;
 LABEL_83:
   suggestions = [v81 copy];
 
-  if (v94->_enableCaching)
+  if (v93->_enableCaching)
   {
     v82 = objc_alloc_init(_CDCachedPeopleSuggestion);
-    v83 = v94->_cache;
-    v94->_cache = v82;
+    v83 = v93->_cache;
+    v93->_cache = v82;
 
     date = [MEMORY[0x1E695DF00] date];
-    [(_CDCachedPeopleSuggestion *)v94->_cache setDate:date];
+    [(_CDCachedPeopleSuggestion *)v93->_cache setDate:date];
 
     v85 = [context copy];
-    [(_CDCachedPeopleSuggestion *)v94->_cache setContext:v85];
+    [(_CDCachedPeopleSuggestion *)v93->_cache setContext:v85];
 
     v86 = [settings copy];
-    [(_CDCachedPeopleSuggestion *)v94->_cache setSettings:v86];
+    [(_CDCachedPeopleSuggestion *)v93->_cache setSettings:v86];
 
-    [(_CDCachedPeopleSuggestion *)v94->_cache setSuggestions:suggestions];
+    [(_CDCachedPeopleSuggestion *)v93->_cache setSuggestions:suggestions];
   }
 
   v87 = +[_CDLogging interactionSignpost];
@@ -653,9 +653,7 @@ LABEL_83:
   }
 
 LABEL_88:
-  objc_sync_exit(v94);
-
-  v89 = *MEMORY[0x1E69E9840];
+  objc_sync_exit(v93);
 
   return suggestions;
 }
@@ -739,16 +737,14 @@ LABEL_88:
 
 - (void)suggestPeopleWithError:(void *)a1 .cold.1(void *a1, NSObject *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v4 = [a1 context];
   v5 = [a1 settings];
-  v7 = 138412546;
-  v8 = v4;
-  v9 = 2114;
-  v10 = v5;
-  _os_log_debug_impl(&dword_191750000, a2, OS_LOG_TYPE_DEBUG, "_CDPeopleSuggester:suggestPeopleWithError. context: %@, settings: %{public}@", &v7, 0x16u);
-
-  v6 = *MEMORY[0x1E69E9840];
+  v6 = 138412546;
+  v7 = v4;
+  v8 = 2114;
+  v9 = v5;
+  _os_log_debug_impl(&dword_191750000, a2, OS_LOG_TYPE_DEBUG, "_CDPeopleSuggester:suggestPeopleWithError. context: %@, settings: %{public}@", &v6, 0x16u);
 }
 
 @end

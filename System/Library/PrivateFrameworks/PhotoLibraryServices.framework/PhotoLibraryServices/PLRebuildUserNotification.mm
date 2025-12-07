@@ -29,47 +29,47 @@
 
 - (BOOL)_shouldShowUserNotification
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   if (+[PLDeviceRestoreMigrationSupport isDataMigrationInProgress])
   {
     standardUserDefaults = PLBackendGetLog();
     if (os_log_type_enabled(standardUserDefaults, OS_LOG_TYPE_INFO))
     {
-      LOWORD(v13) = 0;
-      _os_log_impl(&dword_19BF1F000, standardUserDefaults, OS_LOG_TYPE_INFO, "PLRebuildUserNotification: Data migration is in progress. Not showing the alert.", &v13, 2u);
+      LOWORD(v12) = 0;
+      _os_log_impl(&dword_19BF1F000, standardUserDefaults, OS_LOG_TYPE_INFO, "PLRebuildUserNotification: Data migration is in progress. Not showing the alert.", &v12, 2u);
     }
 
-    v4 = 0;
+    v3 = 0;
   }
 
   else
   {
     standardUserDefaults = [MEMORY[0x1E695E000] standardUserDefaults];
     [standardUserDefaults doubleForKey:@"PLRebuildUserNotificationSnoozeUntilTime"];
-    v6 = v5;
-    v7 = [standardUserDefaults stringForKey:@"PLRebuildUserNotificationSnoozeLastMessageKey"];
-    v8 = [MEMORY[0x1E695DF00] now];
-    if ([v7 isEqualToString:self->_message] && (objc_msgSend(v8, "timeIntervalSinceReferenceDate"), v9 < v6))
+    v5 = v4;
+    v6 = [standardUserDefaults stringForKey:@"PLRebuildUserNotificationSnoozeLastMessageKey"];
+    v7 = [MEMORY[0x1E695DF00] now];
+    if (objc_msgSend_isEqualToString_(v6) && ([v7 timeIntervalSinceReferenceDate], v8 < v5))
     {
-      v10 = PLBackendGetLog();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+      v9 = PLBackendGetLog();
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
       {
-        v11 = [MEMORY[0x1E695DF00] dateWithTimeIntervalSinceReferenceDate:v6];
-        v13 = 138412290;
-        v14 = v11;
-        _os_log_impl(&dword_19BF1F000, v10, OS_LOG_TYPE_INFO, "Should NOT show PLRebuildUserNotification because of snooze until %@", &v13, 0xCu);
+        v10 = [MEMORY[0x1E695DF00] dateWithTimeIntervalSinceReferenceDate:v5];
+        v12 = 138412290;
+        v13 = v10;
+        _os_log_impl(&dword_19BF1F000, v9, OS_LOG_TYPE_INFO, "Should NOT show PLRebuildUserNotification because of snooze until %@", &v12, 0xCu);
       }
 
-      v4 = 0;
+      v3 = 0;
     }
 
     else
     {
-      v4 = 1;
+      v3 = 1;
     }
   }
 
-  return v4;
+  return v3;
 }
 
 - (int64_t)showAlertAndWaitForResponse

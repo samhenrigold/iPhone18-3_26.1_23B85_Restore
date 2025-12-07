@@ -154,7 +154,7 @@ void __84__PLSearchIndexingIncrementalUpdateEngine__donateBatch_library_progress
 
   error = [resultCopy error];
   domain = [error domain];
-  if (([domain isEqualToString:*MEMORY[0x1E696A250]] & 1) == 0)
+  if ((objc_msgSend_isEqualToString_(domain) & 1) == 0)
   {
 
     goto LABEL_7;
@@ -594,7 +594,7 @@ void __104__PLSearchIndexingIncrementalUpdateEngine_processBatchOfJobsWithType_f
   dsCopy = ds;
   libraryCopy = library;
   completionCopy = completion;
-  v12 = [MEMORY[0x1E696AE38] discreteProgressWithTotalUnitCount:{objc_msgSend(dsCopy, "count")}];
+  v12 = [MEMORY[0x1E696AE38] discreteProgressWithTotalUnitCount:objc_msgSend_count(dsCopy)];
   v20[0] = MEMORY[0x1E69E9820];
   v20[1] = 3221225472;
   v20[2] = __89__PLSearchIndexingIncrementalUpdateEngine_processJobObjectIDs_entity_library_completion___block_invoke;

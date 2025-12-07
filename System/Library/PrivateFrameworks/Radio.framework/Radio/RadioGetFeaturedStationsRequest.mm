@@ -10,13 +10,13 @@
 
 - (id)_stationDictionariesByApplyingResponse:(id)response error:(id *)error
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   radio_decompressedBodyData = [response radio_decompressedBodyData];
   if ([radio_decompressedBodyData length])
   {
-    v17 = 0;
-    v7 = [radio_decompressedBodyData propertyListForRadioResponseReturningError:&v17];
-    v8 = v17;
+    v16 = 0;
+    v7 = [radio_decompressedBodyData propertyListForRadioResponseReturningError:&v16];
+    v8 = v16;
     v9 = v8;
     if (v7)
     {
@@ -58,9 +58,9 @@ LABEL_16:
       if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412546;
-        v19 = v12;
-        v20 = 2112;
-        v21 = radio_decompressedBodyData;
+        v18 = v12;
+        v19 = 2112;
+        v20 = radio_decompressedBodyData;
         _os_log_impl(&dword_261792000, v10, OS_LOG_TYPE_ERROR, "Error: Unable to deserialize featured stations response (%@), data: %@", buf, 0x16u);
       }
 
@@ -83,14 +83,12 @@ LABEL_17:
 
 LABEL_18:
 
-  v15 = *MEMORY[0x277D85DE8];
-
   return v10;
 }
 
 - (id)_importFeaturedStationWithDictionary:(id)dictionary inModel:(id)model loadArtworkSynchronously:(BOOL)synchronously
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   dictionaryCopy = dictionary;
   modelCopy = model;
   objc_opt_class();
@@ -124,9 +122,9 @@ LABEL_11:
     v11 = os_log_create("com.apple.amp.radio", "Requests");
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      v14 = 138412290;
-      v15 = dictionaryCopy;
-      _os_log_impl(&dword_261792000, v11, OS_LOG_TYPE_ERROR, "Error: Unable to create featured station with dictionary: %@", &v14, 0xCu);
+      v13 = 138412290;
+      v14 = dictionaryCopy;
+      _os_log_impl(&dword_261792000, v11, OS_LOG_TYPE_ERROR, "Error: Unable to create featured station with dictionary: %@", &v13, 0xCu);
     }
 
     goto LABEL_11;
@@ -137,7 +135,6 @@ LABEL_6:
 LABEL_12:
 
 LABEL_13:
-  v12 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -174,7 +171,7 @@ void __78__RadioGetFeaturedStationsRequest_startWithFeaturedStationsCompletionHa
 
 void __78__RadioGetFeaturedStationsRequest_startWithFeaturedStationsCompletionHandler___block_invoke_2(uint64_t a1, void *a2)
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 baseURL];
   v5 = v4;
@@ -186,94 +183,91 @@ void __78__RadioGetFeaturedStationsRequest_startWithFeaturedStationsCompletionHa
     {
       v8 = [v6 absoluteString];
       *buf = 138412290;
-      v39 = v8;
+      v37 = v8;
       _os_log_impl(&dword_261792000, v7, OS_LOG_TYPE_INFO, "[RadioGetFeaturedStationsRequest] Request URL: %@", buf, 0xCu);
     }
 
     v9 = [MEMORY[0x277D69BD0] newForRadioRequestURL:v6];
-    v10 = *(a1 + 32);
-    v11 = [objc_opt_class() defaultURLCache];
-    v12 = [v11 cachedConnectionResponseForRequestProperties:v9];
+    v10 = [objc_opt_class() defaultURLCache];
+    v11 = [v10 cachedConnectionResponseForRequestProperties:v9];
 
-    if (v12 && ([v12 ssv_isExpiredResponse] & 1) == 0)
+    if (v11 && ([v11 ssv_isExpiredResponse] & 1) == 0)
     {
-      v13 = *(a1 + 32);
-      v33 = 0;
-      v14 = [v13 _stationDictionariesByApplyingResponse:v12 error:&v33];
-      v15 = v33;
-      v16 = v15;
-      if (v14)
+      v12 = *(a1 + 32);
+      v31 = 0;
+      v13 = [v12 _stationDictionariesByApplyingResponse:v11 error:&v31];
+      v14 = v31;
+      v15 = v14;
+      if (v13)
       {
         [*(a1 + 32) setCachedResponse:1];
-        v17 = *(a1 + 48);
-        if (v17)
+        v16 = *(a1 + 48);
+        if (v16)
         {
-          (*(v17 + 16))(v17, v14, v16);
+          (*(v16 + 16))(v16, v13, v15);
         }
 
-        v18 = [MEMORY[0x277CCAB98] defaultCenter];
-        [v18 postNotificationName:@"RadioRequestDidFinishNotification" object:*(a1 + 32)];
+        v17 = [MEMORY[0x277CCAB98] defaultCenter];
+        [v17 postNotificationName:@"RadioRequestDidFinishNotification" object:*(a1 + 32)];
 
         goto LABEL_16;
       }
     }
 
-    v21 = *(a1 + 32);
-    if (v21[22])
+    v20 = *(a1 + 32);
+    if (v20[22])
     {
-      v36 = @"count";
-      v22 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:?];
-      v37 = v22;
-      v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v37 forKeys:&v36 count:1];
+      v34 = @"count";
+      v21 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:?];
+      v35 = v21;
+      v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v35 forKeys:&v34 count:1];
 
-      v21 = *(a1 + 32);
+      v20 = *(a1 + 32);
     }
 
     else
     {
-      v16 = MEMORY[0x277CBEC10];
+      v15 = MEMORY[0x277CBEC10];
     }
 
-    v14 = [MEMORY[0x277CBEA90] dataForRadioRequestParameters:v16 isAsynchronousBackgroundRequest:objc_msgSend(v21 error:{"isAsynchronousBackgroundRequest"), 0}];
-    [v9 setHTTPBody:v14];
-    v23 = +[RadioNetworkObserver sharedNetworkObserver];
-    [v23 beginUsingNetwork];
+    v13 = [MEMORY[0x277CBEA90] dataForRadioRequestParameters:v15 isAsynchronousBackgroundRequest:objc_msgSend(v20 error:{"isAsynchronousBackgroundRequest"), 0}];
+    [v9 setHTTPBody:v13];
+    v22 = +[RadioNetworkObserver sharedNetworkObserver];
+    [v22 beginUsingNetwork];
 
-    v24 = [MEMORY[0x277D69C98] newRadioRequestWithRequestContext:*(a1 + 40) requestProperties:v9 storeBag:v3];
-    v25 = *(a1 + 32);
-    v26 = *(v25 + 80);
-    *(v25 + 80) = v24;
+    v23 = [MEMORY[0x277D69C98] newRadioRequestWithRequestContext:*(a1 + 40) requestProperties:v9 storeBag:v3];
+    v24 = *(a1 + 32);
+    v25 = *(v24 + 80);
+    *(v24 + 80) = v23;
 
-    v27 = *(a1 + 32);
-    v28 = *(v27 + 80);
-    v30[0] = MEMORY[0x277D85DD0];
-    v30[1] = 3221225472;
-    v30[2] = __78__RadioGetFeaturedStationsRequest_startWithFeaturedStationsCompletionHandler___block_invoke_28;
-    v30[3] = &unk_279AEAAE8;
-    v30[4] = v27;
-    v31 = v9;
-    v32 = *(a1 + 48);
-    [v28 startWithConnectionResponseBlock:v30];
+    v26 = *(a1 + 32);
+    v27 = *(v26 + 80);
+    v28[0] = MEMORY[0x277D85DD0];
+    v28[1] = 3221225472;
+    v28[2] = __78__RadioGetFeaturedStationsRequest_startWithFeaturedStationsCompletionHandler___block_invoke_28;
+    v28[3] = &unk_279AEAAE8;
+    v28[4] = v26;
+    v29 = v9;
+    v30 = *(a1 + 48);
+    [v27 startWithConnectionResponseBlock:v28];
 
 LABEL_16:
     goto LABEL_17;
   }
 
   [*(a1 + 32) setStatus:5];
-  v19 = dispatch_get_global_queue(0, 0);
+  v18 = dispatch_get_global_queue(0, 0);
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __78__RadioGetFeaturedStationsRequest_startWithFeaturedStationsCompletionHandler___block_invoke_3;
   block[3] = &unk_279AEACF0;
-  v20 = *(a1 + 48);
+  v19 = *(a1 + 48);
   block[4] = *(a1 + 32);
-  v35 = v20;
-  dispatch_async(v19, block);
+  v33 = v19;
+  dispatch_async(v18, block);
 
-  v6 = v35;
+  v6 = v33;
 LABEL_17:
-
-  v29 = *MEMORY[0x277D85DE8];
 }
 
 void __78__RadioGetFeaturedStationsRequest_startWithFeaturedStationsCompletionHandler___block_invoke_3(uint64_t a1)
@@ -290,7 +284,7 @@ void __78__RadioGetFeaturedStationsRequest_startWithFeaturedStationsCompletionHa
 
 void __78__RadioGetFeaturedStationsRequest_startWithFeaturedStationsCompletionHandler___block_invoke_28(uint64_t a1, void *a2, void *a3)
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = +[RadioNetworkObserver sharedNetworkObserver];
@@ -312,7 +306,7 @@ void __78__RadioGetFeaturedStationsRequest_startWithFeaturedStationsCompletionHa
   if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
   {
     *buf = 134217984;
-    v36 = v8;
+    v35 = v8;
     _os_log_impl(&dword_261792000, v11, OS_LOG_TYPE_INFO, "[RadioGetFeaturedStationsRequest] Status code: %lli", buf, 0xCu);
   }
 
@@ -322,7 +316,7 @@ void __78__RadioGetFeaturedStationsRequest_startWithFeaturedStationsCompletionHa
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v36 = v6;
+      v35 = v6;
       _os_log_impl(&dword_261792000, v12, OS_LOG_TYPE_ERROR, "Error: Unable to get featured stations (%@)", buf, 0xCu);
     }
 
@@ -331,10 +325,10 @@ void __78__RadioGetFeaturedStationsRequest_startWithFeaturedStationsCompletionHa
     {
       v14 = MEMORY[0x277CCA9B8];
       v15 = *MEMORY[0x277D6A110];
-      v33 = *MEMORY[0x277D6A118];
+      v32 = *MEMORY[0x277D6A118];
       v16 = [MEMORY[0x277CCABB0] numberWithInteger:v8];
-      v34 = v16;
-      v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v34 forKeys:&v33 count:1];
+      v33 = v16;
+      v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v33 forKeys:&v32 count:1];
       v13 = [v14 errorWithDomain:v15 code:109 userInfo:v17];
     }
 
@@ -373,9 +367,9 @@ LABEL_23:
   v19 = *(a1 + 32);
   if (v6)
   {
-    v32 = v6;
-    v20 = [v19 _stationDictionariesByApplyingResponse:v5 error:&v32];
-    v13 = v32;
+    v31 = v6;
+    v20 = [v19 _stationDictionariesByApplyingResponse:v5 error:&v31];
+    v13 = v31;
   }
 
   else
@@ -397,15 +391,13 @@ LABEL_24:
   block[2] = __78__RadioGetFeaturedStationsRequest_startWithFeaturedStationsCompletionHandler___block_invoke_30;
   block[3] = &unk_279AEAB88;
   v23 = *(a1 + 48);
-  v28 = v20;
-  v29 = v13;
-  v30 = *(a1 + 32);
-  v31 = v23;
+  v27 = v20;
+  v28 = v13;
+  v29 = *(a1 + 32);
+  v30 = v23;
   v24 = v13;
   v25 = v20;
   dispatch_async(v22, block);
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 void __78__RadioGetFeaturedStationsRequest_startWithFeaturedStationsCompletionHandler___block_invoke_30(void *a1)
@@ -435,40 +427,40 @@ void __78__RadioGetFeaturedStationsRequest_startWithFeaturedStationsCompletionHa
 
 void __62__RadioGetFeaturedStationsRequest_startWithCompletionHandler___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v39 = *MEMORY[0x277D85DE8];
-  v21 = a2;
-  v20 = a3;
-  v32 = 0;
-  v33 = &v32;
-  v34 = 0x3032000000;
-  v35 = __Block_byref_object_copy__604;
-  v36 = __Block_byref_object_dispose__605;
-  v37 = 0;
+  v38 = *MEMORY[0x277D85DE8];
+  v20 = a2;
+  v19 = a3;
+  v31 = 0;
+  v32 = &v31;
+  v33 = 0x3032000000;
+  v34 = __Block_byref_object_copy__604;
+  v35 = __Block_byref_object_dispose__605;
+  v36 = 0;
   if ([*(a1 + 32) status] == 1)
   {
-    if ([*(a1 + 32) isCachedResponse] && objc_msgSend(v21, "count"))
+    if ([*(a1 + 32) isCachedResponse] && objc_msgSend(v20, "count"))
     {
-      v22 = +[RadioModel sharedModel];
-      v5 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(v21, "count")}];
-      v30 = 0u;
-      v31 = 0u;
-      v28 = 0u;
+      v21 = +[RadioModel sharedModel];
+      v5 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(v20, "count")}];
       v29 = 0u;
-      v6 = v21;
-      v7 = [v6 countByEnumeratingWithState:&v28 objects:v38 count:16];
+      v30 = 0u;
+      v27 = 0u;
+      v28 = 0u;
+      v6 = v20;
+      v7 = [v6 countByEnumeratingWithState:&v27 objects:v37 count:16];
       if (v7)
       {
-        v8 = *v29;
+        v8 = *v28;
         while (2)
         {
           for (i = 0; i != v7; ++i)
           {
-            if (*v29 != v8)
+            if (*v28 != v8)
             {
               objc_enumerationMutation(v6);
             }
 
-            v10 = *(*(&v28 + 1) + 8 * i);
+            v10 = *(*(&v27 + 1) + 8 * i);
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
@@ -476,7 +468,7 @@ void __62__RadioGetFeaturedStationsRequest_startWithCompletionHandler___block_in
               objc_opt_class();
               if (objc_opt_isKindOfClass())
               {
-                v12 = [v22 stationWithHash:v11];
+                v12 = [v21 stationWithHash:v11];
                 if (!v12)
                 {
 
@@ -488,7 +480,7 @@ void __62__RadioGetFeaturedStationsRequest_startWithCompletionHandler___block_in
             }
           }
 
-          v7 = [v6 countByEnumeratingWithState:&v28 objects:v38 count:16];
+          v7 = [v6 countByEnumeratingWithState:&v27 objects:v37 count:16];
           if (v7)
           {
             continue;
@@ -514,22 +506,22 @@ void __62__RadioGetFeaturedStationsRequest_startWithCompletionHandler___block_in
     {
 LABEL_20:
       v14 = +[RadioModel backgroundModel];
-      v23[0] = MEMORY[0x277D85DD0];
-      v23[1] = 3221225472;
-      v23[2] = __62__RadioGetFeaturedStationsRequest_startWithCompletionHandler___block_invoke_5;
-      v23[3] = &unk_279AEAA70;
-      v27 = &v32;
-      v24 = v14;
-      v15 = v21;
+      v22[0] = MEMORY[0x277D85DD0];
+      v22[1] = 3221225472;
+      v22[2] = __62__RadioGetFeaturedStationsRequest_startWithCompletionHandler___block_invoke_5;
+      v22[3] = &unk_279AEAA70;
+      v26 = &v31;
+      v23 = v14;
+      v15 = v20;
       v16 = *(a1 + 32);
-      v25 = v15;
-      v26 = v16;
-      v22 = v24;
-      [v24 performWriteTransactionWithBlock:v23];
+      v24 = v15;
+      v25 = v16;
+      v21 = v23;
+      [v23 performWriteTransactionWithBlock:v22];
       v17 = +[RadioModel sharedModel];
-      v13 = [v17 convertObjects:v33[5]];
+      v13 = [v17 convertObjects:v32[5]];
 
-      v5 = v24;
+      v5 = v23;
     }
   }
 
@@ -541,16 +533,15 @@ LABEL_20:
   v18 = *(a1 + 40);
   if (v18)
   {
-    (*(v18 + 16))(v18, v13, v20);
+    (*(v18 + 16))(v18, v13, v19);
   }
 
-  _Block_object_dispose(&v32, 8);
-  v19 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v31, 8);
 }
 
 void __62__RadioGetFeaturedStationsRequest_startWithCompletionHandler___block_invoke_5(uint64_t a1)
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   v2 = objc_alloc_init(MEMORY[0x277CBEB18]);
   v3 = *(*(a1 + 56) + 8);
   v4 = *(v3 + 40);
@@ -559,38 +550,38 @@ void __62__RadioGetFeaturedStationsRequest_startWithCompletionHandler___block_in
   v5 = MEMORY[0x277CBEB98];
   v6 = [*(a1 + 32) userStations];
   v7 = [v6 valueForKey:@"stationHash"];
-  v28 = [v5 setWithArray:v7];
+  v27 = [v5 setWithArray:v7];
 
   v8 = MEMORY[0x277CBEB58];
   v9 = [*(a1 + 32) featuredStations];
-  v27 = [v8 setWithArray:v9];
+  v26 = [v8 setWithArray:v9];
 
   v10 = [*(a1 + 40) count];
+  v34 = 0u;
   v35 = 0u;
   v36 = 0u;
   v37 = 0u;
-  v38 = 0u;
   obj = *(a1 + 40);
-  v11 = [obj countByEnumeratingWithState:&v35 objects:v40 count:16];
+  v11 = [obj countByEnumeratingWithState:&v34 objects:v39 count:16];
   if (v11)
   {
     v12 = v11;
     v13 = 0;
-    v30 = ~v10;
-    v14 = *v36;
+    v29 = ~v10;
+    v14 = *v35;
     do
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v36 != v14)
+        if (*v35 != v14)
         {
           objc_enumerationMutation(obj);
         }
 
-        v16 = *(*(&v35 + 1) + 8 * i);
-        v17 = [v16 objectForKey:{@"station-hash", v27}];
+        v16 = *(*(&v34 + 1) + 8 * i);
+        v17 = [v16 objectForKey:{@"station-hash", v26}];
         objc_opt_class();
-        if ((objc_opt_isKindOfClass() & 1) == 0 || ([v28 containsObject:v17] & 1) == 0)
+        if ((objc_opt_isKindOfClass() & 1) == 0 || ([v27 containsObject:v17] & 1) == 0)
         {
           v18 = [*(a1 + 48) _importFeaturedStationWithDictionary:v16 inModel:*(a1 + 32) loadArtworkSynchronously:v13 < 3];
           v19 = v18;
@@ -599,49 +590,47 @@ void __62__RadioGetFeaturedStationsRequest_startWithCompletionHandler___block_in
             [v18 setSortOrder:?];
             [*(*(*(a1 + 56) + 8) + 40) addObject:v19];
             ++v13;
-            ++v30;
+            ++v29;
           }
         }
       }
 
-      v12 = [obj countByEnumeratingWithState:&v35 objects:v40 count:16];
+      v12 = [obj countByEnumeratingWithState:&v34 objects:v39 count:16];
     }
 
     while (v12);
   }
 
   v20 = [MEMORY[0x277CBEB98] setWithArray:*(*(*(a1 + 56) + 8) + 40)];
-  [v27 minusSet:v20];
+  [v26 minusSet:v20];
 
-  v33 = 0u;
-  v34 = 0u;
-  v31 = 0u;
   v32 = 0u;
-  v21 = v27;
-  v22 = [v21 countByEnumeratingWithState:&v31 objects:v39 count:16];
+  v33 = 0u;
+  v30 = 0u;
+  v31 = 0u;
+  v21 = v26;
+  v22 = [v21 countByEnumeratingWithState:&v30 objects:v38 count:16];
   if (v22)
   {
     v23 = v22;
-    v24 = *v32;
+    v24 = *v31;
     do
     {
       for (j = 0; j != v23; ++j)
       {
-        if (*v32 != v24)
+        if (*v31 != v24)
         {
           objc_enumerationMutation(v21);
         }
 
-        [*(a1 + 32) deleteStation:{*(*(&v31 + 1) + 8 * j), v27}];
+        [*(a1 + 32) deleteStation:{*(*(&v30 + 1) + 8 * j), v26}];
       }
 
-      v23 = [v21 countByEnumeratingWithState:&v31 objects:v39 count:16];
+      v23 = [v21 countByEnumeratingWithState:&v30 objects:v38 count:16];
     }
 
     while (v23);
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 - (RadioGetFeaturedStationsRequest)initWithStationCount:(unsigned int)count

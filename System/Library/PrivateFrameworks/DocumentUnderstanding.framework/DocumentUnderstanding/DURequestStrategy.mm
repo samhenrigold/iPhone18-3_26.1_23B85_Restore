@@ -8,7 +8,7 @@
 
 - (_TtC21DocumentUnderstanding20DURequestContentType)contentType
 {
-  v2 = sub_232B24488();
+  v2 = sub_232B24488(self);
 
   return v2;
 }

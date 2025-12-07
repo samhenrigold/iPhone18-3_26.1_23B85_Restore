@@ -224,96 +224,96 @@
 
     else
     {
-      v9 = TUIImageCacheLog();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      v10 = TUIImageCacheLog(v9);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
-        sub_19A500(imageCopy, v9);
+        sub_19A500(imageCopy, v10);
       }
     }
   }
 
   imageResources = [(_TUICachedSeriesStackImageResource *)self imageResources];
-  v11 = [imageResources count];
-  v12 = [cgImages count];
-  v13 = TUIImageCacheLog();
-  v14 = os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG);
-  if (v12 == v11)
+  v12 = [imageResources count];
+  v13 = [cgImages count];
+  v14 = TUIImageCacheLog(v13);
+  v15 = os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG);
+  if (v13 == v12)
   {
     selfCopy = self;
-    if (v14)
+    if (v15)
     {
-      sub_19A5B0(cgImages, v11, v13);
+      sub_19A5B0(cgImages, v12, v14);
     }
 
-    v13 = [NSMutableArray arrayWithCapacity:v11];
-    v29 = 0u;
+    v14 = [NSMutableArray arrayWithCapacity:v12];
     v30 = 0u;
     v31 = 0u;
     v32 = 0u;
-    v24 = imageResources;
-    v15 = imageResources;
-    v16 = [v15 countByEnumeratingWithState:&v29 objects:v39 count:16];
-    if (v16)
+    v33 = 0u;
+    v25 = imageResources;
+    v16 = imageResources;
+    v17 = [v16 countByEnumeratingWithState:&v30 objects:v40 count:16];
+    if (v17)
     {
-      v17 = v16;
-      v18 = *v30;
+      v18 = v17;
+      v19 = *v31;
       do
       {
-        for (i = 0; i != v17; i = i + 1)
+        for (i = 0; i != v18; i = i + 1)
         {
-          if (*v30 != v18)
+          if (*v31 != v19)
           {
-            objc_enumerationMutation(v15);
+            objc_enumerationMutation(v16);
           }
 
-          v20 = *(*(&v29 + 1) + 8 * i);
-          v21 = [cgImages objectForKey:{v20, v24}];
-          if (v21)
+          v21 = *(*(&v30 + 1) + 8 * i);
+          v22 = [cgImages objectForKey:{v21, v25}];
+          if (v22)
           {
-            [v13 addObject:v21];
+            [v14 addObject:v22];
           }
 
           else
           {
-            v22 = TUIImageCacheLog();
-            if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+            v23 = TUIImageCacheLog(0);
+            if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
             {
-              v23 = [imageCopy url];
+              v24 = [imageCopy url];
               *buf = 134218242;
-              v34 = v20;
-              v35 = 2112;
-              v36 = v23;
-              _os_log_error_impl(&dword_0, v22, OS_LOG_TYPE_ERROR, "Map tapble for key ImageResouce %p (%@) has no CGImageRef.", buf, 0x16u);
+              v35 = v21;
+              v36 = 2112;
+              v37 = v24;
+              _os_log_error_impl(&dword_0, v23, OS_LOG_TYPE_ERROR, "Map tapble for key ImageResouce %p (%@) has no CGImageRef.", buf, 0x16u);
             }
           }
         }
 
-        v17 = [v15 countByEnumeratingWithState:&v29 objects:v39 count:16];
+        v18 = [v16 countByEnumeratingWithState:&v30 objects:v40 count:16];
       }
 
-      while (v17);
+      while (v18);
     }
 
-    v26[0] = _NSConcreteStackBlock;
-    v26[1] = 3221225472;
-    v26[2] = sub_A6518;
-    v26[3] = &unk_260B20;
-    v27 = cgImages;
-    v28 = selfCopy;
-    [(_TUICachedSeriesStackImageResource *)selfCopy _applyToImages:v13 completion:v26];
+    v27[0] = _NSConcreteStackBlock;
+    v27[1] = 3221225472;
+    v27[2] = sub_A6518;
+    v27[3] = &unk_260B20;
+    v28 = cgImages;
+    v29 = selfCopy;
+    [(_TUICachedSeriesStackImageResource *)selfCopy _applyToImages:v14 completion:v27];
 
-    imageResources = v24;
+    imageResources = v25;
   }
 
-  else if (v14)
+  else if (v15)
   {
     *buf = 134218496;
-    v34 = v12;
-    v35 = 2048;
-    v36 = v11;
-    v37 = 2048;
-    v38 = cgImages;
-    _os_log_debug_impl(&dword_0, v13, OS_LOG_TYPE_DEBUG, "Got %ld out of %ld images, skip series cover generation. <%p>", buf, 0x20u);
+    v35 = v13;
+    v36 = 2048;
+    v37 = v12;
+    v38 = 2048;
+    v39 = cgImages;
+    _os_log_debug_impl(&dword_0, v14, OS_LOG_TYPE_DEBUG, "Got %ld out of %ld images, skip series cover generation. <%p>", buf, 0x20u);
   }
 }
 

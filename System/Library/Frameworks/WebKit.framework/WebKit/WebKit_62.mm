@@ -208,31 +208,31 @@ void WebPushD::MockPushServiceConnection::~MockPushServiceConnection(WebPushD::M
 double WebPushD::MockPushServiceConnection::generateClientKeys@<D0>(double *a1@<X8>)
 {
   WTF::base64Decode();
-  if ((v10 & 1) == 0)
+  if ((v9 & 1) == 0)
   {
-    v7 = std::__throw_bad_optional_access[abi:sn200100]();
-    if (v3)
-    {
-      WTF::fastFree(v3, v6);
-    }
-
+    v6 = std::__throw_bad_optional_access[abi:sn200100]();
     if (v2)
     {
-      WTF::fastFree(v2, v6);
+      WTF::fastFree(v2, v5);
     }
 
-    _Unwind_Resume(v7);
+    if (v1)
+    {
+      WTF::fastFree(v1, v5);
+    }
+
+    _Unwind_Resume(v6);
   }
 
   WTF::base64Decode();
   WTF::base64Decode();
-  result = v9;
-  *a1 = v8;
-  a1[1] = v9;
-  *(a1 + 2) = v8;
-  a1[3] = v9;
-  *(a1 + 4) = v8;
-  a1[5] = v9;
+  result = v8;
+  *a1 = v7;
+  a1[1] = v8;
+  *(a1 + 2) = v7;
+  a1[3] = v8;
+  *(a1 + 4) = v7;
+  a1[5] = v8;
   return result;
 }
 
@@ -269,13 +269,13 @@ uint64_t WebPushD::MockPushServiceConnection::subscribe(uint64_t a1, uint64_t a2
   return result;
 }
 
-unsigned int *WebPushD::MockPushServiceConnection::setTopicLists(unsigned int *a1, uint64_t a2)
+unsigned int *WebPushD::MockPushServiceConnection::setTopicLists(unsigned int *a1, unsigned int *a2, unint64_t a3)
 {
-  WTF::Vector<WTF::String,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::operator=(a1 + 22, a2);
-  WTF::Vector<WTF::String,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::operator=(a1 + 26, a2 + 16);
-  WTF::Vector<WTF::String,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::operator=(a1 + 30, a2 + 32);
+  WTF::Vector<WTF::String,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::operator=(a1 + 22, a2, a3);
+  WTF::Vector<WTF::String,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::operator=(a1 + 26, a2 + 4, v5);
+  WTF::Vector<WTF::String,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::operator=(a1 + 30, a2 + 8, v6);
 
-  return WTF::Vector<WTF::String,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::operator=(a1 + 34, a2 + 48);
+  return WTF::Vector<WTF::String,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::operator=(a1 + 34, a2 + 12, v7);
 }
 
 void WebKit::NearFieldLibrary(WebKit *this)
@@ -362,7 +362,7 @@ uint64_t ___ZN6WebKitL21initNFHardwareManagerEv_block_invoke(WebKit *a1)
   return result;
 }
 
-uint64_t WebKit::setNWParametersApplicationIdentifiers(uint64_t result, _BYTE *a2, uint64_t a3, uint64_t a4)
+WTF *WebKit::setNWParametersApplicationIdentifiers(WTF *result, _BYTE *a2, uint64_t a3, uint64_t a4)
 {
   v5 = result;
   if (a2 && *a2)
@@ -459,7 +459,7 @@ void *nw_parameters_set_attributed_bundle_identifierPtr(void)
   return result;
 }
 
-uint64_t WebKit::setNWParametersTrackerOptions(uint64_t a1, int a2, uint64_t a3, uint64_t a4)
+uint64_t WebKit::setNWParametersTrackerOptions(uint64_t a1, int a2, int a3, uint64_t a4)
 {
   if (a2)
   {
@@ -506,12 +506,12 @@ BOOL WebKit::isKnownTracker(atomic_uint **this, const WebCore::RegistrableDomain
   }
 
   v11 = 0;
-  v9 = (softLinkNEHelperTrackerGetDisposition[0])(0, v6, 0, &v11);
+  Disposition = softLinkNEHelperTrackerGetDisposition(0, v6, 0, &v11);
   if (v6)
   {
   }
 
-  return v9 != 0;
+  return Disposition != 0;
 }
 
 void sub_19D8BD3FC(_Unwind_Exception *exception_object, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10)
@@ -544,7 +544,7 @@ uint64_t initNEHelperTrackerGetDisposition(uint64_t a1, uint64_t a2, uint64_t a3
   }
 
   v9 = dlsym(v8, "NEHelperTrackerGetDisposition");
-  softLinkNEHelperTrackerGetDisposition[0] = v9;
+  softLinkNEHelperTrackerGetDisposition = v9;
   if (!v9)
   {
 LABEL_9:
@@ -672,10 +672,10 @@ void sub_19D8BDD84(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_19D8BE1A8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, WTF::StringImpl *a10, WTF::StringImpl *a11, WTF::StringImpl *a12, char a13, int a14, __int16 a15, char a16, char a17)
+void sub_19D8BE1A8(_Unwind_Exception *a1, unint64_t a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, WTF::StringImpl *a10, WTF::StringImpl *a11, WTF::StringImpl *a12, char a13, int a14, __int16 a15, char a16, char a17)
 {
   v18 = v17;
-  WTF::ThreadSafeRefCounted<WebKit::AuxiliaryProcessProxy,(WTF::DestructionThread)2>::deref(v18);
+  WTF::ThreadSafeRefCounted<WebKit::AuxiliaryProcessProxy,(WTF::DestructionThread)2>::deref(v18, a2);
   if (a10 && atomic_fetch_add_explicit(a10, 0xFFFFFFFE, memory_order_relaxed) == 2)
   {
     WTF::StringImpl::destroy(a10, v20);
@@ -728,7 +728,7 @@ uint64_t WTF::Vector<WTF::Ref<WebKit::WebProcessPool,WTF::RawPtrTraits<WebKit::W
   return a1;
 }
 
-void WebPushD::PushClientConnection::create(void *a1@<X0>, IPC::Decoder *a2@<X1>, uint64_t *a3@<X8>)
+void WebPushD::PushClientConnection::create(_xpc_connection_s *a1@<X0>, IPC::Decoder *a2@<X1>, uint64_t *a3@<X8>)
 {
   v74 = *MEMORY[0x1E69E9840];
   if (*(a2 + 25) == 899)
@@ -833,7 +833,7 @@ LABEL_19:
     v18 = [v17 hostProcess];
     if (v18)
     {
-      [v18 auditToken];
+      objc_msgSend_auditToken(v18);
     }
 
     else
@@ -847,7 +847,7 @@ LABEL_19:
     hasEntitlement = WTF::hasEntitlement();
     *buf = v58;
     *&buf[16] = v59;
-    WebKit::codeSigningIdentifier(buf, &v57);
+    WebKit::codeSigningIdentifier(&v57, buf);
     *buf = v58;
     *&buf[16] = v59;
     v25 = WTF::hasEntitlement();
@@ -1324,7 +1324,7 @@ uint64_t WebPushD::PushClientConnection::getPushTopicsForTesting(WebPushD::PushC
   return WebPushD::WebPushDaemon::getPushTopicsForTesting(&WebPushD::WebPushDaemon::singleton(void)::daemon, v4, a2);
 }
 
-void WebPushD::PushClientConnection::subscriptionSetIdentifierForOrigin(WebPushD::PushClientConnection *this@<X0>, const WebCore::SecurityOriginData *a2@<X1>, uint64_t a3@<X8>)
+void WebPushD::PushClientConnection::subscriptionSetIdentifierForOrigin(WTF::StringImpl *this@<X0>, const WebCore::SecurityOriginData *a2@<X1>, uint64_t a3@<X8>)
 {
   v6 = *(this + 7);
   if (v6)
@@ -1357,7 +1357,7 @@ LABEL_13:
   }
 
   v8 = WebPushD::WebPushDaemon::ensureWebClipCache(&WebPushD::WebPushDaemon::singleton(void)::daemon);
-  WebPushD::WebClipCache::preferredWebClipIdentifier(v8, this + 5, a2, &v13);
+  WebPushD::WebClipCache::preferredWebClipIdentifier(&v13, v8, this + 5, a2);
   v7 = v13;
   v13 = 0;
   if (v6)
@@ -1412,61 +1412,61 @@ void sub_19D8BF134(_Unwind_Exception *exception_object, WTF::StringImpl *a2)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t WebPushD::PushClientConnection::debugDescription(WebPushD::PushClientConnection *this)
+uint64_t WebPushD::PushClientConnection::debugDescription@<X0>(uint64_t *__return_ptr a1@<X8>, WebPushD::PushClientConnection *this@<X0>)
 {
-  v12 = 0;
-  v13 = 0;
   v14 = 0;
-  v15 = 1;
+  v15 = 0;
   v16 = 0;
-  v17 = 256;
+  v17 = 1;
   v18 = 0;
+  v19 = 256;
+  v20 = 0;
   WTF::TextStream::operator<<();
-  v2 = *(this + 7);
-  if (v2 && *(v2 + 4))
+  v4 = *(this + 7);
+  if (v4 && *(v4 + 4))
   {
     WTF::TextStream::operator<<();
     WTF::TextStream::operator<<();
   }
 
-  v3 = *(this + 8);
-  v4 = *(this + 9);
-  v5 = (this + 64);
-  if (v3 | v4)
+  v5 = *(this + 8);
+  v6 = *(this + 9);
+  v7 = (this + 64);
+  if (v5 | v6)
   {
     WTF::TextStream::operator<<();
-    if (*v5 == 0)
+    if (*v7 == 0)
     {
       result = 154;
       __break(0xC471u);
       return result;
     }
 
-    WTF::UUID::toString(&v11, v5);
+    WTF::UUID::toString(&v13, v7);
     WTF::TextStream::operator<<();
-    v7 = v11;
-    v11 = 0;
-    if (v7 && atomic_fetch_add_explicit(v7, 0xFFFFFFFE, memory_order_relaxed) == 2)
+    v9 = v13;
+    v13 = 0;
+    if (v9 && atomic_fetch_add_explicit(v9, 0xFFFFFFFE, memory_order_relaxed) == 2)
     {
-      WTF::StringImpl::destroy(v7, v6);
+      WTF::StringImpl::destroy(v9, v8);
     }
   }
 
-  WTF::TextStream::release(&v12);
-  v9 = v13;
-  v13 = 0;
-  if (v9 && atomic_fetch_add_explicit(v9, 0xFFFFFFFE, memory_order_relaxed) == 2)
+  WTF::TextStream::release(a1, &v14);
+  v11 = v15;
+  v15 = 0;
+  if (v11 && atomic_fetch_add_explicit(v11, 0xFFFFFFFE, memory_order_relaxed) == 2)
   {
-    WTF::StringImpl::destroy(v9, v8);
+    WTF::StringImpl::destroy(v11, v10);
   }
 
-  result = v12;
-  v12 = 0;
+  result = v14;
+  v14 = 0;
   if (result)
   {
     if (atomic_fetch_add_explicit(result, 0xFFFFFFFE, memory_order_relaxed) == 2)
     {
-      return WTF::StringImpl::destroy(result, v8);
+      return WTF::StringImpl::destroy(result, v10);
     }
   }
 
@@ -1511,21 +1511,22 @@ void WebPushD::PushClientConnection::connectionClosed(WebPushD::PushClientConnec
   }
 }
 
-WTF::StringImpl *WebPushD::PushClientConnection::setPushAndNotificationsEnabledForOrigin(WebPushD::PushClientConnection *a1, atomic_uint **a2, char a3, uint64_t *a4)
+WTF::StringImpl *WebPushD::PushClientConnection::setPushAndNotificationsEnabledForOrigin(WTF::StringImpl *a1, atomic_uint **a2, uint64_t a3, uint64_t *a4)
 {
+  v6 = a3;
   v8 = a1;
   {
     v12 = a2;
     v13 = a4;
-    v11 = a3;
+    v11 = v6;
     WebPushD::WebPushDaemon::WebPushDaemon(&WebPushD::WebPushDaemon::singleton(void)::daemon);
     v8 = a1;
     a2 = v12;
     a4 = v13;
-    a3 = v11;
+    v6 = v11;
   }
 
-  return WebPushD::WebPushDaemon::setPushAndNotificationsEnabledForOrigin(&WebPushD::WebPushDaemon::singleton(void)::daemon, v8, a2, a3, a4);
+  return WebPushD::WebPushDaemon::setPushAndNotificationsEnabledForOrigin(&WebPushD::WebPushDaemon::singleton(void)::daemon, v8, a2, v6, a4);
 }
 
 WTF::StringImpl *WebPushD::PushClientConnection::injectPushMessageForTesting(uint64_t a1, uint64_t a2, WTF::RefCountedBase *a3)
@@ -1558,7 +1559,7 @@ uint64_t *WebPushD::PushClientConnection::injectEncryptedPushMessageForTesting(W
   return WebPushD::WebPushDaemon::injectEncryptedPushMessageForTesting(&WebPushD::WebPushDaemon::singleton(void)::daemon, v6, a2, a3);
 }
 
-WTF::StringImpl *WebPushD::PushClientConnection::getPendingPushMessage(uint64_t a1, uint64_t *a2)
+WTF::StringImpl *WebPushD::PushClientConnection::getPendingPushMessage(WTF **a1, uint64_t *a2)
 {
   v4 = a1;
   {
@@ -1635,7 +1636,7 @@ uint64_t WebPushD::PushClientConnection::getPushSubscription(const WTF::URL *a1,
   return WebPushD::WebPushDaemon::getPushSubscription(&WebPushD::WebPushDaemon::singleton(void)::daemon, v6, this, a3);
 }
 
-WTF::StringImpl *WebPushD::PushClientConnection::incrementSilentPushCount(WebPushD::PushClientConnection *this, WebCore::SecurityOriginData *a2, uint64_t *a3)
+WTF::StringImpl *WebPushD::PushClientConnection::incrementSilentPushCount(WebPushD::PushClientConnection *this, WebCore::SecurityOriginData *a2, WTF::StringImpl **a3)
 {
   v6 = this;
   {
@@ -1650,20 +1651,22 @@ WTF::StringImpl *WebPushD::PushClientConnection::incrementSilentPushCount(WebPus
   return WebPushD::WebPushDaemon::incrementSilentPushCount(&WebPushD::WebPushDaemon::singleton(void)::daemon, v6, a2, a3);
 }
 
-uint64_t WebPushD::PushClientConnection::removeAllPushSubscriptions(void *a1, uint64_t *a2)
+uint64_t *WebPushD::PushClientConnection::removeAllPushSubscriptions(void *a1, uint64_t *a2)
 {
   v4 = a1;
+  v5 = &dword_1EB01E000;
   {
-    v7 = a2;
+    v8 = a2;
     WebPushD::WebPushDaemon::WebPushDaemon(&WebPushD::WebPushDaemon::singleton(void)::daemon);
     v4 = a1;
-    a2 = v7;
+    a2 = v8;
+    v5 = 1;
   }
 
-  return WebPushD::WebPushDaemon::removeAllPushSubscriptions(&WebPushD::WebPushDaemon::singleton(void)::daemon, v4, a2);
+  return WebPushD::WebPushDaemon::removeAllPushSubscriptions(&WebPushD::WebPushDaemon::singleton(void)::daemon, v4, a2, v5);
 }
 
-WTF::StringImpl *WebPushD::PushClientConnection::removePushSubscriptionsForOrigin(WebPushD::PushClientConnection *this, WebCore::SecurityOriginData *a2, uint64_t *a3)
+WTF::StringImpl *WebPushD::PushClientConnection::removePushSubscriptionsForOrigin(WebPushD::PushClientConnection *this, WebCore::SecurityOriginData *a2, WTF::StringImpl **a3)
 {
   v6 = this;
   {
@@ -1708,7 +1711,7 @@ WTF::StringImpl *WebPushD::PushClientConnection::getPushPermissionState(WebPushD
   return WebPushD::WebPushDaemon::getPushPermissionState(&WebPushD::WebPushDaemon::singleton(void)::daemon, v6, a2, a3);
 }
 
-uint64_t *WebPushD::PushClientConnection::requestPushPermission(WebPushD::PushClientConnection *this, WebCore::SecurityOriginData *a2, WTF::RefCountedBase *a3)
+WTF::StringImpl *WebPushD::PushClientConnection::requestPushPermission(WebPushD::PushClientConnection *this, WebCore::SecurityOriginData *a2, WTF::RefCountedBase *a3)
 {
   v6 = this;
   {
@@ -1723,7 +1726,7 @@ uint64_t *WebPushD::PushClientConnection::requestPushPermission(WebPushD::PushCl
   return WebPushD::WebPushDaemon::requestPushPermission(&WebPushD::WebPushDaemon::singleton(void)::daemon, v6, a2, a3);
 }
 
-atomic_uint *WebPushD::PushClientConnection::showNotification(WebPushD::PushClientConnection *a1, uint64_t a2, atomic_uint **a3, uint64_t *a4)
+WTF *WebPushD::PushClientConnection::showNotification(WTF::StringImpl *a1, uint64_t a2, atomic_uint **a3, uint64_t *a4)
 {
   v4 = a4;
   v6 = a1;
@@ -1844,21 +1847,21 @@ uint64_t WebPushD::PushClientConnection::setProtocolVersionForTesting(uint64_t a
 
 uint64_t WebPushD::PushClientConnection::setServiceWorkerIsBeingInspected(uint64_t a1, WebCore::SecurityOriginData *this, char a3, uint64_t *a4)
 {
-  v17 = *MEMORY[0x1E69E9840];
-  v7 = WebCore::SecurityOriginData::fromURL(v14, this, this);
-  if (v16 != 1)
+  v18 = *MEMORY[0x1E69E9840];
+  v7 = WebCore::SecurityOriginData::fromURL(v15, this, this);
+  if (v17 != 1)
   {
-    if (v16)
+    if (v17)
     {
       mpark::throw_bad_variant_access(v7);
     }
 
-    if (v14[0] || v14[1] || (v15 & 1) != 0)
+    if (v15[0] || v15[1] || (v16 & 1) != 0)
     {
       if (a3)
       {
-        WTF::HashTable<WebCore::SecurityOriginData,WebCore::SecurityOriginData,WTF::IdentityExtractor,WTF::DefaultHash<WebCore::SecurityOriginData>,WTF::HashTraits<WebCore::SecurityOriginData>,WTF::HashTraits<WebCore::SecurityOriginData>,WTF::FastMalloc>::add<(WTF::ShouldValidateKey)1>(v14, (a1 + 88), v13);
-        if ((v13[16] & 1) == 0)
+        WTF::HashTable<WebCore::SecurityOriginData,WebCore::SecurityOriginData,WTF::IdentityExtractor,WTF::DefaultHash<WebCore::SecurityOriginData>,WTF::HashTraits<WebCore::SecurityOriginData>,WTF::HashTraits<WebCore::SecurityOriginData>,WTF::FastMalloc>::add<(WTF::ShouldValidateKey)1>(&v13, v15, (a1 + 88));
+        if ((v14 & 1) == 0)
         {
           goto LABEL_21;
         }
@@ -1868,7 +1871,7 @@ LABEL_18:
           WebPushD::WebPushDaemon::WebPushDaemon(&WebPushD::WebPushDaemon::singleton(void)::daemon);
         }
 
-        WebPushD::WebPushDaemon::setServiceWorkerOriginIsBeingInspected(&WebPushD::WebPushDaemon::singleton(void)::daemon, v14, a3);
+        WebPushD::WebPushDaemon::setServiceWorkerOriginIsBeingInspected(&WebPushD::WebPushDaemon::singleton(void)::daemon, v15, a3);
         goto LABEL_21;
       }
 
@@ -1876,7 +1879,7 @@ LABEL_18:
       v8 = (a1 + 88);
       if (v9)
       {
-        v10 = WTF::HashTable<WebCore::SecurityOriginData,WebCore::SecurityOriginData,WTF::IdentityExtractor,WTF::DefaultHash<WebCore::SecurityOriginData>,WTF::HashTraits<WebCore::SecurityOriginData>,WTF::HashTraits<WebCore::SecurityOriginData>,WTF::FastMalloc>::lookup<WTF::IdentityHashTranslator<WTF::HashTraits<WebCore::SecurityOriginData>,WTF::DefaultHash<WebCore::SecurityOriginData>>,(WTF::ShouldValidateKey)1,WebCore::SecurityOriginData>(v8, v14);
+        v10 = WTF::HashTable<WebCore::SecurityOriginData,WebCore::SecurityOriginData,WTF::IdentityExtractor,WTF::DefaultHash<WebCore::SecurityOriginData>,WTF::HashTraits<WebCore::SecurityOriginData>,WTF::HashTraits<WebCore::SecurityOriginData>,WTF::FastMalloc>::lookup<WTF::IdentityHashTranslator<WTF::HashTraits<WebCore::SecurityOriginData>,WTF::DefaultHash<WebCore::SecurityOriginData>>,(WTF::ShouldValidateKey)1,WebCore::SecurityOriginData>(v8, v15);
         v11 = *v8;
         if (v10)
         {
@@ -1914,12 +1917,12 @@ LABEL_21:
     }
   }
 
-  return mpark::detail::move_constructor<mpark::detail::traits<WebCore::SecurityOriginData::Tuple,WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::OpaqueOriginIdentifierType,WTF::ObjectIdentifierThreadSafeAccessTraits<unsigned long long>,unsigned long long>>>,(mpark::detail::Trait)1>::~move_constructor(v14);
+  return mpark::detail::move_constructor<mpark::detail::traits<WebCore::SecurityOriginData::Tuple,WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::OpaqueOriginIdentifierType,WTF::ObjectIdentifierThreadSafeAccessTraits<unsigned long long>,unsigned long long>>>,(mpark::detail::Trait)1>::~move_constructor(v15);
 }
 
-void sub_19D8BFF08(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_19D8BFF08(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   mpark::detail::move_constructor<mpark::detail::traits<WebCore::SecurityOriginData::Tuple,WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::OpaqueOriginIdentifierType,WTF::ObjectIdentifierThreadSafeAccessTraits<unsigned long long>,unsigned long long>>>,(mpark::detail::Trait)1>::~move_constructor(va);
   _Unwind_Resume(a1);
 }
@@ -1948,7 +1951,7 @@ uint64_t WTF::ThreadSafeRefCounted<WebCore::NotificationResources,(WTF::Destruct
     {
       if (v5[4] == 1)
       {
-        (*(*v5 + 8))(v5);
+        (*(*v5 + 8))(v5, a2);
       }
 
       else
@@ -1963,7 +1966,7 @@ uint64_t WTF::ThreadSafeRefCounted<WebCore::NotificationResources,(WTF::Destruct
   return this;
 }
 
-_BYTE *WTF::HashTable<WebCore::SecurityOriginData,WebCore::SecurityOriginData,WTF::IdentityExtractor,WTF::DefaultHash<WebCore::SecurityOriginData>,WTF::HashTraits<WebCore::SecurityOriginData>,WTF::HashTraits<WebCore::SecurityOriginData>,WTF::FastMalloc>::remove(uint64_t *a1, uint64_t a2)
+_BYTE *WTF::HashTable<WebCore::SecurityOriginData,WebCore::SecurityOriginData,WTF::IdentityExtractor,WTF::DefaultHash<WebCore::SecurityOriginData>,WTF::HashTraits<WebCore::SecurityOriginData>,WTF::HashTraits<WebCore::SecurityOriginData>,WTF::FastMalloc>::remove(uint64_t **a1, uint64_t a2)
 {
   result = mpark::detail::move_constructor<mpark::detail::traits<WebCore::SecurityOriginData::Tuple,WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::OpaqueOriginIdentifierType,WTF::ObjectIdentifierThreadSafeAccessTraits<unsigned long long>,unsigned long long>>>,(mpark::detail::Trait)1>::~move_constructor(a2);
   *a2 = -1;
@@ -1971,9 +1974,9 @@ _BYTE *WTF::HashTable<WebCore::SecurityOriginData,WebCore::SecurityOriginData,WT
   *(a2 + 16) = 0;
   *(a2 + 24) = 0;
   v5 = *a1;
-  v6 = vadd_s32(*(*a1 - 16), 0xFFFFFFFF00000001);
-  *(v5 - 16) = v6;
-  v7 = *(v5 - 4);
+  v6 = vadd_s32(*(*a1 - 2), 0xFFFFFFFF00000001);
+  *(v5 - 2) = v6;
+  v7 = *(v5 - 1);
   if (6 * v6.i32[1] < v7 && v7 >= 9)
   {
 
@@ -2058,6 +2061,163 @@ LABEL_11:
   }
 
   return 0;
+}
+
+uint64_t *WTF::HashTable<WebCore::SecurityOriginData,WebCore::SecurityOriginData,WTF::IdentityExtractor,WTF::DefaultHash<WebCore::SecurityOriginData>,WTF::HashTraits<WebCore::SecurityOriginData>,WTF::HashTraits<WebCore::SecurityOriginData>,WTF::FastMalloc>::add<(WTF::ShouldValidateKey)1>@<X0>(uint64_t **__return_ptr a1@<X8>, WebCore::SecurityOriginData *this@<X1>, uint64_t **a3@<X0>)
+{
+  v22 = this;
+  isNull = WebCore::SecurityOriginData::isNull(this);
+  if (isNull)
+  {
+    __break(0xC471u);
+    JUMPOUT(0x19D8C041CLL);
+  }
+
+  if (*(this + 24))
+  {
+    if (*(this + 24) != 1)
+    {
+LABEL_32:
+      mpark::throw_bad_variant_access(isNull);
+    }
+  }
+
+  else if (*this == -1)
+  {
+    __break(0xC471u);
+    JUMPOUT(0x19D8C043CLL);
+  }
+
+  v7 = *a3;
+  if (*a3 || (WTF::HashTable<WebCore::SecurityOriginData,WebCore::SecurityOriginData,WTF::IdentityExtractor,WTF::DefaultHash<WebCore::SecurityOriginData>,WTF::HashTraits<WebCore::SecurityOriginData>,WTF::HashTraits<WebCore::SecurityOriginData>,WTF::FastMalloc>::expand(a3, 0), (v7 = *a3) != 0))
+  {
+    v8 = *(v7 - 2);
+  }
+
+  else
+  {
+    v8 = 0;
+  }
+
+  v23 = -1640531527;
+  v24 = 0;
+  v25 = 0;
+  WTF::add<WebCore::SecurityOriginData::Tuple,WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::OpaqueOriginIdentifierType,WTF::ObjectIdentifierThreadSafeAccessTraits<unsigned long long>,unsigned long long>>>(&v23, this);
+  v9 = WTF::SuperFastHash::hash(&v23) & v8;
+  v10 = &v7[4 * v9];
+  isNull = WebCore::SecurityOriginData::isNull(v10);
+  if ((isNull & 1) == 0)
+  {
+    v11 = 0;
+    v12 = 1;
+    while (!*(v10 + 24))
+    {
+      if (*v10 != -1)
+      {
+        goto LABEL_11;
+      }
+
+      v11 = v10;
+LABEL_18:
+      v9 = (v9 + v12) & v8;
+      v10 = &v7[4 * v9];
+      isNull = WebCore::SecurityOriginData::isNull(v10);
+      ++v12;
+      if (isNull)
+      {
+        if (v11)
+        {
+          *v11 = 0u;
+          *(v11 + 1) = 0u;
+          --*(*a3 - 4);
+          v10 = v11;
+        }
+
+        goto LABEL_21;
+      }
+    }
+
+    if (*(v10 + 24) != 1)
+    {
+      goto LABEL_32;
+    }
+
+LABEL_11:
+    result = WebCore::operator==();
+    if (result)
+    {
+      v14 = *a3;
+      if (*a3)
+      {
+        v15 = *(v14 - 1);
+      }
+
+      else
+      {
+        v15 = 0;
+      }
+
+      v16 = 0;
+      v17 = &v14[4 * v15];
+      goto LABEL_15;
+    }
+
+    goto LABEL_18;
+  }
+
+LABEL_21:
+  result = WTF::IdentityHashTranslator<WTF::HashTraits<WebCore::SecurityOriginData>,WTF::DefaultHash<WebCore::SecurityOriginData>>::translate<WebCore::SecurityOriginData,WebCore::SecurityOriginData,WTF::HashTableAddResult<WTF::HashTableIterator<WTF::HashTable<WebCore::SecurityOriginData,WebCore::SecurityOriginData,WTF::IdentityExtractor,WTF::DefaultHash<WebCore::SecurityOriginData>,WTF::HashTraits<WebCore::SecurityOriginData>,WTF::HashTraits<WebCore::SecurityOriginData>,WTF::FastMalloc>,WebCore::SecurityOriginData,WebCore::SecurityOriginData,WTF::IdentityExtractor,WTF::DefaultHash<WebCore::SecurityOriginData>,WTF::HashTraits<WebCore::SecurityOriginData>,WTF::HashTraits<WebCore::SecurityOriginData>>> WTF::HashTable<WebCore::SecurityOriginData,WebCore::SecurityOriginData,WTF::IdentityExtractor,WTF::DefaultHash<WebCore::SecurityOriginData>,WTF::HashTraits<WebCore::SecurityOriginData>,WTF::HashTraits<WebCore::SecurityOriginData>,WTF::FastMalloc>::add<(WTF::ShouldValidateKey)1>(WebCore::SecurityOriginData const&)::{lambda(void)#1}>(v10, this, &v22);
+  v18 = *a3;
+  if (*a3)
+  {
+    v19 = *(v18 - 3) + 1;
+  }
+
+  else
+  {
+    v19 = 1;
+  }
+
+  *(v18 - 3) = v19;
+  v20 = (*(v18 - 4) + v19);
+  v21 = *(v18 - 1);
+  if (v21 > 0x400)
+  {
+    if (v21 > 2 * v20)
+    {
+      goto LABEL_25;
+    }
+
+LABEL_28:
+    result = WTF::HashTable<WebCore::SecurityOriginData,WebCore::SecurityOriginData,WTF::IdentityExtractor,WTF::DefaultHash<WebCore::SecurityOriginData>,WTF::HashTraits<WebCore::SecurityOriginData>,WTF::HashTraits<WebCore::SecurityOriginData>,WTF::FastMalloc>::expand(a3, v10);
+    v10 = result;
+    v18 = *a3;
+    if (*a3)
+    {
+      v21 = *(v18 - 1);
+    }
+
+    else
+    {
+      v21 = 0;
+    }
+
+    goto LABEL_25;
+  }
+
+  if (3 * v21 <= 4 * v20)
+  {
+    goto LABEL_28;
+  }
+
+LABEL_25:
+  v17 = &v18[4 * v21];
+  v16 = 1;
+LABEL_15:
+  *a1 = v10;
+  a1[1] = v17;
+  *(a1 + 16) = v16;
+  return result;
 }
 
 uint64_t WTF::IdentityHashTranslator<WTF::HashTraits<WebCore::SecurityOriginData>,WTF::DefaultHash<WebCore::SecurityOriginData>>::translate<WebCore::SecurityOriginData,WebCore::SecurityOriginData,WTF::HashTableAddResult<WTF::HashTableIterator<WTF::HashTable<WebCore::SecurityOriginData,WebCore::SecurityOriginData,WTF::IdentityExtractor,WTF::DefaultHash<WebCore::SecurityOriginData>,WTF::HashTraits<WebCore::SecurityOriginData>,WTF::HashTraits<WebCore::SecurityOriginData>,WTF::FastMalloc>,WebCore::SecurityOriginData,WebCore::SecurityOriginData,WTF::IdentityExtractor,WTF::DefaultHash<WebCore::SecurityOriginData>,WTF::HashTraits<WebCore::SecurityOriginData>,WTF::HashTraits<WebCore::SecurityOriginData>>> WTF::HashTable<WebCore::SecurityOriginData,WebCore::SecurityOriginData,WTF::IdentityExtractor,WTF::DefaultHash<WebCore::SecurityOriginData>,WTF::HashTraits<WebCore::SecurityOriginData>,WTF::HashTraits<WebCore::SecurityOriginData>,WTF::FastMalloc>::add<(WTF::ShouldValidateKey)1>(WebCore::SecurityOriginData const&)::{lambda(void)#1}>(uint64_t a1, WTF::StringImpl *a2, __int128 **a3)
@@ -2170,9 +2330,9 @@ LABEL_25:
   return mpark::detail::move_constructor<mpark::detail::traits<WebCore::SecurityOriginData::Tuple,WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::OpaqueOriginIdentifierType,WTF::ObjectIdentifierThreadSafeAccessTraits<unsigned long long>,unsigned long long>>>,(mpark::detail::Trait)1>::~move_constructor(&v15);
 }
 
-void sub_19D8C061C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_19D8C061C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   mpark::detail::move_constructor<mpark::detail::traits<WebCore::SecurityOriginData::Tuple,WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::OpaqueOriginIdentifierType,WTF::ObjectIdentifierThreadSafeAccessTraits<unsigned long long>,unsigned long long>>>,(mpark::detail::Trait)1>::~move_constructor(va);
   _Unwind_Resume(a1);
 }
@@ -2182,29 +2342,29 @@ uint64_t WebPushD::PushService::create(atomic_uint **a1, atomic_uint **a2, uint6
   v8 = os_transaction_create();
   v9 = WebPushD::PushServiceConnection::operatorNewSlow(0x80);
   WebPushD::ApplePushServiceConnection::ApplePushServiceConnection(v9, a1);
-  v10 = *a2;
-  if (v10)
+  v11 = *a2;
+  if (v11)
   {
-    atomic_fetch_add_explicit(v10, 2u, memory_order_relaxed);
+    add_explicit = atomic_fetch_add_explicit(v11, 2u, memory_order_relaxed);
   }
 
-  v11 = *a3;
+  v12 = *a3;
   *a3 = 0;
-  v12 = *a4;
+  v13 = *a4;
   *a4 = 0;
-  v13 = WTF::fastMalloc(0x30);
-  *v13 = &unk_1F10EA850;
-  if (v10)
+  v14 = WTF::fastMalloc(add_explicit, 0x30);
+  *v14 = &unk_1F10EA850;
+  if (v11)
   {
-    atomic_fetch_add_explicit(v10, 2u, memory_order_relaxed);
+    atomic_fetch_add_explicit(v11, 2u, memory_order_relaxed);
   }
 
-  *(v13 + 1) = v10;
-  *(v13 + 2) = v8;
-  *(v13 + 3) = v9;
-  *(v13 + 4) = v11;
-  *(v13 + 5) = v12;
-  v38 = v13;
+  v14[1] = v11;
+  v14[2] = v8;
+  v14[3] = v9;
+  v14[4] = v12;
+  v14[5] = v13;
+  v39 = v14;
   if ((_MergedGlobals_55 & 1) == 0)
   {
     qword_1ED641BC8 = 0;
@@ -2212,8 +2372,8 @@ uint64_t WebPushD::PushService::create(atomic_uint **a1, atomic_uint **a2, uint6
     _MergedGlobals_55 = 1;
   }
 
-  v14 = WTF::RunLoop::mainSingleton(v13);
-  if ((WTF::RunLoop::isCurrent(v14) & 1) == 0)
+  v15 = WTF::RunLoop::mainSingleton(v14);
+  if ((WTF::RunLoop::isCurrent(v15) & 1) == 0)
   {
     result = 86;
     __break(0xC471u);
@@ -2222,49 +2382,49 @@ uint64_t WebPushD::PushService::create(atomic_uint **a1, atomic_uint **a2, uint6
 
   if (MKBDeviceUnlockedSinceBoot() == 1)
   {
-    v15 = dword_1ED641BD4;
+    v16 = dword_1ED641BD4;
     if (dword_1ED641BD4 == dword_1ED641BD0)
     {
-      v18 = WTF::Vector<WTF::Function<void ()(void)>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::expandCapacity<(WTF::FailureAction)0>(&qword_1ED641BC8, dword_1ED641BD4 + 1, &v38);
-      v15 = dword_1ED641BD4;
-      v16 = qword_1ED641BC8;
-      v17 = (qword_1ED641BC8 + 8 * dword_1ED641BD4);
+      v19 = WTF::Vector<WTF::Function<void ()(void)>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::expandCapacity<(WTF::FailureAction)0>(&qword_1ED641BC8, dword_1ED641BD4 + 1, &v39);
+      v16 = dword_1ED641BD4;
+      v17 = qword_1ED641BC8;
+      v18 = (qword_1ED641BC8 + 8 * dword_1ED641BD4);
     }
 
     else
     {
-      v16 = qword_1ED641BC8;
-      v17 = (qword_1ED641BC8 + 8 * dword_1ED641BD4);
-      v18 = &v38;
+      v17 = qword_1ED641BC8;
+      v18 = (qword_1ED641BC8 + 8 * dword_1ED641BD4);
+      v19 = &v39;
     }
 
-    v24 = *v18;
-    *v18 = 0;
-    *v17 = v24;
-    v25 = v15 + 1;
-    dword_1ED641BD4 = v15 + 1;
-    v26 = qword_1ED6410A8;
-    v27 = os_log_type_enabled(qword_1ED6410A8, OS_LOG_TYPE_DEFAULT);
-    if (v27)
+    v25 = *v19;
+    *v19 = 0;
+    *v18 = v25;
+    v26 = v16 + 1;
+    dword_1ED641BD4 = v16 + 1;
+    v27 = qword_1ED6410A8;
+    v28 = os_log_type_enabled(qword_1ED6410A8, OS_LOG_TYPE_DEFAULT);
+    if (v28)
     {
       *buf = 0;
-      _os_log_impl(&dword_19D52D000, v26, OS_LOG_TYPE_DEFAULT, "Device has unlocked. Running initialization.", buf, 2u);
-      v16 = qword_1ED641BC8;
-      v25 = dword_1ED641BD4;
+      _os_log_impl(&dword_19D52D000, v27, OS_LOG_TYPE_DEFAULT, "Device has unlocked. Running initialization.", buf, 2u);
+      v17 = qword_1ED641BC8;
+      v26 = dword_1ED641BD4;
     }
 
-    if (v25)
+    if (v26)
     {
-      v28 = 8 * v25;
+      v29 = 8 * v26;
       do
       {
-        v29 = WTF::WorkQueue::mainSingleton(v27);
-        v27 = (*(*v29 + 48))(v29, v16);
-        v16 += 8;
-        v28 -= 8;
+        v30 = WTF::WorkQueue::mainSingleton(v28);
+        v28 = (*(*v30 + 48))(v30, v17);
+        v17 += 8;
+        v29 -= 8;
       }
 
-      while (v28);
+      while (v29);
     }
 
 LABEL_31:
@@ -2278,89 +2438,89 @@ LABEL_31:
     goto LABEL_33;
   }
 
-  v19 = qword_1ED6410A8;
+  v20 = qword_1ED6410A8;
   if (os_log_type_enabled(qword_1ED6410A8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_19D52D000, v19, OS_LOG_TYPE_DEFAULT, "Device is locked. Delaying init until it unlocks for the first time.", buf, 2u);
+    _os_log_impl(&dword_19D52D000, v20, OS_LOG_TYPE_DEFAULT, "Device is locked. Delaying init until it unlocks for the first time.", buf, 2u);
   }
 
   if (WebPushD::performAfterFirstUnlock(WTF::Function<void ()(void)> &&)::notifyToken == -1)
   {
-    v20 = *MEMORY[0x1E69B1A70];
+    v21 = *MEMORY[0x1E69B1A70];
     *buf = MEMORY[0x1E69E9820];
-    v40 = 3221225472;
-    v41 = ___ZN8WebPushDL23performAfterFirstUnlockEON3WTF8FunctionIFvvEEE_block_invoke;
-    v42 = &__block_descriptor_33_e8_v12__0i8l;
-    notify_register_dispatch(v20, &WebPushD::performAfterFirstUnlock(WTF::Function<void ()(void)> &&)::notifyToken, MEMORY[0x1E69E96A0], buf);
+    v41 = 3221225472;
+    v42 = ___ZN8WebPushDL23performAfterFirstUnlockEON3WTF8FunctionIFvvEEE_block_invoke;
+    v43 = &__block_descriptor_33_e8_v12__0i8l;
+    notify_register_dispatch(v21, &WebPushD::performAfterFirstUnlock(WTF::Function<void ()(void)> &&)::notifyToken, MEMORY[0x1E69E96A0], buf);
   }
 
-  v21 = dword_1ED641BD4;
+  v22 = dword_1ED641BD4;
   if (dword_1ED641BD4 == dword_1ED641BD0)
   {
-    v23 = WTF::Vector<WTF::Function<void ()(void)>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::expandCapacity<(WTF::FailureAction)0>(&qword_1ED641BC8, dword_1ED641BD4 + 1, &v38);
-    v21 = dword_1ED641BD4;
-    v22 = (qword_1ED641BC8 + 8 * dword_1ED641BD4);
+    v24 = WTF::Vector<WTF::Function<void ()(void)>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::expandCapacity<(WTF::FailureAction)0>(&qword_1ED641BC8, dword_1ED641BD4 + 1, &v39);
+    v22 = dword_1ED641BD4;
+    v23 = (qword_1ED641BC8 + 8 * dword_1ED641BD4);
   }
 
   else
   {
-    v22 = (qword_1ED641BC8 + 8 * dword_1ED641BD4);
-    v23 = &v38;
+    v23 = (qword_1ED641BC8 + 8 * dword_1ED641BD4);
+    v24 = &v39;
   }
 
-  v30 = *v23;
-  *v23 = 0;
-  *v22 = v30;
-  dword_1ED641BD4 = v21 + 1;
+  v31 = *v24;
+  *v24 = 0;
+  *v23 = v31;
+  dword_1ED641BD4 = v22 + 1;
   if (MKBDeviceUnlockedSinceBoot() == 1)
   {
-    v32 = qword_1ED6410A8;
-    v33 = os_log_type_enabled(qword_1ED6410A8, OS_LOG_TYPE_DEFAULT);
-    if (v33)
+    v33 = qword_1ED6410A8;
+    v34 = os_log_type_enabled(qword_1ED6410A8, OS_LOG_TYPE_DEFAULT);
+    if (v34)
     {
-      *v43 = 0;
-      _os_log_impl(&dword_19D52D000, v32, OS_LOG_TYPE_DEFAULT, "Device has unlocked. Running initialization.", v43, 2u);
+      *v44 = 0;
+      _os_log_impl(&dword_19D52D000, v33, OS_LOG_TYPE_DEFAULT, "Device has unlocked. Running initialization.", v44, 2u);
     }
 
     if (dword_1ED641BD4)
     {
-      v34 = qword_1ED641BC8;
-      v35 = 8 * dword_1ED641BD4;
+      v35 = qword_1ED641BC8;
+      v36 = 8 * dword_1ED641BD4;
       do
       {
-        v36 = WTF::WorkQueue::mainSingleton(v33);
-        v33 = (*(*v36 + 48))(v36, v34);
-        v34 += 8;
-        v35 -= 8;
+        v37 = WTF::WorkQueue::mainSingleton(v34);
+        v34 = (*(*v37 + 48))(v37, v35);
+        v35 += 8;
+        v36 -= 8;
       }
 
-      while (v35);
+      while (v36);
     }
 
     goto LABEL_31;
   }
 
 LABEL_33:
-  result = v38;
-  v38 = 0;
+  result = v39;
+  v39 = 0;
   if (result)
   {
     result = (*(*result + 8))(result);
-    if (!v10)
+    if (!v11)
     {
       return result;
     }
   }
 
-  else if (!v10)
+  else if (!v11)
   {
     return result;
   }
 
-  if (atomic_fetch_add_explicit(v10, 0xFFFFFFFE, memory_order_relaxed) == 2)
+  if (atomic_fetch_add_explicit(v11, 0xFFFFFFFE, memory_order_relaxed) == 2)
   {
-    return WTF::StringImpl::destroy(v10, v31);
+    return WTF::StringImpl::destroy(v11, v32);
   }
 
   return result;
@@ -2370,7 +2530,7 @@ void sub_19D8C0AAC(_Unwind_Exception *a1, WTF::StringImpl *a2)
 {
   if (v6)
   {
-    (*(*v6 + 8))(v6);
+    (*(*v6 + 8))(v6, a2);
     if (!v5)
     {
 LABEL_3:
@@ -2388,7 +2548,7 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  (*(*v5 + 8))(v5);
+  (*(*v5 + 8))(v5, a2);
   if (!v4)
   {
 LABEL_4:
@@ -2423,7 +2583,7 @@ LABEL_16:
 LABEL_8:
   if (v4[4] == 1)
   {
-    (*(*v4 + 8))(v4);
+    (*(*v4 + 8))(v4, a2);
     if (!v3)
     {
       goto LABEL_13;
@@ -2442,41 +2602,41 @@ LABEL_8:
   goto LABEL_10;
 }
 
-uint64_t WebPushD::PushService::createMockService(uint64_t *a1, uint64_t *a2)
+WTF::StringImpl *WebPushD::PushService::createMockService(uint64_t *a1, uint64_t *a2)
 {
   WTF::StringImpl::createWithoutCopyingNonEmpty();
   v4 = *a1;
   *a1 = 0;
   v5 = *a2;
   *a2 = 0;
-  v6 = WTF::fastMalloc(0x18);
-  *v6 = &unk_1F10EA8C8;
-  v6[1] = v4;
-  v6[2] = v5;
-  v9 = v6;
+  v7 = WTF::fastMalloc(v6, 0x18);
+  *v7 = &unk_1F10EA8C8;
+  v7[1] = v4;
+  v7[2] = v5;
+  v10 = v7;
   WebCore::PushDatabase::create();
-  if (v9)
-  {
-    (*(*v9 + 8))(v9);
-  }
-
-  result = v10;
   if (v10)
   {
-    if (atomic_fetch_add_explicit(v10, 0xFFFFFFFE, memory_order_relaxed) == 2)
+    (*(*v10 + 8))(v10);
+  }
+
+  result = v11;
+  if (v11)
+  {
+    if (atomic_fetch_add_explicit(v11, 0xFFFFFFFE, memory_order_relaxed) == 2)
     {
-      return WTF::StringImpl::destroy(v10, v7);
+      return WTF::StringImpl::destroy(v11, v8);
     }
   }
 
   return result;
 }
 
-void sub_19D8C0CD4(_Unwind_Exception *exception_object, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, WTF::StringImpl *a10)
+void sub_19D8C0CD4(_Unwind_Exception *exception_object, WTF::StringImpl *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, WTF::StringImpl *a10)
 {
   if (a9)
   {
-    (*(*a9 + 8))(a9);
+    (*(*a9 + 8))(a9, a2, a3, a4, a5, a6, a7, a8);
   }
 
   if (a10)
@@ -2490,7 +2650,7 @@ void sub_19D8C0CD4(_Unwind_Exception *exception_object, WTF::StringImpl *a2, int
   _Unwind_Resume(exception_object);
 }
 
-uint64_t WebPushD::PushService::PushService(uint64_t a1, uint64_t *a2, uint64_t *a3, uint64_t *a4)
+uint64_t WebPushD::PushService::PushService(unint64_t a1, uint64_t *a2, uint64_t *a3, uint64_t *a4)
 {
   *a1 = 0;
   v4 = *a2;
@@ -2511,8 +2671,7 @@ uint64_t WebPushD::PushService::PushService(uint64_t a1, uint64_t *a2, uint64_t 
     ++v8[4];
     WTF::WeakPtrFactory<WebPushD::PushServiceConnection,WTF::DefaultWeakPtrImpl>::initializeIfNeeded(a1, a1);
     v9 = *a1;
-    atomic_fetch_add(*a1, 1u);
-    v10 = WTF::fastMalloc(0x10);
+    v10 = WTF::fastMalloc(atomic_fetch_add(*a1, 1u), 0x10);
     *v10 = &unk_1F10EA8F0;
     v10[1] = v9;
     v15 = v10;
@@ -2524,8 +2683,7 @@ uint64_t WebPushD::PushService::PushService(uint64_t a1, uint64_t *a2, uint64_t 
 
     WTF::WeakPtrFactory<WebPushD::PushServiceConnection,WTF::DefaultWeakPtrImpl>::initializeIfNeeded(a1, a1);
     v11 = *a1;
-    atomic_fetch_add(*a1, 1u);
-    v12 = WTF::fastMalloc(0x10);
+    v12 = WTF::fastMalloc(atomic_fetch_add(*a1, 1u), 0x10);
     *v12 = &unk_1F10EA918;
     v12[1] = v11;
     v15 = v12;
@@ -2559,16 +2717,16 @@ uint64_t WebPushD::PushService::PushService(uint64_t a1, uint64_t *a2, uint64_t 
   return result;
 }
 
-void sub_19D8C0F60(_Unwind_Exception *a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
+void sub_19D8C0F60(_Unwind_Exception *a1, WTF::StringImpl *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
 {
   if (a10)
   {
-    (*(*a10 + 8))(a10);
+    (*(*a10 + 8))(a10, a2, a3, a4, a5, a6, a7, a8);
   }
 
   if (v11[4] == 1)
   {
-    (*(*v11 + 8))(v11);
+    (*(*v11 + 8))(v11, a2, a3, a4, a5, a6, a7, a8);
   }
 
   else
@@ -2597,7 +2755,7 @@ void sub_19D8C0F60(_Unwind_Exception *a1, void *a2, uint64_t a3, uint64_t a4, ui
   *(v10 + 32) = 0;
   if (v16)
   {
-    (*(*v16 + 8))(v16);
+    (*(*v16 + 8))(v16, a2, a3, a4, a5, a6, a7, a8);
   }
 
   v17 = *(v10 + 24);
@@ -2613,7 +2771,7 @@ void sub_19D8C0F60(_Unwind_Exception *a1, void *a2, uint64_t a3, uint64_t a4, ui
   {
     if (v18[4] == 1)
     {
-      (*(*v18 + 8))(v18);
+      (*(*v18 + 8))(v18, a2, a3, a4, a5, a6, a7, a8);
     }
 
     else
@@ -2631,7 +2789,7 @@ void sub_19D8C0F60(_Unwind_Exception *a1, void *a2, uint64_t a3, uint64_t a4, ui
   __break(0xC471u);
 }
 
-void WebPushD::PushService::~PushService(WebPushD::PushService *this, void *a2)
+void WebPushD::PushService::~PushService(WebPushD::PushService *this, WTF::StringImpl *a2)
 {
   v3 = *(this + 7);
   if (v3)
@@ -2655,7 +2813,7 @@ void WebPushD::PushService::~PushService(WebPushD::PushService *this, void *a2)
   *(this + 4) = 0;
   if (v6)
   {
-    (*(*v6 + 8))(v6);
+    (*(*v6 + 8))(v6, a2);
   }
 
   v7 = *(this + 3);
@@ -2671,7 +2829,7 @@ void WebPushD::PushService::~PushService(WebPushD::PushService *this, void *a2)
   {
     if (v8[4] == 1)
     {
-      (*(*v8 + 8))(v8);
+      (*(*v8 + 8))(v8, a2);
     }
 
     else
@@ -2718,8 +2876,7 @@ uint64_t WebPushD::GetSubscriptionRequest::startInternal(WebPushD::GetSubscripti
     ++*(v1 + 8);
     WTF::WeakPtrFactory<WebPushD::PushServiceConnection,WTF::DefaultWeakPtrImpl>::initializeIfNeeded(this + 2, this);
     v3 = *(this + 1);
-    atomic_fetch_add(v3, 1u);
-    v4 = WTF::fastMalloc(0x10);
+    v4 = WTF::fastMalloc(atomic_fetch_add(v3, 1u), 0x10);
     *v4 = &unk_1F10EA968;
     v4[1] = v3;
     v6 = v4;
@@ -2745,7 +2902,7 @@ void sub_19D8C13B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 {
   if (a10)
   {
-    (*(*a10 + 8))(a10);
+    (*(*a10 + 8))(a10, a2, a3, a4, a5, a6, a7, a8);
   }
 
   WTF::RefCounted<WebCore::PushDatabase>::deref(v10);
@@ -2770,7 +2927,7 @@ void WebPushD::PushServiceRequestImpl<WebCore::PushSubscriptionData>::~PushServi
   WebPushD::PushServiceRequest::~PushServiceRequest(this, a2);
 }
 
-uint64_t WebPushD::SubscribeRequest::startImpl(uint64_t a1, char a2)
+uint64_t WebPushD::SubscribeRequest::startImpl(unint64_t a1, char a2)
 {
   v2 = *(*(a1 + 80) + 8);
   if (v2)
@@ -2778,10 +2935,9 @@ uint64_t WebPushD::SubscribeRequest::startImpl(uint64_t a1, char a2)
     ++*(v2 + 8);
     WTF::WeakPtrFactory<WebPushD::PushServiceConnection,WTF::DefaultWeakPtrImpl>::initializeIfNeeded((a1 + 8), a1);
     v5 = *(a1 + 8);
-    atomic_fetch_add(v5, 1u);
-    v6 = WTF::fastMalloc(0x18);
+    v6 = WTF::fastMalloc(atomic_fetch_add(v5, 1u), 0x18);
     *v6 = &unk_1F10EA990;
-    *(v6 + 8) = v5;
+    v6[1] = v5;
     *(v6 + 16) = a2;
     v8 = v6;
     WebCore::PushDatabase::getRecordBySubscriptionSetAndScope();
@@ -2806,7 +2962,7 @@ void sub_19D8C15C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 {
   if (a10)
   {
-    (*(*a10 + 8))(a10);
+    (*(*a10 + 8))(a10, a2, a3, a4, a5, a6, a7, a8);
   }
 
   WTF::RefCounted<WebCore::PushDatabase>::deref(v10);
@@ -2839,8 +2995,7 @@ uint64_t WebPushD::UnsubscribeRequest::startInternal(WebPushD::UnsubscribeReques
     ++*(v1 + 8);
     WTF::WeakPtrFactory<WebPushD::PushServiceConnection,WTF::DefaultWeakPtrImpl>::initializeIfNeeded(this + 2, this);
     v3 = *(this + 1);
-    atomic_fetch_add(v3, 1u);
-    v4 = WTF::fastMalloc(0x10);
+    v4 = WTF::fastMalloc(atomic_fetch_add(v3, 1u), 0x10);
     *v4 = &unk_1F10EAA80;
     v4[1] = v3;
     v6 = v4;
@@ -2866,217 +3021,217 @@ void sub_19D8C17B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 {
   if (a10)
   {
-    (*(*a10 + 8))(a10);
+    (*(*a10 + 8))(a10, a2, a3, a4, a5, a6, a7, a8);
   }
 
   WTF::RefCounted<WebCore::PushDatabase>::deref(v10);
   _Unwind_Resume(a1);
 }
 
-uint64_t WebPushD::PushService::enqueuePushServiceRequest(uint64_t *a1, void *a2)
+uint64_t WebPushD::PushService::enqueuePushServiceRequest(uint64_t **a1, void *a2, const WTF::String *a3)
 {
-  v52 = *MEMORY[0x1E69E9840];
+  v53 = *MEMORY[0x1E69E9840];
   WebCore::makePushTopic();
-  if (v49 == -1)
+  if (v50 == -1)
   {
     __break(0xC471u);
     goto LABEL_76;
   }
 
-  if (!v49)
+  if (!v50)
   {
     __break(0xC471u);
     JUMPOUT(0x19D8C1CB8);
   }
 
-  v6 = *a1;
-  if (*a1 || (WTF::HashTable<WTF::String,WTF::KeyValuePair<WTF::String,WTF::Deque<WTF::Ref<WebPushD::PushServiceRequest,WTF::RawPtrTraits<WebPushD::PushServiceRequest>,WTF::DefaultRefDerefTraits<WebPushD::PushServiceRequest>>,0ul>>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<WTF::String,WTF::Deque<WTF::Ref<WebPushD::PushServiceRequest,WTF::RawPtrTraits<WebPushD::PushServiceRequest>,WTF::DefaultRefDerefTraits<WebPushD::PushServiceRequest>>,0ul>>>,WTF::DefaultHash<WTF::String>,WTF::HashMap<WTF::String,WTF::Deque<WTF::Ref<WebPushD::PushServiceRequest,WTF::RawPtrTraits<WebPushD::PushServiceRequest>,WTF::DefaultRefDerefTraits<WebPushD::PushServiceRequest>>,0ul>,WTF::DefaultHash<WTF::String>,WTF::HashTraits<WTF::String>,WTF::HashTraits<WTF::Deque<WTF::Ref<WebPushD::PushServiceRequest,WTF::RawPtrTraits<WebPushD::PushServiceRequest>,WTF::DefaultRefDerefTraits<WebPushD::PushServiceRequest>>,0ul>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<WTF::String>,WTF::FastMalloc>::expand(a1, 0), (v6 = *a1) != 0))
+  v7 = *a1;
+  if (*a1 || (WTF::HashTable<WTF::String,WTF::KeyValuePair<WTF::String,WTF::Deque<WTF::Ref<WebPushD::PushServiceRequest,WTF::RawPtrTraits<WebPushD::PushServiceRequest>,WTF::DefaultRefDerefTraits<WebPushD::PushServiceRequest>>,0ul>>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<WTF::String,WTF::Deque<WTF::Ref<WebPushD::PushServiceRequest,WTF::RawPtrTraits<WebPushD::PushServiceRequest>,WTF::DefaultRefDerefTraits<WebPushD::PushServiceRequest>>,0ul>>>,WTF::DefaultHash<WTF::String>,WTF::HashMap<WTF::String,WTF::Deque<WTF::Ref<WebPushD::PushServiceRequest,WTF::RawPtrTraits<WebPushD::PushServiceRequest>,WTF::DefaultRefDerefTraits<WebPushD::PushServiceRequest>>,0ul>,WTF::DefaultHash<WTF::String>,WTF::HashTraits<WTF::String>,WTF::HashTraits<WTF::Deque<WTF::Ref<WebPushD::PushServiceRequest,WTF::RawPtrTraits<WebPushD::PushServiceRequest>,WTF::DefaultRefDerefTraits<WebPushD::PushServiceRequest>>,0ul>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<WTF::String>,WTF::FastMalloc>::expand(a1, 0), (v7 = *a1) != 0))
   {
-    v7 = *(v6 - 8);
+    v8 = *(v7 - 2);
   }
 
   else
   {
-    v7 = 0;
+    v8 = 0;
   }
 
-  v8 = *(v49 + 4);
-  if (v8 < 0x100)
+  v9 = *(v50 + 4);
+  if (v9 < 0x100)
   {
-    v9 = WTF::StringImpl::hashSlowCase(v49);
+    v10 = WTF::StringImpl::hashSlowCase(v50);
   }
 
   else
   {
-    v9 = v8 >> 8;
+    v10 = v9 >> 8;
   }
 
-  v10 = 0;
+  v11 = 0;
   for (i = 1; ; ++i)
   {
-    v12 = v9 & v7;
-    v13 = v6 + 40 * (v9 & v7);
-    v14 = *v13;
-    if (*v13 == -1)
+    v13 = v10 & v8;
+    v14 = &v7[5 * (v10 & v8)];
+    v15 = *v14;
+    if (*v14 == -1)
     {
-      v10 = v6 + 40 * v12;
+      v11 = &v7[5 * v13];
       goto LABEL_14;
     }
 
-    if (!v14)
+    if (!v15)
     {
       break;
     }
 
-    if (WTF::equal(v14, v49, v5))
+    if (WTF::equal(v15, v50, v6))
     {
-      v21 = 0;
+      v22 = 0;
       goto LABEL_27;
     }
 
 LABEL_14:
-    v9 = i + v12;
+    v10 = i + v13;
   }
 
-  if (v10)
+  if (v11)
   {
-    *(v10 + 32) = 0;
-    *v10 = 0u;
-    *(v10 + 16) = 0u;
-    --*(*a1 - 16);
-    v13 = v10;
+    v11[4] = 0;
+    *v11 = 0u;
+    *(v11 + 1) = 0u;
+    --*(*a1 - 4);
+    v14 = v11;
   }
 
-  v15 = v49;
-  v49 = 0;
-  v16 = *v13;
-  *v13 = v15;
-  if (v16 && atomic_fetch_add_explicit(v16, 0xFFFFFFFE, memory_order_relaxed) == 2)
+  v16 = v50;
+  v50 = 0;
+  v17 = *v14;
+  *v14 = v16;
+  if (v17 && atomic_fetch_add_explicit(v17, 0xFFFFFFFE, memory_order_relaxed) == 2)
   {
-    WTF::StringImpl::destroy(v16, v4);
+    WTF::StringImpl::destroy(v17, v5);
   }
 
-  v51 = 0;
-  v17 = *(v13 + 8);
-  *(v13 + 8) = 0;
-  *(v13 + 16) = 0;
-  *buf = v17;
-  v18 = *(v13 + 24);
-  *(v13 + 24) = 0;
-  *&buf[16] = v18;
-  LODWORD(v18) = *(v13 + 32);
-  *(v13 + 32) = 0;
-  LODWORD(v51) = v18;
-  WTF::Deque<WTF::Ref<WebPushD::PushServiceRequest,WTF::RawPtrTraits<WebPushD::PushServiceRequest>,WTF::DefaultRefDerefTraits<WebPushD::PushServiceRequest>>,0ul>::~Deque(buf, v4);
-  v19 = *a1;
+  v52 = 0;
+  v18 = *(v14 + 1);
+  v14[1] = 0;
+  v14[2] = 0;
+  *buf = v18;
+  v19 = v14[3];
+  v14[3] = 0;
+  *&buf[16] = v19;
+  LODWORD(v19) = *(v14 + 8);
+  *(v14 + 8) = 0;
+  LODWORD(v52) = v19;
+  WTF::Deque<WTF::Ref<WebPushD::PushServiceRequest,WTF::RawPtrTraits<WebPushD::PushServiceRequest>,WTF::DefaultRefDerefTraits<WebPushD::PushServiceRequest>>,0ul>::~Deque(buf, v5);
+  v20 = *a1;
   if (*a1)
   {
-    v20 = *(v19 - 12) + 1;
+    v21 = *(v20 - 3) + 1;
   }
 
   else
   {
-    v20 = 1;
+    v21 = 1;
   }
 
-  *(v19 - 12) = v20;
-  v22 = (*(v19 - 16) + v20);
-  v23 = *(v19 - 4);
-  if (v23 > 0x400)
+  *(v20 - 3) = v21;
+  v23 = (*(v20 - 4) + v21);
+  v24 = *(v20 - 1);
+  if (v24 > 0x400)
   {
-    if (v23 <= 2 * v22)
+    if (v24 <= 2 * v23)
     {
 LABEL_25:
-      v13 = WTF::HashTable<WTF::String,WTF::KeyValuePair<WTF::String,WTF::Deque<WTF::Ref<WebPushD::PushServiceRequest,WTF::RawPtrTraits<WebPushD::PushServiceRequest>,WTF::DefaultRefDerefTraits<WebPushD::PushServiceRequest>>,0ul>>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<WTF::String,WTF::Deque<WTF::Ref<WebPushD::PushServiceRequest,WTF::RawPtrTraits<WebPushD::PushServiceRequest>,WTF::DefaultRefDerefTraits<WebPushD::PushServiceRequest>>,0ul>>>,WTF::DefaultHash<WTF::String>,WTF::HashMap<WTF::String,WTF::Deque<WTF::Ref<WebPushD::PushServiceRequest,WTF::RawPtrTraits<WebPushD::PushServiceRequest>,WTF::DefaultRefDerefTraits<WebPushD::PushServiceRequest>>,0ul>,WTF::DefaultHash<WTF::String>,WTF::HashTraits<WTF::String>,WTF::HashTraits<WTF::Deque<WTF::Ref<WebPushD::PushServiceRequest,WTF::RawPtrTraits<WebPushD::PushServiceRequest>,WTF::DefaultRefDerefTraits<WebPushD::PushServiceRequest>>,0ul>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<WTF::String>,WTF::FastMalloc>::expand(a1, v13);
+      v14 = WTF::HashTable<WTF::String,WTF::KeyValuePair<WTF::String,WTF::Deque<WTF::Ref<WebPushD::PushServiceRequest,WTF::RawPtrTraits<WebPushD::PushServiceRequest>,WTF::DefaultRefDerefTraits<WebPushD::PushServiceRequest>>,0ul>>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<WTF::String,WTF::Deque<WTF::Ref<WebPushD::PushServiceRequest,WTF::RawPtrTraits<WebPushD::PushServiceRequest>,WTF::DefaultRefDerefTraits<WebPushD::PushServiceRequest>>,0ul>>>,WTF::DefaultHash<WTF::String>,WTF::HashMap<WTF::String,WTF::Deque<WTF::Ref<WebPushD::PushServiceRequest,WTF::RawPtrTraits<WebPushD::PushServiceRequest>,WTF::DefaultRefDerefTraits<WebPushD::PushServiceRequest>>,0ul>,WTF::DefaultHash<WTF::String>,WTF::HashTraits<WTF::String>,WTF::HashTraits<WTF::Deque<WTF::Ref<WebPushD::PushServiceRequest,WTF::RawPtrTraits<WebPushD::PushServiceRequest>,WTF::DefaultRefDerefTraits<WebPushD::PushServiceRequest>>,0ul>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<WTF::String>,WTF::FastMalloc>::expand(a1, v14);
     }
   }
 
-  else if (3 * v23 <= 4 * v22)
+  else if (3 * v24 <= 4 * v23)
   {
     goto LABEL_25;
   }
 
-  v21 = 1;
+  v22 = 1;
 LABEL_27:
-  if (v49 && atomic_fetch_add_explicit(v49, 0xFFFFFFFE, memory_order_relaxed) == 2)
+  if (v50 && atomic_fetch_add_explicit(v50, 0xFFFFFFFE, memory_order_relaxed) == 2)
   {
-    WTF::StringImpl::destroy(v49, v4);
+    WTF::StringImpl::destroy(v50, v5);
   }
 
-  v24 = qword_1ED6410A8;
+  v25 = qword_1ED6410A8;
   if (os_log_type_enabled(qword_1ED6410A8, OS_LOG_TYPE_DEFAULT))
   {
-    v25 = *a2;
-    v26 = *(v13 + 8);
-    v27 = *(v13 + 16);
-    if (v26 > v27)
+    v26 = *a2;
+    v27 = v14[1];
+    v28 = v14[2];
+    if (v27 > v28)
     {
-      v27 += *(v13 + 32);
+      v28 += *(v14 + 8);
     }
 
     *buf = 134218240;
-    *&buf[4] = v25;
+    *&buf[4] = v26;
     *&buf[12] = 2048;
-    *&buf[14] = v27 - v26;
-    _os_log_impl(&dword_19D52D000, v24, OS_LOG_TYPE_DEFAULT, "Enqueuing PushServiceRequest %p (current queue size: %zu)", buf, 0x16u);
+    *&buf[14] = v28 - v27;
+    _os_log_impl(&dword_19D52D000, v25, OS_LOG_TYPE_DEFAULT, "Enqueuing PushServiceRequest %p (current queue size: %zu)", buf, 0x16u);
   }
 
-  v28 = *(v13 + 8);
-  v29 = *(v13 + 16);
-  if (!v28)
+  v29 = v14[1];
+  v30 = v14[2];
+  if (!v29)
   {
-    v30 = *(v13 + 32);
-    if (v29)
+    v31 = *(v14 + 8);
+    if (v30)
     {
-      if (v29 != v30 - 1)
+      if (v30 != v31 - 1)
       {
         goto LABEL_62;
       }
     }
 
-    else if (v30)
+    else if (v31)
     {
-      v29 = 0;
+      v30 = 0;
       goto LABEL_62;
     }
 
 LABEL_43:
-    v31 = v30;
-    v32 = (v30 >> 2) + v30;
-    if (v32 < 0x1FFFFFFF)
+    v32 = v31;
+    v33 = (v31 >> 2) + v31;
+    if (v33 < 0x1FFFFFFF)
     {
-      v33 = *(v13 + 24);
-      if (v32 <= 0xF)
+      v34 = v14[3];
+      if (v33 <= 0xF)
       {
-        v32 = 15;
+        v33 = 15;
       }
 
-      v34 = v32 + 1;
-      v35 = WTF::fastMalloc((8 * (v32 + 1)));
-      *(v13 + 32) = v34;
-      *(v13 + 24) = v35;
-      v36 = *(v13 + 8);
-      v37 = *(v13 + 16);
-      v38 = v37 - v36;
-      if (v37 >= v36)
+      v35 = v33 + 1;
+      v36 = WTF::fastMalloc(v33, (8 * (v33 + 1)));
+      *(v14 + 8) = v35;
+      v14[3] = v36;
+      v37 = v14[1];
+      v38 = v14[2];
+      v39 = v38 - v37;
+      if (v38 >= v37)
       {
-        if (v31 < v36)
+        if (v32 < v37)
         {
           goto LABEL_72;
         }
 
-        if (v38 == -1)
+        if (v39 == -1)
         {
-          v38 = v31 - v36;
+          v39 = v32 - v37;
         }
 
-        else if (v31 - v36 < v38)
+        else if (v32 - v37 < v39)
         {
           goto LABEL_72;
         }
 
-        memcpy(&v35[8 * v36], &v33[8 * v36], 8 * v38);
-        if (!v33)
+        memcpy(&v36[v37], &v34[8 * v37], 8 * v39);
+        if (!v34)
         {
           goto LABEL_61;
         }
@@ -3084,43 +3239,43 @@ LABEL_43:
 
       else
       {
-        if (v37 > v31)
+        if (v38 > v32)
         {
           goto LABEL_72;
         }
 
-        memcpy(v35, v33, 8 * v37);
-        v39 = *(v13 + 8);
-        v40 = v31 - v39;
-        if (v31 < v39)
+        memcpy(v36, v34, 8 * v38);
+        v40 = v14[1];
+        v41 = v32 - v40;
+        if (v32 < v40)
         {
           goto LABEL_72;
         }
 
-        v41 = *(v13 + 32);
-        if (v41 < v40)
+        v42 = *(v14 + 8);
+        if (v42 < v41)
         {
           goto LABEL_72;
         }
 
-        v42 = v41 - (v31 - v39);
-        memcpy((*(v13 + 24) + 8 * v42), &v33[8 * v39], 8 * v40);
-        *(v13 + 8) = v42;
-        if (!v33)
+        v43 = v42 - (v32 - v40);
+        memcpy((v14[3] + 8 * v43), &v34[8 * v40], 8 * v41);
+        v14[1] = v43;
+        if (!v34)
         {
 LABEL_61:
-          v29 = *(v13 + 16);
+          v30 = v14[2];
           goto LABEL_62;
         }
       }
 
-      if (*(v13 + 24) == v33)
+      if (v14[3] == v34)
       {
-        *(v13 + 24) = 0;
-        *(v13 + 32) = 0;
+        v14[3] = 0;
+        *(v14 + 8) = 0;
       }
 
-      WTF::fastFree(v33, v43);
+      WTF::fastFree(v34, v44);
       goto LABEL_61;
     }
 
@@ -3129,36 +3284,36 @@ LABEL_76:
     JUMPOUT(0x19D8C1C98);
   }
 
-  if (v29 + 1 == v28)
+  if (v30 + 1 == v29)
   {
-    LODWORD(v30) = *(v13 + 32);
+    LODWORD(v31) = *(v14 + 8);
     goto LABEL_43;
   }
 
 LABEL_62:
-  if (v29 >= *(v13 + 32))
+  if (v30 >= *(v14 + 8))
   {
 LABEL_72:
     __break(1u);
   }
 
-  v44 = *(v13 + 24);
-  v45 = *a2;
+  v45 = v14[3];
+  v46 = *a2;
   result = (***a2)(*a2);
-  *(v44 + 8 * v29) = v45;
-  v47 = *(v13 + 16);
-  if (v47 == *(v13 + 32) - 1)
+  *(v45 + 8 * v30) = v46;
+  v48 = v14[2];
+  if (v48 == *(v14 + 8) - 1)
   {
-    v48 = 0;
+    v49 = 0;
   }
 
   else
   {
-    v48 = v47 + 1;
+    v49 = v48 + 1;
   }
 
-  *(v13 + 16) = v48;
-  if (v21)
+  v14[2] = v49;
+  if (v22)
   {
     return (*(**a2 + 40))();
   }
@@ -3179,45 +3334,45 @@ void sub_19D8C1CC4(_Unwind_Exception *exception_object, WTF::StringImpl *a2, int
   _Unwind_Resume(exception_object);
 }
 
-WTF::StringImpl *WebPushD::PushService::finishedPushServiceRequest(uint64_t *a1, uint64_t a2)
+WTF::StringImpl *WebPushD::PushService::finishedPushServiceRequest(uint64_t **a1, uint64_t a2, const WTF::String *a3)
 {
   WebCore::makePushTopic();
-  v6 = *a1;
+  v7 = *a1;
   if (!*a1)
   {
     goto LABEL_13;
   }
 
-  if (v35 == -1)
+  if (v37 == -1)
   {
     __break(0xC471u);
     JUMPOUT(0x19D8C20E4);
   }
 
-  if (!v35)
+  if (!v37)
   {
     goto LABEL_58;
   }
 
-  v7 = *(v6 - 8);
-  v8 = *(v35 + 4);
-  v9 = v8 < 0x100 ? WTF::StringImpl::hashSlowCase(v35) : v8 >> 8;
-  for (i = 0; ; v9 = ++i + v11)
+  v8 = *(v7 - 2);
+  v9 = *(v37 + 4);
+  v10 = v9 < 0x100 ? WTF::StringImpl::hashSlowCase(v37) : v9 >> 8;
+  for (i = 0; ; v10 = ++i + v12)
   {
-    v11 = v9 & v7;
-    v12 = v6 + 40 * (v9 & v7);
-    v13 = *v12;
-    if (*v12 == -1)
+    v12 = v10 & v8;
+    v13 = &v7[5 * (v10 & v8)];
+    v14 = *v13;
+    if (*v13 == -1)
     {
       continue;
     }
 
-    if (!v13)
+    if (!v14)
     {
       break;
     }
 
-    if (WTF::equal(v13, v35, v5))
+    if (WTF::equal(v14, v37, v6))
     {
       goto LABEL_14;
     }
@@ -3226,164 +3381,164 @@ WTF::StringImpl *WebPushD::PushService::finishedPushServiceRequest(uint64_t *a1,
   if (!*a1)
   {
 LABEL_13:
-    v12 = 0;
+    v13 = 0;
     goto LABEL_14;
   }
 
-  v12 = *a1 + 40 * *(*a1 - 4);
+  v13 = &(*a1)[5 * *(*a1 - 1)];
 LABEL_14:
-  v14 = v35;
-  v35 = 0;
-  if (v14 && atomic_fetch_add_explicit(v14, 0xFFFFFFFE, memory_order_relaxed) == 2)
+  v15 = v37;
+  v37 = 0;
+  if (v15 && atomic_fetch_add_explicit(v15, 0xFFFFFFFE, memory_order_relaxed) == 2)
   {
-    WTF::StringImpl::destroy(v14, v4);
+    WTF::StringImpl::destroy(v15, v5);
   }
 
-  v15 = *a1;
+  v16 = *a1;
   if (*a1)
   {
-    v15 += 40 * *(v15 - 4);
+    v16 += 5 * *(v16 - 1);
   }
 
-  if (v15 == v12)
+  if (v16 == v13)
   {
 LABEL_58:
     __break(0xC471u);
     JUMPOUT(0x19D8C2064);
   }
 
-  v16 = *(v12 + 8);
-  v17 = *(v12 + 16);
-  v18 = v17;
-  if (v16 > v17)
+  v17 = *(v13 + 8);
+  v18 = *(v13 + 16);
+  v19 = v18;
+  if (v17 > v18)
   {
-    v18 = v17 + *(v12 + 32);
+    v19 = v18 + *(v13 + 32);
   }
 
-  if (v18 == v16)
+  if (v19 == v17)
   {
     __break(0xC471u);
     goto LABEL_54;
   }
 
-  v19 = *(v12 + 32);
-  if (v16 >= v19)
+  v20 = *(v13 + 32);
+  if (v17 >= v20)
   {
 LABEL_54:
     __break(1u);
     goto LABEL_55;
   }
 
-  v20 = *(v12 + 24);
-  v21 = *(v20 + 8 * v16);
-  *(v20 + 8 * v16) = 0;
-  if (v16 == v17)
+  v21 = *(v13 + 24);
+  v22 = *(v21 + 8 * v17);
+  *(v21 + 8 * v17) = 0;
+  if (v17 == v18)
   {
 LABEL_55:
     __break(0xC471u);
     JUMPOUT(0x19D8C20A4);
   }
 
-  v22 = *(v12 + 24);
-  v23 = *(v22 + 8 * v16);
-  *(v22 + 8 * v16) = 0;
-  if (v23)
+  v23 = *(v13 + 24);
+  v24 = *(v23 + 8 * v17);
+  *(v23 + 8 * v17) = 0;
+  if (v24)
   {
-    v23 = (*(*v23 + 8))(v23);
-    v16 = *(v12 + 8);
-    v19 = *(v12 + 32);
+    v24 = (*(*v24 + 8))(v24);
+    v17 = *(v13 + 8);
+    v20 = *(v13 + 32);
   }
 
-  if (v16 == v19 - 1)
+  if (v17 == v20 - 1)
   {
-    v24 = 0;
+    v25 = 0;
   }
 
   else
   {
-    v24 = v16 + 1;
+    v25 = v17 + 1;
   }
 
-  *(v12 + 8) = v24;
-  if (v21 != a2)
+  *(v13 + 8) = v25;
+  if (v22 != a2)
   {
     __break(0xC471u);
     JUMPOUT(0x19D8C20C4);
   }
 
-  v25 = *(v12 + 16);
-  if (v24 > v25)
+  v26 = *(v13 + 16);
+  if (v25 > v26)
   {
-    v25 += *(v12 + 32);
+    v26 += *(v13 + 32);
   }
 
-  if (v25 != v24)
+  if (v26 != v25)
   {
-    if (v24 < *(v12 + 32))
+    if (v25 < *(v13 + 32))
     {
-      v27 = *(*(v12 + 24) + 8 * v24);
-      v23 = (**v27)(v27);
+      v28 = *(*(v13 + 24) + 8 * v25);
+      v24 = (**v28)(v28);
       goto LABEL_48;
     }
 
     goto LABEL_54;
   }
 
-  v26 = *a1;
+  v27 = *a1;
   if (*a1)
   {
-    v26 += 40 * *(v26 - 4);
-    if (v26 == v12)
+    v27 += 5 * *(v27 - 1);
+    if (v27 == v13)
     {
 LABEL_47:
-      v27 = 0;
+      v28 = 0;
       goto LABEL_48;
     }
   }
 
   else
   {
-    v27 = 0;
-    if (!v12)
+    v28 = 0;
+    if (!v13)
     {
       goto LABEL_48;
     }
   }
 
-  if (v26 == v12)
+  if (v27 == v13)
   {
     goto LABEL_47;
   }
 
-  v28 = *v12;
-  *v12 = -1;
-  if (v28 && atomic_fetch_add_explicit(v28, 0xFFFFFFFE, memory_order_relaxed) == 2)
+  v29 = *v13;
+  *v13 = -1;
+  if (v29 && atomic_fetch_add_explicit(v29, 0xFFFFFFFE, memory_order_relaxed) == 2)
   {
-    WTF::StringImpl::destroy(v28, v4);
+    WTF::StringImpl::destroy(v29, v5);
   }
 
-  v23 = WTF::Deque<WTF::Ref<WebPushD::PushServiceRequest,WTF::RawPtrTraits<WebPushD::PushServiceRequest>,WTF::DefaultRefDerefTraits<WebPushD::PushServiceRequest>>,0ul>::~Deque(v12 + 8, v4);
-  v27 = 0;
-  v29 = *a1;
-  v30 = vadd_s32(*(*a1 - 16), 0xFFFFFFFF00000001);
-  *(v29 - 16) = v30;
-  v31 = *(v29 - 4);
-  if (6 * v30.i32[1] < v31 && v31 >= 9)
+  v24 = WTF::Deque<WTF::Ref<WebPushD::PushServiceRequest,WTF::RawPtrTraits<WebPushD::PushServiceRequest>,WTF::DefaultRefDerefTraits<WebPushD::PushServiceRequest>>,0ul>::~Deque((v13 + 8), v5);
+  v28 = 0;
+  v30 = *a1;
+  v31 = vadd_s32(*(*a1 - 2), 0xFFFFFFFF00000001);
+  *(v30 - 2) = v31;
+  v32 = *(v30 - 1);
+  if (6 * v31.i32[1] < v32 && v32 >= 9)
   {
-    v23 = WTF::HashTable<WTF::String,WTF::KeyValuePair<WTF::String,WTF::Deque<WTF::Ref<WebPushD::PushServiceRequest,WTF::RawPtrTraits<WebPushD::PushServiceRequest>,WTF::DefaultRefDerefTraits<WebPushD::PushServiceRequest>>,0ul>>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<WTF::String,WTF::Deque<WTF::Ref<WebPushD::PushServiceRequest,WTF::RawPtrTraits<WebPushD::PushServiceRequest>,WTF::DefaultRefDerefTraits<WebPushD::PushServiceRequest>>,0ul>>>,WTF::DefaultHash<WTF::String>,WTF::HashMap<WTF::String,WTF::Deque<WTF::Ref<WebPushD::PushServiceRequest,WTF::RawPtrTraits<WebPushD::PushServiceRequest>,WTF::DefaultRefDerefTraits<WebPushD::PushServiceRequest>>,0ul>,WTF::DefaultHash<WTF::String>,WTF::HashTraits<WTF::String>,WTF::HashTraits<WTF::Deque<WTF::Ref<WebPushD::PushServiceRequest,WTF::RawPtrTraits<WebPushD::PushServiceRequest>,WTF::DefaultRefDerefTraits<WebPushD::PushServiceRequest>>,0ul>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<WTF::String>,WTF::FastMalloc>::rehash(a1, v31 >> 1, 0);
+    v24 = WTF::HashTable<WTF::String,WTF::KeyValuePair<WTF::String,WTF::Deque<WTF::Ref<WebPushD::PushServiceRequest,WTF::RawPtrTraits<WebPushD::PushServiceRequest>,WTF::DefaultRefDerefTraits<WebPushD::PushServiceRequest>>,0ul>>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<WTF::String,WTF::Deque<WTF::Ref<WebPushD::PushServiceRequest,WTF::RawPtrTraits<WebPushD::PushServiceRequest>,WTF::DefaultRefDerefTraits<WebPushD::PushServiceRequest>>,0ul>>>,WTF::DefaultHash<WTF::String>,WTF::HashMap<WTF::String,WTF::Deque<WTF::Ref<WebPushD::PushServiceRequest,WTF::RawPtrTraits<WebPushD::PushServiceRequest>,WTF::DefaultRefDerefTraits<WebPushD::PushServiceRequest>>,0ul>,WTF::DefaultHash<WTF::String>,WTF::HashTraits<WTF::String>,WTF::HashTraits<WTF::Deque<WTF::Ref<WebPushD::PushServiceRequest,WTF::RawPtrTraits<WebPushD::PushServiceRequest>,WTF::DefaultRefDerefTraits<WebPushD::PushServiceRequest>>,0ul>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<WTF::String>,WTF::FastMalloc>::rehash(a1, v32 >> 1, 0);
     goto LABEL_47;
   }
 
 LABEL_48:
-  v32 = WTF::WorkQueue::mainSingleton(v23);
-  v33 = WTF::fastMalloc(0x18);
-  *v33 = &unk_1F10EAB20;
-  *(v33 + 1) = v21;
-  *(v33 + 2) = v27;
-  v35 = v33;
-  (*(*v32 + 48))(v32, &v35);
-  result = v35;
-  v35 = 0;
+  v33 = WTF::WorkQueue::mainSingleton(v24);
+  v35 = WTF::fastMalloc(v34, 0x18);
+  *v35 = &unk_1F10EAB20;
+  v35[1] = v22;
+  v35[2] = v28;
+  v37 = v35;
+  (*(*v33 + 48))(v33, &v37);
+  result = v37;
+  v37 = 0;
   if (result)
   {
     return (*(*result + 8))(result);
@@ -3405,9 +3560,9 @@ void sub_19D8C2108(_Unwind_Exception *exception_object, WTF::StringImpl *a2, int
   _Unwind_Resume(exception_object);
 }
 
-uint64_t WebPushD::PushService::getSubscription(uint64_t *a1, void *a2, atomic_uint **a3, uint64_t *a4)
+uint64_t WebPushD::PushService::getSubscription(uint64_t **a1, void *a2, atomic_uint **a3, uint64_t *a4)
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   if (!*a2)
   {
     v10 = qword_1ED6410A8;
@@ -3419,10 +3574,10 @@ uint64_t WebPushD::PushService::getSubscription(uint64_t *a1, void *a2, atomic_u
 
 LABEL_10:
     WTF::StringImpl::createWithoutCopyingNonEmpty();
-    LOBYTE(v17) = 16;
-    v20 = 1;
+    LOBYTE(v18) = 16;
+    v21 = 1;
     WTF::CompletionHandler<void ()(std::experimental::fundamentals_v3::expected<std::optional<WebCore::PushSubscriptionData>,WebCore::ExceptionData> const&)>::operator()(a4);
-    return std::experimental::fundamentals_v3::expected<std::optional<WebCore::PushSubscriptionData>,WebCore::ExceptionData>::~expected(&v17, v12);
+    return std::experimental::fundamentals_v3::expected<std::optional<WebCore::PushSubscriptionData>,WebCore::ExceptionData>::~expected(&v18, v12);
   }
 
   v6 = *(*a2 + 4);
@@ -3435,19 +3590,19 @@ LABEL_10:
 LABEL_15:
       if (*a3)
       {
-        v16 = (*a3)[1] == 0;
+        v17 = (*a3)[1] == 0;
       }
 
       else
       {
-        v16 = 1;
+        v17 = 1;
       }
 
-      LODWORD(v17) = 67109376;
-      HIDWORD(v17) = v11;
-      v18 = 1024;
-      v19 = v16;
-      _os_log_error_impl(&dword_19D52D000, v10, OS_LOG_TYPE_ERROR, "Ignoring getSubscription request with bundleIdentifier (empty = %d) and scope (empty = %d)", &v17, 0xEu);
+      LODWORD(v18) = 67109376;
+      HIDWORD(v18) = v11;
+      v19 = 1024;
+      v20 = v17;
+      _os_log_error_impl(&dword_19D52D000, v10, OS_LOG_TYPE_ERROR, "Ignoring getSubscription request with bundleIdentifier (empty = %d) and scope (empty = %d)", &v18, 0xEu);
       goto LABEL_10;
     }
 
@@ -3472,8 +3627,8 @@ LABEL_15:
   *(v14 + 12) = 0;
   *(v14 + 26) = 1;
   *v14 = &unk_1F10EA628;
-  v17 = v14;
-  WebPushD::PushService::enqueuePushServiceRequest(a1 + 5, &v17);
+  v18 = v14;
+  WebPushD::PushService::enqueuePushServiceRequest(a1 + 5, &v18, v16);
   return (*(*v14 + 8))(v14);
 }
 
@@ -3536,9 +3691,9 @@ LABEL_13:
   return a1;
 }
 
-uint64_t WebPushD::PushService::subscribe(uint64_t *a1, WebCore::PushSubscriptionSetIdentifier *a2, WTF::String *a3, uint64_t a4, uint64_t *a5)
+uint64_t WebPushD::PushService::subscribe(uint64_t **a1, WebCore::PushSubscriptionSetIdentifier *a2, WTF::String *a3, uint64_t a4, uint64_t *a5)
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   if (!*a2)
   {
     v12 = qword_1ED6410A8;
@@ -3551,7 +3706,7 @@ uint64_t WebPushD::PushService::subscribe(uint64_t *a1, WebCore::PushSubscriptio
 LABEL_11:
     WTF::StringImpl::createWithoutCopyingNonEmpty();
     buf[0] = 16;
-    v34 = 1;
+    v35 = 1;
     WTF::CompletionHandler<void ()(std::experimental::fundamentals_v3::expected<WebCore::PushSubscriptionData,WebCore::ExceptionData> const&)>::operator()(a5);
     return std::experimental::fundamentals_v3::expected<WebCore::PushSubscriptionData,WebCore::ExceptionData>::~expected(buf, v11);
   }
@@ -3566,18 +3721,18 @@ LABEL_11:
 LABEL_21:
       if (*a3)
       {
-        v21 = *(*a3 + 4) == 0;
+        v22 = *(*a3 + 4) == 0;
       }
 
       else
       {
-        v21 = 1;
+        v22 = 1;
       }
 
       *buf = 67109376;
       *&buf[4] = v13;
       *&buf[8] = 1024;
-      *&buf[10] = v21;
+      *&buf[10] = v22;
       _os_log_error_impl(&dword_19D52D000, v12, OS_LOG_TYPE_ERROR, "Ignoring subscribe request with bundleIdentifier (empty = %d) and scope (empty = %d)", buf, 0xEu);
       goto LABEL_11;
     }
@@ -3590,53 +3745,38 @@ LABEL_21:
     v10 = qword_1ED6410A8;
     if (os_log_type_enabled(qword_1ED6410A8, OS_LOG_TYPE_ERROR))
     {
-      WebCore::PushSubscriptionSetIdentifier::debugDescription(&v30, a2);
-      WTF::String::ascii(&v31, &v30);
-      v22 = v31;
-      WTF::String::ascii(&v29, a3);
-      v23 = v22 + 16;
-      if (!v22)
-      {
-        v23 = 0;
-      }
-
-      if (v29)
-      {
-        v24 = v29 + 16;
-      }
-
-      else
+      WebCore::PushSubscriptionSetIdentifier::debugDescription(&v31, a2);
+      WTF::String::ascii(&v32, &v31);
+      v23 = v32;
+      WTF::String::ascii(&v30, a3);
+      v24 = v23 + 16;
+      if (!v23)
       {
         v24 = 0;
       }
 
-      *buf = 136446467;
-      *&buf[4] = v23;
-      *&buf[12] = 2085;
-      v33 = v24;
-      _os_log_error_impl(&dword_19D52D000, v10, OS_LOG_TYPE_ERROR, "Subscribe request from %{public}s and scope %{sensitive}s failed: reached max push topic count", buf, 0x16u);
-      v26 = v29;
-      v29 = 0;
-      if (v26)
+      if (v30)
       {
-        if (*v26 == 1)
-        {
-          WTF::fastFree(v26, v25);
-        }
-
-        else
-        {
-          --*v26;
-        }
+        v25 = v30 + 16;
       }
 
-      v27 = v31;
-      v31 = 0;
+      else
+      {
+        v25 = 0;
+      }
+
+      *buf = 136446467;
+      *&buf[4] = v24;
+      *&buf[12] = 2085;
+      v34 = v25;
+      _os_log_error_impl(&dword_19D52D000, v10, OS_LOG_TYPE_ERROR, "Subscribe request from %{public}s and scope %{sensitive}s failed: reached max push topic count", buf, 0x16u);
+      v27 = v30;
+      v30 = 0;
       if (v27)
       {
         if (*v27 == 1)
         {
-          WTF::fastFree(v27, v25);
+          WTF::fastFree(v27, v26);
         }
 
         else
@@ -3645,20 +3785,35 @@ LABEL_21:
         }
       }
 
-      v28 = v30;
-      v30 = 0;
+      v28 = v32;
+      v32 = 0;
       if (v28)
       {
-        if (atomic_fetch_add_explicit(v28, 0xFFFFFFFE, memory_order_relaxed) == 2)
+        if (*v28 == 1)
         {
-          WTF::StringImpl::destroy(v28, v25);
+          WTF::fastFree(v28, v26);
+        }
+
+        else
+        {
+          --*v28;
+        }
+      }
+
+      v29 = v31;
+      v31 = 0;
+      if (v29)
+      {
+        if (atomic_fetch_add_explicit(v29, 0xFFFFFFFE, memory_order_relaxed) == 2)
+        {
+          WTF::StringImpl::destroy(v29, v26);
         }
       }
     }
 
     WTF::StringImpl::createWithoutCopyingNonEmpty();
     buf[0] = 31;
-    v34 = 1;
+    v35 = 1;
     WTF::CompletionHandler<void ()(std::experimental::fundamentals_v3::expected<WebCore::PushSubscriptionData,WebCore::ExceptionData> const&)>::operator()(a5);
     return std::experimental::fundamentals_v3::expected<WebCore::PushSubscriptionData,WebCore::ExceptionData>::~expected(buf, v11);
   }
@@ -3675,26 +3830,26 @@ LABEL_21:
 
   v17 = NonCompact;
   WebPushD::PushServiceRequest::PushServiceRequest(NonCompact, a1, a2, a3);
-  v18 = *a5;
+  v19 = *a5;
   *a5 = 0;
-  *(v17 + 11) = v18;
+  *(v17 + 11) = v19;
   *(v17 + 12) = 0;
   *(v17 + 26) = 1;
   *v17 = &unk_1F10EA678;
-  v19 = *(a4 + 12);
+  v20 = *(a4 + 12);
   *(v17 + 14) = 0;
   *(v17 + 15) = 0;
-  *(v17 + 31) = v19;
-  if (v19)
+  *(v17 + 31) = v20;
+  if (v20)
   {
-    v20 = WTF::fastMalloc(v19);
-    *(v17 + 30) = v19;
-    *(v17 + 14) = v20;
-    memcpy(v20, *a4, *(a4 + 12));
+    v21 = WTF::fastMalloc(1, v20);
+    *(v17 + 30) = v20;
+    *(v17 + 14) = v21;
+    memcpy(v21, *a4, *(a4 + 12));
   }
 
   *buf = v17;
-  WebPushD::PushService::enqueuePushServiceRequest(a1 + 6, buf);
+  WebPushD::PushService::enqueuePushServiceRequest(a1 + 6, buf, v18);
   return (*(*v17 + 8))(v17);
 }
 
@@ -3777,9 +3932,9 @@ uint64_t std::experimental::fundamentals_v3::expected<WebCore::PushSubscriptionD
   return a1;
 }
 
-uint64_t WebPushD::PushService::unsubscribe(uint64_t *a1, void *a2, atomic_uint **a3, uint64_t a4, uint64_t a5, uint64_t *a6)
+uint64_t WebPushD::PushService::unsubscribe(uint64_t **a1, void *a2, atomic_uint **a3, uint64_t a4, uint64_t a5, uint64_t *a6)
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   if (!*a2)
   {
     v14 = qword_1ED6410A8;
@@ -3791,10 +3946,10 @@ uint64_t WebPushD::PushService::unsubscribe(uint64_t *a1, void *a2, atomic_uint 
 
 LABEL_10:
     WTF::StringImpl::createWithoutCopyingNonEmpty();
-    LOBYTE(v21) = 16;
-    v24 = 1;
+    LOBYTE(v22) = 16;
+    v25 = 1;
     WTF::CompletionHandler<void ()(std::experimental::fundamentals_v3::expected<BOOL,WebCore::ExceptionData> const&)>::operator()(a6);
-    return mpark::detail::move_constructor<mpark::detail::traits<BOOL,WebCore::ExceptionData>,(mpark::detail::Trait)1>::~move_constructor(&v21, v16);
+    return mpark::detail::move_constructor<mpark::detail::traits<BOOL,WebCore::ExceptionData>,(mpark::detail::Trait)1>::~move_constructor(&v22, v16);
   }
 
   v8 = *(*a2 + 4);
@@ -3807,19 +3962,19 @@ LABEL_10:
 LABEL_15:
       if (*a3)
       {
-        v20 = (*a3)[1] == 0;
+        v21 = (*a3)[1] == 0;
       }
 
       else
       {
-        v20 = 1;
+        v21 = 1;
       }
 
-      LODWORD(v21) = 67109376;
-      HIDWORD(v21) = v15;
-      v22 = 1024;
-      v23 = v20;
-      _os_log_error_impl(&dword_19D52D000, v14, OS_LOG_TYPE_ERROR, "Ignoring unsubscribe request with bundleIdentifier (empty = %d) and scope (empty = %d)", &v21, 0xEu);
+      LODWORD(v22) = 67109376;
+      HIDWORD(v22) = v15;
+      v23 = 1024;
+      v24 = v21;
+      _os_log_error_impl(&dword_19D52D000, v14, OS_LOG_TYPE_ERROR, "Ignoring unsubscribe request with bundleIdentifier (empty = %d) and scope (empty = %d)", &v22, 0xEu);
       goto LABEL_10;
     }
 
@@ -3846,8 +4001,8 @@ LABEL_15:
   *v18 = &unk_1F10EA6C8;
   *(v18 + 14) = a4;
   *(v18 + 15) = a5;
-  v21 = v18;
-  WebPushD::PushService::enqueuePushServiceRequest(a1 + 7, &v21);
+  v22 = v18;
+  WebPushD::PushService::enqueuePushServiceRequest(a1 + 7, &v22, v20);
   return (*(*v18 + 8))(v18);
 }
 
@@ -3863,13 +4018,13 @@ uint64_t WTF::CompletionHandler<void ()(std::experimental::fundamentals_v3::expe
 
 uint64_t WebPushD::PushService::incrementSilentPushCount(unsigned int *a1, atomic_uint **a2, atomic_uint **a3, uint64_t *a4)
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   if (!*a2)
   {
-    v18 = qword_1ED6410A8;
+    v19 = qword_1ED6410A8;
     if (os_log_type_enabled(qword_1ED6410A8, OS_LOG_TYPE_ERROR))
     {
-      v19 = 1;
+      v20 = 1;
       goto LABEL_34;
     }
 
@@ -3879,26 +4034,26 @@ uint64_t WebPushD::PushService::incrementSilentPushCount(unsigned int *a1, atomi
   v6 = (*a2)[1];
   if (!v6 || !*a3 || !(*a3)[1])
   {
-    v18 = qword_1ED6410A8;
+    v19 = qword_1ED6410A8;
     if (os_log_type_enabled(qword_1ED6410A8, OS_LOG_TYPE_ERROR))
     {
-      v19 = v6 == 0;
+      v20 = v6 == 0;
 LABEL_34:
       if (*a3)
       {
-        v20 = (*a3)[1] == 0;
+        v21 = (*a3)[1] == 0;
       }
 
       else
       {
-        v20 = 1;
+        v21 = 1;
       }
 
       *buf = 67109376;
-      *&buf[4] = v19;
-      v23 = 1024;
-      v24 = v20;
-      _os_log_error_impl(&dword_19D52D000, v18, OS_LOG_TYPE_ERROR, "Ignoring incrementSilentPushCount request with bundleIdentifier (empty = %d) and securityOrigin (empty = %d)", buf, 0xEu);
+      *&buf[4] = v20;
+      v24 = 1024;
+      v25 = v21;
+      _os_log_error_impl(&dword_19D52D000, v19, OS_LOG_TYPE_ERROR, "Ignoring incrementSilentPushCount request with bundleIdentifier (empty = %d) and securityOrigin (empty = %d)", buf, 0xEu);
       return WTF::CompletionHandler<void ()>::operator()(a4);
     }
 
@@ -3906,55 +4061,55 @@ LABEL_34:
   }
 
   WTF::WeakPtrFactory<WebPushD::PushServiceConnection,WTF::DefaultWeakPtrImpl>::initializeIfNeeded(a1, a1);
-  v21 = *a1;
-  atomic_fetch_add(*a1, 1u);
-  v9 = *a2;
+  v22 = *a1;
+  add = atomic_fetch_add(*a1, 1u);
+  v10 = *a2;
   if (*a2)
   {
-    atomic_fetch_add_explicit(v9, 2u, memory_order_relaxed);
+    add = atomic_fetch_add_explicit(v10, 2u, memory_order_relaxed);
   }
 
-  v10 = a2[1];
-  if (v10)
+  v11 = a2[1];
+  if (v11)
   {
-    atomic_fetch_add_explicit(v10, 2u, memory_order_relaxed);
+    add = atomic_fetch_add_explicit(v11, 2u, memory_order_relaxed);
   }
 
-  v11 = a2[2];
-  v12 = a2[3];
-  v13 = *a3;
+  v12 = a2[2];
+  v13 = a2[3];
+  v14 = *a3;
   if (*a3)
   {
-    atomic_fetch_add_explicit(v13, 2u, memory_order_relaxed);
+    add = atomic_fetch_add_explicit(v14, 2u, memory_order_relaxed);
   }
 
-  v14 = *a4;
+  v15 = *a4;
   *a4 = 0;
-  v15 = WTF::fastMalloc(0x50);
-  *v15 = &unk_1F10EAB48;
-  v15[2] = v21;
-  if (v9)
-  {
-    atomic_fetch_add_explicit(v9, 2u, memory_order_relaxed);
-  }
-
-  v15[4] = v9;
+  v16 = WTF::fastMalloc(add, 0x50);
+  *v16 = &unk_1F10EAB48;
+  v16[2] = v22;
   if (v10)
   {
     atomic_fetch_add_explicit(v10, 2u, memory_order_relaxed);
   }
 
-  v15[5] = v10;
-  v15[6] = v11;
-  v15[7] = v12;
-  if (v13)
+  v16[4] = v10;
+  if (v11)
   {
-    atomic_fetch_add_explicit(v13, 2u, memory_order_relaxed);
+    atomic_fetch_add_explicit(v11, 2u, memory_order_relaxed);
   }
 
-  v15[8] = v13;
-  v15[9] = v14;
-  *buf = v15;
+  v16[5] = v11;
+  v16[6] = v12;
+  v16[7] = v13;
+  if (v14)
+  {
+    atomic_fetch_add_explicit(v14, 2u, memory_order_relaxed);
+  }
+
+  v16[8] = v14;
+  v16[9] = v15;
+  *buf = v16;
   WebCore::PushDatabase::incrementSilentPushCount();
   result = *buf;
   *buf = 0;
@@ -3963,40 +4118,40 @@ LABEL_34:
     result = (*(*result + 8))(result);
   }
 
-  if (v13 && atomic_fetch_add_explicit(v13, 0xFFFFFFFE, memory_order_relaxed) == 2)
+  if (v14 && atomic_fetch_add_explicit(v14, 0xFFFFFFFE, memory_order_relaxed) == 2)
   {
-    result = WTF::StringImpl::destroy(v13, v16);
-    if (v10)
+    result = WTF::StringImpl::destroy(v14, v17);
+    if (v11)
     {
 LABEL_22:
-      if (atomic_fetch_add_explicit(v10, 0xFFFFFFFE, memory_order_relaxed) == 2)
+      if (atomic_fetch_add_explicit(v11, 0xFFFFFFFE, memory_order_relaxed) == 2)
       {
-        result = WTF::StringImpl::destroy(v10, v16);
+        result = WTF::StringImpl::destroy(v11, v17);
       }
     }
   }
 
-  else if (v10)
+  else if (v11)
   {
     goto LABEL_22;
   }
 
-  if (v9)
+  if (v10)
   {
-    if (atomic_fetch_add_explicit(v9, 0xFFFFFFFE, memory_order_relaxed) == 2)
+    if (atomic_fetch_add_explicit(v10, 0xFFFFFFFE, memory_order_relaxed) == 2)
     {
-      return WTF::StringImpl::destroy(v9, v16);
+      return WTF::StringImpl::destroy(v10, v17);
     }
   }
 
   return result;
 }
 
-void sub_19D8C3150(_Unwind_Exception *exception_object, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, WTF *a10, uint64_t a11)
+void sub_19D8C3150(_Unwind_Exception *exception_object, WTF::StringImpl *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, WTF *a10, uint64_t a11)
 {
   if (a11)
   {
-    (*(*a11 + 8))(a11);
+    (*(*a11 + 8))(a11, a2, a3, a4, a5, a6, a7, a8);
   }
 
   if (v13 && atomic_fetch_add_explicit(v13, 0xFFFFFFFE, memory_order_relaxed) == 2)
@@ -4032,13 +4187,13 @@ uint64_t WTF::CompletionHandler<void ()(unsigned int)>::operator()(uint64_t *a1)
 
 uint64_t WebPushD::PushService::setPushesEnabledForSubscriptionSetAndOrigin(unsigned int *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t *a5)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   if (!*a2)
   {
-    v13 = qword_1ED6410A8;
+    v14 = qword_1ED6410A8;
     if (os_log_type_enabled(qword_1ED6410A8, OS_LOG_TYPE_ERROR))
     {
-      v14 = 1;
+      v15 = 1;
       goto LABEL_13;
     }
 
@@ -4048,26 +4203,26 @@ uint64_t WebPushD::PushService::setPushesEnabledForSubscriptionSetAndOrigin(unsi
   v7 = *(*a2 + 4);
   if (!v7 || !*a3 || !*(*a3 + 4))
   {
-    v13 = qword_1ED6410A8;
+    v14 = qword_1ED6410A8;
     if (os_log_type_enabled(qword_1ED6410A8, OS_LOG_TYPE_ERROR))
     {
-      v14 = v7 == 0;
+      v15 = v7 == 0;
 LABEL_13:
       if (*a3)
       {
-        v15 = *(*a3 + 4) == 0;
+        v16 = *(*a3 + 4) == 0;
       }
 
       else
       {
-        v15 = 1;
+        v16 = 1;
       }
 
-      LODWORD(v16) = 67109376;
-      HIDWORD(v16) = v14;
-      v17 = 1024;
-      v18 = v15;
-      _os_log_error_impl(&dword_19D52D000, v13, OS_LOG_TYPE_ERROR, "Ignoring setPushesEnabledForBundleIdentifierAndOrigin request with bundleIdentifier (empty = %d) and securityOrigin (empty = %d)", &v16, 0xEu);
+      LODWORD(v17) = 67109376;
+      HIDWORD(v17) = v15;
+      v18 = 1024;
+      v19 = v16;
+      _os_log_error_impl(&dword_19D52D000, v14, OS_LOG_TYPE_ERROR, "Ignoring setPushesEnabledForBundleIdentifierAndOrigin request with bundleIdentifier (empty = %d) and securityOrigin (empty = %d)", &v17, 0xEu);
       return WTF::CompletionHandler<void ()(void)>::operator()(a5);
     }
 
@@ -4076,17 +4231,17 @@ LABEL_13:
 
   WTF::WeakPtrFactory<WebPushD::PushServiceConnection,WTF::DefaultWeakPtrImpl>::initializeIfNeeded(a1, a1);
   v9 = *a1;
-  atomic_fetch_add(v9, 1u);
-  v10 = *a5;
+  add = atomic_fetch_add(v9, 1u);
+  v11 = *a5;
   *a5 = 0;
-  v11 = WTF::fastMalloc(0x18);
-  *v11 = &unk_1F10EAB98;
-  v11[1] = v9;
-  v11[2] = v10;
-  v16 = v11;
+  v12 = WTF::fastMalloc(add, 0x18);
+  *v12 = &unk_1F10EAB98;
+  v12[1] = v9;
+  v12[2] = v11;
+  v17 = v12;
   WebCore::PushDatabase::setPushesEnabledForOrigin();
-  result = v16;
-  v16 = 0;
+  result = v17;
+  v17 = 0;
   if (result)
   {
     return (*(*result + 8))(result);
@@ -4095,17 +4250,17 @@ LABEL_13:
   return result;
 }
 
-void sub_19D8C34B0(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9)
+void sub_19D8C34B0(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
   if (a9)
   {
-    (*(*a9 + 8))(a9);
+    (*(*a9 + 8))(a9, a2, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
 }
 
-unsigned int *WebPushD::PushService::removeRecordsForSubscriptionSet(unsigned int *a1, WebCore::PushSubscriptionSetIdentifier *a2, uint64_t *a3)
+WTF::StringImpl *WebPushD::PushService::removeRecordsForSubscriptionSet(unsigned int *a1, WebCore::PushSubscriptionSetIdentifier *a2, uint64_t *a3)
 {
   v16 = *MEMORY[0x1E69E9840];
   v6 = qword_1ED6410A8;
@@ -4183,7 +4338,7 @@ void sub_19D8C36B8(_Unwind_Exception *exception_object, WTF::StringImpl *a2, int
 
 unsigned int *WebPushD::PushService::removeRecordsImpl(unsigned int *a1, uint64_t a2, _BYTE *a3, uint64_t *a4)
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   if (!*a2)
   {
     v15 = qword_1ED6410A8;
@@ -4208,24 +4363,24 @@ LABEL_41:
       {
         if (*a3)
         {
-          v26 = *(*a3 + 4) == 0;
+          v24 = *(*a3 + 4) == 0;
         }
 
         else
         {
-          v26 = 1;
+          v24 = 1;
         }
       }
 
       else
       {
-        v26 = 0;
+        v24 = 0;
       }
 
       *buf = 67109376;
       *&buf[4] = v16;
-      v29 = 1024;
-      v30 = v26;
+      v27 = 1024;
+      v28 = v24;
       _os_log_error_impl(&dword_19D52D000, v15, OS_LOG_TYPE_ERROR, "Ignoring removeRecordsImpl request with bundleIdentifier (empty = %d) and securityOrigin (empty = %d)", buf, 0xEu);
       return WTF::CompletionHandler<void ()>::operator()(a4);
     }
@@ -4243,24 +4398,24 @@ LABEL_41:
     atomic_fetch_add_explicit(v10, 2u, memory_order_relaxed);
   }
 
-  v31 = v10;
+  v29 = v10;
   v11 = *(a2 + 8);
   if (v11)
   {
     atomic_fetch_add_explicit(v11, 2u, memory_order_relaxed);
   }
 
-  v32 = v11;
-  v33 = *(a2 + 16);
-  LOBYTE(v34) = 0;
-  v35 = 0;
+  v30 = v11;
+  v31 = *(a2 + 16);
+  LOBYTE(v32) = 0;
+  v33 = 0;
   if (a3[8] != 1)
   {
-    v20 = *a4;
+    v14 = *a4;
     *a4 = 0;
-    v36 = v20;
+    v34 = v14;
 LABEL_21:
-    WTF::CompletionHandler<void ()(WTF::Vector<WebCore::RemovedPushRecord,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&)>::CompletionHandler<WebPushD::PushService::removeRecordsImpl(WebCore::PushSubscriptionSetIdentifier const&,std::optional<WTF::String> const&,WTF::CompletionHandler<void ()> &&)::$_0,void>(&v27, buf);
+    WTF::CompletionHandler<void ()(WTF::Vector<WebCore::RemovedPushRecord,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&)>::CompletionHandler<WebPushD::PushService::removeRecordsImpl(WebCore::PushSubscriptionSetIdentifier const&,std::optional<WTF::String> const&,WTF::CompletionHandler<void ()> &&)::$_0,void>(&v25, buf, v14);
     WebCore::PushDatabase::removeRecordsBySubscriptionSet();
     goto LABEL_22;
   }
@@ -4270,11 +4425,11 @@ LABEL_21:
   {
     atomic_fetch_add_explicit(v12, 2u, memory_order_relaxed);
     v13 = a3[8];
-    v34 = v12;
-    v35 = 1;
+    v32 = v12;
+    v33 = 1;
     v14 = *a4;
     *a4 = 0;
-    v36 = v14;
+    v34 = v14;
     if ((v13 & 1) == 0)
     {
       goto LABEL_21;
@@ -4283,55 +4438,55 @@ LABEL_21:
 
   else
   {
-    v34 = 0;
-    v35 = 1;
-    v18 = *a4;
+    v32 = 0;
+    v33 = 1;
+    v14 = *a4;
     *a4 = 0;
-    v36 = v18;
+    v34 = v14;
   }
 
-  WTF::CompletionHandler<void ()(WTF::Vector<WebCore::RemovedPushRecord,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&)>::CompletionHandler<WebPushD::PushService::removeRecordsImpl(WebCore::PushSubscriptionSetIdentifier const&,std::optional<WTF::String> const&,WTF::CompletionHandler<void ()> &&)::$_0,void>(&v27, buf);
+  WTF::CompletionHandler<void ()(WTF::Vector<WebCore::RemovedPushRecord,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&)>::CompletionHandler<WebPushD::PushService::removeRecordsImpl(WebCore::PushSubscriptionSetIdentifier const&,std::optional<WTF::String> const&,WTF::CompletionHandler<void ()> &&)::$_0,void>(&v25, buf, v14);
   WebCore::PushDatabase::removeRecordsBySubscriptionSetAndSecurityOrigin();
 LABEL_22:
-  v21 = v27;
-  v27 = 0;
-  if (v21)
+  v19 = v25;
+  v25 = 0;
+  if (v19)
   {
-    (*(*v21 + 8))(v21);
+    (*(*v19 + 8))(v19);
   }
 
-  v22 = v36;
-  v36 = 0;
-  if (v22)
+  v20 = v34;
+  v34 = 0;
+  if (v20)
   {
-    (*(*v22 + 8))(v22);
+    (*(*v20 + 8))(v20);
   }
 
-  if (v35 == 1)
+  if (v33 == 1)
   {
-    v23 = v34;
-    v34 = 0;
-    if (v23)
+    v21 = v32;
+    v32 = 0;
+    if (v21)
     {
-      if (atomic_fetch_add_explicit(v23, 0xFFFFFFFE, memory_order_relaxed) == 2)
+      if (atomic_fetch_add_explicit(v21, 0xFFFFFFFE, memory_order_relaxed) == 2)
       {
-        WTF::StringImpl::destroy(v23, v19);
+        WTF::StringImpl::destroy(v21, v18);
       }
     }
   }
 
-  v24 = v32;
-  v32 = 0;
-  if (v24 && atomic_fetch_add_explicit(v24, 0xFFFFFFFE, memory_order_relaxed) == 2)
+  v22 = v30;
+  v30 = 0;
+  if (v22 && atomic_fetch_add_explicit(v22, 0xFFFFFFFE, memory_order_relaxed) == 2)
   {
-    WTF::StringImpl::destroy(v24, v19);
+    WTF::StringImpl::destroy(v22, v18);
   }
 
-  v25 = v31;
-  v31 = 0;
-  if (v25 && atomic_fetch_add_explicit(v25, 0xFFFFFFFE, memory_order_relaxed) == 2)
+  v23 = v29;
+  v29 = 0;
+  if (v23 && atomic_fetch_add_explicit(v23, 0xFFFFFFFE, memory_order_relaxed) == 2)
   {
-    WTF::StringImpl::destroy(v25, v19);
+    WTF::StringImpl::destroy(v23, v18);
   }
 
   result = *buf;
@@ -4341,23 +4496,23 @@ LABEL_22:
     if (atomic_fetch_add(result, 0xFFFFFFFF) == 1)
     {
       atomic_store(1u, result);
-      return WTF::fastFree(result, v19);
+      return WTF::fastFree(result, v18);
     }
   }
 
   return result;
 }
 
-void sub_19D8C3A60(_Unwind_Exception *exception_object, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, WTF *a11, uint64_t a12, WTF::StringImpl *a13, WTF::StringImpl *a14, uint64_t a15, uint64_t a16, WTF::StringImpl *a17, char a18, uint64_t a19)
+void sub_19D8C3A60(_Unwind_Exception *exception_object, WTF::StringImpl *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, WTF *a11, uint64_t a12, WTF::StringImpl *a13, WTF::StringImpl *a14, uint64_t a15, uint64_t a16, WTF::StringImpl *a17, char a18, uint64_t a19)
 {
   if (a10)
   {
-    (*(*a10 + 8))(a10);
+    (*(*a10 + 8))(a10, a2, a3, a4, a5, a6, a7, a8);
   }
 
   if (a19)
   {
-    (*(*a19 + 8))(a19);
+    (*(*a19 + 8))(a19, a2, a3, a4, a5, a6, a7, a8);
   }
 
   if (a18 == 1 && a17 && atomic_fetch_add_explicit(a17, 0xFFFFFFFE, memory_order_relaxed) == 2)
@@ -4505,59 +4660,59 @@ void sub_19D8C3D4C(_Unwind_Exception *exception_object, void *a2, int a3, int a4
   _Unwind_Resume(exception_object);
 }
 
-uint64_t *WTF::CompletionHandler<void ()(WTF::Vector<WebCore::RemovedPushRecord,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&)>::CompletionHandler<WebPushD::PushService::removeRecordsImpl(WebCore::PushSubscriptionSetIdentifier const&,std::optional<WTF::String> const&,WTF::CompletionHandler<void ()(unsigned int)> &&)::$_0,void>(uint64_t *a1, uint64_t *a2)
+uint64_t **WTF::CompletionHandler<void ()(WTF::Vector<WebCore::RemovedPushRecord,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&)>::CompletionHandler<WebPushD::PushService::removeRecordsImpl(WebCore::PushSubscriptionSetIdentifier const&,std::optional<WTF::String> const&,WTF::CompletionHandler<void ()(unsigned int)> &&)::$_0,void>@<X0>(uint64_t **a1@<X0>, unint64_t a2@<X1>, uint64_t *a3@<X8>)
 {
-  v4 = WTF::fastMalloc(0x60);
-  *v4 = &unk_1F10EABC0;
-  v5 = *a2;
+  v5 = WTF::fastMalloc(a3, 0x60);
+  *v5 = &unk_1F10EABC0;
+  v6 = *a2;
   *a2 = 0;
-  *(v4 + 16) = v5;
-  v6 = a2[2];
-  if (v6)
-  {
-    atomic_fetch_add_explicit(v6, 2u, memory_order_relaxed);
-  }
-
-  *(v4 + 32) = v6;
-  v7 = a2[3];
+  v5[2] = v6;
+  v7 = *(a2 + 16);
   if (v7)
   {
     atomic_fetch_add_explicit(v7, 2u, memory_order_relaxed);
   }
 
-  *(v4 + 40) = v7;
-  *(v4 + 48) = *(a2 + 2);
-  *(v4 + 64) = 0;
-  *(v4 + 72) = 0;
-  if (*(a2 + 56) == 1)
+  v5[4] = v7;
+  v8 = *(a2 + 24);
+  if (v8)
   {
-    v8 = a2[6];
-    if (v8)
-    {
-      atomic_fetch_add_explicit(v8, 2u, memory_order_relaxed);
-    }
-
-    *(v4 + 64) = v8;
-    *(v4 + 72) = 1;
+    atomic_fetch_add_explicit(v8, 2u, memory_order_relaxed);
   }
 
-  v9 = a2[8];
-  a2[8] = 0;
-  *(v4 + 80) = v9;
-  *a1 = v4;
+  v5[5] = v8;
+  *(v5 + 3) = *(a2 + 32);
+  *(v5 + 64) = 0;
+  *(v5 + 72) = 0;
+  if (*(a2 + 56) == 1)
+  {
+    v9 = *(a2 + 48);
+    if (v9)
+    {
+      atomic_fetch_add_explicit(v9, 2u, memory_order_relaxed);
+    }
+
+    v5[8] = v9;
+    *(v5 + 72) = 1;
+  }
+
+  v10 = *(a2 + 64);
+  *(a2 + 64) = 0;
+  v5[10] = v10;
+  *a1 = v5;
   return a1;
 }
 
 uint64_t WebPushD::PushService::removeRecordsForBundleIdentifierAndDataStore(unsigned int *a1, uint64_t a2, WTF::UUID *a3, uint64_t *a4)
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   v7 = qword_1ED6410A8;
   if (os_log_type_enabled(qword_1ED6410A8, OS_LOG_TYPE_DEFAULT))
   {
     WTF::String::utf8();
-    if (v20)
+    if (v21)
     {
-      v8 = v20 + 16;
+      v8 = v21 + 16;
     }
 
     else
@@ -4567,11 +4722,11 @@ uint64_t WebPushD::PushService::removeRecordsForBundleIdentifierAndDataStore(uns
 
     if (*(a3 + 16) == 1)
     {
-      WTF::UUID::toString(&v18, a3);
-      WTF::String::ascii(&v19, &v18);
-      if (v19)
+      WTF::UUID::toString(&v19, a3);
+      WTF::String::ascii(&v20, &v19);
+      if (v20)
       {
-        v9 = v19 + 16;
+        v9 = v20 + 16;
       }
 
       else
@@ -4581,11 +4736,11 @@ uint64_t WebPushD::PushService::removeRecordsForBundleIdentifierAndDataStore(uns
 
       *buf = 136446466;
       *&buf[4] = v8;
-      v22 = 2082;
-      v23 = v9;
+      v23 = 2082;
+      v24 = v9;
       _os_log_impl(&dword_19D52D000, v7, OS_LOG_TYPE_DEFAULT, "Removing push subscriptions associated with %{public}s | ds: %{public}s", buf, 0x16u);
-      v11 = v19;
-      v19 = 0;
+      v11 = v20;
+      v20 = 0;
       if (v11)
       {
         if (*v11 == 1)
@@ -4599,8 +4754,8 @@ uint64_t WebPushD::PushService::removeRecordsForBundleIdentifierAndDataStore(uns
         }
       }
 
-      v12 = v18;
-      v18 = 0;
+      v12 = v19;
+      v19 = 0;
       if (v12 && atomic_fetch_add_explicit(v12, 0xFFFFFFFE, memory_order_relaxed) == 2)
       {
         WTF::StringImpl::destroy(v12, v10);
@@ -4611,13 +4766,13 @@ uint64_t WebPushD::PushService::removeRecordsForBundleIdentifierAndDataStore(uns
     {
       *buf = 136446466;
       *&buf[4] = v8;
-      v22 = 2082;
-      v23 = "default";
+      v23 = 2082;
+      v24 = "default";
       _os_log_impl(&dword_19D52D000, v7, OS_LOG_TYPE_DEFAULT, "Removing push subscriptions associated with %{public}s | ds: %{public}s", buf, 0x16u);
     }
 
-    v13 = v20;
-    v20 = 0;
+    v13 = v21;
+    v21 = 0;
     if (v13)
     {
       if (*v13 == 1)
@@ -4634,14 +4789,14 @@ uint64_t WebPushD::PushService::removeRecordsForBundleIdentifierAndDataStore(uns
 
   WTF::WeakPtrFactory<WebPushD::PushServiceConnection,WTF::DefaultWeakPtrImpl>::initializeIfNeeded(a1, a1);
   v14 = *a1;
-  atomic_fetch_add(v14, 1u);
-  v15 = *a4;
+  add = atomic_fetch_add(v14, 1u);
+  v16 = *a4;
   *a4 = 0;
-  v16 = WTF::fastMalloc(0x18);
-  *v16 = &unk_1F10EAC38;
-  v16[1] = v14;
-  v16[2] = v15;
-  *buf = v16;
+  v17 = WTF::fastMalloc(add, 0x18);
+  *v17 = &unk_1F10EAC38;
+  v17[1] = v14;
+  v17[2] = v16;
+  *buf = v17;
   WebCore::PushDatabase::removeRecordsByBundleIdentifierAndDataStore();
   result = *buf;
   *buf = 0;
@@ -4676,7 +4831,7 @@ void sub_19D8C40F8(_Unwind_Exception *exception_object, WTF::StringImpl *a2, int
   _Unwind_Resume(exception_object);
 }
 
-uint64_t WebPushD::PushService::updateSubscriptionSetState(unsigned int *a1, atomic_uint **a2, void **a3, uint64_t *a4)
+uint64_t WebPushD::PushService::updateSubscriptionSetState(unsigned int *a1, atomic_uint **a2, unsigned int **a3, uint64_t **a4)
 {
   WTF::WeakPtrFactory<WebPushD::PushServiceConnection,WTF::DefaultWeakPtrImpl>::initializeIfNeeded(a1, a1);
   v8 = *a1;
@@ -4693,7 +4848,7 @@ uint64_t WebPushD::PushService::updateSubscriptionSetState(unsigned int *a1, ato
   v10 = *a4;
   *a4 = 0;
   v21 = v10;
-  v11 = WTF::fastMalloc(0x28);
+  v11 = WTF::fastMalloc(v10, 0x28);
   v12 = v11;
   *v11 = &unk_1F10EACB0;
   v11[1] = v18;
@@ -4736,16 +4891,16 @@ uint64_t WebPushD::PushService::updateSubscriptionSetState(unsigned int *a1, ato
   return 0;
 }
 
-void sub_19D8C4390(_Unwind_Exception *exception_object, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, WTF *a10, WTF::StringImpl *a11, WTF::StringImpl **a12, uint64_t a13, uint64_t a14)
+void sub_19D8C4390(_Unwind_Exception *exception_object, WTF::StringImpl *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, WTF *a10, WTF::StringImpl *a11, WTF::StringImpl **a12, uint64_t a13, uint64_t a14)
 {
   if (a14)
   {
-    (*(*a14 + 8))(a14);
+    (*(*a14 + 8))(a14, a2, a3, a4, a5, a6, a7, a8);
   }
 
   if (a13)
   {
-    (*(*a13 + 8))(a13);
+    (*(*a13 + 8))(a13, a2, a3, a4, a5, a6, a7, a8);
   }
 
   if (a12)
@@ -4774,35 +4929,35 @@ uint64_t WebPushD::PushService::updateTopicLists(unsigned int *a1, uint64_t *a2)
 {
   WTF::WeakPtrFactory<WebPushD::PushServiceConnection,WTF::DefaultWeakPtrImpl>::initializeIfNeeded(a1, a1);
   v4 = *a1;
-  atomic_fetch_add(v4, 1u);
-  v5 = *a2;
+  add = atomic_fetch_add(v4, 1u);
+  v6 = *a2;
   *a2 = 0;
-  v6 = WTF::fastMalloc(0x18);
-  *v6 = &unk_1F10EAD78;
-  v6[1] = v4;
-  v6[2] = v5;
-  v8 = v6;
+  v7 = WTF::fastMalloc(add, 0x18);
+  *v7 = &unk_1F10EAD78;
+  v7[1] = v4;
+  v7[2] = v6;
+  v9 = v7;
   WebCore::PushDatabase::getTopics();
-  result = v8;
-  if (v8)
+  result = v9;
+  if (v9)
   {
-    return (*(*v8 + 8))(v8);
+    return (*(*v9 + 8))(v9);
   }
 
   return result;
 }
 
-void sub_19D8C457C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10)
+void sub_19D8C457C(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
 {
   if (a10)
   {
-    (*(*a10 + 8))(a10);
+    (*(*a10 + 8))(a10, a2, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
 }
 
-void WebPushD::PushService::didReceivePushMessage(unsigned int *a1, uint64_t a2, void *a3, uint64_t *a4)
+void WebPushD::PushService::didReceivePushMessage(unsigned int *a1, uint64_t a2, void *a3, uint64_t **a4)
 {
   v83 = *MEMORY[0x1E69E9840];
   v8 = os_transaction_create();
@@ -5059,7 +5214,7 @@ LABEL_30:
       *a4 = 0;
       v67 = v38;
       v68 = v8;
-      v39 = WTF::fastMalloc(0x60);
+      v39 = WTF::fastMalloc(v38, 0x60);
       *v39 = &unk_1F10EADF0;
       v40 = v61;
       v61 = 0;
@@ -5246,7 +5401,7 @@ uint64_t WebPushD::PushService::didReceivePushMessage(NSString *,NSDictionary *,
   *(a1 + 72) = 0;
   if (v4)
   {
-    (*(*v4 + 8))(v4);
+    (*(*v4 + 8))(v4, a2);
   }
 
   v5 = *(a1 + 56);
@@ -5574,17 +5729,17 @@ void sub_19D8C56DC(_Unwind_Exception *exception_object, void *a2, int a3, int a4
   _Unwind_Resume(exception_object);
 }
 
-uint64_t WebPushD::GetSubscriptionRequest::finish(WebPushD::GetSubscriptionRequest *this)
+uint64_t WebPushD::GetSubscriptionRequest::finish(WebPushD::GetSubscriptionRequest *this, uint64_t a2, const WTF::String *a3)
 {
-  v1 = *(*(this + 8) + 8);
-  if (v1)
+  v3 = *(*(this + 8) + 8);
+  if (v3)
   {
-    v3 = *(v1 + 8);
-    v2 = v1 + 8;
-    *v2 = v3 + 1;
-    WebPushD::PushService::finishedPushServiceRequest((v2 + 32), this);
+    v5 = *(v3 + 8);
+    v4 = v3 + 8;
+    *v4 = v5 + 1;
+    WebPushD::PushService::finishedPushServiceRequest((v4 + 32), this, a3);
 
-    return WTF::RefCounted<WebPushD::PushService>::deref(v2, v4);
+    return WTF::RefCounted<WebPushD::PushService>::deref(v4, v6);
   }
 
   else
@@ -5879,17 +6034,17 @@ void sub_19D8C5E6C(_Unwind_Exception *exception_object, void *a2, int a3, int a4
   _Unwind_Resume(exception_object);
 }
 
-uint64_t WebPushD::UnsubscribeRequest::finish(WebPushD::UnsubscribeRequest *this)
+uint64_t WebPushD::UnsubscribeRequest::finish(WebPushD::UnsubscribeRequest *this, uint64_t a2, const WTF::String *a3)
 {
-  v1 = *(*(this + 8) + 8);
-  if (v1)
+  v3 = *(*(this + 8) + 8);
+  if (v3)
   {
-    v3 = *(v1 + 8);
-    v2 = v1 + 8;
-    *v2 = v3 + 1;
-    WebPushD::PushService::finishedPushServiceRequest((v2 + 48), this);
+    v5 = *(v3 + 8);
+    v4 = v3 + 8;
+    *v4 = v5 + 1;
+    WebPushD::PushService::finishedPushServiceRequest((v4 + 48), this, a3);
 
-    return WTF::RefCounted<WebPushD::PushService>::deref(v2, v4);
+    return WTF::RefCounted<WebPushD::PushService>::deref(v4, v6);
   }
 
   else
@@ -6109,17 +6264,17 @@ void sub_19D8C6408(_Unwind_Exception *exception_object, void *a2, int a3, int a4
   _Unwind_Resume(exception_object);
 }
 
-uint64_t WebPushD::SubscribeRequest::finish(WebPushD::SubscribeRequest *this)
+uint64_t WebPushD::SubscribeRequest::finish(WebPushD::SubscribeRequest *this, uint64_t a2, const WTF::String *a3)
 {
-  v1 = *(*(this + 8) + 8);
-  if (v1)
+  v3 = *(*(this + 8) + 8);
+  if (v3)
   {
-    v3 = *(v1 + 8);
-    v2 = v1 + 8;
-    *v2 = v3 + 1;
-    WebPushD::PushService::finishedPushServiceRequest((v2 + 40), this);
+    v5 = *(v3 + 8);
+    v4 = v3 + 8;
+    *v4 = v5 + 1;
+    WebPushD::PushService::finishedPushServiceRequest((v4 + 40), this, a3);
 
-    return WTF::RefCounted<WebPushD::PushService>::deref(v2, v4);
+    return WTF::RefCounted<WebPushD::PushService>::deref(v4, v6);
   }
 
   else
@@ -6175,14 +6330,14 @@ uint64_t ___ZN8WebPushDL23performAfterFirstUnlockEON3WTF8FunctionIFvvEEE_block_i
   return result;
 }
 
-unint64_t WTF::Vector<WTF::Function<void ()(void)>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::expandCapacity<(WTF::FailureAction)0>(uint64_t a1, unint64_t a2, unint64_t a3)
+unint64_t WTF::Vector<WTF::Function<void ()(void)>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::expandCapacity<(WTF::FailureAction)0>(unint64_t *a1, unint64_t a2, unint64_t a3)
 {
   v3 = a3;
   v5 = *a1;
-  if (*a1 <= a3 && v5 + 8 * *(a1 + 12) > a3)
+  if (*a1 <= a3 && v5 + 8 * *(a1 + 3) > a3)
   {
     v10 = a3 - v5;
-    v11 = *(a1 + 8);
+    v11 = *(a1 + 2);
     if (v11 + (v11 >> 1) <= v11 + 1)
     {
       v12 = v11 + 1;
@@ -6214,7 +6369,7 @@ unint64_t WTF::Vector<WTF::Function<void ()(void)>,0ul,WTF::CrashOnOverflow,16ul
 
   else
   {
-    v6 = *(a1 + 8);
+    v6 = *(a1 + 2);
     if (v6 + (v6 >> 1) <= v6 + 1)
     {
       v7 = v6 + 1;
@@ -6259,7 +6414,7 @@ uint64_t WTF::Vector<WTF::Function<void ()(void)>,0ul,WTF::CrashOnOverflow,16ul,
 
     v4 = *a1;
     v5 = *(a1 + 12);
-    v6 = WTF::fastMalloc((8 * a2));
+    v6 = WTF::fastMalloc(0, (8 * a2));
     *(a1 + 8) = v2;
     *a1 = v6;
     if (v5)
@@ -6302,7 +6457,7 @@ uint64_t WTF::Vector<WTF::Function<void ()(void)>,0ul,WTF::CrashOnOverflow,16ul,
   return 1;
 }
 
-uint64_t WTF::VectorTypeOperations<WTF::Function<void ()(void)>>::move(uint64_t result, uint64_t *a2, uint64_t *a3)
+uint64_t *WTF::VectorTypeOperations<WTF::Function<void ()(void)>>::move(uint64_t *result, uint64_t *a2, uint64_t **a3)
 {
   if (result != a2)
   {
@@ -6329,12 +6484,12 @@ uint64_t WTF::VectorTypeOperations<WTF::Function<void ()(void)>>::move(uint64_t 
   return result;
 }
 
-uint64_t WTF::Vector<WTF::Function<void ()(void)>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::shrinkCapacity(uint64_t result, unint64_t a2)
+uint64_t *WTF::Vector<WTF::Function<void ()(void)>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::shrinkCapacity(uint64_t *result, unint64_t a2)
 {
-  if (*(result + 8) > a2)
+  if (*(result + 2) > a2)
   {
     v3 = result;
-    if (*(result + 12) > a2)
+    if (*(result + 3) > a2)
     {
       result = WTF::Vector<WTF::Function<void ()(void)>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::shrink(result, a2);
     }
@@ -6348,13 +6503,13 @@ uint64_t WTF::Vector<WTF::Function<void ()(void)>,0ul,WTF::CrashOnOverflow,16ul,
         return result;
       }
 
-      v5 = *(v3 + 12);
-      result = WTF::fastMalloc((8 * a2));
-      *(v3 + 8) = a2;
+      v5 = *(v3 + 3);
+      result = WTF::fastMalloc(0, (8 * a2));
+      *(v3 + 2) = a2;
       *v3 = result;
       if (result != v4)
       {
-        result = WTF::VectorTypeOperations<WTF::Function<void ()(void)>>::move(v4, v4 + v5, result);
+        result = WTF::VectorTypeOperations<WTF::Function<void ()(void)>>::move(v4, &v4[v5], result);
       }
     }
 
@@ -6363,7 +6518,7 @@ uint64_t WTF::Vector<WTF::Function<void ()(void)>,0ul,WTF::CrashOnOverflow,16ul,
       if (*v3 == v4)
       {
         *v3 = 0;
-        *(v3 + 8) = 0;
+        *(v3 + 2) = 0;
       }
 
       return WTF::fastFree(v4, a2);
@@ -6415,19 +6570,19 @@ LABEL_3:
   return result;
 }
 
-uint64_t WTF::HashTable<WTF::String,WTF::KeyValuePair<WTF::String,WTF::Deque<WTF::Ref<WebPushD::PushServiceRequest,WTF::RawPtrTraits<WebPushD::PushServiceRequest>,WTF::DefaultRefDerefTraits<WebPushD::PushServiceRequest>>,0ul>>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<WTF::String,WTF::Deque<WTF::Ref<WebPushD::PushServiceRequest,WTF::RawPtrTraits<WebPushD::PushServiceRequest>,WTF::DefaultRefDerefTraits<WebPushD::PushServiceRequest>>,0ul>>>,WTF::DefaultHash<WTF::String>,WTF::HashMap<WTF::String,WTF::Deque<WTF::Ref<WebPushD::PushServiceRequest,WTF::RawPtrTraits<WebPushD::PushServiceRequest>,WTF::DefaultRefDerefTraits<WebPushD::PushServiceRequest>>,0ul>,WTF::DefaultHash<WTF::String>,WTF::HashTraits<WTF::String>,WTF::HashTraits<WTF::Deque<WTF::Ref<WebPushD::PushServiceRequest,WTF::RawPtrTraits<WebPushD::PushServiceRequest>,WTF::DefaultRefDerefTraits<WebPushD::PushServiceRequest>>,0ul>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<WTF::String>,WTF::FastMalloc>::deallocateTable(uint64_t a1, void *a2)
+uint64_t WTF::HashTable<WTF::String,WTF::KeyValuePair<WTF::String,WTF::Deque<WTF::Ref<WebPushD::PushServiceRequest,WTF::RawPtrTraits<WebPushD::PushServiceRequest>,WTF::DefaultRefDerefTraits<WebPushD::PushServiceRequest>>,0ul>>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<WTF::String,WTF::Deque<WTF::Ref<WebPushD::PushServiceRequest,WTF::RawPtrTraits<WebPushD::PushServiceRequest>,WTF::DefaultRefDerefTraits<WebPushD::PushServiceRequest>>,0ul>>>,WTF::DefaultHash<WTF::String>,WTF::HashMap<WTF::String,WTF::Deque<WTF::Ref<WebPushD::PushServiceRequest,WTF::RawPtrTraits<WebPushD::PushServiceRequest>,WTF::DefaultRefDerefTraits<WebPushD::PushServiceRequest>>,0ul>,WTF::DefaultHash<WTF::String>,WTF::HashTraits<WTF::String>,WTF::HashTraits<WTF::Deque<WTF::Ref<WebPushD::PushServiceRequest,WTF::RawPtrTraits<WebPushD::PushServiceRequest>,WTF::DefaultRefDerefTraits<WebPushD::PushServiceRequest>>,0ul>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<WTF::String>,WTF::FastMalloc>::deallocateTable(uint64_t a1, WTF::StringImpl *a2)
 {
   v3 = *(a1 - 4);
   if (v3)
   {
-    v4 = a1 + 8;
+    v4 = (a1 + 8);
     do
     {
-      if (*(v4 - 8) != -1)
+      if (*(v4 - 1) != -1)
       {
         WTF::Deque<WTF::Ref<WebPushD::PushServiceRequest,WTF::RawPtrTraits<WebPushD::PushServiceRequest>,WTF::DefaultRefDerefTraits<WebPushD::PushServiceRequest>>,0ul>::~Deque(v4, a2);
-        v5 = *(v4 - 8);
-        *(v4 - 8) = 0;
+        v5 = *(v4 - 1);
+        *(v4 - 1) = 0;
         if (v5)
         {
           if (atomic_fetch_add_explicit(v5, 0xFFFFFFFE, memory_order_relaxed) == 2)
@@ -6437,7 +6592,7 @@ uint64_t WTF::HashTable<WTF::String,WTF::KeyValuePair<WTF::String,WTF::Deque<WTF
         }
       }
 
-      v4 += 40;
+      v4 += 5;
       --v3;
     }
 
@@ -6447,12 +6602,12 @@ uint64_t WTF::HashTable<WTF::String,WTF::KeyValuePair<WTF::String,WTF::Deque<WTF
   return WTF::fastFree((a1 - 16), a2);
 }
 
-uint64_t WTF::Deque<WTF::Ref<WebPushD::PushServiceRequest,WTF::RawPtrTraits<WebPushD::PushServiceRequest>,WTF::DefaultRefDerefTraits<WebPushD::PushServiceRequest>>,0ul>::~Deque(uint64_t result, void *a2)
+unint64_t *WTF::Deque<WTF::Ref<WebPushD::PushServiceRequest,WTF::RawPtrTraits<WebPushD::PushServiceRequest>,WTF::DefaultRefDerefTraits<WebPushD::PushServiceRequest>>,0ul>::~Deque(unint64_t *result, void *a2)
 {
   v2 = result;
-  v3 = *(result + 8);
-  v4 = *(result + 16);
-  v5 = *(result + 24);
+  v3 = result[1];
+  v4 = result[2];
+  v5 = *(result + 6);
   v6 = *result;
   v7 = v3 - *result;
   if (v3 < *result)
@@ -6462,14 +6617,14 @@ uint64_t WTF::Deque<WTF::Ref<WebPushD::PushServiceRequest,WTF::RawPtrTraits<WebP
       if (v3)
       {
         v8 = 8 * v3;
-        v9 = *(result + 16);
+        v9 = result[2];
         do
         {
           result = *v9;
           *v9 = 0;
           if (result)
           {
-            result = (*(*result + 8))(result);
+            result = (*(*result + 8))(result, a2);
           }
 
           ++v9;
@@ -6492,7 +6647,7 @@ uint64_t WTF::Deque<WTF::Ref<WebPushD::PushServiceRequest,WTF::RawPtrTraits<WebP
             *v10 = 0;
             if (v12)
             {
-              (*(*v12 + 8))(v12);
+              (*(*v12 + 8))(v12, a2);
             }
 
             ++v10;
@@ -6534,7 +6689,7 @@ LABEL_22:
       *v15 = 0;
       if (v16)
       {
-        (*(*v16 + 8))(v16);
+        (*(*v16 + 8))(v16, a2);
       }
 
       ++v15;
@@ -6598,7 +6753,7 @@ void WebPushD::PushServiceRequest::~PushServiceRequest(WebPushD::PushServiceRequ
   *(this + 7) = 0;
   if (v6)
   {
-    (*(*v6 + 8))(v6);
+    (*(*v6 + 8))(v6, a2);
   }
 
   v7 = *(this + 6);
@@ -6647,7 +6802,7 @@ uint64_t mpark::detail::move_constructor<mpark::detail::traits<BOOL,WebCore::Exc
   return a1;
 }
 
-uint64_t *WTF::HashTable<WTF::String,WTF::String,WTF::IdentityExtractor,WTF::DefaultHash<WTF::String>,WTF::HashTraits<WTF::String>,WTF::HashTraits<WTF::String>,WTF::FastMalloc>::HashTable(uint64_t *a1, void **a2)
+uint64_t *WTF::HashTable<WTF::String,WTF::String,WTF::IdentityExtractor,WTF::DefaultHash<WTF::String>,WTF::HashTraits<WTF::String>,WTF::HashTraits<WTF::String>,WTF::FastMalloc>::HashTable(uint64_t *a1, unsigned int **a2)
 {
   *a1 = 0;
   v3 = *a2;
@@ -6666,7 +6821,7 @@ uint64_t *WTF::HashTable<WTF::String,WTF::String,WTF::IdentityExtractor,WTF::Def
       v8 = WTF::HashTable<WTF::String,WTF::String,WTF::IdentityExtractor,WTF::DefaultHash<WTF::String>,WTF::HashTraits<WTF::String>,WTF::HashTraits<WTF::String>,WTF::FastMalloc>::begin(a2);
       v10 = v8;
       v11 = v9;
-      v12 = *a2 ? &(*a2)[*(*a2 - 1)] : 0;
+      v12 = *a2 ? &(*a2)[2 * *(*a2 - 1)] : 0;
       if (v12 != v8)
       {
         do
@@ -6838,7 +6993,7 @@ _DWORD *WTF::RefCounted<WebPushD::GetSubscriptionRequest>::deref(_DWORD *result,
   return result;
 }
 
-_DWORD *WTF::RefCounted<WebPushD::PushService>::deref(_DWORD *result, void *a2)
+_DWORD *WTF::RefCounted<WebPushD::PushService>::deref(_DWORD *result, WTF::StringImpl *a2)
 {
   if (*result == 1)
   {
@@ -6879,14 +7034,14 @@ void *WTF::Detail::CallableWrapper<WebPushD::PushService::create(WTF::String con
   a1[5] = 0;
   if (v3)
   {
-    (*(*v3 + 8))(v3);
+    (*(*v3 + 8))(v3, a2);
   }
 
   v4 = a1[4];
   a1[4] = 0;
   if (v4)
   {
-    (*(*v4 + 8))(v4);
+    (*(*v4 + 8))(v4, a2);
   }
 
   v5 = a1[3];
@@ -6895,7 +7050,7 @@ void *WTF::Detail::CallableWrapper<WebPushD::PushService::create(WTF::String con
   {
     if (v5[4] == 1)
     {
-      (*(*v5 + 8))(v5);
+      (*(*v5 + 8))(v5, a2);
     }
 
     else
@@ -6926,14 +7081,14 @@ uint64_t WTF::Detail::CallableWrapper<WebPushD::PushService::create(WTF::String 
   *(this + 5) = 0;
   if (v3)
   {
-    (*(*v3 + 8))(v3);
+    (*(*v3 + 8))(v3, a2);
   }
 
   v4 = *(this + 4);
   *(this + 4) = 0;
   if (v4)
   {
-    (*(*v4 + 8))(v4);
+    (*(*v4 + 8))(v4, a2);
   }
 
   v5 = *(this + 3);
@@ -6942,7 +7097,7 @@ uint64_t WTF::Detail::CallableWrapper<WebPushD::PushService::create(WTF::String 
   {
     if (v5[4] == 1)
     {
-      (*(*v5 + 8))(v5);
+      (*(*v5 + 8))(v5, a2);
     }
 
     else
@@ -6966,42 +7121,42 @@ uint64_t WTF::Detail::CallableWrapper<WebPushD::PushService::create(WTF::String 
   return WTF::fastFree(this, a2);
 }
 
-uint64_t WTF::Detail::CallableWrapper<WebPushD::PushService::create(WTF::String const&,WTF::String const&,WTF::Function<void ()(WebCore::PushSubscriptionSetIdentifier const&,WebKit::WebPushMessage &&)> &&,WTF::CompletionHandler<void ()(WTF::RefPtr<WebPushD::PushService,WTF::RawPtrTraits<WebPushD::PushService>,WTF::DefaultRefDerefTraits<WebPushD::PushService>> &&)> &&)::$_0,void>::call(void *a1)
+uint64_t WTF::Detail::CallableWrapper<WebPushD::PushService::create(WTF::String const&,WTF::String const&,WTF::Function<void ()(WebCore::PushSubscriptionSetIdentifier const&,WebKit::WebPushMessage &&)> &&,WTF::CompletionHandler<void ()(WTF::RefPtr<WebPushD::PushService,WTF::RawPtrTraits<WebPushD::PushService>,WTF::DefaultRefDerefTraits<WebPushD::PushService>> &&)> &&)::$_0,void>::call@<X0>(void *a1@<X0>, uint64_t *a3@<X8>)
 {
-  v2 = a1[2];
-  if (v2)
+  v4 = a1[2];
+  if (v4)
   {
-    v3 = v2;
+    v5 = v4;
   }
 
-  v4 = a1[3];
-  v5 = a1[4];
+  v6 = a1[3];
+  v7 = a1[4];
   a1[3] = 0;
   a1[4] = 0;
-  v6 = a1[5];
+  v8 = a1[5];
   a1[5] = 0;
-  v7 = WTF::fastMalloc(0x28);
-  *v7 = &unk_1F10EA878;
-  v7[1] = v2;
-  v7[2] = v4;
-  v7[3] = v5;
-  v7[4] = v6;
-  v9 = v7;
+  v9 = WTF::fastMalloc(a3, 0x28);
+  *v9 = &unk_1F10EA878;
+  v9[1] = v4;
+  v9[2] = v6;
+  v9[3] = v7;
+  v9[4] = v8;
+  v11 = v9;
   WebCore::PushDatabase::create();
-  result = v9;
-  if (v9)
+  result = v11;
+  if (v11)
   {
-    return (*(*v9 + 8))(v9);
+    return (*(*v11 + 8))(v11);
   }
 
   return result;
 }
 
-void sub_19D8C74C4(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10)
+void sub_19D8C74C4(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
 {
   if (a10)
   {
-    (*(*a10 + 8))(a10);
+    (*(*a10 + 8))(a10, a2, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
@@ -7054,14 +7209,14 @@ uint64_t _ZN3WTF6Detail15CallableWrapperIZZN8WebPushD11PushService6createERKNS_6
   *(this + 4) = 0;
   if (v3)
   {
-    (*(*v3 + 8))(v3);
+    (*(*v3 + 8))(v3, a2);
   }
 
   v4 = *(this + 3);
   *(this + 3) = 0;
   if (v4)
   {
-    (*(*v4 + 8))(v4);
+    (*(*v4 + 8))(v4, a2);
   }
 
   v5 = *(this + 2);
@@ -7070,7 +7225,7 @@ uint64_t _ZN3WTF6Detail15CallableWrapperIZZN8WebPushD11PushService6createERKNS_6
   {
     if (v5[4] == 1)
     {
-      (*(*v5 + 8))(v5);
+      (*(*v5 + 8))(v5, a2);
     }
 
     else
@@ -7094,13 +7249,13 @@ _DWORD *_ZN3WTF6Detail15CallableWrapperIZZN8WebPushD11PushService6createERKNS_6S
     v4 = WebPushD::PushService::operator new(0x48, a2);
     v5 = a1[2];
     a1[2] = 0;
-    v15 = *a2;
+    v16 = *a2;
     *buf = v5;
     *a2 = 0;
-    WebPushD::PushService::PushService(v4, buf, &v15, a1 + 3);
-    if (v15)
+    WebPushD::PushService::PushService(v4, buf, &v16, a1 + 3);
+    if (v16)
     {
-      WTF::RefCounted<WebCore::PushDatabase>::deref((v15 + 8));
+      WTF::RefCounted<WebCore::PushDatabase>::deref((v16 + 8));
     }
 
     if (*buf)
@@ -7122,47 +7277,48 @@ _DWORD *_ZN3WTF6Detail15CallableWrapperIZZN8WebPushD11PushService6createERKNS_6S
       v7 = v6;
     }
 
-    ++v4[2];
-    v8 = a1[4];
+    v8 = (v4[2] + 1);
+    v4[2] = v8;
+    v9 = a1[4];
     a1[4] = 0;
-    v9 = WTF::fastMalloc(0x20);
-    *v9 = &unk_1F10EA8A0;
-    v9[1] = v6;
-    v9[2] = v4;
-    v9[3] = v8;
-    *buf = v9;
+    v10 = WTF::fastMalloc(v8, 0x20);
+    *v10 = &unk_1F10EA8A0;
+    v10[1] = v6;
+    v10[2] = v4;
+    v10[3] = v9;
+    *buf = v10;
     WebPushD::PushService::updateTopicLists(v4, buf);
     if (*buf)
     {
       (*(**buf + 8))(*buf);
     }
 
-    return WTF::RefCounted<WebPushD::PushService>::deref(v4 + 2, v10);
+    return WTF::RefCounted<WebPushD::PushService>::deref(v4 + 2, v11);
   }
 
   else
   {
-    v12 = qword_1ED6410A8;
+    v13 = qword_1ED6410A8;
     if (os_log_type_enabled(qword_1ED6410A8, OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
-      _os_log_error_impl(&dword_19D52D000, v12, OS_LOG_TYPE_ERROR, "Push service initialization failed with database error", buf, 2u);
+      _os_log_error_impl(&dword_19D52D000, v13, OS_LOG_TYPE_ERROR, "Push service initialization failed with database error", buf, 2u);
     }
 
     *buf = 0;
     result = WTF::CompletionHandler<void ()(WTF::RefPtr<WebPushD::PushService,WTF::RawPtrTraits<WebPushD::PushService>,WTF::DefaultRefDerefTraits<WebPushD::PushService>> &&)>::operator()(a1 + 4);
-    v14 = *buf;
+    v15 = *buf;
     *buf = 0;
-    if (v14)
+    if (v15)
     {
-      return WTF::RefCounted<WebPushD::PushService>::deref((v14 + 8), v13);
+      return WTF::RefCounted<WebPushD::PushService>::deref((v15 + 8), v14);
     }
   }
 
   return result;
 }
 
-void sub_19D8C7990(_Unwind_Exception *exception_object, void *a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11)
+void sub_19D8C7990(_Unwind_Exception *exception_object, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11)
 {
   if (a11)
   {
@@ -7195,14 +7351,14 @@ uint64_t WebPushD::PushService::operator new(WebPushD::PushService *this, void *
   }
 }
 
-void *_ZN3WTF6Detail15CallableWrapperIZZZN8WebPushD11PushService6createERKNS_6StringES6_ONS_8FunctionIFvRKN7WebCore29PushSubscriptionSetIdentifierEON6WebKit14WebPushMessageEEEEONS_17CompletionHandlerIFvONS_6RefPtrIS3_NS_12RawPtrTraitsIS3_EENS_21DefaultRefDerefTraitsIS3_EEEEEEEEN3__0clEvENUlOT_E_clINSJ_INS8_12PushDatabaseENSK_ISY_EENSM_ISY_EEEEEEDaSV_EUlvE_vJEED1Ev(void *a1, void *a2)
+void *_ZN3WTF6Detail15CallableWrapperIZZZN8WebPushD11PushService6createERKNS_6StringES6_ONS_8FunctionIFvRKN7WebCore29PushSubscriptionSetIdentifierEON6WebKit14WebPushMessageEEEEONS_17CompletionHandlerIFvONS_6RefPtrIS3_NS_12RawPtrTraitsIS3_EENS_21DefaultRefDerefTraitsIS3_EEEEEEEEN3__0clEvENUlOT_E_clINSJ_INS8_12PushDatabaseENSK_ISY_EENSM_ISY_EEEEEEDaSV_EUlvE_vJEED1Ev(void *a1, WTF::StringImpl *a2)
 {
   *a1 = &unk_1F10EA8A0;
   v3 = a1[3];
   a1[3] = 0;
   if (v3)
   {
-    (*(*v3 + 8))(v3);
+    (*(*v3 + 8))(v3, a2);
   }
 
   v4 = a1[2];
@@ -7220,14 +7376,14 @@ void *_ZN3WTF6Detail15CallableWrapperIZZZN8WebPushD11PushService6createERKNS_6St
   return a1;
 }
 
-uint64_t _ZN3WTF6Detail15CallableWrapperIZZZN8WebPushD11PushService6createERKNS_6StringES6_ONS_8FunctionIFvRKN7WebCore29PushSubscriptionSetIdentifierEON6WebKit14WebPushMessageEEEEONS_17CompletionHandlerIFvONS_6RefPtrIS3_NS_12RawPtrTraitsIS3_EENS_21DefaultRefDerefTraitsIS3_EEEEEEEEN3__0clEvENUlOT_E_clINSJ_INS8_12PushDatabaseENSK_ISY_EENSM_ISY_EEEEEEDaSV_EUlvE_vJEED0Ev(WTF *this, void *a2)
+uint64_t _ZN3WTF6Detail15CallableWrapperIZZZN8WebPushD11PushService6createERKNS_6StringES6_ONS_8FunctionIFvRKN7WebCore29PushSubscriptionSetIdentifierEON6WebKit14WebPushMessageEEEEONS_17CompletionHandlerIFvONS_6RefPtrIS3_NS_12RawPtrTraitsIS3_EENS_21DefaultRefDerefTraitsIS3_EEEEEEEEN3__0clEvENUlOT_E_clINSJ_INS8_12PushDatabaseENSK_ISY_EENSM_ISY_EEEEEEDaSV_EUlvE_vJEED0Ev(WTF *this, WTF::StringImpl *a2)
 {
   *this = &unk_1F10EA8A0;
   v3 = *(this + 3);
   *(this + 3) = 0;
   if (v3)
   {
-    (*(*v3 + 8))(v3);
+    (*(*v3 + 8))(v3, a2);
   }
 
   v4 = *(this + 2);
@@ -7259,7 +7415,7 @@ _DWORD *_ZN3WTF6Detail15CallableWrapperIZZZN8WebPushD11PushService6createERKNS_6
   return result;
 }
 
-void sub_19D8C7CE4(_Unwind_Exception *exception_object, void *a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10)
+void sub_19D8C7CE4(_Unwind_Exception *exception_object, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10)
 {
   if (a10)
   {
@@ -7296,14 +7452,14 @@ uint64_t WTF::Detail::CallableWrapper<WebPushD::PushService::createMockService(W
   *(this + 2) = 0;
   if (v3)
   {
-    (*(*v3 + 8))(v3);
+    (*(*v3 + 8))(v3, a2);
   }
 
   v4 = *(this + 1);
   *(this + 1) = 0;
   if (v4)
   {
-    (*(*v4 + 8))(v4);
+    (*(*v4 + 8))(v4, a2);
   }
 
   return WTF::fastFree(this, a2);
@@ -7358,7 +7514,7 @@ _DWORD *WTF::Detail::CallableWrapper<WebPushD::PushService::createMockService(WT
   return result;
 }
 
-void sub_19D8C7F64(_Unwind_Exception *exception_object, void *a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12)
+void sub_19D8C7F64(_Unwind_Exception *exception_object, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12)
 {
   if (a12)
   {
@@ -7413,41 +7569,40 @@ uint64_t WTF::Detail::CallableWrapper<WebPushD::PushService::PushService(WTF::Re
   return WTF::fastFree(this, a2);
 }
 
-_DWORD *WTF::Detail::CallableWrapper<WebPushD::PushService::PushService(WTF::Ref<WebPushD::PushServiceConnection,WTF::RawPtrTraits<WebPushD::PushServiceConnection>,WTF::DefaultRefDerefTraits<WebPushD::PushServiceConnection>> &&,WTF::Ref<WebCore::PushDatabase,WTF::RawPtrTraits<WebCore>,WTF::DefaultRefDerefTraits<WebCore>> &&,WTF::Function<void ()(WTF::Ref<WebPushD::PushServiceConnection,WTF::RawPtrTraits<WebPushD::PushServiceConnection>,WTF::DefaultRefDerefTraits<WebPushD::PushServiceConnection>> &&::PushSubscriptionSetIdentifier const&,WebKit::WebPushMessage &&)> &&)::$_0,void,WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&>::call(_DWORD *result)
+_DWORD *WTF::Detail::CallableWrapper<WebPushD::PushService::PushService(WTF::Ref<WebPushD::PushServiceConnection,WTF::RawPtrTraits<WebPushD::PushServiceConnection>,WTF::DefaultRefDerefTraits<WebPushD::PushServiceConnection>> &&,WTF::Ref<WebCore::PushDatabase,WTF::RawPtrTraits<WebCore>,WTF::DefaultRefDerefTraits<WebCore>> &&,WTF::Function<void ()(WTF::Ref<WebPushD::PushServiceConnection,WTF::RawPtrTraits<WebPushD::PushServiceConnection>,WTF::DefaultRefDerefTraits<WebPushD::PushServiceConnection>> &&::PushSubscriptionSetIdentifier const&,WebKit::WebPushMessage &&)> &&)::$_0,void,WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&>::call(_DWORD *result, uint64_t *a2)
 {
-  v1 = *(result + 1);
-  if (v1)
+  v2 = *(result + 1);
+  if (v2)
   {
-    v2 = *(v1 + 8);
-    if (v2)
+    v3 = *(v2 + 8);
+    if (v3)
     {
-      v3 = v2 + 2;
-      ++v2[2];
-      WTF::WeakPtrFactory<WebPushD::PushServiceConnection,WTF::DefaultWeakPtrImpl>::initializeIfNeeded(v2, v2);
-      v4 = *v2;
-      atomic_fetch_add(v4, 1u);
-      v5 = WTF::fastMalloc(0x10);
-      *v5 = &unk_1F10EADA0;
-      v5[1] = v4;
-      v7 = v5;
+      v4 = v3 + 2;
+      ++v3[2];
+      WTF::WeakPtrFactory<WebPushD::PushServiceConnection,WTF::DefaultWeakPtrImpl>::initializeIfNeeded(v3, v3);
+      v5 = *v3;
+      v6 = WTF::fastMalloc(atomic_fetch_add(v5, 1u), 0x10);
+      *v6 = &unk_1F10EADA0;
+      v6[1] = v5;
+      v8 = v6;
       WebCore::PushDatabase::updatePublicToken();
-      if (v7)
+      if (v8)
       {
-        (*(*v7 + 8))(v7);
+        (*(*v8 + 8))(v8);
       }
 
-      return WTF::RefCounted<WebPushD::PushService>::deref(v3, v6);
+      return WTF::RefCounted<WebPushD::PushService>::deref(v4, v7);
     }
   }
 
   return result;
 }
 
-void sub_19D8C8294(_Unwind_Exception *a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
+void sub_19D8C8294(_Unwind_Exception *a1, WTF::StringImpl *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
 {
   if (a10)
   {
-    (*(*a10 + 8))(a10);
+    (*(*a10 + 8))(a10, a2, a3, a4, a5, a6, a7, a8);
   }
 
   WTF::RefCounted<WebPushD::PushService>::deref(v10, a2);
@@ -7490,28 +7645,29 @@ _DWORD *WTF::Detail::CallableWrapper<WebPushD::PushService::PushService(WTF::Ref
     v4 = *(v3 + 8);
     if (v4)
     {
-      ++v4[2];
-      v7 = WTF::fastMalloc(0x10);
-      *v7 = &unk_1F10EA940;
-      v9 = v7;
-      WebPushD::PushService::didReceivePushMessage(v4, a2, a3, &v9);
-      if (v9)
+      v7 = (v4[2] + 1);
+      v4[2] = v7;
+      v8 = WTF::fastMalloc(v7, 0x10);
+      *v8 = &unk_1F10EA940;
+      v10 = v8;
+      WebPushD::PushService::didReceivePushMessage(v4, a2, a3, &v10);
+      if (v10)
       {
-        (*(*v9 + 8))(v9);
+        (*(*v10 + 8))(v10);
       }
 
-      return WTF::RefCounted<WebPushD::PushService>::deref(v4 + 2, v8);
+      return WTF::RefCounted<WebPushD::PushService>::deref(v4 + 2, v9);
     }
   }
 
   return result;
 }
 
-void sub_19D8C84C8(_Unwind_Exception *a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
+void sub_19D8C84C8(_Unwind_Exception *a1, WTF::StringImpl *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
 {
   if (a10)
   {
-    (*(*a10 + 8))(a10);
+    (*(*a10 + 8))(a10, a2, a3, a4, a5, a6, a7, a8);
   }
 
   WTF::RefCounted<WebPushD::PushService>::deref(v10, a2);
@@ -7600,7 +7756,7 @@ void sub_19D8C8650(_Unwind_Exception *a1, void *a2)
   v2[7] = 0;
   if (v7)
   {
-    (*(*v7 + 8))(v7);
+    (*(*v7 + 8))(v7, a2);
   }
 
   v8 = v2[6];
@@ -8096,132 +8252,133 @@ uint64_t WTF::Detail::CallableWrapper<WebPushD::SubscribeRequest::startImpl(WebP
   return WTF::fastFree(this, a2);
 }
 
-uint64_t WTF::Detail::CallableWrapper<WebPushD::SubscribeRequest::startImpl(WebPushD::SubscribeRequest::IsRetry)::$_0,void,std::optional<WebCore::PushRecord> &&>::call(uint64_t result, uint64_t a2)
+uint64_t WTF::Detail::CallableWrapper<WebPushD::SubscribeRequest::startImpl(WebPushD::SubscribeRequest::IsRetry)::$_0,void,std::optional<WebCore::PushRecord> &&>::call(uint64_t result, uint64_t a2, const WTF::String *a3)
 {
-  v2 = *(result + 8);
-  if (v2)
+  v3 = *(result + 8);
+  if (v3)
   {
-    v3 = *(v2 + 8);
-    if (v3)
+    v4 = *(v3 + 8);
+    if (v4)
     {
-      ++*(v3 + 104);
+      ++*(v4 + 104);
       if (*(a2 + 160) == 1)
       {
-        v5 = *(v3 + 124);
-        if (v5 == *(a2 + 92) && !memcmp(*(v3 + 112), *(a2 + 80), v5))
+        v6 = *(v4 + 124);
+        if (v6 == *(a2 + 92) && !memcmp(*(v4 + 112), *(a2 + 80), v6))
         {
-          WebPushD::makePushSubscriptionFromRecord(&v18, a2);
-          WebPushD::PushServiceRequestImpl<WebCore::PushSubscriptionData>::fulfill(v3, &v18);
-          v15 = v24;
+          WebPushD::makePushSubscriptionFromRecord(&v20, a2);
+          WebPushD::PushServiceRequestImpl<WebCore::PushSubscriptionData>::fulfill(v4, &v20);
+          v17 = v26;
+          if (v26)
+          {
+            v26 = 0;
+            v27 = 0;
+            WTF::fastFree(v17, v7);
+          }
+
+          v18 = v24;
           if (v24)
           {
             v24 = 0;
             v25 = 0;
-            WTF::fastFree(v15, v6);
+            WTF::fastFree(v18, v7);
           }
 
-          v16 = v22;
+          v19 = v22;
           if (v22)
           {
             v22 = 0;
             v23 = 0;
-            WTF::fastFree(v16, v6);
+            WTF::fastFree(v19, v7);
           }
 
-          v17 = v20;
-          if (v20)
+          v8 = v21;
+          v21 = 0;
+          if (!v8)
           {
-            v20 = 0;
-            v21 = 0;
-            WTF::fastFree(v17, v6);
-          }
-
-          v7 = v19;
-          v19 = 0;
-          if (!v7)
-          {
-            return WTF::RefCounted<WebPushD::SubscribeRequest>::deref((v3 + 104), v6);
+            return WTF::RefCounted<WebPushD::SubscribeRequest>::deref((v4 + 104), v7);
           }
         }
 
         else
         {
-          LOBYTE(v18) = 8;
+          LOBYTE(v20) = 8;
           WTF::StringImpl::createWithoutCopyingNonEmpty();
-          v19 = v26;
-          WebPushD::PushServiceRequestImpl<WebCore::PushSubscriptionData>::reject(v3, &v18);
-          v7 = v19;
-          if (!v19)
+          v21 = v28;
+          WebPushD::PushServiceRequestImpl<WebCore::PushSubscriptionData>::reject(v4, &v20);
+          v8 = v21;
+          if (!v21)
           {
-            return WTF::RefCounted<WebPushD::SubscribeRequest>::deref((v3 + 104), v6);
+            return WTF::RefCounted<WebPushD::SubscribeRequest>::deref((v4 + 104), v7);
           }
         }
       }
 
       else
       {
-        v8 = result;
+        v9 = result;
         WebCore::makePushTopic();
-        v9 = *(*(v3 + 72) + 8);
-        if (!v9)
+        v10 = *(*(v4 + 72) + 8);
+        if (!v10)
         {
           result = 103;
           __break(0xC471u);
           return result;
         }
 
-        ++v9[4];
-        v10 = *(v8 + 8);
-        if (v10)
+        add = (v10[4] + 1);
+        v10[4] = add;
+        v12 = *(v9 + 8);
+        if (v12)
         {
-          atomic_fetch_add(v10, 1u);
+          add = atomic_fetch_add(v12, 1u);
         }
 
-        v11 = *(v8 + 16);
-        v12 = v18;
-        if (v18)
+        v13 = *(v9 + 16);
+        v14 = v20;
+        if (v20)
         {
-          atomic_fetch_add_explicit(v18, 2u, memory_order_relaxed);
+          add = atomic_fetch_add_explicit(v20, 2u, memory_order_relaxed);
         }
 
-        v13 = WTF::fastMalloc(0x20);
-        *v13 = &unk_1F10EA9B8;
-        *(v13 + 8) = v10;
-        *(v13 + 16) = v11;
-        *(v13 + 24) = v12;
-        v26 = v13;
-        (*(*v9 + 24))(v9, &v18, v3 + 112, &v26);
-        v14 = v26;
-        v26 = 0;
-        if (v14)
+        v15 = WTF::fastMalloc(add, 0x20);
+        *v15 = &unk_1F10EA9B8;
+        v15[1] = v12;
+        *(v15 + 16) = v13;
+        v15[3] = v14;
+        v28 = v15;
+        (*(*v10 + 24))(v10, &v20, v4 + 112, &v28);
+        v16 = v28;
+        v28 = 0;
+        if (v16)
         {
-          (*(*v14 + 8))(v14);
+          (*(*v16 + 8))(v16);
         }
 
-        if (v9[4] == 1)
+        if (v10[4] == 1)
         {
-          (*(*v9 + 8))(v9);
+          (*(*v10 + 8))(v10);
         }
 
         else
         {
-          --v9[4];
+          --v10[4];
         }
 
-        v7 = v18;
-        v18 = 0;
-        if (!v7)
+        v8 = v20;
+        v20 = 0;
+        if (!v8)
         {
-          return WTF::RefCounted<WebPushD::SubscribeRequest>::deref((v3 + 104), v6);
+          return WTF::RefCounted<WebPushD::SubscribeRequest>::deref((v4 + 104), v7);
         }
       }
 
-      if (atomic_fetch_add_explicit(v7, 0xFFFFFFFE, memory_order_relaxed) == 2)
+      if (atomic_fetch_add_explicit(v8, 0xFFFFFFFE, memory_order_relaxed) == 2)
       {
-        WTF::StringImpl::destroy(v7, v6);
+        WTF::StringImpl::destroy(v8, v7);
       }
 
-      return WTF::RefCounted<WebPushD::SubscribeRequest>::deref((v3 + 104), v6);
+      return WTF::RefCounted<WebPushD::SubscribeRequest>::deref((v4 + 104), v7);
     }
   }
 
@@ -8517,7 +8674,7 @@ uint64_t _ZN3WTF6Detail15CallableWrapperIZZN8WebPushD16SubscribeRequest9startImp
 
 _DWORD *_ZN3WTF6Detail15CallableWrapperIZZN8WebPushD16SubscribeRequest9startImplENS3_7IsRetryEEN3__0clINSt3__18optionalIN7WebCore10PushRecordEEEEEDaOT_EUlP8NSStringP7NSErrorE_vJSG_SI_EE4callESG_SI_(_DWORD *result, uint64_t a2, void *a3)
 {
-  v69 = *MEMORY[0x1E69E9840];
+  v71 = *MEMORY[0x1E69E9840];
   v3 = *(result + 1);
   if (v3)
   {
@@ -8534,231 +8691,232 @@ _DWORD *_ZN3WTF6Detail15CallableWrapperIZZN8WebPushD16SubscribeRequest9startImpl
           v8 = WTF::WorkQueue::mainSingleton(0x67);
           WTF::WeakPtrFactory<WebPushD::PushServiceConnection,WTF::DefaultWeakPtrImpl>::initializeIfNeeded((v4 + 8), v4);
           v9 = *(v4 + 8);
-          atomic_fetch_add(v9, 1u);
-          v10 = *(v6 + 3);
+          add = atomic_fetch_add(v9, 1u);
+          v11 = *(v6 + 3);
           *(v6 + 3) = 0;
-          v11 = WTF::fastMalloc(0x18);
-          *v11 = &unk_1F10EAA30;
-          v11[1] = v9;
-          v11[2] = v10;
-          *buf = v11;
+          v12 = WTF::fastMalloc(add, 0x18);
+          *v12 = &unk_1F10EAA30;
+          v12[1] = v9;
+          v12[2] = v11;
+          *buf = v12;
           (*(*v8 + 48))(v8, buf);
-          v13 = *buf;
+          v14 = *buf;
           *buf = 0;
-          if (v13)
+          if (v14)
           {
-            (*(*v13 + 8))(v13);
+            (*(*v14 + 8))(v14);
           }
         }
 
         else
         {
-          v14 = qword_1ED6410A8;
+          v15 = qword_1ED6410A8;
           if (os_log_type_enabled(qword_1ED6410A8, OS_LOG_TYPE_ERROR))
           {
-            WebCore::PushSubscriptionSetIdentifier::debugDescription(&v52, (v4 + 16));
+            WebCore::PushSubscriptionSetIdentifier::debugDescription(&v54, (v4 + 16));
             WTF::String::utf8();
-            if (v48[0])
+            if (v50[0])
             {
-              v40 = v48[0] + 16;
+              v42 = v50[0] + 16;
             }
 
             else
             {
-              v40 = 0;
+              v42 = 0;
             }
 
             WTF::String::utf8();
-            if (v51)
+            if (v53)
             {
-              v41 = v51 + 16;
+              v43 = v53 + 16;
             }
 
             else
             {
-              v41 = 0;
+              v43 = 0;
             }
 
-            v42 = [objc_msgSend(a3 "domain")];
-            v43 = [a3 code];
+            v44 = [objc_msgSend(a3 "domain")];
+            v45 = [a3 code];
             *buf = 136446979;
-            *&buf[4] = v40;
+            *&buf[4] = v42;
             *&buf[12] = 2085;
-            *&buf[14] = v41;
+            *&buf[14] = v43;
             *&buf[22] = 2082;
-            v54 = v42;
-            LOWORD(v55) = 2048;
-            *(&v55 + 2) = v43;
-            _os_log_error_impl(&dword_19D52D000, v14, OS_LOG_TYPE_ERROR, "PushManager.subscribe(%{public}s, scope: %{sensitive}s) failed with domain: %{public}s code: %lld)", buf, 0x2Au);
-            v45 = v51;
-            v51 = 0;
-            if (v45)
+            v56 = v44;
+            LOWORD(v57) = 2048;
+            *(&v57 + 2) = v45;
+            _os_log_error_impl(&dword_19D52D000, v15, OS_LOG_TYPE_ERROR, "PushManager.subscribe(%{public}s, scope: %{sensitive}s) failed with domain: %{public}s code: %lld)", buf, 0x2Au);
+            v47 = v53;
+            v53 = 0;
+            if (v47)
             {
-              if (*v45 == 1)
+              if (*v47 == 1)
               {
-                WTF::fastFree(v45, v44);
+                WTF::fastFree(v47, v46);
               }
 
               else
               {
-                --*v45;
+                --*v47;
               }
             }
 
-            v46 = v48[0];
-            v48[0] = 0;
-            if (v46)
+            v48 = v50[0];
+            v50[0] = 0;
+            if (v48)
             {
-              if (*v46 == 1)
+              if (*v48 == 1)
               {
-                WTF::fastFree(v46, v44);
+                WTF::fastFree(v48, v46);
               }
 
               else
               {
-                --*v46;
+                --*v48;
               }
             }
 
-            v47 = v52;
-            v52 = 0;
-            if (v47 && atomic_fetch_add_explicit(v47, 0xFFFFFFFE, memory_order_relaxed) == 2)
+            v49 = v54;
+            v54 = 0;
+            if (v49 && atomic_fetch_add_explicit(v49, 0xFFFFFFFE, memory_order_relaxed) == 2)
             {
-              WTF::StringImpl::destroy(v47, v44);
+              WTF::StringImpl::destroy(v49, v46);
             }
           }
 
           buf[0] = 16;
           WTF::StringImpl::createWithoutCopyingNonEmpty();
-          *&buf[8] = v48[0];
+          *&buf[8] = v50[0];
           WebPushD::PushServiceRequestImpl<WebCore::PushSubscriptionData>::reject(v4, buf);
-          v15 = *&buf[8];
+          v16 = *&buf[8];
           if (*&buf[8] && atomic_fetch_add_explicit(*&buf[8], 0xFFFFFFFE, memory_order_relaxed) == 2)
           {
-            WTF::StringImpl::destroy(v15, v12);
+            WTF::StringImpl::destroy(v16, v13);
           }
         }
 
-        return WTF::RefCounted<WebPushD::SubscribeRequest>::deref(v7, v12);
+        return WTF::RefCounted<WebPushD::SubscribeRequest>::deref(v7, v13);
       }
 
-      v16 = *(*(v4 + 64) + 8);
-      if (v16)
+      v17 = *(*(v4 + 64) + 8);
+      if (v17)
       {
-        (*(**(v16 + 16) + 16))(v48);
+        (*(**(v17 + 16) + 16))(v50);
         *buf = 0;
-        v19 = *(v4 + 16);
-        if (v19)
-        {
-          atomic_fetch_add_explicit(v19, 2u, memory_order_relaxed);
-        }
-
-        *&buf[16] = v19;
-        v20 = *(v4 + 24);
+        v20 = *(v4 + 16);
         if (v20)
         {
           atomic_fetch_add_explicit(v20, 2u, memory_order_relaxed);
         }
 
-        v54 = v20;
-        v55 = *(v4 + 32);
-        WebCore::SecurityOrigin::createFromString(&v52, (v4 + 48), v18);
-        WebCore::SecurityOriginData::toString(v56, (v52 + 8));
-        v21 = *(v4 + 48);
+        *&buf[16] = v20;
+        v21 = *(v4 + 24);
         if (v21)
         {
           atomic_fetch_add_explicit(v21, 2u, memory_order_relaxed);
         }
 
-        v56[1] = v21;
-        MEMORY[0x19EB02040](v57, a2);
-        v24 = *(v6 + 3);
+        v56 = v21;
+        v57 = *(v4 + 32);
+        WebCore::SecurityOrigin::createFromString(&v54, (v4 + 48), v19);
+        WebCore::SecurityOriginData::toString(v58, (v54 + 8));
+        v22 = *(v4 + 48);
+        if (v22)
+        {
+          atomic_fetch_add_explicit(v22, 2u, memory_order_relaxed);
+        }
+
+        v58[1] = v22;
+        MEMORY[0x19EB02040](v59, a2);
+        v25 = *(v6 + 3);
         *(v6 + 3) = 0;
-        v25 = *(v4 + 124);
-        v58 = 0;
-        v59 = 0;
-        v57[1] = v24;
-        v60 = v25;
-        if (v25)
+        v26 = *(v4 + 124);
+        v60 = 0;
+        v61 = 0;
+        v59[1] = v25;
+        v62 = v26;
+        if (v26)
         {
-          v26 = WTF::fastMalloc(v25);
-          v59 = v25;
-          v58 = v26;
-          memcpy(v26, *(v4 + 112), *(v4 + 124));
+          v27 = WTF::fastMalloc(v25, v26);
+          v61 = v26;
+          v60 = v27;
+          memcpy(v27, *(v4 + 112), *(v4 + 124));
         }
 
-        *&v23 = 0;
-        v61 = v48[0];
-        v62 = v48[1];
-        v27 = v49[0];
-        v28 = v49[1];
-        *v48 = v23;
-        *v49 = v23;
-        v63 = v27;
-        v64 = v28;
-        v29 = v50[0];
-        v30 = v50[1];
-        *v50 = v23;
-        v65 = v29;
-        v66 = v30;
-        v67 = 0;
-        v68 = 0;
-        v31 = v52;
-        v52 = 0;
-        if (v31)
-        {
-          WTF::ThreadSafeRefCounted<WebCore::SecurityOrigin,(WTF::DestructionThread)0>::deref(v31, v22);
-        }
-
-        v32 = *(*(v4 + 80) + 8);
+        *&v24 = 0;
+        v63 = v50[0];
+        v64 = v50[1];
+        v28 = v51[0];
+        v29 = v51[1];
+        *v50 = v24;
+        *v51 = v24;
+        v65 = v28;
+        v66 = v29;
+        v30 = v52[0];
+        v31 = v52[1];
+        *v52 = v24;
+        v67 = v30;
+        v68 = v31;
+        v69 = 0;
+        v70 = 0;
+        v32 = v54;
+        v54 = 0;
         if (v32)
         {
-          ++*(v32 + 8);
-          v33 = *(v6 + 1);
-          if (v33)
-          {
-            atomic_fetch_add(v33, 1u);
-          }
+          WTF::ThreadSafeRefCounted<WebCore::SecurityOrigin,(WTF::DestructionThread)0>::deref(v32, v23);
+        }
 
-          v34 = WTF::fastMalloc(0x10);
-          *v34 = &unk_1F10EA9E0;
-          *(v34 + 1) = v33;
-          v52 = v34;
-          WebCore::PushDatabase::insertRecord();
-          v35 = v52;
-          v52 = 0;
+        v33 = *(*(v4 + 80) + 8);
+        if (v33)
+        {
+          v34 = (*(v33 + 8) + 1);
+          *(v33 + 8) = v34;
+          v35 = *(v6 + 1);
           if (v35)
           {
-            (*(*v35 + 8))(v35);
+            v34 = atomic_fetch_add(v35, 1u);
           }
 
-          WTF::RefCounted<WebCore::PushDatabase>::deref((v32 + 8));
-          WebCore::PushRecord::~PushRecord(buf, v36);
-          v37 = v50[0];
+          v36 = WTF::fastMalloc(v34, 0x10);
+          *v36 = &unk_1F10EA9E0;
+          v36[1] = v35;
+          v54 = v36;
+          WebCore::PushDatabase::insertRecord();
+          v37 = v54;
+          v54 = 0;
+          if (v37)
+          {
+            (*(*v37 + 8))(v37);
+          }
+
+          WTF::RefCounted<WebCore::PushDatabase>::deref((v33 + 8));
+          WebCore::PushRecord::~PushRecord(buf, v38);
+          v39 = v52[0];
+          if (v52[0])
+          {
+            v52[0] = 0;
+            LODWORD(v52[1]) = 0;
+            WTF::fastFree(v39, v13);
+          }
+
+          v40 = v51[0];
+          if (v51[0])
+          {
+            v51[0] = 0;
+            LODWORD(v51[1]) = 0;
+            WTF::fastFree(v40, v13);
+          }
+
+          v41 = v50[0];
           if (v50[0])
           {
             v50[0] = 0;
             LODWORD(v50[1]) = 0;
-            WTF::fastFree(v37, v12);
+            WTF::fastFree(v41, v13);
           }
 
-          v38 = v49[0];
-          if (v49[0])
-          {
-            v49[0] = 0;
-            LODWORD(v49[1]) = 0;
-            WTF::fastFree(v38, v12);
-          }
-
-          v39 = v48[0];
-          if (v48[0])
-          {
-            v48[0] = 0;
-            LODWORD(v48[1]) = 0;
-            WTF::fastFree(v39, v12);
-          }
-
-          return WTF::RefCounted<WebPushD::SubscribeRequest>::deref(v7, v12);
+          return WTF::RefCounted<WebPushD::SubscribeRequest>::deref(v7, v13);
         }
 
         __break(0xC471u);
@@ -8776,11 +8934,11 @@ _DWORD *_ZN3WTF6Detail15CallableWrapperIZZN8WebPushD16SubscribeRequest9startImpl
   return result;
 }
 
-void sub_19D8C9FCC(_Unwind_Exception *a1, void *a2, int a3, int a4, int a5, int a6, int a7, int a8, WTF *a9, int a10, WTF *a11, int a12, WTF *a13, int a14, WTF *a15, WTF::StringImpl *a16, uint64_t a17, uint64_t a18, WTF::StringImpl *a19, WTF::StringImpl *a20, uint64_t a21, uint64_t a22, WTF::StringImpl *a23, WTF::StringImpl *a24, WTF::StringImpl *a25, WTF::StringImpl *a26)
+void sub_19D8C9FCC(_Unwind_Exception *a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, WTF *a9, int a10, WTF *a11, int a12, WTF *a13, int a14, WTF *a15, WTF::StringImpl *a16, uint64_t a17, uint64_t a18, WTF::StringImpl *a19, WTF::StringImpl *a20, uint64_t a21, uint64_t a22, WTF::StringImpl *a23, WTF::StringImpl *a24, WTF::StringImpl *a25, WTF::StringImpl *a26)
 {
   if (a17)
   {
-    (*(*a17 + 8))(a17);
+    (*(*a17 + 8))(a17, a2, a3, a4, a5, a6, a7, a8);
   }
 
   WTF::RefCounted<WebPushD::SubscribeRequest>::deref(v26, a2);
@@ -8817,7 +8975,7 @@ uint64_t _ZN3WTF6Detail15CallableWrapperIZZZN8WebPushD16SubscribeRequest9startIm
 
 uint64_t _ZN3WTF6Detail15CallableWrapperIZZZN8WebPushD16SubscribeRequest9startImplENS3_7IsRetryEEN3__0clINSt3__18optionalIN7WebCore10PushRecordEEEEEDaOT_ENUlP8NSStringP7NSErrorE_clESG_SI_EUlSE_E_vJOSB_EE4callESL_(uint64_t result, uint64_t a2)
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   v2 = *(result + 8);
   if (v2)
   {
@@ -8836,35 +8994,35 @@ uint64_t _ZN3WTF6Detail15CallableWrapperIZZZN8WebPushD16SubscribeRequest9startIm
           if (*(a2 + 160))
           {
             WebCore::PushRecord::PushRecord(&buf[16], a2);
-            v5 = WTF::fastMalloc(0xC0);
-            *v5 = &unk_1F10EAA08;
-            v6 = *buf;
+            v6 = WTF::fastMalloc(v5, 0xC0);
+            *v6 = &unk_1F10EAA08;
+            v7 = *buf;
             *buf = 0;
-            *(v5 + 2) = v6;
-            WebCore::PushRecord::PushRecord(v5 + 32, &buf[16]);
-            v22 = v5;
-            WebPushD::PushService::updateTopicLists(v4, &v22);
-            v8 = v22;
-            v22 = 0;
-            if (v8)
+            v6[2] = v7;
+            WebCore::PushRecord::PushRecord((v6 + 4), &buf[16]);
+            v23 = v6;
+            WebPushD::PushService::updateTopicLists(v4, &v23);
+            v9 = v23;
+            v23 = 0;
+            if (v9)
             {
-              (*(*v8 + 8))(v8);
+              (*(*v9 + 8))(v9);
             }
 
-            WebCore::PushRecord::~PushRecord(&buf[16], v7);
-            v10 = *buf;
+            WebCore::PushRecord::~PushRecord(&buf[16], v8);
+            v11 = *buf;
             *buf = 0;
-            if (v10)
+            if (v11)
             {
-              if (atomic_fetch_add(v10, 0xFFFFFFFF) == 1)
+              if (atomic_fetch_add(v11, 0xFFFFFFFF) == 1)
               {
-                atomic_store(1u, v10);
-                WTF::fastFree(v10, v9);
+                atomic_store(1u, v11);
+                WTF::fastFree(v11, v10);
               }
             }
 
-            WTF::RefCounted<WebPushD::PushService>::deref(v4 + 2, v9);
-            return WTF::RefCounted<WebPushD::SubscribeRequest>::deref((v3 + 104), v11);
+            WTF::RefCounted<WebPushD::PushService>::deref(v4 + 2, v10);
+            return WTF::RefCounted<WebPushD::SubscribeRequest>::deref((v3 + 104), v12);
           }
         }
 
@@ -8878,81 +9036,81 @@ uint64_t _ZN3WTF6Detail15CallableWrapperIZZZN8WebPushD16SubscribeRequest9startIm
         return result;
       }
 
-      v12 = qword_1ED6410A8;
+      v13 = qword_1ED6410A8;
       if (os_log_type_enabled(qword_1ED6410A8, OS_LOG_TYPE_ERROR))
       {
-        WebCore::PushSubscriptionSetIdentifier::debugDescription(&v21, (v3 + 16));
+        WebCore::PushSubscriptionSetIdentifier::debugDescription(&v22, (v3 + 16));
         WTF::String::utf8();
-        v14 = v22;
+        v15 = v23;
         WTF::String::utf8();
-        v15 = v14 + 16;
-        if (!v14)
-        {
-          v15 = 0;
-        }
-
-        if (v20)
-        {
-          v16 = v20 + 16;
-        }
-
-        else
+        v16 = v15 + 16;
+        if (!v15)
         {
           v16 = 0;
         }
 
+        if (v21)
+        {
+          v17 = v21 + 16;
+        }
+
+        else
+        {
+          v17 = 0;
+        }
+
         *buf = 136446467;
-        *&buf[4] = v15;
+        *&buf[4] = v16;
         *&buf[12] = 2085;
-        *&buf[14] = v16;
-        _os_log_error_impl(&dword_19D52D000, v12, OS_LOG_TYPE_ERROR, "PushManager.subscribe(%{public}s, scope: %{sensitive}s) failed with database error", buf, 0x16u);
-        if (v20)
+        *&buf[14] = v17;
+        _os_log_error_impl(&dword_19D52D000, v13, OS_LOG_TYPE_ERROR, "PushManager.subscribe(%{public}s, scope: %{sensitive}s) failed with database error", buf, 0x16u);
+        if (v21)
         {
-          if (*v20 == 1)
+          if (*v21 == 1)
           {
-            WTF::fastFree(v20, v17);
+            WTF::fastFree(v21, v18);
           }
 
           else
           {
-            --*v20;
+            --*v21;
           }
         }
 
-        v18 = v22;
+        v19 = v23;
+        v23 = 0;
+        if (v19)
+        {
+          if (*v19 == 1)
+          {
+            WTF::fastFree(v19, v18);
+          }
+
+          else
+          {
+            --*v19;
+          }
+        }
+
+        v20 = v22;
         v22 = 0;
-        if (v18)
+        if (v20 && atomic_fetch_add_explicit(v20, 0xFFFFFFFE, memory_order_relaxed) == 2)
         {
-          if (*v18 == 1)
-          {
-            WTF::fastFree(v18, v17);
-          }
-
-          else
-          {
-            --*v18;
-          }
-        }
-
-        v19 = v21;
-        v21 = 0;
-        if (v19 && atomic_fetch_add_explicit(v19, 0xFFFFFFFE, memory_order_relaxed) == 2)
-        {
-          WTF::StringImpl::destroy(v19, v17);
+          WTF::StringImpl::destroy(v20, v18);
         }
       }
 
       buf[0] = 16;
       WTF::StringImpl::createWithoutCopyingNonEmpty();
-      *&buf[8] = v22;
+      *&buf[8] = v23;
       WebPushD::PushServiceRequestImpl<WebCore::PushSubscriptionData>::reject(v3, buf);
-      v13 = *&buf[8];
+      v14 = *&buf[8];
       if (*&buf[8] && atomic_fetch_add_explicit(*&buf[8], 0xFFFFFFFE, memory_order_relaxed) == 2)
       {
-        WTF::StringImpl::destroy(v13, v11);
+        WTF::StringImpl::destroy(v14, v12);
       }
 
-      return WTF::RefCounted<WebPushD::SubscribeRequest>::deref((v3 + 104), v11);
+      return WTF::RefCounted<WebPushD::SubscribeRequest>::deref((v3 + 104), v12);
     }
   }
 
@@ -9355,47 +9513,47 @@ uint64_t WTF::Detail::CallableWrapper<WebPushD::SubscribeRequest::attemptToRecov
       {
         v6 = result;
         ++v5[4];
-        (*(*v5 + 48))(v23, v5);
-        WTF::Vector<WTF::String,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::Vector(&v20, v23);
-        v7 = v22;
-        if (v22 == v21)
+        (*(*v5 + 48))(v24, v5);
+        WTF::Vector<WTF::String,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::Vector(&v21, v24);
+        v7 = v23;
+        if (v23 == v22)
         {
-          WTF::Vector<WTF::String,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::appendSlowCase<(WTF::FailureAction)0,WTF::String&>(&v20, v6 + 16);
+          WTF::Vector<WTF::String,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::appendSlowCase<(WTF::FailureAction)0,WTF::String&>(&v21, v6 + 16);
         }
 
         else
         {
-          v8 = v20;
+          v8 = v21;
           v9 = *(v6 + 16);
           if (v9)
           {
             atomic_fetch_add_explicit(v9, 2u, memory_order_relaxed);
           }
 
-          v10 = v22;
+          v10 = v23;
           *(v8 + 8 * v7) = v9;
-          v22 = v10 + 1;
+          v23 = v10 + 1;
         }
 
-        (*(*v5 + 80))(v5, &v20);
-        v11 = (*(*v5 + 80))(v5, v23);
+        (*(*v5 + 80))(v5, &v21);
+        v11 = (*(*v5 + 80))(v5, v24);
         v12 = WTF::WorkQueue::mainSingleton(v11);
         v13 = *(v6 + 8);
         *(v6 + 8) = 0;
-        v14 = WTF::fastMalloc(0x10);
-        *v14 = &unk_1F10EAA58;
-        v14[1] = v13;
-        v19 = v14;
-        (*(*v12 + 48))(v12, &v19);
-        v16 = v19;
-        v19 = 0;
-        if (v16)
+        v15 = WTF::fastMalloc(v14, 0x10);
+        *v15 = &unk_1F10EAA58;
+        v15[1] = v13;
+        v20 = v15;
+        (*(*v12 + 48))(v12, &v20);
+        v17 = v20;
+        v20 = 0;
+        if (v17)
         {
-          (*(*v16 + 8))(v16);
+          (*(*v17 + 8))(v17);
         }
 
-        WTF::Vector<WTF::String,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::~Vector(&v20, v15);
-        WTF::Vector<WTF::String,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::~Vector(v23, v17);
+        WTF::Vector<WTF::String,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::~Vector(&v21, v16);
+        WTF::Vector<WTF::String,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::~Vector(v24, v18);
         if (v5[4] == 1)
         {
           (*(*v5 + 8))(v5);
@@ -9406,7 +9564,7 @@ uint64_t WTF::Detail::CallableWrapper<WebPushD::SubscribeRequest::attemptToRecov
           --v5[4];
         }
 
-        return WTF::RefCounted<WebPushD::SubscribeRequest>::deref(v3, v18);
+        return WTF::RefCounted<WebPushD::SubscribeRequest>::deref(v3, v19);
       }
 
       else
@@ -9420,30 +9578,30 @@ uint64_t WTF::Detail::CallableWrapper<WebPushD::SubscribeRequest::attemptToRecov
   return result;
 }
 
-void sub_19D8CB098(_Unwind_Exception *a1, void *a2, uint64_t a3, uint64_t a4, ...)
+void sub_19D8CB098(_Unwind_Exception *a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
 {
-  va_start(va1, a4);
-  va_start(va, a4);
-  v9 = va_arg(va1, void);
+  va_start(va1, a6);
+  va_start(va, a6);
   v11 = va_arg(va1, void);
-  if (a4)
+  v13 = va_arg(va1, void);
+  if (a6)
   {
-    (*(*a4 + 8))(a4);
+    (*(*a6 + 8))(a6, a2, a3, a4);
   }
 
   WTF::Vector<WTF::String,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::~Vector(va, a2);
-  WTF::Vector<WTF::String,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::~Vector(va1, v7);
-  if (v5[4] == 1)
+  WTF::Vector<WTF::String,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::~Vector(va1, v9);
+  if (v7[4] == 1)
   {
-    (*(*v5 + 8))(v5);
+    (*(*v7 + 8))(v7);
   }
 
   else
   {
-    --v5[4];
+    --v7[4];
   }
 
-  WTF::RefCounted<WebPushD::SubscribeRequest>::deref(v4, v8);
+  WTF::RefCounted<WebPushD::SubscribeRequest>::deref(v6, v10);
   _Unwind_Resume(a1);
 }
 
@@ -9539,7 +9697,7 @@ uint64_t WTF::Detail::CallableWrapper<WebPushD::UnsubscribeRequest::startInterna
   return WTF::fastFree(this, a2);
 }
 
-_DWORD *WTF::Detail::CallableWrapper<WebPushD::UnsubscribeRequest::startInternal(void)::$_0,void,std::optional<WebCore::PushRecord> &&>::call(_DWORD *result, uint64_t a2)
+_DWORD *WTF::Detail::CallableWrapper<WebPushD::UnsubscribeRequest::startInternal(void)::$_0,void,std::optional<WebCore::PushRecord> &&>::call(_DWORD *result, unint64_t a2)
 {
   v2 = *(result + 1);
   if (v2)
@@ -9552,36 +9710,36 @@ _DWORD *WTF::Detail::CallableWrapper<WebPushD::UnsubscribeRequest::startInternal
       if (*(a2 + 160) == 1 && (*(v3 + 120) != 1 || *a2 && *a2 == *(v3 + 112)))
       {
         v6 = *(*(v3 + 80) + 8);
-        if (!v6 || (++*(v6 + 8), !*a2))
+        if (!v6 || (v7 = (*(v6 + 8) + 1), *(v6 + 8) = v7, !*a2))
         {
           __break(0xC471u);
           JUMPOUT(0x19D8CB57CLL);
         }
 
         *(result + 1) = 0;
-        v7 = *(a2 + 92);
-        if (v7)
+        v8 = *(a2 + 92);
+        if (v8)
         {
-          v8 = WTF::fastMalloc(*(a2 + 92));
-          memcpy(v8, *(a2 + 80), *(a2 + 92));
+          v9 = WTF::fastMalloc(v7, *(a2 + 92));
+          memcpy(v9, *(a2 + 80), *(a2 + 92));
         }
 
         else
         {
-          v8 = 0;
+          v9 = 0;
         }
 
-        v9 = WTF::fastMalloc(0x20);
-        *v9 = &unk_1F10EAAA8;
-        *(v9 + 8) = v2;
-        *(v9 + 16) = v8;
-        *(v9 + 24) = v7;
-        *(v9 + 28) = v7;
-        v11 = v9;
+        v10 = WTF::fastMalloc(v7, 0x20);
+        *v10 = &unk_1F10EAAA8;
+        v10[1] = v2;
+        v10[2] = v9;
+        *(v10 + 6) = v8;
+        *(v10 + 7) = v8;
+        v12 = v10;
         WebCore::PushDatabase::removeRecordByIdentifier();
-        if (v11)
+        if (v12)
         {
-          (*(*v11 + 8))(v11);
+          (*(*v12 + 8))(v12);
         }
 
         WTF::RefCounted<WebCore::PushDatabase>::deref((v6 + 8));
@@ -9592,151 +9750,9 @@ _DWORD *WTF::Detail::CallableWrapper<WebPushD::UnsubscribeRequest::startInternal
         WebPushD::PushServiceRequestImpl<BOOL>::fulfill(v3, 0);
       }
 
-      return WTF::RefCounted<WebPushD::UnsubscribeRequest>::deref(v5, v10);
+      return WTF::RefCounted<WebPushD::UnsubscribeRequest>::deref(v5, v11);
     }
   }
 
   return result;
-}
-
-void sub_19D8CB5A0(_Unwind_Exception *a1, void *a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10)
-{
-  if (atomic_fetch_add(v12, 0xFFFFFFFF) == 1)
-  {
-    atomic_store(1u, v12);
-    WTF::fastFree(v12, a2);
-  }
-
-  WTF::RefCounted<WebCore::PushDatabase>::deref(v11);
-  WTF::RefCounted<WebPushD::UnsubscribeRequest>::deref(v10, v14);
-  _Unwind_Resume(a1);
-}
-
-uint64_t WebPushD::PushServiceRequestImpl<BOOL>::fulfill(uint64_t *a1, int a2)
-{
-  v27 = *MEMORY[0x1E69E9840];
-  v4 = qword_1ED6410A8;
-  if (os_log_type_enabled(qword_1ED6410A8, OS_LOG_TYPE_DEFAULT))
-  {
-    v5 = (*(*a1 + 32))(a1);
-    WebCore::PushSubscriptionSetIdentifier::debugDescription(&v15, (a1 + 2));
-    WTF::String::utf8();
-    v6 = v16;
-    WTF::String::utf8();
-    v7 = v6 + 16;
-    if (!v6)
-    {
-      v7 = 0;
-    }
-
-    *buf = 136447235;
-    if (v14)
-    {
-      v8 = v14 + 16;
-    }
-
-    else
-    {
-      v8 = 0;
-    }
-
-    v18 = v5;
-    v19 = 2048;
-    v20 = a1;
-    v21 = 1024;
-    v22 = a2;
-    v23 = 2082;
-    v24 = v7;
-    v25 = 2085;
-    v26 = v8;
-    _os_log_impl(&dword_19D52D000, v4, OS_LOG_TYPE_DEFAULT, "Finished pushServiceRequest %{public}s (%p) with result (hasResult: %d) for %{public}s, scope = %{sensitive}s", buf, 0x30u);
-    if (v14)
-    {
-      if (*v14 == 1)
-      {
-        WTF::fastFree(v14, v9);
-      }
-
-      else
-      {
-        --*v14;
-      }
-    }
-
-    v10 = v16;
-    v16 = 0;
-    if (v10)
-    {
-      if (*v10 == 1)
-      {
-        WTF::fastFree(v10, v9);
-      }
-
-      else
-      {
-        --*v10;
-      }
-    }
-
-    v11 = v15;
-    v15 = 0;
-    if (v11 && atomic_fetch_add_explicit(v11, 0xFFFFFFFE, memory_order_relaxed) == 2)
-    {
-      WTF::StringImpl::destroy(v11, v9);
-    }
-  }
-
-  buf[0] = a2;
-  BYTE2(v20) = 0;
-  WTF::CompletionHandler<void ()(std::experimental::fundamentals_v3::expected<BOOL,WebCore::ExceptionData> const&)>::operator()(a1 + 11);
-  mpark::detail::move_constructor<mpark::detail::traits<BOOL,WebCore::ExceptionData>,(mpark::detail::Trait)1>::~move_constructor(buf, v12);
-  return (*(*a1 + 48))(a1);
-}
-
-void sub_19D8CB83C(_Unwind_Exception *exception_object, void *a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, WTF::StringImpl *a11, WTF *a12, char a13)
-{
-  if (a12)
-  {
-    if (*a12 == 1)
-    {
-      WTF::fastFree(a12, a2);
-    }
-
-    else
-    {
-      --*a12;
-    }
-  }
-
-  if (a11)
-  {
-    if (atomic_fetch_add_explicit(a11, 0xFFFFFFFE, memory_order_relaxed) == 2)
-    {
-      WTF::StringImpl::destroy(a11, a2);
-    }
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-uint64_t _ZN3WTF6Detail15CallableWrapperIZZN8WebPushD18UnsubscribeRequest13startInternalEvEN3__0clINSt3__18optionalIN7WebCore10PushRecordEEEEEDaOT_EUlbE_vJbEED1Ev(uint64_t a1, void *a2)
-{
-  *a1 = &unk_1F10EAAA8;
-  v3 = *(a1 + 16);
-  if (v3)
-  {
-    *(a1 + 16) = 0;
-    *(a1 + 24) = 0;
-    WTF::fastFree(v3, a2);
-  }
-
-  v4 = *(a1 + 8);
-  *(a1 + 8) = 0;
-  if (v4 && atomic_fetch_add(v4, 0xFFFFFFFF) == 1)
-  {
-    atomic_store(1u, v4);
-    WTF::fastFree(v4, a2);
-  }
-
-  return a1;
 }

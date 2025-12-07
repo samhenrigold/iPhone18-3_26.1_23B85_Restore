@@ -134,7 +134,6 @@ LABEL_6:
   has = self->_has;
   if (has)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
     has = self->_has;
     if ((has & 2) == 0)
@@ -154,7 +153,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  serviceType = self->_serviceType;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 8) == 0)
@@ -169,12 +167,10 @@ LABEL_4:
   }
 
 LABEL_11:
-  fbAccepted = self->_fbAccepted;
   PBDataWriterWriteBOOLField();
   if ((*&self->_has & 4) != 0)
   {
 LABEL_5:
-    subsId = self->_subsId;
     PBDataWriterWriteUint32Field();
   }
 
@@ -339,7 +335,6 @@ LABEL_19:
     goto LABEL_19;
   }
 
-  v7 = *(equalCopy + 24);
   if (self->_fbAccepted)
   {
     if ((*(equalCopy + 24) & 1) == 0)

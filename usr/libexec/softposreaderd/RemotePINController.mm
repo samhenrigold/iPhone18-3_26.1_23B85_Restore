@@ -89,7 +89,6 @@
   v7 = *(v6 + 40);
   selfCopy = self;
   v7(v5, v6);
-  v9 = *(&selfCopy->super.isa + OBJC_IVAR____TtC14softposreaderd19RemotePINController_captureInProgress);
   *(&selfCopy->super.isa + OBJC_IVAR____TtC14softposreaderd19RemotePINController_captureInProgress) = 0;
   swift_unknownObjectRelease();
   v4[2](v4);

@@ -1,9 +1,11 @@
 @interface NEIKEv2IKESA
-+ (void)copyPPKFromConfig:(uint64_t)config;
-+ (void)copySharedSecretFromConfig:(uint64_t)config;
++ (NSObject)copyPPKFromConfig:(uint64_t)config;
++ (NSObject)copySharedSecretFromConfig:(uint64_t)config;
 - (BOOL)checkSharedKeyAuthData:(const char *)data usingPrimeKey:;
 - (NEIKEv2AuthPayload)copyAuthenticationPayloadUsingPrimeKey:(id *)self;
 - (NEIKEv2AuthenticationProtocol)selectSecurePasswordMethod:(void *)method;
+- (NEIKEv2IKESPI)copyForRekeyAsInitiator:(uint64_t)initiator;
+- (NEIKEv2IKESPI)initIKESACommonWithConfiguration:(void *)configuration sessionConfiguration:(void *)sessionConfiguration queue:(void *)queue transportDelegate:(void *)delegate socketGetBlock:(void *)block packetDelegate:(void *)packetDelegate configurationDelegate:(unint64_t)configurationDelegate ikeSessionUniqueIndex:(char)self0 isInitiator:;
 - (NSObject)copyLocalCertificateData;
 - (NSObject)copyRemoteCertificateAuthorityHashData;
 - (NSObject)createAuthenticationDataForSharedSecret:(void *)secret octetVector:;
@@ -11,10 +13,8 @@
 - (NSObject)createInitiatorGSPMAuthenticationDataUsingPrimeKey:(NSObject *)self;
 - (NSObject)createInitiatorSignedOctetVectorUsingPrimeKey:(id *)key;
 - (NSObject)createResponderGSPMAuthenticationDataUsingPrimeKey:(NSObject *)self;
-- (NSObject)createResponderSignedOctetVectorUsingPrimeKey:(_BYTE *)key;
+- (NSObject)createResponderSignedOctetVectorUsingPrimeKey:(void *)key;
 - (SecKeyRef)checkValidityOfCertificates:(_BYTE *)certificates;
-- (_BYTE)copyForRekeyAsInitiator:(uint64_t)initiator;
-- (_BYTE)createRemoteSignedOctetVectorUsingPrimeKey:(_BYTE *)key;
 - (_BYTE)hasTransport;
 - (_BYTE)headerOverhead;
 - (_BYTE)initiatorSPI;
@@ -24,7 +24,6 @@
 - (id)copyRemoteCertificateAuthorityArray;
 - (id)copyTransport;
 - (id)description;
-- (id)initIKESACommonWithConfiguration:(void *)configuration sessionConfiguration:(void *)sessionConfiguration queue:(void *)queue transportDelegate:(void *)delegate socketGetBlock:(void *)block packetDelegate:(void *)packetDelegate configurationDelegate:(uint64_t)configurationDelegate ikeSessionUniqueIndex:(char)self0 isInitiator:;
 - (id)initiatorFirstMessage;
 - (id)initiatorNonce;
 - (id)localIdentifier;
@@ -54,6 +53,7 @@
 - (void)clearPostAuthenticationData;
 - (void)createConcatedNoncesAndReturnError:(_BYTE *)error;
 - (void)createConcatenatedSPIsAndReturnError:(_BYTE *)error;
+- (void)createRemoteSignedOctetVectorUsingPrimeKey:(void *)key;
 - (void)dealloc;
 - (void)detachTransportWithShouldInvalidate:(void *)invalidate;
 - (void)restorePrimeKeys;
@@ -72,7 +72,7 @@
 
 - (uint64_t)generateLocalValuesForKEMProtocol:(void *)protocol
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v4 = a2;
   if (protocol)
   {
@@ -83,9 +83,9 @@
       v6 = ne_log_obj();
       if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
       {
-        v14 = 136315138;
-        v15 = "[NEIKEv2IKESA(Crypto) generateLocalValuesForKEMProtocol:]";
-        _os_log_fault_impl(&dword_1BA83C000, v6, OS_LOG_TYPE_FAULT, "%s called with null !self.currentKEHandler", &v14, 0xCu);
+        v13 = 136315138;
+        v14 = "[NEIKEv2IKESA(Crypto) generateLocalValuesForKEMProtocol:]";
+        _os_log_fault_impl(&dword_1BA83C000, v6, OS_LOG_TYPE_FAULT, "%s called with null !self.currentKEHandler", &v13, 0xCu);
       }
     }
 
@@ -105,9 +105,9 @@
       v6 = ne_log_obj();
       if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
       {
-        v14 = 138412290;
-        v15 = v4;
-        _os_log_error_impl(&dword_1BA83C000, v6, OS_LOG_TYPE_ERROR, "Failed to get handler for KE method %@", &v14, 0xCu);
+        v13 = 138412290;
+        v14 = v4;
+        _os_log_error_impl(&dword_1BA83C000, v6, OS_LOG_TYPE_ERROR, "Failed to get handler for KE method %@", &v13, 0xCu);
       }
     }
   }
@@ -115,13 +115,12 @@
   v7 = 0;
 LABEL_8:
 
-  v12 = *MEMORY[0x1E69E9840];
   return v7;
 }
 
 - (uint64_t)generateLocalValuesForKEMProtocol:(void *)protocol peerPayload:
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v5 = a2;
   protocolCopy = protocol;
   if (self)
@@ -133,9 +132,9 @@ LABEL_8:
       v9 = ne_log_obj();
       if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
       {
-        v17 = 136315138;
-        v18 = "[NEIKEv2IKESA(Crypto) generateLocalValuesForKEMProtocol:peerPayload:]";
-        _os_log_fault_impl(&dword_1BA83C000, v9, OS_LOG_TYPE_FAULT, "%s called with null !self.currentKEHandler", &v17, 0xCu);
+        v16 = 136315138;
+        v17 = "[NEIKEv2IKESA(Crypto) generateLocalValuesForKEMProtocol:peerPayload:]";
+        _os_log_fault_impl(&dword_1BA83C000, v9, OS_LOG_TYPE_FAULT, "%s called with null !self.currentKEHandler", &v16, 0xCu);
       }
     }
 
@@ -155,9 +154,9 @@ LABEL_8:
       v9 = ne_log_obj();
       if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
-        v17 = 138412290;
-        v18 = v5;
-        _os_log_error_impl(&dword_1BA83C000, v9, OS_LOG_TYPE_ERROR, "Failed to get handler for KE method %@", &v17, 0xCu);
+        v16 = 138412290;
+        v17 = v5;
+        _os_log_error_impl(&dword_1BA83C000, v9, OS_LOG_TYPE_ERROR, "Failed to get handler for KE method %@", &v16, 0xCu);
       }
     }
   }
@@ -165,16 +164,15 @@ LABEL_8:
   v10 = 0;
 LABEL_8:
 
-  v15 = *MEMORY[0x1E69E9840];
   return v10;
 }
 
 - (uint64_t)generateInitialValues
 {
-  v60 = *MEMORY[0x1E69E9840];
+  v59 = *MEMORY[0x1E69E9840];
   if (!self)
   {
-    goto LABEL_30;
+    return 0;
   }
 
   selfCopy = self;
@@ -182,15 +180,15 @@ LABEL_8:
   v4 = preferredKEMProtocol;
   if (!preferredKEMProtocol || [preferredKEMProtocol method] == 36 || objc_msgSend(v4, "method") == 37)
   {
-    v46 = ne_log_obj();
-    if (os_log_type_enabled(v46, OS_LOG_TYPE_FAULT))
+    v45 = ne_log_obj();
+    if (os_log_type_enabled(v45, OS_LOG_TYPE_FAULT))
     {
       *buf = 138412290;
-      *v59 = v4;
-      _os_log_fault_impl(&dword_1BA83C000, v46, OS_LOG_TYPE_FAULT, "KE method %@ is not Diffie-Hellman", buf, 0xCu);
+      *v58 = v4;
+      _os_log_fault_impl(&dword_1BA83C000, v45, OS_LOG_TYPE_FAULT, "KE method %@ is not Diffie-Hellman", buf, 0xCu);
     }
 
-    goto LABEL_30;
+    return 0;
   }
 
   v5 = [(NEIKEv2IKESA *)selfCopy generateLocalValuesForKEMProtocol:v4];
@@ -209,10 +207,10 @@ LABEL_8:
       }
 
       *buf = 67109120;
-      *v59 = nonceSize;
-      v43 = "Invalid nonce size %u";
-      v44 = v32;
-      v45 = 8;
+      *v58 = nonceSize;
+      v42 = "Invalid nonce size %u";
+      v43 = v32;
+      v44 = 8;
       goto LABEL_36;
     }
 
@@ -232,73 +230,73 @@ LABEL_8:
 
       else
       {
-        v47 = nonceSize;
-        v55 = 0u;
-        v56 = 0u;
-        v53 = 0u;
+        v46 = nonceSize;
         v54 = 0u;
-        v48 = selfCopy;
+        v55 = 0u;
+        v52 = 0u;
+        v53 = 0u;
+        v47 = selfCopy;
         v19 = objc_getProperty(selfCopy, v14, 80, 1);
         proposals = [v19 proposals];
 
         nonceSize2 = 16;
-        v21 = [proposals countByEnumeratingWithState:&v53 objects:buf count:16];
+        v21 = [proposals countByEnumeratingWithState:&v52 objects:buf count:16];
         if (v21)
         {
           v22 = v21;
-          v23 = *v54;
+          v23 = *v53;
           nonceSize2 = 16;
           do
           {
             for (i = 0; i != v22; ++i)
             {
-              if (*v54 != v23)
+              if (*v53 != v23)
               {
                 objc_enumerationMutation(proposals);
               }
 
-              v25 = *(*(&v53 + 1) + 8 * i);
+              v25 = *(*(&v52 + 1) + 8 * i);
+              v48 = 0u;
               v49 = 0u;
               v50 = 0u;
               v51 = 0u;
-              v52 = 0u;
               prfProtocols = [v25 prfProtocols];
-              v27 = [prfProtocols countByEnumeratingWithState:&v49 objects:v57 count:16];
+              v27 = [prfProtocols countByEnumeratingWithState:&v48 objects:v56 count:16];
               if (v27)
               {
                 v28 = v27;
-                v29 = *v50;
+                v29 = *v49;
                 do
                 {
                   for (j = 0; j != v28; ++j)
                   {
-                    if (*v50 != v29)
+                    if (*v49 != v29)
                     {
                       objc_enumerationMutation(prfProtocols);
                     }
 
-                    v31 = *(*(&v49 + 1) + 8 * j);
+                    v31 = *(*(&v48 + 1) + 8 * j);
                     if ([v31 nonceSize] > nonceSize2)
                     {
                       nonceSize2 = [v31 nonceSize];
                     }
                   }
 
-                  v28 = [prfProtocols countByEnumeratingWithState:&v49 objects:v57 count:16];
+                  v28 = [prfProtocols countByEnumeratingWithState:&v48 objects:v56 count:16];
                 }
 
                 while (v28);
               }
             }
 
-            v22 = [proposals countByEnumeratingWithState:&v53 objects:buf count:16];
+            v22 = [proposals countByEnumeratingWithState:&v52 objects:buf count:16];
           }
 
           while (v22);
         }
 
-        selfCopy = v48;
-        nonceSize = v47;
+        selfCopy = v47;
+        nonceSize = v46;
       }
 
       if (nonceSize < nonceSize2)
@@ -308,20 +306,18 @@ LABEL_8:
         {
 LABEL_29:
 
-LABEL_30:
-          v5 = 0;
-          goto LABEL_34;
+          return 0;
         }
 
         *buf = 67109376;
-        *v59 = nonceSize;
-        *&v59[4] = 1024;
-        *&v59[6] = nonceSize2;
-        v43 = "Nonce size %u < minimum %u";
-        v44 = v32;
-        v45 = 14;
+        *v58 = nonceSize;
+        *&v58[4] = 1024;
+        *&v58[6] = nonceSize2;
+        v42 = "Nonce size %u < minimum %u";
+        v43 = v32;
+        v44 = 14;
 LABEL_36:
-        _os_log_fault_impl(&dword_1BA83C000, v44, OS_LOG_TYPE_FAULT, v43, buf, v45);
+        _os_log_fault_impl(&dword_1BA83C000, v43, OS_LOG_TYPE_FAULT, v42, buf, v44);
         goto LABEL_29;
       }
     }
@@ -337,15 +333,13 @@ LABEL_36:
     }
   }
 
-LABEL_34:
-  v41 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
 - (uint64_t)processCurrentKeyExchange
 {
   selfCopy = self;
-  v20 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   if (self)
   {
     self = objc_getProperty(self, a2, 160, 1);
@@ -355,20 +349,19 @@ LABEL_34:
 
   if (!selfCopy2)
   {
-    v15 = ne_log_obj();
-    if (!os_log_type_enabled(v15, OS_LOG_TYPE_FAULT))
+    v14 = ne_log_obj();
+    if (!os_log_type_enabled(v14, OS_LOG_TYPE_FAULT))
     {
 LABEL_11:
 
-      v17 = *MEMORY[0x1E69E9840];
       return 0;
     }
 
-    v18 = 136315138;
-    v19 = "[NEIKEv2IKESA(Crypto) processCurrentKeyExchange]";
-    v16 = "%s called with null self.currentKEHandler";
+    v16 = 136315138;
+    v17 = "[NEIKEv2IKESA(Crypto) processCurrentKeyExchange]";
+    v15 = "%s called with null self.currentKEHandler";
 LABEL_14:
-    _os_log_fault_impl(&dword_1BA83C000, v15, OS_LOG_TYPE_FAULT, v16, &v18, 0xCu);
+    _os_log_fault_impl(&dword_1BA83C000, v14, OS_LOG_TYPE_FAULT, v15, &v16, 0xCu);
     goto LABEL_11;
   }
 
@@ -376,15 +369,15 @@ LABEL_14:
 
   if (!v5)
   {
-    v15 = ne_log_obj();
-    if (!os_log_type_enabled(v15, OS_LOG_TYPE_FAULT))
+    v14 = ne_log_obj();
+    if (!os_log_type_enabled(v14, OS_LOG_TYPE_FAULT))
     {
       goto LABEL_11;
     }
 
-    v18 = 136315138;
-    v19 = "[NEIKEv2IKESA(Crypto) processCurrentKeyExchange]";
-    v16 = "%s called with null self.remoteKeyExchangeData";
+    v16 = 136315138;
+    v17 = "[NEIKEv2IKESA(Crypto) processCurrentKeyExchange]";
+    v15 = "%s called with null self.remoteKeyExchangeData";
     goto LABEL_14;
   }
 
@@ -403,7 +396,6 @@ LABEL_14:
   v11 = Property;
   v12 = [v11 processPeerPayload:v8];
 
-  v13 = *MEMORY[0x1E69E9840];
   return v12;
 }
 
@@ -461,7 +453,7 @@ LABEL_14:
 
 - (uint64_t)generateAllValuesUsingSA:(_BYTE *)a
 {
-  v224 = *MEMORY[0x1E69E9840];
+  v223 = *MEMORY[0x1E69E9840];
   v4 = a2;
   if (a)
   {
@@ -484,7 +476,7 @@ LABEL_14:
     }
 
     *buf = 136315138;
-    v219 = "[NEIKEv2IKESA(Crypto) generateAllValuesUsingSA:]";
+    v218 = "[NEIKEv2IKESA(Crypto) generateAllValuesUsingSA:]";
     v30 = "%s called with null self.chosenProposal";
 LABEL_110:
     _os_log_fault_impl(&dword_1BA83C000, v29, OS_LOG_TYPE_FAULT, v30, buf, 0xCu);
@@ -502,7 +494,7 @@ LABEL_110:
     }
 
     *buf = 136315138;
-    v219 = "[NEIKEv2IKESA(Crypto) generateAllValuesUsingSA:]";
+    v218 = "[NEIKEv2IKESA(Crypto) generateAllValuesUsingSA:]";
     v30 = "%s called with null self.initiatorNonce";
     goto LABEL_110;
   }
@@ -518,7 +510,7 @@ LABEL_110:
     }
 
     *buf = 136315138;
-    v219 = "[NEIKEv2IKESA(Crypto) generateAllValuesUsingSA:]";
+    v218 = "[NEIKEv2IKESA(Crypto) generateAllValuesUsingSA:]";
     v30 = "%s called with null self.responderNonce";
     goto LABEL_110;
   }
@@ -534,7 +526,7 @@ LABEL_110:
     }
 
     *buf = 136315138;
-    v219 = "[NEIKEv2IKESA(Crypto) generateAllValuesUsingSA:]";
+    v218 = "[NEIKEv2IKESA(Crypto) generateAllValuesUsingSA:]";
     v30 = "%s called with null self.primarySharedSecret";
     goto LABEL_110;
   }
@@ -545,9 +537,9 @@ LABEL_110:
     v14 = 0;
   }
 
-  v202 = v14;
+  v201 = v14;
   v15 = v4 == a || v4 != 0;
-  v199 = v4;
+  v198 = v4;
   if (!v15)
   {
     v32 = objc_getProperty(a, v13, 168, 1);
@@ -564,17 +556,17 @@ LABEL_110:
     v38 = [(NSMutableData *)MEMORY[0x1E695DF88] mutableSensitiveDataWithMaxCapacity:v37];
     if (!v38)
     {
-      v180 = ne_log_obj();
-      if (os_log_type_enabled(v180, OS_LOG_TYPE_FAULT))
+      v179 = ne_log_obj();
+      if (os_log_type_enabled(v179, OS_LOG_TYPE_FAULT))
       {
         *buf = 134217984;
-        v219 = v37;
-        _os_log_fault_impl(&dword_1BA83C000, v180, OS_LOG_TYPE_FAULT, "[NEMutableSensitiveData mutableSensitiveDataWithMaxCapacity:%zu] failed", buf, 0xCu);
+        v218 = v37;
+        _os_log_fault_impl(&dword_1BA83C000, v179, OS_LOG_TYPE_FAULT, "[NEMutableSensitiveData mutableSensitiveDataWithMaxCapacity:%zu] failed", buf, 0xCu);
       }
 
       v40 = 0;
       v45 = 0;
-      v216 = 0;
+      v215 = 0;
       goto LABEL_159;
     }
 
@@ -608,43 +600,43 @@ LABEL_110:
     if (a)
     {
       objc_setProperty_atomic(a, v19, 0, 168);
-      v215 = 0u;
-      v213 = 0u;
       v214 = 0u;
       v212 = 0u;
+      v213 = 0u;
+      v211 = 0u;
       v22 = objc_getProperty(a, v21, 184, 1);
     }
 
     else
     {
       v22 = 0;
-      v215 = 0u;
-      v213 = 0u;
       v214 = 0u;
       v212 = 0u;
+      v213 = 0u;
+      v211 = 0u;
     }
 
-    v196 = v20;
+    v195 = v20;
     v23 = v22;
-    v24 = [v23 countByEnumeratingWithState:&v212 objects:v223 count:16];
+    v24 = [v23 countByEnumeratingWithState:&v211 objects:v222 count:16];
     if (v24)
     {
       v25 = v24;
       v26 = 0;
-      v27 = *v213;
+      v27 = *v212;
       do
       {
         for (i = 0; i != v25; ++i)
         {
-          if (*v213 != v27)
+          if (*v212 != v27)
           {
             objc_enumerationMutation(v23);
           }
 
-          v26 += [*(*(&v212 + 1) + 8 * i) length];
+          v26 += [*(*(&v211 + 1) + 8 * i) length];
         }
 
-        v25 = [v23 countByEnumeratingWithState:&v212 objects:v223 count:16];
+        v25 = [v23 countByEnumeratingWithState:&v211 objects:v222 count:16];
       }
 
       while (v25);
@@ -655,93 +647,93 @@ LABEL_110:
       v26 = 0;
     }
 
-    v151 = [v196 length];
+    v150 = [v195 length];
     initiatorNonce4 = [(NEIKEv2IKESA *)a initiatorNonce];
-    v154 = [initiatorNonce4 length];
+    v153 = [initiatorNonce4 length];
     responderNonce4 = [(NEIKEv2IKESA *)a responderNonce];
-    v157 = v151 + v154 + [responderNonce4 length] + v26;
+    v156 = v150 + v153 + [responderNonce4 length] + v26;
 
-    v158 = [(NSMutableData *)MEMORY[0x1E695DF88] mutableSensitiveDataWithMaxCapacity:v157];
-    if (!v158)
+    v157 = [(NSMutableData *)MEMORY[0x1E695DF88] mutableSensitiveDataWithMaxCapacity:v156];
+    if (!v157)
     {
-      v186 = ne_log_obj();
-      if (os_log_type_enabled(v186, OS_LOG_TYPE_FAULT))
+      v185 = ne_log_obj();
+      if (os_log_type_enabled(v185, OS_LOG_TYPE_FAULT))
       {
         *buf = 134217984;
-        v219 = v157;
-        _os_log_fault_impl(&dword_1BA83C000, v186, OS_LOG_TYPE_FAULT, "[NEMutableSensitiveData mutableSensitiveDataWithMaxCapacity:%zu] failed", buf, 0xCu);
+        v218 = v156;
+        _os_log_fault_impl(&dword_1BA83C000, v185, OS_LOG_TYPE_FAULT, "[NEMutableSensitiveData mutableSensitiveDataWithMaxCapacity:%zu] failed", buf, 0xCu);
       }
 
       v40 = 0;
       v45 = 0;
-      v216 = 0;
-      v32 = v196;
+      v215 = 0;
+      v32 = v195;
       goto LABEL_159;
     }
 
-    v45 = v158;
-    [(__CFData *)v158 appendData:v196];
+    v45 = v157;
+    [(__CFData *)v157 appendData:v195];
     initiatorNonce5 = [(NEIKEv2IKESA *)a initiatorNonce];
     [(__CFData *)v45 appendData:initiatorNonce5];
 
     responderNonce5 = [(NEIKEv2IKESA *)a responderNonce];
     [(__CFData *)v45 appendData:responderNonce5];
 
-    v210 = 0u;
-    v211 = 0u;
-    v208 = 0u;
     v209 = 0u;
-    v32 = v196;
+    v210 = 0u;
+    v207 = 0u;
+    v208 = 0u;
+    v32 = v195;
     if (a)
     {
-      v164 = objc_getProperty(a, v163, 184, 1);
+      v163 = objc_getProperty(a, v162, 184, 1);
     }
 
     else
     {
-      v164 = 0;
+      v163 = 0;
     }
 
-    v165 = v164;
-    v166 = [v165 countByEnumeratingWithState:&v208 objects:v222 count:16];
-    if (v166)
+    v164 = v163;
+    v165 = [v164 countByEnumeratingWithState:&v207 objects:v221 count:16];
+    if (v165)
     {
-      v167 = v166;
-      v168 = *v209;
+      v166 = v165;
+      v167 = *v208;
       do
       {
-        for (j = 0; j != v167; ++j)
+        for (j = 0; j != v166; ++j)
         {
-          if (*v209 != v168)
+          if (*v208 != v167)
           {
-            objc_enumerationMutation(v165);
+            objc_enumerationMutation(v164);
           }
 
-          [(__CFData *)v45 appendData:*(*(&v208 + 1) + 8 * j)];
+          [(__CFData *)v45 appendData:*(*(&v207 + 1) + 8 * j)];
         }
 
-        v167 = [v165 countByEnumeratingWithState:&v208 objects:v222 count:16];
+        v166 = [v164 countByEnumeratingWithState:&v207 objects:v221 count:16];
       }
 
-      while (v167);
+      while (v166);
     }
 
     if (a)
     {
-      objc_setProperty_atomic(a, v170, 0, 184);
+      objc_setProperty_atomic(a, v169, 0, 184);
     }
 
     if (v4)
     {
-      v171 = objc_getProperty(v4, v170, 216, 1);
+      v170 = objc_getProperty(v4, v169, 216, 1);
     }
 
     else
     {
-      v171 = 0;
+      v170 = 0;
     }
 
-    v40 = v171;
+    v40 = v170;
 LABEL_38:
     initiatorNonce6 = [(NEIKEv2IKESA *)a initiatorNonce];
     v47 = [initiatorNonce6 length];
@@ -755,19 +747,19 @@ LABEL_38:
       initiatorSPI = [(NEIKEv2IKESA *)a initiatorSPI];
       value = [initiatorSPI value];
 
-      v207 = value;
+      v206 = value;
       responderSPI = [(NEIKEv2IKESA *)a responderSPI];
       value2 = [responderSPI value];
 
-      v206 = value2;
+      v205 = value2;
       initiatorNonce7 = [(NEIKEv2IKESA *)a initiatorNonce];
       [(__CFData *)v53 appendData:initiatorNonce7];
 
       responderNonce7 = [(NEIKEv2IKESA *)a responderNonce];
       [(__CFData *)v53 appendData:responderNonce7];
 
-      [(__CFData *)v53 appendBytes:&v207 length:8];
       [(__CFData *)v53 appendBytes:&v206 length:8];
+      [(__CFData *)v53 appendBytes:&v205 length:8];
       [(__CFData *)v40 bytes];
       [(__CFData *)v40 length];
       [(__CFData *)v53 bytes];
@@ -775,7 +767,7 @@ LABEL_38:
       Hkdf = CCKDFParametersCreateHkdf();
       if (!Hkdf)
       {
-        v197 = v32;
+        v196 = v32;
         if (a)
         {
           v65 = objc_getProperty(a, v64, 96, 1);
@@ -789,7 +781,7 @@ LABEL_38:
         v66 = v65;
         prfProtocol = [(NEIKEv2IKESAProposal *)v66 prfProtocol];
 
-        v204 = v40;
+        v203 = v40;
         if (a)
         {
           v70 = objc_getProperty(a, v69, 96, 1);
@@ -841,9 +833,9 @@ LABEL_51:
               keyLength = [(NEIKEv2IntegrityProtocol *)firstObject2 keyLength];
             }
 
-            v201 = firstObject2;
+            v200 = firstObject2;
             keyMaterialLength = [(NEIKEv2EncryptionProtocol *)firstObject keyMaterialLength];
-            if (v202)
+            if (v201)
             {
               v87 = 1;
             }
@@ -853,25 +845,25 @@ LABEL_51:
               v87 = 3;
             }
 
-            v194 = v83;
-            v191 = keyMaterialLength;
+            v193 = v83;
+            v190 = keyMaterialLength;
             v88 = v83 * v87 + 2 * (keyLength + keyMaterialLength);
             v89 = [(NSMutableData *)MEMORY[0x1E695DF88] mutableSensitiveDataPrefilledWithMaxCapacity:v88];
-            v192 = v89;
-            v193 = prfProtocol;
+            v191 = v89;
+            v192 = prfProtocol;
             if (!v89)
             {
-              v178 = ne_log_obj();
-              if (os_log_type_enabled(v178, OS_LOG_TYPE_FAULT))
+              v177 = ne_log_obj();
+              if (os_log_type_enabled(v177, OS_LOG_TYPE_FAULT))
               {
                 *buf = 67109120;
-                LODWORD(v219) = v88;
-                _os_log_fault_impl(&dword_1BA83C000, v178, OS_LOG_TYPE_FAULT, "[NEMutableSensitiveData mutableSensitiveDataPrefilledWithMaxCapacity:%u] failed", buf, 8u);
+                LODWORD(v218) = v88;
+                _os_log_fault_impl(&dword_1BA83C000, v177, OS_LOG_TYPE_FAULT, "[NEMutableSensitiveData mutableSensitiveDataPrefilledWithMaxCapacity:%u] failed", buf, 8u);
               }
 
-              v216 = 0;
-              v32 = v197;
-              v4 = v199;
+              v215 = 0;
+              v32 = v196;
+              v4 = v198;
               goto LABEL_157;
             }
 
@@ -886,25 +878,25 @@ LABEL_51:
             CCKDFParametersDestroy();
             if (v91)
             {
-              v179 = ne_log_obj();
-              if (os_log_type_enabled(v179, OS_LOG_TYPE_FAULT))
+              v178 = ne_log_obj();
+              if (os_log_type_enabled(v178, OS_LOG_TYPE_FAULT))
               {
                 *buf = 67109120;
-                LODWORD(v219) = v91;
-                _os_log_fault_impl(&dword_1BA83C000, v179, OS_LOG_TYPE_FAULT, "CCDeriveKey failed %d", buf, 8u);
+                LODWORD(v218) = v91;
+                _os_log_fault_impl(&dword_1BA83C000, v178, OS_LOG_TYPE_FAULT, "CCDeriveKey failed %d", buf, 8u);
               }
 
-              v216 = 0;
-              v4 = v199;
-              v32 = v197;
+              v215 = 0;
+              v4 = v198;
+              v32 = v196;
               goto LABEL_157;
             }
 
             bytes = [(__CFData *)v90 bytes];
-            v93 = [(NSData *)MEMORY[0x1E695DEF0] sensitiveDataWithBytes:bytes length:v194];
+            v93 = [(NSData *)MEMORY[0x1E695DEF0] sensitiveDataWithBytes:bytes length:v193];
             objc_setProperty_atomic(a, v94, v93, 216);
 
-            v4 = v199;
+            v4 = v198;
             if (a)
             {
               v96 = objc_getProperty(a, v95, 216, 1);
@@ -923,55 +915,55 @@ LABEL_51:
               if (os_log_type_enabled(v101, OS_LOG_TYPE_FAULT))
               {
                 *buf = 67109120;
-                LODWORD(v219) = v194;
+                LODWORD(v218) = v193;
                 _os_log_fault_impl(&dword_1BA83C000, v101, OS_LOG_TYPE_FAULT, "[NESensitiveData sensitiveDataWithBytes:length:%u] failed", buf, 8u);
               }
 
               v53 = 0;
-              v204 = 0;
+              v203 = 0;
               v45 = 0;
               v32 = 0;
-              v216 = 0;
+              v215 = 0;
               goto LABEL_157;
             }
 
-            v98 = &bytes[v194];
+            v98 = &bytes[v193];
             if (keyLength)
             {
               v99 = [objc_alloc(MEMORY[0x1E695DEF0]) initWithBytesNoCopy:v98 length:keyLength freeWhenDone:0];
-              v198 = [objc_alloc(MEMORY[0x1E695DEF0]) initWithBytesNoCopy:&v98[keyLength] length:keyLength freeWhenDone:0];
+              v197 = [objc_alloc(MEMORY[0x1E695DEF0]) initWithBytesNoCopy:&v98[keyLength] length:keyLength freeWhenDone:0];
               v98 += keyLength + keyLength;
               v100 = v99;
             }
 
             else
             {
-              v198 = 0;
+              v197 = 0;
               v100 = 0;
             }
 
-            v205 = [objc_alloc(MEMORY[0x1E695DEF0]) initWithBytesNoCopy:v98 length:v191 freeWhenDone:0];
-            v102 = &v98[v191];
-            v103 = [objc_alloc(MEMORY[0x1E695DEF0]) initWithBytesNoCopy:v102 length:v191 freeWhenDone:0];
-            if (v202)
+            v204 = [objc_alloc(MEMORY[0x1E695DEF0]) initWithBytesNoCopy:v98 length:v190 freeWhenDone:0];
+            v102 = &v98[v190];
+            v103 = [objc_alloc(MEMORY[0x1E695DEF0]) initWithBytesNoCopy:v102 length:v190 freeWhenDone:0];
+            if (v201)
             {
 LABEL_73:
               v113 = ne_log_obj();
               if (os_log_type_enabled(v113, OS_LOG_TYPE_DEBUG))
               {
-                v172 = "SA Init";
-                if (v199)
+                v171 = "SA Init";
+                if (v198)
                 {
-                  v172 = "SA Rekey";
+                  v171 = "SA Rekey";
                 }
 
-                if (v199 == a)
+                if (v198 == a)
                 {
-                  v172 = "Intermediate";
+                  v171 = "Intermediate";
                 }
 
                 *buf = 136315138;
-                v219 = v172;
+                v218 = v171;
                 _os_log_debug_impl(&dword_1BA83C000, v113, OS_LOG_TYPE_DEBUG, "Calculated sKeySeed derivatives for %s", buf, 0xCu);
               }
 
@@ -980,7 +972,7 @@ LABEL_73:
                 v114 = a[9];
                 if (v114)
                 {
-                  v115 = v205;
+                  v115 = v204;
                 }
 
                 else
@@ -995,7 +987,7 @@ LABEL_73:
 
                 else
                 {
-                  v116 = v205;
+                  v116 = v204;
                 }
               }
 
@@ -1003,7 +995,7 @@ LABEL_73:
               {
                 v114 = 0;
                 v115 = v103;
-                v116 = v205;
+                v116 = v204;
               }
 
               v117 = v115;
@@ -1023,32 +1015,32 @@ LABEL_73:
                     v120 = [[NEIKEv2SecurityContextChaCha20Poly1305 alloc] initWithEncryptionProtocol:firstObject outgoingEncryptionKey:v117 incomingEncryptionKey:v118];
                   }
 
-                  v150 = v120;
+                  v149 = v120;
                   if (!v120)
                   {
-                    v187 = ne_log_obj();
-                    if (os_log_type_enabled(v187, OS_LOG_TYPE_ERROR))
+                    v186 = ne_log_obj();
+                    if (os_log_type_enabled(v186, OS_LOG_TYPE_ERROR))
                     {
                       *buf = 138412290;
-                      v219 = firstObject;
-                      _os_log_error_impl(&dword_1BA83C000, v187, OS_LOG_TYPE_ERROR, "Failed to create security context for %@", buf, 0xCu);
+                      v218 = firstObject;
+                      _os_log_error_impl(&dword_1BA83C000, v186, OS_LOG_TYPE_ERROR, "Failed to create security context for %@", buf, 0xCu);
                     }
 
-                    v216 = 0;
-                    v4 = v199;
+                    v215 = 0;
+                    v4 = v198;
                     goto LABEL_155;
                   }
 
 LABEL_154:
-                  objc_setProperty_atomic(a, v121, v150, 208);
-                  v216 = 1;
+                  objc_setProperty_atomic(a, v121, v149, 208);
+                  v215 = 1;
 
 LABEL_155:
                   goto LABEL_156;
                 }
               }
 
-              v190 = v103;
+              v189 = v103;
               if (v114)
               {
                 v122 = v100;
@@ -1056,12 +1048,12 @@ LABEL_155:
 
               else
               {
-                v122 = v198;
+                v122 = v197;
               }
 
               if (v114)
               {
-                v123 = v198;
+                v123 = v197;
               }
 
               else
@@ -1072,12 +1064,12 @@ LABEL_155:
               v124 = v122;
               v125 = v123;
               v126 = [NEIKEv2SecurityContextCBCPlusHMAC alloc];
-              v195 = firstObject;
-              v189 = v117;
+              v194 = firstObject;
+              v188 = v117;
               v127 = v117;
-              v188 = v118;
+              v187 = v118;
               v128 = v118;
-              v203 = v201;
+              v202 = v200;
               v129 = v124;
               v130 = v125;
               v131 = v130;
@@ -1088,22 +1080,22 @@ LABEL_155:
 
               if (obj)
               {
-                v132 = v195;
-                v133 = v203;
+                v132 = v194;
+                v133 = v202;
                 if (v127)
                 {
                   if (v128)
                   {
-                    if (v203)
+                    if (v202)
                     {
                       if (v129)
                       {
                         if (v130)
                         {
-                          v134 = v195[2];
-                          if (v134 <= 0x1F && ((0xD0100000 >> v134) & 1) != 0 || (v135 = [NEIKEv2SecurityContextCBCPlusHMAC overheadForPlaintextLength:v195 encryptionProtocol:v203 integrityProtocol:?], v136 = [(NEIKEv2SecurityContext *)v126 initWithMinimumEncryptedPayloadSize:v135], (v126 = v136) == 0))
+                          v134 = v194[2];
+                          if (v134 <= 0x1F && ((0xD0100000 >> v134) & 1) != 0 || (v135 = [NEIKEv2SecurityContextCBCPlusHMAC overheadForPlaintextLength:v194 encryptionProtocol:v202 integrityProtocol:?], v136 = [(NEIKEv2SecurityContext *)v126 initWithMinimumEncryptedPayloadSize:v135], (v126 = v136) == 0))
                           {
-                            v150 = 0;
+                            v149 = 0;
                             goto LABEL_132;
                           }
 
@@ -1126,13 +1118,13 @@ LABEL_155:
                                 goto LABEL_120;
                               }
 
-                              v144 = ne_log_obj();
-                              if (os_log_type_enabled(v144, OS_LOG_TYPE_FAULT))
+                              v143 = ne_log_obj();
+                              if (os_log_type_enabled(v143, OS_LOG_TYPE_FAULT))
                               {
                                 String = NEIKEv2EncryptionWireTypeCreateString(encryptionProtocol->_wireType);
                                 *buf = 138412290;
-                                v219 = String;
-                                _os_log_fault_impl(&dword_1BA83C000, v144, OS_LOG_TYPE_FAULT, "No CCAlgorithm for encryption wire type %@", buf, 0xCu);
+                                v218 = String;
+                                _os_log_fault_impl(&dword_1BA83C000, v143, OS_LOG_TYPE_FAULT, "No CCAlgorithm for encryption wire type %@", buf, 0xCu);
                               }
                             }
                           }
@@ -1140,200 +1132,200 @@ LABEL_155:
                           v139 = 0;
 LABEL_120:
                           cryptorRef = 0;
-                          v145 = CCCryptorCreate(0, v139, 0, [v127 bytes], objc_msgSend(v127, "length"), 0, &cryptorRef);
-                          if (!v145 && cryptorRef)
+                          v144 = CCCryptorCreate(0, v139, 0, [v127 bytes], objc_msgSend(v127, "length"), 0, &cryptorRef);
+                          if (!v144 && cryptorRef)
                           {
                             v126->_outgoingEncryptionContext = cryptorRef;
                             cryptorRef = 0;
-                            v146 = CCCryptorCreate(1u, v139, 0, [v128 bytes], objc_msgSend(v128, "length"), 0, &cryptorRef);
-                            if (!v146 && cryptorRef)
+                            v145 = CCCryptorCreate(1u, v139, 0, [v128 bytes], objc_msgSend(v128, "length"), 0, &cryptorRef);
+                            if (!v145 && cryptorRef)
                             {
                               v126->_incomingEncryptionContext = cryptorRef;
-                              objc_storeStrong(&v126->_integrityProtocol, v201);
-                              v147 = [v203 type] - 1;
-                              if (v147 < 0xE && ((0x3863u >> v147) & 1) != 0)
+                              objc_storeStrong(&v126->_integrityProtocol, v200);
+                              v146 = [v202 type] - 1;
+                              if (v146 < 0xE && ((0x3863u >> v146) & 1) != 0)
                               {
-                                v148 = dword_1BAA4F608[v147];
+                                v147 = dword_1BAA4F608[v146];
                               }
 
                               else
                               {
-                                v149 = ne_log_obj();
-                                if (os_log_type_enabled(v149, OS_LOG_TYPE_FAULT))
+                                v148 = ne_log_obj();
+                                if (os_log_type_enabled(v148, OS_LOG_TYPE_FAULT))
                                 {
-                                  type = [v203 type];
+                                  type = [v202 type];
                                   *buf = 67109120;
-                                  LODWORD(v219) = type;
-                                  _os_log_fault_impl(&dword_1BA83C000, v149, OS_LOG_TYPE_FAULT, "Unknown PRF type %u", buf, 8u);
+                                  LODWORD(v218) = type;
+                                  _os_log_fault_impl(&dword_1BA83C000, v148, OS_LOG_TYPE_FAULT, "Unknown PRF type %u", buf, 8u);
                                 }
 
-                                v148 = 0;
+                                v147 = 0;
                               }
 
-                              CCHmacInit((&v126->super._minimumEncryptedPayloadSize + 1), v148, [v129 bytes], objc_msgSend(v129, "length"));
-                              CCHmacInit(&v126->outgoingHMACBaseContext.ctx[95], v148, [v131 bytes], objc_msgSend(v131, "length"));
-                              v150 = v126;
+                              CCHmacInit((&v126->super._minimumEncryptedPayloadSize + 1), v147, [v129 bytes], objc_msgSend(v129, "length"));
+                              CCHmacInit(&v126->outgoingHMACBaseContext.ctx[95], v147, [v131 bytes], objc_msgSend(v131, "length"));
+                              v149 = v126;
                               goto LABEL_131;
                             }
 
-                            v182 = ne_log_obj();
-                            if (!os_log_type_enabled(v182, OS_LOG_TYPE_FAULT))
+                            v181 = ne_log_obj();
+                            if (!os_log_type_enabled(v181, OS_LOG_TYPE_FAULT))
                             {
                               goto LABEL_206;
                             }
 
                             *buf = 67109120;
-                            LODWORD(v219) = v146;
-                            v183 = "CCCryptorCreate(kCCDecrypt) failed: %d";
+                            LODWORD(v218) = v145;
+                            v182 = "CCCryptorCreate(kCCDecrypt) failed: %d";
                             goto LABEL_204;
                           }
 
-                          v182 = ne_log_obj();
-                          if (os_log_type_enabled(v182, OS_LOG_TYPE_FAULT))
+                          v181 = ne_log_obj();
+                          if (os_log_type_enabled(v181, OS_LOG_TYPE_FAULT))
                           {
                             *buf = 67109120;
-                            LODWORD(v219) = v145;
-                            v183 = "CCCryptorCreate(kCCEncrypt) failed: %d";
+                            LODWORD(v218) = v144;
+                            v182 = "CCCryptorCreate(kCCEncrypt) failed: %d";
 LABEL_204:
-                            v184 = v182;
-                            v185 = 8;
+                            v183 = v181;
+                            v184 = 8;
                             goto LABEL_205;
                           }
 
 LABEL_206:
 
 LABEL_207:
-                          v150 = 0;
+                          v149 = 0;
 LABEL_131:
-                          v132 = v195;
-                          v133 = v203;
+                          v132 = v194;
+                          v133 = v202;
 LABEL_132:
 
-                          if (!v150)
+                          if (!v149)
                           {
-                            v181 = ne_log_obj();
-                            if (os_log_type_enabled(v181, OS_LOG_TYPE_ERROR))
+                            v180 = ne_log_obj();
+                            if (os_log_type_enabled(v180, OS_LOG_TYPE_ERROR))
                             {
                               *buf = 138412546;
-                              v219 = v195;
-                              v220 = 2112;
-                              v221 = v203;
-                              _os_log_error_impl(&dword_1BA83C000, v181, OS_LOG_TYPE_ERROR, "Failed to create security context for %@, %@", buf, 0x16u);
+                              v218 = v194;
+                              v219 = 2112;
+                              v220 = v202;
+                              _os_log_error_impl(&dword_1BA83C000, v180, OS_LOG_TYPE_ERROR, "Failed to create security context for %@, %@", buf, 0x16u);
                             }
 
-                            v216 = 0;
-                            v4 = v199;
+                            v215 = 0;
+                            v4 = v198;
                             firstObject = obj;
-                            v103 = v190;
-                            v118 = v188;
-                            v117 = v189;
+                            v103 = v189;
+                            v118 = v187;
+                            v117 = v188;
                             goto LABEL_155;
                           }
 
-                          v4 = v199;
+                          v4 = v198;
                           firstObject = obj;
-                          v117 = v189;
-                          v103 = v190;
-                          v118 = v188;
+                          v117 = v188;
+                          v103 = v189;
+                          v118 = v187;
                           goto LABEL_154;
                         }
 
-                        v182 = ne_log_obj();
-                        if (!os_log_type_enabled(v182, OS_LOG_TYPE_FAULT))
+                        v181 = ne_log_obj();
+                        if (!os_log_type_enabled(v181, OS_LOG_TYPE_FAULT))
                         {
                           goto LABEL_206;
                         }
 
                         *buf = 136315138;
-                        v219 = "[NEIKEv2SecurityContextCBCPlusHMAC initWithEncryptionProtocol:outgoingEncryptionKey:incomingEncryptionKey:integrityProtocol:outgoingIntegrityKey:incomingIntegrityKey:]";
-                        v183 = "%s called with null incomingIntegrityKey";
+                        v218 = "[NEIKEv2SecurityContextCBCPlusHMAC initWithEncryptionProtocol:outgoingEncryptionKey:incomingEncryptionKey:integrityProtocol:outgoingIntegrityKey:incomingIntegrityKey:]";
+                        v182 = "%s called with null incomingIntegrityKey";
                       }
 
                       else
                       {
-                        v182 = ne_log_obj();
-                        if (!os_log_type_enabled(v182, OS_LOG_TYPE_FAULT))
+                        v181 = ne_log_obj();
+                        if (!os_log_type_enabled(v181, OS_LOG_TYPE_FAULT))
                         {
                           goto LABEL_206;
                         }
 
                         *buf = 136315138;
-                        v219 = "[NEIKEv2SecurityContextCBCPlusHMAC initWithEncryptionProtocol:outgoingEncryptionKey:incomingEncryptionKey:integrityProtocol:outgoingIntegrityKey:incomingIntegrityKey:]";
-                        v183 = "%s called with null outgoingIntegrityKey";
+                        v218 = "[NEIKEv2SecurityContextCBCPlusHMAC initWithEncryptionProtocol:outgoingEncryptionKey:incomingEncryptionKey:integrityProtocol:outgoingIntegrityKey:incomingIntegrityKey:]";
+                        v182 = "%s called with null outgoingIntegrityKey";
                       }
                     }
 
                     else
                     {
-                      v182 = ne_log_obj();
-                      if (!os_log_type_enabled(v182, OS_LOG_TYPE_FAULT))
+                      v181 = ne_log_obj();
+                      if (!os_log_type_enabled(v181, OS_LOG_TYPE_FAULT))
                       {
                         goto LABEL_206;
                       }
 
                       *buf = 136315138;
-                      v219 = "[NEIKEv2SecurityContextCBCPlusHMAC initWithEncryptionProtocol:outgoingEncryptionKey:incomingEncryptionKey:integrityProtocol:outgoingIntegrityKey:incomingIntegrityKey:]";
-                      v183 = "%s called with null integrityProtocol";
+                      v218 = "[NEIKEv2SecurityContextCBCPlusHMAC initWithEncryptionProtocol:outgoingEncryptionKey:incomingEncryptionKey:integrityProtocol:outgoingIntegrityKey:incomingIntegrityKey:]";
+                      v182 = "%s called with null integrityProtocol";
                     }
                   }
 
                   else
                   {
-                    v182 = ne_log_obj();
-                    if (!os_log_type_enabled(v182, OS_LOG_TYPE_FAULT))
+                    v181 = ne_log_obj();
+                    if (!os_log_type_enabled(v181, OS_LOG_TYPE_FAULT))
                     {
                       goto LABEL_206;
                     }
 
                     *buf = 136315138;
-                    v219 = "[NEIKEv2SecurityContextCBCPlusHMAC initWithEncryptionProtocol:outgoingEncryptionKey:incomingEncryptionKey:integrityProtocol:outgoingIntegrityKey:incomingIntegrityKey:]";
-                    v183 = "%s called with null incomingEncryptionKey";
+                    v218 = "[NEIKEv2SecurityContextCBCPlusHMAC initWithEncryptionProtocol:outgoingEncryptionKey:incomingEncryptionKey:integrityProtocol:outgoingIntegrityKey:incomingIntegrityKey:]";
+                    v182 = "%s called with null incomingEncryptionKey";
                   }
                 }
 
                 else
                 {
-                  v182 = ne_log_obj();
-                  if (!os_log_type_enabled(v182, OS_LOG_TYPE_FAULT))
+                  v181 = ne_log_obj();
+                  if (!os_log_type_enabled(v181, OS_LOG_TYPE_FAULT))
                   {
                     goto LABEL_206;
                   }
 
                   *buf = 136315138;
-                  v219 = "[NEIKEv2SecurityContextCBCPlusHMAC initWithEncryptionProtocol:outgoingEncryptionKey:incomingEncryptionKey:integrityProtocol:outgoingIntegrityKey:incomingIntegrityKey:]";
-                  v183 = "%s called with null outgoingEncryptionKey";
+                  v218 = "[NEIKEv2SecurityContextCBCPlusHMAC initWithEncryptionProtocol:outgoingEncryptionKey:incomingEncryptionKey:integrityProtocol:outgoingIntegrityKey:incomingIntegrityKey:]";
+                  v182 = "%s called with null outgoingEncryptionKey";
                 }
               }
 
               else
               {
-                v182 = ne_log_obj();
-                if (!os_log_type_enabled(v182, OS_LOG_TYPE_FAULT))
+                v181 = ne_log_obj();
+                if (!os_log_type_enabled(v181, OS_LOG_TYPE_FAULT))
                 {
                   goto LABEL_206;
                 }
 
                 *buf = 136315138;
-                v219 = "[NEIKEv2SecurityContextCBCPlusHMAC initWithEncryptionProtocol:outgoingEncryptionKey:incomingEncryptionKey:integrityProtocol:outgoingIntegrityKey:incomingIntegrityKey:]";
-                v183 = "%s called with null encryptionProtocol";
+                v218 = "[NEIKEv2SecurityContextCBCPlusHMAC initWithEncryptionProtocol:outgoingEncryptionKey:incomingEncryptionKey:integrityProtocol:outgoingIntegrityKey:incomingIntegrityKey:]";
+                v182 = "%s called with null encryptionProtocol";
               }
 
-              v184 = v182;
-              v185 = 12;
+              v183 = v181;
+              v184 = 12;
 LABEL_205:
-              _os_log_fault_impl(&dword_1BA83C000, v184, OS_LOG_TYPE_FAULT, v183, buf, v185);
+              _os_log_fault_impl(&dword_1BA83C000, v183, OS_LOG_TYPE_FAULT, v182, buf, v184);
               goto LABEL_206;
             }
 
-            v104 = &v102[v191];
-            v105 = [(NSData *)MEMORY[0x1E695DEF0] sensitiveDataWithBytes:v104 length:v194];
+            v104 = &v102[v190];
+            v105 = [(NSData *)MEMORY[0x1E695DEF0] sensitiveDataWithBytes:v104 length:v193];
             objc_setProperty_atomic(a, v106, v105, 232);
 
             v108 = objc_getProperty(a, v107, 232, 1);
 
             if (v108)
             {
-              v109 = [(NSData *)MEMORY[0x1E695DEF0] sensitiveDataWithBytes:v194 length:?];
+              v109 = [(NSData *)MEMORY[0x1E695DEF0] sensitiveDataWithBytes:v193 length:?];
               objc_setProperty_atomic(a, v110, v109, 248);
 
               v112 = objc_getProperty(a, v111, 248, 1);
@@ -1343,45 +1335,45 @@ LABEL_205:
                 goto LABEL_73;
               }
 
-              v143 = ne_log_obj();
-              if (!os_log_type_enabled(v143, OS_LOG_TYPE_FAULT))
+              v142 = ne_log_obj();
+              if (!os_log_type_enabled(v142, OS_LOG_TYPE_FAULT))
               {
 LABEL_135:
 
-                v216 = 0;
+                v215 = 0;
 LABEL_156:
 
                 v53 = 0;
-                v204 = 0;
+                v203 = 0;
                 v45 = 0;
                 v32 = 0;
 LABEL_157:
 
-                v40 = v204;
+                v40 = v203;
 LABEL_158:
 
 LABEL_159:
-                v140 = v216;
+                v140 = v215;
                 goto LABEL_112;
               }
 
               *buf = 67109120;
-              LODWORD(v219) = v194;
+              LODWORD(v218) = v193;
             }
 
             else
             {
-              v143 = ne_log_obj();
-              if (!os_log_type_enabled(v143, OS_LOG_TYPE_FAULT))
+              v142 = ne_log_obj();
+              if (!os_log_type_enabled(v142, OS_LOG_TYPE_FAULT))
               {
                 goto LABEL_135;
               }
 
               *buf = 67109120;
-              LODWORD(v219) = v194;
+              LODWORD(v218) = v193;
             }
 
-            _os_log_fault_impl(&dword_1BA83C000, v143, OS_LOG_TYPE_FAULT, "[NESensitiveData sensitiveDataWithBytes:length:%u] failed", buf, 8u);
+            _os_log_fault_impl(&dword_1BA83C000, v142, OS_LOG_TYPE_FAULT, "[NESensitiveData sensitiveDataWithBytes:length:%u] failed", buf, 8u);
             goto LABEL_135;
           }
         }
@@ -1396,30 +1388,30 @@ LABEL_159:
         goto LABEL_51;
       }
 
-      v176 = Hkdf;
-      v177 = ne_log_obj();
-      if (os_log_type_enabled(v177, OS_LOG_TYPE_FAULT))
+      v175 = Hkdf;
+      v176 = ne_log_obj();
+      if (os_log_type_enabled(v176, OS_LOG_TYPE_FAULT))
       {
         *buf = 67109120;
-        LODWORD(v219) = v176;
-        _os_log_fault_impl(&dword_1BA83C000, v177, OS_LOG_TYPE_FAULT, "CCKDFParametersCreateHkdf failed %d", buf, 8u);
+        LODWORD(v218) = v175;
+        _os_log_fault_impl(&dword_1BA83C000, v176, OS_LOG_TYPE_FAULT, "CCKDFParametersCreateHkdf failed %d", buf, 8u);
       }
     }
 
     else
     {
-      v175 = ne_log_obj();
-      if (os_log_type_enabled(v175, OS_LOG_TYPE_FAULT))
+      v174 = ne_log_obj();
+      if (os_log_type_enabled(v174, OS_LOG_TYPE_FAULT))
       {
         *buf = 134217984;
-        v219 = v50;
-        _os_log_fault_impl(&dword_1BA83C000, v175, OS_LOG_TYPE_FAULT, "[NEMutableSensitiveData mutableSensitiveDataWithMaxCapacity:%zu] failed", buf, 0xCu);
+        v218 = v50;
+        _os_log_fault_impl(&dword_1BA83C000, v174, OS_LOG_TYPE_FAULT, "[NEMutableSensitiveData mutableSensitiveDataWithMaxCapacity:%zu] failed", buf, 0xCu);
       }
 
       v53 = 0;
     }
 
-    v216 = 0;
+    v215 = 0;
     goto LABEL_158;
   }
 
@@ -1427,7 +1419,7 @@ LABEL_159:
   if (os_log_type_enabled(v29, OS_LOG_TYPE_FAULT))
   {
     *buf = 136315138;
-    v219 = "[NEIKEv2IKESA(Crypto) generateAllValuesUsingSA:]";
+    v218 = "[NEIKEv2IKESA(Crypto) generateAllValuesUsingSA:]";
     v30 = "%s called with null ikeSA.skD";
     goto LABEL_110;
   }
@@ -1437,13 +1429,12 @@ LABEL_111:
   v140 = 0;
 LABEL_112:
 
-  v141 = *MEMORY[0x1E69E9840];
   return v140;
 }
 
 - (__CFData)deriveKeyFromPrimeKey:(const void *)key hmacContext:
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v6 = a2;
   if (self)
   {
@@ -1473,22 +1464,21 @@ LABEL_112:
 
   else
   {
-    v16 = ne_log_obj();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_FAULT))
+    v15 = ne_log_obj();
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_FAULT))
     {
       __dst.ctx[0] = 67109120;
       __dst.ctx[1] = v11;
-      _os_log_fault_impl(&dword_1BA83C000, v16, OS_LOG_TYPE_FAULT, "[NEMutableSensitiveData mutableSensitiveDataPrefilledWithMaxCapacity:%u] failed", &__dst, 8u);
+      _os_log_fault_impl(&dword_1BA83C000, v15, OS_LOG_TYPE_FAULT, "[NEMutableSensitiveData mutableSensitiveDataPrefilledWithMaxCapacity:%u] failed", &__dst, 8u);
     }
   }
 
-  v14 = *MEMORY[0x1E69E9840];
   return v12;
 }
 
 - (uint64_t)generateDerivativesFromPPK:(uint64_t)k
 {
-  v51 = *MEMORY[0x1E69E9840];
+  v50 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v5 = v3;
   if (!k)
@@ -1576,37 +1566,8 @@ LABEL_20:
   objc_setProperty_atomic(k, v22, v21, 216);
 
   v24 = objc_getProperty(k, v23, 216, 1);
-  if (!v24)
+  if (!v24 || (objc_getProperty(k, v25, 232, 1), v26 = objc_claimAutoreleasedReturnValue(), objc_setProperty_atomic(k, v27, v26, 240), v26, objc_getProperty(k, v28, 240, 1), v29 = objc_claimAutoreleasedReturnValue(), v30 = [(NEIKEv2IKESA *)k deriveKeyFromPrimeKey:v29 hmacContext:&ctx], objc_setProperty_atomic(k, v31, v30, 232), v30, v29, objc_getProperty(k, v32, 232, 1), v33 = objc_claimAutoreleasedReturnValue(), v33, !v33) || (objc_getProperty(k, v34, 248, 1), v35 = objc_claimAutoreleasedReturnValue(), objc_setProperty_atomic(k, v36, v35, 256), v35, objc_getProperty(k, v37, 256, 1), v38 = objc_claimAutoreleasedReturnValue(), v39 = [(NEIKEv2IKESA *)k deriveKeyFromPrimeKey:v38 hmacContext:&ctx], objc_setProperty_atomic(k, v40, v39, 248), v39, v38, objc_getProperty(k, v41, 248, 1), v42 = objc_claimAutoreleasedReturnValue(), v42, !v42))
   {
-    goto LABEL_16;
-  }
-
-  v26 = objc_getProperty(k, v25, 232, 1);
-  objc_setProperty_atomic(k, v27, v26, 240);
-
-  v29 = objc_getProperty(k, v28, 240, 1);
-  v30 = [(NEIKEv2IKESA *)k deriveKeyFromPrimeKey:v29 hmacContext:&ctx];
-  objc_setProperty_atomic(k, v31, v30, 232);
-
-  v33 = objc_getProperty(k, v32, 232, 1);
-
-  if (!v33)
-  {
-    goto LABEL_16;
-  }
-
-  v35 = objc_getProperty(k, v34, 248, 1);
-  objc_setProperty_atomic(k, v36, v35, 256);
-
-  v38 = objc_getProperty(k, v37, 256, 1);
-  v39 = [(NEIKEv2IKESA *)k deriveKeyFromPrimeKey:v38 hmacContext:&ctx];
-  objc_setProperty_atomic(k, v40, v39, 248);
-
-  v42 = objc_getProperty(k, v41, 248, 1);
-
-  if (!v42)
-  {
-LABEL_16:
     memset_s(&ctx, 0x180uLL, 0, 0x180uLL);
     [(NEIKEv2IKESA *)k restorePrimeKeys];
 LABEL_21:
@@ -1617,15 +1578,14 @@ LABEL_21:
   v43 = ne_log_obj();
   if (os_log_type_enabled(v43, OS_LOG_TYPE_DEBUG))
   {
-    *v49 = 0;
-    _os_log_debug_impl(&dword_1BA83C000, v43, OS_LOG_TYPE_DEBUG, "Calculated PPK derivatives", v49, 2u);
+    *v48 = 0;
+    _os_log_debug_impl(&dword_1BA83C000, v43, OS_LOG_TYPE_DEBUG, "Calculated PPK derivatives", v48, 2u);
   }
 
   memset_s(&ctx, 0x180uLL, 0, 0x180uLL);
   k = 1;
 LABEL_22:
 
-  v47 = *MEMORY[0x1E69E9840];
   return k;
 }
 
@@ -1674,7 +1634,7 @@ LABEL_22:
 
 - (id)copyRemoteCertificateAuthorityArray
 {
-  v102 = *MEMORY[0x1E69E9840];
+  v101 = *MEMORY[0x1E69E9840];
   v3 = objc_alloc_init(MEMORY[0x1E695DF70]);
   if (!v3)
   {
@@ -1703,21 +1663,21 @@ LABEL_22:
 
   if (remoteCertificateAuthorityReferences)
   {
-    v78 = 0u;
-    v79 = 0u;
-    v76 = 0u;
     v77 = 0u;
+    v78 = 0u;
+    v75 = 0u;
+    v76 = 0u;
     v8 = remoteCertificateAuthorityReferences;
-    v9 = [v8 countByEnumeratingWithState:&v76 objects:v85 count:16];
+    v9 = [v8 countByEnumeratingWithState:&v75 objects:v84 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v77;
+      v11 = *v76;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v77 != v11)
+          if (*v76 != v11)
           {
             objc_enumerationMutation(v8);
           }
@@ -1731,7 +1691,7 @@ LABEL_22:
           }
         }
 
-        v10 = [v8 countByEnumeratingWithState:&v76 objects:v85 count:16];
+        v10 = [v8 countByEnumeratingWithState:&v75 objects:v84 count:16];
       }
 
       while (v10);
@@ -1783,15 +1743,15 @@ LABEL_22:
   v25 = v23;
   v26 = v24;
   objc_opt_self();
-  v75 = v23;
+  v74 = v23;
   if (!v23)
   {
     v38 = 0;
     goto LABEL_38;
   }
 
-  v67 = objc_alloc_init(MEMORY[0x1E695DF70]);
-  if (!v67)
+  v66 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  if (!v66)
   {
     v37 = ne_log_obj();
     if (os_log_type_enabled(v37, OS_LOG_TYPE_FAULT))
@@ -1806,43 +1766,43 @@ LABEL_22:
   objc_opt_self();
   v27 = *MEMORY[0x1E697B000];
   v28 = *MEMORY[0x1E697B328];
-  v73 = *MEMORY[0x1E697AFF8];
-  *&v90 = *MEMORY[0x1E697AFF8];
-  *(&v90 + 1) = v28;
+  v72 = *MEMORY[0x1E697AFF8];
+  *&v89 = *MEMORY[0x1E697AFF8];
+  *(&v89 + 1) = v28;
   v29 = *MEMORY[0x1E695E4D0];
-  v72 = v27;
+  v71 = v27;
   *&buf = v27;
   *(&buf + 1) = v29;
   v30 = *MEMORY[0x1E697B268];
   v31 = *MEMORY[0x1E697B3A8];
-  *&v91 = *MEMORY[0x1E697B260];
-  *(&v91 + 1) = v31;
-  v70 = v31;
-  v71 = v29;
-  v88 = v30;
-  v89 = v29;
-  v32 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&buf forKeys:&v90 count:4];
+  *&v90 = *MEMORY[0x1E697B260];
+  *(&v90 + 1) = v31;
+  v69 = v31;
+  v70 = v29;
+  v87 = v30;
+  v88 = v29;
+  v32 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&buf forKeys:&v89 count:4];
   *&result = 0;
   v33 = SecItemCopyMatching(v32, &result);
   v34 = result;
-  v74 = v26;
+  v73 = v26;
   if (v33 || ![result count])
   {
     v35 = ne_log_obj();
     if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
     {
-      *v94 = 67109120;
-      *&v94[4] = v33;
-      _os_log_error_impl(&dword_1BA83C000, v35, OS_LOG_TYPE_ERROR, "failed to retrieve all certificate (%d)", v94, 8u);
+      *v93 = 67109120;
+      *&v93[4] = v33;
+      _os_log_error_impl(&dword_1BA83C000, v35, OS_LOG_TYPE_ERROR, "failed to retrieve all certificate (%d)", v93, 8u);
     }
 
-    v26 = v74;
+    v26 = v73;
     goto LABEL_30;
   }
 
-  v50 = v34;
+  v49 = v34;
 
-  if (!v50)
+  if (!v49)
   {
 LABEL_30:
     v36 = ne_log_obj();
@@ -1858,141 +1818,141 @@ LABEL_36:
     goto LABEL_37;
   }
 
-  v92 = 0u;
-  v93 = 0u;
-  v90 = 0u;
   v91 = 0u;
-  v37 = v50;
-  v51 = [v37 countByEnumeratingWithState:&v90 objects:&buf count:16];
-  if (!v51)
+  v92 = 0u;
+  v89 = 0u;
+  v90 = 0u;
+  v37 = v49;
+  v50 = [v37 countByEnumeratingWithState:&v89 objects:&buf count:16];
+  if (!v50)
   {
     goto LABEL_84;
   }
 
-  v52 = v51;
-  v53 = *v91;
-  v69 = *MEMORY[0x1E697B320];
-  v68 = *MEMORY[0x1E697B3D0];
+  v51 = v50;
+  v52 = *v90;
+  v68 = *MEMORY[0x1E697B320];
+  v67 = *MEMORY[0x1E697B3D0];
   do
   {
-    v54 = 0;
+    v53 = 0;
     do
     {
-      if (*v91 != v53)
+      if (*v90 != v52)
       {
         objc_enumerationMutation(v37);
       }
 
-      v55 = *(*(&v90 + 1) + 8 * v54);
-      v56 = SecCertificateCopyCommonNames();
-      v57 = v56;
-      if (v56 && [v56 containsObject:v25])
+      v54 = *(*(&v89 + 1) + 8 * v53);
+      v55 = SecCertificateCopyCommonNames();
+      v56 = v55;
+      if (v55 && [v55 containsObject:v25])
       {
-        if (v74 && (v58 = SecCertificateCopySHA256Digest(), v59 = [v58 isEqualToData:v74], v58, !v59))
+        if (v73 && (v57 = SecCertificateCopySHA256Digest(), v58 = [v57 isEqualToData:v73], v57, !v58))
         {
-          v64 = ne_log_obj();
-          if (!os_log_type_enabled(v64, OS_LOG_TYPE_DEFAULT))
+          v63 = ne_log_obj();
+          if (!os_log_type_enabled(v63, OS_LOG_TYPE_DEFAULT))
           {
             goto LABEL_76;
           }
 
           LODWORD(result) = 138412290;
-          v25 = v75;
-          *(&result + 4) = v75;
-          _os_log_impl(&dword_1BA83C000, v64, OS_LOG_TYPE_DEFAULT, "certificate hash did not match for CN (%@)", &result, 0xCu);
+          v25 = v74;
+          *(&result + 4) = v74;
+          _os_log_impl(&dword_1BA83C000, v63, OS_LOG_TYPE_DEFAULT, "certificate hash did not match for CN (%@)", &result, 0xCu);
         }
 
         else
         {
           objc_opt_self();
-          if (v55)
+          if (v54)
           {
-            *v94 = v69;
-            v95 = v68;
-            *&result = v71;
-            *(&result + 1) = v55;
-            v96 = v73;
-            v97 = v70;
-            v99 = v72;
-            v100 = v71;
-            v60 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&result forKeys:v94 count:4];
-            *v101 = 0;
-            v61 = SecItemCopyMatching(v60, v101);
-            v62 = *v101;
-            if (v61)
+            *v93 = v68;
+            v94 = v67;
+            *&result = v70;
+            *(&result + 1) = v54;
+            v95 = v72;
+            v96 = v69;
+            v98 = v71;
+            v99 = v70;
+            v59 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&result forKeys:v93 count:4];
+            *v100 = 0;
+            v60 = SecItemCopyMatching(v59, v100);
+            v61 = *v100;
+            if (v60)
             {
-              v63 = ne_log_obj();
-              if (os_log_type_enabled(v63, OS_LOG_TYPE_FAULT))
+              v62 = ne_log_obj();
+              if (os_log_type_enabled(v62, OS_LOG_TYPE_FAULT))
               {
-                *v84 = 0;
-                _os_log_fault_impl(&dword_1BA83C000, v63, OS_LOG_TYPE_FAULT, "SecItemCopyMatching failed", v84, 2u);
+                *v83 = 0;
+                _os_log_fault_impl(&dword_1BA83C000, v62, OS_LOG_TYPE_FAULT, "SecItemCopyMatching failed", v83, 2u);
               }
 
-              v64 = 0;
+              v63 = 0;
             }
 
             else
             {
-              v64 = *v101;
+              v63 = *v100;
 
-              if (v64)
+              if (v63)
               {
-                [v67 addObject:v64];
+                [v66 addObject:v63];
               }
             }
 
 LABEL_76:
-            v25 = v75;
+            v25 = v74;
           }
 
           else
           {
-            v65 = ne_log_obj();
-            v25 = v75;
-            if (os_log_type_enabled(v65, OS_LOG_TYPE_FAULT))
+            v64 = ne_log_obj();
+            v25 = v74;
+            if (os_log_type_enabled(v64, OS_LOG_TYPE_FAULT))
             {
-              *v101 = 136315138;
-              *&v101[4] = "+[NEIKEv2Crypto copyPersistentDataForCertificate:]";
-              _os_log_fault_impl(&dword_1BA83C000, v65, OS_LOG_TYPE_FAULT, "%s called with null certificate", v101, 0xCu);
+              *v100 = 136315138;
+              *&v100[4] = "+[NEIKEv2Crypto copyPersistentDataForCertificate:]";
+              _os_log_fault_impl(&dword_1BA83C000, v64, OS_LOG_TYPE_FAULT, "%s called with null certificate", v100, 0xCu);
             }
 
-            v64 = 0;
+            v63 = 0;
           }
         }
       }
 
-      ++v54;
+      ++v53;
     }
 
-    while (v52 != v54);
-    v66 = [v37 countByEnumeratingWithState:&v90 objects:&buf count:16];
-    v52 = v66;
+    while (v51 != v53);
+    v65 = [v37 countByEnumeratingWithState:&v89 objects:&buf count:16];
+    v51 = v65;
   }
 
-  while (v66);
+  while (v65);
 LABEL_84:
 
-  v38 = v67;
+  v38 = v66;
   remoteCertificateAuthorityReferences = 0;
-  v26 = v74;
+  v26 = v73;
 LABEL_37:
 
 LABEL_38:
+  v79 = 0u;
   v80 = 0u;
   v81 = 0u;
   v82 = 0u;
-  v83 = 0u;
   v39 = v38;
-  v40 = [v39 countByEnumeratingWithState:&v80 objects:v86 count:16];
+  v40 = [v39 countByEnumeratingWithState:&v79 objects:v85 count:16];
   if (v40)
   {
     v41 = v40;
-    v42 = *v81;
+    v42 = *v80;
     do
     {
       for (j = 0; j != v41; ++j)
       {
-        if (*v81 != v42)
+        if (*v80 != v42)
         {
           objc_enumerationMutation(v39);
         }
@@ -2006,37 +1966,36 @@ LABEL_38:
         }
       }
 
-      v41 = [v39 countByEnumeratingWithState:&v80 objects:v86 count:16];
+      v41 = [v39 countByEnumeratingWithState:&v79 objects:v85 count:16];
     }
 
     while (v41);
   }
 
-  if (![v3 count] && v75)
+  if (![v3 count] && v74)
   {
     v46 = ne_log_obj();
     if (os_log_type_enabled(v46, OS_LOG_TYPE_FAULT))
     {
       LODWORD(buf) = 138412290;
-      *(&buf + 4) = v75;
+      *(&buf + 4) = v74;
       _os_log_fault_impl(&dword_1BA83C000, v46, OS_LOG_TYPE_FAULT, "failed to retrieve remote CA cert data by CN (%@)", &buf, 0xCu);
     }
   }
 
-  v15 = v75;
+  v15 = v74;
 LABEL_53:
 
 LABEL_54:
   v47 = v3;
 LABEL_55:
 
-  v48 = *MEMORY[0x1E69E9840];
   return v3;
 }
 
 - (NSObject)copyRemoteCertificateAuthorityHashData
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   copyRemoteCertificateAuthorityArray = [(NEIKEv2IKESA *)self copyRemoteCertificateAuthorityArray];
   if (!copyRemoteCertificateAuthorityArray)
   {
@@ -2065,30 +2024,30 @@ LABEL_55:
   }
 
   v3 = v2;
-  v20 = 0u;
-  v21 = 0u;
-  v18 = 0u;
   v19 = 0u;
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
   v4 = copyRemoteCertificateAuthorityArray;
-  v5 = [v4 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (!v5)
   {
     goto LABEL_19;
   }
 
   v6 = v5;
-  v7 = *v19;
+  v7 = *v18;
   do
   {
     v8 = 0;
     do
     {
-      if (*v19 != v7)
+      if (*v18 != v7)
       {
         objc_enumerationMutation(v4);
       }
 
-      v9 = *(*(&v18 + 1) + 8 * v8);
+      v9 = *(*(&v17 + 1) + 8 * v8);
       objc_opt_self();
       if (v9)
       {
@@ -2107,7 +2066,7 @@ LABEL_55:
         if (os_log_type_enabled(v12, OS_LOG_TYPE_FAULT))
         {
           *buf = 136315138;
-          v24 = "+[NEIKEv2Crypto createCertificateAuthorityPublicKeyHash:]";
+          v23 = "+[NEIKEv2Crypto createCertificateAuthorityPublicKeyHash:]";
           _os_log_fault_impl(&dword_1BA83C000, v12, OS_LOG_TYPE_FAULT, "%s called with null certificate", buf, 0xCu);
         }
       }
@@ -2126,7 +2085,7 @@ LABEL_17:
     }
 
     while (v6 != v8);
-    v6 = [v4 countByEnumeratingWithState:&v18 objects:v22 count:16];
+    v6 = [v4 countByEnumeratingWithState:&v17 objects:v21 count:16];
   }
 
   while (v6);
@@ -2143,7 +2102,6 @@ LABEL_26:
   v14 = v3;
 LABEL_27:
 
-  v16 = *MEMORY[0x1E69E9840];
   return v14;
 }
 
@@ -2240,7 +2198,7 @@ LABEL_19:
 
 - (uint64_t)updateIntAuthWithPacket:(void *)packet
 {
-  v55 = *MEMORY[0x1E69E9840];
+  v54 = *MEMORY[0x1E69E9840];
   v4 = a2;
   if (packet)
   {
@@ -2282,8 +2240,8 @@ LABEL_19:
               if (v16)
               {
                 v19 = objc_getProperty(packet, v17, 192, 1);
-                v52 = v19;
-                v20 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v52 count:1];
+                v51 = v19;
+                v20 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v51 count:1];
                 v18 = [v20 arrayByAddingObjectsFromArray:v12];
               }
 
@@ -2322,7 +2280,7 @@ LABEL_33:
             }
 
             *buf = 136315138;
-            v54 = "[NEIKEv2IKESA(Crypto) updateIntAuthWithPacket:]";
+            v53 = "[NEIKEv2IKESA(Crypto) updateIntAuthWithPacket:]";
             v33 = "%s called with null self.skPi";
             goto LABEL_37;
           }
@@ -2344,8 +2302,8 @@ LABEL_33:
           if (v36)
           {
             v38 = objc_getProperty(packet, v37, 200, 1);
-            v51 = v38;
-            v39 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v51 count:1];
+            v50 = v38;
+            v39 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v50 count:1];
             v18 = [v39 arrayByAddingObjectsFromArray:v12];
           }
 
@@ -2384,7 +2342,7 @@ LABEL_30:
         }
 
         *buf = 136315138;
-        v54 = "[NEIKEv2IKESA(Crypto) updateIntAuthWithPacket:]";
+        v53 = "[NEIKEv2IKESA(Crypto) updateIntAuthWithPacket:]";
         v33 = "%s called with null self.skPr";
 LABEL_37:
         _os_log_fault_impl(&dword_1BA83C000, v18, OS_LOG_TYPE_FAULT, v33, buf, 0xCu);
@@ -2402,7 +2360,7 @@ LABEL_34:
       }
 
       *buf = 136315138;
-      v54 = "[NEIKEv2IKESA(Crypto) updateIntAuthWithPacket:]";
+      v53 = "[NEIKEv2IKESA(Crypto) updateIntAuthWithPacket:]";
       v32 = "%s called with null packet.authenticatedDataVector";
     }
 
@@ -2415,7 +2373,7 @@ LABEL_34:
       }
 
       *buf = 136315138;
-      v54 = "[NEIKEv2IKESA(Crypto) updateIntAuthWithPacket:]";
+      v53 = "[NEIKEv2IKESA(Crypto) updateIntAuthWithPacket:]";
       v32 = "%s called with null self.chosenProposal.prfProtocol";
     }
 
@@ -2426,13 +2384,12 @@ LABEL_34:
   v21 = 0;
 LABEL_35:
 
-  v49 = *MEMORY[0x1E69E9840];
   return v21;
 }
 
 - (uint64_t)createIntAuthOctetVector
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   if (self)
   {
     Property = objc_getProperty(self, a2, 96, 1);
@@ -2453,8 +2410,7 @@ LABEL_35:
 
   if (!v6)
   {
-    v16 = MEMORY[0x1E695E0F0];
-    goto LABEL_13;
+    return MEMORY[0x1E695E0F0];
   }
 
   v8 = objc_getProperty(self, v7, 192, 1);
@@ -2466,12 +2422,11 @@ LABEL_35:
     {
 LABEL_12:
 
-      v16 = 0;
-      goto LABEL_13;
+      return 0;
     }
 
     *buf = 136315138;
-    v23 = "[NEIKEv2IKESA(Crypto) createIntAuthOctetVector]";
+    v22 = "[NEIKEv2IKESA(Crypto) createIntAuthOctetVector]";
     v18 = "%s called with null self.intAuthI";
 LABEL_15:
     _os_log_fault_impl(&dword_1BA83C000, v17, OS_LOG_TYPE_FAULT, v18, buf, 0xCu);
@@ -2489,7 +2444,7 @@ LABEL_15:
     }
 
     *buf = 136315138;
-    v23 = "[NEIKEv2IKESA(Crypto) createIntAuthOctetVector]";
+    v22 = "[NEIKEv2IKESA(Crypto) createIntAuthOctetVector]";
     v18 = "%s called with null self.intAuthR";
     goto LABEL_15;
   }
@@ -2497,20 +2452,18 @@ LABEL_15:
   *buf = bswap32(self[7]);
   v11 = [objc_alloc(MEMORY[0x1E695DEF0]) initWithBytes:buf length:4];
   v13 = objc_getProperty(self, v12, 192, 1);
-  v21[0] = v13;
+  v20[0] = v13;
   v15 = objc_getProperty(self, v14, 200, 1);
-  v21[1] = v15;
-  v21[2] = v11;
-  v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:v21 count:3];
+  v20[1] = v15;
+  v20[2] = v11;
+  v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:v20 count:3];
 
-LABEL_13:
-  v19 = *MEMORY[0x1E69E9840];
   return v16;
 }
 
 - (NSObject)createAuthenticationDataForSharedSecret:(void *)secret octetVector:
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   v5 = a2;
   secretCopy = secret;
   if (!v5)
@@ -2521,8 +2474,8 @@ LABEL_13:
       goto LABEL_16;
     }
 
-    v27 = 136315138;
-    v28 = "[NEIKEv2IKESA(Crypto) createAuthenticationDataForSharedSecret:octetVector:]";
+    v26 = 136315138;
+    v27 = "[NEIKEv2IKESA(Crypto) createAuthenticationDataForSharedSecret:octetVector:]";
     v23 = "%s called with null sharedSecretData";
     goto LABEL_19;
   }
@@ -2549,11 +2502,11 @@ LABEL_16:
       goto LABEL_17;
     }
 
-    v27 = 136315138;
-    v28 = "[NEIKEv2IKESA(Crypto) createAuthenticationDataForSharedSecret:octetVector:]";
+    v26 = 136315138;
+    v27 = "[NEIKEv2IKESA(Crypto) createAuthenticationDataForSharedSecret:octetVector:]";
     v23 = "%s called with null self.chosenProposal";
 LABEL_19:
-    _os_log_fault_impl(&dword_1BA83C000, prfProtocol2, OS_LOG_TYPE_FAULT, v23, &v27, 0xCu);
+    _os_log_fault_impl(&dword_1BA83C000, prfProtocol2, OS_LOG_TYPE_FAULT, v23, &v26, 0xCu);
     goto LABEL_16;
   }
 
@@ -2578,8 +2531,8 @@ LABEL_19:
       goto LABEL_16;
     }
 
-    v27 = 136315138;
-    v28 = "[NEIKEv2IKESA(Crypto) createAuthenticationDataForSharedSecret:octetVector:]";
+    v26 = 136315138;
+    v27 = "[NEIKEv2IKESA(Crypto) createAuthenticationDataForSharedSecret:octetVector:]";
     v23 = "%s called with null self.chosenProposal.prfProtocol";
     goto LABEL_19;
   }
@@ -2606,25 +2559,24 @@ LABEL_19:
 
   else
   {
-    v26 = ne_log_obj();
-    if (os_log_type_enabled(v26, OS_LOG_TYPE_FAULT))
+    v25 = ne_log_obj();
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_FAULT))
     {
-      LOWORD(v27) = 0;
-      _os_log_fault_impl(&dword_1BA83C000, v26, OS_LOG_TYPE_FAULT, "[NEIKEv2Crypto createHMACFromData:key:prfProtocol:] failed", &v27, 2u);
+      LOWORD(v26) = 0;
+      _os_log_fault_impl(&dword_1BA83C000, v25, OS_LOG_TYPE_FAULT, "[NEIKEv2Crypto createHMACFromData:key:prfProtocol:] failed", &v26, 2u);
     }
 
     v22 = 0;
   }
 
 LABEL_17:
-  v24 = *MEMORY[0x1E69E9840];
   return v22;
 }
 
 - (NSObject)createInitiatorSignedOctetVectorUsingPrimeKey:(id *)key
 {
   v2 = a2;
-  v37 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   initiatorFirstMessage = [(NEIKEv2IKESA *)key initiatorFirstMessage];
 
   if (!initiatorFirstMessage)
@@ -2633,7 +2585,7 @@ LABEL_17:
     if (os_log_type_enabled(copyPayloadData, OS_LOG_TYPE_FAULT))
     {
       *buf = 136315138;
-      v36 = "[NEIKEv2IKESA(Crypto) createInitiatorSignedOctetVectorUsingPrimeKey:]";
+      v35 = "[NEIKEv2IKESA(Crypto) createInitiatorSignedOctetVectorUsingPrimeKey:]";
       v11 = "%s called with null self.initiatorFirstMessage";
       goto LABEL_30;
     }
@@ -2651,7 +2603,7 @@ LABEL_31:
     if (os_log_type_enabled(copyPayloadData, OS_LOG_TYPE_FAULT))
     {
       *buf = 136315138;
-      v36 = "[NEIKEv2IKESA(Crypto) createInitiatorSignedOctetVectorUsingPrimeKey:]";
+      v35 = "[NEIKEv2IKESA(Crypto) createInitiatorSignedOctetVectorUsingPrimeKey:]";
       v11 = "%s called with null self.responderNonce";
       goto LABEL_30;
     }
@@ -2669,7 +2621,7 @@ LABEL_31:
       if (os_log_type_enabled(copyPayloadData, OS_LOG_TYPE_FAULT))
       {
         *buf = 136315138;
-        v36 = "[NEIKEv2IKESA(Crypto) createInitiatorSignedOctetVectorUsingPrimeKey:]";
+        v35 = "[NEIKEv2IKESA(Crypto) createInitiatorSignedOctetVectorUsingPrimeKey:]";
         v11 = "%s called with null self.skPiPrime";
 LABEL_30:
         _os_log_fault_impl(&dword_1BA83C000, copyPayloadData, OS_LOG_TYPE_FAULT, v11, buf, 0xCu);
@@ -2690,7 +2642,7 @@ LABEL_30:
       if (os_log_type_enabled(copyPayloadData, OS_LOG_TYPE_FAULT))
       {
         *buf = 136315138;
-        v36 = "[NEIKEv2IKESA(Crypto) createInitiatorSignedOctetVectorUsingPrimeKey:]";
+        v35 = "[NEIKEv2IKESA(Crypto) createInitiatorSignedOctetVectorUsingPrimeKey:]";
         v11 = "%s called with null self.skPi";
         goto LABEL_30;
       }
@@ -2717,7 +2669,7 @@ LABEL_30:
     if (os_log_type_enabled(copyPayloadData, OS_LOG_TYPE_FAULT))
     {
       *buf = 136315138;
-      v36 = "[NEIKEv2IKESA(Crypto) createInitiatorSignedOctetVectorUsingPrimeKey:]";
+      v35 = "[NEIKEv2IKESA(Crypto) createInitiatorSignedOctetVectorUsingPrimeKey:]";
       v11 = "%s called with null self.chosenProposal";
       goto LABEL_30;
     }
@@ -2784,11 +2736,11 @@ LABEL_30:
   }
 
   initiatorFirstMessage2 = [(NEIKEv2IKESA *)key initiatorFirstMessage];
-  v34[0] = initiatorFirstMessage2;
+  v33[0] = initiatorFirstMessage2;
   responderNonce2 = [(NEIKEv2IKESA *)key responderNonce];
-  v34[1] = responderNonce2;
-  v34[2] = v23;
-  v30 = [MEMORY[0x1E695DEC8] arrayWithObjects:v34 count:3];
+  v33[1] = responderNonce2;
+  v33[2] = v23;
+  v30 = [MEMORY[0x1E695DEC8] arrayWithObjects:v33 count:3];
 
   if ([createIntAuthOctetVector count])
   {
@@ -2803,14 +2755,13 @@ LABEL_24:
 LABEL_25:
 LABEL_32:
 
-  v32 = *MEMORY[0x1E69E9840];
   return v30;
 }
 
-- (NSObject)createResponderSignedOctetVectorUsingPrimeKey:(_BYTE *)key
+- (NSObject)createResponderSignedOctetVectorUsingPrimeKey:(void *)key
 {
   v2 = a2;
-  v39 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   responderFirstMessage = [(NEIKEv2IKESA *)key responderFirstMessage];
 
   if (!responderFirstMessage)
@@ -2819,7 +2770,7 @@ LABEL_32:
     if (os_log_type_enabled(copyPayloadData, OS_LOG_TYPE_FAULT))
     {
       *buf = 136315138;
-      v38 = "[NEIKEv2IKESA(Crypto) createResponderSignedOctetVectorUsingPrimeKey:]";
+      v37 = "[NEIKEv2IKESA(Crypto) createResponderSignedOctetVectorUsingPrimeKey:]";
       v11 = "%s called with null self.responderFirstMessage";
       goto LABEL_34;
     }
@@ -2837,7 +2788,7 @@ LABEL_35:
     if (os_log_type_enabled(copyPayloadData, OS_LOG_TYPE_FAULT))
     {
       *buf = 136315138;
-      v38 = "[NEIKEv2IKESA(Crypto) createResponderSignedOctetVectorUsingPrimeKey:]";
+      v37 = "[NEIKEv2IKESA(Crypto) createResponderSignedOctetVectorUsingPrimeKey:]";
       v11 = "%s called with null self.initiatorNonce";
       goto LABEL_34;
     }
@@ -2855,7 +2806,7 @@ LABEL_35:
       if (os_log_type_enabled(copyPayloadData, OS_LOG_TYPE_FAULT))
       {
         *buf = 136315138;
-        v38 = "[NEIKEv2IKESA(Crypto) createResponderSignedOctetVectorUsingPrimeKey:]";
+        v37 = "[NEIKEv2IKESA(Crypto) createResponderSignedOctetVectorUsingPrimeKey:]";
         v11 = "%s called with null self.skPrPrime";
 LABEL_34:
         _os_log_fault_impl(&dword_1BA83C000, copyPayloadData, OS_LOG_TYPE_FAULT, v11, buf, 0xCu);
@@ -2876,7 +2827,7 @@ LABEL_34:
       if (os_log_type_enabled(copyPayloadData, OS_LOG_TYPE_FAULT))
       {
         *buf = 136315138;
-        v38 = "[NEIKEv2IKESA(Crypto) createResponderSignedOctetVectorUsingPrimeKey:]";
+        v37 = "[NEIKEv2IKESA(Crypto) createResponderSignedOctetVectorUsingPrimeKey:]";
         v11 = "%s called with null self.skPr";
         goto LABEL_34;
       }
@@ -2903,7 +2854,7 @@ LABEL_34:
     if (os_log_type_enabled(copyPayloadData, OS_LOG_TYPE_FAULT))
     {
       *buf = 136315138;
-      v38 = "[NEIKEv2IKESA(Crypto) createResponderSignedOctetVectorUsingPrimeKey:]";
+      v37 = "[NEIKEv2IKESA(Crypto) createResponderSignedOctetVectorUsingPrimeKey:]";
       v11 = "%s called with null self.chosenProposal";
       goto LABEL_34;
     }
@@ -2913,7 +2864,7 @@ LABEL_34:
 
   if (key)
   {
-    v15 = *(key + 42);
+    v15 = key[42];
   }
 
   else
@@ -2990,11 +2941,11 @@ LABEL_34:
   }
 
   responderFirstMessage2 = [(NEIKEv2IKESA *)key responderFirstMessage];
-  v36[0] = responderFirstMessage2;
+  v35[0] = responderFirstMessage2;
   initiatorNonce2 = [(NEIKEv2IKESA *)key initiatorNonce];
-  v36[1] = initiatorNonce2;
-  v36[2] = v25;
-  v32 = [MEMORY[0x1E695DEC8] arrayWithObjects:v36 count:3];
+  v35[1] = initiatorNonce2;
+  v35[2] = v25;
+  v32 = [MEMORY[0x1E695DEC8] arrayWithObjects:v35 count:3];
 
   if ([createIntAuthOctetVector count])
   {
@@ -3009,15 +2960,14 @@ LABEL_28:
 LABEL_29:
 LABEL_36:
 
-  v34 = *MEMORY[0x1E69E9840];
   return v32;
 }
 
-- (_BYTE)createRemoteSignedOctetVectorUsingPrimeKey:(_BYTE *)key
+- (void)createRemoteSignedOctetVectorUsingPrimeKey:(void *)key
 {
   if (key)
   {
-    if (key[9])
+    if (*(key + 9))
     {
       return [(NEIKEv2IKESA *)key createResponderSignedOctetVectorUsingPrimeKey:a2];
     }
@@ -3033,12 +2983,12 @@ LABEL_36:
 
 - (SecKeyRef)checkValidityOfCertificates:(_BYTE *)certificates
 {
-  v115 = *MEMORY[0x1E69E9840];
+  v113 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = v3;
   if (!certificates)
   {
-    v49 = 0;
+    v48 = 0;
     goto LABEL_51;
   }
 
@@ -3048,11 +2998,11 @@ LABEL_36:
     if (os_log_type_enabled(remoteCertificateHostname, OS_LOG_TYPE_FAULT))
     {
       *buf = 136315138;
-      v114 = "[NEIKEv2IKESA(Crypto) checkValidityOfCertificates:]";
+      v112 = "[NEIKEv2IKESA(Crypto) checkValidityOfCertificates:]";
       _os_log_fault_impl(&dword_1BA83C000, remoteCertificateHostname, OS_LOG_TYPE_FAULT, "%s called with null certificateDataArray.count", buf, 0xCu);
     }
 
-    v49 = 0;
+    v48 = 0;
     goto LABEL_50;
   }
 
@@ -3099,95 +3049,94 @@ LABEL_36:
   v17 = ne_log_obj();
   if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
   {
-    v53 = @"<not set>";
+    v51 = @"<not set>";
     if (remoteCertificateHostname)
     {
-      v53 = remoteCertificateHostname;
+      v51 = remoteCertificateHostname;
     }
 
     *buf = 138412290;
-    v114 = v53;
+    v112 = v51;
     _os_log_debug_impl(&dword_1BA83C000, v17, OS_LOG_TYPE_DEBUG, "Matching remote hostname %@ with remote certificate", buf, 0xCu);
   }
 
-  v18 = certificates[9];
   IPSec = SecPolicyCreateIPSec();
   if (IPSec)
   {
-    v20 = IPSec;
-    v21 = objc_alloc_init(MEMORY[0x1E695DF70]);
-    if (v21)
+    v19 = IPSec;
+    v20 = objc_alloc_init(MEMORY[0x1E695DF70]);
+    if (v20)
     {
-      v22 = v21;
-      cf = v20;
-      v103 = remoteCertificateHostname;
-      v108 = 0u;
-      v109 = 0u;
+      v21 = v20;
+      cf = v19;
+      v101 = remoteCertificateHostname;
       v106 = 0u;
       v107 = 0u;
+      v104 = 0u;
+      v105 = 0u;
       theArray = v4;
-      v23 = v4;
-      v24 = [(__CFArray *)v23 countByEnumeratingWithState:&v106 objects:v112 count:16];
-      if (v24)
+      v22 = v4;
+      v23 = [(__CFArray *)v22 countByEnumeratingWithState:&v104 objects:v110 count:16];
+      if (v23)
       {
-        v25 = v24;
-        v26 = *v107;
-        v27 = *MEMORY[0x1E695E480];
+        v24 = v23;
+        v25 = *v105;
+        v26 = *MEMORY[0x1E695E480];
         while (2)
         {
-          v28 = 0;
+          v27 = 0;
           do
           {
-            if (*v107 != v26)
+            if (*v105 != v25)
             {
-              objc_enumerationMutation(v23);
+              objc_enumerationMutation(v22);
             }
 
-            v29 = SecCertificateCreateWithData(v27, *(*(&v106 + 1) + 8 * v28));
-            if (!v29)
+            v28 = SecCertificateCreateWithData(v26, *(*(&v104 + 1) + 8 * v27));
+            if (!v28)
             {
-              v48 = ne_log_obj();
-              if (os_log_type_enabled(v48, OS_LOG_TYPE_FAULT))
+              v47 = ne_log_obj();
+              if (os_log_type_enabled(v47, OS_LOG_TYPE_FAULT))
               {
                 *buf = 0;
-                _os_log_fault_impl(&dword_1BA83C000, v48, OS_LOG_TYPE_FAULT, "SecCertificateCreateWithData failed", buf, 2u);
+                _os_log_fault_impl(&dword_1BA83C000, v47, OS_LOG_TYPE_FAULT, "SecCertificateCreateWithData failed", buf, 2u);
               }
 
               CFRelease(cf);
-              v49 = 0;
-              remoteCertificateHostname = v103;
+              v48 = 0;
+              remoteCertificateHostname = v101;
               v4 = theArray;
               goto LABEL_49;
             }
 
-            v30 = v29;
+            v29 = v28;
             if (nelog_is_debug_logging_enabled())
             {
               CFAbsoluteTimeGetCurrent();
-              v31 = SecCertificateCopySummaryProperties();
-              v32 = ne_log_large_obj();
-              if (os_log_type_enabled(v32, OS_LOG_TYPE_DEBUG))
+              v30 = SecCertificateCopySummaryProperties();
+              v31 = ne_log_large_obj();
+              if (os_log_type_enabled(v31, OS_LOG_TYPE_DEBUG))
               {
                 *buf = 138412290;
-                v114 = v31;
-                _os_log_debug_impl(&dword_1BA83C000, v32, OS_LOG_TYPE_DEBUG, "Certificate Properties:\n%@", buf, 0xCu);
+                v112 = v30;
+                _os_log_debug_impl(&dword_1BA83C000, v31, OS_LOG_TYPE_DEBUG, "Certificate Properties:\n%@", buf, 0xCu);
               }
 
-              if (v31)
+              if (v30)
               {
-                CFRelease(v31);
+                CFRelease(v30);
               }
             }
 
-            NECertificateDateIsValid(v30);
-            [v22 addObject:v30];
-            CFRelease(v30);
-            ++v28;
+            NECertificateDateIsValid(v29);
+            [v21 addObject:v29];
+            CFRelease(v29);
+            ++v27;
           }
 
-          while (v25 != v28);
-          v25 = [(__CFArray *)v23 countByEnumeratingWithState:&v106 objects:v112 count:16];
-          if (v25)
+          while (v24 != v27);
+          v24 = [(__CFArray *)v22 countByEnumeratingWithState:&v104 objects:v110 count:16];
+          if (v24)
           {
             continue;
           }
@@ -3196,18 +3145,18 @@ LABEL_36:
         }
       }
 
-      if (![v22 count])
+      if (![v21 count])
       {
-        v54 = ne_log_obj();
-        remoteCertificateHostname = v103;
-        if (os_log_type_enabled(v54, OS_LOG_TYPE_ERROR))
+        v52 = ne_log_obj();
+        remoteCertificateHostname = v101;
+        if (os_log_type_enabled(v52, OS_LOG_TYPE_ERROR))
         {
           *buf = 0;
-          _os_log_error_impl(&dword_1BA83C000, v54, OS_LOG_TYPE_ERROR, "No valid remote certificate", buf, 2u);
+          _os_log_error_impl(&dword_1BA83C000, v52, OS_LOG_TYPE_ERROR, "No valid remote certificate", buf, 2u);
         }
 
         CFRelease(cf);
-        v49 = 0;
+        v48 = 0;
         v4 = theArray;
         goto LABEL_49;
       }
@@ -3216,183 +3165,183 @@ LABEL_36:
       if ([copyRemoteCertificateAuthorityArray count])
       {
 LABEL_31:
-        v35 = objc_getProperty(certificates, v34, 88, 1);
-        enableCertificateRevocationCheck = [v35 enableCertificateRevocationCheck];
-        v38 = objc_getProperty(certificates, v37, 88, 1);
-        strictCertificateRevocationCheck = [v38 strictCertificateRevocationCheck];
-        v40 = v22;
-        v100 = copyRemoteCertificateAuthorityArray;
+        v34 = objc_getProperty(certificates, v33, 88, 1);
+        enableCertificateRevocationCheck = [v34 enableCertificateRevocationCheck];
+        v37 = objc_getProperty(certificates, v36, 88, 1);
+        strictCertificateRevocationCheck = [v37 strictCertificateRevocationCheck];
+        v39 = v21;
+        v98 = copyRemoteCertificateAuthorityArray;
         objc_opt_self();
         trust = 0;
-        certificates = v40;
+        certificates = v39;
         if (enableCertificateRevocationCheck)
         {
-          v41 = ne_log_obj();
+          v40 = ne_log_obj();
           v4 = theArray;
-          if (os_log_type_enabled(v41, OS_LOG_TYPE_DEBUG))
+          if (os_log_type_enabled(v40, OS_LOG_TYPE_DEBUG))
           {
             *buf = 0;
-            _os_log_debug_impl(&dword_1BA83C000, v41, OS_LOG_TYPE_DEBUG, "Request certificate revocation check", buf, 2u);
+            _os_log_debug_impl(&dword_1BA83C000, v40, OS_LOG_TYPE_DEBUG, "Request certificate revocation check", buf, 2u);
           }
 
           if (strictCertificateRevocationCheck)
           {
-            v42 = 11;
+            v41 = 11;
           }
 
           else
           {
-            v42 = 3;
+            v41 = 3;
           }
 
-          Revocation = SecPolicyCreateRevocation(v42);
+          Revocation = SecPolicyCreateRevocation(v41);
           if (!Revocation)
           {
-            v62 = ne_log_obj();
-            if (os_log_type_enabled(v62, OS_LOG_TYPE_FAULT))
+            v60 = ne_log_obj();
+            if (os_log_type_enabled(v60, OS_LOG_TYPE_FAULT))
             {
               *buf = 0;
-              v63 = "SecPolicyCreateRevocation failed";
+              v61 = "SecPolicyCreateRevocation failed";
               goto LABEL_88;
             }
 
 LABEL_89:
 
-            v49 = 0;
-            v58 = v100;
+            v48 = 0;
+            v56 = v98;
             goto LABEL_90;
           }
 
-          v44 = Revocation;
-          v45 = objc_alloc_init(MEMORY[0x1E695DF70]);
-          if (!v45)
+          v43 = Revocation;
+          v44 = objc_alloc_init(MEMORY[0x1E695DF70]);
+          if (!v44)
           {
-            CFRelease(v44);
-            v62 = ne_log_obj();
-            if (os_log_type_enabled(v62, OS_LOG_TYPE_FAULT))
+            CFRelease(v43);
+            v60 = ne_log_obj();
+            if (os_log_type_enabled(v60, OS_LOG_TYPE_FAULT))
             {
               *buf = 0;
-              v63 = "[[NSMutableArray alloc] init] failed";
+              v61 = "[[NSMutableArray alloc] init] failed";
               goto LABEL_88;
             }
 
             goto LABEL_89;
           }
 
-          v46 = v45;
-          [v45 addObject:cf];
-          [v46 addObject:v44];
-          CFRelease(v44);
-          v47 = SecTrustCreateWithCertificates(certificates, v46, &trust);
+          v45 = v44;
+          [v44 addObject:cf];
+          [v45 addObject:v43];
+          CFRelease(v43);
+          v46 = SecTrustCreateWithCertificates(certificates, v45, &trust);
         }
 
         else
         {
-          v47 = SecTrustCreateWithCertificates(v40, cf, &trust);
+          v46 = SecTrustCreateWithCertificates(v39, cf, &trust);
           v4 = theArray;
         }
 
-        if (!v47 && trust)
+        if (!v46 && trust)
         {
-          v58 = v100;
-          if ([(__CFArray *)v100 count])
+          v56 = v98;
+          if ([(__CFArray *)v98 count])
           {
-            v59 = SecTrustSetAnchorCertificates(trust, v100);
-            if (v59)
+            v57 = SecTrustSetAnchorCertificates(trust, v98);
+            if (v57)
             {
-              v60 = v59;
+              v58 = v57;
               if (trust)
               {
                 CFRelease(trust);
                 trust = 0;
               }
 
-              v61 = ne_log_obj();
-              if (os_log_type_enabled(v61, OS_LOG_TYPE_FAULT))
+              v59 = ne_log_obj();
+              if (os_log_type_enabled(v59, OS_LOG_TYPE_FAULT))
               {
                 *buf = 67109120;
-                LODWORD(v114) = v60;
-                _os_log_fault_impl(&dword_1BA83C000, v61, OS_LOG_TYPE_FAULT, "Failed to set anchor CA certificates for remote certificate validation (%d)", buf, 8u);
+                LODWORD(v112) = v58;
+                _os_log_fault_impl(&dword_1BA83C000, v59, OS_LOG_TYPE_FAULT, "Failed to set anchor CA certificates for remote certificate validation (%d)", buf, 8u);
               }
 
 LABEL_78:
 
 LABEL_79:
-              v49 = 0;
+              v48 = 0;
               goto LABEL_90;
             }
           }
 
-          v110 = 0;
-          v64 = MEMORY[0x1BFAFA1B0](trust, &v110);
-          if (v64)
+          v108 = 0;
+          v62 = MEMORY[0x1BFAFA1B0](trust, &v108);
+          if (v62)
           {
-            v65 = v64;
+            v63 = v62;
             if (trust)
             {
               CFRelease(trust);
               trust = 0;
             }
 
-            v61 = ne_log_obj();
-            if (os_log_type_enabled(v61, OS_LOG_TYPE_ERROR))
+            v59 = ne_log_obj();
+            if (os_log_type_enabled(v59, OS_LOG_TYPE_ERROR))
             {
               *buf = 67109120;
-              LODWORD(v114) = v65;
-              _os_log_error_impl(&dword_1BA83C000, v61, OS_LOG_TYPE_ERROR, "Remote certificate evaluation error (%d)", buf, 8u);
+              LODWORD(v112) = v63;
+              _os_log_error_impl(&dword_1BA83C000, v59, OS_LOG_TYPE_ERROR, "Remote certificate evaluation error (%d)", buf, 8u);
             }
 
             goto LABEL_78;
           }
 
-          if (v110 <= 3)
+          if (v108 <= 3)
           {
-            switch(v110)
+            switch(v108)
             {
               case 0:
-                v71 = ne_log_obj();
-                if (!os_log_type_enabled(v71, OS_LOG_TYPE_ERROR))
+                v69 = ne_log_obj();
+                if (!os_log_type_enabled(v69, OS_LOG_TYPE_ERROR))
                 {
                   goto LABEL_126;
                 }
 
                 *buf = 0;
-                v72 = "Certificate evaluation error = kSecTrustResultInvalid";
+                v70 = "Certificate evaluation error = kSecTrustResultInvalid";
                 goto LABEL_124;
               case 1:
                 goto LABEL_112;
               case 3:
-                v71 = ne_log_obj();
-                if (!os_log_type_enabled(v71, OS_LOG_TYPE_ERROR))
+                v69 = ne_log_obj();
+                if (!os_log_type_enabled(v69, OS_LOG_TYPE_ERROR))
                 {
                   goto LABEL_126;
                 }
 
                 *buf = 0;
-                v72 = "Certificate evaluation error = kSecTrustResultDeny";
+                v70 = "Certificate evaluation error = kSecTrustResultDeny";
                 goto LABEL_124;
             }
           }
 
           else
           {
-            if (v110 <= 5)
+            if (v108 <= 5)
             {
-              if (v110 != 4)
+              if (v108 != 4)
               {
-                v71 = ne_log_obj();
-                if (!os_log_type_enabled(v71, OS_LOG_TYPE_ERROR))
+                v69 = ne_log_obj();
+                if (!os_log_type_enabled(v69, OS_LOG_TYPE_ERROR))
                 {
                   goto LABEL_126;
                 }
 
                 *buf = 0;
-                v72 = "Certificate evaluation error = kSecTrustResultRecoverableTrustFailure";
+                v70 = "Certificate evaluation error = kSecTrustResultRecoverableTrustFailure";
 LABEL_124:
-                v74 = v71;
-                v75 = 2;
+                v72 = v69;
+                v73 = 2;
 LABEL_125:
-                _os_log_error_impl(&dword_1BA83C000, v74, OS_LOG_TYPE_ERROR, v72, buf, v75);
+                _os_log_error_impl(&dword_1BA83C000, v72, OS_LOG_TYPE_ERROR, v70, buf, v73);
 LABEL_126:
 
                 if (nelog_is_debug_logging_enabled())
@@ -3400,99 +3349,99 @@ LABEL_126:
                   theArraya = SecTrustCopyProperties(trust);
                   if (theArraya)
                   {
-                    v76 = ne_log_obj();
-                    if (os_log_type_enabled(v76, OS_LOG_TYPE_DEBUG))
+                    v74 = ne_log_obj();
+                    if (os_log_type_enabled(v74, OS_LOG_TYPE_DEBUG))
                     {
                       *buf = 0;
-                      _os_log_debug_impl(&dword_1BA83C000, v76, OS_LOG_TYPE_DEBUG, "---------------Returned error strings: ---------------", buf, 2u);
+                      _os_log_debug_impl(&dword_1BA83C000, v74, OS_LOG_TYPE_DEBUG, "---------------Returned error strings: ---------------", buf, 2u);
                     }
 
                     Count = CFArrayGetCount(theArraya);
                     if (Count >= 1)
                     {
-                      v78 = Count;
-                      v79 = 0;
+                      v76 = Count;
+                      v77 = 0;
                       key = *MEMORY[0x1E697B2E0];
-                      v97 = *MEMORY[0x1E697B2E8];
-                      v99 = Count;
+                      v95 = *MEMORY[0x1E697B2E8];
+                      v97 = Count;
                       do
                       {
-                        ValueAtIndex = CFArrayGetValueAtIndex(theArraya, v79);
+                        ValueAtIndex = CFArrayGetValueAtIndex(theArraya, v77);
                         if (ValueAtIndex)
                         {
-                          v81 = ValueAtIndex;
-                          v82 = CFGetTypeID(ValueAtIndex);
-                          if (v82 == CFDictionaryGetTypeID())
+                          v79 = ValueAtIndex;
+                          v80 = CFGetTypeID(ValueAtIndex);
+                          if (v80 == CFDictionaryGetTypeID())
                           {
-                            Value = CFDictionaryGetValue(v81, key);
+                            Value = CFDictionaryGetValue(v79, key);
                             if (Value)
                             {
-                              v84 = Value;
-                              v85 = CFGetTypeID(Value);
-                              v86 = v85 == CFStringGetTypeID();
-                              v78 = v99;
-                              if (v86)
+                              v82 = Value;
+                              v83 = CFGetTypeID(Value);
+                              v84 = v83 == CFStringGetTypeID();
+                              v76 = v97;
+                              if (v84)
                               {
-                                CStringPtr = CFStringGetCStringPtr(v84, 0);
+                                CStringPtr = CFStringGetCStringPtr(v82, 0);
                                 if (CStringPtr)
                                 {
-                                  v88 = CStringPtr;
-                                  v89 = ne_log_obj();
-                                  if (os_log_type_enabled(v89, OS_LOG_TYPE_DEBUG))
+                                  v86 = CStringPtr;
+                                  v87 = ne_log_obj();
+                                  if (os_log_type_enabled(v87, OS_LOG_TYPE_DEBUG))
                                   {
                                     *buf = 136315138;
-                                    v114 = v88;
-                                    _os_log_debug_impl(&dword_1BA83C000, v89, OS_LOG_TYPE_DEBUG, "type = %s", buf, 0xCu);
+                                    v112 = v86;
+                                    _os_log_debug_impl(&dword_1BA83C000, v87, OS_LOG_TYPE_DEBUG, "type = %s", buf, 0xCu);
                                   }
 
-                                  v78 = v99;
+                                  v76 = v97;
                                 }
                               }
                             }
 
-                            v90 = CFDictionaryGetValue(v81, v97);
-                            if (v90)
+                            v88 = CFDictionaryGetValue(v79, v95);
+                            if (v88)
                             {
-                              v91 = v90;
-                              v92 = CFGetTypeID(v90);
-                              v86 = v92 == CFStringGetTypeID();
-                              v78 = v99;
-                              if (v86)
+                              v89 = v88;
+                              v90 = CFGetTypeID(v88);
+                              v84 = v90 == CFStringGetTypeID();
+                              v76 = v97;
+                              if (v84)
                               {
-                                v93 = CFStringGetCStringPtr(v91, 0);
-                                if (v93)
+                                v91 = CFStringGetCStringPtr(v89, 0);
+                                if (v91)
                                 {
-                                  v94 = v93;
-                                  v95 = ne_log_obj();
-                                  if (os_log_type_enabled(v95, OS_LOG_TYPE_DEBUG))
+                                  v92 = v91;
+                                  v93 = ne_log_obj();
+                                  if (os_log_type_enabled(v93, OS_LOG_TYPE_DEBUG))
                                   {
                                     *buf = 136315138;
-                                    v114 = v94;
-                                    _os_log_debug_impl(&dword_1BA83C000, v95, OS_LOG_TYPE_DEBUG, "value = %s", buf, 0xCu);
+                                    v112 = v92;
+                                    _os_log_debug_impl(&dword_1BA83C000, v93, OS_LOG_TYPE_DEBUG, "value = %s", buf, 0xCu);
                                   }
 
-                                  v78 = v99;
+                                  v76 = v97;
                                 }
                               }
                             }
                           }
                         }
 
-                        ++v79;
+                        ++v77;
                       }
 
-                      while (v78 != v79);
+                      while (v76 != v77);
                     }
 
-                    v96 = ne_log_obj();
-                    if (os_log_type_enabled(v96, OS_LOG_TYPE_DEBUG))
+                    v94 = ne_log_obj();
+                    if (os_log_type_enabled(v94, OS_LOG_TYPE_DEBUG))
                     {
                       *buf = 0;
-                      _os_log_debug_impl(&dword_1BA83C000, v96, OS_LOG_TYPE_DEBUG, "-----------------------------------------------------", buf, 2u);
+                      _os_log_debug_impl(&dword_1BA83C000, v94, OS_LOG_TYPE_DEBUG, "-----------------------------------------------------", buf, 2u);
                     }
 
                     CFRelease(theArraya);
-                    v58 = v100;
+                    v56 = v98;
                   }
                 }
 
@@ -3502,22 +3451,22 @@ LABEL_126:
                 }
 
                 CFRelease(trust);
-                v49 = 0;
+                v48 = 0;
                 goto LABEL_154;
               }
 
 LABEL_112:
               if ((enableCertificateRevocationCheck & strictCertificateRevocationCheck) == 1)
               {
-                v73 = ne_log_obj();
-                if (os_log_type_enabled(v73, OS_LOG_TYPE_INFO))
+                v71 = ne_log_obj();
+                if (os_log_type_enabled(v71, OS_LOG_TYPE_INFO))
                 {
                   *buf = 0;
-                  _os_log_impl(&dword_1BA83C000, v73, OS_LOG_TYPE_INFO, "Strict Certificate Revocation Check is not supported", buf, 2u);
+                  _os_log_impl(&dword_1BA83C000, v71, OS_LOG_TYPE_INFO, "Strict Certificate Revocation Check is not supported", buf, 2u);
                 }
               }
 
-              v49 = SecTrustCopyKey(trust);
+              v48 = SecTrustCopyKey(trust);
               if (!trust)
               {
                 goto LABEL_90;
@@ -3529,29 +3478,29 @@ LABEL_154:
 LABEL_90:
 
               CFRelease(cf);
-              v69 = ne_log_obj();
-              v70 = v69;
-              if (v49)
+              v67 = ne_log_obj();
+              v68 = v67;
+              if (v48)
               {
-                remoteCertificateHostname = v103;
-                if (os_log_type_enabled(v69, OS_LOG_TYPE_DEBUG))
+                remoteCertificateHostname = v101;
+                if (os_log_type_enabled(v67, OS_LOG_TYPE_DEBUG))
                 {
                   *buf = 138412290;
-                  v114 = v49;
-                  _os_log_debug_impl(&dword_1BA83C000, v70, OS_LOG_TYPE_DEBUG, "Certificate public key: %@", buf, 0xCu);
+                  v112 = v48;
+                  _os_log_debug_impl(&dword_1BA83C000, v68, OS_LOG_TYPE_DEBUG, "Certificate public key: %@", buf, 0xCu);
                 }
               }
 
               else
               {
-                remoteCertificateHostname = v103;
-                if (os_log_type_enabled(v69, OS_LOG_TYPE_ERROR))
+                remoteCertificateHostname = v101;
+                if (os_log_type_enabled(v67, OS_LOG_TYPE_ERROR))
                 {
                   *buf = 0;
-                  _os_log_error_impl(&dword_1BA83C000, v70, OS_LOG_TYPE_ERROR, "Certificate is not trusted", buf, 2u);
+                  _os_log_error_impl(&dword_1BA83C000, v68, OS_LOG_TYPE_ERROR, "Certificate is not trusted", buf, 2u);
                 }
 
-                v49 = 0;
+                v48 = 0;
               }
 
 LABEL_97:
@@ -3559,44 +3508,44 @@ LABEL_97:
               goto LABEL_49;
             }
 
-            if (v110 == 6)
+            if (v108 == 6)
             {
-              v71 = ne_log_obj();
-              if (!os_log_type_enabled(v71, OS_LOG_TYPE_ERROR))
+              v69 = ne_log_obj();
+              if (!os_log_type_enabled(v69, OS_LOG_TYPE_ERROR))
               {
                 goto LABEL_126;
               }
 
               *buf = 0;
-              v72 = "Certificate evaluation error = kSecTrustResultFatalTrustFailure";
+              v70 = "Certificate evaluation error = kSecTrustResultFatalTrustFailure";
               goto LABEL_124;
             }
 
-            if (v110 == 7)
+            if (v108 == 7)
             {
-              v71 = ne_log_obj();
-              if (!os_log_type_enabled(v71, OS_LOG_TYPE_ERROR))
+              v69 = ne_log_obj();
+              if (!os_log_type_enabled(v69, OS_LOG_TYPE_ERROR))
               {
                 goto LABEL_126;
               }
 
               *buf = 0;
-              v72 = "Certificate evaluation error = kSecTrustResultOtherError";
+              v70 = "Certificate evaluation error = kSecTrustResultOtherError";
               goto LABEL_124;
             }
           }
 
-          v71 = ne_log_obj();
-          if (!os_log_type_enabled(v71, OS_LOG_TYPE_ERROR))
+          v69 = ne_log_obj();
+          if (!os_log_type_enabled(v69, OS_LOG_TYPE_ERROR))
           {
             goto LABEL_126;
           }
 
           *buf = 67109120;
-          LODWORD(v114) = v110;
-          v72 = "Certificate evaluation error = Unknown (%d)";
-          v74 = v71;
-          v75 = 8;
+          LODWORD(v112) = v108;
+          v70 = "Certificate evaluation error = Unknown (%d)";
+          v72 = v69;
+          v73 = 8;
           goto LABEL_125;
         }
 
@@ -3606,29 +3555,29 @@ LABEL_97:
           trust = 0;
         }
 
-        v62 = ne_log_obj();
-        if (os_log_type_enabled(v62, OS_LOG_TYPE_FAULT))
+        v60 = ne_log_obj();
+        if (os_log_type_enabled(v60, OS_LOG_TYPE_FAULT))
         {
           *buf = 0;
-          v63 = "SecTrustCreateWithCertificates failed";
+          v61 = "SecTrustCreateWithCertificates failed";
 LABEL_88:
-          _os_log_fault_impl(&dword_1BA83C000, v62, OS_LOG_TYPE_FAULT, v63, buf, 2u);
+          _os_log_fault_impl(&dword_1BA83C000, v60, OS_LOG_TYPE_FAULT, v61, buf, 2u);
           goto LABEL_89;
         }
 
         goto LABEL_89;
       }
 
-      v55 = objc_getProperty(certificates, v34, 88, 1);
-      remoteCertificateAuthorityReferences = [v55 remoteCertificateAuthorityReferences];
+      v53 = objc_getProperty(certificates, v33, 88, 1);
+      remoteCertificateAuthorityReferences = [v53 remoteCertificateAuthorityReferences];
       if (remoteCertificateAuthorityReferences)
       {
       }
 
       else
       {
-        v66 = objc_getProperty(certificates, v57, 88, 1);
-        remoteCertificateAuthorityName = [v66 remoteCertificateAuthorityName];
+        v64 = objc_getProperty(certificates, v55, 88, 1);
+        remoteCertificateAuthorityName = [v64 remoteCertificateAuthorityName];
 
         if (!remoteCertificateAuthorityName)
         {
@@ -3636,56 +3585,55 @@ LABEL_88:
         }
       }
 
-      v68 = ne_log_obj();
-      if (os_log_type_enabled(v68, OS_LOG_TYPE_ERROR))
+      v66 = ne_log_obj();
+      if (os_log_type_enabled(v66, OS_LOG_TYPE_ERROR))
       {
         *buf = 0;
-        _os_log_error_impl(&dword_1BA83C000, v68, OS_LOG_TYPE_ERROR, "remoteCertAuthorityArray missing from config", buf, 2u);
+        _os_log_error_impl(&dword_1BA83C000, v66, OS_LOG_TYPE_ERROR, "remoteCertAuthorityArray missing from config", buf, 2u);
       }
 
       CFRelease(cf);
-      v49 = 0;
-      remoteCertificateHostname = v103;
+      v48 = 0;
+      remoteCertificateHostname = v101;
       v4 = theArray;
       goto LABEL_97;
     }
 
-    CFRelease(v20);
-    v50 = ne_log_obj();
-    if (os_log_type_enabled(v50, OS_LOG_TYPE_FAULT))
+    CFRelease(v19);
+    v49 = ne_log_obj();
+    if (os_log_type_enabled(v49, OS_LOG_TYPE_FAULT))
     {
       *buf = 0;
-      _os_log_fault_impl(&dword_1BA83C000, v50, OS_LOG_TYPE_FAULT, "[[NSMutableArray alloc] init] failed", buf, 2u);
+      _os_log_fault_impl(&dword_1BA83C000, v49, OS_LOG_TYPE_FAULT, "[[NSMutableArray alloc] init] failed", buf, 2u);
     }
 
-    v22 = 0;
+    v21 = 0;
   }
 
   else
   {
-    v22 = ne_log_obj();
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_FAULT))
+    v21 = ne_log_obj();
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_FAULT))
     {
       *buf = 138412290;
-      v114 = remoteCertificateHostname;
-      _os_log_fault_impl(&dword_1BA83C000, v22, OS_LOG_TYPE_FAULT, "Could not create secure policy with hostname %@", buf, 0xCu);
+      v112 = remoteCertificateHostname;
+      _os_log_fault_impl(&dword_1BA83C000, v21, OS_LOG_TYPE_FAULT, "Could not create secure policy with hostname %@", buf, 0xCu);
     }
   }
 
-  v49 = 0;
+  v48 = 0;
 LABEL_49:
 
 LABEL_50:
 LABEL_51:
 
-  v51 = *MEMORY[0x1E69E9840];
-  return v49;
+  return v48;
 }
 
 - (NEIKEv2AuthPayload)copyAuthenticationPayloadUsingPrimeKey:(id *)self
 {
   selfCopy = self;
-  v109 = *MEMORY[0x1E69E9840];
+  v106 = *MEMORY[0x1E69E9840];
   if (self)
   {
     self = objc_getProperty(self, a2, 96, 1);
@@ -3848,48 +3796,47 @@ LABEL_41:
       {
 LABEL_44:
         authenticationProtocol2 = [(NEIKEv2IKESA *)selfCopy authenticationProtocol];
-        v32 = 0x1E7F04000uLL;
         if ([authenticationProtocol2 method] == 1 || (objc_msgSend(authenticationProtocol2, "isSignature") & 1) == 0)
         {
-          v36 = authenticationProtocol2;
+          v35 = authenticationProtocol2;
           goto LABEL_50;
         }
 
         if ([authenticationProtocol2 isDigitalSignature])
         {
-          v33 = [NEIKEv2Crypto copySignHashProtocolForAuth:authenticationProtocol2];
-          v34 = selfCopy[14];
-          v35 = [v34 containsObject:v33];
+          v32 = [NEIKEv2Crypto copySignHashProtocolForAuth:authenticationProtocol2];
+          v33 = selfCopy[14];
+          v34 = [v33 containsObject:v32];
 
-          if (v35)
+          if (v34)
           {
-            v36 = authenticationProtocol2;
+            v35 = authenticationProtocol2;
           }
 
           else
           {
-            v57 = ne_log_obj();
-            if (os_log_type_enabled(v57, OS_LOG_TYPE_ERROR))
+            v54 = ne_log_obj();
+            if (os_log_type_enabled(v54, OS_LOG_TYPE_ERROR))
             {
-              v87 = selfCopy[14];
+              v84 = selfCopy[14];
               *buf = 138412546;
-              *&buf[4] = v33;
-              v103 = 2112;
-              v104 = v87;
-              _os_log_error_impl(&dword_1BA83C000, v57, OS_LOG_TYPE_ERROR, "Digital signature hash protocol %@ is not supported by peer, supports %@", buf, 0x16u);
+              *&buf[4] = v32;
+              v100 = 2112;
+              v101 = v84;
+              _os_log_error_impl(&dword_1BA83C000, v54, OS_LOG_TYPE_ERROR, "Digital signature hash protocol %@ is not supported by peer, supports %@", buf, 0x16u);
             }
 
-            v36 = 0;
+            v35 = 0;
           }
 
 LABEL_50:
-          if (!v36)
+          if (!v35)
           {
-            v88 = ne_log_obj();
-            if (os_log_type_enabled(v88, OS_LOG_TYPE_FAULT))
+            v85 = ne_log_obj();
+            if (os_log_type_enabled(v85, OS_LOG_TYPE_FAULT))
             {
               *buf = 0;
-              _os_log_fault_impl(&dword_1BA83C000, v88, OS_LOG_TYPE_FAULT, "Failed to select auth protocol for signature generation", buf, 2u);
+              _os_log_fault_impl(&dword_1BA83C000, v85, OS_LOG_TYPE_FAULT, "Failed to select auth protocol for signature generation", buf, 2u);
             }
 
             if (!localPrivateKeyRef)
@@ -3903,31 +3850,30 @@ LABEL_50:
             goto LABEL_68;
           }
 
-          v37 = *(v32 + 2392);
-          v38 = v7;
-          authenticationProtocol = v36;
+          v36 = v7;
+          authenticationProtocol = v35;
           objc_opt_self();
           signatureAlgorithm = [(NEIKEv2AuthenticationProtocol *)authenticationProtocol signatureAlgorithm];
           if (signatureAlgorithm)
           {
-            v40 = signatureAlgorithm;
-            v41 = [(NEIKEv2AuthenticationProtocol *)authenticationProtocol copyHashForDataVector:v38];
-            if (v41)
+            v38 = signatureAlgorithm;
+            v39 = [(NEIKEv2AuthenticationProtocol *)authenticationProtocol copyHashForDataVector:v36];
+            if (v39)
             {
-              v42 = v41;
+              v40 = v39;
               error[0] = 0;
-              Signature = SecKeyCreateSignature(localPrivateKeyRef, v40, v41, error);
-              v44 = Signature;
+              Signature = SecKeyCreateSignature(localPrivateKeyRef, v38, v39, error);
+              v42 = Signature;
               if (!Signature || error[0])
               {
-                v45 = ne_log_obj();
-                if (os_log_type_enabled(v45, OS_LOG_TYPE_FAULT))
+                v43 = ne_log_obj();
+                if (os_log_type_enabled(v43, OS_LOG_TYPE_FAULT))
                 {
                   *buf = 138412546;
                   *&buf[4] = authenticationProtocol;
-                  v103 = 2112;
-                  v104 = error[0];
-                  _os_log_fault_impl(&dword_1BA83C000, v45, OS_LOG_TYPE_FAULT, "Failed to sign for %@ with private key: %@", buf, 0x16u);
+                  v100 = 2112;
+                  v101 = error[0];
+                  _os_log_fault_impl(&dword_1BA83C000, v43, OS_LOG_TYPE_FAULT, "Failed to sign for %@ with private key: %@", buf, 0x16u);
                 }
 
                 if (error[0])
@@ -3966,25 +3912,25 @@ LABEL_75:
               goto LABEL_76;
             }
 
-            v89 = ne_log_obj();
-            if (os_log_type_enabled(v89, OS_LOG_TYPE_FAULT))
+            v86 = ne_log_obj();
+            if (os_log_type_enabled(v86, OS_LOG_TYPE_FAULT))
             {
               *buf = 138412290;
               *&buf[4] = authenticationProtocol;
-              _os_log_fault_impl(&dword_1BA83C000, v89, OS_LOG_TYPE_FAULT, "Failed to copy hashed data for %@", buf, 0xCu);
+              _os_log_fault_impl(&dword_1BA83C000, v86, OS_LOG_TYPE_FAULT, "Failed to copy hashed data for %@", buf, 0xCu);
             }
 
-            v42 = 0;
+            v40 = 0;
           }
 
           else
           {
-            v42 = ne_log_obj();
-            if (os_log_type_enabled(v42, OS_LOG_TYPE_FAULT))
+            v40 = ne_log_obj();
+            if (os_log_type_enabled(v40, OS_LOG_TYPE_FAULT))
             {
               *buf = 138412290;
               *&buf[4] = authenticationProtocol;
-              _os_log_fault_impl(&dword_1BA83C000, v42, OS_LOG_TYPE_FAULT, "Invalid signature protcol %@", buf, 0xCu);
+              _os_log_fault_impl(&dword_1BA83C000, v40, OS_LOG_TYPE_FAULT, "Invalid signature protcol %@", buf, 0xCu);
             }
           }
 
@@ -3992,80 +3938,80 @@ LABEL_75:
           goto LABEL_71;
         }
 
-        v49 = objc_alloc(MEMORY[0x1E695DFA8]);
-        v50 = selfCopy[14];
-        v51 = [v49 initWithSet:v50];
+        v46 = objc_alloc(MEMORY[0x1E695DFA8]);
+        v47 = selfCopy[14];
+        v48 = [v46 initWithSet:v47];
 
-        v94 = authenticationProtocol2;
-        v52 = authenticationProtocol2;
+        v91 = authenticationProtocol2;
+        v49 = authenticationProtocol2;
         objc_opt_self();
-        v53 = [NEIKEv2Crypto copySignHashSetForAuthMethod:v52];
-        if (v52 && ((v54 = [v52 method], v54 == 245) || v54 == 14 && (objc_msgSend(v52, "digitalSignatureAlgorithm") - 9) <= 2) && (BlockSize = SecKeyGetBlockSize(localPrivateKeyRef), BlockSize <= 0x81))
+        v50 = [NEIKEv2Crypto copySignHashSetForAuthMethod:v49];
+        if (v49 && ((v51 = [v49 method], v51 == 245) || v51 == 14 && (objc_msgSend(v49, "digitalSignatureAlgorithm") - 9) <= 2) && (BlockSize = SecKeyGetBlockSize(localPrivateKeyRef), BlockSize <= 0x81))
         {
-          v58 = BlockSize;
-          v91 = v52;
-          v92 = v51;
-          v90 = v53;
-          v59 = [v53 mutableCopy];
+          v55 = BlockSize;
+          v88 = v49;
+          v89 = v48;
+          v87 = v50;
+          v56 = [v50 mutableCopy];
           *error = 0u;
-          v106 = 0u;
-          v107 = 0u;
-          v108 = 0u;
-          v95 = v59;
-          obj = [v59 copy];
-          v60 = [obj countByEnumeratingWithState:error objects:buf count:16];
-          if (v60)
+          v103 = 0u;
+          v104 = 0u;
+          v105 = 0u;
+          v92 = v56;
+          obj = [v56 copy];
+          v57 = [obj countByEnumeratingWithState:error objects:buf count:16];
+          if (v57)
           {
-            v61 = v60;
-            v62 = *v106;
-            v93 = 8 * v58;
+            v58 = v57;
+            v59 = *v103;
+            v90 = 8 * v55;
             while (2)
             {
-              for (i = 0; i != v61; ++i)
+              for (i = 0; i != v58; ++i)
               {
-                if (*v106 != v62)
+                if (*v103 != v59)
                 {
                   objc_enumerationMutation(obj);
                 }
 
-                v64 = *(error[1] + i);
-                v65 = [v64 hashType] - 2;
-                if (v65 >= 3)
+                v61 = *(error[1] + i);
+                v62 = [v61 hashType] - 2;
+                if (v62 >= 3)
                 {
-                  v69 = ne_log_obj();
-                  if (os_log_type_enabled(v69, OS_LOG_TYPE_FAULT))
+                  v66 = ne_log_obj();
+                  if (os_log_type_enabled(v66, OS_LOG_TYPE_FAULT))
                   {
-                    *v98 = 138412290;
-                    v99 = v64;
-                    _os_log_fault_impl(&dword_1BA83C000, v69, OS_LOG_TYPE_FAULT, "Unexpected hash protocol %@ in RSA-PSS set", v98, 0xCu);
+                    *v95 = 138412290;
+                    v96 = v61;
+                    _os_log_fault_impl(&dword_1BA83C000, v66, OS_LOG_TYPE_FAULT, "Unexpected hash protocol %@ in RSA-PSS set", v95, 0xCu);
                   }
 
-                  v56 = 0;
-                  v53 = v90;
-                  v68 = v95;
+                  v53 = 0;
+                  v50 = v87;
+                  v65 = v92;
                   goto LABEL_106;
                 }
 
-                if (v58 < 32 * v65 + 66)
+                if (v55 < 32 * v62 + 66)
                 {
-                  v66 = v58;
-                  v67 = ne_log_obj();
-                  if (os_log_type_enabled(v67, OS_LOG_TYPE_INFO))
+                  v63 = v55;
+                  v64 = ne_log_obj();
+                  if (os_log_type_enabled(v64, OS_LOG_TYPE_INFO))
                   {
-                    *v98 = 138412546;
-                    v99 = v64;
-                    v100 = 2048;
-                    v101 = v93;
-                    _os_log_impl(&dword_1BA83C000, v67, OS_LOG_TYPE_INFO, "Removing too large hash protocol %@ from set for RSA key size %zu", v98, 0x16u);
+                    *v95 = 138412546;
+                    v96 = v61;
+                    v97 = 2048;
+                    v98 = v90;
+                    _os_log_impl(&dword_1BA83C000, v64, OS_LOG_TYPE_INFO, "Removing too large hash protocol %@ from set for RSA key size %zu", v95, 0x16u);
                   }
 
-                  [v95 removeObject:v64];
-                  v58 = v66;
+                  [v92 removeObject:v61];
+                  v55 = v63;
                 }
               }
 
-              v61 = [obj countByEnumeratingWithState:error objects:buf count:16];
-              if (v61)
+              v58 = [obj countByEnumeratingWithState:error objects:buf count:16];
+              if (v58)
               {
                 continue;
               }
@@ -4074,56 +4020,56 @@ LABEL_75:
             }
           }
 
-          v68 = v95;
-          v56 = v95;
-          v53 = v90;
+          v65 = v92;
+          v53 = v92;
+          v50 = v87;
 LABEL_106:
 
-          v52 = v91;
-          v51 = v92;
+          v49 = v88;
+          v48 = v89;
         }
 
         else
         {
-          v56 = v53;
+          v53 = v50;
         }
 
-        v70 = v52;
-        v71 = ne_log_obj();
-        if (os_log_type_enabled(v71, OS_LOG_TYPE_DEBUG))
+        v67 = v49;
+        v68 = ne_log_obj();
+        if (os_log_type_enabled(v68, OS_LOG_TYPE_DEBUG))
         {
-          v85 = v51;
-          v86 = selfCopy[14];
+          v82 = v48;
+          v83 = selfCopy[14];
           *buf = 138412290;
-          *&buf[4] = v86;
-          _os_log_debug_impl(&dword_1BA83C000, v71, OS_LOG_TYPE_DEBUG, "Peer hashes: %@", buf, 0xCu);
+          *&buf[4] = v83;
+          _os_log_debug_impl(&dword_1BA83C000, v68, OS_LOG_TYPE_DEBUG, "Peer hashes: %@", buf, 0xCu);
 
-          v51 = v85;
+          v48 = v82;
         }
 
-        v72 = ne_log_obj();
-        if (os_log_type_enabled(v72, OS_LOG_TYPE_DEBUG))
+        v69 = ne_log_obj();
+        if (os_log_type_enabled(v69, OS_LOG_TYPE_DEBUG))
         {
           *buf = 138412290;
-          *&buf[4] = v56;
-          _os_log_debug_impl(&dword_1BA83C000, v72, OS_LOG_TYPE_DEBUG, "Protocol hashes: %@", buf, 0xCu);
+          *&buf[4] = v53;
+          _os_log_debug_impl(&dword_1BA83C000, v69, OS_LOG_TYPE_DEBUG, "Protocol hashes: %@", buf, 0xCu);
         }
 
-        obja = v56;
-        [v51 intersectSet:v56];
-        allObjects = [v51 allObjects];
-        v74 = [allObjects sortedArrayUsingSelector:sel_compare_];
+        obja = v53;
+        [v48 intersectSet:v53];
+        allObjects = [v48 allObjects];
+        v71 = [allObjects sortedArrayUsingSelector:sel_compare_];
 
-        lastObject = [v74 lastObject];
-        if ([v70 method] == 245)
+        lastObject = [v71 lastObject];
+        if ([v67 method] == 245)
         {
           if (!lastObject)
           {
-            v80 = ne_log_obj();
-            if (os_log_type_enabled(v80, OS_LOG_TYPE_ERROR))
+            v77 = ne_log_obj();
+            if (os_log_type_enabled(v77, OS_LOG_TYPE_ERROR))
             {
               *buf = 0;
-              _os_log_error_impl(&dword_1BA83C000, v80, OS_LOG_TYPE_ERROR, "Unable to find acceptable hash algorithm for generating RSA-PSS signature", buf, 2u);
+              _os_log_error_impl(&dword_1BA83C000, v77, OS_LOG_TYPE_ERROR, "Unable to find acceptable hash algorithm for generating RSA-PSS signature", buf, 2u);
             }
 
             goto LABEL_139;
@@ -4133,51 +4079,50 @@ LABEL_106:
           switch(hashType)
           {
             case 4:
-              v77 = [NEIKEv2AuthenticationProtocol alloc];
-              v78 = 11;
+              v74 = [NEIKEv2AuthenticationProtocol alloc];
+              v75 = 11;
               goto LABEL_136;
             case 3:
-              v77 = [NEIKEv2AuthenticationProtocol alloc];
-              v78 = 10;
+              v74 = [NEIKEv2AuthenticationProtocol alloc];
+              v75 = 10;
               goto LABEL_136;
             case 2:
-              v77 = [NEIKEv2AuthenticationProtocol alloc];
-              v78 = 9;
+              v74 = [NEIKEv2AuthenticationProtocol alloc];
+              v75 = 9;
 LABEL_136:
-              v83 = [(NEIKEv2AuthenticationProtocol *)v77 initWithDigitalSignature:v78];
+              v80 = [(NEIKEv2AuthenticationProtocol *)v74 initWithDigitalSignature:v75];
 LABEL_137:
-              v36 = v83;
+              v35 = v80;
 LABEL_140:
 
-              v32 = 0x1E7F04000;
-              authenticationProtocol2 = v94;
+              authenticationProtocol2 = v91;
               goto LABEL_50;
           }
 
-          v80 = ne_log_obj();
-          if (os_log_type_enabled(v80, OS_LOG_TYPE_FAULT))
+          v77 = ne_log_obj();
+          if (os_log_type_enabled(v77, OS_LOG_TYPE_FAULT))
           {
             *buf = 138412290;
             *&buf[4] = lastObject;
-            v84 = "Unexpected hash protocol %@ when selecting RSA-PSS protocol";
+            v81 = "Unexpected hash protocol %@ when selecting RSA-PSS protocol";
 LABEL_152:
-            _os_log_fault_impl(&dword_1BA83C000, v80, OS_LOG_TYPE_FAULT, v84, buf, 0xCu);
+            _os_log_fault_impl(&dword_1BA83C000, v77, OS_LOG_TYPE_FAULT, v81, buf, 0xCu);
           }
         }
 
         else
         {
-          if (![(NEIKEv2AuthenticationProtocol *)v70 isECDSA])
+          if (![(NEIKEv2AuthenticationProtocol *)v67 isECDSA])
           {
-            v80 = ne_log_obj();
-            if (os_log_type_enabled(v80, OS_LOG_TYPE_FAULT))
+            v77 = ne_log_obj();
+            if (os_log_type_enabled(v77, OS_LOG_TYPE_FAULT))
             {
-              v81 = selfCopy[14];
+              v78 = selfCopy[14];
               *buf = 138412546;
-              *&buf[4] = v70;
-              v103 = 2112;
-              v104 = v81;
-              _os_log_fault_impl(&dword_1BA83C000, v80, OS_LOG_TYPE_FAULT, "Unable to determine authentication protocol to use, configured %@ hashes %@", buf, 0x16u);
+              *&buf[4] = v67;
+              v100 = 2112;
+              v101 = v78;
+              _os_log_fault_impl(&dword_1BA83C000, v77, OS_LOG_TYPE_FAULT, "Unable to determine authentication protocol to use, configured %@ hashes %@", buf, 0x16u);
             }
 
             goto LABEL_139;
@@ -4185,14 +4130,14 @@ LABEL_152:
 
           if (!lastObject)
           {
-            v82 = ne_log_obj();
-            if (os_log_type_enabled(v82, OS_LOG_TYPE_INFO))
+            v79 = ne_log_obj();
+            if (os_log_type_enabled(v79, OS_LOG_TYPE_INFO))
             {
               *buf = 0;
-              _os_log_impl(&dword_1BA83C000, v82, OS_LOG_TYPE_INFO, "Unable to find acceptable hash algorithm for generating ECDSA signature", buf, 2u);
+              _os_log_impl(&dword_1BA83C000, v79, OS_LOG_TYPE_INFO, "Unable to find acceptable hash algorithm for generating ECDSA signature", buf, 2u);
             }
 
-            v83 = v70;
+            v80 = v67;
             goto LABEL_137;
           }
 
@@ -4200,32 +4145,32 @@ LABEL_152:
           switch(hashType2)
           {
             case 4:
-              v77 = [NEIKEv2AuthenticationProtocol alloc];
-              v78 = 8;
+              v74 = [NEIKEv2AuthenticationProtocol alloc];
+              v75 = 8;
               goto LABEL_136;
             case 3:
-              v77 = [NEIKEv2AuthenticationProtocol alloc];
-              v78 = 7;
+              v74 = [NEIKEv2AuthenticationProtocol alloc];
+              v75 = 7;
               goto LABEL_136;
             case 2:
-              v77 = [NEIKEv2AuthenticationProtocol alloc];
-              v78 = 2;
+              v74 = [NEIKEv2AuthenticationProtocol alloc];
+              v75 = 2;
               goto LABEL_136;
           }
 
-          v80 = ne_log_obj();
-          if (os_log_type_enabled(v80, OS_LOG_TYPE_FAULT))
+          v77 = ne_log_obj();
+          if (os_log_type_enabled(v77, OS_LOG_TYPE_FAULT))
           {
             *buf = 138412290;
             *&buf[4] = lastObject;
-            v84 = "Unexpected hash protocol %@ when selecting ECDSA protocol";
+            v81 = "Unexpected hash protocol %@ when selecting ECDSA protocol";
             goto LABEL_152;
           }
         }
 
 LABEL_139:
 
-        v36 = 0;
+        v35 = 0;
         goto LABEL_140;
       }
 
@@ -4235,22 +4180,22 @@ LABEL_139:
         *buf = 0;
       }
 
-      v46 = ne_log_obj();
-      if (os_log_type_enabled(v46, OS_LOG_TYPE_FAULT))
+      v44 = ne_log_obj();
+      if (os_log_type_enabled(v44, OS_LOG_TYPE_FAULT))
       {
         LODWORD(error[0]) = 67109120;
         HIDWORD(error[0]) = v30;
-        _os_log_fault_impl(&dword_1BA83C000, v46, OS_LOG_TYPE_FAULT, "SecIdentityCopyPrivateKey (%d) failed", error, 8u);
+        _os_log_fault_impl(&dword_1BA83C000, v44, OS_LOG_TYPE_FAULT, "SecIdentityCopyPrivateKey (%d) failed", error, 8u);
       }
     }
 
     else
     {
-      v46 = ne_log_obj();
-      if (os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
+      v44 = ne_log_obj();
+      if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
       {
         *buf = 0;
-        _os_log_error_impl(&dword_1BA83C000, v46, OS_LOG_TYPE_ERROR, "[self copyLocalSecIdentity]", buf, 2u);
+        _os_log_error_impl(&dword_1BA83C000, v44, OS_LOG_TYPE_ERROR, "[self copyLocalSecIdentity]", buf, 2u);
       }
     }
 
@@ -4278,13 +4223,12 @@ LABEL_67:
   localPrivateKeyRef = 0;
 LABEL_76:
 
-  v47 = *MEMORY[0x1E69E9840];
   return localPrivateKeyRef;
 }
 
 - (BOOL)checkSharedKeyAuthData:(const char *)data usingPrimeKey:
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v7 = v5;
   if (self)
@@ -4307,8 +4251,8 @@ LABEL_76:
               v19 = ne_log_obj();
               if (os_log_type_enabled(v19, OS_LOG_TYPE_FAULT))
               {
-                LOWORD(v30) = 0;
-                _os_log_fault_impl(&dword_1BA83C000, v19, OS_LOG_TYPE_FAULT, "[self createRemoteSignedOctetVectorUsingPrimeKey:] failed", &v30, 2u);
+                LOWORD(v29) = 0;
+                _os_log_fault_impl(&dword_1BA83C000, v19, OS_LOG_TYPE_FAULT, "[self createRemoteSignedOctetVectorUsingPrimeKey:] failed", &v29, 2u);
               }
 
               v12 = 0;
@@ -4329,9 +4273,9 @@ LABEL_36:
                 v27 = ne_log_obj();
                 if (os_log_type_enabled(v27, OS_LOG_TYPE_FAULT))
                 {
-                  v30 = 136315138;
-                  v31 = "[NEIKEv2IKESA(Crypto) checkSharedKeyAuthData:usingPrimeKey:]";
-                  _os_log_fault_impl(&dword_1BA83C000, v27, OS_LOG_TYPE_FAULT, "%s called with null sharedSecret", &v30, 0xCu);
+                  v29 = 136315138;
+                  v30 = "[NEIKEv2IKESA(Crypto) checkSharedKeyAuthData:usingPrimeKey:]";
+                  _os_log_fault_impl(&dword_1BA83C000, v27, OS_LOG_TYPE_FAULT, "%s called with null sharedSecret", &v29, 0xCu);
                 }
 
                 goto LABEL_39;
@@ -4382,8 +4326,8 @@ LABEL_36:
                 v26 = ne_log_obj();
                 if (os_log_type_enabled(v26, OS_LOG_TYPE_FAULT))
                 {
-                  LOWORD(v30) = 0;
-                  _os_log_fault_impl(&dword_1BA83C000, v26, OS_LOG_TYPE_FAULT, "createAuthenticationDataForSharedSecret: failed", &v30, 2u);
+                  LOWORD(v29) = 0;
+                  _os_log_fault_impl(&dword_1BA83C000, v26, OS_LOG_TYPE_FAULT, "createAuthenticationDataForSharedSecret: failed", &v29, 2u);
                 }
 
                 self = 0;
@@ -4405,7 +4349,7 @@ LABEL_40:
             goto LABEL_41;
           }
 
-          LOWORD(v30) = 0;
+          LOWORD(v29) = 0;
           v13 = "Do not call checkSharedKeyAuthData with signature/GSPM auth";
           v14 = v12;
           v15 = 2;
@@ -4419,14 +4363,14 @@ LABEL_40:
             goto LABEL_39;
           }
 
-          v30 = 136315138;
-          v31 = "[NEIKEv2IKESA(Crypto) checkSharedKeyAuthData:usingPrimeKey:]";
+          v29 = 136315138;
+          v30 = "[NEIKEv2IKESA(Crypto) checkSharedKeyAuthData:usingPrimeKey:]";
           v13 = "%s called with null authentication";
           v14 = v12;
           v15 = 12;
         }
 
-        _os_log_fault_impl(&dword_1BA83C000, v14, OS_LOG_TYPE_FAULT, v13, &v30, v15);
+        _os_log_fault_impl(&dword_1BA83C000, v14, OS_LOG_TYPE_FAULT, v13, &v29, v15);
         goto LABEL_39;
       }
 
@@ -4440,8 +4384,8 @@ LABEL_41:
         goto LABEL_42;
       }
 
-      v30 = 136315138;
-      v31 = "[NEIKEv2IKESA(Crypto) checkSharedKeyAuthData:usingPrimeKey:]";
+      v29 = 136315138;
+      v30 = "[NEIKEv2IKESA(Crypto) checkSharedKeyAuthData:usingPrimeKey:]";
       v23 = "%s called with null self.chosenProposal";
     }
 
@@ -4453,24 +4397,23 @@ LABEL_41:
         goto LABEL_10;
       }
 
-      v30 = 136315138;
-      v31 = "[NEIKEv2IKESA(Crypto) checkSharedKeyAuthData:usingPrimeKey:]";
+      v29 = 136315138;
+      v30 = "[NEIKEv2IKESA(Crypto) checkSharedKeyAuthData:usingPrimeKey:]";
       v23 = "%s called with null authenticationData";
     }
 
-    _os_log_fault_impl(&dword_1BA83C000, v11, OS_LOG_TYPE_FAULT, v23, &v30, 0xCu);
+    _os_log_fault_impl(&dword_1BA83C000, v11, OS_LOG_TYPE_FAULT, v23, &v29, 0xCu);
     goto LABEL_10;
   }
 
 LABEL_42:
 
-  v28 = *MEMORY[0x1E69E9840];
   return self;
 }
 
 uint64_t __45__NEIKEv2IKESA_Crypto__copyValidateAuthBlock__block_invoke(uint64_t a1, void *a2)
 {
-  v61 = *MEMORY[0x1E69E9840];
+  v60 = *MEMORY[0x1E69E9840];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v5 = v3;
@@ -4488,9 +4431,9 @@ uint64_t __45__NEIKEv2IKESA_Crypto__copyValidateAuthBlock__block_invoke(uint64_t
     v9 = ne_log_obj();
     if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
     {
-      v57 = 136315138;
-      v58 = "[NEIKEv2IKESA(Crypto) validateAuthenticationForDelegateWithConfiguration:]";
-      _os_log_fault_impl(&dword_1BA83C000, v9, OS_LOG_TYPE_FAULT, "%s called with null authCheckConfig.remoteAuthentication", &v57, 0xCu);
+      v56 = 136315138;
+      v57 = "[NEIKEv2IKESA(Crypto) validateAuthenticationForDelegateWithConfiguration:]";
+      _os_log_fault_impl(&dword_1BA83C000, v9, OS_LOG_TYPE_FAULT, "%s called with null authCheckConfig.remoteAuthentication", &v56, 0xCu);
     }
 
     goto LABEL_11;
@@ -4499,12 +4442,12 @@ uint64_t __45__NEIKEv2IKESA_Crypto__copyValidateAuthBlock__block_invoke(uint64_t
   v8 = WeakRetained[47];
   if (!v8)
   {
-    v52 = ne_log_obj();
-    if (os_log_type_enabled(v52, OS_LOG_TYPE_FAULT))
+    v51 = ne_log_obj();
+    if (os_log_type_enabled(v51, OS_LOG_TYPE_FAULT))
     {
-      v57 = 136315138;
-      v58 = "[NEIKEv2IKESA(Crypto) validateAuthenticationForDelegateWithConfiguration:]";
-      _os_log_fault_impl(&dword_1BA83C000, v52, OS_LOG_TYPE_FAULT, "%s called with null packetAuthentication", &v57, 0xCu);
+      v56 = 136315138;
+      v57 = "[NEIKEv2IKESA(Crypto) validateAuthenticationForDelegateWithConfiguration:]";
+      _os_log_fault_impl(&dword_1BA83C000, v51, OS_LOG_TYPE_FAULT, "%s called with null packetAuthentication", &v56, 0xCu);
     }
 
     v9 = 0;
@@ -4527,34 +4470,34 @@ LABEL_11:
       goto LABEL_12;
     }
 
-    v19 = [v6 remoteAuthentication];
-    v57 = 138412546;
-    v58 = v19;
-    v59 = 2112;
-    v60 = v9;
-    v25 = "Auth protocols are not compatible between config %@ and packet %@";
-    v26 = v13;
-    v27 = 22;
+    v18 = [v6 remoteAuthentication];
+    v56 = 138412546;
+    v57 = v18;
+    v58 = 2112;
+    v59 = v9;
+    v24 = "Auth protocols are not compatible between config %@ and packet %@";
+    v25 = v13;
+    v26 = 22;
     goto LABEL_52;
   }
 
   if (([v9 isSecurePassword]& 1) == 0)
   {
-    v16 = WeakRetained[48];
-    if (!v16)
+    v15 = WeakRetained[48];
+    if (!v15)
     {
       v13 = ne_log_obj();
       if (os_log_type_enabled(v13, OS_LOG_TYPE_FAULT))
       {
-        v57 = 136315138;
-        v58 = "[NEIKEv2IKESA(Crypto) validateAuthenticationForDelegateWithConfiguration:]";
-        _os_log_fault_impl(&dword_1BA83C000, v13, OS_LOG_TYPE_FAULT, "%s called with null authenticationData", &v57, 0xCu);
+        v56 = 136315138;
+        v57 = "[NEIKEv2IKESA(Crypto) validateAuthenticationForDelegateWithConfiguration:]";
+        _os_log_fault_impl(&dword_1BA83C000, v13, OS_LOG_TYPE_FAULT, "%s called with null authenticationData", &v56, 0xCu);
       }
 
       goto LABEL_10;
     }
 
-    v13 = v16;
+    v13 = v15;
     if ((WeakRetained[3] & 1) == 0)
     {
       goto LABEL_28;
@@ -4564,72 +4507,72 @@ LABEL_11:
     {
       if ([v6 ppkIDType] == 2)
       {
-        v17 = [v6 ppkID];
+        v16 = [v6 ppkID];
 
-        if (!v17)
+        if (!v16)
         {
-          v19 = ne_log_obj();
-          if (os_log_type_enabled(v19, OS_LOG_TYPE_FAULT))
+          v18 = ne_log_obj();
+          if (os_log_type_enabled(v18, OS_LOG_TYPE_FAULT))
           {
-            v57 = 136315138;
-            v58 = "[NEIKEv2IKESA(Crypto) validateAuthenticationForDelegateWithConfiguration:]";
-            _os_log_fault_impl(&dword_1BA83C000, v19, OS_LOG_TYPE_FAULT, "%s called with null authCheckConfig.ppkID", &v57, 0xCu);
+            v56 = 136315138;
+            v57 = "[NEIKEv2IKESA(Crypto) validateAuthenticationForDelegateWithConfiguration:]";
+            _os_log_fault_impl(&dword_1BA83C000, v18, OS_LOG_TYPE_FAULT, "%s called with null authCheckConfig.ppkID", &v56, 0xCu);
           }
 
           goto LABEL_70;
         }
       }
 
-      v18 = [v6 ppkIDType];
-      v19 = [v6 ppkID];
-      if (WeakRetained[53] == v18)
+      v17 = [v6 ppkIDType];
+      v18 = [v6 ppkID];
+      if (WeakRetained[53] == v17)
       {
-        v20 = WeakRetained[54];
-        if ([v20 length] || -[NSObject length](v19, "length"))
+        v19 = WeakRetained[54];
+        if ([v19 length] || -[NSObject length](v18, "length"))
         {
-          v21 = WeakRetained[54];
-          v22 = [v21 isEqualToData:v19];
+          v20 = WeakRetained[54];
+          v21 = [v20 isEqualToData:v18];
 
-          if ((v22 & 1) == 0)
+          if ((v21 & 1) == 0)
           {
-            v23 = ne_log_obj();
-            if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+            v22 = ne_log_obj();
+            if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
             {
-              v24 = WeakRetained[54];
-              v57 = 138412546;
-              v58 = v24;
-              v59 = 2112;
-              v60 = v19;
-              _os_log_error_impl(&dword_1BA83C000, v23, OS_LOG_TYPE_ERROR, "PPK ID %@ != Expected %@", &v57, 0x16u);
+              v23 = WeakRetained[54];
+              v56 = 138412546;
+              v57 = v23;
+              v58 = 2112;
+              v59 = v18;
+              _os_log_error_impl(&dword_1BA83C000, v22, OS_LOG_TYPE_ERROR, "PPK ID %@ != Expected %@", &v56, 0x16u);
             }
 
 LABEL_48:
 
             if ([v6 ppkMandatory])
             {
-              v42 = ne_log_obj();
-              if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
+              v41 = ne_log_obj();
+              if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
               {
-                LOWORD(v57) = 0;
-                v43 = "Wrong PPK ID received with mandatory PPK auth";
+                LOWORD(v56) = 0;
+                v42 = "Wrong PPK ID received with mandatory PPK auth";
 LABEL_77:
-                _os_log_error_impl(&dword_1BA83C000, v42, OS_LOG_TYPE_ERROR, v43, &v57, 2u);
+                _os_log_error_impl(&dword_1BA83C000, v41, OS_LOG_TYPE_ERROR, v42, &v56, 2u);
                 goto LABEL_69;
               }
 
               goto LABEL_69;
             }
 
-            v44 = WeakRetained[49];
+            v43 = WeakRetained[49];
 
-            v45 = ne_log_obj();
-            v42 = v45;
-            if (!v44)
+            v44 = ne_log_obj();
+            v41 = v44;
+            if (!v43)
             {
-              if (os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
+              if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
               {
-                LOWORD(v57) = 0;
-                v43 = "Wrong PPK ID received and no non-PPK AUTH data received";
+                LOWORD(v56) = 0;
+                v42 = "Wrong PPK ID received and no non-PPK AUTH data received";
                 goto LABEL_77;
               }
 
@@ -4638,15 +4581,15 @@ LABEL_69:
               goto LABEL_70;
             }
 
-            if (os_log_type_enabled(v45, OS_LOG_TYPE_DEFAULT))
+            if (os_log_type_enabled(v44, OS_LOG_TYPE_DEFAULT))
             {
-              LOWORD(v57) = 0;
-              _os_log_impl(&dword_1BA83C000, v42, OS_LOG_TYPE_DEFAULT, "Wrong PPK ID received, falling back to non-PPK AUTH data", &v57, 2u);
+              LOWORD(v56) = 0;
+              _os_log_impl(&dword_1BA83C000, v41, OS_LOG_TYPE_DEFAULT, "Wrong PPK ID received, falling back to non-PPK AUTH data", &v56, 2u);
             }
 
-            v46 = WeakRetained[49];
-            v28 = 0;
-            v13 = v46;
+            v45 = WeakRetained[49];
+            v27 = 0;
+            v13 = v45;
             goto LABEL_75;
           }
         }
@@ -4655,56 +4598,56 @@ LABEL_69:
         {
         }
 
-        v42 = [NEIKEv2IKESA copyPPKFromConfig:v6];
-        if (v42)
+        v41 = [NEIKEv2IKESA copyPPKFromConfig:v6];
+        if (v41)
         {
-          if (([(NEIKEv2IKESA *)WeakRetained generateDerivativesFromPPK:v42]& 1) != 0)
+          if (([(NEIKEv2IKESA *)WeakRetained generateDerivativesFromPPK:v41]& 1) != 0)
           {
 
-            v28 = 1;
+            v27 = 1;
 LABEL_75:
 
 LABEL_29:
-            v29 = [(NEIKEv2IKESA *)WeakRetained createRemoteSignedOctetVectorUsingPrimeKey:?];
-            if (!v29)
+            v28 = [(NEIKEv2IKESA *)WeakRetained createRemoteSignedOctetVectorUsingPrimeKey:?];
+            if (!v28)
             {
-              v53 = ne_log_obj();
-              if (os_log_type_enabled(v53, OS_LOG_TYPE_FAULT))
+              v52 = ne_log_obj();
+              if (os_log_type_enabled(v52, OS_LOG_TYPE_FAULT))
               {
-                v57 = 136315138;
-                v58 = "[NEIKEv2IKESA(Crypto) validateAuthenticationForDelegateWithConfiguration:]";
-                _os_log_fault_impl(&dword_1BA83C000, v53, OS_LOG_TYPE_FAULT, "%s called with null remoteSignedOctetVector", &v57, 0xCu);
+                v56 = 136315138;
+                v57 = "[NEIKEv2IKESA(Crypto) validateAuthenticationForDelegateWithConfiguration:]";
+                _os_log_fault_impl(&dword_1BA83C000, v52, OS_LOG_TYPE_FAULT, "%s called with null remoteSignedOctetVector", &v56, 0xCu);
               }
 
               [(NEIKEv2IKESA *)WeakRetained restorePrimeKeys];
-              LOBYTE(v57) = 0;
+              LOBYTE(v56) = 0;
               goto LABEL_65;
             }
 
-            v30 = v9;
-            v31 = [v6 remoteAuthentication];
-            v32 = [v31 isNonStandard];
+            v29 = v9;
+            v30 = [v6 remoteAuthentication];
+            v31 = [v30 isNonStandard];
 
-            if (v32)
+            if (v31)
             {
-              v33 = [v6 remoteAuthentication];
+              v32 = [v6 remoteAuthentication];
 
-              v30 = v33;
+              v29 = v32;
             }
 
-            if ([v30 isSignature])
+            if ([v29 isSignature])
             {
-              v34 = [(NEIKEv2SessionConfiguration *)v6 copyRemoteAuthKey];
-              if (v34)
+              v33 = [(NEIKEv2SessionConfiguration *)v6 copyRemoteAuthKey];
+              if (v33)
               {
-                v35 = v34;
-                v36 = [NEIKEv2Crypto validateSignature:v13 signedDataVector:v29 authProtocol:v30 publicKey:v34];
-                CFRelease(v35);
-                if (v36)
+                v34 = v33;
+                v35 = [NEIKEv2Crypto validateSignature:v13 signedDataVector:v28 authProtocol:v29 publicKey:v33];
+                CFRelease(v34);
+                if (v35)
                 {
-                  v38 = 1;
+                  v37 = 1;
                   *(WeakRetained + 18) = 1;
-                  if (v28)
+                  if (v27)
                   {
                     *(WeakRetained + 19) = 1;
                   }
@@ -4712,27 +4655,27 @@ LABEL_29:
                   goto LABEL_45;
                 }
 
-                if (!v28)
+                if (!v27)
                 {
 LABEL_44:
-                  v38 = 0;
+                  v37 = 0;
 LABEL_45:
-                  LOBYTE(v57) = v38;
+                  LOBYTE(v56) = v37;
 LABEL_64:
 
 LABEL_65:
-                  v12 = v57;
+                  v12 = v56;
                   goto LABEL_12;
                 }
               }
 
               else
               {
-                v55 = ne_log_obj();
-                if (os_log_type_enabled(v55, OS_LOG_TYPE_FAULT))
+                v54 = ne_log_obj();
+                if (os_log_type_enabled(v54, OS_LOG_TYPE_FAULT))
                 {
-                  LOWORD(v57) = 0;
-                  _os_log_fault_impl(&dword_1BA83C000, v55, OS_LOG_TYPE_FAULT, "Responder configuration is missing remote public key", &v57, 2u);
+                  LOWORD(v56) = 0;
+                  _os_log_fault_impl(&dword_1BA83C000, v54, OS_LOG_TYPE_FAULT, "Responder configuration is missing remote public key", &v56, 2u);
                 }
               }
 
@@ -4740,77 +4683,77 @@ LABEL_65:
               goto LABEL_44;
             }
 
-            if ([v30 method]== 2)
+            if ([v29 method]== 2)
             {
-              v39 = [NEIKEv2IKESA copySharedSecretFromConfig:v6];
+              v38 = [NEIKEv2IKESA copySharedSecretFromConfig:v6];
             }
 
             else
             {
-              if ([v30 method]!= 13)
+              if ([v29 method]!= 13)
               {
-                v41 = 0;
+                v40 = 0;
                 goto LABEL_58;
               }
 
-              v39 = objc_getProperty(WeakRetained, v40, 232, 1);
+              v38 = objc_getProperty(WeakRetained, v39, 232, 1);
             }
 
-            v41 = v39;
+            v40 = v38;
 LABEL_58:
-            v47 = [(NEIKEv2IKESA *)WeakRetained createAuthenticationDataForSharedSecret:v41 octetVector:v29];
-            v48 = [NEIKEv2Crypto validateCalculatedSharedKeyAuthData:v47 remoteAuthData:v13];
-            v50 = v48;
-            if (v48)
+            v46 = [(NEIKEv2IKESA *)WeakRetained createAuthenticationDataForSharedSecret:v40 octetVector:v28];
+            v47 = [NEIKEv2Crypto validateCalculatedSharedKeyAuthData:v46 remoteAuthData:v13];
+            v49 = v47;
+            if (v47)
             {
               *(WeakRetained + 18) = 1;
-              if (v28)
+              if (v27)
               {
                 *(WeakRetained + 19) = 1;
               }
             }
 
-            else if (v28)
+            else if (v27)
             {
               [(NEIKEv2IKESA *)WeakRetained restorePrimeKeys];
             }
 
-            LOBYTE(v57) = v50;
+            LOBYTE(v56) = v49;
 
             goto LABEL_64;
           }
 
-          v56 = ne_log_obj();
-          if (os_log_type_enabled(v56, OS_LOG_TYPE_ERROR))
+          v55 = ne_log_obj();
+          if (os_log_type_enabled(v55, OS_LOG_TYPE_ERROR))
           {
-            v57 = 138412290;
-            v58 = WeakRetained;
-            _os_log_error_impl(&dword_1BA83C000, v56, OS_LOG_TYPE_ERROR, "%@ Failed to generate PPK-derived keys", &v57, 0xCu);
+            v56 = 138412290;
+            v57 = WeakRetained;
+            _os_log_error_impl(&dword_1BA83C000, v55, OS_LOG_TYPE_ERROR, "%@ Failed to generate PPK-derived keys", &v56, 0xCu);
           }
         }
 
         else
         {
-          v56 = ne_log_obj();
-          if (os_log_type_enabled(v56, OS_LOG_TYPE_FAULT))
+          v55 = ne_log_obj();
+          if (os_log_type_enabled(v55, OS_LOG_TYPE_FAULT))
           {
-            LOWORD(v57) = 0;
-            _os_log_fault_impl(&dword_1BA83C000, v56, OS_LOG_TYPE_FAULT, "PPK use negotiated but PPK not present in configuration", &v57, 2u);
+            LOWORD(v56) = 0;
+            _os_log_fault_impl(&dword_1BA83C000, v55, OS_LOG_TYPE_FAULT, "PPK use negotiated but PPK not present in configuration", &v56, 2u);
           }
         }
 
         goto LABEL_69;
       }
 
-      v23 = ne_log_obj();
-      if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+      v22 = ne_log_obj();
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
       {
-        v51 = WeakRetained[53];
-        v57 = 134218240;
-        v58 = v51;
-        v59 = 2048;
-        v60 = v18;
-        _os_log_error_impl(&dword_1BA83C000, v23, OS_LOG_TYPE_ERROR, "PPK Type %zu != Expected Type %zu", &v57, 0x16u);
+        v50 = WeakRetained[53];
+        v56 = 134218240;
+        v57 = v50;
+        v58 = 2048;
+        v59 = v17;
+        _os_log_error_impl(&dword_1BA83C000, v22, OS_LOG_TYPE_ERROR, "PPK Type %zu != Expected Type %zu", &v56, 0x16u);
       }
 
       goto LABEL_48;
@@ -4819,24 +4762,24 @@ LABEL_58:
     if (![v6 ppkMandatory])
     {
 LABEL_28:
-      v28 = 0;
+      v27 = 0;
       goto LABEL_29;
     }
 
-    v19 = ne_log_obj();
-    if (!os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+    v18 = ne_log_obj();
+    if (!os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
 LABEL_70:
 
       goto LABEL_10;
     }
 
-    LOWORD(v57) = 0;
-    v25 = "No PPK ID received with mandatory PPK auth";
-    v26 = v19;
-    v27 = 2;
+    LOWORD(v56) = 0;
+    v24 = "No PPK ID received with mandatory PPK auth";
+    v25 = v18;
+    v26 = 2;
 LABEL_52:
-    _os_log_error_impl(&dword_1BA83C000, v26, OS_LOG_TYPE_ERROR, v25, &v57, v27);
+    _os_log_error_impl(&dword_1BA83C000, v25, OS_LOG_TYPE_ERROR, v24, &v56, v26);
     goto LABEL_70;
   }
 
@@ -4844,14 +4787,13 @@ LABEL_52:
 LABEL_12:
 
 LABEL_13:
-  v14 = *MEMORY[0x1E69E9840];
   return v12;
 }
 
 - (NSObject)createInitiatorEAPAuthenticationDataUsingPrimeKey:(NSObject *)self
 {
   selfCopy = self;
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   if (self)
   {
     v4 = objc_getProperty(self, a2, 456, 1);
@@ -4883,8 +4825,8 @@ LABEL_25:
             v17 = ne_log_obj();
             if (os_log_type_enabled(v17, OS_LOG_TYPE_FAULT))
             {
-              LOWORD(v20) = 0;
-              _os_log_fault_impl(&dword_1BA83C000, v17, OS_LOG_TYPE_FAULT, "createAuthenticationDataForSharedSecret failed", &v20, 2u);
+              LOWORD(v19) = 0;
+              _os_log_fault_impl(&dword_1BA83C000, v17, OS_LOG_TYPE_FAULT, "createAuthenticationDataForSharedSecret failed", &v19, 2u);
             }
 
 LABEL_24:
@@ -4915,7 +4857,7 @@ LABEL_24:
             goto LABEL_24;
           }
 
-          LOWORD(v20) = 0;
+          LOWORD(v19) = 0;
           v16 = "skPi failed";
         }
 
@@ -4927,11 +4869,11 @@ LABEL_24:
             goto LABEL_24;
           }
 
-          LOWORD(v20) = 0;
+          LOWORD(v19) = 0;
           v16 = "createInitiatorSignedOctetVectorUsingPrimeKey: failed";
         }
 
-        _os_log_fault_impl(&dword_1BA83C000, sessionKey, OS_LOG_TYPE_FAULT, v16, &v20, 2u);
+        _os_log_fault_impl(&dword_1BA83C000, sessionKey, OS_LOG_TYPE_FAULT, v16, &v19, 2u);
         goto LABEL_24;
       }
 
@@ -4942,11 +4884,11 @@ LABEL_16:
         selfCopy = 0;
 LABEL_26:
 
-        goto LABEL_27;
+        return selfCopy;
       }
 
-      v20 = 136315138;
-      v21 = "[NEIKEv2IKESA(Crypto) createInitiatorEAPAuthenticationDataUsingPrimeKey:]";
+      v19 = 136315138;
+      v20 = "[NEIKEv2IKESA(Crypto) createInitiatorEAPAuthenticationDataUsingPrimeKey:]";
       v15 = "%s called with null self.chosenProposal";
     }
 
@@ -4958,24 +4900,22 @@ LABEL_26:
         goto LABEL_16;
       }
 
-      v20 = 136315138;
-      v21 = "[NEIKEv2IKESA(Crypto) createInitiatorEAPAuthenticationDataUsingPrimeKey:]";
+      v19 = 136315138;
+      v20 = "[NEIKEv2IKESA(Crypto) createInitiatorEAPAuthenticationDataUsingPrimeKey:]";
       v15 = "%s called with null self.eapClient";
     }
 
-    _os_log_fault_impl(&dword_1BA83C000, v8, OS_LOG_TYPE_FAULT, v15, &v20, 0xCu);
+    _os_log_fault_impl(&dword_1BA83C000, v8, OS_LOG_TYPE_FAULT, v15, &v19, 0xCu);
     goto LABEL_16;
   }
 
-LABEL_27:
-  v18 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 
 - (NSObject)createInitiatorGSPMAuthenticationDataUsingPrimeKey:(NSObject *)self
 {
   selfCopy = self;
-  v42 = *MEMORY[0x1E69E9840];
+  v41 = *MEMORY[0x1E69E9840];
   if (self)
   {
     v4 = objc_getProperty(self, a2, 464, 1);
@@ -5004,8 +4944,8 @@ LABEL_27:
           v17 = ne_log_obj();
           if (os_log_type_enabled(v17, OS_LOG_TYPE_FAULT))
           {
-            LOWORD(v40) = 0;
-            _os_log_fault_impl(&dword_1BA83C000, v17, OS_LOG_TYPE_FAULT, "createInitiatorSignedOctetVectorUsingPrimeKey failed", &v40, 2u);
+            LOWORD(v39) = 0;
+            _os_log_fault_impl(&dword_1BA83C000, v17, OS_LOG_TYPE_FAULT, "createInitiatorSignedOctetVectorUsingPrimeKey failed", &v39, 2u);
           }
 
           selfCopy = 0;
@@ -5032,8 +4972,8 @@ LABEL_27:
           v25 = ne_log_obj();
           if (os_log_type_enabled(v25, OS_LOG_TYPE_FAULT))
           {
-            LOWORD(v40) = 0;
-            _os_log_fault_impl(&dword_1BA83C000, v25, OS_LOG_TYPE_FAULT, "createInitiatorSignedOctetVector(GSPM) failed", &v40, 2u);
+            LOWORD(v39) = 0;
+            _os_log_fault_impl(&dword_1BA83C000, v25, OS_LOG_TYPE_FAULT, "createInitiatorSignedOctetVector(GSPM) failed", &v39, 2u);
           }
 
           goto LABEL_37;
@@ -5079,20 +5019,20 @@ LABEL_27:
             goto LABEL_22;
           }
 
-          v38 = ne_log_obj();
-          if (!os_log_type_enabled(v38, OS_LOG_TYPE_FAULT))
+          v37 = ne_log_obj();
+          if (!os_log_type_enabled(v37, OS_LOG_TYPE_FAULT))
           {
             goto LABEL_36;
           }
 
-          LOWORD(v40) = 0;
-          v39 = "createAuthenticationDataForSharedSecret failed";
+          LOWORD(v39) = 0;
+          v38 = "createAuthenticationDataForSharedSecret failed";
         }
 
         else
         {
-          v38 = ne_log_obj();
-          if (!os_log_type_enabled(v38, OS_LOG_TYPE_FAULT))
+          v37 = ne_log_obj();
+          if (!os_log_type_enabled(v37, OS_LOG_TYPE_FAULT))
           {
 LABEL_36:
 
@@ -5104,11 +5044,11 @@ LABEL_23:
             goto LABEL_24;
           }
 
-          LOWORD(v40) = 0;
-          v39 = "[NEIKEv2Crypto createHMACFromData:key:prfProtocol:] failed";
+          LOWORD(v39) = 0;
+          v38 = "[NEIKEv2Crypto createHMACFromData:key:prfProtocol:] failed";
         }
 
-        _os_log_fault_impl(&dword_1BA83C000, v38, OS_LOG_TYPE_FAULT, v39, &v40, 2u);
+        _os_log_fault_impl(&dword_1BA83C000, v37, OS_LOG_TYPE_FAULT, v38, &v39, 2u);
         goto LABEL_36;
       }
 
@@ -5119,11 +5059,11 @@ LABEL_12:
         selfCopy = 0;
 LABEL_24:
 
-        goto LABEL_25;
+        return selfCopy;
       }
 
-      v40 = 136315138;
-      v41 = "[NEIKEv2IKESA(Crypto) createInitiatorGSPMAuthenticationDataUsingPrimeKey:]";
+      v39 = 136315138;
+      v40 = "[NEIKEv2IKESA(Crypto) createInitiatorGSPMAuthenticationDataUsingPrimeKey:]";
       v16 = "%s called with null self.chosenProposal";
     }
 
@@ -5135,24 +5075,22 @@ LABEL_24:
         goto LABEL_12;
       }
 
-      v40 = 136315138;
-      v41 = "[NEIKEv2IKESA(Crypto) createInitiatorGSPMAuthenticationDataUsingPrimeKey:]";
+      v39 = 136315138;
+      v40 = "[NEIKEv2IKESA(Crypto) createInitiatorGSPMAuthenticationDataUsingPrimeKey:]";
       v16 = "%s called with null self.gspmHandler.sessionKey";
     }
 
-    _os_log_fault_impl(&dword_1BA83C000, v11, OS_LOG_TYPE_FAULT, v16, &v40, 0xCu);
+    _os_log_fault_impl(&dword_1BA83C000, v11, OS_LOG_TYPE_FAULT, v16, &v39, 0xCu);
     goto LABEL_12;
   }
 
-LABEL_25:
-  v36 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 
 - (NSObject)createResponderGSPMAuthenticationDataUsingPrimeKey:(NSObject *)self
 {
   selfCopy = self;
-  v42 = *MEMORY[0x1E69E9840];
+  v41 = *MEMORY[0x1E69E9840];
   if (self)
   {
     v4 = objc_getProperty(self, a2, 464, 1);
@@ -5181,8 +5119,8 @@ LABEL_25:
           v17 = ne_log_obj();
           if (os_log_type_enabled(v17, OS_LOG_TYPE_FAULT))
           {
-            LOWORD(v40) = 0;
-            _os_log_fault_impl(&dword_1BA83C000, v17, OS_LOG_TYPE_FAULT, "createResponderSignedOctetVectorUsingPrimeKey failed", &v40, 2u);
+            LOWORD(v39) = 0;
+            _os_log_fault_impl(&dword_1BA83C000, v17, OS_LOG_TYPE_FAULT, "createResponderSignedOctetVectorUsingPrimeKey failed", &v39, 2u);
           }
 
           selfCopy = 0;
@@ -5209,8 +5147,8 @@ LABEL_25:
           v25 = ne_log_obj();
           if (os_log_type_enabled(v25, OS_LOG_TYPE_FAULT))
           {
-            LOWORD(v40) = 0;
-            _os_log_fault_impl(&dword_1BA83C000, v25, OS_LOG_TYPE_FAULT, "createResponderSignedOctetVector(GSPM) failed", &v40, 2u);
+            LOWORD(v39) = 0;
+            _os_log_fault_impl(&dword_1BA83C000, v25, OS_LOG_TYPE_FAULT, "createResponderSignedOctetVector(GSPM) failed", &v39, 2u);
           }
 
           goto LABEL_37;
@@ -5256,20 +5194,20 @@ LABEL_25:
             goto LABEL_22;
           }
 
-          v38 = ne_log_obj();
-          if (!os_log_type_enabled(v38, OS_LOG_TYPE_FAULT))
+          v37 = ne_log_obj();
+          if (!os_log_type_enabled(v37, OS_LOG_TYPE_FAULT))
           {
             goto LABEL_36;
           }
 
-          LOWORD(v40) = 0;
-          v39 = "createAuthenticationDataForSharedSecret failed";
+          LOWORD(v39) = 0;
+          v38 = "createAuthenticationDataForSharedSecret failed";
         }
 
         else
         {
-          v38 = ne_log_obj();
-          if (!os_log_type_enabled(v38, OS_LOG_TYPE_FAULT))
+          v37 = ne_log_obj();
+          if (!os_log_type_enabled(v37, OS_LOG_TYPE_FAULT))
           {
 LABEL_36:
 
@@ -5281,11 +5219,11 @@ LABEL_23:
             goto LABEL_24;
           }
 
-          LOWORD(v40) = 0;
-          v39 = "[NEIKEv2Crypto createHMACFromData:key:prfProtocol:] failed";
+          LOWORD(v39) = 0;
+          v38 = "[NEIKEv2Crypto createHMACFromData:key:prfProtocol:] failed";
         }
 
-        _os_log_fault_impl(&dword_1BA83C000, v38, OS_LOG_TYPE_FAULT, v39, &v40, 2u);
+        _os_log_fault_impl(&dword_1BA83C000, v37, OS_LOG_TYPE_FAULT, v38, &v39, 2u);
         goto LABEL_36;
       }
 
@@ -5296,11 +5234,11 @@ LABEL_12:
         selfCopy = 0;
 LABEL_24:
 
-        goto LABEL_25;
+        return selfCopy;
       }
 
-      v40 = 136315138;
-      v41 = "[NEIKEv2IKESA(Crypto) createResponderGSPMAuthenticationDataUsingPrimeKey:]";
+      v39 = 136315138;
+      v40 = "[NEIKEv2IKESA(Crypto) createResponderGSPMAuthenticationDataUsingPrimeKey:]";
       v16 = "%s called with null self.chosenProposal";
     }
 
@@ -5312,17 +5250,15 @@ LABEL_24:
         goto LABEL_12;
       }
 
-      v40 = 136315138;
-      v41 = "[NEIKEv2IKESA(Crypto) createResponderGSPMAuthenticationDataUsingPrimeKey:]";
+      v39 = 136315138;
+      v40 = "[NEIKEv2IKESA(Crypto) createResponderGSPMAuthenticationDataUsingPrimeKey:]";
       v16 = "%s called with null self.gspmHandler.sessionKey";
     }
 
-    _os_log_fault_impl(&dword_1BA83C000, v11, OS_LOG_TYPE_FAULT, v16, &v40, 0xCu);
+    _os_log_fault_impl(&dword_1BA83C000, v11, OS_LOG_TYPE_FAULT, v16, &v39, 0xCu);
     goto LABEL_12;
   }
 
-LABEL_25:
-  v36 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 
@@ -5391,7 +5327,7 @@ LABEL_4:
 
 - (NEIKEv2AuthenticationProtocol)selectSecurePasswordMethod:(void *)method
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v4 = a2;
   if (method)
   {
@@ -5428,9 +5364,9 @@ LABEL_4:
         v16 = ne_log_obj();
         if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
         {
-          v19 = 134217984;
-          v20 = v12;
-          _os_log_error_impl(&dword_1BA83C000, v16, OS_LOG_TYPE_ERROR, "Secure password methods data length %zu is not divisible by sizeof(uint16_t)", &v19, 0xCu);
+          v18 = 134217984;
+          v19 = v12;
+          _os_log_error_impl(&dword_1BA83C000, v16, OS_LOG_TYPE_ERROR, "Secure password methods data length %zu is not divisible by sizeof(uint16_t)", &v18, 0xCu);
         }
 
         v12 = 0;
@@ -5459,9 +5395,9 @@ LABEL_4:
         v16 = ne_log_obj();
         if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
         {
-          v19 = 138412290;
-          v20 = v12;
-          _os_log_impl(&dword_1BA83C000, v16, OS_LOG_TYPE_INFO, "Found supported %@ in notify", &v19, 0xCu);
+          v18 = 138412290;
+          v19 = v12;
+          _os_log_impl(&dword_1BA83C000, v16, OS_LOG_TYPE_INFO, "Found supported %@ in notify", &v18, 0xCu);
         }
       }
     }
@@ -5474,13 +5410,12 @@ LABEL_16:
     v12 = 0;
   }
 
-  v17 = *MEMORY[0x1E69E9840];
   return v12;
 }
 
 - (void)dealloc
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   if (nelog_is_debug_logging_enabled())
   {
     v4 = ne_log_large_obj();
@@ -5497,7 +5432,7 @@ LABEL_16:
       }
 
       *buf = 138412290;
-      v21 = Property;
+      v20 = Property;
       _os_log_debug_impl(&dword_1BA83C000, v4, OS_LOG_TYPE_DEBUG, "Deallocating ikeSA %@", buf, 0xCu);
     }
   }
@@ -5535,10 +5470,9 @@ LABEL_16:
 
   [(NEIKEv2Transport *)v14 cancelClient:v16 shouldInvalidate:0];
 
-  v19.receiver = self;
-  v19.super_class = NEIKEv2IKESA;
-  [(NEIKEv2IKESA *)&v19 dealloc];
-  v17 = *MEMORY[0x1E69E9840];
+  v18.receiver = self;
+  v18.super_class = NEIKEv2IKESA;
+  [(NEIKEv2IKESA *)&v18 dealloc];
 }
 
 - (id)description
@@ -5621,9 +5555,9 @@ LABEL_16:
   return self;
 }
 
-- (id)initIKESACommonWithConfiguration:(void *)configuration sessionConfiguration:(void *)sessionConfiguration queue:(void *)queue transportDelegate:(void *)delegate socketGetBlock:(void *)block packetDelegate:(void *)packetDelegate configurationDelegate:(uint64_t)configurationDelegate ikeSessionUniqueIndex:(char)self0 isInitiator:
+- (NEIKEv2IKESPI)initIKESACommonWithConfiguration:(void *)configuration sessionConfiguration:(void *)sessionConfiguration queue:(void *)queue transportDelegate:(void *)delegate socketGetBlock:(void *)block packetDelegate:(void *)packetDelegate configurationDelegate:(unint64_t)configurationDelegate ikeSessionUniqueIndex:(char)self0 isInitiator:
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
   v17 = a2;
   configurationCopy = configuration;
   newValue = sessionConfiguration;
@@ -5639,32 +5573,32 @@ LABEL_16:
 
   if (v17)
   {
-    v37.receiver = self;
-    v37.super_class = NEIKEv2IKESA;
-    v23 = [(NEIKEv2SPI *)&v37 init];
+    v36.receiver = self;
+    v36.super_class = NEIKEv2IKESA;
+    v23 = [(NEIKEv2SPI *)&v36 init];
     if (v23)
     {
       v25 = v23;
       objc_setProperty_atomic(v23, v24, newValue, 544);
-      *(v25 + 74) = atomic_fetch_add_explicit(&sNEIKEv2IKESAIndex, 1uLL, memory_order_relaxed);
-      *(v25 + 73) = configurationDelegate;
+      v25[37].super.super.isa = atomic_fetch_add_explicit(&sNEIKEv2IKESAIndex, 1uLL, memory_order_relaxed);
+      v25[36]._value = configurationDelegate;
       objc_setProperty_atomic(v25, v26, v17, 80);
       objc_setProperty_atomic(v25, v27, configurationCopy, 88);
-      objc_storeWeak(v25 + 69, queueCopy);
+      objc_storeWeak(&v25[34]._value, queueCopy);
       objc_setProperty_atomic_copy(v25, v28, delegateCopy, 560);
-      objc_storeWeak(v25 + 71, blockCopy);
+      objc_storeWeak(&v25[35]._value, blockCopy);
       if (blockCopy)
       {
-        *(v25 + 25) = 1;
+        BYTE1(v25[1]._value) = 1;
       }
 
-      objc_storeWeak(v25 + 72, packetDelegateCopy);
+      objc_storeWeak(&v25[36].super.super.isa, packetDelegateCopy);
       outgoingInterfaceName = [v17 outgoingInterfaceName];
       objc_setProperty_atomic(v25, v30, outgoingInterfaceName, 304);
 
-      *(v25 + 6) = 3;
+      v25[3].super.super.isa = 3;
       objc_setProperty_atomic(v25, v31, 0, 56);
-      *(v25 + 9) = index;
+      BYTE1(v25->_value) = index;
       self = objc_alloc_init(NEIKEv2IKESPI);
       objc_setProperty_atomic(v25, v32, self, 32);
       goto LABEL_7;
@@ -5680,12 +5614,12 @@ LABEL_16:
 
   else
   {
-    v35 = ne_log_obj();
-    if (os_log_type_enabled(v35, OS_LOG_TYPE_FAULT))
+    v34 = ne_log_obj();
+    if (os_log_type_enabled(v34, OS_LOG_TYPE_FAULT))
     {
       *buf = 136315138;
-      v39 = "[NEIKEv2IKESA initIKESACommonWithConfiguration:sessionConfiguration:queue:transportDelegate:socketGetBlock:packetDelegate:configurationDelegate:ikeSessionUniqueIndex:isInitiator:]";
-      _os_log_fault_impl(&dword_1BA83C000, v35, OS_LOG_TYPE_FAULT, "%s called with null configuration", buf, 0xCu);
+      v38 = "[NEIKEv2IKESA initIKESACommonWithConfiguration:sessionConfiguration:queue:transportDelegate:socketGetBlock:packetDelegate:configurationDelegate:ikeSessionUniqueIndex:isInitiator:]";
+      _os_log_fault_impl(&dword_1BA83C000, v34, OS_LOG_TYPE_FAULT, "%s called with null configuration", buf, 0xCu);
     }
   }
 
@@ -5693,39 +5627,37 @@ LABEL_16:
 LABEL_7:
 
 LABEL_8:
-  v33 = *MEMORY[0x1E69E9840];
   return v25;
 }
 
 - (uint64_t)copyAddressFrom:(unsigned __int8 *)from with:(unsigned int)with
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   if (!from)
   {
-    v8 = ne_log_obj();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
+    v7 = ne_log_obj();
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
     {
       *buf = 136315138;
       *&buf[4] = "[NEIKEv2IKESA copyAddressFrom:with:]";
-      v9 = "%s called with null address";
+      v8 = "%s called with null address";
       goto LABEL_15;
     }
 
 LABEL_13:
 
-    v4 = 0;
-    goto LABEL_7;
+    return 0;
   }
 
   v3 = *from;
   if (v3 <= 0xF)
   {
-    v8 = ne_log_obj();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
+    v7 = ne_log_obj();
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
     {
       *buf = 136315138;
       *&buf[4] = "[NEIKEv2IKESA copyAddressFrom:with:]";
-      v9 = "%s called with null (address->sa_len >= sizeof(struct sockaddr_in))";
+      v8 = "%s called with null (address->sa_len >= sizeof(struct sockaddr_in))";
       goto LABEL_15;
     }
 
@@ -5734,41 +5666,39 @@ LABEL_13:
 
   if (v3 >= 0x81)
   {
-    v8 = ne_log_obj();
-    if (!os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
+    v7 = ne_log_obj();
+    if (!os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
     {
       goto LABEL_13;
     }
 
     *buf = 136315138;
     *&buf[4] = "[NEIKEv2IKESA copyAddressFrom:with:]";
-    v9 = "%s called with null (address->sa_len <= sizeof(struct sockaddr_storage))";
+    v8 = "%s called with null (address->sa_len <= sizeof(struct sockaddr_storage))";
 LABEL_15:
-    _os_log_fault_impl(&dword_1BA83C000, v8, OS_LOG_TYPE_FAULT, v9, buf, 0xCu);
+    _os_log_fault_impl(&dword_1BA83C000, v7, OS_LOG_TYPE_FAULT, v8, buf, 0xCu);
     goto LABEL_13;
   }
 
-  v18 = 0u;
-  v19 = 0u;
-  v16 = 0u;
   v17 = 0u;
-  v14 = 0u;
+  v18 = 0u;
   v15 = 0u;
-  *buf = 0u;
+  v16 = 0u;
   v13 = 0u;
+  v14 = 0u;
+  *buf = 0u;
+  v12 = 0u;
   __memcpy_chk();
   *&buf[2] = __rev16(with);
   v4 = [MEMORY[0x1E6977E08] endpointWithAddress:buf];
   v5 = ne_log_obj();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
-    v10 = 138412290;
-    v11 = v4;
-    _os_log_debug_impl(&dword_1BA83C000, v5, OS_LOG_TYPE_DEBUG, "copyAddressFrom created %@", &v10, 0xCu);
+    v9 = 138412290;
+    v10 = v4;
+    _os_log_debug_impl(&dword_1BA83C000, v5, OS_LOG_TYPE_DEBUG, "copyAddressFrom created %@", &v9, 0xCu);
   }
 
-LABEL_7:
-  v6 = *MEMORY[0x1E69E9840];
   return v4;
 }
 
@@ -5806,9 +5736,9 @@ LABEL_8:
   return kemProtocol3;
 }
 
-- (_BYTE)copyForRekeyAsInitiator:(uint64_t)initiator
+- (NEIKEv2IKESPI)copyForRekeyAsInitiator:(uint64_t)initiator
 {
-  v68 = *MEMORY[0x1E69E9840];
+  v67 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((initiator + 568));
   v5 = objc_loadWeakRetained((initiator + 552));
   v6 = [NEIKEv2IKESA alloc];
@@ -5845,17 +5775,17 @@ LABEL_8:
     objc_setProperty_atomic(v16, v43, v42, 64);
     v45 = objc_getProperty(initiator, v44, 72, 1);
     objc_setProperty_atomic(v16, v46, v45, 72);
-    v16[10] = *(initiator + 10) & 1;
-    v16[11] = *(initiator + 11) & 1;
-    v16[12] = *(initiator + 12) & 1;
-    v16[13] = *(initiator + 13) & 1;
-    v16[15] = *(initiator + 15) & 1;
-    v16[14] = *(initiator + 14) & 1;
+    BYTE2(v16->_value) = *(initiator + 10) & 1;
+    BYTE3(v16->_value) = *(initiator + 11) & 1;
+    BYTE4(v16->_value) = *(initiator + 12) & 1;
+    BYTE5(v16->_value) = *(initiator + 13) & 1;
+    HIBYTE(v16->_value) = *(initiator + 15) & 1;
+    BYTE6(v16->_value) = *(initiator + 14) & 1;
     v48 = objc_getProperty(initiator, v47, 496, 1);
     objc_setProperty_atomic(v16, v49, v48, 496);
-    v16[18] = *(initiator + 18) & 1;
-    v16[19] = *(initiator + 19) & 1;
-    v16[20] = *(initiator + 20) & 1;
+    BYTE2(v16[1].super.super.isa) = *(initiator + 18) & 1;
+    BYTE3(v16[1].super.super.isa) = *(initiator + 19) & 1;
+    BYTE4(v16[1].super.super.isa) = *(initiator + 20) & 1;
     v51 = objc_getProperty(initiator, v50, 96, 1);
     objc_setProperty_atomic(v16, v52, v51, 96);
     v54 = objc_getProperty(initiator, v53, 144, 1);
@@ -5866,8 +5796,8 @@ LABEL_8:
     if (os_log_type_enabled(v59, OS_LOG_TYPE_INFO))
     {
       *buf = 138412546;
-      v65 = v16;
-      v66 = 2112;
+      v64 = v16;
+      v65 = 2112;
       initiatorCopy = initiator;
       _os_log_impl(&dword_1BA83C000, v59, OS_LOG_TYPE_INFO, "Created %@ for rekey from %@", buf, 0x16u);
     }
@@ -5877,50 +5807,48 @@ LABEL_8:
 
   else
   {
-    v63 = ne_log_obj();
-    if (os_log_type_enabled(v63, OS_LOG_TYPE_ERROR))
+    v62 = ne_log_obj();
+    if (os_log_type_enabled(v62, OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
-      _os_log_error_impl(&dword_1BA83C000, v63, OS_LOG_TYPE_ERROR, "[[NEIKEv2IKESA alloc] initIKESAWithConfiguration]", buf, 2u);
+      _os_log_error_impl(&dword_1BA83C000, v62, OS_LOG_TYPE_ERROR, "[[NEIKEv2IKESA alloc] initIKESAWithConfiguration]", buf, 2u);
     }
   }
 
-  v61 = *MEMORY[0x1E69E9840];
   return v16;
 }
 
 - (void)detachTransportWithShouldInvalidate:(void *)invalidate
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   if (invalidate)
   {
+    v2 = a2;
     v4 = ne_log_obj();
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v22 = 138412290;
+      v21 = 138412290;
       invalidateCopy = invalidate;
-      _os_log_impl(&dword_1BA83C000, v4, OS_LOG_TYPE_DEFAULT, "Invalidating transports for %@", &v22, 0xCu);
+      _os_log_impl(&dword_1BA83C000, v4, OS_LOG_TYPE_DEFAULT, "Invalidating transports for %@", &v21, 0xCu);
     }
 
     v6 = objc_getProperty(invalidate, v5, 472, 1);
     Property = objc_getProperty(invalidate, v7, 32, 1);
-    [(NEIKEv2Transport *)v6 cancelClient:a2 shouldInvalidate:?];
+    [(NEIKEv2Transport *)v6 cancelClient:v2 shouldInvalidate:?];
 
     v10 = objc_getProperty(invalidate, v9, 480, 1);
     v12 = objc_getProperty(invalidate, v11, 32, 1);
-    [(NEIKEv2Transport *)v10 cancelClient:v12 shouldInvalidate:a2];
+    [(NEIKEv2Transport *)v10 cancelClient:v12 shouldInvalidate:v2];
 
     v14 = objc_getProperty(invalidate, v13, 488, 1);
     v16 = objc_getProperty(invalidate, v15, 32, 1);
-    [(NEIKEv2Transport *)v14 cancelClient:v16 shouldInvalidate:a2];
+    [(NEIKEv2Transport *)v14 cancelClient:v16 shouldInvalidate:v2];
 
     objc_setProperty_atomic(invalidate, v17, 0, 472);
     objc_setProperty_atomic(invalidate, v18, 0, 480);
     objc_setProperty_atomic(invalidate, v19, 0, 488);
     objc_setProperty_atomic(invalidate, v20, 0, 64);
   }
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 - (void)clearPostAuthenticationData
@@ -5993,7 +5921,7 @@ LABEL_8:
 
 - (void)setState:(void *)state error:
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   stateCopy = state;
   if (!self)
   {
@@ -6012,21 +5940,21 @@ LABEL_8:
       {
         SessionStateString = NEIKEv2CreateSessionStateString(*(self + 48));
         v14 = NEIKEv2CreateSessionStateString(a2);
-        v23 = 138413314;
+        v22 = 138413314;
         selfCopy4 = self;
-        v25 = 2112;
-        v26 = SessionStateString;
-        v27 = 2112;
-        v28 = v14;
-        v29 = 2112;
-        v30 = objc_getProperty(self, v15, 56, 1);
-        v31 = 2112;
-        v32 = stateCopy;
+        v24 = 2112;
+        v25 = SessionStateString;
+        v26 = 2112;
+        v27 = v14;
+        v28 = 2112;
+        v29 = objc_getProperty(self, v15, 56, 1);
+        v30 = 2112;
+        v31 = stateCopy;
         v16 = "%@ state %@ -> %@ error %@ -> %@";
         v17 = v9;
         v18 = 52;
 LABEL_16:
-        _os_log_impl(&dword_1BA83C000, v17, OS_LOG_TYPE_DEFAULT, v16, &v23, v18);
+        _os_log_impl(&dword_1BA83C000, v17, OS_LOG_TYPE_DEFAULT, v16, &v22, v18);
       }
     }
 
@@ -6034,12 +5962,12 @@ LABEL_16:
     {
       SessionStateString = NEIKEv2CreateSessionStateString(*(self + 48));
       v14 = NEIKEv2CreateSessionStateString(a2);
-      v23 = 138412802;
+      v22 = 138412802;
       selfCopy4 = self;
-      v25 = 2112;
-      v26 = SessionStateString;
-      v27 = 2112;
-      v28 = v14;
+      v24 = 2112;
+      v25 = SessionStateString;
+      v26 = 2112;
+      v27 = v14;
       v16 = "%@ state %@ -> %@";
       v17 = v9;
       v18 = 32;
@@ -6057,15 +5985,15 @@ LABEL_16:
     if (v10)
     {
       v19 = NEIKEv2CreateSessionStateString(a2);
-      v23 = 138413058;
+      v22 = 138413058;
       selfCopy4 = self;
-      v25 = 2112;
-      v26 = v19;
-      v27 = 2112;
-      v28 = objc_getProperty(self, v20, 56, 1);
-      v29 = 2112;
-      v30 = stateCopy;
-      _os_log_impl(&dword_1BA83C000, v9, OS_LOG_TYPE_DEFAULT, "%@ not changing state %@ nor error %@ -> %@", &v23, 0x2Au);
+      v24 = 2112;
+      v25 = v19;
+      v26 = 2112;
+      v27 = objc_getProperty(self, v20, 56, 1);
+      v28 = 2112;
+      v29 = stateCopy;
+      _os_log_impl(&dword_1BA83C000, v9, OS_LOG_TYPE_DEFAULT, "%@ not changing state %@ nor error %@ -> %@", &v22, 0x2Au);
     }
   }
 
@@ -6074,21 +6002,19 @@ LABEL_16:
     if (v10)
     {
       v11 = NEIKEv2CreateSessionStateString(a2);
-      v23 = 138412802;
+      v22 = 138412802;
       selfCopy4 = self;
-      v25 = 2112;
-      v26 = v11;
-      v27 = 2112;
-      v28 = stateCopy;
-      _os_log_impl(&dword_1BA83C000, v9, OS_LOG_TYPE_DEFAULT, "%@ not changing state %@ but new error %@", &v23, 0x20u);
+      v24 = 2112;
+      v25 = v11;
+      v26 = 2112;
+      v27 = stateCopy;
+      _os_log_impl(&dword_1BA83C000, v9, OS_LOG_TYPE_DEFAULT, "%@ not changing state %@ but new error %@", &v22, 0x20u);
     }
 
     objc_setProperty_atomic(self, v12, stateCopy, 56);
   }
 
 LABEL_18:
-
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 - (uint64_t)assignRemoteSPI:(void *)i
@@ -6125,7 +6051,7 @@ LABEL_18:
 
 - (void)switchToNATTraversalPorts
 {
-  v43 = *MEMORY[0x1E69E9840];
+  v42 = *MEMORY[0x1E69E9840];
   if ((*(self + 13) & 1) == 0)
   {
     *(self + 12) = 1;
@@ -6142,8 +6068,8 @@ LABEL_18:
         }
 
         *buf = 136315138;
-        v42 = "[NEIKEv2IKESA switchToNATTraversalPorts]";
-        v39 = "%s called with null (remoteAddress->sa_len >= sizeof(struct sockaddr_in))";
+        v41 = "[NEIKEv2IKESA switchToNATTraversalPorts]";
+        v38 = "%s called with null (remoteAddress->sa_len >= sizeof(struct sockaddr_in))";
       }
 
       else
@@ -6227,19 +6153,19 @@ LABEL_18:
               [(NEIKEv2Transport *)v33 addClient:v35 delegate:v23];
 
               v37 = objc_getProperty(self, v36, 480, 1);
-              v40[0] = MEMORY[0x1E69E9820];
-              v40[1] = 3221225472;
-              v40[2] = __41__NEIKEv2IKESA_switchToNATTraversalPorts__block_invoke;
-              v40[3] = &unk_1E7F0B0E8;
-              v40[4] = self;
-              [(NEIKEv2Transport *)v37 waitForTransport:v40];
+              v39[0] = MEMORY[0x1E69E9820];
+              v39[1] = 3221225472;
+              v39[2] = __41__NEIKEv2IKESA_switchToNATTraversalPorts__block_invoke;
+              v39[3] = &unk_1E7F0B0E8;
+              v39[4] = self;
+              [(NEIKEv2Transport *)v37 waitForTransport:v39];
             }
 
             objc_getProperty(self, v20, 480, 1);
 LABEL_26:
 
 LABEL_27:
-            goto LABEL_28;
+            return;
           }
 
           v13 = ne_log_obj();
@@ -6249,8 +6175,8 @@ LABEL_27:
           }
 
           *buf = 136315138;
-          v42 = "[NEIKEv2IKESA switchToNATTraversalPorts]";
-          v39 = "%s called with null (localAddress->sa_len >= sizeof(struct sockaddr_in))";
+          v41 = "[NEIKEv2IKESA switchToNATTraversalPorts]";
+          v38 = "%s called with null (localAddress->sa_len >= sizeof(struct sockaddr_in))";
         }
 
         else
@@ -6262,8 +6188,8 @@ LABEL_27:
           }
 
           *buf = 136315138;
-          v42 = "[NEIKEv2IKESA switchToNATTraversalPorts]";
-          v39 = "%s called with null localAddress";
+          v41 = "[NEIKEv2IKESA switchToNATTraversalPorts]";
+          v38 = "%s called with null localAddress";
         }
       }
     }
@@ -6277,16 +6203,13 @@ LABEL_27:
       }
 
       *buf = 136315138;
-      v42 = "[NEIKEv2IKESA switchToNATTraversalPorts]";
-      v39 = "%s called with null remoteAddress";
+      v41 = "[NEIKEv2IKESA switchToNATTraversalPorts]";
+      v38 = "%s called with null remoteAddress";
     }
 
-    _os_log_fault_impl(&dword_1BA83C000, v13, OS_LOG_TYPE_FAULT, v39, buf, 0xCu);
+    _os_log_fault_impl(&dword_1BA83C000, v13, OS_LOG_TYPE_FAULT, v38, buf, 0xCu);
     goto LABEL_27;
   }
-
-LABEL_28:
-  v38 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __41__NEIKEv2IKESA_switchToNATTraversalPorts__block_invoke(uint64_t a1, const char *a2)
@@ -6575,7 +6498,7 @@ LABEL_26:
 
 - (id)sharedSecret
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   if (objc_getProperty(self, a2, 88, 1))
   {
     if (!objc_getProperty(self, v3, 528, 1))
@@ -6593,22 +6516,20 @@ LABEL_26:
     v9 = ne_log_obj();
     if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
     {
-      v12 = 136315138;
-      v13 = "[NEIKEv2IKESA sharedSecret]";
-      _os_log_fault_impl(&dword_1BA83C000, v9, OS_LOG_TYPE_FAULT, "%s called with null self.sessionConfiguration", &v12, 0xCu);
+      v11 = 136315138;
+      v12 = "[NEIKEv2IKESA sharedSecret]";
+      _os_log_fault_impl(&dword_1BA83C000, v9, OS_LOG_TYPE_FAULT, "%s called with null self.sessionConfiguration", &v11, 0xCu);
     }
 
     v8 = 0;
   }
 
-  v10 = *MEMORY[0x1E69E9840];
-
   return v8;
 }
 
-+ (void)copySharedSecretFromConfig:(uint64_t)config
++ (NSObject)copySharedSecretFromConfig:(uint64_t)config
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v2 = a2;
   v3 = objc_opt_self();
   if (!v2)
@@ -6616,9 +6537,9 @@ LABEL_26:
     sharedSecret2 = ne_log_obj();
     if (os_log_type_enabled(sharedSecret2, OS_LOG_TYPE_FAULT))
     {
-      v14 = 136315138;
-      v15 = "+[NEIKEv2IKESA copySharedSecretFromConfig:]";
-      _os_log_fault_impl(&dword_1BA83C000, sharedSecret2, OS_LOG_TYPE_FAULT, "%s called with null sessionConfiguration", &v14, 0xCu);
+      v13 = 136315138;
+      v14 = "+[NEIKEv2IKESA copySharedSecretFromConfig:]";
+      _os_log_fault_impl(&dword_1BA83C000, sharedSecret2, OS_LOG_TYPE_FAULT, "%s called with null sessionConfiguration", &v13, 0xCu);
     }
 
     v7 = 0;
@@ -6655,9 +6576,9 @@ LABEL_7:
     v8 = ne_log_obj();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      v14 = 138412290;
-      v15 = v4;
-      _os_log_error_impl(&dword_1BA83C000, v8, OS_LOG_TYPE_ERROR, "%@ Failed to retrieve shared secret by reference", &v14, 0xCu);
+      v13 = 138412290;
+      v14 = v4;
+      _os_log_error_impl(&dword_1BA83C000, v8, OS_LOG_TYPE_ERROR, "%@ Failed to retrieve shared secret by reference", &v13, 0xCu);
     }
 
     goto LABEL_7;
@@ -6665,13 +6586,12 @@ LABEL_7:
 
 LABEL_11:
 
-  v12 = *MEMORY[0x1E69E9840];
   return v7;
 }
 
 - (id)ppk
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   if (self)
   {
     selfCopy = self;
@@ -6692,23 +6612,21 @@ LABEL_11:
       v8 = ne_log_obj();
       if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
       {
-        v11 = 136315138;
-        v12 = "[NEIKEv2IKESA ppk]";
-        _os_log_fault_impl(&dword_1BA83C000, v8, OS_LOG_TYPE_FAULT, "%s called with null self.sessionConfiguration", &v11, 0xCu);
+        v10 = 136315138;
+        v11 = "[NEIKEv2IKESA ppk]";
+        _os_log_fault_impl(&dword_1BA83C000, v8, OS_LOG_TYPE_FAULT, "%s called with null self.sessionConfiguration", &v10, 0xCu);
       }
 
       self = 0;
     }
   }
 
-  v9 = *MEMORY[0x1E69E9840];
-
   return self;
 }
 
-+ (void)copyPPKFromConfig:(uint64_t)config
++ (NSObject)copyPPKFromConfig:(uint64_t)config
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v2 = a2;
   v3 = objc_opt_self();
   if (!v2)
@@ -6716,9 +6634,9 @@ LABEL_11:
     v11 = ne_log_obj();
     if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
     {
-      v14 = 136315138;
-      v15 = "+[NEIKEv2IKESA copyPPKFromConfig:]";
-      _os_log_fault_impl(&dword_1BA83C000, v11, OS_LOG_TYPE_FAULT, "%s called with null sessionConfiguration", &v14, 0xCu);
+      v13 = 136315138;
+      v14 = "+[NEIKEv2IKESA copyPPKFromConfig:]";
+      _os_log_fault_impl(&dword_1BA83C000, v11, OS_LOG_TYPE_FAULT, "%s called with null sessionConfiguration", &v13, 0xCu);
     }
 
     v7 = 0;
@@ -6755,9 +6673,9 @@ LABEL_7:
     v8 = ne_log_obj();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      v14 = 138412290;
-      v15 = v4;
-      _os_log_error_impl(&dword_1BA83C000, v8, OS_LOG_TYPE_ERROR, "%@ Failed to retrieve PPK by reference", &v14, 0xCu);
+      v13 = 138412290;
+      v14 = v4;
+      _os_log_error_impl(&dword_1BA83C000, v8, OS_LOG_TYPE_ERROR, "%@ Failed to retrieve PPK by reference", &v13, 0xCu);
     }
 
     goto LABEL_7;
@@ -6765,13 +6683,12 @@ LABEL_7:
 
 LABEL_11:
 
-  v12 = *MEMORY[0x1E69E9840];
   return v7;
 }
 
 - (id)localIdentifier
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   if (self)
   {
     selfCopy = self;
@@ -6792,11 +6709,11 @@ LABEL_11:
         if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
         {
           copyShortDescription = [(NEIKEv2Identifier *)v8 copyShortDescription];
-          v14 = 138412546;
-          v15 = selfCopy;
-          v16 = 2112;
-          v17 = copyShortDescription;
-          _os_log_impl(&dword_1BA83C000, v9, OS_LOG_TYPE_DEFAULT, "%@ Using fallback local identifier %@", &v14, 0x16u);
+          v13 = 138412546;
+          v14 = selfCopy;
+          v15 = 2112;
+          v16 = copyShortDescription;
+          _os_log_impl(&dword_1BA83C000, v9, OS_LOG_TYPE_DEFAULT, "%@ Using fallback local identifier %@", &v13, 0x16u);
         }
 
         objc_setProperty_atomic(selfCopy, v11, v8, 512);
@@ -6805,8 +6722,6 @@ LABEL_11:
       self = objc_getProperty(selfCopy, v5, 512, 1);
     }
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 
   return self;
 }
@@ -6858,15 +6773,14 @@ LABEL_11:
 
 - (uint64_t)copyDeviceIdentityNotifyPayload
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   if (!self)
   {
-    v9 = 0;
-    goto LABEL_15;
+    return 0;
   }
 
+  v16 = 0;
   v17 = 0;
-  v18 = 0;
   v3 = [objc_getProperty(self a2];
   v5 = [objc_getProperty(self v4];
   if ([v3 length] != 16)
@@ -6881,8 +6795,8 @@ LABEL_13:
     v6 = [v5 dataUsingEncoding:1];
     if ([v6 length] == 15)
     {
-      [v6 getBytes:&v17 length:15];
-      HIBYTE(v18) = -1;
+      [v6 getBytes:&v16 length:15];
+      HIBYTE(v17) = -1;
       v7 = 1;
       goto LABEL_8;
     }
@@ -6890,7 +6804,7 @@ LABEL_13:
     v10 = ne_log_obj();
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      v14 = 0;
+      v13 = 0;
       v11 = "Invalid IMEI string!";
       goto LABEL_17;
     }
@@ -6906,30 +6820,28 @@ LABEL_12:
     v10 = ne_log_obj();
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      v14 = 0;
+      v13 = 0;
       v11 = "Invalid IMEISV string!";
 LABEL_17:
-      _os_log_error_impl(&dword_1BA83C000, v10, OS_LOG_TYPE_ERROR, v11, &v14, 2u);
+      _os_log_error_impl(&dword_1BA83C000, v10, OS_LOG_TYPE_ERROR, v11, &v13, 2u);
       goto LABEL_12;
     }
 
     goto LABEL_12;
   }
 
-  [v6 getBytes:&v17 length:16];
+  [v6 getBytes:&v16 length:16];
   v7 = 2;
 LABEL_8:
 
-  v8 = &v17;
-  v20 = vld2_s8(v8);
-  v14 = 2304;
-  v15 = v7;
-  v16 = vsli_n_s8(v20.val[0], v20.val[1], 4uLL);
-  v9 = [objc_alloc(MEMORY[0x1E695DEF0]) initWithBytes:&v14 length:11];
+  v8 = &v16;
+  v19 = vld2_s8(v8);
+  v13 = 2304;
+  v14 = v7;
+  v15 = vsli_n_s8(v19.val[0], v19.val[1], 4uLL);
+  v9 = [objc_alloc(MEMORY[0x1E695DEF0]) initWithBytes:&v13 length:11];
 LABEL_14:
 
-LABEL_15:
-  v12 = *MEMORY[0x1E69E9840];
   return v9;
 }
 

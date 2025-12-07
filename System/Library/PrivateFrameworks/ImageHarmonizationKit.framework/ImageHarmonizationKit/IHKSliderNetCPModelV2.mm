@@ -131,42 +131,38 @@
 
 - (id)predictStyleVectorForPixelBuffer:(__CVBuffer *)buffer scenePrint:(id)print error:(id *)error
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   printCopy = print;
-  v16.receiver = self;
-  v16.super_class = IHKSliderNetCPModelV2;
-  v11 = [(IHKSliderNetCPModel *)&v16 predictStyleVectorForPixelBuffer:buffer scenePrint:printCopy error:error];
+  v15.receiver = self;
+  v15.super_class = IHKSliderNetCPModelV2;
+  v11 = [(IHKSliderNetCPModel *)&v15 predictStyleVectorForPixelBuffer:buffer scenePrint:printCopy error:error];
   if (!error || !*error)
   {
     v12 = objc_msgSend_preprocessPixelBuffer_error_(self, v9, buffer, error, v10);
     if (!error || !*error)
     {
-      sub_254AD3B2C(&v15, v12);
+      sub_254AD3B2C(&v14, v12);
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return 0;
 }
 
 - (id)predictContentVectorForPixelBuffer:(__CVBuffer *)buffer scenePrint:(id)print error:(id *)error
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   printCopy = print;
-  v16.receiver = self;
-  v16.super_class = IHKSliderNetCPModelV2;
-  v11 = [(IHKSliderNetCPModel *)&v16 predictContentVectorForPixelBuffer:buffer scenePrint:printCopy error:error];
+  v15.receiver = self;
+  v15.super_class = IHKSliderNetCPModelV2;
+  v11 = [(IHKSliderNetCPModel *)&v15 predictContentVectorForPixelBuffer:buffer scenePrint:printCopy error:error];
   if (!error || !*error)
   {
     v12 = objc_msgSend_preprocessPixelBuffer_error_(self, v9, buffer, error, v10);
     if (!error || !*error)
     {
-      sub_254AD3B2C(&v15, v12);
+      sub_254AD3B2C(&v14, v12);
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return 0;
 }
@@ -245,8 +241,8 @@
       sub_254AD6CAC(v104, "fvec_content", &v83);
       memset(v91, 0, sizeof(v91));
       v92 = 1065353216;
-      sub_254AD7344(v91, &v98);
-      sub_254AD7344(v91, v104);
+      sub_254AD7344(v91, &v98, &v98);
+      sub_254AD7344(v91, v104, v104);
       if (SHIBYTE(v95) < 0)
       {
         sub_254AD6E24(&v96, __dst, *(&__dst + 1));
@@ -358,8 +354,8 @@
       }
 
       *&v87 = &__dst;
-      v79 = sub_254AD6EE0(v93, &__dst);
-      sub_254AD1F18((v79 + 5));
+      v79 = sub_254AD6EE0(v93, &__dst, &unk_254AE79F5, &v87);
+      sub_254AD1F18((v79 + 5), &v98);
     }
 
     operator new();

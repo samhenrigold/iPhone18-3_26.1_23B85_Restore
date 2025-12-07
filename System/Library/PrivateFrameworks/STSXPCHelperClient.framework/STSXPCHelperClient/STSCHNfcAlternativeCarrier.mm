@@ -223,21 +223,19 @@ LABEL_24:
 
 - (id)_createCarrierConfigurationRecord
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   v3 = objc_msgSend_dataWithBytes_length_(MEMORY[0x277CBEA90], a2, &unk_264507659, 17);
   v5 = objc_msgSend_dataUsingEncoding_(@"nfc", v4, 4);
-  v21 = 769;
-  v22 = 1;
-  v23 = objc_msgSend_maxLc(self, v6, v7) >> 8;
-  v24 = objc_msgSend_maxLc(self, v8, v9);
-  v25 = 515;
-  v26 = objc_msgSend_maxLe(self, v10, v11) >> 8;
-  v27 = objc_msgSend_maxLe(self, v12, v13);
+  v20 = 769;
+  v21 = 1;
+  v22 = objc_msgSend_maxLc(self, v6, v7) >> 8;
+  v23 = objc_msgSend_maxLc(self, v8, v9);
+  v24 = 515;
+  v25 = objc_msgSend_maxLe(self, v10, v11) >> 8;
+  v26 = objc_msgSend_maxLe(self, v12, v13);
   v14 = [STSNDEFRecord alloc];
-  v16 = objc_msgSend_dataWithBytes_length_(MEMORY[0x277CBEA90], v15, &v21, 9);
+  v16 = objc_msgSend_dataWithBytes_length_(MEMORY[0x277CBEA90], v15, &v20, 9);
   v18 = objc_msgSend_initWithFormat_type_identifier_payload_(v14, v17, 4, v3, v5, v16);
-
-  v19 = *MEMORY[0x277D85DE8];
 
   return v18;
 }

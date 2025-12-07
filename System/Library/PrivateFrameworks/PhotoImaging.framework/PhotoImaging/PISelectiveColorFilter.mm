@@ -20,7 +20,7 @@
   v6 = +[PISelectiveColorFilter selectiveColorKernels];
   v7 = [v6 objectForKeyedSubscript:@"iptLumHueSatTable"];
 
-  [v4 extent];
+  objc_msgSend_extent(v4);
   v9 = v8;
   v11 = v10;
   v13 = v12;
@@ -101,7 +101,7 @@ double __37__PISelectiveColorFilter_outputImage__block_invoke(uint64_t a1, int a
         [v15 doubleValue];
         if (v20 != 0.0 || ([v16 doubleValue], v21 != 0.0) || (objc_msgSend(v17, "doubleValue"), v22 != 0.0))
         {
-          [v7 extent];
+          objc_msgSend_extent(v7);
           v24 = v23;
           v26 = v25;
           v28 = v27;
@@ -173,7 +173,7 @@ double __37__PISelectiveColorFilter_outputImage__block_invoke(uint64_t a1, int a
   v6 = +[PISelectiveColorFilter selectiveColorKernels];
   v7 = [v6 objectForKeyedSubscript:@"iptToSRGB"];
 
-  [tCopy extent];
+  objc_msgSend_extent(tCopy);
   v9 = v8;
   v11 = v10;
   v13 = v12;
@@ -201,7 +201,7 @@ double __37__PISelectiveColorFilter_outputImage__block_invoke(uint64_t a1, int a
   v7 = +[PISelectiveColorFilter selectiveColorKernels];
   v8 = [v7 objectForKeyedSubscript:@"srgbToIPT"];
 
-  [v6 extent];
+  objc_msgSend_extent(v6);
   v10 = v9;
   v12 = v11;
   v14 = v13;

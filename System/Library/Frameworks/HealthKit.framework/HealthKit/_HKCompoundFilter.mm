@@ -64,16 +64,16 @@ LABEL_4:
 
 + (id)compoundFilterWithFilter:(id)filter otherFilter:(id)otherFilter
 {
-  v14[2] = *MEMORY[0x1E69E9840];
+  v13[2] = *MEMORY[0x1E69E9840];
   filterCopy = filter;
   otherFilterCopy = otherFilter;
   v7 = otherFilterCopy;
   if (filterCopy && otherFilterCopy)
   {
     v8 = [_HKCompoundFilter alloc];
-    v14[0] = filterCopy;
-    v14[1] = v7;
-    v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v14 count:2];
+    v13[0] = filterCopy;
+    v13[1] = v7;
+    v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v13 count:2];
     v10 = [(_HKCompoundFilter *)v8 initWithType:1 subfilters:v9];
   }
 
@@ -91,8 +91,6 @@ LABEL_4:
 
     v10 = v11;
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 
   return v10;
 }
@@ -115,14 +113,13 @@ LABEL_4:
 
 + (id)notFilterWithSubfilter:(id)subfilter
 {
-  v9[1] = *MEMORY[0x1E69E9840];
+  v8[1] = *MEMORY[0x1E69E9840];
   subfilterCopy = subfilter;
   v4 = [_HKCompoundFilter alloc];
-  v9[0] = subfilterCopy;
-  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:1];
+  v8[0] = subfilterCopy;
+  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:1];
 
   v6 = [(_HKCompoundFilter *)v4 initWithType:0 subfilters:v5];
-  v7 = *MEMORY[0x1E69E9840];
 
   return v6;
 }
@@ -140,7 +137,7 @@ LABEL_4:
 
 - (BOOL)acceptsDataObject:(id)object
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   objectCopy = object;
   if (self->_subfilterCount)
   {
@@ -154,33 +151,33 @@ LABEL_29:
 
         goto LABEL_30;
       case 2uLL:
-        v22 = 0u;
-        v23 = 0u;
-        v20 = 0u;
         v21 = 0u;
+        v22 = 0u;
+        v19 = 0u;
+        v20 = 0u;
         currentHandler = self->_subfilters;
-        v13 = [(NSArray *)currentHandler countByEnumeratingWithState:&v20 objects:v28 count:16];
+        v13 = [(NSArray *)currentHandler countByEnumeratingWithState:&v19 objects:v27 count:16];
         if (v13)
         {
           v14 = v13;
-          v15 = *v21;
+          v15 = *v20;
           while (2)
           {
             for (i = 0; i != v14; ++i)
             {
-              if (*v21 != v15)
+              if (*v20 != v15)
               {
                 objc_enumerationMutation(currentHandler);
               }
 
-              if ([*(*(&v20 + 1) + 8 * i) acceptsDataObject:{objectCopy, v20}])
+              if ([*(*(&v19 + 1) + 8 * i) acceptsDataObject:{objectCopy, v19}])
               {
 
                 goto LABEL_27;
               }
             }
 
-            v14 = [(NSArray *)currentHandler countByEnumeratingWithState:&v20 objects:v28 count:16];
+            v14 = [(NSArray *)currentHandler countByEnumeratingWithState:&v19 objects:v27 count:16];
             if (v14)
             {
               continue;
@@ -192,33 +189,33 @@ LABEL_29:
 
         break;
       case 1uLL:
-        v26 = 0u;
-        v27 = 0u;
-        v24 = 0u;
         v25 = 0u;
+        v26 = 0u;
+        v23 = 0u;
+        v24 = 0u;
         firstObject = self->_subfilters;
-        v7 = [(NSArray *)firstObject countByEnumeratingWithState:&v24 objects:v29 count:16];
+        v7 = [(NSArray *)firstObject countByEnumeratingWithState:&v23 objects:v28 count:16];
         if (v7)
         {
           v8 = v7;
-          v9 = *v25;
+          v9 = *v24;
           while (2)
           {
             for (j = 0; j != v8; ++j)
             {
-              if (*v25 != v9)
+              if (*v24 != v9)
               {
                 objc_enumerationMutation(firstObject);
               }
 
-              if (![*(*(&v24 + 1) + 8 * j) acceptsDataObject:objectCopy])
+              if (![*(*(&v23 + 1) + 8 * j) acceptsDataObject:objectCopy])
               {
                 LOBYTE(v11) = 0;
                 goto LABEL_29;
               }
             }
 
-            v8 = [(NSArray *)firstObject countByEnumeratingWithState:&v24 objects:v29 count:16];
+            v8 = [(NSArray *)firstObject countByEnumeratingWithState:&v23 objects:v28 count:16];
             if (v8)
             {
               continue;
@@ -249,13 +246,12 @@ LABEL_27:
 
 LABEL_30:
 
-  v18 = *MEMORY[0x1E69E9840];
   return v11;
 }
 
 - (int64_t)acceptsActivitySummary:(id)summary
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   summaryCopy = summary;
   if (!self->_subfilterCount)
   {
@@ -269,27 +265,27 @@ LABEL_31:
   {
     if (compoundPredicateType == 2)
     {
-      v30 = 0u;
-      v31 = 0u;
-      v28 = 0u;
       v29 = 0u;
+      v30 = 0u;
+      v27 = 0u;
+      v28 = 0u;
       currentHandler = self->_subfilters;
-      v13 = [(NSArray *)currentHandler countByEnumeratingWithState:&v28 objects:v36 count:16];
+      v13 = [(NSArray *)currentHandler countByEnumeratingWithState:&v27 objects:v35 count:16];
       if (v13)
       {
         v14 = v13;
-        v15 = *v29;
+        v15 = *v28;
         LOBYTE(v16) = 1;
         while (2)
         {
           for (i = 0; i != v14; ++i)
           {
-            if (*v29 != v15)
+            if (*v28 != v15)
             {
               objc_enumerationMutation(currentHandler);
             }
 
-            v18 = [*(*(&v28 + 1) + 8 * i) acceptsActivitySummary:{summaryCopy, v28}];
+            v18 = [*(*(&v27 + 1) + 8 * i) acceptsActivitySummary:{summaryCopy, v27}];
             if (v18 == 1)
             {
 
@@ -299,7 +295,7 @@ LABEL_31:
             v16 = (v18 == 2) & v16;
           }
 
-          v14 = [(NSArray *)currentHandler countByEnumeratingWithState:&v28 objects:v36 count:16];
+          v14 = [(NSArray *)currentHandler countByEnumeratingWithState:&v27 objects:v35 count:16];
           if (v14)
           {
             continue;
@@ -325,27 +321,27 @@ LABEL_29:
 
     if (compoundPredicateType == 1)
     {
-      v34 = 0u;
-      v35 = 0u;
-      v32 = 0u;
       v33 = 0u;
+      v34 = 0u;
+      v31 = 0u;
+      v32 = 0u;
       currentHandler = self->_subfilters;
-      v7 = [(NSArray *)currentHandler countByEnumeratingWithState:&v32 objects:v37 count:16];
+      v7 = [(NSArray *)currentHandler countByEnumeratingWithState:&v31 objects:v36 count:16];
       if (v7)
       {
         v8 = v7;
-        v9 = *v33;
+        v9 = *v32;
         LOBYTE(v10) = 1;
 LABEL_7:
         v11 = 0;
         while (1)
         {
-          if (*v33 != v9)
+          if (*v32 != v9)
           {
             objc_enumerationMutation(currentHandler);
           }
 
-          v12 = [*(*(&v32 + 1) + 8 * v11) acceptsActivitySummary:summaryCopy];
+          v12 = [*(*(&v31 + 1) + 8 * v11) acceptsActivitySummary:summaryCopy];
           if (!v12)
           {
             goto LABEL_34;
@@ -354,7 +350,7 @@ LABEL_7:
           v10 = (v12 == 2) & v10;
           if (v8 == ++v11)
           {
-            v8 = [(NSArray *)currentHandler countByEnumeratingWithState:&v32 objects:v37 count:16];
+            v8 = [(NSArray *)currentHandler countByEnumeratingWithState:&v31 objects:v36 count:16];
             if (v8)
             {
               goto LABEL_7;
@@ -403,18 +399,15 @@ LABEL_35:
   v21 = qword_191DCE678[v20];
 LABEL_36:
 
-  v26 = *MEMORY[0x1E69E9840];
   return v21;
 }
 
 - (int64_t)acceptsDataObjectWithStartTimestamp:(double)timestamp endTimestamp:(double)endTimestamp valueInCanonicalUnit:(double)unit
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
   if (!self->_subfilterCount)
   {
-LABEL_31:
-    result = 1;
-    goto LABEL_36;
+    return 1;
   }
 
   compoundPredicateType = self->_compoundPredicateType;
@@ -422,37 +415,37 @@ LABEL_31:
   {
     if (compoundPredicateType == 2)
     {
-      v32 = 0u;
-      v33 = 0u;
-      v30 = 0u;
       v31 = 0u;
+      v32 = 0u;
+      v29 = 0u;
+      v30 = 0u;
       currentHandler = self->_subfilters;
-      v16 = [(NSArray *)currentHandler countByEnumeratingWithState:&v30 objects:v38 count:16];
+      v16 = [(NSArray *)currentHandler countByEnumeratingWithState:&v29 objects:v37 count:16];
       if (v16)
       {
         v17 = v16;
-        v18 = *v31;
+        v18 = *v30;
         LOBYTE(v19) = 1;
         while (2)
         {
           for (i = 0; i != v17; ++i)
           {
-            if (*v31 != v18)
+            if (*v30 != v18)
             {
               objc_enumerationMutation(currentHandler);
             }
 
-            v21 = [*(*(&v30 + 1) + 8 * i) acceptsDataObjectWithStartTimestamp:timestamp endTimestamp:endTimestamp valueInCanonicalUnit:{unit, v30}];
+            v21 = [*(*(&v29 + 1) + 8 * i) acceptsDataObjectWithStartTimestamp:timestamp endTimestamp:endTimestamp valueInCanonicalUnit:{unit, v29}];
             if (v21 == 1)
             {
 
-              goto LABEL_31;
+              return 1;
             }
 
             v19 = (v21 == 2) & v19;
           }
 
-          v17 = [(NSArray *)currentHandler countByEnumeratingWithState:&v30 objects:v38 count:16];
+          v17 = [(NSArray *)currentHandler countByEnumeratingWithState:&v29 objects:v37 count:16];
           if (v17)
           {
             continue;
@@ -463,42 +456,40 @@ LABEL_31:
 
         if (!v19)
         {
-          goto LABEL_35;
+          return 0;
         }
 
-        goto LABEL_29;
+        return 2;
       }
 
 LABEL_28:
 
-LABEL_29:
-      result = 2;
-      goto LABEL_36;
+      return 2;
     }
 
     if (compoundPredicateType == 1)
     {
-      v36 = 0u;
-      v37 = 0u;
-      v34 = 0u;
       v35 = 0u;
+      v36 = 0u;
+      v33 = 0u;
+      v34 = 0u;
       currentHandler = self->_subfilters;
-      v10 = [(NSArray *)currentHandler countByEnumeratingWithState:&v34 objects:v39 count:16];
+      v10 = [(NSArray *)currentHandler countByEnumeratingWithState:&v33 objects:v38 count:16];
       if (v10)
       {
         v11 = v10;
-        v12 = *v35;
+        v12 = *v34;
         LOBYTE(v13) = 1;
 LABEL_7:
         v14 = 0;
         while (1)
         {
-          if (*v35 != v12)
+          if (*v34 != v12)
           {
             objc_enumerationMutation(currentHandler);
           }
 
-          v15 = [*(*(&v34 + 1) + 8 * v14) acceptsDataObjectWithStartTimestamp:timestamp endTimestamp:endTimestamp valueInCanonicalUnit:unit];
+          v15 = [*(*(&v33 + 1) + 8 * v14) acceptsDataObjectWithStartTimestamp:timestamp endTimestamp:endTimestamp valueInCanonicalUnit:unit];
           if (!v15)
           {
             goto LABEL_34;
@@ -507,7 +498,7 @@ LABEL_7:
           v13 = (v15 == 2) & v13;
           if (v11 == ++v14)
           {
-            v11 = [(NSArray *)currentHandler countByEnumeratingWithState:&v34 objects:v39 count:16];
+            v11 = [(NSArray *)currentHandler countByEnumeratingWithState:&v33 objects:v38 count:16];
             if (v11)
             {
               goto LABEL_7;
@@ -515,10 +506,10 @@ LABEL_7:
 
             if (v13)
             {
-              goto LABEL_29;
+              return 2;
             }
 
-            goto LABEL_31;
+            return 1;
           }
         }
       }
@@ -531,37 +522,34 @@ LABEL_7:
     v26 = currentHandler;
     v27 = v25;
     v28 = 210;
-LABEL_33:
-    [(NSArray *)v26 handleFailureInFunction:v27 file:@"_HKCompoundFilter.m" lineNumber:v28 description:@"Unreachable code has been executed"];
-
-LABEL_34:
-LABEL_35:
-    result = 0;
-    goto LABEL_36;
   }
 
-  firstObject = [(NSArray *)self->_subfilters firstObject];
-  v23 = [firstObject acceptsDataObjectWithStartTimestamp:timestamp endTimestamp:endTimestamp valueInCanonicalUnit:unit];
-
-  if (v23 >= 3)
+  else
   {
+    firstObject = [(NSArray *)self->_subfilters firstObject];
+    v23 = [firstObject acceptsDataObjectWithStartTimestamp:timestamp endTimestamp:endTimestamp valueInCanonicalUnit:unit];
+
+    if (v23 < 3)
+    {
+      return qword_191DCE678[v23];
+    }
+
     currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
     v25 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[_HKCompoundFilter acceptsDataObjectWithStartTimestamp:endTimestamp:valueInCanonicalUnit:]"];
     v26 = currentHandler;
     v27 = v25;
     v28 = 207;
-    goto LABEL_33;
   }
 
-  result = qword_191DCE678[v23];
-LABEL_36:
-  v29 = *MEMORY[0x1E69E9840];
-  return result;
+  [(NSArray *)v26 handleFailureInFunction:v27 file:@"_HKCompoundFilter.m" lineNumber:v28 description:@"Unreachable code has been executed"];
+
+LABEL_34:
+  return 0;
 }
 
 - (BOOL)acceptsWorkoutActivity:(id)activity
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   activityCopy = activity;
   if (self->_subfilterCount)
   {
@@ -575,33 +563,33 @@ LABEL_29:
 
         goto LABEL_30;
       case 2uLL:
-        v22 = 0u;
-        v23 = 0u;
-        v20 = 0u;
         v21 = 0u;
+        v22 = 0u;
+        v19 = 0u;
+        v20 = 0u;
         currentHandler = self->_subfilters;
-        v13 = [(NSArray *)currentHandler countByEnumeratingWithState:&v20 objects:v28 count:16];
+        v13 = [(NSArray *)currentHandler countByEnumeratingWithState:&v19 objects:v27 count:16];
         if (v13)
         {
           v14 = v13;
-          v15 = *v21;
+          v15 = *v20;
           while (2)
           {
             for (i = 0; i != v14; ++i)
             {
-              if (*v21 != v15)
+              if (*v20 != v15)
               {
                 objc_enumerationMutation(currentHandler);
               }
 
-              if ([*(*(&v20 + 1) + 8 * i) acceptsWorkoutActivity:{activityCopy, v20}])
+              if ([*(*(&v19 + 1) + 8 * i) acceptsWorkoutActivity:{activityCopy, v19}])
               {
 
                 goto LABEL_27;
               }
             }
 
-            v14 = [(NSArray *)currentHandler countByEnumeratingWithState:&v20 objects:v28 count:16];
+            v14 = [(NSArray *)currentHandler countByEnumeratingWithState:&v19 objects:v27 count:16];
             if (v14)
             {
               continue;
@@ -613,33 +601,33 @@ LABEL_29:
 
         break;
       case 1uLL:
-        v26 = 0u;
-        v27 = 0u;
-        v24 = 0u;
         v25 = 0u;
+        v26 = 0u;
+        v23 = 0u;
+        v24 = 0u;
         firstObject = self->_subfilters;
-        v7 = [(NSArray *)firstObject countByEnumeratingWithState:&v24 objects:v29 count:16];
+        v7 = [(NSArray *)firstObject countByEnumeratingWithState:&v23 objects:v28 count:16];
         if (v7)
         {
           v8 = v7;
-          v9 = *v25;
+          v9 = *v24;
           while (2)
           {
             for (j = 0; j != v8; ++j)
             {
-              if (*v25 != v9)
+              if (*v24 != v9)
               {
                 objc_enumerationMutation(firstObject);
               }
 
-              if (![*(*(&v24 + 1) + 8 * j) acceptsWorkoutActivity:activityCopy])
+              if (![*(*(&v23 + 1) + 8 * j) acceptsWorkoutActivity:activityCopy])
               {
                 LOBYTE(v11) = 0;
                 goto LABEL_29;
               }
             }
 
-            v8 = [(NSArray *)firstObject countByEnumeratingWithState:&v24 objects:v29 count:16];
+            v8 = [(NSArray *)firstObject countByEnumeratingWithState:&v23 objects:v28 count:16];
             if (v8)
             {
               continue;
@@ -670,7 +658,6 @@ LABEL_27:
 
 LABEL_30:
 
-  v18 = *MEMORY[0x1E69E9840];
   return v11;
 }
 

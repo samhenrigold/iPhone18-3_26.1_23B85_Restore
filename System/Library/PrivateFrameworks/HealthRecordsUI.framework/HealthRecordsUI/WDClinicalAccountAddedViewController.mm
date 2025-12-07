@@ -52,10 +52,11 @@
   v6 = (self + OBJC_IVAR___WDClinicalAccountAddedViewController_dismissHandler);
   swift_beginAccess();
   v7 = *v6;
+  v8 = v6[1];
   *v6 = v4;
   v6[1] = v5;
   selfCopy = self;
-  sub_1D1138F60(v7);
+  sub_1D1138F60(v7, v8);
 }
 
 - (void)viewDidLoad

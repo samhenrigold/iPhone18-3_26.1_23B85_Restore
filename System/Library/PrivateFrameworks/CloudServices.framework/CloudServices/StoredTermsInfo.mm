@@ -45,18 +45,17 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v6 = toCopy;
+  v5 = toCopy;
   if (*&self->_has)
   {
-    storageVersion = self->_storageVersion;
     PBDataWriterWriteUint64Field();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_termsInfo)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v6;
+    toCopy = v5;
   }
 }
 
@@ -106,7 +105,6 @@
     goto LABEL_9;
   }
 
-  v8 = *(equalCopy + 24);
   if (*&self->_has)
   {
     if ((equalCopy[3] & 1) == 0 || self->_storageVersion != equalCopy[1])
@@ -123,10 +121,10 @@ LABEL_9:
   }
 
   termsInfo = self->_termsInfo;
-  v10 = equalCopy[2];
-  if (termsInfo | v10)
+  v9 = equalCopy[2];
+  if (termsInfo | v9)
   {
-    isEqual = objc_msgSend_isEqual_(termsInfo, v7, v10);
+    isEqual = objc_msgSend_isEqual_(termsInfo, v7, v9);
   }
 
   else

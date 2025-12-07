@@ -47,11 +47,13 @@
 - (void)providerStoreWithIdentifier:(id)identifier completionHandler:(id)handler;
 - (void)providerStoresWithCompletionHandler:(id)handler;
 - (void)removeStoreWithIdentifier:(id)identifier completionHandler:(id)handler;
+- (void)removeTrustForCertificateRef:(id)ref configurationKey:(id)key fullTrust:(BOOL)trust completionHandler:(id)handler;
 - (void)resolveAsset:(id)asset storeIdentifier:(id)identifier completionHandler:(id)handler;
 - (void)saveDeclaration:(id)declaration storeIdentifier:(id)identifier completionHandler:(id)handler;
 - (void)setConfigurationUIWithStoreIdentifier:(id)identifier declarationIdentifier:(id)declarationIdentifier declarationServerToken:(id)token visible:(BOOL)visible ui:(id)ui completionHandler:(id)handler;
 - (void)setMetadataValue:(id)value forKey:(id)key storeIdentifier:(id)identifier completionHandler:(id)handler;
 - (void)setShouldInstallConfiguration:(id)configuration shouldInstall:(BOOL)install storeIdentifier:(id)identifier completionHandler:(id)handler;
+- (void)setTrustForCertificateRef:(id)ref configurationKey:(id)key fullTrust:(BOOL)trust completionHandler:(id)handler;
 - (void)subscribedDeclarationsWithTypes:(id)types storeIdentifier:(id)identifier completionHandler:(id)handler;
 - (void)subscribedStoreConfigurationsVisibleUIWithTypes:(id)types completionHandler:(id)handler;
 - (void)subscribedStoreDeclarationsWithTypes:(id)types completionHandler:(id)handler;
@@ -1288,18 +1290,8 @@
                     bOOLValue = [statusActive BOOLValue];
 
                     v34 = v65;
-                    if (!bOOLValue)
+                    if (!bOOLValue || ([v29 statusValid], v35 = objc_claimAutoreleasedReturnValue(), v36 = objc_msgSend(v35, "isEqualToString:", v21), v35, v34 = v64, (v36 & 1) != 0) || (objc_msgSend(v29, "statusValid"), v37 = objc_claimAutoreleasedReturnValue(), v38 = objc_msgSend(v37, "isEqualToString:", v62), v37, v34 = v63, v38))
                     {
-                      goto LABEL_17;
-                    }
-
-                    statusValid = [v29 statusValid];
-                    v36 = [statusValid isEqualToString:v21];
-
-                    v34 = v64;
-                    if ((v36 & 1) != 0 || ([v29 statusValid], v37 = objc_claimAutoreleasedReturnValue(), v38 = objc_msgSend(v37, "isEqualToString:", v62), v37, v34 = v63, v38))
-                    {
-LABEL_17:
                       [v34 addObject:statusIdentifier];
                     }
                   }
@@ -1865,6 +1857,90 @@ LABEL_17:
 
   _Block_object_dispose(&v36, 8);
   _Block_object_dispose(&buf, 8);
+}
+
+- (void)setTrustForCertificateRef:(id)ref configurationKey:(id)key fullTrust:(BOOL)trust completionHandler:(id)handler
+{
+  trustCopy = trust;
+  refCopy = ref;
+  keyCopy = key;
+  handlerCopy = handler;
+  context = [(RMStoreController *)self context];
+  v30 = 0;
+  v31 = &v30;
+  v32 = 0x3032000000;
+  v33 = sub_1000744D0;
+  v34 = sub_1000744E0;
+  v35 = 0;
+  v24 = 0;
+  v25 = &v24;
+  v26 = 0x3032000000;
+  v27 = sub_1000744D0;
+  v28 = sub_1000744E0;
+  v29 = 0;
+  v20[0] = _NSConcreteStackBlock;
+  v20[1] = 3221225472;
+  v20[2] = sub_10007C6E4;
+  v20[3] = &unk_1000D15B0;
+  v20[4] = self;
+  v14 = keyCopy;
+  v21 = v14;
+  v22 = &v30;
+  v23 = &v24;
+  [context performBlockAndWait:v20];
+  if (v31[5])
+  {
+    handlerCopy[2](handlerCopy);
+  }
+
+  else
+  {
+    v15 = +[RMStoreHelper storeScope];
+    v16 = [RMManagedTrustStoreController newManagedTrustStoreControllerProtocolForScope:v15 personaID:v25[5]];
+    v17 = [v14 key];
+    v18 = (v31 + 5);
+    obj = v31[5];
+    [v16 setTrustForCertificateRef:refCopy configurationKey:v17 fullTrust:trustCopy error:&obj];
+    objc_storeStrong(v18, obj);
+
+    (handlerCopy[2])(handlerCopy, v31[5]);
+  }
+
+  _Block_object_dispose(&v24, 8);
+  _Block_object_dispose(&v30, 8);
+}
+
+- (void)removeTrustForCertificateRef:(id)ref configurationKey:(id)key fullTrust:(BOOL)trust completionHandler:(id)handler
+{
+  trustCopy = trust;
+  refCopy = ref;
+  keyCopy = key;
+  handlerCopy = handler;
+  context = [(RMStoreController *)self context];
+  v23 = 0;
+  v24 = &v23;
+  v25 = 0x3032000000;
+  v26 = sub_1000744D0;
+  v27 = sub_1000744E0;
+  v28 = 0;
+  v20[0] = _NSConcreteStackBlock;
+  v20[1] = 3221225472;
+  v20[2] = sub_10007C970;
+  v20[3] = &unk_1000D0E38;
+  v20[4] = self;
+  v14 = keyCopy;
+  v21 = v14;
+  v22 = &v23;
+  [context performBlockAndWait:v20];
+  v15 = +[RMStoreHelper storeScope];
+  v16 = [RMManagedTrustStoreController newManagedTrustStoreControllerProtocolForScope:v15 personaID:v24[5]];
+  v17 = [v14 key];
+  v19 = 0;
+  [v16 removeTrustForCertificateRef:refCopy configurationKey:v17 fullTrust:trustCopy error:&v19];
+  v18 = v19;
+
+  handlerCopy[2](handlerCopy, v18);
+  _Block_object_dispose(&v23, 8);
 }
 
 - (void)certificatePersistentRefForAssetKey:(id)key storeIdentifier:(id)identifier completionHandler:(id)handler
@@ -3297,7 +3373,7 @@ LABEL_4:
             v22 = +[RMLog storeController];
             if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
             {
-              sub_100081A38();
+              sub_100081A38(declarationCopy);
             }
 
             if (error)

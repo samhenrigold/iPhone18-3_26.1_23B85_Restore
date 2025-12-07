@@ -10,26 +10,24 @@
 
 - (id)attributeDescriptions
 {
-  v18[4] = *MEMORY[0x277D85DE8];
+  v17[4] = *MEMORY[0x277D85DE8];
   v3 = objc_alloc(MEMORY[0x277D0F778]);
   deviceID = [(HMDAppleMediaDeviceInfo *)self deviceID];
   v5 = [v3 initWithName:@"Device ID" value:deviceID];
-  v18[0] = v5;
+  v17[0] = v5;
   v6 = objc_alloc(MEMORY[0x277D0F778]);
   modelID = [(HMDAppleMediaDeviceInfo *)self modelID];
   v8 = [v6 initWithName:@"Model ID" value:modelID];
-  v18[1] = v8;
+  v17[1] = v8;
   v9 = objc_alloc(MEMORY[0x277D0F778]);
   mediaRouteUUID = [(HMDAppleMediaDeviceInfo *)self mediaRouteUUID];
   v11 = [v9 initWithName:@"Media Route" value:mediaRouteUUID];
-  v18[2] = v11;
+  v17[2] = v11;
   v12 = objc_alloc(MEMORY[0x277D0F778]);
   capabilities = [(HMDAppleMediaDeviceInfo *)self capabilities];
   v14 = [v12 initWithName:@"Capabilities" value:capabilities];
-  v18[3] = v14;
-  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:4];
-
-  v16 = *MEMORY[0x277D85DE8];
+  v17[3] = v14;
+  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:4];
 
   return v15;
 }
@@ -68,7 +66,7 @@
     }
   }
 
-  v13 = [dictionary copy];
+  v13 = objc_msgSend_copy(dictionary);
 
   return v13;
 }

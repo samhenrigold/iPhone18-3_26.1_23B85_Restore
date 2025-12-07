@@ -12,22 +12,22 @@
 {
   controllerCopy = controller;
   swift_unknownObjectRetain();
-  v5 = sub_101245E78(controllerCopy);
+  v6 = sub_101245E78(controllerCopy, delegate);
 
   swift_unknownObjectRelease();
-  return v5;
+  return v6;
 }
 
 - (void)incrementZoomLevel
 {
   selfCopy = self;
-  sub_1012453C4();
+  sub_1012453C4(v2);
 }
 
 - (void)decrementZoomLevel
 {
   selfCopy = self;
-  sub_1012454E0();
+  sub_1012454E0(v2);
 }
 
 + (id)zoomLevels:(double)levels maxRange:(double)range zoomScale:(double)scale

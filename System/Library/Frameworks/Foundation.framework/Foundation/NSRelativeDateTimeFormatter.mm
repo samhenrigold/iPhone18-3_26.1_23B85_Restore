@@ -200,7 +200,7 @@
   return v6;
 }
 
-uint64_t __57__NSRelativeDateTimeFormatter__stringFromDateComponents___block_invoke(uint64_t a1, uint64_t a2, _BYTE *a3)
+void *__57__NSRelativeDateTimeFormatter__stringFromDateComponents___block_invoke(uint64_t a1, uint64_t a2, _BYTE *a3)
 {
   result = [*(a1 + 32) valueForComponent:a2];
   if (result != 0x7FFFFFFFFFFFFFFFLL)

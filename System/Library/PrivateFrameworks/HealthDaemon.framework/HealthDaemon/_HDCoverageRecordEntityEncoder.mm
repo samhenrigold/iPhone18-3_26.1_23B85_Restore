@@ -8,27 +8,25 @@
 
 - (id)orderedProperties
 {
-  v9[14] = *MEMORY[0x277D85DE8];
-  v9[0] = @"status_coding";
-  v9[1] = @"coverage_type_coding_collection";
-  v9[2] = @"subscriber";
-  v9[3] = @"subscriber_id";
-  v9[4] = @"beneficiary";
-  v9[5] = @"policy_holder";
-  v9[6] = @"payor";
-  v9[7] = @"relationship_coding_collection";
-  v9[8] = @"classification";
-  v9[9] = @"network";
-  v9[10] = @"period_start_date";
-  v9[11] = @"period_end_date";
-  v9[12] = @"subscriber_identifier";
-  v9[13] = @"beneficiary_identifier";
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:14];
+  v8[14] = *MEMORY[0x277D85DE8];
+  v8[0] = @"status_coding";
+  v8[1] = @"coverage_type_coding_collection";
+  v8[2] = @"subscriber";
+  v8[3] = @"subscriber_id";
+  v8[4] = @"beneficiary";
+  v8[5] = @"policy_holder";
+  v8[6] = @"payor";
+  v8[7] = @"relationship_coding_collection";
+  v8[8] = @"classification";
+  v8[9] = @"network";
+  v8[10] = @"period_start_date";
+  v8[11] = @"period_end_date";
+  v8[12] = @"subscriber_identifier";
+  v8[13] = @"beneficiary_identifier";
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:14];
   superclassEncoder = [(HDEntityEncoder *)self superclassEncoder];
   orderedProperties = [superclassEncoder orderedProperties];
   v6 = [v3 arrayByAddingObjectsFromArray:orderedProperties];
-
-  v7 = *MEMORY[0x277D85DE8];
 
   return v6;
 }

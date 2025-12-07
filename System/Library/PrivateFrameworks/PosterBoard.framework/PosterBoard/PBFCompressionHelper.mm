@@ -89,66 +89,67 @@ LABEL_9:
 
 + (int)unTarFileWithFd:(id)fd toPath:(id)path
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   fdCopy = fd;
   pathCopy = path;
   v8 = dup([fdCopy fileDescriptor]);
   if (v8 < 0)
   {
-    v13 = -1;
+    v14 = -1;
   }
 
   else
   {
     v9 = v8;
-    memset(&v18, 0, sizeof(v18));
-    if (fstat(v8, &v18))
+    memset(&v20, 0, sizeof(v20));
+    if (fstat(v8, &v20))
     {
-      close(v9);
-      availableData = PBFLogCommon();
+      v10 = close(v9);
+      availableData = PBFLogCommon(v10);
       if (os_log_type_enabled(availableData, OS_LOG_TYPE_INFO))
       {
-        v11 = __error();
-        v12 = strerror(*v11);
+        v12 = __error();
+        v13 = strerror(*v12);
         *buf = 136315138;
-        v20 = v12;
+        v22 = v13;
         _os_log_impl(&dword_21B526000, availableData, OS_LOG_TYPE_INFO, "failed stat %s", buf, 0xCu);
       }
 
-      v13 = -1;
+      v14 = -1;
     }
 
     else
     {
       availableData = [fdCopy availableData];
-      v14 = [self unpackageTarData:-[NSObject bytes](availableData size:"bytes") parentDir:{v18.st_size, objc_msgSend(pathCopy, "UTF8String")}];
-      v15 = PBFLogCommon();
-      v16 = os_log_type_enabled(v15, OS_LOG_TYPE_INFO);
-      if (v14)
+      v15 = [self unpackageTarData:-[NSObject bytes](availableData size:"bytes") parentDir:{v20.st_size, objc_msgSend(pathCopy, "UTF8String")}];
+      v16 = v15;
+      v17 = PBFLogCommon(v15);
+      v18 = os_log_type_enabled(v17, OS_LOG_TYPE_INFO);
+      if (v16)
       {
-        if (v16)
+        if (v18)
         {
           *buf = 0;
-          _os_log_impl(&dword_21B526000, v15, OS_LOG_TYPE_INFO, "failed to unpackage resources", buf, 2u);
+          _os_log_impl(&dword_21B526000, v17, OS_LOG_TYPE_INFO, "failed to unpackage resources", buf, 2u);
         }
 
-        v13 = -1;
+        v14 = -1;
       }
 
       else
       {
-        if (v16)
+        if (v18)
         {
           *buf = 0;
-          _os_log_impl(&dword_21B526000, v15, OS_LOG_TYPE_INFO, "unpackaged resources version", buf, 2u);
+          _os_log_impl(&dword_21B526000, v17, OS_LOG_TYPE_INFO, "unpackaged resources version", buf, 2u);
         }
 
-        v13 = 0;
+        v14 = 0;
       }
     }
   }
 
-  return v13;
+  return v14;
 }
 
 + (BOOL)unarchiveFileAtURL:(id)l toURL:(id)rL

@@ -2,6 +2,8 @@
 - (BOOL)isEqual:(id)equal;
 - (UARPAccessoryHardwareUSBPD)init;
 - (UARPAccessoryHardwareUSBPD)initWithVendorID:(unsigned __int16)d productID:(unsigned __int16)iD;
+- (UARPAccessoryHardwareUSBPD)initWithVendorID:(unsigned __int16)d productID:(unsigned __int16)iD usbpdClass:(int64_t)class locationType:(int64_t)type;
+- (UARPAccessoryHardwareUSBPD)initWithVendorID:(unsigned __int16)d productID:(unsigned __int16)iD usbpdClass:(int64_t)class locationType:(int64_t)type supportsAccMode7:(BOOL)mode7;
 - (id)description;
 @end
 
@@ -23,6 +25,39 @@
   {
     result->_vendorID = d;
     result->_productID = iD;
+  }
+
+  return result;
+}
+
+- (UARPAccessoryHardwareUSBPD)initWithVendorID:(unsigned __int16)d productID:(unsigned __int16)iD usbpdClass:(int64_t)class locationType:(int64_t)type
+{
+  v8 = [(UARPAccessoryHardwareUSBPD *)self initWithVendorID:d productID:iD];
+  v9 = v8;
+  if (v8)
+  {
+    v8->_location = type;
+    if (type > 2 || (v8->_usbpdClass = class, class > 2))
+    {
+      v10 = 0;
+      goto LABEL_7;
+    }
+
+    *(&v8->super.super.isa + **(&off_278EC2D20 + class)) = 1;
+  }
+
+  v10 = v8;
+LABEL_7:
+
+  return v10;
+}
+
+- (UARPAccessoryHardwareUSBPD)initWithVendorID:(unsigned __int16)d productID:(unsigned __int16)iD usbpdClass:(int64_t)class locationType:(int64_t)type supportsAccMode7:(BOOL)mode7
+{
+  result = [(UARPAccessoryHardwareUSBPD *)self initWithVendorID:d productID:iD usbpdClass:class locationType:type];
+  if (result)
+  {
+    result->_supportsAccMode7 = mode7;
   }
 
   return result;

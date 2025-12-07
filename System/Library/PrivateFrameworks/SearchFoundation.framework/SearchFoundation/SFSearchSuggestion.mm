@@ -3,7 +3,9 @@
 - (NSData)jsonData;
 - (NSDictionary)dictionaryRepresentation;
 - (SFSearchSuggestion)initWithCoder:(id)coder;
+- (SFSearchSuggestion)initWithIdentifier:(id)identifier suggestion:(id)suggestion query:(id)query score:(double)score type:(int)type;
 - (SFSearchSuggestion)initWithProtobuf:(id)protobuf;
+- (SFSearchSuggestion)initWithSuggestion:(id)suggestion query:(id)query score:(double)score type:(int)type;
 - (id)copyWithZone:(_NSZone *)zone;
 - (unint64_t)hash;
 - (void)encodeWithCoder:(id)coder;
@@ -13,11 +15,11 @@
 
 - (SFSearchSuggestion)initWithProtobuf:(id)protobuf
 {
-  v47 = *MEMORY[0x1E69E9840];
+  v46 = *MEMORY[0x1E69E9840];
   protobufCopy = protobuf;
-  v45.receiver = self;
-  v45.super_class = SFSearchSuggestion;
-  v5 = [(SFSearchSuggestion *)&v45 init];
+  v44.receiver = self;
+  v44.super_class = SFSearchSuggestion;
+  v5 = [(SFSearchSuggestion *)&v44 init];
   if (v5)
   {
     identifier = [protobufCopy identifier];
@@ -69,33 +71,33 @@
       v15 = 0;
     }
 
-    v43 = 0u;
-    v44 = 0u;
-    v41 = 0u;
     v42 = 0u;
+    v43 = 0u;
+    v40 = 0u;
+    v41 = 0u;
     duplicateSuggestions2 = [protobufCopy duplicateSuggestions];
-    v17 = [duplicateSuggestions2 countByEnumeratingWithState:&v41 objects:v46 count:16];
+    v17 = [duplicateSuggestions2 countByEnumeratingWithState:&v40 objects:v45 count:16];
     if (v17)
     {
       v18 = v17;
-      v19 = *v42;
+      v19 = *v41;
       do
       {
         for (i = 0; i != v18; ++i)
         {
-          if (*v42 != v19)
+          if (*v41 != v19)
           {
             objc_enumerationMutation(duplicateSuggestions2);
           }
 
-          v21 = [[SFSearchSuggestion alloc] initWithProtobuf:*(*(&v41 + 1) + 8 * i)];
+          v21 = [[SFSearchSuggestion alloc] initWithProtobuf:*(*(&v40 + 1) + 8 * i)];
           if (v21)
           {
             [v15 addObject:v21];
           }
         }
 
-        v18 = [duplicateSuggestions2 countByEnumeratingWithState:&v41 objects:v46 count:16];
+        v18 = [duplicateSuggestions2 countByEnumeratingWithState:&v40 objects:v45 count:16];
       }
 
       while (v18);
@@ -156,18 +158,17 @@
     }
 
     serverFeatures = [protobufCopy serverFeatures];
-    v39[0] = MEMORY[0x1E69E9820];
-    v39[1] = 3221225472;
-    v39[2] = __60__SFSearchSuggestion_ProtobufInitializer__initWithProtobuf___block_invoke;
-    v39[3] = &unk_1E7ACDB40;
+    v38[0] = MEMORY[0x1E69E9820];
+    v38[1] = 3221225472;
+    v38[2] = __60__SFSearchSuggestion_ProtobufInitializer__initWithProtobuf___block_invoke;
+    v38[3] = &unk_1E7ACDB40;
     v35 = v5;
-    v40 = v35;
-    [serverFeatures enumerateKeysAndObjectsUsingBlock:v39];
+    v39 = v35;
+    [serverFeatures enumerateKeysAndObjectsUsingBlock:v38];
 
     v36 = v35;
   }
 
-  v37 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
@@ -1226,6 +1227,42 @@ LABEL_76:
   v7 = [(SFSearchSuggestion *)self initWithProtobuf:v6];
 
   return v7;
+}
+
+- (SFSearchSuggestion)initWithSuggestion:(id)suggestion query:(id)query score:(double)score type:(int)type
+{
+  v6 = *&type;
+  v10 = MEMORY[0x1E696AFB0];
+  queryCopy = query;
+  suggestionCopy = suggestion;
+  uUID = [v10 UUID];
+  uUIDString = [uUID UUIDString];
+  v15 = [(SFSearchSuggestion *)self initWithIdentifier:uUIDString suggestion:suggestionCopy query:queryCopy score:v6 type:score];
+
+  return v15;
+}
+
+- (SFSearchSuggestion)initWithIdentifier:(id)identifier suggestion:(id)suggestion query:(id)query score:(double)score type:(int)type
+{
+  v7 = *&type;
+  identifierCopy = identifier;
+  suggestionCopy = suggestion;
+  queryCopy = query;
+  v19.receiver = self;
+  v19.super_class = SFSearchSuggestion;
+  v15 = [(SFSearchSuggestion *)&v19 init];
+  v16 = v15;
+  if (v15)
+  {
+    [(SFSearchSuggestion *)v15 setIdentifier:identifierCopy];
+    [(SFSearchSuggestion *)v16 setSuggestion:suggestionCopy];
+    [(SFSearchSuggestion *)v16 setQuery:queryCopy];
+    [(SFSearchSuggestion *)v16 setScore:score];
+    [(SFSearchSuggestion *)v16 setType:v7];
+    v17 = v16;
+  }
+
+  return v16;
 }
 
 @end

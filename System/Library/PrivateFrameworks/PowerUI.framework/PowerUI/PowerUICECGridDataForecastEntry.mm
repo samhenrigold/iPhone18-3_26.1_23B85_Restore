@@ -54,19 +54,17 @@
 
 - (id)description
 {
-  v12[2] = *MEMORY[0x277D85DE8];
+  v11[2] = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277CCACA8];
   v4 = objc_opt_class();
-  v11[0] = @"forecastDate";
+  v10[0] = @"forecastDate";
   forecastDate = [(PowerUICECGridDataForecastEntry *)self forecastDate];
-  v11[1] = @"forecastValue";
-  v12[0] = forecastDate;
+  v10[1] = @"forecastValue";
+  v11[0] = forecastDate;
   forecastValue = [(PowerUICECGridDataForecastEntry *)self forecastValue];
-  v12[1] = forecastValue;
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:2];
+  v11[1] = forecastValue;
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:v10 count:2];
   v8 = [v3 stringWithFormat:@"<%@:%p %@>", v4, self, v7];
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v8;
 }

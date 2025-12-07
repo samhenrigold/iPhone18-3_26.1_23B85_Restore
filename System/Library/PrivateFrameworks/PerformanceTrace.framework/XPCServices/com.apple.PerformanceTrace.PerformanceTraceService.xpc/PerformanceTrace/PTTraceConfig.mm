@@ -53,23 +53,23 @@
   }
 
   [(PTTraceConfig *)v4 setKernelBufferDrainQoS:25];
-  [(PTTraceConfig *)v4 setKernelBufferDrainRateMS:500];
+  v7 = [(PTTraceConfig *)v4 setKernelBufferDrainRateMS:500];
   if (template - 1 < 2)
   {
     [NSMutableArray arrayWithObjects:&off_10001A670, &off_10001A688, &off_10001A6A0, &off_10001A6B8, &off_10001A6D0, 0];
-    v7 = LABEL_9:;
-    [(PTTraceConfig *)v4 setTraceGroups:v7];
+    v8 = LABEL_9:;
+    [(PTTraceConfig *)v4 setTraceGroups:v8];
     goto LABEL_12;
   }
 
   if (template == 3)
   {
-    [NSMutableArray arrayWithObjects:&off_10001A6E8, &off_10001A688, &off_10001A6D0, 0, v12, v13];
+    [NSMutableArray arrayWithObjects:&off_10001A6E8, &off_10001A688, &off_10001A6D0, 0, v13, v14];
     goto LABEL_9;
   }
 
-  v7 = sub_10000AF70();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+  v8 = sub_10000AF70(v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
   {
     sub_10000F470();
   }
@@ -78,15 +78,15 @@ LABEL_12:
 
   [(PTTraceConfig *)v4 setOwnerPID:getpid()];
   proc_name([(PTTraceConfig *)v4 ownerPID], buffer, 0x21u);
-  v8 = [NSString stringWithCString:buffer encoding:4];
-  [(PTTraceConfig *)v4 setOwnerName:v8];
+  v9 = [NSString stringWithCString:buffer encoding:4];
+  [(PTTraceConfig *)v4 setOwnerName:v9];
 
   ownerName = [(PTTraceConfig *)v4 ownerName];
 
   if (!ownerName)
   {
-    v10 = [NSString stringWithCString:buffer encoding:1];
-    [(PTTraceConfig *)v4 setOwnerName:v10];
+    v11 = [NSString stringWithCString:buffer encoding:1];
+    [(PTTraceConfig *)v4 setOwnerName:v11];
   }
 
   [(PTTraceConfig *)v4 setSource:4];
@@ -490,7 +490,7 @@ LABEL_12:
 
   if (v90)
   {
-    v129 = v10;
+    v128 = v10;
     v91 = [dictionaryCopy valueForKey:@"traceRecordArgs"];
     objc_opt_class();
     v92 = objc_opt_isKindOfClass();
@@ -500,27 +500,25 @@ LABEL_12:
       [NSException raise:NSInvalidArgumentException format:@"%@ is not an array type.", @"traceRecordArgs"];
     }
 
-    v130 = dictionaryCopy;
     [dictionaryCopy valueForKey:@"traceRecordArgs"];
+    v133 = 0u;
+    v134 = 0u;
     v135 = 0u;
-    v136 = 0u;
-    v137 = 0u;
-    v93 = v138 = 0u;
-    v94 = [v93 countByEnumeratingWithState:&v135 objects:v140 count:16];
+    v93 = v136 = 0u;
+    v94 = [v93 countByEnumeratingWithState:&v133 objects:v138 count:16];
     if (v94)
     {
       v95 = v94;
-      v96 = *v136;
+      v96 = *v134;
       do
       {
-        for (i = 0; i != v95; i = i + 1)
+        for (i = 0; i != v95; ++i)
         {
-          if (*v136 != v96)
+          if (*v134 != v96)
           {
             objc_enumerationMutation(v93);
           }
 
-          v98 = *(*(&v135 + 1) + 8 * i);
           objc_opt_class();
           if ((objc_opt_isKindOfClass() & 1) == 0)
           {
@@ -528,16 +526,14 @@ LABEL_12:
           }
         }
 
-        v95 = [v93 countByEnumeratingWithState:&v135 objects:v140 count:16];
+        v95 = [v93 countByEnumeratingWithState:&v133 objects:v138 count:16];
       }
 
       while (v95);
     }
 
-    v10 = v129;
-    [(PTTraceConfig *)v129 setTraceRecordArgs:v93];
-
-    dictionaryCopy = v130;
+    v10 = v128;
+    [(PTTraceConfig *)v128 setTraceRecordArgs:v93];
   }
 
   if ([(PTTraceConfig *)v10 useTraceRecord])
@@ -546,24 +542,24 @@ LABEL_12:
     [(PTTraceConfig *)v10 setOverrideSymbolicate:0];
   }
 
-  v99 = [dictionaryCopy valueForKey:@"symbolicate"];
+  v98 = [dictionaryCopy valueForKey:@"symbolicate"];
 
-  if (v99)
+  if (v98)
   {
-    v100 = [dictionaryCopy valueForKey:@"symbolicate"];
+    v99 = [dictionaryCopy valueForKey:@"symbolicate"];
     objc_opt_class();
-    v101 = objc_opt_isKindOfClass();
+    v100 = objc_opt_isKindOfClass();
 
-    if ((v101 & 1) == 0)
+    if ((v100 & 1) == 0)
     {
       [NSException raise:NSInvalidArgumentException format:@"%@ is not a BOOLean type.", @"symbolicate"];
     }
 
-    v102 = [dictionaryCopy valueForKey:@"symbolicate"];
-    if ([v102 unsignedLongValue])
+    v101 = [dictionaryCopy valueForKey:@"symbolicate"];
+    if ([v101 unsignedLongValue])
     {
-      v103 = [dictionaryCopy valueForKey:@"symbolicate"];
-      unsignedLongValue8 = [v103 unsignedLongValue];
+      v102 = [dictionaryCopy valueForKey:@"symbolicate"];
+      unsignedLongValue8 = [v102 unsignedLongValue];
 
       if (unsignedLongValue8 != 1)
       {
@@ -575,101 +571,101 @@ LABEL_12:
     {
     }
 
-    v105 = [dictionaryCopy valueForKey:@"symbolicate"];
-    -[PTTraceConfig setSymbolicate:](v10, "setSymbolicate:", [v105 BOOLValue]);
+    v104 = [dictionaryCopy valueForKey:@"symbolicate"];
+    -[PTTraceConfig setSymbolicate:](v10, "setSymbolicate:", [v104 BOOLValue]);
   }
 
-  v106 = [dictionaryCopy valueForKey:@"traceDirectoryURL"];
+  v105 = [dictionaryCopy valueForKey:@"traceDirectoryURL"];
 
-  if (v106)
+  if (v105)
   {
-    v107 = [dictionaryCopy valueForKey:@"traceDirectoryURL"];
+    v106 = [dictionaryCopy valueForKey:@"traceDirectoryURL"];
     objc_opt_class();
-    v108 = objc_opt_isKindOfClass();
+    v107 = objc_opt_isKindOfClass();
 
-    if ((v108 & 1) == 0)
+    if ((v107 & 1) == 0)
     {
       [NSException raise:NSInvalidArgumentException format:@"traceDirectoryURL is not a string type."];
     }
 
-    v109 = [dictionaryCopy valueForKey:@"traceDirectoryURL"];
-    v110 = [NSURL fileURLWithPath:v109];
-    [(PTTraceConfig *)v10 setTraceDirectoryURL:v110];
+    v108 = [dictionaryCopy valueForKey:@"traceDirectoryURL"];
+    v109 = [NSURL fileURLWithPath:v108];
+    [(PTTraceConfig *)v10 setTraceDirectoryURL:v109];
   }
 
-  v111 = [dictionaryCopy valueForKey:@"traceType"];
+  v110 = [dictionaryCopy valueForKey:@"traceType"];
 
-  if (v111)
+  if (v110)
   {
-    v112 = [dictionaryCopy valueForKey:@"traceType"];
+    v111 = [dictionaryCopy valueForKey:@"traceType"];
     objc_opt_class();
-    v113 = objc_opt_isKindOfClass();
+    v112 = objc_opt_isKindOfClass();
 
-    if ((v113 & 1) == 0)
+    if ((v112 & 1) == 0)
     {
       [NSException raise:NSInvalidArgumentException format:@"traceType is not a string type."];
     }
 
-    v114 = [dictionaryCopy valueForKey:@"traceType"];
-    [(PTTraceConfig *)v10 setTraceType:traceTypeForString(v114)];
+    v113 = [dictionaryCopy valueForKey:@"traceType"];
+    [(PTTraceConfig *)v10 setTraceType:traceTypeForString(v113)];
   }
 
-  v115 = [dictionaryCopy valueForKey:@"traceGroups"];
+  v114 = [dictionaryCopy valueForKey:@"traceGroups"];
 
-  if (v115)
+  if (v114)
   {
-    v116 = [dictionaryCopy valueForKey:@"traceGroups"];
+    v115 = [dictionaryCopy valueForKey:@"traceGroups"];
     objc_opt_class();
-    v117 = objc_opt_isKindOfClass();
+    v116 = objc_opt_isKindOfClass();
 
-    if ((v117 & 1) == 0)
+    if ((v116 & 1) == 0)
     {
       [NSException raise:NSInvalidArgumentException format:@"traceGroups is not an NSArray type."];
     }
 
-    v118 = [dictionaryCopy valueForKey:@"traceGroups"];
-    v119 = +[NSMutableArray array];
+    v117 = [dictionaryCopy valueForKey:@"traceGroups"];
+    v118 = +[NSMutableArray array];
+    v129 = 0u;
+    v130 = 0u;
     v131 = 0u;
     v132 = 0u;
-    v133 = 0u;
-    v134 = 0u;
-    v120 = v118;
-    v121 = [v120 countByEnumeratingWithState:&v131 objects:v139 count:16];
-    if (v121)
+    v119 = v117;
+    v120 = [v119 countByEnumeratingWithState:&v129 objects:v137 count:16];
+    if (v120)
     {
-      v122 = v121;
-      v123 = *v132;
+      v121 = v120;
+      v122 = *v130;
       do
       {
-        for (j = 0; j != v122; j = j + 1)
+        for (j = 0; j != v121; j = j + 1)
         {
-          if (*v132 != v123)
+          if (*v130 != v122)
           {
-            objc_enumerationMutation(v120);
+            objc_enumerationMutation(v119);
           }
 
-          v125 = *(*(&v131 + 1) + 8 * j);
-          if (v125 && traceGroupForString(*(*(&v131 + 1) + 8 * j)))
+          v124 = *(*(&v129 + 1) + 8 * j);
+          if (v124 && traceGroupForString(*(*(&v129 + 1) + 8 * j)))
           {
-            v126 = [NSNumber numberWithUnsignedInteger:traceGroupForString(v125)];
-            [v119 addObject:v126];
+            v125 = [NSNumber numberWithUnsignedInteger:traceGroupForString(v124)];
+            [v118 addObject:v125];
           }
         }
 
-        v122 = [v120 countByEnumeratingWithState:&v131 objects:v139 count:16];
+        v121 = [v119 countByEnumeratingWithState:&v129 objects:v137 count:16];
       }
 
-      while (v122);
+      while (v121);
     }
 
-    if ([v119 count])
+    if ([v118 count])
     {
-      [(PTTraceConfig *)v10 setTraceGroups:v119];
+      [(PTTraceConfig *)v10 setTraceGroups:v118];
     }
   }
 
   [(PTTraceConfig *)v10 setSource:4];
-  v127 = v10;
+  v126 = v10;
 
   return v10;
 }
@@ -727,7 +723,7 @@ LABEL_12:
 
 + (id)getCurrentConfig
 {
-  v3 = sub_10000AF70();
+  v3 = sub_10000AF70(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     *buf = 0;
@@ -765,7 +761,7 @@ LABEL_12:
 
 + (BOOL)resetConfig
 {
-  v2 = sub_10000AF70();
+  v2 = sub_10000AF70(self);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     *buf = 0;
@@ -801,7 +797,7 @@ LABEL_12:
 
 + (BOOL)isInRecordingWorkflow
 {
-  v2 = sub_10000AF70();
+  v2 = sub_10000AF70(self);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     *buf = 0;
@@ -837,7 +833,7 @@ LABEL_12:
 
 - (BOOL)storeConfig
 {
-  v3 = sub_10000AF70();
+  v3 = sub_10000AF70(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     *buf = 0;

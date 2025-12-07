@@ -2,6 +2,7 @@
 + (id)makeContactWithDisplayName:(id)name;
 + (id)makeContactWithDisplayName:(id)name handle:(id)handle;
 + (id)makeRecipientWithDisplayName:(id)name handle:(id)handle hasContact:(BOOL)contact;
++ (id)personWithDisplayName:(id)name handle:(id)handle hasContact:(BOOL)contact;
 - (NSString)description;
 - (_CNAPeopleSuggesterFacadeTestDouble)initWithDelegate:(id)delegate;
 - (_CNAPeopleSuggesterFacadeTestDoubleDelegate)delegate;
@@ -46,17 +47,16 @@
 
 - (id)addPerson:(id)person
 {
-  v10[1] = *MEMORY[0x277D85DE8];
+  v9[1] = *MEMORY[0x277D85DE8];
   v4 = get_PSSuggestionClass;
   personCopy = person;
   v6 = objc_alloc_init(v4());
   [v6 setSuggestionType:1];
-  v10[0] = personCopy;
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:1];
+  v9[0] = personCopy;
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:1];
 
   [v6 setRecipients:v7];
   [(_CNAPeopleSuggesterFacadeTestDouble *)self addSuggestion:v6];
-  v8 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
@@ -73,6 +73,16 @@
   [(_CNAPeopleSuggesterFacadeTestDouble *)self addSuggestion:v12];
 
   return v12;
+}
+
++ (id)personWithDisplayName:(id)name handle:(id)handle hasContact:(BOOL)contact
+{
+  contactCopy = contact;
+  handleCopy = handle;
+  nameCopy = name;
+  v9 = [objc_opt_class() makeRecipientWithDisplayName:nameCopy handle:handleCopy hasContact:contactCopy];
+
+  return v9;
 }
 
 + (id)makeRecipientWithDisplayName:(id)name handle:(id)handle hasContact:(BOOL)contact
@@ -100,14 +110,14 @@
 
 + (id)makeContactWithDisplayName:(id)name handle:(id)handle
 {
-  v17[1] = *MEMORY[0x277D85DE8];
+  v16[1] = *MEMORY[0x277D85DE8];
   handleCopy = handle;
   v7 = [self makeContactWithDisplayName:name];
   if (handleCopy && [handleCopy length])
   {
     v8 = MEMORY[0x277CFBE30];
-    v17[0] = handleCopy;
-    v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:1];
+    v16[0] = handleCopy;
+    v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:1];
     v10 = [v8 classificationOfHandleStrings:v9];
 
     emailAddresses = [v10 emailAddresses];
@@ -118,8 +128,6 @@
     v14 = [phoneNumbers _cn_map:&__block_literal_global_23_0];
     [v7 setPhoneNumbers:v14];
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v7;
 }

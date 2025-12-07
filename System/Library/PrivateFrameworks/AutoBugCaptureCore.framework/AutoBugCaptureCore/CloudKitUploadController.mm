@@ -12,6 +12,7 @@
 - (id)locallyFilterCases:(id)cases;
 - (id)processCloudkitDecisionServiceResponse:(id)response;
 - (id)randomlySelectCasesFrom:(id)from maximum:(unint64_t)maximum;
+- (id)uploadOperationWithRecordsToSave:(id)save recordIDsToDelete:(id)delete allowCellular:(BOOL)cellular activity:(id)activity;
 - (void)_save;
 - (void)ckcodeDecisionService:(id)service response:(id)response;
 - (void)configureCaseSummaryDiscretionaryActivityCriteria:(id)criteria;
@@ -75,7 +76,7 @@
 - (void)configureWorkspace:(id)workspace
 {
   workspaceCopy = workspace;
-  v5 = uploadLogHandle();
+  v5 = uploadLogHandle(workspaceCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     *v14 = 0;
@@ -124,29 +125,29 @@
 
 - (id)fetchCasesWithIdentifiers:(id)identifiers limit:(unint64_t)limit
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   identifiersCopy = identifiers;
   v7 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   v8 = identifiersCopy;
-  v9 = [v8 countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v20;
+    v11 = *v19;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v20 != v11)
+        if (*v19 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = *(*(&v19 + 1) + 8 * i);
+        v13 = *(*(&v18 + 1) + 8 * i);
         if ([v13 length])
         {
           v14 = [MEMORY[0x277CCAC30] predicateWithFormat:@"caseID == %@", v13];
@@ -154,7 +155,7 @@
         }
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v10);
@@ -172,14 +173,12 @@
 
   v16 = [(CloudKitUploadController *)self _fetchCasesInternal:v15 limit:limit];
 
-  v17 = *MEMORY[0x277D85DE8];
-
   return v16;
 }
 
 - (void)_save
 {
-  v3 = uploadLogHandle();
+  v3 = uploadLogHandle(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     *v4 = 0;
@@ -197,7 +196,7 @@
   v18 = __Block_byref_object_copy__6;
   v19 = __Block_byref_object_dispose__6;
   v20 = 0;
-  v3 = uploadLogHandle();
+  v3 = uploadLogHandle(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     *buf = 0;
@@ -248,7 +247,7 @@ uint64_t __32__CloudKitUploadController_save__block_invoke(uint64_t a1)
 
 void __32__CloudKitUploadController_save__block_invoke_2(uint64_t a1)
 {
-  v2 = uploadLogHandle();
+  v2 = uploadLogHandle(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     *v5 = 0;
@@ -267,7 +266,7 @@ void __32__CloudKitUploadController_save__block_invoke_2(uint64_t a1)
   if ([casesCopy count])
   {
     array = [MEMORY[0x277CBEB18] array];
-    v5 = uploadLogHandle();
+    v5 = uploadLogHandle(array);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
     {
       *buf = 0;
@@ -300,7 +299,7 @@ void __32__CloudKitUploadController_save__block_invoke_2(uint64_t a1)
           uploadRecord = [v12 uploadRecord];
           if (!uploadRecord)
           {
-            v14 = uploadLogHandle();
+            v14 = uploadLogHandle(0);
             if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
             {
               caseID = [v12 caseID];
@@ -319,36 +318,36 @@ void __32__CloudKitUploadController_save__block_invoke_2(uint64_t a1)
 
           if (v16 || operationID)
           {
-            v18 = uploadLogHandle();
-            if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+            v19 = uploadLogHandle(v18);
+            if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
             {
               caseID2 = [v12 caseID];
               if (v16)
               {
-                v20 = "Yes";
+                v21 = "Yes";
               }
 
               else
               {
-                v20 = "No";
+                v21 = "No";
               }
 
               uploadState = [uploadRecord uploadState];
               *buf = 138544130;
-              v22 = "No";
+              v23 = "No";
               if (operationID)
               {
-                v22 = "Yes";
+                v23 = "Yes";
               }
 
               v35 = caseID2;
               v36 = 2080;
-              v37 = v20;
+              v37 = v21;
               v38 = 1024;
               v39 = uploadState;
               v40 = 2080;
-              v41 = v22;
-              _os_log_impl(&dword_241804000, v18, OS_LOG_TYPE_DEFAULT, "Skipping case %{public}@ as it's already uploading, or has been uploaded. (alreadyScheduled: %s(%d), hasOperation: %s)", buf, 0x26u);
+              v41 = v23;
+              _os_log_impl(&dword_241804000, v19, OS_LOG_TYPE_DEFAULT, "Skipping case %{public}@ as it's already uploading, or has been uploaded. (alreadyScheduled: %s(%d), hasOperation: %s)", buf, 0x26u);
             }
           }
 
@@ -360,14 +359,13 @@ void __32__CloudKitUploadController_save__block_invoke_2(uint64_t a1)
           else
           {
             [v12 setUploadState:3];
-            [uploadRecord setUploadState:1];
-            v23 = uploadLogHandle();
-            if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+            v24 = uploadLogHandle([uploadRecord setUploadState:1]);
+            if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
             {
               caseID3 = [v12 caseID];
               *buf = 138543362;
               v35 = caseID3;
-              _os_log_impl(&dword_241804000, v23, OS_LOG_TYPE_DEFAULT, "Case %{public}@ is missing required files. Marked as ineligible for upload.)", buf, 0xCu);
+              _os_log_impl(&dword_241804000, v24, OS_LOG_TYPE_DEFAULT, "Case %{public}@ is missing required files. Marked as ineligible for upload.)", buf, 0xCu);
             }
 
             v9 = 1;
@@ -397,8 +395,6 @@ void __32__CloudKitUploadController_save__block_invoke_2(uint64_t a1)
     array = 0;
   }
 
-  v25 = *MEMORY[0x277D85DE8];
-
   return array;
 }
 
@@ -412,13 +408,13 @@ void __32__CloudKitUploadController_save__block_invoke_2(uint64_t a1)
     v11 = [(CloudKitUploadController *)self locallyFilterCases:uploadCopy];
     if ([v11 count])
     {
-      if (activityCopy && xpc_activity_should_defer(activityCopy))
+      if (activityCopy && (should_defer = xpc_activity_should_defer(activityCopy)))
       {
-        v12 = uploadLogHandle();
-        if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+        v13 = uploadLogHandle(should_defer);
+        if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
-          _os_log_impl(&dword_241804000, v12, OS_LOG_TYPE_DEFAULT, "Stopping before decision server check due to activity deferral", buf, 2u);
+          _os_log_impl(&dword_241804000, v13, OS_LOG_TYPE_DEFAULT, "Stopping before decision server check due to activity deferral", buf, 2u);
         }
 
         [(CloudKitUploadController *)self deferXPCActivity:activityCopy];
@@ -427,25 +423,25 @@ void __32__CloudKitUploadController_save__block_invoke_2(uint64_t a1)
 
       else
       {
-        v15[0] = MEMORY[0x277D85DD0];
-        v15[1] = 3221225472;
-        v15[2] = __68__CloudKitUploadController_filterCasesPendingUpload_activity_reply___block_invoke;
-        v15[3] = &unk_278CF2300;
-        v16 = activityCopy;
+        v16[0] = MEMORY[0x277D85DD0];
+        v16[1] = 3221225472;
+        v16[2] = __68__CloudKitUploadController_filterCasesPendingUpload_activity_reply___block_invoke;
+        v16[3] = &unk_278CF2300;
+        v17 = activityCopy;
         selfCopy = self;
-        v19 = replyCopy;
-        v18 = v11;
-        [(CloudKitUploadController *)self filterCasesViaCloudkitDecisionService:v18 activity:v16 response:v15];
+        v20 = replyCopy;
+        v19 = v11;
+        [(CloudKitUploadController *)self filterCasesViaCloudkitDecisionService:v19 activity:v17 response:v16];
       }
     }
 
     else
     {
-      v14 = uploadLogHandle();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+      v15 = uploadLogHandle(0);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
       {
         *buf = 0;
-        _os_log_impl(&dword_241804000, v14, OS_LOG_TYPE_DEBUG, "Skipping decision service check since the pruned cases list is empty", buf, 2u);
+        _os_log_impl(&dword_241804000, v15, OS_LOG_TYPE_DEBUG, "Skipping decision service check since the pruned cases list is empty", buf, 2u);
       }
 
       (replyCopy)[2](replyCopy, v11);
@@ -454,11 +450,11 @@ void __32__CloudKitUploadController_save__block_invoke_2(uint64_t a1)
 
   else
   {
-    v13 = uploadLogHandle();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+    v14 = uploadLogHandle(0);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
     {
       *buf = 0;
-      _os_log_impl(&dword_241804000, v13, OS_LOG_TYPE_DEBUG, "Skipping decision service check since we received an empty case list", buf, 2u);
+      _os_log_impl(&dword_241804000, v14, OS_LOG_TYPE_DEBUG, "Skipping decision service check since we received an empty case list", buf, 2u);
     }
 
     (replyCopy)[2](replyCopy, uploadCopy);
@@ -467,63 +463,67 @@ void __32__CloudKitUploadController_save__block_invoke_2(uint64_t a1)
 
 void __68__CloudKitUploadController_filterCasesPendingUpload_activity_reply___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v52 = *MEMORY[0x277D85DE8];
+  v55 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = *(a1 + 32);
-  if (v7 && xpc_activity_should_defer(v7))
+  if (v7)
   {
-    v8 = uploadLogHandle();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    should_defer = xpc_activity_should_defer(v7);
+    if (should_defer)
     {
-      LOWORD(buf) = 0;
-      _os_log_impl(&dword_241804000, v8, OS_LOG_TYPE_DEFAULT, "Stopping log uploads due to activity deferral", &buf, 2u);
+      v9 = uploadLogHandle(should_defer);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+      {
+        LOWORD(buf) = 0;
+        _os_log_impl(&dword_241804000, v9, OS_LOG_TYPE_DEFAULT, "Stopping log uploads due to activity deferral", &buf, 2u);
+      }
+
+      [*(a1 + 40) deferXPCActivity:*(a1 + 32)];
+      v10 = *(*(a1 + 40) + 8);
+      block[0] = MEMORY[0x277D85DD0];
+      block[1] = 3221225472;
+      block[2] = __68__CloudKitUploadController_filterCasesPendingUpload_activity_reply___block_invoke_87;
+      block[3] = &unk_278CEFF50;
+      v11 = *(a1 + 56);
+      v46 = 0;
+      v47 = v11;
+      dispatch_async(v10, block);
+
+      v12 = v47;
+      goto LABEL_30;
     }
-
-    [*(a1 + 40) deferXPCActivity:*(a1 + 32)];
-    v9 = *(*(a1 + 40) + 8);
-    block[0] = MEMORY[0x277D85DD0];
-    block[1] = 3221225472;
-    block[2] = __68__CloudKitUploadController_filterCasesPendingUpload_activity_reply___block_invoke_87;
-    block[3] = &unk_278CEFF50;
-    v10 = *(a1 + 56);
-    v43 = 0;
-    v44 = v10;
-    dispatch_async(v9, block);
-
-    v11 = v44;
-    goto LABEL_30;
   }
 
   if (v6)
   {
-    v12 = [v6 domain];
-    if ([v12 isEqualToString:*MEMORY[0x277CCA5B8]])
+    v13 = [v6 domain];
+    if ([v13 isEqualToString:*MEMORY[0x277CCA5B8]])
     {
-      v13 = [v6 code];
+      v14 = [v6 code];
 
-      if (v13 == 89)
+      if (v14 == 89)
       {
-        v14 = uploadLogHandle();
-        if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+        v16 = uploadLogHandle(v15);
+        if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
         {
           LOWORD(buf) = 0;
-          _os_log_impl(&dword_241804000, v14, OS_LOG_TYPE_DEFAULT, "CloudKit cancelled the decision service operation. Ending upload task.", &buf, 2u);
+          _os_log_impl(&dword_241804000, v16, OS_LOG_TYPE_DEFAULT, "CloudKit cancelled the decision service operation. Ending upload task.", &buf, 2u);
         }
 
-        v15 = 0;
+        v17 = 0;
 LABEL_22:
 
-        v26 = *(*(a1 + 40) + 8);
-        v39[0] = MEMORY[0x277D85DD0];
-        v39[1] = 3221225472;
-        v39[2] = __68__CloudKitUploadController_filterCasesPendingUpload_activity_reply___block_invoke_89;
-        v39[3] = &unk_278CEFF50;
-        v27 = *(a1 + 56);
-        v40 = v15;
-        v41 = v27;
-        v11 = v15;
-        dispatch_async(v26, v39);
+        v30 = *(*(a1 + 40) + 8);
+        v42[0] = MEMORY[0x277D85DD0];
+        v42[1] = 3221225472;
+        v42[2] = __68__CloudKitUploadController_filterCasesPendingUpload_activity_reply___block_invoke_89;
+        v42[3] = &unk_278CEFF50;
+        v31 = *(a1 + 56);
+        v43 = v17;
+        v44 = v31;
+        v12 = v17;
+        dispatch_async(v30, v42);
 
         goto LABEL_30;
       }
@@ -533,57 +533,58 @@ LABEL_22:
     {
     }
 
-    v20 = uploadLogHandle();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+    v23 = uploadLogHandle(v15);
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
     {
       LODWORD(buf) = 138412290;
       *(&buf + 4) = v6;
-      _os_log_impl(&dword_241804000, v20, OS_LOG_TYPE_ERROR, "Decision service responded with an error: %@", &buf, 0xCu);
+      _os_log_impl(&dword_241804000, v23, OS_LOG_TYPE_ERROR, "Decision service responded with an error: %@", &buf, 0xCu);
     }
 
-    v21 = *(a1 + 40);
-    v22 = *(a1 + 48);
-    v23 = +[ABCAdministrator sharedInstance];
-    v24 = [v23 configurationManager];
-    v15 = [v21 randomlySelectCasesFrom:v22 maximum:{objc_msgSend(v24, "cloudKitFallbackMaximumLogCount")}];
+    v24 = *(a1 + 40);
+    v25 = *(a1 + 48);
+    v26 = +[ABCAdministrator sharedInstance];
+    v27 = [v26 configurationManager];
+    v17 = [v24 randomlySelectCasesFrom:v25 maximum:{objc_msgSend(v27, "cloudKitFallbackMaximumLogCount")}];
 
-    v14 = uploadLogHandle();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    v16 = uploadLogHandle(v28);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
-      v25 = [v15 count];
+      v29 = [v17 count];
       LODWORD(buf) = 134217984;
-      *(&buf + 4) = v25;
-      _os_log_impl(&dword_241804000, v14, OS_LOG_TYPE_DEFAULT, "Proceeding to upload %ld cases with only local filtering", &buf, 0xCu);
+      *(&buf + 4) = v29;
+      _os_log_impl(&dword_241804000, v16, OS_LOG_TYPE_DEFAULT, "Proceeding to upload %ld cases with only local filtering", &buf, 0xCu);
     }
 
     goto LABEL_22;
   }
 
-  v16 = [v5 objectForKeyedSubscript:@"summary"];
-  v17 = v16;
-  if (v16)
+  v18 = [v5 objectForKeyedSubscript:@"summary"];
+  v19 = v18;
+  if (v18)
   {
-    if ([v16 BOOLValue])
+    v20 = [v18 BOOLValue];
+    if (v20)
     {
-      v18 = *(a1 + 48);
-      v19 = uploadLogHandle();
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+      v21 = *(a1 + 48);
+      v22 = uploadLogHandle(v21);
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
       {
         LOWORD(buf) = 0;
-        _os_log_impl(&dword_241804000, v19, OS_LOG_TYPE_DEFAULT, "Decision service permitted upload for ALL cases.", &buf, 2u);
+        _os_log_impl(&dword_241804000, v22, OS_LOG_TYPE_DEFAULT, "Decision service permitted upload for ALL cases.", &buf, 2u);
       }
     }
 
     else
     {
-      v31 = uploadLogHandle();
-      if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
+      v35 = uploadLogHandle(v20);
+      if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
       {
         LOWORD(buf) = 0;
-        _os_log_impl(&dword_241804000, v31, OS_LOG_TYPE_DEFAULT, "Decision service declined upload for ALL cases.", &buf, 2u);
+        _os_log_impl(&dword_241804000, v35, OS_LOG_TYPE_DEFAULT, "Decision service declined upload for ALL cases.", &buf, 2u);
       }
 
-      v18 = 0;
+      v21 = 0;
     }
   }
 
@@ -591,43 +592,42 @@ LABEL_22:
   {
     *&buf = 0;
     *(&buf + 1) = &buf;
-    v48 = 0x3032000000;
-    v49 = __Block_byref_object_copy__6;
-    v50 = __Block_byref_object_dispose__6;
-    v51 = objc_alloc_init(MEMORY[0x277CBEB18]);
-    v38[0] = MEMORY[0x277D85DD0];
-    v38[1] = 3221225472;
-    v38[2] = __68__CloudKitUploadController_filterCasesPendingUpload_activity_reply___block_invoke_2;
-    v38[3] = &unk_278CF0DA8;
-    v38[4] = &buf;
-    [v5 enumerateKeysAndObjectsUsingBlock:v38];
-    v28 = [MEMORY[0x277CCA920] orPredicateWithSubpredicates:*(*(&buf + 1) + 40)];
-    v18 = [*(a1 + 48) filteredArrayUsingPredicate:v28];
-    v29 = uploadLogHandle();
-    if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
+    v51 = 0x3032000000;
+    v52 = __Block_byref_object_copy__6;
+    v53 = __Block_byref_object_dispose__6;
+    v54 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v41[0] = MEMORY[0x277D85DD0];
+    v41[1] = 3221225472;
+    v41[2] = __68__CloudKitUploadController_filterCasesPendingUpload_activity_reply___block_invoke_2;
+    v41[3] = &unk_278CF0DA8;
+    v41[4] = &buf;
+    [v5 enumerateKeysAndObjectsUsingBlock:v41];
+    v32 = [MEMORY[0x277CCA920] orPredicateWithSubpredicates:*(*(&buf + 1) + 40)];
+    v21 = [*(a1 + 48) filteredArrayUsingPredicate:v32];
+    v33 = uploadLogHandle(v21);
+    if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
     {
-      v30 = [v18 count];
-      *v45 = 134217984;
-      v46 = v30;
-      _os_log_impl(&dword_241804000, v29, OS_LOG_TYPE_DEFAULT, "Decision service permitted upload for %ld cases.", v45, 0xCu);
+      v34 = [v21 count];
+      *v48 = 134217984;
+      v49 = v34;
+      _os_log_impl(&dword_241804000, v33, OS_LOG_TYPE_DEFAULT, "Decision service permitted upload for %ld cases.", v48, 0xCu);
     }
 
     _Block_object_dispose(&buf, 8);
   }
 
-  v32 = *(*(a1 + 40) + 8);
-  v35[0] = MEMORY[0x277D85DD0];
-  v35[1] = 3221225472;
-  v35[2] = __68__CloudKitUploadController_filterCasesPendingUpload_activity_reply___block_invoke_96;
-  v35[3] = &unk_278CEFF50;
-  v33 = *(a1 + 56);
-  v36 = v18;
-  v37 = v33;
-  v11 = v18;
-  dispatch_async(v32, v35);
+  v36 = *(*(a1 + 40) + 8);
+  v38[0] = MEMORY[0x277D85DD0];
+  v38[1] = 3221225472;
+  v38[2] = __68__CloudKitUploadController_filterCasesPendingUpload_activity_reply___block_invoke_96;
+  v38[3] = &unk_278CEFF50;
+  v37 = *(a1 + 56);
+  v39 = v21;
+  v40 = v37;
+  v12 = v21;
+  dispatch_async(v36, v38);
 
 LABEL_30:
-  v34 = *MEMORY[0x277D85DE8];
 }
 
 void __68__CloudKitUploadController_filterCasesPendingUpload_activity_reply___block_invoke_2(uint64_t a1, void *a2, void *a3)
@@ -641,33 +641,31 @@ void __68__CloudKitUploadController_filterCasesPendingUpload_activity_reply___bl
     objc_opt_class();
     if ((objc_opt_isKindOfClass() & 1) != 0 && ([v5 isEqualToString:@"summary"] & 1) == 0)
     {
-      if ([v6 BOOLValue])
+      v7 = [v6 BOOLValue];
+      if (v7)
       {
-        v7 = [MEMORY[0x277CCAC30] predicateWithFormat:@"caseID == %@", v5];
-        [*(*(*(a1 + 32) + 8) + 40) addObject:v7];
-        v8 = uploadLogHandle();
-        if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+        v8 = [MEMORY[0x277CCAC30] predicateWithFormat:@"caseID == %@", v5];
+        v9 = uploadLogHandle([*(*(*(a1 + 32) + 8) + 40) addObject:v8]);
+        if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
         {
           *buf = 138412290;
           v11 = v5;
-          _os_log_impl(&dword_241804000, v8, OS_LOG_TYPE_DEBUG, " Adding predicate for caseID == %@", buf, 0xCu);
+          _os_log_impl(&dword_241804000, v9, OS_LOG_TYPE_DEBUG, " Adding predicate for caseID == %@", buf, 0xCu);
         }
       }
 
       else
       {
-        v7 = uploadLogHandle();
-        if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+        v8 = uploadLogHandle(v7);
+        if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
         {
           *buf = 138412290;
           v11 = v5;
-          _os_log_impl(&dword_241804000, v7, OS_LOG_TYPE_DEBUG, " Skipping caseID %@ (server denied)", buf, 0xCu);
+          _os_log_impl(&dword_241804000, v8, OS_LOG_TYPE_DEBUG, " Skipping caseID %@ (server denied)", buf, 0xCu);
         }
       }
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)logUploadRequiresConsent:(id)consent
@@ -692,7 +690,7 @@ void __68__CloudKitUploadController_filterCasesPendingUpload_activity_reply___bl
 
 - (id)randomlySelectCasesFrom:(id)from maximum:(unint64_t)maximum
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   fromCopy = from;
   v6 = fromCopy;
   if (maximum)
@@ -701,50 +699,52 @@ void __68__CloudKitUploadController_filterCasesPendingUpload_activity_reply___bl
     {
       array = [MEMORY[0x277CBEB18] array];
       v8 = [v6 count];
-      v9 = uploadLogHandle();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+      v9 = v8;
+      v10 = uploadLogHandle(v8);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
       {
         *buf = 134218240;
         maximumCopy = maximum;
-        v22 = 1024;
-        v23 = v8;
-        _os_log_impl(&dword_241804000, v9, OS_LOG_TYPE_INFO, "Randomly choosing %ld out of %d cases for upload", buf, 0x12u);
+        v24 = 1024;
+        v25 = v9;
+        _os_log_impl(&dword_241804000, v10, OS_LOG_TYPE_INFO, "Randomly choosing %ld out of %d cases for upload", buf, 0x12u);
       }
 
       if ([array count] < maximum)
       {
-        v10 = 3 * v8 + 2;
+        v11 = 3 * v9 + 2;
         while (1)
         {
-          v11 = [v6 objectAtIndex:arc4random_uniform(v8)];
-          v12 = [array containsObject:v11];
-          v13 = uploadLogHandle();
-          v14 = os_log_type_enabled(v13, OS_LOG_TYPE_INFO);
-          if (v12)
+          v12 = [v6 objectAtIndex:arc4random_uniform(v9)];
+          v13 = [array containsObject:v12];
+          v14 = v13;
+          v15 = uploadLogHandle(v13);
+          v16 = os_log_type_enabled(v15, OS_LOG_TYPE_INFO);
+          if (v14)
           {
-            if (v14)
+            if (v16)
             {
-              caseID = [v11 caseID];
+              caseID = [v12 caseID];
               *buf = 138412290;
               maximumCopy = caseID;
-              _os_log_impl(&dword_241804000, v13, OS_LOG_TYPE_INFO, "Already chose case %@, skipping...", buf, 0xCu);
+              _os_log_impl(&dword_241804000, v15, OS_LOG_TYPE_INFO, "Already chose case %@, skipping...", buf, 0xCu);
             }
           }
 
           else
           {
-            if (v14)
+            if (v16)
             {
-              caseID2 = [v11 caseID];
+              caseID2 = [v12 caseID];
               *buf = 138412290;
               maximumCopy = caseID2;
-              _os_log_impl(&dword_241804000, v13, OS_LOG_TYPE_INFO, "Selecting case %@ for upload", buf, 0xCu);
+              _os_log_impl(&dword_241804000, v15, OS_LOG_TYPE_INFO, "Selecting case %@ for upload", buf, 0xCu);
             }
 
-            [array addObject:v11];
+            v18 = [array addObject:v12];
           }
 
-          if (!--v10)
+          if (!--v11)
           {
             break;
           }
@@ -755,12 +755,12 @@ void __68__CloudKitUploadController_filterCasesPendingUpload_activity_reply___bl
           }
         }
 
-        v17 = uploadLogHandle();
-        if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+        v20 = uploadLogHandle(v18);
+        if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
         {
           *buf = 134217984;
-          maximumCopy = 3 * v8;
-          _os_log_impl(&dword_241804000, v17, OS_LOG_TYPE_ERROR, "Randomization retry count exceeded reasonable threshold (%ld). Bailing out!", buf, 0xCu);
+          maximumCopy = 3 * v9;
+          _os_log_impl(&dword_241804000, v20, OS_LOG_TYPE_ERROR, "Randomization retry count exceeded reasonable threshold (%ld). Bailing out!", buf, 0xCu);
         }
       }
     }
@@ -778,17 +778,15 @@ void __68__CloudKitUploadController_filterCasesPendingUpload_activity_reply___bl
 
 LABEL_22:
 
-  v18 = *MEMORY[0x277D85DE8];
-
   return array;
 }
 
 - (BOOL)validateCaseAttachmentsForDiagnosticCaseStorage:(id)storage record:(id)record
 {
-  v65 = *MEMORY[0x277D85DE8];
+  v66 = *MEMORY[0x277D85DE8];
   storageCopy = storage;
   recordCopy = record;
-  v8 = uploadLogHandle();
+  v8 = uploadLogHandle(recordCopy);
   v9 = v8;
   if (storageCopy)
   {
@@ -796,18 +794,18 @@ LABEL_22:
     {
       caseID = [storageCopy caseID];
       *buf = 138412290;
-      v64 = caseID;
+      v65 = caseID;
       _os_log_impl(&dword_241804000, v9, OS_LOG_TYPE_INFO, "Preflighting attachments for case %@", buf, 0xCu);
     }
 
-    v50 = objc_autoreleasePoolPush();
+    v51 = objc_autoreleasePoolPush();
     caseAttachments = [storageCopy caseAttachments];
     v12 = [DiagnosticCase attachmentsFromStringRepresentation:caseAttachments];
 
     defaultManager = [MEMORY[0x277CCAA00] defaultManager];
     fileURLs = [recordCopy fileURLs];
 
-    v51 = storageCopy;
+    v52 = storageCopy;
     if (fileURLs)
     {
       fileURLs2 = [recordCopy fileURLs];
@@ -821,77 +819,78 @@ LABEL_22:
     }
 
     [recordCopy setTotalBytes:0];
-    v52 = recordCopy;
+    v53 = recordCopy;
     [recordCopy setNumberOfFiles:0];
-    v60 = 0u;
     v61 = 0u;
-    v58 = 0u;
+    v62 = 0u;
     v59 = 0u;
+    v60 = 0u;
     v16 = v12;
-    v17 = [v16 countByEnumeratingWithState:&v58 objects:v62 count:16];
+    v17 = [v16 countByEnumeratingWithState:&v59 objects:v63 count:16];
     if (v17)
     {
       v18 = v17;
-      v19 = *v59;
-      v53 = *MEMORY[0x277CBE838];
+      v19 = *v60;
+      v54 = *MEMORY[0x277CBE838];
       v20 = 0x277CBE000uLL;
-      v54 = v16;
+      v55 = v16;
       do
       {
         v21 = 0;
         do
         {
-          if (*v59 != v19)
+          if (*v60 != v19)
           {
             objc_enumerationMutation(v16);
           }
 
-          v22 = [*(v20 + 3008) URLWithString:*(*(&v58 + 1) + 8 * v21)];
+          v22 = [*(v20 + 3008) URLWithString:*(*(&v59 + 1) + 8 * v21)];
           lastPathComponent = [v22 lastPathComponent];
-          if (![(CloudKitUploadController *)self logUploadRequiresConsent:lastPathComponent])
+          v24 = [(CloudKitUploadController *)self logUploadRequiresConsent:lastPathComponent];
+          if (!v24)
           {
             selfCopy = self;
             path = [v22 path];
-            v27 = [defaultManager fileExistsAtPath:path];
+            v28 = [defaultManager fileExistsAtPath:path];
 
-            v28 = uploadLogHandle();
-            v24 = v28;
-            if (v27)
+            v30 = uploadLogHandle(v29);
+            v25 = v30;
+            if (v28)
             {
-              if (os_log_type_enabled(v28, OS_LOG_TYPE_INFO))
+              if (os_log_type_enabled(v30, OS_LOG_TYPE_INFO))
               {
                 absoluteString = [v22 absoluteString];
                 *buf = 138412290;
-                v64 = absoluteString;
-                _os_log_impl(&dword_241804000, v24, OS_LOG_TYPE_INFO, "  Attachment file exists: %@", buf, 0xCu);
+                v65 = absoluteString;
+                _os_log_impl(&dword_241804000, v25, OS_LOG_TYPE_INFO, "  Attachment file exists: %@", buf, 0xCu);
               }
 
-              v56 = 0;
               v57 = 0;
-              v30 = [v22 getResourceValue:&v57 forKey:v53 error:&v56];
-              v24 = v57;
-              v31 = v56;
-              v32 = uploadLogHandle();
-              v33 = v32;
-              if (v30)
+              v58 = 0;
+              v32 = [v22 getResourceValue:&v58 forKey:v54 error:&v57];
+              v25 = v58;
+              v33 = v57;
+              v34 = uploadLogHandle(v33);
+              v35 = v34;
+              if (v32)
               {
-                if (os_log_type_enabled(v32, OS_LOG_TYPE_INFO))
+                if (os_log_type_enabled(v34, OS_LOG_TYPE_INFO))
                 {
-                  integerValue = [v24 integerValue];
+                  integerValue = [v25 integerValue];
                   *buf = 134217984;
-                  v64 = integerValue;
-                  _os_log_impl(&dword_241804000, v33, OS_LOG_TYPE_INFO, "  File size is: %ld", buf, 0xCu);
+                  v65 = integerValue;
+                  _os_log_impl(&dword_241804000, v35, OS_LOG_TYPE_INFO, "  File size is: %ld", buf, 0xCu);
                 }
 
-                if ([v24 integerValue])
+                if ([v25 integerValue])
                 {
-                  [v52 setTotalBytes:{objc_msgSend(v52, "totalBytes") + -[NSObject unsignedIntegerValue](v24, "unsignedIntegerValue")}];
-                  [v52 setNumberOfFiles:{(objc_msgSend(v52, "numberOfFiles") + 1)}];
-                  v35 = v52;
+                  [v53 setTotalBytes:{objc_msgSend(v53, "totalBytes") + -[NSObject unsignedIntegerValue](v25, "unsignedIntegerValue")}];
+                  [v53 setNumberOfFiles:{(objc_msgSend(v53, "numberOfFiles") + 1)}];
+                  v37 = v53;
                   goto LABEL_31;
                 }
 
-                fileURLs3 = uploadLogHandle();
+                fileURLs3 = uploadLogHandle(0);
                 if (os_log_type_enabled(fileURLs3, OS_LOG_TYPE_INFO))
                 {
                   *buf = 0;
@@ -901,29 +900,29 @@ LABEL_22:
 
               else
               {
-                if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
+                if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
                 {
                   *buf = 138412290;
-                  v64 = v31;
-                  _os_log_impl(&dword_241804000, v33, OS_LOG_TYPE_DEFAULT, "  Error getting file size: %@", buf, 0xCu);
+                  v65 = v33;
+                  _os_log_impl(&dword_241804000, v35, OS_LOG_TYPE_DEFAULT, "  Error getting file size: %@", buf, 0xCu);
                 }
 
-                [v52 setNumberOfFiles:{(objc_msgSend(v52, "numberOfFiles") + 1)}];
-                v35 = v52;
+                [v53 setNumberOfFiles:{(objc_msgSend(v53, "numberOfFiles") + 1)}];
+                v37 = v53;
 LABEL_31:
-                fileURLs3 = [v35 fileURLs];
+                fileURLs3 = [v37 fileURLs];
                 [fileURLs3 addObject:v22];
               }
 
-              v16 = v54;
+              v16 = v55;
             }
 
-            else if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+            else if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
             {
               absoluteString2 = [v22 absoluteString];
               *buf = 138412290;
-              v64 = absoluteString2;
-              _os_log_impl(&dword_241804000, v24, OS_LOG_TYPE_ERROR, "Attachment file at path %@ does not exist.", buf, 0xCu);
+              v65 = absoluteString2;
+              _os_log_impl(&dword_241804000, v25, OS_LOG_TYPE_ERROR, "Attachment file at path %@ does not exist.", buf, 0xCu);
             }
 
             self = selfCopy;
@@ -931,11 +930,11 @@ LABEL_31:
             goto LABEL_34;
           }
 
-          v24 = uploadLogHandle();
-          if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+          v25 = uploadLogHandle(v24);
+          if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 0;
-            _os_log_impl(&dword_241804000, v24, OS_LOG_TYPE_DEFAULT, "Privacy sensitive log content cannot be uploaded.", buf, 2u);
+            _os_log_impl(&dword_241804000, v25, OS_LOG_TYPE_DEFAULT, "Privacy sensitive log content cannot be uploaded.", buf, 2u);
           }
 
 LABEL_34:
@@ -944,70 +943,67 @@ LABEL_34:
         }
 
         while (v18 != v21);
-        v38 = [v16 countByEnumeratingWithState:&v58 objects:v62 count:16];
-        v18 = v38;
+        v40 = [v16 countByEnumeratingWithState:&v59 objects:v63 count:16];
+        v18 = v40;
       }
 
-      while (v38);
+      while (v40);
     }
 
-    recordCopy = v52;
-    fileURLs4 = [v52 fileURLs];
-    v40 = [fileURLs4 count];
-    v41 = [v16 count];
+    recordCopy = v53;
+    fileURLs4 = [v53 fileURLs];
+    v42 = [fileURLs4 count];
+    v43 = [v16 count];
 
-    v15 = v40 == v41;
-    if (v40 == v41)
+    v15 = v42 == v43;
+    if (v42 == v43)
     {
-      [v52 setPreflightResult:1];
-      v42 = uploadLogHandle();
-      v43 = v50;
-      v44 = defaultManager;
-      if (os_log_type_enabled(v42, OS_LOG_TYPE_INFO))
+      v44 = uploadLogHandle([v53 setPreflightResult:1]);
+      v45 = v51;
+      v46 = defaultManager;
+      if (os_log_type_enabled(v44, OS_LOG_TYPE_INFO))
       {
         *buf = 0;
-        _os_log_impl(&dword_241804000, v42, OS_LOG_TYPE_INFO, "Preflight successful: all files for this case are available", buf, 2u);
+        _os_log_impl(&dword_241804000, v44, OS_LOG_TYPE_INFO, "Preflight successful: all files for this case are available", buf, 2u);
       }
 
-      storageCopy = v51;
+      storageCopy = v52;
       goto LABEL_50;
     }
 
-    fileURLs5 = [v52 fileURLs];
-    v46 = [fileURLs5 count];
+    fileURLs5 = [v53 fileURLs];
+    v48 = [fileURLs5 count];
 
-    v43 = v50;
-    v44 = defaultManager;
-    if (v46)
+    v45 = v51;
+    v46 = defaultManager;
+    if (v48)
     {
-      [v52 setPreflightResult:2];
-      v42 = uploadLogHandle();
-      storageCopy = v51;
-      if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
+      v44 = uploadLogHandle([v53 setPreflightResult:2]);
+      storageCopy = v52;
+      if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
       {
         *buf = 0;
-        v47 = "Preflight failed: some files for this case are unavailable";
+        v49 = "Preflight failed: some files for this case are unavailable";
 LABEL_49:
-        _os_log_impl(&dword_241804000, v42, OS_LOG_TYPE_ERROR, v47, buf, 2u);
+        _os_log_impl(&dword_241804000, v44, OS_LOG_TYPE_ERROR, v49, buf, 2u);
       }
     }
 
     else
     {
-      [v52 setPreflightResult:3];
-      v42 = uploadLogHandle();
-      storageCopy = v51;
-      if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
+      v44 = uploadLogHandle([v53 setPreflightResult:3]);
+      storageCopy = v52;
+      if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
       {
         *buf = 0;
-        v47 = "Preflight failed: all files for this case are unavailable";
+        v49 = "Preflight failed: all files for this case are unavailable";
         goto LABEL_49;
       }
     }
 
 LABEL_50:
 
-    objc_autoreleasePoolPop(v43);
+    objc_autoreleasePoolPop(v45);
     goto LABEL_51;
   }
 
@@ -1020,45 +1016,45 @@ LABEL_50:
   v15 = 0;
 LABEL_51:
 
-  v48 = *MEMORY[0x277D85DE8];
   return v15;
 }
 
 - (void)recordOperationCompleteForOperationID:(id)d completionTime:(id)time success:(BOOL)success
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   dCopy = d;
   timeCopy = time;
+  v10 = timeCopy;
   if (dCopy)
   {
     dCopy = [MEMORY[0x277CCAC30] predicateWithFormat:@"operationID == %@", dCopy];
     uploadRecordAnalytics = self->_uploadRecordAnalytics;
-    v12 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"startTime" ascending:1];
-    v13 = [(ObjectAnalytics *)uploadRecordAnalytics fetchEntitiesFreeForm:dCopy sortDesc:v12 limit:0];
+    v13 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"startTime" ascending:1];
+    v14 = [(ObjectAnalytics *)uploadRecordAnalytics fetchEntitiesFreeForm:dCopy sortDesc:v13 limit:0];
 
-    v14 = uploadLogHandle();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+    v16 = uploadLogHandle(v15);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
     {
       *buf = 134218242;
-      *&buf[4] = [v13 count];
+      *&buf[4] = [v14 count];
       *&buf[12] = 2112;
       *&buf[14] = dCopy;
-      _os_log_impl(&dword_241804000, v14, OS_LOG_TYPE_DEBUG, "Found %ld records with matching operationID %@", buf, 0x16u);
+      _os_log_impl(&dword_241804000, v16, OS_LOG_TYPE_DEBUG, "Found %ld records with matching operationID %@", buf, 0x16u);
     }
 
     *buf = 0;
     *&buf[8] = buf;
     *&buf[16] = 0x2020000000;
-    v22 = 0;
-    v16[0] = MEMORY[0x277D85DD0];
-    v16[1] = 3221225472;
-    v16[2] = __89__CloudKitUploadController_recordOperationCompleteForOperationID_completionTime_success___block_invoke;
-    v16[3] = &unk_278CF2328;
+    v23 = 0;
+    v17[0] = MEMORY[0x277D85DD0];
+    v17[1] = 3221225472;
+    v17[2] = __89__CloudKitUploadController_recordOperationCompleteForOperationID_completionTime_success___block_invoke;
+    v17[3] = &unk_278CF2328;
     successCopy = success;
-    v17 = timeCopy;
-    v19 = buf;
-    v18 = dCopy;
-    [v13 enumerateObjectsUsingBlock:v16];
+    v18 = v10;
+    v20 = buf;
+    v19 = dCopy;
+    [v14 enumerateObjectsUsingBlock:v17];
     if (*(*&buf[8] + 24) == 1)
     {
       [(CloudKitUploadController *)self save];
@@ -1069,96 +1065,93 @@ LABEL_51:
 
   else
   {
-    dCopy = uploadLogHandle();
+    dCopy = uploadLogHandle(timeCopy);
     if (os_log_type_enabled(dCopy, OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
       _os_log_impl(&dword_241804000, dCopy, OS_LOG_TYPE_ERROR, "Not expecting a nil operation ID!", buf, 2u);
     }
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void __89__CloudKitUploadController_recordOperationCompleteForOperationID_completionTime_success___block_invoke(uint64_t a1, void *a2)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v3 = a2;
   objc_opt_class();
-  if (objc_opt_isKindOfClass())
+  isKindOfClass = objc_opt_isKindOfClass();
+  if (isKindOfClass)
   {
-    v4 = v3;
-    [v4 setOperationID:0];
+    v5 = v3;
+    [v5 setOperationID:0];
     if (*(a1 + 56))
     {
-      v5 = 3;
+      v6 = 3;
     }
 
     else
     {
-      v5 = 4;
+      v6 = 4;
     }
 
-    [v4 setUploadState:v5];
+    [v5 setUploadState:v6];
     if (*(a1 + 56) == 1)
     {
-      v6 = [v4 caseStorage];
-      [v6 setUploadState:4];
+      v7 = [v5 caseStorage];
+      [v7 setUploadState:4];
     }
 
-    v7 = *(a1 + 32);
-    if (v7)
+    v8 = *(a1 + 32);
+    if (v8)
     {
-      v8 = v4;
+      v9 = v5;
     }
 
     else
     {
-      [v4 setStartTime:?];
-      v8 = v4;
-      v7 = 0;
+      [v5 setStartTime:?];
+      v9 = v5;
+      v8 = 0;
     }
 
-    [v8 setFinishTime:v7];
+    v13 = [v9 setFinishTime:v8];
     *(*(*(a1 + 48) + 8) + 24) = 1;
-    v12 = uploadLogHandle();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+    v14 = uploadLogHandle(v13);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
     {
-      v14 = 138412290;
-      v15 = v4;
-      _os_log_impl(&dword_241804000, v12, OS_LOG_TYPE_INFO, "Recording completion for upload record %@", &v14, 0xCu);
+      v15 = 138412290;
+      v16 = v5;
+      _os_log_impl(&dword_241804000, v14, OS_LOG_TYPE_INFO, "Recording completion for upload record %@", &v15, 0xCu);
     }
   }
 
   else
   {
-    v4 = uploadLogHandle();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = uploadLogHandle(isKindOfClass);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      v9 = objc_opt_class();
-      v10 = NSStringFromClass(v9);
-      v11 = *(a1 + 40);
-      v14 = 138412546;
-      v15 = v10;
-      v16 = 2112;
-      v17 = v11;
-      _os_log_impl(&dword_241804000, v4, OS_LOG_TYPE_ERROR, "Unexpected class %@ for object with operationID %@ (expecting UploadRecord)", &v14, 0x16u);
+      v10 = objc_opt_class();
+      v11 = NSStringFromClass(v10);
+      v12 = *(a1 + 40);
+      v15 = 138412546;
+      v16 = v11;
+      v17 = 2112;
+      v18 = v12;
+      _os_log_impl(&dword_241804000, v5, OS_LOG_TYPE_ERROR, "Unexpected class %@ for object with operationID %@ (expecting UploadRecord)", &v15, 0x16u);
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (id)currentCloudKitContainerForEnvironment:(int64_t)environment
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v4 = +[ABCAdministrator sharedInstance];
   configurationManager = [v4 configurationManager];
   cloudKitContainerIdentifier = [configurationManager cloudKitContainerIdentifier];
 
   v7 = [objc_alloc(MEMORY[0x277CBC220]) initWithContainerIdentifier:cloudKitContainerIdentifier environment:environment];
   v8 = [objc_alloc(MEMORY[0x277CBC218]) initWithContainerID:v7];
-  v9 = uploadLogHandle();
+  v9 = uploadLogHandle(v8);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
   {
     v10 = "Production";
@@ -1167,25 +1160,70 @@ void __89__CloudKitUploadController_recordOperationCompleteForOperationID_comple
       v10 = "Sandbox";
     }
 
-    v13 = 138412546;
-    v14 = cloudKitContainerIdentifier;
-    v15 = 2080;
-    v16 = v10;
-    _os_log_impl(&dword_241804000, v9, OS_LOG_TYPE_DEBUG, "DiagnosticCaseSummaryLog: Returning CKContainer with identifier %@ in the %s environment", &v13, 0x16u);
+    v12 = 138412546;
+    v13 = cloudKitContainerIdentifier;
+    v14 = 2080;
+    v15 = v10;
+    _os_log_impl(&dword_241804000, v9, OS_LOG_TYPE_DEBUG, "DiagnosticCaseSummaryLog: Returning CKContainer with identifier %@ in the %s environment", &v12, 0x16u);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
 
+- (id)uploadOperationWithRecordsToSave:(id)save recordIDsToDelete:(id)delete allowCellular:(BOOL)cellular activity:(id)activity
+{
+  cellularCopy = cellular;
+  activityCopy = activity;
+  v10 = MEMORY[0x277CBC4A0];
+  deleteCopy = delete;
+  saveCopy = save;
+  v13 = [[v10 alloc] initWithRecordsToSave:saveCopy recordIDsToDelete:deleteCopy];
+
+  v14 = +[ABCAdministrator sharedInstance];
+  configurationManager = [v14 configurationManager];
+  cloudKitPrefersAnonymous = [configurationManager cloudKitPrefersAnonymous];
+  configuration = [v13 configuration];
+  [configuration setPreferAnonymousRequests:cloudKitPrefersAnonymous];
+
+  configuration2 = [v13 configuration];
+  [configuration2 setAllowsCellularAccess:cellularCopy];
+
+  configuration3 = [v13 configuration];
+  [configuration3 setAutomaticallyRetryNetworkFailures:1];
+
+  configuration4 = [v13 configuration];
+  [configuration4 setDiscretionaryNetworkBehavior:0];
+
+  v21 = +[ABCAdministrator sharedInstance];
+  configurationManager2 = [v21 configurationManager];
+  [configurationManager2 cloudKitTimeoutIntervalForResource];
+  v24 = v23;
+  configuration5 = [v13 configuration];
+  [configuration5 setTimeoutIntervalForResource:v24];
+
+  v26 = +[ABCAdministrator sharedInstance];
+  configurationManager3 = [v26 configurationManager];
+  [configurationManager3 cloudKitTimeoutIntervalForRequest];
+  v29 = v28;
+  configuration6 = [v13 configuration];
+  [configuration6 setTimeoutIntervalForRequest:v29];
+
+  if (activityCopy)
+  {
+    configuration7 = [v13 configuration];
+    [configuration7 setXpcActivity:activityCopy];
+  }
+
+  return v13;
+}
+
 - (void)uploadToCloudKitContainer:(id)container withRecords:(id)records activity:(id)activity
 {
-  v138 = *MEMORY[0x277D85DE8];
+  v141 = *MEMORY[0x277D85DE8];
   containerCopy = container;
   recordsCopy = records;
   activityCopy = activity;
-  v9 = uploadLogHandle();
+  v9 = uploadLogHandle(activityCopy);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
   {
     *buf = 0;
@@ -1194,166 +1232,170 @@ void __89__CloudKitUploadController_recordOperationCompleteForOperationID_comple
 
   self->_outstandingOperationCount = 0;
   self->_aggregateOperationResult = 1;
-  v10 = uploadLogHandle();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  v11 = uploadLogHandle(v10);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = [recordsCopy count];
+    v12 = [recordsCopy count];
     *buf = 134217984;
-    v120 = v11;
-    _os_log_impl(&dword_241804000, v10, OS_LOG_TYPE_DEFAULT, "Ready to upload %ld cases", buf, 0xCu);
+    v123 = v12;
+    _os_log_impl(&dword_241804000, v11, OS_LOG_TYPE_DEFAULT, "Ready to upload %ld cases", buf, 0xCu);
   }
 
-  v116 = 0u;
+  v119 = 0u;
+  v120 = 0u;
+  v118 = 0u;
   v117 = 0u;
-  v115 = 0u;
-  v114 = 0u;
   obj = recordsCopy;
-  v94 = [obj countByEnumeratingWithState:&v114 objects:v137 count:16];
-  if (v94)
+  v97 = [obj countByEnumeratingWithState:&v117 objects:v140 count:16];
+  if (v97)
   {
-    v13 = 0x277CBE000uLL;
-    v93 = *v115;
-    *&v12 = 134217984;
-    v88 = v12;
-    v92 = activityCopy;
+    v14 = 0x277CBE000uLL;
+    v96 = *v118;
+    *&v13 = 134217984;
+    v91 = v13;
+    v95 = activityCopy;
     while (2)
     {
-      v14 = 0;
+      v15 = 0;
       do
       {
-        if (*v115 != v93)
+        if (*v118 != v96)
         {
           objc_enumerationMutation(obj);
         }
 
-        v106 = *(*(&v114 + 1) + 8 * v14);
-        if (activityCopy && xpc_activity_should_defer(activityCopy))
+        v109 = *(*(&v117 + 1) + 8 * v15);
+        if (activityCopy)
         {
-          v86 = uploadLogHandle();
-          if (os_log_type_enabled(v86, OS_LOG_TYPE_DEFAULT))
+          should_defer = xpc_activity_should_defer(activityCopy);
+          if (should_defer)
           {
-            *buf = 0;
-            _os_log_impl(&dword_241804000, v86, OS_LOG_TYPE_DEFAULT, "Stopping log uploads due to activity defer", buf, 2u);
+            v90 = uploadLogHandle(should_defer);
+            if (os_log_type_enabled(v90, OS_LOG_TYPE_DEFAULT))
+            {
+              *buf = 0;
+              _os_log_impl(&dword_241804000, v90, OS_LOG_TYPE_DEFAULT, "Stopping log uploads due to activity defer", buf, 2u);
+            }
+
+            [(CloudKitUploadController *)self deferXPCActivity:activityCopy];
+            goto LABEL_57;
           }
-
-          [(CloudKitUploadController *)self deferXPCActivity:activityCopy];
-          goto LABEL_57;
         }
 
-        v101 = v14;
-        v103 = objc_alloc_init(*(v13 + 2840));
-        v15 = +[SystemProperties sharedInstance];
-        npiDevice = [v15 npiDevice];
+        v104 = v15;
+        v106 = objc_alloc_init(*(v14 + 2840));
+        v17 = +[SystemProperties sharedInstance];
+        npiDevice = [v17 npiDevice];
 
-        v16 = [objc_alloc(MEMORY[0x277CBC5A0]) initWithRecordType:@"ABCCase"];
-        v102 = +[SystemProperties sharedInstance];
-        v17 = objc_alloc_init(*(v13 + 2840));
-        caseStorage = [v106 caseStorage];
+        v18 = [objc_alloc(MEMORY[0x277CBC5A0]) initWithRecordType:@"ABCCase"];
+        v105 = +[SystemProperties sharedInstance];
+        v19 = objc_alloc_init(*(v14 + 2840));
+        caseStorage = [v109 caseStorage];
         caseID = [caseStorage caseID];
-        [v16 setObject:caseID forKeyedSubscript:@"caseID"];
+        [v18 setObject:caseID forKeyedSubscript:@"caseID"];
 
-        caseStorage2 = [v106 caseStorage];
+        caseStorage2 = [v109 caseStorage];
         caseGroupID = [caseStorage2 caseGroupID];
-        [v16 setObject:caseGroupID forKeyedSubscript:@"caseGroupID"];
+        [v18 setObject:caseGroupID forKeyedSubscript:@"caseGroupID"];
 
-        caseStorage3 = [v106 caseStorage];
+        caseStorage3 = [v109 caseStorage];
         timeStamp = [caseStorage3 timeStamp];
-        [v16 setObject:timeStamp forKeyedSubscript:@"caseDetectionTime"];
+        [v18 setObject:timeStamp forKeyedSubscript:@"caseDetectionTime"];
 
-        caseStorage4 = [v106 caseStorage];
+        caseStorage4 = [v109 caseStorage];
         caseDomain = [caseStorage4 caseDomain];
-        [v16 setObject:caseDomain forKeyedSubscript:@"caseDomain"];
+        [v18 setObject:caseDomain forKeyedSubscript:@"caseDomain"];
 
-        v26 = [v16 objectForKeyedSubscript:@"caseDomain"];
+        v28 = [v18 objectForKeyedSubscript:@"caseDomain"];
 
-        v104 = v17;
-        if (v26)
+        v107 = v19;
+        if (v28)
         {
-          v27 = [v16 objectForKeyedSubscript:@"caseDomain"];
-          [v17 addObject:v27];
+          v29 = [v18 objectForKeyedSubscript:@"caseDomain"];
+          [v19 addObject:v29];
         }
 
         else
         {
-          [v17 addObject:&stru_285368168];
+          [v19 addObject:&stru_285368168];
         }
 
-        caseStorage5 = [v106 caseStorage];
+        caseStorage5 = [v109 caseStorage];
         caseType = [caseStorage5 caseType];
-        [v16 setObject:caseType forKeyedSubscript:@"caseType"];
+        [v18 setObject:caseType forKeyedSubscript:@"caseType"];
 
-        v30 = [v16 objectForKeyedSubscript:@"caseType"];
+        v32 = [v18 objectForKeyedSubscript:@"caseType"];
 
-        if (v30)
+        if (v32)
         {
-          v31 = [v16 objectForKeyedSubscript:@"caseType"];
-          [v17 addObject:v31];
+          v33 = [v18 objectForKeyedSubscript:@"caseType"];
+          [v19 addObject:v33];
         }
 
         else
         {
-          [v17 addObject:&stru_285368168];
+          [v19 addObject:&stru_285368168];
         }
 
-        caseStorage6 = [v106 caseStorage];
+        caseStorage6 = [v109 caseStorage];
         caseSubtype = [caseStorage6 caseSubtype];
-        [v16 setObject:caseSubtype forKeyedSubscript:@"caseSubtype"];
+        [v18 setObject:caseSubtype forKeyedSubscript:@"caseSubtype"];
 
-        v34 = [v16 objectForKeyedSubscript:@"caseSubtype"];
+        v36 = [v18 objectForKeyedSubscript:@"caseSubtype"];
 
-        if (v34)
+        if (v36)
         {
-          v35 = [v16 objectForKeyedSubscript:@"caseSubtype"];
-          v36 = v17;
-          [v17 addObject:v35];
+          v37 = [v18 objectForKeyedSubscript:@"caseSubtype"];
+          v38 = v19;
+          [v19 addObject:v37];
         }
 
         else
         {
-          v36 = v17;
-          [v17 addObject:&stru_285368168];
+          v38 = v19;
+          [v19 addObject:&stru_285368168];
         }
 
-        caseStorage7 = [v106 caseStorage];
+        caseStorage7 = [v109 caseStorage];
         caseSubtypeContext = [caseStorage7 caseSubtypeContext];
-        [v16 setObject:caseSubtypeContext forKeyedSubscript:@"caseSubtypeContext"];
+        [v18 setObject:caseSubtypeContext forKeyedSubscript:@"caseSubtypeContext"];
 
-        v39 = [v16 objectForKeyedSubscript:@"caseSubtypeContext"];
+        v41 = [v18 objectForKeyedSubscript:@"caseSubtypeContext"];
 
-        if (v39)
+        if (v41)
         {
-          v40 = [v16 objectForKeyedSubscript:@"caseSubtypeContext"];
-          [v36 addObject:v40];
+          v42 = [v18 objectForKeyedSubscript:@"caseSubtypeContext"];
+          [v38 addObject:v42];
         }
 
         else
         {
-          [v36 addObject:&stru_285368168];
+          [v38 addObject:&stru_285368168];
         }
 
-        caseStorage8 = [v106 caseStorage];
+        caseStorage8 = [v109 caseStorage];
         caseDetectedProcess = [caseStorage8 caseDetectedProcess];
-        [v16 setObject:caseDetectedProcess forKeyedSubscript:@"caseProcess"];
+        [v18 setObject:caseDetectedProcess forKeyedSubscript:@"caseProcess"];
 
-        v43 = [v16 objectForKeyedSubscript:@"caseProcess"];
+        v45 = [v18 objectForKeyedSubscript:@"caseProcess"];
 
-        if (v43)
+        if (v45)
         {
-          v44 = [v16 objectForKeyedSubscript:@"caseProcess"];
-          [v36 addObject:v44];
+          v46 = [v18 objectForKeyedSubscript:@"caseProcess"];
+          [v38 addObject:v46];
         }
 
         else
         {
-          [v36 addObject:&stru_285368168];
+          [v38 addObject:&stru_285368168];
         }
 
-        v45 = [v36 componentsJoinedByString:@"^"];
-        [v16 setObject:v45 forKeyedSubscript:@"caseSignature"];
+        v47 = [v38 componentsJoinedByString:@"^"];
+        [v18 setObject:v47 forKeyedSubscript:@"caseSignature"];
 
-        caseStorage9 = [v106 caseStorage];
+        caseStorage9 = [v109 caseStorage];
         buildVersion = [caseStorage9 buildVersion];
-        v48 = buildVersion;
+        v50 = buildVersion;
         if (buildVersion)
         {
           buildVersion2 = buildVersion;
@@ -1361,176 +1403,181 @@ void __89__CloudKitUploadController_recordOperationCompleteForOperationID_comple
 
         else
         {
-          buildVersion2 = [v102 buildVersion];
+          buildVersion2 = [v105 buildVersion];
         }
 
-        v50 = buildVersion2;
+        v52 = buildVersion2;
 
-        [v16 setObject:v50 forKeyedSubscript:@"build"];
-        if ([v50 length] >= 4)
+        [v18 setObject:v52 forKeyedSubscript:@"build"];
+        if ([v52 length] >= 4)
         {
-          v51 = [v50 substringToIndex:3];
-          [v16 setObject:v51 forKeyedSubscript:@"buildPrefix"];
+          v53 = [v52 substringToIndex:3];
+          [v18 setObject:v53 forKeyedSubscript:@"buildPrefix"];
         }
 
-        caseStorage10 = [v106 caseStorage];
+        caseStorage10 = [v109 caseStorage];
         buildVariant = [caseStorage10 buildVariant];
-        v105 = v16;
-        v98 = v50;
+        v108 = v18;
+        v101 = v52;
         if (buildVariant)
         {
-          [v16 setObject:buildVariant forKeyedSubscript:@"buildVariant"];
+          [v18 setObject:buildVariant forKeyedSubscript:@"buildVariant"];
         }
 
         else
         {
-          buildVariant2 = [v102 buildVariant];
-          [v105 setObject:buildVariant2 forKeyedSubscript:@"buildVariant"];
+          buildVariant2 = [v105 buildVariant];
+          [v108 setObject:buildVariant2 forKeyedSubscript:@"buildVariant"];
 
-          v16 = v105;
+          v18 = v108;
         }
 
-        buildPlatform = [v102 buildPlatform];
-        [v16 setObject:buildPlatform forKeyedSubscript:@"buildPlatform"];
+        buildPlatform = [v105 buildPlatform];
+        [v18 setObject:buildPlatform forKeyedSubscript:@"buildPlatform"];
 
-        productType = [v102 productType];
-        [v16 setObject:productType forKeyedSubscript:@"deviceModel"];
+        productType = [v105 productType];
+        [v18 setObject:productType forKeyedSubscript:@"deviceModel"];
 
-        deviceClassString = [v102 deviceClassString];
-        [v16 setObject:deviceClassString forKeyedSubscript:@"deviceCategory"];
+        deviceClassString = [v105 deviceClassString];
+        [v18 setObject:deviceClassString forKeyedSubscript:@"deviceCategory"];
 
-        v58 = uploadLogHandle();
-        if (os_log_type_enabled(v58, OS_LOG_TYPE_DEBUG))
+        v61 = uploadLogHandle(v60);
+        if (os_log_type_enabled(v61, OS_LOG_TYPE_DEBUG))
         {
-          v91 = [v105 objectForKeyedSubscript:@"caseID"];
-          v97 = [v105 objectForKeyedSubscript:@"caseDomain"];
-          v59 = [v105 objectForKeyedSubscript:@"caseType"];
-          v60 = [v105 objectForKeyedSubscript:@"caseSubtype"];
-          v61 = [v105 objectForKeyedSubscript:@"caseSubtypeContext"];
-          v62 = [v105 objectForKeyedSubscript:@"caseProcess"];
-          v90 = [v105 objectForKeyedSubscript:@"build"];
-          v63 = [v105 objectForKeyedSubscript:@"buildVariant"];
-          v64 = [v105 objectForKeyedSubscript:@"deviceModel"];
+          v94 = [v108 objectForKeyedSubscript:@"caseID"];
+          v100 = [v108 objectForKeyedSubscript:@"caseDomain"];
+          v62 = [v108 objectForKeyedSubscript:@"caseType"];
+          v63 = [v108 objectForKeyedSubscript:@"caseSubtype"];
+          v64 = [v108 objectForKeyedSubscript:@"caseSubtypeContext"];
+          v65 = [v108 objectForKeyedSubscript:@"caseProcess"];
+          v93 = [v108 objectForKeyedSubscript:@"build"];
+          v66 = [v108 objectForKeyedSubscript:@"buildVariant"];
+          v67 = [v108 objectForKeyedSubscript:@"deviceModel"];
           *buf = 138414338;
-          v120 = v91;
-          v121 = 2112;
-          v122 = v97;
-          v123 = 2112;
-          v124 = v59;
-          v125 = 2112;
-          v126 = v60;
-          v127 = 2112;
-          v128 = v61;
-          v129 = 2112;
-          v130 = v62;
-          v131 = 2112;
-          v132 = v90;
-          v133 = 2112;
-          v134 = v63;
-          v135 = 2112;
-          v136 = v64;
-          _os_log_impl(&dword_241804000, v58, OS_LOG_TYPE_DEBUG, "Creating case record for %@ : [%@/%@/%@/%@/%@] (%@/%@/%@)", buf, 0x5Cu);
+          v123 = v94;
+          v124 = 2112;
+          v125 = v100;
+          v126 = 2112;
+          v127 = v62;
+          v128 = 2112;
+          v129 = v63;
+          v130 = 2112;
+          v131 = v64;
+          v132 = 2112;
+          v133 = v65;
+          v134 = 2112;
+          v135 = v93;
+          v136 = 2112;
+          v137 = v66;
+          v138 = 2112;
+          v139 = v67;
+          _os_log_impl(&dword_241804000, v61, OS_LOG_TYPE_DEBUG, "Creating case record for %@ : [%@/%@/%@/%@/%@] (%@/%@/%@)", buf, 0x5Cu);
         }
 
         array = [MEMORY[0x277CBEB18] array];
         array2 = [MEMORY[0x277CBEB18] array];
-        v110 = 0u;
-        v111 = 0u;
-        v112 = 0u;
         v113 = 0u;
-        fileURLs = [v106 fileURLs];
-        v68 = [fileURLs countByEnumeratingWithState:&v110 objects:v118 count:16];
-        if (v68)
+        v114 = 0u;
+        v115 = 0u;
+        v116 = 0u;
+        fileURLs = [v109 fileURLs];
+        v71 = [fileURLs countByEnumeratingWithState:&v113 objects:v121 count:16];
+        if (v71)
         {
-          v69 = v68;
-          v70 = *v111;
+          v72 = v71;
+          v73 = *v114;
           do
           {
-            for (i = 0; i != v69; ++i)
+            v74 = 0;
+            do
             {
-              if (*v111 != v70)
+              if (*v114 != v73)
               {
                 objc_enumerationMutation(fileURLs);
               }
 
-              v72 = *(*(&v110 + 1) + 8 * i);
-              v73 = uploadLogHandle();
-              if (os_log_type_enabled(v73, OS_LOG_TYPE_INFO))
+              v75 = *(*(&v113 + 1) + 8 * v74);
+              v76 = uploadLogHandle(v71);
+              if (os_log_type_enabled(v76, OS_LOG_TYPE_INFO))
               {
                 *buf = 138412290;
-                v120 = v72;
-                _os_log_impl(&dword_241804000, v73, OS_LOG_TYPE_INFO, "Creating asset for attachment %@", buf, 0xCu);
+                v123 = v75;
+                _os_log_impl(&dword_241804000, v76, OS_LOG_TYPE_INFO, "Creating asset for attachment %@", buf, 0xCu);
               }
 
-              v74 = [objc_alloc(MEMORY[0x277CBC190]) initWithFileURL:v72];
-              [array addObject:v74];
-              lastPathComponent = [v72 lastPathComponent];
+              v77 = [objc_alloc(MEMORY[0x277CBC190]) initWithFileURL:v75];
+              [array addObject:v77];
+              lastPathComponent = [v75 lastPathComponent];
               [array2 addObject:lastPathComponent];
+
+              ++v74;
             }
 
-            v69 = [fileURLs countByEnumeratingWithState:&v110 objects:v118 count:16];
+            while (v72 != v74);
+            v71 = [fileURLs countByEnumeratingWithState:&v113 objects:v121 count:16];
+            v72 = v71;
           }
 
-          while (v69);
+          while (v71);
         }
 
-        v76 = uploadLogHandle();
-        if (os_log_type_enabled(v76, OS_LOG_TYPE_DEBUG))
+        v80 = uploadLogHandle(v79);
+        if (os_log_type_enabled(v80, OS_LOG_TYPE_DEBUG))
         {
-          v77 = [array count];
-          *buf = v88;
-          v120 = v77;
-          _os_log_impl(&dword_241804000, v76, OS_LOG_TYPE_DEBUG, "Adding %ld assets to case record", buf, 0xCu);
+          v81 = [array count];
+          *buf = v91;
+          v123 = v81;
+          _os_log_impl(&dword_241804000, v80, OS_LOG_TYPE_DEBUG, "Adding %ld assets to case record", buf, 0xCu);
         }
 
-        [v105 setObject:array forKeyedSubscript:@"attachments"];
-        [v105 setObject:array2 forKeyedSubscript:@"attachmentFilenames"];
-        [v103 addObject:v105];
-        v78 = [(CloudKitUploadController *)self uploadOperationWithRecordsToSave:v103 recordIDsToDelete:0 allowCellular:npiDevice activity:v92];
-        operationID = [v78 operationID];
-        [v106 setOperationID:operationID];
+        [v108 setObject:array forKeyedSubscript:@"attachments"];
+        [v108 setObject:array2 forKeyedSubscript:@"attachmentFilenames"];
+        [v106 addObject:v108];
+        v82 = [(CloudKitUploadController *)self uploadOperationWithRecordsToSave:v106 recordIDsToDelete:0 allowCellular:npiDevice activity:v95];
+        operationID = [v82 operationID];
+        [v109 setOperationID:operationID];
 
-        [v106 setAllowsCellular:npiDevice];
-        operationID2 = [v78 operationID];
-        v107[0] = MEMORY[0x277D85DD0];
-        v107[1] = 3221225472;
-        v107[2] = __75__CloudKitUploadController_uploadToCloudKitContainer_withRecords_activity___block_invoke;
-        v107[3] = &unk_278CF2350;
-        v107[4] = self;
-        v108 = operationID2;
-        v109 = v92;
-        v100 = operationID2;
-        [v78 setModifyRecordsCompletionBlock:v107];
+        [v109 setAllowsCellular:npiDevice];
+        operationID2 = [v82 operationID];
+        v110[0] = MEMORY[0x277D85DD0];
+        v110[1] = 3221225472;
+        v110[2] = __75__CloudKitUploadController_uploadToCloudKitContainer_withRecords_activity___block_invoke;
+        v110[3] = &unk_278CF2350;
+        v110[4] = self;
+        v111 = operationID2;
+        v112 = v95;
+        v103 = operationID2;
+        [v82 setModifyRecordsCompletionBlock:v110];
         date = [MEMORY[0x277CBEAA8] date];
-        [v106 setStartTime:date];
+        [v109 setStartTime:date];
 
-        [v106 setUploadState:2];
-        v82 = +[ABCAdministrator sharedInstance];
-        configurationManager = [v82 configurationManager];
+        [v109 setUploadState:2];
+        v86 = +[ABCAdministrator sharedInstance];
+        configurationManager = [v86 configurationManager];
         if ([configurationManager cloudKitSandboxEnvironment])
         {
-          v84 = 2;
+          v88 = 2;
         }
 
         else
         {
-          v84 = 1;
+          v88 = 1;
         }
 
-        activityCopy = v92;
-        [v106 setEnvironment:v84];
+        activityCopy = v95;
+        [v109 setEnvironment:v88];
 
         ++self->_outstandingOperationCount;
         publicCloudDatabase = [containerCopy publicCloudDatabase];
-        [publicCloudDatabase addOperation:v78];
+        [publicCloudDatabase addOperation:v82];
 
-        v14 = v101 + 1;
-        v13 = 0x277CBE000;
+        v15 = v104 + 1;
+        v14 = 0x277CBE000;
       }
 
-      while (v101 + 1 != v94);
-      v94 = [obj countByEnumeratingWithState:&v114 objects:v137 count:16];
-      if (v94)
+      while (v104 + 1 != v97);
+      v97 = [obj countByEnumeratingWithState:&v117 objects:v140 count:16];
+      if (v97)
       {
         continue;
       }
@@ -1542,7 +1589,6 @@ void __89__CloudKitUploadController_recordOperationCompleteForOperationID_comple
 LABEL_57:
 
   [(CloudKitUploadController *)self save];
-  v87 = *MEMORY[0x277D85DE8];
 }
 
 void __75__CloudKitUploadController_uploadToCloudKitContainer_withRecords_activity___block_invoke(uint64_t a1, void *a2, void *a3, void *a4)
@@ -1550,7 +1596,7 @@ void __75__CloudKitUploadController_uploadToCloudKitContainer_withRecords_activi
   v7 = a4;
   v8 = a3;
   v9 = a2;
-  v10 = uploadLogHandle();
+  v10 = uploadLogHandle(v9);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
   {
     *v11 = 0;
@@ -1568,7 +1614,7 @@ void __75__CloudKitUploadController_uploadToCloudKitContainer_withRecords_activi
   errorCopy = error;
   activityCopy = activity;
   date = [MEMORY[0x277CBEAA8] date];
-  v16 = uploadLogHandle();
+  v16 = uploadLogHandle(date);
   if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
   {
     *buf = 134217984;
@@ -1589,28 +1635,28 @@ void __75__CloudKitUploadController_uploadToCloudKitContainer_withRecords_activi
       v34[3] = &unk_278CF0C68;
       v35 = dCopy;
       [v18 enumerateKeysAndObjectsUsingBlock:v34];
-      v19 = v35;
+      v20 = v35;
     }
 
     else
     {
-      v19 = uploadLogHandle();
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+      v20 = uploadLogHandle(v19);
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412546;
         v37 = dCopy;
         v38 = 2112;
         v39 = errorCopy;
-        _os_log_impl(&dword_241804000, v19, OS_LOG_TYPE_ERROR, "Failed upload operation %@ with error: %@", buf, 0x16u);
+        _os_log_impl(&dword_241804000, v20, OS_LOG_TYPE_ERROR, "Failed upload operation %@ with error: %@", buf, 0x16u);
       }
     }
 
-    v20 = [(CloudKitUploadController *)self shouldDeferFromCloudKitError:errorCopy];
+    v21 = [(CloudKitUploadController *)self shouldDeferFromCloudKitError:errorCopy];
   }
 
   else
   {
-    v20 = 0;
+    v21 = 0;
   }
 
   queue = self->_queue;
@@ -1622,15 +1668,15 @@ void __75__CloudKitUploadController_uploadToCloudKitContainer_withRecords_activi
   v31 = dCopy;
   v32 = date;
   v33 = errorCopy == 0;
-  v22 = date;
-  v23 = dCopy;
+  v23 = date;
+  v24 = dCopy;
   dispatch_async(queue, block);
-  if (activityCopy && v20)
+  if (activityCopy && v21)
   {
     [(CloudKitUploadController *)self deferXPCActivity:activityCopy];
   }
 
-  v24 = self->_queue;
+  v25 = self->_queue;
   v27[0] = MEMORY[0x277D85DD0];
   v27[1] = 3221225472;
   v27[2] = __96__CloudKitUploadController_operationCompletedWithID_savedRecords_deletedRecords_error_activity___block_invoke_2;
@@ -1638,36 +1684,32 @@ void __75__CloudKitUploadController_uploadToCloudKitContainer_withRecords_activi
   v29 = errorCopy == 0;
   v27[4] = self;
   v28 = activityCopy;
-  v25 = activityCopy;
-  dispatch_async(v24, v27);
-
-  v26 = *MEMORY[0x277D85DE8];
+  v26 = activityCopy;
+  dispatch_async(v25, v27);
 }
 
 void __96__CloudKitUploadController_operationCompletedWithID_savedRecords_deletedRecords_error_activity___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
-  v7 = uploadLogHandle();
+  v7 = uploadLogHandle(v6);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
   {
     v8 = *(a1 + 32);
-    v10 = 138412802;
-    v11 = v8;
-    v12 = 2112;
-    v13 = v5;
-    v14 = 2112;
-    v15 = v6;
-    _os_log_impl(&dword_241804000, v7, OS_LOG_TYPE_ERROR, "%@ Failed to upload record %@ with error %@", &v10, 0x20u);
+    v9 = 138412802;
+    v10 = v8;
+    v11 = 2112;
+    v12 = v5;
+    v13 = 2112;
+    v14 = v6;
+    _os_log_impl(&dword_241804000, v7, OS_LOG_TYPE_ERROR, "%@ Failed to upload record %@ with error %@", &v9, 0x20u);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __96__CloudKitUploadController_operationCompletedWithID_savedRecords_deletedRecords_error_activity___block_invoke_2(uint64_t a1)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   --*(*(a1 + 32) + 48);
   v2 = *(a1 + 32);
   if (*(v2 + 56) == 1)
@@ -1682,7 +1724,7 @@ void __96__CloudKitUploadController_operationCompletedWithID_savedRecords_delete
 
   *(v2 + 56) = v3 & 1;
   v4 = *(*(a1 + 32) + 48);
-  v5 = uploadLogHandle();
+  v5 = uploadLogHandle(a1);
   v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
   if (v4)
   {
@@ -1690,80 +1732,78 @@ void __96__CloudKitUploadController_operationCompletedWithID_savedRecords_delete
     {
 LABEL_8:
 
-      goto LABEL_21;
+      return;
     }
 
     v7 = *(*(a1 + 32) + 48);
-    v18 = 134217984;
-    v19 = v7;
+    v19 = 134217984;
+    v20 = v7;
     v8 = "Waiting for %ld outstanding operations...";
     v9 = v5;
     v10 = 12;
 LABEL_7:
-    _os_log_impl(&dword_241804000, v9, OS_LOG_TYPE_DEFAULT, v8, &v18, v10);
+    _os_log_impl(&dword_241804000, v9, OS_LOG_TYPE_DEFAULT, v8, &v19, v10);
     goto LABEL_8;
   }
 
   if (v6)
   {
-    LOWORD(v18) = 0;
-    _os_log_impl(&dword_241804000, v5, OS_LOG_TYPE_DEFAULT, "No more outstanding CKOperations remaining", &v18, 2u);
+    LOWORD(v19) = 0;
+    _os_log_impl(&dword_241804000, v5, OS_LOG_TYPE_DEFAULT, "No more outstanding CKOperations remaining", &v19, 2u);
   }
 
   v11 = *(*(a1 + 32) + 56);
-  v12 = uploadLogHandle();
-  v13 = os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT);
+  v13 = uploadLogHandle(v12);
+  v14 = os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT);
   if (v11 == 1)
   {
-    if (!v13)
+    if (!v14)
     {
       goto LABEL_17;
     }
 
-    LOWORD(v18) = 0;
-    v14 = "All upload operations completed successfully.";
+    LOWORD(v19) = 0;
+    v15 = "All upload operations completed successfully.";
   }
 
   else
   {
-    if (!v13)
+    if (!v14)
     {
       goto LABEL_17;
     }
 
-    LOWORD(v18) = 0;
-    v14 = "All upload operations completed, but one or more operations failed with an error.";
+    LOWORD(v19) = 0;
+    v15 = "All upload operations completed, but one or more operations failed with an error.";
   }
 
-  _os_log_impl(&dword_241804000, v12, OS_LOG_TYPE_DEFAULT, v14, &v18, 2u);
+  _os_log_impl(&dword_241804000, v13, OS_LOG_TYPE_DEFAULT, v15, &v19, 2u);
 LABEL_17:
 
-  v15 = *(a1 + 40);
-  v16 = uploadLogHandle();
-  v5 = v16;
-  if (!v15)
+  v16 = *(a1 + 40);
+  v18 = uploadLogHandle(v17);
+  v5 = v18;
+  if (!v16)
   {
-    if (!os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+    if (!os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
     {
       goto LABEL_8;
     }
 
-    LOWORD(v18) = 0;
+    LOWORD(v19) = 0;
     v8 = "XPC activity not set for this CKOperation";
     v9 = v5;
     v10 = 2;
     goto LABEL_7;
   }
 
-  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
+  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
   {
-    LOWORD(v18) = 0;
-    _os_log_impl(&dword_241804000, v5, OS_LOG_TYPE_DEBUG, "Ready to set activity state to Done", &v18, 2u);
+    LOWORD(v19) = 0;
+    _os_log_impl(&dword_241804000, v5, OS_LOG_TYPE_DEBUG, "Ready to set activity state to Done", &v19, 2u);
   }
 
   [*(a1 + 32) finishXPCActivity:*(a1 + 40)];
-LABEL_21:
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)shouldDeferFromCloudKitError:(id)error
@@ -1794,7 +1834,7 @@ LABEL_13:
       LOBYTE(v10) = code2 != 130;
       if (code2 == 130)
       {
-        v12 = uploadLogHandle();
+        v12 = uploadLogHandle(130);
         if (!os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
         {
           goto LABEL_9;
@@ -1813,7 +1853,7 @@ LABEL_13:
           goto LABEL_13;
         }
 
-        v12 = uploadLogHandle();
+        v12 = uploadLogHandle(131);
         if (!os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
         {
           goto LABEL_9;
@@ -1850,7 +1890,7 @@ LABEL_14:
   {
     if (xpc_activity_get_state(activityCopy) == 3)
     {
-      v5 = uploadLogHandle();
+      v5 = uploadLogHandle(3);
       if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
       {
         v12 = 134217984;
@@ -1866,11 +1906,12 @@ LABEL_10:
     else
     {
       v9 = xpc_activity_set_state(v4, 3);
-      v10 = uploadLogHandle();
-      v5 = v10;
-      if (v9)
+      v10 = v9;
+      v11 = uploadLogHandle(v9);
+      v5 = v11;
+      if (v10)
       {
-        if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+        if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
         {
           v12 = 134217984;
           v13 = v4;
@@ -1881,7 +1922,7 @@ LABEL_10:
         }
       }
 
-      else if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      else if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
         v12 = 134217984;
         v13 = v4;
@@ -1892,65 +1933,63 @@ LABEL_10:
       }
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)finishXPCActivity:(id)activity
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   activityCopy = activity;
   v4 = activityCopy;
   if (activityCopy)
   {
-    if (xpc_activity_get_state(activityCopy) == 4)
+    state = xpc_activity_get_state(activityCopy);
+    if (state == 4)
     {
-      v5 = xpc_activity_set_state(v4, 5);
-      v6 = uploadLogHandle();
+      v6 = xpc_activity_set_state(v4, 5);
       v7 = v6;
-      if (v5)
+      v8 = uploadLogHandle(v6);
+      v9 = v8;
+      if (v7)
       {
-        if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+        if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
         {
-          v13 = 134217984;
-          v14 = v4;
-          v8 = "Set activity state to DONE (%p)";
-          v9 = v7;
-          v10 = OS_LOG_TYPE_DEFAULT;
+          v14 = 134217984;
+          v15 = v4;
+          v10 = "Set activity state to DONE (%p)";
+          v11 = v9;
+          v12 = OS_LOG_TYPE_DEFAULT;
 LABEL_10:
-          v11 = 12;
+          v13 = 12;
           goto LABEL_11;
         }
       }
 
-      else if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+      else if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
-        v13 = 134217984;
-        v14 = v4;
-        v8 = "Unable to set activity state to DONE! (%p)";
-        v9 = v7;
-        v10 = OS_LOG_TYPE_ERROR;
+        v14 = 134217984;
+        v15 = v4;
+        v10 = "Unable to set activity state to DONE! (%p)";
+        v11 = v9;
+        v12 = OS_LOG_TYPE_ERROR;
         goto LABEL_10;
       }
     }
 
     else
     {
-      v7 = uploadLogHandle();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+      v9 = uploadLogHandle(state);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v13) = 0;
-        v8 = "XPC activity is not in Continue state. Will not change the state to DONE";
-        v9 = v7;
-        v10 = OS_LOG_TYPE_DEFAULT;
-        v11 = 2;
+        LOWORD(v14) = 0;
+        v10 = "XPC activity is not in Continue state. Will not change the state to DONE";
+        v11 = v9;
+        v12 = OS_LOG_TYPE_DEFAULT;
+        v13 = 2;
 LABEL_11:
-        _os_log_impl(&dword_241804000, v9, v10, v8, &v13, v11);
+        _os_log_impl(&dword_241804000, v11, v12, v10, &v14, v13);
       }
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)uploadDiagnosticCases:(id)cases activity:(id)activity
@@ -1958,15 +1997,16 @@ LABEL_11:
   v21 = *MEMORY[0x277D85DE8];
   casesCopy = cases;
   activityCopy = activity;
-  if ([casesCopy count])
+  should_defer = [casesCopy count];
+  if (should_defer)
   {
-    if (activityCopy && xpc_activity_should_defer(activityCopy))
+    if (activityCopy && (should_defer = xpc_activity_should_defer(activityCopy), should_defer))
     {
-      v8 = uploadLogHandle();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+      v9 = uploadLogHandle(should_defer);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_241804000, v8, OS_LOG_TYPE_DEFAULT, "Will not start log uploads due to activity defer", buf, 2u);
+        _os_log_impl(&dword_241804000, v9, OS_LOG_TYPE_DEFAULT, "Will not start log uploads due to activity defer", buf, 2u);
       }
 
       [(CloudKitUploadController *)self deferXPCActivity:activityCopy];
@@ -1974,14 +2014,14 @@ LABEL_11:
 
     else
     {
-      v9 = uploadLogHandle();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+      v10 = uploadLogHandle(should_defer);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
       {
         *buf = 134218242;
         *&buf[4] = [casesCopy count];
         *&buf[12] = 2112;
         *&buf[14] = casesCopy;
-        _os_log_impl(&dword_241804000, v9, OS_LOG_TYPE_DEBUG, "Will attempt to upload %ld cases: %@", buf, 0x16u);
+        _os_log_impl(&dword_241804000, v10, OS_LOG_TYPE_DEBUG, "Will attempt to upload %ld cases: %@", buf, 0x16u);
       }
 
       *buf = 0;
@@ -1997,32 +2037,32 @@ LABEL_11:
       v16[4] = self;
       v16[5] = buf;
       [casesCopy enumerateObjectsUsingBlock:v16];
-      v10 = +[ABCAdministrator sharedInstance];
-      configurationManager = [v10 configurationManager];
+      v11 = +[ABCAdministrator sharedInstance];
+      configurationManager = [v11 configurationManager];
       if ([configurationManager cloudKitSandboxEnvironment])
       {
-        v12 = 2;
+        v13 = 2;
       }
 
       else
       {
-        v12 = 1;
+        v13 = 1;
       }
 
-      v13 = [(CloudKitUploadController *)self currentCloudKitContainerForEnvironment:v12];
+      v14 = [(CloudKitUploadController *)self currentCloudKitContainerForEnvironment:v13];
 
-      [(CloudKitUploadController *)self uploadToCloudKitContainer:v13 withRecords:*(*&buf[8] + 40) activity:activityCopy];
+      [(CloudKitUploadController *)self uploadToCloudKitContainer:v14 withRecords:*(*&buf[8] + 40) activity:activityCopy];
       _Block_object_dispose(buf, 8);
     }
   }
 
   else
   {
-    v14 = uploadLogHandle();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
+    v15 = uploadLogHandle(0);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      _os_log_impl(&dword_241804000, v14, OS_LOG_TYPE_INFO, "No cases were requested to be uploaded (empty list)", buf, 2u);
+      _os_log_impl(&dword_241804000, v15, OS_LOG_TYPE_INFO, "No cases were requested to be uploaded (empty list)", buf, 2u);
     }
 
     if (activityCopy)
@@ -2030,8 +2070,6 @@ LABEL_11:
       [(CloudKitUploadController *)self finishXPCActivity:activityCopy];
     }
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void __59__CloudKitUploadController_uploadDiagnosticCases_activity___block_invoke(uint64_t a1, void *a2)
@@ -2128,7 +2166,7 @@ void __59__CloudKitUploadController_uploadDiagnosticCases_activity___block_invok
 
 - (void)ckcodeDecisionService:(id)service response:(id)response
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   responseCopy = response;
   createTemporaryEntity = [(ObjectAnalytics *)self->_caseStorageAnalytics createTemporaryEntity];
   [createTemporaryEntity setCaseDomain:@"TestDomain"];
@@ -2140,17 +2178,15 @@ void __59__CloudKitUploadController_uploadDiagnosticCases_activity___block_invok
   uUIDString = [uUID UUIDString];
   [createTemporaryEntity setCaseID:uUIDString];
 
-  v14[0] = createTemporaryEntity;
-  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:1];
-  v12[0] = MEMORY[0x277D85DD0];
-  v12[1] = 3221225472;
-  v12[2] = __59__CloudKitUploadController_ckcodeDecisionService_response___block_invoke;
-  v12[3] = &unk_278CF2288;
-  v13 = responseCopy;
+  v13[0] = createTemporaryEntity;
+  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:1];
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = __59__CloudKitUploadController_ckcodeDecisionService_response___block_invoke;
+  v11[3] = &unk_278CF2288;
+  v12 = responseCopy;
   v10 = responseCopy;
-  [(CloudKitUploadController *)self filterCasesViaCloudkitDecisionService:v9 activity:0 response:v12];
-
-  v11 = *MEMORY[0x277D85DE8];
+  [(CloudKitUploadController *)self filterCasesViaCloudkitDecisionService:v9 activity:0 response:v11];
 }
 
 uint64_t __59__CloudKitUploadController_ckcodeDecisionService_response___block_invoke(uint64_t a1)
@@ -2170,7 +2206,7 @@ uint64_t __59__CloudKitUploadController_ckcodeDecisionService_response___block_i
   serviceCopy = service;
   activityCopy = activity;
   responseCopy = response;
-  v10 = uploadLogHandle();
+  v10 = uploadLogHandle(responseCopy);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
   {
     *buf = 134217984;
@@ -2178,27 +2214,27 @@ uint64_t __59__CloudKitUploadController_ckcodeDecisionService_response___block_i
     _os_log_impl(&dword_241804000, v10, OS_LOG_TYPE_INFO, "CloudkitDecisionService request for %ld cases", buf, 0xCu);
   }
 
-  v11 = uploadLogHandle();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+  v12 = uploadLogHandle(v11);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
   {
     *buf = 138477827;
     v82 = serviceCopy;
-    _os_log_impl(&dword_241804000, v11, OS_LOG_TYPE_DEBUG, "  Cases: %{private}@", buf, 0xCu);
+    _os_log_impl(&dword_241804000, v12, OS_LOG_TYPE_DEBUG, "  Cases: %{private}@", buf, 0xCu);
   }
 
   if ([serviceCopy count])
   {
     v64 = responseCopy;
     v65 = activityCopy;
-    v12 = +[SystemProperties sharedInstance];
-    v13 = objc_alloc_init(ABCPbSigGrantRequest);
-    [(ABCPbSigGrantRequest *)v13 setVer:1];
-    productType = [v12 productType];
-    [(ABCPbSigGrantRequest *)v13 setDeviceModel:productType];
+    v13 = +[SystemProperties sharedInstance];
+    v14 = objc_alloc_init(ABCPbSigGrantRequest);
+    [(ABCPbSigGrantRequest *)v14 setVer:1];
+    productType = [v13 productType];
+    [(ABCPbSigGrantRequest *)v14 setDeviceModel:productType];
 
-    buildPlatform = [v12 buildPlatform];
-    v73 = v13;
-    [(ABCPbSigGrantRequest *)v13 setBuildPlatform:buildPlatform];
+    buildPlatform = [v13 buildPlatform];
+    v73 = v14;
+    [(ABCPbSigGrantRequest *)v14 setBuildPlatform:buildPlatform];
 
     v79 = 0u;
     v80 = 0u;
@@ -2206,88 +2242,87 @@ uint64_t __59__CloudKitUploadController_ckcodeDecisionService_response___block_i
     v78 = 0u;
     v66 = serviceCopy;
     obj = serviceCopy;
-    v16 = [obj countByEnumeratingWithState:&v77 objects:v95 count:16];
-    if (v16)
+    v17 = [obj countByEnumeratingWithState:&v77 objects:v95 count:16];
+    if (v17)
     {
-      v17 = v16;
-      v18 = *v78;
-      v19 = &OBJC_METACLASS___DiagCollectionServiceImpl;
+      v18 = v17;
+      v19 = *v78;
+      v20 = &OBJC_METACLASS___DiagCollectionServiceImpl;
       v68 = *v78;
-      v69 = v12;
+      v69 = v13;
       do
       {
-        v20 = 0;
-        v70 = v17;
+        v21 = 0;
+        v70 = v18;
         do
         {
-          if (*v78 != v18)
+          if (*v78 != v19)
           {
             objc_enumerationMutation(obj);
           }
 
-          v21 = *(*(&v77 + 1) + 8 * v20);
-          v22 = objc_alloc_init(&v19[21]);
-          caseDomain = [v21 caseDomain];
-          [v22 setDomain:caseDomain];
+          v22 = *(*(&v77 + 1) + 8 * v21);
+          v23 = objc_alloc_init(&v20[21]);
+          caseDomain = [v22 caseDomain];
+          [v23 setDomain:caseDomain];
 
-          caseType = [v21 caseType];
-          [v22 setType:caseType];
+          caseType = [v22 caseType];
+          [v23 setType:caseType];
 
-          caseSubtype = [v21 caseSubtype];
-          [v22 setSubtype:caseSubtype];
+          caseSubtype = [v22 caseSubtype];
+          [v23 setSubtype:caseSubtype];
 
-          caseSubtypeContext = [v21 caseSubtypeContext];
-          [v22 setSubtypeContext:caseSubtypeContext];
+          caseSubtypeContext = [v22 caseSubtypeContext];
+          [v23 setSubtypeContext:caseSubtypeContext];
 
-          caseDetectedProcess = [v21 caseDetectedProcess];
-          [v22 setProcess:caseDetectedProcess];
+          caseDetectedProcess = [v22 caseDetectedProcess];
+          [v23 setProcess:caseDetectedProcess];
 
-          caseID = [v21 caseID];
-          [v22 setCaseIdentifier:caseID];
+          caseID = [v22 caseID];
+          [v23 setCaseIdentifier:caseID];
 
-          buildVariant = [v12 buildVariant];
-          [v22 setBuildVariant:buildVariant];
+          buildVariant = [v13 buildVariant];
+          [v23 setBuildVariant:buildVariant];
 
-          buildVersion = [v12 buildVersion];
-          [v22 setBuild:buildVersion];
+          buildVersion = [v13 buildVersion];
+          [v23 setBuild:buildVersion];
 
-          caseGroupID = [v21 caseGroupID];
-          v32 = [caseGroupID length];
+          caseGroupID = [v22 caseGroupID];
+          v33 = [caseGroupID length];
 
-          if (v32)
+          if (v33)
           {
-            caseGroupID2 = [v21 caseGroupID];
-            [v22 setCaseGroupIdentifier:caseGroupID2];
+            caseGroupID2 = [v22 caseGroupID];
+            [v23 setCaseGroupIdentifier:caseGroupID2];
           }
 
-          uploadRecord = [v21 uploadRecord];
+          uploadRecord = [v22 uploadRecord];
           totalBytes = [uploadRecord totalBytes];
 
           if (totalBytes >= 1)
           {
-            uploadRecord2 = [v21 uploadRecord];
-            [v22 setLogSizeTotal:{objc_msgSend(uploadRecord2, "totalBytes") >> 10}];
+            uploadRecord2 = [v22 uploadRecord];
+            [v23 setLogSizeTotal:{objc_msgSend(uploadRecord2, "totalBytes") >> 10}];
           }
 
-          [(ABCPbSigGrantRequest *)v73 addSigRequest:v22];
-          v37 = uploadLogHandle();
-          if (os_log_type_enabled(v37, OS_LOG_TYPE_DEBUG))
+          v38 = uploadLogHandle([(ABCPbSigGrantRequest *)v73 addSigRequest:v23]);
+          if (os_log_type_enabled(v38, OS_LOG_TYPE_DEBUG))
           {
-            caseID2 = [v21 caseID];
-            caseGroupID3 = [v21 caseGroupID];
-            v40 = caseGroupID3;
-            v41 = @"(no grpID)";
+            caseID2 = [v22 caseID];
+            caseGroupID3 = [v22 caseGroupID];
+            v41 = caseGroupID3;
+            v42 = @"(no grpID)";
             if (caseGroupID3)
             {
-              v41 = caseGroupID3;
+              v42 = caseGroupID3;
             }
 
-            v72 = v41;
-            caseDomain2 = [v21 caseDomain];
-            caseType2 = [v21 caseType];
-            caseSubtype2 = [v21 caseSubtype];
-            caseSubtypeContext2 = [v21 caseSubtypeContext];
-            caseDetectedProcess2 = [v21 caseDetectedProcess];
+            v72 = v42;
+            caseDomain2 = [v22 caseDomain];
+            caseType2 = [v22 caseType];
+            caseSubtype2 = [v22 caseSubtype];
+            caseSubtypeContext2 = [v22 caseSubtypeContext];
+            caseDetectedProcess2 = [v22 caseDetectedProcess];
             *buf = 138479363;
             v82 = caseID2;
             v83 = 2113;
@@ -2302,59 +2337,59 @@ uint64_t __59__CloudKitUploadController_ckcodeDecisionService_response___block_i
             v92 = caseSubtypeContext2;
             v93 = 2113;
             v94 = caseDetectedProcess2;
-            _os_log_impl(&dword_241804000, v37, OS_LOG_TYPE_DEBUG, "Processed case: %{private}@/%{private}@ {%{private}@/%{private}@/%{private}@/%{private}@/%{private}@}", buf, 0x48u);
+            _os_log_impl(&dword_241804000, v38, OS_LOG_TYPE_DEBUG, "Processed case: %{private}@/%{private}@ {%{private}@/%{private}@/%{private}@/%{private}@/%{private}@}", buf, 0x48u);
 
-            v18 = v68;
-            v19 = &OBJC_METACLASS___DiagCollectionServiceImpl;
+            v19 = v68;
+            v20 = &OBJC_METACLASS___DiagCollectionServiceImpl;
 
-            v17 = v70;
-            v12 = v69;
+            v18 = v70;
+            v13 = v69;
           }
 
-          ++v20;
+          ++v21;
         }
 
-        while (v17 != v20);
-        v17 = [obj countByEnumeratingWithState:&v77 objects:v95 count:16];
+        while (v18 != v21);
+        v18 = [obj countByEnumeratingWithState:&v77 objects:v95 count:16];
       }
 
-      while (v17);
+      while (v18);
     }
 
-    v47 = +[ABCAdministrator sharedInstance];
-    configurationManager = [v47 configurationManager];
+    v48 = +[ABCAdministrator sharedInstance];
+    configurationManager = [v48 configurationManager];
     if ([configurationManager cloudKitSandboxEnvironment])
     {
-      v49 = 2;
+      v50 = 2;
     }
 
     else
     {
-      v49 = 1;
+      v50 = 1;
     }
 
-    v50 = [(CloudKitUploadController *)self currentCloudKitContainerForEnvironment:v49];
-    v51 = objc_autoreleasePoolPush();
-    v52 = +[ABCAdministrator sharedInstance];
-    configurationManager2 = [v52 configurationManager];
+    v51 = [(CloudKitUploadController *)self currentCloudKitContainerForEnvironment:v50];
+    v52 = objc_autoreleasePoolPush();
+    v53 = +[ABCAdministrator sharedInstance];
+    configurationManager2 = [v53 configurationManager];
     cloudKitInvernessService = [configurationManager2 cloudKitInvernessService];
 
-    v55 = [objc_alloc(MEMORY[0x277CBC1F8]) initWithServiceName:cloudKitInvernessService functionName:@"grantRequest" responseClass:objc_opt_class()];
-    [v55 setRequest:v73];
-    [v55 setDestinationServer:0];
-    v56 = +[ABCAdministrator sharedInstance];
-    configurationManager3 = [v56 configurationManager];
+    v56 = [objc_alloc(MEMORY[0x277CBC1F8]) initWithServiceName:cloudKitInvernessService functionName:@"grantRequest" responseClass:objc_opt_class()];
+    [v56 setRequest:v73];
+    [v56 setDestinationServer:0];
+    v57 = +[ABCAdministrator sharedInstance];
+    configurationManager3 = [v57 configurationManager];
     cloudKitPrefersAnonymous = [configurationManager3 cloudKitPrefersAnonymous];
-    configuration = [v55 configuration];
+    configuration = [v56 configuration];
     [configuration setPreferAnonymousRequests:cloudKitPrefersAnonymous];
 
-    configuration2 = [v55 configuration];
+    configuration2 = [v56 configuration];
     [configuration2 setAllowsCellularAccess:1];
 
     activityCopy = v65;
     if (v65)
     {
-      configuration3 = [v55 configuration];
+      configuration3 = [v56 configuration];
       [configuration3 setXpcActivity:v65];
     }
 
@@ -2366,23 +2401,21 @@ uint64_t __59__CloudKitUploadController_ckcodeDecisionService_response___block_i
     v75 = v65;
     responseCopy = v64;
     v76 = v64;
-    [v55 setCodeOperationCompletionBlock:v74];
-    publicCloudDatabase = [v50 publicCloudDatabase];
-    [publicCloudDatabase addOperation:v55];
+    [v56 setCodeOperationCompletionBlock:v74];
+    publicCloudDatabase = [v51 publicCloudDatabase];
+    [publicCloudDatabase addOperation:v56];
 
-    objc_autoreleasePoolPop(v51);
+    objc_autoreleasePoolPop(v52);
     serviceCopy = v66;
     goto LABEL_29;
   }
 
   if (responseCopy)
   {
-    v12 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CCA5B8] code:22 userInfo:0];
-    (*(responseCopy + 2))(responseCopy, MEMORY[0x277CBEC10], v12);
+    v13 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CCA5B8] code:22 userInfo:0];
+    (*(responseCopy + 2))(responseCopy, MEMORY[0x277CBEC10], v13);
 LABEL_29:
   }
-
-  v63 = *MEMORY[0x277D85DE8];
 }
 
 void __84__CloudKitUploadController_filterCasesViaCloudkitDecisionService_activity_response___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -2390,88 +2423,87 @@ void __84__CloudKitUploadController_filterCasesViaCloudkitDecisionService_activi
   v26 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
+  v7 = v6;
   if (v6)
   {
-    v7 = uploadLogHandle();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = uploadLogHandle(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v25 = v6;
-      _os_log_impl(&dword_241804000, v7, OS_LOG_TYPE_ERROR, "CKCode Error: %@", buf, 0xCu);
+      v25 = v7;
+      _os_log_impl(&dword_241804000, v8, OS_LOG_TYPE_ERROR, "CKCode Error: %@", buf, 0xCu);
     }
 
-    if ([*(a1 + 32) shouldDeferFromCloudKitError:v6] && *(a1 + 40))
+    if ([*(a1 + 32) shouldDeferFromCloudKitError:v7] && *(a1 + 40))
     {
       [*(a1 + 32) deferXPCActivity:?];
-      v8 = MEMORY[0x277CCA9B8];
-      v9 = *MEMORY[0x277CCA5B8];
+      v9 = MEMORY[0x277CCA9B8];
+      v10 = *MEMORY[0x277CCA5B8];
       v22 = *MEMORY[0x277CCA450];
       v23 = @"CloudKit cancelled the operation";
-      v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v23 forKeys:&v22 count:1];
-      v11 = [v8 errorWithDomain:v9 code:89 userInfo:v10];
+      v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v23 forKeys:&v22 count:1];
+      v12 = [v9 errorWithDomain:v10 code:89 userInfo:v11];
     }
 
     else
     {
-      v11 = v6;
+      v12 = v7;
     }
 
-    v12 = 0;
+    v13 = 0;
   }
 
   else
   {
-    v13 = uploadLogHandle();
-    v14 = v13;
+    v14 = uploadLogHandle(0);
+    v15 = v14;
     if (v5)
     {
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
       {
         *buf = 0;
-        _os_log_impl(&dword_241804000, v14, OS_LOG_TYPE_DEBUG, "Received response from Decision Server", buf, 2u);
+        _os_log_impl(&dword_241804000, v15, OS_LOG_TYPE_DEBUG, "Received response from Decision Server", buf, 2u);
       }
 
-      v12 = [*(a1 + 32) processCloudkitDecisionServiceResponse:v5];
-      v11 = 0;
+      v13 = [*(a1 + 32) processCloudkitDecisionServiceResponse:v5];
+      v12 = 0;
     }
 
     else
     {
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
         *buf = 0;
-        _os_log_impl(&dword_241804000, v14, OS_LOG_TYPE_ERROR, "Received a nil response from CKCode", buf, 2u);
+        _os_log_impl(&dword_241804000, v15, OS_LOG_TYPE_ERROR, "Received a nil response from CKCode", buf, 2u);
       }
 
-      v15 = MEMORY[0x277CCA9B8];
-      v16 = *MEMORY[0x277CCA5B8];
+      v16 = MEMORY[0x277CCA9B8];
+      v17 = *MEMORY[0x277CCA5B8];
       v20 = *MEMORY[0x277CCA450];
       v21 = @"CKCode responded with a nil payload";
-      v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v21 forKeys:&v20 count:1];
-      v11 = [v15 errorWithDomain:v16 code:91 userInfo:v17];
+      v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v21 forKeys:&v20 count:1];
+      v12 = [v16 errorWithDomain:v17 code:91 userInfo:v18];
 
-      v12 = &unk_285379FE0;
+      v13 = &unk_285379FE0;
     }
   }
 
-  v18 = *(a1 + 48);
-  if (v18)
+  v19 = *(a1 + 48);
+  if (v19)
   {
-    (*(v18 + 16))(v18, v12, v11);
+    (*(v19 + 16))(v19, v13, v12);
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (id)processCloudkitDecisionServiceResponse:(id)response
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   responseCopy = response;
-  v4 = uploadLogHandle();
+  v4 = uploadLogHandle(responseCopy);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     *buf = 138477827;
-    v35 = responseCopy;
+    v34 = responseCopy;
     _os_log_impl(&dword_241804000, v4, OS_LOG_TYPE_DEBUG, "grantResponse: %{private}@", buf, 0xCu);
   }
 
@@ -2491,32 +2523,33 @@ LABEL_7:
     goto LABEL_25;
   }
 
-  v32 = 0u;
-  v33 = 0u;
-  v30 = 0u;
   v31 = 0u;
-  v29 = responseCopy;
+  v32 = 0u;
+  v29 = 0u;
+  v30 = 0u;
+  v28 = responseCopy;
   sigResponses = [responseCopy sigResponses];
-  v9 = [sigResponses countByEnumeratingWithState:&v30 objects:v38 count:16];
+  v9 = [sigResponses countByEnumeratingWithState:&v29 objects:v37 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v31;
+    v11 = *v30;
     do
     {
-      for (i = 0; i != v10; ++i)
+      v12 = 0;
+      do
       {
-        if (*v31 != v11)
+        if (*v30 != v11)
         {
           objc_enumerationMutation(sigResponses);
         }
 
-        v13 = *(*(&v30 + 1) + 8 * i);
-        v14 = uploadLogHandle();
+        v13 = *(*(&v29 + 1) + 8 * v12);
+        v14 = uploadLogHandle(v9);
         if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
         {
           *buf = 138477827;
-          v35 = v13;
+          v34 = v13;
           _os_log_impl(&dword_241804000, v14, OS_LOG_TYPE_DEBUG, "  sigResponse: %{private}@", buf, 0xCu);
         }
 
@@ -2530,7 +2563,7 @@ LABEL_7:
 
         else
         {
-          v18 = uploadLogHandle();
+          v18 = uploadLogHandle(caseIdentifier);
           if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
           {
             caseIdentifier3 = [v13 caseIdentifier];
@@ -2542,21 +2575,25 @@ LABEL_7:
               v22 = "present";
             }
 
-            v35 = caseIdentifier3;
-            v36 = 2080;
-            v37 = v22;
+            v34 = caseIdentifier3;
+            v35 = 2080;
+            v36 = v22;
             _os_log_impl(&dword_241804000, v18, OS_LOG_TYPE_ERROR, " sigResponse is missing an identifier (%{private}@) and/or decision (%s)", buf, 0x16u);
           }
         }
+
+        ++v12;
       }
 
-      v10 = [sigResponses countByEnumeratingWithState:&v30 objects:v38 count:16];
+      while (v10 != v12);
+      v9 = [sigResponses countByEnumeratingWithState:&v29 objects:v37 count:16];
+      v10 = v9;
     }
 
-    while (v10);
+    while (v9);
   }
 
-  responseCopy = v29;
+  responseCopy = v28;
 LABEL_25:
   status = [responseCopy status];
   v24 = [status length];
@@ -2568,36 +2605,34 @@ LABEL_25:
     [dictionary setObject:v26 forKeyedSubscript:@"status"];
   }
 
-  v27 = *MEMORY[0x277D85DE8];
-
   return dictionary;
 }
 
 - (id)fetchCaseSummariesWithIdentifiers:(id)identifiers
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   identifiersCopy = identifiers;
   v5 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   v6 = identifiersCopy;
-  v7 = [v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v18;
+    v9 = *v17;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v18 != v9)
+        if (*v17 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v17 + 1) + 8 * i);
+        v11 = *(*(&v16 + 1) + 8 * i);
         if ([v11 length])
         {
           v12 = [MEMORY[0x277CCAC30] predicateWithFormat:@"caseID == %@", v11];
@@ -2605,7 +2640,7 @@ LABEL_25:
         }
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v8);
@@ -2622,23 +2657,21 @@ LABEL_25:
     v14 = 0;
   }
 
-  v15 = *MEMORY[0x277D85DE8];
-
   return v14;
 }
 
 - (id)_fetchRecentPendingCaseSummariesInternal:(id)internal limit:(unint64_t)limit
 {
-  v17[2] = *MEMORY[0x277D85DE8];
+  v16[2] = *MEMORY[0x277D85DE8];
   internalCopy = internal;
   v7 = [MEMORY[0x277CCAC30] predicateWithFormat:@"caseSummaryState == %d", 0];
   v8 = v7;
   if (internalCopy)
   {
     v9 = MEMORY[0x277CCA920];
-    v17[0] = internalCopy;
-    v17[1] = v7;
-    v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:2];
+    v16[0] = internalCopy;
+    v16[1] = v7;
+    v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:2];
     v11 = [v9 andPredicateWithSubpredicates:v10];
   }
 
@@ -2651,41 +2684,39 @@ LABEL_25:
   v13 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"caseCreatedTime" ascending:0];
   v14 = [(ObjectAnalytics *)caseSummaryAnalytics fetchEntitiesFreeForm:v11 sortDesc:v13 limit:limit];
 
-  v15 = *MEMORY[0x277D85DE8];
-
   return v14;
 }
 
 - (void)submitCaseSummaries:(id)summaries activity:(id)activity
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   summariesCopy = summaries;
   activityCopy = activity;
-  v8 = summaryLogHandle();
+  v8 = summaryLogHandle(activityCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;
-    v39 = [summariesCopy count];
+    v42 = [summariesCopy count];
     _os_log_impl(&dword_241804000, v8, OS_LOG_TYPE_DEFAULT, "DiagnosticCaseSummaryLog: Submission request for %ld cases", buf, 0xCu);
   }
 
-  v9 = summaryLogHandle();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+  v10 = summaryLogHandle(v9);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
   {
     *buf = 138477827;
-    v39 = summariesCopy;
-    _os_log_impl(&dword_241804000, v9, OS_LOG_TYPE_DEBUG, "DiagnosticCaseSummaryLog: Cases: %{private}@", buf, 0xCu);
+    v42 = summariesCopy;
+    _os_log_impl(&dword_241804000, v10, OS_LOG_TYPE_DEBUG, "DiagnosticCaseSummaryLog: Cases: %{private}@", buf, 0xCu);
   }
 
   if ([summariesCopy count])
   {
-    if (activityCopy && xpc_activity_should_defer(activityCopy))
+    if (activityCopy && (v11 = xpc_activity_should_defer(activityCopy)))
     {
-      v10 = summaryLogHandle();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+      v12 = summaryLogHandle(v11);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_241804000, v10, OS_LOG_TYPE_DEFAULT, "DiagnosticCaseSummaryLog: xpc deferral, cannot prepare request", buf, 2u);
+        _os_log_impl(&dword_241804000, v12, OS_LOG_TYPE_DEFAULT, "DiagnosticCaseSummaryLog: xpc deferral, cannot prepare request", buf, 2u);
       }
 
       [(CloudKitUploadController *)self deferXPCActivity:activityCopy];
@@ -2693,81 +2724,81 @@ LABEL_25:
 
     else
     {
-      v11 = [DiagnosticCaseSummaryAnalytics pbRequestForCases:summariesCopy];
-      v12 = +[ABCAdministrator sharedInstance];
-      configurationManager = [v12 configurationManager];
+      v13 = [DiagnosticCaseSummaryAnalytics pbRequestForCases:summariesCopy];
+      v14 = +[ABCAdministrator sharedInstance];
+      configurationManager = [v14 configurationManager];
       if ([configurationManager cloudKitSandboxEnvironment])
       {
-        v14 = 2;
+        v16 = 2;
       }
 
       else
       {
-        v14 = 1;
+        v16 = 1;
       }
 
-      v34 = [(CloudKitUploadController *)self currentCloudKitContainerForEnvironment:v14];
+      v37 = [(CloudKitUploadController *)self currentCloudKitContainerForEnvironment:v16];
       context = objc_autoreleasePoolPush();
-      v15 = +[ABCAdministrator sharedInstance];
-      configurationManager2 = [v15 configurationManager];
+      v17 = +[ABCAdministrator sharedInstance];
+      configurationManager2 = [v17 configurationManager];
       cloudKitInvernessService = [configurationManager2 cloudKitInvernessService];
 
-      v18 = summaryLogHandle();
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
+      v21 = summaryLogHandle(v20);
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v39 = cloudKitInvernessService;
-        _os_log_impl(&dword_241804000, v18, OS_LOG_TYPE_DEBUG, "DiagnosticCaseSummaryLog: Inverness Service: %@", buf, 0xCu);
+        v42 = cloudKitInvernessService;
+        _os_log_impl(&dword_241804000, v21, OS_LOG_TYPE_DEBUG, "DiagnosticCaseSummaryLog: Inverness Service: %@", buf, 0xCu);
       }
 
-      v19 = [objc_alloc(MEMORY[0x277CBC1F8]) initWithServiceName:cloudKitInvernessService functionName:@"submitCaseSummary" responseClass:objc_opt_class()];
-      v20 = v11;
-      [v19 setRequest:v11];
-      [v19 setDestinationServer:0];
-      v21 = +[ABCAdministrator sharedInstance];
-      configurationManager3 = [v21 configurationManager];
+      v22 = [objc_alloc(MEMORY[0x277CBC1F8]) initWithServiceName:cloudKitInvernessService functionName:@"submitCaseSummary" responseClass:objc_opt_class()];
+      v23 = v13;
+      [v22 setRequest:v13];
+      [v22 setDestinationServer:0];
+      v24 = +[ABCAdministrator sharedInstance];
+      configurationManager3 = [v24 configurationManager];
       cloudKitPrefersAnonymous = [configurationManager3 cloudKitPrefersAnonymous];
-      configuration = [v19 configuration];
+      configuration = [v22 configuration];
       [configuration setPreferAnonymousRequests:cloudKitPrefersAnonymous];
 
-      configuration2 = [v19 configuration];
+      configuration2 = [v22 configuration];
       [configuration2 setAllowsCellularAccess:1];
 
       if (activityCopy)
       {
-        configuration3 = [v19 configuration];
+        configuration3 = [v22 configuration];
         [configuration3 setXpcActivity:activityCopy];
       }
 
-      v35[0] = MEMORY[0x277D85DD0];
-      v35[1] = 3221225472;
-      v35[2] = __57__CloudKitUploadController_submitCaseSummaries_activity___block_invoke;
-      v35[3] = &unk_278CF23C8;
-      v35[4] = self;
-      v27 = activityCopy;
-      v36 = v27;
-      v37 = summariesCopy;
-      [v19 setCodeOperationCompletionBlock:v35];
-      v28 = v20;
-      if (activityCopy && xpc_activity_should_defer(v27))
+      v38[0] = MEMORY[0x277D85DD0];
+      v38[1] = 3221225472;
+      v38[2] = __57__CloudKitUploadController_submitCaseSummaries_activity___block_invoke;
+      v38[3] = &unk_278CF23C8;
+      v38[4] = self;
+      v30 = activityCopy;
+      v39 = v30;
+      v40 = summariesCopy;
+      [v22 setCodeOperationCompletionBlock:v38];
+      v31 = v23;
+      if (activityCopy && (should_defer = xpc_activity_should_defer(v30)))
       {
-        v29 = summaryLogHandle();
-        if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
+        v33 = summaryLogHandle(should_defer);
+        if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
-          _os_log_impl(&dword_241804000, v29, OS_LOG_TYPE_DEFAULT, "DiagnosticCaseSummaryLog: xpc deferral, cannot schedule CK operation", buf, 2u);
+          _os_log_impl(&dword_241804000, v33, OS_LOG_TYPE_DEFAULT, "DiagnosticCaseSummaryLog: xpc deferral, cannot schedule CK operation", buf, 2u);
         }
 
-        [(CloudKitUploadController *)self deferXPCActivity:v27];
-        v28 = v20;
-        v30 = v34;
+        [(CloudKitUploadController *)self deferXPCActivity:v30];
+        v31 = v23;
+        v34 = v37;
       }
 
       else
       {
-        v30 = v34;
-        publicCloudDatabase = [v34 publicCloudDatabase];
-        [publicCloudDatabase addOperation:v19];
+        v34 = v37;
+        publicCloudDatabase = [v37 publicCloudDatabase];
+        [publicCloudDatabase addOperation:v22];
       }
 
       objc_autoreleasePoolPop(context);
@@ -2778,38 +2809,36 @@ LABEL_25:
   {
     [(CloudKitUploadController *)self finishXPCActivity:activityCopy];
   }
-
-  v32 = *MEMORY[0x277D85DE8];
 }
 
 void __57__CloudKitUploadController_submitCaseSummaries_activity___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
+  v7 = v6;
   if (v6)
   {
-    v7 = summaryLogHandle();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = summaryLogHandle(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v21 = v6;
-      _os_log_impl(&dword_241804000, v7, OS_LOG_TYPE_ERROR, "DiagnosticCaseSummaryLog: CKCode Error: %@", buf, 0xCu);
+      v22 = v7;
+      _os_log_impl(&dword_241804000, v8, OS_LOG_TYPE_ERROR, "DiagnosticCaseSummaryLog: CKCode Error: %@", buf, 0xCu);
     }
 
-    if ([*(a1 + 32) shouldDeferFromCloudKitError:v6] && *(a1 + 40))
+    if ([*(a1 + 32) shouldDeferFromCloudKitError:v7] && *(a1 + 40))
     {
-      [*(a1 + 32) deferXPCActivity:?];
-      v8 = summaryLogHandle();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+      v9 = summaryLogHandle([*(a1 + 32) deferXPCActivity:?]);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
         *buf = 0;
-        v9 = "DiagnosticCaseSummaryLog: CloudKit cancelled the operation";
+        v10 = "DiagnosticCaseSummaryLog: CloudKit cancelled the operation";
 LABEL_15:
-        v15 = v8;
-        v16 = 2;
+        v17 = v9;
+        v18 = 2;
 LABEL_18:
-        _os_log_impl(&dword_241804000, v15, OS_LOG_TYPE_ERROR, v9, buf, v16);
+        _os_log_impl(&dword_241804000, v17, OS_LOG_TYPE_ERROR, v10, buf, v18);
         goto LABEL_19;
       }
 
@@ -2821,11 +2850,11 @@ LABEL_18:
   {
     if (!v5)
     {
-      v8 = summaryLogHandle();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+      v9 = summaryLogHandle(0);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
         *buf = 0;
-        v9 = "DiagnosticCaseSummaryLog: Received a nil response from CKCode";
+        v10 = "DiagnosticCaseSummaryLog: Received a nil response from CKCode";
         goto LABEL_15;
       }
 
@@ -2834,42 +2863,42 @@ LABEL_19:
       goto LABEL_20;
     }
 
-    v10 = [v5 status];
-    v11 = [v10 isEqualToString:@"SUCCESS"];
+    v11 = [v5 status];
+    v12 = [v11 isEqualToString:@"SUCCESS"];
 
-    v12 = summaryLogHandle();
-    v8 = v12;
-    if (!v11)
+    v14 = summaryLogHandle(v13);
+    v9 = v14;
+    if (!v12)
     {
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
         *buf = 138477827;
-        v21 = v5;
-        v9 = "DiagnosticCaseSummaryLog: Unsuccessful response: %{private}@";
-        v15 = v8;
-        v16 = 12;
+        v22 = v5;
+        v10 = "DiagnosticCaseSummaryLog: Unsuccessful response: %{private}@";
+        v17 = v9;
+        v18 = 12;
         goto LABEL_18;
       }
 
       goto LABEL_19;
     }
 
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
     {
       *buf = 138477827;
-      v21 = v5;
-      _os_log_impl(&dword_241804000, v8, OS_LOG_TYPE_INFO, "DiagnosticCaseSummaryLog: Successful response: %{private}@", buf, 0xCu);
+      v22 = v5;
+      _os_log_impl(&dword_241804000, v9, OS_LOG_TYPE_INFO, "DiagnosticCaseSummaryLog: Successful response: %{private}@", buf, 0xCu);
     }
 
-    v13 = *(a1 + 32);
-    v14 = *(v13 + 8);
-    v18[0] = MEMORY[0x277D85DD0];
-    v18[1] = 3221225472;
-    v18[2] = __57__CloudKitUploadController_submitCaseSummaries_activity___block_invoke_245;
-    v18[3] = &unk_278CF04F8;
-    v18[4] = v13;
-    v19 = *(a1 + 48);
-    dispatch_async(v14, v18);
+    v15 = *(a1 + 32);
+    v16 = *(v15 + 8);
+    v19[0] = MEMORY[0x277D85DD0];
+    v19[1] = 3221225472;
+    v19[2] = __57__CloudKitUploadController_submitCaseSummaries_activity___block_invoke_245;
+    v19[3] = &unk_278CF04F8;
+    v19[4] = v15;
+    v20 = *(a1 + 48);
+    dispatch_async(v16, v19);
   }
 
 LABEL_20:
@@ -2877,13 +2906,11 @@ LABEL_20:
   {
     [*(a1 + 32) finishXPCActivity:?];
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __57__CloudKitUploadController_submitCaseSummaries_activity___block_invoke_245(uint64_t a1)
 {
-  v2 = summaryLogHandle();
+  v2 = summaryLogHandle(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     *v4 = 0;
@@ -2906,31 +2933,31 @@ uint64_t __57__CloudKitUploadController_submitCaseSummaries_activity___block_inv
 
   if (npiDevice)
   {
-    v6 = uploadLogHandle();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = uploadLogHandle(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      *v11 = 0;
-      _os_log_impl(&dword_241804000, v6, OS_LOG_TYPE_DEFAULT, "Applying NPI scheduling criteria for log upload activity", v11, 2u);
+      *v12 = 0;
+      _os_log_impl(&dword_241804000, v7, OS_LOG_TYPE_DEFAULT, "Applying NPI scheduling criteria for log upload activity", v12, 2u);
     }
 
     xpc_dictionary_set_int64(criteriaCopy, *MEMORY[0x277D86288], *MEMORY[0x277D862A0]);
     xpc_dictionary_set_int64(criteriaCopy, *MEMORY[0x277D86270], *MEMORY[0x277D862B0]);
-    v7 = *MEMORY[0x277D86230];
-    v8 = criteriaCopy;
-    v9 = 1;
+    v8 = *MEMORY[0x277D86230];
+    v9 = criteriaCopy;
+    v10 = 1;
   }
 
   else
   {
-    v10 = *MEMORY[0x277D86298];
+    v11 = *MEMORY[0x277D86298];
     xpc_dictionary_set_int64(criteriaCopy, *MEMORY[0x277D86288], *MEMORY[0x277D86298]);
-    xpc_dictionary_set_int64(criteriaCopy, *MEMORY[0x277D86270], v10);
-    v7 = *MEMORY[0x277D86230];
-    v8 = criteriaCopy;
-    v9 = 0;
+    xpc_dictionary_set_int64(criteriaCopy, *MEMORY[0x277D86270], v11);
+    v8 = *MEMORY[0x277D86230];
+    v9 = criteriaCopy;
+    v10 = 0;
   }
 
-  xpc_dictionary_set_BOOL(v8, v7, v9);
+  xpc_dictionary_set_BOOL(v9, v8, v10);
   xpc_dictionary_set_BOOL(criteriaCopy, *MEMORY[0x277D86398], 1);
   xpc_dictionary_set_BOOL(criteriaCopy, *MEMORY[0x277D86390], 1);
   xpc_dictionary_set_int64(criteriaCopy, *MEMORY[0x277D86318], 20971520);
@@ -2952,24 +2979,24 @@ uint64_t __57__CloudKitUploadController_submitCaseSummaries_activity___block_inv
 
   if (npiDevice)
   {
-    v6 = uploadLogHandle();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = uploadLogHandle(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      *v9 = 0;
-      _os_log_impl(&dword_241804000, v6, OS_LOG_TYPE_DEFAULT, "Applying NPI scheduling criteria for case summary activity", v9, 2u);
+      *v10 = 0;
+      _os_log_impl(&dword_241804000, v7, OS_LOG_TYPE_DEFAULT, "Applying NPI scheduling criteria for case summary activity", v10, 2u);
     }
 
-    v7 = *MEMORY[0x277D86288];
-    v8 = *MEMORY[0x277D862A0];
+    v8 = *MEMORY[0x277D86288];
+    v9 = *MEMORY[0x277D862A0];
   }
 
   else
   {
-    v7 = *MEMORY[0x277D86288];
-    v8 = 6 * *MEMORY[0x277D862A0];
+    v8 = *MEMORY[0x277D86288];
+    v9 = 6 * *MEMORY[0x277D862A0];
   }
 
-  xpc_dictionary_set_int64(criteriaCopy, v7, v8);
+  xpc_dictionary_set_int64(criteriaCopy, v8, v9);
 }
 
 - (void)registerCloudKitUploadActivities
@@ -2988,7 +3015,7 @@ uint64_t __57__CloudKitUploadController_submitCaseSummaries_activity___block_inv
 
 - (void)registerLogUploadActivities
 {
-  v3 = uploadLogHandle();
+  v3 = uploadLogHandle(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -3006,126 +3033,125 @@ uint64_t __57__CloudKitUploadController_submitCaseSummaries_activity___block_inv
 
 void __55__CloudKitUploadController_registerLogUploadActivities__block_invoke(uint64_t a1, void *a2)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v3 = a2;
   state = xpc_activity_get_state(v3);
   if (!state)
   {
-    v8 = uploadLogHandle();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = uploadLogHandle(0);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_241804000, v8, OS_LOG_TYPE_DEFAULT, "Checking in to discretionary CloudKit upload activity", buf, 2u);
+      _os_log_impl(&dword_241804000, v9, OS_LOG_TYPE_DEFAULT, "Checking in to discretionary CloudKit upload activity", buf, 2u);
     }
 
-    v9 = xpc_activity_copy_criteria(v3);
-    v10 = uploadLogHandle();
-    v11 = os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT);
-    if (v9)
+    v10 = xpc_activity_copy_criteria(v3);
+    v11 = uploadLogHandle(v10);
+    v12 = os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT);
+    if (v10)
     {
-      if (v11)
+      if (v12)
       {
         *buf = 138412290;
-        v22 = v9;
-        _os_log_impl(&dword_241804000, v10, OS_LOG_TYPE_DEFAULT, "Activty already has criteria set %@", buf, 0xCu);
+        v23 = v10;
+        _os_log_impl(&dword_241804000, v11, OS_LOG_TYPE_DEFAULT, "Activty already has criteria set %@", buf, 0xCu);
       }
 
-      v12 = xpc_dictionary_create(0, 0, 0);
-      [*(a1 + 32) configureLogUploadDiscretionaryActivityCriteria:v12];
-      if (xpc_equal(v9, v12))
+      v13 = xpc_dictionary_create(0, 0, 0);
+      [*(a1 + 32) configureLogUploadDiscretionaryActivityCriteria:v13];
+      v14 = xpc_equal(v10, v13);
+      if (v14)
       {
         goto LABEL_23;
       }
 
-      v13 = uploadLogHandle();
-      if (!os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+      v15 = uploadLogHandle(v14);
+      if (!os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
       {
 LABEL_22:
 
-        xpc_activity_set_criteria(v3, v12);
+        xpc_activity_set_criteria(v3, v13);
 LABEL_23:
 
         goto LABEL_24;
       }
 
       *buf = 0;
-      v14 = "Existing activity criteria was different from the default criteria. Replacing with defaults";
-      v15 = v13;
-      v16 = OS_LOG_TYPE_DEFAULT;
-      v17 = 2;
+      v16 = "Existing activity criteria was different from the default criteria. Replacing with defaults";
+      v17 = v15;
+      v18 = OS_LOG_TYPE_DEFAULT;
+      v19 = 2;
     }
 
     else
     {
-      if (v11)
+      if (v12)
       {
         *buf = 0;
-        _os_log_impl(&dword_241804000, v10, OS_LOG_TYPE_DEFAULT, "Setting activity criteria to defaults", buf, 2u);
+        _os_log_impl(&dword_241804000, v11, OS_LOG_TYPE_DEFAULT, "Setting activity criteria to defaults", buf, 2u);
       }
 
-      v12 = xpc_dictionary_create(0, 0, 0);
-      [*(a1 + 32) configureLogUploadDiscretionaryActivityCriteria:v12];
-      v13 = uploadLogHandle();
-      if (!os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+      v13 = xpc_dictionary_create(0, 0, 0);
+      v15 = uploadLogHandle([*(a1 + 32) configureLogUploadDiscretionaryActivityCriteria:v13]);
+      if (!os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
       {
         goto LABEL_22;
       }
 
       *buf = 138412290;
-      v22 = v12;
-      v14 = "Activity criteria set to %@";
-      v15 = v13;
-      v16 = OS_LOG_TYPE_DEBUG;
-      v17 = 12;
+      v23 = v13;
+      v16 = "Activity criteria set to %@";
+      v17 = v15;
+      v18 = OS_LOG_TYPE_DEBUG;
+      v19 = 12;
     }
 
-    _os_log_impl(&dword_241804000, v15, v16, v14, buf, v17);
+    _os_log_impl(&dword_241804000, v17, v18, v16, buf, v19);
     goto LABEL_22;
   }
 
   if (state == 2)
   {
-    v5 = uploadLogHandle();
+    v5 = uploadLogHandle(2);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134217984;
-      v22 = v3;
+      v23 = v3;
       _os_log_impl(&dword_241804000, v5, OS_LOG_TYPE_DEFAULT, "Ready to run discretionary CloudKit upload activity (%p)", buf, 0xCu);
     }
 
-    if (xpc_activity_set_state(v3, 4))
+    v6 = xpc_activity_set_state(v3, 4);
+    if (v6)
     {
-      v6 = *(a1 + 32);
-      v7 = *(v6 + 8);
-      v19[0] = MEMORY[0x277D85DD0];
-      v19[1] = 3221225472;
-      v19[2] = __55__CloudKitUploadController_registerLogUploadActivities__block_invoke_248;
-      v19[3] = &unk_278CF04F8;
-      v19[4] = v6;
-      v20 = v3;
-      dispatch_async(v7, v19);
+      v7 = *(a1 + 32);
+      v8 = *(v7 + 8);
+      v20[0] = MEMORY[0x277D85DD0];
+      v20[1] = 3221225472;
+      v20[2] = __55__CloudKitUploadController_registerLogUploadActivities__block_invoke_248;
+      v20[3] = &unk_278CF04F8;
+      v20[4] = v7;
+      v21 = v3;
+      dispatch_async(v8, v20);
 
       goto LABEL_25;
     }
 
-    v9 = uploadLogHandle();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v10 = uploadLogHandle(v6);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
-      _os_log_impl(&dword_241804000, v9, OS_LOG_TYPE_ERROR, "Unable to set activity state to CONTINUE!", buf, 2u);
+      _os_log_impl(&dword_241804000, v10, OS_LOG_TYPE_ERROR, "Unable to set activity state to CONTINUE!", buf, 2u);
     }
 
 LABEL_24:
   }
 
 LABEL_25:
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)registerCaseSummaryActivities
 {
-  v3 = summaryLogHandle();
+  v3 = summaryLogHandle(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -3143,126 +3169,125 @@ LABEL_25:
 
 void __57__CloudKitUploadController_registerCaseSummaryActivities__block_invoke(uint64_t a1, void *a2)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v3 = a2;
   state = xpc_activity_get_state(v3);
   if (!state)
   {
-    v8 = summaryLogHandle();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = summaryLogHandle(0);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_241804000, v8, OS_LOG_TYPE_DEFAULT, "DiagnosticCaseSummaryLog: Checking in to discretionary submission activity", buf, 2u);
+      _os_log_impl(&dword_241804000, v9, OS_LOG_TYPE_DEFAULT, "DiagnosticCaseSummaryLog: Checking in to discretionary submission activity", buf, 2u);
     }
 
-    v9 = xpc_activity_copy_criteria(v3);
-    v10 = summaryLogHandle();
-    v11 = os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT);
-    if (v9)
+    v10 = xpc_activity_copy_criteria(v3);
+    v11 = summaryLogHandle(v10);
+    v12 = os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT);
+    if (v10)
     {
-      if (v11)
+      if (v12)
       {
         *buf = 138412290;
-        v22 = v9;
-        _os_log_impl(&dword_241804000, v10, OS_LOG_TYPE_DEFAULT, "DiagnosticCaseSummaryLog: submission activity already has criteria set %@", buf, 0xCu);
+        v23 = v10;
+        _os_log_impl(&dword_241804000, v11, OS_LOG_TYPE_DEFAULT, "DiagnosticCaseSummaryLog: submission activity already has criteria set %@", buf, 0xCu);
       }
 
-      v12 = xpc_dictionary_create(0, 0, 0);
-      [*(a1 + 32) configureCaseSummaryDiscretionaryActivityCriteria:v12];
-      if (xpc_equal(v9, v12))
+      v13 = xpc_dictionary_create(0, 0, 0);
+      [*(a1 + 32) configureCaseSummaryDiscretionaryActivityCriteria:v13];
+      v14 = xpc_equal(v10, v13);
+      if (v14)
       {
         goto LABEL_23;
       }
 
-      v13 = summaryLogHandle();
-      if (!os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+      v15 = summaryLogHandle(v14);
+      if (!os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
       {
 LABEL_22:
 
-        xpc_activity_set_criteria(v3, v12);
+        xpc_activity_set_criteria(v3, v13);
 LABEL_23:
 
         goto LABEL_24;
       }
 
       *buf = 0;
-      v14 = "DiagnosticCaseSummaryLog: Existing submission activity criteria was different from the default criteria. Replacing with defaults";
-      v15 = v13;
-      v16 = OS_LOG_TYPE_DEFAULT;
-      v17 = 2;
+      v16 = "DiagnosticCaseSummaryLog: Existing submission activity criteria was different from the default criteria. Replacing with defaults";
+      v17 = v15;
+      v18 = OS_LOG_TYPE_DEFAULT;
+      v19 = 2;
     }
 
     else
     {
-      if (v11)
+      if (v12)
       {
         *buf = 0;
-        _os_log_impl(&dword_241804000, v10, OS_LOG_TYPE_DEFAULT, "DiagnosticCaseSummaryLog: Setting submission activity criteria to defaults", buf, 2u);
+        _os_log_impl(&dword_241804000, v11, OS_LOG_TYPE_DEFAULT, "DiagnosticCaseSummaryLog: Setting submission activity criteria to defaults", buf, 2u);
       }
 
-      v12 = xpc_dictionary_create(0, 0, 0);
-      [*(a1 + 32) configureCaseSummaryDiscretionaryActivityCriteria:v12];
-      v13 = summaryLogHandle();
-      if (!os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+      v13 = xpc_dictionary_create(0, 0, 0);
+      v15 = summaryLogHandle([*(a1 + 32) configureCaseSummaryDiscretionaryActivityCriteria:v13]);
+      if (!os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
       {
         goto LABEL_22;
       }
 
       *buf = 138412290;
-      v22 = v12;
-      v14 = "DiagnosticCaseSummaryLog: Submission activity criteria set to %@";
-      v15 = v13;
-      v16 = OS_LOG_TYPE_DEBUG;
-      v17 = 12;
+      v23 = v13;
+      v16 = "DiagnosticCaseSummaryLog: Submission activity criteria set to %@";
+      v17 = v15;
+      v18 = OS_LOG_TYPE_DEBUG;
+      v19 = 12;
     }
 
-    _os_log_impl(&dword_241804000, v15, v16, v14, buf, v17);
+    _os_log_impl(&dword_241804000, v17, v18, v16, buf, v19);
     goto LABEL_22;
   }
 
   if (state == 2)
   {
-    v5 = summaryLogHandle();
+    v5 = summaryLogHandle(2);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134217984;
-      v22 = v3;
+      v23 = v3;
       _os_log_impl(&dword_241804000, v5, OS_LOG_TYPE_DEFAULT, "DiagnosticCaseSummaryLog: Ready to run discretionary submission activity (%p)", buf, 0xCu);
     }
 
-    if (xpc_activity_set_state(v3, 4))
+    v6 = xpc_activity_set_state(v3, 4);
+    if (v6)
     {
-      v6 = *(a1 + 32);
-      v7 = *(v6 + 8);
-      v19[0] = MEMORY[0x277D85DD0];
-      v19[1] = 3221225472;
-      v19[2] = __57__CloudKitUploadController_registerCaseSummaryActivities__block_invoke_251;
-      v19[3] = &unk_278CF04F8;
-      v19[4] = v6;
-      v20 = v3;
-      dispatch_async(v7, v19);
+      v7 = *(a1 + 32);
+      v8 = *(v7 + 8);
+      v20[0] = MEMORY[0x277D85DD0];
+      v20[1] = 3221225472;
+      v20[2] = __57__CloudKitUploadController_registerCaseSummaryActivities__block_invoke_251;
+      v20[3] = &unk_278CF04F8;
+      v20[4] = v7;
+      v21 = v3;
+      dispatch_async(v8, v20);
 
       goto LABEL_25;
     }
 
-    v9 = summaryLogHandle();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v10 = summaryLogHandle(v6);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
-      _os_log_impl(&dword_241804000, v9, OS_LOG_TYPE_ERROR, "DiagnosticCaseSummaryLog: Unable to set activity state to CONTINUE!", buf, 2u);
+      _os_log_impl(&dword_241804000, v10, OS_LOG_TYPE_ERROR, "DiagnosticCaseSummaryLog: Unable to set activity state to CONTINUE!", buf, 2u);
     }
 
 LABEL_24:
   }
 
 LABEL_25:
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 + (void)unregisterCloudKitUploadActivities
 {
-  v2 = uploadLogHandle();
+  v2 = uploadLogHandle(self);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -3270,11 +3295,11 @@ LABEL_25:
   }
 
   xpc_activity_unregister("com.apple.autobugcapture.logupload.discretionary");
-  v3 = summaryLogHandle();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+  v4 = summaryLogHandle(v3);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    *v4 = 0;
-    _os_log_impl(&dword_241804000, v3, OS_LOG_TYPE_DEFAULT, "DiagnosticCaseSummaryLog: Unregistering CloudKit submission activity", v4, 2u);
+    *v5 = 0;
+    _os_log_impl(&dword_241804000, v4, OS_LOG_TYPE_DEFAULT, "DiagnosticCaseSummaryLog: Unregistering CloudKit submission activity", v5, 2u);
   }
 
   xpc_activity_unregister("com.apple.autobugcapture.caseSummary.discretionary");
@@ -3282,8 +3307,8 @@ LABEL_25:
 
 - (void)uploadMostRecentCases:(unint64_t)cases
 {
-  v11 = *MEMORY[0x277D85DE8];
-  v5 = uploadLogHandle();
+  v10 = *MEMORY[0x277D85DE8];
+  v5 = uploadLogHandle(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     *buf = 134217984;
@@ -3292,51 +3317,48 @@ LABEL_25:
   }
 
   queue = self->_queue;
-  v8[0] = MEMORY[0x277D85DD0];
-  v8[1] = 3221225472;
-  v8[2] = __50__CloudKitUploadController_uploadMostRecentCases___block_invoke;
-  v8[3] = &unk_278CF0220;
-  v8[4] = self;
-  v8[5] = cases;
-  dispatch_async(queue, v8);
-  v7 = *MEMORY[0x277D85DE8];
+  v7[0] = MEMORY[0x277D85DD0];
+  v7[1] = 3221225472;
+  v7[2] = __50__CloudKitUploadController_uploadMostRecentCases___block_invoke;
+  v7[3] = &unk_278CF0220;
+  v7[4] = self;
+  v7[5] = cases;
+  dispatch_async(queue, v7);
 }
 
 - (void)uploadCasesWithIdentifiers:(id)identifiers
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   identifiersCopy = identifiers;
-  v5 = uploadLogHandle();
+  v5 = uploadLogHandle(identifiersCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     *buf = 138412290;
-    v12 = identifiersCopy;
+    v11 = identifiersCopy;
     _os_log_impl(&dword_241804000, v5, OS_LOG_TYPE_DEBUG, "received request to upload cases: %@", buf, 0xCu);
   }
 
   queue = self->_queue;
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __55__CloudKitUploadController_uploadCasesWithIdentifiers___block_invoke;
-  v9[3] = &unk_278CF04F8;
-  v9[4] = self;
-  v10 = identifiersCopy;
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __55__CloudKitUploadController_uploadCasesWithIdentifiers___block_invoke;
+  v8[3] = &unk_278CF04F8;
+  v8[4] = self;
+  v9 = identifiersCopy;
   v7 = identifiersCopy;
-  dispatch_async(queue, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  dispatch_async(queue, v8);
 }
 
 - (void)uploadDecisionWithIdentifiers:(id)identifiers reply:(id)reply
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   identifiersCopy = identifiers;
   replyCopy = reply;
-  v8 = uploadLogHandle();
+  v8 = uploadLogHandle(replyCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     *buf = 138412290;
-    v17 = identifiersCopy;
+    v16 = identifiersCopy;
     _os_log_impl(&dword_241804000, v8, OS_LOG_TYPE_DEBUG, "received request to request upload decision for cases: %@", buf, 0xCu);
   }
 
@@ -3346,25 +3368,23 @@ LABEL_25:
   block[2] = __64__CloudKitUploadController_uploadDecisionWithIdentifiers_reply___block_invoke;
   block[3] = &unk_278CEFFF0;
   block[4] = self;
-  v14 = identifiersCopy;
-  v15 = replyCopy;
+  v13 = identifiersCopy;
+  v14 = replyCopy;
   v10 = replyCopy;
   v11 = identifiersCopy;
   dispatch_async(queue, block);
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)submitCaseSummariesWithIdentifiers:(id)identifiers reply:(id)reply
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   identifiersCopy = identifiers;
   replyCopy = reply;
-  v8 = uploadLogHandle();
+  v8 = uploadLogHandle(replyCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     *buf = 138412290;
-    v17 = identifiersCopy;
+    v16 = identifiersCopy;
     _os_log_impl(&dword_241804000, v8, OS_LOG_TYPE_DEBUG, "DiagnosticCaseSummaryLog: received request to submit cases: %@", buf, 0xCu);
   }
 
@@ -3374,20 +3394,18 @@ LABEL_25:
   block[2] = __69__CloudKitUploadController_submitCaseSummariesWithIdentifiers_reply___block_invoke;
   block[3] = &unk_278CEFFF0;
   block[4] = self;
-  v14 = identifiersCopy;
-  v15 = replyCopy;
+  v13 = identifiersCopy;
+  v14 = replyCopy;
   v10 = replyCopy;
   v11 = identifiersCopy;
   dispatch_async(queue, block);
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)submitRecentCaseSummaries:(unint64_t)summaries reply:(id)reply
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   replyCopy = reply;
-  v7 = uploadLogHandle();
+  v7 = uploadLogHandle(replyCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
     *buf = 134217984;
@@ -3400,13 +3418,11 @@ LABEL_25:
   block[1] = 3221225472;
   block[2] = __60__CloudKitUploadController_submitRecentCaseSummaries_reply___block_invoke;
   block[3] = &unk_278CF23F0;
-  v12 = replyCopy;
+  v11 = replyCopy;
   summariesCopy2 = summaries;
   block[4] = self;
   v9 = replyCopy;
   dispatch_async(queue, block);
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 @end

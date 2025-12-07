@@ -1,6 +1,7 @@
 @interface BLTPBSetNotificationsCriticalAlertRequest
 - (BOOL)isEqual:(id)equal;
 - (id)copyWithZone:(_NSZone *)zone;
+- (id)criticalAlertSettingAsString:(int)string;
 - (id)description;
 - (id)dictionaryRepresentation;
 - (int)StringAsCriticalAlertSetting:(id)setting;
@@ -24,6 +25,21 @@
   {
     return 0;
   }
+}
+
+- (id)criticalAlertSettingAsString:(int)string
+{
+  if (string >= 3)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_278D31868[string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsCriticalAlertSetting:(id)setting
@@ -95,18 +111,17 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v6 = toCopy;
+  v5 = toCopy;
   if (*&self->_has)
   {
-    criticalAlertSetting = self->_criticalAlertSetting;
     PBDataWriterWriteInt32Field();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_sectionID)
   {
     PBDataWriterWriteStringField();
-    toCopy = v6;
+    toCopy = v5;
   }
 }
 
@@ -152,7 +167,6 @@
     goto LABEL_9;
   }
 
-  v5 = *(equalCopy + 24);
   if (*&self->_has)
   {
     if ((*(equalCopy + 24) & 1) == 0 || self->_criticalAlertSetting != *(equalCopy + 2))
@@ -164,24 +178,24 @@
   else if (*(equalCopy + 24))
   {
 LABEL_9:
-    v7 = 0;
+    v6 = 0;
     goto LABEL_10;
   }
 
   sectionID = self->_sectionID;
   if (sectionID | *(equalCopy + 2))
   {
-    v7 = [(NSString *)sectionID isEqual:?];
+    v6 = [(NSString *)sectionID isEqual:?];
   }
 
   else
   {
-    v7 = 1;
+    v6 = 1;
   }
 
 LABEL_10:
 
-  return v7;
+  return v6;
 }
 
 - (unint64_t)hash

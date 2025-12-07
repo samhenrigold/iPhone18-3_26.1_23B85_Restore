@@ -67,7 +67,7 @@
 - (void)prepareWithFormat:(AudioStreamBasicDescription *)format maxFramesPerRender:(unsigned int)render
 {
   v4 = *&render;
-  if ([(VMProcessor *)self debounceMaxFrames]!= render || ([(VMProcessor *)self debounceASBD], v7 = *&format->mBytesPerPacket, v15[0] = *&format->mSampleRate, v15[1] = v7, v16 = *&format->mBitsPerChannel, !sub_100095B34(v15, v17)))
+  if ([(VMProcessor *)self debounceMaxFrames]!= render || (objc_msgSend_debounceASBD(self), v7 = *&format->mBytesPerPacket, v15[0] = *&format->mSampleRate, v15[1] = v7, v16 = *&format->mBitsPerChannel, !sub_100095B34(v15, v17)))
   {
     [(VMProcessor *)self setDebounceMaxFrames:v4];
     v8 = *&format->mBytesPerPacket;

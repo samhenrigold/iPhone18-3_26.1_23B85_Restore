@@ -643,21 +643,21 @@ id __53__SFDefaultBrowserListView__updateBrowserLockupViews__block_invoke_2(uint
   if (didCompleteBrowserSheet)
   {
     safari_browserDefaults = [MEMORY[0x1E695E000] safari_browserDefaults];
-    v12 = SFDefaultBrowserSelectionStateKey();
-    [safari_browserDefaults setInteger:1 forKey:v12];
+    v14 = SFDefaultBrowserSelectionStateKey();
+    [safari_browserDefaults setInteger:1 forKey:v14];
 
-    v13 = objc_loadWeakRetained(&self->_delegate);
+    v15 = objc_loadWeakRetained(&self->_delegate);
     lockup = [installationCopy lockup];
     bundleID = [lockup bundleID];
-    [v13 didChangeDefaultBrowserWithBundleIdentifier:bundleID browserChoiceResult:result];
+    [v15 didChangeDefaultBrowserWithBundleIdentifier:bundleID browserChoiceResult:result];
   }
 
   else
   {
-    v16 = WBS_LOG_CHANNEL_PREFIXBrowserChoiceScreen();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    v18 = WBS_LOG_CHANNEL_PREFIXBrowserChoiceScreen(v11, v12);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
-      [SFDefaultBrowserListView _didFinishAppInstallation:v16 browserChoiceResult:?];
+      [SFDefaultBrowserListView _didFinishAppInstallation:v18 browserChoiceResult:?];
     }
   }
 }
@@ -883,40 +883,40 @@ LABEL_11:
   sheetCopy = sheet;
   errorCopy = error;
   nameCopy = name;
-  v10 = WBS_LOG_CHANNEL_PREFIXBrowserChoiceScreen();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+  v11 = WBS_LOG_CHANNEL_PREFIXBrowserChoiceScreen(nameCopy, v10);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
   {
-    [SFDefaultBrowserListView browserInstallerDidFailWithError:nameCopy appName:v10 shouldDismissSheet:errorCopy];
+    [SFDefaultBrowserListView browserInstallerDidFailWithError:nameCopy appName:v11 shouldDismissSheet:errorCopy];
   }
 
-  v11 = [(NSArray *)self->_browserAppLockupViews objectAtIndexedSubscript:[(NSIndexPath *)self->_selectedIndexPath item]];
+  v12 = [(NSArray *)self->_browserAppLockupViews objectAtIndexedSubscript:[(NSIndexPath *)self->_selectedIndexPath item]];
   if (sheetCopy)
   {
-    [(SFDefaultBrowserListView *)self _didFinishAppInstallation:v11 browserChoiceResult:2];
+    [(SFDefaultBrowserListView *)self _didFinishAppInstallation:v12 browserChoiceResult:2];
   }
 
   else
   {
-    v12 = MEMORY[0x1E69DC650];
-    v13 = MEMORY[0x1E696AEC0];
-    v14 = _WBSLocalizedString();
-    nameCopy = [v13 stringWithFormat:v14, nameCopy];
-    v16 = _WBSLocalizedString();
-    v17 = [v12 alertControllerWithTitle:nameCopy message:v16 preferredStyle:1];
+    v13 = MEMORY[0x1E69DC650];
+    v14 = MEMORY[0x1E696AEC0];
+    v15 = _WBSLocalizedString();
+    nameCopy = [v14 stringWithFormat:v15, nameCopy];
+    v17 = _WBSLocalizedString();
+    v18 = [v13 alertControllerWithTitle:nameCopy message:v17 preferredStyle:1];
 
-    v18 = MEMORY[0x1E69DC648];
-    v19 = _WBSLocalizedString();
-    v22[0] = MEMORY[0x1E69E9820];
-    v22[1] = 3221225472;
-    v22[2] = __88__SFDefaultBrowserListView_browserInstallerDidFailWithError_appName_shouldDismissSheet___block_invoke;
-    v22[3] = &unk_1E848F780;
-    v22[4] = self;
-    v23 = v11;
-    v20 = [v18 actionWithTitle:v19 style:1 handler:v22];
-    [v17 addAction:v20];
+    v19 = MEMORY[0x1E69DC648];
+    v20 = _WBSLocalizedString();
+    v23[0] = MEMORY[0x1E69E9820];
+    v23[1] = 3221225472;
+    v23[2] = __88__SFDefaultBrowserListView_browserInstallerDidFailWithError_appName_shouldDismissSheet___block_invoke;
+    v23[3] = &unk_1E848F780;
+    v23[4] = self;
+    v24 = v12;
+    v21 = [v19 actionWithTitle:v20 style:1 handler:v23];
+    [v18 addAction:v21];
 
     WeakRetained = objc_loadWeakRetained(&self->_containerViewController);
-    [WeakRetained presentViewController:v17 animated:1 completion:0];
+    [WeakRetained presentViewController:v18 animated:1 completion:0];
   }
 }
 
@@ -991,64 +991,64 @@ LABEL_11:
 
 - (void)productDetailsUserDidInteractWithApp:(id)app interactionType:(id)type
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   appCopy = app;
   typeCopy = type;
-  v8 = WBS_LOG_CHANNEL_PREFIXBrowserChoiceScreen();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+  v9 = WBS_LOG_CHANNEL_PREFIXBrowserChoiceScreen(typeCopy, v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
   {
     LODWORD(buf) = 138543362;
     *(&buf + 4) = typeCopy;
-    _os_log_impl(&dword_1D4644000, v8, OS_LOG_TYPE_INFO, "Received user interaction with type %{public}@", &buf, 0xCu);
+    _os_log_impl(&dword_1D4644000, v9, OS_LOG_TYPE_INFO, "Received user interaction with type %{public}@", &buf, 0xCu);
   }
 
-  v22 = 0;
-  v23 = &v22;
-  v24 = 0x2020000000;
-  v9 = getASCLockupProductDetailsInteractionTypeSelectedSymbolLoc_ptr;
-  v25 = getASCLockupProductDetailsInteractionTypeSelectedSymbolLoc_ptr;
+  v23 = 0;
+  v24 = &v23;
+  v25 = 0x2020000000;
+  v10 = getASCLockupProductDetailsInteractionTypeSelectedSymbolLoc_ptr;
+  v26 = getASCLockupProductDetailsInteractionTypeSelectedSymbolLoc_ptr;
   if (!getASCLockupProductDetailsInteractionTypeSelectedSymbolLoc_ptr)
   {
     *&buf = MEMORY[0x1E69E9820];
     *(&buf + 1) = 3221225472;
-    v27 = __getASCLockupProductDetailsInteractionTypeSelectedSymbolLoc_block_invoke;
-    v28 = &unk_1E848F710;
-    v29 = &v22;
+    v28 = __getASCLockupProductDetailsInteractionTypeSelectedSymbolLoc_block_invoke;
+    v29 = &unk_1E848F710;
+    v30 = &v23;
     __getASCLockupProductDetailsInteractionTypeSelectedSymbolLoc_block_invoke(&buf);
-    v9 = v23[3];
+    v10 = v24[3];
   }
 
-  _Block_object_dispose(&v22, 8);
-  if (!v9)
+  _Block_object_dispose(&v23, 8);
+  if (!v10)
   {
     [SFDefaultBrowserListView productDetailsUserDidInteractWithApp:interactionType:];
     __break(1u);
   }
 
-  if ([typeCopy isEqualToString:{*v9, v22}])
+  if ([typeCopy isEqualToString:{*v10, v23}])
   {
-    v10 = [(NSArray *)self->_browserAppLockupViews indexOfObject:appCopy];
-    v11 = [MEMORY[0x1E696AC88] indexPathForItem:v10 inSection:0];
-    [(UICollectionView *)self->_collectionView selectItemAtIndexPath:v11 animated:0 scrollPosition:0];
-    [(SFDefaultBrowserListView *)self collectionView:self->_collectionView didSelectItemAtIndexPath:v11];
+    v11 = [(NSArray *)self->_browserAppLockupViews indexOfObject:appCopy];
+    v12 = [MEMORY[0x1E696AC88] indexPathForItem:v11 inSection:0];
+    [(UICollectionView *)self->_collectionView selectItemAtIndexPath:v12 animated:0 scrollPosition:0];
+    [(SFDefaultBrowserListView *)self collectionView:self->_collectionView didSelectItemAtIndexPath:v12];
   }
 
   if (!self->_browsersWithProductPageViewed)
   {
-    v12 = [MEMORY[0x1E695DFA8] set];
+    v13 = [MEMORY[0x1E695DFA8] set];
     browsersWithProductPageViewed = self->_browsersWithProductPageViewed;
-    self->_browsersWithProductPageViewed = v12;
+    self->_browsersWithProductPageViewed = v13;
   }
 
   lockup = [appCopy lockup];
-  v15 = objc_opt_respondsToSelector();
+  v16 = objc_opt_respondsToSelector();
 
-  if (v15)
+  if (v16)
   {
-    v16 = self->_browsersWithProductPageViewed;
+    v17 = self->_browsersWithProductPageViewed;
     lockup2 = [appCopy lockup];
     bundleID = [lockup2 bundleID];
-    [(NSMutableSet *)v16 addObject:bundleID];
+    [(NSMutableSet *)v17 addObject:bundleID];
 
     mEMORY[0x1E69C8810] = [MEMORY[0x1E69C8810] sharedLogger];
     lockup3 = [appCopy lockup];
@@ -1083,11 +1083,11 @@ LABEL_11:
   _os_log_error_impl(&dword_1D4644000, v5, OS_LOG_TYPE_ERROR, "Failed to install %{public}@ with error: %{public}@", &v7, 0x16u);
 }
 
-- (uint64_t)productDetailsUserDidInteractWithApp:interactionType:.cold.1()
+- (void)productDetailsUserDidInteractWithApp:interactionType:.cold.1()
 {
-  dlerror();
-  v0 = abort_report_np();
-  return [SSReadingList addReadingListItemWithURL:v0 title:v1 previewText:v2 error:?];
+  v0 = dlerror();
+  v1 = abort_report_np("%s", v0);
+  [SSReadingList addReadingListItemWithURL:v1 title:v2 previewText:v3 error:?];
 }
 
 @end

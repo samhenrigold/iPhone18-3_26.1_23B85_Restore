@@ -53,11 +53,13 @@
 
 - (id)clickPresentationInteraction:(id)interaction previewForHighlightingAtLocation:(CGPoint)location
 {
+  y = location.y;
+  x = location.x;
   interactionCopy = interaction;
   selfCopy = self;
-  v7 = sub_257C3DE40(interactionCopy);
+  v9 = sub_257C3DE40(interactionCopy, x, y);
 
-  return v7;
+  return v9;
 }
 
 - (void)layoutSubviews

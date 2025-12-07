@@ -14,7 +14,7 @@
 + (NSString)reuseIdentifier
 {
   type metadata accessor for RAPTextViewCollectionViewCell();
-  sub_1000CE6B8(&qword_10190B728);
+  sub_1000CE6B8(&qword_10190B728, &unk_1011E7470);
   String.init<A>(describing:)();
   v2 = String._bridgeToObjectiveC()();
 

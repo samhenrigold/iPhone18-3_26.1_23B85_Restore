@@ -124,30 +124,30 @@
 
 + (id)convertPredictionsToPMMPredictionItems:(id)items reason:(unsigned int)reason anchor:(int64_t)anchor triggerEvent:(id)event
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   itemsCopy = items;
   eventCopy = event;
-  v26 = objc_opt_new();
+  v25 = objc_opt_new();
+  v26 = 0u;
   v27 = 0u;
   v28 = 0u;
   v29 = 0u;
-  v30 = 0u;
   obj = itemsCopy;
-  v8 = [obj countByEnumeratingWithState:&v27 objects:v31 count:16];
+  v8 = [obj countByEnumeratingWithState:&v26 objects:v30 count:16];
   if (v8)
   {
     v9 = v8;
-    v22 = *v28;
+    v21 = *v27;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v28 != v22)
+        if (*v27 != v21)
         {
           objc_enumerationMutation(obj);
         }
 
-        v11 = *(*(&v27 + 1) + 8 * i);
+        v11 = *(*(&v26 + 1) + 8 * i);
         v12 = objc_autoreleasePoolPush();
         v13 = objc_alloc(MEMORY[0x277D41FA0]);
         predictionIdentifier = [v11 predictionIdentifier];
@@ -157,24 +157,22 @@
         [v11 confidence];
         v18 = [v13 initWithBundleId:predictionIdentifier predictionSource:2 reason:v15 reasonMetadata:v16 anchorType:v17 confidence:?];
 
-        [v26 addObject:v18];
+        [v25 addObject:v18];
         objc_autoreleasePoolPop(v12);
       }
 
-      v9 = [obj countByEnumeratingWithState:&v27 objects:v31 count:16];
+      v9 = [obj countByEnumeratingWithState:&v26 objects:v30 count:16];
     }
 
     while (v9);
   }
 
-  v19 = *MEMORY[0x277D85DE8];
-
-  return v26;
+  return v25;
 }
 
 + (id)pmmMetadataForDuetEvent:(id)event
 {
-  v18[1] = *MEMORY[0x277D85DE8];
+  v17[1] = *MEMORY[0x277D85DE8];
   eventCopy = event;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
@@ -183,12 +181,12 @@
 
     if (deviceName)
     {
-      v17 = *MEMORY[0x277D41FC0];
+      v16 = *MEMORY[0x277D41FC0];
       deviceName2 = [eventCopy deviceName];
-      v18[0] = deviceName2;
+      v17[0] = deviceName2;
       v6 = MEMORY[0x277CBEAC0];
-      v7 = v18;
-      v8 = &v17;
+      v7 = v17;
+      v8 = &v16;
 LABEL_7:
       v10 = [v6 dictionaryWithObjects:v7 forKeys:v8 count:1];
 
@@ -203,12 +201,12 @@ LABEL_7:
 
     if (deviceIdentifier)
     {
-      v15 = *MEMORY[0x277D41FC0];
+      v14 = *MEMORY[0x277D41FC0];
       deviceName2 = [eventCopy deviceIdentifier];
-      v16 = deviceName2;
+      v15 = deviceName2;
       v6 = MEMORY[0x277CBEAC0];
-      v7 = &v16;
-      v8 = &v15;
+      v7 = &v15;
+      v8 = &v14;
       goto LABEL_7;
     }
   }
@@ -227,7 +225,6 @@ LABEL_9:
 
   v12 = v11;
 
-  v13 = *MEMORY[0x277D85DE8];
   return v11;
 }
 

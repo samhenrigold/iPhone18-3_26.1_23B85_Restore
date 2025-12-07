@@ -677,19 +677,19 @@ void __111__MapsSuggestionsManager_initWithStrategy_locationUpdater_network_flig
 
 - (void)_updateCurrentLocation:(uint64_t)location
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (location)
   {
     dispatch_assert_queue_V2(*(location + 8));
-    if (MapsSuggestionsLoggingIsVerbose())
+    if (MapsSuggestionsLoggingIsVerbose(v4, v5))
     {
-      v4 = GEOFindOrCreateLog();
-      if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
+      v6 = GEOFindOrCreateLog();
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
       {
-        v16 = 138412290;
-        v17 = v3;
-        _os_log_impl(&dword_1C5126000, v4, OS_LOG_TYPE_DEBUG, "LOCATION UPDATE %@", &v16, 0xCu);
+        v19 = 138412290;
+        v20 = v3;
+        _os_log_impl(&dword_1C5126000, v6, OS_LOG_TYPE_DEBUG, "LOCATION UPDATE %@", &v19, 0xCu);
       }
     }
 
@@ -698,26 +698,26 @@ void __111__MapsSuggestionsManager_initWithStrategy_locationUpdater_network_flig
       MapsSuggestionsSetMostRecentLocation(v3);
       IsUsableLocation = MapsSuggestionsTrackerIsUsableLocation(*(location + 120));
       [v3 distanceFromLocation:*(location + 120)];
-      v7 = v6;
-      v8 = MapsSuggestionsCurrentBestLocation();
-      v9 = *(location + 120);
-      *(location + 120) = v8;
+      v9 = v8;
+      v10 = MapsSuggestionsCurrentBestLocation();
+      v11 = *(location + 120);
+      *(location + 120) = v10;
 
-      v10 = *(location + 40);
-      v11 = MapsSuggestionsCurrentBestLocation();
-      [v10 setLocation:v11];
+      v12 = *(location + 40);
+      v13 = MapsSuggestionsCurrentBestLocation();
+      [v12 setLocation:v13];
 
       if ([*(location + 56) count])
       {
         if ((IsUsableLocation & 1) == 0 && MapsSuggestionsTrackerIsUsableLocation(v3))
         {
-          v12 = GEOFindOrCreateLog();
-          if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+          v15 = GEOFindOrCreateLog();
+          if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
           {
-            LOWORD(v16) = 0;
-            v13 = "_updateAllSourcesOnce schedule (usability)";
+            LOWORD(v19) = 0;
+            v16 = "_updateAllSourcesOnce schedule (usability)";
 LABEL_15:
-            _os_log_impl(&dword_1C5126000, v12, OS_LOG_TYPE_DEBUG, v13, &v16, 2u);
+            _os_log_impl(&dword_1C5126000, v15, OS_LOG_TYPE_DEBUG, v16, &v19, 2u);
             goto LABEL_16;
           }
 
@@ -725,13 +725,13 @@ LABEL_15:
         }
 
         GEOConfigGetDouble();
-        if (v7 > v14)
+        if (v9 > v17)
         {
-          v12 = GEOFindOrCreateLog();
-          if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+          v15 = GEOFindOrCreateLog();
+          if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
           {
-            LOWORD(v16) = 0;
-            v13 = "_updateAllSourcesOnce schedule (distance)";
+            LOWORD(v19) = 0;
+            v16 = "_updateAllSourcesOnce schedule (distance)";
             goto LABEL_15;
           }
 
@@ -741,10 +741,10 @@ LABEL_16:
         }
       }
 
-      else if (MapsSuggestionsLoggingIsVerbose())
+      else if (MapsSuggestionsLoggingIsVerbose(0, v14))
       {
-        v15 = GEOFindOrCreateLog();
-        [MapsSuggestionsManager _updateCurrentLocation:v15];
+        v18 = GEOFindOrCreateLog();
+        [MapsSuggestionsManager _updateCurrentLocation:v18];
       }
     }
   }
@@ -818,14 +818,14 @@ LABEL_16:
   }
 }
 
-void __63__MapsSuggestionsManager__updateSource_forType_repeat_handler___block_invoke(uint64_t a1)
+void __63__MapsSuggestionsManager__updateSource_forType_repeat_handler___block_invoke(void **a1)
 {
   v11 = *MEMORY[0x1E69E9840];
-  WeakRetained = objc_loadWeakRetained((a1 + 40));
+  WeakRetained = objc_loadWeakRetained(a1 + 5);
   v3 = WeakRetained;
   if (WeakRetained)
   {
-    [(MapsSuggestionsManager *)WeakRetained _updateSource:*(a1 + 48) forType:1 repeat:0 handler:?];
+    [(MapsSuggestionsManager *)WeakRetained _updateSource:a1[6] forType:1 repeat:0 handler:?];
   }
 
   else
@@ -978,62 +978,63 @@ void __59__MapsSuggestionsManager__updateAllSourcesOnceWithHandler___block_invok
   if (self)
   {
     dispatch_assert_queue_V2(*(self + 8));
-    if ([*(self + 56) count])
+    v2 = [*(self + 56) count];
+    if (v2)
     {
-      if (MapsSuggestionsLoggingIsVerbose())
+      if (MapsSuggestionsLoggingIsVerbose(v2, v3))
       {
-        v2 = GEOFindOrCreateLog();
-        if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
+        v4 = GEOFindOrCreateLog();
+        if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
         {
-          *v5 = 0;
-          _os_log_impl(&dword_1C5126000, v2, OS_LOG_TYPE_DEBUG, "Restarting location updater", v5, 2u);
+          *v7 = 0;
+          _os_log_impl(&dword_1C5126000, v4, OS_LOG_TYPE_DEBUG, "Restarting location updater", v7, 2u);
         }
       }
 
       WeakRetained = objc_loadWeakRetained((self + 144));
-      v4 = [WeakRetained restartLocationUpdatesForDelegate:self];
+      v6 = [WeakRetained restartLocationUpdatesForDelegate:self];
 
-      MapsSuggestionsSetMostRecentLocation(v4);
+      MapsSuggestionsSetMostRecentLocation(v6);
     }
   }
 }
 
 - (id)_pruneExpiredFromEntries:(dispatch_queue_t *)entries
 {
-  v31 = *MEMORY[0x1E69E9840];
-  v15 = a2;
+  v32 = *MEMORY[0x1E69E9840];
+  v16 = a2;
   if (!entries)
   {
-    v16 = 0;
+    v17 = 0;
 LABEL_21:
-    v13 = v15;
+    v14 = v16;
     goto LABEL_23;
   }
 
   dispatch_assert_queue_V2(entries[2]);
-  if ([v15 count])
+  if ([v16 count])
   {
-    v16 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(v15, "count")}];
+    v17 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(v16, "count")}];
     entriesCopy = entries;
-    v20 = 0u;
     v21 = 0u;
-    v18 = 0u;
+    v22 = 0u;
     v19 = 0u;
-    v4 = v15;
-    v5 = [v4 countByEnumeratingWithState:&v18 objects:v30 count:16];
+    v20 = 0u;
+    v4 = v16;
+    v5 = [v4 countByEnumeratingWithState:&v19 objects:v31 count:16];
     if (v5)
     {
-      v6 = *v19;
+      v6 = *v20;
       do
       {
         for (i = 0; i != v5; ++i)
         {
-          if (*v19 != v6)
+          if (*v20 != v6)
           {
             objc_enumerationMutation(v4);
           }
 
-          v8 = *(*(&v18 + 1) + 8 * i);
+          v8 = *(*(&v19 + 1) + 8 * i);
           if (([v8 deleted] & 1) != 0 || objc_msgSend(v8, "hasExpired"))
           {
             [v8 setDeleted:1];
@@ -1041,22 +1042,22 @@ LABEL_21:
             if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
             {
               uniqueName = [(dispatch_queue_t *)entriesCopy uniqueName];
-              IsVerbose = MapsSuggestionsLoggingIsVerbose();
-              v12 = &stru_1F444C108;
+              IsVerbose = MapsSuggestionsLoggingIsVerbose(uniqueName, v11);
+              v13 = &stru_1F444C108;
               if (IsVerbose)
               {
-                serializedBase64String = [v8 serializedBase64String];
-                v12 = serializedBase64String;
+                v2 = objc_msgSend_serializedBase64String(v8);
+                v13 = v2;
               }
 
               *buf = 138413058;
-              v23 = uniqueName;
-              v24 = 2048;
-              v25 = v8;
-              v26 = 2112;
-              v27 = v12;
-              v28 = 2112;
-              v29 = v8;
+              v24 = uniqueName;
+              v25 = 2048;
+              v26 = v8;
+              v27 = 2112;
+              v28 = v13;
+              v29 = 2112;
+              v30 = v8;
               _os_log_impl(&dword_1C5126000, v9, OS_LOG_TYPE_DEBUG, "{MSgDebug} PRUNED by OBJECT{%@} {%p:%@}:\n%@", buf, 0x2Au);
               if (IsVerbose)
               {
@@ -1066,11 +1067,11 @@ LABEL_21:
 
           else
           {
-            [v16 addObject:v8];
+            [v17 addObject:v8];
           }
         }
 
-        v5 = [v4 countByEnumeratingWithState:&v18 objects:v30 count:16];
+        v5 = [v4 countByEnumeratingWithState:&v19 objects:v31 count:16];
       }
 
       while (v5);
@@ -1079,11 +1080,11 @@ LABEL_21:
     goto LABEL_21;
   }
 
-  v13 = v15;
-  v16 = v15;
+  v14 = v16;
+  v17 = v16;
 LABEL_23:
 
-  return v16;
+  return v17;
 }
 
 - (void)_pruneSourceEntriesNotRepresentedIn:(uint64_t)in
@@ -2060,7 +2061,7 @@ LABEL_19:
 
 void __82__MapsSuggestionsManager_topSuggestionsForSink_transportType_count_queue_handler___block_invoke_191(uint64_t a1)
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 56));
   if (WeakRetained)
   {
@@ -2068,7 +2069,7 @@ void __82__MapsSuggestionsManager_topSuggestionsForSink_transportType_count_queu
     [v2 sortUsingComparator:&__block_literal_global_387];
     v3 = [v2 copy];
 
-    v19 = v3;
+    v20 = v3;
     (*(*(a1 + 48) + 16))();
     v4 = *MEMORY[0x1E69A1B08];
     v5 = GEOFindOrCreateLog();
@@ -2076,9 +2077,9 @@ void __82__MapsSuggestionsManager_topSuggestionsForSink_transportType_count_queu
     {
       v6 = [WeakRetained uniqueName];
       *buf = 138412546;
-      *v22 = v6;
-      *&v22[8] = 2080;
-      *&v22[10] = "topSuggestionsForSink";
+      *v23 = v6;
+      *&v23[8] = 2080;
+      *&v23[10] = "topSuggestionsForSink";
       _os_log_impl(&dword_1C5126000, v5, OS_LOG_TYPE_DEBUG, "{MSgDebug} OBJECT{%@} %s END", buf, 0x16u);
     }
 
@@ -2097,31 +2098,31 @@ void __82__MapsSuggestionsManager_topSuggestionsForSink_transportType_count_queu
       {
         v10 = [*(a1 + 40) uniqueName];
         v11 = [*(a1 + 32) objectAtIndexedSubscript:i];
-        IsVerbose = MapsSuggestionsLoggingIsVerbose();
-        v13 = &stru_1F444C108;
+        IsVerbose = MapsSuggestionsLoggingIsVerbose(v11, v12);
+        v14 = &stru_1F444C108;
         if (IsVerbose)
         {
-          v20 = [*(a1 + 32) objectAtIndexedSubscript:i];
-          v18 = [v20 serializedBase64String];
-          v13 = v18;
+          v21 = [*(a1 + 32) objectAtIndexedSubscript:i];
+          v19 = objc_msgSend_serializedBase64String(v21);
+          v14 = v19;
         }
 
-        v14 = v4;
-        v15 = [*(a1 + 32) objectAtIndexedSubscript:i];
+        v15 = v4;
+        v16 = [*(a1 + 32) objectAtIndexedSubscript:i];
         *buf = 67110146;
-        *v22 = i;
-        *&v22[4] = 2112;
-        *&v22[6] = v10;
-        *&v22[14] = 2048;
-        *&v22[16] = v11;
-        v23 = 2112;
-        v24 = v13;
-        v25 = 2112;
-        v26 = v15;
+        *v23 = i;
+        *&v23[4] = 2112;
+        *&v23[6] = v10;
+        *&v23[14] = 2048;
+        *&v23[16] = v11;
+        v24 = 2112;
+        v25 = v14;
+        v26 = 2112;
+        v27 = v16;
         _os_log_impl(&dword_1C5126000, v9, OS_LOG_TYPE_DEBUG, "{MSgDebug} SERVED as #%u to SINK{%@} {%p:%@}:\n%@", buf, 0x30u);
 
-        v3 = v19;
-        v4 = v14;
+        v3 = v20;
+        v4 = v15;
         if (IsVerbose)
         {
         }
@@ -2137,11 +2138,11 @@ void __82__MapsSuggestionsManager_topSuggestionsForSink_transportType_count_queu
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       *buf = 136446722;
-      *v22 = "MapsSuggestionsManager.mm";
-      *&v22[8] = 1026;
-      *&v22[10] = 767;
-      *&v22[14] = 2082;
-      *&v22[16] = "[MapsSuggestionsManager topSuggestionsForSink:transportType:count:queue:handler:]_block_invoke";
+      *v23 = "MapsSuggestionsManager.mm";
+      *&v23[8] = 1026;
+      *&v23[10] = 767;
+      *&v23[14] = 2082;
+      *&v23[16] = "[MapsSuggestionsManager topSuggestionsForSink:transportType:count:queue:handler:]_block_invoke";
       _os_log_impl(&dword_1C5126000, v3, OS_LOG_TYPE_ERROR, "%{public}s:%{public}d: innerStrongSelf went away in %{public}s", buf, 0x1Cu);
     }
   }
@@ -2569,7 +2570,7 @@ void __57__MapsSuggestionsManager_removeAdditionalFilter_forSink___block_invoke(
 
 - (uint64_t)_sink:(void *)_sink allowsEntry:
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   v5 = a2;
   _sinkCopy = _sink;
   if (!self)
@@ -2587,50 +2588,50 @@ void __57__MapsSuggestionsManager_removeAdditionalFilter_forSink___block_invoke(
       v8 = v7;
       if (v7)
       {
-        v21 = 0u;
         v22 = 0u;
-        v19 = 0u;
+        v23 = 0u;
         v20 = 0u;
+        v21 = 0u;
         v8 = v7;
-        v9 = [v8 countByEnumeratingWithState:&v19 objects:v31 count:16];
+        v9 = [v8 countByEnumeratingWithState:&v20 objects:v32 count:16];
         if (v9)
         {
-          v10 = *v20;
+          v10 = *v21;
           while (2)
           {
             for (i = 0; i != v9; ++i)
             {
-              if (*v20 != v10)
+              if (*v21 != v10)
               {
                 objc_enumerationMutation(v8);
               }
 
-              v12 = *(*(&v19 + 1) + 8 * i);
-              if (([v12 shouldKeepEntry:{_sinkCopy, v19}] & 1) == 0)
+              v12 = *(*(&v20 + 1) + 8 * i);
+              if (([v12 shouldKeepEntry:{_sinkCopy, v20}] & 1) == 0)
               {
                 v14 = GEOFindOrCreateLog();
                 if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
                 {
                   uniqueName = [v12 uniqueName];
-                  IsVerbose = MapsSuggestionsLoggingIsVerbose();
+                  IsVerbose = MapsSuggestionsLoggingIsVerbose(uniqueName, v16);
                   if (IsVerbose)
                   {
-                    serializedBase64String = [_sinkCopy serializedBase64String];
+                    v18 = objc_msgSend_serializedBase64String(_sinkCopy);
                   }
 
                   else
                   {
-                    serializedBase64String = &stru_1F444C108;
+                    v18 = &stru_1F444C108;
                   }
 
                   *buf = 138413058;
                   *&buf[4] = uniqueName;
-                  v25 = 2048;
-                  v26 = _sinkCopy;
-                  v27 = 2112;
-                  v28 = serializedBase64String;
-                  v29 = 2112;
-                  v30 = _sinkCopy;
+                  v26 = 2048;
+                  v27 = _sinkCopy;
+                  v28 = 2112;
+                  v29 = v18;
+                  v30 = 2112;
+                  v31 = _sinkCopy;
                   _os_log_impl(&dword_1C5126000, v14, OS_LOG_TYPE_DEBUG, "{MSgDebug} FILTERED by FILTER{%@} {%p:%@}:\n%@", buf, 0x2Au);
                   if (IsVerbose)
                   {
@@ -2642,7 +2643,7 @@ void __57__MapsSuggestionsManager_removeAdditionalFilter_forSink___block_invoke(
               }
             }
 
-            v9 = [v8 countByEnumeratingWithState:&v19 objects:v31 count:16];
+            v9 = [v8 countByEnumeratingWithState:&v20 objects:v32 count:16];
             if (v9)
             {
               continue;
@@ -2677,7 +2678,7 @@ LABEL_26:
   }
 
   v8 = *buf;
-  v13 = v23;
+  v13 = v24;
 LABEL_27:
 
 LABEL_28:
@@ -2818,10 +2819,10 @@ void __53__MapsSuggestionsManager_saveStorageToFile_callback___block_invoke(uint
   return v7 & 1;
 }
 
-uint64_t __46__MapsSuggestionsManager_loadStorageFromFile___block_invoke(uint64_t a1)
+uint64_t __46__MapsSuggestionsManager_loadStorageFromFile___block_invoke(void *a1)
 {
-  result = [(MapsSuggestionsManager *)*(a1 + 32) _loadStorageFromFile:?];
-  *(*(*(a1 + 48) + 8) + 24) = result;
+  result = [(MapsSuggestionsManager *)a1[4] _loadStorageFromFile:?];
+  *(*(a1[6] + 8) + 24) = result;
   return result;
 }
 
@@ -3091,13 +3092,13 @@ LABEL_15:
 
 - (uint64_t)_addOrUpdateSuggestionEntries:(void *)entries source:
 {
-  v61 = *MEMORY[0x1E69E9840];
-  v31 = a2;
+  v67 = *MEMORY[0x1E69E9840];
+  v37 = a2;
   entriesCopy = entries;
-  v40 = entriesCopy;
+  v46 = entriesCopy;
   if (!self)
   {
-    v39 = 0;
+    v45 = 0;
     goto LABEL_63;
   }
 
@@ -3108,12 +3109,12 @@ LABEL_15:
     objc_claimAutoreleasedReturnValue();
     [MapsSuggestionsManager _addOrUpdateSuggestionEntries:source:];
 LABEL_59:
-    v8 = v49;
-    v39 = *buf;
+    v8 = v55;
+    v45 = *buf;
     goto LABEL_62;
   }
 
-  if (!v31)
+  if (!v37)
   {
     GEOFindOrCreateLog();
     objc_claimAutoreleasedReturnValue();
@@ -3121,7 +3122,7 @@ LABEL_59:
     goto LABEL_59;
   }
 
-  if (![v31 count])
+  if (![v37 count])
   {
     GEOFindOrCreateLog();
     objc_claimAutoreleasedReturnValue();
@@ -3138,161 +3139,162 @@ LABEL_59:
     _os_log_impl(&dword_1C5126000, v7, OS_LOG_TYPE_DEBUG, "Adding/Updating for %@", buf, 0xCu);
   }
 
-  v8 = [*(self + 72) objectForKey:v40];
+  v8 = [*(self + 72) objectForKey:v46];
   if (!v8)
   {
     v8 = objc_alloc_init(MEMORY[0x1E695DF70]);
     [*(self + 72) setObject:? forKey:?];
   }
 
-  v47 = 0u;
-  v48 = 0u;
-  v45 = 0u;
-  v46 = 0u;
-  serializedBase64String = v31;
-  v10 = [(__CFString *)serializedBase64String countByEnumeratingWithState:&v45 objects:v60 count:16];
+  v53 = 0u;
+  v54 = 0u;
+  v51 = 0u;
+  v52 = 0u;
+  v9 = v37;
+  v10 = [(__CFString *)v9 countByEnumeratingWithState:&v51 objects:v66 count:16];
   if (v10)
   {
-    v11 = *v46;
+    v11 = *v52;
     do
     {
       v12 = 0;
       v13 = v8;
       do
       {
-        if (*v46 != v11)
+        if (*v52 != v11)
         {
-          objc_enumerationMutation(serializedBase64String);
+          objc_enumerationMutation(v9);
         }
 
-        v8 = [(MapsSuggestionsManager *)self _updateExpiryDatesForEntries:v13 withEntry:*(*(&v45 + 1) + 8 * v12)];
+        v8 = [(MapsSuggestionsManager *)self _updateExpiryDatesForEntries:v13 withEntry:*(*(&v51 + 1) + 8 * v12)];
 
         ++v12;
         v13 = v8;
       }
 
       while (v10 != v12);
-      v10 = [(__CFString *)serializedBase64String countByEnumeratingWithState:&v45 objects:v60 count:16];
+      v10 = [(__CFString *)v9 countByEnumeratingWithState:&v51 objects:v66 count:16];
     }
 
     while (v10);
   }
 
-  v43 = 0u;
-  v44 = 0u;
-  v41 = 0u;
-  v42 = 0u;
-  obj = serializedBase64String;
-  v14 = [(__CFString *)obj countByEnumeratingWithState:&v41 objects:v59 count:16];
+  v49 = 0u;
+  v50 = 0u;
+  v47 = 0u;
+  v48 = 0u;
+  obj = v9;
+  v14 = [(__CFString *)obj countByEnumeratingWithState:&v47 objects:v65 count:16];
   if (!v14)
   {
-    v39 = 0;
+    v45 = 0;
     goto LABEL_61;
   }
 
-  v39 = 0;
-  v37 = *v42;
+  v45 = 0;
+  v43 = *v48;
   do
   {
-    v38 = v14;
-    for (i = 0; i != v38; ++i)
+    v44 = v14;
+    for (i = 0; i != v44; ++i)
     {
-      if (*v42 != v37)
+      if (*v48 != v43)
       {
         objc_enumerationMutation(obj);
       }
 
-      v16 = *(*(&v41 + 1) + 8 * i);
+      v16 = *(*(&v47 + 1) + 8 * i);
       v17 = GEOFindOrCreateLog();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
+      v18 = os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG);
+      if (v18)
       {
-        IsVerbose = MapsSuggestionsLoggingIsVerbose();
-        v19 = &stru_1F444C108;
+        IsVerbose = MapsSuggestionsLoggingIsVerbose(v18, v19);
+        v21 = &stru_1F444C108;
         if (IsVerbose)
         {
-          serializedBase64String = [(__CFString *)v16 serializedBase64String];
-          v19 = serializedBase64String;
+          v9 = objc_msgSend_serializedBase64String(v16);
+          v21 = v9;
         }
 
         *buf = 138413058;
-        *&buf[4] = v40;
-        v51 = 2048;
-        v52 = v16;
-        v53 = 2112;
-        v54 = v19;
-        v55 = 2112;
-        v56 = v16;
+        *&buf[4] = v46;
+        v57 = 2048;
+        v58 = v16;
+        v59 = 2112;
+        v60 = v21;
+        v61 = 2112;
+        v62 = v16;
         _os_log_impl(&dword_1C5126000, v17, OS_LOG_TYPE_DEBUG, "{MSgDebug} NEW INJECT from SOURCE{%@} {%p:%@}:\n%@", buf, 0x2Au);
         if (IsVerbose)
         {
         }
       }
 
-      [(__CFString *)v16 setOriginatingSourceName:v40];
+      [(__CFString *)v16 setOriginatingSourceName:v46];
       if ([(__CFString *)v16 deleted])
       {
         [v8 addObject:v16];
         GEOFindOrCreateLog();
-        v20 = ++v39;
-        if (!os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
+        v22 = ++v45;
+        if (!os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
         {
           goto LABEL_53;
         }
 
         uniqueName = [self uniqueName];
-        v22 = MapsSuggestionsLoggingIsVerbose();
-        v23 = &stru_1F444C108;
-        if (v22)
+        v25 = MapsSuggestionsLoggingIsVerbose(uniqueName, v24);
+        v26 = &stru_1F444C108;
+        if (v25)
         {
-          serializedBase64String2 = [(__CFString *)v16 serializedBase64String];
-          v23 = serializedBase64String2;
+          v41 = objc_msgSend_serializedBase64String(v16);
+          v26 = v41;
         }
 
         *buf = 136316162;
         *&buf[4] = "ADDDEL";
-        v51 = 2112;
-        v52 = uniqueName;
-        v53 = 2048;
-        v54 = v16;
-        v55 = 2112;
-        v56 = v23;
         v57 = 2112;
-        v58 = v16;
-        _os_log_impl(&dword_1C5126000, v20, OS_LOG_TYPE_DEBUG, "{MSgDebug} %s by OBJECT{%@} {%p:%@}:\n%@", buf, 0x34u);
-        if (v22)
+        v58 = uniqueName;
+        v59 = 2048;
+        v60 = v16;
+        v61 = 2112;
+        v62 = v26;
+        v63 = 2112;
+        v64 = v16;
+        _os_log_impl(&dword_1C5126000, v22, OS_LOG_TYPE_DEBUG, "{MSgDebug} %s by OBJECT{%@} {%p:%@}:\n%@", buf, 0x34u);
+        if (v25)
         {
         }
       }
 
       else if ([v8 containsObject:v16])
       {
-        v20 = GEOFindOrCreateLog();
-        if (!os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
+        v22 = GEOFindOrCreateLog();
+        if (!os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
         {
           goto LABEL_53;
         }
 
         uniqueName = [self uniqueName];
-        v24 = MapsSuggestionsLoggingIsVerbose();
-        v25 = &stru_1F444C108;
-        if (v24)
+        v28 = MapsSuggestionsLoggingIsVerbose(uniqueName, v27);
+        v29 = &stru_1F444C108;
+        if (v28)
         {
-          serializedBase64String3 = [(__CFString *)v16 serializedBase64String];
-          v25 = serializedBase64String3;
+          v40 = objc_msgSend_serializedBase64String(v16);
+          v29 = v40;
         }
 
         *buf = 136316162;
         *&buf[4] = "SKIPPED";
-        v51 = 2112;
-        v52 = uniqueName;
-        v53 = 2048;
-        v54 = v16;
-        v55 = 2112;
-        v56 = v25;
         v57 = 2112;
-        v58 = v16;
-        _os_log_impl(&dword_1C5126000, v20, OS_LOG_TYPE_DEBUG, "{MSgDebug} %s by OBJECT{%@} {%p:%@}:\n%@", buf, 0x34u);
-        if (v24)
+        v58 = uniqueName;
+        v59 = 2048;
+        v60 = v16;
+        v61 = 2112;
+        v62 = v29;
+        v63 = 2112;
+        v64 = v16;
+        _os_log_impl(&dword_1C5126000, v22, OS_LOG_TYPE_DEBUG, "{MSgDebug} %s by OBJECT{%@} {%p:%@}:\n%@", buf, 0x34u);
+        if (v28)
         {
         }
       }
@@ -3301,66 +3303,66 @@ LABEL_59:
       {
         [v8 addObject:v16];
         GEOFindOrCreateLog();
-        v20 = ++v39;
-        if (!os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
+        v22 = ++v45;
+        if (!os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
         {
           goto LABEL_53;
         }
 
         uniqueName = [self uniqueName];
-        v26 = MapsSuggestionsLoggingIsVerbose();
-        v27 = &stru_1F444C108;
-        if (v26)
+        v31 = MapsSuggestionsLoggingIsVerbose(uniqueName, v30);
+        v32 = &stru_1F444C108;
+        if (v31)
         {
-          serializedBase64String4 = [(__CFString *)v16 serializedBase64String];
-          v27 = serializedBase64String4;
+          v38 = objc_msgSend_serializedBase64String(v16);
+          v32 = v38;
         }
 
         *buf = 136316162;
         *&buf[4] = "ADDED";
-        v51 = 2112;
-        v52 = uniqueName;
-        v53 = 2048;
-        v54 = v16;
-        v55 = 2112;
-        v56 = v27;
         v57 = 2112;
-        v58 = v16;
-        _os_log_impl(&dword_1C5126000, v20, OS_LOG_TYPE_DEBUG, "{MSgDebug} %s by OBJECT{%@} {%p:%@}:\n%@", buf, 0x34u);
-        if (v26)
+        v58 = uniqueName;
+        v59 = 2048;
+        v60 = v16;
+        v61 = 2112;
+        v62 = v32;
+        v63 = 2112;
+        v64 = v16;
+        _os_log_impl(&dword_1C5126000, v22, OS_LOG_TYPE_DEBUG, "{MSgDebug} %s by OBJECT{%@} {%p:%@}:\n%@", buf, 0x34u);
+        if (v31)
         {
         }
       }
 
       else
       {
-        v20 = GEOFindOrCreateLog();
-        if (!os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
+        v22 = GEOFindOrCreateLog();
+        if (!os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
         {
           goto LABEL_53;
         }
 
         uniqueName = [*(self + 24) uniqueName];
-        v28 = MapsSuggestionsLoggingIsVerbose();
-        v29 = &stru_1F444C108;
-        if (v28)
+        v34 = MapsSuggestionsLoggingIsVerbose(uniqueName, v33);
+        v35 = &stru_1F444C108;
+        if (v34)
         {
-          serializedBase64String5 = [(__CFString *)v16 serializedBase64String];
-          v29 = serializedBase64String5;
+          v39 = objc_msgSend_serializedBase64String(v16);
+          v35 = v39;
         }
 
         *buf = 136316162;
         *&buf[4] = "UNKEPT";
-        v51 = 2112;
-        v52 = uniqueName;
-        v53 = 2048;
-        v54 = v16;
-        v55 = 2112;
-        v56 = v29;
         v57 = 2112;
-        v58 = v16;
-        _os_log_impl(&dword_1C5126000, v20, OS_LOG_TYPE_DEBUG, "{MSgDebug} %s by OBJECT{%@} {%p:%@}:\n%@", buf, 0x34u);
-        if (v28)
+        v58 = uniqueName;
+        v59 = 2048;
+        v60 = v16;
+        v61 = 2112;
+        v62 = v35;
+        v63 = 2112;
+        v64 = v16;
+        _os_log_impl(&dword_1C5126000, v22, OS_LOG_TYPE_DEBUG, "{MSgDebug} %s by OBJECT{%@} {%p:%@}:\n%@", buf, 0x34u);
+        if (v34)
         {
         }
       }
@@ -3368,7 +3370,7 @@ LABEL_59:
 LABEL_53:
     }
 
-    v14 = [(__CFString *)obj countByEnumeratingWithState:&v41 objects:v59 count:16];
+    v14 = [(__CFString *)obj countByEnumeratingWithState:&v47 objects:v65 count:16];
   }
 
   while (v14);
@@ -3378,7 +3380,7 @@ LABEL_61:
 LABEL_62:
 
 LABEL_63:
-  return v39;
+  return v45;
 }
 
 - (unint64_t)addOrUpdateSuggestionEntries:(id)entries source:(id)source
@@ -3599,16 +3601,16 @@ LABEL_19:
 
 - (void)_sq_deleteEntries:(void *)entries source:
 {
-  v38 = *MEMORY[0x1E69E9840];
-  v23 = a2;
+  v39 = *MEMORY[0x1E69E9840];
+  v24 = a2;
   entriesCopy = entries;
   selfCopy = self;
   if (self)
   {
-    v22 = entriesCopy;
+    v23 = entriesCopy;
     if ([entriesCopy length])
     {
-      if (v23)
+      if (v24)
       {
         dispatch_assert_queue_V2(self[2]);
         v7 = GEOFindOrCreateLog();
@@ -3617,8 +3619,8 @@ LABEL_19:
           uniqueName = [(dispatch_queue_t *)self uniqueName];
           *buf = 138412546;
           *&buf[4] = uniqueName;
-          v31 = 2080;
-          v32 = "deleteEntries";
+          v32 = 2080;
+          v33 = "deleteEntries";
           _os_log_impl(&dword_1C5126000, v7, OS_LOG_TYPE_DEBUG, "{MSgDebug} OBJECT{%@} %s BEGIN", buf, 0x16u);
         }
 
@@ -3629,47 +3631,47 @@ LABEL_19:
           _os_signpost_emit_with_name_impl(&dword_1C5126000, v9, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "deleteEntries", "", buf, 2u);
         }
 
-        if ([v23 count])
+        if ([v24 count])
         {
-          v28 = 0u;
           v29 = 0u;
-          v26 = 0u;
+          v30 = 0u;
           v27 = 0u;
-          obj = v23;
-          v10 = [obj countByEnumeratingWithState:&v26 objects:v37 count:16];
+          v28 = 0u;
+          obj = v24;
+          v10 = [obj countByEnumeratingWithState:&v27 objects:v38 count:16];
           if (v10)
           {
-            v11 = *v27;
+            v11 = *v28;
             do
             {
               for (i = 0; i != v10; ++i)
               {
-                if (*v27 != v11)
+                if (*v28 != v11)
                 {
                   objc_enumerationMutation(obj);
                 }
 
-                v13 = *(*(&v26 + 1) + 8 * i);
+                v13 = *(*(&v27 + 1) + 8 * i);
                 v14 = GEOFindOrCreateLog();
                 if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
                 {
                   uniqueName2 = [(dispatch_queue_t *)selfCopy uniqueName];
-                  IsVerbose = MapsSuggestionsLoggingIsVerbose();
-                  v17 = &stru_1F444C108;
+                  IsVerbose = MapsSuggestionsLoggingIsVerbose(uniqueName2, v16);
+                  v18 = &stru_1F444C108;
                   if (IsVerbose)
                   {
-                    serializedBase64String = [v13 serializedBase64String];
-                    v17 = serializedBase64String;
+                    v3 = objc_msgSend_serializedBase64String(v13);
+                    v18 = v3;
                   }
 
                   *buf = 138413058;
                   *&buf[4] = uniqueName2;
-                  v31 = 2048;
-                  v32 = v13;
-                  v33 = 2112;
-                  v34 = v17;
-                  v35 = 2112;
-                  v36 = v13;
+                  v32 = 2048;
+                  v33 = v13;
+                  v34 = 2112;
+                  v35 = v18;
+                  v36 = 2112;
+                  v37 = v13;
                   _os_log_impl(&dword_1C5126000, v14, OS_LOG_TYPE_DEBUG, "{MSgDebug} DELETED by OBJECT{%@} {%p:%@}:\n%@", buf, 0x2Au);
                   if (IsVerbose)
                   {
@@ -3679,22 +3681,22 @@ LABEL_19:
                 [v13 setDeleted:1];
               }
 
-              v10 = [obj countByEnumeratingWithState:&v26 objects:v37 count:16];
+              v10 = [obj countByEnumeratingWithState:&v27 objects:v38 count:16];
             }
 
             while (v10);
           }
 
-          [(MapsSuggestionsManager *)selfCopy _addOrUpdateSuggestionEntries:v22 source:?];
-          v18 = GEOFindOrCreateLog();
-          if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
+          [(MapsSuggestionsManager *)selfCopy _addOrUpdateSuggestionEntries:v23 source:?];
+          v19 = GEOFindOrCreateLog();
+          if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
           {
             uniqueName3 = [(dispatch_queue_t *)selfCopy uniqueName];
             *buf = 138412546;
             *&buf[4] = uniqueName3;
-            v31 = 2080;
-            v32 = "deleteEntries";
-            _os_log_impl(&dword_1C5126000, v18, OS_LOG_TYPE_DEBUG, "{MSgDebug} OBJECT{%@} %s END", buf, 0x16u);
+            v32 = 2080;
+            v33 = "deleteEntries";
+            _os_log_impl(&dword_1C5126000, v19, OS_LOG_TYPE_DEBUG, "{MSgDebug} OBJECT{%@} %s END", buf, 0x16u);
           }
 
           GEOFindOrCreateLog();
@@ -3704,15 +3706,15 @@ LABEL_19:
 
         else
         {
-          v20 = GEOFindOrCreateLog();
-          if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
+          v21 = GEOFindOrCreateLog();
+          if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
           {
             uniqueName4 = [(dispatch_queue_t *)selfCopy uniqueName];
             *buf = 138412546;
             *&buf[4] = uniqueName4;
-            v31 = 2080;
-            v32 = "deleteEntries";
-            _os_log_impl(&dword_1C5126000, v20, OS_LOG_TYPE_DEBUG, "{MSgDebug} OBJECT{%@} %s END", buf, 0x16u);
+            v32 = 2080;
+            v33 = "deleteEntries";
+            _os_log_impl(&dword_1C5126000, v21, OS_LOG_TYPE_DEBUG, "{MSgDebug} OBJECT{%@} %s END", buf, 0x16u);
           }
 
           GEOFindOrCreateLog();
@@ -3736,7 +3738,7 @@ LABEL_19:
       [MapsSuggestionsManager _sq_deleteEntries:source:];
     }
 
-    entriesCopy = v22;
+    entriesCopy = v23;
   }
 }
 
@@ -4654,10 +4656,11 @@ void __43__MapsSuggestionsManager_storageForSource___block_invoke(uint64_t a1)
   v3 = GEOFindOrCreateLog();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
+    v10 = 136446978;
     OUTLINED_FUNCTION_4();
     OUTLINED_FUNCTION_5();
     OUTLINED_FUNCTION_3();
-    OUTLINED_FUNCTION_9_0(&dword_1C5126000, v4, v5, "At %{public}s:%d, %{public}s forbids: %{public}s. Cannot do anything without a Strategy.", v6, v7, v8, v9, 2u);
+    OUTLINED_FUNCTION_9_0(&dword_1C5126000, v4, v5, "At %{public}s:%d, %{public}s forbids: %{public}s. Cannot do anything without a Strategy.", v6, v7, v8, v9, v10);
   }
 
   *a2 = 0;
@@ -4668,10 +4671,11 @@ void __43__MapsSuggestionsManager_storageForSource___block_invoke(uint64_t a1)
 {
   if (OUTLINED_FUNCTION_11_0(a1, *MEMORY[0x1E69E9840]))
   {
+    v8 = 136446978;
     OUTLINED_FUNCTION_4();
     OUTLINED_FUNCTION_5();
     OUTLINED_FUNCTION_3();
-    OUTLINED_FUNCTION_2_1(&dword_1C5126000, v2, v3, "At %{public}s:%d, %{public}s forbids: %{public}s. Requires limit > 0", v4, v5, v6, v7, 2u);
+    OUTLINED_FUNCTION_2_1(&dword_1C5126000, v2, v3, "At %{public}s:%d, %{public}s forbids: %{public}s. Requires limit > 0", v4, v5, v6, v7, v8);
   }
 }
 
@@ -4679,10 +4683,11 @@ void __43__MapsSuggestionsManager_storageForSource___block_invoke(uint64_t a1)
 {
   if (OUTLINED_FUNCTION_11_0(a1, *MEMORY[0x1E69E9840]))
   {
+    v8 = 136446978;
     OUTLINED_FUNCTION_4();
     OUTLINED_FUNCTION_5();
     OUTLINED_FUNCTION_3();
-    OUTLINED_FUNCTION_2_1(&dword_1C5126000, v2, v3, "At %{public}s:%d, %{public}s forbids: %{public}s. Requires sinkName", v4, v5, v6, v7, 2u);
+    OUTLINED_FUNCTION_2_1(&dword_1C5126000, v2, v3, "At %{public}s:%d, %{public}s forbids: %{public}s. Requires sinkName", v4, v5, v6, v7, v8);
   }
 }
 
@@ -4691,10 +4696,11 @@ void __43__MapsSuggestionsManager_storageForSource___block_invoke(uint64_t a1)
   OUTLINED_FUNCTION_4_0();
   if (OUTLINED_FUNCTION_6_1(v1))
   {
+    v8 = 136446978;
     OUTLINED_FUNCTION_4();
     OUTLINED_FUNCTION_5();
     OUTLINED_FUNCTION_3();
-    OUTLINED_FUNCTION_9_0(&dword_1C5126000, v2, v3, "At %{public}s:%d, %{public}s forbids: %{public}s. Requires entry", v4, v5, v6, v7, 2u);
+    OUTLINED_FUNCTION_9_0(&dword_1C5126000, v2, v3, "At %{public}s:%d, %{public}s forbids: %{public}s. Requires entry", v4, v5, v6, v7, v8);
   }
 
   *v0 = 0;
@@ -4706,10 +4712,11 @@ void __43__MapsSuggestionsManager_storageForSource___block_invoke(uint64_t a1)
   OUTLINED_FUNCTION_4_0();
   if (OUTLINED_FUNCTION_6_1(v1))
   {
+    v8 = 136446978;
     OUTLINED_FUNCTION_4();
     OUTLINED_FUNCTION_5();
     OUTLINED_FUNCTION_3();
-    OUTLINED_FUNCTION_9_0(&dword_1C5126000, v2, v3, "At %{public}s:%d, %{public}s forbids: %{public}s. Requires sinkName", v4, v5, v6, v7, 2u);
+    OUTLINED_FUNCTION_9_0(&dword_1C5126000, v2, v3, "At %{public}s:%d, %{public}s forbids: %{public}s. Requires sinkName", v4, v5, v6, v7, v8);
   }
 
   *v0 = 0;
@@ -4721,10 +4728,11 @@ void __43__MapsSuggestionsManager_storageForSource___block_invoke(uint64_t a1)
   OUTLINED_FUNCTION_8();
   if (OUTLINED_FUNCTION_11_0(v2, *MEMORY[0x1E69E9840]))
   {
+    v9 = 136446978;
     OUTLINED_FUNCTION_4();
     OUTLINED_FUNCTION_5();
     OUTLINED_FUNCTION_3();
-    OUTLINED_FUNCTION_9(&dword_1C5126000, v3, v4, "At %{public}s:%d, %{public}s forbids: %{public}s. Needs a file path", v5, v6, v7, v8, 2u);
+    OUTLINED_FUNCTION_9(&dword_1C5126000, v3, v4, "At %{public}s:%d, %{public}s forbids: %{public}s. Needs a file path", v5, v6, v7, v8, v9);
   }
 
   *v0 = v1;
@@ -4735,10 +4743,11 @@ void __43__MapsSuggestionsManager_storageForSource___block_invoke(uint64_t a1)
   OUTLINED_FUNCTION_4_0();
   if (OUTLINED_FUNCTION_6_1(v1))
   {
+    v8 = 136446978;
     OUTLINED_FUNCTION_4();
     OUTLINED_FUNCTION_5();
     OUTLINED_FUNCTION_3();
-    OUTLINED_FUNCTION_9_0(&dword_1C5126000, v2, v3, "At %{public}s:%d, %{public}s forbids: %{public}s. Requires at least one entry", v4, v5, v6, v7, 2u);
+    OUTLINED_FUNCTION_9_0(&dword_1C5126000, v2, v3, "At %{public}s:%d, %{public}s forbids: %{public}s. Requires at least one entry", v4, v5, v6, v7, v8);
   }
 
   *v0 = 0;
@@ -4750,10 +4759,11 @@ void __43__MapsSuggestionsManager_storageForSource___block_invoke(uint64_t a1)
   OUTLINED_FUNCTION_4_0();
   if (OUTLINED_FUNCTION_6_1(v1))
   {
+    v8 = 136446978;
     OUTLINED_FUNCTION_4();
     OUTLINED_FUNCTION_5();
     OUTLINED_FUNCTION_3();
-    OUTLINED_FUNCTION_9_0(&dword_1C5126000, v2, v3, "At %{public}s:%d, %{public}s forbids: %{public}s. Requires a list of entries.", v4, v5, v6, v7, 2u);
+    OUTLINED_FUNCTION_9_0(&dword_1C5126000, v2, v3, "At %{public}s:%d, %{public}s forbids: %{public}s. Requires a list of entries.", v4, v5, v6, v7, v8);
   }
 
   *v0 = 0;
@@ -4765,10 +4775,11 @@ void __43__MapsSuggestionsManager_storageForSource___block_invoke(uint64_t a1)
   OUTLINED_FUNCTION_4_0();
   if (OUTLINED_FUNCTION_6_1(v1))
   {
+    v8 = 136446978;
     OUTLINED_FUNCTION_4();
     OUTLINED_FUNCTION_5();
     OUTLINED_FUNCTION_3();
-    OUTLINED_FUNCTION_9_0(&dword_1C5126000, v2, v3, "At %{public}s:%d, %{public}s forbids: %{public}s. Requires a source name.", v4, v5, v6, v7, 2u);
+    OUTLINED_FUNCTION_9_0(&dword_1C5126000, v2, v3, "At %{public}s:%d, %{public}s forbids: %{public}s. Requires a source name.", v4, v5, v6, v7, v8);
   }
 
   *v0 = 0;
@@ -4792,10 +4803,11 @@ void __43__MapsSuggestionsManager_storageForSource___block_invoke(uint64_t a1)
   OUTLINED_FUNCTION_8();
   if (OUTLINED_FUNCTION_11_0(v2, *MEMORY[0x1E69E9840]))
   {
+    v9 = 136446978;
     OUTLINED_FUNCTION_4();
     OUTLINED_FUNCTION_5();
     OUTLINED_FUNCTION_3();
-    OUTLINED_FUNCTION_9(&dword_1C5126000, v3, v4, "At %{public}s:%d, %{public}s forbids: %{public}s. Requires a list of entries", v5, v6, v7, v8, 2u);
+    OUTLINED_FUNCTION_9(&dword_1C5126000, v3, v4, "At %{public}s:%d, %{public}s forbids: %{public}s. Requires a list of entries", v5, v6, v7, v8, v9);
   }
 
   *v0 = v1;
@@ -4806,10 +4818,11 @@ void __43__MapsSuggestionsManager_storageForSource___block_invoke(uint64_t a1)
   OUTLINED_FUNCTION_8();
   if (OUTLINED_FUNCTION_11_0(v2, *MEMORY[0x1E69E9840]))
   {
+    v9 = 136446978;
     OUTLINED_FUNCTION_4();
     OUTLINED_FUNCTION_5();
     OUTLINED_FUNCTION_3();
-    OUTLINED_FUNCTION_9(&dword_1C5126000, v3, v4, "At %{public}s:%d, %{public}s forbids: %{public}s. Requires a source name", v5, v6, v7, v8, 2u);
+    OUTLINED_FUNCTION_9(&dword_1C5126000, v3, v4, "At %{public}s:%d, %{public}s forbids: %{public}s. Requires a source name", v5, v6, v7, v8, v9);
   }
 
   *v0 = v1;
@@ -4819,10 +4832,11 @@ void __43__MapsSuggestionsManager_storageForSource___block_invoke(uint64_t a1)
 {
   if (OUTLINED_FUNCTION_11_0(a1, *MEMORY[0x1E69E9840]))
   {
+    v8 = 136446978;
     OUTLINED_FUNCTION_4();
     OUTLINED_FUNCTION_5();
     OUTLINED_FUNCTION_3();
-    OUTLINED_FUNCTION_2_1(&dword_1C5126000, v2, v3, "At %{public}s:%d, %{public}s forbids: %{public}s. Requires a source name", v4, v5, v6, v7, 2u);
+    OUTLINED_FUNCTION_2_1(&dword_1C5126000, v2, v3, "At %{public}s:%d, %{public}s forbids: %{public}s. Requires a source name", v4, v5, v6, v7, v8);
   }
 }
 
@@ -4830,10 +4844,11 @@ void __43__MapsSuggestionsManager_storageForSource___block_invoke(uint64_t a1)
 {
   if (OUTLINED_FUNCTION_11_0(a1, *MEMORY[0x1E69E9840]))
   {
+    v8 = 136446978;
     OUTLINED_FUNCTION_4();
     OUTLINED_FUNCTION_5();
     OUTLINED_FUNCTION_3();
-    OUTLINED_FUNCTION_2_1(&dword_1C5126000, v2, v3, "At %{public}s:%d, %{public}s forbids: %{public}s. Requires a suggestion entry", v4, v5, v6, v7, 2u);
+    OUTLINED_FUNCTION_2_1(&dword_1C5126000, v2, v3, "At %{public}s:%d, %{public}s forbids: %{public}s. Requires a suggestion entry", v4, v5, v6, v7, v8);
   }
 }
 
@@ -4841,10 +4856,11 @@ void __43__MapsSuggestionsManager_storageForSource___block_invoke(uint64_t a1)
 {
   if (OUTLINED_FUNCTION_11_0(a1, *MEMORY[0x1E69E9840]))
   {
+    v8 = 136446978;
     OUTLINED_FUNCTION_4();
     OUTLINED_FUNCTION_5();
     OUTLINED_FUNCTION_3();
-    OUTLINED_FUNCTION_2_1(&dword_1C5126000, v2, v3, "At %{public}s:%d, %{public}s forbids: %{public}s. Requires a source name", v4, v5, v6, v7, 2u);
+    OUTLINED_FUNCTION_2_1(&dword_1C5126000, v2, v3, "At %{public}s:%d, %{public}s forbids: %{public}s. Requires a source name", v4, v5, v6, v7, v8);
   }
 }
 
@@ -4852,10 +4868,11 @@ void __43__MapsSuggestionsManager_storageForSource___block_invoke(uint64_t a1)
 {
   if (OUTLINED_FUNCTION_11_0(a1, *MEMORY[0x1E69E9840]))
   {
+    v8 = 136446978;
     OUTLINED_FUNCTION_4();
     OUTLINED_FUNCTION_5();
     OUTLINED_FUNCTION_3();
-    OUTLINED_FUNCTION_2_1(&dword_1C5126000, v2, v3, "At %{public}s:%d, %{public}s forbids: %{public}s. Requires a suggestion entry", v4, v5, v6, v7, 2u);
+    OUTLINED_FUNCTION_2_1(&dword_1C5126000, v2, v3, "At %{public}s:%d, %{public}s forbids: %{public}s. Requires a suggestion entry", v4, v5, v6, v7, v8);
   }
 }
 

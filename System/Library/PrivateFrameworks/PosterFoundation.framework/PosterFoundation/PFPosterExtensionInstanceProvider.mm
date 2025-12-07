@@ -74,8 +74,8 @@
         v26 = [(NSMapTable *)selfCopy->_extensionBundleInstanceToReasonMap objectForKey:instanceIdentifier];
         [v26 addObject:v10];
 
-        v27 = PFLogExtensionInstance();
-        if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
+        v28 = PFLogExtensionInstance(v27);
+        if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
         {
           posterExtensionBundleIdentifier2 = [extensionCopy posterExtensionBundleIdentifier];
           instanceIdentifier2 = [v13 instanceIdentifier];
@@ -87,7 +87,7 @@
           v38 = instanceIdentifier2;
           v39 = 2114;
           v40 = v10;
-          _os_log_impl(&dword_1C269D000, v27, OS_LOG_TYPE_DEFAULT, "(%p) extension '%@' has instance %{public}@; will use for reason '%{public}@'", buf, 0x2Au);
+          _os_log_impl(&dword_1C269D000, v28, OS_LOG_TYPE_DEFAULT, "(%p) extension '%@' has instance %{public}@; will use for reason '%{public}@'", buf, 0x2Au);
         }
 
         v17 = v13;
@@ -126,8 +126,7 @@
       [(NSMapTable *)selfCopy->_extensionBundleInstanceToReasonMap setObject:v23 forKey:v21];
     }
 
-    [v23 addObject:v10];
-    v24 = PFLogExtensionInstance();
+    v24 = PFLogExtensionInstance([v23 addObject:v10]);
     if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
     {
       posterExtensionBundleIdentifier3 = [extensionCopy posterExtensionBundleIdentifier];
@@ -162,7 +161,7 @@ LABEL_26:
     *error = [v15 pf_errorWithCode:3 userInfo:v16];
   }
 
-  posterExtensionBundleIdentifier = PFLogExtensionInstance();
+  posterExtensionBundleIdentifier = PFLogExtensionInstance(reasonCopy);
   if (os_log_type_enabled(posterExtensionBundleIdentifier, OS_LOG_TYPE_ERROR))
   {
     [PFPosterExtensionInstanceProvider acquireInstanceForExtension:v10 reason:posterExtensionBundleIdentifier error:?];
@@ -171,19 +170,17 @@ LABEL_26:
   v17 = 0;
 LABEL_27:
 
-  v30 = *MEMORY[0x1E69E9840];
-
   return v17;
 }
 
 - (void)relinquishExtensionInstance:(id)instance reason:(id)reason
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   instanceCopy = instance;
   reasonCopy = reason;
   if (!instanceCopy)
   {
-    [PFPosterExtensionInstanceProvider relinquishExtensionInstance:a2 reason:?];
+    [PFPosterExtensionInstanceProvider relinquishExtensionInstance:a2 reason:self];
   }
 
   if (reasonCopy)
@@ -203,18 +200,18 @@ LABEL_27:
   selfCopy = self;
   objc_sync_enter(selfCopy);
   instanceIdentifier = [instanceCopy instanceIdentifier];
-  v15 = PFLogExtensionInstance();
+  v15 = PFLogExtensionInstance(instanceIdentifier);
   if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
   {
     instanceIdentifier2 = [instanceCopy instanceIdentifier];
     *buf = 134218754;
-    v20 = selfCopy;
-    v21 = 2112;
-    v22 = posterExtensionBundleIdentifier;
-    v23 = 2114;
-    v24 = instanceIdentifier2;
-    v25 = 2114;
-    v26 = v9;
+    v19 = selfCopy;
+    v20 = 2112;
+    v21 = posterExtensionBundleIdentifier;
+    v22 = 2114;
+    v23 = instanceIdentifier2;
+    v24 = 2114;
+    v25 = v9;
     _os_log_impl(&dword_1C269D000, v15, OS_LOG_TYPE_DEFAULT, "(%p) relinquish extension '%@'/%{public}@ for reason '%{public}@'", buf, 0x2Au);
   }
 
@@ -228,7 +225,6 @@ LABEL_27:
   }
 
   objc_sync_exit(selfCopy);
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 - (NSSet)activeExtensionInstances
@@ -293,8 +289,8 @@ LABEL_27:
           instanceIdentifier = [v16 instanceIdentifier];
           [(NSMapTable *)extensionBundleInstanceToReasonMap removeObjectForKey:instanceIdentifier];
 
-          v21 = PFLogExtensionInstance();
-          if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+          v22 = PFLogExtensionInstance(v21);
+          if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
           {
             instanceIdentifier2 = [v16 instanceIdentifier];
             *buf = 134218498;
@@ -303,7 +299,7 @@ LABEL_27:
             v34 = posterExtensionBundleIdentifier;
             v35 = 2114;
             v36 = instanceIdentifier2;
-            _os_log_impl(&dword_1C269D000, v21, OS_LOG_TYPE_DEFAULT, "(%p) cleaning up after now invalid extension '%@'/%{public}@", buf, 0x20u);
+            _os_log_impl(&dword_1C269D000, v22, OS_LOG_TYPE_DEFAULT, "(%p) cleaning up after now invalid extension '%@'/%{public}@", buf, 0x20u);
           }
         }
       }
@@ -315,7 +311,6 @@ LABEL_27:
   }
 
   objc_sync_exit(selfCopy);
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 - (id)instanceForExtension:(id)extension reason:(id)reason
@@ -339,9 +334,9 @@ LABEL_27:
   if (invalidateCopy)
   {
     selfCopy = self;
-    objc_sync_enter(selfCopy);
-    v6 = PFLogExtensionInstance();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v6 = objc_sync_enter(selfCopy);
+    v7 = PFLogExtensionInstance(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       extension = [invalidateCopy extension];
       posterExtensionBundleIdentifier = [extension posterExtensionBundleIdentifier];
@@ -352,60 +347,58 @@ LABEL_27:
       v29 = posterExtensionBundleIdentifier;
       v30 = 2114;
       v31 = instanceIdentifier;
-      _os_log_impl(&dword_1C269D000, v6, OS_LOG_TYPE_DEFAULT, "(%p) invalidated instance %@/%{public}@", buf, 0x20u);
+      _os_log_impl(&dword_1C269D000, v7, OS_LOG_TYPE_DEFAULT, "(%p) invalidated instance %@/%{public}@", buf, 0x20u);
     }
 
-    v10 = objc_opt_new();
+    v11 = objc_opt_new();
     dictionaryRepresentation = [(NSMapTable *)selfCopy->_extensionBundleIdentifierWithReasonToInstanceMap dictionaryRepresentation];
     v22[0] = MEMORY[0x1E69E9820];
     v22[1] = 3221225472;
     v22[2] = __68__PFPosterExtensionInstanceProvider_extensionInstanceDidInvalidate___block_invoke;
     v22[3] = &unk_1E81899D8;
     v23 = invalidateCopy;
-    v12 = v10;
-    v24 = v12;
+    v13 = v11;
+    v24 = v13;
     [dictionaryRepresentation enumerateKeysAndObjectsUsingBlock:v22];
 
     v20 = 0u;
     v21 = 0u;
     v18 = 0u;
     v19 = 0u;
-    v13 = v12;
-    v14 = [v13 countByEnumeratingWithState:&v18 objects:v25 count:16];
-    if (v14)
+    v14 = v13;
+    v15 = [v14 countByEnumeratingWithState:&v18 objects:v25 count:16];
+    if (v15)
     {
-      v15 = *v19;
+      v16 = *v19;
       do
       {
-        v16 = 0;
+        v17 = 0;
         do
         {
-          if (*v19 != v15)
+          if (*v19 != v16)
           {
-            objc_enumerationMutation(v13);
+            objc_enumerationMutation(v14);
           }
 
-          [(NSMapTable *)selfCopy->_extensionBundleIdentifierWithReasonToInstanceMap removeObjectForKey:*(*(&v18 + 1) + 8 * v16++), v18];
+          [(NSMapTable *)selfCopy->_extensionBundleIdentifierWithReasonToInstanceMap removeObjectForKey:*(*(&v18 + 1) + 8 * v17++), v18];
         }
 
-        while (v14 != v16);
-        v14 = [v13 countByEnumeratingWithState:&v18 objects:v25 count:16];
+        while (v15 != v17);
+        v15 = [v14 countByEnumeratingWithState:&v18 objects:v25 count:16];
       }
 
-      while (v14);
+      while (v15);
     }
 
     objc_sync_exit(selfCopy);
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
-uint64_t __68__PFPosterExtensionInstanceProvider_extensionInstanceDidInvalidate___block_invoke(uint64_t result, uint64_t a2, uint64_t a3)
+id *__68__PFPosterExtensionInstanceProvider_extensionInstanceDidInvalidate___block_invoke(id *result, uint64_t a2, id a3)
 {
-  if (*(result + 32) == a3)
+  if (result[4] == a3)
   {
-    return [*(result + 40) addObject:a2];
+    return [result[5] addObject:a2];
   }
 
   return result;
@@ -415,13 +408,13 @@ uint64_t __68__PFPosterExtensionInstanceProvider_extensionInstanceDidInvalidate_
 {
   v9 = *MEMORY[0x1E69E9840];
   selfCopy = self;
-  objc_sync_enter(selfCopy);
-  v3 = PFLogExtensionInstance();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+  v3 = objc_sync_enter(selfCopy);
+  v4 = PFLogExtensionInstance(v3);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v7 = 134217984;
     v8 = selfCopy;
-    _os_log_impl(&dword_1C269D000, v3, OS_LOG_TYPE_DEFAULT, "(%p) cancel", &v7, 0xCu);
+    _os_log_impl(&dword_1C269D000, v4, OS_LOG_TYPE_DEFAULT, "(%p) cancel", &v7, 0xCu);
   }
 
   objectEnumerator = [(NSMapTable *)selfCopy->_extensionBundleIdentifierWithReasonToInstanceMap objectEnumerator];
@@ -430,36 +423,32 @@ uint64_t __68__PFPosterExtensionInstanceProvider_extensionInstanceDidInvalidate_
 
   [(NSMapTable *)selfCopy->_extensionBundleIdentifierWithReasonToInstanceMap removeAllObjects];
   objc_sync_exit(selfCopy);
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)acquireInstanceForExtension:(uint64_t)a1 reason:(uint64_t)a2 error:(os_log_t)log .cold.1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v4 = 134218242;
-  v5 = a1;
-  v6 = 2114;
-  v7 = a2;
-  _os_log_error_impl(&dword_1C269D000, log, OS_LOG_TYPE_ERROR, "(%p) no extension specified; will not acquire instance for reason '%{public}@'", &v4, 0x16u);
-  v3 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
+  v3 = 134218242;
+  v4 = a1;
+  v5 = 2114;
+  v6 = a2;
+  _os_log_error_impl(&dword_1C269D000, log, OS_LOG_TYPE_ERROR, "(%p) no extension specified; will not acquire instance for reason '%{public}@'", &v3, 0x16u);
 }
 
-- (void)relinquishExtensionInstance:(const char *)a1 reason:.cold.1(const char *a1)
+- (void)relinquishExtensionInstance:(const char *)a1 reason:(uint64_t)a2 .cold.1(const char *a1, uint64_t a2)
 {
-  v14 = *MEMORY[0x1E69E9840];
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"extensionInstance"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v3 = NSStringFromSelector(a1);
-    v4 = objc_opt_class();
-    v5 = NSStringFromClass(v4);
+    v4 = NSStringFromSelector(a1);
+    v5 = objc_opt_class();
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_2(&dword_1C269D000, MEMORY[0x1E69E9C10], v6, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v7, v8, v9, v10, @"extensionInstance", v12, v13);
+    OUTLINED_FUNCTION_2(&dword_1C269D000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v13, v14);
   }
 
-  v11 = v2;
-  [v2 UTF8String];
+  v12 = v3;
+  [v3 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
 }

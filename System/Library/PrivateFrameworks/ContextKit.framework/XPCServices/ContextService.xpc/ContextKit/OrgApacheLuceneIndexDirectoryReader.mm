@@ -1,12 +1,24 @@
 @interface OrgApacheLuceneIndexDirectoryReader
 + (id)openIfChangedWithOrgApacheLuceneIndexDirectoryReader:(id)reader;
 + (id)openIfChangedWithOrgApacheLuceneIndexDirectoryReader:(id)reader withOrgApacheLuceneIndexIndexCommit:(id)commit;
++ (id)openIfChangedWithOrgApacheLuceneIndexDirectoryReader:(id)reader withOrgApacheLuceneIndexIndexWriter:(id)writer withBoolean:(BOOL)boolean;
 + (id)openWithOrgApacheLuceneIndexIndexCommit:(id)commit;
++ (id)openWithOrgApacheLuceneIndexIndexWriter:(id)writer withBoolean:(BOOL)boolean;
 - (OrgApacheLuceneIndexDirectoryReader)initWithOrgApacheLuceneStoreDirectory:(id)directory withOrgApacheLuceneIndexLeafReaderArray:(id)array;
 - (void)dealloc;
 @end
 
 @implementation OrgApacheLuceneIndexDirectoryReader
+
++ (id)openWithOrgApacheLuceneIndexIndexWriter:(id)writer withBoolean:(BOOL)boolean
+{
+  if (!writer)
+  {
+    JreThrowNullPointerException();
+  }
+
+  return [writer getReaderWithBoolean:boolean];
+}
 
 + (id)openWithOrgApacheLuceneIndexIndexCommit:(id)commit
 {
@@ -38,6 +50,16 @@
   }
 
   return [reader doOpenIfChangedWithOrgApacheLuceneIndexIndexCommit:commit];
+}
+
++ (id)openIfChangedWithOrgApacheLuceneIndexDirectoryReader:(id)reader withOrgApacheLuceneIndexIndexWriter:(id)writer withBoolean:(BOOL)boolean
+{
+  if (!reader)
+  {
+    JreThrowNullPointerException();
+  }
+
+  return [reader doOpenIfChangedWithOrgApacheLuceneIndexIndexWriter:writer withBoolean:boolean];
 }
 
 - (OrgApacheLuceneIndexDirectoryReader)initWithOrgApacheLuceneStoreDirectory:(id)directory withOrgApacheLuceneIndexLeafReaderArray:(id)array

@@ -1,14 +1,14 @@
 @interface CAPropertyAnimation(TSDCAAnimationAdditions)
 - (double)TSD_animationPercentFromAnimationTime:()TSDCAAnimationAdditions;
 - (uint64_t)TSD_containsAnimationForKeyPath:()TSDCAAnimationAdditions;
-- (uint64_t)p_adjustedResultWithValue:()TSDCAAnimationAdditions;
 - (uint64_t)p_interpolatedValueFrom:()TSDCAAnimationAdditions to:percent:;
 - (void)TSD_animationForKeyPath:()TSDCAAnimationAdditions atTime:;
+- (void)p_adjustedResultWithValue:()TSDCAAnimationAdditions;
 @end
 
 @implementation CAPropertyAnimation(TSDCAAnimationAdditions)
 
-- (uint64_t)p_adjustedResultWithValue:()TSDCAAnimationAdditions
+- (void)p_adjustedResultWithValue:()TSDCAAnimationAdditions
 {
   if (!a3)
   {
@@ -64,7 +64,7 @@
   v5 = a2 - v4;
   [self timeOffset];
   v7 = v5 - v6;
-  [self duration];
+  objc_msgSend_duration(self);
   return v7 / v8;
 }
 

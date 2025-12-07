@@ -345,7 +345,7 @@ void __67__SUUIHorizontalLockupView_showPreviewProgressWithStatus_animated___blo
   return reason;
 }
 
-uint64_t __75__SUUIHorizontalLockupView_prefetchResourcesForViewElement_reason_context___block_invoke(uint64_t a1, uint64_t a2)
+void *__75__SUUIHorizontalLockupView_prefetchResourcesForViewElement_reason_context___block_invoke(uint64_t a1, uint64_t a2)
 {
   result = [*(a1 + 32) prefetchResourcesForViewElement:a2 reason:*(a1 + 48)];
   *(*(*(a1 + 40) + 8) + 24) = (*(*(*(a1 + 40) + 8) + 24) | result) & 1;
@@ -1454,9 +1454,9 @@ LABEL_21:
 
         v10 = *(*(&v15 + 1) + 8 * i);
         itmlID = [v10 itmlID];
-        v12 = [itmlID isEqualToString:identifierCopy];
+        isEqualToString = objc_msgSend_isEqualToString_(itmlID);
 
-        if (v12)
+        if (isEqualToString)
         {
           v13 = [(NSMapTable *)self->_viewElementViews objectForKey:v10];
           goto LABEL_11;
@@ -1910,9 +1910,9 @@ LABEL_37:
     else
     {
       v35 = [v74 elementName];
-      v36 = [v35 isEqualToString:@"description"];
+      isEqualToString = objc_msgSend_isEqualToString_(v35);
 
-      if (a3 > 2 || (v36 & 1) != 0)
+      if (a3 > 2 || (isEqualToString & 1) != 0)
       {
         goto LABEL_37;
       }
@@ -2158,7 +2158,7 @@ LABEL_5:
   return result;
 }
 
-uint64_t __41__SUUIHorizontalLockupView_sizeThatFits___block_invoke(uint64_t a1, void *a2)
+void *__41__SUUIHorizontalLockupView_sizeThatFits___block_invoke(uint64_t a1, void *a2)
 {
   v3 = *(*(*(a1 + 32) + 8) + 40);
   result = [a2 size];
@@ -2322,7 +2322,7 @@ uint64_t __57__SUUIHorizontalLockupView_mediaPlayer_itemStateChanged___block_inv
   }
 }
 
-uint64_t __57__SUUIHorizontalLockupView_mediaPlayer_itemStateChanged___block_invoke_2(uint64_t a1)
+void *__57__SUUIHorizontalLockupView_mediaPlayer_itemStateChanged___block_invoke_2(uint64_t a1)
 {
   result = [*(a1 + 32) playState];
   if (result != 5)

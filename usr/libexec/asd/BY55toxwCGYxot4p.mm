@@ -74,7 +74,7 @@ LABEL_5:
   v13 = dispatch_time(0, 1800000000);
   if (dispatch_group_wait(v12, v13))
   {
-    sub_1000313F4(-32001);
+    sub_1000313F4(4294935295);
   }
 
   v14 = v20;

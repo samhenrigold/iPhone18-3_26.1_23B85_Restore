@@ -7,26 +7,23 @@
 
 - (NSPServerFlowDivert)init
 {
-  v14.receiver = self;
-  v14.super_class = NSPServerFlowDivert;
-  v2 = [(NSPServerFlowDivert *)&v14 init];
+  v11.receiver = self;
+  v11.super_class = NSPServerFlowDivert;
+  v2 = [(NSPServerFlowDivert *)&v11 init];
   if (v2)
   {
     v3 = nw_context_create();
     context = v2->_context;
     v2->_context = v3;
 
-    v5 = v2->_context;
-    v6 = NPGetInternalQueue();
-    v12 = v2;
+    v5 = NPGetInternalQueue();
+    v9 = v2;
     nw_context_set_idle_handler();
 
-    v7 = v2->_context;
     nw_context_set_isolate_protocol_cache();
-    v8 = v2->_context;
     nw_context_activate();
-    v9 = v12;
-    p_super = &v12->super;
+    v6 = v9;
+    p_super = &v9->super;
   }
 
   else

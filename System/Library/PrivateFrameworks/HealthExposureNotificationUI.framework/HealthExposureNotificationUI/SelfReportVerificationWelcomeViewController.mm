@@ -45,7 +45,7 @@ LABEL_7:
 - (void)viewDidLayoutSubviews
 {
   selfCopy = self;
-  sub_25169B548();
+  sub_25169B548(selfCopy, v2);
 }
 
 - (_TtC28HealthExposureNotificationUI43SelfReportVerificationWelcomeViewController)initWithNibName:(id)name bundle:(id)bundle

@@ -19,7 +19,7 @@
 - (void)viewDidLoad
 {
   selfCopy = self;
-  sub_18BA09250();
+  sub_18BA09250(selfCopy, v2);
 }
 
 - (void)viewWillLayoutSubviews
@@ -66,7 +66,7 @@
   sub_18BC1ED88();
   viewCopy = view;
   selfCopy = self;
-  LOBYTE(self) = sub_18BA0D428(viewCopy);
+  LOBYTE(self) = sub_18BA0D428(viewCopy, v9);
 
   (*(v7 + 8))(v9, v6);
   return self & 1;
@@ -92,7 +92,7 @@
   sub_18BC1ED88();
   viewCopy = view;
   selfCopy = self;
-  sub_18BA0D6F4(viewCopy);
+  sub_18BA0D6F4(viewCopy, v9);
 
   (*(v7 + 8))(v9, v6);
 }

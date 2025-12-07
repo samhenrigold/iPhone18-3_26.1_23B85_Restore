@@ -68,7 +68,7 @@
 - (void)cancel
 {
   selfCopy = self;
-  sub_100127198();
+  sub_100127198(selfCopy, v2, v3);
 }
 
 - (void)start
@@ -80,21 +80,22 @@
 - (void)handleSessionReachedTimeLimit
 {
   selfCopy = self;
-  sub_10012B414();
+  sub_10012B414(selfCopy, v2, v3);
 }
 
 - (void)readerSession:(id)session didReceiveThermalIndication:(BOOL)indication
 {
+  indicationCopy = indication;
   sessionCopy = session;
   selfCopy = self;
-  sub_10012B738(sessionCopy, indication);
+  sub_10012B738(sessionCopy, indicationCopy, selfCopy);
 }
 
 - (void)secureElementReaderSessionDidEndUnexpectedly:(id)unexpectedly
 {
   unexpectedlyCopy = unexpectedly;
   selfCopy = self;
-  sub_10012BD2C();
+  sub_10012BD2C(unexpectedlyCopy, selfCopy, v5);
 }
 
 - (void)readerSession:(id)session didDetectTags:(id)tags
@@ -103,7 +104,7 @@
   v6 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
   sessionCopy = session;
   selfCopy = self;
-  sub_10012C2E8(sessionCopy, v6);
+  sub_10012C2E8(sessionCopy, v6, v9);
 }
 
 - (void)readerSession:(id)session receivedData:(id)data fromApplet:(id)applet

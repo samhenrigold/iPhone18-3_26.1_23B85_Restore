@@ -21,12 +21,12 @@
 
 - (VTUIAudioHintPlayer)initWithLanguage:(id)language delegate:(id)delegate
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   languageCopy = language;
   delegateCopy = delegate;
-  v15.receiver = self;
-  v15.super_class = VTUIAudioHintPlayer;
-  v8 = [(VTUIAudioHintPlayer *)&v15 init];
+  v14.receiver = self;
+  v14.super_class = VTUIAudioHintPlayer;
+  v8 = [(VTUIAudioHintPlayer *)&v14 init];
   v9 = v8;
   if (v8)
   {
@@ -40,20 +40,19 @@
     if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315394;
-      v17 = "[VTUIAudioHintPlayer initWithLanguage:delegate:]";
-      v18 = 2112;
-      v19 = languageCopy;
+      v16 = "[VTUIAudioHintPlayer initWithLanguage:delegate:]";
+      v17 = 2112;
+      v18 = languageCopy;
       _os_log_impl(&dword_2728BC000, v12, OS_LOG_TYPE_DEFAULT, "%s Audio Hint language: %@", buf, 0x16u);
     }
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
 - (void)setLanguage:(id)language
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   languageCopy = language;
   objc_storeStrong(&self->_language, language);
   mEMORY[0x277CEF368] = [MEMORY[0x277CEF368] sharedPreferences];
@@ -72,11 +71,11 @@
   v11 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEFAULT))
   {
-    v14 = 136315394;
-    v15 = "[VTUIAudioHintPlayer setLanguage:]";
-    v16 = 2112;
-    v17 = languageCopy;
-    _os_log_impl(&dword_2728BC000, v11, OS_LOG_TYPE_DEFAULT, "%s Audio Hint language: %@", &v14, 0x16u);
+    v13 = 136315394;
+    v14 = "[VTUIAudioHintPlayer setLanguage:]";
+    v15 = 2112;
+    v16 = languageCopy;
+    _os_log_impl(&dword_2728BC000, v11, OS_LOG_TYPE_DEFAULT, "%s Audio Hint language: %@", &v13, 0x16u);
   }
 
   if ([(VTUIAudioHintPlayer *)self _hasValidHints])
@@ -89,8 +88,6 @@
   {
     self->_shouldSpeakAudioHint = 0;
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateIfNeededForUsesMultipleTriggers:(BOOL)triggers
@@ -114,18 +111,18 @@
 
 - (void)setOutputVoice:(id)voice
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   voiceCopy = voice;
   objc_storeStrong(&self->_outputVoice, voice);
   [(VTUIAudioHintPlayer *)self _setupHints];
   v6 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 136315394;
-    v10 = "[VTUIAudioHintPlayer setOutputVoice:]";
-    v11 = 2112;
-    v12 = voiceCopy;
-    _os_log_impl(&dword_2728BC000, v6, OS_LOG_TYPE_DEFAULT, "%s Audio Hint output voice: %@", &v9, 0x16u);
+    v8 = 136315394;
+    v9 = "[VTUIAudioHintPlayer setOutputVoice:]";
+    v10 = 2112;
+    v11 = voiceCopy;
+    _os_log_impl(&dword_2728BC000, v6, OS_LOG_TYPE_DEFAULT, "%s Audio Hint output voice: %@", &v8, 0x16u);
   }
 
   if ([(VTUIAudioHintPlayer *)self _hasValidHints])
@@ -138,42 +135,47 @@
   {
     self->_shouldSpeakAudioHint = 0;
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_hasValidHints
 {
-  v14 = *MEMORY[0x277D85DE8];
-  if (-[NSArray count](self->_trainingPageAudioHintPreviews, "count") <= 4 && (-[NSArray count](self->_trainingPageAudioHintInstructions, "count") < 5 || (-[NSArray objectAtIndexedSubscript:](self->_trainingPageAudioHintInstructions, "objectAtIndexedSubscript:", 0), v4 = objc_claimAutoreleasedReturnValue(), v5 = [v4 isEqualToString:&stru_2881E5778], v4, v5)))
+  v13 = *MEMORY[0x277D85DE8];
+  if ([(NSArray *)self->_trainingPageAudioHintPreviews count]> 4)
   {
-    v6 = *MEMORY[0x277CEF098];
-    v7 = os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEFAULT);
-    result = 0;
-    if (v7)
+    return 1;
+  }
+
+  if ([(NSArray *)self->_trainingPageAudioHintInstructions count]>= 5)
+  {
+    v4 = [(NSArray *)self->_trainingPageAudioHintInstructions objectAtIndexedSubscript:0];
+    v5 = [v4 isEqualToString:&stru_2881E5778];
+
+    if (!v5)
     {
-      language = self->_language;
-      v10 = 136315394;
-      v11 = "[VTUIAudioHintPlayer _hasValidHints]";
-      v12 = 2112;
-      v13 = language;
-      _os_log_impl(&dword_2728BC000, v6, OS_LOG_TYPE_DEFAULT, "%s No valid audio hints for language %@", &v10, 0x16u);
-      result = 0;
+      return 1;
     }
   }
 
-  else
+  v6 = *MEMORY[0x277CEF098];
+  v7 = os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEFAULT);
+  result = 0;
+  if (v7)
   {
-    result = 1;
+    language = self->_language;
+    v9 = 136315394;
+    v10 = "[VTUIAudioHintPlayer _hasValidHints]";
+    v11 = 2112;
+    v12 = language;
+    _os_log_impl(&dword_2728BC000, v6, OS_LOG_TYPE_DEFAULT, "%s No valid audio hints for language %@", &v9, 0x16u);
+    return 0;
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 - (BOOL)_systemLanguageMatchesSiriLanguage:(id)language siriLanguage:(id)siriLanguage
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   siriLanguageCopy = siriLanguage;
   v6 = [MEMORY[0x277CBEAF8] localeWithLocaleIdentifier:language];
   languageCode = [v6 languageCode];
@@ -185,15 +187,15 @@
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136316162;
-    v21 = "[VTUIAudioHintPlayer _systemLanguageMatchesSiriLanguage:siriLanguage:]";
-    v22 = 2112;
-    v23 = languageCode;
-    v24 = 2112;
-    v25 = scriptCode;
-    v26 = 2112;
-    v27 = countryCode;
-    v28 = 2112;
-    v29 = siriLanguageCopy;
+    v20 = "[VTUIAudioHintPlayer _systemLanguageMatchesSiriLanguage:siriLanguage:]";
+    v21 = 2112;
+    v22 = languageCode;
+    v23 = 2112;
+    v24 = scriptCode;
+    v25 = 2112;
+    v26 = countryCode;
+    v27 = 2112;
+    v28 = siriLanguageCopy;
     _os_log_impl(&dword_2728BC000, v12, OS_LOG_TYPE_DEFAULT, "%s System locale (language-scriptCode-countryCode): %@-%@-%@, Siri language: %@", buf, 0x34u);
   }
 
@@ -236,7 +238,7 @@ LABEL_16:
     if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v21 = "[VTUIAudioHintPlayer _systemLanguageMatchesSiriLanguage:siriLanguage:]";
+      v20 = "[VTUIAudioHintPlayer _systemLanguageMatchesSiriLanguage:siriLanguage:]";
       _os_log_impl(&dword_2728BC000, v15, OS_LOG_TYPE_DEFAULT, "%s Not playing Audio Hint due to Siri language and system language mismatch", buf, 0xCu);
       v13 = 0;
     }
@@ -252,7 +254,6 @@ LABEL_16:
 
 LABEL_21:
 
-  v18 = *MEMORY[0x277D85DE8];
   return v13;
 }
 
@@ -276,7 +277,7 @@ LABEL_21:
 
 - (void)_setupHints
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   v2 = +[VTUIStyle sharedStyle];
   array = [MEMORY[0x277CBEB18] array];
   for (i = 1; i != 6; ++i)
@@ -306,9 +307,9 @@ LABEL_21:
   {
     language = self->_language;
     *buf = 136315394;
-    v25 = "[VTUIAudioHintPlayer _setupHints]";
-    v26 = 2112;
-    v27 = language;
+    v24 = "[VTUIAudioHintPlayer _setupHints]";
+    v25 = 2112;
+    v26 = language;
     _os_log_impl(&dword_2728BC000, v14, OS_LOG_TYPE_DEFAULT, "%s Audio Hint language: %@", buf, 0x16u);
   }
 
@@ -319,17 +320,15 @@ LABEL_21:
     v18 = v16;
     v19 = [(AFVoiceInfo *)outputVoice description];
     *buf = 136315394;
-    v25 = "[VTUIAudioHintPlayer _setupHints]";
-    v26 = 2112;
-    v27 = v19;
+    v24 = "[VTUIAudioHintPlayer _setupHints]";
+    v25 = 2112;
+    v26 = v19;
     _os_log_impl(&dword_2728BC000, v18, OS_LOG_TYPE_DEFAULT, "%s Audio Hint outputVoice: %@", buf, 0x16u);
   }
 
   _getTrainingPageAudioHintRequests = [(VTUIAudioHintPlayer *)self _getTrainingPageAudioHintRequests];
   trainingPageAudioHintPreviews = self->_trainingPageAudioHintPreviews;
   self->_trainingPageAudioHintPreviews = _getTrainingPageAudioHintRequests;
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_getTrainingPageAudioHintRequests
@@ -359,7 +358,7 @@ LABEL_21:
 
 - (id)_audioHintPathForFileName:(id)name
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   v5 = MEMORY[0x277CEF098];
   v6 = *MEMORY[0x277CEF098];
@@ -367,13 +366,13 @@ LABEL_21:
   {
     v7 = v6;
     v8 = NSStringFromSelector(a2);
-    v14 = 136315650;
-    v15 = "[VTUIAudioHintPlayer _audioHintPathForFileName:]";
-    v16 = 2112;
-    v17 = v8;
-    v18 = 2112;
-    v19 = nameCopy;
-    _os_log_impl(&dword_2728BC000, v7, OS_LOG_TYPE_DEFAULT, "%s %@: Finding path for filename: %@", &v14, 0x20u);
+    v13 = 136315650;
+    v14 = "[VTUIAudioHintPlayer _audioHintPathForFileName:]";
+    v15 = 2112;
+    v16 = v8;
+    v17 = 2112;
+    v18 = nameCopy;
+    _os_log_impl(&dword_2728BC000, v7, OS_LOG_TYPE_DEFAULT, "%s %@: Finding path for filename: %@", &v13, 0x20u);
   }
 
   v9 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
@@ -383,15 +382,13 @@ LABEL_21:
     v11 = *v5;
     if (os_log_type_enabled(*v5, OS_LOG_TYPE_DEFAULT))
     {
-      v14 = 136315394;
-      v15 = "[VTUIAudioHintPlayer _audioHintPathForFileName:]";
-      v16 = 2112;
-      v17 = nameCopy;
-      _os_log_impl(&dword_2728BC000, v11, OS_LOG_TYPE_DEFAULT, "%s No audio hint file %@", &v14, 0x16u);
+      v13 = 136315394;
+      v14 = "[VTUIAudioHintPlayer _audioHintPathForFileName:]";
+      v15 = 2112;
+      v16 = nameCopy;
+      _os_log_impl(&dword_2728BC000, v11, OS_LOG_TYPE_DEFAULT, "%s No audio hint file %@", &v13, 0x16u);
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -406,7 +403,7 @@ LABEL_21:
 
 - (void)speakConfirmationDialog:(id)dialog
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   dialogCopy = dialog;
   [(NSTimer *)self->_timer invalidate];
   v5 = [MEMORY[0x277CBEBB8] scheduledTimerWithTimeInterval:self target:sel__timerFired selector:0 userInfo:0 repeats:3.0];
@@ -419,9 +416,9 @@ LABEL_21:
   if (os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v36 = "[VTUIAudioHintPlayer speakConfirmationDialog:]";
-    v37 = 2048;
-    v38 = 0x4008000000000000;
+    v35 = "[VTUIAudioHintPlayer speakConfirmationDialog:]";
+    v36 = 2048;
+    v37 = 0x4008000000000000;
     _os_log_impl(&dword_2728BC000, v8, OS_LOG_TYPE_DEFAULT, "%s requestPhraseSpotterBypassing for %f seconds", buf, 0x16u);
   }
 
@@ -433,7 +430,7 @@ LABEL_21:
       if (os_log_type_enabled(*v7, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315138;
-        v36 = "[VTUIAudioHintPlayer speakConfirmationDialog:]";
+        v35 = "[VTUIAudioHintPlayer speakConfirmationDialog:]";
         _os_log_impl(&dword_2728BC000, v9, OS_LOG_TYPE_DEFAULT, "%s Locale only has training dialogs without a confirmation dialog", buf, 0xCu);
       }
 
@@ -454,33 +451,33 @@ LABEL_21:
       {
         objc_initWeak(buf, self);
         v16 = objc_loadWeakRetained(&self->_delegate);
-        v30[0] = MEMORY[0x277D85DD0];
-        v30[1] = 3221225472;
-        v30[2] = __47__VTUIAudioHintPlayer_speakConfirmationDialog___block_invoke;
-        v30[3] = &unk_279E54A80;
+        v29[0] = MEMORY[0x277D85DD0];
+        v29[1] = 3221225472;
+        v29[2] = __47__VTUIAudioHintPlayer_speakConfirmationDialog___block_invoke;
+        v29[3] = &unk_279E54A80;
         v11 = lastObject;
-        v31 = v11;
-        objc_copyWeak(&v34, buf);
+        v30 = v11;
+        objc_copyWeak(&v33, buf);
         selfCopy = self;
-        v33 = dialogCopy;
-        [v16 fetchaudioSessionID:v30];
+        v32 = dialogCopy;
+        [v16 fetchaudioSessionID:v29];
 
-        objc_destroyWeak(&v34);
+        objc_destroyWeak(&v33);
         objc_destroyWeak(buf);
       }
 
       else
       {
         synth = self->_synth;
-        v26[0] = MEMORY[0x277D85DD0];
-        v26[1] = 3221225472;
-        v26[2] = __47__VTUIAudioHintPlayer_speakConfirmationDialog___block_invoke_69;
-        v26[3] = &unk_279E54A58;
+        v25[0] = MEMORY[0x277D85DD0];
+        v25[1] = 3221225472;
+        v25[2] = __47__VTUIAudioHintPlayer_speakConfirmationDialog___block_invoke_69;
+        v25[3] = &unk_279E54A58;
         v11 = lastObject;
-        v27 = v11;
+        v26 = v11;
         selfCopy2 = self;
-        v29 = dialogCopy;
-        [(VTUISpeechSynthesizer *)synth speak:v11 completion:v26];
+        v28 = dialogCopy;
+        [(VTUISpeechSynthesizer *)synth speak:v11 completion:v25];
       }
     }
 
@@ -489,31 +486,29 @@ LABEL_21:
       lastObject2 = [(NSArray *)self->_trainingPageAudioHintInstructions lastObject];
       v18 = self->_synth;
       language = self->_language;
-      v22[0] = MEMORY[0x277D85DD0];
-      v22[1] = 3221225472;
-      v22[2] = __47__VTUIAudioHintPlayer_speakConfirmationDialog___block_invoke_70;
-      v22[3] = &unk_279E54A58;
-      v23 = lastObject2;
+      v21[0] = MEMORY[0x277D85DD0];
+      v21[1] = 3221225472;
+      v21[2] = __47__VTUIAudioHintPlayer_speakConfirmationDialog___block_invoke_70;
+      v21[3] = &unk_279E54A58;
+      v22 = lastObject2;
       selfCopy3 = self;
-      v25 = dialogCopy;
+      v24 = dialogCopy;
       v11 = lastObject2;
-      [(VTUISpeechSynthesizer *)v18 speak:v11 language:language completion:v22];
+      [(VTUISpeechSynthesizer *)v18 speak:v11 language:language completion:v21];
     }
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 void __47__VTUIAudioHintPlayer_speakConfirmationDialog___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v4 = *MEMORY[0x277CEF0E8];
   if (os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v18 = "[VTUIAudioHintPlayer speakConfirmationDialog:]_block_invoke";
-    v19 = 1024;
-    v20 = a2;
+    v17 = "[VTUIAudioHintPlayer speakConfirmationDialog:]_block_invoke";
+    v18 = 1024;
+    v19 = a2;
     _os_log_impl(&dword_2728BC000, v4, OS_LOG_TYPE_DEFAULT, "%s Setting SiriTTSAudioHintRequest audioSessionID, id: %u", buf, 0x12u);
   }
 
@@ -524,25 +519,23 @@ void __47__VTUIAudioHintPlayer_speakConfirmationDialog___block_invoke(uint64_t a
   {
     v7 = *(WeakRetained + 8);
     v8 = *(a1 + 32);
-    v13[0] = MEMORY[0x277D85DD0];
-    v13[1] = 3221225472;
-    v13[2] = __47__VTUIAudioHintPlayer_speakConfirmationDialog___block_invoke_66;
-    v13[3] = &unk_279E54A58;
+    v12[0] = MEMORY[0x277D85DD0];
+    v12[1] = 3221225472;
+    v12[2] = __47__VTUIAudioHintPlayer_speakConfirmationDialog___block_invoke_66;
+    v12[3] = &unk_279E54A58;
     v9 = v8;
     v10 = *(a1 + 40);
     v11 = *(a1 + 48);
-    v14 = v9;
-    v15 = v10;
-    v16 = v11;
-    [v7 speak:v9 completion:v13];
+    v13 = v9;
+    v14 = v10;
+    v15 = v11;
+    [v7 speak:v9 completion:v12];
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __47__VTUIAudioHintPlayer_speakConfirmationDialog___block_invoke_66(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = *MEMORY[0x277CEF0E8];
   v5 = os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_DEFAULT);
@@ -550,35 +543,33 @@ void __47__VTUIAudioHintPlayer_speakConfirmationDialog___block_invoke_66(uint64_
   {
     if (v5)
     {
-      *v9 = 136315394;
-      *&v9[4] = "[VTUIAudioHintPlayer speakConfirmationDialog:]_block_invoke";
-      *&v9[12] = 2112;
-      *&v9[14] = v3;
+      *v8 = 136315394;
+      *&v8[4] = "[VTUIAudioHintPlayer speakConfirmationDialog:]_block_invoke";
+      *&v8[12] = 2112;
+      *&v8[14] = v3;
       v6 = "%s Error speaking confirmation dialog %@";
 LABEL_6:
-      _os_log_impl(&dword_2728BC000, v4, OS_LOG_TYPE_DEFAULT, v6, v9, 0x16u);
+      _os_log_impl(&dword_2728BC000, v4, OS_LOG_TYPE_DEFAULT, v6, v8, 0x16u);
     }
   }
 
   else if (v5)
   {
     v7 = *(a1 + 32);
-    *v9 = 136315394;
-    *&v9[4] = "[VTUIAudioHintPlayer speakConfirmationDialog:]_block_invoke";
-    *&v9[12] = 2112;
-    *&v9[14] = v7;
+    *v8 = 136315394;
+    *&v8[4] = "[VTUIAudioHintPlayer speakConfirmationDialog:]_block_invoke";
+    *&v8[12] = 2112;
+    *&v8[14] = v7;
     v6 = "%s Finished speaking confirmation dialog audioHintRequest %@";
     goto LABEL_6;
   }
 
-  [*(a1 + 40) sendError:v3 toMainForCompletion:{*(a1 + 48), *v9, *&v9[16], v10}];
-
-  v8 = *MEMORY[0x277D85DE8];
+  [*(a1 + 40) sendError:v3 toMainForCompletion:{*(a1 + 48), *v8, *&v8[8], v9}];
 }
 
 void __47__VTUIAudioHintPlayer_speakConfirmationDialog___block_invoke_69(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = *MEMORY[0x277CEF0E8];
   v5 = os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_DEFAULT);
@@ -586,35 +577,33 @@ void __47__VTUIAudioHintPlayer_speakConfirmationDialog___block_invoke_69(uint64_
   {
     if (v5)
     {
-      *v9 = 136315394;
-      *&v9[4] = "[VTUIAudioHintPlayer speakConfirmationDialog:]_block_invoke";
-      *&v9[12] = 2112;
-      *&v9[14] = v3;
+      *v8 = 136315394;
+      *&v8[4] = "[VTUIAudioHintPlayer speakConfirmationDialog:]_block_invoke";
+      *&v8[12] = 2112;
+      *&v8[14] = v3;
       v6 = "%s Error speaking confirmation dialog %@";
 LABEL_6:
-      _os_log_impl(&dword_2728BC000, v4, OS_LOG_TYPE_DEFAULT, v6, v9, 0x16u);
+      _os_log_impl(&dword_2728BC000, v4, OS_LOG_TYPE_DEFAULT, v6, v8, 0x16u);
     }
   }
 
   else if (v5)
   {
     v7 = *(a1 + 32);
-    *v9 = 136315394;
-    *&v9[4] = "[VTUIAudioHintPlayer speakConfirmationDialog:]_block_invoke";
-    *&v9[12] = 2112;
-    *&v9[14] = v7;
+    *v8 = 136315394;
+    *&v8[4] = "[VTUIAudioHintPlayer speakConfirmationDialog:]_block_invoke";
+    *&v8[12] = 2112;
+    *&v8[14] = v7;
     v6 = "%s Finished speaking confirmation dialog audioHintRequest %@";
     goto LABEL_6;
   }
 
-  [*(a1 + 40) sendError:v3 toMainForCompletion:{*(a1 + 48), *v9, *&v9[16], v10}];
-
-  v8 = *MEMORY[0x277D85DE8];
+  [*(a1 + 40) sendError:v3 toMainForCompletion:{*(a1 + 48), *v8, *&v8[8], v9}];
 }
 
 void __47__VTUIAudioHintPlayer_speakConfirmationDialog___block_invoke_70(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = *MEMORY[0x277CEF0E8];
   v5 = os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_DEFAULT);
@@ -622,35 +611,33 @@ void __47__VTUIAudioHintPlayer_speakConfirmationDialog___block_invoke_70(uint64_
   {
     if (v5)
     {
-      *v9 = 136315394;
-      *&v9[4] = "[VTUIAudioHintPlayer speakConfirmationDialog:]_block_invoke";
-      *&v9[12] = 2112;
-      *&v9[14] = v3;
+      *v8 = 136315394;
+      *&v8[4] = "[VTUIAudioHintPlayer speakConfirmationDialog:]_block_invoke";
+      *&v8[12] = 2112;
+      *&v8[14] = v3;
       v6 = "%s Error speaking confirmation dialog %@";
 LABEL_6:
-      _os_log_impl(&dword_2728BC000, v4, OS_LOG_TYPE_DEFAULT, v6, v9, 0x16u);
+      _os_log_impl(&dword_2728BC000, v4, OS_LOG_TYPE_DEFAULT, v6, v8, 0x16u);
     }
   }
 
   else if (v5)
   {
     v7 = *(a1 + 32);
-    *v9 = 136315394;
-    *&v9[4] = "[VTUIAudioHintPlayer speakConfirmationDialog:]_block_invoke";
-    *&v9[12] = 2112;
-    *&v9[14] = v7;
+    *v8 = 136315394;
+    *&v8[4] = "[VTUIAudioHintPlayer speakConfirmationDialog:]_block_invoke";
+    *&v8[12] = 2112;
+    *&v8[14] = v7;
     v6 = "%s Finished speaking confirmation dialog %@";
     goto LABEL_6;
   }
 
-  [*(a1 + 40) sendError:v3 toMainForCompletion:{*(a1 + 48), *v9, *&v9[16], v10}];
-
-  v8 = *MEMORY[0x277D85DE8];
+  [*(a1 + 40) sendError:v3 toMainForCompletion:{*(a1 + 48), *v8, *&v8[8], v9}];
 }
 
 - (void)_timerFired
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   isSpeaking = [(VTUISpeechSynthesizer *)self->_synth isSpeaking];
   v4 = *MEMORY[0x277CEF0E8];
   v5 = os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_DEFAULT);
@@ -658,11 +645,11 @@ LABEL_6:
   {
     if (v5)
     {
-      v11 = 136315394;
-      v12 = "[VTUIAudioHintPlayer _timerFired]";
-      v13 = 2048;
-      v14 = 0x4000000000000000;
-      _os_log_impl(&dword_2728BC000, v4, OS_LOG_TYPE_DEFAULT, "%s requestPhraseSpotterBypassing for %f more seconds because synth is still speaking", &v11, 0x16u);
+      v10 = 136315394;
+      v11 = "[VTUIAudioHintPlayer _timerFired]";
+      v12 = 2048;
+      v13 = 0x4000000000000000;
+      _os_log_impl(&dword_2728BC000, v4, OS_LOG_TYPE_DEFAULT, "%s requestPhraseSpotterBypassing for %f more seconds because synth is still speaking", &v10, 0x16u);
     }
 
     v6 = [MEMORY[0x277CBEBB8] scheduledTimerWithTimeInterval:self target:sel__timerFired selector:0 userInfo:0 repeats:2.0];
@@ -678,17 +665,15 @@ LABEL_6:
   {
     if (v5)
     {
-      v11 = 136315138;
-      v12 = "[VTUIAudioHintPlayer _timerFired]";
-      _os_log_impl(&dword_2728BC000, v4, OS_LOG_TYPE_DEFAULT, "%s Reenabling phrase spotter", &v11, 0xCu);
+      v10 = 136315138;
+      v11 = "[VTUIAudioHintPlayer _timerFired]";
+      _os_log_impl(&dword_2728BC000, v4, OS_LOG_TYPE_DEFAULT, "%s Reenabling phrase spotter", &v10, 0xCu);
     }
 
     [(NSTimer *)self->_timer invalidate];
     v9 = self->_timer;
     self->_timer = 0;
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sendError:(id)error toMainForCompletion:(id)completion
@@ -799,14 +784,14 @@ LABEL_17:
 
 void __49__VTUIAudioHintPlayer_speakAudioHint_completion___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v4 = *MEMORY[0x277CEF0E8];
   if (os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v17 = "[VTUIAudioHintPlayer speakAudioHint:completion:]_block_invoke";
-    v18 = 1024;
-    v19 = a2;
+    v16 = "[VTUIAudioHintPlayer speakAudioHint:completion:]_block_invoke";
+    v17 = 1024;
+    v18 = a2;
     _os_log_impl(&dword_2728BC000, v4, OS_LOG_TYPE_DEFAULT, "%s Setting SiriTTSAudioHintRequest audioSessionID, id: %u", buf, 0x12u);
   }
 
@@ -814,24 +799,22 @@ void __49__VTUIAudioHintPlayer_speakAudioHint_completion___block_invoke(uint64_t
   WeakRetained = objc_loadWeakRetained((a1 + 56));
   v6 = WeakRetained[8];
   v7 = *(a1 + 32);
-  v12[0] = MEMORY[0x277D85DD0];
-  v12[1] = 3221225472;
-  v12[2] = __49__VTUIAudioHintPlayer_speakAudioHint_completion___block_invoke_72;
-  v12[3] = &unk_279E54A58;
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = __49__VTUIAudioHintPlayer_speakAudioHint_completion___block_invoke_72;
+  v11[3] = &unk_279E54A58;
   v8 = v7;
   v9 = *(a1 + 40);
   v10 = *(a1 + 48);
-  v13 = v8;
-  v14 = v9;
-  v15 = v10;
-  [v6 speak:v8 completion:v12];
-
-  v11 = *MEMORY[0x277D85DE8];
+  v12 = v8;
+  v13 = v9;
+  v14 = v10;
+  [v6 speak:v8 completion:v11];
 }
 
 void __49__VTUIAudioHintPlayer_speakAudioHint_completion___block_invoke_72(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = *MEMORY[0x277CEF0E8];
   v5 = os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_DEFAULT);
@@ -839,35 +822,33 @@ void __49__VTUIAudioHintPlayer_speakAudioHint_completion___block_invoke_72(uint6
   {
     if (v5)
     {
-      *v9 = 136315394;
-      *&v9[4] = "[VTUIAudioHintPlayer speakAudioHint:completion:]_block_invoke";
-      *&v9[12] = 2112;
-      *&v9[14] = v3;
+      *v8 = 136315394;
+      *&v8[4] = "[VTUIAudioHintPlayer speakAudioHint:completion:]_block_invoke";
+      *&v8[12] = 2112;
+      *&v8[14] = v3;
       v6 = "%s Error speaking audio hint %@";
 LABEL_6:
-      _os_log_impl(&dword_2728BC000, v4, OS_LOG_TYPE_DEFAULT, v6, v9, 0x16u);
+      _os_log_impl(&dword_2728BC000, v4, OS_LOG_TYPE_DEFAULT, v6, v8, 0x16u);
     }
   }
 
   else if (v5)
   {
     v7 = *(a1 + 32);
-    *v9 = 136315394;
-    *&v9[4] = "[VTUIAudioHintPlayer speakAudioHint:completion:]_block_invoke";
-    *&v9[12] = 2112;
-    *&v9[14] = v7;
+    *v8 = 136315394;
+    *&v8[4] = "[VTUIAudioHintPlayer speakAudioHint:completion:]_block_invoke";
+    *&v8[12] = 2112;
+    *&v8[14] = v7;
     v6 = "%s Finished speaking audio hint request %@";
     goto LABEL_6;
   }
 
-  [*(a1 + 40) sendError:v3 toMainForCompletion:{*(a1 + 48), *v9, *&v9[16], v10}];
-
-  v8 = *MEMORY[0x277D85DE8];
+  [*(a1 + 40) sendError:v3 toMainForCompletion:{*(a1 + 48), *v8, *&v8[8], v9}];
 }
 
 void __49__VTUIAudioHintPlayer_speakAudioHint_completion___block_invoke_73(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = *MEMORY[0x277CEF0E8];
   v5 = os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_DEFAULT);
@@ -875,35 +856,33 @@ void __49__VTUIAudioHintPlayer_speakAudioHint_completion___block_invoke_73(uint6
   {
     if (v5)
     {
-      *v9 = 136315394;
-      *&v9[4] = "[VTUIAudioHintPlayer speakAudioHint:completion:]_block_invoke";
-      *&v9[12] = 2112;
-      *&v9[14] = v3;
+      *v8 = 136315394;
+      *&v8[4] = "[VTUIAudioHintPlayer speakAudioHint:completion:]_block_invoke";
+      *&v8[12] = 2112;
+      *&v8[14] = v3;
       v6 = "%s Error speaking audio hint %@";
 LABEL_6:
-      _os_log_impl(&dword_2728BC000, v4, OS_LOG_TYPE_DEFAULT, v6, v9, 0x16u);
+      _os_log_impl(&dword_2728BC000, v4, OS_LOG_TYPE_DEFAULT, v6, v8, 0x16u);
     }
   }
 
   else if (v5)
   {
     v7 = *(a1 + 32);
-    *v9 = 136315394;
-    *&v9[4] = "[VTUIAudioHintPlayer speakAudioHint:completion:]_block_invoke";
-    *&v9[12] = 2112;
-    *&v9[14] = v7;
+    *v8 = 136315394;
+    *&v8[4] = "[VTUIAudioHintPlayer speakAudioHint:completion:]_block_invoke";
+    *&v8[12] = 2112;
+    *&v8[14] = v7;
     v6 = "%s Finished speaking audio hint request %@";
     goto LABEL_6;
   }
 
-  [*(a1 + 40) sendError:v3 toMainForCompletion:{*(a1 + 48), *v9, *&v9[16], v10}];
-
-  v8 = *MEMORY[0x277D85DE8];
+  [*(a1 + 40) sendError:v3 toMainForCompletion:{*(a1 + 48), *v8, *&v8[8], v9}];
 }
 
 void __49__VTUIAudioHintPlayer_speakAudioHint_completion___block_invoke_74(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = *MEMORY[0x277CEF0E8];
   v5 = os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_DEFAULT);
@@ -911,30 +890,28 @@ void __49__VTUIAudioHintPlayer_speakAudioHint_completion___block_invoke_74(uint6
   {
     if (v5)
     {
-      *v9 = 136315394;
-      *&v9[4] = "[VTUIAudioHintPlayer speakAudioHint:completion:]_block_invoke";
-      *&v9[12] = 2112;
-      *&v9[14] = v3;
+      *v8 = 136315394;
+      *&v8[4] = "[VTUIAudioHintPlayer speakAudioHint:completion:]_block_invoke";
+      *&v8[12] = 2112;
+      *&v8[14] = v3;
       v6 = "%s Error speaking audio hint %@";
 LABEL_6:
-      _os_log_impl(&dword_2728BC000, v4, OS_LOG_TYPE_DEFAULT, v6, v9, 0x16u);
+      _os_log_impl(&dword_2728BC000, v4, OS_LOG_TYPE_DEFAULT, v6, v8, 0x16u);
     }
   }
 
   else if (v5)
   {
     v7 = *(a1 + 32);
-    *v9 = 136315394;
-    *&v9[4] = "[VTUIAudioHintPlayer speakAudioHint:completion:]_block_invoke";
-    *&v9[12] = 2112;
-    *&v9[14] = v7;
+    *v8 = 136315394;
+    *&v8[4] = "[VTUIAudioHintPlayer speakAudioHint:completion:]_block_invoke";
+    *&v8[12] = 2112;
+    *&v8[14] = v7;
     v6 = "%s Finished speaking audio hint with string %@";
     goto LABEL_6;
   }
 
-  [*(a1 + 40) sendError:v3 toMainForCompletion:{*(a1 + 48), *v9, *&v9[16], v10}];
-
-  v8 = *MEMORY[0x277D85DE8];
+  [*(a1 + 40) sendError:v3 toMainForCompletion:{*(a1 + 48), *v8, *&v8[8], v9}];
 }
 
 - (VTUIAudioHintPlayerDelegate)delegate

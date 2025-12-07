@@ -386,7 +386,7 @@ uint64_t sub_10001F52C()
           goto LABEL_126;
         }
 
-        std::operator+<char>();
+        std::operator+<char>(&v169, "    <dialog id=");
         v48 = std::string::append(&v169, "#");
         v49 = *&v48->__r_.__value_.__l.__data_;
         v170.__r_.__value_.__r.__words[2] = v48->__r_.__value_.__r.__words[2];
@@ -547,7 +547,7 @@ LABEL_128:
         goto LABEL_161;
       }
 
-      std::operator+<char>();
+      std::operator+<char>(&v169, "    <visual id=");
       v63 = std::string::append(&v169, "#");
       v64 = *&v63->__r_.__value_.__l.__data_;
       v170.__r_.__value_.__r.__words[2] = v63->__r_.__value_.__r.__words[2];
@@ -711,7 +711,7 @@ LABEL_164:
     }
 
     sub_10000143C(&v175, "<?xml version=1.0 encoding=UTF-8 standalone=no?>\n");
-    std::operator+<char>();
+    std::operator+<char>(&v174, "<cat xmlns=urn:apple:names:siri:cat:2.0 id=");
     v76 = std::string::append(&v174, ">\n\n");
     v77 = *&v76->__r_.__value_.__l.__data_;
     v171.__r_.__value_.__r.__words[2] = v76->__r_.__value_.__r.__words[2];
@@ -1124,7 +1124,7 @@ LABEL_193:
     }
 
     sub_10000143C(&v175, "<?xml version=1.0 encoding=UTF-8 standalone=no?>\n");
-    std::operator+<char>();
+    std::operator+<char>(&v174, "<cat xmlns=urn:apple:names:siri:cat:2.0 locale=en id=");
     v116 = std::string::append(&v174, ">\n");
     v117 = *&v116->__r_.__value_.__l.__data_;
     v171.__r_.__value_.__r.__words[2] = v116->__r_.__value_.__r.__words[2];
@@ -1169,7 +1169,7 @@ LABEL_193:
     for (j = v155; v120 != j; v120 = (v120 + 40))
     {
       sub_100005C00(&v171, v120);
-      std::operator+<char>();
+      std::operator+<char>(&v170, "    <dialog id=");
       v122 = std::string::append(&v170, ">\n");
       v123 = *&v122->__r_.__value_.__l.__data_;
       v174.__r_.__value_.__r.__words[2] = v122->__r_.__value_.__r.__words[2];
@@ -1241,7 +1241,7 @@ LABEL_193:
       sub_100007C5C(&v169);
       if (v127)
       {
-        std::operator+<char>();
+        std::operator+<char>(&v169, "      <content>");
         v128 = std::string::append(&v169, "</content>\n");
         v129 = *&v128->__r_.__value_.__l.__data_;
         v170.__r_.__value_.__r.__words[2] = v128->__r_.__value_.__r.__words[2];
@@ -1287,7 +1287,7 @@ LABEL_193:
       sub_100007C5C(&v169);
       if (v132)
       {
-        std::operator+<char>();
+        std::operator+<char>(&v169, "      <caption>");
         v133 = std::string::append(&v169, "</caption>\n");
         v134 = *&v133->__r_.__value_.__l.__data_;
         v170.__r_.__value_.__r.__words[2] = v133->__r_.__value_.__r.__words[2];
@@ -1453,9 +1453,9 @@ LABEL_193:
 
   else
   {
-    std::operator+<char>();
+    std::operator+<char>(&v171, "Pattern schema does not exist: ");
     sub_10000143C(&v175, &unk_10006B9FB);
-    sub_1000498E0(v4, &v171, &v175.__r_.__value_.__l.__data_, 0);
+    sub_1000498E0(v4, &v171, &v175, 0);
     if (SHIBYTE(v175.__r_.__value_.__r.__words[2]) < 0)
     {
       operator delete(v175.__r_.__value_.__l.__data_);
@@ -1649,7 +1649,7 @@ BOOL sub_100021378()
 
   else
   {
-    std::operator+<char>();
+    std::operator+<char>(v28, "failed to load pattern file: ");
     sub_10000143C(&v35, &unk_10006B9FB);
     v21 = sub_1000498E0(v23, v28, &v35, 0);
     if (SHIBYTE(v37) < 0)
@@ -1693,7 +1693,7 @@ void sub_10002180C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void sub_10002192C(uint64_t a1, siri::dialogengine::ValidationEntry *this, const void **a3)
+void sub_10002192C(uint64_t a1, siri::dialogengine::ValidationEntry *this, const void ***a3)
 {
   siri::dialogengine::ValidationEntry::GetText(__p, this);
   LineNumber = siri::dialogengine::LineNumberBase::GetLineNumber(this);
@@ -1714,7 +1714,7 @@ void sub_10002199C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_1000219B8(uint64_t a1, siri::dialogengine::ValidationEntry *this, const void **a3)
+void sub_1000219B8(uint64_t a1, siri::dialogengine::ValidationEntry *this, const void ***a3)
 {
   siri::dialogengine::ValidationEntry::GetText(__p, this);
   LineNumber = siri::dialogengine::LineNumberBase::GetLineNumber(this);
@@ -1806,7 +1806,7 @@ void sub_100021A44(uint64_t a1, uint64_t a2)
         do
         {
           sub_10000143C(v30, &unk_10006B9FB);
-          sub_1000219B8(a2, (v13 + 4), &v30[0].__locale_);
+          sub_1000219B8(a2, (v13 + 4), v30);
           if (SHIBYTE(v31) < 0)
           {
             operator delete(v30[0].__locale_);
@@ -1904,7 +1904,7 @@ void sub_100021A44(uint64_t a1, uint64_t a2)
         do
         {
           sub_10000143C(v30, &unk_10006B9FB);
-          sub_10002192C(a2, (v25 + 4), &v30[0].__locale_);
+          sub_10002192C(a2, (v25 + 4), v30);
           if (SHIBYTE(v31) < 0)
           {
             operator delete(v30[0].__locale_);
@@ -1943,7 +1943,7 @@ void sub_100021A44(uint64_t a1, uint64_t a2)
 
     else
     {
-      std::operator+<char>();
+      std::operator+<char>(v30, "No validation errors for: ");
       sub_100049CDC(a2, v30);
       if (SHIBYTE(v31) < 0)
       {
@@ -2026,67 +2026,67 @@ uint64_t sub_100021F80(uint64_t a1)
   return a1;
 }
 
-void sub_1000220A0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1000220A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
-  v7 = *(v2 + 304);
-  if (v7)
-  {
-    sub_100005EB4(v7);
-  }
-
-  sub_100005E58(v4, *(v2 + 280));
-  v8 = *(v2 + 264);
+  va_start(va, a3);
+  v8 = *(v3 + 304);
   if (v8)
   {
     sub_100005EB4(v8);
   }
 
-  v9 = *(v2 + 248);
+  sub_100005E58(v5, *(v3 + 280));
+  v9 = *(v3 + 264);
   if (v9)
   {
     sub_100005EB4(v9);
   }
 
-  v10 = *(v2 + 232);
+  v10 = *(v3 + 248);
   if (v10)
   {
     sub_100005EB4(v10);
   }
 
-  sub_100022170(v3, *(v2 + 208));
+  v11 = *(v3 + 232);
+  if (v11)
+  {
+    sub_100005EB4(v11);
+  }
+
+  sub_100022170(v4, *(v3 + 208));
   sub_100005F20(va);
-  if (*(v2 + 175) < 0)
+  if (*(v3 + 175) < 0)
   {
-    operator delete(*(v2 + 152));
+    operator delete(*(v3 + 152));
   }
 
-  if (*(v2 + 151) < 0)
+  if (*(v3 + 151) < 0)
   {
-    operator delete(*(v2 + 128));
+    operator delete(*(v3 + 128));
   }
 
-  if (*(v2 + 127) < 0)
+  if (*(v3 + 127) < 0)
   {
-    operator delete(*(v2 + 104));
+    operator delete(*(v3 + 104));
   }
 
-  if (*(v2 + 103) < 0)
+  if (*(v3 + 103) < 0)
   {
-    operator delete(*(v2 + 80));
+    operator delete(*(v3 + 80));
   }
 
-  if (*(v2 + 79) < 0)
+  if (*(v3 + 79) < 0)
   {
-    operator delete(*(v2 + 56));
+    operator delete(*(v3 + 56));
   }
 
-  if (*(v2 + 55) < 0)
+  if (*(v3 + 55) < 0)
   {
-    operator delete(*v5);
+    operator delete(*v6);
   }
 
-  siri::dialogengine::ValidationBase::~ValidationBase(v2);
+  siri::dialogengine::ValidationBase::~ValidationBase(v3);
   _Unwind_Resume(a1);
 }
 
@@ -2113,7 +2113,7 @@ void sub_1000221CC(uint64_t a1)
   }
 }
 
-uint64_t sub_100022220(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *sub_100022220(uint64_t *result, uint64_t a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -2123,14 +2123,14 @@ uint64_t sub_100022220(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
   return result;
 }
 
-void sub_100022288(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void **a9)
+void sub_100022288(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
   *(v9 + 8) = v10;
   sub_1000225AC(&a9);
   _Unwind_Resume(a1);
 }
 
-void sub_1000222A8(uint64_t a1, unint64_t a2)
+void sub_1000222A8(uint64_t *a1, unint64_t a2)
 {
   if (a2 < 0x2E8BA2E8BA2E8BBLL)
   {
@@ -2259,15 +2259,15 @@ void sub_1000225AC(void ***a1)
     v5 = **a1;
     if (v4 != v2)
     {
-      v6 = v4 - 88;
-      v7 = v4 - 88;
-      v8 = v4 - 88;
+      v6 = v4 - 11;
+      v7 = v4 - 11;
+      v8 = v4 - 11;
       do
       {
         v9 = *v8;
-        v8 -= 88;
+        v8 -= 11;
         (*v9)(v7);
-        v6 -= 88;
+        v6 -= 11;
         v10 = v7 == v2;
         v7 = v8;
       }
@@ -2282,7 +2282,7 @@ void sub_1000225AC(void ***a1)
   }
 }
 
-uint64_t sub_10002266C(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *sub_10002266C(uint64_t *result, uint64_t a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -2292,14 +2292,14 @@ uint64_t sub_10002266C(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
   return result;
 }
 
-void sub_1000226D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void **a9)
+void sub_1000226D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
   *(v9 + 8) = v10;
   sub_1000228CC(&a9);
   _Unwind_Resume(a1);
 }
 
-void sub_1000226F4(uint64_t a1, unint64_t a2)
+void sub_1000226F4(uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 59))
   {
@@ -2373,7 +2373,7 @@ void sub_100022880(uint64_t a1)
   }
 }
 
-void sub_1000228CC(void ***a1)
+void sub_1000228CC(void ****a1)
 {
   v1 = *a1;
   v2 = **a1;
@@ -2399,9 +2399,9 @@ void sub_1000228CC(void ***a1)
   }
 }
 
-uint64_t sub_100022940(uint64_t a1, const void **a2)
+void *sub_100022940(uint64_t **a1, const void **a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  result = *sub_1000229D8(a1, &v3, a2);
+  result = *sub_1000229D8(a1, &v6, a2);
   if (!result)
   {
     sub_100022AE0();
@@ -2557,11 +2557,11 @@ char *sub_100022B88(char *__dst, __int128 **a2)
   return __dst;
 }
 
-void sub_100022C00(uint64_t a1, void *__p)
+void sub_100022C00(uint64_t a1, char *__p)
 {
   if (*(a1 + 8) == 1)
   {
-    sub_100022C60(*a1, __p + 32);
+    sub_100022C60(*a1, (__p + 32));
   }
 
   if (__p)
@@ -2600,36 +2600,36 @@ void sub_100022CD0(uint64_t a1, void *a2)
   }
 }
 
-uint64_t sub_100022D60(uint64_t a1)
+void *sub_100022D60(uint64_t **a1, uint64_t a2, uint64_t a3)
 {
-  v1 = *sub_100022DF0(a1, &v3);
-  if (!v1)
+  v3 = *sub_100022DF0(a1, &v5, a2);
+  if (!v3)
   {
     sub_100022E78();
   }
 
-  return v1;
+  return v3;
 }
 
-void *sub_100022DF0(uint64_t a1, void *a2)
+void *sub_100022DF0(uint64_t a1, void *a2, uint64_t a3)
 {
-  v4 = (a1 + 8);
-  v3 = *(a1 + 8);
-  if (v3)
+  v5 = (a1 + 8);
+  v4 = *(a1 + 8);
+  if (v4)
   {
     do
     {
       while (1)
       {
-        v5 = v3;
+        v6 = v4;
         if (!siri::dialogengine::operator<())
         {
           break;
         }
 
-        v3 = *v5;
-        v4 = v5;
-        if (!*v5)
+        v4 = *v6;
+        v5 = v6;
+        if (!*v6)
         {
           goto LABEL_9;
         }
@@ -2640,21 +2640,21 @@ void *sub_100022DF0(uint64_t a1, void *a2)
         break;
       }
 
-      v4 = v5 + 1;
-      v3 = v5[1];
+      v5 = v6 + 1;
+      v4 = v6[1];
     }
 
-    while (v3);
+    while (v4);
   }
 
   else
   {
-    v5 = (a1 + 8);
+    v6 = (a1 + 8);
   }
 
 LABEL_9:
-  *a2 = v5;
-  return v4;
+  *a2 = v6;
+  return v5;
 }
 
 uint64_t sub_100022EF0(uint64_t a1)
@@ -2812,31 +2812,30 @@ LABEL_8:
 
   while (1)
   {
-    v12 = v7[2];
+    v12 = *(v7 + 16);
     v13 = *v12;
-    v14 = *(v7 + 24);
     if (*v12 == v7)
     {
       break;
     }
 
-    if ((v7[3] & 1) == 0)
+    if ((*(v7 + 24) & 1) == 0)
     {
       *(v7 + 24) = 1;
       *(v12 + 24) = 0;
-      v15 = v12[1];
-      v16 = *v15;
-      v12[1] = *v15;
-      if (v16)
+      v14 = v12[1];
+      v15 = *v14;
+      v12[1] = *v14;
+      if (v15)
       {
-        *(v16 + 16) = v12;
+        *(v15 + 16) = v12;
       }
 
-      v17 = v12[2];
-      v15[2] = v17;
-      v17[*v17 != v12] = v15;
-      *v15 = v12;
-      v12[2] = v15;
+      v16 = v12[2];
+      v14[2] = v16;
+      v16[*v16 != v12] = v14;
+      *v14 = v12;
+      v12[2] = v14;
       if (result == *v7)
       {
         result = v7;
@@ -2845,173 +2844,173 @@ LABEL_8:
       v7 = *(*v7 + 8);
     }
 
-    v18 = *v7;
-    if (*v7 && *(v18 + 24) != 1)
+    v17 = *v7;
+    if (*v7 && *(v17 + 24) != 1)
     {
-      v19 = v7[1];
-      if (!v19)
+      v18 = *(v7 + 8);
+      if (!v18)
       {
         goto LABEL_55;
       }
 
 LABEL_54:
-      if (*(v19 + 24) == 1)
+      if (*(v18 + 24) == 1)
       {
 LABEL_55:
-        *(v18 + 24) = 1;
+        *(v17 + 24) = 1;
         *(v7 + 24) = 0;
-        v27 = v18[1];
-        *v7 = v27;
-        if (v27)
+        v26 = *(v17 + 8);
+        *v7 = v26;
+        if (v26)
         {
-          *(v27 + 16) = v7;
+          *(v26 + 16) = v7;
         }
 
-        v28 = v7[2];
-        v18[2] = v28;
-        v28[*v28 != v7] = v18;
-        v18[1] = v7;
-        v7[2] = v18;
-        v19 = v7;
+        v27 = *(v7 + 16);
+        *(v17 + 16) = v27;
+        v27[*v27 != v7] = v17;
+        *(v17 + 8) = v7;
+        *(v7 + 16) = v17;
+        v18 = v7;
       }
 
       else
       {
-        v18 = v7;
+        v17 = v7;
       }
 
-      v29 = v18[2];
-      *(v18 + 24) = *(v29 + 24);
-      *(v29 + 24) = 1;
-      *(v19 + 24) = 1;
-      v30 = *(v29 + 8);
-      v31 = *v30;
-      *(v29 + 8) = *v30;
-      if (v31)
+      v28 = *(v17 + 16);
+      *(v17 + 24) = *(v28 + 24);
+      *(v28 + 24) = 1;
+      *(v18 + 24) = 1;
+      v29 = *(v28 + 8);
+      v30 = *v29;
+      *(v28 + 8) = *v29;
+      if (v30)
       {
-        *(v31 + 16) = v29;
+        *(v30 + 16) = v28;
       }
 
-      v32 = *(v29 + 16);
-      v30[2] = v32;
-      v32[*v32 != v29] = v30;
-      *v30 = v29;
+      v31 = *(v28 + 16);
+      v29[2] = v31;
+      v31[*v31 != v28] = v29;
+      *v29 = v28;
       goto LABEL_72;
     }
 
-    v19 = v7[1];
-    if (v19 && *(v19 + 24) != 1)
+    v18 = *(v7 + 8);
+    if (v18 && *(v18 + 24) != 1)
     {
       goto LABEL_54;
     }
 
     *(v7 + 24) = 0;
-    v20 = v7[2];
-    if (v20 == result || (v20[3] & 1) == 0)
+    v19 = *(v7 + 16);
+    if (v19 == result || (v19[3] & 1) == 0)
     {
       goto LABEL_52;
     }
 
 LABEL_49:
-    v7 = *(v20[2] + 8 * (*v20[2] == v20));
+    v7 = *(v19[2] + 8 * (*v19[2] == v19));
   }
 
-  if ((v7[3] & 1) == 0)
+  if ((*(v7 + 24) & 1) == 0)
   {
     *(v7 + 24) = 1;
     *(v12 + 24) = 0;
-    v21 = v13[1];
-    *v12 = v21;
-    if (v21)
+    v20 = *(v13 + 8);
+    *v12 = v20;
+    if (v20)
     {
-      *(v21 + 16) = v12;
+      *(v20 + 16) = v12;
     }
 
-    v22 = v12[2];
-    v13[2] = v22;
-    v22[*v22 != v12] = v13;
-    v13[1] = v12;
+    v21 = v12[2];
+    *(v13 + 16) = v21;
+    v21[*v21 != v12] = v13;
+    *(v13 + 8) = v12;
     v12[2] = v13;
-    v23 = v7[1];
-    if (result == v23)
+    v22 = *(v7 + 8);
+    if (result == v22)
     {
       result = v7;
     }
 
-    v7 = *v23;
+    v7 = *v22;
   }
 
-  v24 = *v7;
-  if (*v7 && *(v24 + 24) != 1)
+  v23 = *v7;
+  if (*v7 && *(v23 + 24) != 1)
   {
     goto LABEL_68;
   }
 
-  v25 = v7[1];
-  if (!v25 || *(v25 + 24) == 1)
+  v24 = *(v7 + 8);
+  if (!v24 || *(v24 + 24) == 1)
   {
     *(v7 + 24) = 0;
-    v20 = v7[2];
-    if (*(v20 + 24) != 1 || v20 == result)
+    v19 = *(v7 + 16);
+    if (*(v19 + 24) != 1 || v19 == result)
     {
 LABEL_52:
-      *(v20 + 24) = 1;
+      *(v19 + 24) = 1;
       return result;
     }
 
     goto LABEL_49;
   }
 
-  if (!v24)
+  if (!v23)
   {
     goto LABEL_65;
   }
 
-  if (v24[3])
+  if (*(v23 + 24))
   {
-    v25 = v7[1];
+    v24 = *(v7 + 8);
 LABEL_65:
-    *(v25 + 24) = 1;
+    *(v24 + 24) = 1;
     *(v7 + 24) = 0;
-    v33 = *v25;
-    v7[1] = *v25;
-    if (v33)
+    v32 = *v24;
+    *(v7 + 8) = *v24;
+    if (v32)
     {
-      *(v33 + 16) = v7;
+      *(v32 + 16) = v7;
     }
 
-    v34 = v7[2];
-    v25[2] = v34;
-    v34[*v34 != v7] = v25;
-    *v25 = v7;
-    v7[2] = v25;
-    v24 = v7;
+    v33 = *(v7 + 16);
+    *(v24 + 16) = v33;
+    v33[*v33 != v7] = v24;
+    *v24 = v7;
+    *(v7 + 16) = v24;
+    v23 = v7;
   }
 
   else
   {
 LABEL_68:
-    v25 = v7;
+    v24 = v7;
   }
 
-  v29 = v25[2];
-  *(v25 + 24) = *(v29 + 24);
-  *(v29 + 24) = 1;
-  *(v24 + 24) = 1;
-  v30 = *v29;
-  v35 = *(*v29 + 8);
-  *v29 = v35;
-  if (v35)
+  v28 = *(v24 + 16);
+  *(v24 + 24) = *(v28 + 24);
+  *(v28 + 24) = 1;
+  *(v23 + 24) = 1;
+  v29 = *v28;
+  v34 = *(*v28 + 8);
+  *v28 = v34;
+  if (v34)
   {
-    *(v35 + 16) = v29;
+    *(v34 + 16) = v28;
   }
 
-  v36 = *(v29 + 16);
-  v30[2] = v36;
-  v36[*v36 != v29] = v30;
-  v30[1] = v29;
+  v35 = *(v28 + 16);
+  v29[2] = v35;
+  v35[*v35 != v28] = v29;
+  v29[1] = v28;
 LABEL_72:
-  *(v29 + 16) = v30;
+  *(v28 + 16) = v29;
   return result;
 }
 
@@ -3027,82 +3026,82 @@ void sub_10002339C(uint64_t a1, void *a2)
   }
 }
 
-uint64_t sub_100023408(unint64_t a1, uint64_t a2)
+uint64_t sub_100023408(unint64_t a1, uint64_t **a2)
 {
-  sub_100024C08(v13);
-  sub_1000027F4(&v14, "<th", 3);
+  sub_100024C08(v14);
+  sub_1000027F4(&v15, "<th", 3);
   if (a1 >= 2)
   {
-    sub_1000027F4(&v14, " colspan=", 10);
-    v4 = std::ostream::operator<<();
-    sub_1000027F4(v4, "", 1);
+    sub_1000027F4(&v15, " colspan=", 10);
+    v5 = std::ostream::operator<<();
+    sub_1000027F4(v5, "", 1);
   }
 
-  v5 = *(a2 + 23);
-  if ((v5 & 0x80u) != 0)
+  v6 = *(a2 + 23);
+  if ((v6 & 0x80u) != 0)
   {
-    v5 = *(a2 + 8);
+    v6 = a2[1];
   }
 
-  if (v5)
+  if (v6)
   {
-    v6 = sub_1000027F4(&v14, " class=", 8);
-    v7 = *(a2 + 23);
-    if (v7 >= 0)
+    v7 = sub_1000027F4(&v15, " class=", 8);
+    v8 = *(a2 + 23);
+    if (v8 >= 0)
     {
-      v8 = a2;
+      v9 = a2;
     }
 
     else
     {
-      v8 = *a2;
+      v9 = *a2;
     }
 
-    if (v7 >= 0)
+    if (v8 >= 0)
     {
-      v9 = *(a2 + 23);
+      v10 = *(a2 + 23);
     }
 
     else
     {
-      v9 = *(a2 + 8);
+      v10 = a2[1];
     }
 
-    v10 = sub_1000027F4(v6, v8, v9);
-    sub_1000027F4(v10, "", 1);
+    v11 = sub_1000027F4(v7, v9, v10);
+    sub_1000027F4(v11, "", 1);
   }
 
-  sub_1000027F4(&v14, ">", 1);
+  sub_1000027F4(&v15, ">", 1);
   std::stringbuf::str();
-  v14 = v11;
-  if (v17 < 0)
+  v15 = v12;
+  if (v18 < 0)
   {
-    operator delete(v16[7].__locale_);
+    operator delete(v17[7].__locale_);
   }
 
-  std::locale::~locale(v16);
+  std::locale::~locale(v17);
   std::iostream::~basic_iostream();
   return std::ios::~ios();
 }
 
-void sub_100023644(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_100023644(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_1000012E8(va);
   _Unwind_Resume(a1);
 }
 
-void sub_100023658(std::string *a1@<X8>)
+void sub_100023658(std::string *a2@<X8>)
 {
-  std::operator+<char>();
-  v2 = std::string::append(&v3, " -->\n");
-  *a1 = *v2;
-  v2->__r_.__value_.__l.__size_ = 0;
-  v2->__r_.__value_.__r.__words[2] = 0;
-  v2->__r_.__value_.__r.__words[0] = 0;
-  if (SHIBYTE(v3.__r_.__value_.__r.__words[2]) < 0)
+  std::operator+<char>(&v4, "<!-- ");
+  v3 = std::string::append(&v4, " -->\n");
+  *a2 = *v3;
+  v3->__r_.__value_.__l.__size_ = 0;
+  v3->__r_.__value_.__r.__words[2] = 0;
+  v3->__r_.__value_.__r.__words[0] = 0;
+  if (SHIBYTE(v4.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v3.__r_.__value_.__l.__data_);
+    operator delete(v4.__r_.__value_.__l.__data_);
   }
 }
 
@@ -3235,7 +3234,7 @@ std::string *sub_1000236E8@<X0>(unint64_t a1@<X0>, unint64_t a2@<X1>, uint64_t a
 
   if (v20)
   {
-    std::operator+<char>();
+    std::operator+<char>(&v27, " class=");
     v21 = std::string::append(&v27, "");
     v22 = *&v21->__r_.__value_.__l.__data_;
     v29 = v21->__r_.__value_.__r.__words[2];
@@ -3303,10 +3302,9 @@ void sub_100023954(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_1000239FC(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t *a3@<X2>, uint64_t a4@<X3>, int a5@<W4>, std::string *a6@<X8>)
+void sub_1000239FC(uint64_t *a1@<X0>, uint64_t a2@<X1>, uint64_t *a3@<X2>, uint64_t a4@<X3>, int a5@<W4>, std::string *a6@<X8>)
 {
-  a6->__r_.__value_.__r.__words[0] = 0;
-  a6->__r_.__value_.__l.__size_ = 0;
+  *&a6->__r_.__value_.__l.__data_ = 0uLL;
   a6->__r_.__value_.__r.__words[2] = 0;
   std::string::append(a6, "\n  ");
   if (a5)
@@ -3368,7 +3366,7 @@ void sub_1000239FC(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t *a3@<X2>, uint64
   v18 = *(a1 + 23);
   if (v18 < 0)
   {
-    if (*(a1 + 8) != 3)
+    if (a1[1] != 3)
     {
 LABEL_24:
       if (*a3 == a3[1])
@@ -3377,7 +3375,7 @@ LABEL_24:
       }
 
       v20 = sub_10000143C(&v67, "Variants:");
-      sub_1000250A8(v20, byte_100078688);
+      sub_1000250A8(v20, qword_100078688);
       if (SHIBYTE(v67.__r_.__value_.__r.__words[2]) < 0)
       {
         operator delete(v67.__r_.__value_.__l.__data_);
@@ -3434,7 +3432,7 @@ LABEL_36:
                 v29 = v24 >= 0 ? a4 : *a4;
                 if (!memcmp(v28, v29, v26))
                 {
-                  sub_1000250A8(v21, byte_1000786B8);
+                  sub_1000250A8(v21, qword_1000786B8);
                   if (*(v21 + 23) < 0)
                   {
                     operator delete(*v21);
@@ -3526,7 +3524,7 @@ LABEL_36:
       v36->__r_.__value_.__l.__size_ = 0;
       v36->__r_.__value_.__r.__words[2] = 0;
       v36->__r_.__value_.__r.__words[0] = 0;
-      sub_1000250A8(__p, byte_1000786A0);
+      sub_1000250A8(__p, qword_1000786A0);
       v38 = std::string::insert(&v64, 0, "  ");
       v39 = *&v38->__r_.__value_.__l.__data_;
       v65.__r_.__value_.__r.__words[2] = v38->__r_.__value_.__r.__words[2];
@@ -3591,7 +3589,7 @@ LABEL_36:
   }
 
   v44 = sub_10000143C(&v67, "Default:");
-  sub_1000250A8(v44, byte_100078688);
+  sub_1000250A8(v44, qword_100078688);
   if (SHIBYTE(v67.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(v67.__r_.__value_.__l.__data_);
@@ -3706,7 +3704,7 @@ LABEL_36:
   v55->__r_.__value_.__l.__size_ = 0;
   v55->__r_.__value_.__r.__words[2] = 0;
   v55->__r_.__value_.__r.__words[0] = 0;
-  sub_1000250A8(__p, byte_1000786A0);
+  sub_1000250A8(__p, qword_1000786A0);
   v57 = std::string::insert(&v64, 0, "  ");
   v58 = *&v57->__r_.__value_.__l.__data_;
   v65.__r_.__value_.__r.__words[2] = v57->__r_.__value_.__r.__words[2];
@@ -4037,11 +4035,11 @@ void sub_10002451C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t sub_1000245B0(unint64_t a1, uint64_t *a2)
+uint64_t sub_1000245B0(unint64_t a1, uint64_t **a2)
 {
-  sub_100024C08(v21);
-  sub_10000143C(v18, &unk_10006B9FB);
-  sub_1000236E8(1uLL, a1, v18, &__p);
+  sub_100024C08(v22);
+  sub_10000143C(v19, &unk_10006B9FB);
+  sub_1000236E8(1uLL, a1, v19, &__p);
   if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
     p_p = &__p;
@@ -4062,95 +4060,95 @@ uint64_t sub_1000245B0(unint64_t a1, uint64_t *a2)
     size = __p.__r_.__value_.__l.__size_;
   }
 
-  sub_1000027F4(&v22, p_p, size);
+  sub_1000027F4(&v23, p_p, size);
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__p.__r_.__value_.__l.__data_);
   }
 
-  if (v19 < 0)
+  if (v20 < 0)
   {
-    operator delete(v18[0]);
+    operator delete(v19[0]);
   }
 
   if (*a2 != a2[1])
   {
-    v6 = sub_1000027F4(&v22, "\n", 1);
-    sub_1000027F4(v6, "<ul>\n", 5);
-    v7 = *a2;
-    v8 = a2[1];
-    if (*a2 != v8)
+    v7 = sub_1000027F4(&v23, "\n", 1);
+    sub_1000027F4(v7, "<ul>\n", 5);
+    v8 = *a2;
+    v9 = a2[1];
+    if (*a2 != v9)
     {
       do
       {
-        v9 = sub_1000027F4(&v22, "  <li>", 6);
-        v10 = *(v7 + 23);
-        if (v10 >= 0)
+        v10 = sub_1000027F4(&v23, "  <li>", 6);
+        v11 = *(v8 + 23);
+        if (v11 >= 0)
         {
-          v11 = v7;
+          v12 = v8;
         }
 
         else
         {
-          v11 = *v7;
+          v12 = *v8;
         }
 
-        if (v10 >= 0)
+        if (v11 >= 0)
         {
-          v12 = *(v7 + 23);
+          v13 = *(v8 + 23);
         }
 
         else
         {
-          v12 = *(v7 + 8);
+          v13 = *(v8 + 8);
         }
 
-        v13 = sub_1000027F4(v9, v11, v12);
-        sub_1000027F4(v13, "</li>\n", 6);
-        v7 += 24;
+        v14 = sub_1000027F4(v10, v12, v13);
+        sub_1000027F4(v14, "</li>\n", 6);
+        v8 += 24;
       }
 
-      while (v7 != v8);
+      while (v8 != v9);
     }
 
-    sub_1000027F4(&v22, "</ul>\n", 6);
+    sub_1000027F4(&v23, "</ul>\n", 6);
   }
 
   sub_10000143C(&__p, "</td>\n");
   if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
-    v14 = &__p;
+    v15 = &__p;
   }
 
   else
   {
-    v14 = __p.__r_.__value_.__r.__words[0];
+    v15 = __p.__r_.__value_.__r.__words[0];
   }
 
   if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
-    v15 = HIBYTE(__p.__r_.__value_.__r.__words[2]);
+    v16 = HIBYTE(__p.__r_.__value_.__r.__words[2]);
   }
 
   else
   {
-    v15 = __p.__r_.__value_.__l.__size_;
+    v16 = __p.__r_.__value_.__l.__size_;
   }
 
-  sub_1000027F4(&v22, v14, v15);
+  sub_1000027F4(&v23, v15, v16);
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__p.__r_.__value_.__l.__data_);
   }
 
   std::stringbuf::str();
-  v22 = v16;
-  if (v25 < 0)
+  v23 = v17;
+  if (v26 < 0)
   {
-    operator delete(v24[7].__locale_);
+    operator delete(v25[7].__locale_);
   }
 
-  std::locale::~locale(v24);
+  std::locale::~locale(v25);
   std::iostream::~basic_iostream();
   return std::ios::~ios();
 }
@@ -4220,15 +4218,15 @@ void sub_100024B00(uint64_t a1, uint64_t a2)
   sub_100007C5C(&v4);
 }
 
-uint64_t sub_100024B40(uint64_t a1, const void **a2)
+uint64_t sub_100024B40(char *a1, const void **a2, uint64_t a3, _OWORD **a4)
 {
-  v2 = *sub_1000229D8(a1, &v4, a2);
-  if (!v2)
+  v4 = *sub_1000229D8(a1, &v6, a2);
+  if (!v4)
   {
     operator new();
   }
 
-  return v2;
+  return v4;
 }
 
 void (__cdecl ***sub_100024C08(void (__cdecl ***a1)(std::basic_stringstream<char> *__hidden this)))(std::basic_stringstream<char> *__hidden this)
@@ -4345,130 +4343,135 @@ void sub_10002508C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t sub_1000250A8(uint64_t a1, uint64_t a2)
+uint64_t sub_1000250A8(uint64_t **a1, uint64_t **a2)
 {
-  sub_100024C08(v17);
-  sub_1000027F4(&v18, "<span", 5);
-  v4 = *(a2 + 23);
-  if ((v4 & 0x80u) != 0)
+  sub_100024C08(v18);
+  sub_1000027F4(&v19, "<span", 5);
+  v5 = *(a2 + 23);
+  if ((v5 & 0x80u) != 0)
   {
-    v4 = *(a2 + 8);
+    v5 = a2[1];
   }
 
-  if (v4)
+  if (v5)
   {
-    v5 = sub_1000027F4(&v18, " class=", 8);
-    v6 = *(a2 + 23);
-    if (v6 >= 0)
+    v6 = sub_1000027F4(&v19, " class=", 8);
+    v7 = *(a2 + 23);
+    if (v7 >= 0)
     {
-      v7 = a2;
+      v8 = a2;
     }
 
     else
     {
-      v7 = *a2;
+      v8 = *a2;
     }
 
-    if (v6 >= 0)
+    if (v7 >= 0)
     {
-      v8 = *(a2 + 23);
+      v9 = *(a2 + 23);
     }
 
     else
     {
-      v8 = *(a2 + 8);
+      v9 = a2[1];
     }
 
-    v9 = sub_1000027F4(v5, v7, v8);
-    sub_1000027F4(v9, "", 1);
+    v10 = sub_1000027F4(v6, v8, v9);
+    sub_1000027F4(v10, "", 1);
   }
 
-  v10 = sub_1000027F4(&v18, ">", 1);
-  v11 = *(a1 + 23);
-  if (v11 >= 0)
+  v11 = sub_1000027F4(&v19, ">", 1);
+  v12 = *(a1 + 23);
+  if (v12 >= 0)
   {
-    v12 = a1;
+    v13 = a1;
   }
 
   else
   {
-    v12 = *a1;
+    v13 = *a1;
   }
 
-  if (v11 >= 0)
+  if (v12 >= 0)
   {
-    v13 = *(a1 + 23);
+    v14 = *(a1 + 23);
   }
 
   else
   {
-    v13 = *(a1 + 8);
+    v14 = a1[1];
   }
 
-  v14 = sub_1000027F4(v10, v12, v13);
-  sub_1000027F4(v14, "</span>", 7);
+  v15 = sub_1000027F4(v11, v13, v14);
+  sub_1000027F4(v15, "</span>", 7);
   std::stringbuf::str();
-  v18 = v15;
-  if (v21 < 0)
+  v19 = v16;
+  if (v22 < 0)
   {
-    operator delete(v20[7].__locale_);
+    operator delete(v21[7].__locale_);
   }
 
-  std::locale::~locale(v20);
+  std::locale::~locale(v21);
   std::iostream::~basic_iostream();
   return std::ios::~ios();
 }
 
-void sub_1000252DC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1000252DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_1000012E8(va);
   _Unwind_Resume(a1);
 }
 
-void sub_1000252F0(uint64_t a1@<X1>, std::string *a2@<X8>)
+void sub_1000252F0(uint64_t a2@<X1>, std::string *a3@<X8>)
 {
-  std::operator+<char>();
-  v4 = std::string::append(&v12, " title=");
-  v5 = *&v4->__r_.__value_.__l.__data_;
-  v13.__r_.__value_.__r.__words[2] = v4->__r_.__value_.__r.__words[2];
-  *&v13.__r_.__value_.__l.__data_ = v5;
-  v4->__r_.__value_.__l.__size_ = 0;
-  v4->__r_.__value_.__r.__words[2] = 0;
-  v4->__r_.__value_.__r.__words[0] = 0;
-  v6 = *(a1 + 23);
-  if (v6 >= 0)
+  std::operator+<char>(&v13, "<img src=data:image/png;base64, ");
+  v5 = std::string::append(&v13, " title=");
+  v6 = *&v5->__r_.__value_.__l.__data_;
+  v14.__r_.__value_.__r.__words[2] = v5->__r_.__value_.__r.__words[2];
+  *&v14.__r_.__value_.__l.__data_ = v6;
+  v5->__r_.__value_.__l.__size_ = 0;
+  v5->__r_.__value_.__r.__words[2] = 0;
+  v5->__r_.__value_.__r.__words[0] = 0;
+  v7 = *(a2 + 23);
+  if (v7 >= 0)
   {
-    v7 = a1;
+    v8 = a2;
   }
 
   else
   {
-    v7 = *a1;
+    v8 = *a2;
   }
 
-  if (v6 >= 0)
+  if (v7 >= 0)
   {
-    v8 = *(a1 + 23);
+    v9 = *(a2 + 23);
   }
 
   else
   {
-    v8 = *(a1 + 8);
+    v9 = *(a2 + 8);
   }
 
-  v9 = std::string::append(&v13, v7, v8);
-  v10 = *&v9->__r_.__value_.__l.__data_;
-  v14.__r_.__value_.__r.__words[2] = v9->__r_.__value_.__r.__words[2];
-  *&v14.__r_.__value_.__l.__data_ = v10;
-  v9->__r_.__value_.__l.__size_ = 0;
-  v9->__r_.__value_.__r.__words[2] = 0;
-  v9->__r_.__value_.__r.__words[0] = 0;
-  v11 = std::string::append(&v14, " />");
-  *a2 = *v11;
-  v11->__r_.__value_.__l.__size_ = 0;
-  v11->__r_.__value_.__r.__words[2] = 0;
-  v11->__r_.__value_.__r.__words[0] = 0;
+  v10 = std::string::append(&v14, v8, v9);
+  v11 = *&v10->__r_.__value_.__l.__data_;
+  v15.__r_.__value_.__r.__words[2] = v10->__r_.__value_.__r.__words[2];
+  *&v15.__r_.__value_.__l.__data_ = v11;
+  v10->__r_.__value_.__l.__size_ = 0;
+  v10->__r_.__value_.__r.__words[2] = 0;
+  v10->__r_.__value_.__r.__words[0] = 0;
+  v12 = std::string::append(&v15, " />");
+  *a3 = *v12;
+  v12->__r_.__value_.__l.__size_ = 0;
+  v12->__r_.__value_.__r.__words[2] = 0;
+  v12->__r_.__value_.__r.__words[0] = 0;
+  if (SHIBYTE(v15.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v15.__r_.__value_.__l.__data_);
+  }
+
   if (SHIBYTE(v14.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(v14.__r_.__value_.__l.__data_);
@@ -4477,11 +4480,6 @@ void sub_1000252F0(uint64_t a1@<X1>, std::string *a2@<X8>)
   if (SHIBYTE(v13.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(v13.__r_.__value_.__l.__data_);
-  }
-
-  if (SHIBYTE(v12.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(v12.__r_.__value_.__l.__data_);
   }
 }
 
@@ -4652,7 +4650,7 @@ void **sub_100025654(void **result, __int128 *a2)
     *(a2 + 4) = 0;
     v7 = 40 * v8 + 40;
     v14 = result[1] - *result;
-    v15 = v12 - v14;
+    v15 = (v12 - v14);
     memcpy((v12 - v14), *result, v14);
     v16 = *v3;
     *v3 = v15;
@@ -4671,12 +4669,10 @@ void **sub_100025654(void **result, __int128 *a2)
     v6 = *a2;
     *(v4 + 2) = *(a2 + 2);
     *v4 = v6;
-    *(a2 + 1) = 0;
-    *(a2 + 2) = 0;
+    *(a2 + 8) = 0uLL;
     *a2 = 0;
     *(v4 + 24) = *(a2 + 24);
-    *(a2 + 3) = 0;
-    *(a2 + 4) = 0;
+    *(a2 + 24) = 0uLL;
     v7 = (v4 + 40);
   }
 
@@ -4687,7 +4683,7 @@ void **sub_100025654(void **result, __int128 *a2)
 uint64_t sub_10002579C(uint64_t a1, uint64_t a2, siri::dialogengine::PatternSchema **a3, __int128 **a4)
 {
   sub_10000143C(&v183, "<?xml version=1.0 encoding=UTF-8 standalone=no?>\n");
-  std::operator+<char>();
+  std::operator+<char>(&__dst, "<cat xmlns=urn:apple:names:siri:visualcat:2.0 id=");
   v6 = std::string::append(&__dst, ">\n");
   v7 = *&v6->__r_.__value_.__l.__data_;
   __p.__r_.__value_.__r.__words[2] = v6->__r_.__value_.__r.__words[2];
@@ -5201,15 +5197,15 @@ LABEL_135:
 LABEL_137:
           v59 = v56;
           LODWORD(__p.__r_.__value_.__l.__data_) = 0;
-          sub_10000143C(&__p.__r_.__value_.__s.__data_[8], "action");
+          sub_10000143C(&__p.__r_.__value_.__l.__size_, "action");
           LODWORD(v189) = 9;
           sub_10000143C(v190, "label");
-          sub_100029764(&v197, &__p, &v191, 2uLL);
-          for (i = 0; i != -64; i -= 32)
+          sub_100029764(&v197.__r_.__value_.__l.__data_, &__p, &v191, 2uLL);
+          for (i = 0; i != -8; i -= 4)
           {
-            if (v190[i + 23] < 0)
+            if (SHIBYTE(v190[i + 2]) < 0)
             {
-              operator delete(*&v190[i]);
+              operator delete(v190[i]);
             }
           }
 
@@ -5268,8 +5264,8 @@ LABEL_141:
         {
 LABEL_153:
           LODWORD(__p.__r_.__value_.__l.__data_) = 10;
-          sub_10000143C(&__p.__r_.__value_.__s.__data_[8], "thumbnails");
-          sub_100029764(&v197, &__p, &v189, 1uLL);
+          sub_10000143C(&__p.__r_.__value_.__l.__size_, "thumbnails");
+          sub_100029764(&v197.__r_.__value_.__l.__data_, &__p, &v189, 1uLL);
           goto LABEL_154;
         }
       }
@@ -5299,15 +5295,15 @@ LABEL_360:
 LABEL_362:
               v59 = v56;
               LODWORD(__p.__r_.__value_.__l.__data_) = 9;
-              sub_10000143C(&__p.__r_.__value_.__s.__data_[8], "text-1");
+              sub_10000143C(&__p.__r_.__value_.__l.__size_, "text-1");
               LODWORD(v189) = 5;
               sub_10000143C(v190, "text-4");
-              sub_100029764(&v197, &__p, &v191, 2uLL);
-              for (j = 0; j != -64; j -= 32)
+              sub_100029764(&v197.__r_.__value_.__l.__data_, &__p, &v191, 2uLL);
+              for (j = 0; j != -8; j -= 4)
               {
-                if (v190[j + 23] < 0)
+                if (SHIBYTE(v190[j + 2]) < 0)
                 {
-                  operator delete(*&v190[j]);
+                  operator delete(v190[j]);
                 }
               }
 
@@ -5330,8 +5326,8 @@ LABEL_362:
             {
 LABEL_370:
               LODWORD(__p.__r_.__value_.__l.__data_) = 7;
-              sub_10000143C(&__p.__r_.__value_.__s.__data_[8], "title");
-              sub_100029764(&v197, &__p, &v189, 1uLL);
+              sub_10000143C(&__p.__r_.__value_.__l.__size_, "title");
+              sub_100029764(&v197.__r_.__value_.__l.__data_, &__p, &v189, 1uLL);
               goto LABEL_154;
             }
           }
@@ -5351,8 +5347,8 @@ LABEL_370:
             {
 LABEL_385:
               LODWORD(__p.__r_.__value_.__l.__data_) = 9;
-              sub_10000143C(&__p.__r_.__value_.__s.__data_[8], "text");
-              sub_100029764(&v197, &__p, &v189, 1uLL);
+              sub_10000143C(&__p.__r_.__value_.__l.__size_, "text");
+              sub_100029764(&v197.__r_.__value_.__l.__data_, &__p, &v189, 1uLL);
               goto LABEL_154;
             }
           }
@@ -5373,15 +5369,15 @@ LABEL_385:
           {
             v59 = v56;
             LODWORD(__p.__r_.__value_.__l.__data_) = 9;
-            sub_10000143C(&__p.__r_.__value_.__s.__data_[8], "number");
+            sub_10000143C(&__p.__r_.__value_.__l.__size_, "number");
             LODWORD(v189) = 5;
             sub_10000143C(v190, "text-2");
-            sub_100029764(&v197, &__p, &v191, 2uLL);
-            for (k = 0; k != -64; k -= 32)
+            sub_100029764(&v197.__r_.__value_.__l.__data_, &__p, &v191, 2uLL);
+            for (k = 0; k != -8; k -= 4)
             {
-              if (v190[k + 23] < 0)
+              if (SHIBYTE(v190[k + 2]) < 0)
               {
-                operator delete(*&v190[k]);
+                operator delete(v190[k]);
               }
             }
 
@@ -5411,8 +5407,8 @@ LABEL_385:
           {
 LABEL_403:
             LODWORD(__p.__r_.__value_.__l.__data_) = 9;
-            sub_10000143C(&__p.__r_.__value_.__s.__data_[8], "text-1");
-            sub_100029764(&v197, &__p, &v189, 1uLL);
+            sub_10000143C(&__p.__r_.__value_.__l.__size_, "text-1");
+            sub_100029764(&v197.__r_.__value_.__l.__data_, &__p, &v189, 1uLL);
 LABEL_154:
             if ((SHIBYTE(v188) & 0x80000000) == 0)
             {
@@ -5436,7 +5432,7 @@ LABEL_156:
           {
             v166 = v56;
             LODWORD(__p.__r_.__value_.__l.__data_) = 8;
-            sub_10000143C(&__p.__r_.__value_.__s.__data_[8], "separator-lines");
+            sub_10000143C(&__p.__r_.__value_.__l.__size_, "separator-lines");
             LODWORD(v189) = 2;
             sub_10000143C(v190, "columns");
             v191 = 2;
@@ -5445,12 +5441,12 @@ LABEL_156:
             sub_10000143C(v194, "rows");
             v195 = 6;
             sub_10000143C(v196, "rows");
-            sub_100029764(&v197, &__p, &v197, 5uLL);
-            for (m = 0; m != -160; m -= 32)
+            sub_100029764(&v197.__r_.__value_.__l.__data_, &__p, &v197, 5uLL);
+            for (m = 0; m != -20; m -= 4)
             {
-              if (v196[m + 23] < 0)
+              if (SHIBYTE(v196[m + 2]) < 0)
               {
-                operator delete(*&v196[m]);
+                operator delete(v196[m]);
               }
             }
 
@@ -5467,8 +5463,8 @@ LABEL_156:
       }
 
       LODWORD(__p.__r_.__value_.__l.__data_) = 9;
-      sub_10000143C(&__p.__r_.__value_.__s.__data_[8], "text-1");
-      sub_100029764(&v197, &__p, &v189, 1uLL);
+      sub_10000143C(&__p.__r_.__value_.__l.__size_, "text-1");
+      sub_100029764(&v197.__r_.__value_.__l.__data_, &__p, &v189, 1uLL);
       if (SHIBYTE(v188) < 0)
       {
         operator delete(__p.__r_.__value_.__l.__size_);
@@ -5492,7 +5488,7 @@ LABEL_156:
       }
 
       LODWORD(v184.__r_.__value_.__l.__data_) = 3;
-      sub_10000143C(&v184.__r_.__value_.__s.__data_[8], "player");
+      sub_10000143C(&v184.__r_.__value_.__l.__size_, "player");
       v147 = v197.__r_.__value_.__l.__size_;
       if (v197.__r_.__value_.__l.__size_ >= v197.__r_.__value_.__r.__words[2])
       {
@@ -5735,7 +5731,7 @@ LABEL_157:
 
       if (v55 != v56 || v180.__r_.__value_.__r.__words[0] == v180.__r_.__value_.__l.__size_ && v177 == v178)
       {
-        std::operator+<char>();
+        std::operator+<char>(&v184, "    <sections id=");
         v87 = std::string::append(&v184, ">\n");
         v88 = *&v87->__r_.__value_.__l.__data_;
         __p.__r_.__value_.__r.__words[2] = v87->__r_.__value_.__r.__words[2];
@@ -5828,7 +5824,7 @@ LABEL_266:
             v113 = v184.__r_.__value_.__l.__size_;
             for (n = v184.__r_.__value_.__r.__words[0]; n != v113; n += 24)
             {
-              std::operator+<char>();
+              std::operator+<char>(&v172, "      <idioms>");
               v115 = std::string::append(&v172, "</idioms>\n");
               v116 = *&v115->__r_.__value_.__l.__data_;
               v197.__r_.__value_.__r.__words[2] = v115->__r_.__value_.__r.__words[2];
@@ -5874,7 +5870,7 @@ LABEL_266:
           }
 
           while (v110 != v111);
-          siri::dialogengine::StringFromBool(&v172, (v112 ^ 1u), v119);
+          siri::dialogengine::StringFromBool((v112 ^ 1u), v119);
           v120 = std::string::insert(&v172, 0, "      <is-hidden-on-idioms>");
           v121 = *&v120->__r_.__value_.__l.__data_;
           v197.__r_.__value_.__r.__words[2] = v120->__r_.__value_.__r.__words[2];
@@ -5928,7 +5924,7 @@ LABEL_266:
 
         std::string::append(&v183, "      <component-list>\n");
         std::string::append(&v183, "        <value>\n");
-        std::operator+<char>();
+        std::operator+<char>(&v197, "          <");
         v126 = std::string::append(&v197, ">\n");
         v127 = *&v126->__r_.__value_.__l.__data_;
         v184.__r_.__value_.__r.__words[2] = v126->__r_.__value_.__r.__words[2];
@@ -5988,7 +5984,7 @@ LABEL_266:
         }
 
         std::string::append(&v183, v130, v131);
-        std::operator+<char>();
+        std::operator+<char>(&v197, "          </");
         v132 = std::string::append(&v197, ">\n");
         v133 = *&v132->__r_.__value_.__l.__data_;
         v184.__r_.__value_.__r.__words[2] = v132->__r_.__value_.__r.__words[2];
@@ -6036,7 +6032,7 @@ LABEL_266:
       }
 
       std::string::append(&v183, "    <groups>\n");
-      std::operator+<char>();
+      std::operator+<char>(&v184, "      <id>");
       v91 = std::string::append(&v184, "_group</id>\n");
       v92 = *&v91->__r_.__value_.__l.__data_;
       __p.__r_.__value_.__r.__words[2] = v91->__r_.__value_.__r.__words[2];
@@ -6077,7 +6073,7 @@ LABEL_266:
 
       std::string::append(&v183, "      <components>\n");
       std::string::append(&v183, "        <value>\n");
-      std::operator+<char>();
+      std::operator+<char>(&v184, "          <");
       v95 = std::string::append(&v184, ">\n");
       v96 = *&v95->__r_.__value_.__l.__data_;
       __p.__r_.__value_.__r.__words[2] = v95->__r_.__value_.__r.__words[2];
@@ -6137,7 +6133,7 @@ LABEL_266:
       }
 
       std::string::append(&v183, v99, v100);
-      std::operator+<char>();
+      std::operator+<char>(&v184, "          </");
       v101 = std::string::append(&v184, ">\n");
       v102 = *&v101->__r_.__value_.__l.__data_;
       __p.__r_.__value_.__r.__words[2] = v101->__r_.__value_.__r.__words[2];
@@ -6185,7 +6181,7 @@ LABEL_266:
       }
 
       sub_10000143C(&v184, "FULL");
-      sub_100027D18(&v184, &v180, &__p);
+      sub_100027D18(&v180, &__p);
       if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
       {
         v105 = &__p;
@@ -6234,7 +6230,7 @@ LABEL_262:
       {
 LABEL_329:
         sub_10000143C(&v184, "SUPPORTING");
-        sub_100027D18(&v184, &v177, &__p);
+        sub_100027D18(&v177, &__p);
         if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
         {
           v136 = &__p;
@@ -6361,19 +6357,19 @@ void sub_100027280(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
     }
 
     a11 -= 4;
-    if (a11 == &a68)
+    if (a11 == &a65)
     {
-      a60 = (v68 - 128);
+      a60 = (v65 - 128);
       sub_100029E54(&a60);
       if (a23 < 0)
       {
         operator delete(__p);
       }
 
-      *(v68 - 128) = &a35;
-      sub_100007C5C((v68 - 128));
-      *(v68 - 128) = &a38;
-      sub_100007C5C((v68 - 128));
+      *(v65 - 128) = &a35;
+      sub_100007C5C((v65 - 128));
+      *(v65 - 128) = &a38;
+      sub_100007C5C((v65 - 128));
       if (a46 < 0)
       {
         operator delete(a41);
@@ -6404,7 +6400,7 @@ void sub_100027280(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   }
 }
 
-uint64_t sub_100027990(uint64_t a1, uint64_t a2, uint64_t a3)
+uint64_t sub_100027990(uint64_t a1, uint64_t a2, uint64_t **a3)
 {
   siri::dialogengine::DirName();
   if ((siri::dialogengine::CreateDir() & 1) == 0)
@@ -6482,7 +6478,7 @@ LABEL_22:
 
   else
   {
-    v7 = *(a3 + 8);
+    v7 = a3[1];
   }
 
   v8 = sub_1000027F4(&std::cout, v6, v7);
@@ -6557,13 +6553,13 @@ void **sub_100027C48(void **a1)
   return a1;
 }
 
-void sub_100027C7C(void *a1)
+void sub_100027C7C(void *result)
 {
-  v2 = a1[1];
-  for (i = a1[2]; i != v2; i = a1[2])
+  v2 = result[1];
+  for (i = result[2]; i != v2; i = result[2])
   {
-    v4 = a1[4];
-    a1[2] = i - 40;
+    v4 = result[4];
+    result[2] = i - 40;
     sub_100027CC4(v4, i - 40);
   }
 }
@@ -6584,104 +6580,77 @@ void sub_100027CC4(uint64_t a1, uint64_t a2)
   }
 }
 
-std::string *sub_100027D18@<X0>(uint64_t *a1@<X1>, siri::dialogengine::PatternSchemaOverride ***a2@<X2>, std::string *a3@<X8>)
+std::string *sub_100027D18@<X0>(siri::dialogengine::PatternSchemaOverride ***a3@<X2>, std::string *a4@<X8>)
 {
-  a3->__r_.__value_.__r.__words[0] = 0;
-  a3->__r_.__value_.__l.__size_ = 0;
-  a3->__r_.__value_.__r.__words[2] = 0;
-  std::operator+<char>();
-  v6 = std::string::append(&v45, "_");
+  *&a4->__r_.__value_.__l.__data_ = 0uLL;
+  a4->__r_.__value_.__r.__words[2] = 0;
+  std::operator+<char>(&v43, "    <sections id=");
+  v6 = std::string::append(&v43, "_");
   v7 = *&v6->__r_.__value_.__l.__data_;
-  v46.__r_.__value_.__r.__words[2] = v6->__r_.__value_.__r.__words[2];
-  *&v46.__r_.__value_.__l.__data_ = v7;
+  v44.__r_.__value_.__r.__words[2] = v6->__r_.__value_.__r.__words[2];
+  *&v44.__r_.__value_.__l.__data_ = v7;
   v6->__r_.__value_.__l.__size_ = 0;
   v6->__r_.__value_.__r.__words[2] = 0;
   v6->__r_.__value_.__r.__words[0] = 0;
-  if (*(a1 + 23) >= 0)
-  {
-    v9 = *(a1 + 23);
-  }
-
-  else
-  {
-    v8 = *a1;
-    v9 = a1[1];
-  }
-
   siri::dialogengine::StringToLower();
-  if ((v44 & 0x80u) == 0)
+  if ((v42 & 0x80u) == 0)
   {
-    v10 = __p;
+    v8 = __p;
   }
 
   else
   {
-    v10 = __p[0];
+    v8 = __p[0];
   }
 
-  if ((v44 & 0x80u) == 0)
+  if ((v42 & 0x80u) == 0)
   {
-    v11 = v44;
+    v9 = v42;
   }
 
   else
   {
-    v11 = __p[1];
+    v9 = __p[1];
   }
 
-  v12 = std::string::append(&v46, v10, v11);
+  v10 = std::string::append(&v44, v8, v9);
+  v11 = *&v10->__r_.__value_.__l.__data_;
+  v45.__r_.__value_.__r.__words[2] = v10->__r_.__value_.__r.__words[2];
+  *&v45.__r_.__value_.__l.__data_ = v11;
+  v10->__r_.__value_.__l.__size_ = 0;
+  v10->__r_.__value_.__r.__words[2] = 0;
+  v10->__r_.__value_.__r.__words[0] = 0;
+  v12 = std::string::append(&v45, ">\n");
   v13 = *&v12->__r_.__value_.__l.__data_;
-  v47.__r_.__value_.__r.__words[2] = v12->__r_.__value_.__r.__words[2];
-  *&v47.__r_.__value_.__l.__data_ = v13;
+  v47 = v12->__r_.__value_.__r.__words[2];
+  v46 = v13;
   v12->__r_.__value_.__l.__size_ = 0;
   v12->__r_.__value_.__r.__words[2] = 0;
   v12->__r_.__value_.__r.__words[0] = 0;
-  v14 = std::string::append(&v47, ">\n");
-  v15 = *&v14->__r_.__value_.__l.__data_;
-  v49 = v14->__r_.__value_.__r.__words[2];
-  v48 = v15;
-  v14->__r_.__value_.__l.__size_ = 0;
-  v14->__r_.__value_.__r.__words[2] = 0;
-  v14->__r_.__value_.__r.__words[0] = 0;
-  if (v49 >= 0)
+  if (v47 >= 0)
   {
-    v16 = &v48;
+    v14 = &v46;
   }
 
   else
   {
-    v16 = v48;
+    v14 = v46;
   }
 
-  if (v49 >= 0)
+  if (v47 >= 0)
   {
-    v17 = HIBYTE(v49);
+    v15 = HIBYTE(v47);
   }
 
   else
   {
-    v17 = *(&v48 + 1);
+    v15 = *(&v46 + 1);
   }
 
-  std::string::append(a3, v16, v17);
-  if (SHIBYTE(v49) < 0)
+  std::string::append(a4, v14, v15);
+  if (SHIBYTE(v47) < 0)
   {
-    operator delete(v48);
-  }
-
-  if (SHIBYTE(v47.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(v47.__r_.__value_.__l.__data_);
-  }
-
-  if (v44 < 0)
-  {
-    operator delete(__p[0]);
-  }
-
-  if (SHIBYTE(v46.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(v46.__r_.__value_.__l.__data_);
+    operator delete(v46);
   }
 
   if (SHIBYTE(v45.__r_.__value_.__r.__words[2]) < 0)
@@ -6689,201 +6658,216 @@ std::string *sub_100027D18@<X0>(uint64_t *a1@<X1>, siri::dialogengine::PatternSc
     operator delete(v45.__r_.__value_.__l.__data_);
   }
 
-  std::operator+<char>();
-  v18 = std::string::append(&v47, "</level-of-detail>\n");
-  v19 = *&v18->__r_.__value_.__l.__data_;
-  v49 = v18->__r_.__value_.__r.__words[2];
-  v48 = v19;
-  v18->__r_.__value_.__l.__size_ = 0;
-  v18->__r_.__value_.__r.__words[2] = 0;
-  v18->__r_.__value_.__r.__words[0] = 0;
-  if (v49 >= 0)
+  if (v42 < 0)
   {
-    v20 = &v48;
+    operator delete(__p[0]);
+  }
+
+  if (SHIBYTE(v44.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v44.__r_.__value_.__l.__data_);
+  }
+
+  if (SHIBYTE(v43.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v43.__r_.__value_.__l.__data_);
+  }
+
+  std::operator+<char>(&v45, "      <level-of-detail>");
+  v16 = std::string::append(&v45, "</level-of-detail>\n");
+  v17 = *&v16->__r_.__value_.__l.__data_;
+  v47 = v16->__r_.__value_.__r.__words[2];
+  v46 = v17;
+  v16->__r_.__value_.__l.__size_ = 0;
+  v16->__r_.__value_.__r.__words[2] = 0;
+  v16->__r_.__value_.__r.__words[0] = 0;
+  if (v47 >= 0)
+  {
+    v18 = &v46;
   }
 
   else
   {
-    v20 = v48;
+    v18 = v46;
   }
 
-  if (v49 >= 0)
+  if (v47 >= 0)
   {
-    v21 = HIBYTE(v49);
+    v19 = HIBYTE(v47);
   }
 
   else
   {
-    v21 = *(&v48 + 1);
+    v19 = *(&v46 + 1);
   }
 
-  std::string::append(a3, v20, v21);
-  if (SHIBYTE(v49) < 0)
+  std::string::append(a4, v18, v19);
+  if (SHIBYTE(v47) < 0)
   {
-    operator delete(v48);
+    operator delete(v46);
   }
 
-  if (SHIBYTE(v47.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v45.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v47.__r_.__value_.__l.__data_);
+    operator delete(v45.__r_.__value_.__l.__data_);
   }
 
-  v22 = *a2;
-  v23 = a2[1];
-  if (*a2 != v23)
+  v20 = *a3;
+  v21 = a3[1];
+  if (*a3 != v21)
   {
     do
     {
-      siri::dialogengine::PatternSchemaOverride::GetUsage(&v48, *v22);
-      v24 = sub_1000255A0(&v48);
-      v47.__r_.__value_.__r.__words[0] = &v48;
-      sub_100007C5C(&v47);
-      siri::dialogengine::PatternSchemaOverride::GetIdioms(&v48, *v22);
-      v25 = *(&v48 + 1);
-      for (i = v48; i != v25; i += 24)
+      siri::dialogengine::PatternSchemaOverride::GetUsage(&v46, *v20);
+      v22 = sub_1000255A0(&v46);
+      v45.__r_.__value_.__r.__words[0] = &v46;
+      sub_100007C5C(&v45);
+      siri::dialogengine::PatternSchemaOverride::GetIdioms(&v46, *v20);
+      v23 = *(&v46 + 1);
+      for (i = v46; i != v23; i += 24)
       {
-        std::operator+<char>();
-        v27 = std::string::append(&v46, "</idioms>\n");
-        v28 = *&v27->__r_.__value_.__l.__data_;
-        v47.__r_.__value_.__r.__words[2] = v27->__r_.__value_.__r.__words[2];
-        *&v47.__r_.__value_.__l.__data_ = v28;
-        v27->__r_.__value_.__l.__size_ = 0;
-        v27->__r_.__value_.__r.__words[2] = 0;
-        v27->__r_.__value_.__r.__words[0] = 0;
-        if ((v47.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+        std::operator+<char>(&v44, "      <idioms>");
+        v25 = std::string::append(&v44, "</idioms>\n");
+        v26 = *&v25->__r_.__value_.__l.__data_;
+        v45.__r_.__value_.__r.__words[2] = v25->__r_.__value_.__r.__words[2];
+        *&v45.__r_.__value_.__l.__data_ = v26;
+        v25->__r_.__value_.__l.__size_ = 0;
+        v25->__r_.__value_.__r.__words[2] = 0;
+        v25->__r_.__value_.__r.__words[0] = 0;
+        if ((v45.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
         {
-          v29 = &v47;
+          v27 = &v45;
         }
 
         else
         {
-          v29 = v47.__r_.__value_.__r.__words[0];
+          v27 = v45.__r_.__value_.__r.__words[0];
         }
 
-        if ((v47.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+        if ((v45.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
         {
-          size = HIBYTE(v47.__r_.__value_.__r.__words[2]);
+          size = HIBYTE(v45.__r_.__value_.__r.__words[2]);
         }
 
         else
         {
-          size = v47.__r_.__value_.__l.__size_;
+          size = v45.__r_.__value_.__l.__size_;
         }
 
-        std::string::append(a3, v29, size);
-        if (SHIBYTE(v47.__r_.__value_.__r.__words[2]) < 0)
+        std::string::append(a4, v27, size);
+        if (SHIBYTE(v45.__r_.__value_.__r.__words[2]) < 0)
         {
-          operator delete(v47.__r_.__value_.__l.__data_);
+          operator delete(v45.__r_.__value_.__l.__data_);
         }
 
-        if (SHIBYTE(v46.__r_.__value_.__r.__words[2]) < 0)
+        if (SHIBYTE(v44.__r_.__value_.__r.__words[2]) < 0)
         {
-          operator delete(v46.__r_.__value_.__l.__data_);
+          operator delete(v44.__r_.__value_.__l.__data_);
         }
       }
 
-      v47.__r_.__value_.__r.__words[0] = &v48;
-      sub_100002260(&v47);
-      v22 += 2;
+      v45.__r_.__value_.__r.__words[0] = &v46;
+      sub_100002260(&v45);
+      v20 += 2;
     }
 
-    while (v22 != v23);
-    siri::dialogengine::StringFromBool(&v46, (v24 ^ 1u), v31);
-    v32 = std::string::insert(&v46, 0, "      <is-hidden-on-idioms>");
+    while (v20 != v21);
+    siri::dialogengine::StringFromBool((v22 ^ 1u), v29);
+    v30 = std::string::insert(&v44, 0, "      <is-hidden-on-idioms>");
+    v31 = *&v30->__r_.__value_.__l.__data_;
+    v45.__r_.__value_.__r.__words[2] = v30->__r_.__value_.__r.__words[2];
+    *&v45.__r_.__value_.__l.__data_ = v31;
+    v30->__r_.__value_.__l.__size_ = 0;
+    v30->__r_.__value_.__r.__words[2] = 0;
+    v30->__r_.__value_.__r.__words[0] = 0;
+    v32 = std::string::append(&v45, "</is-hidden-on-idioms>\n");
     v33 = *&v32->__r_.__value_.__l.__data_;
-    v47.__r_.__value_.__r.__words[2] = v32->__r_.__value_.__r.__words[2];
-    *&v47.__r_.__value_.__l.__data_ = v33;
+    v47 = v32->__r_.__value_.__r.__words[2];
+    v46 = v33;
     v32->__r_.__value_.__l.__size_ = 0;
     v32->__r_.__value_.__r.__words[2] = 0;
     v32->__r_.__value_.__r.__words[0] = 0;
-    v34 = std::string::append(&v47, "</is-hidden-on-idioms>\n");
-    v35 = *&v34->__r_.__value_.__l.__data_;
-    v49 = v34->__r_.__value_.__r.__words[2];
-    v48 = v35;
-    v34->__r_.__value_.__l.__size_ = 0;
-    v34->__r_.__value_.__r.__words[2] = 0;
-    v34->__r_.__value_.__r.__words[0] = 0;
-    if (v49 >= 0)
+    if (v47 >= 0)
     {
-      v36 = &v48;
+      v34 = &v46;
     }
 
     else
     {
-      v36 = v48;
+      v34 = v46;
     }
 
-    if (v49 >= 0)
+    if (v47 >= 0)
     {
-      v37 = HIBYTE(v49);
+      v35 = HIBYTE(v47);
     }
 
     else
     {
-      v37 = *(&v48 + 1);
+      v35 = *(&v46 + 1);
     }
 
-    std::string::append(a3, v36, v37);
-    if (SHIBYTE(v49) < 0)
+    std::string::append(a4, v34, v35);
+    if (SHIBYTE(v47) < 0)
     {
-      operator delete(v48);
+      operator delete(v46);
     }
 
-    if (SHIBYTE(v47.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v45.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v47.__r_.__value_.__l.__data_);
+      operator delete(v45.__r_.__value_.__l.__data_);
     }
 
-    if (SHIBYTE(v46.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v44.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v46.__r_.__value_.__l.__data_);
+      operator delete(v44.__r_.__value_.__l.__data_);
     }
   }
 
-  std::string::append(a3, "      <component-list>\n");
-  std::string::append(a3, "        <value>\n");
-  std::operator+<char>();
-  v38 = std::string::append(&v47, "_group</group-id>\n");
-  v39 = *&v38->__r_.__value_.__l.__data_;
-  v49 = v38->__r_.__value_.__r.__words[2];
-  v48 = v39;
-  v38->__r_.__value_.__l.__size_ = 0;
-  v38->__r_.__value_.__r.__words[2] = 0;
-  v38->__r_.__value_.__r.__words[0] = 0;
-  if (v49 >= 0)
+  std::string::append(a4, "      <component-list>\n");
+  std::string::append(a4, "        <value>\n");
+  std::operator+<char>(&v45, "          <group-id>");
+  v36 = std::string::append(&v45, "_group</group-id>\n");
+  v37 = *&v36->__r_.__value_.__l.__data_;
+  v47 = v36->__r_.__value_.__r.__words[2];
+  v46 = v37;
+  v36->__r_.__value_.__l.__size_ = 0;
+  v36->__r_.__value_.__r.__words[2] = 0;
+  v36->__r_.__value_.__r.__words[0] = 0;
+  if (v47 >= 0)
   {
-    v40 = &v48;
+    v38 = &v46;
   }
 
   else
   {
-    v40 = v48;
+    v38 = v46;
   }
 
-  if (v49 >= 0)
+  if (v47 >= 0)
   {
-    v41 = HIBYTE(v49);
+    v39 = HIBYTE(v47);
   }
 
   else
   {
-    v41 = *(&v48 + 1);
+    v39 = *(&v46 + 1);
   }
 
-  std::string::append(a3, v40, v41);
-  if (SHIBYTE(v49) < 0)
+  std::string::append(a4, v38, v39);
+  if (SHIBYTE(v47) < 0)
   {
-    operator delete(v48);
+    operator delete(v46);
   }
 
-  if (SHIBYTE(v47.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v45.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v47.__r_.__value_.__l.__data_);
+    operator delete(v45.__r_.__value_.__l.__data_);
   }
 
-  std::string::append(a3, "        </value>\n");
-  std::string::append(a3, "      </component-list>\n");
-  return std::string::append(a3, "    </sections>\n");
+  std::string::append(a4, "        </value>\n");
+  std::string::append(a4, "      </component-list>\n");
+  return std::string::append(a4, "    </sections>\n");
 }
 
 void sub_1000281A8(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *a11, uint64_t a12, int a13, __int16 a14, char a15, char a16, uint64_t a17, uint64_t a18, int a19, __int16 a20, char a21, char a22, void *a23, uint64_t a24, int a25, __int16 a26, char a27, char a28, uint64_t a29, void *__p, uint64_t a31, int a32, __int16 a33, char a34, char a35)
@@ -6950,12 +6934,12 @@ void sub_100028344(int a1@<W0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@
           }
 
           sub_10000143C(&v96, "false");
-          sub_100029CB4(&v87, &__dst, &v98, 2uLL);
-          for (i = 0; i != -48; i -= 24)
+          sub_100029CB4(&v87, &__dst, &v97[1], 2uLL);
+          for (i = 0; i != -6; i -= 3)
           {
-            if (*(&v97 + i + 7) < 0)
+            if (SHIBYTE(v97[i]) < 0)
             {
-              operator delete(*(&__dst + i + 24));
+              operator delete(*(&__dst + i * 8 + 24));
             }
           }
 
@@ -6978,21 +6962,21 @@ void sub_100028344(int a1@<W0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@
         }
 
         sub_10000143C(&v96, "text-elements");
-        sub_10000143C(&v98, "value");
-        std::operator+<char>();
+        sub_10000143C(&v97[1], "value");
+        std::operator+<char>(&v86, "<plain>");
         v23 = std::string::append(&v86, " value</plain>\n");
         v24 = *&v23->__r_.__value_.__l.__data_;
-        v99.__r_.__value_.__r.__words[2] = v23->__r_.__value_.__r.__words[2];
-        *&v99.__r_.__value_.__l.__data_ = v24;
+        v98.__r_.__value_.__r.__words[2] = v23->__r_.__value_.__r.__words[2];
+        *&v98.__r_.__value_.__l.__data_ = v24;
         v23->__r_.__value_.__l.__size_ = 0;
         v23->__r_.__value_.__r.__words[2] = 0;
         v23->__r_.__value_.__r.__words[0] = 0;
-        sub_100029CB4(&v87, &__dst, &v100, 4uLL);
+        sub_100029CB4(&v87, &__dst, &v99, 4uLL);
         for (j = 0; j != -12; j -= 3)
         {
-          if (SHIBYTE(v99.__r_.__value_.__r.__words[j + 2]) < 0)
+          if (SHIBYTE(v98.__r_.__value_.__r.__words[j + 2]) < 0)
           {
-            operator delete(*(&v99.__r_.__value_.__l.__data_ + j * 8));
+            operator delete(*(&v98.__r_.__value_.__l.__data_ + j * 8));
           }
         }
 
@@ -7012,13 +6996,13 @@ void sub_100028344(int a1@<W0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@
         }
 
         sub_10000143C(&v96, "value");
-        sub_10000143C(&v98, "<!-- Valid children are <text> or <application-bundle-identifier> -->\n<application-bundle-identifier>Your bundle ID here</application-bundle-identifier>");
-        sub_100029CB4(&v87, &__dst, &v99, 3uLL);
+        sub_10000143C(&v97[1], "<!-- Valid children are <text> or <application-bundle-identifier> -->\n<application-bundle-identifier>Your bundle ID here</application-bundle-identifier>");
+        sub_100029CB4(&v87, &__dst, &v98, 3uLL);
         for (k = 0; k != -9; k -= 3)
         {
-          if (SHIBYTE(v98.__r_.__value_.__r.__words[k + 2]) < 0)
+          if (SHIBYTE(v97[k + 3]) < 0)
           {
-            operator delete(*(&v98.__r_.__value_.__l.__data_ + k * 8));
+            operator delete(v97[k + 1]);
           }
         }
 
@@ -7036,16 +7020,16 @@ void sub_100028344(int a1@<W0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@
       }
 
       sub_10000143C(&v96, "cells");
-      sub_10000143C(&v98, "value");
+      sub_10000143C(&v97[1], "value");
       sub_10000143C(&v86, "text");
       sub_10000143C(&v94, &unk_10006B9FB);
-      sub_100028344(&v99, 5, &v86, &v94);
-      sub_100029CB4(&v87, &__dst, &v100, 4uLL);
+      sub_100028344(5, &v86, &v94, &v98);
+      sub_100029CB4(&v87, &__dst, &v99, 4uLL);
       for (m = 0; m != -12; m -= 3)
       {
-        if (SHIBYTE(v99.__r_.__value_.__r.__words[m + 2]) < 0)
+        if (SHIBYTE(v98.__r_.__value_.__r.__words[m + 2]) < 0)
         {
-          operator delete(*(&v99.__r_.__value_.__l.__data_ + m * 8));
+          operator delete(*(&v98.__r_.__value_.__l.__data_ + m * 8));
         }
       }
     }
@@ -7067,15 +7051,15 @@ void sub_100028344(int a1@<W0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@
           }
 
           sub_10000143C(&v96, "actions");
-          sub_10000143C(&v98, "command");
-          sub_10000143C(&v99, "value");
-          sub_10000143C(&v100, "<!-- Replace with ace-command, sf-command, direct-invocation, etc. -->\n<no-op>true</no-op>\n");
-          sub_100029CB4(&v87, &__dst, &v101, 5uLL);
+          sub_10000143C(&v97[1], "command");
+          sub_10000143C(&v98, "value");
+          sub_10000143C(&v99, "<!-- Replace with ace-command, sf-command, direct-invocation, etc. -->\n<no-op>true</no-op>\n");
+          sub_100029CB4(&v87, &__dst, &v100, 5uLL);
           for (n = 0; n != -15; n -= 3)
           {
-            if (SHIBYTE(v100.__r_.__value_.__r.__words[n + 2]) < 0)
+            if (SHIBYTE(v99.__r_.__value_.__r.__words[n + 2]) < 0)
             {
-              operator delete(*(&v100.__r_.__value_.__l.__data_ + n * 8));
+              operator delete(*(&v99.__r_.__value_.__l.__data_ + n * 8));
             }
           }
 
@@ -7096,25 +7080,25 @@ void sub_100028344(int a1@<W0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@
 
           sub_10000143C(&v94, "action");
           sub_10000143C(&v85, &unk_10006B9FB);
-          sub_100028344(&v86, 0, &v94, &v85);
+          sub_100028344(0, &v94, &v85, &v86);
           sub_10000143C(&v93, "label");
           sub_10000143C(&v83, &unk_10006B9FB);
-          sub_100028344(&__p, 9, &v93, &v83);
+          sub_100028344(9, &v93, &v83, &__p);
           v15 = (__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? &__p : __p.__r_.__value_.__r.__words[0];
           v16 = (__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? HIBYTE(__p.__r_.__value_.__r.__words[2]) : __p.__r_.__value_.__l.__size_;
           v17 = std::string::append(&v86, v15, v16);
           v18 = *&v17->__r_.__value_.__l.__data_;
-          v97 = v17->__r_.__value_.__r.__words[2];
+          v97[0] = *(&v17->__r_.__value_.__l + 2);
           v96 = v18;
           v17->__r_.__value_.__l.__size_ = 0;
           v17->__r_.__value_.__r.__words[2] = 0;
           v17->__r_.__value_.__r.__words[0] = 0;
-          sub_100029CB4(&v87, &__dst, &v98, 2uLL);
-          for (ii = 0; ii != -48; ii -= 24)
+          sub_100029CB4(&v87, &__dst, &v97[1], 2uLL);
+          for (ii = 0; ii != -6; ii -= 3)
           {
-            if (*(&v97 + ii + 7) < 0)
+            if (SHIBYTE(v97[ii]) < 0)
             {
-              operator delete(*(&__dst + ii + 24));
+              operator delete(*(&__dst + ii * 8 + 24));
             }
           }
 
@@ -7168,15 +7152,15 @@ LABEL_101:
         }
 
         sub_10000143C(&v96, "cell");
-        sub_10000143C(&v98, "content");
-        sub_10000143C(&v99, "size");
-        sub_10000143C(&v100, "<auto/>\n");
-        sub_100029CB4(&v87, &__dst, &v101, 5uLL);
+        sub_10000143C(&v97[1], "content");
+        sub_10000143C(&v98, "size");
+        sub_10000143C(&v99, "<auto/>\n");
+        sub_100029CB4(&v87, &__dst, &v100, 5uLL);
         for (jj = 0; jj != -15; jj -= 3)
         {
-          if (SHIBYTE(v100.__r_.__value_.__r.__words[jj + 2]) < 0)
+          if (SHIBYTE(v99.__r_.__value_.__r.__words[jj + 2]) < 0)
           {
-            operator delete(*(&v100.__r_.__value_.__l.__data_ + jj * 8));
+            operator delete(*(&v99.__r_.__value_.__l.__data_ + jj * 8));
           }
         }
 
@@ -7200,13 +7184,13 @@ LABEL_101:
 
       sub_10000143C(&v86, "lines");
       sub_10000143C(&v94, &unk_10006B9FB);
-      sub_100028344(&v96, 9, &v86, &v94);
-      sub_100029CB4(&v87, &__dst, &v98, 2uLL);
-      for (kk = 0; kk != -48; kk -= 24)
+      sub_100028344(9, &v86, &v94, &v96);
+      sub_100029CB4(&v87, &__dst, &v97[1], 2uLL);
+      for (kk = 0; kk != -6; kk -= 3)
       {
-        if (*(&v97 + kk + 7) < 0)
+        if (SHIBYTE(v97[kk]) < 0)
         {
-          operator delete(*(&__dst + kk + 24));
+          operator delete(*(&__dst + kk * 8 + 24));
         }
       }
     }
@@ -7232,7 +7216,7 @@ LABEL_102:
       memset(&v86, 0, sizeof(v86));
       memset(&v94, 0, sizeof(v94));
       memset(&v85, 0, sizeof(v85));
-      std::string::operator=(&v94, v88 - 1);
+      std::string::operator=(&v94, (v88 - 24));
       std::string::operator=(&v85, a3);
       if (v88 - v87 != 24)
       {
@@ -7277,28 +7261,28 @@ LABEL_102:
           }
 
           *(&v29->__r_.__value_.__l.__data_ + size) = 60;
-          v31 = SHIBYTE(v87[v26].__r_.__value_.__r.__words[2]);
+          v31 = *(v87 + v26 + 23);
           if (v31 >= 0)
           {
-            data = &v87[v26];
+            v32 = (v87 + v26);
           }
 
           else
           {
-            data = v87[v26].__r_.__value_.__l.__data_;
+            v32 = *(v87 + v26);
           }
 
           if (v31 >= 0)
           {
-            v33 = HIBYTE(v87[v26].__r_.__value_.__r.__words[2]);
+            v33 = *(v87 + v26 + 23);
           }
 
           else
           {
-            v33 = v87[v26].__r_.__value_.__l.__size_;
+            v33 = *(v87 + v26 + 8);
           }
 
-          v34 = std::string::append(&v83, data, v33);
+          v34 = std::string::append(&v83, v32, v33);
           v35 = *&v34->__r_.__value_.__l.__data_;
           v93.__r_.__value_.__r.__words[2] = v34->__r_.__value_.__r.__words[2];
           *&v93.__r_.__value_.__l.__data_ = v35;
@@ -7385,25 +7369,25 @@ LABEL_102:
           }
 
           strcpy(v41 + v40, "</");
-          v43 = SHIBYTE(v87[v26].__r_.__value_.__r.__words[2]);
+          v43 = *(v87 + v26 + 23);
           if (v43 >= 0)
           {
-            v44 = &v87[v26];
+            v44 = (v87 + v26);
           }
 
           else
           {
-            v44 = v87[v26].__r_.__value_.__l.__data_;
+            v44 = *(v87 + v26);
           }
 
           if (v43 >= 0)
           {
-            v45 = HIBYTE(v87[v26].__r_.__value_.__r.__words[2]);
+            v45 = *(v87 + v26 + 23);
           }
 
           else
           {
-            v45 = v87[v26].__r_.__value_.__l.__size_;
+            v45 = *(v87 + v26 + 8);
           }
 
           v46 = std::string::append(&v83, v44, v45);
@@ -7442,8 +7426,8 @@ LABEL_102:
 
           v52 = std::string::append(&__p, v50, v51);
           v53 = v52->__r_.__value_.__r.__words[0];
-          v90[0] = v52->__r_.__value_.__l.__size_;
-          *(v90 + 7) = *(&v52->__r_.__value_.__r.__words[1] + 7);
+          *v90 = v52->__r_.__value_.__l.__size_;
+          *&v90[7] = *(&v52->__r_.__value_.__r.__words[1] + 7);
           v54 = HIBYTE(v52->__r_.__value_.__r.__words[2]);
           v52->__r_.__value_.__l.__size_ = 0;
           v52->__r_.__value_.__r.__words[2] = 0;
@@ -7454,8 +7438,8 @@ LABEL_102:
           }
 
           v86.__r_.__value_.__r.__words[0] = v53;
-          v86.__r_.__value_.__l.__size_ = v90[0];
-          *(&v86.__r_.__value_.__r.__words[1] + 7) = *(v90 + 7);
+          v86.__r_.__value_.__l.__size_ = *v90;
+          *(&v86.__r_.__value_.__r.__words[1] + 7) = *&v90[7];
           *(&v86.__r_.__value_.__s + 23) = v54;
           if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
           {
@@ -7494,14 +7478,14 @@ LABEL_102:
 
           std::string::append(&v85, v55, v56);
           ++v27;
-          ++v26;
+          v26 += 24;
         }
 
         while (v27 < -1 - 0x5555555555555555 * ((v88 - v87) >> 3));
       }
 
       siri::dialogengine::StringSplit();
-      std::operator+<char>();
+      std::operator+<char>(v90, "\n");
       siri::dialogengine::StringJoin();
       if ((v85.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
       {
@@ -7560,10 +7544,10 @@ LABEL_102:
 
       if (v91 < 0)
       {
-        operator delete(v90[0]);
+        operator delete(*v90);
       }
 
-      v90[0] = &v83;
+      *v90 = &v83;
       sub_100002260(v90);
       sub_100029BE8(&__dst.__r_.__value_.__l.__data_, &v94.__r_.__value_.__l.__data_, &__p);
       if ((v86.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
@@ -7741,7 +7725,7 @@ LABEL_102:
   sub_10000143C(a4, &unk_10006B9FB);
 }
 
-void sub_100029764(uint64_t *a1, _DWORD *a2, uint64_t a3, unint64_t a4)
+void sub_100029764(char **a1, char *a2, char *a3, unint64_t a4)
 {
   v6 = a2;
   v8 = *a1;
@@ -7774,7 +7758,7 @@ void sub_100029764(uint64_t *a1, _DWORD *a2, uint64_t a3, unint64_t a4)
   }
 
   v12 = a1[1];
-  if (a4 <= (v12 - v8) >> 5)
+  if (a4 <= &v12[-v8] >> 5)
   {
     if (a2 != a3)
     {
@@ -7783,10 +7767,10 @@ void sub_100029764(uint64_t *a1, _DWORD *a2, uint64_t a3, unint64_t a4)
       do
       {
         v19 = *v17;
-        v17 += 8;
+        v17 += 32;
         *v18 = v19;
         v18 += 8;
-        std::string::operator=((v8 + 8), (v6 + 2));
+        std::string::operator=((v8 + 8), (v6 + 8));
         v8 = v18;
         v6 = v17;
       }
@@ -7800,7 +7784,7 @@ void sub_100029764(uint64_t *a1, _DWORD *a2, uint64_t a3, unint64_t a4)
     {
       if (*(v12 - 1) < 0)
       {
-        operator delete(*(v12 - 24));
+        operator delete(*(v12 - 3));
       }
 
       v12 -= 32;
@@ -7811,7 +7795,7 @@ void sub_100029764(uint64_t *a1, _DWORD *a2, uint64_t a3, unint64_t a4)
 
   else
   {
-    v13 = a2 + v12 - v8;
+    v13 = &v12[a2 - v8];
     if (v12 != v8)
     {
       v14 = a2;
@@ -7819,10 +7803,10 @@ void sub_100029764(uint64_t *a1, _DWORD *a2, uint64_t a3, unint64_t a4)
       do
       {
         v16 = *v14;
-        v14 += 8;
+        v14 += 32;
         *v15 = v16;
         v15 += 8;
-        std::string::operator=((v8 + 8), (v6 + 2));
+        std::string::operator=((v8 + 8), (v6 + 8));
         v8 = v15;
         v6 = v14;
       }
@@ -7847,7 +7831,7 @@ void sub_1000298F0(uint64_t *a1)
   }
 }
 
-void sub_100029930(uint64_t a1, unint64_t a2)
+void sub_100029930(uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 59))
   {
@@ -7982,7 +7966,7 @@ void sub_100029B8C(uint64_t a1, uint64_t a2)
   }
 }
 
-uint64_t sub_100029BE8@<X0>(const void **a1@<X0>, const void **a2@<X1>, uint64_t a3@<X8>)
+char *sub_100029BE8@<X0>(const void **a1@<X0>, const void **a2@<X1>, uint64_t a3@<X8>)
 {
   if (*(a1 + 23) >= 0)
   {
@@ -8005,7 +7989,7 @@ uint64_t sub_100029BE8@<X0>(const void **a1@<X0>, const void **a2@<X1>, uint64_t
   }
 
   result = sub_1000094C0(a3, v6 + v5);
-  if (*(result + 23) >= 0)
+  if (result[23] >= 0)
   {
     v8 = result;
   }
@@ -8050,7 +8034,7 @@ uint64_t sub_100029BE8@<X0>(const void **a1@<X0>, const void **a2@<X1>, uint64_t
   return result;
 }
 
-void sub_100029CB4(std::string **a1, std::string *__str, std::string *a3, unint64_t a4)
+void sub_100029CB4(uint64_t *a1, std::string *__str, std::string *a3, unint64_t a4)
 {
   v6 = __str;
   v8 = *a1;
@@ -8141,7 +8125,7 @@ void sub_100029E54(void ***a1)
   }
 }
 
-uint64_t sub_100029EA8(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *sub_100029EA8(uint64_t *result, uint64_t a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -8158,7 +8142,7 @@ void sub_100029F10(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void sub_100029F30(uint64_t a1, unint64_t a2)
+void sub_100029F30(uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 60))
   {
@@ -8414,7 +8398,7 @@ void sub_10002A3D0(uint64_t a1)
   }
 }
 
-uint64_t sub_10002A428(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *sub_10002A428(uint64_t *result, uint64_t a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -8527,7 +8511,7 @@ void sub_10002A758(uint64_t a1, uint64_t a2)
   }
 }
 
-uint64_t sub_10002A7A0(uint64_t *a1, uint64_t *a2, uint64_t *a3)
+uint64_t sub_10002A7A0(unint64_t *a1, uint64_t *a2, uint64_t *a3)
 {
   v3 = 0xAAAAAAAAAAAAAAABLL * ((a1[1] - *a1) >> 3);
   v4 = v3 + 1;
@@ -8577,9 +8561,9 @@ uint64_t sub_10002A7A0(uint64_t *a1, uint64_t *a2, uint64_t *a3)
   return v13;
 }
 
-void sub_10002A8C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_10002A8C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   sub_10002AA94(va);
   _Unwind_Resume(a1);
 }
@@ -8748,7 +8732,7 @@ uint64_t sub_10002AB1C(uint64_t a1, uint64_t a2, unint64_t a3, uint64_t a4)
   return sub_10002ACF4(&v12, a2, v7, v6);
 }
 
-void *sub_10002AB8C(void *result, __int128 *a2)
+unint64_t *sub_10002AB8C(unint64_t *result, __int128 *a2)
 {
   v3 = result;
   v4 = result[2];
@@ -8857,69 +8841,69 @@ __int128 *sub_10002AD74(uint64_t a1, __int128 *a2, __int128 *a3, uint64_t a4)
 
 uint64_t sub_10002ADE8()
 {
-  sub_10000143C(byte_1000785B0, "iVBORw0KGgoAAAANSUhEUgAAACQAAAAWCAYAAACosj4+AAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAJKADAAQAAAABAAAAFgAAAADx7wgaAAAC0UlEQVRIDc1WO2wTQRB9ez7b+AMmEIKE+bkgBQiJAikNIKHUkSloItFQUScSCkQUkZBiaBKJGigoItFhQBR0dEEYKCCISIAJiQOOQ8gFf+Lz2cvOmbv4/L2LILDS+WZn3uw8z+7NDkOLEZq70pWvqFEORBnHUQ6+T0CDLeCd1FkGtsgZ3jEg7pc8ceXQjR/NnITdOg4nx7YtYG0IHCMAD1mtf2rGFDDc3I8dk58jY+u1q1oI+eaHwloJD0RWTtaC/pYsgidkN84VDkymjBgmISJT0thzcB42jFvyZizllnmfQUqioLRNlJktJ0PBRQIoNnGgqUw/+plxuE2nvBGc9R0R3tUkr/MSPpaW8bQwiywv0rK2Bx2R3xxijL6mXFlNOj3A6YPXscsVaAiaLv/E+fRdTBfnGmztFUwJuDwRiT5tp2RoYYPMpcx9nFm8hei320gU57HXtR139gy2j93UykPERaY609RuU/lG/YoX6hcdnS6vYTo8jF53D7qlAJYrOZurVGHERaKi58irDTggeU2rhoop2xWIi8iQXoHt+jTgooHjOOENIyLvxoVgtXw9zs9gtVJowHZSEBf9K+sEbGcf2dlvMT/KvcVg5p5F52Qi0R3jxKEeezEzhb7UBJ4VPugmcU+hyLV6mK05cZHowrOFbgGaVZfwSl3A5ZW4qHEc/b5eDPiPtUC3VwsuMyJDiLeH2bO+VlOYyr3UwbGuAXtOdSjB5aFErYCotkqdreP0vZqGKrbmk/bdxF5beYLVcgHdomDK0G8l09ZZYApx0eu+nBy+KvI93tlpA+FnHgTEk6lkN5RC6pGCKEKDUrF0FRZM0wljo1pkIqb/DepLBLNEU2ALZZ6rDWQIuiQIOiVDsYkD+esZIuG/aj+IEPUj1Jc4zRT5bnZQrNpeiNaxnDwiFWah0xD7uZmDbp8YtbBslGIZjZnha26ZoTDe/6rJ/wXRihQSP/gzLgAAAABJRU5ErkJggg==");
-  __cxa_atexit(&std::string::~string, byte_1000785B0, &_mh_execute_header);
-  sub_10000143C(byte_1000785C8, "iVBORw0KGgoAAAANSUhEUgAAACQAAAAWCAYAAACosj4+AAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAJKADAAQAAAABAAAAFgAAAADx7wgaAAACSklEQVRIDc1WSW4aQRT93YAEElMkEINX3ngRWFrKKmdwruKVz8AqVwm5QlaR2NKSzcIrMwikMAkaMfm9Ulerwcah2jZ2LbqmP7x6/1f1t+RAGw6HX+bz+ZVlWVfb7fYr+jL65AHxF5ehO4VuG72Dvp5IJOrZbPbfc0rW/iIU4r1e7xrrNxhn9vffYg5gI9ipFQqFnxi7QZs7gAaDwdlyufwFgcug0DuOG7FY7Ecul3vQPnxABLNarf6ClTO9eYoeDD1Eo9FvGpRNpwwTmTk1GM+3igoxcK4AeTlzqjDR73679DCIxdvkuu49EB6dwJvNRhBiSafTEo+rg/kOFouFwKbk83mxbXVef++lARMdts6jvNoQPBoMjRJMq9WSSCQilUpFUqmU8jWdTqXZbApyUQi6VCqp9WM+JIRYbCAjIKNGZpCIsl6vFYDJZCJBMGQmkzE6o/JPLFan07nF7MIIEYQJgmwQFJmCMcUMwZA1gg7R7shQOYSiClO1WlVgCIpheiUYHqp8fNYdQE1m3rLZSKZ2GIM6ZJoZho2JzDCOx+MwJvkethkyx1Qbz4Q4jrMTJh0+guLebDYzNcuQNclQ3VSTDGhmdAInk0mVzPr2jUb8f5o1YPkd+mHs9/vqJqGU2PFK9ggm7MNoe3VJbcfqfya8TSgdZB8M1fhyc48yhq1GLOqKgKp4t9v9AwMf9T9rFIvF78ghVx2DA9Yl6P26xPB0ocXp0/OtCjWfV9YjrEtguRHaurliI1gLUf3Jq8bwfZoSNnjAjyryHwGk5kJW4N53JgAAAABJRU5ErkJggg==");
-  __cxa_atexit(&std::string::~string, byte_1000785C8, &_mh_execute_header);
-  sub_10000143C(byte_1000785E0, "iVBORw0KGgoAAAANSUhEUgAAACQAAAAWCAYAAACosj4+AAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAJKADAAQAAAABAAAAFgAAAADx7wgaAAACAUlEQVRIDc2WvU4CQRSF7wzB6MZAiNrsKmhlYgyFEq3pLIxYGBsK4iNY+QxUPoKxoNEGjIWdtQYtiJpYKejSqCEQg0QD454ha9Ao4MwmehP+duee/bhzZ+Yw+iEymcNQo1lPiBYlBKMZZ5hJgoZ/GN79MqNnZ0CZCbpinHKDPiOXTC5XvktiXy/uHB8PNouPm8xHW5FxKxgJWzQ2EiLDGJJD6/UXeniqULFk063zEkJ8lejnd5URS/sio9sb8XijM+ET0O7unvVGLBueMGOL81EKBLoXpFZ7ppOzgoTrFO33O2Ms7yexmkqt227OBxBgXolOFuaiVnR22r3f12fh4ppOHTClYGQPEC26UBwimCZURgUG+fgDC05FlUKQnBUwIF8CoWcwTb+tTCcActFvKuH0YQwMyGVyNbVebtZWloK9eqbXw9BT+9kj5UY3/MYUx9LGatKFASw0JhWr5KQHwcKxz6iW+ruK6WiBhWPTwz7jVehogQVNbbqbnhdQmlqmXGVegHilAaAyjgOvQlOrzHHg4WzyKjS1LjlOXxyUXoWOFmd0wGEFivd2FZuabkADDkAxqmDh8CWiSWmc2roBDUU7QrAjYJGrDL6kdFfO49RWDeSqThdsCBjwbAkEkwRfcnpesFWgdO0Hnu0atQ8/BLp/ZdAAhPhXFraN1H7/K5P/DlNODQLEpvAJAAAAAElFTkSuQmCC");
-  __cxa_atexit(&std::string::~string, byte_1000785E0, &_mh_execute_header);
-  sub_10000143C(byte_1000785F8, "iVBORw0KGgoAAAANSUhEUgAAACQAAAAWCAYAAACosj4+AAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAJKADAAQAAAABAAAAFgAAAADx7wgaAAACEUlEQVRIDc1WSy9DQRT+ZlqvEkWsqCB2oisSe0vC9VckkjaxsSGaSPwVtxJLewmrlp0gHitBRevRx5hvmiu3olrjJnoWvXPnzPnu1zPnJVBHopfJ/kLl3VGAIxQmFdSQPtpT53ij7WcBcasETgXgRmS7mxvdevjOSOtrZex8vfMaTytQSAAqWqtt/BaGhNMdhxOZwnTHCIZCVYjbcg7Hb1dwC1mk89lcUVRSMfTuXIyvv/pRawh1Xa0Ml4rY1V6Z8R9qdu1E4kgNLGKibfBHk7PiHRL3e0gXMkfhNiy/jOzceAafhEimWBKHUGrYUzb71NeBzf4FrPbNNWtizm0/HmDtcf8mFK7MeqQkNbwmesaGDO1tyNCOf2Cjb97cCjlwzxBizPzlmn7rGX7YE9ouReIzJm71pmA25cvv57YBnI0lG8aM9/F6T8ZU/DqVaw+FxyVT24YMwZlNjQK4Hgn/PjGWuqei5CJZZ/zK36yZ2kEJschFsujZgrLOBCXEIhftIVOBrXC9omdl/MWIWORisuyL7l9fJXuMLQO2g6CEWOQi2fBsQdmbghJiaS4n2kNwbUHZKIMSYmkuaclRQNdHK9+7+QxY1P4qxOAEQC7SzCUCKRvQEiqma9vY+m3Y+TmOkIvJMs4l2l1H/kPNrt1CBuzatkJbjiHkQIyWGz8+CZFdSw1oJERpqRG2Sqn6+19D/gfZixHOWVphygAAAABJRU5ErkJggg==");
-  __cxa_atexit(&std::string::~string, byte_1000785F8, &_mh_execute_header);
-  sub_10000143C(byte_100078610, "greyColor");
-  __cxa_atexit(&std::string::~string, byte_100078610, &_mh_execute_header);
-  sub_10000143C(byte_100078628, "dialogColor");
-  __cxa_atexit(&std::string::~string, byte_100078628, &_mh_execute_header);
-  sub_10000143C(byte_100078640, "visualColor");
-  __cxa_atexit(&std::string::~string, byte_100078640, &_mh_execute_header);
-  sub_10000143C(byte_100078658, "usage");
-  __cxa_atexit(&std::string::~string, byte_100078658, &_mh_execute_header);
-  sub_10000143C(byte_100078670, "empty");
-  __cxa_atexit(&std::string::~string, byte_100078670, &_mh_execute_header);
-  sub_10000143C(byte_100078688, "variantsLabel");
-  __cxa_atexit(&std::string::~string, byte_100078688, &_mh_execute_header);
-  sub_10000143C(byte_1000786A0, "variants");
-  __cxa_atexit(&std::string::~string, byte_1000786A0, &_mh_execute_header);
-  sub_10000143C(byte_1000786B8, "defaultVariant");
-  __cxa_atexit(&std::string::~string, byte_1000786B8, &_mh_execute_header);
-  sub_10000143C(byte_1000786D0, "error");
+  sub_10000143C(qword_1000785B0, "iVBORw0KGgoAAAANSUhEUgAAACQAAAAWCAYAAACosj4+AAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAJKADAAQAAAABAAAAFgAAAADx7wgaAAAC0UlEQVRIDc1WO2wTQRB9ez7b+AMmEIKE+bkgBQiJAikNIKHUkSloItFQUScSCkQUkZBiaBKJGigoItFhQBR0dEEYKCCISIAJiQOOQ8gFf+Lz2cvOmbv4/L2LILDS+WZn3uw8z+7NDkOLEZq70pWvqFEORBnHUQ6+T0CDLeCd1FkGtsgZ3jEg7pc8ceXQjR/NnITdOg4nx7YtYG0IHCMAD1mtf2rGFDDc3I8dk58jY+u1q1oI+eaHwloJD0RWTtaC/pYsgidkN84VDkymjBgmISJT0thzcB42jFvyZizllnmfQUqioLRNlJktJ0PBRQIoNnGgqUw/+plxuE2nvBGc9R0R3tUkr/MSPpaW8bQwiywv0rK2Bx2R3xxijL6mXFlNOj3A6YPXscsVaAiaLv/E+fRdTBfnGmztFUwJuDwRiT5tp2RoYYPMpcx9nFm8hei320gU57HXtR139gy2j93UykPERaY609RuU/lG/YoX6hcdnS6vYTo8jF53D7qlAJYrOZurVGHERaKi58irDTggeU2rhoop2xWIi8iQXoHt+jTgooHjOOENIyLvxoVgtXw9zs9gtVJowHZSEBf9K+sEbGcf2dlvMT/KvcVg5p5F52Qi0R3jxKEeezEzhb7UBJ4VPugmcU+hyLV6mK05cZHowrOFbgGaVZfwSl3A5ZW4qHEc/b5eDPiPtUC3VwsuMyJDiLeH2bO+VlOYyr3UwbGuAXtOdSjB5aFErYCotkqdreP0vZqGKrbmk/bdxF5beYLVcgHdomDK0G8l09ZZYApx0eu+nBy+KvI93tlpA+FnHgTEk6lkN5RC6pGCKEKDUrF0FRZM0wljo1pkIqb/DepLBLNEU2ALZZ6rDWQIuiQIOiVDsYkD+esZIuG/aj+IEPUj1Jc4zRT5bnZQrNpeiNaxnDwiFWah0xD7uZmDbp8YtbBslGIZjZnha26ZoTDe/6rJ/wXRihQSP/gzLgAAAABJRU5ErkJggg==");
+  __cxa_atexit(&std::string::~string, qword_1000785B0, &_mh_execute_header);
+  sub_10000143C(qword_1000785C8, "iVBORw0KGgoAAAANSUhEUgAAACQAAAAWCAYAAACosj4+AAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAJKADAAQAAAABAAAAFgAAAADx7wgaAAACSklEQVRIDc1WSW4aQRT93YAEElMkEINX3ngRWFrKKmdwruKVz8AqVwm5QlaR2NKSzcIrMwikMAkaMfm9Ulerwcah2jZ2LbqmP7x6/1f1t+RAGw6HX+bz+ZVlWVfb7fYr+jL65AHxF5ehO4VuG72Dvp5IJOrZbPbfc0rW/iIU4r1e7xrrNxhn9vffYg5gI9ipFQqFnxi7QZs7gAaDwdlyufwFgcug0DuOG7FY7Ecul3vQPnxABLNarf6ClTO9eYoeDD1Eo9FvGpRNpwwTmTk1GM+3igoxcK4AeTlzqjDR73679DCIxdvkuu49EB6dwJvNRhBiSafTEo+rg/kOFouFwKbk83mxbXVef++lARMdts6jvNoQPBoMjRJMq9WSSCQilUpFUqmU8jWdTqXZbApyUQi6VCqp9WM+JIRYbCAjIKNGZpCIsl6vFYDJZCJBMGQmkzE6o/JPLFan07nF7MIIEYQJgmwQFJmCMcUMwZA1gg7R7shQOYSiClO1WlVgCIpheiUYHqp8fNYdQE1m3rLZSKZ2GIM6ZJoZho2JzDCOx+MwJvkethkyx1Qbz4Q4jrMTJh0+guLebDYzNcuQNclQ3VSTDGhmdAInk0mVzPr2jUb8f5o1YPkd+mHs9/vqJqGU2PFK9ggm7MNoe3VJbcfqfya8TSgdZB8M1fhyc48yhq1GLOqKgKp4t9v9AwMf9T9rFIvF78ghVx2DA9Yl6P26xPB0ocXp0/OtCjWfV9YjrEtguRHaurliI1gLUf3Jq8bwfZoSNnjAjyryHwGk5kJW4N53JgAAAABJRU5ErkJggg==");
+  __cxa_atexit(&std::string::~string, qword_1000785C8, &_mh_execute_header);
+  sub_10000143C(qword_1000785E0, "iVBORw0KGgoAAAANSUhEUgAAACQAAAAWCAYAAACosj4+AAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAJKADAAQAAAABAAAAFgAAAADx7wgaAAACAUlEQVRIDc2WvU4CQRSF7wzB6MZAiNrsKmhlYgyFEq3pLIxYGBsK4iNY+QxUPoKxoNEGjIWdtQYtiJpYKejSqCEQg0QD454ha9Ao4MwmehP+duee/bhzZ+Yw+iEymcNQo1lPiBYlBKMZZ5hJgoZ/GN79MqNnZ0CZCbpinHKDPiOXTC5XvktiXy/uHB8PNouPm8xHW5FxKxgJWzQ2EiLDGJJD6/UXeniqULFk063zEkJ8lejnd5URS/sio9sb8XijM+ET0O7unvVGLBueMGOL81EKBLoXpFZ7ppOzgoTrFO33O2Ms7yexmkqt227OBxBgXolOFuaiVnR22r3f12fh4ppOHTClYGQPEC26UBwimCZURgUG+fgDC05FlUKQnBUwIF8CoWcwTb+tTCcActFvKuH0YQwMyGVyNbVebtZWloK9eqbXw9BT+9kj5UY3/MYUx9LGatKFASw0JhWr5KQHwcKxz6iW+ruK6WiBhWPTwz7jVehogQVNbbqbnhdQmlqmXGVegHilAaAyjgOvQlOrzHHg4WzyKjS1LjlOXxyUXoWOFmd0wGEFivd2FZuabkADDkAxqmDh8CWiSWmc2roBDUU7QrAjYJGrDL6kdFfO49RWDeSqThdsCBjwbAkEkwRfcnpesFWgdO0Hnu0atQ8/BLp/ZdAAhPhXFraN1H7/K5P/DlNODQLEpvAJAAAAAElFTkSuQmCC");
+  __cxa_atexit(&std::string::~string, qword_1000785E0, &_mh_execute_header);
+  sub_10000143C(qword_1000785F8, "iVBORw0KGgoAAAANSUhEUgAAACQAAAAWCAYAAACosj4+AAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAJKADAAQAAAABAAAAFgAAAADx7wgaAAACEUlEQVRIDc1WSy9DQRT+ZlqvEkWsqCB2oisSe0vC9VckkjaxsSGaSPwVtxJLewmrlp0gHitBRevRx5hvmiu3olrjJnoWvXPnzPnu1zPnJVBHopfJ/kLl3VGAIxQmFdSQPtpT53ij7WcBcasETgXgRmS7mxvdevjOSOtrZex8vfMaTytQSAAqWqtt/BaGhNMdhxOZwnTHCIZCVYjbcg7Hb1dwC1mk89lcUVRSMfTuXIyvv/pRawh1Xa0Ml4rY1V6Z8R9qdu1E4kgNLGKibfBHk7PiHRL3e0gXMkfhNiy/jOzceAafhEimWBKHUGrYUzb71NeBzf4FrPbNNWtizm0/HmDtcf8mFK7MeqQkNbwmesaGDO1tyNCOf2Cjb97cCjlwzxBizPzlmn7rGX7YE9ouReIzJm71pmA25cvv57YBnI0lG8aM9/F6T8ZU/DqVaw+FxyVT24YMwZlNjQK4Hgn/PjGWuqei5CJZZ/zK36yZ2kEJschFsujZgrLOBCXEIhftIVOBrXC9omdl/MWIWORisuyL7l9fJXuMLQO2g6CEWOQi2fBsQdmbghJiaS4n2kNwbUHZKIMSYmkuaclRQNdHK9+7+QxY1P4qxOAEQC7SzCUCKRvQEiqma9vY+m3Y+TmOkIvJMs4l2l1H/kPNrt1CBuzatkJbjiHkQIyWGz8+CZFdSw1oJERpqRG2Sqn6+19D/gfZixHOWVphygAAAABJRU5ErkJggg==");
+  __cxa_atexit(&std::string::~string, qword_1000785F8, &_mh_execute_header);
+  sub_10000143C(qword_100078610, "greyColor");
+  __cxa_atexit(&std::string::~string, qword_100078610, &_mh_execute_header);
+  sub_10000143C(qword_100078628, "dialogColor");
+  __cxa_atexit(&std::string::~string, qword_100078628, &_mh_execute_header);
+  sub_10000143C(qword_100078640, "visualColor");
+  __cxa_atexit(&std::string::~string, qword_100078640, &_mh_execute_header);
+  sub_10000143C(qword_100078658, "usage");
+  __cxa_atexit(&std::string::~string, qword_100078658, &_mh_execute_header);
+  sub_10000143C(qword_100078670, "empty");
+  __cxa_atexit(&std::string::~string, qword_100078670, &_mh_execute_header);
+  sub_10000143C(qword_100078688, "variantsLabel");
+  __cxa_atexit(&std::string::~string, qword_100078688, &_mh_execute_header);
+  sub_10000143C(qword_1000786A0, "variants");
+  __cxa_atexit(&std::string::~string, qword_1000786A0, &_mh_execute_header);
+  sub_10000143C(qword_1000786B8, "defaultVariant");
+  __cxa_atexit(&std::string::~string, qword_1000786B8, &_mh_execute_header);
+  sub_10000143C(&stru_1000786D0, "error");
 
-  return __cxa_atexit(&std::string::~string, byte_1000786D0, &_mh_execute_header);
+  return __cxa_atexit(&std::string::~string, &stru_1000786D0, &_mh_execute_header);
 }
 
-uint64_t sub_10002B038(uint64_t a1)
+uint64_t sub_10002B038(uint64_t *a1)
 {
   if (siri::dialogengine::DirExists())
   {
     siri::dialogengine::GetCatLocales();
-    if (v61 == v60)
+    if (v58 == v57)
     {
-      v47 = sub_1000027F4(&std::cout, "Error: can't find any locales in CAT file: ", 43);
-      v48 = *(a1 + 23);
-      if (v48 >= 0)
+      v44 = sub_1000027F4(&std::cout, "Error: can't find any locales in CAT file: ", 43);
+      v45 = *(a1 + 23);
+      if (v45 >= 0)
       {
-        v49 = a1;
+        v46 = a1;
       }
 
       else
       {
-        v49 = *a1;
+        v46 = *a1;
       }
 
-      if (v48 >= 0)
+      if (v45 >= 0)
       {
-        v50 = *(a1 + 23);
+        v47 = *(a1 + 23);
       }
 
       else
       {
-        v50 = *(a1 + 8);
+        v47 = a1[1];
       }
 
-      v51 = sub_1000027F4(v47, v49, v50);
-      std::ios_base::getloc((v51 + *(*v51 - 24)));
-      v52 = std::locale::use_facet(&v58, &std::ctype<char>::id);
-      (v52->__vftable[2].~facet_0)(v52, 10);
-      std::locale::~locale(&v58);
+      v48 = sub_1000027F4(v44, v46, v47);
+      std::ios_base::getloc((v48 + *(*v48 - 24)));
+      v49 = std::locale::use_facet(&v55, &std::ctype<char>::id);
+      (v49->__vftable[2].~facet_0)(v49, 10);
+      std::locale::~locale(&v55);
       std::ostream::put();
       std::ostream::flush();
       v18 = 0;
@@ -8946,12 +8930,12 @@ uint64_t sub_10002B038(uint64_t a1)
 
       else
       {
-        v5 = *(a1 + 8);
+        v5 = a1[1];
       }
 
       v6 = sub_1000027F4(v2, v4, v5);
       v7 = sub_1000027F4(v6, " to ", 4);
-      v8 = *(a1 + 96);
+      v8 = *(a1 + 24);
       if (v8)
       {
         v9 = "BINARY";
@@ -8995,15 +8979,15 @@ uint64_t sub_10002B038(uint64_t a1)
 
       v14 = sub_1000027F4(v11, v12, v13);
       std::ios_base::getloc((v14 + *(*v14 - 24)));
-      v15 = std::locale::use_facet(&v58, &std::ctype<char>::id);
+      v15 = std::locale::use_facet(&v55, &std::ctype<char>::id);
       (v15->__vftable[2].~facet_0)(v15, 10);
-      std::locale::~locale(&v58);
+      std::locale::~locale(&v55);
       std::ostream::put();
       std::ostream::flush();
       sub_10002B9E4(a1);
-      v16 = v60;
-      v17 = v61;
-      if (v60 != v61)
+      v16 = v57;
+      v17 = v58;
+      if (v57 != v58)
       {
         v18 = 1;
         while (1)
@@ -9016,82 +9000,82 @@ uint64_t sub_10002B038(uint64_t a1)
           else
           {
             v19 = *v16;
-            v69 = *(v16 + 2);
+            v66 = *(v16 + 2);
             __dst = v19;
           }
 
-          v62.__locale_ = 0;
-          v63 = 0;
-          v64 = 0;
-          sub_10000954C(&v62, &__dst, &v70, 1uLL);
+          v59.__locale_ = 0;
+          v60 = 0;
+          v61 = 0;
+          sub_10000954C(&v59, &__dst, &v67, 1uLL);
           siri::dialogengine::FindLocaleFile();
-          __p[0] = &v62;
+          __p[0] = &v59;
           sub_100002260(__p);
-          if (SHIBYTE(v69) < 0)
+          if (SHIBYTE(v66) < 0)
           {
             operator delete(__dst);
           }
 
           siri::dialogengine::ChangeCATExtension();
           siri::dialogengine::ChangeCATExtension();
-          sub_10002E954(a1, &v62, &__dst);
-          if (SHIBYTE(v69) < 0)
+          sub_10002E954(a1, &v59, &__dst);
+          if (SHIBYTE(v66) < 0)
           {
             operator delete(__dst);
           }
 
-          if (SHIBYTE(v64) < 0)
+          if (SHIBYTE(v61) < 0)
           {
-            operator delete(v62.__locale_);
+            operator delete(v59.__locale_);
           }
 
-          if (v59 < 0)
+          if (v56 < 0)
           {
-            operator delete(v58.__locale_);
+            operator delete(v55.__locale_);
           }
 
-          siri::dialogengine::Context::Context(&v58);
+          siri::dialogengine::Context::Context(&v55);
           siri::dialogengine::FindParamsFile();
           if (*(v16 + 23) < 0)
           {
-            sub_100001C60(&v65, *v16, *(v16 + 1));
+            sub_100001C60(&v62, *v16, *(v16 + 1));
           }
 
           else
           {
             v20 = *v16;
-            v66 = *(v16 + 2);
-            v65 = v20;
+            v63 = *(v16 + 2);
+            v62 = v20;
           }
 
           __p[0] = 0;
           __p[1] = 0;
-          v57 = 0;
-          sub_10000954C(__p, &v65, &v67, 1uLL);
+          v54 = 0;
+          sub_10000954C(__p, &v62, &v64, 1uLL);
           siri::dialogengine::FindLocaleFile();
           Files = siri::dialogengine::Context::LoadFiles();
-          if (SHIBYTE(v69) < 0)
+          if (SHIBYTE(v66) < 0)
           {
             operator delete(__dst);
           }
 
-          v54 = __p;
-          sub_100002260(&v54);
-          if (SHIBYTE(v66) < 0)
+          v51 = __p;
+          sub_100002260(&v51);
+          if (SHIBYTE(v63) < 0)
           {
-            operator delete(v65);
+            operator delete(v62);
           }
 
-          if (SHIBYTE(v64) < 0)
+          if (SHIBYTE(v61) < 0)
           {
-            operator delete(v62.__locale_);
+            operator delete(v59.__locale_);
             if ((Files & 1) == 0)
             {
 LABEL_51:
-              v24 = sub_1000027F4(&std::cout, "Error: unable to load CAT file: ", 32);
-              v25 = (a1 + 23);
-              v26 = a1;
-              v27 = (a1 + 8);
+              v22 = sub_1000027F4(&std::cout, "Error: unable to load CAT file: ", 32);
+              v23 = a1 + 23;
+              v24 = a1;
+              v25 = a1 + 1;
               goto LABEL_53;
             }
           }
@@ -9101,24 +9085,22 @@ LABEL_51:
             goto LABEL_51;
           }
 
-          v22 = *(a1 + 96);
-          v23 = *(a1 + 101);
           if (siri::dialogengine::Context::Save())
           {
             if ((*(a1 + 100) & 1) == 0)
             {
-              siri::dialogengine::Context::GetFile(&v54, &v58);
-              if (v54)
+              siri::dialogengine::Context::GetFile(&v51, &v55);
+              if (v51)
               {
-                siri::dialogengine::File::GetParamsFilename(__p, v54);
+                siri::dialogengine::File::GetParamsFilename(__p, v51);
                 siri::dialogengine::BaseName();
                 siri::dialogengine::JoinPath();
-                if (SHIBYTE(v69) < 0)
+                if (SHIBYTE(v66) < 0)
                 {
                   operator delete(__dst);
                 }
 
-                if (SHIBYTE(v57) < 0)
+                if (SHIBYTE(v54) < 0)
                 {
                   operator delete(__p[0]);
                 }
@@ -9126,22 +9108,22 @@ LABEL_51:
 
               else
               {
-                sub_10000143C(&v62, &unk_10006B9FB);
+                sub_10000143C(&v59, &unk_10006B9FB);
               }
 
-              if (v54)
+              if (v51)
               {
-                siri::dialogengine::File::GetLocaleFilename(&v65, v54);
+                siri::dialogengine::File::GetLocaleFilename(&v62, v51);
                 siri::dialogengine::BaseName();
                 siri::dialogengine::JoinPath();
-                if (SHIBYTE(v57) < 0)
+                if (SHIBYTE(v54) < 0)
                 {
                   operator delete(__p[0]);
                 }
 
-                if (SHIBYTE(v66) < 0)
+                if (SHIBYTE(v63) < 0)
                 {
-                  operator delete(v65);
+                  operator delete(v62);
                 }
               }
 
@@ -9150,7 +9132,6 @@ LABEL_51:
                 sub_10000143C(&__dst, &unk_10006B9FB);
               }
 
-              v40 = *(a1 + 96);
               if (siri::dialogengine::HasCATExtension() && siri::dialogengine::FileExists())
               {
                 siri::dialogengine::DeleteFile();
@@ -9161,86 +9142,86 @@ LABEL_51:
                 siri::dialogengine::DeleteFile();
               }
 
-              if (SHIBYTE(v69) < 0)
+              if (SHIBYTE(v66) < 0)
               {
                 operator delete(__dst);
               }
 
-              if (SHIBYTE(v64) < 0)
+              if (SHIBYTE(v61) < 0)
               {
-                operator delete(v62.__locale_);
+                operator delete(v59.__locale_);
               }
 
-              if (v55)
+              if (v52)
               {
-                sub_100005EB4(v55);
+                sub_100005EB4(v52);
               }
             }
 
             goto LABEL_66;
           }
 
-          v24 = sub_1000027F4(&std::cout, "Error: unable to save CAT file: ", 32);
-          v27 = (a1 + 32);
-          v25 = (a1 + 47);
-          v26 = (a1 + 24);
+          v22 = sub_1000027F4(&std::cout, "Error: unable to save CAT file: ", 32);
+          v25 = a1 + 4;
+          v23 = a1 + 47;
+          v24 = a1 + 3;
 LABEL_53:
-          v28 = *v25;
-          v29 = *v27;
-          if ((v28 & 0x80u) == 0)
+          v26 = *v23;
+          v27 = *v25;
+          if ((v26 & 0x80u) == 0)
           {
-            v30 = v26;
+            v28 = v24;
           }
 
           else
           {
-            v30 = *v26;
+            v28 = *v24;
           }
 
-          if ((v28 & 0x80u) == 0)
+          if ((v26 & 0x80u) == 0)
           {
-            v31 = v28;
+            v29 = v26;
           }
 
           else
           {
-            v31 = v29;
+            v29 = v27;
           }
 
-          v32 = sub_1000027F4(v24, v30, v31);
-          v33 = sub_1000027F4(v32, " (", 2);
-          v34 = *(v16 + 23);
-          if (v34 >= 0)
+          v30 = sub_1000027F4(v22, v28, v29);
+          v31 = sub_1000027F4(v30, " (", 2);
+          v32 = *(v16 + 23);
+          if (v32 >= 0)
           {
-            v35 = v16;
+            v33 = v16;
           }
 
           else
           {
-            v35 = *v16;
+            v33 = *v16;
           }
 
-          if (v34 >= 0)
+          if (v32 >= 0)
           {
-            v36 = *(v16 + 23);
+            v34 = *(v16 + 23);
           }
 
           else
           {
-            v36 = *(v16 + 1);
+            v34 = *(v16 + 1);
           }
 
-          v37 = sub_1000027F4(v33, v35, v36);
-          v38 = sub_1000027F4(v37, ")  Skipping...", 14);
-          std::ios_base::getloc((v38 + *(*v38 - 24)));
-          v39 = std::locale::use_facet(&v62, &std::ctype<char>::id);
-          (v39->__vftable[2].~facet_0)(v39, 10);
-          std::locale::~locale(&v62);
+          v35 = sub_1000027F4(v31, v33, v34);
+          v36 = sub_1000027F4(v35, ")  Skipping...", 14);
+          std::ios_base::getloc((v36 + *(*v36 - 24)));
+          v37 = std::locale::use_facet(&v59, &std::ctype<char>::id);
+          (v37->__vftable[2].~facet_0)(v37, 10);
+          std::locale::~locale(&v59);
           std::ostream::put();
           std::ostream::flush();
           v18 = 0;
 LABEL_66:
-          siri::dialogengine::Context::~Context(&v58);
+          siri::dialogengine::Context::~Context(&v55);
           v16 = (v16 + 24);
           if (v16 == v17)
           {
@@ -9253,39 +9234,39 @@ LABEL_66:
     }
 
 LABEL_102:
-    v58.__locale_ = &v60;
-    sub_100002260(&v58);
+    v55.__locale_ = &v57;
+    sub_100002260(&v55);
   }
 
   else
   {
-    v41 = sub_1000027F4(&std::cout, "Error: can't find input CAT file: ", 34);
-    v42 = *(a1 + 23);
-    if (v42 >= 0)
+    v38 = sub_1000027F4(&std::cout, "Error: can't find input CAT file: ", 34);
+    v39 = *(a1 + 23);
+    if (v39 >= 0)
     {
-      v43 = a1;
+      v40 = a1;
     }
 
     else
     {
-      v43 = *a1;
+      v40 = *a1;
     }
 
-    if (v42 >= 0)
+    if (v39 >= 0)
     {
-      v44 = *(a1 + 23);
+      v41 = *(a1 + 23);
     }
 
     else
     {
-      v44 = *(a1 + 8);
+      v41 = a1[1];
     }
 
-    v45 = sub_1000027F4(v41, v43, v44);
-    std::ios_base::getloc((v45 + *(*v45 - 24)));
-    v46 = std::locale::use_facet(&v58, &std::ctype<char>::id);
-    (v46->__vftable[2].~facet_0)(v46, 10);
-    std::locale::~locale(&v58);
+    v42 = sub_1000027F4(v38, v40, v41);
+    std::ios_base::getloc((v42 + *(*v42 - 24)));
+    v43 = std::locale::use_facet(&v55, &std::ctype<char>::id);
+    (v43->__vftable[2].~facet_0)(v43, 10);
+    std::locale::~locale(&v55);
     std::ostream::put();
     std::ostream::flush();
     v18 = 0;
@@ -9414,7 +9395,7 @@ LABEL_139:
         }
 
 LABEL_136:
-        std::operator+<char>();
+        std::operator+<char>(__p, "Unexpected catutil saveas command: ");
         siri::dialogengine::Log::Error();
         if (v79 < 0)
         {
@@ -9527,7 +9508,7 @@ LABEL_127:
     goto LABEL_127;
   }
 
-  v8 = sub_100039B20();
+  v8 = sub_100039B20(a1);
   v5 = *a1;
   v9 = *(a1 + 8);
   if (v8)
@@ -9679,14 +9660,13 @@ LABEL_159:
     {
       while (1)
       {
-        v62 = *(v60 + 23) >= 0 ? v60 : *v60;
-        if (*v62 == 45)
+        v62 = (v60->__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? v60 : v60->__r_.__value_.__r.__words[0];
+        if (v62->__r_.__value_.__s.__data_[0] == 45)
         {
           break;
         }
 
-        v60 += 24;
-        if (v60 == v61)
+        if (++v60 == v61)
         {
           v60 = *(a1 + 8);
           goto LABEL_191;
@@ -9695,37 +9675,37 @@ LABEL_159:
 
       if (v60 != v61)
       {
-        v63 = v60 + 24;
-        if ((v60 + 24) != v61)
+        v63 = v60 + 1;
+        if (&v60[1] != v61)
         {
           do
           {
-            if (*(v63 + 23) >= 0)
+            if ((v63->__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
             {
               v64 = v63;
             }
 
             else
             {
-              v64 = *v63;
+              v64 = v63->__r_.__value_.__r.__words[0];
             }
 
-            if (*v64 != 45)
+            if (v64->__r_.__value_.__s.__data_[0] != 45)
             {
-              if (*(v60 + 23) < 0)
+              if (SHIBYTE(v60->__r_.__value_.__r.__words[2]) < 0)
               {
-                operator delete(*v60);
+                operator delete(v60->__r_.__value_.__l.__data_);
               }
 
-              v65 = *v63;
-              *(v60 + 16) = *(v63 + 16);
-              *v60 = v65;
-              v60 += 24;
-              *(v63 + 23) = 0;
-              *v63 = 0;
+              v65 = *&v63->__r_.__value_.__l.__data_;
+              v60->__r_.__value_.__r.__words[2] = v63->__r_.__value_.__r.__words[2];
+              *&v60->__r_.__value_.__l.__data_ = v65;
+              ++v60;
+              *(&v63->__r_.__value_.__s + 23) = 0;
+              v63->__r_.__value_.__s.__data_[0] = 0;
             }
 
-            v63 += 24;
+            ++v63;
           }
 
           while (v63 != v61);

@@ -1,11 +1,11 @@
 @interface BSObjCIvar
-+ (id)ivarWithName:(objc_ivar *)name ivar:(void *)ivar containedClasses:(void *)classes alternateNames:;
++ (BSObjCIvar)ivarWithName:(objc_ivar *)name ivar:(void *)ivar containedClasses:(void *)classes alternateNames:;
 - (BOOL)isEqual:(id)equal;
 @end
 
 @implementation BSObjCIvar
 
-+ (id)ivarWithName:(objc_ivar *)name ivar:(void *)ivar containedClasses:(void *)classes alternateNames:
++ (BSObjCIvar)ivarWithName:(objc_ivar *)name ivar:(void *)ivar containedClasses:(void *)classes alternateNames:
 {
   v57 = *MEMORY[0x1E69E9840];
   v45 = a2;

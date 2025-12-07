@@ -16,6 +16,7 @@
 - (void)_handleUpdatedMessageEntries:(id)entries andMetadata:(id)metadata;
 - (void)_incrementNumberOfDisplaysForMessageEntry:(id)entry;
 - (void)_notifyMessageTargets:(id)targets withTargetIdentifier:(id)identifier didUpdatePriorityMessageFromEntry:(id)entry observedEventName:(id)name;
+- (void)_processObservedEventCallbacksforEventName:(id)name willTriggerPresentation:(BOOL)presentation messageIdentifier:(id)identifier;
 - (void)_reevaluateMessageEntries:(id)entries forTargetIdentifier:(id)identifier shouldNotifyTargetsIfPriorityMessageNonNil:(BOOL)nil withObservedEventName:(id)name;
 - (void)_reevaluateTargetsWithIdentifiers:(id)identifiers forTriggerContext:(id)context shouldNotifyTargetsIfPriorityMessageNonNil:(BOOL)nil;
 - (void)_removeUserNotificationRemovalForMessageWithIdentifier:(id)identifier;
@@ -140,31 +141,31 @@
 
 - (void)_evaluateMessagesForAllActiveTargets
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   _dequeuePendingTriggerContexts = [(IAMMessageCoordinator *)self _dequeuePendingTriggerContexts];
   allKeys = [(NSMutableDictionary *)self->_messageTargetsByTargetIdentifier allKeys];
   [(IAMMessageCoordinator *)self _reevaluateTargetsWithIdentifiers:allKeys forTriggerContext:0 shouldNotifyTargetsIfPriorityMessageNonNil:0];
-  v14 = 0u;
-  v15 = 0u;
-  v12 = 0u;
   v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
   v5 = _dequeuePendingTriggerContexts;
-  v6 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v13;
+    v8 = *v12;
     do
     {
       v9 = 0;
       do
       {
-        if (*v13 != v8)
+        if (*v12 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v12 + 1) + 8 * v9);
+        v10 = *(*(&v11 + 1) + 8 * v9);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
@@ -176,7 +177,7 @@
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            [(IAMMessageCoordinator *)self reportChangedContextPropertiesContext:v10, v12];
+            [(IAMMessageCoordinator *)self reportChangedContextPropertiesContext:v10, v11];
           }
         }
 
@@ -184,13 +185,11 @@
       }
 
       while (v7 != v9);
-      v7 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v7);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_dequeuePendingTriggerContexts
@@ -282,7 +281,7 @@ uint64_t __127__IAMMessageCoordinator_startWithApplicationContext_messageGroups_
 
 void __47__IAMMessageCoordinator_registerMessageTarget___block_invoke(uint64_t a1)
 {
-  v7[1] = *MEMORY[0x277D85DE8];
+  v6[1] = *MEMORY[0x277D85DE8];
   v2 = [*(*(a1 + 32) + 24) objectForKeyedSubscript:*(a1 + 40)];
   if (!v2)
   {
@@ -313,12 +312,10 @@ void __47__IAMMessageCoordinator_registerMessageTarget___block_invoke(uint64_t a
   v4 = *(a1 + 32);
   if (v4[104] == 1)
   {
-    v7[0] = *(a1 + 40);
-    v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:1];
+    v6[0] = *(a1 + 40);
+    v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:1];
     [v4 _reevaluateTargetsWithIdentifiers:v5 forTriggerContext:0 shouldNotifyTargetsIfPriorityMessageNonNil:1];
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)unregisterMessageTarget:(id)target
@@ -392,7 +389,7 @@ void __49__IAMMessageCoordinator_unregisterMessageTarget___block_invoke(void *a1
 
 void __62__IAMMessageCoordinator_reportMessageDidAppearWithIdentifier___block_invoke(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v2 = [*(*(a1 + 32) + 96) priorityMessageEntryForIdentifier:*(a1 + 40)];
   if (v2)
   {
@@ -405,13 +402,11 @@ void __62__IAMMessageCoordinator_reportMessageDidAppearWithIdentifier___block_in
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       v4 = *(a1 + 40);
-      v6 = 138543362;
-      v7 = v4;
-      _os_log_impl(&dword_254AF4000, v3, OS_LOG_TYPE_ERROR, "No message entry with identifier = %{public}@ couldn't report message appearance.", &v6, 0xCu);
+      v5 = 138543362;
+      v6 = v4;
+      _os_log_impl(&dword_254AF4000, v3, OS_LOG_TYPE_ERROR, "No message entry with identifier = %{public}@ couldn't report message appearance.", &v5, 0xCu);
     }
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)reportMessageDidAppearWithIdentifier:(id)identifier fromTargetWithIdentifier:(id)withIdentifier
@@ -436,7 +431,7 @@ void __62__IAMMessageCoordinator_reportMessageDidAppearWithIdentifier___block_in
 
 void __87__IAMMessageCoordinator_reportMessageDidAppearWithIdentifier_fromTargetWithIdentifier___block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v2 = [*(*(a1 + 32) + 96) priorityMessageEntryForIdentifier:*(a1 + 40)];
   if (!v2)
   {
@@ -445,7 +440,7 @@ void __87__IAMMessageCoordinator_reportMessageDidAppearWithIdentifier_fromTarget
     {
       v7 = *(a1 + 40);
       *buf = 138543362;
-      v13 = v7;
+      v12 = v7;
       _os_log_impl(&dword_254AF4000, v6, OS_LOG_TYPE_ERROR, "No message entry with identifier = %{public}@ couldn't report message appearance.", buf, 0xCu);
     }
 
@@ -465,24 +460,22 @@ void __87__IAMMessageCoordinator_reportMessageDidAppearWithIdentifier_fromTarget
   if ([v2 isBadgingApplication])
   {
     v5 = *(*(a1 + 32) + 64);
-    v9[0] = MEMORY[0x277D85DD0];
-    v9[1] = 3221225472;
-    v9[2] = __87__IAMMessageCoordinator_reportMessageDidAppearWithIdentifier_fromTargetWithIdentifier___block_invoke_19;
-    v9[3] = &unk_2797A7110;
-    v10 = v2;
-    v11 = *(a1 + 40);
-    [v5 removeApplicationBadgeFromMessageEntry:v10 completion:v9];
+    v8[0] = MEMORY[0x277D85DD0];
+    v8[1] = 3221225472;
+    v8[2] = __87__IAMMessageCoordinator_reportMessageDidAppearWithIdentifier_fromTargetWithIdentifier___block_invoke_19;
+    v8[3] = &unk_2797A7110;
+    v9 = v2;
+    v10 = *(a1 + 40);
+    [v5 removeApplicationBadgeFromMessageEntry:v9 completion:v8];
 
-    v6 = v10;
+    v6 = v9;
 LABEL_8:
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __87__IAMMessageCoordinator_reportMessageDidAppearWithIdentifier_fromTargetWithIdentifier___block_invoke_19(uint64_t a1, uint64_t a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   if (a2)
   {
     v3 = IAMLogCategoryDefault();
@@ -490,15 +483,13 @@ void __87__IAMMessageCoordinator_reportMessageDidAppearWithIdentifier_fromTarget
     {
       v4 = [*(a1 + 32) bundleIdentifier];
       v5 = *(a1 + 40);
-      v7 = 138543618;
-      v8 = v4;
-      v9 = 2114;
-      v10 = v5;
-      _os_log_impl(&dword_254AF4000, v3, OS_LOG_TYPE_ERROR, "Error removing application badge for bundleId = %{public}@ from message with identifier = %{public}@", &v7, 0x16u);
+      v6 = 138543618;
+      v7 = v4;
+      v8 = 2114;
+      v9 = v5;
+      _os_log_impl(&dword_254AF4000, v3, OS_LOG_TYPE_ERROR, "Error removing application badge for bundleId = %{public}@ from message with identifier = %{public}@", &v6, 0x16u);
     }
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)reportMessageDidDisappearWithIdentifier:(id)identifier
@@ -517,7 +508,7 @@ void __87__IAMMessageCoordinator_reportMessageDidAppearWithIdentifier_fromTarget
 
 void __65__IAMMessageCoordinator_reportMessageDidDisappearWithIdentifier___block_invoke(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v2 = [*(*(a1 + 32) + 96) priorityMessageEntryForIdentifier:*(a1 + 40)];
   if (v2)
   {
@@ -530,13 +521,11 @@ void __65__IAMMessageCoordinator_reportMessageDidDisappearWithIdentifier___block
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       v4 = *(a1 + 40);
-      v6 = 138543362;
-      v7 = v4;
-      _os_log_impl(&dword_254AF4000, v3, OS_LOG_TYPE_ERROR, "No message entry with identifier = %{public}@ couldn't report message disappearance.", &v6, 0xCu);
+      v5 = 138543362;
+      v6 = v4;
+      _os_log_impl(&dword_254AF4000, v3, OS_LOG_TYPE_ERROR, "No message entry with identifier = %{public}@ couldn't report message disappearance.", &v5, 0xCu);
     }
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)reportMessageDidDisappearWithIdentifier:(id)identifier fromTargetWithIdentifier:(id)withIdentifier
@@ -581,7 +570,7 @@ void __65__IAMMessageCoordinator_reportMessageDidDisappearWithIdentifier___block
 
 void __111__IAMMessageCoordinator_reportMessageWithIdentifier_actionWasPerformedWithIdentifier_fromTargetWithIdentifier___block_invoke(uint64_t a1)
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   v2 = [*(*(a1 + 32) + 96) priorityMessageEntryForIdentifier:*(a1 + 40)];
   v3 = v2;
   if (v2)
@@ -589,61 +578,61 @@ void __111__IAMMessageCoordinator_reportMessageWithIdentifier_actionWasPerformed
     v4 = [v2 applicationMessage];
     v5 = [v4 contentPages];
 
-    v33 = 0u;
-    v34 = 0u;
-    v31 = 0u;
     v32 = 0u;
+    v33 = 0u;
+    v30 = 0u;
+    v31 = 0u;
     v6 = v5;
-    v26 = [v6 countByEnumeratingWithState:&v31 objects:v36 count:16];
-    if (v26)
+    v25 = [v6 countByEnumeratingWithState:&v30 objects:v35 count:16];
+    if (v25)
     {
-      v7 = *v32;
-      v24 = *v32;
-      v25 = v3;
+      v7 = *v31;
+      v23 = *v31;
+      v24 = v3;
       do
       {
-        for (i = 0; i != v26; ++i)
+        for (i = 0; i != v25; ++i)
         {
-          if (*v32 != v7)
+          if (*v31 != v7)
           {
             objc_enumerationMutation(v6);
           }
 
-          v9 = [*(*(&v31 + 1) + 8 * i) messageActions];
+          v9 = [*(*(&v30 + 1) + 8 * i) messageActions];
+          v26 = 0u;
           v27 = 0u;
           v28 = 0u;
           v29 = 0u;
-          v30 = 0u;
           v10 = v9;
-          v11 = [v10 countByEnumeratingWithState:&v27 objects:v35 count:16];
+          v11 = [v10 countByEnumeratingWithState:&v26 objects:v34 count:16];
           if (v11)
           {
             v12 = v11;
-            v13 = *v28;
+            v13 = *v27;
             while (2)
             {
               for (j = 0; j != v12; ++j)
               {
-                if (*v28 != v13)
+                if (*v27 != v13)
                 {
                   objc_enumerationMutation(v10);
                 }
 
-                v15 = *(*(&v27 + 1) + 8 * j);
+                v15 = *(*(&v26 + 1) + 8 * j);
                 v16 = [v15 identifier];
                 v17 = [v16 isEqualToString:*(a1 + 48)];
 
                 if (v17)
                 {
-                  v3 = v25;
-                  [*(a1 + 32) _reportMessageAction:v15 wasPerformedInMessageEntry:v25 fromTargetWithIdentifier:*(a1 + 56)];
+                  v3 = v24;
+                  [*(a1 + 32) _reportMessageAction:v15 wasPerformedInMessageEntry:v24 fromTargetWithIdentifier:*(a1 + 56)];
 
                   v18 = v6;
                   goto LABEL_20;
                 }
               }
 
-              v12 = [v10 countByEnumeratingWithState:&v27 objects:v35 count:16];
+              v12 = [v10 countByEnumeratingWithState:&v26 objects:v34 count:16];
               if (v12)
               {
                 continue;
@@ -653,14 +642,14 @@ void __111__IAMMessageCoordinator_reportMessageWithIdentifier_actionWasPerformed
             }
           }
 
-          v7 = v24;
+          v7 = v23;
         }
 
-        v3 = v25;
-        v26 = [v6 countByEnumeratingWithState:&v31 objects:v36 count:16];
+        v3 = v24;
+        v25 = [v6 countByEnumeratingWithState:&v30 objects:v35 count:16];
       }
 
-      while (v26);
+      while (v25);
     }
 
     v18 = IAMLogCategoryDefault();
@@ -669,9 +658,9 @@ void __111__IAMMessageCoordinator_reportMessageWithIdentifier_actionWasPerformed
       v20 = *(a1 + 40);
       v19 = *(a1 + 48);
       *buf = 138543618;
-      v38 = v19;
-      v39 = 2114;
-      v40 = v20;
+      v37 = v19;
+      v38 = 2114;
+      v39 = v20;
       _os_log_impl(&dword_254AF4000, v18, OS_LOG_TYPE_ERROR, "No action with identifier = %{public}@ for message with identifier = %{public}@, couldn't report action performance.", buf, 0x16u);
     }
 
@@ -686,14 +675,12 @@ LABEL_20:
       v21 = *(a1 + 40);
       v22 = *(a1 + 48);
       *buf = 138543618;
-      v38 = v21;
-      v39 = 2114;
-      v40 = v22;
+      v37 = v21;
+      v38 = 2114;
+      v39 = v22;
       _os_log_impl(&dword_254AF4000, v6, OS_LOG_TYPE_ERROR, "No message entry with identifier = %{public}@, couldn't report performance of action with identifier = %{public}@.", buf, 0x16u);
     }
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (void)reportApplicationContextPropertiesDidChange:(id)change
@@ -808,7 +795,7 @@ void __59__IAMMessageCoordinator_endObservingTriggerEvent_forToken___block_invok
 
 void __87__IAMMessageCoordinator_triggerPresentationForMessageWithIdentifier_completionHandler___block_invoke(uint64_t a1)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v2 = [*(*(a1 + 32) + 96) messageEntryForIdentifier:*(a1 + 40)];
   v3 = v2;
   if (v2)
@@ -817,16 +804,16 @@ void __87__IAMMessageCoordinator_triggerPresentationForMessageWithIdentifier_com
     v5 = [v4 assetPrefetchStrategy] != 2;
 
     v6 = [IAMMessageCoordinator _createMessageFromMessageEntry:v3 replacingResourcePathsWithCachedResourceLocations:v5];
-    v11[0] = MEMORY[0x277D85DD0];
-    v11[1] = 3221225472;
-    v11[2] = __87__IAMMessageCoordinator_triggerPresentationForMessageWithIdentifier_completionHandler___block_invoke_23;
-    v11[3] = &unk_2797A71D8;
-    v11[4] = *(a1 + 32);
-    v12 = v6;
-    v13 = v3;
-    v14 = *(a1 + 48);
+    v10[0] = MEMORY[0x277D85DD0];
+    v10[1] = 3221225472;
+    v10[2] = __87__IAMMessageCoordinator_triggerPresentationForMessageWithIdentifier_completionHandler___block_invoke_23;
+    v10[3] = &unk_2797A71D8;
+    v10[4] = *(a1 + 32);
+    v11 = v6;
+    v12 = v3;
+    v13 = *(a1 + 48);
     v7 = v6;
-    dispatch_async(MEMORY[0x277D85CD0], v11);
+    dispatch_async(MEMORY[0x277D85CD0], v10);
   }
 
   else
@@ -836,14 +823,12 @@ void __87__IAMMessageCoordinator_triggerPresentationForMessageWithIdentifier_com
     {
       v9 = *(a1 + 40);
       *buf = 138543362;
-      v16 = v9;
+      v15 = v9;
       _os_log_impl(&dword_254AF4000, v8, OS_LOG_TYPE_ERROR, "No message entry with identifier = %{public}@ couldn't force trigger presentation.", buf, 0xCu);
     }
 
     (*(*(a1 + 48) + 16))();
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __87__IAMMessageCoordinator_triggerPresentationForMessageWithIdentifier_completionHandler___block_invoke_23(uint64_t a1)
@@ -1032,7 +1017,7 @@ void __65__IAMMessageCoordinator_storageCoordinatorMessageEntriesChanged___block
 
 void __65__IAMMessageCoordinator_storageCoordinatorMessageEntriesChanged___block_invoke_2(uint64_t a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 56));
   v3 = WeakRetained;
   if (WeakRetained)
@@ -1043,9 +1028,9 @@ void __65__IAMMessageCoordinator_storageCoordinatorMessageEntriesChanged___block
       if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
       {
         v5 = *(a1 + 32);
-        v9 = 138543362;
-        v10 = v5;
-        _os_log_impl(&dword_254AF4000, v4, OS_LOG_TYPE_ERROR, "Error fetching messages and metadata %{public}@.", &v9, 0xCu);
+        v8 = 138543362;
+        v9 = v5;
+        _os_log_impl(&dword_254AF4000, v4, OS_LOG_TYPE_ERROR, "Error fetching messages and metadata %{public}@.", &v8, 0xCu);
       }
 
       WeakRetained = v3;
@@ -1061,8 +1046,6 @@ void __65__IAMMessageCoordinator_storageCoordinatorMessageEntriesChanged___block
 
     [WeakRetained _handleUpdatedMessageEntries:v6 andMetadata:v7];
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)impressionManager:(id)manager impressionDidEndForMessageEntry:(id)entry
@@ -1081,32 +1064,32 @@ void __65__IAMMessageCoordinator_storageCoordinatorMessageEntriesChanged___block
 
 - (void)_setMessageGroups:(id)groups
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   groupsCopy = groups;
   if (groupsCopy)
   {
     v5 = objc_opt_new();
+    v17 = 0u;
     v18 = 0u;
     v19 = 0u;
     v20 = 0u;
-    v21 = 0u;
-    v17 = groupsCopy;
+    v16 = groupsCopy;
     v6 = groupsCopy;
-    v7 = [v6 countByEnumeratingWithState:&v18 objects:v24 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v17 objects:v23 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v19;
+      v9 = *v18;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v19 != v9)
+          if (*v18 != v9)
           {
             objc_enumerationMutation(v6);
           }
 
-          v11 = *(*(&v18 + 1) + 8 * i);
+          v11 = *(*(&v17 + 1) + 8 * i);
           [v11 setMessageCoordinator:self];
           groupIdentifier = [v11 groupIdentifier];
           if (groupIdentifier)
@@ -1120,13 +1103,13 @@ void __65__IAMMessageCoordinator_storageCoordinatorMessageEntriesChanged___block
             if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
             {
               *buf = 138543362;
-              v23 = v11;
+              v22 = v11;
               _os_log_impl(&dword_254AF4000, v13, OS_LOG_TYPE_ERROR, "No group identifier specified for message group = %{public}@", buf, 0xCu);
             }
           }
         }
 
-        v8 = [v6 countByEnumeratingWithState:&v18 objects:v24 count:16];
+        v8 = [v6 countByEnumeratingWithState:&v17 objects:v23 count:16];
       }
 
       while (v8);
@@ -1137,10 +1120,8 @@ void __65__IAMMessageCoordinator_storageCoordinatorMessageEntriesChanged___block
     self->_messageGroupsByGroupIdentifier = v14;
 
     [(IAMModalTarget *)self->_modalTarget setMessageGroupsByGroupIdentifier:self->_messageGroupsByGroupIdentifier];
-    groupsCopy = v17;
+    groupsCopy = v16;
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_startStorageCoordinatorWithMessageEntryProvider:(id)provider messageMetadataStorage:(id)storage propertyStorage:(id)propertyStorage
@@ -1167,7 +1148,7 @@ void __65__IAMMessageCoordinator_storageCoordinatorMessageEntriesChanged___block
 
 void __113__IAMMessageCoordinator__startStorageCoordinatorWithMessageEntryProvider_messageMetadataStorage_propertyStorage___block_invoke(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = a3;
   v9 = a4;
@@ -1180,9 +1161,9 @@ void __113__IAMMessageCoordinator__startStorageCoordinatorWithMessageEntryProvid
     {
       if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
-        v14 = 138543362;
-        v15 = v9;
-        _os_log_impl(&dword_254AF4000, v12, OS_LOG_TYPE_ERROR, "Failed to start storage coordinator %{public}@.", &v14, 0xCu);
+        v13 = 138543362;
+        v14 = v9;
+        _os_log_impl(&dword_254AF4000, v12, OS_LOG_TYPE_ERROR, "Failed to start storage coordinator %{public}@.", &v13, 0xCu);
       }
     }
 
@@ -1190,8 +1171,8 @@ void __113__IAMMessageCoordinator__startStorageCoordinatorWithMessageEntryProvid
     {
       if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v14) = 0;
-        _os_log_impl(&dword_254AF4000, v12, OS_LOG_TYPE_DEFAULT, "Storage coordinator started.", &v14, 2u);
+        LOWORD(v13) = 0;
+        _os_log_impl(&dword_254AF4000, v12, OS_LOG_TYPE_DEFAULT, "Storage coordinator started.", &v13, 2u);
       }
 
       *(WeakRetained + 104) = 1;
@@ -1199,8 +1180,6 @@ void __113__IAMMessageCoordinator__startStorageCoordinatorWithMessageEntryProvid
       [*(WeakRetained + 8) setDelegate:*(a1 + 32)];
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_fetchMessagesAndMetadataFromStorageCoordinator:(id)coordinator
@@ -1304,8 +1283,6 @@ LABEL_4:
 
     if (*(*(a1[6] + 8) + 24) == 1 && *(*(a1[7] + 8) + 24) == 1)
     {
-      v9 = *(*(a1[8] + 8) + 40);
-      v10 = *(*(a1[9] + 8) + 40);
       v8 = *(a1[4] + 16);
       goto LABEL_4;
     }
@@ -1401,33 +1378,33 @@ void __73__IAMMessageCoordinator__fetchMessagesAndMetadataFromStorageCoordinator
 
 - (void)_handleUpdatedMessageEntries:(id)entries andMetadata:(id)metadata
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   entriesCopy = entries;
   metadataCopy = metadata;
   if (entriesCopy)
   {
-    v34 = 0u;
-    v35 = 0u;
-    v32 = 0u;
     v33 = 0u;
-    v8 = [entriesCopy countByEnumeratingWithState:&v32 objects:v40 count:16];
+    v34 = 0u;
+    v31 = 0u;
+    v32 = 0u;
+    v8 = [entriesCopy countByEnumeratingWithState:&v31 objects:v39 count:16];
     if (v8)
     {
       v10 = v8;
       v11 = 0;
-      v12 = *v33;
+      v12 = *v32;
       *&v9 = 138543618;
-      v30 = v9;
+      v29 = v9;
       while (1)
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v33 != v12)
+          if (*v32 != v12)
           {
             objc_enumerationMutation(entriesCopy);
           }
 
-          applicationMessage = [*(*(&v32 + 1) + 8 * i) applicationMessage];
+          applicationMessage = [*(*(&v31 + 1) + 8 * i) applicationMessage];
           identifier = [applicationMessage identifier];
 
           v16 = [(IAMMessageCoordinator *)self _metadataEntryForMessageIdentifier:identifier];
@@ -1453,16 +1430,16 @@ void __73__IAMMessageCoordinator__fetchMessagesAndMetadataFromStorageCoordinator
             if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
             {
               [v17 allMetadataValues];
-              v31 = v11;
+              v30 = v11;
               v20 = v10;
               v21 = metadataCopy;
               v22 = v12;
               selfCopy = self;
               v25 = v24 = entriesCopy;
-              *buf = v30;
-              v37 = v25;
-              v38 = 2114;
-              v39 = identifier;
+              *buf = v29;
+              v36 = v25;
+              v37 = 2114;
+              v38 = identifier;
               _os_log_impl(&dword_254AF4000, v19, OS_LOG_TYPE_DEFAULT, "Received new metadata entry = %{public}@ for message with identifier = %{public}@", buf, 0x16u);
 
               entriesCopy = v24;
@@ -1470,7 +1447,7 @@ void __73__IAMMessageCoordinator__fetchMessagesAndMetadataFromStorageCoordinator
               v12 = v22;
               metadataCopy = v21;
               v10 = v20;
-              v11 = v31;
+              v11 = v30;
             }
           }
 
@@ -1484,7 +1461,7 @@ void __73__IAMMessageCoordinator__fetchMessagesAndMetadataFromStorageCoordinator
 LABEL_17:
         }
 
-        v10 = [entriesCopy countByEnumeratingWithState:&v32 objects:v40 count:16];
+        v10 = [entriesCopy countByEnumeratingWithState:&v31 objects:v39 count:16];
         if (!v10)
         {
           goto LABEL_21;
@@ -1503,7 +1480,6 @@ LABEL_21:
   [(IAMMessageEntryManager *)self->_messageEntryManager setMessageEntries:v28];
 
   [(IAMMessageCoordinator *)self _evaluateMessagesForAllActiveTargets];
-  v29 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_reportHoldoutMessageWouldAppear:(id)appear
@@ -1560,7 +1536,7 @@ LABEL_21:
 
 - (void)_calculateMessagesProximityAndDownloadResourcesIfNeeded:(id)needed
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   neededCopy = needed;
   v5 = [(NSDate *)self->_lastDisplayTimeGlobalPresentationPolicyGroupRestricted copy];
   v6 = [(NSDate *)self->_lastDisplayTimeGlobalPresentationPolicyGroupNormal copy];
@@ -1575,32 +1551,32 @@ LABEL_21:
   v14 = [(IAMEvaluator *)v13 computeMessagesCloseToPassingWithProximityThreshold:50];
   if ([v14 count])
   {
-    v27 = v13;
-    v28 = v8;
-    v29 = v7;
-    v30 = v6;
-    v31 = v5;
-    v32 = neededCopy;
-    v35 = 0u;
-    v36 = 0u;
-    v33 = 0u;
+    v26 = v13;
+    v27 = v8;
+    v28 = v7;
+    v29 = v6;
+    v30 = v5;
+    v31 = neededCopy;
     v34 = 0u;
+    v35 = 0u;
+    v32 = 0u;
+    v33 = 0u;
     v15 = v14;
-    v16 = [v15 countByEnumeratingWithState:&v33 objects:v39 count:16];
+    v16 = [v15 countByEnumeratingWithState:&v32 objects:v38 count:16];
     if (v16)
     {
       v17 = v16;
-      v18 = *v34;
+      v18 = *v33;
       do
       {
         for (i = 0; i != v17; ++i)
         {
-          if (*v34 != v18)
+          if (*v33 != v18)
           {
             objc_enumerationMutation(v15);
           }
 
-          v20 = *(*(&v33 + 1) + 8 * i);
+          v20 = *(*(&v32 + 1) + 8 * i);
           if (([v20 shouldDownloadResources] & 1) == 0)
           {
             applicationMessage = [v20 applicationMessage];
@@ -1614,7 +1590,7 @@ LABEL_21:
                 applicationMessage2 = [v20 applicationMessage];
                 identifier = [applicationMessage2 identifier];
                 *buf = 138543362;
-                v38 = identifier;
+                v37 = identifier;
                 _os_log_impl(&dword_254AF4000, v23, OS_LOG_TYPE_DEFAULT, "Asking iTunesCloud to download resources for message with identifier = %{public}@", buf, 0xCu);
               }
 
@@ -1624,21 +1600,19 @@ LABEL_21:
           }
         }
 
-        v17 = [v15 countByEnumeratingWithState:&v33 objects:v39 count:16];
+        v17 = [v15 countByEnumeratingWithState:&v32 objects:v38 count:16];
       }
 
       while (v17);
     }
 
-    v5 = v31;
-    neededCopy = v32;
-    v7 = v29;
-    v6 = v30;
-    v13 = v27;
-    v8 = v28;
+    v5 = v30;
+    neededCopy = v31;
+    v7 = v28;
+    v6 = v29;
+    v13 = v26;
+    v8 = v27;
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_reevaluateMessageEntries:(id)entries forTargetIdentifier:(id)identifier shouldNotifyTargetsIfPriorityMessageNonNil:(BOOL)nil withObservedEventName:(id)name
@@ -1712,7 +1686,7 @@ BOOL __136__IAMMessageCoordinator__reevaluateMessageEntries_forTargetIdentifier_
 - (void)_reevaluateTargetsWithIdentifiers:(id)identifiers forTriggerContext:(id)context shouldNotifyTargetsIfPriorityMessageNonNil:(BOOL)nil
 {
   nilCopy = nil;
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   identifiersCopy = identifiers;
   contextCopy = context;
   if (contextCopy && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
@@ -1756,43 +1730,43 @@ LABEL_7:
 
     if (v17)
     {
-      v27 = v9;
-      v28 = identifiersCopy;
-      v33 = 0u;
-      v34 = 0u;
-      v31 = 0u;
+      v26 = v9;
+      v27 = identifiersCopy;
       v32 = 0u;
+      v33 = 0u;
+      v30 = 0u;
+      v31 = 0u;
       obj = identifiersCopy;
-      v18 = [obj countByEnumeratingWithState:&v31 objects:v35 count:16];
+      v18 = [obj countByEnumeratingWithState:&v30 objects:v34 count:16];
       if (v18)
       {
         v19 = v18;
-        v20 = *v32;
+        v20 = *v31;
         do
         {
           for (i = 0; i != v19; ++i)
           {
-            if (*v32 != v20)
+            if (*v31 != v20)
             {
               objc_enumerationMutation(obj);
             }
 
-            v22 = *(*(&v31 + 1) + 8 * i);
-            v23 = [(IAMMessageEntryManager *)self->_messageEntryManager messageEntriesForTargetIdentifier:v22, v27, v28];
+            v22 = *(*(&v30 + 1) + 8 * i);
+            v23 = [(IAMMessageEntryManager *)self->_messageEntryManager messageEntriesForTargetIdentifier:v22, v26, v27];
             v24 = [v23 copy];
 
             v25 = [IAMMessageEntryManager messageEntries:v24 withSatisfiedPresentationTriggerForTriggerContext:contextCopy];
             [(IAMMessageCoordinator *)self _reevaluateMessageEntries:v25 forTargetIdentifier:v22 shouldNotifyTargetsIfPriorityMessageNonNil:nilCopy withObservedEventName:v13];
           }
 
-          v19 = [obj countByEnumeratingWithState:&v31 objects:v35 count:16];
+          v19 = [obj countByEnumeratingWithState:&v30 objects:v34 count:16];
         }
 
         while (v19);
       }
 
-      v9 = v27;
-      identifiersCopy = v28;
+      v9 = v26;
+      identifiersCopy = v27;
     }
 
     else
@@ -1800,14 +1774,12 @@ LABEL_7:
       [(IAMMessageCoordinator *)self _processObservedEventCallbacksforEventName:v13 willTriggerPresentation:0 messageIdentifier:0];
     }
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_updatePriorityMessageEntry:(id)entry forTargetIdentifier:(id)identifier shouldNotifyTargetsIfNonNil:(BOOL)nil observedEventName:(id)name
 {
   nilCopy = nil;
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   entryCopy = entry;
   identifierCopy = identifier;
   nameCopy = name;
@@ -1837,16 +1809,16 @@ LABEL_5:
     goto LABEL_5;
   }
 
-  v22 = [(NSMutableDictionary *)self->_messageTargetsRequiringNilPriorityMessageNotificationAfterRegistrationByTargetIdentifier objectForKeyedSubscript:identifierCopy];
-  v23 = [v22 copy];
+  v21 = [(NSMutableDictionary *)self->_messageTargetsRequiringNilPriorityMessageNotificationAfterRegistrationByTargetIdentifier objectForKeyedSubscript:identifierCopy];
+  v22 = [v21 copy];
 
-  if (!v23)
+  if (!v22)
   {
     goto LABEL_13;
   }
 
   [(NSMutableDictionary *)self->_priorityMessageEntryByTargetIdentifier setObject:0 forKeyedSubscript:identifierCopy];
-  v15 = v23;
+  v15 = v22;
 LABEL_6:
   [(NSMutableDictionary *)self->_messageTargetsRequiringNilPriorityMessageNotificationAfterRegistrationByTargetIdentifier setObject:0 forKeyedSubscript:identifierCopy];
   applicationMessage = [entryCopy applicationMessage];
@@ -1860,9 +1832,9 @@ LABEL_6:
     {
       applicationMessage2 = [entryCopy applicationMessage];
       identifier = [applicationMessage2 identifier];
-      v24 = 138543362;
-      v25 = identifier;
-      _os_log_impl(&dword_254AF4000, v18, OS_LOG_TYPE_DEFAULT, "Unable to display message for identifier = %{public}@. The message contains a holdoutEvent", &v24, 0xCu);
+      v23 = 138543362;
+      v24 = identifier;
+      _os_log_impl(&dword_254AF4000, v18, OS_LOG_TYPE_DEFAULT, "Unable to display message for identifier = %{public}@. The message contains a holdoutEvent", &v23, 0xCu);
     }
 
     [(IAMMessageCoordinator *)self _processObservedEventCallbacksforEventName:nameCopy willTriggerPresentation:0 messageIdentifier:0];
@@ -1879,13 +1851,11 @@ LABEL_6:
   }
 
 LABEL_13:
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_notifyMessageTargets:(id)targets withTargetIdentifier:(id)identifier didUpdatePriorityMessageFromEntry:(id)entry observedEventName:(id)name
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   targetsCopy = targets;
   identifierCopy = identifier;
   entryCopy = entry;
@@ -1904,57 +1874,55 @@ LABEL_13:
   }
 
   objc_initWeak(&location, self);
-  v31 = 0u;
-  v32 = 0u;
-  v29 = 0u;
   v30 = 0u;
+  v31 = 0u;
+  v28 = 0u;
+  v29 = 0u;
   obj = targetsCopy;
-  v17 = [obj countByEnumeratingWithState:&v29 objects:v34 count:16];
+  v17 = [obj countByEnumeratingWithState:&v28 objects:v33 count:16];
   if (v17)
   {
-    v18 = *v30;
+    v18 = *v29;
     do
     {
       v19 = 0;
       do
       {
-        if (*v30 != v18)
+        if (*v29 != v18)
         {
           objc_enumerationMutation(obj);
         }
 
-        v20 = *(*(&v29 + 1) + 8 * v19);
+        v20 = *(*(&v28 + 1) + 8 * v19);
         block[0] = MEMORY[0x277D85DD0];
         block[1] = 3221225472;
         block[2] = __120__IAMMessageCoordinator__notifyMessageTargets_withTargetIdentifier_didUpdatePriorityMessageFromEntry_observedEventName___block_invoke;
         block[3] = &unk_2797A73D8;
         block[4] = v20;
         block[5] = self;
-        v24 = v16;
-        v25 = entryCopy;
-        v26 = identifierCopy;
-        v27 = nameCopy;
-        objc_copyWeak(&v28, &location);
+        v23 = v16;
+        v24 = entryCopy;
+        v25 = identifierCopy;
+        v26 = nameCopy;
+        objc_copyWeak(&v27, &location);
         dispatch_async(MEMORY[0x277D85CD0], block);
-        objc_destroyWeak(&v28);
+        objc_destroyWeak(&v27);
 
         ++v19;
       }
 
       while (v17 != v19);
-      v17 = [obj countByEnumeratingWithState:&v29 objects:v34 count:16];
+      v17 = [obj countByEnumeratingWithState:&v28 objects:v33 count:16];
     }
 
     while (v17);
   }
 
   objc_destroyWeak(&location);
-  v21 = *MEMORY[0x277D85DE8];
 }
 
-void __120__IAMMessageCoordinator__notifyMessageTargets_withTargetIdentifier_didUpdatePriorityMessageFromEntry_observedEventName___block_invoke(uint64_t a1)
+void __120__IAMMessageCoordinator__notifyMessageTargets_withTargetIdentifier_didUpdatePriorityMessageFromEntry_observedEventName___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = *(a1 + 32);
   objc_opt_class();
   isKindOfClass = objc_opt_isKindOfClass();
   v4 = *(a1 + 32);
@@ -2004,10 +1972,60 @@ void __120__IAMMessageCoordinator__notifyMessageTargets_withTargetIdentifier_did
   }
 }
 
+- (void)_processObservedEventCallbacksforEventName:(id)name willTriggerPresentation:(BOOL)presentation messageIdentifier:(id)identifier
+{
+  presentationCopy = presentation;
+  v22 = *MEMORY[0x277D85DE8];
+  identifierCopy = identifier;
+  if (name)
+  {
+    v9 = [(NSMutableDictionary *)self->_completionHandlersForObservedEvents objectForKeyedSubscript:name];
+    v10 = v9;
+    if (v9)
+    {
+      v19 = 0u;
+      v20 = 0u;
+      v17 = 0u;
+      v18 = 0u;
+      v11 = [v9 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      if (v11)
+      {
+        v12 = v11;
+        v13 = *v18;
+        do
+        {
+          v14 = 0;
+          do
+          {
+            if (*v18 != v13)
+            {
+              objc_enumerationMutation(v10);
+            }
+
+            v15 = [v10 objectForKey:*(*(&v17 + 1) + 8 * v14)];
+            v16 = v15;
+            if (v15)
+            {
+              (*(v15 + 16))(v15, presentationCopy, identifierCopy, 0);
+            }
+
+            ++v14;
+          }
+
+          while (v12 != v14);
+          v12 = [v10 countByEnumeratingWithState:&v17 objects:v21 count:16];
+        }
+
+        while (v12);
+      }
+    }
+  }
+}
+
 + (id)_createMessageFromMessageEntry:(id)entry replacingResourcePathsWithCachedResourceLocations:(BOOL)locations
 {
   locationsCopy = locations;
-  v72 = *MEMORY[0x277D85DE8];
+  v71 = *MEMORY[0x277D85DE8];
   entryCopy = entry;
   v6 = entryCopy;
   if (!locationsCopy || ![entryCopy shouldDownloadResources] || (objc_msgSend(v6, "didCacheRequiredResources") & 1) == 0)
@@ -2023,201 +2041,199 @@ void __120__IAMMessageCoordinator__notifyMessageTargets_withTargetIdentifier_did
     goto LABEL_47;
   }
 
-  v11 = objc_alloc(MEMORY[0x277CBEB18]);
+  v10 = objc_alloc(MEMORY[0x277CBEB18]);
   contentPages = [applicationMessage contentPages];
-  v53 = [v11 initWithCapacity:{objc_msgSend(contentPages, "count")}];
+  v52 = [v10 initWithCapacity:{objc_msgSend(contentPages, "count")}];
 
-  v67 = 0u;
-  v68 = 0u;
-  v65 = 0u;
   v66 = 0u;
-  v48 = applicationMessage;
+  v67 = 0u;
+  v64 = 0u;
+  v65 = 0u;
+  v47 = applicationMessage;
   obj = [applicationMessage contentPages];
-  v54 = [obj countByEnumeratingWithState:&v65 objects:v71 count:16];
-  if (!v54)
+  v53 = [obj countByEnumeratingWithState:&v64 objects:v70 count:16];
+  if (!v53)
   {
     goto LABEL_46;
   }
 
-  v52 = *v66;
-  v55 = v6;
+  v51 = *v65;
+  v54 = v6;
   do
   {
-    for (i = 0; i != v54; ++i)
+    for (i = 0; i != v53; ++i)
     {
-      if (*v66 != v52)
+      if (*v65 != v51)
       {
         objc_enumerationMutation(obj);
       }
 
-      v14 = *(*(&v65 + 1) + 8 * i);
-      if ([v14 imagesCount] && (v56 = objc_msgSend(objc_alloc(MEMORY[0x277CBEB18]), "initWithCapacity:", objc_msgSend(v14, "imagesCount"))) != 0)
+      v13 = *(*(&v64 + 1) + 8 * i);
+      if ([v13 imagesCount] && (v55 = objc_msgSend(objc_alloc(MEMORY[0x277CBEB18]), "initWithCapacity:", objc_msgSend(v13, "imagesCount"))) != 0)
       {
-        v50 = v14;
-        v51 = i;
-        v63 = 0u;
-        v64 = 0u;
-        v61 = 0u;
+        v49 = v13;
+        v50 = i;
         v62 = 0u;
-        images = [v14 images];
-        v16 = [images countByEnumeratingWithState:&v61 objects:v70 count:16];
-        if (v16)
+        v63 = 0u;
+        v60 = 0u;
+        v61 = 0u;
+        images = [v13 images];
+        v15 = [images countByEnumeratingWithState:&v60 objects:v69 count:16];
+        if (v15)
         {
-          v17 = v16;
-          v18 = *v62;
+          v16 = v15;
+          v17 = *v61;
           do
           {
-            for (j = 0; j != v17; ++j)
+            for (j = 0; j != v16; ++j)
             {
-              if (*v62 != v18)
+              if (*v61 != v17)
               {
                 objc_enumerationMutation(images);
               }
 
-              v20 = *(*(&v61 + 1) + 8 * j);
-              if ([v20 hasIdentifier] && objc_msgSend(v20, "hasURL"))
+              v19 = *(*(&v60 + 1) + 8 * j);
+              if ([v19 hasIdentifier] && objc_msgSend(v19, "hasURL"))
               {
-                identifier = [v20 identifier];
-                v22 = [v6 cachedLocationForResourceWithIdentifier:identifier];
+                identifier = [v19 identifier];
+                v21 = [v6 cachedLocationForResourceWithIdentifier:identifier];
 
-                if (v22)
+                if (v21)
                 {
-                  v23 = objc_alloc(MEMORY[0x277D1B2B0]);
-                  identifier2 = [v20 identifier];
-                  v25 = [MEMORY[0x277CBEBC0] fileURLWithPath:v22 isDirectory:0];
-                  v26 = [v23 initWithIdentifier:identifier2 url:v25 width:objc_msgSend(v20 height:{"width"), objc_msgSend(v20, "height")}];
-                  [v56 addObject:v26];
+                  v22 = objc_alloc(MEMORY[0x277D1B2B0]);
+                  identifier2 = [v19 identifier];
+                  v24 = [MEMORY[0x277CBEBC0] fileURLWithPath:v21 isDirectory:0];
+                  v25 = [v22 initWithIdentifier:identifier2 url:v24 width:objc_msgSend(v19 height:{"width"), objc_msgSend(v19, "height")}];
+                  [v55 addObject:v25];
 
-                  v6 = v55;
+                  v6 = v54;
                 }
               }
             }
 
-            v17 = [images countByEnumeratingWithState:&v61 objects:v70 count:16];
+            v16 = [images countByEnumeratingWithState:&v60 objects:v69 count:16];
           }
 
-          while (v17);
+          while (v16);
         }
 
-        v14 = v50;
-        i = v51;
+        v13 = v49;
+        i = v50;
       }
 
       else
       {
-        v56 = 0;
+        v55 = 0;
       }
 
-      messageActions = [v14 messageActions];
+      messageActions = [v13 messageActions];
       if ([messageActions count])
       {
-        v28 = objc_alloc(MEMORY[0x277CBEB18]);
-        messageActions2 = [v14 messageActions];
-        v30 = [v28 initWithCapacity:{objc_msgSend(messageActions2, "count")}];
+        v27 = objc_alloc(MEMORY[0x277CBEB18]);
+        messageActions2 = [v13 messageActions];
+        v29 = [v27 initWithCapacity:{objc_msgSend(messageActions2, "count")}];
 
-        if (!v30)
+        if (!v29)
         {
           goto LABEL_44;
         }
 
-        v59 = 0u;
-        v60 = 0u;
-        v57 = 0u;
         v58 = 0u;
-        messageActions = [v14 messageActions];
-        v31 = [messageActions countByEnumeratingWithState:&v57 objects:v69 count:16];
-        if (v31)
+        v59 = 0u;
+        v56 = 0u;
+        v57 = 0u;
+        messageActions = [v13 messageActions];
+        v30 = [messageActions countByEnumeratingWithState:&v56 objects:v68 count:16];
+        if (v30)
         {
-          v32 = v31;
-          v33 = i;
-          v34 = *v58;
+          v31 = v30;
+          v32 = i;
+          v33 = *v57;
           do
           {
-            for (k = 0; k != v32; ++k)
+            for (k = 0; k != v31; ++k)
             {
-              if (*v58 != v34)
+              if (*v57 != v33)
               {
                 objc_enumerationMutation(messageActions);
               }
 
-              v36 = [objc_alloc(MEMORY[0x277D1B290]) initWithICAction:*(*(&v57 + 1) + 8 * k)];
-              [v30 addObject:v36];
+              v35 = [objc_alloc(MEMORY[0x277D1B290]) initWithICAction:*(*(&v56 + 1) + 8 * k)];
+              [v29 addObject:v35];
             }
 
-            v32 = [messageActions countByEnumeratingWithState:&v57 objects:v69 count:16];
+            v31 = [messageActions countByEnumeratingWithState:&v56 objects:v68 count:16];
           }
 
-          while (v32);
-          i = v33;
+          while (v31);
+          i = v32;
         }
       }
 
       else
       {
-        v30 = 0;
+        v29 = 0;
       }
 
 LABEL_44:
-      v37 = objc_alloc(MEMORY[0x277D1B298]);
-      title = [v14 title];
-      subtitle = [v14 subtitle];
-      body = [v14 body];
-      contentParameters = [v14 contentParameters];
+      v36 = objc_alloc(MEMORY[0x277D1B298]);
+      title = [v13 title];
+      subtitle = [v13 subtitle];
+      body = [v13 body];
+      contentParameters = [v13 contentParameters];
       iam_dictionaryFromArrayOfICIIAMParameters = [contentParameters iam_dictionaryFromArrayOfICIIAMParameters];
-      identifier3 = [v14 identifier];
-      v44 = [v37 initWithTitle:title subtitle:subtitle body:body images:v56 actions:v30 contentParameters:iam_dictionaryFromArrayOfICIIAMParameters identifier:identifier3];
+      identifier3 = [v13 identifier];
+      v43 = [v36 initWithTitle:title subtitle:subtitle body:body images:v55 actions:v29 contentParameters:iam_dictionaryFromArrayOfICIIAMParameters identifier:identifier3];
 
-      [v53 addObject:v44];
-      v6 = v55;
+      [v52 addObject:v43];
+      v6 = v54;
     }
 
-    v54 = [obj countByEnumeratingWithState:&v65 objects:v71 count:16];
+    v53 = [obj countByEnumeratingWithState:&v64 objects:v70 count:16];
   }
 
-  while (v54);
+  while (v53);
 LABEL_46:
 
-  v45 = objc_alloc(MEMORY[0x277D1B2C0]);
-  applicationMessage = v48;
-  identifier4 = [v48 identifier];
+  v44 = objc_alloc(MEMORY[0x277D1B2C0]);
+  applicationMessage = v47;
+  identifier4 = [v47 identifier];
   bundleIdentifier = [v6 bundleIdentifier];
-  v8 = [v45 initWithIdentifier:identifier4 messageGroupIdentifier:bundleIdentifier contentPages:v53 requiresCloseButton:{objc_msgSend(v48, "hasCloseButton")}];
+  v8 = [v44 initWithIdentifier:identifier4 messageGroupIdentifier:bundleIdentifier contentPages:v52 requiresCloseButton:{objc_msgSend(v47, "hasCloseButton")}];
 
 LABEL_47:
 LABEL_8:
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
 
 - (id)_filterActiveTargetIdentifiers:(id)identifiers
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   identifiersCopy = identifiers;
   v5 = objc_opt_new();
   v6 = [(NSMutableDictionary *)self->_messageTargetsByTargetIdentifier copy];
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   v7 = identifiersCopy;
-  v8 = [v7 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v18;
+    v10 = *v17;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v18 != v10)
+        if (*v17 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = *(*(&v17 + 1) + 8 * i);
-        v13 = [v6 objectForKeyedSubscript:{v12, v17}];
+        v12 = *(*(&v16 + 1) + 8 * i);
+        v13 = [v6 objectForKeyedSubscript:{v12, v16}];
 
         if (v13)
         {
@@ -2225,69 +2241,68 @@ LABEL_8:
         }
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v9);
   }
 
   v14 = [v5 copy];
-  v15 = *MEMORY[0x277D85DE8];
 
   return v14;
 }
 
 - (void)_updateMetadataOfMessageEntriesByTrigger:(id)trigger forReceivedEvent:(id)event
 {
-  v47 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   triggerCopy = trigger;
   eventCopy = event;
+  v40 = 0u;
   v41 = 0u;
   v42 = 0u;
   v43 = 0u;
-  v44 = 0u;
   obj = triggerCopy;
   v8 = triggerCopy;
   v9 = eventCopy;
-  v31 = [v8 countByEnumeratingWithState:&v41 objects:v46 count:16];
-  if (v31)
+  v30 = [v8 countByEnumeratingWithState:&v40 objects:v45 count:16];
+  if (v30)
   {
-    v30 = *v42;
+    v29 = *v41;
     do
     {
       v10 = 0;
       do
       {
-        if (*v42 != v30)
+        if (*v41 != v29)
         {
           objc_enumerationMutation(obj);
         }
 
-        v33 = v10;
-        v11 = *(*(&v41 + 1) + 8 * v10);
+        v32 = v10;
+        v11 = *(*(&v40 + 1) + 8 * v10);
         v12 = [obj objectForKey:v11];
         nameSpacedKeyName = [v11 nameSpacedKeyName];
+        v36 = 0u;
         v37 = 0u;
         v38 = 0u;
         v39 = 0u;
-        v40 = 0u;
-        v35 = v12;
-        v13 = [v35 countByEnumeratingWithState:&v37 objects:v45 count:16];
+        v34 = v12;
+        v13 = [v34 countByEnumeratingWithState:&v36 objects:v44 count:16];
         if (v13)
         {
           v14 = v13;
-          v15 = *v38;
-          v34 = *v38;
+          v15 = *v37;
+          v33 = *v37;
           do
           {
             for (i = 0; i != v14; ++i)
             {
-              if (*v38 != v15)
+              if (*v37 != v15)
               {
-                objc_enumerationMutation(v35);
+                objc_enumerationMutation(v34);
               }
 
-              v17 = *(*(&v37 + 1) + 8 * i);
+              v17 = *(*(&v36 + 1) + 8 * i);
               applicationMessage = [v17 applicationMessage];
               identifier = [applicationMessage identifier];
 
@@ -2326,35 +2341,33 @@ LABEL_8:
                 [v23 setMetadataValue:v28 forKey:nameSpacedKeyName];
 
                 v9 = v26;
-                v15 = v34;
+                v15 = v33;
               }
 
 LABEL_19:
               [(IAMMessageCoordinator *)self _updateMetadata:v23 forMessageEntry:v17 completion:0];
             }
 
-            v14 = [v35 countByEnumeratingWithState:&v37 objects:v45 count:16];
+            v14 = [v34 countByEnumeratingWithState:&v36 objects:v44 count:16];
           }
 
           while (v14);
         }
 
-        v10 = v33 + 1;
+        v10 = v32 + 1;
       }
 
-      while (v33 + 1 != v31);
-      v31 = [obj countByEnumeratingWithState:&v41 objects:v46 count:16];
+      while (v32 + 1 != v30);
+      v30 = [obj countByEnumeratingWithState:&v40 objects:v45 count:16];
     }
 
-    while (v31);
+    while (v30);
   }
-
-  v29 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_updateMetadata:(id)metadata forMessageEntry:(id)entry completion:(id)completion
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   metadataCopy = metadata;
   completionCopy = completion;
   entryCopy = entry;
@@ -2376,20 +2389,19 @@ LABEL_19:
   if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
   {
     allMetadataValues = [metadataCopy allMetadataValues];
-    v19 = 138543618;
-    v20 = allMetadataValues;
-    v21 = 2114;
-    v22 = identifier;
-    _os_log_impl(&dword_254AF4000, v16, OS_LOG_TYPE_DEFAULT, "Updating metadata = %{public}@ for message entry with identifier = %{public}@", &v19, 0x16u);
+    v18 = 138543618;
+    v19 = allMetadataValues;
+    v20 = 2114;
+    v21 = identifier;
+    _os_log_impl(&dword_254AF4000, v16, OS_LOG_TYPE_DEFAULT, "Updating metadata = %{public}@ for message entry with identifier = %{public}@", &v18, 0x16u);
   }
 
   [(IAMStorageCoordinator *)self->_storageCoordinator updateMetadata:metadataCopy forMessageEntry:entryCopy completion:completionCopy];
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_reportMessageAction:(id)action wasPerformedInMessageEntry:(id)entry fromTargetWithIdentifier:(id)identifier
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   actionCopy = action;
   entryCopy = entry;
   identifierCopy = identifier;
@@ -2399,11 +2411,11 @@ LABEL_19:
   v14 = IAMLogCategoryDefault();
   if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
-    v21 = 138543618;
-    v22 = identifier2;
-    v23 = 2114;
-    v24 = identifier;
-    _os_log_impl(&dword_254AF4000, v14, OS_LOG_TYPE_DEFAULT, "Action with identifier = %{public}@ performed in message with identifier = %{public}@", &v21, 0x16u);
+    v20 = 138543618;
+    v21 = identifier2;
+    v22 = 2114;
+    v23 = identifier;
+    _os_log_impl(&dword_254AF4000, v14, OS_LOG_TYPE_DEFAULT, "Action with identifier = %{public}@ performed in message with identifier = %{public}@", &v20, 0x16u);
   }
 
   if ([actionCopy hasClickEvent])
@@ -2434,24 +2446,21 @@ LABEL_19:
       [(IAMStorageCoordinator *)self->_storageCoordinator removeMessageEntry:entryCopy completion:0];
     }
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleMessageReachedMaximumDisplayCount:(id)count
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   countCopy = count;
   v5 = IAMLogCategoryDefault();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138543362;
-    v8 = countCopy;
-    _os_log_impl(&dword_254AF4000, v5, OS_LOG_TYPE_DEFAULT, "Reporting message with identifier = %{public}@ reached maximum display count.", &v7, 0xCu);
+    v6 = 138543362;
+    v7 = countCopy;
+    _os_log_impl(&dword_254AF4000, v5, OS_LOG_TYPE_DEFAULT, "Reporting message with identifier = %{public}@ reached maximum display count.", &v6, 0xCu);
   }
 
   [(IAMStorageCoordinator *)self->_storageCoordinator reportEventForMessageIdentifier:countCopy withParams:MEMORY[0x277CBEC10] completion:0];
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_incrementNumberOfDisplaysForMessageEntry:(id)entry
@@ -2504,7 +2513,7 @@ LABEL_19:
 
 - (void)_removeUserNotificationRemovalForMessageWithIdentifier:(id)identifier
 {
-  v15[1] = *MEMORY[0x277D85DE8];
+  v14[1] = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   v5 = [(IAMMessageCoordinator *)self _metadataEntryForMessageIdentifier:identifierCopy];
   if (([v5 didCancelUserNotification] & 1) == 0)
@@ -2515,12 +2524,12 @@ LABEL_19:
     v9 = [v6 initWithBundleIdentifier:bundleIdentifier];
 
     identifierCopy = [MEMORY[0x277CCACA8] stringWithFormat:@"%@%@", @"ams_", identifierCopy];
-    v15[0] = identifierCopy;
-    v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:1];
+    v14[0] = identifierCopy;
+    v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:1];
     [v9 removePendingNotificationRequestsWithIdentifiers:v11];
 
-    v14 = identifierCopy;
-    v12 = [MEMORY[0x277CBEA60] arrayWithObjects:&v14 count:1];
+    v13 = identifierCopy;
+    v12 = [MEMORY[0x277CBEA60] arrayWithObjects:&v13 count:1];
     [v9 removeDeliveredNotificationsWithIdentifiers:v12];
 
     if (v5)
@@ -2528,8 +2537,6 @@ LABEL_19:
       [v5 setDidCancelUserNotification:1];
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (IAMMessageMetricsDelegate)metricsDelegate

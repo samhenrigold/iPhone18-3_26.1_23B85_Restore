@@ -516,18 +516,22 @@ LABEL_81:
 
 uint64_t __42__ChartUpdater_parseDataSeriesDictionary___block_invoke(uint64_t a1, void *a2)
 {
-  v5 = a2;
+  v7 = a2;
   objc_opt_class();
-  if (objc_opt_isKindOfClass())
+  isKindOfClass = objc_opt_isKindOfClass();
+  v4 = v7;
+  if (isKindOfClass)
   {
-    v3 = [v5 objectForKeyedSubscript:@"id"];
-    if (v3)
+    v5 = [v7 objectForKeyedSubscript:@"id"];
+    if (v5)
     {
-      [*(a1 + 32) addObject:v3];
+      [*(a1 + 32) addObject:v5];
     }
+
+    v4 = v7;
   }
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](isKindOfClass, v4);
 }
 
 - (void)didParseData

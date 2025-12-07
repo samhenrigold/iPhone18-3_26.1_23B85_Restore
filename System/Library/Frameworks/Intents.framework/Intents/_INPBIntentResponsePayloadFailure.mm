@@ -182,7 +182,6 @@ LABEL_14:
   toCopy = to;
   if ([(_INPBIntentResponsePayloadFailure *)self hasAppLaunchRequested])
   {
-    appLaunchRequested = self->_appLaunchRequested;
     PBDataWriterWriteBOOLField();
   }
 
@@ -190,13 +189,11 @@ LABEL_14:
 
   if (enumTypeName)
   {
-    enumTypeName = self->_enumTypeName;
     PBDataWriterWriteStringField();
   }
 
   if ([(_INPBIntentResponsePayloadFailure *)self hasErrorCode])
   {
-    errorCode = self->_errorCode;
     PBDataWriterWriteInt32Field();
   }
 }

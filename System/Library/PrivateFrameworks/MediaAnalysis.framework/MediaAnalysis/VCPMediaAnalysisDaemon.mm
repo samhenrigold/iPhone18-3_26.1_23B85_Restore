@@ -57,7 +57,7 @@
 
   if (connectionCopy)
   {
-    [connectionCopy auditToken];
+    objc_msgSend_auditToken(connectionCopy);
   }
 
   else
@@ -731,7 +731,7 @@ LABEL_71:
     [v40 registerTask];
   }
 
-  [(MADFastPassBackgroundSystemTask *)self->_databaseRestoreFastPassProcessing registerTask];
+  [(MADFastPassBackgroundSystemTask *)self->_databaseRestoreFastPassProcessing registerTask:*v47];
   [(MADFastPassBackgroundSystemTask *)self->_photosSceneFastPassProcessing registerTask];
   [(MADFastPassBackgroundSystemTask *)self->_photosFaceFastPassProcessing registerTask];
   v41 = +[MADPreheatBackgroundSystemTask sharedTask];

@@ -245,7 +245,7 @@
   [(SBHTableViewController *)&v49 viewDidLoad];
   listLayoutProvider = [(SBHIconLibraryTableViewController *)self listLayoutProvider];
   v4 = [listLayoutProvider layoutForIconLocation:@"SBIconLocationAppLibrarySearch"];
-  [v4 iconImageInfo];
+  objc_msgSend_iconImageInfo(v4);
   v6 = v5;
   v8 = v7;
   v10 = v9;
@@ -422,9 +422,9 @@
 
 - (id)_contentUnavailableConfigurationState
 {
-  v10.receiver = self;
-  v10.super_class = SBHIconLibraryTableViewController;
-  _contentUnavailableConfigurationState = [(SBHIconLibraryTableViewController *)&v10 _contentUnavailableConfigurationState];
+  v11.receiver = self;
+  v11.super_class = SBHIconLibraryTableViewController;
+  _contentUnavailableConfigurationState = [(SBHIconLibraryTableViewController *)&v11 _contentUnavailableConfigurationState];
   _searchTextField = [(SBHIconLibraryTableViewController *)self _searchTextField];
   searchText = [_searchTextField searchText];
 
@@ -432,9 +432,9 @@
   {
     v6 = [searchText substringToIndex:999];
 
-    v7 = SBHBundle();
-    v8 = [v7 localizedStringForKey:@"CONTENT_UNAVAILABLE_TRUNCATION_ELLIPSIS" value:&stru_1F3D472A8 table:@"SpringBoardHome"];
-    searchText = [v6 stringByAppendingString:v8];
+    v8 = SBHBundle(v7);
+    v9 = [v8 localizedStringForKey:@"CONTENT_UNAVAILABLE_TRUNCATION_ELLIPSIS" value:&stru_1F3D472A8 table:@"SpringBoardHome"];
+    searchText = [v6 stringByAppendingString:v9];
   }
 
   [_contentUnavailableConfigurationState setSearchControllerText:searchText];
@@ -456,7 +456,7 @@
     goto LABEL_5;
   }
 
-  [searchTextField bounds];
+  objc_msgSend_bounds(searchTextField);
   v7 = v6;
   v9 = v8;
   v11 = v10;
@@ -653,10 +653,10 @@ id __47__SBHIconLibraryTableViewController_dataSource__block_invoke(uint64_t a1,
 
     else
     {
-      v16 = SBLogIcon();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+      v17 = SBLogIcon(v16);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
       {
-        __47__SBHIconLibraryTableViewController_dataSource__block_invoke_cold_1(v8, v16);
+        __47__SBHIconLibraryTableViewController_dataSource__block_invoke_cold_1(v8, v17);
       }
     }
   }
@@ -1973,8 +1973,8 @@ id __50__SBHIconLibraryTableViewController__visibleIcons__block_invoke(uint64_t 
     [iconView setAllowsLabelArea:0];
     [iconView setAllowsCloseBox:0];
     [iconView setAllowsAccessoryView:0];
-    iconImageCache = [(SBHIconLibraryTableViewController *)self iconImageCache];
-    [iconView setIconImageCache:iconImageCache];
+    v14 = objc_msgSend_iconImageCache(self);
+    [iconView setIconImageCache:v14];
 
     [iconView setListLayoutProvider:listLayoutProvider];
     [iconView setLocation:@"SBIconLocationAppLibrarySearch"];
@@ -2044,23 +2044,23 @@ LABEL_8:
   {
     leafIdentifier = [iconCopy leafIdentifier];
     currentQuery = [(SBHIconLibraryTableViewController *)self currentQuery];
-    v14 = [pathCopy indexAtPosition:0];
+    v15 = [pathCopy indexAtPosition:0];
     libraryCategoryMap = [(SBHIconLibraryTableViewController *)self libraryCategoryMap];
     metadata = [libraryCategoryMap metadata];
-    v17 = [metadata objectForKey:@"response"];
+    v18 = [metadata objectForKey:@"response"];
 
-    v18 = self->_appDirectoryClient;
+    v19 = self->_appDirectoryClient;
     date = [MEMORY[0x1E695DF00] date];
     searchString = [currentQuery searchString];
-    -[ATXAppDirectoryClient logLaunchFromSearchWithDate:bundleID:bundleIndex:searchQueryLength:searchTab:appDirectoryResponse:](v18, "logLaunchFromSearchWithDate:bundleID:bundleIndex:searchQueryLength:searchTab:appDirectoryResponse:", date, leafIdentifier, v14, [searchString length], 0, v17);
+    -[ATXAppDirectoryClient logLaunchFromSearchWithDate:bundleID:bundleIndex:searchQueryLength:searchTab:appDirectoryResponse:](v19, "logLaunchFromSearchWithDate:bundleID:bundleIndex:searchQueryLength:searchTab:appDirectoryResponse:", date, leafIdentifier, v15, [searchString length], 0, v18);
   }
 
   else
   {
-    v21 = SBLogIcon();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+    v22 = SBLogIcon(v12);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
     {
-      [SBHIconLibraryTableViewController _logLaunchOfIcon:v21 atIndexPath:?];
+      [SBHIconLibraryTableViewController _logLaunchOfIcon:v22 atIndexPath:?];
     }
   }
 }

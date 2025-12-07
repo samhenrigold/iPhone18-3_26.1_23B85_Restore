@@ -1,6 +1,7 @@
 @interface KCellularCdma1XRrState
 - (BOOL)isEqual:(id)equal;
 - (id)copyWithZone:(_NSZone *)zone;
+- (id)currNormalizedStateAsString:(int)string;
 - (id)description;
 - (id)dictionaryRepresentation;
 - (int)StringAsCurrNormalizedState:(id)state;
@@ -104,6 +105,21 @@
   }
 
   *&self->_has = *&self->_has & 0xFB | v3;
+}
+
+- (id)currNormalizedStateAsString:(int)string
+{
+  if (string >= 0xC)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_27825D778[string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsCurrNormalizedState:(id)state
@@ -297,7 +313,6 @@ LABEL_17:
   has = self->_has;
   if (has)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
     has = self->_has;
     if ((has & 0x20) == 0)
@@ -317,7 +332,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  subsId = self->_subsId;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 8) == 0)
@@ -332,7 +346,6 @@ LABEL_4:
   }
 
 LABEL_13:
-  prevCpState = self->_prevCpState;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 2) == 0)
@@ -347,7 +360,6 @@ LABEL_5:
   }
 
 LABEL_14:
-  currCpState = self->_currCpState;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x10) == 0)
@@ -362,12 +374,10 @@ LABEL_6:
   }
 
 LABEL_15:
-  prevStateDurMs = self->_prevStateDurMs;
   PBDataWriterWriteUint32Field();
   if ((*&self->_has & 4) != 0)
   {
 LABEL_7:
-    currNormalizedState = self->_currNormalizedState;
     PBDataWriterWriteInt32Field();
   }
 

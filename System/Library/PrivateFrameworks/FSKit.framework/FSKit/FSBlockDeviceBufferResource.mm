@@ -105,10 +105,10 @@
   {
     if (v16 < v6->_headerLength)
     {
-      v18 = fskit_std_log();
+      v18 = fskit_std_log(0);
       if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
       {
-        [FSBlockDeviceBufferResource initBufferFromResource:?];
+        [FSBlockDeviceBufferResource initBufferFromResource:];
       }
 
       goto LABEL_9;
@@ -124,7 +124,7 @@
     if (v26)
     {
       v18 = v26;
-      v19 = fskit_std_log();
+      v19 = fskit_std_log(v26);
       if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
       {
         [FSBlockDeviceBufferResource initBufferFromResource:];
@@ -135,10 +135,10 @@
 
     if (v25 < v6->_footerLength)
     {
-      v18 = fskit_std_log();
+      v18 = fskit_std_log(0);
       if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
       {
-        [FSBlockDeviceBufferResource initBufferFromResource:?];
+        [FSBlockDeviceBufferResource initBufferFromResource:];
       }
 
       goto LABEL_9;
@@ -150,7 +150,7 @@ LABEL_19:
   }
 
   v18 = v17;
-  v19 = fskit_std_log();
+  v19 = fskit_std_log(v17);
   if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
   {
     [FSBlockDeviceBufferResource initBufferFromResource:];
@@ -402,38 +402,32 @@ LABEL_19:
 
 - (void)initBufferFromResource:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initBufferFromResource:.cold.2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
-- (void)initBufferFromResource:(uint64_t *)a1 .cold.3(uint64_t *a1)
+- (void)initBufferFromResource:.cold.3()
 {
-  OUTLINED_FUNCTION_9_0(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_9_0(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_7_0();
   OUTLINED_FUNCTION_6_0();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x20u);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x20u);
 }
 
-- (void)initBufferFromResource:(uint64_t *)a1 .cold.4(uint64_t *a1)
+- (void)initBufferFromResource:.cold.4()
 {
-  OUTLINED_FUNCTION_9_0(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_9_0(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_7_0();
   OUTLINED_FUNCTION_6_0();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x20u);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x20u);
 }
 
 @end

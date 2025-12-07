@@ -71,11 +71,10 @@ LABEL_4:
 
 - (void)setBasebandValue:(id)value forTraceName:(id)name property:(id)property
 {
-  v6 = *MEMORY[0x277CBECE8];
-  v7 = _CTServerConnectionCreate();
-  if (v7)
+  v6 = _CTServerConnectionCreate();
+  if (v6)
   {
-    v8 = v7;
+    v7 = v6;
     objc_opt_class();
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
@@ -83,7 +82,7 @@ LABEL_4:
     }
 
     _CTServerConnectionSetTraceProperty();
-    CFRelease(v8);
+    CFRelease(v7);
   }
 }
 

@@ -56,7 +56,7 @@
 
 id __33__AMSUIDelegateTokenTask_perform__block_invoke(uint64_t a1)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v2 = [MEMORY[0x1E698C968] sharedAccountsMultiUserConfig];
   if (!v2)
   {
@@ -66,24 +66,22 @@ id __33__AMSUIDelegateTokenTask_perform__block_invoke(uint64_t a1)
   v3 = [v2 OSLogObject];
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v4 = *(a1 + 32);
-    v5 = objc_opt_class();
-    v6 = AMSLogKey();
-    v7 = [*(a1 + 32) account];
-    v8 = AMSHashIfNeeded();
-    v12 = 138543874;
+    v4 = objc_opt_class();
+    v5 = AMSLogKey();
+    v6 = [*(a1 + 32) account];
+    v7 = AMSHashIfNeeded();
+    v10 = 138543874;
+    v11 = v4;
+    v12 = 2114;
     v13 = v5;
     v14 = 2114;
-    v15 = v6;
-    v16 = 2114;
-    v17 = v8;
-    _os_log_impl(&dword_1BB036000, v3, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Retrieving delegate authentication token. Account = %{public}@", &v12, 0x20u);
+    v15 = v7;
+    _os_log_impl(&dword_1BB036000, v3, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Retrieving delegate authentication token. Account = %{public}@", &v10, 0x20u);
   }
 
-  v9 = [*(a1 + 32) performRetrieveDelegateToken];
-  v10 = *MEMORY[0x1E69E9840];
+  v8 = [*(a1 + 32) performRetrieveDelegateToken];
 
-  return v9;
+  return v8;
 }
 
 - (id)authenticateTaskWithRequest:(id)request

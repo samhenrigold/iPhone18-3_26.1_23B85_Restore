@@ -9,13 +9,13 @@
 - (void)containerViewWillLayoutSubviews
 {
   selfCopy = self;
-  sub_100811C0C();
+  sub_100811C0C(selfCopy, v2);
 }
 
 - (void)containerViewDidLayoutSubviews
 {
   selfCopy = self;
-  sub_100811D60();
+  sub_100811D60(selfCopy, v2);
 }
 
 - (_TtCC7Journal33EntryMapSheetNavigationControllerP33_BB46FB502358D8C85579498D9086CDFF22PresentationController)initWithPresentedViewController:(id)controller presentingViewController:(id)viewController

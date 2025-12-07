@@ -58,7 +58,7 @@
 
 - (BOOL)_removeNode:(unint64_t)node error:(id *)error
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v7 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:?];
   v8 = [(NSMutableDictionary *)self->_memoryNodeByIdentifier objectForKeyedSubscript:v7];
   if (!v8)
@@ -69,26 +69,26 @@ LABEL_18:
   }
 
   [(NSMutableDictionary *)self->_memoryNodeByIdentifier removeObjectForKey:v7];
-  v22 = 0u;
-  v23 = 0u;
-  v20 = 0u;
   v21 = 0u;
+  v22 = 0u;
+  v19 = 0u;
+  v20 = 0u;
   labels = [v8 labels];
-  v10 = [labels countByEnumeratingWithState:&v20 objects:v26 count:16];
+  v10 = [labels countByEnumeratingWithState:&v19 objects:v25 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v21;
+    v12 = *v20;
     while (2)
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v21 != v12)
+        if (*v20 != v12)
         {
           objc_enumerationMutation(labels);
         }
 
-        v14 = [(NSMutableDictionary *)self->_nodeIdentifiersByLabel objectForKeyedSubscript:*(*(&v20 + 1) + 8 * i)];
+        v14 = [(NSMutableDictionary *)self->_nodeIdentifiersByLabel objectForKeyedSubscript:*(*(&v19 + 1) + 8 * i)];
         if (!v14)
         {
           v17 = KGLoggingConnection();
@@ -105,7 +105,7 @@ LABEL_18:
         [v14 removeIdentifier:node];
       }
 
-      v11 = [labels countByEnumeratingWithState:&v20 objects:v26 count:16];
+      v11 = [labels countByEnumeratingWithState:&v19 objects:v25 count:16];
       if (v11)
       {
         continue;
@@ -133,7 +133,6 @@ LABEL_17:
   v16 = 1;
 LABEL_19:
 
-  v18 = *MEMORY[0x277D85DE8];
   return v16;
 }
 
@@ -147,42 +146,42 @@ LABEL_19:
 
 - (BOOL)removeNodesForIdentifiers:(id)identifiers error:(id *)error
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   identifiersCopy = identifiers;
   os_unfair_lock_lock(&self->_lock);
-  v23 = 0u;
-  v24 = 0u;
-  v21 = 0u;
   v22 = 0u;
+  v23 = 0u;
+  v20 = 0u;
+  v21 = 0u;
   indexArray = [identifiersCopy indexArray];
-  v8 = [indexArray countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v8 = [indexArray countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v8)
   {
     v9 = v8;
     v10 = 0;
-    v11 = *v22;
+    v11 = *v21;
     do
     {
       v12 = 0;
       v13 = v10;
       do
       {
-        if (*v22 != v11)
+        if (*v21 != v11)
         {
           objc_enumerationMutation(indexArray);
         }
 
-        unsignedIntegerValue = [*(*(&v21 + 1) + 8 * v12) unsignedIntegerValue];
-        v20 = v13;
-        v15 = [(KGMemoryGraphStore *)self _removeNode:unsignedIntegerValue error:&v20];
-        v10 = v20;
+        unsignedIntegerValue = [*(*(&v20 + 1) + 8 * v12) unsignedIntegerValue];
+        v19 = v13;
+        v15 = [(KGMemoryGraphStore *)self _removeNode:unsignedIntegerValue error:&v19];
+        v10 = v19;
 
         ++v12;
         v13 = v10;
       }
 
       while (v9 != v12);
-      v9 = [indexArray countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v9 = [indexArray countByEnumeratingWithState:&v20 objects:v24 count:16];
     }
 
     while (v9);
@@ -212,7 +211,6 @@ LABEL_19:
 
   os_unfair_lock_unlock(&self->_lock);
 
-  v18 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
@@ -276,40 +274,40 @@ void __54__KGMemoryGraphStore__removeEdgesForMemoryNode_error___block_invoke(voi
 
 - (BOOL)_removeMemoryEdge:(id)edge error:(id *)error
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   edgeCopy = edge;
   identifier = [edgeCopy identifier];
   memoryEdgeByIdentifier = self->_memoryEdgeByIdentifier;
   v8 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:identifier];
   [(NSMutableDictionary *)memoryEdgeByIdentifier removeObjectForKey:v8];
 
-  v26 = 0u;
-  v27 = 0u;
-  v24 = 0u;
   v25 = 0u;
+  v26 = 0u;
+  v23 = 0u;
+  v24 = 0u;
   labels = [edgeCopy labels];
-  v10 = [labels countByEnumeratingWithState:&v24 objects:v28 count:16];
+  v10 = [labels countByEnumeratingWithState:&v23 objects:v27 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v25;
+    v12 = *v24;
     while (2)
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v25 != v12)
+        if (*v24 != v12)
         {
           objc_enumerationMutation(labels);
         }
 
-        v14 = [(NSMutableDictionary *)self->_edgeIdentifiersByLabel objectForKeyedSubscript:*(*(&v24 + 1) + 8 * i)];
+        v14 = [(NSMutableDictionary *)self->_edgeIdentifiersByLabel objectForKeyedSubscript:*(*(&v23 + 1) + 8 * i)];
         if (!v14)
         {
           v20 = KGLoggingConnection();
           if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
           {
-            *v23 = 0;
-            _os_log_error_impl(&dword_255870000, v20, OS_LOG_TYPE_ERROR, "Edge has a label and it's not in _edgeIdentifiersByLabel", v23, 2u);
+            *v22 = 0;
+            _os_log_error_impl(&dword_255870000, v20, OS_LOG_TYPE_ERROR, "Edge has a label and it's not in _edgeIdentifiersByLabel", v22, 2u);
           }
 
           v19 = 0;
@@ -320,7 +318,7 @@ void __54__KGMemoryGraphStore__removeEdgesForMemoryNode_error___block_invoke(voi
         [v14 removeIdentifier:identifier];
       }
 
-      v11 = [labels countByEnumeratingWithState:&v24 objects:v28 count:16];
+      v11 = [labels countByEnumeratingWithState:&v23 objects:v27 count:16];
       if (v11)
       {
         continue;
@@ -340,7 +338,6 @@ void __54__KGMemoryGraphStore__removeEdgesForMemoryNode_error___block_invoke(voi
   v19 = 1;
 LABEL_13:
 
-  v21 = *MEMORY[0x277D85DE8];
   return v19;
 }
 
@@ -368,29 +365,29 @@ LABEL_13:
 
 - (BOOL)removeEdgesForIdentifiers:(id)identifiers error:(id *)error
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   identifiersCopy = identifiers;
   os_unfair_lock_lock(&self->_lock);
-  v18 = 0u;
-  v19 = 0u;
-  v16 = 0u;
   v17 = 0u;
+  v18 = 0u;
+  v15 = 0u;
+  v16 = 0u;
   indexArray = [identifiersCopy indexArray];
-  v8 = [indexArray countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v8 = [indexArray countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v17;
+    v10 = *v16;
 LABEL_3:
     v11 = 0;
     while (1)
     {
-      if (*v17 != v10)
+      if (*v16 != v10)
       {
         objc_enumerationMutation(indexArray);
       }
 
-      v12 = [(NSMutableDictionary *)self->_memoryEdgeByIdentifier objectForKeyedSubscript:*(*(&v16 + 1) + 8 * v11)];
+      v12 = [(NSMutableDictionary *)self->_memoryEdgeByIdentifier objectForKeyedSubscript:*(*(&v15 + 1) + 8 * v11)];
       if (!v12)
       {
         break;
@@ -406,7 +403,7 @@ LABEL_3:
 
       if (v9 == ++v11)
       {
-        v9 = [indexArray countByEnumeratingWithState:&v16 objects:v20 count:16];
+        v9 = [indexArray countByEnumeratingWithState:&v15 objects:v19 count:16];
         LOBYTE(v12) = 1;
         if (v9)
         {
@@ -424,7 +421,6 @@ LABEL_3:
   }
 
   os_unfair_lock_unlock(&self->_lock);
-  v14 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
@@ -488,49 +484,47 @@ LABEL_3:
 
 - (id)_lock_sourcesByTargetWithEdgeIdentifiers:(id)identifiers error:(id *)error
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   identifiersCopy = identifiers;
   v6 = objc_alloc_init(MEMORY[0x277CBEB38]);
-  v22[0] = MEMORY[0x277D85DD0];
-  v22[1] = 3221225472;
-  v22[2] = __69__KGMemoryGraphStore__lock_sourcesByTargetWithEdgeIdentifiers_error___block_invoke;
-  v22[3] = &unk_2797FEFD8;
-  v22[4] = self;
+  v21[0] = MEMORY[0x277D85DD0];
+  v21[1] = 3221225472;
+  v21[2] = __69__KGMemoryGraphStore__lock_sourcesByTargetWithEdgeIdentifiers_error___block_invoke;
+  v21[3] = &unk_2797FEFD8;
+  v21[4] = self;
   v7 = v6;
-  v23 = v7;
-  [identifiersCopy enumerateIdentifiersWithBlock:v22];
+  v22 = v7;
+  [identifiersCopy enumerateIdentifiersWithBlock:v21];
   v8 = objc_alloc_init(KGMutableDirectedBinaryAdjacency);
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   v9 = v7;
-  v10 = [v9 countByEnumeratingWithState:&v18 objects:v24 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v17 objects:v23 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v19;
+    v12 = *v18;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v19 != v12)
+        if (*v18 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        v14 = *(*(&v18 + 1) + 8 * i);
-        v15 = [v9 objectForKeyedSubscript:{v14, v18}];
+        v14 = *(*(&v17 + 1) + 8 * i);
+        v15 = [v9 objectForKeyedSubscript:{v14, v17}];
         -[KGMutableDirectedBinaryAdjacency setTargets:forSource:](v8, "setTargets:forSource:", v15, [v14 unsignedIntegerValue]);
       }
 
-      v11 = [v9 countByEnumeratingWithState:&v18 objects:v24 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v17 objects:v23 count:16];
     }
 
     while (v11);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
@@ -560,49 +554,47 @@ void __69__KGMemoryGraphStore__lock_sourcesByTargetWithEdgeIdentifiers_error___b
 
 - (id)_lock_targetsBySourceWithEdgeIdentifiers:(id)identifiers error:(id *)error
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   identifiersCopy = identifiers;
   v6 = objc_alloc_init(MEMORY[0x277CBEB38]);
-  v22[0] = MEMORY[0x277D85DD0];
-  v22[1] = 3221225472;
-  v22[2] = __69__KGMemoryGraphStore__lock_targetsBySourceWithEdgeIdentifiers_error___block_invoke;
-  v22[3] = &unk_2797FEFD8;
-  v22[4] = self;
+  v21[0] = MEMORY[0x277D85DD0];
+  v21[1] = 3221225472;
+  v21[2] = __69__KGMemoryGraphStore__lock_targetsBySourceWithEdgeIdentifiers_error___block_invoke;
+  v21[3] = &unk_2797FEFD8;
+  v21[4] = self;
   v7 = v6;
-  v23 = v7;
-  [identifiersCopy enumerateIdentifiersWithBlock:v22];
+  v22 = v7;
+  [identifiersCopy enumerateIdentifiersWithBlock:v21];
   v8 = objc_alloc_init(KGMutableDirectedBinaryAdjacency);
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   v9 = v7;
-  v10 = [v9 countByEnumeratingWithState:&v18 objects:v24 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v17 objects:v23 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v19;
+    v12 = *v18;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v19 != v12)
+        if (*v18 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        v14 = *(*(&v18 + 1) + 8 * i);
-        v15 = [v9 objectForKeyedSubscript:{v14, v18}];
+        v14 = *(*(&v17 + 1) + 8 * i);
+        v15 = [v9 objectForKeyedSubscript:{v14, v17}];
         -[KGMutableDirectedBinaryAdjacency setTargets:forSource:](v8, "setTargets:forSource:", v15, [v14 unsignedIntegerValue]);
       }
 
-      v11 = [v9 countByEnumeratingWithState:&v18 objects:v24 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v17 objects:v23 count:16];
     }
 
     while (v11);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
@@ -632,29 +624,29 @@ void __69__KGMemoryGraphStore__lock_targetsBySourceWithEdgeIdentifiers_error___b
 
 - (id)labelsOfEdgesForIdentifiers:(id)identifiers
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   identifiersCopy = identifiers;
   v5 = objc_alloc_init(MEMORY[0x277CBEB58]);
   indexArray = [identifiersCopy indexArray];
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
-  v7 = [indexArray countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v7 = [indexArray countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v17;
+    v9 = *v16;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v17 != v9)
+        if (*v16 != v9)
         {
           objc_enumerationMutation(indexArray);
         }
 
-        v11 = [(NSMutableDictionary *)self->_memoryEdgeByIdentifier objectForKeyedSubscript:*(*(&v16 + 1) + 8 * i)];
+        v11 = [(NSMutableDictionary *)self->_memoryEdgeByIdentifier objectForKeyedSubscript:*(*(&v15 + 1) + 8 * i)];
         v12 = v11;
         if (v11)
         {
@@ -663,42 +655,40 @@ void __69__KGMemoryGraphStore__lock_targetsBySourceWithEdgeIdentifiers_error___b
         }
       }
 
-      v8 = [indexArray countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v8 = [indexArray countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v8);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
 
 - (id)labelsOfNodesForIdentifiers:(id)identifiers
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   identifiersCopy = identifiers;
   v5 = objc_alloc_init(MEMORY[0x277CBEB58]);
   indexArray = [identifiersCopy indexArray];
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
-  v7 = [indexArray countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v7 = [indexArray countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v17;
+    v9 = *v16;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v17 != v9)
+        if (*v16 != v9)
         {
           objc_enumerationMutation(indexArray);
         }
 
-        v11 = [(NSMutableDictionary *)self->_memoryNodeByIdentifier objectForKeyedSubscript:*(*(&v16 + 1) + 8 * i)];
+        v11 = [(NSMutableDictionary *)self->_memoryNodeByIdentifier objectForKeyedSubscript:*(*(&v15 + 1) + 8 * i)];
         v12 = v11;
         if (v11)
         {
@@ -707,13 +697,11 @@ void __69__KGMemoryGraphStore__lock_targetsBySourceWithEdgeIdentifiers_error___b
         }
       }
 
-      v8 = [indexArray countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v8 = [indexArray countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v8);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
@@ -1216,58 +1204,56 @@ void __82__KGMemoryGraphStore_nodeIdentifiersMatchingFilter_intersectingIdentifi
 
 - (id)_lock_unionOfNodesWithLabels:(id)labels
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   labelsCopy = labels;
   os_unfair_lock_assert_owner(&self->_lock);
   v5 = objc_alloc_init(KGMutableElementIdentifierSet);
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v6 = labelsCopy;
-  v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v15;
+    v9 = *v14;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v15 != v9)
+        if (*v14 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = [(NSMutableDictionary *)self->_nodeIdentifiersByLabel objectForKeyedSubscript:*(*(&v14 + 1) + 8 * i), v14];
+        v11 = [(NSMutableDictionary *)self->_nodeIdentifiersByLabel objectForKeyedSubscript:*(*(&v13 + 1) + 8 * i), v13];
         if (v11)
         {
           [(KGMutableElementIdentifierSet *)v5 unionWithIdentifierSet:v11];
         }
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v8);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
 
 - (id)_lock_intersectionOfNodesWithLabels:(id)labels
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   labelsCopy = labels;
   os_unfair_lock_assert_owner(&self->_lock);
-  v17 = 0u;
-  v18 = 0u;
-  v15 = 0u;
   v16 = 0u;
+  v17 = 0u;
+  v14 = 0u;
+  v15 = 0u;
   v5 = labelsCopy;
-  v6 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (!v6)
   {
 LABEL_15:
@@ -1279,17 +1265,17 @@ LABEL_16:
 
   v7 = v6;
   v8 = 0;
-  v9 = *v16;
+  v9 = *v15;
   while (2)
   {
     for (i = 0; i != v7; ++i)
     {
-      if (*v16 != v9)
+      if (*v15 != v9)
       {
         objc_enumerationMutation(v5);
       }
 
-      v11 = [(NSMutableDictionary *)self->_nodeIdentifiersByLabel objectForKeyedSubscript:*(*(&v15 + 1) + 8 * i), v15];
+      v11 = [(NSMutableDictionary *)self->_nodeIdentifiersByLabel objectForKeyedSubscript:*(*(&v14 + 1) + 8 * i), v14];
       if (!v11)
       {
 
@@ -1308,7 +1294,7 @@ LABEL_16:
       }
     }
 
-    v7 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+    v7 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
     if (v7)
     {
       continue;
@@ -1323,8 +1309,6 @@ LABEL_16:
   }
 
 LABEL_17:
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
@@ -1476,58 +1460,56 @@ void __88__KGMemoryGraphStore__lock_edgeIdentifiersMatchingFilter_intersectingId
 
 - (id)_lock_unionOfEdgesWithLabels:(id)labels
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   labelsCopy = labels;
   os_unfair_lock_assert_owner(&self->_lock);
   v5 = objc_alloc_init(KGMutableElementIdentifierSet);
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v6 = labelsCopy;
-  v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v15;
+    v9 = *v14;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v15 != v9)
+        if (*v14 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = [(NSMutableDictionary *)self->_edgeIdentifiersByLabel objectForKeyedSubscript:*(*(&v14 + 1) + 8 * i), v14];
+        v11 = [(NSMutableDictionary *)self->_edgeIdentifiersByLabel objectForKeyedSubscript:*(*(&v13 + 1) + 8 * i), v13];
         if (v11)
         {
           [(KGMutableElementIdentifierSet *)v5 unionWithIdentifierSet:v11];
         }
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v8);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
 
 - (id)_lock_intersectionOfEdgesWithLabels:(id)labels
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   labelsCopy = labels;
   os_unfair_lock_assert_owner(&self->_lock);
-  v17 = 0u;
-  v18 = 0u;
-  v15 = 0u;
   v16 = 0u;
+  v17 = 0u;
+  v14 = 0u;
+  v15 = 0u;
   v5 = labelsCopy;
-  v6 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (!v6)
   {
 LABEL_15:
@@ -1539,17 +1521,17 @@ LABEL_16:
 
   v7 = v6;
   v8 = 0;
-  v9 = *v16;
+  v9 = *v15;
   while (2)
   {
     for (i = 0; i != v7; ++i)
     {
-      if (*v16 != v9)
+      if (*v15 != v9)
       {
         objc_enumerationMutation(v5);
       }
 
-      v11 = [(NSMutableDictionary *)self->_edgeIdentifiersByLabel objectForKeyedSubscript:*(*(&v15 + 1) + 8 * i), v15];
+      v11 = [(NSMutableDictionary *)self->_edgeIdentifiersByLabel objectForKeyedSubscript:*(*(&v14 + 1) + 8 * i), v14];
       if (!v11)
       {
 
@@ -1568,7 +1550,7 @@ LABEL_16:
       }
     }
 
-    v7 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+    v7 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
     if (v7)
     {
       continue;
@@ -1583,8 +1565,6 @@ LABEL_16:
   }
 
 LABEL_17:
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
@@ -1746,36 +1726,36 @@ void __76__KGMemoryGraphStore__lock_arrayOfNodesWithIdentifiers_entityFactory_er
 
 - (id)insertNodeWithIdentifier:(unint64_t)identifier labels:(id)labels properties:(id)properties error:(id *)error
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   labelsCopy = labels;
   propertiesCopy = properties;
   os_unfair_lock_lock(&self->_lock);
-  v23 = propertiesCopy;
+  v22 = propertiesCopy;
   v11 = [[KGMemoryNode alloc] initWithIdentifier:identifier labels:labelsCopy properties:propertiesCopy];
   memoryNodeByIdentifier = self->_memoryNodeByIdentifier;
   v13 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:identifier];
   [(NSMutableDictionary *)memoryNodeByIdentifier setObject:v11 forKeyedSubscript:v13];
 
-  v26 = 0u;
-  v27 = 0u;
-  v24 = 0u;
   v25 = 0u;
+  v26 = 0u;
+  v23 = 0u;
+  v24 = 0u;
   v14 = labelsCopy;
-  v15 = [v14 countByEnumeratingWithState:&v24 objects:v28 count:16];
+  v15 = [v14 countByEnumeratingWithState:&v23 objects:v27 count:16];
   if (v15)
   {
     v16 = v15;
-    v17 = *v25;
+    v17 = *v24;
     do
     {
       for (i = 0; i != v16; ++i)
       {
-        if (*v25 != v17)
+        if (*v24 != v17)
         {
           objc_enumerationMutation(v14);
         }
 
-        v19 = *(*(&v24 + 1) + 8 * i);
+        v19 = *(*(&v23 + 1) + 8 * i);
         v20 = [(NSMutableDictionary *)self->_nodeIdentifiersByLabel objectForKeyedSubscript:v19];
         if (!v20)
         {
@@ -1786,7 +1766,7 @@ void __76__KGMemoryGraphStore__lock_arrayOfNodesWithIdentifiers_entityFactory_er
         [(KGMutableElementIdentifierSet *)v20 addIdentifier:identifier];
       }
 
-      v16 = [v14 countByEnumeratingWithState:&v24 objects:v28 count:16];
+      v16 = [v14 countByEnumeratingWithState:&v23 objects:v27 count:16];
     }
 
     while (v16);
@@ -1795,68 +1775,66 @@ void __76__KGMemoryGraphStore__lock_arrayOfNodesWithIdentifiers_entityFactory_er
   self->_nextNodeIdentifier = identifier + 1;
   os_unfair_lock_unlock(&self->_lock);
 
-  v21 = *MEMORY[0x277D85DE8];
-
   return v11;
 }
 
 - (BOOL)addNodes:(id)nodes error:(id *)error
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   nodesCopy = nodes;
   os_unfair_lock_lock(&self->_lock);
-  v35 = 0u;
-  v36 = 0u;
-  v33 = 0u;
   v34 = 0u;
+  v35 = 0u;
+  v32 = 0u;
+  v33 = 0u;
   obj = nodesCopy;
-  v26 = [obj countByEnumeratingWithState:&v33 objects:v38 count:16];
-  if (v26)
+  v25 = [obj countByEnumeratingWithState:&v32 objects:v37 count:16];
+  if (v25)
   {
-    v25 = *v34;
+    v24 = *v33;
     do
     {
-      for (i = 0; i != v26; ++i)
+      for (i = 0; i != v25; ++i)
       {
-        if (*v34 != v25)
+        if (*v33 != v24)
         {
           objc_enumerationMutation(obj);
         }
 
-        v7 = *(*(&v33 + 1) + 8 * i);
+        v7 = *(*(&v32 + 1) + 8 * i);
         nextNodeIdentifier = self->_nextNodeIdentifier;
         self->_nextNodeIdentifier = nextNodeIdentifier + 1;
         labels = [v7 labels];
         v10 = [KGMemoryNode alloc];
-        v28 = v7;
+        v27 = v7;
         properties = [v7 properties];
         v12 = [(KGMemoryNode *)v10 initWithIdentifier:nextNodeIdentifier labels:labels properties:properties];
 
         memoryNodeByIdentifier = self->_memoryNodeByIdentifier;
         v14 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:nextNodeIdentifier];
-        v27 = v12;
+        v26 = v12;
         [(NSMutableDictionary *)memoryNodeByIdentifier setObject:v12 forKeyedSubscript:v14];
 
-        v31 = 0u;
-        v32 = 0u;
-        v29 = 0u;
         v30 = 0u;
+        v31 = 0u;
+        v28 = 0u;
+        v29 = 0u;
         v15 = labels;
-        v16 = [v15 countByEnumeratingWithState:&v29 objects:v37 count:16];
+        v16 = [v15 countByEnumeratingWithState:&v28 objects:v36 count:16];
         if (v16)
         {
           v17 = v16;
-          v18 = *v30;
+          v18 = *v29;
           do
           {
             for (j = 0; j != v17; ++j)
             {
-              if (*v30 != v18)
+              if (*v29 != v18)
               {
                 objc_enumerationMutation(v15);
               }
 
-              v20 = *(*(&v29 + 1) + 8 * j);
+              v20 = *(*(&v28 + 1) + 8 * j);
               v21 = [(NSMutableDictionary *)self->_nodeIdentifiersByLabel objectForKeyedSubscript:v20];
               if (!v21)
               {
@@ -1867,29 +1845,28 @@ void __76__KGMemoryGraphStore__lock_arrayOfNodesWithIdentifiers_entityFactory_er
               [(KGMutableElementIdentifierSet *)v21 addIdentifier:nextNodeIdentifier];
             }
 
-            v17 = [v15 countByEnumeratingWithState:&v29 objects:v37 count:16];
+            v17 = [v15 countByEnumeratingWithState:&v28 objects:v36 count:16];
           }
 
           while (v17);
         }
 
-        [v28 resolveIdentifier:nextNodeIdentifier];
+        [v27 resolveIdentifier:nextNodeIdentifier];
       }
 
-      v26 = [obj countByEnumeratingWithState:&v33 objects:v38 count:16];
+      v25 = [obj countByEnumeratingWithState:&v32 objects:v37 count:16];
     }
 
-    while (v26);
+    while (v25);
   }
 
   os_unfair_lock_unlock(&self->_lock);
-  v22 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
 - (id)insertEdgeWithIdentifier:(unint64_t)identifier labels:(id)labels properties:(id)properties sourceNodeIdentifier:(unint64_t)nodeIdentifier targetNodeIdentifier:(unint64_t)targetNodeIdentifier error:(id *)error
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   labelsCopy = labels;
   propertiesCopy = properties;
   os_unfair_lock_lock(&self->_lock);
@@ -1901,8 +1878,8 @@ void __76__KGMemoryGraphStore__lock_arrayOfNodesWithIdentifiers_entityFactory_er
   v19 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:targetNodeIdentifier];
   v20 = [(NSMutableDictionary *)v18 objectForKeyedSubscript:v19];
 
-  v34 = propertiesCopy;
-  v33 = v20;
+  v33 = propertiesCopy;
+  v32 = v20;
   v21 = [[KGMemoryEdge alloc] initWithIdentifier:identifier labels:labelsCopy properties:propertiesCopy sourceNode:v17 targetNode:v20];
   [(KGMutableDirectedBinaryAdjacency *)self->_edgeIdentifiersBySourceNodeIdentifier insertSource:nodeIdentifier target:identifier];
   [(KGMutableDirectedBinaryAdjacency *)self->_edgeIdentifiersByTargetNodeIdentifier insertSource:targetNodeIdentifier target:identifier];
@@ -1910,26 +1887,26 @@ void __76__KGMemoryGraphStore__lock_arrayOfNodesWithIdentifiers_entityFactory_er
   v23 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:identifier];
   [(NSMutableDictionary *)memoryEdgeByIdentifier setObject:v21 forKeyedSubscript:v23];
 
-  v37 = 0u;
-  v38 = 0u;
-  v35 = 0u;
   v36 = 0u;
+  v37 = 0u;
+  v34 = 0u;
+  v35 = 0u;
   v24 = labelsCopy;
-  v25 = [v24 countByEnumeratingWithState:&v35 objects:v39 count:16];
+  v25 = [v24 countByEnumeratingWithState:&v34 objects:v38 count:16];
   if (v25)
   {
     v26 = v25;
-    v27 = *v36;
+    v27 = *v35;
     do
     {
       for (i = 0; i != v26; ++i)
       {
-        if (*v36 != v27)
+        if (*v35 != v27)
         {
           objc_enumerationMutation(v24);
         }
 
-        v29 = *(*(&v35 + 1) + 8 * i);
+        v29 = *(*(&v34 + 1) + 8 * i);
         v30 = [(NSMutableDictionary *)self->_edgeIdentifiersByLabel objectForKeyedSubscript:v29];
         if (!v30)
         {
@@ -1940,7 +1917,7 @@ void __76__KGMemoryGraphStore__lock_arrayOfNodesWithIdentifiers_entityFactory_er
         [(KGMutableElementIdentifierSet *)v30 addIdentifier:identifier];
       }
 
-      v26 = [v24 countByEnumeratingWithState:&v35 objects:v39 count:16];
+      v26 = [v24 countByEnumeratingWithState:&v34 objects:v38 count:16];
     }
 
     while (v26);
@@ -1949,37 +1926,35 @@ void __76__KGMemoryGraphStore__lock_arrayOfNodesWithIdentifiers_entityFactory_er
   self->_nextEdgeIdentifier = identifier + 1;
   os_unfair_lock_unlock(&self->_lock);
 
-  v31 = *MEMORY[0x277D85DE8];
-
   return v21;
 }
 
 - (BOOL)addEdges:(id)edges error:(id *)error
 {
-  v55 = *MEMORY[0x277D85DE8];
+  v54 = *MEMORY[0x277D85DE8];
   edgesCopy = edges;
   os_unfair_lock_lock(&self->_lock);
-  v51 = 0u;
-  v52 = 0u;
-  v49 = 0u;
   v50 = 0u;
+  v51 = 0u;
+  v48 = 0u;
+  v49 = 0u;
   obj = edgesCopy;
-  v39 = [obj countByEnumeratingWithState:&v49 objects:v54 count:16];
-  if (v39)
+  v38 = [obj countByEnumeratingWithState:&v48 objects:v53 count:16];
+  if (v38)
   {
-    v38 = *v50;
+    v37 = *v49;
     do
     {
       v6 = 0;
       do
       {
-        if (*v50 != v38)
+        if (*v49 != v37)
         {
           objc_enumerationMutation(obj);
         }
 
-        v44 = v6;
-        v7 = *(*(&v49 + 1) + 8 * v6);
+        v43 = v6;
+        v7 = *(*(&v48 + 1) + 8 * v6);
         nextEdgeIdentifier = self->_nextEdgeIdentifier;
         self->_nextEdgeIdentifier = nextEdgeIdentifier + 1;
         labels = [v7 labels];
@@ -1996,10 +1971,10 @@ void __76__KGMemoryGraphStore__lock_arrayOfNodesWithIdentifiers_entityFactory_er
         v18 = [(NSMutableDictionary *)v14 objectForKeyedSubscript:v17];
 
         v19 = [KGMemoryEdge alloc];
-        v43 = v7;
+        v42 = v7;
         properties = [v7 properties];
-        v41 = v18;
-        v42 = v13;
+        v40 = v18;
+        v41 = v13;
         v21 = [(KGMemoryEdge *)v19 initWithIdentifier:nextEdgeIdentifier labels:labels properties:properties sourceNode:v13 targetNode:v18];
 
         memoryEdgeByIdentifier = self->_memoryEdgeByIdentifier;
@@ -2014,26 +1989,26 @@ void __76__KGMemoryGraphStore__lock_arrayOfNodesWithIdentifiers_entityFactory_er
         targetNode2 = [(KGMemoryEdge *)v21 targetNode];
         -[KGMutableDirectedBinaryAdjacency insertSource:target:](edgeIdentifiersByTargetNodeIdentifier, "insertSource:target:", [targetNode2 identifier], nextEdgeIdentifier);
 
-        v47 = 0u;
-        v48 = 0u;
-        v45 = 0u;
         v46 = 0u;
+        v47 = 0u;
+        v44 = 0u;
+        v45 = 0u;
         v28 = labels;
-        v29 = [v28 countByEnumeratingWithState:&v45 objects:v53 count:16];
+        v29 = [v28 countByEnumeratingWithState:&v44 objects:v52 count:16];
         if (v29)
         {
           v30 = v29;
-          v31 = *v46;
+          v31 = *v45;
           do
           {
             for (i = 0; i != v30; ++i)
             {
-              if (*v46 != v31)
+              if (*v45 != v31)
               {
                 objc_enumerationMutation(v28);
               }
 
-              v33 = *(*(&v45 + 1) + 8 * i);
+              v33 = *(*(&v44 + 1) + 8 * i);
               v34 = [(NSMutableDictionary *)self->_edgeIdentifiersByLabel objectForKeyedSubscript:v33];
               if (!v34)
               {
@@ -2044,25 +2019,24 @@ void __76__KGMemoryGraphStore__lock_arrayOfNodesWithIdentifiers_entityFactory_er
               [(KGMutableElementIdentifierSet *)v34 addIdentifier:nextEdgeIdentifier];
             }
 
-            v30 = [v28 countByEnumeratingWithState:&v45 objects:v53 count:16];
+            v30 = [v28 countByEnumeratingWithState:&v44 objects:v52 count:16];
           }
 
           while (v30);
         }
 
-        [v43 resolveIdentifier:{-[KGMemoryEdge identifier](v21, "identifier")}];
-        v6 = v44 + 1;
+        [v42 resolveIdentifier:{-[KGMemoryEdge identifier](v21, "identifier")}];
+        v6 = v43 + 1;
       }
 
-      while (v44 + 1 != v39);
-      v39 = [obj countByEnumeratingWithState:&v49 objects:v54 count:16];
+      while (v43 + 1 != v38);
+      v38 = [obj countByEnumeratingWithState:&v48 objects:v53 count:16];
     }
 
-    while (v39);
+    while (v38);
   }
 
   os_unfair_lock_unlock(&self->_lock);
-  v35 = *MEMORY[0x277D85DE8];
   return 1;
 }
 

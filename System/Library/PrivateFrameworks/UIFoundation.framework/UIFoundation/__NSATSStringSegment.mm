@@ -1,6 +1,6 @@
 @interface __NSATSStringSegment
 + (id)allocWithZone:(_NSZone *)zone;
-- (const)_setOriginalString:(uint64_t)string range:(char *)range;
+- (__CFString)_setOriginalString:(uint64_t)string range:(char *)range;
 - (const)initWithOriginalString:(uint64_t)string range:(char *)range;
 - (unsigned)characterAtIndex:(unint64_t)index;
 - (void)dealloc;
@@ -191,7 +191,7 @@ LABEL_12:
   CFStringGetCharacters(originalString, v13, characters);
 }
 
-- (const)_setOriginalString:(uint64_t)string range:(char *)range
+- (__CFString)_setOriginalString:(uint64_t)string range:(char *)range
 {
   if (!result)
   {

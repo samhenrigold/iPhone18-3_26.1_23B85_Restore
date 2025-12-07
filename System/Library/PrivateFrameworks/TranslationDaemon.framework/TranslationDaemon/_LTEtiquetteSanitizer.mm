@@ -31,25 +31,25 @@
 
 - (_LTEtiquetteSanitizer)initWithModelURL:(id)l language:(id)language
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   languageCopy = language;
   v7 = [l URLByAppendingPathComponent:@"etiquette.json"];
   v8 = replacementDictionaryForEtiquetteFileAtURL(v7);
+  v10 = v8;
   if (v8)
   {
-    v9 = _LTOSLogEtiquetteSanitizer();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+    v11 = _LTOSLogEtiquetteSanitizer(v8, v9);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
     {
-      v13 = 138543362;
-      v14 = v7;
-      _os_log_impl(&dword_232E53000, v9, OS_LOG_TYPE_INFO, "Creating etiquette sanitizer with URL: %{public}@", &v13, 0xCu);
+      v14 = 138543362;
+      v15 = v7;
+      _os_log_impl(&dword_232E53000, v11, OS_LOG_TYPE_INFO, "Creating etiquette sanitizer with URL: %{public}@", &v14, 0xCu);
     }
   }
 
-  v10 = [(_LTEtiquetteSanitizer *)self initWithReplacementTokenDictionary:v8 language:languageCopy];
+  v12 = [(_LTEtiquetteSanitizer *)self initWithReplacementTokenDictionary:v10 language:languageCopy];
 
-  v11 = *MEMORY[0x277D85DE8];
-  return v10;
+  return v12;
 }
 
 - (id)treeForReplacementTokens:(id)tokens
@@ -70,53 +70,53 @@
 
 - (id)matchesForString:(id)string
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   stringCopy = string;
   objc_initWeak(&location, self);
   array = [MEMORY[0x277CBEB18] array];
   array2 = [MEMORY[0x277CBEB18] array];
   array3 = [MEMORY[0x277CBEB18] array];
-  v35[0] = 0;
-  v35[1] = v35;
-  v35[2] = 0x3032000000;
-  v35[3] = __Block_byref_object_copy__7;
-  v35[4] = __Block_byref_object_dispose__7;
-  v36 = 0;
+  v34[0] = 0;
+  v34[1] = v34;
+  v34[2] = 0x3032000000;
+  v34[3] = __Block_byref_object_copy__7;
+  v34[4] = __Block_byref_object_dispose__7;
+  v35 = 0;
   lowercaseString = [stringCopy lowercaseString];
   v8 = [stringCopy length];
-  v29[0] = MEMORY[0x277D85DD0];
-  v29[1] = 3221225472;
-  v29[2] = __42___LTEtiquetteSanitizer_matchesForString___block_invoke;
-  v29[3] = &unk_2789B6AE8;
-  objc_copyWeak(&v34, &location);
+  v28[0] = MEMORY[0x277D85DD0];
+  v28[1] = 3221225472;
+  v28[2] = __42___LTEtiquetteSanitizer_matchesForString___block_invoke;
+  v28[3] = &unk_2789B6AE8;
+  objc_copyWeak(&v33, &location);
   v9 = array2;
-  v30 = v9;
-  v33 = v35;
+  v29 = v9;
+  v32 = v34;
   v10 = array;
-  v31 = v10;
+  v30 = v10;
   v11 = array3;
-  v32 = v11;
-  [lowercaseString enumerateSubstringsInRange:0 options:v8 usingBlock:{2, v29}];
+  v31 = v11;
+  [lowercaseString enumerateSubstringsInRange:0 options:v8 usingBlock:{2, v28}];
 
-  v27 = 0u;
-  v28 = 0u;
-  v25 = 0u;
   v26 = 0u;
+  v27 = 0u;
+  v24 = 0u;
+  v25 = 0u;
   v12 = v9;
-  v13 = [v12 countByEnumeratingWithState:&v25 objects:v38 count:16];
+  v13 = [v12 countByEnumeratingWithState:&v24 objects:v37 count:16];
   if (v13)
   {
-    v14 = *v26;
+    v14 = *v25;
     do
     {
       for (i = 0; i != v13; ++i)
       {
-        if (*v26 != v14)
+        if (*v25 != v14)
         {
           objc_enumerationMutation(v12);
         }
 
-        v16 = *(*(&v25 + 1) + 8 * i);
+        v16 = *(*(&v24 + 1) + 8 * i);
         node = [v16 node];
         v18 = [node objectForKeyedSubscript:@"TOKEN"];
         [v16 setToken:v18];
@@ -129,20 +129,19 @@
         }
       }
 
-      v13 = [v12 countByEnumeratingWithState:&v25 objects:v38 count:16];
+      v13 = [v12 countByEnumeratingWithState:&v24 objects:v37 count:16];
     }
 
     while (v13);
   }
 
-  v20 = v32;
+  v20 = v31;
   v21 = v10;
 
-  objc_destroyWeak(&v34);
-  _Block_object_dispose(v35, 8);
+  objc_destroyWeak(&v33);
+  _Block_object_dispose(v34, 8);
 
   objc_destroyWeak(&location);
-  v22 = *MEMORY[0x277D85DE8];
 
   return v21;
 }
@@ -178,30 +177,30 @@
 
 - (id)stringByReplacingMatches:(id)matches inString:(id)string
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   matchesCopy = matches;
   v7 = [string mutableCopy];
+  v25 = 0u;
   v26 = 0u;
   v27 = 0u;
   v28 = 0u;
-  v29 = 0u;
   obj = matchesCopy;
-  v8 = [obj countByEnumeratingWithState:&v26 objects:v30 count:16];
+  v8 = [obj countByEnumeratingWithState:&v25 objects:v29 count:16];
   if (v8)
   {
     v9 = v8;
     v10 = 0;
-    v11 = *v27;
+    v11 = *v26;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v27 != v11)
+        if (*v26 != v11)
         {
           objc_enumerationMutation(obj);
         }
 
-        v13 = *(*(&v26 + 1) + 8 * i);
+        v13 = *(*(&v25 + 1) + 8 * i);
         range = [v13 range];
         v16 = [v7 substringWithRange:{range, v15}];
         token = [v13 token];
@@ -213,51 +212,50 @@
         [v7 replaceCharactersInRange:range2 + v10 withString:{v21, v18}];
       }
 
-      v9 = [obj countByEnumeratingWithState:&v26 objects:v30 count:16];
+      v9 = [obj countByEnumeratingWithState:&v25 objects:v29 count:16];
     }
 
     while (v9);
   }
 
   v22 = [v7 copy];
-  v23 = *MEMORY[0x277D85DE8];
 
   return v22;
 }
 
 - (id)sanitizedStringForString:(id)string
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   stringCopy = string;
   v5 = [(_LTEtiquetteSanitizer *)self matchesForString:stringCopy];
-  if ([v5 count])
+  v6 = [v5 count];
+  if (v6)
   {
     v6 = [(_LTEtiquetteSanitizer *)self stringByReplacingMatches:v5 inString:stringCopy];
+    v8 = v6;
   }
 
   else
   {
-    v6 = 0;
+    v8 = 0;
   }
 
-  v7 = _LTOSLogEtiquetteSanitizer();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+  v9 = _LTOSLogEtiquetteSanitizer(v6, v7);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
   {
     locale = self->_locale;
-    v9 = v7;
+    v11 = v9;
     localeIdentifier = [(NSLocale *)locale localeIdentifier];
-    v13 = 138740483;
-    v14 = v6;
-    v15 = 2117;
-    v16 = stringCopy;
-    v17 = 2114;
-    v18 = localeIdentifier;
-    _os_log_impl(&dword_232E53000, v9, OS_LOG_TYPE_INFO, "sanitizedString '%{sensitive}@' forString '%{sensitive}@' locale: %{public}@", &v13, 0x20u);
+    v14 = 138740483;
+    v15 = v8;
+    v16 = 2117;
+    v17 = stringCopy;
+    v18 = 2114;
+    v19 = localeIdentifier;
+    _os_log_impl(&dword_232E53000, v11, OS_LOG_TYPE_INFO, "sanitizedString '%{sensitive}@' forString '%{sensitive}@' locale: %{public}@", &v14, 0x20u);
   }
 
-  v11 = *MEMORY[0x277D85DE8];
-
-  return v6;
+  return v8;
 }
 
 @end

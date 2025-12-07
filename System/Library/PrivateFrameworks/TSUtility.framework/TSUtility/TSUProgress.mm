@@ -168,7 +168,7 @@ uint64_t __42__TSUProgress_protected_progressDidChange__block_invoke_2(uint64_t 
   return v3;
 }
 
-uint64_t __45__TSUProgress_protected_hasProgressObservers__block_invoke(uint64_t a1)
+void *__45__TSUProgress_protected_hasProgressObservers__block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 8) count];
   *(*(*(a1 + 40) + 8) + 24) = result != 0;
@@ -194,7 +194,7 @@ uint64_t __45__TSUProgress_protected_hasProgressObservers__block_invoke(uint64_t
   return v3;
 }
 
-uint64_t __57__TSUProgress_protected_minProgressObserverValueInterval__block_invoke(uint64_t a1)
+void *__57__TSUProgress_protected_minProgressObserverValueInterval__block_invoke(uint64_t a1)
 {
   v13 = *MEMORY[0x277D85DE8];
   v8 = 0u;
@@ -219,7 +219,7 @@ uint64_t __57__TSUProgress_protected_minProgressObserverValueInterval__block_inv
 
         [*(*(&v8 + 1) + 8 * v6) valueInterval];
         *(*(*(a1 + 40) + 8) + 24) = fmin(v7, *(*(*(a1 + 40) + 8) + 24));
-        ++v6;
+        v6 = v6 + 1;
       }
 
       while (v4 != v6);

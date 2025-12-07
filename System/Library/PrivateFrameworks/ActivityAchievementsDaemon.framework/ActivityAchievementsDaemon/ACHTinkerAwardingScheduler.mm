@@ -170,20 +170,18 @@
 
 void __56__ACHTinkerAwardingScheduler_clearLastSuccessfulRunDate__block_invoke(uint64_t a1, char a2, void *a3)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v4 = a3;
   if ((a2 & 1) == 0)
   {
     v5 = ACHLogAwardScheduling();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = 138543362;
-      v8 = v4;
-      _os_log_impl(&dword_221DDC000, v5, OS_LOG_TYPE_DEFAULT, "Error clearning last run date: %{public}@", &v7, 0xCu);
+      v6 = 138543362;
+      v7 = v4;
+      _os_log_impl(&dword_221DDC000, v5, OS_LOG_TYPE_DEFAULT, "Error clearning last run date: %{public}@", &v6, 0xCu);
     }
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)maintenanceTaskScheduled
@@ -233,13 +231,13 @@ void __55__ACHTinkerAwardingScheduler__systemTimeZoneDidChange___block_invoke(ui
   dispatch_async(queue, block);
 }
 
-uint64_t __59__ACHTinkerAwardingScheduler__cloudRestoreStatusDidChange___block_invoke(uint64_t a1)
+void *__59__ACHTinkerAwardingScheduler__cloudRestoreStatusDidChange___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = ACHLogAwardScheduling();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = ACHLogAwardScheduling();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    *v4 = 0;
-    _os_log_impl(&dword_221DDC000, v2, OS_LOG_TYPE_DEFAULT, "[ACHTinkerAwardingScheduler] received cloud restore status change notification", v4, 2u);
+    *v5 = 0;
+    _os_log_impl(&dword_221DDC000, v3, OS_LOG_TYPE_DEFAULT, "[ACHTinkerAwardingScheduler] received cloud restore status change notification", v5, 2u);
   }
 
   result = [*(a1 + 32) shouldRunImmediatelyOnCloudSyncCompletion];
@@ -359,20 +357,19 @@ void __65__ACHTinkerAwardingScheduler_templateStoreDidFinishInitialFetch___block
 
 void __63__ACHTinkerAwardingScheduler__runBackgroundTaskWithCompletion___block_invoke(uint64_t a1, int a2, void *a3)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = ACHLogAwardScheduling();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v8[0] = 67109378;
-    v8[1] = a2;
-    v9 = 2114;
-    v10 = v5;
-    _os_log_impl(&dword_221DDC000, v6, OS_LOG_TYPE_DEFAULT, "Periodic activity awarding evaluation finished with success=%d, error=%{public}@", v8, 0x12u);
+    v7[0] = 67109378;
+    v7[1] = a2;
+    v8 = 2114;
+    v9 = v5;
+    _os_log_impl(&dword_221DDC000, v6, OS_LOG_TYPE_DEFAULT, "Periodic activity awarding evaluation finished with success=%d, error=%{public}@", v7, 0x12u);
   }
 
   (*(*(a1 + 32) + 16))();
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)isInitialAwardingRunComplete
@@ -565,7 +562,7 @@ void __62__ACHTinkerAwardingScheduler__queue_requestAwardingEvaluation__block_in
 
 void __62__ACHTinkerAwardingScheduler__queue_requestAwardingEvaluation__block_invoke_326(uint64_t a1, int a2, void *a3)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = ACHLogAwardScheduling();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
@@ -577,9 +574,9 @@ void __62__ACHTinkerAwardingScheduler__queue_requestAwardingEvaluation__block_in
     }
 
     *buf = 138543618;
-    v18 = v7;
-    v19 = 2114;
-    v20 = v5;
+    v17 = v7;
+    v18 = 2114;
+    v19 = v5;
     _os_log_impl(&dword_221DDC000, v6, OS_LOG_TYPE_DEFAULT, "Historical evaluation complete with success: %{public}@, error: %{public}@", buf, 0x16u);
   }
 
@@ -589,17 +586,15 @@ void __62__ACHTinkerAwardingScheduler__queue_requestAwardingEvaluation__block_in
   block[2] = __62__ACHTinkerAwardingScheduler__queue_requestAwardingEvaluation__block_invoke_333;
   block[3] = &unk_278491F68;
   v9 = *(a1 + 32);
-  v16 = a2;
+  v15 = a2;
   block[4] = v9;
-  v15 = v5;
+  v14 = v5;
   v10 = v5;
   dispatch_sync(v8, block);
 
   v11 = *(*(a1 + 40) + 8);
   v12 = *(v11 + 40);
   *(v11 + 40) = 0;
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_queue_performCleanupTasks
@@ -665,37 +660,37 @@ void __62__ACHTinkerAwardingScheduler__queue_requestAwardingEvaluation__block_in
 
 - (void)_queue_callAwardingCompletionsWithSuccess:(BOOL)success error:(id)error
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   queue = [(ACHTinkerAwardingScheduler *)self queue];
   dispatch_assert_queue_V2(queue);
 
   [(ACHTinkerAwardingScheduler *)self _queue_performCleanupTasks];
-  v17 = 0u;
-  v18 = 0u;
-  v15 = 0u;
   v16 = 0u;
+  v17 = 0u;
+  v14 = 0u;
+  v15 = 0u;
   v7 = self->_awardEvaluationCompletionBlocks;
-  v8 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v8 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v16;
+    v10 = *v15;
     do
     {
       v11 = 0;
       do
       {
-        if (*v16 != v10)
+        if (*v15 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        (*(*(*(&v15 + 1) + 8 * v11++) + 16))();
+        (*(*(*(&v14 + 1) + 8 * v11++) + 16))();
       }
 
       while (v9 != v11);
-      v9 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v9 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v9);
@@ -704,14 +699,12 @@ void __62__ACHTinkerAwardingScheduler__queue_requestAwardingEvaluation__block_in
   v12 = ACHLogAwardScheduling();
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
-    *v14 = 0;
-    _os_log_impl(&dword_221DDC000, v12, OS_LOG_TYPE_DEFAULT, "Calling run completion handlers", v14, 2u);
+    *v13 = 0;
+    _os_log_impl(&dword_221DDC000, v12, OS_LOG_TYPE_DEFAULT, "Calling run completion handlers", v13, 2u);
   }
 
   [(ACHTinkerAwardingScheduler *)self setMaintenanceTaskScheduled:0];
   [(NSMutableArray *)self->_awardEvaluationCompletionBlocks removeAllObjects];
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dataStoreDidPopulate:(id)populate
@@ -725,13 +718,13 @@ void __62__ACHTinkerAwardingScheduler__queue_requestAwardingEvaluation__block_in
   dispatch_async(queue, block);
 }
 
-uint64_t __51__ACHTinkerAwardingScheduler_dataStoreDidPopulate___block_invoke(uint64_t a1)
+void *__51__ACHTinkerAwardingScheduler_dataStoreDidPopulate___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = ACHLogAwardScheduling();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = ACHLogAwardScheduling();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    *v4 = 0;
-    _os_log_impl(&dword_221DDC000, v2, OS_LOG_TYPE_DEFAULT, "[ACHTinkerAwardingScheduler] received data store is loaded", v4, 2u);
+    *v5 = 0;
+    _os_log_impl(&dword_221DDC000, v3, OS_LOG_TYPE_DEFAULT, "[ACHTinkerAwardingScheduler] received data store is loaded", v5, 2u);
   }
 
   [*(a1 + 32) setDataStoreIsLoaded:1];

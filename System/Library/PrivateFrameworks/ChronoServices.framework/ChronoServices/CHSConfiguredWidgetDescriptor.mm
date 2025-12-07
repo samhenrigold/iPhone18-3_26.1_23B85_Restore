@@ -53,14 +53,14 @@
 - (id)_initWithUniqueIdentifier:(id)identifier widget:(id)widget metrics:(id)metrics displayProperties:(id)properties fallbackToDefaultDisplayIfNecessary:(BOOL)necessary
 {
   necessaryCopy = necessary;
-  v43[1] = *MEMORY[0x1E69E9840];
+  v42[1] = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   widgetCopy = widget;
   metricsCopy = metrics;
   propertiesCopy = properties;
-  v37.receiver = self;
-  v37.super_class = CHSConfiguredWidgetDescriptor;
-  v16 = [(CHSConfiguredWidgetDescriptor *)&v37 init];
+  v36.receiver = self;
+  v36.super_class = CHSConfiguredWidgetDescriptor;
+  v16 = [(CHSConfiguredWidgetDescriptor *)&v36 init];
   if (v16)
   {
     v17 = [widgetCopy copy];
@@ -82,8 +82,8 @@
 
     v16->_supportedColorSchemes = 3;
     v25 = [[CHSWidgetRenderScheme alloc] initWithRenderingMode:0 backgroundViewPolicy:0];
-    v43[0] = v25;
-    v26 = [MEMORY[0x1E695DEC8] arrayWithObjects:v43 count:1];
+    v42[0] = v25;
+    v26 = [MEMORY[0x1E695DEC8] arrayWithObjects:v42 count:1];
     supportedRenderSchemes = v16->_supportedRenderSchemes;
     v16->_supportedRenderSchemes = v26;
 
@@ -96,24 +96,24 @@
 
     else if (necessaryCopy)
     {
-      v39 = 0;
-      v40 = &v39;
-      v41 = 0x2050000000;
+      v38 = 0;
+      v39 = &v38;
+      v40 = 0x2050000000;
       v30 = getFBDisplayManagerClass_softClass;
-      v42 = getFBDisplayManagerClass_softClass;
+      v41 = getFBDisplayManagerClass_softClass;
       if (!getFBDisplayManagerClass_softClass)
       {
-        v38[0] = MEMORY[0x1E69E9820];
-        v38[1] = 3221225472;
-        v38[2] = __getFBDisplayManagerClass_block_invoke;
-        v38[3] = &unk_1E74534C8;
-        v38[4] = &v39;
-        __getFBDisplayManagerClass_block_invoke(v38);
-        v30 = v40[3];
+        v37[0] = MEMORY[0x1E69E9820];
+        v37[1] = 3221225472;
+        v37[2] = __getFBDisplayManagerClass_block_invoke;
+        v37[3] = &unk_1E74534C8;
+        v37[4] = &v38;
+        __getFBDisplayManagerClass_block_invoke(v37);
+        v30 = v39[3];
       }
 
       v31 = v30;
-      _Block_object_dispose(&v39, 8);
+      _Block_object_dispose(&v38, 8);
       v32 = [CHSWidgetDisplayProperties alloc];
       displayProperties = [v30 mainConfiguration];
       v33 = [(CHSWidgetDisplayProperties *)v32 initWithDisplayConfiguration:displayProperties];
@@ -132,7 +132,6 @@
     v16->_idealizedDateComponents = 0;
   }
 
-  v35 = *MEMORY[0x1E69E9840];
   return v16;
 }
 
@@ -427,47 +426,48 @@ id __71__CHSConfiguredWidgetDescriptor_descriptionBuilderWithMultilinePrefix___b
   v5 = [coderCopy decodeBoolForKey:@"isSystemConfigured"];
   v6 = [coderCopy decodeBoolForKey:@"isSuggestion"];
   v40 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"displayProperties"];
-  if ([coderCopy containsValueForKey:@"supportedColorSchemes"])
+  v7 = [coderCopy containsValueForKey:@"supportedColorSchemes"];
+  if (v7)
   {
-    v7 = [coderCopy decodeInt32ForKey:@"supportedColorSchemes"];
-    IsValid = CHSWidgetColorSchemesIsValid(v7);
+    v8 = [coderCopy decodeInt32ForKey:@"supportedColorSchemes"];
+    IsValid = CHSWidgetColorSchemesIsValid();
   }
 
   else
   {
-    v9 = CHSLogChronoServices();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v10 = CHSLogChronoServices(v7);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
       v48 = v44;
-      _os_log_impl(&dword_195EB2000, v9, OS_LOG_TYPE_DEFAULT, "Cannot find color schemes encoded; using all as a fallback for %{public}@", buf, 0xCu);
+      _os_log_impl(&dword_195EB2000, v10, OS_LOG_TYPE_DEFAULT, "Cannot find color schemes encoded; using all as a fallback for %{public}@", buf, 0xCu);
     }
 
     IsValid = 1;
-    v7 = 0xFFFFFFFFLL;
+    v8 = 0xFFFFFFFFLL;
   }
 
   if ([coderCopy containsValueForKey:@"supportedRenderSchemes2"])
   {
-    v10 = [coderCopy decodeArrayOfObjectsOfClass:objc_opt_class() forKey:@"supportedRenderSchemes2"];
+    v11 = [coderCopy decodeArrayOfObjectsOfClass:objc_opt_class() forKey:@"supportedRenderSchemes2"];
     goto LABEL_21;
   }
 
   if ([coderCopy containsValueForKey:@"supportedRenderSchemes"])
   {
-    v11 = [coderCopy decodeArrayOfObjectsOfClass:objc_opt_class() forKey:@"supportedRenderSchemes"];
+    v12 = [coderCopy decodeArrayOfObjectsOfClass:objc_opt_class() forKey:@"supportedRenderSchemes"];
     array = [MEMORY[0x1E695DF70] array];
     v45[0] = MEMORY[0x1E69E9820];
     v45[1] = 3221225472;
     v45[2] = __47__CHSConfiguredWidgetDescriptor_initWithCoder___block_invoke;
     v45[3] = &unk_1E74541E8;
-    v13 = array;
-    v46 = v13;
-    [v11 enumerateObjectsUsingBlock:v45];
-    v14 = v13;
+    v14 = array;
+    v46 = v14;
+    [v12 enumerateObjectsUsingBlock:v45];
+    v15 = v14;
 
     _compatibilityRenderSchemesFromDeprecatedRenderingModes = v46;
-    v10 = v14;
+    v11 = v15;
 LABEL_19:
 
     goto LABEL_21;
@@ -475,31 +475,31 @@ LABEL_19:
 
   if ([coderCopy containsValueForKey:@"supportedRenderingModes"])
   {
-    v16 = [coderCopy decodeInt32ForKey:@"supportedRenderingModes"];
-    if (CHSWidgetRenderingModesIsValid(v16))
+    v17 = [coderCopy decodeInt32ForKey:@"supportedRenderingModes"];
+    if (CHSWidgetRenderingModesIsValid(v17))
     {
-      v17 = v16 & 6;
-      if ((v16 & 1) == 0)
+      v18 = v17 & 6;
+      if ((v17 & 1) == 0)
       {
-        v10 = MEMORY[0x1E695E0F0];
+        v11 = MEMORY[0x1E695E0F0];
 LABEL_17:
-        if (!v17)
+        if (!v18)
         {
           goto LABEL_21;
         }
 
-        v14 = [[CHSWidgetRenderScheme alloc] initWithRenderingModes:v17 backgroundViewPolicy:1];
-        _compatibilityRenderSchemesFromDeprecatedRenderingModes = [(CHSWidgetRenderScheme *)v14 _compatibilityRenderSchemesFromDeprecatedRenderingModes];
-        v20 = [v10 arrayByAddingObjectsFromArray:_compatibilityRenderSchemesFromDeprecatedRenderingModes];
+        v15 = [[CHSWidgetRenderScheme alloc] initWithRenderingModes:v18 backgroundViewPolicy:1];
+        _compatibilityRenderSchemesFromDeprecatedRenderingModes = [(CHSWidgetRenderScheme *)v15 _compatibilityRenderSchemesFromDeprecatedRenderingModes];
+        v21 = [v11 arrayByAddingObjectsFromArray:_compatibilityRenderSchemesFromDeprecatedRenderingModes];
 
-        v10 = v20;
+        v11 = v21;
         goto LABEL_19;
       }
 
 LABEL_16:
-      v18 = [[CHSWidgetRenderScheme alloc] initWithRenderingModes:1 backgroundViewPolicy:0];
-      _compatibilityRenderSchemesFromDeprecatedRenderingModes2 = [(CHSWidgetRenderScheme *)v18 _compatibilityRenderSchemesFromDeprecatedRenderingModes];
-      v10 = [MEMORY[0x1E695E0F0] arrayByAddingObjectsFromArray:_compatibilityRenderSchemesFromDeprecatedRenderingModes2];
+      v19 = [[CHSWidgetRenderScheme alloc] initWithRenderingModes:1 backgroundViewPolicy:0];
+      _compatibilityRenderSchemesFromDeprecatedRenderingModes2 = [(CHSWidgetRenderScheme *)v19 _compatibilityRenderSchemesFromDeprecatedRenderingModes];
+      v11 = [MEMORY[0x1E695E0F0] arrayByAddingObjectsFromArray:_compatibilityRenderSchemesFromDeprecatedRenderingModes2];
 
       goto LABEL_17;
     }
@@ -507,79 +507,78 @@ LABEL_16:
 
   else if ([coderCopy decodeBoolForKey:@"supportsTinting"])
   {
-    v17 = 6;
+    v18 = 6;
     goto LABEL_16;
   }
 
-  v10 = MEMORY[0x1E695E0F0];
+  v11 = MEMORY[0x1E695E0F0];
 LABEL_21:
-  v39 = v10;
-  v21 = [v10 count];
-  v22 = +[CHSWidgetRefreshStrategyFactory defaultStrategy];
+  v39 = v11;
+  v22 = [v11 count];
+  v23 = +[CHSWidgetRefreshStrategyFactory defaultStrategy];
   if ([coderCopy containsValueForKey:@"refreshStrategy"])
   {
-    v23 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"refreshStrategy"];
+    v24 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"refreshStrategy"];
 
-    v22 = v23;
+    v23 = v24;
   }
 
-  v24 = [coderCopy decodeBoolForKey:@"supportsLowLuminance"];
+  v25 = [coderCopy decodeBoolForKey:@"supportsLowLuminance"];
   v38 = [coderCopy decodeBoolForKey:@"showsWidgetLabel"];
-  v25 = v24;
-  v26 = v5;
+  v26 = v25;
+  v27 = v5;
   if ([coderCopy containsValueForKey:@"supportedProximities"])
   {
-    v27 = [coderCopy decodeInt32ForKey:@"supportedProximities"];
+    v28 = [coderCopy decodeInt32ForKey:@"supportedProximities"];
   }
 
   else
   {
-    v27 = 3;
+    v28 = 3;
   }
 
-  v37 = v27;
+  v37 = v28;
   if ([coderCopy containsValueForKey:@"idealizedDateComponents"])
   {
-    v28 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"idealizedDateComponents"];
+    v29 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"idealizedDateComponents"];
   }
 
   else
   {
-    v28 = 0;
+    v29 = 0;
   }
 
-  v29 = 0;
-  if (v44 && v43 && v42 && ((IsValid ^ 1) & 1) == 0 && v21)
+  v30 = 0;
+  if (v44 && v43 && v42 && ((IsValid ^ 1) & 1) == 0 && v22)
   {
-    v30 = [(CHSConfiguredWidgetDescriptor *)selfCopy _initWithUniqueIdentifier:v43 widget:v44 metrics:v42 displayProperties:v40 fallbackToDefaultDisplayIfNecessary:0];
-    v31 = v30;
-    if (v30)
+    v31 = [(CHSConfiguredWidgetDescriptor *)selfCopy _initWithUniqueIdentifier:v43 widget:v44 metrics:v42 displayProperties:v40 fallbackToDefaultDisplayIfNecessary:0];
+    v32 = v31;
+    if (v31)
     {
-      *(v30 + 16) = v6;
-      *(v30 + 17) = v26;
-      *(v30 + 24) = v7;
-      v32 = [v39 copy];
-      v33 = *(v31 + 32);
-      *(v31 + 32) = v32;
+      *(v31 + 16) = v6;
+      *(v31 + 17) = v27;
+      *(v31 + 24) = v8;
+      v33 = [v39 copy];
+      v34 = *(v32 + 32);
+      *(v32 + 32) = v33;
 
-      *(v31 + 40) = v25;
-      *(v31 + 41) = v38;
-      objc_storeStrong((v31 + 56), v22);
-      *(v31 + 64) = v37;
-      *(v31 + 72) = v28;
+      *(v32 + 40) = v26;
+      *(v32 + 41) = v38;
+      objc_storeStrong((v32 + 56), v23);
+      *(v32 + 64) = v37;
+      *(v32 + 72) = v29;
     }
 
-    v34 = v31;
-    v29 = v34;
+    v35 = v32;
+    v30 = v35;
   }
 
   else
   {
-    v34 = selfCopy;
+    v35 = selfCopy;
   }
 
-  v35 = *MEMORY[0x1E69E9840];
-  return v29;
+  return v30;
 }
 
 void __47__CHSConfiguredWidgetDescriptor_initWithCoder___block_invoke(uint64_t a1, void *a2)

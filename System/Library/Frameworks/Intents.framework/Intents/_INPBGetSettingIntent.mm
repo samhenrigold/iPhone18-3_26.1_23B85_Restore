@@ -1,6 +1,7 @@
 @interface _INPBGetSettingIntent
 - (BOOL)isEqual:(id)equal;
 - (_INPBGetSettingIntent)initWithCoder:(id)coder;
+- (id)confirmationValueAsString:(int)string;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)dictionaryRepresentation;
 - (int)StringAsConfirmationValue:(id)value;
@@ -191,7 +192,6 @@ LABEL_17:
   toCopy = to;
   if ([(_INPBGetSettingIntent *)self hasConfirmationValue])
   {
-    confirmationValue = self->_confirmationValue;
     PBDataWriterWriteInt32Field();
   }
 
@@ -205,13 +205,13 @@ LABEL_17:
 
   settingMetadata = [(_INPBGetSettingIntent *)self settingMetadata];
 
-  v8 = toCopy;
+  v7 = toCopy;
   if (settingMetadata)
   {
     settingMetadata2 = [(_INPBGetSettingIntent *)self settingMetadata];
     PBDataWriterWriteSubmessage();
 
-    v8 = toCopy;
+    v7 = toCopy;
   }
 }
 
@@ -236,6 +236,21 @@ LABEL_17:
   else
   {
     v4 = 1;
+  }
+
+  return v4;
+}
+
+- (id)confirmationValueAsString:(int)string
+{
+  if ((string - 1) >= 3)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = *(&off_1E7287D70 + (string - 1));
   }
 
   return v4;

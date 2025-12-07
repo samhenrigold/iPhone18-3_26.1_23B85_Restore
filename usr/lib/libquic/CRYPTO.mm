@@ -42,9 +42,9 @@ uint64_t __quic_frame_process_CRYPTO_block_invoke(uint64_t a1, int64x2_t **a2)
           *(v55 + 40) = v56;
         }
 
-        quic_crypto_process_reassq(v56, v55 + 48, a2, a2[33]);
-        quic_crypto_process_reassq(*(*(a1 + 40) + 40), *(a1 + 40) + 112, a2, a2[34]);
-        quic_crypto_process_reassq(*(*(a1 + 40) + 40), *(a1 + 40) + 240, a2, a2[35]);
+        quic_crypto_process_reassq(v56, v55 + 48, a2, a2[33], v55 + 304);
+        quic_crypto_process_reassq(*(*(a1 + 40) + 40), *(a1 + 40) + 112, a2, a2[34], *(a1 + 40) + 320);
+        quic_crypto_process_reassq(*(*(a1 + 40) + 40), *(a1 + 40) + 240, a2, a2[35], *(a1 + 40) + 352);
       }
     }
 
@@ -54,7 +54,7 @@ uint64_t __quic_frame_process_CRYPTO_block_invoke(uint64_t a1, int64x2_t **a2)
       {
         v8 = _os_log_pack_size();
         v66 = &v64;
-        v9 = MEMORY[0x1EEE9AC00](v8, v8);
+        v9 = MEMORY[0x1EEE9AC00](v8);
         _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
         v65 = &v64 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
         v10 = _os_log_pack_fill();
@@ -213,7 +213,7 @@ uint64_t __quic_frame_process_CRYPTO_block_invoke(uint64_t a1, int64x2_t **a2)
 
     v32 = _os_log_pack_size();
     v66 = &v64;
-    v33 = &v64 - ((MEMORY[0x1EEE9AC00](v32, v32) + 15) & 0xFFFFFFFFFFFFFFF0);
+    v33 = &v64 - ((MEMORY[0x1EEE9AC00](v32) + 15) & 0xFFFFFFFFFFFFFFF0);
     _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
     v34 = _os_log_pack_fill();
     v35 = *(a1 + 40);

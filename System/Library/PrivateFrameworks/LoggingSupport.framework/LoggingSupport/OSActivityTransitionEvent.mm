@@ -17,10 +17,10 @@
 
 - (OSActivityTransitionEvent)initWithEntry:(os_activity_stream_entry_s *)entry
 {
-  v11 = *MEMORY[0x277D85DE8];
-  v9.receiver = self;
-  v9.super_class = OSActivityTransitionEvent;
-  v4 = [(OSActivityTransitionEvent *)&v9 init];
+  v10 = *MEMORY[0x277D85DE8];
+  v8.receiver = self;
+  v8.super_class = OSActivityTransitionEvent;
+  v4 = [(OSActivityTransitionEvent *)&v8 init];
   v5 = v4;
   if (v4)
   {
@@ -30,7 +30,6 @@
     [(OSActivityEvent *)v5 fillFromStreamEntry:entry eventMessage:__str persisted:0];
   }
 
-  v7 = *MEMORY[0x277D85DE8];
   return v5;
 }
 

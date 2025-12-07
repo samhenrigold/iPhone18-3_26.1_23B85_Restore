@@ -9,7 +9,7 @@
 
 + (id)recordNameUsingSalt:(id)salt guid:(id)guid
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   saltCopy = salt;
   guidCopy = guid;
   if ([guidCopy length] && objc_msgSend(saltCopy, "length"))
@@ -20,13 +20,13 @@
       v8 = OSLogHandleForIMFoundationCategory();
       if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
       {
-        v12 = 138412802;
-        v13 = v7;
-        v14 = 2112;
-        v15 = guidCopy;
-        v16 = 2112;
-        v17 = saltCopy;
-        _os_log_impl(&dword_22B4CC000, v8, OS_LOG_TYPE_INFO, "Computed message record name hash %@ from guid %@ and salt %@", &v12, 0x20u);
+        v11 = 138412802;
+        v12 = v7;
+        v13 = 2112;
+        v14 = guidCopy;
+        v15 = 2112;
+        v16 = saltCopy;
+        _os_log_impl(&dword_22B4CC000, v8, OS_LOG_TYPE_INFO, "Computed message record name hash %@ from guid %@ and salt %@", &v11, 0x20u);
       }
     }
   }
@@ -38,20 +38,18 @@
       v9 = OSLogHandleForIMFoundationCategory();
       if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
       {
-        v12 = 138412802;
-        v13 = 0;
-        v14 = 2112;
-        v15 = guidCopy;
-        v16 = 2112;
-        v17 = saltCopy;
-        _os_log_impl(&dword_22B4CC000, v9, OS_LOG_TYPE_INFO, "Could not compute message record name hash %@ from guid %@ and salt %@ as one or both are nil", &v12, 0x20u);
+        v11 = 138412802;
+        v12 = 0;
+        v13 = 2112;
+        v14 = guidCopy;
+        v15 = 2112;
+        v16 = saltCopy;
+        _os_log_impl(&dword_22B4CC000, v9, OS_LOG_TYPE_INFO, "Could not compute message record name hash %@ from guid %@ and salt %@ as one or both are nil", &v11, 0x20u);
       }
     }
 
     v7 = 0;
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v7;
 }

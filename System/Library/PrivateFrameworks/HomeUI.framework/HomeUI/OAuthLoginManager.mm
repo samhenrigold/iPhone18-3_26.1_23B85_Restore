@@ -10,7 +10,7 @@
 
 - (_TtC6HomeUI17OAuthLoginManager)initWithAuthURL:(id)l presentingContext:(id)context
 {
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27C81CDF0);
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27C81CDF0, &qword_20D5BE120);
   MEMORY[0x28223BE20](v7 - 8);
   v9 = &v13 - v8;
   if (l)
@@ -63,7 +63,7 @@
 
 - (id)processRedirectURL:(id)l
 {
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27C81CDF0);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27C81CDF0, &qword_20D5BE120);
   MEMORY[0x28223BE20](v4 - 8);
   v6 = &v11 - v5;
   if (l)
@@ -80,7 +80,7 @@
   }
 
   sub_20CFD3EBC(v6);
-  sub_20CEF928C(v6, &unk_27C81CDF0);
+  sub_20CEF928C(v6, &unk_27C81CDF0, &qword_20D5BE120);
   v9 = sub_20D567738();
 
   return v9;

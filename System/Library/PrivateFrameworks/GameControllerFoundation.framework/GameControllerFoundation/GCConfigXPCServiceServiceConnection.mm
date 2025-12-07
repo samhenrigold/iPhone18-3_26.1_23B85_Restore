@@ -108,13 +108,13 @@ LABEL_3:
 
 void __72__GCConfigXPCServiceServiceConnection_initWithConnection_serviceVendor___block_invoke(uint64_t a1)
 {
-  v39 = *MEMORY[0x1E69E9840];
-  v2 = _gc_log_ipc();
+  v38 = *MEMORY[0x1E69E9840];
+  v2 = _gc_log_ipc(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     v3 = *(a1 + 32);
     *buf = 138412290;
-    v38 = v3;
+    v37 = v3;
     _os_log_impl(&dword_1D2C3B000, v2, OS_LOG_TYPE_INFO, "%@: Invalidating", buf, 0xCu);
   }
 
@@ -147,65 +147,65 @@ void __72__GCConfigXPCServiceServiceConnection_initWithConnection_serviceVendor_
     objc_sync_exit(v4);
     v13 = MEMORY[0x1E696ABC0];
     v14 = *MEMORY[0x1E696A588];
-    v35[0] = *MEMORY[0x1E696A578];
-    v35[1] = v14;
-    v36[0] = @"Request failed.";
-    v36[1] = @"Service connection invalidated.";
-    v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v36 forKeys:v35 count:2];
+    v34[0] = *MEMORY[0x1E696A578];
+    v34[1] = v14;
+    v35[0] = @"Request failed.";
+    v35[1] = @"Service connection invalidated.";
+    v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v35 forKeys:v34 count:2];
     v16 = [v13 gc_IPCError:1 userInfo:v15];
 
-    v31 = 0u;
-    v32 = 0u;
-    v29 = 0u;
     v30 = 0u;
-    v17 = [0 countByEnumeratingWithState:&v29 objects:v34 count:16];
+    v31 = 0u;
+    v28 = 0u;
+    v29 = 0u;
+    v17 = [0 countByEnumeratingWithState:&v28 objects:v33 count:16];
     if (v17)
     {
-      v18 = *v30;
+      v18 = *v29;
       do
       {
         v19 = 0;
         do
         {
-          if (*v30 != v18)
+          if (*v29 != v18)
           {
             objc_enumerationMutation(0);
           }
 
-          [*(*(&v29 + 1) + 8 * v19++) failWithError:v16];
+          [*(*(&v28 + 1) + 8 * v19++) failWithError:v16];
         }
 
         while (v17 != v19);
-        v17 = [0 countByEnumeratingWithState:&v29 objects:v34 count:16];
+        v17 = [0 countByEnumeratingWithState:&v28 objects:v33 count:16];
       }
 
       while (v17);
     }
 
-    v27 = 0u;
-    v28 = 0u;
-    v25 = 0u;
     v26 = 0u;
+    v27 = 0u;
+    v24 = 0u;
+    v25 = 0u;
     v20 = [v8 reverseObjectEnumerator];
-    v21 = [v20 countByEnumeratingWithState:&v25 objects:v33 count:16];
+    v21 = [v20 countByEnumeratingWithState:&v24 objects:v32 count:16];
     if (v21)
     {
-      v22 = *v26;
+      v22 = *v25;
       do
       {
         v23 = 0;
         do
         {
-          if (*v26 != v22)
+          if (*v25 != v22)
           {
             objc_enumerationMutation(v20);
           }
 
-          (*(*(*(&v25 + 1) + 8 * v23++) + 16))();
+          (*(*(*(&v24 + 1) + 8 * v23++) + 16))();
         }
 
         while (v21 != v23);
-        v21 = [v20 countByEnumeratingWithState:&v25 objects:v33 count:16];
+        v21 = [v20 countByEnumeratingWithState:&v24 objects:v32 count:16];
       }
 
       while (v21);
@@ -213,8 +213,6 @@ void __72__GCConfigXPCServiceServiceConnection_initWithConnection_serviceVendor_
 
     v4 = v8;
   }
-
-  v24 = *MEMORY[0x1E69E9840];
 }
 
 - (id)addInvalidationHandler:(id)handler
@@ -309,7 +307,7 @@ void __62__GCConfigXPCServiceServiceConnection_addInvalidationHandler___block_in
 
 id __77__GCConfigXPCServiceServiceConnection_serviceVendorRequestWithLabel_handler___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v36[2] = *MEMORY[0x1E69E9840];
+  v35[2] = *MEMORY[0x1E69E9840];
   v5 = *(a1 + 32);
   objc_sync_enter(v5);
   v6 = atomic_load((*(a1 + 32) + 40));
@@ -317,11 +315,11 @@ id __77__GCConfigXPCServiceServiceConnection_serviceVendorRequestWithLabel_handl
   {
     v7 = MEMORY[0x1E696ABC0];
     v8 = *MEMORY[0x1E696A588];
-    v35[0] = *MEMORY[0x1E696A578];
-    v35[1] = v8;
-    v36[0] = @"Request failed.";
-    v36[1] = @"Service connection is invalid.";
-    v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v36 forKeys:v35 count:2];
+    v34[0] = *MEMORY[0x1E696A578];
+    v34[1] = v8;
+    v35[0] = @"Request failed.";
+    v35[1] = @"Service connection is invalid.";
+    v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v35 forKeys:v34 count:2];
     v10 = [v7 gc_IPCError:1 userInfo:v9];
 
     v11 = v10;
@@ -335,48 +333,46 @@ id __77__GCConfigXPCServiceServiceConnection_serviceVendorRequestWithLabel_handl
   {
     objc_sync_exit(v5);
 
-    v29 = 0;
-    v30 = &v29;
-    v31 = 0x3032000000;
-    v32 = __Block_byref_object_copy__8;
-    v33 = __Block_byref_object_dispose__8;
-    v34 = 0;
-    v23 = 0;
-    v24 = &v23;
-    v25 = 0x3032000000;
-    v26 = __Block_byref_object_copy__8;
-    v27 = __Block_byref_object_dispose__8;
     v28 = 0;
+    v29 = &v28;
+    v30 = 0x3032000000;
+    v31 = __Block_byref_object_copy__8;
+    v32 = __Block_byref_object_dispose__8;
+    v33 = 0;
+    v22 = 0;
+    v23 = &v22;
+    v24 = 0x3032000000;
+    v25 = __Block_byref_object_copy__8;
+    v26 = __Block_byref_object_dispose__8;
+    v27 = 0;
     v13 = *(*(a1 + 32) + 32);
-    v22[0] = MEMORY[0x1E69E9820];
-    v22[1] = 3221225472;
-    v22[2] = __77__GCConfigXPCServiceServiceConnection_serviceVendorRequestWithLabel_handler___block_invoke_22;
-    v22[3] = &unk_1E84144F0;
-    v22[4] = &v23;
-    v14 = [v13 synchronousRemoteObjectProxyWithErrorHandler:v22];
-    v15 = *(a1 + 40);
     v21[0] = MEMORY[0x1E69E9820];
     v21[1] = 3221225472;
-    v21[2] = __77__GCConfigXPCServiceServiceConnection_serviceVendorRequestWithLabel_handler___block_invoke_2;
-    v21[3] = &unk_1E8414518;
-    v21[4] = &v29;
-    v21[5] = &v23;
-    (*(v15 + 16))(v15, v14, v21, v16, v17, v18);
-    *a3 = v24[5];
-    v12 = v30[5];
+    v21[2] = __77__GCConfigXPCServiceServiceConnection_serviceVendorRequestWithLabel_handler___block_invoke_22;
+    v21[3] = &unk_1E84144F0;
+    v21[4] = &v22;
+    v14 = [v13 synchronousRemoteObjectProxyWithErrorHandler:v21];
+    v15 = *(a1 + 40);
+    v20[0] = MEMORY[0x1E69E9820];
+    v20[1] = 3221225472;
+    v20[2] = __77__GCConfigXPCServiceServiceConnection_serviceVendorRequestWithLabel_handler___block_invoke_2;
+    v20[3] = &unk_1E8414518;
+    v20[4] = &v28;
+    v20[5] = &v22;
+    (*(v15 + 16))(v15, v14, v20, v16, v17, v18);
+    *a3 = v23[5];
+    v12 = v29[5];
 
-    _Block_object_dispose(&v23, 8);
-    _Block_object_dispose(&v29, 8);
+    _Block_object_dispose(&v22, 8);
+    _Block_object_dispose(&v28, 8);
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 
   return v12;
 }
 
 void __77__GCConfigXPCServiceServiceConnection_serviceVendorRequestWithLabel_handler___block_invoke_22(uint64_t a1, void *a2)
 {
-  v12[1] = *MEMORY[0x1E69E9840];
+  v11[1] = *MEMORY[0x1E69E9840];
   v4 = a2;
   if (v4)
   {
@@ -386,21 +382,19 @@ void __77__GCConfigXPCServiceServiceConnection_serviceVendorRequestWithLabel_han
   else
   {
     v5 = MEMORY[0x1E696ABC0];
-    v11 = *MEMORY[0x1E696A578];
-    v12[0] = @"The request failed, but an error was not provided.";
-    v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:&v11 count:1];
+    v10 = *MEMORY[0x1E696A578];
+    v11[0] = @"The request failed, but an error was not provided.";
+    v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:&v10 count:1];
     v7 = [v5 gc_IPCError:0 userInfo:v6];
     v8 = *(*(a1 + 32) + 8);
     v9 = *(v8 + 40);
     *(v8 + 40) = v7;
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 void __77__GCConfigXPCServiceServiceConnection_serviceVendorRequestWithLabel_handler___block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v18[1] = *MEMORY[0x1E69E9840];
+  v17[1] = *MEMORY[0x1E69E9840];
   v6 = a2;
   v7 = a3;
   v8 = v7;
@@ -414,14 +408,14 @@ void __77__GCConfigXPCServiceServiceConnection_serviceVendorRequestWithLabel_han
   {
     if (!v7)
     {
-      v12 = MEMORY[0x1E696ABC0];
-      v17 = *MEMORY[0x1E696A578];
-      v18[0] = @"The request did not return a result, but an error was not provided.";
-      v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v18 forKeys:&v17 count:1];
-      v14 = [v12 gc_IPCError:0 userInfo:v13];
-      v15 = *(*(a1 + 40) + 8);
-      v16 = *(v15 + 40);
-      *(v15 + 40) = v14;
+      v11 = MEMORY[0x1E696ABC0];
+      v16 = *MEMORY[0x1E696A578];
+      v17[0] = @"The request did not return a result, but an error was not provided.";
+      v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:&v16 count:1];
+      v13 = [v11 gc_IPCError:0 userInfo:v12];
+      v14 = *(*(a1 + 40) + 8);
+      v15 = *(v14 + 40);
+      *(v14 + 40) = v13;
 
       goto LABEL_6;
     }
@@ -432,13 +426,11 @@ void __77__GCConfigXPCServiceServiceConnection_serviceVendorRequestWithLabel_han
 
   objc_storeStrong(v9, v10);
 LABEL_6:
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 void __77__GCConfigXPCServiceServiceConnection_serviceVendorRequestWithLabel_handler___block_invoke_3(uint64_t a1, void *a2)
 {
-  v20[2] = *MEMORY[0x1E69E9840];
+  v19[2] = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = *(a1 + 32);
   objc_sync_enter(v4);
@@ -447,11 +439,11 @@ void __77__GCConfigXPCServiceServiceConnection_serviceVendorRequestWithLabel_han
   {
     v6 = MEMORY[0x1E696ABC0];
     v7 = *MEMORY[0x1E696A588];
-    v19[0] = *MEMORY[0x1E696A578];
-    v19[1] = v7;
-    v20[0] = @"Request failed.";
-    v20[1] = @"Service connection is invalid.";
-    v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v20 forKeys:v19 count:2];
+    v18[0] = *MEMORY[0x1E696A578];
+    v18[1] = v7;
+    v19[0] = @"Request failed.";
+    v19[1] = @"Service connection is invalid.";
+    v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v19 forKeys:v18 count:2];
     v9 = [v6 gc_IPCError:1 userInfo:v8];
 
     [v3 failWithError:v9];
@@ -463,48 +455,44 @@ void __77__GCConfigXPCServiceServiceConnection_serviceVendorRequestWithLabel_han
     objc_sync_exit(v4);
 
     v10 = *(*(a1 + 32) + 32);
-    v17[0] = MEMORY[0x1E69E9820];
-    v17[1] = 3221225472;
-    v17[2] = __77__GCConfigXPCServiceServiceConnection_serviceVendorRequestWithLabel_handler___block_invoke_4;
-    v17[3] = &unk_1E8414568;
+    v16[0] = MEMORY[0x1E69E9820];
+    v16[1] = 3221225472;
+    v16[2] = __77__GCConfigXPCServiceServiceConnection_serviceVendorRequestWithLabel_handler___block_invoke_4;
+    v16[3] = &unk_1E8414568;
     v11 = v3;
-    v18 = v11;
-    v12 = [v10 remoteObjectProxyWithErrorHandler:v17];
+    v17 = v11;
+    v12 = [v10 remoteObjectProxyWithErrorHandler:v16];
     v13 = *(a1 + 40);
-    v15[0] = MEMORY[0x1E69E9820];
-    v15[1] = 3221225472;
-    v15[2] = __77__GCConfigXPCServiceServiceConnection_serviceVendorRequestWithLabel_handler___block_invoke_5;
-    v15[3] = &unk_1E8414590;
-    v16 = v11;
-    (*(v13 + 16))(v13, v12, v15);
+    v14[0] = MEMORY[0x1E69E9820];
+    v14[1] = 3221225472;
+    v14[2] = __77__GCConfigXPCServiceServiceConnection_serviceVendorRequestWithLabel_handler___block_invoke_5;
+    v14[3] = &unk_1E8414590;
+    v15 = v11;
+    (*(v13 + 16))(v13, v12, v14);
 
-    v4 = v18;
+    v4 = v17;
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 void __77__GCConfigXPCServiceServiceConnection_serviceVendorRequestWithLabel_handler___block_invoke_4(uint64_t a1, void *a2)
 {
-  v8[1] = *MEMORY[0x1E69E9840];
+  v7[1] = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (!v3)
   {
     v4 = MEMORY[0x1E696ABC0];
-    v7 = *MEMORY[0x1E696A578];
-    v8[0] = @"The request failed, but an error was not provided.";
-    v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:&v7 count:1];
+    v6 = *MEMORY[0x1E696A578];
+    v7[0] = @"The request failed, but an error was not provided.";
+    v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v7 forKeys:&v6 count:1];
     v3 = [v4 gc_IPCError:0 userInfo:v5];
   }
 
   [*(a1 + 32) failWithError:v3];
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void __77__GCConfigXPCServiceServiceConnection_serviceVendorRequestWithLabel_handler___block_invoke_5(uint64_t a1, void *a2, void *a3)
 {
-  v14[1] = *MEMORY[0x1E69E9840];
+  v13[1] = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = v6;
@@ -524,15 +512,13 @@ void __77__GCConfigXPCServiceServiceConnection_serviceVendorRequestWithLabel_han
     else
     {
       v9 = MEMORY[0x1E696ABC0];
-      v13 = *MEMORY[0x1E696A578];
-      v14[0] = @"The request did not return a result, but an error was not provided.";
-      v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:&v13 count:1];
+      v12 = *MEMORY[0x1E696A578];
+      v13[0] = @"The request did not return a result, but an error was not provided.";
+      v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:&v12 count:1];
       v11 = [v9 gc_IPCError:0 userInfo:v10];
       [v8 failWithError:v11];
     }
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 + (void)connection:(uint64_t)a1 withClient:(uint64_t)a2 .cold.1(uint64_t a1, uint64_t a2)

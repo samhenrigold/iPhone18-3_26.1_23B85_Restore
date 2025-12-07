@@ -231,7 +231,7 @@ void __45__PXStoryChromeLayout_axVisibleSpriteIndexes__block_invoke(uint64_t a1,
   return cachePossiblyAccessibleSpriteIndexes;
 }
 
-uint64_t __55__PXStoryChromeLayout__possiblyAccessibleSpriteIndexes__block_invoke(uint64_t a1, void *a2)
+void *__55__PXStoryChromeLayout__possiblyAccessibleSpriteIndexes__block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 integerValue];
   v4 = *(a1 + 32);
@@ -1346,18 +1346,18 @@ LABEL_5:
   PXFloatByLinearlyInterpolatingFloats();
 }
 
-void __54__PXStoryChromeLayout__configureUnifiedContentLayout___block_invoke()
+void __54__PXStoryChromeLayout__configureUnifiedContentLayout___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v3[0] = 0;
-  v3[1] = v3;
-  v3[2] = 0x2020000000;
-  v3[3] = 0x7FEFFFFFFFFFFFFFLL;
-  v0[0] = 0;
-  v0[1] = v0;
-  v0[2] = 0x4010000000;
-  v0[3] = &unk_1A561E057;
-  v1 = 0u;
-  v2 = 0u;
+  v8[0] = 0;
+  v8[1] = v8;
+  v8[2] = 0x2020000000;
+  v8[3] = 0x7FEFFFFFFFFFFFFFLL;
+  v5[0] = 0;
+  v5[1] = v5;
+  v5[2] = 0x4010000000;
+  v5[3] = &unk_1A561E057;
+  v6 = 0u;
+  v7 = 0u;
   PXRectWithSizeAlignedToRectEdgesWithPadding();
 }
 
@@ -1920,7 +1920,7 @@ double __54__PXStoryChromeLayout__configureDefaultContentLayout___block_invoke_4
   return v7;
 }
 
-void __54__PXStoryChromeLayout__configureDefaultContentLayout___block_invoke_2_418(uint64_t a1)
+void __54__PXStoryChromeLayout__configureDefaultContentLayout___block_invoke_2_418(uint64_t a1, double a2, double a3, double a4, double a5)
 {
   if ([*(a1 + 32) wantsRelatedOverlayVisible])
   {
@@ -1937,18 +1937,18 @@ void __54__PXStoryChromeLayout__configureDefaultContentLayout___block_invoke_2_4
   {
     [*(a1 + 56) safeAreaInsets];
     CGRectGetMidY(*(*(*(a1 + 72) + 8) + 32));
-    v2 = *(a1 + 152);
-    if (v2 == 1)
+    v6 = *(a1 + 152);
+    if (v6 == 1)
     {
       CGRectGetMidX(*(a1 + 160));
     }
 
     else
     {
-      if (v2)
+      if (v6)
       {
-        v3 = [MEMORY[0x1E696AAA8] currentHandler];
-        [v3 handleFailureInMethod:*(a1 + 144) object:*(a1 + 56) file:@"PXStoryChromeLayout.m" lineNumber:715 description:{@"unsupported text alignment %li", *(a1 + 152)}];
+        v7 = [MEMORY[0x1E696AAA8] currentHandler];
+        [v7 handleFailureInMethod:*(a1 + 144) object:*(a1 + 56) file:@"PXStoryChromeLayout.m" lineNumber:715 description:{@"unsupported text alignment %li", *(a1 + 152)}];
 
         abort();
       }
@@ -1960,7 +1960,7 @@ void __54__PXStoryChromeLayout__configureDefaultContentLayout___block_invoke_2_4
   sub_1A524D1F4();
 }
 
-void __54__PXStoryChromeLayout__configureDefaultContentLayout___block_invoke_3_420(uint64_t a1)
+void __54__PXStoryChromeLayout__configureDefaultContentLayout___block_invoke_3_420(uint64_t a1, uint64_t a2)
 {
   [*(a1 + 32) rightEdgeHighlightImageSize];
   CGRectGetHeight(*(a1 + 40));

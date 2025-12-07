@@ -76,45 +76,45 @@ void ___SpotlightDaemonClientHandleCommand_block_invoke_36(uint64_t a1, void *a2
 
 void ___SpotlightDaemonClientHandleCommand_block_invoke_45(uint64_t a1, void *a2, void *a3)
 {
-  v18 = a2;
+  v17 = a2;
   v5 = a3;
-  v6 = [v18 path];
+  v6 = [v17 path];
   v7 = [v6 fileSystemRepresentation];
 
   if (v7)
   {
     v8 = *(*(*(a1 + 40) + 8) + 40);
-    if (!v8 || ![v8 hasPrefix:@"com.apple.omnisearch."])
+    if (v8)
     {
-      v9 = *MEMORY[0x277D861B8];
+      [v8 hasPrefix:@"com.apple.omnisearch."];
     }
 
-    v10 = sandbox_extension_issue_file();
-    v7 = v10;
-    if (v10)
+    v9 = sandbox_extension_issue_file();
+    v7 = v9;
+    if (v9)
     {
-      v7 = [MEMORY[0x277CBEA90] dataWithBytesNoCopy:v10 length:strlen(v10) + 1];
+      v7 = [MEMORY[0x277CBEA90] dataWithBytesNoCopy:v9 length:strlen(v9) + 1];
     }
   }
 
-  v11 = [MEMORY[0x277CC33A0] encodeURL:v18 withSandboxExtensionData:v7];
-  v12 = v11;
-  if (v11 && [v11 length])
+  v10 = [MEMORY[0x277CC33A0] encodeURL:v17 withSandboxExtensionData:v7];
+  v11 = v10;
+  if (v10 && [v10 length])
   {
-    v13 = xpc_data_create([v12 bytes], objc_msgSend(v12, "length"));
+    v12 = xpc_data_create([v11 bytes], objc_msgSend(v11, "length"));
   }
 
   else
   {
-    v13 = 0;
+    v12 = 0;
   }
 
-  v14 = *(a1 + 32);
-  v15 = [v5 domain];
-  v16 = [v15 UTF8String];
-  v17 = [v5 code];
+  v13 = *(a1 + 32);
+  v14 = [v5 domain];
+  v15 = [v14 UTF8String];
+  v16 = [v5 code];
 
-  (*(v14 + 16))(v14, "u", v13, v16, v17);
+  (*(v13 + 16))(v13, "u", v12, v15, v16);
 }
 
 void ___SpotlightDaemonClientHandleCommand_block_invoke_2_55(uint64_t a1, uint64_t a2, void *a3)
@@ -188,11 +188,10 @@ void ___SpotlightDaemonClientHandleCommand_block_invoke_5_62(uint64_t a1)
 
 void ___SpotlightDaemonClientHandleCommand_block_invoke_5_cold_2(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_232D5E000, a2, OS_LOG_TYPE_ERROR, "Error while decoding updatedItem: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_232D5E000, a2, OS_LOG_TYPE_ERROR, "Error while decoding updatedItem: %@", &v2, 0xCu);
 }
 
 @end

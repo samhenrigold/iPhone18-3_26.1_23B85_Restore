@@ -9,7 +9,6 @@
 - (BOOL)inputWithData:(id)data;
 - (BOOL)inputWithURL:(id)l;
 - (BOOL)setArchiveEntry:(id)entry;
-- (id)description;
 - (id)mainEntry;
 - (id)scrubbedArchiveEntries;
 - (void)_scrubContentDirectory;
@@ -22,14 +21,6 @@
   v2 = objc_alloc_init(MFFileArchiveDirectory);
 
   return v2;
-}
-
-- (id)description
-{
-  v3 = MEMORY[0x1E696AEC0];
-  v4 = objc_opt_class();
-  url = self->_url;
-  return [v3 stringWithFormat:@"Class:%@\nURL:%@\nEntries[%@]", v4, url, self->_entries];
 }
 
 + (_NSRange)rangeOfCentralDirectoryInData:(id)data
@@ -164,7 +155,7 @@ LABEL_11:
 
 - (id)mainEntry
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   p_mainEntry = &self->_mainEntry;
   firstObject = self->_mainEntry;
   allValues = [(MFFileArchiveEntry *)*(p_mainEntry - 2) allValues];
@@ -205,9 +196,9 @@ LABEL_11:
     }
 
     path = [(NSURL *)self->_url path];
-    v12 = [path length];
+    v11 = [path length];
 
-    if (v12)
+    if (v11)
     {
       path2 = [(NSURL *)self->_url path];
       lastPathComponent = [path2 lastPathComponent];
@@ -223,20 +214,20 @@ LABEL_11:
         lowercaseString = stringByDeletingPathExtension;
       }
 
-      v36[0] = MEMORY[0x1E69E9820];
-      v36[1] = 3221225472;
-      v36[2] = __35__MFFileArchiveDirectory_mainEntry__block_invoke;
-      v36[3] = &unk_1E7AA5760;
-      v18 = lowercaseString;
-      v37 = v18;
-      v19 = [v8 indexOfObjectPassingTest:v36];
-      if (v19 == 0x7FFFFFFFFFFFFFFFLL)
+      v35[0] = MEMORY[0x1E69E9820];
+      v35[1] = 3221225472;
+      v35[2] = __35__MFFileArchiveDirectory_mainEntry__block_invoke;
+      v35[3] = &unk_1E7AA5760;
+      v17 = lowercaseString;
+      v36 = v17;
+      v18 = [v8 indexOfObjectPassingTest:v35];
+      if (v18 == 0x7FFFFFFFFFFFFFFFLL)
       {
       }
 
       else
       {
-        firstObject = [v8 objectAtIndex:v19];
+        firstObject = [v8 objectAtIndex:v18];
 
         if (firstObject)
         {
@@ -245,54 +236,54 @@ LABEL_11:
       }
     }
 
-    v34 = 0u;
-    v35 = 0u;
-    v32 = 0u;
     v33 = 0u;
-    v20 = v8;
-    v21 = [v20 countByEnumeratingWithState:&v32 objects:v38 count:16];
-    if (v21)
+    v34 = 0u;
+    v31 = 0u;
+    v32 = 0u;
+    v19 = v8;
+    v20 = [v19 countByEnumeratingWithState:&v31 objects:v37 count:16];
+    if (v20)
     {
-      v30 = v8;
-      v31 = v6;
-      v22 = 0;
+      v29 = v8;
+      v30 = v6;
+      v21 = 0;
       uncompressedSize = 0;
-      v24 = *v33;
-      v25 = 0x7FFFFFFFFFFFFFFFLL;
+      v23 = *v32;
+      v24 = 0x7FFFFFFFFFFFFFFFLL;
       do
       {
-        v26 = 0;
-        v27 = v22;
-        v22 += v21;
+        v25 = 0;
+        v26 = v21;
+        v21 += v20;
         do
         {
-          if (*v33 != v24)
+          if (*v32 != v23)
           {
-            objc_enumerationMutation(v20);
+            objc_enumerationMutation(v19);
           }
 
-          v28 = *(*(&v32 + 1) + 8 * v26);
-          if (uncompressedSize < [v28 uncompressedSize])
+          v27 = *(*(&v31 + 1) + 8 * v25);
+          if (uncompressedSize < [v27 uncompressedSize])
           {
-            uncompressedSize = [v28 uncompressedSize];
-            v25 = v27;
+            uncompressedSize = [v27 uncompressedSize];
+            v24 = v26;
           }
 
-          ++v27;
           ++v26;
+          ++v25;
         }
 
-        while (v21 != v26);
-        v21 = [v20 countByEnumeratingWithState:&v32 objects:v38 count:16];
+        while (v20 != v25);
+        v20 = [v19 countByEnumeratingWithState:&v31 objects:v37 count:16];
       }
 
-      while (v21);
+      while (v20);
 
-      v8 = v30;
-      v6 = v31;
-      if (v25 != 0x7FFFFFFFFFFFFFFFLL)
+      v8 = v29;
+      v6 = v30;
+      if (v24 != 0x7FFFFFFFFFFFFFFFLL)
       {
-        firstObject = [v20 objectAtIndex:v25];
+        firstObject = [v19 objectAtIndex:v24];
         if (firstObject)
         {
           goto LABEL_8;
@@ -304,10 +295,10 @@ LABEL_11:
     {
     }
 
-    v29 = [v20 indexOfObjectPassingTest:&__block_literal_global_32];
-    if (v29 == 0x7FFFFFFFFFFFFFFFLL || ([v20 objectAtIndex:v29], (firstObject = objc_claimAutoreleasedReturnValue()) == 0))
+    v28 = [v19 indexOfObjectPassingTest:&__block_literal_global_32];
+    if (v28 == 0x7FFFFFFFFFFFFFFFLL || ([v19 objectAtIndex:v28], (firstObject = objc_claimAutoreleasedReturnValue()) == 0))
     {
-      firstObject = [v20 firstObject];
+      firstObject = [v19 firstObject];
     }
 
 LABEL_8:
@@ -315,8 +306,6 @@ LABEL_8:
   }
 
 LABEL_9:
-
-  v9 = *MEMORY[0x1E69E9840];
 
   return firstObject;
 }
@@ -374,36 +363,36 @@ BOOL __35__MFFileArchiveDirectory_mainEntry__block_invoke_2(uint64_t a1, void *a
 
 - (void)_scrubContentDirectory
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   if (!self->_scrubbedEntries)
   {
     v3 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:{-[NSMutableDictionary count](self->_entries, "count")}];
     scrubbedEntries = self->_scrubbedEntries;
     self->_scrubbedEntries = v3;
 
-    v20 = 0u;
-    v21 = 0u;
-    v18 = 0u;
     v19 = 0u;
+    v20 = 0u;
+    v17 = 0u;
+    v18 = 0u;
     selfCopy = self;
     allValues = [(NSMutableDictionary *)self->_entries allValues];
-    v6 = [allValues countByEnumeratingWithState:&v18 objects:v22 count:16];
+    v6 = [allValues countByEnumeratingWithState:&v17 objects:v21 count:16];
     if (!v6)
     {
       goto LABEL_16;
     }
 
-    v7 = *v19;
+    v7 = *v18;
     while (1)
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v19 != v7)
+        if (*v18 != v7)
         {
           objc_enumerationMutation(allValues);
         }
 
-        v9 = *(*(&v18 + 1) + 8 * i);
+        v9 = *(*(&v17 + 1) + 8 * i);
         fileName = [v9 fileName];
         if ([fileName length] && objc_msgSend(v9, "uncompressedSize"))
         {
@@ -430,17 +419,15 @@ BOOL __35__MFFileArchiveDirectory_mainEntry__block_invoke_2(uint64_t a1, void *a
         }
       }
 
-      v6 = [allValues countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v6 = [allValues countByEnumeratingWithState:&v17 objects:v21 count:16];
       if (!v6)
       {
 LABEL_16:
 
-        break;
+        return;
       }
     }
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (id)scrubbedArchiveEntries

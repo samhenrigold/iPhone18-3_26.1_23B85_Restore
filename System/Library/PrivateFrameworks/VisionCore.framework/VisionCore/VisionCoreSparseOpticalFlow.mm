@@ -127,7 +127,7 @@ LABEL_10:
 
 + (id)computeHomographiesForQuadrilaterals:(id)quadrilaterals inFrame:(__CVBuffer *)frame session:(id)session options:(id)options error:(id *)error
 {
-  v92 = *MEMORY[0x1E69E9840];
+  v91 = *MEMORY[0x1E69E9840];
   quadrilateralsCopy = quadrilaterals;
   sessionCopy = session;
   optionsCopy = options;
@@ -135,7 +135,7 @@ LABEL_10:
   if ([self _validateBuffer:frame])
   {
     v12 = [optionsCopy objectForKeyedSubscript:@"VisionCoreOption_MinKptsFreqForQuads"];
-    v72 = v12;
+    v71 = v12;
     if (v12)
     {
       intValue = [v12 intValue];
@@ -146,7 +146,7 @@ LABEL_10:
       intValue = 4;
     }
 
-    v77 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:{objc_msgSend(quadrilateralsCopy, "count")}];
+    v76 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:{objc_msgSend(quadrilateralsCopy, "count")}];
     Width = CVPixelBufferGetWidth(frame);
     frameCopy = frame;
     Height = CVPixelBufferGetHeight(frame);
@@ -163,26 +163,26 @@ LABEL_10:
     }
 
     v18 = [v15 initWithCapacity:v17];
-    v80 = intValue;
-    v89 = 0u;
-    v90 = 0u;
-    v87 = 0u;
+    v79 = intValue;
     v88 = 0u;
+    v89 = 0u;
+    v86 = 0u;
+    v87 = 0u;
     v19 = quadrilateralsCopy;
-    v20 = [v19 countByEnumeratingWithState:&v87 objects:v91 count:16];
+    v20 = [v19 countByEnumeratingWithState:&v86 objects:v90 count:16];
     if (v20)
     {
-      v21 = *v88;
+      v21 = *v87;
       do
       {
         for (i = 0; i != v20; ++i)
         {
-          if (*v88 != v21)
+          if (*v87 != v21)
           {
             objc_enumerationMutation(v19);
           }
 
-          v23 = *(*(&v87 + 1) + 8 * i);
+          v23 = *(*(&v86 + 1) + 8 * i);
           v24 = [VisionCoreSparseOpticalFlowQuad alloc];
           [v23 topLeft];
           v26 = v25;
@@ -202,7 +202,7 @@ LABEL_10:
           [v18 addObject:v42];
         }
 
-        v20 = [v19 countByEnumeratingWithState:&v87 objects:v91 count:16];
+        v20 = [v19 countByEnumeratingWithState:&v86 objects:v90 count:16];
       }
 
       while (v20);
@@ -227,7 +227,7 @@ LABEL_10:
       _os_signpost_emit_with_name_impl(&dword_1DECDA000, v48, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "VisionCoreSparseOpticalFlowKeypointsEvent", &unk_1DED1344A, buf, 2u);
     }
 
-    [selfCopy _gatherKeyPtsFromQuadsForSession:sessionCopy minGridFrequency:v80];
+    [selfCopy _gatherKeyPtsFromQuadsForSession:sessionCopy minGridFrequency:v79];
     v49 = _VisionCoreSignpostLog();
     if (os_signpost_enabled(v49))
     {
@@ -243,7 +243,7 @@ LABEL_10:
       quadPointCounts = [sessionCopy quadPointCounts];
       v56 = (quadPointCounts[1] - *quadPointCounts) >> 3;
       *buf = -1;
-      std::vector<int>::vector[abi:ne200100](&__p, v56);
+      std::vector<int>::vector[abi:ne200100](&__p, v56, buf);
       for (j = 0; ; ++j)
       {
         trackedQuads = [sessionCopy trackedQuads];
@@ -268,63 +268,63 @@ LABEL_10:
         _os_signpost_emit_with_name_impl(&dword_1DECDA000, v63, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "VisionCoreSparseOpticalFlowEvent", &unk_1DED1344A, buf, 2u);
       }
 
-      allSrcPoints = [sessionCopy allSrcPoints];
-      [selfCopy _runSparseOpticalFlowOnFrame:frameCopy shouldRunCorr:allSrcPoints[1] - *allSrcPoints > 8uLL forSession:sessionCopy error:error groups:&__p options:optionsCopy];
+      [sessionCopy allSrcPoints];
+      objc_msgSend__runSparseOpticalFlowOnFrame_shouldRunCorr_forSession_error_groups_options_(selfCopy);
+      v64 = _VisionCoreSignpostLog();
+      if (os_signpost_enabled(v64))
+      {
+        *buf = 0;
+        _os_signpost_emit_with_name_impl(&dword_1DECDA000, v64, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "VisionCoreSparseOpticalFlowEvent", &unk_1DED1344A, buf, 2u);
+      }
+
+      [sessionCopy setFrameCountSinceLastGrouping:{objc_msgSend(sessionCopy, "frameCountSinceLastGrouping") + 1}];
       v65 = _VisionCoreSignpostLog();
       if (os_signpost_enabled(v65))
       {
         *buf = 0;
-        _os_signpost_emit_with_name_impl(&dword_1DECDA000, v65, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "VisionCoreSparseOpticalFlowEvent", &unk_1DED1344A, buf, 2u);
+        _os_signpost_emit_with_name_impl(&dword_1DECDA000, v65, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "VisionCoreSparseOpticalFlowPrepareResults", &unk_1DED1344A, buf, 2u);
       }
 
-      [sessionCopy setFrameCountSinceLastGrouping:{objc_msgSend(sessionCopy, "frameCountSinceLastGrouping") + 1}];
-      v66 = _VisionCoreSignpostLog();
-      if (os_signpost_enabled(v66))
-      {
-        *buf = 0;
-        _os_signpost_emit_with_name_impl(&dword_1DECDA000, v66, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "VisionCoreSparseOpticalFlowPrepareResults", &unk_1DED1344A, buf, 2u);
-      }
-
-      v71 = *error;
+      v70 = *error;
       if (!*error)
       {
-        if (v86 == __p)
+        if (v85 == __p)
         {
 LABEL_42:
-          v67 = 0;
+          v66 = 0;
         }
 
         else
         {
-          v67 = 0;
-          v68 = (v86 - __p) >> 2;
-          if (v68 <= 1)
+          v66 = 0;
+          v67 = (v85 - __p) >> 2;
+          if (v67 <= 1)
           {
-            v68 = 1;
+            v67 = 1;
           }
 
-          while (*(__p + v67))
+          while (*(__p + v66))
           {
-            if (v68 == ++v67)
+            if (v67 == ++v66)
             {
               goto LABEL_42;
             }
           }
         }
 
-        VisionCoreHomography::VisionCoreHomography(&v83, (v84 + 136 * v67));
+        VisionCoreHomography::VisionCoreHomography(&v82, (v83 + 136 * v66));
       }
 
-      v69 = _VisionCoreSignpostLog();
-      if (os_signpost_enabled(v69))
+      v68 = _VisionCoreSignpostLog();
+      if (os_signpost_enabled(v68))
       {
         *buf = 0;
-        _os_signpost_emit_with_name_impl(&dword_1DECDA000, v69, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "VisionCoreSparseOpticalFlowPrepareResults", &unk_1DED1344A, buf, 2u);
+        _os_signpost_emit_with_name_impl(&dword_1DECDA000, v68, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "VisionCoreSparseOpticalFlowPrepareResults", &unk_1DED1344A, buf, 2u);
       }
 
       if ([selfCopy _updateSession:sessionCopy referenceFrame:frameCopy error:error])
       {
-        if (v71)
+        if (v70)
         {
           [sessionCopy setSceneHomography:{*MEMORY[0x1E69E9B10], *(MEMORY[0x1E69E9B10] + 16), *(MEMORY[0x1E69E9B10] + 32)}];
           v14 = MEMORY[0x1E695E0F8];
@@ -332,7 +332,7 @@ LABEL_42:
 
         else
         {
-          v14 = v77;
+          v14 = v76;
         }
       }
 
@@ -342,11 +342,11 @@ LABEL_42:
         v14 = 0;
       }
 
-      *buf = &v84;
+      *buf = &v83;
       std::vector<VisionCoreHomography>::__destroy_vector::operator()[abi:ne200100](buf);
       if (__p)
       {
-        v86 = __p;
+        v85 = __p;
         operator delete(__p);
       }
     }
@@ -561,8 +561,8 @@ LABEL_42:
   else
   {
     *&v12 = threshold;
-    [self _estimateTransformSrcPts:pts DstPts:dstPts ransacReprojErrorThreshold:{count, homographies, v12}];
-    [self getInlierCountsPerQuad:count inliers:&v35.var3];
+    objc_msgSend__estimateTransformSrcPts_DstPts_ransacReprojErrorThreshold_(self, a2, pts, dstPts, count, homographies, v12);
+    objc_msgSend_getInlierCountsPerQuad_inliers_(self);
     v14 = *count;
     v13 = *(count + 1);
     memset(v32, 0, sizeof(v32));
@@ -683,7 +683,7 @@ LABEL_42:
 {
   quadsCopy = quads;
   destQuadsCopy = destQuads;
-  std::vector<CGPoint>::vector[abi:ne200100](v17, 4 * [quadsCopy count]);
+  std::vector<CGPoint>::vector[abi:ne200100](&v17, 4 * [quadsCopy count]);
   std::vector<CGPoint>::vector[abi:ne200100](v16, 4 * [destQuadsCopy count]);
   std::vector<half>::vector[abi:ne200100](v15, 8 * [quadsCopy count]);
   std::vector<half>::vector[abi:ne200100](v14, 8 * [destQuadsCopy count]);
@@ -707,6 +707,7 @@ LABEL_42:
 
 + (VisionCoreHomography)_estimateTransformSrcPts:(SEL)pts DstPts:(void *)dstPts ransacReprojErrorThreshold:(void *)threshold
 {
+  v11 = *MEMORY[0x1E69E9840];
   retstr->var0.var0 = 0;
   retstr->var0.var1 = 0;
   retstr->var0.var2 = 0;
@@ -714,46 +715,49 @@ LABEL_42:
   retstr->var1.var1 = 0;
   retstr->var2.var0 = 0;
   retstr->var1.var2 = 0;
+  *v7 = xmmword_1DED0D428;
+  v8 = unk_1DED0D438;
+  v9 = 1065353216;
   retstr->var2.var1 = 0;
   retstr->var2.var2 = 0;
-  std::vector<float>::__init_with_size[abi:ne200100]<float const*,float const*>();
+  std::vector<float>::__init_with_size[abi:ne200100]<float const*,float const*>(&retstr->var2.var0, v7, v10);
 }
 
 + (void)_gatherKeyPtsFromQuadsForSession:(id)session minGridFrequency:(int)frequency
 {
-  v50 = *MEMORY[0x1E69E9840];
+  v49 = *MEMORY[0x1E69E9840];
   sessionCopy = session;
   allSrcPoints = [sessionCopy allSrcPoints];
   quadPointCounts = [sessionCopy quadPointCounts];
   allSrcPoints[1] = *allSrcPoints;
   quadPointCounts[1] = *quadPointCounts;
-  v46 = 0u;
-  v47 = 0u;
-  v44 = 0u;
   v45 = 0u;
+  v46 = 0u;
+  v43 = 0u;
+  v44 = 0u;
   trackedQuads = [sessionCopy trackedQuads];
-  v7 = [trackedQuads countByEnumeratingWithState:&v44 objects:v49 count:16];
+  v7 = [trackedQuads countByEnumeratingWithState:&v43 objects:v48 count:16];
   if (v7)
   {
-    v8 = *v45;
+    v8 = *v44;
     v9 = 0.0;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v45 != v8)
+        if (*v44 != v8)
         {
           objc_enumerationMutation(trackedQuads);
         }
 
-        v11 = *(*(&v44 + 1) + 8 * i);
+        v11 = *(*(&v43 + 1) + 8 * i);
         [v11 boundingBox];
         v13 = v12;
         [v11 boundingBox];
         v9 = v9 + v13 * v14;
       }
 
-      v7 = [trackedQuads countByEnumeratingWithState:&v44 objects:v49 count:16];
+      v7 = [trackedQuads countByEnumeratingWithState:&v43 objects:v48 count:16];
     }
 
     while (v7);
@@ -764,25 +768,25 @@ LABEL_42:
     v9 = 0.0;
   }
 
-  v42 = 0u;
-  v43 = 0u;
-  v40 = 0u;
   v41 = 0u;
+  v42 = 0u;
+  v39 = 0u;
+  v40 = 0u;
   trackedQuads2 = [sessionCopy trackedQuads];
-  v16 = [trackedQuads2 countByEnumeratingWithState:&v40 objects:v48 count:16];
+  v16 = [trackedQuads2 countByEnumeratingWithState:&v39 objects:v47 count:16];
   if (v16)
   {
-    v17 = *v41;
+    v17 = *v40;
     do
     {
       for (j = 0; j != v16; ++j)
       {
-        if (*v41 != v17)
+        if (*v40 != v17)
         {
           objc_enumerationMutation(trackedQuads2);
         }
 
-        v19 = *(*(&v40 + 1) + 8 * j);
+        v19 = *(*(&v39 + 1) + 8 * j);
         [v19 boundingBox];
         v21 = v20;
         [v19 boundingBox];
@@ -791,7 +795,7 @@ LABEL_42:
           *&v22 = v21;
           v24 = v23;
           *&v22 = ((*&v22 * 256.0) * v24) / v9;
-          [v19 generateGridKeypointsWithMaxKeypoints:frequency minGridFrequency:v22];
+          objc_msgSend_generateGridKeypointsWithMaxKeypoints_minGridFrequency_(v19, v22);
           v25 = *__p;
         }
 
@@ -864,7 +868,7 @@ LABEL_42:
         }
       }
 
-      v16 = [trackedQuads2 countByEnumeratingWithState:&v40 objects:v48 count:16];
+      v16 = [trackedQuads2 countByEnumeratingWithState:&v39 objects:v47 count:16];
     }
 
     while (v16);

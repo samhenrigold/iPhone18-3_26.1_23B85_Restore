@@ -92,13 +92,14 @@
 
 void __86__RMSControlSessionProxy_connectToService_pairingGUID_allowPairing_completionHandler___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, void *a4, uint64_t a5)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v8 = a4;
+  v9 = v8;
   if (a2 == 3)
   {
-    v16 = +[RMSPairingRecordStore sharedRecordStore];
-    v17 = [*(a1 + 32) networkName];
-    [v16 removePairingRecordForServiceWithNetworkName:v17];
+    v17 = +[RMSPairingRecordStore sharedRecordStore];
+    v18 = [*(a1 + 32) networkName];
+    [v17 removePairingRecordForServiceWithNetworkName:v18];
 
 LABEL_10:
     goto LABEL_11;
@@ -106,33 +107,33 @@ LABEL_10:
 
   if (a2 == 1)
   {
-    v9 = RMSLogger();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v10 = RMSLogger(v8);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      v18[0] = 67109120;
-      v18[1] = a5;
-      _os_log_impl(&dword_261E98000, v9, OS_LOG_TYPE_DEFAULT, "Control session proxy received successful connection response, sessionIdentifier=%d", v18, 8u);
+      v19[0] = 67109120;
+      v19[1] = a5;
+      _os_log_impl(&dword_261E98000, v10, OS_LOG_TYPE_DEFAULT, "Control session proxy received successful connection response, sessionIdentifier=%d", v19, 8u);
     }
 
     if (([*(a1 + 32) isTVRemoteCoreSupported] & 1) == 0)
     {
-      v10 = [*(a1 + 32) networkName];
+      v11 = [*(a1 + 32) networkName];
 
-      if (v10)
+      if (v11)
       {
-        v11 = +[RMSPairingRecordStore sharedRecordStore];
-        v12 = [MEMORY[0x277CCAD78] UUID];
-        v13 = [v12 UUIDString];
-        v14 = [*(a1 + 32) networkName];
-        [v11 savePairingRecord:v13 forServiceWithNetworkName:v14];
+        v12 = +[RMSPairingRecordStore sharedRecordStore];
+        v13 = [MEMORY[0x277CCAD78] UUID];
+        v14 = [v13 UUIDString];
+        v15 = [*(a1 + 32) networkName];
+        [v12 savePairingRecord:v14 forServiceWithNetworkName:v15];
       }
     }
 
     WeakRetained = objc_loadWeakRetained((a1 + 48));
     [WeakRetained setSessionIdentifier:a5];
 
-    v16 = objc_loadWeakRetained((a1 + 48));
-    [v16 beginHeartbeat];
+    v17 = objc_loadWeakRetained((a1 + 48));
+    [v17 beginHeartbeat];
     goto LABEL_10;
   }
 
@@ -364,7 +365,7 @@ void __79__RMSControlSessionProxy__handleDidReceivePairingChallengeRequestNotifi
 
 - (void)_handleNowPlayingArtworkDidBecomeAvailableNotification:(id)notification
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   notificationCopy = notification;
   if ([(RMSSessionProxy *)self sessionMatchesNotification:notificationCopy])
   {
@@ -372,19 +373,20 @@ void __79__RMSControlSessionProxy__handleDidReceivePairingChallengeRequestNotifi
     v6 = [userInfo objectForKey:@"RMSIDSClientNowPlayingArtworkIdentifierKey"];
 
     artworkIdentifier = [(RMSNowPlayingInfo *)self->_nowPlayingInfo artworkIdentifier];
-    if ([v6 isEqualToString:artworkIdentifier])
+    v8 = [v6 isEqualToString:artworkIdentifier];
+    if (v8)
     {
-      v8 = +[RMSNowPlayingArtworkCache sharedArtworkCache];
-      v9 = [v8 artworkDataForIdentifier:artworkIdentifier];
+      v9 = +[RMSNowPlayingArtworkCache sharedArtworkCache];
+      v10 = [v9 artworkDataForIdentifier:artworkIdentifier];
 
-      if (v9)
+      if (v10)
       {
-        v10 = RMSLogger();
-        if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+        v12 = RMSLogger(v11);
+        if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v23 = v6;
-          _os_log_impl(&dword_261E98000, v10, OS_LOG_TYPE_DEFAULT, "Control session was notified of avialable artwork for [%@], but data is already in cache", buf, 0xCu);
+          v25 = v6;
+          _os_log_impl(&dword_261E98000, v12, OS_LOG_TYPE_DEFAULT, "Control session was notified of avialable artwork for [%@], but data is already in cache", buf, 0xCu);
         }
       }
 
@@ -392,21 +394,21 @@ void __79__RMSControlSessionProxy__handleDidReceivePairingChallengeRequestNotifi
       {
         mainScreen = [MEMORY[0x277D759A0] mainScreen];
         [mainScreen bounds];
-        v13 = v12;
         v15 = v14;
+        v17 = v16;
 
         objc_initWeak(buf, self);
         idsClient = self->_idsClient;
         nowPlayingInfo = self->_nowPlayingInfo;
-        v19[0] = MEMORY[0x277D85DD0];
-        v19[1] = 3221225472;
-        v19[2] = __81__RMSControlSessionProxy__handleNowPlayingArtworkDidBecomeAvailableNotification___block_invoke;
-        v19[3] = &unk_279B09420;
-        v20 = v6;
-        objc_copyWeak(&v21, buf);
-        LODWORD(v18) = 1050253722;
-        [(RMSIDSClient *)idsClient requestArtworkDataForNowPlayingInfo:nowPlayingInfo width:v13 height:v15 compressionQuality:v19 completionHandler:v18];
-        objc_destroyWeak(&v21);
+        v21[0] = MEMORY[0x277D85DD0];
+        v21[1] = 3221225472;
+        v21[2] = __81__RMSControlSessionProxy__handleNowPlayingArtworkDidBecomeAvailableNotification___block_invoke;
+        v21[3] = &unk_279B09420;
+        v22 = v6;
+        objc_copyWeak(&v23, buf);
+        LODWORD(v20) = 1050253722;
+        [(RMSIDSClient *)idsClient requestArtworkDataForNowPlayingInfo:nowPlayingInfo width:v15 height:v17 compressionQuality:v21 completionHandler:v20];
+        objc_destroyWeak(&v23);
 
         objc_destroyWeak(buf);
       }
@@ -414,14 +416,14 @@ void __79__RMSControlSessionProxy__handleDidReceivePairingChallengeRequestNotifi
 
     else
     {
-      v9 = RMSLogger();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+      v10 = RMSLogger(v8);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412546;
-        v23 = v6;
-        v24 = 2112;
-        v25 = artworkIdentifier;
-        _os_log_impl(&dword_261E98000, v9, OS_LOG_TYPE_DEFAULT, "Control session was notified of available artwork for [%@], but current now playing is [%@]", buf, 0x16u);
+        v25 = v6;
+        v26 = 2112;
+        v27 = artworkIdentifier;
+        _os_log_impl(&dword_261E98000, v10, OS_LOG_TYPE_DEFAULT, "Control session was notified of available artwork for [%@], but current now playing is [%@]", buf, 0x16u);
       }
     }
   }
@@ -439,13 +441,14 @@ void __81__RMSControlSessionProxy__handleNowPlayingArtworkDidBecomeAvailableNoti
 
 - (void)_handleSessionDidEndNotification:(id)notification
 {
-  if ([(RMSSessionProxy *)self sessionMatchesNotification:notification])
+  v4 = [(RMSSessionProxy *)self sessionMatchesNotification:notification];
+  if (v4)
   {
-    v4 = RMSLogger();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = RMSLogger(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_261E98000, v4, OS_LOG_TYPE_DEFAULT, "Control session ended", buf, 2u);
+      _os_log_impl(&dword_261E98000, v5, OS_LOG_TYPE_DEFAULT, "Control session ended", buf, 2u);
     }
 
     block[0] = MEMORY[0x277D85DD0];
@@ -466,13 +469,14 @@ void __59__RMSControlSessionProxy__handleSessionDidEndNotification___block_invok
 
 - (void)_handleDidBeginEditingTextNotification:(id)notification
 {
-  if ([(RMSSessionProxy *)self sessionMatchesNotification:notification])
+  v4 = [(RMSSessionProxy *)self sessionMatchesNotification:notification];
+  if (v4)
   {
-    v4 = RMSLogger();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = RMSLogger(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_261E98000, v4, OS_LOG_TYPE_DEFAULT, "Control session did begin editing text", buf, 2u);
+      _os_log_impl(&dword_261E98000, v5, OS_LOG_TYPE_DEFAULT, "Control session did begin editing text", buf, 2u);
     }
 
     block[0] = MEMORY[0x277D85DD0];
@@ -492,13 +496,14 @@ void __65__RMSControlSessionProxy__handleDidBeginEditingTextNotification___block
 
 - (void)_handleDidEndEditingTextNotification:(id)notification
 {
-  if ([(RMSSessionProxy *)self sessionMatchesNotification:notification])
+  v4 = [(RMSSessionProxy *)self sessionMatchesNotification:notification];
+  if (v4)
   {
-    v4 = RMSLogger();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = RMSLogger(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_261E98000, v4, OS_LOG_TYPE_DEFAULT, "Control session did end diting text", buf, 2u);
+      _os_log_impl(&dword_261E98000, v5, OS_LOG_TYPE_DEFAULT, "Control session did end diting text", buf, 2u);
     }
 
     block[0] = MEMORY[0x277D85DD0];

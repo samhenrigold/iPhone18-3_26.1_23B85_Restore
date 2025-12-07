@@ -8,7 +8,7 @@
 {
   entityCopy = entity;
   contextCopy = context;
-  return PARFlushEvent.init(entity:insertInto:)();
+  return PARFlushEvent.init(entity:insertInto:)(entityCopy, context);
 }
 
 @end

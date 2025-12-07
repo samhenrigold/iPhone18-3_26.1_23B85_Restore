@@ -16,7 +16,7 @@
   v6 = &v17 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin(v7);
   v9 = &v17 - v8;
-  v10 = type metadata accessor for FullScreenAssetCollectionViewCell();
+  v10 = type metadata accessor for FullScreenAssetCollectionViewCell(0);
   v17.receiver = self;
   v17.super_class = v10;
   selfCopy = self;
@@ -70,7 +70,7 @@
   sub_10031BEA8((&selfCopy->super.super.super.super.super.isa + v4), v6, v7);
   swift_endAccess();
   v5.receiver = selfCopy;
-  v5.super_class = type metadata accessor for FullScreenAssetCollectionViewCell();
+  v5.super_class = type metadata accessor for FullScreenAssetCollectionViewCell(0);
   [(FullScreenAssetCollectionViewCell *)&v5 updateConstraints];
 }
 

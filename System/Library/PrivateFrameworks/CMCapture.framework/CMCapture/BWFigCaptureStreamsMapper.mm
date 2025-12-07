@@ -77,74 +77,74 @@
 
 - (void)bwFigCaptureStreamsForFigCaptureStreams:(uint64_t)streams
 {
-  v45 = 0;
+  v54 = 0;
   if (streams)
   {
     if (a2)
     {
       v7 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(a2, "count")}];
-      v68 = 0u;
-      v69 = 0u;
-      v70 = 0u;
-      v71 = 0u;
-      if (OUTLINED_FUNCTION_1_1(v7, v8, v9, v10, v11, v12, v13, v14, v39, v41, v43, v7, v46, v48, *v49, *&v49[8], *&v49[16], v50, v51, v52, v53, v54, v55, v56, v57, v58, v59, v60, v61, v62, v63, v64, v65, v66, v67))
+      v79 = 0u;
+      v80 = 0u;
+      v81 = 0u;
+      v82 = 0u;
+      if (OUTLINED_FUNCTION_1_1(v7, v8, v9, v10, v11, v12, v13, v14, v45, v48, v51, v7, v56, v59, *v61, *&v61[8], *&v61[16], v62, v63, v64, v65, v66, v67, v68, v69, v70, v71, v72, v73, v74, v75, v76, v77, v78))
       {
         OUTLINED_FUNCTION_20_13();
         *&v15 = 136315394;
-        *v47 = v15;
+        *v57 = v15;
         do
         {
           v16 = 0;
           do
           {
-            if (*v69 != v3)
+            if (*v80 != v3)
             {
               objc_enumerationMutation(a2);
             }
 
-            v17 = *(*(&v68 + 1) + 8 * v16);
-            [*(streams + 16) indexOfObject:{v17, v40, v42}];
+            v17 = *(*(&v79 + 1) + 8 * v16);
+            [*(streams + 16) indexOfObject:{v17, v46, v49}];
             OUTLINED_FUNCTION_79();
-            if (v19 || (v20 = [*(streams + 8) objectAtIndexedSubscript:v18]) == 0)
+            if (v26 || (v18 = [*(streams + 8) objectAtIndexedSubscript:v18]) == 0)
             {
-              v29 = OUTLINED_FUNCTION_19_18();
-              if (OUTLINED_FUNCTION_25_14(v29, v30, v31, v32, v33, v34, v35, v36, v40, v42, v44, v45, v47[0], v47[1], *v49, *&v49[8], *&v49[16], v50, v51, v52, v53, v54, v55, v56, v57, v58, v59, v60, v61, v62, v63, v64, v65, v66, SBYTE2(v66), BYTE3(v66), SHIDWORD(v66)))
+              v35 = OUTLINED_FUNCTION_19_18(v18, v19, v20, v21, v22, v23, v24, v25, v46, v49, v52, v54, v57[0], v57[1], *v61, *&v61[8], *&v61[16], v62, v63, v64, v65, v66, v67, v68, v69, v70, v71, v72, v73, v74, v75, v76, v77, v78, SBYTE2(v78), SBYTE3(v78), SHIDWORD(v78));
+              if (OUTLINED_FUNCTION_25_14(v35, v36, v37, v38, v39, v40, v41, v42, v47, v50, v53, v55, v58, v60, *v61, *&v61[8], *&v61[16], v62, v63, v64, v65, v66, v67, v68, v69, v70, v71, v72, v73, v74, v75, v76, v77, v78, SBYTE2(v78), BYTE3(v78), SHIDWORD(v78)))
               {
-                v37 = v4;
+                v43 = v4;
               }
 
               else
               {
-                v37 = v4 & 0xFFFFFFFE;
+                v43 = v4 & 0xFFFFFFFE;
               }
 
-              if (v37)
+              if (v43)
               {
-                *v49 = v47[0];
-                *&v49[4] = "[BWFigCaptureStreamsMapper bwFigCaptureStreamsForFigCaptureStreams:]";
-                *&v49[12] = 2112;
-                *&v49[14] = v17;
-                LODWORD(v42) = 22;
-                v40 = v49;
+                *v61 = v57[0];
+                *&v61[4] = "[BWFigCaptureStreamsMapper bwFigCaptureStreamsForFigCaptureStreams:]";
+                *&v61[12] = 2112;
+                *&v61[14] = v17;
+                LODWORD(v49) = 22;
+                v46 = v61;
                 OUTLINED_FUNCTION_13();
                 _os_log_send_and_compose_impl();
-                v4 = HIDWORD(v66);
+                v4 = HIDWORD(v78);
               }
 
               OUTLINED_FUNCTION_1_4();
-              v21 = fig_log_call_emit_and_clean_up_after_send_and_compose();
+              v27 = fig_log_call_emit_and_clean_up_after_send_and_compose();
             }
 
             else
             {
-              v21 = [v45 addObject:v20];
+              v27 = [v54 addObject:v18];
             }
 
             ++v16;
           }
 
           while (v2 != v16);
-          v2 = OUTLINED_FUNCTION_1_1(v21, v22, v23, v24, v25, v26, v27, v28, v40, v42, v44, v45, v47[0], v47[1], *v49, *&v49[8], *&v49[16], v50, v51, v52, v53, v54, v55, v56, v57, v58, v59, v60, v61, v62, v63, v64, v65, v66, v67);
+          v2 = OUTLINED_FUNCTION_1_1(v27, v28, v29, v30, v31, v32, v33, v34, v46, v49, v52, v54, v57[0], v57[1], *v61, *&v61[8], *&v61[16], v62, v63, v64, v65, v66, v67, v68, v69, v70, v71, v72, v73, v74, v75, v76, v77, v78);
         }
 
         while (v2);
@@ -152,79 +152,79 @@
     }
   }
 
-  return v45;
+  return v54;
 }
 
 - (void)figCaptureStreamsForBWFigCaptureStreams:(uint64_t)streams
 {
-  v45 = 0;
+  v54 = 0;
   if (streams)
   {
     if (a2)
     {
       v7 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(a2, "count")}];
-      v68 = 0u;
-      v69 = 0u;
-      v70 = 0u;
-      v71 = 0u;
-      if (OUTLINED_FUNCTION_1_1(v7, v8, v9, v10, v11, v12, v13, v14, v39, v41, v43, v7, v46, v48, *v49, *&v49[8], *&v49[16], v50, v51, v52, v53, v54, v55, v56, v57, v58, v59, v60, v61, v62, v63, v64, v65, v66, v67))
+      v79 = 0u;
+      v80 = 0u;
+      v81 = 0u;
+      v82 = 0u;
+      if (OUTLINED_FUNCTION_1_1(v7, v8, v9, v10, v11, v12, v13, v14, v45, v48, v51, v7, v56, v59, *v61, *&v61[8], *&v61[16], v62, v63, v64, v65, v66, v67, v68, v69, v70, v71, v72, v73, v74, v75, v76, v77, v78))
       {
         OUTLINED_FUNCTION_20_13();
         *&v15 = 136315394;
-        *v47 = v15;
+        *v57 = v15;
         do
         {
           v16 = 0;
           do
           {
-            if (*v69 != v3)
+            if (*v80 != v3)
             {
               objc_enumerationMutation(a2);
             }
 
-            v17 = *(*(&v68 + 1) + 8 * v16);
-            [*(streams + 8) indexOfObject:{v17, v40, v42}];
+            v17 = *(*(&v79 + 1) + 8 * v16);
+            [*(streams + 8) indexOfObject:{v17, v46, v49}];
             OUTLINED_FUNCTION_79();
-            if (v19 || (v20 = [*(streams + 16) objectAtIndexedSubscript:v18]) == 0)
+            if (v26 || (v18 = [*(streams + 16) objectAtIndexedSubscript:v18]) == 0)
             {
-              v29 = OUTLINED_FUNCTION_19_18();
-              if (OUTLINED_FUNCTION_25_14(v29, v30, v31, v32, v33, v34, v35, v36, v40, v42, v44, v45, v47[0], v47[1], *v49, *&v49[8], *&v49[16], v50, v51, v52, v53, v54, v55, v56, v57, v58, v59, v60, v61, v62, v63, v64, v65, v66, SBYTE2(v66), BYTE3(v66), SHIDWORD(v66)))
+              v35 = OUTLINED_FUNCTION_19_18(v18, v19, v20, v21, v22, v23, v24, v25, v46, v49, v52, v54, v57[0], v57[1], *v61, *&v61[8], *&v61[16], v62, v63, v64, v65, v66, v67, v68, v69, v70, v71, v72, v73, v74, v75, v76, v77, v78, SBYTE2(v78), SBYTE3(v78), SHIDWORD(v78));
+              if (OUTLINED_FUNCTION_25_14(v35, v36, v37, v38, v39, v40, v41, v42, v47, v50, v53, v55, v58, v60, *v61, *&v61[8], *&v61[16], v62, v63, v64, v65, v66, v67, v68, v69, v70, v71, v72, v73, v74, v75, v76, v77, v78, SBYTE2(v78), BYTE3(v78), SHIDWORD(v78)))
               {
-                v37 = v4;
+                v43 = v4;
               }
 
               else
               {
-                v37 = v4 & 0xFFFFFFFE;
+                v43 = v4 & 0xFFFFFFFE;
               }
 
-              if (v37)
+              if (v43)
               {
-                *v49 = v47[0];
-                *&v49[4] = "[BWFigCaptureStreamsMapper figCaptureStreamsForBWFigCaptureStreams:]";
-                *&v49[12] = 2112;
-                *&v49[14] = v17;
-                LODWORD(v42) = 22;
-                v40 = v49;
+                *v61 = v57[0];
+                *&v61[4] = "[BWFigCaptureStreamsMapper figCaptureStreamsForBWFigCaptureStreams:]";
+                *&v61[12] = 2112;
+                *&v61[14] = v17;
+                LODWORD(v49) = 22;
+                v46 = v61;
                 OUTLINED_FUNCTION_13();
                 _os_log_send_and_compose_impl();
-                v4 = HIDWORD(v66);
+                v4 = HIDWORD(v78);
               }
 
               OUTLINED_FUNCTION_1_4();
-              v21 = fig_log_call_emit_and_clean_up_after_send_and_compose();
+              v27 = fig_log_call_emit_and_clean_up_after_send_and_compose();
             }
 
             else
             {
-              v21 = [v45 addObject:v20];
+              v27 = [v54 addObject:v18];
             }
 
             ++v16;
           }
 
           while (v2 != v16);
-          v2 = OUTLINED_FUNCTION_1_1(v21, v22, v23, v24, v25, v26, v27, v28, v40, v42, v44, v45, v47[0], v47[1], *v49, *&v49[8], *&v49[16], v50, v51, v52, v53, v54, v55, v56, v57, v58, v59, v60, v61, v62, v63, v64, v65, v66, v67);
+          v2 = OUTLINED_FUNCTION_1_1(v27, v28, v29, v30, v31, v32, v33, v34, v46, v49, v52, v54, v57[0], v57[1], *v61, *&v61[8], *&v61[16], v62, v63, v64, v65, v66, v67, v68, v69, v70, v71, v72, v73, v74, v75, v76, v77, v78);
         }
 
         while (v2);
@@ -232,7 +232,7 @@
     }
   }
 
-  return v45;
+  return v54;
 }
 
 @end

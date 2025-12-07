@@ -174,75 +174,71 @@ LABEL_27:
 
 - (uint64_t)VCS_isPhoneNumber
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   if (VCS_isPhoneNumber_onceToken != -1)
   {
     [NSString(VCSUtilities) VCS_isPhoneNumber];
   }
 
   v2 = [self length];
-  if (v2)
+  if (!v2)
   {
-    [VCS_isPhoneNumber_phoneNumberDetector matchesInString:self options:0 range:{0, v2}];
-    v15 = 0u;
-    v16 = 0u;
-    v17 = 0u;
-    v3 = v18 = 0u;
-    v4 = [v3 countByEnumeratingWithState:&v15 objects:v19 count:16];
-    if (v4)
+    return 0;
+  }
+
+  [VCS_isPhoneNumber_phoneNumberDetector matchesInString:self options:0 range:{0, v2}];
+  v14 = 0u;
+  v15 = 0u;
+  v16 = 0u;
+  v3 = v17 = 0u;
+  v4 = [v3 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  if (v4)
+  {
+    v5 = v4;
+    v6 = *v15;
+    while (2)
     {
-      v5 = v4;
-      v6 = *v16;
-      while (2)
+      for (i = 0; i != v5; ++i)
       {
-        for (i = 0; i != v5; ++i)
+        if (*v15 != v6)
         {
-          if (*v16 != v6)
+          objc_enumerationMutation(v3);
+        }
+
+        v8 = *(*(&v14 + 1) + 8 * i);
+        if ([v8 resultType] == 32)
+        {
+          v9 = [v8 URL];
+          scheme = [v9 scheme];
+          v11 = [scheme isEqualToString:@"tel"];
+
+          if (v11)
           {
-            objc_enumerationMutation(v3);
+            goto LABEL_16;
           }
+        }
 
-          v8 = *(*(&v15 + 1) + 8 * i);
-          if ([v8 resultType] == 32)
-          {
-            v9 = [v8 URL];
-            scheme = [v9 scheme];
-            v11 = [scheme isEqualToString:@"tel"];
-
-            if (v11)
-            {
-              goto LABEL_16;
-            }
-          }
-
-          else if ([v8 resultType] == 2048)
-          {
+        else if ([v8 resultType] == 2048)
+        {
 LABEL_16:
-            v12 = 1;
-            goto LABEL_17;
-          }
+          v12 = 1;
+          goto LABEL_17;
         }
-
-        v5 = [v3 countByEnumeratingWithState:&v15 objects:v19 count:16];
-        if (v5)
-        {
-          continue;
-        }
-
-        break;
       }
+
+      v5 = [v3 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      if (v5)
+      {
+        continue;
+      }
+
+      break;
     }
+  }
 
-    v12 = 0;
+  v12 = 0;
 LABEL_17:
-  }
 
-  else
-  {
-    v12 = 0;
-  }
-
-  v13 = *MEMORY[0x277D85DE8];
   return v12;
 }
 

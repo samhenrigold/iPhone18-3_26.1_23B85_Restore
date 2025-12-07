@@ -123,7 +123,7 @@
   v7 = lastObject;
   if (lastObject)
   {
-    [lastObject CMTimeRangeValue];
+    objc_msgSend_CMTimeRangeValue(lastObject);
   }
 
   else
@@ -136,14 +136,14 @@
   CMTimeRangeGetEnd(&v30, &v29);
   v29.start = v30;
   Seconds = CMTimeGetSeconds(&v29.start);
-  [possibleCopy duration];
+  objc_msgSend_duration(possibleCopy);
   v10 = v9;
   state = [possibleCopy state];
   v12 = [possibleCopy state] != 3 && objc_msgSend(possibleCopy, "state") != 4;
   queue = [(SVVideoPlaybackQueue *)self queue];
   v14 = [queue containsObject:possibleCopy];
 
-  [possibleCopy duration];
+  objc_msgSend_duration(possibleCopy);
   playbackBufferFull = 1;
   if (v15 > 0.0)
   {
@@ -154,7 +154,7 @@
     }
   }
 
-  [possibleCopy duration];
+  objc_msgSend_duration(possibleCopy, v15);
   if (v17 <= 0.0 || ([possibleCopy time], v18 <= 0.0))
   {
     v22 = 1;
@@ -162,7 +162,7 @@
 
   else
   {
-    [possibleCopy duration];
+    objc_msgSend_duration(possibleCopy);
     v20 = v19;
     [possibleCopy time];
     v22 = v20 - v21 >= 10.0;

@@ -8,8 +8,8 @@
 
 - (id)dictionaryRepresentation
 {
-  v12[3] = *MEMORY[0x1E69E9840];
-  v11[0] = @"parameter";
+  v11[3] = *MEMORY[0x1E69E9840];
+  v10[0] = @"parameter";
   parameter = self->_parameter;
   null = parameter;
   if (!parameter)
@@ -17,8 +17,8 @@
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v12[0] = null;
-  v11[1] = @"results";
+  v11[0] = null;
+  v10[1] = @"results";
   results = self->_results;
   null2 = results;
   if (!results)
@@ -26,11 +26,11 @@
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v12[1] = null2;
-  v11[2] = @"resolveImplemented";
+  v11[1] = null2;
+  v10[2] = @"resolveImplemented";
   v7 = [MEMORY[0x1E696AD98] numberWithBool:self->_resolveImplemented];
-  v12[2] = v7;
-  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:v11 count:3];
+  v11[2] = v7;
+  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:v10 count:3];
 
   if (results)
   {
@@ -50,7 +50,6 @@
   }
 
 LABEL_7:
-  v9 = *MEMORY[0x1E69E9840];
 
   return v8;
 }
@@ -70,13 +69,13 @@ LABEL_7:
 
 - (INIntentTestResolvedParameter)initWithParameter:(id)parameter forIntent:(id)intent extensionContextResolutionResult:(id)result
 {
-  v28[1] = *MEMORY[0x1E69E9840];
+  v27[1] = *MEMORY[0x1E69E9840];
   parameterCopy = parameter;
   intentCopy = intent;
   resultCopy = result;
-  v27.receiver = self;
-  v27.super_class = INIntentTestResolvedParameter;
-  v12 = [(INIntentTestResolvedParameter *)&v27 init];
+  v26.receiver = self;
+  v26.super_class = INIntentTestResolvedParameter;
+  v12 = [(INIntentTestResolvedParameter *)&v26 init];
   v13 = v12;
   if (v12)
   {
@@ -123,8 +122,8 @@ LABEL_10:
         goto LABEL_11;
       }
 
-      v28[0] = v22;
-      v23 = [MEMORY[0x1E695DEC8] arrayWithObjects:v28 count:1];
+      v27[0] = v22;
+      v23 = [MEMORY[0x1E695DEC8] arrayWithObjects:v27 count:1];
     }
 
     results = v13->_results;
@@ -135,7 +134,6 @@ LABEL_10:
 
 LABEL_11:
 
-  v25 = *MEMORY[0x1E69E9840];
   return v13;
 }
 

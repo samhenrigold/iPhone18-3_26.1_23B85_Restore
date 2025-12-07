@@ -30,9 +30,9 @@
 
 - (SMSessionStartMessage)initWithDate:(id)date messageID:(id)d sessionID:(id)iD invitationToken:(id)token sessionType:(unint64_t)type estimatedEndTime:(id)time coarseEstimatedEndTime:(id)endTime destinationType:(unint64_t)self0 destinationMapItem:(id)self1 lowPowerModeWarningState:(int64_t)self2
 {
-  v32[1] = *MEMORY[0x277D85DE8];
-  v31 = @"receiverHandle";
-  v32[0] = token;
+  v31[1] = *MEMORY[0x277D85DE8];
+  v30 = @"receiverHandle";
+  v31[0] = token;
   v17 = MEMORY[0x277CBEAC0];
   itemCopy = item;
   endTimeCopy = endTime;
@@ -41,10 +41,9 @@
   iDCopy = iD;
   dCopy = d;
   dateCopy = date;
-  v25 = [v17 dictionaryWithObjects:v32 forKeys:&v31 count:1];
+  v25 = [v17 dictionaryWithObjects:v31 forKeys:&v30 count:1];
 
   v26 = [(SMSessionStartMessage *)self initWithDate:dateCopy messageID:dCopy sessionID:iDCopy invitationTokenDict:v25 sessionType:type estimatedEndTime:timeCopy coarseEstimatedEndTime:endTimeCopy destinationType:destinationType destinationMapItem:itemCopy lowPowerModeWarningState:state];
-  v27 = *MEMORY[0x277D85DE8];
   return v26;
 }
 
@@ -164,7 +163,7 @@ LABEL_24:
 
 - (SMSessionStartMessage)initWithDictionary:(id)dictionary
 {
-  v144 = *MEMORY[0x277D85DE8];
+  v143 = *MEMORY[0x277D85DE8];
   dictionaryCopy = dictionary;
   v6 = dictionaryCopy;
   if (!dictionaryCopy)
@@ -196,13 +195,13 @@ LABEL_38:
     v53 = NSStringFromClass(v52);
     v54 = NSStringFromSelector(a2);
     *buf = 138413058;
-    v136 = v53;
-    v137 = 2112;
-    v138 = v54;
-    v139 = 1024;
-    *v140 = [objc_opt_class() messageType];
-    *&v140[4] = 1024;
-    *&v140[6] = intValue;
+    v135 = v53;
+    v136 = 2112;
+    v137 = v54;
+    v138 = 1024;
+    *v139 = [objc_opt_class() messageType];
+    *&v139[4] = 1024;
+    *&v139[6] = intValue;
     v55 = "#SafetyCache,%@,%@,extracted non-matching message type,expected,%d,got,%d";
     v56 = v12;
     v57 = 34;
@@ -223,15 +222,15 @@ LABEL_61:
       goto LABEL_38;
     }
 
-    v74 = objc_opt_class();
-    v53 = NSStringFromClass(v74);
+    v73 = objc_opt_class();
+    v53 = NSStringFromClass(v73);
     v54 = NSStringFromSelector(a2);
     *buf = 138412802;
-    v136 = v53;
-    v137 = 2112;
-    v138 = v54;
-    v139 = 1024;
-    *v140 = intValue2;
+    v135 = v53;
+    v136 = 2112;
+    v137 = v54;
+    v138 = 1024;
+    *v139 = intValue2;
     v55 = "#SafetyCache,%@,%@,unrecognized interface version,%d";
     v56 = v12;
     v57 = 28;
@@ -258,10 +257,10 @@ LABEL_61:
 
       if (v20)
       {
-        v116 = v17;
-        v117 = v20;
-        v114 = v12;
-        v115 = v14;
+        v115 = v17;
+        v116 = v20;
+        v113 = v12;
+        v114 = v14;
         selfCopy = self;
         log = objc_alloc_init(MEMORY[0x277CBEB38]);
         v21 = 0;
@@ -285,7 +284,7 @@ LABEL_61:
 
         v43 = [v6 valueForKey:@"sharingInvitationData"];
 
-        v133 = v43;
+        v132 = v43;
         if (v43)
         {
           v41 = [objc_alloc(MEMORY[0x277CBEA90]) initWithBase64EncodedString:v43 options:0];
@@ -306,7 +305,7 @@ LABEL_61:
         {
           v22 = v40;
           v23 = v39;
-          v24 = v133;
+          v24 = v132;
           while (1)
           {
             v46 = [objc_alloc(MEMORY[0x277CBC2C0]) initWithSharingInvitationData:v41 shareURL:v23 participantID:v22];
@@ -323,12 +322,12 @@ LABEL_61:
               if (os_log_type_enabled(v48, OS_LOG_TYPE_FAULT))
               {
                 v49 = objc_opt_class();
-                v134 = NSStringFromClass(v49);
+                v133 = NSStringFromClass(v49);
                 v50 = NSStringFromSelector(aSelector);
                 *buf = 138412546;
-                v136 = v134;
-                v137 = 2112;
-                v138 = v50;
+                v135 = v133;
+                v136 = 2112;
+                v137 = v50;
                 v51 = v50;
                 _os_log_fault_impl(&dword_26455D000, v48, OS_LOG_TYPE_FAULT, "#SafetyCache,%@,%@,Invitation token creation failed", buf, 0x16u);
               }
@@ -344,18 +343,18 @@ LABEL_61:
               goto LABEL_16;
             }
 
-            v129 = v23;
-            v131 = v46;
-            v126 = v26;
+            v128 = v23;
+            v130 = v46;
+            v125 = v26;
             v27 = (v26 + 1);
             v28 = [@"receiverHandle" stringByAppendingFormat:@"%d", v27];
-            v132 = [v6 valueForKey:v28];
+            v131 = [v6 valueForKey:v28];
 
             v29 = [@"sharingInvitationData" stringByAppendingFormat:@"%d", v27];
             v30 = v6;
             v31 = [v6 valueForKey:v29];
 
-            v133 = v31;
+            v132 = v31;
             v32 = v22;
             v33 = v31 ? [objc_alloc(MEMORY[0x277CBEA90]) initWithBase64EncodedString:v31 options:0] : 0;
             v34 = MEMORY[0x277CBEBC0];
@@ -367,153 +366,153 @@ LABEL_61:
             v39 = v37;
             v40 = [v30 valueForKey:v38];
 
-            v25 = v132;
+            v25 = v131;
             v41 = v33;
-            if (!v132 || !v33 || !v37 || !v40)
+            if (!v131 || !v33 || !v37 || !v40)
             {
               break;
             }
 
             v22 = v40;
             v23 = v39;
-            v24 = v133;
-            v21 = v131;
+            v24 = v132;
+            v21 = v130;
             v6 = v30;
-            v26 = v126;
+            v26 = v125;
           }
 
-          v61 = v117;
+          v60 = v116;
           self = selfCopy;
-          v21 = v131;
+          v21 = v130;
           v6 = v30;
           if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
           {
-            v62 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitor);
-            if (os_log_type_enabled(v62, OS_LOG_TYPE_INFO))
+            v61 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitor);
+            if (os_log_type_enabled(v61, OS_LOG_TYPE_INFO))
             {
-              v63 = objc_opt_class();
-              v64 = NSStringFromClass(v63);
-              v65 = NSStringFromSelector(aSelector);
+              v62 = objc_opt_class();
+              v63 = NSStringFromClass(v62);
+              v64 = NSStringFromSelector(aSelector);
               *buf = 138412802;
-              v136 = v64;
-              v137 = 2112;
-              v138 = v65;
-              v139 = 1024;
-              *v140 = v126;
-              _os_log_impl(&dword_26455D000, v62, OS_LOG_TYPE_INFO, "#SafetyCache,%@,%@,finished parsing invitation tokens,found %d tokens", buf, 0x1Cu);
+              v135 = v63;
+              v136 = 2112;
+              v137 = v64;
+              v138 = 1024;
+              *v139 = v125;
+              _os_log_impl(&dword_26455D000, v61, OS_LOG_TYPE_INFO, "#SafetyCache,%@,%@,finished parsing invitation tokens,found %d tokens", buf, 0x1Cu);
 
-              v61 = v117;
+              v60 = v116;
             }
           }
 
-          v66 = [v6 valueForKey:@"sessionType"];
-          intValue3 = [v66 intValue];
+          v65 = [v6 valueForKey:@"sessionType"];
+          intValue3 = [v65 intValue];
 
           if (intValue3)
           {
-            v125 = intValue3;
-            v68 = [v6 valueForKey:@"estimatedEndTime"];
-            v17 = v116;
-            v130 = v68;
-            if (v68)
+            v124 = intValue3;
+            v67 = [v6 valueForKey:@"estimatedEndTime"];
+            v17 = v115;
+            v129 = v67;
+            if (v67)
             {
-              v69 = MEMORY[0x277CBEAA8];
-              [v68 doubleValue];
-              v127 = [v69 dateWithTimeIntervalSince1970:?];
-              v70 = [v6 valueForKey:@"coarseEstimatedEndTime"];
-              v123 = v70;
-              if (v70)
+              v68 = MEMORY[0x277CBEAA8];
+              [v67 doubleValue];
+              v126 = [v68 dateWithTimeIntervalSince1970:?];
+              v69 = [v6 valueForKey:@"coarseEstimatedEndTime"];
+              v122 = v69;
+              if (v69)
               {
-                v71 = MEMORY[0x277CBEAA8];
-                [v70 doubleValue];
-                v72 = [v71 dateWithTimeIntervalSince1970:?];
+                v70 = MEMORY[0x277CBEAA8];
+                [v69 doubleValue];
+                v71 = [v70 dateWithTimeIntervalSince1970:?];
               }
 
               else
               {
-                v76 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitor);
-                if (os_log_type_enabled(v76, OS_LOG_TYPE_ERROR))
+                v75 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitor);
+                if (os_log_type_enabled(v75, OS_LOG_TYPE_ERROR))
                 {
-                  v107 = objc_opt_class();
-                  v108 = NSStringFromClass(v107);
-                  v109 = NSStringFromSelector(aSelector);
+                  v106 = objc_opt_class();
+                  v107 = NSStringFromClass(v106);
+                  v108 = NSStringFromSelector(aSelector);
                   *buf = 138412546;
-                  v136 = v108;
-                  v137 = 2112;
-                  v138 = v109;
-                  _os_log_error_impl(&dword_26455D000, v76, OS_LOG_TYPE_ERROR, "#SafetyCache,%@,%@,missing coarseEstimatedEndTimeNumber", buf, 0x16u);
+                  v135 = v107;
+                  v136 = 2112;
+                  v137 = v108;
+                  _os_log_error_impl(&dword_26455D000, v75, OS_LOG_TYPE_ERROR, "#SafetyCache,%@,%@,missing coarseEstimatedEndTimeNumber", buf, 0x16u);
                 }
 
-                v72 = 0;
+                v71 = 0;
               }
 
-              v77 = [v6 valueForKey:@"sessionDestinationType"];
-              v78 = v77;
-              v124 = v72;
-              if (v77)
+              v76 = [v6 valueForKey:@"sessionDestinationType"];
+              v77 = v76;
+              v123 = v71;
+              if (v76)
               {
-                intValue4 = [v77 intValue];
-                v80 = [v6 valueForKey:@"sessionDestinationMapItem"];
-                if (v80)
+                intValue4 = [v76 intValue];
+                v79 = [v6 valueForKey:@"sessionDestinationMapItem"];
+                if (v79)
                 {
-                  v81 = [objc_alloc(MEMORY[0x277CBEA90]) initWithBase64EncodedString:v80 options:0];
+                  v80 = [objc_alloc(MEMORY[0x277CBEA90]) initWithBase64EncodedString:v79 options:0];
                 }
 
                 else
                 {
-                  v81 = 0;
+                  v80 = 0;
                 }
 
-                v86 = intValue4;
-                v87 = [v6 valueForKey:@"lowPowerModeWarningState"];
-                v88 = v87;
-                if (v87)
+                v85 = intValue4;
+                v86 = [v6 valueForKey:@"lowPowerModeWarningState"];
+                v87 = v86;
+                if (v86)
                 {
-                  intValue5 = [v87 intValue];
+                  intValue5 = [v86 intValue];
                 }
 
                 else
                 {
-                  v90 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitor);
-                  if (os_log_type_enabled(v90, OS_LOG_TYPE_ERROR))
+                  v89 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitor);
+                  if (os_log_type_enabled(v89, OS_LOG_TYPE_ERROR))
                   {
-                    v113 = objc_opt_class();
-                    v122 = NSStringFromClass(v113);
+                    v112 = objc_opt_class();
+                    v121 = NSStringFromClass(v112);
                     aSelectora = NSStringFromSelector(aSelector);
                     *buf = 138412546;
-                    v136 = v122;
-                    v137 = 2112;
-                    v138 = aSelectora;
-                    _os_log_error_impl(&dword_26455D000, v90, OS_LOG_TYPE_ERROR, "#SafetyCache,%@,%@,missing lowPowerModeWarningState, OK to proceed", buf, 0x16u);
+                    v135 = v121;
+                    v136 = 2112;
+                    v137 = aSelectora;
+                    _os_log_error_impl(&dword_26455D000, v89, OS_LOG_TYPE_ERROR, "#SafetyCache,%@,%@,missing lowPowerModeWarningState, OK to proceed", buf, 0x16u);
                   }
 
                   intValue5 = 0;
                 }
 
-                v82 = v124;
-                v91 = [(SMSessionStartMessage *)selfCopy initWithDate:v115 messageID:v116 sessionID:v117 invitationTokenDict:log sessionType:v125 estimatedEndTime:v127 coarseEstimatedEndTime:v124 destinationType:v86 destinationMapItem:v81 lowPowerModeWarningState:intValue5];
+                v81 = v123;
+                v90 = [(SMSessionStartMessage *)selfCopy initWithDate:v114 messageID:v115 sessionID:v116 invitationTokenDict:log sessionType:v124 estimatedEndTime:v126 coarseEstimatedEndTime:v123 destinationType:v85 destinationMapItem:v80 lowPowerModeWarningState:intValue5];
 
-                self = v91;
-                v58 = v91;
-                v21 = v131;
+                self = v90;
+                v58 = v90;
+                v21 = v130;
               }
 
               else
               {
-                v80 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitor);
-                if (os_log_type_enabled(v80, OS_LOG_TYPE_ERROR))
+                v79 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitor);
+                if (os_log_type_enabled(v79, OS_LOG_TYPE_ERROR))
                 {
-                  v110 = objc_opt_class();
-                  v111 = NSStringFromClass(v110);
-                  v112 = NSStringFromSelector(aSelector);
+                  v109 = objc_opt_class();
+                  v110 = NSStringFromClass(v109);
+                  v111 = NSStringFromSelector(aSelector);
                   *buf = 138412546;
-                  v136 = v111;
-                  v137 = 2112;
-                  v138 = v112;
-                  _os_log_error_impl(&dword_26455D000, v80, OS_LOG_TYPE_ERROR, "#SafetyCache,%@,%@,missing destinationType", buf, 0x16u);
+                  v135 = v110;
+                  v136 = 2112;
+                  v137 = v111;
+                  _os_log_error_impl(&dword_26455D000, v79, OS_LOG_TYPE_ERROR, "#SafetyCache,%@,%@,missing destinationType", buf, 0x16u);
 
                   self = selfCopy;
-                  v21 = v131;
+                  v21 = v130;
 
                   v58 = 0;
                 }
@@ -524,57 +523,57 @@ LABEL_61:
                   self = selfCopy;
                 }
 
-                v82 = v124;
+                v81 = v123;
               }
 
-              v17 = v116;
-              v20 = v117;
-              v75 = v127;
+              v17 = v115;
+              v20 = v116;
+              v74 = v126;
             }
 
             else
             {
-              v20 = v61;
-              v75 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitor);
-              if (os_log_type_enabled(v75, OS_LOG_TYPE_ERROR))
+              v20 = v60;
+              v74 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitor);
+              if (os_log_type_enabled(v74, OS_LOG_TYPE_ERROR))
               {
-                v104 = objc_opt_class();
-                NSStringFromClass(v104);
-                v105 = v128 = v75;
-                v106 = NSStringFromSelector(aSelector);
+                v103 = objc_opt_class();
+                NSStringFromClass(v103);
+                v104 = v127 = v74;
+                v105 = NSStringFromSelector(aSelector);
                 *buf = 138412546;
-                v136 = v105;
-                v137 = 2112;
-                v138 = v106;
-                _os_log_error_impl(&dword_26455D000, v128, OS_LOG_TYPE_ERROR, "#SafetyCache,%@,%@,missing estimatedEndTimeNumber", buf, 0x16u);
+                v135 = v104;
+                v136 = 2112;
+                v137 = v105;
+                _os_log_error_impl(&dword_26455D000, v127, OS_LOG_TYPE_ERROR, "#SafetyCache,%@,%@,missing estimatedEndTimeNumber", buf, 0x16u);
 
-                v75 = v128;
+                v74 = v127;
               }
 
               v58 = 0;
             }
 
-            v73 = v132;
+            v72 = v131;
           }
 
           else
           {
-            v130 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitor);
-            v17 = v116;
-            v73 = v132;
-            v20 = v61;
-            if (os_log_type_enabled(v130, OS_LOG_TYPE_ERROR))
+            v129 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitor);
+            v17 = v115;
+            v72 = v131;
+            v20 = v60;
+            if (os_log_type_enabled(v129, OS_LOG_TYPE_ERROR))
             {
-              v101 = objc_opt_class();
-              v102 = NSStringFromClass(v101);
-              v103 = NSStringFromSelector(aSelector);
+              v100 = objc_opt_class();
+              v101 = NSStringFromClass(v100);
+              v102 = NSStringFromSelector(aSelector);
               *buf = 138412546;
-              v136 = v102;
-              v137 = 2112;
-              v138 = v103;
-              _os_log_error_impl(&dword_26455D000, v130, OS_LOG_TYPE_ERROR, "#SafetyCache,%@,%@,missing sessionType", buf, 0x16u);
+              v135 = v101;
+              v136 = 2112;
+              v137 = v102;
+              _os_log_error_impl(&dword_26455D000, v129, OS_LOG_TYPE_ERROR, "#SafetyCache,%@,%@,missing sessionType", buf, 0x16u);
 
-              v73 = v132;
+              v72 = v131;
             }
 
             v58 = 0;
@@ -583,34 +582,34 @@ LABEL_61:
 
         else
         {
-          v130 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitor);
-          if (os_log_type_enabled(v130, OS_LOG_TYPE_ERROR))
+          v129 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitor);
+          if (os_log_type_enabled(v129, OS_LOG_TYPE_ERROR))
           {
-            v98 = objc_opt_class();
-            v99 = NSStringFromClass(v98);
-            v100 = NSStringFromSelector(aSelector);
+            v97 = objc_opt_class();
+            v98 = NSStringFromClass(v97);
+            v99 = NSStringFromSelector(aSelector);
             *buf = 138413314;
-            v136 = v99;
-            v137 = 2112;
-            v138 = v100;
-            v139 = 2112;
-            *v140 = v41;
-            *&v140[8] = 2112;
-            v141 = v39;
-            v142 = 2112;
-            v143 = v40;
-            _os_log_error_impl(&dword_26455D000, v130, OS_LOG_TYPE_ERROR, "#SafetyCache,%@,%@,missing details for Invitation token creation,sharingInvitationData:%@,shareURL:%@,participantID:%@", buf, 0x34u);
+            v135 = v98;
+            v136 = 2112;
+            v137 = v99;
+            v138 = 2112;
+            *v139 = v41;
+            *&v139[8] = 2112;
+            v140 = v39;
+            v141 = 2112;
+            v142 = v40;
+            _os_log_error_impl(&dword_26455D000, v129, OS_LOG_TYPE_ERROR, "#SafetyCache,%@,%@,missing details for Invitation token creation,sharingInvitationData:%@,shareURL:%@,participantID:%@", buf, 0x34u);
           }
 
           v58 = 0;
-          v73 = v25;
+          v72 = v25;
           self = selfCopy;
-          v17 = v116;
-          v20 = v117;
+          v17 = v115;
+          v20 = v116;
         }
 
-        v12 = v114;
-        v14 = v115;
+        v12 = v113;
+        v14 = v114;
       }
 
       else
@@ -618,13 +617,13 @@ LABEL_61:
         log = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitor);
         if (os_log_type_enabled(log, OS_LOG_TYPE_ERROR))
         {
-          v95 = objc_opt_class();
-          v96 = NSStringFromClass(v95);
-          v97 = NSStringFromSelector(aSelector);
+          v94 = objc_opt_class();
+          v95 = NSStringFromClass(v94);
+          v96 = NSStringFromSelector(aSelector);
           *buf = 138412546;
-          v136 = v96;
-          v137 = 2112;
-          v138 = v97;
+          v135 = v95;
+          v136 = 2112;
+          v137 = v96;
           _os_log_error_impl(&dword_26455D000, log, OS_LOG_TYPE_ERROR, "#SafetyCache,%@,%@,missing sessionID", buf, 0x16u);
         }
 
@@ -637,13 +636,13 @@ LABEL_61:
       v20 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitor);
       if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
       {
-        v92 = objc_opt_class();
-        v93 = NSStringFromClass(v92);
-        v94 = NSStringFromSelector(aSelector);
+        v91 = objc_opt_class();
+        v92 = NSStringFromClass(v91);
+        v93 = NSStringFromSelector(aSelector);
         *buf = 138412546;
-        v136 = v93;
-        v137 = 2112;
-        v138 = v94;
+        v135 = v92;
+        v136 = 2112;
+        v137 = v93;
         _os_log_error_impl(&dword_26455D000, v20, OS_LOG_TYPE_ERROR, "#SafetyCache,%@,%@,missing messageID", buf, 0x16u);
       }
 
@@ -656,13 +655,13 @@ LABEL_61:
     v14 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitor);
     if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
-      v83 = objc_opt_class();
-      v84 = NSStringFromClass(v83);
-      v85 = NSStringFromSelector(a2);
+      v82 = objc_opt_class();
+      v83 = NSStringFromClass(v82);
+      v84 = NSStringFromSelector(a2);
       *buf = 138412546;
-      v136 = v84;
-      v137 = 2112;
-      v138 = v85;
+      v135 = v83;
+      v136 = 2112;
+      v137 = v84;
       _os_log_error_impl(&dword_26455D000, v14, OS_LOG_TYPE_ERROR, "#SafetyCache,%@,%@,missing date", buf, 0x16u);
     }
 
@@ -670,7 +669,6 @@ LABEL_61:
   }
 
 LABEL_39:
-  v59 = *MEMORY[0x277D85DE8];
   return v58;
 }
 
@@ -784,7 +782,7 @@ void __43__SMSessionStartMessage_outputToDictionary__block_invoke(uint64_t a1, v
 
 - (SMSessionStartMessage)initWithURL:(id)l
 {
-  v195 = *MEMORY[0x277D85DE8];
+  v194 = *MEMORY[0x277D85DE8];
   lCopy = l;
   if (!lCopy)
   {
@@ -806,13 +804,13 @@ void __43__SMSessionStartMessage_outputToDictionary__block_invoke(uint64_t a1, v
     queryItems = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitor);
     if (os_log_type_enabled(queryItems, OS_LOG_TYPE_ERROR))
     {
-      v110 = objc_opt_class();
-      v111 = NSStringFromClass(v110);
-      v112 = NSStringFromSelector(a2);
+      v109 = objc_opt_class();
+      v110 = NSStringFromClass(v109);
+      v111 = NSStringFromSelector(a2);
       *buf = 138412546;
-      v186 = v111;
-      v187 = 2112;
-      v188 = v112;
+      v185 = v110;
+      v186 = 2112;
+      v187 = v111;
       _os_log_error_impl(&dword_26455D000, queryItems, OS_LOG_TYPE_ERROR, "#SafetyCache,%@,%@,missing url components", buf, 0x16u);
     }
 
@@ -826,76 +824,76 @@ void __43__SMSessionStartMessage_outputToDictionary__block_invoke(uint64_t a1, v
     v62 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitor);
     if (os_log_type_enabled(v62, OS_LOG_TYPE_ERROR))
     {
-      v128 = objc_opt_class();
-      v129 = NSStringFromClass(v128);
+      v127 = objc_opt_class();
+      v128 = NSStringFromClass(v127);
       NSStringFromSelector(a2);
-      v131 = v130 = v62;
+      v130 = v129 = v62;
       *buf = 138412546;
-      v186 = v129;
-      v187 = 2112;
-      v188 = v131;
-      _os_log_error_impl(&dword_26455D000, v130, OS_LOG_TYPE_ERROR, "#SafetyCache,%@,%@,missing queryItems", buf, 0x16u);
+      v185 = v128;
+      v186 = 2112;
+      v187 = v130;
+      _os_log_error_impl(&dword_26455D000, v129, OS_LOG_TYPE_ERROR, "#SafetyCache,%@,%@,missing queryItems", buf, 0x16u);
 
-      v62 = v130;
+      v62 = v129;
     }
 
     v61 = 0;
     goto LABEL_95;
   }
 
-  v159 = v5;
-  v160 = lCopy;
-  v170 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v158 = v5;
+  v159 = lCopy;
   v169 = objc_alloc_init(MEMORY[0x277CBEB38]);
-  v167 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v168 = objc_alloc_init(MEMORY[0x277CBEB38]);
   v166 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v165 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v180 = 0u;
   v181 = 0u;
   v182 = 0u;
   v183 = 0u;
-  v184 = 0u;
-  v158 = queryItems;
+  v157 = queryItems;
   v7 = queryItems;
-  v8 = [v7 countByEnumeratingWithState:&v181 objects:v194 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v180 objects:v193 count:16];
   if (!v8)
   {
+    v160 = 0;
     v161 = 0;
     v162 = 0;
     v163 = 0;
     v164 = 0;
-    v165 = 0;
     intValue = 0;
-    v177 = 0;
+    v176 = 0;
+    v178 = 0;
     v179 = 0;
-    v180 = 0;
-    v173 = 0;
-    v175 = 0;
+    v172 = 0;
+    v174 = 0;
     goto LABEL_58;
   }
 
   v9 = v8;
+  v160 = 0;
   v161 = 0;
   v162 = 0;
   v163 = 0;
   v164 = 0;
-  v165 = 0;
   intValue = 0;
-  v177 = 0;
+  v176 = 0;
+  v178 = 0;
   v179 = 0;
-  v180 = 0;
-  v173 = 0;
-  v175 = 0;
-  v10 = *v182;
+  v172 = 0;
+  v174 = 0;
+  v10 = *v181;
   do
   {
     v11 = 0;
     do
     {
-      if (*v182 != v10)
+      if (*v181 != v10)
       {
         objc_enumerationMutation(v7);
       }
 
-      v12 = *(*(&v181 + 1) + 8 * v11);
+      v12 = *(*(&v180 + 1) + 8 * v11);
       value = [v12 value];
       if (!value)
       {
@@ -907,11 +905,11 @@ void __43__SMSessionStartMessage_outputToDictionary__block_invoke(uint64_t a1, v
           v32 = NSStringFromSelector(a2);
           name = [v12 name];
           *buf = 138412802;
-          v186 = v31;
-          v187 = 2112;
-          v188 = v32;
-          v189 = 2112;
-          *v190 = name;
+          v185 = v31;
+          v186 = 2112;
+          v187 = v32;
+          v188 = 2112;
+          *v189 = name;
           _os_log_error_impl(&dword_26455D000, v17, OS_LOG_TYPE_ERROR, "#SafetyCache,%@,%@,queryItem missing value,queryName,%@", buf, 0x20u);
         }
 
@@ -925,7 +923,7 @@ void __43__SMSessionStartMessage_outputToDictionary__block_invoke(uint64_t a1, v
       {
         v16 = value;
 
-        v180 = v16;
+        v179 = v16;
         goto LABEL_23;
       }
 
@@ -936,7 +934,7 @@ void __43__SMSessionStartMessage_outputToDictionary__block_invoke(uint64_t a1, v
       {
         v20 = [objc_alloc(MEMORY[0x277CCAD78]) initWithUUIDString:value];
 
-        v179 = v20;
+        v178 = v20;
       }
 
       else
@@ -948,7 +946,7 @@ void __43__SMSessionStartMessage_outputToDictionary__block_invoke(uint64_t a1, v
         {
           v23 = [objc_alloc(MEMORY[0x277CCAD78]) initWithUUIDString:value];
 
-          v177 = v23;
+          v176 = v23;
         }
 
         else
@@ -960,7 +958,7 @@ void __43__SMSessionStartMessage_outputToDictionary__block_invoke(uint64_t a1, v
           {
             v26 = value;
 
-            v175 = v26;
+            v174 = v26;
           }
 
           else
@@ -972,7 +970,7 @@ void __43__SMSessionStartMessage_outputToDictionary__block_invoke(uint64_t a1, v
             {
               v29 = value;
 
-              v173 = v29;
+              v172 = v29;
             }
 
             else
@@ -984,7 +982,7 @@ void __43__SMSessionStartMessage_outputToDictionary__block_invoke(uint64_t a1, v
               v17 = name8;
               if (v35)
               {
-                v37 = v170;
+                v37 = v169;
                 goto LABEL_33;
               }
 
@@ -994,7 +992,7 @@ void __43__SMSessionStartMessage_outputToDictionary__block_invoke(uint64_t a1, v
               v17 = name9;
               if (v38)
               {
-                v37 = v169;
+                v37 = v168;
                 goto LABEL_33;
               }
 
@@ -1004,7 +1002,7 @@ void __43__SMSessionStartMessage_outputToDictionary__block_invoke(uint64_t a1, v
               v17 = name10;
               if (v40)
               {
-                v37 = v167;
+                v37 = v166;
                 goto LABEL_33;
               }
 
@@ -1014,7 +1012,7 @@ void __43__SMSessionStartMessage_outputToDictionary__block_invoke(uint64_t a1, v
               v17 = name11;
               if (v42)
               {
-                v37 = v166;
+                v37 = v165;
 LABEL_33:
                 [v37 setObject:value forKey:v17];
 LABEL_14:
@@ -1038,7 +1036,7 @@ LABEL_14:
                 {
                   v47 = value;
 
-                  v165 = v47;
+                  v164 = v47;
                 }
 
                 else
@@ -1050,7 +1048,7 @@ LABEL_14:
                   {
                     v50 = value;
 
-                    v164 = v50;
+                    v163 = v50;
                   }
 
                   else
@@ -1062,7 +1060,7 @@ LABEL_14:
                     {
                       v53 = value;
 
-                      v163 = v53;
+                      v162 = v53;
                     }
 
                     else
@@ -1074,7 +1072,7 @@ LABEL_14:
                       {
                         v56 = value;
 
-                        v162 = v56;
+                        v161 = v56;
                       }
 
                       else
@@ -1086,7 +1084,7 @@ LABEL_14:
                         {
                           v59 = value;
 
-                          v161 = v59;
+                          v160 = v59;
                         }
                       }
                     }
@@ -1104,110 +1102,110 @@ LABEL_23:
     }
 
     while (v9 != v11);
-    v60 = [v7 countByEnumeratingWithState:&v181 objects:v194 count:16];
+    v60 = [v7 countByEnumeratingWithState:&v180 objects:v193 count:16];
     v9 = v60;
   }
 
   while (v60);
 LABEL_58:
 
-  v62 = v175;
-  intValue2 = [v175 intValue];
-  if (!v175 || [objc_opt_class() messageType] != intValue2)
+  v62 = v174;
+  intValue2 = [v174 intValue];
+  if (!v174 || [objc_opt_class() messageType] != intValue2)
   {
     v68 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitor);
-    v5 = v159;
-    lCopy = v160;
-    queryItems = v158;
+    v5 = v158;
+    lCopy = v159;
+    queryItems = v157;
     if (os_log_type_enabled(v68, OS_LOG_TYPE_ERROR))
     {
-      v113 = objc_opt_class();
-      v105 = NSStringFromClass(v113);
-      v106 = NSStringFromSelector(a2);
+      v112 = objc_opt_class();
+      v104 = NSStringFromClass(v112);
+      v105 = NSStringFromSelector(a2);
       messageType = [objc_opt_class() messageType];
       *buf = 138413058;
-      v186 = v105;
-      v187 = 2112;
-      v188 = v106;
-      v189 = 1024;
-      *v190 = messageType;
-      *&v190[4] = 1024;
-      *&v190[6] = intValue2;
-      v107 = "#SafetyCache,%@,%@,extracted non-matching message type,expected,%d,got,%d";
-      v108 = v68;
-      v109 = 34;
+      v185 = v104;
+      v186 = 2112;
+      v187 = v105;
+      v188 = 1024;
+      *v189 = messageType;
+      *&v189[4] = 1024;
+      *&v189[6] = intValue2;
+      v106 = "#SafetyCache,%@,%@,extracted non-matching message type,expected,%d,got,%d";
+      v107 = v68;
+      v108 = 34;
       goto LABEL_104;
     }
 
 LABEL_93:
     v61 = 0;
-    v69 = v179;
-    v70 = v162;
+    v69 = v178;
+    v70 = v161;
     goto LABEL_94;
   }
 
-  intValue3 = [v173 intValue];
+  intValue3 = [v172 intValue];
   v65 = intValue3;
-  v5 = v159;
-  lCopy = v160;
-  queryItems = v158;
-  if (!v173 || intValue3 != 1)
+  v5 = v158;
+  lCopy = v159;
+  queryItems = v157;
+  if (!v172 || intValue3 != 1)
   {
     v68 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitor);
     if (os_log_type_enabled(v68, OS_LOG_TYPE_ERROR))
     {
-      v104 = objc_opt_class();
-      v105 = NSStringFromClass(v104);
-      v106 = NSStringFromSelector(a2);
+      v103 = objc_opt_class();
+      v104 = NSStringFromClass(v103);
+      v105 = NSStringFromSelector(a2);
       *buf = 138412802;
-      v186 = v105;
-      v187 = 2112;
-      v188 = v106;
-      v189 = 1024;
-      *v190 = v65;
-      v107 = "#SafetyCache,%@,%@,unrecognized interface version,%d";
-      v108 = v68;
-      v109 = 28;
+      v185 = v104;
+      v186 = 2112;
+      v187 = v105;
+      v188 = 1024;
+      *v189 = v65;
+      v106 = "#SafetyCache,%@,%@,unrecognized interface version,%d";
+      v107 = v68;
+      v108 = 28;
 LABEL_104:
-      _os_log_error_impl(&dword_26455D000, v108, OS_LOG_TYPE_ERROR, v107, buf, v109);
+      _os_log_error_impl(&dword_26455D000, v107, OS_LOG_TYPE_ERROR, v106, buf, v108);
 
-      v62 = v175;
+      v62 = v174;
       goto LABEL_93;
     }
 
     goto LABEL_93;
   }
 
-  if (!v180)
+  if (!v179)
   {
     v68 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitor);
-    v70 = v162;
+    v70 = v161;
     if (os_log_type_enabled(v68, OS_LOG_TYPE_ERROR))
     {
-      v145 = objc_opt_class();
-      v146 = NSStringFromClass(v145);
-      v147 = NSStringFromSelector(a2);
+      v144 = objc_opt_class();
+      v145 = NSStringFromClass(v144);
+      v146 = NSStringFromSelector(a2);
       *buf = 138412546;
-      v186 = v146;
-      v187 = 2112;
-      v188 = v147;
+      v185 = v145;
+      v186 = 2112;
+      v187 = v146;
       _os_log_error_impl(&dword_26455D000, v68, OS_LOG_TYPE_ERROR, "#SafetyCache,%@,%@,missing date", buf, 0x16u);
 
-      v62 = v175;
+      v62 = v174;
     }
 
     v61 = 0;
-    v69 = v179;
+    v69 = v178;
     goto LABEL_94;
   }
 
   v66 = MEMORY[0x277CBEAA8];
-  [v180 doubleValue];
+  [v179 doubleValue];
   v67 = [v66 dateWithTimeIntervalSince1970:?];
   v68 = v67;
-  v69 = v179;
-  v70 = v162;
-  if (!v179)
+  v69 = v178;
+  v70 = v161;
+  if (!v178)
   {
     log = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitor);
     if (!os_log_type_enabled(log, OS_LOG_TYPE_ERROR))
@@ -1217,23 +1215,23 @@ LABEL_116:
       goto LABEL_138;
     }
 
-    v124 = objc_opt_class();
-    v125 = NSStringFromClass(v124);
-    v126 = NSStringFromSelector(a2);
+    v123 = objc_opt_class();
+    v124 = NSStringFromClass(v123);
+    v125 = NSStringFromSelector(a2);
     *buf = 138412546;
-    v186 = v125;
-    v187 = 2112;
-    v188 = v126;
-    v127 = "#SafetyCache,%@,%@,missing messageID";
+    v185 = v124;
+    v186 = 2112;
+    v187 = v125;
+    v126 = "#SafetyCache,%@,%@,missing messageID";
 LABEL_140:
-    _os_log_error_impl(&dword_26455D000, log, OS_LOG_TYPE_ERROR, v127, buf, 0x16u);
+    _os_log_error_impl(&dword_26455D000, log, OS_LOG_TYPE_ERROR, v126, buf, 0x16u);
 
-    v62 = v175;
-    v69 = v179;
+    v62 = v174;
+    v69 = v178;
     goto LABEL_116;
   }
 
-  if (!v177)
+  if (!v176)
   {
     log = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitor);
     if (!os_log_type_enabled(log, OS_LOG_TYPE_ERROR))
@@ -1241,18 +1239,18 @@ LABEL_140:
       goto LABEL_116;
     }
 
-    v148 = objc_opt_class();
-    v125 = NSStringFromClass(v148);
-    v126 = NSStringFromSelector(a2);
+    v147 = objc_opt_class();
+    v124 = NSStringFromClass(v147);
+    v125 = NSStringFromSelector(a2);
     *buf = 138412546;
-    v186 = v125;
-    v187 = 2112;
-    v188 = v126;
-    v127 = "#SafetyCache,%@,%@,missing sessionID";
+    v185 = v124;
+    v186 = 2112;
+    v187 = v125;
+    v126 = "#SafetyCache,%@,%@,missing sessionID";
     goto LABEL_140;
   }
 
-  v156 = v67;
+  v155 = v67;
   log = objc_alloc_init(MEMORY[0x277CBEB38]);
   v71 = 0;
   v72 = 0;
@@ -1260,7 +1258,7 @@ LABEL_140:
   v74 = 0;
   v75 = 0;
   v76 = 0;
-  [v170 valueForKey:@"receiverHandle"];
+  [v169 valueForKey:@"receiverHandle"];
   v82 = LABEL_68:;
 
   if (v82)
@@ -1273,19 +1271,19 @@ LABEL_140:
     v75 = @"receiverHandle";
   }
 
-  v81 = [v169 valueForKey:@"sharingInvitationData"];
+  v81 = [v168 valueForKey:@"sharingInvitationData"];
 
-  v178 = v81;
+  v177 = v81;
   if (v81)
   {
     v81 = [objc_alloc(MEMORY[0x277CBEA90]) initWithBase64EncodedString:v81 options:0];
   }
 
   v83 = MEMORY[0x277CBEBC0];
-  v84 = [v167 valueForKey:@"shareURL"];
+  v84 = [v166 valueForKey:@"shareURL"];
   v85 = [v83 URLWithString:v84];
 
-  v86 = [v166 valueForKey:@"participantID"];
+  v86 = [v165 valueForKey:@"participantID"];
 
   if (!v81 || !v85 || !v86)
   {
@@ -1297,15 +1295,15 @@ LABEL_140:
       v90 = NSStringFromClass(v89);
       v91 = NSStringFromSelector(a2);
       *buf = 138413314;
-      v186 = v90;
-      v187 = 2112;
-      v188 = v91;
-      v189 = 2112;
-      *v190 = v81;
-      *&v190[8] = 2112;
-      v191 = v85;
-      v192 = 2112;
-      v193 = v86;
+      v185 = v90;
+      v186 = 2112;
+      v187 = v91;
+      v188 = 2112;
+      *v189 = v81;
+      *&v189[8] = 2112;
+      v190 = v85;
+      v191 = 2112;
+      v192 = v86;
       _os_log_impl(&dword_26455D000, v88, OS_LOG_TYPE_DEFAULT, "#SafetyCache,%@,%@,missing details for Invitation token creation,sharingInvitationData:%@,shareURL:%@,participantID:%@", buf, 0x34u);
     }
 
@@ -1330,9 +1328,9 @@ LABEL_140:
         v100 = NSStringFromClass(v99);
         v101 = NSStringFromSelector(a2);
         *buf = 138412546;
-        v186 = v100;
-        v187 = 2112;
-        v188 = v101;
+        v185 = v100;
+        v186 = 2112;
+        v187 = v101;
         _os_log_impl(&dword_26455D000, v98, OS_LOG_TYPE_DEFAULT, "#SafetyCache,%@,%@,Invitation token creation failed", buf, 0x16u);
       }
     }
@@ -1341,29 +1339,29 @@ LABEL_140:
     v71 = v97;
     v72 = v86;
     v73 = v85;
-    v74 = v178;
+    v74 = v177;
     if (!v76)
     {
-      [v170 valueForKey:@"receiverHandle"];
+      [v169 valueForKey:@"receiverHandle"];
       goto LABEL_68;
     }
 
-    v176 = v97;
+    v175 = v97;
     v77 = [@"receiverHandle" stringByAppendingFormat:@"%d", (v76 + 1)];
-    v78 = [v170 valueForKey:v77];
+    v78 = [v169 valueForKey:v77];
 
     v79 = [@"sharingInvitationData" stringByAppendingFormat:@"%d", (v76 + 1)];
-    v80 = [v169 valueForKey:v79];
+    v80 = [v168 valueForKey:v79];
 
-    v178 = v80;
+    v177 = v80;
     v81 = v80 ? [objc_alloc(MEMORY[0x277CBEA90]) initWithBase64EncodedString:v80 options:0] : 0;
     v92 = MEMORY[0x277CBEBC0];
     v93 = [@"shareURL" stringByAppendingFormat:@"%d", (v76 + 1)];
-    v94 = [v167 valueForKey:v93];
+    v94 = [v166 valueForKey:v93];
     v85 = [v92 URLWithString:v94];
 
     v95 = [@"participantID" stringByAppendingFormat:@"%d", (v76 + 1)];
-    v86 = [v166 valueForKey:v95];
+    v86 = [v165 valueForKey:v95];
 
     v96 = v78;
     if (!v78 || !v81 || !v85 || !v86)
@@ -1372,163 +1370,163 @@ LABEL_140:
     }
 
     v75 = v78;
-    v71 = v176;
+    v71 = v175;
   }
 
-  v115 = v176;
+  v114 = v175;
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
   {
-    v116 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitor);
-    if (os_log_type_enabled(v116, OS_LOG_TYPE_INFO))
+    v115 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitor);
+    if (os_log_type_enabled(v115, OS_LOG_TYPE_INFO))
     {
-      v117 = objc_opt_class();
-      v118 = NSStringFromClass(v117);
-      v119 = NSStringFromSelector(a2);
+      v116 = objc_opt_class();
+      v117 = NSStringFromClass(v116);
+      v118 = NSStringFromSelector(a2);
       *buf = 138412802;
-      v186 = v118;
-      v187 = 2112;
-      v188 = v119;
-      v189 = 1024;
-      *v190 = v76;
-      _os_log_impl(&dword_26455D000, v116, OS_LOG_TYPE_INFO, "#SafetyCache,%@,%@,finished parsing invitation tokens,found %d tokens", buf, 0x1Cu);
+      v185 = v117;
+      v186 = 2112;
+      v187 = v118;
+      v188 = 1024;
+      *v189 = v76;
+      _os_log_impl(&dword_26455D000, v115, OS_LOG_TYPE_INFO, "#SafetyCache,%@,%@,finished parsing invitation tokens,found %d tokens", buf, 0x1Cu);
     }
   }
 
   if (!intValue)
   {
-    v121 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitor);
-    lCopy = v160;
-    if (!os_log_type_enabled(v121, OS_LOG_TYPE_ERROR))
+    v120 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitor);
+    lCopy = v159;
+    if (!os_log_type_enabled(v120, OS_LOG_TYPE_ERROR))
     {
 LABEL_120:
       v61 = 0;
       goto LABEL_137;
     }
 
-    v132 = objc_opt_class();
-    v133 = NSStringFromClass(v132);
-    v134 = NSStringFromSelector(a2);
+    v131 = objc_opt_class();
+    v132 = NSStringFromClass(v131);
+    v133 = NSStringFromSelector(a2);
     *buf = 138412546;
-    v186 = v133;
-    v187 = 2112;
-    v188 = v134;
-    v135 = "#SafetyCache,%@,%@,missing sessionType";
+    v185 = v132;
+    v186 = 2112;
+    v187 = v133;
+    v134 = "#SafetyCache,%@,%@,missing sessionType";
 LABEL_142:
-    _os_log_error_impl(&dword_26455D000, v121, OS_LOG_TYPE_ERROR, v135, buf, 0x16u);
+    _os_log_error_impl(&dword_26455D000, v120, OS_LOG_TYPE_ERROR, v134, buf, 0x16u);
 
     goto LABEL_120;
   }
 
-  lCopy = v160;
-  if (!v165)
+  lCopy = v159;
+  if (!v164)
   {
-    v121 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitor);
-    if (!os_log_type_enabled(v121, OS_LOG_TYPE_ERROR))
+    v120 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitor);
+    if (!os_log_type_enabled(v120, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_120;
     }
 
-    v149 = objc_opt_class();
-    v133 = NSStringFromClass(v149);
-    v134 = NSStringFromSelector(a2);
+    v148 = objc_opt_class();
+    v132 = NSStringFromClass(v148);
+    v133 = NSStringFromSelector(a2);
     *buf = 138412546;
-    v186 = v133;
-    v187 = 2112;
-    v188 = v134;
-    v135 = "#SafetyCache,%@,%@,missing estimatedEndTimeString";
+    v185 = v132;
+    v186 = 2112;
+    v187 = v133;
+    v134 = "#SafetyCache,%@,%@,missing estimatedEndTimeString";
     goto LABEL_142;
   }
 
-  v120 = MEMORY[0x277CBEAA8];
-  [v165 doubleValue];
-  v121 = [v120 dateWithTimeIntervalSince1970:?];
-  if (v164)
+  v119 = MEMORY[0x277CBEAA8];
+  [v164 doubleValue];
+  v120 = [v119 dateWithTimeIntervalSince1970:?];
+  if (v163)
   {
-    v122 = MEMORY[0x277CBEAA8];
-    [v164 doubleValue];
-    v123 = [v122 dateWithTimeIntervalSince1970:?];
+    v121 = MEMORY[0x277CBEAA8];
+    [v163 doubleValue];
+    v122 = [v121 dateWithTimeIntervalSince1970:?];
   }
 
   else
   {
-    v136 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitor);
-    if (os_log_type_enabled(v136, OS_LOG_TYPE_ERROR))
+    v135 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitor);
+    if (os_log_type_enabled(v135, OS_LOG_TYPE_ERROR))
     {
-      v150 = objc_opt_class();
-      v151 = NSStringFromClass(v150);
-      v152 = NSStringFromSelector(a2);
+      v149 = objc_opt_class();
+      v150 = NSStringFromClass(v149);
+      v151 = NSStringFromSelector(a2);
       *buf = 138412546;
-      v186 = v151;
-      v187 = 2112;
-      v188 = v152;
-      _os_log_error_impl(&dword_26455D000, v136, OS_LOG_TYPE_ERROR, "#SafetyCache,%@,%@,missing coarseEstimatedEndTimeString", buf, 0x16u);
+      v185 = v150;
+      v186 = 2112;
+      v187 = v151;
+      _os_log_error_impl(&dword_26455D000, v135, OS_LOG_TYPE_ERROR, "#SafetyCache,%@,%@,missing coarseEstimatedEndTimeString", buf, 0x16u);
 
-      v115 = v176;
+      v114 = v175;
     }
 
-    v123 = 0;
+    v122 = 0;
   }
 
-  if (v163)
+  if (v162)
   {
-    intValue4 = [v163 intValue];
-    if (!v161 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
+    intValue4 = [v162 intValue];
+    if (!v160 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
     {
-      v138 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitor);
-      if (os_log_type_enabled(v138, OS_LOG_TYPE_INFO))
+      v137 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitor);
+      if (os_log_type_enabled(v137, OS_LOG_TYPE_INFO))
       {
-        v139 = objc_opt_class();
-        v174 = NSStringFromClass(v139);
-        v140 = NSStringFromSelector(a2);
+        v138 = objc_opt_class();
+        v173 = NSStringFromClass(v138);
+        v139 = NSStringFromSelector(a2);
         *buf = 138412546;
-        v186 = v174;
-        v187 = 2112;
-        v188 = v140;
-        v141 = v140;
-        _os_log_impl(&dword_26455D000, v138, OS_LOG_TYPE_INFO, "#SafetyCache,%@,%@,missing lowPowerModeWarningState", buf, 0x16u);
+        v185 = v173;
+        v186 = 2112;
+        v187 = v139;
+        v140 = v139;
+        _os_log_impl(&dword_26455D000, v137, OS_LOG_TYPE_INFO, "#SafetyCache,%@,%@,missing lowPowerModeWarningState", buf, 0x16u);
       }
     }
 
-    v142 = intValue4;
-    intValue5 = [v161 intValue];
-    v144 = v162;
-    if (v162)
+    v141 = intValue4;
+    intValue5 = [v160 intValue];
+    v143 = v161;
+    if (v161)
     {
-      v144 = [objc_alloc(MEMORY[0x277CBEA90]) initWithBase64EncodedString:v162 options:0];
+      v143 = [objc_alloc(MEMORY[0x277CBEA90]) initWithBase64EncodedString:v161 options:0];
     }
 
-    v61 = [(SMSessionStartMessage *)self initWithDate:v156 messageID:v179 sessionID:v177 invitationTokenDict:log sessionType:intValue estimatedEndTime:v121 coarseEstimatedEndTime:v123 destinationType:v142 destinationMapItem:v144 lowPowerModeWarningState:intValue5];
+    v61 = [(SMSessionStartMessage *)self initWithDate:v155 messageID:v178 sessionID:v176 invitationTokenDict:log sessionType:intValue estimatedEndTime:v120 coarseEstimatedEndTime:v122 destinationType:v141 destinationMapItem:v143 lowPowerModeWarningState:intValue5];
     self = v61;
-    v115 = v176;
+    v114 = v175;
   }
 
   else
   {
-    v144 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitor);
-    if (os_log_type_enabled(v144, OS_LOG_TYPE_ERROR))
+    v143 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitor);
+    if (os_log_type_enabled(v143, OS_LOG_TYPE_ERROR))
     {
-      v153 = objc_opt_class();
-      v154 = NSStringFromClass(v153);
-      v155 = NSStringFromSelector(a2);
+      v152 = objc_opt_class();
+      v153 = NSStringFromClass(v152);
+      v154 = NSStringFromSelector(a2);
       *buf = 138412546;
-      v186 = v154;
-      v187 = 2112;
-      v188 = v155;
-      _os_log_error_impl(&dword_26455D000, v144, OS_LOG_TYPE_ERROR, "#SafetyCache,%@,%@,missing destinationType", buf, 0x16u);
+      v185 = v153;
+      v186 = 2112;
+      v187 = v154;
+      _os_log_error_impl(&dword_26455D000, v143, OS_LOG_TYPE_ERROR, "#SafetyCache,%@,%@,missing destinationType", buf, 0x16u);
 
-      v115 = v176;
+      v114 = v175;
     }
 
     v61 = 0;
   }
 
 LABEL_137:
-  queryItems = v158;
-  v5 = v159;
-  v62 = v175;
-  v69 = v179;
-  v70 = v162;
-  v68 = v156;
+  queryItems = v157;
+  v5 = v158;
+  v62 = v174;
+  v69 = v178;
+  v70 = v161;
+  v68 = v155;
 LABEL_138:
 
 LABEL_94:
@@ -1537,7 +1535,6 @@ LABEL_95:
 LABEL_96:
 LABEL_97:
 
-  v102 = *MEMORY[0x277D85DE8];
   return v61;
 }
 
@@ -1768,7 +1765,7 @@ LABEL_17:
 
 - (void)encodeWithCoder:(id)coder
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   coderCopy = coder;
   if (!coderCopy)
   {
@@ -1783,24 +1780,24 @@ LABEL_17:
     }
   }
 
-  v21.receiver = self;
-  v21.super_class = SMSessionStartMessage;
-  [(SMMessage *)&v21 encodeWithCoder:coderCopy];
+  v20.receiver = self;
+  v20.super_class = SMSessionStartMessage;
+  [(SMMessage *)&v20 encodeWithCoder:coderCopy];
   *buf = 0;
   *&buf[8] = buf;
   *&buf[16] = 0x2020000000;
-  v23 = 0;
+  v22 = 0;
   invitationTokenDict = [(SMSessionStartMessage *)self invitationTokenDict];
-  v15 = MEMORY[0x277D85DD0];
-  v16 = 3221225472;
-  v17 = __41__SMSessionStartMessage_encodeWithCoder___block_invoke;
-  v18 = &unk_279B65248;
-  v20 = buf;
+  v14 = MEMORY[0x277D85DD0];
+  v15 = 3221225472;
+  v16 = __41__SMSessionStartMessage_encodeWithCoder___block_invoke;
+  v17 = &unk_279B65248;
+  v19 = buf;
   v7 = coderCopy;
-  v19 = v7;
-  [invitationTokenDict enumerateKeysAndObjectsUsingBlock:&v15];
+  v18 = v7;
+  [invitationTokenDict enumerateKeysAndObjectsUsingBlock:&v14];
 
-  v8 = [MEMORY[0x277CCABB0] numberWithInt:{-[SMSessionStartMessage sessionType](self, "sessionType", v15, v16, v17, v18)}];
+  v8 = [MEMORY[0x277CCABB0] numberWithInt:{-[SMSessionStartMessage sessionType](self, "sessionType", v14, v15, v16, v17)}];
   [v7 encodeObject:v8 forKey:@"sessionType"];
 
   estimatedEndTime = [(SMSessionStartMessage *)self estimatedEndTime];
@@ -1822,7 +1819,6 @@ LABEL_17:
   }
 
   _Block_object_dispose(buf, 8);
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __41__SMSessionStartMessage_encodeWithCoder___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -1875,7 +1871,7 @@ void __41__SMSessionStartMessage_encodeWithCoder___block_invoke(uint64_t a1, voi
 
 - (SMSessionStartMessage)initWithCoder:(id)coder
 {
-  v110 = *MEMORY[0x277D85DE8];
+  v109 = *MEMORY[0x277D85DE8];
   coderCopy = coder;
   v6 = coderCopy;
   if (!coderCopy)
@@ -1905,13 +1901,13 @@ LABEL_32:
     v37 = NSStringFromClass(v36);
     v38 = NSStringFromSelector(a2);
     *buf = 138413058;
-    v102 = v37;
-    v103 = 2112;
-    v104 = v38;
-    v105 = 1024;
-    *v106 = [objc_opt_class() messageType];
-    *&v106[4] = 1024;
-    *&v106[6] = v7;
+    v101 = v37;
+    v102 = 2112;
+    v103 = v38;
+    v104 = 1024;
+    *v105 = [objc_opt_class() messageType];
+    *&v105[4] = 1024;
+    *&v105[6] = v7;
     v39 = "#SafetyCache,%@,%@,extracted non-matching message type,expected,%d,got,%d";
     v40 = v9;
     v41 = 34;
@@ -1931,15 +1927,15 @@ LABEL_56:
       goto LABEL_32;
     }
 
-    v61 = objc_opt_class();
-    v37 = NSStringFromClass(v61);
+    v60 = objc_opt_class();
+    v37 = NSStringFromClass(v60);
     v38 = NSStringFromSelector(a2);
     *buf = 138412802;
-    v102 = v37;
-    v103 = 2112;
-    v104 = v38;
-    v105 = 1024;
-    *v106 = v42;
+    v101 = v37;
+    v102 = 2112;
+    v103 = v38;
+    v104 = 1024;
+    *v105 = v42;
     v39 = "#SafetyCache,%@,%@,unrecognized interface version,%d";
     v40 = v9;
     v41 = 28;
@@ -1952,13 +1948,13 @@ LABEL_56:
     v10 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitor);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      v63 = objc_opt_class();
-      v64 = NSStringFromClass(v63);
-      v65 = NSStringFromSelector(a2);
+      v62 = objc_opt_class();
+      v63 = NSStringFromClass(v62);
+      v64 = NSStringFromSelector(a2);
       *buf = 138412546;
-      v102 = v64;
-      v103 = 2112;
-      v104 = v65;
+      v101 = v63;
+      v102 = 2112;
+      v103 = v64;
       _os_log_error_impl(&dword_26455D000, v10, OS_LOG_TYPE_ERROR, "#SafetyCache,%@,%@,missing date", buf, 0x16u);
     }
 
@@ -1972,13 +1968,13 @@ LABEL_56:
     v12 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitor);
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      v67 = objc_opt_class();
-      v68 = NSStringFromClass(v67);
-      v69 = NSStringFromSelector(a2);
+      v66 = objc_opt_class();
+      v67 = NSStringFromClass(v66);
+      v68 = NSStringFromSelector(a2);
       *buf = 138412546;
-      v102 = v68;
-      v103 = 2112;
-      v104 = v69;
+      v101 = v67;
+      v102 = 2112;
+      v103 = v68;
       _os_log_error_impl(&dword_26455D000, v12, OS_LOG_TYPE_ERROR, "#SafetyCache,%@,%@,missing messageID", buf, 0x16u);
     }
 
@@ -1993,13 +1989,13 @@ LABEL_56:
     log = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitor);
     if (os_log_type_enabled(log, OS_LOG_TYPE_ERROR))
     {
-      v70 = objc_opt_class();
-      v71 = NSStringFromClass(v70);
-      v72 = NSStringFromSelector(a2);
+      v69 = objc_opt_class();
+      v70 = NSStringFromClass(v69);
+      v71 = NSStringFromSelector(a2);
       *buf = 138412546;
-      v102 = v71;
-      v103 = 2112;
-      v104 = v72;
+      v101 = v70;
+      v102 = 2112;
+      v103 = v71;
       _os_log_error_impl(&dword_26455D000, log, OS_LOG_TYPE_ERROR, "#SafetyCache,%@,%@,missing sessionID", buf, 0x16u);
     }
 
@@ -2008,9 +2004,9 @@ LABEL_56:
   }
 
   aSelector = a2;
-  v88 = v11;
-  v89 = v10;
-  v90 = v9;
+  v87 = v11;
+  v88 = v10;
+  v89 = v9;
   selfCopy = self;
   log = objc_alloc_init(MEMORY[0x277CBEB38]);
   v13 = 0;
@@ -2026,7 +2022,7 @@ LABEL_56:
       break;
     }
 
-    v99 = v13;
+    v98 = v13;
     v20 = [@"receiverHandle" stringByAppendingFormat:@"%d", (i + 1)];
     v21 = [v6 decodeObjectOfClass:v19 forKey:v20];
 
@@ -2046,86 +2042,86 @@ LABEL_56:
     {
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
       {
-        v46 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitor);
-        if (os_log_type_enabled(v46, OS_LOG_TYPE_INFO))
+        v45 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitor);
+        if (os_log_type_enabled(v45, OS_LOG_TYPE_INFO))
         {
-          v47 = objc_opt_class();
-          v48 = NSStringFromClass(v47);
-          v49 = NSStringFromSelector(aSelector);
+          v46 = objc_opt_class();
+          v47 = NSStringFromClass(v46);
+          v48 = NSStringFromSelector(aSelector);
           *buf = 138412802;
-          v102 = v48;
-          v103 = 2112;
-          v104 = v49;
-          v105 = 1024;
-          *v106 = i;
-          _os_log_impl(&dword_26455D000, v46, OS_LOG_TYPE_INFO, "#SafetyCache,%@,%@,finished parsing invitation tokens,found %d tokens", buf, 0x1Cu);
+          v101 = v47;
+          v102 = 2112;
+          v103 = v48;
+          v104 = 1024;
+          *v105 = i;
+          _os_log_impl(&dword_26455D000, v45, OS_LOG_TYPE_INFO, "#SafetyCache,%@,%@,finished parsing invitation tokens,found %d tokens", buf, 0x1Cu);
         }
       }
 
-      v50 = [v6 decodeObjectOfClass:objc_opt_class() forKey:@"sessionType"];
-      v51 = v50;
-      v13 = v99;
-      if (v50)
+      v49 = [v6 decodeObjectOfClass:objc_opt_class() forKey:@"sessionType"];
+      v50 = v49;
+      v13 = v98;
+      if (v49)
       {
-        intValue = [v50 intValue];
-        v98 = [v6 decodeObjectOfClass:objc_opt_class() forKey:@"estimatedEndTime"];
-        if (v98)
+        intValue = [v49 intValue];
+        v97 = [v6 decodeObjectOfClass:objc_opt_class() forKey:@"estimatedEndTime"];
+        if (v97)
         {
-          v96 = v51;
-          v97 = [v6 decodeObjectOfClass:objc_opt_class() forKey:@"coarseEstimatedEndTime"];
-          v53 = [v6 decodeObjectOfClass:objc_opt_class() forKey:@"sessionDestinationType"];
-          v54 = v53;
-          if (v53)
+          v95 = v50;
+          v96 = [v6 decodeObjectOfClass:objc_opt_class() forKey:@"coarseEstimatedEndTime"];
+          v52 = [v6 decodeObjectOfClass:objc_opt_class() forKey:@"sessionDestinationType"];
+          v53 = v52;
+          if (v52)
           {
-            v55 = intValue;
-            intValue2 = [v53 intValue];
-            v57 = [v6 decodeObjectOfClass:objc_opt_class() forKey:@"sessionDestinationMapItem"];
-            v58 = [v6 decodeObjectOfClass:objc_opt_class() forKey:@"lowPowerModeWarningState"];
-            v59 = v58;
-            if (v58)
+            v54 = intValue;
+            intValue2 = [v52 intValue];
+            v56 = [v6 decodeObjectOfClass:objc_opt_class() forKey:@"sessionDestinationMapItem"];
+            v57 = [v6 decodeObjectOfClass:objc_opt_class() forKey:@"lowPowerModeWarningState"];
+            v58 = v57;
+            if (v57)
             {
-              intValue3 = [v58 intValue];
+              intValue3 = [v57 intValue];
             }
 
             else
             {
               if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
               {
-                v95 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitor);
-                if (os_log_type_enabled(v95, OS_LOG_TYPE_INFO))
+                v94 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitor);
+                if (os_log_type_enabled(v94, OS_LOG_TYPE_INFO))
                 {
-                  v66 = objc_opt_class();
-                  v94 = NSStringFromClass(v66);
-                  v93 = NSStringFromSelector(aSelector);
+                  v65 = objc_opt_class();
+                  v93 = NSStringFromClass(v65);
+                  v92 = NSStringFromSelector(aSelector);
                   *buf = 138412546;
-                  v102 = v94;
-                  v103 = 2112;
-                  v104 = v93;
-                  _os_log_impl(&dword_26455D000, v95, OS_LOG_TYPE_INFO, "#SafetyCache,%@,%@,missing lowPowerModeWarningState, OK to proceed", buf, 0x16u);
+                  v101 = v93;
+                  v102 = 2112;
+                  v103 = v92;
+                  _os_log_impl(&dword_26455D000, v94, OS_LOG_TYPE_INFO, "#SafetyCache,%@,%@,missing lowPowerModeWarningState, OK to proceed", buf, 0x16u);
                 }
               }
 
               intValue3 = 0;
             }
 
-            v43 = [(SMSessionStartMessage *)selfCopy initWithDate:v90 messageID:v89 sessionID:v88 invitationTokenDict:log sessionType:v55 estimatedEndTime:v98 coarseEstimatedEndTime:v97 destinationType:intValue2 destinationMapItem:v57 lowPowerModeWarningState:intValue3];
+            v43 = [(SMSessionStartMessage *)selfCopy initWithDate:v89 messageID:v88 sessionID:v87 invitationTokenDict:log sessionType:v54 estimatedEndTime:v97 coarseEstimatedEndTime:v96 destinationType:intValue2 destinationMapItem:v56 lowPowerModeWarningState:intValue3];
 
             self = v43;
           }
 
           else
           {
-            v57 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitor);
-            if (os_log_type_enabled(v57, OS_LOG_TYPE_ERROR))
+            v56 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitor);
+            if (os_log_type_enabled(v56, OS_LOG_TYPE_ERROR))
             {
-              v84 = objc_opt_class();
-              v85 = NSStringFromClass(v84);
-              v86 = NSStringFromSelector(aSelector);
+              v83 = objc_opt_class();
+              v84 = NSStringFromClass(v83);
+              v85 = NSStringFromSelector(aSelector);
               *buf = 138412546;
-              v102 = v85;
-              v103 = 2112;
-              v104 = v86;
-              _os_log_error_impl(&dword_26455D000, v57, OS_LOG_TYPE_ERROR, "#SafetyCache,%@,%@,missing destinationType", buf, 0x16u);
+              v101 = v84;
+              v102 = 2112;
+              v103 = v85;
+              _os_log_error_impl(&dword_26455D000, v56, OS_LOG_TYPE_ERROR, "#SafetyCache,%@,%@,missing destinationType", buf, 0x16u);
 
               self = selfCopy;
               v43 = 0;
@@ -2138,27 +2134,27 @@ LABEL_56:
             }
           }
 
-          v51 = v96;
-          v62 = v97;
+          v50 = v95;
+          v61 = v96;
         }
 
         else
         {
-          v62 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitor);
-          if (os_log_type_enabled(v62, OS_LOG_TYPE_ERROR))
+          v61 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitor);
+          if (os_log_type_enabled(v61, OS_LOG_TYPE_ERROR))
           {
             self = selfCopy;
-            v80 = objc_opt_class();
-            v81 = NSStringFromClass(v80);
+            v79 = objc_opt_class();
+            v80 = NSStringFromClass(v79);
             NSStringFromSelector(aSelector);
-            v83 = v82 = v62;
+            v82 = v81 = v61;
             *buf = 138412546;
-            v102 = v81;
-            v103 = 2112;
-            v104 = v83;
-            _os_log_error_impl(&dword_26455D000, v82, OS_LOG_TYPE_ERROR, "#SafetyCache,%@,%@,missing estimatedEndTime", buf, 0x16u);
+            v101 = v80;
+            v102 = 2112;
+            v103 = v82;
+            _os_log_error_impl(&dword_26455D000, v81, OS_LOG_TYPE_ERROR, "#SafetyCache,%@,%@,missing estimatedEndTime", buf, 0x16u);
 
-            v62 = v82;
+            v61 = v81;
             v43 = 0;
           }
 
@@ -2169,25 +2165,25 @@ LABEL_56:
           }
         }
 
-        v13 = v99;
+        v13 = v98;
       }
 
       else
       {
-        v98 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitor);
-        if (os_log_type_enabled(v98, OS_LOG_TYPE_ERROR))
+        v97 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitor);
+        if (os_log_type_enabled(v97, OS_LOG_TYPE_ERROR))
         {
           self = selfCopy;
-          v77 = objc_opt_class();
-          v78 = NSStringFromClass(v77);
-          v79 = NSStringFromSelector(aSelector);
+          v76 = objc_opt_class();
+          v77 = NSStringFromClass(v76);
+          v78 = NSStringFromSelector(aSelector);
           *buf = 138412546;
-          v102 = v78;
-          v103 = 2112;
-          v104 = v79;
-          _os_log_error_impl(&dword_26455D000, v98, OS_LOG_TYPE_ERROR, "#SafetyCache,%@,%@,missing sessionType", buf, 0x16u);
+          v101 = v77;
+          v102 = 2112;
+          v103 = v78;
+          _os_log_error_impl(&dword_26455D000, v97, OS_LOG_TYPE_ERROR, "#SafetyCache,%@,%@,missing sessionType", buf, 0x16u);
 
-          v13 = v99;
+          v13 = v98;
           v43 = 0;
         }
 
@@ -2220,11 +2216,11 @@ LABEL_21:
       {
         v34 = objc_opt_class();
         v35 = NSStringFromClass(v34);
-        v100 = NSStringFromSelector(aSelector);
+        v99 = NSStringFromSelector(aSelector);
         *buf = 138412546;
-        v102 = v35;
-        v103 = 2112;
-        v104 = v100;
+        v101 = v35;
+        v102 = 2112;
+        v103 = v99;
         _os_log_fault_impl(&dword_26455D000, v33, OS_LOG_TYPE_FAULT, "#SafetyCache,%@,%@,Invitation token creation failed", buf, 0x16u);
       }
     }
@@ -2258,26 +2254,26 @@ LABEL_21:
     goto LABEL_21;
   }
 
-  v51 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitor);
-  if (os_log_type_enabled(v51, OS_LOG_TYPE_ERROR))
+  v50 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitor);
+  if (os_log_type_enabled(v50, OS_LOG_TYPE_ERROR))
   {
-    v73 = objc_opt_class();
-    NSStringFromClass(v73);
-    v75 = v74 = v13;
-    v76 = NSStringFromSelector(aSelector);
+    v72 = objc_opt_class();
+    NSStringFromClass(v72);
+    v74 = v73 = v13;
+    v75 = NSStringFromSelector(aSelector);
     *buf = 138413314;
-    v102 = v75;
-    v103 = 2112;
-    v104 = v76;
-    v105 = 2112;
-    *v106 = v24;
-    *&v106[8] = 2112;
-    v107 = v27;
-    v108 = 2112;
-    v109 = v30;
-    _os_log_error_impl(&dword_26455D000, v51, OS_LOG_TYPE_ERROR, "#SafetyCache,%@,%@,missing details for Invitation token creation,sharingInvitationData:%@,shareURL:%@,participantID:%@", buf, 0x34u);
+    v101 = v74;
+    v102 = 2112;
+    v103 = v75;
+    v104 = 2112;
+    *v105 = v24;
+    *&v105[8] = 2112;
+    v106 = v27;
+    v107 = 2112;
+    v108 = v30;
+    _os_log_error_impl(&dword_26455D000, v50, OS_LOG_TYPE_ERROR, "#SafetyCache,%@,%@,missing details for Invitation token creation,sharingInvitationData:%@,shareURL:%@,participantID:%@", buf, 0x34u);
 
-    v13 = v74;
+    v13 = v73;
   }
 
   v43 = 0;
@@ -2285,16 +2281,15 @@ LABEL_21:
   self = selfCopy;
 LABEL_72:
 
-  v10 = v89;
-  v9 = v90;
-  v12 = v88;
+  v10 = v88;
+  v9 = v89;
+  v12 = v87;
 LABEL_73:
 
 LABEL_74:
 LABEL_75:
 
 LABEL_33:
-  v44 = *MEMORY[0x277D85DE8];
   return v43;
 }
 

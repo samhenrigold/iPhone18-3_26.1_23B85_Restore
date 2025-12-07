@@ -24,17 +24,17 @@
 
       else
       {
-        p_super = _AALogSystem();
+        p_super = _AALogSystem(0);
         if (os_log_type_enabled(p_super, OS_LOG_TYPE_ERROR))
         {
-          [AASigningSessionResponse initWithHTTPResponse:? data:?];
+          [AASigningSessionResponse initWithHTTPResponse:data:];
         }
       }
     }
 
     else
     {
-      v7 = _AALogSystem();
+      v7 = _AALogSystem(v5);
       if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
         [AASigningSessionResponse initWithHTTPResponse:data:];
@@ -43,15 +43,6 @@
   }
 
   return v6;
-}
-
-- (void)initWithHTTPResponse:(uint64_t *)a1 data:.cold.1(uint64_t *a1)
-{
-  v8 = *MEMORY[0x1E69E9840];
-  v7 = *a1;
-  OUTLINED_FUNCTION_2();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 @end

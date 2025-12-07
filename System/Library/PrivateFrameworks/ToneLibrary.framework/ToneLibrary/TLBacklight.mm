@@ -120,18 +120,15 @@ uint64_t __30__TLBacklight_sharedBacklight__block_invoke()
   _Block_object_dispose(&v7, 8);
 }
 
-uint64_t __35__TLBacklight__setBacklightStatus___block_invoke(uint64_t result)
+void *__35__TLBacklight__setBacklightStatus___block_invoke(void *result)
 {
-  v2 = *(result + 32);
-  v3 = *(result + 48);
+  v2 = result[4];
+  v3 = result[6];
   if (*(v2 + 40) != v3)
   {
     v4 = result;
     *(v2 + 40) = v3;
-    v5 = [*(*(result + 32) + 24) allObjects];
-    v6 = *(*(v4 + 40) + 8);
-    v7 = *(v6 + 40);
-    *(v6 + 40) = v5;
+    *(*(v4[5] + 8) + 40) = [*(result[4] + 24) allObjects];
 
     return MEMORY[0x1EEE66BB8]();
   }
@@ -217,46 +214,44 @@ uint64_t __30__TLBacklight_removeObserver___block_invoke(uint64_t a1)
 
 - (void)_notifyObservers:(id)observers ofUpdatedBacklightStatus:(int64_t)status
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   observersCopy = observers;
   [(TLBacklight *)self _assertNotRunningOnAccessQueue];
-  v16 = 0u;
-  v17 = 0u;
-  v14 = 0u;
   v15 = 0u;
+  v16 = 0u;
+  v13 = 0u;
+  v14 = 0u;
   v7 = observersCopy;
-  v8 = [v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v15;
+    v10 = *v14;
     do
     {
       v11 = 0;
       do
       {
-        if (*v15 != v10)
+        if (*v14 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = *(*(&v14 + 1) + 8 * v11);
+        v12 = *(*(&v13 + 1) + 8 * v11);
         if (objc_opt_respondsToSelector())
         {
-          [v12 backlightStatusDidChange:{status, v14}];
+          [v12 backlightStatusDidChange:{status, v13}];
         }
 
         ++v11;
       }
 
       while (v9 != v11);
-      v9 = [v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v9);
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_performBlockOnAccessQueue:(id)queue
@@ -270,11 +265,10 @@ uint64_t __30__TLBacklight_removeObserver___block_invoke(uint64_t a1)
 
 - (void)_assertRunningOnAccessQueue
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   accessQueue = self->_accessQueue;
   if (accessQueue)
   {
-    v4 = *MEMORY[0x1E69E9840];
 
     dispatch_assert_queue_V2(accessQueue);
   }
@@ -282,58 +276,56 @@ uint64_t __30__TLBacklight_removeObserver___block_invoke(uint64_t a1)
   else
   {
     label = dispatch_queue_get_label(0);
-    if (strcmp(label, [(NSString *)self->_accessQueueLabel UTF8String]))
+    v5 = strcmp(label, [(NSString *)self->_accessQueueLabel UTF8String]);
+    if (v5)
     {
-      v6 = TLLogGeneral();
-      v7 = os_log_type_enabled(v6, OS_LOG_TYPE_INFO);
+      v7 = TLLogGeneral(v5, v6);
+      v8 = os_log_type_enabled(v7, OS_LOG_TYPE_INFO);
 
-      if (v7)
+      if (v8)
       {
-        v8 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/ToneLibrary/Library/Utilities/TLBacklight.m"];
-        v9 = TLLogGeneral();
-        if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+        v11 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/ToneLibrary/Library/Utilities/TLBacklight.m"];
+        v13 = TLLogGeneral(v11, v12);
+        if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
         {
-          lastPathComponent = [v8 lastPathComponent];
+          lastPathComponent = [v11 lastPathComponent];
           callStackSymbols = [MEMORY[0x1E696AF00] callStackSymbols];
-          v14 = 136381443;
-          v15 = "[TLBacklight _assertRunningOnAccessQueue]";
-          v16 = 2113;
-          v17 = lastPathComponent;
-          v18 = 2049;
-          v19 = 208;
-          v20 = 2113;
-          v21 = callStackSymbols;
-          _os_log_impl(&dword_1D9356000, v9, OS_LOG_TYPE_DEFAULT, "*** Assertion failure in %{private}s, %{private}@:%{private}lu.\n%{private}@", &v14, 0x2Au);
+          v19 = 136381443;
+          v20 = "[TLBacklight _assertRunningOnAccessQueue]";
+          v21 = 2113;
+          v22 = lastPathComponent;
+          v23 = 2049;
+          v24 = 208;
+          v25 = 2113;
+          v26 = callStackSymbols;
+          _os_log_impl(&dword_1D9356000, v13, OS_LOG_TYPE_DEFAULT, "*** Assertion failure in %{private}s, %{private}@:%{private}lu.\n%{private}@", &v19, 0x2Au);
         }
       }
 
       else
       {
-        v8 = TLLogGeneral();
-        if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+        v11 = TLLogGeneral(v9, v10);
+        if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
         {
           __85__TLVibrationPersistenceUtilities__objectIsValidUserGeneratedVibrationPattern_error___block_invoke_cold_1();
         }
       }
 
-      v12 = TLLogGeneral();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      v18 = TLLogGeneral(v16, v17);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
       {
         [TLAttentionAwarenessEffectProcessor _assertRunningOnAccessQueue];
       }
     }
-
-    v13 = *MEMORY[0x1E69E9840];
   }
 }
 
 - (void)_assertNotRunningOnAccessQueue
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   accessQueue = self->_accessQueue;
   if (accessQueue)
   {
-    v4 = *MEMORY[0x1E69E9840];
 
     dispatch_assert_queue_not_V2(accessQueue);
   }
@@ -341,48 +333,47 @@ uint64_t __30__TLBacklight_removeObserver___block_invoke(uint64_t a1)
   else
   {
     label = dispatch_queue_get_label(0);
-    if (!strcmp(label, [(NSString *)self->_accessQueueLabel UTF8String]))
+    v5 = strcmp(label, [(NSString *)self->_accessQueueLabel UTF8String]);
+    if (!v5)
     {
-      v6 = TLLogGeneral();
-      v7 = os_log_type_enabled(v6, OS_LOG_TYPE_INFO);
+      v7 = TLLogGeneral(v5, v6);
+      v8 = os_log_type_enabled(v7, OS_LOG_TYPE_INFO);
 
-      if (v7)
+      if (v8)
       {
-        v8 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/ToneLibrary/Library/Utilities/TLBacklight.m"];
-        v9 = TLLogGeneral();
-        if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+        v11 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/ToneLibrary/Library/Utilities/TLBacklight.m"];
+        v13 = TLLogGeneral(v11, v12);
+        if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
         {
-          lastPathComponent = [v8 lastPathComponent];
+          lastPathComponent = [v11 lastPathComponent];
           callStackSymbols = [MEMORY[0x1E696AF00] callStackSymbols];
-          v14 = 136381443;
-          v15 = "[TLBacklight _assertNotRunningOnAccessQueue]";
-          v16 = 2113;
-          v17 = lastPathComponent;
-          v18 = 2049;
-          v19 = 216;
-          v20 = 2113;
-          v21 = callStackSymbols;
-          _os_log_impl(&dword_1D9356000, v9, OS_LOG_TYPE_DEFAULT, "*** Assertion failure in %{private}s, %{private}@:%{private}lu.\n%{private}@", &v14, 0x2Au);
+          v19 = 136381443;
+          v20 = "[TLBacklight _assertNotRunningOnAccessQueue]";
+          v21 = 2113;
+          v22 = lastPathComponent;
+          v23 = 2049;
+          v24 = 216;
+          v25 = 2113;
+          v26 = callStackSymbols;
+          _os_log_impl(&dword_1D9356000, v13, OS_LOG_TYPE_DEFAULT, "*** Assertion failure in %{private}s, %{private}@:%{private}lu.\n%{private}@", &v19, 0x2Au);
         }
       }
 
       else
       {
-        v8 = TLLogGeneral();
-        if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+        v11 = TLLogGeneral(v9, v10);
+        if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
         {
           __85__TLVibrationPersistenceUtilities__objectIsValidUserGeneratedVibrationPattern_error___block_invoke_cold_1();
         }
       }
 
-      v12 = TLLogGeneral();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      v18 = TLLogGeneral(v16, v17);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
       {
         [TLAttentionAwarenessEffectProcessor _assertNotRunningOnAccessQueue];
       }
     }
-
-    v13 = *MEMORY[0x1E69E9840];
   }
 }
 

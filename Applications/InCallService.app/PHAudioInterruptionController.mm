@@ -28,9 +28,9 @@
 
 - (PHAudioInterruptionController)init
 {
-  v15.receiver = self;
-  v15.super_class = PHAudioInterruptionController;
-  v2 = [(PHAudioInterruptionController *)&v15 init];
+  v16.receiver = self;
+  v16.super_class = PHAudioInterruptionController;
+  v2 = [(PHAudioInterruptionController *)&v16 init];
   if (v2)
   {
     v3 = objc_alloc_init(PHRingtoneController);
@@ -41,8 +41,7 @@
     [v5 addObserver:v2 selector:"_callStatusChanged:" name:TUCallCenterCallStatusChangedNotification object:0];
     [v5 addObserver:v2 selector:"_callShouldSuppressRingtoneChanged:" name:TUCallShouldSuppressRingingChangedNotification object:0];
     [v5 addObserver:v2 selector:"handlePHRingtoneControllerAudioSessionIdentifierDidChangeNotification:" name:@"PHRingtoneControllerAudioSessionIdentifierDidChangeNotification" object:v2->_ringtoneController];
-    [v5 addObserver:v2 selector:"_callStatusChanged:" name:TUCallCenterVideoCallStatusChangedNotification object:0];
-    v6 = sub_100004F84();
+    v6 = sub_100004F84([v5 addObserver:v2 selector:"_callStatusChanged:" name:TUCallCenterVideoCallStatusChangedNotification object:0]);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
@@ -54,12 +53,12 @@
 
     if (frontmostAudioOrVideoCall)
     {
-      v9 = sub_100004F84();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+      v10 = sub_100004F84(v9);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v17 = frontmostAudioOrVideoCall;
-        _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "INTERRUPT: ... upon creation there was a current call, updating interruptions for %@", buf, 0xCu);
+        v18 = frontmostAudioOrVideoCall;
+        _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "INTERRUPT: ... upon creation there was a current call, updating interruptions for %@", buf, 0xCu);
       }
 
       [(PHAudioInterruptionController *)v2 _updateAudioInterruptionsForCall:frontmostAudioOrVideoCall];
@@ -67,15 +66,15 @@
 
     out_token = 0;
     objc_initWeak(buf, v2);
-    v10 = &_dispatch_main_q;
-    v12[0] = _NSConcreteStackBlock;
-    v12[1] = 3221225472;
-    v12[2] = sub_100057ED4;
-    v12[3] = &unk_100357198;
-    objc_copyWeak(&v13, buf);
-    notify_register_dispatch("com.apple.ScreenTimeAgent.CommunicationPolicyWarningNotification", &out_token, &_dispatch_main_q, v12);
+    v11 = &_dispatch_main_q;
+    v13[0] = _NSConcreteStackBlock;
+    v13[1] = 3221225472;
+    v13[2] = sub_100057ED4;
+    v13[3] = &unk_100357198;
+    objc_copyWeak(&v14, buf);
+    notify_register_dispatch("com.apple.ScreenTimeAgent.CommunicationPolicyWarningNotification", &out_token, &_dispatch_main_q, v13);
 
-    objc_destroyWeak(&v13);
+    objc_destroyWeak(&v14);
     objc_destroyWeak(buf);
   }
 
@@ -101,7 +100,7 @@
 - (void)handlePHRingtoneControllerAudioSessionIdentifierDidChangeNotification:(id)notification
 {
   notificationCopy = notification;
-  v5 = sub_100004F84();
+  v5 = sub_100004F84(notificationCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = 138412546;
@@ -117,7 +116,7 @@
 - (void)_updateAudioInterruptionsForCall:(id)call
 {
   callCopy = call;
-  v5 = sub_100004F84();
+  v5 = sub_100004F84(callCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v7[0] = 67109120;
@@ -137,7 +136,7 @@
 - (void)_callShouldSuppressRingtoneChanged:(id)changed
 {
   object = [changed object];
-  v5 = sub_100004F84();
+  v5 = sub_100004F84(object);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v7 = 138412290;
@@ -180,12 +179,12 @@
   displayedAudioAndVideoCalls = [v8 displayedAudioAndVideoCalls];
   firstObject = [displayedAudioAndVideoCalls firstObject];
 
-  v11 = sub_100004F84();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+  v12 = sub_100004F84(v11);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
-    v17 = 138412290;
-    *v18 = incomingVideoCall;
-    _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "INTERRUPT: incomingCall: %@", &v17, 0xCu);
+    v19 = 138412290;
+    *v20 = incomingVideoCall;
+    _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "INTERRUPT: incomingCall: %@", &v19, 0xCu);
   }
 
   if (firstObject)
@@ -201,19 +200,20 @@
     goto LABEL_15;
   }
 
-  if (([incomingVideoCall shouldSuppressRingtone] & 1) == 0)
+  shouldSuppressRingtone = [incomingVideoCall shouldSuppressRingtone];
+  if ((shouldSuppressRingtone & 1) == 0)
   {
     announceProviderIdentifier = [incomingVideoCall announceProviderIdentifier];
-    v13 = [announceProviderIdentifier isEqualToString:TUBundleIdentifierInCallServiceApplication];
+    v15 = [announceProviderIdentifier isEqualToString:TUBundleIdentifierInCallServiceApplication];
 
-    if (v13)
+    if (v15)
     {
-      v14 = sub_100004F84();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+      v16 = sub_100004F84(shouldSuppressRingtone);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
       {
-        v17 = 138412290;
-        *v18 = incomingVideoCall;
-        _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "Playing call announcement for incoming call %@", &v17, 0xCu);
+        v19 = 138412290;
+        *v20 = incomingVideoCall;
+        _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "Playing call announcement for incoming call %@", &v19, 0xCu);
       }
 
       ringtoneController = [(PHAudioInterruptionController *)self ringtoneController];
@@ -223,17 +223,17 @@
   }
 
 LABEL_15:
-  ringtoneController = sub_100004F84();
+  ringtoneController = sub_100004F84(shouldSuppressRingtone);
   if (os_log_type_enabled(ringtoneController, OS_LOG_TYPE_DEFAULT))
   {
-    shouldSuppressRingtone = [incomingVideoCall shouldSuppressRingtone];
-    v17 = 67109632;
-    *v18 = incomingVideoCall == 0;
-    *&v18[4] = 1024;
-    *&v18[6] = firstObject != 0;
-    v19 = 1024;
-    v20 = shouldSuppressRingtone;
-    _os_log_impl(&_mh_execute_header, ringtoneController, OS_LOG_TYPE_DEFAULT, "Not playing call announcement since incomingCall is nil (%d) or activeCalls is non-nil (%d) or incomingCall shouldSuppressRingtone (%d)", &v17, 0x14u);
+    shouldSuppressRingtone2 = [incomingVideoCall shouldSuppressRingtone];
+    v19 = 67109632;
+    *v20 = incomingVideoCall == 0;
+    *&v20[4] = 1024;
+    *&v20[6] = firstObject != 0;
+    v21 = 1024;
+    v22 = shouldSuppressRingtone2;
+    _os_log_impl(&_mh_execute_header, ringtoneController, OS_LOG_TYPE_DEFAULT, "Not playing call announcement since incomingCall is nil (%d) or activeCalls is non-nil (%d) or incomingCall shouldSuppressRingtone (%d)", &v19, 0x14u);
   }
 
 LABEL_17:
@@ -272,29 +272,29 @@ LABEL_17:
     v18 = +[TUCallCenter sharedInstance];
     v19 = [v18 countOfCallsPassingTest:&stru_1003571D8];
 
-    ringtoneController = sub_100004F84();
-    v21 = os_log_type_enabled(ringtoneController, OS_LOG_TYPE_DEFAULT);
+    ringtoneController = sub_100004F84(v20);
+    v22 = os_log_type_enabled(ringtoneController, OS_LOG_TYPE_DEFAULT);
     if (!frontmostAudioOrVideoCall || !v13 || (isSpeaker & 1) != 0 || v19)
     {
-      if (v21)
+      if (v22)
       {
-        v22 = 67109634;
-        *v23 = v13;
-        *&v23[4] = 1024;
-        *&v23[6] = isSpeaker ^ 1;
-        v24 = 2112;
-        v25 = frontmostAudioOrVideoCall;
-        _os_log_impl(&_mh_execute_header, ringtoneController, OS_LOG_TYPE_DEFAULT, "Not playing downtime starting alert: callWillEndDuringDowntime: %d currentRouteIsNotSpeaker: %d call: %@", &v22, 0x18u);
+        v23 = 67109634;
+        *v24 = v13;
+        *&v24[4] = 1024;
+        *&v24[6] = isSpeaker ^ 1;
+        v25 = 2112;
+        v26 = frontmostAudioOrVideoCall;
+        _os_log_impl(&_mh_execute_header, ringtoneController, OS_LOG_TYPE_DEFAULT, "Not playing downtime starting alert: callWillEndDuringDowntime: %d currentRouteIsNotSpeaker: %d call: %@", &v23, 0x18u);
       }
     }
 
     else
     {
-      if (v21)
+      if (v22)
       {
-        v22 = 138412290;
-        *v23 = frontmostAudioOrVideoCall;
-        _os_log_impl(&_mh_execute_header, ringtoneController, OS_LOG_TYPE_DEFAULT, "Playing downtime starting alert for call %@", &v22, 0xCu);
+        v23 = 138412290;
+        *v24 = frontmostAudioOrVideoCall;
+        _os_log_impl(&_mh_execute_header, ringtoneController, OS_LOG_TYPE_DEFAULT, "Playing downtime starting alert for call %@", &v23, 0xCu);
       }
 
       ringtoneController = [(PHAudioInterruptionController *)self ringtoneController];

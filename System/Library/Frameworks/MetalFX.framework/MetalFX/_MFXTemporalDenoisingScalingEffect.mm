@@ -4,8 +4,6 @@
 - (_MFXTemporalDenoisingScalingEffect)initWithDevice:(id)device descriptor:(id)descriptor history:(id)history;
 - (__n128)setViewToClipMatrix:(__n128)matrix;
 - (__n128)setWorldToViewMatrix:(__n128)matrix;
-- (__n128)viewToClipMatrix;
-- (__n128)worldToViewMatrix;
 - (float)jitterOffsetX;
 - (float)motionVectorScaleX;
 - (id).cxx_construct;
@@ -53,9 +51,9 @@
   deviceCopy = device;
   descriptorCopy = descriptor;
   historyCopy = history;
-  v113.receiver = self;
-  v113.super_class = _MFXTemporalDenoisingScalingEffect;
-  v10 = [(_MTLFXEffectBase *)&v113 init];
+  v109.receiver = self;
+  v109.super_class = _MFXTemporalDenoisingScalingEffect;
+  v10 = [(_MTLFXEffectBase *)&v109 init];
 
   objc_storeStrong(&v10->_device, device);
   v10->_colorTextureFormat = [descriptorCopy colorTextureFormat];
@@ -210,11 +208,6 @@ LABEL_7:
     }
   }
 
-  else
-  {
-    useANE = v10->_useANE;
-  }
-
   v10->_colorTextureUsage = 1;
   v10->_depthTextureUsage = 1;
   v10->_motionTextureUsage = 1;
@@ -227,62 +220,62 @@ LABEL_7:
   v10->_denoiseStrengthMaskTextureUsage = 1;
   v10->_preUpscaleComposeTextureUsage = 1;
   v10->_outputTextureUsage = 7;
-  v103 = [MEMORY[0x277CD7838] deviceWithMTLDevice:v10->_device];
-  v100 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-  v99 = [v100 pathForResource:@"default" ofType:@"metallib"];
-  v28 = [MEMORY[0x277CBEBC0] URLWithString:v99];
-  v112 = 0;
-  v101 = [deviceCopy newLibraryWithURL:v28 error:&v112];
-  v98 = v112;
+  v99 = [MEMORY[0x277CD7838] deviceWithMTLDevice:v10->_device];
+  v96 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  v95 = [v96 pathForResource:@"default" ofType:@"metallib"];
+  v27 = [MEMORY[0x277CBEBC0] URLWithString:v95];
+  v108 = 0;
+  v97 = [deviceCopy newLibraryWithURL:v27 error:&v108];
+  v94 = v108;
 
-  v105 = [MEMORY[0x277CD7058] texture2DDescriptorWithPixelFormat:115 width:v10->_outputWidth height:v10->_outputHeight mipmapped:0];
-  [v105 setUsage:3];
-  [v105 setCompressionMode:1];
+  v101 = [MEMORY[0x277CD7058] texture2DDescriptorWithPixelFormat:115 width:v10->_outputWidth height:v10->_outputHeight mipmapped:0];
+  [v101 setUsage:3];
+  [v101 setCompressionMode:1];
+  v28 = historyCopy;
   v29 = historyCopy;
-  v30 = historyCopy;
   if (!historyCopy)
   {
-    v30 = [(MTLDevice *)v10->_device newTextureWithDescriptor:v105];
-    v29 = 0;
+    v29 = [(MTLDevice *)v10->_device newTextureWithDescriptor:v101];
+    v28 = 0;
   }
 
-  objc_storeStrong(&v10->_history, v30);
-  if (!v29)
+  objc_storeStrong(&v10->_history, v29);
+  if (!v28)
   {
   }
 
-  [v105 setWidth:v10->_inputWidth];
-  [v105 setHeight:v10->_inputHeight];
-  v31 = [(MTLDevice *)v10->_device newTextureWithDescriptor:v105];
+  [v101 setWidth:v10->_inputWidth];
+  [v101 setHeight:v10->_inputHeight];
+  v30 = [(MTLDevice *)v10->_device newTextureWithDescriptor:v101];
   denoiserColorTexture = v10->_denoiserColorTexture;
-  v10->_denoiserColorTexture = v31;
+  v10->_denoiserColorTexture = v30;
 
-  [v105 setWidth:v10->_outputWidth];
-  [v105 setHeight:v10->_outputHeight];
+  [v101 setWidth:v10->_outputWidth];
+  [v101 setHeight:v10->_outputHeight];
   if (v10->_reactiveMaskEnabled)
   {
-    v33 = [MEMORY[0x277CD7058] texture2DDescriptorWithPixelFormat:v10->_reactiveMaskTextureFormat width:v10->_inputWidth height:v10->_inputHeight mipmapped:0];
-    [v33 setUsage:3];
-    [v33 setCompressionMode:1];
-    v34 = [(MTLDevice *)v10->_device newTextureWithDescriptor:v33];
+    v32 = [MEMORY[0x277CD7058] texture2DDescriptorWithPixelFormat:v10->_reactiveMaskTextureFormat width:v10->_inputWidth height:v10->_inputHeight mipmapped:0];
+    [v32 setUsage:3];
+    [v32 setCompressionMode:1];
+    v33 = [(MTLDevice *)v10->_device newTextureWithDescriptor:v32];
     prevReactiveTexture = v10->_prevReactiveTexture;
-    v10->_prevReactiveTexture = v34;
+    v10->_prevReactiveTexture = v33;
   }
 
-  v36 = objc_opt_new();
-  v37 = v36;
-  v97 = v36;
+  v35 = objc_opt_new();
+  v36 = v35;
+  v93 = v35;
   if (v10->_enableLateLatch)
   {
-    [v36 setEnableLowLatencySignalSharedEvent:1];
-    [v37 setEnableLowLatencyWaitSharedEvent:1];
-    [v37 setDisableIOFencing:1];
+    [v35 setEnableLowLatencySignalSharedEvent:1];
+    [v36 setEnableLowLatencyWaitSharedEvent:1];
+    [v36 setDisableIOFencing:1];
   }
 
-  v96 = v10->_device;
-  v38 = [(MTLDevice *)v96 newCommandQueueWithDescriptor:v37];
+  v92 = v10->_device;
+  v37 = [(MTLDevice *)v92 newCommandQueueWithDescriptor:v36];
   commandQueue = v10->_commandQueue;
-  v10->_commandQueue = v38;
+  v10->_commandQueue = v37;
 
   newEvent = [(MTLDevice *)v10->_device newEvent];
   inputEvent = v10->_inputEvent;
@@ -311,7 +304,7 @@ LABEL_7:
 
   else
   {
-    v51 = v10->_framePowerOnSharedEvent;
+    v50 = v10->_framePowerOnSharedEvent;
     v10->_framePowerOnSharedEvent = 0;
 
     newSharedEvent2 = [(MTLDevice *)v10->_device newEvent];
@@ -320,7 +313,6 @@ LABEL_7:
   frameSharedEvent = v10->_frameSharedEvent;
   v10->_frameSharedEvent = newSharedEvent2;
 
-  v53 = v10->_outputEvent;
   if (objc_opt_respondsToSelector())
   {
     [(MTLEvent *)v10->_outputEvent setEnableBarrier:0];
@@ -330,24 +322,24 @@ LABEL_7:
   dummyFence = v10->_dummyFence;
   v10->_dummyFence = newFence;
 
-  v56 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
-  v57 = dispatch_queue_attr_make_with_qos_class(v56, QOS_CLASS_USER_INTERACTIVE, 0);
+  v54 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
+  v55 = dispatch_queue_attr_make_with_qos_class(v54, QOS_CLASS_USER_INTERACTIVE, 0);
 
-  v95 = v57;
-  v58 = dispatch_queue_create("MetalFX", v57);
+  v91 = v55;
+  v56 = dispatch_queue_create("MetalFX", v55);
   asyncQueue = v10->_asyncQueue;
-  v10->_asyncQueue = v58;
+  v10->_asyncQueue = v56;
 
   v10->_inputContentWidth = v10->_inputWidth;
   v10->_inputContentHeight = v10->_inputHeight;
   v10->_autoExposureEnabled = [descriptorCopy isAutoExposureEnabled];
-  v60 = getenv("MTLFX_FORCE_AUTO_EXPOSURE");
-  if (!v60)
+  v58 = getenv("MTLFX_FORCE_AUTO_EXPOSURE");
+  if (!v58)
   {
-    v60 = "0";
+    v58 = "0";
   }
 
-  if (strtol(v60, 0, 0))
+  if (strtol(v58, 0, 0))
   {
     v10->_autoExposureEnabled = 1;
   }
@@ -355,117 +347,115 @@ LABEL_7:
   if ([descriptorCopy isInputContentPropertiesEnabled])
   {
     [descriptorCopy inputContentMinScale];
-    v10->_inputContentMinScale = v61;
+    v10->_inputContentMinScale = v59;
     [descriptorCopy inputContentMaxScale];
-    v10->_inputContentMaxScale = v62;
+    v10->_inputContentMaxScale = v60;
     inputContentMinScale = v10->_inputContentMinScale;
-    v64 = v62;
+    v62 = v60;
   }
 
   else
   {
     outputWidth = v10->_outputWidth;
-    v66 = v10->_inputWidth;
-    v67 = outputWidth / v66;
+    v64 = v10->_inputWidth;
+    v65 = outputWidth / v64;
     outputHeight = v10->_outputHeight;
-    v69 = v10->_inputHeight;
-    v70 = outputHeight / v69;
-    inputContentMinScale = fminf(v67, v70);
-    v62 = fmaxf(v67, v70);
+    v67 = v10->_inputHeight;
+    v68 = outputHeight / v67;
+    inputContentMinScale = fminf(v65, v68);
+    v60 = fmaxf(v65, v68);
     v10->_inputContentMinScale = inputContentMinScale;
-    v10->_inputContentMaxScale = v62;
-    v64 = fmaxf(outputWidth / (v66 + 1), outputHeight / (v69 + 1));
+    v10->_inputContentMaxScale = v60;
+    v62 = fmaxf(outputWidth / (v64 + 1), outputHeight / (v67 + 1));
   }
 
-  if (inputContentMinScale >= 1.0 && v64 <= 3.0)
+  if (inputContentMinScale >= 1.0 && v62 <= 3.0)
   {
-    v91 = v10->_inputWidth;
-    inputHeight_low = LODWORD(v10->_inputHeight);
-    if (v62 <= 2.0)
+    if (v60 <= 2.0)
     {
-      v74 = v10->_outputWidth;
-      v76 = v10->_outputHeight;
+      v71 = v10->_outputWidth;
+      v73 = v10->_outputHeight;
     }
 
     else if ([descriptorCopy isInputContentPropertiesEnabled])
     {
       inputContentMaxScale = v10->_inputContentMaxScale;
-      v73 = ceilf(v10->_outputWidth / inputContentMaxScale);
-      v74 = (v73 + v73);
-      v75 = ceilf(v10->_outputHeight / inputContentMaxScale);
-      v76 = (v75 + v75);
+      v70 = ceilf(v10->_outputWidth / inputContentMaxScale);
+      v71 = (v70 + v70);
+      v72 = ceilf(v10->_outputHeight / inputContentMaxScale);
+      v73 = (v72 + v72);
     }
 
     else
     {
-      v74 = 2 * LODWORD(v10->_inputWidth);
-      v76 = 2 * LODWORD(v10->_inputHeight);
+      v71 = 2 * LODWORD(v10->_inputWidth);
+      v73 = 2 * LODWORD(v10->_inputHeight);
     }
 
-    v89 = deviceCopy;
-    v108 = v89;
-    v109 = 0;
-    v110 = 0;
-    v111 = 0;
-    v77 = ((v74 + 63) >> 1) & 0x7FFFFFE0;
-    v78 = ((v76 + 63) >> 1) & 0x7FFFFFE0;
+    v86 = deviceCopy;
+    v104 = v86;
+    v105 = 0;
+    v106 = 0;
+    v107 = 0;
+    v74 = ((v71 + 63) >> 1) & 0x7FFFFFE0;
+    v75 = ((v73 + 63) >> 1) & 0x7FFFFFE0;
     v10->_brnet_desc.version = 1;
-    v10->_brnet_desc.image_width = v74;
-    v10->_brnet_desc.image_height = v76;
-    v10->_brnet_desc.input_width = v77;
-    v10->_brnet_desc.input_height = v78;
+    v10->_brnet_desc.image_width = v71;
+    v10->_brnet_desc.image_height = v73;
+    v10->_brnet_desc.input_width = v74;
+    v10->_brnet_desc.input_height = v75;
     *&v10->_brnet_desc.input_channels = 0x100000005;
-    v10->_brnet_desc.unshuffle_width = v77;
-    v10->_brnet_desc.unshuffle_height = v78;
+    v10->_brnet_desc.unshuffle_width = v74;
+    v10->_brnet_desc.unshuffle_height = v75;
     *&v10->_brnet_desc.unshuffle_channels = 0x200000005;
-    v10->_brnet_desc.output_width = v77 >> 1;
-    v10->_brnet_desc.output_height = v78 >> 1;
+    v10->_brnet_desc.output_width = v74 >> 1;
+    v10->_brnet_desc.output_height = v75 >> 1;
     v10->_brnet_desc.output_channels = 11;
-    v94 = objc_opt_new();
+    v90 = objc_opt_new();
     if (v10->_useANE)
     {
-      [v94 setOptimizationLevel:1];
-      [v94 setAllowedComputeDevices:7];
-      [v94 setPreferredDevice:2];
-      if ([v89 supportsFamily:1008])
+      [v90 setOptimizationLevel:1];
+      [v90 setAllowedComputeDevices:7];
+      [v90 setPreferredDevice:2];
+      if ([v86 supportsFamily:1008])
       {
-        v79 = 3;
+        v76 = 3;
       }
 
       else
       {
-        v79 = 2;
+        v76 = 2;
       }
 
-      [v94 setAneCompilerSpatialSplitting:v79];
-      [v94 setEnableANELateLatch:1];
-      [v94 setEnableANEFWToFWSignal:1];
+      [v90 setAneCompilerSpatialSplitting:v76];
+      [v90 setEnableANELateLatch:1];
+      [v90 setEnableANEFWToFWSignal:1];
     }
 
-    v93 = getEmitModelWeightsData();
-    v92 = objc_alloc_init(MEMORY[0x277CBEB18]);
-    v90 = objc_alloc_init(MEMORY[0x277CBEB18]);
-    v80 = EmitUBF_Net_V3_getMPSGraphExecutable(v93, v92, v90, v94, &v10->_brnet_desc);
+    v89 = getEmitModelWeightsData();
+    v88 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v87 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v77 = EmitUBF_Net_V3_getMPSGraphExecutable(v89, v88, v87, v90, &v10->_brnet_desc);
     graphExecutableANE = v10->_net_wrapper._graphExecutableANE;
-    v10->_net_wrapper._graphExecutableANE = v80;
+    v10->_net_wrapper._graphExecutableANE = v77;
 
-    [v94 setAllowedComputeDevices:1];
-    [v94 setPreferredDevice:1];
-    [v94 setOptimizationProfile:0];
-    v82 = EmitUBF_Net_V3_getMPSGraphExecutable(v93, v92, v90, v94, &v10->_brnet_desc);
+    [v90 setAllowedComputeDevices:1];
+    [v90 setPreferredDevice:1];
+    [v90 setOptimizationProfile:0];
+    v79 = EmitUBF_Net_V3_getMPSGraphExecutable(v89, v88, v87, v90, &v10->_brnet_desc);
     graphExecutableGPU = v10->_net_wrapper._graphExecutableGPU;
-    v10->_net_wrapper._graphExecutableGPU = v82;
+    v10->_net_wrapper._graphExecutableGPU = v79;
 
-    *v107 = 0;
-    v84 = makeMPSTensorDataWithData(v103, v10->_brnet_desc.unshuffle_width, v10->_brnet_desc.unshuffle_height, v10->_brnet_desc.unshuffle_channels, 0, &v107[1], 1, MPSGraphTensorNamedDataLayoutNCHW);
+    *v103 = 0;
+    v81 = makeMPSTensorDataWithData(v99, v10->_brnet_desc.unshuffle_width, v10->_brnet_desc.unshuffle_height, v10->_brnet_desc.unshuffle_channels, 0, &v103[1], 1, MPSGraphTensorNamedDataLayoutNCHW);
     input_TensorData = v10->_input_TensorData;
-    v10->_input_TensorData = v84;
+    v10->_input_TensorData = v81;
 
     if (v10->_input_TensorData)
     {
-      v86 = makeMPSTensorDataWithData(v103, v10->_brnet_desc.output_width, v10->_brnet_desc.output_height, v10->_brnet_desc.output_channels, 0, v107, 1, MPSGraphTensorNamedDataLayoutNCHW);
+      v83 = makeMPSTensorDataWithData(v99, v10->_brnet_desc.output_width, v10->_brnet_desc.output_height, v10->_brnet_desc.output_channels, 0, v103, 1, MPSGraphTensorNamedDataLayoutNCHW);
       output_TensorData = v10->_output_TensorData;
-      v10->_output_TensorData = v86;
+      v10->_output_TensorData = v83;
 
       if (v10->_output_TensorData)
       {
@@ -516,10 +506,7 @@ LABEL_7:
   *(self->_denoiseFilter + 299) = *(self->_denoiseFilter + 299) == 0;
   if (MTLReportFailureTypeEnabled())
   {
-    motionTexture = self->_motionTexture;
-    diffuseAlbedoTexture = self->_diffuseAlbedoTexture;
-    roughnessTexture = self->_roughnessTexture;
-    checkInputOutputTexturesForDenoiser(self->_colorTexture, self->_depthTexture, motionTexture, self->_normalTexture, diffuseAlbedoTexture, self->_specularAlbedoTexture, roughnessTexture, self->_specularHitDistanceTexture, self->_denoiseStrengthMaskTexture, self->_preUpscaleComposeTexture, self->_reactiveMaskTexture, self->_outputTexture, self->_inputWidth, self->_inputHeight, self->_colorTextureFormat, self->_inputContentWidth, self->_inputContentHeight, self->_outputWidth, self->_outputHeight, self->_outputTextureFormat, self->_depthTextureFormat, self->_motionTextureFormat, self->_normalTextureFormat, self->_diffuseAlbedoTextureFormat, self->_specularAlbedoTextureFormat, self->_roughnessTextureFormat, self->_specularHitDistanceTextureFormat, self->_denoiseStrengthMaskTextureFormat, self->_preUpscaleComposeTextureFormat, self->_reactiveMaskTextureFormat);
+    checkInputOutputTexturesForDenoiser(self->_colorTexture, self->_depthTexture, self->_motionTexture, self->_normalTexture, self->_diffuseAlbedoTexture, self->_specularAlbedoTexture, self->_roughnessTexture, self->_specularHitDistanceTexture, self->_denoiseStrengthMaskTexture, self->_preUpscaleComposeTexture, self->_reactiveMaskTexture, self->_outputTexture, self->_inputWidth, self->_inputHeight, self->_colorTextureFormat, self->_inputContentWidth, self->_inputContentHeight, self->_outputWidth, self->_outputHeight, self->_outputTextureFormat, self->_depthTextureFormat, self->_motionTextureFormat, self->_normalTextureFormat, self->_diffuseAlbedoTextureFormat, self->_specularAlbedoTextureFormat, self->_roughnessTextureFormat, self->_specularHitDistanceTextureFormat, self->_denoiseStrengthMaskTextureFormat, self->_preUpscaleComposeTextureFormat, self->_reactiveMaskTextureFormat);
     inputContentWidth = self->_inputContentWidth;
     inputContentHeight = self->_inputContentHeight;
     inputContentMinScale = self->_inputContentMinScale;
@@ -529,20 +516,20 @@ LABEL_7:
     v10 = fminf(outputWidth / inputContentWidth, outputHeight / inputContentHeight);
     if (v10 < inputContentMinScale)
     {
-      v24 = v10;
-      v25 = inputContentMinScale;
+      v14 = v10;
+      v15 = inputContentMinScale;
       MTLReportFailure();
     }
 
     v11 = fmaxf(outputWidth / (inputContentWidth + 1), outputHeight / (inputContentHeight + 1));
     if (v11 > inputContentMaxScale)
     {
-      v24 = v11;
-      v25 = inputContentMaxScale;
+      v14 = v11;
+      v15 = inputContentMaxScale;
       MTLReportFailure();
     }
 
-    if ([(MTLTexture *)self->_outputTexture storageMode:*&v24]!= 2)
+    if ([(MTLTexture *)self->_outputTexture storageMode:*&v14]!= 2)
     {
       MTLReportFailure();
     }
@@ -552,13 +539,6 @@ LABEL_7:
   ++self->_inputEventValue;
   ++self->_outputEventValue;
   inputEventValue = self->_inputEventValue;
-  v13 = *&self->_jitterOffset[4];
-  reset = self->_reset;
-  reversedDepth = self->_reversedDepth;
-  preExposure = self->_preExposure;
-  v15 = *&self->_motionVectorScale[4];
-  v16 = 1.0 / self->_inputContentWidth;
-  v17 = 1.0 / self->_inputContentHeight;
   self->_colorTexture;
   self->_depthTexture;
   self->_motionTexture;
@@ -572,8 +552,6 @@ LABEL_7:
   self->_denoiseStrengthMaskTexture;
   self->_preUpscaleComposeTexture;
   self->_normalTexture;
-  v18 = self->_inputContentWidth;
-  v19 = self->_inputContentHeight;
   self->_device;
   memset(obj, 0, sizeof(obj));
   if (self->_useANE)
@@ -584,7 +562,6 @@ LABEL_7:
     locationa = obj[0];
     [locationa setLabel:@"MetalFX_Denoiser_DMidProcessing"];
     [(_MTLFXEffect *)self _didCreateComputeCommandEncoder:locationa forEncode:encodeID];
-    filter = self->_filter;
     BRNet_v3_Filter<MFXDevice3>::encodeMidForDenoise();
   }
 
@@ -598,19 +575,8 @@ LABEL_7:
     [location waitForFence:?];
   }
 
-  v21 = self->_filter;
-  v22 = location;
-  autoExposureEnabled = self->_autoExposureEnabled;
+  v13 = location;
   BRNet_v3_Filter<MFXDevice3>::encodeExposureCalcForDenoiser();
-}
-
-- (__n128)worldToViewMatrix
-{
-  result = *(self + 704);
-  v2 = *(self + 720);
-  v3 = *(self + 736);
-  v4 = *(self + 752);
-  return result;
 }
 
 - (__n128)setWorldToViewMatrix:(__n128)matrix
@@ -619,15 +585,6 @@ LABEL_7:
   result[45] = matrix;
   result[46] = a4;
   result[47] = a5;
-  return result;
-}
-
-- (__n128)viewToClipMatrix
-{
-  result = *(self + 768);
-  v2 = *(self + 784);
-  v3 = *(self + 800);
-  v4 = *(self + 816);
   return result;
 }
 

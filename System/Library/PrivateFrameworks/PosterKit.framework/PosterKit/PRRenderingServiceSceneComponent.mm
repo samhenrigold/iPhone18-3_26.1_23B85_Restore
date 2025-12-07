@@ -129,7 +129,7 @@
 
   else
   {
-    v4 = PRLogRenderingService();
+    v4 = PRLogRenderingService(self);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
     {
       [(PRRenderingServiceSceneComponent *)v4 deviceMotionEventGenerationWillStart:v5];
@@ -149,7 +149,7 @@
 
   else
   {
-    v4 = PRLogRenderingService();
+    v4 = PRLogRenderingService(0);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
     {
       [(PRRenderingServiceSceneComponent *)v4 deviceMotionEventGenerationDidStop:v5];
@@ -170,7 +170,7 @@
 
   else
   {
-    v5 = PRLogRenderingService();
+    v5 = PRLogRenderingService(0);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
     {
       [(PRRenderingServiceSceneComponent *)v5 updateMotionWithRotation:v6, v7, v8, v9, v10, v11, v12];
@@ -227,11 +227,11 @@
     v4 = self->_deviceMotionActiveAssertion;
     self->_deviceMotionActiveAssertion = 0;
 
-    v5 = PRLogRenderingService();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = PRLogRenderingService(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      *v6 = 0;
-      _os_log_impl(&dword_1A8AA7000, v5, OS_LOG_TYPE_DEFAULT, "Device motion active assertion is invalidated", v6, 2u);
+      *v7 = 0;
+      _os_log_impl(&dword_1A8AA7000, v6, OS_LOG_TYPE_DEFAULT, "Device motion active assertion is invalidated", v7, 2u);
     }
   }
 }
@@ -253,7 +253,7 @@
 {
   v15 = *MEMORY[0x1E69E9840];
   activateCopy = activate;
-  v5 = PRLogRenderingService();
+  v5 = PRLogRenderingService(activateCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     identifier = [activateCopy identifier];
@@ -275,21 +275,21 @@
 
 - (void)sceneWillDeactivate:(id)deactivate withError:(id)error
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   deactivateCopy = deactivate;
   clientHandle = [deactivateCopy clientHandle];
   processHandle = [clientHandle processHandle];
   v8 = [processHandle pid];
 
-  v9 = PRLogRenderingService();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  v10 = PRLogRenderingService(v9);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     identifier = [deactivateCopy identifier];
-    v12 = 138412546;
-    v13 = identifier;
-    v14 = 1024;
-    v15 = v8;
-    _os_log_impl(&dword_1A8AA7000, v9, OS_LOG_TYPE_DEFAULT, "PRRenderingServiceSceneComponent: Invalidating rendering service server keep alive assertion because scene will deactivate (scene identifier: %@, PID: %d)", &v12, 0x12u);
+    v13 = 138412546;
+    v14 = identifier;
+    v15 = 1024;
+    v16 = v8;
+    _os_log_impl(&dword_1A8AA7000, v10, OS_LOG_TYPE_DEFAULT, "PRRenderingServiceSceneComponent: Invalidating rendering service server keep alive assertion because scene will deactivate (scene identifier: %@, PID: %d)", &v13, 0x12u);
   }
 
   [(BSInvalidatable *)self->_renderingServiceServerKeepAliveAssertion invalidate];
@@ -312,7 +312,7 @@
 
 void __81__PRRenderingServiceSceneComponent_renderingServiceServer_didActivateConnection___block_invoke(uint64_t a1)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v3 = WeakRetained;
   if (WeakRetained)
@@ -324,13 +324,13 @@ void __81__PRRenderingServiceSceneComponent_renderingServiceServer_didActivateCo
 
     if (v6 == v7)
     {
-      v8 = PRLogRenderingService();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+      v9 = PRLogRenderingService(v8);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
-        v9 = [*(a1 + 32) pid];
-        v10[0] = 67109120;
-        v10[1] = v9;
-        _os_log_impl(&dword_1A8AA7000, v8, OS_LOG_TYPE_DEFAULT, "PRRenderingServiceSceneComponent: Rendering service connection activated for PID %d", v10, 8u);
+        v10 = [*(a1 + 32) pid];
+        v11[0] = 67109120;
+        v11[1] = v10;
+        _os_log_impl(&dword_1A8AA7000, v9, OS_LOG_TYPE_DEFAULT, "PRRenderingServiceSceneComponent: Rendering service connection activated for PID %d", v11, 8u);
       }
 
       objc_storeStrong(v3 + 3, *(a1 + 32));
@@ -362,7 +362,7 @@ void __81__PRRenderingServiceSceneComponent_renderingServiceServer_didActivateCo
 
 void __83__PRRenderingServiceSceneComponent_renderingServiceServer_didInvalidateConnection___block_invoke(uint64_t a1)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v3 = WeakRetained;
   if (WeakRetained)
@@ -370,18 +370,19 @@ void __83__PRRenderingServiceSceneComponent_renderingServiceServer_didInvalidate
     v4 = WeakRetained[3];
     if (v4)
     {
-      if ([v4 isEqual:*(a1 + 32)])
+      v5 = [v4 isEqual:*(a1 + 32)];
+      if (v5)
       {
-        v5 = PRLogRenderingService();
-        if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+        v6 = PRLogRenderingService(v5);
+        if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
         {
-          v6 = [*(a1 + 32) pid];
-          v8[0] = 67109120;
-          v8[1] = v6;
-          _os_log_impl(&dword_1A8AA7000, v5, OS_LOG_TYPE_DEFAULT, "PRRenderingServiceSceneComponent: Active rendering service connection invalidated for PID %d", v8, 8u);
+          v7 = [*(a1 + 32) pid];
+          v9[0] = 67109120;
+          v9[1] = v7;
+          _os_log_impl(&dword_1A8AA7000, v6, OS_LOG_TYPE_DEFAULT, "PRRenderingServiceSceneComponent: Active rendering service connection invalidated for PID %d", v9, 8u);
         }
 
-        v7 = v3[3];
+        v8 = v3[3];
         v3[3] = 0;
 
         [v3 _invalidateDeviceMotionActiveAssertion];

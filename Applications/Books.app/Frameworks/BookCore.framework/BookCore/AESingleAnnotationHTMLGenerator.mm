@@ -11,7 +11,7 @@
 - (id)documentString
 {
   styleSection = [(AEAssetHTMLGenerator *)self styleSection];
-  v4 = IMCommonCoreBundle();
+  v4 = IMCommonCoreBundle(styleSection);
   v18 = [v4 localizedStringForKey:@"All Excerpts From" value:&stru_2D2930 table:@"BCCommonCoreLocalizable"];
 
   excerpt = [(AESingleAnnotationHTMLGenerator *)self excerpt];
@@ -87,16 +87,17 @@
     physicalPageNumber = &stru_2D2930;
   }
 
-  if ([(__CFString *)physicalPageNumber length])
+  v12 = [(__CFString *)physicalPageNumber length];
+  if (v12)
   {
-    v12 = IMCommonCoreBundle();
-    v13 = [v12 localizedStringForKey:@"p. %@" value:&stru_2D2930 table:@"BCCommonCoreLocalizable"];
-    v14 = [NSString stringWithFormat:v13, physicalPageNumber];
+    v13 = IMCommonCoreBundle(v12);
+    v14 = [v13 localizedStringForKey:@"p. %@" value:&stru_2D2930 table:@"BCCommonCoreLocalizable"];
+    v15 = [NSString stringWithFormat:v14, physicalPageNumber];
 
-    v15 = [v6 stringByAppendingFormat:@", %@", v14];
+    v16 = [v6 stringByAppendingFormat:@", %@", v15];
 
-    v6 = v15;
-    physicalPageNumber = v14;
+    v6 = v16;
+    physicalPageNumber = v15;
   }
 
   return v6;
@@ -107,13 +108,14 @@
   annotation = [(AESingleAnnotationHTMLGenerator *)self annotation];
   v4 = [(AEAssetHTMLGenerator *)self characterCountLimitforAnnotation:annotation];
   v5 = [AEAnnotation contextAwareSelectedTextFromAnnotation:annotation];
-  if (v4 < [v5 length])
+  v6 = [v5 length];
+  if (v4 < v6)
   {
-    v6 = IMCommonCoreBundle();
-    v7 = [v6 localizedStringForKey:@"[\\U2026]" value:&stru_2D2930 table:@"BCCommonCoreLocalizable"];
-    v8 = [v5 stringByTruncatingToLength:v4 options:3 truncationString:v7];
+    v7 = IMCommonCoreBundle(v6);
+    v8 = [v7 localizedStringForKey:@"[\\U2026]" value:&stru_2D2930 table:@"BCCommonCoreLocalizable"];
+    v9 = [v5 stringByTruncatingToLength:v4 options:3 truncationString:v8];
 
-    v5 = v8;
+    v5 = v9;
   }
 
   im_stringByReplacingNewLinesWithHTMLBreaks = [v5 im_stringByReplacingNewLinesWithHTMLBreaks];

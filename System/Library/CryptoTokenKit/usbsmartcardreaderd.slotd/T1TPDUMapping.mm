@@ -17,7 +17,7 @@
   v9 = a5;
   ifsCopy = ifs;
   transmitterCopy = transmitter;
-  v13 = sub_100008B80();
+  v13 = sub_100008B80(transmitterCopy);
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
   {
     *buf = 67109888;
@@ -67,15 +67,16 @@
 
   v13 = [WeakRetained transmitAndReceive:v9 maxPayload:v12 outTimeout:0 inTimeout:0 transmitted:transmittedCopy];
 
-  if ([v13 messageType] == 128)
+  messageType = [v13 messageType];
+  if (messageType == 128)
   {
     aPayload = [v13 aPayload];
   }
 
   else
   {
-    v15 = sub_100008B80();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v16 = sub_100008B80(messageType);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
       sub_100016444();
     }
@@ -143,7 +144,7 @@
   blockCopy = block;
   queueCopy = queue;
   dataCopy = data;
-  v13 = sub_100008B80();
+  v13 = sub_100008B80(dataCopy);
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
   {
     sub_1000164E8();
@@ -154,7 +155,7 @@
   *(&self->super._wt + 5) = v15 + 1;
   if (sequence != (v15 & 1))
   {
-    v16 = sub_100008B80();
+    v16 = sub_100008B80(sequence);
     if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
     {
       sub_10001651C();
@@ -165,9 +166,8 @@
 
   if (ackBlock)
   {
-    dequeueBlock = [queueCopy dequeueBlock];
-    v18 = sub_100008B80();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
+    v17 = sub_100008B80([queueCopy dequeueBlock]);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
     {
       sub_100016550();
     }
@@ -183,8 +183,8 @@
 
     else
     {
-      v20 = sub_100008B80();
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+      v19 = sub_100008B80(0);
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
       {
         sub_100016584();
       }
@@ -193,10 +193,10 @@
 
   if ([blockCopy moreData])
   {
-    v21 = [T1ReadyBlock readyBlockWithNad:BYTE1(self->_bwt) sequence:*(&self->super._wt + 5) & 1 status:0 redundancyCode:SLOBYTE(self->_bwt)];
-    [queueCopy enqueueBlock:v21];
+    v20 = [T1ReadyBlock readyBlockWithNad:BYTE1(self->_bwt) sequence:*(&self->super._wt + 5) & 1 status:0 redundancyCode:SLOBYTE(self->_bwt)];
+    [queueCopy enqueueBlock:v20];
 
-    v22 = sub_100008B80();
+    v22 = sub_100008B80(v21);
     if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
     {
       sub_1000165C0();
@@ -209,7 +209,7 @@
   blockCopy = block;
   ackBlockCopy = ackBlock;
   queueCopy = queue;
-  v12 = sub_100008B80();
+  v12 = sub_100008B80(queueCopy);
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
   {
     sub_1000165F4();
@@ -226,9 +226,8 @@
     {
       if (sequence != sequence2)
       {
-        dequeueBlock = [queueCopy dequeueBlock];
-        v18 = sub_100008B80();
-        if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
+        v17 = sub_100008B80([queueCopy dequeueBlock]);
+        if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
         {
           sub_10001665C();
         }
@@ -242,8 +241,8 @@ LABEL_14:
       v20 = [T1ReadyBlock readyBlockWithNad:BYTE1(self->_bwt) sequence:*(&self->super._wt + 5) & 1 status:2 redundancyCode:SLOBYTE(self->_bwt)];
       [queueCopy enqueueBlock:v20];
 
-      v18 = sub_100008B80();
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
+      v17 = sub_100008B80(v21);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
       {
         sub_100016628();
       }
@@ -258,10 +257,10 @@ LABEL_15:
 
   if (!ackBlockCopy)
   {
-    v19 = [T1ReadyBlock readyBlockWithNad:BYTE1(self->_bwt) sequence:*(&self->super._wt + 5) & 1 status:0 redundancyCode:SLOBYTE(self->_bwt)];
-    [queueCopy enqueueBlock:v19];
+    v18 = [T1ReadyBlock readyBlockWithNad:BYTE1(self->_bwt) sequence:*(&self->super._wt + 5) & 1 status:0 redundancyCode:SLOBYTE(self->_bwt)];
+    [queueCopy enqueueBlock:v18];
 
-    v13 = sub_100008B80();
+    v13 = sub_100008B80(v19);
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
     {
       sub_1000165C0();
@@ -279,7 +278,7 @@ LABEL_16:
   queueCopy = queue;
   abortBlockCopy = abortBlock;
   resynchBlockCopy = resynchBlock;
-  v15 = sub_100008B80();
+  v15 = sub_100008B80(resynchBlockCopy);
   if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
   {
     sub_100016690();
@@ -292,9 +291,8 @@ LABEL_16:
     if (operation == 1)
     {
       self->_cardSequence = [blockCopy uint8Value];
-      dequeueBlock = [queueCopy dequeueBlock];
-      v19 = sub_100008B80();
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
+      v18 = sub_100008B80([queueCopy dequeueBlock]);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
       {
         sub_1000167A0();
       }
@@ -302,31 +300,35 @@ LABEL_16:
 
     else if ([blockCopy operation] == 2)
     {
-      abortBlockCopy[2](abortBlockCopy);
-      v19 = sub_100008B80();
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
+      v23 = abortBlockCopy[2](abortBlockCopy);
+      v18 = sub_100008B80(v23);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
       {
         sub_10001676C();
       }
     }
 
-    else if ([blockCopy operation])
-    {
-      v19 = sub_100008B80();
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
-      {
-        sub_1000166C4();
-      }
-    }
-
     else
     {
-      dequeueBlock2 = [queueCopy dequeueBlock];
-      resynchBlockCopy[2](resynchBlockCopy);
-      v19 = sub_100008B80();
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
+      operation2 = [blockCopy operation];
+      if (operation2)
       {
-        sub_100016738();
+        v18 = sub_100008B80(operation2);
+        if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+        {
+          sub_1000166C4();
+        }
+      }
+
+      else
+      {
+        dequeueBlock = [queueCopy dequeueBlock];
+        v32 = resynchBlockCopy[2](resynchBlockCopy);
+        v18 = sub_100008B80(v32);
+        if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
+        {
+          sub_100016738();
+        }
       }
     }
 
@@ -337,13 +339,13 @@ LABEL_27:
 
   if (operation == 3)
   {
-    v20 = BYTE1(self->_bwt);
+    v19 = BYTE1(self->_bwt);
     informationField = [blockCopy informationField];
-    v22 = [T1SupervisoryBlock supervisoryBlockWithNad:v20 operation:3 type:1 informationField:informationField redundancyCode:SLOBYTE(self->_bwt)];
-    [queueCopy enqueueBlock:v22];
+    v21 = [T1SupervisoryBlock supervisoryBlockWithNad:v19 operation:3 type:1 informationField:informationField redundancyCode:SLOBYTE(self->_bwt)];
+    [queueCopy enqueueBlock:v21];
 
-    v19 = sub_100008B80();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
+    v18 = sub_100008B80(v22);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
     {
       sub_1000168B8(blockCopy);
     }
@@ -354,13 +356,13 @@ LABEL_27:
   if ([blockCopy operation] == 1)
   {
     self->_cardSequence = [blockCopy uint8Value];
-    v23 = BYTE1(self->_bwt);
+    v24 = BYTE1(self->_bwt);
     informationField2 = [blockCopy informationField];
-    v25 = [T1SupervisoryBlock supervisoryBlockWithNad:v23 operation:1 type:1 informationField:informationField2 redundancyCode:SLOBYTE(self->_bwt)];
-    [queueCopy enqueueBlock:v25];
+    v26 = [T1SupervisoryBlock supervisoryBlockWithNad:v24 operation:1 type:1 informationField:informationField2 redundancyCode:SLOBYTE(self->_bwt)];
+    [queueCopy enqueueBlock:v26];
 
-    v19 = sub_100008B80();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
+    v18 = sub_100008B80(v27);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
     {
       sub_10001683C(blockCopy);
     }
@@ -371,11 +373,11 @@ LABEL_27:
   if ([blockCopy operation] == 2)
   {
     abortBlockCopy[2](abortBlockCopy);
-    v26 = [T1SupervisoryBlock supervisoryBlockWithNad:BYTE1(self->_bwt) operation:2 type:1 informationField:0 redundancyCode:SLOBYTE(self->_bwt)];
-    [queueCopy enqueueBlock:v26];
+    v29 = [T1SupervisoryBlock supervisoryBlockWithNad:BYTE1(self->_bwt) operation:2 type:1 informationField:0 redundancyCode:SLOBYTE(self->_bwt)];
+    [queueCopy enqueueBlock:v29];
 
-    v19 = sub_100008B80();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
+    v18 = sub_100008B80(v30);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
     {
       sub_100016808();
     }
@@ -386,11 +388,11 @@ LABEL_27:
   if (![blockCopy operation])
   {
     resynchBlockCopy[2](resynchBlockCopy);
-    v28 = [T1SupervisoryBlock supervisoryBlockWithNad:BYTE1(self->_bwt) operation:0 type:1 informationField:0 redundancyCode:SLOBYTE(self->_bwt)];
-    [queueCopy enqueueBlock:v28];
+    v33 = [T1SupervisoryBlock supervisoryBlockWithNad:BYTE1(self->_bwt) operation:0 type:1 informationField:0 redundancyCode:SLOBYTE(self->_bwt)];
+    [queueCopy enqueueBlock:v33];
 
-    v19 = sub_100008B80();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
+    v18 = sub_100008B80(v34);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
     {
       sub_1000167D4();
     }
@@ -404,51 +406,52 @@ LABEL_28:
 - (id)transmit:(id)transmit
 {
   transmitCopy = transmit;
-  v5 = sub_100008B80();
+  v5 = sub_100008B80(transmitCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     sub_100016934();
   }
 
-  v45 = [[APDU alloc] initWithData:transmitCopy];
+  v48 = [[APDU alloc] initWithData:transmitCopy];
   v6 = +[NSMutableData data];
   v7 = objc_alloc_init(FIFOQueue);
+  v8 = v7;
   if (self->_sequence == 1)
   {
-    v8 = sub_100008B80();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = sub_100008B80(v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       sub_100016968();
     }
   }
 
-  v58[0] = _NSConcreteStackBlock;
-  v58[1] = 3221225472;
-  v58[2] = sub_10000AECC;
-  v58[3] = &unk_1000247D8;
-  v44 = v6;
-  v59 = v44;
-  v9 = v7;
-  v60 = v9;
+  v61[0] = _NSConcreteStackBlock;
+  v61[1] = 3221225472;
+  v61[2] = sub_10000AECC;
+  v61[3] = &unk_1000247D8;
+  v47 = v6;
+  v62 = v47;
+  v10 = v8;
+  v63 = v10;
   selfCopy = self;
-  v41 = transmitCopy;
-  v62 = v41;
-  v10 = objc_retainBlock(v58);
-  v56[0] = _NSConcreteStackBlock;
-  v56[1] = 3221225472;
-  v56[2] = sub_10000AF24;
-  v56[3] = &unk_100024800;
-  v56[4] = self;
-  v11 = v9;
-  v57 = v11;
-  v42 = objc_retainBlock(v56);
-  v43 = v10;
-  (v10[2])(v10);
-  if ([(FIFOQueue *)v11 count])
+  v44 = transmitCopy;
+  v65 = v44;
+  v11 = objc_retainBlock(v61);
+  v59[0] = _NSConcreteStackBlock;
+  v59[1] = 3221225472;
+  v59[2] = sub_10000AF24;
+  v59[3] = &unk_100024800;
+  v59[4] = self;
+  v12 = v10;
+  v60 = v12;
+  v45 = objc_retainBlock(v59);
+  v46 = v11;
+  (v11[2])(v11);
+  if ([(FIFOQueue *)v12 count])
   {
-    v13 = 0;
-    *&v12 = 138543362;
-    v40 = v12;
+    v14 = 0;
+    *&v13 = 138543362;
+    v43 = v13;
     while (1)
     {
       if (self->_sequence)
@@ -459,55 +462,56 @@ LABEL_28:
       ++self->_transmissionCounter;
       if ((*(&self->super._wt + 6) & 1) == 0 && (*(&self->super._wt + 7) & 1) == 0)
       {
-        v14 = BYTE1(self->_bwt);
-        v15 = [NSData dataWithBytes:&self->_cardSequence length:1];
-        v16 = [T1SupervisoryBlock supervisoryBlockWithNad:v14 operation:1 type:0 informationField:v15 redundancyCode:SLOBYTE(self->_bwt)];
+        v15 = BYTE1(self->_bwt);
+        v16 = [NSData dataWithBytes:&self->_cardSequence length:1];
+        v17 = [T1SupervisoryBlock supervisoryBlockWithNad:v15 operation:1 type:0 informationField:v16 redundancyCode:SLOBYTE(self->_bwt)];
 
-        v17 = sub_100008B80();
-        if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
+        v19 = sub_100008B80(v18);
+        if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
         {
-          *buf = v40;
-          v64 = v16;
-          _os_log_debug_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEBUG, "Requesting IFS %{public}@", buf, 0xCu);
+          *buf = v43;
+          v67 = v17;
+          _os_log_debug_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEBUG, "Requesting IFS %{public}@", buf, 0xCu);
         }
 
-        [(FIFOQueue *)v11 enqueueBlock:v16];
+        [(FIFOQueue *)v12 enqueueBlock:v17];
         *(&self->super._wt + 7) = 1;
       }
 
-      firstBlock = [(FIFOQueue *)v11 firstBlock];
-      if (([firstBlock needAck] & 1) == 0)
+      firstBlock = [(FIFOQueue *)v12 firstBlock];
+      needAck = [firstBlock needAck];
+      if ((needAck & 1) == 0)
       {
-        dequeueBlock = [(FIFOQueue *)v11 dequeueBlock];
+        needAck = [(FIFOQueue *)v12 dequeueBlock];
       }
 
-      v20 = sub_100008B80();
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
+      v22 = sub_100008B80(needAck);
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v64 = firstBlock;
-        _os_log_debug_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEBUG, ">>> block: %@", buf, 0xCu);
+        v67 = firstBlock;
+        _os_log_debug_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEBUG, ">>> block: %@", buf, 0xCu);
       }
 
       data = [firstBlock data];
-      maxPayload = [(APDU *)v45 maxPayload];
-      v53[0] = _NSConcreteStackBlock;
-      v53[1] = 3221225472;
-      v53[2] = sub_10000AF7C;
-      v53[3] = &unk_100024800;
-      v23 = firstBlock;
-      v54 = v23;
+      maxPayload = [(APDU *)v48 maxPayload];
+      v56[0] = _NSConcreteStackBlock;
+      v56[1] = 3221225472;
+      v56[2] = sub_10000AF7C;
+      v56[3] = &unk_100024800;
+      v25 = firstBlock;
+      v57 = v25;
       selfCopy2 = self;
-      v24 = [(T1TPDUMapping *)self transmitCCIDMessage:data maxPayload:maxPayload transmitted:v53];
+      v26 = [(T1TPDUMapping *)self transmitCCIDMessage:data maxPayload:maxPayload transmitted:v56];
 
-      v52 = 0;
-      v25 = +[T1TPDUBlock blockWithData:redundacyCode:sequence:rcError:](T1TPDUBlock, "blockWithData:redundacyCode:sequence:rcError:", v24, SLOBYTE(self->_bwt), [v23 sequence], &v52);
-      v26 = sub_100008B80();
-      if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
+      v55 = 0;
+      v27 = +[T1TPDUBlock blockWithData:redundacyCode:sequence:rcError:](T1TPDUBlock, "blockWithData:redundacyCode:sequence:rcError:", v26, SLOBYTE(self->_bwt), [v25 sequence], &v55);
+      v28 = sub_100008B80(v27);
+      if (os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v64 = v25;
-        _os_log_debug_impl(&_mh_execute_header, v26, OS_LOG_TYPE_DEBUG, "<<< block: %@", buf, 0xCu);
+        v67 = v27;
+        _os_log_debug_impl(&_mh_execute_header, v28, OS_LOG_TYPE_DEBUG, "<<< block: %@", buf, 0xCu);
       }
 
       objc_opt_class();
@@ -519,69 +523,70 @@ LABEL_28:
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        firstBlock2 = [(FIFOQueue *)v11 firstBlock];
-        [(T1TPDUMapping *)self handleRBlock:v25 ackBlock:firstBlock2 queue:v11 resultData:v44];
+        firstBlock2 = [(FIFOQueue *)v12 firstBlock];
+        [(T1TPDUMapping *)self handleRBlock:v27 ackBlock:firstBlock2 queue:v12 resultData:v47];
         goto LABEL_27;
       }
 
       objc_opt_class();
-      if (objc_opt_isKindOfClass())
+      isKindOfClass = objc_opt_isKindOfClass();
+      if (isKindOfClass)
       {
-        firstBlock2 = [(FIFOQueue *)v11 firstBlock];
-        [(T1TPDUMapping *)self handleSBlock:v25 ackBlock:firstBlock2 queue:v11 abortBlock:v43 resynchBlock:v42];
+        firstBlock2 = [(FIFOQueue *)v12 firstBlock];
+        [(T1TPDUMapping *)self handleSBlock:v27 ackBlock:firstBlock2 queue:v12 abortBlock:v46 resynchBlock:v45];
         goto LABEL_27;
       }
 
-      if (v13 == 5)
+      if (v14 == 5)
       {
         if (self->_transmissionCounter >= 4)
         {
-          v30 = sub_100008B80();
-          if (os_log_type_enabled(v30, OS_LOG_TYPE_DEBUG))
+          v33 = sub_100008B80(isKindOfClass);
+          if (os_log_type_enabled(v33, OS_LOG_TYPE_DEBUG))
           {
-            sub_1000169A4(&v46, v47);
+            sub_1000169A4(&v49, v50);
           }
 
           self->_sequence = 1;
-          v13 = 6;
+          v14 = 6;
           goto LABEL_28;
         }
 
 LABEL_45:
-        ++v13;
-        firstBlock3 = [(FIFOQueue *)v11 firstBlock];
+        ++v14;
+        firstBlock3 = [(FIFOQueue *)v12 firstBlock];
         objc_opt_class();
-        isKindOfClass = objc_opt_isKindOfClass();
+        v37 = objc_opt_isKindOfClass();
 
-        if ((isKindOfClass & 1) == 0)
+        if ((v37 & 1) == 0)
         {
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            [(FIFOQueue *)v11 enqueueBlock:v23];
+            [(FIFOQueue *)v12 enqueueBlock:v25];
           }
 
           else
           {
-            if (v52)
+            if (v55)
             {
-              v35 = 1;
+              v38 = 1;
             }
 
             else
             {
-              v35 = 2;
+              v38 = 2;
             }
 
-            v36 = [T1ReadyBlock readyBlockWithNad:BYTE1(self->_bwt) sequence:*(&self->super._wt + 5) & 1 status:v35 redundancyCode:SLOBYTE(self->_bwt)];
-            [(FIFOQueue *)v11 enqueueBlock:v36];
+            v39 = [T1ReadyBlock readyBlockWithNad:BYTE1(self->_bwt) sequence:*(&self->super._wt + 5) & 1 status:v38 redundancyCode:SLOBYTE(self->_bwt)];
+            [(FIFOQueue *)v12 enqueueBlock:v39];
           }
         }
 
         goto LABEL_28;
       }
 
-      if (v13 != 2)
+      if (v14 != 2)
       {
         goto LABEL_45;
       }
@@ -589,10 +594,10 @@ LABEL_45:
       transmissionCounter = self->_transmissionCounter;
       if (transmissionCounter == 3)
       {
-        v29 = sub_100008B80();
-        if (os_log_type_enabled(v29, OS_LOG_TYPE_DEBUG))
+        v32 = sub_100008B80(isKindOfClass);
+        if (os_log_type_enabled(v32, OS_LOG_TYPE_DEBUG))
         {
-          sub_1000169FC(&v50, v51);
+          sub_1000169FC(&v53, v54);
         }
 
         self->_sequence = 1;
@@ -605,54 +610,54 @@ LABEL_45:
           goto LABEL_45;
         }
 
-        v31 = sub_100008B80();
-        if (os_log_type_enabled(v31, OS_LOG_TYPE_DEBUG))
+        v34 = sub_100008B80(isKindOfClass);
+        if (os_log_type_enabled(v34, OS_LOG_TYPE_DEBUG))
         {
-          sub_1000169D0(&v48, v49);
+          sub_1000169D0(&v51, v52);
         }
 
-        v32 = [T1SupervisoryBlock supervisoryBlockWithNad:BYTE1(self->_bwt) operation:0 type:0 informationField:0 redundancyCode:SLOBYTE(self->_bwt)];
-        [(FIFOQueue *)v11 enqueueBlock:v32];
+        v35 = [T1SupervisoryBlock supervisoryBlockWithNad:BYTE1(self->_bwt) operation:0 type:0 informationField:0 redundancyCode:SLOBYTE(self->_bwt)];
+        [(FIFOQueue *)v12 enqueueBlock:v35];
       }
 
-      v13 = 3;
+      v14 = 3;
 LABEL_28:
 
-      if (![(FIFOQueue *)v11 count])
+      if (![(FIFOQueue *)v12 count])
       {
         goto LABEL_52;
       }
     }
 
-    firstBlock2 = [(FIFOQueue *)v11 firstBlock];
-    [(T1TPDUMapping *)self handleIBlock:v25 ackBlock:firstBlock2 queue:v11 resultData:v44];
+    firstBlock2 = [(FIFOQueue *)v12 firstBlock];
+    [(T1TPDUMapping *)self handleIBlock:v27 ackBlock:firstBlock2 queue:v12 resultData:v47];
 LABEL_27:
 
-    v13 = 0;
+    v14 = 0;
     goto LABEL_28;
   }
 
 LABEL_52:
   if (self->_sequence)
   {
-    v37 = 0;
+    v40 = 0;
   }
 
   else
   {
-    v37 = v44;
+    v40 = v47;
   }
 
-  v38 = v37;
+  v41 = v40;
 
-  return v37;
+  return v40;
 }
 
 - (id)secure:(id)secure APDU:(id)u
 {
   secureCopy = secure;
   uCopy = u;
-  v8 = sub_100008B80();
+  v8 = sub_100008B80(uCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     sub_100016A28();

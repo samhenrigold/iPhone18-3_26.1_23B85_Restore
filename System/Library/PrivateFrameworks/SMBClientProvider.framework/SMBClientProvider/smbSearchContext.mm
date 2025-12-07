@@ -3,6 +3,14 @@
 - (BOOL)checkSearchDone;
 - (id)makeStandardPath:(id)path;
 - (id)parseSearchResults:(id)results;
+- (int)doConnectMessage:(unsigned int)message PrimaryConnect:(BOOL)connect;
+- (int)doDisconnect:(unsigned int)disconnect;
+- (int)doFreeCursor:(unsigned int)cursor;
+- (int)doGetRows:(unsigned int)rows EndOfRowSet:(BOOL *)set;
+- (int)doQueryMessage:(unsigned int)message PrimaryQuery:(BOOL)query;
+- (int)doQueryStatusExMessage:(unsigned int)message QueryStatExResults:(id)results;
+- (int)doQueryStatusMessage:(unsigned int)message QTStatus:(unsigned int *)status;
+- (int)doSetBindings:(unsigned int)bindings;
 - (int)doTreeConnect;
 - (int)doTreeDisconnect;
 - (int)logoutDisconnect;
@@ -12,6 +20,9 @@
 - (int)pipeTransceive:(unsigned int)transceive DataIn:(id)in DataOut:(id)out;
 - (int)pipeWait:(unsigned int)wait;
 - (int)pipeWrite:(unsigned int)write WriteData:(id)data;
+- (int)procCheckIndexingEnabled:(unsigned int)enabled IndexEnable:(BOOL *)enable;
+- (int)procPrimaryQuery:(unsigned int)query QueryExResults:(id)results;
+- (int)procSecondaryQuery:(unsigned int)query QueryExResults:(id)results;
 - (smbSearchContext)init;
 - (void)logConfig;
 - (void)setSearchAborted;
@@ -413,6 +424,1387 @@ LABEL_50:
   return v5;
 }
 
+- (int)procCheckIndexingEnabled:(unsigned int)enabled IndexEnable:(BOOL *)enable
+{
+  v5 = *&enabled;
+  v21 = 0;
+  if ([(smbSearchContext *)self treeIsConnected])
+  {
+    v7 = objc_alloc_init(QueryStatusExResults);
+    if (v7)
+    {
+      v8 = v7;
+      if ([(smbSearchContext *)self pipeOpen:v5])
+      {
+        if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+        {
+          sub_10004CD7C();
+        }
+
+        return 5;
+      }
+
+      v10 = [(smbSearchContext *)self doConnectMessage:v5 PrimaryConnect:1];
+      if (v10)
+      {
+        v9 = v10;
+        if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+        {
+          sub_10004CDF4();
+        }
+
+        goto LABEL_38;
+      }
+
+      v11 = [pidMapper alloc];
+      wctx = [(smbSearchContext *)self wctx];
+      v13 = [v11 initWithCtx:wctx];
+
+      if (!v13)
+      {
+        if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+        {
+          sub_10004D150();
+        }
+
+        v9 = 12;
+        goto LABEL_37;
+      }
+
+      wctx2 = [(smbSearchContext *)self wctx];
+      [wctx2 setPidMap:v13];
+
+      v15 = [(smbSearchContext *)self doQueryMessage:v5 PrimaryQuery:1];
+      if (v15)
+      {
+        v9 = v15;
+        if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+        {
+          sub_10004CE6C();
+        }
+
+        goto LABEL_37;
+      }
+
+      v16 = [(smbSearchContext *)self doSetBindings:v5];
+      if (v16)
+      {
+        v9 = v16;
+        if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+        {
+          sub_10004CEE4();
+        }
+
+        goto LABEL_36;
+      }
+
+      v17 = [(smbSearchContext *)self doQueryStatusMessage:v5 QTStatus:&v21];
+      if (v17)
+      {
+        v9 = v17;
+        if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+        {
+          sub_10004CF5C();
+        }
+
+        goto LABEL_36;
+      }
+
+      if ((v21 & 7) == 2)
+      {
+        v18 = [(smbSearchContext *)self doQueryStatusExMessage:v5 QueryStatExResults:v8];
+        if (v18)
+        {
+          v9 = v18;
+          if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+          {
+            sub_10004D050();
+          }
+
+          goto LABEL_36;
+        }
+
+        if (([v8 qStatus] & 7) == 2)
+        {
+          *enable = [v8 dwRatioFinishedDenominator] != 0;
+          wctx3 = [(smbSearchContext *)self wctx];
+          [wctx3 setWhereID:{objc_msgSend(v8, "whereID")}];
+
+          v9 = 0;
+          goto LABEL_36;
+        }
+
+        if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+        {
+          sub_10004D0C8(v8);
+        }
+      }
+
+      else if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+      {
+        sub_10004CFD4();
+      }
+
+      v9 = 5;
+LABEL_36:
+      [(smbSearchContext *)self doFreeCursor:v5];
+LABEL_37:
+      [(smbSearchContext *)self doDisconnect:v5];
+
+LABEL_38:
+      [(smbSearchContext *)self pipeClose:v5];
+
+      return v9;
+    }
+
+    if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+    {
+      sub_10004D1C8();
+    }
+
+    return 12;
+  }
+
+  else
+  {
+    if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+    {
+      sub_10004CD04();
+    }
+
+    return 57;
+  }
+}
+
+- (int)procPrimaryQuery:(unsigned int)query QueryExResults:(id)results
+{
+  v4 = *&query;
+  resultsCopy = results;
+  v17 = 0;
+  v7 = [(smbSearchContext *)self pipeOpen:v4];
+  if (!v7)
+  {
+    v9 = [(smbSearchContext *)self doConnectMessage:v4 PrimaryConnect:1];
+    if (v9)
+    {
+      v8 = v9;
+      if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+      {
+        sub_10004D2B8();
+      }
+    }
+
+    else
+    {
+      v10 = [(smbSearchContext *)self pipeWait:v4];
+      if (v10)
+      {
+        v8 = v10;
+        if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+        {
+          sub_10004D330();
+        }
+      }
+
+      else
+      {
+        v11 = [(smbSearchContext *)self doQueryMessage:v4 PrimaryQuery:1];
+        if (v11)
+        {
+          v8 = v11;
+          if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+          {
+            sub_10004D3A8();
+          }
+        }
+
+        else
+        {
+          v12 = [(smbSearchContext *)self doSetBindings:v4];
+          if (v12)
+          {
+            v8 = v12;
+            if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+            {
+              sub_10004D420();
+            }
+          }
+
+          else
+          {
+            v13 = [(smbSearchContext *)self doQueryStatusMessage:v4 QTStatus:&v17];
+            if (v13)
+            {
+              v8 = v13;
+              if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+              {
+                sub_10004D498();
+              }
+            }
+
+            else
+            {
+              if ((v17 & 7) == 2)
+              {
+                v14 = [(smbSearchContext *)self doQueryStatusExMessage:v4 QueryStatExResults:resultsCopy];
+                if (v14)
+                {
+                  v8 = v14;
+                  if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+                  {
+                    sub_10004D58C();
+                  }
+
+                  goto LABEL_26;
+                }
+
+                if (([resultsCopy qStatus] & 7) == 2)
+                {
+                  wctx = [(smbSearchContext *)self wctx];
+                  [wctx setWhereID:{objc_msgSend(resultsCopy, "whereID")}];
+
+                  v8 = 0;
+                  goto LABEL_27;
+                }
+
+                if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+                {
+                  sub_10004D604(resultsCopy);
+                }
+              }
+
+              else if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+              {
+                sub_10004D510();
+              }
+
+              v8 = 5;
+            }
+          }
+        }
+      }
+    }
+
+LABEL_26:
+    [(smbSearchContext *)self pipeClose:v4];
+    goto LABEL_27;
+  }
+
+  v8 = v7;
+  if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+  {
+    sub_10004D240();
+  }
+
+LABEL_27:
+
+  return v8;
+}
+
+- (int)procSecondaryQuery:(unsigned int)query QueryExResults:(id)results
+{
+  v4 = *&query;
+  resultsCopy = results;
+  v16 = 0;
+  v7 = [(smbSearchContext *)self pipeOpen:v4];
+  if (!v7)
+  {
+    v9 = [(smbSearchContext *)self doConnectMessage:v4 PrimaryConnect:0];
+    if (v9)
+    {
+      v8 = v9;
+      if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+      {
+        sub_10004D704();
+      }
+    }
+
+    else
+    {
+      v10 = [(smbSearchContext *)self pipeWait:v4];
+      if (v10)
+      {
+        v8 = v10;
+        if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+        {
+          sub_10004D77C();
+        }
+      }
+
+      else
+      {
+        v11 = [(smbSearchContext *)self doQueryMessage:v4 PrimaryQuery:0];
+        if (v11)
+        {
+          v8 = v11;
+          if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+          {
+            sub_10004D7F4();
+          }
+        }
+
+        else
+        {
+          v12 = [(smbSearchContext *)self doSetBindings:v4];
+          if (v12)
+          {
+            v8 = v12;
+            if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+            {
+              sub_10004D86C();
+            }
+          }
+
+          else
+          {
+            v13 = [(smbSearchContext *)self doQueryStatusMessage:v4 QTStatus:&v16];
+            if (v13)
+            {
+              v8 = v13;
+              if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+              {
+                sub_10004D8E4();
+              }
+            }
+
+            else
+            {
+              if ((v16 & 7) == 2)
+              {
+                v14 = [(smbSearchContext *)self doQueryStatusExMessage:v4 QueryStatExResults:resultsCopy];
+                if (v14)
+                {
+                  v8 = v14;
+                  if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+                  {
+                    sub_10004D9D8();
+                  }
+
+                  goto LABEL_26;
+                }
+
+                if (([resultsCopy qStatus] & 7) == 2)
+                {
+                  v8 = 0;
+                  goto LABEL_27;
+                }
+
+                if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+                {
+                  sub_10004DA50(resultsCopy);
+                }
+              }
+
+              else if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+              {
+                sub_10004D95C();
+              }
+
+              v8 = 5;
+            }
+          }
+        }
+      }
+    }
+
+LABEL_26:
+    [(smbSearchContext *)self pipeClose:v4];
+    goto LABEL_27;
+  }
+
+  v8 = v7;
+  if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+  {
+    sub_10004D68C();
+  }
+
+LABEL_27:
+
+  return v8;
+}
+
+- (int)doConnectMessage:(unsigned int)message PrimaryConnect:(BOOL)connect
+{
+  connectCopy = connect;
+  v5 = *&message;
+  v26 = 0;
+  v7 = [[NSMutableData alloc] initWithCapacity:4096];
+  v8 = v7;
+  if (v7)
+  {
+    [v7 setLength:4096];
+    bzero([v8 bytes], 0x1000uLL);
+    v9 = [[NSMutableData alloc] initWithCapacity:128];
+    [v9 setLength:128];
+    v10 = [wspConnectIn alloc];
+    wctx = [(smbSearchContext *)self wctx];
+    if (connectCopy)
+    {
+      v12 = 0;
+      v13 = 1;
+      v14 = 0;
+    }
+
+    else
+    {
+      v12 = 1;
+      v13 = 0;
+      v14 = 1;
+    }
+
+    v15 = [v10 initWithCtx:wctx EnableRowSetEvents:v12 NoExpensiveProps:v13 UseExtendedBTypes:v14];
+
+    if (v15)
+    {
+      v16 = [v15 encodeBuffer:v8 BufferOffset:0 BytesWritten:&v26 + 4];
+      if (v16)
+      {
+        v17 = v16;
+        if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+        {
+          sub_10004DAD8();
+        }
+
+LABEL_18:
+
+LABEL_19:
+        goto LABEL_20;
+      }
+
+      [v8 setLength:HIDWORD(v26)];
+      v18 = [(smbSearchContext *)self pipeTransceive:v5 DataIn:v8 DataOut:v9];
+      if (v18)
+      {
+        v17 = v18;
+        if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+        {
+          sub_10004DB54();
+        }
+
+        goto LABEL_18;
+      }
+
+      if (![v9 length])
+      {
+        if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+        {
+          sub_10004DD68();
+        }
+
+        goto LABEL_30;
+      }
+
+      v20 = objc_alloc_init(wspConnectOut);
+      if (v20)
+      {
+        v21 = v20;
+        v22 = [v20 decodeBuffer:v9 BufferOffset:0 BytesDecoded:&v26];
+        if (v22)
+        {
+          v17 = v22;
+          if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+          {
+            sub_10004DBD0();
+          }
+
+          goto LABEL_19;
+        }
+
+        whdr = [v21 whdr];
+        status = [whdr status];
+
+        if (!status)
+        {
+          wctx2 = [(smbSearchContext *)self wctx];
+          [wctx2 setServerVersion:{objc_msgSend(v21, "serverVersion")}];
+
+          v17 = 0;
+          goto LABEL_20;
+        }
+
+        if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+        {
+          sub_10004DC4C(v21);
+        }
+
+LABEL_30:
+        v17 = 5;
+        goto LABEL_20;
+      }
+
+      if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+      {
+        sub_10004DCF0();
+      }
+    }
+
+    else
+    {
+      if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+      {
+        sub_10004DDE0();
+      }
+    }
+  }
+
+  else if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+  {
+    sub_10004DE58();
+  }
+
+  v17 = 12;
+LABEL_20:
+
+  return v17;
+}
+
+- (int)doQueryMessage:(unsigned int)message PrimaryQuery:(BOOL)query
+{
+  queryCopy = query;
+  v5 = *&message;
+  v29 = 0;
+  searchPath = [(wspContext *)self->_wctx searchPath];
+  v8 = [searchPath length];
+  fextPatterns = [(wspContext *)self->_wctx fextPatterns];
+  v10 = 80 * [fextPatterns count] + 2 * v8 + 1024;
+
+  v11 = [[NSMutableData alloc] initWithCapacity:v10];
+  v12 = v11;
+  if (!v11)
+  {
+    if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+    {
+      sub_10004E1E0();
+    }
+
+    goto LABEL_10;
+  }
+
+  [v11 setLength:v10];
+  bzero([v12 bytes], v10);
+  v13 = [[NSMutableData alloc] initWithCapacity:v10];
+  [v13 setLength:28];
+  v14 = [wspQueryIn alloc];
+  wctx = [(smbSearchContext *)self wctx];
+  v16 = [v14 initWithCtx:wctx];
+
+  if (!v16)
+  {
+    if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+    {
+      sub_10004E164();
+    }
+
+    goto LABEL_10;
+  }
+
+  if (queryCopy)
+  {
+    v17 = [v16 encodePrimaryQuery:v12 BufferOffset:0 BytesWritten:&v29 + 4];
+  }
+
+  else
+  {
+    v17 = [v16 encodeSecondaryQuery:v12 BufferOffset:0 BytesWritten:&v29 + 4];
+  }
+
+  v18 = v17;
+  if (v17)
+  {
+    if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+    {
+      sub_10004DED4();
+    }
+
+LABEL_18:
+
+LABEL_19:
+    goto LABEL_20;
+  }
+
+  [v12 setLength:HIDWORD(v29)];
+  v19 = [(smbSearchContext *)self pipeTransceive:v5 DataIn:v12 DataOut:v13];
+  if (v19)
+  {
+    v18 = v19;
+    if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+    {
+      sub_10004DF50();
+    }
+
+    goto LABEL_18;
+  }
+
+  v21 = objc_alloc_init(wspQueryOut);
+  if (!v21)
+  {
+    if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+    {
+      sub_10004E0EC();
+    }
+
+LABEL_10:
+    v18 = 12;
+    goto LABEL_20;
+  }
+
+  v22 = v21;
+  v23 = [v21 decodeBuffer:v13 BufferOffset:0 BytesDecoded:&v29];
+  if (v23)
+  {
+    v18 = v23;
+    if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+    {
+      sub_10004DFCC();
+    }
+
+    goto LABEL_19;
+  }
+
+  whdr = [v22 whdr];
+  status = [whdr status];
+
+  if (status)
+  {
+    if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+    {
+      sub_10004E048(v22);
+    }
+
+    v18 = 5;
+  }
+
+  else
+  {
+    wctx2 = [(smbSearchContext *)self wctx];
+    [wctx2 setTrueSequential:{objc_msgSend(v22, "trueSequential")}];
+
+    wctx3 = [(smbSearchContext *)self wctx];
+    [wctx3 setWorkID:{objc_msgSend(v22, "workID")}];
+
+    wctx4 = [(smbSearchContext *)self wctx];
+    [wctx4 setCursor:{objc_msgSend(v22, "cursor")}];
+
+    v18 = 0;
+  }
+
+LABEL_20:
+
+  return v18;
+}
+
+- (int)doQueryStatusMessage:(unsigned int)message QTStatus:(unsigned int *)status
+{
+  v5 = *&message;
+  v23 = 0;
+  v7 = [[NSMutableData alloc] initWithCapacity:128];
+  v8 = v7;
+  if (!v7)
+  {
+    if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+    {
+      sub_10004E54C();
+    }
+
+    goto LABEL_11;
+  }
+
+  [v7 setLength:128];
+  bytes = [v8 bytes];
+  *bytes = 0u;
+  bytes[1] = 0u;
+  bytes[2] = 0u;
+  bytes[3] = 0u;
+  bytes[4] = 0u;
+  bytes[5] = 0u;
+  bytes[6] = 0u;
+  bytes[7] = 0u;
+  v10 = [[NSMutableData alloc] initWithCapacity:128];
+  [v10 setLength:128];
+  v11 = [wspQueryStatusIn alloc];
+  wctx = [(smbSearchContext *)self wctx];
+  v13 = [v11 initWithCtx:wctx];
+
+  if (!v13)
+  {
+    if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+    {
+      sub_10004E4D4();
+    }
+
+    goto LABEL_11;
+  }
+
+  v14 = [v13 encodeBuffer:v8 BufferOffset:0 BytesWritten:&v23 + 4];
+  if (v14)
+  {
+    v15 = v14;
+    if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+    {
+      sub_10004E25C();
+    }
+
+LABEL_15:
+
+LABEL_16:
+    goto LABEL_17;
+  }
+
+  [v8 setLength:HIDWORD(v23)];
+  v16 = [(smbSearchContext *)self pipeTransceive:v5 DataIn:v8 DataOut:v10];
+  if (v16)
+  {
+    v15 = v16;
+    if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+    {
+      sub_10004E2D4();
+    }
+
+    goto LABEL_15;
+  }
+
+  v18 = objc_alloc_init(wspQueryStatusOut);
+  if (!v18)
+  {
+    if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+    {
+      sub_10004E45C();
+    }
+
+LABEL_11:
+    v15 = 12;
+    goto LABEL_17;
+  }
+
+  v19 = v18;
+  v20 = [v18 decodeBuffer:v10 BufferOffset:0 BytesDecoded:&v23];
+  if (v20)
+  {
+    v15 = v20;
+    if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+    {
+      sub_10004E34C();
+    }
+
+    goto LABEL_16;
+  }
+
+  whdr = [v19 whdr];
+  status = [whdr status];
+
+  if (status)
+  {
+    if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+    {
+      sub_10004E3C4(v19);
+    }
+
+    v15 = 5;
+  }
+
+  else
+  {
+    *status = [v19 qStatus];
+
+    v15 = 0;
+  }
+
+LABEL_17:
+
+  return v15;
+}
+
+- (int)doQueryStatusExMessage:(unsigned int)message QueryStatExResults:(id)results
+{
+  v4 = *&message;
+  resultsCopy = results;
+  v23 = 0;
+  v7 = [[NSMutableData alloc] initWithCapacity:128];
+  v8 = v7;
+  if (!v7)
+  {
+    if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+    {
+      sub_10004E8B4();
+    }
+
+    v10 = 0;
+    goto LABEL_11;
+  }
+
+  [v7 setLength:128];
+  bytes = [v8 bytes];
+  *bytes = 0u;
+  bytes[1] = 0u;
+  bytes[2] = 0u;
+  bytes[3] = 0u;
+  bytes[4] = 0u;
+  bytes[5] = 0u;
+  bytes[6] = 0u;
+  bytes[7] = 0u;
+  v10 = [[NSMutableData alloc] initWithCapacity:56];
+  [v10 setLength:56];
+  v11 = [wspQueryStatusExIn alloc];
+  wctx = [(smbSearchContext *)self wctx];
+  v13 = [v11 initWithCtx:wctx];
+
+  if (!v13)
+  {
+    if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+    {
+      sub_10004E83C();
+    }
+
+LABEL_11:
+    v16 = 0;
+    v13 = 0;
+LABEL_12:
+    v15 = 12;
+    goto LABEL_17;
+  }
+
+  v14 = [v13 encodeBuffer:v8 BufferOffset:0 BytesWritten:&v23 + 4];
+  if (v14)
+  {
+    v15 = v14;
+    if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+    {
+      sub_10004E5C4();
+    }
+
+LABEL_16:
+    v16 = 0;
+    goto LABEL_17;
+  }
+
+  [v8 setLength:HIDWORD(v23)];
+  v17 = [(smbSearchContext *)self pipeTransceive:v4 DataIn:v8 DataOut:v10];
+  if (v17)
+  {
+    v15 = v17;
+    if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+    {
+      sub_10004E63C();
+    }
+
+    goto LABEL_16;
+  }
+
+  v19 = objc_alloc_init(wspQueryStatusExOut);
+  if (!v19)
+  {
+    if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+    {
+      sub_10004E7C4();
+    }
+
+    v16 = 0;
+    goto LABEL_12;
+  }
+
+  v16 = v19;
+  v20 = [v19 decodeBuffer:v10 BufferOffset:0 BytesDecoded:&v23];
+  if (v20)
+  {
+    v15 = v20;
+    if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+    {
+      sub_10004E6B4();
+    }
+  }
+
+  else
+  {
+    whdr = [v16 whdr];
+    status = [whdr status];
+
+    if (status)
+    {
+      if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+      {
+        sub_10004E72C(v16);
+      }
+
+      v15 = 5;
+    }
+
+    else
+    {
+      if (resultsCopy)
+      {
+        [resultsCopy setQStatus:{objc_msgSend(v16, "qStatus")}];
+        [resultsCopy setCFilteredDocuments:{objc_msgSend(v16, "cFilteredDocuments")}];
+        [resultsCopy setCDocumentsToFilter:{objc_msgSend(v16, "cDocumentsToFilter")}];
+        [resultsCopy setDwRatioFinishedDenominator:{objc_msgSend(v16, "dwRatioFinishedDenominator")}];
+        [resultsCopy setDwRatioFinishedNumerator:{objc_msgSend(v16, "dwRatioFinishedNumerator")}];
+        [resultsCopy setRowsetBookMark:{objc_msgSend(v16, "rowsetBookMark")}];
+        [resultsCopy setCRowsTotal:{objc_msgSend(v16, "cRowsTotal")}];
+        [resultsCopy setMaxRank:{objc_msgSend(v16, "maxRank")}];
+        [resultsCopy setCResultsFound:{objc_msgSend(v16, "cResultsFound")}];
+        [resultsCopy setWhereID:{objc_msgSend(v16, "whereID")}];
+      }
+
+      v15 = 0;
+    }
+  }
+
+LABEL_17:
+
+  return v15;
+}
+
+- (int)doSetBindings:(unsigned int)bindings
+{
+  v3 = *&bindings;
+  v18 = 0;
+  v5 = [[NSMutableData alloc] initWithCapacity:1024];
+  v6 = v5;
+  if (!v5)
+  {
+    if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+    {
+      sub_10004EC94();
+    }
+
+    v7 = 0;
+    goto LABEL_11;
+  }
+
+  [v5 setLength:1024];
+  bzero([v6 bytes], 0x400uLL);
+  v7 = [[NSMutableData alloc] initWithCapacity:128];
+  [v7 setLength:128];
+  v8 = [wspSetBindingsIn alloc];
+  wctx = [(smbSearchContext *)self wctx];
+  v10 = [v8 initWithCtx:wctx];
+
+  if (!v10)
+  {
+    if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+    {
+      sub_10004EC1C();
+    }
+
+LABEL_11:
+    v13 = 0;
+    v10 = 0;
+LABEL_12:
+    v12 = 12;
+    goto LABEL_17;
+  }
+
+  v11 = [v10 encodeBuffer:v6 BufferOffset:0 BytesWritten:&v18 + 4];
+  if (v11)
+  {
+    v12 = v11;
+    if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+    {
+      sub_10004E92C();
+    }
+
+LABEL_16:
+    v13 = 0;
+    goto LABEL_17;
+  }
+
+  [v6 setLength:HIDWORD(v18)];
+  v14 = [(smbSearchContext *)self pipeTransceive:v3 DataIn:v6 DataOut:v7];
+  if (v14)
+  {
+    v12 = v14;
+    if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+    {
+      sub_10004E9A4();
+    }
+
+    goto LABEL_16;
+  }
+
+  v16 = objc_alloc_init(wspHeader);
+  if (!v16)
+  {
+    if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+    {
+      sub_10004EBA4();
+    }
+
+    v13 = 0;
+    goto LABEL_12;
+  }
+
+  v13 = v16;
+  v17 = [v16 decodeBuffer:v7 BufferOffset:0 BytesDecoded:&v18];
+  if (v17)
+  {
+    v12 = v17;
+    if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+    {
+      sub_10004EA1C();
+    }
+  }
+
+  else
+  {
+    if ([v13 msgid] == 208)
+    {
+      if (![v13 status])
+      {
+        v12 = 0;
+        goto LABEL_17;
+      }
+
+      if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+      {
+        sub_10004EB1C(v13);
+      }
+    }
+
+    else if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+    {
+      sub_10004EA94(v13);
+    }
+
+    v12 = 5;
+  }
+
+LABEL_17:
+
+  return v12;
+}
+
+- (int)doFreeCursor:(unsigned int)cursor
+{
+  v3 = *&cursor;
+  v18 = 0;
+  v5 = [[NSMutableData alloc] initWithCapacity:32];
+  v6 = v5;
+  if (!v5)
+  {
+    if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+    {
+      sub_10004EF64();
+    }
+
+    v8 = 0;
+    goto LABEL_11;
+  }
+
+  [v5 setLength:32];
+  bytes = [v6 bytes];
+  *bytes = 0u;
+  bytes[1] = 0u;
+  v8 = [[NSMutableData alloc] initWithCapacity:32];
+  [v8 setLength:32];
+  v9 = [wspFreeCursorIn alloc];
+  wctx = [(smbSearchContext *)self wctx];
+  v11 = [v9 initWithCursor:{objc_msgSend(wctx, "cursor")}];
+
+  if (!v11)
+  {
+    if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+    {
+      sub_10004EEEC();
+    }
+
+LABEL_11:
+    v14 = 0;
+    v11 = 0;
+LABEL_12:
+    v13 = 12;
+    goto LABEL_17;
+  }
+
+  v12 = [v11 encodeBuffer:v6 BufferOffset:0 BytesWritten:&v18 + 4];
+  if (v12)
+  {
+    v13 = v12;
+    if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+    {
+      sub_10004ED0C();
+    }
+
+LABEL_16:
+    v14 = 0;
+    goto LABEL_17;
+  }
+
+  [v6 setLength:HIDWORD(v18)];
+  v15 = [(smbSearchContext *)self pipeTransceive:v3 DataIn:v6 DataOut:v8];
+  if (v15)
+  {
+    v13 = v15;
+    if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+    {
+      sub_10004ED84();
+    }
+
+    goto LABEL_16;
+  }
+
+  v17 = objc_alloc_init(wspFreeCursorOut);
+  if (!v17)
+  {
+    if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+    {
+      sub_10004EE74();
+    }
+
+    v14 = 0;
+    goto LABEL_12;
+  }
+
+  v14 = v17;
+  v13 = [v17 decodeBuffer:v8 BufferOffset:0 BytesDecoded:&v18];
+  if (v13 && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+  {
+    sub_10004EDFC();
+  }
+
+LABEL_17:
+
+  return v13;
+}
+
+- (int)doDisconnect:(unsigned int)disconnect
+{
+  v3 = *&disconnect;
+  v14 = 0;
+  v5 = [[NSMutableData alloc] initWithCapacity:32];
+  v6 = v5;
+  if (!v5)
+  {
+    if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+    {
+      sub_10004F144();
+    }
+
+    v8 = 0;
+    goto LABEL_11;
+  }
+
+  [v5 setLength:32];
+  bytes = [v6 bytes];
+  *bytes = 0u;
+  bytes[1] = 0u;
+  v8 = [[NSMutableData alloc] initWithCapacity:32];
+  [v8 setLength:32];
+  v9 = objc_alloc_init(wspDisconnectIn);
+  if (!v9)
+  {
+    if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+    {
+      sub_10004F0CC();
+    }
+
+LABEL_11:
+    v10 = 0;
+    v12 = 12;
+    goto LABEL_12;
+  }
+
+  v10 = v9;
+  v11 = [v9 encodeBuffer:v6 BufferOffset:0 BytesWritten:&v14];
+  if (v11)
+  {
+    v12 = v11;
+    if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+    {
+      sub_10004EFDC();
+    }
+  }
+
+  else
+  {
+    [v6 setLength:v14];
+    v12 = [(smbSearchContext *)self pipeWrite:v3 WriteData:v6];
+    if (v12 && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+    {
+      sub_10004F054();
+    }
+  }
+
+LABEL_12:
+
+  return v12;
+}
+
+- (int)doGetRows:(unsigned int)rows EndOfRowSet:(BOOL *)set
+{
+  v5 = *&rows;
+  v37 = 0;
+  v7 = [[NSMutableData alloc] initWithCapacity:128];
+  v8 = v7;
+  if (!v7)
+  {
+    if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+    {
+      sub_10004F544();
+    }
+
+    replyData = 0;
+    goto LABEL_11;
+  }
+
+  [v7 setLength:128];
+  bytes = [v8 bytes];
+  *bytes = 0u;
+  bytes[1] = 0u;
+  bytes[2] = 0u;
+  bytes[3] = 0u;
+  bytes[4] = 0u;
+  bytes[5] = 0u;
+  bytes[6] = 0u;
+  bytes[7] = 0u;
+  replyData = [(smbSearchContext *)self replyData];
+  [replyData setLength:0x4000];
+  v11 = [wspGetRows alloc];
+  wctx = [(smbSearchContext *)self wctx];
+  v13 = [v11 initWithCtx:wctx];
+
+  if (!v13)
+  {
+    if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+    {
+      sub_10004F4CC();
+    }
+
+LABEL_11:
+    v16 = 0;
+    v13 = 0;
+LABEL_12:
+    LODWORD(v15) = 12;
+    goto LABEL_17;
+  }
+
+  v14 = [v13 encodeBuffer:v8 BufferOffset:0 BytesWritten:&v37 + 4];
+  if (v14)
+  {
+    LODWORD(v15) = v14;
+    if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+    {
+      sub_10004F1BC();
+    }
+
+LABEL_16:
+    v16 = 0;
+    goto LABEL_17;
+  }
+
+  [v8 setLength:HIDWORD(v37)];
+  v17 = [(smbSearchContext *)self pipeTransceive:v5 DataIn:v8 DataOut:replyData];
+  if (v17)
+  {
+    LODWORD(v15) = v17;
+    if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+    {
+      sub_10004F234();
+    }
+
+    goto LABEL_16;
+  }
+
+  v19 = [wspGetRowsOut alloc];
+  wctx2 = [(smbSearchContext *)self wctx];
+  v16 = [v19 initWithCtx:wctx2];
+
+  if (!v16)
+  {
+    if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+    {
+      sub_10004F4CC();
+    }
+
+    v16 = 0;
+    goto LABEL_12;
+  }
+
+  v21 = [v16 decodeBuffer:replyData BufferOffset:0 BytesWritten:&v37];
+  if (v21)
+  {
+    LODWORD(v15) = v21;
+    if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+    {
+      sub_10004F2AC();
+    }
+
+    goto LABEL_17;
+  }
+
+  whdr = [v16 whdr];
+  status = [whdr status];
+
+  if (!status)
+  {
+    results = [v16 results];
+    rows = [results rows];
+    v27 = [rows count];
+
+    v28 = v27 == 0;
+    goto LABEL_36;
+  }
+
+  whdr2 = [v16 whdr];
+  if ([whdr2 status] == 265926)
+  {
+
+LABEL_30:
+    if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEBUG))
+    {
+      sub_10004F3BC(v16);
+    }
+
+    results2 = [v16 results];
+    rows2 = [results2 rows];
+    v32 = [rows2 count];
+
+    if (v32)
+    {
+      goto LABEL_37;
+    }
+
+    if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEBUG))
+    {
+      sub_10004F454();
+    }
+
+    v28 = 1;
+LABEL_36:
+    *set = v28;
+LABEL_37:
+    results3 = [v16 results];
+    rows3 = [results3 rows];
+    v15 = [rows3 count];
+
+    if (v15)
+    {
+      results4 = [v16 results];
+      [(smbSearchContext *)self setSearchRows:results4];
+
+      LODWORD(v15) = 0;
+    }
+
+    goto LABEL_17;
+  }
+
+  whdr3 = [v16 whdr];
+  status2 = [whdr3 status];
+
+  if (status2 == 265933)
+  {
+    goto LABEL_30;
+  }
+
+  if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+  {
+    sub_10004F324(v16);
+  }
+
+  LODWORD(v15) = 5;
+LABEL_17:
+
+  return v15;
+}
+
 - (int)pipeOpen:(unsigned int)open
 {
   if (open == 1)
@@ -689,7 +2081,7 @@ LABEL_9:
             {
               if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
               {
-                sub_10004FAF4(&v99, v5, v100);
+                sub_10004FAF4(v99, v5, v100);
               }
 
               v60 = 0;
@@ -736,7 +2128,7 @@ LABEL_28:
             {
               if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
               {
-                sub_10004FAB4(&v97, v5, v98);
+                sub_10004FAB4(v97, v5, v98);
               }
 
               v7 = 0;
@@ -826,7 +2218,7 @@ LABEL_48:
                 {
                   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
                   {
-                    sub_10004FA74(&v95, v5, v96);
+                    sub_10004FA74(v95, v5, v96);
                   }
 
                   v7 = 0;
@@ -863,7 +2255,7 @@ LABEL_48:
                 {
                   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
                   {
-                    sub_10004FA34(&v93, v5, v94);
+                    sub_10004FA34(v93, v5, v94);
                   }
 
                   v7 = 0;
@@ -896,7 +2288,7 @@ LABEL_48:
                 {
                   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
                   {
-                    sub_10004F9F4(&v91, v5, v92);
+                    sub_10004F9F4(v91, v5, v92);
                   }
 
                   v53 = 0;
@@ -957,7 +2349,7 @@ LABEL_62:
 
           if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
           {
-            sub_10004FB34(&v101, v5, &v102);
+            sub_10004FB34(v101, v5, &v102);
           }
 
           v7 = 0;
@@ -1057,12 +2449,12 @@ LABEL_78:
 {
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEBUG))
   {
-    sub_10004FB74(self);
+    sub_10004FB74();
   }
 
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEBUG))
   {
-    sub_10004FBF4(self);
+    sub_10004FBF4();
   }
 
   [(wspContext *)self->_wctx logContents];

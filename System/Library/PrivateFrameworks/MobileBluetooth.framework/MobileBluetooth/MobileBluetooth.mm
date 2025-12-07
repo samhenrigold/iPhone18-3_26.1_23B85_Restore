@@ -136,7 +136,7 @@ void *getFWSessionByHandle(int a1)
 
 void sendMessageWithReplySync(uint64_t a1, const char *a2, void *a3, uint64_t a4)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   if (MBFLogInitOnce != -1)
   {
     attachSession_cold_1();
@@ -144,7 +144,7 @@ void sendMessageWithReplySync(uint64_t a1, const char *a2, void *a3, uint64_t a4
 
   if (os_log_type_enabled(MBFLogComponent, OS_LOG_TYPE_DEBUG))
   {
-    sendMessageWithReplySync_cold_2(a1);
+    sendMessageWithReplySync_cold_2();
   }
 
   *keys = xmmword_1E85173D0;
@@ -175,12 +175,11 @@ void sendMessageWithReplySync(uint64_t a1, const char *a2, void *a3, uint64_t a4
   xpc_release(v10);
   xpc_release(v8);
   xpc_release(object[0]);
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 void __BTLocalDeviceGetModulePower_block_invoke(uint64_t a1, xpc_object_t xdict)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   *(*(*(a1 + 32) + 8) + 24) = xpc_dictionary_get_uint64(xdict, "kCBMsgArgResult");
   *(*(*(a1 + 40) + 8) + 24) = xpc_dictionary_get_uint64(xdict, "kCBMsgArgBTPowerMode");
   if (MBFLogInitOnce != -1)
@@ -193,14 +192,12 @@ void __BTLocalDeviceGetModulePower_block_invoke(uint64_t a1, xpc_object_t xdict)
   {
     v5 = *(*(*(a1 + 40) + 8) + 24);
     v6 = *(*(*(a1 + 32) + 8) + 24);
-    v8 = 134218240;
-    v9 = v5;
-    v10 = 2048;
-    v11 = v6;
-    _os_log_impl(&dword_1D85D5000, v4, OS_LOG_TYPE_DEFAULT, "kCBMsgIdLocalDeviceGetModulePowerMsg reply with power state: %llx, result: %llx", &v8, 0x16u);
+    v7 = 134218240;
+    v8 = v5;
+    v9 = 2048;
+    v10 = v6;
+    _os_log_impl(&dword_1D85D5000, v4, OS_LOG_TYPE_DEFAULT, "kCBMsgIdLocalDeviceGetModulePowerMsg reply with power state: %llx, result: %llx", &v7, 0x16u);
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t BTLocalDeviceReadEnhancedPowerProfileStatistics(uint64_t a1, unsigned int a2, uint64_t a3)
@@ -262,7 +259,7 @@ LABEL_5:
 
 uint64_t BTLocalDeviceGetDiscoverable(uint64_t a1, _DWORD *a2)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   if (MBFLogInitOnce != -1)
   {
     _localBTAccessoryManagerAddCallbacks_cold_1();
@@ -284,27 +281,27 @@ uint64_t BTLocalDeviceGetDiscoverable(uint64_t a1, _DWORD *a2)
     xpc_dictionary_set_uint64(v7, "kCBMsgArgLocalDeviceID", a1);
     *&buf = 0;
     *(&buf + 1) = &buf;
-    v17 = 0x2000000000;
-    v18 = 0;
-    v12 = 0;
-    v13 = &v12;
-    v14 = 0x2000000000;
-    v15 = 0;
-    v11[0] = MEMORY[0x1E69E9820];
-    v11[1] = 0x40000000;
-    v11[2] = __BTLocalDeviceGetDiscoverable_block_invoke;
-    v11[3] = &unk_1E8517F78;
-    v11[4] = &buf;
-    v11[5] = &v12;
-    sendMessageWithReplySync(v6, "kCBMsgIdLocalDeviceGetDiscoverableMsg", v7, v11);
+    v16 = 0x2000000000;
+    v17 = 0;
+    v11 = 0;
+    v12 = &v11;
+    v13 = 0x2000000000;
+    v14 = 0;
+    v10[0] = MEMORY[0x1E69E9820];
+    v10[1] = 0x40000000;
+    v10[2] = __BTLocalDeviceGetDiscoverable_block_invoke;
+    v10[3] = &unk_1E8517F78;
+    v10[4] = &buf;
+    v10[5] = &v11;
+    sendMessageWithReplySync(v6, "kCBMsgIdLocalDeviceGetDiscoverableMsg", v7, v10);
     if (v7)
     {
       xpc_release(v7);
     }
 
-    *a2 = v13[3];
+    *a2 = v12[3];
     v8 = *(*(&buf + 1) + 24);
-    _Block_object_dispose(&v12, 8);
+    _Block_object_dispose(&v11, 8);
     _Block_object_dispose(&buf, 8);
   }
 
@@ -320,20 +317,16 @@ uint64_t BTLocalDeviceGetDiscoverable(uint64_t a1, _DWORD *a2)
       BTLocalDeviceAddCallbacks_cold_8();
     }
 
-    v8 = 1;
+    return 1;
   }
 
-  v9 = *MEMORY[0x1E69E9840];
   return v8;
 }
 
 void __BTLocalDeviceGetDiscoverable_block_invoke(uint64_t a1, xpc_object_t xdict)
 {
-  uint64 = xpc_dictionary_get_uint64(xdict, "kCBMsgArgResult");
-  v6 = *(a1 + 32);
-  v5 = a1 + 32;
-  *(*(v6 + 8) + 24) = uint64;
-  *(*(*(v5 + 8) + 8) + 24) = xpc_dictionary_get_uint64(xdict, "kCBMsgArgDiscoverable");
+  *(*(*(a1 + 32) + 8) + 24) = xpc_dictionary_get_uint64(xdict, "kCBMsgArgResult");
+  *(*(*(a1 + 40) + 8) + 24) = xpc_dictionary_get_uint64(xdict, "kCBMsgArgDiscoverable");
   if (MBFLogInitOnce != -1)
   {
     _localBTAccessoryManagerAddCallbacks_cold_1();
@@ -341,13 +334,13 @@ void __BTLocalDeviceGetDiscoverable_block_invoke(uint64_t a1, xpc_object_t xdict
 
   if (os_log_type_enabled(MBFLogComponent, OS_LOG_TYPE_DEBUG))
   {
-    __BTLocalDeviceGetDiscoverable_block_invoke_cold_2(v5);
+    __BTLocalDeviceGetDiscoverable_block_invoke_cold_2();
   }
 }
 
 uint64_t BTLocalDeviceGetConnectionStatus(uint64_t a1, _DWORD *a2)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   if (MBFLogInitOnce != -1)
   {
     _localBTAccessoryManagerAddCallbacks_cold_1();
@@ -369,27 +362,27 @@ uint64_t BTLocalDeviceGetConnectionStatus(uint64_t a1, _DWORD *a2)
     xpc_dictionary_set_uint64(v7, "kCBMsgArgLocalDeviceID", a1);
     *&buf = 0;
     *(&buf + 1) = &buf;
-    v17 = 0x2000000000;
-    v18 = 0;
-    v12 = 0;
-    v13 = &v12;
-    v14 = 0x2000000000;
-    v15 = 0;
-    v11[0] = MEMORY[0x1E69E9820];
-    v11[1] = 0x40000000;
-    v11[2] = __BTLocalDeviceGetConnectionStatus_block_invoke;
-    v11[3] = &unk_1E8518040;
-    v11[4] = &buf;
-    v11[5] = &v12;
-    sendMessageWithReplySync(v6, "kCBMsgIdLocalDeviceGetConnectionStatusMsg", v7, v11);
+    v16 = 0x2000000000;
+    v17 = 0;
+    v11 = 0;
+    v12 = &v11;
+    v13 = 0x2000000000;
+    v14 = 0;
+    v10[0] = MEMORY[0x1E69E9820];
+    v10[1] = 0x40000000;
+    v10[2] = __BTLocalDeviceGetConnectionStatus_block_invoke;
+    v10[3] = &unk_1E8518040;
+    v10[4] = &buf;
+    v10[5] = &v11;
+    sendMessageWithReplySync(v6, "kCBMsgIdLocalDeviceGetConnectionStatusMsg", v7, v10);
     if (v7)
     {
       xpc_release(v7);
     }
 
-    *a2 = v13[3];
+    *a2 = v12[3];
     v8 = *(*(&buf + 1) + 24);
-    _Block_object_dispose(&v12, 8);
+    _Block_object_dispose(&v11, 8);
     _Block_object_dispose(&buf, 8);
   }
 
@@ -405,20 +398,16 @@ uint64_t BTLocalDeviceGetConnectionStatus(uint64_t a1, _DWORD *a2)
       BTLocalDeviceAddCallbacks_cold_8();
     }
 
-    v8 = 1;
+    return 1;
   }
 
-  v9 = *MEMORY[0x1E69E9840];
   return v8;
 }
 
 void __BTLocalDeviceGetConnectionStatus_block_invoke(uint64_t a1, xpc_object_t xdict)
 {
-  uint64 = xpc_dictionary_get_uint64(xdict, "kCBMsgArgResult");
-  v6 = *(a1 + 32);
-  v5 = a1 + 32;
-  *(*(v6 + 8) + 24) = uint64;
-  *(*(*(v5 + 8) + 8) + 24) = xpc_dictionary_get_uint64(xdict, "kCBMsgArgConnected");
+  *(*(*(a1 + 32) + 8) + 24) = xpc_dictionary_get_uint64(xdict, "kCBMsgArgResult");
+  *(*(*(a1 + 40) + 8) + 24) = xpc_dictionary_get_uint64(xdict, "kCBMsgArgConnected");
   if (MBFLogInitOnce != -1)
   {
     _localBTAccessoryManagerAddCallbacks_cold_1();
@@ -426,13 +415,13 @@ void __BTLocalDeviceGetConnectionStatus_block_invoke(uint64_t a1, xpc_object_t x
 
   if (os_log_type_enabled(MBFLogComponent, OS_LOG_TYPE_DEBUG))
   {
-    __BTLocalDeviceGetConnectionStatus_block_invoke_cold_2(v5);
+    __BTLocalDeviceGetConnectionStatus_block_invoke_cold_2();
   }
 }
 
 uint64_t BTLocalDeviceGetConnectable(uint64_t a1, _DWORD *a2)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   if (MBFLogInitOnce != -1)
   {
     _localBTAccessoryManagerAddCallbacks_cold_1();
@@ -454,27 +443,27 @@ uint64_t BTLocalDeviceGetConnectable(uint64_t a1, _DWORD *a2)
     xpc_dictionary_set_uint64(v7, "kCBMsgArgLocalDeviceID", a1);
     *&buf = 0;
     *(&buf + 1) = &buf;
-    v17 = 0x2000000000;
-    v18 = 0;
-    v12 = 0;
-    v13 = &v12;
-    v14 = 0x2000000000;
-    v15 = 0;
-    v11[0] = MEMORY[0x1E69E9820];
-    v11[1] = 0x40000000;
-    v11[2] = __BTLocalDeviceGetConnectable_block_invoke;
-    v11[3] = &unk_1E8517FC8;
-    v11[4] = &buf;
-    v11[5] = &v12;
-    sendMessageWithReplySync(v6, "kCBMsgIdLocalDeviceGetConnectableMsg", v7, v11);
+    v16 = 0x2000000000;
+    v17 = 0;
+    v11 = 0;
+    v12 = &v11;
+    v13 = 0x2000000000;
+    v14 = 0;
+    v10[0] = MEMORY[0x1E69E9820];
+    v10[1] = 0x40000000;
+    v10[2] = __BTLocalDeviceGetConnectable_block_invoke;
+    v10[3] = &unk_1E8517FC8;
+    v10[4] = &buf;
+    v10[5] = &v11;
+    sendMessageWithReplySync(v6, "kCBMsgIdLocalDeviceGetConnectableMsg", v7, v10);
     if (v7)
     {
       xpc_release(v7);
     }
 
-    *a2 = v13[3];
+    *a2 = v12[3];
     v8 = *(*(&buf + 1) + 24);
-    _Block_object_dispose(&v12, 8);
+    _Block_object_dispose(&v11, 8);
     _Block_object_dispose(&buf, 8);
   }
 
@@ -490,20 +479,16 @@ uint64_t BTLocalDeviceGetConnectable(uint64_t a1, _DWORD *a2)
       BTLocalDeviceAddCallbacks_cold_8();
     }
 
-    v8 = 1;
+    return 1;
   }
 
-  v9 = *MEMORY[0x1E69E9840];
   return v8;
 }
 
 void __BTLocalDeviceGetConnectable_block_invoke(uint64_t a1, xpc_object_t xdict)
 {
-  uint64 = xpc_dictionary_get_uint64(xdict, "kCBMsgArgResult");
-  v6 = *(a1 + 32);
-  v5 = a1 + 32;
-  *(*(v6 + 8) + 24) = uint64;
-  *(*(*(v5 + 8) + 8) + 24) = xpc_dictionary_get_uint64(xdict, "kCBMsgArgConnectable");
+  *(*(*(a1 + 32) + 8) + 24) = xpc_dictionary_get_uint64(xdict, "kCBMsgArgResult");
+  *(*(*(a1 + 40) + 8) + 24) = xpc_dictionary_get_uint64(xdict, "kCBMsgArgConnectable");
   if (MBFLogInitOnce != -1)
   {
     _localBTAccessoryManagerAddCallbacks_cold_1();
@@ -511,7 +496,7 @@ void __BTLocalDeviceGetConnectable_block_invoke(uint64_t a1, xpc_object_t xdict)
 
   if (os_log_type_enabled(MBFLogComponent, OS_LOG_TYPE_DEBUG))
   {
-    __BTLocalDeviceGetConnectable_block_invoke_cold_2(v5);
+    __BTLocalDeviceGetConnectable_block_invoke_cold_2();
   }
 }
 
@@ -623,25 +608,24 @@ LABEL_6:
 
 void __BTDeviceAddressFromString_block_invoke(uint64_t a1, xpc_object_t xdict)
 {
-  v4 = a1 + 32;
   *(*(*(a1 + 32) + 8) + 24) = xpc_dictionary_get_uint64(xdict, "kCBMsgArgResult");
   data = xpc_dictionary_get_data(xdict, "kCBMsgArgAddressBytes", (*(*(a1 + 40) + 8) + 24));
   if (data)
   {
-    v6 = *(*(*(a1 + 40) + 8) + 24);
-    if (v6)
+    v5 = *(*(*(a1 + 40) + 8) + 24);
+    if (v5)
     {
-      if (v6 >= 6)
+      if (v5 >= 6)
       {
-        v7 = 6;
+        v6 = 6;
       }
 
       else
       {
-        v7 = *(*(*(a1 + 40) + 8) + 24);
+        v6 = *(*(*(a1 + 40) + 8) + 24);
       }
 
-      memcpy(*(a1 + 48), data, v7);
+      memcpy(*(a1 + 48), data, v6);
       if (MBFLogInitOnce != -1)
       {
         _localBTAccessoryManagerAddCallbacks_cold_1();
@@ -649,7 +633,7 @@ void __BTDeviceAddressFromString_block_invoke(uint64_t a1, xpc_object_t xdict)
 
       if (os_log_type_enabled(MBFLogComponent, OS_LOG_TYPE_DEBUG))
       {
-        __BTDeviceAddressFromString_block_invoke_cold_2(v4);
+        __BTDeviceAddressFromString_block_invoke_cold_2();
       }
     }
   }
@@ -771,11 +755,8 @@ uint64_t getFWSessionByUint64(uint64_t a1)
 
 void __BTDeviceFromAddress_block_invoke(uint64_t a1, xpc_object_t xdict)
 {
-  uint64 = xpc_dictionary_get_uint64(xdict, "kCBMsgArgResult");
-  v6 = *(a1 + 32);
-  v5 = a1 + 32;
-  *(*(v6 + 8) + 24) = uint64;
-  *(*(*(v5 + 8) + 8) + 24) = xpc_dictionary_get_uint64(xdict, "kCBMsgArgBTDevice");
+  *(*(*(a1 + 32) + 8) + 24) = xpc_dictionary_get_uint64(xdict, "kCBMsgArgResult");
+  *(*(*(a1 + 40) + 8) + 24) = xpc_dictionary_get_uint64(xdict, "kCBMsgArgBTDevice");
   if (MBFLogInitOnce != -1)
   {
     _localBTAccessoryManagerAddCallbacks_cold_1();
@@ -783,59 +764,59 @@ void __BTDeviceFromAddress_block_invoke(uint64_t a1, xpc_object_t xdict)
 
   if (os_log_type_enabled(MBFLogComponent, OS_LOG_TYPE_DEBUG))
   {
-    __BTDeviceFromAddress_block_invoke_cold_2(v5);
+    __BTDeviceFromAddress_block_invoke_cold_2();
   }
 }
 
 uint64_t BTSessionAttachWithQueue(const char *a1, void *a2, uint64_t a3, NSObject *a4)
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   result = 3;
   if (a1 && a2)
   {
-    if (MGGetBoolAnswer() && (MGGetBoolAnswer() & 1) == 0 && ((v10 = IOServiceNameMatching("marconi-bt"), v11 = MEMORY[0x1E696CD60], v10) && (MatchingService = IOServiceGetMatchingService(*MEMORY[0x1E696CD60], v10)) != 0 || (v13 = IOServiceNameMatching("bluetooth")) != 0 && (MatchingService = IOServiceGetMatchingService(*v11, v13)) != 0))
+    if (MGGetBoolAnswer() && (MGGetBoolAnswer() & 1) == 0 && ((v9 = IOServiceNameMatching("marconi-bt"), v10 = MEMORY[0x1E696CD60], v9) && (MatchingService = IOServiceGetMatchingService(*MEMORY[0x1E696CD60], v9)) != 0 || (v12 = IOServiceNameMatching("bluetooth")) != 0 && (MatchingService = IOServiceGetMatchingService(*v10, v12)) != 0))
     {
       IOObjectRelease(MatchingService);
-      v14 = malloc_type_malloc(0x60uLL, 0x10B00402E9C0308uLL);
-      *v14 = 0;
-      v14[21] = 0;
-      *(v14 + 1) = strdup(a1);
-      *(v14 + 2) = *a2;
-      *(v14 + 3) = a3;
+      v13 = malloc_type_malloc(0x60uLL, 0x10B00402E9C0308uLL);
+      *v13 = 0;
+      v13[21] = 0;
+      *(v13 + 1) = strdup(a1);
+      *(v13 + 2) = *a2;
+      *(v13 + 3) = a3;
       if (a4)
       {
-        v15 = a4;
+        v14 = a4;
       }
 
       else
       {
-        v15 = MEMORY[0x1E69E96A0];
+        v14 = MEMORY[0x1E69E96A0];
       }
 
-      *(v14 + 4) = v15;
-      dispatch_retain(v15);
-      *(v14 + 5) = 0;
-      v14[12] = 0;
-      *(v14 + 8) = 0;
-      *(v14 + 9) = 0;
-      *(v14 + 7) = 0;
+      *(v13 + 4) = v14;
+      dispatch_retain(v14);
+      *(v13 + 5) = 0;
+      v13[12] = 0;
+      *(v13 + 8) = 0;
+      *(v13 + 9) = 0;
+      *(v13 + 7) = 0;
       if (gSessionAttachTries)
       {
-        v16 = exp2(gSessionAttachTries) * 100.0 * 1000000.0;
-        if (v16 >= 10000000000)
+        v15 = exp2(gSessionAttachTries) * 100.0 * 1000000.0;
+        if (v15 >= 10000000000)
         {
-          v17 = 10000000000;
+          v16 = 10000000000;
         }
 
         else
         {
-          v17 = v16;
+          v16 = v15;
         }
       }
 
       else
       {
-        v17 = 0;
+        v16 = 0;
       }
 
       if (MBFLogInitOnce != -1)
@@ -843,29 +824,28 @@ uint64_t BTSessionAttachWithQueue(const char *a1, void *a2, uint64_t a3, NSObjec
         _localBTAccessoryManagerAddCallbacks_cold_1();
       }
 
-      v18 = MBFLogComponent;
+      v17 = MBFLogComponent;
       if (os_log_type_enabled(MBFLogComponent, OS_LOG_TYPE_DEFAULT))
       {
-        v21 = 134218240;
-        v22 = v17;
-        v23 = 2048;
-        v24 = gSessionAttachTries;
-        _os_log_impl(&dword_1D85D5000, v18, OS_LOG_TYPE_DEFAULT, "Delaying BTSessionAttach by %lldmS. Connection attempt:%llu", &v21, 0x16u);
+        v20 = 134218240;
+        v21 = v16;
+        v22 = 2048;
+        v23 = gSessionAttachTries;
+        _os_log_impl(&dword_1D85D5000, v17, OS_LOG_TYPE_DEFAULT, "Delaying BTSessionAttach by %lldmS. Connection attempt:%llu", &v20, 0x16u);
       }
 
-      v19 = dispatch_time(0, v17);
-      v20 = _MBTGetAsyncAttachQueue(v14);
-      dispatch_after_f(v19, v20, v14, _MBTAsyncAttach);
-      result = 0;
+      v18 = dispatch_time(0, v16);
+      v19 = _MBTGetAsyncAttachQueue(v13);
+      dispatch_after_f(v18, v19, v13, _MBTAsyncAttach);
+      return 0;
     }
 
     else
     {
-      result = 9;
+      return 9;
     }
   }
 
-  v9 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -878,7 +858,7 @@ dispatch_queue_global_t _MBTGetAsyncAttachQueue(uint64_t a1)
 
   if (os_log_type_enabled(MBFLogComponent, OS_LOG_TYPE_DEBUG))
   {
-    _MBTGetAsyncAttachQueue_cold_2(a1);
+    _MBTGetAsyncAttachQueue_cold_2();
   }
 
   if (*(a1 + 32) == MEMORY[0x1E69E96A0])
@@ -890,7 +870,7 @@ dispatch_queue_global_t _MBTGetAsyncAttachQueue(uint64_t a1)
 
     if (os_log_type_enabled(MBFLogComponent, OS_LOG_TYPE_DEBUG))
     {
-      _MBTGetAsyncAttachQueue_cold_6(a1, (a1 + 32));
+      _MBTGetAsyncAttachQueue_cold_6();
     }
 
     return dispatch_get_global_queue(25, 0);
@@ -905,16 +885,16 @@ dispatch_queue_global_t _MBTGetAsyncAttachQueue(uint64_t a1)
 
     if (os_log_type_enabled(MBFLogComponent, OS_LOG_TYPE_DEBUG))
     {
-      _MBTGetAsyncAttachQueue_cold_4(a1, (a1 + 32));
+      _MBTGetAsyncAttachQueue_cold_4();
     }
 
     return *(a1 + 32);
   }
 }
 
-void _MBTAsyncAttach(uint64_t a1)
+void _MBTAsyncAttach(uint64_t *a1)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   if (MBFLogInitOnce != -1)
   {
     _localBTAccessoryManagerAddCallbacks_cold_1();
@@ -922,7 +902,7 @@ void _MBTAsyncAttach(uint64_t a1)
 
   if (os_log_type_enabled(MBFLogComponent, OS_LOG_TYPE_DEBUG))
   {
-    _MBTAsyncAttach_cold_2(a1);
+    _MBTAsyncAttach_cold_2();
   }
 
   if (isDispatchSessionValid(a1))
@@ -934,15 +914,15 @@ void _MBTAsyncAttach(uint64_t a1)
 
     if (os_log_type_enabled(MBFLogComponent, OS_LOG_TYPE_DEBUG))
     {
-      _MBTAsyncAttach_cold_7(a1);
+      _MBTAsyncAttach_cold_7();
     }
   }
 
   else
   {
-    v8 = 0;
-    *(a1 + 88) = createXpcConnection(xpcCBs, *(a1 + 32), *(a1 + 8), 0, a1, &v8);
-    *a1 = v8;
+    v7 = 0;
+    a1[11] = createXpcConnection(xpcCBs, a1[4], a1[1], 0, a1, &v7);
+    *a1 = v7;
     if (MBFLogInitOnce != -1)
     {
       BTDiscoveryAgentCreate_cold_2();
@@ -951,29 +931,29 @@ void _MBTAsyncAttach(uint64_t a1)
     v2 = MBFLogComponent;
     if (os_log_type_enabled(MBFLogComponent, OS_LOG_TYPE_DEBUG))
     {
-      v4 = *a1;
-      v5 = *(a1 + 88);
-      v6 = *(a1 + 32);
+      v3 = *a1;
+      v4 = a1[11];
+      v5 = a1[4];
       *buf = 134218752;
-      v10 = a1;
-      v11 = 2048;
-      v12 = v4;
-      v13 = 2048;
-      v14 = v5;
-      v15 = 2048;
-      v16 = v6;
+      v9 = a1;
+      v10 = 2048;
+      v11 = v3;
+      v12 = 2048;
+      v13 = v4;
+      v14 = 2048;
+      v15 = v5;
       _os_log_debug_impl(&dword_1D85D5000, v2, OS_LOG_TYPE_DEBUG, "_MBTAsyncAttach fwSession:%llx sessionHandle:%llx xpcConnection:%llx queue:%p", buf, 0x2Au);
     }
 
     addFWSession(a1);
-    if (*(a1 + 88) && v8)
+    if (a1[11] && v7)
     {
-      v7[0] = MEMORY[0x1E69E9820];
-      v7[1] = 0x40000000;
-      v7[2] = ___MBTAsyncAttach_block_invoke;
-      v7[3] = &__block_descriptor_tmp_5;
-      v7[4] = a1;
-      _MBTDispachAsyncAttachCompletionBlock(a1, v7);
+      v6[0] = MEMORY[0x1E69E9820];
+      v6[1] = 0x40000000;
+      v6[2] = ___MBTAsyncAttach_block_invoke;
+      v6[3] = &__block_descriptor_tmp_5;
+      v6[4] = a1;
+      _MBTDispachAsyncAttachCompletionBlock(a1, v6);
     }
 
     else
@@ -988,11 +968,9 @@ void _MBTAsyncAttach(uint64_t a1)
         _MBTAsyncAttach_cold_5();
       }
 
-      *(a1 + 84) = 3;
+      *(a1 + 21) = 3;
     }
   }
-
-  v3 = *MEMORY[0x1E69E9840];
 }
 
 BOOL isDispatchSessionValid(uint64_t a1)
@@ -1035,9 +1013,9 @@ BOOL isDispatchSessionValid(uint64_t a1)
   return v7;
 }
 
-uint64_t createXpcConnection(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t *a6)
+char *createXpcConnection(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t *a6)
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   if (MGGetBoolAnswer())
   {
     v10 = malloc_type_calloc(1uLL, 0xA30uLL, 0x10A0040595E20BAuLL);
@@ -1066,11 +1044,11 @@ uint64_t createXpcConnection(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4
     if (os_log_type_enabled(MBFLogComponent, OS_LOG_TYPE_DEBUG))
     {
       relative_priority_ptr = 136315650;
-      v26 = v13;
-      v27 = 2080;
-      v28 = v11 + 2080;
-      v29 = 2048;
-      v30 = a2;
+      v25 = v13;
+      v26 = 2080;
+      v27 = v11 + 2080;
+      v28 = 2048;
+      v29 = a2;
       _os_log_debug_impl(&dword_1D85D5000, v14, OS_LOG_TYPE_DEBUG, "createXpcConnection %s %s queue:%p", &relative_priority_ptr, 0x20u);
     }
 
@@ -1091,7 +1069,7 @@ uint64_t createXpcConnection(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4
 
     if (os_log_type_enabled(MBFLogComponent, OS_LOG_TYPE_DEBUG))
     {
-      createXpcConnection_cold_5(v11 + 2080, (v11 + 2072));
+      createXpcConnection_cold_5();
     }
 
     v21 = *(v11 + 2072);
@@ -1119,10 +1097,9 @@ uint64_t createXpcConnection(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4
       createXpcConnection_cold_2();
     }
 
-    v11 = 0;
+    return 0;
   }
 
-  v22 = *MEMORY[0x1E69E9840];
   return v11;
 }
 
@@ -1140,20 +1117,20 @@ uint64_t attachSession(uint64_t a1)
 
   v2 = xpc_dictionary_create(0, 0, 0);
   xpc_dictionary_set_string(v2, "kCBMsgArgName", (a1 + 2080));
-  v8 = 0;
-  v9[0] = &v8;
-  v9[1] = 0x2000000000;
-  v9[2] = 0;
-  v6 = 0;
-  v7[0] = &v6;
-  v7[1] = 0x2000000000;
-  v7[2] = 0;
+  v7 = 0;
+  v8 = &v7;
+  v9 = 0x2000000000;
+  v10 = 0;
+  v6[0] = 0;
+  v6[1] = v6;
+  v6[2] = 0x2000000000;
+  v6[3] = 0;
   v5[0] = MEMORY[0x1E69E9820];
   v5[1] = 0x40000000;
   v5[2] = __attachSession_block_invoke;
   v5[3] = &unk_1E8517328;
-  v5[4] = &v6;
-  v5[5] = &v8;
+  v5[4] = v6;
+  v5[5] = &v7;
   sendMessageWithReplySync(a1, "kCBMsgIdSessionAttach", v2, v5);
   if (MBFLogInitOnce != -1)
   {
@@ -1162,7 +1139,7 @@ uint64_t attachSession(uint64_t a1)
 
   if (os_log_type_enabled(MBFLogComponent, OS_LOG_TYPE_DEBUG))
   {
-    attachSession_cold_4(v9, v7);
+    attachSession_cold_4();
     if (!v2)
     {
       goto LABEL_10;
@@ -1178,9 +1155,9 @@ LABEL_9:
   }
 
 LABEL_10:
-  v3 = *(v9[0] + 24);
-  _Block_object_dispose(&v6, 8);
-  _Block_object_dispose(&v8, 8);
+  v3 = v8[3];
+  _Block_object_dispose(v6, 8);
+  _Block_object_dispose(&v7, 8);
   return v3;
 }
 
@@ -1232,7 +1209,7 @@ void _MBTDispachAsyncAttachCompletionBlock(uint64_t a1, void (**a2)(void))
 
   if (os_log_type_enabled(MBFLogComponent, OS_LOG_TYPE_DEBUG))
   {
-    _MBTDispachAsyncAttachCompletionBlock_cold_2(a1);
+    _MBTDispachAsyncAttachCompletionBlock_cold_2();
   }
 
   if (_MBTGetAsyncAttachQueue(a1) == *(a1 + 32))
@@ -1244,7 +1221,7 @@ void _MBTDispachAsyncAttachCompletionBlock(uint64_t a1, void (**a2)(void))
 
     if (os_log_type_enabled(MBFLogComponent, OS_LOG_TYPE_DEBUG))
     {
-      _MBTDispachAsyncAttachCompletionBlock_cold_6(a1, (a1 + 32));
+      _MBTDispachAsyncAttachCompletionBlock_cold_6();
     }
 
     a2[2](a2);
@@ -1259,7 +1236,7 @@ void _MBTDispachAsyncAttachCompletionBlock(uint64_t a1, void (**a2)(void))
 
     if (os_log_type_enabled(MBFLogComponent, OS_LOG_TYPE_DEBUG))
     {
-      _MBTDispachAsyncAttachCompletionBlock_cold_4(a1, (a1 + 32));
+      _MBTDispachAsyncAttachCompletionBlock_cold_4();
     }
 
     dispatch_async(*(a1 + 32), a2);
@@ -1293,10 +1270,9 @@ uint64_t _MBTSignalSessionEvent(uint64_t a1, uint64_t a2, uint64_t a3)
 
 void __BTLocalDeviceGetConnectedDevices_block_invoke(uint64_t a1, xpc_object_t xdict)
 {
-  v15 = *MEMORY[0x1E69E9840];
-  v4 = a1 + 32;
+  v13 = *MEMORY[0x1E69E9840];
   *(*(*(a1 + 32) + 8) + 24) = xpc_dictionary_get_uint64(xdict, "kCBMsgArgResult");
-  if (!*(*(*v4 + 8) + 24))
+  if (!*(*(*(a1 + 32) + 8) + 24))
   {
     value = xpc_dictionary_get_value(xdict, "kCBMsgArgDeviceArray");
     count = xpc_array_get_count(value);
@@ -1315,15 +1291,15 @@ void __BTLocalDeviceGetConnectedDevices_block_invoke(uint64_t a1, xpc_object_t x
           BTAccessoryManagerAddCallbacks_cold_3();
         }
 
-        v8 = MBFLogComponent;
+        v7 = MBFLogComponent;
         if (os_log_type_enabled(MBFLogComponent, OS_LOG_TYPE_DEBUG))
         {
-          v9 = *(*(a1 + 48) + 8 * i);
+          v8 = *(*(a1 + 48) + 8 * i);
           *buf = 134218240;
-          v12 = i;
-          v13 = 2048;
-          v14 = v9;
-          _os_log_debug_impl(&dword_1D85D5000, v8, OS_LOG_TYPE_DEBUG, "i:%lx BTDevie:%llx", buf, 0x16u);
+          v10 = i;
+          v11 = 2048;
+          v12 = v8;
+          _os_log_debug_impl(&dword_1D85D5000, v7, OS_LOG_TYPE_DEBUG, "i:%lx BTDevie:%llx", buf, 0x16u);
         }
       }
     }
@@ -1338,10 +1314,8 @@ void __BTLocalDeviceGetConnectedDevices_block_invoke(uint64_t a1, xpc_object_t x
 
   if (os_log_type_enabled(MBFLogComponent, OS_LOG_TYPE_DEBUG))
   {
-    __BTLocalDeviceGetConnectedDevices_block_invoke_cold_3(v4);
+    __BTLocalDeviceGetConnectedDevices_block_invoke_cold_3();
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t BTLocalDeviceGetConnectedDevices(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
@@ -1518,7 +1492,7 @@ void __BTLocalDeviceReadEnhancedPowerProfileStatistics_block_invoke(uint64_t a1,
 
   if (os_log_type_enabled(MBFLogComponent, OS_LOG_TYPE_DEBUG))
   {
-    __BTLocalDeviceReadEnhancedPowerProfileStatistics_block_invoke_cold_2(v4);
+    __BTLocalDeviceReadEnhancedPowerProfileStatistics_block_invoke_cold_2();
   }
 }
 
@@ -1556,7 +1530,7 @@ void handleConnectionEvent(_xpc_connection_s *a1, void *a2)
 
         if (os_log_type_enabled(MBFLogComponent, OS_LOG_TYPE_DEBUG))
         {
-          handleConnectionEvent_cold_10(v6);
+          handleConnectionEvent_cold_10();
         }
 
         handleReset(v6);
@@ -1571,7 +1545,7 @@ void handleConnectionEvent(_xpc_connection_s *a1, void *a2)
 
         if (os_log_type_enabled(MBFLogComponent, OS_LOG_TYPE_DEBUG))
         {
-          handleConnectionEvent_cold_8(v6);
+          handleConnectionEvent_cold_8();
         }
 
         handleInvalid(v6);
@@ -1621,11 +1595,8 @@ void handleConnectionEvent(_xpc_connection_s *a1, void *a2)
 
 void __BTDeviceFromIdentifier_block_invoke(uint64_t a1, xpc_object_t xdict)
 {
-  uint64 = xpc_dictionary_get_uint64(xdict, "kCBMsgArgResult");
-  v6 = *(a1 + 32);
-  v5 = a1 + 32;
-  *(*(v6 + 8) + 24) = uint64;
-  *(*(*(v5 + 8) + 8) + 24) = xpc_dictionary_get_uint64(xdict, "kCBMsgArgBTDevice");
+  *(*(*(a1 + 32) + 8) + 24) = xpc_dictionary_get_uint64(xdict, "kCBMsgArgResult");
+  *(*(*(a1 + 40) + 8) + 24) = xpc_dictionary_get_uint64(xdict, "kCBMsgArgBTDevice");
   if (MBFLogInitOnce != -1)
   {
     _localBTAccessoryManagerAddCallbacks_cold_1();
@@ -1633,13 +1604,13 @@ void __BTDeviceFromIdentifier_block_invoke(uint64_t a1, xpc_object_t xdict)
 
   if (os_log_type_enabled(MBFLogComponent, OS_LOG_TYPE_DEBUG))
   {
-    __BTDeviceFromIdentifier_block_invoke_cold_2(v5);
+    __BTDeviceFromIdentifier_block_invoke_cold_2();
   }
 }
 
 void xpcConnectionDidReceiveMsg(uint64_t a1, _BYTE *a2, uint64_t a3)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v3 = *(a1 + 2600);
   if (*a2)
   {
@@ -1663,17 +1634,17 @@ void xpcConnectionDidReceiveMsg(uint64_t a1, _BYTE *a2, uint64_t a3)
     {
       if (v3)
       {
-        v12 = *(v3 + 8);
+        v11 = *(v3 + 8);
       }
 
       else
       {
-        v12 = "UNKNOWN";
+        v11 = "UNKNOWN";
       }
 
-      v13 = 136315138;
-      v14 = v12;
-      _os_log_error_impl(&dword_1D85D5000, v5, OS_LOG_TYPE_ERROR, "Invalid message received for session %s", &v13, 0xCu);
+      v12 = 136315138;
+      v13 = v11;
+      _os_log_error_impl(&dword_1D85D5000, v5, OS_LOG_TYPE_ERROR, "Invalid message received for session %s", &v12, 0xCu);
     }
   }
 
@@ -1681,10 +1652,10 @@ void xpcConnectionDidReceiveMsg(uint64_t a1, _BYTE *a2, uint64_t a3)
   {
     for (i = 0; ; ++i)
     {
-      v11 = *(a1 + 8 * i + 8);
-      if (v11)
+      v10 = *(a1 + 8 * i + 8);
+      if (v10)
       {
-        if ((*(v11 + 8))(a1, a2, a3))
+        if ((*(v10 + 8))(a1, a2, a3))
         {
           break;
         }
@@ -1696,16 +1667,14 @@ void xpcConnectionDidReceiveMsg(uint64_t a1, _BYTE *a2, uint64_t a3)
       }
     }
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t deviceServiceXpcMsgHandler(uint64_t a1, const char *a2, xpc_object_t xdict)
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
   uint64 = xpc_dictionary_get_uint64(xdict, "kCBMsgArgSessionID");
   v7 = xpc_dictionary_get_uint64(xdict, "kCBMsgArgID");
-  v25 = uint64;
+  v24 = uint64;
   Callbacks = _localBTDeviceServiceGetCallbacks(uint64, v7);
   if (MBFLogInitOnce != -1)
   {
@@ -1716,17 +1685,17 @@ uint64_t deviceServiceXpcMsgHandler(uint64_t a1, const char *a2, xpc_object_t xd
   if (os_log_type_enabled(MBFLogComponent, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136316418;
-    v27 = a2;
-    v28 = 2080;
-    v29 = (a1 + 2080);
-    v30 = 2080;
-    v31 = a1 + 2336;
-    v32 = 2048;
-    v33 = uint64;
-    v34 = 2048;
-    v35 = v7;
-    v36 = 2048;
-    v37 = Callbacks;
+    v26 = a2;
+    v27 = 2080;
+    v28 = (a1 + 2080);
+    v29 = 2080;
+    v30 = a1 + 2336;
+    v31 = 2048;
+    v32 = uint64;
+    v33 = 2048;
+    v34 = v7;
+    v35 = 2048;
+    v36 = Callbacks;
     _os_log_debug_impl(&dword_1D85D5000, v9, OS_LOG_TYPE_DEBUG, "deviceServiceXpcMsgHandler msg:%s sessionName:%s serviceName:%s session:%llx cbid:%llx cb:%llx", buf, 0x3Eu);
   }
 
@@ -1741,7 +1710,7 @@ uint64_t deviceServiceXpcMsgHandler(uint64_t a1, const char *a2, xpc_object_t xd
     v16 = a1;
     v17 = xpc_dictionary_get_uint64(xdict, "kCBMsgArgEventType");
     v18 = xpc_dictionary_get_uint64(xdict, "kCBMsgArgEvent");
-    UserData = _localBTDeviceServiceGetUserData(v25, v7);
+    UserData = _localBTDeviceServiceGetUserData(v24, v7);
     v20 = v17;
     a1 = v16;
     a2 = v15;
@@ -1756,36 +1725,35 @@ uint64_t deviceServiceXpcMsgHandler(uint64_t a1, const char *a2, xpc_object_t xd
   v21 = MBFLogComponent;
   if (os_log_type_enabled(MBFLogComponent, OS_LOG_TYPE_DEBUG))
   {
-    v24 = "did not handle";
+    v23 = "did not handle";
     *buf = 136316674;
     if (v11)
     {
-      v24 = "handled";
+      v23 = "handled";
     }
 
-    v27 = v24;
-    v28 = 2080;
-    v29 = a2;
-    v30 = 2080;
-    v31 = a1 + 2080;
-    v32 = 2080;
-    v33 = a1 + 2336;
-    v34 = 2048;
-    v35 = v25;
-    v36 = 2048;
-    v37 = v7;
-    v38 = 2048;
-    v39 = Callbacks;
+    v26 = v23;
+    v27 = 2080;
+    v28 = a2;
+    v29 = 2080;
+    v30 = a1 + 2080;
+    v31 = 2080;
+    v32 = a1 + 2336;
+    v33 = 2048;
+    v34 = v24;
+    v35 = 2048;
+    v36 = v7;
+    v37 = 2048;
+    v38 = Callbacks;
     _os_log_debug_impl(&dword_1D85D5000, v21, OS_LOG_TYPE_DEBUG, "deviceServiceXpcMsgHandler %s %s sessionName:%s serviceName:%s session:%llx cbid:%llx cb:%llx", buf, 0x48u);
   }
 
-  v22 = *MEMORY[0x1E69E9840];
   return v11;
 }
 
 uint64_t localDeviceXpcMsgHandler(uint64_t a1, const char *a2, xpc_object_t xdict)
 {
-  v50 = *MEMORY[0x1E69E9840];
+  v49 = *MEMORY[0x1E69E9840];
   uint64 = xpc_dictionary_get_uint64(xdict, "kCBMsgArgLocalDeviceID");
   v7 = xpc_dictionary_get_uint64(xdict, "kCBMsgArgID");
   Callbacks = _localBTLocalDeviceGetCallbacks(uint64, v7);
@@ -1798,21 +1766,21 @@ uint64_t localDeviceXpcMsgHandler(uint64_t a1, const char *a2, xpc_object_t xdic
   v10 = MBFLogComponent;
   if (os_log_type_enabled(MBFLogComponent, OS_LOG_TYPE_DEBUG))
   {
-    *v35 = 136316674;
-    *&v35[4] = a2;
-    v36 = 2080;
-    v37 = (a1 + 2080);
-    v38 = 2080;
-    v39 = a1 + 2336;
-    v40 = 2048;
-    v41 = uint64;
-    v42 = 2048;
-    v43 = v7;
-    v44 = 2048;
-    v45 = Callbacks;
-    v46 = 2048;
-    v47 = StatsCallbacks;
-    _os_log_debug_impl(&dword_1D85D5000, v10, OS_LOG_TYPE_DEBUG, "localDeviceXpcMsgHandler msg:%s sessionName:%s serviceName:%s localDeviceId:%llx cbid:%llx cbs:%llx linkCBs:%llx", v35, 0x48u);
+    *v34 = 136316674;
+    *&v34[4] = a2;
+    v35 = 2080;
+    v36 = (a1 + 2080);
+    v37 = 2080;
+    v38 = a1 + 2336;
+    v39 = 2048;
+    v40 = uint64;
+    v41 = 2048;
+    v42 = v7;
+    v43 = 2048;
+    v44 = Callbacks;
+    v45 = 2048;
+    v46 = StatsCallbacks;
+    _os_log_debug_impl(&dword_1D85D5000, v10, OS_LOG_TYPE_DEBUG, "localDeviceXpcMsgHandler msg:%s sessionName:%s serviceName:%s localDeviceId:%llx cbid:%llx cbs:%llx linkCBs:%llx", v34, 0x48u);
   }
 
   if (!strcmp(a2, "kCBMsgIdLocalDeviceAFHMapChangedEvent"))
@@ -1823,8 +1791,8 @@ uint64_t localDeviceXpcMsgHandler(uint64_t a1, const char *a2, xpc_object_t xdic
       v17 = StatsCallbacks;
       v18 = a1;
       v19 = xpc_dictionary_get_uint64(xdict, "kCBMsgArgResult");
-      *v35 = 0;
-      data = xpc_dictionary_get_data(xdict, "kCBMsgArgAFHMap", v35);
+      *v34 = 0;
+      data = xpc_dictionary_get_data(xdict, "kCBMsgArgAFHMap", v34);
       v21 = Callbacks[2];
       UserData = _localBTLocalDeviceGetUserData(uint64, v7);
       v23 = v19;
@@ -1895,32 +1863,31 @@ LABEL_23:
   v31 = MBFLogComponent;
   if (os_log_type_enabled(MBFLogComponent, OS_LOG_TYPE_DEBUG))
   {
-    v34 = "did not handle";
-    *v35 = 136316930;
+    v33 = "did not handle";
+    *v34 = 136316930;
     if (v11)
     {
-      v34 = "handled";
+      v33 = "handled";
     }
 
-    *&v35[4] = v34;
-    v36 = 2080;
-    v37 = a2;
-    v38 = 2080;
-    v39 = a1 + 2080;
-    v40 = 2080;
-    v41 = a1 + 2336;
-    v42 = 2048;
-    v43 = uint64;
-    v44 = 2048;
-    v45 = v7;
-    v46 = 2048;
-    v47 = Callbacks;
-    v48 = 2048;
-    v49 = StatsCallbacks;
-    _os_log_debug_impl(&dword_1D85D5000, v31, OS_LOG_TYPE_DEBUG, "localDeviceXpcMsgHandler %s %s sessionName:%s serviceName:%s localDeviceId:%llx cbid:%llx cbs:%llx linkCBs:%llx", v35, 0x52u);
+    *&v34[4] = v33;
+    v35 = 2080;
+    v36 = a2;
+    v37 = 2080;
+    v38 = a1 + 2080;
+    v39 = 2080;
+    v40 = a1 + 2336;
+    v41 = 2048;
+    v42 = uint64;
+    v43 = 2048;
+    v44 = v7;
+    v45 = 2048;
+    v46 = Callbacks;
+    v47 = 2048;
+    v48 = StatsCallbacks;
+    _os_log_debug_impl(&dword_1D85D5000, v31, OS_LOG_TYPE_DEBUG, "localDeviceXpcMsgHandler %s %s sessionName:%s serviceName:%s localDeviceId:%llx cbid:%llx cbs:%llx linkCBs:%llx", v34, 0x52u);
   }
 
-  v32 = *MEMORY[0x1E69E9840];
   return v11;
 }
 
@@ -2156,9 +2123,8 @@ LABEL_13:
 
 void __BTDeviceGetAddressString_block_invoke(uint64_t a1, xpc_object_t xdict)
 {
-  v4 = a1 + 32;
   *(*(*(a1 + 32) + 8) + 24) = xpc_dictionary_get_uint64(xdict, "kCBMsgArgResult");
-  if (!*(*(*v4 + 8) + 24))
+  if (!*(*(*(a1 + 32) + 8) + 24))
   {
     string = xpc_dictionary_get_string(xdict, "kCBMsgArgAddressString");
     if (string)
@@ -2174,7 +2140,7 @@ void __BTDeviceGetAddressString_block_invoke(uint64_t a1, xpc_object_t xdict)
 
   if (os_log_type_enabled(MBFLogComponent, OS_LOG_TYPE_DEBUG))
   {
-    __BTDeviceGetAddressString_block_invoke_cold_2(v4);
+    __BTDeviceGetAddressString_block_invoke_cold_2();
   }
 }
 
@@ -2242,11 +2208,8 @@ uint64_t BTDeviceGetDeviceType(uint64_t a1, _DWORD *a2)
 
 void __BTDeviceGetDeviceType_block_invoke(uint64_t a1, xpc_object_t xdict)
 {
-  uint64 = xpc_dictionary_get_uint64(xdict, "kCBMsgArgResult");
-  v6 = *(a1 + 32);
-  v5 = a1 + 32;
-  *(*(v6 + 8) + 24) = uint64;
-  *(*(*(v5 + 8) + 8) + 24) = xpc_dictionary_get_uint64(xdict, "kCBMsgArgDeviceType");
+  *(*(*(a1 + 32) + 8) + 24) = xpc_dictionary_get_uint64(xdict, "kCBMsgArgResult");
+  *(*(*(a1 + 40) + 8) + 24) = xpc_dictionary_get_uint64(xdict, "kCBMsgArgDeviceType");
   if (MBFLogInitOnce != -1)
   {
     _localBTAccessoryManagerAddCallbacks_cold_1();
@@ -2254,7 +2217,7 @@ void __BTDeviceGetDeviceType_block_invoke(uint64_t a1, xpc_object_t xdict)
 
   if (os_log_type_enabled(MBFLogComponent, OS_LOG_TYPE_DEBUG))
   {
-    __BTDeviceGetDeviceType_block_invoke_cold_2(v5);
+    __BTDeviceGetDeviceType_block_invoke_cold_2();
   }
 }
 
@@ -2263,7 +2226,7 @@ BOOL _localBTAccessoryManagerCallbacksRegistered(uint64_t a1, void *a2)
   pthread_mutex_lock(&gLock);
   v4 = 0;
   v5 = 1;
-  v6 = &gBTAccessoryManagerCallbackList;
+  v6 = gBTAccessoryManagerCallbackList;
   do
   {
     if (*(v6 + 4) == a1)
@@ -2311,7 +2274,7 @@ BOOL _localBTAccessoryManagerCustomCallbacksRegistered(uint64_t a1, void *a2, in
 
 uint64_t _localBTAccessoryManagerAddCallbacks(uint64_t a1, uint64_t a2, __int128 *a3, uint64_t a4, uint64_t *a5)
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   pthread_mutex_lock(&gLock);
   v10 = 0;
   v11 = &xmmword_1ED8FDC50;
@@ -2343,30 +2306,29 @@ uint64_t _localBTAccessoryManagerAddCallbacks(uint64_t a1, uint64_t a2, __int128
   v15 = MBFLogComponent;
   if (os_log_type_enabled(MBFLogComponent, OS_LOG_TYPE_DEBUG))
   {
-    v18 = *v11;
-    v19 = *(v11 + 2);
-    v20 = *(v11 + 3);
-    v21[0] = 67109888;
-    v21[1] = v10;
-    v22 = 2048;
-    v23 = v18;
-    v24 = 2048;
-    v25 = v19;
-    v26 = 2048;
-    v27 = v20;
-    _os_log_debug_impl(&dword_1D85D5000, v15, OS_LOG_TYPE_DEBUG, "_localBTAccessoryManagerAddCallbacks[%d] manager:%p cbid:%llx userData:%p ", v21, 0x26u);
+    v17 = *v11;
+    v18 = *(v11 + 2);
+    v19 = *(v11 + 3);
+    v20[0] = 67109888;
+    v20[1] = v10;
+    v21 = 2048;
+    v22 = v17;
+    v23 = 2048;
+    v24 = v18;
+    v25 = 2048;
+    v26 = v19;
+    _os_log_debug_impl(&dword_1D85D5000, v15, OS_LOG_TYPE_DEBUG, "_localBTAccessoryManagerAddCallbacks[%d] manager:%p cbid:%llx userData:%p ", v20, 0x26u);
   }
 
   v12 = 0;
 LABEL_11:
   pthread_mutex_unlock(&gLock);
-  v16 = *MEMORY[0x1E69E9840];
   return v12;
 }
 
 uint64_t _localBTAccessoryManagerAddCustomCallbacks(uint64_t a1, uint64_t a2, uint64_t *a3, int a4, uint64_t a5, uint64_t *a6)
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   pthread_mutex_lock(&gLock);
   v12 = 0;
   v13 = &qword_1ED8FD058;
@@ -2397,33 +2359,32 @@ uint64_t _localBTAccessoryManagerAddCustomCallbacks(uint64_t a1, uint64_t a2, ui
   v16 = MBFLogComponent;
   if (os_log_type_enabled(MBFLogComponent, OS_LOG_TYPE_DEBUG))
   {
-    v19 = *(v13 - 4);
-    v20 = *(v13 - 1);
-    v21 = *v13;
-    v22[0] = 67110144;
-    v22[1] = v12;
-    v23 = 2048;
-    v24 = v19;
-    v25 = 2048;
-    v26 = v20;
-    v27 = 2048;
-    v28 = v21;
-    v29 = 1024;
-    v30 = a4;
-    _os_log_debug_impl(&dword_1D85D5000, v16, OS_LOG_TYPE_DEBUG, "_localBTAccessoryManagerAddCustomCallbacks[%d] manager:%p cbid:%llx userData:%p clientType:0x%X", v22, 0x2Cu);
+    v18 = *(v13 - 4);
+    v19 = *(v13 - 1);
+    v20 = *v13;
+    v21[0] = 67110144;
+    v21[1] = v12;
+    v22 = 2048;
+    v23 = v18;
+    v24 = 2048;
+    v25 = v19;
+    v26 = 2048;
+    v27 = v20;
+    v28 = 1024;
+    v29 = a4;
+    _os_log_debug_impl(&dword_1D85D5000, v16, OS_LOG_TYPE_DEBUG, "_localBTAccessoryManagerAddCustomCallbacks[%d] manager:%p cbid:%llx userData:%p clientType:0x%X", v21, 0x2Cu);
   }
 
   v14 = 0;
 LABEL_11:
   pthread_mutex_unlock(&gLock);
-  v17 = *MEMORY[0x1E69E9840];
   return v14;
 }
 
 uint64_t _localBTAccessoryManagerRemoveCallbacks(uint64_t a1, void *a2)
 {
   pthread_mutex_lock(&gLock);
-  v4 = &gBTAccessoryManagerCallbackList;
+  v4 = gBTAccessoryManagerCallbackList;
   v5 = 64;
   while (1)
   {
@@ -2518,7 +2479,7 @@ LABEL_7:
 uint64_t _localBTAccessoryManagerGetCallbacksCBID(uint64_t a1, void *a2)
 {
   pthread_mutex_lock(&gLock);
-  v4 = &gBTAccessoryManagerCallbackList;
+  v4 = gBTAccessoryManagerCallbackList;
   v5 = 64;
   while (1)
   {
@@ -2668,7 +2629,7 @@ LABEL_13:
 
 uint64_t BTAccessoryManagerGetDefault(uint64_t *a1, void *a2)
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   SessionHandle = getSessionHandle(a1);
   MBXpcConnection = getMBXpcConnection(a1);
   if (MBXpcConnection)
@@ -2687,9 +2648,9 @@ uint64_t BTAccessoryManagerGetDefault(uint64_t *a1, void *a2)
       *&buf[12] = 2080;
       *&buf[14] = v6 + 2080;
       *&buf[22] = 2048;
-      v18 = a1;
-      v19 = 2048;
-      v20 = SessionHandle;
+      v17 = a1;
+      v18 = 2048;
+      v19 = SessionHandle;
       _os_log_debug_impl(&dword_1D85D5000, v7, OS_LOG_TYPE_DEBUG, "BTAccessoryManagerGetDefault service:%s, sessionName:%s session:%llx sessionID:%llx", buf, 0x2Au);
     }
 
@@ -2699,26 +2660,26 @@ uint64_t BTAccessoryManagerGetDefault(uint64_t *a1, void *a2)
     *buf = 0;
     *&buf[8] = buf;
     *&buf[16] = 0x2000000000;
-    v18 = 0;
-    v13 = 0;
-    v14 = &v13;
-    v15 = 0x2000000000;
-    v16 = 0;
-    v12[0] = MEMORY[0x1E69E9820];
-    v12[1] = 0x40000000;
-    v12[2] = __BTAccessoryManagerGetDefault_block_invoke;
-    v12[3] = &unk_1E85166F8;
-    v12[4] = buf;
-    v12[5] = &v13;
-    sendMessageWithReplySync(v6, "kCBMsgIdAccessoryGetDefaultMsg", v8, v12);
+    v17 = 0;
+    v12 = 0;
+    v13 = &v12;
+    v14 = 0x2000000000;
+    v15 = 0;
+    v11[0] = MEMORY[0x1E69E9820];
+    v11[1] = 0x40000000;
+    v11[2] = __BTAccessoryManagerGetDefault_block_invoke;
+    v11[3] = &unk_1E85166F8;
+    v11[4] = buf;
+    v11[5] = &v12;
+    sendMessageWithReplySync(v6, "kCBMsgIdAccessoryGetDefaultMsg", v8, v11);
     *a2 = *(*&buf[8] + 24);
     if (v8)
     {
       xpc_release(v8);
     }
 
-    v9 = *(v14 + 6);
-    _Block_object_dispose(&v13, 8);
+    v9 = *(v13 + 6);
+    _Block_object_dispose(&v12, 8);
     _Block_object_dispose(buf, 8);
   }
 
@@ -2734,16 +2695,14 @@ uint64_t BTAccessoryManagerGetDefault(uint64_t *a1, void *a2)
       BTAccessoryManagerGetDefault_cold_3();
     }
 
-    v9 = 1;
+    return 1;
   }
 
-  v10 = *MEMORY[0x1E69E9840];
   return v9;
 }
 
 void __BTAccessoryManagerGetDefault_block_invoke(uint64_t a1, xpc_object_t xdict)
 {
-  v4 = a1 + 32;
   *(*(*(a1 + 32) + 8) + 24) = xpc_dictionary_get_uint64(xdict, "kCBMsgArgAccessoryManagerID");
   *(*(*(a1 + 40) + 8) + 24) = xpc_dictionary_get_uint64(xdict, "kCBMsgArgResult");
   if (MBFLogInitOnce != -1)
@@ -2753,7 +2712,7 @@ void __BTAccessoryManagerGetDefault_block_invoke(uint64_t a1, xpc_object_t xdict
 
   if (os_log_type_enabled(MBFLogComponent, OS_LOG_TYPE_DEBUG))
   {
-    __BTAccessoryManagerGetDefault_block_invoke_cold_2(v4);
+    __BTAccessoryManagerGetDefault_block_invoke_cold_2();
   }
 }
 
@@ -2863,10 +2822,7 @@ LABEL_5:
 
 void __BTAccessoryManagerAddCallbacks_block_invoke(uint64_t a1, xpc_object_t xdict)
 {
-  uint64 = xpc_dictionary_get_uint64(xdict, "kCBMsgArgResult");
-  v5 = *(a1 + 32);
-  v4 = a1 + 32;
-  *(*(v5 + 8) + 24) = uint64;
+  *(*(*(a1 + 32) + 8) + 24) = xpc_dictionary_get_uint64(xdict, "kCBMsgArgResult");
   if (MBFLogInitOnce != -1)
   {
     _localBTAccessoryManagerAddCallbacks_cold_1();
@@ -2874,7 +2830,7 @@ void __BTAccessoryManagerAddCallbacks_block_invoke(uint64_t a1, xpc_object_t xdi
 
   if (os_log_type_enabled(MBFLogComponent, OS_LOG_TYPE_DEBUG))
   {
-    __BTAccessoryManagerAddCallbacks_block_invoke_cold_2(v4);
+    __BTAccessoryManagerAddCallbacks_block_invoke_cold_2();
   }
 }
 
@@ -2942,10 +2898,7 @@ LABEL_5:
 
 void __BTAccessoryManagerRemoveCallbacks_block_invoke(uint64_t a1, xpc_object_t xdict)
 {
-  uint64 = xpc_dictionary_get_uint64(xdict, "kCBMsgArgResult");
-  v5 = *(a1 + 32);
-  v4 = a1 + 32;
-  *(*(v5 + 8) + 24) = uint64;
+  *(*(*(a1 + 32) + 8) + 24) = xpc_dictionary_get_uint64(xdict, "kCBMsgArgResult");
   if (MBFLogInitOnce != -1)
   {
     _localBTAccessoryManagerAddCallbacks_cold_1();
@@ -2953,7 +2906,7 @@ void __BTAccessoryManagerRemoveCallbacks_block_invoke(uint64_t a1, xpc_object_t 
 
   if (os_log_type_enabled(MBFLogComponent, OS_LOG_TYPE_DEBUG))
   {
-    __BTAccessoryManagerRemoveCallbacks_block_invoke_cold_2(v4);
+    __BTAccessoryManagerRemoveCallbacks_block_invoke_cold_2();
   }
 }
 
@@ -3043,11 +2996,8 @@ uint64_t BTAccessoryManagerRegisterDevice(uint64_t a1, const void *a2, const cha
 
 void __BTAccessoryManagerRegisterDevice_block_invoke(uint64_t a1, xpc_object_t xdict)
 {
-  uint64 = xpc_dictionary_get_uint64(xdict, "kCBMsgArgResult");
-  v6 = *(a1 + 32);
-  v5 = a1 + 32;
-  *(*(v6 + 8) + 24) = uint64;
-  *(*(*(v5 + 8) + 8) + 24) = xpc_dictionary_get_uint64(xdict, "kCBMsgArgBTDevice");
+  *(*(*(a1 + 32) + 8) + 24) = xpc_dictionary_get_uint64(xdict, "kCBMsgArgResult");
+  *(*(*(a1 + 40) + 8) + 24) = xpc_dictionary_get_uint64(xdict, "kCBMsgArgBTDevice");
   if (MBFLogInitOnce != -1)
   {
     _localBTAccessoryManagerAddCallbacks_cold_1();
@@ -3055,7 +3005,7 @@ void __BTAccessoryManagerRegisterDevice_block_invoke(uint64_t a1, xpc_object_t x
 
   if (os_log_type_enabled(MBFLogComponent, OS_LOG_TYPE_DEBUG))
   {
-    __BTAccessoryManagerRegisterDevice_block_invoke_cold_2(v5);
+    __BTAccessoryManagerRegisterDevice_block_invoke_cold_2();
   }
 }
 
@@ -3117,10 +3067,7 @@ uint64_t BTAccessoryManagerPlugInDevice(uint64_t a1, uint64_t a2)
 
 void __BTAccessoryManagerPlugInDevice_block_invoke(uint64_t a1, xpc_object_t xdict)
 {
-  uint64 = xpc_dictionary_get_uint64(xdict, "kCBMsgArgResult");
-  v5 = *(a1 + 32);
-  v4 = a1 + 32;
-  *(*(v5 + 8) + 24) = uint64;
+  *(*(*(a1 + 32) + 8) + 24) = xpc_dictionary_get_uint64(xdict, "kCBMsgArgResult");
   if (MBFLogInitOnce != -1)
   {
     _localBTAccessoryManagerAddCallbacks_cold_1();
@@ -3128,7 +3075,7 @@ void __BTAccessoryManagerPlugInDevice_block_invoke(uint64_t a1, xpc_object_t xdi
 
   if (os_log_type_enabled(MBFLogComponent, OS_LOG_TYPE_DEBUG))
   {
-    __BTAccessoryManagerPlugInDevice_block_invoke_cold_2(v4);
+    __BTAccessoryManagerPlugInDevice_block_invoke_cold_2();
   }
 }
 
@@ -3190,10 +3137,7 @@ uint64_t BTAccessoryManagerUnplugDevice(uint64_t a1, uint64_t a2)
 
 void __BTAccessoryManagerUnplugDevice_block_invoke(uint64_t a1, xpc_object_t xdict)
 {
-  uint64 = xpc_dictionary_get_uint64(xdict, "kCBMsgArgResult");
-  v5 = *(a1 + 32);
-  v4 = a1 + 32;
-  *(*(v5 + 8) + 24) = uint64;
+  *(*(*(a1 + 32) + 8) + 24) = xpc_dictionary_get_uint64(xdict, "kCBMsgArgResult");
   if (MBFLogInitOnce != -1)
   {
     _localBTAccessoryManagerAddCallbacks_cold_1();
@@ -3201,7 +3145,7 @@ void __BTAccessoryManagerUnplugDevice_block_invoke(uint64_t a1, xpc_object_t xdi
 
   if (os_log_type_enabled(MBFLogComponent, OS_LOG_TYPE_DEBUG))
   {
-    __BTAccessoryManagerUnplugDevice_block_invoke_cold_2(v4);
+    __BTAccessoryManagerUnplugDevice_block_invoke_cold_2();
   }
 }
 
@@ -3270,11 +3214,8 @@ uint64_t BTAccessoryManagerGetDeviceState(uint64_t a1, uint64_t a2, _DWORD *a3)
 
 void __BTAccessoryManagerGetDeviceState_block_invoke(uint64_t a1, xpc_object_t xdict)
 {
-  uint64 = xpc_dictionary_get_uint64(xdict, "kCBMsgArgResult");
-  v6 = *(a1 + 32);
-  v5 = a1 + 32;
-  *(*(v6 + 8) + 24) = uint64;
-  *(*(*(v5 + 8) + 8) + 24) = xpc_dictionary_get_uint64(xdict, "kCBMsgArgState");
+  *(*(*(a1 + 32) + 8) + 24) = xpc_dictionary_get_uint64(xdict, "kCBMsgArgResult");
+  *(*(*(a1 + 40) + 8) + 24) = xpc_dictionary_get_uint64(xdict, "kCBMsgArgState");
   if (MBFLogInitOnce != -1)
   {
     _localBTAccessoryManagerAddCallbacks_cold_1();
@@ -3282,7 +3223,7 @@ void __BTAccessoryManagerGetDeviceState_block_invoke(uint64_t a1, xpc_object_t x
 
   if (os_log_type_enabled(MBFLogComponent, OS_LOG_TYPE_DEBUG))
   {
-    __BTAccessoryManagerGetDeviceState_block_invoke_cold_2(v5);
+    __BTAccessoryManagerGetDeviceState_block_invoke_cold_2();
   }
 }
 
@@ -3347,8 +3288,7 @@ uint64_t BTAccessoryManagerGetDevices(uint64_t a1, uint64_t a2, uint64_t a3, uin
 
 void __BTAccessoryManagerGetDevices_block_invoke(uint64_t a1, xpc_object_t xdict)
 {
-  v15 = *MEMORY[0x1E69E9840];
-  v4 = a1 + 32;
+  v13 = *MEMORY[0x1E69E9840];
   *(*(*(a1 + 32) + 8) + 24) = xpc_dictionary_get_uint64(xdict, "kCBMsgArgResult");
   value = xpc_dictionary_get_value(xdict, "kCBMsgArgDeviceArray");
   count = xpc_array_get_count(value);
@@ -3367,15 +3307,15 @@ void __BTAccessoryManagerGetDevices_block_invoke(uint64_t a1, xpc_object_t xdict
         BTAccessoryManagerAddCallbacks_cold_3();
       }
 
-      v8 = MBFLogComponent;
+      v7 = MBFLogComponent;
       if (os_log_type_enabled(MBFLogComponent, OS_LOG_TYPE_DEBUG))
       {
-        v9 = *(*(a1 + 48) + 8 * i);
+        v8 = *(*(a1 + 48) + 8 * i);
         *buf = 134218240;
-        v12 = i;
-        v13 = 2048;
-        v14 = v9;
-        _os_log_debug_impl(&dword_1D85D5000, v8, OS_LOG_TYPE_DEBUG, "i:%lx BTDevie:%llx", buf, 0x16u);
+        v10 = i;
+        v11 = 2048;
+        v12 = v8;
+        _os_log_debug_impl(&dword_1D85D5000, v7, OS_LOG_TYPE_DEBUG, "i:%lx BTDevie:%llx", buf, 0x16u);
       }
     }
   }
@@ -3388,10 +3328,8 @@ void __BTAccessoryManagerGetDevices_block_invoke(uint64_t a1, xpc_object_t xdict
 
   if (os_log_type_enabled(MBFLogComponent, OS_LOG_TYPE_DEBUG))
   {
-    __BTAccessoryManagerGetDevices_block_invoke_cold_3(v4);
+    __BTAccessoryManagerGetDevices_block_invoke_cold_3();
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t BTAccessoryManagerGetTimeSyncId(uint64_t a1, uint64_t a2, void *a3)
@@ -3459,11 +3397,8 @@ uint64_t BTAccessoryManagerGetTimeSyncId(uint64_t a1, uint64_t a2, void *a3)
 
 void __BTAccessoryManagerGetTimeSyncId_block_invoke(uint64_t a1, xpc_object_t xdict)
 {
-  uint64 = xpc_dictionary_get_uint64(xdict, "kCBMsgArgResult");
-  v6 = *(a1 + 32);
-  v5 = a1 + 32;
-  *(*(v6 + 8) + 24) = uint64;
-  *(*(*(v5 + 8) + 8) + 24) = xpc_dictionary_get_uint64(xdict, "kCBMsgArgID");
+  *(*(*(a1 + 32) + 8) + 24) = xpc_dictionary_get_uint64(xdict, "kCBMsgArgResult");
+  *(*(*(a1 + 40) + 8) + 24) = xpc_dictionary_get_uint64(xdict, "kCBMsgArgID");
   if (MBFLogInitOnce != -1)
   {
     _localBTAccessoryManagerAddCallbacks_cold_1();
@@ -3471,7 +3406,7 @@ void __BTAccessoryManagerGetTimeSyncId_block_invoke(uint64_t a1, xpc_object_t xd
 
   if (os_log_type_enabled(MBFLogComponent, OS_LOG_TYPE_DEBUG))
   {
-    __BTAccessoryManagerGetTimeSyncId_block_invoke_cold_2(v5);
+    __BTAccessoryManagerGetTimeSyncId_block_invoke_cold_2();
   }
 }
 
@@ -3540,11 +3475,8 @@ uint64_t BTAccessoryManagerGetDeviceBatteryLevel(uint64_t a1, uint64_t a2, _BYTE
 
 void __BTAccessoryManagerGetDeviceBatteryLevel_block_invoke(uint64_t a1, xpc_object_t xdict)
 {
-  uint64 = xpc_dictionary_get_uint64(xdict, "kCBMsgArgResult");
-  v6 = *(a1 + 32);
-  v5 = a1 + 32;
-  *(*(v6 + 8) + 24) = uint64;
-  *(*(*(v5 + 8) + 8) + 24) = xpc_dictionary_get_uint64(xdict, "kCBMsgArgBatteryPercent");
+  *(*(*(a1 + 32) + 8) + 24) = xpc_dictionary_get_uint64(xdict, "kCBMsgArgResult");
+  *(*(*(a1 + 40) + 8) + 24) = xpc_dictionary_get_uint64(xdict, "kCBMsgArgBatteryPercent");
   if (MBFLogInitOnce != -1)
   {
     _localBTAccessoryManagerAddCallbacks_cold_1();
@@ -3552,7 +3484,7 @@ void __BTAccessoryManagerGetDeviceBatteryLevel_block_invoke(uint64_t a1, xpc_obj
 
   if (os_log_type_enabled(MBFLogComponent, OS_LOG_TYPE_DEBUG))
   {
-    __BTAccessoryManagerGetDeviceBatteryLevel_block_invoke_cold_2(v5);
+    __BTAccessoryManagerGetDeviceBatteryLevel_block_invoke_cold_2();
   }
 }
 
@@ -3617,7 +3549,7 @@ uint64_t BTAccessoryManagerGetDeviceBatteryStatus(uint64_t a1, uint64_t a2, uint
 
 void __BTAccessoryManagerGetDeviceBatteryStatus_block_invoke(uint64_t a1, xpc_object_t xdict)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   *(*(*(a1 + 32) + 8) + 24) = xpc_dictionary_get_uint64(xdict, "kCBMsgArgResult");
   **(a1 + 40) = xpc_dictionary_get_uint64(xdict, "kCBMsgArgBatteryPercentSingle");
   *(*(a1 + 40) + 16) = xpc_dictionary_get_uint64(xdict, "kCBMsgArgBatteryPercentLeft");
@@ -3638,12 +3570,10 @@ void __BTAccessoryManagerGetDeviceBatteryStatus_block_invoke(uint64_t a1, xpc_ob
   if (os_log_type_enabled(MBFLogComponent, OS_LOG_TYPE_DEFAULT))
   {
     v5 = *(*(*(a1 + 32) + 8) + 24);
-    v7 = 134217984;
-    v8 = v5;
-    _os_log_impl(&dword_1D85D5000, v4, OS_LOG_TYPE_DEFAULT, "kCBMsgIdAccessoryGetDeviceBatteryStatusMsg reply result:%llx", &v7, 0xCu);
+    v6 = 134217984;
+    v7 = v5;
+    _os_log_impl(&dword_1D85D5000, v4, OS_LOG_TYPE_DEFAULT, "kCBMsgIdAccessoryGetDeviceBatteryStatusMsg reply result:%llx", &v6, 0xCu);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t BTAccessoryManagerIsAccessory(uint64_t a1, uint64_t a2, int *a3)
@@ -3721,11 +3651,8 @@ uint64_t BTAccessoryManagerIsAccessory(uint64_t a1, uint64_t a2, int *a3)
 
 void __BTAccessoryManagerIsAccessory_block_invoke(uint64_t a1, xpc_object_t xdict)
 {
-  uint64 = xpc_dictionary_get_uint64(xdict, "kCBMsgArgResult");
-  v6 = *(a1 + 32);
-  v5 = a1 + 32;
-  *(*(v6 + 8) + 24) = uint64;
-  *(*(*(v5 + 8) + 8) + 24) = xpc_dictionary_get_uint64(xdict, "kCBMsgArgIsAccessory");
+  *(*(*(a1 + 32) + 8) + 24) = xpc_dictionary_get_uint64(xdict, "kCBMsgArgResult");
+  *(*(*(a1 + 40) + 8) + 24) = xpc_dictionary_get_uint64(xdict, "kCBMsgArgIsAccessory");
   if (MBFLogInitOnce != -1)
   {
     _localBTAccessoryManagerAddCallbacks_cold_1();
@@ -3733,7 +3660,7 @@ void __BTAccessoryManagerIsAccessory_block_invoke(uint64_t a1, xpc_object_t xdic
 
   if (os_log_type_enabled(MBFLogComponent, OS_LOG_TYPE_DEBUG))
   {
-    __BTAccessoryManagerIsAccessory_block_invoke_cold_2(v5);
+    __BTAccessoryManagerIsAccessory_block_invoke_cold_2();
   }
 }
 
@@ -3802,25 +3729,24 @@ uint64_t BTAccessoryManagerGenerateLinkKey(uint64_t a1, const void *a2, uint64_t
 
 void __BTAccessoryManagerGenerateLinkKey_block_invoke(uint64_t a1, xpc_object_t xdict)
 {
-  v4 = a1 + 32;
   *(*(*(a1 + 32) + 8) + 24) = xpc_dictionary_get_uint64(xdict, "kCBMsgArgResult");
   data = xpc_dictionary_get_data(xdict, "kCBMsgArgLinkKey", (*(*(a1 + 40) + 8) + 24));
   if (data)
   {
-    v6 = *(*(*(a1 + 40) + 8) + 24);
-    if (v6)
+    v5 = *(*(*(a1 + 40) + 8) + 24);
+    if (v5)
     {
-      if (v6 >= 0x10)
+      if (v5 >= 0x10)
       {
-        v7 = 16;
+        v6 = 16;
       }
 
       else
       {
-        v7 = *(*(*(a1 + 40) + 8) + 24);
+        v6 = *(*(*(a1 + 40) + 8) + 24);
       }
 
-      memcpy(*(a1 + 48), data, v7);
+      memcpy(*(a1 + 48), data, v6);
     }
   }
 
@@ -3831,7 +3757,7 @@ void __BTAccessoryManagerGenerateLinkKey_block_invoke(uint64_t a1, xpc_object_t 
 
   if (os_log_type_enabled(MBFLogComponent, OS_LOG_TYPE_DEBUG))
   {
-    __BTAccessoryManagerGenerateLinkKey_block_invoke_cold_2(v4);
+    __BTAccessoryManagerGenerateLinkKey_block_invoke_cold_2();
   }
 }
 
@@ -3922,11 +3848,8 @@ uint64_t BTAccessoryManagerSetLinkKeyEx(uint64_t a1, const void *a2, const char 
 
 void __BTAccessoryManagerSetLinkKeyEx_block_invoke(uint64_t a1, xpc_object_t xdict)
 {
-  uint64 = xpc_dictionary_get_uint64(xdict, "kCBMsgArgResult");
-  v6 = *(a1 + 32);
-  v5 = a1 + 32;
-  *(*(v6 + 8) + 24) = uint64;
-  *(*(*(v5 + 8) + 8) + 24) = xpc_dictionary_get_uint64(xdict, "kCBMsgArgBTDevice");
+  *(*(*(a1 + 32) + 8) + 24) = xpc_dictionary_get_uint64(xdict, "kCBMsgArgResult");
+  *(*(*(a1 + 40) + 8) + 24) = xpc_dictionary_get_uint64(xdict, "kCBMsgArgBTDevice");
   if (MBFLogInitOnce != -1)
   {
     _localBTAccessoryManagerAddCallbacks_cold_1();
@@ -3934,7 +3857,7 @@ void __BTAccessoryManagerSetLinkKeyEx_block_invoke(uint64_t a1, xpc_object_t xdi
 
   if (os_log_type_enabled(MBFLogComponent, OS_LOG_TYPE_DEBUG))
   {
-    __BTAccessoryManagerSetLinkKeyEx_block_invoke_cold_2(v5);
+    __BTAccessoryManagerSetLinkKeyEx_block_invoke_cold_2();
   }
 }
 
@@ -3997,10 +3920,7 @@ uint64_t BTAccessoryManagerSetDoubleTapAction(uint64_t a1, uint64_t a2, unsigned
 
 void __BTAccessoryManagerSetDoubleTapAction_block_invoke(uint64_t a1, xpc_object_t xdict)
 {
-  uint64 = xpc_dictionary_get_uint64(xdict, "kCBMsgArgResult");
-  v5 = *(a1 + 32);
-  v4 = a1 + 32;
-  *(*(v5 + 8) + 24) = uint64;
+  *(*(*(a1 + 32) + 8) + 24) = xpc_dictionary_get_uint64(xdict, "kCBMsgArgResult");
   if (MBFLogInitOnce != -1)
   {
     _localBTAccessoryManagerAddCallbacks_cold_1();
@@ -4008,7 +3928,7 @@ void __BTAccessoryManagerSetDoubleTapAction_block_invoke(uint64_t a1, xpc_object
 
   if (os_log_type_enabled(MBFLogComponent, OS_LOG_TYPE_DEBUG))
   {
-    __BTAccessoryManagerSetDoubleTapAction_block_invoke_cold_2(v4);
+    __BTAccessoryManagerSetDoubleTapAction_block_invoke_cold_2();
   }
 }
 
@@ -4072,10 +3992,7 @@ uint64_t BTAccessoryManagerSetDoubleTapActionEx(uint64_t a1, uint64_t a2, unsign
 
 void __BTAccessoryManagerSetDoubleTapActionEx_block_invoke(uint64_t a1, xpc_object_t xdict)
 {
-  uint64 = xpc_dictionary_get_uint64(xdict, "kCBMsgArgResult");
-  v5 = *(a1 + 32);
-  v4 = a1 + 32;
-  *(*(v5 + 8) + 24) = uint64;
+  *(*(*(a1 + 32) + 8) + 24) = xpc_dictionary_get_uint64(xdict, "kCBMsgArgResult");
   if (MBFLogInitOnce != -1)
   {
     _localBTAccessoryManagerAddCallbacks_cold_1();
@@ -4083,7 +4000,7 @@ void __BTAccessoryManagerSetDoubleTapActionEx_block_invoke(uint64_t a1, xpc_obje
 
   if (os_log_type_enabled(MBFLogComponent, OS_LOG_TYPE_DEBUG))
   {
-    __BTAccessoryManagerSetDoubleTapActionEx_block_invoke_cold_2(v4);
+    __BTAccessoryManagerSetDoubleTapActionEx_block_invoke_cold_2();
   }
 }
 
@@ -4146,10 +4063,7 @@ uint64_t BTAccessoryManagerSetMicMode(uint64_t a1, uint64_t a2, unsigned int a3)
 
 void __BTAccessoryManagerSetMicMode_block_invoke(uint64_t a1, xpc_object_t xdict)
 {
-  uint64 = xpc_dictionary_get_uint64(xdict, "kCBMsgArgResult");
-  v5 = *(a1 + 32);
-  v4 = a1 + 32;
-  *(*(v5 + 8) + 24) = uint64;
+  *(*(*(a1 + 32) + 8) + 24) = xpc_dictionary_get_uint64(xdict, "kCBMsgArgResult");
   if (MBFLogInitOnce != -1)
   {
     _localBTAccessoryManagerAddCallbacks_cold_1();
@@ -4157,7 +4071,7 @@ void __BTAccessoryManagerSetMicMode_block_invoke(uint64_t a1, xpc_object_t xdict
 
   if (os_log_type_enabled(MBFLogComponent, OS_LOG_TYPE_DEBUG))
   {
-    __BTAccessoryManagerSetMicMode_block_invoke_cold_2(v4);
+    __BTAccessoryManagerSetMicMode_block_invoke_cold_2();
   }
 }
 
@@ -4220,10 +4134,7 @@ uint64_t BTAccessoryManagerRemoteTimeSyncEnable(uint64_t a1, uint64_t a2, unsign
 
 void __BTAccessoryManagerRemoteTimeSyncEnable_block_invoke(uint64_t a1, xpc_object_t xdict)
 {
-  uint64 = xpc_dictionary_get_uint64(xdict, "kCBMsgArgResult");
-  v5 = *(a1 + 32);
-  v4 = a1 + 32;
-  *(*(v5 + 8) + 24) = uint64;
+  *(*(*(a1 + 32) + 8) + 24) = xpc_dictionary_get_uint64(xdict, "kCBMsgArgResult");
   if (MBFLogInitOnce != -1)
   {
     _localBTAccessoryManagerAddCallbacks_cold_1();
@@ -4231,7 +4142,7 @@ void __BTAccessoryManagerRemoteTimeSyncEnable_block_invoke(uint64_t a1, xpc_obje
 
   if (os_log_type_enabled(MBFLogComponent, OS_LOG_TYPE_DEBUG))
   {
-    __BTAccessoryManagerRemoteTimeSyncEnable_block_invoke_cold_2(v4);
+    __BTAccessoryManagerRemoteTimeSyncEnable_block_invoke_cold_2();
   }
 }
 
@@ -4294,10 +4205,7 @@ uint64_t BTAccessoryManagerSensorStreamTimeSyncEnable(uint64_t a1, uint64_t a2, 
 
 void __BTAccessoryManagerSensorStreamTimeSyncEnable_block_invoke(uint64_t a1, xpc_object_t xdict)
 {
-  uint64 = xpc_dictionary_get_uint64(xdict, "kCBMsgArgResult");
-  v5 = *(a1 + 32);
-  v4 = a1 + 32;
-  *(*(v5 + 8) + 24) = uint64;
+  *(*(*(a1 + 32) + 8) + 24) = xpc_dictionary_get_uint64(xdict, "kCBMsgArgResult");
   if (MBFLogInitOnce != -1)
   {
     _localBTAccessoryManagerAddCallbacks_cold_1();
@@ -4305,7 +4213,7 @@ void __BTAccessoryManagerSensorStreamTimeSyncEnable_block_invoke(uint64_t a1, xp
 
   if (os_log_type_enabled(MBFLogComponent, OS_LOG_TYPE_DEBUG))
   {
-    __BTAccessoryManagerSensorStreamTimeSyncEnable_block_invoke_cold_2(v4);
+    __BTAccessoryManagerSensorStreamTimeSyncEnable_block_invoke_cold_2();
   }
 }
 
@@ -4368,10 +4276,7 @@ uint64_t BTAccessoryManagerSetInEarDetectionEnable(uint64_t a1, uint64_t a2, uns
 
 void __BTAccessoryManagerSetInEarDetectionEnable_block_invoke(uint64_t a1, xpc_object_t xdict)
 {
-  uint64 = xpc_dictionary_get_uint64(xdict, "kCBMsgArgResult");
-  v5 = *(a1 + 32);
-  v4 = a1 + 32;
-  *(*(v5 + 8) + 24) = uint64;
+  *(*(*(a1 + 32) + 8) + 24) = xpc_dictionary_get_uint64(xdict, "kCBMsgArgResult");
   if (MBFLogInitOnce != -1)
   {
     _localBTAccessoryManagerAddCallbacks_cold_1();
@@ -4379,7 +4284,7 @@ void __BTAccessoryManagerSetInEarDetectionEnable_block_invoke(uint64_t a1, xpc_o
 
   if (os_log_type_enabled(MBFLogComponent, OS_LOG_TYPE_DEBUG))
   {
-    __BTAccessoryManagerSetInEarDetectionEnable_block_invoke_cold_2(v4);
+    __BTAccessoryManagerSetInEarDetectionEnable_block_invoke_cold_2();
   }
 }
 
@@ -4442,10 +4347,7 @@ uint64_t BTAccessoryManagerSetIsHidden(uint64_t a1, uint64_t a2, unsigned int a3
 
 void __BTAccessoryManagerSetIsHidden_block_invoke(uint64_t a1, xpc_object_t xdict)
 {
-  uint64 = xpc_dictionary_get_uint64(xdict, "kCBMsgArgResult");
-  v5 = *(a1 + 32);
-  v4 = a1 + 32;
-  *(*(v5 + 8) + 24) = uint64;
+  *(*(*(a1 + 32) + 8) + 24) = xpc_dictionary_get_uint64(xdict, "kCBMsgArgResult");
   if (MBFLogInitOnce != -1)
   {
     _localBTAccessoryManagerAddCallbacks_cold_1();
@@ -4453,7 +4355,7 @@ void __BTAccessoryManagerSetIsHidden_block_invoke(uint64_t a1, xpc_object_t xdic
 
   if (os_log_type_enabled(MBFLogComponent, OS_LOG_TYPE_DEBUG))
   {
-    __BTAccessoryManagerSetIsHidden_block_invoke_cold_2(v4);
+    __BTAccessoryManagerSetIsHidden_block_invoke_cold_2();
   }
 }
 
@@ -4522,11 +4424,8 @@ uint64_t BTAccessoryManagerGetDoubleTapAction(uint64_t a1, uint64_t a2, _DWORD *
 
 void __BTAccessoryManagerGetDoubleTapAction_block_invoke(uint64_t a1, xpc_object_t xdict)
 {
-  uint64 = xpc_dictionary_get_uint64(xdict, "kCBMsgArgResult");
-  v6 = *(a1 + 32);
-  v5 = a1 + 32;
-  *(*(v6 + 8) + 24) = uint64;
-  *(*(*(v5 + 8) + 8) + 24) = xpc_dictionary_get_uint64(xdict, "kCBMsgArgDoubleTapAction");
+  *(*(*(a1 + 32) + 8) + 24) = xpc_dictionary_get_uint64(xdict, "kCBMsgArgResult");
+  *(*(*(a1 + 40) + 8) + 24) = xpc_dictionary_get_uint64(xdict, "kCBMsgArgDoubleTapAction");
   if (MBFLogInitOnce != -1)
   {
     _localBTAccessoryManagerAddCallbacks_cold_1();
@@ -4534,7 +4433,7 @@ void __BTAccessoryManagerGetDoubleTapAction_block_invoke(uint64_t a1, xpc_object
 
   if (os_log_type_enabled(MBFLogComponent, OS_LOG_TYPE_DEBUG))
   {
-    __BTAccessoryManagerGetDoubleTapAction_block_invoke_cold_2(v5);
+    __BTAccessoryManagerGetDoubleTapAction_block_invoke_cold_2();
   }
 }
 
@@ -4608,14 +4507,14 @@ uint64_t BTAccessoryManagerGetDoubleTapActionEx(uint64_t a1, uint64_t a2, _DWORD
   return v11;
 }
 
-void __BTAccessoryManagerGetDoubleTapActionEx_block_invoke(uint64_t a1, xpc_object_t xdict)
+void __BTAccessoryManagerGetDoubleTapActionEx_block_invoke(void *a1, xpc_object_t xdict)
 {
   uint64 = xpc_dictionary_get_uint64(xdict, "kCBMsgArgResult");
-  v6 = *(a1 + 32);
-  v5 = a1 + 32;
-  *(*(v6 + 8) + 24) = uint64;
-  *(*(*(v5 + 8) + 8) + 24) = xpc_dictionary_get_uint64(xdict, "kCBMsgArgDoubleTapActionLeft");
-  *(*(*(v5 + 16) + 8) + 24) = xpc_dictionary_get_uint64(xdict, "kCBMsgArgDoubleTapActionRight");
+  v5 = a1[4];
+  a1 += 4;
+  *(*(v5 + 8) + 24) = uint64;
+  *(*(a1[1] + 8) + 24) = xpc_dictionary_get_uint64(xdict, "kCBMsgArgDoubleTapActionLeft");
+  *(*(a1[2] + 8) + 24) = xpc_dictionary_get_uint64(xdict, "kCBMsgArgDoubleTapActionRight");
   if (MBFLogInitOnce != -1)
   {
     _localBTAccessoryManagerAddCallbacks_cold_1();
@@ -4623,7 +4522,7 @@ void __BTAccessoryManagerGetDoubleTapActionEx_block_invoke(uint64_t a1, xpc_obje
 
   if (os_log_type_enabled(MBFLogComponent, OS_LOG_TYPE_DEBUG))
   {
-    __BTAccessoryManagerGetDoubleTapActionEx_block_invoke_cold_2(v5);
+    __BTAccessoryManagerGetDoubleTapActionEx_block_invoke_cold_2();
   }
 }
 
@@ -4692,11 +4591,8 @@ uint64_t BTAccessoryManagerGetDoubleTapCapability(uint64_t a1, uint64_t a2, _DWO
 
 void __BTAccessoryManagerGetDoubleTapCapability_block_invoke(uint64_t a1, xpc_object_t xdict)
 {
-  uint64 = xpc_dictionary_get_uint64(xdict, "kCBMsgArgResult");
-  v6 = *(a1 + 32);
-  v5 = a1 + 32;
-  *(*(v6 + 8) + 24) = uint64;
-  *(*(*(v5 + 8) + 8) + 24) = xpc_dictionary_get_uint64(xdict, "kCBMsgArgDoubleTapCapability");
+  *(*(*(a1 + 32) + 8) + 24) = xpc_dictionary_get_uint64(xdict, "kCBMsgArgResult");
+  *(*(*(a1 + 40) + 8) + 24) = xpc_dictionary_get_uint64(xdict, "kCBMsgArgDoubleTapCapability");
   if (MBFLogInitOnce != -1)
   {
     _localBTAccessoryManagerAddCallbacks_cold_1();
@@ -4704,7 +4600,7 @@ void __BTAccessoryManagerGetDoubleTapCapability_block_invoke(uint64_t a1, xpc_ob
 
   if (os_log_type_enabled(MBFLogComponent, OS_LOG_TYPE_DEBUG))
   {
-    __BTAccessoryManagerGetDoubleTapCapability_block_invoke_cold_2(v5);
+    __BTAccessoryManagerGetDoubleTapCapability_block_invoke_cold_2();
   }
 }
 
@@ -4774,11 +4670,8 @@ uint64_t BTAccessoryManagerGetFeatureCapability(uint64_t a1, uint64_t a2, unsign
 
 void __BTAccessoryManagerGetFeatureCapability_block_invoke(uint64_t a1, xpc_object_t xdict)
 {
-  uint64 = xpc_dictionary_get_uint64(xdict, "kCBMsgArgResult");
-  v6 = *(a1 + 32);
-  v5 = a1 + 32;
-  *(*(v6 + 8) + 24) = uint64;
-  *(*(*(v5 + 8) + 8) + 24) = xpc_dictionary_get_uint64(xdict, "kCBMsgArgSupported");
+  *(*(*(a1 + 32) + 8) + 24) = xpc_dictionary_get_uint64(xdict, "kCBMsgArgResult");
+  *(*(*(a1 + 40) + 8) + 24) = xpc_dictionary_get_uint64(xdict, "kCBMsgArgSupported");
   if (MBFLogInitOnce != -1)
   {
     _localBTAccessoryManagerAddCallbacks_cold_1();
@@ -4786,7 +4679,7 @@ void __BTAccessoryManagerGetFeatureCapability_block_invoke(uint64_t a1, xpc_obje
 
   if (os_log_type_enabled(MBFLogComponent, OS_LOG_TYPE_DEBUG))
   {
-    __BTAccessoryManagerGetFeatureCapability_block_invoke_cold_2(v5);
+    __BTAccessoryManagerGetFeatureCapability_block_invoke_cold_2();
   }
 }
 
@@ -4855,11 +4748,8 @@ uint64_t BTAccessoryManagerGetAnnounceMessagesSupport(uint64_t a1, uint64_t a2, 
 
 void __BTAccessoryManagerGetAnnounceMessagesSupport_block_invoke(uint64_t a1, xpc_object_t xdict)
 {
-  uint64 = xpc_dictionary_get_uint64(xdict, "kCBMsgArgResult");
-  v6 = *(a1 + 32);
-  v5 = a1 + 32;
-  *(*(v6 + 8) + 24) = uint64;
-  *(*(*(v5 + 8) + 8) + 24) = xpc_dictionary_get_uint64(xdict, "kCBMsgArgAnnounceMsgSupport");
+  *(*(*(a1 + 32) + 8) + 24) = xpc_dictionary_get_uint64(xdict, "kCBMsgArgResult");
+  *(*(*(a1 + 40) + 8) + 24) = xpc_dictionary_get_uint64(xdict, "kCBMsgArgAnnounceMsgSupport");
   if (MBFLogInitOnce != -1)
   {
     _localBTAccessoryManagerAddCallbacks_cold_1();
@@ -4867,7 +4757,7 @@ void __BTAccessoryManagerGetAnnounceMessagesSupport_block_invoke(uint64_t a1, xp
 
   if (os_log_type_enabled(MBFLogComponent, OS_LOG_TYPE_DEBUG))
   {
-    __BTAccessoryManagerGetAnnounceMessagesSupport_block_invoke_cold_2(v5);
+    __BTAccessoryManagerGetAnnounceMessagesSupport_block_invoke_cold_2();
   }
 }
 
@@ -4936,11 +4826,8 @@ uint64_t BTAccessoryManagerGetMicMode(uint64_t a1, uint64_t a2, _DWORD *a3)
 
 void __BTAccessoryManagerGetMicMode_block_invoke(uint64_t a1, xpc_object_t xdict)
 {
-  uint64 = xpc_dictionary_get_uint64(xdict, "kCBMsgArgResult");
-  v6 = *(a1 + 32);
-  v5 = a1 + 32;
-  *(*(v6 + 8) + 24) = uint64;
-  *(*(*(v5 + 8) + 8) + 24) = xpc_dictionary_get_uint64(xdict, "kCBMsgArgMicMode");
+  *(*(*(a1 + 32) + 8) + 24) = xpc_dictionary_get_uint64(xdict, "kCBMsgArgResult");
+  *(*(*(a1 + 40) + 8) + 24) = xpc_dictionary_get_uint64(xdict, "kCBMsgArgMicMode");
   if (MBFLogInitOnce != -1)
   {
     _localBTAccessoryManagerAddCallbacks_cold_1();
@@ -4948,7 +4835,7 @@ void __BTAccessoryManagerGetMicMode_block_invoke(uint64_t a1, xpc_object_t xdict
 
   if (os_log_type_enabled(MBFLogComponent, OS_LOG_TYPE_DEBUG))
   {
-    __BTAccessoryManagerGetMicMode_block_invoke_cold_2(v5);
+    __BTAccessoryManagerGetMicMode_block_invoke_cold_2();
   }
 }
 
@@ -5017,11 +4904,8 @@ uint64_t BTAccessoryManagerGetInEarDetectionEnable(uint64_t a1, uint64_t a2, _DW
 
 void __BTAccessoryManagerGetInEarDetectionEnable_block_invoke(uint64_t a1, xpc_object_t xdict)
 {
-  uint64 = xpc_dictionary_get_uint64(xdict, "kCBMsgArgResult");
-  v6 = *(a1 + 32);
-  v5 = a1 + 32;
-  *(*(v6 + 8) + 24) = uint64;
-  *(*(*(v5 + 8) + 8) + 24) = xpc_dictionary_get_uint64(xdict, "kCBMsgArgInEarDetect");
+  *(*(*(a1 + 32) + 8) + 24) = xpc_dictionary_get_uint64(xdict, "kCBMsgArgResult");
+  *(*(*(a1 + 40) + 8) + 24) = xpc_dictionary_get_uint64(xdict, "kCBMsgArgInEarDetect");
   if (MBFLogInitOnce != -1)
   {
     _localBTAccessoryManagerAddCallbacks_cold_1();
@@ -5029,7 +4913,7 @@ void __BTAccessoryManagerGetInEarDetectionEnable_block_invoke(uint64_t a1, xpc_o
 
   if (os_log_type_enabled(MBFLogComponent, OS_LOG_TYPE_DEBUG))
   {
-    __BTAccessoryManagerGetAnnounceMessagesSupport_block_invoke_cold_2(v5);
+    __BTAccessoryManagerGetAnnounceMessagesSupport_block_invoke_cold_2();
   }
 }
 
@@ -5103,14 +4987,14 @@ uint64_t BTAccessoryManagerGetInEarStatus(uint64_t a1, uint64_t a2, _DWORD *a3, 
   return v11;
 }
 
-void __BTAccessoryManagerGetInEarStatus_block_invoke(uint64_t a1, xpc_object_t xdict)
+void __BTAccessoryManagerGetInEarStatus_block_invoke(void *a1, xpc_object_t xdict)
 {
   uint64 = xpc_dictionary_get_uint64(xdict, "kCBMsgArgResult");
-  v6 = *(a1 + 32);
-  v5 = a1 + 32;
-  *(*(v6 + 8) + 24) = uint64;
-  *(*(*(v5 + 8) + 8) + 24) = xpc_dictionary_get_uint64(xdict, "kCBMsgArgInEarStatusPrimary");
-  *(*(*(v5 + 16) + 8) + 24) = xpc_dictionary_get_uint64(xdict, "kCBMsgArgInEarStatusSecondary");
+  v5 = a1[4];
+  a1 += 4;
+  *(*(v5 + 8) + 24) = uint64;
+  *(*(a1[1] + 8) + 24) = xpc_dictionary_get_uint64(xdict, "kCBMsgArgInEarStatusPrimary");
+  *(*(a1[2] + 8) + 24) = xpc_dictionary_get_uint64(xdict, "kCBMsgArgInEarStatusSecondary");
   if (MBFLogInitOnce != -1)
   {
     _localBTAccessoryManagerAddCallbacks_cold_1();
@@ -5118,7 +5002,7 @@ void __BTAccessoryManagerGetInEarStatus_block_invoke(uint64_t a1, xpc_object_t x
 
   if (os_log_type_enabled(MBFLogComponent, OS_LOG_TYPE_DEBUG))
   {
-    __BTAccessoryManagerGetInEarStatus_block_invoke_cold_2(v5);
+    __BTAccessoryManagerGetInEarStatus_block_invoke_cold_2();
   }
 }
 
@@ -5240,10 +5124,7 @@ LABEL_5:
 
 void __BTAccessoryManagerRegisterCustomMessageClient_block_invoke(uint64_t a1, xpc_object_t xdict)
 {
-  uint64 = xpc_dictionary_get_uint64(xdict, "kCBMsgArgResult");
-  v5 = *(a1 + 32);
-  v4 = a1 + 32;
-  *(*(v5 + 8) + 24) = uint64;
+  *(*(*(a1 + 32) + 8) + 24) = xpc_dictionary_get_uint64(xdict, "kCBMsgArgResult");
   if (MBFLogInitOnce != -1)
   {
     _localBTAccessoryManagerAddCallbacks_cold_1();
@@ -5251,7 +5132,7 @@ void __BTAccessoryManagerRegisterCustomMessageClient_block_invoke(uint64_t a1, x
 
   if (os_log_type_enabled(MBFLogComponent, OS_LOG_TYPE_DEBUG))
   {
-    __BTAccessoryManagerRegisterCustomMessageClient_block_invoke_cold_2(v4);
+    __BTAccessoryManagerRegisterCustomMessageClient_block_invoke_cold_2();
   }
 }
 
@@ -5329,10 +5210,7 @@ LABEL_9:
 
 void __BTAccessoryManagerDeregisterCustomMessageClient_block_invoke(uint64_t a1, xpc_object_t xdict)
 {
-  uint64 = xpc_dictionary_get_uint64(xdict, "kCBMsgArgResult");
-  v5 = *(a1 + 32);
-  v4 = a1 + 32;
-  *(*(v5 + 8) + 24) = uint64;
+  *(*(*(a1 + 32) + 8) + 24) = xpc_dictionary_get_uint64(xdict, "kCBMsgArgResult");
   if (MBFLogInitOnce != -1)
   {
     _localBTAccessoryManagerAddCallbacks_cold_1();
@@ -5340,7 +5218,7 @@ void __BTAccessoryManagerDeregisterCustomMessageClient_block_invoke(uint64_t a1,
 
   if (os_log_type_enabled(MBFLogComponent, OS_LOG_TYPE_DEBUG))
   {
-    __BTAccessoryManagerDeregisterCustomMessageClient_block_invoke_cold_2(v4);
+    __BTAccessoryManagerDeregisterCustomMessageClient_block_invoke_cold_2();
   }
 }
 
@@ -5404,10 +5282,7 @@ uint64_t BTAccessoryManagerSendCustomMessage(uint64_t a1, unsigned int a2, uint6
 
 void __BTAccessoryManagerSendCustomMessage_block_invoke(uint64_t a1, xpc_object_t xdict)
 {
-  uint64 = xpc_dictionary_get_uint64(xdict, "kCBMsgArgResult");
-  v5 = *(a1 + 32);
-  v4 = a1 + 32;
-  *(*(v5 + 8) + 24) = uint64;
+  *(*(*(a1 + 32) + 8) + 24) = xpc_dictionary_get_uint64(xdict, "kCBMsgArgResult");
   if (MBFLogInitOnce != -1)
   {
     _localBTAccessoryManagerAddCallbacks_cold_1();
@@ -5415,7 +5290,7 @@ void __BTAccessoryManagerSendCustomMessage_block_invoke(uint64_t a1, xpc_object_
 
   if (os_log_type_enabled(MBFLogComponent, OS_LOG_TYPE_DEBUG))
   {
-    __BTAccessoryManagerSendCustomMessage_block_invoke_cold_2(v4);
+    __BTAccessoryManagerSendCustomMessage_block_invoke_cold_2();
   }
 }
 
@@ -5483,10 +5358,7 @@ uint64_t BTAccessoryManagerSimulateAACP(uint64_t a1, uint64_t a2, const void *a3
 
 void __BTAccessoryManagerSimulateAACP_block_invoke(uint64_t a1, xpc_object_t xdict)
 {
-  uint64 = xpc_dictionary_get_uint64(xdict, "kCBMsgArgResult");
-  v5 = *(a1 + 32);
-  v4 = a1 + 32;
-  *(*(v5 + 8) + 24) = uint64;
+  *(*(*(a1 + 32) + 8) + 24) = xpc_dictionary_get_uint64(xdict, "kCBMsgArgResult");
   if (MBFLogInitOnce != -1)
   {
     _localBTAccessoryManagerAddCallbacks_cold_1();
@@ -5494,7 +5366,7 @@ void __BTAccessoryManagerSimulateAACP_block_invoke(uint64_t a1, xpc_object_t xdi
 
   if (os_log_type_enabled(MBFLogComponent, OS_LOG_TYPE_DEBUG))
   {
-    __BTAccessoryManagerSimulateAACP_block_invoke_cold_2(v4);
+    __BTAccessoryManagerSimulateAACP_block_invoke_cold_2();
   }
 }
 
@@ -5702,25 +5574,24 @@ uint64_t BTAccessoryManagerGetDeviceDiagnostics(uint64_t a1, uint64_t a2, uint64
 
 void __BTAccessoryManagerGetDeviceDiagnostics_block_invoke(uint64_t a1, xpc_object_t xdict)
 {
-  v4 = a1 + 32;
   *(*(*(a1 + 32) + 8) + 24) = xpc_dictionary_get_uint64(xdict, "kCBMsgArgResult");
   data = xpc_dictionary_get_data(xdict, "kCBMsgArgData", (*(*(a1 + 40) + 8) + 24));
   if (data)
   {
-    v6 = *(*(*(a1 + 40) + 8) + 24);
-    if (v6)
+    v5 = *(*(*(a1 + 40) + 8) + 24);
+    if (v5)
     {
-      if (*(a1 + 56) >= v6)
+      if (*(a1 + 56) >= v5)
       {
-        v7 = *(*(*(a1 + 40) + 8) + 24);
+        v6 = *(*(*(a1 + 40) + 8) + 24);
       }
 
       else
       {
-        v7 = *(a1 + 56);
+        v6 = *(a1 + 56);
       }
 
-      memcpy(*(a1 + 48), data, v7);
+      memcpy(*(a1 + 48), data, v6);
     }
   }
 
@@ -5731,7 +5602,7 @@ void __BTAccessoryManagerGetDeviceDiagnostics_block_invoke(uint64_t a1, xpc_obje
 
   if (os_log_type_enabled(MBFLogComponent, OS_LOG_TYPE_DEBUG))
   {
-    __BTAccessoryManagerGetDeviceDiagnostics_block_invoke_cold_2(v4);
+    __BTAccessoryManagerGetDeviceDiagnostics_block_invoke_cold_2();
   }
 }
 
@@ -5795,10 +5666,7 @@ uint64_t BTAccessoryManagerSendRequestPeriodically(uint64_t a1, uint64_t a2, uin
 
 void __BTAccessoryManagerSendRequestPeriodically_block_invoke(uint64_t a1, xpc_object_t xdict)
 {
-  uint64 = xpc_dictionary_get_uint64(xdict, "kCBMsgArgResult");
-  v5 = *(a1 + 32);
-  v4 = a1 + 32;
-  *(*(v5 + 8) + 24) = uint64;
+  *(*(*(a1 + 32) + 8) + 24) = xpc_dictionary_get_uint64(xdict, "kCBMsgArgResult");
   if (MBFLogInitOnce != -1)
   {
     _localBTAccessoryManagerAddCallbacks_cold_1();
@@ -5806,7 +5674,7 @@ void __BTAccessoryManagerSendRequestPeriodically_block_invoke(uint64_t a1, xpc_o
 
   if (os_log_type_enabled(MBFLogComponent, OS_LOG_TYPE_DEBUG))
   {
-    __BTAccessoryManagerSendRequestPeriodically_block_invoke_cold_2(v4);
+    __BTAccessoryManagerSendRequestPeriodically_block_invoke_cold_2();
   }
 }
 
@@ -5869,10 +5737,7 @@ uint64_t BTAccessoryManagerCancelRequestPeriodically(uint64_t a1, uint64_t a2, u
 
 void __BTAccessoryManagerCancelRequestPeriodically_block_invoke(uint64_t a1, xpc_object_t xdict)
 {
-  uint64 = xpc_dictionary_get_uint64(xdict, "kCBMsgArgResult");
-  v5 = *(a1 + 32);
-  v4 = a1 + 32;
-  *(*(v5 + 8) + 24) = uint64;
+  *(*(*(a1 + 32) + 8) + 24) = xpc_dictionary_get_uint64(xdict, "kCBMsgArgResult");
   if (MBFLogInitOnce != -1)
   {
     _localBTAccessoryManagerAddCallbacks_cold_1();
@@ -5880,7 +5745,7 @@ void __BTAccessoryManagerCancelRequestPeriodically_block_invoke(uint64_t a1, xpc
 
   if (os_log_type_enabled(MBFLogComponent, OS_LOG_TYPE_DEBUG))
   {
-    __BTAccessoryManagerCancelRequestPeriodically_block_invoke_cold_2(v4);
+    __BTAccessoryManagerCancelRequestPeriodically_block_invoke_cold_2();
   }
 }
 
@@ -5944,10 +5809,7 @@ uint64_t BTAccessoryManagerSendControlCommand(uint64_t a1, uint64_t a2, unsigned
 
 void __BTAccessoryManagerSendControlCommand_block_invoke(uint64_t a1, xpc_object_t xdict)
 {
-  uint64 = xpc_dictionary_get_uint64(xdict, "kCBMsgArgResult");
-  v5 = *(a1 + 32);
-  v4 = a1 + 32;
-  *(*(v5 + 8) + 24) = uint64;
+  *(*(*(a1 + 32) + 8) + 24) = xpc_dictionary_get_uint64(xdict, "kCBMsgArgResult");
   if (MBFLogInitOnce != -1)
   {
     _localBTAccessoryManagerAddCallbacks_cold_1();
@@ -5955,7 +5817,7 @@ void __BTAccessoryManagerSendControlCommand_block_invoke(uint64_t a1, xpc_object
 
   if (os_log_type_enabled(MBFLogComponent, OS_LOG_TYPE_DEBUG))
   {
-    __BTAccessoryManagerSendControlCommand_block_invoke_cold_2(v4);
+    __BTAccessoryManagerSendControlCommand_block_invoke_cold_2();
   }
 }
 
@@ -6026,11 +5888,8 @@ uint64_t BTAccessoryManagerGetControlCommand(uint64_t a1, uint64_t a2, unsigned 
 
 void __BTAccessoryManagerGetControlCommand_block_invoke(uint64_t a1, xpc_object_t xdict)
 {
-  uint64 = xpc_dictionary_get_uint64(xdict, "kCBMsgArgResult");
-  v6 = *(a1 + 32);
-  v5 = a1 + 32;
-  *(*(v6 + 8) + 24) = uint64;
-  *(*(*(v5 + 8) + 8) + 24) = xpc_dictionary_get_uint64(xdict, "kCBMsgArgValue");
+  *(*(*(a1 + 32) + 8) + 24) = xpc_dictionary_get_uint64(xdict, "kCBMsgArgResult");
+  *(*(*(a1 + 40) + 8) + 24) = xpc_dictionary_get_uint64(xdict, "kCBMsgArgValue");
   if (MBFLogInitOnce != -1)
   {
     _localBTAccessoryManagerAddCallbacks_cold_1();
@@ -6038,7 +5897,7 @@ void __BTAccessoryManagerGetControlCommand_block_invoke(uint64_t a1, xpc_object_
 
   if (os_log_type_enabled(MBFLogComponent, OS_LOG_TYPE_DEBUG))
   {
-    __BTAccessoryManagerGetControlCommand_block_invoke_cold_2(v5);
+    __BTAccessoryManagerGetControlCommand_block_invoke_cold_2();
   }
 }
 
@@ -6107,11 +5966,8 @@ uint64_t BTAccessoryManagerGetSettingFeatureBitMask(uint64_t a1, uint64_t a2, _D
 
 void __BTAccessoryManagerGetSettingFeatureBitMask_block_invoke(uint64_t a1, xpc_object_t xdict)
 {
-  uint64 = xpc_dictionary_get_uint64(xdict, "kCBMsgArgResult");
-  v6 = *(a1 + 32);
-  v5 = a1 + 32;
-  *(*(v6 + 8) + 24) = uint64;
-  *(*(*(v5 + 8) + 8) + 24) = xpc_dictionary_get_uint64(xdict, "kCBMSgArgFeatureBitMask");
+  *(*(*(a1 + 32) + 8) + 24) = xpc_dictionary_get_uint64(xdict, "kCBMsgArgResult");
+  *(*(*(a1 + 40) + 8) + 24) = xpc_dictionary_get_uint64(xdict, "kCBMSgArgFeatureBitMask");
   if (MBFLogInitOnce != -1)
   {
     _localBTAccessoryManagerAddCallbacks_cold_1();
@@ -6119,7 +5975,7 @@ void __BTAccessoryManagerGetSettingFeatureBitMask_block_invoke(uint64_t a1, xpc_
 
   if (os_log_type_enabled(MBFLogComponent, OS_LOG_TYPE_DEBUG))
   {
-    __BTAccessoryManagerGetSettingFeatureBitMask_block_invoke_cold_2(v5);
+    __BTAccessoryManagerGetSettingFeatureBitMask_block_invoke_cold_2();
   }
 }
 
@@ -6197,27 +6053,26 @@ uint64_t BTAccessoryManagerGetAccessoryInfo(uint64_t a1, uint64_t a2, uint64_t a
 
 void __BTAccessoryManagerGetAccessoryInfo_block_invoke(uint64_t a1, xpc_object_t xdict)
 {
-  v4 = a1 + 32;
   *(*(*(a1 + 32) + 8) + 24) = xpc_dictionary_get_uint64(xdict, "kCBMsgArgResult");
-  if (!*(*(*v4 + 8) + 24))
+  if (!*(*(*(a1 + 32) + 8) + 24))
   {
     data = xpc_dictionary_get_data(xdict, "kCBMsgArgData", (*(*(a1 + 40) + 8) + 24));
     if (data)
     {
-      v6 = *(*(*(a1 + 40) + 8) + 24);
-      if (v6)
+      v5 = *(*(*(a1 + 40) + 8) + 24);
+      if (v5)
       {
-        if (*(a1 + 56) >= v6)
+        if (*(a1 + 56) >= v5)
         {
-          v7 = *(*(*(a1 + 40) + 8) + 24);
+          v6 = *(*(*(a1 + 40) + 8) + 24);
         }
 
         else
         {
-          v7 = *(a1 + 56);
+          v6 = *(a1 + 56);
         }
 
-        memcpy(*(a1 + 48), data, v7);
+        memcpy(*(a1 + 48), data, v6);
       }
     }
   }
@@ -6229,7 +6084,7 @@ void __BTAccessoryManagerGetAccessoryInfo_block_invoke(uint64_t a1, xpc_object_t
 
   if (os_log_type_enabled(MBFLogComponent, OS_LOG_TYPE_DEBUG))
   {
-    __BTAccessoryManagerGetAccessoryInfo_block_invoke_cold_2(v4);
+    __BTAccessoryManagerGetAccessoryInfo_block_invoke_cold_2();
   }
 }
 
@@ -6307,25 +6162,24 @@ uint64_t BTAccessoryManagerGetAACPCapabilityBits(uint64_t a1, uint64_t a2, uint6
 
 void __BTAccessoryManagerGetAACPCapabilityBits_block_invoke(uint64_t a1, xpc_object_t xdict)
 {
-  v4 = a1 + 32;
   *(*(*(a1 + 32) + 8) + 24) = xpc_dictionary_get_uint64(xdict, "kCBMsgArgResult");
   data = xpc_dictionary_get_data(xdict, "kCBMsgArgData", (*(*(a1 + 40) + 8) + 24));
   if (data)
   {
-    v6 = *(*(*(a1 + 40) + 8) + 24);
-    if (v6)
+    v5 = *(*(*(a1 + 40) + 8) + 24);
+    if (v5)
     {
-      if (*(a1 + 56) >= v6)
+      if (*(a1 + 56) >= v5)
       {
-        v7 = *(*(*(a1 + 40) + 8) + 24);
+        v6 = *(*(*(a1 + 40) + 8) + 24);
       }
 
       else
       {
-        v7 = *(a1 + 56);
+        v6 = *(a1 + 56);
       }
 
-      memcpy(*(a1 + 48), data, v7);
+      memcpy(*(a1 + 48), data, v6);
     }
   }
 
@@ -6336,7 +6190,7 @@ void __BTAccessoryManagerGetAACPCapabilityBits_block_invoke(uint64_t a1, xpc_obj
 
   if (os_log_type_enabled(MBFLogComponent, OS_LOG_TYPE_DEBUG))
   {
-    __BTAccessoryManagerGetAACPCapabilityBits_block_invoke_cold_2(v4);
+    __BTAccessoryManagerGetAACPCapabilityBits_block_invoke_cold_2();
   }
 }
 
@@ -6409,7 +6263,7 @@ uint64_t BTAccessoryManagerGetAACPCapabilityInteger(uint64_t a1, uint64_t a2, un
 
 void __BTAccessoryManagerGetAACPCapabilityInteger_block_invoke(uint64_t a1, xpc_object_t xdict)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   *(*(*(a1 + 32) + 8) + 24) = xpc_dictionary_get_uint64(xdict, "kCBMsgArgResult");
   *(*(*(a1 + 40) + 8) + 24) = xpc_dictionary_get_uint64(xdict, "kCBMsgArgValue");
   if (MBFLogInitOnce != -1)
@@ -6423,16 +6277,14 @@ void __BTAccessoryManagerGetAACPCapabilityInteger_block_invoke(uint64_t a1, xpc_
     v5 = *(*(*(a1 + 32) + 8) + 24);
     v6 = *(*(*(a1 + 40) + 8) + 24);
     v7 = *(a1 + 48);
-    v9 = 134218496;
-    v10 = v5;
-    v11 = 2048;
-    v12 = v6;
-    v13 = 1024;
-    v14 = v7;
-    _os_log_impl(&dword_1D85D5000, v4, OS_LOG_TYPE_DEFAULT, "BTAccessoryManagerGetAACPCapabilityInteger reply result:%llx, value:%llu, index: %u", &v9, 0x1Cu);
+    v8 = 134218496;
+    v9 = v5;
+    v10 = 2048;
+    v11 = v6;
+    v12 = 1024;
+    v13 = v7;
+    _os_log_impl(&dword_1D85D5000, v4, OS_LOG_TYPE_DEFAULT, "BTAccessoryManagerGetAACPCapabilityInteger reply result:%llx, value:%llu, index: %u", &v8, 0x1Cu);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t BTAccessoryManagerReadDeviceVersionInfo(uint64_t a1, _BYTE *a2, uint64_t a3, _BYTE *a4, uint64_t a5, _BYTE *a6, uint64_t a7, _BYTE *a8, uint64_t a9, _BYTE *a10, uint64_t a11, _BYTE *a12, uint64_t a13, _BYTE *a14, uint64_t a15)
@@ -6521,9 +6373,8 @@ uint64_t BTAccessoryManagerReadDeviceVersionInfo(uint64_t a1, _BYTE *a2, uint64_
 
 void __BTAccessoryManagerReadDeviceVersionInfo_block_invoke(uint64_t a1, xpc_object_t xdict)
 {
-  v4 = a1 + 32;
   *(*(*(a1 + 32) + 8) + 24) = xpc_dictionary_get_uint64(xdict, "kCBMsgArgResult");
-  if (!*(*(*v4 + 8) + 24))
+  if (!*(*(*(a1 + 32) + 8) + 24))
   {
     string = xpc_dictionary_get_string(xdict, "kCBMsgArgAddressString");
     if (string)
@@ -6531,40 +6382,40 @@ void __BTAccessoryManagerReadDeviceVersionInfo_block_invoke(uint64_t a1, xpc_obj
       strlcpy(*(a1 + 40), string, *(a1 + 48));
     }
 
-    v6 = xpc_dictionary_get_string(xdict, "kCBMsgArgName");
+    v5 = xpc_dictionary_get_string(xdict, "kCBMsgArgName");
+    if (v5)
+    {
+      strlcpy(*(a1 + 56), v5, *(a1 + 64));
+    }
+
+    v6 = xpc_dictionary_get_string(xdict, "kCBMsgArgManufacturer");
     if (v6)
     {
-      strlcpy(*(a1 + 56), v6, *(a1 + 64));
+      strlcpy(*(a1 + 72), v6, *(a1 + 80));
     }
 
-    v7 = xpc_dictionary_get_string(xdict, "kCBMsgArgManufacturer");
+    v7 = xpc_dictionary_get_string(xdict, "kCBMsgArgModelNumber");
     if (v7)
     {
-      strlcpy(*(a1 + 72), v7, *(a1 + 80));
+      strlcpy(*(a1 + 88), v7, *(a1 + 96));
     }
 
-    v8 = xpc_dictionary_get_string(xdict, "kCBMsgArgModelNumber");
+    v8 = xpc_dictionary_get_string(xdict, "kCBMsgArgSerialNumber");
     if (v8)
     {
-      strlcpy(*(a1 + 88), v8, *(a1 + 96));
+      strlcpy(*(a1 + 104), v8, *(a1 + 112));
     }
 
-    v9 = xpc_dictionary_get_string(xdict, "kCBMsgArgSerialNumber");
+    v9 = xpc_dictionary_get_string(xdict, "kCBMsgArgFWVersion");
     if (v9)
     {
-      strlcpy(*(a1 + 104), v9, *(a1 + 112));
+      strlcpy(*(a1 + 120), v9, *(a1 + 128));
     }
 
-    v10 = xpc_dictionary_get_string(xdict, "kCBMsgArgFWVersion");
+    v10 = xpc_dictionary_get_string(xdict, "kCBMsgArgHWVersion");
     if (v10)
     {
-      strlcpy(*(a1 + 120), v10, *(a1 + 128));
-    }
-
-    v11 = xpc_dictionary_get_string(xdict, "kCBMsgArgHWVersion");
-    if (v11)
-    {
-      strlcpy(*(a1 + 136), v11, *(a1 + 144));
+      strlcpy(*(a1 + 136), v10, *(a1 + 144));
     }
   }
 
@@ -6575,7 +6426,7 @@ void __BTAccessoryManagerReadDeviceVersionInfo_block_invoke(uint64_t a1, xpc_obj
 
   if (os_log_type_enabled(MBFLogComponent, OS_LOG_TYPE_DEBUG))
   {
-    __BTAccessoryManagerReadDeviceVersionInfo_block_invoke_cold_2(v4);
+    __BTAccessoryManagerReadDeviceVersionInfo_block_invoke_cold_2();
   }
 }
 
@@ -6646,7 +6497,7 @@ uint64_t BTAccessoryManagerGetWirelessSharingSpatial(uint64_t a1, uint64_t a2, _
 
 void __BTAccessoryManagerGetWirelessSharingSpatial_block_invoke(uint64_t a1, xpc_object_t xdict)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   *(*(*(a1 + 32) + 8) + 24) = xpc_dictionary_get_uint64(xdict, "kCBMsgArgResult");
   *(*(*(a1 + 40) + 8) + 24) = xpc_dictionary_get_uint64(xdict, "kCBMsgArgWSSpatial");
   if (MBFLogInitOnce != -1)
@@ -6659,14 +6510,12 @@ void __BTAccessoryManagerGetWirelessSharingSpatial_block_invoke(uint64_t a1, xpc
   {
     v5 = *(*(*(a1 + 32) + 8) + 24);
     v6 = *(*(*(a1 + 40) + 8) + 24);
-    v8 = 134218240;
-    v9 = v5;
-    v10 = 2048;
-    v11 = v6;
-    _os_log_impl(&dword_1D85D5000, v4, OS_LOG_TYPE_DEFAULT, "BTAccessoryManagerGetWirelessSharingSpatial reply result:%llx spatialSupportedWS:%llu", &v8, 0x16u);
+    v7 = 134218240;
+    v8 = v5;
+    v9 = 2048;
+    v10 = v6;
+    _os_log_impl(&dword_1D85D5000, v4, OS_LOG_TYPE_DEFAULT, "BTAccessoryManagerGetWirelessSharingSpatial reply result:%llx spatialSupportedWS:%llu", &v7, 0x16u);
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t BTAccessoryManagerGetDeviceColor(uint64_t a1, uint64_t a2, _DWORD *a3)
@@ -6734,11 +6583,8 @@ uint64_t BTAccessoryManagerGetDeviceColor(uint64_t a1, uint64_t a2, _DWORD *a3)
 
 void __BTAccessoryManagerGetDeviceColor_block_invoke(uint64_t a1, xpc_object_t xdict)
 {
-  uint64 = xpc_dictionary_get_uint64(xdict, "kCBMsgArgResult");
-  v6 = *(a1 + 32);
-  v5 = a1 + 32;
-  *(*(v6 + 8) + 24) = uint64;
-  *(*(*(v5 + 8) + 8) + 24) = xpc_dictionary_get_uint64(xdict, "kCBMsgArgColor");
+  *(*(*(a1 + 32) + 8) + 24) = xpc_dictionary_get_uint64(xdict, "kCBMsgArgResult");
+  *(*(*(a1 + 40) + 8) + 24) = xpc_dictionary_get_uint64(xdict, "kCBMsgArgColor");
   if (MBFLogInitOnce != -1)
   {
     _localBTAccessoryManagerAddCallbacks_cold_1();
@@ -6746,7 +6592,7 @@ void __BTAccessoryManagerGetDeviceColor_block_invoke(uint64_t a1, xpc_object_t x
 
   if (os_log_type_enabled(MBFLogComponent, OS_LOG_TYPE_DEBUG))
   {
-    __BTAccessoryManagerGetDeviceColor_block_invoke_cold_2(v5);
+    __BTAccessoryManagerGetDeviceColor_block_invoke_cold_2();
   }
 }
 
@@ -6811,10 +6657,7 @@ uint64_t BTAccessoryManagerSetupCommand(uint64_t a1, uint64_t a2, unsigned int a
 
 void __BTAccessoryManagerSetupCommand_block_invoke(uint64_t a1, xpc_object_t xdict)
 {
-  uint64 = xpc_dictionary_get_uint64(xdict, "kCBMsgArgResult");
-  v5 = *(a1 + 32);
-  v4 = a1 + 32;
-  *(*(v5 + 8) + 24) = uint64;
+  *(*(*(a1 + 32) + 8) + 24) = xpc_dictionary_get_uint64(xdict, "kCBMsgArgResult");
   if (MBFLogInitOnce != -1)
   {
     _localBTAccessoryManagerAddCallbacks_cold_1();
@@ -6822,7 +6665,7 @@ void __BTAccessoryManagerSetupCommand_block_invoke(uint64_t a1, xpc_object_t xdi
 
   if (os_log_type_enabled(MBFLogComponent, OS_LOG_TYPE_DEBUG))
   {
-    __BTAccessoryManagerSetupCommand_block_invoke_cold_2(v4);
+    __BTAccessoryManagerSetupCommand_block_invoke_cold_2();
   }
 }
 
@@ -6887,10 +6730,7 @@ uint64_t BTAccessoryManagerSendRelayMsg(uint64_t a1, uint64_t a2, const void *a3
 
 void __BTAccessoryManagerSendRelayMsg_block_invoke(uint64_t a1, xpc_object_t xdict)
 {
-  uint64 = xpc_dictionary_get_uint64(xdict, "kCBMsgArgResult");
-  v5 = *(a1 + 32);
-  v4 = a1 + 32;
-  *(*(v5 + 8) + 24) = uint64;
+  *(*(*(a1 + 32) + 8) + 24) = xpc_dictionary_get_uint64(xdict, "kCBMsgArgResult");
   if (MBFLogInitOnce != -1)
   {
     _localBTAccessoryManagerAddCallbacks_cold_1();
@@ -6898,7 +6738,7 @@ void __BTAccessoryManagerSendRelayMsg_block_invoke(uint64_t a1, xpc_object_t xdi
 
   if (os_log_type_enabled(MBFLogComponent, OS_LOG_TYPE_DEBUG))
   {
-    __BTAccessoryManagerSendRelayMsg_block_invoke_cold_2(v4);
+    __BTAccessoryManagerSendRelayMsg_block_invoke_cold_2();
   }
 }
 
@@ -6982,10 +6822,7 @@ uint64_t BTAccessoryManagerUpdateConnPriorityList(uint64_t a1, uint64_t a2, unsi
 
 void __BTAccessoryManagerUpdateConnPriorityList_block_invoke(uint64_t a1, xpc_object_t xdict)
 {
-  uint64 = xpc_dictionary_get_uint64(xdict, "kCBMsgArgResult");
-  v5 = *(a1 + 32);
-  v4 = a1 + 32;
-  *(*(v5 + 8) + 24) = uint64;
+  *(*(*(a1 + 32) + 8) + 24) = xpc_dictionary_get_uint64(xdict, "kCBMsgArgResult");
   if (MBFLogInitOnce != -1)
   {
     _localBTAccessoryManagerAddCallbacks_cold_1();
@@ -6993,7 +6830,7 @@ void __BTAccessoryManagerUpdateConnPriorityList_block_invoke(uint64_t a1, xpc_ob
 
   if (os_log_type_enabled(MBFLogComponent, OS_LOG_TYPE_DEBUG))
   {
-    __BTAccessoryManagerUpdateConnPriorityList_block_invoke_cold_2(v4);
+    __BTAccessoryManagerUpdateConnPriorityList_block_invoke_cold_2();
   }
 }
 
@@ -7058,10 +6895,9 @@ uint64_t BTAccessoryManagerGetNonAppleHAEPairedDevices(uint64_t a1, uint64_t a2,
 
 void __BTAccessoryManagerGetNonAppleHAEPairedDevices_block_invoke(uint64_t a1, xpc_object_t xdict)
 {
-  v15 = *MEMORY[0x1E69E9840];
-  v4 = a1 + 32;
+  v13 = *MEMORY[0x1E69E9840];
   *(*(*(a1 + 32) + 8) + 24) = xpc_dictionary_get_uint64(xdict, "kCBMsgArgResult");
-  if (!*(*(*v4 + 8) + 24))
+  if (!*(*(*(a1 + 32) + 8) + 24))
   {
     value = xpc_dictionary_get_value(xdict, "kCBMsgArgDeviceArray");
     count = xpc_array_get_count(value);
@@ -7080,15 +6916,15 @@ void __BTAccessoryManagerGetNonAppleHAEPairedDevices_block_invoke(uint64_t a1, x
           BTAccessoryManagerAddCallbacks_cold_3();
         }
 
-        v8 = MBFLogComponent;
+        v7 = MBFLogComponent;
         if (os_log_type_enabled(MBFLogComponent, OS_LOG_TYPE_DEBUG))
         {
-          v9 = *(*(a1 + 48) + 8 * i);
+          v8 = *(*(a1 + 48) + 8 * i);
           *buf = 134218240;
-          v12 = i;
-          v13 = 2048;
-          v14 = v9;
-          _os_log_debug_impl(&dword_1D85D5000, v8, OS_LOG_TYPE_DEBUG, "i:%lx BTDevie:%llx", buf, 0x16u);
+          v10 = i;
+          v11 = 2048;
+          v12 = v8;
+          _os_log_debug_impl(&dword_1D85D5000, v7, OS_LOG_TYPE_DEBUG, "i:%lx BTDevie:%llx", buf, 0x16u);
         }
       }
     }
@@ -7103,10 +6939,8 @@ void __BTAccessoryManagerGetNonAppleHAEPairedDevices_block_invoke(uint64_t a1, x
 
   if (os_log_type_enabled(MBFLogComponent, OS_LOG_TYPE_DEBUG))
   {
-    __BTAccessoryManagerGetNonAppleHAEPairedDevices_block_invoke_cold_3(v4);
+    __BTAccessoryManagerGetNonAppleHAEPairedDevices_block_invoke_cold_3();
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t BTAccessoryManagerSmartRouteMode(uint64_t a1, uint64_t a2, unsigned int a3)
@@ -7168,10 +7002,7 @@ uint64_t BTAccessoryManagerSmartRouteMode(uint64_t a1, uint64_t a2, unsigned int
 
 void __BTAccessoryManagerSmartRouteMode_block_invoke(uint64_t a1, xpc_object_t xdict)
 {
-  uint64 = xpc_dictionary_get_uint64(xdict, "kCBMsgArgResult");
-  v5 = *(a1 + 32);
-  v4 = a1 + 32;
-  *(*(v5 + 8) + 24) = uint64;
+  *(*(*(a1 + 32) + 8) + 24) = xpc_dictionary_get_uint64(xdict, "kCBMsgArgResult");
   if (MBFLogInitOnce != -1)
   {
     _localBTAccessoryManagerAddCallbacks_cold_1();
@@ -7179,7 +7010,7 @@ void __BTAccessoryManagerSmartRouteMode_block_invoke(uint64_t a1, xpc_object_t x
 
   if (os_log_type_enabled(MBFLogComponent, OS_LOG_TYPE_DEBUG))
   {
-    __BTAccessoryManagerSmartRouteMode_block_invoke_cold_2(v4);
+    __BTAccessoryManagerSmartRouteMode_block_invoke_cold_2();
   }
 }
 
@@ -7246,7 +7077,7 @@ uint64_t BTAccessoryManagerSpatialAudioConfig(uint64_t a1, uint64_t a2, const ch
 
 void __BTAccessoryManagerSpatialAudioConfig_block_invoke(uint64_t a1, xpc_object_t xdict)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   *(*(*(a1 + 32) + 8) + 24) = xpc_dictionary_get_uint64(xdict, "kCBMsgArgResult");
   if (MBFLogInitOnce != -1)
   {
@@ -7257,12 +7088,10 @@ void __BTAccessoryManagerSpatialAudioConfig_block_invoke(uint64_t a1, xpc_object
   if (os_log_type_enabled(MBFLogComponent, OS_LOG_TYPE_DEFAULT))
   {
     v4 = *(*(*(a1 + 32) + 8) + 24);
-    v6 = 134217984;
-    v7 = v4;
-    _os_log_impl(&dword_1D85D5000, v3, OS_LOG_TYPE_DEFAULT, "kCBMsgBTAccessorySmartRouteMode reply result:%llx", &v6, 0xCu);
+    v5 = 134217984;
+    v6 = v4;
+    _os_log_impl(&dword_1D85D5000, v3, OS_LOG_TYPE_DEFAULT, "kCBMsgBTAccessorySmartRouteMode reply result:%llx", &v5, 0xCu);
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t BTAccessoryManagerGetSpatialAudioConfig(uint64_t a1, uint64_t a2, const char *a3, _DWORD *a4, _DWORD *a5)
@@ -7340,7 +7169,7 @@ uint64_t BTAccessoryManagerGetSpatialAudioConfig(uint64_t a1, uint64_t a2, const
 
 void __BTAccessoryManagerGetSpatialAudioConfig_block_invoke(void *a1, xpc_object_t xdict)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   *(*(a1[4] + 8) + 24) = xpc_dictionary_get_uint64(xdict, "kCBMsgArgResult");
   *(*(a1[5] + 8) + 24) = xpc_dictionary_get_uint64(xdict, "kCBMsgArgAccessoryGenericConfigMode");
   *(*(a1[6] + 8) + 24) = xpc_dictionary_get_uint64(xdict, "kCBMsgArgAccessoryHeadTrackingStatus");
@@ -7353,12 +7182,10 @@ void __BTAccessoryManagerGetSpatialAudioConfig_block_invoke(void *a1, xpc_object
   if (os_log_type_enabled(MBFLogComponent, OS_LOG_TYPE_DEFAULT))
   {
     v5 = *(*(a1[4] + 8) + 24);
-    v7 = 134217984;
-    v8 = v5;
-    _os_log_impl(&dword_1D85D5000, v4, OS_LOG_TYPE_DEFAULT, "BTAccessoryManagerGetSpatialAudioConfig reply result:%llx", &v7, 0xCu);
+    v6 = 134217984;
+    v7 = v5;
+    _os_log_impl(&dword_1D85D5000, v4, OS_LOG_TYPE_DEFAULT, "BTAccessoryManagerGetSpatialAudioConfig reply result:%llx", &v6, 0xCu);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t BTAccessoryManagerGetSpatialAudioActive(uint64_t a1, uint64_t a2, _DWORD *a3)
@@ -7428,7 +7255,7 @@ uint64_t BTAccessoryManagerGetSpatialAudioActive(uint64_t a1, uint64_t a2, _DWOR
 
 void __BTAccessoryManagerGetSpatialAudioActive_block_invoke(uint64_t a1, xpc_object_t xdict)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   *(*(*(a1 + 32) + 8) + 24) = xpc_dictionary_get_uint64(xdict, "kCBMsgArgResult");
   *(*(*(a1 + 40) + 8) + 24) = xpc_dictionary_get_uint64(xdict, "kCBMsgArgAccessoryGenericConfigMode");
   if (MBFLogInitOnce != -1)
@@ -7440,12 +7267,10 @@ void __BTAccessoryManagerGetSpatialAudioActive_block_invoke(uint64_t a1, xpc_obj
   if (os_log_type_enabled(MBFLogComponent, OS_LOG_TYPE_DEFAULT))
   {
     v5 = *(*(*(a1 + 32) + 8) + 24);
-    v7 = 134217984;
-    v8 = v5;
-    _os_log_impl(&dword_1D85D5000, v4, OS_LOG_TYPE_DEFAULT, "BTAccessoryManagerGetSpatialAudioActive reply result:%llx", &v7, 0xCu);
+    v6 = 134217984;
+    v7 = v5;
+    _os_log_impl(&dword_1D85D5000, v4, OS_LOG_TYPE_DEFAULT, "BTAccessoryManagerGetSpatialAudioActive reply result:%llx", &v6, 0xCu);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t BTAccessoryManagerSpatialAudioAllowed(uint64_t a1, uint64_t a2, unsigned int a3)
@@ -7509,7 +7334,7 @@ uint64_t BTAccessoryManagerSpatialAudioAllowed(uint64_t a1, uint64_t a2, unsigne
 
 void __BTAccessoryManagerSpatialAudioAllowed_block_invoke(uint64_t a1, xpc_object_t xdict)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   *(*(*(a1 + 32) + 8) + 24) = xpc_dictionary_get_uint64(xdict, "kCBMsgArgResult");
   if (MBFLogInitOnce != -1)
   {
@@ -7520,12 +7345,10 @@ void __BTAccessoryManagerSpatialAudioAllowed_block_invoke(uint64_t a1, xpc_objec
   if (os_log_type_enabled(MBFLogComponent, OS_LOG_TYPE_DEFAULT))
   {
     v4 = *(*(*(a1 + 32) + 8) + 24);
-    v6 = 134217984;
-    v7 = v4;
-    _os_log_impl(&dword_1D85D5000, v3, OS_LOG_TYPE_DEFAULT, "BTAccessoryManagerSpatialAudioAllowed reply result:%llx", &v6, 0xCu);
+    v5 = 134217984;
+    v6 = v4;
+    _os_log_impl(&dword_1D85D5000, v3, OS_LOG_TYPE_DEFAULT, "BTAccessoryManagerSpatialAudioAllowed reply result:%llx", &v5, 0xCu);
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t BTAccessoryManagerGetSpatialAudioAllowed(uint64_t a1, uint64_t a2, _DWORD *a3)
@@ -7595,7 +7418,7 @@ uint64_t BTAccessoryManagerGetSpatialAudioAllowed(uint64_t a1, uint64_t a2, _DWO
 
 void __BTAccessoryManagerGetSpatialAudioAllowed_block_invoke(uint64_t a1, xpc_object_t xdict)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   *(*(*(a1 + 32) + 8) + 24) = xpc_dictionary_get_uint64(xdict, "kCBMsgArgResult");
   *(*(*(a1 + 40) + 8) + 24) = xpc_dictionary_get_uint64(xdict, "kCBMsgArgAccessoryGenericConfigMode");
   if (MBFLogInitOnce != -1)
@@ -7607,12 +7430,10 @@ void __BTAccessoryManagerGetSpatialAudioAllowed_block_invoke(uint64_t a1, xpc_ob
   if (os_log_type_enabled(MBFLogComponent, OS_LOG_TYPE_DEFAULT))
   {
     v5 = *(*(*(a1 + 32) + 8) + 24);
-    v7 = 134217984;
-    v8 = v5;
-    _os_log_impl(&dword_1D85D5000, v4, OS_LOG_TYPE_DEFAULT, "kCBMsgIdAccessoryGetSpatialAudioAllowed reply result:%llx", &v7, 0xCu);
+    v6 = 134217984;
+    v7 = v5;
+    _os_log_impl(&dword_1D85D5000, v4, OS_LOG_TYPE_DEFAULT, "kCBMsgIdAccessoryGetSpatialAudioAllowed reply result:%llx", &v6, 0xCu);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t BTAccessoryManagerGetSmartRouteMode(uint64_t a1, uint64_t a2, _DWORD *a3)
@@ -7680,11 +7501,8 @@ uint64_t BTAccessoryManagerGetSmartRouteMode(uint64_t a1, uint64_t a2, _DWORD *a
 
 void __BTAccessoryManagerGetSmartRouteMode_block_invoke(uint64_t a1, xpc_object_t xdict)
 {
-  uint64 = xpc_dictionary_get_uint64(xdict, "kCBMsgArgResult");
-  v6 = *(a1 + 32);
-  v5 = a1 + 32;
-  *(*(v6 + 8) + 24) = uint64;
-  *(*(*(v5 + 8) + 8) + 24) = xpc_dictionary_get_uint64(xdict, "kCBMsgArgAccessoryGenericConfigMode");
+  *(*(*(a1 + 32) + 8) + 24) = xpc_dictionary_get_uint64(xdict, "kCBMsgArgResult");
+  *(*(*(a1 + 40) + 8) + 24) = xpc_dictionary_get_uint64(xdict, "kCBMsgArgAccessoryGenericConfigMode");
   if (MBFLogInitOnce != -1)
   {
     _localBTAccessoryManagerAddCallbacks_cold_1();
@@ -7692,7 +7510,7 @@ void __BTAccessoryManagerGetSmartRouteMode_block_invoke(uint64_t a1, xpc_object_
 
   if (os_log_type_enabled(MBFLogComponent, OS_LOG_TYPE_DEBUG))
   {
-    __BTAccessoryManagerGetSmartRouteMode_block_invoke_cold_2(v5);
+    __BTAccessoryManagerGetSmartRouteMode_block_invoke_cold_2();
   }
 }
 
@@ -7761,11 +7579,8 @@ uint64_t BTAccessoryManagerGetSmartRouteSupport(uint64_t a1, uint64_t a2, _DWORD
 
 void __BTAccessoryManagerGetSmartRouteSupport_block_invoke(uint64_t a1, xpc_object_t xdict)
 {
-  uint64 = xpc_dictionary_get_uint64(xdict, "kCBMsgArgResult");
-  v6 = *(a1 + 32);
-  v5 = a1 + 32;
-  *(*(v6 + 8) + 24) = uint64;
-  *(*(*(v5 + 8) + 8) + 24) = xpc_dictionary_get_uint64(xdict, "kCBMsgArgAccessoryGenericConfigMode");
+  *(*(*(a1 + 32) + 8) + 24) = xpc_dictionary_get_uint64(xdict, "kCBMsgArgResult");
+  *(*(*(a1 + 40) + 8) + 24) = xpc_dictionary_get_uint64(xdict, "kCBMsgArgAccessoryGenericConfigMode");
   if (MBFLogInitOnce != -1)
   {
     _localBTAccessoryManagerAddCallbacks_cold_1();
@@ -7773,7 +7588,7 @@ void __BTAccessoryManagerGetSmartRouteSupport_block_invoke(uint64_t a1, xpc_obje
 
   if (os_log_type_enabled(MBFLogComponent, OS_LOG_TYPE_DEBUG))
   {
-    __BTAccessoryManagerGetSmartRouteSupport_block_invoke_cold_2(v5);
+    __BTAccessoryManagerGetSmartRouteSupport_block_invoke_cold_2();
   }
 }
 
@@ -7837,10 +7652,7 @@ uint64_t BTAccessoryManagerSetDeviceStateOnPeerSrc(uint64_t a1, uint64_t a2, con
 
 void __BTAccessoryManagerSetDeviceStateOnPeerSrc_block_invoke(uint64_t a1, xpc_object_t xdict)
 {
-  uint64 = xpc_dictionary_get_uint64(xdict, "kCBMsgArgResult");
-  v5 = *(a1 + 32);
-  v4 = a1 + 32;
-  *(*(v5 + 8) + 24) = uint64;
+  *(*(*(a1 + 32) + 8) + 24) = xpc_dictionary_get_uint64(xdict, "kCBMsgArgResult");
   if (MBFLogInitOnce != -1)
   {
     _localBTAccessoryManagerAddCallbacks_cold_1();
@@ -7848,7 +7660,7 @@ void __BTAccessoryManagerSetDeviceStateOnPeerSrc_block_invoke(uint64_t a1, xpc_o
 
   if (os_log_type_enabled(MBFLogComponent, OS_LOG_TYPE_DEBUG))
   {
-    __BTAccessoryManagerSetDeviceStateOnPeerSrc_block_invoke_cold_2(v4);
+    __BTAccessoryManagerSetDeviceStateOnPeerSrc_block_invoke_cold_2();
   }
 }
 
@@ -7917,11 +7729,8 @@ uint64_t BTAccessoryManagerGetStereoHFPSupport(uint64_t a1, uint64_t a2, _DWORD 
 
 void __BTAccessoryManagerGetStereoHFPSupport_block_invoke(uint64_t a1, xpc_object_t xdict)
 {
-  uint64 = xpc_dictionary_get_uint64(xdict, "kCBMsgArgResult");
-  v6 = *(a1 + 32);
-  v5 = a1 + 32;
-  *(*(v6 + 8) + 24) = uint64;
-  *(*(*(v5 + 8) + 8) + 24) = xpc_dictionary_get_uint64(xdict, "kCBMsgArgStereoHFPSupport");
+  *(*(*(a1 + 32) + 8) + 24) = xpc_dictionary_get_uint64(xdict, "kCBMsgArgResult");
+  *(*(*(a1 + 40) + 8) + 24) = xpc_dictionary_get_uint64(xdict, "kCBMsgArgStereoHFPSupport");
   if (MBFLogInitOnce != -1)
   {
     _localBTAccessoryManagerAddCallbacks_cold_1();
@@ -7929,7 +7738,7 @@ void __BTAccessoryManagerGetStereoHFPSupport_block_invoke(uint64_t a1, xpc_objec
 
   if (os_log_type_enabled(MBFLogComponent, OS_LOG_TYPE_DEBUG))
   {
-    __BTAccessoryManagerGetStereoHFPSupport_block_invoke_cold_2(v5);
+    __BTAccessoryManagerGetStereoHFPSupport_block_invoke_cold_2();
   }
 }
 
@@ -8173,10 +7982,7 @@ uint64_t BTAccessoryManagerSetFeatureProxCardStatus(uint64_t a1, uint64_t a2, ui
 
 void __BTAccessoryManagerSetFeatureProxCardStatus_block_invoke(uint64_t a1, xpc_object_t xdict)
 {
-  uint64 = xpc_dictionary_get_uint64(xdict, "kCBMsgArgResult");
-  v5 = *(a1 + 32);
-  v4 = a1 + 32;
-  *(*(v5 + 8) + 24) = uint64;
+  *(*(*(a1 + 32) + 8) + 24) = xpc_dictionary_get_uint64(xdict, "kCBMsgArgResult");
   if (MBFLogInitOnce != -1)
   {
     _localBTAccessoryManagerAddCallbacks_cold_1();
@@ -8184,7 +7990,7 @@ void __BTAccessoryManagerSetFeatureProxCardStatus_block_invoke(uint64_t a1, xpc_
 
   if (os_log_type_enabled(MBFLogComponent, OS_LOG_TYPE_DEBUG))
   {
-    __BTAccessoryManagerSetFeatureProxCardStatus_block_invoke_cold_2(v4);
+    __BTAccessoryManagerSetFeatureProxCardStatus_block_invoke_cold_2();
   }
 }
 
@@ -8253,11 +8059,8 @@ uint64_t BTAccessoryManagerGetDeviceSoundProfileSupport(uint64_t a1, uint64_t a2
 
 void __BTAccessoryManagerGetDeviceSoundProfileSupport_block_invoke(uint64_t a1, xpc_object_t xdict)
 {
-  uint64 = xpc_dictionary_get_uint64(xdict, "kCBMsgArgResult");
-  v6 = *(a1 + 32);
-  v5 = a1 + 32;
-  *(*(v6 + 8) + 24) = uint64;
-  *(*(*(v5 + 8) + 8) + 24) = xpc_dictionary_get_uint64(xdict, "kCBMsgArgBool");
+  *(*(*(a1 + 32) + 8) + 24) = xpc_dictionary_get_uint64(xdict, "kCBMsgArgResult");
+  *(*(*(a1 + 40) + 8) + 24) = xpc_dictionary_get_uint64(xdict, "kCBMsgArgBool");
   if (MBFLogInitOnce != -1)
   {
     _localBTAccessoryManagerAddCallbacks_cold_1();
@@ -8265,7 +8068,7 @@ void __BTAccessoryManagerGetDeviceSoundProfileSupport_block_invoke(uint64_t a1, 
 
   if (os_log_type_enabled(MBFLogComponent, OS_LOG_TYPE_DEBUG))
   {
-    __BTAccessoryManagerGetDeviceSoundProfileSupport_block_invoke_cold_2(v5);
+    __BTAccessoryManagerGetDeviceSoundProfileSupport_block_invoke_cold_2();
   }
 }
 
@@ -8334,11 +8137,8 @@ uint64_t BTAccessoryManagerGetDeviceSoundProfileAllowed(uint64_t a1, uint64_t a2
 
 void __BTAccessoryManagerGetDeviceSoundProfileAllowed_block_invoke(uint64_t a1, xpc_object_t xdict)
 {
-  uint64 = xpc_dictionary_get_uint64(xdict, "kCBMsgArgResult");
-  v6 = *(a1 + 32);
-  v5 = a1 + 32;
-  *(*(v6 + 8) + 24) = uint64;
-  *(*(*(v5 + 8) + 8) + 24) = xpc_dictionary_get_uint64(xdict, "kCBMsgArgBool");
+  *(*(*(a1 + 32) + 8) + 24) = xpc_dictionary_get_uint64(xdict, "kCBMsgArgResult");
+  *(*(*(a1 + 40) + 8) + 24) = xpc_dictionary_get_uint64(xdict, "kCBMsgArgBool");
   if (MBFLogInitOnce != -1)
   {
     _localBTAccessoryManagerAddCallbacks_cold_1();
@@ -8346,7 +8146,7 @@ void __BTAccessoryManagerGetDeviceSoundProfileAllowed_block_invoke(uint64_t a1, 
 
   if (os_log_type_enabled(MBFLogComponent, OS_LOG_TYPE_DEBUG))
   {
-    __BTAccessoryManagerGetDeviceSoundProfileAllowed_block_invoke_cold_2(v5);
+    __BTAccessoryManagerGetDeviceSoundProfileAllowed_block_invoke_cold_2();
   }
 }
 
@@ -8409,10 +8209,7 @@ uint64_t BTAccessoryManagerSetDeviceSoundProfileAllowed(uint64_t a1, uint64_t a2
 
 void __BTAccessoryManagerSetDeviceSoundProfileAllowed_block_invoke(uint64_t a1, xpc_object_t xdict)
 {
-  uint64 = xpc_dictionary_get_uint64(xdict, "kCBMsgArgResult");
-  v5 = *(a1 + 32);
-  v4 = a1 + 32;
-  *(*(v5 + 8) + 24) = uint64;
+  *(*(*(a1 + 32) + 8) + 24) = xpc_dictionary_get_uint64(xdict, "kCBMsgArgResult");
   if (MBFLogInitOnce != -1)
   {
     _localBTAccessoryManagerAddCallbacks_cold_1();
@@ -8420,7 +8217,7 @@ void __BTAccessoryManagerSetDeviceSoundProfileAllowed_block_invoke(uint64_t a1, 
 
   if (os_log_type_enabled(MBFLogComponent, OS_LOG_TYPE_DEBUG))
   {
-    __BTAccessoryManagerSetDeviceSoundProfileAllowed_block_invoke_cold_2(v4);
+    __BTAccessoryManagerSetDeviceSoundProfileAllowed_block_invoke_cold_2();
   }
 }
 
@@ -8489,11 +8286,8 @@ uint64_t BTAccessoryManagerGetSpatialAudioPlatformSupport(uint64_t a1, uint64_t 
 
 void __BTAccessoryManagerGetSpatialAudioPlatformSupport_block_invoke(uint64_t a1, xpc_object_t xdict)
 {
-  uint64 = xpc_dictionary_get_uint64(xdict, "kCBMsgArgResult");
-  v6 = *(a1 + 32);
-  v5 = a1 + 32;
-  *(*(v6 + 8) + 24) = uint64;
-  *(*(*(v5 + 8) + 8) + 24) = xpc_dictionary_get_uint64(xdict, "kCBMsgArgAccessoryGenericConfigMode");
+  *(*(*(a1 + 32) + 8) + 24) = xpc_dictionary_get_uint64(xdict, "kCBMsgArgResult");
+  *(*(*(a1 + 40) + 8) + 24) = xpc_dictionary_get_uint64(xdict, "kCBMsgArgAccessoryGenericConfigMode");
   if (MBFLogInitOnce != -1)
   {
     _localBTAccessoryManagerAddCallbacks_cold_1();
@@ -8501,7 +8295,7 @@ void __BTAccessoryManagerGetSpatialAudioPlatformSupport_block_invoke(uint64_t a1
 
   if (os_log_type_enabled(MBFLogComponent, OS_LOG_TYPE_DEBUG))
   {
-    __BTAccessoryManagerGetDeviceSoundProfileSupport_block_invoke_cold_2(v5);
+    __BTAccessoryManagerGetDeviceSoundProfileSupport_block_invoke_cold_2();
   }
 }
 
@@ -8570,11 +8364,8 @@ uint64_t BTAccessoryManagerGetAnnounceCallsSupport(uint64_t a1, uint64_t a2, _DW
 
 void __BTAccessoryManagerGetAnnounceCallsSupport_block_invoke(uint64_t a1, xpc_object_t xdict)
 {
-  uint64 = xpc_dictionary_get_uint64(xdict, "kCBMsgArgResult");
-  v6 = *(a1 + 32);
-  v5 = a1 + 32;
-  *(*(v6 + 8) + 24) = uint64;
-  *(*(*(v5 + 8) + 8) + 24) = xpc_dictionary_get_uint64(xdict, "kCBMsgArgAnnounceCallsSupport");
+  *(*(*(a1 + 32) + 8) + 24) = xpc_dictionary_get_uint64(xdict, "kCBMsgArgResult");
+  *(*(*(a1 + 40) + 8) + 24) = xpc_dictionary_get_uint64(xdict, "kCBMsgArgAnnounceCallsSupport");
   if (MBFLogInitOnce != -1)
   {
     _localBTAccessoryManagerAddCallbacks_cold_1();
@@ -8582,7 +8373,7 @@ void __BTAccessoryManagerGetAnnounceCallsSupport_block_invoke(uint64_t a1, xpc_o
 
   if (os_log_type_enabled(MBFLogComponent, OS_LOG_TYPE_DEBUG))
   {
-    __BTAccessoryManagerGetAnnounceCallsSupport_block_invoke_cold_2(v5);
+    __BTAccessoryManagerGetAnnounceCallsSupport_block_invoke_cold_2();
   }
 }
 
@@ -8660,7 +8451,7 @@ uint64_t BTAccessoryManagerGetAdaptiveLatencyJitterBufferLevel(uint64_t a1, void
 
 void __BTAccessoryManagerGetAdaptiveLatencyJitterBufferLevel_block_invoke(void *a1, xpc_object_t xdict)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   *(*(a1[4] + 8) + 24) = xpc_dictionary_get_uint64(xdict, "kCBMsgArgResult");
   *(*(a1[5] + 8) + 24) = xpc_dictionary_get_uint64(xdict, "kCBMsgArgAccessoryJBL");
   *(*(a1[6] + 8) + 24) = xpc_dictionary_get_uint64(xdict, "kCBMsgArgBTDevice");
@@ -8673,12 +8464,10 @@ void __BTAccessoryManagerGetAdaptiveLatencyJitterBufferLevel_block_invoke(void *
   if (os_log_type_enabled(MBFLogComponent, OS_LOG_TYPE_DEFAULT))
   {
     v5 = *(*(a1[4] + 8) + 24);
-    v7 = 134217984;
-    v8 = v5;
-    _os_log_impl(&dword_1D85D5000, v4, OS_LOG_TYPE_DEFAULT, "kCBMsgIdAccessoryGetJitterBufferLevelMsg reply result:%llx", &v7, 0xCu);
+    v6 = 134217984;
+    v7 = v5;
+    _os_log_impl(&dword_1D85D5000, v4, OS_LOG_TYPE_DEFAULT, "kCBMsgIdAccessoryGetJitterBufferLevelMsg reply result:%llx", &v6, 0xCu);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t BTAccessoryManagerGetSensorStreamingFrequency(uint64_t a1, uint64_t a2, _DWORD *a3)
@@ -8754,7 +8543,7 @@ uint64_t BTAccessoryManagerGetSensorStreamingFrequency(uint64_t a1, uint64_t a2,
 
 void __BTAccessoryManagerGetSensorStreamingFrequency_block_invoke(void *a1, xpc_object_t xdict)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   *(*(a1[4] + 8) + 24) = xpc_dictionary_get_uint64(xdict, "kCBMsgArgResult");
   *(*(a1[5] + 8) + 24) = xpc_dictionary_get_uint64(xdict, "kCBMsgArgSensorStreamingFrequency");
   *(*(a1[6] + 8) + 24) = xpc_dictionary_get_uint64(xdict, "kCBMsgArgBTDevice");
@@ -8767,12 +8556,10 @@ void __BTAccessoryManagerGetSensorStreamingFrequency_block_invoke(void *a1, xpc_
   if (os_log_type_enabled(MBFLogComponent, OS_LOG_TYPE_DEFAULT))
   {
     v5 = *(*(a1[4] + 8) + 24);
-    v7 = 134217984;
-    v8 = v5;
-    _os_log_impl(&dword_1D85D5000, v4, OS_LOG_TYPE_DEFAULT, "kCBMsgIdAccessoryGetSensorStreamingFrequencyMsg reply result:%llx", &v7, 0xCu);
+    v6 = 134217984;
+    v7 = v5;
+    _os_log_impl(&dword_1D85D5000, v4, OS_LOG_TYPE_DEFAULT, "kCBMsgIdAccessoryGetSensorStreamingFrequencyMsg reply result:%llx", &v6, 0xCu);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t BTAccessoryManagerGetGyroInformation(uint64_t a1, uint64_t a2, uint64_t a3, _WORD *a4)
@@ -8841,19 +8628,18 @@ uint64_t BTAccessoryManagerGetGyroInformation(uint64_t a1, uint64_t a2, uint64_t
 
 void __BTAccessoryManagerGetGyroInformation_block_invoke(uint64_t a1, xpc_object_t xdict)
 {
-  v4 = a1 + 32;
   *(*(*(a1 + 32) + 8) + 24) = xpc_dictionary_get_uint64(xdict, "kCBMsgArgResult");
-  if (!*(*(*v4 + 8) + 24))
+  if (!*(*(*(a1 + 32) + 8) + 24))
   {
     data = xpc_dictionary_get_data(xdict, "kCBMsgArgData", (*(*(a1 + 40) + 8) + 24));
     if (data)
     {
-      v6 = data;
-      v7 = *(*(*(a1 + 40) + 8) + 24);
-      if (v7)
+      v5 = data;
+      v6 = *(*(*(a1 + 40) + 8) + 24);
+      if (v6)
       {
-        **(a1 + 48) = malloc_type_malloc(v7, 0x100004077774924uLL);
-        memcpy(**(a1 + 48), v6, *(*(*(a1 + 40) + 8) + 24));
+        **(a1 + 48) = malloc_type_malloc(v6, 0x100004077774924uLL);
+        memcpy(**(a1 + 48), v5, *(*(*(a1 + 40) + 8) + 24));
       }
     }
   }
@@ -8865,7 +8651,7 @@ void __BTAccessoryManagerGetGyroInformation_block_invoke(uint64_t a1, xpc_object
 
   if (os_log_type_enabled(MBFLogComponent, OS_LOG_TYPE_DEBUG))
   {
-    __BTAccessoryManagerGetGyroInformation_block_invoke_cold_2(v4);
+    __BTAccessoryManagerGetGyroInformation_block_invoke_cold_2();
   }
 }
 
@@ -8936,7 +8722,7 @@ uint64_t BTAccessoryManagerIsGenuineAirPods(uint64_t a1, uint64_t a2, _DWORD *a3
 
 void __BTAccessoryManagerIsGenuineAirPods_block_invoke(uint64_t a1, xpc_object_t xdict)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   *(*(*(a1 + 32) + 8) + 24) = xpc_dictionary_get_uint64(xdict, "kCBMsgArgResult");
   *(*(*(a1 + 40) + 8) + 24) = xpc_dictionary_get_uint64(xdict, "kCBMsgArgGenuine");
   if (MBFLogInitOnce != -1)
@@ -8949,14 +8735,12 @@ void __BTAccessoryManagerIsGenuineAirPods_block_invoke(uint64_t a1, xpc_object_t
   {
     v5 = *(*(*(a1 + 32) + 8) + 24);
     v6 = *(*(*(a1 + 40) + 8) + 24);
-    v8 = 134218240;
-    v9 = v5;
-    v10 = 2048;
-    v11 = v6;
-    _os_log_impl(&dword_1D85D5000, v4, OS_LOG_TYPE_DEFAULT, "BTAccessoryManagerIsGenuineAirPods reply result:%llx genuine:%llu", &v8, 0x16u);
+    v7 = 134218240;
+    v8 = v5;
+    v9 = 2048;
+    v10 = v6;
+    _os_log_impl(&dword_1D85D5000, v4, OS_LOG_TYPE_DEFAULT, "BTAccessoryManagerIsGenuineAirPods reply result:%llx genuine:%llu", &v7, 0x16u);
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t BTAccessoryManagerGetCaseSerialNumbersForAppleProductId(uint64_t a1, unsigned int a2, uint64_t a3, uint64_t *a4, uint64_t a5)
@@ -9033,27 +8817,26 @@ uint64_t BTAccessoryManagerGetCaseSerialNumbersForAppleProductId(uint64_t a1, un
 
 void __BTAccessoryManagerGetCaseSerialNumbersForAppleProductId_block_invoke(uint64_t a1, xpc_object_t xdict)
 {
-  v4 = a1 + 32;
   *(*(*(a1 + 32) + 8) + 24) = xpc_dictionary_get_uint64(xdict, "kCBMsgArgResult");
-  if (!*(*(*v4 + 8) + 24))
+  if (!*(*(*(a1 + 32) + 8) + 24))
   {
     data = xpc_dictionary_get_data(xdict, "kCBMsgArgData", (*(*(a1 + 40) + 8) + 24));
     if (data)
     {
-      v6 = *(*(*(a1 + 40) + 8) + 24);
-      if (v6)
+      v5 = *(*(*(a1 + 40) + 8) + 24);
+      if (v5)
       {
-        if (*(a1 + 56) >= v6)
+        if (*(a1 + 56) >= v5)
         {
-          v7 = *(*(*(a1 + 40) + 8) + 24);
+          v6 = *(*(*(a1 + 40) + 8) + 24);
         }
 
         else
         {
-          v7 = *(a1 + 56);
+          v6 = *(a1 + 56);
         }
 
-        memcpy(*(a1 + 48), data, v7);
+        memcpy(*(a1 + 48), data, v6);
       }
     }
   }
@@ -9065,11 +8848,11 @@ void __BTAccessoryManagerGetCaseSerialNumbersForAppleProductId_block_invoke(uint
 
   if (os_log_type_enabled(MBFLogComponent, OS_LOG_TYPE_DEBUG))
   {
-    __BTAccessoryManagerGetCaseSerialNumbersForAppleProductId_block_invoke_cold_2(v4);
+    __BTAccessoryManagerGetCaseSerialNumbersForAppleProductId_block_invoke_cold_2();
   }
 }
 
-uint64_t BTAccessoryManagerGetCaseSerialNumbersForAppleProductIds(uint64_t a1, unsigned int *a2, int a3, uint64_t a4, uint64_t *a5, uint64_t a6)
+uint64_t BTAccessoryManagerGetCaseSerialNumbersForAppleProductIds(uint64_t a1, unsigned int *a2, uint64_t a3, uint64_t a4, uint64_t *a5, uint64_t a6)
 {
   LODWORD(v9) = a3;
   if (MBFLogInitOnce != -1)
@@ -9171,27 +8954,26 @@ uint64_t BTAccessoryManagerGetCaseSerialNumbersForAppleProductIds(uint64_t a1, u
 
 void __BTAccessoryManagerGetCaseSerialNumbersForAppleProductIds_block_invoke(uint64_t a1, xpc_object_t xdict)
 {
-  v4 = a1 + 32;
   *(*(*(a1 + 32) + 8) + 24) = xpc_dictionary_get_uint64(xdict, "kCBMsgArgResult");
-  if (!*(*(*v4 + 8) + 24))
+  if (!*(*(*(a1 + 32) + 8) + 24))
   {
     data = xpc_dictionary_get_data(xdict, "kCBMsgArgData", (*(*(a1 + 40) + 8) + 24));
     if (data)
     {
-      v6 = *(*(*(a1 + 40) + 8) + 24);
-      if (v6)
+      v5 = *(*(*(a1 + 40) + 8) + 24);
+      if (v5)
       {
-        if (*(a1 + 56) >= v6)
+        if (*(a1 + 56) >= v5)
         {
-          v7 = *(*(*(a1 + 40) + 8) + 24);
+          v6 = *(*(*(a1 + 40) + 8) + 24);
         }
 
         else
         {
-          v7 = *(a1 + 56);
+          v6 = *(a1 + 56);
         }
 
-        memcpy(*(a1 + 48), data, v7);
+        memcpy(*(a1 + 48), data, v6);
       }
     }
   }
@@ -9203,7 +8985,7 @@ void __BTAccessoryManagerGetCaseSerialNumbersForAppleProductIds_block_invoke(uin
 
   if (os_log_type_enabled(MBFLogComponent, OS_LOG_TYPE_DEBUG))
   {
-    __BTAccessoryManagerGetCaseSerialNumbersForAppleProductIds_block_invoke_cold_2(v4);
+    __BTAccessoryManagerGetCaseSerialNumbersForAppleProductIds_block_invoke_cold_2();
   }
 }
 
@@ -9267,9 +9049,8 @@ uint64_t BTAccessoryManagerGetPrimaryBudSide(uint64_t a1, uint64_t a2, uint64_t 
 
 void __BTAccessoryManagerGetPrimaryBudSide_block_invoke(uint64_t a1, xpc_object_t xdict)
 {
-  v4 = a1 + 32;
   *(*(*(a1 + 32) + 8) + 24) = xpc_dictionary_get_uint64(xdict, "kCBMsgArgResult");
-  if (!*(*(*v4 + 8) + 24))
+  if (!*(*(*(a1 + 32) + 8) + 24))
   {
     uint64 = xpc_dictionary_get_uint64(xdict, "kCBMsgArgPrimarySide");
     if (uint64)
@@ -9285,7 +9066,7 @@ void __BTAccessoryManagerGetPrimaryBudSide_block_invoke(uint64_t a1, xpc_object_
 
   if (os_log_type_enabled(MBFLogComponent, OS_LOG_TYPE_DEBUG))
   {
-    __BTAccessoryManagerGetPrimaryBudSide_block_invoke_cold_2(v4);
+    __BTAccessoryManagerGetPrimaryBudSide_block_invoke_cold_2();
   }
 }
 
@@ -9357,7 +9138,7 @@ uint64_t BTAccessoryManagerGetHeadphoneFeatureValue(uint64_t a1, uint64_t a2, un
 
 void __BTAccessoryManagerGetHeadphoneFeatureValue_block_invoke(uint64_t a1, xpc_object_t xdict)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   *(*(*(a1 + 32) + 8) + 24) = xpc_dictionary_get_uint64(xdict, "kCBMsgArgResult");
   *(*(*(a1 + 40) + 8) + 24) = xpc_dictionary_get_uint64(xdict, "kCBMsgArgHeadphoneFeatureValue");
   if (MBFLogInitOnce != -1)
@@ -9370,14 +9151,12 @@ void __BTAccessoryManagerGetHeadphoneFeatureValue_block_invoke(uint64_t a1, xpc_
   {
     v5 = *(*(*(a1 + 32) + 8) + 24);
     v6 = *(*(*(a1 + 40) + 8) + 24);
-    v8 = 134218240;
-    v9 = v5;
-    v10 = 2048;
-    v11 = v6;
-    _os_log_impl(&dword_1D85D5000, v4, OS_LOG_TYPE_DEFAULT, "BTAccessoryManagerGetHeadphoneFeatureValue reply result:%llx value:%llu", &v8, 0x16u);
+    v7 = 134218240;
+    v8 = v5;
+    v9 = 2048;
+    v10 = v6;
+    _os_log_impl(&dword_1D85D5000, v4, OS_LOG_TYPE_DEFAULT, "BTAccessoryManagerGetHeadphoneFeatureValue reply result:%llx value:%llu", &v7, 0x16u);
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t BTAccessoryManagerSetHeadphoneFeatureValue(uint64_t a1, uint64_t a2, unsigned int a3, unsigned int a4)
@@ -9440,10 +9219,7 @@ uint64_t BTAccessoryManagerSetHeadphoneFeatureValue(uint64_t a1, uint64_t a2, un
 
 void __BTAccessoryManagerSetHeadphoneFeatureValue_block_invoke(uint64_t a1, xpc_object_t xdict)
 {
-  uint64 = xpc_dictionary_get_uint64(xdict, "kCBMsgArgResult");
-  v5 = *(a1 + 32);
-  v4 = a1 + 32;
-  *(*(v5 + 8) + 24) = uint64;
+  *(*(*(a1 + 32) + 8) + 24) = xpc_dictionary_get_uint64(xdict, "kCBMsgArgResult");
   if (MBFLogInitOnce != -1)
   {
     _localBTAccessoryManagerAddCallbacks_cold_1();
@@ -9451,7 +9227,7 @@ void __BTAccessoryManagerSetHeadphoneFeatureValue_block_invoke(uint64_t a1, xpc_
 
   if (os_log_type_enabled(MBFLogComponent, OS_LOG_TYPE_DEBUG))
   {
-    __BTAccessoryManagerSetHeadphoneFeatureValue_block_invoke_cold_2(v4);
+    __BTAccessoryManagerSetHeadphoneFeatureValue_block_invoke_cold_2();
   }
 }
 
@@ -9472,7 +9248,7 @@ uint64_t accessoryManagerXpcDisconnectedHandler(uint64_t a1)
 
 BOOL accessoryManagerXpcMsgHandler(uint64_t a1, const char *a2, xpc_object_t xdict)
 {
-  v75 = *MEMORY[0x1E69E9840];
+  v74 = *MEMORY[0x1E69E9840];
   uint64 = xpc_dictionary_get_uint64(xdict, "kCBMsgArgAccessoryManagerID");
   v7 = xpc_dictionary_get_uint64(xdict, "kCBMsgArgID");
   Callbacks = _localBTAccessoryManagerGetCallbacks(uint64, v7);
@@ -9485,21 +9261,21 @@ BOOL accessoryManagerXpcMsgHandler(uint64_t a1, const char *a2, xpc_object_t xdi
   v10 = MBFLogComponent;
   if (os_log_type_enabled(MBFLogComponent, OS_LOG_TYPE_DEBUG))
   {
-    *v70 = 136316674;
-    *&v70[4] = a2;
-    v71 = 2080;
-    *v72 = a1 + 2080;
-    *&v72[8] = 2080;
-    *&v72[10] = a1 + 2336;
-    *&v72[18] = 2048;
-    *&v72[20] = uint64;
-    *&v72[28] = 2048;
-    *&v72[30] = v7;
-    *&v72[38] = 2048;
-    *&v72[40] = Callbacks;
-    *&v72[48] = 2048;
-    *&v72[50] = CustomCallbacks;
-    _os_log_debug_impl(&dword_1D85D5000, v10, OS_LOG_TYPE_DEBUG, "accessoryManagerXpcMsgHandler msg:%s sessionName:%s serviceName:%s manager:%llx cbid:%llx cb:%llx customCbs:%llx", v70, 0x48u);
+    *v69 = 136316674;
+    *&v69[4] = a2;
+    v70 = 2080;
+    *v71 = a1 + 2080;
+    *&v71[8] = 2080;
+    *&v71[10] = a1 + 2336;
+    *&v71[18] = 2048;
+    *&v71[20] = uint64;
+    *&v71[28] = 2048;
+    *&v71[30] = v7;
+    *&v71[38] = 2048;
+    *&v71[40] = Callbacks;
+    *&v71[48] = 2048;
+    *&v71[50] = CustomCallbacks;
+    _os_log_debug_impl(&dword_1D85D5000, v10, OS_LOG_TYPE_DEBUG, "accessoryManagerXpcMsgHandler msg:%s sessionName:%s serviceName:%s manager:%llx cbid:%llx cb:%llx customCbs:%llx", v69, 0x48u);
   }
 
   if (!strcmp(a2, "kCBMsgIdAccessoryEvent"))
@@ -9509,7 +9285,7 @@ BOOL accessoryManagerXpcMsgHandler(uint64_t a1, const char *a2, xpc_object_t xdi
       goto LABEL_38;
     }
 
-    v65 = xpc_dictionary_get_uint64(xdict, "kCBMsgArgEvent");
+    v64 = xpc_dictionary_get_uint64(xdict, "kCBMsgArgEvent");
     v22 = xpc_dictionary_get_uint64(xdict, "kCBMsgArgBTDevice");
     v23 = xpc_dictionary_get_uint64(xdict, "kCBMsgArgState");
     if (MBFLogInitOnce != -1)
@@ -9520,15 +9296,15 @@ BOOL accessoryManagerXpcMsgHandler(uint64_t a1, const char *a2, xpc_object_t xdi
     v24 = MBFLogComponent;
     if (os_log_type_enabled(MBFLogComponent, OS_LOG_TYPE_DEBUG))
     {
-      *v70 = 136315906;
-      *&v70[4] = a2;
-      v71 = 2048;
-      *v72 = v65;
-      *&v72[8] = 2048;
-      *&v72[10] = v22;
-      *&v72[18] = 2048;
-      *&v72[20] = v23;
-      _os_log_debug_impl(&dword_1D85D5000, v24, OS_LOG_TYPE_DEBUG, "accessoryManagerXpcMsgHandler msg:%s, event:%llu, device:%llu, accessoryState:%llu", v70, 0x2Au);
+      *v69 = 136315906;
+      *&v69[4] = a2;
+      v70 = 2048;
+      *v71 = v64;
+      *&v71[8] = 2048;
+      *&v71[10] = v22;
+      *&v71[18] = 2048;
+      *&v71[20] = v23;
+      _os_log_debug_impl(&dword_1D85D5000, v24, OS_LOG_TYPE_DEBUG, "accessoryManagerXpcMsgHandler msg:%s, event:%llu, device:%llu, accessoryState:%llu", v69, 0x2Au);
       if (MBFLogInitOnce != -1)
       {
         BTAccessoryManagerAddCallbacks_cold_3();
@@ -9538,30 +9314,30 @@ BOOL accessoryManagerXpcMsgHandler(uint64_t a1, const char *a2, xpc_object_t xdi
     v25 = MBFLogComponent;
     if (os_log_type_enabled(MBFLogComponent, OS_LOG_TYPE_DEBUG))
     {
-      v59 = *Callbacks;
-      *v70 = 136316930;
-      *&v70[4] = a2;
-      v71 = 2080;
-      *v72 = a1 + 2080;
-      *&v72[8] = 2080;
-      *&v72[10] = a1 + 2336;
-      *&v72[18] = 2048;
-      *&v72[20] = uint64;
-      *&v72[28] = 2048;
-      *&v72[30] = v7;
-      *&v72[38] = 2048;
-      *&v72[40] = Callbacks;
-      *&v72[48] = 2048;
-      *&v72[50] = CustomCallbacks;
-      *&v72[58] = 2048;
-      *&v72[60] = v59;
-      _os_log_debug_impl(&dword_1D85D5000, v25, OS_LOG_TYPE_DEBUG, "accessoryManagerXpcMsgHandler msg:%s sessionName:%s serviceName:%s manager:%llx cbid:%llx cb:%llx customCbs:%llx cb->accevent:%llx", v70, 0x52u);
+      v58 = *Callbacks;
+      *v69 = 136316930;
+      *&v69[4] = a2;
+      v70 = 2080;
+      *v71 = a1 + 2080;
+      *&v71[8] = 2080;
+      *&v71[10] = a1 + 2336;
+      *&v71[18] = 2048;
+      *&v71[20] = uint64;
+      *&v71[28] = 2048;
+      *&v71[30] = v7;
+      *&v71[38] = 2048;
+      *&v71[40] = Callbacks;
+      *&v71[48] = 2048;
+      *&v71[50] = CustomCallbacks;
+      *&v71[58] = 2048;
+      *&v71[60] = v58;
+      _os_log_debug_impl(&dword_1D85D5000, v25, OS_LOG_TYPE_DEBUG, "accessoryManagerXpcMsgHandler msg:%s sessionName:%s serviceName:%s manager:%llx cbid:%llx cb:%llx customCbs:%llx cb->accevent:%llx", v69, 0x52u);
     }
 
     v26 = CustomCallbacks;
     v27 = *Callbacks;
     UserData = _localBTAccessoryManagerGetUserData(uint64, v7);
-    v27(uint64, v65, v22, v23, UserData);
+    v27(uint64, v64, v22, v23, UserData);
     CustomCallbacks = v26;
     v13 = 1;
     goto LABEL_39;
@@ -9574,19 +9350,19 @@ BOOL accessoryManagerXpcMsgHandler(uint64_t a1, const char *a2, xpc_object_t xdi
       goto LABEL_38;
     }
 
-    v66 = xpc_dictionary_get_uint64(xdict, "kCBMsgArgBTDevice");
-    v62 = xpc_dictionary_get_uint64(xdict, "kCBMsgArgSetupType");
+    v65 = xpc_dictionary_get_uint64(xdict, "kCBMsgArgBTDevice");
+    v61 = xpc_dictionary_get_uint64(xdict, "kCBMsgArgSetupType");
     v29 = xpc_dictionary_get_uint64(xdict, "kCBMsgArgOPType");
-    *v70 = 0;
-    data = xpc_dictionary_get_data(xdict, "kCBMsgArgData", v70);
+    *v69 = 0;
+    data = xpc_dictionary_get_data(xdict, "kCBMsgArgData", v69);
     v31 = a1;
     v32 = *(Callbacks + 1);
     v33 = CustomCallbacks;
-    v34 = *v70;
+    v34 = *v69;
     v35 = _localBTAccessoryManagerGetUserData(uint64, v7);
     v36 = v34;
     CustomCallbacks = v33;
-    v32(uint64, v66, v62, v29, data, v36, v35);
+    v32(uint64, v65, v61, v29, data, v36, v35);
     a1 = v31;
     goto LABEL_37;
   }
@@ -9599,26 +9375,26 @@ BOOL accessoryManagerXpcMsgHandler(uint64_t a1, const char *a2, xpc_object_t xdi
     }
 
     v37 = xpc_dictionary_get_uint64(xdict, "kCBMsgArgBTDevice");
-    v63 = xpc_dictionary_get_uint64(xdict, "kCBMsgArgRelayMsgType");
-    *v70 = 0;
-    v38 = xpc_dictionary_get_data(xdict, "kCBMsgArgAddressBytes", v70);
-    v13 = *v70 == 6;
-    if (*v70 == 6)
+    v62 = xpc_dictionary_get_uint64(xdict, "kCBMsgArgRelayMsgType");
+    *v69 = 0;
+    v38 = xpc_dictionary_get_data(xdict, "kCBMsgArgAddressBytes", v69);
+    v13 = *v69 == 6;
+    if (*v69 == 6)
     {
       v39 = *(v38 + 2);
       v40 = *v38;
-      v67 = CustomCallbacks;
+      v66 = CustomCallbacks;
       length = 0;
       v41 = v40 | (v39 << 32);
       v42 = xpc_dictionary_get_data(xdict, "kCBMsgArgData", &length);
-      v61 = a1;
+      v60 = a1;
       v43 = *(Callbacks + 2);
       v44 = length;
       v45 = _localBTAccessoryManagerGetUserData(uint64, v7);
       v46 = v41;
-      CustomCallbacks = v67;
-      v43(uint64, v37, v46, v63, v42, v44, v45);
-      a1 = v61;
+      CustomCallbacks = v66;
+      v43(uint64, v37, v46, v62, v42, v44, v45);
+      a1 = v60;
     }
 
     else
@@ -9644,7 +9420,7 @@ BOOL accessoryManagerXpcMsgHandler(uint64_t a1, const char *a2, xpc_object_t xdi
       goto LABEL_38;
     }
 
-    v68 = CustomCallbacks;
+    v67 = CustomCallbacks;
     v47 = xpc_dictionary_get_uint64(xdict, "kCBMsgArgBTDevice");
     v48 = xpc_dictionary_get_uint64(xdict, "kCBMsgArgCmdReqType");
     v49 = xpc_dictionary_get_uint64(xdict, "kCBMsgArgResult");
@@ -9653,7 +9429,7 @@ BOOL accessoryManagerXpcMsgHandler(uint64_t a1, const char *a2, xpc_object_t xdi
     v52 = *(Callbacks + 3);
     v53 = _localBTAccessoryManagerGetUserData(uint64, v7);
     v54 = v47;
-    CustomCallbacks = v68;
+    CustomCallbacks = v67;
     v52(uint64, v54, v48, v49, v50, v53);
     a1 = v51;
 LABEL_37:
@@ -9673,7 +9449,7 @@ LABEL_37:
   {
     if (*CustomCallbacks)
     {
-      v64 = xpc_dictionary_get_uint64(xdict, "kCBMsgArgBTDevice");
+      v63 = xpc_dictionary_get_uint64(xdict, "kCBMsgArgBTDevice");
       length = 0;
       v14 = xpc_dictionary_get_data(xdict, "kCBMsgArgData", &length);
       if (MBFLogInitOnce != -1)
@@ -9684,27 +9460,27 @@ LABEL_37:
       v15 = MBFLogComponent;
       if (os_log_type_enabled(MBFLogComponent, OS_LOG_TYPE_DEBUG))
       {
-        *v70 = 136317442;
-        *&v70[4] = a2;
-        v71 = 1024;
-        *v72 = CustomCallbackMsgType;
-        *&v72[4] = 2048;
-        *&v72[6] = v64;
-        *&v72[14] = 2048;
-        *&v72[16] = length;
-        *&v72[24] = 2080;
-        *&v72[26] = a1 + 2080;
-        *&v72[34] = 2080;
-        *&v72[36] = a1 + 2336;
-        *&v72[44] = 2048;
-        *&v72[46] = uint64;
-        *&v72[54] = 2048;
-        *&v72[56] = v7;
-        *&v72[64] = 2048;
-        *&v72[66] = Callbacks;
-        v73 = 2048;
-        v74 = CustomCallbacks;
-        _os_log_debug_impl(&dword_1D85D5000, v15, OS_LOG_TYPE_DEBUG, "accessoryManagerXpcMsgHandler msg:%s, clientType:%X, device:%llX, dataLen:%zu sessionName:%s serviceName:%s manager:%llx cbid:%llx cbs:%p customCbs:%p ", v70, 0x62u);
+        *v69 = 136317442;
+        *&v69[4] = a2;
+        v70 = 1024;
+        *v71 = CustomCallbackMsgType;
+        *&v71[4] = 2048;
+        *&v71[6] = v63;
+        *&v71[14] = 2048;
+        *&v71[16] = length;
+        *&v71[24] = 2080;
+        *&v71[26] = a1 + 2080;
+        *&v71[34] = 2080;
+        *&v71[36] = a1 + 2336;
+        *&v71[44] = 2048;
+        *&v71[46] = uint64;
+        *&v71[54] = 2048;
+        *&v71[56] = v7;
+        *&v71[64] = 2048;
+        *&v71[66] = Callbacks;
+        v72 = 2048;
+        v73 = CustomCallbacks;
+        _os_log_debug_impl(&dword_1D85D5000, v15, OS_LOG_TYPE_DEBUG, "accessoryManagerXpcMsgHandler msg:%s, clientType:%X, device:%llX, dataLen:%zu sessionName:%s serviceName:%s manager:%llx cbid:%llx cbs:%p customCbs:%p ", v69, 0x62u);
         if ((CustomCallbackMsgType & 0x40) == 0)
         {
           goto LABEL_18;
@@ -9721,15 +9497,15 @@ LABEL_18:
         v20 = _localBTAccessoryManagerGetUserData(uint64, v7);
         v21 = v19;
         CustomCallbacks = v18;
-        v17(uint64, v64, CustomCallbackMsgType, v14, v21, v20);
+        v17(uint64, v63, CustomCallbackMsgType, v14, v21, v20);
         a1 = v16;
 LABEL_54:
         v13 = 1;
         goto LABEL_39;
       }
 
-      v60 = xpc_dictionary_get_uint64(xdict, "kCBMsgArgUserData");
-      (*CustomCallbacks)(uint64, v64, CustomCallbackMsgType, v14, length, v60);
+      v59 = xpc_dictionary_get_uint64(xdict, "kCBMsgArgUserData");
+      (*CustomCallbacks)(uint64, v63, CustomCallbackMsgType, v14, length, v59);
       goto LABEL_54;
     }
 
@@ -9746,32 +9522,31 @@ LABEL_39:
   v55 = MBFLogComponent;
   if (os_log_type_enabled(MBFLogComponent, OS_LOG_TYPE_DEBUG))
   {
-    v58 = "did not handle";
-    *v70 = 136316930;
+    v57 = "did not handle";
+    *v69 = 136316930;
     if (v13)
     {
-      v58 = "handled";
+      v57 = "handled";
     }
 
-    *&v70[4] = v58;
-    v71 = 2080;
-    *v72 = a2;
-    *&v72[8] = 2080;
-    *&v72[10] = a1 + 2080;
-    *&v72[18] = 2080;
-    *&v72[20] = a1 + 2336;
-    *&v72[28] = 2048;
-    *&v72[30] = uint64;
-    *&v72[38] = 2048;
-    *&v72[40] = v7;
-    *&v72[48] = 2048;
-    *&v72[50] = Callbacks;
-    *&v72[58] = 2048;
-    *&v72[60] = CustomCallbacks;
-    _os_log_debug_impl(&dword_1D85D5000, v55, OS_LOG_TYPE_DEBUG, "accessoryManagerXpcMsgHandler %s %s sessionName:%s serviceName:%s manager:%llx cbid:%llx cb:%llx customCbs:%llx", v70, 0x52u);
+    *&v69[4] = v57;
+    v70 = 2080;
+    *v71 = a2;
+    *&v71[8] = 2080;
+    *&v71[10] = a1 + 2080;
+    *&v71[18] = 2080;
+    *&v71[20] = a1 + 2336;
+    *&v71[28] = 2048;
+    *&v71[30] = uint64;
+    *&v71[38] = 2048;
+    *&v71[40] = v7;
+    *&v71[48] = 2048;
+    *&v71[50] = Callbacks;
+    *&v71[58] = 2048;
+    *&v71[60] = CustomCallbacks;
+    _os_log_debug_impl(&dword_1D85D5000, v55, OS_LOG_TYPE_DEBUG, "accessoryManagerXpcMsgHandler %s %s sessionName:%s serviceName:%s manager:%llx cbid:%llx cb:%llx customCbs:%llx", v69, 0x52u);
   }
 
-  v56 = *MEMORY[0x1E69E9840];
   return v13;
 }
 
@@ -9781,17 +9556,11 @@ void OUTLINED_FUNCTION_1(dispatch_once_t *a1)
   dispatch_once_f(a1, 0, MBFLogInit);
 }
 
-uint64_t OUTLINED_FUNCTION_2@<X0>(uint64_t result@<X0>, uint64_t a2@<X8>)
+void OUTLINED_FUNCTION_4(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
-  *(v2 - 8) = a2;
-  v3 = *(*(*result + 8) + 24);
-  return result;
-}
+  va_start(va, a8);
 
-void OUTLINED_FUNCTION_4(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
-{
-
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
 void OUTLINED_FUNCTION_9(void *a1, uint64_t a2, os_log_t log, const char *a4, ...)
@@ -9848,4 +9617,272 @@ void handleInvalid(uint64_t a1)
   block[3] = &__block_descriptor_tmp_9_0;
   block[4] = a1;
   dispatch_async(v2, block);
+}
+
+void releaseMBXpcConnection(void *a1)
+{
+  if (MBFLogInitOnce != -1)
+  {
+    attachSession_cold_1();
+  }
+
+  if (os_log_type_enabled(MBFLogComponent, OS_LOG_TYPE_DEBUG))
+  {
+    releaseMBXpcConnection_cold_2();
+  }
+
+  if (a1[259])
+  {
+    a1[259] = 0;
+  }
+
+  if (*a1)
+  {
+    *a1 = 0;
+  }
+
+  v2 = a1[258];
+  if (v2)
+  {
+    dispatch_release(v2);
+    a1[258] = 0;
+  }
+
+  v3 = a1[257];
+  if (v3)
+  {
+    dispatch_release(v3);
+  }
+
+  free(a1);
+}
+
+void releaseXPCConnection(uint64_t a1)
+{
+  if (MBFLogInitOnce != -1)
+  {
+    attachSession_cold_1();
+  }
+
+  if (os_log_type_enabled(MBFLogComponent, OS_LOG_TYPE_DEBUG))
+  {
+    releaseXPCConnection_cold_2();
+  }
+
+  xpc_release(*(a1 + 2072));
+}
+
+void sendMsg(uint64_t a1, const char *a2, void *a3)
+{
+  v9 = *MEMORY[0x1E69E9840];
+  if (MBFLogInitOnce != -1)
+  {
+    attachSession_cold_1();
+  }
+
+  if (os_log_type_enabled(MBFLogComponent, OS_LOG_TYPE_DEBUG))
+  {
+    sendMsg_cold_2();
+  }
+
+  *keys = xmmword_1E85173D0;
+  object[0] = xpc_string_create(a2);
+  object[1] = a3;
+  v6 = xpc_dictionary_create(keys, object, 2uLL);
+  xpc_connection_send_message(*(a1 + 2072), v6);
+  xpc_release(v6);
+  xpc_release(object[0]);
+}
+
+void disconnect(uint64_t a1)
+{
+  if (MBFLogInitOnce != -1)
+  {
+    attachSession_cold_1();
+  }
+
+  if (os_log_type_enabled(MBFLogComponent, OS_LOG_TYPE_DEBUG))
+  {
+    disconnect_cold_2();
+  }
+
+  bzero((a1 + 8), 0x800uLL);
+  *(a1 + 2600) = 0;
+  xpc_connection_cancel(*(a1 + 2072));
+}
+
+BOOL _localBTDeviceServiceCallbacksRegistered(uint64_t a1, uint64_t a2)
+{
+  pthread_mutex_lock(&gLock_0);
+  v4 = 0;
+  v5 = 1;
+  v6 = &gBTDeviceServiceCallbackList + 1;
+  do
+  {
+    if (*v6 == a1 && *(v6 - 1) == a2)
+    {
+      break;
+    }
+
+    v5 = v4 < 0x3F;
+    v6 += 5;
+    ++v4;
+  }
+
+  while (v4 != 64);
+  pthread_mutex_unlock(&gLock_0);
+  return v5;
+}
+
+uint64_t _localBTDeviceServiceAddCallbacks(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+{
+  pthread_mutex_lock(&gLock_0);
+  v10 = &qword_1ED8FFA40;
+  v11 = 64;
+  while (*(v10 - 1) || v10[1])
+  {
+    v10 += 5;
+    if (!--v11)
+    {
+      v12 = 4;
+      goto LABEL_7;
+    }
+  }
+
+  v12 = 0;
+  v10[1] = a5;
+  v10[2] = a4;
+  *(v10 - 1) = a1;
+  *v10 = a2;
+  *(v10 - 2) = a3;
+LABEL_7:
+  pthread_mutex_unlock(&gLock_0);
+  return v12;
+}
+
+uint64_t _localBTDeviceServiceGetCBID(uint64_t a1, uint64_t a2)
+{
+  pthread_mutex_lock(&gLock_0);
+  v4 = &gBTDeviceServiceCallbackList;
+  v5 = 64;
+  while (*(v4 + 1) != a1 || *v4 != a2)
+  {
+    v4 = (v4 + 40);
+    if (!--v5)
+    {
+      v6 = 0;
+      goto LABEL_7;
+    }
+  }
+
+  v6 = *(v4 + 3);
+LABEL_7:
+  pthread_mutex_unlock(&gLock_0);
+  return v6;
+}
+
+uint64_t _localBTDeviceServiceRemoveCallbacks(uint64_t a1, uint64_t a2)
+{
+  pthread_mutex_lock(&gLock_0);
+  v4 = &gBTDeviceServiceCallbackList;
+  v5 = 64;
+  while (*(v4 + 1) != a1 || *v4 != a2)
+  {
+    v4 = (v4 + 40);
+    if (!--v5)
+    {
+      goto LABEL_7;
+    }
+  }
+
+  *(v4 + 4) = 0;
+  *v4 = 0u;
+  v4[1] = 0u;
+LABEL_7:
+  pthread_mutex_unlock(&gLock_0);
+  return 0;
+}
+
+uint64_t _localBTDeviceServiceRemoveCallbacksByXpcConnection(uint64_t a1)
+{
+  pthread_mutex_lock(&gLock_0);
+  v2 = &qword_1ED8FFA40;
+  v3 = 64;
+  do
+  {
+    if (*v2 == a1)
+    {
+      v2[2] = 0;
+      *(v2 - 1) = 0uLL;
+      *v2 = 0uLL;
+    }
+
+    v2 += 5;
+    --v3;
+  }
+
+  while (v3);
+  pthread_mutex_unlock(&gLock_0);
+  return 0;
+}
+
+uint64_t BTDeviceAddressToString(const void *a1, _BYTE *a2, uint64_t a3)
+{
+  if (!a3)
+  {
+    return 1;
+  }
+
+  *a2 = 0;
+  FirstSessionHandle = getFirstSessionHandle();
+  if (MBFLogInitOnce != -1)
+  {
+    _localBTAccessoryManagerAddCallbacks_cold_1();
+  }
+
+  if (os_log_type_enabled(MBFLogComponent, OS_LOG_TYPE_DEBUG))
+  {
+    BTDeviceAddressToString_cold_2();
+  }
+
+  MBXpcConnection = getMBXpcConnection(FirstSessionHandle);
+  if (!MBXpcConnection)
+  {
+    if (MBFLogInitOnce != -1)
+    {
+      BTAccessoryManagerAddCallbacks_cold_3();
+    }
+
+    if (os_log_type_enabled(MBFLogComponent, OS_LOG_TYPE_ERROR))
+    {
+      BTDeviceAddressToString_cold_4();
+    }
+
+    return 1;
+  }
+
+  v8 = MBXpcConnection;
+  v9 = xpc_dictionary_create(0, 0, 0);
+  xpc_dictionary_set_data(v9, "kCBMsgArgAddressBytes", a1, 6uLL);
+  xpc_dictionary_set_uint64(v9, "kCBMsgArgAddressStringBuffSize", a3);
+  v13 = 0;
+  v14 = &v13;
+  v15 = 0x2000000000;
+  v16 = 0;
+  v12[0] = MEMORY[0x1E69E9820];
+  v12[1] = 0x40000000;
+  v12[2] = __BTDeviceAddressToString_block_invoke;
+  v12[3] = &unk_1E85173E8;
+  v12[4] = &v13;
+  v12[5] = a2;
+  v12[6] = a3;
+  sendMessageWithReplySync(v8, "kCBMsgIdDeviceAddressToStringMsg", v9, v12);
+  if (v9)
+  {
+    xpc_release(v9);
+  }
+
+  v10 = *(v14 + 6);
+  _Block_object_dispose(&v13, 8);
+  return v10;
 }

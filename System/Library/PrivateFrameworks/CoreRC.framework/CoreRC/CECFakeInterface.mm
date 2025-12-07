@@ -1,11 +1,17 @@
 @interface CECFakeInterface
 + (id)defaultAudioSystemProperties;
 + (id)defaultPlaybackDeviceProperties;
++ (id)defaultPropertiesWithPhysicalAddress:(unsigned __int16)address;
 + (id)defaultTVProperties;
 - (BOOL)errorIsNack:(id)nack;
+- (BOOL)pingTo:(unsigned __int8)to acknowledged:(BOOL *)acknowledged error:(id *)error;
+- (BOOL)sendFrame:(CECFrame *)frame withRetryCount:(unsigned __int8)count error:(id *)error;
 - (CECFakeInterface)initWithInterfaceListener:(id)listener properties:(id)properties;
+- (CECFrame)lastReceivedFrameWithOpcode:(SEL)opcode;
 - (CECFrame)lastReceivedFrameWithOpcode:(SEL)opcode andHeader:(unsigned __int8)header;
 - (void)dealloc;
+- (void)fakeHotPlugDetect:(BOOL)detect;
+- (void)fakeHotPlugDetectWithPhysicalAddress:(unsigned __int16)address;
 - (void)fakePropertiesChanged:(id)changed;
 - (void)fakeTerminated;
 - (void)receivedFrame:(CECFrame *)frame;
@@ -18,33 +24,41 @@
 
 + (id)defaultTVProperties
 {
-  v5[3] = *MEMORY[0x277D85DE8];
-  v4[0] = @"kCECInterfacePropertyIsValid";
-  v4[1] = @"kCECInterfacePropertyHasLink";
-  v5[0] = MEMORY[0x277CBEC38];
-  v5[1] = MEMORY[0x277CBEC38];
-  v4[2] = @"kCECInterfacePropertyPhysicalAddress";
-  v5[2] = &unk_28593C258;
-  result = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v5 forKeys:v4 count:3];
-  v3 = *MEMORY[0x277D85DE8];
-  return result;
+  v4[3] = *MEMORY[0x277D85DE8];
+  v3[0] = @"kCECInterfacePropertyIsValid";
+  v3[1] = @"kCECInterfacePropertyHasLink";
+  v4[0] = MEMORY[0x277CBEC38];
+  v4[1] = MEMORY[0x277CBEC38];
+  v3[2] = @"kCECInterfacePropertyPhysicalAddress";
+  v4[2] = &unk_28593C258;
+  return [MEMORY[0x277CBEAC0] dictionaryWithObjects:v4 forKeys:v3 count:3];
 }
 
 + (id)defaultPlaybackDeviceProperties
 {
-  v5[3] = *MEMORY[0x277D85DE8];
-  v4[0] = @"kCECInterfacePropertyIsValid";
-  v4[1] = @"kCECInterfacePropertyHasLink";
-  v5[0] = MEMORY[0x277CBEC38];
-  v5[1] = MEMORY[0x277CBEC38];
-  v4[2] = @"kCECInterfacePropertyPhysicalAddress";
-  v5[2] = &unk_28593C270;
-  result = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v5 forKeys:v4 count:3];
-  v3 = *MEMORY[0x277D85DE8];
-  return result;
+  v4[3] = *MEMORY[0x277D85DE8];
+  v3[0] = @"kCECInterfacePropertyIsValid";
+  v3[1] = @"kCECInterfacePropertyHasLink";
+  v4[0] = MEMORY[0x277CBEC38];
+  v4[1] = MEMORY[0x277CBEC38];
+  v3[2] = @"kCECInterfacePropertyPhysicalAddress";
+  v4[2] = &unk_28593C270;
+  return [MEMORY[0x277CBEAC0] dictionaryWithObjects:v4 forKeys:v3 count:3];
 }
 
 + (id)defaultAudioSystemProperties
+{
+  v4[3] = *MEMORY[0x277D85DE8];
+  v3[0] = @"kCECInterfacePropertyIsValid";
+  v3[1] = @"kCECInterfacePropertyHasLink";
+  v4[0] = MEMORY[0x277CBEC38];
+  v4[1] = MEMORY[0x277CBEC38];
+  v3[2] = @"kCECInterfacePropertyPhysicalAddress";
+  v4[2] = &unk_28593C270;
+  return [MEMORY[0x277CBEAC0] dictionaryWithObjects:v4 forKeys:v3 count:3];
+}
+
++ (id)defaultPropertiesWithPhysicalAddress:(unsigned __int16)address
 {
   v5[3] = *MEMORY[0x277D85DE8];
   v4[0] = @"kCECInterfacePropertyIsValid";
@@ -52,10 +66,8 @@
   v5[0] = MEMORY[0x277CBEC38];
   v5[1] = MEMORY[0x277CBEC38];
   v4[2] = @"kCECInterfacePropertyPhysicalAddress";
-  v5[2] = &unk_28593C270;
-  result = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v5 forKeys:v4 count:3];
-  v3 = *MEMORY[0x277D85DE8];
-  return result;
+  v5[2] = [MEMORY[0x277CCABB0] numberWithUnsignedShort:address];
+  return [MEMORY[0x277CBEAC0] dictionaryWithObjects:v5 forKeys:v4 count:3];
 }
 
 - (CECFakeInterface)initWithInterfaceListener:(id)listener properties:(id)properties
@@ -108,24 +120,55 @@
   return v4;
 }
 
+- (BOOL)sendFrame:(CECFrame *)frame withRetryCount:(unsigned __int8)count error:(id *)error
+{
+  countCopy = count;
+  v15 = *MEMORY[0x277D85DE8];
+  blockedMessages = self->_blockedMessages;
+  if (blockedMessages && -[NSDictionary objectForKeyedSubscript:](blockedMessages, "objectForKeyedSubscript:", [MEMORY[0x277CCABB0] numberWithUnsignedChar:frame->blocks[1]]))
+  {
+    if (error)
+    {
+      v10 = -[NSDictionary objectForKeyedSubscript:](self->_blockedMessages, "objectForKeyedSubscript:", [MEMORY[0x277CCABB0] numberWithUnsignedChar:frame->blocks[1]]);
+      result = 0;
+      *error = v10;
+    }
+
+    else
+    {
+      return 0;
+    }
+  }
+
+  else
+  {
+    listener = [(CoreRCInterface *)self listener];
+    v13 = *frame->blocks;
+    v14 = *(frame + 4);
+    return [(CoreRCInterfaceListener *)listener interface:self sendFrame:&v13 withRetryCount:countCopy error:error];
+  }
+
+  return result;
+}
+
 - (void)receivedFrame:(CECFrame *)frame
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   if ([(CECInterface *)self snoopingMode])
   {
 LABEL_7:
     delegate = [(CECInterface *)self delegate];
-    v8 = *frame->blocks;
-    v9 = *(frame + 4);
-    [(CECInterfaceDelegate *)delegate interface:self receivedFrame:&v8];
-    goto LABEL_8;
+    v7 = *frame->blocks;
+    v8 = *(frame + 4);
+    [(CECInterfaceDelegate *)delegate interface:self receivedFrame:&v7];
+    return;
   }
 
   if (~frame->blocks[0] & 0xF) == 0 || (([(CECInterface *)self addressMask]>> (frame->blocks[0] & 0xF)))
   {
-    v8 = *frame->blocks;
-    v9 = *(frame + 4);
-    [(CECInterface *)self setLastReceivedFrame:&v8];
+    v7 = *frame->blocks;
+    v8 = *(frame + 4);
+    [(CECInterface *)self setLastReceivedFrame:&v7];
     if ([-[CECFakeInterface receivedFrames](self "receivedFrames")] >= 0x15)
     {
       [-[CECFakeInterface receivedFrames](self "receivedFrames")];
@@ -140,16 +183,13 @@ LABEL_7:
   {
     [CECFakeInterface receivedFrame:frame];
   }
-
-LABEL_8:
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (CECFrame)lastReceivedFrameWithOpcode:(SEL)opcode andHeader:(unsigned __int8)header
 {
   v5 = a5;
   headerCopy = header;
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   *retstr->blocks = 0;
   *&retstr->blocks[8] = 0;
   *(retstr + 4) = 0;
@@ -165,20 +205,50 @@ LABEL_8:
         break;
       }
 
-      v13 = 0uLL;
-      v14 = 0;
-      result = [(CECFrame *)result getBytes:&v13 length:20];
-      if (BYTE1(v13) == headerCopy && (v5 == 255 || v13 == v5))
+      v12 = 0uLL;
+      v13 = 0;
+      result = [(CECFrame *)result getBytes:&v12 length:20];
+      if (BYTE1(v12) == headerCopy && (v5 == 255 || v12 == v5))
       {
-        *retstr->blocks = v13;
-        *(retstr + 4) = v14;
-        break;
+        *retstr->blocks = v12;
+        *(retstr + 4) = v13;
+        return result;
       }
     }
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return result;
+}
+
+- (CECFrame)lastReceivedFrameWithOpcode:(SEL)opcode
+{
+  if (self)
+  {
+    return [(CECFrame *)self lastReceivedFrameWithOpcode:a4 andHeader:255];
+  }
+
+  *retstr->blocks = 0;
+  *&retstr->blocks[8] = 0;
+  *(retstr + 4) = 0;
+  return self;
+}
+
+- (BOOL)pingTo:(unsigned __int8)to acknowledged:(BOOL *)acknowledged error:(id *)error
+{
+  toCopy = to;
+  blockedMessages = self->_blockedMessages;
+  if (blockedMessages && [(NSDictionary *)blockedMessages objectForKeyedSubscript:&unk_28593C288])
+  {
+    *acknowledged = 1;
+    return 1;
+  }
+
+  else
+  {
+    listener = [(CoreRCInterface *)self listener];
+
+    return [(CoreRCInterfaceListener *)listener interface:self pingTo:toCopy acknowledged:acknowledged error:error];
+  }
 }
 
 - (void)fakePropertiesChanged:(id)changed
@@ -194,6 +264,24 @@ LABEL_8:
   listener = [(CoreRCInterface *)self listener];
 
   [(CoreRCInterfaceListener *)listener removeInterface:self];
+}
+
+- (void)fakeHotPlugDetect:(BOOL)detect
+{
+  -[NSMutableDictionary setObject:forKeyedSubscript:](self->_properties, "setObject:forKeyedSubscript:", [MEMORY[0x277CCABB0] numberWithBool:detect], @"kCECInterfacePropertyHasLink");
+  delegate = [(CECInterface *)self delegate];
+
+  [(CECInterfaceDelegate *)delegate interfacePropertiesChanged:self];
+}
+
+- (void)fakeHotPlugDetectWithPhysicalAddress:(unsigned __int16)address
+{
+  addressCopy = address;
+  [(NSMutableDictionary *)self->_properties setObject:MEMORY[0x277CBEC38] forKeyedSubscript:@"kCECInterfacePropertyHasLink"];
+  -[NSMutableDictionary setObject:forKeyedSubscript:](self->_properties, "setObject:forKeyedSubscript:", [MEMORY[0x277CCABB0] numberWithUnsignedShort:addressCopy], @"kCECInterfacePropertyPhysicalAddress");
+  delegate = [(CECInterface *)self delegate];
+
+  [(CECInterfaceDelegate *)delegate interfacePropertiesChanged:self];
 }
 
 - (void)setBlockedMessages:(id)messages
@@ -215,13 +303,10 @@ LABEL_8:
 {
   if (gLogCategory_CoreRCInterface <= 40 && (gLogCategory_CoreRCInterface != -1 || _LogCategory_Initialize()))
   {
-    queueCopy = queue;
-    selfCopy = self;
-    v5 = "[CECFakeInterface scheduleWithDispatchQueue:]";
-    LogPrintF();
+    LogPrintF(&gLogCategory_CoreRCInterface, "[CECFakeInterface scheduleWithDispatchQueue:]", 40, "%s queue=%@ ## %@\n", "[CECFakeInterface scheduleWithDispatchQueue:]", queue, self);
   }
 
-  if (![(CoreRCInterface *)self serialQueue:v5])
+  if (![(CoreRCInterface *)self serialQueue])
   {
 
     [(CoreRCInterface *)self setSerialQueue:queue];
@@ -232,13 +317,10 @@ LABEL_8:
 {
   if (gLogCategory_CoreRCInterface <= 40 && (gLogCategory_CoreRCInterface != -1 || _LogCategory_Initialize()))
   {
-    queueCopy = queue;
-    selfCopy = self;
-    v5 = "[CECFakeInterface unscheduleFromDispatchQueue:]";
-    LogPrintF();
+    LogPrintF(&gLogCategory_CoreRCInterface, "[CECFakeInterface unscheduleFromDispatchQueue:]", 40, "%s queue=%@ ## %@\n", "[CECFakeInterface unscheduleFromDispatchQueue:]", queue, self);
   }
 
-  if ([(CoreRCInterface *)self serialQueue:v5]== queue)
+  if ([(CoreRCInterface *)self serialQueue]== queue)
   {
 
     [(CoreRCInterface *)self setSerialQueue:0];

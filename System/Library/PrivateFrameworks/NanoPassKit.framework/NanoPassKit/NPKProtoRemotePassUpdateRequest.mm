@@ -110,7 +110,7 @@
     [NPKProtoRemotePassUpdateRequest writeTo:];
   }
 
-  v10 = toCopy;
+  v7 = toCopy;
   PBDataWriterWriteStringField();
   if (self->_updateRequestData)
   {
@@ -119,31 +119,28 @@
 
   if (*&self->_has)
   {
-    cancelUpdate = self->_cancelUpdate;
     PBDataWriterWriteBOOLField();
   }
 
-  v6 = v10;
+  v5 = v7;
   if (self->_pass)
   {
     PBDataWriterWriteSubmessage();
-    v6 = v10;
+    v5 = v7;
   }
 
   has = self->_has;
   if ((has & 2) != 0)
   {
-    requestAuthorization = self->_requestAuthorization;
     PBDataWriterWriteBOOLField();
-    v6 = v10;
+    v5 = v7;
     has = self->_has;
   }
 
   if ((has & 4) != 0)
   {
-    shouldNotifyUser = self->_shouldNotifyUser;
     PBDataWriterWriteBOOLField();
-    v6 = v10;
+    v5 = v7;
   }
 }
 
@@ -306,7 +303,6 @@ LABEL_23:
     goto LABEL_23;
   }
 
-  v12 = *(equalCopy + 33);
   if (self->_requestAuthorization)
   {
     if ((*(equalCopy + 33) & 1) == 0)

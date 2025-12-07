@@ -26,24 +26,23 @@
 {
   v11 = *MEMORY[0x277D85DE8];
   messageCopy = message;
+  v6 = messageCopy;
   if (self->_resumed)
   {
     WeakRetained = objc_loadWeakRetained(&self->_delegate);
-    [WeakRetained stateUpdateStreamSource:self updateMessageReceived:messageCopy];
+    [WeakRetained stateUpdateStreamSource:self updateMessageReceived:v6];
   }
 
   else
   {
-    v7 = _IPDefaultLog();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = _IPDefaultLog(messageCopy);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       v9 = 138412290;
-      v10 = messageCopy;
-      _os_log_impl(&dword_254C69000, v7, OS_LOG_TYPE_DEFAULT, "unresumed local source ignoring incoming message %@", &v9, 0xCu);
+      v10 = v6;
+      _os_log_impl(&dword_254C69000, v8, OS_LOG_TYPE_DEFAULT, "unresumed local source ignoring incoming message %@", &v9, 0xCu);
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (IPStateUpdateStreamSourceDelegate)delegate

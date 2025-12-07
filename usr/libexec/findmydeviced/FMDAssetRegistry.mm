@@ -86,32 +86,32 @@
   locationCopy = location;
   v8 = +[NSFileManager defaultManager];
   fileURL = [assetCopy fileURL];
-  v18 = 0;
-  v10 = [v8 copyItemAtURL:locationCopy toURL:fileURL error:&v18];
+  v20 = 0;
+  v10 = [v8 copyItemAtURL:locationCopy toURL:fileURL error:&v20];
 
-  v11 = v18;
+  v11 = v20;
   if (v10)
   {
-    v12 = v11 == 0;
+    v13 = v11 == 0;
   }
 
   else
   {
-    v12 = 0;
+    v13 = 0;
   }
 
-  if (v12)
+  if (v13)
   {
     fileURL2 = [assetCopy fileURL];
-    v15 = [NSNumber numberWithBool:1];
-    v17 = 0;
-    [fileURL2 setResourceValue:v15 forKey:NSURLIsExcludedFromBackupKey error:&v17];
-    v13 = v17;
+    v16 = [NSNumber numberWithBool:1];
+    v19 = 0;
+    [fileURL2 setResourceValue:v16 forKey:NSURLIsExcludedFromBackupKey error:&v19];
+    v14 = v19;
 
-    if (v13)
+    if (v14)
     {
-      v16 = sub_100002880();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+      v18 = sub_100002880(v17);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
       {
         sub_10022CF3C(assetCopy);
       }
@@ -122,8 +122,8 @@
 
   else
   {
-    v13 = sub_100002880();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v14 = sub_100002880(v12);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       sub_10022CE8C(v11);
     }
@@ -197,112 +197,113 @@
 {
   assetsCopy = assets;
   selfCopy = self;
-  v33 = [(NSDictionary *)self->_assetsByURL copy];
+  v35 = [(NSDictionary *)self->_assetsByURL copy];
   v5 = +[NSMutableArray array];
-  v39 = 0u;
-  v40 = 0u;
   v41 = 0u;
   v42 = 0u;
+  v43 = 0u;
+  v44 = 0u;
   v6 = assetsCopy;
-  v7 = [v6 countByEnumeratingWithState:&v39 objects:v48 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v41 objects:v50 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v40;
+    v9 = *v42;
     do
     {
       for (i = 0; i != v8; i = i + 1)
       {
-        if (*v40 != v9)
+        if (*v42 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = [*(*(&v39 + 1) + 8 * i) url];
+        v11 = [*(*(&v41 + 1) + 8 * i) url];
         [v5 addObject:v11];
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v39 objects:v48 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v41 objects:v50 count:16];
     }
 
     while (v8);
   }
 
-  v31 = v6;
+  v33 = v6;
 
-  v32 = +[NSMutableArray array];
-  allKeys = [v33 allKeys];
-  v35 = 0u;
-  v36 = 0u;
+  v34 = +[NSMutableArray array];
+  allKeys = [v35 allKeys];
   v37 = 0u;
   v38 = 0u;
-  v13 = [allKeys countByEnumeratingWithState:&v35 objects:v47 count:16];
+  v39 = 0u;
+  v40 = 0u;
+  v13 = [allKeys countByEnumeratingWithState:&v37 objects:v49 count:16];
   if (v13)
   {
     v14 = v13;
-    v15 = *v36;
+    v15 = *v38;
     do
     {
       for (j = 0; j != v14; j = j + 1)
       {
-        if (*v36 != v15)
+        if (*v38 != v15)
         {
           objc_enumerationMutation(allKeys);
         }
 
-        v17 = *(*(&v35 + 1) + 8 * j);
+        v17 = *(*(&v37 + 1) + 8 * j);
         if (([v5 containsObject:v17] & 1) == 0)
         {
-          v18 = [v33 objectForKeyedSubscript:v17];
+          v18 = [v35 objectForKeyedSubscript:v17];
           v19 = +[NSFileManager defaultManager];
           fileURL = [v18 fileURL];
-          v34 = 0;
-          [v19 removeItemAtURL:fileURL error:&v34];
-          v21 = v34;
+          v36 = 0;
+          [v19 removeItemAtURL:fileURL error:&v36];
+          v21 = v36;
 
           if (v21)
           {
-            if (([v21 fm_isFileNotFoundError] & 1) == 0)
+            fm_isFileNotFoundError = [v21 fm_isFileNotFoundError];
+            if ((fm_isFileNotFoundError & 1) == 0)
             {
-              v22 = sub_100002880();
-              if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+              v23 = sub_100002880(fm_isFileNotFoundError);
+              if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
               {
                 code = [v21 code];
                 *buf = 138412546;
-                v44 = v21;
-                v45 = 2048;
-                v46 = code;
-                _os_log_error_impl(&_mh_execute_header, v22, OS_LOG_TYPE_ERROR, "Could not delete the file %@ %li", buf, 0x16u);
+                v46 = v21;
+                v47 = 2048;
+                v48 = code;
+                _os_log_error_impl(&_mh_execute_header, v23, OS_LOG_TYPE_ERROR, "Could not delete the file %@ %li", buf, 0x16u);
               }
             }
           }
 
           else
           {
-            [v32 addObject:v17];
+            [v34 addObject:v17];
           }
         }
       }
 
-      v14 = [allKeys countByEnumeratingWithState:&v35 objects:v47 count:16];
+      v14 = [allKeys countByEnumeratingWithState:&v37 objects:v49 count:16];
     }
 
     while (v14);
   }
 
-  v24 = [v33 mutableCopy];
-  [(NSDictionary *)v24 removeObjectsForKeys:v32];
+  v25 = [v35 mutableCopy];
+  [(NSDictionary *)v25 removeObjectsForKeys:v34];
   assetsByURL = selfCopy->_assetsByURL;
-  selfCopy->_assetsByURL = v24;
-  v26 = v24;
+  selfCopy->_assetsByURL = v25;
+  v27 = v25;
 
   dataArchiver = [(FMDAssetRegistry *)selfCopy dataArchiver];
-  v28 = [dataArchiver saveDictionary:v26];
+  v29 = [dataArchiver saveDictionary:v27];
 
-  if (v28)
+  if (v29)
   {
-    v29 = sub_100002880();
-    if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+    v31 = sub_100002880(v30);
+    if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
     {
       sub_10022A040();
     }

@@ -13,6 +13,7 @@
 - (void)setDeviceActive:(id)active specifier:(id)specifier;
 - (void)setIncomingCallBannerEnabled:(id)enabled specifier:(id)specifier;
 - (void)statusChanged:(id)changed;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation PHSettingsPrimaryCloudCallingController
@@ -31,6 +32,22 @@
   }
 
   return v2;
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v7.receiver = self;
+  v7.super_class = PHSettingsPrimaryCloudCallingController;
+  [(PHSettingsPrimaryCloudCallingController *)&v7 viewWillAppear:appear];
+  specifier = [(PHSettingsPrimaryCloudCallingController *)self specifier];
+  target = [specifier target];
+  objc_opt_class();
+  isKindOfClass = objc_opt_isKindOfClass();
+
+  if (isKindOfClass)
+  {
+    [(PHSettingsPrimaryCloudCallingController *)self emitNavigationEvent];
+  }
 }
 
 - (void)emitNavigationEvent
@@ -257,7 +274,7 @@
 - (void)setCallsOnOtherDevices:(id)devices specifier:(id)specifier
 {
   devicesCopy = devices;
-  v6 = PHDefaultLog();
+  v6 = PHDefaultLog(devicesCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109120;
@@ -265,48 +282,48 @@
     _os_log_impl(&dword_0, v6, OS_LOG_TYPE_DEFAULT, "Asked to set calls on other devices to %d", buf, 8u);
   }
 
-  if ([devicesCopy BOOLValue] && (+[TUCallCapabilities accountsSupportSecondaryCalling](TUCallCapabilities, "accountsSupportSecondaryCalling") & 1) == 0)
+  if ([devicesCopy BOOLValue] && (v7 = +[TUCallCapabilities accountsSupportSecondaryCalling](TUCallCapabilities, "accountsSupportSecondaryCalling"), (v7 & 1) == 0))
   {
-    v7 = PHDefaultLog();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = PHDefaultLog(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = +[TUCallCapabilities accountsSupportSecondaryCalling];
+      v9 = +[TUCallCapabilities accountsSupportSecondaryCalling];
       *buf = 67109120;
-      bOOLValue = v8;
-      _os_log_impl(&dword_0, v7, OS_LOG_TYPE_DEFAULT, "Not allowing Calls on Other Devices to be enabled because accountsSupportSecondaryCalling = %d", buf, 8u);
+      bOOLValue = v9;
+      _os_log_impl(&dword_0, v8, OS_LOG_TYPE_DEFAULT, "Not allowing Calls on Other Devices to be enabled because accountsSupportSecondaryCalling = %d", buf, 8u);
     }
 
-    v9 = [NSBundle bundleForClass:objc_opt_class()];
-    v10 = [v9 localizedStringForKey:@"PRIMARY_CLOUD_CALLING_ACCOUNT_ALERT_TITLE" value:&stru_C920 table:@"PrimaryCloudCallingSettings"];
+    v10 = [NSBundle bundleForClass:objc_opt_class()];
+    v11 = [v10 localizedStringForKey:@"PRIMARY_CLOUD_CALLING_ACCOUNT_ALERT_TITLE" value:&stru_C920 table:@"PrimaryCloudCallingSettings"];
 
-    v11 = objc_alloc_init(TUFeatureFlags);
-    appleAccountRebrandEnabled = [v11 appleAccountRebrandEnabled];
-    v13 = [NSBundle bundleForClass:objc_opt_class()];
-    v14 = v13;
+    v12 = objc_alloc_init(TUFeatureFlags);
+    appleAccountRebrandEnabled = [v12 appleAccountRebrandEnabled];
+    v14 = [NSBundle bundleForClass:objc_opt_class()];
+    v15 = v14;
     if (appleAccountRebrandEnabled)
     {
-      v15 = @"PRIMARY_CLOUD_CALLING_ACCOUNT_ALERT_MESSAGE_APPLEACCOUNT";
+      v16 = @"PRIMARY_CLOUD_CALLING_ACCOUNT_ALERT_MESSAGE_APPLEACCOUNT";
     }
 
     else
     {
-      v15 = @"PRIMARY_CLOUD_CALLING_ACCOUNT_ALERT_MESSAGE";
+      v16 = @"PRIMARY_CLOUD_CALLING_ACCOUNT_ALERT_MESSAGE";
     }
 
-    v16 = [v13 localizedStringForKey:v15 value:&stru_C920 table:@"PrimaryCloudCallingSettings"];
+    v17 = [v14 localizedStringForKey:v16 value:&stru_C920 table:@"PrimaryCloudCallingSettings"];
 
-    v17 = [UIAlertController alertControllerWithTitle:v10 message:v16 preferredStyle:1];
-    v18 = [NSBundle bundleForClass:objc_opt_class()];
-    v19 = [v18 localizedStringForKey:@"OK" value:&stru_C920 table:@"PrimaryCloudCallingSettings"];
-    v21[0] = _NSConcreteStackBlock;
-    v21[1] = 3221225472;
-    v21[2] = sub_2AA4;
-    v21[3] = &unk_C528;
-    v21[4] = self;
-    v20 = [UIAlertAction actionWithTitle:v19 style:0 handler:v21];
-    [v17 addAction:v20];
+    v18 = [UIAlertController alertControllerWithTitle:v11 message:v17 preferredStyle:1];
+    v19 = [NSBundle bundleForClass:objc_opt_class()];
+    v20 = [v19 localizedStringForKey:@"OK" value:&stru_C920 table:@"PrimaryCloudCallingSettings"];
+    v22[0] = _NSConcreteStackBlock;
+    v22[1] = 3221225472;
+    v22[2] = sub_2AA4;
+    v22[3] = &unk_C528;
+    v22[4] = self;
+    v21 = [UIAlertAction actionWithTitle:v20 style:0 handler:v22];
+    [v18 addAction:v21];
 
-    [(PHSettingsPrimaryCloudCallingController *)self presentViewController:v17 animated:1 completion:0];
+    [(PHSettingsPrimaryCloudCallingController *)self presentViewController:v18 animated:1 completion:0];
   }
 
   else
@@ -326,7 +343,7 @@
 {
   activeCopy = active;
   identifier = [specifier identifier];
-  v7 = PHDefaultLog();
+  v7 = PHDefaultLog(identifier);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v8 = 138412546;
@@ -357,30 +374,32 @@
   {
     v9 = [v7 arrayForKey:@"incomingCallBannerEnabledDevices"];
     v10 = [[NSMutableArray alloc] initWithArray:v9];
-    if ([enabledCopy BOOLValue])
+    bOOLValue = [enabledCopy BOOLValue];
+    if (bOOLValue)
     {
-      v11 = [v10 containsObject:identifier];
-      v12 = PHDefaultLog();
-      v13 = os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT);
-      if (v11)
+      v12 = [v10 containsObject:identifier];
+      v13 = v12;
+      v14 = PHDefaultLog(v12);
+      v15 = os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT);
+      if (v13)
       {
-        if (v13)
+        if (v15)
         {
-          v15 = 138412546;
-          v16 = identifier;
-          v17 = 2112;
-          v18 = v10;
-          _os_log_impl(&dword_0, v12, OS_LOG_TYPE_DEFAULT, "deviceID %@ already exists in the enabled devices list %@.", &v15, 0x16u);
+          v17 = 138412546;
+          v18 = identifier;
+          v19 = 2112;
+          v20 = v10;
+          _os_log_impl(&dword_0, v14, OS_LOG_TYPE_DEFAULT, "deviceID %@ already exists in the enabled devices list %@.", &v17, 0x16u);
         }
       }
 
       else
       {
-        if (v13)
+        if (v15)
         {
-          v15 = 138412290;
-          v16 = identifier;
-          _os_log_impl(&dword_0, v12, OS_LOG_TYPE_DEFAULT, "Adding new deviceID %@ to the enabled devices list.", &v15, 0xCu);
+          v17 = 138412290;
+          v18 = identifier;
+          _os_log_impl(&dword_0, v14, OS_LOG_TYPE_DEFAULT, "Adding new deviceID %@ to the enabled devices list.", &v17, 0xCu);
         }
 
         [v10 addObject:identifier];
@@ -389,14 +408,14 @@
 
     else
     {
-      v14 = PHDefaultLog();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+      v16 = PHDefaultLog(bOOLValue);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
       {
-        v15 = 138412546;
-        v16 = identifier;
-        v17 = 2112;
-        v18 = v10;
-        _os_log_impl(&dword_0, v14, OS_LOG_TYPE_DEFAULT, "Removing deviceID %@ from the enabled devices list %@.", &v15, 0x16u);
+        v17 = 138412546;
+        v18 = identifier;
+        v19 = 2112;
+        v20 = v10;
+        _os_log_impl(&dword_0, v16, OS_LOG_TYPE_DEFAULT, "Removing deviceID %@ from the enabled devices list %@.", &v17, 0x16u);
       }
 
       [v10 removeObject:identifier];
@@ -411,31 +430,31 @@
   enabledCopy = enabled;
   v4 = [[NSUserDefaults alloc] initWithSuiteName:@"com.apple.NeighborhoodActivityConduitService"];
   v5 = v4;
-  if (v4 && ([v4 arrayForKey:@"incomingCallBannerEnabledDevices"], (v6 = objc_claimAutoreleasedReturnValue()) != 0))
+  if (v4 && ([v4 arrayForKey:@"incomingCallBannerEnabledDevices"], (v4 = objc_claimAutoreleasedReturnValue()) != 0))
   {
-    v7 = v6;
+    v6 = v4;
     identifier = [enabledCopy identifier];
-    v9 = +[NSNumber numberWithBool:](NSNumber, "numberWithBool:", [v7 containsObject:identifier]);
+    v8 = +[NSNumber numberWithBool:](NSNumber, "numberWithBool:", [v6 containsObject:identifier]);
   }
 
   else
   {
-    v10 = PHDefaultLog();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v9 = PHDefaultLog(v4);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      sub_69A8(v10);
+      sub_69A8(v9);
     }
 
-    v9 = [NSNumber numberWithBool:0];
+    v8 = [NSNumber numberWithBool:0];
   }
 
-  return v9;
+  return v8;
 }
 
 - (void)statusChanged:(id)changed
 {
   changedCopy = changed;
-  v5 = PHDefaultLog();
+  v5 = PHDefaultLog(changedCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;

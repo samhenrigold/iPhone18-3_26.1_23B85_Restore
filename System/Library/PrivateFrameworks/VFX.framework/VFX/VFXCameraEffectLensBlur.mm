@@ -35,18 +35,18 @@
     return *(&self->super._enabled + 1);
   }
 
-  v5 = objc_msgSend_worldRef(self, a2, v2, v3);
-  v9 = v5;
-  if (v5)
+  v4 = objc_msgSend_worldRef(self, a2, v2);
+  v7 = v4;
+  if (v4)
   {
-    sub_1AF1CEA20(v5);
+    sub_1AF1CEA20(v4, v5);
   }
 
-  v10 = objc_msgSend_cfxObject(self, v6, v7, v8);
-  v11 = sub_1AF160FEC(v10);
-  if (v9)
+  v8 = objc_msgSend_cfxObject(self, v5, v6);
+  v11 = sub_1AF160FEC(v8, v9);
+  if (v7)
   {
-    sub_1AF1CEA9C(v9);
+    sub_1AF1CEA9C(v7, v10);
   }
 
   return v11;
@@ -64,7 +64,7 @@
     v5[2] = sub_1AF2B3A68;
     v5[3] = &unk_1E7A7E270;
     v5[4] = self;
-    radiusCopy = radius;
+    *&v6 = radius;
     objc_msgSend_postCommandWithObject_key_applyBlock_(VFXTransaction, a2, self, @"radius", v5);
   }
 }
@@ -76,18 +76,18 @@
     return *&self->_radius;
   }
 
-  v5 = objc_msgSend_worldRef(self, a2, v2, v3);
-  v9 = v5;
-  if (v5)
+  v4 = objc_msgSend_worldRef(self, a2, v2);
+  v7 = v4;
+  if (v4)
   {
-    sub_1AF1CEA20(v5);
+    sub_1AF1CEA20(v4, v5);
   }
 
-  v10 = objc_msgSend_cfxObject(self, v6, v7, v8);
-  v11 = sub_1AF163080(v10);
-  if (v9)
+  v8 = objc_msgSend_cfxObject(self, v5, v6);
+  v11 = sub_1AF163080(v8, v9);
+  if (v7)
   {
-    sub_1AF1CEA9C(v9);
+    sub_1AF1CEA9C(v7, v10);
   }
 
   return v11;
@@ -119,22 +119,22 @@
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v12.receiver = self;
-  v12.super_class = VFXCameraEffectLensBlur;
-  v4 = [(VFXCameraEffect *)&v12 copyWithZone:zone];
+  v10.receiver = self;
+  v10.super_class = VFXCameraEffectLensBlur;
+  v4 = [(VFXCameraEffect *)&v10 copyWithZone:zone];
   LODWORD(v5) = *(&self->super._enabled + 1);
-  objc_msgSend_setRadius_(v4, v6, v7, v8, v5);
-  objc_msgSend_setFilterQuality_(v4, v9, *&self->_radius, v10);
+  objc_msgSend_setRadius_(v4, v6, v7, v5);
+  objc_msgSend_setFilterQuality_(v4, v8, *&self->_radius);
   return v4;
 }
 
 - (void)_updateModelFromPresentation
 {
-  v3.receiver = self;
-  v3.super_class = VFXCameraEffectLensBlur;
-  [(VFXCameraEffect *)&v3 _updateModelFromPresentation];
-  *(&self->super._enabled + 1) = sub_1AF160FEC(self->super._cameraEffect);
-  *&self->_radius = sub_1AF163080(self->super._cameraEffect);
+  v5.receiver = self;
+  v5.super_class = VFXCameraEffectLensBlur;
+  [(VFXCameraEffect *)&v5 _updateModelFromPresentation];
+  *(&self->super._enabled + 1) = sub_1AF160FEC(self->super._cameraEffect, v3);
+  *&self->_radius = sub_1AF163080(self->super._cameraEffect, v4);
 }
 
 - (void)_updatePresentationFromModel
@@ -149,32 +149,32 @@
 
 - (void)encodeWithCoder:(id)coder
 {
-  v11.receiver = self;
-  v11.super_class = VFXCameraEffectLensBlur;
-  [(VFXCameraEffect *)&v11 encodeWithCoder:?];
+  v9.receiver = self;
+  v9.super_class = VFXCameraEffectLensBlur;
+  [(VFXCameraEffect *)&v9 encodeWithCoder:?];
   LODWORD(v5) = *(&self->super._enabled + 1);
-  objc_msgSend_encodeFloat_forKey_(coder, v6, @"radius", v7, v5);
-  *&v8 = *&self->_radius;
-  objc_msgSend_encodeFloat_forKey_(coder, v9, @"filterQuality", v10, v8);
+  objc_msgSend_encodeFloat_forKey_(coder, v6, @"radius", v5);
+  *&v7 = *&self->_radius;
+  objc_msgSend_encodeFloat_forKey_(coder, v8, @"filterQuality", v7);
 }
 
 - (VFXCameraEffectLensBlur)initWithCoder:(id)coder
 {
-  v24.receiver = self;
-  v24.super_class = VFXCameraEffectLensBlur;
-  v7 = [(VFXCameraEffect *)&v24 initWithCoder:?];
-  if (v7)
+  v17.receiver = self;
+  v17.super_class = VFXCameraEffectLensBlur;
+  v6 = [(VFXCameraEffect *)&v17 initWithCoder:?];
+  if (v6)
   {
-    v8 = objc_msgSend_immediateMode(VFXTransaction, v4, v5, v6);
-    objc_msgSend_setImmediateMode_(VFXTransaction, v9, 1, v10);
-    objc_msgSend_decodeFloatForKey_(coder, v11, @"radius", v12);
-    objc_msgSend_setRadius_(v7, v13, v14, v15);
-    objc_msgSend_decodeFloatForKey_(coder, v16, @"filterQuality", v17);
-    objc_msgSend_setFilterQuality_(v7, v19, v18, v20);
-    objc_msgSend_setImmediateMode_(VFXTransaction, v21, v8, v22);
+    v7 = objc_msgSend_immediateMode(VFXTransaction, v4, v5);
+    objc_msgSend_setImmediateMode_(VFXTransaction, v8, 1);
+    objc_msgSend_decodeFloatForKey_(coder, v9, @"radius");
+    objc_msgSend_setRadius_(v6, v10, v11);
+    objc_msgSend_decodeFloatForKey_(coder, v12, @"filterQuality");
+    objc_msgSend_setFilterQuality_(v6, v14, v13);
+    objc_msgSend_setImmediateMode_(VFXTransaction, v15, v7);
   }
 
-  return v7;
+  return v6;
 }
 
 @end

@@ -3,6 +3,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)errorAsString:(int)string;
 - (int)StringAsError:(id)error;
 - (int)error;
 - (unint64_t)hash;
@@ -65,6 +66,19 @@
   }
 
   *&self->_has = *&self->_has & 0xFB | v3;
+}
+
+- (id)errorAsString:(int)string
+{
+  if (string >= 3)
+  {
+    return [MEMORY[0x29EDBA0F8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    return off_29EE32558[string];
+  }
 }
 
 - (int)StringAsError:(id)error
@@ -138,7 +152,6 @@
 {
   if ((*&self->_has & 2) != 0)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
   }
 
@@ -150,14 +163,12 @@
   has = self->_has;
   if (has)
   {
-    sequenceNumber = self->_sequenceNumber;
     PBDataWriterWriteUint64Field();
     has = self->_has;
   }
 
   if ((has & 4) != 0)
   {
-    error = self->_error;
 
     PBDataWriterWriteInt32Field();
   }
@@ -225,7 +236,6 @@
   if (v5)
   {
     has = self->_has;
-    v7 = *(equal + 40);
     if ((has & 2) != 0)
     {
       if ((*(equal + 40) & 2) == 0 || self->_timestamp != *(equal + 2))

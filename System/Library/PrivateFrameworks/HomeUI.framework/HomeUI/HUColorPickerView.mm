@@ -44,7 +44,7 @@
     v7->_colorPickerMode = [profileCopy supportsRGBColor] ^ 1;
     v7->_mirroringAxisBias = 0;
     *&v7->_selectedColor.r = HUWheelColorInvalid;
-    *&v7->_selectedColor.b = *&qword_20D5CAFE0;
+    *&v7->_selectedColor.b = unk_20D5CAFE0;
     v7->_selectedColorCoordinate = HUColorWheelNullCoordinate;
     v8 = [(HUColorPickerView *)v7 _colorWheelSpaceForMode:[(HUColorPickerView *)v7 colorPickerMode]];
     v9 = [[HUColorWheelView alloc] initWithColorWheelSpace:v8];

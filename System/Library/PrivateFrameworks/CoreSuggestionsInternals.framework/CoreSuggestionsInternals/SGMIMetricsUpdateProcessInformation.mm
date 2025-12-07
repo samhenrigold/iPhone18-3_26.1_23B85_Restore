@@ -1,6 +1,7 @@
 @interface SGMIMetricsUpdateProcessInformation
 - (BOOL)isEqual:(id)equal;
 - (id)copyWithZone:(_NSZone *)zone;
+- (id)ctsJobConstraintsAsString:(int)string;
 - (id)description;
 - (id)dictionaryRepresentation;
 - (int)StringAsCtsJobConstraints:(id)constraints;
@@ -228,7 +229,7 @@ LABEL_28:
       goto LABEL_43;
     }
 
-    [(SGMIMetricsSubmodelsStats *)submodelsStats mergeFrom:?];
+    submodelsStats = [(SGMIMetricsSubmodelsStats *)submodelsStats mergeFrom:?];
   }
 
   else
@@ -238,7 +239,7 @@ LABEL_28:
       goto LABEL_43;
     }
 
-    [(SGMIMetricsUpdateProcessInformation *)self setSubmodelsStats:?];
+    submodelsStats = [(SGMIMetricsUpdateProcessInformation *)self setSubmodelsStats:?];
   }
 
   v12 = v17;
@@ -292,7 +293,7 @@ LABEL_47:
 
 LABEL_48:
 
-  MEMORY[0x2821F96F8]();
+  MEMORY[0x2821F96F8](submodelsStats, v12);
 }
 
 - (unint64_t)hash
@@ -511,7 +512,6 @@ LABEL_27:
     }
   }
 
-  v7 = *(equalCopy + 66);
   if ((*&self->_has & 0x200) != 0)
   {
     if ((*(equalCopy + 66) & 0x200) == 0 || self->_hoursSinceReference != *(equalCopy + 23))
@@ -531,7 +531,7 @@ LABEL_27:
   }
 
   has = self->_has;
-  v9 = *(equalCopy + 66);
+  v8 = *(equalCopy + 66);
   if ((has & 0x100) != 0)
   {
     if ((*(equalCopy + 66) & 0x100) == 0 || self->_hoursSinceLastIncrementalUpdate != *(equalCopy + 22))
@@ -552,7 +552,6 @@ LABEL_27:
       goto LABEL_83;
     }
 
-    v10 = *(equalCopy + 128);
     if (self->_isSubmodelRebuilt)
     {
       if ((*(equalCopy + 128) & 1) == 0)
@@ -574,26 +573,26 @@ LABEL_27:
 
   if ((has & 0x10) != 0)
   {
-    if ((v9 & 0x10) == 0 || self->_daysAvailableDuringIncrementalUpdate != *(equalCopy + 18))
+    if ((v8 & 0x10) == 0 || self->_daysAvailableDuringIncrementalUpdate != *(equalCopy + 18))
     {
       goto LABEL_83;
     }
   }
 
-  else if ((v9 & 0x10) != 0)
+  else if ((v8 & 0x10) != 0)
   {
     goto LABEL_83;
   }
 
   if ((has & 0x20) != 0)
   {
-    if ((v9 & 0x20) == 0 || self->_daysProcessedDuringIncrementalUpdate != *(equalCopy + 19))
+    if ((v8 & 0x20) == 0 || self->_daysProcessedDuringIncrementalUpdate != *(equalCopy + 19))
     {
       goto LABEL_83;
     }
   }
 
-  else if ((v9 & 0x20) != 0)
+  else if ((v8 & 0x20) != 0)
   {
     goto LABEL_83;
   }
@@ -613,26 +612,26 @@ LABEL_27:
 
   if ((has & 0x80) != 0)
   {
-    if ((v9 & 0x80) == 0 || self->_deletedTokensCountToComplyToCappingPolicy != *(equalCopy + 21))
+    if ((v8 & 0x80) == 0 || self->_deletedTokensCountToComplyToCappingPolicy != *(equalCopy + 21))
     {
       goto LABEL_83;
     }
   }
 
-  else if ((v9 & 0x80) != 0)
+  else if ((v8 & 0x80) != 0)
   {
     goto LABEL_83;
   }
 
   if ((has & 0x40) != 0)
   {
-    if ((v9 & 0x40) == 0 || self->_deletedEmailsCount != *(equalCopy + 20))
+    if ((v8 & 0x40) == 0 || self->_deletedEmailsCount != *(equalCopy + 20))
     {
       goto LABEL_83;
     }
   }
 
-  else if ((v9 & 0x40) != 0)
+  else if ((v8 & 0x40) != 0)
   {
     goto LABEL_83;
   }
@@ -669,73 +668,73 @@ LABEL_27:
     if ([(SGMIMetricsSubmodelsStats *)submodelsStats isEqual:?])
     {
       has = self->_has;
-      v9 = *(equalCopy + 66);
+      v8 = *(equalCopy + 66);
       goto LABEL_63;
     }
 
 LABEL_83:
-    v12 = 0;
+    v10 = 0;
     goto LABEL_84;
   }
 
 LABEL_63:
   if (has)
   {
-    if ((v9 & 1) == 0 || self->_biomeAggregationPerformanceInMilliSeconds != *(equalCopy + 4))
+    if ((v8 & 1) == 0 || self->_biomeAggregationPerformanceInMilliSeconds != *(equalCopy + 4))
     {
       goto LABEL_83;
     }
   }
 
-  else if (v9)
+  else if (v8)
   {
     goto LABEL_83;
   }
 
   if ((has & 8) != 0)
   {
-    if ((v9 & 8) == 0 || self->_submodelsUpdatePerformanceInMilliSeconds != *(equalCopy + 7))
+    if ((v8 & 8) == 0 || self->_submodelsUpdatePerformanceInMilliSeconds != *(equalCopy + 7))
     {
       goto LABEL_83;
     }
   }
 
-  else if ((v9 & 8) != 0)
+  else if ((v8 & 8) != 0)
   {
     goto LABEL_83;
   }
 
   if ((has & 4) != 0)
   {
-    if ((v9 & 4) == 0 || self->_submodelsPruningForCappingPolicyPerformanceInMilliSeconds != *(equalCopy + 6))
+    if ((v8 & 4) == 0 || self->_submodelsPruningForCappingPolicyPerformanceInMilliSeconds != *(equalCopy + 6))
     {
       goto LABEL_83;
     }
   }
 
-  else if ((v9 & 4) != 0)
+  else if ((v8 & 4) != 0)
   {
     goto LABEL_83;
   }
 
   if ((has & 2) != 0)
   {
-    if ((v9 & 2) == 0 || self->_cumulatedSubmodelsRollbackForPostDeletionPolicyPerformanceInMilliSeconds != *(equalCopy + 5))
+    if ((v8 & 2) == 0 || self->_cumulatedSubmodelsRollbackForPostDeletionPolicyPerformanceInMilliSeconds != *(equalCopy + 5))
     {
       goto LABEL_83;
     }
 
-    v12 = 1;
+    v10 = 1;
   }
 
   else
   {
-    v12 = (v9 & 2) == 0;
+    v10 = (v8 & 2) == 0;
   }
 
 LABEL_84:
 
-  return v12;
+  return v10;
 }
 
 - (id)copyWithZone:(_NSZone *)zone
@@ -1152,46 +1151,43 @@ LABEL_28:
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v23 = toCopy;
+  v8 = toCopy;
   if (self->_trialMetadata)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v23;
+    toCopy = v8;
   }
 
   if (self->_backgroundTrialMetadata)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v23;
+    toCopy = v8;
   }
 
   if ((*&self->_has & 0x200) != 0)
   {
-    hoursSinceReference = self->_hoursSinceReference;
     PBDataWriterWriteUint32Field();
-    toCopy = v23;
+    toCopy = v8;
   }
 
   if (self->_ctsJobConstraints.count)
   {
-    v6 = 0;
+    v5 = 0;
     do
     {
-      v7 = self->_ctsJobConstraints.list[v6];
       PBDataWriterWriteInt32Field();
-      toCopy = v23;
-      ++v6;
+      toCopy = v8;
+      ++v5;
     }
 
-    while (v6 < self->_ctsJobConstraints.count);
+    while (v5 < self->_ctsJobConstraints.count);
   }
 
   has = self->_has;
   if ((has & 0x100) != 0)
   {
-    hoursSinceLastIncrementalUpdate = self->_hoursSinceLastIncrementalUpdate;
     PBDataWriterWriteUint32Field();
-    toCopy = v23;
+    toCopy = v8;
     has = self->_has;
     if ((has & 0x2000) == 0)
     {
@@ -1210,9 +1206,8 @@ LABEL_12:
     goto LABEL_12;
   }
 
-  isSubmodelRebuilt = self->_isSubmodelRebuilt;
   PBDataWriterWriteBOOLField();
-  toCopy = v23;
+  toCopy = v8;
   has = self->_has;
   if ((has & 0x10) == 0)
   {
@@ -1226,9 +1221,8 @@ LABEL_13:
   }
 
 LABEL_32:
-  daysAvailableDuringIncrementalUpdate = self->_daysAvailableDuringIncrementalUpdate;
   PBDataWriterWriteUint32Field();
-  toCopy = v23;
+  toCopy = v8;
   has = self->_has;
   if ((has & 0x20) == 0)
   {
@@ -1242,9 +1236,8 @@ LABEL_14:
   }
 
 LABEL_33:
-  daysProcessedDuringIncrementalUpdate = self->_daysProcessedDuringIncrementalUpdate;
   PBDataWriterWriteUint32Field();
-  toCopy = v23;
+  toCopy = v8;
   has = self->_has;
   if ((has & 0x400) == 0)
   {
@@ -1258,9 +1251,8 @@ LABEL_15:
   }
 
 LABEL_34:
-  mailsProcessedDuringIncrementalUpdate = self->_mailsProcessedDuringIncrementalUpdate;
   PBDataWriterWriteUint32Field();
-  toCopy = v23;
+  toCopy = v8;
   has = self->_has;
   if ((has & 0x80) == 0)
   {
@@ -1274,9 +1266,8 @@ LABEL_16:
   }
 
 LABEL_35:
-  deletedTokensCountToComplyToCappingPolicy = self->_deletedTokensCountToComplyToCappingPolicy;
   PBDataWriterWriteUint32Field();
-  toCopy = v23;
+  toCopy = v8;
   has = self->_has;
   if ((has & 0x40) == 0)
   {
@@ -1290,9 +1281,8 @@ LABEL_17:
   }
 
 LABEL_36:
-  deletedEmailsCount = self->_deletedEmailsCount;
   PBDataWriterWriteUint32Field();
-  toCopy = v23;
+  toCopy = v8;
   has = self->_has;
   if ((has & 0x1000) == 0)
   {
@@ -1306,35 +1296,32 @@ LABEL_18:
   }
 
 LABEL_37:
-  rollbackedSlicesCountToComplyToPostDeletionPolicy = self->_rollbackedSlicesCountToComplyToPostDeletionPolicy;
   PBDataWriterWriteUint32Field();
-  toCopy = v23;
+  toCopy = v8;
   if ((*&self->_has & 0x800) != 0)
   {
 LABEL_19:
-    rollbackedEmailsCountToComplyToPostDeletionPolicy = self->_rollbackedEmailsCountToComplyToPostDeletionPolicy;
     PBDataWriterWriteUint32Field();
-    toCopy = v23;
+    toCopy = v8;
   }
 
 LABEL_20:
   if (self->_submodelsStats)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v23;
+    toCopy = v8;
   }
 
-  v10 = self->_has;
-  if (v10)
+  v7 = self->_has;
+  if (v7)
   {
-    biomeAggregationPerformanceInMilliSeconds = self->_biomeAggregationPerformanceInMilliSeconds;
     PBDataWriterWriteUint64Field();
-    toCopy = v23;
-    v10 = self->_has;
-    if ((v10 & 8) == 0)
+    toCopy = v8;
+    v7 = self->_has;
+    if ((v7 & 8) == 0)
     {
 LABEL_24:
-      if ((v10 & 4) == 0)
+      if ((v7 & 4) == 0)
       {
         goto LABEL_25;
       }
@@ -1343,19 +1330,18 @@ LABEL_24:
     }
   }
 
-  else if ((v10 & 8) == 0)
+  else if ((v7 & 8) == 0)
   {
     goto LABEL_24;
   }
 
-  submodelsUpdatePerformanceInMilliSeconds = self->_submodelsUpdatePerformanceInMilliSeconds;
   PBDataWriterWriteUint64Field();
-  toCopy = v23;
-  v10 = self->_has;
-  if ((v10 & 4) == 0)
+  toCopy = v8;
+  v7 = self->_has;
+  if ((v7 & 4) == 0)
   {
 LABEL_25:
-    if ((v10 & 2) == 0)
+    if ((v7 & 2) == 0)
     {
       goto LABEL_27;
     }
@@ -1364,15 +1350,13 @@ LABEL_25:
   }
 
 LABEL_41:
-  submodelsPruningForCappingPolicyPerformanceInMilliSeconds = self->_submodelsPruningForCappingPolicyPerformanceInMilliSeconds;
   PBDataWriterWriteUint64Field();
-  toCopy = v23;
+  toCopy = v8;
   if ((*&self->_has & 2) != 0)
   {
 LABEL_26:
-    cumulatedSubmodelsRollbackForPostDeletionPolicyPerformanceInMilliSeconds = self->_cumulatedSubmodelsRollbackForPostDeletionPolicyPerformanceInMilliSeconds;
     PBDataWriterWriteUint64Field();
-    toCopy = v23;
+    toCopy = v8;
   }
 
 LABEL_27:
@@ -1908,6 +1892,21 @@ LABEL_32:
   else
   {
     v4 = 1;
+  }
+
+  return v4;
+}
+
+- (id)ctsJobConstraintsAsString:(int)string
+{
+  if ((string - 1) >= 0x11)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_27894B208[string - 1];
   }
 
   return v4;

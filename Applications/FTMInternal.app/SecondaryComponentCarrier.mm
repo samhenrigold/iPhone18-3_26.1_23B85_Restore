@@ -3,6 +3,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)stateAsString:(int)string;
 - (int)StringAsState:(id)state;
 - (int)state;
 - (unint64_t)hash;
@@ -67,6 +68,21 @@
   }
 
   *&self->_has = *&self->_has & 0xFDFF | v3;
+}
+
+- (id)stateAsString:(int)string
+{
+  if (string >= 3)
+  {
+    v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = *(&off_100318190 + string);
+  }
+
+  return v4;
 }
 
 - (int)StringAsState:(id)state
@@ -505,7 +521,6 @@ LABEL_16:
   has = self->_has;
   if ((has & 8) != 0)
   {
-    index = self->_index;
     PBDataWriterWriteUint32Field();
     has = self->_has;
     if ((has & 0x200) == 0)
@@ -525,7 +540,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  state = self->_state;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((has & 0x10) == 0)
@@ -540,7 +554,6 @@ LABEL_4:
   }
 
 LABEL_21:
-  pci = self->_pci;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 2) == 0)
@@ -555,7 +568,6 @@ LABEL_5:
   }
 
 LABEL_22:
-  dlEarfcn = self->_dlEarfcn;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 4) == 0)
@@ -570,7 +582,6 @@ LABEL_6:
   }
 
 LABEL_23:
-  dlRfBand = self->_dlRfBand;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 1) == 0)
@@ -585,7 +596,6 @@ LABEL_7:
   }
 
 LABEL_24:
-  dlBandwidth = self->_dlBandwidth;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x2000) == 0)
@@ -600,7 +610,6 @@ LABEL_8:
   }
 
 LABEL_25:
-  hasUplink = self->_hasUplink;
   PBDataWriterWriteBOOLField();
   has = self->_has;
   if ((has & 0x800) == 0)
@@ -615,7 +624,6 @@ LABEL_9:
   }
 
 LABEL_26:
-  ulEarfcn = self->_ulEarfcn;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x1000) == 0)
@@ -630,7 +638,6 @@ LABEL_10:
   }
 
 LABEL_27:
-  ulRfBand = self->_ulRfBand;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x400) == 0)
@@ -645,7 +652,6 @@ LABEL_11:
   }
 
 LABEL_28:
-  ulBandwidth = self->_ulBandwidth;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x20) == 0)
@@ -660,7 +666,6 @@ LABEL_12:
   }
 
 LABEL_29:
-  rsrp = self->_rsrp;
   PBDataWriterWriteSint32Field();
   has = self->_has;
   if ((has & 0x40) == 0)
@@ -675,7 +680,6 @@ LABEL_13:
   }
 
 LABEL_30:
-  rsrq = self->_rsrq;
   PBDataWriterWriteSint32Field();
   has = self->_has;
   if ((has & 0x100) == 0)
@@ -690,12 +694,10 @@ LABEL_14:
   }
 
 LABEL_31:
-  snr = self->_snr;
   PBDataWriterWriteSint32Field();
   if ((*&self->_has & 0x80) != 0)
   {
 LABEL_15:
-    rssi = self->_rssi;
     PBDataWriterWriteSint32Field();
   }
 
@@ -1205,7 +1207,7 @@ LABEL_15:
     }
 
 LABEL_75:
-    v8 = 0;
+    v7 = 0;
     goto LABEL_76;
   }
 
@@ -1214,7 +1216,6 @@ LABEL_75:
     goto LABEL_75;
   }
 
-  v7 = *(equalCopy + 60);
   if (self->_hasUplink)
   {
     if ((*(equalCopy + 60) & 1) == 0)
@@ -1314,17 +1315,17 @@ LABEL_34:
       goto LABEL_75;
     }
 
-    v8 = 1;
+    v7 = 1;
   }
 
   else
   {
-    v8 = (v6 & 0x80) == 0;
+    v7 = (v6 & 0x80) == 0;
   }
 
 LABEL_76:
 
-  return v8;
+  return v7;
 }
 
 - (unint64_t)hash

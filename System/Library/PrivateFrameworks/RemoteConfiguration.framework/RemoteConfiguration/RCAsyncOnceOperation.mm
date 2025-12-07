@@ -215,32 +215,28 @@ uint64_t __53__RCAsyncOnceOperation_executeWithCompletionHandler___block_invoke_
 
 - (void)executeWithCompletionHandler:.cold.1()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"already have an active group"];
-  v2 = 136315906;
-  v3 = "[RCAsyncOnceOperation executeWithCompletionHandler:]";
-  v4 = 2080;
-  v5 = "/Library/Caches/com.apple.xbs/Sources/RemoteConfiguration/RemoteConfiguration/Operations/RCOnce.m";
-  v6 = 1024;
+  v1 = 136315906;
+  v2 = "[RCAsyncOnceOperation executeWithCompletionHandler:]";
+  v3 = 2080;
+  v4 = "/Library/Caches/com.apple.xbs/Sources/RemoteConfiguration/RemoteConfiguration/Operations/RCOnce.m";
+  v5 = 1024;
   OUTLINED_FUNCTION_0();
-  _os_log_error_impl(&dword_2179FC000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "*** Assertion failure: %s %s:%d %{public}@", &v2, 0x26u);
-
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_2179FC000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "*** Assertion failure: %s %s:%d %{public}@", &v1, 0x26u);
 }
 
 - (void)executeWithCompletionHandler:.cold.2()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"already have an active operation"];
-  v2 = 136315906;
-  v3 = "[RCAsyncOnceOperation executeWithCompletionHandler:]";
-  v4 = 2080;
-  v5 = "/Library/Caches/com.apple.xbs/Sources/RemoteConfiguration/RemoteConfiguration/Operations/RCOnce.m";
-  v6 = 1024;
+  v1 = 136315906;
+  v2 = "[RCAsyncOnceOperation executeWithCompletionHandler:]";
+  v3 = 2080;
+  v4 = "/Library/Caches/com.apple.xbs/Sources/RemoteConfiguration/RemoteConfiguration/Operations/RCOnce.m";
+  v5 = 1024;
   OUTLINED_FUNCTION_0();
-  _os_log_error_impl(&dword_2179FC000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "*** Assertion failure: %s %s:%d %{public}@", &v2, 0x26u);
-
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_2179FC000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "*** Assertion failure: %s %s:%d %{public}@", &v1, 0x26u);
 }
 
 @end

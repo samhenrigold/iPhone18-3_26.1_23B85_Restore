@@ -66,7 +66,7 @@
   imageCopy = image;
   if ([(NSMutableArray *)self->_pendingSymbolEffects count])
   {
-    v5 = 1;
+    isEqual = 1;
   }
 
   else
@@ -79,26 +79,26 @@
       v9 = v8;
       if (targetSymbolImage == v8)
       {
-        v5 = 1;
+        isEqual = 1;
       }
 
       else
       {
-        v5 = 0;
+        isEqual = 0;
         if (v8 && targetSymbolImage)
         {
-          v5 = [targetSymbolImage isEqual:v8];
+          isEqual = objc_msgSend_isEqual_(targetSymbolImage);
         }
       }
     }
 
     else
     {
-      v5 = 0;
+      isEqual = 0;
     }
   }
 
-  return v5;
+  return isEqual;
 }
 
 - (void)addActiveSymbolEffect:(id)effect options:(id)options animated:(BOOL)animated completion:(id)completion
@@ -393,9 +393,9 @@ LABEL_17:
 
   if (v6 && v7)
   {
-    v9 = [v6 isEqual:v7];
+    isEqual = objc_msgSend_isEqual_(v6);
 
-    if (!v9)
+    if (!isEqual)
     {
       goto LABEL_9;
     }
@@ -445,9 +445,9 @@ LABEL_10:
     goto LABEL_9;
   }
 
-  v7 = [(NSSymbolContentTransition *)activeSymbolContentTransition isEqual:v6];
+  isEqual = objc_msgSend_isEqual_(activeSymbolContentTransition, v6, v6);
 
-  if (v7)
+  if (isEqual)
   {
 LABEL_7:
     activeSymbolContentTransition = self->_activeSymbolContentTransition;

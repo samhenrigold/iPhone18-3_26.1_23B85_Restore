@@ -30,15 +30,15 @@
 
 + (BOOL)insertPreprocessingWrapperToFeatureStore:(id)store interactionId:(id)id
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   storeCopy = store;
   idCopy = id;
   v9 = CDMOSLoggerForCategory(0);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
   {
-    v15 = 136315138;
-    v16 = "+[CDMFeatureStoreUtils insertPreprocessingWrapperToFeatureStore:interactionId:]";
-    _os_log_debug_impl(&dword_1DC287000, v9, OS_LOG_TYPE_DEBUG, "%s CDMFeatureStoreUtils insertPreprocessingWrapperToFeatureStore", &v15, 0xCu);
+    v14 = 136315138;
+    v15 = "+[CDMFeatureStoreUtils insertPreprocessingWrapperToFeatureStore:interactionId:]";
+    _os_log_debug_impl(&dword_1DC287000, v9, OS_LOG_TYPE_DEBUG, "%s CDMFeatureStoreUtils insertPreprocessingWrapperToFeatureStore", &v14, 0xCu);
   }
 
   if (([self platformSupportedAndEnabled] & 1) == 0)
@@ -47,11 +47,11 @@
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
     {
       v12 = NSStringFromSelector(a2);
-      v15 = 136315394;
-      v16 = "+[CDMFeatureStoreUtils insertPreprocessingWrapperToFeatureStore:interactionId:]";
-      v17 = 2112;
-      v18 = v12;
-      _os_log_debug_impl(&dword_1DC287000, v10, OS_LOG_TYPE_DEBUG, "%s FeatureStore is 1) not enabled on this platform yet or 2) FF is off. So skipping %@", &v15, 0x16u);
+      v14 = 136315394;
+      v15 = "+[CDMFeatureStoreUtils insertPreprocessingWrapperToFeatureStore:interactionId:]";
+      v16 = 2112;
+      v17 = v12;
+      _os_log_debug_impl(&dword_1DC287000, v10, OS_LOG_TYPE_DEBUG, "%s FeatureStore is 1) not enabled on this platform yet or 2) FF is off. So skipping %@", &v14, 0x16u);
     }
 
     goto LABEL_10;
@@ -62,9 +62,9 @@
     v10 = CDMOSLoggerForCategory(0);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
     {
-      v15 = 136315138;
-      v16 = "+[CDMFeatureStoreUtils insertPreprocessingWrapperToFeatureStore:interactionId:]";
-      _os_log_debug_impl(&dword_1DC287000, v10, OS_LOG_TYPE_DEBUG, "%s Device not on internal build. Not inserting PreprocessingWrapper to FeatureStore.", &v15, 0xCu);
+      v14 = 136315138;
+      v15 = "+[CDMFeatureStoreUtils insertPreprocessingWrapperToFeatureStore:interactionId:]";
+      _os_log_debug_impl(&dword_1DC287000, v10, OS_LOG_TYPE_DEBUG, "%s Device not on internal build. Not inserting PreprocessingWrapper to FeatureStore.", &v14, 0xCu);
     }
 
 LABEL_10:
@@ -76,13 +76,12 @@ LABEL_10:
   v11 = [CDMFeatureStoreUtils insertJsonStringToFeatureStore:v10 interactionId:idCopy streamId:@"PreprocessingWrapper"];
 LABEL_11:
 
-  v13 = *MEMORY[0x1E69E9840];
   return v11;
 }
 
 + (BOOL)insertUaaPParserResponseToFeatureStore:(id)store interactionId:(id)id
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   storeCopy = store;
   idCopy = id;
   if (([self platformSupportedAndEnabled] & 1) == 0)
@@ -91,11 +90,11 @@ LABEL_11:
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
     {
       v12 = NSStringFromSelector(a2);
-      v15 = 136315394;
-      v16 = "+[CDMFeatureStoreUtils insertUaaPParserResponseToFeatureStore:interactionId:]";
-      v17 = 2112;
-      v18 = v12;
-      _os_log_debug_impl(&dword_1DC287000, v11, OS_LOG_TYPE_DEBUG, "%s FeatureStore is 1) not enabled on this platform yet or 2) FF is off. So skipping %@", &v15, 0x16u);
+      v14 = 136315394;
+      v15 = "+[CDMFeatureStoreUtils insertUaaPParserResponseToFeatureStore:interactionId:]";
+      v16 = 2112;
+      v17 = v12;
+      _os_log_debug_impl(&dword_1DC287000, v11, OS_LOG_TYPE_DEBUG, "%s FeatureStore is 1) not enabled on this platform yet or 2) FF is off. So skipping %@", &v14, 0x16u);
     }
 
     goto LABEL_8;
@@ -106,11 +105,11 @@ LABEL_11:
     v11 = CDMOSLoggerForCategory(0);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
     {
-      v15 = 136315394;
-      v16 = "+[CDMFeatureStoreUtils insertUaaPParserResponseToFeatureStore:interactionId:]";
-      v17 = 2112;
-      v18 = @"NLv4Response";
-      _os_log_debug_impl(&dword_1DC287000, v11, OS_LOG_TYPE_DEBUG, "%s FeatureStoreEnabledForExternalBuilds is not enabled OR streamId=%@ not allowed to be logged", &v15, 0x16u);
+      v14 = 136315394;
+      v15 = "+[CDMFeatureStoreUtils insertUaaPParserResponseToFeatureStore:interactionId:]";
+      v16 = 2112;
+      v17 = @"NLv4Response";
+      _os_log_debug_impl(&dword_1DC287000, v11, OS_LOG_TYPE_DEBUG, "%s FeatureStoreEnabledForExternalBuilds is not enabled OR streamId=%@ not allowed to be logged", &v14, 0x16u);
     }
 
 LABEL_8:
@@ -123,13 +122,12 @@ LABEL_8:
   v10 = [CDMFeatureStoreUtils insertJsonStringToFeatureStore:v9 interactionId:idCopy streamId:@"NLv4Response"];
 
 LABEL_9:
-  v13 = *MEMORY[0x1E69E9840];
   return v10;
 }
 
 + (BOOL)insertUaaPParserRequestToFeatureStore:(id)store interactionId:(id)id
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   storeCopy = store;
   idCopy = id;
   if (([self platformSupportedAndEnabled] & 1) == 0)
@@ -138,11 +136,11 @@ LABEL_9:
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
     {
       v12 = NSStringFromSelector(a2);
-      v15 = 136315394;
-      v16 = "+[CDMFeatureStoreUtils insertUaaPParserRequestToFeatureStore:interactionId:]";
-      v17 = 2112;
-      v18 = v12;
-      _os_log_debug_impl(&dword_1DC287000, v11, OS_LOG_TYPE_DEBUG, "%s FeatureStore is 1) not enabled on this platform yet or 2) FF is off. So skipping %@", &v15, 0x16u);
+      v14 = 136315394;
+      v15 = "+[CDMFeatureStoreUtils insertUaaPParserRequestToFeatureStore:interactionId:]";
+      v16 = 2112;
+      v17 = v12;
+      _os_log_debug_impl(&dword_1DC287000, v11, OS_LOG_TYPE_DEBUG, "%s FeatureStore is 1) not enabled on this platform yet or 2) FF is off. So skipping %@", &v14, 0x16u);
     }
 
     goto LABEL_8;
@@ -153,11 +151,11 @@ LABEL_9:
     v11 = CDMOSLoggerForCategory(0);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
     {
-      v15 = 136315394;
-      v16 = "+[CDMFeatureStoreUtils insertUaaPParserRequestToFeatureStore:interactionId:]";
-      v17 = 2112;
-      v18 = @"NLv4Request";
-      _os_log_debug_impl(&dword_1DC287000, v11, OS_LOG_TYPE_DEBUG, "%s FeatureStoreEnabledForExternalBuilds is not enabled OR streamId=%@ not allowed to be logged", &v15, 0x16u);
+      v14 = 136315394;
+      v15 = "+[CDMFeatureStoreUtils insertUaaPParserRequestToFeatureStore:interactionId:]";
+      v16 = 2112;
+      v17 = @"NLv4Request";
+      _os_log_debug_impl(&dword_1DC287000, v11, OS_LOG_TYPE_DEBUG, "%s FeatureStoreEnabledForExternalBuilds is not enabled OR streamId=%@ not allowed to be logged", &v14, 0x16u);
     }
 
 LABEL_8:
@@ -170,13 +168,12 @@ LABEL_8:
   v10 = [CDMFeatureStoreUtils insertJsonStringToFeatureStore:v9 interactionId:idCopy streamId:@"NLv4Request"];
 
 LABEL_9:
-  v13 = *MEMORY[0x1E69E9840];
   return v10;
 }
 
 + (BOOL)insertNLv4ParserResponseToFeatureStore:(id)store interactionId:(id)id
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   storeCopy = store;
   idCopy = id;
   if (([self platformSupportedAndEnabled] & 1) == 0)
@@ -185,11 +182,11 @@ LABEL_9:
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
     {
       v12 = NSStringFromSelector(a2);
-      v15 = 136315394;
-      v16 = "+[CDMFeatureStoreUtils insertNLv4ParserResponseToFeatureStore:interactionId:]";
-      v17 = 2112;
-      v18 = v12;
-      _os_log_debug_impl(&dword_1DC287000, v11, OS_LOG_TYPE_DEBUG, "%s FeatureStore is 1) not enabled on this platform yet or 2) FF is off. So skipping %@", &v15, 0x16u);
+      v14 = 136315394;
+      v15 = "+[CDMFeatureStoreUtils insertNLv4ParserResponseToFeatureStore:interactionId:]";
+      v16 = 2112;
+      v17 = v12;
+      _os_log_debug_impl(&dword_1DC287000, v11, OS_LOG_TYPE_DEBUG, "%s FeatureStore is 1) not enabled on this platform yet or 2) FF is off. So skipping %@", &v14, 0x16u);
     }
 
     goto LABEL_8;
@@ -200,11 +197,11 @@ LABEL_9:
     v11 = CDMOSLoggerForCategory(0);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
     {
-      v15 = 136315394;
-      v16 = "+[CDMFeatureStoreUtils insertNLv4ParserResponseToFeatureStore:interactionId:]";
-      v17 = 2112;
-      v18 = @"NLv4Response";
-      _os_log_debug_impl(&dword_1DC287000, v11, OS_LOG_TYPE_DEBUG, "%s FeatureStoreEnabledForExternalBuilds is not enabled OR streamId=%@ not allowed to be logged", &v15, 0x16u);
+      v14 = 136315394;
+      v15 = "+[CDMFeatureStoreUtils insertNLv4ParserResponseToFeatureStore:interactionId:]";
+      v16 = 2112;
+      v17 = @"NLv4Response";
+      _os_log_debug_impl(&dword_1DC287000, v11, OS_LOG_TYPE_DEBUG, "%s FeatureStoreEnabledForExternalBuilds is not enabled OR streamId=%@ not allowed to be logged", &v14, 0x16u);
     }
 
 LABEL_8:
@@ -217,13 +214,12 @@ LABEL_8:
   v10 = [CDMFeatureStoreUtils insertJsonStringToFeatureStore:v9 interactionId:idCopy streamId:@"NLv4Response"];
 
 LABEL_9:
-  v13 = *MEMORY[0x1E69E9840];
   return v10;
 }
 
 + (BOOL)insertNLv4ParserRequestToFeatureStore:(id)store interactionId:(id)id
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   storeCopy = store;
   idCopy = id;
   if (([self platformSupportedAndEnabled] & 1) == 0)
@@ -232,11 +228,11 @@ LABEL_9:
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
     {
       v12 = NSStringFromSelector(a2);
-      v15 = 136315394;
-      v16 = "+[CDMFeatureStoreUtils insertNLv4ParserRequestToFeatureStore:interactionId:]";
-      v17 = 2112;
-      v18 = v12;
-      _os_log_debug_impl(&dword_1DC287000, v11, OS_LOG_TYPE_DEBUG, "%s FeatureStore is 1) not enabled on this platform yet or 2) FF is off. So skipping %@", &v15, 0x16u);
+      v14 = 136315394;
+      v15 = "+[CDMFeatureStoreUtils insertNLv4ParserRequestToFeatureStore:interactionId:]";
+      v16 = 2112;
+      v17 = v12;
+      _os_log_debug_impl(&dword_1DC287000, v11, OS_LOG_TYPE_DEBUG, "%s FeatureStore is 1) not enabled on this platform yet or 2) FF is off. So skipping %@", &v14, 0x16u);
     }
 
     goto LABEL_8;
@@ -247,11 +243,11 @@ LABEL_9:
     v11 = CDMOSLoggerForCategory(0);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
     {
-      v15 = 136315394;
-      v16 = "+[CDMFeatureStoreUtils insertNLv4ParserRequestToFeatureStore:interactionId:]";
-      v17 = 2112;
-      v18 = @"NLv4Request";
-      _os_log_debug_impl(&dword_1DC287000, v11, OS_LOG_TYPE_DEBUG, "%s FeatureStoreEnabledForExternalBuilds is not enabled OR streamId=%@ not allowed to be logged", &v15, 0x16u);
+      v14 = 136315394;
+      v15 = "+[CDMFeatureStoreUtils insertNLv4ParserRequestToFeatureStore:interactionId:]";
+      v16 = 2112;
+      v17 = @"NLv4Request";
+      _os_log_debug_impl(&dword_1DC287000, v11, OS_LOG_TYPE_DEBUG, "%s FeatureStoreEnabledForExternalBuilds is not enabled OR streamId=%@ not allowed to be logged", &v14, 0x16u);
     }
 
 LABEL_8:
@@ -264,13 +260,12 @@ LABEL_8:
   v10 = [CDMFeatureStoreUtils insertJsonStringToFeatureStore:v9 interactionId:idCopy streamId:@"NLv4Request"];
 
 LABEL_9:
-  v13 = *MEMORY[0x1E69E9840];
   return v10;
 }
 
 + (BOOL)insertMRResponseToFeatureStore:(id)store interactionId:(id)id
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   storeCopy = store;
   idCopy = id;
   if (([self platformSupportedAndEnabled] & 1) == 0)
@@ -279,11 +274,11 @@ LABEL_9:
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
     {
       v12 = NSStringFromSelector(a2);
-      v15 = 136315394;
-      v16 = "+[CDMFeatureStoreUtils insertMRResponseToFeatureStore:interactionId:]";
-      v17 = 2112;
-      v18 = v12;
-      _os_log_debug_impl(&dword_1DC287000, v11, OS_LOG_TYPE_DEBUG, "%s FeatureStore is 1) not enabled on this platform yet or 2) FF is off. So skipping %@", &v15, 0x16u);
+      v14 = 136315394;
+      v15 = "+[CDMFeatureStoreUtils insertMRResponseToFeatureStore:interactionId:]";
+      v16 = 2112;
+      v17 = v12;
+      _os_log_debug_impl(&dword_1DC287000, v11, OS_LOG_TYPE_DEBUG, "%s FeatureStore is 1) not enabled on this platform yet or 2) FF is off. So skipping %@", &v14, 0x16u);
     }
 
     goto LABEL_8;
@@ -294,11 +289,11 @@ LABEL_9:
     v11 = CDMOSLoggerForCategory(0);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
     {
-      v15 = 136315394;
-      v16 = "+[CDMFeatureStoreUtils insertMRResponseToFeatureStore:interactionId:]";
-      v17 = 2112;
-      v18 = @"MRResponse";
-      _os_log_debug_impl(&dword_1DC287000, v11, OS_LOG_TYPE_DEBUG, "%s FeatureStoreEnabledForExternalBuilds is not enabled OR streamId=%@ not allowed to be logged", &v15, 0x16u);
+      v14 = 136315394;
+      v15 = "+[CDMFeatureStoreUtils insertMRResponseToFeatureStore:interactionId:]";
+      v16 = 2112;
+      v17 = @"MRResponse";
+      _os_log_debug_impl(&dword_1DC287000, v11, OS_LOG_TYPE_DEBUG, "%s FeatureStoreEnabledForExternalBuilds is not enabled OR streamId=%@ not allowed to be logged", &v14, 0x16u);
     }
 
 LABEL_8:
@@ -311,13 +306,12 @@ LABEL_8:
   v10 = [CDMFeatureStoreUtils insertJsonStringToFeatureStore:v9 interactionId:idCopy streamId:@"MRResponse"];
 
 LABEL_9:
-  v13 = *MEMORY[0x1E69E9840];
   return v10;
 }
 
 + (BOOL)insertMRRequestToFeatureStore:(id)store interactionId:(id)id
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   storeCopy = store;
   idCopy = id;
   if (([self platformSupportedAndEnabled] & 1) == 0)
@@ -326,11 +320,11 @@ LABEL_9:
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
     {
       v12 = NSStringFromSelector(a2);
-      v15 = 136315394;
-      v16 = "+[CDMFeatureStoreUtils insertMRRequestToFeatureStore:interactionId:]";
-      v17 = 2112;
-      v18 = v12;
-      _os_log_debug_impl(&dword_1DC287000, v11, OS_LOG_TYPE_DEBUG, "%s FeatureStore is 1) not enabled on this platform yet or 2) FF is off. So skipping %@", &v15, 0x16u);
+      v14 = 136315394;
+      v15 = "+[CDMFeatureStoreUtils insertMRRequestToFeatureStore:interactionId:]";
+      v16 = 2112;
+      v17 = v12;
+      _os_log_debug_impl(&dword_1DC287000, v11, OS_LOG_TYPE_DEBUG, "%s FeatureStore is 1) not enabled on this platform yet or 2) FF is off. So skipping %@", &v14, 0x16u);
     }
 
     goto LABEL_8;
@@ -341,11 +335,11 @@ LABEL_9:
     v11 = CDMOSLoggerForCategory(0);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
     {
-      v15 = 136315394;
-      v16 = "+[CDMFeatureStoreUtils insertMRRequestToFeatureStore:interactionId:]";
-      v17 = 2112;
-      v18 = @"MRRequest";
-      _os_log_debug_impl(&dword_1DC287000, v11, OS_LOG_TYPE_DEBUG, "%s FeatureStoreEnabledForExternalBuilds is not enabled OR streamId=%@ not allowed to be logged", &v15, 0x16u);
+      v14 = 136315394;
+      v15 = "+[CDMFeatureStoreUtils insertMRRequestToFeatureStore:interactionId:]";
+      v16 = 2112;
+      v17 = @"MRRequest";
+      _os_log_debug_impl(&dword_1DC287000, v11, OS_LOG_TYPE_DEBUG, "%s FeatureStoreEnabledForExternalBuilds is not enabled OR streamId=%@ not allowed to be logged", &v14, 0x16u);
     }
 
 LABEL_8:
@@ -358,13 +352,12 @@ LABEL_8:
   v10 = [CDMFeatureStoreUtils insertJsonStringToFeatureStore:v9 interactionId:idCopy streamId:@"MRRequest"];
 
 LABEL_9:
-  v13 = *MEMORY[0x1E69E9840];
   return v10;
 }
 
 + (BOOL)insertMDResponseToFeatureStore:(id)store interactionId:(id)id
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   storeCopy = store;
   idCopy = id;
   if (([self platformSupportedAndEnabled] & 1) == 0)
@@ -373,11 +366,11 @@ LABEL_9:
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
     {
       v12 = NSStringFromSelector(a2);
-      v15 = 136315394;
-      v16 = "+[CDMFeatureStoreUtils insertMDResponseToFeatureStore:interactionId:]";
-      v17 = 2112;
-      v18 = v12;
-      _os_log_debug_impl(&dword_1DC287000, v11, OS_LOG_TYPE_DEBUG, "%s FeatureStore is 1) not enabled on this platform yet or 2) FF is off. So skipping %@", &v15, 0x16u);
+      v14 = 136315394;
+      v15 = "+[CDMFeatureStoreUtils insertMDResponseToFeatureStore:interactionId:]";
+      v16 = 2112;
+      v17 = v12;
+      _os_log_debug_impl(&dword_1DC287000, v11, OS_LOG_TYPE_DEBUG, "%s FeatureStore is 1) not enabled on this platform yet or 2) FF is off. So skipping %@", &v14, 0x16u);
     }
 
     goto LABEL_8;
@@ -388,11 +381,11 @@ LABEL_9:
     v11 = CDMOSLoggerForCategory(0);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
     {
-      v15 = 136315394;
-      v16 = "+[CDMFeatureStoreUtils insertMDResponseToFeatureStore:interactionId:]";
-      v17 = 2112;
-      v18 = @"MDResponse";
-      _os_log_debug_impl(&dword_1DC287000, v11, OS_LOG_TYPE_DEBUG, "%s FeatureStoreEnabledForExternalBuilds is not enabled OR streamId=%@ not allowed to be logged", &v15, 0x16u);
+      v14 = 136315394;
+      v15 = "+[CDMFeatureStoreUtils insertMDResponseToFeatureStore:interactionId:]";
+      v16 = 2112;
+      v17 = @"MDResponse";
+      _os_log_debug_impl(&dword_1DC287000, v11, OS_LOG_TYPE_DEBUG, "%s FeatureStoreEnabledForExternalBuilds is not enabled OR streamId=%@ not allowed to be logged", &v14, 0x16u);
     }
 
 LABEL_8:
@@ -405,13 +398,12 @@ LABEL_8:
   v10 = [CDMFeatureStoreUtils insertJsonStringToFeatureStore:v9 interactionId:idCopy streamId:@"MDResponse"];
 
 LABEL_9:
-  v13 = *MEMORY[0x1E69E9840];
   return v10;
 }
 
 + (BOOL)insertMDRequestToFeatureStore:(id)store interactionId:(id)id
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   storeCopy = store;
   idCopy = id;
   if (([self platformSupportedAndEnabled] & 1) == 0)
@@ -420,11 +412,11 @@ LABEL_9:
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
     {
       v12 = NSStringFromSelector(a2);
-      v15 = 136315394;
-      v16 = "+[CDMFeatureStoreUtils insertMDRequestToFeatureStore:interactionId:]";
-      v17 = 2112;
-      v18 = v12;
-      _os_log_debug_impl(&dword_1DC287000, v11, OS_LOG_TYPE_DEBUG, "%s FeatureStore is 1) not enabled on this platform yet or 2) FF is off. So skipping %@", &v15, 0x16u);
+      v14 = 136315394;
+      v15 = "+[CDMFeatureStoreUtils insertMDRequestToFeatureStore:interactionId:]";
+      v16 = 2112;
+      v17 = v12;
+      _os_log_debug_impl(&dword_1DC287000, v11, OS_LOG_TYPE_DEBUG, "%s FeatureStore is 1) not enabled on this platform yet or 2) FF is off. So skipping %@", &v14, 0x16u);
     }
 
     goto LABEL_8;
@@ -435,11 +427,11 @@ LABEL_9:
     v11 = CDMOSLoggerForCategory(0);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
     {
-      v15 = 136315394;
-      v16 = "+[CDMFeatureStoreUtils insertMDRequestToFeatureStore:interactionId:]";
-      v17 = 2112;
-      v18 = @"MDRequest";
-      _os_log_debug_impl(&dword_1DC287000, v11, OS_LOG_TYPE_DEBUG, "%s FeatureStoreEnabledForExternalBuilds is not enabled OR streamId=%@ not allowed to be logged", &v15, 0x16u);
+      v14 = 136315394;
+      v15 = "+[CDMFeatureStoreUtils insertMDRequestToFeatureStore:interactionId:]";
+      v16 = 2112;
+      v17 = @"MDRequest";
+      _os_log_debug_impl(&dword_1DC287000, v11, OS_LOG_TYPE_DEBUG, "%s FeatureStoreEnabledForExternalBuilds is not enabled OR streamId=%@ not allowed to be logged", &v14, 0x16u);
     }
 
 LABEL_8:
@@ -452,13 +444,12 @@ LABEL_8:
   v10 = [CDMFeatureStoreUtils insertJsonStringToFeatureStore:v9 interactionId:idCopy streamId:@"MDRequest"];
 
 LABEL_9:
-  v13 = *MEMORY[0x1E69E9840];
   return v10;
 }
 
 + (BOOL)insertLVCResponseToFeatureStore:(id)store interactionId:(id)id
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   storeCopy = store;
   idCopy = id;
   if (([self platformSupportedAndEnabled] & 1) == 0)
@@ -467,11 +458,11 @@ LABEL_9:
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
     {
       v12 = NSStringFromSelector(a2);
-      v15 = 136315394;
-      v16 = "+[CDMFeatureStoreUtils insertLVCResponseToFeatureStore:interactionId:]";
-      v17 = 2112;
-      v18 = v12;
-      _os_log_debug_impl(&dword_1DC287000, v11, OS_LOG_TYPE_DEBUG, "%s FeatureStore is 1) not enabled on this platform yet or 2) FF is off. So skipping %@", &v15, 0x16u);
+      v14 = 136315394;
+      v15 = "+[CDMFeatureStoreUtils insertLVCResponseToFeatureStore:interactionId:]";
+      v16 = 2112;
+      v17 = v12;
+      _os_log_debug_impl(&dword_1DC287000, v11, OS_LOG_TYPE_DEBUG, "%s FeatureStore is 1) not enabled on this platform yet or 2) FF is off. So skipping %@", &v14, 0x16u);
     }
 
     goto LABEL_8;
@@ -482,11 +473,11 @@ LABEL_9:
     v11 = CDMOSLoggerForCategory(0);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
     {
-      v15 = 136315394;
-      v16 = "+[CDMFeatureStoreUtils insertLVCResponseToFeatureStore:interactionId:]";
-      v17 = 2112;
-      v18 = @"LVCResponse";
-      _os_log_debug_impl(&dword_1DC287000, v11, OS_LOG_TYPE_DEBUG, "%s FeatureStoreEnabledForExternalBuilds is not enabled OR streamId=%@ not allowed to be logged", &v15, 0x16u);
+      v14 = 136315394;
+      v15 = "+[CDMFeatureStoreUtils insertLVCResponseToFeatureStore:interactionId:]";
+      v16 = 2112;
+      v17 = @"LVCResponse";
+      _os_log_debug_impl(&dword_1DC287000, v11, OS_LOG_TYPE_DEBUG, "%s FeatureStoreEnabledForExternalBuilds is not enabled OR streamId=%@ not allowed to be logged", &v14, 0x16u);
     }
 
 LABEL_8:
@@ -499,13 +490,12 @@ LABEL_8:
   v10 = [CDMFeatureStoreUtils insertJsonStringToFeatureStore:v9 interactionId:idCopy streamId:@"LVCResponse"];
 
 LABEL_9:
-  v13 = *MEMORY[0x1E69E9840];
   return v10;
 }
 
 + (BOOL)insertLVCRequestToFeatureStore:(id)store interactionId:(id)id
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   storeCopy = store;
   idCopy = id;
   if (([self platformSupportedAndEnabled] & 1) == 0)
@@ -514,11 +504,11 @@ LABEL_9:
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
     {
       v12 = NSStringFromSelector(a2);
-      v15 = 136315394;
-      v16 = "+[CDMFeatureStoreUtils insertLVCRequestToFeatureStore:interactionId:]";
-      v17 = 2112;
-      v18 = v12;
-      _os_log_debug_impl(&dword_1DC287000, v11, OS_LOG_TYPE_DEBUG, "%s FeatureStore is 1) not enabled on this platform yet or 2) FF is off. So skipping %@", &v15, 0x16u);
+      v14 = 136315394;
+      v15 = "+[CDMFeatureStoreUtils insertLVCRequestToFeatureStore:interactionId:]";
+      v16 = 2112;
+      v17 = v12;
+      _os_log_debug_impl(&dword_1DC287000, v11, OS_LOG_TYPE_DEBUG, "%s FeatureStore is 1) not enabled on this platform yet or 2) FF is off. So skipping %@", &v14, 0x16u);
     }
 
     goto LABEL_8;
@@ -529,11 +519,11 @@ LABEL_9:
     v11 = CDMOSLoggerForCategory(0);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
     {
-      v15 = 136315394;
-      v16 = "+[CDMFeatureStoreUtils insertLVCRequestToFeatureStore:interactionId:]";
-      v17 = 2112;
-      v18 = @"LVCRequest";
-      _os_log_debug_impl(&dword_1DC287000, v11, OS_LOG_TYPE_DEBUG, "%s FeatureStoreEnabledForExternalBuilds is not enabled OR streamId=%@ not allowed to be logged", &v15, 0x16u);
+      v14 = 136315394;
+      v15 = "+[CDMFeatureStoreUtils insertLVCRequestToFeatureStore:interactionId:]";
+      v16 = 2112;
+      v17 = @"LVCRequest";
+      _os_log_debug_impl(&dword_1DC287000, v11, OS_LOG_TYPE_DEBUG, "%s FeatureStoreEnabledForExternalBuilds is not enabled OR streamId=%@ not allowed to be logged", &v14, 0x16u);
     }
 
 LABEL_8:
@@ -546,13 +536,12 @@ LABEL_8:
   v10 = [CDMFeatureStoreUtils insertJsonStringToFeatureStore:v9 interactionId:idCopy streamId:@"LVCRequest"];
 
 LABEL_9:
-  v13 = *MEMORY[0x1E69E9840];
   return v10;
 }
 
 + (BOOL)insertPSCResponseToFeatureStore:(id)store interactionId:(id)id
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   storeCopy = store;
   idCopy = id;
   if (([self platformSupportedAndEnabled] & 1) == 0)
@@ -561,11 +550,11 @@ LABEL_9:
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
     {
       v12 = NSStringFromSelector(a2);
-      v15 = 136315394;
-      v16 = "+[CDMFeatureStoreUtils insertPSCResponseToFeatureStore:interactionId:]";
-      v17 = 2112;
-      v18 = v12;
-      _os_log_debug_impl(&dword_1DC287000, v11, OS_LOG_TYPE_DEBUG, "%s FeatureStore is 1) not enabled on this platform yet or 2) FF is off. So skipping %@", &v15, 0x16u);
+      v14 = 136315394;
+      v15 = "+[CDMFeatureStoreUtils insertPSCResponseToFeatureStore:interactionId:]";
+      v16 = 2112;
+      v17 = v12;
+      _os_log_debug_impl(&dword_1DC287000, v11, OS_LOG_TYPE_DEBUG, "%s FeatureStore is 1) not enabled on this platform yet or 2) FF is off. So skipping %@", &v14, 0x16u);
     }
 
     goto LABEL_8;
@@ -576,11 +565,11 @@ LABEL_9:
     v11 = CDMOSLoggerForCategory(0);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
     {
-      v15 = 136315394;
-      v16 = "+[CDMFeatureStoreUtils insertPSCResponseToFeatureStore:interactionId:]";
-      v17 = 2112;
-      v18 = @"PSCResponse";
-      _os_log_debug_impl(&dword_1DC287000, v11, OS_LOG_TYPE_DEBUG, "%s FeatureStoreEnabledForExternalBuilds is not enabled OR streamId=%@ not allowed to be logged", &v15, 0x16u);
+      v14 = 136315394;
+      v15 = "+[CDMFeatureStoreUtils insertPSCResponseToFeatureStore:interactionId:]";
+      v16 = 2112;
+      v17 = @"PSCResponse";
+      _os_log_debug_impl(&dword_1DC287000, v11, OS_LOG_TYPE_DEBUG, "%s FeatureStoreEnabledForExternalBuilds is not enabled OR streamId=%@ not allowed to be logged", &v14, 0x16u);
     }
 
 LABEL_8:
@@ -593,13 +582,12 @@ LABEL_8:
   v10 = [CDMFeatureStoreUtils insertJsonStringToFeatureStore:v9 interactionId:idCopy streamId:@"PSCResponse"];
 
 LABEL_9:
-  v13 = *MEMORY[0x1E69E9840];
   return v10;
 }
 
 + (BOOL)insertPSCRequestToFeatureStore:(id)store interactionId:(id)id
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   storeCopy = store;
   idCopy = id;
   if (([self platformSupportedAndEnabled] & 1) == 0)
@@ -608,11 +596,11 @@ LABEL_9:
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
     {
       v12 = NSStringFromSelector(a2);
-      v15 = 136315394;
-      v16 = "+[CDMFeatureStoreUtils insertPSCRequestToFeatureStore:interactionId:]";
-      v17 = 2112;
-      v18 = v12;
-      _os_log_debug_impl(&dword_1DC287000, v11, OS_LOG_TYPE_DEBUG, "%s FeatureStore is 1) not enabled on this platform yet or 2) FF is off. So skipping %@", &v15, 0x16u);
+      v14 = 136315394;
+      v15 = "+[CDMFeatureStoreUtils insertPSCRequestToFeatureStore:interactionId:]";
+      v16 = 2112;
+      v17 = v12;
+      _os_log_debug_impl(&dword_1DC287000, v11, OS_LOG_TYPE_DEBUG, "%s FeatureStore is 1) not enabled on this platform yet or 2) FF is off. So skipping %@", &v14, 0x16u);
     }
 
     goto LABEL_8;
@@ -623,11 +611,11 @@ LABEL_9:
     v11 = CDMOSLoggerForCategory(0);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
     {
-      v15 = 136315394;
-      v16 = "+[CDMFeatureStoreUtils insertPSCRequestToFeatureStore:interactionId:]";
-      v17 = 2112;
-      v18 = @"PSCRequest";
-      _os_log_debug_impl(&dword_1DC287000, v11, OS_LOG_TYPE_DEBUG, "%s FeatureStoreEnabledForExternalBuilds is not enabled OR streamId=%@ not allowed to be logged", &v15, 0x16u);
+      v14 = 136315394;
+      v15 = "+[CDMFeatureStoreUtils insertPSCRequestToFeatureStore:interactionId:]";
+      v16 = 2112;
+      v17 = @"PSCRequest";
+      _os_log_debug_impl(&dword_1DC287000, v11, OS_LOG_TYPE_DEBUG, "%s FeatureStoreEnabledForExternalBuilds is not enabled OR streamId=%@ not allowed to be logged", &v14, 0x16u);
     }
 
 LABEL_8:
@@ -640,13 +628,12 @@ LABEL_8:
   v10 = [CDMFeatureStoreUtils insertJsonStringToFeatureStore:v9 interactionId:idCopy streamId:@"PSCRequest"];
 
 LABEL_9:
-  v13 = *MEMORY[0x1E69E9840];
   return v10;
 }
 
 + (BOOL)insertSNLCResponseToFeatureStore:(id)store interactionId:(id)id
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   storeCopy = store;
   idCopy = id;
   if (([self platformSupportedAndEnabled] & 1) == 0)
@@ -655,11 +642,11 @@ LABEL_9:
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
     {
       v12 = NSStringFromSelector(a2);
-      v15 = 136315394;
-      v16 = "+[CDMFeatureStoreUtils insertSNLCResponseToFeatureStore:interactionId:]";
-      v17 = 2112;
-      v18 = v12;
-      _os_log_debug_impl(&dword_1DC287000, v11, OS_LOG_TYPE_DEBUG, "%s FeatureStore is 1) not enabled on this platform yet or 2) FF is off. So skipping %@", &v15, 0x16u);
+      v14 = 136315394;
+      v15 = "+[CDMFeatureStoreUtils insertSNLCResponseToFeatureStore:interactionId:]";
+      v16 = 2112;
+      v17 = v12;
+      _os_log_debug_impl(&dword_1DC287000, v11, OS_LOG_TYPE_DEBUG, "%s FeatureStore is 1) not enabled on this platform yet or 2) FF is off. So skipping %@", &v14, 0x16u);
     }
 
     goto LABEL_8;
@@ -670,11 +657,11 @@ LABEL_9:
     v11 = CDMOSLoggerForCategory(0);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
     {
-      v15 = 136315394;
-      v16 = "+[CDMFeatureStoreUtils insertSNLCResponseToFeatureStore:interactionId:]";
-      v17 = 2112;
-      v18 = @"SNLCITFMResponse";
-      _os_log_debug_impl(&dword_1DC287000, v11, OS_LOG_TYPE_DEBUG, "%s FeatureStoreEnabledForExternalBuilds is not enabled OR streamId=%@ not allowed to be logged", &v15, 0x16u);
+      v14 = 136315394;
+      v15 = "+[CDMFeatureStoreUtils insertSNLCResponseToFeatureStore:interactionId:]";
+      v16 = 2112;
+      v17 = @"SNLCITFMResponse";
+      _os_log_debug_impl(&dword_1DC287000, v11, OS_LOG_TYPE_DEBUG, "%s FeatureStoreEnabledForExternalBuilds is not enabled OR streamId=%@ not allowed to be logged", &v14, 0x16u);
     }
 
 LABEL_8:
@@ -687,13 +674,12 @@ LABEL_8:
   v10 = [CDMFeatureStoreUtils insertJsonStringToFeatureStore:v9 interactionId:idCopy streamId:@"SNLCITFMResponse"];
 
 LABEL_9:
-  v13 = *MEMORY[0x1E69E9840];
   return v10;
 }
 
 + (BOOL)insertSNLCRequestToFeatureStore:(id)store interactionId:(id)id
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   storeCopy = store;
   idCopy = id;
   if (([self platformSupportedAndEnabled] & 1) == 0)
@@ -702,11 +688,11 @@ LABEL_9:
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
     {
       v12 = NSStringFromSelector(a2);
-      v15 = 136315394;
-      v16 = "+[CDMFeatureStoreUtils insertSNLCRequestToFeatureStore:interactionId:]";
-      v17 = 2112;
-      v18 = v12;
-      _os_log_debug_impl(&dword_1DC287000, v11, OS_LOG_TYPE_DEBUG, "%s FeatureStore is 1) not enabled on this platform yet or 2) FF is off. So skipping %@", &v15, 0x16u);
+      v14 = 136315394;
+      v15 = "+[CDMFeatureStoreUtils insertSNLCRequestToFeatureStore:interactionId:]";
+      v16 = 2112;
+      v17 = v12;
+      _os_log_debug_impl(&dword_1DC287000, v11, OS_LOG_TYPE_DEBUG, "%s FeatureStore is 1) not enabled on this platform yet or 2) FF is off. So skipping %@", &v14, 0x16u);
     }
 
     goto LABEL_8;
@@ -717,11 +703,11 @@ LABEL_9:
     v11 = CDMOSLoggerForCategory(0);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
     {
-      v15 = 136315394;
-      v16 = "+[CDMFeatureStoreUtils insertSNLCRequestToFeatureStore:interactionId:]";
-      v17 = 2112;
-      v18 = @"SNLCITFMRequest";
-      _os_log_debug_impl(&dword_1DC287000, v11, OS_LOG_TYPE_DEBUG, "%s FeatureStoreEnabledForExternalBuilds is not enabled OR streamId=%@ not allowed to be logged", &v15, 0x16u);
+      v14 = 136315394;
+      v15 = "+[CDMFeatureStoreUtils insertSNLCRequestToFeatureStore:interactionId:]";
+      v16 = 2112;
+      v17 = @"SNLCITFMRequest";
+      _os_log_debug_impl(&dword_1DC287000, v11, OS_LOG_TYPE_DEBUG, "%s FeatureStoreEnabledForExternalBuilds is not enabled OR streamId=%@ not allowed to be logged", &v14, 0x16u);
     }
 
 LABEL_8:
@@ -734,13 +720,12 @@ LABEL_8:
   v10 = [CDMFeatureStoreUtils insertJsonStringToFeatureStore:v9 interactionId:idCopy streamId:@"SNLCITFMRequest"];
 
 LABEL_9:
-  v13 = *MEMORY[0x1E69E9840];
   return v10;
 }
 
 + (BOOL)insertSpanMatchResponseToFeatureStore:(id)store interactionId:(id)id
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   storeCopy = store;
   idCopy = id;
   if (([self platformSupportedAndEnabled] & 1) == 0)
@@ -749,11 +734,11 @@ LABEL_9:
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
     {
       v12 = NSStringFromSelector(a2);
-      v15 = 136315394;
-      v16 = "+[CDMFeatureStoreUtils insertSpanMatchResponseToFeatureStore:interactionId:]";
-      v17 = 2112;
-      v18 = v12;
-      _os_log_debug_impl(&dword_1DC287000, v11, OS_LOG_TYPE_DEBUG, "%s FeatureStore is 1) not enabled on this platform yet or 2) FF is off. So skipping %@", &v15, 0x16u);
+      v14 = 136315394;
+      v15 = "+[CDMFeatureStoreUtils insertSpanMatchResponseToFeatureStore:interactionId:]";
+      v16 = 2112;
+      v17 = v12;
+      _os_log_debug_impl(&dword_1DC287000, v11, OS_LOG_TYPE_DEBUG, "%s FeatureStore is 1) not enabled on this platform yet or 2) FF is off. So skipping %@", &v14, 0x16u);
     }
 
     goto LABEL_8;
@@ -764,11 +749,11 @@ LABEL_9:
     v11 = CDMOSLoggerForCategory(0);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
     {
-      v15 = 136315394;
-      v16 = "+[CDMFeatureStoreUtils insertSpanMatchResponseToFeatureStore:interactionId:]";
-      v17 = 2112;
-      v18 = @"SpanMatchResponse";
-      _os_log_debug_impl(&dword_1DC287000, v11, OS_LOG_TYPE_DEBUG, "%s FeatureStoreEnabledForExternalBuilds is not enabled OR streamId=%@ not allowed to be logged", &v15, 0x16u);
+      v14 = 136315394;
+      v15 = "+[CDMFeatureStoreUtils insertSpanMatchResponseToFeatureStore:interactionId:]";
+      v16 = 2112;
+      v17 = @"SpanMatchResponse";
+      _os_log_debug_impl(&dword_1DC287000, v11, OS_LOG_TYPE_DEBUG, "%s FeatureStoreEnabledForExternalBuilds is not enabled OR streamId=%@ not allowed to be logged", &v14, 0x16u);
     }
 
 LABEL_8:
@@ -781,13 +766,12 @@ LABEL_8:
   v10 = [CDMFeatureStoreUtils insertJsonStringToFeatureStore:v9 interactionId:idCopy streamId:@"SpanMatchResponse"];
 
 LABEL_9:
-  v13 = *MEMORY[0x1E69E9840];
   return v10;
 }
 
 + (BOOL)insertTokenizerResponseToFeatureStore:(id)store interactionId:(id)id
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   storeCopy = store;
   idCopy = id;
   if (([self platformSupportedAndEnabled] & 1) == 0)
@@ -796,11 +780,11 @@ LABEL_9:
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
     {
       v12 = NSStringFromSelector(a2);
-      v15 = 136315394;
-      v16 = "+[CDMFeatureStoreUtils insertTokenizerResponseToFeatureStore:interactionId:]";
-      v17 = 2112;
-      v18 = v12;
-      _os_log_debug_impl(&dword_1DC287000, v11, OS_LOG_TYPE_DEBUG, "%s FeatureStore is 1) not enabled on this platform yet or 2) FF is off. So skipping %@", &v15, 0x16u);
+      v14 = 136315394;
+      v15 = "+[CDMFeatureStoreUtils insertTokenizerResponseToFeatureStore:interactionId:]";
+      v16 = 2112;
+      v17 = v12;
+      _os_log_debug_impl(&dword_1DC287000, v11, OS_LOG_TYPE_DEBUG, "%s FeatureStore is 1) not enabled on this platform yet or 2) FF is off. So skipping %@", &v14, 0x16u);
     }
 
     goto LABEL_8;
@@ -811,11 +795,11 @@ LABEL_9:
     v11 = CDMOSLoggerForCategory(0);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
     {
-      v15 = 136315394;
-      v16 = "+[CDMFeatureStoreUtils insertTokenizerResponseToFeatureStore:interactionId:]";
-      v17 = 2112;
-      v18 = @"TokenizerResponse";
-      _os_log_debug_impl(&dword_1DC287000, v11, OS_LOG_TYPE_DEBUG, "%s FeatureStoreEnabledForExternalBuilds is not enabled OR streamId=%@ not allowed to be logged", &v15, 0x16u);
+      v14 = 136315394;
+      v15 = "+[CDMFeatureStoreUtils insertTokenizerResponseToFeatureStore:interactionId:]";
+      v16 = 2112;
+      v17 = @"TokenizerResponse";
+      _os_log_debug_impl(&dword_1DC287000, v11, OS_LOG_TYPE_DEBUG, "%s FeatureStoreEnabledForExternalBuilds is not enabled OR streamId=%@ not allowed to be logged", &v14, 0x16u);
     }
 
 LABEL_8:
@@ -828,13 +812,12 @@ LABEL_8:
   v10 = [CDMFeatureStoreUtils insertJsonStringToFeatureStore:v9 interactionId:idCopy streamId:@"TokenizerResponse"];
 
 LABEL_9:
-  v13 = *MEMORY[0x1E69E9840];
   return v10;
 }
 
 + (BOOL)insertJsonStringToFeatureStore:(id)store interactionId:(id)id streamId:(id)streamId
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   storeCopy = store;
   idCopy = id;
   streamIdCopy = streamId;
@@ -845,9 +828,9 @@ LABEL_9:
     {
       v18 = NSStringFromSelector(a2);
       *buf = 136315394;
-      v26 = "+[CDMFeatureStoreUtils insertJsonStringToFeatureStore:interactionId:streamId:]";
-      v27 = 2112;
-      v28 = v18;
+      v25 = "+[CDMFeatureStoreUtils insertJsonStringToFeatureStore:interactionId:streamId:]";
+      v26 = 2112;
+      v27 = v18;
       _os_log_debug_impl(&dword_1DC287000, v13, OS_LOG_TYPE_DEBUG, "%s FeatureStore is 1) not enabled on this platform yet or 2) FF is off. So skipping %@", buf, 0x16u);
     }
 
@@ -860,9 +843,9 @@ LABEL_9:
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
     {
       *buf = 136315394;
-      v26 = "+[CDMFeatureStoreUtils insertJsonStringToFeatureStore:interactionId:streamId:]";
-      v27 = 2112;
-      v28 = streamIdCopy;
+      v25 = "+[CDMFeatureStoreUtils insertJsonStringToFeatureStore:interactionId:streamId:]";
+      v26 = 2112;
+      v27 = streamIdCopy;
       _os_log_debug_impl(&dword_1DC287000, v13, OS_LOG_TYPE_DEBUG, "%s FeatureStoreEnabledForExternalBuilds is not enabled OR streamId=%@ not allowed to be logged", buf, 0x16u);
     }
 
@@ -875,9 +858,9 @@ LABEL_9:
     if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
     {
       *buf = 136315394;
-      v26 = "+[CDMFeatureStoreUtils insertJsonStringToFeatureStore:interactionId:streamId:]";
-      v27 = 2112;
-      v28 = streamIdCopy;
+      v25 = "+[CDMFeatureStoreUtils insertJsonStringToFeatureStore:interactionId:streamId:]";
+      v26 = 2112;
+      v27 = streamIdCopy;
       v19 = "%s [WARN]: A nil interaction ID was passed in for streamId=%@. Skip saving to FeatureStore";
       v20 = v13;
       v21 = 22;
@@ -897,11 +880,11 @@ LABEL_21:
     if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
     {
       *buf = 136315650;
-      v26 = "+[CDMFeatureStoreUtils insertJsonStringToFeatureStore:interactionId:streamId:]";
-      v27 = 2112;
-      v28 = idCopy;
-      v29 = 2112;
-      v30 = streamIdCopy;
+      v25 = "+[CDMFeatureStoreUtils insertJsonStringToFeatureStore:interactionId:streamId:]";
+      v26 = 2112;
+      v27 = idCopy;
+      v28 = 2112;
+      v29 = streamIdCopy;
       v19 = "%s [WARN]: The passed in Feature is nil with interactionId=%@ for streamId=%@. Skip saving to FeatureStore";
       v20 = v13;
       v21 = 32;
@@ -914,49 +897,48 @@ LABEL_21:
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315650;
-    v26 = "+[CDMFeatureStoreUtils insertJsonStringToFeatureStore:interactionId:streamId:]";
-    v27 = 2112;
-    v28 = idCopy;
-    v29 = 2112;
-    v30 = streamIdCopy;
+    v25 = "+[CDMFeatureStoreUtils insertJsonStringToFeatureStore:interactionId:streamId:]";
+    v26 = 2112;
+    v27 = idCopy;
+    v28 = 2112;
+    v29 = streamIdCopy;
     _os_log_debug_impl(&dword_1DC287000, v13, OS_LOG_TYPE_DEBUG, "%s interactionId=%@, streamId=%@", buf, 0x20u);
   }
 
   v13 = [CDMFeatureStoreUtils cacheStreamInstance:streamIdCopy];
   v14 = [objc_alloc(MEMORY[0x1E699C0D0]) initWithJsonStr:storeCopy interactionId:idCopy dataVersion:1];
-  v24 = 0;
-  v15 = [v13 insert:v14 error:&v24];
-  v16 = v24;
+  v23 = 0;
+  v15 = [v13 insert:v14 error:&v23];
+  v16 = v23;
   if (v16)
   {
     v17 = CDMOSLoggerForCategory(0);
     if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
     {
       *buf = 136315650;
-      v26 = "+[CDMFeatureStoreUtils insertJsonStringToFeatureStore:interactionId:streamId:]";
-      v27 = 2112;
-      v28 = streamIdCopy;
-      v29 = 2112;
-      v30 = v16;
+      v25 = "+[CDMFeatureStoreUtils insertJsonStringToFeatureStore:interactionId:streamId:]";
+      v26 = 2112;
+      v27 = streamIdCopy;
+      v28 = 2112;
+      v29 = v16;
       _os_log_impl(&dword_1DC287000, v17, OS_LOG_TYPE_INFO, "%s [WARN]: Error while inserting into FeatureStore for streamId=%@: %@", buf, 0x20u);
     }
   }
 
 LABEL_22:
-  v22 = *MEMORY[0x1E69E9840];
   return v15;
 }
 
 + (BOOL)insertResponseToFeatureStoreAsJson:(id)json
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   jsonCopy = json;
   v6 = CDMOSLoggerForCategory(0);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
-    v15 = 136315138;
-    v16 = "+[CDMFeatureStoreUtils insertResponseToFeatureStoreAsJson:]";
-    _os_log_debug_impl(&dword_1DC287000, v6, OS_LOG_TYPE_DEBUG, "%s CDMFeatureStoreUtils insertResponseToFeatureStoreAsJson", &v15, 0xCu);
+    v14 = 136315138;
+    v15 = "+[CDMFeatureStoreUtils insertResponseToFeatureStoreAsJson:]";
+    _os_log_debug_impl(&dword_1DC287000, v6, OS_LOG_TYPE_DEBUG, "%s CDMFeatureStoreUtils insertResponseToFeatureStoreAsJson", &v14, 0xCu);
   }
 
   if (([self platformSupportedAndEnabled] & 1) == 0)
@@ -965,11 +947,11 @@ LABEL_22:
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
     {
       v10 = NSStringFromSelector(a2);
-      v15 = 136315394;
-      v16 = "+[CDMFeatureStoreUtils insertResponseToFeatureStoreAsJson:]";
-      v17 = 2112;
-      v18 = v10;
-      _os_log_debug_impl(&dword_1DC287000, v9, OS_LOG_TYPE_DEBUG, "%s FeatureStore is 1) not enabled on this platform yet or 2) FF is off. So skipping %@", &v15, 0x16u);
+      v14 = 136315394;
+      v15 = "+[CDMFeatureStoreUtils insertResponseToFeatureStoreAsJson:]";
+      v16 = 2112;
+      v17 = v10;
+      _os_log_debug_impl(&dword_1DC287000, v9, OS_LOG_TYPE_DEBUG, "%s FeatureStore is 1) not enabled on this platform yet or 2) FF is off. So skipping %@", &v14, 0x16u);
     }
 
     goto LABEL_12;
@@ -980,11 +962,11 @@ LABEL_22:
     v9 = CDMOSLoggerForCategory(0);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
     {
-      v15 = 136315394;
-      v16 = "+[CDMFeatureStoreUtils insertResponseToFeatureStoreAsJson:]";
-      v17 = 2112;
-      v18 = @"SiriNluResponseAsJson";
-      _os_log_debug_impl(&dword_1DC287000, v9, OS_LOG_TYPE_DEBUG, "%s FeatureStoreEnabledForExternalBuilds is not enabled OR streamId=%@ not allowed to be logged", &v15, 0x16u);
+      v14 = 136315394;
+      v15 = "+[CDMFeatureStoreUtils insertResponseToFeatureStoreAsJson:]";
+      v16 = 2112;
+      v17 = @"SiriNluResponseAsJson";
+      _os_log_debug_impl(&dword_1DC287000, v9, OS_LOG_TYPE_DEBUG, "%s FeatureStoreEnabledForExternalBuilds is not enabled OR streamId=%@ not allowed to be logged", &v14, 0x16u);
     }
 
 LABEL_12:
@@ -1003,9 +985,9 @@ LABEL_12:
     requestId = CDMOSLoggerForCategory(0);
     if (os_log_type_enabled(requestId, OS_LOG_TYPE_INFO))
     {
-      v15 = 136315138;
-      v16 = "+[CDMFeatureStoreUtils insertResponseToFeatureStoreAsJson:]";
-      _os_log_impl(&dword_1DC287000, requestId, OS_LOG_TYPE_INFO, "%s [WARN]: The response or requestId within the response is nil. Cannot extract interactionId!", &v15, 0xCu);
+      v14 = 136315138;
+      v15 = "+[CDMFeatureStoreUtils insertResponseToFeatureStoreAsJson:]";
+      _os_log_impl(&dword_1DC287000, requestId, OS_LOG_TYPE_INFO, "%s [WARN]: The response or requestId within the response is nil. Cannot extract interactionId!", &v14, 0xCu);
     }
 
     v9 = 0;
@@ -1015,20 +997,19 @@ LABEL_12:
   v11 = [CDMFeatureStoreUtils insertJsonStringToFeatureStore:v12 interactionId:v9 streamId:@"SiriNluResponseAsJson"];
 
 LABEL_17:
-  v13 = *MEMORY[0x1E69E9840];
   return v11;
 }
 
 + (BOOL)insertRequestToFeatureStoreAsJson:(id)json
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   jsonCopy = json;
   v6 = CDMOSLoggerForCategory(0);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
-    v15 = 136315138;
-    v16 = "+[CDMFeatureStoreUtils insertRequestToFeatureStoreAsJson:]";
-    _os_log_debug_impl(&dword_1DC287000, v6, OS_LOG_TYPE_DEBUG, "%s CDMFeatureStoreUtils insertRequestToFeatureStoreAsJson", &v15, 0xCu);
+    v14 = 136315138;
+    v15 = "+[CDMFeatureStoreUtils insertRequestToFeatureStoreAsJson:]";
+    _os_log_debug_impl(&dword_1DC287000, v6, OS_LOG_TYPE_DEBUG, "%s CDMFeatureStoreUtils insertRequestToFeatureStoreAsJson", &v14, 0xCu);
   }
 
   if (([self platformSupportedAndEnabled] & 1) == 0)
@@ -1037,11 +1018,11 @@ LABEL_17:
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
     {
       v10 = NSStringFromSelector(a2);
-      v15 = 136315394;
-      v16 = "+[CDMFeatureStoreUtils insertRequestToFeatureStoreAsJson:]";
-      v17 = 2112;
-      v18 = v10;
-      _os_log_debug_impl(&dword_1DC287000, v9, OS_LOG_TYPE_DEBUG, "%s FeatureStore is 1) not enabled on this platform yet or 2) FF is off. So skipping %@", &v15, 0x16u);
+      v14 = 136315394;
+      v15 = "+[CDMFeatureStoreUtils insertRequestToFeatureStoreAsJson:]";
+      v16 = 2112;
+      v17 = v10;
+      _os_log_debug_impl(&dword_1DC287000, v9, OS_LOG_TYPE_DEBUG, "%s FeatureStore is 1) not enabled on this platform yet or 2) FF is off. So skipping %@", &v14, 0x16u);
     }
 
     goto LABEL_12;
@@ -1052,11 +1033,11 @@ LABEL_17:
     v9 = CDMOSLoggerForCategory(0);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
     {
-      v15 = 136315394;
-      v16 = "+[CDMFeatureStoreUtils insertRequestToFeatureStoreAsJson:]";
-      v17 = 2112;
-      v18 = @"SiriNluRequestAsJson";
-      _os_log_debug_impl(&dword_1DC287000, v9, OS_LOG_TYPE_DEBUG, "%s FeatureStoreEnabledForExternalBuilds is not enabled OR streamId=%@ not allowed to be logged", &v15, 0x16u);
+      v14 = 136315394;
+      v15 = "+[CDMFeatureStoreUtils insertRequestToFeatureStoreAsJson:]";
+      v16 = 2112;
+      v17 = @"SiriNluRequestAsJson";
+      _os_log_debug_impl(&dword_1DC287000, v9, OS_LOG_TYPE_DEBUG, "%s FeatureStoreEnabledForExternalBuilds is not enabled OR streamId=%@ not allowed to be logged", &v14, 0x16u);
     }
 
 LABEL_12:
@@ -1075,9 +1056,9 @@ LABEL_12:
     requestId = CDMOSLoggerForCategory(0);
     if (os_log_type_enabled(requestId, OS_LOG_TYPE_INFO))
     {
-      v15 = 136315138;
-      v16 = "+[CDMFeatureStoreUtils insertRequestToFeatureStoreAsJson:]";
-      _os_log_impl(&dword_1DC287000, requestId, OS_LOG_TYPE_INFO, "%s [WARN]: The request or requestId within the request is nil. Cannot extract interactionId!", &v15, 0xCu);
+      v14 = 136315138;
+      v15 = "+[CDMFeatureStoreUtils insertRequestToFeatureStoreAsJson:]";
+      _os_log_impl(&dword_1DC287000, requestId, OS_LOG_TYPE_INFO, "%s [WARN]: The request or requestId within the request is nil. Cannot extract interactionId!", &v14, 0xCu);
     }
 
     v9 = 0;
@@ -1087,13 +1068,12 @@ LABEL_12:
   v11 = [CDMFeatureStoreUtils insertJsonStringToFeatureStore:v12 interactionId:v9 streamId:@"SiriNluRequestAsJson"];
 
 LABEL_17:
-  v13 = *MEMORY[0x1E69E9840];
   return v11;
 }
 
 + (BOOL)checkFeatureStoreEnabledForExternalBuilds:(id)builds
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   buildsCopy = builds;
   if (+[CDMPlatformUtils isInternalInstall])
   {
@@ -1111,41 +1091,21 @@ LABEL_17:
     v7 = CDMOSLoggerForCategory(0);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
-      v10 = 136315138;
-      v11 = "+[CDMFeatureStoreUtils checkFeatureStoreEnabledForExternalBuilds:]";
-      _os_log_debug_impl(&dword_1DC287000, v7, OS_LOG_TYPE_DEBUG, "%s FeatureFlag SiriNL/SiriMiniFeatureStoreEnabledForExternalBuilds disabled, skip inserting into FeatureStore", &v10, 0xCu);
+      v9 = 136315138;
+      v10 = "+[CDMFeatureStoreUtils checkFeatureStoreEnabledForExternalBuilds:]";
+      _os_log_debug_impl(&dword_1DC287000, v7, OS_LOG_TYPE_DEBUG, "%s FeatureFlag SiriNL/SiriMiniFeatureStoreEnabledForExternalBuilds disabled, skip inserting into FeatureStore", &v9, 0xCu);
     }
 
     v5 = 0;
   }
 
-  v8 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
 + (BOOL)platformSupportedAndEnabled
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   if (!+[CDMFeatureFlags isFeatureStoreEnabled])
-  {
-    v3 = CDMOSLoggerForCategory(0);
-    if (!os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
-    {
-LABEL_7:
-
-      result = 0;
-      goto LABEL_8;
-    }
-
-    v6 = 136315138;
-    v7 = "+[CDMFeatureStoreUtils platformSupportedAndEnabled]";
-    v4 = "%s FeatureFlag SiriNL/SiriMiniFeatureStoreEnabled disabled, skip inserting into FeatureStore";
-LABEL_10:
-    _os_log_debug_impl(&dword_1DC287000, v3, OS_LOG_TYPE_DEBUG, v4, &v6, 0xCu);
-    goto LABEL_7;
-  }
-
-  if (([MEMORY[0x1E699C0E0] isSupportedUser] & 1) == 0)
   {
     v3 = CDMOSLoggerForCategory(0);
     if (!os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
@@ -1153,16 +1113,31 @@ LABEL_10:
       goto LABEL_7;
     }
 
-    v6 = 136315138;
-    v7 = "+[CDMFeatureStoreUtils platformSupportedAndEnabled]";
+    v5 = 136315138;
+    v6 = "+[CDMFeatureStoreUtils platformSupportedAndEnabled]";
+    v4 = "%s FeatureFlag SiriNL/SiriMiniFeatureStoreEnabled disabled, skip inserting into FeatureStore";
+LABEL_10:
+    _os_log_debug_impl(&dword_1DC287000, v3, OS_LOG_TYPE_DEBUG, v4, &v5, 0xCu);
+    goto LABEL_7;
+  }
+
+  if ([MEMORY[0x1E699C0E0] isSupportedUser])
+  {
+    return 1;
+  }
+
+  v3 = CDMOSLoggerForCategory(0);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
+  {
+    v5 = 136315138;
+    v6 = "+[CDMFeatureStoreUtils platformSupportedAndEnabled]";
     v4 = "%s Current user is not a FeatureStore-supported user, skip inserting into FeatureStore";
     goto LABEL_10;
   }
 
-  result = 1;
-LABEL_8:
-  v5 = *MEMORY[0x1E69E9840];
-  return result;
+LABEL_7:
+
+  return 0;
 }
 
 + (id)allowedFSMessagesOnExternalBuilds
@@ -1186,7 +1161,7 @@ uint64_t __57__CDMFeatureStoreUtils_allowedFSMessagesOnExternalBuilds__block_inv
 
 + (id)cacheStreamInstance:(id)instance
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   instanceCopy = instance;
   selfCopy = self;
   objc_sync_enter(selfCopy);
@@ -1198,18 +1173,17 @@ uint64_t __57__CDMFeatureStoreUtils_allowedFSMessagesOnExternalBuilds__block_inv
     v8 = CDMOSLoggerForCategory(0);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
-      v11 = 136315394;
-      v12 = "+[CDMFeatureStoreUtils cacheStreamInstance:]";
-      v13 = 2112;
-      v14 = instanceCopy;
-      _os_log_impl(&dword_1DC287000, v8, OS_LOG_TYPE_INFO, "%s Inserting stream for %@ into FeatureStore stream cache.", &v11, 0x16u);
+      v10 = 136315394;
+      v11 = "+[CDMFeatureStoreUtils cacheStreamInstance:]";
+      v12 = 2112;
+      v13 = instanceCopy;
+      _os_log_impl(&dword_1DC287000, v8, OS_LOG_TYPE_INFO, "%s Inserting stream for %@ into FeatureStore stream cache.", &v10, 0x16u);
     }
 
     [v6 setValue:v7 forKey:instanceCopy];
   }
 
   objc_sync_exit(selfCopy);
-  v9 = *MEMORY[0x1E69E9840];
 
   return v7;
 }
@@ -1228,20 +1202,18 @@ uint64_t __57__CDMFeatureStoreUtils_allowedFSMessagesOnExternalBuilds__block_inv
 
 void __35__CDMFeatureStoreUtils_streamCache__block_invoke()
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v0 = CDMOSLoggerForCategory(0);
   if (os_log_type_enabled(v0, OS_LOG_TYPE_INFO))
   {
-    v4 = 136315138;
-    v5 = "+[CDMFeatureStoreUtils streamCache]_block_invoke";
-    _os_log_impl(&dword_1DC287000, v0, OS_LOG_TYPE_INFO, "%s Initializing FeatureStore stream cache.", &v4, 0xCu);
+    v3 = 136315138;
+    v4 = "+[CDMFeatureStoreUtils streamCache]_block_invoke";
+    _os_log_impl(&dword_1DC287000, v0, OS_LOG_TYPE_INFO, "%s Initializing FeatureStore stream cache.", &v3, 0xCu);
   }
 
   v1 = objc_alloc_init(MEMORY[0x1E695DF90]);
   v2 = streamCache_streamCache;
   streamCache_streamCache = v1;
-
-  v3 = *MEMORY[0x1E69E9840];
 }
 
 @end

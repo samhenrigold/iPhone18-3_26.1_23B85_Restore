@@ -15,7 +15,7 @@
     return pbf_layoutOrientation;
   }
 
-  return PBFBSInterfaceOrientationDefaultForCurrentDeviceClass();
+  return PBFBSInterfaceOrientationDefaultForCurrentDeviceClass(v3);
 }
 
 - (id)pbf_displayContext

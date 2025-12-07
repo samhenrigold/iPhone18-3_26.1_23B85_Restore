@@ -128,38 +128,47 @@
 
 void __54__BCUI2x2AvocadoViewController_viewWillLayoutSubviews__block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
-  v5 = a2;
-  UIRectIntegralWithScale();
-  [v5 setFrame:?];
+  v5 = *(*(*(a1 + 32) + 8) + 24);
+  v6 = *(*(*(a1 + 40) + 8) + 24);
+  v7 = *(a1 + 48);
+  v8 = *(a1 + 56);
+  v9 = *(a1 + 64);
+  v10 = a2;
+  v23.width = v5;
+  v23.height = v6;
+  v24.width = v8;
+  v24.height = v9;
+  UIRectIntegralWithScale(v10, v11, v23, v7, v24, v12);
+  [(BCUIRingItemView *)v10 setFrame:?];
 
-  v6 = *(a1 + 72);
-  v7 = *(a1 + 80);
-  v8 = *(a1 + 88);
-  v9 = *(a1 + 96);
+  v13 = *(a1 + 72);
+  v14 = *(a1 + 80);
+  v15 = *(a1 + 88);
+  v16 = *(a1 + 96);
   if (*(a1 + 104) == 1)
   {
-    MinX = CGRectGetMaxX(*&v6) - *(a1 + 48);
+    MinX = CGRectGetMaxX(*&v13) - *(a1 + 48);
   }
 
   else
   {
-    MinX = CGRectGetMinX(*&v6);
+    MinX = CGRectGetMinX(*&v13);
   }
 
   *(*(*(a1 + 32) + 8) + 24) = MinX;
   if ((a3 & 1) == 0)
   {
-    v11 = *(*(a1 + 32) + 8);
-    v12 = *(v11 + 24);
-    v13 = *(a1 + 48);
-    v14 = v12 - v13 + -11.0;
-    v15 = v12 + v13 + 11.0;
+    v18 = *(*(a1 + 32) + 8);
+    v19 = *(v18 + 24);
+    v20 = *(a1 + 48);
+    v21 = v19 - v20 + -11.0;
+    v22 = v19 + v20 + 11.0;
     if (*(a1 + 104))
     {
-      v15 = v14;
+      v22 = v21;
     }
 
-    *(v11 + 24) = v15;
+    *(v18 + 24) = v22;
   }
 
   if (a3 == 1)

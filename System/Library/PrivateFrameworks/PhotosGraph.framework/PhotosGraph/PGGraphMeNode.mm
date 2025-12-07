@@ -25,7 +25,7 @@
 
 - (id)relationshipEdgesToPersonNode:(id)node matchingQuery:(unint64_t)query
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   nodeCopy = node;
   v7 = [MEMORY[0x277CBEB58] set];
   collection = [(PGGraphPersonNode *)self collection];
@@ -33,39 +33,37 @@
   v10 = [(PGGraphEdgeCollection *)PGGraphRelationshipEdgeCollection edgesFromNodes:collection toNodes:collection2];
   v11 = [v10 set];
 
-  v22 = 0u;
-  v23 = 0u;
-  v20 = 0u;
   v21 = 0u;
+  v22 = 0u;
+  v19 = 0u;
+  v20 = 0u;
   v12 = v11;
-  v13 = [v12 countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v13 = [v12 countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v13)
   {
     v14 = v13;
-    v15 = *v21;
+    v15 = *v20;
     do
     {
       for (i = 0; i != v14; ++i)
       {
-        if (*v21 != v15)
+        if (*v20 != v15)
         {
           objc_enumerationMutation(v12);
         }
 
-        v17 = *(*(&v20 + 1) + 8 * i);
+        v17 = *(*(&v19 + 1) + 8 * i);
         if (-[PGGraphMeNode _status:fitsQuery:](self, "_status:fitsQuery:", [v17 status], query))
         {
           [v7 addObject:v17];
         }
       }
 
-      v14 = [v12 countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v14 = [v12 countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
     while (v14);
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
@@ -108,36 +106,34 @@
 
 void __51__PGGraphMeNode__relationshipLabelForRelationship___block_invoke()
 {
-  v4[12] = *MEMORY[0x277D85DE8];
-  v3[0] = &unk_2844837B0;
-  v3[1] = &unk_2844837C8;
-  v4[0] = @"PARTNER";
-  v4[1] = @"FAMILY";
-  v3[2] = &unk_2844837E0;
-  v3[3] = &unk_2844837F8;
-  v4[2] = @"PARENT";
-  v4[3] = @"MOTHER";
-  v3[4] = &unk_284483810;
-  v3[5] = &unk_284483828;
-  v4[4] = @"FATHER";
-  v4[5] = @"CHILD";
-  v3[6] = &unk_284483840;
-  v3[7] = &unk_284483858;
-  v4[6] = @"SON";
-  v4[7] = @"DAUGHTER";
-  v3[8] = &unk_284483870;
-  v3[9] = &unk_284483888;
-  v4[8] = @"FRIEND";
-  v4[9] = @"COWORKER";
-  v3[10] = &unk_2844838A0;
-  v3[11] = &unk_2844838B8;
-  v4[10] = @"BROTHER";
-  v4[11] = @"SISTER";
-  v0 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v4 forKeys:v3 count:12];
+  v3[12] = *MEMORY[0x277D85DE8];
+  v2[0] = &unk_2844837B0;
+  v2[1] = &unk_2844837C8;
+  v3[0] = @"PARTNER";
+  v3[1] = @"FAMILY";
+  v2[2] = &unk_2844837E0;
+  v2[3] = &unk_2844837F8;
+  v3[2] = @"PARENT";
+  v3[3] = @"MOTHER";
+  v2[4] = &unk_284483810;
+  v2[5] = &unk_284483828;
+  v3[4] = @"FATHER";
+  v3[5] = @"CHILD";
+  v2[6] = &unk_284483840;
+  v2[7] = &unk_284483858;
+  v3[6] = @"SON";
+  v3[7] = @"DAUGHTER";
+  v2[8] = &unk_284483870;
+  v2[9] = &unk_284483888;
+  v3[8] = @"FRIEND";
+  v3[9] = @"COWORKER";
+  v2[10] = &unk_2844838A0;
+  v2[11] = &unk_2844838B8;
+  v3[10] = @"BROTHER";
+  v3[11] = @"SISTER";
+  v0 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v3 forKeys:v2 count:12];
   v1 = _relationshipLabelForRelationship__labelByRelationship;
   _relationshipLabelForRelationship__labelByRelationship = v0;
-
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_enumerateRelationshipWithLabel:(id)label matchingQuery:(unint64_t)query usingBlock:(id)block

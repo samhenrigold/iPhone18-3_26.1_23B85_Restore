@@ -64,8 +64,8 @@
   v12 = v11;
   [v4 appendFormat:@"isDegraded: %@, \n", v12];
 
-  options = [(PXPeopleFaceCropFetchResult *)self options];
-  [v4 appendFormat:@"options: %@\n", options];
+  v13 = objc_msgSend_options(self);
+  [v4 appendFormat:@"options: %@\n", v13];
 
   return v4;
 }

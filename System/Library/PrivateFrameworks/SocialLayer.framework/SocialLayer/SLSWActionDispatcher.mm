@@ -11,17 +11,17 @@
 - (SLSWActionDispatcher)initWithQueue:(id)queue
 {
   queueCopy = queue;
-  v12.receiver = self;
-  v12.super_class = SLSWActionDispatcher;
-  v6 = [(SLSWActionDispatcher *)&v12 init];
+  v13.receiver = self;
+  v13.super_class = SLSWActionDispatcher;
+  v6 = [(SLSWActionDispatcher *)&v13 init];
   v7 = v6;
   if (v6)
   {
     objc_storeStrong(&v6->_callbackQueue, queue);
-    v8 = SLDGlobalWorkloop();
-    v9 = dispatch_queue_create_with_target_V2("com.apple.sociallayerd.SLSWActionDispatcher", 0, v8);
+    v9 = SLDGlobalWorkloop(v8);
+    v10 = dispatch_queue_create_with_target_V2("com.apple.sociallayerd.SLSWActionDispatcher", 0, v9);
     workQueue = v7->_workQueue;
-    v7->_workQueue = v9;
+    v7->_workQueue = v10;
   }
 
   return v7;
@@ -35,6 +35,7 @@
   v18 = 0;
   v7 = [MEMORY[0x277D46F48] handleForPredicate:v6 error:&v18];
   v8 = v18;
+  v9 = v8;
   if (v7)
   {
     bundle = [v7 bundle];
@@ -42,25 +43,25 @@
     goto LABEL_10;
   }
 
-  v11 = SLDaemonLogHandle();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+  v12 = SLDaemonLogHandle(v8);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
   {
     *buf = 138412802;
     v22 = processCopy;
     v23 = 2112;
     v24 = v6;
     v25 = 2112;
-    v26 = v8;
-    _os_log_error_impl(&dword_231772000, v11, OS_LOG_TYPE_ERROR, "Failed to get bundle ID from process identity: %@, predicate: %@, error: %@", buf, 0x20u);
+    v26 = v9;
+    _os_log_error_impl(&dword_231772000, v12, OS_LOG_TYPE_ERROR, "Failed to get bundle ID from process identity: %@, predicate: %@, error: %@", buf, 0x20u);
   }
 
-  if (v8)
+  if (v9)
   {
-    bundle = v8;
+    bundle = v9;
     if (error)
     {
 LABEL_7:
-      v12 = bundle;
+      v13 = bundle;
       identifier = 0;
       *error = bundle;
       goto LABEL_10;
@@ -69,12 +70,12 @@ LABEL_7:
 
   else
   {
-    v13 = MEMORY[0x277CCA9B8];
+    v14 = MEMORY[0x277CCA9B8];
     v19 = *MEMORY[0x277CCA068];
     processCopy = [MEMORY[0x277CCACA8] stringWithFormat:@"Failed to get bundle ID from process identity: %@", processCopy];
     v20 = processCopy;
-    v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v20 forKeys:&v19 count:1];
-    bundle = [v13 errorWithDomain:@"com.apple.sociallayerd.SLDCollaborationHandshakeService" code:1 userInfo:v15];
+    v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v20 forKeys:&v19 count:1];
+    bundle = [v14 errorWithDomain:@"com.apple.sociallayerd.SLDCollaborationHandshakeService" code:1 userInfo:v16];
 
     if (error)
     {
@@ -84,8 +85,6 @@ LABEL_7:
 
   identifier = 0;
 LABEL_10:
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return identifier;
 }
@@ -105,15 +104,15 @@ LABEL_10:
 
 void __74__SLSWActionDispatcher_dispatchAction_withAssertionForProcess_completion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v25[1] = *MEMORY[0x277D85DE8];
+  v24[1] = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = v6;
   if (v5)
   {
-    v21 = 0;
-    v8 = +[SLRBSAssertion assertionWithType:pid:error:](SLRBSAssertion, "assertionWithType:pid:error:", 0, [v5 pid], &v21);
-    v9 = v21;
+    v20 = 0;
+    v8 = +[SLRBSAssertion assertionWithType:pid:error:](SLRBSAssertion, "assertionWithType:pid:error:", 0, [v5 pid], &v20);
+    v9 = v20;
     if (v8 && ([v8 isValid] & 1) != 0)
     {
       (*(*(a1 + 40) + 16))();
@@ -122,9 +121,9 @@ void __74__SLSWActionDispatcher_dispatchAction_withAssertionForProcess_completio
     else if (!v9)
     {
       v10 = MEMORY[0x277CCA9B8];
-      v24 = *MEMORY[0x277CCA068];
-      v25[0] = @"We were able to launch the target app, but we failed to acquire the required RB assertion.";
-      v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:&v24 count:1];
+      v23 = *MEMORY[0x277CCA068];
+      v24[0] = @"We were able to launch the target app, but we failed to acquire the required RB assertion.";
+      v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v24 forKeys:&v23 count:1];
       v9 = [v10 errorWithDomain:@"com.apple.sociallayerd.SLDCollaborationHandshakeService" code:1 userInfo:v11];
     }
   }
@@ -139,27 +138,25 @@ void __74__SLSWActionDispatcher_dispatchAction_withAssertionForProcess_completio
     else
     {
       v13 = MEMORY[0x277CCA9B8];
-      v22 = *MEMORY[0x277CCA068];
-      v23 = @"Unable to launch app for a universal link.";
-      v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v23 forKeys:&v22 count:1];
+      v21 = *MEMORY[0x277CCA068];
+      v22 = @"Unable to launch app for a universal link.";
+      v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v22 forKeys:&v21 count:1];
       v12 = [v13 errorWithDomain:@"com.apple.sociallayerd.SLDCollaborationHandshakeService" code:1 userInfo:v14];
     }
 
     v15 = [*(a1 + 32) callbackQueue];
-    v18[0] = MEMORY[0x277D85DD0];
-    v18[1] = 3221225472;
-    v18[2] = __74__SLSWActionDispatcher_dispatchAction_withAssertionForProcess_completion___block_invoke_2;
-    v18[3] = &unk_2789260C8;
+    v17[0] = MEMORY[0x277D85DD0];
+    v17[1] = 3221225472;
+    v17[2] = __74__SLSWActionDispatcher_dispatchAction_withAssertionForProcess_completion___block_invoke_2;
+    v17[3] = &unk_2789260C8;
     v16 = *(a1 + 40);
-    v19 = v12;
-    v20 = v16;
+    v18 = v12;
+    v19 = v16;
     v9 = v12;
-    dispatch_async(v15, v18);
+    dispatch_async(v15, v17);
 
-    v8 = v20;
+    v8 = v19;
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dispatchAction:(id)action toProcess:(id)process completion:(id)completion
@@ -177,7 +174,7 @@ void __74__SLSWActionDispatcher_dispatchAction_withAssertionForProcess_completio
 
 void __60__SLSWActionDispatcher_dispatchAction_toProcess_completion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v19[1] = *MEMORY[0x277D85DE8];
+  v18[1] = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = v6;
@@ -194,9 +191,9 @@ void __60__SLSWActionDispatcher_dispatchAction_toProcess_completion___block_invo
   else
   {
     v9 = MEMORY[0x277CCA9B8];
-    v18 = *MEMORY[0x277CCA068];
-    v19[0] = @"Unable to launch app for a universal link.";
-    v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:&v18 count:1];
+    v17 = *MEMORY[0x277CCA068];
+    v18[0] = @"Unable to launch app for a universal link.";
+    v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:&v17 count:1];
     v8 = [v9 errorWithDomain:@"com.apple.sociallayerd.SLDCollaborationHandshakeService" code:1 userInfo:v10];
   }
 
@@ -206,12 +203,10 @@ void __60__SLSWActionDispatcher_dispatchAction_toProcess_completion___block_invo
   block[2] = __60__SLSWActionDispatcher_dispatchAction_toProcess_completion___block_invoke_2;
   block[3] = &unk_2789260C8;
   v12 = *(a1 + 40);
-  v16 = v8;
-  v17 = v12;
+  v15 = v8;
+  v16 = v12;
   v13 = v8;
   dispatch_async(v11, block);
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_sendAction:(id)action toProcess:(id)process completion:(id)completion
@@ -223,6 +218,7 @@ void __60__SLSWActionDispatcher_dispatchAction_toProcess_completion___block_invo
   v27 = 0;
   v11 = [(SLSWActionDispatcher *)self bundleIDForProcess:processCopy error:&v27];
   v12 = v27;
+  v13 = v12;
   if (v11)
   {
     sourceBSAction = [actionCopy sourceBSAction];
@@ -231,19 +227,19 @@ void __60__SLSWActionDispatcher_dispatchAction_toProcess_completion___block_invo
       dictionary = [MEMORY[0x277CBEB38] dictionary];
       [dictionary setObject:MEMORY[0x277CBEC38] forKeyedSubscript:*MEMORY[0x277D0ABF0]];
       v32 = sourceBSAction;
-      v15 = [MEMORY[0x277CBEA60] arrayWithObjects:&v32 count:1];
-      [dictionary setObject:v15 forKeyedSubscript:*MEMORY[0x277D0ABD0]];
+      v16 = [MEMORY[0x277CBEA60] arrayWithObjects:&v32 count:1];
+      [dictionary setObject:v16 forKeyedSubscript:*MEMORY[0x277D0ABD0]];
 
-      v16 = [MEMORY[0x277D0AD60] optionsWithDictionary:dictionary];
+      v17 = [MEMORY[0x277D0AD60] optionsWithDictionary:dictionary];
       serviceWithDefaultShellEndpoint = [MEMORY[0x277D0AD78] serviceWithDefaultShellEndpoint];
-      v18 = SLDaemonLogHandle();
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+      v19 = SLDaemonLogHandle(serviceWithDefaultShellEndpoint);
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315394;
         v29 = "[SLSWActionDispatcher _sendAction:toProcess:completion:]";
         v30 = 2114;
         v31 = v11;
-        _os_log_impl(&dword_231772000, v18, OS_LOG_TYPE_DEFAULT, "[%s] Launching app with bundleIdentifier: %{public}@", buf, 0x16u);
+        _os_log_impl(&dword_231772000, v19, OS_LOG_TYPE_DEFAULT, "[%s] Launching app with bundleIdentifier: %{public}@", buf, 0x16u);
       }
 
       v24[0] = MEMORY[0x277D85DD0];
@@ -252,17 +248,17 @@ void __60__SLSWActionDispatcher_dispatchAction_toProcess_completion___block_invo
       v24[3] = &unk_278926380;
       v25 = v11;
       v26 = completionCopy;
-      [serviceWithDefaultShellEndpoint openApplication:v25 withOptions:v16 completion:v24];
+      [serviceWithDefaultShellEndpoint openApplication:v25 withOptions:v17 completion:v24];
     }
 
     else
     {
-      v20 = MEMORY[0x277CCA9B8];
+      v21 = MEMORY[0x277CCA9B8];
       v33 = *MEMORY[0x277CCA068];
       actionCopy = [MEMORY[0x277CCACA8] stringWithFormat:@"Unable to retrieve a BSAction for: %@", actionCopy];
       v34[0] = actionCopy;
-      v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v34 forKeys:&v33 count:1];
-      dictionary = [v20 errorWithDomain:@"com.apple.sociallayerd.SLDCollaborationHandshakeService" code:1 userInfo:v22];
+      v23 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v34 forKeys:&v33 count:1];
+      dictionary = [v21 errorWithDomain:@"com.apple.sociallayerd.SLDCollaborationHandshakeService" code:1 userInfo:v23];
 
       (*(completionCopy + 2))(completionCopy, 0, dictionary);
     }
@@ -270,24 +266,22 @@ void __60__SLSWActionDispatcher_dispatchAction_toProcess_completion___block_invo
 
   else
   {
-    v19 = SLDaemonLogHandle();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+    v20 = SLDaemonLogHandle(v12);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
-      [SLSWActionDispatcher _sendAction:actionCopy toProcess:processCopy completion:v19];
+      [SLSWActionDispatcher _sendAction:actionCopy toProcess:processCopy completion:v20];
     }
 
-    (*(completionCopy + 2))(completionCopy, 0, v12);
+    (*(completionCopy + 2))(completionCopy, 0, v13);
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 void __57__SLSWActionDispatcher__sendAction_toProcess_completion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
-  v7 = SLDaemonLogHandle();
+  v7 = SLDaemonLogHandle(v6);
   v8 = v7;
   if (v6)
   {
@@ -300,9 +294,9 @@ void __57__SLSWActionDispatcher__sendAction_toProcess_completion___block_invoke(
   else if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v9 = *(a1 + 32);
-    v12 = 138543362;
-    v13 = v9;
-    _os_log_impl(&dword_231772000, v8, OS_LOG_TYPE_DEFAULT, "Application launch succeeded for bundle identifier: %{public}@", &v12, 0xCu);
+    v11 = 138543362;
+    v12 = v9;
+    _os_log_impl(&dword_231772000, v8, OS_LOG_TYPE_DEFAULT, "Application launch succeeded for bundle identifier: %{public}@", &v11, 0xCu);
   }
 
   v10 = *(a1 + 40);
@@ -310,28 +304,24 @@ void __57__SLSWActionDispatcher__sendAction_toProcess_completion___block_invoke(
   {
     (*(v10 + 16))(v10, v5, v6);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_sendAction:(uint64_t)a1 toProcess:(uint64_t)a2 completion:(NSObject *)a3 .cold.1(uint64_t a1, uint64_t a2, NSObject *a3)
 {
-  *v4 = 138412546;
-  *&v4[4] = a1;
-  *&v4[12] = 2112;
-  *&v4[14] = a2;
-  OUTLINED_FUNCTION_1_0(&dword_231772000, a2, a3, "Could not send action (%@) without a bundle ID for process (%@)", *v4, *&v4[8], *&v4[16], *MEMORY[0x277D85DE8]);
-  v3 = *MEMORY[0x277D85DE8];
+  *v3 = 138412546;
+  *&v3[4] = a1;
+  *&v3[12] = 2112;
+  *&v3[14] = a2;
+  OUTLINED_FUNCTION_1_0(&dword_231772000, a2, a3, "Could not send action (%@) without a bundle ID for process (%@)", *v3, *&v3[8], *&v3[16], *MEMORY[0x277D85DE8]);
 }
 
 void __57__SLSWActionDispatcher__sendAction_toProcess_completion___block_invoke_cold_1(uint64_t a1, uint64_t a2, NSObject *a3)
 {
-  *v4 = 138543618;
-  *&v4[4] = *(a1 + 32);
-  *&v4[12] = 2114;
-  *&v4[14] = a2;
-  OUTLINED_FUNCTION_1_0(&dword_231772000, a2, a3, "Application launch failed for %{public}@: %{public}@", *v4, *&v4[8], *&v4[16], *MEMORY[0x277D85DE8]);
-  v3 = *MEMORY[0x277D85DE8];
+  *v3 = 138543618;
+  *&v3[4] = *(a1 + 32);
+  *&v3[12] = 2114;
+  *&v3[14] = a2;
+  OUTLINED_FUNCTION_1_0(&dword_231772000, a2, a3, "Application launch failed for %{public}@: %{public}@", *v3, *&v3[8], *&v3[16], *MEMORY[0x277D85DE8]);
 }
 
 @end

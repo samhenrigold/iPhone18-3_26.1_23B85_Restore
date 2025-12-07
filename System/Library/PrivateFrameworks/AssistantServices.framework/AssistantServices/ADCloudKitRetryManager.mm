@@ -95,7 +95,7 @@
   if (CKCanRetryForError())
   {
     userInfo = [errorCopy userInfo];
-    v11 = [userInfo objectForKey:CKErrorRetryAfterKey];
+    v11 = objc_msgSend_objectForKey_(userInfo);
 
     v12 = v11 != 0;
     if (v11)

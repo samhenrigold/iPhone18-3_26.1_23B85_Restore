@@ -29,7 +29,7 @@
 
 - (HMXPCConnection)connection
 {
-  v46 = *MEMORY[0x1E69E9840];
+  v45 = *MEMORY[0x1E69E9840];
   os_unfair_lock_lock_with_options();
   connection = self->_connection;
   if (connection)
@@ -43,14 +43,14 @@
     objc_initWeak(&location, self);
     dataSource = [(HMXPCClient *)self dataSource];
     userInfo = [(HMXPCClient *)self userInfo];
-    v39[0] = MEMORY[0x1E69E9820];
-    v39[1] = 3221225472;
-    v39[2] = __25__HMXPCClient_connection__block_invoke;
-    v39[3] = &unk_1E754E540;
-    objc_copyWeak(&v40, &location);
-    v28 = [dataSource createXPCClientConnectionProxyWithUserInfo:userInfo refreshHandler:v39];
+    v38[0] = MEMORY[0x1E69E9820];
+    v38[1] = 3221225472;
+    v38[2] = __25__HMXPCClient_connection__block_invoke;
+    v38[3] = &unk_1E754E540;
+    objc_copyWeak(&v39, &location);
+    v27 = [dataSource createXPCClientConnectionProxyWithUserInfo:userInfo refreshHandler:v38];
 
-    [v28 setDelegate:self];
+    [v27 setDelegate:self];
     dataSource2 = [(HMXPCClient *)self dataSource];
     configuration = [(HMXPCClient *)self configuration];
     machServiceName = [configuration machServiceName];
@@ -62,29 +62,29 @@
     v11 = +[HMXPCClient exportedInterface];
     [(HMXPCConnection *)v4 setExportedInterface:v11];
 
-    [(HMXPCConnection *)v4 setExportedObject:v28];
+    [(HMXPCConnection *)v4 setExportedObject:v27];
     configuration2 = [(HMXPCClient *)self configuration];
     queue = [configuration2 queue];
     [(HMXPCConnection *)v4 setQueue:queue];
 
     objc_initWeak(&from, v4);
-    v35[0] = MEMORY[0x1E69E9820];
-    v35[1] = 3221225472;
-    v35[2] = __25__HMXPCClient_connection__block_invoke_80;
-    v35[3] = &unk_1E7546BE8;
-    objc_copyWeak(&v36, &location);
-    objc_copyWeak(&v37, &from);
-    [(HMXPCConnection *)v4 setInterruptionHandler:v35];
-    v32[0] = MEMORY[0x1E69E9820];
-    v32[1] = 3221225472;
-    v32[2] = __25__HMXPCClient_connection__block_invoke_81;
-    v32[3] = &unk_1E7546BE8;
-    objc_copyWeak(&v33, &location);
-    objc_copyWeak(&v34, &from);
-    [(HMXPCConnection *)v4 setInvalidationHandler:v32];
+    v34[0] = MEMORY[0x1E69E9820];
+    v34[1] = 3221225472;
+    v34[2] = __25__HMXPCClient_connection__block_invoke_80;
+    v34[3] = &unk_1E7546BE8;
+    objc_copyWeak(&v35, &location);
+    objc_copyWeak(&v36, &from);
+    [(HMXPCConnection *)v4 setInterruptionHandler:v34];
+    v31[0] = MEMORY[0x1E69E9820];
+    v31[1] = 3221225472;
+    v31[2] = __25__HMXPCClient_connection__block_invoke_81;
+    v31[3] = &unk_1E7546BE8;
+    objc_copyWeak(&v32, &location);
+    objc_copyWeak(&v33, &from);
+    [(HMXPCConnection *)v4 setInvalidationHandler:v31];
     if ([(HMXPCClient *)self notifyRegisterToken]== -1)
     {
-      v31 = 0;
+      v30 = 0;
       dataSource3 = [(HMXPCClient *)self dataSource];
       darwinNotificationProvider = [dataSource3 darwinNotificationProvider];
       configuration3 = [(HMXPCClient *)self configuration];
@@ -92,12 +92,12 @@
       v17 = serverStartNotification;
       uTF8String = [serverStartNotification UTF8String];
       v19 = dispatch_get_global_queue(21, 0);
-      v29[0] = MEMORY[0x1E69E9820];
-      v29[1] = 3221225472;
-      v29[2] = __25__HMXPCClient_connection__block_invoke_82;
-      v29[3] = &unk_1E754C980;
-      objc_copyWeak(&v30, &location);
-      v20 = [darwinNotificationProvider notifyRegisterDispatch:uTF8String outToken:&v31 queue:v19 handler:v29];
+      v28[0] = MEMORY[0x1E69E9820];
+      v28[1] = 3221225472;
+      v28[2] = __25__HMXPCClient_connection__block_invoke_82;
+      v28[3] = &unk_1E754C980;
+      objc_copyWeak(&v29, &location);
+      v20 = [darwinNotificationProvider notifyRegisterDispatch:uTF8String outToken:&v30 queue:v19 handler:v28];
 
       if (v20)
       {
@@ -108,9 +108,9 @@
         {
           v24 = HMFGetLogIdentifier();
           *buf = 138543618;
-          v43 = v24;
-          v44 = 1024;
-          v45 = v20;
+          v42 = v24;
+          v43 = 1024;
+          v44 = v20;
           _os_log_impl(&dword_19BB39000, v23, OS_LOG_TYPE_ERROR, "%{public}@Failed to register for HomeKit daemon ready notification: %u", buf, 0x12u);
         }
 
@@ -119,26 +119,25 @@
 
       else
       {
-        [(HMXPCClient *)self setNotifyRegisterToken:v31];
+        [(HMXPCClient *)self setNotifyRegisterToken:v30];
       }
 
-      objc_destroyWeak(&v30);
+      objc_destroyWeak(&v29);
     }
 
     [(HMXPCConnection *)v4 resume];
     objc_storeStrong(&self->_connection, v4);
-    objc_destroyWeak(&v34);
     objc_destroyWeak(&v33);
-    objc_destroyWeak(&v37);
+    objc_destroyWeak(&v32);
     objc_destroyWeak(&v36);
+    objc_destroyWeak(&v35);
     objc_destroyWeak(&from);
 
-    objc_destroyWeak(&v40);
+    objc_destroyWeak(&v39);
     objc_destroyWeak(&location);
   }
 
   os_unfair_lock_unlock(&self->_lock);
-  v25 = *MEMORY[0x1E69E9840];
 
   return v4;
 }
@@ -192,15 +191,16 @@
 
 uint64_t __26__HMXPCClient_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x1E69A2980];
-  logCategory__hmf_once_v26 = HMFCreateOSLogHandle();
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v26;
+  logCategory__hmf_once_v26 = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 void __25__HMXPCClient_connection__block_invoke(uint64_t a1)
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   if (WeakRetained)
   {
@@ -212,9 +212,9 @@ void __25__HMXPCClient_connection__block_invoke(uint64_t a1)
       v5 = HMFGetLogIdentifier();
       v6 = [(os_unfair_lock_s *)v3 reconnectionHandlers];
       *buf = 138543618;
-      v20 = v5;
-      v21 = 2048;
-      v22 = [v6 count];
+      v19 = v5;
+      v20 = 2048;
+      v21 = [v6 count];
       _os_log_impl(&dword_19BB39000, v4, OS_LOG_TYPE_INFO, "%{public}@Notifying %lu reconnection handlers about refresh", buf, 0x16u);
     }
 
@@ -224,43 +224,41 @@ void __25__HMXPCClient_connection__block_invoke(uint64_t a1)
     v8 = [v7 copy];
 
     os_unfair_lock_unlock(v3 + 4);
-    v16 = 0u;
-    v17 = 0u;
-    v14 = 0u;
     v15 = 0u;
+    v16 = 0u;
+    v13 = 0u;
+    v14 = 0u;
     v9 = v8;
-    v10 = [v9 countByEnumeratingWithState:&v14 objects:v18 count:16];
+    v10 = [v9 countByEnumeratingWithState:&v13 objects:v17 count:16];
     if (v10)
     {
-      v11 = *v15;
+      v11 = *v14;
       do
       {
         v12 = 0;
         do
         {
-          if (*v15 != v11)
+          if (*v14 != v11)
           {
             objc_enumerationMutation(v9);
           }
 
-          (*(*(*(&v14 + 1) + 8 * v12) + 16))(*(*(&v14 + 1) + 8 * v12));
+          (*(*(*(&v13 + 1) + 8 * v12) + 16))(*(*(&v13 + 1) + 8 * v12));
           ++v12;
         }
 
         while (v10 != v12);
-        v10 = [v9 countByEnumeratingWithState:&v14 objects:v18 count:16];
+        v10 = [v9 countByEnumeratingWithState:&v13 objects:v17 count:16];
       }
 
       while (v10);
     }
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)messageTransport:(id)transport didReceiveMessage:(id)message
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   transportCopy = transport;
   messageCopy = message;
   objc_opt_class();
@@ -296,24 +294,22 @@ void __25__HMXPCClient_connection__block_invoke(uint64_t a1)
   {
     v15 = HMFGetLogIdentifier();
     shortDescription = [messageCopy shortDescription];
-    v20 = 138543618;
-    v21 = v15;
-    v22 = 2112;
-    v23 = shortDescription;
-    _os_log_impl(&dword_19BB39000, v14, OS_LOG_TYPE_INFO, "%{public}@Received message %@ from XPC server", &v20, 0x16u);
+    v19 = 138543618;
+    v20 = v15;
+    v21 = 2112;
+    v22 = shortDescription;
+    _os_log_impl(&dword_19BB39000, v14, OS_LOG_TYPE_INFO, "%{public}@Received message %@ from XPC server", &v19, 0x16u);
   }
 
   objc_autoreleasePoolPop(v12);
   delegate = [(HMFMessageTransport *)selfCopy delegate];
   v18 = [v11 copy];
   [delegate messageTransport:selfCopy didReceiveMessage:v18];
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 - (void)sendMessage:(id)message completionHandler:(id)handler
 {
-  v59 = *MEMORY[0x1E69E9840];
+  v58 = *MEMORY[0x1E69E9840];
   messageCopy = message;
   handlerCopy = handler;
   configuration = [(HMXPCClient *)self configuration];
@@ -331,9 +327,9 @@ void __25__HMXPCClient_connection__block_invoke(uint64_t a1)
         v13 = HMFGetLogIdentifier();
         shortDescription = [messageCopy shortDescription];
         *buf = 138543618;
-        v54 = v13;
-        v55 = 2112;
-        v56 = shortDescription;
+        v53 = v13;
+        v54 = 2112;
+        v55 = shortDescription;
         _os_log_impl(&dword_19BB39000, v12, OS_LOG_TYPE_ERROR, "%{public}@Message send failed for %@ because client is not authorized for home data access", buf, 0x16u);
       }
 
@@ -364,19 +360,19 @@ void __25__HMXPCClient_connection__block_invoke(uint64_t a1)
     {
       v19 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v54 = v19;
-      v55 = 2048;
-      v56 = connection;
+      v53 = v19;
+      v54 = 2048;
+      v55 = connection;
       _os_log_impl(&dword_19BB39000, v18, OS_LOG_TYPE_INFO, "%{public}@Connecting to the daemon using connection: %p", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v16);
-    v52[0] = MEMORY[0x1E69E9820];
-    v52[1] = 3221225472;
-    v52[2] = __45__HMXPCClient_sendMessage_completionHandler___block_invoke;
-    v52[3] = &unk_1E754E148;
-    v52[4] = selfCopy2;
-    v20 = [connection remoteObjectProxyWithErrorHandler:v52];
+    v51[0] = MEMORY[0x1E69E9820];
+    v51[1] = 3221225472;
+    v51[2] = __45__HMXPCClient_sendMessage_completionHandler___block_invoke;
+    v51[3] = &unk_1E754E148;
+    v51[4] = selfCopy2;
+    v20 = [connection remoteObjectProxyWithErrorHandler:v51];
     userInfo = [(HMXPCClient *)selfCopy2 userInfo];
     [v20 updateUserInfo:userInfo];
   }
@@ -410,11 +406,11 @@ void __25__HMXPCClient_connection__block_invoke(uint64_t a1)
       [v24 qualityOfService];
       v35 = HMFQualityOfServiceToString();
       *buf = 138543874;
-      v54 = v33;
-      v55 = 2112;
-      v56 = shortDescription2;
-      v57 = 2112;
-      v58 = v35;
+      v53 = v33;
+      v54 = 2112;
+      v55 = shortDescription2;
+      v56 = 2112;
+      v57 = v35;
       _os_log_impl(&dword_19BB39000, v27, OS_LOG_TYPE_INFO, "%{public}@Sending message %@ to XPC server with adopted QOS: %@", buf, 0x20u);
     }
   }
@@ -431,11 +427,11 @@ void __25__HMXPCClient_connection__block_invoke(uint64_t a1)
       [v24 qualityOfService];
       v30 = HMFQualityOfServiceToString();
       *buf = 138543874;
-      v54 = v28;
-      v55 = 2112;
-      v56 = shortDescription3;
-      v57 = 2112;
-      v58 = v30;
+      v53 = v28;
+      v54 = 2112;
+      v55 = shortDescription3;
+      v56 = 2112;
+      v57 = v30;
       _os_log_impl(&dword_19BB39000, v27, OS_LOG_TYPE_INFO, "%{public}@Sending message %@ to XPC server with QOS: %@", buf, 0x20u);
     }
   }
@@ -454,27 +450,27 @@ void __25__HMXPCClient_connection__block_invoke(uint64_t a1)
   v40 = [v24 copy];
 
   responseHandler = [v40 responseHandler];
-  v49[0] = MEMORY[0x1E69E9820];
-  v49[1] = 3221225472;
-  v49[2] = __45__HMXPCClient_sendMessage_completionHandler___block_invoke_90;
-  v49[3] = &unk_1E754D898;
-  v49[4] = self;
+  v48[0] = MEMORY[0x1E69E9820];
+  v48[1] = 3221225472;
+  v48[2] = __45__HMXPCClient_sendMessage_completionHandler___block_invoke_90;
+  v48[3] = &unk_1E754D898;
+  v48[4] = self;
   messageCopy = v40;
-  v50 = messageCopy;
+  v49 = messageCopy;
   v42 = responseHandler;
-  v51 = v42;
-  v43 = [connection remoteObjectProxyWithErrorHandler:v49];
+  v50 = v42;
+  v43 = [connection remoteObjectProxyWithErrorHandler:v48];
   v44 = v43;
   if (v42)
   {
-    v46[0] = MEMORY[0x1E69E9820];
-    v46[1] = 3221225472;
-    v46[2] = __45__HMXPCClient_sendMessage_completionHandler___block_invoke_91;
-    v46[3] = &unk_1E754E480;
-    v46[4] = self;
-    v47 = messageCopy;
-    v48 = v42;
-    [v44 handleMessage:v47 responseHandler:v46];
+    v45[0] = MEMORY[0x1E69E9820];
+    v45[1] = 3221225472;
+    v45[2] = __45__HMXPCClient_sendMessage_completionHandler___block_invoke_91;
+    v45[3] = &unk_1E754E480;
+    v45[4] = self;
+    v46 = messageCopy;
+    v47 = v42;
+    [v44 handleMessage:v46 responseHandler:v45];
   }
 
   else
@@ -488,12 +484,11 @@ void __25__HMXPCClient_connection__block_invoke(uint64_t a1)
   }
 
 LABEL_28:
-  v45 = *MEMORY[0x1E69E9840];
 }
 
 void __45__HMXPCClient_sendMessage_completionHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
   v5 = *(a1 + 32);
@@ -501,20 +496,19 @@ void __45__HMXPCClient_sendMessage_completionHandler___block_invoke(uint64_t a1,
   if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
     v7 = HMFGetLogIdentifier();
-    v9 = 138543618;
-    v10 = v7;
-    v11 = 2112;
-    v12 = v3;
-    _os_log_impl(&dword_19BB39000, v6, OS_LOG_TYPE_ERROR, "%{public}@Failed to get remote object proxy for connecting to the daemon: %@", &v9, 0x16u);
+    v8 = 138543618;
+    v9 = v7;
+    v10 = 2112;
+    v11 = v3;
+    _os_log_impl(&dword_19BB39000, v6, OS_LOG_TYPE_ERROR, "%{public}@Failed to get remote object proxy for connecting to the daemon: %@", &v8, 0x16u);
   }
 
   objc_autoreleasePoolPop(v4);
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __45__HMXPCClient_sendMessage_completionHandler___block_invoke_90(uint64_t a1, void *a2)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
   v5 = *(a1 + 32);
@@ -523,13 +517,13 @@ void __45__HMXPCClient_sendMessage_completionHandler___block_invoke_90(uint64_t 
   {
     v7 = HMFGetLogIdentifier();
     v8 = [*(a1 + 40) shortDescription];
-    v11 = 138543874;
-    v12 = v7;
-    v13 = 2112;
-    v14 = v8;
-    v15 = 2112;
-    v16 = v3;
-    _os_log_impl(&dword_19BB39000, v6, OS_LOG_TYPE_ERROR, "%{public}@Failed to get remote object proxy for sending message %@: %@", &v11, 0x20u);
+    v10 = 138543874;
+    v11 = v7;
+    v12 = 2112;
+    v13 = v8;
+    v14 = 2112;
+    v15 = v3;
+    _os_log_impl(&dword_19BB39000, v6, OS_LOG_TYPE_ERROR, "%{public}@Failed to get remote object proxy for sending message %@: %@", &v10, 0x20u);
   }
 
   objc_autoreleasePoolPop(v4);
@@ -538,13 +532,11 @@ void __45__HMXPCClient_sendMessage_completionHandler___block_invoke_90(uint64_t 
   {
     (*(v9 + 16))(v9, v3, 0);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 void __45__HMXPCClient_sendMessage_completionHandler___block_invoke_91(uint64_t a1, void *a2, void *a3)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = objc_autoreleasePoolPush();
@@ -554,17 +546,15 @@ void __45__HMXPCClient_sendMessage_completionHandler___block_invoke_91(uint64_t 
   {
     v10 = HMFGetLogIdentifier();
     v11 = [*(a1 + 40) shortDescription];
-    v13 = 138543618;
-    v14 = v10;
-    v15 = 2112;
-    v16 = v11;
-    _os_log_impl(&dword_19BB39000, v9, OS_LOG_TYPE_INFO, "%{public}@Received response from XPC server for message: %@", &v13, 0x16u);
+    v12 = 138543618;
+    v13 = v10;
+    v14 = 2112;
+    v15 = v11;
+    _os_log_impl(&dword_19BB39000, v9, OS_LOG_TYPE_INFO, "%{public}@Received response from XPC server for message: %@", &v12, 0x16u);
   }
 
   objc_autoreleasePoolPop(v7);
   (*(*(a1 + 48) + 16))();
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)registerReconnectionHandler:(id)handler
@@ -580,7 +570,7 @@ void __45__HMXPCClient_sendMessage_completionHandler___block_invoke_91(uint64_t 
 
 void __25__HMXPCClient_connection__block_invoke_80(uint64_t a1)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   if (WeakRetained)
   {
@@ -591,11 +581,11 @@ void __25__HMXPCClient_connection__block_invoke_80(uint64_t a1)
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       v7 = HMFGetLogIdentifier();
-      v15 = 138543618;
-      v16 = v7;
-      v17 = 2048;
-      v18 = v3;
-      _os_log_impl(&dword_19BB39000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@Connection to daemon was interrupted: %p", &v15, 0x16u);
+      v14 = 138543618;
+      v15 = v7;
+      v16 = 2048;
+      v17 = v3;
+      _os_log_impl(&dword_19BB39000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@Connection to daemon was interrupted: %p", &v14, 0x16u);
     }
 
     objc_autoreleasePoolPop(v4);
@@ -608,11 +598,11 @@ void __25__HMXPCClient_connection__block_invoke_80(uint64_t a1)
       if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
         v11 = HMFGetLogIdentifier();
-        v15 = 138543618;
-        v16 = v11;
-        v17 = 2048;
-        v18 = v3;
-        _os_log_impl(&dword_19BB39000, v10, OS_LOG_TYPE_DEFAULT, "%{public}@Marking the connection as requiring check-in due to interruption: %p", &v15, 0x16u);
+        v14 = 138543618;
+        v15 = v11;
+        v16 = 2048;
+        v17 = v3;
+        _os_log_impl(&dword_19BB39000, v10, OS_LOG_TYPE_DEFAULT, "%{public}@Marking the connection as requiring check-in due to interruption: %p", &v14, 0x16u);
       }
 
       objc_autoreleasePoolPop(v8);
@@ -624,13 +614,11 @@ void __25__HMXPCClient_connection__block_invoke_80(uint64_t a1)
     v13 = [v12 notificationCenter];
     [v13 postNotificationName:@"HMDaemonDisconnectedNotification" object:v5];
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 void __25__HMXPCClient_connection__block_invoke_81(uint64_t a1)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   if (WeakRetained)
   {
@@ -641,11 +629,11 @@ void __25__HMXPCClient_connection__block_invoke_81(uint64_t a1)
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       v7 = HMFGetLogIdentifier();
-      v13 = 138543618;
-      v14 = v7;
-      v15 = 2048;
-      v16 = v3;
-      _os_log_impl(&dword_19BB39000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@Connection to daemon was invalidated: %p", &v13, 0x16u);
+      v12 = 138543618;
+      v13 = v7;
+      v14 = 2048;
+      v15 = v3;
+      _os_log_impl(&dword_19BB39000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@Connection to daemon was invalidated: %p", &v12, 0x16u);
     }
 
     objc_autoreleasePoolPop(v4);
@@ -658,11 +646,11 @@ void __25__HMXPCClient_connection__block_invoke_81(uint64_t a1)
       if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
         v11 = HMFGetLogIdentifier();
-        v13 = 138543618;
-        v14 = v11;
-        v15 = 2048;
-        v16 = v3;
-        _os_log_impl(&dword_19BB39000, v10, OS_LOG_TYPE_DEFAULT, "%{public}@Resetting connection due to invalidation: %p", &v13, 0x16u);
+        v12 = 138543618;
+        v13 = v11;
+        v14 = 2048;
+        v15 = v3;
+        _os_log_impl(&dword_19BB39000, v10, OS_LOG_TYPE_DEFAULT, "%{public}@Resetting connection due to invalidation: %p", &v12, 0x16u);
       }
 
       objc_autoreleasePoolPop(v8);
@@ -671,13 +659,11 @@ void __25__HMXPCClient_connection__block_invoke_81(uint64_t a1)
 
     os_unfair_lock_unlock(v5 + 4);
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 void __25__HMXPCClient_connection__block_invoke_82(uint64_t a1)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   if (WeakRetained)
   {
@@ -700,38 +686,36 @@ void __25__HMXPCClient_connection__block_invoke_82(uint64_t a1)
     *buf = 0;
     *&buf[8] = buf;
     *&buf[16] = 0x2020000000;
-    v17 = 1;
+    v16 = 1;
     v8 = [v3 connection];
-    v15[0] = MEMORY[0x1E69E9820];
-    v15[1] = 3221225472;
-    v15[2] = __25__HMXPCClient_connection__block_invoke_83;
-    v15[3] = &unk_1E7546C10;
-    v15[4] = v3;
-    v15[5] = buf;
-    v9 = [v8 synchronousRemoteObjectProxyWithErrorHandler:v15];
+    v14[0] = MEMORY[0x1E69E9820];
+    v14[1] = 3221225472;
+    v14[2] = __25__HMXPCClient_connection__block_invoke_83;
+    v14[3] = &unk_1E7546C10;
+    v14[4] = v3;
+    v14[5] = buf;
+    v9 = [v8 synchronousRemoteObjectProxyWithErrorHandler:v14];
 
     v10 = [v3 userInfo];
     [v9 updateUserInfo:v10 responseHandler:&__block_literal_global_2575];
 
     v11 = [v3 configuration];
     v12 = [v11 queue];
-    v14[0] = MEMORY[0x1E69E9820];
-    v14[1] = 3221225472;
-    v14[2] = __25__HMXPCClient_connection__block_invoke_2;
-    v14[3] = &unk_1E7549100;
-    v14[4] = v3;
-    v14[5] = buf;
-    dispatch_async(v12, v14);
+    v13[0] = MEMORY[0x1E69E9820];
+    v13[1] = 3221225472;
+    v13[2] = __25__HMXPCClient_connection__block_invoke_2;
+    v13[3] = &unk_1E7549100;
+    v13[4] = v3;
+    v13[5] = buf;
+    dispatch_async(v12, v13);
 
     _Block_object_dispose(buf, 8);
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 void __25__HMXPCClient_connection__block_invoke_83(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
   v5 = *(a1 + 32);
@@ -739,22 +723,20 @@ void __25__HMXPCClient_connection__block_invoke_83(uint64_t a1, void *a2)
   if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
     v7 = HMFGetLogIdentifier();
-    v9 = 138543618;
-    v10 = v7;
-    v11 = 2112;
-    v12 = v3;
-    _os_log_impl(&dword_19BB39000, v6, OS_LOG_TYPE_ERROR, "%{public}@Failed to get synchronous remote object proxy for re-connecting to the daemon: %@", &v9, 0x16u);
+    v8 = 138543618;
+    v9 = v7;
+    v10 = 2112;
+    v11 = v3;
+    _os_log_impl(&dword_19BB39000, v6, OS_LOG_TYPE_ERROR, "%{public}@Failed to get synchronous remote object proxy for re-connecting to the daemon: %@", &v8, 0x16u);
   }
 
   objc_autoreleasePoolPop(v4);
   *(*(*(a1 + 40) + 8) + 24) = 0;
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __25__HMXPCClient_connection__block_invoke_2(uint64_t a1)
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v2 = objc_autoreleasePoolPush();
   v3 = *(a1 + 32);
   v4 = HMFGetOSLogHandle();
@@ -762,7 +744,7 @@ void __25__HMXPCClient_connection__block_invoke_2(uint64_t a1)
   {
     v5 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v22 = v5;
+    v21 = v5;
     _os_log_impl(&dword_19BB39000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@Notifying reconnection handlers that HomeKit daemon is ready", buf, 0xCu);
   }
 
@@ -774,31 +756,31 @@ void __25__HMXPCClient_connection__block_invoke_2(uint64_t a1)
   v8 = [v7 copy];
 
   os_unfair_lock_unlock(v6 + 4);
-  v18 = 0u;
-  v19 = 0u;
-  v16 = 0u;
   v17 = 0u;
+  v18 = 0u;
+  v15 = 0u;
+  v16 = 0u;
   v9 = v8;
-  v10 = [v9 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v10)
   {
-    v11 = *v17;
+    v11 = *v16;
     do
     {
       v12 = 0;
       do
       {
-        if (*v17 != v11)
+        if (*v16 != v11)
         {
           objc_enumerationMutation(v9);
         }
 
-        (*(*(*(&v16 + 1) + 8 * v12) + 16))(*(*(&v16 + 1) + 8 * v12));
+        (*(*(*(&v15 + 1) + 8 * v12) + 16))(*(*(&v15 + 1) + 8 * v12));
         ++v12;
       }
 
       while (v10 != v12);
-      v10 = [v9 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v10 = [v9 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v10);
@@ -807,13 +789,11 @@ void __25__HMXPCClient_connection__block_invoke_2(uint64_t a1)
   v13 = [*(a1 + 32) dataSource];
   v14 = [v13 notificationCenter];
   [v14 postNotificationName:@"HMDaemonReconnectedNotification" object:*(a1 + 32)];
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (void)dealloc
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   if (self->_notifyRegisterToken != -1)
   {
     darwinNotificationProvider = [(HMXPCClientDataSource *)self->_dataSource darwinNotificationProvider];
@@ -828,18 +808,17 @@ void __25__HMXPCClient_connection__block_invoke_2(uint64_t a1)
     v7 = HMFGetLogIdentifier();
     connection = selfCopy->_connection;
     *buf = 138543618;
-    v12 = v7;
-    v13 = 2048;
-    v14 = connection;
+    v11 = v7;
+    v12 = 2048;
+    v13 = connection;
     _os_log_impl(&dword_19BB39000, v6, OS_LOG_TYPE_INFO, "%{public}@Invalidating connection due to dealloc: %p", buf, 0x16u);
   }
 
   objc_autoreleasePoolPop(v4);
   [(HMXPCConnection *)selfCopy->_connection invalidate];
-  v10.receiver = selfCopy;
-  v10.super_class = HMXPCClient;
-  [(HMXPCClient *)&v10 dealloc];
-  v9 = *MEMORY[0x1E69E9840];
+  v9.receiver = selfCopy;
+  v9.super_class = HMXPCClient;
+  [(HMXPCClient *)&v9 dealloc];
 }
 
 - (HMXPCClient)initWithConfiguration:(id)configuration userInfo:(id)info dataSource:(id)source

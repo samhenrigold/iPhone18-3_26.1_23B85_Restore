@@ -1,4 +1,5 @@
 @interface NFTNEPService
++ (id)serviceWithURI:(id)i minWaitTime:(unsigned __int8)time maxWaitTimeExtension:(unsigned __int8)extension maxMessageSize:(unsigned __int16)size;
 - (NFTNEPService)initWithCoder:(id)coder;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
@@ -6,6 +7,25 @@
 @end
 
 @implementation NFTNEPService
+
++ (id)serviceWithURI:(id)i minWaitTime:(unsigned __int8)time maxWaitTimeExtension:(unsigned __int8)extension maxMessageSize:(unsigned __int16)size
+{
+  sizeCopy = size;
+  extensionCopy = extension;
+  timeCopy = time;
+  iCopy = i;
+  v10 = objc_opt_new();
+  v11 = v10;
+  if (v10)
+  {
+    [v10 setUri:iCopy];
+    [v11 setMinWaitTime:timeCopy];
+    [v11 setMaxWaitTimeExtension:extensionCopy];
+    [v11 setMaxMessageSize:sizeCopy];
+  }
+
+  return v11;
+}
 
 - (id)copyWithZone:(_NSZone *)zone
 {

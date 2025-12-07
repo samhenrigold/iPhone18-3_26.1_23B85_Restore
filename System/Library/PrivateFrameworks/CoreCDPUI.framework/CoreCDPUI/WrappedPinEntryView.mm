@@ -62,7 +62,7 @@
 - (void)pressesBegan:(id)began withEvent:(id)event
 {
   sub_24521D178();
-  sub_24521D72C(&qword_27EE0DD00, sub_24521D178);
+  sub_24521D72C(&qword_27EE0DD00, sub_24521D178, MEMORY[0x277D85378]);
   v6 = sub_24525532C();
   eventCopy = event;
   selfCopy = self;

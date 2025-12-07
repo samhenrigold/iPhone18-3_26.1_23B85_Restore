@@ -95,40 +95,7 @@
   else
   {
     objc_opt_class();
-    if ((objc_opt_isKindOfClass() & 1) == 0)
-    {
-      goto LABEL_11;
-    }
-
-    manufacturerDescription = [(HAPCharacteristicMetadata *)self manufacturerDescription];
-    manufacturerDescription2 = [(HAPCharacteristicMetadata *)metadataCopy manufacturerDescription];
-    if (manufacturerDescription | manufacturerDescription2)
-    {
-      v7 = manufacturerDescription2;
-      v8 = [manufacturerDescription isEqualToString:manufacturerDescription2];
-
-      if (!v8)
-      {
-        goto LABEL_11;
-      }
-    }
-
-    format = [(HAPCharacteristicMetadata *)self format];
-    format2 = [(HAPCharacteristicMetadata *)metadataCopy format];
-    if (format | format2)
-    {
-      v12 = format2;
-      v13 = [format isEqualToString:format2];
-
-      if (!v13)
-      {
-        goto LABEL_11;
-      }
-    }
-
-    units = [(HAPCharacteristicMetadata *)self units];
-    units2 = [(HAPCharacteristicMetadata *)metadataCopy units];
-    if (!(units | units2) || (v16 = units2, v17 = [units isEqualToString:units2], v16, units, v17))
+    if ((objc_opt_isKindOfClass() & 1) != 0 && ((-[HAPCharacteristicMetadata manufacturerDescription](self, "manufacturerDescription"), v5 = objc_claimAutoreleasedReturnValue(), -[HAPCharacteristicMetadata manufacturerDescription](metadataCopy, "manufacturerDescription"), v6 = objc_claimAutoreleasedReturnValue(), !(v5 | v6)) || (v7 = v6, v8 = [v5 isEqualToString:v6], v7, v5, v8)) && ((-[HAPCharacteristicMetadata format](self, "format"), v10 = objc_claimAutoreleasedReturnValue(), -[HAPCharacteristicMetadata format](metadataCopy, "format"), v11 = objc_claimAutoreleasedReturnValue(), !(v10 | v11)) || (v12 = v11, v13 = objc_msgSend(v10, "isEqualToString:", v11), v12, v10, v13)) && ((-[HAPCharacteristicMetadata units](self, "units"), v14 = objc_claimAutoreleasedReturnValue(), -[HAPCharacteristicMetadata units](metadataCopy, "units"), v15 = objc_claimAutoreleasedReturnValue(), !(v14 | v15)) || (v16 = v15, v17 = objc_msgSend(v14, "isEqualToString:", v15), v16, v14, v17)))
     {
       constraints = [(HAPCharacteristicMetadata *)self constraints];
       constraints2 = [(HAPCharacteristicMetadata *)metadataCopy constraints];
@@ -147,7 +114,6 @@
 
     else
     {
-LABEL_11:
       v9 = 0;
     }
   }
@@ -194,15 +160,8 @@ LABEL_11:
   }
 
   minimumValue = [(HAPMetadataConstraints *)v7 minimumValue];
-  if (minimumValue)
+  if (minimumValue || ([(HAPMetadataConstraints *)v7 maximumValue], (minimumValue = objc_claimAutoreleasedReturnValue()) != 0) || ([(HAPMetadataConstraints *)v7 stepValue], (minimumValue = objc_claimAutoreleasedReturnValue()) != 0) || ([(HAPMetadataConstraints *)v7 minLength], (minimumValue = objc_claimAutoreleasedReturnValue()) != 0) || ([(HAPMetadataConstraints *)v7 maxLength], (minimumValue = objc_claimAutoreleasedReturnValue()) != 0))
   {
-    goto LABEL_11;
-  }
-
-  minimumValue = [(HAPMetadataConstraints *)v7 maximumValue];
-  if (minimumValue || ([(HAPMetadataConstraints *)v7 stepValue], (minimumValue = objc_claimAutoreleasedReturnValue()) != 0) || ([(HAPMetadataConstraints *)v7 minLength], (minimumValue = objc_claimAutoreleasedReturnValue()) != 0) || ([(HAPMetadataConstraints *)v7 maxLength], (minimumValue = objc_claimAutoreleasedReturnValue()) != 0))
-  {
-LABEL_11:
 
 LABEL_12:
     v11 = v7;
@@ -248,7 +207,7 @@ LABEL_13:
 
 - (HAPCharacteristicMetadata)initWithConstraints:(id)constraints description:(id)description format:(id)format units:(id)units
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   constraintsCopy = constraints;
   descriptionCopy = description;
   formatCopy = format;
@@ -267,7 +226,7 @@ LABEL_13:
   {
     v17 = maxLength;
     [v15 maxLength];
-    v18 = v41 = v14;
+    v18 = v40 = v14;
     formatCopy2 = format;
     unitsCopy2 = units;
     v20 = v15;
@@ -277,7 +236,7 @@ LABEL_13:
     v24 = descriptionCopy;
     unsignedIntValue = [v18 unsignedIntValue];
 
-    v14 = v41;
+    v14 = v40;
     v26 = unsignedIntValue >= 0x101;
     descriptionCopy = v24;
     formatCopy = v23;
@@ -294,10 +253,10 @@ LABEL_13:
       {
         v29 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v44 = v29;
+        v43 = v29;
         _os_log_impl(&dword_22AADC000, v28, OS_LOG_TYPE_ERROR, "%{public}@### Value of maxLength exceeds maximum allowed value", buf, 0xCu);
 
-        v14 = v41;
+        v14 = v40;
       }
 
       objc_autoreleasePoolPop(v27);
@@ -307,10 +266,10 @@ LABEL_13:
       {
         v32 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v44 = v32;
+        v43 = v32;
         _os_log_impl(&dword_22AADC000, v31, OS_LOG_TYPE_ERROR, "%{public}@### Unable to initialize metadata because of invalid arguments", buf, 0xCu);
 
-        v14 = v41;
+        v14 = v40;
       }
 
       objc_autoreleasePoolPop(v30);
@@ -318,9 +277,9 @@ LABEL_13:
     }
   }
 
-  v42.receiver = self;
-  v42.super_class = HAPCharacteristicMetadata;
-  v34 = [(HAPCharacteristicMetadata *)&v42 init];
+  v41.receiver = self;
+  v41.super_class = HAPCharacteristicMetadata;
+  v34 = [(HAPCharacteristicMetadata *)&v41 init];
   v35 = v34;
   if (v34)
   {
@@ -336,7 +295,6 @@ LABEL_13:
   selfCopy2 = self;
 LABEL_17:
 
-  v38 = *MEMORY[0x277D85DE8];
   return selfCopy2;
 }
 

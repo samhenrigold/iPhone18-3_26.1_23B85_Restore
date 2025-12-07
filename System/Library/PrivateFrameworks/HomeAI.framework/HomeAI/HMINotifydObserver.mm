@@ -52,7 +52,7 @@
     if (!v11)
     {
       [(HMINotifydObserver *)self publishInitialValue];
-      [(HMINotifydObserver *)self setToken:*buf];
+      [(HMINotifydObserver *)self setToken:?];
     }
   }
 
@@ -97,7 +97,7 @@
   out_token = -1;
   if (!notify_register_check([(HMINotifydObserver *)self notificationName], &out_token))
   {
-    [(HMINotifydObserver *)self publishValueForToken:out_token];
+    [(HMINotifydObserver *)self publishValueForToken:?];
     notify_cancel(out_token);
   }
 }

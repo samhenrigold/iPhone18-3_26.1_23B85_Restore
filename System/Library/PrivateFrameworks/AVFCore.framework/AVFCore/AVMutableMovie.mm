@@ -76,7 +76,7 @@
 
   v18 = _figOptionsFromAVMovieOptions(v11);
   v19 = FigMutableMovieRemoteCreateWithURL();
-  if (v19 || (v19 = _configureFigObjects(&cf, v17)) != 0)
+  if (v19 || (v19 = _configureFigObjects(&cf, v17), v19))
   {
     initializationOptions = [MEMORY[0x1E695DF20] dictionaryWithObject:v10 forKey:*MEMORY[0x1E696A998]];
     v21 = AVLocalizedErrorWithUnderlyingOSStatus(v19, initializationOptions);
@@ -203,7 +203,7 @@ LABEL_9:
 
   v20 = _figOptionsFromAVMovieOptions(dictionary);
   v21 = FigMutableMovieRemoteCreateFromData();
-  if (v21 || (v21 = _configureFigObjects(&cf, dictionary)) != 0)
+  if (v21 || (v21 = _configureFigObjects(&cf, dictionary), v21))
   {
     AVLocalizedErrorWithUnderlyingOSStatus(v21, 0);
     v23 = v22 = 0;
@@ -304,7 +304,7 @@ LABEL_9:
   _copyFormatReader = [(AVMovie *)v8 _copyFormatReader];
   v11 = _figOptionsFromAVMovieOptions(v9);
   Empty = FigMutableMovieRemoteCreateEmpty();
-  if (Empty || (Empty = _configureFigObjects(&cf, v9)) != 0)
+  if (Empty || (Empty = _configureFigObjects(&cf, v9), Empty))
   {
     AVLocalizedErrorWithUnderlyingOSStatus(Empty, 0);
     v14 = v13 = 0;
@@ -400,7 +400,7 @@ LABEL_9:
   v32 = 0;
   v13 = _figOptionsFromAVMovieOptions(optionsCopy);
   v14 = FigMutableMovieRemoteCreateFromFormatReader();
-  if (v14 || (v14 = _configureFigObjects(&cf, optionsCopy)) != 0)
+  if (v14 || (v14 = _configureFigObjects(&cf, optionsCopy), v14))
   {
     if (lCopy)
     {
@@ -1357,7 +1357,7 @@ LABEL_55:
       }
     }
 
-    v28 = -12782;
+    v28 = 4294954514;
     goto LABEL_55;
   }
 

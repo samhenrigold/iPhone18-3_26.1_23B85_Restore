@@ -45,10 +45,10 @@
   return v22;
 }
 
-id __40__CNUIMapTileGenerator_tilesForAddress___block_invoke(uint64_t a1, void *a2)
+id __40__CNUIMapTileGenerator_tilesForAddress___block_invoke(void *a1, void *a2)
 {
   v3 = a2;
-  v4 = [objc_opt_class() mapTileImagesForPlacemark:v3 snapshotterProvider:*(a1 + 48) scheduler:*(a1 + 40)];
+  v4 = [objc_opt_class() mapTileImagesForPlacemark:v3 snapshotterProvider:a1[6] scheduler:a1[5]];
 
   return v4;
 }
@@ -148,7 +148,7 @@ id __80__CNUIMapTileGenerator_mapTileImagesForPlacemark_snapshotterProvider_sche
 
 void __80__CNUIMapTileGenerator_mapTileImagesForPlacemark_snapshotterProvider_scheduler___block_invoke_2(uint64_t a1, void *a2)
 {
-  v28[1] = *MEMORY[0x1E69E9840];
+  v29[1] = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = [*(a1 + 32) location];
   [v4 coordinate];
@@ -157,35 +157,35 @@ void __80__CNUIMapTileGenerator_mapTileImagesForPlacemark_snapshotterProvider_sc
 
   v9 = objc_alloc_init(getMKMapSnapshotOptionsClass());
   [v9 setRegion:{v6, v8, 0.0075, 0.0075}];
-  [v9 setSize:{91.0, 91.0}];
-  v10 = objc_alloc(getMKMapSnapshotFeatureAnnotationClass());
-  v11 = [*(a1 + 32) location];
-  [v11 coordinate];
-  v12 = [v10 initWithCoordinate:0 title:1 representation:?];
+  v10 = [v9 setSize:{91.0, 91.0}];
+  v11 = objc_alloc(getMKMapSnapshotFeatureAnnotationClass(v10));
+  v12 = [*(a1 + 32) location];
+  [v12 coordinate];
+  v13 = [v11 initWithCoordinate:0 title:1 representation:?];
 
-  v28[0] = v12;
-  v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v28 count:1];
-  [v9 _setCustomFeatureAnnotations:v13];
+  v29[0] = v13;
+  v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v29 count:1];
+  [v9 _setCustomFeatureAnnotations:v14];
 
-  v14 = (*(*(a1 + 56) + 16))();
-  v25[0] = MEMORY[0x1E69E9820];
-  v25[1] = 3221225472;
-  v25[2] = __80__CNUIMapTileGenerator_mapTileImagesForPlacemark_snapshotterProvider_scheduler___block_invoke_3;
-  v25[3] = &unk_1E74E77C0;
-  v26 = *(a1 + 40);
-  v27 = v14;
-  v15 = v14;
-  [v3 addCancelationBlock:v25];
-  _CNUILog("/Library/Caches/com.apple.xbs/Sources/ContactsUI/Framework/CNUIMapTileGenerator.m", 133, 7, @"Snapshotting %@…", v16, v17, v18, v19, *(a1 + 32));
-  v21[0] = MEMORY[0x1E69E9820];
-  v21[1] = 3221225472;
-  v21[2] = __80__CNUIMapTileGenerator_mapTileImagesForPlacemark_snapshotterProvider_scheduler___block_invoke_5;
-  v21[3] = &unk_1E74E1E50;
-  v22 = *(a1 + 40);
-  v23 = *(a1 + 48);
-  v24 = v3;
-  v20 = v3;
-  [v15 startWithCompletionHandler:v21];
+  v15 = (*(*(a1 + 56) + 16))();
+  v26[0] = MEMORY[0x1E69E9820];
+  v26[1] = 3221225472;
+  v26[2] = __80__CNUIMapTileGenerator_mapTileImagesForPlacemark_snapshotterProvider_scheduler___block_invoke_3;
+  v26[3] = &unk_1E74E77C0;
+  v27 = *(a1 + 40);
+  v28 = v15;
+  v16 = v15;
+  [v3 addCancelationBlock:v26];
+  _CNUILog("/Library/Caches/com.apple.xbs/Sources/ContactsUI/Framework/CNUIMapTileGenerator.m", 133, 7u, @"Snapshotting %@…", v17, v18, v19, v20, *(a1 + 32));
+  v22[0] = MEMORY[0x1E69E9820];
+  v22[1] = 3221225472;
+  v22[2] = __80__CNUIMapTileGenerator_mapTileImagesForPlacemark_snapshotterProvider_scheduler___block_invoke_5;
+  v22[3] = &unk_1E74E1E50;
+  v23 = *(a1 + 40);
+  v24 = *(a1 + 48);
+  v25 = v3;
+  v21 = v3;
+  [v16 startWithCompletionHandler:v22];
 }
 
 void __80__CNUIMapTileGenerator_mapTileImagesForPlacemark_snapshotterProvider_scheduler___block_invoke_3(uint64_t a1)
@@ -231,7 +231,7 @@ void __80__CNUIMapTileGenerator_mapTileImagesForPlacemark_snapshotterProvider_sc
 
   if (v8)
   {
-    _CNUILog("/Library/Caches/com.apple.xbs/Sources/ContactsUI/Framework/CNUIMapTileGenerator.m", 137, 7, @"Got a tile image!", a5, a6, a7, a8, 0);
+    _CNUILog("/Library/Caches/com.apple.xbs/Sources/ContactsUI/Framework/CNUIMapTileGenerator.m", 137, 7u, @"Got a tile image!", a5, a6, a7, a8, 0);
     v10 = *(a1 + 48);
     v11 = [*(a1 + 32) image];
     [v10 observerDidReceiveResult:v11];
@@ -239,7 +239,7 @@ void __80__CNUIMapTileGenerator_mapTileImagesForPlacemark_snapshotterProvider_sc
 
   else
   {
-    _CNUILog("/Library/Caches/com.apple.xbs/Sources/ContactsUI/Framework/CNUIMapTileGenerator.m", 140, 3, @"Error generating a snapshot: %@", a5, a6, a7, a8, *(a1 + 40));
+    _CNUILog("/Library/Caches/com.apple.xbs/Sources/ContactsUI/Framework/CNUIMapTileGenerator.m", 140, 3u, @"Error generating a snapshot: %@", a5, a6, a7, a8, *(a1 + 40));
   }
 }
 
@@ -293,7 +293,7 @@ void __71__CNUIMapTileGenerator_placemarkForAddress_geocoderProvider_scheduler__
   v17 = v4;
   v5 = v4;
   [v3 addCancelationBlock:v16];
-  _CNUILog("/Library/Caches/com.apple.xbs/Sources/ContactsUI/Framework/CNUIMapTileGenerator.m", 93, 7, @"Geocoding %@…", v6, v7, v8, v9, *(a1 + 32));
+  _CNUILog("/Library/Caches/com.apple.xbs/Sources/ContactsUI/Framework/CNUIMapTileGenerator.m", 93, 7u, @"Geocoding %@…", v6, v7, v8, v9, *(a1 + 32));
   v12[0] = MEMORY[0x1E69E9820];
   v12[1] = 3221225472;
   v12[2] = __71__CNUIMapTileGenerator_placemarkForAddress_geocoderProvider_scheduler___block_invoke_4;
@@ -326,7 +326,7 @@ void __71__CNUIMapTileGenerator_placemarkForAddress_geocoderProvider_scheduler__
 
 void __71__CNUIMapTileGenerator_placemarkForAddress_geocoderProvider_scheduler___block_invoke_5(uint64_t a1)
 {
-  v14[1] = *MEMORY[0x1E69E9840];
+  v15[1] = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) count];
   v3 = *(a1 + 40);
   if (!v2)
@@ -339,9 +339,9 @@ void __71__CNUIMapTileGenerator_placemarkForAddress_geocoderProvider_scheduler__
     }
 
 LABEL_5:
-    v13 = *MEMORY[0x1E696AA08];
-    v14[0] = v3;
-    v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:&v13 count:1];
+    v14 = *MEMORY[0x1E696AA08];
+    v15[0] = v3;
+    v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:&v14 count:1];
     v6 = [v4 errorWithDomain:@"CNUIContactsUIErrorDomain" code:301 userInfo:v5];
 
 LABEL_6:
@@ -356,10 +356,10 @@ LABEL_6:
     goto LABEL_5;
   }
 
-  v12 = [*(a1 + 32) objectAtIndexedSubscript:0];
-  _CNUILog("/Library/Caches/com.apple.xbs/Sources/ContactsUI/Framework/CNUIMapTileGenerator.m", 98, 7, @"Geocoding: got placemark %@!", v7, v8, v9, v10, v12);
-  v11 = [objc_alloc(getMKPlacemarkClass()) initWithPlacemark:v12];
-  [*(a1 + 48) observerDidReceiveResult:v11];
+  v13 = [*(a1 + 32) objectAtIndexedSubscript:0];
+  _CNUILog("/Library/Caches/com.apple.xbs/Sources/ContactsUI/Framework/CNUIMapTileGenerator.m", 98, 7u, @"Geocoding: got placemark %@!", v7, v8, v9, v10, v13);
+  v12 = [objc_alloc(getMKPlacemarkClass(v11)) initWithPlacemark:v13];
+  [*(a1 + 48) observerDidReceiveResult:v12];
 }
 
 @end

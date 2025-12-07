@@ -3,6 +3,8 @@
 - (_INPBStartPhotoPlaybackIntent)initWithCoder:(id)coder;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)dictionaryRepresentation;
+- (id)excludedAttributesAsString:(int)string;
+- (id)includedAttributesAsString:(int)string;
 - (int)StringAsExcludedAttributes:(id)attributes;
 - (int)StringAsIncludedAttributes:(id)attributes;
 - (unint64_t)hash;
@@ -774,7 +776,6 @@ LABEL_35:
     v8 = 0;
     do
     {
-      v9 = self->_excludedAttributes.list[v8];
       PBDataWriterWriteInt32Field();
       ++v8;
     }
@@ -784,15 +785,14 @@ LABEL_35:
 
   if (self->_includedAttributes.count)
   {
-    v10 = 0;
+    v9 = 0;
     do
     {
-      v11 = self->_includedAttributes.list[v10];
       PBDataWriterWriteInt32Field();
-      ++v10;
+      ++v9;
     }
 
-    while (v10 < self->_includedAttributes.count);
+    while (v9 < self->_includedAttributes.count);
   }
 
   intentMetadata = [(_INPBStartPhotoPlaybackIntent *)self intentMetadata];
@@ -821,13 +821,13 @@ LABEL_35:
 
   searchTerm = [(_INPBStartPhotoPlaybackIntent *)self searchTerm];
 
-  v19 = toCopy;
+  v17 = toCopy;
   if (searchTerm)
   {
     searchTerm2 = [(_INPBStartPhotoPlaybackIntent *)self searchTerm];
     PBDataWriterWriteSubmessage();
 
-    v19 = toCopy;
+    v17 = toCopy;
   }
 }
 
@@ -983,6 +983,229 @@ LABEL_35:
   {
     v4 = 2;
   }
+
+  return v4;
+}
+
+- (id)includedAttributesAsString:(int)string
+{
+  if (string <= 53)
+  {
+    if (string > 13)
+    {
+      if (string > 49)
+      {
+        if (string > 51)
+        {
+          if (string == 52)
+          {
+            v4 = @"SQUARE_PHOTO";
+          }
+
+          else
+          {
+            v4 = @"PANORAMA_PHOTO";
+          }
+        }
+
+        else if (string == 50)
+        {
+          v4 = @"BURST_PHOTO";
+        }
+
+        else
+        {
+          v4 = @"HDR_PHOTO";
+        }
+
+        return v4;
+      }
+
+      switch(string)
+      {
+        case 14:
+          v4 = @"SELFIE";
+
+          return v4;
+        case 15:
+          v4 = @"FRONT_FACING_CAMERA";
+
+          return v4;
+        case 16:
+          v4 = @"SCREENSHOT";
+
+          return v4;
+      }
+    }
+
+    else
+    {
+      if (string > 9)
+      {
+        if (string > 11)
+        {
+          if (string == 12)
+          {
+            v4 = @"PORTRAIT_ORIENTATION";
+          }
+
+          else
+          {
+            v4 = @"FAVORITE";
+          }
+        }
+
+        else if (string == 10)
+        {
+          v4 = @"FLASH";
+        }
+
+        else
+        {
+          v4 = @"LANDSCAPE_ORIENTATION";
+        }
+
+        return v4;
+      }
+
+      switch(string)
+      {
+        case 2:
+          v4 = @"PHOTO";
+
+          return v4;
+        case 3:
+          v4 = @"VIDEO";
+
+          return v4;
+        case 4:
+          v4 = @"GIF";
+
+          return v4;
+      }
+    }
+
+LABEL_121:
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+
+    return v4;
+  }
+
+  if (string <= 299)
+  {
+    if (string <= 56)
+    {
+      if (string == 54)
+      {
+        v4 = @"PORTRAIT_PHOTO";
+      }
+
+      else if (string == 55)
+      {
+        v4 = @"LIVE_PHOTO";
+      }
+
+      else
+      {
+        v4 = @"LOOP_PHOTO";
+      }
+
+      return v4;
+    }
+
+    if (string > 79)
+    {
+      if (string == 80)
+      {
+        v4 = @"TIME_LAPSE_VIDEO";
+
+        return v4;
+      }
+
+      if (string == 81)
+      {
+        v4 = @"SLOW_MOTION_VIDEO";
+
+        return v4;
+      }
+    }
+
+    else
+    {
+      if (string == 57)
+      {
+        v4 = @"BOUNCE_PHOTO";
+
+        return v4;
+      }
+
+      if (string == 58)
+      {
+        v4 = @"LONG_EXPOSURE_PHOTO";
+
+        return v4;
+      }
+    }
+
+    goto LABEL_121;
+  }
+
+  if (string <= 303)
+  {
+    if (string > 301)
+    {
+      if (string == 302)
+      {
+        v4 = @"INSTANT_FILTER";
+      }
+
+      else
+      {
+        v4 = @"TONAL_FILTER";
+      }
+    }
+
+    else if (string == 300)
+    {
+      v4 = @"NOIR_FILTER";
+    }
+
+    else
+    {
+      v4 = @"CHROME_FILTER";
+    }
+
+    return v4;
+  }
+
+  if (string <= 305)
+  {
+    if (string == 304)
+    {
+      v4 = @"TRANSFER_FILTER";
+    }
+
+    else
+    {
+      v4 = @"MONO_FILTER";
+    }
+
+    return v4;
+  }
+
+  if (string != 306)
+  {
+    if (string == 307)
+    {
+      v4 = @"PROCESS_FILTER";
+
+      return v4;
+    }
+
+    goto LABEL_121;
+  }
+
+  v4 = @"FADE_FILTER";
 
   return v4;
 }
@@ -1147,6 +1370,229 @@ LABEL_35:
   {
     v4 = 2;
   }
+
+  return v4;
+}
+
+- (id)excludedAttributesAsString:(int)string
+{
+  if (string <= 53)
+  {
+    if (string > 13)
+    {
+      if (string > 49)
+      {
+        if (string > 51)
+        {
+          if (string == 52)
+          {
+            v4 = @"SQUARE_PHOTO";
+          }
+
+          else
+          {
+            v4 = @"PANORAMA_PHOTO";
+          }
+        }
+
+        else if (string == 50)
+        {
+          v4 = @"BURST_PHOTO";
+        }
+
+        else
+        {
+          v4 = @"HDR_PHOTO";
+        }
+
+        return v4;
+      }
+
+      switch(string)
+      {
+        case 14:
+          v4 = @"SELFIE";
+
+          return v4;
+        case 15:
+          v4 = @"FRONT_FACING_CAMERA";
+
+          return v4;
+        case 16:
+          v4 = @"SCREENSHOT";
+
+          return v4;
+      }
+    }
+
+    else
+    {
+      if (string > 9)
+      {
+        if (string > 11)
+        {
+          if (string == 12)
+          {
+            v4 = @"PORTRAIT_ORIENTATION";
+          }
+
+          else
+          {
+            v4 = @"FAVORITE";
+          }
+        }
+
+        else if (string == 10)
+        {
+          v4 = @"FLASH";
+        }
+
+        else
+        {
+          v4 = @"LANDSCAPE_ORIENTATION";
+        }
+
+        return v4;
+      }
+
+      switch(string)
+      {
+        case 2:
+          v4 = @"PHOTO";
+
+          return v4;
+        case 3:
+          v4 = @"VIDEO";
+
+          return v4;
+        case 4:
+          v4 = @"GIF";
+
+          return v4;
+      }
+    }
+
+LABEL_121:
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+
+    return v4;
+  }
+
+  if (string <= 299)
+  {
+    if (string <= 56)
+    {
+      if (string == 54)
+      {
+        v4 = @"PORTRAIT_PHOTO";
+      }
+
+      else if (string == 55)
+      {
+        v4 = @"LIVE_PHOTO";
+      }
+
+      else
+      {
+        v4 = @"LOOP_PHOTO";
+      }
+
+      return v4;
+    }
+
+    if (string > 79)
+    {
+      if (string == 80)
+      {
+        v4 = @"TIME_LAPSE_VIDEO";
+
+        return v4;
+      }
+
+      if (string == 81)
+      {
+        v4 = @"SLOW_MOTION_VIDEO";
+
+        return v4;
+      }
+    }
+
+    else
+    {
+      if (string == 57)
+      {
+        v4 = @"BOUNCE_PHOTO";
+
+        return v4;
+      }
+
+      if (string == 58)
+      {
+        v4 = @"LONG_EXPOSURE_PHOTO";
+
+        return v4;
+      }
+    }
+
+    goto LABEL_121;
+  }
+
+  if (string <= 303)
+  {
+    if (string > 301)
+    {
+      if (string == 302)
+      {
+        v4 = @"INSTANT_FILTER";
+      }
+
+      else
+      {
+        v4 = @"TONAL_FILTER";
+      }
+    }
+
+    else if (string == 300)
+    {
+      v4 = @"NOIR_FILTER";
+    }
+
+    else
+    {
+      v4 = @"CHROME_FILTER";
+    }
+
+    return v4;
+  }
+
+  if (string <= 305)
+  {
+    if (string == 304)
+    {
+      v4 = @"TRANSFER_FILTER";
+    }
+
+    else
+    {
+      v4 = @"MONO_FILTER";
+    }
+
+    return v4;
+  }
+
+  if (string != 306)
+  {
+    if (string == 307)
+    {
+      v4 = @"PROCESS_FILTER";
+
+      return v4;
+    }
+
+    goto LABEL_121;
+  }
+
+  v4 = @"FADE_FILTER";
 
   return v4;
 }

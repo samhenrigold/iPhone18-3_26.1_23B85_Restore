@@ -501,7 +501,7 @@ LABEL_8:
   v59 = 0u;
   v60 = 0u;
   v58 = 0u;
-  [(SRCardStackNavigationTransitionController *)self _prepareFromPlatteredCardViewForTransitionWithContext:contextCopy];
+  objc_msgSend__prepareFromPlatteredCardViewForTransitionWithContext_(self);
   [(SRCardStackNavigationTransitionController *)self _prepareToPlatteredCardViewForTransitionInContext:contextCopy];
   v14 = v13;
   v16 = v15;
@@ -706,20 +706,20 @@ LABEL_8:
   [v6 percentComplete];
   v8 = v7;
   fromPlatteredCardView = [v6 fromPlatteredCardView];
-  semanticContentAttribute = [v6 semanticContentAttribute];
+  [v6 semanticContentAttribute];
 
-  v14 = 0u;
-  v15 = 0u;
   v13 = 0u;
-  [(SRCardStackNavigationTransitionController *)self _calculateMoveFromPlatteredCardViewToBackgroundAffineTransformForPercentComplete:semanticContentAttribute withSemanticContentAttribute:1.0 - v8];
+  v14 = 0u;
+  v12 = 0u;
+  objc_msgSend__calculateMoveFromPlatteredCardViewToBackgroundAffineTransformForPercentComplete_withSemanticContentAttribute_(self, 1.0 - v8);
   *&retstr->c = 0u;
   *&retstr->tx = 0u;
   *&retstr->a = 0u;
-  [(SRCardStackNavigationTransitionController *)self _calculateMoveFromPlatteredCardViewToBackgroundAffineTransformForPercentComplete:semanticContentAttribute withSemanticContentAttribute:v8];
-  v12[0] = v13;
-  v12[1] = v14;
-  v12[2] = v15;
-  [fromPlatteredCardView setTransform:v12];
+  objc_msgSend__calculateMoveFromPlatteredCardViewToBackgroundAffineTransformForPercentComplete_withSemanticContentAttribute_(self, v8);
+  v11[0] = v12;
+  v11[1] = v13;
+  v11[2] = v14;
+  [fromPlatteredCardView setTransform:v11];
 
   return result;
 }

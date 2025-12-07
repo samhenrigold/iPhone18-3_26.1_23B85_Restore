@@ -520,11 +520,11 @@ void __79__ICQInternetPrivacyDetailSpecifierProvider__turnOffCellularSpecifierWa
   [viewModel enableWifi:1 onNetworkName:wiFiName completion:v7];
 }
 
-uint64_t __74__ICQInternetPrivacyDetailSpecifierProvider__turnOnWifiSpecifierWasTapped__block_invoke(uint64_t result, uint64_t a2)
+id *__74__ICQInternetPrivacyDetailSpecifierProvider__turnOnWifiSpecifierWasTapped__block_invoke(id *result, uint64_t a2)
 {
   if (!a2)
   {
-    return [*(result + 32) _refreshStatusAndPostNotification];
+    return [result[4] _refreshStatusAndPostNotification];
   }
 
   return result;
@@ -552,11 +552,11 @@ uint64_t __74__ICQInternetPrivacyDetailSpecifierProvider__turnOnWifiSpecifierWas
   [viewModel enableCellular:1 onNetworkName:cellularName completion:v7];
 }
 
-uint64_t __78__ICQInternetPrivacyDetailSpecifierProvider__turnOnCellularSpecifierWasTapped__block_invoke(uint64_t result, uint64_t a2)
+id *__78__ICQInternetPrivacyDetailSpecifierProvider__turnOnCellularSpecifierWasTapped__block_invoke(id *result, uint64_t a2)
 {
   if (!a2)
   {
-    return [*(result + 32) _refreshStatusAndPostNotification];
+    return [result[4] _refreshStatusAndPostNotification];
   }
 
   return result;

@@ -64,7 +64,7 @@
 
   else
   {
-    assetRegistry = sub_100002880();
+    assetRegistry = sub_100002880(0);
     if (os_log_type_enabled(assetRegistry, OS_LOG_TYPE_ERROR))
     {
       sub_1002271C0(assetRegistry);

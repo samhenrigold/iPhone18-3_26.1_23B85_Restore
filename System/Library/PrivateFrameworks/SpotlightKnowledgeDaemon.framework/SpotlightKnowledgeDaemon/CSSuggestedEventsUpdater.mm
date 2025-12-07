@@ -64,7 +64,7 @@
 
 - (BOOL)handleDonation:(id)donation turboEnabled:(BOOL)enabled completionHandler:(id)handler cancelBlock:(id)block
 {
-  v99 = *MEMORY[0x277D85DE8];
+  v98 = *MEMORY[0x277D85DE8];
   donationCopy = donation;
   handlerCopy = handler;
   blockCopy = block;
@@ -87,7 +87,7 @@
 
   v12 = SKGLogEventInit();
   v13 = v12;
-  v60 = spid - 1;
+  v59 = spid - 1;
   if (spid - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v12))
   {
     *buf = 0;
@@ -107,39 +107,39 @@
   [(CSEventFeedback *)v14 setBundleID:v19];
   v20 = objc_alloc(MEMORY[0x277CCACA8]);
   protectionClass = [(CSEventListenerDonation *)donationCopy protectionClass];
-  v64 = [v20 initWithString:protectionClass];
+  v63 = [v20 initWithString:protectionClass];
 
   v22 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:-[CSEventListenerManager totalJournalSize](donationCopy)];
   *buf = 0;
   *&buf[8] = buf;
   *&buf[16] = 0x3032000000;
-  v96 = __Block_byref_object_copy__7;
-  v97 = __Block_byref_object_dispose__7;
-  v98 = objc_alloc_init(MEMORY[0x277CBEB18]);
-  v85[0] = 0;
-  v85[1] = v85;
-  v85[2] = 0x2020000000;
-  v85[3] = 0;
-  v76[0] = MEMORY[0x277D85DD0];
-  v76[1] = 3221225472;
-  v76[2] = __86__CSSuggestedEventsUpdater_handleDonation_turboEnabled_completionHandler_cancelBlock___block_invoke;
-  v76[3] = &unk_27893CAC8;
-  v76[4] = self;
+  v95 = __Block_byref_object_copy__7;
+  v96 = __Block_byref_object_dispose__7;
+  v97 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v84[0] = 0;
+  v84[1] = v84;
+  v84[2] = 0x2020000000;
+  v84[3] = 0;
+  v75[0] = MEMORY[0x277D85DD0];
+  v75[1] = 3221225472;
+  v75[2] = __86__CSSuggestedEventsUpdater_handleDonation_turboEnabled_completionHandler_cancelBlock___block_invoke;
+  v75[3] = &unk_27893CAC8;
+  v75[4] = self;
   v23 = v19;
-  v77 = v23;
+  v76 = v23;
   v24 = blockCopy;
-  v82 = v24;
+  v81 = v24;
   v25 = donationCopy;
-  v78 = v25;
-  v83 = v85;
+  v77 = v25;
+  v82 = v84;
   v26 = v14;
-  v79 = v26;
-  v62 = suggestedEventsFetchAttributes;
-  v80 = v62;
+  v78 = v26;
+  v61 = suggestedEventsFetchAttributes;
+  v79 = v61;
   v27 = v22;
-  v81 = v27;
-  v84 = buf;
-  [v25 iterateItems:v76];
+  v80 = v27;
+  v83 = buf;
+  [v25 iterateItems:v75];
   v28 = v24[2](v24);
   if (v28)
   {
@@ -153,13 +153,13 @@
         uTF8String = [taskName UTF8String];
         indexTypeName = [(CSEventListenerDonation *)v25 indexTypeName];
         totalJournalSize = [(CSEventListenerManager *)v25 totalJournalSize];
-        *v87 = 136315650;
+        *v86 = 136315650;
         selfCopy2 = uTF8String;
-        v89 = 2080;
-        v90 = indexTypeName;
-        v91 = 2048;
-        v92 = totalJournalSize;
-        _os_log_impl(&dword_231B25000, v29, OS_LOG_TYPE_DEFAULT, "### cancelling %s due to expiration request while processing type='%s' sn:'%llu'", v87, 0x20u);
+        v88 = 2080;
+        v89 = indexTypeName;
+        v90 = 2048;
+        v91 = totalJournalSize;
+        _os_log_impl(&dword_231B25000, v29, OS_LOG_TYPE_DEFAULT, "### cancelling %s due to expiration request while processing type='%s' sn:'%llu'", v86, 0x20u);
       }
     }
 
@@ -173,12 +173,12 @@ LABEL_50:
   v35 = *(*&buf[8] + 40);
   if (v35)
   {
-    v61 = [v35 count];
+    v60 = [v35 count];
   }
 
   else
   {
-    v61 = 0;
+    v60 = 0;
   }
 
   if (SKGLogGetCurrentLoggingLevel() >= 4)
@@ -188,15 +188,15 @@ LABEL_50:
     {
       indexTypeName2 = [(CSEventListenerDonation *)v25 indexTypeName];
       totalJournalSize2 = [(CSEventListenerManager *)v25 totalJournalSize];
-      *v87 = 138413058;
+      *v86 = 138413058;
       selfCopy2 = self;
-      v89 = 2080;
-      v90 = indexTypeName2;
-      v91 = 2048;
-      v92 = totalJournalSize2;
-      v93 = 2048;
-      v94 = v61;
-      _os_log_impl(&dword_231B25000, v36, OS_LOG_TYPE_DEFAULT, "### donation %@ %s sn:%llu found %lu items", v87, 0x2Au);
+      v88 = 2080;
+      v89 = indexTypeName2;
+      v90 = 2048;
+      v91 = totalJournalSize2;
+      v92 = 2048;
+      v93 = v60;
+      _os_log_impl(&dword_231B25000, v36, OS_LOG_TYPE_DEFAULT, "### donation %@ %s sn:%llu found %lu items", v86, 0x2Au);
     }
   }
 
@@ -213,13 +213,13 @@ LABEL_50:
         {
           v42 = v40;
           uTF8String2 = [v40 UTF8String];
-          *v87 = 136315138;
+          *v86 = 136315138;
           selfCopy2 = uTF8String2;
-          _os_log_impl(&dword_231B25000, v41, OS_LOG_TYPE_DEFAULT, "Creating CSManagedSearchableIndex for path = %s", v87, 0xCu);
+          _os_log_impl(&dword_231B25000, v41, OS_LOG_TYPE_DEFAULT, "Creating CSManagedSearchableIndex for path = %s", v86, 0xCu);
         }
       }
 
-      if (v61)
+      if (v60)
       {
         v44 = [objc_alloc(MEMORY[0x277CC3448]) initWithPath:v40];
 LABEL_36:
@@ -234,7 +234,7 @@ LABEL_36:
       if (os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
       {
         homePathHash2 = [(CSEventListenerDonation *)v25 homePathHash];
-        [CSDocumentUnderstandingUpdater handleDonation:v86 turboEnabled:homePathHash2 completionHandler:v45 cancelBlock:?];
+        [CSDocumentUnderstandingUpdater handleDonation:v85 turboEnabled:homePathHash2 completionHandler:v45 cancelBlock:?];
       }
     }
 
@@ -242,22 +242,22 @@ LABEL_36:
     goto LABEL_36;
   }
 
-  if (!v61)
+  if (!v60)
   {
     goto LABEL_46;
   }
 
-  v44 = [objc_alloc(MEMORY[0x277CC34A8]) _initWithName:@"SuggestedEventsUpdate" protectionClass:v64 bundleIdentifier:v23 options:32];
+  v44 = [objc_alloc(MEMORY[0x277CC34A8]) _initWithName:@"SuggestedEventsUpdate" protectionClass:v63 bundleIdentifier:v23 options:32];
 LABEL_37:
   if (!v44)
   {
 LABEL_46:
     v55 = SKGLogEventInit();
     v56 = v55;
-    if (v60 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v55))
+    if (v59 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v55))
     {
-      *v87 = 0;
-      _os_signpost_emit_with_name_impl(&dword_231B25000, v56, OS_SIGNPOST_INTERVAL_END, spid, "CSSuggestedEventsUpdaterHandleDonation", "", v87, 2u);
+      *v86 = 0;
+      _os_signpost_emit_with_name_impl(&dword_231B25000, v56, OS_SIGNPOST_INTERVAL_END, spid, "CSSuggestedEventsUpdaterHandleDonation", "", v86, 2u);
     }
 
     [(CSEventFeedback *)v26 end];
@@ -270,15 +270,15 @@ LABEL_46:
     if (os_log_type_enabled(v47, OS_LOG_TYPE_DEBUG))
     {
       indexTypeName3 = [(CSEventListenerDonation *)v25 indexTypeName];
-      *v87 = 138413058;
+      *v86 = 138413058;
       selfCopy2 = self;
-      v89 = 2080;
-      v90 = indexTypeName3;
-      v91 = 2112;
-      v92 = v27;
-      v93 = 2048;
-      v94 = v61;
-      _os_log_debug_impl(&dword_231B25000, v47, OS_LOG_TYPE_DEBUG, "### %@ %s sn: %@ found %lu items", v87, 0x2Au);
+      v88 = 2080;
+      v89 = indexTypeName3;
+      v90 = 2112;
+      v91 = v27;
+      v92 = 2048;
+      v93 = v60;
+      _os_log_debug_impl(&dword_231B25000, v47, OS_LOG_TYPE_DEBUG, "### %@ %s sn: %@ found %lu items", v86, 0x2Au);
     }
   }
 
@@ -289,117 +289,113 @@ LABEL_46:
   v51 = v50;
   if (v49 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v50))
   {
-    *v87 = 0;
-    _os_signpost_emit_with_name_impl(&dword_231B25000, v51, OS_SIGNPOST_INTERVAL_BEGIN, v49, "CSSuggestedEventsUpdaterIndexItems", "", v87, 2u);
+    *v86 = 0;
+    _os_signpost_emit_with_name_impl(&dword_231B25000, v51, OS_SIGNPOST_INTERVAL_BEGIN, v49, "CSSuggestedEventsUpdaterIndexItems", "", v86, 2u);
   }
 
   v52 = [objc_alloc(MEMORY[0x277CCA9B8]) initWithDomain:@"CSSuggestedEventsUpdaterTimeout" code:-1 userInfo:0];
   v53 = *(*&buf[8] + 40);
-  v68[0] = MEMORY[0x277D85DD0];
-  v68[1] = 3221225472;
-  v68[2] = __86__CSSuggestedEventsUpdater_handleDonation_turboEnabled_completionHandler_cancelBlock___block_invoke_99;
-  v68[3] = &unk_27893D888;
-  v69 = v26;
-  v70 = v25;
-  v71 = v27;
-  v73 = v61;
-  v74 = v49;
-  v75 = spid;
-  v72 = handlerCopy;
-  [v44 indexSearchableItems:v53 timeout:v52 timeoutError:v68 completion:3.0e11];
+  v67[0] = MEMORY[0x277D85DD0];
+  v67[1] = 3221225472;
+  v67[2] = __86__CSSuggestedEventsUpdater_handleDonation_turboEnabled_completionHandler_cancelBlock___block_invoke_99;
+  v67[3] = &unk_27893D888;
+  v68 = v26;
+  v69 = v25;
+  v70 = v27;
+  v72 = v60;
+  v73 = v49;
+  v74 = spid;
+  v71 = handlerCopy;
+  [v44 indexSearchableItems:v53 timeout:v52 timeoutError:v67 completion:3.0e11];
 
   v54 = 1;
 LABEL_51:
 
-  _Block_object_dispose(v85, 8);
+  _Block_object_dispose(v84, 8);
   _Block_object_dispose(buf, 8);
 
   objc_autoreleasePoolPop(context);
-  v57 = *MEMORY[0x277D85DE8];
   return v28 | v54;
 }
 
 uint64_t __86__CSSuggestedEventsUpdater_handleDonation_turboEnabled_completionHandler_cancelBlock___block_invoke(uint64_t a1, void *a2)
 {
-  v60 = *MEMORY[0x277D85DE8];
+  v56 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
   if (([*(a1 + 32) shouldHandleJournalItem:v3 bundleID:*(a1 + 40)] & 1) == 0)
   {
-    v12 = (*(*(a1 + 80) + 16))();
+    v11 = (*(*(a1 + 80) + 16))();
     objc_autoreleasePoolPop(v4);
     goto LABEL_28;
   }
 
   [(CSEventDonationJournalItem *)v3 identifier];
-  v5 = *MEMORY[0x277CBECE8];
-  v6 = MDJournalReaderMDPlistObjectCopy();
-  v7 = [v6 mutableCopy];
+  v5 = MDJournalReaderMDPlistObjectCopy();
+  v6 = [v5 mutableCopy];
 
-  v8 = [SKGUpdaterStore instanceForIndexType:[(CSEventListenerManager *)*(a1 + 48) folderFd]];
-  if (!v8 || (v9 = -[CSEventListenerManager journalMap](*(a1 + 48)), v10 = v7, *(*(*(a1 + 88) + 8) + 24) = [v8 readSerialNumberFromBundleID:v9 identifier:objc_msgSend(v7 UUID:"UTF8String") listenerType:{-[CSEventListenerManager journalQueue](*(a1 + 48)), objc_msgSend(*(a1 + 32), "eventType")}], -[CSEventListenerManager totalJournalSize](*(a1 + 48)) >= *(*(*(a1 + 88) + 8) + 24)))
+  v7 = [SKGUpdaterStore instanceForIndexType:[(CSEventListenerManager *)*(a1 + 48) folderFd]];
+  if (!v7 || (v8 = -[CSEventListenerManager journalMap](*(a1 + 48)), v9 = v6, *(*(*(a1 + 88) + 8) + 24) = [v7 readSerialNumberFromBundleID:v8 identifier:objc_msgSend(v6 UUID:"UTF8String") listenerType:{-[CSEventListenerManager journalQueue](*(a1 + 48)), objc_msgSend(*(a1 + 32), "eventType")}], -[CSEventListenerManager totalJournalSize](*(a1 + 48)) >= *(*(*(a1 + 88) + 8) + 24)))
   {
     [*(a1 + 56) setNumItemsInBatch:{objc_msgSend(*(a1 + 56), "numItemsInBatch") + 1}];
-    v13 = [MEMORY[0x277D65798] sharedProcessor];
-    if ([v13 canProcessEvent])
+    v12 = [MEMORY[0x277D65798] sharedProcessor];
+    if ([v12 canProcessEvent])
     {
-      v14 = [*(a1 + 56) canProcessEvent:&unk_2846E7950];
+      v13 = [*(a1 + 56) canProcessEvent:&unk_2846E7950];
 
-      v49 = 0;
-      if (v14)
+      v45 = 0;
+      if (v13)
       {
-        v15 = [v3 attributesForKeys:*(a1 + 64) bundleID:*(a1 + 40)];
-        if (v15)
+        v14 = [v3 attributesForKeys:*(a1 + 64) bundleID:*(a1 + 40)];
+        if (v14)
         {
-          v16 = [MEMORY[0x277D65798] sharedProcessor];
-          v17 = [v16 canProcessEventForRecord:v15 bundleIdentifier:*(a1 + 40)];
+          v15 = [MEMORY[0x277D65798] sharedProcessor];
+          v16 = [v15 canProcessEventForRecord:v14 bundleIdentifier:*(a1 + 40)];
 
-          if ((v17 & 1) == 0)
+          if ((v16 & 1) == 0)
           {
 LABEL_27:
 
             objc_autoreleasePoolPop(v4);
-            v12 = (*(*(a1 + 80) + 16))();
+            v11 = (*(*(a1 + 80) + 16))();
             goto LABEL_28;
           }
 
-          v18 = [MEMORY[0x277D65798] sharedProcessor];
-          v19 = [v18 suggestedEventsRecordNeedsProcessing:v15 bundleID:*(a1 + 40) isUpdate:0 hasTextContent:objc_msgSend(v3 shouldClear:"hasTextContent") shouldMarkComplete:{0, &v49}];
+          v17 = [MEMORY[0x277D65798] sharedProcessor];
+          v18 = [v17 suggestedEventsRecordNeedsProcessing:v14 bundleID:*(a1 + 40) isUpdate:0 hasTextContent:objc_msgSend(v3 shouldClear:"hasTextContent") shouldMarkComplete:{0, &v45}];
 
           if (*(a1 + 40))
           {
-            if ((v49 & 1) == 0 && v19 == 1)
+            if ((v45 & 1) == 0 && v18 == 1)
             {
-              v20 = SKGLogEventInit();
-              v21 = os_signpost_id_generate(v20);
+              v19 = SKGLogEventInit();
+              v20 = os_signpost_id_generate(v19);
 
-              v22 = SKGLogEventInit();
-              v23 = v22;
-              if (v21 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v22))
+              v21 = SKGLogEventInit();
+              v22 = v21;
+              if (v20 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v21))
               {
                 *buf = 0;
-                _os_signpost_emit_with_name_impl(&dword_231B25000, v23, OS_SIGNPOST_INTERVAL_BEGIN, v21, "CSSuggestedEventsUpdaterProcessSingleItem", "", buf, 2u);
+                _os_signpost_emit_with_name_impl(&dword_231B25000, v22, OS_SIGNPOST_INTERVAL_BEGIN, v20, "CSSuggestedEventsUpdaterProcessSingleItem", "", buf, 2u);
               }
 
-              v24 = *(a1 + 32);
-              v43 = objc_opt_class();
-              v25 = *(a1 + 40);
-              v41 = v25;
-              v42 = *(a1 + 72);
-              v26 = [MEMORY[0x277D02118] serviceForSpotlightKnowledge];
-              v44[0] = MEMORY[0x277D85DD0];
-              v44[1] = 3221225472;
-              v44[2] = __86__CSSuggestedEventsUpdater_handleDonation_turboEnabled_completionHandler_cancelBlock___block_invoke_87;
-              v44[3] = &unk_27893D860;
-              v45 = v7;
-              v27 = *(a1 + 40);
-              v28 = *(a1 + 96);
-              v46 = v27;
-              v47 = v28;
-              v48 = v21;
-              [v43 extractSuggestedEventsForRecord:v15 bundle:v41 uniqueID:v45 serialNumber:v42 service:v26 timeout:v44 completionHandler:600.0];
+              v39 = objc_opt_class();
+              v37 = *(a1 + 40);
+              v38 = *(a1 + 72);
+              v23 = [MEMORY[0x277D02118] serviceForSpotlightKnowledge];
+              v40[0] = MEMORY[0x277D85DD0];
+              v40[1] = 3221225472;
+              v40[2] = __86__CSSuggestedEventsUpdater_handleDonation_turboEnabled_completionHandler_cancelBlock___block_invoke_87;
+              v40[3] = &unk_27893D860;
+              v41 = v6;
+              v24 = *(a1 + 40);
+              v25 = *(a1 + 96);
+              v42 = v24;
+              v43 = v25;
+              v44 = v20;
+              [v39 extractSuggestedEventsForRecord:v14 bundle:v37 uniqueID:v41 serialNumber:v38 service:v23 timeout:v40 completionHandler:600.0];
 
-              v29 = v45;
+              v26 = v41;
 LABEL_26:
 
               goto LABEL_27;
@@ -410,36 +406,36 @@ LABEL_26:
 
       else
       {
-        v15 = 0;
+        v14 = 0;
       }
     }
 
     else
     {
 
-      v15 = 0;
-      v49 = 0;
+      v14 = 0;
+      v45 = 0;
     }
 
-    v29 = objc_alloc_init(MEMORY[0x277CC34B8]);
-    [v29 setAttribute:*MEMORY[0x277CBEEE8] forKey:@"_kMDItemNeedsSuggestedEvents"];
-    if (v49 == 1)
+    v26 = objc_alloc_init(MEMORY[0x277CC34B8]);
+    [v26 setAttribute:*MEMORY[0x277CBEEE8] forKey:@"_kMDItemNeedsSuggestedEvents"];
+    if (v45 == 1)
     {
-      v30 = MEMORY[0x277CCABB0];
-      v31 = [MEMORY[0x277D657A0] sharedContext];
-      v32 = [v30 numberWithInteger:{objc_msgSend(v31, "suggestedEventsVersion")}];
-      [v29 setAttribute:v32 forKey:@"kMDItemSuggestedEventsVersion"];
+      v27 = MEMORY[0x277CCABB0];
+      v28 = [MEMORY[0x277D657A0] sharedContext];
+      v29 = [v27 numberWithInteger:{objc_msgSend(v28, "suggestedEventsVersion")}];
+      [v26 setAttribute:v29 forKey:@"kMDItemSuggestedEventsVersion"];
 
-      updateAttributeSetForEvents(v29, @"_kMDItemSuggestedEventsSN", *(a1 + 72));
+      updateAttributeSetForEvents(v26, @"_kMDItemSuggestedEventsSN", *(a1 + 72));
     }
 
-    v33 = [objc_alloc(MEMORY[0x277CC34B0]) initWithUniqueIdentifier:v7 domainIdentifier:0 attributeSet:v29];
-    [v33 setBundleID:*(a1 + 40)];
-    [v33 setIsUpdate:1];
-    v34 = *(*(*(a1 + 96) + 8) + 40);
-    objc_sync_enter(v34);
-    [*(*(*(a1 + 96) + 8) + 40) addObject:v33];
-    objc_sync_exit(v34);
+    v30 = [objc_alloc(MEMORY[0x277CC34B0]) initWithUniqueIdentifier:v6 domainIdentifier:0 attributeSet:v26];
+    [v30 setBundleID:*(a1 + 40)];
+    [v30 setIsUpdate:1];
+    v31 = *(*(*(a1 + 96) + 8) + 40);
+    objc_sync_enter(v31);
+    [*(*(*(a1 + 96) + 8) + 40) addObject:v30];
+    objc_sync_exit(v31);
 
     [*(a1 + 56) logFlag:10 message:@"ignored"];
     goto LABEL_26;
@@ -447,34 +443,33 @@ LABEL_26:
 
   if (SKGLogGetCurrentLoggingLevel() >= 7)
   {
-    v11 = SKGLogSuggestedEventsInit();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+    v10 = SKGLogSuggestedEventsInit();
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
     {
-      v37 = *(a1 + 32);
-      v38 = [(CSEventListenerManager *)*(a1 + 48) totalJournalSize];
-      v39 = *(*(*(a1 + 88) + 8) + 24);
-      v40 = [(CSEventListenerManager *)*(a1 + 48) journalMap];
+      v33 = *(a1 + 32);
+      v34 = [(CSEventListenerManager *)*(a1 + 48) totalJournalSize];
+      v35 = *(*(*(a1 + 88) + 8) + 24);
+      v36 = [(CSEventListenerManager *)*(a1 + 48) journalMap];
       *buf = 138413314;
-      v51 = v37;
-      v52 = 2048;
-      v53 = v38;
-      v54 = 2048;
-      v55 = v39;
-      v56 = 2080;
-      v57 = v40;
-      v58 = 2112;
-      v59 = v7;
-      _os_log_debug_impl(&dword_231B25000, v11, OS_LOG_TYPE_DEBUG, "%@ SKIPPING item serialNumber:%llu < latestSerialNumber:%llu | bundle:%s identifier:%@", buf, 0x34u);
+      v47 = v33;
+      v48 = 2048;
+      v49 = v34;
+      v50 = 2048;
+      v51 = v35;
+      v52 = 2080;
+      v53 = v36;
+      v54 = 2112;
+      v55 = v6;
+      _os_log_debug_impl(&dword_231B25000, v10, OS_LOG_TYPE_DEBUG, "%@ SKIPPING item serialNumber:%llu < latestSerialNumber:%llu | bundle:%s identifier:%@", buf, 0x34u);
     }
   }
 
-  v12 = (*(*(a1 + 80) + 16))();
+  v11 = (*(*(a1 + 80) + 16))();
 
   objc_autoreleasePoolPop(v4);
 LABEL_28:
 
-  v35 = *MEMORY[0x277D85DE8];
-  return v12;
+  return v11;
 }
 
 void __86__CSSuggestedEventsUpdater_handleDonation_turboEnabled_completionHandler_cancelBlock___block_invoke_87(void *a1, int a2, void *a3)
@@ -533,17 +528,16 @@ void __86__CSSuggestedEventsUpdater_handleDonation_turboEnabled_completionHandle
   v10 = *(a1 + 80);
   if (v10 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v8))
   {
-    *v12 = 0;
-    _os_signpost_emit_with_name_impl(&dword_231B25000, v9, OS_SIGNPOST_INTERVAL_END, v10, "CSSuggestedEventsUpdaterHandleDonation", "", v12, 2u);
+    *v11 = 0;
+    _os_signpost_emit_with_name_impl(&dword_231B25000, v9, OS_SIGNPOST_INTERVAL_END, v10, "CSSuggestedEventsUpdaterHandleDonation", "", v11, 2u);
   }
 
-  v11 = *(a1 + 64);
   (*(*(a1 + 56) + 16))();
 }
 
 + (void)extractSuggestedEventsForRecord:(id)record bundle:(id)bundle uniqueID:(id)d serialNumber:(id)number service:(id)service timeout:(double)timeout completionHandler:(id)handler
 {
-  v61 = *MEMORY[0x277D85DE8];
+  v60 = *MEMORY[0x277D85DE8];
   recordCopy = record;
   bundleCopy = bundle;
   dCopy = d;
@@ -556,10 +550,10 @@ void __86__CSSuggestedEventsUpdater_handleDonation_turboEnabled_completionHandle
   v22 = [objc_alloc(MEMORY[0x277CC34B8]) initWithAttributes:v18];
   v23 = [v21 initWithUniqueIdentifier:dCopy domainIdentifier:0 attributeSet:v22];
 
-  v49 = 0;
-  v50 = &v49;
-  v51 = 0x2020000000;
-  v52 = 0;
+  v48 = 0;
+  v49 = &v48;
+  v50 = 0x2020000000;
+  v51 = 0;
   v24 = dispatch_group_create();
   dispatch_group_enter(v24);
   if (SKGLogGetCurrentLoggingLevel() >= 5)
@@ -567,7 +561,7 @@ void __86__CSSuggestedEventsUpdater_handleDonation_turboEnabled_completionHandle
     v25 = SKGLogSuggestedEventsInit();
     if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
     {
-      v39 = v18;
+      v38 = v18;
       attributeSet = [v23 attributeSet];
       title = [attributeSet title];
       v26 = CSRedactString();
@@ -575,37 +569,37 @@ void __86__CSSuggestedEventsUpdater_handleDonation_turboEnabled_completionHandle
       contentSnippet = [attributeSet2 contentSnippet];
       v29 = CSRedactString();
       *buf = 138413058;
-      v54 = bundleCopy;
-      v55 = 2112;
-      v56 = dCopy;
-      v57 = 2112;
-      v58 = v26;
-      v59 = 2112;
-      v60 = v29;
+      v53 = bundleCopy;
+      v54 = 2112;
+      v55 = dCopy;
+      v56 = 2112;
+      v57 = v26;
+      v58 = 2112;
+      v59 = v29;
       _os_log_impl(&dword_231B25000, v25, OS_LOG_TYPE_INFO, "### calling suggested events for %@ / %@, title: %@, snippet: %@", buf, 0x2Au);
 
-      v18 = v39;
+      v18 = v38;
     }
   }
 
-  v44[0] = MEMORY[0x277D85DD0];
-  v44[1] = 3221225472;
-  v44[2] = __123__CSSuggestedEventsUpdater_extractSuggestedEventsForRecord_bundle_uniqueID_serialNumber_service_timeout_completionHandler___block_invoke;
-  v44[3] = &unk_27893D8B0;
-  v48 = &v49;
+  v43[0] = MEMORY[0x277D85DD0];
+  v43[1] = 3221225472;
+  v43[2] = __123__CSSuggestedEventsUpdater_extractSuggestedEventsForRecord_bundle_uniqueID_serialNumber_service_timeout_completionHandler___block_invoke;
+  v43[3] = &unk_27893D8B0;
+  v47 = &v48;
   v30 = v24;
-  v45 = v30;
+  v44 = v30;
   v31 = v19;
-  v46 = v31;
+  v45 = v31;
   v32 = handlerCopy;
-  v47 = v32;
-  [serviceCopy extractAttributesAndDonate:v23 withCompletion:v44];
+  v46 = v32;
+  [serviceCopy extractAttributesAndDonate:v23 withCompletion:v43];
   if (v30)
   {
-    v33 = v50 + 24;
+    v33 = v49 + 24;
     v34 = dispatch_time(0, (timeout * 1000000000.0));
     atomic_store(dispatch_group_wait(v30, v34) != 0, v33);
-    v35 = atomic_load(v50 + 24);
+    v35 = atomic_load(v49 + 24);
     if (v35)
     {
       if (SKGLogGetCurrentLoggingLevel() >= 2)
@@ -624,13 +618,12 @@ void __86__CSSuggestedEventsUpdater_handleDonation_turboEnabled_completionHandle
     }
   }
 
-  _Block_object_dispose(&v49, 8);
-  v38 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v48, 8);
 }
 
 void __123__CSSuggestedEventsUpdater_extractSuggestedEventsForRecord_bundle_uniqueID_serialNumber_service_timeout_completionHandler___block_invoke(void *a1, void *a2, void *a3)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = v6;
@@ -715,9 +708,9 @@ LABEL_27:
     v14 = SKGLogSuggestedEventsInit();
     if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
-      v24 = 138412290;
-      v25 = v7;
-      _os_log_impl(&dword_231B25000, v14, OS_LOG_TYPE_DEFAULT, "### SGSuggestionsService event extraction refused with error: %@", &v24, 0xCu);
+      v23 = 138412290;
+      v24 = v7;
+      _os_log_impl(&dword_231B25000, v14, OS_LOG_TYPE_DEFAULT, "### SGSuggestionsService event extraction refused with error: %@", &v23, 0xCu);
     }
 
     v15 = 1;
@@ -753,12 +746,11 @@ LABEL_29:
   }
 
 LABEL_33:
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 + (id)getAggregatedAttributeSet:(id)set
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   setCopy = set;
   if ([setCopy count])
   {
@@ -768,29 +760,29 @@ LABEL_33:
     suggestedEventsAllowListAttributes = [mEMORY[0x277D657A0] suggestedEventsAllowListAttributes];
     v8 = filterDictionaryWithTheAllowlist(attributeDictionary, suggestedEventsAllowListAttributes);
 
-    v22 = v8;
+    v21 = v8;
     v9 = [objc_alloc(MEMORY[0x277CBEB38]) initWithDictionary:v8];
     v10 = objc_alloc_init(MEMORY[0x277CBEB58]);
+    v22 = 0u;
     v23 = 0u;
     v24 = 0u;
     v25 = 0u;
-    v26 = 0u;
     v11 = setCopy;
-    v12 = [v11 countByEnumeratingWithState:&v23 objects:v27 count:16];
+    v12 = [v11 countByEnumeratingWithState:&v22 objects:v26 count:16];
     if (v12)
     {
       v13 = v12;
-      v14 = *v24;
+      v14 = *v23;
       do
       {
         for (i = 0; i != v13; ++i)
         {
-          if (*v24 != v14)
+          if (*v23 != v14)
           {
             objc_enumerationMutation(v11);
           }
 
-          attributeDictionary2 = [*(*(&v23 + 1) + 8 * i) attributeDictionary];
+          attributeDictionary2 = [*(*(&v22 + 1) + 8 * i) attributeDictionary];
           v17 = [attributeDictionary2 objectForKey:@"kMDItemEventType"];
 
           if (v17)
@@ -799,7 +791,7 @@ LABEL_33:
           }
         }
 
-        v13 = [v11 countByEnumeratingWithState:&v23 objects:v27 count:16];
+        v13 = [v11 countByEnumeratingWithState:&v22 objects:v26 count:16];
       }
 
       while (v13);
@@ -816,33 +808,22 @@ LABEL_33:
     v19 = 0;
   }
 
-  v20 = *MEMORY[0x277D85DE8];
-
   return v19;
 }
 
 void __86__CSSuggestedEventsUpdater_handleDonation_turboEnabled_completionHandler_cancelBlock___block_invoke_99_cold_1(uint64_t *a1, NSObject *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v4 = [(CSEventListenerDonation *)a1[5] indexTypeName];
   v5 = a1[6];
   v6 = a1[8];
-  v8 = 136315650;
-  v9 = v4;
-  v10 = 2112;
-  v11 = v5;
-  v12 = 2048;
-  v13 = v6;
-  _os_log_debug_impl(&dword_231B25000, a2, OS_LOG_TYPE_DEBUG, "### %s sn: %@ updated %lu items", &v8, 0x20u);
-  v7 = *MEMORY[0x277D85DE8];
-}
-
-void __123__CSSuggestedEventsUpdater_extractSuggestedEventsForRecord_bundle_uniqueID_serialNumber_service_timeout_completionHandler___block_invoke_cold_1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
+  v7 = 136315650;
+  v8 = v4;
+  v9 = 2112;
+  v10 = v5;
+  v11 = 2048;
+  v12 = v6;
+  _os_log_debug_impl(&dword_231B25000, a2, OS_LOG_TYPE_DEBUG, "### %s sn: %@ updated %lu items", &v7, 0x20u);
 }
 
 @end

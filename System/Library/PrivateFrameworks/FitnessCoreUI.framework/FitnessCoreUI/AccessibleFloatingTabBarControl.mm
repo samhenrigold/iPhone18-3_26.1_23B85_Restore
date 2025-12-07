@@ -72,7 +72,7 @@
     swift_task_reportUnexpectedExecutor();
   }
 
-  sub_20C38BD08(0, &qword_27C7AD550);
+  sub_20C38BD08(0, &qword_27C7AD550, 0x277D753B0);
   v5 = swift_allocObject();
   *(v5 + 16) = self;
   selfCopy = self;

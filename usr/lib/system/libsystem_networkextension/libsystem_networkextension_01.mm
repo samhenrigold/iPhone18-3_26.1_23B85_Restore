@@ -1,11 +1,10 @@
 int64_t NEHelperSettingsRemove(const char *a1)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v2 = xpc_dictionary_create(0, 0, 0);
   if (!a1 || !*a1)
   {
-    int64 = 22;
-    goto LABEL_17;
+    return 22;
   }
 
   v3 = v2;
@@ -17,9 +16,9 @@ int64_t NEHelperSettingsRemove(const char *a1)
   v4 = ne_log_obj_log_obj;
   if (os_log_type_enabled(ne_log_obj_log_obj, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = 136315138;
-    v12 = a1;
-    _os_log_impl(&dword_1A90C6000, v4, OS_LOG_TYPE_DEFAULT, "Removing %s", &v11, 0xCu);
+    v10 = 136315138;
+    v11 = a1;
+    _os_log_impl(&dword_1A90C6000, v4, OS_LOG_TYPE_DEFAULT, "Removing %s", &v10, 0xCu);
   }
 
   xpc_dictionary_set_uint64(v3, "delegate-class-id", 2uLL);
@@ -49,9 +48,9 @@ int64_t NEHelperSettingsRemove(const char *a1)
   v8 = ne_log_obj_log_obj;
   if (os_log_type_enabled(ne_log_obj_log_obj, OS_LOG_TYPE_ERROR))
   {
-    v11 = 67109120;
-    LODWORD(v12) = int64;
-    _os_log_error_impl(&dword_1A90C6000, v8, OS_LOG_TYPE_ERROR, "NEHelperSettingsRemove failed with error: %d", &v11, 8u);
+    v10 = 67109120;
+    LODWORD(v11) = int64;
+    _os_log_error_impl(&dword_1A90C6000, v8, OS_LOG_TYPE_ERROR, "NEHelperSettingsRemove failed with error: %d", &v10, 8u);
     if (!v6)
     {
       goto LABEL_15;
@@ -68,8 +67,6 @@ LABEL_14:
 
 LABEL_15:
   xpc_release(v3);
-LABEL_17:
-  v9 = *MEMORY[0x1E69E9840];
   return int64;
 }
 
@@ -141,7 +138,7 @@ int64_t NEHelperCacheSetMatchDomains(const char *a1, void *a2)
 
 int64_t NEHelperCacheSetDomainDictionaries(const char *a1, const char *a2, void *a3)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   if (a2)
   {
     v6 = xpc_dictionary_create(0, 0, 0);
@@ -185,19 +182,18 @@ int64_t NEHelperCacheSetDomainDictionaries(const char *a1, const char *a2, void 
     v10 = ne_log_obj_log_obj;
     if (os_log_type_enabled(ne_log_obj_log_obj, OS_LOG_TYPE_INFO))
     {
-      v13 = 136315138;
-      v14 = a1;
-      _os_log_impl(&dword_1A90C6000, v10, OS_LOG_TYPE_INFO, "missing interface name, set domain dictionaries failed for %s", &v13, 0xCu);
+      v12 = 136315138;
+      v13 = a1;
+      _os_log_impl(&dword_1A90C6000, v10, OS_LOG_TYPE_INFO, "missing interface name, set domain dictionaries failed for %s", &v12, 0xCu);
     }
 
-    int64 = 22;
+    return 22;
   }
 
-  v11 = *MEMORY[0x1E69E9840];
   return int64;
 }
 
-uint64_t NEHelperCacheAddRedirectedAddress(const char *a1, unsigned __int8 *a2)
+int64_t NEHelperCacheAddRedirectedAddress(const char *a1, unsigned __int8 *a2)
 {
   if (a1)
   {
@@ -251,7 +247,7 @@ uint64_t NEHelperCacheAddRedirectedAddress(const char *a1, unsigned __int8 *a2)
   return int64;
 }
 
-uint64_t NEHelperCacheClearRedirectedAddresses(const char *a1)
+int64_t NEHelperCacheClearRedirectedAddresses(const char *a1)
 {
   if (a1)
   {
@@ -332,7 +328,7 @@ void NEHelperCacheClearUUIDs()
 
 void NEHelperCacheClearUUIDsForBundleID(const char *a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v2 = xpc_dictionary_create(0, 0, 0);
   if (ne_log_obj_g_init != -1)
   {
@@ -342,9 +338,9 @@ void NEHelperCacheClearUUIDsForBundleID(const char *a1)
   v3 = ne_log_obj_log_obj;
   if (os_log_type_enabled(ne_log_obj_log_obj, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 136315138;
-    v7 = a1;
-    _os_log_impl(&dword_1A90C6000, v3, OS_LOG_TYPE_DEFAULT, "sending a message to clear the UUIDs for %s from the cache", &v6, 0xCu);
+    v5 = 136315138;
+    v6 = a1;
+    _os_log_impl(&dword_1A90C6000, v3, OS_LOG_TYPE_DEFAULT, "sending a message to clear the UUIDs for %s from the cache", &v5, 0xCu);
   }
 
   xpc_dictionary_set_uint64(v2, "delegate-class-id", 1uLL);
@@ -357,12 +353,11 @@ void NEHelperCacheClearUUIDsForBundleID(const char *a1)
   }
 
   xpc_release(v2);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void NEHelperCachePopulateUUIDsForConfiguration(const unsigned __int8 *a1, unsigned int a2)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v4 = xpc_dictionary_create(0, 0, 0);
   memset(out, 0, 37);
   uuid_unparse(a1, out);
@@ -374,9 +369,9 @@ void NEHelperCachePopulateUUIDsForConfiguration(const unsigned __int8 *a1, unsig
   v5 = ne_log_obj_log_obj;
   if (os_log_type_enabled(ne_log_obj_log_obj, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = 136315138;
-    v12 = out;
-    _os_log_impl(&dword_1A90C6000, v5, OS_LOG_TYPE_DEFAULT, "Sending a message to populate the cache with UUIDs from configuration %s", &v11, 0xCu);
+    v10 = 136315138;
+    v11 = out;
+    _os_log_impl(&dword_1A90C6000, v5, OS_LOG_TYPE_DEFAULT, "Sending a message to populate the cache with UUIDs from configuration %s", &v10, 0xCu);
   }
 
   xpc_dictionary_set_uint64(v4, "delegate-class-id", 1uLL);
@@ -398,9 +393,9 @@ void NEHelperCachePopulateUUIDsForConfiguration(const unsigned __int8 *a1, unsig
       v9 = ne_log_obj_log_obj;
       if (os_log_type_enabled(ne_log_obj_log_obj, OS_LOG_TYPE_ERROR))
       {
-        v11 = 67109120;
-        LODWORD(v12) = int64;
-        _os_log_error_impl(&dword_1A90C6000, v9, OS_LOG_TYPE_ERROR, "Populating the cache failed: %d", &v11, 8u);
+        v10 = 67109120;
+        LODWORD(v11) = int64;
+        _os_log_error_impl(&dword_1A90C6000, v9, OS_LOG_TYPE_ERROR, "Populating the cache failed: %d", &v10, 8u);
       }
     }
 
@@ -408,7 +403,6 @@ void NEHelperCachePopulateUUIDsForConfiguration(const unsigned __int8 *a1, unsig
   }
 
   xpc_release(v4);
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 xpc_object_t NEHelperCopyAggregatePathRules()
@@ -552,7 +546,7 @@ LABEL_12:
 
 uint64_t NEHelperVPNSetEnabled(const unsigned __int8 *a1, BOOL a2)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v4 = xpc_dictionary_create(0, 0, 0);
   if (v4)
   {
@@ -589,11 +583,11 @@ uint64_t NEHelperVPNSetEnabled(const unsigned __int8 *a1, BOOL a2)
       v10 = ne_log_obj_log_obj;
       if (os_log_type_enabled(ne_log_obj_log_obj, OS_LOG_TYPE_ERROR))
       {
-        v14 = 136315394;
-        v15 = out;
-        v16 = 2048;
-        v17 = v9;
-        _os_log_error_impl(&dword_1A90C6000, v10, OS_LOG_TYPE_ERROR, "Failed to enable %s: %lld", &v14, 0x16u);
+        v13 = 136315394;
+        v14 = out;
+        v15 = 2048;
+        v16 = v9;
+        _os_log_error_impl(&dword_1A90C6000, v10, OS_LOG_TYPE_ERROR, "Failed to enable %s: %lld", &v13, 0x16u);
       }
     }
 
@@ -602,19 +596,16 @@ LABEL_10:
     xpc_release(v7);
 LABEL_13:
     xpc_release(v5);
-    goto LABEL_14;
+    return v11;
   }
 
-  v11 = 0;
-LABEL_14:
-  v12 = *MEMORY[0x1E69E9840];
-  return v11;
+  return 0;
 }
 
 uint64_t NEHelperVPNConfigurationExists(uint64_t a1, BOOL a2)
 {
   v2 = a1;
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   if (a1)
   {
     v4 = xpc_dictionary_create(0, 0, 0);
@@ -636,8 +627,8 @@ uint64_t NEHelperVPNConfigurationExists(uint64_t a1, BOOL a2)
         v10 = ne_log_obj_log_obj;
         if (os_log_type_enabled(ne_log_obj_log_obj, OS_LOG_TYPE_ERROR))
         {
-          LOWORD(v15) = 0;
-          _os_log_error_impl(&dword_1A90C6000, v10, OS_LOG_TYPE_ERROR, "nehelper sent NULL Configuration check response", &v15, 2u);
+          LOWORD(v14) = 0;
+          _os_log_error_impl(&dword_1A90C6000, v10, OS_LOG_TYPE_ERROR, "nehelper sent NULL Configuration check response", &v14, 2u);
         }
 
         v2 = 0;
@@ -662,9 +653,9 @@ uint64_t NEHelperVPNConfigurationExists(uint64_t a1, BOOL a2)
         v12 = ne_log_obj_log_obj;
         if (os_log_type_enabled(ne_log_obj_log_obj, OS_LOG_TYPE_ERROR))
         {
-          v15 = 67109120;
-          LODWORD(v16) = int64;
-          _os_log_error_impl(&dword_1A90C6000, v12, OS_LOG_TYPE_ERROR, "received invalid Configuration check result %d", &v15, 8u);
+          v14 = 67109120;
+          LODWORD(v15) = int64;
+          _os_log_error_impl(&dword_1A90C6000, v12, OS_LOG_TYPE_ERROR, "received invalid Configuration check result %d", &v14, 8u);
         }
       }
 
@@ -679,9 +670,9 @@ uint64_t NEHelperVPNConfigurationExists(uint64_t a1, BOOL a2)
         v9 = ne_log_obj_log_obj;
         if (os_log_type_enabled(ne_log_obj_log_obj, OS_LOG_TYPE_ERROR))
         {
-          v15 = 136315138;
-          v16 = v8;
-          _os_log_error_impl(&dword_1A90C6000, v9, OS_LOG_TYPE_ERROR, "nehelper sent invalid Configuration check response: %s", &v15, 0xCu);
+          v14 = 136315138;
+          v15 = v8;
+          _os_log_error_impl(&dword_1A90C6000, v9, OS_LOG_TYPE_ERROR, "nehelper sent invalid Configuration check response: %s", &v14, 0xCu);
         }
 
         free(v8);
@@ -692,14 +683,12 @@ LABEL_22:
       xpc_release(v7);
 LABEL_23:
       xpc_release(v5);
-      goto LABEL_24;
+      return v2;
     }
 
-    v2 = 0;
+    return 0;
   }
 
-LABEL_24:
-  v13 = *MEMORY[0x1E69E9840];
   return v2;
 }
 
@@ -722,7 +711,7 @@ void NEHelperInit()
 
 xpc_object_t NEHelperCopyCurrentNetworkInfo(const char *a1)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   if (a1)
   {
     v2 = xpc_dictionary_create(0, 0, 0);
@@ -743,8 +732,8 @@ xpc_object_t NEHelperCopyCurrentNetworkInfo(const char *a1)
         v9 = ne_log_obj_log_obj;
         if (os_log_type_enabled(ne_log_obj_log_obj, OS_LOG_TYPE_ERROR))
         {
-          LOWORD(v16) = 0;
-          _os_log_error_impl(&dword_1A90C6000, v9, OS_LOG_TYPE_ERROR, "nehelper sent NULL response for Wi-Fi information request", &v16, 2u);
+          LOWORD(v15) = 0;
+          _os_log_error_impl(&dword_1A90C6000, v9, OS_LOG_TYPE_ERROR, "nehelper sent NULL response for Wi-Fi information request", &v15, 2u);
         }
 
         v8 = 0;
@@ -766,9 +755,9 @@ xpc_object_t NEHelperCopyCurrentNetworkInfo(const char *a1)
           v12 = ne_log_obj_log_obj;
           if (os_log_type_enabled(ne_log_obj_log_obj, OS_LOG_TYPE_ERROR))
           {
-            v16 = 134217984;
-            v17 = v11;
-            _os_log_error_impl(&dword_1A90C6000, v12, OS_LOG_TYPE_ERROR, "nehelper sent invalid result code [%lld] for Wi-Fi information request", &v16, 0xCu);
+            v15 = 134217984;
+            v16 = v11;
+            _os_log_error_impl(&dword_1A90C6000, v12, OS_LOG_TYPE_ERROR, "nehelper sent invalid result code [%lld] for Wi-Fi information request", &v15, 0xCu);
           }
         }
 
@@ -794,9 +783,9 @@ xpc_object_t NEHelperCopyCurrentNetworkInfo(const char *a1)
         v7 = ne_log_obj_log_obj;
         if (os_log_type_enabled(ne_log_obj_log_obj, OS_LOG_TYPE_ERROR))
         {
-          v16 = 136315138;
-          v17 = v6;
-          _os_log_error_impl(&dword_1A90C6000, v7, OS_LOG_TYPE_ERROR, "nehelper sent invalid response for Wi-Fi information request: %s", &v16, 0xCu);
+          v15 = 136315138;
+          v16 = v6;
+          _os_log_error_impl(&dword_1A90C6000, v7, OS_LOG_TYPE_ERROR, "nehelper sent invalid response for Wi-Fi information request: %s", &v15, 0xCu);
         }
 
         free(v6);
@@ -807,14 +796,11 @@ LABEL_22:
       xpc_release(v5);
 LABEL_23:
       xpc_release(v3);
-      goto LABEL_24;
+      return v8;
     }
   }
 
-  v8 = 0;
-LABEL_24:
-  v13 = *MEMORY[0x1E69E9840];
-  return v8;
+  return 0;
 }
 
 BOOL NEHelperCopyCurrentNetworkAsync(NSObject *a1, void (**a2)(void, void, void, void))
@@ -975,7 +961,7 @@ const char *ne_tracker_context_get_domain_owner(const char *result)
       return 0;
     }
 
-    v2 = (result + 2);
+    v2 = result + 2;
     v3 = strlen(result + 2);
     if (v3 + 1 == v1 >> 4)
     {
@@ -984,7 +970,7 @@ const char *ne_tracker_context_get_domain_owner(const char *result)
 
     else
     {
-      return v2 + v3 + 1;
+      return &v2[v3 + 1];
     }
   }
 
@@ -1021,167 +1007,166 @@ unsigned __int16 *ne_tracker_context_is_from_app_list(unsigned __int16 *result)
   return result;
 }
 
-void ne_tracker_build_trie(unsigned __int16 *a1, void *a2, void *a3, uint64_t a4, uint64_t a5, int a6, double a7)
+void ne_tracker_build_trie(unsigned __int16 *a1, void *a2, void *a3, uint64_t a4, uint64_t a5, uint64_t a6, double a7)
 {
-  v38 = *MEMORY[0x1E69E9840];
-  if (!a2)
+  v37 = *MEMORY[0x1E69E9840];
+  if (a2)
   {
-    goto LABEL_3;
-  }
-
-  if (MEMORY[0x1AC5803D0](a2) != MEMORY[0x1E69E9E50])
-  {
-    goto LABEL_3;
-  }
-
-  count = xpc_array_get_count(a2);
-  if (!a3 || !a5 || !a4 || !count || MEMORY[0x1AC5803D0](a3) != MEMORY[0x1E69E9E80] || !xpc_dictionary_get_count(a3))
-  {
-    goto LABEL_3;
-  }
-
-  v16 = xpc_array_get_count(a2);
-  v17 = xpc_dictionary_get_count(a3);
-  if (!ne_trie_init(a1, a4, v16, a5 + 4 * v17, a6, 0, a7))
-  {
-    if (ne_log_obj_g_init != -1)
+    v8 = a6;
+    if (MEMORY[0x1AC5803D0](a2) == MEMORY[0x1E69E9E50])
     {
-      dispatch_once(&ne_log_obj_g_init, &__block_literal_global_268);
-    }
-
-    v18 = ne_log_obj_log_obj;
-    if (!os_log_type_enabled(ne_log_obj_log_obj, OS_LOG_TYPE_ERROR))
-    {
-      goto LABEL_22;
-    }
-
-    *buf = 136315138;
-    v29 = "ne_tracker_build_trie";
-    v19 = "%s: failed to init trie";
-    v20 = v18;
-    v21 = 12;
-LABEL_25:
-    _os_log_error_impl(&dword_1A90C6000, v20, OS_LOG_TYPE_ERROR, v19, buf, v21);
-    goto LABEL_13;
-  }
-
-  v27[0] = MEMORY[0x1E69E9820];
-  v27[1] = 0x40000000;
-  v27[2] = __ne_tracker_build_trie_block_invoke;
-  v27[3] = &__block_descriptor_tmp_121;
-  v27[4] = a3;
-  v27[5] = a1;
-  xpc_array_apply(a2, v27);
-  if ((a6 & 0x80000000) == 0 && !ne_trie_save_to_file(a1))
-  {
-    if (ne_log_obj_g_init != -1)
-    {
-      dispatch_once(&ne_log_obj_g_init, &__block_literal_global_268);
-    }
-
-    v22 = ne_log_obj_log_obj;
-    if (!os_log_type_enabled(ne_log_obj_log_obj, OS_LOG_TYPE_ERROR))
-    {
-      goto LABEL_22;
-    }
-
-    *buf = 136315394;
-    v29 = "ne_tracker_build_trie";
-    v30 = 1024;
-    v31 = a6;
-    v19 = "%s: failed to save trie to file <fd %d>";
-    v20 = v22;
-    v21 = 18;
-    goto LABEL_25;
-  }
-
+      count = xpc_array_get_count(a2);
+      if (a3)
+      {
+        if (a5 && a4 && count && MEMORY[0x1AC5803D0](a3) == MEMORY[0x1E69E9E80] && xpc_dictionary_get_count(a3))
+        {
+          v15 = xpc_array_get_count(a2);
+          v16 = xpc_dictionary_get_count(a3);
+          if (ne_trie_init(a1, a4, v15, a5 + 4 * v16, v8, 0, a7))
+          {
+            v26[0] = MEMORY[0x1E69E9820];
+            v26[1] = 0x40000000;
+            v26[2] = __ne_tracker_build_trie_block_invoke;
+            v26[3] = &__block_descriptor_tmp_121;
+            v26[4] = a3;
+            v26[5] = a1;
+            xpc_array_apply(a2, v26);
+            if (v8 < 0 || ne_trie_save_to_file(a1))
+            {
 LABEL_13:
-  if (ne_log_obj_g_init != -1)
-  {
-    dispatch_once(&ne_log_obj_g_init, &__block_literal_global_268);
-  }
+              if (ne_log_obj_g_init != -1)
+              {
+                dispatch_once(&ne_log_obj_g_init, &__block_literal_global_268);
+              }
 
 LABEL_22:
-  v23 = ne_log_obj_log_obj;
-  if (os_log_type_enabled(ne_log_obj_log_obj, OS_LOG_TYPE_DEFAULT))
-  {
-    v24 = a1[27];
-    v25 = a1[28];
-    v26 = a1[29];
-    *buf = 136316162;
-    v29 = "ne_tracker_build_trie";
-    v30 = 1024;
-    v31 = v16;
-    v32 = 1024;
-    v33 = v24;
-    v34 = 1024;
-    v35 = v25;
-    v36 = 1024;
-    v37 = v26;
-    _os_log_impl(&dword_1A90C6000, v23, OS_LOG_TYPE_DEFAULT, "%s: Initialized with %d domains (Nodes used = %d, child maps used = %d, bytes used = %d)", buf, 0x24u);
-  }
+              v22 = ne_log_obj_log_obj;
+              if (os_log_type_enabled(ne_log_obj_log_obj, OS_LOG_TYPE_DEFAULT))
+              {
+                v23 = a1[27];
+                v24 = a1[28];
+                v25 = a1[29];
+                *buf = 136316162;
+                v28 = "ne_tracker_build_trie";
+                v29 = 1024;
+                v30 = v15;
+                v31 = 1024;
+                v32 = v23;
+                v33 = 1024;
+                v34 = v24;
+                v35 = 1024;
+                v36 = v25;
+                _os_log_impl(&dword_1A90C6000, v22, OS_LOG_TYPE_DEFAULT, "%s: Initialized with %d domains (Nodes used = %d, child maps used = %d, bytes used = %d)", buf, 0x24u);
+              }
 
-LABEL_3:
-  v14 = *MEMORY[0x1E69E9840];
-}
+              return;
+            }
 
-uint64_t __ne_tracker_build_trie_block_invoke(uint64_t a1, uint64_t a2, void *a3)
-{
-  v29 = *MEMORY[0x1E69E9840];
-  if (a3)
-  {
-    if (MEMORY[0x1AC5803D0](a3) == MEMORY[0x1E69E9F10])
-    {
-      string_ptr = xpc_string_get_string_ptr(a3);
-      if (string_ptr)
-      {
-        v8 = string_ptr;
-        dictionary = xpc_dictionary_get_dictionary(*(a1 + 32), string_ptr);
-        if (dictionary)
-        {
-          v10 = dictionary;
-          string = xpc_dictionary_get_string(dictionary, "owner");
-          v12 = xpc_dictionary_get_BOOL(v10, "is-web-list");
-          v13 = xpc_dictionary_get_BOOL(v10, "is-app-list");
-          v14 = xpc_dictionary_get_BOOL(v10, "can-block-request");
-          v15 = strlen(v8);
-          v16 = strlen(string);
-          if (v15 + v16 - 507 >= 0xFFFFFFFFFFFFFDFFLL)
-          {
-            v18 = v16;
-            __memcpy_chk();
-            byte_1EB382052[v15] = 0;
-            v19 = v15 + 1;
-            memcpy(&byte_1EB382052[v19], string, v18);
-            byte_1EB382052[v18 + v19] = 0;
-            v20 = 16 * (v18 + v19) + 16;
-            v21 = v13 ? 2 : 0;
-            v22 = v14 ? 4 : 0;
-            ne_tracker_build_trie_buffer = v21 | v12 | v22 | ne_tracker_build_trie_buffer & 8 | v20;
-            v17 = (v20 >> 4) + 4;
+            if (ne_log_obj_g_init != -1)
+            {
+              dispatch_once(&ne_log_obj_g_init, &__block_literal_global_268);
+            }
+
+            v21 = ne_log_obj_log_obj;
+            if (!os_log_type_enabled(ne_log_obj_log_obj, OS_LOG_TYPE_ERROR))
+            {
+              goto LABEL_22;
+            }
+
+            *buf = 136315394;
+            v28 = "ne_tracker_build_trie";
+            v29 = 1024;
+            v30 = v8;
+            v18 = "%s: failed to save trie to file <fd %d>";
+            v19 = v21;
+            v20 = 18;
           }
 
           else
-          {
-            v17 = 0;
-          }
-
-          v23 = strlen(v8);
-          if (ne_trie_insert(*(a1 + 40), v8, v23, &ne_tracker_build_trie_buffer, v17, 1) == 0xFFFF)
           {
             if (ne_log_obj_g_init != -1)
             {
               dispatch_once(&ne_log_obj_g_init, &__block_literal_global_268);
             }
 
-            v24 = ne_log_obj_log_obj;
+            v17 = ne_log_obj_log_obj;
+            if (!os_log_type_enabled(ne_log_obj_log_obj, OS_LOG_TYPE_ERROR))
+            {
+              goto LABEL_22;
+            }
+
+            *buf = 136315138;
+            v28 = "ne_tracker_build_trie";
+            v18 = "%s: failed to init trie";
+            v19 = v17;
+            v20 = 12;
+          }
+
+          _os_log_error_impl(&dword_1A90C6000, v19, OS_LOG_TYPE_ERROR, v18, buf, v20);
+          goto LABEL_13;
+        }
+      }
+    }
+  }
+}
+
+uint64_t __ne_tracker_build_trie_block_invoke(uint64_t a1, uint64_t a2, void *a3)
+{
+  v28 = *MEMORY[0x1E69E9840];
+  if (a3)
+  {
+    if (MEMORY[0x1AC5803D0](a3, a2) == MEMORY[0x1E69E9F10])
+    {
+      string_ptr = xpc_string_get_string_ptr(a3);
+      if (string_ptr)
+      {
+        v7 = string_ptr;
+        dictionary = xpc_dictionary_get_dictionary(*(a1 + 32), string_ptr);
+        if (dictionary)
+        {
+          v9 = dictionary;
+          string = xpc_dictionary_get_string(dictionary, "owner");
+          v11 = xpc_dictionary_get_BOOL(v9, "is-web-list");
+          v12 = xpc_dictionary_get_BOOL(v9, "is-app-list");
+          v13 = xpc_dictionary_get_BOOL(v9, "can-block-request");
+          v14 = strlen(v7);
+          v15 = strlen(string);
+          if (v14 + v15 - 507 >= 0xFFFFFFFFFFFFFDFFLL)
+          {
+            v17 = v15;
+            __memcpy_chk();
+            byte_1EB382052[v14] = 0;
+            v18 = v14 + 1;
+            memcpy(&byte_1EB382052[v18], string, v17);
+            byte_1EB382052[v17 + v18] = 0;
+            v19 = 16 * (v17 + v18) + 16;
+            v20 = v12 ? 2 : 0;
+            v21 = v13 ? 4 : 0;
+            ne_tracker_build_trie_buffer = v20 | v11 | v21 | ne_tracker_build_trie_buffer & 8 | v19;
+            v16 = (v19 >> 4) + 4;
+          }
+
+          else
+          {
+            v16 = 0;
+          }
+
+          v22 = strlen(v7);
+          if (ne_trie_insert(*(a1 + 40), v7, v22, &ne_tracker_build_trie_buffer, v16, 1) == 0xFFFF)
+          {
+            if (ne_log_obj_g_init != -1)
+            {
+              dispatch_once(&ne_log_obj_g_init, &__block_literal_global_268);
+            }
+
+            v23 = ne_log_obj_log_obj;
             if (os_log_type_enabled(ne_log_obj_log_obj, OS_LOG_TYPE_ERROR))
             {
-              v25 = 136315394;
-              v26 = "ne_tracker_build_trie_block_invoke";
-              v27 = 2080;
-              v28 = v8;
-              _os_log_error_impl(&dword_1A90C6000, v24, OS_LOG_TYPE_ERROR, "%s: failed to insert <%s>", &v25, 0x16u);
+              v24 = 136315394;
+              v25 = "ne_tracker_build_trie_block_invoke";
+              v26 = 2080;
+              v27 = v7;
+              _os_log_error_impl(&dword_1A90C6000, v23, OS_LOG_TYPE_ERROR, "%s: failed to insert <%s>", &v24, 0x16u);
             }
           }
         }
@@ -1189,13 +1174,12 @@ uint64_t __ne_tracker_build_trie_block_invoke(uint64_t a1, uint64_t a2, void *a3
     }
   }
 
-  v5 = *MEMORY[0x1E69E9840];
   return 1;
 }
 
 void ne_tracker_set_test_domains(void *a1)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v2 = xpc_dictionary_create(0, 0, 0);
   if (a1)
   {
@@ -1214,9 +1198,9 @@ void ne_tracker_set_test_domains(void *a1)
           int64 = xpc_dictionary_get_int64(v5, "result-code");
           if (ne_log_obj_g_init != -1)
           {
-            v9 = int64;
+            v8 = int64;
             dispatch_once(&ne_log_obj_g_init, &__block_literal_global_268);
-            int64 = v9;
+            int64 = v8;
           }
 
           v7 = ne_log_obj_log_obj;
@@ -1224,17 +1208,17 @@ void ne_tracker_set_test_domains(void *a1)
           {
             if (os_log_type_enabled(ne_log_obj_log_obj, OS_LOG_TYPE_ERROR))
             {
-              v10 = 136315138;
-              v11 = "ne_tracker_set_test_domains";
-              _os_log_error_impl(&dword_1A90C6000, v7, OS_LOG_TYPE_ERROR, "%s: got bad response", &v10, 0xCu);
+              v9 = 136315138;
+              v10 = "ne_tracker_set_test_domains";
+              _os_log_error_impl(&dword_1A90C6000, v7, OS_LOG_TYPE_ERROR, "%s: got bad response", &v9, 0xCu);
             }
           }
 
           else if (os_log_type_enabled(ne_log_obj_log_obj, OS_LOG_TYPE_DEBUG))
           {
-            v10 = 136315138;
-            v11 = "ne_tracker_set_test_domains";
-            _os_log_debug_impl(&dword_1A90C6000, v7, OS_LOG_TYPE_DEBUG, "%s: got good response", &v10, 0xCu);
+            v9 = 136315138;
+            v10 = "ne_tracker_set_test_domains";
+            _os_log_debug_impl(&dword_1A90C6000, v7, OS_LOG_TYPE_DEBUG, "%s: got good response", &v9, 0xCu);
           }
         }
 
@@ -1244,13 +1228,11 @@ void ne_tracker_set_test_domains(void *a1)
       xpc_release(v3);
     }
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 xpc_object_t ne_tracker_copy_response(void *a1)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   if (!a1)
   {
     if (ne_log_obj_g_init != -1)
@@ -1261,11 +1243,11 @@ xpc_object_t ne_tracker_copy_response(void *a1)
     v3 = ne_log_obj_log_obj;
     if (!os_log_type_enabled(ne_log_obj_log_obj, OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_28;
+      return 0;
     }
 
-    v12 = 136315138;
-    v13 = "ne_tracker_copy_response";
+    v11 = 136315138;
+    v12 = "ne_tracker_copy_response";
     v4 = "%s: request is NULL";
     goto LABEL_27;
   }
@@ -1281,17 +1263,15 @@ xpc_object_t ne_tracker_copy_response(void *a1)
     v3 = ne_log_obj_log_obj;
     if (!os_log_type_enabled(ne_log_obj_log_obj, OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_28;
+      return 0;
     }
 
-    v12 = 136315138;
-    v13 = "ne_tracker_copy_response";
+    v11 = 136315138;
+    v12 = "ne_tracker_copy_response";
     v4 = "%s: request has an invalid delegate class ID";
 LABEL_27:
-    _os_log_error_impl(&dword_1A90C6000, v3, OS_LOG_TYPE_ERROR, v4, &v12, 0xCu);
-LABEL_28:
-    v7 = 0;
-    goto LABEL_29;
+    _os_log_error_impl(&dword_1A90C6000, v3, OS_LOG_TYPE_ERROR, v4, &v11, 0xCu);
+    return 0;
   }
 
   v5 = nehelper_copy_connection_for_delegate_class(uint64);
@@ -1305,11 +1285,11 @@ LABEL_28:
     v3 = ne_log_obj_log_obj;
     if (!os_log_type_enabled(ne_log_obj_log_obj, OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_28;
+      return 0;
     }
 
-    v12 = 136315138;
-    v13 = "ne_tracker_copy_response";
+    v11 = 136315138;
+    v12 = "ne_tracker_copy_response";
     v4 = "%s: nehelper_copy_connection_for_delegate_class() returned NULL";
     goto LABEL_27;
   }
@@ -1327,11 +1307,11 @@ LABEL_28:
     v3 = ne_log_obj_log_obj;
     if (!os_log_type_enabled(ne_log_obj_log_obj, OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_28;
+      return 0;
     }
 
-    v12 = 136315138;
-    v13 = "ne_tracker_copy_response";
+    v11 = 136315138;
+    v12 = "ne_tracker_copy_response";
     v4 = "%s: nehelper sent NULL response";
     goto LABEL_27;
   }
@@ -1347,40 +1327,39 @@ LABEL_28:
     v9 = ne_log_obj_log_obj;
     if (os_log_type_enabled(ne_log_obj_log_obj, OS_LOG_TYPE_ERROR))
     {
-      v12 = 136315394;
-      v13 = "ne_tracker_copy_response";
-      v14 = 2080;
-      v15 = v8;
-      _os_log_error_impl(&dword_1A90C6000, v9, OS_LOG_TYPE_ERROR, "%s: nehelper sent invalid response: %s", &v12, 0x16u);
+      v11 = 136315394;
+      v12 = "ne_tracker_copy_response";
+      v13 = 2080;
+      v14 = v8;
+      _os_log_error_impl(&dword_1A90C6000, v9, OS_LOG_TYPE_ERROR, "%s: nehelper sent invalid response: %s", &v11, 0x16u);
     }
 
     free(v8);
   }
 
-LABEL_29:
-  v10 = *MEMORY[0x1E69E9840];
   return v7;
 }
 
-void ne_tracker_clear_cache(uint64_t a1)
+double ne_tracker_clear_cache(uint64_t a1)
 {
   if (a1)
   {
-    ne_trie_free(a1);
+    return ne_trie_free(a1);
   }
+
+  return result;
 }
 
-BOOL ne_tracker_domain_is_known_tracker(uint64_t a1, int a2, uint64_t *a3, int *a4)
+BOOL ne_tracker_domain_is_known_tracker(uint64_t a1, unsigned int a2, uint64_t *a3, int *a4)
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
+  v29 = 0;
   v30 = 0;
-  v31 = 0;
   os_unfair_lock_lock(&ne_tracker_lock);
   if (!ne_tracker_build_cache(&ne_tracker_trie, 0))
   {
     os_unfair_lock_unlock(&ne_tracker_lock);
-    v10 = 0;
-    goto LABEL_30;
+    return 0;
   }
 
   if (a2 < 1)
@@ -1390,8 +1369,8 @@ LABEL_28:
     goto LABEL_29;
   }
 
-  v28 = a4;
-  v29 = a3;
+  v27 = a4;
+  v28 = a3;
   v8 = 0;
   v9 = a2;
   v10 = 1;
@@ -1477,38 +1456,38 @@ LABEL_24:
   if (os_log_type_enabled(ne_log_obj_log_obj, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315651;
-    v33 = "ne_tracker_domain_is_known_tracker";
-    v34 = 2081;
-    v35 = ne_tracker_domain_is_known_tracker_domain_buf;
-    v36 = 1024;
-    v37 = v13;
+    v32 = "ne_tracker_domain_is_known_tracker";
+    v33 = 2081;
+    v34 = ne_tracker_domain_is_known_tracker_domain_buf;
+    v35 = 1024;
+    v36 = v13;
     _os_log_debug_impl(&dword_1A90C6000, v18, OS_LOG_TYPE_DEBUG, "%s: lookup for <%{private}s> length %d", buf, 0x1Cu);
   }
 
-  if (ne_trie_search(&ne_tracker_trie, ne_tracker_domain_is_known_tracker_domain_buf, v13, &v31, &v30, 1, 1, 46, 0, ne_tracker_check_metadata_for_app) == 0xFFFF)
+  if (ne_trie_search(&ne_tracker_trie, ne_tracker_domain_is_known_tracker_domain_buf, v13, &v30, &v29, 1, 1, 46, 0, ne_tracker_check_metadata_for_app) == 0xFFFF)
   {
     goto LABEL_25;
   }
 
-  if (v29 && v31 && v30)
+  if (v28 && v30 && v29)
   {
-    v22 = *v31;
-    if (v22 < 0x10 || (v23 = strlen(v31 + 2), v23 + 1 == v22 >> 4))
+    v21 = *v30;
+    if (v21 < 0x10 || (v22 = strlen(v30 + 2), v22 + 1 == v21 >> 4))
     {
-      v24 = 0;
+      v23 = 0;
     }
 
     else
     {
-      v24 = &v31[v23 + 3];
+      v23 = &v30[v22 + 3];
     }
 
-    *v29 = v24;
+    *v28 = v23;
   }
 
-  if (v28)
+  if (v27)
   {
-    *v28 = v8;
+    *v27 = v8;
   }
 
   if (ne_log_obj_g_init != -1)
@@ -1516,9 +1495,19 @@ LABEL_24:
     dispatch_once(&ne_log_obj_g_init, &__block_literal_global_268);
   }
 
-  v25 = ne_log_obj_log_obj;
+  v24 = ne_log_obj_log_obj;
   if (os_log_type_enabled(ne_log_obj_log_obj, OS_LOG_TYPE_DEBUG))
   {
+    if (v27)
+    {
+      v25 = *v27;
+    }
+
+    else
+    {
+      v25 = -1;
+    }
+
     if (v28)
     {
       v26 = *v28;
@@ -1526,34 +1515,22 @@ LABEL_24:
 
     else
     {
-      v26 = -1;
-    }
-
-    if (v29)
-    {
-      v27 = *v29;
-    }
-
-    else
-    {
-      v27 = "n/a";
+      v26 = "n/a";
     }
 
     *buf = 136315907;
-    v33 = "ne_tracker_domain_is_known_tracker";
-    v34 = 2081;
-    v35 = v11;
-    v36 = 1024;
-    v37 = v26;
-    v38 = 2081;
-    v39 = v27;
-    _os_log_debug_impl(&dword_1A90C6000, v25, OS_LOG_TYPE_DEBUG, "%s: found match for domain <%{private}s> (index %d) owner <%{private}s>", buf, 0x26u);
+    v32 = "ne_tracker_domain_is_known_tracker";
+    v33 = 2081;
+    v34 = v11;
+    v35 = 1024;
+    v36 = v25;
+    v37 = 2081;
+    v38 = v26;
+    _os_log_debug_impl(&dword_1A90C6000, v24, OS_LOG_TYPE_DEBUG, "%s: found match for domain <%{private}s> (index %d) owner <%{private}s>", buf, 0x26u);
   }
 
 LABEL_29:
   os_unfair_lock_unlock(&ne_tracker_lock);
-LABEL_30:
-  v20 = *MEMORY[0x1E69E9840];
   return v10;
 }
 
@@ -1569,7 +1546,7 @@ unsigned __int16 *ne_tracker_check_metadata_for_app(unsigned __int16 *result)
 
 xpc_object_t ne_tracker_get_ddg_dictionary()
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v0 = xpc_dictionary_create(0, 0, 0);
   xpc_dictionary_set_uint64(v0, "delegate-class-id", 0xCuLL);
   xpc_dictionary_set_uint64(v0, "tracker-command", 1uLL);
@@ -1595,9 +1572,9 @@ xpc_object_t ne_tracker_get_ddg_dictionary()
       v5 = ne_log_obj_log_obj;
       if (os_log_type_enabled(ne_log_obj_log_obj, OS_LOG_TYPE_ERROR))
       {
-        v10 = 136315138;
-        v11 = "ne_tracker_get_ddg_dictionary";
-        _os_log_error_impl(&dword_1A90C6000, v5, OS_LOG_TYPE_ERROR, "%s: got bad response", &v10, 0xCu);
+        v9 = 136315138;
+        v10 = "ne_tracker_get_ddg_dictionary";
+        _os_log_error_impl(&dword_1A90C6000, v5, OS_LOG_TYPE_ERROR, "%s: got bad response", &v9, 0xCu);
       }
     }
 
@@ -1623,13 +1600,12 @@ LABEL_9:
   xpc_release(v2);
 LABEL_11:
   xpc_release(v0);
-  v7 = *MEMORY[0x1E69E9840];
   return v6;
 }
 
 xpc_object_t ne_tracker_lookup_app_domains(const char *a1)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   if (a1)
   {
     v2 = xpc_dictionary_create(0, 0, 0);
@@ -1656,9 +1632,9 @@ xpc_object_t ne_tracker_lookup_app_domains(const char *a1)
         v5 = ne_log_obj_log_obj;
         if (os_log_type_enabled(ne_log_obj_log_obj, OS_LOG_TYPE_ERROR))
         {
-          v11 = 136315138;
-          v12 = "ne_tracker_lookup_app_domains";
-          _os_log_error_impl(&dword_1A90C6000, v5, OS_LOG_TYPE_ERROR, "%s: got bad response", &v11, 0xCu);
+          v10 = 136315138;
+          v11 = "ne_tracker_lookup_app_domains";
+          _os_log_error_impl(&dword_1A90C6000, v5, OS_LOG_TYPE_ERROR, "%s: got bad response", &v10, 0xCu);
         }
       }
 
@@ -1684,7 +1660,7 @@ LABEL_10:
     xpc_release(v4);
 LABEL_17:
     xpc_release(v2);
-    goto LABEL_18;
+    return v6;
   }
 
   if (ne_log_obj_g_init != -1)
@@ -1695,20 +1671,17 @@ LABEL_17:
   v7 = ne_log_obj_log_obj;
   if (os_log_type_enabled(ne_log_obj_log_obj, OS_LOG_TYPE_ERROR))
   {
-    v11 = 136315138;
-    v12 = "ne_tracker_lookup_app_domains";
-    _os_log_error_impl(&dword_1A90C6000, v7, OS_LOG_TYPE_ERROR, "%s: bundle_id is NULL", &v11, 0xCu);
+    v10 = 136315138;
+    v11 = "ne_tracker_lookup_app_domains";
+    _os_log_error_impl(&dword_1A90C6000, v7, OS_LOG_TYPE_ERROR, "%s: bundle_id is NULL", &v10, 0xCu);
   }
 
-  v6 = 0;
-LABEL_18:
-  v8 = *MEMORY[0x1E69E9840];
-  return v6;
+  return 0;
 }
 
 BOOL ne_tracker_validate_domain(const void *a1, int a2, uint64_t (*a3)(char *, size_t, char *, uint64_t), char *a4, uint64_t a5, _DWORD *a6)
 {
-  v46 = *MEMORY[0x1E69E9840];
+  v45 = *MEMORY[0x1E69E9840];
   if (a2 && a2 < 254)
   {
     __memcpy_chk();
@@ -1725,9 +1698,9 @@ BOOL ne_tracker_validate_domain(const void *a1, int a2, uint64_t (*a3)(char *, s
     }
 
     v13 = !v11 && a5 != 0;
-    v40 = v13;
+    v39 = v13;
     v14 = MEMORY[0x1E69E9830];
-    v38 = a5;
+    v37 = a5;
     v15 = a4;
     while (1)
     {
@@ -1736,11 +1709,10 @@ BOOL ne_tracker_validate_domain(const void *a1, int a2, uint64_t (*a3)(char *, s
       {
         if (a6)
         {
-          *a6 = a5 - v38;
+          *a6 = a5 - v37;
         }
 
-        result = 1;
-        goto LABEL_50;
+        return 1;
       }
 
       v17 = v16;
@@ -1758,14 +1730,14 @@ BOOL ne_tracker_validate_domain(const void *a1, int a2, uint64_t (*a3)(char *, s
         if (result)
         {
           *buf = 67109376;
-          v43 = v19;
-          v44 = 1024;
-          v45 = 63;
+          v42 = v19;
+          v43 = 1024;
+          v44 = 63;
           v31 = "Failed to validate domain - label size %d exceeded max label size %d";
           goto LABEL_46;
         }
 
-        goto LABEL_50;
+        return result;
       }
 
       if (*v17 == 45 || v17[((v18 << 32) - 0x100000000) >> 32] == 45)
@@ -1788,7 +1760,7 @@ BOOL ne_tracker_validate_domain(const void *a1, int a2, uint64_t (*a3)(char *, s
               break;
             }
 
-            if ((v40 & 1) == 0)
+            if ((v39 & 1) == 0)
             {
               if (ne_log_obj_g_init != -1)
               {
@@ -1804,7 +1776,7 @@ BOOL ne_tracker_validate_domain(const void *a1, int a2, uint64_t (*a3)(char *, s
                 goto LABEL_63;
               }
 
-              goto LABEL_50;
+              return result;
             }
 
             ++v20;
@@ -1831,7 +1803,7 @@ BOOL ne_tracker_validate_domain(const void *a1, int a2, uint64_t (*a3)(char *, s
               goto LABEL_63;
             }
 
-            goto LABEL_50;
+            return result;
           }
 
           ++v20;
@@ -1847,7 +1819,7 @@ LABEL_34:
         if (v15 <= a4)
         {
           v27 = v17 - ne_tracker_validate_domain_buffer;
-          if (v38 < v27)
+          if (v37 < v27)
           {
             if (ne_log_obj_g_init != -1)
             {
@@ -1863,17 +1835,17 @@ LABEL_34:
               goto LABEL_63;
             }
 
-            goto LABEL_50;
+            return result;
           }
 
-          v39 = v38 - v27;
+          v38 = v37 - v27;
           memcpy(v15, a1, v27);
           v26 = &v15[v17 - ne_tracker_validate_domain_buffer];
         }
 
         else
         {
-          if (v38 <= 0)
+          if (v37 <= 0)
           {
             if (ne_log_obj_g_init != -1)
             {
@@ -1889,18 +1861,18 @@ LABEL_34:
               goto LABEL_63;
             }
 
-            goto LABEL_50;
+            return result;
           }
 
           *v15 = 46;
           v26 = v15 + 1;
-          v39 = v38 - 1;
+          v38 = v37 - 1;
         }
 
         v28 = a3(v17, v19, v26, a5);
-        if ((v28 - 64) >= 0xFFFFFFC1 && v39 >= v28)
+        if ((v28 - 64) >= 0xFFFFFFC1 && v38 >= v28)
         {
-          v38 = v39 - v28;
+          v37 = v38 - v28;
           v15 = &v26[v28];
           continue;
         }
@@ -1919,13 +1891,13 @@ LABEL_34:
           goto LABEL_63;
         }
 
-        goto LABEL_50;
+        return result;
       }
 
 LABEL_30:
       if (v15 > a4)
       {
-        if (v38 <= 0)
+        if (v37 <= 0)
         {
           if (ne_log_obj_g_init != -1)
           {
@@ -1941,11 +1913,11 @@ LABEL_30:
             goto LABEL_63;
           }
 
-          goto LABEL_50;
+          return result;
         }
 
         *v15 = 46;
-        if (v38 <= v18)
+        if (v37 <= v18)
         {
           if (ne_log_obj_g_init != -1)
           {
@@ -1961,14 +1933,14 @@ LABEL_30:
             goto LABEL_63;
           }
 
-          goto LABEL_50;
+          return result;
         }
 
-        v36 = v18 << 32;
+        v35 = v18 << 32;
         v25 = v15 + 1;
         memcpy(v25, v17, v18);
-        v15 = &v25[v36 >> 32];
-        v38 += ~v19;
+        v15 = &v25[v35 >> 32];
+        v37 += ~v19;
       }
     }
 
@@ -2002,30 +1974,28 @@ LABEL_63:
     if (result)
     {
       *buf = 67109376;
-      v43 = a2;
-      v44 = 1024;
-      v45 = 253;
+      v42 = a2;
+      v43 = 1024;
+      v44 = 253;
       v31 = "Failed to validate domain - invalid domain length of %d (max length is %d)";
 LABEL_46:
       v32 = v29;
       v33 = 14;
 LABEL_64:
       _os_log_error_impl(&dword_1A90C6000, v32, OS_LOG_TYPE_ERROR, v31, buf, v33);
-      result = 0;
+      return 0;
     }
   }
 
-LABEL_50:
-  v35 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 int ne_socket_set_domains(int socket, const char *const *const domain_names, int domain_count)
 {
-  v39 = *MEMORY[0x1E69E9840];
-  v32 = 0;
-  v30 = -1;
+  v38 = *MEMORY[0x1E69E9840];
   v31 = 0;
+  v29 = -1;
+  v30 = 0;
   if (!domain_names || socket < 0 || domain_count < 1 || (v6 = *domain_names) == 0 || !*v6)
   {
     if (ne_log_obj_g_init != -1)
@@ -2036,23 +2006,23 @@ int ne_socket_set_domains(int socket, const char *const *const domain_names, int
     v9 = ne_log_obj_log_obj;
     if (!os_log_type_enabled(ne_log_obj_log_obj, OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_17;
+      return 22;
     }
 
     *buf = 0;
-    v23 = "Failed to set domain(s) for socket - invalid socket or no domain provided";
-    v24 = v9;
-    v25 = 2;
+    v22 = "Failed to set domain(s) for socket - invalid socket or no domain provided";
+    v23 = v9;
+    v24 = 2;
     goto LABEL_45;
   }
 
-  if (ne_tracker_domain_is_known_tracker(domain_names, domain_count, &v32, &v30))
+  if (ne_tracker_domain_is_known_tracker(domain_names, domain_count, &v31, &v29))
   {
     v7 = 0;
-    v31 = 1;
-    if (v30 >= 1 && v30 < domain_count)
+    v30 = 1;
+    if (v29 >= 1 && v29 < domain_count)
     {
-      v7 = domain_names[v30];
+      v7 = domain_names[v29];
     }
 
     if (ne_log_obj_g_init != -1)
@@ -2064,190 +2034,185 @@ int ne_socket_set_domains(int socket, const char *const *const domain_names, int
     if (os_log_type_enabled(ne_log_obj_log_obj, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v34 = "ne_socket_set_domains";
+      v33 = "ne_socket_set_domains";
       _os_log_impl(&dword_1A90C6000, v8, OS_LOG_TYPE_DEFAULT, "%s: marking socket as tracker", buf, 0xCu);
     }
   }
 
   else
   {
-    v13 = strlen(v6);
+    v12 = strlen(v6);
     v7 = 0;
-    if (!ne_tracker_validate_domain(v6, v13, 0, 0, 0, 0))
+    if (!ne_tracker_validate_domain(v6, v12, 0, 0, 0, 0))
     {
       if (ne_log_obj_g_init != -1)
       {
         dispatch_once(&ne_log_obj_g_init, &__block_literal_global_268);
       }
 
-      v22 = ne_log_obj_log_obj;
+      v21 = ne_log_obj_log_obj;
       if (!os_log_type_enabled(ne_log_obj_log_obj, OS_LOG_TYPE_ERROR))
       {
-        goto LABEL_17;
+        return 22;
       }
 
       *buf = 136380675;
-      v34 = v6;
-      v23 = "Failed to set domain(s) for socket - invalid domain syntax in <%{private}s>";
-      v24 = v22;
-      v25 = 12;
+      v33 = v6;
+      v22 = "Failed to set domain(s) for socket - invalid domain syntax in <%{private}s>";
+      v23 = v21;
+      v24 = 12;
       goto LABEL_45;
     }
   }
 
-  v10 = setsockopt(socket, 0xFFFF, 4389, &v31, 4u);
+  v10 = setsockopt(socket, 0xFFFF, 4389, &v30, 4u);
   if (ne_log_obj_g_init != -1)
   {
     dispatch_once(&ne_log_obj_g_init, &__block_literal_global_268);
   }
 
-  v14 = ne_log_obj_log_obj;
+  v13 = ne_log_obj_log_obj;
   if (v10)
   {
     if (os_log_type_enabled(ne_log_obj_log_obj, OS_LOG_TYPE_ERROR))
     {
-      v15 = __error();
-      v16 = strerror(*v15);
+      v14 = __error();
+      v15 = strerror(*v14);
       *buf = 136315394;
-      v34 = v16;
-      v35 = 2048;
-      *v36 = 4;
-      _os_log_error_impl(&dword_1A90C6000, v14, OS_LOG_TYPE_ERROR, "Could not set SO_MARK_KNOWN_TRACKER. Received error: %s (%lu)", buf, 0x16u);
+      v33 = v15;
+      v34 = 2048;
+      *v35 = 4;
+      _os_log_error_impl(&dword_1A90C6000, v13, OS_LOG_TYPE_ERROR, "Could not set SO_MARK_KNOWN_TRACKER. Received error: %s (%lu)", buf, 0x16u);
     }
 
-    goto LABEL_18;
+    return v10;
   }
 
   if (os_log_type_enabled(ne_log_obj_log_obj, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315394;
-    v34 = "ne_socket_set_domains";
-    v35 = 1024;
-    *v36 = v31;
-    _os_log_debug_impl(&dword_1A90C6000, v14, OS_LOG_TYPE_DEBUG, "%s set tracker option is %d", buf, 0x12u);
+    v33 = "ne_socket_set_domains";
+    v34 = 1024;
+    *v35 = v30;
+    _os_log_debug_impl(&dword_1A90C6000, v13, OS_LOG_TYPE_DEBUG, "%s set tracker option is %d", buf, 0x12u);
   }
 
-  v17 = ne_session_set_socket_tracker_attributes(socket, v6, v32, v7);
+  v16 = ne_session_set_socket_tracker_attributes(socket, v6, v31, v7);
   if (ne_log_obj_g_init != -1)
   {
     dispatch_once(&ne_log_obj_g_init, &__block_literal_global_268);
   }
 
-  v18 = ne_log_obj_log_obj;
-  if ((v17 & 1) == 0)
+  v17 = ne_log_obj_log_obj;
+  if ((v16 & 1) == 0)
   {
     if (!os_log_type_enabled(ne_log_obj_log_obj, OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_17;
+      return 22;
     }
 
-    v26 = "<n/a>";
-    v27 = v32;
-    if (!v32)
+    v25 = "<n/a>";
+    v26 = v31;
+    if (!v31)
     {
-      v27 = "<n/a>";
+      v26 = "<n/a>";
     }
 
     *buf = 136381187;
     if (v7)
     {
-      v26 = v7;
+      v25 = v7;
     }
 
-    v34 = v6;
-    v35 = 2081;
-    *v36 = v27;
-    *&v36[8] = 2081;
-    *&v36[10] = v26;
-    v23 = "Could not set tracker domain attributes - domain <%{private}s>, owner <%{private}s>, tracker domain <%{private}s>";
-    v24 = v18;
-    v25 = 32;
+    v33 = v6;
+    v34 = 2081;
+    *v35 = v26;
+    *&v35[8] = 2081;
+    *&v35[10] = v25;
+    v22 = "Could not set tracker domain attributes - domain <%{private}s>, owner <%{private}s>, tracker domain <%{private}s>";
+    v23 = v17;
+    v24 = 32;
 LABEL_45:
-    _os_log_error_impl(&dword_1A90C6000, v24, OS_LOG_TYPE_ERROR, v23, buf, v25);
-LABEL_17:
-    v10 = 22;
-    goto LABEL_18;
+    _os_log_error_impl(&dword_1A90C6000, v23, OS_LOG_TYPE_ERROR, v22, buf, v24);
+    return 22;
   }
 
   if (os_log_type_enabled(ne_log_obj_log_obj, OS_LOG_TYPE_DEFAULT))
   {
-    v19 = "not present";
-    if (v32)
-    {
-      v20 = "present";
-    }
-
-    else
-    {
-      v20 = "not present";
-    }
-
-    *buf = 136316162;
-    v34 = "ne_socket_set_domains";
-    v35 = 1024;
-    if (v7)
+    v18 = "not present";
+    if (v31)
     {
       v19 = "present";
     }
 
-    *v36 = v31;
-    *&v36[4] = 2080;
-    *&v36[6] = "present";
-    *&v36[14] = 2080;
-    *&v36[16] = v20;
-    v37 = 2080;
-    v38 = v19;
-    _os_log_impl(&dword_1A90C6000, v18, OS_LOG_TYPE_DEFAULT, "%s Set domain - is_tracker %d domain %s owner %s, tracker domain %s", buf, 0x30u);
+    else
+    {
+      v19 = "not present";
+    }
+
+    *buf = 136316162;
+    v33 = "ne_socket_set_domains";
+    v34 = 1024;
+    if (v7)
+    {
+      v18 = "present";
+    }
+
+    *v35 = v30;
+    *&v35[4] = 2080;
+    *&v35[6] = "present";
+    *&v35[14] = 2080;
+    *&v35[16] = v19;
+    v36 = 2080;
+    v37 = v18;
+    _os_log_impl(&dword_1A90C6000, v17, OS_LOG_TYPE_DEFAULT, "%s Set domain - is_tracker %d domain %s owner %s, tracker domain %s", buf, 0x30u);
     if (ne_log_obj_g_init != -1)
     {
       dispatch_once(&ne_log_obj_g_init, &__block_literal_global_268);
     }
   }
 
-  v21 = ne_log_obj_log_obj;
+  v20 = ne_log_obj_log_obj;
   if (os_log_type_enabled(ne_log_obj_log_obj, OS_LOG_TYPE_DEBUG))
   {
-    v28 = v32;
-    v29 = "<n/a>";
-    if (!v32)
+    v27 = v31;
+    v28 = "<n/a>";
+    if (!v31)
     {
-      v28 = "<n/a>";
+      v27 = "<n/a>";
     }
 
     if (v7)
     {
-      v29 = v7;
+      v28 = v7;
     }
 
     *buf = 136316163;
-    v34 = "ne_socket_set_domains";
-    v35 = 1024;
-    *v36 = v31;
-    *&v36[4] = 2081;
-    *&v36[6] = v6;
-    *&v36[14] = 2081;
-    *&v36[16] = v28;
-    v37 = 2081;
-    v38 = v29;
-    _os_log_debug_impl(&dword_1A90C6000, v21, OS_LOG_TYPE_DEBUG, "%s Set domain - is_tracker %d domain <%{private}s> owner <%{private}s>, tracker domain <%{private}s>", buf, 0x30u);
+    v33 = "ne_socket_set_domains";
+    v34 = 1024;
+    *v35 = v30;
+    *&v35[4] = 2081;
+    *&v35[6] = v6;
+    *&v35[14] = 2081;
+    *&v35[16] = v27;
+    v36 = 2081;
+    v37 = v28;
+    _os_log_debug_impl(&dword_1A90C6000, v20, OS_LOG_TYPE_DEBUG, "%s Set domain - is_tracker %d domain <%{private}s> owner <%{private}s>, tracker domain <%{private}s>", buf, 0x30u);
   }
 
-  v10 = 0;
-LABEL_18:
-  v11 = *MEMORY[0x1E69E9840];
-  return v10;
+  return 0;
 }
 
 int ne_socket_set_attribution(int socket, ne_socket_attribution_t attribution)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   if (socket < 0)
   {
-    goto LABEL_20;
+    return 22;
   }
 
-  v14 = attribution == NE_SOCKET_ATTRIBUTION_USER;
-  v4 = setsockopt(socket, 0xFFFF, 4390, &v14, 4u);
+  v13 = attribution == NE_SOCKET_ATTRIBUTION_USER;
+  v4 = setsockopt(socket, 0xFFFF, 4390, &v13, 4u);
   if (ne_log_obj_g_init != -1)
   {
     dispatch_once(&ne_log_obj_g_init, &__block_literal_global_268);
@@ -2259,23 +2224,23 @@ int ne_socket_set_attribution(int socket, ne_socket_attribution_t attribution)
     if (os_log_type_enabled(ne_log_obj_log_obj, OS_LOG_TYPE_DEFAULT))
     {
       v9 = "developer";
-      v16 = "ne_socket_set_attribution";
+      v15 = "ne_socket_set_attribution";
       *buf = 136315650;
       if (attribution == NE_SOCKET_ATTRIBUTION_USER)
       {
         v9 = "user";
       }
 
-      v17 = 2080;
-      *v18 = v9;
-      *&v18[8] = 1024;
-      *&v18[10] = v14;
+      v16 = 2080;
+      *v17 = v9;
+      *&v17[8] = 1024;
+      *&v17[10] = v13;
       _os_log_impl(&dword_1A90C6000, v5, OS_LOG_TYPE_DEFAULT, "%s: marking socket attribution as %s <non-app-initiated flag %d>", buf, 0x1Cu);
     }
 
     if (attribution != NE_SOCKET_ATTRIBUTION_DEVELOPER)
     {
-      goto LABEL_17;
+      return 0;
     }
 
     v10 = ne_session_set_socket_context_attribute(socket, 0);
@@ -2290,54 +2255,48 @@ int ne_socket_set_attribution(int socket, ne_socket_attribution_t attribution)
       if (os_log_type_enabled(ne_log_obj_log_obj, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315138;
-        v16 = "ne_socket_set_attribution";
+        v15 = "ne_socket_set_attribution";
         _os_log_impl(&dword_1A90C6000, v11, OS_LOG_TYPE_DEFAULT, "%s: Cleared attribution context for developer attribution", buf, 0xCu);
       }
 
-LABEL_17:
-      v4 = 0;
-      goto LABEL_21;
+      return 0;
     }
 
     if (os_log_type_enabled(ne_log_obj_log_obj, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315138;
-      v16 = "ne_socket_set_attribution";
+      v15 = "ne_socket_set_attribution";
       _os_log_error_impl(&dword_1A90C6000, v11, OS_LOG_TYPE_ERROR, "%s: Could not clear attribution context for developer attribution", buf, 0xCu);
     }
 
-LABEL_20:
-    v4 = 22;
-    goto LABEL_21;
+    return 22;
   }
 
   if (os_log_type_enabled(ne_log_obj_log_obj, OS_LOG_TYPE_ERROR))
   {
-    v6 = v14;
+    v6 = v13;
     v7 = __error();
     v8 = strerror(*v7);
     *buf = 136315650;
-    v16 = "ne_socket_set_attribution";
-    v17 = 1024;
-    *v18 = v6;
-    *&v18[4] = 2080;
-    *&v18[6] = v8;
+    v15 = "ne_socket_set_attribution";
+    v16 = 1024;
+    *v17 = v6;
+    *&v17[4] = 2080;
+    *&v17[6] = v8;
     _os_log_error_impl(&dword_1A90C6000, v5, OS_LOG_TYPE_ERROR, "%s: Could not set SO_MARK_KNOWN_TRACKER_NON_APP_INITIATED to %d. Received error: %s", buf, 0x1Cu);
   }
 
-LABEL_21:
-  v12 = *MEMORY[0x1E69E9840];
   return v4;
 }
 
 int ne_socket_set_website_attribution(int socket, const char *hostname)
 {
-  v22 = *MEMORY[0x1E69E9840];
-  v15 = 1;
+  v21 = *MEMORY[0x1E69E9840];
+  v14 = 1;
   v2 = 22;
   if ((socket & 0x80000000) == 0 && hostname)
   {
-    v5 = setsockopt(socket, 0xFFFF, 4390, &v15, 4u);
+    v5 = setsockopt(socket, 0xFFFF, 4390, &v14, 4u);
     if (v5)
     {
       v2 = v5;
@@ -2349,15 +2308,15 @@ int ne_socket_set_website_attribution(int socket, const char *hostname)
       v6 = ne_log_obj_log_obj;
       if (os_log_type_enabled(ne_log_obj_log_obj, OS_LOG_TYPE_ERROR))
       {
-        v7 = v15;
+        v7 = v14;
         v8 = __error();
         v9 = strerror(*v8);
         *buf = 136315650;
-        v17 = "ne_socket_set_website_attribution";
-        v18 = 1024;
-        v19 = v7;
-        v20 = 2080;
-        v21 = v9;
+        v16 = "ne_socket_set_website_attribution";
+        v17 = 1024;
+        v18 = v7;
+        v19 = 2080;
+        v20 = v9;
         _os_log_error_impl(&dword_1A90C6000, v6, OS_LOG_TYPE_ERROR, "%s: Could not set SO_MARK_KNOWN_TRACKER_NON_APP_INITIATED to %d. Received error: %s", buf, 0x1Cu);
       }
     }
@@ -2376,9 +2335,9 @@ int ne_socket_set_website_attribution(int socket, const char *hostname)
         if (os_log_type_enabled(ne_log_obj_log_obj, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 136315394;
-          v17 = "ne_socket_set_website_attribution";
-          v18 = 1024;
-          v19 = v15;
+          v16 = "ne_socket_set_website_attribution";
+          v17 = 1024;
+          v18 = v14;
           _os_log_impl(&dword_1A90C6000, v11, OS_LOG_TYPE_DEFAULT, "%s: marking socket attribution as user <non-app-initiated flag %d> with website context", buf, 0x12u);
           if (ne_log_obj_g_init != -1)
           {
@@ -2390,15 +2349,15 @@ int ne_socket_set_website_attribution(int socket, const char *hostname)
         if (os_log_type_enabled(ne_log_obj_log_obj, OS_LOG_TYPE_DEBUG))
         {
           *buf = 136315651;
-          v17 = "ne_socket_set_website_attribution";
-          v18 = 1024;
-          v19 = v15;
-          v20 = 2081;
-          v21 = hostname;
+          v16 = "ne_socket_set_website_attribution";
+          v17 = 1024;
+          v18 = v14;
+          v19 = 2081;
+          v20 = hostname;
           _os_log_debug_impl(&dword_1A90C6000, v12, OS_LOG_TYPE_DEBUG, "%s: marking socket attribution as user <non-app-initiated flag %d> with website context <%{private}s>", buf, 0x1Cu);
         }
 
-        v2 = 0;
+        return 0;
       }
 
       else
@@ -2406,16 +2365,15 @@ int ne_socket_set_website_attribution(int socket, const char *hostname)
         if (os_log_type_enabled(ne_log_obj_log_obj, OS_LOG_TYPE_ERROR))
         {
           *buf = 136315138;
-          v17 = "ne_socket_set_website_attribution";
+          v16 = "ne_socket_set_website_attribution";
           _os_log_error_impl(&dword_1A90C6000, v11, OS_LOG_TYPE_ERROR, "%s: Could not set attribution context", buf, 0xCu);
         }
 
-        v2 = 22;
+        return 22;
       }
     }
   }
 
-  v13 = *MEMORY[0x1E69E9840];
   return v2;
 }
 
@@ -2436,55 +2394,50 @@ int ne_socket_set_is_app_initiated(int socket, BOOL is_app_initiated)
 
 void ne_tracker_create_xcode_issue(uint64_t a1)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  if (!a1)
+  v8 = *MEMORY[0x1E69E9840];
+  if (a1)
   {
-    goto LABEL_11;
-  }
-
-  should_save_stacktrace = ne_tracker_should_save_stacktrace();
-  v3 = should_save_stacktrace;
-  if (ne_tracker_create_xcode_issue_onceToken == -1)
-  {
-    if (should_save_stacktrace)
+    should_save_stacktrace = ne_tracker_should_save_stacktrace();
+    v3 = should_save_stacktrace;
+    if (ne_tracker_create_xcode_issue_onceToken == -1)
     {
-      goto LABEL_4;
-    }
-  }
-
-  else
-  {
-    dispatch_once(&ne_tracker_create_xcode_issue_onceToken, &__block_literal_global_256);
-    if (v3)
-    {
-LABEL_4:
-      v4 = ne_tracker_create_xcode_issue_poi_handle;
-      if (os_log_type_enabled(ne_tracker_create_xcode_issue_poi_handle, OS_LOG_TYPE_FAULT))
+      if (should_save_stacktrace)
       {
-        v7 = 136315138;
-        v8 = a1;
-        _os_log_fault_impl(&dword_1A90C6000, v4, OS_LOG_TYPE_FAULT, "%s is not listed in your app’s NSPrivacyTrackingDomain key in any privacy manifest. It may be following users across multiple apps and websites to create a profile about users of apps that contact this domain.", &v7, 0xCu);
+        goto LABEL_4;
       }
+    }
 
-      goto LABEL_11;
+    else
+    {
+      dispatch_once(&ne_tracker_create_xcode_issue_onceToken, &__block_literal_global_256);
+      if (v3)
+      {
+LABEL_4:
+        v4 = ne_tracker_create_xcode_issue_poi_handle;
+        if (os_log_type_enabled(ne_tracker_create_xcode_issue_poi_handle, OS_LOG_TYPE_FAULT))
+        {
+          v6 = 136315138;
+          v7 = a1;
+          _os_log_fault_impl(&dword_1A90C6000, v4, OS_LOG_TYPE_FAULT, "%s is not listed in your app’s NSPrivacyTrackingDomain key in any privacy manifest. It may be following users across multiple apps and websites to create a profile about users of apps that contact this domain.", &v6, 0xCu);
+        }
+
+        return;
+      }
+    }
+
+    if (ne_log_obj_g_init != -1)
+    {
+      dispatch_once(&ne_log_obj_g_init, &__block_literal_global_268);
+    }
+
+    v5 = ne_log_obj_log_obj;
+    if (os_log_type_enabled(ne_log_obj_log_obj, OS_LOG_TYPE_DEFAULT))
+    {
+      v6 = 136315138;
+      v7 = a1;
+      _os_log_impl(&dword_1A90C6000, v5, OS_LOG_TYPE_DEFAULT, "%s is not listed in your app’s NSPrivacyTrackingDomain key in any privacy manifest. It may be following users across multiple apps and websites to create a profile about users of apps that contact this domain.", &v6, 0xCu);
     }
   }
-
-  if (ne_log_obj_g_init != -1)
-  {
-    dispatch_once(&ne_log_obj_g_init, &__block_literal_global_268);
-  }
-
-  v5 = ne_log_obj_log_obj;
-  if (os_log_type_enabled(ne_log_obj_log_obj, OS_LOG_TYPE_DEFAULT))
-  {
-    v7 = 136315138;
-    v8 = a1;
-    _os_log_impl(&dword_1A90C6000, v5, OS_LOG_TYPE_DEFAULT, "%s is not listed in your app’s NSPrivacyTrackingDomain key in any privacy manifest. It may be following users across multiple apps and websites to create a profile about users of apps that contact this domain.", &v7, 0xCu);
-  }
-
-LABEL_11:
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 os_log_t __ne_tracker_create_xcode_issue_block_invoke()
@@ -2497,35 +2450,31 @@ os_log_t __ne_tracker_create_xcode_issue_block_invoke()
 void *ne_tracker_copy_current_stacktrace(size_t *a1)
 {
   __src[128] = *MEMORY[0x1E69E9840];
-  if (a1)
+  if (!a1)
   {
-    if (qword_1ED4C39A0 != -1)
-    {
-      dispatch_once(&qword_1ED4C39A0, &__block_literal_global_10);
-    }
-
-    if (state != -1)
-    {
-      dispatch_once(&state, &__block_literal_global_14);
-    }
-
-    bzero(__src, 0x400uLL);
-    v2 = 8 * backtrace(__src, 128);
-    *a1 = v2;
-    v3 = malloc_type_malloc(v2, 0xB1BE5970uLL);
-    v4 = v3;
-    if (v3)
-    {
-      memcpy(v3, __src, *a1);
-    }
+    return 0;
   }
 
-  else
+  if (qword_1ED4C39A0 != -1)
   {
-    v4 = 0;
+    dispatch_once(&qword_1ED4C39A0, &__block_literal_global_10);
   }
 
-  v5 = *MEMORY[0x1E69E9840];
+  if (state != -1)
+  {
+    dispatch_once(&state, &__block_literal_global_14);
+  }
+
+  bzero(__src, 0x400uLL);
+  v2 = 8 * backtrace(__src, 128);
+  *a1 = v2;
+  v3 = malloc_type_malloc(v2, 0xB1BE5970uLL);
+  v4 = v3;
+  if (v3)
+  {
+    memcpy(v3, __src, *a1);
+  }
+
   return v4;
 }
 
@@ -2560,41 +2509,41 @@ BOOL nelog_is_info_logging_enabled()
 
 void ne_print_backtrace()
 {
-  v43 = *MEMORY[0x1E69E9840];
-  v41 = 0u;
-  v42 = 0u;
-  v39 = 0u;
+  v42 = *MEMORY[0x1E69E9840];
   v40 = 0u;
-  v37 = 0u;
+  v41 = 0u;
   v38 = 0u;
-  v35 = 0u;
+  v39 = 0u;
   v36 = 0u;
-  v33 = 0u;
+  v37 = 0u;
   v34 = 0u;
-  v31 = 0u;
+  v35 = 0u;
   v32 = 0u;
-  v29 = 0u;
+  v33 = 0u;
   v30 = 0u;
-  v27 = 0u;
+  v31 = 0u;
   v28 = 0u;
-  v25 = 0u;
+  v29 = 0u;
   v26 = 0u;
-  v23 = 0u;
+  v27 = 0u;
   v24 = 0u;
-  v21 = 0u;
+  v25 = 0u;
   v22 = 0u;
-  v19 = 0u;
+  v23 = 0u;
   v20 = 0u;
-  v17 = 0u;
+  v21 = 0u;
   v18 = 0u;
-  v15 = 0u;
+  v19 = 0u;
   v16 = 0u;
-  v13 = 0u;
+  v17 = 0u;
   v14 = 0u;
-  *v11 = 0u;
+  v15 = 0u;
   v12 = 0u;
-  v0 = backtrace(v11, 128);
-  v1 = backtrace_symbols(v11, v0);
+  v13 = 0u;
+  *v10 = 0u;
+  v11 = 0u;
+  v0 = backtrace(v10, 128);
+  v1 = backtrace_symbols(v10, v0);
   v2 = v1;
   if (v0 >= 1)
   {
@@ -2613,7 +2562,7 @@ void ne_print_backtrace()
       {
         v7 = *v5;
         *buf = 136315138;
-        v10 = v7;
+        v9 = v7;
         _os_log_error_impl(&dword_1A90C6000, v6, OS_LOG_TYPE_ERROR, "    %s", buf, 0xCu);
         v4 = ne_log_obj_g_init;
       }
@@ -2631,15 +2580,14 @@ void ne_print_backtrace()
   }
 
   free(v2);
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t ne_trie_init(uint64_t result, uint64_t a2, uint64_t a3, size_t a4, int a5, uint64_t a6, double a7)
 {
-  v55 = *MEMORY[0x1E69E9840];
+  v54 = *MEMORY[0x1E69E9840];
   if (!result)
   {
-    goto LABEL_22;
+    return result;
   }
 
   v8 = result;
@@ -2668,12 +2616,12 @@ uint64_t ne_trie_init(uint64_t result, uint64_t a2, uint64_t a3, size_t a4, int 
       if (result)
       {
         *buf = 136315138;
-        v45 = "ne_trie_init";
+        v44 = "ne_trie_init";
         v16 = "%s: NETrie - Overflow while computing the number of nodes";
         goto LABEL_48;
       }
 
-      goto LABEL_22;
+      return result;
     }
 
     v14 = a2 + 1;
@@ -2689,15 +2637,15 @@ uint64_t ne_trie_init(uint64_t result, uint64_t a2, uint64_t a3, size_t a4, int 
       if (result)
       {
         *buf = 136315138;
-        v45 = "ne_trie_init";
+        v44 = "ne_trie_init";
         v16 = "%s: NETrie - Overflow while computing the number of maps";
 LABEL_48:
-        v19 = v15;
-        v20 = 12;
+        v18 = v15;
+        v19 = 12;
         goto LABEL_49;
       }
 
-      goto LABEL_22;
+      return result;
     }
 
     if (a4 >> 16 || ((v12 | v14) & 0xFFFFFFFFFFFF0000) != 0)
@@ -2707,31 +2655,30 @@ LABEL_48:
         dispatch_once(&ne_log_obj_g_init, &__block_literal_global_268);
       }
 
-      v18 = ne_log_obj_log_obj;
+      v17 = ne_log_obj_log_obj;
       result = os_log_type_enabled(ne_log_obj_log_obj, OS_LOG_TYPE_ERROR);
       if (!result)
       {
-        goto LABEL_22;
+        return result;
       }
 
       *buf = 136315906;
-      v45 = "ne_trie_init";
-      v46 = 2048;
-      *v47 = a4;
+      v44 = "ne_trie_init";
+      v45 = 2048;
+      *v46 = a4;
+      *&v46[8] = 2048;
+      *v47 = v12;
       *&v47[8] = 2048;
-      *v48 = v12;
-      *&v48[8] = 2048;
-      *v49 = v14;
+      *v48 = v14;
       v16 = "%s: NETrie - Invalid bytes count (%lu), nodes count (%lu) or maps count (%lu)";
-      v19 = v18;
-      v20 = 42;
+      v18 = v17;
+      v19 = 42;
 LABEL_49:
-      _os_log_error_impl(&dword_1A90C6000, v19, OS_LOG_TYPE_ERROR, v16, buf, v20);
-      result = 0;
-      goto LABEL_22;
+      _os_log_error_impl(&dword_1A90C6000, v18, OS_LOG_TYPE_ERROR, v16, buf, v19);
+      return 0;
     }
 
-    if (!is_mul_ok(v14, 0xC0uLL) || ((v21 = 10 * v12, v22 = 192 * v14, v23 = 10 * v12 + 192 * v14, !__CFADD__(10 * v12, 192 * v14)) ? (v24 = 0) : (v24 = 1), (v25 = a4 + v23, !__CFADD__(a4, v23)) ? (v26 = 0) : (v26 = 1), (v24 & 1) != 0 || v26))
+    if (!is_mul_ok(v14, 0xC0uLL) || ((v20 = 10 * v12, v21 = 192 * v14, v22 = 10 * v12 + 192 * v14, !__CFADD__(10 * v12, 192 * v14)) ? (v23 = 0) : (v23 = 1), (v24 = a4 + v22, !__CFADD__(a4, v22)) ? (v25 = 0) : (v25 = 1), (v23 & 1) != 0 || v25))
     {
       if (ne_log_obj_g_init != -1)
       {
@@ -2743,45 +2690,45 @@ LABEL_49:
       if (result)
       {
         *buf = 136315138;
-        v45 = "ne_trie_init";
+        v44 = "ne_trie_init";
         v16 = "%s: NETrie - Overflow while computing trie memory sizes";
         goto LABEL_48;
       }
 
-      goto LABEL_22;
+      return result;
     }
 
-    if (v25 > 0x100000)
+    if (v24 > 0x100000)
     {
       if (ne_log_obj_g_init != -1)
       {
         dispatch_once(&ne_log_obj_g_init, &__block_literal_global_268);
       }
 
-      v27 = ne_log_obj_log_obj;
+      v26 = ne_log_obj_log_obj;
       result = os_log_type_enabled(ne_log_obj_log_obj, OS_LOG_TYPE_ERROR);
       if (!result)
       {
-        goto LABEL_22;
+        return result;
       }
 
       *buf = 136315650;
-      v45 = "ne_trie_init";
-      v46 = 2048;
-      *v47 = v25;
-      *&v47[8] = 1024;
-      *v48 = 0x100000;
+      v44 = "ne_trie_init";
+      v45 = 2048;
+      *v46 = v24;
+      *&v46[8] = 1024;
+      *v47 = 0x100000;
       v16 = "%s: NETrie - Trie memory size (%lu) is too big (maximum is %u)";
-      v19 = v27;
-      v20 = 28;
+      v18 = v26;
+      v19 = 28;
       goto LABEL_49;
     }
 
     if (a6)
     {
-      v30 = __CFADD__(v25, a6);
-      v25 += a6;
-      if (v30)
+      v29 = __CFADD__(v24, a6);
+      v24 += a6;
+      if (v29)
       {
         if (ne_log_obj_g_init != -1)
         {
@@ -2793,12 +2740,12 @@ LABEL_49:
         if (result)
         {
           *buf = 136315138;
-          v45 = "ne_trie_init";
+          v44 = "ne_trie_init";
           v16 = "%s: NETrie - Overflow while adding requested extra bytes";
           goto LABEL_48;
         }
 
-        goto LABEL_22;
+        return result;
       }
     }
 
@@ -2807,24 +2754,24 @@ LABEL_49:
       dispatch_once(&ne_log_obj_g_init, &__block_literal_global_268);
     }
 
-    v31 = ne_log_obj_log_obj;
+    v30 = ne_log_obj_log_obj;
     if (os_log_type_enabled(ne_log_obj_log_obj, OS_LOG_TYPE_DEBUG))
     {
       *buf = 136316674;
-      v45 = "ne_trie_init";
-      v46 = 2048;
-      *v47 = v12;
+      v44 = "ne_trie_init";
+      v45 = 2048;
+      *v46 = v12;
+      *&v46[8] = 2048;
+      *v47 = v14;
       *&v47[8] = 2048;
-      *v48 = v14;
+      *v48 = a4;
       *&v48[8] = 2048;
-      *v49 = a4;
-      *&v49[8] = 2048;
-      v50 = a6;
-      v51 = 2048;
-      v52 = v25;
-      v53 = 1024;
-      v54 = a5;
-      _os_log_debug_impl(&dword_1A90C6000, v31, OS_LOG_TYPE_DEBUG, "%s: NETrie - initializing (Nodes count = %lu, child maps count = %lu, bytes_count = %lu, extra_bytes = %lu, total memory size %lu fd %d)", buf, 0x44u);
+      v49 = a6;
+      v50 = 2048;
+      v51 = v24;
+      v52 = 1024;
+      v53 = a5;
+      _os_log_debug_impl(&dword_1A90C6000, v30, OS_LOG_TYPE_DEBUG, "%s: NETrie - initializing (Nodes count = %lu, child maps count = %lu, bytes_count = %lu, extra_bytes = %lu, total memory size %lu fd %d)", buf, 0x44u);
       if ((a5 & 0x80000000) == 0)
       {
         goto LABEL_61;
@@ -2834,163 +2781,162 @@ LABEL_49:
     else if ((a5 & 0x80000000) == 0)
     {
 LABEL_61:
-      if (ftruncate(a5, v25 + 112))
+      if (ftruncate(a5, v24 + 112))
       {
         if (ne_log_obj_g_init != -1)
         {
           dispatch_once(&ne_log_obj_g_init, &__block_literal_global_268);
         }
 
-        v32 = ne_log_obj_log_obj;
+        v31 = ne_log_obj_log_obj;
         result = os_log_type_enabled(ne_log_obj_log_obj, OS_LOG_TYPE_ERROR);
         if (result)
         {
           *buf = 136315394;
-          v45 = "ne_trie_init";
-          v46 = 1024;
-          *v47 = v25 + 112;
+          v44 = "ne_trie_init";
+          v45 = 1024;
+          *v46 = v24 + 112;
           v16 = "%s: NETrie - failed to ftruncate mmap file to %d";
-          v19 = v32;
-          v20 = 18;
+          v18 = v31;
+          v19 = 18;
           goto LABEL_49;
         }
 
-        goto LABEL_22;
+        return result;
       }
 
-      v33 = mmap(0, v25 + 112, 3, 1, a5, 0);
-      if (v33 == -1)
+      v32 = mmap(0, v24 + 112, 3, 1, a5, 0);
+      if (v32 == -1)
       {
         if (ne_log_obj_g_init != -1)
         {
           dispatch_once(&ne_log_obj_g_init, &__block_literal_global_268);
         }
 
-        v36 = ne_log_obj_log_obj;
+        v35 = ne_log_obj_log_obj;
         result = os_log_type_enabled(ne_log_obj_log_obj, OS_LOG_TYPE_ERROR);
         if (result)
         {
           *buf = 136315650;
-          v45 = "ne_trie_init";
-          v46 = 1024;
-          *v47 = a5;
-          *&v47[4] = 1024;
-          *&v47[6] = v25 + 112;
+          v44 = "ne_trie_init";
+          v45 = 1024;
+          *v46 = a5;
+          *&v46[4] = 1024;
+          *&v46[6] = v24 + 112;
           v16 = "%s: NETrie - Failed mmap <fd %d, size %d>";
-          v19 = v36;
-          v20 = 24;
+          v18 = v35;
+          v19 = 24;
           goto LABEL_49;
         }
 
-        goto LABEL_22;
+        return result;
       }
 
-      *(v8 + 40) = v33;
+      *(v8 + 40) = v32;
       *(v8 + 96) = 1;
       if (ne_log_obj_g_init != -1)
       {
         dispatch_once(&ne_log_obj_g_init, &__block_literal_global_268);
       }
 
-      v34 = ne_log_obj_log_obj;
+      v33 = ne_log_obj_log_obj;
       if (os_log_type_enabled(ne_log_obj_log_obj, OS_LOG_TYPE_DEBUG))
       {
         *buf = 136316162;
-        v45 = "ne_trie_init";
-        v46 = 1024;
-        *v47 = a5;
-        *&v47[4] = 1024;
-        *&v47[6] = v25 + 112;
+        v44 = "ne_trie_init";
+        v45 = 1024;
+        *v46 = a5;
+        *&v46[4] = 1024;
+        *&v46[6] = v24 + 112;
+        *v47 = 2048;
+        v34 = 112;
+        *&v47[2] = 112;
         *v48 = 2048;
-        v35 = 112;
-        *&v48[2] = 112;
-        *v49 = 2048;
-        *&v49[2] = v25;
-        _os_log_debug_impl(&dword_1A90C6000, v34, OS_LOG_TYPE_DEBUG, "%s: NETrie - initialized with mmap <fd %d, file size %d hdr size %zu memory size %zu>", buf, 0x2Cu);
+        *&v48[2] = v24;
+        _os_log_debug_impl(&dword_1A90C6000, v33, OS_LOG_TYPE_DEBUG, "%s: NETrie - initialized with mmap <fd %d, file size %d hdr size %zu memory size %zu>", buf, 0x2Cu);
       }
 
       else
       {
-        v35 = 112;
+        v34 = 112;
       }
 
 LABEL_82:
       *v8 = xmmword_1A90DD720;
       *(v8 + 104) = a7;
-      *(v8 + 64) = v25;
-      *(v8 + 72) = v21;
-      *(v8 + 80) = v22;
+      *(v8 + 64) = v24;
+      *(v8 + 72) = v20;
+      *(v8 + 80) = v21;
       *(v8 + 88) = a4;
       *(v8 + 52) = a4;
       *(v8 + 48) = v12;
       *(v8 + 50) = v14;
-      v39 = (*(v8 + 40) + v35 + a6);
-      *(v8 + 16) = v39;
+      v38 = (*(v8 + 40) + v34 + a6);
+      *(v8 + 16) = v38;
       *(v8 + 54) = 0;
-      bzero(v39, 10 * v12);
-      v40 = &v39[v21];
-      *(v8 + 24) = v40;
+      bzero(v38, 10 * v12);
+      v39 = &v38[v20];
+      *(v8 + 24) = v39;
       *(v8 + 56) = 0;
-      memset(v40, 255, 192 * v14);
-      *(v8 + 32) = &v40[v22];
+      memset(v39, 255, 192 * v14);
+      *(v8 + 32) = &v39[v21];
       *(v8 + 58) = 0;
-      bzero(&v40[v22], a4);
-      v41 = *(v8 + 54);
-      v42 = -1;
-      if (v41 < *(v8 + 48))
+      bzero(&v39[v21], a4);
+      v40 = *(v8 + 54);
+      v41 = -1;
+      if (v40 < *(v8 + 48))
       {
-        *(v8 + 54) = v41 + 1;
-        *(*(v8 + 16) + 10 * v41 + 4) = -1;
-        v42 = v41;
+        *(v8 + 54) = v40 + 1;
+        *(*(v8 + 16) + 10 * v40 + 4) = -1;
+        v41 = v40;
       }
 
-      *(v8 + 60) = v42;
-      result = 1;
-      goto LABEL_22;
+      *(v8 + 60) = v41;
+      return 1;
     }
 
-    v37 = malloc_type_malloc(v25, 0xCEA5ABE5uLL);
-    if (!v37)
+    v36 = malloc_type_malloc(v24, 0xCEA5ABE5uLL);
+    if (!v36)
     {
       if (ne_log_obj_g_init != -1)
       {
         dispatch_once(&ne_log_obj_g_init, &__block_literal_global_268);
       }
 
-      v43 = ne_log_obj_log_obj;
+      v42 = ne_log_obj_log_obj;
       result = os_log_type_enabled(ne_log_obj_log_obj, OS_LOG_TYPE_ERROR);
       if (result)
       {
         *buf = 136315394;
-        v45 = "ne_trie_init";
-        v46 = 2048;
-        *v47 = v25;
+        v44 = "ne_trie_init";
+        v45 = 2048;
+        *v46 = v24;
         v16 = "%s: NETrie - Failed to allocate %lu bytes of memory for the trie";
-        v19 = v43;
-        v20 = 22;
+        v18 = v42;
+        v19 = 22;
         goto LABEL_49;
       }
 
-      goto LABEL_22;
+      return result;
     }
 
-    *(v8 + 40) = v37;
+    *(v8 + 40) = v36;
     if (ne_log_obj_g_init != -1)
     {
       dispatch_once(&ne_log_obj_g_init, &__block_literal_global_268);
     }
 
-    v38 = ne_log_obj_log_obj;
+    v37 = ne_log_obj_log_obj;
     if (os_log_type_enabled(ne_log_obj_log_obj, OS_LOG_TYPE_DEBUG))
     {
       *buf = 136315394;
-      v45 = "ne_trie_init";
-      v46 = 2048;
-      *v47 = v25;
-      _os_log_debug_impl(&dword_1A90C6000, v38, OS_LOG_TYPE_DEBUG, "%s: NETrie - initialized with malloc %zu", buf, 0x16u);
+      v44 = "ne_trie_init";
+      v45 = 2048;
+      *v46 = v24;
+      _os_log_debug_impl(&dword_1A90C6000, v37, OS_LOG_TYPE_DEBUG, "%s: NETrie - initialized with malloc %zu", buf, 0x16u);
     }
 
-    v35 = 0;
+    v34 = 0;
     goto LABEL_82;
   }
 
@@ -3004,19 +2950,17 @@ LABEL_82:
   if (result)
   {
     *buf = 136315138;
-    v45 = "ne_trie_init";
+    v44 = "ne_trie_init";
     v16 = "%s: NETrie - null trie, no prefix/leaf count or no byte count";
     goto LABEL_48;
   }
 
-LABEL_22:
-  v17 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 uint64_t ne_trie_save_to_file(uint64_t result)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   if (result)
   {
     if (*(result + 96) == 1)
@@ -3050,13 +2994,13 @@ uint64_t ne_trie_save_to_file(uint64_t result)
         v9 = ne_log_obj_log_obj;
         if (os_log_type_enabled(ne_log_obj_log_obj, OS_LOG_TYPE_FAULT))
         {
-          v11 = 136315650;
-          v12 = "ne_trie_save_to_file";
-          v13 = 1024;
-          v14 = v8;
-          v15 = 2080;
-          v16 = buf;
-          _os_log_fault_impl(&dword_1A90C6000, v9, OS_LOG_TYPE_FAULT, "%s: NETrie - Failed msync: [%d] %s", &v11, 0x1Cu);
+          v10 = 136315650;
+          v11 = "ne_trie_save_to_file";
+          v12 = 1024;
+          v13 = v8;
+          v14 = 2080;
+          v15 = buf;
+          _os_log_fault_impl(&dword_1A90C6000, v9, OS_LOG_TYPE_FAULT, "%s: NETrie - Failed msync: [%d] %s", &v10, 0x1Cu);
         }
       }
 
@@ -3071,25 +3015,24 @@ uint64_t ne_trie_save_to_file(uint64_t result)
         if (os_log_type_enabled(ne_log_obj_log_obj, OS_LOG_TYPE_DEBUG))
         {
           *buf = 136315138;
-          v18 = "ne_trie_save_to_file";
+          v17 = "ne_trie_save_to_file";
           _os_log_debug_impl(&dword_1A90C6000, v7, OS_LOG_TYPE_DEBUG, "%s: NETrie - done msync", buf, 0xCu);
         }
       }
 
-      result = 1;
+      return 1;
     }
 
     else
     {
-      result = 0;
+      return 0;
     }
   }
 
-  v10 = *MEMORY[0x1E69E9840];
   return result;
 }
 
-uint64_t ne_trie_has_high_ascii(char *a1, int a2)
+BOOL ne_trie_has_high_ascii(char *a1, int a2)
 {
   if (a2 < 1)
   {
@@ -3117,11 +3060,11 @@ uint64_t ne_trie_has_high_ascii(char *a1, int a2)
 
 uint64_t ne_trie_insert(uint64_t a1, char *a2, size_t __n, const void *a4, size_t a5, int a6)
 {
-  v67 = *MEMORY[0x1E69E9840];
+  v66 = *MEMORY[0x1E69E9840];
   LOWORD(v6) = -1;
   if (!__n || !a2 || !*(a1 + 40))
   {
-    goto LABEL_10;
+    return v6;
   }
 
   v8 = __n;
@@ -3139,8 +3082,8 @@ uint64_t ne_trie_insert(uint64_t a1, char *a2, size_t __n, const void *a4, size_
     }
 
     *buf = 136315138;
-    v66 = "ne_trie_insert";
-    v18 = "%s: NETrie - failed insert - out of allocated memory";
+    v65 = "ne_trie_insert";
+    v17 = "%s: NETrie - failed insert - out of allocated memory";
     goto LABEL_80;
   }
 
@@ -3149,20 +3092,20 @@ uint64_t ne_trie_insert(uint64_t a1, char *a2, size_t __n, const void *a4, size_
     goto LABEL_16;
   }
 
-  v15 = 1;
+  v14 = 1;
   do
   {
-    if (__n == v15)
+    if (__n == v14)
     {
       goto LABEL_20;
     }
 
-    v16 = v15;
-    v17 = a2[v15++];
+    v15 = v14;
+    v16 = a2[v14++];
   }
 
-  while ((v17 & 0x80000000) == 0);
-  if (v16 < __n)
+  while ((v16 & 0x80000000) == 0);
+  if (v15 < __n)
   {
 LABEL_16:
     if (ne_log_obj_g_init != -1)
@@ -3177,35 +3120,35 @@ LABEL_16:
     }
 
     *buf = 136315138;
-    v66 = "ne_trie_insert";
-    v18 = "%s: NETrie - failed insert - non-printable ASCII not supported";
+    v65 = "ne_trie_insert";
+    v17 = "%s: NETrie - failed insert - non-printable ASCII not supported";
     goto LABEL_80;
   }
 
 LABEL_20:
-  v19 = (*(a1 + 32) + v9);
+  v18 = (*(a1 + 32) + v9);
   if (a6)
   {
-    v20 = __n;
+    v19 = __n;
     do
     {
-      *v19++ = a2[--v20];
+      *v18++ = a2[--v19];
     }
 
-    while (v20);
+    while (v19);
   }
 
   else
   {
-    memcpy(v19, a2, __n);
+    memcpy(v18, a2, __n);
   }
 
-  v21 = *(a1 + 60);
-  LOWORD(v22) = *(a1 + 58);
-  v63 = a5;
-  if (v21 == 0xFFFF)
+  v20 = *(a1 + 60);
+  LOWORD(v21) = *(a1 + 58);
+  v62 = a5;
+  if (v20 == 0xFFFF)
   {
-    v23 = 0xFFFF;
+    v22 = 0xFFFF;
 LABEL_27:
     v6 = *(a1 + 54);
     if (v6 >= *(a1 + 48))
@@ -3222,19 +3165,19 @@ LABEL_27:
       }
 
       *buf = 136315138;
-      v66 = "ne_trie_insert";
-      v18 = "%s: NETrie - Ran out of trie nodes while inserting a new leaf";
+      v65 = "ne_trie_insert";
+      v17 = "%s: NETrie - Ran out of trie nodes while inserting a new leaf";
     }
 
     else
     {
       *(a1 + 54) = v6 + 1;
-      v24 = *(a1 + 16);
-      *(v24 + 10 * v6 + 4) = -1;
-      v25 = *(a1 + 58);
-      if (v25 + v8 > *(a1 + 52))
+      v23 = *(a1 + 16);
+      *(v23 + 10 * v6 + 4) = -1;
+      v24 = *(a1 + 58);
+      if (v24 + v8 > *(a1 + 52))
       {
-        *(v24 + 10 * v6) = -1;
+        *(v23 + 10 * v6) = -1;
 LABEL_88:
         if (ne_log_obj_g_init != -1)
         {
@@ -3248,94 +3191,94 @@ LABEL_88:
         }
 
         *buf = 136315138;
-        v66 = "ne_trie_insert";
-        v18 = "%s: NETrie - Ran out of bytes while inserting a new leaf";
+        v65 = "ne_trie_insert";
+        v17 = "%s: NETrie - Ran out of bytes while inserting a new leaf";
         goto LABEL_80;
       }
 
-      if (v25 != v22)
+      if (v24 != v21)
       {
-        memmove((*(a1 + 32) + v25), (*(a1 + 32) + v22), v8);
-        LOWORD(v22) = *(a1 + 58);
-        v24 = *(a1 + 16);
+        memmove((*(a1 + 32) + v24), (*(a1 + 32) + v21), v8);
+        LOWORD(v21) = *(a1 + 58);
+        v23 = *(a1 + 16);
       }
 
-      *(a1 + 58) = v22 + v8;
-      *(v24 + 10 * v6) = v25;
-      if (v25 == 0xFFFF)
+      *(a1 + 58) = v21 + v8;
+      *(v23 + 10 * v6) = v24;
+      if (v24 == 0xFFFF)
       {
         goto LABEL_88;
       }
 
-      *(v24 + 10 * v6 + 2) = *(v24 + 10 * v6 + 2) & 0x8000 | v8 & 0x7FFF;
+      *(v23 + 10 * v6 + 2) = *(v23 + 10 * v6 + 2) & 0x8000 | v8 & 0x7FFF;
       *(*(a1 + 16) + 10 * v6 + 2) |= 0x8000u;
-      if (a4 && v63)
+      if (a4 && v62)
       {
-        memcpy((*(a1 + 32) + *(a1 + 58)), a4, v63);
-        v52 = *(a1 + 58);
-        if (v52 + v63 <= *(a1 + 52))
+        memcpy((*(a1 + 32) + *(a1 + 58)), a4, v62);
+        v51 = *(a1 + 58);
+        if (v51 + v62 <= *(a1 + 52))
         {
-          *(a1 + 58) = v52 + v63;
+          *(a1 + 58) = v51 + v62;
         }
 
         else
         {
-          LOWORD(v52) = -1;
+          LOWORD(v51) = -1;
         }
 
-        v53 = *(a1 + 16);
-        v54 = v53 + 10 * v6;
-        *(v54 + 6) = v52;
-        *(v54 + 8) = v63;
+        v52 = *(a1 + 16);
+        v53 = v52 + 10 * v6;
+        *(v53 + 6) = v51;
+        *(v53 + 8) = v62;
       }
 
       else
       {
-        v53 = *(a1 + 16);
+        v52 = *(a1 + 16);
       }
 
-      v55 = v53 + 10 * v23;
-      v58 = *(v55 + 4);
-      v57 = (v55 + 4);
-      v56 = v58;
-      if (v58 != 0xFFFF)
+      v54 = v52 + 10 * v22;
+      v57 = *(v54 + 4);
+      v56 = (v54 + 4);
+      v55 = v57;
+      if (v57 != 0xFFFF)
       {
 LABEL_107:
-        v59 = *(*(a1 + 32) + *(v53 + 10 * v6));
-        if (v59 < 32)
+        v58 = *(*(a1 + 32) + *(v52 + 10 * v6));
+        if (v58 < 32)
         {
           if (ne_log_obj_g_init != -1)
           {
             dispatch_once(&ne_log_obj_g_init, &__block_literal_global_268);
           }
 
-          v60 = ne_log_obj_log_obj;
+          v59 = ne_log_obj_log_obj;
           if (os_log_type_enabled(ne_log_obj_log_obj, OS_LOG_TYPE_ERROR))
           {
-            v61 = *(*(a1 + 32) + *(*(a1 + 16) + 10 * v6));
+            v60 = *(*(a1 + 32) + *(*(a1 + 16) + 10 * v6));
             *buf = 67109120;
-            LODWORD(v66) = v61;
-            _os_log_error_impl(&dword_1A90C6000, v60, OS_LOG_TYPE_ERROR, "NETrie - out of printable acsii range <%X>", buf, 8u);
+            LODWORD(v65) = v60;
+            _os_log_error_impl(&dword_1A90C6000, v59, OS_LOG_TYPE_ERROR, "NETrie - out of printable acsii range <%X>", buf, 8u);
           }
         }
 
         else
         {
-          *(*(a1 + 24) + 192 * v56 + 2 * (v59 - 32)) = v6;
+          *(*(a1 + 24) + 192 * v55 + 2 * (v58 - 32)) = v6;
         }
 
-        goto LABEL_10;
+        return v6;
       }
 
-      v56 = *(a1 + 56);
-      if (v56 < *(a1 + 50))
+      v55 = *(a1 + 56);
+      if (v55 < *(a1 + 50))
       {
-        *(a1 + 56) = v56 + 1;
-        *v57 = v56;
+        *(a1 + 56) = v55 + 1;
+        *v56 = v55;
         goto LABEL_107;
       }
 
-      *v57 = -1;
+      *v56 = -1;
       if (ne_log_obj_g_init != -1)
       {
         dispatch_once(&ne_log_obj_g_init, &__block_literal_global_268);
@@ -3348,86 +3291,86 @@ LABEL_107:
       }
 
       *buf = 136315138;
-      v66 = "ne_trie_insert";
-      v18 = "%s: NETrie - Ran out of child maps while inserting a new leaf";
+      v65 = "ne_trie_insert";
+      v17 = "%s: NETrie - Ran out of child maps while inserting a new leaf";
     }
 
 LABEL_80:
-    _os_log_error_impl(&dword_1A90C6000, v10, OS_LOG_TYPE_ERROR, v18, buf, 0xCu);
+    _os_log_error_impl(&dword_1A90C6000, v10, OS_LOG_TYPE_ERROR, v17, buf, 0xCu);
     goto LABEL_9;
   }
 
-  v26 = v22 + v8;
+  v25 = v21 + v8;
   if (a4)
   {
-    v27 = a5 == 0;
+    v26 = a5 == 0;
   }
 
   else
   {
-    v27 = 1;
+    v26 = 1;
   }
 
-  v28 = !v27;
-  v62 = v28;
-  v29 = (v22 + v8);
-  v30 = *(a1 + 16);
-  v31 = *(a1 + 60);
-  v64 = v22 + v8;
+  v27 = !v26;
+  v61 = v27;
+  v28 = (v21 + v8);
+  v29 = *(a1 + 16);
+  v30 = *(a1 + 60);
+  v63 = v21 + v8;
   while (1)
   {
-    v32 = (v30 + 10 * v31);
-    v33 = *v32;
-    if (v33 >= ((v32[1] & 0x7FFF) + v33) || v22 >= v26)
+    v31 = (v29 + 10 * v30);
+    v32 = *v31;
+    if (v32 >= ((v31[1] & 0x7FFF) + v32) || v21 >= v25)
     {
-      LOWORD(v34) = *v32;
+      LOWORD(v33) = *v31;
     }
 
     else
     {
-      v22 = v22;
-      v34 = *v32;
+      v21 = v21;
+      v33 = *v31;
       do
       {
-        if (*(*(a1 + 32) + v34) != *(*(a1 + 32) + v22))
+        if (*(*(a1 + 32) + v33) != *(*(a1 + 32) + v21))
         {
           break;
         }
 
-        ++v34;
-        ++v22;
-        if (v34 >= ((v32[1] & 0x7FFF) + v33))
+        ++v33;
+        ++v21;
+        if (v33 >= ((v31[1] & 0x7FFF) + v32))
         {
           break;
         }
       }
 
-      while (v22 < v29);
+      while (v21 < v28);
     }
 
-    v8 = v26 - v22;
-    if ((v32[1] & 0x7FFF) + v33 > v34)
+    v8 = v25 - v21;
+    if ((v31[1] & 0x7FFF) + v32 > v33)
     {
       break;
     }
 
-    LODWORD(v6) = v31;
+    LODWORD(v6) = v30;
 LABEL_70:
     if (!v8)
     {
-      goto LABEL_10;
+      return v6;
     }
 
-    v30 = *(a1 + 16);
-    v23 = v6;
-    if (*(v30 + 10 * v6 + 4) != 0xFFFFLL)
+    v29 = *(a1 + 16);
+    v22 = v6;
+    if (*(v29 + 10 * v6 + 4) != 0xFFFFLL)
     {
-      v49 = *(*(a1 + 32) + v22);
-      if (v49 >= 32)
+      v48 = *(*(a1 + 32) + v21);
+      if (v48 >= 32)
       {
-        v31 = *(*(a1 + 24) + 192 * *(v30 + 10 * v6 + 4) + 2 * (v49 - 32));
-        v21 = v6;
-        if (v31 != 0xFFFF)
+        v30 = *(*(a1 + 24) + 192 * *(v29 + 10 * v6 + 4) + 2 * (v48 - 32));
+        v20 = v6;
+        if (v30 != 0xFFFF)
         {
           continue;
         }
@@ -3449,8 +3392,8 @@ LABEL_70:
     if (os_log_type_enabled(ne_log_obj_log_obj, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315138;
-      v66 = "ne_trie_insert";
-      v18 = "%s: NETrie - Ran out of trie nodes while splitting an existing node";
+      v65 = "ne_trie_insert";
+      v17 = "%s: NETrie - Ran out of trie nodes while splitting an existing node";
       goto LABEL_80;
     }
 
@@ -3458,101 +3401,101 @@ LABEL_70:
   }
 
   *(a1 + 54) = v6 + 1;
-  v35 = (v30 + 10 * v6);
-  v35[2] = -1;
-  *v35 = v33;
-  v35[1] = v35[1] & 0x8000 | (v34 - *v32) & 0x7FFF;
-  if (v26 == v22)
+  v34 = (v29 + 10 * v6);
+  v34[2] = -1;
+  *v34 = v32;
+  v34[1] = v34[1] & 0x8000 | (v33 - *v31) & 0x7FFF;
+  if (v25 == v21)
   {
-    v36 = *(a1 + 16) + 10 * v6;
-    *(v36 + 2) |= 0x8000u;
-    if (v62)
+    v35 = *(a1 + 16) + 10 * v6;
+    *(v35 + 2) |= 0x8000u;
+    if (v61)
     {
-      memcpy((*(a1 + 32) + *(a1 + 58)), a4, v63);
-      v37 = *(a1 + 58);
-      if (v37 + v63 <= *(a1 + 52))
+      memcpy((*(a1 + 32) + *(a1 + 58)), a4, v62);
+      v36 = *(a1 + 58);
+      if (v36 + v62 <= *(a1 + 52))
       {
-        *(a1 + 58) = v37 + v63;
+        *(a1 + 58) = v36 + v62;
       }
 
       else
       {
-        LOWORD(v37) = -1;
+        LOWORD(v36) = -1;
       }
 
-      v38 = *(a1 + 16) + 10 * v6;
-      *(v38 + 6) = v37;
-      *(v38 + 8) = v63;
-      v26 = v64;
+      v37 = *(a1 + 16) + 10 * v6;
+      *(v37 + 6) = v36;
+      *(v37 + 8) = v62;
+      v25 = v63;
     }
   }
 
-  v39 = *(a1 + 56);
-  if (v39 < *(a1 + 50))
+  v38 = *(a1 + 56);
+  if (v38 < *(a1 + 50))
   {
-    *(a1 + 56) = v39 + 1;
-    *(*(a1 + 16) + 10 * v6 + 4) = v39;
-    v40 = *(a1 + 32);
-    v41 = *(v40 + v34);
-    if (v41 < 32)
+    *(a1 + 56) = v38 + 1;
+    *(*(a1 + 16) + 10 * v6 + 4) = v38;
+    v39 = *(a1 + 32);
+    v40 = *(v39 + v33);
+    if (v40 < 32)
     {
       if (ne_log_obj_g_init != -1)
       {
         dispatch_once(&ne_log_obj_g_init, &__block_literal_global_268);
       }
 
-      v42 = ne_log_obj_log_obj;
-      v43 = os_log_type_enabled(ne_log_obj_log_obj, OS_LOG_TYPE_ERROR);
-      v40 = *(a1 + 32);
-      if (v43)
+      v41 = ne_log_obj_log_obj;
+      v42 = os_log_type_enabled(ne_log_obj_log_obj, OS_LOG_TYPE_ERROR);
+      v39 = *(a1 + 32);
+      if (v42)
       {
-        v50 = *(v40 + v34);
+        v49 = *(v39 + v33);
         *buf = 67109120;
-        LODWORD(v66) = v50;
-        _os_log_error_impl(&dword_1A90C6000, v42, OS_LOG_TYPE_ERROR, "NETrie - out of printable acsii range <%X>", buf, 8u);
-        v40 = *(a1 + 32);
+        LODWORD(v65) = v49;
+        _os_log_error_impl(&dword_1A90C6000, v41, OS_LOG_TYPE_ERROR, "NETrie - out of printable acsii range <%X>", buf, 8u);
+        v39 = *(a1 + 32);
       }
 
-      v26 = v64;
+      v25 = v63;
     }
 
     else
     {
-      *(*(a1 + 24) + 192 * v39 + 2 * (v41 - 32)) = v31;
+      *(*(a1 + 24) + 192 * v38 + 2 * (v40 - 32)) = v30;
     }
 
-    v44 = *(a1 + 16);
-    v45 = *(v40 + *(v44 + 10 * v6));
-    if (v45 < 32)
+    v43 = *(a1 + 16);
+    v44 = *(v39 + *(v43 + 10 * v6));
+    if (v44 < 32)
     {
       if (ne_log_obj_g_init != -1)
       {
         dispatch_once(&ne_log_obj_g_init, &__block_literal_global_268);
       }
 
-      v46 = ne_log_obj_log_obj;
-      v47 = os_log_type_enabled(ne_log_obj_log_obj, OS_LOG_TYPE_ERROR);
-      v44 = *(a1 + 16);
-      if (v47)
+      v45 = ne_log_obj_log_obj;
+      v46 = os_log_type_enabled(ne_log_obj_log_obj, OS_LOG_TYPE_ERROR);
+      v43 = *(a1 + 16);
+      if (v46)
       {
-        v51 = *(*(a1 + 32) + *(v44 + 10 * v6));
+        v50 = *(*(a1 + 32) + *(v43 + 10 * v6));
         *buf = 67109120;
-        LODWORD(v66) = v51;
-        _os_log_error_impl(&dword_1A90C6000, v46, OS_LOG_TYPE_ERROR, "NETrie - out of printable acsii range <%X>", buf, 8u);
-        v44 = *(a1 + 16);
+        LODWORD(v65) = v50;
+        _os_log_error_impl(&dword_1A90C6000, v45, OS_LOG_TYPE_ERROR, "NETrie - out of printable acsii range <%X>", buf, 8u);
+        v43 = *(a1 + 16);
       }
 
-      v26 = v64;
+      v25 = v63;
     }
 
     else
     {
-      *(*(a1 + 24) + 192 * *(v44 + 10 * v21 + 4) + 2 * (v45 - 32)) = v6;
+      *(*(a1 + 24) + 192 * *(v43 + 10 * v20 + 4) + 2 * (v44 - 32)) = v6;
     }
 
-    v48 = (v44 + 10 * v31);
-    *v48 = v34;
-    v48[1] = v48[1] & 0x8000 | (v48[1] - *(v44 + 10 * v6 + 2)) & 0x7FFF;
+    v47 = (v43 + 10 * v30);
+    *v47 = v33;
+    v47[1] = v47[1] & 0x8000 | (v47[1] - *(v43 + 10 * v6 + 2)) & 0x7FFF;
     goto LABEL_70;
   }
 
@@ -3566,15 +3509,13 @@ LABEL_70:
   if (os_log_type_enabled(ne_log_obj_log_obj, OS_LOG_TYPE_ERROR))
   {
     *buf = 136315138;
-    v66 = "ne_trie_insert";
-    v18 = "%s: NETrie - Ran out of child maps while splitting an existing node";
+    v65 = "ne_trie_insert";
+    v17 = "%s: NETrie - Ran out of child maps while splitting an existing node";
     goto LABEL_80;
   }
 
 LABEL_9:
   LOWORD(v6) = -1;
-LABEL_10:
-  v11 = *MEMORY[0x1E69E9840];
   return v6;
 }
 
@@ -3794,28 +3735,8 @@ LABEL_32:
       v32 = v12[4];
       v33 = v32 + v20[3];
       v34 = v20[4];
-      if (!a10)
+      if (!a10 || (v35 = a8, v36 = a6, v49 = v32 + v20[3], v37 = v18, v38 = a10, v39 = a10(v49, v20[4]), a10 = v38, v18 = v37, v33 = v49, v19 = v10, a6 = v36, a8 = v35, v16 = v47, v12 = a1, v39))
       {
-        goto LABEL_42;
-      }
-
-      v35 = a8;
-      v36 = a6;
-      v49 = v32 + v20[3];
-      v37 = v18;
-      v38 = a10;
-      v39 = a10(v49, v20[4]);
-      a10 = v38;
-      v18 = v37;
-      v33 = v49;
-      v19 = v10;
-      a6 = v36;
-      a8 = v35;
-      v16 = v47;
-      v12 = a1;
-      if (v39)
-      {
-LABEL_42:
         if (v31)
         {
           if (a4 && a5)

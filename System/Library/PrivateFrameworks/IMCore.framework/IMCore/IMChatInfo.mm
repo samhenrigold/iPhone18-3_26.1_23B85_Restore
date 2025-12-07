@@ -9,74 +9,74 @@
 - (IMChatInfo)initWithChatDictionary:(id)dictionary
 {
   dictionaryCopy = dictionary;
-  v9.receiver = self;
-  v9.super_class = IMChatInfo;
-  v5 = [(IMChatInfo *)&v9 init];
-  v7 = v5;
+  v8.receiver = self;
+  v8.super_class = IMChatInfo;
+  v5 = [(IMChatInfo *)&v8 init];
+  v6 = v5;
   if (v5)
   {
-    objc_msgSend_updateWithChatDictionary_(v5, v6, dictionaryCopy);
+    [(IMChatInfo *)v5 updateWithChatDictionary:dictionaryCopy];
   }
 
-  return v7;
+  return v6;
 }
 
 - (void)updateWithChatDictionary:(id)dictionary
 {
   v4 = *MEMORY[0x1E69A6BF0];
   dictionaryCopy = dictionary;
-  v7 = objc_msgSend_objectForKeyedSubscript_(dictionaryCopy, v6, v4);
+  v6 = [dictionaryCopy objectForKeyedSubscript:v4];
   lastAddressedLocalHandle = self->_lastAddressedLocalHandle;
-  self->_lastAddressedLocalHandle = v7;
+  self->_lastAddressedLocalHandle = v6;
 
-  v10 = objc_msgSend_objectForKeyedSubscript_(dictionaryCopy, v9, *MEMORY[0x1E69A6BF8]);
+  v8 = [dictionaryCopy objectForKeyedSubscript:*MEMORY[0x1E69A6BF8]];
   lastAddressedSIMID = self->_lastAddressedSIMID;
-  self->_lastAddressedSIMID = v10;
+  self->_lastAddressedSIMID = v8;
 
-  v13 = objc_msgSend_objectForKeyedSubscript_(dictionaryCopy, v12, *MEMORY[0x1E69A6CD0]);
-  self->_unreadMessageCount = objc_msgSend_unsignedIntValue(v13, v14, v15);
+  v10 = [dictionaryCopy objectForKeyedSubscript:*MEMORY[0x1E69A6CD0]];
+  self->_unreadMessageCount = [v10 unsignedIntValue];
 
-  v17 = objc_msgSend_objectForKeyedSubscript_(dictionaryCopy, v16, *MEMORY[0x1E69A6C60]);
-  self->_pendingIncomingSatelliteMessageCount = objc_msgSend_unsignedIntValue(v17, v18, v19);
+  v11 = [dictionaryCopy objectForKeyedSubscript:*MEMORY[0x1E69A6C60]];
+  self->_pendingIncomingSatelliteMessageCount = [v11 unsignedIntValue];
 
-  v21 = objc_msgSend_objectForKeyedSubscript_(dictionaryCopy, v20, @"downloadingPendingSatelliteMessages");
-  self->_downloadingPendingSatelliteMessages = objc_msgSend_BOOLValue(v21, v22, v23);
+  v12 = [dictionaryCopy objectForKeyedSubscript:@"downloadingPendingSatelliteMessages"];
+  self->_downloadingPendingSatelliteMessages = [v12 BOOLValue];
 
-  v25 = objc_msgSend_objectForKeyedSubscript_(dictionaryCopy, v24, *MEMORY[0x1E69A6BC0]);
-  self->_isFiltered = objc_msgSend_intValue(v25, v26, v27);
+  v13 = [dictionaryCopy objectForKeyedSubscript:*MEMORY[0x1E69A6BC0]];
+  self->_isFiltered = [v13 intValue];
 
-  v29 = objc_msgSend_objectForKeyedSubscript_(dictionaryCopy, v28, *MEMORY[0x1E69A6B88]);
-  self->_hasCancellableScheduledMessage = objc_msgSend_BOOLValue(v29, v30, v31);
+  v14 = [dictionaryCopy objectForKeyedSubscript:*MEMORY[0x1E69A6B88]];
+  self->_hasCancellableScheduledMessage = [v14 BOOLValue];
 
-  v32 = *MEMORY[0x1E69A6C70];
-  v34 = objc_msgSend_objectForKeyedSubscript_(dictionaryCopy, v33, *MEMORY[0x1E69A6C70]);
-  v36 = objc_msgSend_objectForKeyedSubscript_(v34, v35, *MEMORY[0x1E69A6CC8]);
+  v15 = *MEMORY[0x1E69A6C70];
+  v16 = [dictionaryCopy objectForKeyedSubscript:*MEMORY[0x1E69A6C70]];
+  v17 = [v16 objectForKeyedSubscript:*MEMORY[0x1E69A6CC8]];
   transcriptBackgroundDetails = self->_transcriptBackgroundDetails;
-  self->_transcriptBackgroundDetails = v36;
+  self->_transcriptBackgroundDetails = v17;
 
-  v42 = objc_msgSend_objectForKeyedSubscript_(dictionaryCopy, v38, v32);
+  v21 = [dictionaryCopy objectForKeyedSubscript:v15];
 
-  v40 = objc_msgSend_objectForKeyedSubscript_(v42, v39, *MEMORY[0x1E69A6CC0]);
+  v19 = [v21 objectForKeyedSubscript:*MEMORY[0x1E69A6CC0]];
   transcriptBackgroundChannelTransferGUID = self->_transcriptBackgroundChannelTransferGUID;
-  self->_transcriptBackgroundChannelTransferGUID = v40;
+  self->_transcriptBackgroundChannelTransferGUID = v19;
 }
 
 - (id)copyWithZone:(_NSZone *)zone
 {
   v4 = objc_alloc_init(IMChatInfo);
-  v7 = objc_msgSend_copy(self->_lastAddressedLocalHandle, v5, v6);
-  objc_msgSend_setLastAddressedLocalHandle_(v4, v8, v7);
+  v5 = [(NSString *)self->_lastAddressedLocalHandle copy];
+  [(IMChatInfo *)v4 setLastAddressedLocalHandle:v5];
 
-  v11 = objc_msgSend_copy(self->_lastAddressedSIMID, v9, v10);
-  objc_msgSend_setLastAddressedSIMID_(v4, v12, v11);
+  v6 = [(NSString *)self->_lastAddressedSIMID copy];
+  [(IMChatInfo *)v4 setLastAddressedSIMID:v6];
 
-  objc_msgSend_setUnreadMessageCount_(v4, v13, self->_unreadMessageCount);
-  objc_msgSend_setPendingIncomingSatelliteMessageCount_(v4, v14, self->_pendingIncomingSatelliteMessageCount);
-  objc_msgSend_setDownloadingPendingSatelliteMessages_(v4, v15, self->_downloadingPendingSatelliteMessages);
-  objc_msgSend_setIsFiltered_(v4, v16, self->_isFiltered);
-  objc_msgSend_setHasCancellableScheduledMessage_(v4, v17, self->_hasCancellableScheduledMessage);
-  objc_msgSend_setTranscriptBackgroundDetails_(v4, v18, self->_transcriptBackgroundDetails);
-  objc_msgSend_setTranscriptBackgroundChannelTransferGUID_(v4, v19, self->_transcriptBackgroundChannelTransferGUID);
+  [(IMChatInfo *)v4 setUnreadMessageCount:self->_unreadMessageCount];
+  [(IMChatInfo *)v4 setPendingIncomingSatelliteMessageCount:self->_pendingIncomingSatelliteMessageCount];
+  [(IMChatInfo *)v4 setDownloadingPendingSatelliteMessages:self->_downloadingPendingSatelliteMessages];
+  [(IMChatInfo *)v4 setIsFiltered:self->_isFiltered];
+  [(IMChatInfo *)v4 setHasCancellableScheduledMessage:self->_hasCancellableScheduledMessage];
+  [(IMChatInfo *)v4 setTranscriptBackgroundDetails:self->_transcriptBackgroundDetails];
+  [(IMChatInfo *)v4 setTranscriptBackgroundChannelTransferGUID:self->_transcriptBackgroundChannelTransferGUID];
   return v4;
 }
 

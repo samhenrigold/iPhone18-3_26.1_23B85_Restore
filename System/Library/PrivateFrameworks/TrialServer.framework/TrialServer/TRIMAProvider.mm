@@ -1,4 +1,5 @@
 @interface TRIMAProvider
++ (id)fetchRetryDateFromAttribution:(id)attribution isDeferral:(BOOL)deferral;
 - (BOOL)_shouldMockMobileAssets;
 - (id)_sqliteMADatabase;
 - (id)createAutoAssetWithId:(id)id decryptionKey:(id)key error:(id *)error;
@@ -12,6 +13,15 @@
 @end
 
 @implementation TRIMAProvider
+
++ (id)fetchRetryDateFromAttribution:(id)attribution isDeferral:(BOOL)deferral
+{
+  deferralCopy = deferral;
+  networkOptions = [attribution networkOptions];
+  v6 = [networkOptions discretionaryBehavior] == 0;
+
+  return [TRIFetchRetryUtils fetchRetryDateFromRetryAfterSeconds:0 isDeferral:deferralCopy isRetryable:1 isNonDiscretionary:v6];
+}
 
 - (id)endAllPreviousLocksOfReasonSync:(id)sync forClientName:(id)name forAssetSelector:(id)selector
 {
@@ -205,20 +215,20 @@
 
 void __53__TRIMAProvider_installedAssetsMatchingFullAssetIds___block_invoke(uint64_t a1, void *a2, _BYTE *a3)
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   v5 = a2;
-  v23 = 0;
-  v6 = [*(a1 + 32) createAutoAssetWithId:v5 decryptionKey:0 error:&v23];
+  v22 = 0;
+  v6 = [*(a1 + 32) createAutoAssetWithId:v5 decryptionKey:0 error:&v22];
   if (v6)
   {
     v7 = objc_opt_new();
     [v7 setLockAcrossTermination:0];
     [v7 setUnlockAfterUsageSecs:-2];
+    v20 = 0;
     v21 = 0;
-    v22 = 0;
-    v8 = [v6 lockContentSync:@"test asset presence" withUsagePolicy:v7 withTimeout:0 lockedAssetSelector:&v22 newerInProgress:0 error:&v21];
-    v9 = v22;
-    v20 = v21;
+    v8 = [v6 lockContentSync:@"test asset presence" withUsagePolicy:v7 withTimeout:0 lockedAssetSelector:&v21 newerInProgress:0 error:&v20];
+    v9 = v21;
+    v19 = v20;
     if (v8 && v9)
     {
       v10 = [v9 assetVersion];
@@ -230,7 +240,7 @@ void __53__TRIMAProvider_installedAssetsMatchingFullAssetIds___block_invoke(uint
         if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
         {
           *buf = 138543362;
-          v25 = v9;
+          v24 = v9;
           _os_log_error_impl(&dword_26F567000, v16, OS_LOG_TYPE_ERROR, "lockContent returned asset selector with missing version: %{public}@", buf, 0xCu);
         }
       }
@@ -256,9 +266,9 @@ void __53__TRIMAProvider_installedAssetsMatchingFullAssetIds___block_invoke(uint
       if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138543618;
-        v25 = v6;
-        v26 = 2114;
-        v27 = v20;
+        v24 = v6;
+        v25 = 2114;
+        v26 = v19;
         _os_log_impl(&dword_26F567000, v16, OS_LOG_TYPE_DEFAULT, "MAAutoAsset %{public}@ not found when checking for presence: %{public}@", buf, 0x16u);
       }
     }
@@ -270,17 +280,15 @@ void __53__TRIMAProvider_installedAssetsMatchingFullAssetIds___block_invoke(uint
     if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412546;
-      v25 = v5;
-      v26 = 2112;
-      v27 = v23;
+      v24 = v5;
+      v25 = 2112;
+      v26 = v22;
       _os_log_error_impl(&dword_26F567000, v18, OS_LOG_TYPE_ERROR, "Failed to init autoAsset %@: %@", buf, 0x16u);
     }
 
     *(*(*(a1 + 48) + 8) + 24) = 0;
     *a3 = 1;
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (id)downloadAssets:(id)assets attribution:(id)attribution aggregateProgress:(id)progress group:(id)group completion:(id)completion
@@ -389,7 +397,7 @@ void __53__TRIMAProvider_installedAssetsMatchingFullAssetIds___block_invoke(uint
 
 void __79__TRIMAProvider_downloadAssets_attribution_aggregateProgress_group_completion___block_invoke(uint64_t a1, void *a2, void *a3, _BYTE *a4)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = a3;
   v9 = [v8 namespaceNameForEncryptionKey];
@@ -400,8 +408,8 @@ void __79__TRIMAProvider_downloadAssets_attribution_aggregateProgress_group_comp
     v9 = [TRINamespaceKeyLocator keyDataForNamespace:v10 asymmetric:1];
   }
 
-  v16 = 0;
-  v11 = [*(a1 + 32) createAutoAssetWithId:v7 decryptionKey:v9 error:&v16];
+  v15 = 0;
+  v11 = [*(a1 + 32) createAutoAssetWithId:v7 decryptionKey:v9 error:&v15];
   if (v11)
   {
     [*(a1 + 48) addObject:v11];
@@ -413,19 +421,17 @@ void __79__TRIMAProvider_downloadAssets_attribution_aggregateProgress_group_comp
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v18 = v16;
+      v17 = v15;
       _os_log_error_impl(&dword_26F567000, v12, OS_LOG_TYPE_ERROR, "Failed to instantiate MAAutoAsset: %{public}@", buf, 0xCu);
     }
 
     v13 = *(a1 + 56);
     v14 = [TRIMAProvider fetchRetryDateFromAttribution:*(a1 + 40) isDeferral:0];
-    (*(v13 + 16))(v13, 3, 0, v14, v16);
+    (*(v13 + 16))(v13, 3, 0, v14, v15);
 
     *(*(*(a1 + 64) + 8) + 24) = 0;
     *a4 = 1;
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void __79__TRIMAProvider_downloadAssets_attribution_aggregateProgress_group_completion___block_invoke_520(uint64_t a1, void *a2)
@@ -455,15 +461,15 @@ void __79__TRIMAProvider_downloadAssets_attribution_aggregateProgress_group_comp
 
 void __79__TRIMAProvider_downloadAssets_attribution_aggregateProgress_group_completion___block_invoke_2(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3[9] == 1)
   {
     v4 = TRILogCategory_Server();
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v12) = 0;
-      _os_log_impl(&dword_26F567000, v4, OS_LOG_TYPE_DEFAULT, "Asked to defer but the deferral handler has already been removed", &v12, 2u);
+      LOWORD(v10) = 0;
+      _os_log_impl(&dword_26F567000, v4, OS_LOG_TYPE_DEFAULT, "Asked to defer but the deferral handler has already been removed", &v10, 2u);
     }
   }
 
@@ -475,31 +481,28 @@ void __79__TRIMAProvider_downloadAssets_attribution_aggregateProgress_group_comp
     }
 
     v3[9] = 1;
-    v5 = *(a1 + 32);
-    v6 = xpc_activity_copy_identifier();
-    v7 = TRILogCategory_Server();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v5 = xpc_activity_copy_identifier();
+    v6 = TRILogCategory_Server();
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v12 = 136446210;
-      v13 = v6;
-      _os_log_impl(&dword_26F567000, v7, OS_LOG_TYPE_DEFAULT, "Cancelling operation due to deferral of XPC activity: %{public}s", &v12, 0xCu);
+      v10 = 136446210;
+      v11 = v5;
+      _os_log_impl(&dword_26F567000, v6, OS_LOG_TYPE_DEFAULT, "Cancelling operation due to deferral of XPC activity: %{public}s", &v10, 0xCu);
     }
 
-    free(v6);
+    free(v5);
     [*(a1 + 40) cancel];
     v3[8] = 1;
-    v8 = *(a1 + 64);
-    v9 = [TRIMAProvider fetchRetryDateFromAttribution:*(a1 + 48) isDeferral:1];
-    (*(v8 + 16))(v8, 1, 1, v9, 0);
+    v7 = *(a1 + 64);
+    v8 = [TRIMAProvider fetchRetryDateFromAttribution:*(a1 + 48) isDeferral:1];
+    (*(v7 + 16))(v7, 1, 1, v8, 0);
 
-    v10 = *(a1 + 56);
-    if (v10)
+    v9 = *(a1 + 56);
+    if (v9)
     {
-      dispatch_group_leave(v10);
+      dispatch_group_leave(v9);
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __79__TRIMAProvider_downloadAssets_attribution_aggregateProgress_group_completion___block_invoke_524(uint64_t a1)
@@ -547,15 +550,15 @@ void __79__TRIMAProvider_downloadAssets_attribution_aggregateProgress_group_comp
 
 void __79__TRIMAProvider_downloadAssets_attribution_aggregateProgress_group_completion___block_invoke_525(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
-  v50 = *MEMORY[0x277D85DE8];
+  v49 = *MEMORY[0x277D85DE8];
   v7 = a2;
-  v38[0] = MEMORY[0x277D85DD0];
-  v38[1] = 3221225472;
-  v38[2] = __79__TRIMAProvider_downloadAssets_attribution_aggregateProgress_group_completion___block_invoke_2_526;
-  v38[3] = &unk_279DDEE68;
-  v40 = a3;
-  v39 = *(a1 + 32);
-  v8 = MEMORY[0x2743948D0](v38);
+  v37[0] = MEMORY[0x277D85DD0];
+  v37[1] = 3221225472;
+  v37[2] = __79__TRIMAProvider_downloadAssets_attribution_aggregateProgress_group_completion___block_invoke_2_526;
+  v37[3] = &unk_279DDEE68;
+  v39 = a3;
+  v38 = *(a1 + 32);
+  v8 = MEMORY[0x2743948D0](v37);
   if ([*(a1 + 40) isCanceled])
   {
     v9 = TRILogCategory_Server();
@@ -585,30 +588,30 @@ void __79__TRIMAProvider_downloadAssets_attribution_aggregateProgress_group_comp
 
     *&buf = 0;
     *(&buf + 1) = &buf;
-    v46 = 0x3032000000;
-    v47 = __Block_byref_object_copy__34;
-    v48 = __Block_byref_object_dispose__34;
-    v49 = 0;
+    v45 = 0x3032000000;
+    v46 = __Block_byref_object_copy__34;
+    v47 = __Block_byref_object_dispose__34;
+    v48 = 0;
     v14 = *(a1 + 48);
     v13 = *(a1 + 56);
-    v35[0] = MEMORY[0x277D85DD0];
-    v35[1] = 3221225472;
-    v35[2] = __79__TRIMAProvider_downloadAssets_attribution_aggregateProgress_group_completion___block_invoke_528;
-    v35[3] = &unk_279DE3000;
+    v34[0] = MEMORY[0x277D85DD0];
+    v34[1] = 3221225472;
+    v34[2] = __79__TRIMAProvider_downloadAssets_attribution_aggregateProgress_group_completion___block_invoke_528;
+    v34[3] = &unk_279DE3000;
     v15 = *(a1 + 64);
-    v37 = *(a1 + 80);
-    v35[4] = v13;
-    v36 = v15;
-    v28 = MEMORY[0x277D85DD0];
-    v29 = 3221225472;
-    v30 = __79__TRIMAProvider_downloadAssets_attribution_aggregateProgress_group_completion___block_invoke_533;
-    v31 = &unk_279DE3028;
+    v36 = *(a1 + 80);
+    v34[4] = v13;
+    v35 = v15;
+    v27 = MEMORY[0x277D85DD0];
+    v28 = 3221225472;
+    v29 = __79__TRIMAProvider_downloadAssets_attribution_aggregateProgress_group_completion___block_invoke_533;
+    v30 = &unk_279DE3028;
     v16 = *(a1 + 72);
     p_buf = &buf;
-    v34 = v16;
+    v33 = v16;
     v17 = v10;
-    v32 = v17;
-    [v7 lockContent:@"transiently required by Trial" withUsagePolicy:v14 withTimeout:-1 reportingProgress:v35 completion:&v28];
+    v31 = v17;
+    [v7 lockContent:@"transiently required by Trial" withUsagePolicy:v14 withTimeout:-1 reportingProgress:v34 completion:&v27];
     dispatch_semaphore_wait(v17, 0xFFFFFFFFFFFFFFFFLL);
     if (*(*(&buf + 1) + 40))
     {
@@ -617,11 +620,11 @@ void __79__TRIMAProvider_downloadAssets_attribution_aggregateProgress_group_comp
       {
         v19 = [v7 assetSelector];
         v20 = *(*(&buf + 1) + 40);
-        *v41 = 138543618;
-        v42 = v19;
-        v43 = 2114;
-        v44 = v20;
-        _os_log_impl(&dword_26F567000, v18, OS_LOG_TYPE_DEFAULT, "Successfully locked MAAutoAsset: %{public}@ at path: %{public}@", v41, 0x16u);
+        *v40 = 138543618;
+        v41 = v19;
+        v42 = 2114;
+        v43 = v20;
+        _os_log_impl(&dword_26F567000, v18, OS_LOG_TYPE_DEFAULT, "Successfully locked MAAutoAsset: %{public}@ at path: %{public}@", v40, 0x16u);
       }
     }
 
@@ -635,21 +638,21 @@ void __79__TRIMAProvider_downloadAssets_attribution_aggregateProgress_group_comp
         if (v23)
         {
           v24 = [v7 assetSelector];
-          *v41 = 138543362;
-          v42 = v24;
-          _os_log_error_impl(&dword_26F567000, v22, OS_LOG_TYPE_ERROR, "Failed to lock MAAutoAsset: %{public}@: Download operation was cancelled.", v41, 0xCu);
+          *v40 = 138543362;
+          v41 = v24;
+          _os_log_error_impl(&dword_26F567000, v22, OS_LOG_TYPE_ERROR, "Failed to lock MAAutoAsset: %{public}@: Download operation was cancelled.", v40, 0xCu);
         }
       }
 
       else if (v23)
       {
-        v26 = [v7 assetSelector];
-        v27 = *(*(*(a1 + 72) + 8) + 40);
-        *v41 = 138543618;
-        v42 = v26;
-        v43 = 2114;
-        v44 = v27;
-        _os_log_error_impl(&dword_26F567000, v22, OS_LOG_TYPE_ERROR, "Failed to lock MAAutoAsset: %{public}@: %{public}@", v41, 0x16u);
+        v25 = [v7 assetSelector];
+        v26 = *(*(*(a1 + 72) + 8) + 40);
+        *v40 = 138543618;
+        v41 = v25;
+        v42 = 2114;
+        v43 = v26;
+        _os_log_error_impl(&dword_26F567000, v22, OS_LOG_TYPE_ERROR, "Failed to lock MAAutoAsset: %{public}@: %{public}@", v40, 0x16u);
       }
 
       v8[2](v8);
@@ -658,8 +661,6 @@ void __79__TRIMAProvider_downloadAssets_attribution_aggregateProgress_group_comp
 
     _Block_object_dispose(&buf, 8);
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 void __79__TRIMAProvider_downloadAssets_attribution_aggregateProgress_group_completion___block_invoke_2_526(uint64_t a1)
@@ -681,7 +682,7 @@ void __79__TRIMAProvider_downloadAssets_attribution_aggregateProgress_group_comp
 
 void __79__TRIMAProvider_downloadAssets_attribution_aggregateProgress_group_completion___block_invoke_528(uint64_t a1, void *a2)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = objc_alloc(MEMORY[0x277D73740]);
   v5 = [v3 assetSelector];
@@ -693,8 +694,8 @@ void __79__TRIMAProvider_downloadAssets_attribution_aggregateProgress_group_comp
 
   if (!v10)
   {
-    v18 = [MEMORY[0x277CCA890] currentHandler];
-    [v18 handleFailureInMethod:*(a1 + 48) object:*(a1 + 32) file:@"TRIMAProviding.m" lineNumber:613 description:{@"Expression was unexpectedly nil/false: %@", @"status.assetSelector.assetVersion"}];
+    v17 = [MEMORY[0x277CCA890] currentHandler];
+    [v17 handleFailureInMethod:*(a1 + 48) object:*(a1 + 32) file:@"TRIMAProviding.m" lineNumber:613 description:{@"Expression was unexpectedly nil/false: %@", @"status.assetSelector.assetVersion"}];
   }
 
   v11 = [v4 initWithType:v6 specifier:v8 version:v10];
@@ -708,14 +709,13 @@ void __79__TRIMAProvider_downloadAssets_attribution_aggregateProgress_group_comp
   if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134218242;
-    v20 = v15;
-    v21 = 2114;
-    v22 = v11;
+    v19 = v15;
+    v20 = 2114;
+    v21 = v11;
     _os_log_impl(&dword_26F567000, v16, OS_LOG_TYPE_DEFAULT, "Reporting progress: %f for assetId: %{public}@", buf, 0x16u);
   }
 
   [*(a1 + 40) setFractionCompleted:v11 forMAAsset:v15];
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 void __79__TRIMAProvider_downloadAssets_attribution_aggregateProgress_group_completion___block_invoke_533(uint64_t a1, uint64_t a2, uint64_t a3, void *a4, uint64_t a5, void *a6)

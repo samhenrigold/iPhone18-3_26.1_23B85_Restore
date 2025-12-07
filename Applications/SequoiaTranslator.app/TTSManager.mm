@@ -12,7 +12,7 @@
   v6 = &v7 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
   static Notification._unconditionallyBridgeFromObjectiveC(_:)();
 
-  sub_1002BBFD4();
+  sub_1002BBFD4(v6);
 
   (*(v4 + 8))(v6, v3);
 }

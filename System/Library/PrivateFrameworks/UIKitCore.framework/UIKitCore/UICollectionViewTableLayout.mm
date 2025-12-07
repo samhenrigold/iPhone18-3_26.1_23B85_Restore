@@ -569,9 +569,9 @@ LABEL_7:
   }
 
   representedElementKind = [originalAttributesCopy representedElementKind];
-  v15 = [representedElementKind isEqualToString:@"UICollectionElementKindSectionHeader"];
+  isEqualToString = objc_msgSend_isEqualToString_(representedElementKind);
 
-  if (v15)
+  if (isEqualToString)
   {
     v16 = &OBJC_IVAR___UICollectionViewTableLayout__headerPreferredAttributesCache;
     if (vabdd_f64(v11, v13) > 2.22044605e-16)
@@ -585,7 +585,7 @@ LABEL_8:
   }
 
   representedElementKind2 = [originalAttributesCopy representedElementKind];
-  v19 = [representedElementKind2 isEqualToString:@"UICollectionElementKindSectionFooter"];
+  v19 = objc_msgSend_isEqualToString_(representedElementKind2);
 
   if (v19)
   {
@@ -871,9 +871,9 @@ LABEL_14:
             if ([v10 updateAction] == 1)
             {
               indexPathBeforeUpdate = [v10 indexPathBeforeUpdate];
-              v12 = [indexPathBeforeUpdate isEqual:self->_deletedIndexPath];
+              isEqual = objc_msgSend_isEqual_(indexPathBeforeUpdate);
 
-              if (v12)
+              if (isEqual)
               {
                 v13 = 0;
                 goto LABEL_17;
@@ -973,7 +973,7 @@ void __59__UICollectionViewTableLayout_invalidateLayoutWithContext___block_invok
 {
   v36 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  if ([v3 isEqualToString:@"UICollectionElementKindGlobalHeader"])
+  if (objc_msgSend_isEqualToString_(v3))
   {
     v27 = v3;
     [*(a1 + 32) _heightForTableHeader];
@@ -1051,7 +1051,7 @@ void __59__UICollectionViewTableLayout_invalidateLayoutWithContext___block_invok
 
   else
   {
-    if (![v3 isEqualToString:@"UICollectionElementKindGlobalFooter"])
+    if (!objc_msgSend_isEqualToString_(v3))
     {
       goto LABEL_24;
     }
@@ -1131,15 +1131,15 @@ LABEL_24:
 - (id)_layoutAttributesForViewElementKind:(id)kind
 {
   kindCopy = kind;
-  if (([kindCopy isEqualToString:@"UICollectionElementKindGlobalHeader"] & 1) != 0 || objc_msgSend(kindCopy, "isEqualToString:", @"UICollectionElementKindGlobalFooter"))
+  if ((objc_msgSend_isEqualToString_(kindCopy) & 1) != 0 || objc_msgSend_isEqualToString_(kindCopy))
   {
     layoutAttributesClass = [objc_opt_class() layoutAttributesClass];
     v6 = [MEMORY[0x1E696AC88] indexPathWithIndex:0];
     v7 = [layoutAttributesClass layoutAttributesForSupplementaryViewOfKind:kindCopy withIndexPath:v6];
 
-    v8 = [kindCopy isEqualToString:@"UICollectionElementKindGlobalHeader"];
+    isEqualToString = objc_msgSend_isEqualToString_(kindCopy);
     rowData = self->_rowData;
-    if (v8)
+    if (isEqualToString)
     {
       rectForTableHeaderView = [(UITableViewRowData *)rowData rectForTableHeaderView];
     }
@@ -1163,15 +1163,15 @@ LABEL_24:
 - (id)_layoutAttributesForSectionElementKind:(id)kind atSection:(int64_t)section
 {
   kindCopy = kind;
-  v7 = [kindCopy isEqualToString:@"UICollectionElementKindSectionHeader"];
-  if (((v7 & 1) != 0 || [kindCopy isEqualToString:@"UICollectionElementKindSectionFooter"]) && -[UICollectionViewTableLayout _numberOfSections](self, "_numberOfSections") > section)
+  isEqualToString = objc_msgSend_isEqualToString_(kindCopy);
+  if (((isEqualToString & 1) != 0 || objc_msgSend_isEqualToString_(kindCopy)) && [(UICollectionViewTableLayout *)self _numberOfSections]> section)
   {
     layoutAttributesClass = [objc_opt_class() layoutAttributesClass];
     v9 = [MEMORY[0x1E696AC88] indexPathWithIndex:section];
     v10 = [layoutAttributesClass layoutAttributesForSupplementaryViewOfKind:kindCopy withIndexPath:v9];
 
-    [v10 setIsHeader:v7];
-    [(UICollectionViewTableLayout *)self _headerFooterLeadingMarginWidthIsHeader:v7 isFirstSection:section == 0];
+    [v10 setIsHeader:isEqualToString];
+    [(UICollectionViewTableLayout *)self _headerFooterLeadingMarginWidthIsHeader:isEqualToString isFirstSection:section == 0];
     [v10 setMargins:{0.0, v11, 0.0, v11}];
     v12 = [MEMORY[0x1E696AC88] indexPathWithIndex:section];
     isHeader = [v10 isHeader];
@@ -1489,7 +1489,7 @@ LABEL_24:
 {
   kindCopy = kind;
   pathCopy = path;
-  if (([kindCopy isEqualToString:@"UICollectionElementKindSectionHeader"] & 1) != 0 || objc_msgSend(kindCopy, "isEqualToString:", @"UICollectionElementKindSectionFooter"))
+  if ((objc_msgSend_isEqualToString_(kindCopy) & 1) != 0 || objc_msgSend_isEqualToString_(kindCopy))
   {
     v8 = -[UICollectionViewTableLayout _layoutAttributesForSectionElementKind:atSection:](self, "_layoutAttributesForSectionElementKind:atSection:", kindCopy, [pathCopy section]);
     if (v8)
@@ -1503,7 +1503,7 @@ LABEL_24:
     }
   }
 
-  else if (([kindCopy isEqualToString:@"UICollectionElementKindGlobalHeader"] & 1) != 0 || objc_msgSend(kindCopy, "isEqualToString:", @"UICollectionElementKindGlobalFooter"))
+  else if ((objc_msgSend_isEqualToString_(kindCopy) & 1) != 0 || objc_msgSend_isEqualToString_(kindCopy))
   {
     v8 = [(UICollectionViewTableLayout *)self _layoutAttributesForViewElementKind:kindCopy];
   }
@@ -1519,7 +1519,7 @@ LABEL_24:
 - (id)layoutAttributesForDecorationViewOfKind:(id)kind atIndexPath:(id)path
 {
   pathCopy = path;
-  if ([kind isEqualToString:@"UICollectionElementKindSeparator"])
+  if (objc_msgSend_isEqualToString_(kind))
   {
     v7 = [(UICollectionViewTableLayout *)self _layoutAttributesForSeparatorWithIndexPath:pathCopy];
     v9 = 0.0;
@@ -1671,7 +1671,7 @@ LABEL_24:
     return 0;
   }
 
-  numberOfRows = [(UITableViewRowData *)self->_rowData numberOfRows];
+  numberOfRows = [(UITableViewRowData *)&self->_rowData->super.isa numberOfRows];
   if (numberOfRows < 1)
   {
     section = 0;
@@ -1848,7 +1848,7 @@ LABEL_12:
   v5 = [(UICollectionViewLayout *)&v8 finalLayoutAttributesForDisappearingItemAtIndexPath:pathCopy];
   v6 = [v5 copy];
 
-  LODWORD(selfCopy) = [(NSIndexPath *)selfCopy->_deletedIndexPath isEqual:pathCopy];
+  LODWORD(selfCopy) = objc_msgSend_isEqual_(selfCopy->_deletedIndexPath);
   if (selfCopy)
   {
     [v6 setAlpha:1.0];
@@ -2077,7 +2077,7 @@ LABEL_12:
 
   _tableHeaderView = [(UICollectionViewTableLayout *)self _tableHeaderView];
 
-  if (_tableHeaderView || ![(UITableViewRowData *)self->_rowData numberOfRows])
+  if (_tableHeaderView || ![(UITableViewRowData *)&self->_rowData->super.isa numberOfRows])
   {
     return 0;
   }
@@ -2185,9 +2185,9 @@ LABEL_12:
   y = rect.origin.y;
   x = rect.origin.x;
   kindCopy = kind;
-  v16 = [kindCopy isEqualToString:@"UICollectionElementKindSectionHeader"];
+  isEqualToString = objc_msgSend_isEqualToString_(kindCopy);
   rowData = self->_rowData;
-  if (v16)
+  if (isEqualToString)
   {
     v18 = [(UITableViewRowData *)rowData rectForHeaderInSection:section heightCanBeGuessed:guess];
     v20 = v19;
@@ -3638,7 +3638,7 @@ void __67__UICollectionViewTableLayout__dataSourceHeightForFooterInSection___blo
 
   if ((v10 & 1) != 0 && (-[UICollectionViewLayout collectionView](self, "collectionView"), v11 = objc_claimAutoreleasedReturnValue(), v12 = [v11 _hasRegisteredClassOrNibForSupplementaryViewOfKind:kindCopy], v11, v12))
   {
-    if ([kindCopy isEqualToString:@"UICollectionElementKindGlobalHeader"])
+    if (objc_msgSend_isEqualToString_(kindCopy))
     {
       if (dataCopy)
       {
@@ -3651,7 +3651,7 @@ void __67__UICollectionViewTableLayout__dataSourceHeightForFooterInSection___blo
       }
     }
 
-    else if ([kindCopy isEqualToString:@"UICollectionElementKindGlobalFooter"])
+    else if (objc_msgSend_isEqualToString_(kindCopy))
     {
       if (dataCopy)
       {
@@ -3664,16 +3664,16 @@ void __67__UICollectionViewTableLayout__dataSourceHeightForFooterInSection___blo
       }
     }
 
-    else if ([kindCopy isEqualToString:@"UICollectionElementKindSectionHeader"])
+    else if (objc_msgSend_isEqualToString_(kindCopy))
     {
       [(UICollectionViewTableLayout *)self _heightForHeaderInSection:section useRowData:0];
     }
 
     else
     {
-      v15 = [kindCopy isEqualToString:@"UICollectionElementKindSectionFooter"];
+      isEqualToString = objc_msgSend_isEqualToString_(kindCopy);
       heightForTableHeaderView = 0.0;
-      if (v15)
+      if (isEqualToString)
       {
         [(UICollectionViewTableLayout *)self _heightForFooterInSection:section useRowData:0, 0.0];
       }
@@ -3731,7 +3731,7 @@ LABEL_12:
   }
 
 LABEL_3:
-  if (!self->_deletedIndexPath || ([pathCopy isEqual:?] & 1) == 0)
+  if (!self->_deletedIndexPath || (objc_msgSend_isEqual_(pathCopy) & 1) == 0)
   {
     [(UITableViewRowData *)self->_rowData setHeight:pathCopy forRowAtIndexPath:height];
     [(UICollectionViewLayout *)self invalidateLayout];

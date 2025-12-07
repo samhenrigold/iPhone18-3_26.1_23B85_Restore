@@ -150,7 +150,7 @@ id __33__ICCRSet_initWithICCRCoder_set___block_invoke(uint64_t a1, uint64_t a2, 
       v9 = *(CRDT::Dictionary_Element::default_instance(v6) + 48);
     }
 
-    v8 = [(CRDT::Dictionary_Element *)v7 decodeObjectForProtobufObjectID:v9];
+    v8 = [v7 decodeObjectForProtobufObjectID:v9];
   }
 
   else

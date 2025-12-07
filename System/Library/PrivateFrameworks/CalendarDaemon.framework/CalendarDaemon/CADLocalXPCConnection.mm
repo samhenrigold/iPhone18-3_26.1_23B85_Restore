@@ -1,6 +1,7 @@
 @interface CADLocalXPCConnection
 - ($115C4C562B26FF47E01F9F4EA65B5887)auditToken;
 - (CADLocalXPCConnection)initWithRemoteObject:(id)object;
+- (id)_remoteObjectProxyWithErrorHandler:(id)handler synchronous:(BOOL)synchronous;
 - (int)processIdentifier;
 - (void)invalidate;
 - (void)resume;
@@ -80,6 +81,29 @@
     v7->_queue = v9;
 
     dispatch_suspend(v7->_queue);
+  }
+
+  return v7;
+}
+
+- (id)_remoteObjectProxyWithErrorHandler:(id)handler synchronous:(BOOL)synchronous
+{
+  synchronousCopy = synchronous;
+  handlerCopy = handler;
+  if (self->_remoteObject)
+  {
+    v7 = [[CADLocalXPCProxyObject alloc] initWithWrappedObject:self->_remoteObject queue:self->_queue errorHandler:handlerCopy synchronous:synchronousCopy connection:self];
+  }
+
+  else
+  {
+    v8 = CADLogHandle;
+    if (os_log_type_enabled(CADLogHandle, OS_LOG_TYPE_FAULT))
+    {
+      [CADLocalXPCConnection _remoteObjectProxyWithErrorHandler:v8 synchronous:?];
+    }
+
+    v7 = 0;
   }
 
   return v7;

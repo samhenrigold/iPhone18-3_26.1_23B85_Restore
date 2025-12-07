@@ -77,8 +77,8 @@
 
     if (!managerCopy)
     {
-      v22 = __atxlog_handle_default();
-      if (os_log_type_enabled(v22, OS_LOG_TYPE_FAULT))
+      v23 = __atxlog_handle_default(v22);
+      if (os_log_type_enabled(v23, OS_LOG_TYPE_FAULT))
       {
         [ATXAppIntentMonitor initWithAppLaunchHistogramManager:appInfoManager:appActionLaunchSequenceManager:intentStream:activityStream:menuItemStream:toolKitActionStream:dataStore:predictionContextBuilder:userDefaults:safariIntentFilter:];
       }
@@ -86,9 +86,9 @@
 
     objc_storeStrong(&v18->_appLaunchHistogramManager, manager);
     objc_storeStrong(&v18->_dataStore, store);
-    v23 = [objc_alloc(MEMORY[0x277CEB408]) initWithIntentStream:streamCopy activityStream:activityStreamCopy menuItemStream:itemStreamCopy toolKitActionStream:actionStreamCopy];
+    v24 = [objc_alloc(MEMORY[0x277CEB408]) initWithIntentStream:streamCopy activityStream:activityStreamCopy menuItemStream:itemStreamCopy toolKitActionStream:actionStreamCopy];
     combinedIntentStream = v18->_combinedIntentStream;
-    v18->_combinedIntentStream = v23;
+    v18->_combinedIntentStream = v24;
 
     objc_storeStrong(&v18->_appInfoManager, infoManager);
     objc_storeStrong(&v18->_appActionLaunchSequenceManager, sequenceManager);
@@ -100,52 +100,51 @@
     aBlock[2] = __233__ATXAppIntentMonitor_initWithAppLaunchHistogramManager_appInfoManager_appActionLaunchSequenceManager_intentStream_activityStream_menuItemStream_toolKitActionStream_dataStore_predictionContextBuilder_userDefaults_safariIntentFilter___block_invoke;
     aBlock[3] = &unk_278596D78;
     objc_copyWeak(&v64, &location);
-    v25 = _Block_copy(aBlock);
-    v26 = objc_opt_new();
+    v26 = _Block_copy(aBlock);
+    v27 = objc_opt_new();
     appRegistrationListener = v18->_appRegistrationListener;
-    v18->_appRegistrationListener = v26;
+    v18->_appRegistrationListener = v27;
 
-    [(ATXInternalAppRegistrationNotification *)v18->_appRegistrationListener registerForNotificationsWithRegisterBlock:v25];
+    [(ATXInternalAppRegistrationNotification *)v18->_appRegistrationListener registerForNotificationsWithRegisterBlock:v26];
     objc_storeStrong(&v18->_safariIntentQualityFilter, filter);
-    v28 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
-    v29 = dispatch_queue_attr_make_with_qos_class(v28, QOS_CLASS_BACKGROUND, -1);
+    v29 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
+    v30 = dispatch_queue_attr_make_with_qos_class(v29, QOS_CLASS_BACKGROUND, -1);
 
-    v30 = dispatch_queue_create("com.apple.duetexpertcenter.AppPredictionExpert.IntentDonations", v29);
+    v31 = dispatch_queue_create("com.apple.duetexpertcenter.AppPredictionExpert.IntentDonations", v30);
     donationQueue = v18->_donationQueue;
-    v18->_donationQueue = v30;
+    v18->_donationQueue = v31;
 
-    v32 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
-    v33 = dispatch_queue_attr_make_with_qos_class(v32, QOS_CLASS_UTILITY, -1);
-    v34 = dispatch_queue_create("com.apple.duetexpertcenter.AppPredictionExpert.AppIntentDonations", v33);
+    v33 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
+    v34 = dispatch_queue_attr_make_with_qos_class(v33, QOS_CLASS_UTILITY, -1);
+    v35 = dispatch_queue_create("com.apple.duetexpertcenter.AppPredictionExpert.AppIntentDonations", v34);
     donationQueueLinkActions = v18->_donationQueueLinkActions;
-    v18->_donationQueueLinkActions = v34;
+    v18->_donationQueueLinkActions = v35;
 
-    v36 = [MEMORY[0x277D41DA0] propertyWithName:@"category" possibleValues:&unk_283A57EA8];
-    v37 = [MEMORY[0x277D41DA0] freeValuedPropertyWithName:@"ab"];
-    v38 = [MEMORY[0x277D41DA0] freeValuedPropertyWithName:@"bundleId"];
-    v39 = [MEMORY[0x277D41DA0] freeValuedPropertyWithName:@"activityType"];
-    v40 = objc_alloc(MEMORY[0x277D41DB8]);
-    v68[0] = v36;
-    v68[1] = v37;
-    v41 = [MEMORY[0x277CBEA60] arrayWithObjects:v68 count:2];
-    v42 = [v40 initWithFeatureId:@"ActionPredictions" event:@"action_donated" registerProperties:v41];
+    v37 = [MEMORY[0x277D41DA0] propertyWithName:@"category" possibleValues:&unk_283A57EA8];
+    v38 = [MEMORY[0x277D41DA0] freeValuedPropertyWithName:@"ab"];
+    v39 = [MEMORY[0x277D41DA0] freeValuedPropertyWithName:@"bundleId"];
+    v40 = [MEMORY[0x277D41DA0] freeValuedPropertyWithName:@"activityType"];
+    v41 = objc_alloc(MEMORY[0x277D41DB8]);
+    v68[0] = v37;
+    v68[1] = v38;
+    v42 = [MEMORY[0x277CBEA60] arrayWithObjects:v68 count:2];
+    v43 = [v41 initWithFeatureId:@"ActionPredictions" event:@"action_donated" registerProperties:v42];
     donatedActionsTracker = v18->_donatedActionsTracker;
-    v18->_donatedActionsTracker = v42;
+    v18->_donatedActionsTracker = v43;
 
-    v44 = objc_alloc(MEMORY[0x277D41D98]);
-    v67[0] = v38;
-    v67[1] = v39;
-    v67[2] = v37;
-    v45 = [MEMORY[0x277CBEA60] arrayWithObjects:v67 count:3];
-    v46 = [v44 initWithFeatureId:@"ActionPredictions" event:@"donation_in_cache" registerProperties:v45];
+    v45 = objc_alloc(MEMORY[0x277D41D98]);
+    v67[0] = v39;
+    v67[1] = v40;
+    v67[2] = v38;
+    v46 = [MEMORY[0x277CBEA60] arrayWithObjects:v67 count:3];
+    v47 = [v45 initWithFeatureId:@"ActionPredictions" event:@"donation_in_cache" registerProperties:v46];
     donatedActionInCacheTracker = v18->_donatedActionInCacheTracker;
-    v18->_donatedActionInCacheTracker = v46;
+    v18->_donatedActionInCacheTracker = v47;
 
     objc_destroyWeak(&v64);
     objc_destroyWeak(&location);
   }
 
-  v48 = *MEMORY[0x277D85DE8];
   return v18;
 }
 
@@ -166,38 +165,36 @@ void __233__ATXAppIntentMonitor_initWithAppLaunchHistogramManager_appInfoManager
 
 - (void)handleAppRegistrationForBundleIds:(id)ids
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   idsCopy = ids;
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
-  v5 = [idsCopy countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v5 = [idsCopy countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v11;
+    v7 = *v10;
     do
     {
       v8 = 0;
       do
       {
-        if (*v11 != v7)
+        if (*v10 != v7)
         {
           objc_enumerationMutation(idsCopy);
         }
 
-        [(_ATXDataStore *)self->_dataStore regenerateSlotSetKeyForBundleId:*(*(&v10 + 1) + 8 * v8++)];
+        [(_ATXDataStore *)self->_dataStore regenerateSlotSetKeyForBundleId:*(*(&v9 + 1) + 8 * v8++)];
       }
 
       while (v6 != v8);
-      v6 = [idsCopy countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v6 = [idsCopy countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v6);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_listenToActivityStream
@@ -223,21 +220,21 @@ void __46__ATXAppIntentMonitor__listenToActivityStream__block_invoke(uint64_t a1
 
   if (v3)
   {
-    v4 = __atxlog_handle_default();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = __atxlog_handle_default(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       __46__ATXAppIntentMonitor__listenToActivityStream__block_invoke_cold_1(v2);
     }
   }
 }
 
-void __46__ATXAppIntentMonitor__listenToActivityStream__block_invoke_72()
+void __46__ATXAppIntentMonitor__listenToActivityStream__block_invoke_72(uint64_t a1)
 {
-  v0 = __atxlog_handle_default();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
+  v1 = __atxlog_handle_default(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
   {
-    *v1 = 0;
-    _os_log_impl(&dword_2263AA000, v0, OS_LOG_TYPE_DEFAULT, "Donation Processing - NSUA Received. No further processing until the end of the current app session.", v1, 2u);
+    *v2 = 0;
+    _os_log_impl(&dword_2263AA000, v1, OS_LOG_TYPE_DEFAULT, "Donation Processing - NSUA Received. No further processing until the end of the current app session.", v2, 2u);
   }
 }
 
@@ -273,8 +270,8 @@ void __44__ATXAppIntentMonitor__listenToIntentStream__block_invoke(uint64_t a1, 
 
   if (v3)
   {
-    v4 = __atxlog_handle_default();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = __atxlog_handle_default(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       __44__ATXAppIntentMonitor__listenToIntentStream__block_invoke_cold_1(v2);
     }
@@ -283,7 +280,7 @@ void __44__ATXAppIntentMonitor__listenToIntentStream__block_invoke(uint64_t a1, 
 
 void __44__ATXAppIntentMonitor__listenToIntentStream__block_invoke_81(uint64_t a1, void *a2)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   if (WeakRetained)
@@ -292,48 +289,39 @@ void __44__ATXAppIntentMonitor__listenToIntentStream__block_invoke_81(uint64_t a
     if (v5)
     {
       v6 = os_transaction_create();
-      v7 = __atxlog_handle_default();
+      v7 = __atxlog_handle_default(v6);
       if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
         v8 = [v5 bundleID];
         *buf = 138412546;
-        v17 = v8;
-        v18 = 2048;
-        v19 = 0x4014000000000000;
+        v16 = v8;
+        v17 = 2048;
+        v18 = 0x4014000000000000;
         _os_log_impl(&dword_2263AA000, v7, OS_LOG_TYPE_DEFAULT, "Donation Processing - Intent received for %@. Waiting %.02f seconds before responding.", buf, 0x16u);
       }
 
       v9 = MEMORY[0x277D425A0];
       v10 = WeakRetained[9];
-      v13[0] = MEMORY[0x277D85DD0];
-      v13[1] = 3221225472;
-      v13[2] = __44__ATXAppIntentMonitor__listenToIntentStream__block_invoke_84;
-      v13[3] = &unk_278597828;
-      v13[4] = WeakRetained;
-      v14 = v5;
-      v15 = v6;
+      v12[0] = MEMORY[0x277D85DD0];
+      v12[1] = 3221225472;
+      v12[2] = __44__ATXAppIntentMonitor__listenToIntentStream__block_invoke_84;
+      v12[3] = &unk_278597828;
+      v12[4] = WeakRetained;
+      v13 = v5;
+      v14 = v6;
       v11 = v6;
-      [v9 runAsyncOnQueue:v10 afterDelaySeconds:v13 block:5.0];
+      [v9 runAsyncOnQueue:v10 afterDelaySeconds:v12 block:5.0];
     }
 
     else
     {
-      v11 = __atxlog_handle_default();
+      v11 = __atxlog_handle_default(0);
       if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
         __44__ATXAppIntentMonitor__listenToIntentStream__block_invoke_81_cold_1();
       }
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
-}
-
-id __44__ATXAppIntentMonitor__listenToIntentStream__block_invoke_84(uint64_t a1)
-{
-  [*(a1 + 32) _respondToIntentStreamChangingWithIntent:*(a1 + 40)];
-  v2 = *(a1 + 48);
-  return objc_opt_self();
 }
 
 - (void)_listenToLinkActionStream
@@ -369,8 +357,8 @@ void __48__ATXAppIntentMonitor__listenToLinkActionStream__block_invoke(uint64_t 
 
   if (v3)
   {
-    v4 = __atxlog_handle_action_prediction();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = __atxlog_handle_action_prediction(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       __48__ATXAppIntentMonitor__listenToLinkActionStream__block_invoke_cold_1(v2);
     }
@@ -379,92 +367,93 @@ void __48__ATXAppIntentMonitor__listenToLinkActionStream__block_invoke(uint64_t 
 
 void __48__ATXAppIntentMonitor__listenToLinkActionStream__block_invoke_91(uint64_t a1, void *a2)
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
+  v5 = WeakRetained;
   if (WeakRetained)
   {
-    v5 = __atxlog_handle_action_prediction();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = __atxlog_handle_action_prediction(WeakRetained);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_2263AA000, v5, OS_LOG_TYPE_DEFAULT, "Donation Processing - Got Link action in publisher", buf, 2u);
+      _os_log_impl(&dword_2263AA000, v6, OS_LOG_TYPE_DEFAULT, "Donation Processing - Got Link action in publisher", buf, 2u);
     }
 
-    v6 = [v3 eventBody];
-    v7 = [v6 executionUUID];
+    v7 = [v3 eventBody];
+    v8 = [v7 executionUUID];
 
-    if (v7)
+    if (v8)
     {
-      v8 = [v6 predictions];
-      v9 = [v8 count];
+      v10 = [v7 predictions];
+      v11 = [v10 count];
 
-      if (!v9)
+      if (!v11)
       {
 LABEL_19:
 
         goto LABEL_20;
       }
 
-      v10 = os_transaction_create();
-      v11 = MEMORY[0x277CEB7F8];
-      v12 = [v6 bundleID];
-      v13 = v12;
-      if (v12)
+      v12 = os_transaction_create();
+      v13 = MEMORY[0x277CEB7F8];
+      v14 = [v7 bundleID];
+      v15 = v14;
+      if (v14)
       {
-        v14 = v12;
+        v16 = v14;
       }
 
       else
       {
-        v14 = &stru_2839A6058;
+        v16 = &stru_2839A6058;
       }
 
-      v15 = [v6 action];
-      v16 = [v15 identifier];
-      v17 = [v11 isActionEligibleForAnySettingsSuggestionsWithBundleIdentifier:v14 actionIdentifier:v16];
+      v17 = [v7 action];
+      v18 = [v17 identifier];
+      v19 = [v13 isActionEligibleForAnySettingsSuggestionsWithBundleIdentifier:v16 actionIdentifier:v18];
 
-      if (v17)
+      if (v19)
       {
-        v18 = __atxlog_handle_settings_actions();
-        if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+        v21 = __atxlog_handle_settings_actions(v20);
+        if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
-          _os_log_impl(&dword_2263AA000, v18, OS_LOG_TYPE_DEFAULT, "Posting distributed notification about settings action recents refresh", buf, 2u);
+          _os_log_impl(&dword_2263AA000, v21, OS_LOG_TYPE_DEFAULT, "Posting distributed notification about settings action recents refresh", buf, 2u);
         }
 
-        v19 = [MEMORY[0x277CCA9A0] defaultCenter];
-        [v19 postNotificationName:*MEMORY[0x277CEB268] object:0];
+        v22 = [MEMORY[0x277CCA9A0] defaultCenter];
+        [v22 postNotificationName:*MEMORY[0x277CEB268] object:0];
       }
 
-      v20 = __atxlog_handle_action_prediction();
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+      v23 = __atxlog_handle_action_prediction(v20);
+      if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
       {
-        v21 = [v6 bundleID];
+        v24 = [v7 bundleID];
         *buf = 138412546;
-        v30 = v21;
-        v31 = 2048;
-        v32 = 0x4014000000000000;
-        _os_log_impl(&dword_2263AA000, v20, OS_LOG_TYPE_DEFAULT, "Donation Processing - Link action received for %@. Waiting %.02f seconds before responding.", buf, 0x16u);
+        v32 = v24;
+        v33 = 2048;
+        v34 = 0x4014000000000000;
+        _os_log_impl(&dword_2263AA000, v23, OS_LOG_TYPE_DEFAULT, "Donation Processing - Link action received for %@. Waiting %.02f seconds before responding.", buf, 0x16u);
       }
 
-      v22 = MEMORY[0x277D425A0];
-      v23 = WeakRetained[9];
-      v26[0] = MEMORY[0x277D85DD0];
-      v26[1] = 3221225472;
-      v26[2] = __48__ATXAppIntentMonitor__listenToLinkActionStream__block_invoke_98;
-      v26[3] = &unk_278597828;
-      v26[4] = WeakRetained;
-      v27 = v6;
-      v28 = v10;
-      v24 = v10;
-      [v22 runAsyncOnQueue:v23 afterDelaySeconds:v26 block:5.0];
+      v25 = MEMORY[0x277D425A0];
+      v26 = v5[9];
+      v28[0] = MEMORY[0x277D85DD0];
+      v28[1] = 3221225472;
+      v28[2] = __48__ATXAppIntentMonitor__listenToLinkActionStream__block_invoke_98;
+      v28[3] = &unk_278597828;
+      v28[4] = v5;
+      v29 = v7;
+      v30 = v12;
+      v27 = v12;
+      [v25 runAsyncOnQueue:v26 afterDelaySeconds:v28 block:5.0];
     }
 
     else
     {
-      v24 = __atxlog_handle_action_prediction();
-      if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+      v27 = __atxlog_handle_action_prediction(v9);
+      if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
       {
         __48__ATXAppIntentMonitor__listenToLinkActionStream__block_invoke_91_cold_1();
       }
@@ -474,15 +463,6 @@ LABEL_19:
   }
 
 LABEL_20:
-
-  v25 = *MEMORY[0x277D85DE8];
-}
-
-id __48__ATXAppIntentMonitor__listenToLinkActionStream__block_invoke_98(uint64_t a1)
-{
-  [*(a1 + 32) _respondToLinkActionStreamChangingWithInvocation:*(a1 + 40)];
-  v2 = *(a1 + 48);
-  return objc_opt_self();
 }
 
 - (void)_handleDonationImmediatelyForBundleId:(id)id sourceItemID:(id)d completedSuccessfully:(BOOL)successfully isDonatedBySiri:(BOOL)siri isAllowedDaemonDonationBundleId:(BOOL)bundleId
@@ -491,18 +471,19 @@ id __48__ATXAppIntentMonitor__listenToLinkActionStream__block_invoke_98(uint64_t
   siriCopy = siri;
   successfullyCopy = successfully;
   dCopy = d;
+  v12 = dCopy;
   if (successfullyCopy && siriCopy || bundleIdCopy)
   {
-    v12 = __atxlog_handle_default();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+    v13 = __atxlog_handle_default(dCopy);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
     {
-      *v13 = 0;
-      _os_log_impl(&dword_2263AA000, v12, OS_LOG_TYPE_INFO, "Donation Processing - Received either a completed Siri intent, or a donation from an allowed daemon donation.", v13, 2u);
+      *v14 = 0;
+      _os_log_impl(&dword_2263AA000, v13, OS_LOG_TYPE_INFO, "Donation Processing - Received either a completed Siri intent, or a donation from an allowed daemon donation.", v14, 2u);
     }
 
-    if (dCopy)
+    if (v12)
     {
-      [(ATXAppIntentMonitor *)self _handleCompletedIntentForForSourceItemID:dCopy atxIntentSource:!siriCopy];
+      [(ATXAppIntentMonitor *)self _handleCompletedIntentForForSourceItemID:v12 atxIntentSource:!siriCopy];
     }
   }
 }
@@ -601,8 +582,7 @@ id __48__ATXAppIntentMonitor__listenToLinkActionStream__block_invoke_98(uint64_t
   {
     v8 = +[ATXActionNotificationServer sharedInstance];
     [v8 removeAllActionPredictionNotificationsAndTrackEvent:1 recordFeedback:0];
-    [v8 postDemoOrDebugNotificationForATXAction:actionCopy];
-    v9 = __atxlog_handle_default();
+    v9 = __atxlog_handle_default([v8 postDemoOrDebugNotificationForATXAction:actionCopy]);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       *v10 = 0;
@@ -632,22 +612,22 @@ id __48__ATXAppIntentMonitor__listenToLinkActionStream__block_invoke_98(uint64_t
   v10 = [(ATXAppIntentMonitor *)self adjustedStartDateForOneSecondFlooringWithAppSessionStartDate:date];
   v11 = [(ATXAppIntentMonitor *)self adjustedEndDateForOneSecondFlooringWithAppSessionEndDate:endDateCopy];
 
-  v12 = __atxlog_handle_action_prediction();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+  v13 = __atxlog_handle_action_prediction(v12);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
   {
     [ATXAppIntentMonitor fetchIntentEventsForAppSessionWithBundleId:startDate:endDate:];
   }
 
-  v13 = [(ATXCombinedIntentStream *)self->_combinedIntentStream getCombinedIntentEventsBetweenStartDate:v10 endDate:v11 ascending:1];
-  v17[0] = MEMORY[0x277D85DD0];
-  v17[1] = 3221225472;
-  v17[2] = __84__ATXAppIntentMonitor_fetchIntentEventsForAppSessionWithBundleId_startDate_endDate___block_invoke;
-  v17[3] = &unk_27859C198;
-  v18 = idCopy;
-  v14 = idCopy;
-  v15 = [v13 _pas_filteredArrayWithTest:v17];
+  v14 = [(ATXCombinedIntentStream *)self->_combinedIntentStream getCombinedIntentEventsBetweenStartDate:v10 endDate:v11 ascending:1];
+  v18[0] = MEMORY[0x277D85DD0];
+  v18[1] = 3221225472;
+  v18[2] = __84__ATXAppIntentMonitor_fetchIntentEventsForAppSessionWithBundleId_startDate_endDate___block_invoke;
+  v18[3] = &unk_27859C198;
+  v19 = idCopy;
+  v15 = idCopy;
+  v16 = [v14 _pas_filteredArrayWithTest:v18];
 
-  return v15;
+  return v16;
 }
 
 uint64_t __84__ATXAppIntentMonitor_fetchIntentEventsForAppSessionWithBundleId_startDate_endDate___block_invoke(uint64_t a1, void *a2)
@@ -753,7 +733,7 @@ LABEL_10:
   endDateCopy = endDate;
   globalsCopy = globals;
   v14 = [donationsCopy count];
-  v15 = __atxlog_handle_default();
+  v15 = __atxlog_handle_default(v14);
   if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
   {
     [ATXAppIntentMonitor processWeightedIntentDonations:forBundleId:startDate:endDate:globals:];
@@ -768,36 +748,37 @@ LABEL_10:
     {
       v18 = objc_autoreleasePoolPush();
       v19 = [donationsCopy objectAtIndexedSubscript:v17];
+      v20 = v19;
       if (v19)
       {
-        v20 = __atxlog_handle_default();
-        if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
+        v21 = __atxlog_handle_default(v19);
+        if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
         {
-          intentType = [v19 intentType];
-          startDate = [v19 startDate];
+          intentType = [v20 intentType];
+          startDate = [v20 startDate];
           *buf = v30;
           v36 = intentType;
           v37 = 2112;
           v38 = startDate;
-          _os_log_debug_impl(&dword_2263AA000, v20, OS_LOG_TYPE_DEBUG, "Donation Processing - Intent Event: %@ at Date:%@", buf, 0x16u);
+          _os_log_debug_impl(&dword_2263AA000, v21, OS_LOG_TYPE_DEBUG, "Donation Processing - Intent Event: %@ at Date:%@", buf, 0x16u);
         }
 
         donationWeighingScheme = [globalsCopy donationWeighingScheme];
         [globalsCopy donationWeighingStrength];
         [_ATXActionUtils calculateWeightWith:donationWeighingScheme strength:v14 docLength:?];
-        v23 = v22;
-        intentType2 = [v19 intentType];
-        v25 = [_ATXActionUtils isNSUAType:intentType2];
+        v24 = v23;
+        intentType2 = [v20 intentType];
+        v26 = [_ATXActionUtils isNSUAType:intentType2];
 
-        if (v25)
+        if (v26)
         {
           [globalsCopy nsuaDonationWeight];
-          v26 = v27 * v23;
-          v23 = v26;
+          v27 = v28 * v24;
+          v24 = v27;
         }
 
-        *&v26 = v23;
-        [(ATXAppIntentMonitor *)self updateActionPredictionPipelineForIntentEvent:v19 weight:dateCopy appSessionStartDate:endDateCopy appSessionEndDate:v26, v30];
+        *&v27 = v24;
+        [(ATXAppIntentMonitor *)self updateActionPredictionPipelineForIntentEvent:v20 weight:dateCopy appSessionStartDate:endDateCopy appSessionEndDate:v27, v30];
       }
 
       objc_autoreleasePoolPop(v18);
@@ -806,8 +787,6 @@ LABEL_10:
 
     while (v14 != v17);
   }
-
-  v29 = *MEMORY[0x277D85DE8];
 }
 
 - (void)processIntentDonationsDuringAppSessionForBundleId:(id)id startDate:(id)date endDate:(id)endDate globals:(id)globals
@@ -817,18 +796,18 @@ LABEL_10:
   dateCopy = date;
   endDateCopy = endDate;
   globalsCopy = globals;
-  if ([(ATXAppIntentMonitor *)self shouldProcessIntentDonationsForSessionStartDate:dateCopy]|| [(ATXAppIntentMonitor *)self shouldProcessNSUADonationsForSessionStartDate:dateCopy])
+  if ([(ATXAppIntentMonitor *)self shouldProcessIntentDonationsForSessionStartDate:dateCopy]|| (v11 = [(ATXAppIntentMonitor *)self shouldProcessNSUADonationsForSessionStartDate:dateCopy], (v11 & 1) != 0))
   {
-    v11 = [(ATXAppIntentMonitor *)self fetchIntentEventsForAppSessionWithBundleId:idCopy startDate:dateCopy endDate:endDateCopy];
-    v12 = [v11 count];
-    v13 = __atxlog_handle_default();
-    v14 = v13;
-    if (!v12)
+    v12 = [(ATXAppIntentMonitor *)self fetchIntentEventsForAppSessionWithBundleId:idCopy startDate:dateCopy endDate:endDateCopy];
+    v13 = [v12 count];
+    v14 = __atxlog_handle_default(v13);
+    v15 = v14;
+    if (!v13)
     {
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
       {
         *buf = 0;
-        _os_log_impl(&dword_2263AA000, v14, OS_LOG_TYPE_INFO, "Donation Processing - Didn't find any Intent events for query.", buf, 2u);
+        _os_log_impl(&dword_2263AA000, v15, OS_LOG_TYPE_INFO, "Donation Processing - Didn't find any Intent events for query.", buf, 2u);
       }
 
       goto LABEL_32;
@@ -836,116 +815,116 @@ LABEL_10:
 
     selfCopy = self;
     v41 = dateCopy;
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
     {
-      [ATXAppIntentMonitor processIntentDonationsDuringAppSessionForBundleId:v11 startDate:? endDate:? globals:?];
+      [ATXAppIntentMonitor processIntentDonationsDuringAppSessionForBundleId:v12 startDate:? endDate:? globals:?];
     }
 
-    v14 = objc_opt_new();
     v15 = objc_opt_new();
+    v16 = objc_opt_new();
     v58 = 0u;
     v59 = 0u;
     v60 = 0u;
     v61 = 0u;
-    v39 = v11;
-    v16 = v11;
-    v17 = [v16 countByEnumeratingWithState:&v58 objects:v63 count:16];
-    if (v17)
+    v39 = v12;
+    v17 = v12;
+    v18 = [v17 countByEnumeratingWithState:&v58 objects:v63 count:16];
+    if (v18)
     {
-      v18 = v17;
-      v19 = *v59;
+      v19 = v18;
+      v20 = *v59;
       do
       {
-        for (i = 0; i != v18; ++i)
+        for (i = 0; i != v19; ++i)
         {
-          if (*v59 != v19)
+          if (*v59 != v20)
           {
-            objc_enumerationMutation(v16);
+            objc_enumerationMutation(v17);
           }
 
-          v21 = *(*(&v58 + 1) + 8 * i);
-          action = [v21 action];
+          v22 = *(*(&v58 + 1) + 8 * i);
+          action = [v22 action];
 
           if (action)
           {
-            action2 = [v21 action];
+            action2 = [v22 action];
             actionType = [action2 actionType];
           }
 
           else
           {
-            intentType = [v21 intentType];
-            v26 = [_ATXActionUtils isNSUAType:intentType];
+            intentType = [v22 intentType];
+            v27 = [_ATXActionUtils isNSUAType:intentType];
 
-            actionType = v26;
+            actionType = v27;
           }
-
-          v27 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:actionType];
-          [v14 addObject:v27];
 
           v28 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:actionType];
           [v15 addObject:v28];
+
+          v29 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:actionType];
+          [v16 addObject:v29];
         }
 
-        v18 = [v16 countByEnumeratingWithState:&v58 objects:v63 count:16];
+        v19 = [v17 countByEnumeratingWithState:&v58 objects:v63 count:16];
       }
 
-      while (v18);
+      while (v19);
     }
 
     v56 = 0u;
     v57 = 0u;
     v55 = 0u;
     v54 = 0u;
-    v29 = v15;
-    v30 = [v29 countByEnumeratingWithState:&v54 objects:v62 count:16];
-    obj = v29;
-    if (v30)
+    v30 = v16;
+    v31 = [v30 countByEnumeratingWithState:&v54 objects:v62 count:16];
+    obj = v30;
+    if (v31)
     {
-      v31 = v30;
-      v29 = 0;
-      v32 = *v55;
+      v32 = v31;
+      v30 = 0;
+      v33 = *v55;
       do
       {
-        for (j = 0; j != v31; ++j)
+        for (j = 0; j != v32; ++j)
         {
-          if (*v55 != v32)
+          if (*v55 != v33)
           {
             objc_enumerationMutation(obj);
           }
 
-          v34 = *(*(&v54 + 1) + 8 * j);
+          v35 = *(*(&v54 + 1) + 8 * j);
           v51[0] = MEMORY[0x277D85DD0];
           v51[1] = 3221225472;
           v51[2] = __99__ATXAppIntentMonitor_processIntentDonationsDuringAppSessionForBundleId_startDate_endDate_globals___block_invoke;
           v51[3] = &unk_27859C1C0;
-          v52 = v14;
-          v53 = v34;
-          v35 = [v16 _pas_filteredArrayWithIndexedTest:v51];
-          if ([v34 unsignedIntValue] == 7)
+          v52 = v15;
+          v53 = v35;
+          v36 = [v17 _pas_filteredArrayWithIndexedTest:v51];
+          if ([v35 unsignedIntValue] == 7)
           {
-            v36 = v35;
+            v37 = v36;
 
-            v29 = v36;
+            v30 = v37;
           }
 
           else
           {
-            [(ATXAppIntentMonitor *)selfCopy processWeightedIntentDonations:v35 forBundleId:idCopy startDate:v41 endDate:endDateCopy globals:globalsCopy];
+            [(ATXAppIntentMonitor *)selfCopy processWeightedIntentDonations:v36 forBundleId:idCopy startDate:v41 endDate:endDateCopy globals:globalsCopy];
           }
         }
 
-        v31 = [obj countByEnumeratingWithState:&v54 objects:v62 count:16];
+        v32 = [obj countByEnumeratingWithState:&v54 objects:v62 count:16];
       }
 
-      while (v31);
+      while (v32);
 
-      if (!v29)
+      if (!v30)
       {
         goto LABEL_29;
       }
 
-      v37 = MEMORY[0x277CEB8D8];
+      v38 = MEMORY[0x277CEB8D8];
       v46[0] = MEMORY[0x277D85DD0];
       v46[1] = 3221225472;
       v46[2] = __99__ATXAppIntentMonitor_processIntentDonationsDuringAppSessionForBundleId_startDate_endDate_globals___block_invoke_2;
@@ -955,28 +934,26 @@ LABEL_10:
       v48 = v41;
       v49 = endDateCopy;
       v50 = globalsCopy;
-      [v37 sanitizeTitleForToolKitIntents:v29 withCompletion:v46];
+      [v38 sanitizeTitleForToolKitIntents:v30 withCompletion:v46];
     }
 
 LABEL_29:
     dateCopy = v41;
-    v11 = v39;
+    v12 = v39;
 LABEL_32:
 
     goto LABEL_33;
   }
 
-  v11 = __atxlog_handle_default();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+  v12 = __atxlog_handle_default(v11);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
   {
     *buf = 138412290;
     v65 = idCopy;
-    _os_log_impl(&dword_2263AA000, v11, OS_LOG_TYPE_INFO, "Donation Processing - == Don't need to process intent donations for %@ since no intents were received recently. ==", buf, 0xCu);
+    _os_log_impl(&dword_2263AA000, v12, OS_LOG_TYPE_INFO, "Donation Processing - == Don't need to process intent donations for %@ since no intents were received recently. ==", buf, 0xCu);
   }
 
 LABEL_33:
-
-  v38 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __99__ATXAppIntentMonitor_processIntentDonationsDuringAppSessionForBundleId_startDate_endDate_globals___block_invoke(uint64_t a1)
@@ -996,31 +973,30 @@ uint64_t __99__ATXAppIntentMonitor_processIntentDonationsDuringAppSessionForBund
   v11 = os_transaction_create();
   v12 = +[_ATXGlobals sharedInstance];
   v13 = [(ATXAppIntentMonitor *)self _isAllowedDaemonDonationBundleId:sessionCopy];
-  v14 = __atxlog_handle_default();
-  v15 = v14;
-  if (v13)
+  v14 = v13;
+  v15 = __atxlog_handle_default(v13);
+  v16 = v15;
+  if (v14)
   {
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
       v17 = 138412290;
       v18 = sessionCopy;
-      _os_log_impl(&dword_2263AA000, v15, OS_LOG_TYPE_DEFAULT, "Donation Processing - Skipping back-query for %@ app session because it was an allowed app.", &v17, 0xCu);
+      _os_log_impl(&dword_2263AA000, v16, OS_LOG_TYPE_DEFAULT, "Donation Processing - Skipping back-query for %@ app session because it was an allowed app.", &v17, 0xCu);
     }
   }
 
   else
   {
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
     {
       v17 = 138412290;
       v18 = sessionCopy;
-      _os_log_impl(&dword_2263AA000, v15, OS_LOG_TYPE_INFO, "Donation Processing - %@ is not an allowed bundle. Continuing with processing steps...", &v17, 0xCu);
+      _os_log_impl(&dword_2263AA000, v16, OS_LOG_TYPE_INFO, "Donation Processing - %@ is not an allowed bundle. Continuing with processing steps...", &v17, 0xCu);
     }
 
     [(ATXAppIntentMonitor *)self processIntentDonationsDuringAppSessionForBundleId:sessionCopy startDate:dateCopy endDate:endDateCopy globals:v12];
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)shouldAcceptMessageDonation:(id)donation
@@ -1060,8 +1036,8 @@ uint64_t __99__ATXAppIntentMonitor_processIntentDonationsDuringAppSessionForBund
 
         else
         {
-          v18 = __atxlog_handle_default();
-          if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
+          v19 = __atxlog_handle_default(v15);
+          if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
           {
             [ATXAppIntentMonitor shouldAcceptMessageDonation:];
           }
@@ -1075,24 +1051,24 @@ uint64_t __99__ATXAppIntentMonitor_processIntentDonationsDuringAppSessionForBund
 
       else
       {
-        v17 = __atxlog_handle_default();
-        if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
+        v18 = __atxlog_handle_default(0);
+        if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
         {
           [ATXAppIntentMonitor shouldAcceptMessageDonation:];
         }
       }
 
 LABEL_16:
-      v19 = 0;
+      v20 = 0;
       goto LABEL_17;
     }
   }
 
 LABEL_15:
-  v19 = 1;
+  v20 = 1;
 LABEL_17:
 
-  return v19;
+  return v20;
 }
 
 - (void)updateActionPredictionPipelineForIntentEvent:(id)event weight:(float)weight appSessionStartDate:(id)date appSessionEndDate:(id)endDate
@@ -1109,7 +1085,7 @@ LABEL_17:
 
   else
   {
-    v15 = __atxlog_handle_default();
+    v15 = __atxlog_handle_default(0);
     if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       [ATXAppIntentMonitor updateActionPredictionPipelineForIntentEvent:weight:appSessionStartDate:appSessionEndDate:];
@@ -1119,7 +1095,7 @@ LABEL_17:
 
 - (void)updateActionPredictionPipelineForIntentEvent:(id)event weight:(float)weight appSessionStartDate:(id)date appSessionEndDate:(id)endDate context:(id)context
 {
-  v71 = *MEMORY[0x277D85DE8];
+  v72 = *MEMORY[0x277D85DE8];
   eventCopy = event;
   dateCopy = date;
   endDateCopy = endDate;
@@ -1156,30 +1132,30 @@ LABEL_17:
       {
         userActivityString = [action userActivityString];
         intent2 = userActivityString;
-        v50 = &stru_2839A6058;
+        v51 = &stru_2839A6058;
         if (userActivityString)
         {
-          v50 = userActivityString;
+          v51 = userActivityString;
         }
 
-        intentDescription = v50;
+        intentDescription = v51;
       }
 
-      v48 = intentDescription;
+      v49 = intentDescription;
 
-      v51 = __atxlog_handle_default();
-      if (os_log_type_enabled(v51, OS_LOG_TYPE_DEFAULT))
+      v53 = __atxlog_handle_default(v52);
+      if (os_log_type_enabled(v53, OS_LOG_TYPE_DEFAULT))
       {
         bundleId = [action bundleId];
         actionUUID2 = [action actionUUID];
-        v54 = [actionUUID2 description];
+        v56 = [actionUUID2 description];
         *buf = 138412803;
-        v66 = bundleId;
-        v67 = 2117;
-        v68 = v48;
-        v69 = 2112;
-        v70 = v54;
-        _os_log_impl(&dword_2263AA000, v51, OS_LOG_TYPE_DEFAULT, "Donation Processing - Tried to add duplicate entry to alog table for BundleId: %@ of Action Type: %{sensitive}@ with UUID: %@", buf, 0x20u);
+        v67 = bundleId;
+        v68 = 2117;
+        v69 = v49;
+        v70 = 2112;
+        v71 = v56;
+        _os_log_impl(&dword_2263AA000, v53, OS_LOG_TYPE_DEFAULT, "Donation Processing - Tried to add duplicate entry to alog table for BundleId: %@ of Action Type: %{sensitive}@ with UUID: %@", buf, 0x20u);
       }
     }
 
@@ -1202,8 +1178,8 @@ LABEL_17:
 
         if (intValue >= maxNumberOfActionTypesPerApp)
         {
-          v48 = __atxlog_handle_default();
-          if (os_log_type_enabled(v48, OS_LOG_TYPE_DEBUG))
+          v49 = __atxlog_handle_default(v31);
+          if (os_log_type_enabled(v49, OS_LOG_TYPE_DEBUG))
           {
             [ATXAppIntentMonitor updateActionPredictionPipelineForIntentEvent:eventCopy weight:? appSessionStartDate:? appSessionEndDate:? context:?];
           }
@@ -1220,9 +1196,9 @@ LABEL_17:
       locationMotionContext2 = [contextCopy locationMotionContext];
       currentLOI = [locationMotionContext2 currentLOI];
 
-      v62 = previousLOI;
+      v63 = previousLOI;
       uuid = [previousLOI uuid];
-      v60 = currentLOI;
+      v61 = currentLOI;
       uuid2 = [currentLOI uuid];
       locationMotionContext3 = [contextCopy locationMotionContext];
       motionType = [locationMotionContext3 motionType];
@@ -1230,41 +1206,39 @@ LABEL_17:
       geohash = [locationMotionContext4 geohash];
       locationMotionContext5 = [contextCopy locationMotionContext];
       coarseGeohash = [locationMotionContext5 coarseGeohash];
-      *&v40 = weight;
-      [(ATXAppIntentMonitor *)self updateActionPredictionSlotResolutionForIntentEvent:eventCopy weight:uuid prevLocationUUID:uuid2 locationUUID:motionType currentMotionType:dateCopy appSessionStartDate:endDateCopy appSessionEndDate:v40 geohash:geohash coarseGeohash:coarseGeohash];
+      *&v41 = weight;
+      [(ATXAppIntentMonitor *)self updateActionPredictionSlotResolutionForIntentEvent:eventCopy weight:uuid prevLocationUUID:uuid2 locationUUID:motionType currentMotionType:dateCopy appSessionStartDate:endDateCopy appSessionEndDate:v41 geohash:geohash coarseGeohash:coarseGeohash];
 
       [(ATXAppIntentMonitor *)self _logIntentPredictionsForIntentEvent:eventCopy context:contextCopy];
-      v41 = +[_ATXAppPredictor sharedInstance];
-      abGroupIdentifiers = [v41 abGroupIdentifiers];
-      v43 = [abGroupIdentifiers objectAtIndexedSubscript:16];
+      v42 = +[_ATXAppPredictor sharedInstance];
+      abGroupIdentifiers = [v42 abGroupIdentifiers];
+      v44 = [abGroupIdentifiers objectAtIndexedSubscript:16];
 
       actionType = [action actionType];
       donatedActionsTracker = self->_donatedActionsTracker;
       if (actionType == 1)
       {
-        v64 = @"nsua";
-        v46 = &v64;
+        v65 = @"nsua";
+        v47 = &v65;
       }
 
       else
       {
-        v63 = @"intent";
-        v46 = &v63;
+        v64 = @"intent";
+        v47 = &v64;
       }
 
-      v46[1] = v43;
-      v47 = [MEMORY[0x277CBEA60] arrayWithObjects:? count:?];
-      [(PETScalarEventTracker *)donatedActionsTracker trackEventWithPropertyValues:v47];
+      v47[1] = v44;
+      v48 = [MEMORY[0x277CBEA60] arrayWithObjects:? count:?];
+      [(PETScalarEventTracker *)donatedActionsTracker trackEventWithPropertyValues:v48];
 
-      v48 = v62;
+      v49 = v63;
     }
 
 LABEL_26:
   }
 
 LABEL_27:
-
-  v55 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_updateActionPredictionHistogramsForIntentEvent:(id)event weight:(float)weight context:(id)context
@@ -1430,15 +1404,15 @@ LABEL_27:
 
   if (ambientLightType != 7)
   {
-    v83 = [(_ATXAppLaunchHistogramManager *)self->_appLaunchHistogramManager categoricalHistogramForLaunchType:41];
-    v84 = [MEMORY[0x277CCABB0] numberWithInt:ambientLightType];
-    stringValue = [v84 stringValue];
-    *&v86 = weight;
-    [v83 addLaunchWithBundleId:v15 date:startDate category:stringValue weight:v86];
+    v84 = [(_ATXAppLaunchHistogramManager *)self->_appLaunchHistogramManager categoricalHistogramForLaunchType:41];
+    v85 = [MEMORY[0x277CCABB0] numberWithInt:ambientLightType];
+    stringValue = [v85 stringValue];
+    *&v87 = weight;
+    [v84 addLaunchWithBundleId:v15 date:startDate category:stringValue weight:v87];
   }
 
-  v87 = __atxlog_handle_default();
-  if (os_log_type_enabled(v87, OS_LOG_TYPE_DEBUG))
+  v88 = __atxlog_handle_default(v83);
+  if (os_log_type_enabled(v88, OS_LOG_TYPE_DEBUG))
   {
     startDate2 = [eventCopy startDate];
     *buf = 138412802;
@@ -1447,10 +1421,8 @@ LABEL_27:
     v94 = startDate2;
     v95 = 2048;
     weightCopy = weight;
-    _os_log_debug_impl(&dword_2263AA000, v87, OS_LOG_TYPE_DEBUG, "Donation Processing - Finished Updating Histograms for Action Event: %@ with Date: %@ with Weight: %f", buf, 0x20u);
+    _os_log_debug_impl(&dword_2263AA000, v88, OS_LOG_TYPE_DEBUG, "Donation Processing - Finished Updating Histograms for Action Event: %@ with Date: %@ with Weight: %f", buf, 0x20u);
   }
-
-  v88 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateActionPredictionSlotResolutionForIntentEvent:(id)event weight:(float)weight prevLocationUUID:(id)d locationUUID:(id)iD currentMotionType:(int64_t)type appSessionStartDate:(id)date appSessionEndDate:(id)endDate geohash:(int64_t)self0 coarseGeohash:(int64_t)self1
@@ -1478,24 +1450,22 @@ LABEL_27:
     v31 = v29;
     [(_ATXDataStore *)dataStore writeActionType:intentType bundleId:bundleId date:startDate action:action slotSets:v36 timeZone:0 prevLocationUUID:weight locationUUID:dCopy weight:v29 actionUUID:actionUUID motionType:type appSessionStartDate:v34 appSessionEndDate:endDateCopy geohash:geohash coarseGeohash:coarseGeohash];
 
-    v32 = __atxlog_handle_default();
-    if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
+    v33 = __atxlog_handle_default(v32);
+    if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
       v39 = action;
-      _os_log_impl(&dword_2263AA000, v32, OS_LOG_TYPE_DEFAULT, "Donation Processing - Finished Updating Slot Resolution Database for Action: %@", buf, 0xCu);
+      _os_log_impl(&dword_2263AA000, v33, OS_LOG_TYPE_DEFAULT, "Donation Processing - Finished Updating Slot Resolution Database for Action: %@", buf, 0xCu);
     }
 
     iDCopy = v31;
     dateCopy = v37;
   }
-
-  v33 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_logIntentPredictionsForIntentEvent:(id)event context:(id)context
 {
-  v62 = *MEMORY[0x277D85DE8];
+  v63 = *MEMORY[0x277D85DE8];
   eventCopy = event;
   contextCopy = context;
   v8 = objc_autoreleasePoolPush();
@@ -1515,7 +1485,7 @@ LABEL_27:
 
   if (v13)
   {
-    mEMORY[0x277CEB7E0] = __atxlog_handle_default();
+    mEMORY[0x277CEB7E0] = __atxlog_handle_default(action);
     if (os_log_type_enabled(mEMORY[0x277CEB7E0], OS_LOG_TYPE_INFO))
     {
       *buf = 0;
@@ -1526,43 +1496,44 @@ LABEL_27:
   else
   {
     selfCopy = self;
-    v53 = v9;
-    v54 = v8;
+    v54 = v9;
+    v55 = v8;
     mEMORY[0x277CEB7E0] = [MEMORY[0x277CEB7E0] sharedInstance];
     [mEMORY[0x277CEB7E0] recentActions];
-    v55 = 0u;
     v56 = 0u;
     v57 = 0u;
-    v15 = v58 = 0u;
-    v16 = [v15 countByEnumeratingWithState:&v55 objects:v61 count:16];
+    v58 = 0u;
+    v15 = v59 = 0u;
+    v16 = [v15 countByEnumeratingWithState:&v56 objects:v62 count:16];
     if (v16)
     {
       v17 = v16;
-      v18 = *v56;
+      v18 = *v57;
       while (2)
       {
         for (i = 0; i != v17; ++i)
         {
-          if (*v56 != v18)
+          if (*v57 != v18)
           {
             objc_enumerationMutation(v15);
           }
 
-          if ([_ATXActionUtils isContainmentBetweenAction:v12 other:*(*(&v55 + 1) + 8 * i)])
+          v20 = [_ATXActionUtils isContainmentBetweenAction:v12 other:*(*(&v56 + 1) + 8 * i)];
+          if (v20)
           {
-            v30 = __atxlog_handle_default();
-            if (os_log_type_enabled(v30, OS_LOG_TYPE_INFO))
+            v31 = __atxlog_handle_default(v20);
+            if (os_log_type_enabled(v31, OS_LOG_TYPE_INFO))
             {
               *buf = 0;
-              _os_log_impl(&dword_2263AA000, v30, OS_LOG_TYPE_INFO, "Donation Processing - Donated action corresponds to a recently engaged action. Skipping Metric Logging and Shadow Logging.", buf, 2u);
+              _os_log_impl(&dword_2263AA000, v31, OS_LOG_TYPE_INFO, "Donation Processing - Donated action corresponds to a recently engaged action. Skipping Metric Logging and Shadow Logging.", buf, 2u);
             }
 
-            v8 = v54;
+            v8 = v55;
             goto LABEL_44;
           }
         }
 
-        v17 = [v15 countByEnumeratingWithState:&v55 objects:v61 count:16];
+        v17 = [v15 countByEnumeratingWithState:&v56 objects:v62 count:16];
         if (v17)
         {
           continue;
@@ -1572,112 +1543,113 @@ LABEL_27:
       }
     }
 
-    v50 = contextCopy;
-    v51 = eventCopy;
+    v51 = contextCopy;
+    v52 = eventCopy;
 
-    v20 = 0;
+    v21 = 0;
     while (1)
     {
-      v21 = +[_ATXGlobals sharedInstance];
-      maximumSpotlightPredictions = [v21 maximumSpotlightPredictions];
+      v22 = +[_ATXGlobals sharedInstance];
+      maximumSpotlightPredictions = [v22 maximumSpotlightPredictions];
 
       actions = [v10 actions];
-      v24 = [actions count];
+      v25 = [actions count];
 
-      v25 = maximumSpotlightPredictions;
-      if (v24 < maximumSpotlightPredictions)
+      v26 = maximumSpotlightPredictions;
+      if (v25 < maximumSpotlightPredictions)
       {
-        v25 = v24;
+        v26 = v25;
       }
 
-      if (v20 >= v25)
+      if (v21 >= v26)
       {
         break;
       }
 
       actions2 = [v10 actions];
-      v27 = [actions2 objectAtIndexedSubscript:v20];
-      v28 = [_ATXActionUtils isContainmentBetweenAction:v12 other:v27];
+      v28 = [actions2 objectAtIndexedSubscript:v21];
+      v29 = [_ATXActionUtils isContainmentBetweenAction:v12 other:v28];
 
-      ++v20;
-      if (v28)
+      ++v21;
+      if (v29)
       {
-        v29 = v20;
+        v30 = v21;
         goto LABEL_26;
       }
     }
 
-    v29 = 0.0;
+    v30 = 0.0;
 LABEL_26:
     _bundleIdForDisplay = [v12 _bundleIdForDisplay];
     actionKey = [v12 actionKey];
     if (actionKey)
     {
       actionKey2 = [v12 actionKey];
-      v34 = [_ATXActionUtils getActionTypeFromActionKey:actionKey2];
+      v35 = [_ATXActionUtils getActionTypeFromActionKey:actionKey2];
     }
 
     else
     {
-      v34 = 0;
+      v35 = 0;
     }
 
-    v35 = +[_ATXAppPredictor sharedInstance];
-    abGroupIdentifiers = [v35 abGroupIdentifiers];
-    v37 = [abGroupIdentifiers objectAtIndexedSubscript:16];
+    v36 = +[_ATXAppPredictor sharedInstance];
+    abGroupIdentifiers = [v36 abGroupIdentifiers];
+    v38 = [abGroupIdentifiers objectAtIndexedSubscript:16];
 
-    if (_bundleIdForDisplay && v34 && v37)
+    if (_bundleIdForDisplay && v35 && v38)
     {
       donatedActionInCacheTracker = selfCopy->_donatedActionInCacheTracker;
-      v60[0] = _bundleIdForDisplay;
-      v60[1] = v34;
-      v60[2] = v37;
-      v39 = [MEMORY[0x277CBEA60] arrayWithObjects:v60 count:3];
-      [(PETDistributionEventTracker *)donatedActionInCacheTracker trackEventWithPropertyValues:v39 value:v29];
+      v61[0] = _bundleIdForDisplay;
+      v61[1] = v35;
+      v61[2] = v38;
+      v40 = [MEMORY[0x277CBEA60] arrayWithObjects:v61 count:3];
+      [(PETDistributionEventTracker *)donatedActionInCacheTracker trackEventWithPropertyValues:v40 value:v30];
     }
 
-    v40 = +[_ATXGlobals sharedInstance];
-    [v40 actionPredictionShadowLogSamplingRate];
-    v42 = v41;
+    v41 = +[_ATXGlobals sharedInstance];
+    [v41 actionPredictionShadowLogSamplingRate];
+    v43 = v42;
 
     if ([MEMORY[0x277D42590] isInternalBuild])
     {
-      v43 = +[_ATXGlobals sharedInstance];
-      [v43 actionPredictionInternalBuildShadowLogSamplingRate];
-      v42 = v44;
+      v44 = +[_ATXGlobals sharedInstance];
+      [v44 actionPredictionInternalBuildShadowLogSamplingRate];
+      v43 = v45;
     }
 
-    contextCopy = v50;
-    eventCopy = v51;
-    v8 = v54;
-    v45 = objc_opt_new();
-    [v10 updateConsumerSubType:17 engagedAction:v12 shownActions:MEMORY[0x277CBEBF8] feedbackStage:7 explicitlyDismissedActions:0 searchedActionType:4 engagedAppString:0 uiFeedbackDate:v45];
+    contextCopy = v51;
+    eventCopy = v52;
+    v8 = v55;
+    v46 = objc_opt_new();
+    [v10 updateConsumerSubType:17 engagedAction:v12 shownActions:MEMORY[0x277CBEBF8] feedbackStage:7 explicitlyDismissedActions:0 searchedActionType:4 engagedAppString:0 uiFeedbackDate:v46];
 
-    LODWORD(v45) = [_ATXAggregateLogger yesWithProbability:v42];
-    v46 = __atxlog_handle_default();
-    v47 = v46;
-    if (v45)
+    v47 = [_ATXAggregateLogger yesWithProbability:v43];
+    LODWORD(v46) = v47;
+    v48 = __atxlog_handle_default(v47);
+    v49 = v48;
+    if (v46)
     {
-      if (os_log_type_enabled(v46, OS_LOG_TYPE_DEBUG))
+      if (os_log_type_enabled(v48, OS_LOG_TYPE_DEBUG))
       {
         [ATXAppIntentMonitor _logIntentPredictionsForIntentEvent:context:];
       }
 
-      [ATXActionSessionLog performSessionLoggingWithActionResponse:v10 engagementType:9 context:v50 isShadowLog:1 forTestingMode:0];
+      [ATXActionSessionLog performSessionLoggingWithActionResponse:v10 engagementType:9 context:v51 isShadowLog:1 forTestingMode:0];
     }
 
     else
     {
-      if (os_log_type_enabled(v46, OS_LOG_TYPE_INFO))
+      if (os_log_type_enabled(v48, OS_LOG_TYPE_INFO))
       {
         *buf = 0;
-        _os_log_impl(&dword_2263AA000, v47, OS_LOG_TYPE_INFO, "Donation Processing - Skipping Action Shadow Session Log", buf, 2u);
+        _os_log_impl(&dword_2263AA000, v49, OS_LOG_TYPE_INFO, "Donation Processing - Skipping Action Shadow Session Log", buf, 2u);
       }
     }
 
     +[ATXAppPredictionDataHarvesterConstants actionPredictionSessionDataHarvestSamplingRate];
-    v9 = v53;
-    if ([_ATXAggregateLogger yesWithProbability:v48])
+    v9 = v54;
+    if ([_ATXAggregateLogger yesWithProbability:v50])
     {
       [ATXActionSessionLog harvestActionPredictionDataForResponse:v10];
     }
@@ -1686,7 +1658,6 @@ LABEL_44:
   }
 
   objc_autoreleasePoolPop(v8);
-  v49 = *MEMORY[0x277D85DE8];
 }
 
 - (void)start
@@ -1752,69 +1723,53 @@ LABEL_44:
 
 void __46__ATXAppIntentMonitor__listenToActivityStream__block_invoke_cold_1(void *a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
   v1 = [a1 error];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_0(&dword_2263AA000, v2, v3, "Could not subscribe to activity stream: %@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_0(&dword_2263AA000, v2, v3, "Could not subscribe to activity stream: %@", v4, v5, v6, v7);
 }
 
 void __44__ATXAppIntentMonitor__listenToIntentStream__block_invoke_cold_1(void *a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
   v1 = [a1 error];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_0(&dword_2263AA000, v2, v3, "Could not subscribe to intent stream: %@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_0(&dword_2263AA000, v2, v3, "Could not subscribe to intent stream: %@", v4, v5, v6, v7);
 }
 
 void __48__ATXAppIntentMonitor__listenToLinkActionStream__block_invoke_cold_1(void *a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
   v1 = [a1 error];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_0(&dword_2263AA000, v2, v3, "Could not subscribe to link action transcript stream: %@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_0(&dword_2263AA000, v2, v3, "Could not subscribe to link action transcript stream: %@", v4, v5, v6, v7);
 }
 
 - (void)fetchIntentEventsForAppSessionWithBundleId:startDate:endDate:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2();
-  v4 = 2112;
-  v5 = v0;
-  _os_log_debug_impl(&dword_2263AA000, v1, OS_LOG_TYPE_DEBUG, "Donation Processing - Intent Query Start Date: %@, End date: %@", v3, 0x16u);
-  v2 = *MEMORY[0x277D85DE8];
+  v3 = 2112;
+  v4 = v0;
+  _os_log_debug_impl(&dword_2263AA000, v1, OS_LOG_TYPE_DEBUG, "Donation Processing - Intent Query Start Date: %@, End date: %@", v2, 0x16u);
 }
 
 - (void)processIntentDonationsDuringAppSessionForBundleId:(void *)a1 startDate:endDate:globals:.cold.1(void *a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
   [a1 count];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_3_4(&dword_2263AA000, v1, v2, "Donation Processing - Processing %lu Intent Events", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3_4(&dword_2263AA000, v1, v2, "Donation Processing - Processing %lu Intent Events", v3, v4, v5, v6);
 }
 
 - (void)shouldAcceptMessageDonation:.cold.1()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2();
-  _os_log_debug_impl(&dword_2263AA000, v0, OS_LOG_TYPE_DEBUG, "Donation Processing - Filtering INSendMessageIntent because you messaged the recipient on %@", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(&dword_2263AA000, v0, OS_LOG_TYPE_DEBUG, "Donation Processing - Filtering INSendMessageIntent because you messaged the recipient on %@", v1, 0xCu);
 }
 
 - (void)updateActionPredictionPipelineForIntentEvent:(void *)a1 weight:appSessionStartDate:appSessionEndDate:context:.cold.1(void *a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
   v1 = [a1 bundleId];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_3_4(&dword_2263AA000, v2, v3, "Donation Processing - Skipping processing this action because the upper limit for the number of actionTypes stored for %@ has been reached", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3_4(&dword_2263AA000, v2, v3, "Donation Processing - Skipping processing this action because the upper limit for the number of actionTypes stored for %@ has been reached", v4, v5, v6, v7);
 }
 
 @end

@@ -175,11 +175,10 @@
 
     [(VKCActionInfoView *)self bounds];
     [(VKPlatformView *)self->_containerView setFrame:?];
-    v15 = [(VKPlatformView *)self->_containerView setAutoresizingMask:18];
-    if (vk_solariumEnabled(v15, v16))
+    if (vk_solariumEnabled([(VKPlatformView *)self->_containerView setAutoresizingMask:18]))
     {
-      v17 = objc_alloc_init(MEMORY[0x1E69DD820]);
-      [(VKPlatformView *)self->_containerView _setBackground:v17];
+      v15 = objc_alloc_init(MEMORY[0x1E69DD820]);
+      [(VKPlatformView *)self->_containerView _setBackground:v15];
     }
 
     [(VKCActionInfoView *)self addSubview:self->_containerView];

@@ -92,7 +92,7 @@
 
 - (BOOL)_resolveAttachments:(id)attachments currentAttachmentIndex:(unint64_t)index
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   attachmentsCopy = attachments;
   v7 = [attachmentsCopy objectAtIndexedSubscript:index];
   v8 = MEMORY[0x277CDAA58];
@@ -101,35 +101,35 @@
 
   if (v10)
   {
-    v24 = v7;
+    v23 = v7;
     v11 = objc_opt_new();
+    v24 = 0u;
     v25 = 0u;
     v26 = 0u;
     v27 = 0u;
-    v28 = 0u;
     v12 = attachmentsCopy;
-    v13 = [v12 countByEnumeratingWithState:&v25 objects:v29 count:16];
+    v13 = [v12 countByEnumeratingWithState:&v24 objects:v28 count:16];
     if (v13)
     {
       v14 = v13;
-      v15 = *v26;
+      v15 = *v25;
       do
       {
         for (i = 0; i != v14; ++i)
         {
-          if (*v26 != v15)
+          if (*v25 != v15)
           {
             objc_enumerationMutation(v12);
           }
 
-          v17 = *(*(&v25 + 1) + 8 * i);
+          v17 = *(*(&v24 + 1) + 8 * i);
           if ([MEMORY[0x277CDAA58] canPreviewItem:v17])
           {
             [(NSArray *)v11 addObject:v17];
           }
         }
 
-        v14 = [v12 countByEnumeratingWithState:&v25 objects:v29 count:16];
+        v14 = [v12 countByEnumeratingWithState:&v24 objects:v28 count:16];
       }
 
       while (v14);
@@ -139,15 +139,14 @@
     self->_attachments = v11;
     v19 = v11;
 
-    v7 = v24;
-    v20 = [(NSArray *)v19 indexOfObject:v24];
+    v7 = v23;
+    v20 = [(NSArray *)v19 indexOfObject:v23];
     self->_currentAttachmentIndex = v20;
     v21 = [MLULookupItemContent contentWithAttachments:self->_attachments currentAttachmentIndex:v20];
 
     [(MLULookupItem *)self setPreviewContent:v21];
   }
 
-  v22 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
@@ -179,7 +178,7 @@
   textCopy = text;
   if (![(NSString *)self->_text length])
   {
-    v21 = 0;
+    v20 = 0;
     goto LABEL_22;
   }
 
@@ -191,57 +190,56 @@
 
   v9 = v8;
   DDScannerScanString();
-  v10 = *MEMORY[0x277D041E8];
-  v11 = DDScannerCopyResultsWithOptions();
-  if (!v11)
+  v10 = DDScannerCopyResultsWithOptions();
+  if (!v10)
   {
     goto LABEL_18;
   }
 
-  v12 = v11;
-  Count = CFArrayGetCount(v11);
+  v11 = v10;
+  Count = CFArrayGetCount(v10);
   if (Count < 1)
   {
-    CFRelease(v12);
+    CFRelease(v11);
 LABEL_18:
     CFRelease(v9);
     goto LABEL_19;
   }
 
-  v14 = Count;
-  v15 = 1;
+  v13 = Count;
+  v14 = 1;
   do
   {
-    ValueAtIndex = CFArrayGetValueAtIndex(v12, v15 - 1);
+    ValueAtIndex = CFArrayGetValueAtIndex(v11, v14 - 1);
     Range = DDResultGetRange();
-    v20 = Range + v18 >= location && Range < location + length && [(MLULookupItem *)self _resolveURL:0 DDResult:ValueAtIndex focusRange:Range, v18];
-    if (v15 >= v14)
+    v19 = Range + v17 >= location && Range < location + length && [(MLULookupItem *)self _resolveURL:0 DDResult:ValueAtIndex focusRange:Range, v17];
+    if (v14 >= v13)
     {
       break;
     }
 
-    ++v15;
+    ++v14;
   }
 
-  while (!v20);
-  CFRelease(v12);
+  while (!v19);
+  CFRelease(v11);
   CFRelease(v9);
-  if (v20)
+  if (v19)
   {
-    v21 = 1;
+    v20 = 1;
     goto LABEL_22;
   }
 
 LABEL_19:
-  v22 = [MLULookupItemContent contentWithText:textCopy range:location, length];
-  v21 = v22 != 0;
-  if (v22)
+  v21 = [MLULookupItemContent contentWithText:textCopy range:location, length];
+  v20 = v21 != 0;
+  if (v21)
   {
-    [(MLULookupItem *)self setPreviewContent:v22];
+    [(MLULookupItem *)self setPreviewContent:v21];
   }
 
 LABEL_22:
-  return v21;
+  return v20;
 }
 
 - (BOOL)resolve
@@ -259,19 +257,17 @@ LABEL_22:
 
   if (*&self->_url != 0)
   {
-    location = self->_focusRange.location;
-    length = self->_focusRange.length;
     if (![MLULookupItem _resolveURL:"_resolveURL:DDResult:focusRange:" DDResult:? focusRange:?])
     {
       if (self->_ddResult && !self->_text)
       {
-        v8 = DDResultGetMatchedString();
+        v4 = DDResultGetMatchedString();
         text = self->_text;
-        self->_text = v8;
+        self->_text = v4;
 
-        v10 = [(NSString *)self->_text length];
+        v6 = [(NSString *)self->_text length];
         self->_focusRange.location = 0;
-        self->_focusRange.length = v10;
+        self->_focusRange.length = v6;
       }
 
       goto LABEL_7;
@@ -285,9 +281,6 @@ LABEL_7:
   {
     return 0;
   }
-
-  v4 = self->_focusRange.location;
-  v5 = self->_focusRange.length;
 
   return [MLULookupItem _resolveText:"_resolveText:focusRange:" focusRange:?];
 }
@@ -327,7 +320,7 @@ LABEL_7:
 
 - (void)commitWithTransitionForPreviewViewController:(id)controller inViewController:(id)viewController completion:(id)completion
 {
-  v60 = *MEMORY[0x277D85DE8];
+  v59 = *MEMORY[0x277D85DE8];
   controllerCopy = controller;
   viewControllerCopy = viewController;
   completionCopy = completion;
@@ -349,9 +342,9 @@ LABEL_7:
   [(MLUBlurryView *)v16 setUserInteractionEnabled:0];
   [window addSubview:v16];
   view2 = [controllerCopy view];
-  v44 = viewControllerCopy;
-  v45 = controllerCopy;
-  v42 = v13;
+  v43 = viewControllerCopy;
+  v44 = controllerCopy;
+  v41 = v13;
   if (view2)
   {
     do
@@ -373,30 +366,30 @@ LABEL_7:
     while (superview);
   }
 
-  v57 = 0u;
-  v58 = 0u;
   v56 = 0u;
+  v57 = 0u;
   v55 = 0u;
+  v54 = 0u;
   superview2 = [view2 superview];
   v22Superview = [superview2 superview];
   subviews = [v22Superview subviews];
 
-  v25 = [subviews countByEnumeratingWithState:&v55 objects:v59 count:16];
+  v25 = [subviews countByEnumeratingWithState:&v54 objects:v58 count:16];
   if (v25)
   {
     v26 = v25;
-    v41 = window;
-    v27 = *v56;
+    v40 = window;
+    v27 = *v55;
     while (2)
     {
       for (i = 0; i != v26; ++i)
       {
-        if (*v56 != v27)
+        if (*v55 != v27)
         {
           objc_enumerationMutation(subviews);
         }
 
-        v29 = *(*(&v55 + 1) + 8 * i);
+        v29 = *(*(&v54 + 1) + 8 * i);
         v30 = objc_opt_class();
         v31 = NSStringFromClass(v30);
         v32 = [v31 containsString:@"UIImageView"];
@@ -408,7 +401,7 @@ LABEL_7:
         }
       }
 
-      v26 = [subviews countByEnumeratingWithState:&v55 objects:v59 count:16];
+      v26 = [subviews countByEnumeratingWithState:&v54 objects:v58 count:16];
       if (v26)
       {
         continue;
@@ -419,7 +412,7 @@ LABEL_7:
 
     v33 = 0;
 LABEL_14:
-    window = v41;
+    window = v40;
   }
 
   else
@@ -432,28 +425,26 @@ LABEL_14:
   [view2 setHidden:1];
   [v33 setHidden:1];
   v35 = MEMORY[0x277D75D18];
-  v51[0] = MEMORY[0x277D85DD0];
-  v51[1] = 3221225472;
-  v51[2] = __90__MLULookupItem_commitWithTransitionForPreviewViewController_inViewController_completion___block_invoke;
-  v51[3] = &unk_2798EB340;
-  v52 = v16;
-  v53 = v34;
-  v54 = v42;
-  v46[0] = MEMORY[0x277D85DD0];
-  v46[1] = 3221225472;
-  v46[2] = __90__MLULookupItem_commitWithTransitionForPreviewViewController_inViewController_completion___block_invoke_7;
-  v46[3] = &unk_2798EB368;
-  v47 = v53;
-  v48 = v52;
-  v49 = v54;
-  v50 = completionCopy;
-  v36 = v53;
-  v37 = v52;
-  v38 = v54;
+  v50[0] = MEMORY[0x277D85DD0];
+  v50[1] = 3221225472;
+  v50[2] = __90__MLULookupItem_commitWithTransitionForPreviewViewController_inViewController_completion___block_invoke;
+  v50[3] = &unk_2798EB340;
+  v51 = v16;
+  v52 = v34;
+  v53 = v41;
+  v45[0] = MEMORY[0x277D85DD0];
+  v45[1] = 3221225472;
+  v45[2] = __90__MLULookupItem_commitWithTransitionForPreviewViewController_inViewController_completion___block_invoke_7;
+  v45[3] = &unk_2798EB368;
+  v46 = v52;
+  v47 = v51;
+  v48 = v53;
+  v49 = completionCopy;
+  v36 = v52;
+  v37 = v51;
+  v38 = v53;
   v39 = completionCopy;
-  [v35 animateKeyframesWithDuration:0 delay:v51 options:v46 animations:0.4 completion:0.0];
-
-  v40 = *MEMORY[0x277D85DE8];
+  [v35 animateKeyframesWithDuration:0 delay:v50 options:v45 animations:0.4 completion:0.0];
 }
 
 void __90__MLULookupItem_commitWithTransitionForPreviewViewController_inViewController_completion___block_invoke(id *a1)
@@ -528,13 +519,12 @@ uint64_t __90__MLULookupItem_commitWithTransitionForPreviewViewController_inView
 
 - (void)initWithAttachments:(void *)a1 currentAttachment:(uint64_t)a2 .cold.1(void *a1, uint64_t a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v3 = 134218240;
-  v4 = a2;
-  v5 = 2048;
-  v6 = [a1 count];
-  _os_log_error_impl(&dword_259AFE000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Inconsistent attachment index in [MLULookupItem initWithAttachments:currentAttachment:] index %ld is not in the array range (array size = %ld)", &v3, 0x16u);
-  v2 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
+  v2 = 134218240;
+  v3 = a2;
+  v4 = 2048;
+  v5 = [a1 count];
+  _os_log_error_impl(&dword_259AFE000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Inconsistent attachment index in [MLULookupItem initWithAttachments:currentAttachment:] index %ld is not in the array range (array size = %ld)", &v2, 0x16u);
 }
 
 @end

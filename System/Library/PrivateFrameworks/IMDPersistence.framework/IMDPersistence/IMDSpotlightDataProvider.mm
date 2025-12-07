@@ -10,14 +10,12 @@
 
 + (id)_createDataProviders
 {
-  v8[2] = *MEMORY[0x1E69E9840];
+  v7[2] = *MEMORY[0x1E69E9840];
   v2 = objc_alloc_init(IMDSpotlightLinkDataProvider);
-  v8[0] = v2;
+  v7[0] = v2;
   v3 = objc_alloc_init(IMDSpotlightTextDataProvider);
-  v8[1] = v3;
-  v5 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v4, v8, 2);
-
-  v6 = *MEMORY[0x1E69E9840];
+  v7[1] = v3;
+  v5 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v4, v7, 2);
 
   return v5;
 }
@@ -42,10 +40,10 @@
 + (id)dataProviderForIdentifier:(id)identifier
 {
   identifierCopy = identifier;
-  v7 = objc_msgSend__dataProviders(self, v5, v6);
-  v9 = objc_msgSend_objectForKeyedSubscript_(v7, v8, identifierCopy);
+  v8 = objc_msgSend__dataProviders(self, v5, v6, v7);
+  v11 = objc_msgSend_objectForKeyedSubscript_(v8, v9, identifierCopy, v10);
 
-  return v9;
+  return v11;
 }
 
 - (id)typeIdentifier

@@ -25,7 +25,7 @@
 - (BOOL)canCreatePayload
 {
   selfCopy = self;
-  v3 = sub_10017575C();
+  v3 = sub_10017575C(selfCopy);
 
   return v3;
 }

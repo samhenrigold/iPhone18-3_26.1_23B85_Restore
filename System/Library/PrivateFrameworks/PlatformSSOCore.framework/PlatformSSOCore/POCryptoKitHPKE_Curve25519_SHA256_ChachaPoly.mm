@@ -10,13 +10,12 @@
 - (_TtC15PlatformSSOCore44POCryptoKitHPKE_Curve25519_SHA256_ChachaPoly)init
 {
   v3 = sub_25E941668();
-  v4 = *(*(v3 - 8) + 64);
   MEMORY[0x28223BE20](v3 - 8);
-  v6 = &v9 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v5 = &v8 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
   *(&self->super.super.isa + OBJC_IVAR____TtC15PlatformSSOCore44POCryptoKitHPKE_Curve25519_SHA256_ChachaPoly_encryptionAlgorithm) = &unk_2870A91E0;
-  v7 = &unk_2870A91E0;
+  v6 = &unk_2870A91E0;
   sub_25E941648();
-  return POCryptoKitHPKE.init(cipherSuite:)(v6);
+  return POCryptoKitHPKE.init(cipherSuite:)(v5);
 }
 
 - (void)addValuesTo:(id)to

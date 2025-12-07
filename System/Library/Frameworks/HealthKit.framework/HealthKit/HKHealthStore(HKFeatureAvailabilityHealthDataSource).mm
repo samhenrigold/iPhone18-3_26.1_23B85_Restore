@@ -12,16 +12,14 @@
   __break(1u);
 }
 
-- (void)_sleepFeatureAvailabilityProvider:()HKFeatureAvailabilityHealthDataSource .cold.2(void *a1)
+- (void)_sleepFeatureAvailabilityProvider:()HKFeatureAvailabilityHealthDataSource .cold.2(void *a1, uint64_t a2)
 {
   v6 = *MEMORY[0x1E69E9840];
-  v1 = a1;
+  v2 = a1;
   v4 = 138543362;
   v5 = objc_opt_class();
-  v2 = v5;
-  _os_log_error_impl(&dword_19197B000, v1, OS_LOG_TYPE_ERROR, "[%{public}@] HK_TARGET_OS_HAS_SLEEP_DAEMON true but missing getSleepFeatureAvailabilityProviding()", &v4, 0xCu);
-
-  v3 = *MEMORY[0x1E69E9840];
+  v3 = v5;
+  _os_log_error_impl(&dword_19197B000, v2, OS_LOG_TYPE_ERROR, "[%{public}@] HK_TARGET_OS_HAS_SLEEP_DAEMON true but missing getSleepFeatureAvailabilityProviding()", &v4, 0xCu);
 }
 
 @end

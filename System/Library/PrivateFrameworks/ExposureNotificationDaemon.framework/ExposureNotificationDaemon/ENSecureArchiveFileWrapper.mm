@@ -1,4 +1,5 @@
 @interface ENSecureArchiveFileWrapper
+- (BOOL)_writeObject:(id)object toFileDescriptor:(int)descriptor error:(id *)error;
 - (BOOL)openWithError:(id *)error;
 - (BOOL)readObject:(id *)object ofClass:(Class)class error:(id *)error;
 - (BOOL)readObject:(id *)object ofClasses:(id)classes error:(id *)error;
@@ -50,7 +51,7 @@
       v7 = *__error();
       if (v7 == 1)
       {
-        v8 = ENErrorF();
+        v8 = ENErrorF(16, "File inaccessible");
 LABEL_10:
         v9 = v8;
         v10 = v8;
@@ -211,6 +212,24 @@ LABEL_20:
   return v7;
 }
 
+- (BOOL)_writeObject:(id)object toFileDescriptor:(int)descriptor error:(id *)error
+{
+  v6 = *&descriptor;
+  v7 = [MEMORY[0x277CCAAB8] archivedDataWithRootObject:object requiringSecureCoding:1 error:?];
+  if (v7)
+  {
+    [(ENSecureArchiveFileWrapper *)v6 _writeObject:error toFileDescriptor:v7 error:&v10];
+    v8 = v10;
+  }
+
+  else
+  {
+    v8 = 0;
+  }
+
+  return v8;
+}
+
 - (void)initWithPath:(uint64_t)a1 .cold.1(uint64_t a1, uint64_t a2)
 {
   v4 = [MEMORY[0x277CCA888] currentHandler];
@@ -219,12 +238,12 @@ LABEL_20:
 
 - (uint64_t)close
 {
-  v2 = *(self + 16);
-  v3 = *__error();
-  return LogPrintF_safe();
+  v1 = *(self + 16);
+  v2 = __error();
+  return LogPrintF_safe(&gLogCategory_ENFileWrapper, "[ENSecureArchiveFileWrapper close]", 90, "Closing %@ failed: %#m", v1, *v2);
 }
 
-- (void)_writeObject:(uint64_t)a3 toFileDescriptor:(_BYTE *)a4 error:.cold.1(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4)
+- (void)_writeObject:(uint64_t)a3 toFileDescriptor:(unsigned __int8 *)a4 error:.cold.1(uint64_t a1, uint64_t a2, uint64_t a3, unsigned __int8 *a4)
 {
   v8 = [objc_alloc(MEMORY[0x277CCA9F0]) initWithFileDescriptor:a1 closeOnDealloc:0];
   if ([v8 seekToOffset:0 error:a2] & 1) != 0 && (objc_msgSend(v8, "truncateAtOffset:error:", 0, a2))

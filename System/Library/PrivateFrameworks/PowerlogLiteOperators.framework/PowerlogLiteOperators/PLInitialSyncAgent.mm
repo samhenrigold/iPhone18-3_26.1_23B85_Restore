@@ -18,59 +18,57 @@
 
 + (id)entryEventIntervalDefinitions
 {
-  v40[2] = *MEMORY[0x277D85DE8];
-  v39[0] = @"InitialSync";
-  v36 = *MEMORY[0x277D3F4E8];
-  v2 = v36;
-  v34 = *MEMORY[0x277D3F568];
-  v3 = v34;
-  v35 = &unk_282C1C498;
-  v25 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v35 forKeys:&v34 count:1];
-  v38[0] = v25;
-  v37 = *MEMORY[0x277D3F540];
-  v4 = v37;
-  v32[0] = @"count";
+  v39[2] = *MEMORY[0x277D85DE8];
+  v38[0] = @"InitialSync";
+  v35 = *MEMORY[0x277D3F4E8];
+  v2 = v35;
+  v33 = *MEMORY[0x277D3F568];
+  v3 = v33;
+  v34 = &unk_282C1C498;
+  v24 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v34 forKeys:&v33 count:1];
+  v37[0] = v24;
+  v36 = *MEMORY[0x277D3F540];
+  v4 = v36;
+  v31[0] = @"count";
   mEMORY[0x277D3F198] = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat = [mEMORY[0x277D3F198] commonTypeDict_IntegerFormat];
-  v33[0] = commonTypeDict_IntegerFormat;
-  v32[1] = @"timestampEnd";
+  v32[0] = commonTypeDict_IntegerFormat;
+  v31[1] = @"timestampEnd";
   mEMORY[0x277D3F198]2 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_DateFormat = [mEMORY[0x277D3F198]2 commonTypeDict_DateFormat];
-  v33[1] = commonTypeDict_DateFormat;
-  v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v33 forKeys:v32 count:2];
-  v38[1] = v20;
-  v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v38 forKeys:&v36 count:2];
-  v39[1] = @"InitialSyncActivity";
-  v40[0] = v19;
-  v29 = &unk_282C1C498;
-  v30[0] = v2;
-  v28 = v3;
-  v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v29 forKeys:&v28 count:1];
-  v30[1] = v4;
-  v31[0] = v18;
-  v26[0] = @"activityID";
+  v32[1] = commonTypeDict_DateFormat;
+  v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v32 forKeys:v31 count:2];
+  v37[1] = v19;
+  v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v37 forKeys:&v35 count:2];
+  v38[1] = @"InitialSyncActivity";
+  v39[0] = v18;
+  v28 = &unk_282C1C498;
+  v29[0] = v2;
+  v27 = v3;
+  v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v28 forKeys:&v27 count:1];
+  v29[1] = v4;
+  v30[0] = v17;
+  v25[0] = @"activityID";
   mEMORY[0x277D3F198]3 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_StringFormat = [mEMORY[0x277D3F198]3 commonTypeDict_StringFormat];
-  v27[0] = commonTypeDict_StringFormat;
-  v26[1] = @"errorDescription";
+  v26[0] = commonTypeDict_StringFormat;
+  v25[1] = @"errorDescription";
   mEMORY[0x277D3F198]4 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_StringFormat2 = [mEMORY[0x277D3F198]4 commonTypeDict_StringFormat];
-  v27[1] = commonTypeDict_StringFormat2;
-  v26[2] = @"success";
+  v26[1] = commonTypeDict_StringFormat2;
+  v25[2] = @"success";
   mEMORY[0x277D3F198]5 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat2 = [mEMORY[0x277D3F198]5 commonTypeDict_IntegerFormat];
-  v27[2] = commonTypeDict_IntegerFormat2;
-  v26[3] = @"timestampEnd";
+  v26[2] = commonTypeDict_IntegerFormat2;
+  v25[3] = @"timestampEnd";
   mEMORY[0x277D3F198]6 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_DateFormat2 = [mEMORY[0x277D3F198]6 commonTypeDict_DateFormat];
-  v27[3] = commonTypeDict_DateFormat2;
-  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v27 forKeys:v26 count:4];
-  v31[1] = v12;
-  v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v31 forKeys:v30 count:2];
-  v40[1] = v13;
-  v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v40 forKeys:v39 count:2];
-
-  v15 = *MEMORY[0x277D85DE8];
+  v26[3] = commonTypeDict_DateFormat2;
+  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v26 forKeys:v25 count:4];
+  v30[1] = v12;
+  v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v30 forKeys:v29 count:2];
+  v39[1] = v13;
+  v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v39 forKeys:v38 count:2];
 
   return v14;
 }
@@ -125,8 +123,8 @@ LABEL_10:
 
   if ([v5 isEqualToString:@"end"])
   {
-    storage = [(PLOperator *)self storage];
-    v7 = [storage lastEntryForKey:v6];
+    v9 = objc_msgSend_storage(self);
+    v7 = [v9 lastEntryForKey:v6];
 
     if (v7 && ([v7 objectForKeyedSubscript:@"timestampEnd"], v10 = objc_claimAutoreleasedReturnValue(), v10, !v10))
     {
@@ -206,8 +204,8 @@ LABEL_8:
 
   if ([v5 isEqualToString:@"end"])
   {
-    storage = [(PLOperator *)self storage];
-    v7 = [storage lastEntryForKey:v6];
+    v9 = objc_msgSend_storage(self);
+    v7 = [v9 lastEntryForKey:v6];
 
     if (v7 && ([v7 objectForKeyedSubscript:@"timestampEnd"], v10 = objc_claimAutoreleasedReturnValue(), v10, !v10))
     {

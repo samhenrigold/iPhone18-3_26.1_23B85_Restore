@@ -16,6 +16,7 @@
 - (id)_minDate;
 - (id)_pickerDisplayStringForHeightForRow:(int64_t)row forComponent:(int64_t)component;
 - (id)_textDisplayStringForHeight:(id)height;
+- (id)displayNumberOfActiveCardioFitnessMedications:(int)medications;
 - (id)getCellForIndexPath:(id)path;
 - (id)localizedPaneTitle;
 - (id)pickerView:(id)view attributedTitleForRow:(int64_t)row forComponent:(int64_t)component;
@@ -60,6 +61,8 @@
 - (void)traitCollectionDidChange:(id)change;
 - (void)updateCheckMarksForCell:(id)cell option:(unint64_t)option;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
+- (void)viewWillDisappear:(BOOL)disappear;
 @end
 
 @implementation HKBridgeHealthProfileController
@@ -523,7 +526,7 @@
   betaBlockerUseCell = self->_betaBlockerUseCell;
   self->_betaBlockerUseCell = _createBetaBlockerCheckMarkCell;
 
-  _objc_release_x1();
+  _objc_release_x1(_createBetaBlockerCheckMarkCell, betaBlockerUseCell);
 }
 
 - (id)_createCalciumChannelBlockerCheckMarkCell
@@ -684,6 +687,59 @@
   self->_maxWeightInLocaleUnit = llround(v17);
   [(HKQuantity *)self->_minWeightQuantity doubleValueForUnit:self->_localeWeightUnit];
   self->_minWeightInLocaleUnit = llround(v18);
+}
+
+- (void)viewWillDisappear:(BOOL)disappear
+{
+  v4.receiver = self;
+  v4.super_class = HKBridgeHealthProfileController;
+  [(HKBridgeHealthProfileController *)&v4 viewWillDisappear:disappear];
+  [(HKBridgeHealthProfileController *)self _resetSelectedCell];
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v17.receiver = self;
+  v17.super_class = HKBridgeHealthProfileController;
+  [(HKBridgeHealthProfileController *)&v17 viewWillAppear:appear];
+  +[HKBridgeHealthUserVisitDonation donateUserVisitForHealthDetailsSection];
+  [NSMutableArray arrayWithObjects:self->_heightCell, self->_weightCell, self->_birthdateCell, self->_biologicalSexCell, self->_wheelchairUseCell, 0];
+  v13 = 0u;
+  v14 = 0u;
+  v15 = 0u;
+  obj = v16 = 0u;
+  v4 = [obj countByEnumeratingWithState:&v13 objects:v18 count:16];
+  if (v4)
+  {
+    v5 = v4;
+    v6 = *v14;
+    do
+    {
+      v7 = 0;
+      do
+      {
+        if (*v14 != v6)
+        {
+          objc_enumerationMutation(obj);
+        }
+
+        v8 = *(*(&v13 + 1) + 8 * v7);
+        v9 = [NSBundle bundleForClass:objc_opt_class()];
+        v10 = [v9 localizedStringForKey:@"LOADING" value:&stru_188B0 table:@"Localizable"];
+        detailTextLabel = [v8 detailTextLabel];
+        [detailTextLabel setText:v10];
+
+        v7 = v7 + 1;
+      }
+
+      while (v5 != v7);
+      v5 = [obj countByEnumeratingWithState:&v13 objects:v18 count:16];
+    }
+
+    while (v5);
+  }
+
+  [(HKBridgeHealthProfileController *)self _updateUserCharacteristics];
 }
 
 - (void)dealloc
@@ -1754,6 +1810,21 @@ LABEL_15:
   [v2 setAdjustsImageSizeForAccessibilityContentSizeCategory:1];
 
   return v2;
+}
+
+- (id)displayNumberOfActiveCardioFitnessMedications:(int)medications
+{
+  v3 = *&medications;
+  if (qword_1ED70 != -1)
+  {
+    sub_C13C();
+  }
+
+  v4 = qword_1ED68;
+  v5 = [NSNumber numberWithInt:v3];
+  v6 = [v4 stringFromNumber:v5];
+
+  return v6;
 }
 
 @end

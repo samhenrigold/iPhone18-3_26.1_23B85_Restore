@@ -7,7 +7,7 @@
 
 - (HDCodableMedicalIDData)codableRepresentationForSync
 {
-  v151 = *MEMORY[0x277D85DE8];
+  v150 = *MEMORY[0x277D85DE8];
   v2 = objc_alloc_init(HDCodableMedicalIDData);
   -[HDCodableMedicalIDData setIsDisabled:](v2, "setIsDisabled:", [self isDisabled]);
   isDisabledModifiedDate = [self isDisabledModifiedDate];
@@ -119,7 +119,8 @@
   if (isOrganDonor)
   {
     isOrganDonor2 = [self isOrganDonor];
-    -[HDCodableMedicalIDData setIsOrganDonor:](v2, "setIsOrganDonor:", [isOrganDonor2 longLongValue]);
+    [isOrganDonor2 longLongValue];
+    objc_msgSend_setIsOrganDonor_(v2);
   }
 
   isOrganDonorModifiedDate = [self isOrganDonorModifiedDate];
@@ -137,34 +138,34 @@
   if (v35)
   {
     v36 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v141 = 0u;
     v142 = 0u;
     v143 = 0u;
     v144 = 0u;
-    v145 = 0u;
     emergencyContacts2 = [self emergencyContacts];
-    v38 = [emergencyContacts2 countByEnumeratingWithState:&v142 objects:v150 count:16];
+    v38 = [emergencyContacts2 countByEnumeratingWithState:&v141 objects:v149 count:16];
     if (v38)
     {
       v39 = v38;
-      v40 = *v143;
+      v40 = *v142;
       do
       {
         v41 = 0;
         do
         {
-          if (*v143 != v40)
+          if (*v142 != v40)
           {
             objc_enumerationMutation(emergencyContacts2);
           }
 
-          codableRepresentationForSync3 = [*(*(&v142 + 1) + 8 * v41) codableRepresentationForSync];
+          codableRepresentationForSync3 = [*(*(&v141 + 1) + 8 * v41) codableRepresentationForSync];
           [v36 addObject:codableRepresentationForSync3];
 
           ++v41;
         }
 
         while (v39 != v41);
-        v39 = [emergencyContacts2 countByEnumeratingWithState:&v142 objects:v150 count:16];
+        v39 = [emergencyContacts2 countByEnumeratingWithState:&v141 objects:v149 count:16];
       }
 
       while (v39);
@@ -188,34 +189,34 @@
   if (v46)
   {
     v47 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v137 = 0u;
     v138 = 0u;
     v139 = 0u;
     v140 = 0u;
-    v141 = 0u;
     clinicalContacts2 = [self clinicalContacts];
-    v49 = [clinicalContacts2 countByEnumeratingWithState:&v138 objects:v149 count:16];
+    v49 = [clinicalContacts2 countByEnumeratingWithState:&v137 objects:v148 count:16];
     if (v49)
     {
       v50 = v49;
-      v51 = *v139;
+      v51 = *v138;
       do
       {
         v52 = 0;
         do
         {
-          if (*v139 != v51)
+          if (*v138 != v51)
           {
             objc_enumerationMutation(clinicalContacts2);
           }
 
-          codableRepresentationForSync4 = [*(*(&v138 + 1) + 8 * v52) codableRepresentationForSync];
+          codableRepresentationForSync4 = [*(*(&v137 + 1) + 8 * v52) codableRepresentationForSync];
           [v47 addObject:codableRepresentationForSync4];
 
           ++v52;
         }
 
         while (v50 != v52);
-        v50 = [clinicalContacts2 countByEnumeratingWithState:&v138 objects:v149 count:16];
+        v50 = [clinicalContacts2 countByEnumeratingWithState:&v137 objects:v148 count:16];
       }
 
       while (v50);
@@ -323,34 +324,34 @@
   if (v77)
   {
     v78 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v133 = 0u;
     v134 = 0u;
     v135 = 0u;
     v136 = 0u;
-    v137 = 0u;
     medicationsList2 = [self medicationsList];
-    v80 = [medicationsList2 countByEnumeratingWithState:&v134 objects:v148 count:16];
+    v80 = [medicationsList2 countByEnumeratingWithState:&v133 objects:v147 count:16];
     if (v80)
     {
       v81 = v80;
-      v82 = *v135;
+      v82 = *v134;
       do
       {
         v83 = 0;
         do
         {
-          if (*v135 != v82)
+          if (*v134 != v82)
           {
             objc_enumerationMutation(medicationsList2);
           }
 
-          codableRepresentationForSync5 = [*(*(&v134 + 1) + 8 * v83) codableRepresentationForSync];
+          codableRepresentationForSync5 = [*(*(&v133 + 1) + 8 * v83) codableRepresentationForSync];
           [v78 addObject:codableRepresentationForSync5];
 
           ++v83;
         }
 
         while (v81 != v83);
-        v81 = [medicationsList2 countByEnumeratingWithState:&v134 objects:v148 count:16];
+        v81 = [medicationsList2 countByEnumeratingWithState:&v133 objects:v147 count:16];
       }
 
       while (v81);
@@ -391,34 +392,34 @@
   if (v92)
   {
     v93 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v129 = 0u;
     v130 = 0u;
     v131 = 0u;
     v132 = 0u;
-    v133 = 0u;
     allergiesList2 = [self allergiesList];
-    v95 = [allergiesList2 countByEnumeratingWithState:&v130 objects:v147 count:16];
+    v95 = [allergiesList2 countByEnumeratingWithState:&v129 objects:v146 count:16];
     if (v95)
     {
       v96 = v95;
-      v97 = *v131;
+      v97 = *v130;
       do
       {
         v98 = 0;
         do
         {
-          if (*v131 != v97)
+          if (*v130 != v97)
           {
             objc_enumerationMutation(allergiesList2);
           }
 
-          codableRepresentationForSync6 = [*(*(&v130 + 1) + 8 * v98) codableRepresentationForSync];
+          codableRepresentationForSync6 = [*(*(&v129 + 1) + 8 * v98) codableRepresentationForSync];
           [v93 addObject:codableRepresentationForSync6];
 
           ++v98;
         }
 
         while (v96 != v98);
-        v96 = [allergiesList2 countByEnumeratingWithState:&v130 objects:v147 count:16];
+        v96 = [allergiesList2 countByEnumeratingWithState:&v129 objects:v146 count:16];
       }
 
       while (v96);
@@ -459,34 +460,34 @@
   if (v107)
   {
     v108 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v125 = 0u;
     v126 = 0u;
     v127 = 0u;
     v128 = 0u;
-    v129 = 0u;
     conditionsList2 = [self conditionsList];
-    v110 = [conditionsList2 countByEnumeratingWithState:&v126 objects:v146 count:16];
+    v110 = [conditionsList2 countByEnumeratingWithState:&v125 objects:v145 count:16];
     if (v110)
     {
       v111 = v110;
-      v112 = *v127;
+      v112 = *v126;
       do
       {
         v113 = 0;
         do
         {
-          if (*v127 != v112)
+          if (*v126 != v112)
           {
             objc_enumerationMutation(conditionsList2);
           }
 
-          codableRepresentationForSync7 = [*(*(&v126 + 1) + 8 * v113) codableRepresentationForSync];
+          codableRepresentationForSync7 = [*(*(&v125 + 1) + 8 * v113) codableRepresentationForSync];
           [v108 addObject:codableRepresentationForSync7];
 
           ++v113;
         }
 
         while (v111 != v113);
-        v111 = [conditionsList2 countByEnumeratingWithState:&v126 objects:v146 count:16];
+        v111 = [conditionsList2 countByEnumeratingWithState:&v125 objects:v145 count:16];
       }
 
       while (v111);
@@ -532,13 +533,12 @@
 
   v123 = v2;
 
-  v124 = *MEMORY[0x277D85DE8];
   return v2;
 }
 
 + (id)createWithCodable:()HDCodingSupport
 {
-  v127 = *MEMORY[0x277D85DE8];
+  v126 = *MEMORY[0x277D85DE8];
   v3 = a3;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
@@ -693,12 +693,12 @@
     if ([v4 hasIsOrganDonor])
     {
       v29 = [MEMORY[0x277CCABB0] numberWithLongLong:{objc_msgSend(v4, "isOrganDonor")}];
-      [v5 setIsOrganDonor:v29];
+      objc_msgSend_setIsOrganDonor_(v5);
     }
 
     else
     {
-      [v5 setIsOrganDonor:0];
+      objc_msgSend_setIsOrganDonor_(v5);
     }
 
     if ([v4 hasIsOrganDonorModifiedDate])
@@ -719,30 +719,30 @@
     if (v32)
     {
       v33 = objc_alloc_init(MEMORY[0x277CBEB18]);
+      v117 = 0u;
       v118 = 0u;
       v119 = 0u;
       v120 = 0u;
-      v121 = 0u;
       emergencyContacts2 = [v4 emergencyContacts];
-      v35 = [emergencyContacts2 countByEnumeratingWithState:&v118 objects:v126 count:16];
+      v35 = [emergencyContacts2 countByEnumeratingWithState:&v117 objects:v125 count:16];
       if (v35)
       {
         v36 = v35;
-        v37 = *v119;
+        v37 = *v118;
         do
         {
           for (i = 0; i != v36; ++i)
           {
-            if (*v119 != v37)
+            if (*v118 != v37)
             {
               objc_enumerationMutation(emergencyContacts2);
             }
 
-            v39 = [MEMORY[0x277CCDDA0] createWithCodable:*(*(&v118 + 1) + 8 * i)];
+            v39 = [MEMORY[0x277CCDDA0] createWithCodable:*(*(&v117 + 1) + 8 * i)];
             [v33 addObject:v39];
           }
 
-          v36 = [emergencyContacts2 countByEnumeratingWithState:&v118 objects:v126 count:16];
+          v36 = [emergencyContacts2 countByEnumeratingWithState:&v117 objects:v125 count:16];
         }
 
         while (v36);
@@ -769,30 +769,30 @@
     if (v42)
     {
       v43 = objc_alloc_init(MEMORY[0x277CBEB18]);
+      v113 = 0u;
       v114 = 0u;
       v115 = 0u;
       v116 = 0u;
-      v117 = 0u;
       clinicalContacts2 = [v4 clinicalContacts];
-      v45 = [clinicalContacts2 countByEnumeratingWithState:&v114 objects:v125 count:16];
+      v45 = [clinicalContacts2 countByEnumeratingWithState:&v113 objects:v124 count:16];
       if (v45)
       {
         v46 = v45;
-        v47 = *v115;
+        v47 = *v114;
         do
         {
           for (j = 0; j != v46; ++j)
           {
-            if (*v115 != v47)
+            if (*v114 != v47)
             {
               objc_enumerationMutation(clinicalContacts2);
             }
 
-            v49 = [MEMORY[0x277CCDD40] createWithCodable:*(*(&v114 + 1) + 8 * j)];
+            v49 = [MEMORY[0x277CCDD40] createWithCodable:*(*(&v113 + 1) + 8 * j)];
             [v43 addObject:v49];
           }
 
-          v46 = [clinicalContacts2 countByEnumeratingWithState:&v114 objects:v125 count:16];
+          v46 = [clinicalContacts2 countByEnumeratingWithState:&v113 objects:v124 count:16];
         }
 
         while (v46);
@@ -927,30 +927,30 @@
     if (v64)
     {
       v65 = objc_alloc_init(MEMORY[0x277CBEB18]);
+      v109 = 0u;
       v110 = 0u;
       v111 = 0u;
       v112 = 0u;
-      v113 = 0u;
       medicationsLists2 = [v4 medicationsLists];
-      v67 = [medicationsLists2 countByEnumeratingWithState:&v110 objects:v124 count:16];
+      v67 = [medicationsLists2 countByEnumeratingWithState:&v109 objects:v123 count:16];
       if (v67)
       {
         v68 = v67;
-        v69 = *v111;
+        v69 = *v110;
         do
         {
           for (k = 0; k != v68; ++k)
           {
-            if (*v111 != v69)
+            if (*v110 != v69)
             {
               objc_enumerationMutation(medicationsLists2);
             }
 
-            v71 = [MEMORY[0x277CCDDF8] createWithCodable:*(*(&v110 + 1) + 8 * k)];
+            v71 = [MEMORY[0x277CCDDF8] createWithCodable:*(*(&v109 + 1) + 8 * k)];
             [v65 addObject:v71];
           }
 
-          v68 = [medicationsLists2 countByEnumeratingWithState:&v110 objects:v124 count:16];
+          v68 = [medicationsLists2 countByEnumeratingWithState:&v109 objects:v123 count:16];
         }
 
         while (v68);
@@ -1000,30 +1000,30 @@
     if (v76)
     {
       v77 = objc_alloc_init(MEMORY[0x277CBEB18]);
+      v105 = 0u;
       v106 = 0u;
       v107 = 0u;
       v108 = 0u;
-      v109 = 0u;
       allergiesLists2 = [v4 allergiesLists];
-      v79 = [allergiesLists2 countByEnumeratingWithState:&v106 objects:v123 count:16];
+      v79 = [allergiesLists2 countByEnumeratingWithState:&v105 objects:v122 count:16];
       if (v79)
       {
         v80 = v79;
-        v81 = *v107;
+        v81 = *v106;
         do
         {
           for (m = 0; m != v80; ++m)
           {
-            if (*v107 != v81)
+            if (*v106 != v81)
             {
               objc_enumerationMutation(allergiesLists2);
             }
 
-            v83 = [MEMORY[0x277CCDDE0] createWithCodable:*(*(&v106 + 1) + 8 * m)];
+            v83 = [MEMORY[0x277CCDDE0] createWithCodable:*(*(&v105 + 1) + 8 * m)];
             [v77 addObject:v83];
           }
 
-          v80 = [allergiesLists2 countByEnumeratingWithState:&v106 objects:v123 count:16];
+          v80 = [allergiesLists2 countByEnumeratingWithState:&v105 objects:v122 count:16];
         }
 
         while (v80);
@@ -1073,30 +1073,30 @@
     if (v88)
     {
       v89 = objc_alloc_init(MEMORY[0x277CBEB18]);
+      v101 = 0u;
       v102 = 0u;
       v103 = 0u;
       v104 = 0u;
-      v105 = 0u;
       conditionsLists2 = [v4 conditionsLists];
-      v91 = [conditionsLists2 countByEnumeratingWithState:&v102 objects:v122 count:16];
+      v91 = [conditionsLists2 countByEnumeratingWithState:&v101 objects:v121 count:16];
       if (v91)
       {
         v92 = v91;
-        v93 = *v103;
+        v93 = *v102;
         do
         {
           for (n = 0; n != v92; ++n)
           {
-            if (*v103 != v93)
+            if (*v102 != v93)
             {
               objc_enumerationMutation(conditionsLists2);
             }
 
-            v95 = [MEMORY[0x277CCDDE8] createWithCodable:*(*(&v102 + 1) + 8 * n)];
+            v95 = [MEMORY[0x277CCDDE8] createWithCodable:*(*(&v101 + 1) + 8 * n)];
             [v89 addObject:v95];
           }
 
-          v92 = [conditionsLists2 countByEnumeratingWithState:&v102 objects:v122 count:16];
+          v92 = [conditionsLists2 countByEnumeratingWithState:&v101 objects:v121 count:16];
         }
 
         while (v92);
@@ -1159,8 +1159,6 @@
   {
     v7 = 0;
   }
-
-  v100 = *MEMORY[0x277D85DE8];
 
   return v7;
 }

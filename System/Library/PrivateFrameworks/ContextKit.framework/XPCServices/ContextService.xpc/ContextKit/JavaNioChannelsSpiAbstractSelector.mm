@@ -54,7 +54,7 @@
 
 - (void)begin
 {
-  v3 = JavaLangThread_currentThread();
+  v3 = JavaLangThread_currentThread(self, a2);
   if (!v3)
   {
     JreThrowNullPointerException();
@@ -67,7 +67,7 @@
 
 - (void)end
 {
-  v3 = JavaLangThread_currentThread();
+  v3 = JavaLangThread_currentThread(self, a2);
   if (!v3)
   {
     JreThrowNullPointerException();

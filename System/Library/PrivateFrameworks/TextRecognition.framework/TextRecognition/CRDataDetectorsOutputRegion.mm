@@ -12,7 +12,7 @@
 
 - (CRDataDetectorsOutputRegion)initWithDataType:(unint64_t)type ddResult:(id)result children:(id)children locale:(id)locale
 {
-  sub_1B40E27B4(0, &qword_1ED95EE70);
+  sub_1B40E27B4(0, &qword_1ED95EE70, off_1E7BC1008);
   v9 = sub_1B429FDF8();
   if (locale)
   {
@@ -30,7 +30,7 @@
 
 - (CRDataDetectorsOutputRegion)initWithDataDetectorsResult:(id)result children:(id)children locale:(id)locale originalString:(id)string ddFriendlyString:(id)friendlyString matchToOriginalIndexMapping:(id)mapping
 {
-  sub_1B40E27B4(0, &qword_1ED95EE70);
+  sub_1B40E27B4(0, &qword_1ED95EE70, off_1E7BC1008);
   v10 = sub_1B429FDF8();
   if (locale)
   {
@@ -43,11 +43,13 @@
     v12 = 0;
   }
 
-  sub_1B429FB98();
-  sub_1B429FB98();
-  sub_1B40E27B4(0, &qword_1ED95EE90);
-  sub_1B429FDF8();
-  return sub_1B40EE40C(result, v10, locale, v12);
+  v13 = sub_1B429FB98();
+  v15 = v14;
+  v16 = sub_1B429FB98();
+  v18 = v17;
+  sub_1B40E27B4(0, &qword_1ED95EE90, 0x1E696AD98);
+  v19 = sub_1B429FDF8();
+  return sub_1B40EE40C(result, v10, locale, v12, v13, v15, v16, v18, v19);
 }
 
 - (NSString)debugDescription

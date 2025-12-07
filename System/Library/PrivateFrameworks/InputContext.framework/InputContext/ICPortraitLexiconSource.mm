@@ -3,15 +3,15 @@
 
 @implementation ICPortraitLexiconSource
 
-uint64_t __51___ICPortraitLexiconSource__makePPNamedEntityStore__block_invoke()
+uint64_t __51___ICPortraitLexiconSource__makePPNamedEntityStore__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_new();
-  v1 = _makePPNamedEntityStore_store;
-  _makePPNamedEntityStore_store = v0;
+  v2 = objc_opt_new();
+  v3 = _makePPNamedEntityStore_store;
+  _makePPNamedEntityStore_store = v2;
 
-  v2 = _makePPNamedEntityStore_store;
+  v4 = _makePPNamedEntityStore_store;
 
-  return [v2 setClientIdentifier:@"ICLex"];
+  return [v4 setClientIdentifier:@"ICLex"];
 }
 
 uint64_t __48___ICPortraitLexiconSource__makeContactDelegate__block_invoke(uint64_t a1)

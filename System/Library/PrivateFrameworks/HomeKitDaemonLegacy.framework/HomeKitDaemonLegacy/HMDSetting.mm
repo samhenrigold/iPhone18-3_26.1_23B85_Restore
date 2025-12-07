@@ -21,7 +21,7 @@
 
 - (void)encodeWithCoder:(id)coder
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   coderCopy = coder;
   if ([coderCopy hmd_isForXPCTransport])
   {
@@ -55,15 +55,13 @@
     if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       v15 = HMFGetLogIdentifier();
-      v17 = 138543362;
-      v18 = v15;
-      _os_log_impl(&dword_2531F8000, v14, OS_LOG_TYPE_ERROR, "%{public}@Did not encode setting as transport is not XPC.", &v17, 0xCu);
+      v16 = 138543362;
+      v17 = v15;
+      _os_log_impl(&dword_2531F8000, v14, OS_LOG_TYPE_ERROR, "%{public}@Did not encode setting as transport is not XPC.", &v16, 0xCu);
     }
 
     objc_autoreleasePoolPop(v12);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (HMDSetting)initWithCoder:(id)coder
@@ -82,29 +80,29 @@
 
 - (id)constraintsByKeyPathWithCurrentKeyPath:(id)path
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   pathCopy = path;
   dictionary = [MEMORY[0x277CBEB38] dictionary];
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   obj = [(HMDSetting *)self constraints];
-  v6 = [obj countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v6 = [obj countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v19;
+    v8 = *v18;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v19 != v8)
+        if (*v18 != v8)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = *(*(&v18 + 1) + 8 * i);
+        v10 = *(*(&v17 + 1) + 8 * i);
         v11 = MEMORY[0x277CCACA8];
         name = [v10 name];
         v13 = [v11 stringWithFormat:@"%@.%@", pathCopy, name];
@@ -112,14 +110,13 @@
         [dictionary setValue:v10 forKey:v13];
       }
 
-      v7 = [obj countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v7 = [obj countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v7);
   }
 
-  v14 = [dictionary copy];
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = objc_msgSend_copy(dictionary);
 
   return v14;
 }
@@ -135,7 +132,7 @@
 
 - (BOOL)isValidValue:(id)value error:(id *)error
 {
-  v117 = *MEMORY[0x277D85DE8];
+  v116 = *MEMORY[0x277D85DE8];
   valueCopy = value;
   selfCopy = self;
   v8 = valueCopy;
@@ -162,9 +159,9 @@
           v56 = selfCopy;
           v57 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(v8, "type")}];
           *buf = 138543618;
-          v106 = v55;
-          v107 = 2112;
-          v108 = v57;
+          v105 = v55;
+          v106 = 2112;
+          v107 = v57;
           v58 = "%{public}@Unexpected value type: %@ expected string";
 LABEL_66:
           _os_log_impl(&dword_2531F8000, v54, OS_LOG_TYPE_INFO, v58, buf, 0x16u);
@@ -187,11 +184,11 @@ LABEL_66:
         {
           v55 = HMFGetLogIdentifier();
           *buf = 138543618;
-          v106 = v55;
-          v107 = 2112;
-          v108 = objc_opt_class();
+          v105 = v55;
+          v106 = 2112;
+          v107 = objc_opt_class();
           v56 = selfCopy;
-          v57 = v108;
+          v57 = v107;
           v58 = "%{public}@Unexpected value class: %@";
           goto LABEL_66;
         }
@@ -205,7 +202,7 @@ LABEL_66:
         {
           v15 = HMFGetLogIdentifier();
           *buf = 138543362;
-          v106 = v15;
+          v105 = v15;
           _os_log_impl(&dword_2531F8000, v14, OS_LOG_TYPE_INFO, "%{public}@Value cannot be used for collection.", buf, 0xCu);
         }
 
@@ -246,9 +243,9 @@ LABEL_67:
       v56 = selfCopy;
       v57 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(v8, "type")}];
       *buf = 138543618;
-      v106 = v55;
-      v107 = 2112;
-      v108 = v57;
+      v105 = v55;
+      v106 = 2112;
+      v107 = v57;
       v58 = "%{public}@Unexpected value type: %@ expected data";
       goto LABEL_66;
     }
@@ -275,38 +272,38 @@ LABEL_67:
     v56 = selfCopy;
     v57 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(v8, "type")}];
     *buf = 138543618;
-    v106 = v55;
-    v107 = 2112;
-    v108 = v57;
+    v105 = v55;
+    v106 = 2112;
+    v107 = v57;
     v58 = "%{public}@Unexpected value class: %@ expected number";
     goto LABEL_66;
   }
 
   errorCopy = error;
-  v103 = 0u;
-  v104 = 0u;
-  v101 = 0u;
   v102 = 0u;
+  v103 = 0u;
+  v100 = 0u;
+  v101 = 0u;
   obj = [(HMDSetting *)selfCopy constraints];
-  v16 = [obj countByEnumeratingWithState:&v101 objects:buf count:16];
+  v16 = [obj countByEnumeratingWithState:&v100 objects:buf count:16];
   if (!v16)
   {
     goto LABEL_53;
   }
 
   v17 = v16;
-  context = *v102;
-  v94 = v8;
+  context = *v101;
+  v93 = v8;
   while (2)
   {
     for (i = 0; i != v17; ++i)
     {
-      if (*v102 != context)
+      if (*v101 != context)
       {
         objc_enumerationMutation(obj);
       }
 
-      v19 = *(*(&v101 + 1) + 8 * i);
+      v19 = *(*(&v100 + 1) + 8 * i);
       numberValue = [v8 numberValue];
       v21 = selfCopy;
       v22 = numberValue;
@@ -323,7 +320,7 @@ LABEL_67:
         v25 = 0;
       }
 
-      v100 = v25;
+      v99 = v25;
 
       type2 = [v23 type];
       integerValue2 = [type2 integerValue];
@@ -347,7 +344,7 @@ LABEL_67:
 
           if (v35)
           {
-            v31 = v100;
+            v31 = v99;
             if (!v22)
             {
               v64 = objc_autoreleasePoolPush();
@@ -358,24 +355,24 @@ LABEL_67:
                 HMFGetLogIdentifier();
                 v68 = v67 = selfCopy;
                 value3 = [v23 value];
-                *v109 = 138543618;
-                v110 = v68;
-                v111 = 2112;
-                v112 = value3;
-                _os_log_impl(&dword_2531F8000, v66, OS_LOG_TYPE_DEFAULT, "%{public}@Value is nil but have step value constraint: %@", v109, 0x16u);
+                *v108 = 138543618;
+                v109 = v68;
+                v110 = 2112;
+                v111 = value3;
+                _os_log_impl(&dword_2531F8000, v66, OS_LOG_TYPE_DEFAULT, "%{public}@Value is nil but have step value constraint: %@", v108, 0x16u);
 
                 selfCopy = v67;
               }
 
               objc_autoreleasePoolPop(v64);
               v22 = 0;
-              v31 = v100;
+              v31 = v99;
               goto LABEL_97;
             }
 
             [v22 doubleValue];
             v37 = v36;
-            [v100 doubleValue];
+            [v99 doubleValue];
             v39 = vabdd_f64(v37, v38);
             [v35 doubleValue];
             v41 = fmod(v39, v40);
@@ -390,17 +387,17 @@ LABEL_67:
                 if (os_log_type_enabled(v88, OS_LOG_TYPE_DEFAULT))
                 {
                   v90 = HMFGetLogIdentifier();
-                  *v109 = 138544130;
-                  v110 = v90;
-                  v111 = 2112;
-                  v112 = v22;
-                  v113 = 2112;
-                  v114 = v35;
-                  v115 = 2112;
-                  v116 = v100;
-                  _os_log_impl(&dword_2531F8000, v88, OS_LOG_TYPE_DEFAULT, "%{public}@Value, %@, does not conform to step, %@, from current value: %@", v109, 0x2Au);
+                  *v108 = 138544130;
+                  v109 = v90;
+                  v110 = 2112;
+                  v111 = v22;
+                  v112 = 2112;
+                  v113 = v35;
+                  v114 = 2112;
+                  v115 = v99;
+                  _os_log_impl(&dword_2531F8000, v88, OS_LOG_TYPE_DEFAULT, "%{public}@Value, %@, does not conform to step, %@, from current value: %@", v108, 0x2Au);
 
-                  v31 = v100;
+                  v31 = v99;
                 }
 
                 objc_autoreleasePoolPop(contextc);
@@ -426,7 +423,7 @@ LABEL_98:
           else
           {
             value2 = 0;
-            v31 = v100;
+            v31 = v99;
           }
 
           break;
@@ -455,17 +452,17 @@ LABEL_98:
               v46 = HMFGetLogIdentifier();
               [v23 value];
               v48 = v47 = selfCopy;
-              *v109 = 138543618;
-              v110 = v46;
-              v111 = 2112;
-              v112 = v48;
+              *v108 = 138543618;
+              v109 = v46;
+              v110 = 2112;
+              v111 = v48;
               v49 = v45;
               v50 = "%{public}@Invalid maximum constraint value: %@";
               goto LABEL_48;
             }
 
 LABEL_49:
-            v31 = v100;
+            v31 = v99;
 
             objc_autoreleasePoolPop(v43);
             value2 = 0;
@@ -480,12 +477,12 @@ LABEL_49:
             if (os_log_type_enabled(v72, OS_LOG_TYPE_DEFAULT))
             {
               v73 = HMFGetLogIdentifier();
-              *v109 = 138543874;
-              v110 = v73;
-              v111 = 2112;
-              v112 = 0;
-              v113 = 2112;
-              v114 = v33;
+              *v108 = 138543874;
+              v109 = v73;
+              v110 = 2112;
+              v111 = 0;
+              v112 = 2112;
+              v113 = v33;
               v74 = "%{public}@Value is %@, but have maximum value constraint: %@";
               goto LABEL_79;
             }
@@ -494,7 +491,7 @@ LABEL_80:
 
             objc_autoreleasePoolPop(v70);
             v75 = errorCopy;
-            v31 = v100;
+            v31 = v99;
             if (errorCopy)
             {
               v76 = [MEMORY[0x277CCA9B8] hmErrorWithCode:44];
@@ -506,7 +503,7 @@ LABEL_80:
             goto LABEL_97;
           }
 
-          v31 = v100;
+          v31 = v99;
           if ([v22 compare:v33] == 1)
           {
             contextb = objc_autoreleasePoolPush();
@@ -515,15 +512,15 @@ LABEL_80:
             if (os_log_type_enabled(v78, OS_LOG_TYPE_DEFAULT))
             {
               v80 = HMFGetLogIdentifier();
-              *v109 = 138543874;
-              v110 = v80;
-              v111 = 2112;
-              v112 = v22;
-              v113 = 2112;
-              v114 = v33;
-              _os_log_impl(&dword_2531F8000, v78, OS_LOG_TYPE_DEFAULT, "%{public}@Value, %@, more than maximum value: %@", v109, 0x20u);
+              *v108 = 138543874;
+              v109 = v80;
+              v110 = 2112;
+              v111 = v22;
+              v112 = 2112;
+              v113 = v33;
+              _os_log_impl(&dword_2531F8000, v78, OS_LOG_TYPE_DEFAULT, "%{public}@Value, %@, more than maximum value: %@", v108, 0x20u);
 
-              v31 = v100;
+              v31 = v99;
             }
 
             objc_autoreleasePoolPop(contextb);
@@ -564,17 +561,17 @@ LABEL_80:
               v46 = HMFGetLogIdentifier();
               [v23 value];
               v48 = v47 = selfCopy;
-              *v109 = 138543618;
-              v110 = v46;
-              v111 = 2112;
-              v112 = v48;
+              *v108 = 138543618;
+              v109 = v46;
+              v110 = 2112;
+              v111 = v48;
               v49 = v45;
               v50 = "%{public}@Invalid minimum constraint value: %@";
 LABEL_48:
-              _os_log_impl(&dword_2531F8000, v49, OS_LOG_TYPE_DEFAULT, v50, v109, 0x16u);
+              _os_log_impl(&dword_2531F8000, v49, OS_LOG_TYPE_DEFAULT, v50, v108, 0x16u);
 
               selfCopy = v47;
-              v8 = v94;
+              v8 = v93;
             }
 
             goto LABEL_49;
@@ -588,21 +585,21 @@ LABEL_48:
             if (os_log_type_enabled(v72, OS_LOG_TYPE_DEFAULT))
             {
               v73 = HMFGetLogIdentifier();
-              *v109 = 138543874;
-              v110 = v73;
-              v111 = 2112;
-              v112 = 0;
-              v113 = 2112;
-              v114 = v30;
+              *v108 = 138543874;
+              v109 = v73;
+              v110 = 2112;
+              v111 = 0;
+              v112 = 2112;
+              v113 = v30;
               v74 = "%{public}@Value is %@, but have minimum value constraint: %@";
 LABEL_79:
-              _os_log_impl(&dword_2531F8000, v72, OS_LOG_TYPE_DEFAULT, v74, v109, 0x20u);
+              _os_log_impl(&dword_2531F8000, v72, OS_LOG_TYPE_DEFAULT, v74, v108, 0x20u);
             }
 
             goto LABEL_80;
           }
 
-          v31 = v100;
+          v31 = v99;
           if ([v22 compare:v30] == -1)
           {
             contexta = objc_autoreleasePoolPush();
@@ -611,15 +608,15 @@ LABEL_79:
             if (os_log_type_enabled(v84, OS_LOG_TYPE_DEFAULT))
             {
               v86 = HMFGetLogIdentifier();
-              *v109 = 138543874;
-              v110 = v86;
-              v111 = 2112;
-              v112 = v22;
-              v113 = 2112;
-              v114 = v30;
-              _os_log_impl(&dword_2531F8000, v84, OS_LOG_TYPE_DEFAULT, "%{public}@Value, %@, less than minimum value: %@", v109, 0x20u);
+              *v108 = 138543874;
+              v109 = v86;
+              v110 = 2112;
+              v111 = v22;
+              v112 = 2112;
+              v113 = v30;
+              _os_log_impl(&dword_2531F8000, v84, OS_LOG_TYPE_DEFAULT, "%{public}@Value, %@, less than minimum value: %@", v108, 0x20u);
 
-              v31 = v100;
+              v31 = v99;
             }
 
             objc_autoreleasePoolPop(contexta);
@@ -643,22 +640,22 @@ LABEL_79:
           {
             HMFGetLogIdentifier();
             v63 = v62 = selfCopy;
-            *v109 = 138543618;
-            v110 = v63;
-            v111 = 2112;
-            v112 = v22;
-            _os_log_impl(&dword_2531F8000, v61, OS_LOG_TYPE_ERROR, "%{public}@Did not understand value %@", v109, 0x16u);
+            *v108 = 138543618;
+            v109 = v63;
+            v110 = 2112;
+            v111 = v22;
+            _os_log_impl(&dword_2531F8000, v61, OS_LOG_TYPE_ERROR, "%{public}@Did not understand value %@", v108, 0x16u);
 
             selfCopy = v62;
           }
 
           objc_autoreleasePoolPop(v59);
-          v31 = v100;
+          v31 = v99;
           goto LABEL_98;
       }
     }
 
-    v17 = [obj countByEnumeratingWithState:&v101 objects:buf count:16];
+    v17 = [obj countByEnumeratingWithState:&v100 objects:buf count:16];
     if (v17)
     {
       continue;
@@ -673,7 +670,6 @@ LABEL_61:
   v11 = 1;
 LABEL_100:
 
-  v91 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
@@ -690,7 +686,7 @@ LABEL_100:
 
 - (BOOL)updateWithSettingValue:(id)value
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   valueCopy = value;
   if (![(HMDSetting *)self isValidValue:valueCopy error:0])
   {
@@ -700,11 +696,11 @@ LABEL_100:
     if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       v15 = HMFGetLogIdentifier();
-      v18 = 138543618;
-      v19 = v15;
-      v20 = 2112;
-      v21 = valueCopy;
-      _os_log_impl(&dword_2531F8000, v14, OS_LOG_TYPE_ERROR, "%{public}@Received value is not valid %@", &v18, 0x16u);
+      v17 = 138543618;
+      v18 = v15;
+      v19 = 2112;
+      v20 = valueCopy;
+      _os_log_impl(&dword_2531F8000, v14, OS_LOG_TYPE_ERROR, "%{public}@Received value is not valid %@", &v17, 0x16u);
     }
 
     objc_autoreleasePoolPop(v12);
@@ -726,15 +722,15 @@ LABEL_9:
     v8 = HMFGetLogIdentifier();
     name = [(HMDSetting *)selfCopy2 name];
     internalValue = [(HMDSetting *)selfCopy2 internalValue];
-    v18 = 138544130;
-    v19 = v8;
-    v20 = 2112;
-    v21 = name;
-    v22 = 2112;
-    v23 = internalValue;
-    v24 = 2112;
-    v25 = valueCopy;
-    _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_INFO, "%{public}@Updating setting %@ in transaction from %@ to %@", &v18, 0x2Au);
+    v17 = 138544130;
+    v18 = v8;
+    v19 = 2112;
+    v20 = name;
+    v21 = 2112;
+    v22 = internalValue;
+    v23 = 2112;
+    v24 = valueCopy;
+    _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_INFO, "%{public}@Updating setting %@ in transaction from %@ to %@", &v17, 0x2Au);
   }
 
   objc_autoreleasePoolPop(v5);
@@ -742,7 +738,6 @@ LABEL_9:
   v11 = 1;
 LABEL_10:
 
-  v16 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
@@ -768,7 +763,7 @@ LABEL_10:
 - (NSArray)constraints
 {
   os_unfair_lock_lock_with_options();
-  v3 = [(NSMutableArray *)self->_constraints copy];
+  v3 = objc_msgSend_copy(self->_constraints);
   os_unfair_lock_unlock(&self->_lock);
 
   return v3;
@@ -845,28 +840,28 @@ LABEL_11:
   v22 = [(HMDSetting *)&v38 init];
   if (v22)
   {
-    v23 = [identifierCopy copy];
+    v23 = objc_msgSend_copy(identifierCopy);
     identifier = v22->_identifier;
     v22->_identifier = v23;
 
-    v25 = [parentIdentifierCopy copy];
+    v25 = objc_msgSend_copy(parentIdentifierCopy);
     parentIdentifier = v22->_parentIdentifier;
     v22->_parentIdentifier = v25;
 
-    v27 = [nameCopy copy];
+    v27 = objc_msgSend_copy(nameCopy);
     name = v22->_name;
     v22->_name = v27;
 
-    v29 = [nameCopy copy];
+    v29 = objc_msgSend_copy(nameCopy);
     keyPath = v22->_keyPath;
     v22->_keyPath = v29;
 
-    v31 = [typeCopy copy];
+    v31 = objc_msgSend_copy(typeCopy);
     type = v22->_type;
     v22->_type = v31;
 
     objc_storeStrong(&v22->_internalValue, value);
-    v33 = [propertiesCopy copy];
+    v33 = objc_msgSend_copy(propertiesCopy);
     properties = v22->_properties;
     v22->_properties = v33;
 
@@ -906,15 +901,16 @@ LABEL_11:
 
 uint64_t __25__HMDSetting_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  logCategory__hmf_once_v8 = HMFCreateOSLogHandle();
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v8;
+  logCategory__hmf_once_v8 = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 + (id)settingValueWithModel:(id)model
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   modelCopy = model;
   type = [modelCopy type];
   integerValue = [type integerValue];
@@ -945,13 +941,13 @@ LABEL_8:
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       v13 = HMFGetLogIdentifier();
-      v17 = 138543874;
-      v18 = v13;
-      v19 = 2112;
-      v20 = modelCopy;
-      v21 = 2112;
-      v22 = type;
-      _os_log_impl(&dword_2531F8000, v12, OS_LOG_TYPE_ERROR, "%{public}@Unable to determine type of setting value for model %@ of type %@.", &v17, 0x20u);
+      v16 = 138543874;
+      v17 = v13;
+      v18 = 2112;
+      v19 = modelCopy;
+      v20 = 2112;
+      v21 = type;
+      _os_log_impl(&dword_2531F8000, v12, OS_LOG_TYPE_ERROR, "%{public}@Unable to determine type of setting value for model %@ of type %@.", &v16, 0x20u);
     }
 
     objc_autoreleasePoolPop(v11);
@@ -983,8 +979,6 @@ LABEL_15:
   stringValue = 0;
 LABEL_16:
   v14 = [objc_alloc(MEMORY[0x277CD1DD0]) initWithType:objc_msgSend(type stringValue:"integerValue") numberValue:stringValue dataValue:numberValue selectionIdentifier:dataValue selectionValue:{selectionIdentifier, selectionValue}];
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v14;
 }

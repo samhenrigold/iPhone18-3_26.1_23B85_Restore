@@ -10,13 +10,11 @@
 
 + (NSString)bundleIdentifier
 {
-  v2 = sub_903C();
-  v3 = *v2;
-  v4 = *(v2 + 1);
+  sub_903C();
 
-  v5 = sub_99CC();
+  v2 = sub_99CC();
 
-  return v5;
+  return v2;
 }
 
 - (NSArray)supportedSections
@@ -62,7 +60,7 @@
 
   selfCopy = self;
   sub_3A64(v6, v8, v5, v9);
-  sub_1D64(v5);
+  sub_1D64(v5, v9);
 }
 
 @end

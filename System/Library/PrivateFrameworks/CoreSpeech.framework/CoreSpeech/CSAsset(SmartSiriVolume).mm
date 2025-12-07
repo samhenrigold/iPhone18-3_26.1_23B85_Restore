@@ -127,157 +127,140 @@
 
 - (id)SSVParameterDirectionary
 {
-  v52[27] = *MEMORY[0x277D85DE8];
-  v51[0] = @"noiseLevelChannelBitset";
-  v50 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:{objc_msgSend(self, "SSVNoiseLevelChannelBitset")}];
-  v52[0] = v50;
-  v51[1] = @"LKFSChannelBitset";
-  v49 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:{objc_msgSend(self, "SSVLKFSChannelBitset")}];
-  v52[1] = v49;
-  v51[2] = @"energyBufferSize";
-  v48 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:{objc_msgSend(self, "SSVEnergyBufferSize")}];
-  v52[2] = v48;
-  v51[3] = @"noiseLowerPercentile";
-  v47 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:{objc_msgSend(self, "SSVNoiseLowerPercentile")}];
-  v52[3] = v47;
-  v51[4] = @"noiseUpperPercentile";
-  v46 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:{objc_msgSend(self, "SSVNoiseUpperPercentile")}];
-  v52[4] = v46;
-  v51[5] = @"LKFSLowerPercentile";
-  v45 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:{objc_msgSend(self, "SSVLKFSLowerPercentile")}];
-  v52[5] = v45;
-  v51[6] = @"LKFSUpperPercentile";
-  v44 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:{objc_msgSend(self, "SSVLKFSUpperPercentile")}];
-  v52[6] = v44;
-  v51[7] = @"noiseTimeConstant";
+  v51[27] = *MEMORY[0x277D85DE8];
+  v50[0] = @"noiseLevelChannelBitset";
+  v49 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:{objc_msgSend(self, "SSVNoiseLevelChannelBitset")}];
+  v51[0] = v49;
+  v50[1] = @"LKFSChannelBitset";
+  v48 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:{objc_msgSend(self, "SSVLKFSChannelBitset")}];
+  v51[1] = v48;
+  v50[2] = @"energyBufferSize";
+  v47 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:{objc_msgSend(self, "SSVEnergyBufferSize")}];
+  v51[2] = v47;
+  v50[3] = @"noiseLowerPercentile";
+  v46 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:{objc_msgSend(self, "SSVNoiseLowerPercentile")}];
+  v51[3] = v46;
+  v50[4] = @"noiseUpperPercentile";
+  v45 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:{objc_msgSend(self, "SSVNoiseUpperPercentile")}];
+  v51[4] = v45;
+  v50[5] = @"LKFSLowerPercentile";
+  v44 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:{objc_msgSend(self, "SSVLKFSLowerPercentile")}];
+  v51[5] = v44;
+  v50[6] = @"LKFSUpperPercentile";
+  v43 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:{objc_msgSend(self, "SSVLKFSUpperPercentile")}];
+  v51[6] = v43;
+  v50[7] = @"noiseTimeConstant";
   v2 = MEMORY[0x277CCABB0];
   [self SSVNoiseTimeConstant];
-  v43 = [v2 numberWithFloat:?];
-  v52[7] = v43;
-  v51[8] = @"noiseMicSensitivityOffset";
+  v42 = [v2 numberWithFloat:?];
+  v51[7] = v42;
+  v50[8] = @"noiseMicSensitivityOffset";
   v3 = MEMORY[0x277CCABB0];
   [self SSVNoiseMicSensitivityOffset];
-  v42 = [v3 numberWithFloat:?];
-  v52[8] = v42;
-  v51[9] = @"LKFSTimeConstant";
+  v41 = [v3 numberWithFloat:?];
+  v51[8] = v41;
+  v50[9] = @"LKFSTimeConstant";
   v4 = MEMORY[0x277CCABB0];
   [self SSVLKFSTimeConstant];
-  v41 = [v4 numberWithFloat:?];
-  v52[9] = v41;
-  v51[10] = @"LKFSMicSensitivityOffset";
+  v40 = [v4 numberWithFloat:?];
+  v51[9] = v40;
+  v50[10] = @"LKFSMicSensitivityOffset";
   v5 = MEMORY[0x277CCABB0];
   [self SSVLKFSMicSensitivityOffset];
-  v40 = [v5 numberWithFloat:?];
-  v52[10] = v40;
-  v51[11] = @"noiseTTSMappingInputRangeLow";
+  v39 = [v5 numberWithFloat:?];
+  v51[10] = v39;
+  v50[11] = @"noiseTTSMappingInputRangeLow";
   v6 = MEMORY[0x277CCABB0];
   [self SSVNoiseTTSMappingInputRangeLow];
-  v39 = [v6 numberWithFloat:?];
-  v52[11] = v39;
-  v51[12] = @"noiseTTSMappingInputRangeHigh";
+  v38 = [v6 numberWithFloat:?];
+  v51[11] = v38;
+  v50[12] = @"noiseTTSMappingInputRangeHigh";
   v7 = MEMORY[0x277CCABB0];
   [self SSVNoiseTTSMappingInputRangeHigh];
-  v38 = [v7 numberWithFloat:?];
-  v52[12] = v38;
-  v51[13] = @"noiseTTSMappingOutputRangeLow";
+  v37 = [v7 numberWithFloat:?];
+  v51[12] = v37;
+  v50[13] = @"noiseTTSMappingOutputRangeLow";
   v8 = MEMORY[0x277CCABB0];
   [self SSVNoiseTTSMappingOutputRangeLow];
-  v37 = [v8 numberWithFloat:?];
-  v52[13] = v37;
-  v51[14] = @"noiseTTSMappingOutputRangeHigh";
+  v36 = [v8 numberWithFloat:?];
+  v51[13] = v36;
+  v50[14] = @"noiseTTSMappingOutputRangeHigh";
   v9 = MEMORY[0x277CCABB0];
   [self SSVNoiseTTSMappingOutputRangeHigh];
-  v36 = [v9 numberWithFloat:?];
-  v52[14] = v36;
-  v51[15] = @"LKFSTTSMappingInputRangeLow";
+  v35 = [v9 numberWithFloat:?];
+  v51[14] = v35;
+  v50[15] = @"LKFSTTSMappingInputRangeLow";
   v10 = MEMORY[0x277CCABB0];
   [self SSVLKFSTTSMappingInputRangeLow];
-  v35 = [v10 numberWithFloat:?];
-  v52[15] = v35;
-  v51[16] = @"LKFSTTSMappingInputRangeHigh";
+  v34 = [v10 numberWithFloat:?];
+  v51[15] = v34;
+  v50[16] = @"LKFSTTSMappingInputRangeHigh";
   v11 = MEMORY[0x277CCABB0];
   [self SSVLKFSTTSMappingInputRangeHigh];
-  v34 = [v11 numberWithFloat:?];
-  v52[16] = v34;
-  v51[17] = @"LKFSTTSMappingOutputRangeLow";
+  v33 = [v11 numberWithFloat:?];
+  v51[16] = v33;
+  v50[17] = @"LKFSTTSMappingOutputRangeLow";
   v12 = MEMORY[0x277CCABB0];
   [self SSVLKFSTTSMappingOutputRangeLow];
-  v33 = [v12 numberWithFloat:?];
-  v52[17] = v33;
-  v51[18] = @"LKFSTTSMappingOutputRangeHigh";
+  v32 = [v12 numberWithFloat:?];
+  v51[17] = v32;
+  v50[18] = @"LKFSTTSMappingOutputRangeHigh";
   v13 = MEMORY[0x277CCABB0];
   [self SSVLKFSTTSMappingOutputRangeHigh];
   v14 = [v13 numberWithFloat:?];
-  v52[18] = v14;
-  v51[19] = @"userOffsetInputRangeLow";
+  v51[18] = v14;
+  v50[19] = @"userOffsetInputRangeLow";
   v15 = MEMORY[0x277CCABB0];
   [self SSVUserOffsetInputRangeLow];
   v16 = [v15 numberWithFloat:?];
-  v52[19] = v16;
-  v51[20] = @"userOffsetInputRangeHigh";
+  v51[19] = v16;
+  v50[20] = @"userOffsetInputRangeHigh";
   v17 = MEMORY[0x277CCABB0];
   [self SSVUserOffsetInputRangeHigh];
   v18 = [v17 numberWithFloat:?];
-  v52[20] = v18;
-  v51[21] = @"userOffsetOutputRangeLow";
+  v51[20] = v18;
+  v50[21] = @"userOffsetOutputRangeLow";
   v19 = MEMORY[0x277CCABB0];
   [self SSVUserOffsetOutputRangeLow];
   v20 = [v19 numberWithFloat:?];
-  v52[21] = v20;
-  v51[22] = @"userOffsetOutputRangeHigh";
+  v51[21] = v20;
+  v50[22] = @"userOffsetOutputRangeHigh";
   v21 = MEMORY[0x277CCABB0];
   [self SSVUserOffsetOutputRangeHigh];
   v22 = [v21 numberWithFloat:?];
-  v52[22] = v22;
-  v51[23] = @"TTSVolumeLowerLimitDB";
+  v51[22] = v22;
+  v50[23] = @"TTSVolumeLowerLimitDB";
   v23 = MEMORY[0x277CCABB0];
   [self SSVTTSVolumeLowerLimitDB];
   v24 = [v23 numberWithFloat:?];
-  v52[23] = v24;
-  v51[24] = @"TTSVolumeUpperLimitDB";
+  v51[23] = v24;
+  v50[24] = @"TTSVolumeUpperLimitDB";
   v25 = MEMORY[0x277CCABB0];
   [self SSVTTSVolumeUpperLimitDB];
   v26 = [v25 numberWithFloat:?];
-  v52[24] = v26;
-  v51[25] = @"noiseWeight";
+  v51[24] = v26;
+  v50[25] = @"noiseWeight";
   v27 = MEMORY[0x277CCABB0];
   [self SSVNoiseWeight];
   v28 = [v27 numberWithFloat:?];
-  v52[25] = v28;
-  v51[26] = @"DistanceChannelBitset";
+  v51[25] = v28;
+  v50[26] = @"DistanceChannelBitset";
   v29 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:{objc_msgSend(self, "SSVDistanceChannelBitset")}];
-  v52[26] = v29;
-  v30 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v52 forKeys:v51 count:27];
-
-  v31 = *MEMORY[0x277D85DE8];
+  v51[26] = v29;
+  v30 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v51 forKeys:v50 count:27];
 
   return v30;
 }
 
 - (id)_getNumberFromASVDictionaryForKey:()SmartSiriVolume category:default:
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v8 = a3;
   v9 = a4;
   v10 = a5;
   _adaptiveSiriVolumeDictionary = [self _adaptiveSiriVolumeDictionary];
   v12 = _adaptiveSiriVolumeDictionary;
-  if (!_adaptiveSiriVolumeDictionary)
-  {
-    goto LABEL_5;
-  }
-
-  v13 = [_adaptiveSiriVolumeDictionary objectForKeyedSubscript:v9];
-  if (!v13)
-  {
-    goto LABEL_5;
-  }
-
-  v14 = v13;
-  v15 = [v12 objectForKeyedSubscript:v9];
-  v16 = [v15 objectForKeyedSubscript:v8];
-
-  if (v16)
+  if (_adaptiveSiriVolumeDictionary && ([_adaptiveSiriVolumeDictionary objectForKeyedSubscript:v9], (v13 = objc_claimAutoreleasedReturnValue()) != 0) && (v14 = v13, objc_msgSend(v12, "objectForKeyedSubscript:", v9), v15 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v15, "objectForKeyedSubscript:", v8), v16 = objc_claimAutoreleasedReturnValue(), v16, v15, v14, v16))
   {
     v17 = [v12 objectForKeyedSubscript:v9];
     v18 = [v17 objectForKeyedSubscript:v8];
@@ -285,25 +268,22 @@
 
   else
   {
-LABEL_5:
     v19 = *MEMORY[0x277D01598];
     v18 = v10;
     if (os_log_type_enabled(*MEMORY[0x277D01598], OS_LOG_TYPE_DEFAULT))
     {
-      v22 = 136315906;
-      v23 = "[CSAsset(SmartSiriVolume) _getNumberFromASVDictionaryForKey:category:default:]";
-      v24 = 2114;
-      v25 = v9;
-      v26 = 2114;
-      v27 = v8;
-      v28 = 2114;
-      v29 = v10;
-      _os_log_impl(&dword_222E4D000, v19, OS_LOG_TYPE_DEFAULT, "%s Cannot access to %{public}@ %{public}@ using default value=%{public}@", &v22, 0x2Au);
+      v21 = 136315906;
+      v22 = "[CSAsset(SmartSiriVolume) _getNumberFromASVDictionaryForKey:category:default:]";
+      v23 = 2114;
+      v24 = v9;
+      v25 = 2114;
+      v26 = v8;
+      v27 = 2114;
+      v28 = v10;
+      _os_log_impl(&dword_222E4D000, v19, OS_LOG_TYPE_DEFAULT, "%s Cannot access to %{public}@ %{public}@ using default value=%{public}@", &v21, 0x2Au);
       v18 = v10;
     }
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 
   return v18;
 }
@@ -376,36 +356,33 @@ LABEL_5:
 
 - (void)SSVCADeviceSimpleASVOffMinTTSVolume
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   horsemanDeviceType = [MEMORY[0x277D018F8] horsemanDeviceType];
   if (horsemanDeviceType == 2)
   {
-    v5 = @"SSVCADeviceSimpleASVOffMinTTSVolume";
-    v6 = &unk_2836680C8;
+    v4 = @"SSVCADeviceSimpleASVOffMinTTSVolume";
+    v5 = &unk_2836680C8;
 LABEL_8:
-    v7 = [self _getNumberFromASVDictionaryForKey:v5 category:@"smartSiriVolume" default:v6];
-    [v7 floatValue];
+    v6 = [self _getNumberFromASVDictionaryForKey:v4 category:@"smartSiriVolume" default:v5];
+    [v6 floatValue];
 
-    v8 = *MEMORY[0x277D85DE8];
     return;
   }
 
   if (horsemanDeviceType != 1)
   {
-    v5 = @"SSVCADeviceSimple2ASVOffMinTTSVolume";
-    v6 = &unk_2836680D8;
+    v4 = @"SSVCADeviceSimple2ASVOffMinTTSVolume";
+    v5 = &unk_2836680D8;
     goto LABEL_8;
   }
 
   v3 = *MEMORY[0x277D01598];
   if (os_log_type_enabled(*MEMORY[0x277D01598], OS_LOG_TYPE_ERROR))
   {
-    v9 = 136315138;
-    v10 = "[CSAsset(SmartSiriVolume) SSVCADeviceSimpleASVOffMinTTSVolume]";
-    _os_log_error_impl(&dword_222E4D000, v3, OS_LOG_TYPE_ERROR, "%s Minimum TTS volume for ASV disabled case requested for device default!", &v9, 0xCu);
+    v7 = 136315138;
+    v8 = "[CSAsset(SmartSiriVolume) SSVCADeviceSimpleASVOffMinTTSVolume]";
+    _os_log_error_impl(&dword_222E4D000, v3, OS_LOG_TYPE_ERROR, "%s Minimum TTS volume for ASV disabled case requested for device default!", &v7, 0xCu);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (float)SSVCADeviceDefaultASVOffMinTTSVolume
@@ -879,34 +856,31 @@ LABEL_8:
 
 - (void)SSVCASignalToSigmoidMusicSteepnessDeviceSimple
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   horsemanDeviceType = [MEMORY[0x277D018F8] horsemanDeviceType];
   if (horsemanDeviceType == 2)
   {
-    v5 = @"SSVCASignalToSigmoidMusicSteepnessDeviceSimple";
+    v4 = @"SSVCASignalToSigmoidMusicSteepnessDeviceSimple";
 LABEL_8:
-    v6 = [self _getNumberFromASVDictionaryForKey:v5 category:@"smartSiriVolume" default:&unk_283667F38];
-    [v6 floatValue];
+    v5 = [self _getNumberFromASVDictionaryForKey:v4 category:@"smartSiriVolume" default:&unk_283667F38];
+    [v5 floatValue];
 
-    v7 = *MEMORY[0x277D85DE8];
     return;
   }
 
   if (horsemanDeviceType != 1)
   {
-    v5 = @"SSVCASignalToSigmoidMusicSteepnessDeviceSimple2";
+    v4 = @"SSVCASignalToSigmoidMusicSteepnessDeviceSimple2";
     goto LABEL_8;
   }
 
   v3 = *MEMORY[0x277D01598];
   if (os_log_type_enabled(*MEMORY[0x277D01598], OS_LOG_TYPE_ERROR))
   {
-    v8 = 136315138;
-    v9 = "[CSAsset(SmartSiriVolume) SSVCASignalToSigmoidMusicSteepnessDeviceSimple]";
-    _os_log_error_impl(&dword_222E4D000, v3, OS_LOG_TYPE_ERROR, "%s Music steepness requested for device default!", &v8, 0xCu);
+    v6 = 136315138;
+    v7 = "[CSAsset(SmartSiriVolume) SSVCASignalToSigmoidMusicSteepnessDeviceSimple]";
+    _os_log_error_impl(&dword_222E4D000, v3, OS_LOG_TYPE_ERROR, "%s Music steepness requested for device default!", &v6, 0xCu);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (float)SSVCASignalToSigmoidMusicSteepnessDeviceDefault
@@ -929,36 +903,33 @@ LABEL_8:
 
 - (void)SSVCASignalToSigmoidMusicHOffsetDeviceSimple
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   horsemanDeviceType = [MEMORY[0x277D018F8] horsemanDeviceType];
   if (horsemanDeviceType == 2)
   {
-    v5 = @"SSVCASignalToSigmoidMusicHOffsetDeviceSimple";
-    v6 = &unk_283667F18;
+    v4 = @"SSVCASignalToSigmoidMusicHOffsetDeviceSimple";
+    v5 = &unk_283667F18;
 LABEL_8:
-    v7 = [self _getNumberFromASVDictionaryForKey:v5 category:@"smartSiriVolume" default:v6];
-    [v7 floatValue];
+    v6 = [self _getNumberFromASVDictionaryForKey:v4 category:@"smartSiriVolume" default:v5];
+    [v6 floatValue];
 
-    v8 = *MEMORY[0x277D85DE8];
     return;
   }
 
   if (horsemanDeviceType != 1)
   {
-    v5 = @"SSVCASignalToSigmoidMusicHOffsetDeviceSimple2";
-    v6 = &unk_283667F08;
+    v4 = @"SSVCASignalToSigmoidMusicHOffsetDeviceSimple2";
+    v5 = &unk_283667F08;
     goto LABEL_8;
   }
 
   v3 = *MEMORY[0x277D01598];
   if (os_log_type_enabled(*MEMORY[0x277D01598], OS_LOG_TYPE_ERROR))
   {
-    v9 = 136315138;
-    v10 = "[CSAsset(SmartSiriVolume) SSVCASignalToSigmoidMusicHOffsetDeviceSimple]";
-    _os_log_error_impl(&dword_222E4D000, v3, OS_LOG_TYPE_ERROR, "%s H Offset requested for device default!", &v9, 0xCu);
+    v7 = 136315138;
+    v8 = "[CSAsset(SmartSiriVolume) SSVCASignalToSigmoidMusicHOffsetDeviceSimple]";
+    _os_log_error_impl(&dword_222E4D000, v3, OS_LOG_TYPE_ERROR, "%s H Offset requested for device default!", &v7, 0xCu);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (float)SSVCASignalToSigmoidMusicHOffsetDeviceDefault
@@ -990,34 +961,31 @@ LABEL_8:
 
 - (void)SSVCASignalToSigmoidMusicVOffsetDeviceSimple
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   horsemanDeviceType = [MEMORY[0x277D018F8] horsemanDeviceType];
   if (horsemanDeviceType == 2)
   {
-    v5 = @"SSVCASignalToSigmoidMusicVOffsetDeviceSimple";
+    v4 = @"SSVCASignalToSigmoidMusicVOffsetDeviceSimple";
 LABEL_8:
-    v6 = [self _getNumberFromASVDictionaryForKey:v5 category:@"smartSiriVolume" default:&unk_283667D48];
-    [v6 floatValue];
+    v5 = [self _getNumberFromASVDictionaryForKey:v4 category:@"smartSiriVolume" default:&unk_283667D48];
+    [v5 floatValue];
 
-    v7 = *MEMORY[0x277D85DE8];
     return;
   }
 
   if (horsemanDeviceType != 1)
   {
-    v5 = @"SSVCASignalToSigmoidMusicVOffsetDeviceSimple2";
+    v4 = @"SSVCASignalToSigmoidMusicVOffsetDeviceSimple2";
     goto LABEL_8;
   }
 
   v3 = *MEMORY[0x277D01598];
   if (os_log_type_enabled(*MEMORY[0x277D01598], OS_LOG_TYPE_ERROR))
   {
-    v8 = 136315138;
-    v9 = "[CSAsset(SmartSiriVolume) SSVCASignalToSigmoidMusicVOffsetDeviceSimple]";
-    _os_log_error_impl(&dword_222E4D000, v3, OS_LOG_TYPE_ERROR, "%s V Offset requested for device default!", &v8, 0xCu);
+    v6 = 136315138;
+    v7 = "[CSAsset(SmartSiriVolume) SSVCASignalToSigmoidMusicVOffsetDeviceSimple]";
+    _os_log_error_impl(&dword_222E4D000, v3, OS_LOG_TYPE_ERROR, "%s V Offset requested for device default!", &v6, 0xCu);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (float)SSVCASignalToSigmoidMusicVOffsetDeviceDefault
@@ -1049,34 +1017,31 @@ LABEL_8:
 
 - (void)SSVCASignalToSigmoidMusicVSpreadDeviceSimple
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   horsemanDeviceType = [MEMORY[0x277D018F8] horsemanDeviceType];
   if (horsemanDeviceType == 2)
   {
-    v5 = @"SSVCASignalToSigmoidMusicVSpreadDeviceSimple";
+    v4 = @"SSVCASignalToSigmoidMusicVSpreadDeviceSimple";
 LABEL_8:
-    v6 = [self _getNumberFromASVDictionaryForKey:v5 category:@"smartSiriVolume" default:&unk_283667E78];
-    [v6 floatValue];
+    v5 = [self _getNumberFromASVDictionaryForKey:v4 category:@"smartSiriVolume" default:&unk_283667E78];
+    [v5 floatValue];
 
-    v7 = *MEMORY[0x277D85DE8];
     return;
   }
 
   if (horsemanDeviceType != 1)
   {
-    v5 = @"SSVCASignalToSigmoidMusicVSpreadDeviceSimple2";
+    v4 = @"SSVCASignalToSigmoidMusicVSpreadDeviceSimple2";
     goto LABEL_8;
   }
 
   v3 = *MEMORY[0x277D01598];
   if (os_log_type_enabled(*MEMORY[0x277D01598], OS_LOG_TYPE_ERROR))
   {
-    v8 = 136315138;
-    v9 = "[CSAsset(SmartSiriVolume) SSVCASignalToSigmoidMusicVSpreadDeviceSimple]";
-    _os_log_error_impl(&dword_222E4D000, v3, OS_LOG_TYPE_ERROR, "%s V Spread requested for device default!", &v8, 0xCu);
+    v6 = 136315138;
+    v7 = "[CSAsset(SmartSiriVolume) SSVCASignalToSigmoidMusicVSpreadDeviceSimple]";
+    _os_log_error_impl(&dword_222E4D000, v3, OS_LOG_TYPE_ERROR, "%s V Spread requested for device default!", &v6, 0xCu);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (float)SSVCASignalToSigmoidMusicVSpreadDeviceDefault
@@ -1108,36 +1073,33 @@ LABEL_8:
 
 - (void)SSVCASignalToSigmoidMusicDilationFactorDeviceSimple
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   horsemanDeviceType = [MEMORY[0x277D018F8] horsemanDeviceType];
   if (horsemanDeviceType == 2)
   {
-    v5 = @"SSVCASignalToSigmoidMusicDilationFactorDeviceSimple";
-    v6 = &unk_283667EB8;
+    v4 = @"SSVCASignalToSigmoidMusicDilationFactorDeviceSimple";
+    v5 = &unk_283667EB8;
 LABEL_8:
-    v7 = [self _getNumberFromASVDictionaryForKey:v5 category:@"smartSiriVolume" default:v6];
-    [v7 floatValue];
+    v6 = [self _getNumberFromASVDictionaryForKey:v4 category:@"smartSiriVolume" default:v5];
+    [v6 floatValue];
 
-    v8 = *MEMORY[0x277D85DE8];
     return;
   }
 
   if (horsemanDeviceType != 1)
   {
-    v5 = @"SSVCASignalToSigmoidMusicDilationFactorDeviceSimple2";
-    v6 = &unk_283667EA8;
+    v4 = @"SSVCASignalToSigmoidMusicDilationFactorDeviceSimple2";
+    v5 = &unk_283667EA8;
     goto LABEL_8;
   }
 
   v3 = *MEMORY[0x277D01598];
   if (os_log_type_enabled(*MEMORY[0x277D01598], OS_LOG_TYPE_ERROR))
   {
-    v9 = 136315138;
-    v10 = "[CSAsset(SmartSiriVolume) SSVCASignalToSigmoidMusicDilationFactorDeviceSimple]";
-    _os_log_error_impl(&dword_222E4D000, v3, OS_LOG_TYPE_ERROR, "%s Dilation factor requested for device default!", &v9, 0xCu);
+    v7 = 136315138;
+    v8 = "[CSAsset(SmartSiriVolume) SSVCASignalToSigmoidMusicDilationFactorDeviceSimple]";
+    _os_log_error_impl(&dword_222E4D000, v3, OS_LOG_TYPE_ERROR, "%s Dilation factor requested for device default!", &v7, 0xCu);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (float)SSVCASignalToSigmoidMusicDilationFactorDeviceDefault
@@ -1325,72 +1287,72 @@ LABEL_8:
 
 - (uint64_t)SSVDistanceChannelBitset
 {
-  v2 = &unk_283666F98;
+  v3 = &unk_283666F98;
   if (CSIsHorseman())
   {
     horsemanDeviceType = [MEMORY[0x277D018F8] horsemanDeviceType];
-    v4 = &unk_283666F80;
+    v5 = &unk_283666F80;
     if (horsemanDeviceType != 3)
     {
-      v4 = &unk_283666F98;
+      v5 = &unk_283666F98;
     }
 
     if (horsemanDeviceType == 2)
     {
-      v2 = &unk_283666FE0;
+      v3 = &unk_283666FE0;
     }
 
     else
     {
-      v2 = v4;
+      v3 = v5;
     }
   }
 
-  v5 = [self getNumberForKey:@"DistanceChannelBitset" category:@"smartSiriVolume" default:v2];
-  unsignedLongLongValue = [v5 unsignedLongLongValue];
+  v6 = [self getNumberForKey:@"DistanceChannelBitset" category:@"smartSiriVolume" default:v3];
+  unsignedLongLongValue = [v6 unsignedLongLongValue];
 
   return unsignedLongLongValue;
 }
 
 - (uint64_t)SSVLKFSChannelBitset
 {
-  v2 = &unk_283666FB0;
+  v3 = &unk_283666FB0;
   if (CSIsHorseman() && [MEMORY[0x277D018F8] horsemanDeviceType] == 3)
   {
-    v2 = &unk_283666FC8;
+    v3 = &unk_283666FC8;
   }
 
-  v3 = [self getNumberForKey:@"LKFSChannelBitset" category:@"smartSiriVolume" default:v2];
-  unsignedLongLongValue = [v3 unsignedLongLongValue];
+  v4 = [self getNumberForKey:@"LKFSChannelBitset" category:@"smartSiriVolume" default:v3];
+  unsignedLongLongValue = [v4 unsignedLongLongValue];
 
   return unsignedLongLongValue;
 }
 
 - (uint64_t)SSVNoiseLevelChannelBitset
 {
-  v2 = &unk_283666F98;
+  v3 = &unk_283666F98;
   if (CSIsHorseman())
   {
     horsemanDeviceType = [MEMORY[0x277D018F8] horsemanDeviceType];
-    v4 = &unk_283666F80;
+    v5 = &unk_283666F80;
     if (horsemanDeviceType != 3)
     {
-      v4 = &unk_283666F98;
+      v5 = &unk_283666F98;
     }
 
     if (horsemanDeviceType == 2)
     {
-      v2 = &unk_283666F68;
+      v3 = &unk_283666F68;
     }
 
     else
     {
-      v2 = v4;
+      v3 = v5;
     }
   }
 
-  v5 = [self getNumberForKey:@"noiseLevelChannelBitset" category:@"smartSiriVolume" default:v2];
-  unsignedLongLongValue = [v5 unsignedLongLongValue];
+  v6 = [self getNumberForKey:@"noiseLevelChannelBitset" category:@"smartSiriVolume" default:v3];
+  unsignedLongLongValue = [v6 unsignedLongLongValue];
 
   return unsignedLongLongValue;
 }
@@ -1639,31 +1601,31 @@ LABEL_8:
   if (CSIsHorseman())
   {
     horsemanDeviceType = [MEMORY[0x277D018F8] horsemanDeviceType];
-    v1 = 16128;
+    v3 = 16128;
     if (horsemanDeviceType == 3)
     {
-      v1 = 3840;
+      v3 = 3840;
     }
 
     if (horsemanDeviceType == 2)
     {
-      v2 = 896;
+      v4 = 896;
     }
 
     else
     {
-      v2 = v1;
+      v4 = v3;
     }
   }
 
   else
   {
-    v2 = 16128;
+    v4 = 16128;
   }
 
-  v3 = MEMORY[0x277D018F8];
+  v5 = MEMORY[0x277D018F8];
 
-  return [v3 getNumElementInBitset:v2];
+  return [v5 getNumElementInBitset:v4];
 }
 
 + (uint64_t)SSVDefaultLKFSChannelCount
@@ -1672,23 +1634,23 @@ LABEL_8:
   {
     if ([MEMORY[0x277D018F8] horsemanDeviceType] == 3)
     {
-      v0 = 0x100000;
+      v2 = 0x100000;
     }
 
     else
     {
-      v0 = 16;
+      v2 = 16;
     }
   }
 
   else
   {
-    v0 = 16;
+    v2 = 16;
   }
 
-  v1 = MEMORY[0x277D018F8];
+  v3 = MEMORY[0x277D018F8];
 
-  return [v1 getNumElementInBitset:v0];
+  return [v3 getNumElementInBitset:v2];
 }
 
 + (uint64_t)SSVDefaultNoiseChannelCount
@@ -1696,31 +1658,31 @@ LABEL_8:
   if (CSIsHorseman())
   {
     horsemanDeviceType = [MEMORY[0x277D018F8] horsemanDeviceType];
-    v1 = 16128;
+    v3 = 16128;
     if (horsemanDeviceType == 3)
     {
-      v1 = 3840;
+      v3 = 3840;
     }
 
     if (horsemanDeviceType == 2)
     {
-      v2 = 960;
+      v4 = 960;
     }
 
     else
     {
-      v2 = v1;
+      v4 = v3;
     }
   }
 
   else
   {
-    v2 = 16128;
+    v4 = 16128;
   }
 
-  v3 = MEMORY[0x277D018F8];
+  v5 = MEMORY[0x277D018F8];
 
-  return [v3 getNumElementInBitset:v2];
+  return [v5 getNumElementInBitset:v4];
 }
 
 @end

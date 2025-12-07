@@ -13,7 +13,14 @@
   v8 = viewCopy;
   if (childContentView == viewCopy)
   {
-    if (!viewCopy || [(UIView *)childContentView isDescendantOfView:self])
+    if (!viewCopy)
+    {
+      goto LABEL_9;
+    }
+
+    childContentView = [childContentView isDescendantOfView:self];
+    viewCopy = v8;
+    if (childContentView)
     {
       goto LABEL_9;
     }
@@ -22,16 +29,18 @@ LABEL_8:
     contentView = [(SKUIRedeemResultSimpleTableViewCell *)self contentView];
     [contentView addSubview:self->_childContentView];
 
-    [(SKUIRedeemResultSimpleTableViewCell *)self setNeedsLayout];
+    childContentView = [(SKUIRedeemResultSimpleTableViewCell *)self setNeedsLayout];
+    viewCopy = v8;
     goto LABEL_9;
   }
 
-  if ([(UIView *)childContentView isDescendantOfView:self])
+  if ([childContentView isDescendantOfView:self])
   {
     [(UIView *)self->_childContentView removeFromSuperview];
   }
 
   objc_storeStrong(&self->_childContentView, view);
+  viewCopy = v8;
   if (v8)
   {
     goto LABEL_8;
@@ -39,7 +48,7 @@ LABEL_8:
 
 LABEL_9:
 
-  MEMORY[0x2821F96F8]();
+  MEMORY[0x2821F96F8](childContentView, viewCopy);
 }
 
 - (void)layoutSubviews

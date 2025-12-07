@@ -456,7 +456,7 @@ LABEL_22:
       }
     }
 
-    [(VCMediaStream *)self handleStartTransportSessionCompletionBlockDidSucceed:1 withError:0, *v15, *&v15[16], v16, selfCopy, v18];
+    [(VCMediaStream *)self handleStartTransportSessionCompletionBlockDidSucceed:1 withError:0, *v15, *&v15[8], v16, selfCopy, v18];
     [(VCMediaStream *)self handleTransportSessionConnectionEvent];
     if (!self)
     {
@@ -1043,7 +1043,7 @@ LABEL_30:
     goto LABEL_8;
   }
 
-  if ((VTP_ScheduleReceiveForNWConnection() & 1) == 0)
+  if ((VTP_ScheduleReceiveForNWConnection(*p_var0, 0) & 1) == 0)
   {
     if (VRTraceGetErrorLogLevelForModule() >= 3)
     {
@@ -1145,12 +1145,12 @@ void __41__VCMediaStream_setupNWConnectionWithID___block_invoke(uint64_t a1, int
 {
   if (monitor)
   {
-    v5 = VTP_NWConnectionQueue();
+    v5 = VTP_NWConnectionQueue(self, a2);
     VCNWConnectionMonitor_SetNotificationHandler(monitor, v5, self, self->_notificationHandler);
-    v6 = VTP_NWConnectionQueue();
+    v8 = VTP_NWConnectionQueue(v6, v7);
     packetEventHandler = self->_packetEventHandler;
 
-    VCNWConnectionMonitor_SetPacketEventHandler(monitor, v6, self, packetEventHandler);
+    VCNWConnectionMonitor_SetPacketEventHandler(monitor, v8, self, packetEventHandler);
   }
 
   else if (VRTraceGetErrorLogLevelForModule() >= 3)
@@ -1308,75 +1308,75 @@ LABEL_10:
 
 - (BOOL)initializeTransportSetupInfoWithIDSDestination:(id)destination error:(id *)error
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   p_transportSetupInfo = &self->_transportSetupInfo;
   self->_transportSetupInfo.setupType = 2;
   error = [+[VCDatagramChannelManager sharedInstance](VCDatagramChannelManager addDatagramChannelWithDestination:"addDatagramChannelWithDestination:eventHandler:error:" eventHandler:destination error:&__block_literal_global_68, error];
   self->_datagramChannel = error;
-  if (!error || !VCDatagramChannelIDS_Token(error))
+  if (!error || !VCDatagramChannelIDS_Token(error, v8))
   {
     if (VRTraceGetErrorLogLevelForModule() >= 3)
     {
-      v10 = VRTraceErrorLogLevelToCSTR();
-      v11 = *MEMORY[0x1E6986650];
-      v9 = os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_ERROR);
-      if (!v9)
+      v12 = VRTraceErrorLogLevelToCSTR();
+      v13 = *MEMORY[0x1E6986650];
+      v11 = os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_ERROR);
+      if (!v11)
       {
-        return v9;
+        return v11;
       }
 
       if (objc_opt_class())
       {
-        v12 = [objc_msgSend(objc_opt_class() "description")];
+        v14 = [objc_msgSend(objc_opt_class() "description")];
       }
 
       else
       {
-        v12 = "<nil>";
+        v14 = "<nil>";
       }
 
       if (error)
       {
         if (*error)
         {
-          v14 = [objc_msgSend(*error "description")];
+          v16 = [objc_msgSend(*error "description")];
         }
 
         else
         {
-          v14 = "<nil>";
+          v16 = "<nil>";
         }
       }
 
       else
       {
-        v14 = "nil";
+        v16 = "nil";
       }
 
       *buf = 136316418;
-      v17 = v10;
-      v18 = 2080;
-      v19 = "[VCMediaStream initializeTransportSetupInfoWithIDSDestination:error:]";
-      v20 = 1024;
-      v21 = 698;
-      v22 = 2080;
-      v23 = v12;
-      v24 = 2048;
+      v19 = v12;
+      v20 = 2080;
+      v21 = "[VCMediaStream initializeTransportSetupInfoWithIDSDestination:error:]";
+      v22 = 1024;
+      v23 = 698;
+      v24 = 2080;
+      v25 = v14;
+      v26 = 2048;
       selfCopy = self;
-      v26 = 2080;
-      v27 = v14;
-      _os_log_error_impl(&dword_1DB56E000, v11, OS_LOG_TYPE_ERROR, "VCMediaStream [%s] %s:%d %s[%p]: Create datagram channel failed with error %s", buf, 0x3Au);
+      v28 = 2080;
+      v29 = v16;
+      _os_log_error_impl(&dword_1DB56E000, v13, OS_LOG_TYPE_ERROR, "VCMediaStream [%s] %s:%d %s[%p]: Create datagram channel failed with error %s", buf, 0x3Au);
     }
 
 LABEL_16:
-    LOBYTE(v9) = 0;
-    return v9;
+    LOBYTE(v11) = 0;
+    return v11;
   }
 
   start = [(VCDatagramChannelIDS *)self->_datagramChannel start];
   if (start < 0)
   {
-    v13 = start;
+    v15 = start;
     if (VRTraceGetErrorLogLevelForModule() >= 2)
     {
       VRTraceErrorLogLevelToCSTR();
@@ -1394,13 +1394,13 @@ LABEL_16:
       }
     }
 
-    [GKVoiceChatError getNSError:error code:32002 detailedCode:1301 returnCode:v13 filePath:0 description:@"Could not start setup RTP" reason:@"datagramChannel start failed"];
+    [GKVoiceChatError getNSError:error code:32002 detailedCode:1301 returnCode:v15 filePath:0 description:@"Could not start setup RTP" reason:@"datagramChannel start failed"];
     goto LABEL_16;
   }
 
-  p_transportSetupInfo->datagramChannelToken = VCDatagramChannelIDS_Token(self->_datagramChannel);
-  LOBYTE(v9) = 1;
-  return v9;
+  p_transportSetupInfo->datagramChannelToken = VCDatagramChannelIDS_Token(self->_datagramChannel, v10);
+  LOBYTE(v11) = 1;
+  return v11;
 }
 
 void __70__VCMediaStream_initializeTransportSetupInfoWithIDSDestination_error___block_invoke(uint64_t a1, void *a2)
@@ -1553,18 +1553,19 @@ LABEL_13:
 
 - (VCMediaStream)init
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v4.receiver = self;
-  v4.super_class = VCMediaStream;
-  v2 = [(VCObject *)&v4 init];
+  v6 = *MEMORY[0x1E69E9840];
+  v5.receiver = self;
+  v5.super_class = VCMediaStream;
+  v2 = [(VCObject *)&v5 init];
+  v3 = v2;
   if (v2)
   {
-    v2->_localSSRC = RTPGenerateSSRC();
-    v2->_streamToken = VCUniqueIDGenerator_GenerateID();
-    [(VCMediaStream *)v2 setupMediaStream];
+    v2->_localSSRC = RTPGenerateSSRC(v2);
+    v3->_streamToken = VCUniqueIDGenerator_GenerateID();
+    [(VCMediaStream *)v3 setupMediaStream];
   }
 
-  return v2;
+  return v3;
 }
 
 - (VCMediaStream)initWithTransportSessionID:(unsigned int)d
@@ -1577,7 +1578,7 @@ LABEL_13:
   if (v4)
   {
     v4->_transportSessionID = d;
-    v4->_localSSRC = RTPGenerateSSRC();
+    v4->_localSSRC = RTPGenerateSSRC(v4);
     v5->_streamToken = VCUniqueIDGenerator_GenerateID();
     [(VCMediaStream *)v5 setupMediaStream];
   }
@@ -1607,7 +1608,7 @@ LABEL_13:
 
 - (void)setupMediaStream
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   self->_streamTokenUplink = VCUniqueIDGenerator_GenerateID();
   self->_streamTokenDownlink = VCUniqueIDGenerator_GenerateID();
   if (VRTraceGetErrorLogLevelForModule() >= 6)
@@ -1620,50 +1621,51 @@ LABEL_13:
       streamTokenUplink = self->_streamTokenUplink;
       streamTokenDownlink = self->_streamTokenDownlink;
       *buf = 136316674;
-      v17 = v3;
-      v18 = 2080;
-      v19 = "[VCMediaStream setupMediaStream]";
-      v20 = 1024;
-      v21 = 846;
-      v22 = 2048;
+      v19 = v3;
+      v20 = 2080;
+      v21 = "[VCMediaStream setupMediaStream]";
+      v22 = 1024;
+      v23 = 846;
+      v24 = 2048;
       selfCopy2 = self;
-      v24 = 1024;
-      *v25 = streamToken;
-      *&v25[4] = 1024;
-      *&v25[6] = streamTokenUplink;
       v26 = 1024;
-      v27 = streamTokenDownlink;
+      *v27 = streamToken;
+      *&v27[4] = 1024;
+      *&v27[6] = streamTokenUplink;
+      v28 = 1024;
+      v29 = streamTokenDownlink;
       _os_log_impl(&dword_1DB56E000, v4, OS_LOG_TYPE_DEFAULT, "VCMediaStream [%s] %s:%d (%p) Generated _streamToken=%u streamTokenUplink=%u streamTokenDownlink=%u", buf, 0x38u);
     }
   }
 
-  v15.__sig = 0xAAAAAAAAAAAAAAAALL;
-  *v15.__opaque = 0xAAAAAAAAAAAAAAAALL;
-  pthread_mutexattr_init(&v15);
-  pthread_mutexattr_settype(&v15, 2);
-  pthread_mutex_init(&self->_streamLock, &v15);
-  pthread_mutexattr_destroy(&v15);
+  v17.__sig = 0xAAAAAAAAAAAAAAAALL;
+  *v17.__opaque = 0xAAAAAAAAAAAAAAAALL;
+  pthread_mutexattr_init(&v17);
+  pthread_mutexattr_settype(&v17, 2);
+  pthread_mutex_init(&self->_streamLock, &v17);
+  pthread_mutexattr_destroy(&v17);
   self->_nwMonitorLock._os_unfair_lock_opaque = 0;
   CustomRootQueue = VCDispatchQueue_GetCustomRootQueue(37);
   self->_delegateNotificationQueue = dispatch_queue_create_with_target_V2("com.apple.AVConference.VCMediaStream.delegateNotificationQueue", 0, CustomRootQueue);
   self->_vcMediaCallback = VCMediaCallback;
-  self->_transportArray = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v9 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  self->_transportArray = v9;
   self->_transportSetupInfo.isSessionIDValid = self->_transportSessionID != 0;
-  if ((VCFeatureFlagManager_SkipNonInfraWiFiAssertion() & 1) == 0)
+  if ((VCFeatureFlagManager_SkipNonInfraWiFiAssertion(v9, v10) & 1) == 0)
   {
     if (VRTraceGetErrorLogLevelForModule() >= 7)
     {
-      v9 = VRTraceErrorLogLevelToCSTR();
-      v10 = *MEMORY[0x1E6986650];
+      v11 = VRTraceErrorLogLevelToCSTR();
+      v12 = *MEMORY[0x1E6986650];
       if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315650;
-        v17 = v9;
-        v18 = 2080;
-        v19 = "[VCMediaStream setupMediaStream]";
-        v20 = 1024;
-        v21 = 862;
-        _os_log_impl(&dword_1DB56E000, v10, OS_LOG_TYPE_DEFAULT, "VCMediaStream [%s] %s:%d NetworkAgent is being asserted by setupMediaStream", buf, 0x1Cu);
+        v19 = v11;
+        v20 = 2080;
+        v21 = "[VCMediaStream setupMediaStream]";
+        v22 = 1024;
+        v23 = 862;
+        _os_log_impl(&dword_1DB56E000, v12, OS_LOG_TYPE_DEFAULT, "VCMediaStream [%s] %s:%d NetworkAgent is being asserted by setupMediaStream", buf, 0x1Cu);
       }
     }
 
@@ -1690,29 +1692,29 @@ LABEL_13:
   MEMORY[0x1E128B580](&dword_1DB56E000, "@:@ VCMediaStream-setup");
   if (VRTraceGetErrorLogLevelForModule() >= 6)
   {
-    v12 = VRTraceErrorLogLevelToCSTR();
-    v13 = *MEMORY[0x1E6986650];
+    v14 = VRTraceErrorLogLevelToCSTR();
+    v15 = *MEMORY[0x1E6986650];
     if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
     {
       logPrefix = [(VCObject *)self logPrefix];
       *buf = 136316162;
-      v17 = v12;
-      v18 = 2080;
-      v19 = "[VCMediaStream setupMediaStream]";
-      v20 = 1024;
-      v21 = 885;
-      v22 = 2048;
+      v19 = v14;
+      v20 = 2080;
+      v21 = "[VCMediaStream setupMediaStream]";
+      v22 = 1024;
+      v23 = 885;
+      v24 = 2048;
       selfCopy2 = self;
-      v24 = 2112;
-      *v25 = logPrefix;
-      _os_log_impl(&dword_1DB56E000, v13, OS_LOG_TYPE_DEFAULT, "VCMediaStream [%s] %s:%d @:@ VCMediaStream-setup (%p) %@", buf, 0x30u);
+      v26 = 2112;
+      *v27 = logPrefix;
+      _os_log_impl(&dword_1DB56E000, v15, OS_LOG_TYPE_DEFAULT, "VCMediaStream [%s] %s:%d @:@ VCMediaStream-setup (%p) %@", buf, 0x30u);
     }
   }
 }
 
 - (void)dealloc
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   p_transportSetupInfo = &self->_transportSetupInfo;
   if (self->_transportSetupInfo.setupType == 4)
   {
@@ -1746,22 +1748,22 @@ LABEL_13:
     dispatch_release(delegateNotificationQueue);
   }
 
-  +[VCVTPWrapper stopVTP];
-  if ((VCFeatureFlagManager_SkipNonInfraWiFiAssertion() & 1) == 0)
+  v7 = +[VCVTPWrapper stopVTP];
+  if ((VCFeatureFlagManager_SkipNonInfraWiFiAssertion(v7, v8) & 1) == 0)
   {
     if (VRTraceGetErrorLogLevelForModule() >= 7)
     {
-      v7 = VRTraceErrorLogLevelToCSTR();
-      v8 = *MEMORY[0x1E6986650];
+      v9 = VRTraceErrorLogLevelToCSTR();
+      v10 = *MEMORY[0x1E6986650];
       if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315650;
-        v13 = v7;
-        v14 = 2080;
-        v15 = "[VCMediaStream dealloc]";
-        v16 = 1024;
-        v17 = 914;
-        _os_log_impl(&dword_1DB56E000, v8, OS_LOG_TYPE_DEFAULT, "VCMediaStream [%s] %s:%d NetworkAgent is being un-asserted by VCMediaStream's dealloc", buf, 0x1Cu);
+        v15 = v9;
+        v16 = 2080;
+        v17 = "[VCMediaStream dealloc]";
+        v18 = 1024;
+        v19 = 914;
+        _os_log_impl(&dword_1DB56E000, v10, OS_LOG_TYPE_DEFAULT, "VCMediaStream [%s] %s:%d NetworkAgent is being un-asserted by VCMediaStream's dealloc", buf, 0x1Cu);
       }
     }
 
@@ -1789,9 +1791,9 @@ LABEL_13:
     VCReporting_finalizeAggregation();
   }
 
-  v11.receiver = self;
-  v11.super_class = VCMediaStream;
-  [(VCObject *)&v11 dealloc];
+  v13.receiver = self;
+  v13.super_class = VCMediaStream;
+  [(VCObject *)&v13 dealloc];
 }
 
 - (void)lock
@@ -1825,16 +1827,16 @@ LABEL_13:
 
 - (tagHANDLE)createRTPHandleWithStreamConfig:(id)config payloadType:(int)type localSSRC:(unsigned int)c
 {
-  v35 = *MEMORY[0x1E69E9840];
-  v29 = 0xFFFFFFFFLL;
-  v7 = RTPCreateHandle(&v29, type, 1, self->_useRandomTS, self->_transportSessionID, self->_vcMediaCallback, self, c);
+  v34 = *MEMORY[0x1E69E9840];
+  v28 = 0xFFFFFFFFLL;
+  v7 = RTPCreateHandle(&v28, *&type, 1, self->_useRandomTS, self->_transportSessionID, self->_vcMediaCallback, self, c);
   if ((v7 & 0x80000000) != 0)
   {
-    [(VCMediaStream *)self createRTPHandleWithStreamConfig:v7 payloadType:v8 localSSRC:v9, v10, v11, v12, v13, v27, v28, v29, SWORD2(v29), *buf, *&buf[8], *v31, *&v31[4], v32, *(&v32 + 1), selfCopy, v34, v35, v36, v37, v38, v39, v40, v41];
-    return v29;
+    [(VCMediaStream *)self createRTPHandleWithStreamConfig:v7 payloadType:v8 localSSRC:v9, v10, v11, v12, v13, v27, SHIDWORD(v27), v28, SWORD2(v28), *buf, *&buf[8], *v30, *&v30[4], v31, *(&v31 + 1), selfCopy, v33, v34, v35, v36, v37, v38, v39, v40];
+    return v28;
   }
 
-  v14 = RTPSetSendTimestampRate(v29, [config rtpTimestampRate]);
+  v14 = RTPSetSendTimestampRate(v28, [config rtpTimestampRate]);
   if ((v14 & 0x80000000) == 0)
   {
     if ([config rateControlConfig])
@@ -1843,16 +1845,16 @@ LABEL_13:
       if (v15 != 0xFFFFFFFFLL)
       {
         v16 = v15;
-        v17 = v29;
+        v17 = v28;
         [objc_msgSend(config "rateControlConfig")];
-        RTPSetMediaQueue(v18, v17, v16);
+        RTPSetMediaQueue(v17, v16, v18);
         goto LABEL_11;
       }
     }
 
     if ([objc_msgSend(config "rateControlConfig")])
     {
-      v19 = v29;
+      v19 = v28;
       mediaQueue = [objc_msgSend(config "rateControlConfig")];
       v21 = v19;
     }
@@ -1865,22 +1867,22 @@ LABEL_13:
         goto LABEL_11;
       }
 
-      v21 = v29;
+      v21 = v28;
     }
 
     RTPSetVCMediaQueue(v21, mediaQueue);
 LABEL_11:
     if ([config securityKeyHolder])
     {
-      RTPSetVCSecurityKeyHolder(v29, [config securityKeyHolder]);
+      RTPSetVCSecurityKeyHolder(v28, [config securityKeyHolder]);
     }
 
-    return v29;
+    return v28;
   }
 
   v23 = v14;
-  RTPCloseHandle();
-  v29 = 0xFFFFFFFFLL;
+  RTPCloseHandle(v28);
+  v28 = 0xFFFFFFFFLL;
   if (objc_opt_class() == self)
   {
     if (VRTraceGetErrorLogLevelForModule() >= 3)
@@ -1913,22 +1915,22 @@ LABEL_11:
       {
         *buf = 136316418;
         *&buf[4] = v25;
-        *v31 = 2080;
-        *&v31[2] = "[VCMediaStream createRTPHandleWithStreamConfig:payloadType:localSSRC:]";
-        *&v31[10] = 1024;
-        LODWORD(v32) = 998;
-        WORD2(v32) = 2112;
-        *(&v32 + 6) = v24;
-        HIWORD(v32) = 2048;
+        *v30 = 2080;
+        *&v30[2] = "[VCMediaStream createRTPHandleWithStreamConfig:payloadType:localSSRC:]";
+        *&v30[10] = 1024;
+        LODWORD(v31) = 998;
+        WORD2(v31) = 2112;
+        *(&v31 + 6) = v24;
+        HIWORD(v31) = 2048;
         selfCopy = self;
-        LOWORD(v34) = 1024;
-        *(&v34 + 2) = v23;
+        LOWORD(v33) = 1024;
+        *(&v33 + 2) = v23;
         _os_log_error_impl(&dword_1DB56E000, v26, OS_LOG_TYPE_ERROR, "VCMediaStream [%s] %s:%d %@(%p) Failed to set rtp timestamp rate. Error=%d", buf, 0x36u);
       }
     }
   }
 
-  return v29;
+  return v28;
 }
 
 - (id)createTransportWithStreamConfig:(id)config ssrc:(unsigned int)ssrc
@@ -3065,8 +3067,7 @@ LABEL_40:
           objc_enumerationMutation(transportArray);
         }
 
-        [*(*(&v11 + 1) + 8 * i) rtpHandle];
-        RTPResetDecryptionStatus();
+        RTPResetDecryptionStatus([*(*(&v11 + 1) + 8 * i) rtpHandle]);
       }
 
       v7 = [(NSMutableArray *)transportArray countByEnumeratingWithState:&v11 objects:v10 count:16];
@@ -3536,24 +3537,24 @@ LABEL_40:
 
 - (id)start
 {
-  v16 = *MEMORY[0x1E69E9840];
-  v3 = micro();
-  v10 = 0;
-  v11 = &v10;
-  v12 = 0x3052000000;
-  v13 = __Block_byref_object_copy__24;
-  v14 = __Block_byref_object_dispose__24;
-  v15 = 0;
+  v18 = *MEMORY[0x1E69E9840];
+  v3 = micro(self, a2);
+  v12 = 0;
+  v13 = &v12;
+  v14 = 0x3052000000;
+  v15 = __Block_byref_object_copy__24;
+  v16 = __Block_byref_object_dispose__24;
+  v17 = 0;
   v4 = dispatch_semaphore_create(0);
   [(TimingCollection *)self->_perfTimers startTimingForKey:19];
-  v9[0] = MEMORY[0x1E69E9820];
-  v9[1] = 3221225472;
-  v9[2] = __22__VCMediaStream_start__block_invoke;
-  v9[3] = &unk_1E85F7C68;
-  v9[5] = v4;
-  v9[6] = &v10;
-  v9[4] = self;
-  [(VCMediaStream *)self startWithCompletionHandler:v9];
+  v11[0] = MEMORY[0x1E69E9820];
+  v11[1] = 3221225472;
+  v11[2] = __22__VCMediaStream_start__block_invoke;
+  v11[3] = &unk_1E85F7C68;
+  v11[5] = v4;
+  v11[6] = &v12;
+  v11[4] = self;
+  [(VCMediaStream *)self startWithCompletionHandler:v11];
   v5 = dispatch_time(0, 5000000000);
   if (dispatch_semaphore_wait(v4, v5))
   {
@@ -3566,17 +3567,17 @@ LABEL_40:
       }
     }
 
-    +[GKVoiceChatError getNSError:code:detailedCode:filePath:description:reason:](GKVoiceChatError, "getNSError:code:detailedCode:filePath:description:reason:", v11 + 5, 32029, 0, [MEMORY[0x1E696AEC0] stringWithFormat:@"%s:%d", "/Library/Caches/com.apple.xbs/Sources/AVConference/AVConference.subproj/Sources/VCMediaStream.m", 1532], @"Media stream start time out", @"Time out");
+    +[GKVoiceChatError getNSError:code:detailedCode:filePath:description:reason:](GKVoiceChatError, "getNSError:code:detailedCode:filePath:description:reason:", v13 + 5, 32029, 0, [MEMORY[0x1E696AEC0] stringWithFormat:@"%s:%d", "/Library/Caches/com.apple.xbs/Sources/AVConference/AVConference.subproj/Sources/VCMediaStream.m", 1532], @"Media stream start time out", @"Time out");
     VCUtil_GenerateDiagnostics(0, 1, "Media stream start time out", 1u);
-    v6 = v11[5];
-    [(VCMediaStream *)self stopWithError:v11[5]];
+    v6 = v13[5];
+    [(VCMediaStream *)self stopWithError:v13[5]];
   }
 
   dispatch_release(v4);
-  self->_mediaConnectionTimeStartToStartComplete = micro() - v3;
-  v7 = v11[5];
-  _Block_object_dispose(&v10, 8);
-  return v7;
+  self->_mediaConnectionTimeStartToStartComplete = micro(v7, v8) - v3;
+  v9 = v13[5];
+  _Block_object_dispose(&v12, 8);
+  return v9;
 }
 
 intptr_t __22__VCMediaStream_start__block_invoke(uint64_t a1, char a2, void *a3)
@@ -3997,7 +3998,7 @@ LABEL_24:
   return pthread_mutex_unlock(v9);
 }
 
-uint64_t __44__VCMediaStream_startWithCompletionHandler___block_invoke_4(uint64_t a1, uint64_t a2, uint64_t a3)
+void *__44__VCMediaStream_startWithCompletionHandler___block_invoke_4(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   result = [*(a1 + 32) handleStartDidSucceed:a2 withError:a3];
   if (*(a1 + 48) == 1)
@@ -4091,7 +4092,7 @@ uint64_t __44__VCMediaStream_startWithCompletionHandler___block_invoke_4(uint64_
 
     _os_log_impl(&dword_1DB56E000, v10, OS_LOG_TYPE_DEFAULT, v9, v14, v11);
 LABEL_13:
-    [(VCMediaStream *)self willExitState:state newState:v4, *v14, *&v14[16], v15, selfCopy, *v17, *&v17[16], v18];
+    [(VCMediaStream *)self willExitState:state newState:v4, *v14, *&v14[8], v15, selfCopy, *v17, *&v17[8], v18];
     self->_state = v4;
     [(VCMediaStream *)self didEnterState:v4 oldState:state];
   }
@@ -7118,9 +7119,9 @@ LABEL_13:
   os_unfair_lock_lock(&self->_nwMonitorLock);
   if (self->_transportSetupInfo.setupType == 4 && !self->_nwMonitor)
   {
-    v3 = VCNWConnectionMonitor_Create(&self->_transportSetupInfo.var0.transportStreamInfo.context);
-    self->_nwMonitor = v3;
-    [(VCMediaStream *)self setupCallbacksWithNWConnectionMonitor:v3];
+    v4 = VCNWConnectionMonitor_Create(&self->_transportSetupInfo.var0.transportStreamInfo.context, v3);
+    self->_nwMonitor = v4;
+    [(VCMediaStream *)self setupCallbacksWithNWConnectionMonitor:v4];
   }
 
   os_unfair_lock_unlock(&self->_nwMonitorLock);
@@ -7577,7 +7578,7 @@ uint64_t __VCMediaStream_CheckDecryptionTimeoutForMKMRecoveryAgainstTime_block_i
 - (void)timeoutHeartbeat
 {
   v40 = *MEMORY[0x1E69E9840];
-  v3 = micro();
+  v3 = micro(self, a2);
   if (self)
   {
     pthread_mutex_lock(&self->_streamLock);
@@ -8357,8 +8358,8 @@ LABEL_21:
         goto LABEL_17;
       }
 
-      *buf = 136315906;
-      *&buf[4] = v14;
+      LODWORD(buf) = 136315906;
+      *(&buf + 4) = v14;
       OUTLINED_FUNCTION_33_5();
       OUTLINED_FUNCTION_5_13();
       v24 = 1368;
@@ -8393,8 +8394,8 @@ LABEL_21:
         goto LABEL_17;
       }
 
-      *buf = 136316418;
-      *&buf[4] = v20;
+      LODWORD(buf) = 136316418;
+      *(&buf + 4) = v20;
       OUTLINED_FUNCTION_33_5();
       OUTLINED_FUNCTION_5_13();
       v24 = 1368;
@@ -8409,9 +8410,9 @@ LABEL_21:
       v19 = 54;
     }
 
-    _os_log_error_impl(&dword_1DB56E000, v18, OS_LOG_TYPE_ERROR, v17, buf, v19);
+    _os_log_error_impl(&dword_1DB56E000, v18, OS_LOG_TYPE_ERROR, v17, &buf, v19);
 LABEL_17:
-    [MEMORY[0x1E696AEC0] stringWithFormat:@"%s:%d", "/Library/Caches/com.apple.xbs/Sources/AVConference/AVConference.subproj/Sources/VCMediaStream.m", 1372, *buf];
+    [MEMORY[0x1E696AEC0] stringWithFormat:@"%s:%d", "/Library/Caches/com.apple.xbs/Sources/AVConference/AVConference.subproj/Sources/VCMediaStream.m", 1372, buf];
     OUTLINED_FUNCTION_42_3();
     return 0;
   }
@@ -8506,7 +8507,7 @@ LABEL_13:
     }
   }
 
-  [MEMORY[0x1E696AEC0] stringWithFormat:@"%s:%d", "/Library/Caches/com.apple.xbs/Sources/AVConference/AVConference.subproj/Sources/VCMediaStream.m", 1414, *buf];
+  [MEMORY[0x1E696AEC0] stringWithFormat:@"%s:%d", "/Library/Caches/com.apple.xbs/Sources/AVConference/AVConference.subproj/Sources/VCMediaStream.m", 1414, *buf, *&buf[8]];
   OUTLINED_FUNCTION_42_3();
   return 0;
 }
@@ -9110,7 +9111,7 @@ void __70__VCMediaStream_initializeTransportSetupInfoWithIDSDestination_error___
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x22u);
 }
 
-- (void)createRTPHandleWithStreamConfig:(uint64_t)a3 payloadType:(uint64_t)a4 localSSRC:(uint64_t)a5 .cold.2(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9, int a10, int a11, __int16 a12, uint64_t a13, int a14, int a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27)
+- (void)createRTPHandleWithStreamConfig:(uint64_t)a3 payloadType:(uint64_t)a4 localSSRC:(uint64_t)a5 .cold.2(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, int a9, int a10, int a11, __int16 a12, uint64_t a13, int a14, int a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27)
 {
   OUTLINED_FUNCTION_40_0();
   a26 = v27;
@@ -9173,7 +9174,7 @@ LABEL_9:
 {
   OUTLINED_FUNCTION_40_0();
   OUTLINED_FUNCTION_11_0();
-  if (objc_opt_class() == v0)
+  if (objc_opt_class() == v1)
   {
     if (VRTraceGetErrorLogLevelForModule() < 3)
     {
@@ -9190,7 +9191,7 @@ LABEL_9:
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_11_1();
 LABEL_11:
-    _os_log_error_impl(v1, v2, v3, v4, v5, v6);
+    _os_log_error_impl(v2, v3, v4, v5, v6, v7);
     goto LABEL_9;
   }
 
@@ -9213,7 +9214,7 @@ LABEL_11:
   }
 
 LABEL_9:
-  RTPCloseHandle();
+  RTPCloseHandle(v0);
   OUTLINED_FUNCTION_39_0();
 }
 

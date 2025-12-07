@@ -15,15 +15,13 @@
 
 void __73__AVOutputDeviceFrecencyManager__frecentsReaderAfterMigrationIfNecessary__block_invoke()
 {
-  v2 = *MEMORY[0x1E69E9840];
+  v1 = *MEMORY[0x1E69E9840];
   if (dword_1ED6F6B68)
   {
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
     fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
-
-  v1 = *MEMORY[0x1E69E9840];
 }
 
 + (id)_frecentsReaderAfterMigrationIfNecessary
@@ -47,12 +45,21 @@ void __73__AVOutputDeviceFrecencyManager__frecentsReaderAfterMigrationIfNecessar
 
 + (double)frecencyScoreForDeviceID:(id)d
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   _frecentsReaderAfterMigrationIfNecessary = [self _frecentsReaderAfterMigrationIfNecessary];
-  if (!d || !_frecentsReaderAfterMigrationIfNecessary || (v5 = [_frecentsReaderAfterMigrationIfNecessary frecencyInfoForDeviceWithID:d]) == 0)
+  if (!d)
   {
-LABEL_10:
-    v10 = *MEMORY[0x1E69E9840];
+    return 0.0;
+  }
+
+  if (!_frecentsReaderAfterMigrationIfNecessary)
+  {
+    return 0.0;
+  }
+
+  v5 = [_frecentsReaderAfterMigrationIfNecessary frecencyInfoForDeviceWithID:d];
+  if (!v5)
+  {
     return 0.0;
   }
 
@@ -67,27 +74,24 @@ LABEL_10:
       fig_log_call_emit_and_clean_up_after_send_and_compose();
     }
 
-    goto LABEL_10;
+    return 0.0;
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 
   [v6 doubleValue];
   return result;
 }
 
-uint64_t __50__AVOutputDeviceFrecencyManager__frecentsFilePath__block_invoke()
+uint64_t __50__AVOutputDeviceFrecencyManager__frecentsFilePath__block_invoke(uint64_t result)
 {
   v3 = *MEMORY[0x1E69E9840];
   if (dword_1ED6F6B68)
   {
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
-    result = fig_log_call_emit_and_clean_up_after_send_and_compose();
+    return fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
 
-  v2 = *MEMORY[0x1E69E9840];
-  return result;
+  return v2;
 }
 
 + (id)_frecentsWriter
@@ -107,7 +111,7 @@ uint64_t __50__AVOutputDeviceFrecencyManager__frecentsFilePath__block_invoke()
 
 + (void)updateFrecencyListForDeviceID:(id)d
 {
-  v52 = *MEMORY[0x1E69E9840];
+  v93 = *MEMORY[0x1E69E9840];
   date = [MEMORY[0x1E695DF00] date];
   _frecentsReaderAfterMigrationIfNecessary = [self _frecentsReaderAfterMigrationIfNecessary];
   _frecentsWriter = [self _frecentsWriter];
@@ -119,80 +123,84 @@ uint64_t __50__AVOutputDeviceFrecencyManager__frecentsFilePath__block_invoke()
       [v7 addObject:d];
     }
 
-    v45 = 0u;
-    v46 = 0u;
-    v43 = 0u;
-    v44 = 0u;
-    v8 = [v7 countByEnumeratingWithState:&v43 objects:v51 count:16];
+    v86 = 0u;
+    v87 = 0u;
+    v84 = 0u;
+    v85 = 0u;
+    v8 = [v7 countByEnumeratingWithState:&v84 objects:v92 count:16];
     if (v8)
     {
-      v9 = v8;
-      v10 = 0;
-      v38 = *v44;
-      v11 = 0.0;
+      v10 = v8;
+      v11 = 0;
+      v77 = *v85;
+      v12 = 0.0;
+      *&v9 = 136315395;
+      v73 = v9;
+      *&v9 = 136315651;
+      v74 = v9;
       dCopy = d;
       obj = v7;
       while (1)
       {
-        for (i = 0; i != v9; ++i)
+        for (i = 0; i != v10; ++i)
         {
-          if (*v44 != v38)
+          if (*v85 != v77)
           {
             objc_enumerationMutation(obj);
           }
 
-          v13 = *(*(&v43 + 1) + 8 * i);
-          v14 = [_frecentsReaderAfterMigrationIfNecessary frecencyInfoForDeviceWithID:v13];
-          v15 = 1.0;
-          if (!v14)
+          v14 = *(*(&v84 + 1) + 8 * i);
+          v15 = [_frecentsReaderAfterMigrationIfNecessary frecencyInfoForDeviceWithID:v14];
+          v16 = 1.0;
+          if (!v15)
           {
-LABEL_26:
-            v18 = 0;
-            goto LABEL_28;
+LABEL_25:
+            v19 = 0;
+            goto LABEL_27;
           }
 
-          v16 = v14;
-          v17 = [v14 objectForKey:@"FrecencyScore"];
-          v18 = [v16 objectForKey:@"LastUsedTimestamp"];
+          v17 = v15;
+          v18 = [v15 objectForKey:@"FrecencyScore"];
+          v19 = [v17 objectForKey:@"LastUsedTimestamp"];
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
-              [v17 doubleValue];
-              v20 = v19;
-              [date timeIntervalSinceDate:v18];
-              v15 = v20 * exp2(v21 / 86400.0 * -0.5) + 1.0;
-              goto LABEL_28;
+              [v18 doubleValue];
+              v21 = v20;
+              [date timeIntervalSinceDate:v19];
+              v16 = v21 * exp2(v22 / 86400.0 * -0.5) + 1.0;
+              goto LABEL_27;
             }
 
             if (!dword_1ED6F6B68)
             {
-              goto LABEL_26;
+              goto LABEL_25;
             }
 
             OUTLINED_FUNCTION_4_1();
-            v25 = OUTLINED_FUNCTION_2_1();
-            if (os_log_type_enabled(v25, type))
+            v44 = OUTLINED_FUNCTION_2_1(qword_1ED6F6B60, v37, v38, v39, v40, v41, v42, v43, v69, v70, v71, v72, v73, *(&v73 + 1), v74, *(&v74 + 1), dCopy, obj, v77, _frecentsWriter, v79, v80, v81, type, v83);
+            if (os_log_type_enabled(v44, type))
             {
-              v26 = v42;
+              v45 = v83;
             }
 
             else
             {
-              v26 = v42 & 0xFFFFFFFE;
+              v45 = v83 & 0xFFFFFFFE;
             }
 
-            if (v26)
+            if (v45)
             {
-              v47 = 136315651;
+              v88 = v74;
               OUTLINED_FUNCTION_3_1();
-              v48 = v17;
-              v49 = v27;
-              v50 = v13;
+              v89 = v18;
+              v90 = v46;
+              v91 = v14;
               OUTLINED_FUNCTION_1_3();
-              goto LABEL_25;
+              _os_log_send_and_compose_impl(v47, v48, v49, v50, &dword_1AB586000, v44, type, "<<<< AVOutputDevice >>>> %s: Ignoring non-number frecency score %{private}@ for device %{private}@");
             }
           }
 
@@ -200,86 +208,89 @@ LABEL_26:
           {
             if (!dword_1ED6F6B68)
             {
-              goto LABEL_26;
+              goto LABEL_25;
             }
 
             OUTLINED_FUNCTION_4_1();
-            v22 = OUTLINED_FUNCTION_2_1();
-            if (os_log_type_enabled(v22, type))
+            v30 = OUTLINED_FUNCTION_2_1(qword_1ED6F6B60, v23, v24, v25, v26, v27, v28, v29, v69, v70, v71, v72, v73, *(&v73 + 1), v74, *(&v74 + 1), dCopy, obj, v77, _frecentsWriter, v79, v80, v81, type, v83);
+            if (os_log_type_enabled(v30, type))
             {
-              v23 = v42;
+              v31 = v83;
             }
 
             else
             {
-              v23 = v42 & 0xFFFFFFFE;
+              v31 = v83 & 0xFFFFFFFE;
             }
 
-            if (v23)
+            if (v31)
             {
-              v47 = 136315651;
+              v88 = v74;
               OUTLINED_FUNCTION_3_1();
-              v48 = v18;
-              v49 = v24;
-              v50 = v13;
+              v89 = v19;
+              v90 = v32;
+              v91 = v14;
               OUTLINED_FUNCTION_1_3();
-LABEL_25:
-              _os_log_send_and_compose_impl();
+              _os_log_send_and_compose_impl(v33, v34, v35, v36, &dword_1AB586000, v30, type, "<<<< AVOutputDevice >>>> %s: Ignoring non-date last used timestamp %{private}@ for device %{private}@");
             }
           }
 
           OUTLINED_FUNCTION_1_1();
           fig_log_call_emit_and_clean_up_after_send_and_compose();
-          v18 = 0;
+          v19 = 0;
           d = dCopy;
-LABEL_28:
-          v28 = [MEMORY[0x1E696AD98] numberWithDouble:v15];
-          if (v11 == 0.0)
+LABEL_27:
+          v51 = [MEMORY[0x1E696AD98] numberWithDouble:v16];
+          if (v12 == 0.0)
           {
-            v10 = v13;
-            v11 = v15;
+            v11 = v14;
+            v12 = v16;
           }
 
-          v29 = [v13 isEqualToString:d];
-          if (v11 > v15)
+          v52 = [v14 isEqualToString:d];
+          if (v12 > v16)
           {
-            v30 = v13;
-          }
-
-          else
-          {
-            v30 = v10;
-          }
-
-          if (v11 > v15)
-          {
-            v31 = v15;
+            v53 = v14;
           }
 
           else
           {
-            v31 = v11;
+            v53 = v11;
           }
 
-          if (v29)
+          if (v12 > v16)
           {
-            v32 = date;
+            v54 = v16;
           }
 
           else
           {
-            v32 = v18;
+            v54 = v12;
           }
 
-          if ((v29 & 1) == 0)
+          if (v52)
           {
-            v10 = v30;
-            v11 = v31;
+            v55 = date;
           }
 
-          if (v32)
+          else
           {
-            [_frecentsWriter setFrecencyInfo:objc_msgSend(MEMORY[0x1E695DF20] forDeviceID:{"dictionaryWithObjectsAndKeys:", v28, v31, @"FrecencyScore", v32, @"LastUsedTimestamp", 0), v13}];
+            v55 = v19;
+          }
+
+          if ((v52 & 1) == 0)
+          {
+            v11 = v53;
+            v12 = v54;
+          }
+
+          if (v55)
+          {
+            v71 = @"LastUsedTimestamp";
+            v72 = 0;
+            v70 = v55;
+            v69 = @"FrecencyScore";
+            [_frecentsWriter setFrecencyInfo:objc_msgSend(MEMORY[0x1E695DF20] forDeviceID:{"dictionaryWithObjectsAndKeys:", v51, v54), v14}];
           }
 
           else
@@ -287,24 +298,24 @@ LABEL_28:
             if (dword_1ED6F6B68)
             {
               OUTLINED_FUNCTION_4_1();
-              v33 = OUTLINED_FUNCTION_2_1();
-              if (os_log_type_enabled(v33, type))
+              v63 = OUTLINED_FUNCTION_2_1(qword_1ED6F6B60, v56, v57, v58, v59, v60, v61, v62, v69, v70, v71, v72, v73, *(&v73 + 1), v74, *(&v74 + 1), dCopy, obj, v77, _frecentsWriter, v79, v80, v81, type, v83);
+              if (os_log_type_enabled(v63, type))
               {
-                v34 = v42;
+                v64 = v83;
               }
 
               else
               {
-                v34 = v42 & 0xFFFFFFFE;
+                v64 = v83 & 0xFFFFFFFE;
               }
 
-              if (v34)
+              if (v64)
               {
-                v47 = 136315395;
+                v88 = v73;
                 OUTLINED_FUNCTION_3_1();
-                v48 = v13;
+                v89 = v14;
                 OUTLINED_FUNCTION_1_3();
-                _os_log_send_and_compose_impl();
+                _os_log_send_and_compose_impl(v65, v66, v67, v68, &dword_1AB586000, v63, type, "<<<< AVOutputDevice >>>> %s: Removing frecents entry for device %{private}@ which previously had an invalid or missing LastUsedTimestamp");
               }
 
               OUTLINED_FUNCTION_1_1();
@@ -312,48 +323,46 @@ LABEL_28:
               d = dCopy;
             }
 
-            [_frecentsWriter removeFrecencyInfoForDeviceID:{v13, v31}];
+            [_frecentsWriter removeFrecencyInfoForDeviceID:{v14, v54}];
           }
         }
 
-        v9 = [obj countByEnumeratingWithState:&v43 objects:v51 count:16];
-        if (!v9)
+        v10 = [obj countByEnumeratingWithState:&v84 objects:v92 count:16];
+        if (!v10)
         {
-          goto LABEL_55;
+          goto LABEL_54;
         }
       }
     }
 
-    v10 = 0;
-LABEL_55:
-    if ([_frecentsWriter numberOfKeysToBeSet] >= 51 && (objc_msgSend(v10, "isEqualToString:", d) & 1) == 0 && v10)
+    v11 = 0;
+LABEL_54:
+    if ([_frecentsWriter numberOfKeysToBeSet] >= 51 && (objc_msgSend(v11, "isEqualToString:", d) & 1) == 0)
     {
-      [_frecentsWriter removeFrecencyInfoForDeviceID:v10];
+      if (v11)
+      {
+        [_frecentsWriter removeFrecencyInfoForDeviceID:v11];
+      }
     }
 
-    v40 = 0;
-    [_frecentsWriter persistToDiskReturningError:&v40];
+    v79 = 0;
+    [_frecentsWriter persistToDiskReturningError:&v79];
   }
-
-  v35 = *MEMORY[0x1E69E9840];
 }
 
 + (id)_applicationSupportPath
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   started = sysdir_start_search_path_enumeration_private();
-  if (MEMORY[0x1AC59FE00](started, v5))
+  if (MEMORY[0x1AC59FE00](started, v4))
   {
-    result = [MEMORY[0x1E696AEC0] stringWithCString:v5 encoding:30];
+    return [MEMORY[0x1E696AEC0] stringWithCString:v4 encoding:30];
   }
 
   else
   {
-    result = 0;
+    return 0;
   }
-
-  v4 = *MEMORY[0x1E69E9840];
-  return result;
 }
 
 + (id)_frecentsContainerPath
@@ -399,83 +408,81 @@ LABEL_55:
 
 + (BOOL)_migrateFrecentsFromCFPreferencesToFrecentsFilePath:(id)path
 {
-  v32[16] = *MEMORY[0x1E69E9840];
+  v43[16] = *MEMORY[0x1E69E9840];
   if (dword_1ED6F6B68)
   {
     OUTLINED_FUNCTION_4_1();
-    v4 = OUTLINED_FUNCTION_2_1();
-    if (os_log_type_enabled(v4, type))
+    v11 = OUTLINED_FUNCTION_2_1(qword_1ED6F6B60, v4, v5, v6, v7, v8, v9, v10, v24, v25, v27, v28, v29, *(&v29 + 1), v30, *(&v30 + 1), v31, *(&v31 + 1), v32, *(&v32 + 1), v33, v34, v35, type, v37);
+    if (os_log_type_enabled(v11, type))
     {
-      v5 = v26;
+      v12 = v37;
     }
 
     else
     {
-      v5 = v26 & 0xFFFFFFFE;
+      v12 = v37 & 0xFFFFFFFE;
     }
 
-    if (v5)
+    if (v12)
     {
-      v28 = 136315394;
-      v29 = "+[AVOutputDeviceFrecencyManager _migrateFrecentsFromCFPreferencesToFrecentsFilePath:]";
-      v30 = 2114;
+      v39 = 136315394;
+      v40 = "+[AVOutputDeviceFrecencyManager _migrateFrecentsFromCFPreferencesToFrecentsFilePath:]";
+      v41 = 2114;
       stringByAbbreviatingWithTildeInPath = [path stringByAbbreviatingWithTildeInPath];
-      LODWORD(v19) = 22;
-      v18 = &v28;
-      _os_log_send_and_compose_impl();
+      LODWORD(v26) = 22;
+      _os_log_send_and_compose_impl(v12, 0, v43, 128, &dword_1AB586000, v11, type, "<<<< AVOutputDevice >>>> %s: Migrating frecents from CFPreferences to %{public}@", &v39, v26);
     }
 
     OUTLINED_FUNCTION_1_1();
     fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
 
-  v6 = [AVOutputDeviceLegacyFrecentsReader defaultFrecentsReader:v18];
-  v7 = +[AVOutputDeviceLegacyFrecentsWriter defaultFrecentsWriter];
-  v8 = [[AVOutputDeviceFrecentsWriter alloc] initWithFrecentsFilePath:path];
-  v21 = 0u;
-  v22 = 0u;
-  v23 = 0u;
-  v24 = 0u;
-  deviceIDs = [v6 deviceIDs];
-  v10 = [deviceIDs countByEnumeratingWithState:&v21 objects:v27 count:16];
-  if (v10)
+  v13 = +[AVOutputDeviceLegacyFrecentsReader defaultFrecentsReader];
+  v14 = +[AVOutputDeviceLegacyFrecentsWriter defaultFrecentsWriter];
+  v15 = [[AVOutputDeviceFrecentsWriter alloc] initWithFrecentsFilePath:path];
+  v29 = 0u;
+  v30 = 0u;
+  v31 = 0u;
+  v32 = 0u;
+  deviceIDs = [v13 deviceIDs];
+  v17 = [deviceIDs countByEnumeratingWithState:&v29 objects:v38 count:16];
+  if (v17)
   {
-    v11 = v10;
-    v12 = *v22;
+    v18 = v17;
+    v19 = *v30;
     do
     {
-      for (i = 0; i != v11; ++i)
+      for (i = 0; i != v18; ++i)
       {
-        if (*v22 != v12)
+        if (*v30 != v19)
         {
           objc_enumerationMutation(deviceIDs);
         }
 
-        v14 = *(*(&v21 + 1) + 8 * i);
-        -[AVOutputDeviceFrecentsWriter setFrecencyInfo:forDeviceID:](v8, "setFrecencyInfo:forDeviceID:", [v6 frecencyInfoForDeviceWithID:v14], v14);
-        [v7 removeFrecencyInfoForDeviceID:v14];
+        v21 = *(*(&v29 + 1) + 8 * i);
+        -[AVOutputDeviceFrecentsWriter setFrecencyInfo:forDeviceID:](v15, "setFrecencyInfo:forDeviceID:", [v13 frecencyInfoForDeviceWithID:v21], v21);
+        [v14 removeFrecencyInfoForDeviceID:v21];
       }
 
-      v11 = [deviceIDs countByEnumeratingWithState:&v21 objects:v27 count:16];
+      v18 = [deviceIDs countByEnumeratingWithState:&v29 objects:v38 count:16];
     }
 
-    while (v11);
+    while (v18);
   }
 
-  v32[0] = 0;
-  if ([(AVOutputDeviceFrecentsWriter *)v8 persistToDiskReturningError:v32])
+  v43[0] = 0;
+  if ([(AVOutputDeviceFrecentsWriter *)v15 persistToDiskReturningError:v43])
   {
-    v20 = 0;
-    v15 = [v7 persistToDiskReturningError:&v20];
+    v28 = 0;
+    v22 = [v14 persistToDiskReturningError:&v28];
   }
 
   else
   {
-    v15 = 0;
+    v22 = 0;
   }
 
-  v16 = *MEMORY[0x1E69E9840];
-  return v15;
+  return v22;
 }
 
 + (AVOutputDeviceFrecentsReader)_frecentsReaderAfterMigrationIfNecessary

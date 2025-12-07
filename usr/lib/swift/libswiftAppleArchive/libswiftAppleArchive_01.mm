@@ -1,144 +1,3 @@
-uint64_t specialized _copyCollectionToContiguousArray<A>(_:)(uint64_t a1)
-{
-  return specialized _copyCollectionToContiguousArray<A>(_:)(a1, MEMORY[0x29EDC85B0], _ss22_ContiguousArrayBufferV19_uninitializedCount15minimumCapacityAByxGSi_SitcfC12AppleArchive0I6HeaderC12EntryXATBlobC17ExtendedAttributeV_Tt1g5, specialized Sequence._copySequenceContents(initializing:));
-}
-
-{
-  return specialized _copyCollectionToContiguousArray<A>(_:)(a1, MEMORY[0x29EDC85D0], _ss22_ContiguousArrayBufferV19_uninitializedCount15minimumCapacityAByxGSi_SitcfC12AppleArchive0I6HeaderC5FieldO_Tt1g5, specialized Sequence._copySequenceContents(initializing:));
-}
-
-uint64_t specialized _copyCollectionToContiguousArray<A>(_:)(uint64_t a1, uint64_t (*a2)(uint64_t), uint64_t (*a3)(void, void), uint64_t (*a4)(uint64_t *, uint64_t, void))
-{
-  v7 = *(a1 + 16);
-  v8 = a2(v7);
-  a2(v7);
-  result = a2(v7);
-  if (result >= v8)
-  {
-    if (v8)
-    {
-      v10 = a3(v8, 0);
-
-      v11 = a4(&v12, v10 + 32, v8);
-
-      if (v11 == v8)
-      {
-        return v10;
-      }
-
-      __break(1u);
-    }
-
-    return MEMORY[0x29EDCA190];
-  }
-
-  __break(1u);
-  return result;
-}
-
-void specialized _copyCollectionToContiguousArray<A>(_:)(uint64_t a1, uint64_t a2, uint64_t a3, unint64_t a4)
-{
-  v4 = a4 >> 1;
-  v5 = (a4 >> 1) - a3;
-  if (__OFSUB__(a4 >> 1, a3))
-  {
-LABEL_9:
-    __break(1u);
-    return;
-  }
-
-  if (v5)
-  {
-    if (v5 < 1)
-    {
-      v8 = MEMORY[0x29EDCA190];
-      if (v4 != a3)
-      {
-        goto LABEL_5;
-      }
-    }
-
-    else
-    {
-      __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys5UInt8VGMd, &_ss23_ContiguousArrayStorageCys5UInt8VGMR);
-      v8 = swift_allocObject();
-      v9 = _swift_stdlib_malloc_size(v8);
-      v8[2] = v5;
-      v8[3] = 2 * v9 - 64;
-      if (v4 != a3)
-      {
-LABEL_5:
-        memcpy(v8 + 4, (a2 + a3), v5);
-        return;
-      }
-    }
-
-    __break(1u);
-    goto LABEL_9;
-  }
-}
-
-void *_ss22_ContiguousArrayBufferV19_uninitializedCount15minimumCapacityAByxGSi_SitcfC12AppleArchive0I6HeaderC8FieldKeyV_Tt1g5Tm(uint64_t a1, uint64_t a2, uint64_t *a3, uint64_t *a4)
-{
-  if (a2 <= a1)
-  {
-    v4 = a1;
-  }
-
-  else
-  {
-    v4 = a2;
-  }
-
-  if (!v4)
-  {
-    return MEMORY[0x29EDCA190];
-  }
-
-  __swift_instantiateConcreteTypeFromMangledNameV2(a3, a4);
-  v6 = swift_allocObject();
-  v7 = _swift_stdlib_malloc_size(v6);
-  result = v6;
-  v10 = v7 - 32;
-  v9 = v7 < 32;
-  v11 = v7 - 29;
-  if (!v9)
-  {
-    v11 = v10;
-  }
-
-  v6[2] = a1;
-  v6[3] = 2 * (v11 >> 2);
-  return result;
-}
-
-void *_ss22_ContiguousArrayBufferV19_uninitializedCount15minimumCapacityAByxGSi_SitcfC12AppleArchive0I6HeaderC12EntryXATBlobC17ExtendedAttributeV_Tt1g5(uint64_t a1, uint64_t a2)
-{
-  if (a2 <= a1)
-  {
-    v2 = a1;
-  }
-
-  else
-  {
-    v2 = a2;
-  }
-
-  if (!v2)
-  {
-    return MEMORY[0x29EDCA190];
-  }
-
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy12AppleArchive0E6HeaderC12EntryXATBlobC17ExtendedAttributeVGMd, &_ss23_ContiguousArrayStorageCy12AppleArchive0E6HeaderC12EntryXATBlobC17ExtendedAttributeVGMR);
-  v4 = swift_allocObject();
-  v5 = _swift_stdlib_malloc_size(v4);
-  result = v4;
-  v7 = ((v5 - 32) * 0x2AAAAAAAAAAAAAABLL) >> 64;
-  v4[2] = a1;
-  v4[3] = 2 * ((v7 >> 2) + (v7 >> 63));
-  return result;
-}
-
 void *_ss22_ContiguousArrayBufferV19_uninitializedCount15minimumCapacityAByxGSi_SitcfC12AppleArchive0I6HeaderC5FieldO_Tt1g5(uint64_t a1, uint64_t a2)
 {
   if (a2 <= a1)
@@ -173,7 +32,7 @@ void *_ss22_ContiguousArrayBufferV19_uninitializedCount15minimumCapacityAByxGSi_
   return result;
 }
 
-uint64_t specialized Sequence._copySequenceContents(initializing:)(void *a1, uint64_t a2, unint64_t a3, uint64_t a4)
+unint64_t specialized Sequence._copySequenceContents(initializing:)(void *a1, uint64_t a2, unint64_t a3, uint64_t a4)
 {
   if (!a2)
   {
@@ -295,7 +154,7 @@ LABEL_15:
   return result;
 }
 
-uint64_t specialized Sequence._copySequenceContents(initializing:)(void *a1, uint64_t a2, unint64_t a3)
+unint64_t specialized Sequence._copySequenceContents(initializing:)(void *a1, uint64_t a2, unint64_t a3)
 {
   if (!a2)
   {
@@ -445,7 +304,7 @@ LABEL_10:
     {
       while (1)
       {
-        ArchiveHeader._field(at:)(v7, v12);
+        ArchiveHeader._field(at:)(v12, v7);
         v8 = v12[0];
         v9 = v12[1];
         v10 = v12[2];
@@ -490,7 +349,7 @@ LABEL_13:
 
 uint64_t specialized SetAlgebra<>.init(arrayLiteral:)(uint64_t a1)
 {
-  type metadata accessor for ArchiveHeader.FieldKeySet();
+  type metadata accessor for ArchiveHeader.FieldKeySet(0);
   v2 = swift_allocObject();
   v3 = AAFieldKeySetCreate();
   if (!v3)
@@ -559,7 +418,7 @@ uint64_t specialized ArchiveHeader.FieldKeySet.formSymmetricDifference(_:)(uint6
   return result;
 }
 
-uint64_t type metadata accessor for ArchiveHeader.FieldKeySet()
+uint64_t type metadata accessor for ArchiveHeader.FieldKeySet(uint64_t a1)
 {
   result = type metadata singleton initialization cache for ArchiveHeader.FieldKeySet;
   if (!type metadata singleton initialization cache for ArchiveHeader.FieldKeySet)
@@ -570,13 +429,13 @@ uint64_t type metadata accessor for ArchiveHeader.FieldKeySet()
   return result;
 }
 
-uint64_t lazy protocol witness table accessor for type Slice<ArchiveHeader.FieldKeySet> and conformance <> Slice<A>(unint64_t *a1, unint64_t *a2)
+uint64_t lazy protocol witness table accessor for type Slice<ArchiveHeader.FieldKeySet> and conformance <> Slice<A>(unint64_t *a1, unint64_t *a2, uint64_t a3, uint64_t a4)
 {
   result = *a1;
   if (!result)
   {
     __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_ss5SliceVy12AppleArchive0C6HeaderC11FieldKeySetCGMd, &_ss5SliceVy12AppleArchive0C6HeaderC11FieldKeySetCGMR);
-    lazy protocol witness table accessor for type ArchiveHeader.FieldKeySet and conformance ArchiveHeader.FieldKeySet(a2);
+    lazy protocol witness table accessor for type ArchiveHeader.FieldKeySet and conformance ArchiveHeader.FieldKeySet(a2, a3);
     result = swift_getWitnessTable();
     atomic_store(result, a1);
   }
@@ -584,12 +443,12 @@ uint64_t lazy protocol witness table accessor for type Slice<ArchiveHeader.Field
   return result;
 }
 
-uint64_t lazy protocol witness table accessor for type ArchiveHeader.FieldKeySet and conformance ArchiveHeader.FieldKeySet(unint64_t *a1)
+uint64_t lazy protocol witness table accessor for type ArchiveHeader.FieldKeySet and conformance ArchiveHeader.FieldKeySet(unint64_t *a1, uint64_t a2)
 {
   result = *a1;
   if (!result)
   {
-    type metadata accessor for ArchiveHeader.FieldKeySet();
+    type metadata accessor for ArchiveHeader.FieldKeySet(255);
     result = swift_getWitnessTable();
     atomic_store(result, a1);
   }
@@ -630,7 +489,7 @@ uint64_t ArchiveEncryptionContext.init(profile:compressionAlgorithm:compressionB
   return result;
 }
 
-uint64_t AEAContextSetCompressionBlockSize(AEAContext_impl *a1, unint64_t a2)
+uint64_t AEAContextSetCompressionBlockSize(AEAContext_impl *a1, uint64_t a2)
 {
   if (a2 >= 0xFFFFFFFF)
   {
@@ -693,7 +552,7 @@ AAByteStream_impl *ArchiveEncryptionContext.init(from:)(uint64_t a1)
 
     else
     {
-      type metadata accessor for ArchiveEncryptionContext();
+      type metadata accessor for ArchiveEncryptionContext(0);
       swift_deallocPartialClassInstance();
       return 0;
     }
@@ -709,7 +568,7 @@ AAByteStream_impl *ArchiveEncryptionContext.init(from:)(uint64_t a1)
   return result;
 }
 
-uint64_t type metadata accessor for ArchiveEncryptionContext()
+uint64_t type metadata accessor for ArchiveEncryptionContext(uint64_t a1)
 {
   result = type metadata singleton initialization cache for ArchiveEncryptionContext;
   if (!type metadata singleton initialization cache for ArchiveEncryptionContext)
@@ -864,9 +723,9 @@ uint64_t (*ArchiveEncryptionContext.checksumMode.modify(uint64_t a1))(uint64_t a
   return ArchiveEncryptionContext.checksumMode.modify;
 }
 
-uint64_t key path setter for ArchiveEncryptionContext.checksumMode : ArchiveEncryptionContext(unsigned int *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t (*a5)(void, void))
+uint64_t key path setter for ArchiveEncryptionContext.checksumMode : ArchiveEncryptionContext(unsigned int *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t (*a5)(void, void), uint64_t a6)
 {
-  result = a5(*(*a2 + 16), *a1);
+  result = (a5)(*(*a2 + 16), *a1, a3, a4);
   if (result)
   {
     result = _assertionFailure(_:_:file:line:flags:)();
@@ -883,9 +742,9 @@ uint64_t ArchiveEncryptionContext.compressionAlgorithm.getter@<X0>(_DWORD *a1@<X
   return result;
 }
 
-uint64_t ArchiveEncryptionContext.checksumMode.setter(unsigned int *a1, AEAContextField a2)
+uint64_t ArchiveEncryptionContext.checksumMode.setter(unsigned int *a1, AEAContextField a2, uint64_t a3)
 {
-  result = AEAContextSetFieldUInt(*(v2 + 16), a2, *a1);
+  result = AEAContextSetFieldUInt(*(v3 + 16), a2, *a1);
   if (result)
   {
     result = _assertionFailure(_:_:file:line:flags:)();
@@ -903,7 +762,7 @@ uint64_t (*ArchiveEncryptionContext.compressionAlgorithm.modify(uint64_t a1))(ui
   return ArchiveEncryptionContext.compressionAlgorithm.modify;
 }
 
-uint64_t ArchiveEncryptionContext.checksumMode.modify(uint64_t a1, int a2, AEAContextField field)
+uint64_t ArchiveEncryptionContext.checksumMode.modify(uint64_t a1, int a2, AEAContextField field, uint64_t a4)
 {
   result = AEAContextSetFieldUInt(*a1, field, *(a1 + 8));
   if (result)
@@ -927,20 +786,19 @@ uint64_t key path setter for ArchiveEncryptionContext.compressionBlockSize : Arc
   return result;
 }
 
-uint64_t ArchiveEncryptionContext.compressionBlockSize.setter(unint64_t a1)
+uint64_t ArchiveEncryptionContext.compressionBlockSize.setter(uint64_t a1)
 {
-  v2 = *(v1 + 16);
   if (a1 >= 0xFFFFFFFF)
   {
-    v3 = 0xFFFFFFFFLL;
+    v2 = 0xFFFFFFFFLL;
   }
 
   else
   {
-    v3 = a1;
+    v2 = a1;
   }
 
-  result = AEAContextSetFieldUInt(*(v1 + 16), 4u, v3);
+  result = AEAContextSetFieldUInt(*(v1 + 16), 4u, v2);
   if (result)
   {
     result = _assertionFailure(_:_:file:line:flags:)();
@@ -960,18 +818,17 @@ uint64_t (*ArchiveEncryptionContext.compressionBlockSize.modify(uint64_t *a1))(u
 
 uint64_t ArchiveEncryptionContext.compressionBlockSize.modify(uint64_t a1)
 {
-  v1 = *(a1 + 8);
   if (*a1 >= 0xFFFFFFFFuLL)
   {
-    v2 = 0xFFFFFFFFLL;
+    v1 = 0xFFFFFFFFLL;
   }
 
   else
   {
-    v2 = *a1;
+    v1 = *a1;
   }
 
-  result = AEAContextSetFieldUInt(*(a1 + 8), 4u, v2);
+  result = AEAContextSetFieldUInt(*(a1 + 8), 4u, v1);
   if (result)
   {
     result = _assertionFailure(_:_:file:line:flags:)();
@@ -999,7 +856,7 @@ uint64_t outlined init with copy of SymmetricKey?(uint64_t a1, uint64_t a2)
   return a2;
 }
 
-void (*ArchiveEncryptionContext.symmetricKey.modify(uint64_t *a1))(void *a1, char a2)
+void (*ArchiveEncryptionContext.symmetricKey.modify(uint64_t *a1))(uint64_t a1, uint64_t a2)
 {
   a1[1] = v1;
   v3 = *(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s9CryptoKit12SymmetricKeyVSgMd, &_s9CryptoKit12SymmetricKeyVSgMR) - 8) + 64);
@@ -1022,7 +879,7 @@ void (*ArchiveEncryptionContext.symmetricKey.modify(uint64_t *a1))(void *a1, cha
   {
     *a1 = v6;
     __swift_instantiateConcreteTypeFromMangledNameV2(&_ss15ContiguousArrayVys5UInt8VGMd, &_ss15ContiguousArrayVys5UInt8VGMR);
-    lazy protocol witness table accessor for type ContiguousArray<UInt8> and conformance <A> ContiguousArray<A>(&lazy protocol witness table cache variable for type ContiguousArray<UInt8> and conformance <A> ContiguousArray<A>);
+    lazy protocol witness table accessor for type ContiguousArray<UInt8> and conformance <A> ContiguousArray<A>(&lazy protocol witness table cache variable for type ContiguousArray<UInt8> and conformance <A> ContiguousArray<A>, MEMORY[0x29EDB9E28]);
     SymmetricKey.init<A>(data:)();
     v7 = 0;
   }
@@ -1037,40 +894,37 @@ void (*ArchiveEncryptionContext.symmetricKey.modify(uint64_t *a1))(void *a1, cha
   return ArchiveEncryptionContext.symmetricKey.modify;
 }
 
-uint64_t key path getter for ArchiveEncryptionContext.password : ArchiveEncryptionContext@<X0>(uint64_t *a1@<X0>, uint64_t *a2@<X8>)
+uint64_t key path getter for ArchiveEncryptionContext.password : ArchiveEncryptionContext@<X0>(uint64_t *a1@<X8>)
 {
-  v4 = type metadata accessor for String.Encoding();
-  v5 = *(*(v4 - 8) + 64);
-  MEMORY[0x2A1C7C4A8](v4 - 8, v6);
-  v7 = *a1;
+  v2 = type metadata accessor for String.Encoding();
+  MEMORY[0x2A1C7C4A8](v2 - 8);
   result = ArchiveEncryptionContext._getBlob(field:representation:)(0x13u, 0);
   if (result)
   {
     static String.Encoding.utf8.getter();
     __swift_instantiateConcreteTypeFromMangledNameV2(&_ss15ContiguousArrayVys5UInt8VGMd, &_ss15ContiguousArrayVys5UInt8VGMR);
-    lazy protocol witness table accessor for type ContiguousArray<UInt8> and conformance <A> ContiguousArray<A>(&lazy protocol witness table cache variable for type ContiguousArray<UInt8> and conformance ContiguousArray<A>);
-    v9 = String.init<A>(bytes:encoding:)();
-    v11 = v10;
+    lazy protocol witness table accessor for type ContiguousArray<UInt8> and conformance <A> ContiguousArray<A>(&lazy protocol witness table cache variable for type ContiguousArray<UInt8> and conformance ContiguousArray<A>, MEMORY[0x29EDC9E00]);
+    v4 = String.init<A>(bytes:encoding:)();
+    v6 = v5;
   }
 
   else
   {
-    v9 = 0;
-    v11 = 0;
+    v4 = 0;
+    v6 = 0;
   }
 
-  *a2 = v9;
-  a2[1] = v11;
+  *a1 = v4;
+  a1[1] = v6;
   return result;
 }
 
-void key path setter for ArchiveEncryptionContext.password : ArchiveEncryptionContext(Swift::String_optional *a1, uint64_t *a2)
+void key path setter for ArchiveEncryptionContext.password : ArchiveEncryptionContext(Swift::String_optional *a1)
 {
-  v2 = *a2;
   ArchiveEncryptionContext._setBlob(field:string:)(AEA_CONTEXT_FIELD_PASSWORD, *a1);
-  if (v3)
+  if (v1)
   {
-    MEMORY[0x29C2A92B0](v3);
+    MEMORY[0x29C2A92B0](v1);
     _assertionFailure(_:_:file:line:flags:)();
     __break(1u);
   }
@@ -1099,8 +953,7 @@ uint64_t ArchiveEncryptionContext.password.setter(Swift::String_optional string)
 uint64_t ArchiveEncryptionContext.password.getter()
 {
   v0 = type metadata accessor for String.Encoding();
-  v1 = *(*(v0 - 8) + 64);
-  MEMORY[0x2A1C7C4A8](v0 - 8, v2);
+  MEMORY[0x2A1C7C4A8](v0 - 8);
   if (!ArchiveEncryptionContext._getBlob(field:representation:)(0x13u, 0))
   {
     return 0;
@@ -1108,13 +961,13 @@ uint64_t ArchiveEncryptionContext.password.getter()
 
   static String.Encoding.utf8.getter();
   __swift_instantiateConcreteTypeFromMangledNameV2(&_ss15ContiguousArrayVys5UInt8VGMd, &_ss15ContiguousArrayVys5UInt8VGMR);
-  lazy protocol witness table accessor for type ContiguousArray<UInt8> and conformance <A> ContiguousArray<A>(&lazy protocol witness table cache variable for type ContiguousArray<UInt8> and conformance ContiguousArray<A>);
-  v3 = String.init<A>(bytes:encoding:)();
+  lazy protocol witness table accessor for type ContiguousArray<UInt8> and conformance <A> ContiguousArray<A>(&lazy protocol witness table cache variable for type ContiguousArray<UInt8> and conformance ContiguousArray<A>, MEMORY[0x29EDC9E00]);
+  v1 = String.init<A>(bytes:encoding:)();
 
-  return v3;
+  return v1;
 }
 
-void (*ArchiveEncryptionContext.password.modify(uint64_t *a1))(uint64_t **a1, char a2)
+void (*ArchiveEncryptionContext.password.modify(uint64_t **a1))(uint64_t **a1, char a2)
 {
   v3 = MEMORY[0x29EDCA1B0];
   if (MEMORY[0x29EDCA1B0])
@@ -1129,7 +982,7 @@ void (*ArchiveEncryptionContext.password.modify(uint64_t *a1))(uint64_t **a1, ch
 
   v5 = v4;
   *a1 = v4;
-  *(v4 + 24) = v1;
+  v4[3] = v1;
   v6 = *(*(type metadata accessor for String.Encoding() - 8) + 64);
   if (v3)
   {
@@ -1148,7 +1001,7 @@ void (*ArchiveEncryptionContext.password.modify(uint64_t *a1))(uint64_t **a1, ch
     v5[2] = v8;
     static String.Encoding.utf8.getter();
     __swift_instantiateConcreteTypeFromMangledNameV2(&_ss15ContiguousArrayVys5UInt8VGMd, &_ss15ContiguousArrayVys5UInt8VGMR);
-    lazy protocol witness table accessor for type ContiguousArray<UInt8> and conformance <A> ContiguousArray<A>(&lazy protocol witness table cache variable for type ContiguousArray<UInt8> and conformance ContiguousArray<A>);
+    lazy protocol witness table accessor for type ContiguousArray<UInt8> and conformance <A> ContiguousArray<A>(&lazy protocol witness table cache variable for type ContiguousArray<UInt8> and conformance ContiguousArray<A>, MEMORY[0x29EDC9E00]);
     v9 = String.init<A>(bytes:encoding:)();
     v11 = v10;
   }
@@ -1169,39 +1022,35 @@ void ArchiveEncryptionContext.password.modify(uint64_t **a1, char a2)
   v2 = *a1;
   v3 = **a1;
   v4 = (*a1)[1];
-  v5 = (*a1)[3];
   if ((a2 & 1) == 0)
   {
     ArchiveEncryptionContext._setBlob(field:string:)(AEA_CONTEXT_FIELD_PASSWORD, **a1);
-    if (!v8)
+    if (!v6)
     {
-      v9 = v2[4];
+      v7 = v2[4];
       goto LABEL_6;
     }
 
 LABEL_9:
-    MEMORY[0x29C2A92B0](v8);
+    MEMORY[0x29C2A92B0](v6);
     _assertionFailure(_:_:file:line:flags:)();
     __break(1u);
     return;
   }
 
-  v6 = (*a1)[1];
-
-  v7.value._countAndFlagsBits = v3;
-  v7.value._object = v4;
-  ArchiveEncryptionContext._setBlob(field:string:)(AEA_CONTEXT_FIELD_PASSWORD, v7);
-  if (v8)
+  v5.value._countAndFlagsBits = v3;
+  v5.value._object = v4;
+  ArchiveEncryptionContext._setBlob(field:string:)(AEA_CONTEXT_FIELD_PASSWORD, v5);
+  if (v6)
   {
     goto LABEL_9;
   }
 
-  v9 = v2[4];
+  v7 = v2[4];
 
-  v10 = v2[1];
 LABEL_6:
 
-  free(v9);
+  free(v7);
 
   free(v2);
 }
@@ -1209,33 +1058,32 @@ LABEL_6:
 uint64_t ArchiveEncryptionContext.generateSymmetricKey()@<X0>(uint64_t a1@<X8>)
 {
   v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9CryptoKit12SymmetricKeyVSgMd, &_s9CryptoKit12SymmetricKeyVSgMR);
-  v4 = *(*(v3 - 8) + 64);
-  v6 = MEMORY[0x2A1C7C4A8](v3 - 8, v5);
-  v8 = v19 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x2A1C7C4A8](v6, v9);
-  v11 = v19 - v10;
+  v4 = MEMORY[0x2A1C7C4A8](v3 - 8);
+  v6 = v16 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x2A1C7C4A8](v4);
+  v8 = v16 - v7;
   if (AEAContextGenerateFieldBlob(*(v1 + 16), 9u) < 0)
   {
     lazy protocol witness table accessor for type ArchiveError and conformance ArchiveError();
     swift_allocError();
-    *v16 = 1;
+    *v13 = 1;
     return swift_willThrow();
   }
 
   else
   {
-    v12 = ArchiveEncryptionContext._getBlob(field:representation:)(9u, 0);
-    if (v12)
+    v9 = ArchiveEncryptionContext._getBlob(field:representation:)(9u, 0);
+    if (v9)
     {
-      v19[1] = v12;
+      v16[1] = v9;
       __swift_instantiateConcreteTypeFromMangledNameV2(&_ss15ContiguousArrayVys5UInt8VGMd, &_ss15ContiguousArrayVys5UInt8VGMR);
-      lazy protocol witness table accessor for type ContiguousArray<UInt8> and conformance <A> ContiguousArray<A>(&lazy protocol witness table cache variable for type ContiguousArray<UInt8> and conformance <A> ContiguousArray<A>);
+      lazy protocol witness table accessor for type ContiguousArray<UInt8> and conformance <A> ContiguousArray<A>(&lazy protocol witness table cache variable for type ContiguousArray<UInt8> and conformance <A> ContiguousArray<A>, MEMORY[0x29EDB9E28]);
       SymmetricKey.init<A>(data:)();
-      v13 = type metadata accessor for SymmetricKey();
-      v14 = *(v13 - 8);
-      (*(v14 + 56))(v11, 0, 1, v13);
-      outlined init with copy of SymmetricKey?(v11, v8);
-      result = (*(v14 + 48))(v8, 1, v13);
+      v10 = type metadata accessor for SymmetricKey();
+      v11 = *(v10 - 8);
+      (*(v11 + 56))(v8, 0, 1, v10);
+      outlined init with copy of SymmetricKey?(v8, v6);
+      result = (*(v11 + 48))(v6, 1, v10);
       if (result == 1)
       {
         __break(1u);
@@ -1243,20 +1091,20 @@ uint64_t ArchiveEncryptionContext.generateSymmetricKey()@<X0>(uint64_t a1@<X8>)
 
       else
       {
-        outlined destroy of SymmetricKey?(v11);
-        return (*(v14 + 32))(a1, v8, v13);
+        outlined destroy of SymmetricKey?(v8);
+        return (*(v11 + 32))(a1, v6, v10);
       }
     }
 
     else
     {
-      v17 = type metadata accessor for SymmetricKey();
-      (*(*(v17 - 8) + 56))(v11, 1, 1, v17);
+      v14 = type metadata accessor for SymmetricKey();
+      (*(*(v14 - 8) + 56))(v8, 1, 1, v14);
       lazy protocol witness table accessor for type ArchiveError and conformance ArchiveError();
       swift_allocError();
-      *v18 = 1;
+      *v15 = 1;
       swift_willThrow();
-      return outlined destroy of SymmetricKey?(v11);
+      return outlined destroy of SymmetricKey?(v8);
     }
   }
 
@@ -1266,28 +1114,20 @@ uint64_t ArchiveEncryptionContext.generateSymmetricKey()@<X0>(uint64_t a1@<X8>)
 Swift::String __swiftcall __spoils<CF,ZF,NF,VF,X0,X1,X2,X3,X4,X5,X6,X7,X8,X9,X10,X11,X12,X13,X14,X15,X16,X17,X21,Q0,Q1,Q2,Q3,Q4,Q5,Q6,Q7,Q16,Q17,Q18,Q19,Q20,Q21,Q22,Q23,Q24,Q25,Q26,Q27,Q28,Q29,Q30,Q31> ArchiveEncryptionContext.generatePassword()()
 {
   v1 = type metadata accessor for String.Encoding();
-  v2 = *(*(v1 - 8) + 64);
-  MEMORY[0x2A1C7C4A8](v1 - 8, v3);
-  v5 = v12 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  if (AEAContextGenerateFieldBlob(*(v0 + 16), 0x13u) < 0)
+  MEMORY[0x2A1C7C4A8](v1 - 8);
+  v3 = v10 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
+  if (AEAContextGenerateFieldBlob(*(v0 + 16), 0x13u) < 0 || (v4 = ArchiveEncryptionContext._getBlob(field:representation:)(0x13u, 0)) == 0 || (v10[1] = v4, static String.Encoding.utf8.getter(), __swift_instantiateConcreteTypeFromMangledNameV2(&_ss15ContiguousArrayVys5UInt8VGMd, &_ss15ContiguousArrayVys5UInt8VGMR), lazy protocol witness table accessor for type ContiguousArray<UInt8> and conformance <A> ContiguousArray<A>(&lazy protocol witness table cache variable for type ContiguousArray<UInt8> and conformance ContiguousArray<A>, MEMORY[0x29EDC9E00]), v0 = String.init<A>(bytes:encoding:)(), v3 = v5, , !v3))
   {
-    goto LABEL_4;
-  }
-
-  v6 = ArchiveEncryptionContext._getBlob(field:representation:)(0x13u, 0);
-  if (!v6 || (v12[1] = v6, static String.Encoding.utf8.getter(), __swift_instantiateConcreteTypeFromMangledNameV2(&_ss15ContiguousArrayVys5UInt8VGMd, &_ss15ContiguousArrayVys5UInt8VGMR), lazy protocol witness table accessor for type ContiguousArray<UInt8> and conformance <A> ContiguousArray<A>(&lazy protocol witness table cache variable for type ContiguousArray<UInt8> and conformance ContiguousArray<A>), v0 = String.init<A>(bytes:encoding:)(), v5 = v7, , !v5))
-  {
-LABEL_4:
     lazy protocol witness table accessor for type ArchiveError and conformance ArchiveError();
     swift_allocError();
-    *v8 = 1;
+    *v6 = 1;
     swift_willThrow();
   }
 
-  v9 = v0;
-  v10 = v5;
-  result._object = v10;
-  result._countAndFlagsBits = v9;
+  v7 = v0;
+  v8 = v3;
+  result._object = v8;
+  result._countAndFlagsBits = v7;
   return result;
 }
 
@@ -1308,36 +1148,34 @@ uint64_t ArchiveEncryptionContext.setSigningPublicKey(_:)(uint64_t a1, uint64_t 
   v7 = v4;
   v9 = a2(0);
   v10 = *(v9 - 8);
-  v11 = *(v10 + 64);
-  MEMORY[0x2A1C7C4A8](v9, v12);
-  v14 = &v20 - v13;
-  (*(v10 + 16))(&v20 - v13, a1, v9);
+  MEMORY[0x2A1C7C4A8](v9);
+  v12 = &v18 - v11;
+  (*(v10 + 16))(&v18 - v11, a1, v9);
 
-  v16 = a3(v15);
-  v18 = v17;
-  specialized Data._Representation.withUnsafeBytes<A>(_:)(v16, v17, v7, a4, 1u);
-  outlined consume of Data._Representation(v16, v18);
-  return (*(v10 + 8))(v14, v9);
+  v14 = a3(v13);
+  v16 = v15;
+  specialized Data._Representation.withUnsafeBytes<A>(_:)(v14, v15, v7, a4, 1u);
+  outlined consume of Data._Representation(v14, v16);
+  return (*(v10 + 8))(v12, v9);
 }
 
-uint64_t key path getter for ArchiveEncryptionContext.authData : ArchiveEncryptionContext@<X0>(uint64_t *a1@<X0>, uint64_t *a2@<X8>)
+uint64_t key path getter for ArchiveEncryptionContext.authData : ArchiveEncryptionContext@<X0>(uint64_t *a1@<X8>)
 {
-  v3 = *a1;
   result = ArchiveEncryptionContext._getBlob(field:representation:)(5u, 0);
   if (result)
   {
-    v5 = _s10Foundation4DataVyACxcSTRzs5UInt8V7ElementRtzlufCs15ContiguousArrayVyAEG_Tt0g5Tf4g_n(result);
-    v7 = v6;
+    v3 = _s10Foundation4DataVyACxcSTRzs5UInt8V7ElementRtzlufCs15ContiguousArrayVyAEG_Tt0g5Tf4g_n(result);
+    v5 = v4;
   }
 
   else
   {
-    v5 = 0;
-    v7 = 0xF000000000000000;
+    v3 = 0;
+    v5 = 0xF000000000000000;
   }
 
-  *a2 = v5;
-  a2[1] = v7;
+  *a1 = v3;
+  a1[1] = v5;
   return result;
 }
 
@@ -1388,7 +1226,6 @@ uint64_t ArchiveEncryptionContext.authData.modify(uint64_t *a1, char a2)
 {
   v2 = *a1;
   v3 = a1[1];
-  v4 = a1[2];
   if ((a2 & 1) == 0)
   {
     return ArchiveEncryptionContext.authData.setter(*a1, v3);
@@ -1413,43 +1250,12 @@ uint64_t ArchiveEncryptionContext.authData.getter(AEAContextField a1)
   return v2;
 }
 
-uint64_t key path getter for ArchiveEncryptionContext.symmetricKey : ArchiveEncryptionContext@<X0>(AEAContextField field@<W3>, uint64_t *a2@<X0>, uint64_t a3@<X8>)
+uint64_t key path getter for ArchiveEncryptionContext.symmetricKey : ArchiveEncryptionContext@<X0>(AEAContextField field@<W3>, uint64_t a2@<X8>)
 {
-  v4 = *a2;
   if (ArchiveEncryptionContext._getBlob(field:representation:)(field, 0))
   {
     __swift_instantiateConcreteTypeFromMangledNameV2(&_ss15ContiguousArrayVys5UInt8VGMd, &_ss15ContiguousArrayVys5UInt8VGMR);
-    lazy protocol witness table accessor for type ContiguousArray<UInt8> and conformance <A> ContiguousArray<A>(&lazy protocol witness table cache variable for type ContiguousArray<UInt8> and conformance <A> ContiguousArray<A>);
-    SymmetricKey.init<A>(data:)();
-    v5 = type metadata accessor for SymmetricKey();
-    return (*(*(v5 - 8) + 56))(a3, 0, 1, v5);
-  }
-
-  else
-  {
-    v7 = type metadata accessor for SymmetricKey();
-    v8 = *(*(v7 - 8) + 56);
-
-    return v8(a3, 1, 1, v7);
-  }
-}
-
-uint64_t key path setter for ArchiveEncryptionContext.symmetricKey : ArchiveEncryptionContext(uint64_t a1, uint64_t *a2, uint64_t a3, uint64_t a4, uint64_t (*a5)(char *))
-{
-  v8 = (*(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s9CryptoKit12SymmetricKeyVSgMd, &_s9CryptoKit12SymmetricKeyVSgMR) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x2A1C7C4A8]();
-  v10 = &v13 - v9;
-  outlined init with copy of SymmetricKey?(a1, &v13 - v9);
-  v11 = *a2;
-  return a5(v10);
-}
-
-uint64_t ArchiveEncryptionContext.symmetricKey.getter@<X0>(AEAContextField a1@<W0>, uint64_t a2@<X8>)
-{
-  if (ArchiveEncryptionContext._getBlob(field:representation:)(a1, 0))
-  {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss15ContiguousArrayVys5UInt8VGMd, &_ss15ContiguousArrayVys5UInt8VGMR);
-    lazy protocol witness table accessor for type ContiguousArray<UInt8> and conformance <A> ContiguousArray<A>(&lazy protocol witness table cache variable for type ContiguousArray<UInt8> and conformance <A> ContiguousArray<A>);
+    lazy protocol witness table accessor for type ContiguousArray<UInt8> and conformance <A> ContiguousArray<A>(&lazy protocol witness table cache variable for type ContiguousArray<UInt8> and conformance <A> ContiguousArray<A>, MEMORY[0x29EDB9E28]);
     SymmetricKey.init<A>(data:)();
     v3 = type metadata accessor for SymmetricKey();
     return (*(*(v3 - 8) + 56))(a2, 0, 1, v3);
@@ -1464,7 +1270,36 @@ uint64_t ArchiveEncryptionContext.symmetricKey.getter@<X0>(AEAContextField a1@<W
   }
 }
 
-void (*ArchiveEncryptionContext.signatureEncryptionKey.modify(uint64_t *a1))(void *a1, char a2)
+uint64_t key path setter for ArchiveEncryptionContext.symmetricKey : ArchiveEncryptionContext(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t (*a5)(char *))
+{
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9CryptoKit12SymmetricKeyVSgMd, &_s9CryptoKit12SymmetricKeyVSgMR);
+  MEMORY[0x2A1C7C4A8](v7 - 8);
+  v9 = &v11 - v8;
+  outlined init with copy of SymmetricKey?(a1, &v11 - v8);
+  return a5(v9);
+}
+
+uint64_t ArchiveEncryptionContext.symmetricKey.getter@<X0>(AEAContextField a1@<W0>, uint64_t a2@<X8>)
+{
+  if (ArchiveEncryptionContext._getBlob(field:representation:)(a1, 0))
+  {
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss15ContiguousArrayVys5UInt8VGMd, &_ss15ContiguousArrayVys5UInt8VGMR);
+    lazy protocol witness table accessor for type ContiguousArray<UInt8> and conformance <A> ContiguousArray<A>(&lazy protocol witness table cache variable for type ContiguousArray<UInt8> and conformance <A> ContiguousArray<A>, MEMORY[0x29EDB9E28]);
+    SymmetricKey.init<A>(data:)();
+    v3 = type metadata accessor for SymmetricKey();
+    return (*(*(v3 - 8) + 56))(a2, 0, 1, v3);
+  }
+
+  else
+  {
+    v5 = type metadata accessor for SymmetricKey();
+    v6 = *(*(v5 - 8) + 56);
+
+    return v6(a2, 1, 1, v5);
+  }
+}
+
+void (*ArchiveEncryptionContext.signatureEncryptionKey.modify(uint64_t *a1))(uint64_t a1, uint64_t a2)
 {
   a1[1] = v1;
   v3 = *(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s9CryptoKit12SymmetricKeyVSgMd, &_s9CryptoKit12SymmetricKeyVSgMR) - 8) + 64);
@@ -1487,7 +1322,7 @@ void (*ArchiveEncryptionContext.signatureEncryptionKey.modify(uint64_t *a1))(voi
   {
     *a1 = v6;
     __swift_instantiateConcreteTypeFromMangledNameV2(&_ss15ContiguousArrayVys5UInt8VGMd, &_ss15ContiguousArrayVys5UInt8VGMR);
-    lazy protocol witness table accessor for type ContiguousArray<UInt8> and conformance <A> ContiguousArray<A>(&lazy protocol witness table cache variable for type ContiguousArray<UInt8> and conformance <A> ContiguousArray<A>);
+    lazy protocol witness table accessor for type ContiguousArray<UInt8> and conformance <A> ContiguousArray<A>(&lazy protocol witness table cache variable for type ContiguousArray<UInt8> and conformance <A> ContiguousArray<A>, MEMORY[0x29EDB9E28]);
     SymmetricKey.init<A>(data:)();
     v7 = 0;
   }
@@ -1502,11 +1337,10 @@ void (*ArchiveEncryptionContext.signatureEncryptionKey.modify(uint64_t *a1))(voi
   return ArchiveEncryptionContext.signatureEncryptionKey.modify;
 }
 
-void ArchiveEncryptionContext.symmetricKey.modify(void *a1, char a2, void (*a3)(void *))
+void ArchiveEncryptionContext.symmetricKey.modify(uint64_t a1, char a2, void (*a3)(void *))
 {
-  v4 = a1[2];
-  v5 = a1[3];
-  v6 = a1[1];
+  v4 = *(a1 + 16);
+  v5 = *(a1 + 24);
   if (a2)
   {
     outlined init with copy of SymmetricKey?(v5, v4);
@@ -1524,40 +1358,40 @@ void ArchiveEncryptionContext.symmetricKey.modify(void *a1, char a2, void (*a3)(
   free(v4);
 }
 
-uint64_t ArchiveEncryptionContext.symmetricKey.setter(uint64_t a1, uint64_t a2, uint64_t a3)
+uint64_t ArchiveEncryptionContext.symmetricKey.setter(uint64_t a1, int a2, uint64_t a3, uint64_t a4)
 {
-  v5 = (*(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s9CryptoKit12SymmetricKeyVSgMd, &_s9CryptoKit12SymmetricKeyVSgMR) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x2A1C7C4A8]();
-  v7 = &v13[-1] - v6;
-  outlined init with copy of SymmetricKey?(a1, &v13[-1] - v6);
-  v8 = type metadata accessor for SymmetricKey();
-  v9 = *(v8 - 8);
-  if ((*(v9 + 48))(v7, 1, v8) == 1)
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9CryptoKit12SymmetricKeyVSgMd, &_s9CryptoKit12SymmetricKeyVSgMR);
+  MEMORY[0x2A1C7C4A8](v6 - 8);
+  v8 = &v15[-1] - v7;
+  outlined init with copy of SymmetricKey?(a1, &v15[-1] - v7);
+  v9 = type metadata accessor for SymmetricKey();
+  v10 = *(v9 - 8);
+  if ((*(v10 + 48))(v8, 1, v9) == 1)
   {
     __break(1u);
     MEMORY[0x29C2A92B0](a3);
-    __swift_destroy_boxed_opaque_existential_1(v13);
+    __swift_destroy_boxed_opaque_existential_1(v15);
     result = _assertionFailure(_:_:file:line:flags:)();
     __break(1u);
   }
 
   else
   {
-    v14 = v8;
-    v15 = &protocol witness table for SymmetricKey;
-    boxed_opaque_existential_1 = __swift_allocate_boxed_opaque_existential_1(v13);
-    (*(v9 + 32))(boxed_opaque_existential_1, v7, v8);
-    __swift_project_boxed_opaque_existential_1(v13, v14);
-    MEMORY[0x2A1C7C4A8]();
+    v16 = v9;
+    v17 = &protocol witness table for SymmetricKey;
+    boxed_opaque_existential_1 = __swift_allocate_boxed_opaque_existential_1(v15);
+    (*(v10 + 32))(boxed_opaque_existential_1, v8, v9);
+    v12 = __swift_project_boxed_opaque_existential_1(v15, v16);
+    MEMORY[0x2A1C7C4A8](v12);
     SymmetricKey.withUnsafeBytes<A>(_:)();
     outlined destroy of SymmetricKey?(a1);
-    return __swift_destroy_boxed_opaque_existential_1(v13);
+    return __swift_destroy_boxed_opaque_existential_1(v15);
   }
 
   return result;
 }
 
-void (*ArchiveEncryptionContext.mainKey.modify(uint64_t *a1))(void *a1, char a2)
+void (*ArchiveEncryptionContext.mainKey.modify(uint64_t *a1))(uint64_t a1, char a2)
 {
   a1[1] = v1;
   v3 = *(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s9CryptoKit12SymmetricKeyVSgMd, &_s9CryptoKit12SymmetricKeyVSgMR) - 8) + 64);
@@ -1580,7 +1414,7 @@ void (*ArchiveEncryptionContext.mainKey.modify(uint64_t *a1))(void *a1, char a2)
   {
     *a1 = v6;
     __swift_instantiateConcreteTypeFromMangledNameV2(&_ss15ContiguousArrayVys5UInt8VGMd, &_ss15ContiguousArrayVys5UInt8VGMR);
-    lazy protocol witness table accessor for type ContiguousArray<UInt8> and conformance <A> ContiguousArray<A>(&lazy protocol witness table cache variable for type ContiguousArray<UInt8> and conformance <A> ContiguousArray<A>);
+    lazy protocol witness table accessor for type ContiguousArray<UInt8> and conformance <A> ContiguousArray<A>(&lazy protocol witness table cache variable for type ContiguousArray<UInt8> and conformance <A> ContiguousArray<A>, MEMORY[0x29EDB9E28]);
     SymmetricKey.init<A>(data:)();
     v7 = 0;
   }
@@ -1605,8 +1439,7 @@ uint64_t ArchiveEncryptionContext._getBlob(field:representation:)(AEAContextFiel
     v6 = buf_size[0];
     if (!buf_size[0])
     {
-      v7 = 0;
-      goto LABEL_8;
+      return 0;
     }
 
     if ((buf_size[0] & 0x8000000000000000) != 0)
@@ -1623,8 +1456,6 @@ uint64_t ArchiveEncryptionContext._getBlob(field:representation:)(AEAContextFiel
       {
         *(v7 + 16) = buf_size[0];
 
-LABEL_8:
-        v8 = *MEMORY[0x29EDCA608];
         return v7;
       }
 
@@ -1676,7 +1507,7 @@ Swift::Void __swiftcall __spoils<CF,ZF,NF,VF,X0,X1,X2,X3,X4,X5,X6,X7,X8,X9,X10,X
 
     if ((object & 0x1000000000000000) != 0)
     {
-      countAndFlagsBits = static String._copying(_:)();
+      countAndFlagsBits = static String._copying(_:)(countAndFlagsBits, object);
       v11 = v10;
 
       object = v11;
@@ -1739,7 +1570,7 @@ LABEL_10:
   }
 }
 
-uint64_t lazy protocol witness table accessor for type ContiguousArray<UInt8> and conformance <A> ContiguousArray<A>(unint64_t *a1)
+uint64_t lazy protocol witness table accessor for type ContiguousArray<UInt8> and conformance <A> ContiguousArray<A>(unint64_t *a1, uint64_t a2)
 {
   result = *a1;
   if (!result)
@@ -1772,7 +1603,7 @@ uint64_t ArchiveEncryptionContext.__deallocating_deinit()
   return swift_deallocClassInstance();
 }
 
-uint64_t static ArchiveEncryptionContext.sign(encryptedStream:encryptionContext:)(uint64_t a1, uint64_t a2)
+AAByteStream_impl *static ArchiveEncryptionContext.sign(encryptedStream:encryptionContext:)(uint64_t a1, uint64_t a2)
 {
   swift_beginAccess();
   result = *(a1 + 16);
@@ -1796,22 +1627,35 @@ uint64_t static ArchiveEncryptionContext.sign(encryptedStream:encryptionContext:
   return result;
 }
 
-uint64_t static String._copying(_:)()
+uint64_t static String._copying(_:)(uint64_t a1, unint64_t a2)
 {
-  v0 = String.subscript.getter();
-  v4 = static String._copying(_:)(v0, v1, v2, v3);
+  v2 = String.subscript.getter();
+  v6 = static String._copying(_:)(v2, v3, v4, v5);
 
-  return v4;
+  return v6;
 }
 
 uint64_t static String._copying(_:)(unint64_t a1, unint64_t a2, unint64_t a3, unint64_t a4)
 {
-  if ((a4 & 0x1000000000000000) == 0)
+  if ((a4 & 0x1000000000000000) != 0)
+  {
+    v9 = Substring.UTF8View.distance(from:to:)();
+    if (!v9 || (v10 = v9, v11 = _ss22_ContiguousArrayBufferV19_uninitializedCount15minimumCapacityAByxGSi_SitcfCs5UInt8V_Tt1gq5(v9, 0), v12 = specialized Sequence._copySequenceContents(initializing:)(v14, (v11 + 4), v10, a1, a2, a3, a4), , , v12 == v10))
+    {
+      v13 = static String._uncheckedFromUTF8(_:)();
+
+      return v13;
+    }
+
+    __break(1u);
+  }
+
+  else
   {
     if ((a4 & 0x2000000000000000) != 0)
     {
-      v15[0] = a3;
-      v15[1] = a4 & 0xFFFFFFFFFFFFFFLL;
+      v14[0] = a3;
+      v14[1] = a4 & 0xFFFFFFFFFFFFFFLL;
       return static String._uncheckedFromUTF8(_:)();
     }
 
@@ -1819,32 +1663,8 @@ uint64_t static String._copying(_:)(unint64_t a1, unint64_t a2, unint64_t a3, un
     {
       goto LABEL_4;
     }
-
-    goto LABEL_11;
   }
 
-  v9 = Substring.UTF8View.distance(from:to:)();
-  if (!v9)
-  {
-    v11 = MEMORY[0x29EDCA190];
-    goto LABEL_13;
-  }
-
-  v10 = v9;
-  v11 = _ss22_ContiguousArrayBufferV19_uninitializedCount15minimumCapacityAByxGSi_SitcfCs5UInt8V_Tt1gq5(v9, 0);
-  v12 = specialized Sequence._copySequenceContents(initializing:)(v15, (v11 + 4), v10, a1, a2, a3, a4);
-
-  if (v12 == v10)
-  {
-LABEL_13:
-    v13 = v11[2];
-    v14 = static String._uncheckedFromUTF8(_:)();
-
-    return v14;
-  }
-
-  __break(1u);
-LABEL_11:
   _StringObject.sharedUTF8.getter();
 LABEL_4:
 
@@ -2039,7 +1859,7 @@ LABEL_38:
   return result;
 }
 
-uint64_t _StringGuts._slowEnsureMatchingEncoding(_:)(unint64_t a1, uint64_t a2, uint64_t a3)
+unint64_t _StringGuts._slowEnsureMatchingEncoding(_:)(unint64_t a1, uint64_t a2, uint64_t a3)
 {
   v3 = a1;
   v4 = a1 >> 14;
@@ -2072,20 +1892,20 @@ uint64_t _StringGuts._slowEnsureMatchingEncoding(_:)(unint64_t a1, uint64_t a2, 
   }
 }
 
-uint64_t outlined consume of Data._Representation(uint64_t a1, unint64_t a2)
+uint64_t outlined consume of Data._Representation(uint64_t result, unint64_t a2)
 {
   if (a2 >> 62 != 1)
   {
     if (a2 >> 62 != 2)
     {
-      return result;
+      return v3;
     }
   }
 }
 
 uint64_t specialized Data._Representation.withUnsafeBytes<A>(_:)(uint64_t a1, unint64_t a2, uint64_t a3, AEAContextField field, AEAContextFieldRepresentation representation)
 {
-  v27 = *MEMORY[0x29EDCA608];
+  v26 = *MEMORY[0x29EDCA608];
   v7 = a2 >> 62;
   if ((a2 >> 62) <= 1)
   {
@@ -2101,8 +1921,6 @@ uint64_t specialized Data._Representation.withUnsafeBytes<A>(_:)(uint64_t a1, un
       {
         goto LABEL_25;
       }
-
-      goto LABEL_26;
     }
 
     v16 = a1;
@@ -2190,7 +2008,6 @@ LABEL_20:
       }
 
       closure #1 in ArchiveEncryptionContext._setBlob(field:key:)(v10, v21, a3, field, representationa);
-      goto LABEL_26;
     }
 
 LABEL_28:
@@ -2207,21 +2024,16 @@ LABEL_25:
     *v22 = 1;
     swift_willThrow();
   }
-
-LABEL_26:
-
-  v24 = *MEMORY[0x29EDCA608];
-  return result;
 }
 
-uint64_t outlined consume of Data?(uint64_t a1, unint64_t a2)
+uint64_t outlined consume of Data?(uint64_t result, unint64_t a2)
 {
   if (a2 >> 60 != 15)
   {
-    return outlined consume of Data._Representation(a1, a2);
+    return outlined consume of Data._Representation(result, a2);
   }
 
-  return a1;
+  return result;
 }
 
 _BYTE *closure #1 in Data.init<A>(_:)@<X0>(_BYTE *result@<X0>, _BYTE *a2@<X1>, void *a3@<X8>)
@@ -2272,7 +2084,7 @@ LABEL_4:
 
 uint64_t specialized Data.InlineData.init(_:)(_BYTE *__src, _BYTE *a2)
 {
-  v11 = *MEMORY[0x29EDCA608];
+  v10 = *MEMORY[0x29EDCA608];
   v2 = a2 - __src;
   if (__src)
   {
@@ -2298,16 +2110,18 @@ LABEL_11:
 
   result = 0;
   __dst = 0;
-  v10 = v3;
-  v9 = 0;
+  v9 = v3;
   v8 = 0;
-  if (__src && a2 != __src)
+  v7 = 0;
+  if (__src)
   {
-    memcpy(&__dst, __src, v2);
-    result = __dst;
+    if (a2 != __src)
+    {
+      memcpy(&__dst, __src, v2);
+      return __dst;
+    }
   }
 
-  v6 = *MEMORY[0x29EDCA608];
   return result;
 }
 
@@ -2323,9 +2137,7 @@ uint64_t specialized Data.LargeSlice.init(_:)(uint64_t a1, uint64_t a2)
     v2 = 0;
   }
 
-  v3 = type metadata accessor for __DataStorage();
-  v4 = *(v3 + 48);
-  v5 = *(v3 + 52);
+  type metadata accessor for __DataStorage();
   swift_allocObject();
   result = __DataStorage.init(bytes:length:)();
   if (v2 < 0)
@@ -2356,9 +2168,7 @@ uint64_t specialized Data.InlineSlice.init(_:)(uint64_t a1, uint64_t a2)
     v2 = 0;
   }
 
-  v3 = type metadata accessor for __DataStorage();
-  v4 = *(v3 + 48);
-  v5 = *(v3 + 52);
+  type metadata accessor for __DataStorage();
   swift_allocObject();
   result = __DataStorage.init(bytes:length:)();
   if (v2 < 0xFFFFFFFF80000000)
@@ -2387,7 +2197,7 @@ LABEL_10:
 uint64_t _s10Foundation4DataVyACxcSTRzs5UInt8V7ElementRtzlufCs15ContiguousArrayVyAEG_Tt0g5Tf4g_n(uint64_t a1)
 {
   v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss15ContiguousArrayVys5UInt8VGMd, &_ss15ContiguousArrayVys5UInt8VGMR);
-  v10 = lazy protocol witness table accessor for type ContiguousArray<UInt8> and conformance <A> ContiguousArray<A>(&lazy protocol witness table cache variable for type ContiguousArray<UInt8> and conformance <A> ContiguousArray<A>);
+  v10 = lazy protocol witness table accessor for type ContiguousArray<UInt8> and conformance <A> ContiguousArray<A>(&lazy protocol witness table cache variable for type ContiguousArray<UInt8> and conformance <A> ContiguousArray<A>, MEMORY[0x29EDB9E28]);
   v8[0] = a1;
   v2 = __swift_project_boxed_opaque_existential_1(v8, v9);
   v3 = (*v2 + 32);
@@ -2409,20 +2219,19 @@ uint64_t outlined copy of Data?(uint64_t a1, unint64_t a2)
   return a1;
 }
 
-uint64_t outlined copy of Data._Representation(uint64_t a1, unint64_t a2)
+uint64_t outlined copy of Data._Representation(uint64_t result, unint64_t a2)
 {
   if (a2 >> 62 != 1)
   {
     if (a2 >> 62 != 2)
     {
-      return result;
+      return v3;
     }
   }
 }
 
-uint64_t static ArchiveByteStream.encryptionStream(writingTo:encryptionContext:flags:threadCount:)(uint64_t a1, uint64_t a2, uint64_t *a3, uint64_t a4, uint64_t (*a5)(void))
+uint64_t static ArchiveByteStream.encryptionStream(writingTo:encryptionContext:flags:threadCount:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t (*a5)(void))
 {
-  v9 = *a3;
   swift_beginAccess();
   result = *(a1 + 16);
   if (!result)
@@ -2445,18 +2254,17 @@ LABEL_9:
     return result;
   }
 
-  v11 = *(a2 + 16);
   result = a5();
   if (result)
   {
-    v12 = result;
-    type metadata accessor for ArchiveByteStream();
-    v13 = swift_allocObject();
-    *(v13 + 16) = 0;
+    v9 = result;
+    type metadata accessor for ArchiveByteStream(0);
+    v10 = swift_allocObject();
+    *(v10 + 16) = 0;
     swift_beginAccess();
-    result = v13;
-    *(v13 + 16) = v12;
-    *(v13 + 24) = 1;
+    result = v10;
+    *(v10 + 16) = v9;
+    *(v10 + 24) = 1;
   }
 
   return result;
@@ -2499,7 +2307,7 @@ LABEL_10:
   if (result)
   {
     v10 = result;
-    type metadata accessor for ArchiveByteStream();
+    type metadata accessor for ArchiveByteStream(0);
     v11 = swift_allocObject();
     *(v11 + 16) = 0;
     swift_beginAccess();
@@ -2511,7 +2319,7 @@ LABEL_10:
   return result;
 }
 
-uint64_t ArchiveByteStream.close(updatingContext:)(uint64_t a1)
+AAByteStream_impl *ArchiveByteStream.close(updatingContext:)(uint64_t a1)
 {
   swift_beginAccess();
   result = *(v1 + 16);

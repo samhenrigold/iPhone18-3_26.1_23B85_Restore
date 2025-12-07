@@ -1,16 +1,16 @@
 @interface UITraitCollection(SBWallpaperController)
 - (uint64_t)prs_accessibilityContrast;
-- (uint64_t)prs_interfaceStyle;
+- (void)prs_interfaceStyle;
 @end
 
 @implementation UITraitCollection(SBWallpaperController)
 
-- (uint64_t)prs_interfaceStyle
+- (void)prs_interfaceStyle
 {
   result = [self userInterfaceStyle];
   if (result != 2)
   {
-    return result == 1;
+    return (result == 1);
   }
 
   return result;

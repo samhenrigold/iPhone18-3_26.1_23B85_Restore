@@ -15,7 +15,7 @@
   v5 = [(ICQDriveAppInfo *)&v16 init];
   if (v5)
   {
-    v6 = [dictionaryCopy objectForKeyedSubscript:@"bundleIds"];
+    v6 = objc_msgSend_objectForKeyedSubscript_(dictionaryCopy);
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
@@ -30,18 +30,18 @@
       [(ICQDriveAppInfo *)v5 setBundleIds:v8];
     }
 
-    v9 = [dictionaryCopy objectForKeyedSubscript:@"label"];
+    v9 = objc_msgSend_objectForKeyedSubscript_(dictionaryCopy);
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
       [(ICQDriveAppInfo *)v5 setLabel:v9];
     }
 
-    v10 = [dictionaryCopy objectForKeyedSubscript:@"excludeOnClient"];
+    v10 = objc_msgSend_objectForKeyedSubscript_(dictionaryCopy);
     bOOLValue = [v10 BOOLValue];
 
     [(ICQDriveAppInfo *)v5 setExcludeOnClient:bOOLValue];
-    v12 = [dictionaryCopy objectForKeyedSubscript:@"containerId"];
+    v12 = objc_msgSend_objectForKeyedSubscript_(dictionaryCopy);
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
@@ -84,17 +84,17 @@ void __38__ICQDriveAppInfo_initFromDictionary___block_invoke(uint64_t a1, void *
 
 - (ICQDriveAppInfo)initWithCoder:(id)coder
 {
-  v18[2] = *MEMORY[0x277D85DE8];
+  v17[2] = *MEMORY[0x277D85DE8];
   coderCopy = coder;
-  v17.receiver = self;
-  v17.super_class = ICQDriveAppInfo;
-  v5 = [(ICQDriveAppInfo *)&v17 init];
+  v16.receiver = self;
+  v16.super_class = ICQDriveAppInfo;
+  v5 = [(ICQDriveAppInfo *)&v16 init];
   if (v5)
   {
     v6 = MEMORY[0x277CBEB98];
-    v18[0] = objc_opt_class();
-    v18[1] = objc_opt_class();
-    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:2];
+    v17[0] = objc_opt_class();
+    v17[1] = objc_opt_class();
+    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:2];
     v8 = [v6 setWithArray:v7];
 
     v9 = [coderCopy decodeObjectOfClasses:v8 forKey:@"bundleIds"];
@@ -111,7 +111,6 @@ void __38__ICQDriveAppInfo_initFromDictionary___block_invoke(uint64_t a1, void *
     v5->_containerID = v13;
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   return v5;
 }
 

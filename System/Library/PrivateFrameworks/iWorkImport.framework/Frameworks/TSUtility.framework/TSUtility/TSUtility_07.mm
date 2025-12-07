@@ -1,3 +1,21 @@
+id sub_2770F91BC(void *a1, uint64_t a2, void *a3, void *a4, uint64_t a5)
+{
+  v8 = a4;
+  v9 = a3;
+  v10 = [a1 dateFormatterFromTemplate12Hour:@"hhmma" template24Hour:@"HHmm" withDateFormatter:v8];
+  v11 = SFUMainBundle();
+  v12 = [v11 localizedStringForKey:@"Yesterday value:%@" table:{&stru_28862C2A0, @"TSUtility"}];
+
+  v13 = [a1 p_stringWithString:v12 lowercase:a5 dateFormatter:v8];
+
+  v14 = MEMORY[0x277CCACA8];
+  v15 = [v10 stringFromDate:v9];
+
+  v16 = [v14 stringWithFormat:v13, v15];
+
+  return v16;
+}
+
 id sub_2770F92E8(void *a1, uint64_t a2, void *a3, uint64_t a4)
 {
   v6 = a3;
@@ -198,9 +216,9 @@ TSUEncodedBlockInfoWithDecodedLengthInternal *TSUEncodedBlockInfoCreate(uint64_t
   return v2;
 }
 
-void sub_2770F9D00(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_2770F9D00(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -249,9 +267,9 @@ LABEL_8:
 LABEL_9:
 }
 
-void sub_2770FA028(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_2770FA028(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -327,7 +345,7 @@ uint64_t sub_2770FA53C(void *a1, uint64_t a2, uint64_t a3)
   return v6;
 }
 
-uint64_t sub_2770FA5F4(void *a1, uint64_t a2)
+char *sub_2770FA5F4(void *a1, uint64_t a2)
 {
   v3 = a1;
   v4 = [v3 offset];
@@ -402,9 +420,9 @@ void sub_2770FAAF8(uint64_t a1, void *a2)
   [v5 addObserver:*(a1 + 32) selector:sel_p_didEnterBackground_ name:*MEMORY[0x277D76660] object:v4];
 }
 
-void sub_2770FB158(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2770FB158(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -426,9 +444,9 @@ uint64_t sub_2770FB188(uint64_t a1)
   return MEMORY[0x2821F96F8](v2, v4);
 }
 
-void sub_2770FB308(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_2770FB308(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -443,9 +461,9 @@ uint64_t sub_2770FB320(void *a1)
   return MEMORY[0x2821F96F8](v2, v4);
 }
 
-void sub_2770FB4CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_2770FB4CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -930,12 +948,12 @@ _WORD *sub_2770FCC4C(_WORD *result, int a2, int a3)
   return result;
 }
 
-void sub_2770FCD34(uint64_t a1, unint64_t *a2)
+void sub_2770FCD34(uint64_t a1, unint64_t *a2, uint64_t a3)
 {
   if (!*a2)
   {
     ForeignTypeMetadata = swift_getForeignTypeMetadata();
-    if (!v4)
+    if (!v5)
     {
       atomic_store(ForeignTypeMetadata, a2);
     }
@@ -972,7 +990,7 @@ uint64_t sub_2770FCEB8@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>
   {
     v13(&v16 - v11, a1, v6);
     sub_2771159C4();
-    sub_2770FD234(&qword_280A63240);
+    sub_2770FD234(&qword_280A63240, MEMORY[0x277CC9A38]);
     v14 = 0;
     do
     {
@@ -990,7 +1008,7 @@ uint64_t sub_2770FCEB8@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>
     if (a2)
     {
       sub_2771159C4();
-      sub_2770FD234(&qword_280A63238);
+      sub_2770FD234(&qword_280A63238, MEMORY[0x277CC9A50]);
       do
       {
         sub_277115C14();
@@ -1022,20 +1040,20 @@ Swift::Bool __swiftcall IndexSet.intersects(integersIn:)(_NSRange integersIn)
   return MEMORY[0x28211E310]();
 }
 
-BOOL IndexSet.intersects(_:)()
+BOOL IndexSet.intersects(_:)(uint64_t a1)
 {
-  v1 = sub_2771159C4();
-  v2 = *(v1 - 8);
-  v3 = MEMORY[0x28223BE20](v1);
-  v5 = &v10 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v3);
-  v7 = &v10 - v6;
-  (*(v2 + 16))(v5, v0, v1);
-  sub_2770FD234(&qword_280A63230);
+  v2 = sub_2771159C4();
+  v3 = *(v2 - 8);
+  v4 = MEMORY[0x28223BE20](v2);
+  v6 = &v11 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v4);
+  v8 = &v11 - v7;
+  (*(v3 + 16))(v6, v1, v2);
+  sub_2770FD234(&qword_280A63230, MEMORY[0x277CC9A58]);
   sub_277115CC4();
-  v8 = sub_277115CD4();
-  (*(v2 + 8))(v7, v1);
-  return (v8 & 1) == 0;
+  v9 = sub_277115CD4();
+  (*(v3 + 8))(v8, v2);
+  return (v9 & 1) == 0;
 }
 
 uint64_t IndexSet.init(integersIn:)(uint64_t a1, uint64_t a2)
@@ -1056,7 +1074,7 @@ uint64_t IndexSet.init(integersIn:)(uint64_t a1, uint64_t a2)
   return MEMORY[0x28211E300]();
 }
 
-uint64_t sub_2770FD234(unint64_t *a1)
+uint64_t sub_2770FD234(unint64_t *a1, uint64_t a2)
 {
   result = *a1;
   if (!result)
@@ -1076,7 +1094,7 @@ uint64_t TSULogEnsureCreated(_:_:_:)(uint64_t a1, uint64_t a2, void **a3, dispat
 
   sub_277115CB4();
   swift_unknownObjectRelease();
-  sub_2770FD31C(&v11, &v10);
+  sub_2770FD31C(v11, &v10);
   sub_2770FD32C();
   swift_dynamicCast();
   return v9;
@@ -1131,7 +1149,7 @@ uint64_t *OS_os_log.tsuDefault.unsafeMutableAddressor()
   return &static OS_os_log.tsuDefault;
 }
 
-uint64_t (*static OS_os_log.tsuDefault.modify())()
+uint64_t (*static OS_os_log.tsuDefault.modify(uint64_t a1))(uint64_t a1)
 {
   if (qword_280A63020 != -1)
   {
@@ -1170,7 +1188,7 @@ uint64_t *OS_os_log.tsuError.unsafeMutableAddressor()
   return &static OS_os_log.tsuError;
 }
 
-uint64_t (*static OS_os_log.tsuError.modify())()
+uint64_t (*static OS_os_log.tsuError.modify(uint64_t a1))(uint64_t)
 {
   if (qword_280A63028 != -1)
   {
@@ -1209,7 +1227,7 @@ uint64_t *OS_os_log.tsuWarning.unsafeMutableAddressor()
   return &static OS_os_log.tsuWarning;
 }
 
-uint64_t (*static OS_os_log.tsuWarning.modify())()
+uint64_t (*static OS_os_log.tsuWarning.modify(uint64_t a1))(uint64_t)
 {
   if (qword_280A63030 != -1)
   {
@@ -1248,7 +1266,7 @@ uint64_t *OS_os_log.tsuAssert.unsafeMutableAddressor()
   return &static OS_os_log.tsuAssert;
 }
 
-uint64_t (*static OS_os_log.tsuAssert.modify())()
+uint64_t (*static OS_os_log.tsuAssert.modify(uint64_t a1))(uint64_t)
 {
   if (qword_280A63038 != -1)
   {
@@ -1293,7 +1311,7 @@ uint64_t *OS_os_log.tsuPerformance.unsafeMutableAddressor()
   return &static OS_os_log.tsuPerformance;
 }
 
-uint64_t (*static OS_os_log.tsuPerformance.modify())()
+uint64_t (*static OS_os_log.tsuPerformance.modify(uint64_t a1))(uint64_t)
 {
   if (qword_280A63040 != -1)
   {
@@ -1332,7 +1350,7 @@ uint64_t *OS_os_log.tsuAlert.unsafeMutableAddressor()
   return &static OS_os_log.tsuAlert;
 }
 
-uint64_t (*static OS_os_log.tsuAlert.modify())()
+uint64_t (*static OS_os_log.tsuAlert.modify(uint64_t a1))(uint64_t)
 {
   if (qword_280A63048 != -1)
   {
@@ -1371,7 +1389,7 @@ uint64_t *OS_os_log.tsuStatusHUD.unsafeMutableAddressor()
   return &static OS_os_log.tsuStatusHUD;
 }
 
-uint64_t (*static OS_os_log.tsuStatusHUD.modify())()
+uint64_t (*static OS_os_log.tsuStatusHUD.modify(uint64_t a1))(uint64_t)
 {
   if (qword_280A63050 != -1)
   {
@@ -1416,7 +1434,7 @@ uint64_t *OS_os_log.tsuDocumentLifecycle.unsafeMutableAddressor()
   return &static OS_os_log.tsuDocumentLifecycle;
 }
 
-uint64_t (*static OS_os_log.tsuDocumentLifecycle.modify())()
+uint64_t (*static OS_os_log.tsuDocumentLifecycle.modify(uint64_t a1))(uint64_t)
 {
   if (qword_280A63058 != -1)
   {
@@ -1461,7 +1479,7 @@ uint64_t *OS_os_log.tsuApplicationLifecycle.unsafeMutableAddressor()
   return &static OS_os_log.tsuApplicationLifecycle;
 }
 
-uint64_t (*static OS_os_log.tsuApplicationLifecycle.modify())()
+uint64_t (*static OS_os_log.tsuApplicationLifecycle.modify(uint64_t a1))(uint64_t)
 {
   if (qword_280A63060 != -1)
   {
@@ -1506,7 +1524,7 @@ uint64_t *OS_os_log.tsuDragAndDrop.unsafeMutableAddressor()
   return &static OS_os_log.tsuDragAndDrop;
 }
 
-uint64_t (*static OS_os_log.tsuDragAndDrop.modify())()
+uint64_t (*static OS_os_log.tsuDragAndDrop.modify(uint64_t a1))(uint64_t)
 {
   if (qword_280A63068 != -1)
   {
@@ -1551,7 +1569,7 @@ uint64_t *OS_os_log.tsuPersistenceData.unsafeMutableAddressor()
   return &static OS_os_log.tsuPersistenceData;
 }
 
-uint64_t (*static OS_os_log.tsuPersistenceData.modify())()
+uint64_t (*static OS_os_log.tsuPersistenceData.modify(uint64_t a1))(uint64_t)
 {
   if (qword_280A63070 != -1)
   {
@@ -1596,7 +1614,7 @@ uint64_t *OS_os_log.tsuPersistenceDocumentDataWatcher.unsafeMutableAddressor()
   return &static OS_os_log.tsuPersistenceDocumentDataWatcher;
 }
 
-uint64_t (*static OS_os_log.tsuPersistenceDocumentDataWatcher.modify())()
+uint64_t (*static OS_os_log.tsuPersistenceDocumentDataWatcher.modify(uint64_t a1))(uint64_t)
 {
   if (qword_280A63078 != -1)
   {
@@ -1641,7 +1659,7 @@ uint64_t *OS_os_log.tsuPersistenceSerialization.unsafeMutableAddressor()
   return &static OS_os_log.tsuPersistenceSerialization;
 }
 
-uint64_t (*static OS_os_log.tsuPersistenceSerialization.modify())()
+uint64_t (*static OS_os_log.tsuPersistenceSerialization.modify(uint64_t a1))(uint64_t)
 {
   if (qword_280A63080 != -1)
   {
@@ -1686,7 +1704,7 @@ uint64_t *OS_os_log.tsuClassworkActivity.unsafeMutableAddressor()
   return &static OS_os_log.tsuClassworkActivity;
 }
 
-uint64_t (*static OS_os_log.tsuClassworkActivity.modify())()
+uint64_t (*static OS_os_log.tsuClassworkActivity.modify(uint64_t a1))(uint64_t)
 {
   if (qword_280A63088 != -1)
   {
@@ -1731,7 +1749,7 @@ uint64_t *OS_os_log.tsuActivityStreamSummaryViewModel.unsafeMutableAddressor()
   return &static OS_os_log.tsuActivityStreamSummaryViewModel;
 }
 
-uint64_t (*static OS_os_log.tsuActivityStreamSummaryViewModel.modify())()
+uint64_t (*static OS_os_log.tsuActivityStreamSummaryViewModel.modify(uint64_t a1))(uint64_t)
 {
   if (qword_280A63090 != -1)
   {
@@ -1776,7 +1794,7 @@ uint64_t *OS_os_log.tsuActivityStreamTransformationManager.unsafeMutableAddresso
   return &static OS_os_log.tsuActivityStreamTransformationManager;
 }
 
-uint64_t (*static OS_os_log.tsuActivityStreamTransformationManager.modify())()
+uint64_t (*static OS_os_log.tsuActivityStreamTransformationManager.modify(uint64_t a1))(uint64_t)
 {
   if (qword_280A63098 != -1)
   {
@@ -1821,7 +1839,7 @@ uint64_t *OS_os_log.tsuActivityStreamViewModel.unsafeMutableAddressor()
   return &static OS_os_log.tsuActivityStreamViewModel;
 }
 
-uint64_t (*static OS_os_log.tsuActivityStreamViewModel.modify())()
+uint64_t (*static OS_os_log.tsuActivityStreamViewModel.modify(uint64_t a1))(uint64_t)
 {
   if (qword_280A630A0 != -1)
   {
@@ -1866,7 +1884,7 @@ uint64_t *OS_os_log.tsuActivityStreamViewSettings.unsafeMutableAddressor()
   return &static OS_os_log.tsuActivityStreamViewSettings;
 }
 
-uint64_t (*static OS_os_log.tsuActivityStreamViewSettings.modify())()
+uint64_t (*static OS_os_log.tsuActivityStreamViewSettings.modify(uint64_t a1))(uint64_t)
 {
   if (qword_280A630A8 != -1)
   {
@@ -1911,7 +1929,7 @@ uint64_t *OS_os_log.tsuActivityStreamViewModelLoader.unsafeMutableAddressor()
   return &static OS_os_log.tsuActivityStreamViewModelLoader;
 }
 
-uint64_t (*static OS_os_log.tsuActivityStreamViewModelLoader.modify())()
+uint64_t (*static OS_os_log.tsuActivityStreamViewModelLoader.modify(uint64_t a1))(uint64_t)
 {
   if (qword_280A630B0 != -1)
   {
@@ -1956,7 +1974,7 @@ uint64_t *OS_os_log.tsuActivityStreamThumbnailing.unsafeMutableAddressor()
   return &static OS_os_log.tsuActivityStreamThumbnailing;
 }
 
-uint64_t (*static OS_os_log.tsuActivityStreamThumbnailing.modify())()
+uint64_t (*static OS_os_log.tsuActivityStreamThumbnailing.modify(uint64_t a1))(uint64_t)
 {
   if (qword_280A630B8 != -1)
   {
@@ -2001,7 +2019,7 @@ uint64_t *OS_os_log.tsuCollaborationActivity.unsafeMutableAddressor()
   return &static OS_os_log.tsuCollaborationActivity;
 }
 
-uint64_t (*static OS_os_log.tsuCollaborationActivity.modify())()
+uint64_t (*static OS_os_log.tsuCollaborationActivity.modify(uint64_t a1))(uint64_t)
 {
   if (qword_280A630C0 != -1)
   {
@@ -2046,7 +2064,7 @@ uint64_t *OS_os_log.tsuCollaborationAuthentication.unsafeMutableAddressor()
   return &static OS_os_log.tsuCollaborationAuthentication;
 }
 
-uint64_t (*static OS_os_log.tsuCollaborationAuthentication.modify())()
+uint64_t (*static OS_os_log.tsuCollaborationAuthentication.modify(uint64_t a1))(uint64_t)
 {
   if (qword_280A630C8 != -1)
   {
@@ -2091,7 +2109,7 @@ uint64_t *OS_os_log.tsuCollaborationBackgroundSync.unsafeMutableAddressor()
   return &static OS_os_log.tsuCollaborationBackgroundSync;
 }
 
-uint64_t (*static OS_os_log.tsuCollaborationBackgroundSync.modify())()
+uint64_t (*static OS_os_log.tsuCollaborationBackgroundSync.modify(uint64_t a1))(uint64_t)
 {
   if (qword_280A630D0 != -1)
   {
@@ -2136,7 +2154,7 @@ uint64_t *OS_os_log.tsuCollaborationBackgroundTaskManager.unsafeMutableAddressor
   return &static OS_os_log.tsuCollaborationBackgroundTaskManager;
 }
 
-uint64_t (*static OS_os_log.tsuCollaborationBackgroundTaskManager.modify())()
+uint64_t (*static OS_os_log.tsuCollaborationBackgroundTaskManager.modify(uint64_t a1))(uint64_t)
 {
   if (qword_280A630D8 != -1)
   {
@@ -2181,7 +2199,7 @@ uint64_t *OS_os_log.tsuCollaborationCommand.unsafeMutableAddressor()
   return &static OS_os_log.tsuCollaborationCommand;
 }
 
-uint64_t (*static OS_os_log.tsuCollaborationCommand.modify())()
+uint64_t (*static OS_os_log.tsuCollaborationCommand.modify(uint64_t a1))(uint64_t)
 {
   if (qword_280A630E0 != -1)
   {
@@ -2226,7 +2244,7 @@ uint64_t *OS_os_log.tsuCollaborationCommandHistoryAsyncTransform.unsafeMutableAd
   return &static OS_os_log.tsuCollaborationCommandHistoryAsyncTransform;
 }
 
-uint64_t (*static OS_os_log.tsuCollaborationCommandHistoryAsyncTransform.modify())()
+uint64_t (*static OS_os_log.tsuCollaborationCommandHistoryAsyncTransform.modify(uint64_t a1))(uint64_t)
 {
   if (qword_280A630E8 != -1)
   {
@@ -2271,7 +2289,7 @@ uint64_t *OS_os_log.tsuCollaborationCommandVerbose.unsafeMutableAddressor()
   return &static OS_os_log.tsuCollaborationCommandVerbose;
 }
 
-uint64_t (*static OS_os_log.tsuCollaborationCommandVerbose.modify())()
+uint64_t (*static OS_os_log.tsuCollaborationCommandVerbose.modify(uint64_t a1))(uint64_t)
 {
   if (qword_280A630F0 != -1)
   {
@@ -2316,7 +2334,7 @@ uint64_t *OS_os_log.tsuCollaborationDocumentWarningsManager.unsafeMutableAddress
   return &static OS_os_log.tsuCollaborationDocumentWarningsManager;
 }
 
-uint64_t (*static OS_os_log.tsuCollaborationDocumentWarningsManager.modify())()
+uint64_t (*static OS_os_log.tsuCollaborationDocumentWarningsManager.modify(uint64_t a1))(uint64_t)
 {
   if (qword_280A630F8 != -1)
   {
@@ -2361,7 +2379,7 @@ uint64_t *OS_os_log.tsuCollaborationFeebackService.unsafeMutableAddressor()
   return &static OS_os_log.tsuCollaborationFeebackService;
 }
 
-uint64_t (*static OS_os_log.tsuCollaborationFeebackService.modify())()
+uint64_t (*static OS_os_log.tsuCollaborationFeebackService.modify(uint64_t a1))(uint64_t)
 {
   if (qword_280A63100 != -1)
   {
@@ -2406,7 +2424,7 @@ uint64_t *OS_os_log.tsuCollaborationFogSyncManager.unsafeMutableAddressor()
   return &static OS_os_log.tsuCollaborationFogSyncManager;
 }
 
-uint64_t (*static OS_os_log.tsuCollaborationFogSyncManager.modify())()
+uint64_t (*static OS_os_log.tsuCollaborationFogSyncManager.modify(uint64_t a1))(uint64_t)
 {
   if (qword_280A63108 != -1)
   {
@@ -2451,7 +2469,7 @@ uint64_t *OS_os_log.tsuCollaborationICloudRequest.unsafeMutableAddressor()
   return &static OS_os_log.tsuCollaborationICloudRequest;
 }
 
-uint64_t (*static OS_os_log.tsuCollaborationICloudRequest.modify())()
+uint64_t (*static OS_os_log.tsuCollaborationICloudRequest.modify(uint64_t a1))(uint64_t)
 {
   if (qword_280A63110 != -1)
   {
@@ -2496,7 +2514,7 @@ uint64_t *OS_os_log.tsuCollaborationInitialization.unsafeMutableAddressor()
   return &static OS_os_log.tsuCollaborationInitialization;
 }
 
-uint64_t (*static OS_os_log.tsuCollaborationInitialization.modify())()
+uint64_t (*static OS_os_log.tsuCollaborationInitialization.modify(uint64_t a1))(uint64_t)
 {
   if (qword_280A63118 != -1)
   {
@@ -2541,7 +2559,7 @@ uint64_t *OS_os_log.tsuCollaborationLobby.unsafeMutableAddressor()
   return &static OS_os_log.tsuCollaborationLobby;
 }
 
-uint64_t (*static OS_os_log.tsuCollaborationLobby.modify())()
+uint64_t (*static OS_os_log.tsuCollaborationLobby.modify(uint64_t a1))(uint64_t)
 {
   if (qword_280A63120 != -1)
   {
@@ -2586,7 +2604,7 @@ uint64_t *OS_os_log.tsuCollaborationMailbox.unsafeMutableAddressor()
   return &static OS_os_log.tsuCollaborationMailbox;
 }
 
-uint64_t (*static OS_os_log.tsuCollaborationMailbox.modify())()
+uint64_t (*static OS_os_log.tsuCollaborationMailbox.modify(uint64_t a1))(uint64_t)
 {
   if (qword_280A63128 != -1)
   {
@@ -2631,7 +2649,7 @@ uint64_t *OS_os_log.tsuCollaborationMailboxUpload.unsafeMutableAddressor()
   return &static OS_os_log.tsuCollaborationMailboxUpload;
 }
 
-uint64_t (*static OS_os_log.tsuCollaborationMailboxUpload.modify())()
+uint64_t (*static OS_os_log.tsuCollaborationMailboxUpload.modify(uint64_t a1))(uint64_t)
 {
   if (qword_280A63130 != -1)
   {
@@ -2676,7 +2694,7 @@ uint64_t *OS_os_log.tsuCollaborationManager.unsafeMutableAddressor()
   return &static OS_os_log.tsuCollaborationManager;
 }
 
-uint64_t (*static OS_os_log.tsuCollaborationManager.modify())()
+uint64_t (*static OS_os_log.tsuCollaborationManager.modify(uint64_t a1))(uint64_t)
 {
   if (qword_280A63138 != -1)
   {
@@ -2721,7 +2739,7 @@ uint64_t *OS_os_log.tsuCollaborationModelVerification.unsafeMutableAddressor()
   return &static OS_os_log.tsuCollaborationModelVerification;
 }
 
-uint64_t (*static OS_os_log.tsuCollaborationModelVerification.modify())()
+uint64_t (*static OS_os_log.tsuCollaborationModelVerification.modify(uint64_t a1))(uint64_t)
 {
   if (qword_280A63140 != -1)
   {
@@ -2766,7 +2784,7 @@ uint64_t *OS_os_log.tsuCollaborationNetworkHealth.unsafeMutableAddressor()
   return &static OS_os_log.tsuCollaborationNetworkHealth;
 }
 
-uint64_t (*static OS_os_log.tsuCollaborationNetworkHealth.modify())()
+uint64_t (*static OS_os_log.tsuCollaborationNetworkHealth.modify(uint64_t a1))(uint64_t)
 {
   if (qword_280A63148 != -1)
   {
@@ -2811,7 +2829,7 @@ uint64_t *OS_os_log.tsuCollaborationOperationalTransform.unsafeMutableAddressor(
   return &static OS_os_log.tsuCollaborationOperationalTransform;
 }
 
-uint64_t (*static OS_os_log.tsuCollaborationOperationalTransform.modify())()
+uint64_t (*static OS_os_log.tsuCollaborationOperationalTransform.modify(uint64_t a1))(uint64_t)
 {
   if (qword_280A63150 != -1)
   {
@@ -2856,7 +2874,7 @@ uint64_t *OS_os_log.tsuCollaborationPauseResumeSync.unsafeMutableAddressor()
   return &static OS_os_log.tsuCollaborationPauseResumeSync;
 }
 
-uint64_t (*static OS_os_log.tsuCollaborationPauseResumeSync.modify())()
+uint64_t (*static OS_os_log.tsuCollaborationPauseResumeSync.modify(uint64_t a1))(uint64_t)
 {
   if (qword_280A63158 != -1)
   {
@@ -2901,7 +2919,7 @@ uint64_t *OS_os_log.tsuCollaborationPassword.unsafeMutableAddressor()
   return &static OS_os_log.tsuCollaborationPassword;
 }
 
-uint64_t (*static OS_os_log.tsuCollaborationPassword.modify())()
+uint64_t (*static OS_os_log.tsuCollaborationPassword.modify(uint64_t a1))(uint64_t)
 {
   if (qword_280A63160 != -1)
   {
@@ -2946,7 +2964,7 @@ uint64_t *OS_os_log.tsuCollaborationPerformance.unsafeMutableAddressor()
   return &static OS_os_log.tsuCollaborationPerformance;
 }
 
-uint64_t (*static OS_os_log.tsuCollaborationPerformance.modify())()
+uint64_t (*static OS_os_log.tsuCollaborationPerformance.modify(uint64_t a1))(uint64_t)
 {
   if (qword_280A63168 != -1)
   {
@@ -2991,7 +3009,7 @@ uint64_t *OS_os_log.tsuCollaborationSharingServices.unsafeMutableAddressor()
   return &static OS_os_log.tsuCollaborationSharingServices;
 }
 
-uint64_t (*static OS_os_log.tsuCollaborationSharingServices.modify())()
+uint64_t (*static OS_os_log.tsuCollaborationSharingServices.modify(uint64_t a1))(uint64_t)
 {
   if (qword_280A63170 != -1)
   {
@@ -3036,7 +3054,7 @@ uint64_t *OS_os_log.tsuCollaborationSuspendResumeBacktrace.unsafeMutableAddresso
   return &static OS_os_log.tsuCollaborationSuspendResumeBacktrace;
 }
 
-uint64_t (*static OS_os_log.tsuCollaborationSuspendResumeBacktrace.modify())()
+uint64_t (*static OS_os_log.tsuCollaborationSuspendResumeBacktrace.modify(uint64_t a1))(uint64_t)
 {
   if (qword_280A63178 != -1)
   {
@@ -3081,7 +3099,7 @@ uint64_t *OS_os_log.tsuCollaborationSuspendResume.unsafeMutableAddressor()
   return &static OS_os_log.tsuCollaborationSuspendResume;
 }
 
-uint64_t (*static OS_os_log.tsuCollaborationSuspendResume.modify())()
+uint64_t (*static OS_os_log.tsuCollaborationSuspendResume.modify(uint64_t a1))(uint64_t)
 {
   if (qword_280A63180 != -1)
   {
@@ -3126,7 +3144,7 @@ uint64_t *OS_os_log.tsuCollaborationUploadDataManager.unsafeMutableAddressor()
   return &static OS_os_log.tsuCollaborationUploadDataManager;
 }
 
-uint64_t (*static OS_os_log.tsuCollaborationUploadDataManager.modify())()
+uint64_t (*static OS_os_log.tsuCollaborationUploadDataManager.modify(uint64_t a1))(uint64_t)
 {
   if (qword_280A63188 != -1)
   {
@@ -3171,7 +3189,7 @@ uint64_t *OS_os_log.tsuCollaborationUploadIndicator.unsafeMutableAddressor()
   return &static OS_os_log.tsuCollaborationUploadIndicator;
 }
 
-uint64_t (*static OS_os_log.tsuCollaborationUploadIndicator.modify())()
+uint64_t (*static OS_os_log.tsuCollaborationUploadIndicator.modify(uint64_t a1))(uint64_t)
 {
   if (qword_280A63190 != -1)
   {
@@ -3216,7 +3234,7 @@ uint64_t *OS_os_log.tsuFirstJoinPlacard.unsafeMutableAddressor()
   return &static OS_os_log.tsuFirstJoinPlacard;
 }
 
-uint64_t (*static OS_os_log.tsuFirstJoinPlacard.modify())()
+uint64_t (*static OS_os_log.tsuFirstJoinPlacard.modify(uint64_t a1))(uint64_t)
 {
   if (qword_280A63198 != -1)
   {
@@ -3261,7 +3279,7 @@ uint64_t *OS_os_log.tsuTraceableResource.unsafeMutableAddressor()
   return &static OS_os_log.tsuTraceableResource;
 }
 
-uint64_t (*static OS_os_log.tsuTraceableResource.modify())()
+uint64_t (*static OS_os_log.tsuTraceableResource.modify(uint64_t a1))(uint64_t)
 {
   if (qword_280A631A0 != -1)
   {
@@ -3300,7 +3318,7 @@ uint64_t *OS_os_log.tsuTemplates.unsafeMutableAddressor()
   return &static OS_os_log.tsuTemplates;
 }
 
-uint64_t (*static OS_os_log.tsuTemplates.modify())()
+uint64_t (*static OS_os_log.tsuTemplates.modify(uint64_t a1))(uint64_t)
 {
   if (qword_280A631A8 != -1)
   {
@@ -3339,7 +3357,7 @@ uint64_t *OS_os_log.tsuIntents.unsafeMutableAddressor()
   return &static OS_os_log.tsuIntents;
 }
 
-uint64_t (*static OS_os_log.tsuIntents.modify())()
+uint64_t (*static OS_os_log.tsuIntents.modify(uint64_t a1))(uint64_t)
 {
   if (qword_280A631B0 != -1)
   {
@@ -3378,7 +3396,7 @@ uint64_t *OS_os_log.tsuAnalytics.unsafeMutableAddressor()
   return &static OS_os_log.tsuAnalytics;
 }
 
-uint64_t (*static OS_os_log.tsuAnalytics.modify())()
+uint64_t (*static OS_os_log.tsuAnalytics.modify(uint64_t a1))(uint64_t)
 {
   if (qword_280A631B8 != -1)
   {
@@ -3423,7 +3441,7 @@ uint64_t *OS_os_log.tsuPencilHover.unsafeMutableAddressor()
   return &static OS_os_log.tsuPencilHover;
 }
 
-uint64_t (*static OS_os_log.tsuPencilHover.modify())()
+uint64_t (*static OS_os_log.tsuPencilHover.modify(uint64_t a1))(uint64_t)
 {
   if (qword_280A631C0 != -1)
   {
@@ -3468,7 +3486,7 @@ uint64_t *OS_os_log.tsuPencilTray.unsafeMutableAddressor()
   return &static OS_os_log.tsuPencilTray;
 }
 
-uint64_t (*static OS_os_log.tsuPencilTray.modify())()
+uint64_t (*static OS_os_log.tsuPencilTray.modify(uint64_t a1))(uint64_t)
 {
   if (qword_280A631C8 != -1)
   {
@@ -3513,7 +3531,7 @@ uint64_t *OS_os_log.tsuHighlightGateway.unsafeMutableAddressor()
   return &static OS_os_log.tsuHighlightGateway;
 }
 
-uint64_t (*static OS_os_log.tsuHighlightGateway.modify())()
+uint64_t (*static OS_os_log.tsuHighlightGateway.modify(uint64_t a1))(uint64_t)
 {
   if (qword_280A631D0 != -1)
   {
@@ -3558,7 +3576,7 @@ uint64_t *OS_os_log.tsuInterleavedImageFormatter.unsafeMutableAddressor()
   return &static OS_os_log.tsuInterleavedImageFormatter;
 }
 
-uint64_t (*static OS_os_log.tsuInterleavedImageFormatter.modify())()
+uint64_t (*static OS_os_log.tsuInterleavedImageFormatter.modify(uint64_t a1))(uint64_t)
 {
   if (qword_280A631D8 != -1)
   {
@@ -3603,7 +3621,7 @@ uint64_t *OS_os_log.tsuUserNotifications.unsafeMutableAddressor()
   return &static OS_os_log.tsuUserNotifications;
 }
 
-uint64_t (*static OS_os_log.tsuUserNotifications.modify())()
+uint64_t (*static OS_os_log.tsuUserNotifications.modify(uint64_t a1))(uint64_t)
 {
   if (qword_280A631E0 != -1)
   {
@@ -3642,7 +3660,7 @@ uint64_t *OS_os_log.tsuMiniHint.unsafeMutableAddressor()
   return &static OS_os_log.tsuMiniHint;
 }
 
-id sub_277105474(void *a1, void **a2)
+id sub_277105474(void *a1, void **a2, uint64_t a3)
 {
   if (*a1 != -1)
   {
@@ -3650,12 +3668,12 @@ id sub_277105474(void *a1, void **a2)
   }
 
   swift_beginAccess();
-  v3 = *a2;
+  v4 = *a2;
 
-  return v3;
+  return v4;
 }
 
-void sub_277105500(void *a1, void *a2, void **a3)
+void sub_277105500(void *a1, void *a2, void **a3, uint64_t a4)
 {
   if (*a2 != -1)
   {
@@ -3663,11 +3681,11 @@ void sub_277105500(void *a1, void *a2, void **a3)
   }
 
   swift_beginAccess();
-  v5 = *a3;
+  v6 = *a3;
   *a3 = a1;
 }
 
-uint64_t (*static OS_os_log.tsuMiniHint.modify())()
+uint64_t (*static OS_os_log.tsuMiniHint.modify(uint64_t a1))(uint64_t)
 {
   if (qword_280A631E8 != -1)
   {
@@ -3678,11 +3696,12 @@ uint64_t (*static OS_os_log.tsuMiniHint.modify())()
   return j_j__swift_endAccess;
 }
 
-uint64_t TSULogSink(_:_:file:line:format:args:)(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, int a5, unint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
+void *TSULogSink(_:_:file:line:format:args:)(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, unint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
 {
+  v13 = a5;
   v16 = a2;
 
-  return sub_277105734(a10, v16, a3, a4, a5, a6, a7, a8);
+  return sub_277105734(a10, v16, a3, a4, v13, a6, a7, a8, a9);
 }
 
 void sub_27710567C(uint64_t a1, uint64_t a2, uint64_t a3, unint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
@@ -3703,62 +3722,62 @@ void sub_27710567C(uint64_t a1, uint64_t a2, uint64_t a3, unint64_t a4, uint64_t
   }
 }
 
-uint64_t sub_277105734(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, int a5, unint64_t a6, uint64_t a7, uint64_t a8)
+void *sub_277105734(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, int a5, unint64_t a6, uint64_t a7, uint64_t a8, unsigned __int8 a9)
 {
-  v50 = a7;
-  v51 = a8;
-  v49 = a6;
-  LODWORD(v48) = a5;
-  v46 = a3;
-  v47 = a4;
-  v52 = a2;
+  v51 = a7;
+  v52 = a8;
+  v50 = a6;
+  LODWORD(v49) = a5;
+  v47 = a3;
+  v48 = a4;
+  v53 = a2;
   sub_277115D94();
-  v9 = swift_allocObject();
-  v9[2] = 8;
-  v9[3] = 0;
-  v10 = v9 + 3;
-  v9[4] = 0;
-  v9[5] = 0;
-  v11 = *(a1 + 16);
-  if (!v11)
+  v10 = swift_allocObject();
+  v10[2] = 8;
+  v10[3] = 0;
+  v11 = v10 + 3;
+  v10[4] = 0;
+  v10[5] = 0;
+  v12 = *(a1 + 16);
+  if (!v12)
   {
 LABEL_26:
-    v29 = sub_277115D84();
-    v30 = v52;
+    v30 = sub_277115D84();
+    v31 = v53;
     sub_277115AC4();
 
     sub_277115D14();
-    v31 = sub_277115AB4();
+    v32 = sub_277115AB4();
 
-    v32 = [v31 lastPathComponent];
+    v33 = [v32 lastPathComponent];
 
-    v33 = sub_277115AC4();
-    v35 = v34;
+    v34 = sub_277115AC4();
+    v36 = v35;
 
-    MEMORY[0x28223BE20](v36);
-    v37 = v49;
-    v48 = &v46;
-    if ((v35 & 0x1000000000000000) != 0)
+    MEMORY[0x28223BE20](v37);
+    v38 = v50;
+    v49 = &v47;
+    if ((v36 & 0x1000000000000000) != 0)
     {
       goto LABEL_39;
     }
 
-    if ((v35 & 0x2000000000000000) != 0)
+    if ((v36 & 0x2000000000000000) != 0)
     {
-      v53[0] = v33;
-      v53[1] = v35 & 0xFFFFFFFFFFFFFFLL;
+      v54[0] = v34;
+      v54[1] = v36 & 0xFFFFFFFFFFFFFFLL;
 
       result = sub_277115AB4();
-      if (!(v37 >> 31))
+      if (!(v38 >> 31))
       {
-        v39 = result;
+        v40 = result;
         sub_277115D14();
-        v45 = v37;
-        v41 = sub_277115AB4();
+        v46 = v38;
+        v42 = sub_277115AB4();
 
-        v42 = v53;
-        v43 = v39;
-        v44 = v45;
+        v43 = v54;
+        v44 = v40;
+        v45 = v46;
         goto LABEL_33;
       }
 
@@ -3767,24 +3786,24 @@ LABEL_26:
 
     else
     {
-      if ((v33 & 0x1000000000000000) == 0)
+      if ((v34 & 0x1000000000000000) == 0)
       {
         goto LABEL_39;
       }
 
       result = sub_277115AB4();
-      if (!(v37 >> 31))
+      if (!(v38 >> 31))
       {
-        v39 = result;
+        v40 = result;
         sub_277115D14();
-        v40 = v37;
-        v41 = sub_277115AB4();
+        v41 = v38;
+        v42 = sub_277115AB4();
 
-        v42 = ((v35 & 0xFFFFFFFFFFFFFFFLL) + 32);
-        v43 = v39;
+        v43 = ((v36 & 0xFFFFFFFFFFFFFFFLL) + 32);
         v44 = v40;
+        v45 = v41;
 LABEL_33:
-        sub_2770C94BC(1, v43, v42, v44, v41, v29);
+        sub_2770C94BC(1, v44, v43, v45, v42, v30);
 
         swift_bridgeObjectRelease_n();
 
@@ -3796,60 +3815,60 @@ LABEL_33:
     return result;
   }
 
-  v12 = 0;
-  v13 = a1 + 32;
+  v13 = 0;
+  v14 = a1 + 32;
   while (1)
   {
-    sub_277105B40((v13 + 40 * v12), *(v13 + 40 * v12 + 24));
-    v14 = sub_277115E34();
-    v15 = *v10;
-    v16 = *(v14 + 16);
-    v17 = __OFADD__(*v10, v16);
-    v18 = *v10 + v16;
-    if (v17)
+    sub_277105B40((v14 + 40 * v13), *(v14 + 40 * v13 + 24));
+    v15 = sub_277115E34();
+    v16 = *v11;
+    v17 = *(v15 + 16);
+    v18 = __OFADD__(*v11, v17);
+    v19 = *v11 + v17;
+    if (v18)
     {
       break;
     }
 
-    v19 = v9[4];
-    if (v19 >= v18)
+    v20 = v10[4];
+    if (v20 >= v19)
     {
       goto LABEL_18;
     }
 
-    if (v19 + 0x4000000000000000 < 0)
+    if (v20 + 0x4000000000000000 < 0)
     {
       goto LABEL_37;
     }
 
-    v20 = v9[5];
-    if (2 * v19 > v18)
+    v21 = v10[5];
+    if (2 * v20 > v19)
     {
-      v18 = 2 * v19;
+      v19 = 2 * v20;
     }
 
-    v9[4] = v18;
-    if ((v18 - 0x1000000000000000) >> 61 != 7)
+    v10[4] = v19;
+    if ((v19 - 0x1000000000000000) >> 61 != 7)
     {
       goto LABEL_38;
     }
 
-    v21 = v14;
-    v22 = swift_slowAlloc();
-    v23 = v22;
-    v9[5] = v22;
-    if (v20)
+    v22 = v15;
+    v23 = swift_slowAlloc();
+    v24 = v23;
+    v10[5] = v23;
+    if (v21)
     {
-      if (v22 != v20 || v22 >= &v20[8 * v15])
+      if (v23 != v21 || v23 >= &v21[8 * v16])
       {
-        memmove(v22, v20, 8 * v15);
+        memmove(v23, v21, 8 * v16);
       }
 
       sub_277115D74();
-      v14 = v21;
+      v15 = v22;
 LABEL_18:
-      v23 = v9[5];
-      if (!v23)
+      v24 = v10[5];
+      if (!v24)
       {
         goto LABEL_25;
       }
@@ -3857,8 +3876,8 @@ LABEL_18:
       goto LABEL_19;
     }
 
-    v14 = v21;
-    if (!v23)
+    v15 = v22;
+    if (!v24)
     {
 LABEL_25:
       __break(1u);
@@ -3866,23 +3885,23 @@ LABEL_25:
     }
 
 LABEL_19:
-    v25 = *(v14 + 16);
-    if (v25)
+    v26 = *(v15 + 16);
+    if (v26)
     {
-      v26 = (v14 + 32);
-      v27 = *v10;
+      v27 = (v15 + 32);
+      v28 = *v11;
       while (1)
       {
-        v28 = *v26++;
-        *&v23[8 * v27] = v28;
-        v27 = *v10 + 1;
-        if (__OFADD__(*v10, 1))
+        v29 = *v27++;
+        *&v24[8 * v28] = v29;
+        v28 = *v11 + 1;
+        if (__OFADD__(*v11, 1))
         {
           break;
         }
 
-        *v10 = v27;
-        if (!--v25)
+        *v11 = v28;
+        if (!--v26)
         {
           goto LABEL_3;
         }
@@ -3894,7 +3913,7 @@ LABEL_19:
 
 LABEL_3:
 
-    if (++v12 == v11)
+    if (++v13 == v12)
     {
       goto LABEL_26;
     }
@@ -3923,95 +3942,95 @@ void *sub_277105B40(void *result, uint64_t a2)
   return result;
 }
 
-uint64_t RandomAccessCollection.lowerBound(where:)@<X0>(uint64_t (*a1)(char *)@<X0>, uint64_t a2@<X1>, uint64_t a3@<X3>, uint64_t a4@<X8>)
+uint64_t RandomAccessCollection.lowerBound(where:)@<X0>(uint64_t (*a1)(char *)@<X0>, uint64_t a2@<X1>, uint64_t a4@<X3>, uint64_t a5@<X8>)
 {
-  v44 = a1;
-  v45 = a2;
-  v34 = a4;
-  v46 = a3;
-  v5 = *(*(a3 + 8) + 8);
+  v45 = a1;
+  v46 = a2;
+  v35 = a5;
+  v47 = a4;
+  v6 = *(*(a4 + 8) + 8);
   AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  v6 = *(AssociatedTypeWitness - 8);
+  v7 = *(AssociatedTypeWitness - 8);
   MEMORY[0x28223BE20](AssociatedTypeWitness);
-  v42 = &v32 - v7;
-  v8 = swift_getAssociatedTypeWitness();
-  v35 = *(v8 - 8);
-  v9 = MEMORY[0x28223BE20](v8);
-  v36 = &v32 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v11 = MEMORY[0x28223BE20](v9);
-  v13 = &v32 - v12;
-  v14 = MEMORY[0x28223BE20](v11);
-  v16 = &v32 - v15;
-  MEMORY[0x28223BE20](v14);
-  v18 = &v32 - v17;
+  v43 = &v33 - v8;
+  v9 = swift_getAssociatedTypeWitness();
+  v36 = *(v9 - 8);
+  v10 = MEMORY[0x28223BE20](v9);
+  v37 = &v33 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = MEMORY[0x28223BE20](v10);
+  v14 = &v33 - v13;
+  v15 = MEMORY[0x28223BE20](v12);
+  v17 = &v33 - v16;
+  MEMORY[0x28223BE20](v15);
+  v19 = &v33 - v18;
   sub_277115BD4();
-  v48 = v4;
+  v49 = v5;
   sub_277115C04();
-  v47 = v5;
+  v48 = v6;
   AssociatedConformanceWitness = swift_getAssociatedConformanceWitness();
-  v41 = *(AssociatedConformanceWitness + 8);
+  v42 = *(AssociatedConformanceWitness + 8);
   if ((sub_277115AA4() & 1) == 0)
   {
-    v39 = (v6 + 8);
-    v40 = (v6 + 16);
-    v37 = (v35 + 32);
-    v38 = (v35 + 8);
-    v25 = v42;
+    v40 = (v7 + 8);
+    v41 = (v7 + 16);
+    v38 = (v36 + 32);
+    v39 = (v36 + 8);
+    v26 = v43;
     do
     {
       sub_277115BC4();
       sub_277115BB4();
-      v26 = sub_277115C24();
-      v27 = v13;
-      v28 = AssociatedTypeWitness;
-      (*v40)(v25);
-      (v26)(v49, 0);
-      LOBYTE(v26) = v44(v25);
-      (*v39)(v25, v28);
-      if (v26)
+      v27 = sub_277115C24();
+      v28 = v14;
+      v29 = AssociatedTypeWitness;
+      (*v41)(v26);
+      (v27)(v50, 0);
+      LOBYTE(v27) = v45(v26);
+      (*v40)(v26, v29);
+      if (v27)
       {
-        v29 = v36;
+        v30 = v37;
         sub_277115BF4();
-        v30 = *v38;
-        (*v38)(v27, v8);
-        v30(v18, v8);
-        (*v37)(v18, v29, v8);
+        v31 = *v39;
+        (*v39)(v28, v9);
+        v31(v19, v9);
+        (*v38)(v19, v30, v9);
       }
 
       else
       {
-        (*v38)(v16, v8);
-        (*v37)(v16, v27, v8);
+        (*v39)(v17, v9);
+        (*v38)(v17, v28, v9);
       }
 
-      v13 = v27;
+      v14 = v28;
     }
 
     while ((sub_277115AA4() & 1) == 0);
   }
 
-  v19 = v36;
+  v20 = v37;
   sub_277115C04();
-  v20 = sub_277115A74();
-  v21 = v35;
-  v22 = *(v35 + 8);
-  v22(v19, v8);
-  v22(v16, v8);
-  if (v20)
+  v21 = sub_277115A74();
+  v22 = v36;
+  v23 = *(v36 + 8);
+  v23(v20, v9);
+  v23(v17, v9);
+  if (v21)
   {
-    v23 = v34;
-    (*(v21 + 32))(v34, v18, v8);
-    v24 = 0;
+    v24 = v35;
+    (*(v22 + 32))(v35, v19, v9);
+    v25 = 0;
   }
 
   else
   {
-    v22(v18, v8);
-    v24 = 1;
-    v23 = v34;
+    v23(v19, v9);
+    v25 = 1;
+    v24 = v35;
   }
 
-  return (*(v21 + 56))(v23, v24, 1, v8);
+  return (*(v22 + 56))(v24, v25, 1, v9);
 }
 
 uint64_t RandomAccessCollection.binarySearch<A>(_:sortKey:)@<X0>(uint64_t a1@<X0>, void (*a2)(char *)@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X5>, uint64_t a7@<X6>, char *a8@<X8>)
@@ -4083,15 +4102,15 @@ LABEL_6:
   return (*(v22 + 56))(v32, v33, 1, v16);
 }
 
-uint64_t sub_277106510(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
+uint64_t sub_277106510(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v7 = *(a6 - 8);
-  v8 = MEMORY[0x28223BE20](a1);
-  v10 = &v14 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v11(v8);
-  v12 = sub_277115A74();
-  (*(v7 + 8))(v10, a6);
-  return v12 & 1;
+  v9 = *(a6 - 8);
+  v10 = MEMORY[0x28223BE20](a1);
+  v12 = &v16 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v13(v10);
+  v14 = sub_277115A74();
+  (*(v9 + 8))(v12, a6);
+  return v14 & 1;
 }
 
 uint64_t RandomAccessCollection<>.binarySearch(_:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, char *a5@<X8>)
@@ -4120,15 +4139,15 @@ uint64_t RandomAccessCollection<>.lowerBound(_:)@<X0>(uint64_t a1@<X0>, uint64_t
   return RandomAccessCollection.lowerBound(where:)(sub_2771067A0, v6, a3, a5);
 }
 
-uint64_t Comparable.clamped(to:)(uint64_t a1, uint64_t a2)
+uint64_t Comparable.clamped(to:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v3 = *(a2 - 8);
+  v4 = *(a2 - 8);
   MEMORY[0x28223BE20](a1);
-  v5 = &v7 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v6 = &v8 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_277115E14();
   sub_277115A94();
   sub_277115E24();
-  return (*(v3 + 8))(v5, a2);
+  return (*(v4 + 8))(v6, a2);
 }
 
 uint64_t Sequence.unique<A>(transform:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
@@ -4164,17 +4183,17 @@ uint64_t Sequence.unique<A>(transform:)(uint64_t a1, uint64_t a2, uint64_t a3, u
   return v19;
 }
 
-uint64_t sub_277106AC8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
+uint64_t sub_277106AC8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v7 = *(a6 - 8);
-  v8 = MEMORY[0x28223BE20](a1);
-  v9 = MEMORY[0x28223BE20](v8);
-  v11 = &v15 - v10;
-  v12(v9);
+  v9 = *(a6 - 8);
+  v10 = MEMORY[0x28223BE20](a1);
+  v11 = MEMORY[0x28223BE20](v10);
+  v13 = &v17 - v12;
+  v14(v11);
   sub_277115B64();
-  v13 = sub_277115B54();
-  (*(v7 + 8))(v11, a6);
-  return v13 & 1;
+  v15 = sub_277115B54();
+  (*(v9 + 8))(v13, a6);
+  return v15 & 1;
 }
 
 uint64_t Sequence<>.unique()(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -4350,7 +4369,7 @@ char *sub_2771070EC(uint64_t a1)
   return v2;
 }
 
-uint64_t *TSULinkedList.Node.deinit()
+char *TSULinkedList.Node.deinit()
 {
   v1 = *v0;
 
@@ -4373,31 +4392,31 @@ char *TSULinkedList.append(_:)(uint64_t a1)
   v4 = *(*v2 + 80);
   v5 = *(v4 - 8);
   MEMORY[0x28223BE20](a1);
-  v7 = &v12[-v6];
-  type metadata accessor for TSULinkedList.Node();
+  v7 = &v14[-v6];
+  type metadata accessor for TSULinkedList.Node(0, v4, v8, v9);
   (*(v5 + 16))(v7, a1, v4);
-  v8 = sub_2771070EC(v7);
+  v10 = sub_2771070EC(v7);
   swift_beginAccess();
-  *(v8 + 2) = v2[3];
+  *(v10 + 2) = v2[3];
 
-  v9 = v2[3];
-  if (v9)
+  v11 = v2[3];
+  if (v11)
   {
-    *(v9 + 24) = v8;
+    *(v11 + 24) = v10;
   }
 
-  v2[3] = v8;
+  v2[3] = v10;
 
   swift_beginAccess();
-  v10 = v2[2];
-  if (!v10)
+  v12 = v2[2];
+  if (!v12)
   {
 
-    v10 = v8;
+    v12 = v10;
   }
 
-  v2[2] = v10;
-  return v8;
+  v2[2] = v12;
+  return v10;
 }
 
 uint64_t TSULinkedList.remove(_:)(uint64_t a1)
@@ -4527,17 +4546,17 @@ uint64_t sub_277107850@<X0>(uint64_t *a1@<X8>)
   return result;
 }
 
-uint64_t sub_2771078A0()
+uint64_t sub_2771078A0(uint64_t a1, uint64_t a2)
 {
-  v0 = sub_277110210();
+  v3 = sub_277110210(v2, a1, a2);
 
-  return v0;
+  return v3;
 }
 
-uint64_t sub_277107964()
+uint64_t sub_277107964(uint64_t a1)
 {
   result = swift_checkMetadataState();
-  if (v1 <= 0x3F)
+  if (v2 <= 0x3F)
   {
     result = swift_initClassMetadata2();
     if (!result)
@@ -4549,7 +4568,7 @@ uint64_t sub_277107964()
   return result;
 }
 
-uint64_t sub_277107A04()
+uint64_t sub_277107A04(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   GenericValueMetadataWithLayoutString = swift_cvw_allocateGenericValueMetadataWithLayoutString();
   swift_cvw_instantiateLayoutString();
@@ -4725,38 +4744,38 @@ unint64_t sub_277108114()
   return result;
 }
 
-unint64_t TSUCellCoord.init<A, B>(column:row:)(uint64_t a1, char *a2, uint64_t a3, uint64_t a4, uint64_t a5)
+unint64_t TSUCellCoord.init<A, B>(column:row:)(uint64_t a1, char *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
-  v29 = a5;
-  v31 = a1;
+  v30 = a5;
+  v32 = a1;
   AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  v9 = MEMORY[0x28223BE20](AssociatedTypeWitness);
-  v10 = *(a4 - 8);
-  v11 = MEMORY[0x28223BE20](v9);
-  v13 = &v27 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v11);
-  v15 = &v27 - v14;
-  v16 = *(v10 + 16);
-  v30 = a2;
-  v16(&v27 - v14, a2, a4);
-  if (sub_277115C94() & 1) == 0 || (swift_getAssociatedConformanceWitness(), sub_277115E04(), sub_277115DE4(), v17 = sub_277115A84(), result = (*(v10 + 8))(v13, a4), (v17))
+  v10 = MEMORY[0x28223BE20](AssociatedTypeWitness);
+  v11 = *(a4 - 8);
+  v12 = MEMORY[0x28223BE20](v10);
+  v14 = &v28 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v12);
+  v16 = &v28 - v15;
+  v17 = *(v11 + 16);
+  v31 = a2;
+  v17(&v28 - v15, a2, a4);
+  if (sub_277115C94() & 1) == 0 || (swift_getAssociatedConformanceWitness(), sub_277115E04(), sub_277115DE4(), v18 = sub_277115A84(), result = (*(v11 + 8))(v14, a4), (v18))
   {
-    v28 = a3;
+    v29 = a3;
     if (sub_277115C84() > 31)
     {
-      *(&v32 + 2) = -1;
-      v19 = sub_277115C94();
-      v20 = sub_277115C84();
-      if (v19)
+      *(&v33 + 2) = -1;
+      v20 = sub_277115C94();
+      v21 = sub_277115C84();
+      if (v20)
       {
-        if (v20 <= 32)
+        if (v21 <= 32)
         {
           swift_getAssociatedConformanceWitness();
           sub_277115E04();
           sub_277115DE4();
-          v21 = sub_277115A64();
-          (*(v10 + 8))(v13, a4);
-          if ((v21 & 1) == 0)
+          v22 = sub_277115A64();
+          (*(v11 + 8))(v14, a4);
+          if ((v22 & 1) == 0)
           {
             goto LABEL_12;
           }
@@ -4765,7 +4784,7 @@ unint64_t TSUCellCoord.init<A, B>(column:row:)(uint64_t a1, char *a2, uint64_t a
         }
       }
 
-      else if (v20 < 33)
+      else if (v21 < 33)
       {
 LABEL_11:
         sub_277115C74();
@@ -4774,9 +4793,9 @@ LABEL_11:
 
       sub_277108598();
       sub_277115C64();
-      v22 = sub_277115A74();
-      (*(v10 + 8))(v13, a4);
-      if (v22)
+      v23 = sub_277115A74();
+      (*(v11 + 8))(v14, a4);
+      if (v23)
       {
         __break(1u);
         goto LABEL_11;
@@ -4784,15 +4803,15 @@ LABEL_11:
     }
 
 LABEL_12:
-    v23 = sub_277115C74();
-    v24 = *(v10 + 8);
-    v24(v15, a4);
-    v25 = v28;
-    v26 = v31;
-    (*(*(v29 + 8) + 64))(&v32, v28);
-    v24(v30, a4);
-    (*(*(v25 - 8) + 8))(v26, v25);
-    return v23 | (v32 << 32);
+    v24 = sub_277115C74();
+    v25 = *(v11 + 8);
+    v25(v16, a4);
+    v26 = v29;
+    v27 = v32;
+    (*(*(v30 + 8) + 64))(&v33, v29);
+    v25(v31, a4);
+    (*(*(v26 - 8) + 8))(v27, v26);
+    return v24 | (v33 << 32);
   }
 
   __break(1u);
@@ -4837,11 +4856,11 @@ uint64_t static TSUCellCoord.!= infix(_:_:)(unint64_t a1, unint64_t a2)
 uint64_t TSULRUCache.onEviction.getter()
 {
   v1 = *(v0 + 24);
-  sub_2771086CC(v1);
+  sub_2771086CC(v1, *(v0 + 32));
   return v1;
 }
 
-uint64_t sub_2771086CC(uint64_t result)
+uint64_t sub_2771086CC(uint64_t result, uint64_t a2)
 {
   if (result)
   {
@@ -4852,13 +4871,13 @@ uint64_t sub_2771086CC(uint64_t result)
 
 uint64_t TSULRUCache.onEviction.setter(uint64_t a1, uint64_t a2)
 {
-  result = sub_277108714(*(v2 + 24));
+  result = sub_277108714(*(v2 + 24), *(v2 + 32));
   *(v2 + 24) = a1;
   *(v2 + 32) = a2;
   return result;
 }
 
-uint64_t sub_277108714(uint64_t result)
+uint64_t sub_277108714(uint64_t result, uint64_t a2)
 {
   if (result)
   {
@@ -4867,58 +4886,59 @@ uint64_t sub_277108714(uint64_t result)
   return result;
 }
 
-uint64_t TSULRUCache.init(maxSize:onEviction:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X3>, uint64_t a4@<X4>, uint64_t a5@<X5>, uint64_t *a6@<X8>)
+uint64_t TSULRUCache.init(maxSize:onEviction:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X5>, uint64_t *a7@<X8>)
 {
-  v9 = TSUOrderedDict.init()(a3, a4, a5);
-  v11 = v10;
-  result = sub_277108714(a2);
-  *a6 = v9;
-  a6[1] = v11;
-  a6[3] = 0;
-  a6[4] = 0;
-  a6[2] = a1;
+  v11 = TSUOrderedDict.init()(a4, a5, a6);
+  v13 = v12;
+  result = sub_277108714(a2, a3);
+  *a7 = v11;
+  a7[1] = v13;
+  a7[3] = 0;
+  a7[4] = 0;
+  a7[2] = a1;
   return result;
 }
 
 uint64_t TSULRUCache.subscript.getter@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
-  v25 = a3;
-  v4 = *(a2 + 16);
-  v23 = *(v4 - 8);
+  v27 = a3;
+  v5 = *(a2 + 16);
+  v25 = *(v5 - 8);
   MEMORY[0x28223BE20](a1);
-  v24 = &v22 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v7 = *(v6 + 24);
-  v8 = sub_277115C34();
-  v9 = *(v8 - 8);
-  v10 = MEMORY[0x28223BE20](v8);
-  v12 = &v22 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v10);
-  v14 = &v22 - v13;
-  v15 = a1;
-  TSUOrderedDict.subscript.getter(v7, &v22 - v13);
-  v16 = *(v7 - 8);
-  if ((*(v16 + 48))(v14, 1, v7) == 1)
+  v26 = &v24 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = *(v7 + 24);
+  v9 = sub_277115C34();
+  v10 = *(v9 - 8);
+  v11 = MEMORY[0x28223BE20](v9);
+  v13 = &v24 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v11);
+  v15 = &v24 - v14;
+  v16 = *(a2 + 32);
+  v17 = a1;
+  TSUOrderedDict.subscript.getter(v5, v8, v16, &v24 - v14);
+  v18 = *(v8 - 8);
+  if ((*(v18 + 48))(v15, 1, v8) == 1)
   {
-    (*(v9 + 8))(v14, v8);
-    return (*(v16 + 56))(v25, 1, 1, v7);
+    (*(v10 + 8))(v15, v9);
+    return (*(v18 + 56))(v27, 1, 1, v8);
   }
 
   else
   {
-    v18 = v25;
-    (*(v16 + 32))(v25, v14, v7);
-    v19 = v24;
-    (*(v23 + 16))(v24, v15, v4);
-    (*(v16 + 16))(v12, v18, v7);
-    v20 = *(v16 + 56);
-    v20(v12, 0, 1, v7);
-    v21 = type metadata accessor for TSUOrderedDict();
-    TSUOrderedDict.subscript.setter(v12, v19, v21);
-    return (v20)(v18, 0, 1, v7);
+    v20 = v27;
+    (*(v18 + 32))(v27, v15, v8);
+    v21 = v26;
+    (*(v25 + 16))(v26, v17, v5);
+    (*(v18 + 16))(v13, v20, v8);
+    v22 = *(v18 + 56);
+    v22(v13, 0, 1, v8);
+    v23 = type metadata accessor for TSUOrderedDict(0, v5, v8, v16);
+    TSUOrderedDict.subscript.setter(v13, v21, v23);
+    return (v22)(v20, 0, 1, v8);
   }
 }
 
-uint64_t TSULRUCache.subscript.setter(uint64_t a1, void *a2, uint64_t a3)
+uint64_t TSULRUCache.subscript.setter(void (*a1)(char *, char *, uint64_t), void *a2, uint64_t a3)
 {
   sub_277108E88(a1, a2, a3);
   (*(*(*(a3 + 16) - 8) + 8))(a2);
@@ -5022,12 +5042,12 @@ void sub_277108CE4(uint64_t **a1, char a2)
 
 Swift::Void __swiftcall TSULRUCache.removeAll()()
 {
-  type metadata accessor for TSUOrderedDict();
+  type metadata accessor for TSUOrderedDict(0, v0[2], v0[3], v0[4]);
 
   TSUOrderedDict.removeAll()();
 }
 
-uint64_t sub_277108E88(uint64_t a1, void *a2, uint64_t a3)
+uint64_t sub_277108E88(void (*a1)(char *, char *, uint64_t), void *a2, uint64_t a3)
 {
   v4 = v3;
   v45 = a2;
@@ -5054,8 +5074,8 @@ uint64_t sub_277108E88(uint64_t a1, void *a2, uint64_t a3)
   v39 = v22;
   (*(v22 + 16))(&v37 - v20, v45, v6);
   (*(v13 + 16))(v16, v46, v12);
-  v23 = v42[4];
-  v45 = type metadata accessor for TSUOrderedDict();
+  v23 = *(v42 + 32);
+  v45 = type metadata accessor for TSUOrderedDict(0, v6, v5, v23);
   TSUOrderedDict.subscript.setter(v16, v21, v45);
   v24 = v5;
   v25 = v6;
@@ -5112,14 +5132,14 @@ uint64_t sub_277108E88(uint64_t a1, void *a2, uint64_t a3)
   return result;
 }
 
-uint64_t sub_2771092F4()
+uint64_t sub_2771092F4(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   GenericValueMetadataWithLayoutString = swift_cvw_allocateGenericValueMetadataWithLayoutString();
   swift_cvw_instantiateLayoutString();
   return GenericValueMetadataWithLayoutString;
 }
 
-uint64_t sub_277109330(uint64_t *a1)
+uint64_t sub_277109330(unint64_t *a1)
 {
   v1 = *a1;
   if (*a1 >= 0xFFFFFFFF)
@@ -5241,7 +5261,7 @@ uint64_t static TSUCellRect.!= infix(_:_:)(unint64_t a1, unint64_t a2, uint64_t 
   }
 }
 
-uint64_t TSUCellRect.enumerateCoordinatesUsingBlock(_:)(uint64_t (*a1)(unint64_t, char *), uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t TSUCellRect.enumerateCoordinatesUsingBlock(_:)(uint64_t (*a1)(uint64_t, char *), uint64_t a2, uint64_t a3, uint64_t a4)
 {
   v16 = 0;
   v7 = sub_2771095CC(a3 & 0x101FFFFFFFFFFFFLL);
@@ -5457,86 +5477,86 @@ Swift::String __swiftcall TSULocalizedString(_:table:value:locale:)(Swift::Strin
   return result;
 }
 
-void TSUDateParser.date(from:)(uint64_t a1@<X8>)
+void TSUDateParser.date(from:)(uint64_t a2@<X8>)
 {
-  v2 = v1;
-  v29[1] = *MEMORY[0x277D85DE8];
-  v4 = sub_277115974();
-  v5 = *(v4 - 8);
-  MEMORY[0x28223BE20](v4);
-  v7 = v29 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v8 = sub_277109E40(&qword_280A63460);
-  v9 = MEMORY[0x28223BE20](v8 - 8);
-  v11 = v29 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v12 = MEMORY[0x28223BE20](v9);
-  v14 = v29 - v13;
-  MEMORY[0x28223BE20](v12);
-  v16 = v29 - v15;
-  if (v17)
+  v3 = v2;
+  v30[1] = *MEMORY[0x277D85DE8];
+  v5 = sub_277115974();
+  v6 = *(v5 - 8);
+  MEMORY[0x28223BE20](v5);
+  v8 = v30 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = sub_277109E40(&qword_280A63460, &qword_277139A00);
+  v10 = MEMORY[0x28223BE20](v9 - 8);
+  v12 = v30 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v13 = MEMORY[0x28223BE20](v10);
+  v15 = v30 - v14;
+  MEMORY[0x28223BE20](v13);
+  v17 = v30 - v16;
+  if (v18)
   {
-    v18 = sub_277115AB4();
+    v19 = sub_277115AB4();
   }
 
   else
   {
-    v18 = 0;
+    v19 = 0;
   }
 
-  v29[0] = 0;
-  v19 = [v2 newDateFromString:v18 successfulFormatString:v29];
+  v30[0] = 0;
+  v20 = [v3 newDateFromString:v19 successfulFormatString:v30];
 
-  v20 = v29[0];
-  if (v19)
+  v21 = v30[0];
+  if (v20)
   {
     sub_277115964();
-    v21 = v20;
+    v22 = v21;
 
-    (*(v5 + 56))(v14, 0, 1, v4);
+    (*(v6 + 56))(v15, 0, 1, v5);
   }
 
   else
   {
-    (*(v5 + 56))(v14, 1, 1, v4);
-    v22 = v20;
+    (*(v6 + 56))(v15, 1, 1, v5);
+    v23 = v21;
   }
 
-  sub_277109E88(v14, v16);
-  sub_277109EF8(v16, v11);
-  if ((*(v5 + 48))(v11, 1, v4) == 1)
+  sub_277109E88(v15, v17);
+  sub_277109EF8(v17, v12);
+  if ((*(v6 + 48))(v12, 1, v5) == 1)
   {
-    sub_277109F68(v16);
-    sub_277109F68(v11);
-    v23 = sub_277109E40(&qword_280A63468);
-    (*(*(v23 - 8) + 56))(a1, 1, 1, v23);
+    sub_277109F68(v17);
+    sub_277109F68(v12);
+    v24 = sub_277109E40(&qword_280A63468, &qword_277139A08);
+    (*(*(v24 - 8) + 56))(a2, 1, 1, v24);
   }
 
   else
   {
-    (*(v5 + 32))(v7, v11, v4);
-    v24 = sub_277109E40(&qword_280A63468);
-    v25 = (a1 + *(v24 + 48));
-    (*(v5 + 16))(a1, v7, v4);
-    if (v20)
+    (*(v6 + 32))(v8, v12, v5);
+    v25 = sub_277109E40(&qword_280A63468, &qword_277139A08);
+    v26 = (a2 + *(v25 + 48));
+    (*(v6 + 16))(a2, v8, v5);
+    if (v21)
     {
-      v26 = sub_277115AC4();
-      v28 = v27;
+      v27 = sub_277115AC4();
+      v29 = v28;
     }
 
     else
     {
-      v26 = 0;
-      v28 = 0xE000000000000000;
+      v27 = 0;
+      v29 = 0xE000000000000000;
     }
 
-    (*(v5 + 8))(v7, v4);
-    sub_277109F68(v16);
-    *v25 = v26;
-    v25[1] = v28;
-    (*(*(v24 - 8) + 56))(a1, 0, 1, v24);
+    (*(v6 + 8))(v8, v5);
+    sub_277109F68(v17);
+    *v26 = v27;
+    v26[1] = v29;
+    (*(*(v25 - 8) + 56))(a2, 0, 1, v25);
   }
 }
 
-uint64_t sub_277109E40(uint64_t *a1)
+uint64_t sub_277109E40(uint64_t *a1, uint64_t *a2)
 {
   result = *a1;
   if (!result)
@@ -5550,108 +5570,108 @@ uint64_t sub_277109E40(uint64_t *a1)
 
 uint64_t sub_277109E88(uint64_t a1, uint64_t a2)
 {
-  v4 = sub_277109E40(&qword_280A63460);
+  v4 = sub_277109E40(&qword_280A63460, &qword_277139A00);
   (*(*(v4 - 8) + 32))(a2, a1, v4);
   return a2;
 }
 
 uint64_t sub_277109EF8(uint64_t a1, uint64_t a2)
 {
-  v4 = sub_277109E40(&qword_280A63460);
+  v4 = sub_277109E40(&qword_280A63460, &qword_277139A00);
   (*(*(v4 - 8) + 16))(a2, a1, v4);
   return a2;
 }
 
 uint64_t sub_277109F68(uint64_t a1)
 {
-  v2 = sub_277109E40(&qword_280A63460);
+  v2 = sub_277109E40(&qword_280A63460, &qword_277139A00);
   (*(*(v2 - 8) + 8))(a1, v2);
   return a1;
 }
 
-void TSUDateParser.date(from:preferredFormat:tryAggressiveFormats:)(void *a1@<X1>, uint64_t a2@<X3>, int a3@<W4>, uint64_t a4@<X8>)
+void TSUDateParser.date(from:preferredFormat:tryAggressiveFormats:)(void *a2@<X1>, uint64_t a4@<X3>, int a5@<W4>, uint64_t a6@<X8>)
 {
-  v33 = a3;
-  v36[1] = *MEMORY[0x277D85DE8];
-  v7 = sub_277115974();
-  v8 = *(v7 - 8);
-  MEMORY[0x28223BE20](v7);
-  v35 = &v32[-((v9 + 15) & 0xFFFFFFFFFFFFFFF0)];
-  v10 = sub_277109E40(&qword_280A63460);
-  v11 = MEMORY[0x28223BE20](v10 - 8);
-  v13 = &v32[-((v12 + 15) & 0xFFFFFFFFFFFFFFF0)];
-  v14 = MEMORY[0x28223BE20](v11);
-  v16 = &v32[-v15];
-  MEMORY[0x28223BE20](v14);
-  v18 = &v32[-v17];
-  if (a1)
-  {
-    a1 = sub_277115AB4();
-  }
-
+  v35 = a5;
+  v38[1] = *MEMORY[0x277D85DE8];
+  v9 = sub_277115974();
+  v10 = *(v9 - 8);
+  MEMORY[0x28223BE20](v9);
+  v37 = &v34[-((v11 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  v12 = sub_277109E40(&qword_280A63460, &qword_277139A00);
+  v13 = MEMORY[0x28223BE20](v12 - 8);
+  v15 = &v34[-((v14 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  v16 = MEMORY[0x28223BE20](v13);
+  v18 = &v34[-v17];
+  MEMORY[0x28223BE20](v16);
+  v20 = &v34[-v19];
   if (a2)
   {
-    v19 = sub_277115AB4();
+    a2 = sub_277115AB4();
+  }
+
+  if (a4)
+  {
+    v21 = sub_277115AB4();
   }
 
   else
   {
-    v19 = 0;
+    v21 = 0;
   }
 
-  v20 = a4;
-  v36[0] = 0;
-  v21 = [v34 newDateFromString:a1 preferredFormatString:v19 successfulFormatString:v36 tryAggressiveFormats:v33 & 1];
+  v22 = a6;
+  v38[0] = 0;
+  v23 = [v36 newDateFromString:a2 preferredFormatString:v21 successfulFormatString:v38 tryAggressiveFormats:v35 & 1];
 
-  v22 = v36[0];
-  if (v21)
+  v24 = v38[0];
+  if (v23)
   {
     sub_277115964();
-    v23 = v22;
+    v25 = v24;
 
-    (*(v8 + 56))(v16, 0, 1, v7);
+    (*(v10 + 56))(v18, 0, 1, v9);
   }
 
   else
   {
-    (*(v8 + 56))(v16, 1, 1, v7);
-    v24 = v22;
+    (*(v10 + 56))(v18, 1, 1, v9);
+    v26 = v24;
   }
 
-  sub_277109E88(v16, v18);
-  sub_277109EF8(v18, v13);
-  if ((*(v8 + 48))(v13, 1, v7) == 1)
+  sub_277109E88(v18, v20);
+  sub_277109EF8(v20, v15);
+  if ((*(v10 + 48))(v15, 1, v9) == 1)
   {
-    sub_277109F68(v18);
-    sub_277109F68(v13);
-    v25 = sub_277109E40(&qword_280A63468);
-    (*(*(v25 - 8) + 56))(v20, 1, 1, v25);
+    sub_277109F68(v20);
+    sub_277109F68(v15);
+    v27 = sub_277109E40(&qword_280A63468, &qword_277139A08);
+    (*(*(v27 - 8) + 56))(v22, 1, 1, v27);
   }
 
   else
   {
-    v26 = v35;
-    (*(v8 + 32))(v35, v13, v7);
-    v27 = sub_277109E40(&qword_280A63468);
-    v28 = (v20 + *(v27 + 48));
-    (*(v8 + 16))(v20, v26, v7);
-    if (v22)
+    v28 = v37;
+    (*(v10 + 32))(v37, v15, v9);
+    v29 = sub_277109E40(&qword_280A63468, &qword_277139A08);
+    v30 = (v22 + *(v29 + 48));
+    (*(v10 + 16))(v22, v28, v9);
+    if (v24)
     {
-      v29 = sub_277115AC4();
-      v31 = v30;
+      v31 = sub_277115AC4();
+      v33 = v32;
     }
 
     else
     {
-      v29 = 0;
-      v31 = 0xE000000000000000;
+      v31 = 0;
+      v33 = 0xE000000000000000;
     }
 
-    (*(v8 + 8))(v35, v7);
-    sub_277109F68(v18);
-    *v28 = v29;
-    v28[1] = v31;
-    (*(*(v27 - 8) + 56))(v20, 0, 1, v27);
+    (*(v10 + 8))(v37, v9);
+    sub_277109F68(v20);
+    *v30 = v31;
+    v30[1] = v33;
+    (*(*(v29 - 8) + 56))(v22, 0, 1, v29);
   }
 }
 
@@ -5666,20 +5686,20 @@ uint64_t TSUCellCoordType.init(integerLiteral:)(uint64_t a1, uint64_t a2, uint64
   return (*(v7 + 8))(a1, AssociatedTypeWitness);
 }
 
-uint64_t TSUCellCoordType.init<A>(_:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X8>)
+uint64_t TSUCellCoordType.init<A>(_:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a6@<X8>)
 {
-  v16 = a5;
-  v9 = *(a3 - 8);
+  v17 = a6;
+  v10 = *(a3 - 8);
   MEMORY[0x28223BE20](a1);
-  v11 = &v16 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = &v17 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
   AssociatedTypeWitness = swift_getAssociatedTypeWitness();
   MEMORY[0x28223BE20](AssociatedTypeWitness);
-  v14 = &v16 - v13;
-  (*(v9 + 16))(v11, a1, a3);
+  v15 = &v17 - v14;
+  (*(v10 + 16))(v12, a1, a3);
   swift_getAssociatedConformanceWitness();
   sub_277115CA4();
-  (*(a4 + 48))(v14, a2, a4);
-  return (*(v9 + 8))(a1, a3);
+  (*(a4 + 48))(v15, a2, a4);
+  return (*(v10 + 8))(a1, a3);
 }
 
 uint64_t TSUCellCoordType.init<A>(exactly:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X8>)
@@ -6166,7 +6186,7 @@ uint64_t (*TSURowIndexType.rawIndex.modify(uint64_t a1, uint64_t a2, uint64_t a3
   return sub_27710C8F8;
 }
 
-uint64_t (*sub_27710CA0C(uint64_t a1))()
+uint64_t (*sub_27710CA0C(uint64_t a1))(uint64_t result)
 {
   *a1 = v1;
   *(a1 + 8) = *v1;
@@ -6175,7 +6195,7 @@ uint64_t (*sub_27710CA0C(uint64_t a1))()
 
 uint64_t sub_27710CA38@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X8>)
 {
-  v10 = sub_27710E384(&qword_280A63470, type metadata accessor for TSUModelRowIndex);
+  v10 = sub_27710E384(&qword_280A63470, type metadata accessor for TSUModelRowIndex, &protocol conformance descriptor for TSUModelRowIndex);
 
   return TSUCellCoordType.init<A>(exactly:)(a1, a4, a2, v10, a3, a5);
 }
@@ -6189,7 +6209,7 @@ uint64_t (*sub_27710CAF0(uint64_t a1))(uint64_t result)
 
 uint64_t sub_27710CB54@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X8>)
 {
-  v10 = sub_27710E384(&qword_280A634B0, type metadata accessor for TSUViewRowIndex);
+  v10 = sub_27710E384(&qword_280A634B0, type metadata accessor for TSUViewRowIndex, &protocol conformance descriptor for TSUViewRowIndex);
 
   return TSUCellCoordType.init<A>(exactly:)(a1, a4, a2, v10, a3, a5);
 }
@@ -6208,7 +6228,7 @@ _DWORD *sub_27710CBF8@<X0>(_DWORD *result@<X0>, uint64_t *a2@<X8>)
 
 uint64_t sub_27710CCDC@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X8>)
 {
-  v10 = sub_27710E384(&qword_280A634F0, type metadata accessor for TSUChromeRowIndex);
+  v10 = sub_27710E384(&qword_280A634F0, type metadata accessor for TSUChromeRowIndex, &protocol conformance descriptor for TSUChromeRowIndex);
 
   return TSUCellCoordType.init<A>(exactly:)(a1, a4, a2, v10, a3, a5);
 }
@@ -6402,7 +6422,7 @@ uint64_t (*TSUColumnIndexType.rawIndex.modify(uint64_t a1, uint64_t a2, uint64_t
   return sub_27710CF60;
 }
 
-uint64_t (*sub_27710D068(uint64_t a1))()
+uint64_t (*sub_27710D068(uint64_t a1))(uint64_t result)
 {
   *a1 = v1;
   *(a1 + 8) = *v1;
@@ -6411,7 +6431,7 @@ uint64_t (*sub_27710D068(uint64_t a1))()
 
 uint64_t sub_27710D094@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X8>)
 {
-  v10 = sub_27710E384(&qword_280A63530, type metadata accessor for TSUModelColumnIndex);
+  v10 = sub_27710E384(&qword_280A63530, type metadata accessor for TSUModelColumnIndex, &protocol conformance descriptor for TSUModelColumnIndex);
 
   return TSUCellCoordType.init<A>(exactly:)(a1, a4, a2, v10, a3, a5);
 }
@@ -6425,7 +6445,7 @@ uint64_t (*sub_27710D154(uint64_t a1))(uint64_t result)
 
 uint64_t sub_27710D1B8@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X8>)
 {
-  v10 = sub_27710E384(&qword_280A63570, type metadata accessor for TSUViewColumnIndex);
+  v10 = sub_27710E384(&qword_280A63570, type metadata accessor for TSUViewColumnIndex, &protocol conformance descriptor for TSUViewColumnIndex);
 
   return TSUCellCoordType.init<A>(exactly:)(a1, a4, a2, v10, a3, a5);
 }
@@ -6448,7 +6468,7 @@ unsigned __int16 *sub_27710D25C@<X0>(unsigned __int16 *result@<X0>, uint64_t *a2
 
 uint64_t sub_27710D340@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X8>)
 {
-  v10 = sub_27710E384(&qword_280A635B0, type metadata accessor for TSUChromeColumnIndex);
+  v10 = sub_27710E384(&qword_280A635B0, type metadata accessor for TSUChromeColumnIndex, &protocol conformance descriptor for TSUChromeColumnIndex);
 
   return TSUCellCoordType.init<A>(exactly:)(a1, a4, a2, v10, a3, a5);
 }
@@ -6647,101 +6667,101 @@ uint64_t BinaryInteger.init<A>(_:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64
 
 uint64_t sub_27710D68C(uint64_t a1)
 {
-  result = sub_27710E384(&qword_280A63470, type metadata accessor for TSUModelRowIndex);
+  result = sub_27710E384(&qword_280A63470, type metadata accessor for TSUModelRowIndex, &protocol conformance descriptor for TSUModelRowIndex);
   *(a1 + 8) = result;
   return result;
 }
 
 uint64_t sub_27710D6E4(void *a1)
 {
-  a1[1] = sub_27710E384(&qword_280A63478, type metadata accessor for TSUModelRowIndex);
-  a1[2] = sub_27710E384(&qword_280A63480, type metadata accessor for TSUModelRowIndex);
-  result = sub_27710E384(&qword_280A63488, type metadata accessor for TSUModelRowIndex);
+  a1[1] = sub_27710E384(&qword_280A63478, type metadata accessor for TSUModelRowIndex, &protocol conformance descriptor for TSUModelRowIndex);
+  a1[2] = sub_27710E384(&qword_280A63480, type metadata accessor for TSUModelRowIndex, &protocol conformance descriptor for TSUModelRowIndex);
+  result = sub_27710E384(&qword_280A63488, type metadata accessor for TSUModelRowIndex, &protocol conformance descriptor for TSUModelRowIndex);
   a1[3] = result;
   return result;
 }
 
 uint64_t sub_27710D8EC(uint64_t a1)
 {
-  result = sub_27710E384(&qword_280A634B0, type metadata accessor for TSUViewRowIndex);
+  result = sub_27710E384(&qword_280A634B0, type metadata accessor for TSUViewRowIndex, &protocol conformance descriptor for TSUViewRowIndex);
   *(a1 + 8) = result;
   return result;
 }
 
 uint64_t sub_27710D948(void *a1)
 {
-  a1[1] = sub_27710E384(&qword_280A634B8, type metadata accessor for TSUViewRowIndex);
-  a1[2] = sub_27710E384(&qword_280A634C0, type metadata accessor for TSUViewRowIndex);
-  result = sub_27710E384(&qword_280A634C8, type metadata accessor for TSUViewRowIndex);
+  a1[1] = sub_27710E384(&qword_280A634B8, type metadata accessor for TSUViewRowIndex, &protocol conformance descriptor for TSUViewRowIndex);
+  a1[2] = sub_27710E384(&qword_280A634C0, type metadata accessor for TSUViewRowIndex, &protocol conformance descriptor for TSUViewRowIndex);
+  result = sub_27710E384(&qword_280A634C8, type metadata accessor for TSUViewRowIndex, &protocol conformance descriptor for TSUViewRowIndex);
   a1[3] = result;
   return result;
 }
 
 uint64_t sub_27710DB14(uint64_t a1)
 {
-  result = sub_27710E384(&qword_280A634F0, type metadata accessor for TSUChromeRowIndex);
+  result = sub_27710E384(&qword_280A634F0, type metadata accessor for TSUChromeRowIndex, &protocol conformance descriptor for TSUChromeRowIndex);
   *(a1 + 8) = result;
   return result;
 }
 
 uint64_t sub_27710DB6C(void *a1)
 {
-  a1[1] = sub_27710E384(&qword_280A634F8, type metadata accessor for TSUChromeRowIndex);
-  a1[2] = sub_27710E384(&qword_280A63500, type metadata accessor for TSUChromeRowIndex);
-  result = sub_27710E384(&qword_280A63508, type metadata accessor for TSUChromeRowIndex);
+  a1[1] = sub_27710E384(&qword_280A634F8, type metadata accessor for TSUChromeRowIndex, &protocol conformance descriptor for TSUChromeRowIndex);
+  a1[2] = sub_27710E384(&qword_280A63500, type metadata accessor for TSUChromeRowIndex, &protocol conformance descriptor for TSUChromeRowIndex);
+  result = sub_27710E384(&qword_280A63508, type metadata accessor for TSUChromeRowIndex, &protocol conformance descriptor for TSUChromeRowIndex);
   a1[3] = result;
   return result;
 }
 
 uint64_t sub_27710DD38(uint64_t a1)
 {
-  result = sub_27710E384(&qword_280A63530, type metadata accessor for TSUModelColumnIndex);
+  result = sub_27710E384(&qword_280A63530, type metadata accessor for TSUModelColumnIndex, &protocol conformance descriptor for TSUModelColumnIndex);
   *(a1 + 8) = result;
   return result;
 }
 
 uint64_t sub_27710DD90(void *a1)
 {
-  a1[1] = sub_27710E384(&qword_280A63538, type metadata accessor for TSUModelColumnIndex);
-  a1[2] = sub_27710E384(&qword_280A63540, type metadata accessor for TSUModelColumnIndex);
-  result = sub_27710E384(&qword_280A63548, type metadata accessor for TSUModelColumnIndex);
+  a1[1] = sub_27710E384(&qword_280A63538, type metadata accessor for TSUModelColumnIndex, &protocol conformance descriptor for TSUModelColumnIndex);
+  a1[2] = sub_27710E384(&qword_280A63540, type metadata accessor for TSUModelColumnIndex, &protocol conformance descriptor for TSUModelColumnIndex);
+  result = sub_27710E384(&qword_280A63548, type metadata accessor for TSUModelColumnIndex, &protocol conformance descriptor for TSUModelColumnIndex);
   a1[3] = result;
   return result;
 }
 
 uint64_t sub_27710DF80(uint64_t a1)
 {
-  result = sub_27710E384(&qword_280A63570, type metadata accessor for TSUViewColumnIndex);
+  result = sub_27710E384(&qword_280A63570, type metadata accessor for TSUViewColumnIndex, &protocol conformance descriptor for TSUViewColumnIndex);
   *(a1 + 8) = result;
   return result;
 }
 
 uint64_t sub_27710DFDC(void *a1)
 {
-  a1[1] = sub_27710E384(&qword_280A63578, type metadata accessor for TSUViewColumnIndex);
-  a1[2] = sub_27710E384(&qword_280A63580, type metadata accessor for TSUViewColumnIndex);
-  result = sub_27710E384(&qword_280A63588, type metadata accessor for TSUViewColumnIndex);
+  a1[1] = sub_27710E384(&qword_280A63578, type metadata accessor for TSUViewColumnIndex, &protocol conformance descriptor for TSUViewColumnIndex);
+  a1[2] = sub_27710E384(&qword_280A63580, type metadata accessor for TSUViewColumnIndex, &protocol conformance descriptor for TSUViewColumnIndex);
+  result = sub_27710E384(&qword_280A63588, type metadata accessor for TSUViewColumnIndex, &protocol conformance descriptor for TSUViewColumnIndex);
   a1[3] = result;
   return result;
 }
 
 uint64_t sub_27710E1A8(uint64_t a1)
 {
-  result = sub_27710E384(&qword_280A635B0, type metadata accessor for TSUChromeColumnIndex);
+  result = sub_27710E384(&qword_280A635B0, type metadata accessor for TSUChromeColumnIndex, &protocol conformance descriptor for TSUChromeColumnIndex);
   *(a1 + 8) = result;
   return result;
 }
 
 uint64_t sub_27710E200(void *a1)
 {
-  a1[1] = sub_27710E384(&qword_280A635B8, type metadata accessor for TSUChromeColumnIndex);
-  a1[2] = sub_27710E384(&qword_280A635C0, type metadata accessor for TSUChromeColumnIndex);
-  result = sub_27710E384(&qword_280A635C8, type metadata accessor for TSUChromeColumnIndex);
+  a1[1] = sub_27710E384(&qword_280A635B8, type metadata accessor for TSUChromeColumnIndex, &protocol conformance descriptor for TSUChromeColumnIndex);
+  a1[2] = sub_27710E384(&qword_280A635C0, type metadata accessor for TSUChromeColumnIndex, &protocol conformance descriptor for TSUChromeColumnIndex);
+  result = sub_27710E384(&qword_280A635C8, type metadata accessor for TSUChromeColumnIndex, &protocol conformance descriptor for TSUChromeColumnIndex);
   a1[3] = result;
   return result;
 }
 
-uint64_t sub_27710E384(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t sub_27710E384(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -6756,230 +6776,230 @@ uint64_t sub_27710E384(unint64_t *a1, void (*a2)(uint64_t))
 
 uint64_t TSUOrderedDict.count.getter(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  type metadata accessor for TSUOrderedDict.ListElement();
-  v8 = type metadata accessor for TSULinkedList.Node();
+  v8 = type metadata accessor for TSUOrderedDict.ListElement(255, a3, a4, a5);
+  v11 = type metadata accessor for TSULinkedList.Node(0, v8, v9, v10);
 
-  return MEMORY[0x2821FB858](a2, a3, v8, a5);
+  return MEMORY[0x2821FB858](a2, a3, v11, a5);
 }
 
 uint64_t TSUOrderedDict.init()(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  type metadata accessor for TSUOrderedDict.ListElement();
-  v5 = type metadata accessor for TSULinkedList.Node();
+  v5 = type metadata accessor for TSUOrderedDict.ListElement(255, a1, a2, a3);
+  v8 = type metadata accessor for TSULinkedList.Node(255, v5, v6, v7);
   swift_getTupleTypeMetadata2();
-  v6 = sub_277115B14();
-  sub_277110214(v6, a1, v5, a3);
+  v9 = sub_277115B14();
+  sub_277110214(v9, a1, v8, a3);
 
-  type metadata accessor for TSULinkedList();
+  type metadata accessor for TSULinkedList(0, v5, v10, v11);
   return sub_27710765C();
 }
 
-uint64_t TSUOrderedDict.subscript.getter@<X0>(uint64_t a1@<X4>, uint64_t a2@<X8>)
+uint64_t TSUOrderedDict.subscript.getter@<X0>(uint64_t a3@<X3>, uint64_t a4@<X4>, uint64_t a5@<X5>, uint64_t a6@<X8>)
 {
-  v4 = type metadata accessor for TSUOrderedDict.ListElement();
-  v5 = *(v4 - 8);
-  MEMORY[0x28223BE20](v4);
-  v7 = &v10 - v6;
-  type metadata accessor for TSULinkedList.Node();
+  v8 = type metadata accessor for TSUOrderedDict.ListElement(0, a3, a4, a5);
+  v9 = *(v8 - 8);
+  MEMORY[0x28223BE20](v8);
+  v11 = &v16 - v10;
+  type metadata accessor for TSULinkedList.Node(0, v8, v12, v13);
   sub_277115A24();
-  if (!v11)
+  if (!v17)
   {
-    return (*(*(a1 - 8) + 56))(a2, 1, 1, a1);
+    return (*(*(a4 - 8) + 56))(a6, 1, 1, a4);
   }
 
-  (*(v5 + 16))(v7, v11 + *(*v11 + 104), v4);
+  (*(v9 + 16))(v11, v17 + *(*v17 + 104), v8);
 
-  v8 = *(a1 - 8);
-  (*(v8 + 16))(a2, &v7[*(v4 + 44)], a1);
-  (*(v5 + 8))(v7, v4);
-  return (*(v8 + 56))(a2, 0, 1, a1);
+  v14 = *(a4 - 8);
+  (*(v14 + 16))(a6, &v11[*(v8 + 44)], a4);
+  (*(v9 + 8))(v11, v8);
+  return (*(v14 + 56))(a6, 0, 1, a4);
 }
 
 uint64_t TSUOrderedDict.subscript.setter(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v4 = v3;
-  v54 = a1;
+  v56 = a1;
   v7 = *(a3 + 16);
-  v52 = *(v7 - 8);
+  v54 = *(v7 - 8);
   MEMORY[0x28223BE20](a1);
-  v49 = &v40 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v51 = &v42 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   v10 = *(v9 + 24);
   v11 = *(v9 + 32);
-  v12 = type metadata accessor for TSUOrderedDict.ListElement();
-  v42 = *(v12 - 8);
+  v12 = type metadata accessor for TSUOrderedDict.ListElement(0, v7, v10, v11);
+  v44 = *(v12 - 8);
   MEMORY[0x28223BE20](v12);
-  v41 = &v40 - v13;
-  v51 = sub_277115C34();
-  v14 = *(v51 - 8);
-  v15 = MEMORY[0x28223BE20](v51);
-  v17 = &v40 - v16;
-  v44 = v10;
-  v50 = *(v10 - 8);
+  v43 = &v42 - v13;
+  v53 = sub_277115C34();
+  v14 = *(v53 - 8);
+  v15 = MEMORY[0x28223BE20](v53);
+  v17 = &v42 - v16;
+  v46 = v10;
+  v52 = *(v10 - 8);
   v18 = MEMORY[0x28223BE20](v15);
-  v20 = &v40 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v20 = &v42 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x28223BE20](v18);
-  v46 = &v40 - v21;
+  v48 = &v42 - v21;
   sub_27710F000(a3);
-  v47 = v4 + 8;
-  v43 = v12;
-  v22 = type metadata accessor for TSULinkedList.Node();
-  v53 = a2;
-  v23 = v7;
-  v45 = v22;
-  v48 = v11;
+  v49 = v4 + 8;
+  v45 = v12;
+  v24 = type metadata accessor for TSULinkedList.Node(0, v12, v22, v23);
+  v55 = a2;
+  v25 = v7;
+  v47 = v24;
+  v50 = v11;
   sub_277115A24();
-  if (v55)
+  if (v57)
   {
-    TSULinkedList.remove(_:)(v55);
+    TSULinkedList.remove(_:)(v57);
   }
 
-  v24 = v54;
-  v25 = v51;
-  (*(v14 + 16))(v17, v54, v51);
-  v26 = v50;
-  v27 = v44;
-  if ((*(v50 + 48))(v17, 1, v44) == 1)
+  v26 = v56;
+  v27 = v53;
+  (*(v14 + 16))(v17, v56, v53);
+  v28 = v52;
+  v29 = v46;
+  if ((*(v52 + 48))(v17, 1, v46) == 1)
   {
-    v28 = *(v14 + 8);
-    v28(v17, v25);
-    v30 = v52;
-    v29 = v53;
-    (*(v52 + 16))(v49, v53, v7);
-    v55 = 0;
+    v30 = *(v14 + 8);
+    v30(v17, v27);
+    v32 = v54;
+    v31 = v55;
+    (*(v54 + 16))(v51, v55, v7);
+    v57 = 0;
     sub_277115A14();
     sub_277115A34();
-    (*(v30 + 8))(v29, v7);
-    return (v28)(v24, v25);
+    (*(v32 + 8))(v31, v7);
+    return (v30)(v26, v27);
   }
 
   else
   {
-    v32 = v46;
-    (*(v26 + 32))(v46, v17, v27);
-    v33 = v26;
-    v34 = *(v52 + 16);
-    v35 = v27;
-    v36 = v49;
-    v34(v49, v53, v23);
-    (*(v33 + 16))(v20, v32, v35);
-    v37 = v41;
-    sub_27710EF20(v36, v20, v23, v35, v41);
-    v38 = TSULinkedList.append(_:)(v37);
-    (*(v42 + 8))(v37, v43);
-    v39 = v53;
-    v34(v36, v53, v23);
-    v55 = v38;
+    v34 = v48;
+    (*(v28 + 32))(v48, v17, v29);
+    v35 = v28;
+    v36 = *(v54 + 16);
+    v37 = v29;
+    v38 = v51;
+    v36(v51, v55, v25);
+    (*(v35 + 16))(v20, v34, v37);
+    v39 = v43;
+    sub_27710EF20(v38, v20, v25, v37, v50, v43);
+    v40 = TSULinkedList.append(_:)(v39);
+    (*(v44 + 8))(v39, v45);
+    v41 = v55;
+    v36(v38, v55, v25);
+    v57 = v40;
     sub_277115A14();
     sub_277115A34();
-    (*(v52 + 8))(v39, v23);
-    (*(v14 + 8))(v54, v51);
-    return (*(v50 + 8))(v46, v35);
+    (*(v54 + 8))(v41, v25);
+    (*(v14 + 8))(v56, v53);
+    return (*(v52 + 8))(v48, v37);
   }
 }
 
 uint64_t sub_27710ED5C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  type metadata accessor for TSUOrderedDict.ListElement();
-  type metadata accessor for TSULinkedList.Node();
-  v14[7] = a2;
-  v14[2] = a3;
-  v14[3] = a4;
-  v14[4] = a5;
-  v9 = sub_2771159E4();
+  v9 = type metadata accessor for TSUOrderedDict.ListElement(255, a3, a4, a5);
+  type metadata accessor for TSULinkedList.Node(0, v9, v10, v11);
+  v17[7] = a2;
+  v17[2] = a3;
+  v17[3] = a4;
+  v17[4] = a5;
+  v12 = sub_2771159E4();
 
   WitnessTable = swift_getWitnessTable();
-  v12 = sub_27710F624(sub_277110B80, v14, v9, a3, MEMORY[0x277D84A98], WitnessTable, MEMORY[0x277D84AC0], v11);
+  v15 = sub_27710F624(sub_277110B80, v17, v12, a3, MEMORY[0x277D84A98], WitnessTable, MEMORY[0x277D84AC0], v14);
 
-  return v12;
+  return v15;
 }
 
 Swift::Void __swiftcall TSUOrderedDict.removeAll()()
 {
   v2 = v1;
-  v3 = *(v0 + 16);
-  v4 = *(v0 + 32);
-  type metadata accessor for TSUOrderedDict.ListElement();
-  type metadata accessor for TSULinkedList();
-  v5 = sub_27710765C();
+  v3 = v0[2];
+  v4 = v0[4];
+  v5 = type metadata accessor for TSUOrderedDict.ListElement(255, v3, v0[3], v4);
+  type metadata accessor for TSULinkedList(0, v5, v6, v7);
+  v8 = sub_27710765C();
 
-  *v2 = v5;
-  v6 = type metadata accessor for TSULinkedList.Node();
+  *v2 = v8;
+  v11 = type metadata accessor for TSULinkedList.Node(255, v5, v9, v10);
   swift_getTupleTypeMetadata2();
-  v7 = sub_277115B14();
-  v8 = sub_277110214(v7, v3, v6, v4);
+  v12 = sub_277115B14();
+  v13 = sub_277110214(v12, v3, v11, v4);
 
-  v2[1] = v8;
+  v2[1] = v13;
 }
 
-uint64_t sub_27710EF20@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X8>)
+uint64_t sub_27710EF20@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X8>)
 {
-  (*(*(a3 - 8) + 32))(a5, a1);
-  v8 = type metadata accessor for TSUOrderedDict.ListElement();
-  v9 = *(*(a4 - 8) + 32);
-  v10 = a5 + *(v8 + 44);
+  (*(*(a3 - 8) + 32))(a6, a1);
+  v11 = type metadata accessor for TSUOrderedDict.ListElement(0, a3, a4, a5);
+  v12 = *(*(a4 - 8) + 32);
+  v13 = a6 + *(v11 + 44);
 
-  return v9(v10, a2, a4);
+  return v12(v13, a2, a4);
 }
 
 uint64_t sub_27710F000(uint64_t a1)
 {
   v2 = *(a1 + 16);
   v3 = *(v2 - 8);
-  MEMORY[0x28223BE20](a1);
-  v5 = v22 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v6 = type metadata accessor for TSUOrderedDict.ListElement();
-  v7 = *(v6 - 8);
-  MEMORY[0x28223BE20](v6);
-  v9 = v22 - v8;
-  v10 = sub_277115C34();
-  MEMORY[0x28223BE20](v10 - 8);
-  v12 = v22 - v11;
-  type metadata accessor for TSULinkedList();
+  v4 = MEMORY[0x28223BE20](a1);
+  v6 = v28 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = type metadata accessor for TSUOrderedDict.ListElement(0, v2, *(v4 + 24), *(v4 + 32));
+  v8 = *(v7 - 8);
+  MEMORY[0x28223BE20](v7);
+  v10 = v28 - v9;
+  v11 = sub_277115C34();
+  MEMORY[0x28223BE20](v11 - 8);
+  v13 = v28 - v12;
+  type metadata accessor for TSULinkedList(0, v7, v14, v15);
   result = sub_277115DD4();
   if ((result & 1) == 0)
   {
-    v28 = sub_27710765C();
-    type metadata accessor for TSULinkedList.Node();
-    v26 = sub_277115A14();
-    v14 = sub_277115A04();
-    v22[1] = *v1;
-    v30 = TSULinkedList.makeIterator()(v14);
-    v25 = type metadata accessor for TSULinkedList.Iterator();
-    TSULinkedList.Iterator.next()(v25, v12);
-    v27 = v1;
-    v24 = v2;
-    v15 = v7 + 48;
-    v16 = *(v7 + 48);
-    if (v16(v12, 1, v6) != 1)
+    v34 = sub_27710765C();
+    type metadata accessor for TSULinkedList.Node(255, v7, v17, v18);
+    v32 = sub_277115A14();
+    sub_277115A04();
+    v28[1] = *v1;
+    v36 = TSULinkedList.makeIterator()();
+    v31 = type metadata accessor for TSULinkedList.Iterator(0, v7, v19, v20);
+    TSULinkedList.Iterator.next()(v31, v13);
+    v33 = v1;
+    v30 = v2;
+    v21 = v8 + 48;
+    v22 = *(v8 + 48);
+    if (v22(v13, 1, v7) != 1)
     {
-      v23 = *(v7 + 32);
-      v17 = (v3 + 16);
-      v18 = (v7 + 8);
+      v29 = *(v8 + 32);
+      v23 = (v3 + 16);
+      v24 = (v8 + 8);
       do
       {
-        v23(v9, v12, v6);
-        v19 = v15;
-        v20 = v16;
-        v21 = TSULinkedList.append(_:)(v9);
-        (*v17)(v5, v9, v24);
-        v29 = v21;
+        v29(v10, v13, v7);
+        v25 = v21;
+        v26 = v22;
+        v27 = TSULinkedList.append(_:)(v10);
+        (*v23)(v6, v10, v30);
+        v35 = v27;
         sub_277115A34();
-        (*v18)(v9, v6);
-        TSULinkedList.Iterator.next()(v25, v12);
-        v16 = v20;
-        v15 = v19;
+        (*v24)(v10, v7);
+        TSULinkedList.Iterator.next()(v31, v13);
+        v22 = v26;
+        v21 = v25;
       }
 
-      while (v16(v12, 1, v6) != 1);
+      while (v22(v13, 1, v7) != 1);
     }
 
-    *v27 = v28;
+    *v33 = v34;
   }
 
   return result;
 }
 
-void (*TSUOrderedDict.subscript.modify(void *a1, uint64_t a2, uint64_t a3))(uint64_t **a1, char a2)
+void (*TSUOrderedDict.subscript.modify(void *a1, uint64_t a2, void *a3))(uint64_t **a1, char a2)
 {
   v6 = MEMORY[0x277D84FD8];
   if (MEMORY[0x277D84FD8])
@@ -6996,7 +7016,7 @@ void (*TSUOrderedDict.subscript.modify(void *a1, uint64_t a2, uint64_t a3))(uint
   *a1 = v7;
   *v7 = a3;
   v7[1] = v3;
-  v9 = *(a3 + 24);
+  v9 = a3[3];
   v10 = sub_277115C34();
   v8[2] = v10;
   v11 = *(v10 - 8);
@@ -7017,7 +7037,7 @@ void (*TSUOrderedDict.subscript.modify(void *a1, uint64_t a2, uint64_t a3))(uint
 
   v15 = v14;
   v8[5] = v14;
-  v16 = *(a3 + 16);
+  v16 = a3[2];
   v8[6] = v16;
   v17 = *(v16 - 8);
   v18 = v17;
@@ -7037,7 +7057,7 @@ void (*TSUOrderedDict.subscript.modify(void *a1, uint64_t a2, uint64_t a3))(uint
 
   v8[9] = v20;
   (*(v18 + 16))();
-  TSUOrderedDict.subscript.getter(v9, v15);
+  TSUOrderedDict.subscript.getter(v16, v9, a3[4], v15);
   return sub_27710F510;
 }
 
@@ -7157,71 +7177,71 @@ uint64_t sub_27710FA5C@<X0>(void *a1@<X0>, uint64_t (*a2)(uint64_t)@<X1>, char *
 {
   v6 = a1[2];
   v7 = a1[3];
-  v31 = a1[4];
-  v8 = type metadata accessor for TSUOrderedDict.ListElement();
-  v32 = *(v8 - 8);
+  v33 = a1[4];
+  v8 = type metadata accessor for TSUOrderedDict.ListElement(0, v6, v7, v33);
+  v34 = *(v8 - 8);
   v9 = MEMORY[0x28223BE20](v8);
-  v11 = &v28 - v10;
+  v11 = &v30 - v10;
   v12 = *(v6 - 8);
   MEMORY[0x28223BE20](v9);
-  v14 = &v28 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v14 = &v30 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
   v15 = sub_27710F000(a1);
   v16 = a2(v15);
   if (v16)
   {
     v17 = *v16;
-    v29 = v7;
+    v31 = v7;
     v18 = *(v17 + 104);
-    v30 = a3;
+    v32 = a3;
     v19 = *(v12 + 16);
     v20 = v16;
     v19(v14, &v16[v18], v6);
-    v33 = 0;
-    type metadata accessor for TSULinkedList.Node();
+    v35 = 0;
+    type metadata accessor for TSULinkedList.Node(255, v8, v21, v22);
     sub_277115A14();
     sub_277115A34();
-    v21 = v29;
+    v23 = v31;
     TupleTypeMetadata2 = swift_getTupleTypeMetadata2();
-    v31 = *(TupleTypeMetadata2 + 48);
-    v23 = v30;
-    v19(v30, &v20[v18], v6);
-    v24 = v32;
-    (*(v32 + 16))(v11, &v20[v18], v8);
+    v33 = *(TupleTypeMetadata2 + 48);
+    v25 = v32;
+    v19(v32, &v20[v18], v6);
+    v26 = v34;
+    (*(v34 + 16))(v11, &v20[v18], v8);
 
-    (*(*(v21 - 8) + 16))(&v23[v31], &v11[*(v8 + 44)], v21);
-    (*(v24 + 8))(v11, v8);
-    return (*(*(TupleTypeMetadata2 - 8) + 56))(v23, 0, 1, TupleTypeMetadata2);
+    (*(*(v23 - 8) + 16))(&v25[v33], &v11[*(v8 + 44)], v23);
+    (*(v26 + 8))(v11, v8);
+    return (*(*(TupleTypeMetadata2 - 8) + 56))(v25, 0, 1, TupleTypeMetadata2);
   }
 
   else
   {
-    v26 = swift_getTupleTypeMetadata2();
-    v27 = *(*(v26 - 8) + 56);
+    v28 = swift_getTupleTypeMetadata2();
+    v29 = *(*(v28 - 8) + 56);
 
-    return v27(a3, 1, 1, v26);
+    return v29(a3, 1, 1, v28);
   }
 }
 
-uint64_t TSUOrderedDict.Iterator.next()@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
+uint64_t TSUOrderedDict.Iterator.next()@<X0>(void *a1@<X0>, uint64_t a2@<X8>)
 {
   v4 = *v2;
   if (*v2)
   {
-    v5 = *(a1 + 16);
-    v6 = *(a1 + 24);
+    v5 = a1[2];
+    v6 = a1[3];
     TupleTypeMetadata2 = swift_getTupleTypeMetadata2();
-    v8 = *(TupleTypeMetadata2 + 48);
-    v9 = v4 + *(*v4 + 104);
-    (*(*(v5 - 8) + 16))(a2, v9, v5);
-    v10 = type metadata accessor for TSUOrderedDict.ListElement();
-    (*(*(v6 - 8) + 16))(a2 + v8, v9 + *(v10 + 44), v6);
+    v9 = *(TupleTypeMetadata2 + 48);
+    v10 = v4 + *(*v4 + 104);
+    (*(*(v5 - 8) + 16))(a2, v10, v5);
+    v11 = type metadata accessor for TSUOrderedDict.ListElement(0, v5, v6, a1[4]);
+    (*(*(v6 - 8) + 16))(a2 + v9, v10 + *(v11 + 44), v6);
     (*(*(TupleTypeMetadata2 - 8) + 56))(a2, 0, 1, TupleTypeMetadata2);
   }
 
   else
   {
-    v11 = swift_getTupleTypeMetadata2();
-    (*(*(v11 - 8) + 56))(a2, 1, 1, v11);
+    v12 = swift_getTupleTypeMetadata2();
+    (*(*(v12 - 8) + 56))(a2, 1, 1, v12);
   }
 
   if (*v2)
@@ -7230,25 +7250,25 @@ uint64_t TSUOrderedDict.Iterator.next()@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
 
   else
   {
-    v12 = 0;
+    v13 = 0;
   }
 
-  *v2 = v12;
+  *v2 = v13;
 }
 
 uint64_t sub_27710FF9C@<X0>(uint64_t *a1@<X8>)
 {
-  v2 = TSUOrderedDict.makeIterator()();
+  v3 = TSUOrderedDict.makeIterator()(*v1);
 
-  *a1 = v2;
+  *a1 = v3;
   return result;
 }
 
-uint64_t sub_27710FFE8()
+uint64_t sub_27710FFE8(uint64_t a1, uint64_t a2)
 {
-  v0 = sub_277110210();
+  v3 = sub_277110210(v2, a1, a2);
 
-  return v0;
+  return v3;
 }
 
 unint64_t sub_27711002C(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -7297,7 +7317,7 @@ unint64_t sub_277110088(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
   return v11;
 }
 
-uint64_t sub_277110214(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+unint64_t sub_277110214(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   TupleTypeMetadata2 = swift_getTupleTypeMetadata2();
   v9 = *(TupleTypeMetadata2 - 8);
@@ -7397,7 +7417,7 @@ LABEL_15:
   return result;
 }
 
-uint64_t sub_27711051C()
+uint64_t sub_27711051C(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   GenericValueMetadataWithLayoutString = swift_cvw_allocateGenericValueMetadataWithLayoutString();
   swift_cvw_instantiateLayoutString();
@@ -7468,20 +7488,20 @@ LABEL_8:
   return result;
 }
 
-uint64_t sub_277110600()
+uint64_t sub_277110600(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   GenericValueMetadataWithLayoutString = swift_cvw_allocateGenericValueMetadataWithLayoutString();
   swift_cvw_instantiateLayoutString();
   return GenericValueMetadataWithLayoutString;
 }
 
-uint64_t sub_27711065C()
+uint64_t sub_27711065C(uint64_t a1)
 {
   result = swift_checkMetadataState();
-  if (v1 <= 0x3F)
+  if (v2 <= 0x3F)
   {
     result = swift_checkMetadataState();
-    if (v2 <= 0x3F)
+    if (v3 <= 0x3F)
     {
       swift_cvw_initStructMetadataWithLayoutString();
       return 0;
@@ -7947,11 +7967,11 @@ uint64_t TSUAtomicVar.init(wrappedValue:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1
   *(v6 + 16) = v7;
   atomic_thread_fence(memory_order_acq_rel);
   *a3 = v6;
-  v8 = type metadata accessor for TSUAtomicVar();
-  v9 = *(*(a2 - 8) + 32);
-  v10 = a3 + *(v8 + 28);
+  v10 = type metadata accessor for TSUAtomicVar(0, a2, v8, v9);
+  v11 = *(*(a2 - 8) + 32);
+  v12 = a3 + *(v10 + 28);
 
-  return v9(v10, a1, a2);
+  return v11(v12, a1, a2);
 }
 
 uint64_t TSUAtomicVar.wrappedValue.getter(uint64_t a1)
@@ -8136,12 +8156,12 @@ uint64_t TSUAtomicDictionaryVar.unsafeValue.setter(uint64_t a1)
   return result;
 }
 
-uint64_t TSUAtomicDictionaryVar.wrappedValue.getter()
+uint64_t TSUAtomicDictionaryVar.wrappedValue.getter(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v0 = type metadata accessor for TSUAtomicDictionaryVar();
+  v5 = type metadata accessor for TSUAtomicDictionaryVar(0, a3, a4, a5);
   WitnessTable = swift_getWitnessTable();
-  TSUAtomicPropertyWrapping.safeValue.getter(v0, WitnessTable);
-  return v3;
+  TSUAtomicPropertyWrapping.safeValue.getter(v5, WitnessTable);
+  return v8;
 }
 
 uint64_t TSUAtomicDictionaryVar.wrappedValue.setter(uint64_t a1, uint64_t a2)
@@ -8149,11 +8169,11 @@ uint64_t TSUAtomicDictionaryVar.wrappedValue.setter(uint64_t a1, uint64_t a2)
   sub_2771125EC(a1, a2);
 }
 
-uint64_t (*TSUAtomicDictionaryVar.wrappedValue.modify(void *a1, uint64_t a2))(void *a1, char a2)
+uint64_t (*TSUAtomicDictionaryVar.wrappedValue.modify(void *a1, uint64_t *a2))()
 {
   a1[2] = a2;
   a1[3] = v2;
-  a1[1] = TSUAtomicDictionaryVar.wrappedValue.getter();
+  a1[1] = TSUAtomicDictionaryVar.wrappedValue.getter(*v2, v2[1], a2[2], a2[3], a2[4]);
   return sub_277111BFC;
 }
 
@@ -8177,96 +8197,97 @@ uint64_t sub_277111BFC(void *a1, char a2)
   }
 }
 
-uint64_t TSUAtomicDictionaryVar.subscript.getter()
+uint64_t TSUAtomicDictionaryVar.subscript.getter(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
-  v0 = type metadata accessor for TSUAtomicDictionaryVar();
+  v6 = type metadata accessor for TSUAtomicDictionaryVar(0, a4, a5, a6);
   sub_277115C34();
   WitnessTable = swift_getWitnessTable();
-  (*(WitnessTable + 16))(v0, WitnessTable);
+  (*(WitnessTable + 16))(v6, WitnessTable);
   TSUUnfairLock.withLock<A>(block:)(sub_277112640);
 }
 
-uint64_t TSUAtomicDictionaryVar.subscript.setter(uint64_t a1, uint64_t a2, uint64_t a3)
+uint64_t TSUAtomicDictionaryVar.subscript.setter(uint64_t a1, uint64_t a2, uint64_t *a3)
 {
   sub_277112674(a1, a2, a3);
-  (*(*(*(a3 + 16) - 8) + 8))(a2);
+  (*(*(a3[2] - 8) + 8))(a2);
   v6 = sub_277115C34();
   v7 = *(*(v6 - 8) + 8);
 
   return v7(a1, v6);
 }
 
-uint64_t sub_277111E48(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t sub_277111E48(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
-  v15[1] = a1;
-  v7 = sub_277115C34();
-  v8 = *(v7 - 8);
-  v9 = MEMORY[0x28223BE20](v7);
-  v11 = v15 - v10;
-  MEMORY[0x28223BE20](v9);
-  (*(v13 + 16))(v15 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0), a2, a4);
-  (*(v8 + 16))(v11, a3, v7);
+  v17[1] = a1;
+  v9 = sub_277115C34();
+  v10 = *(v9 - 8);
+  v11 = MEMORY[0x28223BE20](v9);
+  v13 = v17 - v12;
+  MEMORY[0x28223BE20](v11);
+  (*(v15 + 16))(v17 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0), a2, a4);
+  (*(v10 + 16))(v13, a3, v9);
   sub_277115A14();
   return sub_277115A34();
 }
 
-void (*TSUAtomicDictionaryVar.subscript.modify(void *a1, uint64_t a2, uint64_t a3))(uint64_t **a1, char a2)
+void (*TSUAtomicDictionaryVar.subscript.modify(void *a1, uint64_t a2, void *a3))(uint64_t ***a1, char a2)
 {
-  v6 = MEMORY[0x277D84FD8];
+  v7 = MEMORY[0x277D84FD8];
   if (MEMORY[0x277D84FD8])
   {
-    v7 = swift_coroFrameAlloc();
+    v8 = swift_coroFrameAlloc();
   }
 
   else
   {
-    v7 = malloc(0x48uLL);
+    v8 = malloc(0x48uLL);
   }
 
-  v8 = v7;
-  *a1 = v7;
-  *v7 = a3;
-  v7[1] = v3;
-  v9 = sub_277115C34();
-  v8[2] = v9;
-  v10 = *(v9 - 8);
-  v8[3] = v10;
-  v11 = *(v10 + 64);
-  if (v6)
+  v9 = v8;
+  *a1 = v8;
+  *v8 = a3;
+  v8[1] = v3;
+  v10 = a3[3];
+  v11 = sub_277115C34();
+  v9[2] = v11;
+  v12 = *(v11 - 8);
+  v9[3] = v12;
+  v13 = *(v12 + 64);
+  if (v7)
   {
-    v8[4] = swift_coroFrameAlloc();
-    v12 = swift_coroFrameAlloc();
+    v9[4] = swift_coroFrameAlloc();
+    v14 = swift_coroFrameAlloc();
   }
 
   else
   {
-    v8[4] = malloc(*(v10 + 64));
-    v12 = malloc(v11);
+    v9[4] = malloc(*(v12 + 64));
+    v14 = malloc(v13);
   }
 
-  v8[5] = v12;
-  v13 = *(a3 + 16);
-  v8[6] = v13;
-  v14 = *(v13 - 8);
-  v15 = v14;
-  v8[7] = v14;
-  if (v6)
+  v9[5] = v14;
+  v15 = a3[2];
+  v9[6] = v15;
+  v16 = *(v15 - 8);
+  v17 = v16;
+  v9[7] = v16;
+  if (v7)
   {
-    v16 = swift_coroFrameAlloc();
+    v18 = swift_coroFrameAlloc();
   }
 
   else
   {
-    v16 = malloc(*(v14 + 64));
+    v18 = malloc(*(v16 + 64));
   }
 
-  v8[8] = v16;
-  (*(v15 + 16))();
-  TSUAtomicDictionaryVar.subscript.getter();
+  v9[8] = v18;
+  (*(v17 + 16))();
+  TSUAtomicDictionaryVar.subscript.getter(a2, *v3, v3[1], v15, v10, a3[4]);
   return sub_2771121B0;
 }
 
-void sub_2771121B0(uint64_t **a1, char a2)
+void sub_2771121B0(uint64_t ***a1, char a2)
 {
   v2 = *a1;
   v4 = (*a1)[7];
@@ -8317,7 +8338,7 @@ uint64_t sub_277112344@<X0>(uint64_t *a1@<X8>)
   return result;
 }
 
-uint64_t sub_277112370(uint64_t a1, uint64_t a2, uint64_t a3)
+uint64_t sub_277112370(uint64_t *a1, uint64_t a2, uint64_t a3)
 {
   sub_2771124A4(a1, a2, a3);
 }
@@ -8387,22 +8408,22 @@ uint64_t sub_2771125EC(uint64_t a1, uint64_t a2)
   return sub_2771124A4(&v5, a2, WitnessTable);
 }
 
-uint64_t sub_277112674(uint64_t a1, uint64_t a2, uint64_t a3)
+uint64_t sub_277112674(uint64_t a1, uint64_t a2, uint64_t *a3)
 {
   v7 = *(*v3 + 16);
 
   os_unfair_lock_lock(v7);
-  sub_277111E48(v3, a2, a1, *(a3 + 16));
+  sub_277111E48(v3, a2, a1, a3[2], a3[3], a3[4]);
   os_unfair_lock_unlock(v7);
 }
 
-uint64_t sub_277112728()
+uint64_t sub_277112728(uint64_t a1)
 {
   result = type metadata accessor for TSUUnfairLock();
-  if (v1 <= 0x3F)
+  if (v2 <= 0x3F)
   {
     result = swift_checkMetadataState();
-    if (v2 <= 0x3F)
+    if (v3 <= 0x3F)
     {
       swift_cvw_initStructMetadataWithLayoutString();
       return 0;
@@ -8724,7 +8745,7 @@ LABEL_31:
   }
 }
 
-uint64_t sub_277112B84()
+uint64_t sub_277112B84(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   GenericValueMetadataWithLayoutString = swift_cvw_allocateGenericValueMetadataWithLayoutString();
   swift_cvw_instantiateLayoutString();
@@ -8755,13 +8776,13 @@ void sub_277112C64(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t 
 
 void sub_277112ED4()
 {
-  if (__cxa_guard_acquire(qword_280A63AC0))
+  if (__cxa_guard_acquire(byte_280A63AC0))
   {
     *&v0.f64[0] = 0x8000000080000000;
     *&v0.f64[1] = 0x8000000080000000;
     xmmword_280A63AD0 = vnegq_f64(v0);
 
-    __cxa_guard_release(qword_280A63AC0);
+    __cxa_guard_release(byte_280A63AC0);
   }
 }
 
@@ -8769,8 +8790,8 @@ void sub_2771130C0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t 
 {
   TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d Unable to add a line when there is no current point.", a2, a3, a4, a5, a6, a7, a8, "[TSUBezierPath lineToPoint:]");
   sub_27706D3BC();
-  v8 = [TSUAssertionHandler handleFailureInFunction:"[TSUBezierPath lineToPoint:]" file:sub_27706D3A0() lineNumber:615 isFatal:1 description:"Unable to add a line when there is no current point."];
-  TSUCrashBreakpoint(v8);
+  [TSUAssertionHandler handleFailureInFunction:"[TSUBezierPath lineToPoint:]" file:sub_27706D3A0() lineNumber:615 isFatal:1 description:"Unable to add a line when there is no current point."];
+  TSUCrashBreakpoint();
   abort();
 }
 
@@ -8778,8 +8799,8 @@ void sub_277113138(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t 
 {
   TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d Unable to add a curve when there is no current point.", a2, a3, a4, a5, a6, a7, a8, "[TSUBezierPath curveToPoint:controlPoint:]");
   sub_27706D3BC();
-  v8 = [TSUAssertionHandler handleFailureInFunction:"[TSUBezierPath curveToPoint:controlPoint:]" file:sub_27706D3A0() lineNumber:621 isFatal:1 description:"Unable to add a curve when there is no current point."];
-  TSUCrashBreakpoint(v8);
+  [TSUAssertionHandler handleFailureInFunction:"[TSUBezierPath curveToPoint:controlPoint:]" file:sub_27706D3A0() lineNumber:621 isFatal:1 description:"Unable to add a curve when there is no current point."];
+  TSUCrashBreakpoint();
   abort();
 }
 
@@ -8787,8 +8808,8 @@ void sub_2771131B0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t 
 {
   TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d Unable to add a curve when there is no current point.", a2, a3, a4, a5, a6, a7, a8, "[TSUBezierPath curveToPoint:controlPoint1:controlPoint2:]");
   sub_27706D3BC();
-  v8 = [TSUAssertionHandler handleFailureInFunction:"[TSUBezierPath curveToPoint:controlPoint1:controlPoint2:]" file:sub_27706D3A0() lineNumber:635 isFatal:1 description:"Unable to add a curve when there is no current point."];
-  TSUCrashBreakpoint(v8);
+  [TSUAssertionHandler handleFailureInFunction:"[TSUBezierPath curveToPoint:controlPoint1:controlPoint2:]" file:sub_27706D3A0() lineNumber:635 isFatal:1 description:"Unable to add a curve when there is no current point."];
+  TSUCrashBreakpoint();
   abort();
 }
 
@@ -8796,8 +8817,8 @@ void sub_277113228(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t 
 {
   TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d Can not get the current point of an empty path.", a2, a3, a4, a5, a6, a7, a8, "[TSUBezierPath currentPoint]");
   sub_27706D3BC();
-  v8 = [TSUAssertionHandler handleFailureInFunction:"[TSUBezierPath currentPoint]" file:sub_27706D3A0() lineNumber:1558 isFatal:1 description:"Can not get the current point of an empty path."];
-  TSUCrashBreakpoint(v8);
+  [TSUAssertionHandler handleFailureInFunction:"[TSUBezierPath currentPoint]" file:sub_27706D3A0() lineNumber:1558 isFatal:1 description:"Can not get the current point of an empty path."];
+  TSUCrashBreakpoint();
   abort();
 }
 
@@ -8805,8 +8826,8 @@ void sub_2771132A0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t 
 {
   TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d Can not determine control point bounds for an empty path.", a2, a3, a4, a5, a6, a7, a8, "[TSUBezierPath controlPointBounds]");
   sub_27706D3BC();
-  v8 = [TSUAssertionHandler handleFailureInFunction:"[TSUBezierPath controlPointBounds]" file:sub_27706D3A0() lineNumber:1567 isFatal:1 description:"Can not determine control point bounds for an empty path."];
-  TSUCrashBreakpoint(v8);
+  [TSUAssertionHandler handleFailureInFunction:"[TSUBezierPath controlPointBounds]" file:sub_27706D3A0() lineNumber:1567 isFatal:1 description:"Can not determine control point bounds for an empty path."];
+  TSUCrashBreakpoint();
   abort();
 }
 
@@ -8814,7 +8835,8 @@ void sub_277113430(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t 
 {
   TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d Given index (%zd) must not be negative.", a2, a3, a4, a5, a6, a7, a8, "[TSUBezierPath lengthToElement:]");
   v9 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[TSUBezierPath lengthToElement:]"];
-  TSUCrashBreakpoint(+[TSUAssertionHandler handleFailureInFunction:file:lineNumber:isFatal:description:](TSUAssertionHandler, "handleFailureInFunction:file:lineNumber:isFatal:description:", v9, [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/utility/TSUBezierPath.m"], 1823, 1, "Given index (%zd) must not be negative.", a1, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/utility/TSUBezierPath.m", 1823, a1));
+  +[TSUAssertionHandler handleFailureInFunction:file:lineNumber:isFatal:description:](TSUAssertionHandler, "handleFailureInFunction:file:lineNumber:isFatal:description:", v9, [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/utility/TSUBezierPath.m"], 1823, 1, "Given index (%zd) must not be negative.", a1, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/utility/TSUBezierPath.m", 1823, a1);
+  TSUCrashBreakpoint();
   abort();
 }
 
@@ -8822,8 +8844,8 @@ void sub_2771135E4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t 
 {
   TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d Missing extra segments.", a2, a3, a4, a5, a6, a7, a8, "[TSUBezierPath elementAtIndex:associatedPoints:]");
   sub_27706D3BC();
-  v8 = [TSUAssertionHandler handleFailureInFunction:"[TSUBezierPath elementAtIndex:associatedPoints:]" file:sub_27706D3A0() lineNumber:1862 isFatal:1 description:"Missing extra segments."];
-  TSUCrashBreakpoint(v8);
+  [TSUAssertionHandler handleFailureInFunction:"[TSUBezierPath elementAtIndex:associatedPoints:]" file:sub_27706D3A0() lineNumber:1862 isFatal:1 description:"Missing extra segments."];
+  TSUCrashBreakpoint();
   abort();
 }
 
@@ -8831,8 +8853,8 @@ void sub_277113774(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t 
 {
   TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d Unable to add a curve when there is no current point.", a2, a3, a4, a5, a6, a7, a8, "[TSUBezierPath p_appendPointsInRange:fromBezierPath:countingSubpaths:]");
   sub_27706D3BC();
-  v8 = [TSUAssertionHandler handleFailureInFunction:"[TSUBezierPath p_appendPointsInRange:fromBezierPath:countingSubpaths:]" file:sub_27706D3A0() lineNumber:2057 isFatal:1 description:"Unable to add a curve when there is no current point."];
-  TSUCrashBreakpoint(v8);
+  [TSUAssertionHandler handleFailureInFunction:"[TSUBezierPath p_appendPointsInRange:fromBezierPath:countingSubpaths:]" file:sub_27706D3A0() lineNumber:2057 isFatal:1 description:"Unable to add a curve when there is no current point."];
+  TSUCrashBreakpoint();
   abort();
 }
 
@@ -8840,8 +8862,8 @@ void sub_2771137EC(double a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5
 {
   TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d angle1 should not be infinte or NaN (%f)", a3, a4, a5, a6, a7, a8, a9, "[TSUBezierPath appendBezierPathWithArcWithCenter:radius:startAngle:endAngle:clockwise:]");
   sub_27706D3BC();
-  v10 = [TSUAssertionHandler handleFailureInFunction:"[TSUBezierPath appendBezierPathWithArcWithCenter:radius:startAngle:endAngle:clockwise:]" file:sub_27706D3A0() lineNumber:2214 isFatal:1 description:"angle1 should not be infinte or NaN (%f)", *&a1, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/utility/TSUBezierPath.m", 2214, *&a1];
-  TSUCrashBreakpoint(v10);
+  [TSUAssertionHandler handleFailureInFunction:"[TSUBezierPath appendBezierPathWithArcWithCenter:radius:startAngle:endAngle:clockwise:]" file:sub_27706D3A0() lineNumber:2214 isFatal:1 description:"angle1 should not be infinte or NaN (%f)", *&a1, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/utility/TSUBezierPath.m", 2214, *&a1];
+  TSUCrashBreakpoint();
   abort();
 }
 
@@ -8849,8 +8871,8 @@ void sub_277113874(double a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5
 {
   TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d angle2 should not be infinte or NaN (%f)", a3, a4, a5, a6, a7, a8, a9, "[TSUBezierPath appendBezierPathWithArcWithCenter:radius:startAngle:endAngle:clockwise:]");
   sub_27706D3BC();
-  v10 = [TSUAssertionHandler handleFailureInFunction:"[TSUBezierPath appendBezierPathWithArcWithCenter:radius:startAngle:endAngle:clockwise:]" file:sub_27706D3A0() lineNumber:2215 isFatal:1 description:"angle2 should not be infinte or NaN (%f)", *&a1, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/utility/TSUBezierPath.m", 2215, *&a1];
-  TSUCrashBreakpoint(v10);
+  [TSUAssertionHandler handleFailureInFunction:"[TSUBezierPath appendBezierPathWithArcWithCenter:radius:startAngle:endAngle:clockwise:]" file:sub_27706D3A0() lineNumber:2215 isFatal:1 description:"angle2 should not be infinte or NaN (%f)", *&a1, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/utility/TSUBezierPath.m", 2215, *&a1];
+  TSUCrashBreakpoint();
   abort();
 }
 
@@ -8858,8 +8880,8 @@ void sub_2771138FC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t 
 {
   TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d sfr_head could not NSZoneRealloc. No memory (when reallocing sfr_elementLength)", a2, a3, a4, a5, a6, a7, a8, "[TSUBezierPath(TSUBezierPathDevicePrimitives) _addPathSegment:point:]");
   sub_27706D3BC();
-  v8 = [TSUAssertionHandler handleFailureInFunction:"[TSUBezierPath(TSUBezierPathDevicePrimitives) _addPathSegment:point:]" file:sub_27706D3A0() lineNumber:2618 isFatal:1 description:"sfr_head could not NSZoneRealloc. No memory (when reallocing sfr_elementLength)"];
-  TSUCrashBreakpoint(v8);
+  [TSUAssertionHandler handleFailureInFunction:"[TSUBezierPath(TSUBezierPathDevicePrimitives) _addPathSegment:point:]" file:sub_27706D3A0() lineNumber:2618 isFatal:1 description:"sfr_head could not NSZoneRealloc. No memory (when reallocing sfr_elementLength)"];
+  TSUCrashBreakpoint();
   abort();
 }
 
@@ -8867,8 +8889,8 @@ void sub_277113974(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t 
 {
   TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d sfr_head could not NSZoneRealloc. No memory (when reallocing sfr_head)", a2, a3, a4, a5, a6, a7, a8, "[TSUBezierPath(TSUBezierPathDevicePrimitives) _addPathSegment:point:]");
   sub_27706D3BC();
-  v8 = [TSUAssertionHandler handleFailureInFunction:"[TSUBezierPath(TSUBezierPathDevicePrimitives) _addPathSegment:point:]" file:sub_27706D3A0() lineNumber:2609 isFatal:1 description:"sfr_head could not NSZoneRealloc. No memory (when reallocing sfr_head)"];
-  TSUCrashBreakpoint(v8);
+  [TSUAssertionHandler handleFailureInFunction:"[TSUBezierPath(TSUBezierPathDevicePrimitives) _addPathSegment:point:]" file:sub_27706D3A0() lineNumber:2609 isFatal:1 description:"sfr_head could not NSZoneRealloc. No memory (when reallocing sfr_head)"];
+  TSUCrashBreakpoint();
   abort();
 }
 
@@ -8876,8 +8898,8 @@ void sub_2771139EC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t 
 {
   TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d sfr_extraSegments could not NSZoneRealloc. No memory", a2, a3, a4, a5, a6, a7, a8, "[TSUBezierPath(TSUBezierPathDevicePrimitives) _deviceCurveToPoint:controlPoint1:controlPoint2:elementLength:]");
   sub_27706D3BC();
-  v8 = [TSUAssertionHandler handleFailureInFunction:"[TSUBezierPath(TSUBezierPathDevicePrimitives) _deviceCurveToPoint:controlPoint1:controlPoint2:elementLength:]" file:sub_27706D3A0() lineNumber:2683 isFatal:1 description:"sfr_extraSegments could not NSZoneRealloc. No memory"];
-  TSUCrashBreakpoint(v8);
+  [TSUAssertionHandler handleFailureInFunction:"[TSUBezierPath(TSUBezierPathDevicePrimitives) _deviceCurveToPoint:controlPoint1:controlPoint2:elementLength:]" file:sub_27706D3A0() lineNumber:2683 isFatal:1 description:"sfr_extraSegments could not NSZoneRealloc. No memory"];
+  TSUCrashBreakpoint();
   abort();
 }
 
@@ -8885,7 +8907,8 @@ void sub_277113AB4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t 
 {
   TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d Can't remove the first object of an empty array!", a2, a3, a4, a5, a6, a7, a8, "[NSArray(TSUAdditions) tsu_arrayByRemovingFirstObject]");
   v8 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[NSArray(TSUAdditions) tsu_arrayByRemovingFirstObject]"];
-  TSUCrashBreakpoint(+[TSUAssertionHandler handleFailureInFunction:file:lineNumber:isFatal:description:](TSUAssertionHandler, "handleFailureInFunction:file:lineNumber:isFatal:description:", v8, [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/utility/NSArrayAdditions.m"], 245, 1, "Can't remove the first object of an empty array!"));
+  +[TSUAssertionHandler handleFailureInFunction:file:lineNumber:isFatal:description:](TSUAssertionHandler, "handleFailureInFunction:file:lineNumber:isFatal:description:", v8, [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/utility/NSArrayAdditions.m"], 245, 1, "Can't remove the first object of an empty array!");
+  TSUCrashBreakpoint();
   abort();
 }
 
@@ -8896,7 +8919,7 @@ void sub_277113E3C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t 
   v9 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/utility/NSNotificationCenter_TSUAdditions.m"];
   [TSUAssertionHandler handleFailureInFunction:v8 file:v9 lineNumber:13 isFatal:1 description:"You should not add an observer for all notifications on the main thread because it's deadlock prone."];
 
-  TSUCrashBreakpoint(v10);
+  TSUCrashBreakpoint();
   abort();
 }
 
@@ -8907,7 +8930,7 @@ void sub_2771140D4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t 
   v10 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/utility/TSUTextEncodingTools.m"];
   [TSUAssertionHandler handleFailureInFunction:v9 file:v10 lineNumber:424 isFatal:1 description:"Can't find an encoding for '%@'!", a1, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/utility/TSUTextEncodingTools.m", 424, a1];
 
-  TSUCrashBreakpoint(v11);
+  TSUCrashBreakpoint();
   abort();
 }
 
@@ -8927,7 +8950,7 @@ void sub_277114334(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t 
   v9 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/utility/TSURecursiveQueue.m"];
   [TSUAssertionHandler handleFailureInFunction:v8 file:v9 lineNumber:28 isFatal:1 description:"Attempting to use recursive queue methods in a non-recursive queue!"];
 
-  TSUCrashBreakpoint(v10);
+  TSUCrashBreakpoint();
   abort();
 }
 
@@ -8944,7 +8967,8 @@ void sub_2771145F0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t 
 {
   TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d Deprecated Controls", a2, a3, a4, a5, a6, a7, a8, "BOOL TSUEqualFormatStructs(TSUFormatStruct, TSUFormatStruct)");
   v8 = [MEMORY[0x277CCACA8] stringWithUTF8String:{"BOOL TSUEqualFormatStructs(TSUFormatStruct, TSUFormatStruct)"}];
-  TSUCrashBreakpoint(+[TSUAssertionHandler handleFailureInFunction:file:lineNumber:isFatal:description:](TSUAssertionHandler, "handleFailureInFunction:file:lineNumber:isFatal:description:", v8, [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/utility/TSUFormatStructUtilities.h"], 148, 1, "Deprecated Controls"));
+  +[TSUAssertionHandler handleFailureInFunction:file:lineNumber:isFatal:description:](TSUAssertionHandler, "handleFailureInFunction:file:lineNumber:isFatal:description:", v8, [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/utility/TSUFormatStructUtilities.h"], 148, 1, "Deprecated Controls");
+  TSUCrashBreakpoint();
   abort();
 }
 
@@ -8955,7 +8979,7 @@ void sub_277114FA4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t 
   v9 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/utility/TSUBufferedReadChannel.m"];
   [TSUAssertionHandler handleFailureInFunction:v8 file:v9 lineNumber:310 isFatal:1 description:"invalid nil value for '%{public}s'", "_streamReadChannelSourceHandler", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/utility/TSUBufferedReadChannel.m", 310, "_streamReadChannelSourceHandler"];
 
-  TSUCrashBreakpoint(v10);
+  TSUCrashBreakpoint();
   abort();
 }
 
@@ -8966,7 +8990,7 @@ void sub_2771151E8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t 
   v9 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/utility/TSUZipWriter.m"];
   [TSUAssertionHandler handleFailureInFunction:v8 file:v9 lineNumber:110 isFatal:1 description:"Write channel semaphore should not be initialized."];
 
-  TSUCrashBreakpoint(v10);
+  TSUCrashBreakpoint();
   abort();
 }
 
@@ -8977,7 +9001,7 @@ void sub_27711528C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t 
   v9 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/utility/TSUZipWriter.m"];
   [TSUAssertionHandler handleFailureInFunction:v8 file:v9 lineNumber:157 isFatal:1 description:"Already closed."];
 
-  TSUCrashBreakpoint(v10);
+  TSUCrashBreakpoint();
   abort();
 }
 
@@ -8988,7 +9012,7 @@ void sub_277115330(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t 
   v9 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/utility/TSUZipWriter.m"];
   [TSUAssertionHandler handleFailureInFunction:v8 file:v9 lineNumber:233 isFatal:1 description:"Already closed."];
 
-  TSUCrashBreakpoint(v10);
+  TSUCrashBreakpoint();
   abort();
 }
 
@@ -9008,7 +9032,7 @@ void sub_277115470(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t 
   v9 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/utility/TSUZipWriter.m"];
   [TSUAssertionHandler handleFailureInFunction:v8 file:v9 lineNumber:292 isFatal:1 description:"Trying to flush while closed."];
 
-  TSUCrashBreakpoint(v10);
+  TSUCrashBreakpoint();
   abort();
 }
 
@@ -9019,7 +9043,7 @@ void sub_277115528(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t 
   v9 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/utility/TSUZipWriter.m"];
   [TSUAssertionHandler handleFailureInFunction:v8 file:v9 lineNumber:368 isFatal:1 description:"Already closed."];
 
-  TSUCrashBreakpoint(v10);
+  TSUCrashBreakpoint();
   abort();
 }
 
@@ -9030,7 +9054,7 @@ void sub_2771155CC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t 
   v9 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/utility/TSUZipWriter.m"];
   [TSUAssertionHandler handleFailureInFunction:v8 file:v9 lineNumber:461 isFatal:1 description:"Shouldn't have closed twice."];
 
-  TSUCrashBreakpoint(v10);
+  TSUCrashBreakpoint();
   abort();
 }
 

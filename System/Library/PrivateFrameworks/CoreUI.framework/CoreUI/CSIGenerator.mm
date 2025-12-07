@@ -80,52 +80,52 @@
 
 + (void)initialize
 {
-  v19 = 0;
+  v6 = 0;
   __SetBoolConfigFromEnvironment(&__coreThemeLoggingEnabled, "CoreThemeLoggingEnabled");
   __SetBoolConfigFromEnvironment(&__loggingEnabled, "CoreUI_LogCompressionStats");
   if (getenv("CoreUI_USELZVN"))
   {
-    __SetBoolConfigFromEnvironment(&v19, "CoreUI_USELZVN");
+    __SetBoolConfigFromEnvironment(&v6, "CoreUI_USELZVN");
     if (getenv("CoreUI_USELZVN"))
     {
-      _CUILog(1, "CoreUI: CoreUI_USELZVN is depreciated use the environment variable CoreUI_COMPRESSION instead", v2, v3, v4, v5, v6, v7, v18);
+      _CUILog(1, "CoreUI: CoreUI_USELZVN is depreciated use the environment variable CoreUI_COMPRESSION instead");
     }
 
-    __environmentRequestedCompression = v19;
+    __environmentRequestedCompression = v6;
   }
 
   else
   {
-    v8 = getenv("CoreUI_COMPRESSION");
-    if (v8)
+    v2 = getenv("CoreUI_COMPRESSION");
+    if (v2)
     {
-      v9 = v8;
-      if (!strncasecmp(v8, "lzw", 3uLL))
+      v3 = v2;
+      if (!strncasecmp(v2, "lzw", 3uLL))
       {
         __environmentRequestedCompression = 0;
       }
 
       else
       {
-        if (!strncasecmp(v9, "lzvn", 4uLL))
+        if (!strncasecmp(v3, "lzvn", 4uLL))
         {
-          v16 = &OBJC_IVAR___CSIBitmapWrapper__targetPlatform;
-          v17 = 1;
+          v4 = &OBJC_IVAR___CSIBitmapWrapper__targetPlatform;
+          v5 = 1;
         }
 
         else
         {
-          if (strncasecmp(v9, "lzfse", 5uLL))
+          if (strncasecmp(v3, "lzfse", 5uLL))
           {
-            _CUILog(4, "CoreUI: Unknown value passed to environment variable '%s' ignoring", v10, v11, v12, v13, v14, v15, "CoreUI_COMPRESSION");
+            _CUILog(4, "CoreUI: Unknown value passed to environment variable '%s' ignoring", "CoreUI_COMPRESSION");
             return;
           }
 
-          v16 = &OBJC_IVAR___CSIBitmapWrapper__targetPlatform;
-          v17 = 2;
+          v4 = &OBJC_IVAR___CSIBitmapWrapper__targetPlatform;
+          v5 = 2;
         }
 
-        v16[726] = v17;
+        v4[726] = v5;
       }
     }
   }
@@ -436,9 +436,9 @@ LABEL_9:
   x = endPoint.x;
   v13 = point.y;
   v14 = point.x;
-  v25.receiver = self;
-  v25.super_class = CSIGenerator;
-  v16 = [(CSIGenerator *)&v25 init];
+  v19.receiver = self;
+  v19.super_class = CSIGenerator;
+  v16 = [(CSIGenerator *)&v19 init];
   if (v16)
   {
     v16->_name = named;
@@ -454,7 +454,7 @@ LABEL_9:
     if (v17 != [(NSArray *)v16->_namedgradationColors count])
     {
 
-      _CUILog(4, "CoreUI: stops count != colornames count '%s' ignoring", v18, v19, v20, v21, v22, v23, named);
+      _CUILog(4, "CoreUI: stops count != colornames count '%s' ignoring", named);
       return 0;
     }
   }
@@ -651,9 +651,9 @@ LABEL_9:
   v7[0] = metrics->var0;
   v7[1] = var1;
   v7[2] = metrics->var2;
-  v6[0] = CSIIllegalMetrics;
-  v6[1] = unk_18E021298;
-  v6[2] = xmmword_18E0212A8;
+  v6[0] = *CSIIllegalMetrics;
+  v6[1] = *&CSIIllegalMetrics[16];
+  v6[2] = *&CSIIllegalMetrics[32];
   if (!CSIEqualMetrics(v7, v6))
   {
     [(NSMutableArray *)self->_metrics addObject:[NSValue valueWithBytes:metrics objCType:"{?={CGSize=dd}{CGSize=dd}{CGSize=dd}}"]];
@@ -1731,7 +1731,7 @@ LABEL_33:
       {
         isColorStop = [v6 isColorStop];
         isKindOfClass = [v6 isOpacityStop];
-        v12 = isKindOfClass;
+        v16 = isKindOfClass;
         if (isKindOfClass & 1) != 0 || (isColorStop)
         {
           goto LABEL_7;
@@ -1741,111 +1741,111 @@ LABEL_33:
       }
 
       isColorStop = 0;
-      v12 = 0;
+      v16 = 0;
 LABEL_7:
-      result = OUTLINED_FUNCTION_20_0(isKindOfClass, v8, v9, v10);
+      result = OUTLINED_FUNCTION_20_0(isKindOfClass, v8, v9, v10, v11, v12, v13, v14);
       if (!result)
       {
         return result;
       }
 
-      v13 = result;
-      v14 = MEMORY[0];
-      v41 = 0;
+      v17 = result;
+      v18 = MEMORY[0];
+      v49 = 0;
       do
       {
-        v15 = 0;
-        v16 = (nodes + 32 + 72 * v41);
-        v41 += v13;
+        v19 = 0;
+        v20 = (nodes + 32 + 72 * v49);
+        v49 += v17;
         do
         {
-          if (MEMORY[0] != v14)
+          if (MEMORY[0] != v18)
           {
             objc_enumerationMutation(a2);
           }
 
-          v17 = *v15;
+          v21 = *v19;
           if (isColorStop)
           {
-            [*v15 colorLocation];
-            v19 = v18;
-            [v17 gradientColor];
-            v21 = v20;
+            [*v19 colorLocation];
             v23 = v22;
+            [v21 gradientColor];
             v25 = v24;
             v27 = v26;
+            v29 = v28;
+            v31 = v30;
             OUTLINED_FUNCTION_10_0();
             leadOutColor = objc_opt_respondsToSelector();
             if (leadOutColor)
             {
-              leadOutColor = [v17 leadOutColor];
-              v36 = 1129270340;
+              leadOutColor = [v21 leadOutColor];
+              v44 = 1129270340;
               goto LABEL_22;
             }
 
-            v36 = 1129270354;
+            v44 = 1129270354;
           }
 
-          else if (v12)
+          else if (v16)
           {
-            [*v15 opacityLocation];
-            v19 = v37;
-            [v17 opacity];
-            v27 = v38;
+            [*v19 opacityLocation];
+            v23 = v45;
+            [v21 opacity];
+            v31 = v46;
             leadOutColor = objc_opt_respondsToSelector();
-            v21 = 0;
+            v25 = 0;
             if (leadOutColor)
             {
-              leadOutColor = [v17 leadOutOpacity];
-              v35 = v39;
-              v23 = 0;
-              v25 = 0;
-              v32 = 0;
-              v33 = 0;
-              v36 = 1330660164;
-              v34 = 0;
+              leadOutColor = [v21 leadOutOpacity];
+              v43 = v47;
+              v27 = 0;
+              v29 = 0;
+              v40 = 0;
+              v41 = 0;
+              v44 = 1330660164;
+              v42 = 0;
               goto LABEL_22;
             }
 
-            v36 = 1330660180;
-            v23 = 0;
-            v25 = 0;
+            v44 = 1330660180;
+            v27 = 0;
+            v29 = 0;
           }
 
           else
           {
-            leadOutColor = [*v15 floatValue];
-            v19 = v40;
-            v21 = 0;
-            v23 = 0;
-            v36 = 1296647248;
+            leadOutColor = [*v19 floatValue];
+            v23 = v48;
             v25 = 0;
             v27 = 0;
+            v44 = 1296647248;
+            v29 = 0;
+            v31 = 0;
           }
 
-          v32 = 0;
-          v33 = 0;
-          v34 = 0;
-          v35 = 0;
+          v40 = 0;
+          v41 = 0;
+          v42 = 0;
+          v43 = 0;
 LABEL_22:
-          *(v16 - 8) = v36;
-          *(v16 - 7) = v19;
-          *(v16 - 3) = v21;
-          *(v16 - 2) = v23;
-          *(v16 - 1) = v25;
-          *v16 = v27;
-          v16[1] = v32;
-          v16[2] = v33;
-          ++v15;
-          v16[3] = v34;
-          v16[4] = v35;
-          v16 += 9;
-          v13 = v13 - 1;
+          *(v20 - 8) = v44;
+          *(v20 - 7) = v23;
+          *(v20 - 3) = v25;
+          *(v20 - 2) = v27;
+          *(v20 - 1) = v29;
+          *v20 = v31;
+          v20[1] = v40;
+          v20[2] = v41;
+          ++v19;
+          v20[3] = v42;
+          v20[4] = v43;
+          v20 += 9;
+          v17 = v17 - 1;
         }
 
-        while (v13);
-        result = OUTLINED_FUNCTION_20_0(leadOutColor, v29, v30, v31);
-        v13 = result;
+        while (v17);
+        result = OUTLINED_FUNCTION_20_0(leadOutColor, v33, v34, v35, v36, v37, v38, v39);
+        v17 = result;
       }
 
       while (result);

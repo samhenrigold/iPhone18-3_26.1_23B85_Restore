@@ -44,6 +44,8 @@
 - (void)setWantsBaseContentTouchEvents:(BOOL)events;
 - (void)traitCollectionDidChange:(id)change;
 - (void)viewDidLoad;
+- (void)viewDidMoveToWindow:(id)window shouldAppearOrDisappear:(BOOL)disappear;
+- (void)viewWillAppear:(BOOL)appear;
 - (void)viewWillLayoutSubviews;
 - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id)coordinator;
 @end
@@ -78,16 +80,15 @@
 {
   v3 = sub_18E65F4C0();
   v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
   MEMORY[0x1EEE9AC00](v3);
-  v7 = &v11 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v6 = &v10 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_18E623B78(0, &qword_1ED764D00, 0x1E6959CC0);
-  v8 = OBJC_IVAR____TtC18ActivityUIServices26ActivityHostViewController_activitySceneDescriptor;
+  v7 = OBJC_IVAR____TtC18ActivityUIServices26ActivityHostViewController_activitySceneDescriptor;
   swift_beginAccess();
-  (*(v4 + 16))(v7, *(self + v8) + OBJC_IVAR____TtC18ActivityUIServices23ActivitySceneDescriptor_activityDescriptor, v3);
-  v9 = sub_18E65FAD0();
+  (*(v4 + 16))(v6, *(self + v7) + OBJC_IVAR____TtC18ActivityUIServices23ActivitySceneDescriptor_activityDescriptor, v3);
+  v8 = sub_18E65FAD0();
 
-  return v9;
+  return v8;
 }
 
 - (void)setPresentationMode:(unsigned int)mode
@@ -164,8 +165,8 @@
   metricsCopy = metrics;
   selfCopy = self;
 
-  BSDispatchQueueAssertMain();
-  sub_18E62EB30();
+  v9 = BSDispatchQueueAssertMain();
+  sub_18E62EB30(v9);
 }
 
 - (BOOL)idleTimerDisabled
@@ -213,7 +214,6 @@
 
   v5 = OBJC_IVAR____TtC18ActivityUIServices26ActivityHostViewController_audioCategoriesDisablingVolumeHUD;
   swift_beginAccess();
-  v6 = *(self + v5);
   *(self + v5) = v4;
   selfCopy = self;
 
@@ -229,14 +229,12 @@
 
 - (NSArray)activityTouchRestrictedRects
 {
-  v3 = OBJC_IVAR____TtC18ActivityUIServices26ActivityHostViewController_activityTouchRestrictedRects;
   swift_beginAccess();
-  v4 = *(self + v3);
   type metadata accessor for CGRect(0);
 
-  v5 = sub_18E65F990();
+  v2 = sub_18E65F990();
 
-  return v5;
+  return v2;
 }
 
 - (void)setActivityTouchRestrictedRects:(id)rects
@@ -245,7 +243,6 @@
   v4 = sub_18E65F9A0();
   v5 = OBJC_IVAR____TtC18ActivityUIServices26ActivityHostViewController_activityTouchRestrictedRects;
   swift_beginAccess();
-  v6 = *(self + v5);
   *(self + v5) = v4;
 }
 
@@ -294,11 +291,23 @@
 {
   selfCopy = self;
   BSDispatchQueueAssertMain();
-  v3.receiver = selfCopy;
-  v3.super_class = type metadata accessor for ActivityHostViewController();
-  [(ActivityHostViewController *)&v3 viewDidLoad];
-  sub_18E62FBAC();
+  v4.receiver = selfCopy;
+  v4.super_class = type metadata accessor for ActivityHostViewController();
+  viewDidLoad = [(ActivityHostViewController *)&v4 viewDidLoad];
+  sub_18E62FBAC(viewDidLoad);
   sub_18E62FDC4();
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  appearCopy = appear;
+  v6.receiver = self;
+  v6.super_class = type metadata accessor for ActivityHostViewController();
+  v4 = v6.receiver;
+  [(ActivityHostViewController *)&v6 viewWillAppear:appearCopy];
+  v5 = swift_allocObject();
+  swift_unknownObjectWeakInit();
+  sub_18E62E8BC(sub_18E63D3D4, v5);
 }
 
 - (void)traitCollectionDidChange:(id)change
@@ -333,6 +342,31 @@
 
     swift_unknownObjectRelease();
   }
+}
+
+- (void)viewDidMoveToWindow:(id)window shouldAppearOrDisappear:(BOOL)disappear
+{
+  disappearCopy = disappear;
+  windowCopy = window;
+  selfCopy = self;
+  BSDispatchQueueAssertMain();
+  v10.receiver = selfCopy;
+  v10.super_class = type metadata accessor for ActivityHostViewController();
+  [(ActivityHostViewController *)&v10 viewDidMoveToWindow:windowCopy shouldAppearOrDisappear:disappearCopy];
+  v8 = OBJC_IVAR____TtC18ActivityUIServices26ActivityHostViewController_shouldShareTouchesWithHost;
+  v9 = swift_beginAccess();
+  if (*(selfCopy + v8) == 1)
+  {
+    if (!windowCopy)
+    {
+      sub_18E62FA90(v9);
+      goto LABEL_5;
+    }
+
+    sub_18E62F264();
+  }
+
+LABEL_5:
 }
 
 - (void)viewWillLayoutSubviews
@@ -379,7 +413,7 @@
 - (void)invalidate
 {
   selfCopy = self;
-  sub_18E62B574();
+  sub_18E62B574(selfCopy);
 }
 
 - (NSString)description
@@ -405,7 +439,7 @@
   swift_beginAccess();
   *(self + v5) = host;
   selfCopy = self;
-  BSDispatchQueueAssertMain();
+  v7 = BSDispatchQueueAssertMain();
   if (*(self + v5) == 1)
   {
     sub_18E62F264();
@@ -413,7 +447,7 @@
 
   else
   {
-    sub_18E62FA90();
+    sub_18E62FA90(v7);
   }
 }
 

@@ -14,7 +14,7 @@
 {
   sub_1839BCFFC();
   v4.receiver = self;
-  v4.super_class = type metadata accessor for CHModelCatalog();
+  v4.super_class = type metadata accessor for CHModelCatalog(0);
   return [(CHModelCatalog *)&v4 init];
 }
 
@@ -28,7 +28,7 @@
 
 - (id)getModelURL:(int64_t)l variant:(int64_t)variant
 {
-  v7 = sub_18366ED74(&qword_1EA84BAF8);
+  v7 = sub_18366ED74(&qword_1EA84BAF8, &qword_1839CD3D0);
   MEMORY[0x1EEE9AC00](v7 - 8);
   v9 = &v17 - v8;
   selfCopy = self;
@@ -68,7 +68,7 @@
 
 - (id)getModelURL:(int64_t)l
 {
-  v5 = sub_18366ED74(&qword_1EA84BAF8);
+  v5 = sub_18366ED74(&qword_1EA84BAF8, &qword_1839CD3D0);
   MEMORY[0x1EEE9AC00](v5 - 8);
   v7 = &v15 - v6;
   selfCopy = self;

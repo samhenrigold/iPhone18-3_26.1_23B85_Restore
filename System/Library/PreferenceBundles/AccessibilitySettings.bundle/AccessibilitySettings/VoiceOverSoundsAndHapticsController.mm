@@ -472,7 +472,7 @@ void __68__VoiceOverSoundsAndHapticsController__updateSoundVolumeSpecifiers___bl
     *(*(*(a1 + 40) + 8) + 24) = 1;
   }
 
-  (*(v3 + 2))();
+  v3[2]();
 }
 
 void __68__VoiceOverSoundsAndHapticsController__updateSoundVolumeSpecifiers___block_invoke_2(uint64_t a1)

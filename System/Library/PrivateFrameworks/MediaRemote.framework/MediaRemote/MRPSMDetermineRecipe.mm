@@ -242,19 +242,19 @@ void ___MRPSMDetermineRecipe_block_invoke_5(uint64_t a1, void *a2, void *a3)
 
 void ___MRPSMDetermineRecipe_block_invoke_6(uint64_t a1)
 {
-  v92 = *MEMORY[0x1E69E9840];
+  v86 = *MEMORY[0x1E69E9840];
   if (*(*(*(a1 + 56) + 8) + 40))
   {
     v2 = objc_alloc(MEMORY[0x1E696ABC0]);
     v3 = *MEMORY[0x1E696AA08];
-    v89[0] = *MEMORY[0x1E696A278];
-    v89[1] = v3;
+    v83[0] = *MEMORY[0x1E696A278];
+    v83[1] = v3;
     v4 = *(*(*(a1 + 56) + 8) + 40);
-    v90[0] = @"failed to get supported commands for source";
-    v90[1] = v4;
+    v84[0] = @"failed to get supported commands for source";
+    v84[1] = v4;
     v5 = MEMORY[0x1E695DF20];
-    v6 = v90;
-    v7 = v89;
+    v6 = v84;
+    v7 = v83;
 LABEL_3:
     v8 = [v5 dictionaryWithObjects:v6 forKeys:v7 count:2];
     v9 = v2;
@@ -265,8 +265,6 @@ LABEL_6:
     v15 = [_MRPSMRecipe notPossibleWithError:v14];
     (*(*(a1 + 48) + 16))();
 
-LABEL_7:
-    v16 = *MEMORY[0x1E69E9840];
     return;
   }
 
@@ -274,12 +272,12 @@ LABEL_7:
   {
     v11 = objc_alloc(MEMORY[0x1E696ABC0]);
     v12 = *MEMORY[0x1E696AA08];
-    v87[0] = *MEMORY[0x1E696A278];
-    v87[1] = v12;
+    v81[0] = *MEMORY[0x1E696A278];
+    v81[1] = v12;
     v13 = *(*(*(a1 + 64) + 8) + 40);
-    v88[0] = @"failed to get supported commands for destination";
-    v88[1] = v13;
-    v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v88 forKeys:v87 count:2];
+    v82[0] = @"failed to get supported commands for destination";
+    v82[1] = v13;
+    v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v82 forKeys:v81 count:2];
     v9 = v11;
     v10 = 153;
     goto LABEL_6;
@@ -288,55 +286,62 @@ LABEL_7:
   if (*(*(*(a1 + 72) + 8) + 40))
   {
     v2 = objc_alloc(MEMORY[0x1E696ABC0]);
-    v17 = *MEMORY[0x1E696AA08];
-    v85[0] = *MEMORY[0x1E696A278];
-    v85[1] = v17;
-    v18 = *(*(*(a1 + 72) + 8) + 40);
-    v86[0] = @"failed to get device info for source";
-    v86[1] = v18;
+    v16 = *MEMORY[0x1E696AA08];
+    v79[0] = *MEMORY[0x1E696A278];
+    v79[1] = v16;
+    v17 = *(*(*(a1 + 72) + 8) + 40);
+    v80[0] = @"failed to get device info for source";
+    v80[1] = v17;
     v5 = MEMORY[0x1E695DF20];
-    v6 = v86;
-    v7 = v85;
+    v6 = v80;
+    v7 = v79;
     goto LABEL_3;
   }
 
-  v19 = [*(*(*(a1 + 80) + 8) + 40) airPlayReceivers];
-  v20 = [*(a1 + 32) client];
-  v21 = [v20 bundleIdentifier];
-  v22 = [v19 containsObject:v21];
+  v18 = [*(*(*(a1 + 80) + 8) + 40) airPlayReceivers];
+  v19 = [*(a1 + 32) client];
+  v20 = [v19 bundleIdentifier];
+  v21 = [v18 containsObject:v20];
 
-  if (!v22)
+  if (v21)
   {
-    v25 = *(*(*(a1 + 88) + 8) + 40);
-    v79 = 0u;
-    v80 = 0u;
-    v81 = 0u;
-    v82 = 0u;
-    v26 = v25;
-    v27 = [v26 countByEnumeratingWithState:&v79 objects:v91 count:16];
-    if (v27)
+    v63 = [objc_alloc(MEMORY[0x1E696ABC0]) initWithMRError:155 format:{@"resolvedSourcePlayerPath %@ is an airplay destination", *(a1 + 32)}];
+    v22 = [_MRPSMRecipe notPossibleWithError:?];
+    (*(*(a1 + 48) + 16))();
+  }
+
+  else
+  {
+    v23 = *(*(*(a1 + 88) + 8) + 40);
+    v73 = 0u;
+    v74 = 0u;
+    v75 = 0u;
+    v76 = 0u;
+    v24 = v23;
+    v25 = [v24 countByEnumeratingWithState:&v73 objects:v85 count:16];
+    if (v25)
     {
-      v28 = v27;
-      v29 = *v80;
+      v26 = v25;
+      v27 = *v74;
       while (2)
       {
-        for (i = 0; i != v28; ++i)
+        for (i = 0; i != v26; ++i)
         {
-          if (*v80 != v29)
+          if (*v74 != v27)
           {
-            objc_enumerationMutation(v26);
+            objc_enumerationMutation(v24);
           }
 
-          v31 = *(*(&v79 + 1) + 8 * i);
-          if ([v31 command] == 133)
+          v29 = *(*(&v73 + 1) + 8 * i);
+          if ([v29 command] == 133)
           {
-            v32 = v31;
+            v30 = v29;
             goto LABEL_24;
           }
         }
 
-        v28 = [v26 countByEnumeratingWithState:&v79 objects:v91 count:16];
-        if (v28)
+        v26 = [v24 countByEnumeratingWithState:&v73 objects:v85 count:16];
+        if (v26)
         {
           continue;
         }
@@ -345,39 +350,39 @@ LABEL_7:
       }
     }
 
-    v32 = 0;
+    v30 = 0;
 LABEL_24:
 
-    v33 = *(*(*(a1 + 96) + 8) + 40);
-    v79 = 0u;
-    v80 = 0u;
-    v81 = 0u;
-    v82 = 0u;
-    v34 = v33;
-    v35 = [v34 countByEnumeratingWithState:&v79 objects:v91 count:16];
-    if (v35)
+    v31 = *(*(*(a1 + 96) + 8) + 40);
+    v73 = 0u;
+    v74 = 0u;
+    v75 = 0u;
+    v76 = 0u;
+    v32 = v31;
+    v33 = [v32 countByEnumeratingWithState:&v73 objects:v85 count:16];
+    if (v33)
     {
-      v36 = v35;
-      v37 = *v80;
+      v34 = v33;
+      v35 = *v74;
       while (2)
       {
-        for (j = 0; j != v36; ++j)
+        for (j = 0; j != v34; ++j)
         {
-          if (*v80 != v37)
+          if (*v74 != v35)
           {
-            objc_enumerationMutation(v34);
+            objc_enumerationMutation(v32);
           }
 
-          v39 = *(*(&v79 + 1) + 8 * j);
-          if ([v39 command] == 133)
+          v37 = *(*(&v73 + 1) + 8 * j);
+          if ([v37 command] == 133)
           {
-            v40 = v39;
+            v38 = v37;
             goto LABEL_34;
           }
         }
 
-        v36 = [v34 countByEnumeratingWithState:&v79 objects:v91 count:16];
-        if (v36)
+        v34 = [v32 countByEnumeratingWithState:&v73 objects:v85 count:16];
+        if (v34)
         {
           continue;
         }
@@ -386,102 +391,81 @@ LABEL_24:
       }
     }
 
-    v40 = 0;
+    v38 = 0;
 LABEL_34:
 
-    if (!_os_feature_enabled_impl())
+    if (_os_feature_enabled_impl() && ([v30 options], v39 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v39, "objectForKeyedSubscript:", @"kMRMediaRemoteCommandInfoPlaybackSessionRequirements"), v40 = objc_claimAutoreleasedReturnValue(), v40, v39, objc_msgSend(v38, "options"), v41 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v41, "objectForKeyedSubscript:", @"kMRMediaRemoteCommandInfoPlaybackSessionRequirements"), v42 = objc_claimAutoreleasedReturnValue(), v42, v41, v40) && v42)
     {
-      goto LABEL_38;
-    }
-
-    v41 = [v32 options];
-    v42 = [v41 objectForKeyedSubscript:@"kMRMediaRemoteCommandInfoPlaybackSessionRequirements"];
-
-    v43 = [v40 options];
-    v44 = [v43 objectForKeyedSubscript:@"kMRMediaRemoteCommandInfoPlaybackSessionRequirements"];
-
-    if (!v42)
-    {
-      goto LABEL_38;
-    }
-
-    if (v44)
-    {
-      v45 = [_MRPSMRecipe oneShotSetPlaybackSessionWithCommandInfo:v40];
-      v46 = *(a1 + 40);
-      v47 = *(a1 + 32);
+      v43 = [_MRPSMRecipe oneShotSetPlaybackSessionWithCommandInfo:v38];
       (*(*(a1 + 48) + 16))();
     }
 
     else
     {
-LABEL_38:
-      v48 = [v40 options];
-      v45 = [v48 objectForKeyedSubscript:@"kMRMediaRemoteCommandInfoSupportedPlaybackSessionTypes"];
+      v44 = [v38 options];
+      v43 = [v44 objectForKeyedSubscript:@"kMRMediaRemoteCommandInfoSupportedPlaybackSessionTypes"];
 
-      if ([v45 count])
+      if ([v43 count])
       {
-        v49 = [v32 options];
-        v50 = [v49 objectForKeyedSubscript:@"kMRMediaRemoteCommandInfoCurrentPlaybackSessionTypes"];
+        v45 = [v30 options];
+        v46 = [v45 objectForKeyedSubscript:@"kMRMediaRemoteCommandInfoCurrentPlaybackSessionTypes"];
 
-        if ([v50 count])
+        if ([v46 count])
         {
-          v77 = 0u;
-          v78 = 0u;
-          v75 = 0u;
-          v76 = 0u;
-          v51 = v50;
-          v68 = [v51 countByEnumeratingWithState:&v75 objects:v84 count:16];
-          if (v68)
+          v71 = 0u;
+          v72 = 0u;
+          v69 = 0u;
+          v70 = 0u;
+          v47 = v46;
+          v62 = [v47 countByEnumeratingWithState:&v69 objects:v78 count:16];
+          if (v62)
           {
-            v52 = *v76;
-            v70 = v32;
-            v66 = *v76;
-            v67 = v40;
+            v48 = *v70;
+            v64 = v30;
+            v60 = *v70;
+            v61 = v38;
             do
             {
-              for (k = 0; k != v68; ++k)
+              for (k = 0; k != v62; ++k)
               {
-                if (*v76 != v52)
+                if (*v70 != v48)
                 {
-                  objc_enumerationMutation(v51);
+                  objc_enumerationMutation(v47);
                 }
 
-                v54 = *(*(&v75 + 1) + 8 * k);
-                v71 = 0u;
-                v72 = 0u;
-                v73 = 0u;
-                v74 = 0u;
-                v55 = v45;
-                v56 = [v55 countByEnumeratingWithState:&v71 objects:v83 count:16];
-                if (v56)
+                v50 = *(*(&v69 + 1) + 8 * k);
+                v65 = 0u;
+                v66 = 0u;
+                v67 = 0u;
+                v68 = 0u;
+                v51 = v43;
+                v52 = [v51 countByEnumeratingWithState:&v65 objects:v77 count:16];
+                if (v52)
                 {
-                  v57 = v56;
-                  v58 = *v72;
+                  v53 = v52;
+                  v54 = *v66;
                   while (2)
                   {
-                    for (m = 0; m != v57; ++m)
+                    for (m = 0; m != v53; ++m)
                     {
-                      if (*v72 != v58)
+                      if (*v66 != v54)
                       {
-                        objc_enumerationMutation(v55);
+                        objc_enumerationMutation(v51);
                       }
 
-                      if ([v54 isEqualToString:*(*(&v71 + 1) + 8 * m)])
+                      if (objc_msgSend_isEqualToString_(v50))
                       {
-                        v63 = [_MRPSMRecipe legacySetPlaybackSessionWithSessionType:v54];
-                        v64 = *(a1 + 40);
-                        v65 = *(a1 + 32);
+                        v59 = [_MRPSMRecipe legacySetPlaybackSessionWithSessionType:v50];
                         (*(*(a1 + 48) + 16))();
 
-                        v32 = v70;
-                        v40 = v67;
+                        v30 = v64;
+                        v38 = v61;
                         goto LABEL_60;
                       }
                     }
 
-                    v57 = [v55 countByEnumeratingWithState:&v71 objects:v83 count:16];
-                    if (v57)
+                    v53 = [v51 countByEnumeratingWithState:&v65 objects:v77 count:16];
+                    if (v53)
                     {
                       continue;
                     }
@@ -490,49 +474,41 @@ LABEL_38:
                   }
                 }
 
-                v32 = v70;
-                v52 = v66;
+                v30 = v64;
+                v48 = v60;
               }
 
-              v40 = v67;
-              v68 = [v51 countByEnumeratingWithState:&v75 objects:v84 count:16];
+              v38 = v61;
+              v62 = [v47 countByEnumeratingWithState:&v69 objects:v78 count:16];
             }
 
-            while (v68);
+            while (v62);
           }
 
-          v60 = objc_alloc(MEMORY[0x1E696ABC0]);
-          v61 = [v51 msv_compactDescription];
-          v62 = [v45 msv_compactDescription];
-          v51 = [v60 initWithMRError:154 format:{@"CurrentTypes.insersect(SupportedTypes) is empty currentTypes=%@ supportedTypes=%@", v61, v62}];
+          v56 = objc_alloc(MEMORY[0x1E696ABC0]);
+          v57 = [v47 msv_compactDescription];
+          v58 = [v43 msv_compactDescription];
+          v47 = [v56 initWithMRError:154 format:{@"CurrentTypes.insersect(SupportedTypes) is empty currentTypes=%@ supportedTypes=%@", v57, v58}];
         }
 
         else
         {
-          v51 = [objc_alloc(MEMORY[0x1E696ABC0]) initWithMRError:152 format:@"Source.setPlaybackSession.options[currentTypes] is empty"];
+          v47 = [objc_alloc(MEMORY[0x1E696ABC0]) initWithMRError:152 format:@"Source.setPlaybackSession.options[currentTypes] is empty"];
         }
 
-        v55 = [_MRPSMRecipe notPossibleWithError:v51];
+        v51 = [_MRPSMRecipe notPossibleWithError:v47];
         (*(*(a1 + 48) + 16))();
 LABEL_60:
       }
 
       else
       {
-        v50 = [objc_alloc(MEMORY[0x1E696ABC0]) initWithMRError:153 format:@"Destination.setPlaybackSession.options[supportedTypes] is empty"];
-        v51 = [_MRPSMRecipe notPossibleWithError:v50];
+        v46 = [objc_alloc(MEMORY[0x1E696ABC0]) initWithMRError:153 format:@"Destination.setPlaybackSession.options[supportedTypes] is empty"];
+        v47 = [_MRPSMRecipe notPossibleWithError:v46];
         (*(*(a1 + 48) + 16))();
       }
     }
-
-    goto LABEL_7;
   }
-
-  v69 = [objc_alloc(MEMORY[0x1E696ABC0]) initWithMRError:155 format:{@"resolvedSourcePlayerPath %@ is an airplay destination", *(a1 + 32)}];
-  v23 = [_MRPSMRecipe notPossibleWithError:?];
-  (*(*(a1 + 48) + 16))();
-
-  v24 = *MEMORY[0x1E69E9840];
 }
 
 @end

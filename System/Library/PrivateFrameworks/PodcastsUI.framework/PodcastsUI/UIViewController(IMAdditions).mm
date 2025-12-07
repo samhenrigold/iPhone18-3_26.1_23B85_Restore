@@ -5,14 +5,14 @@
 - (BOOL)isVerticallyCompact;
 - (BOOL)isVerticallyRegular;
 - (BOOL)isVerticallySpecified;
+- (char)IMDeviceOrientation;
 - (id)recursiveDescription;
-- (uint64_t)IMDeviceOrientation;
 - (uint64_t)preferredInterfaceOrientationGivenOrientation:()IMAdditions;
 @end
 
 @implementation UIViewController(IMAdditions)
 
-- (uint64_t)IMDeviceOrientation
+- (char)IMDeviceOrientation
 {
   interfaceOrientation = [self interfaceOrientation];
   currentDevice = [MEMORY[0x277D75418] currentDevice];

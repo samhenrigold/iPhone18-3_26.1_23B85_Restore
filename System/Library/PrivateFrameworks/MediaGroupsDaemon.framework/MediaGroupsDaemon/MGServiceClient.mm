@@ -100,7 +100,7 @@
 
 - (void)setQueries:(id)queries
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   queriesCopy = queries;
   os_unfair_lock_assert_owner(&self->_lock);
   queries = [(MGServiceClient *)self queries];
@@ -146,8 +146,6 @@
       [(MGServiceClient *)self setTransaction:v16];
     }
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addQuery:(id)query
@@ -263,10 +261,7 @@ void __49__MGServiceClient_outstandingQueryForIdentifier___block_invoke(uint64_t
 
 uint64_t __46__MGServiceClient_enumerateQueriesUsingBlock___block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 32) queries];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(a1 + 32) queries];
 
   return MEMORY[0x2821F96F8]();
 }

@@ -1,86 +1,3 @@
-void MTMultipleFirmwaresModeSwitcher::switchFirmware(uint64_t a1, int a2, int a3)
-{
-  v23[2] = *MEMORY[0x29EDCA608];
-  (*(**(a1 + 8) + 480))(*(a1 + 8), 30);
-  v6 = *(a1 + 40);
-  if (!a2)
-  {
-    v7 = 16;
-    goto LABEL_5;
-  }
-
-  if (a2 == 1)
-  {
-    v7 = 24;
-LABEL_5:
-    v8 = *(v6 + v7);
-    goto LABEL_7;
-  }
-
-  v8 = 0;
-LABEL_7:
-  v17 = 0;
-  if ([*v6 updateProperty:*(v6 + 8) property:v8 options:0 error:&v17])
-  {
-    (*(**(a1 + 8) + 80))(*(a1 + 8));
-    MTDeviceGetDeviceID();
-    v9 = MTLoggingPlugin();
-    v10 = os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT);
-    if (v10)
-    {
-      v11 = "Unknown";
-      if (a2 == 1)
-      {
-        v11 = "WakeOnTouch";
-      }
-
-      if (a2)
-      {
-        v12 = v11;
-      }
-
-      else
-      {
-        v12 = "Active";
-      }
-
-      v13 = MTModeSwitcher::modeToText(v10, a3);
-      *buf = 136446978;
-      v19 = v12;
-      v20 = 2082;
-      v21 = v13;
-      v22 = 1024;
-      LODWORD(v23[0]) = a3;
-      WORD2(v23[0]) = 2048;
-      *(v23 + 6) = 0;
-      _os_log_impl(&dword_29D381000, v9, OS_LOG_TYPE_DEFAULT, "FW switched to %{public}s with mode %{public}s (0x%x) (deviceID 0x%llX)", buf, 0x26u);
-    }
-
-    *(a1 + 24) = 1;
-    *(a1 + 28) = a3;
-  }
-
-  else
-  {
-    (*(**(a1 + 8) + 80))(*(a1 + 8));
-    MTDeviceGetDeviceID();
-    v14 = MTLoggingPlugin();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
-    {
-      v15 = *(*(a1 + 40) + 8);
-      *buf = 138543874;
-      v19 = v15;
-      v20 = 2114;
-      v21 = v8;
-      v22 = 2048;
-      v23[0] = 0;
-      _os_log_impl(&dword_29D381000, v14, OS_LOG_TYPE_ERROR, "Error updating %{public}@ to %{public}@ (deviceID 0x%llX)", buf, 0x20u);
-    }
-  }
-
-  v16 = *MEMORY[0x29EDCA608];
-}
-
 const char *MTMultipleFirmwaresModeSwitcher::firmwareBinaryToText(uint64_t a1, int a2)
 {
   v2 = "Unknown";
@@ -498,9 +415,9 @@ LABEL_68:
     }
 
 LABEL_155:
-    v49 = *(*a1 + 64);
+    v48 = *(*a1 + 64);
 
-    v49(a1, a2, a3, a4, MatchingChord);
+    v48(a1, a2, a3, a4, MatchingChord);
     return;
   }
 
@@ -586,25 +503,25 @@ LABEL_132:
   }
 
   v45 = *(a1 + 636);
-  if ((v45 & 0x20) != 0 || (v45 & 0x40) != 0 && ((v35 & 1) != 0 || (v46 = *(a1 + 400), MTChordGestureSet::hasActiveEdgeSlide(MatchingChord, a2, a1))))
+  if ((v45 & 0x20) != 0 || (v45 & 0x40) != 0 && ((v35 & 1) != 0 || MTChordGestureSet::hasActiveEdgeSlide(MatchingChord, a2, a1)))
   {
-    v47 = *(MatchingChord + 228);
-    if ((v47 & 2) != 0)
+    v46 = *(MatchingChord + 228);
+    if ((v46 & 2) != 0)
     {
       goto LABEL_155;
     }
 
-    if (v35 & ((v47 & 4) >> 2))
+    if (v35 & ((v46 & 4) >> 2))
     {
       goto LABEL_155;
     }
 
-    if ((v35 & ((v47 & 0x800) >> 11)) == 1)
+    if ((v35 & ((v46 & 0x800) >> 11)) == 1)
     {
-      v48 = *(a1 + 680);
-      if (v48)
+      v47 = *(a1 + 680);
+      if (v47)
       {
-        if (*v48 != v48[1] && **v48 == 68 && *(a1 + 624) == 1)
+        if (*v47 != v47[1] && **v47 == 68 && *(a1 + 624) == 1)
         {
           goto LABEL_155;
         }
@@ -754,7 +671,7 @@ uint64_t MTChordCycling::MTChordCycling(uint64_t a1, int a2, uint64_t a3, uint64
   MTChordIntegrating::MTChordIntegrating((v10 + 408));
   MTChordIntegrating::MTChordIntegrating((a1 + 816));
   MTParameterFactory::initChordCyclingParams(a1 + 368, a6);
-  MTParameterFactory::initGestureTimingParams(a1 + 388);
+  MTParameterFactory::initGestureTimingParams();
   (*(*a1 + 16))(a1);
   return a1;
 }
@@ -766,7 +683,7 @@ void sub_29D3C111C(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-uint64_t MTChordCycling::clearChordCyclingState(MTChordCycling *this)
+void MTChordCycling::clearChordCyclingState(MTChordCycling *this)
 {
   MTChordIntegrating::nullify(this + 51);
   MTChordIntegrating::nullify(this + 102);
@@ -775,7 +692,7 @@ uint64_t MTChordCycling::clearChordCyclingState(MTChordCycling *this)
   *(this + 1240) = 0u;
   MTTapDragManager::clearState(*(this + 49));
 
-  return MTChordTable::clearChordCyclingState(this);
+  MTChordTable::clearChordCyclingState(this);
 }
 
 uint64_t MTChordCycling::getCommittedFingerCount(MTChordCycling *this)
@@ -791,7 +708,7 @@ uint64_t MTChordCycling::getCommittedFingerCount(MTChordCycling *this)
   }
 }
 
-double MTChordCycling::selectSlideChord(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+double MTChordCycling::selectSlideChord(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, MTChordIntegrating *a5)
 {
   MTChordIntegrating::endChordIntegration(a1 + 408, a2, a3, a4, a1);
   if (a5)
@@ -1029,7 +946,7 @@ void MTChordCycling::handleChordTaps(uint64_t a1, uint64_t a2, uint64_t a3, uint
     return;
   }
 
-  if (!(*(*a1 + 48))(a1))
+  if (!(*(*a1 + 48))(a1, a2, a3, a4, a5))
   {
     return;
   }
@@ -1107,13 +1024,12 @@ LABEL_11:
   }
 }
 
-uint64_t MTChordCycling::possiblyStartChordMomentum(uint64_t result, uint64_t a2, uint64_t a3)
+uint64_t MTChordCycling::possiblyStartChordMomentum(uint64_t result, unsigned __int8 *a2, uint64_t a3)
 {
-  if (*(a2 + 211) + *(a2 + 186) < *(a2 + 190) + *(a2 + 187))
+  if (a2[211] + a2[186] < a2[190] + a2[187])
   {
     if (*(result + 632))
     {
-      v3 = *(a2 + 8);
       return MTChordIntegrating::possiblyStartMomentum(result + 408, a2, a3, result);
     }
   }
@@ -1174,7 +1090,6 @@ uint64_t MTChordCycling::chk4chordCycling(_DWORD *a1, uint64_t a2, float32x4_t *
       }
     }
 
-    v14 = *(a1 + 672);
     if (*(MatchingChord + 216) >= a1[156])
     {
       if ((a1[168] & 1) != 0 && ((a1[159] & 0x20) == 0 || ((*(MatchingChord + 228) & 2) == 0 || (*(a2 + 164) - 3000) >= 0xFFFFFC18 && a1[7] != 2 && *(a2 + 298) != *(a2 + 302)) && *(a2 + 8) - *(a2 + 56) >= 0.09))
@@ -1185,16 +1100,16 @@ uint64_t MTChordCycling::chk4chordCycling(_DWORD *a1, uint64_t a2, float32x4_t *
 
     else if ((a1[168] & 1) != 0 || (*(a2 + 164) - 3000) >= 0xFFFFFC18 && a1[7] != 2)
     {
-      v15 = *(a1 + 318);
-      if ((v15 & 0x10) == 0 || (*(MatchingChord + 228) & 1) == 0 || (v15 & 0x80) == 0 && *(a2 + 8) - *(a2 + 128) <= *&gTimingPrefs * 0.5)
+      v14 = *(a1 + 318);
+      if ((v14 & 0x10) == 0 || (*(MatchingChord + 228) & 1) == 0 || (v14 & 0x80) == 0 && *(a2 + 8) - *(a2 + 128) <= *&gTimingPrefs * 0.5)
       {
         return result;
       }
 
-      v16 = *(a1 + 85);
-      if (v16)
+      v15 = *(a1 + 85);
+      if (v15)
       {
-        if (*v16 != v16[1] && **v16 - 35 < 5)
+        if (*v15 != v15[1] && **v15 - 35 < 5)
         {
           return result;
         }
@@ -1216,9 +1131,9 @@ uint64_t MTChordCycling::chk4chordCycling(_DWORD *a1, uint64_t a2, float32x4_t *
     }
   }
 
-  v17 = *(*a1 + 64);
+  v16 = *(*a1 + 64);
 
-  return v17(a1, a2, a3, a4, MatchingChord);
+  return v16(a1, a2, a3, a4, MatchingChord);
 }
 
 double MTChordCycling::parseHandGesturesCreateHIDEvents(_DWORD *a1, MTHandStatistics *a2, MTHandMotion *a3, uint64_t a4)
@@ -1417,7 +1332,7 @@ uint64_t MTTapDragManager::updateLastState(uint64_t this)
   return this;
 }
 
-BOOL MTTapDragManager::isAnyPathTouching(uint64_t a1, uint64_t a2, int a3)
+BOOL MTTapDragManager::isAnyPathTouching(uint64_t a1, uint64_t a2, unsigned int a3)
 {
   result = 0;
   if (a2 && a3 >= 1)
@@ -1437,7 +1352,7 @@ BOOL MTTapDragManager::isAnyPathTouching(uint64_t a1, uint64_t a2, int a3)
   return result;
 }
 
-uint64_t MTTapDragManager::hasPhysicalDraggingEnded(uint64_t a1, uint64_t a2, int a3)
+uint64_t MTTapDragManager::hasPhysicalDraggingEnded(uint64_t a1, uint64_t a2, unsigned int a3)
 {
   if (*(a1 + 24) < 3)
   {
@@ -1789,7 +1704,7 @@ uint64_t MTTapDragManager::handleTapsForMultiFingerDrag(uint64_t result, uint64_
 
 void MTSimpleEmbeddedHIDManager::initialize(MTModeSwitcher *a1, uint64_t a2, const void *a3, int a4, int a5)
 {
-  v24 = *MEMORY[0x29EDCA608];
+  v27 = *MEMORY[0x29EDCA608];
   *(a1 + 26) = 0;
   *(a1 + 27) = 0;
   MTSimpleHIDManager::initialize(a1, a2, a3, a4, a5);
@@ -1800,28 +1715,26 @@ void MTSimpleEmbeddedHIDManager::initialize(MTModeSwitcher *a1, uint64_t a2, con
   {
     if ((MTDeviceHasExpectedVersion() & 1) == 0)
     {
-      MTDeviceGetVersion();
-      v11 = MTLoggingPlugin();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+      Version = MTDeviceGetVersion();
+      v15 = MTLoggingPlugin(Version, v14);
+      if (!os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
       {
-        *buf = 136315906;
-        v17 = "";
-        v18 = 2080;
-        v19 = "";
-        v20 = 2080;
-        v21 = "initialize";
-        v22 = 2048;
-        v23 = 0;
-        v10 = "[HID] [MT] %s%s%s Firmware version 0x%04jX is unexpected. Disabling interference monitor.";
-        v12 = v11;
-        v13 = OS_LOG_TYPE_DEFAULT;
-        v14 = 42;
-LABEL_18:
-        _os_log_impl(&dword_29D381000, v12, v13, v10, buf, v14);
-        goto LABEL_19;
+        return;
       }
 
-      goto LABEL_19;
+      *buf = 136315906;
+      v20 = "";
+      v21 = 2080;
+      v22 = "";
+      v23 = 2080;
+      v24 = "initialize";
+      v25 = 2048;
+      v26 = 0;
+      v12 = "[HID] [MT] %s%s%s Firmware version 0x%04jX is unexpected. Disabling interference monitor.";
+      v16 = v15;
+      v17 = OS_LOG_TYPE_DEFAULT;
+      v18 = 42;
+      goto LABEL_18;
     }
 
     *(a1 + 27) = (*(*a1 + 616))(a1);
@@ -1834,61 +1747,66 @@ LABEL_18:
   }
 
   v7 = MTDeviceEnableWorkIntervalNotification();
-  v8 = MTLoggingPlugin();
-  v9 = v8;
-  if (v7 == -536870201)
+  v8 = v7;
+  v10 = MTLoggingPlugin(v7, v9);
+  v11 = v10;
+  if (v8 == -536870201)
   {
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    if (!os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      *buf = 136315650;
-      v17 = "";
-      v18 = 2080;
-      v19 = "";
-      v20 = 2080;
-      v21 = "initialize";
-      v10 = "[HID] [MT] %s%s%s Work interval notification not supported by device. Skipping.";
-      goto LABEL_15;
+      return;
     }
-  }
 
-  else if (v7)
-  {
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
-    {
-      *buf = 136315906;
-      v17 = "[Error] ";
-      v18 = 2080;
-      v19 = "";
-      v20 = 2080;
-      v21 = "initialize";
-      v22 = 1024;
-      LODWORD(v23) = v7;
-      v10 = "[HID] [MT] %s%s%s MTDeviceEnableWorkIntervalNotification returned 0x%08X";
-      v12 = v9;
-      v13 = OS_LOG_TYPE_ERROR;
-      v14 = 38;
-      goto LABEL_18;
-    }
-  }
-
-  else if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
-  {
     *buf = 136315650;
-    v17 = "";
-    v18 = 2080;
-    v19 = "";
-    v20 = 2080;
-    v21 = "initialize";
-    v10 = "[HID] [MT] %s%s%s Work interval notification enabled";
+    v20 = "";
+    v21 = 2080;
+    v22 = "";
+    v23 = 2080;
+    v24 = "initialize";
+    v12 = "[HID] [MT] %s%s%s Work interval notification not supported by device. Skipping.";
+    goto LABEL_15;
+  }
+
+  if (!v8)
+  {
+    if (!os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    {
+      return;
+    }
+
+    *buf = 136315650;
+    v20 = "";
+    v21 = 2080;
+    v22 = "";
+    v23 = 2080;
+    v24 = "initialize";
+    v12 = "[HID] [MT] %s%s%s Work interval notification enabled";
 LABEL_15:
-    v12 = v9;
-    v13 = OS_LOG_TYPE_DEFAULT;
-    v14 = 32;
+    v16 = v11;
+    v17 = OS_LOG_TYPE_DEFAULT;
+    v18 = 32;
     goto LABEL_18;
   }
 
-LABEL_19:
-  v15 = *MEMORY[0x29EDCA608];
+  if (!os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+  {
+    return;
+  }
+
+  *buf = 136315906;
+  v20 = "[Error] ";
+  v21 = 2080;
+  v22 = "";
+  v23 = 2080;
+  v24 = "initialize";
+  v25 = 1024;
+  LODWORD(v26) = v8;
+  v12 = "[HID] [MT] %s%s%s MTDeviceEnableWorkIntervalNotification returned 0x%08X";
+  v16 = v11;
+  v17 = OS_LOG_TYPE_ERROR;
+  v18 = 38;
+LABEL_18:
+  _os_log_impl(&dword_29D381000, v16, v17, v12, buf, v18);
 }
 
 uint64_t MTSimpleEmbeddedHIDManager::stop(MTSimpleEmbeddedHIDManager *this)
@@ -1926,19 +1844,12 @@ void MTSimpleEmbeddedHIDManager::finalize(MTSimpleEmbeddedHIDManager *this)
   MTSimpleHIDManager::finalize(this);
 }
 
-void MTSimpleEmbeddedHIDManager::createGestureParser(MTSimpleEmbeddedHIDManager *this)
-{
-  v2 = (*(*this + 80))(this);
-  v3 = *(this + 40);
-  MTParser::createParserForMTDevice(v2, *(this + 39));
-}
-
-unsigned int *MTSimpleEmbeddedHIDManager::destroyGestureParser(MTSimpleEmbeddedHIDManager *this)
+unsigned int *MTSimpleEmbeddedHIDManager::destroyGestureParser(MTSimpleEmbeddedHIDManager *this, uint64_t a2)
 {
   result = *(this + 26);
   if (result)
   {
-    result = MTParser::release(result);
+    result = MTParser::release(result, a2);
     *(this + 26) = 0;
   }
 
@@ -2070,7 +1981,7 @@ CFDictionaryRef MTSimpleEmbeddedHIDManager::copyProperty(MTSimpleEmbeddedHIDMana
   }
 }
 
-uint64_t MTSimpleEmbeddedHIDManager::setPropertyInternal(uint64_t *a1, int a2, CFTypeRef cf, int a4)
+uint64_t MTSimpleEmbeddedHIDManager::setPropertyInternal(void *a1, uint64_t a2, CFTypeRef cf, int a4)
 {
   if (cf)
   {
@@ -2118,9 +2029,8 @@ uint64_t MTSimpleEmbeddedHIDManager::setPropertyInternal(uint64_t *a1, int a2, C
   return MTSimpleHIDManager::setPropertyInternal(a1, a2, cf, a4);
 }
 
-uint64_t createVendorDefinedTouchFrameEvent(unsigned __int8 *a1)
+uint64_t createVendorDefinedTouchFrameEvent(unsigned __int8 *a1, int a2)
 {
-  v1 = *MEMORY[0x29EDB8ED8];
   mach_absolute_time();
 
   return IOHIDEventCreateVendorDefinedEvent();
@@ -2139,7 +2049,7 @@ MTInterferenceMonitor *MTSimpleEmbeddedHIDManager::deviceDidBootload(MTInterfere
   return result;
 }
 
-uint64_t MTSimpleEmbeddedHIDManager::resetDevice(MTEmbeddedStatsImpl ****this)
+uint64_t MTSimpleEmbeddedHIDManager::resetDevice(MTEmbeddedStats ***this)
 {
   v50 = *MEMORY[0x29EDCA608];
   MTParser::deviceWillReset(this[26]);
@@ -2181,16 +2091,16 @@ uint64_t MTSimpleEmbeddedHIDManager::resetDevice(MTEmbeddedStatsImpl ****this)
   v2 = MTDeviceIssueDriverRequest();
   if (v2)
   {
-    v3 = v2;
+    v4 = v2;
   }
 
   else
   {
-    v3 = __b[0];
+    v4 = __b[0];
   }
 
-  v4 = MTLoggingPlugin();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  v5 = MTLoggingPlugin(v2, v3);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v7 = 136316162;
     v8 = "";
@@ -2199,105 +2109,102 @@ uint64_t MTSimpleEmbeddedHIDManager::resetDevice(MTEmbeddedStatsImpl ****this)
     v11 = 2080;
     v12 = "resetDevice";
     v13 = 1024;
-    v14 = v3;
+    v14 = v4;
     v15 = 1024;
     v16 = __b[0];
-    _os_log_impl(&dword_29D381000, v4, OS_LOG_TYPE_DEFAULT, "[HID] [MT] %s%s%s [result:0x%08x, requestResult.status:0x%08x]", &v7, 0x2Cu);
+    _os_log_impl(&dword_29D381000, v5, OS_LOG_TYPE_DEFAULT, "[HID] [MT] %s%s%s [result:0x%08x, requestResult.status:0x%08x]", &v7, 0x2Cu);
   }
 
-  v5 = *MEMORY[0x29EDCA608];
-  return v3;
+  return v4;
 }
 
-uint64_t MTSimpleEmbeddedHIDManager::handleContactFrame(MTSimpleHIDManager *this, double a2, uint64_t a3, unsigned __int8 *a4, uint64_t a5, uint64_t a6)
+uint64_t MTSimpleEmbeddedHIDManager::handleContactFrame(MTSimpleHIDManager *this, uint64_t a2, unsigned __int8 *a3, uint64_t a4, uint64_t a5, double a6)
 {
-  *&v30[9] = *MEMORY[0x29EDCA608];
+  *&v35[9] = *MEMORY[0x29EDCA608];
   v11 = *(this + 25);
   if (v11)
   {
-    MTSLGLogger::logPaths(v11, a4, a5);
+    MTSLGLogger::logPaths(v11, a3, a4);
   }
 
   if (!MTSimpleHIDManager::touchFramesAllowed(this))
   {
     cf = 0;
-    MTDeviceGetDeviceID();
-    v16 = MTLoggingPlugin();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+    DeviceID = MTDeviceGetDeviceID();
+    v20 = MTLoggingPlugin(DeviceID, v19);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
     {
-      v17 = *(this + 32);
-      v18 = *(this + 48);
-      v19 = *(this + 122);
+      v21 = *(this + 32);
+      v22 = *(this + 48);
+      v23 = *(this + 122);
       *buf = 67109888;
-      *&buf[4] = v17;
+      *&buf[4] = v21;
       *&buf[8] = 1024;
-      *&buf[10] = v18;
-      LOWORD(v29) = 1024;
-      *(&v29 + 2) = v19;
-      HIWORD(v29) = 2048;
-      *v30 = cf;
-      v13 = "received a touch frame but preventing dispatch. _currentDetectionMode=%d, _currentTouchMode=%d, _proxIntegrated=%d (deviceID 0x%llX)";
-      v14 = v16;
-      v15 = 30;
+      *&buf[10] = v22;
+      LOWORD(v34) = 1024;
+      *(&v34 + 2) = v23;
+      HIWORD(v34) = 2048;
+      *v35 = cf;
+      v15 = "received a touch frame but preventing dispatch. _currentDetectionMode=%d, _currentTouchMode=%d, _proxIntegrated=%d (deviceID 0x%llX)";
+      v16 = v20;
+      v17 = 30;
       goto LABEL_13;
     }
 
-LABEL_14:
-    result = 0;
-    goto LABEL_15;
+    return 0;
   }
 
-  if (*(this + 18) == a2 && *(this + 152) == a6)
+  if (*(this + 18) == a6 && *(this + 152) == a5)
   {
     cf = 0;
-    MTDeviceGetDeviceID();
-    v12 = MTLoggingPlugin();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v12 = MTDeviceGetDeviceID();
+    v14 = MTLoggingPlugin(v12, v13);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134218496;
-      *&buf[4] = a6;
+      *&buf[4] = a5;
       *&buf[12] = 2048;
-      v29 = a2;
-      v30[0] = 2048;
-      *&v30[1] = cf;
-      v13 = "ignoring duplicate frame #%qu @ %f\n (deviceID 0x%llX)";
-      v14 = v12;
-      v15 = 32;
+      v34 = a6;
+      v35[0] = 2048;
+      *&v35[1] = cf;
+      v15 = "ignoring duplicate frame #%qu @ %f\n (deviceID 0x%llX)";
+      v16 = v14;
+      v17 = 32;
 LABEL_13:
-      _os_log_impl(&dword_29D381000, v14, OS_LOG_TYPE_DEFAULT, v13, buf, v15);
-      goto LABEL_14;
+      _os_log_impl(&dword_29D381000, v16, OS_LOG_TYPE_DEFAULT, v15, buf, v17);
+      return 0;
     }
 
-    goto LABEL_14;
+    return 0;
   }
 
   if (*(this + 121) == 1)
   {
     cf = 0;
-    MTDeviceGetDeviceID();
-    v20 = MTLoggingPlugin();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+    v24 = MTDeviceGetDeviceID();
+    v26 = MTLoggingPlugin(v24, v25);
+    if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134217984;
       *&buf[4] = cf;
-      v13 = "received a touch frame but parser is disabled, preventing dispatch (deviceID 0x%llX)";
-      v14 = v20;
-      v15 = 12;
+      v15 = "received a touch frame but parser is disabled, preventing dispatch (deviceID 0x%llX)";
+      v16 = v26;
+      v17 = 12;
       goto LABEL_13;
     }
 
-    goto LABEL_14;
+    return 0;
   }
 
   kdebug_trace();
-  *(this + 18) = a2;
-  *(this + 152) = a6;
+  *(this + 18) = a6;
+  *(this + 152) = a5;
   cf = 0;
   *buf = 0;
-  v23 = *(this + 26);
-  if (v23)
+  v28 = *(this + 26);
+  if (v28)
   {
-    MTParser::handleContactFrame(v23, a4, a5, a2, a6, buf, &cf, 0);
+    MTParser::handleContactFrame(v28, a3, a4, a6, a5, buf, &cf, 0);
     if (*buf)
     {
       (*(*this + 136))(this, *buf, 0);
@@ -2306,15 +2213,15 @@ LABEL_13:
 
     if (cf)
     {
-      v24 = (*(*this + 120))(this);
-      if ((*(*v24 + 80))(v24))
+      v29 = (*(*this + 120))(this);
+      if ((*(*v29 + 80))(v29))
       {
-        VendorDefinedTouchFrameEvent = createVendorDefinedTouchFrameEvent(a4);
+        VendorDefinedTouchFrameEvent = createVendorDefinedTouchFrameEvent(a3, a4);
         if (VendorDefinedTouchFrameEvent)
         {
-          v26 = VendorDefinedTouchFrameEvent;
+          v31 = VendorDefinedTouchFrameEvent;
           IOHIDEventAppendEvent();
-          CFRelease(v26);
+          CFRelease(v31);
         }
       }
 
@@ -2324,10 +2231,7 @@ LABEL_13:
   }
 
   kdebug_trace();
-  result = 1;
-LABEL_15:
-  v22 = *MEMORY[0x29EDCA608];
-  return result;
+  return 1;
 }
 
 void MTSimpleEmbeddedHIDManager::handleImageEntry(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
@@ -2357,7 +2261,7 @@ void MTSimpleEmbeddedHIDManager::~MTSimpleEmbeddedHIDManager(MTSimpleEmbeddedHID
   JUMPOUT(0x29ED547D0);
 }
 
-void MTRestZoneIntegrator::clearMotion(float32x2_t *this, int a2)
+void MTRestZoneIntegrator::clearMotion(float32x2_t *this, uint64_t a2)
 {
   v2 = a2;
   if (a2)
@@ -2373,14 +2277,14 @@ void MTRestZoneIntegrator::clearMotion(float32x2_t *this, int a2)
   *this[20].f32 = 0u;
   *this[22].f32 = 0u;
   MTFingerToPathMap::clearFingerPathMappings(this);
-  v4 = MTLoggingPlugin();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
+  v6 = MTLoggingPlugin(v4, v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
-    MTHandMotion::clearHandMotion(v2, v4);
+    MTHandMotion::clearHandMotion(v2, v6);
   }
 }
 
-MTFingerToPathMap *MTRestZoneIntegrator::MTRestZoneIntegrator(MTFingerToPathMap *a1, uint64_t a2, __int32 a3, __int32 a4)
+MTFingerToPathMap *MTRestZoneIntegrator::MTRestZoneIntegrator(MTFingerToPathMap *a1, uint64_t a2, int a3, int a4)
 {
   MTFingerToPathMap::MTFingerToPathMap(a1, 0);
   *v8 = &unk_2A2413828;
@@ -2459,10 +2363,10 @@ __n128 MTRestZoneIntegrator::computeSeparationVector(double a1, __n128 a2, uint6
   return v6;
 }
 
-uint64_t MTRestZoneIntegrator::extractMotionDeltas(MTRestZoneIntegrator *this, const MTPathStates *a2, float32x2_t *a3, float32x2_t *a4, int a5)
+void MTRestZoneIntegrator::extractMotionDeltas(MTRestZoneIntegrator *this, const MTPathStates *a2, float32x2_t *a3, float32x2_t *a4, int a5)
 {
   v10 = MTParserPath::stableAndMoved(a3);
-  result = MTParserPath::stableAndMoved(a4);
+  v11 = MTParserPath::stableAndMoved(a4);
   *(this + 76) = 1065353216;
   *(this + 33) = 0;
   *(this + 34) = 0;
@@ -2511,7 +2415,7 @@ uint64_t MTRestZoneIntegrator::extractMotionDeltas(MTRestZoneIntegrator *this, c
         v26 = a4[56];
         v27 = a3[56].f32[0];
         v28 = a3[56].f32[1];
-        if ((v10 | result))
+        if (v10 || v11)
         {
           v29.f32[0] = -v28;
           v29.i32[1] = a3[56].i32[1];
@@ -2540,7 +2444,7 @@ uint64_t MTRestZoneIntegrator::extractMotionDeltas(MTRestZoneIntegrator *this, c
 
     MTContact_getEllipseEccentricity();
     v37 = v36;
-    result = MTContact_getEllipseEccentricity();
+    MTContact_getEllipseEccentricity();
     v39 = v37 / v38;
     *(this + 76) = v39;
     if (v23 > 0.0)
@@ -2554,7 +2458,6 @@ uint64_t MTRestZoneIntegrator::extractMotionDeltas(MTRestZoneIntegrator *this, c
   }
 
   *(this + 75) = v14;
-  return result;
 }
 
 uint64_t MTRestZoneIntegrator::combineCentralFingerScaleRotate(uint64_t result, uint64_t a2, uint64_t a3, float *a4)
@@ -2805,55 +2708,54 @@ float MTRestZoneIntegrator::translationDominance(MTRestZoneIntegrator *this, cha
   return v3;
 }
 
-void MTRestZoneIntegrator::weighDominantMotions(float32x2_t *this, float32x2_t a2)
+void MTRestZoneIntegrator::weighDominantMotions(float32x2_t *this, double a2, uint64_t a3)
 {
-  MTRestZoneIntegrator::convertPixelDeltasTo_mm_s(this, a2);
+  MTRestZoneIntegrator::convertPixelDeltasTo_mm_s(this, a2, a3);
   if (!MTRestZoneIntegrator::isLockedOnPolarSymmetric(this) && !MTRestZoneIntegrator::isLockedOnTranslate(this))
   {
+    v13 = -1;
+    HIDWORD(v5) = -1;
     v12 = -1;
-    HIDWORD(v4) = -1;
     v11 = -1;
-    v10 = -1;
-    v5 = this[10].i32[0];
-    if (v5 == this[11].i32[0])
+    v6 = this[10].i32[0];
+    if (v6 == this[11].i32[0])
     {
-      if (v5 == 1)
+      if (v6 == 1)
       {
-        v6 = &this[22];
-        v7 = &this[27] + 1;
+        v7 = this + 22;
+        v8 = (this + 220);
       }
 
       else
       {
-        v6 = &this[20];
-        v7 = &this[27];
+        v7 = this + 20;
+        v8 = this + 27;
       }
 
-      *&v4 = *&a2;
-      MTRestZoneIntegrator::accumulateMotionEnvelope(this, v6, &v11, v7, &v10, &v12, v4);
+      *&v5 = a2;
+      MTRestZoneIntegrator::accumulateMotionEnvelope(this, v7, &v12, v8, &v11, &v13, v5);
     }
 
     else
     {
-      v8 = *&a2;
-      *&v9 = MTRestZoneIntegrator::decayMotionEnvelope(this, this + 24, this + 26, &this[28], &this[29], &this[28] + 1, v8);
-      *&v9 = v8;
-      MTRestZoneIntegrator::accumulateMotionEnvelope(this, &this[24], this + 26, &this[28], &this[29], &this[28] + 1, v9);
-      MTRestZoneIntegrator::decayMotionEnvelope(this, this + 20, &v11, &this[27], &v10, &v12, v8);
-      MTRestZoneIntegrator::decayMotionEnvelope(this, this + 22, &v11, &this[27] + 1, &v10, &v12, v8);
+      v9 = a2;
+      *&v10 = MTRestZoneIntegrator::decayMotionEnvelope(this, this + 24, this + 26, &this[28], &this[29], &this[28] + 1, v9);
+      *&v10 = v9;
+      MTRestZoneIntegrator::accumulateMotionEnvelope(this, &this[24], this + 26, &this[28], &this[29], &this[28] + 1, v10);
+      MTRestZoneIntegrator::decayMotionEnvelope(this, this + 20, &v12, &this[27], &v11, &v13, v9);
+      MTRestZoneIntegrator::decayMotionEnvelope(this, this + 22, &v12, &this[27] + 1, &v11, &v13, v9);
     }
   }
 }
 
-void MTRestZoneIntegrator::convertPixelDeltasTo_mm_s(MTRestZoneIntegrator *this, float32x2_t a2)
+void MTRestZoneIntegrator::convertPixelDeltasTo_mm_s(MTRestZoneIntegrator *this, double a2, uint64_t a3)
 {
-  v2 = *&a2;
-  a2.i32[0] = *(this + 66);
-  MTSurfaceDimensions::convertPixelDeltasToMillimetersPerSecond(*(this + 31), a2, *(this + 67), v2);
-  *(this + 70) = v4;
+  v3 = a2;
+  LODWORD(a2) = *(this + 66);
+  *(this + 70) = MTSurfaceDimensions::convertPixelDeltasToMillimetersPerSecond(*(this + 31), *&a2, *(this + 67), v3, a3).u32[0];
   *(this + 71) = v5;
-  *(this + 72) = MTSurfaceDimensions::convertPixelDeltaToMillimetersPerSecond(*(this + 31), *(this + 68), v2);
-  *(this + 73) = MTSurfaceDimensions::convertPixelDeltaToMillimetersPerSecond(*(this + 31), *(this + 69), v2);
+  *(this + 72) = MTSurfaceDimensions::convertPixelDeltaToMillimetersPerSecond(*(this + 31), *(this + 68), v3, v6);
+  *(this + 73) = MTSurfaceDimensions::convertPixelDeltaToMillimetersPerSecond(*(this + 31), *(this + 69), v3, v7);
 }
 
 void MTRestZoneIntegrator::integrateRestingZoneMotion(float32x2_t *this, const MTPathStates *a2, int a3)
@@ -2889,9 +2791,9 @@ void MTRestZoneIntegrator::integrateRestingZoneMotion(float32x2_t *this, const M
     }
 
     MTRestZoneIntegrator::extractMotionDeltas(v9, v10, v11, OutermostTouchingPath, v12);
-    v14 = *(a2 + 1) - *(a2 + 2);
+    v15 = *(a2 + 1) - *(a2 + 2);
 
-    MTRestZoneIntegrator::weighDominantMotions(this, *&v14);
+    MTRestZoneIntegrator::weighDominantMotions(this, v15, v14);
   }
 
   else
@@ -2981,11 +2883,11 @@ float MTForceFilter::surgeToActuationStrength(uint64_t a1, float *a2)
   return (v3 / (v3 + powf(fabsf(v2), 1.2))) + 0.1;
 }
 
-void MTForceFilter::updateForceFilter(uint64_t a1, float *a2, float a3, float a4, double a5)
+void MTForceFilter::updateForceFilter(uint64_t a1, float a2, float a3, double a4, float *a5)
 {
-  if (a5 <= 0.04)
+  if (a4 <= 0.04)
   {
-    v6 = a5;
+    v6 = a4;
   }
 
   else
@@ -2994,13 +2896,13 @@ void MTForceFilter::updateForceFilter(uint64_t a1, float *a2, float a3, float a4
   }
 
   v7 = *(a1 + 16);
-  *(a1 + 16) = a3;
+  *(a1 + 16) = a2;
   *(a1 + 20) = v7;
   v8 = *(a1 + 28);
-  v9 = (a3 - v7) / v6;
+  v9 = (a2 - v7) / v6;
   *(a1 + 28) = v9;
   *(a1 + 32) = v8;
-  if (a3 == 0.0 || a5 > 0.04)
+  if (a2 == 0.0 || a4 > 0.04)
   {
     v11 = *(a1 + 24);
     v13 = 0.0;
@@ -3021,18 +2923,18 @@ void MTForceFilter::updateForceFilter(uint64_t a1, float *a2, float a3, float a4
 
   *(a1 + 24) = ((1.0 - v13) * v9) + (v13 * v11);
   v14 = *(a1 + 36);
-  if (v14 >= a4)
+  if (v14 >= a3)
   {
-    v15 = (a4 * 0.15) + (v14 * 0.85);
+    v15 = (a3 * 0.15) + (v14 * 0.85);
   }
 
   else
   {
-    v15 = (a4 * 0.75) + (v14 * 0.25);
+    v15 = (a3 * 0.75) + (v14 * 0.25);
   }
 
   *(a1 + 36) = v15;
-  MTForceFilter::updateHystereticForce(a1, a2, a3);
+  MTForceFilter::updateHystereticForce(a1, a5, a2);
   v16 = *(a1 + 40);
   v17 = *(a1 + 8);
   v18 = v16;
@@ -3384,9 +3286,9 @@ float MTForceThresholding::getClickThresholdMultiplier(uint64_t a1, unsigned int
   return result;
 }
 
-float MTForceThresholding::basicThresholdForLevel(uint64_t a1, unsigned int a2)
+float MTForceThresholding::basicThresholdForLevel(uint64_t a1, int a2)
 {
-  if ((a2 & 0x80000000) != 0)
+  if (a2 < 0)
   {
     result = 0.0;
 LABEL_7:
@@ -3864,7 +3766,7 @@ uint64_t MTForceThresholding::classifyForceLevel(MTForceThresholding *this, cons
     v8 = MTForceThresholding::basicThresholdForLevel(this, v3++);
     if (v5 <= v8)
     {
-      return v3 - 2;
+      return (v3 - 2);
     }
   }
 
@@ -3988,7 +3890,7 @@ void MTForceThresholding::updateAccidentalClickPreventionOffsets(uint64_t a1, un
   }
 
   *(a1 + 360) = v34;
-  v35 = MTForceThresholding::basicThresholdForLevel(a1, 3u);
+  v35 = MTForceThresholding::basicThresholdForLevel(a1, 3);
   if (a2 != 0 && a2 < 0xFFFFFFFE)
   {
     v36 = *(a1 + 464) * (*(a1 + 464) * *(a1 + 464));
@@ -4178,7 +4080,7 @@ BOOL MTForceThresholding::globalForceBlocksRelease(MTForceThresholding *this, co
   return (v4 - v5) < (*(this + 9) * (v3 - *(a3 + 10))) && v5 > *(this + 10);
 }
 
-void MTForceThresholding::updateStage(uint64_t a1, int a2, float *a3, uint64_t a4, float a5, double a6)
+void MTForceThresholding::updateStage(uint64_t a1, int a2, MTForceFilter *a3, uint64_t a4, float a5, double a6)
 {
   v8 = *(a1 + 324);
   *(a1 + 328) = v8;
@@ -4187,7 +4089,7 @@ void MTForceThresholding::updateStage(uint64_t a1, int a2, float *a3, uint64_t a
   if (v9 < a2)
   {
     *(a1 + 332) = a2;
-    v10 = a3[10];
+    v10 = *(a3 + 10);
 LABEL_3:
     *(a1 + 376) = v10;
     *(a1 + 388) = a5;
@@ -4197,7 +4099,7 @@ LABEL_3:
 
   if (v9 == a2)
   {
-    v10 = a3[10];
+    v10 = *(a3 + 10);
     if (v10 > *(a1 + 376))
     {
       goto LABEL_3;
@@ -4262,7 +4164,7 @@ LABEL_6:
     else
     {
       v21 = 0;
-      _D0.i32[0] = a3[10];
+      _D0.i32[0] = *(a3 + 10);
       v22 = a2 - v8;
       v23 = vdupq_n_s64(v22 - 1);
       v24 = (v22 + 3) & 0xFFFFFFFFFFFFFFFCLL;
@@ -4296,7 +4198,7 @@ LABEL_6:
   }
 }
 
-uint64_t std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(uint64_t *result, const void *a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -4381,56 +4283,56 @@ void std::vector<float>::__append(std::vector<int> *this, std::vector<int>::size
 
 void MTPowerLogger::MTPowerLogger(MTPowerLogger *this, const char *a2)
 {
-  v15 = *MEMORY[0x29EDCA608];
+  v17 = *MEMORY[0x29EDCA608];
   *this = &unk_2A24138C0;
   atomic_store(1u, this + 2);
-  v4 = MTLoggingPlugin();
+  v4 = MTLoggingPlugin(this, a2);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v13 = 136446210;
-    v14 = a2;
-    _os_log_impl(&dword_29D381000, v4, OS_LOG_TYPE_DEFAULT, "MTPowerLogger %{public}s starting!", &v13, 0xCu);
+    v15 = 136446210;
+    v16 = a2;
+    _os_log_impl(&dword_29D381000, v4, OS_LOG_TYPE_DEFAULT, "MTPowerLogger %{public}s starting!", &v15, 0xCu);
   }
 
   v5 = dlopen([@"/System/Library/PrivateFrameworks/PowerLog.framework/PowerLog" UTF8String], 1);
   *(this + 2) = v5;
   if (v5)
   {
-    v6 = dlsym(v5, "PLLogRegisteredEvent");
-    *(this + 3) = v6;
-    if (!v6)
+    v7 = dlsym(v5, "PLLogRegisteredEvent");
+    *(this + 3) = v7;
+    if (!v7)
     {
-      v7 = MTLoggingPlugin();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+      v9 = MTLoggingPlugin(0, v8);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
-        LOWORD(v13) = 0;
-        v8 = "MTPowerLogger could not find PLLogRegisteredEvent function";
+        LOWORD(v15) = 0;
+        v10 = "MTPowerLogger could not find PLLogRegisteredEvent function";
 LABEL_9:
-        _os_log_impl(&dword_29D381000, v7, OS_LOG_TYPE_ERROR, v8, &v13, 2u);
+        _os_log_impl(&dword_29D381000, v9, OS_LOG_TYPE_ERROR, v10, &v15, 2u);
       }
     }
   }
 
   else
   {
-    v7 = MTLoggingPlugin();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v9 = MTLoggingPlugin(0, v6);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      LOWORD(v13) = 0;
-      v8 = "MTPowerLogger could not load PowerLog.framework";
+      LOWORD(v15) = 0;
+      v10 = "MTPowerLogger could not load PowerLog.framework";
       goto LABEL_9;
     }
   }
 
-  v9 = CFStringCreateWithCString(0, a2, 0x8000100u);
-  *(this + 4) = v9;
-  if (!v9)
+  v11 = CFStringCreateWithCString(0, a2, 0x8000100u);
+  *(this + 4) = v11;
+  if (!v11)
   {
-    v10 = MTLoggingPlugin();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v13 = MTLoggingPlugin(0, v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      LOWORD(v13) = 0;
-      _os_log_impl(&dword_29D381000, v10, OS_LOG_TYPE_ERROR, "MTPowerLogger could not create a logger name", &v13, 2u);
+      LOWORD(v15) = 0;
+      _os_log_impl(&dword_29D381000, v13, OS_LOG_TYPE_ERROR, "MTPowerLogger could not create a logger name", &v15, 2u);
     }
   }
 
@@ -4441,7 +4343,6 @@ LABEL_9:
   *(this + 112) = 0;
   *(this + 4) = 0u;
   *(this + 5) = 0u;
-  v12 = *MEMORY[0x29EDCA608];
 }
 
 void MTPowerLogger::~MTPowerLogger(MTPowerLogger *this)
@@ -4466,7 +4367,7 @@ void MTPowerLogger::~MTPowerLogger(MTPowerLogger *this)
   JUMPOUT(0x29ED547D0);
 }
 
-uint64_t MTPowerLogger::retain(uint64_t this)
+uint64_t MTPowerLogger::retain(uint64_t this, uint64_t a2)
 {
   if (!atomic_load((this + 8)))
   {
@@ -4477,7 +4378,7 @@ uint64_t MTPowerLogger::retain(uint64_t this)
   return this;
 }
 
-unsigned int *MTPowerLogger::release(unsigned int *this)
+unsigned int *MTPowerLogger::release(unsigned int *this, uint64_t a2)
 {
   if (!atomic_load(this + 2))
   {
@@ -4486,9 +4387,9 @@ unsigned int *MTPowerLogger::release(unsigned int *this)
 
   if (atomic_fetch_add(this + 2, 0xFFFFFFFF) == 1)
   {
-    v3 = *(*this + 8);
+    v4 = *(*this + 8);
 
-    return v3();
+    return v4();
   }
 
   return this;
@@ -4496,7 +4397,7 @@ unsigned int *MTPowerLogger::release(unsigned int *this)
 
 void MTPowerLogger::scheduleOnDispatchQueue(MTPowerLogger *this, NSObject *a2)
 {
-  v4 = MTLoggingPlugin();
+  v4 = MTLoggingPlugin(this, a2);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -4552,7 +4453,7 @@ void MTPowerLogger::scheduleOnDispatchQueue(MTPowerLogger *this, NSObject *a2)
   }
 }
 
-uint64_t MTPowerLogger::logPower(MTPowerLogger *this)
+void *MTPowerLogger::logPower(MTPowerLogger *this)
 {
   v13 = *MEMORY[0x29EDCA608];
   v2 = *(this + 6);
@@ -4573,12 +4474,12 @@ uint64_t MTPowerLogger::logPower(MTPowerLogger *this)
   while (v6 != 4);
   if (*(this + 3) && *(this + 4))
   {
-    v9 = MTLoggingPlugin();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v10 = MTLoggingPlugin(result, v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       v11 = 138543362;
       v12 = v5;
-      _os_log_impl(&dword_29D381000, v9, OS_LOG_TYPE_DEFAULT, "MTPowerLogger sending event to PowerLog: %{public}@", &v11, 0xCu);
+      _os_log_impl(&dword_29D381000, v10, OS_LOG_TYPE_DEFAULT, "MTPowerLogger sending event to PowerLog: %{public}@", &v11, 0xCu);
     }
 
     result = (*(this + 3))(53, *(this + 4), v5, 0);
@@ -4586,13 +4487,12 @@ uint64_t MTPowerLogger::logPower(MTPowerLogger *this)
 
   *v7 = 0u;
   *(this + 5) = 0u;
-  v10 = *MEMORY[0x29EDCA608];
   return result;
 }
 
 void MTPowerLogger::unscheduleFromDispatchQueue(dispatch_object_t *this, dispatch_queue_s *a2)
 {
-  v3 = MTLoggingPlugin();
+  v3 = MTLoggingPlugin(this, a2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v6 = 0;
@@ -4647,29 +4547,27 @@ void MTPowerLogger::transitionTo(MTPowerLogger *this, int a2)
 
 void MTPowerLogger::logState(MTPowerLogger *this)
 {
-  v13 = *MEMORY[0x29EDCA608];
+  v14 = *MEMORY[0x29EDCA608];
   v2 = *(this + 7);
   Current = CFAbsoluteTimeGetCurrent();
   *(this + 7) = Current;
-  v4 = Current - v2;
-  if (v4 > 0.0)
+  v6 = Current - v2;
+  if (v6 > 0.0)
   {
-    v5 = MTLoggingPlugin();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+    v7 = MTLoggingPlugin(v3, v4);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
-      v6 = kPowerLogStateFields[*(this + 10)];
-      v9 = 138543618;
-      v10 = v6;
-      v11 = 2048;
-      v12 = v4;
-      _os_log_impl(&dword_29D381000, v5, OS_LOG_TYPE_DEBUG, "MTPowerLogger logging state %{public}@ (%gs)", &v9, 0x16u);
+      v8 = kPowerLogStateFields[*(this + 10)];
+      v10 = 138543618;
+      v11 = v8;
+      v12 = 2048;
+      v13 = v6;
+      _os_log_impl(&dword_29D381000, v7, OS_LOG_TYPE_DEBUG, "MTPowerLogger logging state %{public}@ (%gs)", &v10, 0x16u);
     }
 
-    v7 = (this + 8 * *(this + 10));
-    v7[8] = v4 + v7[8];
+    v9 = (this + 8 * *(this + 10));
+    v9[8] = v6 + v9[8];
   }
-
-  v8 = *MEMORY[0x29EDCA608];
 }
 
 void MTPowerLogger::transitionToDelayed(uint64_t a1, int a2, uint64_t a3)
@@ -4698,7 +4596,7 @@ void MTPowerLogger::transitionToDelayed(uint64_t a1, int a2, uint64_t a3)
   }
 }
 
-uint64_t MTPathStatesBasic::MTPathStatesBasic(uint64_t a1, uint64_t a2, unsigned int a3, unsigned int a4, char a5, int a6)
+uint64_t MTPathStatesBasic::MTPathStatesBasic(uint64_t a1, uint64_t a2, int a3, int a4, char a5, int a6)
 {
   v11 = a4;
   v12[0] = a3;
@@ -4740,21 +4638,19 @@ uint64_t MTPathStatesBasic::MTPathStatesBasic(uint64_t a1, uint64_t a2, unsigned
   return a1;
 }
 
-void sub_29D3C7A34(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_29D3C7A34(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::vector<MTParserPath>::__destroy_vector::operator()[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-void *std::vector<MTParserPath>::reserve(void *result, unint64_t a2)
+uint64_t *std::vector<MTParserPath>::reserve(uint64_t *result, unint64_t a2)
 {
   if (0x2FC962FC962FC963 * ((result[2] - *result) >> 3) < a2)
   {
     if (a2 < 0x6D3A06D3A06D3BLL)
     {
-      v2 = result[1] - *result;
-      v3 = result;
       std::__allocate_at_least[abi:ne200100]<std::allocator<MTParserPath>>(result, a2);
     }
 
@@ -4764,9 +4660,9 @@ void *std::vector<MTParserPath>::reserve(void *result, unint64_t a2)
   return result;
 }
 
-void sub_29D3C7B30(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_29D3C7B30(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__split_buffer<MTParserPath>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -4811,7 +4707,6 @@ double MTPathStatesBasic::initializeParams(MTPathStatesBasic *this)
   v2 = *(this + 6);
   v3 = *(this + 7);
   v4 = *(this + 32);
-  v5 = *(this + 5);
 
   return MTParameterFactory::initTouchZoneParams(this + 244, v2, v3, v4);
 }
@@ -4935,8 +4830,8 @@ uint64_t MTPathStatesBasic::flushStuckContacts(MTPathStatesBasic *this)
 uint64_t MTPathStatesBasic::forceFingerUniquenessAcrossHands(uint64_t this)
 {
   v1 = 0;
-  v11 = *MEMORY[0x29EDCA608];
-  memset(v10, 0, sizeof(v10));
+  v10 = *MEMORY[0x29EDCA608];
+  memset(v9, 0, sizeof(v9));
   v2 = *(this + 280);
   do
   {
@@ -4944,7 +4839,7 @@ uint64_t MTPathStatesBasic::forceFingerUniquenessAcrossHands(uint64_t this)
     if ((*(v3 + 44) - 1) <= 5)
     {
       v4 = *(v3 + 48);
-      if (*(v10 + v4))
+      if (*(v9 + v4))
       {
         v5 = v4 - 1 > 4;
       }
@@ -4960,7 +4855,7 @@ uint64_t MTPathStatesBasic::forceFingerUniquenessAcrossHands(uint64_t this)
         v7 = 1;
         while (v6 != 5)
         {
-          v8 = *(v10 + v6++);
+          v8 = *(v9 + v6++);
           --v7;
           if (!v8)
           {
@@ -4971,57 +4866,57 @@ uint64_t MTPathStatesBasic::forceFingerUniquenessAcrossHands(uint64_t this)
         }
       }
 
-      ++*(v10 + v4);
+      ++*(v9 + v4);
     }
 
     ++v1;
   }
 
   while (v1 != 32);
-  v9 = *MEMORY[0x29EDCA608];
   return this;
 }
 
 void MTPathStatesBasic::expandAndFilterPackedContacts(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v21 = *MEMORY[0x29EDCA608];
+  v24 = *MEMORY[0x29EDCA608];
   *(a1 + 320) = 0;
   if (a2)
   {
-    (*(*a1 + 40))(a1, a2, a3);
+    updated = (*(*a1 + 40))(a1, a2, a3);
     if (a3 >= 1)
     {
-      v6 = a3;
-      v7 = a2;
+      v8 = a3;
+      v9 = a2;
       do
       {
-        v8 = *(v7 + 16);
-        if ((v8 & 0x80000000) != 0 || (v9 = *(a1 + 280), 0x2FC962FC962FC963 * ((*(a1 + 288) - v9) >> 3) <= v8))
+        v10 = *(v9 + 16);
+        if ((v10 & 0x80000000) != 0 || (v11 = *(a1 + 280), 0x2FC962FC962FC963 * ((*(a1 + 288) - v11) >> 3) <= v10))
         {
-          v11 = MTLoggingPlugin();
-          if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+          v13 = MTLoggingPlugin(updated, v7);
+          updated = os_log_type_enabled(v13, OS_LOG_TYPE_ERROR);
+          if (updated)
           {
             *buf = 67109120;
-            v20 = v8;
-            _os_log_error_impl(&dword_29D381000, v11, OS_LOG_TYPE_ERROR, "Invalid path_id %d, dropping contact", buf, 8u);
+            v23 = v10;
+            _os_log_error_impl(&dword_29D381000, v13, OS_LOG_TYPE_ERROR, "Invalid path_id %d, dropping contact", buf, 8u);
           }
         }
 
         else
         {
-          MTParserPath::updateCurPrevContactsWith((v9 + 600 * v8), v7, *(a1 + 40), (a1 + 244), *(a1 + 8));
-          v10 = *(a1 + 280) + 600 * v8;
-          if (*(v10 + 44) == 1 || !*(v10 + 140))
+          updated = MTParserPath::updateCurPrevContactsWith((v11 + 600 * v10), v9, *(a1 + 40), (a1 + 244), *(a1 + 8));
+          v12 = *(a1 + 280) + 600 * v10;
+          if (*(v12 + 44) == 1 || !*(v12 + 140))
           {
             ++*(a1 + 320);
           }
         }
 
-        v7 += 96;
-        --v6;
+        v9 += 96;
+        --v8;
       }
 
-      while (v6);
+      while (v8);
     }
 
     (*(*a1 + 48))(a1);
@@ -5032,41 +4927,40 @@ void MTPathStatesBasic::expandAndFilterPackedContacts(uint64_t a1, uint64_t a2, 
   MTPathStatesBasic::updateFastestFingerSpeed(a1);
   if ((*(a1 + 24) - 1000) <= 0xBB7)
   {
-    MTPathStatesBasic::forceFingerUniquenessAcrossHands(a1);
+    v14 = MTPathStatesBasic::forceFingerUniquenessAcrossHands(a1);
   }
 
   if (a3 >= 1)
   {
-    v12 = a3;
-    v13 = (a2 + 16);
+    v16 = a3;
+    v17 = (a2 + 16);
     do
     {
-      v15 = *v13;
-      v13 += 24;
-      v14 = v15;
-      if ((v15 & 0x80000000) != 0 || (v16 = *(a1 + 280), 0x2FC962FC962FC963 * ((*(a1 + 288) - v16) >> 3) <= v14))
+      v19 = *v17;
+      v17 += 24;
+      v18 = v19;
+      if ((v19 & 0x80000000) != 0 || (v20 = *(a1 + 280), 0x2FC962FC962FC963 * ((*(a1 + 288) - v20) >> 3) <= v18))
       {
-        v17 = MTLoggingPlugin();
-        if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+        v21 = MTLoggingPlugin(v14, v15);
+        v14 = os_log_type_enabled(v21, OS_LOG_TYPE_ERROR);
+        if (v14)
         {
           *buf = 67109120;
-          v20 = v14;
-          _os_log_error_impl(&dword_29D381000, v17, OS_LOG_TYPE_ERROR, "Invalid path_id %d, dropping contact", buf, 8u);
+          v23 = v18;
+          _os_log_error_impl(&dword_29D381000, v21, OS_LOG_TYPE_ERROR, "Invalid path_id %d, dropping contact", buf, 8u);
         }
       }
 
       else
       {
-        MTParserPath::constructPathChangeEventMask((v16 + 600 * v14));
+        v14 = MTParserPath::constructPathChangeEventMask((v20 + 600 * v18));
       }
 
-      --v12;
+      --v16;
     }
 
-    while (v12);
+    while (v16);
   }
-
-  v18 = *MEMORY[0x29EDCA608];
 }
 
 void MTPathStatesBasic::clearExistingPathLiftoffsAndMasks(MTPathStatesBasic *this)
@@ -5336,7 +5230,7 @@ uint64_t std::__split_buffer<MTParserPath>::~__split_buffer(uint64_t a1)
   return a1;
 }
 
-uint64_t std::vector<MTParserPath>::__emplace_back_slow_path<MTParserType const&,MTParserOptions const&,MTSLGLogger *&>(uint64_t a1, unsigned int *a2, unsigned int *a3, void *a4)
+uint64_t std::vector<MTParserPath>::__emplace_back_slow_path<MTParserType const&,MTParserOptions const&,MTSLGLogger *&>(uint64_t a1, int *a2, int *a3, uint64_t *a4)
 {
   v4 = 0x2FC962FC962FC963 * ((*(a1 + 8) - *a1) >> 3);
   v5 = v4 + 1;
@@ -5387,9 +5281,9 @@ uint64_t std::vector<MTParserPath>::__emplace_back_slow_path<MTParserType const&
   return v14;
 }
 
-void sub_29D3C88F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_29D3C88F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   std::__split_buffer<MTParserPath>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -5695,8 +5589,8 @@ void MTABCLogger::~MTABCLogger(MTABCLogger **this)
   {
     do
     {
-      MTABCLogger::endSession(this, *(v3 + 4), 0);
-      v4 = *(v3 + 1);
+      MTABCLogger::endSession(this, v3[4], 0);
+      v4 = v3[1];
       if (v4)
       {
         do
@@ -5712,7 +5606,7 @@ void MTABCLogger::~MTABCLogger(MTABCLogger **this)
       {
         do
         {
-          v5 = *(v3 + 2);
+          v5 = v3[2];
           v6 = *v5 == v3;
           v3 = v5;
         }
@@ -5748,13 +5642,13 @@ void MTABCLogger::~MTABCLogger(MTABCLogger **this)
   std::__tree<MTABCSessionHandler *>::destroy(this, this[1]);
 }
 
-void MTABCLogger::endSession(uint64_t a1, id *a2, int a3)
+void MTABCLogger::endSession(uint64_t result, id *a2, int a3)
 {
   v24 = *MEMORY[0x29EDCA608];
   v15 = a2;
   if (a2)
   {
-    v6 = MTLoggingPlugin();
+    v6 = MTLoggingPlugin(result, a2);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       v7 = *a2;
@@ -5769,8 +5663,8 @@ void MTABCLogger::endSession(uint64_t a1, id *a2, int a3)
       _os_log_impl(&dword_29D381000, v6, OS_LOG_TYPE_DEFAULT, "[HID] [MT] %s%s%s Ending ABC session %{public}@", buf, 0x2Au);
     }
 
-    v8 = std::__tree<MTABCSessionHandler *>::__erase_unique<MTABCSessionHandler *>(a1, &v15);
-    if (*(a1 + 16))
+    v8 = std::__tree<MTABCSessionHandler *>::__erase_unique<MTABCSessionHandler *>(result, &v15);
+    if (*(result + 16))
     {
       if (!a3)
       {
@@ -5780,24 +5674,23 @@ void MTABCLogger::endSession(uint64_t a1, id *a2, int a3)
 
     else
     {
-      v9 = *(a1 + 32);
       v8 = MTUnregisterFullFrameCallback();
       if (!a3)
       {
 LABEL_11:
         MTABCLogger::_freeSession(v8, v15);
-        goto LABEL_12;
+        return;
       }
     }
 
-    v10 = [v15[3] objectAtIndexedSubscript:0];
-    v11 = MEMORY[0x29EDBA070];
+    v9 = [v15[3] objectAtIndexedSubscript:0];
+    v10 = MEMORY[0x29EDBA070];
     [objc_msgSend(MEMORY[0x29EDB8DB0] "date")];
-    [v10 setObject:objc_msgSend(v11 forKeyedSubscript:{"numberWithDouble:"), @"CaptureEndTimestamp"}];
-    v12 = MTLoggingPlugin();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v11 = [v9 setObject:objc_msgSend(v10 forKeyedSubscript:{"numberWithDouble:"), @"CaptureEndTimestamp"}];
+    v13 = MTLoggingPlugin(v11, v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
-      v13 = *v15;
+      v14 = *v15;
       *buf = 136315906;
       v17 = "";
       v18 = 2080;
@@ -5805,19 +5698,16 @@ LABEL_11:
       v20 = 2080;
       v21 = "endSession";
       v22 = 2114;
-      v23 = v13;
-      _os_log_impl(&dword_29D381000, v12, OS_LOG_TYPE_DEFAULT, "[HID] [MT] %s%s%s Snapshotting ABC session %{public}@", buf, 0x2Au);
+      v23 = v14;
+      _os_log_impl(&dword_29D381000, v13, OS_LOG_TYPE_DEFAULT, "[HID] [MT] %s%s%s Snapshotting ABC session %{public}@", buf, 0x2Au);
     }
 
-    v8 = [*(*(a1 + 24) + 8) snapshotWithSignature:v15[2] duration:v15[3] events:0 payload:0 actions:&__block_literal_global_2 reply:0.0];
+    v8 = [*(*(result + 24) + 8) snapshotWithSignature:v15[2] duration:v15[3] events:0 payload:0 actions:&__block_literal_global_2 reply:0.0];
     goto LABEL_11;
   }
-
-LABEL_12:
-  v14 = *MEMORY[0x29EDCA608];
 }
 
-uint64_t MTABCLogger::createLogger()
+MTABCLogger *MTABCLogger::createLogger(uint64_t a1)
 {
   if (MGGetBoolAnswer())
   {
@@ -5859,13 +5749,13 @@ void MTABCLogger::_dumpSessionToFile(uint64_t a1, uint64_t a2)
   }
 }
 
-void ___ZN11MTABCLogger18_dumpSessionToFileEP19MTABCSessionHandler_block_invoke(uint64_t a1)
+void ___ZN11MTABCLogger18_dumpSessionToFileEP19MTABCSessionHandler_block_invoke(uint64_t a1, uint64_t a2)
 {
   v13 = *MEMORY[0x29EDCA608];
-  v2 = MTLoggingPlugin();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = MTLoggingPlugin(a1, a2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = *(a1 + 32);
+    v4 = *(a1 + 32);
     v5 = 136315906;
     v6 = "";
     v7 = 2080;
@@ -5873,18 +5763,16 @@ void ___ZN11MTABCLogger18_dumpSessionToFileEP19MTABCSessionHandler_block_invoke(
     v9 = 2080;
     v10 = "_dumpSessionToFile_block_invoke";
     v11 = 2114;
-    v12 = v3;
-    _os_log_impl(&dword_29D381000, v2, OS_LOG_TYPE_DEFAULT, "[HID] [MT] %s%s%s Writing ABC session %{public}@", &v5, 0x2Au);
+    v12 = v4;
+    _os_log_impl(&dword_29D381000, v3, OS_LOG_TYPE_DEFAULT, "[HID] [MT] %s%s%s Writing ABC session %{public}@", &v5, 0x2Au);
   }
 
   [*(a1 + 40) writeToFile:*(a1 + 32) options:0 error:0];
-
-  v4 = *MEMORY[0x29EDCA608];
 }
 
 void MTABCLogger::_fullFrameCallback(uint64_t a1, uint64_t a2, unsigned int a3, void *a4)
 {
-  v25[2] = *MEMORY[0x29EDCA608];
+  v24[2] = *MEMORY[0x29EDCA608];
   v4 = a4 + 1;
   v5 = *a4;
   if (*a4 != a4 + 1)
@@ -5912,11 +5800,11 @@ void MTABCLogger::_fullFrameCallback(uint64_t a1, uint64_t a2, unsigned int a3, 
       v18 = *(v8 + 8);
       if (v18 == 0.0 || v17 <= v18)
       {
-        v24[0] = @"bytes";
-        v24[1] = @"timestamp";
-        v25[0] = v11;
-        v25[1] = [MEMORY[0x29EDBA070] numberWithDouble:v17];
-        [v10 addObject:{objc_msgSend(MEMORY[0x29EDB8DC0], "dictionaryWithObjects:forKeys:count:", v25, v24, 2)}];
+        v23[0] = @"bytes";
+        v23[1] = @"timestamp";
+        v24[0] = v11;
+        v24[1] = [MEMORY[0x29EDBA070] numberWithDouble:v17];
+        [v10 addObject:{objc_msgSend(MEMORY[0x29EDB8DC0], "dictionaryWithObjects:forKeys:count:", v24, v23, 2)}];
       }
 
       v20 = v5[1];
@@ -5948,14 +5836,12 @@ void MTABCLogger::_fullFrameCallback(uint64_t a1, uint64_t a2, unsigned int a3, 
 
     while (v21 != v4);
   }
-
-  v23 = *MEMORY[0x29EDCA608];
 }
 
 void MTABCLogger::startSession(MTABCLogger *this, const char *a2, double a3)
 {
   v9 = *MEMORY[0x29EDCA608];
-  v3 = MTLoggingPlugin();
+  v3 = MTLoggingPlugin(this, a2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     buf[0] = 136315650;
@@ -5972,22 +5858,20 @@ void MTABCLogger::startSession(MTABCLogger *this, const char *a2, double a3)
 
 void ___ZN11MTABCLogger10endSessionEP19MTABCSessionHandlerb_block_invoke(uint64_t a1, uint64_t a2)
 {
-  v13 = *MEMORY[0x29EDCA608];
-  v3 = MTLoggingPlugin();
+  v12 = *MEMORY[0x29EDCA608];
+  v3 = MTLoggingPlugin(a1, a2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 136315906;
-    v6 = "";
-    v7 = 2080;
-    v8 = "";
-    v9 = 2080;
-    v10 = "endSession_block_invoke";
-    v11 = 2114;
-    v12 = a2;
-    _os_log_impl(&dword_29D381000, v3, OS_LOG_TYPE_DEFAULT, "[HID] [MT] %s%s%s ABC response: %{public}@", &v5, 0x2Au);
+    v4 = 136315906;
+    v5 = "";
+    v6 = 2080;
+    v7 = "";
+    v8 = 2080;
+    v9 = "endSession_block_invoke";
+    v10 = 2114;
+    v11 = a2;
+    _os_log_impl(&dword_29D381000, v3, OS_LOG_TYPE_DEFAULT, "[HID] [MT] %s%s%s ABC response: %{public}@", &v4, 0x2Au);
   }
-
-  v4 = *MEMORY[0x29EDCA608];
 }
 
 void std::__tree<MTABCSessionHandler *>::destroy(uint64_t a1, void *a2)
@@ -6001,41 +5885,41 @@ void std::__tree<MTABCSessionHandler *>::destroy(uint64_t a1, void *a2)
   }
 }
 
-void *std::__tree<MTABCSessionHandler *>::__emplace_unique_key_args<MTABCSessionHandler *,MTABCSessionHandler * const&>(uint64_t a1, unint64_t *a2)
+void *std::__tree<MTABCSessionHandler *>::__emplace_unique_key_args<MTABCSessionHandler *,MTABCSessionHandler * const&>(uint64_t a1, unint64_t *a2, void *a3)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v3 = *(a1 + 8);
+  if (!v3)
   {
 LABEL_8:
     operator new();
   }
 
-  v3 = *a2;
+  v4 = *a2;
   while (1)
   {
     while (1)
     {
-      v4 = v2;
-      v5 = v2[4];
-      if (v3 >= v5)
+      v5 = v3;
+      v6 = v3[4];
+      if (v4 >= v6)
       {
         break;
       }
 
-      v2 = *v4;
-      if (!*v4)
+      v3 = *v5;
+      if (!*v5)
       {
         goto LABEL_8;
       }
     }
 
-    if (v5 >= v3)
+    if (v6 >= v4)
     {
-      return v4;
+      return v5;
     }
 
-    v2 = v4[1];
-    if (!v2)
+    v3 = v5[1];
+    if (!v3)
     {
       goto LABEL_8;
     }
@@ -6206,31 +6090,30 @@ LABEL_8:
 
   while (1)
   {
-    v12 = v7[2];
+    v12 = *(v7 + 16);
     v13 = *v12;
-    v14 = *(v7 + 24);
     if (*v12 == v7)
     {
       break;
     }
 
-    if ((v7[3] & 1) == 0)
+    if ((*(v7 + 24) & 1) == 0)
     {
       *(v7 + 24) = 1;
       *(v12 + 24) = 0;
-      v15 = v12[1];
-      v16 = *v15;
-      v12[1] = *v15;
-      if (v16)
+      v14 = v12[1];
+      v15 = *v14;
+      v12[1] = *v14;
+      if (v15)
       {
-        *(v16 + 16) = v12;
+        *(v15 + 16) = v12;
       }
 
-      v17 = v12[2];
-      v15[2] = v17;
-      v17[*v17 != v12] = v15;
-      *v15 = v12;
-      v12[2] = v15;
+      v16 = v12[2];
+      v14[2] = v16;
+      v16[*v16 != v12] = v14;
+      *v14 = v12;
+      v12[2] = v14;
       if (result == *v7)
       {
         result = v7;
@@ -6239,180 +6122,181 @@ LABEL_8:
       v7 = *(*v7 + 8);
     }
 
-    v18 = *v7;
-    if (*v7 && *(v18 + 24) != 1)
+    v17 = *v7;
+    if (*v7 && *(v17 + 24) != 1)
     {
-      v19 = v7[1];
-      if (!v19)
+      v18 = *(v7 + 8);
+      if (!v18)
       {
         goto LABEL_55;
       }
 
 LABEL_54:
-      if (*(v19 + 24) == 1)
+      if (*(v18 + 24) == 1)
       {
 LABEL_55:
-        *(v18 + 24) = 1;
+        *(v17 + 24) = 1;
         *(v7 + 24) = 0;
-        v27 = v18[1];
-        *v7 = v27;
-        if (v27)
+        v26 = *(v17 + 8);
+        *v7 = v26;
+        if (v26)
         {
-          *(v27 + 16) = v7;
+          *(v26 + 16) = v7;
         }
 
-        v28 = v7[2];
-        v18[2] = v28;
-        v28[*v28 != v7] = v18;
-        v18[1] = v7;
-        v7[2] = v18;
-        v19 = v7;
+        v27 = *(v7 + 16);
+        *(v17 + 16) = v27;
+        v27[*v27 != v7] = v17;
+        *(v17 + 8) = v7;
+        *(v7 + 16) = v17;
+        v18 = v7;
       }
 
       else
       {
-        v18 = v7;
+        v17 = v7;
       }
 
-      v29 = v18[2];
-      *(v18 + 24) = *(v29 + 24);
-      *(v29 + 24) = 1;
-      *(v19 + 24) = 1;
-      v30 = *(v29 + 8);
-      v31 = *v30;
-      *(v29 + 8) = *v30;
-      if (v31)
+      v28 = *(v17 + 16);
+      *(v17 + 24) = *(v28 + 24);
+      *(v28 + 24) = 1;
+      *(v18 + 24) = 1;
+      v29 = *(v28 + 8);
+      v30 = *v29;
+      *(v28 + 8) = *v29;
+      if (v30)
       {
-        *(v31 + 16) = v29;
+        *(v30 + 16) = v28;
       }
 
-      v32 = *(v29 + 16);
-      v30[2] = v32;
-      v32[*v32 != v29] = v30;
-      *v30 = v29;
+      v31 = *(v28 + 16);
+      v29[2] = v31;
+      v31[*v31 != v28] = v29;
+      *v29 = v28;
       goto LABEL_72;
     }
 
-    v19 = v7[1];
-    if (v19 && *(v19 + 24) != 1)
+    v18 = *(v7 + 8);
+    if (v18 && *(v18 + 24) != 1)
     {
       goto LABEL_54;
     }
 
     *(v7 + 24) = 0;
-    v20 = v7[2];
-    if (v20 == result || (v20[3] & 1) == 0)
+    v19 = *(v7 + 16);
+    if (v19 == result || (v19[3] & 1) == 0)
     {
       goto LABEL_52;
     }
 
 LABEL_49:
-    v7 = *(v20[2] + 8 * (*v20[2] == v20));
+    v7 = *(v19[2] + 8 * (*v19[2] == v19));
   }
 
-  if ((v7[3] & 1) == 0)
+  if ((*(v7 + 24) & 1) == 0)
   {
     *(v7 + 24) = 1;
     *(v12 + 24) = 0;
-    v21 = v13[1];
-    *v12 = v21;
-    if (v21)
+    v20 = *(v13 + 8);
+    *v12 = v20;
+    if (v20)
     {
-      *(v21 + 16) = v12;
+      *(v20 + 16) = v12;
     }
 
-    v22 = v12[2];
-    v13[2] = v22;
-    v22[*v22 != v12] = v13;
-    v13[1] = v12;
+    v21 = v12[2];
+    *(v13 + 16) = v21;
+    v21[*v21 != v12] = v13;
+    *(v13 + 8) = v12;
     v12[2] = v13;
-    v23 = v7[1];
-    if (result == v23)
+    v22 = *(v7 + 8);
+    if (result == v22)
     {
       result = v7;
     }
 
-    v7 = *v23;
+    v7 = *v22;
   }
 
-  v24 = *v7;
-  if (*v7 && *(v24 + 24) != 1)
+  v23 = *v7;
+  if (*v7 && *(v23 + 24) != 1)
   {
     goto LABEL_68;
   }
 
-  v25 = v7[1];
-  if (!v25 || *(v25 + 24) == 1)
+  v24 = *(v7 + 8);
+  if (!v24 || *(v24 + 24) == 1)
   {
     *(v7 + 24) = 0;
-    v20 = v7[2];
-    if (*(v20 + 24) != 1 || v20 == result)
+    v19 = *(v7 + 16);
+    if (*(v19 + 24) != 1 || v19 == result)
     {
 LABEL_52:
-      *(v20 + 24) = 1;
+      *(v19 + 24) = 1;
       return result;
     }
 
     goto LABEL_49;
   }
 
-  if (!v24)
+  if (!v23)
   {
     goto LABEL_65;
   }
 
-  if (v24[3])
+  if (*(v23 + 24))
   {
-    v25 = v7[1];
+    v24 = *(v7 + 8);
 LABEL_65:
-    *(v25 + 24) = 1;
+    *(v24 + 24) = 1;
     *(v7 + 24) = 0;
-    v33 = *v25;
-    v7[1] = *v25;
-    if (v33)
+    v32 = *v24;
+    *(v7 + 8) = *v24;
+    if (v32)
     {
-      *(v33 + 16) = v7;
+      *(v32 + 16) = v7;
     }
 
-    v34 = v7[2];
-    v25[2] = v34;
-    v34[*v34 != v7] = v25;
-    *v25 = v7;
-    v7[2] = v25;
-    v24 = v7;
+    v33 = *(v7 + 16);
+    *(v24 + 16) = v33;
+    v33[*v33 != v7] = v24;
+    *v24 = v7;
+    *(v7 + 16) = v24;
+    v23 = v7;
   }
 
   else
   {
 LABEL_68:
-    v25 = v7;
+    v24 = v7;
   }
 
-  v29 = v25[2];
-  *(v25 + 24) = *(v29 + 24);
-  *(v29 + 24) = 1;
-  *(v24 + 24) = 1;
-  v30 = *v29;
-  v35 = *(*v29 + 8);
-  *v29 = v35;
-  if (v35)
+  v28 = *(v24 + 16);
+  *(v24 + 24) = *(v28 + 24);
+  *(v28 + 24) = 1;
+  *(v23 + 24) = 1;
+  v29 = *v28;
+  v34 = *(*v28 + 8);
+  *v28 = v34;
+  if (v34)
   {
-    *(v35 + 16) = v29;
+    *(v34 + 16) = v28;
   }
 
-  v36 = *(v29 + 16);
-  v30[2] = v36;
-  v36[*v36 != v29] = v30;
-  v30[1] = v29;
+  v35 = *(v28 + 16);
+  v29[2] = v35;
+  v35[*v35 != v28] = v29;
+  v29[1] = v28;
 LABEL_72:
-  *(v29 + 16) = v30;
+  *(v28 + 16) = v29;
   return result;
 }
 
-uint64_t OUTLINED_FUNCTION_1_2(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, char a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, char a36)
+uint64_t OUTLINED_FUNCTION_1_2(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, ...)
 {
+  va_start(va, a35);
 
-  return [v36 countByEnumeratingWithState:&a21 objects:&a36 count:16];
+  return [v35 countByEnumeratingWithState:&a21 objects:va count:{16, a6, a7, a8}];
 }
 
 uint64_t MTForceBehavior::GetNull(MTForceBehavior *this)
@@ -6612,7 +6496,7 @@ uint64_t MTForceBehavior::resizeToNumStages(MTForceBehavior *this, unsigned int 
   return v4;
 }
 
-BOOL MTForceBehavior::addStage(MTForceBehavior *a1, int a2, int a3, int a4, float a5, float a6)
+BOOL MTForceBehavior::addStage(MTForceBehavior *a1, unsigned int a2, int a3, int a4, float a5, float a6)
 {
   if (MTForceBehavior::resizeToNumStages(a1, a2 + 1) > 1)
   {
@@ -6621,7 +6505,7 @@ BOOL MTForceBehavior::addStage(MTForceBehavior *a1, int a2, int a3, int a4, floa
 
   if (a2 >= 1)
   {
-    v13 = *(a1 + 3) + 4 * (2 * a2);
+    v13 = *(a1 + 3) + 8 * a2;
     *(v13 - 8) = a6;
     *(v13 - 4) = a5;
   }
@@ -6708,7 +6592,7 @@ uint64_t MTForceBehavior::print(MTForceBehavior *this)
   return result;
 }
 
-void *std::vector<float>::__assign_with_size[abi:ne200100]<float *,float *>(void *result, char *__src, char *a3, unint64_t a4)
+uint64_t *std::vector<float>::__assign_with_size[abi:ne200100]<float *,float *>(uint64_t *result, char *__src, char *a3, unint64_t a4)
 {
   v6 = result;
   v7 = result[2];
@@ -6839,7 +6723,7 @@ void MTForceBehaviorConfiguration::popBehavior(MTForceBehaviorConfiguration *thi
   *(this + 24) = 1;
 }
 
-void MTForceBehaviorConfiguration::clearBehaviors(MTForceBehaviorConfiguration *this)
+void MTForceBehaviorConfiguration::clearBehaviors(uint64_t this)
 {
   for (i = 0; i != 6; ++i)
   {
@@ -6879,7 +6763,7 @@ void MTForceBehaviorConfiguration::clearBehaviors(MTForceBehaviorConfiguration *
   *(this + 24) = 1;
 }
 
-void MTForceBehaviorConfiguration::clearNonDefaultBehaviors(MTForceBehaviorConfiguration *this)
+void MTForceBehaviorConfiguration::clearNonDefaultBehaviors(uint64_t this)
 {
   for (i = 0; i != 6; ++i)
   {
@@ -7165,12 +7049,12 @@ uint64_t MTForceManagement::MTForceManagement(uint64_t a1)
   return MTForceManagement::MTForceManagement(a1);
 }
 
-void sub_29D3CAC34(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_29D3CAC34(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::vector<MTForceThresholding>::__destroy_vector::operator()[abi:ne200100](va);
   std::vector<std::vector<MTForceBehavior>>::__destroy_vector::operator()[abi:ne200100](va);
-  MTForceBehavior::~MTForceBehavior((v2 + 32));
+  MTForceBehavior::~MTForceBehavior((v3 + 32));
   _Unwind_Resume(a1);
 }
 
@@ -7199,12 +7083,12 @@ void MTForceManagement::MTForceManagement(MTForceManagement *this)
   MTForceManagement::clearState(this, 0);
 }
 
-void sub_29D3CAD40(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_29D3CAD40(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::vector<MTForceThresholding>::__destroy_vector::operator()[abi:ne200100](va);
   std::vector<std::vector<MTForceBehavior>>::__destroy_vector::operator()[abi:ne200100](va);
-  MTForceBehavior::~MTForceBehavior((v2 + 32));
+  MTForceBehavior::~MTForceBehavior((v3 + 32));
   _Unwind_Resume(a1);
 }
 
@@ -7239,11 +7123,11 @@ void MTForceManagement::setForceThresholdQualifiers(uint64_t a1, uint64_t a2)
 
 void MTForceManagement::setForceActuationQualifiers(uint64_t a1, _OWORD *a2)
 {
-  v39 = *MEMORY[0x29EDCA608];
+  v38 = *MEMORY[0x29EDCA608];
   v4 = a2[1];
   *(a1 + 432) = *a2;
   *(a1 + 448) = v4;
-  v5 = MTLoggingPlugin();
+  v5 = MTLoggingPlugin(a1, a2);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     if (*(a1 + 460))
@@ -7263,29 +7147,29 @@ void MTForceManagement::setForceActuationQualifiers(uint64_t a1, _OWORD *a2)
     v11 = *(a1 + 440);
     v12 = *(a1 + 444);
     v13 = *(a1 + 456);
-    v17 = 136317698;
-    v18 = "[Debug] ";
-    v19 = 2080;
-    v20 = "";
-    v21 = 2080;
-    v22 = "setForceActuationQualifiers";
-    v23 = 2082;
-    v24 = v6;
-    v25 = 2048;
-    v26 = v7;
-    v27 = 2048;
-    v28 = v8;
-    v29 = 2048;
-    v30 = v9;
-    v31 = 2048;
-    v32 = v10;
-    v33 = 2048;
-    v34 = v11;
-    v35 = 2048;
-    v36 = v12;
-    v37 = 2048;
-    v38 = v13;
-    _os_log_impl(&dword_29D381000, v5, OS_LOG_TYPE_DEBUG, "[HID] [MT] %s%s%s ForceActuationQualifiers changed  adapt:%{public}s forcespeed:%f stengthMemory:%f strengthFloor:%f strengthAreaGain:%f timedilationMemory:%f timeAreaGin:%f strengthGain:%f", &v17, 0x70u);
+    v16 = 136317698;
+    v17 = "[Debug] ";
+    v18 = 2080;
+    v19 = "";
+    v20 = 2080;
+    v21 = "setForceActuationQualifiers";
+    v22 = 2082;
+    v23 = v6;
+    v24 = 2048;
+    v25 = v7;
+    v26 = 2048;
+    v27 = v8;
+    v28 = 2048;
+    v29 = v9;
+    v30 = 2048;
+    v31 = v10;
+    v32 = 2048;
+    v33 = v11;
+    v34 = 2048;
+    v35 = v12;
+    v36 = 2048;
+    v37 = v13;
+    _os_log_impl(&dword_29D381000, v5, OS_LOG_TYPE_DEBUG, "[HID] [MT] %s%s%s ForceActuationQualifiers changed  adapt:%{public}s forcespeed:%f stengthMemory:%f strengthFloor:%f strengthAreaGain:%f timedilationMemory:%f timeAreaGin:%f strengthGain:%f", &v16, 0x70u);
   }
 
   v14 = 472;
@@ -7298,7 +7182,6 @@ void MTForceManagement::setForceActuationQualifiers(uint64_t a1, _OWORD *a2)
   }
 
   while (v15);
-  v16 = *MEMORY[0x29EDCA608];
 }
 
 void MTForceManagement::setDisableClickWaveformAdaptation(MTForceManagement *this, char a2)
@@ -7656,42 +7539,35 @@ uint64_t MTForceManagement::appendForceEvent(uint64_t result, uint64_t a2, uint6
     goto LABEL_13;
   }
 
-  v15 = !v5;
+  v9 = !v5;
   if (v4 < 1)
   {
-    v15 = 1;
+    v9 = 1;
   }
 
-  if ((v15 & 1) == 0)
+  if ((v9 & 1) == 0)
   {
 LABEL_13:
     v7 = result + 568;
-    v9 = *(a3 + 4);
-    v8 = *(a3 + 8);
-    v10 = *(a3 + 12);
-    v11 = *(a3 + 16);
-    v12 = *(a3 + 20);
-    v13 = *(a3 + 4);
-    result = MTAppendForceGestureEvent();
-    v14 = *(a3 + 16);
+    result = MTAppendForceGestureEvent(a2, *(a3 + 4), *(a3 + 12), *(a3 + 20), *(a3 + 8), v4, *(a3 + 16));
+    v8 = *(a3 + 16);
     *v7 = *a3;
-    *(v7 + 16) = v14;
+    *(v7 + 16) = v8;
   }
 
   return result;
 }
 
-void MTForceManagement::appendForceStageEvent()
+void MTForceManagement::appendForceStageEvent(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v0 = *MEMORY[0x29EDB8ED8];
   IOHIDEventGetTimeStamp();
   VendorDefinedEvent = IOHIDEventCreateVendorDefinedEvent();
   if (VendorDefinedEvent)
   {
-    v2 = VendorDefinedEvent;
+    v4 = VendorDefinedEvent;
     IOHIDEventAppendEvent();
 
-    CFRelease(v2);
+    CFRelease(v4);
   }
 }
 
@@ -7721,37 +7597,36 @@ int32x2_t MTForceManagement::constructClickInfo@<D0>(uint64_t a1@<X0>, uint64_t 
   return result;
 }
 
-void MTForceManagement::appendThresholdInfo()
+void MTForceManagement::appendThresholdInfo(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v0 = *MEMORY[0x29EDB8ED8];
   IOHIDEventGetTimeStamp();
   VendorDefinedEvent = IOHIDEventCreateVendorDefinedEvent();
   if (VendorDefinedEvent)
   {
-    v2 = VendorDefinedEvent;
+    v4 = VendorDefinedEvent;
     IOHIDEventAppendEvent();
 
-    CFRelease(v2);
+    CFRelease(v4);
   }
 }
 
-void MTForceManagement::appendClickInfo()
+void MTForceManagement::appendClickInfo(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v0 = *MEMORY[0x29EDB8ED8];
   IOHIDEventGetTimeStamp();
   VendorDefinedEvent = IOHIDEventCreateVendorDefinedEvent();
   if (VendorDefinedEvent)
   {
-    v2 = VendorDefinedEvent;
+    v4 = VendorDefinedEvent;
     IOHIDEventAppendEvent();
 
-    CFRelease(v2);
+    CFRelease(v4);
   }
 }
 
-BOOL MTForceManagement::actuateForceAndHIDEvents(uint64_t a1, const MTPathStates *a2, CFDictionaryRef *this, uint64_t a4, char a5)
+BOOL MTForceManagement::actuateForceAndHIDEvents(uint64_t a1, const MTPathStates *a2, MTActuatorManagement *this, uint64_t a4, char a5)
 {
-  if (MTActuatorManagement::getActuatorRef(this) && *(a1 + 594) && (*(a1 + 595) & 1) != 0)
+  ActuatorRef = MTActuatorManagement::getActuatorRef(this);
+  if (ActuatorRef && *(a1 + 594) && (*(a1 + 595) & 1) != 0)
   {
     if ((a5 & 1) == 0)
     {
@@ -7760,8 +7635,8 @@ BOOL MTForceManagement::actuateForceAndHIDEvents(uint64_t a1, const MTPathStates
 
     if (*a1 == 1)
     {
-      v9 = *(a1 + 256);
-      if (v9)
+      v12 = *(a1 + 256);
+      if (v12)
       {
         goto LABEL_8;
       }
@@ -7769,12 +7644,12 @@ BOOL MTForceManagement::actuateForceAndHIDEvents(uint64_t a1, const MTPathStates
 
     else
     {
-      v9 = MTForceManagement::strongestProgressPathID(a1, a2, 0);
+      v12 = MTForceManagement::strongestProgressPathID(a1, a2, 0);
       if (*(a1 + 256))
       {
 LABEL_8:
-        v10 = MTForceManagement::strongestForcePathID(a1, a2, 0);
-        if ((v9 & 0x80000000) != 0)
+        v13 = MTForceManagement::strongestForcePathID(a1, a2, 0);
+        if ((v12 & 0x80000000) != 0)
         {
           return *(a1 + 1) != *(a1 + 2);
         }
@@ -7783,115 +7658,122 @@ LABEL_8:
       }
     }
 
-    v10 = 0;
-    if ((v9 & 0x80000000) != 0)
+    v13 = 0;
+    if ((v12 & 0x80000000) != 0)
     {
       return *(a1 + 1) != *(a1 + 2);
     }
 
 LABEL_14:
-    *&v13 = 0xAAAAAAAAAAAAAAAALL;
-    *(&v13 + 1) = 0xAAAAAAAAAAAAAAAALL;
-    *__p = v13;
-    v37 = v13;
-    v34 = v13;
-    *v35 = v13;
-    *v32 = v13;
-    *v33 = v13;
-    *v30 = v13;
-    v31 = v13;
-    v29 = v13;
-    MTForceBehavior::MTForceBehavior(&v29, (*(a1 + 464) + 472 * v9 + 176));
-    memset(&v28[1], 255, 40);
-    v27 = xmmword_29D3D75B0;
-    v28[0] = unk_29D3D75C0;
-    MTForceManagement::constructForceEvent(a1, a2, v9, v10, &v27);
-    *&v24[16] = v28[1];
-    v25 = v28[2];
-    v26 = *&v28[3];
-    v23 = v27;
-    *v24 = v28[0];
-    MTForceManagement::updateStatusVariablesFromForceEvent(a1, v9, &v23, a2);
-    if (*(a1 + 596) != 1 || (v14 = *(a1 + 568), v14 == 8) || v14 == 2)
+    *&v16 = 0xAAAAAAAAAAAAAAAALL;
+    *(&v16 + 1) = 0xAAAAAAAAAAAAAAAALL;
+    *__p = v16;
+    v41 = v16;
+    v38 = v16;
+    *v39 = v16;
+    *v36 = v16;
+    *v37 = v16;
+    *v34 = v16;
+    v35 = v16;
+    v33 = v16;
+    MTForceBehavior::MTForceBehavior(&v33, (*(a1 + 464) + 472 * v12 + 176));
+    memset(&v32[1], 255, 40);
+    v31 = xmmword_29D3D75B0;
+    v32[0] = unk_29D3D75C0;
+    MTForceManagement::constructForceEvent(a1, a2, v12, v13, &v31);
+    *&v28[16] = v32[1];
+    v29 = v32[2];
+    v30 = *&v32[3];
+    v27 = v31;
+    *v28 = v32[0];
+    MTForceManagement::updateStatusVariablesFromForceEvent(a1, v12, &v27, a2);
+    if (*(a1 + 596) != 1 || (v18 = *(a1 + 568), v18 == 8) || v18 == 2)
     {
-      v23 = *(v28 + 8);
-      *v24 = *(&v28[1] + 8);
-      *&v24[16] = *(&v28[2] + 8);
-      MTForceManagement::appendForceStageEvent();
+      v27 = *(v32 + 8);
+      *v28 = *(&v32[1] + 8);
+      *&v28[16] = *(&v32[2] + 8);
+      MTForceManagement::appendForceStageEvent(v17, a4, &v27);
     }
 
     if (*(a1 + 216) == 1)
     {
       if (*(a1 + 220) != *(a1 + 224))
       {
-        v15 = *(a2 + 35) + 600 * v10;
-        v16 = *(v15 + 336);
-        v17 = *(v15 + 304);
-        *&v23 = *(a1 + 228);
-        *(&v23 + 1) = __PAIR64__(v17, v16);
-        *v24 = *(a1 + 236);
-        MTForceManagement::appendThresholdInfo();
+        v19 = *(a2 + 35) + 600 * v13;
+        v20 = *(v19 + 336);
+        v21 = *(v19 + 304);
+        *&v27 = *(a1 + 228);
+        *(&v27 + 1) = __PAIR64__(v21, v20);
+        *v28 = *(a1 + 236);
+        MTForceManagement::appendThresholdInfo(v17, &v27, a4);
       }
 
-      if (v27 == 16)
+      if (v31 == 16)
       {
-        v18 = *(a1 + 180);
-        v19 = *(a1 + 184);
-        v20 = *(a1 + 192);
-        v21 = *(a1 + 208);
-        v22 = *(a1 + 212);
-        *&v23 = *(&v27 + 4);
-        *(&v23 + 1) = __PAIR64__(v19, v18);
-        *v24 = v20;
-        *&v24[4] = v21;
-        *&v24[8] = v22;
-        *&v24[12] = vrev64_s32(*(a1 + 512));
-        MTForceManagement::appendClickInfo();
+        v22 = *(a1 + 180);
+        v23 = *(a1 + 184);
+        v24 = *(a1 + 192);
+        v25 = *(a1 + 208);
+        v26 = *(a1 + 212);
+        *&v27 = *(&v31 + 4);
+        *(&v27 + 1) = __PAIR64__(v23, v22);
+        *v28 = v24;
+        *&v28[4] = v25;
+        *&v28[8] = v26;
+        *&v28[12] = vrev64_s32(*(a1 + 512));
+        MTForceManagement::appendClickInfo(v17, &v27, a4);
       }
     }
 
     if (__p[1])
     {
-      *&v37 = __p[1];
+      *&v41 = __p[1];
       operator delete(__p[1]);
     }
 
-    if (v35[0])
+    if (v39[0])
     {
-      v35[1] = v35[0];
-      operator delete(v35[0]);
+      v39[1] = v39[0];
+      operator delete(v39[0]);
     }
 
-    if (v33[1])
+    if (v37[1])
     {
-      *&v34 = v33[1];
-      operator delete(v33[1]);
+      *&v38 = v37[1];
+      operator delete(v37[1]);
     }
 
-    if (v32[0])
+    if (v36[0])
     {
-      v32[1] = v32[0];
-      operator delete(v32[0]);
+      v36[1] = v36[0];
+      operator delete(v36[0]);
     }
 
-    if (v30[1])
+    if (v34[1])
     {
-      *&v31 = v30[1];
-      operator delete(v30[1]);
+      *&v35 = v34[1];
+      operator delete(v34[1]);
     }
 
     return *(a1 + 1) != *(a1 + 2);
   }
 
-  v11 = MTLoggingPlugin();
-  result = os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG);
+  v14 = MTLoggingPlugin(ActuatorRef, v11);
+  result = os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG);
   if (result)
   {
-    MTForceManagement::actuateForceAndHIDEvents(this, a1, v11);
+    MTForceManagement::actuateForceAndHIDEvents(this, a1, v14);
     return 0;
   }
 
   return result;
+}
+
+void sub_29D3CBD38(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, ...)
+{
+  va_start(va, a28);
+  MTForceBehavior::~MTForceBehavior(va);
+  _Unwind_Resume(a1);
 }
 
 uint64_t MTActuatorManagement::getActuatorRef(MTActuatorManagement *this)
@@ -7899,18 +7781,15 @@ uint64_t MTActuatorManagement::getActuatorRef(MTActuatorManagement *this)
   result = *(this + 1);
   if (!result)
   {
-    v3 = *this;
     result = MTDeviceGetMTActuator();
     *(this + 1) = result;
     if (result)
     {
       if ((MTActuatorIsOpen() & 1) == 0)
       {
-        v4 = *(this + 1);
         MTActuatorOpen();
       }
 
-      v5 = *(this + 1);
       Service = MTActuatorGetService();
       IORegistryEntryGetRegistryEntryID(Service, this + 4);
       CFRetain(*(this + 1));
@@ -8091,25 +7970,38 @@ uint64_t MTForceManagement::actuateThresholderPath(MTForceManagement *this, CFDi
     *(this + v7) = LODWORD(v9);
   }
 
-  v11 = *(this + v6);
-  v12 = 508;
+  v11 = 508;
   if (*(v5 + 324) < 2)
   {
-    v12 = 504;
+    v11 = 504;
   }
 
-  v13 = *(this + v12);
-  if (v13 <= 2)
+  v12 = *(this + v11);
+  if (v12 > 2)
   {
-    v14 = dword_29D3D75F8[v13];
+    v13 = 0;
   }
 
-  *(this + 593);
+  else
+  {
+    v13 = dword_29D3D75F8[v12];
+  }
+
+  if (*(this + 593))
+  {
+    v14 = v13 | 8;
+  }
+
+  else
+  {
+    v14 = v13;
+  }
+
   v15 = MTForceThresholding::actuationWaveformID(v5);
   v16 = *(this + v6);
   v17 = *(this + v7);
 
-  return MTActuatorManagement::actuateWaveformID(a2, v15, v16, v17);
+  return MTActuatorManagement::actuateWaveformID(a2, v15, v16, v17, v14);
 }
 
 uint64_t MTActuatorManagement::getActuationOptions(uint64_t a1, unsigned int a2, int a3)
@@ -8135,18 +8027,18 @@ uint64_t MTActuatorManagement::getActuationOptions(uint64_t a1, unsigned int a2,
   }
 }
 
-uint64_t MTActuatorManagement::actuateWaveformID(CFDictionaryRef *this, int a2, float a3, float a4)
+uint64_t MTActuatorManagement::actuateWaveformID(CFDictionaryRef *this, uint64_t a2, float a3, float a4, uint64_t a5)
 {
-  v5 = a2;
+  v6 = a2;
   kdebug_trace();
   if (*(this + 24) && MTActuatorManagement::getActuatorRef(this))
   {
-    Value = CFDictionaryGetValue(this[2], v5);
+    Value = CFDictionaryGetValue(this[2], v6);
     if (Value)
     {
-      v7 = Value;
+      v8 = Value;
       CFDataGetBytePtr(Value);
-      CFDataGetLength(v7);
+      CFDataGetLength(v8);
       MTActuatorManagement::getActuatorRef(this);
       MTActuatorSetReport();
     }
@@ -8609,7 +8501,6 @@ uint64_t MTActuatorManagement::setFirmwareClicks(MTActuatorManagement *this, uns
     if (MTActuatorManagement::getActuatorRef(this) && v5 != *(this + 10))
     {
       *(this + 10) = v5;
-      v6 = *(this + 1);
       MTActuatorSetFirmwareClicks();
     }
   }
@@ -8632,37 +8523,35 @@ uint64_t MTActuatorManagement::systemActuationsEnabledChanged(MTActuatorManageme
 
 void MTActuatorManagement::scheduleOnDispatchQueue(MTActuatorManagement *this, NSObject *a2)
 {
-  v4 = *this;
   if (MTDeviceSupportsActuation())
   {
-    v5 = IONotificationPortCreate(0);
-    *(this + 6) = v5;
-    if (v5)
+    v4 = IONotificationPortCreate(0);
+    *(this + 6) = v4;
+    if (v4)
     {
       valuePtr = 0;
-      v6 = *this;
       MTDeviceGetDeviceID();
-      v7 = *MEMORY[0x29EDB8ED8];
-      v8 = CFNumberCreate(*MEMORY[0x29EDB8ED8], kCFNumberSInt64Type, &valuePtr);
-      v9 = MEMORY[0x29EDB9010];
-      v10 = MEMORY[0x29EDB9020];
-      Mutable = CFDictionaryCreateMutable(v7, 1, MEMORY[0x29EDB9010], MEMORY[0x29EDB9020]);
-      v12 = CFDictionaryCreateMutable(v7, 1, v9, v10);
-      v13 = v12;
-      if (v8)
+      v5 = *MEMORY[0x29EDB8ED8];
+      v6 = CFNumberCreate(*MEMORY[0x29EDB8ED8], kCFNumberSInt64Type, &valuePtr);
+      v7 = MEMORY[0x29EDB9010];
+      v8 = MEMORY[0x29EDB9020];
+      Mutable = CFDictionaryCreateMutable(v5, 1, MEMORY[0x29EDB9010], MEMORY[0x29EDB9020]);
+      v10 = CFDictionaryCreateMutable(v5, 1, v7, v8);
+      v11 = v10;
+      if (v6)
       {
-        v14 = Mutable == 0;
+        v12 = Mutable == 0;
       }
 
       else
       {
-        v14 = 1;
+        v12 = 1;
       }
 
-      if (v14 || v12 == 0)
+      if (v12 || v10 == 0)
       {
         IONotificationPortSetDispatchQueue(*(this + 6), a2);
-        if (!v8)
+        if (!v6)
         {
           if (!Mutable)
           {
@@ -8675,8 +8564,8 @@ void MTActuatorManagement::scheduleOnDispatchQueue(MTActuatorManagement *this, N
 
       else
       {
-        CFDictionarySetValue(v12, @"Multitouch Actuator ID", v8);
-        CFDictionarySetValue(Mutable, @"IOPropertyMatch", v13);
+        CFDictionarySetValue(v10, @"Multitouch Actuator ID", v6);
+        CFDictionarySetValue(Mutable, @"IOPropertyMatch", v11);
         CFRetain(Mutable);
         if (!IOServiceAddMatchingNotification(*(this + 6), "IOServiceFirstMatch", Mutable, MTActuatorManagement::AppleActuatorDeviceMatchedCallback, this, this + 14))
         {
@@ -8686,13 +8575,13 @@ void MTActuatorManagement::scheduleOnDispatchQueue(MTActuatorManagement *this, N
         IONotificationPortSetDispatchQueue(*(this + 6), a2);
       }
 
-      CFRelease(v8);
+      CFRelease(v6);
       if (!Mutable)
       {
 LABEL_14:
-        if (v13)
+        if (v11)
         {
-          CFRelease(v13);
+          CFRelease(v11);
         }
 
         return;
@@ -8742,14 +8631,14 @@ uint64_t MTActuatorManagement::reclaimHostClickControl(MTActuatorManagement *thi
   return result;
 }
 
-void std::vector<MTForceBehavior>::__base_destruct_at_end[abi:ne200100](uint64_t a1, void *a2)
+void std::vector<MTForceBehavior>::__base_destruct_at_end[abi:ne200100](uint64_t result, void *a2)
 {
-  for (i = *(a1 + 8); i != a2; std::allocator_traits<std::allocator<MTForceBehavior>>::destroy[abi:ne200100]<MTForceBehavior,0>(a1, i))
+  for (i = *(result + 8); i != a2; std::allocator_traits<std::allocator<MTForceBehavior>>::destroy[abi:ne200100]<MTForceBehavior,0>(result, i))
   {
     i -= 18;
   }
 
-  *(a1 + 8) = a2;
+  *(result + 8) = a2;
 }
 
 void std::allocator_traits<std::allocator<MTForceBehavior>>::destroy[abi:ne200100]<MTForceBehavior,0>(uint64_t a1, void *a2)
@@ -8799,23 +8688,23 @@ void MTForceBehavior::MTForceBehavior(MTForceBehavior *this, const MTForceBehavi
   *(this + 3) = 0;
   *(this + 4) = 0;
   *(this + 5) = 0;
-  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(this + 24, *(a2 + 3), *(a2 + 4), (*(a2 + 4) - *(a2 + 3)) >> 2);
+  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(this + 3, *(a2 + 3), *(a2 + 4), (*(a2 + 4) - *(a2 + 3)) >> 2);
   *(this + 6) = 0;
   *(this + 7) = 0;
   *(this + 8) = 0;
-  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(this + 48, *(a2 + 6), *(a2 + 7), (*(a2 + 7) - *(a2 + 6)) >> 2);
+  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(this + 6, *(a2 + 6), *(a2 + 7), (*(a2 + 7) - *(a2 + 6)) >> 2);
   *(this + 9) = 0;
   *(this + 10) = 0;
   *(this + 11) = 0;
-  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(this + 72, *(a2 + 9), *(a2 + 10), (*(a2 + 10) - *(a2 + 9)) >> 2);
+  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(this + 9, *(a2 + 9), *(a2 + 10), (*(a2 + 10) - *(a2 + 9)) >> 2);
   *(this + 12) = 0;
   *(this + 13) = 0;
   *(this + 14) = 0;
-  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(this + 96, *(a2 + 12), *(a2 + 13), (*(a2 + 13) - *(a2 + 12)) >> 2);
+  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(this + 12, *(a2 + 12), *(a2 + 13), (*(a2 + 13) - *(a2 + 12)) >> 2);
   *(this + 15) = 0;
   *(this + 16) = 0;
   *(this + 17) = 0;
-  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(this + 120, *(a2 + 15), *(a2 + 16), (*(a2 + 16) - *(a2 + 15)) >> 2);
+  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(this + 15, *(a2 + 15), *(a2 + 16), (*(a2 + 16) - *(a2 + 15)) >> 2);
 }
 
 void sub_29D3CD37C(_Unwind_Exception *exception_object)
@@ -8851,20 +8740,20 @@ void sub_29D3CD37C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void *std::vector<std::vector<MTForceBehavior>>::vector[abi:ne200100](void *result, unint64_t a2)
+uint64_t *std::vector<std::vector<MTForceBehavior>>::vector[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<std::vector<MTForceBehavior>>::__vallocate[abi:ne200100](result, a2);
+    std::vector<std::vector<MTForceBehavior>>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
-void std::vector<std::vector<MTForceBehavior>>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<std::vector<MTForceBehavior>>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (a2 < 0xAAAAAAAAAAAAAABLL)
   {
@@ -8934,9 +8823,9 @@ uint64_t std::vector<MTForceBehavior>::__emplace_back_slow_path<MTForceBehavior 
   return v12;
 }
 
-void sub_29D3CD668(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_29D3CD668(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   std::__split_buffer<MTForceBehavior>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -9044,20 +8933,20 @@ void std::__split_buffer<MTForceBehavior>::__destruct_at_end[abi:ne200100](uint6
   }
 }
 
-void *std::vector<MTForceThresholding>::vector[abi:ne200100](void *result, unint64_t a2)
+uint64_t *std::vector<MTForceThresholding>::vector[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<MTForceThresholding>::__vallocate[abi:ne200100](result, a2);
+    std::vector<MTForceThresholding>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
-void std::vector<MTForceThresholding>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<MTForceThresholding>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (a2 < 0x8AD8F2FBA93869)
   {
@@ -9077,7 +8966,7 @@ void std::__allocate_at_least[abi:ne200100]<std::allocator<MTForceThresholding>>
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-uint64_t MTLoggingPlugin()
+uint64_t MTLoggingPlugin(uint64_t a1, uint64_t a2)
 {
   if (MTLoggingPlugin_onceToken != -1)
   {
@@ -9096,65 +8985,62 @@ os_log_t __MTLoggingPlugin_block_invoke()
 
 uint64_t MTForceManagerLite::MTForceManagerLite(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v24 = *MEMORY[0x29EDCA608];
+  v26 = *MEMORY[0x29EDCA608];
   *a1 = 0;
   *(a1 + 40) = a5;
   if (MTDeviceGetForceThresholdForMotion())
   {
     *(a1 + 12) = 0x4366000043110000;
-    v6 = *(a1 + 40);
-    MTDeviceGetDeviceID();
-    v7 = MTLoggingPlugin();
-    if (!os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+    DeviceID = MTDeviceGetDeviceID();
+    v8 = MTLoggingPlugin(DeviceID, v7);
+    if (!os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
       goto LABEL_7;
     }
 
-    v8 = *(a1 + 12);
-    v9 = *(a1 + 16);
+    v9 = *(a1 + 12);
+    v10 = *(a1 + 16);
     *buf = 134218496;
-    v19 = v8;
-    v20 = 2048;
     v21 = v9;
     v22 = 2048;
-    v23 = 0;
-    v10 = "Init from default %f %f (deviceID 0x%llX)";
+    v23 = v10;
+    v24 = 2048;
+    v25 = 0;
+    v11 = "Init from default %f %f (deviceID 0x%llX)";
   }
 
   else
   {
     *(a1 + 12) = 0;
     *(a1 + 16) = 0;
-    v11 = *(a1 + 40);
-    MTDeviceGetDeviceID();
-    v7 = MTLoggingPlugin();
-    if (!os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+    v12 = MTDeviceGetDeviceID();
+    v8 = MTLoggingPlugin(v12, v13);
+    if (!os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
       goto LABEL_7;
     }
 
-    v12 = *(a1 + 12);
-    v13 = *(a1 + 16);
+    v14 = *(a1 + 12);
+    v15 = *(a1 + 16);
     *buf = 134218496;
-    v19 = v12;
-    v20 = 2048;
-    v21 = v13;
+    v21 = v14;
     v22 = 2048;
-    v23 = 0;
-    v10 = "Init from MTDeviceRef %f %f (deviceID 0x%llX)";
+    v23 = v15;
+    v24 = 2048;
+    v25 = 0;
+    v11 = "Init from MTDeviceRef %f %f (deviceID 0x%llX)";
   }
 
-  _os_log_impl(&dword_29D381000, v7, OS_LOG_TYPE_DEBUG, v10, buf, 0x20u);
+  _os_log_impl(&dword_29D381000, v8, OS_LOG_TYPE_DEBUG, v11, buf, 0x20u);
 LABEL_7:
   MTDeviceGetReport();
-  v14 = *(a1 + 40);
-  MTDeviceGetDeviceID();
-  v15 = MTLoggingPlugin();
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+  v16 = MTDeviceGetDeviceID();
+  v18 = MTLoggingPlugin(v16, v17);
+  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;
-    v19 = 0.0;
-    _os_log_impl(&dword_29D381000, v15, OS_LOG_TYPE_DEFAULT, "Can't fetch Orb spec from FW, falling back to default. (deviceID 0x%llX)", buf, 0xCu);
+    v21 = 0.0;
+    _os_log_impl(&dword_29D381000, v18, OS_LOG_TYPE_DEFAULT, "Can't fetch Orb spec from FW, falling back to default. (deviceID 0x%llX)", buf, 0xCu);
   }
 
   *(a1 + 20) = 30.0;
@@ -9164,7 +9050,6 @@ LABEL_7:
   *(a1 + 28) = 0;
   *(a1 + 32) = 0;
   *(a1 + 24) = 1050253722;
-  v16 = *MEMORY[0x29EDCA608];
   return a1;
 }
 
@@ -9270,55 +9155,52 @@ void MTForceManagerLite::updatePaths(MTForceManagerLite *this, const MTPathState
   else if (v23 >= 1.0)
   {
     *(this + 1) = 1;
-    v26 = *(this + 5);
-    MTDeviceGetDeviceID();
-    v27 = MTLoggingPlugin();
-    if (os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
+    DeviceID = MTDeviceGetDeviceID();
+    v28 = MTLoggingPlugin(DeviceID, v27);
+    if (os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
     {
-      v28 = *(this + 7);
-      v29 = *(this + 3);
-      v30 = *(this + 4);
-      v31 = *(this + 5);
+      v29 = *(this + 7);
+      v30 = *(this + 3);
+      v31 = *(this + 4);
+      v32 = *(this + 5);
       LODWORD(__dst[0]) = 67110144;
-      DWORD1(__dst[0]) = v28;
+      DWORD1(__dst[0]) = v29;
       WORD4(__dst[0]) = 2048;
-      *(__dst + 10) = v29;
+      *(__dst + 10) = v30;
       WORD1(__dst[1]) = 2048;
-      *(&__dst[1] + 4) = v30;
+      *(&__dst[1] + 4) = v31;
       WORD6(__dst[1]) = 2048;
-      *(&__dst[1] + 14) = v31;
+      *(&__dst[1] + 14) = v32;
       WORD3(__dst[2]) = 2048;
       *(&__dst[2] + 1) = 0;
-      _os_log_impl(&dword_29D381000, v27, OS_LOG_TYPE_DEBUG, "Force activated : Motion (%d) Thresholds (%f, %f) Hysteresis (%f) (deviceID 0x%llX)", __dst, 0x30u);
+      _os_log_impl(&dword_29D381000, v28, OS_LOG_TYPE_DEBUG, "Force activated : Motion (%d) Thresholds (%f, %f) Hysteresis (%f) (deviceID 0x%llX)", __dst, 0x30u);
     }
   }
 
   *(this + 2) = fmaxf(v23, 0.0);
   MTForceManagerLite::updateMotion(this, *(this + 8));
-  v32 = *MEMORY[0x29EDCA608];
 }
 
-void MTForceManagerLite::updateMotion(uint64_t a1, int a2)
+void MTForceManagerLite::updateMotion(uint64_t a1, uint64_t a2)
 {
   v22 = *MEMORY[0x29EDCA608];
   if (a2 <= 4)
   {
+    v2 = a2;
     *(a1 + 32) = a2;
     if (*(a1 + 4) <= 50.0 && *(a1 + 28) != a2)
     {
-      v4 = *(a1 + 40);
       if (MTDeviceGetForceThresholdForMotion())
       {
-        *(a1 + 12) = _defaultThresholds[a2];
-        v5 = *(a1 + 40);
-        MTDeviceGetDeviceID();
-        v6 = MTLoggingPlugin();
+        *(a1 + 12) = _defaultThresholds[v2];
+        DeviceID = MTDeviceGetDeviceID();
+        v6 = MTLoggingPlugin(DeviceID, v5);
         if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
         {
           v7 = *(a1 + 12);
           v8 = *(a1 + 16);
           *buf = 67109888;
-          v15 = a2;
+          v15 = v2;
           v16 = 2048;
           v17 = v7;
           v18 = 2048;
@@ -9335,19 +9217,18 @@ LABEL_9:
       {
         *(a1 + 12) = 0;
         *(a1 + 16) = 0;
-        v10 = *(a1 + 40);
-        MTDeviceGetDeviceID();
-        v6 = MTLoggingPlugin();
+        v10 = MTDeviceGetDeviceID();
+        v6 = MTLoggingPlugin(v10, v11);
         if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
         {
-          v11 = *(a1 + 12);
-          v12 = *(a1 + 16);
+          v12 = *(a1 + 12);
+          v13 = *(a1 + 16);
           *buf = 67109888;
-          v15 = a2;
+          v15 = v2;
           v16 = 2048;
-          v17 = v11;
+          v17 = v12;
           v18 = 2048;
-          v19 = v12;
+          v19 = v13;
           v20 = 2048;
           v21 = 0;
           v9 = "MTDeviceRef motion %d %f %f (deviceID 0x%llX)";
@@ -9358,8 +9239,6 @@ LABEL_9:
       *(a1 + 28) = *(a1 + 32);
     }
   }
-
-  v13 = *MEMORY[0x29EDCA608];
 }
 
 void MTInterferenceMonitor::MTInterferenceMonitor(MTInterferenceMonitor *this)
@@ -9424,9 +9303,9 @@ uint64_t MTInterferenceMonitor::powerDriverChangedNotification(uint64_t this, vo
   return this;
 }
 
-uint64_t MTInterferenceMonitor::cachePowerSourceDrivers(io_iterator_t *this)
+uint64_t MTInterferenceMonitor::cachePowerSourceDrivers(dispatch_queue_t *this)
 {
-  (*(*this + 72))(this);
+  ((*this)[9].isa)(this);
   v2 = IOServiceMatching("IOPMPowerSource");
   if (!v2)
   {
@@ -9443,7 +9322,7 @@ uint64_t MTInterferenceMonitor::cachePowerSourceDrivers(io_iterator_t *this)
 
   else
   {
-    v5 = IOIteratorNext(this[22]);
+    v5 = IOIteratorNext(*(this + 22));
     if (v5)
     {
       v6 = v5;
@@ -9451,12 +9330,12 @@ uint64_t MTInterferenceMonitor::cachePowerSourceDrivers(io_iterator_t *this)
       {
         notification = -1431655766;
         v7 = IONotificationPortCreate(0);
-        IONotificationPortSetDispatchQueue(v7, *(this + 3));
-        v9 = *(this + 9);
-        v8 = *(this + 10);
+        IONotificationPortSetDispatchQueue(v7, this[3]);
+        v9 = this[9];
+        v8 = this[10];
         if (v9 >= v8)
         {
-          v11 = *(this + 8);
+          v11 = this[8];
           v12 = (v9 - v11) >> 3;
           if ((v12 + 1) >> 61)
           {
@@ -9482,19 +9361,19 @@ uint64_t MTInterferenceMonitor::cachePowerSourceDrivers(io_iterator_t *this)
 
           if (v15)
           {
-            std::__allocate_at_least[abi:ne200100]<std::allocator<IONotificationPort *>>((this + 16), v15);
+            std::__allocate_at_least[abi:ne200100]<std::allocator<IONotificationPort *>>((this + 8), v15);
           }
 
           *(8 * v12) = v7;
           v10 = 8 * v12 + 8;
-          v16 = *(this + 8);
-          v17 = *(this + 9) - v16;
+          v16 = this[8];
+          v17 = this[9] - v16;
           v18 = (8 * v12 - v17);
           memcpy(v18, v16, v17);
-          v19 = *(this + 8);
-          *(this + 8) = v18;
-          *(this + 9) = v10;
-          *(this + 10) = 0;
+          v19 = this[8];
+          this[8] = v18;
+          this[9] = v10;
+          this[10] = 0;
           if (v19)
           {
             operator delete(v19);
@@ -9507,7 +9386,7 @@ uint64_t MTInterferenceMonitor::cachePowerSourceDrivers(io_iterator_t *this)
           v10 = (v9 + 1);
         }
 
-        *(this + 9) = v10;
+        this[9] = v10;
         v20 = IOServiceAddInterestNotification(v7, v6, "IOGeneralInterest", MTInterferenceMonitor::powerDriverChangedNotification, this, &notification);
         IOObjectRelease(v6);
         if (v20)
@@ -9515,11 +9394,11 @@ uint64_t MTInterferenceMonitor::cachePowerSourceDrivers(io_iterator_t *this)
           break;
         }
 
-        v22 = *(this + 6);
-        v21 = *(this + 7);
+        v22 = this[6];
+        v21 = this[7];
         if (v22 >= v21)
         {
-          v24 = *(this + 5);
+          v24 = this[5];
           v25 = v22 - v24;
           v26 = (v22 - v24) >> 2;
           v27 = v26 + 1;
@@ -9543,19 +9422,19 @@ uint64_t MTInterferenceMonitor::cachePowerSourceDrivers(io_iterator_t *this)
 
           if (v30)
           {
-            std::__allocate_at_least[abi:ne200100]<std::allocator<float>>((this + 10), v30);
+            std::__allocate_at_least[abi:ne200100]<std::allocator<float>>((this + 5), v30);
           }
 
           v31 = (v22 - v24) >> 2;
           v32 = (4 * v26);
           v33 = (4 * v26 - 4 * v31);
           *v32 = notification;
-          v23 = v32 + 1;
+          v23 = (v32 + 1);
           memcpy(v33, v24, v25);
-          v34 = *(this + 5);
-          *(this + 5) = v33;
-          *(this + 6) = v23;
-          *(this + 7) = 0;
+          v34 = this[5];
+          this[5] = v33;
+          this[6] = v23;
+          this[7] = 0;
           if (v34)
           {
             operator delete(v34);
@@ -9565,11 +9444,11 @@ uint64_t MTInterferenceMonitor::cachePowerSourceDrivers(io_iterator_t *this)
         else
         {
           *v22 = notification;
-          v23 = v22 + 4;
+          v23 = (v22 + 4);
         }
 
-        *(this + 6) = v23;
-        v6 = IOIteratorNext(this[22]);
+        this[6] = v23;
+        v6 = IOIteratorNext(*(this + 22));
         if (!v6)
         {
           goto LABEL_30;
@@ -9580,7 +9459,7 @@ uint64_t MTInterferenceMonitor::cachePowerSourceDrivers(io_iterator_t *this)
     else
     {
 LABEL_30:
-      MEMORY[0x29ED53DC0](this[22]);
+      MEMORY[0x29ED53DC0](*(this + 22));
       return 0;
     }
   }
@@ -9646,7 +9525,7 @@ uint64_t MTInterferenceMonitor::sendWirelessFieldAgressorNotification(MTInterfer
 
 uint64_t MTInterferenceMonitor::sendUSBConnectionNotification(MTInterferenceMonitor *this)
 {
-  v12 = *MEMORY[0x29EDCA608];
+  v13 = *MEMORY[0x29EDCA608];
   if (*(this + 94))
   {
     v2 = 24;
@@ -9660,34 +9539,31 @@ uint64_t MTInterferenceMonitor::sendUSBConnectionNotification(MTInterferenceMoni
   v3 = (*(*this + 56))(this, v2);
   if (*(this + 94) == 1)
   {
-    v4 = *(this + 1);
-    MTDeviceGetDeviceID();
-    v5 = MTLoggingPlugin();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+    DeviceID = MTDeviceGetDeviceID();
+    v6 = MTLoggingPlugin(DeviceID, v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
       *buf = 134217984;
-      v11 = 0;
-      v6 = "usb plugged in to charge (deviceID 0x%llX)";
+      v12 = 0;
+      v7 = "usb plugged in to charge (deviceID 0x%llX)";
 LABEL_9:
-      _os_log_impl(&dword_29D381000, v5, OS_LOG_TYPE_INFO, v6, buf, 0xCu);
+      _os_log_impl(&dword_29D381000, v6, OS_LOG_TYPE_INFO, v7, buf, 0xCu);
     }
   }
 
   else
   {
-    v7 = *(this + 1);
-    MTDeviceGetDeviceID();
-    v5 = MTLoggingPlugin();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+    v8 = MTDeviceGetDeviceID();
+    v6 = MTLoggingPlugin(v8, v9);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
       *buf = 134217984;
-      v11 = 0;
-      v6 = "usb unplugged (deviceID 0x%llX)";
+      v12 = 0;
+      v7 = "usb unplugged (deviceID 0x%llX)";
       goto LABEL_9;
     }
   }
 
-  v8 = *MEMORY[0x29EDCA608];
   return v3;
 }
 
@@ -9714,7 +9590,7 @@ CFTypeRef OUTLINED_FUNCTION_2_0()
   return IORegistryEntryCreateCFProperty(v2, v1, v0, 0);
 }
 
-uint64_t MTEmbeddedStats::create(uint64_t a1)
+void *MTEmbeddedStats::create(uint64_t a1)
 {
   if (a1 && dispatch_queue_create("com.apple.Multitouch.EmbeddedStatistics.Queue", 0))
   {
@@ -9789,5 +9665,100 @@ void MTEmbeddedStatsImpl::handleTouchingContacts(uint64_t a1, uint64_t *a2)
 
       MTEmbeddedStatsImpl::logDurationBetweenTouches(a1, v5);
     }
+  }
+}
+
+void *__copy_helper_block_e8_32c47_ZTSNSt3__110shared_ptrI19MTEmbeddedStatsImplEE48c75_ZTSNSt3__110shared_ptrINS_6vectorI15TouchingContactNS_9allocatorIS2_EEEEEE(void *result, void *a2)
+{
+  v2 = a2[5];
+  result[4] = a2[4];
+  result[5] = v2;
+  if (v2)
+  {
+    atomic_fetch_add_explicit((v2 + 8), 1uLL, memory_order_relaxed);
+  }
+
+  v3 = a2[7];
+  result[6] = a2[6];
+  result[7] = v3;
+  if (v3)
+  {
+    atomic_fetch_add_explicit((v3 + 8), 1uLL, memory_order_relaxed);
+  }
+
+  return result;
+}
+
+void __destroy_helper_block_e8_32c47_ZTSNSt3__110shared_ptrI19MTEmbeddedStatsImplEE48c75_ZTSNSt3__110shared_ptrINS_6vectorI15TouchingContactNS_9allocatorIS2_EEEEEE(uint64_t a1)
+{
+  v2 = *(a1 + 56);
+  if (v2)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v2);
+  }
+
+  v3 = *(a1 + 40);
+  if (v3)
+  {
+
+    std::__shared_weak_count::__release_shared[abi:ne200100](v3);
+  }
+}
+
+void MTEmbeddedStats::handleFrameHeader(uint64_t *a1, uint64_t a2, uint8x8_t a3)
+{
+  a3.i32[0] = *a2;
+  v3 = vmovl_u8(a3).u64[0];
+  v4 = *(a2 + 4);
+  a3.i32[0] = *(a2 + 8);
+  v5 = vmovl_u8(a3).u64[0];
+  v6 = *(a2 + 12);
+  v7 = *(a2 + 14);
+  v8 = *(a2 + 16);
+  v9 = *(a2 + 17);
+  v10 = *(a2 + 18);
+  v11 = *(a2 + 20);
+  v12 = *(a2 + 22);
+  a3.i32[0] = *(a2 + 24);
+  v13 = vmovl_u8(a3).u64[0];
+  v14 = *a1;
+  v15 = a1[1];
+  if (v15)
+  {
+    atomic_fetch_add_explicit(&v15->__shared_owners_, 1uLL, memory_order_relaxed);
+  }
+
+  v16 = *(v14 + 8);
+  v17[0] = MEMORY[0x29EDCA5F8];
+  v17[1] = 3321888768;
+  v17[2] = ___ZN15MTEmbeddedStats17handleFrameHeaderERK19MTBinaryFrameHeader_block_invoke;
+  v17[3] = &__block_descriptor_76_e8_32c47_ZTSNSt3__110shared_ptrI19MTEmbeddedStatsImplEE_e5_v8__0l;
+  v17[4] = v14;
+  v18 = v15;
+  if (v15)
+  {
+    atomic_fetch_add_explicit(&v15->__shared_owners_, 1uLL, memory_order_relaxed);
+  }
+
+  v19 = vuzp1_s8(v3, v13).u32[0];
+  v20 = v4;
+  v21 = vuzp1_s8(v5, v13).u32[0];
+  v22 = v6;
+  v23 = v7;
+  v24 = v8;
+  v25 = v9;
+  v26 = v10;
+  v27 = v11;
+  v28 = v12;
+  v29 = vuzp1_s8(v13, v13).u32[0];
+  dispatch_async(v16, v17);
+  if (v18)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v18);
+  }
+
+  if (v15)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v15);
   }
 }

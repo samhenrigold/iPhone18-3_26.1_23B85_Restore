@@ -44,16 +44,16 @@ void __37__MFLoadBlockedContentBannerView_log__block_invoke(uint64_t a1)
   width = frame.size.width;
   y = frame.origin.y;
   x = frame.origin.x;
-  v30[1] = *MEMORY[0x277D85DE8];
+  v29[1] = *MEMORY[0x277D85DE8];
   if (!types)
   {
     currentHandler = [MEMORY[0x277CCA890] currentHandler];
     [currentHandler handleFailureInMethod:a2 object:self file:@"MFLoadBlockedContentBannerView.m" lineNumber:28 description:{@"Invalid parameter not satisfying: %@", @"blockedContentTypes"}];
   }
 
-  v29.receiver = self;
-  v29.super_class = MFLoadBlockedContentBannerView;
-  height = [(MFSuggestionBannerView *)&v29 initWithFrame:x, y, width, height];
+  v28.receiver = self;
+  v28.super_class = MFLoadBlockedContentBannerView;
+  height = [(MFSuggestionBannerView *)&v28 initWithFrame:x, y, width, height];
   v13 = height;
   if (height)
   {
@@ -70,27 +70,26 @@ void __37__MFLoadBlockedContentBannerView_log__block_invoke(uint64_t a1)
     [v14 setActionButtonType:0];
     mailInteractiveColor = [MEMORY[0x277D75348] mailInteractiveColor];
     v18 = [MFSuggestionBannerView bannerIconViewForSymbol:*MEMORY[0x277D259C8] tintColor:mailInteractiveColor];
-    v30[0] = v18;
-    v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v30 count:1];
+    v29[0] = v18;
+    v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v29 count:1];
     [v14 setImageSGViews:v19];
 
     objc_initWeak(&location, v13);
     v20 = MEMORY[0x277D025D8];
-    v26[0] = MEMORY[0x277D85DD0];
-    v26[1] = 3221225472;
-    v26[2] = __83__MFLoadBlockedContentBannerView_initWithFrame_blockedContentTypes_blockingReason___block_invoke;
-    v26[3] = &unk_2781819F8;
-    objc_copyWeak(&v27, &location);
-    v21 = [v20 actionWithTitle:&stru_2826D1AD8 handler:v26];
+    v25[0] = MEMORY[0x277D85DD0];
+    v25[1] = 3221225472;
+    v25[2] = __83__MFLoadBlockedContentBannerView_initWithFrame_blockedContentTypes_blockingReason___block_invoke;
+    v25[3] = &unk_2781819F8;
+    objc_copyWeak(&v26, &location);
+    v21 = [v20 actionWithTitle:&stru_2826D1AD8 handler:v25];
     [v14 setPrimaryAction:v21];
 
     [(MFSuggestionBannerView *)v13 setBanner:v14];
     [v14 reload];
-    objc_destroyWeak(&v27);
+    objc_destroyWeak(&v26);
     objc_destroyWeak(&location);
   }
 
-  v22 = *MEMORY[0x277D85DE8];
   return v13;
 }
 

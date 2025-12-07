@@ -52,8 +52,6 @@
   v5 = objc_opt_class();
   v7 = objc_msgSend_allocWithZone_(v5, v6, zone);
   fStartDate = self->fStartDate;
-  fType = self->fType;
-  fConfidence = self->fConfidence;
 
   return MEMORY[0x1EEE66B58](v7, sel_initWithStartDate_type_confidence_, fStartDate);
 }

@@ -101,15 +101,15 @@
 {
   lostCopy = lost;
   os_unfair_lock_lock(&self->_lock);
-  v5 = sub_100030628();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v6 = sub_100030628(v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     allKeys = [(NSMutableDictionary *)self->_deviceIdToDelegate allKeys];
-    v8 = 138412546;
-    v9 = lostCopy;
-    v10 = 2112;
-    v11 = allKeys;
-    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "removing device: %@ from list: %@", &v8, 0x16u);
+    v9 = 138412546;
+    v10 = lostCopy;
+    v11 = 2112;
+    v12 = allKeys;
+    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "removing device: %@ from list: %@", &v9, 0x16u);
   }
 
   os_unfair_lock_unlock(&self->_lock);
@@ -120,13 +120,13 @@
 - (void)clearDeviceList
 {
   os_unfair_lock_lock(&self->_lock);
-  v3 = sub_100030628();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+  v4 = sub_100030628(v3);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     deviceIdToCurrentPreset = self->_deviceIdToCurrentPreset;
-    v5 = 138412290;
-    v6 = deviceIdToCurrentPreset;
-    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "clearing deviceIdToCurrentPreset: %@", &v5, 0xCu);
+    v6 = 138412290;
+    v7 = deviceIdToCurrentPreset;
+    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "clearing deviceIdToCurrentPreset: %@", &v6, 0xCu);
   }
 
   [(NSMutableDictionary *)self->_deviceIdToCurrentPreset removeAllObjects];
@@ -163,11 +163,11 @@
   {
     if (type == 3)
     {
-      v41 = [NIBluetoothSample alloc];
-      v42 = v14;
+      v43 = [NIBluetoothSample alloc];
+      v44 = v14;
       uUIDString = [idCopy UUIDString];
       model = [sampleCopy model];
-      v24 = [v41 initWithRSSI:uUIDString identifier:model model:channel channel:v42 machContinuousTimeSeconds:mach_continuous_time()];
+      v24 = [v43 initWithRSSI:uUIDString identifier:model model:channel channel:v44 machContinuousTimeSeconds:mach_continuous_time()];
 
       os_unfair_lock_lock(&self->_lock);
       sessionsByRegion = self->_sessionsByRegion;
@@ -186,19 +186,19 @@
       os_unfair_lock_lock(&self->_lock);
       v31 = [(NSDictionary *)self->_sessionsByRegion objectForKeyedSubscript:&off_10090B9A0];
       os_unfair_lock_unlock(&self->_lock);
-      v32 = sub_100030628();
-      if (!os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
+      v33 = sub_100030628(v32);
+      if (!os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
       {
 LABEL_27:
 
         goto LABEL_28;
       }
 
-      *v58 = 138412290;
-      *&v58[4] = idCopy;
-      v33 = "Notify Bluetooth Sample with ID for ObjectSetup: %@, SDProximityController forwarding sample to NI";
+      *v61 = 138412290;
+      *&v61[4] = idCopy;
+      v34 = "Notify Bluetooth Sample with ID for ObjectSetup: %@, SDProximityController forwarding sample to NI";
 LABEL_26:
-      _os_log_impl(&_mh_execute_header, v32, OS_LOG_TYPE_DEFAULT, v33, v58, 0xCu);
+      _os_log_impl(&_mh_execute_header, v33, OS_LOG_TYPE_DEFAULT, v34, v61, 0xCu);
       goto LABEL_27;
     }
   }
@@ -207,11 +207,11 @@ LABEL_26:
   {
     if (type == 1)
     {
-      v37 = [NIBluetoothSample alloc];
-      v38 = v14;
+      v39 = [NIBluetoothSample alloc];
+      v40 = v14;
       uUIDString3 = [idCopy UUIDString];
       model3 = [sampleCopy model];
-      v24 = [v37 initWithRSSI:uUIDString3 identifier:model3 model:channel channel:v38 machContinuousTimeSeconds:mach_continuous_time()];
+      v24 = [v39 initWithRSSI:uUIDString3 identifier:model3 model:channel channel:v40 machContinuousTimeSeconds:mach_continuous_time()];
 
       os_unfair_lock_lock(&self->_lock);
       sessionsByRegion = self->_sessionsByRegion;
@@ -248,8 +248,8 @@ LABEL_29:
 
   else
   {
-    v45 = [[SFHeadphoneProduct alloc] initWithBluetoothModel:model4];
-    isAirPods = [v45 isAirPods];
+    v47 = [[SFHeadphoneProduct alloc] initWithBluetoothModel:model4];
+    isAirPods = [v47 isAirPods];
 
     if (!isAirPods)
     {
@@ -258,60 +258,60 @@ LABEL_29:
     }
   }
 
-  v35 = _os_feature_enabled_impl();
+  v36 = _os_feature_enabled_impl();
 
-  if (!v35)
+  if (!v36)
   {
 LABEL_23:
-    v47 = [NIBluetoothSample alloc];
-    v48 = v14;
+    v49 = [NIBluetoothSample alloc];
+    v50 = v14;
     uUIDString5 = [idCopy UUIDString];
     model5 = [sampleCopy model];
-    v24 = [v47 initWithRSSI:uUIDString5 identifier:model5 model:channel channel:v48 machContinuousTimeSeconds:mach_continuous_time()];
+    v24 = [v49 initWithRSSI:uUIDString5 identifier:model5 model:channel channel:v50 machContinuousTimeSeconds:mach_continuous_time()];
 
-    v51 = [(SDProximityController *)self _deviceToPreset:sampleCopy];
-    if (!v51)
+    v53 = [(SDProximityController *)self _deviceToPreset:sampleCopy];
+    if (!v53)
     {
-      v31 = sub_100030628();
+      v31 = sub_100030628(0);
       if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
       {
         deviceActionType = [sampleCopy deviceActionType];
-        v57 = [sampleCopy description];
-        *v58 = 67109378;
-        *&v58[4] = deviceActionType;
-        *&v58[8] = 2112;
-        *&v58[10] = v57;
-        _os_log_impl(&_mh_execute_header, v31, OS_LOG_TYPE_DEFAULT, "unexpected action type: %d for device: %@", v58, 0x12u);
+        v60 = [sampleCopy description];
+        *v61 = 67109378;
+        *&v61[4] = deviceActionType;
+        *&v61[8] = 2112;
+        *&v61[10] = v60;
+        _os_log_impl(&_mh_execute_header, v31, OS_LOG_TYPE_DEFAULT, "unexpected action type: %d for device: %@", v61, 0x12u);
       }
 
       goto LABEL_29;
     }
 
-    v52 = v51;
+    v54 = v53;
     os_unfair_lock_lock(&self->_lock);
-    v53 = self->_sessionsByRegion;
-    v54 = [NSNumber numberWithInteger:v52];
-    v31 = [(NSDictionary *)v53 objectForKeyedSubscript:v54];
+    v55 = self->_sessionsByRegion;
+    v56 = [NSNumber numberWithInteger:v54];
+    v31 = [(NSDictionary *)v55 objectForKeyedSubscript:v56];
 
     os_unfair_lock_unlock(&self->_lock);
-    v32 = sub_100030628();
-    if (!os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
+    v33 = sub_100030628(v57);
+    if (!os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
     {
       goto LABEL_27;
     }
 
-    *v58 = 138412290;
-    *&v58[4] = idCopy;
-    v33 = "Notify Bluetooth Sample with ID: %@, SDProximityController forwarding sample to NI";
+    *v61 = 138412290;
+    *&v61[4] = idCopy;
+    v34 = "Notify Bluetooth Sample with ID: %@, SDProximityController forwarding sample to NI";
     goto LABEL_26;
   }
 
-  v36 = sub_100030628();
-  if (os_log_type_enabled(v36, OS_LOG_TYPE_DEBUG))
+  v38 = sub_100030628(v37);
+  if (os_log_type_enabled(v38, OS_LOG_TYPE_DEBUG))
   {
-    *v58 = 138412290;
-    *&v58[4] = idCopy;
-    _os_log_impl(&_mh_execute_header, v36, OS_LOG_TYPE_DEBUG, "Notify Bluetooth Sample with ID: %@, SDProximityController not sending to NI", v58, 0xCu);
+    *v61 = 138412290;
+    *&v61[4] = idCopy;
+    _os_log_impl(&_mh_execute_header, v38, OS_LOG_TYPE_DEBUG, "Notify Bluetooth Sample with ID: %@, SDProximityController not sending to NI", v61, 0xCu);
   }
 
 LABEL_30:
@@ -400,27 +400,26 @@ LABEL_30:
   deviceCopy = device;
   os_unfair_lock_lock(&self->_lock);
   [(NSMutableDictionary *)self->_deviceIdToDelegate removeObjectForKey:deviceCopy];
-  [(NSMutableDictionary *)self->_deviceIdToPairingAgentDeviceID removeObjectForKey:deviceCopy];
-  v5 = sub_100030628();
+  v5 = sub_100030628([(NSMutableDictionary *)self->_deviceIdToPairingAgentDeviceID removeObjectForKey:deviceCopy]);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     deviceIdToCurrentPreset = self->_deviceIdToCurrentPreset;
-    v9 = 138412546;
-    v10 = deviceCopy;
-    v11 = 2112;
-    v12 = deviceIdToCurrentPreset;
-    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "removing devicepresetid: %@ from presetidlist: %@", &v9, 0x16u);
+    v10 = 138412546;
+    v11 = deviceCopy;
+    v12 = 2112;
+    v13 = deviceIdToCurrentPreset;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "removing devicepresetid: %@ from presetidlist: %@", &v10, 0x16u);
   }
 
-  v7 = sub_100030628();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  v8 = sub_100030628(v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = [NSNumber numberWithUnsignedInteger:[(NSMutableDictionary *)self->_deviceIdToDelegate count]];
-    v9 = 138412546;
-    v10 = deviceCopy;
-    v11 = 2112;
-    v12 = v8;
-    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "removing devicepresetid: %@ from delegatelist size: %@", &v9, 0x16u);
+    v9 = [NSNumber numberWithUnsignedInteger:[(NSMutableDictionary *)self->_deviceIdToDelegate count]];
+    v10 = 138412546;
+    v11 = deviceCopy;
+    v12 = 2112;
+    v13 = v9;
+    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "removing devicepresetid: %@ from delegatelist size: %@", &v10, 0x16u);
   }
 
   [(NSMutableDictionary *)self->_deviceIdToCurrentPreset removeObjectForKey:deviceCopy];
@@ -437,19 +436,19 @@ LABEL_30:
   if (v5)
   {
     os_unfair_lock_lock(&self->_lock);
-    v6 = [(NSMutableDictionary *)self->_deviceIdToPairingAgentDeviceID objectForKeyedSubscript:proximityCopy];
+    v7 = [(NSMutableDictionary *)self->_deviceIdToPairingAgentDeviceID objectForKeyedSubscript:proximityCopy];
     os_unfair_lock_unlock(&self->_lock);
-    [v5 proximityDeviceDidTrigger:v6];
+    [v5 proximityDeviceDidTrigger:v7];
   }
 
   else
   {
-    v7 = sub_100030628();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = sub_100030628(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = 138412290;
-      v9 = proximityCopy;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Don't have a delegate to call for device with identifier: %@", &v8, 0xCu);
+      v9 = 138412290;
+      v10 = proximityCopy;
+      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Don't have a delegate to call for device with identifier: %@", &v9, 0xCu);
     }
   }
 }
@@ -579,8 +578,7 @@ LABEL_16:
         v28 = [v27 initWithInnerBoundary:v23 outerBoundary:v20 error:&v43];
         v29 = v43;
         [v28 setAllowedDevices:0];
-        [(NISession *)v21 setDelegate:self];
-        v30 = sub_100030628();
+        v30 = sub_100030628([(NISession *)v21 setDelegate:self]);
         if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
         {
           v31 = [v28 description];
@@ -613,8 +611,7 @@ LABEL_16:
     v35 = v42;
     [v34 setAllowedDevices:8];
     [(NISession *)self->_niAirPodsSession setDelegate:self];
-    [(NSMutableArray *)self->_allActiveSessions addObject:self->_niAirPodsSession];
-    v36 = sub_100030628();
+    v36 = sub_100030628([(NSMutableArray *)self->_allActiveSessions addObject:self->_niAirPodsSession]);
     if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
     {
       v37 = self->_niAirPodsSession;
@@ -687,13 +684,13 @@ LABEL_4:
 - (void)sessionBegan
 {
   os_unfair_lock_lock(&self->_lock);
-  v3 = sub_100030628();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+  v4 = sub_100030628(v3);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     currentRestartDelay = self->_currentRestartDelay;
-    v5 = 134217984;
-    v6 = currentRestartDelay;
-    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "session started, resetting previous delay: %llu", &v5, 0xCu);
+    v6 = 134217984;
+    v7 = currentRestartDelay;
+    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "session started, resetting previous delay: %llu", &v6, 0xCu);
   }
 
   self->_currentRestartDelay = self->_defaultRestartDelay;
@@ -720,44 +717,44 @@ LABEL_4:
     currentRestartDelay = self->_currentRestartDelay;
     self->_currentRestartDelay = 2 * currentRestartDelay;
     os_unfair_lock_unlock(&self->_lock);
-    v11 = sub_100030628();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v13 = sub_100030628(v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134217984;
-      v16 = currentRestartDelay;
-      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "restarting session with delay: %llu (s)", buf, 0xCu);
+      v18 = currentRestartDelay;
+      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "restarting session with delay: %llu (s)", buf, 0xCu);
     }
 
-    v12 = dispatch_time(0, 1000000000 * currentRestartDelay);
-    v13 = SFMainQueue();
+    v14 = dispatch_time(0, 1000000000 * currentRestartDelay);
+    v15 = SFMainQueue();
     block[0] = _NSConcreteStackBlock;
     block[1] = 3221225472;
     block[2] = sub_1000C8594;
     block[3] = &unk_1008CDEA0;
     block[4] = self;
-    dispatch_after(v12, v13, block);
+    dispatch_after(v14, v15, block);
   }
 
   else
   {
     os_unfair_lock_unlock(&self->_lock);
-    v4 = sub_100030628();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = sub_100030628(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       currentRestartCount = self->_currentRestartCount;
-      v6 = [(NSDictionary *)self->_sessionsByRegion count];
+      v7 = [(NSDictionary *)self->_sessionsByRegion count];
       *buf = 134218240;
-      v16 = currentRestartCount;
-      v17 = 2048;
-      v18 = v6;
-      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "restart count is: %llu out of %lu", buf, 0x16u);
+      v18 = currentRestartCount;
+      v19 = 2048;
+      v20 = v7;
+      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "restart count is: %llu out of %lu", buf, 0x16u);
     }
   }
 }
 
 - (void)session:(id)session didUpdateNearbyObjects:(id)objects
 {
-  v4 = sub_100030628();
+  v4 = sub_100030628(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *v5 = 0;
@@ -768,7 +765,7 @@ LABEL_4:
 - (void)session:(id)session didDiscoverNearbyObject:(id)object
 {
   objectCopy = object;
-  v5 = sub_100030628();
+  v5 = sub_100030628(objectCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     deviceIdentifier = [objectCopy deviceIdentifier];
@@ -782,7 +779,7 @@ LABEL_4:
 {
   objectCopy = object;
   regionCopy = region;
-  v10 = sub_100030628();
+  v10 = sub_100030628(regionCopy);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     deviceIdentifier = [objectCopy deviceIdentifier];
@@ -809,7 +806,7 @@ LABEL_4:
 - (void)session:(id)session didFailWithError:(id)error
 {
   errorCopy = error;
-  v6 = sub_100030628();
+  v6 = sub_100030628(errorCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v7 = 138412290;
@@ -823,7 +820,7 @@ LABEL_4:
 - (void)session:(id)session didInvalidateWithError:(id)error
 {
   errorCopy = error;
-  v6 = sub_100030628();
+  v6 = sub_100030628(errorCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v7 = 138412290;
@@ -836,7 +833,7 @@ LABEL_4:
 
 - (void)sessionWasSuspended:(id)suspended
 {
-  v3 = sub_100030628();
+  v3 = sub_100030628(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v4 = 0;
@@ -846,7 +843,7 @@ LABEL_4:
 
 - (void)sessionSuspensionEnded:(id)ended
 {
-  v4 = sub_100030628();
+  v4 = sub_100030628(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *v5 = 0;

@@ -14,7 +14,7 @@
 
   v5 = static MutableVideoViewModel.empty;
   v8 = 3;
-  v6 = objc_allocWithZone(type metadata accessor for VideoView());
+  v6 = objc_allocWithZone(type metadata accessor for VideoView(0));
   *(&self->super.super.super.super.super.super.isa + v4) = VideoView.init(viewModel:style:)(v5, &v8);
   result = _assertionFailure(_:_:file:line:flags:)();
   __break(1u);

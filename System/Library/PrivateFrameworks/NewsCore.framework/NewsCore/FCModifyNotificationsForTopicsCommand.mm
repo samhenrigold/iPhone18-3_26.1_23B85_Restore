@@ -118,7 +118,7 @@ LABEL_11:
 
 - (void)executeWithContext:(id)context delegate:(id)delegate qualityOfService:(int64_t)service
 {
-  v76 = *MEMORY[0x1E69E9840];
+  v75 = *MEMORY[0x1E69E9840];
   contextCopy = context;
   delegateCopy = delegate;
   v7 = FCPushNotificationsLog;
@@ -134,26 +134,26 @@ LABEL_11:
 
 LABEL_6:
     group = dispatch_group_create();
-    v70[0] = 0;
-    v70[1] = v70;
-    v70[2] = 0x2020000000;
-    v71 = 1;
-    v68[0] = 0;
-    v68[1] = v68;
-    v68[2] = 0x2020000000;
-    v69 = 1;
+    v69[0] = 0;
+    v69[1] = v69;
+    v69[2] = 0x2020000000;
+    v70 = 1;
+    v67[0] = 0;
+    v67[1] = v67;
+    v67[2] = 0x2020000000;
+    v68 = 1;
     *buf = 0;
-    v63 = buf;
-    v64 = 0x3032000000;
-    v65 = __Block_byref_object_copy__83;
-    v66 = __Block_byref_object_dispose__83;
-    v67 = 0;
-    v60[0] = 0;
-    v60[1] = v60;
-    v60[2] = 0x3032000000;
-    v60[3] = __Block_byref_object_copy__83;
-    v60[4] = __Block_byref_object_dispose__83;
-    v61 = 0;
+    v62 = buf;
+    v63 = 0x3032000000;
+    v64 = __Block_byref_object_copy__83;
+    v65 = __Block_byref_object_dispose__83;
+    v66 = 0;
+    v59[0] = 0;
+    v59[1] = v59;
+    v59[2] = 0x3032000000;
+    v59[3] = __Block_byref_object_copy__83;
+    v59[4] = __Block_byref_object_dispose__83;
+    v60 = 0;
     topicIDsToAdd2 = [(FCModifyNotificationsForTopicsCommand *)self topicIDsToAdd];
     v12 = [topicIDsToAdd2 count] == 0;
 
@@ -164,11 +164,11 @@ LABEL_6:
       {
         topicIDsToAdd3 = [(FCModifyNotificationsForTopicsCommand *)self topicIDsToAdd];
         topicGroupingID = [(FCModifyNotificationsForTopicsCommand *)self topicGroupingID];
-        *v72 = 138543618;
-        v73 = topicIDsToAdd3;
-        v74 = 2114;
-        v75 = topicGroupingID;
-        _os_log_impl(&dword_1B63EF000, v13, OS_LOG_TYPE_DEFAULT, "modifyNotificationsForTopicsCommand: adding topicIDs: %{public}@ groupingID: %{public}@", v72, 0x16u);
+        *v71 = 138543618;
+        v72 = topicIDsToAdd3;
+        v73 = 2114;
+        v74 = topicGroupingID;
+        _os_log_impl(&dword_1B63EF000, v13, OS_LOG_TYPE_DEFAULT, "modifyNotificationsForTopicsCommand: adding topicIDs: %{public}@ groupingID: %{public}@", v71, 0x16u);
       }
 
       dispatch_group_enter(group);
@@ -181,15 +181,15 @@ LABEL_6:
       storefrontID = [(FCModifyNotificationsForTopicsCommand *)self storefrontID];
       deviceDigestMode = [(FCModifyNotificationsForTopicsCommand *)self deviceDigestMode];
       v23 = dispatch_get_global_queue(-2, 0);
-      v56[0] = MEMORY[0x1E69E9820];
-      v56[1] = 3221225472;
-      v56[2] = __86__FCModifyNotificationsForTopicsCommand_executeWithContext_delegate_qualityOfService___block_invoke;
-      v56[3] = &unk_1E7C3B9B0;
-      v58 = v70;
-      v59 = buf;
-      v57 = group;
-      LODWORD(v39) = deviceDigestMode;
-      [notificationsEndpointConnection subscribeNotificationsForTopicIDs:topicIDsToAdd4 withTopicGroupingID:topicGroupingID2 fromChannelID:channelID userID:userID deviceToken:deviceToken storefrontID:storefrontID deviceDigestMode:v39 callbackQueue:v23 completion:v56];
+      v55[0] = MEMORY[0x1E69E9820];
+      v55[1] = 3221225472;
+      v55[2] = __86__FCModifyNotificationsForTopicsCommand_executeWithContext_delegate_qualityOfService___block_invoke;
+      v55[3] = &unk_1E7C3B9B0;
+      v57 = v69;
+      v58 = buf;
+      v56 = group;
+      LODWORD(v38) = deviceDigestMode;
+      [notificationsEndpointConnection subscribeNotificationsForTopicIDs:topicIDsToAdd4 withTopicGroupingID:topicGroupingID2 fromChannelID:channelID userID:userID deviceToken:deviceToken storefrontID:storefrontID deviceDigestMode:v38 callbackQueue:v23 completion:v55];
     }
 
     topicIDsToRemove = [(FCModifyNotificationsForTopicsCommand *)self topicIDsToRemove];
@@ -202,11 +202,11 @@ LABEL_6:
       {
         topicIDsToRemove2 = [(FCModifyNotificationsForTopicsCommand *)self topicIDsToRemove];
         topicGroupingID3 = [(FCModifyNotificationsForTopicsCommand *)self topicGroupingID];
-        *v72 = 138543618;
-        v73 = topicIDsToRemove2;
-        v74 = 2114;
-        v75 = topicGroupingID3;
-        _os_log_impl(&dword_1B63EF000, v26, OS_LOG_TYPE_DEFAULT, "modifyNotificationsForTopicsCommand: removing topicIDs: %{public}@ groupingID: %{public}@", v72, 0x16u);
+        *v71 = 138543618;
+        v72 = topicIDsToRemove2;
+        v73 = 2114;
+        v74 = topicGroupingID3;
+        _os_log_impl(&dword_1B63EF000, v26, OS_LOG_TYPE_DEFAULT, "modifyNotificationsForTopicsCommand: removing topicIDs: %{public}@ groupingID: %{public}@", v71, 0x16u);
       }
 
       dispatch_group_enter(group);
@@ -219,34 +219,34 @@ LABEL_6:
       storefrontID2 = [(FCModifyNotificationsForTopicsCommand *)self storefrontID];
       deviceDigestMode2 = [(FCModifyNotificationsForTopicsCommand *)self deviceDigestMode];
       v36 = dispatch_get_global_queue(-2, 0);
-      v52[0] = MEMORY[0x1E69E9820];
-      v52[1] = 3221225472;
-      v52[2] = __86__FCModifyNotificationsForTopicsCommand_executeWithContext_delegate_qualityOfService___block_invoke_25;
-      v52[3] = &unk_1E7C3B9B0;
-      v54 = v68;
-      v55 = v60;
-      v53 = group;
-      LODWORD(v39) = deviceDigestMode2;
-      [notificationsEndpointConnection2 unsubscribeNotificationsForTopicIDs:topicIDsToRemove3 withTopicGroupingID:topicGroupingID4 fromChannelID:channelID2 userID:userID2 deviceToken:deviceToken2 storefrontID:storefrontID2 deviceDigestMode:v39 callbackQueue:v36 completion:v52];
+      v51[0] = MEMORY[0x1E69E9820];
+      v51[1] = 3221225472;
+      v51[2] = __86__FCModifyNotificationsForTopicsCommand_executeWithContext_delegate_qualityOfService___block_invoke_25;
+      v51[3] = &unk_1E7C3B9B0;
+      v53 = v67;
+      v54 = v59;
+      v52 = group;
+      LODWORD(v38) = deviceDigestMode2;
+      [notificationsEndpointConnection2 unsubscribeNotificationsForTopicIDs:topicIDsToRemove3 withTopicGroupingID:topicGroupingID4 fromChannelID:channelID2 userID:userID2 deviceToken:deviceToken2 storefrontID:storefrontID2 deviceDigestMode:v38 callbackQueue:v36 completion:v51];
     }
 
     block[0] = MEMORY[0x1E69E9820];
     block[1] = 3221225472;
     block[2] = __86__FCModifyNotificationsForTopicsCommand_executeWithContext_delegate_qualityOfService___block_invoke_26;
     block[3] = &unk_1E7C3B9D8;
-    v48 = v70;
-    v49 = v68;
-    v46 = delegateCopy;
+    v47 = v69;
+    v48 = v67;
+    v45 = delegateCopy;
     selfCopy = self;
-    v50 = buf;
-    v51 = v60;
+    v49 = buf;
+    v50 = v59;
     dispatch_group_notify(group, MEMORY[0x1E69E96A0], block);
 
-    _Block_object_dispose(v60, 8);
+    _Block_object_dispose(v59, 8);
     _Block_object_dispose(buf, 8);
 
-    _Block_object_dispose(v68, 8);
-    _Block_object_dispose(v70, 8);
+    _Block_object_dispose(v67, 8);
+    _Block_object_dispose(v69, 8);
 
     goto LABEL_15;
   }
@@ -259,31 +259,29 @@ LABEL_6:
     goto LABEL_6;
   }
 
-  v38 = FCPushNotificationsLog;
+  v37 = FCPushNotificationsLog;
   if (os_log_type_enabled(FCPushNotificationsLog, OS_LOG_TYPE_INFO))
   {
     *buf = 0;
-    _os_log_impl(&dword_1B63EF000, v38, OS_LOG_TYPE_INFO, "modifyNotificationsForTopicsCommand: no topics to add or remove", buf, 2u);
+    _os_log_impl(&dword_1B63EF000, v37, OS_LOG_TYPE_INFO, "modifyNotificationsForTopicsCommand: no topics to add or remove", buf, 2u);
   }
 
   [delegateCopy command:self didFinishWithStatus:0];
 LABEL_15:
-
-  v37 = *MEMORY[0x1E69E9840];
 }
 
 void __86__FCModifyNotificationsForTopicsCommand_executeWithContext_delegate_qualityOfService___block_invoke(uint64_t a1, char a2, void *a3)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v5 = a3;
   if (v5)
   {
     v6 = FCPushNotificationsLog;
     if (os_log_type_enabled(FCPushNotificationsLog, OS_LOG_TYPE_ERROR))
     {
-      v11 = 138543362;
-      v12 = v5;
-      _os_log_error_impl(&dword_1B63EF000, v6, OS_LOG_TYPE_ERROR, "modifyNotificationsForTopicsCommand: failed to add topics with error: %{public}@", &v11, 0xCu);
+      v10 = 138543362;
+      v11 = v5;
+      _os_log_error_impl(&dword_1B63EF000, v6, OS_LOG_TYPE_ERROR, "modifyNotificationsForTopicsCommand: failed to add topics with error: %{public}@", &v10, 0xCu);
     }
   }
 
@@ -294,21 +292,20 @@ void __86__FCModifyNotificationsForTopicsCommand_executeWithContext_delegate_qua
   v9 = v5;
 
   dispatch_group_leave(*(a1 + 32));
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 void __86__FCModifyNotificationsForTopicsCommand_executeWithContext_delegate_qualityOfService___block_invoke_25(uint64_t a1, char a2, void *a3)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v5 = a3;
   if (v5)
   {
     v6 = FCPushNotificationsLog;
     if (os_log_type_enabled(FCPushNotificationsLog, OS_LOG_TYPE_ERROR))
     {
-      v11 = 138543362;
-      v12 = v5;
-      _os_log_error_impl(&dword_1B63EF000, v6, OS_LOG_TYPE_ERROR, "modifyNotificationsForTopicsCommand: failed to remove topics with error: %{public}@", &v11, 0xCu);
+      v10 = 138543362;
+      v11 = v5;
+      _os_log_error_impl(&dword_1B63EF000, v6, OS_LOG_TYPE_ERROR, "modifyNotificationsForTopicsCommand: failed to remove topics with error: %{public}@", &v10, 0xCu);
     }
   }
 
@@ -319,7 +316,6 @@ void __86__FCModifyNotificationsForTopicsCommand_executeWithContext_delegate_qua
   v9 = v5;
 
   dispatch_group_leave(*(a1 + 32));
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __86__FCModifyNotificationsForTopicsCommand_executeWithContext_delegate_qualityOfService___block_invoke_26(uint64_t a1)
@@ -404,7 +400,7 @@ uint64_t __86__FCModifyNotificationsForTopicsCommand_executeWithContext_delegate
 
 - (void)coalesceWithCommand:(id)command
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   commandCopy = command;
   objc_opt_class();
   if (commandCopy)
@@ -440,26 +436,26 @@ uint64_t __86__FCModifyNotificationsForTopicsCommand_executeWithContext_delegate
   topicIDsToRemove2 = [v6 topicIDsToRemove];
   [v10 addObjectsFromArray:topicIDsToRemove2];
 
-  v24 = 0u;
-  v25 = 0u;
-  v22 = 0u;
   v23 = 0u;
+  v24 = 0u;
+  v21 = 0u;
+  v22 = 0u;
   v13 = [v10 copy];
-  v14 = [v13 countByEnumeratingWithState:&v22 objects:v26 count:16];
+  v14 = [v13 countByEnumeratingWithState:&v21 objects:v25 count:16];
   if (v14)
   {
     v15 = v14;
-    v16 = *v23;
+    v16 = *v22;
     do
     {
       for (i = 0; i != v15; ++i)
       {
-        if (*v23 != v16)
+        if (*v22 != v16)
         {
           objc_enumerationMutation(v13);
         }
 
-        v18 = *(*(&v22 + 1) + 8 * i);
+        v18 = *(*(&v21 + 1) + 8 * i);
         if ([v7 containsObject:v18])
         {
           [v7 removeObject:v18];
@@ -467,7 +463,7 @@ uint64_t __86__FCModifyNotificationsForTopicsCommand_executeWithContext_delegate
         }
       }
 
-      v15 = [v13 countByEnumeratingWithState:&v22 objects:v26 count:16];
+      v15 = [v13 countByEnumeratingWithState:&v21 objects:v25 count:16];
     }
 
     while (v15);
@@ -478,8 +474,6 @@ uint64_t __86__FCModifyNotificationsForTopicsCommand_executeWithContext_delegate
 
   allObjects2 = [v10 allObjects];
   [(FCModifyNotificationsForTopicsCommand *)self setTopicIDsToRemove:allObjects2];
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 @end

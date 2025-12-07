@@ -27,7 +27,7 @@
   if (v12)
   {
     objc_storeStrong(&v12->_container, container);
-    v14 = [zonesCopy copy];
+    v14 = objc_msgSend_copy(zonesCopy);
     zones = v13->_zones;
     v13->_zones = v14;
   }
@@ -37,7 +37,7 @@
 
 - (void)main
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   _HKInitializeLogging();
   v3 = MEMORY[0x277CCC328];
   v4 = *MEMORY[0x277CCC328];
@@ -49,16 +49,16 @@
     v8 = [v7 componentsJoinedByString:{@", "}];
     *buf = 138543618;
     selfCopy5 = self;
-    v36 = 2114;
-    v37 = v8;
+    v35 = 2114;
+    v36 = v8;
     _os_log_impl(&dword_228986000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@: Verifying existence of zones: %{public}@", buf, 0x16u);
   }
 
   configuration = [(HDCloudSyncOperation *)self configuration];
   cachedCloudState = [configuration cachedCloudState];
-  v33 = 0;
-  v11 = [cachedCloudState zonesByIdentifierWithError:&v33];
-  v12 = v33;
+  v32 = 0;
+  v11 = [cachedCloudState zonesByIdentifierWithError:&v32];
+  v12 = v32;
 
   if (v11 || !v12)
   {
@@ -75,13 +75,13 @@
     }
 
     v15 = self->_zones;
-    v30[0] = MEMORY[0x277D85DD0];
-    v30[1] = 3221225472;
-    v30[2] = __39__HDCloudSyncCreateZonesOperation_main__block_invoke_299;
-    v30[3] = &unk_27861A4B0;
-    v31 = v11;
+    v29[0] = MEMORY[0x277D85DD0];
+    v29[1] = 3221225472;
+    v29[2] = __39__HDCloudSyncCreateZonesOperation_main__block_invoke_299;
+    v29[3] = &unk_27861A4B0;
+    v30 = v11;
     selfCopy3 = self;
-    v16 = [(NSArray *)v15 hk_filter:v30];
+    v16 = [(NSArray *)v15 hk_filter:v29];
     if ([v16 count])
     {
       container = self->_container;
@@ -101,8 +101,8 @@
           v25 = [v24 componentsJoinedByString:{@", "}];
           *buf = 138543618;
           selfCopy5 = self;
-          v36 = 2114;
-          v37 = v25;
+          v35 = 2114;
+          v36 = v25;
           _os_log_impl(&dword_228986000, v23, OS_LOG_TYPE_DEFAULT, "%{public}@: Creating zones: %{public}@", buf, 0x16u);
         }
 
@@ -134,42 +134,40 @@
     {
       *buf = 138543618;
       selfCopy5 = self;
-      v36 = 2114;
-      v37 = v12;
+      v35 = 2114;
+      v36 = v12;
       _os_log_error_impl(&dword_228986000, v13, OS_LOG_TYPE_ERROR, "%{public}@ Failed to retrieve cached zone identifiers while generating pull targets, %{public}@", buf, 0x16u);
     }
 
     [(HDCloudSyncOperation *)self finishWithSuccess:0 error:v12];
   }
-
-  v29 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __39__HDCloudSyncCreateZonesOperation_main__block_invoke_299(uint64_t a1, void *a2)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v3 = a2;
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v4 = [*(a1 + 32) allKeys];
-  v5 = [v4 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v16;
+    v7 = *v15;
     while (2)
     {
       v8 = 0;
       do
       {
-        if (*v16 != v7)
+        if (*v15 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v15 + 1) + 8 * v8);
+        v9 = *(*(&v14 + 1) + 8 * v8);
         v10 = [v3 zoneID];
         v11 = [*(*(a1 + 40) + 104) containerIdentifier];
         LOBYTE(v9) = [v9 isEquivalentIgnoringOwnerToZone:v10 container:v11];
@@ -184,7 +182,7 @@ uint64_t __39__HDCloudSyncCreateZonesOperation_main__block_invoke_299(uint64_t a
       }
 
       while (v6 != v8);
-      v6 = [v4 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
       if (v6)
       {
         continue;
@@ -197,7 +195,6 @@ uint64_t __39__HDCloudSyncCreateZonesOperation_main__block_invoke_299(uint64_t a
   v12 = 1;
 LABEL_11:
 
-  v13 = *MEMORY[0x277D85DE8];
   return v12;
 }
 

@@ -82,7 +82,7 @@ void __34__HFNetworkMonitor_sharedInstance__block_invoke(uint64_t a1)
 
 void __24__HFNetworkMonitor_init__block_invoke(uint64_t a1, void *a2)
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v5 = [WeakRetained accessQueue];
@@ -92,31 +92,31 @@ void __24__HFNetworkMonitor_init__block_invoke(uint64_t a1, void *a2)
   if ([WeakRetained currentNetworkPathStatus] != status)
   {
     [WeakRetained setCurrentNetworkPathStatus:status];
-    v30 = 0u;
-    v31 = 0u;
-    v28 = 0u;
     v29 = 0u;
+    v30 = 0u;
+    v27 = 0u;
+    v28 = 0u;
     v7 = [WeakRetained _observers];
-    v8 = [v7 countByEnumeratingWithState:&v28 objects:v33 count:16];
+    v8 = [v7 countByEnumeratingWithState:&v27 objects:v32 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v29;
+      v10 = *v28;
       do
       {
         v11 = 0;
         do
         {
-          if (*v29 != v10)
+          if (*v28 != v10)
           {
             objc_enumerationMutation(v7);
           }
 
-          [WeakRetained _notifyObserver:*(*(&v28 + 1) + 8 * v11++) networkIsAvailable:status == 1];
+          [WeakRetained _notifyObserver:*(*(&v27 + 1) + 8 * v11++) networkIsAvailable:status == 1];
         }
 
         while (v9 != v11);
-        v9 = [v7 countByEnumeratingWithState:&v28 objects:v33 count:16];
+        v9 = [v7 countByEnumeratingWithState:&v27 objects:v32 count:16];
       }
 
       while (v9);
@@ -130,38 +130,36 @@ void __24__HFNetworkMonitor_init__block_invoke(uint64_t a1, void *a2)
     v17 = [MEMORY[0x277CCABB0] numberWithBool:v12];
     [WeakRetained setCurrentNetworkPathIsExpensive:v17];
 
-    v26 = 0u;
-    v27 = 0u;
-    v24 = 0u;
     v25 = 0u;
+    v26 = 0u;
+    v23 = 0u;
+    v24 = 0u;
     v18 = [WeakRetained _observers];
-    v19 = [v18 countByEnumeratingWithState:&v24 objects:v32 count:16];
+    v19 = [v18 countByEnumeratingWithState:&v23 objects:v31 count:16];
     if (v19)
     {
       v20 = v19;
-      v21 = *v25;
+      v21 = *v24;
       do
       {
         v22 = 0;
         do
         {
-          if (*v25 != v21)
+          if (*v24 != v21)
           {
             objc_enumerationMutation(v18);
           }
 
-          [WeakRetained _notifyObserver:*(*(&v24 + 1) + 8 * v22++) networkIsExpensive:v12];
+          [WeakRetained _notifyObserver:*(*(&v23 + 1) + 8 * v22++) networkIsExpensive:v12];
         }
 
         while (v20 != v22);
-        v20 = [v18 countByEnumeratingWithState:&v24 objects:v32 count:16];
+        v20 = [v18 countByEnumeratingWithState:&v23 objects:v31 count:16];
       }
 
       while (v20);
     }
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addObserver:(id)observer
@@ -206,11 +204,11 @@ void __32__HFNetworkMonitor_addObserver___block_invoke(uint64_t a1)
   dispatch_async(accessQueue, v6);
 }
 
-uint64_t __35__HFNetworkMonitor_removeObserver___block_invoke(uint64_t result)
+id *__35__HFNetworkMonitor_removeObserver___block_invoke(id *result)
 {
-  if (!*(result + 40))
+  if (!result[5])
   {
-    return [*(result + 32) _stopMonitoring];
+    return [result[4] _stopMonitoring];
   }
 
   return result;
@@ -241,7 +239,7 @@ uint64_t __35__HFNetworkMonitor_removeObserver___block_invoke(uint64_t result)
   return selfCopy;
 }
 
-uint64_t __38__HFNetworkMonitor_isNetworkAvailable__block_invoke(uint64_t a1)
+void *__38__HFNetworkMonitor_isNetworkAvailable__block_invoke(uint64_t a1)
 {
   if (!+[HFUtilities isInternalTest](HFUtilities, "isInternalTest") && ([*(a1 + 32) isMonitoringNetwork] & 1) == 0)
   {

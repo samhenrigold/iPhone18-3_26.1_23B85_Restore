@@ -15,27 +15,27 @@
 
 - (RKEventIdentifier)init
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   preferredLanguages = [MEMORY[0x277CBEAF8] preferredLanguages];
-  v4 = [preferredLanguages countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v4 = [preferredLanguages countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v4)
   {
-    v5 = *v13;
+    v5 = *v12;
     selfCopy = self;
     while (2)
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v13 != v5)
+        if (*v12 != v5)
         {
           objc_enumerationMutation(preferredLanguages);
         }
 
-        v8 = [(RKEventIdentifier *)selfCopy initWithLanguageID:*(*(&v12 + 1) + 8 * i)];
+        v8 = [(RKEventIdentifier *)selfCopy initWithLanguageID:*(*(&v11 + 1) + 8 * i)];
         if (v8)
         {
           self = v8;
@@ -46,7 +46,7 @@
         selfCopy = 0;
       }
 
-      v4 = [preferredLanguages countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v4 = [preferredLanguages countByEnumeratingWithState:&v11 objects:v15 count:16];
       selfCopy = 0;
       self = 0;
       selfCopy2 = 0;
@@ -66,7 +66,6 @@
 
 LABEL_12:
 
-  v10 = *MEMORY[0x277D85DE8];
   return selfCopy2;
 }
 
@@ -76,27 +75,13 @@ LABEL_12:
   v12.receiver = self;
   v12.super_class = RKEventIdentifier;
   v5 = [(RKEventIdentifier *)&v12 init];
-  if (!v5)
-  {
-    goto LABEL_3;
-  }
-
-  v6 = [[RKNLEventTokenizer alloc] initWithLanguageID:dCopy];
-  tokenizer = v5->_tokenizer;
-  v5->_tokenizer = v6;
-
-  v8 = [RKMontrealModel modelForLanguage:dCopy];
-  model = v5->_model;
-  v5->_model = v8;
-
-  if (!v5->_model)
+  if (v5 && (v6 = [[RKNLEventTokenizer alloc] initWithLanguageID:dCopy], tokenizer = v5->_tokenizer, v5->_tokenizer = v6, tokenizer, [RKMontrealModel modelForLanguage:dCopy], v8 = objc_claimAutoreleasedReturnValue(), model = v5->_model, v5->_model = v8, model, !v5->_model))
   {
     v10 = 0;
   }
 
   else
   {
-LABEL_3:
     v10 = v5;
   }
 
@@ -114,15 +99,15 @@ LABEL_3:
 
 - (id)_identifyOwnedTokenSequences:(id)sequences
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   sequencesCopy = sequences;
   model = [(RKMontrealModel *)self->_model model];
-  v27 = 0u;
-  v28 = 0u;
-  v25 = 0u;
-  v26 = 0u;
+  v23 = 0u;
+  v24 = 0u;
+  v21 = 0u;
+  v22 = 0u;
   v5 = sequencesCopy;
-  v6 = [v5 countByEnumeratingWithState:&v25 objects:v30 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v21 objects:v26 count:16];
   if (!v6)
   {
 
@@ -133,17 +118,17 @@ LABEL_16:
   }
 
   v7 = 0;
-  v8 = *v26;
+  v8 = *v22;
   do
   {
     for (i = 0; i != v6; ++i)
     {
-      if (*v26 != v8)
+      if (*v22 != v8)
       {
         objc_enumerationMutation(v5);
       }
 
-      v10 = [*(*(&v25 + 1) + 8 * i) count];
+      v10 = [*(*(&v21 + 1) + 8 * i) count];
       v11 = kMaxSequenceLength;
       if (v10 < kMaxSequenceLength)
       {
@@ -153,7 +138,7 @@ LABEL_16:
       v7 += v11;
     }
 
-    v6 = [v5 countByEnumeratingWithState:&v25 objects:v30 count:16];
+    v6 = [v5 countByEnumeratingWithState:&v21 objects:v26 count:16];
   }
 
   while (v6);
@@ -163,40 +148,33 @@ LABEL_16:
     goto LABEL_16;
   }
 
-  v18 = malloc_type_calloc(v7, 0x14uLL, 0x100004052888210uLL);
+  v17 = malloc_type_calloc(v7, 0x14uLL, 0x100004052888210uLL);
   v12 = weak_MRLModelStateCreate(model);
   if (!v12)
   {
     __assert_rtn("[RKEventIdentifier _identifyOwnedTokenSequences:]", "RKEventIdentifier.mm", 266, "modelState");
   }
 
-  v17 = v12;
-  v23 = 0u;
-  v24 = 0u;
-  v21 = 0u;
-  v22 = 0u;
-  v19 = v5;
-  if ([v19 countByEnumeratingWithState:&v21 objects:&v29 count:16])
+  v16 = v12;
+  memset(v20, 0, sizeof(v20));
+  v18 = v5;
+  if ([v18 countByEnumeratingWithState:v20 objects:&v25 count:16])
   {
-    *v22;
-    *v22;
-    [**(&v21 + 1) count];
+    [**(&v20[0] + 1) count];
     operator new[]();
   }
 
-  weak_MRLModelStateRelease(model, v17);
+  weak_MRLModelStateRelease(model, v16);
   v13 = v5;
-  v14 = [[RKEventIdentification alloc] initWithOwnedTokenSequences:v19 probabilities:v18];
+  v14 = [[RKEventIdentification alloc] initWithOwnedTokenSequences:v18 probabilities:v17];
 LABEL_17:
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v14;
 }
 
 - (id)_identifyStrings:(id)strings otherDateCount:(unint64_t)count otherDates:(RKEventIdentifierRange *)dates
 {
-  v93 = *MEMORY[0x277D85DE8];
+  v92 = *MEMORY[0x277D85DE8];
   stringsCopy = strings;
   selfCopy = self;
   objc_sync_enter(selfCopy);
@@ -210,27 +188,27 @@ LABEL_17:
       {
         v15 = 0;
         __src = 0;
+        v89 = 0;
         v90 = 0;
-        v91 = 0;
         do
         {
           ioMappings = selfCopy->_ioMappings;
-          LODWORD(v86) = kOutputMappingCodesForEventIds[v15];
-          v17 = *std::map<int,int>::at(ioMappings + 48, &v86);
-          v18 = v90;
-          if (v90 >= v91)
+          LODWORD(v85) = kOutputMappingCodesForEventIds[v15];
+          v17 = *std::map<int,int>::at(ioMappings + 48, &v85);
+          v18 = v89;
+          if (v89 >= v90)
           {
             v20 = __src;
-            v21 = v90 - __src;
-            v22 = (v90 - __src) >> 3;
+            v21 = v89 - __src;
+            v22 = (v89 - __src) >> 3;
             v23 = v22 + 1;
             if ((v22 + 1) >> 61)
             {
               std::vector<std::pair<int,int>>::__throw_length_error[abi:ne200100]();
             }
 
-            v24 = v91 - __src;
-            if ((v91 - __src) >> 2 > v23)
+            v24 = v90 - __src;
+            if ((v90 - __src) >> 2 > v23)
             {
               v23 = v24 >> 2;
             }
@@ -257,8 +235,8 @@ LABEL_17:
             memcpy(0, v20, v21);
             v27 = __src;
             __src = 0;
-            v90 = v19;
-            v91 = 0;
+            v89 = v19;
+            v90 = 0;
             if (v27)
             {
               operator delete(v27);
@@ -267,12 +245,12 @@ LABEL_17:
 
           else
           {
-            *v90 = v17;
+            *v89 = v17;
             *(v18 + 1) = v15;
             v19 = v18 + 8;
           }
 
-          v90 = v19;
+          v89 = v19;
           ++v15;
         }
 
@@ -288,7 +266,7 @@ LABEL_17:
           v29 = v28;
         }
 
-        std::__introsort<std::_ClassicAlgPolicy,std::__less<void,void> &,std::pair<int,int> *,false>(__src, v19, &v86, v29, 1);
+        std::__introsort<std::_ClassicAlgPolicy,std::__less<void,void> &,std::pair<int,int> *,false>(__src, v19, &v85, v29, 1);
         v30 = __src;
         outputPermutation = selfCopy->_outputPermutation;
         for (i = 4; i != 44; i += 8)
@@ -296,7 +274,7 @@ LABEL_17:
           *outputPermutation++ = *&v30[i];
         }
 
-        v90 = v30;
+        v89 = v30;
         operator delete(v30);
       }
     }
@@ -307,13 +285,13 @@ LABEL_17:
   if (selfCopy->_ioMappings)
   {
     __src = 0;
+    v89 = 0;
     v90 = 0;
-    v91 = 0;
     if (dates)
     {
+      v85 = 0;
       v86 = 0;
       v87 = 0;
-      v88 = 0;
       if (count)
       {
         p_length = &dates->var1.length;
@@ -321,22 +299,22 @@ LABEL_17:
         {
           v11 = *(p_length - 1);
           v12 = *p_length;
-          *&v84 = *(p_length - 2);
-          v10 = v84;
-          *(&v84 + 1) = v11;
-          LOBYTE(v85) = 1;
-          std::vector<-[RKEventIdentifier _identifyStrings:otherDateCount:otherDates:]::Delta>::push_back[abi:ne200100](&v86, &v84);
-          *&v84 = v10;
-          *(&v84 + 1) = v12 + v11;
-          LOBYTE(v85) = 0;
-          std::vector<-[RKEventIdentifier _identifyStrings:otherDateCount:otherDates:]::Delta>::push_back[abi:ne200100](&v86, &v84);
+          *&v83 = *(p_length - 2);
+          v10 = v83;
+          *(&v83 + 1) = v11;
+          LOBYTE(v84) = 1;
+          std::vector<-[RKEventIdentifier _identifyStrings:otherDateCount:otherDates:]::Delta>::push_back[abi:ne200100](&v85, &v83);
+          *&v83 = v10;
+          *(&v83 + 1) = v12 + v11;
+          LOBYTE(v84) = 0;
+          std::vector<-[RKEventIdentifier _identifyStrings:otherDateCount:otherDates:]::Delta>::push_back[abi:ne200100](&v85, &v83);
           p_length += 3;
           --count;
         }
 
         while (count);
-        v13 = v86;
-        count = v87;
+        v13 = v85;
+        count = v86;
       }
 
       else
@@ -383,10 +361,10 @@ LABEL_17:
           {
             if (v37 == *v39)
             {
-              *&v84 = v37;
-              *(&v84 + 1) = v38;
-              v85 = v39[1] - v38;
-              std::vector<RKEventIdentifierRange>::push_back[abi:ne200100](&__src, &v84);
+              *&v83 = v37;
+              *(&v83 + 1) = v38;
+              v84 = v39[1] - v38;
+              std::vector<RKEventIdentifierRange>::push_back[abi:ne200100](&__src, &v83);
             }
 
             v36 = 0;
@@ -404,37 +382,37 @@ LABEL_17:
       }
     }
 
-    v75 = objc_alloc_init(MEMORY[0x277CBEB18]);
-    v82 = 0u;
-    v83 = 0u;
-    v80 = 0u;
+    v74 = objc_alloc_init(MEMORY[0x277CBEB18]);
     v81 = 0u;
+    v82 = 0u;
+    v79 = 0u;
+    v80 = 0u;
     obj = stringsCopy;
-    v40 = [obj countByEnumeratingWithState:&v80 objects:v92 count:16];
+    v40 = [obj countByEnumeratingWithState:&v79 objects:v91 count:16];
     if (v40)
     {
       v41 = 0;
-      v72 = 0;
-      v74 = *v81;
+      v71 = 0;
+      v73 = *v80;
       do
       {
         v42 = 0;
-        v79 = v72;
-        v72 += v40;
-        v76 = v40;
+        v78 = v71;
+        v71 += v40;
+        v75 = v40;
         do
         {
-          if (*v81 != v74)
+          if (*v80 != v73)
           {
             objc_enumerationMutation(obj);
           }
 
-          v78 = v42;
-          v43 = *(*(&v80 + 1) + 8 * v42);
+          v77 = v42;
+          v43 = *(*(&v79 + 1) + 8 * v42);
           context = objc_autoreleasePoolPush();
           v44 = objc_alloc_init(MEMORY[0x277CBEB18]);
           v45 = __src;
-          if (v41 >= 0xAAAAAAAAAAAAAAABLL * ((v90 - __src) >> 3))
+          if (v41 >= 0xAAAAAAAAAAAAAAABLL * ((v89 - __src) >> 3))
           {
             v46 = 0;
           }
@@ -445,7 +423,7 @@ LABEL_17:
             v47 = 24 * v41;
             do
             {
-              if (*&v45[v47] != v79)
+              if (*&v45[v47] != v78)
               {
                 break;
               }
@@ -470,7 +448,7 @@ LABEL_17:
               v47 += 24;
             }
 
-            while (v41 < 0xAAAAAAAAAAAAAAABLL * ((v90 - __src) >> 3));
+            while (v41 < 0xAAAAAAAAAAAAAAABLL * ((v89 - __src) >> 3));
           }
 
           if (v46 < [v43 length])
@@ -510,25 +488,25 @@ LABEL_17:
             [v66 setTokenID:v65];
           }
 
-          [v75 addObject:v44];
+          [v74 addObject:v44];
 
           objc_autoreleasePoolPop(context);
-          ++v79;
-          v42 = v78 + 1;
+          ++v78;
+          v42 = v77 + 1;
         }
 
-        while (v78 + 1 != v76);
-        v40 = [obj countByEnumeratingWithState:&v80 objects:v92 count:16];
+        while (v77 + 1 != v75);
+        v40 = [obj countByEnumeratingWithState:&v79 objects:v91 count:16];
       }
 
       while (v40);
     }
 
-    v33 = [(RKEventIdentifier *)selfCopy _identifyOwnedTokenSequences:v75];
+    v33 = [(RKEventIdentifier *)selfCopy _identifyOwnedTokenSequences:v74];
 
     if (__src)
     {
-      v90 = __src;
+      v89 = __src;
       operator delete(__src);
     }
   }
@@ -537,8 +515,6 @@ LABEL_17:
   {
     v33 = 0;
   }
-
-  v69 = *MEMORY[0x277D85DE8];
 
   return v33;
 }
@@ -618,62 +594,62 @@ LABEL_17:
 
 - (id)identifyText:(id)text
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   textCopy = text;
-  v18 = objc_opt_new();
-  v24 = 0;
-  v25 = &v24;
-  v26 = 0x4812000000;
-  v27 = __Block_byref_object_copy__51;
-  v28 = __Block_byref_object_dispose__52;
-  v29 = "";
+  v17 = objc_opt_new();
+  v23 = 0;
+  v24 = &v23;
+  v25 = 0x4812000000;
+  v26 = __Block_byref_object_copy__51;
+  v27 = __Block_byref_object_dispose__52;
+  v28 = "";
+  v30 = 0;
   v31 = 0;
-  v32 = 0;
   __p = 0;
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
   obj = textCopy;
-  v3 = [obj countByEnumeratingWithState:&v20 objects:v33 count:{16, textCopy}];
+  v3 = [obj countByEnumeratingWithState:&v19 objects:v32 count:{16, textCopy}];
   if (v3)
   {
     v4 = 0;
-    v5 = *v21;
+    v5 = *v20;
     do
     {
       for (i = 0; i != v3; ++i)
       {
-        if (*v21 != v5)
+        if (*v20 != v5)
         {
           objc_enumerationMutation(obj);
         }
 
-        v7 = *(*(&v20 + 1) + 8 * i);
+        v7 = *(*(&v19 + 1) + 8 * i);
         string = [v7 string];
-        [v18 addObject:string];
+        [v17 addObject:string];
         v9 = [string length];
-        v19[0] = MEMORY[0x277D85DD0];
-        v19[1] = 3221225472;
-        v19[2] = __34__RKEventIdentifier_identifyText___block_invoke;
-        v19[3] = &unk_279B10A38;
-        v19[4] = &v24;
-        v19[5] = v4;
-        [v7 enumerateAnnotationsInRange:0 usingBlock:{v9, v19}];
+        v18[0] = MEMORY[0x277D85DD0];
+        v18[1] = 3221225472;
+        v18[2] = __34__RKEventIdentifier_identifyText___block_invoke;
+        v18[3] = &unk_279B10A38;
+        v18[4] = &v23;
+        v18[5] = v4;
+        [v7 enumerateAnnotationsInRange:0 usingBlock:{v9, v18}];
 
         ++v4;
       }
 
-      v3 = [obj countByEnumeratingWithState:&v20 objects:v33 count:16];
+      v3 = [obj countByEnumeratingWithState:&v19 objects:v32 count:16];
     }
 
     while (v3);
   }
 
-  v10 = v25[7] - v25[6];
+  v10 = v24[7] - v24[6];
   if (v10)
   {
-    v11 = v25[6];
+    v11 = v24[6];
   }
 
   else
@@ -681,15 +657,13 @@ LABEL_17:
     v11 = 0;
   }
 
-  v12 = [(RKEventIdentifier *)self _identifyStrings:v18 otherDateCount:0xAAAAAAAAAAAAAAABLL * (v10 >> 3) otherDates:v11];
-  _Block_object_dispose(&v24, 8);
+  v12 = [(RKEventIdentifier *)self _identifyStrings:v17 otherDateCount:0xAAAAAAAAAAAAAAABLL * (v10 >> 3) otherDates:v11];
+  _Block_object_dispose(&v23, 8);
   if (__p)
   {
-    v31 = __p;
+    v30 = __p;
     operator delete(__p);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v12;
 }
@@ -710,66 +684,66 @@ void __34__RKEventIdentifier_identifyText___block_invoke(uint64_t a1, uint64_t a
 
 - (id)identifyMessage:(id)message
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   messageCopy = message;
-  v21 = objc_opt_new();
-  v27 = 0;
-  v28 = &v27;
-  v29 = 0x4812000000;
-  v30 = __Block_byref_object_copy__51;
-  v31 = __Block_byref_object_dispose__52;
-  v32 = "";
+  v20 = objc_opt_new();
+  v26 = 0;
+  v27 = &v26;
+  v28 = 0x4812000000;
+  v29 = __Block_byref_object_copy__51;
+  v30 = __Block_byref_object_dispose__52;
+  v31 = "";
+  v33 = 0;
   v34 = 0;
-  v35 = 0;
   __p = 0;
+  v22 = 0u;
   v23 = 0u;
   v24 = 0u;
   v25 = 0u;
-  v26 = 0u;
   obj = messageCopy;
-  v3 = [obj countByEnumeratingWithState:&v23 objects:v36 count:{16, messageCopy}];
+  v3 = [obj countByEnumeratingWithState:&v22 objects:v35 count:{16, messageCopy}];
   if (v3)
   {
     v4 = 0;
-    v5 = *v24;
+    v5 = *v23;
     do
     {
       for (i = 0; i != v3; ++i)
       {
-        if (*v24 != v5)
+        if (*v23 != v5)
         {
           objc_enumerationMutation(obj);
         }
 
-        v7 = *(*(&v23 + 1) + 8 * i);
+        v7 = *(*(&v22 + 1) + 8 * i);
         title = [v7 title];
         string = [v7 string];
         v10 = [title stringByAppendingString:@" "];
         v11 = [v10 stringByAppendingString:string];
 
-        [v21 addObject:v11];
+        [v20 addObject:v11];
         v12 = [v11 length];
-        v22[0] = MEMORY[0x277D85DD0];
-        v22[1] = 3221225472;
-        v22[2] = __37__RKEventIdentifier_identifyMessage___block_invoke;
-        v22[3] = &unk_279B10A38;
-        v22[4] = &v27;
-        v22[5] = v4;
-        [v7 enumerateAnnotationsInRange:0 usingBlock:{v12, v22}];
+        v21[0] = MEMORY[0x277D85DD0];
+        v21[1] = 3221225472;
+        v21[2] = __37__RKEventIdentifier_identifyMessage___block_invoke;
+        v21[3] = &unk_279B10A38;
+        v21[4] = &v26;
+        v21[5] = v4;
+        [v7 enumerateAnnotationsInRange:0 usingBlock:{v12, v21}];
 
         ++v4;
       }
 
-      v3 = [obj countByEnumeratingWithState:&v23 objects:v36 count:16];
+      v3 = [obj countByEnumeratingWithState:&v22 objects:v35 count:16];
     }
 
     while (v3);
   }
 
-  v13 = v28[7] - v28[6];
+  v13 = v27[7] - v27[6];
   if (v13)
   {
-    v14 = v28[6];
+    v14 = v27[6];
   }
 
   else
@@ -777,15 +751,13 @@ void __34__RKEventIdentifier_identifyText___block_invoke(uint64_t a1, uint64_t a
     v14 = 0;
   }
 
-  v15 = [(RKEventIdentifier *)self _identifyStrings:v21 otherDateCount:0xAAAAAAAAAAAAAAABLL * (v13 >> 3) otherDates:v14];
-  _Block_object_dispose(&v27, 8);
+  v15 = [(RKEventIdentifier *)self _identifyStrings:v20 otherDateCount:0xAAAAAAAAAAAAAAABLL * (v13 >> 3) otherDates:v14];
+  _Block_object_dispose(&v26, 8);
   if (__p)
   {
-    v34 = __p;
+    v33 = __p;
     operator delete(__p);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return v15;
 }
@@ -808,7 +780,7 @@ void __37__RKEventIdentifier_identifyMessage___block_invoke(uint64_t a1, uint64_
 {
   v7 = result;
 LABEL_2:
-  v8 = (a2 - 24);
+  v8 = a2 - 3;
   j = v7;
   while (1)
   {
@@ -825,16 +797,16 @@ LABEL_2:
         case 4:
           result = std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,-[RKEventIdentifier _identifyStrings:otherDateCount:otherDates:]::$_0 &,-[RKEventIdentifier _identifyStrings:otherDateCount:otherDates:]::Delta *,0>(j, (j + 24), (j + 48));
           v66 = (a2 - 24);
-          v67 = *(a2 - 24);
+          v67 = *(a2 - 3);
           v68 = *(j + 48);
-          if (v67 < v68 || v67 <= v68 && ((v135 = *(a2 - 16), v136 = *(j + 56), v135 < v136) || v135 <= v136 && *(a2 - 8) < *(j + 64)))
+          if (v67 < v68 || v67 <= v68 && ((v135 = *(a2 - 2), v136 = *(j + 56), v135 < v136) || v135 <= v136 && *(a2 - 8) < *(j + 64)))
           {
             v69 = *(j + 48);
             v70 = *(j + 64);
-            v71 = *(a2 - 8);
+            v71 = *(a2 - 1);
             *(j + 48) = *v66;
             *(j + 64) = v71;
-            *(a2 - 8) = v70;
+            *(a2 - 1) = v70;
             *v66 = v69;
             v72 = *(j + 48);
             v73 = *(j + 24);
@@ -876,15 +848,15 @@ LABEL_2:
       if (v11 == 2)
       {
         v63 = (a2 - 24);
-        v64 = *(a2 - 24);
-        if (v64 < *j || v64 <= *j && ((v133 = *(a2 - 16), v134 = *(j + 8), v133 < v134) || v133 <= v134 && *(a2 - 8) < *(j + 16)))
+        v64 = *(a2 - 3);
+        if (v64 < *j || v64 <= *j && ((v133 = *(a2 - 2), v134 = *(j + 8), v133 < v134) || v133 <= v134 && *(a2 - 8) < *(j + 16)))
         {
           v165 = *(j + 16);
           v156 = *j;
           v65 = *v63;
-          *(j + 16) = *(a2 - 8);
+          *(j + 16) = *(a2 - 1);
           *j = v65;
-          *(a2 - 8) = v165;
+          *(a2 - 1) = v165;
           *v63 = v156;
         }
 
@@ -1029,7 +1001,7 @@ LABEL_191:
             }
 
             while (v112 <= ((v111 - 2) >> 1));
-            a2 -= 24;
+            a2 = (a2 - 24);
             if (v113 == a2)
             {
               *(v113 + 16) = v167;
@@ -1039,9 +1011,9 @@ LABEL_191:
             else
             {
               v121 = *a2;
-              *(v113 + 16) = *(a2 + 16);
+              *(v113 + 16) = *(a2 + 2);
               *v113 = v121;
-              *(a2 + 16) = v167;
+              *(a2 + 2) = v167;
               *a2 = v160;
               v122 = v113 - j + 24;
               if (v122 >= 25)
@@ -1158,7 +1130,7 @@ LABEL_224:
       std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,-[RKEventIdentifier _identifyStrings:otherDateCount:otherDates:]::$_0 &,-[RKEventIdentifier _identifyStrings:otherDateCount:otherDates:]::Delta *,0>(v7, (v7 + 24 * v12), (a2 - 24));
       v14 = 3 * v12;
       v15 = (v7 + 24 * v12 - 24);
-      std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,-[RKEventIdentifier _identifyStrings:otherDateCount:otherDates:]::$_0 &,-[RKEventIdentifier _identifyStrings:otherDateCount:otherDates:]::Delta *,0>((v7 + 24), v15, (a2 - 48));
+      std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,-[RKEventIdentifier _identifyStrings:otherDateCount:otherDates:]::$_0 &,-[RKEventIdentifier _identifyStrings:otherDateCount:otherDates:]::Delta *,0>((v7 + 24), v15, a2 - 3);
       v16 = (v7 + 24 + 8 * v14);
       std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,-[RKEventIdentifier _identifyStrings:otherDateCount:otherDates:]::$_0 &,-[RKEventIdentifier _identifyStrings:otherDateCount:otherDates:]::Delta *,0>((v7 + 48), v16, (a2 - 72));
       result = std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,-[RKEventIdentifier _identifyStrings:otherDateCount:otherDates:]::$_0 &,-[RKEventIdentifier _identifyStrings:otherDateCount:otherDates:]::Delta *,0>(v15, v13, v16);
@@ -1352,7 +1324,7 @@ LABEL_66:
         result = std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,-[RKEventIdentifier _identifyStrings:otherDateCount:otherDates:]::$_0 &,-[RKEventIdentifier _identifyStrings:otherDateCount:otherDates:]::Delta *>(j, a2);
         if (result)
         {
-          a2 = j - 24;
+          a2 = (j - 24);
           if (v44)
           {
             return result;
@@ -1389,7 +1361,7 @@ LABEL_66:
       *v151 = *(v7 + 17);
       *&v151[3] = *(v7 + 20);
       v46 = *v8;
-      if (v18 < *v8 || v18 <= *v8 && ((v62 = *(a2 - 16), v21 < v62) || v21 <= v62 && v45 < *(a2 - 8)))
+      if (v18 < *v8 || v18 <= *v8 && ((v62 = *(a2 - 2), v21 < v62) || v21 <= v62 && v45 < *(a2 - 8)))
       {
         j = v7;
         while (1)
@@ -1554,7 +1526,7 @@ LABEL_66:
 
 LABEL_248:
       v77 = v7 + 24;
-      if (v7 + 24 == a2)
+      if ((v7 + 24) == a2)
       {
         return result;
       }
@@ -1695,7 +1667,7 @@ LABEL_152:
 LABEL_153:
     v77 = v81 + 24;
     v80 += 24;
-    if (v81 + 24 != a2)
+    if ((v81 + 24) != a2)
     {
       continue;
     }

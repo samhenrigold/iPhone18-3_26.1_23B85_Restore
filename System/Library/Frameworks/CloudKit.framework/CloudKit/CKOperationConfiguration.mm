@@ -533,21 +533,20 @@
 {
   selfCopy = self;
   objc_sync_enter(selfCopy);
-  backgroundTask = selfCopy->_backgroundTask;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v6 = objc_msgSend_systemTask(selfCopy->_backgroundTask, v4, v5);
+    v5 = objc_msgSend_systemTask(selfCopy->_backgroundTask, v3, v4);
   }
 
   else
   {
-    v6 = 0;
+    v5 = 0;
   }
 
   objc_sync_exit(selfCopy);
 
-  return v6;
+  return v5;
 }
 
 + (CKOperationConfiguration)defaultConvenienceOperationConfiguration
@@ -564,7 +563,7 @@
 
 - (id)resolveAgainstGenericConfiguration:(id)configuration
 {
-  v113 = *MEMORY[0x1E69E9840];
+  v112 = *MEMORY[0x1E69E9840];
   configurationCopy = configuration;
   v7 = objc_msgSend_copy(self, v5, v6);
   v10 = v7;
@@ -737,61 +736,61 @@
       objc_msgSend_addUnitTestOverrides_(v10, v83, v82);
     }
 
-    v109 = 0u;
-    v110 = 0u;
-    v107 = 0u;
     v108 = 0u;
+    v109 = 0u;
+    v106 = 0u;
+    v107 = 0u;
     v84 = objc_msgSend_testErrorInducerBoxes(configurationCopy, v80, v81);
-    v86 = objc_msgSend_countByEnumeratingWithState_objects_count_(v84, v85, &v107, v112, 16);
+    v86 = objc_msgSend_countByEnumeratingWithState_objects_count_(v84, v85, &v106, v111, 16);
     if (v86)
     {
       v88 = v86;
-      v89 = *v108;
+      v89 = *v107;
       do
       {
         v90 = 0;
         do
         {
-          if (*v108 != v89)
+          if (*v107 != v89)
           {
             objc_enumerationMutation(v84);
           }
 
-          objc_msgSend_addTestErrorInducerBox_(v10, v87, *(*(&v107 + 1) + 8 * v90++));
+          objc_msgSend_addTestErrorInducerBox_(v10, v87, *(*(&v106 + 1) + 8 * v90++));
         }
 
         while (v88 != v90);
-        v88 = objc_msgSend_countByEnumeratingWithState_objects_count_(v84, v87, &v107, v112, 16);
+        v88 = objc_msgSend_countByEnumeratingWithState_objects_count_(v84, v87, &v106, v111, 16);
       }
 
       while (v88);
     }
 
-    v105 = 0u;
-    v106 = 0u;
-    v103 = 0u;
     v104 = 0u;
+    v105 = 0u;
+    v102 = 0u;
+    v103 = 0u;
     v93 = objc_msgSend_testResultOverlayBoxes(configurationCopy, v91, v92, 0);
-    v95 = objc_msgSend_countByEnumeratingWithState_objects_count_(v93, v94, &v103, v111, 16);
+    v95 = objc_msgSend_countByEnumeratingWithState_objects_count_(v93, v94, &v102, v110, 16);
     if (v95)
     {
       v97 = v95;
-      v98 = *v104;
+      v98 = *v103;
       do
       {
         v99 = 0;
         do
         {
-          if (*v104 != v98)
+          if (*v103 != v98)
           {
             objc_enumerationMutation(v93);
           }
 
-          objc_msgSend_addTestResultOverlayBox_(v10, v96, *(*(&v103 + 1) + 8 * v99++));
+          objc_msgSend_addTestResultOverlayBox_(v10, v96, *(*(&v102 + 1) + 8 * v99++));
         }
 
         while (v97 != v99);
-        v97 = objc_msgSend_countByEnumeratingWithState_objects_count_(v93, v96, &v103, v111, 16);
+        v97 = objc_msgSend_countByEnumeratingWithState_objects_count_(v93, v96, &v102, v110, 16);
       }
 
       while (v97);
@@ -800,7 +799,6 @@
 
   v100 = v10;
 
-  v101 = *MEMORY[0x1E69E9840];
   return v10;
 }
 
@@ -938,7 +936,7 @@
 
 - (void)setSchedulerActivity:(id)activity
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   activityCopy = activity;
   selfCopy = self;
   objc_sync_enter(selfCopy);
@@ -960,8 +958,8 @@ LABEL_14:
     v9 = ck_log_facility_ck;
     if (os_log_type_enabled(ck_log_facility_ck, OS_LOG_TYPE_DEBUG))
     {
-      LOWORD(v30) = 0;
-      _os_log_debug_impl(&dword_1883EA000, v9, OS_LOG_TYPE_DEBUG, "No background task on scheduler activity, so let's ask the scheduler for one", &v30, 2u);
+      LOWORD(v29) = 0;
+      _os_log_debug_impl(&dword_1883EA000, v9, OS_LOG_TYPE_DEBUG, "No background task on scheduler activity, so let's ask the scheduler for one", &v29, 2u);
     }
 
     v12 = objc_msgSend_sharedScheduler(CKScheduler, v10, v11);
@@ -978,10 +976,10 @@ LABEL_14:
       v20 = ck_log_facility_ck;
       if (os_log_type_enabled(v20, OS_LOG_TYPE_FAULT))
       {
-        v29 = objc_msgSend_identifier(activityCopy, v21, v22);
-        v30 = 138543362;
-        v31 = v29;
-        _os_log_fault_impl(&dword_1883EA000, v20, OS_LOG_TYPE_FAULT, "Setting invalid activity %{public}@ on operation configuration. Activity must have been submitted", &v30, 0xCu);
+        v28 = objc_msgSend_identifier(activityCopy, v21, v22);
+        v29 = 138543362;
+        v30 = v28;
+        _os_log_fault_impl(&dword_1883EA000, v20, OS_LOG_TYPE_FAULT, "Setting invalid activity %{public}@ on operation configuration. Activity must have been submitted", &v29, 0xCu);
       }
 
       goto LABEL_14;
@@ -997,9 +995,9 @@ LABEL_15:
   v23 = ck_log_facility_ck;
   if (os_log_type_enabled(ck_log_facility_ck, OS_LOG_TYPE_INFO))
   {
-    v30 = 138412290;
-    v31 = activityCopy;
-    _os_log_impl(&dword_1883EA000, v23, OS_LOG_TYPE_INFO, "Setting scheduler activity in operation configuration %@", &v30, 0xCu);
+    v29 = 138412290;
+    v30 = activityCopy;
+    _os_log_impl(&dword_1883EA000, v23, OS_LOG_TYPE_INFO, "Setting scheduler activity in operation configuration %@", &v29, 0xCu);
   }
 
   objc_storeStrong(&selfCopy->_backgroundTask, v8);
@@ -1009,8 +1007,6 @@ LABEL_15:
 
   selfCopy->_hasSchedulerActivity = 1;
   objc_sync_exit(selfCopy);
-
-  v28 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setSystemTask:(id)task
@@ -1444,11 +1440,11 @@ LABEL_15:
 
 - (CKOperationConfiguration)initWithCoder:(id)coder
 {
-  v91[2] = *MEMORY[0x1E69E9840];
+  v90[2] = *MEMORY[0x1E69E9840];
   coderCopy = coder;
-  v90.receiver = self;
-  v90.super_class = CKOperationConfiguration;
-  v5 = [(CKOperationConfiguration *)&v90 init];
+  v89.receiver = self;
+  v89.super_class = CKOperationConfiguration;
+  v5 = [(CKOperationConfiguration *)&v89 init];
   v8 = v5;
   if (v5)
   {
@@ -1547,9 +1543,9 @@ LABEL_15:
     if (objc_msgSend_containsValueForKey_(coderCopy, v58, @"AdditionalRequestHTTPHeaders"))
     {
       v65 = MEMORY[0x1E695DFD8];
-      v91[0] = objc_opt_class();
-      v91[1] = objc_opt_class();
-      v67 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v66, v91, 2);
+      v90[0] = objc_opt_class();
+      v90[1] = objc_opt_class();
+      v67 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v66, v90, 2);
       v69 = objc_msgSend_setWithArray_(v65, v68, v67);
       v71 = objc_msgSend_decodeObjectOfClasses_forKey_(coderCopy, v70, v69, @"AdditionalRequestHTTPHeaders");
       objc_msgSend_setAdditionalRequestHTTPHeaders_(v8, v72, v71);
@@ -1583,7 +1579,6 @@ LABEL_15:
     objc_autoreleasePoolPop(v9);
   }
 
-  v88 = *MEMORY[0x1E69E9840];
   return v8;
 }
 

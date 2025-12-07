@@ -1,5 +1,6 @@
 @interface CalDAVUpdateFreeBusySetTaskGroup
 - (CalDAVUpdateFreeBusySetTaskGroup)initWithAccountInfoProvider:(id)provider inboxURL:(id)l urlToAdd:(id)add suffixToFilterOut:(id)out taskManager:(id)manager;
+- (void)_finishWithError:(id)error state:(int)state;
 - (void)_startFetchFreeBusySet;
 - (void)_startPropPatchWithURLs:(id)ls;
 - (void)propFindTask:(id)task parsedResponses:(id)responses error:(id)error;
@@ -59,31 +60,31 @@
 
 - (void)_startPropPatchWithURLs:(id)ls
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   lsCopy = ls;
   v5 = objc_alloc(MEMORY[0x277CFDBE0]);
   v6 = [v5 initWithNameSpace:*MEMORY[0x277CFDDC0] andName:*MEMORY[0x277CFDDE8]];
+  v23 = 0u;
   v24 = 0u;
   v25 = 0u;
   v26 = 0u;
-  v27 = 0u;
   v7 = lsCopy;
-  v8 = [v7 countByEnumeratingWithState:&v24 objects:v28 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v23 objects:v27 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v25;
+    v10 = *v24;
     do
     {
       v11 = 0;
       do
       {
-        if (*v25 != v10)
+        if (*v24 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = *(*(&v24 + 1) + 8 * v11);
+        v12 = *(*(&v23 + 1) + 8 * v11);
         v13 = objc_alloc_init(MEMORY[0x277CFDBD8]);
         cDVRawPath = [v12 CDVRawPath];
         [v13 setPayloadAsString:cDVRawPath];
@@ -95,7 +96,7 @@
       }
 
       while (v9 != v11);
-      v9 = [v7 countByEnumeratingWithState:&v24 objects:v28 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v23 objects:v27 count:16];
     }
 
     while (v9);
@@ -117,7 +118,14 @@
   [taskManager submitQueuedCoreDAVTask:v19];
 
   [(CalDAVUpdateFreeBusySetTaskGroup *)self setState:2];
-  v23 = *MEMORY[0x277D85DE8];
+}
+
+- (void)_finishWithError:(id)error state:(int)state
+{
+  v4 = *&state;
+  errorCopy = error;
+  [(CalDAVUpdateFreeBusySetTaskGroup *)self setState:v4];
+  [(CoreDAVTaskGroup *)self finishCoreDAVTaskGroupWithError:errorCopy delegateCallbackBlock:0];
 }
 
 - (void)propFindTask:(id)task parsedResponses:(id)responses error:(id)error

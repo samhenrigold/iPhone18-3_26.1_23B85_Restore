@@ -85,7 +85,7 @@ void __94__BRCContainerMetadataSyncUpOperation__containerMetadataRecordsToSaveWi
 
 uint64_t __94__BRCContainerMetadataSyncUpOperation__containerMetadataRecordsToSaveWithBatchSize_requestID___block_invoke_2(uint64_t a1, void *a2)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (([v3 shouldSaveContainerMetadataServerside] & 1) == 0)
   {
@@ -104,16 +104,16 @@ LABEL_10:
   v5 = brc_default_log();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
-    v12 = [v3 containerMetadata];
-    v13 = [*(a1 + 32) operationID];
-    v14 = [v13 UUIDString];
-    v15 = 138412802;
-    v16 = v12;
-    v17 = 2112;
-    v18 = v14;
-    v19 = 2112;
-    v20 = v4;
-    _os_log_debug_impl(&dword_223E7A000, v5, OS_LOG_TYPE_DEBUG, "[DEBUG] preparing to sync up %@ in operation %@%@", &v15, 0x20u);
+    v11 = [v3 containerMetadata];
+    v12 = [*(a1 + 32) operationID];
+    v13 = [v12 UUIDString];
+    v14 = 138412802;
+    v15 = v11;
+    v16 = 2112;
+    v17 = v13;
+    v18 = 2112;
+    v19 = v4;
+    _os_log_debug_impl(&dword_223E7A000, v5, OS_LOG_TYPE_DEBUG, "[DEBUG] preparing to sync up %@ in operation %@%@", &v14, 0x20u);
   }
 
   [v3 setContainerMetadataSyncRequestID:*(a1 + 48)];
@@ -134,7 +134,6 @@ LABEL_10:
   v9 = 0;
 LABEL_11:
 
-  v10 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
@@ -201,27 +200,27 @@ LABEL_11:
 
 void __65__BRCContainerMetadataSyncUpOperation_performAfterSavingRecords___block_invoke(uint64_t a1, void *a2, uint64_t a3, void *a4)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v6 = a2;
   v7 = a4;
   v8 = brc_bread_crumbs();
   v9 = brc_default_log();
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
   {
-    v14 = [v6 count];
-    v15 = @"success";
-    v16 = 134218498;
-    v17 = v14;
+    v13 = [v6 count];
+    v14 = @"success";
+    v15 = 134218498;
+    v16 = v13;
     if (v7)
     {
-      v15 = v7;
+      v14 = v7;
     }
 
-    v18 = 2112;
-    v19 = v15;
-    v20 = 2112;
-    v21 = v8;
-    _os_log_debug_impl(&dword_223E7A000, v9, OS_LOG_TYPE_DEBUG, "[DEBUG] completed sync up for %lu records: %@%@", &v16, 0x20u);
+    v17 = 2112;
+    v18 = v14;
+    v19 = 2112;
+    v20 = v8;
+    _os_log_debug_impl(&dword_223E7A000, v9, OS_LOG_TYPE_DEBUG, "[DEBUG] completed sync up for %lu records: %@%@", &v15, 0x20u);
   }
 
   v10 = brc_bread_crumbs();
@@ -229,15 +228,14 @@ void __65__BRCContainerMetadataSyncUpOperation_performAfterSavingRecords___block
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     v12 = [v6 count];
-    v16 = 134218242;
-    v17 = v12;
-    v18 = 2112;
-    v19 = v10;
-    _os_log_impl(&dword_223E7A000, v11, OS_LOG_TYPE_DEFAULT, "[NOTICE] saved %lu containers metadata in the cloud%@", &v16, 0x16u);
+    v15 = 134218242;
+    v16 = v12;
+    v17 = 2112;
+    v18 = v10;
+    _os_log_impl(&dword_223E7A000, v11, OS_LOG_TYPE_DEFAULT, "[NOTICE] saved %lu containers metadata in the cloud%@", &v15, 0x16u);
   }
 
   (*(*(a1 + 32) + 16))();
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __65__BRCContainerMetadataSyncUpOperation_performAfterSavingRecords___block_invoke_12(uint64_t a1, void *a2)
@@ -259,7 +257,7 @@ uint64_t __65__BRCContainerMetadataSyncUpOperation_performAfterSavingRecords___b
   v3 = brc_default_log();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
-    __65__BRCContainerMetadataSyncUpOperation_performAfterSavingRecords___block_invoke_2_cold_1(a1);
+    __65__BRCContainerMetadataSyncUpOperation_performAfterSavingRecords___block_invoke_2_cold_1();
   }
 
   return [*(a1 + 40) addSubOperation:*(a1 + 32)];
@@ -291,7 +289,7 @@ uint64_t __65__BRCContainerMetadataSyncUpOperation_performAfterSavingRecords___b
   v4 = brc_default_log();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
-    [(BRCContainerMetadataSyncUpOperation *)v6 main];
+    [BRCContainerMetadataSyncUpOperation main];
   }
 
   v5[0] = MEMORY[0x277D85DD0];

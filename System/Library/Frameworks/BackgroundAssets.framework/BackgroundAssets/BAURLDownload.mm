@@ -2,6 +2,7 @@
 - (BAURLDownload)init;
 - (BAURLDownload)initWithCoder:(id)coder;
 - (BAURLDownload)initWithIdentifier:(NSString *)identifier request:(NSURLRequest *)request essential:(BOOL)essential fileSize:(NSUInteger)fileSize applicationGroupIdentifier:(NSString *)applicationGroupIdentifier priority:(BADownloaderPriority)priority;
+- (BAURLDownload)initWithIdentifier:(id)identifier request:(id)request essential:(BOOL)essential fileSize:(unint64_t)size applicationGroupIdentifier:(id)groupIdentifier priority:(int64_t)priority forManagedAssetPack:(BOOL)pack;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)debugDescription;
 - (void)encodeWithCoder:(id)coder;
@@ -126,6 +127,18 @@ LABEL_7:
 LABEL_8:
 
   return selfCopy;
+}
+
+- (BAURLDownload)initWithIdentifier:(id)identifier request:(id)request essential:(BOOL)essential fileSize:(unint64_t)size applicationGroupIdentifier:(id)groupIdentifier priority:(int64_t)priority forManagedAssetPack:(BOOL)pack
+{
+  v9 = [(BAURLDownload *)self initWithIdentifier:identifier request:request essential:essential fileSize:size applicationGroupIdentifier:groupIdentifier priority:priority];
+  v10 = v9;
+  if (v9)
+  {
+    [(BADownload *)v9 setIsForManagedAssetPack:pack];
+  }
+
+  return v10;
 }
 
 - (BAURLDownload)initWithCoder:(id)coder

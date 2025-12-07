@@ -163,10 +163,9 @@ void sub_2368(uint64_t a1)
 
   if (v3)
   {
-    v4 = *(*(*(a1 + 40) + 8) + 24);
-    v7 = [*(a1 + 32) pendingAppInstalls];
-    v5 = [v7 allObjects];
-    v6 = [v5 componentsJoinedByString:{@", "}];
+    v6 = [*(a1 + 32) pendingAppInstalls];
+    v4 = [v6 allObjects];
+    v5 = [v4 componentsJoinedByString:{@", "}];
     _DMLogFunc();
   }
 }
@@ -305,9 +304,9 @@ void sub_30B4(uint64_t a1, void *a2, void *a3)
   }
 }
 
-void sub_3290(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_3290(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -317,10 +316,10 @@ void sub_32A8(uint64_t a1, void *a2, void *a3, _BYTE *a4)
   v7 = a2;
   v8 = a3;
   objc_opt_class();
-  v18 = v7;
+  v16 = v7;
   if (objc_opt_isKindOfClass())
   {
-    v9 = v18;
+    v9 = v16;
   }
 
   else
@@ -359,7 +358,6 @@ void sub_32A8(uint64_t a1, void *a2, void *a3, _BYTE *a4)
 
     else
     {
-      v17 = *(a1 + 32);
       _DMLogFunc();
       v14 = 0;
       v13 = 0;
@@ -368,7 +366,6 @@ void sub_32A8(uint64_t a1, void *a2, void *a3, _BYTE *a4)
 
   else
   {
-    v16 = *(a1 + 32);
     _DMLogFunc();
   }
 }
@@ -567,49 +564,44 @@ LABEL_23:
 void sub_44D8(uint64_t a1, uint64_t a2, void *a3)
 {
   v5 = a3;
-  v10 = v5;
+  v8 = v5;
   if (!a2 || v5)
   {
     v6 = *(a1 + 32);
-    v9 = v5;
+    v7 = v5;
     _DMLogFunc();
   }
 
   else if (a2 != 3)
   {
     v6 = IXStringForUninstallDisposition();
-    v9 = *(a1 + 32);
+    v7 = *(a1 + 32);
     _DMLogFunc();
   }
 
-  if (([*(a1 + 40) setSystemAppState:0 forBundleID:{*(a1 + 48), v6, v9}] & 1) == 0)
+  if (([*(a1 + 40) setSystemAppState:0 forBundleID:{*(a1 + 48), v6, v7}] & 1) == 0)
   {
-    v7 = *(a1 + 48);
     _DMLogFunc();
   }
 
-  v8 = *(a1 + 48);
   _DMLogFunc();
   dispatch_group_leave(*(a1 + 56));
 }
 
 void sub_48C0(uint64_t a1, void *a2, void *a3, _BYTE *a4)
 {
-  v13 = a2;
+  v10 = a2;
   v7 = a3;
   *a4 = 0;
-  v8 = *(a1 + 32);
-  v9 = *(a1 + 40);
-  v10 = _CFPreferencesCopyAppValueWithContainer();
-  if (v10)
+  v8 = _CFPreferencesCopyAppValueWithContainer();
+  if (v8)
   {
-    v11 = v10;
-    [*(a1 + 48) setObject:v10 forKeyedSubscript:v7];
+    v9 = v8;
+    [*(a1 + 48) setObject:v8 forKeyedSubscript:v7];
   }
 
   else
   {
-    v12 = *(a1 + 32);
     _DMLogFunc();
   }
 }
@@ -617,13 +609,9 @@ void sub_48C0(uint64_t a1, void *a2, void *a3, _BYTE *a4)
 void sub_4C6C(uint64_t a1, void *a2, void *a3, _BYTE *a4)
 {
   *a4 = 0;
-  v6 = *(a1 + 32);
-  v7 = *(a1 + 40);
-  v8 = a3;
-  v11 = a2;
+  v5 = a3;
+  v6 = a2;
   _DMLogFunc();
-  v9 = *(a1 + 32);
-  v10 = *(a1 + 40);
   _CFPreferencesSetAppValueWithContainer();
 }
 
@@ -633,9 +621,9 @@ void sub_4DC0(uint64_t a1)
   [v2 addObject:*(a1 + 40)];
 }
 
-void sub_4EFC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_4EFC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -646,11 +634,10 @@ void sub_4F14(uint64_t a1)
   *(*(*(a1 + 48) + 8) + 24) = [v2 containsObject:*(a1 + 40)];
 }
 
-uint64_t sub_5E70(uint64_t result, uint64_t a2)
+uint64_t sub_5E70(uint64_t a1, uint64_t a2)
 {
   if (a2)
   {
-    v2 = *(result + 32);
     return _DMLogFunc();
   }
 
@@ -796,41 +783,40 @@ id MIBooleanValue(void *a1, id a2)
   return a2;
 }
 
-uint64_t MIArrayContainsOnlyClass(void *a1)
+uint64_t MIArrayContainsOnlyClass(void *a1, uint64_t a2)
 {
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v1 = a1;
-  v2 = [v1 countByEnumeratingWithState:&v9 objects:v13 count:16];
-  if (v2)
+  v2 = a1;
+  v3 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
+  if (v3)
   {
-    v3 = v2;
-    v4 = *v10;
+    v4 = v3;
+    v5 = *v10;
     while (2)
     {
-      v5 = 0;
+      v6 = 0;
       do
       {
-        if (*v10 != v4)
+        if (*v10 != v5)
         {
-          objc_enumerationMutation(v1);
+          objc_enumerationMutation(v2);
         }
 
-        v6 = *(*(&v9 + 1) + 8 * v5);
         if ((objc_opt_isKindOfClass() & 1) == 0)
         {
           v7 = 0;
           goto LABEL_11;
         }
 
-        v5 = v5 + 1;
+        ++v6;
       }
 
-      while (v3 != v5);
-      v3 = [v1 countByEnumeratingWithState:&v9 objects:v13 count:16];
-      if (v3)
+      while (v4 != v6);
+      v4 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
+      if (v4)
       {
         continue;
       }
@@ -845,45 +831,45 @@ LABEL_11:
   return v7;
 }
 
-id MIArrayFilteredToContainOnlyClass(void *a1)
+id MIArrayFilteredToContainOnlyClass(void *a1, uint64_t a2)
 {
-  v1 = a1;
-  v2 = +[NSMutableArray arrayWithCapacity:](NSMutableArray, "arrayWithCapacity:", [v1 count]);
-  v11 = 0u;
+  v2 = a1;
+  v3 = +[NSMutableArray arrayWithCapacity:](NSMutableArray, "arrayWithCapacity:", [v2 count]);
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v3 = v1;
-  v4 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
-  if (v4)
+  v15 = 0u;
+  v4 = v2;
+  v5 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  if (v5)
   {
-    v5 = v4;
-    v6 = *v12;
+    v6 = v5;
+    v7 = *v13;
     do
     {
-      for (i = 0; i != v5; i = i + 1)
+      for (i = 0; i != v6; i = i + 1)
       {
-        if (*v12 != v6)
+        if (*v13 != v7)
         {
-          objc_enumerationMutation(v3);
+          objc_enumerationMutation(v4);
         }
 
-        v8 = *(*(&v11 + 1) + 8 * i);
+        v9 = *(*(&v12 + 1) + 8 * i);
         if (objc_opt_isKindOfClass())
         {
-          [v2 addObject:{v8, v11}];
+          [v3 addObject:{v9, v12}];
         }
       }
 
-      v5 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
-    while (v5);
+    while (v6);
   }
 
-  v9 = [v2 copy];
+  v10 = [v3 copy];
 
-  return v9;
+  return v10;
 }
 
 uint64_t MIDictionaryContainsOnlyClasses(void *a1, uint64_t a2, uint64_t a3)
@@ -907,9 +893,9 @@ uint64_t MIDictionaryContainsOnlyClasses(void *a1, uint64_t a2, uint64_t a3)
   return v6;
 }
 
-void sub_84D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_84D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -952,19 +938,19 @@ id MIStringifyObject(void *a1)
   return v3;
 }
 
-id MIArrayifyThing(void *a1)
+id MIArrayifyThing(void *a1, uint64_t a2)
 {
-  v1 = a1;
-  if (v1)
+  v3 = a1;
+  if (v3)
   {
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      if (MIArrayContainsOnlyClass(v1))
+      if (MIArrayContainsOnlyClass(v3, a2))
       {
-        v2 = v1;
+        v4 = v3;
 LABEL_7:
-        v3 = v2;
+        v5 = v4;
         goto LABEL_12;
       }
     }
@@ -973,23 +959,23 @@ LABEL_7:
     {
       if (objc_opt_isKindOfClass())
       {
-        v6 = v1;
-        v2 = [NSArray arrayWithObjects:&v6 count:1];
+        v8 = v3;
+        v4 = [NSArray arrayWithObjects:&v8 count:1];
         goto LABEL_7;
       }
 
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        v4 = [v1 allObjects];
-        if (MIArrayContainsOnlyClass(v4))
+        v6 = [v3 allObjects];
+        if (MIArrayContainsOnlyClass(v6, a2))
         {
-          v3 = v4;
+          v5 = v6;
         }
 
         else
         {
-          v3 = 0;
+          v5 = 0;
         }
 
         goto LABEL_12;
@@ -997,10 +983,10 @@ LABEL_7:
     }
   }
 
-  v3 = 0;
+  v5 = 0;
 LABEL_12:
 
-  return v3;
+  return v5;
 }
 
 BOOL MICompareObjects(void *a1, void *a2)

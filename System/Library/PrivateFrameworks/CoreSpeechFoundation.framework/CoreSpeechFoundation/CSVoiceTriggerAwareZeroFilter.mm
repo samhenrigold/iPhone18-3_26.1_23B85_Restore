@@ -119,7 +119,7 @@ LABEL_22:
 - (void)resetWithSampleRate:(float)rate containsVoiceTrigger:(BOOL)trigger voiceTriggerInfo:(id)info
 {
   triggerCopy = trigger;
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   infoCopy = info;
   self->_vtEndInSampleCount = 0;
   self->_sampleRate = rate;
@@ -131,13 +131,13 @@ LABEL_22:
   v13 = v12 / rate;
   if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_INFO))
   {
-    v22 = 136315650;
-    v23 = "[CSVoiceTriggerAwareZeroFilter resetWithSampleRate:containsVoiceTrigger:voiceTriggerInfo:]";
-    v24 = 2050;
-    v25 = v9;
-    v26 = 2050;
-    v27 = v13;
-    _os_log_impl(&dword_1DDA4B000, v11, OS_LOG_TYPE_INFO, "%s zeroFilterWinSz: %{public}tu, numHostTicksPerAudioSample: %{public}f", &v22, 0x20u);
+    v21 = 136315650;
+    v22 = "[CSVoiceTriggerAwareZeroFilter resetWithSampleRate:containsVoiceTrigger:voiceTriggerInfo:]";
+    v23 = 2050;
+    v24 = v9;
+    v25 = 2050;
+    v26 = v13;
+    _os_log_impl(&dword_1DDA4B000, v11, OS_LOG_TYPE_INFO, "%s zeroFilterWinSz: %{public}tu, numHostTicksPerAudioSample: %{public}f", &v21, 0x20u);
   }
 
   v14 = [[CSAudioZeroFilter alloc] initWithZeroWindowSize:v9 approxAbsSpeechThreshold:+[CSConfig numHostTicksPerAudioSample:"zeroFilterApproxAbsSpeechThreshold"], v13];
@@ -157,20 +157,18 @@ LABEL_22:
       if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_INFO))
       {
         numSamplesProcessed = self->_numSamplesProcessed;
-        v22 = 136315906;
-        v23 = "[CSVoiceTriggerAwareZeroFilter resetWithSampleRate:containsVoiceTrigger:voiceTriggerInfo:]";
-        v24 = 2050;
-        v25 = (rateCopy * v18);
-        v26 = 2050;
-        v27 = *&numSamplesProcessed;
-        v28 = 2114;
-        v29 = infoCopy;
-        _os_log_impl(&dword_1DDA4B000, v19, OS_LOG_TYPE_INFO, "%s _vtEndInSampleCount:%{public}ld, _numSamplesProcessed: %{public}ld, voiceTriggerInfo: %{public}@", &v22, 0x2Au);
+        v21 = 136315906;
+        v22 = "[CSVoiceTriggerAwareZeroFilter resetWithSampleRate:containsVoiceTrigger:voiceTriggerInfo:]";
+        v23 = 2050;
+        v24 = (rateCopy * v18);
+        v25 = 2050;
+        v26 = *&numSamplesProcessed;
+        v27 = 2114;
+        v28 = infoCopy;
+        _os_log_impl(&dword_1DDA4B000, v19, OS_LOG_TYPE_INFO, "%s _vtEndInSampleCount:%{public}ld, _numSamplesProcessed: %{public}ld, voiceTriggerInfo: %{public}@", &v21, 0x2Au);
       }
     }
   }
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 - (CSVoiceTriggerAwareZeroFilter)init

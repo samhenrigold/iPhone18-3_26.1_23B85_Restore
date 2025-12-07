@@ -214,15 +214,14 @@ void __87__TIKeyboardInputManagerPolymorph_handleKeyboardInput_keyboardState_com
   v9 = +[TITypingAssertion sharedTypingAssertion];
   [v9 touchWithReason:1];
 
-  v10 = *(a1 + 32);
   kdebug_trace();
-  v11 = kac_get_log();
-  v12 = os_signpost_id_make_with_pointer(v11, (*(a1 + 32) ^ 0x65));
+  v10 = kac_get_log();
+  v11 = os_signpost_id_make_with_pointer(v10, (*(a1 + 32) ^ 0x65));
 
-  if (v12 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v11))
+  if (v11 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v10))
   {
-    *v13 = 0;
-    _os_signpost_emit_with_name_impl(&dword_22CA55000, v11, OS_SIGNPOST_INTERVAL_END, v12, "kbdManager.polymorph.keyboardInput.super", &unk_22CCA4FEF, v13, 2u);
+    *v12 = 0;
+    _os_signpost_emit_with_name_impl(&dword_22CA55000, v10, OS_SIGNPOST_INTERVAL_END, v11, "kbdManager.polymorph.keyboardInput.super", &unk_22CCA4FEF, v12, 2u);
   }
 }
 
@@ -313,14 +312,14 @@ LABEL_12:
   if ([stateCopy hardwareKeyboardMode])
   {
     languageWithRegion = [v9 languageWithRegion];
-    v15 = [languageWithRegion isEqualToString:@"ja_JP"];
+    isEqualToString = objc_msgSend_isEqualToString_(languageWithRegion);
 
-    if (v15)
+    if (isEqualToString)
     {
       inputMode3 = [stateCopy inputMode];
       v17 = TIInputModeGetComponentsFromIdentifier();
       v18 = [v17 objectForKey:@"hw"];
-      v19 = [v18 isEqualToString:@"KANA"];
+      v19 = objc_msgSend_isEqualToString_(v18);
 
       if (v19)
       {

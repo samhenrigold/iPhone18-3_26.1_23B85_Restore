@@ -1383,7 +1383,7 @@ LABEL_151:
 
 - (void)setPropertiesBasedOnEvents
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   distantFuture = [MEMORY[0x277CBEAA8] distantFuture];
   startDate = self->_startDate;
   self->_startDate = distantFuture;
@@ -1396,26 +1396,26 @@ LABEL_151:
   expirationDate = self->_expirationDate;
   self->_expirationDate = distantFuture2;
 
-  v34 = 0u;
-  v35 = 0u;
-  v32 = 0u;
   v33 = 0u;
+  v34 = 0u;
+  v31 = 0u;
+  v32 = 0u;
   events = [(MOEventBundle *)self events];
-  v10 = [events countByEnumeratingWithState:&v32 objects:v36 count:16];
+  v10 = [events countByEnumeratingWithState:&v31 objects:v35 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v33;
+    v12 = *v32;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v33 != v12)
+        if (*v32 != v12)
         {
           objc_enumerationMutation(events);
         }
 
-        v14 = *(*(&v32 + 1) + 8 * i);
+        v14 = *(*(&v31 + 1) + 8 * i);
         v15 = self->_startDate;
         startDate = [v14 startDate];
         LODWORD(v15) = [(NSDate *)v15 isAfterDate:startDate];
@@ -1458,13 +1458,11 @@ LABEL_151:
         }
       }
 
-      v11 = [events countByEnumeratingWithState:&v32 objects:v36 count:16];
+      v11 = [events countByEnumeratingWithState:&v31 objects:v35 count:16];
     }
 
     while (v11);
   }
-
-  v31 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addBackgroundAction:(id)action
@@ -1500,21 +1498,12 @@ LABEL_151:
 - (id)localStartDate
 {
   time = [(MOEventBundle *)self time];
-  if (!time)
-  {
-    goto LABEL_4;
-  }
-
-  v4 = time;
-  time2 = [(MOEventBundle *)self time];
-  timeZone = [time2 timeZone];
-
-  if (timeZone)
+  if (time && (v4 = time, -[MOEventBundle time](self, "time"), v5 = objc_claimAutoreleasedReturnValue(), [v5 timeZone], v6 = objc_claimAutoreleasedReturnValue(), v6, v5, v4, v6))
   {
     v7 = objc_alloc(MEMORY[0x277CBEBB0]);
-    time3 = [(MOEventBundle *)self time];
-    timeZone2 = [time3 timeZone];
-    v10 = [v7 initWithName:timeZone2];
+    time2 = [(MOEventBundle *)self time];
+    timeZone = [time2 timeZone];
+    v10 = [v7 initWithName:timeZone];
 
     startDate = [(MOEventBundle *)self startDate];
     startDate2 = [MOTime localTimeOfDate:startDate timeZone:v10];
@@ -1522,7 +1511,6 @@ LABEL_151:
 
   else
   {
-LABEL_4:
     startDate2 = [(MOEventBundle *)self startDate];
   }
 
@@ -1532,21 +1520,12 @@ LABEL_4:
 - (id)localEndDate
 {
   time = [(MOEventBundle *)self time];
-  if (!time)
-  {
-    goto LABEL_4;
-  }
-
-  v4 = time;
-  time2 = [(MOEventBundle *)self time];
-  timeZone = [time2 timeZone];
-
-  if (timeZone)
+  if (time && (v4 = time, -[MOEventBundle time](self, "time"), v5 = objc_claimAutoreleasedReturnValue(), [v5 timeZone], v6 = objc_claimAutoreleasedReturnValue(), v6, v5, v4, v6))
   {
     v7 = objc_alloc(MEMORY[0x277CBEBB0]);
-    time3 = [(MOEventBundle *)self time];
-    timeZone2 = [time3 timeZone];
-    v10 = [v7 initWithName:timeZone2];
+    time2 = [(MOEventBundle *)self time];
+    timeZone = [time2 timeZone];
+    v10 = [v7 initWithName:timeZone];
 
     endDate = [(MOEventBundle *)self endDate];
     endDate2 = [MOTime localTimeOfDate:endDate timeZone:v10];
@@ -1554,7 +1533,6 @@ LABEL_4:
 
   else
   {
-LABEL_4:
     endDate2 = [(MOEventBundle *)self endDate];
   }
 
@@ -1563,30 +1541,30 @@ LABEL_4:
 
 - (id)displayStartDate
 {
-  v63 = *MEMORY[0x277D85DE8];
+  v62 = *MEMORY[0x277D85DE8];
   if ([(MOEventBundle *)self bundleSubType]== 202 || [(MOEventBundle *)self bundleSubType]== 404 || [(MOEventBundle *)self bundleSubType]== 405)
   {
     distantFuture = [MEMORY[0x277CBEAA8] distantFuture];
+    v55 = 0u;
     v56 = 0u;
     v57 = 0u;
     v58 = 0u;
-    v59 = 0u;
     events = [(MOEventBundle *)self events];
-    v5 = [events countByEnumeratingWithState:&v56 objects:v62 count:16];
+    v5 = [events countByEnumeratingWithState:&v55 objects:v61 count:16];
     if (v5)
     {
       v6 = v5;
-      v7 = *v57;
+      v7 = *v56;
       do
       {
         for (i = 0; i != v6; ++i)
         {
-          if (*v57 != v7)
+          if (*v56 != v7)
           {
             objc_enumerationMutation(events);
           }
 
-          v9 = *(*(&v56 + 1) + 8 * i);
+          v9 = *(*(&v55 + 1) + 8 * i);
           if (([v9 category] == 2 || objc_msgSend(v9, "category") == 4) && objc_msgSend(v9, "provider") != 5)
           {
             startDate = [v9 startDate];
@@ -1601,35 +1579,25 @@ LABEL_4:
           }
         }
 
-        v6 = [events countByEnumeratingWithState:&v56 objects:v62 count:16];
+        v6 = [events countByEnumeratingWithState:&v55 objects:v61 count:16];
       }
 
       while (v6);
     }
 
     time = [(MOEventBundle *)self time];
-    if (!time)
-    {
-      goto LABEL_19;
-    }
-
-    v14 = time;
-    time2 = [(MOEventBundle *)self time];
-    timeZone = [time2 timeZone];
-
-    if (timeZone)
+    if (time && (v14 = time, -[MOEventBundle time](self, "time"), v15 = objc_claimAutoreleasedReturnValue(), [v15 timeZone], v16 = objc_claimAutoreleasedReturnValue(), v16, v15, v14, v16))
     {
       v17 = objc_alloc(MEMORY[0x277CBEBB0]);
-      time3 = [(MOEventBundle *)self time];
-      timeZone2 = [time3 timeZone];
-      v20 = [v17 initWithName:timeZone2];
+      time2 = [(MOEventBundle *)self time];
+      timeZone = [time2 timeZone];
+      v20 = [v17 initWithName:timeZone];
 
       startDate3 = [MOTime localTimeOfDate:distantFuture timeZone:v20];
     }
 
     else
     {
-LABEL_19:
       startDate3 = distantFuture;
     }
   }
@@ -1637,95 +1605,95 @@ LABEL_19:
   else if ([(MOEventBundle *)self bundleSubType]== 203)
   {
     startDate3 = [(MOEventBundle *)self startDate];
+    v51 = 0u;
     v52 = 0u;
     v53 = 0u;
     v54 = 0u;
-    v55 = 0u;
     events2 = [(MOEventBundle *)self events];
-    v25 = [events2 countByEnumeratingWithState:&v52 objects:v61 count:16];
-    if (v25)
+    v24 = [events2 countByEnumeratingWithState:&v51 objects:v60 count:16];
+    if (v24)
     {
-      v26 = v25;
-      v27 = *v53;
-      v28 = @"kEventResourcePatternWorkoutInfoDictArray";
-      v45 = *v53;
-      v46 = events2;
-      v44 = @"kEventResourcePatternWorkoutInfoDictArray";
+      v25 = v24;
+      v26 = *v52;
+      v27 = @"kEventResourcePatternWorkoutInfoDictArray";
+      v44 = *v52;
+      v45 = events2;
+      v43 = @"kEventResourcePatternWorkoutInfoDictArray";
       do
       {
-        v29 = 0;
-        v47 = v26;
+        v28 = 0;
+        v46 = v25;
         do
         {
-          if (*v53 != v27)
+          if (*v52 != v26)
           {
             objc_enumerationMutation(events2);
           }
 
-          v30 = *(*(&v52 + 1) + 8 * v29);
-          if ([v30 provider] == 5 && objc_msgSend(v30, "category") == 2)
+          v29 = *(*(&v51 + 1) + 8 * v28);
+          if ([v29 provider] == 5 && objc_msgSend(v29, "category") == 2)
           {
-            patterns = [v30 patterns];
-            v32 = [patterns objectForKey:v28];
+            patterns = [v29 patterns];
+            v31 = [patterns objectForKey:v27];
 
-            if (v32)
+            if (v31)
             {
-              v50 = 0u;
-              v51 = 0u;
-              v48 = 0u;
               v49 = 0u;
-              patterns2 = [v30 patterns];
-              v34 = [patterns2 objectForKeyedSubscript:v28];
+              v50 = 0u;
+              v47 = 0u;
+              v48 = 0u;
+              patterns2 = [v29 patterns];
+              v33 = [patterns2 objectForKeyedSubscript:v27];
 
-              v35 = [v34 countByEnumeratingWithState:&v48 objects:v60 count:16];
-              if (v35)
+              v34 = [v33 countByEnumeratingWithState:&v47 objects:v59 count:16];
+              if (v34)
               {
-                v36 = v35;
-                v37 = *v49;
+                v35 = v34;
+                v36 = *v48;
                 do
                 {
-                  for (j = 0; j != v36; ++j)
+                  for (j = 0; j != v35; ++j)
                   {
-                    if (*v49 != v37)
+                    if (*v48 != v36)
                     {
-                      objc_enumerationMutation(v34);
+                      objc_enumerationMutation(v33);
                     }
 
-                    v39 = [*(*(&v48 + 1) + 8 * j) objectForKeyedSubscript:@"kEventResourcePatternWorkoutStartDate"];
-                    [v39 doubleValue];
-                    v41 = v40;
+                    v38 = [*(*(&v47 + 1) + 8 * j) objectForKeyedSubscript:@"kEventResourcePatternWorkoutStartDate"];
+                    [v38 doubleValue];
+                    v40 = v39;
 
-                    v42 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSince1970:v41];
-                    if ([startDate3 isAfterDate:v42])
+                    v41 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSince1970:v40];
+                    if ([startDate3 isAfterDate:v41])
                     {
-                      v43 = v42;
+                      v42 = v41;
 
-                      startDate3 = v43;
+                      startDate3 = v42;
                     }
                   }
 
-                  v36 = [v34 countByEnumeratingWithState:&v48 objects:v60 count:16];
+                  v35 = [v33 countByEnumeratingWithState:&v47 objects:v59 count:16];
                 }
 
-                while (v36);
+                while (v35);
               }
 
-              v27 = v45;
-              events2 = v46;
-              v28 = v44;
+              v26 = v44;
+              events2 = v45;
+              v27 = v43;
             }
 
-            v26 = v47;
+            v25 = v46;
           }
 
-          ++v29;
+          ++v28;
         }
 
-        while (v29 != v26);
-        v26 = [events2 countByEnumeratingWithState:&v52 objects:v61 count:16];
+        while (v28 != v25);
+        v25 = [events2 countByEnumeratingWithState:&v51 objects:v60 count:16];
       }
 
-      while (v26);
+      while (v25);
     }
   }
 
@@ -1734,37 +1702,35 @@ LABEL_19:
     startDate3 = [(MOEventBundle *)self localStartDate];
   }
 
-  v22 = *MEMORY[0x277D85DE8];
-
   return startDate3;
 }
 
 - (id)displayEndDate
 {
-  v63 = *MEMORY[0x277D85DE8];
+  v62 = *MEMORY[0x277D85DE8];
   if ([(MOEventBundle *)self bundleSubType]== 202 || [(MOEventBundle *)self bundleSubType]== 404 || [(MOEventBundle *)self bundleSubType]== 405)
   {
     distantPast = [MEMORY[0x277CBEAA8] distantPast];
+    v55 = 0u;
     v56 = 0u;
     v57 = 0u;
     v58 = 0u;
-    v59 = 0u;
     events = [(MOEventBundle *)self events];
-    v5 = [events countByEnumeratingWithState:&v56 objects:v62 count:16];
+    v5 = [events countByEnumeratingWithState:&v55 objects:v61 count:16];
     if (v5)
     {
       v6 = v5;
-      v7 = *v57;
+      v7 = *v56;
       do
       {
         for (i = 0; i != v6; ++i)
         {
-          if (*v57 != v7)
+          if (*v56 != v7)
           {
             objc_enumerationMutation(events);
           }
 
-          v9 = *(*(&v56 + 1) + 8 * i);
+          v9 = *(*(&v55 + 1) + 8 * i);
           if (([v9 category] == 2 || objc_msgSend(v9, "category") == 4) && objc_msgSend(v9, "provider") != 5)
           {
             endDate = [v9 endDate];
@@ -1779,35 +1745,25 @@ LABEL_19:
           }
         }
 
-        v6 = [events countByEnumeratingWithState:&v56 objects:v62 count:16];
+        v6 = [events countByEnumeratingWithState:&v55 objects:v61 count:16];
       }
 
       while (v6);
     }
 
     time = [(MOEventBundle *)self time];
-    if (!time)
-    {
-      goto LABEL_19;
-    }
-
-    v14 = time;
-    time2 = [(MOEventBundle *)self time];
-    timeZone = [time2 timeZone];
-
-    if (timeZone)
+    if (time && (v14 = time, -[MOEventBundle time](self, "time"), v15 = objc_claimAutoreleasedReturnValue(), [v15 timeZone], v16 = objc_claimAutoreleasedReturnValue(), v16, v15, v14, v16))
     {
       v17 = objc_alloc(MEMORY[0x277CBEBB0]);
-      time3 = [(MOEventBundle *)self time];
-      timeZone2 = [time3 timeZone];
-      v20 = [v17 initWithName:timeZone2];
+      time2 = [(MOEventBundle *)self time];
+      timeZone = [time2 timeZone];
+      v20 = [v17 initWithName:timeZone];
 
       endDate3 = [MOTime localTimeOfDate:distantPast timeZone:v20];
     }
 
     else
     {
-LABEL_19:
       endDate3 = distantPast;
     }
   }
@@ -1815,95 +1771,95 @@ LABEL_19:
   else if ([(MOEventBundle *)self bundleSubType]== 203)
   {
     endDate3 = [(MOEventBundle *)self endDate];
+    v51 = 0u;
     v52 = 0u;
     v53 = 0u;
     v54 = 0u;
-    v55 = 0u;
     events2 = [(MOEventBundle *)self events];
-    v25 = [events2 countByEnumeratingWithState:&v52 objects:v61 count:16];
-    if (v25)
+    v24 = [events2 countByEnumeratingWithState:&v51 objects:v60 count:16];
+    if (v24)
     {
-      v26 = v25;
-      v27 = *v53;
-      v28 = @"kEventResourcePatternWorkoutInfoDictArray";
-      v45 = *v53;
-      v46 = events2;
-      v44 = @"kEventResourcePatternWorkoutInfoDictArray";
+      v25 = v24;
+      v26 = *v52;
+      v27 = @"kEventResourcePatternWorkoutInfoDictArray";
+      v44 = *v52;
+      v45 = events2;
+      v43 = @"kEventResourcePatternWorkoutInfoDictArray";
       do
       {
-        v29 = 0;
-        v47 = v26;
+        v28 = 0;
+        v46 = v25;
         do
         {
-          if (*v53 != v27)
+          if (*v52 != v26)
           {
             objc_enumerationMutation(events2);
           }
 
-          v30 = *(*(&v52 + 1) + 8 * v29);
-          if ([v30 provider] == 5 && objc_msgSend(v30, "category") == 2)
+          v29 = *(*(&v51 + 1) + 8 * v28);
+          if ([v29 provider] == 5 && objc_msgSend(v29, "category") == 2)
           {
-            patterns = [v30 patterns];
-            v32 = [patterns objectForKey:v28];
+            patterns = [v29 patterns];
+            v31 = [patterns objectForKey:v27];
 
-            if (v32)
+            if (v31)
             {
-              v50 = 0u;
-              v51 = 0u;
-              v48 = 0u;
               v49 = 0u;
-              patterns2 = [v30 patterns];
-              v34 = [patterns2 objectForKeyedSubscript:v28];
+              v50 = 0u;
+              v47 = 0u;
+              v48 = 0u;
+              patterns2 = [v29 patterns];
+              v33 = [patterns2 objectForKeyedSubscript:v27];
 
-              v35 = [v34 countByEnumeratingWithState:&v48 objects:v60 count:16];
-              if (v35)
+              v34 = [v33 countByEnumeratingWithState:&v47 objects:v59 count:16];
+              if (v34)
               {
-                v36 = v35;
-                v37 = *v49;
+                v35 = v34;
+                v36 = *v48;
                 do
                 {
-                  for (j = 0; j != v36; ++j)
+                  for (j = 0; j != v35; ++j)
                   {
-                    if (*v49 != v37)
+                    if (*v48 != v36)
                     {
-                      objc_enumerationMutation(v34);
+                      objc_enumerationMutation(v33);
                     }
 
-                    v39 = [*(*(&v48 + 1) + 8 * j) objectForKeyedSubscript:@"kEventResourcePatternWorkoutEndDate"];
-                    [v39 doubleValue];
-                    v41 = v40;
+                    v38 = [*(*(&v47 + 1) + 8 * j) objectForKeyedSubscript:@"kEventResourcePatternWorkoutEndDate"];
+                    [v38 doubleValue];
+                    v40 = v39;
 
-                    v42 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSince1970:v41];
-                    if ([endDate3 isBeforeDate:v42])
+                    v41 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSince1970:v40];
+                    if ([endDate3 isBeforeDate:v41])
                     {
-                      v43 = v42;
+                      v42 = v41;
 
-                      endDate3 = v43;
+                      endDate3 = v42;
                     }
                   }
 
-                  v36 = [v34 countByEnumeratingWithState:&v48 objects:v60 count:16];
+                  v35 = [v33 countByEnumeratingWithState:&v47 objects:v59 count:16];
                 }
 
-                while (v36);
+                while (v35);
               }
 
-              v27 = v45;
-              events2 = v46;
-              v28 = v44;
+              v26 = v44;
+              events2 = v45;
+              v27 = v43;
             }
 
-            v26 = v47;
+            v25 = v46;
           }
 
-          ++v29;
+          ++v28;
         }
 
-        while (v29 != v26);
-        v26 = [events2 countByEnumeratingWithState:&v52 objects:v61 count:16];
+        while (v28 != v25);
+        v25 = [events2 countByEnumeratingWithState:&v51 objects:v60 count:16];
       }
 
-      while (v26);
+      while (v25);
     }
   }
 
@@ -1911,8 +1867,6 @@ LABEL_19:
   {
     endDate3 = [(MOEventBundle *)self localEndDate];
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 
   return endDate3;
 }
@@ -2006,64 +1960,57 @@ LABEL_19:
 
 - (void)withResourcesUsingBlock:(id)block
 {
-  v67 = *MEMORY[0x277D85DE8];
+  v66 = *MEMORY[0x277D85DE8];
   blockCopy = block;
-  v61 = 0;
-  v62 = &v61;
-  v63 = 0x2020000000;
-  v64 = 0;
+  v60 = 0;
+  v61 = &v60;
+  v62 = 0x2020000000;
+  v63 = 0;
   selfCopy = self;
   resources = [(MOEventBundle *)self resources];
-  v58[0] = MEMORY[0x277D85DD0];
-  v58[1] = 3221225472;
-  v58[2] = __41__MOEventBundle_withResourcesUsingBlock___block_invoke;
-  v58[3] = &unk_278775368;
+  v57[0] = MEMORY[0x277D85DD0];
+  v57[1] = 3221225472;
+  v57[2] = __41__MOEventBundle_withResourcesUsingBlock___block_invoke;
+  v57[3] = &unk_278775368;
   v6 = blockCopy;
-  v59 = v6;
-  v60 = &v61;
-  [resources enumerateObjectsUsingBlock:v58];
+  v58 = v6;
+  v59 = &v60;
+  [resources enumerateObjectsUsingBlock:v57];
 
-  if ((v62[3] & 1) == 0)
+  if ((v61[3] & 1) == 0)
   {
-    v56 = 0u;
-    v57 = 0u;
-    v54 = 0u;
     v55 = 0u;
+    v56 = 0u;
+    v53 = 0u;
+    v54 = 0u;
     persons = [(MOEventBundle *)selfCopy persons];
-    v8 = [persons countByEnumeratingWithState:&v54 objects:v66 count:16];
+    v8 = [persons countByEnumeratingWithState:&v53 objects:v65 count:16];
     if (v8)
     {
-      v9 = *v55;
+      v9 = *v54;
 LABEL_4:
       v10 = 0;
       while (1)
       {
-        if (*v55 != v9)
+        if (*v54 != v9)
         {
           objc_enumerationMutation(persons);
         }
 
-        v11 = *(*(&v54 + 1) + 8 * v10);
+        v11 = *(*(&v53 + 1) + 8 * v10);
         v12 = objc_autoreleasePoolPush();
         v13 = [[MOResource alloc] initWithPerson:v11];
-        if (!v13)
+        v15 = 1;
+        if (v13)
         {
-          goto LABEL_10;
-        }
+          sourceEventIdentifier = [v11 sourceEventIdentifier];
+          [(MOResource *)v13 setSourceEventIdentifier:sourceEventIdentifier];
 
-        sourceEventIdentifier = [v11 sourceEventIdentifier];
-        [(MOResource *)v13 setSourceEventIdentifier:sourceEventIdentifier];
-
-        (*(v6 + 2))(v6, v13, v62 + 3);
-        if (v62[3])
-        {
-          v15 = 0;
-        }
-
-        else
-        {
-LABEL_10:
-          v15 = 1;
+          (*(v6 + 2))(v6, v13, v61 + 3);
+          if (v61[3])
+          {
+            v15 = 0;
+          }
         }
 
         objc_autoreleasePoolPop(v12);
@@ -2074,7 +2021,7 @@ LABEL_10:
 
         if (v8 == ++v10)
         {
-          v8 = [persons countByEnumeratingWithState:&v54 objects:v66 count:16];
+          v8 = [persons countByEnumeratingWithState:&v53 objects:v65 count:16];
           if (v8)
           {
             goto LABEL_4;
@@ -2120,51 +2067,44 @@ LABEL_10:
     place4 = [(MOEventBundle *)selfCopy place];
     v26 = [(MOResource *)v24 initWithPlace:place4 startDate:startDate endDate:endDate];
 
-    if (!v26)
+    v29 = 1;
+    if (v26)
     {
-      goto LABEL_23;
-    }
+      place5 = [(MOEventBundle *)selfCopy place];
+      sourceEventIdentifier2 = [place5 sourceEventIdentifier];
+      [(MOResource *)v26 setSourceEventIdentifier:sourceEventIdentifier2];
 
-    place5 = [(MOEventBundle *)selfCopy place];
-    sourceEventIdentifier2 = [place5 sourceEventIdentifier];
-    [(MOResource *)v26 setSourceEventIdentifier:sourceEventIdentifier2];
-
-    (*(v6 + 2))(v6, v26, v62 + 3);
-    if (v62[3])
-    {
-      v29 = 0;
-    }
-
-    else
-    {
-LABEL_23:
-      v29 = 1;
+      (*(v6 + 2))(v6, v26, v61 + 3);
+      if (v61[3])
+      {
+        v29 = 0;
+      }
     }
 
     objc_autoreleasePoolPop(v19);
     if (v29)
     {
 LABEL_25:
-      v52 = 0u;
-      v53 = 0u;
-      v50 = 0u;
       v51 = 0u;
+      v52 = 0u;
+      v49 = 0u;
+      v50 = 0u;
       persons = [(MOEventBundle *)selfCopy places];
-      v30 = [persons countByEnumeratingWithState:&v50 objects:v65 count:16];
+      v30 = [persons countByEnumeratingWithState:&v49 objects:v64 count:16];
       if (v30)
       {
-        v31 = *v51;
-        v48 = v6 + 16;
+        v31 = *v50;
+        v47 = v6 + 16;
 LABEL_27:
         v32 = 0;
         while (1)
         {
-          if (*v51 != v31)
+          if (*v50 != v31)
           {
             objc_enumerationMutation(persons);
           }
 
-          v33 = *(*(&v50 + 1) + 8 * v32);
+          v33 = *(*(&v49 + 1) + 8 * v32);
           v34 = objc_autoreleasePoolPush();
           startDate2 = [v33 startDate];
           if (!startDate2)
@@ -2185,8 +2125,8 @@ LABEL_27:
             sourceEventIdentifier3 = [v33 sourceEventIdentifier];
             [(MOResource *)v37 setSourceEventIdentifier:sourceEventIdentifier3];
 
-            (*(v6 + 2))(v6, v37, v62 + 3);
-            if (v62[3])
+            (*(v6 + 2))(v6, v37, v61 + 3);
+            if (v61[3])
             {
               v39 = 0;
             }
@@ -2200,7 +2140,7 @@ LABEL_27:
 
           if (v30 == ++v32)
           {
-            v30 = [persons countByEnumeratingWithState:&v50 objects:v65 count:16];
+            v30 = [persons countByEnumeratingWithState:&v49 objects:v64 count:16];
             if (v30)
             {
               goto LABEL_27;
@@ -2232,7 +2172,7 @@ LABEL_41:
           sourceEventIdentifier4 = [predominantWeather3 sourceEventIdentifier];
           [(MOResource *)v44 setSourceEventIdentifier:sourceEventIdentifier4];
 
-          (*(v6 + 2))(v6, v44, v62 + 3);
+          (*(v6 + 2))(v6, v44, v61 + 3);
         }
 
         objc_autoreleasePoolPop(v41);
@@ -2242,8 +2182,7 @@ LABEL_41:
 
 LABEL_46:
 
-  _Block_object_dispose(&v61, 8);
-  v47 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v60, 8);
 }
 
 uint64_t __41__MOEventBundle_withResourcesUsingBlock___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4)
@@ -2255,31 +2194,31 @@ uint64_t __41__MOEventBundle_withResourcesUsingBlock___block_invoke(uint64_t a1,
 
 - (void)buildResources
 {
-  v96 = *MEMORY[0x277D85DE8];
+  v95 = *MEMORY[0x277D85DE8];
   v4 = objc_opt_new();
+  v88 = 0u;
   v89 = 0u;
   v90 = 0u;
   v91 = 0u;
-  v92 = 0u;
   selfCopy = self;
   persons = [(MOEventBundle *)self persons];
-  v6 = [persons countByEnumeratingWithState:&v89 objects:v95 count:16];
+  v6 = [persons countByEnumeratingWithState:&v88 objects:v94 count:16];
   v7 = 0x278772000uLL;
   if (v6)
   {
     v8 = v6;
     v9 = 0;
-    place4 = *v90;
+    place4 = *v89;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v90 != place4)
+        if (*v89 != place4)
         {
           objc_enumerationMutation(persons);
         }
 
-        v11 = *(*(&v89 + 1) + 8 * i);
+        v11 = *(*(&v88 + 1) + 8 * i);
         v12 = [[MOResource alloc] initWithPerson:v11];
         v13 = v12;
         if (v12)
@@ -2302,7 +2241,7 @@ uint64_t __41__MOEventBundle_withResourcesUsingBlock___block_invoke(uint64_t a1,
         }
       }
 
-      v8 = [persons countByEnumeratingWithState:&v89 objects:v95 count:16];
+      v8 = [persons countByEnumeratingWithState:&v88 objects:v94 count:16];
     }
 
     while (v8);
@@ -2366,29 +2305,29 @@ LABEL_47:
             if (v34)
             {
 LABEL_64:
-              v87 = 0u;
-              v88 = 0u;
-              v85 = 0u;
               v86 = 0u;
+              v87 = 0u;
+              v84 = 0u;
+              v85 = 0u;
               obj = [(MOEventBundle *)v17 places];
-              v44 = [obj countByEnumeratingWithState:&v85 objects:v94 count:16];
+              v44 = [obj countByEnumeratingWithState:&v84 objects:v93 count:16];
               if (!v44)
               {
                 goto LABEL_95;
               }
 
               v45 = v44;
-              v46 = *v86;
+              v46 = *v85;
               while (1)
               {
                 for (j = 0; j != v45; ++j)
                 {
-                  if (*v86 != v46)
+                  if (*v85 != v46)
                   {
                     objc_enumerationMutation(obj);
                   }
 
-                  v48 = *(*(&v85 + 1) + 8 * j);
+                  v48 = *(*(&v84 + 1) + 8 * j);
                   [v48 priorityScore];
                   if (v49 < 20000.0)
                   {
@@ -2482,7 +2421,7 @@ LABEL_81:
                   }
                 }
 
-                v45 = [obj countByEnumeratingWithState:&v85 objects:v94 count:16];
+                v45 = [obj countByEnumeratingWithState:&v84 objects:v93 count:16];
                 if (!v45)
                 {
                   goto LABEL_95;
@@ -2530,7 +2469,7 @@ LABEL_81:
         goto LABEL_64;
       }
 
-      v78 = place;
+      v77 = place;
     }
 
     place4 = [(MOEventBundle *)selfCopy interfaceType];
@@ -2543,7 +2482,7 @@ LABEL_81:
 LABEL_44:
 
 LABEL_45:
-        place = v78;
+        place = v77;
         if (interfaceType2 != 1)
         {
           goto LABEL_47;
@@ -2564,7 +2503,7 @@ LABEL_45:
         goto LABEL_42;
       }
 
-      v76 = place11;
+      v75 = place11;
       v22 = selfCopy;
     }
 
@@ -2576,7 +2515,7 @@ LABEL_45:
       {
 
         v21 = 0;
-        place11 = v76;
+        place11 = v75;
         if (interfaceType4 != 12)
         {
 LABEL_43:
@@ -2594,11 +2533,11 @@ LABEL_42:
         goto LABEL_43;
       }
 
-      v75 = place12;
+      v74 = place12;
       if ([(MOEventBundle *)v22 interfaceType]!= 16)
       {
         v21 = 1;
-        place11 = v76;
+        place11 = v75;
         goto LABEL_40;
       }
 
@@ -2608,7 +2547,7 @@ LABEL_42:
     else if ([(MOEventBundle *)v22 interfaceType]!= 16)
     {
       v21 = 1;
-      place11 = v76;
+      place11 = v75;
       goto LABEL_41;
     }
 
@@ -2616,7 +2555,7 @@ LABEL_42:
     v21 = [place13 placeUserType] != 2;
 
     v28 = interfaceType5 == 16;
-    place11 = v76;
+    place11 = v75;
     if (!v28)
     {
 LABEL_41:
@@ -2658,26 +2597,26 @@ LABEL_96:
     }
   }
 
-  v83 = 0u;
-  v84 = 0u;
-  v81 = 0u;
   v82 = 0u;
+  v83 = 0u;
+  v80 = 0u;
+  v81 = 0u;
   resources = [(MOEventBundle *)v17 resources];
-  v68 = [resources countByEnumeratingWithState:&v81 objects:v93 count:16];
+  v68 = [resources countByEnumeratingWithState:&v80 objects:v92 count:16];
   if (v68)
   {
     v69 = v68;
-    v70 = *v82;
+    v70 = *v81;
     do
     {
       for (k = 0; k != v69; ++k)
       {
-        if (*v82 != v70)
+        if (*v81 != v70)
         {
           objc_enumerationMutation(resources);
         }
 
-        v72 = *(*(&v81 + 1) + 8 * k);
+        v72 = *(*(&v80 + 1) + 8 * k);
         [v72 priorityScore];
         if (v73 <= 0.0)
         {
@@ -2687,19 +2626,18 @@ LABEL_96:
         [v4 addObject:v72];
       }
 
-      v69 = [resources countByEnumeratingWithState:&v81 objects:v93 count:16];
+      v69 = [resources countByEnumeratingWithState:&v80 objects:v92 count:16];
     }
 
     while (v69);
   }
 
   [(MOEventBundle *)v17 setResources:v4];
-  v74 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addEvent:(id)event
 {
-  v11[1] = *MEMORY[0x277D85DE8];
+  v10[1] = *MEMORY[0x277D85DE8];
   eventCopy = event;
   if (eventCopy)
   {
@@ -2718,13 +2656,11 @@ LABEL_96:
 
     else
     {
-      v11[0] = eventCopy;
-      v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:1];
+      v10[0] = eventCopy;
+      v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:1];
       [(MOEventBundle *)self setEvents:v8];
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addEvents:(id)events
@@ -3117,7 +3053,7 @@ LABEL_16:
 
 - (BOOL)isEqualToEventBundle:(id)bundle
 {
-  v115 = *MEMORY[0x277D85DE8];
+  v114 = *MEMORY[0x277D85DE8];
   bundleCopy = bundle;
   if (self == bundleCopy)
   {
@@ -3136,16 +3072,16 @@ LABEL_16:
   suggestionID = [(MOEventBundle *)self suggestionID];
   if (suggestionID)
   {
-    v12 = suggestionID;
+    v11 = suggestionID;
     suggestionID2 = [(MOEventBundle *)bundleCopy suggestionID];
     if (suggestionID2)
     {
-      v14 = suggestionID2;
+      v13 = suggestionID2;
       suggestionID3 = [(MOEventBundle *)self suggestionID];
       suggestionID4 = [(MOEventBundle *)bundleCopy suggestionID];
-      v17 = [suggestionID3 isEqual:suggestionID4];
+      v16 = [suggestionID3 isEqual:suggestionID4];
 
-      if (v17)
+      if (v16)
       {
 LABEL_3:
         LOBYTE(v8) = 1;
@@ -3175,8 +3111,8 @@ LABEL_84:
         goto LABEL_84;
       }
 
-      v19 = @"endDate";
-      v23 = 60.0;
+      v18 = @"endDate";
+      v22 = 60.0;
       goto LABEL_42;
     case 1uLL:
     case 2uLL:
@@ -3185,11 +3121,11 @@ LABEL_84:
         goto LABEL_84;
       }
 
-      v19 = @"endDate";
+      v18 = @"endDate";
       selfCopy3 = self;
       selfCopy4 = self;
-      v22 = bundleCopy;
-      v23 = 600.0;
+      v21 = bundleCopy;
+      v22 = 600.0;
       goto LABEL_43;
     case 4uLL:
       if (![(MOEventBundle *)self isEqualBasicPropertiesForObject:self other:bundleCopy])
@@ -3206,7 +3142,7 @@ LABEL_84:
         goto LABEL_4;
       }
 
-      v27 = [(MOEventBundle *)self isEqualPersonsForObject:self other:bundleCopy];
+      v26 = [(MOEventBundle *)self isEqualPersonsForObject:self other:bundleCopy];
       goto LABEL_44;
     case 5uLL:
       if (![(MOEventBundle *)self isEqualBasicPropertiesForObject:self other:bundleCopy])
@@ -3223,100 +3159,100 @@ LABEL_84:
         goto LABEL_4;
       }
 
-      v109 = 0u;
-      v110 = 0u;
-      v107 = 0u;
       v108 = 0u;
+      v109 = 0u;
+      v106 = 0u;
+      v107 = 0u;
       resources = [(MOEventBundle *)self resources];
-      v31 = [resources countByEnumeratingWithState:&v107 objects:v114 count:16];
-      if (v31)
+      v30 = [resources countByEnumeratingWithState:&v106 objects:v113 count:16];
+      if (v30)
       {
-        v32 = v31;
-        v33 = 0;
-        v34 = *v108;
+        v31 = v30;
+        v32 = 0;
+        v33 = *v107;
         do
         {
-          for (i = 0; i != v32; ++i)
+          for (i = 0; i != v31; ++i)
           {
-            if (*v108 != v34)
+            if (*v107 != v33)
             {
               objc_enumerationMutation(resources);
             }
 
-            v36 = *(*(&v107 + 1) + 8 * i);
-            v37 = objc_autoreleasePoolPush();
-            if ([v36 type] == 3)
+            v35 = *(*(&v106 + 1) + 8 * i);
+            v36 = objc_autoreleasePoolPush();
+            if ([v35 type] == 3)
             {
-              getDictionary = [v36 getDictionary];
+              getDictionary = [v35 getDictionary];
 
-              v33 = getDictionary;
+              v32 = getDictionary;
             }
 
-            objc_autoreleasePoolPop(v37);
+            objc_autoreleasePoolPop(v36);
           }
 
-          v32 = [resources countByEnumeratingWithState:&v107 objects:v114 count:16];
+          v31 = [resources countByEnumeratingWithState:&v106 objects:v113 count:16];
         }
 
-        while (v32);
+        while (v31);
       }
 
       else
       {
-        v33 = 0;
+        v32 = 0;
       }
 
-      v105 = 0u;
-      v106 = 0u;
-      v103 = 0u;
       v104 = 0u;
+      v105 = 0u;
+      v102 = 0u;
+      v103 = 0u;
       resources2 = [(MOEventBundle *)bundleCopy resources];
-      v85 = [resources2 countByEnumeratingWithState:&v103 objects:v113 count:16];
-      if (!v85)
+      v84 = [resources2 countByEnumeratingWithState:&v102 objects:v112 count:16];
+      if (!v84)
       {
-        v87 = 0;
+        v86 = 0;
 LABEL_106:
 
         goto LABEL_107;
       }
 
-      v86 = v85;
-      v87 = 0;
-      v88 = *v104;
+      v85 = v84;
+      v86 = 0;
+      v87 = *v103;
       do
       {
-        for (j = 0; j != v86; ++j)
+        for (j = 0; j != v85; ++j)
         {
-          if (*v104 != v88)
+          if (*v103 != v87)
           {
             objc_enumerationMutation(resources2);
           }
 
-          v90 = *(*(&v103 + 1) + 8 * j);
-          v91 = objc_autoreleasePoolPush();
-          if ([v90 type] == 3)
+          v89 = *(*(&v102 + 1) + 8 * j);
+          v90 = objc_autoreleasePoolPush();
+          if ([v89 type] == 3)
           {
-            getDictionary2 = [v90 getDictionary];
+            getDictionary2 = [v89 getDictionary];
 
-            v87 = getDictionary2;
+            v86 = getDictionary2;
           }
 
-          objc_autoreleasePoolPop(v91);
+          objc_autoreleasePoolPop(v90);
         }
 
-        v86 = [resources2 countByEnumeratingWithState:&v103 objects:v113 count:16];
+        v85 = [resources2 countByEnumeratingWithState:&v102 objects:v112 count:16];
       }
 
-      while (v86);
+      while (v85);
 
-      if (v33 && v87)
+      if (v32 && v86)
       {
-        resources2 = [v33 objectForKey:@"MOMediaPlayMetaDataKeyPlayerBundleID"];
-        v93 = [v87 objectForKey:@"MOMediaPlayMetaDataKeyPlayerBundleID"];
-        v94 = v93;
-        if (resources2 && v93)
+        resources2 = [v32 objectForKey:@"MOMediaPlayMetaDataKeyPlayerBundleID"];
+        v92 = [v86 objectForKey:@"MOMediaPlayMetaDataKeyPlayerBundleID"];
+        v93 = v92;
+        if (resources2 && v92)
         {
-          [resources2 isEqualToString:v93];
+          [resources2 isEqualToString:v92];
         }
 
         goto LABEL_106;
@@ -3326,14 +3262,14 @@ LABEL_107:
 
       goto LABEL_3;
     case 6uLL:
-      v19 = @"dateInterval";
-      v23 = 0.8;
+      v18 = @"dateInterval";
+      v22 = 0.8;
 LABEL_42:
       selfCopy3 = self;
       selfCopy4 = self;
-      v22 = bundleCopy;
+      v21 = bundleCopy;
 LABEL_43:
-      v27 = [(MOEventBundle *)selfCopy3 isEqualPropertyForObject:selfCopy4 other:v22 propertyPath:v19 threshold:v23];
+      v26 = [(MOEventBundle *)selfCopy3 isEqualPropertyForObject:selfCopy4 other:v21 propertyPath:v18 threshold:v22];
       goto LABEL_44;
     case 7uLL:
       bundleSubType = [(MOEventBundle *)self bundleSubType];
@@ -3349,117 +3285,116 @@ LABEL_43:
         goto LABEL_84;
       }
 
-      v27 = [(MOEventBundle *)self isEqualResourcesForObject:self other:bundleCopy resourceType:8];
+      v26 = [(MOEventBundle *)self isEqualResourcesForObject:self other:bundleCopy resourceType:8];
       goto LABEL_44;
     case 10uLL:
-      v101 = 0u;
-      v102 = 0u;
-      v99 = 0u;
       v100 = 0u;
+      v101 = 0u;
+      v98 = 0u;
+      v99 = 0u;
       resources3 = [(MOEventBundle *)self resources];
-      v48 = [resources3 countByEnumeratingWithState:&v99 objects:v112 count:16];
-      if (v48)
+      v47 = [resources3 countByEnumeratingWithState:&v98 objects:v111 count:16];
+      if (v47)
       {
-        v49 = v48;
-        v50 = 0;
-        v51 = *v100;
+        v48 = v47;
+        v49 = 0;
+        v50 = *v99;
         do
         {
-          for (k = 0; k != v49; ++k)
+          for (k = 0; k != v48; ++k)
           {
-            if (*v100 != v51)
+            if (*v99 != v50)
             {
               objc_enumerationMutation(resources3);
             }
 
-            v53 = *(*(&v99 + 1) + 8 * k);
-            v54 = objc_autoreleasePoolPush();
-            if ([v53 type] == 15)
+            v52 = *(*(&v98 + 1) + 8 * k);
+            v53 = objc_autoreleasePoolPush();
+            if ([v52 type] == 15)
             {
-              getDictionary3 = [v53 getDictionary];
+              getDictionary3 = [v52 getDictionary];
 
-              v50 = getDictionary3;
+              v49 = getDictionary3;
             }
 
-            objc_autoreleasePoolPop(v54);
+            objc_autoreleasePoolPop(v53);
           }
 
-          v49 = [resources3 countByEnumeratingWithState:&v99 objects:v112 count:16];
+          v48 = [resources3 countByEnumeratingWithState:&v98 objects:v111 count:16];
         }
 
-        while (v49);
+        while (v48);
       }
 
       else
       {
-        v50 = 0;
+        v49 = 0;
       }
 
-      v97 = 0u;
-      v98 = 0u;
-      v95 = 0u;
       v96 = 0u;
+      v97 = 0u;
+      v94 = 0u;
+      v95 = 0u;
       resources4 = [(MOEventBundle *)bundleCopy resources];
-      v57 = [resources4 countByEnumeratingWithState:&v95 objects:v111 count:16];
-      if (!v57)
+      v56 = [resources4 countByEnumeratingWithState:&v94 objects:v110 count:16];
+      if (!v56)
       {
 
-        v59 = 0;
+        v58 = 0;
 LABEL_76:
         LOBYTE(v8) = [(MOEventBundle *)self isEqualBaseActionForObject:self other:bundleCopy];
 
         goto LABEL_4;
       }
 
-      v58 = v57;
-      v59 = 0;
-      v60 = *v96;
+      v57 = v56;
+      v58 = 0;
+      v59 = *v95;
       do
       {
-        for (m = 0; m != v58; ++m)
+        for (m = 0; m != v57; ++m)
         {
-          if (*v96 != v60)
+          if (*v95 != v59)
           {
             objc_enumerationMutation(resources4);
           }
 
-          v62 = *(*(&v95 + 1) + 8 * m);
-          v63 = objc_autoreleasePoolPush();
-          if ([v62 type] == 15)
+          v61 = *(*(&v94 + 1) + 8 * m);
+          v62 = objc_autoreleasePoolPush();
+          if ([v61 type] == 15)
           {
-            getDictionary4 = [v62 getDictionary];
+            getDictionary4 = [v61 getDictionary];
 
-            v59 = getDictionary4;
+            v58 = getDictionary4;
           }
 
-          objc_autoreleasePoolPop(v63);
+          objc_autoreleasePoolPop(v62);
         }
 
-        v58 = [resources4 countByEnumeratingWithState:&v95 objects:v111 count:16];
+        v57 = [resources4 countByEnumeratingWithState:&v94 objects:v110 count:16];
       }
 
-      while (v58);
+      while (v57);
 
-      if (!v50 || !v59)
+      if (!v49 || !v58)
       {
         goto LABEL_76;
       }
 
-      v65 = [v50 objectForKey:@"MOPHMemoryMetaDataKeyMemoryIdentifier"];
-      v66 = [v59 objectForKey:@"MOPHMemoryMetaDataKeyMemoryIdentifier"];
-      v67 = v66;
-      if (v65 && v66 && ([v65 isEqualToString:v66] & 1) != 0)
+      v64 = [v49 objectForKey:@"MOPHMemoryMetaDataKeyMemoryIdentifier"];
+      v65 = [v58 objectForKey:@"MOPHMemoryMetaDataKeyMemoryIdentifier"];
+      v66 = v65;
+      if (v64 && v65 && ([v64 isEqualToString:v65] & 1) != 0)
       {
 
         goto LABEL_3;
       }
 
 LABEL_88:
-      v83 = [objc_opt_class() castEvergreenSubType:{-[MOEventBundle bundleSubType](bundleCopy, "bundleSubType")}];
-      LOBYTE(v8) = v83 == [objc_opt_class() castEvergreenSubType:{-[MOEventBundle bundleSubType](self, "bundleSubType")}];
+      v82 = [objc_opt_class() castEvergreenSubType:{-[MOEventBundle bundleSubType](bundleCopy, "bundleSubType")}];
+      LOBYTE(v8) = v82 == [objc_opt_class() castEvergreenSubType:{-[MOEventBundle bundleSubType](self, "bundleSubType")}];
 LABEL_4:
 
-      v9 = *MEMORY[0x277D85DE8];
       return v8;
     case 11uLL:
       goto LABEL_88;
@@ -3476,9 +3411,9 @@ LABEL_4:
       }
 
       subBundleIDs = [(MOEventBundle *)self subBundleIDs];
-      v26 = [subBundleIDs count];
+      v25 = [subBundleIDs count];
 
-      if (v26)
+      if (v25)
       {
         if ([(MOEventBundle *)self intersectedSubBundleIDForObject:self other:bundleCopy])
         {
@@ -3486,9 +3421,9 @@ LABEL_4:
         }
       }
 
-      v27 = [(MOEventBundle *)self intersectedActivityOrVisitForObject:self other:bundleCopy];
+      v26 = [(MOEventBundle *)self intersectedActivityOrVisitForObject:self other:bundleCopy];
 LABEL_44:
-      LOBYTE(v8) = v27;
+      LOBYTE(v8) = v26;
       goto LABEL_4;
     case 13uLL:
       place = [(MOEventBundle *)self place];
@@ -3497,7 +3432,7 @@ LABEL_44:
         goto LABEL_84;
       }
 
-      v40 = place;
+      v39 = place;
       place2 = [(MOEventBundle *)bundleCopy place];
 
       if (!place2)
@@ -3528,17 +3463,17 @@ LABEL_44:
       {
       }
 
-      v72 = objc_alloc(MEMORY[0x277CCA970]);
+      v71 = objc_alloc(MEMORY[0x277CCA970]);
       startDate5 = [(MOEventBundle *)self startDate];
       endDate = [(MOEventBundle *)self endDate];
-      v75 = [v72 initWithStartDate:startDate5 endDate:endDate];
+      v74 = [v71 initWithStartDate:startDate5 endDate:endDate];
 
-      v76 = objc_alloc(MEMORY[0x277CCA970]);
+      v75 = objc_alloc(MEMORY[0x277CCA970]);
       startDate6 = [(MOEventBundle *)bundleCopy startDate];
       endDate2 = [(MOEventBundle *)bundleCopy endDate];
-      v79 = [v76 initWithStartDate:startDate6 endDate:endDate2];
+      v78 = [v75 initWithStartDate:startDate6 endDate:endDate2];
 
-      LOBYTE(startDate6) = [v75 intersectsDateInterval:v79];
+      LOBYTE(startDate6) = [v74 intersectsDateInterval:v78];
       if (startDate6)
       {
         goto LABEL_3;
@@ -3581,48 +3516,48 @@ LABEL_83:
 
 - (BOOL)intersectedSubBundleIDForObject:(id)object other:(id)other
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   otherCopy = other;
+  v23 = 0u;
   v24 = 0u;
   v25 = 0u;
   v26 = 0u;
-  v27 = 0u;
   subBundleIDs = [object subBundleIDs];
-  v7 = [subBundleIDs countByEnumeratingWithState:&v24 objects:v29 count:16];
+  v7 = [subBundleIDs countByEnumeratingWithState:&v23 objects:v28 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v25;
+    v9 = *v24;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v25 != v9)
+        if (*v24 != v9)
         {
           objc_enumerationMutation(subBundleIDs);
         }
 
-        v11 = *(*(&v24 + 1) + 8 * i);
+        v11 = *(*(&v23 + 1) + 8 * i);
+        v19 = 0u;
         v20 = 0u;
         v21 = 0u;
         v22 = 0u;
-        v23 = 0u;
         subBundleIDs2 = [otherCopy subBundleIDs];
-        v13 = [subBundleIDs2 countByEnumeratingWithState:&v20 objects:v28 count:16];
+        v13 = [subBundleIDs2 countByEnumeratingWithState:&v19 objects:v27 count:16];
         if (v13)
         {
           v14 = v13;
-          v15 = *v21;
+          v15 = *v20;
           while (2)
           {
             for (j = 0; j != v14; ++j)
             {
-              if (*v21 != v15)
+              if (*v20 != v15)
               {
                 objc_enumerationMutation(subBundleIDs2);
               }
 
-              if ([v11 isEqualToString:*(*(&v20 + 1) + 8 * j)])
+              if ([v11 isEqualToString:*(*(&v19 + 1) + 8 * j)])
               {
 
                 v17 = 1;
@@ -3630,7 +3565,7 @@ LABEL_83:
               }
             }
 
-            v14 = [subBundleIDs2 countByEnumeratingWithState:&v20 objects:v28 count:16];
+            v14 = [subBundleIDs2 countByEnumeratingWithState:&v19 objects:v27 count:16];
             if (v14)
             {
               continue;
@@ -3641,7 +3576,7 @@ LABEL_83:
         }
       }
 
-      v8 = [subBundleIDs countByEnumeratingWithState:&v24 objects:v29 count:16];
+      v8 = [subBundleIDs countByEnumeratingWithState:&v23 objects:v28 count:16];
       v17 = 0;
     }
 
@@ -3655,75 +3590,74 @@ LABEL_83:
 
 LABEL_19:
 
-  v18 = *MEMORY[0x277D85DE8];
   return v17;
 }
 
 - (BOOL)intersectedActivityOrVisitForObject:(id)object other:(id)other
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   otherCopy = other;
+  v31 = 0u;
   v32 = 0u;
   v33 = 0u;
   v34 = 0u;
-  v35 = 0u;
   events = [object events];
-  v8 = [events countByEnumeratingWithState:&v32 objects:v37 count:16];
+  v8 = [events countByEnumeratingWithState:&v31 objects:v36 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v33;
-    v26 = events;
-    v27 = otherCopy;
-    v24 = *v33;
+    v10 = *v32;
+    v25 = events;
+    v26 = otherCopy;
+    v23 = *v32;
     do
     {
       v11 = 0;
-      v25 = v9;
+      v24 = v9;
       do
       {
-        if (*v33 != v10)
+        if (*v32 != v10)
         {
           objc_enumerationMutation(events);
         }
 
-        v12 = *(*(&v32 + 1) + 8 * v11);
+        v12 = *(*(&v31 + 1) + 8 * v11);
         if ([v12 category] == 1 || objc_msgSend(v12, "category") == 2)
         {
-          v30 = 0u;
-          v31 = 0u;
-          v28 = 0u;
           v29 = 0u;
+          v30 = 0u;
+          v27 = 0u;
+          v28 = 0u;
           events2 = [otherCopy events];
-          v14 = [events2 countByEnumeratingWithState:&v28 objects:v36 count:16];
+          v14 = [events2 countByEnumeratingWithState:&v27 objects:v35 count:16];
           if (v14)
           {
             v15 = v14;
-            v16 = *v29;
+            v16 = *v28;
             while (2)
             {
               for (i = 0; i != v15; ++i)
               {
-                if (*v29 != v16)
+                if (*v28 != v16)
                 {
                   objc_enumerationMutation(events2);
                 }
 
-                v18 = *(*(&v28 + 1) + 8 * i);
+                v18 = *(*(&v27 + 1) + 8 * i);
                 if ([v18 category] == 1 || objc_msgSend(v18, "category") == 2)
                 {
                   if ((v19 = [v12 category], v19 == objc_msgSend(v18, "category")) && objc_msgSend(v12, "category") == 1 && -[MOEventBundle isEqualPropertyForObject:other:propertyPath:threshold:](self, "isEqualPropertyForObject:other:propertyPath:threshold:", v12, v18, @"startDate", 600.0) || (v20 = objc_msgSend(v12, "category"), v20 == objc_msgSend(v18, "category")) && objc_msgSend(v12, "category") == 2 && -[MOEventBundle isEqualPropertyForObject:other:propertyPath:threshold:](self, "isEqualPropertyForObject:other:propertyPath:threshold:", v12, v18, @"startDate", 600.0))
                   {
 
                     v21 = 1;
-                    events = v26;
-                    otherCopy = v27;
+                    events = v25;
+                    otherCopy = v26;
                     goto LABEL_29;
                   }
                 }
               }
 
-              v15 = [events2 countByEnumeratingWithState:&v28 objects:v36 count:16];
+              v15 = [events2 countByEnumeratingWithState:&v27 objects:v35 count:16];
               if (v15)
               {
                 continue;
@@ -3733,17 +3667,17 @@ LABEL_19:
             }
           }
 
-          events = v26;
-          otherCopy = v27;
-          v10 = v24;
-          v9 = v25;
+          events = v25;
+          otherCopy = v26;
+          v10 = v23;
+          v9 = v24;
         }
 
         ++v11;
       }
 
       while (v11 != v9);
-      v9 = [events countByEnumeratingWithState:&v32 objects:v37 count:16];
+      v9 = [events countByEnumeratingWithState:&v31 objects:v36 count:16];
       v21 = 0;
     }
 
@@ -3757,7 +3691,6 @@ LABEL_19:
 
 LABEL_29:
 
-  v22 = *MEMORY[0x277D85DE8];
   return v21;
 }
 
@@ -3844,30 +3777,7 @@ LABEL_7:
     }
 
     v17 = v12;
-    v18 = v13;
-    if (![v17 intersectsDateInterval:v18])
-    {
-      goto LABEL_14;
-    }
-
-    v19 = [v17 intersectionWithDateInterval:v18];
-    [v19 duration];
-    v21 = v20;
-
-    v22 = [v17 unionWithDateInterval:v18];
-    [v22 duration];
-    v24 = v23;
-
-    if (v24 == 0.0)
-    {
-LABEL_14:
-      v14 = 0;
-    }
-
-    else
-    {
-      v14 = v21 / v24 > threshold;
-    }
+    v14 = [v17 intersectsDateInterval:v18] && (objc_msgSend(v17, "intersectionWithDateInterval:", v18), v19 = v18 = v13;
   }
 
 LABEL_22:
@@ -3877,32 +3787,32 @@ LABEL_22:
 
 - (BOOL)isEqualResourcesForObject:(id)object other:(id)other resourceType:(unint64_t)type
 {
-  v47 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   objectCopy = object;
   otherCopy = other;
-  v36 = objc_opt_new();
   v35 = objc_opt_new();
+  v34 = objc_opt_new();
+  v40 = 0u;
   v41 = 0u;
   v42 = 0u;
   v43 = 0u;
-  v44 = 0u;
-  v33 = objectCopy;
+  v32 = objectCopy;
   resources = [objectCopy resources];
-  v9 = [resources countByEnumeratingWithState:&v41 objects:v46 count:16];
+  v9 = [resources countByEnumeratingWithState:&v40 objects:v45 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v42;
+    v11 = *v41;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v42 != v11)
+        if (*v41 != v11)
         {
           objc_enumerationMutation(resources);
         }
 
-        v13 = *(*(&v41 + 1) + 8 * i);
+        v13 = *(*(&v40 + 1) + 8 * i);
         if ([v13 type] == type)
         {
           v14 = objc_alloc(MEMORY[0x277CCACA8]);
@@ -3913,37 +3823,37 @@ LABEL_22:
 
           if (v18)
           {
-            [v36 addObject:v18];
+            [v35 addObject:v18];
           }
         }
       }
 
-      v10 = [resources countByEnumeratingWithState:&v41 objects:v46 count:16];
+      v10 = [resources countByEnumeratingWithState:&v40 objects:v45 count:16];
     }
 
     while (v10);
   }
 
-  v39 = 0u;
-  v40 = 0u;
-  v37 = 0u;
   v38 = 0u;
+  v39 = 0u;
+  v36 = 0u;
+  v37 = 0u;
   resources2 = [otherCopy resources];
-  v20 = [resources2 countByEnumeratingWithState:&v37 objects:v45 count:16];
+  v20 = [resources2 countByEnumeratingWithState:&v36 objects:v44 count:16];
   if (v20)
   {
     v21 = v20;
-    v22 = *v38;
+    v22 = *v37;
     do
     {
       for (j = 0; j != v21; ++j)
       {
-        if (*v38 != v22)
+        if (*v37 != v22)
         {
           objc_enumerationMutation(resources2);
         }
 
-        v24 = *(*(&v37 + 1) + 8 * j);
+        v24 = *(*(&v36 + 1) + 8 * j);
         if ([v24 type] == type)
         {
           v25 = objc_alloc(MEMORY[0x277CCACA8]);
@@ -3954,49 +3864,48 @@ LABEL_22:
 
           if (v29)
           {
-            [v35 addObject:v29];
+            [v34 addObject:v29];
           }
         }
       }
 
-      v21 = [resources2 countByEnumeratingWithState:&v37 objects:v45 count:16];
+      v21 = [resources2 countByEnumeratingWithState:&v36 objects:v44 count:16];
     }
 
     while (v21);
   }
 
-  v30 = [v36 isEqualToSet:v35];
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = [v35 isEqualToSet:v34];
   return v30;
 }
 
 - (BOOL)isEqualPersonsForObject:(id)object other:(id)other
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   objectCopy = object;
   otherCopy = other;
   v7 = objc_opt_new();
   v8 = objc_opt_new();
+  v31 = 0u;
   v32 = 0u;
   v33 = 0u;
   v34 = 0u;
-  v35 = 0u;
   persons = [objectCopy persons];
-  v10 = [persons countByEnumeratingWithState:&v32 objects:v37 count:16];
+  v10 = [persons countByEnumeratingWithState:&v31 objects:v36 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v33;
+    v12 = *v32;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v33 != v12)
+        if (*v32 != v12)
         {
           objc_enumerationMutation(persons);
         }
 
-        v14 = *(*(&v32 + 1) + 8 * i);
+        v14 = *(*(&v31 + 1) + 8 * i);
         contactIdentifier = [v14 contactIdentifier];
 
         if (contactIdentifier)
@@ -4006,32 +3915,32 @@ LABEL_22:
         }
       }
 
-      v11 = [persons countByEnumeratingWithState:&v32 objects:v37 count:16];
+      v11 = [persons countByEnumeratingWithState:&v31 objects:v36 count:16];
     }
 
     while (v11);
   }
 
-  v30 = 0u;
-  v31 = 0u;
-  v28 = 0u;
   v29 = 0u;
+  v30 = 0u;
+  v27 = 0u;
+  v28 = 0u;
   persons2 = [otherCopy persons];
-  v18 = [persons2 countByEnumeratingWithState:&v28 objects:v36 count:16];
+  v18 = [persons2 countByEnumeratingWithState:&v27 objects:v35 count:16];
   if (v18)
   {
     v19 = v18;
-    v20 = *v29;
+    v20 = *v28;
     do
     {
       for (j = 0; j != v19; ++j)
       {
-        if (*v29 != v20)
+        if (*v28 != v20)
         {
           objc_enumerationMutation(persons2);
         }
 
-        v22 = *(*(&v28 + 1) + 8 * j);
+        v22 = *(*(&v27 + 1) + 8 * j);
         contactIdentifier3 = [v22 contactIdentifier];
 
         if (contactIdentifier3)
@@ -4041,14 +3950,13 @@ LABEL_22:
         }
       }
 
-      v19 = [persons2 countByEnumeratingWithState:&v28 objects:v36 count:16];
+      v19 = [persons2 countByEnumeratingWithState:&v27 objects:v35 count:16];
     }
 
     while (v19);
   }
 
   v25 = [v7 isEqualToSet:v8];
-  v26 = *MEMORY[0x277D85DE8];
   return v25;
 }
 
@@ -4157,7 +4065,7 @@ LABEL_13:
 
 - (BOOL)containTheSameEventSet:(id)set
 {
-  v19[1] = *MEMORY[0x277D85DE8];
+  v18[1] = *MEMORY[0x277D85DE8];
   setCopy = set;
   if (setCopy && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
   {
@@ -4169,12 +4077,12 @@ LABEL_13:
 
     v9 = [events2 mutableCopy];
     v10 = [objc_alloc(MEMORY[0x277CCAC98]) initWithKey:@"startDate" ascending:1];
-    v19[0] = v10;
-    v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:1];
+    v18[0] = v10;
+    v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:1];
     v12 = [v7 sortedArrayUsingDescriptors:v11];
 
-    v18 = v10;
-    v13 = [MEMORY[0x277CBEA60] arrayWithObjects:&v18 count:1];
+    v17 = v10;
+    v13 = [MEMORY[0x277CBEA60] arrayWithObjects:&v17 count:1];
     v14 = [v9 sortedArrayUsingDescriptors:v13];
 
     v15 = [v12 isEqualToArray:v14];
@@ -4185,40 +4093,39 @@ LABEL_13:
     v15 = 0;
   }
 
-  v16 = *MEMORY[0x277D85DE8];
   return v15;
 }
 
 - (BOOL)shareEvents:(id)events
 {
-  v51 = *MEMORY[0x277D85DE8];
+  v50 = *MEMORY[0x277D85DE8];
   eventsCopy = events;
   if (eventsCopy && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
   {
-    v32 = eventsCopy;
+    v31 = eventsCopy;
     v5 = eventsCopy;
     v6 = objc_opt_new();
+    v43 = 0u;
     v44 = 0u;
     v45 = 0u;
     v46 = 0u;
-    v47 = 0u;
-    v31 = v5;
+    v30 = v5;
     events = [v5 events];
-    v8 = [events countByEnumeratingWithState:&v44 objects:v50 count:16];
+    v8 = [events countByEnumeratingWithState:&v43 objects:v49 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v45;
+      v10 = *v44;
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v45 != v10)
+          if (*v44 != v10)
           {
             objc_enumerationMutation(events);
           }
 
-          v12 = *(*(&v44 + 1) + 8 * i);
+          v12 = *(*(&v43 + 1) + 8 * i);
           eventIdentifier = [v12 eventIdentifier];
 
           if (eventIdentifier)
@@ -4228,65 +4135,65 @@ LABEL_13:
           }
         }
 
-        v9 = [events countByEnumeratingWithState:&v44 objects:v50 count:16];
+        v9 = [events countByEnumeratingWithState:&v43 objects:v49 count:16];
       }
 
       while (v9);
     }
 
-    v42 = 0u;
-    v43 = 0u;
-    v40 = 0u;
     v41 = 0u;
+    v42 = 0u;
+    v39 = 0u;
+    v40 = 0u;
     obj = [(MOEventBundle *)self events];
-    v15 = [obj countByEnumeratingWithState:&v40 objects:v49 count:16];
+    v15 = [obj countByEnumeratingWithState:&v39 objects:v48 count:16];
     if (v15)
     {
       v16 = v15;
-      v34 = 0;
-      v35 = *v41;
+      v33 = 0;
+      v34 = *v40;
       do
       {
         for (j = 0; j != v16; ++j)
         {
-          if (*v41 != v35)
+          if (*v40 != v34)
           {
             objc_enumerationMutation(obj);
           }
 
-          v18 = *(*(&v40 + 1) + 8 * j);
+          v18 = *(*(&v39 + 1) + 8 * j);
+          v35 = 0u;
           v36 = 0u;
           v37 = 0u;
           v38 = 0u;
-          v39 = 0u;
           v19 = v6;
-          v20 = [v19 countByEnumeratingWithState:&v36 objects:v48 count:16];
+          v20 = [v19 countByEnumeratingWithState:&v35 objects:v47 count:16];
           if (v20)
           {
             v21 = v20;
             v22 = v6;
-            v23 = *v37;
+            v23 = *v36;
             while (2)
             {
               for (k = 0; k != v21; ++k)
               {
-                if (*v37 != v23)
+                if (*v36 != v23)
                 {
                   objc_enumerationMutation(v19);
                 }
 
-                v25 = *(*(&v36 + 1) + 8 * k);
+                v25 = *(*(&v35 + 1) + 8 * k);
                 eventIdentifier3 = [v18 eventIdentifier];
                 v27 = [v25 compare:eventIdentifier3];
 
                 if (!v27)
                 {
-                  v34 = 1;
+                  v33 = 1;
                   goto LABEL_27;
                 }
               }
 
-              v21 = [v19 countByEnumeratingWithState:&v36 objects:v48 count:16];
+              v21 = [v19 countByEnumeratingWithState:&v35 objects:v47 count:16];
               if (v21)
               {
                 continue;
@@ -4300,7 +4207,7 @@ LABEL_27:
           }
         }
 
-        v16 = [obj countByEnumeratingWithState:&v40 objects:v49 count:16];
+        v16 = [obj countByEnumeratingWithState:&v39 objects:v48 count:16];
       }
 
       while (v16);
@@ -4308,11 +4215,11 @@ LABEL_27:
 
     else
     {
-      v34 = 0;
+      v33 = 0;
     }
 
-    eventsCopy = v32;
-    v28 = v34;
+    eventsCopy = v31;
+    v28 = v33;
   }
 
   else
@@ -4320,7 +4227,6 @@ LABEL_27:
     v28 = 0;
   }
 
-  v29 = *MEMORY[0x277D85DE8];
   return v28 & 1;
 }
 
@@ -4538,62 +4444,62 @@ LABEL_27:
 
 - (id)primarySourceTypes
 {
-  v32[1] = *MEMORY[0x277D85DE8];
+  v31[1] = *MEMORY[0x277D85DE8];
   interfaceType = [(MOEventBundle *)self interfaceType];
   allObjects = MEMORY[0x277CBEBF8];
   switch(interfaceType)
   {
     case 1uLL:
-      v32[0] = MOEventBundleSourceTypeActivity;
+      v31[0] = MOEventBundleSourceTypeActivity;
       v5 = MEMORY[0x277CBEA60];
-      v6 = v32;
+      v6 = v31;
       goto LABEL_30;
     case 2uLL:
     case 0xDuLL:
-      v31 = MOEventBundleSourceTypeVisitLocation;
+      v30 = MOEventBundleSourceTypeVisitLocation;
       v5 = MEMORY[0x277CBEA60];
-      v6 = &v31;
+      v6 = &v30;
       goto LABEL_30;
     case 3uLL:
     case 0xAuLL:
-      v29 = MOEventBundleSourceTypePhoto;
-      v5 = MEMORY[0x277CBEA60];
-      v6 = &v29;
-      goto LABEL_30;
-    case 4uLL:
-      v28 = MOEventBundleSourceTypeContact;
+      v28 = MOEventBundleSourceTypePhoto;
       v5 = MEMORY[0x277CBEA60];
       v6 = &v28;
       goto LABEL_30;
-    case 5uLL:
-      v27 = MOEventBundleSourceTypeMedia;
+    case 4uLL:
+      v27 = MOEventBundleSourceTypeContact;
       v5 = MEMORY[0x277CBEA60];
       v6 = &v27;
       goto LABEL_30;
-    case 7uLL:
-      v30[0] = MOEventBundleSourceTypeVisitLocation;
-      v30[1] = MOEventBundleSourceTypePhoto;
+    case 5uLL:
+      v26 = MOEventBundleSourceTypeMedia;
       v5 = MEMORY[0x277CBEA60];
-      v6 = v30;
+      v6 = &v26;
+      goto LABEL_30;
+    case 7uLL:
+      v29[0] = MOEventBundleSourceTypeVisitLocation;
+      v29[1] = MOEventBundleSourceTypePhoto;
+      v5 = MEMORY[0x277CBEA60];
+      v6 = v29;
       goto LABEL_13;
     case 9uLL:
       bundleSubType = [(MOEventBundle *)self bundleSubType];
       switch(bundleSubType)
       {
         case 0x268uLL:
-          v22 = MOEventBundleSourceTypePhoto;
+          v21 = MOEventBundleSourceTypePhoto;
+          v5 = MEMORY[0x277CBEA60];
+          v6 = &v21;
+          break;
+        case 0x12FuLL:
+          v22 = MOEventBundleSourceTypeContact;
           v5 = MEMORY[0x277CBEA60];
           v6 = &v22;
           break;
-        case 0x12FuLL:
-          v23 = MOEventBundleSourceTypeContact;
+        case 0xCBuLL:
+          v23 = MOEventBundleSourceTypeActivity;
           v5 = MEMORY[0x277CBEA60];
           v6 = &v23;
-          break;
-        case 0xCBuLL:
-          v24 = MOEventBundleSourceTypeActivity;
-          v5 = MEMORY[0x277CBEA60];
-          v6 = &v24;
           break;
         default:
           goto LABEL_32;
@@ -4601,9 +4507,9 @@ LABEL_27:
 
       goto LABEL_30;
     case 0xBuLL:
-      v26 = MOEventBundleSourceTypeReflectionPrompt;
+      v25 = MOEventBundleSourceTypeReflectionPrompt;
       v5 = MEMORY[0x277CBEA60];
-      v6 = &v26;
+      v6 = &v25;
       goto LABEL_30;
     case 0xCuLL:
       bundleSubType2 = [(MOEventBundle *)self bundleSubType];
@@ -4616,16 +4522,16 @@ LABEL_27:
             goto LABEL_32;
           }
 
-          v20 = MOEventBundleSourceTypeActivity;
+          v19 = MOEventBundleSourceTypeActivity;
           v5 = MEMORY[0x277CBEA60];
-          v6 = &v20;
+          v6 = &v19;
         }
 
         else
         {
-          v21 = MOEventBundleSourceTypeVisitLocation;
+          v20 = MOEventBundleSourceTypeVisitLocation;
           v5 = MEMORY[0x277CBEA60];
-          v6 = &v21;
+          v6 = &v20;
         }
 
         goto LABEL_30;
@@ -4633,9 +4539,9 @@ LABEL_27:
 
       if ((bundleSubType2 - 401) <= 4 && ((1 << (bundleSubType2 + 111)) & 0x19) != 0)
       {
-        v17 = MOEventBundleSourceTypeMedia;
+        v16 = MOEventBundleSourceTypeMedia;
         v5 = MEMORY[0x277CBEA60];
-        v6 = &v17;
+        v6 = &v16;
 LABEL_30:
         v10 = 1;
         goto LABEL_31;
@@ -4648,39 +4554,38 @@ LABEL_30:
           goto LABEL_32;
         }
 
-        v18 = MOEventBundleSourceTypeContact;
+        v17 = MOEventBundleSourceTypeContact;
         v5 = MEMORY[0x277CBEA60];
-        v6 = &v18;
+        v6 = &v17;
         goto LABEL_30;
       }
 
-      v19[0] = MOEventBundleSourceTypeActivity;
-      v19[1] = MOEventBundleSourceTypeVisitLocation;
+      v18[0] = MOEventBundleSourceTypeActivity;
+      v18[1] = MOEventBundleSourceTypeVisitLocation;
       v5 = MEMORY[0x277CBEA60];
-      v6 = v19;
+      v6 = v18;
 LABEL_13:
       v10 = 2;
 LABEL_31:
       allObjects = [v5 arrayWithObjects:v6 count:v10];
 LABEL_32:
-      v12 = *MEMORY[0x277D85DE8];
 
       return allObjects;
     case 0xEuLL:
-      v25 = MOEventBundleSourceTypeStateOfMind;
+      v24 = MOEventBundleSourceTypeStateOfMind;
       v5 = MEMORY[0x277CBEA60];
-      v6 = &v25;
+      v6 = &v24;
       goto LABEL_30;
     case 0x10uLL:
       v8 = objc_opt_new();
-      v14[0] = MEMORY[0x277D85DD0];
-      v14[1] = 3221225472;
-      v14[2] = __60__MOEventBundle_MOEventBundleSourceType__primarySourceTypes__block_invoke;
-      v14[3] = &unk_2787756A8;
-      v15 = v8;
+      v13[0] = MEMORY[0x277D85DD0];
+      v13[1] = 3221225472;
+      v13[2] = __60__MOEventBundle_MOEventBundleSourceType__primarySourceTypes__block_invoke;
+      v13[3] = &unk_2787756A8;
+      v14 = v8;
       selfCopy = self;
       v9 = v8;
-      [(MOEventBundle *)self withResourcesUsingBlock:v14];
+      [(MOEventBundle *)self withResourcesUsingBlock:v13];
       allObjects = [v9 allObjects];
 
       goto LABEL_32;
@@ -4741,15 +4646,14 @@ LABEL_11:
 
 - (void)dateInterval
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v3 = 138412802;
+  v8 = *MEMORY[0x277D85DE8];
+  v2 = 138412802;
   selfCopy = self;
-  v5 = 2080;
-  v6 = "[MOEventBundle dateInterval]";
-  v7 = 1024;
-  v8 = 1586;
-  _os_log_error_impl(&dword_22D8C5000, a2, OS_LOG_TYPE_ERROR, "startDate is NOT earlier than endDate, bundle, %@ (in %s:%d)", &v3, 0x1Cu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = 2080;
+  v5 = "[MOEventBundle dateInterval]";
+  v6 = 1024;
+  v7 = 1586;
+  _os_log_error_impl(&dword_22D8C5000, a2, OS_LOG_TYPE_ERROR, "startDate is NOT earlier than endDate, bundle, %@ (in %s:%d)", &v2, 0x1Cu);
 }
 
 @end

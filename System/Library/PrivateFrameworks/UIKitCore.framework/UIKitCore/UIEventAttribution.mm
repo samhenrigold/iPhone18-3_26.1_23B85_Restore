@@ -160,9 +160,9 @@ LABEL_37:
           goto LABEL_38;
         }
 
-        v15 = [(NSURL *)v11 isEqual:v12];
+        isEqual = objc_msgSend_isEqual_(v11);
 
-        if (!v15)
+        if (!isEqual)
         {
           LOBYTE(v14) = 0;
 LABEL_38:
@@ -191,7 +191,7 @@ LABEL_35:
           goto LABEL_36;
         }
 
-        v14 = [(NSURL *)v18 isEqual:v19];
+        v14 = objc_msgSend_isEqual_(v18);
 
         if (!v14)
         {
@@ -219,7 +219,7 @@ LABEL_34:
           goto LABEL_35;
         }
 
-        v14 = [(NSString *)p_isa isEqual:v23];
+        v14 = objc_msgSend_isEqual_(p_isa);
 
         if (!v14)
         {
@@ -242,7 +242,7 @@ LABEL_34:
         LOBYTE(v14) = 0;
         if (v26 && v27)
         {
-          LOBYTE(v14) = [(NSString *)v26 isEqual:v27];
+          LOBYTE(v14) = objc_msgSend_isEqual_(v26);
         }
       }
 

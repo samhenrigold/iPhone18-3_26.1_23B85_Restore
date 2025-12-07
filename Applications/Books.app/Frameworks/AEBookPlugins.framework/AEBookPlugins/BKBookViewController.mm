@@ -384,82 +384,83 @@
 {
   bookCopy = book;
   dCopy = d;
-  v42.receiver = self;
-  v42.super_class = BKBookViewController;
-  v8 = [(BKViewController *)&v42 initWithNibName:0 bundle:0];
+  v43.receiver = self;
+  v43.super_class = BKBookViewController;
+  v8 = [(BKViewController *)&v43 initWithNibName:0 bundle:0];
+  v9 = v8;
   if (v8)
   {
-    v9 = _AEBookPluginsLifeCycleLog();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v10 = _AEBookPluginsLifeCycleLog(v8);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = objc_opt_class();
-      v11 = v10;
+      v11 = objc_opt_class();
+      v12 = v11;
       assetLogID = [bookCopy assetLogID];
       *buf = 138543618;
-      v44 = v10;
-      v45 = 2114;
-      v46 = assetLogID;
-      _os_log_impl(&dword_0, v9, OS_LOG_TYPE_DEFAULT, "Initializing BVC:%{public}@ logID:%{public}@", buf, 0x16u);
+      v45 = v11;
+      v46 = 2114;
+      v47 = assetLogID;
+      _os_log_impl(&dword_0, v10, OS_LOG_TYPE_DEFAULT, "Initializing BVC:%{public}@ logID:%{public}@", buf, 0x16u);
     }
 
-    v13 = +[NSNotificationCenter defaultCenter];
-    [v13 addObserver:v8 selector:"saveBook" name:UIApplicationDidEnterBackgroundNotification object:0];
-
     v14 = +[NSNotificationCenter defaultCenter];
-    [v14 addObserver:v8 selector:"_contentReady:" name:BKContentReadyNotification object:0];
+    [v14 addObserver:v9 selector:"saveBook" name:UIApplicationDidEnterBackgroundNotification object:0];
 
     v15 = +[NSNotificationCenter defaultCenter];
-    [v15 addObserver:v8 selector:"_contentReady:" name:BKContentFAILNotification object:0];
+    [v15 addObserver:v9 selector:"_contentReady:" name:BKContentReadyNotification object:0];
 
-    v16 = objc_alloc_init(NSMutableDictionary);
-    contentViewControllers = v8->_contentViewControllers;
-    v8->_contentViewControllers = v16;
+    v16 = +[NSNotificationCenter defaultCenter];
+    [v16 addObserver:v9 selector:"_contentReady:" name:BKContentFAILNotification object:0];
 
-    v8->_controlsVisible = 0;
-    v18 = [[IMPerformSelectorProxy alloc] initWithTarget:v8];
-    performSelectorProxy = v8->_performSelectorProxy;
-    v8->_performSelectorProxy = v18;
+    v17 = objc_alloc_init(NSMutableDictionary);
+    contentViewControllers = v9->_contentViewControllers;
+    v9->_contentViewControllers = v17;
 
-    v20 = +[AEAnnotationProvider sharedInstance];
-    annotationProvider = v8->_annotationProvider;
-    v8->_annotationProvider = v20;
+    v9->_controlsVisible = 0;
+    v19 = [[IMPerformSelectorProxy alloc] initWithTarget:v9];
+    performSelectorProxy = v9->_performSelectorProxy;
+    v9->_performSelectorProxy = v19;
 
-    v22 = [NSHashTable hashTableWithOptions:517];
-    bookmarkObservers = v8->_bookmarkObservers;
-    v8->_bookmarkObservers = v22;
+    v21 = +[AEAnnotationProvider sharedInstance];
+    annotationProvider = v9->_annotationProvider;
+    v9->_annotationProvider = v21;
+
+    v23 = [NSHashTable hashTableWithOptions:517];
+    bookmarkObservers = v9->_bookmarkObservers;
+    v9->_bookmarkObservers = v23;
 
     if ((BUIsRunningTests() & 1) == 0)
     {
-      v24 = objc_alloc_init(BCDisplaySleepController);
-      displaySleepController = v8->_displaySleepController;
-      v8->_displaySleepController = v24;
+      v25 = objc_alloc_init(BCDisplaySleepController);
+      displaySleepController = v9->_displaySleepController;
+      v9->_displaySleepController = v25;
     }
 
-    [(BKBookViewController *)v8 setBook:bookCopy];
-    v26 = +[BCAudioMuxingCoordinator sharedInstance];
-    [v26 addAudioMuxingObserver:v8];
+    [(BKBookViewController *)v9 setBook:bookCopy];
+    v27 = +[BCAudioMuxingCoordinator sharedInstance];
+    [v27 addAudioMuxingObserver:v9];
 
     sampleContent = [bookCopy sampleContent];
     if ([sampleContent BOOLValue])
     {
-      [(BKBookViewController *)v8 setExperienceManager:0];
+      [(BKBookViewController *)v9 setExperienceManager:0];
     }
 
     else
     {
-      v28 = +[BCAugmentedExperienceManager newAugmentedExperienceManager];
-      [(BKBookViewController *)v8 setExperienceManager:v28];
+      v29 = +[BCAugmentedExperienceManager newAugmentedExperienceManager];
+      [(BKBookViewController *)v9 setExperienceManager:v29];
     }
 
-    experienceManager = [(BKBookViewController *)v8 experienceManager];
+    experienceManager = [(BKBookViewController *)v9 experienceManager];
 
     if (experienceManager)
     {
-      experienceManager2 = [(BKBookViewController *)v8 experienceManager];
-      [(BKBookViewController *)v8 setBookPositionProcessor:experienceManager2];
+      experienceManager2 = [(BKBookViewController *)v9 experienceManager];
+      [(BKBookViewController *)v9 setBookPositionProcessor:experienceManager2];
 
-      experienceManager3 = [(BKBookViewController *)v8 experienceManager];
-      [experienceManager3 setPresentationViewController:v8];
+      experienceManager3 = [(BKBookViewController *)v9 experienceManager];
+      [experienceManager3 setPresentationViewController:v9];
 
       storeId = [bookCopy storeId];
       longLongValue = [storeId longLongValue];
@@ -473,29 +474,29 @@
         storeId2 = [bookCopy storeId];
       }
 
-      experienceManager4 = [(BKBookViewController *)v8 experienceManager];
+      experienceManager4 = [(BKBookViewController *)v9 experienceManager];
       [experienceManager4 setStoreID:storeId2];
 
       if (longLongValue >= 1)
       {
       }
 
-      _createEndOfBookExperience = [(BKBookViewController *)v8 _createEndOfBookExperience];
+      _createEndOfBookExperience = [(BKBookViewController *)v9 _createEndOfBookExperience];
       if (_createEndOfBookExperience)
       {
-        experienceManager5 = [(BKBookViewController *)v8 experienceManager];
+        experienceManager5 = [(BKBookViewController *)v9 experienceManager];
         [experienceManager5 addExperience:_createEndOfBookExperience];
       }
     }
 
-    book = [(BKBookViewController *)v8 book];
-    v8->_layout = [(BKBookViewController *)v8 validLayoutForBook:book desiredLayout:[(BKBookViewController *)v8 defaultLayoutToUse]];
+    book = [(BKBookViewController *)v9 book];
+    v9->_layout = [(BKBookViewController *)v9 validLayoutForBook:book desiredLayout:[(BKBookViewController *)v9 defaultLayoutToUse]];
 
-    v39 = +[UITraitCollection bc_allAPITraits];
-    v40 = [(BKBookViewController *)v8 registerForTraitChanges:v39 withAction:"_traitCollectionDidChange:previousTraitCollection:"];
+    v40 = +[UITraitCollection bc_allAPITraits];
+    v41 = [(BKBookViewController *)v9 registerForTraitChanges:v40 withAction:"_traitCollectionDidChange:previousTraitCollection:"];
   }
 
-  return v8;
+  return v9;
 }
 
 - (NSURL)storeShortURL
@@ -547,7 +548,7 @@
   {
     self->_layout = layout;
     layout = [(BKBookViewController *)self layout];
-    v6 = _AEBookPluginsLifeCycleLog();
+    v6 = _AEBookPluginsLifeCycleLog(layout);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       v7 = (layout & 0xFFFFFFFFFFFFFFFELL) == 2;
@@ -1118,7 +1119,7 @@ LABEL_9:
 - (void)viewIsAppearing:(BOOL)appearing
 {
   appearingCopy = appearing;
-  v5 = _AEBookPluginsLifeCycleLog();
+  v5 = _AEBookPluginsLifeCycleLog(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = objc_opt_class();
@@ -1627,7 +1628,7 @@ LABEL_11:
   closingCopy = closing;
   if (closing)
   {
-    v5 = _AEBookPluginsLifeCycleLog();
+    v5 = _AEBookPluginsLifeCycleLog(self);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       v6 = objc_opt_class();
@@ -1865,7 +1866,7 @@ LABEL_6:
 
 - (void)restoreSavedLocation
 {
-  v3 = _AEBookPluginsLifeCycleLog();
+  v3 = _AEBookPluginsLifeCycleLog(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = objc_opt_class();
@@ -1887,38 +1888,38 @@ LABEL_6:
 - (void)_promptToLoadExternalContent:(id)content
 {
   contentCopy = content;
-  v5 = AEBundle();
-  v17 = [v5 localizedStringForKey:@"Allow Online Content?" value:&stru_1E7188 table:0];
+  v5 = AEBundle(contentCopy);
+  v19 = [v5 localizedStringForKey:@"Allow Online Content?" value:&stru_1E7188 table:0];
 
-  v6 = AEBundle();
-  v7 = [v6 localizedStringForKey:@"This book needs to access online content value:or it may not display as the publisher intended." table:{&stru_1E7188, 0}];
+  v7 = AEBundle(v6);
+  v8 = [v7 localizedStringForKey:@"This book needs to access online content value:or it may not display as the publisher intended." table:{&stru_1E7188, 0}];
 
-  v8 = [UIAlertController alertControllerWithTitle:v17 message:v7 preferredStyle:1];
-  v9 = AEBundle();
-  v10 = [v9 localizedStringForKey:@"Don’t Allow" value:&stru_1E7188 table:0];
+  v9 = [UIAlertController alertControllerWithTitle:v19 message:v8 preferredStyle:1];
+  v10 = AEBundle(v9);
+  v11 = [v10 localizedStringForKey:@"Don’t Allow" value:&stru_1E7188 table:0];
+  v22[0] = _NSConcreteStackBlock;
+  v22[1] = 3221225472;
+  v22[2] = sub_4E07C;
+  v22[3] = &unk_1E3F00;
+  v12 = contentCopy;
+  v22[4] = self;
+  v23 = v12;
+  v13 = [UIAlertAction actionWithTitle:v11 style:1 handler:v22];
+  [v9 addAction:v13];
+
+  v15 = AEBundle(v14);
+  v16 = [v15 localizedStringForKey:@"Allow" value:&stru_1E7188 table:0];
   v20[0] = _NSConcreteStackBlock;
   v20[1] = 3221225472;
-  v20[2] = sub_4E07C;
+  v20[2] = sub_4E0D8;
   v20[3] = &unk_1E3F00;
-  v11 = contentCopy;
   v20[4] = self;
-  v21 = v11;
-  v12 = [UIAlertAction actionWithTitle:v10 style:1 handler:v20];
-  [v8 addAction:v12];
+  v21 = v12;
+  v17 = v12;
+  v18 = [UIAlertAction actionWithTitle:v16 style:0 handler:v20];
+  [v9 addAction:v18];
 
-  v13 = AEBundle();
-  v14 = [v13 localizedStringForKey:@"Allow" value:&stru_1E7188 table:0];
-  v18[0] = _NSConcreteStackBlock;
-  v18[1] = 3221225472;
-  v18[2] = sub_4E0D8;
-  v18[3] = &unk_1E3F00;
-  v18[4] = self;
-  v19 = v11;
-  v15 = v11;
-  v16 = [UIAlertAction actionWithTitle:v14 style:0 handler:v18];
-  [v8 addAction:v16];
-
-  [(BKBookViewController *)self presentViewController:v8 animated:1 completion:0];
+  [(BKBookViewController *)self presentViewController:v9 animated:1 completion:0];
 }
 
 - (void)promptForRemoteResourcesIfNecessary
@@ -2808,9 +2809,9 @@ LABEL_10:
 
 - (id)keyCommands
 {
-  v20.receiver = self;
-  v20.super_class = BKBookViewController;
-  keyCommands = [(BKBookViewController *)&v20 keyCommands];
+  v22.receiver = self;
+  v22.super_class = BKBookViewController;
+  keyCommands = [(BKBookViewController *)&v22 keyCommands];
   v4 = [keyCommands mutableCopy];
   v5 = v4;
   if (v4)
@@ -2825,53 +2826,53 @@ LABEL_10:
 
   v7 = v6;
 
-  v8 = AEBundle();
-  v9 = [v8 localizedStringForKey:@"Next Page" value:&stru_1E7188 table:0];
+  v9 = AEBundle(v8);
+  v10 = [v9 localizedStringForKey:@"Next Page" value:&stru_1E7188 table:0];
   if ([(BKBookViewController *)self isPageProgressionRTL])
   {
-    v10 = UIKeyInputLeftArrow;
+    v11 = UIKeyInputLeftArrow;
   }
 
   else
   {
-    v10 = UIKeyInputRightArrow;
+    v11 = UIKeyInputRightArrow;
   }
 
-  v11 = [UIKeyCommand commandWithTitle:v9 image:0 action:"books_pageForward:" input:v10 modifierFlags:0 propertyList:0];
+  v12 = [UIKeyCommand commandWithTitle:v10 image:0 action:"books_pageForward:" input:v11 modifierFlags:0 propertyList:0];
 
-  [v11 setWantsPriorityOverSystemBehavior:1];
-  [v11 setAllowsAutomaticMirroring:0];
-  [v7 addObject:v11];
-  v12 = [UIKeyCommand keyCommandWithInput:@" " modifierFlags:0 action:"books_pageForward:"];
   [v12 setWantsPriorityOverSystemBehavior:1];
-  [v12 setAttributes:{objc_msgSend(v12, "attributes") | 4}];
+  [v12 setAllowsAutomaticMirroring:0];
   [v7 addObject:v12];
-  v13 = [UIKeyCommand keyCommandWithInput:UIKeyInputPageDown modifierFlags:0 action:"books_pageForward:"];
+  v13 = [UIKeyCommand keyCommandWithInput:@" " modifierFlags:0 action:"books_pageForward:"];
   [v13 setWantsPriorityOverSystemBehavior:1];
   [v13 setAttributes:{objc_msgSend(v13, "attributes") | 4}];
   [v7 addObject:v13];
+  v14 = [UIKeyCommand keyCommandWithInput:UIKeyInputPageDown modifierFlags:0 action:"books_pageForward:"];
+  [v14 setWantsPriorityOverSystemBehavior:1];
+  [v14 setAttributes:{objc_msgSend(v14, "attributes") | 4}];
+  [v7 addObject:v14];
 
-  v14 = AEBundle();
-  v15 = [v14 localizedStringForKey:@"Previous Page" value:&stru_1E7188 table:0];
+  v16 = AEBundle(v15);
+  v17 = [v16 localizedStringForKey:@"Previous Page" value:&stru_1E7188 table:0];
   if ([(BKBookViewController *)self isPageProgressionRTL])
   {
-    v16 = UIKeyInputRightArrow;
+    v18 = UIKeyInputRightArrow;
   }
 
   else
   {
-    v16 = UIKeyInputLeftArrow;
+    v18 = UIKeyInputLeftArrow;
   }
 
-  v17 = [UIKeyCommand commandWithTitle:v15 image:0 action:"books_pageBackward:" input:v16 modifierFlags:0 propertyList:0];
+  v19 = [UIKeyCommand commandWithTitle:v17 image:0 action:"books_pageBackward:" input:v18 modifierFlags:0 propertyList:0];
 
-  [v17 setWantsPriorityOverSystemBehavior:1];
-  [v17 setAllowsAutomaticMirroring:0];
-  [v7 addObject:v17];
-  v18 = [UIKeyCommand keyCommandWithInput:UIKeyInputPageUp modifierFlags:0 action:"books_pageBackward:"];
-  [v18 setWantsPriorityOverSystemBehavior:1];
-  [v18 setAttributes:{objc_msgSend(v18, "attributes") | 4}];
-  [v7 addObject:v18];
+  [v19 setWantsPriorityOverSystemBehavior:1];
+  [v19 setAllowsAutomaticMirroring:0];
+  [v7 addObject:v19];
+  v20 = [UIKeyCommand keyCommandWithInput:UIKeyInputPageUp modifierFlags:0 action:"books_pageBackward:"];
+  [v20 setWantsPriorityOverSystemBehavior:1];
+  [v20 setAttributes:{objc_msgSend(v20, "attributes") | 4}];
+  [v7 addObject:v20];
 
   return v7;
 }
@@ -2879,29 +2880,31 @@ LABEL_10:
 - (void)validateCommand:(id)command
 {
   commandCopy = command;
-  v11.receiver = self;
-  v11.super_class = BKBookViewController;
-  [(BKBookViewController *)&v11 validateCommand:commandCopy];
+  v14.receiver = self;
+  v14.super_class = BKBookViewController;
+  [(BKBookViewController *)&v14 validateCommand:commandCopy];
   action = [commandCopy action];
   isPageProgressionRTL = [(BKBookViewController *)self isPageProgressionRTL];
-  if (sel_isEqual(action, "books_chapterLeft:"))
+  isEqual = sel_isEqual(action, "books_chapterLeft:");
+  if (isEqual)
   {
-    v7 = AEBundle();
+    v8 = AEBundle(isEqual);
     if (isPageProgressionRTL)
     {
 LABEL_3:
-      v8 = @"Next Chapter";
+      v9 = @"Next Chapter";
       goto LABEL_7;
     }
 
 LABEL_6:
-    v8 = @"Previous Chapter";
+    v9 = @"Previous Chapter";
     goto LABEL_7;
   }
 
-  if (sel_isEqual(action, "books_chapterRight:"))
+  v10 = sel_isEqual(action, "books_chapterRight:");
+  if (v10)
   {
-    v7 = AEBundle();
+    v8 = AEBundle(v10);
     if ((isPageProgressionRTL & 1) == 0)
     {
       goto LABEL_3;
@@ -2916,20 +2919,21 @@ LABEL_6:
   }
 
   isPageBookmarked = [(BKBookViewController *)self isPageBookmarked];
-  v7 = AEBundle();
-  if (isPageBookmarked)
+  v13 = isPageBookmarked;
+  v8 = AEBundle(isPageBookmarked);
+  if (v13)
   {
-    v8 = @"Remove Bookmark";
+    v9 = @"Remove Bookmark";
   }
 
   else
   {
-    v8 = @"Bookmark Page";
+    v9 = @"Bookmark Page";
   }
 
 LABEL_7:
-  v9 = [v7 localizedStringForKey:v8 value:&stru_1E7188 table:0];
-  [commandCopy setTitle:v9];
+  v11 = [v8 localizedStringForKey:v9 value:&stru_1E7188 table:0];
+  [commandCopy setTitle:v11];
 
 LABEL_8:
 }
@@ -3100,7 +3104,7 @@ LABEL_8:
     if (pageTotal >= number)
     {
       paginationController2 = [(BKBookViewController *)self paginationController];
-      v14 = [paginationController2 titleForChapterAtPageNumber:number];
+      v15 = [paginationController2 titleForChapterAtPageNumber:number];
     }
 
     else
@@ -3109,22 +3113,22 @@ LABEL_8:
       sampleContent = [book sampleContent];
       bOOLValue = [sampleContent BOOLValue];
 
-      v11 = AEBundle();
-      paginationController2 = v11;
+      v12 = AEBundle(v11);
+      paginationController2 = v12;
       if (bOOLValue)
       {
-        v13 = @"Buy Book";
+        v14 = @"Buy Book";
       }
 
       else
       {
-        v13 = @"End of Book";
+        v14 = @"End of Book";
       }
 
-      v14 = [v11 localizedStringForKey:v13 value:&stru_1E7188 table:0];
+      v15 = [v12 localizedStringForKey:v14 value:&stru_1E7188 table:0];
     }
 
-    v3 = v14;
+    v3 = v15;
   }
 
   return v3;
@@ -3386,129 +3390,133 @@ LABEL_20:
   locationCopy = location;
   objc_opt_class();
   v5 = BUDynamicCast();
-  v6 = locationCopy;
+  v6 = v5;
+  v7 = locationCopy;
   if (v5)
   {
-    v7 = _AECaptureLocationLog();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = _AECaptureLocationLog(v5);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v39 = locationCopy;
+      v46 = locationCopy;
     }
 
-    path = [v5 path];
-    v9 = [path length];
+    path = [v6 path];
+    v10 = [path length];
 
-    if (v9)
+    if (v10)
     {
-      v10 = _AECaptureLocationLog();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+      v12 = _AECaptureLocationLog(v11);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
       {
         *buf = 0;
-        _os_log_impl(&dword_0, v10, OS_LOG_TYPE_INFO, "Had path - using locationForPath:fragment:", buf, 2u);
+        _os_log_impl(&dword_0, v12, OS_LOG_TYPE_INFO, "Had path - using locationForPath:fragment:", buf, 2u);
       }
 
-      path2 = [v5 path];
-      anchor = [v5 anchor];
-      v6 = [(BKBookViewController *)self locationForPath:path2 fragment:anchor];
-      v13 = locationCopy;
+      path2 = [v6 path];
+      anchor = [v6 anchor];
+      v7 = [(BKBookViewController *)self locationForPath:path2 fragment:anchor];
+      v15 = locationCopy;
       goto LABEL_26;
     }
 
-    path2 = [v5 anchor];
-    v14 = _AECaptureLocationLog();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
+    path2 = [v6 anchor];
+    v16 = _AECaptureLocationLog(path2);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
     {
       *buf = 138543362;
-      v39 = path2;
-      _os_log_impl(&dword_0, v14, OS_LOG_TYPE_INFO, "We had no path - Attempting to parse the anchor: %{public}@", buf, 0xCu);
+      v46 = path2;
+      _os_log_impl(&dword_0, v16, OS_LOG_TYPE_INFO, "We had no path - Attempting to parse the anchor: %{public}@", buf, 0xCu);
     }
 
-    v37 = 0;
-    v13 = [NSRegularExpression regularExpressionWithPattern:@"(\\d+)" options:1 error:&v37];
-    anchor = v37;
-    if (anchor || !path2)
+    v44 = 0;
+    v15 = [NSRegularExpression regularExpressionWithPattern:@"(\\d+)" options:1 error:&v44];
+    v17 = v44;
+    anchor = v17;
+    if (v17 || !path2)
     {
-      v25 = _AECaptureLocationLog();
-      if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+      v30 = _AECaptureLocationLog(v17);
+      if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
       {
         *buf = 138543618;
-        v39 = path2;
-        v40 = 2114;
-        v41 = anchor;
-        _os_log_impl(&dword_0, v25, OS_LOG_TYPE_ERROR, "Failed to create regular expression to get page number from %{public}@ - %{public}@", buf, 0x16u);
+        v46 = path2;
+        v47 = 2114;
+        v48 = anchor;
+        _os_log_impl(&dword_0, v30, OS_LOG_TYPE_ERROR, "Failed to create regular expression to get page number from %{public}@ - %{public}@", buf, 0x16u);
       }
     }
 
     else
     {
-      v15 = [v13 firstMatchInString:path2 options:2 range:{0, objc_msgSend(path2, "length")}];
-      range = [v15 range];
-      v18 = [path2 substringWithRange:{range, v17}];
-      integerValue = [v18 integerValue];
-      v20 = _AECaptureLocationLog();
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+      v18 = [v15 firstMatchInString:path2 options:2 range:{0, objc_msgSend(path2, "length")}];
+      range = [v18 range];
+      v21 = [path2 substringWithRange:{range, v20}];
+      integerValue = [v21 integerValue];
+      v23 = _AECaptureLocationLog(integerValue);
+      if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
       {
         [NSNumber numberWithInteger:integerValue];
-        v21 = v35 = self;
+        v24 = v42 = self;
         *buf = 138543618;
-        v39 = v18;
-        v40 = 2114;
-        v41 = v21;
-        _os_log_impl(&dword_0, v20, OS_LOG_TYPE_DEFAULT, "Parsing page - Captured substring: %{public}@ and got value: %{public}@", buf, 0x16u);
+        v46 = v21;
+        v47 = 2114;
+        v48 = v24;
+        _os_log_impl(&dword_0, v23, OS_LOG_TYPE_DEFAULT, "Parsing page - Captured substring: %{public}@ and got value: %{public}@", buf, 0x16u);
 
-        self = v35;
+        self = v42;
       }
 
       if (integerValue != 0x7FFFFFFFFFFFFFFFLL)
       {
-        if ([path2 containsString:@"page("]
+        v26 = objc_msgSend(path2, "containsString:", @"page(");
+        if (v26)
         {
-          v22 = _AECaptureLocationLog();
-          if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+          v27 = _AECaptureLocationLog(v26);
+          if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
           {
             [NSNumber numberWithInteger:integerValue];
-            v24 = v23 = self;
+            v29 = v28 = self;
             *buf = 138543362;
-            v39 = v24;
-            _os_log_impl(&dword_0, v22, OS_LOG_TYPE_DEFAULT, "Parsing page - %{public}@", buf, 0xCu);
+            v46 = v29;
+            _os_log_impl(&dword_0, v27, OS_LOG_TYPE_DEFAULT, "Parsing page - %{public}@", buf, 0xCu);
 
-            self = v23;
+            self = v28;
           }
 
           goto LABEL_25;
         }
 
-        if ([path2 containsString:@"chapter("]
+        v36 = objc_msgSend(path2, "containsString:", @"chapter(");
+        if (v36)
         {
           selfCopy = self;
           paginationController = [(BKBookViewController *)self paginationController];
-          v32 = [paginationController pageRangeForChapterAtIndex:integerValue - 1];
+          v38 = [paginationController pageRangeForChapterAtIndex:integerValue - 1];
 
-          v22 = _AECaptureLocationLog();
-          if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+          v27 = _AECaptureLocationLog(v39);
+          if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
           {
-            v33 = [NSNumber numberWithInteger:integerValue];
-            v34 = [NSNumber numberWithUnsignedInteger:v32];
+            v40 = [NSNumber numberWithInteger:integerValue];
+            v41 = [NSNumber numberWithUnsignedInteger:v38];
             *buf = 138543618;
-            v39 = v33;
-            v40 = 2114;
-            v41 = v34;
-            _os_log_impl(&dword_0, v22, OS_LOG_TYPE_DEFAULT, "Parsing chapter - Captured chapterNumber: %{public}@ and got startPage: %{public}@", buf, 0x16u);
+            v46 = v40;
+            v47 = 2114;
+            v48 = v41;
+            _os_log_impl(&dword_0, v27, OS_LOG_TYPE_DEFAULT, "Parsing chapter - Captured chapterNumber: %{public}@ and got startPage: %{public}@", buf, 0x16u);
           }
 
-          integerValue = v32;
+          integerValue = v38;
           self = selfCopy;
           goto LABEL_25;
         }
 
-        v22 = _AECaptureLocationLog();
-        if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+        v27 = _AECaptureLocationLog(v36);
+        if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
         {
           *buf = 138543362;
-          v39 = path2;
-          v27 = v22;
-          v28 = 12;
+          v46 = path2;
+          v32 = v27;
+          v33 = 12;
           goto LABEL_23;
         }
 
@@ -3516,17 +3524,17 @@ LABEL_20:
       }
     }
 
-    v22 = _AECaptureLocationLog();
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+    v27 = _AECaptureLocationLog(v25);
+    if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543618;
-      v39 = v13;
-      v40 = 2114;
-      v41 = path2;
-      v27 = v22;
-      v28 = 22;
+      v46 = v15;
+      v47 = 2114;
+      v48 = path2;
+      v32 = v27;
+      v33 = 22;
 LABEL_23:
-      _os_log_impl(&dword_0, v27, OS_LOG_TYPE_ERROR, v26, buf, v28);
+      _os_log_impl(&dword_0, v32, OS_LOG_TYPE_ERROR, v31, buf, v33);
     }
 
 LABEL_24:
@@ -3534,12 +3542,12 @@ LABEL_24:
 LABEL_25:
 
     paginationController2 = [(BKBookViewController *)self paginationController];
-    v6 = [paginationController2 pageLocationForPageNumber:integerValue];
+    v7 = [paginationController2 pageLocationForPageNumber:integerValue];
 
 LABEL_26:
   }
 
-  return v6;
+  return v7;
 }
 
 - (void)goToPath:(id)path fragment:(id)fragment animated:(BOOL)animated
@@ -3896,20 +3904,20 @@ LABEL_11:
 {
   locationCopy = location;
   objc_storeStrong(&self->_location, location);
-  v6 = _AEBookPluginsLifeCycleLog();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v7 = _AEBookPluginsLifeCycleLog(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = objc_opt_class();
-    v8 = v7;
+    v8 = objc_opt_class();
+    v9 = v8;
     book = [(BKBookViewController *)self book];
     assetLogID = [book assetLogID];
-    v11 = 138543874;
-    v12 = v7;
-    v13 = 2114;
-    v14 = locationCopy;
-    v15 = 2114;
-    v16 = assetLogID;
-    _os_log_impl(&dword_0, v6, OS_LOG_TYPE_DEFAULT, "SetLocation BVC:%{public}@.  Location:%{public}@ logID:%{public}@ ", &v11, 0x20u);
+    v12 = 138543874;
+    v13 = v8;
+    v14 = 2114;
+    v15 = locationCopy;
+    v16 = 2114;
+    v17 = assetLogID;
+    _os_log_impl(&dword_0, v7, OS_LOG_TYPE_DEFAULT, "SetLocation BVC:%{public}@.  Location:%{public}@ logID:%{public}@ ", &v12, 0x20u);
   }
 }
 
@@ -3966,38 +3974,38 @@ LABEL_11:
             [(BKBookViewController *)self setReportedLocation:locationCopy];
             v13 = locationCopy;
 
-            v14 = _AEBookPluginsLifeCycleLog();
-            if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+            v15 = _AEBookPluginsLifeCycleLog(v14);
+            if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
             {
               book4 = [(BKBookViewController *)self book];
               databaseKey = [book4 databaseKey];
               book5 = [(BKBookViewController *)self book];
               assetLogID = [book5 assetLogID];
               *buf = 138543874;
-              v27 = v13;
-              v28 = 2112;
-              v29 = databaseKey;
-              v30 = 2114;
-              v31 = assetLogID;
-              _os_log_impl(&dword_0, v14, OS_LOG_TYPE_DEFAULT, "Saving location into global annotation:%{public}@ assetID:%@ logID:%{public}@", buf, 0x20u);
+              v28 = v13;
+              v29 = 2112;
+              v30 = databaseKey;
+              v31 = 2114;
+              v32 = assetLogID;
+              _os_log_impl(&dword_0, v15, OS_LOG_TYPE_DEFAULT, "Saving location into global annotation:%{public}@ assetID:%@ logID:%{public}@", buf, 0x20u);
             }
 
             objc_initWeak(buf, self);
             book6 = [(BKBookViewController *)self book];
-            v20 = _NSConcreteStackBlock;
-            v21 = 3221225472;
-            v22 = sub_53150;
-            v23 = &unk_1E3FC8;
-            objc_copyWeak(&v25, buf);
+            v21 = _NSConcreteStackBlock;
+            v22 = 3221225472;
+            v23 = sub_53150;
+            v24 = &unk_1E3FC8;
+            objc_copyWeak(&v26, buf);
             readingLocation = v13;
-            v24 = readingLocation;
-            [book6 setSingletonAnnotationType:3 location:readingLocation modificationHandler:&v20];
+            v25 = readingLocation;
+            [book6 setSingletonAnnotationType:3 location:readingLocation modificationHandler:&v21];
 
-            objc_destroyWeak(&v25);
+            objc_destroyWeak(&v26);
             objc_destroyWeak(buf);
           }
 
-          [(BKBookViewController *)self setLocation:readingLocation, v20, v21, v22, v23];
+          [(BKBookViewController *)self setLocation:readingLocation, v21, v22, v23, v24];
         }
       }
     }
@@ -4258,46 +4266,46 @@ LABEL_11:
 
     [(NSFetchedResultsController *)self->_pageBookmarksFRC setDelegate:self];
     v9 = self->_pageBookmarksFRC;
-    v75 = 0;
-    v10 = [(NSFetchedResultsController *)v9 performFetch:&v75];
-    v11 = v75;
+    v76 = 0;
+    v10 = [(NSFetchedResultsController *)v9 performFetch:&v76];
+    v11 = v76;
     v12 = v11;
     if (v10)
     {
-      v63 = v11;
-      v64 = v6;
-      v65 = book;
+      v64 = v11;
+      v65 = v6;
+      v66 = book;
       assetID = [book assetID];
       v14 = [AEAnnotation predicateForGlobalAnnotationWithAssetID:assetID];
 
       fetchedObjects = [(NSFetchedResultsController *)self->_pageBookmarksFRC fetchedObjects];
-      v62 = v14;
+      v63 = v14;
       v16 = [fetchedObjects filteredArrayUsingPredicate:v14];
 
-      v73 = 0u;
       v74 = 0u;
-      v71 = 0u;
+      v75 = 0u;
       v72 = 0u;
+      v73 = 0u;
       v17 = v16;
-      v18 = [v17 countByEnumeratingWithState:&v71 objects:v83 count:16];
+      v18 = [v17 countByEnumeratingWithState:&v72 objects:v84 count:16];
       if (v18)
       {
         v19 = v18;
         v20 = 0;
-        v21 = *v72;
+        v21 = *v73;
         do
         {
           for (i = 0; i != v19; i = i + 1)
           {
-            if (*v72 != v21)
+            if (*v73 != v21)
             {
               objc_enumerationMutation(v17);
             }
 
-            v23 = *(*(&v71 + 1) + 8 * i);
+            v23 = *(*(&v72 + 1) + 8 * i);
             if (v20)
             {
-              locationModificationDate = [*(*(&v71 + 1) + 8 * i) locationModificationDate];
+              locationModificationDate = [*(*(&v72 + 1) + 8 * i) locationModificationDate];
               [locationModificationDate timeIntervalSinceReferenceDate];
               v26 = v25;
               locationModificationDate2 = [v20 locationModificationDate];
@@ -4315,7 +4323,7 @@ LABEL_11:
             v20 = v30;
           }
 
-          v19 = [v17 countByEnumeratingWithState:&v71 objects:v83 count:16];
+          v19 = [v17 countByEnumeratingWithState:&v72 objects:v84 count:16];
         }
 
         while (v19);
@@ -4326,28 +4334,28 @@ LABEL_11:
         v20 = 0;
       }
 
-      v69 = 0u;
       v70 = 0u;
-      v67 = 0u;
+      v71 = 0u;
       v68 = 0u;
+      v69 = 0u;
       v31 = v17;
-      v32 = [v31 countByEnumeratingWithState:&v67 objects:v82 count:16];
+      v32 = [v31 countByEnumeratingWithState:&v68 objects:v83 count:16];
       if (v32)
       {
         v33 = v32;
-        v34 = *v68;
+        v34 = *v69;
         do
         {
           for (j = 0; j != v33; j = j + 1)
           {
-            if (*v68 != v34)
+            if (*v69 != v34)
             {
               objc_enumerationMutation(v31);
             }
 
             if (v20)
             {
-              v36 = *(*(&v67 + 1) + 8 * j);
+              v36 = *(*(&v68 + 1) + 8 * j);
               if (v36 != v20)
               {
                 [v36 setAnnotationDeleted:1];
@@ -4355,7 +4363,7 @@ LABEL_11:
             }
           }
 
-          v33 = [v31 countByEnumeratingWithState:&v67 objects:v82 count:16];
+          v33 = [v31 countByEnumeratingWithState:&v68 objects:v83 count:16];
         }
 
         while (v33);
@@ -4363,9 +4371,9 @@ LABEL_11:
 
       if ([uiManagedObjectContext hasChanges])
       {
-        v66 = 0;
-        [uiManagedObjectContext save:&v66];
-        v37 = v66;
+        v67 = 0;
+        [uiManagedObjectContext save:&v67];
+        v37 = v67;
         if (v37)
         {
           v38 = BKMobileCloudSyncAnnotationsLog();
@@ -4379,9 +4387,9 @@ LABEL_11:
       location = [v20 location];
       if (location && (v40 = location, [(BKBookViewController *)self openingLocation], v41 = objc_claimAutoreleasedReturnValue(), v41, v40, !v41))
       {
-        v52 = _AEBookPluginsLifeCycleLog();
-        book = v65;
-        if (os_log_type_enabled(v52, OS_LOG_TYPE_DEFAULT))
+        v53 = _AEBookPluginsLifeCycleLog(location);
+        book = v66;
+        if (os_log_type_enabled(v53, OS_LOG_TYPE_DEFAULT))
         {
           location2 = [v20 location];
           book2 = [(BKBookViewController *)self book];
@@ -4389,12 +4397,12 @@ LABEL_11:
           book3 = [(BKBookViewController *)self book];
           assetLogID = [book3 assetLogID];
           *buf = 138543874;
-          v77 = location2;
-          v78 = 2112;
-          v79 = databaseKey;
-          v80 = 2114;
-          v81 = assetLogID;
-          _os_log_impl(&dword_0, v52, OS_LOG_TYPE_DEFAULT, "Restoring location from global annotation:%{public}@ for assetID:%@ logID:%{public}@", buf, 0x20u);
+          v78 = location2;
+          v79 = 2112;
+          v80 = databaseKey;
+          v81 = 2114;
+          v82 = assetLogID;
+          _os_log_impl(&dword_0, v53, OS_LOG_TYPE_DEFAULT, "Restoring location from global annotation:%{public}@ for assetID:%@ logID:%{public}@", buf, 0x20u);
         }
 
         location3 = [v20 location];
@@ -4408,10 +4416,10 @@ LABEL_11:
 
       else
       {
-        book = v65;
+        book = v66;
         if (!v20)
         {
-          v42 = _AEBookPluginsLifeCycleLog();
+          v42 = _AEBookPluginsLifeCycleLog(location);
           if (os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
           {
             book4 = [(BKBookViewController *)self book];
@@ -4419,9 +4427,9 @@ LABEL_11:
             book5 = [(BKBookViewController *)self book];
             assetLogID2 = [book5 assetLogID];
             *buf = 138412546;
-            v77 = databaseKey2;
-            v78 = 2114;
-            v79 = assetLogID2;
+            v78 = databaseKey2;
+            v79 = 2114;
+            v80 = assetLogID2;
             _os_log_impl(&dword_0, v42, OS_LOG_TYPE_DEFAULT, "%@ logID:%{public}@ No global annotation to restore from", buf, 0x16u);
           }
         }
@@ -4430,8 +4438,8 @@ LABEL_11:
 
         if (openingLocation)
         {
-          v47 = _AEBookPluginsLifeCycleLog();
-          if (os_log_type_enabled(v47, OS_LOG_TYPE_DEFAULT))
+          v48 = _AEBookPluginsLifeCycleLog(v47);
+          if (os_log_type_enabled(v48, OS_LOG_TYPE_DEFAULT))
           {
             book6 = [(BKBookViewController *)self book];
             databaseKey3 = [book6 databaseKey];
@@ -4439,12 +4447,12 @@ LABEL_11:
             assetLogID3 = [book7 assetLogID];
             openingLocation2 = [(BKBookViewController *)self openingLocation];
             *buf = 138412802;
-            v77 = databaseKey3;
-            v78 = 2114;
-            v79 = assetLogID3;
-            v80 = 2112;
-            v81 = openingLocation2;
-            _os_log_impl(&dword_0, v47, OS_LOG_TYPE_DEFAULT, "%@ logID:%{public}@ Have existing openingLocation: %@", buf, 0x20u);
+            v78 = databaseKey3;
+            v79 = 2114;
+            v80 = assetLogID3;
+            v81 = 2112;
+            v82 = openingLocation2;
+            _os_log_impl(&dword_0, v48, OS_LOG_TYPE_DEFAULT, "%@ logID:%{public}@ Have existing openingLocation: %@", buf, 0x20u);
           }
         }
 
@@ -4459,8 +4467,8 @@ LABEL_11:
         }
       }
 
-      v12 = v63;
-      v6 = v64;
+      v12 = v64;
+      v6 = v65;
     }
 
     else
@@ -4495,11 +4503,11 @@ LABEL_11:
       {
         annotationLocation = [annotationCopy annotationLocation];
         openingLocation2 = [(BKBookViewController *)self openingLocation];
-        v22 = 138412546;
-        v23 = annotationLocation;
-        v24 = 2112;
-        v25 = openingLocation2;
-        _os_log_impl(&dword_0, location2, OS_LOG_TYPE_DEFAULT, "Ignoring updated global location %@ because we have an openingLocation location: %@", &v22, 0x16u);
+        v23 = 138412546;
+        v24 = annotationLocation;
+        v25 = 2112;
+        v26 = openingLocation2;
+        _os_log_impl(&dword_0, location2, OS_LOG_TYPE_DEFAULT, "Ignoring updated global location %@ because we have an openingLocation location: %@", &v23, 0x16u);
       }
 
       goto LABEL_21;
@@ -4516,11 +4524,11 @@ LABEL_11:
         if (os_log_type_enabled(location2, OS_LOG_TYPE_DEFAULT))
         {
           annotationLocation2 = [annotationCopy annotationLocation];
-          v22 = 138543362;
-          v23 = annotationLocation2;
+          v23 = 138543362;
+          v24 = annotationLocation2;
           v12 = "_updateLocationFromAnnotation Ignoring updated location because it is the same as the current savable location %{public}@";
 LABEL_14:
-          _os_log_impl(&dword_0, location2, OS_LOG_TYPE_DEFAULT, v12, &v22, 0xCu);
+          _os_log_impl(&dword_0, location2, OS_LOG_TYPE_DEFAULT, v12, &v23, 0xCu);
           goto LABEL_15;
         }
       }
@@ -4537,22 +4545,22 @@ LABEL_14:
           if (v16)
           {
             annotationLocation3 = [annotationCopy annotationLocation];
-            v22 = 138543362;
-            v23 = annotationLocation3;
-            _os_log_impl(&dword_0, location2, OS_LOG_TYPE_DEFAULT, "_updateLocationFromAnnotation Jumping to location from annotation location: %{public}@", &v22, 0xCu);
+            v23 = 138543362;
+            v24 = annotationLocation3;
+            _os_log_impl(&dword_0, location2, OS_LOG_TYPE_DEFAULT, "_updateLocationFromAnnotation Jumping to location from annotation location: %{public}@", &v23, 0xCu);
           }
 
-          v18 = _AEBookPluginsLifeCycleLog();
-          if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+          v19 = _AEBookPluginsLifeCycleLog(v18);
+          if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
           {
             book = [(BKBookViewController *)self book];
             assetLogID = [book assetLogID];
             annotationLocation4 = [annotationCopy annotationLocation];
-            v22 = 138543618;
-            v23 = assetLogID;
-            v24 = 2114;
-            v25 = annotationLocation4;
-            _os_log_impl(&dword_0, v18, OS_LOG_TYPE_DEFAULT, "_updateLocationFromAnnotation logID:%{public}@ Jumping to location from annotation location: %{public}@", &v22, 0x16u);
+            v23 = 138543618;
+            v24 = assetLogID;
+            v25 = 2114;
+            v26 = annotationLocation4;
+            _os_log_impl(&dword_0, v19, OS_LOG_TYPE_DEFAULT, "_updateLocationFromAnnotation logID:%{public}@ Jumping to location from annotation location: %{public}@", &v23, 0x16u);
           }
 
           location2 = [annotationCopy location];
@@ -4563,8 +4571,8 @@ LABEL_14:
         if (v16)
         {
           annotationLocation2 = [annotationCopy annotationLocation];
-          v22 = 138543362;
-          v23 = annotationLocation2;
+          v23 = 138543362;
+          v24 = annotationLocation2;
           v12 = "_updateLocationFromAnnotation Ignoring updated location because it is already visible %{public}@";
           goto LABEL_14;
         }
@@ -4578,11 +4586,11 @@ LABEL_14:
       {
         annotationLocation5 = [annotationCopy annotationLocation];
         annotationLocation2 = [(BKBookViewController *)self savableLocation];
-        v22 = 138412546;
-        v23 = annotationLocation5;
-        v24 = 2112;
-        v25 = annotationLocation2;
-        _os_log_impl(&dword_0, location2, OS_LOG_TYPE_DEFAULT, "Ignoring updated global location %@ because we have a newer local location: %@", &v22, 0x16u);
+        v23 = 138412546;
+        v24 = annotationLocation5;
+        v25 = 2112;
+        v26 = annotationLocation2;
+        _os_log_impl(&dword_0, location2, OS_LOG_TYPE_DEFAULT, "Ignoring updated global location %@ because we have a newer local location: %@", &v23, 0x16u);
 
 LABEL_15:
       }
@@ -4868,20 +4876,20 @@ LABEL_21:
 
   if (v4)
   {
-    v5 = AEBundle();
-    v6 = [v5 localizedStringForKey:@"Chapter %1$lu value:%2$@" table:{&stru_1E7188, 0}];
+    v6 = AEBundle(v5);
+    v7 = [v6 localizedStringForKey:@"Chapter %1$lu value:%2$@" table:{&stru_1E7188, 0}];
     absoluteOrder = [v4 absoluteOrder];
-    v8 = [absoluteOrder integerValue] + 1;
+    v9 = [absoluteOrder integerValue] + 1;
     name = [v4 name];
-    v10 = [NSString localizedStringWithFormat:v6, v8, name];
+    v11 = [NSString localizedStringWithFormat:v7, v9, name];
   }
 
   else
   {
-    v10 = 0;
+    v11 = 0;
   }
 
-  return v10;
+  return v11;
 }
 
 - (id)touchBarScrollerAccessibilityLabelForBookmark:(id)bookmark
@@ -5189,7 +5197,7 @@ LABEL_14:
 - (void)signalBookContentDidLoad:(id)load
 {
   loadCopy = load;
-  v5 = _AEBookOpenLog();
+  v5 = _AEBookOpenLog(loadCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     contentOpenAnimator = [(BKBookViewController *)self contentOpenAnimator];
@@ -5496,7 +5504,7 @@ LABEL_14:
 
 - (id)bookmarkToolTip
 {
-  v2 = AEBundle();
+  v2 = AEBundle(self);
   v3 = [v2 localizedStringForKey:@"Show Bookmarks" value:&stru_1E7188 table:0];
 
   return v3;
@@ -5504,7 +5512,7 @@ LABEL_14:
 
 - (id)tocToolTip
 {
-  v2 = AEBundle();
+  v2 = AEBundle(self);
   v3 = [v2 localizedStringForKey:@"Show the table of contents" value:&stru_1E7188 table:0];
 
   return v3;
@@ -6634,25 +6642,26 @@ LABEL_13:
 
   v10 = [(BKBookViewController *)self pageNumberFromRange:v7, v9];
   v11 = [(BKBookViewController *)self pageTitleForPageNumber:v10];
-  if ([v11 length] || v7 == 0x7FFFFFFFFFFFFFFFLL)
+  v12 = [v11 length];
+  if (v12 || v7 == 0x7FFFFFFFFFFFFFFFLL)
   {
     if (v11)
     {
       goto LABEL_7;
     }
 
-    v11 = AEBundle();
-    v12 = [v11 localizedStringForKey:@"-" value:&stru_1E7188 table:0];
+    v11 = AEBundle(v12);
+    v13 = [v11 localizedStringForKey:@"-" value:&stru_1E7188 table:0];
   }
 
   else
   {
-    v12 = [NSString localizedStringWithFormat:@"%lu", v10];
+    v13 = [NSString localizedStringWithFormat:@"%lu", v10];
   }
 
-  v13 = v12;
+  v14 = v13;
 
-  v11 = v13;
+  v11 = v14;
 LABEL_7:
 
   return v11;
@@ -8320,11 +8329,11 @@ LABEL_12:
 - (void)_reportLoadFailedAlertForError:(id)error
 {
   errorCopy = error;
-  v5 = AEBundle();
+  v5 = AEBundle(errorCopy);
   v6 = [v5 localizedStringForKey:@"Failed to load book because the requested resource is missing." value:&stru_1E7188 table:0];
 
   v7 = [UIAlertController alertControllerWithTitle:v6 message:0 preferredStyle:1];
-  v8 = AEBundle();
+  v8 = AEBundle(v7);
   v9 = [v8 localizedStringForKey:@"OK" value:&stru_1E7188 table:0];
   v12 = _NSConcreteStackBlock;
   v13 = 3221225472;
@@ -8343,36 +8352,37 @@ LABEL_12:
 {
   titleCopy = title;
   errorCopy = error;
-  v8 = AEBundle();
+  v8 = AEBundle(errorCopy);
   v9 = [v8 localizedStringForKey:@"Cannot Open Book" value:&stru_1E7188 table:0];
 
-  if ([titleCopy length])
+  v10 = [titleCopy length];
+  if (v10)
   {
-    v10 = AEBundle();
-    v11 = [v10 localizedStringForKey:@"Cannot Open “%@”" value:&stru_1E7188 table:0];
-    titleCopy = [NSString stringWithFormat:v11, titleCopy];
+    v11 = AEBundle(v10);
+    v12 = [v11 localizedStringForKey:@"Cannot Open “%@”" value:&stru_1E7188 table:0];
+    titleCopy = [NSString stringWithFormat:v12, titleCopy];
 
     v9 = titleCopy;
   }
 
-  v13 = AEBundle();
-  v14 = [v13 localizedStringForKey:@"It is formatted incorrectly value:or is not a format that Apple Books can open." table:{&stru_1E7188, 0}];
+  v14 = AEBundle(v10);
+  v15 = [v14 localizedStringForKey:@"It is formatted incorrectly value:or is not a format that Apple Books can open." table:{&stru_1E7188, 0}];
 
-  v15 = AEBundle();
-  v16 = [v15 localizedStringForKey:@"Close" value:&stru_1E7188 table:0];
+  v17 = AEBundle(v16);
+  v18 = [v17 localizedStringForKey:@"Close" value:&stru_1E7188 table:0];
 
-  v17 = [UIAlertController alertControllerWithTitle:v9 message:v14 preferredStyle:1];
-  v20[0] = _NSConcreteStackBlock;
-  v20[1] = 3221225472;
-  v20[2] = sub_5EF38;
-  v20[3] = &unk_1E4218;
-  v20[4] = self;
-  v21 = errorCopy;
-  v18 = errorCopy;
-  v19 = [UIAlertAction actionWithTitle:v16 style:1 handler:v20];
-  [v17 addAction:v19];
+  v19 = [UIAlertController alertControllerWithTitle:v9 message:v15 preferredStyle:1];
+  v22[0] = _NSConcreteStackBlock;
+  v22[1] = 3221225472;
+  v22[2] = sub_5EF38;
+  v22[3] = &unk_1E4218;
+  v22[4] = self;
+  v23 = errorCopy;
+  v20 = errorCopy;
+  v21 = [UIAlertAction actionWithTitle:v18 style:1 handler:v22];
+  [v19 addAction:v21];
 
-  [(BKBookViewController *)self presentViewController:v17 animated:1 completion:0];
+  [(BKBookViewController *)self presentViewController:v19 animated:1 completion:0];
 }
 
 - (void)contentFailedToLoadWithError:(id)error
@@ -8771,37 +8781,37 @@ LABEL_15:
   object = [complete object];
   paginationController = [(BKBookViewController *)self paginationController];
 
-  _currentReadingProgress = _AEPaginationLog();
-  v7 = os_log_type_enabled(_currentReadingProgress, OS_LOG_TYPE_DEFAULT);
+  _currentReadingProgress = _AEPaginationLog(v6);
+  v8 = os_log_type_enabled(_currentReadingProgress, OS_LOG_TYPE_DEFAULT);
   if (object != paginationController)
   {
-    if (v7)
+    if (v8)
     {
       paginationController2 = [(BKBookViewController *)self paginationController];
-      v14 = 138412546;
+      v15 = 138412546;
       selfCopy2 = self;
-      v16 = 2112;
-      v17 = paginationController2;
-      _os_log_impl(&dword_0, _currentReadingProgress, OS_LOG_TYPE_DEFAULT, "IGNORING paginationComplete BVC:%@ paginationController:%@", &v14, 0x16u);
+      v17 = 2112;
+      v18 = paginationController2;
+      _os_log_impl(&dword_0, _currentReadingProgress, OS_LOG_TYPE_DEFAULT, "IGNORING paginationComplete BVC:%@ paginationController:%@", &v15, 0x16u);
     }
 
     goto LABEL_4;
   }
 
-  if (v7)
+  if (v8)
   {
     paginationController3 = [(BKBookViewController *)self paginationController];
-    v14 = 138412546;
+    v15 = 138412546;
     selfCopy2 = self;
-    v16 = 2112;
-    v17 = paginationController3;
-    _os_log_impl(&dword_0, _currentReadingProgress, OS_LOG_TYPE_DEFAULT, "Received paginationComplete BVC:%@ paginationController:%@", &v14, 0x16u);
+    v17 = 2112;
+    v18 = paginationController3;
+    _os_log_impl(&dword_0, _currentReadingProgress, OS_LOG_TYPE_DEFAULT, "Received paginationComplete BVC:%@ paginationController:%@", &v15, 0x16u);
   }
 
   assetViewControllerDelegate = [(BKBookViewController *)self assetViewControllerDelegate];
-  v11 = objc_opt_respondsToSelector();
+  v12 = objc_opt_respondsToSelector();
 
-  if (v11)
+  if (v12)
   {
     assetViewControllerDelegate2 = [(BKBookViewController *)self assetViewControllerDelegate];
     [assetViewControllerDelegate2 assetViewControllerPaginationCompletedForBook:self];

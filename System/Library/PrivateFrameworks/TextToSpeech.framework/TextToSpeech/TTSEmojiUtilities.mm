@@ -13,42 +13,42 @@
   length = range.length;
   location = range.location;
   stringCopy = string;
-  v19 = 0;
-  v20 = &v19;
-  v21 = 0x3010000000;
-  v22 = &unk_1A95FC00D;
-  v23 = xmmword_1A9586960;
-  v9 = objc_msgSend_substringWithRange_(stringCopy, v7, location, length, v8);
-  objc_msgSend_length(v9, v10, v11, v12, v13);
+  v13 = 0;
+  v14 = &v13;
+  v15 = 0x3010000000;
+  v16 = &unk_1A95FC00D;
+  v17 = xmmword_1A9586960;
+  v7 = [stringCopy substringWithRange:{location, length}];
+  [v7 length];
   CEMEnumerateEmojiTokensInStringWithBlock();
-  v14 = v20[4];
-  v15 = v20[5];
-  if (v14 == 0x7FFFFFFFFFFFFFFFLL)
+  v8 = v14[4];
+  v9 = v14[5];
+  if (v8 == 0x7FFFFFFFFFFFFFFFLL)
   {
-    v16 = 0x7FFFFFFFFFFFFFFFLL;
+    v10 = 0x7FFFFFFFFFFFFFFFLL;
   }
 
   else
   {
-    v16 = v14 + location;
+    v10 = v8 + location;
   }
 
-  _Block_object_dispose(&v19, 8);
-  v17 = v16;
-  v18 = v15;
-  result.length = v18;
-  result.location = v17;
+  _Block_object_dispose(&v13, 8);
+  v11 = v10;
+  v12 = v9;
+  result.length = v12;
+  result.location = v11;
   return result;
 }
 
 + (void)_initializeEmojiStructures:(id)structures
 {
   structuresCopy = structures;
-  v8 = structuresCopy;
+  v4 = structuresCopy;
   if (qword_1ED970FF0 != -1)
   {
     sub_1A9578200();
-    if (v8)
+    if (v4)
     {
       goto LABEL_4;
     }
@@ -59,57 +59,56 @@
   if (!structuresCopy)
   {
 LABEL_3:
-    v9 = objc_msgSend_currentLanguageCode(TTSSpeechManager, v4, v5, v6, v7);
-    v8 = AXCRemapLanguageCodeToFallbackIfNeccessary();
+    v5 = +[TTSSpeechManager currentLanguageCode];
+    v4 = AXCRemapLanguageCodeToFallbackIfNeccessary();
   }
 
 LABEL_4:
-  v10 = qword_1ED9702A0;
+  v6 = qword_1ED9702A0;
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 3221225472;
   block[2] = sub_1A9342FB0;
   block[3] = &unk_1E787FE20;
-  v13 = v8;
-  v11 = v8;
-  dispatch_sync(v10, block);
+  v9 = v4;
+  v7 = v4;
+  dispatch_sync(v6, block);
 }
 
 + (id)stringByRemovingEmojiCharacters:(id)characters
 {
   charactersCopy = characters;
-  objc_msgSend__initializeEmojiStructures_(self, v5, 0, v6, v7);
-  v12 = objc_msgSend_mutableCopy(charactersCopy, v8, v9, v10, v11);
-  v27[0] = 0;
-  v27[1] = v27;
-  v27[2] = 0x2020000000;
-  v27[3] = 0;
-  v23 = 0;
-  v24 = &v23;
-  v25 = 0x2020000000;
-  v26 = 0;
+  [self _initializeEmojiStructures:0];
+  v5 = [charactersCopy mutableCopy];
+  v15[0] = 0;
+  v15[1] = v15;
+  v15[2] = 0x2020000000;
+  v15[3] = 0;
+  v11 = 0;
+  v12 = &v11;
+  v13 = 0x2020000000;
+  v14 = 0;
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 3221225472;
   block[2] = sub_1A93431F0;
   block[3] = &unk_1E787FF60;
-  block[4] = &v23;
+  block[4] = &v11;
   dispatch_sync(qword_1ED9702A0, block);
-  v13 = objc_autoreleasePoolPush();
-  objc_msgSend_length(charactersCopy, v14, v15, v16, v17);
-  v18 = v24[3];
-  v19 = v12;
+  v6 = objc_autoreleasePoolPush();
+  [charactersCopy length];
+  v7 = v5;
   CEMEnumerateEmojiTokensInStringWithLocaleAndBlock();
-  v20 = v24[3];
-  if (v20)
+  v8 = v12[3];
+  if (v8)
   {
-    CFRelease(v20);
-    v24[3] = 0;
+    CFRelease(v8);
+    v12[3] = 0;
   }
 
-  objc_autoreleasePoolPop(v13);
-  _Block_object_dispose(&v23, 8);
-  _Block_object_dispose(v27, 8);
+  objc_autoreleasePoolPop(v6);
+  _Block_object_dispose(&v11, 8);
+  _Block_object_dispose(v15, 8);
 
-  return v19;
+  return v7;
 }
 
 + (void)enumerateEmojiCharactersInString:(id)string languageCode:(id)code withBlock:(id)block
@@ -119,29 +118,28 @@ LABEL_4:
   blockCopy = block;
   if (stringCopy)
   {
-    objc_msgSend__initializeEmojiStructures_(self, v10, codeCopy, v11, v12);
-    v22 = 0;
-    v23 = &v22;
-    v24 = 0x2020000000;
-    v25 = 0;
+    [self _initializeEmojiStructures:codeCopy];
+    v14 = 0;
+    v15 = &v14;
+    v16 = 0x2020000000;
+    v17 = 0;
     block[0] = MEMORY[0x1E69E9820];
     block[1] = 3221225472;
     block[2] = sub_1A9343424;
     block[3] = &unk_1E787FF60;
-    block[4] = &v22;
+    block[4] = &v14;
     dispatch_sync(qword_1ED9702A0, block);
-    objc_msgSend_length(stringCopy, v14, v15, v16, v17);
-    v18 = v23[3];
-    v20 = blockCopy;
+    [stringCopy length];
+    v12 = blockCopy;
     CEMEnumerateEmojiTokensInStringWithLocaleAndBlock();
-    v19 = v23[3];
-    if (v19)
+    v11 = v15[3];
+    if (v11)
     {
-      CFRelease(v19);
-      v23[3] = 0;
+      CFRelease(v11);
+      v15[3] = 0;
     }
 
-    _Block_object_dispose(&v22, 8);
+    _Block_object_dispose(&v14, 8);
   }
 }
 
@@ -153,37 +151,37 @@ LABEL_4:
   replacementsCopy = replacements;
   if (descriptionsCopy)
   {
-    v19 = objc_msgSend_mutableCopy(descriptionsCopy, v14, v15, v16, v17);
-    v34[0] = 0;
-    v34[1] = v34;
-    v34[2] = 0x2020000000;
-    v34[3] = 0;
-    v20 = objc_opt_class();
-    v26[0] = MEMORY[0x1E69E9820];
-    v26[1] = 3221225472;
-    v26[2] = sub_1A93436D8;
-    v26[3] = &unk_1E78802C8;
+    v15 = [descriptionsCopy mutableCopy];
+    v29[0] = 0;
+    v29[1] = v29;
+    v29[2] = 0x2020000000;
+    v29[3] = 0;
+    v16 = objc_opt_class();
+    v21[0] = MEMORY[0x1E69E9820];
+    v21[1] = 3221225472;
+    v21[2] = sub_1A93436D8;
+    v21[3] = &unk_1E78802C8;
     suffixCopy = suffix;
-    v27 = languageCopy;
-    v28 = pausesCopy;
-    v29 = descriptionsCopy;
-    v21 = v19;
-    v30 = v21;
-    v32 = v34;
-    v31 = replacementsCopy;
-    objc_msgSend_enumerateEmojiCharactersInString_languageCode_withBlock_(v20, v22, v29, v27, v26);
-    v23 = v31;
-    v24 = v21;
+    v22 = languageCopy;
+    v23 = pausesCopy;
+    v24 = descriptionsCopy;
+    v17 = v15;
+    v25 = v17;
+    v27 = v29;
+    v26 = replacementsCopy;
+    [v16 enumerateEmojiCharactersInString:v24 languageCode:v22 withBlock:v21];
+    v18 = v26;
+    v19 = v17;
 
-    _Block_object_dispose(v34, 8);
+    _Block_object_dispose(v29, 8);
   }
 
   else
   {
-    v24 = 0;
+    v19 = 0;
   }
 
-  return v24;
+  return v19;
 }
 
 @end

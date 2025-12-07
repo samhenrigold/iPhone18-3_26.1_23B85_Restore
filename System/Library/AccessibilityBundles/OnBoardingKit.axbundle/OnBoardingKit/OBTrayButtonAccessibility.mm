@@ -1,6 +1,7 @@
 @interface OBTrayButtonAccessibility
 + (void)_accessibilityPerformValidations:(id)validations;
 - (id)accessibilityLabel;
+- (void)setEnabled:(BOOL)enabled;
 @end
 
 @implementation OBTrayButtonAccessibility
@@ -35,6 +36,14 @@
   }
 
   return v6;
+}
+
+- (void)setEnabled:(BOOL)enabled
+{
+  v3.receiver = self;
+  v3.super_class = OBTrayButtonAccessibility;
+  [(OBTrayButtonAccessibility *)&v3 setEnabled:enabled];
+  UIAccessibilityPostNotification(*MEMORY[0x29EDC7ED8], 0);
 }
 
 @end

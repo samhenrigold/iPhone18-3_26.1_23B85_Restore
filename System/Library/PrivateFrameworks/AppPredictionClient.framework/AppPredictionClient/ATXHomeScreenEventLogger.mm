@@ -72,7 +72,7 @@
 
 void __43__ATXHomeScreenEventLogger_logDeviceUnlock__block_invoke(uint64_t a1)
 {
-  v2 = __atxlog_handle_home_screen();
+  v2 = __atxlog_handle_home_screen(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -93,393 +93,394 @@ void __43__ATXHomeScreenEventLogger_logDeviceUnlock__block_invoke(uint64_t a1)
 
 void __66__ATXHomeScreenEventLogger__updateCurrentConfigurationsAndLogDiff__block_invoke(uint64_t a1, void *a2)
 {
-  v161 = *MEMORY[0x1E69E9840];
+  v165 = *MEMORY[0x1E69E9840];
   v3 = a2;
+  v4 = v3;
   if (v3)
   {
-    v4 = __atxlog_handle_home_screen();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = __atxlog_handle_home_screen(v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       __66__ATXHomeScreenEventLogger__updateCurrentConfigurationsAndLogDiff__block_invoke_cold_1();
     }
+  }
+
+  v152 = 0u;
+  v153 = 0u;
+  v150 = 0u;
+  v151 = 0u;
+  v6 = [*(a1 + 32) addedApps];
+  v7 = [v6 countByEnumeratingWithState:&v150 objects:v164 count:16];
+  if (v7)
+  {
+    v8 = v7;
+    v9 = *v151;
+    do
+    {
+      for (i = 0; i != v8; ++i)
+      {
+        if (*v151 != v9)
+        {
+          objc_enumerationMutation(v6);
+        }
+
+        v11 = *(*(&v150 + 1) + 8 * i);
+        v12 = *(a1 + 40);
+        v13 = [v11 page];
+        [v12 logUserDidAddApp:v11 page:v13];
+      }
+
+      v8 = [v6 countByEnumeratingWithState:&v150 objects:v164 count:16];
+    }
+
+    while (v8);
   }
 
   v148 = 0u;
   v149 = 0u;
   v146 = 0u;
   v147 = 0u;
-  v5 = [*(a1 + 32) addedApps];
-  v6 = [v5 countByEnumeratingWithState:&v146 objects:v160 count:16];
-  if (v6)
+  v14 = [*(a1 + 32) removedApps];
+  v15 = [v14 countByEnumeratingWithState:&v146 objects:v163 count:16];
+  if (v15)
   {
-    v7 = v6;
-    v8 = *v147;
+    v16 = v15;
+    v17 = *v147;
     do
     {
-      for (i = 0; i != v7; ++i)
+      for (j = 0; j != v16; ++j)
       {
-        if (*v147 != v8)
+        if (*v147 != v17)
         {
-          objc_enumerationMutation(v5);
+          objc_enumerationMutation(v14);
         }
 
-        v10 = *(*(&v146 + 1) + 8 * i);
-        v11 = *(a1 + 40);
-        v12 = [v10 page];
-        [v11 logUserDidAddApp:v10 page:v12];
+        v19 = *(*(&v146 + 1) + 8 * j);
+        v20 = *(a1 + 40);
+        v21 = [v19 page];
+        [v20 logUserDidRemoveApp:v19 page:v21];
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v146 objects:v160 count:16];
+      v16 = [v14 countByEnumeratingWithState:&v146 objects:v163 count:16];
     }
 
-    while (v7);
+    while (v16);
   }
 
   v144 = 0u;
   v145 = 0u;
   v142 = 0u;
   v143 = 0u;
-  v13 = [*(a1 + 32) removedApps];
-  v14 = [v13 countByEnumeratingWithState:&v142 objects:v159 count:16];
-  if (v14)
+  v22 = [*(a1 + 32) addedPinnedWidgets];
+  v23 = [v22 countByEnumeratingWithState:&v142 objects:v162 count:16];
+  v116 = v23 != 0;
+  if (v23)
   {
-    v15 = v14;
-    v16 = *v143;
+    v24 = v23;
+    v25 = *v143;
     do
     {
-      for (j = 0; j != v15; ++j)
+      for (k = 0; k != v24; ++k)
       {
-        if (*v143 != v16)
+        if (*v143 != v25)
         {
-          objc_enumerationMutation(v13);
+          objc_enumerationMutation(v22);
         }
 
-        v18 = *(*(&v142 + 1) + 8 * j);
-        v19 = *(a1 + 40);
-        v20 = [v18 page];
-        [v19 logUserDidRemoveApp:v18 page:v20];
+        v27 = *(*(&v142 + 1) + 8 * k);
+        v28 = *(a1 + 40);
+        v29 = [v27 page];
+        [v28 logUserDidAddPinnedWidget:v27 page:v29 defaultsComparator:*(a1 + 48)];
       }
 
-      v15 = [v13 countByEnumeratingWithState:&v142 objects:v159 count:16];
+      v24 = [v22 countByEnumeratingWithState:&v142 objects:v162 count:16];
     }
 
-    while (v15);
+    while (v24);
   }
 
   v140 = 0u;
   v141 = 0u;
   v138 = 0u;
   v139 = 0u;
-  v21 = [*(a1 + 32) addedPinnedWidgets];
-  v22 = [v21 countByEnumeratingWithState:&v138 objects:v158 count:16];
-  v112 = v22 != 0;
-  if (v22)
+  v30 = [*(a1 + 32) widgetsAddedToStacksByUser];
+  v31 = [v30 countByEnumeratingWithState:&v138 objects:v161 count:16];
+  if (v31)
   {
-    v23 = v22;
-    v24 = *v139;
+    v32 = v31;
+    v33 = *v139;
     do
     {
-      for (k = 0; k != v23; ++k)
+      for (m = 0; m != v32; ++m)
       {
-        if (*v139 != v24)
+        if (*v139 != v33)
         {
-          objc_enumerationMutation(v21);
+          objc_enumerationMutation(v30);
         }
 
-        v26 = *(*(&v138 + 1) + 8 * k);
-        v27 = *(a1 + 40);
-        v28 = [v26 page];
-        [v27 logUserDidAddPinnedWidget:v26 page:v28 defaultsComparator:*(a1 + 48)];
+        v35 = *(*(&v138 + 1) + 8 * m);
+        v36 = [*(a1 + 48) rankOfWidgetSuggestedInGallery:v35];
+        v37 = [v35 widgetUniqueId];
+
+        if (v37)
+        {
+          v38 = [*(a1 + 32) stackInCurrentConfigurationsForStackedWidget:v35];
+          v39 = [v38 identifier];
+
+          [*(a1 + 40) logUserDidAddWidgetToStack:v35 stackIdentifier:v39 isSuggestion:v36 != 0];
+        }
       }
 
-      v23 = [v21 countByEnumeratingWithState:&v138 objects:v158 count:16];
+      v32 = [v30 countByEnumeratingWithState:&v138 objects:v161 count:16];
     }
 
-    while (v23);
+    while (v32);
+    v116 = 1;
   }
 
   v136 = 0u;
   v137 = 0u;
   v134 = 0u;
   v135 = 0u;
-  v29 = [*(a1 + 32) widgetsAddedToStacksByUser];
-  v30 = [v29 countByEnumeratingWithState:&v134 objects:v157 count:16];
-  if (v30)
+  v40 = [*(a1 + 32) suggestedWidgetsAddedPermanentlyByUser];
+  v41 = [v40 countByEnumeratingWithState:&v134 objects:v160 count:16];
+  if (v41)
   {
-    v31 = v30;
-    v32 = *v135;
+    v42 = v41;
+    v43 = *v135;
     do
     {
-      for (m = 0; m != v31; ++m)
+      for (n = 0; n != v42; ++n)
       {
-        if (*v135 != v32)
+        if (*v135 != v43)
         {
-          objc_enumerationMutation(v29);
+          objc_enumerationMutation(v40);
         }
 
-        v34 = *(*(&v134 + 1) + 8 * m);
-        v35 = [*(a1 + 48) rankOfWidgetSuggestedInGallery:v34];
-        v36 = [v34 widgetUniqueId];
+        v45 = *(*(&v134 + 1) + 8 * n);
+        v46 = [v45 widgetUniqueId];
 
-        if (v36)
+        if (v46)
         {
-          v37 = [*(a1 + 32) stackInCurrentConfigurationsForStackedWidget:v34];
-          v38 = [v37 identifier];
+          v47 = *(a1 + 56);
+          v48 = *(a1 + 64);
+          v49 = [v45 widgetUniqueId];
+          v50 = [v48 objectForKeyedSubscript:v49];
+          v51 = [v47 objectForKeyedSubscript:v50];
 
-          [*(a1 + 40) logUserDidAddWidgetToStack:v34 stackIdentifier:v38 isSuggestion:v35 != 0];
+          if (v51 && (v53 = v51[3]) != 0)
+          {
+            [*(a1 + 40) _logSupplementaryActionInContextMenu:3 stackId:v53 widget:v45 prediction:0];
+          }
+
+          else
+          {
+            v54 = __atxlog_handle_home_screen(v52);
+            if (os_log_type_enabled(v54, OS_LOG_TYPE_ERROR))
+            {
+              *buf = 138412290;
+              v159 = v45;
+              _os_log_error_impl(&dword_1BF549000, v54, OS_LOG_TYPE_ERROR, "ATXHomeScreenEventLogger: Unable to emit 'Add To Stack' event for previously suggested widget %@, due to unkown stackId.", buf, 0xCu);
+            }
+          }
         }
       }
 
-      v31 = [v29 countByEnumeratingWithState:&v134 objects:v157 count:16];
+      v42 = [v40 countByEnumeratingWithState:&v134 objects:v160 count:16];
     }
 
-    while (v31);
-    v112 = 1;
+    while (v42);
   }
 
   v132 = 0u;
   v133 = 0u;
   v130 = 0u;
   v131 = 0u;
-  v39 = [*(a1 + 32) suggestedWidgetsAddedPermanentlyByUser];
-  v40 = [v39 countByEnumeratingWithState:&v130 objects:v156 count:16];
-  if (v40)
+  v55 = [*(a1 + 32) addedStacks];
+  v56 = [v55 countByEnumeratingWithState:&v130 objects:v157 count:16];
+  v57 = v116;
+  if (v56)
   {
-    v41 = v40;
-    v42 = *v131;
+    v58 = v56;
+    v59 = *v131;
     do
     {
-      for (n = 0; n != v41; ++n)
+      for (ii = 0; ii != v58; ++ii)
       {
-        if (*v131 != v42)
+        if (*v131 != v59)
         {
-          objc_enumerationMutation(v39);
+          objc_enumerationMutation(v55);
         }
 
-        v44 = *(*(&v130 + 1) + 8 * n);
-        v45 = [v44 widgetUniqueId];
-
-        if (v45)
-        {
-          v46 = *(a1 + 56);
-          v47 = *(a1 + 64);
-          v48 = [v44 widgetUniqueId];
-          v49 = [v47 objectForKeyedSubscript:v48];
-          v50 = [v46 objectForKeyedSubscript:v49];
-
-          if (v50 && (v51 = v50[3]) != 0)
-          {
-            [*(a1 + 40) _logSupplementaryActionInContextMenu:3 stackId:v51 widget:v44 prediction:0];
-          }
-
-          else
-          {
-            v52 = __atxlog_handle_home_screen();
-            if (os_log_type_enabled(v52, OS_LOG_TYPE_ERROR))
-            {
-              *buf = 138412290;
-              v155 = v44;
-              _os_log_error_impl(&dword_1BF549000, v52, OS_LOG_TYPE_ERROR, "ATXHomeScreenEventLogger: Unable to emit 'Add To Stack' event for previously suggested widget %@, due to unkown stackId.", buf, 0xCu);
-            }
-          }
-        }
+        v61 = *(*(&v130 + 1) + 8 * ii);
+        v62 = [*(a1 + 48) isStackDefaultStack:v61];
+        v63 = *(a1 + 40);
+        v64 = [v61 page];
+        [v63 logUserDidCreateStack:v61 page:v64 isSuggestion:v62];
       }
 
-      v41 = [v39 countByEnumeratingWithState:&v130 objects:v156 count:16];
+      v58 = [v55 countByEnumeratingWithState:&v130 objects:v157 count:16];
     }
 
-    while (v41);
+    while (v58);
+    v57 = 1;
   }
 
   v128 = 0u;
   v129 = 0u;
   v126 = 0u;
   v127 = 0u;
-  v53 = [*(a1 + 32) addedStacks];
-  v54 = [v53 countByEnumeratingWithState:&v126 objects:v153 count:16];
-  v55 = v112;
-  if (v54)
+  v65 = [*(a1 + 32) deletedPinnedWidgets];
+  v66 = [v65 countByEnumeratingWithState:&v126 objects:v156 count:16];
+  if (v66)
   {
-    v56 = v54;
-    v57 = *v127;
+    v67 = v66;
+    v68 = *v127;
     do
     {
-      for (ii = 0; ii != v56; ++ii)
+      for (jj = 0; jj != v67; ++jj)
       {
-        if (*v127 != v57)
+        if (*v127 != v68)
         {
-          objc_enumerationMutation(v53);
+          objc_enumerationMutation(v65);
         }
 
-        v59 = *(*(&v126 + 1) + 8 * ii);
-        v60 = [*(a1 + 48) isStackDefaultStack:v59];
-        v61 = *(a1 + 40);
-        v62 = [v59 page];
-        [v61 logUserDidCreateStack:v59 page:v62 isSuggestion:v60];
+        v70 = *(*(&v126 + 1) + 8 * jj);
+        v71 = *(a1 + 40);
+        v72 = [v70 widgetUniqueId];
+        v73 = [v71 _stackLocationGivenWidgetUniqueId:v72 stackIdToStackDataDictionary:*(a1 + 56) widgetIdToStackIdDictionary:*(a1 + 64)];
+
+        v74 = *(a1 + 40);
+        v75 = [v70 page];
+        [v74 logUserDidDeletePinnedWidget:v70 stackLocation:v73 page:v75];
+
+        [*(a1 + 40) _logRemovalDateOfDefaultTVWidgetIfApplicable:v70 configDiffer:*(a1 + 32)];
       }
 
-      v56 = [v53 countByEnumeratingWithState:&v126 objects:v153 count:16];
+      v67 = [v65 countByEnumeratingWithState:&v126 objects:v156 count:16];
     }
 
-    while (v56);
-    v55 = 1;
+    while (v67);
+    v57 = 1;
   }
 
   v124 = 0u;
   v125 = 0u;
   v122 = 0u;
   v123 = 0u;
-  v63 = [*(a1 + 32) deletedPinnedWidgets];
-  v64 = [v63 countByEnumeratingWithState:&v122 objects:v152 count:16];
-  if (v64)
+  v76 = [*(a1 + 32) widgetsDeletedFromStacksByUser];
+  v77 = [v76 countByEnumeratingWithState:&v122 objects:v155 count:16];
+  if (v77)
   {
-    v65 = v64;
-    v66 = *v123;
+    v78 = v77;
+    v79 = *v123;
     do
     {
-      for (jj = 0; jj != v65; ++jj)
+      for (kk = 0; kk != v78; ++kk)
       {
-        if (*v123 != v66)
+        if (*v123 != v79)
         {
-          objc_enumerationMutation(v63);
+          objc_enumerationMutation(v76);
         }
 
-        v68 = *(*(&v122 + 1) + 8 * jj);
-        v69 = *(a1 + 40);
-        v70 = [v68 widgetUniqueId];
-        v71 = [v69 _stackLocationGivenWidgetUniqueId:v70 stackIdToStackDataDictionary:*(a1 + 56) widgetIdToStackIdDictionary:*(a1 + 64)];
+        v81 = *(*(&v122 + 1) + 8 * kk);
+        v82 = [*(a1 + 32) stackInPreviousConfigurationsForStackedWidget:v81];
+        v83 = [v82 identifier];
 
-        v72 = *(a1 + 40);
-        v73 = [v68 page];
-        [v72 logUserDidDeletePinnedWidget:v68 stackLocation:v71 page:v73];
+        v84 = *(a1 + 40);
+        v85 = [v81 widgetUniqueId];
+        v86 = [v84 _stackKindGivenWidgetUniqueId:v85 stackIdToStackDataDictionary:*(a1 + 56) widgetIdToStackIdDictionary:*(a1 + 64)];
 
-        [*(a1 + 40) _logRemovalDateOfDefaultTVWidgetIfApplicable:v68 configDiffer:*(a1 + 32)];
+        v87 = *(a1 + 40);
+        v88 = [v81 widgetUniqueId];
+        v89 = [v87 _stackLocationGivenWidgetUniqueId:v88 stackIdToStackDataDictionary:*(a1 + 56) widgetIdToStackIdDictionary:*(a1 + 64)];
+
+        [*(a1 + 40) logUserDidDeleteWidgetOnStack:v81 stackIdentifier:v83 stackKind:v86 stackLocation:v89];
+        [*(a1 + 40) _logRemovalDateOfDefaultTVWidgetIfApplicable:v81 configDiffer:*(a1 + 32)];
       }
 
-      v65 = [v63 countByEnumeratingWithState:&v122 objects:v152 count:16];
+      v78 = [v76 countByEnumeratingWithState:&v122 objects:v155 count:16];
     }
 
-    while (v65);
-    v55 = 1;
+    while (v78);
+    v57 = 1;
   }
+
+  v90 = *(a1 + 40);
+  v91 = [*(a1 + 32) suggestedWidgetsRemoved];
+  [v90 _handleRemovedSuggestedWidgetsIfNecessary:v91];
 
   v120 = 0u;
   v121 = 0u;
   v118 = 0u;
   v119 = 0u;
-  v74 = [*(a1 + 32) widgetsDeletedFromStacksByUser];
-  v75 = [v74 countByEnumeratingWithState:&v118 objects:v151 count:16];
-  if (v75)
+  v92 = [*(a1 + 32) deletedStacks];
+  v93 = [v92 countByEnumeratingWithState:&v118 objects:v154 count:16];
+  if (v93)
   {
-    v76 = v75;
-    v77 = *v119;
+    v94 = v93;
+    v95 = *v119;
+    obj = v92;
     do
     {
-      for (kk = 0; kk != v76; ++kk)
+      for (mm = 0; mm != v94; ++mm)
       {
-        if (*v119 != v77)
-        {
-          objc_enumerationMutation(v74);
-        }
-
-        v79 = *(*(&v118 + 1) + 8 * kk);
-        v80 = [*(a1 + 32) stackInPreviousConfigurationsForStackedWidget:v79];
-        v81 = [v80 identifier];
-
-        v82 = *(a1 + 40);
-        v83 = [v79 widgetUniqueId];
-        v84 = [v82 _stackKindGivenWidgetUniqueId:v83 stackIdToStackDataDictionary:*(a1 + 56) widgetIdToStackIdDictionary:*(a1 + 64)];
-
-        v85 = *(a1 + 40);
-        v86 = [v79 widgetUniqueId];
-        v87 = [v85 _stackLocationGivenWidgetUniqueId:v86 stackIdToStackDataDictionary:*(a1 + 56) widgetIdToStackIdDictionary:*(a1 + 64)];
-
-        [*(a1 + 40) logUserDidDeleteWidgetOnStack:v79 stackIdentifier:v81 stackKind:v84 stackLocation:v87];
-        [*(a1 + 40) _logRemovalDateOfDefaultTVWidgetIfApplicable:v79 configDiffer:*(a1 + 32)];
-      }
-
-      v76 = [v74 countByEnumeratingWithState:&v118 objects:v151 count:16];
-    }
-
-    while (v76);
-    v55 = 1;
-  }
-
-  v88 = *(a1 + 40);
-  v89 = [*(a1 + 32) suggestedWidgetsRemoved];
-  [v88 _handleRemovedSuggestedWidgetsIfNecessary:v89];
-
-  v116 = 0u;
-  v117 = 0u;
-  v114 = 0u;
-  v115 = 0u;
-  v90 = [*(a1 + 32) deletedStacks];
-  v91 = [v90 countByEnumeratingWithState:&v114 objects:v150 count:16];
-  if (v91)
-  {
-    v92 = v91;
-    v93 = *v115;
-    obj = v90;
-    do
-    {
-      for (mm = 0; mm != v92; ++mm)
-      {
-        if (*v115 != v93)
+        if (*v119 != v95)
         {
           objc_enumerationMutation(obj);
         }
 
-        v95 = *(*(&v114 + 1) + 8 * mm);
-        v96 = *(a1 + 40);
-        v97 = [v95 widgets];
-        v98 = [v97 firstObject];
-        v99 = [v98 widgetUniqueId];
-        v100 = [v96 _stackKindGivenWidgetUniqueId:v99 stackIdToStackDataDictionary:*(a1 + 56) widgetIdToStackIdDictionary:*(a1 + 64)];
+        v97 = *(*(&v118 + 1) + 8 * mm);
+        v98 = *(a1 + 40);
+        v99 = [v97 widgets];
+        v100 = [v99 firstObject];
+        v101 = [v100 widgetUniqueId];
+        v102 = [v98 _stackKindGivenWidgetUniqueId:v101 stackIdToStackDataDictionary:*(a1 + 56) widgetIdToStackIdDictionary:*(a1 + 64)];
 
-        v101 = *(a1 + 40);
-        v102 = [v95 widgets];
-        v103 = [v102 firstObject];
-        v104 = [v103 widgetUniqueId];
-        v105 = [v101 _stackLocationGivenWidgetUniqueId:v104 stackIdToStackDataDictionary:*(a1 + 56) widgetIdToStackIdDictionary:*(a1 + 64)];
+        v103 = *(a1 + 40);
+        v104 = [v97 widgets];
+        v105 = [v104 firstObject];
+        v106 = [v105 widgetUniqueId];
+        v107 = [v103 _stackLocationGivenWidgetUniqueId:v106 stackIdToStackDataDictionary:*(a1 + 56) widgetIdToStackIdDictionary:*(a1 + 64)];
 
-        v106 = *(a1 + 40);
-        v107 = [v95 page];
-        [v106 logUserDidDeleteStack:v95 stackKind:v100 stackLocation:v105 page:v107];
+        v108 = *(a1 + 40);
+        v109 = [v97 page];
+        [v108 logUserDidDeleteStack:v97 stackKind:v102 stackLocation:v107 page:v109];
       }
 
-      v92 = [obj countByEnumeratingWithState:&v114 objects:v150 count:16];
+      v94 = [obj countByEnumeratingWithState:&v118 objects:v154 count:16];
     }
 
-    while (v92);
+    while (v94);
   }
 
   else
   {
 
-    if ((v55 & 1) == 0)
+    if ((v57 & 1) == 0)
     {
-      v108 = __atxlog_handle_home_screen();
-      v109 = v111;
-      if (!os_log_type_enabled(v108, OS_LOG_TYPE_DEFAULT))
+      v112 = __atxlog_handle_home_screen(v110);
+      v113 = v115;
+      if (!os_log_type_enabled(v112, OS_LOG_TYPE_DEFAULT))
       {
         goto LABEL_87;
       }
 
       *buf = 0;
-      v110 = "ATXHomeScreenEventLogger: No widget or stack changes, not updating default home screen items";
+      v114 = "ATXHomeScreenEventLogger: No widget or stack changes, not updating default home screen items";
       goto LABEL_86;
     }
   }
 
-  notify_post([@"com.apple.duetexpertd.updateDefaultsDueToRelevantHomeScreenConfigUpdate" UTF8String]);
-  v108 = __atxlog_handle_home_screen();
-  v109 = v111;
-  if (os_log_type_enabled(v108, OS_LOG_TYPE_DEFAULT))
+  v111 = notify_post([@"com.apple.duetexpertd.updateDefaultsDueToRelevantHomeScreenConfigUpdate" UTF8String]);
+  v112 = __atxlog_handle_home_screen(v111);
+  v113 = v115;
+  if (os_log_type_enabled(v112, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    v110 = "ATXHomeScreenEventLogger: Widgets or stacks changed, updating default home screen items";
+    v114 = "ATXHomeScreenEventLogger: Widgets or stacks changed, updating default home screen items";
 LABEL_86:
-    _os_log_impl(&dword_1BF549000, v108, OS_LOG_TYPE_DEFAULT, v110, buf, 2u);
+    _os_log_impl(&dword_1BF549000, v112, OS_LOG_TYPE_DEFAULT, v114, buf, 2u);
   }
 
 LABEL_87:
@@ -556,17 +557,17 @@ LABEL_87:
 void __97__ATXHomeScreenEventLogger_initWithHomeScreenConfigCache_biomeUIStream_PETEventTracker_defaults___block_invoke_2(uint64_t a1)
 {
   v2 = *(a1 + 40);
-  v23 = 0;
-  v3 = [v2 loadHomeScreenAndTodayPageConfigurationsWithError:&v23];
-  v4 = v23;
+  v25 = 0;
+  v3 = [v2 loadHomeScreenAndTodayPageConfigurationsWithError:&v25];
+  v4 = v25;
   v5 = *(a1 + 32);
   v6 = *(v5 + 24);
   *(v5 + 24) = v3;
 
   if (v4)
   {
-    v7 = __atxlog_handle_home_screen();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = __atxlog_handle_home_screen(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       __97__ATXHomeScreenEventLogger_initWithHomeScreenConfigCache_biomeUIStream_PETEventTracker_defaults___block_invoke_2_cold_1();
     }
@@ -574,52 +575,52 @@ void __97__ATXHomeScreenEventLogger_initWithHomeScreenConfigCache_biomeUIStream_
 
   if (!*(*(a1 + 32) + 24))
   {
-    v8 = __atxlog_handle_home_screen();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = __atxlog_handle_home_screen(v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       __97__ATXHomeScreenEventLogger_initWithHomeScreenConfigCache_biomeUIStream_PETEventTracker_defaults___block_invoke_2_cold_2();
     }
 
-    v9 = *(a1 + 32);
-    v10 = *(v9 + 24);
-    *(v9 + 24) = MEMORY[0x1E695E0F0];
+    v10 = *(a1 + 32);
+    v11 = *(v10 + 24);
+    *(v10 + 24) = MEMORY[0x1E695E0F0];
   }
 
-  v11 = *(a1 + 40);
-  v22 = 0;
-  v12 = [v11 loadDockAppListWithError:&v22];
-  v13 = v22;
-  v14 = *(a1 + 32);
-  v15 = *(v14 + 56);
-  *(v14 + 56) = v12;
+  v12 = *(a1 + 40);
+  v24 = 0;
+  v13 = [v12 loadDockAppListWithError:&v24];
+  v14 = v24;
+  v15 = *(a1 + 32);
+  v16 = *(v15 + 56);
+  *(v15 + 56) = v13;
 
-  if (v13)
+  if (v14)
   {
-    v16 = __atxlog_handle_home_screen();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    v18 = __atxlog_handle_home_screen(v17);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
       __97__ATXHomeScreenEventLogger_initWithHomeScreenConfigCache_biomeUIStream_PETEventTracker_defaults___block_invoke_2_cold_3();
     }
   }
 
-  v17 = *(a1 + 32);
-  if (!v17[7])
+  v19 = *(a1 + 32);
+  if (!v19[7])
   {
-    v18 = __atxlog_handle_home_screen();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+    v20 = __atxlog_handle_home_screen(v19);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
       __97__ATXHomeScreenEventLogger_initWithHomeScreenConfigCache_biomeUIStream_PETEventTracker_defaults___block_invoke_2_cold_4();
     }
 
-    v19 = objc_opt_new();
-    v20 = *(a1 + 32);
-    v21 = *(v20 + 56);
-    *(v20 + 56) = v19;
+    v21 = objc_opt_new();
+    v22 = *(a1 + 32);
+    v23 = *(v22 + 56);
+    *(v22 + 56) = v21;
 
-    v17 = *(a1 + 32);
+    v19 = *(a1 + 32);
   }
 
-  [v17 _populateCachedIconState:v17[3]];
+  [v19 _populateCachedIconState:v19[3]];
   [*(a1 + 32) _populateStackKindAndLocation:*(*(a1 + 32) + 24)];
 }
 
@@ -1391,14 +1392,14 @@ uint64_t __70__ATXHomeScreenEventLogger__handleRemovedSuggestedWidgetsIfNecessar
 
   else
   {
-    v23 = [(NSSet *)self->_dockAppSet containsObject:bundleId];
+    v23 = objc_msgSend_containsObject_(self->_dockAppSet);
   }
 
   v24 = objc_opt_new();
   [v24 setCaptureType:v16];
   [v24 setIconLocation:v23];
   v25 = CFPreferencesCopyValue(@"SBSearchDisabledDomains", @"com.apple.spotlightui", *MEMORY[0x1E695E8B8], *MEMORY[0x1E695E898]);
-  v26 = [v25 containsObject:@"DOMAIN_ZKWS"];
+  v26 = objc_msgSend_containsObject_(v25);
 
   [v24 setSpotlightEnabled:v26 ^ 1u];
   v27 = CFPreferencesCopyAppValue(@"SuggestionsAppLibraryEnabled", @"com.apple.suggestions");
@@ -1418,8 +1419,7 @@ uint64_t __70__ATXHomeScreenEventLogger__handleRemovedSuggestedWidgetsIfNecessar
   [v24 setAppPredictionPanelEnabled:self->_hasAppPanelOnHomeScreen];
   [v24 setSuggestionsWidgetEnabled:self->_hasSuggestionWidgetOnHomeScreen];
   [v24 setSuggestionsWidgetTodayEnabled:self->_hasSuggestionWidgetOnLoH];
-  [(ATXPETEventTracker2Protocol *)self->_tracker trackScalarForMessage:v24];
-  v30 = __atxlog_handle_metrics();
+  v30 = __atxlog_handle_metrics([(ATXPETEventTracker2Protocol *)self->_tracker trackScalarForMessage:v24]);
   if (os_log_type_enabled(v30, OS_LOG_TYPE_DEBUG))
   {
     [(ATXHomeScreenEventLogger *)self _logAppLaunchOverallCaptureRateFromAppPredictionPanelWithTappedWidget:v24 suggestion:v30];
@@ -1473,7 +1473,7 @@ LABEL_22:
 
 void __94__ATXHomeScreenEventLogger_logHomeScreenPageDidAppear_topWidgetsByStackIdentifier_prediction___block_invoke(uint64_t a1)
 {
-  v2 = __atxlog_handle_home_screen();
+  v2 = __atxlog_handle_home_screen(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
     __94__ATXHomeScreenEventLogger_logHomeScreenPageDidAppear_topWidgetsByStackIdentifier_prediction___block_invoke_cold_1();
@@ -1506,7 +1506,7 @@ void __94__ATXHomeScreenEventLogger_logHomeScreenPageDidAppear_topWidgetsByStack
 
 void __64__ATXHomeScreenEventLogger_logHomeScreenDidDisappearWithReason___block_invoke(uint64_t a1)
 {
-  v2 = __atxlog_handle_home_screen();
+  v2 = __atxlog_handle_home_screen(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
     __64__ATXHomeScreenEventLogger_logHomeScreenDidDisappearWithReason___block_invoke_cold_1();
@@ -1537,7 +1537,7 @@ void __64__ATXHomeScreenEventLogger_logHomeScreenDidDisappearWithReason___block_
 
 void __80__ATXHomeScreenEventLogger_logSpecialPageDidAppear_widgetsByStackId_prediction___block_invoke(uint64_t a1)
 {
-  v2 = __atxlog_handle_home_screen();
+  v2 = __atxlog_handle_home_screen(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
     __80__ATXHomeScreenEventLogger_logSpecialPageDidAppear_widgetsByStackId_prediction___block_invoke_cold_1();
@@ -1568,7 +1568,7 @@ void __80__ATXHomeScreenEventLogger_logSpecialPageDidAppear_widgetsByStackId_pre
 
 void __55__ATXHomeScreenEventLogger_logSpecialPageDidDisappear___block_invoke(uint64_t a1)
 {
-  v2 = __atxlog_handle_home_screen();
+  v2 = __atxlog_handle_home_screen(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
     __55__ATXHomeScreenEventLogger_logSpecialPageDidDisappear___block_invoke_cold_1();
@@ -1606,7 +1606,7 @@ void __55__ATXHomeScreenEventLogger_logSpecialPageDidDisappear___block_invoke(ui
 void __66__ATXHomeScreenEventLogger_logWidgetDidAppear_stackId_prediction___block_invoke(uint64_t a1)
 {
   v25 = *MEMORY[0x1E69E9840];
-  v2 = __atxlog_handle_home_screen();
+  v2 = __atxlog_handle_home_screen(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v4 = *(a1 + 32);
@@ -1660,7 +1660,7 @@ void __66__ATXHomeScreenEventLogger_logWidgetDidAppear_stackId_prediction___bloc
 void __69__ATXHomeScreenEventLogger_logWidgetDidDisappear_stackId_prediction___block_invoke(uint64_t a1)
 {
   v25 = *MEMORY[0x1E69E9840];
-  v2 = __atxlog_handle_home_screen();
+  v2 = __atxlog_handle_home_screen(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v4 = *(a1 + 32);
@@ -1738,7 +1738,7 @@ void __69__ATXHomeScreenEventLogger_logWidgetDidDisappear_stackId_prediction___b
 void __87__ATXHomeScreenEventLogger_logStackVisibilityChanged_visibleRect_topWidget_prediction___block_invoke(uint64_t a1)
 {
   v27 = *MEMORY[0x1E69E9840];
-  v2 = __atxlog_handle_home_screen();
+  v2 = __atxlog_handle_home_screen(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v4 = *(a1 + 32);
@@ -1797,7 +1797,7 @@ void __87__ATXHomeScreenEventLogger_logStackVisibilityChanged_visibleRect_topWid
 void __82__ATXHomeScreenEventLogger_logStackStatusDidChange_widgetOnTop_reason_prediction___block_invoke(uint64_t a1)
 {
   v29 = *MEMORY[0x1E69E9840];
-  v2 = __atxlog_handle_home_screen();
+  v2 = __atxlog_handle_home_screen(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 64);
@@ -1875,7 +1875,7 @@ void __82__ATXHomeScreenEventLogger_logStackStatusDidChange_widgetOnTop_reason_p
 
 void __77__ATXHomeScreenEventLogger_logStackDidTap_engagedUrl_widgetOnTop_prediction___block_invoke(uint64_t a1)
 {
-  v2 = __atxlog_handle_home_screen();
+  v2 = __atxlog_handle_home_screen(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
     __77__ATXHomeScreenEventLogger_logStackDidTap_engagedUrl_widgetOnTop_prediction___block_invoke_cold_1();
@@ -1921,7 +1921,7 @@ void __77__ATXHomeScreenEventLogger_logStackDidTap_engagedUrl_widgetOnTop_predic
 
 void __91__ATXHomeScreenEventLogger__logSupplementaryActionInContextMenu_stackId_widget_prediction___block_invoke(uint64_t a1)
 {
-  v2 = __atxlog_handle_home_screen();
+  v2 = __atxlog_handle_home_screen(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
     __91__ATXHomeScreenEventLogger__logSupplementaryActionInContextMenu_stackId_widget_prediction___block_invoke_cold_1();
@@ -1958,7 +1958,7 @@ void __91__ATXHomeScreenEventLogger__logSupplementaryActionInContextMenu_stackId
 
 void __63__ATXHomeScreenEventLogger_logUserDidChangeStackConfiguration___block_invoke(uint64_t a1)
 {
-  v2 = __atxlog_handle_home_screen();
+  v2 = __atxlog_handle_home_screen(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
     __63__ATXHomeScreenEventLogger_logUserDidChangeStackConfiguration___block_invoke_cold_1();
@@ -1992,7 +1992,7 @@ void __63__ATXHomeScreenEventLogger_logUserDidChangeStackConfiguration___block_i
 void __78__ATXHomeScreenEventLogger_logUserDidAddPinnedWidget_page_defaultsComparator___block_invoke(uint64_t a1)
 {
   v29 = *MEMORY[0x1E69E9840];
-  v2 = __atxlog_handle_home_screen();
+  v2 = __atxlog_handle_home_screen(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
@@ -2057,7 +2057,7 @@ void __78__ATXHomeScreenEventLogger_logUserDidAddPinnedWidget_page_defaultsCompa
 void __76__ATXHomeScreenEventLogger_logUserDidDeletePinnedWidget_stackLocation_page___block_invoke(uint64_t a1)
 {
   v14 = *MEMORY[0x1E69E9840];
-  v2 = __atxlog_handle_home_screen();
+  v2 = __atxlog_handle_home_screen(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
@@ -2169,7 +2169,7 @@ void __53__ATXHomeScreenEventLogger_logUserDidRemoveApp_page___block_invoke(uint
 void __84__ATXHomeScreenEventLogger_logUserDidAddWidgetToStack_stackIdentifier_isSuggestion___block_invoke(uint64_t a1)
 {
   v27 = *MEMORY[0x1E69E9840];
-  v2 = __atxlog_handle_home_screen();
+  v2 = __atxlog_handle_home_screen(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
@@ -2229,7 +2229,7 @@ void __84__ATXHomeScreenEventLogger_logUserDidAddWidgetToStack_stackIdentifier_i
 void __98__ATXHomeScreenEventLogger_logUserDidDeleteWidgetOnStack_stackIdentifier_stackKind_stackLocation___block_invoke(void *a1)
 {
   v13 = *MEMORY[0x1E69E9840];
-  v2 = __atxlog_handle_home_screen();
+  v2 = __atxlog_handle_home_screen(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = a1[4];
@@ -2255,8 +2255,8 @@ void __98__ATXHomeScreenEventLogger_logUserDidDeleteWidgetOnStack_stackIdentifie
   v7 = pageCopy;
   if (!pageCopy)
   {
-    v9 = __atxlog_handle_home_screen();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
+    v10 = __atxlog_handle_home_screen(0);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
     {
       [ATXHomeScreenEventLogger _populateSuggestedPageMetadata:forPage:];
     }
@@ -2270,22 +2270,22 @@ void __98__ATXHomeScreenEventLogger_logUserDidDeleteWidgetOnStack_stackIdentifie
 
     if (uniqueIdentifier)
     {
-      v9 = objc_opt_new();
+      v10 = objc_opt_new();
       uniqueIdentifier2 = [v7 uniqueIdentifier];
-      v11 = [v9 suggestedPageTypeWithIdentifier:uniqueIdentifier2];
+      v12 = [v10 suggestedPageTypeWithIdentifier:uniqueIdentifier2];
 
-      if (v11)
+      if (v12)
       {
-        [metadataCopy setSuggestedPageType:v11];
+        [metadataCopy setSuggestedPageType:v12];
       }
     }
 
     else
     {
-      v9 = __atxlog_handle_home_screen();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      v10 = __atxlog_handle_home_screen(v9);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
-        [ATXHomeScreenEventLogger _populateSuggestedPageMetadata:v7 forPage:v9];
+        [ATXHomeScreenEventLogger _populateSuggestedPageMetadata:v7 forPage:v10];
       }
     }
 
@@ -2314,7 +2314,7 @@ LABEL_10:
 void __68__ATXHomeScreenEventLogger_logUserDidCreateStack_page_isSuggestion___block_invoke(uint64_t a1)
 {
   v24 = *MEMORY[0x1E69E9840];
-  v2 = __atxlog_handle_home_screen();
+  v2 = __atxlog_handle_home_screen(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = [*(a1 + 32) identifier];
@@ -2371,7 +2371,7 @@ void __68__ATXHomeScreenEventLogger_logUserDidCreateStack_page_isSuggestion___bl
 void __79__ATXHomeScreenEventLogger_logUserDidDeleteStack_stackKind_stackLocation_page___block_invoke(uint64_t a1)
 {
   v17 = *MEMORY[0x1E69E9840];
-  v2 = __atxlog_handle_home_screen();
+  v2 = __atxlog_handle_home_screen(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
@@ -2410,7 +2410,7 @@ void __79__ATXHomeScreenEventLogger_logUserDidDeleteStack_stackKind_stackLocatio
 
 void __41__ATXHomeScreenEventLogger_logDeviceLock__block_invoke(uint64_t a1)
 {
-  v2 = __atxlog_handle_home_screen();
+  v2 = __atxlog_handle_home_screen(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -2608,12 +2608,12 @@ void __64__ATXHomeScreenEventLogger_logWidgetUnoccluded_blendingCacheId___block_
 
 void __71__ATXHomeScreenEventLogger_logDidTapSuggestion_widget_blendingCacheId___block_invoke(uint64_t a1)
 {
-  v21[1] = *MEMORY[0x1E69E9840];
+  v22[1] = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 32);
   v3 = [*(a1 + 40) uuid];
   v4 = [v3 UUIDString];
-  v21[0] = v4;
-  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v21 count:1];
+  v22[0] = v4;
+  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v22 count:1];
   v6 = *(a1 + 56);
   v7 = *(a1 + 48);
   v8 = [MEMORY[0x1E695DF00] now];
@@ -2625,29 +2625,29 @@ void __71__ATXHomeScreenEventLogger_logDidTapSuggestion_widget_blendingCacheId__
 
   if (*(a1 + 56) && v11)
   {
-    v12 = *(a1 + 32);
-    v13 = *(a1 + 48);
-    v14 = [ATXHomeScreenPrediction alloc];
-    v15 = [(ATXHomeScreenPrediction *)v14 initWithBlendingCacheIdentifier:*(a1 + 56) widgetSuggestions:MEMORY[0x1E695E0F8] stacksAffectedByDebugRotation:0];
-    [v12 logStackDidTap:v11 widgetOnTop:v13 prediction:v15];
+    v13 = *(a1 + 32);
+    v14 = *(a1 + 48);
+    v15 = [ATXHomeScreenPrediction alloc];
+    v16 = [(ATXHomeScreenPrediction *)v15 initWithBlendingCacheIdentifier:*(a1 + 56) widgetSuggestions:MEMORY[0x1E695E0F8] stacksAffectedByDebugRotation:0];
+    [v13 logStackDidTap:v11 widgetOnTop:v14 prediction:v16];
   }
 
   else
   {
-    v15 = __atxlog_handle_home_screen();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_FAULT))
+    v16 = __atxlog_handle_home_screen(v12);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_FAULT))
     {
-      __71__ATXHomeScreenEventLogger_logDidTapSuggestion_widget_blendingCacheId___block_invoke_cold_1((a1 + 56), v11, v15);
+      __71__ATXHomeScreenEventLogger_logDidTapSuggestion_widget_blendingCacheId___block_invoke_cold_1((a1 + 56), v11, v16);
     }
   }
 
   [ATXMFeedbackConversionLogger logUserInteractionFeedbackWithEngagementType:0 consumerSubType:34 tracker:*(*(a1 + 32) + 96)];
-  v16 = *(a1 + 32);
-  v17 = *(a1 + 40);
-  v18 = [*(a1 + 48) extensionBundleId];
-  v19 = [v18 isEqualToString:*MEMORY[0x1E698AFC0]];
-  v20 = [*(a1 + 48) widgetUniqueId];
-  [v16 _logCaptureRateForAppPredictionPanelWithEngagedSuggestion:v17 isSuggestionsWidget:v19 widgetIdentifier:v20];
+  v17 = *(a1 + 32);
+  v18 = *(a1 + 40);
+  v19 = [*(a1 + 48) extensionBundleId];
+  v20 = [v19 isEqualToString:*MEMORY[0x1E698AFC0]];
+  v21 = [*(a1 + 48) widgetUniqueId];
+  [v17 _logCaptureRateForAppPredictionPanelWithEngagedSuggestion:v18 isSuggestionsWidget:v20 widgetIdentifier:v21];
 
   [*(a1 + 32) _logAppLaunchOverallCaptureRateFromAppPredictionPanelWithTappedWidget:*(a1 + 48) suggestion:*(a1 + 40)];
   [*(a1 + 32) _logAppPanelLaunchRatioWithTappedWidget:*(a1 + 48)];
@@ -2777,7 +2777,7 @@ uint64_t __93__ATXHomeScreenEventLogger_logContextMenuNeverShowAgainForSuggestio
 
 - (void)logWidgetInsertionDidFailInStack:(id)stack prediction:(id)prediction
 {
-  v4 = __atxlog_handle_default();
+  v4 = __atxlog_handle_default(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
   {
     [ATXHomeScreenEventLogger logWidgetInsertionDidFailInStack:prediction:];

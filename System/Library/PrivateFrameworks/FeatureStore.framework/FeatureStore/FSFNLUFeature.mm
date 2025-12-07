@@ -1,4 +1,5 @@
 @interface FSFNLUFeature
++ (id)eventWithData:(id)data dataVersion:(unsigned int)version;
 - (FSFNLUFeature)initWithContent:(id)content dataVersion:(unsigned int)version;
 - (FSFNLUFeature)initWithData:(id)data dataVersion:(unsigned int)version;
 - (id)content;
@@ -67,6 +68,15 @@
   }
 
   return v3;
+}
+
++ (id)eventWithData:(id)data dataVersion:(unsigned int)version
+{
+  v4 = *&version;
+  dataCopy = data;
+  v6 = [[FSFNLUFeature alloc] initWithData:dataCopy dataVersion:v4];
+
+  return v6;
 }
 
 - (id)interactionId

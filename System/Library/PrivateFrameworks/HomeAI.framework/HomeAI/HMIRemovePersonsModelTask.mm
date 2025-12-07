@@ -29,8 +29,8 @@
   homeUUID = [(HMIHomeTask *)self homeUUID];
   sourceUUID = [(HMIRemovePersonsModelTask *)self sourceUUID];
   v16 = 0;
-  v6 = [v3 removePersonsModelForHomeUUID:homeUUID sourceUUID:sourceUUID error:&v16];
-  v7 = v16;
+  v6 = [v3 removePersonsModelForHomeUUID:? sourceUUID:? error:?];
+  v7 = 0;
 
   v8 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -65,8 +65,8 @@
     }
 
     objc_autoreleasePoolPop(v8);
-    v14 = [MEMORY[0x277CCA9B8] hmiPrivateErrorWithCode:1027 underlyingError:v7];
-    [(HMFOperation *)selfCopy cancelWithError:v14];
+    v14 = [MEMORY[0x277CCA9B8] hmiPrivateErrorWithCode:? underlyingError:?];
+    [(HMFOperation *)selfCopy cancelWithError:?];
   }
 }
 
@@ -75,7 +75,7 @@
   v3 = MEMORY[0x277CCACA8];
   sourceUUID = [(HMIRemovePersonsModelTask *)self sourceUUID];
   homeUUID = [(HMIHomeTask *)self homeUUID];
-  v6 = [v3 stringWithFormat:@"SourceUUID:%@ HomeUUID:%@", sourceUUID, homeUUID];
+  v6 = [v3 stringWithFormat:sourceUUID, homeUUID];
 
   return v6;
 }

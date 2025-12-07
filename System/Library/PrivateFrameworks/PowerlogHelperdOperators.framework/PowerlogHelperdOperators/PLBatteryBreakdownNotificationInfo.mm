@@ -235,14 +235,14 @@ void __64__PLBatteryBreakdownNotificationInfo_representativeDisplayPower__block_
   v2 = *MEMORY[0x277D3F428];
   v3 = [MEMORY[0x277D3F128] entryKeyForType:*MEMORY[0x277D3F5D0] andName:*MEMORY[0x277D3F428]];
   v4 = [MEMORY[0x277CCACA8] stringWithFormat:v1, v3, 10];
-  v5 = PLLogCommon();
+  v5 = PLLogCommon(v4);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     __64__PLBatteryBreakdownNotificationInfo_representativeDisplayPower__block_invoke_cold_1(v4, v5);
   }
 
   v6 = [MEMORY[0x277D3F2A0] sharedCore];
-  v7 = [v6 storage];
+  v7 = objc_msgSend_storage(v6);
   v8 = [v7 entriesForKey:v3 withQuery:v4];
 
   v9 = [v8 firstObject];
@@ -263,49 +263,47 @@ void __64__PLBatteryBreakdownNotificationInfo_representativeDisplayPower__block_
 
   v15 = [MEMORY[0x277CCACA8] stringWithFormat:v1, v14, 56];
 
-  v16 = PLLogCommon();
-  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
+  v17 = PLLogCommon(v16);
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
   {
-    __64__PLBatteryBreakdownNotificationInfo_representativeDisplayPower__block_invoke_cold_2(v15, v16);
+    __64__PLBatteryBreakdownNotificationInfo_representativeDisplayPower__block_invoke_cold_2(v15, v17);
   }
 
-  v17 = [MEMORY[0x277D3F2A0] sharedCore];
-  v18 = [v17 storage];
-  v19 = [v18 entriesForKey:v14 withQuery:v15];
+  v18 = [MEMORY[0x277D3F2A0] sharedCore];
+  v19 = objc_msgSend_storage(v18);
+  v20 = [v19 entriesForKey:v14 withQuery:v15];
 
-  v20 = [v19 firstObject];
+  v21 = [v20 firstObject];
 
-  if (v20)
+  if (v21)
   {
-    v21 = [v20 objectForKeyedSubscript:v0];
-    [v21 doubleValue];
-    v23 = v22 / 1000.0;
+    v22 = [v21 objectForKeyedSubscript:v0];
+    [v22 doubleValue];
+    v24 = v23 / 1000.0;
   }
 
   else
   {
-    v23 = 0.0;
+    v24 = 0.0;
   }
 
-  *&representativeDisplayPower_representativeDisplayPower = v13 + v23;
+  *&representativeDisplayPower_representativeDisplayPower = v13 + v24;
 }
 
 void __64__PLBatteryBreakdownNotificationInfo_representativeDisplayPower__block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_debug_impl(&dword_25EE51000, a2, OS_LOG_TYPE_DEBUG, "displayPower: running query %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_debug_impl(&dword_25EE51000, a2, OS_LOG_TYPE_DEBUG, "displayPower: running query %@", &v2, 0xCu);
 }
 
 void __64__PLBatteryBreakdownNotificationInfo_representativeDisplayPower__block_invoke_cold_2(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_debug_impl(&dword_25EE51000, a2, OS_LOG_TYPE_DEBUG, "dynamicDisplayPower: running query %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_debug_impl(&dword_25EE51000, a2, OS_LOG_TYPE_DEBUG, "dynamicDisplayPower: running query %@", &v2, 0xCu);
 }
 
 @end

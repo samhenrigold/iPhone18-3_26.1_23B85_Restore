@@ -20,10 +20,11 @@ void __68___LTServerSpeakSession_speak_context_completion_audioStartHandler___bl
   v3 = WeakRetained;
   if (WeakRetained)
   {
-    if ([(os_unfair_lock_s *)WeakRetained _hasCachedCompletion])
+    v4 = [(os_unfair_lock_s *)WeakRetained _hasCachedCompletion];
+    if (v4)
     {
-      v4 = _LTOSLogTTS();
-      if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+      v6 = _LTOSLogTTS(v4, v5);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
       {
         __68___LTServerSpeakSession_speak_context_completion_audioStartHandler___block_invoke_cold_1();
       }
@@ -31,45 +32,42 @@ void __68___LTServerSpeakSession_speak_context_completion_audioStartHandler___bl
       [(os_unfair_lock_s *)v3 _callCompletionAndClearIfNeeded:0 error:0];
     }
 
-    v14[0] = MEMORY[0x277D85DD0];
-    v14[1] = 3221225472;
-    v14[2] = __68___LTServerSpeakSession_speak_context_completion_audioStartHandler___block_invoke_8;
-    v14[3] = &unk_2789B6B60;
-    v14[4] = v3;
-    v15 = *(a1 + 56);
+    v18[0] = MEMORY[0x277D85DD0];
+    v18[1] = 3221225472;
+    v18[2] = __68___LTServerSpeakSession_speak_context_completion_audioStartHandler___block_invoke_8;
+    v18[3] = &unk_2789B6B60;
+    v18[4] = v3;
+    v19 = *(a1 + 56);
     os_unfair_lock_assert_not_owner(v3 + 10);
     os_unfair_lock_lock(v3 + 10);
-    __68___LTServerSpeakSession_speak_context_completion_audioStartHandler___block_invoke_8(v14);
+    __68___LTServerSpeakSession_speak_context_completion_audioStartHandler___block_invoke_8(v18);
     os_unfair_lock_unlock(v3 + 10);
-    v5 = _LTOSLogTTS();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+    v9 = _LTOSLogTTS(v7, v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
     {
       __68___LTServerSpeakSession_speak_context_completion_audioStartHandler___block_invoke_cold_2();
     }
 
-    v6 = *&v3[2]._os_unfair_lock_opaque;
-    v7 = *(a1 + 32);
-    v8 = *(a1 + 40);
-    v9[0] = MEMORY[0x277D85DD0];
-    v9[1] = 3221225472;
-    v9[2] = __68___LTServerSpeakSession_speak_context_completion_audioStartHandler___block_invoke_9;
-    v9[3] = &unk_2789B7A28;
-    v10 = *(a1 + 48);
-    objc_copyWeak(&v13, (a1 + 72));
-    v11 = *(a1 + 40);
-    v12 = *(a1 + 64);
-    [v6 speak:v7 withContext:v8 completion:v9];
+    v10 = *&v3[2]._os_unfair_lock_opaque;
+    v11 = *(a1 + 32);
+    v12 = *(a1 + 40);
+    v13[0] = MEMORY[0x277D85DD0];
+    v13[1] = 3221225472;
+    v13[2] = __68___LTServerSpeakSession_speak_context_completion_audioStartHandler___block_invoke_9;
+    v13[3] = &unk_2789B7A28;
+    v14 = *(a1 + 48);
+    objc_copyWeak(&v17, (a1 + 72));
+    v15 = *(a1 + 40);
+    v16 = *(a1 + 64);
+    [v10 speak:v11 withContext:v12 completion:v13];
 
-    objc_destroyWeak(&v13);
+    objc_destroyWeak(&v17);
   }
 }
 
 uint64_t __68___LTServerSpeakSession_speak_context_completion_audioStartHandler___block_invoke_8(uint64_t a1)
 {
-  v2 = MEMORY[0x238398770](*(a1 + 40));
-  v3 = *(a1 + 32);
-  v4 = *(v3 + 48);
-  *(v3 + 48) = v2;
+  *(*(a1 + 32) + 48) = MEMORY[0x238398770](*(a1 + 40));
 
   return MEMORY[0x2821F96F8]();
 }
@@ -99,38 +97,38 @@ void __68___LTServerSpeakSession_speak_context_completion_audioStartHandler___bl
 void __68___LTServerSpeakSession_speak_context_completion_audioStartHandler___block_invoke_2(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 72));
+  v4 = WeakRetained;
   if (WeakRetained)
   {
-    v3 = (a1 + 32);
     if (*(a1 + 32) || !*(a1 + 40))
     {
-      v4 = _LTOSLogTTS();
-      if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+      v5 = _LTOSLogTTS(WeakRetained, v3);
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
       {
-        __68___LTServerSpeakSession_speak_context_completion_audioStartHandler___block_invoke_2_cold_2(v3);
+        __68___LTServerSpeakSession_speak_context_completion_audioStartHandler___block_invoke_2_cold_2();
       }
 
-      [WeakRetained _callCompletionAndClearIfNeeded:0 error:*v3];
+      [v4 _callCompletionAndClearIfNeeded:0 error:*(a1 + 32)];
     }
 
     else
     {
-      v5 = _LTOSLogTTS();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+      v6 = _LTOSLogTTS(WeakRetained, v3);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
       {
         __68___LTServerSpeakSession_speak_context_completion_audioStartHandler___block_invoke_2_cold_1();
       }
 
-      v6 = *(a1 + 40);
-      v7 = *(a1 + 48);
-      v8[0] = MEMORY[0x277D85DD0];
-      v8[1] = 3221225472;
-      v8[2] = __68___LTServerSpeakSession_speak_context_completion_audioStartHandler___block_invoke_10;
-      v8[3] = &unk_2789B79D8;
-      v9 = *(a1 + 56);
-      objc_copyWeak(&v10, (a1 + 72));
-      [WeakRetained _playback:v6 context:v7 completion:v8 audioStartHandler:*(a1 + 64)];
-      objc_destroyWeak(&v10);
+      v7 = *(a1 + 40);
+      v8 = *(a1 + 48);
+      v9[0] = MEMORY[0x277D85DD0];
+      v9[1] = 3221225472;
+      v9[2] = __68___LTServerSpeakSession_speak_context_completion_audioStartHandler___block_invoke_10;
+      v9[3] = &unk_2789B79D8;
+      v10 = *(a1 + 56);
+      objc_copyWeak(&v11, (a1 + 72));
+      [v4 _playback:v7 context:v8 completion:v9 audioStartHandler:*(a1 + 64)];
+      objc_destroyWeak(&v11);
     }
   }
 }
@@ -157,16 +155,17 @@ void __68___LTServerSpeakSession_speak_context_completion_audioStartHandler___bl
 void __68___LTServerSpeakSession_speak_context_completion_audioStartHandler___block_invoke_2_11(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 48));
+  v4 = WeakRetained;
   if (WeakRetained)
   {
-    v3 = _LTOSLogTTS();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
+    v5 = _LTOSLogTTS(WeakRetained, v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
-      *v4 = 0;
-      _os_log_impl(&dword_232E53000, v3, OS_LOG_TYPE_INFO, "Finished speaking", v4, 2u);
+      *v6 = 0;
+      _os_log_impl(&dword_232E53000, v5, OS_LOG_TYPE_INFO, "Finished speaking", v6, 2u);
     }
 
-    [WeakRetained _callCompletionAndClearIfNeeded:*(a1 + 32) error:*(a1 + 40)];
+    [v4 _callCompletionAndClearIfNeeded:*(a1 + 32) error:*(a1 + 40)];
   }
 }
 
@@ -190,15 +189,6 @@ void __68___LTServerSpeakSession_speak_context_completion_audioStartHandler___bl
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_0_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
-}
-
-void __68___LTServerSpeakSession_speak_context_completion_audioStartHandler___block_invoke_2_cold_2(uint64_t *a1)
-{
-  v8 = *MEMORY[0x277D85DE8];
-  v7 = *a1;
-  OUTLINED_FUNCTION_0_1();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 @end

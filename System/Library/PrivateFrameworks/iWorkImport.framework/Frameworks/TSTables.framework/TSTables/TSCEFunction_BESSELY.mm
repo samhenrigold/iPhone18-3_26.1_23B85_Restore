@@ -7,77 +7,77 @@
 + (id)evaluateForArgsWithContext:(id)context functionSpec:(id)spec arguments:(const void *)arguments
 {
   v8 = **arguments;
-  v69 = 0;
-  v10 = objc_msgSend_asNumber_functionSpec_argumentIndex_outError_(v8, v9, context, spec, 0, &v69);
-  v11 = v69;
+  v60 = 0;
+  v10 = objc_msgSend_asNumber_functionSpec_argumentIndex_outError_(v8, v9, context, spec, 0, &v60);
+  v11 = v60;
   if (v11)
   {
-    v15 = v11;
-    v16 = objc_msgSend_raiseErrorOrConvert_(context, v12, v11, v13, v14);
+    v14 = v11;
+    v15 = objc_msgSend_raiseErrorOrConvert_(context, v12, v11, v13);
   }
 
   else
   {
-    v17 = *(*arguments + 8);
-    v68 = 0;
-    v19 = objc_msgSend_asNumber_functionSpec_argumentIndex_outError_(v17, v18, context, spec, 1, &v68);
-    v15 = v68;
-    v24 = objc_msgSend_trunc(v19, v20, v21, v22, v23);
+    v16 = *(*arguments + 8);
+    v59 = 0;
+    v18 = objc_msgSend_asNumber_functionSpec_argumentIndex_outError_(v16, v17, context, spec, 1, &v59);
+    v14 = v59;
+    v22 = objc_msgSend_trunc(v18, v19, v20, v21);
 
-    if (v15)
+    if (v14)
     {
-      v16 = objc_msgSend_raiseErrorOrConvert_(context, v25, v15, v27, v28);
+      v15 = objc_msgSend_raiseErrorOrConvert_(context, v23, v14, v25);
     }
 
     else
     {
-      v63._decimal.w[0] = objc_msgSend_decimalRepresentation(v24, v25, v26, v27, v28);
-      v63._decimal.w[1] = v29;
-      TSUDecimal::doubleValue(&v63);
-      if (v34 < -2147483650.0 || v34 > 2147483650.0)
+      v54._decimal.w[0] = objc_msgSend_decimalRepresentation(v22, v23, v24, v25);
+      v54._decimal.w[1] = v26;
+      TSUDecimal::doubleValue(&v54);
+      if (v30 < -2147483650.0 || v30 > 2147483650.0)
       {
-        v46 = objc_msgSend_functionName(spec, v30, v31, v32, v33);
-        v48 = objc_msgSend_outOfBoundsArgumentErrorForArgument_functionName_lowerBound_lowerBoundInclusive_upperBound_upperBoundInclusive_(TSCEError, v47, 2, v46, 1, 1, -2147483650.0, 2147483650.0);
-        v16 = objc_msgSend_raiseErrorOrConvert_(context, v49, v48, v50, v51);
+        v39 = objc_msgSend_functionName(spec, v27, v28, v29);
+        v41 = objc_msgSend_outOfBoundsArgumentErrorForArgument_functionName_lowerBound_lowerBoundInclusive_upperBound_upperBoundInclusive_(TSCEError, v40, 2, v39, 1, 1, -2147483650.0, 2147483650.0);
+        v15 = objc_msgSend_raiseErrorOrConvert_(context, v42, v41, v43);
       }
 
       else
       {
-        v63._decimal.w[0] = 0;
-        v63._decimal.w[1] = &v63;
-        v64 = 0x3032000000;
-        v65 = sub_22126D0F4;
-        v66 = sub_22126D104;
-        v67 = 0;
-        v59[0] = MEMORY[0x277D85DD0];
-        v59[1] = 3221225472;
-        v59[2] = sub_22126D518;
-        v59[3] = &unk_278461A90;
-        v62 = &v63;
-        v60 = v10;
-        v61 = v24;
-        objc_msgSend_runBlockUnlessAborted_(context, v35, v59, v36, v37);
-        v42 = *(v63._decimal.w[1] + 40);
-        if (v42)
+        v54._decimal.w[0] = 0;
+        v54._decimal.w[1] = &v54;
+        v55 = 0x3032000000;
+        v56 = sub_22126D0F4;
+        v57 = sub_22126D104;
+        v58 = 0;
+        v50[0] = MEMORY[0x277D85DD0];
+        v50[1] = 3221225472;
+        v50[2] = sub_22126D518;
+        v50[3] = &unk_278461A90;
+        v53 = &v54;
+        v51 = v10;
+        v52 = v22;
+        objc_msgSend_runBlockUnlessAborted_(context, v31, v50, v32);
+        v36 = *(v54._decimal.w[1] + 40);
+        if (v36)
         {
-          TSCEFormat::TSCEFormat(&v57, 256);
-          TSCEFormat::TSCEFormat(&v58, &v57);
-          objc_msgSend_setFormat_(v42, v43, &v58, v44, v45);
-          v16 = *(v63._decimal.w[1] + 40);
+          TSCEFormat::TSCEFormat(&v48, 256);
+          TSCEFormat::TSCEFormat(&v49, &v48);
+          objc_msgSend_setFormat_(v36, v37, &v49, v38);
+          v15 = *(v54._decimal.w[1] + 40);
         }
 
         else
         {
-          v52 = objc_msgSend_abortError(TSCEError, v38, v39, v40, v41);
-          v16 = objc_msgSend_errorValue_(TSCEErrorValue, v53, v52, v54, v55);
+          v44 = objc_msgSend_abortError(TSCEError, v33, v34, v35);
+          v15 = objc_msgSend_errorValue_(TSCEErrorValue, v45, v44, v46);
         }
 
-        _Block_object_dispose(&v63, 8);
+        _Block_object_dispose(&v54, 8);
       }
     }
   }
 
-  return v16;
+  return v15;
 }
 
 @end

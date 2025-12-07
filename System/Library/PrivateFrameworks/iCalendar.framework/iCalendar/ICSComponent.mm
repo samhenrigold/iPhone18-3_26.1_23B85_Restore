@@ -76,6 +76,7 @@
 - (void)setDtend:(id)dtend;
 - (void)setDuration:(id)duration;
 - (void)setExrule:(id)exrule;
+- (void)setForcedAllDay:(BOOL)day;
 - (void)setPriority:(unint64_t)priority;
 - (void)setProperties:(id)properties forName:(id)name;
 - (void)setProperty:(id)property forName:(id)name;
@@ -89,6 +90,7 @@
 - (void)setX_apple_ews_needsserverconfirmation:(BOOL)x_apple_ews_needsserverconfirmation;
 - (void)setX_apple_ignore_on_restore:(BOOL)x_apple_ignore_on_restore;
 - (void)setX_apple_suggestionInfoChangedFields:(unint64_t)fields;
+- (void)setX_apple_suggestionInfoChangesAcknowledged:(BOOL)acknowledged;
 - (void)setX_calendarserver_access:(int)x_calendarserver_access;
 @end
 
@@ -229,34 +231,34 @@
 
 - (BOOL)validate:(id *)validate
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   v4 = self->_components;
-  v5 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v5 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v13;
+    v7 = *v12;
     while (2)
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v13 != v7)
+        if (*v12 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        if (![*(*(&v12 + 1) + 8 * i) validate:{validate, v12}])
+        if (![*(*(&v11 + 1) + 8 * i) validate:{validate, v11}])
         {
           v9 = 0;
           goto LABEL_11;
         }
       }
 
-      v6 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v6 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
       if (v6)
       {
         continue;
@@ -269,7 +271,6 @@
   v9 = 1;
 LABEL_11:
 
-  v10 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
@@ -307,7 +308,7 @@ LABEL_11:
 
 - (void)ICSStringWithOptions:(unint64_t)options appendingToString:(id)string
 {
-  v83 = *MEMORY[0x277D85DE8];
+  v82 = *MEMORY[0x277D85DE8];
   stringCopy = string;
   v7 = options & 8;
   propertiesToExcludeForChecksum = [(ICSComponent *)self propertiesToExcludeForChecksum];
@@ -324,90 +325,90 @@ LABEL_11:
   v10 = allKeys;
   optionsCopy = options;
   v11 = options | (v7 >> 1);
-  v51 = name;
+  v50 = name;
   if ((v11 & 4) != 0)
   {
     v12 = [allKeys sortedArrayUsingSelector:sel_compare_];
 
-    v62 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(v12, "count")}];
+    v61 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(v12, "count")}];
     v10 = v12;
   }
 
   else
   {
-    v62 = 0;
+    v61 = 0;
   }
 
-  v78 = 0u;
-  v79 = 0u;
-  v76 = 0u;
   v77 = 0u;
+  v78 = 0u;
+  v75 = 0u;
+  v76 = 0u;
   obj = v10;
-  v13 = [obj countByEnumeratingWithState:&v76 objects:v82 count:16];
-  v61 = options | (v7 >> 1);
+  v13 = [obj countByEnumeratingWithState:&v75 objects:v81 count:16];
+  v60 = options | (v7 >> 1);
   if (v13)
   {
     v14 = v13;
-    v64 = options & 0x48;
-    v15 = *v77;
-    v54 = options & 8;
+    v63 = options & 0x48;
+    v15 = *v76;
+    v53 = options & 8;
     selfCopy = self;
-    v53 = *v77;
+    v52 = *v76;
     do
     {
       v16 = 0;
-      v56 = v14;
+      v55 = v14;
       do
       {
-        if (*v77 != v15)
+        if (*v76 != v15)
         {
           objc_enumerationMutation(obj);
         }
 
-        v17 = *(*(&v76 + 1) + 8 * v16);
+        v17 = *(*(&v75 + 1) + 8 * v16);
         if (!-[ICSComponent ignorePropertyWithName:](self, "ignorePropertyWithName:", v17) && (!v7 || ([propertiesToExcludeForChecksum containsObject:v17] & 1) == 0))
         {
-          v59 = v16;
-          v60 = [(NSMutableDictionary *)self->_properties objectForKey:v17];
+          v58 = v16;
+          v59 = [(NSMutableDictionary *)self->_properties objectForKey:v17];
           v18 = optionsCopy;
           if ((optionsCopy & 0x200) == 0 || (-[ICSComponent propertiesToHide](self, "propertiesToHide"), v19 = objc_claimAutoreleasedReturnValue(), v20 = [v19 containsObject:v17], v19, v18 = optionsCopy, (v20 & 1) == 0))
           {
-            v67 = v17;
+            v66 = v17;
             if ((v18 & 0x10) != 0)
             {
               propertiesToObscure = [(ICSComponent *)self propertiesToObscure];
-              v66 = [propertiesToObscure containsObject:v17];
+              v65 = [propertiesToObscure containsObject:v17];
             }
 
             else
             {
-              v66 = 0;
+              v65 = 0;
             }
 
-            v74 = 0u;
-            v75 = 0u;
-            v72 = 0u;
             v73 = 0u;
-            v63 = v60;
-            v22 = [v63 countByEnumeratingWithState:&v72 objects:v81 count:16];
+            v74 = 0u;
+            v71 = 0u;
+            v72 = 0u;
+            v62 = v59;
+            v22 = [v62 countByEnumeratingWithState:&v71 objects:v80 count:16];
             if (v22)
             {
               v23 = v22;
-              v65 = *v73;
+              v64 = *v72;
               do
               {
                 v24 = 0;
                 do
                 {
-                  if (*v73 != v65)
+                  if (*v72 != v64)
                   {
-                    objc_enumerationMutation(v63);
+                    objc_enumerationMutation(v62);
                   }
 
-                  v25 = *(*(&v72 + 1) + 8 * v24);
+                  v25 = *(*(&v71 + 1) + 8 * v24);
                   v26 = objc_alloc_init(MEMORY[0x277CCAB68]);
-                  [v26 appendString:v67];
-                  if (v66)
+                  [v26 appendString:v66];
+                  if (v65)
                   {
                     v27 = objc_alloc_init(ICSStringWriter);
                     [v25 ICSStringWithOptions:v11 appendingToString:v27];
@@ -422,7 +423,7 @@ LABEL_11:
                       [v26 appendString:v33];
 
                       stringCopy = v30;
-                      v11 = v61;
+                      v11 = v60;
                     }
 
                     else
@@ -440,7 +441,7 @@ LABEL_11:
                     v26 = result = v26;
                   }
 
-                  if (!v64)
+                  if (!v63)
                   {
                     if ([v26 length])
                     {
@@ -472,7 +473,7 @@ LABEL_11:
                   [v26 appendString:@"\r\n"];
                   if ((v11 & 4) != 0)
                   {
-                    [v62 addObject:v26];
+                    [v61 addObject:v26];
                   }
 
                   else
@@ -484,27 +485,27 @@ LABEL_11:
                 }
 
                 while (v24 != v23);
-                v40 = [v63 countByEnumeratingWithState:&v72 objects:v81 count:16];
+                v40 = [v62 countByEnumeratingWithState:&v71 objects:v80 count:16];
                 v23 = v40;
               }
 
               while (v40);
             }
 
-            v7 = v54;
+            v7 = v53;
             self = selfCopy;
-            v14 = v56;
-            v15 = v53;
+            v14 = v55;
+            v15 = v52;
           }
 
-          v16 = v59;
+          v16 = v58;
         }
 
         ++v16;
       }
 
       while (v16 != v14);
-      v14 = [obj countByEnumeratingWithState:&v76 objects:v82 count:16];
+      v14 = [obj countByEnumeratingWithState:&v75 objects:v81 count:16];
     }
 
     while (v14);
@@ -512,47 +513,45 @@ LABEL_11:
 
   if ((v11 & 4) != 0)
   {
-    v41 = [v62 sortedArrayUsingSelector:sel_compare_];
+    v41 = [v61 sortedArrayUsingSelector:sel_compare_];
     v42 = [v41 componentsJoinedByString:&stru_28841D818];
     [stringCopy appendString:v42];
   }
 
-  v70 = 0u;
-  v71 = 0u;
-  v68 = 0u;
   v69 = 0u;
+  v70 = 0u;
+  v67 = 0u;
+  v68 = 0u;
   v43 = self->_components;
-  v44 = [(NSMutableArray *)v43 countByEnumeratingWithState:&v68 objects:v80 count:16];
+  v44 = [(NSMutableArray *)v43 countByEnumeratingWithState:&v67 objects:v79 count:16];
   if (v44)
   {
     v45 = v44;
-    v46 = *v69;
+    v46 = *v68;
     do
     {
       for (i = 0; i != v45; ++i)
       {
-        if (*v69 != v46)
+        if (*v68 != v46)
         {
           objc_enumerationMutation(v43);
         }
 
-        v48 = *(*(&v68 + 1) + 8 * i);
+        v48 = *(*(&v67 + 1) + 8 * i);
         v49 = objc_autoreleasePoolPush();
-        [v48 ICSStringWithOptions:v61 appendingToString:stringCopy];
+        [v48 ICSStringWithOptions:v60 appendingToString:stringCopy];
         objc_autoreleasePoolPop(v49);
       }
 
-      v45 = [(NSMutableArray *)v43 countByEnumeratingWithState:&v68 objects:v80 count:16];
+      v45 = [(NSMutableArray *)v43 countByEnumeratingWithState:&v67 objects:v79 count:16];
     }
 
     while (v45);
   }
 
   [stringCopy appendString:@"END:"];
-  [stringCopy appendString:v51];
+  [stringCopy appendString:v50];
   [stringCopy appendString:@"\r\n"];
-
-  v50 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)ignorePropertyWithName:(id)name
@@ -594,15 +593,13 @@ LABEL_11:
 
 void __46__ICSComponent_propertiesToExcludeForChecksum__block_invoke()
 {
-  v5[1] = *MEMORY[0x277D85DE8];
+  v4[1] = *MEMORY[0x277D85DE8];
   v0 = MEMORY[0x277CBEB98];
-  v5[0] = @"DTSTAMP";
-  v1 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:1];
+  v4[0] = @"DTSTAMP";
+  v1 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:1];
   v2 = [v0 setWithArray:v1];
   v3 = propertiesToExcludeForChecksum_propertiesToExclude;
   propertiesToExcludeForChecksum_propertiesToExclude = v2;
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addComponent:(id)component withUIDGenerator:(id)generator
@@ -850,79 +847,78 @@ void __46__ICSComponent_propertiesToExcludeForChecksum__block_invoke()
 
 - (void)setExrule:(id)exrule
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   exruleCopy = exrule;
   array = [MEMORY[0x277CBEB18] array];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v6 = exruleCopy;
-  v7 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v16;
+    v9 = *v15;
     do
     {
       v10 = 0;
       do
       {
-        if (*v16 != v9)
+        if (*v15 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v15 + 1) + 8 * v10);
+        v11 = *(*(&v14 + 1) + 8 * v10);
         v12 = [ICSProperty alloc];
-        v13 = [(ICSProperty *)v12 initWithValue:v11 type:5029, v15];
+        v13 = [(ICSProperty *)v12 initWithValue:v11 type:5029, v14];
         [array addObject:v13];
 
         ++v10;
       }
 
       while (v8 != v10);
-      v8 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v8);
   }
 
   [(ICSComponent *)self setProperties:array forName:@"EXRULE"];
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (NSArray)exrule
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v2 = [(ICSComponent *)self propertiesForName:@"EXRULE"];
   if (v2)
   {
     array = [MEMORY[0x277CBEB18] array];
+    v11 = 0u;
     v12 = 0u;
     v13 = 0u;
     v14 = 0u;
-    v15 = 0u;
     v4 = v2;
-    v5 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
+    v5 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
     if (v5)
     {
       v6 = v5;
-      v7 = *v13;
+      v7 = *v12;
       do
       {
         for (i = 0; i != v6; ++i)
         {
-          if (*v13 != v7)
+          if (*v12 != v7)
           {
             objc_enumerationMutation(v4);
           }
 
-          value = [*(*(&v12 + 1) + 8 * i) value];
+          value = [*(*(&v11 + 1) + 8 * i) value];
           [array addObject:value];
         }
 
-        v6 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
+        v6 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
       }
 
       while (v6);
@@ -933,8 +929,6 @@ void __46__ICSComponent_propertiesToExcludeForChecksum__block_invoke()
   {
     array = 0;
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return array;
 }
@@ -974,79 +968,78 @@ void __46__ICSComponent_propertiesToExcludeForChecksum__block_invoke()
 
 - (void)setRrule:(id)rrule
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   rruleCopy = rrule;
   array = [MEMORY[0x277CBEB18] array];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v6 = rruleCopy;
-  v7 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v16;
+    v9 = *v15;
     do
     {
       v10 = 0;
       do
       {
-        if (*v16 != v9)
+        if (*v15 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v15 + 1) + 8 * v10);
+        v11 = *(*(&v14 + 1) + 8 * v10);
         v12 = [ICSProperty alloc];
-        v13 = [(ICSProperty *)v12 initWithValue:v11 type:5029, v15];
+        v13 = [(ICSProperty *)v12 initWithValue:v11 type:5029, v14];
         [array addObject:v13];
 
         ++v10;
       }
 
       while (v8 != v10);
-      v8 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v8);
   }
 
   [(ICSComponent *)self setProperties:array forName:@"RRULE"];
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (NSArray)rrule
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v2 = [(ICSComponent *)self propertiesForName:@"RRULE"];
   if (v2)
   {
     array = [MEMORY[0x277CBEB18] array];
+    v11 = 0u;
     v12 = 0u;
     v13 = 0u;
     v14 = 0u;
-    v15 = 0u;
     v4 = v2;
-    v5 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
+    v5 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
     if (v5)
     {
       v6 = v5;
-      v7 = *v13;
+      v7 = *v12;
       do
       {
         for (i = 0; i != v6; ++i)
         {
-          if (*v13 != v7)
+          if (*v12 != v7)
           {
             objc_enumerationMutation(v4);
           }
 
-          value = [*(*(&v12 + 1) + 8 * i) value];
+          value = [*(*(&v11 + 1) + 8 * i) value];
           [array addObject:value];
         }
 
-        v6 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
+        v6 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
       }
 
       while (v6);
@@ -1057,8 +1050,6 @@ void __46__ICSComponent_propertiesToExcludeForChecksum__block_invoke()
   {
     array = 0;
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return array;
 }
@@ -1423,6 +1414,12 @@ void __46__ICSComponent_propertiesToExcludeForChecksum__block_invoke()
   return bOOLValue;
 }
 
+- (void)setForcedAllDay:(BOOL)day
+{
+  v4 = [MEMORY[0x277CCABB0] numberWithBool:day];
+  [(ICSComponent *)self setPropertyValue:v4 type:5012 forName:@"iCalendar-ForcedAllDay"];
+}
+
 - (BOOL)x_apple_suggestionInfoChangesAcknowledged
 {
   v2 = [(ICSComponent *)self propertiesForName:@"X-APPLE-SUGGESTION-INFO-CHANGES-ACKNOWLEDGED"];
@@ -1431,6 +1428,12 @@ void __46__ICSComponent_propertiesToExcludeForChecksum__block_invoke()
   bOOLValue = [value BOOLValue];
 
   return bOOLValue;
+}
+
+- (void)setX_apple_suggestionInfoChangesAcknowledged:(BOOL)acknowledged
+{
+  v4 = [MEMORY[0x277CCABB0] numberWithBool:acknowledged];
+  [(ICSComponent *)self setPropertyValue:v4 type:5012 forName:@"X-APPLE-SUGGESTION-INFO-CHANGES-ACKNOWLEDGED"];
 }
 
 - (unint64_t)x_apple_suggestionInfoChangedFields
@@ -1522,7 +1525,7 @@ void __46__ICSComponent_propertiesToExcludeForChecksum__block_invoke()
 
 - (void)fixPropertiesInheritance:(id)inheritance
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   inheritanceCopy = inheritance;
   v5 = [(ICSComponent *)self propertiesForName:@"RECURRENCE-ID"];
 
@@ -1530,26 +1533,26 @@ void __46__ICSComponent_propertiesToExcludeForChecksum__block_invoke()
   {
     v6 = +[ICSComponent inheritanceKeywords];
     [inheritanceCopy properties];
+    v16 = 0u;
     v17 = 0u;
     v18 = 0u;
-    v19 = 0u;
-    v16 = v20 = 0u;
-    allValues = [v16 allValues];
-    v8 = [allValues countByEnumeratingWithState:&v17 objects:v21 count:16];
+    v15 = v19 = 0u;
+    allValues = [v15 allValues];
+    v8 = [allValues countByEnumeratingWithState:&v16 objects:v20 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v18;
+      v10 = *v17;
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v18 != v10)
+          if (*v17 != v10)
           {
             objc_enumerationMutation(allValues);
           }
 
-          v12 = *(*(&v17 + 1) + 8 * i);
+          v12 = *(*(&v16 + 1) + 8 * i);
           if (([v6 containsObject:v12] & 1) == 0)
           {
             v13 = [inheritanceCopy propertiesForName:v12];
@@ -1561,83 +1564,80 @@ void __46__ICSComponent_propertiesToExcludeForChecksum__block_invoke()
           }
         }
 
-        v9 = [allValues countByEnumeratingWithState:&v17 objects:v21 count:16];
+        v9 = [allValues countByEnumeratingWithState:&v16 objects:v20 count:16];
       }
 
       while (v9);
     }
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)fixAlarms
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   v3 = [MEMORY[0x277CBEB58] setWithCapacity:5];
+  v30 = 0u;
+  v31 = 0u;
   v32 = 0u;
   v33 = 0u;
-  v34 = 0u;
-  v35 = 0u;
   selfCopy = self;
   components = [(ICSComponent *)self components];
   v5 = [components copy];
 
-  v6 = [v5 countByEnumeratingWithState:&v32 objects:v36 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v30 objects:v34 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v33;
+    v8 = *v31;
     v9 = 0x27A64B000uLL;
-    v30 = v3;
+    v28 = v3;
     do
     {
       v10 = 0;
       do
       {
-        if (*v33 != v8)
+        if (*v31 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v11 = *(*(&v32 + 1) + 8 * v10);
-        v12 = *(v9 + 1248);
+        v11 = *(*(&v30 + 1) + 8 * v10);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          v13 = v11;
-          x_wr_alarmuid = [v13 x_wr_alarmuid];
+          v12 = v11;
+          x_wr_alarmuid = [v12 x_wr_alarmuid];
           if ([v3 containsObject:x_wr_alarmuid])
           {
             goto LABEL_8;
           }
 
-          if ([v13 action] == 3)
+          if ([v12 action] == 3)
           {
-            attendee = [v13 attendee];
-            v17 = [attendee count];
+            attendee = [v12 attendee];
+            v16 = [attendee count];
 
-            if (!v17)
+            if (!v16)
             {
 LABEL_8:
               components2 = [(ICSComponent *)selfCopy components];
-              [components2 removeObject:v13];
+              [components2 removeObject:v12];
 
 LABEL_24:
               goto LABEL_25;
             }
           }
 
-          else if ([v13 action] == 4)
+          else if ([v12 action] == 4)
           {
-            attach = [v13 attach];
+            attach = [v12 attach];
             if (attach)
             {
             }
 
             else
             {
-              bookmark = [v13 bookmark];
+              bookmark = [v12 bookmark];
 
               if (!bookmark)
               {
@@ -1646,12 +1646,12 @@ LABEL_24:
             }
           }
 
-          v20 = v5;
-          v21 = v9;
-          trigger = [v13 trigger];
+          v19 = v5;
+          v20 = v9;
+          trigger = [v12 trigger];
           isDurationBased = [trigger isDurationBased];
 
-          trigger2 = [v13 trigger];
+          trigger2 = [v12 trigger];
           trigger3 = trigger2;
           if (isDurationBased)
           {
@@ -1663,11 +1663,11 @@ LABEL_20:
             if ((isKindOfClass & 1) == 0)
             {
               components3 = [(ICSComponent *)selfCopy components];
-              [components3 removeObject:v13];
+              [components3 removeObject:v12];
 
-              v9 = v21;
-              v5 = v20;
-              v3 = v30;
+              v9 = v20;
+              v5 = v19;
+              v3 = v28;
               goto LABEL_24;
             }
           }
@@ -1677,19 +1677,19 @@ LABEL_20:
 
             if (trigger3)
             {
-              trigger3 = [v13 trigger];
+              trigger3 = [v12 trigger];
               value = [trigger3 value];
               goto LABEL_20;
             }
           }
 
-          [v13 fixAlarm];
-          v9 = v21;
-          v5 = v20;
-          v3 = v30;
+          [v12 fixAlarm];
+          v9 = v20;
+          v5 = v19;
+          v3 = v28;
           if ([x_wr_alarmuid length])
           {
-            [v30 addObject:x_wr_alarmuid];
+            [v28 addObject:x_wr_alarmuid];
           }
 
           goto LABEL_24;
@@ -1700,83 +1700,77 @@ LABEL_25:
       }
 
       while (v7 != v10);
-      v7 = [v5 countByEnumeratingWithState:&v32 objects:v36 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v30 objects:v34 count:16];
     }
 
     while (v7);
   }
-
-  v29 = *MEMORY[0x277D85DE8];
 }
 
 - (void)fixRelatedTo
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v3 = [(ICSComponent *)self propertiesForName:@"RELATED-TO"];
 
-  if (!v3)
+  if (v3)
   {
-LABEL_14:
-    v16 = *MEMORY[0x277D85DE8];
-    return;
-  }
+    relatedTo = [(ICSComponent *)self relatedTo];
+    objc_opt_class();
+    isKindOfClass = objc_opt_isKindOfClass();
 
-  relatedTo = [(ICSComponent *)self relatedTo];
-  objc_opt_class();
-  isKindOfClass = objc_opt_isKindOfClass();
-
-  if (isKindOfClass)
-  {
-    v20 = 0u;
-    v21 = 0u;
-    v18 = 0u;
-    v19 = 0u;
-    relatedTo2 = [(ICSComponent *)self relatedTo];
-    v7 = [relatedTo2 copy];
-
-    v8 = [v7 countByEnumeratingWithState:&v18 objects:v22 count:16];
-    if (v8)
+    if (isKindOfClass)
     {
-      v9 = v8;
-      v10 = *v19;
-      do
+      v18 = 0u;
+      v19 = 0u;
+      v16 = 0u;
+      v17 = 0u;
+      relatedTo2 = [(ICSComponent *)self relatedTo];
+      v7 = [relatedTo2 copy];
+
+      v8 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      if (v8)
       {
-        for (i = 0; i != v9; ++i)
+        v9 = v8;
+        v10 = *v17;
+        do
         {
-          if (*v19 != v10)
+          for (i = 0; i != v9; ++i)
           {
-            objc_enumerationMutation(v7);
+            if (*v17 != v10)
+            {
+              objc_enumerationMutation(v7);
+            }
+
+            v12 = *(*(&v16 + 1) + 8 * i);
+            objc_opt_class();
+            if ((objc_opt_isKindOfClass() & 1) == 0)
+            {
+              relatedTo3 = [(ICSComponent *)self relatedTo];
+              [relatedTo3 removeObject:v12];
+            }
           }
 
-          v12 = *(*(&v18 + 1) + 8 * i);
-          objc_opt_class();
-          if ((objc_opt_isKindOfClass() & 1) == 0)
-          {
-            relatedTo3 = [(ICSComponent *)self relatedTo];
-            [relatedTo3 removeObject:v12];
-          }
+          v9 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
         }
 
-        v9 = [v7 countByEnumeratingWithState:&v18 objects:v22 count:16];
+        while (v9);
       }
 
-      while (v9);
+      relatedTo4 = [(ICSComponent *)self relatedTo];
+      v15 = [relatedTo4 count];
+
+      if (!v15)
+      {
+        [(ICSComponent *)self removePropertiesForName:@"RELATED-TO"];
+      }
     }
 
-    relatedTo4 = [(ICSComponent *)self relatedTo];
-    v15 = [relatedTo4 count];
-
-    if (!v15)
+    else
     {
+
       [(ICSComponent *)self removePropertiesForName:@"RELATED-TO"];
     }
-
-    goto LABEL_14;
   }
-
-  v17 = *MEMORY[0x277D85DE8];
-
-  [(ICSComponent *)self removePropertiesForName:@"RELATED-TO"];
 }
 
 - (void)fixAttendees
@@ -1837,34 +1831,34 @@ LABEL_14:
 
 - (void)fixAttachments
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v3 = [(ICSComponent *)self propertiesForName:@"ATTACH"];
 
   if (v3)
   {
-    v17 = 0u;
-    v18 = 0u;
-    v15 = 0u;
     v16 = 0u;
+    v17 = 0u;
+    v14 = 0u;
+    v15 = 0u;
     attach = [(ICSComponent *)self attach];
     v5 = [attach copy];
 
-    v6 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+    v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v16;
+      v8 = *v15;
       do
       {
         v9 = 0;
         do
         {
-          if (*v16 != v8)
+          if (*v15 != v8)
           {
             objc_enumerationMutation(v5);
           }
 
-          v10 = *(*(&v15 + 1) + 8 * v9);
+          v10 = *(*(&v14 + 1) + 8 * v9);
           objc_opt_class();
           if ((objc_opt_isKindOfClass() & 1) == 0)
           {
@@ -1876,7 +1870,7 @@ LABEL_14:
         }
 
         while (v7 != v9);
-        v7 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+        v7 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
       }
 
       while (v7);
@@ -1890,39 +1884,37 @@ LABEL_14:
       [(ICSComponent *)self removePropertiesForName:@"ATTACH"];
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)fixRecurrenceRules
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v3 = [(ICSComponent *)self propertiesForName:@"RRULE"];
 
   if (v3)
   {
-    v19 = 0u;
-    v20 = 0u;
-    v17 = 0u;
     v18 = 0u;
+    v19 = 0u;
+    v16 = 0u;
+    v17 = 0u;
     v4 = [(ICSComponent *)self propertiesForName:@"RRULE", 0];
     v5 = [v4 copy];
 
-    v6 = [v5 countByEnumeratingWithState:&v17 objects:v21 count:16];
+    v6 = [v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v18;
+      v8 = *v17;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v18 != v8)
+          if (*v17 != v8)
           {
             objc_enumerationMutation(v5);
           }
 
-          v10 = *(*(&v17 + 1) + 8 * i);
+          v10 = *(*(&v16 + 1) + 8 * i);
           value = [v10 value];
           objc_opt_class();
           isKindOfClass = objc_opt_isKindOfClass();
@@ -1934,7 +1926,7 @@ LABEL_14:
           }
         }
 
-        v7 = [v5 countByEnumeratingWithState:&v17 objects:v21 count:16];
+        v7 = [v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
       }
 
       while (v7);
@@ -1948,40 +1940,38 @@ LABEL_14:
       [(ICSComponent *)self removePropertiesForName:@"RRULE"];
     }
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)fixRecurrenceDates
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v3 = [(ICSComponent *)self propertiesForName:@"RDATE"];
 
   if (v3)
   {
-    v17 = 0u;
-    v18 = 0u;
-    v15 = 0u;
     v16 = 0u;
+    v17 = 0u;
+    v14 = 0u;
+    v15 = 0u;
     rdate = [(ICSComponent *)self rdate];
     v5 = [rdate copy];
 
-    v6 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+    v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v16;
+      v8 = *v15;
       do
       {
         v9 = 0;
         do
         {
-          if (*v16 != v8)
+          if (*v15 != v8)
           {
             objc_enumerationMutation(v5);
           }
 
-          v10 = *(*(&v15 + 1) + 8 * v9);
+          v10 = *(*(&v14 + 1) + 8 * v9);
           objc_opt_class();
           if ((objc_opt_isKindOfClass() & 1) == 0)
           {
@@ -1993,7 +1983,7 @@ LABEL_14:
         }
 
         while (v7 != v9);
-        v7 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+        v7 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
       }
 
       while (v7);
@@ -2007,39 +1997,37 @@ LABEL_14:
       [(ICSComponent *)self removePropertiesForName:@"RDATE"];
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)fixExceptionRules
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v3 = [(ICSComponent *)self propertiesForName:@"EXRULE"];
 
   if (v3)
   {
-    v19 = 0u;
-    v20 = 0u;
-    v17 = 0u;
     v18 = 0u;
+    v19 = 0u;
+    v16 = 0u;
+    v17 = 0u;
     v4 = [(ICSComponent *)self propertiesForName:@"EXRULE", 0];
     v5 = [v4 copy];
 
-    v6 = [v5 countByEnumeratingWithState:&v17 objects:v21 count:16];
+    v6 = [v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v18;
+      v8 = *v17;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v18 != v8)
+          if (*v17 != v8)
           {
             objc_enumerationMutation(v5);
           }
 
-          v10 = *(*(&v17 + 1) + 8 * i);
+          v10 = *(*(&v16 + 1) + 8 * i);
           value = [v10 value];
           objc_opt_class();
           isKindOfClass = objc_opt_isKindOfClass();
@@ -2051,7 +2039,7 @@ LABEL_14:
           }
         }
 
-        v7 = [v5 countByEnumeratingWithState:&v17 objects:v21 count:16];
+        v7 = [v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
       }
 
       while (v7);
@@ -2065,40 +2053,38 @@ LABEL_14:
       [(ICSComponent *)self removePropertiesForName:@"EXRULE"];
     }
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)fixExceptionDates
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v3 = [(ICSComponent *)self propertiesForName:@"EXDATE"];
 
   if (v3)
   {
-    v17 = 0u;
-    v18 = 0u;
-    v15 = 0u;
     v16 = 0u;
+    v17 = 0u;
+    v14 = 0u;
+    v15 = 0u;
     exdate = [(ICSComponent *)self exdate];
     v5 = [exdate copy];
 
-    v6 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+    v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v16;
+      v8 = *v15;
       do
       {
         v9 = 0;
         do
         {
-          if (*v16 != v8)
+          if (*v15 != v8)
           {
             objc_enumerationMutation(v5);
           }
 
-          v10 = *(*(&v15 + 1) + 8 * v9);
+          v10 = *(*(&v14 + 1) + 8 * v9);
           objc_opt_class();
           if ((objc_opt_isKindOfClass() & 1) == 0)
           {
@@ -2110,7 +2096,7 @@ LABEL_14:
         }
 
         while (v7 != v9);
-        v7 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+        v7 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
       }
 
       while (v7);
@@ -2124,8 +2110,6 @@ LABEL_14:
       [(ICSComponent *)self removePropertiesForName:@"EXDATE"];
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)fixSuggestionInfo

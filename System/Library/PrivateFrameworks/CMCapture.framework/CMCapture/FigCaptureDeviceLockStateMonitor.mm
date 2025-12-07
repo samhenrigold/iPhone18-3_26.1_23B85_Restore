@@ -15,22 +15,22 @@
 
 - (void)_updateDeviceLockState
 {
-  if (self)
+  if (result)
   {
     if (!_FigIsCurrentDispatchQueue())
     {
       OUTLINED_FUNCTION_0_3();
       OUTLINED_FUNCTION_2_5();
-      FigDebugAssert3();
+      FigDebugAssert3(v4);
     }
 
     v2 = MKBGetDeviceLockState();
     v3 = (v2 < 7) & (0x46u >> v2);
-    if (*(self + 48) != v3)
+    if (*(result + 48) != v3)
     {
-      *(self + 48) = v3;
+      *(result + 48) = v3;
 
-      [(FigCaptureDeviceLockStateMonitor *)self _updateObserversWithDeviceIsLockedState:v3];
+      [(FigCaptureDeviceLockStateMonitor *)result _updateObserversWithDeviceIsLockedState:v3];
     }
   }
 }
@@ -134,29 +134,30 @@ void __63__FigCaptureDeviceLockStateMonitor_addDeviceLockStateObserver___block_i
 
 - (BOOL)deviceIsLocked
 {
-  v7 = 0;
-  v8 = &v7;
-  v9 = 0x2020000000;
-  v10 = 0;
+  v14 = 0;
+  v15 = &v14;
+  v16 = 0x2020000000;
+  v17 = 0;
   if (!_FigIsNotCurrentDispatchQueue())
   {
-    FigDebugAssert3();
+    v7 = 0;
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v7, v2, block, v9, v10, v11, selfCopy, v13);
   }
 
   monitorQueue = self->_monitorQueue;
-  block[0] = MEMORY[0x1E69E9820];
-  block[1] = 3221225472;
-  block[2] = __50__FigCaptureDeviceLockStateMonitor_deviceIsLocked__block_invoke;
-  block[3] = &unk_1E798FAF8;
-  block[4] = self;
-  block[5] = &v7;
-  dispatch_sync(monitorQueue, block);
-  v4 = *(v8 + 24);
-  _Block_object_dispose(&v7, 8);
-  return v4;
+  block = MEMORY[0x1E69E9820];
+  v9 = 3221225472;
+  v10 = __50__FigCaptureDeviceLockStateMonitor_deviceIsLocked__block_invoke;
+  v11 = &unk_1E798FAF8;
+  selfCopy = self;
+  v13 = &v14;
+  dispatch_sync(monitorQueue, &block);
+  v5 = *(v15 + 24);
+  _Block_object_dispose(&v14, 8);
+  return v5;
 }
 
-uint64_t __76__FigCaptureDeviceLockStateMonitor__updateObserversWithDeviceIsLockedState___block_invoke(uint64_t a1)
+void *__76__FigCaptureDeviceLockStateMonitor__updateObserversWithDeviceIsLockedState___block_invoke(uint64_t a1)
 {
   v10 = 0u;
   v11 = 0u;
@@ -178,7 +179,8 @@ uint64_t __76__FigCaptureDeviceLockStateMonitor__updateObserversWithDeviceIsLock
           objc_enumerationMutation(v2);
         }
 
-        [*(*(&v8 + 1) + 8 * v6++) deviceLockStateMonitor:*(a1 + 40) didUpdateDeviceLockState:*(a1 + 48)];
+        [*(*(&v8 + 1) + 8 * v6) deviceLockStateMonitor:*(a1 + 40) didUpdateDeviceLockState:*(a1 + 48)];
+        v6 = v6 + 1;
       }
 
       while (v4 != v6);
@@ -194,24 +196,24 @@ uint64_t __76__FigCaptureDeviceLockStateMonitor__updateObserversWithDeviceIsLock
 
 - (void)_startMonitoringDeviceLockState
 {
-  if (self)
+  if (result)
   {
     if (!_FigIsCurrentDispatchQueue())
     {
       OUTLINED_FUNCTION_0_3();
       OUTLINED_FUNCTION_2_5();
-      FigDebugAssert3();
+      FigDebugAssert3(v4);
     }
 
-    if (!*(self + 32))
+    if (!*(result + 32))
     {
       OUTLINED_FUNCTION_8_7();
-      v5 = 3221225472;
-      v6 = __67__FigCaptureDeviceLockStateMonitor__startMonitoringDeviceLockState__block_invoke;
-      v7 = &unk_1E7991270;
-      selfCopy = self;
+      v6 = 3221225472;
+      v7 = __67__FigCaptureDeviceLockStateMonitor__startMonitoringDeviceLockState__block_invoke;
+      v8 = &unk_1E7991270;
+      v9 = result;
       notify_register_dispatch("com.apple.mobile.keybagd.lock_status", v2, v3, handler);
-      [(FigCaptureDeviceLockStateMonitor *)self _updateDeviceLockState];
+      [(FigCaptureDeviceLockStateMonitor *)result _updateDeviceLockState];
     }
   }
 }
@@ -225,7 +227,7 @@ uint64_t __76__FigCaptureDeviceLockStateMonitor__updateObserversWithDeviceIsLock
     {
       OUTLINED_FUNCTION_0_3();
       OUTLINED_FUNCTION_2_5();
-      FigDebugAssert3();
+      FigDebugAssert3(v2);
     }
 
     result = *(v1 + 32);
@@ -245,10 +247,9 @@ uint64_t __76__FigCaptureDeviceLockStateMonitor__updateObserversWithDeviceIsLock
   {
     if (!_FigIsCurrentDispatchQueue())
     {
-      v8 = v2;
-      LODWORD(v7) = 0;
+      v8 = 0;
       OUTLINED_FUNCTION_2_5();
-      FigDebugAssert3();
+      FigDebugAssert3(v7, v8, v2);
     }
 
     v5 = [*(state + 24) copy];

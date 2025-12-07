@@ -58,7 +58,7 @@
 
 - (WFLinkActionConfirmationAlertSession)initWithXPCDictionary:(id)dictionary
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   v5 = [MEMORY[0x1E698E7A8] coderWithMessage:dictionaryCopy];
   length = 0;
@@ -105,14 +105,13 @@
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
       *buf = 136315138;
-      v27 = "[WFLinkActionConfirmationAlertSession initWithXPCDictionary:]";
+      v26 = "[WFLinkActionConfirmationAlertSession initWithXPCDictionary:]";
       _os_log_error_impl(&dword_1B1DE3000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%s: appBundleIdentifier is empty.", buf, 0xCu);
     }
 
     selfCopy = 0;
   }
 
-  v23 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 

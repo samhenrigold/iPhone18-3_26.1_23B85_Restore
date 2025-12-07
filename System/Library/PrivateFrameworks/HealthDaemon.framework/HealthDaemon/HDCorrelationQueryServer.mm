@@ -41,20 +41,20 @@
 
 - (void)_queue_start
 {
-  v30 = *MEMORY[0x277D85DE8];
-  v27.receiver = self;
-  v27.super_class = HDCorrelationQueryServer;
-  [(HDQueryServer *)&v27 _queue_start];
+  v29 = *MEMORY[0x277D85DE8];
+  v26.receiver = self;
+  v26.super_class = HDCorrelationQueryServer;
+  [(HDQueryServer *)&v26 _queue_start];
   clientProxy = [(HDQueryServer *)self clientProxy];
   remoteObjectProxy = [clientProxy remoteObjectProxy];
 
-  v25[0] = 0;
-  v25[1] = v25;
-  v25[2] = 0x2020000000;
-  v26 = 0;
+  v24[0] = 0;
+  v24[1] = v24;
+  v24[2] = 0x2020000000;
+  v25 = 0;
   if (self->_suspended)
   {
-    v26 = 1;
+    v25 = 1;
     self->_suspended = 0;
     _HKInitializeLogging();
     v5 = *MEMORY[0x277CCC308];
@@ -73,21 +73,21 @@
   sampleAuthorizationFilter = [(HDQueryServer *)self sampleAuthorizationFilter];
   [newDataEntityEnumerator setAuthorizationFilter:sampleAuthorizationFilter];
 
-  v24 = 0;
-  v17 = MEMORY[0x277D85DD0];
-  v18 = 3221225472;
-  v19 = __40__HDCorrelationQueryServer__queue_start__block_invoke;
-  v20 = &unk_278627EF0;
+  v23 = 0;
+  v16 = MEMORY[0x277D85DD0];
+  v17 = 3221225472;
+  v18 = __40__HDCorrelationQueryServer__queue_start__block_invoke;
+  v19 = &unk_278627EF0;
   selfCopy2 = self;
   v9 = remoteObjectProxy;
-  v22 = v9;
-  v23 = v25;
-  v10 = [(HDBatchedQueryServer *)self batchObjectsWithEnumerator:newDataEntityEnumerator error:&v24 handler:&v17];
-  v11 = v24;
+  v21 = v9;
+  v22 = v24;
+  v10 = [(HDBatchedQueryServer *)self batchObjectsWithEnumerator:newDataEntityEnumerator error:&v23 handler:&v16];
+  v11 = v23;
   switch(v10)
   {
     case 1:
-      v15 = [(HDQueryServer *)self queryUUID:v17];
+      v15 = [(HDQueryServer *)self queryUUID:v16];
       [v9 client_deliverError:v11 forQuery:v15];
 
       break;
@@ -101,7 +101,7 @@
         _os_log_impl(&dword_228986000, v13, OS_LOG_TYPE_INFO, "%{public}@: Client no longer authorized.", buf, 0xCu);
       }
 
-      v14 = [(HDQueryServer *)self queryUUID:v17];
+      v14 = [(HDQueryServer *)self queryUUID:v16];
       [v9 client_deliverCorrelations:MEMORY[0x277CBEBF8] clearPendingSamples:1 isFinalBatch:1 queryUUID:v14];
 
       break;
@@ -119,60 +119,59 @@
       break;
   }
 
-  _Block_object_dispose(v25, 8);
-  v16 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(v24, 8);
 }
 
 void __40__HDCorrelationQueryServer__queue_start__block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   v7 = v5;
-  v8 = [v7 countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (!v8)
   {
     goto LABEL_14;
   }
 
   v9 = v8;
-  v10 = *v20;
+  v10 = *v19;
   do
   {
     v11 = 0;
     do
     {
-      if (*v20 != v10)
+      if (*v19 != v10)
       {
         objc_enumerationMutation(v7);
       }
 
-      v12 = *(*(&v19 + 1) + 8 * v11);
+      v12 = *(*(&v18 + 1) + 8 * v11);
       v13 = *(a1 + 32);
       if (*(v13 + 224) == 1)
       {
-        [*(*(&v19 + 1) + 8 * v11) _filterCorrelatedObjectsWithFilterDictionary:*(v13 + 232)];
+        [*(*(&v18 + 1) + 8 * v11) _filterCorrelatedObjectsWithFilterDictionary:*(v13 + 232)];
         if ([v12 _containsObjects])
         {
           goto LABEL_11;
         }
       }
 
-      else if ([*(*(&v19 + 1) + 8 * v11) _containsObjects] && objc_msgSend(v12, "_correlatedObjectsMatchFilterDictionary:", *(*(a1 + 32) + 232)))
+      else if ([*(*(&v18 + 1) + 8 * v11) _containsObjects] && objc_msgSend(v12, "_correlatedObjectsMatchFilterDictionary:", *(*(a1 + 32) + 232)))
       {
 LABEL_11:
-        [v6 addObject:{v12, v19}];
+        [v6 addObject:{v12, v18}];
       }
 
       ++v11;
     }
 
     while (v9 != v11);
-    v9 = [v7 countByEnumeratingWithState:&v19 objects:v23 count:16];
+    v9 = [v7 countByEnumeratingWithState:&v18 objects:v22 count:16];
   }
 
   while (v9);
@@ -197,8 +196,6 @@ LABEL_14:
 
     *(*(*(a1 + 48) + 8) + 24) = 0;
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -14,15 +14,14 @@
 
 - (BMUserStatusChangeEvent)initWithIDSHandle:(id)handle statusChangeType:(id)type
 {
-  v13[1] = *MEMORY[0x1E69E9840];
+  v12[1] = *MEMORY[0x1E69E9840];
   objc_storeStrong(&self->_idsHandle, handle);
   handleCopy = handle;
   typeCopy = type;
-  v13[0] = handleCopy;
-  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v13 count:1];
+  v12[0] = handleCopy;
+  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:1];
 
   v10 = [(BMUserStatusChangeEvent *)self initWithIDSHandles:v9 statusChangeType:typeCopy];
-  v11 = *MEMORY[0x1E69E9840];
   return v10;
 }
 
@@ -47,11 +46,9 @@
 
 - (NSString)description
 {
-  v3 = objc_alloc(MEMORY[0x1E696AEC0]);
-  idsHandles = self->_idsHandles;
-  v5 = [v3 initWithFormat:@"UserStatusChangeEvent event with idsHandles: %@, statusChangeType: %@", idsHandles, self->_statusChangeType];
+  v2 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"UserStatusChangeEvent event with idsHandles: %@, statusChangeType: %@", self->_idsHandles, self->_statusChangeType];
 
-  return v5;
+  return v2;
 }
 
 + (id)eventWithData:(id)data dataVersion:(unsigned int)version

@@ -41,15 +41,15 @@
   v7.super_class = _UIFeedbackLibraryPattern;
   if ([(_UIFeedback *)&v7 isEqual:equalCopy])
   {
-    v5 = [(NSString *)self->_libraryKey isEqual:equalCopy[16]];
+    isEqual = objc_msgSend_isEqual_(self->_libraryKey);
   }
 
   else
   {
-    v5 = 0;
+    isEqual = 0;
   }
 
-  return v5;
+  return isEqual;
 }
 
 - (_UIFeedbackLibraryPattern)initWithDictionaryRepresentation:(id)representation

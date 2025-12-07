@@ -17,7 +17,7 @@
   v5 = (&self->super.super.super.isa + OBJC_IVAR____TtC10ProductKit17AdjustedVideoView_completedHandler);
   *v5 = 0;
   v5[1] = 0;
-  result = sub_260E69704();
+  result = sub_260E69704("Fatal error", 11, 2, 0xD000000000000025, 0x8000000260E72450, "ProductKit/AdjustedVideoView.swift", 34, 2, 64, 0);
   __break(1u);
   return result;
 }

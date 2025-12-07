@@ -91,7 +91,7 @@ void __31__DSXPCSharingPermissions_init__block_invoke(uint64_t a1)
 
 - (BOOL)isFetchNeeded
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = clock_gettime_nsec_np(_CLOCK_MONOTONIC_RAW);
   fetchCompletedTime = [(DSXPCSharingPermissions *)self fetchCompletedTime];
   if (v3 < fetchCompletedTime)
@@ -108,14 +108,12 @@ void __31__DSXPCSharingPermissions_init__block_invoke(uint64_t a1)
   v6 = DSLog_4;
   if (os_log_type_enabled(DSLog_4, OS_LOG_TYPE_INFO))
   {
-    v9 = 134349056;
-    v10 = v5 / 1000000000.0;
-    _os_log_impl(&dword_248C40000, v6, OS_LOG_TYPE_INFO, "Last fetch was %{public}fs ago", &v9, 0xCu);
+    v8 = 134349056;
+    v9 = v5 / 1000000000.0;
+    _os_log_impl(&dword_248C40000, v6, OS_LOG_TYPE_INFO, "Last fetch was %{public}fs ago", &v8, 0xCu);
   }
 
-  result = v5 > 0x6FC23AC00;
-  v8 = *MEMORY[0x277D85DE8];
-  return result;
+  return v5 > 0x6FC23AC00;
 }
 
 - (void)requestImmediateFetch
@@ -238,16 +236,14 @@ void __54__DSXPCSharingPermissions_fetchSharingWithCompletion___block_invoke(uin
 
 id __55__DSXPCSharingPermissions__fetchSharingWithCompletion___block_invoke()
 {
-  v6[2] = *MEMORY[0x277D85DE8];
-  v5[0] = @"entrypoint";
+  v5[2] = *MEMORY[0x277D85DE8];
+  v4[0] = @"entrypoint";
   v0 = [MEMORY[0x277CCAC38] processInfo];
   v1 = [v0 processName];
-  v5[1] = @"fetchErrorCode";
-  v6[0] = v1;
-  v6[1] = &unk_285BA2CB8;
-  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:v5 count:2];
-
-  v3 = *MEMORY[0x277D85DE8];
+  v4[1] = @"fetchErrorCode";
+  v5[0] = v1;
+  v5[1] = &unk_285BA2CB8;
+  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v5 forKeys:v4 count:2];
 
   return v2;
 }
@@ -334,7 +330,7 @@ void __55__DSXPCSharingPermissions__fetchSharingWithCompletion___block_invoke_25
 
 - (void)makeSharingPeopleWithResources:(id)resources
 {
-  v107 = *MEMORY[0x277D85DE8];
+  v106 = *MEMORY[0x277D85DE8];
   resourcesCopy = resources;
   dispatch_group_enter(self->_dispatchGroup);
   people = [(DSXPCSharingPermissions *)self people];
@@ -369,88 +365,88 @@ LABEL_4:
 
     selfCopy = self;
     array = [MEMORY[0x277CBEB18] array];
+    v92 = 0u;
     v93 = 0u;
     v94 = 0u;
     v95 = 0u;
-    v96 = 0u;
     obj = [resourcesCopy allKeys];
-    v59 = resourcesCopy;
-    v70 = [obj countByEnumeratingWithState:&v93 objects:v106 count:16];
-    if (v70)
+    v58 = resourcesCopy;
+    v69 = [obj countByEnumeratingWithState:&v92 objects:v105 count:16];
+    if (v69)
     {
-      v68 = *v94;
+      v67 = *v93;
       do
       {
-        for (i = 0; i != v70; ++i)
+        for (i = 0; i != v69; ++i)
         {
-          if (*v94 != v68)
+          if (*v93 != v67)
           {
             objc_enumerationMutation(obj);
           }
 
-          v10 = [resourcesCopy objectForKeyedSubscript:*(*(&v93 + 1) + 8 * i)];
+          v10 = [resourcesCopy objectForKeyedSubscript:*(*(&v92 + 1) + 8 * i)];
+          v88 = 0u;
           v89 = 0u;
           v90 = 0u;
           v91 = 0u;
-          v92 = 0u;
-          v11 = [v10 countByEnumeratingWithState:&v89 objects:v105 count:16];
+          v11 = [v10 countByEnumeratingWithState:&v88 objects:v104 count:16];
           if (v11)
           {
             v12 = v11;
-            v13 = *v90;
+            v13 = *v89;
             do
             {
               for (j = 0; j != v12; ++j)
               {
-                if (*v90 != v13)
+                if (*v89 != v13)
                 {
                   objc_enumerationMutation(v10);
                 }
 
-                v15 = *(*(&v89 + 1) + 8 * j);
+                v15 = *(*(&v88 + 1) + 8 * j);
+                v84 = 0u;
                 v85 = 0u;
                 v86 = 0u;
                 v87 = 0u;
-                v88 = 0u;
                 participants = [v15 participants];
-                v17 = [participants countByEnumeratingWithState:&v85 objects:v104 count:16];
+                v17 = [participants countByEnumeratingWithState:&v84 objects:v103 count:16];
                 if (v17)
                 {
                   v18 = v17;
-                  v19 = *v86;
+                  v19 = *v85;
                   do
                   {
                     for (k = 0; k != v18; ++k)
                     {
-                      if (*v86 != v19)
+                      if (*v85 != v19)
                       {
                         objc_enumerationMutation(participants);
                       }
 
-                      identity = [*(*(&v85 + 1) + 8 * k) identity];
+                      identity = [*(*(&v84 + 1) + 8 * k) identity];
                       [array addObject:identity];
                     }
 
-                    v18 = [participants countByEnumeratingWithState:&v85 objects:v104 count:16];
+                    v18 = [participants countByEnumeratingWithState:&v84 objects:v103 count:16];
                   }
 
                   while (v18);
                 }
               }
 
-              v12 = [v10 countByEnumeratingWithState:&v89 objects:v105 count:16];
+              v12 = [v10 countByEnumeratingWithState:&v88 objects:v104 count:16];
             }
 
             while (v12);
           }
 
-          resourcesCopy = v59;
+          resourcesCopy = v58;
         }
 
-        v70 = [obj countByEnumeratingWithState:&v93 objects:v106 count:16];
+        v69 = [obj countByEnumeratingWithState:&v92 objects:v105 count:16];
       }
 
-      while (v70);
+      while (v69);
     }
 
     v22 = [array count];
@@ -466,7 +462,7 @@ LABEL_4:
         _os_signpost_emit_with_name_impl(&dword_248C40000, v26, OS_SIGNPOST_INTERVAL_BEGIN, v24, "lookup", " enableTelemetry=YES ", buf, 2u);
       }
 
-      v69 = +[DSContactProvider defaultProvider];
+      v68 = +[DSContactProvider defaultProvider];
       v27 = DSLog_4;
       v28 = selfCopy;
       if (os_log_type_enabled(DSLog_4, OS_LOG_TYPE_INFO))
@@ -475,7 +471,7 @@ LABEL_4:
         _os_log_impl(&dword_248C40000, v27, OS_LOG_TYPE_INFO, "Fetching all contacts related to the sharing model", buf, 2u);
       }
 
-      obja = [v69 unifiedContactsDictionaryForIdentities:array];
+      obja = [v68 unifiedContactsDictionaryForIdentities:array];
       v29 = DSLog_4;
       v30 = v29;
       if (v24 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v29))
@@ -487,73 +483,73 @@ LABEL_4:
       allKeys = [resourcesCopy allKeys];
       v32 = [allKeys copy];
 
-      v83 = 0u;
-      v84 = 0u;
-      v81 = 0u;
       v82 = 0u;
-      v55 = v32;
-      v57 = [v55 countByEnumeratingWithState:&v81 objects:v103 count:16];
-      if (v57)
+      v83 = 0u;
+      v80 = 0u;
+      v81 = 0u;
+      v54 = v32;
+      v56 = [v54 countByEnumeratingWithState:&v80 objects:v102 count:16];
+      if (v56)
       {
-        v56 = *v82;
+        v55 = *v81;
         do
         {
           v33 = 0;
           do
           {
-            if (*v82 != v56)
+            if (*v81 != v55)
             {
-              objc_enumerationMutation(v55);
+              objc_enumerationMutation(v54);
             }
 
-            v58 = v33;
-            v34 = *(*(&v81 + 1) + 8 * v33);
+            v57 = v33;
+            v34 = *(*(&v80 + 1) + 8 * v33);
             v35 = [resourcesCopy objectForKeyedSubscript:v34];
+            v76 = 0u;
             v77 = 0u;
             v78 = 0u;
             v79 = 0u;
-            v80 = 0u;
-            v60 = v35;
+            v59 = v35;
             v36 = DSSharingType;
-            v62 = [v35 countByEnumeratingWithState:&v77 objects:v102 count:16];
-            if (v62)
+            v61 = [v35 countByEnumeratingWithState:&v76 objects:v101 count:16];
+            if (v61)
             {
-              v61 = *v78;
+              v60 = *v77;
               do
               {
                 v37 = 0;
                 do
                 {
-                  if (*v78 != v61)
+                  if (*v77 != v60)
                   {
-                    objc_enumerationMutation(v60);
+                    objc_enumerationMutation(v59);
                   }
 
-                  v63 = v37;
-                  v38 = *(*(&v77 + 1) + 8 * v37);
+                  v62 = v37;
+                  v38 = *(*(&v76 + 1) + 8 * v37);
                   v39 = [(dispatch_group_t *)v28 deviceOwnerRoleForSharedResource:v38];
+                  v72 = 0u;
                   v73 = 0u;
                   v74 = 0u;
                   v75 = 0u;
-                  v76 = 0u;
                   participants2 = [v38 participants];
-                  v40 = [participants2 countByEnumeratingWithState:&v73 objects:v101 count:16];
+                  v40 = [participants2 countByEnumeratingWithState:&v72 objects:v100 count:16];
                   if (v40)
                   {
                     v41 = v40;
-                    v71 = *v74;
+                    v70 = *v73;
                     do
                     {
                       for (m = 0; m != v41; ++m)
                       {
-                        if (*v74 != v71)
+                        if (*v73 != v70)
                         {
                           objc_enumerationMutation(participants2);
                         }
 
-                        v43 = *(*(&v73 + 1) + 8 * m);
+                        v43 = *(*(&v72 + 1) + 8 * m);
                         identity2 = [v43 identity];
-                        v45 = [v69 unifiedContactInDictionary:obja forIdentity:identity2];
+                        v45 = [v68 unifiedContactInDictionary:obja forIdentity:identity2];
 
                         superclass = v36[19].superclass;
                         v47 = os_log_type_enabled(superclass, OS_LOG_TYPE_INFO);
@@ -562,9 +558,9 @@ LABEL_4:
                           if (v47)
                           {
                             *buf = 138412546;
-                            v98 = v45;
-                            v99 = 2112;
-                            v100 = v38;
+                            v97 = v45;
+                            v98 = 2112;
+                            v99 = v38;
                             _os_log_impl(&dword_248C40000, superclass, OS_LOG_TYPE_INFO, "Adding contact %@ to sharing model for resource %@", buf, 0x16u);
                           }
 
@@ -578,9 +574,9 @@ LABEL_4:
                             v49 = superclass;
                             identity3 = [v43 identity];
                             *buf = 138412546;
-                            v98 = identity3;
-                            v99 = 2112;
-                            v100 = v38;
+                            v97 = identity3;
+                            v98 = 2112;
+                            v99 = v38;
                             _os_log_impl(&dword_248C40000, v49, OS_LOG_TYPE_INFO, "Adding unknown participant with identity %@ to sharing model for resource %@", buf, 0x16u);
                           }
 
@@ -596,31 +592,31 @@ LABEL_4:
                         [(dispatch_group_t *)v28 addSharingPerson:v48 participant:v43 forSource:v34 sharedResource:v38 deviceOwnerRole:v39];
                       }
 
-                      v41 = [participants2 countByEnumeratingWithState:&v73 objects:v101 count:16];
+                      v41 = [participants2 countByEnumeratingWithState:&v72 objects:v100 count:16];
                     }
 
                     while (v41);
                   }
 
-                  v37 = v63 + 1;
+                  v37 = v62 + 1;
                 }
 
-                while (v63 + 1 != v62);
-                v62 = [v60 countByEnumeratingWithState:&v77 objects:v102 count:16];
+                while (v62 + 1 != v61);
+                v61 = [v59 countByEnumeratingWithState:&v76 objects:v101 count:16];
               }
 
-              while (v62);
+              while (v61);
             }
 
-            v33 = v58 + 1;
-            resourcesCopy = v59;
+            v33 = v57 + 1;
+            resourcesCopy = v58;
           }
 
-          while (v58 + 1 != v57);
-          v57 = [v55 countByEnumeratingWithState:&v81 objects:v103 count:16];
+          while (v57 + 1 != v56);
+          v56 = [v54 countByEnumeratingWithState:&v80 objects:v102 count:16];
         }
 
-        while (v57);
+        while (v56);
       }
 
       dispatch_group_leave(v28[2]);
@@ -633,20 +629,18 @@ LABEL_4:
   }
 
 LABEL_70:
-
-  v54 = *MEMORY[0x277D85DE8];
 }
 
 - (id)sharingPeopleForContacts:(id)contacts
 {
-  v83 = *MEMORY[0x277D85DE8];
+  v82 = *MEMORY[0x277D85DE8];
   contactsCopy = contacts;
   selfCopy = self;
   dispatch_group_enter(self->_dispatchGroup);
   v5 = +[DSContactProvider defaultProvider];
   v6 = [v5 sanitizeContacts:contactsCopy];
 
-  v55 = v6;
+  v54 = v6;
   v7 = [v6 count];
   if (v7 != [contactsCopy count])
   {
@@ -666,98 +660,98 @@ LABEL_70:
   {
     v12 = v11;
     *buf = 134217984;
-    v74 = [allKeys count];
+    v73 = [allKeys count];
     _os_log_impl(&dword_248C40000, v12, OS_LOG_TYPE_INFO, "sharingPersonForContacts:completion: checking %ld sources for participants", buf, 0xCu);
   }
 
-  v71 = 0u;
-  v72 = 0u;
-  v69 = 0u;
   v70 = 0u;
+  v71 = 0u;
+  v68 = 0u;
+  v69 = 0u;
   obj = allKeys;
-  v43 = [obj countByEnumeratingWithState:&v69 objects:v82 count:16];
-  if (v43)
+  v42 = [obj countByEnumeratingWithState:&v68 objects:v81 count:16];
+  if (v42)
   {
-    v42 = *v70;
+    v41 = *v69;
     do
     {
       v13 = 0;
       do
       {
-        if (*v70 != v42)
+        if (*v69 != v41)
         {
           objc_enumerationMutation(obj);
         }
 
-        v44 = v13;
-        v14 = *(*(&v69 + 1) + 8 * v13);
+        v43 = v13;
+        v14 = *(*(&v68 + 1) + 8 * v13);
         sharedResourcesBySource2 = [(dispatch_group_t *)selfCopy sharedResourcesBySource];
-        v53 = v14;
+        v52 = v14;
         v16 = [sharedResourcesBySource2 objectForKeyedSubscript:v14];
 
-        v67 = 0u;
-        v68 = 0u;
-        v65 = 0u;
         v66 = 0u;
-        v45 = v16;
-        v48 = [v45 countByEnumeratingWithState:&v65 objects:v81 count:16];
-        if (v48)
+        v67 = 0u;
+        v64 = 0u;
+        v65 = 0u;
+        v44 = v16;
+        v47 = [v44 countByEnumeratingWithState:&v64 objects:v80 count:16];
+        if (v47)
         {
-          v46 = *v66;
+          v45 = *v65;
           do
           {
             v17 = 0;
             do
             {
-              if (*v66 != v46)
+              if (*v65 != v45)
               {
-                objc_enumerationMutation(v45);
+                objc_enumerationMutation(v44);
               }
 
-              v49 = v17;
-              v18 = *(*(&v65 + 1) + 8 * v17);
-              v51 = [(dispatch_group_t *)selfCopy deviceOwnerRoleForSharedResource:v18];
-              v52 = v18;
+              v48 = v17;
+              v18 = *(*(&v64 + 1) + 8 * v17);
+              v50 = [(dispatch_group_t *)selfCopy deviceOwnerRoleForSharedResource:v18];
+              v51 = v18;
+              v60 = 0u;
               v61 = 0u;
               v62 = 0u;
               v63 = 0u;
-              v64 = 0u;
               participants = [v18 participants];
-              v19 = [participants countByEnumeratingWithState:&v61 objects:v80 count:16];
+              v19 = [participants countByEnumeratingWithState:&v60 objects:v79 count:16];
               if (v19)
               {
                 v20 = v19;
-                v56 = *v62;
+                v55 = *v61;
                 do
                 {
                   for (i = 0; i != v20; ++i)
                   {
-                    if (*v62 != v56)
+                    if (*v61 != v55)
                     {
                       objc_enumerationMutation(participants);
                     }
 
-                    v22 = *(*(&v61 + 1) + 8 * i);
+                    v22 = *(*(&v60 + 1) + 8 * i);
+                    v56 = 0u;
                     v57 = 0u;
                     v58 = 0u;
                     v59 = 0u;
-                    v60 = 0u;
-                    v23 = v55;
-                    v24 = [v23 countByEnumeratingWithState:&v57 objects:v79 count:16];
+                    v23 = v54;
+                    v24 = [v23 countByEnumeratingWithState:&v56 objects:v78 count:16];
                     if (v24)
                     {
                       v25 = v24;
-                      v26 = *v58;
+                      v26 = *v57;
                       while (2)
                       {
                         for (j = 0; j != v25; ++j)
                         {
-                          if (*v58 != v26)
+                          if (*v57 != v26)
                           {
                             objc_enumerationMutation(v23);
                           }
 
-                          v28 = *(*(&v57 + 1) + 8 * j);
+                          v28 = *(*(&v56 + 1) + 8 * j);
                           identity = [v22 identity];
                           v30 = [v28 isLikeIdentifiable:identity];
 
@@ -773,15 +767,15 @@ LABEL_70:
                               if (v34)
                               {
                                 *buf = 138412802;
-                                v74 = v53;
-                                v75 = 2112;
-                                v76 = v28;
-                                v77 = 2112;
-                                v78 = v32;
+                                v73 = v52;
+                                v74 = 2112;
+                                v75 = v28;
+                                v76 = 2112;
+                                v77 = v32;
                                 _os_log_impl(&dword_248C40000, v33, OS_LOG_TYPE_INFO, "Adding a shared resource from %@ for contact %@ to person %@", buf, 0x20u);
                               }
 
-                              [v32 addSource:v53 sharedResource:v52 participant:v22 deviceOwnerRole:v51];
+                              [v32 addSource:v52 sharedResource:v51 participant:v22 deviceOwnerRole:v50];
                             }
 
                             else
@@ -789,11 +783,11 @@ LABEL_70:
                               if (v34)
                               {
                                 *buf = 138412290;
-                                v74 = v28;
+                                v73 = v28;
                                 _os_log_impl(&dword_248C40000, v33, OS_LOG_TYPE_INFO, "Creating new sharing person for %@", buf, 0xCu);
                               }
 
-                              v35 = [[DSXPCSharingPerson alloc] initWithSource:v53 sharedResource:v52 participant:v22 deviceOwnerRole:v51 contact:v28];
+                              v35 = [[DSXPCSharingPerson alloc] initWithSource:v52 sharedResource:v51 participant:v22 deviceOwnerRole:v50 contact:v28];
                               identifier2 = [v28 identifier];
                               [dictionary setObject:v35 forKey:identifier2];
                             }
@@ -802,7 +796,7 @@ LABEL_70:
                           }
                         }
 
-                        v25 = [v23 countByEnumeratingWithState:&v57 objects:v79 count:16];
+                        v25 = [v23 countByEnumeratingWithState:&v56 objects:v78 count:16];
                         if (v25)
                         {
                           continue;
@@ -815,88 +809,86 @@ LABEL_70:
 LABEL_38:
                   }
 
-                  v20 = [participants countByEnumeratingWithState:&v61 objects:v80 count:16];
+                  v20 = [participants countByEnumeratingWithState:&v60 objects:v79 count:16];
                 }
 
                 while (v20);
               }
 
-              v17 = v49 + 1;
+              v17 = v48 + 1;
             }
 
-            while (v49 + 1 != v48);
-            v48 = [v45 countByEnumeratingWithState:&v65 objects:v81 count:16];
+            while (v48 + 1 != v47);
+            v47 = [v44 countByEnumeratingWithState:&v64 objects:v80 count:16];
           }
 
-          while (v48);
+          while (v47);
         }
 
-        v13 = v44 + 1;
+        v13 = v43 + 1;
       }
 
-      while (v44 + 1 != v43);
-      v43 = [obj countByEnumeratingWithState:&v69 objects:v82 count:16];
+      while (v43 + 1 != v42);
+      v42 = [obj countByEnumeratingWithState:&v68 objects:v81 count:16];
     }
 
-    while (v43);
+    while (v42);
   }
 
   allValues = [dictionary allValues];
   dispatch_group_leave(selfCopy[2]);
-
-  v38 = *MEMORY[0x277D85DE8];
 
   return allValues;
 }
 
 - (id)sharingPeopleForIdentities:(id)identities
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   identitiesCopy = identities;
   dispatch_group_enter(self->_dispatchGroup);
   array = [MEMORY[0x277CBEB18] array];
   selfCopy = self;
   allPeople = [(DSXPCSharingPermissions *)self allPeople];
+  v31 = 0u;
   v32 = 0u;
   v33 = 0u;
   v34 = 0u;
-  v35 = 0u;
   obj = identitiesCopy;
-  v6 = [obj countByEnumeratingWithState:&v32 objects:v41 count:16];
+  v6 = [obj countByEnumeratingWithState:&v31 objects:v40 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v33;
+    v8 = *v32;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v33 != v8)
+        if (*v32 != v8)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = *(*(&v32 + 1) + 8 * i);
+        v10 = *(*(&v31 + 1) + 8 * i);
+        v27 = 0u;
         v28 = 0u;
         v29 = 0u;
         v30 = 0u;
-        v31 = 0u;
         v11 = allPeople;
-        v12 = [v11 countByEnumeratingWithState:&v28 objects:v40 count:16];
+        v12 = [v11 countByEnumeratingWithState:&v27 objects:v39 count:16];
         if (v12)
         {
           v13 = v12;
-          v14 = *v29;
+          v14 = *v28;
 LABEL_8:
           v15 = 0;
           while (1)
           {
-            if (*v29 != v14)
+            if (*v28 != v14)
             {
               objc_enumerationMutation(v11);
             }
 
-            v16 = *(*(&v28 + 1) + 8 * v15);
+            v16 = *(*(&v27 + 1) + 8 * v15);
             if ([v16 isIdentity:v10])
             {
               break;
@@ -904,7 +896,7 @@ LABEL_8:
 
             if (v13 == ++v15)
             {
-              v13 = [v11 countByEnumeratingWithState:&v28 objects:v40 count:16];
+              v13 = [v11 countByEnumeratingWithState:&v27 objects:v39 count:16];
               if (v13)
               {
                 goto LABEL_8;
@@ -918,9 +910,9 @@ LABEL_8:
           if (os_log_type_enabled(DSLog_4, OS_LOG_TYPE_INFO))
           {
             *buf = 138412546;
-            v37 = v16;
-            v38 = 2112;
-            v39 = v10;
+            v36 = v16;
+            v37 = 2112;
+            v38 = v10;
             _os_log_impl(&dword_248C40000, v17, OS_LOG_TYPE_INFO, "Found sharing person %@ matching %@", buf, 0x16u);
           }
 
@@ -951,55 +943,53 @@ LABEL_14:
         if (os_log_type_enabled(DSLog_4, OS_LOG_TYPE_INFO))
         {
           *buf = 138412290;
-          v37 = v10;
+          v36 = v10;
           _os_log_impl(&dword_248C40000, v22, OS_LOG_TYPE_INFO, "No sharing person found in model matching %@", buf, 0xCu);
         }
       }
 
-      v7 = [obj countByEnumeratingWithState:&v32 objects:v41 count:16];
+      v7 = [obj countByEnumeratingWithState:&v31 objects:v40 count:16];
     }
 
     while (v7);
   }
 
   dispatch_group_leave(selfCopy->_dispatchGroup);
-  v23 = *MEMORY[0x277D85DE8];
 
   return array;
 }
 
 - (int64_t)deviceOwnerRoleForSharedResource:(id)resource
 {
-  v60 = *MEMORY[0x277D85DE8];
+  v59 = *MEMORY[0x277D85DE8];
+  v52 = 0u;
   v53 = 0u;
   v54 = 0u;
   v55 = 0u;
-  v56 = 0u;
   participants = [resource participants];
-  v51 = [participants countByEnumeratingWithState:&v53 objects:v59 count:16];
-  if (!v51)
+  v50 = [participants countByEnumeratingWithState:&v52 objects:v58 count:16];
+  if (!v50)
   {
 
-    result = 1;
-    goto LABEL_37;
+    return 1;
   }
 
-  v49 = 0;
   v48 = 0;
-  v50 = *v54;
+  v47 = 0;
+  v49 = *v53;
   *&v4 = 138477827;
-  v46 = v4;
+  v45 = v4;
   obj = participants;
   do
   {
-    for (i = 0; i != v51; ++i)
+    for (i = 0; i != v50; ++i)
     {
-      if (*v54 != v50)
+      if (*v53 != v49)
       {
         objc_enumerationMutation(obj);
       }
 
-      v6 = *(*(&v53 + 1) + 8 * i);
+      v6 = *(*(&v52 + 1) + 8 * i);
       identity = [v6 identity];
       unifiedContactIdentifier = [identity unifiedContactIdentifier];
       if (![unifiedContactIdentifier length])
@@ -1028,8 +1018,8 @@ LABEL_11:
         v16 = v14;
         identity3 = [v6 identity];
         unifiedContactIdentifier3 = [identity3 unifiedContactIdentifier];
-        *buf = v46;
-        v58 = unifiedContactIdentifier3;
+        *buf = v45;
+        v57 = unifiedContactIdentifier3;
         _os_log_impl(&dword_248C40000, v16, OS_LOG_TYPE_INFO, "%{private}@ is the me card", buf, 0xCu);
       }
 
@@ -1053,8 +1043,8 @@ LABEL_12:
             v27 = v26;
             identity6 = [v6 identity];
             emailAddress3 = [identity6 emailAddress];
-            *buf = v46;
-            v58 = emailAddress3;
+            *buf = v45;
+            v57 = emailAddress3;
             _os_log_impl(&dword_248C40000, v27, OS_LOG_TYPE_INFO, "%{private}@ is the me card", buf, 0xCu);
           }
         }
@@ -1082,8 +1072,8 @@ LABEL_12:
             v38 = v37;
             identity9 = [v6 identity];
             phoneNumber3 = [identity9 phoneNumber];
-            *buf = v46;
-            v58 = phoneNumber3;
+            *buf = v45;
+            v57 = phoneNumber3;
             _os_log_impl(&dword_248C40000, v38, OS_LOG_TYPE_INFO, "%{private}@ is the me card", buf, 0xCu);
           }
 
@@ -1097,7 +1087,7 @@ LABEL_12:
 
       if (!v15)
       {
-        v49 |= [v6 role] == 1;
+        v48 |= [v6 role] == 1;
         continue;
       }
 
@@ -1106,7 +1096,7 @@ LABEL_23:
       if (role == 2)
       {
         v42 = 1;
-        if (v48 != 1)
+        if (v47 != 1)
         {
           v42 = 2;
         }
@@ -1122,28 +1112,26 @@ LABEL_23:
         v42 = 1;
       }
 
-      v48 = v42;
+      v47 = v42;
     }
 
-    v51 = [obj countByEnumeratingWithState:&v53 objects:v59 count:16];
+    v50 = [obj countByEnumeratingWithState:&v52 objects:v58 count:16];
   }
 
-  while (v51);
+  while (v50);
 
   v43 = 1;
-  if (v49)
+  if (v48)
   {
     v43 = 2;
   }
 
-  result = v48;
-  if (!v48)
+  result = v47;
+  if (!v47)
   {
-    result = v43;
+    return v43;
   }
 
-LABEL_37:
-  v45 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -1195,7 +1183,7 @@ LABEL_37:
 
 void __97__DSXPCSharingPermissions_addSharingPerson_participant_forSource_sharedResource_deviceOwnerRole___block_invoke(uint64_t a1)
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 72));
   v3 = *(a1 + 32);
   v4 = [*(a1 + 40) me];
@@ -1208,13 +1196,13 @@ void __97__DSXPCSharingPermissions_addSharingPerson_participant_forSource_shared
     {
       v6 = *(a1 + 48);
       v7 = *(a1 + 56);
-      v22 = 138478083;
-      v23 = v6;
-      v24 = 2114;
-      v25 = v7;
+      v21 = 138478083;
+      v22 = v6;
+      v23 = 2114;
+      v24 = v7;
       v8 = "Skipping participant %{private}@ for source %{public}@ because they match the me card";
 LABEL_9:
-      _os_log_impl(&dword_248C40000, v5, OS_LOG_TYPE_DEFAULT, v8, &v22, 0x16u);
+      _os_log_impl(&dword_248C40000, v5, OS_LOG_TYPE_DEFAULT, v8, &v21, 0x16u);
     }
   }
 
@@ -1248,13 +1236,13 @@ LABEL_9:
         {
           v19 = *(a1 + 48);
           v20 = *(a1 + 56);
-          v22 = 138478339;
-          v23 = v19;
-          v24 = 2114;
-          v25 = v15;
-          v26 = 2114;
-          v27 = v20;
-          _os_log_impl(&dword_248C40000, v18, OS_LOG_TYPE_INFO, "Adding participant %{private}@ to existing person %{public}@ for source %{public}@", &v22, 0x20u);
+          v21 = 138478339;
+          v22 = v19;
+          v23 = 2114;
+          v24 = v15;
+          v25 = 2114;
+          v26 = v20;
+          _os_log_impl(&dword_248C40000, v18, OS_LOG_TYPE_INFO, "Adding participant %{private}@ to existing person %{public}@ for source %{public}@", &v21, 0x20u);
         }
       }
 
@@ -1268,17 +1256,15 @@ LABEL_9:
       {
         v16 = *(a1 + 48);
         v17 = *(a1 + 56);
-        v22 = 138478083;
-        v23 = v16;
-        v24 = 2114;
-        v25 = v17;
+        v21 = 138478083;
+        v22 = v16;
+        v23 = 2114;
+        v24 = v17;
         v8 = "Skipping participant %{private}@ for source %{public}@ because they do not have a display name";
         goto LABEL_9;
       }
     }
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 void __97__DSXPCSharingPermissions_addSharingPerson_participant_forSource_sharedResource_deviceOwnerRole___block_invoke_32(uint64_t a1)
@@ -1477,12 +1463,11 @@ void __37__DSXPCSharingPermissions_connectXPC__block_invoke_92(uint64_t a1)
 
 - (void)isFetchNeeded
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2_0();
-  v4 = 2050;
-  v5 = v0;
-  _os_log_fault_impl(&dword_248C40000, v1, OS_LOG_TYPE_FAULT, "mach_continuous_time walked backwards (now: %{public}llu, then: %{public}llu)", v3, 0x16u);
-  v2 = *MEMORY[0x277D85DE8];
+  v3 = 2050;
+  v4 = v0;
+  _os_log_fault_impl(&dword_248C40000, v1, OS_LOG_TYPE_FAULT, "mach_continuous_time walked backwards (now: %{public}llu, then: %{public}llu)", v2, 0x16u);
 }
 
 - (void)_fetchSharingWithCompletion:.cold.1()
@@ -1494,37 +1479,31 @@ void __37__DSXPCSharingPermissions_connectXPC__block_invoke_92(uint64_t a1)
 
 void __55__DSXPCSharingPermissions__fetchSharingWithCompletion___block_invoke_24_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_0_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)makeSharingPeopleWithResources:(void *)a1 .cold.1(void *a1, void *a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v3 = a1;
   [a2 count];
   OUTLINED_FUNCTION_2_0();
-  _os_log_error_impl(&dword_248C40000, v3, OS_LOG_TYPE_ERROR, "Can't make sharing people-- found %ld sources but no identities", v5, 0xCu);
-
-  v4 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_248C40000, v3, OS_LOG_TYPE_ERROR, "Can't make sharing people-- found %ld sources but no identities", v4, 0xCu);
 }
 
 - (void)sharingPeopleForContacts:(void *)a3 .cold.1(void *a1, void *a2, void *a3)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v5 = a2;
-  v7 = 138412802;
-  v8 = a1;
-  v9 = 2048;
-  v10 = [a1 count];
-  v11 = 2048;
-  v12 = [a3 count];
-  _os_log_error_impl(&dword_248C40000, v5, OS_LOG_TYPE_ERROR, "Error fetching full contacts for %@ -- expected %ld but got back %ld", &v7, 0x20u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  v6 = 138412802;
+  v7 = a1;
+  v8 = 2048;
+  v9 = [a1 count];
+  v10 = 2048;
+  v11 = [a3 count];
+  _os_log_error_impl(&dword_248C40000, v5, OS_LOG_TYPE_ERROR, "Error fetching full contacts for %@ -- expected %ld but got back %ld", &v6, 0x20u);
 }
 
 void __37__DSXPCSharingPermissions_connectXPC__block_invoke_cold_1()

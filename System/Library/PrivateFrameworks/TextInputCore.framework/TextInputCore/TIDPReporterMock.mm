@@ -27,75 +27,73 @@
 
 - (BOOL)recordNumbersVectors:(id)vectors metadata:(id)metadata
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   vectorsCopy = vectors;
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
-  v6 = [vectorsCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v6 = [vectorsCopy countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v13;
+    v8 = *v12;
     do
     {
       v9 = 0;
       do
       {
-        if (*v13 != v8)
+        if (*v12 != v8)
         {
           objc_enumerationMutation(vectorsCopy);
         }
 
-        [(TIDPReporterMock *)self record:*(*(&v12 + 1) + 8 * v9++)];
+        [(TIDPReporterMock *)self record:*(*(&v11 + 1) + 8 * v9++)];
       }
 
       while (v7 != v9);
-      v7 = [vectorsCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v7 = [vectorsCopy countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v7);
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
 - (BOOL)record:(id)record
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   recordCopy = record;
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
-  v5 = [recordCopy countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v5 = [recordCopy countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v12;
+    v7 = *v11;
     do
     {
       v8 = 0;
       do
       {
-        if (*v12 != v7)
+        if (*v11 != v7)
         {
           objc_enumerationMutation(recordCopy);
         }
 
-        [(NSMutableArray *)self->_recordsWritten addObject:*(*(&v11 + 1) + 8 * v8++)];
+        [(NSMutableArray *)self->_recordsWritten addObject:*(*(&v10 + 1) + 8 * v8++)];
       }
 
       while (v6 != v8);
-      v6 = [recordCopy countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v6 = [recordCopy countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v6);
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return 1;
 }
 

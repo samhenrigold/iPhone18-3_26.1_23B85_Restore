@@ -26,29 +26,29 @@
   }
 
   v6 = [dictionaryCopy PKStringForKey:@"action"];
-  if ([@"none" isEqualToString:v6])
+  if (objc_msgSend_isEqualToString_(@"none"))
   {
     v7 = 1;
   }
 
-  else if ([@"pass" isEqualToString:v6])
+  else if (objc_msgSend_isEqualToString_(@"pass"))
   {
     v7 = 2;
   }
 
-  else if ([@"passDetails" isEqualToString:v6])
+  else if (objc_msgSend_isEqualToString_(@"passDetails"))
   {
     v7 = 3;
   }
 
-  else if ([@"openURL" isEqualToString:v6])
+  else if (objc_msgSend_isEqualToString_(@"openURL"))
   {
     v7 = 4;
   }
 
   else
   {
-    if (([@"discoveryCard" isEqualToString:v6] & 1) == 0)
+    if ((objc_msgSend_isEqualToString_(@"discoveryCard") & 1) == 0)
     {
 
       v5->_actionType = 0;
@@ -292,7 +292,7 @@ LABEL_21:
   notificationCopy = notification;
   identifier = [(PKDiscoveryObject *)self identifier];
   identifier2 = [notificationCopy identifier];
-  if ([identifier isEqualToString:identifier2] && (v7 = -[PKDiscoveryObject version](self, "version"), v7 == objc_msgSend(notificationCopy, "version")) && (actionType = self->_actionType, actionType == objc_msgSend(notificationCopy, "actionType")))
+  if (objc_msgSend_isEqualToString_(identifier) && (v7 = -[PKDiscoveryObject version](self, "version"), v7 == [notificationCopy version]) && (actionType = self->_actionType, actionType == objc_msgSend(notificationCopy, "actionType")))
   {
     actionInfo = self->_actionInfo;
     actionInfo = [notificationCopy actionInfo];
@@ -300,41 +300,41 @@ LABEL_21:
     {
       localizedTitle = self->_localizedTitle;
       localizedTitle = [notificationCopy localizedTitle];
-      if ([(NSString *)localizedTitle isEqualToString:localizedTitle])
+      if (objc_msgSend_isEqualToString_(localizedTitle))
       {
         localizedMessage = self->_localizedMessage;
         localizedMessage = [notificationCopy localizedMessage];
-        if ([(NSString *)localizedMessage isEqualToString:localizedMessage])
+        if (objc_msgSend_isEqualToString_(localizedMessage))
         {
           localizedActionTitle = self->_localizedActionTitle;
           localizedActionTitle = [notificationCopy localizedActionTitle];
-          v17 = [(NSString *)localizedActionTitle isEqualToString:localizedActionTitle];
+          isEqualToString = objc_msgSend_isEqualToString_(localizedActionTitle);
         }
 
         else
         {
-          v17 = 0;
+          isEqualToString = 0;
         }
       }
 
       else
       {
-        v17 = 0;
+        isEqualToString = 0;
       }
     }
 
     else
     {
-      v17 = 0;
+      isEqualToString = 0;
     }
   }
 
   else
   {
-    v17 = 0;
+    isEqualToString = 0;
   }
 
-  return v17;
+  return isEqualToString;
 }
 
 - (PKDiscoveryNotification)initWithCoder:(id)coder

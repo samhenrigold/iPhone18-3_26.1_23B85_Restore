@@ -226,11 +226,11 @@
   [image setInflightFullSizeImageRequestID:{objc_msgSend(defaultManager, "requestImageForAsset:targetSize:contentMode:options:resultHandler:", photo, 0, v5, v7, *MEMORY[0x277CBF3A8], *(MEMORY[0x277CBF3A8] + 8))}];
 }
 
-uint64_t __74__PLUIImageViewController_photoTileViewControllerRequestsFullScreenImage___block_invoke(uint64_t result, uint64_t a2)
+id *__74__PLUIImageViewController_photoTileViewControllerRequestsFullScreenImage___block_invoke(id *result, uint64_t a2)
 {
   if (a2)
   {
-    return [*(result + 32) setFullSizeImage:a2];
+    return [result[4] setFullSizeImage:a2];
   }
 
   return result;
@@ -267,7 +267,7 @@ uint64_t __74__PLUIImageViewController_photoTileViewControllerRequestsFullScreen
 - (void)videoViewIsReadyToBeginPlayback:(id)playback
 {
   videoMaximumDuration = [(PLUIImageViewController *)self videoMaximumDuration];
-  [playback duration];
+  objc_msgSend_duration(playback);
   v7 = v6;
   disableVideoTrimMessage = [(PLUIImageViewController *)self disableVideoTrimMessage];
   if (*(self + 1112))
@@ -420,7 +420,7 @@ LABEL_14:
     v17 = [MEMORY[0x277CBEBC0] fileURLWithPath:path isDirectory:0];
     v18 = -[PLVideoRemaker initWithAVAsset:]([PLVideoRemaker alloc], "initWithAVAsset:", [MEMORY[0x277CE6650] assetWithURL:v17]);
     self->_remaker = v18;
-    [(PLVideoView *)self->_videoView duration];
+    objc_msgSend_duration(self->_videoView);
     [(PLVideoRemaker *)v18 setDuration:?];
     isHDVideo = 0;
   }
@@ -512,7 +512,7 @@ LABEL_20:
   [(PLVideoRemaker *)self->_remaker setMode:v21];
   [(PLVideoView *)self->_videoView hideTrimMessage];
   v22 = v8 - v6;
-  [(PLVideoView *)self->_videoView duration];
+  objc_msgSend_duration(self->_videoView);
   v24 = v23;
   progressView = [(PLVideoRemaker *)self->_remaker progressView];
   self->_progressView = progressView;
@@ -794,8 +794,8 @@ LABEL_5:
   v5 = *(MEMORY[0x277CBF3A0] + 24);
   [(PLUIImageViewController *)self previewFrame];
   [(PLUIImageViewController *)self setPreferredContentSize:320.0, v7];
-  v43 = [objc_alloc(-[PLUIImageViewController _viewClass](self "_viewClass"))];
-  [v43 setAutoresizingMask:{-[PLUIImageViewController _contentAutoresizingMask](self, "_contentAutoresizingMask")}];
+  v45 = [objc_alloc(-[PLUIImageViewController _viewClass](self "_viewClass"))];
+  [v45 setAutoresizingMask:{-[PLUIImageViewController _contentAutoresizingMask](self, "_contentAutoresizingMask")}];
   v8 = MEMORY[0x277CBF348];
   blackColor = [MEMORY[0x277D75348] blackColor];
   customBackgroundColor = [(PLUIImageViewController *)self customBackgroundColor];
@@ -809,7 +809,7 @@ LABEL_5:
     v11 = blackColor;
   }
 
-  [v43 setBackgroundColor:v11];
+  [v45 setBackgroundColor:v11];
   [(PLUIImageViewController *)self setExtendedLayoutIncludesOpaqueBars:1];
   uiipc_useTelephonyUI = [(UIViewController *)self uiipc_useTelephonyUI];
   v13 = ([objc_msgSend(MEMORY[0x277D75418] "currentDevice")] & 0xFFFFFFFFFFFFFFFBLL) != 1;
@@ -841,68 +841,72 @@ LABEL_5:
 
   self->_videoView = 0;
   self->_imageTile = 0;
-  if ((*(self + 1112) & 4) == 0 && ![(PLUIImageViewController *)self wantsAutoloopUI])
+  if ((*(self + 1112) & 4) == 0)
   {
-    imageRef = self->_imageRef;
-    if (imageRef)
+    wantsAutoloopUI = [(PLUIImageViewController *)self wantsAutoloopUI];
+    if (!wantsAutoloopUI)
     {
-      if ([(PLUIImageViewController *)self clientIsWallpaper])
+      imageRef = self->_imageRef;
+      if (imageRef)
       {
-        v21 = 2;
-      }
-
-      else
-      {
-        v21 = 1;
-      }
-
-      v22 = [PLPhotoTileViewController newPhotoTileViewControllerWithFrame:imageRef imageRef:0 imageOrientation:1 allowZoomToFill:v21 mode:v16, v15, v6, v5];
-    }
-
-    else
-    {
-      image = self->_image;
-      if (!image)
-      {
-        v40 = [(PLManagedAsset *)self->_photo pl_PHAssetFromPhotoLibrary:pl_appPhotoLibrary()];
         if ([(PLUIImageViewController *)self clientIsWallpaper])
         {
-          v41 = 2;
+          v23 = 2;
         }
 
         else
         {
-          v41 = 1;
+          v23 = 1;
         }
 
-        v42 = [PLPhotoTileViewController newPhotoTileViewControllerWithFrame:v40 modelPhoto:v41 mode:v16, v15, v6, v5];
-        self->_imageTile = v42;
-        [(PLPhotoTileViewController *)v42 setTileDelegate:self];
-        goto LABEL_33;
-      }
-
-      if ([(PLUIImageViewController *)self clientIsWallpaper])
-      {
-        v30 = 2;
+        v24 = [PLPhotoTileViewController newPhotoTileViewControllerWithFrame:imageRef imageRef:0 imageOrientation:1 allowZoomToFill:v23 mode:v16, v15, v6, v5];
       }
 
       else
       {
-        v30 = 1;
+        image = self->_image;
+        if (!image)
+        {
+          v42 = [(PLManagedAsset *)self->_photo pl_PHAssetFromPhotoLibrary:pl_appPhotoLibrary(wantsAutoloopUI, v20)];
+          if ([(PLUIImageViewController *)self clientIsWallpaper])
+          {
+            v43 = 2;
+          }
+
+          else
+          {
+            v43 = 1;
+          }
+
+          v44 = [PLPhotoTileViewController newPhotoTileViewControllerWithFrame:v42 modelPhoto:v43 mode:v16, v15, v6, v5];
+          self->_imageTile = v44;
+          [(PLPhotoTileViewController *)v44 setTileDelegate:self];
+          goto LABEL_33;
+        }
+
+        if ([(PLUIImageViewController *)self clientIsWallpaper])
+        {
+          v32 = 2;
+        }
+
+        else
+        {
+          v32 = 1;
+        }
+
+        v24 = [PLPhotoTileViewController newPhotoTileViewControllerWithFrame:image image:1 allowZoomToFill:v32 mode:v16, v15, v6, v5];
       }
 
-      v22 = [PLPhotoTileViewController newPhotoTileViewControllerWithFrame:image image:1 allowZoomToFill:v30 mode:v16, v15, v6, v5];
+      self->_imageTile = v24;
+      goto LABEL_33;
     }
-
-    self->_imageTile = v22;
-    goto LABEL_33;
   }
 
   if (![(PLUIImageViewController *)self wantsAutoloopUI])
   {
     if ([(NSURL *)self->_videoURL isFileURL])
     {
-      v19 = [PLVideoView videoViewForVideoFileAtURL:self->_videoURL];
+      v21 = [PLVideoView videoViewForVideoFileAtURL:self->_videoURL];
     }
 
     else
@@ -910,38 +914,38 @@ LABEL_5:
       videoURL = self->_videoURL;
       if (videoURL)
       {
-        v24 = [MEMORY[0x277D3ACE0] photoFromAssetURL:videoURL photoLibrary:{objc_msgSend(MEMORY[0x277D3AD38], "systemPhotoLibrary")}];
-        v25 = [PLVideoView alloc];
-        v26 = 1.0;
-        v27 = 1.0;
-        photo = v24;
+        v26 = [MEMORY[0x277D3ACE0] photoFromAssetURL:videoURL photoLibrary:{objc_msgSend(MEMORY[0x277D3AD38], "systemPhotoLibrary")}];
+        v27 = [PLVideoView alloc];
+        v28 = 1.0;
+        v29 = 1.0;
+        photo = v26;
       }
 
       else
       {
-        v25 = [PLVideoView alloc];
+        v27 = [PLVideoView alloc];
         photo = self->_photo;
-        v26 = 1.0;
-        v27 = 1.0;
+        v28 = 1.0;
+        v29 = 1.0;
       }
 
-      v19 = [(PLVideoView *)v25 initWithFrame:photo videoCameraImage:1 orientation:0.0, 0.0, v26, v27];
+      v21 = [(PLVideoView *)v27 initWithFrame:photo videoCameraImage:1 orientation:0.0, 0.0, v28, v29];
     }
 
-    self->_videoView = v19;
+    self->_videoView = v21;
     [(PLUIImageViewController *)self setEdgesForExtendedLayout:14];
     [(PLUIImageViewController *)self previewFrame];
-    v32 = v31;
     v34 = v33;
+    v36 = v35;
     if (!PLIsTallScreen())
     {
-      v5 = v34;
+      v5 = v36;
     }
 
-    v35 = objc_alloc_init(PLPhotoTileViewController);
-    self->_imageTile = v35;
-    [-[PLPhotoTileViewController view](v35 "view")];
-    [(PLVideoView *)self->_videoView setFrame:0.0, 0.0, v32, v5];
+    v37 = objc_alloc_init(PLPhotoTileViewController);
+    self->_imageTile = v37;
+    [-[PLPhotoTileViewController view](v37 "view")];
+    [(PLVideoView *)self->_videoView setFrame:0.0, 0.0, v34, v5];
     [(PLVideoView *)self->_videoView setDelegate:self];
     viewImageBeforeSelecting = 1;
     [(PLVideoView *)self->_videoView setLoadMediaImmediately:1];
@@ -969,23 +973,23 @@ LABEL_33:
     [(PLUIImageViewController *)self addChildViewController:?];
     view = [(PLPhotoTileViewController *)self->_imageTile view];
     [view setAutoresizingMask:{-[PLUIImageViewController _tileAutoresizingMask](self, "_tileAutoresizingMask")}];
-    [v43 addSubview:view];
+    [v45 addSubview:view];
   }
 
-  [v43 addSubview:self->_cropOverlay];
+  [v45 addSubview:self->_cropOverlay];
   [(PLUIImageViewController *)self _updateGestureSettings];
-  [(PLUIImageViewController *)self setView:v43];
+  [(PLUIImageViewController *)self setView:v45];
   if ((*(self + 1112) & 1) != 0 && ![(PLUIImageViewController *)self wantsAutoloopUI])
   {
-    v39 = [(PLUIImageViewController *)self wantsLegacyImageUI]^ 1;
+    v41 = [(PLUIImageViewController *)self wantsLegacyImageUI]^ 1;
   }
 
   else
   {
-    v39 = 1;
+    v41 = 1;
   }
 
-  [(PLCropOverlay *)self->_cropOverlay setPreviewMode:v39];
+  [(PLCropOverlay *)self->_cropOverlay setPreviewMode:v41];
 }
 
 - (void)setupNavigationItem

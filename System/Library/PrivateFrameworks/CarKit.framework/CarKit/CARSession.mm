@@ -83,7 +83,7 @@
 
     else
     {
-      v9 = CarGeneralLogging();
+      v9 = CarGeneralLogging(0);
       if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
         [CARSession videoPlaybackAvailable];
@@ -104,7 +104,7 @@
 - (BOOL)_sessionReady
 {
   v9 = *MEMORY[0x1E69E9840];
-  v3 = CarGeneralLogging();
+  v3 = CarGeneralLogging(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v6[0] = 67109376;
@@ -125,7 +125,7 @@
 
 - (void)_fetchAuthenticationStatus
 {
-  v11 = 0;
+  v12 = 0;
   cf1 = 0;
   [(CARSession *)self endpoint];
   CMBaseObject = FigEndpointGetCMBaseObject();
@@ -137,18 +137,18 @@
     v6 = *(*(CMBaseObjectGetVTable() + 8) + 48);
     if (v6)
     {
-      v6(v5, *MEMORY[0x1E6961FC0], 0, &v11);
-      if (v11)
+      v6(v5, *MEMORY[0x1E6961FC0], 0, &v12);
+      if (v12)
       {
         MFiCertificateSerialNumber = self->_MFiCertificateSerialNumber;
-        self->_MFiCertificateSerialNumber = v11;
+        self->_MFiCertificateSerialNumber = v12;
 
         self->_authenticated = 1;
-        v8 = CarGeneralLogging();
-        if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+        v9 = CarGeneralLogging(v8);
+        if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
         {
-          *v10 = 0;
-          _os_log_impl(&dword_1C81FC000, v8, OS_LOG_TYPE_DEFAULT, "endpoint is authenticated", v10, 2u);
+          *v11 = 0;
+          _os_log_impl(&dword_1C81FC000, v9, OS_LOG_TYPE_DEFAULT, "endpoint is authenticated", v11, 2u);
         }
       }
     }
@@ -156,7 +156,7 @@
 
   else
   {
-    v9 = self->_MFiCertificateSerialNumber;
+    v10 = self->_MFiCertificateSerialNumber;
     self->_MFiCertificateSerialNumber = 0;
 
     self->_authenticated = 0;
@@ -170,65 +170,80 @@
 
 - (void)_fetchActivationStatus
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   BOOLean = 0;
   endpoint = [(CARSession *)self endpoint];
   if (endpoint)
   {
     v4 = endpoint;
     CMBaseObject = FigEndpointGetCMBaseObject();
-    v6 = *(*(CMBaseObjectGetVTable() + 8) + 48);
-    if (!v6 || v6(CMBaseObject, *MEMORY[0x1E6962100], *MEMORY[0x1E695E480], &BOOLean))
+    VTable = CMBaseObjectGetVTable();
+    v8 = *(VTable + 8);
+    v7 = VTable + 8;
+    v9 = *(v8 + 48);
+    if (v9)
     {
-      v9 = CarGeneralLogging();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      v7 = v9(CMBaseObject, *MEMORY[0x1E6962100], *MEMORY[0x1E695E480], &BOOLean);
+      v10 = v7;
+      if (!v7)
       {
-        [CARSession _fetchActivationStatus];
+        if (BOOLean)
+        {
+          Value = CFBooleanGetValue(BOOLean);
+          self->_activated = Value != 0;
+          v12 = CarGeneralLogging(Value);
+          if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+          {
+            v13 = NSStringFromBOOL();
+            *buf = 138543618;
+            v19 = v4;
+            v20 = 2114;
+            v21 = v13;
+            _os_log_impl(&dword_1C81FC000, v12, OS_LOG_TYPE_DEFAULT, "Endpoint: %{public}@ is activated: %{public}@", buf, 0x16u);
+          }
+
+          goto LABEL_12;
+        }
+
+        v14 = CarGeneralLogging(0);
+        if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+        {
+          *buf = 0;
+          _os_log_impl(&dword_1C81FC000, v14, OS_LOG_TYPE_DEFAULT, "Received a NULL activation status for endpoint.", buf, 2u);
+        }
+
+LABEL_11:
+
+        self->_activated = 0;
+LABEL_12:
+        if (BOOLean)
+        {
+          CFRelease(BOOLean);
+        }
+
+        return;
       }
     }
 
     else
     {
-      if (BOOLean)
-      {
-        self->_activated = CFBooleanGetValue(BOOLean) != 0;
-        v7 = CarGeneralLogging();
-        if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
-        {
-          v8 = NSStringFromBOOL();
-          *buf = 138543618;
-          v13 = v4;
-          v14 = 2114;
-          v15 = v8;
-          _os_log_impl(&dword_1C81FC000, v7, OS_LOG_TYPE_DEFAULT, "Endpoint: %{public}@ is activated: %{public}@", buf, 0x16u);
-        }
-
-        goto LABEL_11;
-      }
-
-      v9 = CarGeneralLogging();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
-      {
-        *buf = 0;
-        _os_log_impl(&dword_1C81FC000, v9, OS_LOG_TYPE_DEFAULT, "Received a NULL activation status for endpoint.", buf, 2u);
-      }
+      v10 = 4294954514;
     }
 
-    self->_activated = 0;
-LABEL_11:
-    if (BOOLean)
+    v14 = CarGeneralLogging(v7);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
-      CFRelease(BOOLean);
+      [(CARSession *)v10 _fetchActivationStatus];
     }
 
-    return;
+    goto LABEL_11;
   }
 
-  v10 = CarGeneralLogging();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  v16 = CarGeneralLogging(0);
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_1C81FC000, v10, OS_LOG_TYPE_DEFAULT, "No available endpoint to fetch activation status.", buf, 2u);
+    _os_log_impl(&dword_1C81FC000, v16, OS_LOG_TYPE_DEFAULT, "No available endpoint to fetch activation status.", buf, 2u);
   }
 
   self->_activated = 0;
@@ -434,14 +449,15 @@ LABEL_11:
       goto LABEL_9;
     }
 
-    if ([actionCopy isEqualToString:*MEMORY[0x1E69624E0]])
+    v5 = [actionCopy isEqualToString:*MEMORY[0x1E69624E0]];
+    if (v5)
     {
       v4 = 4;
       goto LABEL_9;
     }
 
-    v6 = CarGeneralLogging();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = CarGeneralLogging(v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       +[CARSession _siriRequestEventForEndpointAction:];
     }
@@ -455,7 +471,7 @@ LABEL_9:
 
 - (CARSession)initWithFigEndpoint:(OpaqueFigEndpoint *)endpoint sessionStatusOptions:(unint64_t)options
 {
-  v55 = *MEMORY[0x1E69E9840];
+  v57 = *MEMORY[0x1E69E9840];
   v7 = +[CARSessionStatus sessionUpdatesQueue];
   dispatch_assert_queue_V2(v7);
 
@@ -491,47 +507,47 @@ LABEL_21:
 
       if (v15 >= 2)
       {
-        v16 = CarGeneralLogging();
-        if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+        v17 = CarGeneralLogging(v16);
+        if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
-          _os_log_impl(&dword_1C81FC000, v16, OS_LOG_TYPE_DEFAULT, "Listening for cluster URL update notifications", buf, 2u);
+          _os_log_impl(&dword_1C81FC000, v17, OS_LOG_TYPE_DEFAULT, "Listening for cluster URL update notifications", buf, 2u);
         }
 
-        v17 = dispatch_queue_create("com.apple.carkit.clusterURLUpdates", 0);
+        v18 = dispatch_queue_create("com.apple.carkit.clusterURLUpdates", 0);
         clusterURLUpdateQueue = v9->_clusterURLUpdateQueue;
-        v9->_clusterURLUpdateQueue = v17;
+        v9->_clusterURLUpdateQueue = v18;
 
         defaultCenter = [MEMORY[0x1E696ABB0] defaultCenter];
         [defaultCenter addObserver:v9 selector:sel__clusterURLsUpdated_ name:@"CRInstrumentClusterURLsDidChangeNotification" object:0];
       }
 
-      v20 = CarGeneralLogging();
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+      v21 = CarGeneralLogging(v16);
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_1C81FC000, v20, OS_LOG_TYPE_DEFAULT, "Creating location based night mode observer", buf, 2u);
+        _os_log_impl(&dword_1C81FC000, v21, OS_LOG_TYPE_DEFAULT, "Creating location based night mode observer", buf, 2u);
       }
 
       objc_initWeak(&location, v9);
-      v21 = +[CARSessionStatus sessionUpdatesQueue];
+      v22 = +[CARSessionStatus sessionUpdatesQueue];
       handler[0] = MEMORY[0x1E69E9820];
       handler[1] = 3221225472;
       handler[2] = __55__CARSession_initWithFigEndpoint_sessionStatusOptions___block_invoke;
       handler[3] = &unk_1E82FD878;
-      objc_copyWeak(&v49, &location);
-      notify_register_dispatch("com.apple.private.carkit.fallbackNightModeChanged", &v9->_nightFallbackNotifyToken, v21, handler);
+      objc_copyWeak(&v51, &location);
+      notify_register_dispatch("com.apple.private.carkit.fallbackNightModeChanged", &v9->_nightFallbackNotifyToken, v22, handler);
 
-      v22 = [(CARSession *)v9 _endpointValueForKey:*MEMORY[0x1E69621F0]];
+      v23 = [(CARSession *)v9 _endpointValueForKey:*MEMORY[0x1E69621F0]];
       systemNightMode = v9->_systemNightMode;
-      v9->_systemNightMode = v22;
+      v9->_systemNightMode = v23;
 
       [(CARSession *)v9 _sessionUpdatesQueue_fetchFallbackIsNightWithToken:v9->_nightFallbackNotifyToken];
-      v24 = [(CARSession *)v9 _endpointValueForKey:*MEMORY[0x1E6962330]];
-      v25 = v24;
-      if (v24)
+      v25 = [(CARSession *)v9 _endpointValueForKey:*MEMORY[0x1E6962330]];
+      v26 = v25;
+      if (v25)
       {
-        integerValue = [v24 integerValue];
+        integerValue = [v25 integerValue];
       }
 
       else
@@ -540,58 +556,59 @@ LABEL_21:
       }
 
       v9->_voiceTriggerMode = integerValue;
-      v27 = [CARAppearanceManager alloc];
+      v28 = [CARAppearanceManager alloc];
       configuration2 = [(CARSession *)v9 configuration];
       screens2 = [configuration2 screens];
       bOOLValue = [(NSNumber *)v9->_systemNightMode BOOLValue];
       fallbackNightMode = [(CARSession *)v9 fallbackNightMode];
-      v32 = -[CARAppearanceManager initWithScreens:initialSystemNightMode:initialLocationBasedNightMode:delegate:](v27, "initWithScreens:initialSystemNightMode:initialLocationBasedNightMode:delegate:", screens2, bOOLValue, [fallbackNightMode BOOLValue], v9);
+      v33 = -[CARAppearanceManager initWithScreens:initialSystemNightMode:initialLocationBasedNightMode:delegate:](v28, "initWithScreens:initialSystemNightMode:initialLocationBasedNightMode:delegate:", screens2, bOOLValue, [fallbackNightMode BOOLValue], v9);
       appearanceManager = v9->_appearanceManager;
-      v9->_appearanceManager = v32;
+      v9->_appearanceManager = v33;
 
-      if (([(CARSession *)v9 sessionStatusOptions]& 2) != 0)
+      sessionStatusOptions = [(CARSession *)v9 sessionStatusOptions];
+      if ((sessionStatusOptions & 2) != 0)
       {
-        v34 = +[CARPrototypePref disableLocationNightMode];
-        valueBool = [v34 valueBool];
+        v36 = +[CARPrototypePref disableLocationNightMode];
+        valueBool = [v36 valueBool];
 
         if (valueBool)
         {
-          v36 = CarGeneralLogging();
-          if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
+          v38 = CarGeneralLogging(sessionStatusOptions);
+          if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 0;
-            _os_log_impl(&dword_1C81FC000, v36, OS_LOG_TYPE_DEFAULT, "Disabling location night mode", buf, 2u);
+            _os_log_impl(&dword_1C81FC000, v38, OS_LOG_TYPE_DEFAULT, "Disabling location night mode", buf, 2u);
           }
 
-          [(CARAppearanceManager *)v9->_appearanceManager setDisableLocationNightMode];
+          sessionStatusOptions = [(CARAppearanceManager *)v9->_appearanceManager setDisableLocationNightMode];
         }
       }
 
-      v37 = CarGeneralLogging();
-      if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
+      v39 = CarGeneralLogging(sessionStatusOptions);
+      if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
       {
-        v38 = objc_opt_class();
+        v40 = objc_opt_class();
         systemNightMode = [(CARSession *)v9 systemNightMode];
-        v40 = [v38 _stringForNightModeNumber:systemNightMode];
-        v41 = objc_opt_class();
+        v42 = [v40 _stringForNightModeNumber:systemNightMode];
+        v43 = objc_opt_class();
         fallbackNightMode2 = [(CARSession *)v9 fallbackNightMode];
-        v43 = [v41 _stringForNightModeNumber:fallbackNightMode2];
+        v45 = [v43 _stringForNightModeNumber:fallbackNightMode2];
         *buf = 138412546;
-        v52 = v40;
-        v53 = 2112;
-        v54 = v43;
-        _os_log_impl(&dword_1C81FC000, v37, OS_LOG_TYPE_DEFAULT, "Initial system night mode: %@, initial location night mode: %@", buf, 0x16u);
+        v54 = v42;
+        v55 = 2112;
+        v56 = v45;
+        _os_log_impl(&dword_1C81FC000, v39, OS_LOG_TYPE_DEFAULT, "Initial system night mode: %@, initial location night mode: %@", buf, 0x16u);
       }
 
       screens3 = [(CARSessionConfiguration *)v9->_configuration screens];
-      v46[0] = MEMORY[0x1E69E9820];
-      v46[1] = 3221225472;
-      v46[2] = __55__CARSession_initWithFigEndpoint_sessionStatusOptions___block_invoke_356;
-      v46[3] = &unk_1E82FCCE8;
-      v47 = v9;
-      [screens3 enumerateObjectsUsingBlock:v46];
+      v48[0] = MEMORY[0x1E69E9820];
+      v48[1] = 3221225472;
+      v48[2] = __55__CARSession_initWithFigEndpoint_sessionStatusOptions___block_invoke_356;
+      v48[3] = &unk_1E82FCCE8;
+      v49 = v9;
+      [screens3 enumerateObjectsUsingBlock:v48];
 
-      objc_destroyWeak(&v49);
+      objc_destroyWeak(&v51);
       objc_destroyWeak(&location);
     }
 
@@ -606,16 +623,17 @@ LABEL_22:
 void __55__CARSession_initWithFigEndpoint_sessionStatusOptions___block_invoke(uint64_t a1, uint64_t a2)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 32));
+  v4 = WeakRetained;
   if (WeakRetained)
   {
-    v4 = CarGeneralLogging();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = CarGeneralLogging(WeakRetained);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      *v5 = 0;
-      _os_log_impl(&dword_1C81FC000, v4, OS_LOG_TYPE_DEFAULT, "Received cartkid ambient light changed notification, fetching ambient light", v5, 2u);
+      *v6 = 0;
+      _os_log_impl(&dword_1C81FC000, v5, OS_LOG_TYPE_DEFAULT, "Received cartkid ambient light changed notification, fetching ambient light", v6, 2u);
     }
 
-    [WeakRetained _sessionUpdatesQueue_fetchFallbackIsNightWithToken:a2];
+    [v4 _sessionUpdatesQueue_fetchFallbackIsNightWithToken:a2];
   }
 }
 
@@ -671,8 +689,8 @@ void __55__CARSession_initWithFigEndpoint_sessionStatusOptions___block_invoke_2(
 - (void)_performExtendedEndpointAction:(id)action
 {
   actionCopy = action;
-  endpoint = [(CARSession *)self endpoint];
-  if (endpoint && (v6 = endpoint, FigEndpointExtendedGetClassID(), CMBaseObjectIsMemberOfClass()))
+  IsMemberOfClass = [(CARSession *)self endpoint];
+  if (IsMemberOfClass && (v6 = IsMemberOfClass, FigEndpointExtendedGetClassID(), IsMemberOfClass = CMBaseObjectIsMemberOfClass(), IsMemberOfClass))
   {
     if (actionCopy)
     {
@@ -682,7 +700,7 @@ void __55__CARSession_initWithFigEndpoint_sessionStatusOptions___block_invoke_2(
 
   else
   {
-    v7 = CarGeneralLogging();
+    v7 = CarGeneralLogging(IsMemberOfClass);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       [CARSession _performExtendedEndpointAction:];
@@ -694,33 +712,36 @@ void __55__CARSession_initWithFigEndpoint_sessionStatusOptions___block_invoke_2(
 {
   if ([(CARSession *)self endpoint])
   {
-    v12 = 0;
+    v14 = 0;
     CMBaseObject = FigEndpointGetCMBaseObject();
-    v5 = *(*(CMBaseObjectGetVTable() + 8) + 48);
-    if (!v5 || ((v6 = v5(CMBaseObject, key, *MEMORY[0x1E695E480], &v12), v6 != -12787) ? (v7 = v6 == 0) : (v7 = 1), !v7))
+    VTable = CMBaseObjectGetVTable();
+    v7 = *(VTable + 8);
+    v6 = VTable + 8;
+    v8 = *(v7 + 48);
+    if (!v8 || ((v6 = v8(CMBaseObject, key, *MEMORY[0x1E695E480], &v14), v6 != -12787) ? (v9 = v6 == 0) : (v9 = 1), !v9))
     {
-      v8 = CarGeneralLogging();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+      v10 = CarGeneralLogging(v6);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
         [CARSession _endpointValueForKey:];
       }
     }
 
-    v9 = v12;
+    v11 = v14;
   }
 
   else
   {
-    v10 = CarGeneralLogging();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v12 = CarGeneralLogging(0);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       [CARSession _endpointValueForKey:];
     }
 
-    v9 = 0;
+    v11 = 0;
   }
 
-  return v9;
+  return v11;
 }
 
 - (void)_setEndpointValue:(void *)value forKey:(__CFString *)key
@@ -772,13 +793,13 @@ void __55__CARSession_initWithFigEndpoint_sessionStatusOptions___block_invoke_2(
 {
   isCopy = is;
   replyCopy = reply;
-  v44 = *MEMORY[0x1E69E9840];
+  v46 = *MEMORY[0x1E69E9840];
   sessionCopy = session;
   dCopy = d;
   serviceCopy = service;
   priorityCopy = priority;
   v19 = [sessionCopy substringToIndex:8];
-  v20 = CarGeneralLogging();
+  v20 = CarGeneralLogging(v19);
   if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
   {
     LODWORD(buf) = 138543362;
@@ -786,76 +807,77 @@ void __55__CARSession_initWithFigEndpoint_sessionStatusOptions___block_invoke_2(
     _os_log_impl(&dword_1C81FC000, v20, OS_LOG_TYPE_DEFAULT, "createRemoteControlSession for channel uuid: %{public}@", &buf, 0xCu);
   }
 
-  if ([(CARSession *)self isActivated])
+  isActivated = [(CARSession *)self isActivated];
+  if (isActivated)
   {
     Mutable = CFDictionaryCreateMutable(0, 0, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
-    v22 = Mutable;
+    v23 = Mutable;
     if (Mutable)
     {
       CFDictionarySetValue(Mutable, *MEMORY[0x1E6962360], sessionCopy);
       if (dCopy)
       {
-        CFDictionarySetValue(v22, *MEMORY[0x1E69623A8], dCopy);
+        CFDictionarySetValue(v23, *MEMORY[0x1E69623A8], dCopy);
       }
 
       if (replyCopy)
       {
-        CFDictionarySetValue(v22, *MEMORY[0x1E69623C8], MEMORY[0x1E695E118]);
+        CFDictionarySetValue(v23, *MEMORY[0x1E69623C8], MEMORY[0x1E695E118]);
       }
 
       if (serviceCopy)
       {
-        CFDictionarySetValue(v22, *MEMORY[0x1E69623B8], serviceCopy);
+        CFDictionarySetValue(v23, *MEMORY[0x1E69623B8], serviceCopy);
       }
 
       if (priorityCopy)
       {
-        CFDictionarySetValue(v22, *MEMORY[0x1E69623D8], priorityCopy);
+        CFDictionarySetValue(v23, *MEMORY[0x1E69623D8], priorityCopy);
       }
 
       if (isCopy)
       {
-        CFDictionarySetValue(v22, *MEMORY[0x1E69623C0], MEMORY[0x1E695E118]);
+        CFDictionarySetValue(v23, *MEMORY[0x1E69623C0], MEMORY[0x1E695E118]);
       }
 
       *&buf = 0;
       *(&buf + 1) = &buf;
-      v42 = 0x2020000000;
-      v43 = 0;
-      v35 = 0;
-      v36 = &v35;
-      v37 = 0x2020000000;
-      v38 = 0;
-      v34[0] = MEMORY[0x1E69E9820];
-      v34[1] = 3221225472;
-      v34[2] = __111__CARSession_createRemoteControlSession_channelID_withoutReply_sendAsIs_qualityOfService_streamPriority_error___block_invoke;
-      v34[3] = &unk_1E82FD8A0;
-      v34[5] = &buf;
-      v34[6] = v22;
-      v34[4] = &v35;
-      [(CARSession *)self _performExtendedEndpointAction:v34];
-      CFRelease(v22);
-      v23 = *(v36 + 6);
-      if (!v23)
+      v44 = 0x2020000000;
+      v45 = 0;
+      v37 = 0;
+      v38 = &v37;
+      v39 = 0x2020000000;
+      v40 = 0;
+      v36[0] = MEMORY[0x1E69E9820];
+      v36[1] = 3221225472;
+      v36[2] = __111__CARSession_createRemoteControlSession_channelID_withoutReply_sendAsIs_qualityOfService_streamPriority_error___block_invoke;
+      v36[3] = &unk_1E82FD8A0;
+      v36[5] = &buf;
+      v36[6] = v23;
+      v36[4] = &v37;
+      [(CARSession *)self _performExtendedEndpointAction:v36];
+      CFRelease(v23);
+      v24 = *(v38 + 6);
+      if (!v24)
       {
         CFRetain(*(*(&buf + 1) + 24));
-        v30 = *(*(&buf + 1) + 24);
+        v32 = *(*(&buf + 1) + 24);
 LABEL_38:
-        _Block_object_dispose(&v35, 8);
+        _Block_object_dispose(&v37, 8);
         _Block_object_dispose(&buf, 8);
         goto LABEL_39;
       }
 
-      v39 = *MEMORY[0x1E696AA08];
-      v24 = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E696A768] code:v23 userInfo:0];
-      v40 = v24;
-      v25 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v40 forKeys:&v39 count:1];
+      v41 = *MEMORY[0x1E696AA08];
+      v25 = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E696A768] code:v24 userInfo:0];
+      v42 = v25;
+      v26 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v42 forKeys:&v41 count:1];
 
-      v26 = *(v36 + 6);
-      if (v26 == -16727)
+      v28 = *(v38 + 6);
+      if (v28 == -16727)
       {
-        v31 = CarGeneralLogging();
-        if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
+        v33 = CarGeneralLogging(v27);
+        if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
         {
           [CARSession createRemoteControlSession:channelID:withoutReply:sendAsIs:qualityOfService:streamPriority:error:];
         }
@@ -865,13 +887,13 @@ LABEL_38:
           goto LABEL_37;
         }
 
-        v28 = 4;
+        v30 = 4;
       }
 
-      else if (v26 == -17606)
+      else if (v28 == -17606)
       {
-        v27 = CarGeneralLogging();
-        if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+        v29 = CarGeneralLogging(v27);
+        if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
         {
           [CARSession createRemoteControlSession:channelID:withoutReply:sendAsIs:qualityOfService:streamPriority:error:];
         }
@@ -881,13 +903,13 @@ LABEL_38:
           goto LABEL_37;
         }
 
-        v28 = 2;
+        v30 = 2;
       }
 
       else
       {
-        v32 = CarGeneralLogging();
-        if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
+        v34 = CarGeneralLogging(v27);
+        if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
         {
           [CARSession createRemoteControlSession:channelID:withoutReply:sendAsIs:qualityOfService:streamPriority:error:];
         }
@@ -897,21 +919,21 @@ LABEL_38:
           goto LABEL_37;
         }
 
-        v28 = 3;
+        v30 = 3;
       }
 
-      *error = [MEMORY[0x1E696ABC0] errorWithDomain:@"com.apple.carkit.session" code:v28 userInfo:v25];
+      *error = [MEMORY[0x1E696ABC0] errorWithDomain:@"com.apple.carkit.session" code:v30 userInfo:v26];
 LABEL_37:
 
-      v30 = 0;
+      v32 = 0;
       goto LABEL_38;
     }
 
     goto LABEL_26;
   }
 
-  v29 = CarGeneralLogging();
-  if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+  v31 = CarGeneralLogging(isActivated);
+  if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
   {
     [CARSession createRemoteControlSession:channelID:withoutReply:sendAsIs:qualityOfService:streamPriority:error:];
   }
@@ -919,15 +941,15 @@ LABEL_37:
   if (!error)
   {
 LABEL_26:
-    v30 = 0;
+    v32 = 0;
     goto LABEL_39;
   }
 
   [MEMORY[0x1E696ABC0] errorWithDomain:@"com.apple.carkit.session" code:1 userInfo:0];
-  *error = v30 = 0;
+  *error = v32 = 0;
 LABEL_39:
 
-  return v30;
+  return v32;
 }
 
 uint64_t __111__CARSession_createRemoteControlSession_channelID_withoutReply_sendAsIs_qualityOfService_streamPriority_error___block_invoke(void *a1, uint64_t a2)
@@ -1021,7 +1043,8 @@ uint64_t __111__CARSession_createRemoteControlSession_channelID_withoutReply_sen
 
   if (v8)
   {
-    if ([v8 supportsAppearanceMode])
+    supportsAppearanceMode = [v8 supportsAppearanceMode];
+    if (supportsAppearanceMode)
     {
       appearanceManager = [(CARSession *)self appearanceManager];
       [appearanceManager handleUIAppearanceUpdateWithParameters:parametersCopy];
@@ -1029,7 +1052,7 @@ uint64_t __111__CARSession_createRemoteControlSession_channelID_withoutReply_sen
 
     else
     {
-      appearanceManager = CarGeneralLogging();
+      appearanceManager = CarGeneralLogging(supportsAppearanceMode);
       if (os_log_type_enabled(appearanceManager, OS_LOG_TYPE_ERROR))
       {
         [CARSession _sessionUpdatesQueue_handleAppearanceModeUpdateWithParameters:];
@@ -1039,7 +1062,7 @@ uint64_t __111__CARSession_createRemoteControlSession_channelID_withoutReply_sen
 
   else
   {
-    appearanceManager = CarGeneralLogging();
+    appearanceManager = CarGeneralLogging(v9);
     if (os_log_type_enabled(appearanceManager, OS_LOG_TYPE_ERROR))
     {
       [CARSession _sessionUpdatesQueue_handleAppearanceModeUpdateWithParameters:];
@@ -1059,7 +1082,8 @@ uint64_t __111__CARSession_createRemoteControlSession_channelID_withoutReply_sen
 
   if (v8)
   {
-    if ([v8 supportsMapAppearanceMode])
+    supportsMapAppearanceMode = [v8 supportsMapAppearanceMode];
+    if (supportsMapAppearanceMode)
     {
       appearanceManager = [(CARSession *)self appearanceManager];
       [appearanceManager handleMapAppearanceUpdateWithParameters:parametersCopy];
@@ -1067,18 +1091,18 @@ uint64_t __111__CARSession_createRemoteControlSession_channelID_withoutReply_sen
 
     else
     {
-      appearanceManager = CarGeneralLogging();
+      appearanceManager = CarGeneralLogging(supportsMapAppearanceMode);
       if (os_log_type_enabled(appearanceManager, OS_LOG_TYPE_DEFAULT))
       {
-        *v10 = 0;
-        _os_log_impl(&dword_1C81FC000, appearanceManager, OS_LOG_TYPE_DEFAULT, "Ignoring map appearance update because screen does not support maps appearance mode", v10, 2u);
+        *v12 = 0;
+        _os_log_impl(&dword_1C81FC000, appearanceManager, OS_LOG_TYPE_DEFAULT, "Ignoring map appearance update because screen does not support maps appearance mode", v12, 2u);
       }
     }
   }
 
   else
   {
-    appearanceManager = CarGeneralLogging();
+    appearanceManager = CarGeneralLogging(v9);
     if (os_log_type_enabled(appearanceManager, OS_LOG_TYPE_ERROR))
     {
       [CARSession _sessionUpdatesQueue_handleAppearanceModeUpdateWithParameters:];
@@ -1132,26 +1156,26 @@ LABEL_7:
   v5 = +[CARSessionStatus sessionUpdatesQueue];
   dispatch_assert_queue_V2(v5);
 
-  v6 = CarGeneralLogging();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+  v7 = CarGeneralLogging(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
     [CARSession _sessionUpdatesQueue_fetchFallbackIsNightWithToken:];
   }
 
   state64 = 0;
   notify_get_state(token, &state64);
-  v7 = state64;
-  v8 = [MEMORY[0x1E696AD98] numberWithBool:state64 != 0];
-  [(CARSession *)self setFallbackNightMode:v8];
+  v8 = state64;
+  v9 = [MEMORY[0x1E696AD98] numberWithBool:state64 != 0];
+  [(CARSession *)self setFallbackNightMode:v9];
 
-  v9 = CarGeneralLogging();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+  v11 = CarGeneralLogging(v10);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
   {
-    [(CARSession *)v7 != 0 _sessionUpdatesQueue_fetchFallbackIsNightWithToken:v9];
+    [(CARSession *)v8 != 0 _sessionUpdatesQueue_fetchFallbackIsNightWithToken:v11];
   }
 
   appearanceManager = [(CARSession *)self appearanceManager];
-  [appearanceManager handleLocationBasedNightModeUpdate:v7 != 0];
+  [appearanceManager handleLocationBasedNightModeUpdate:v8 != 0];
 
   [(CARSession *)self _sessionUpdatesQueue_handleNightModeChange];
 }
@@ -1251,8 +1275,8 @@ void __75__CARSession_appearanceManager_didUpdateMapAppearanceStyle_forScreenUUI
 
   if (unsignedIntegerValue >= v17)
   {
-    v18 = CarGeneralLogging();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+    v19 = CarGeneralLogging(v18);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
       [CARSession _sessionUpdatesQueue_handleViewAreaChangeWithPayload:unsignedIntegerValue];
     }
@@ -1261,12 +1285,12 @@ void __75__CARSession_appearanceManager_didUpdateMapAppearanceStyle_forScreenUUI
   }
 
   viewAreas2 = [v15 viewAreas];
-  v20 = [viewAreas2 count];
+  v21 = [viewAreas2 count];
 
-  if (unsignedIntegerValue >= v20)
+  if (unsignedIntegerValue >= v21)
   {
-    v22 = CarGeneralLogging();
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+    v24 = CarGeneralLogging(v22);
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
     {
       [CARSession _sessionUpdatesQueue_handleViewAreaChangeWithPayload:unsignedIntegerValue];
     }
@@ -1275,13 +1299,13 @@ void __75__CARSession_appearanceManager_didUpdateMapAppearanceStyle_forScreenUUI
   else
   {
     viewAreas3 = [v15 viewAreas];
-    v22 = [viewAreas3 objectAtIndex:unsignedIntegerValue];
+    v24 = [viewAreas3 objectAtIndex:unsignedIntegerValue];
 
     viewAreas4 = [v15 viewAreas];
-    v24 = _adjacentViewAreaForPayload(payloadCopy, viewAreas4);
+    v26 = _adjacentViewAreaForPayload(payloadCopy, viewAreas4);
 
-    [v15 setAdjacentViewArea:v24];
-    [(CARSession *)self _sessionUpdatesQueue_updateScreenInfo:v15 currentViewAreaToViewArea:v22 duration:_transitionControlTypeForViewAreaChange(v22 transitionControlType:v24), v13 / 1000.0];
+    [v15 setAdjacentViewArea:v26];
+    [(CARSession *)self _sessionUpdatesQueue_updateScreenInfo:v15 currentViewAreaToViewArea:v24 duration:_transitionControlTypeForViewAreaChange(v24 transitionControlType:v26), v13 / 1000.0];
   }
 }
 
@@ -1417,7 +1441,7 @@ void __62__CARSession__sessionUpdatesQueue_handleStopUIWithParameters___block_in
 - (void)_handleDisplayPanelsUpdateWithParameters:(id)parameters
 {
   parametersCopy = parameters;
-  v5 = CarGeneralLogging();
+  v5 = CarGeneralLogging(parametersCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -1497,26 +1521,26 @@ void __55__CARSession__handleDisplayPanelsUpdateWithParameters___block_invoke_3(
 
 - (void)_sessionUpdatesQueue_handleDisplayPluginsUpdateWithParameters:(id)parameters
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   parametersCopy = parameters;
   v5 = +[CARSessionStatus sessionUpdatesQueue];
   dispatch_assert_queue_V2(v5);
 
-  v6 = CarGeneralLogging();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v7 = CarGeneralLogging(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v10 = parametersCopy;
-    _os_log_impl(&dword_1C81FC000, v6, OS_LOG_TYPE_DEFAULT, "Received display panels update with %@", buf, 0xCu);
+    v11 = parametersCopy;
+    _os_log_impl(&dword_1C81FC000, v7, OS_LOG_TYPE_DEFAULT, "Received display panels update with %@", buf, 0xCu);
   }
 
-  v7 = [parametersCopy objectForKey:@"displayPanels"];
-  v8[0] = MEMORY[0x1E69E9820];
-  v8[1] = 3221225472;
-  v8[2] = __76__CARSession__sessionUpdatesQueue_handleDisplayPluginsUpdateWithParameters___block_invoke;
-  v8[3] = &unk_1E82FCC00;
-  v8[4] = self;
-  [v7 enumerateObjectsUsingBlock:v8];
+  v8 = [parametersCopy objectForKey:@"displayPanels"];
+  v9[0] = MEMORY[0x1E69E9820];
+  v9[1] = 3221225472;
+  v9[2] = __76__CARSession__sessionUpdatesQueue_handleDisplayPluginsUpdateWithParameters___block_invoke;
+  v9[3] = &unk_1E82FCC00;
+  v9[4] = self;
+  [v8 enumerateObjectsUsingBlock:v9];
 }
 
 void __76__CARSession__sessionUpdatesQueue_handleDisplayPluginsUpdateWithParameters___block_invoke(uint64_t a1, void *a2)
@@ -1639,11 +1663,11 @@ void __76__CARSession__sessionUpdatesQueue_handleDisplayPluginsUpdateWithParamet
   v3 = +[CARSessionStatus sessionUpdatesQueue];
   dispatch_assert_queue_V2(v3);
 
-  v4 = CarGeneralLogging();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  v5 = CarGeneralLogging(v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    *v6 = 0;
-    _os_log_impl(&dword_1C81FC000, v4, OS_LOG_TYPE_DEFAULT, "Notification for video playback availability changed", v6, 2u);
+    *v7 = 0;
+    _os_log_impl(&dword_1C81FC000, v5, OS_LOG_TYPE_DEFAULT, "Notification for video playback availability changed", v7, 2u);
   }
 
   defaultCenter = [MEMORY[0x1E696AD88] defaultCenter];
@@ -1692,7 +1716,7 @@ uint64_t __33__CARSession_requestCarUIForURL___block_invoke(uint64_t a1, uint64_
 {
   enabledCopy = enabled;
   v10 = *MEMORY[0x1E69E9840];
-  v5 = CarGeneralLogging();
+  v5 = CarGeneralLogging(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = @"disabled";
@@ -1883,12 +1907,13 @@ void __42__CARSession_setInputMode_forInputDevice___block_invoke(uint64_t a1, ui
 
 - (void)suggestUI:(id)i
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   iCopy = i;
-  if (([(CARSession *)self sessionStatusOptions]& 2) != 0)
+  sessionStatusOptions = [(CARSession *)self sessionStatusOptions];
+  if ((sessionStatusOptions & 2) != 0)
   {
-    v14 = CarGeneralLogging();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    v17 = CarGeneralLogging(sessionStatusOptions);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
       [CARSession suggestUI:];
     }
@@ -1898,27 +1923,27 @@ void __42__CARSession_setInputMode_forInputDevice___block_invoke(uint64_t a1, ui
   {
     configuration = [(CARSession *)self configuration];
     screens = [configuration screens];
-    v7 = [screens count];
+    v8 = [screens count];
 
-    v8 = CarGeneralLogging();
-    v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
-    if (v7 < 2)
+    v10 = CarGeneralLogging(v9);
+    v11 = os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT);
+    if (v8 < 2)
     {
-      if (v9)
+      if (v11)
       {
         *buf = 138412290;
-        v21 = iCopy;
-        _os_log_impl(&dword_1C81FC000, v8, OS_LOG_TYPE_DEFAULT, "Ignoring suggestUI with urls = %@", buf, 0xCu);
+        v24 = iCopy;
+        _os_log_impl(&dword_1C81FC000, v10, OS_LOG_TYPE_DEFAULT, "Ignoring suggestUI with urls = %@", buf, 0xCu);
       }
     }
 
     else
     {
-      if (v9)
+      if (v11)
       {
         *buf = 138543362;
-        v21 = iCopy;
-        _os_log_impl(&dword_1C81FC000, v8, OS_LOG_TYPE_DEFAULT, "suggestUI with urls = %{public}@", buf, 0xCu);
+        v24 = iCopy;
+        _os_log_impl(&dword_1C81FC000, v10, OS_LOG_TYPE_DEFAULT, "suggestUI with urls = %{public}@", buf, 0xCu);
       }
 
       clusterSessionURLs = [(CARSession *)self clusterSessionURLs];
@@ -1929,31 +1954,31 @@ void __42__CARSession_setInputMode_forInputDevice___block_invoke(uint64_t a1, ui
         altScreenSuggestUIURLs = [configuration2 altScreenSuggestUIURLs];
 
         clusterSessionURLs2 = [(CARSession *)self clusterSessionURLs];
-        v19[0] = MEMORY[0x1E69E9820];
-        v19[1] = 3221225472;
-        v19[2] = __24__CARSession_suggestUI___block_invoke;
-        v19[3] = &unk_1E82FD9F8;
-        v19[4] = self;
-        CARHandleSuggestUI(iCopy, clusterSessionURLs2, altScreenSuggestUIURLs, v19);
+        v22[0] = MEMORY[0x1E69E9820];
+        v22[1] = 3221225472;
+        v22[2] = __24__CARSession_suggestUI___block_invoke;
+        v22[3] = &unk_1E82FD9F8;
+        v22[4] = self;
+        CARHandleSuggestUI(iCopy, clusterSessionURLs2, altScreenSuggestUIURLs, v22);
       }
 
       else
       {
-        v15 = CarGeneralLogging();
-        if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+        v18 = CarGeneralLogging(v13);
+        if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
-          _os_log_impl(&dword_1C81FC000, v15, OS_LOG_TYPE_DEFAULT, "Fetching new cluster URLS", buf, 2u);
+          _os_log_impl(&dword_1C81FC000, v18, OS_LOG_TYPE_DEFAULT, "Fetching new cluster URLS", buf, 2u);
         }
 
-        v16 = +[CARSessionStatus sessionUpdatesQueue];
+        v19 = +[CARSessionStatus sessionUpdatesQueue];
         block[0] = MEMORY[0x1E69E9820];
         block[1] = 3221225472;
         block[2] = __24__CARSession_suggestUI___block_invoke_419;
         block[3] = &unk_1E82FBE38;
         block[4] = self;
-        v18 = iCopy;
-        dispatch_async(v16, block);
+        v21 = iCopy;
+        dispatch_async(v19, block);
       }
     }
   }
@@ -1970,7 +1995,7 @@ void __24__CARSession_suggestUI___block_invoke(uint64_t a1, uint64_t a2)
 
   else
   {
-    v4 = CarGeneralLogging();
+    v4 = CarGeneralLogging(a1);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       __24__CARSession_suggestUI___block_invoke_cold_1();
@@ -2032,7 +2057,7 @@ void __24__CARSession_suggestUI___block_invoke_4(uint64_t a1, uint64_t a2)
 
   else
   {
-    v4 = CarGeneralLogging();
+    v4 = CarGeneralLogging(a1);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       __24__CARSession_suggestUI___block_invoke_cold_1();
@@ -2044,7 +2069,7 @@ void __24__CARSession_suggestUI___block_invoke_4(uint64_t a1, uint64_t a2)
 {
   v12 = *MEMORY[0x1E69E9840];
   userInfo = [updated userInfo];
-  v5 = CarGeneralLogging();
+  v5 = CarGeneralLogging(userInfo);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
@@ -2064,16 +2089,16 @@ void __24__CARSession_suggestUI___block_invoke_4(uint64_t a1, uint64_t a2)
 
 void __34__CARSession__clusterURLsUpdated___block_invoke(uint64_t a1)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) objectForKey:@"CARSessionUpdateClusterURLsKey"];
   v3 = [v2 bs_mapNoNulls:&__block_literal_global_424];
 
-  v4 = CarGeneralLogging();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  v5 = CarGeneralLogging(v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 138543362;
-    v6 = v3;
-    _os_log_impl(&dword_1C81FC000, v4, OS_LOG_TYPE_DEFAULT, "Updating with URLs: %{public}@", &v5, 0xCu);
+    v6 = 138543362;
+    v7 = v3;
+    _os_log_impl(&dword_1C81FC000, v5, OS_LOG_TYPE_DEFAULT, "Updating with URLs: %{public}@", &v6, 0xCu);
   }
 
   [*(a1 + 40) setClusterSessionURLs:v3];
@@ -2110,13 +2135,13 @@ void __34__CARSession__clusterURLsUpdated___block_invoke(uint64_t a1)
   parametersCopy = parameters;
   if ([(CARSession *)self endpoint])
   {
-    endpoint = [(CARSession *)self endpoint];
-    if (!endpoint || (v9 = endpoint, FigEndpointExtendedGetClassID(), !CMBaseObjectIsMemberOfClass()))
+    IsMemberOfClass = [(CARSession *)self endpoint];
+    if (!IsMemberOfClass || (v9 = IsMemberOfClass, FigEndpointExtendedGetClassID(), IsMemberOfClass = CMBaseObjectIsMemberOfClass(), !IsMemberOfClass))
     {
       v9 = 0;
     }
 
-    v10 = CarGeneralLogging();
+    v10 = CarGeneralLogging(IsMemberOfClass);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       v12 = 138412546;
@@ -2137,7 +2162,7 @@ void __34__CARSession__clusterURLsUpdated___block_invoke(uint64_t a1)
 - (void)sendStopSessionWithReason:(unint64_t)reason
 {
   v12 = *MEMORY[0x1E69E9840];
-  v5 = CarGeneralLogging();
+  v5 = CarGeneralLogging(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     *buf = 134217984;
@@ -2153,7 +2178,7 @@ void __34__CARSession__clusterURLsUpdated___block_invoke(uint64_t a1)
 
 - (void)setCornerMaskImageData:(id)data forScreenInfo:(id)info
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   dataCopy = data;
   infoCopy = info;
   configuration = [(CARSession *)self configuration];
@@ -2163,21 +2188,22 @@ void __34__CARSession__clusterURLsUpdated___block_invoke(uint64_t a1)
   if (v10)
   {
     identifier = [infoCopy identifier];
-    if ([infoCopy wantsCornerMasks])
+    wantsCornerMasks = [infoCopy wantsCornerMasks];
+    if (wantsCornerMasks)
     {
       null2 = objc_alloc_init(MEMORY[0x1E695DF90]);
-      v13 = [dataCopy length];
-      v14 = CarGeneralLogging();
-      v15 = os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT);
-      if (v13)
+      v15 = [dataCopy length];
+      v16 = CarGeneralLogging(v15);
+      v17 = os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT);
+      if (v15)
       {
-        if (v15)
+        if (v17)
         {
           *buf = 138543618;
-          v23 = identifier;
-          v24 = 2048;
-          v25 = [dataCopy length];
-          _os_log_impl(&dword_1C81FC000, v14, OS_LOG_TYPE_DEFAULT, "Screen %{public}@ requests corner masks - setting corner mask image data (length: %lu)", buf, 0x16u);
+          v25 = identifier;
+          v26 = 2048;
+          v27 = [dataCopy length];
+          _os_log_impl(&dword_1C81FC000, v16, OS_LOG_TYPE_DEFAULT, "Screen %{public}@ requests corner masks - setting corner mask image data (length: %lu)", buf, 0x16u);
         }
 
         [null2 setObject:dataCopy forKeyedSubscript:identifier];
@@ -2185,42 +2211,42 @@ void __34__CARSession__clusterURLsUpdated___block_invoke(uint64_t a1)
 
       else
       {
-        if (v15)
+        if (v17)
         {
           *buf = 138543362;
-          v23 = identifier;
-          _os_log_impl(&dword_1C81FC000, v14, OS_LOG_TYPE_DEFAULT, "Screen %{public}@ requests corner masks but nil data specified. Sending NSNull", buf, 0xCu);
+          v25 = identifier;
+          _os_log_impl(&dword_1C81FC000, v16, OS_LOG_TYPE_DEFAULT, "Screen %{public}@ requests corner masks but nil data specified. Sending NSNull", buf, 0xCu);
         }
 
         null = [MEMORY[0x1E695DFB0] null];
         [null2 setObject:null forKeyedSubscript:identifier];
       }
 
-      v17 = [null2 copy];
+      v19 = [null2 copy];
     }
 
     else
     {
-      v16 = CarGeneralLogging();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+      v18 = CarGeneralLogging(wantsCornerMasks);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138543362;
-        v23 = identifier;
-        _os_log_impl(&dword_1C81FC000, v16, OS_LOG_TYPE_DEFAULT, "Screen %{public}@ does not request corner masks. Sending NSNull", buf, 0xCu);
+        v25 = identifier;
+        _os_log_impl(&dword_1C81FC000, v18, OS_LOG_TYPE_DEFAULT, "Screen %{public}@ does not request corner masks. Sending NSNull", buf, 0xCu);
       }
 
       null2 = [MEMORY[0x1E695DFB0] null];
-      v21 = null2;
-      v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v21 forKeys:&v20 count:1];
+      v23 = null2;
+      v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v23 forKeys:&v22 count:1];
     }
 
-    v19 = v17;
-    [(CARSession *)self _setEndpointValue:v17 forKey:*MEMORY[0x1E6962068]];
+    v21 = v19;
+    [(CARSession *)self _setEndpointValue:v19 forKey:*MEMORY[0x1E6962068]];
   }
 
   else
   {
-    identifier = CarGeneralLogging();
+    identifier = CarGeneralLogging(v11);
     if (os_log_type_enabled(identifier, OS_LOG_TYPE_ERROR))
     {
       [CARSession setCornerMaskImageData:infoCopy forScreenInfo:?];
@@ -2232,40 +2258,40 @@ void __34__CARSession__clusterURLsUpdated___block_invoke(uint64_t a1)
 {
   height = size.height;
   width = size.width;
-  v25 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   dCopy = d;
   configuration = [(CARSession *)self configuration];
   v9 = [configuration screenInfoForScreenID:dCopy];
 
-  v10 = CarGeneralLogging();
-  v11 = v10;
+  v11 = CarGeneralLogging(v10);
+  v12 = v11;
   if (v9)
   {
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412802;
-      v20 = dCopy;
-      v21 = 2048;
-      v22 = width;
-      v23 = 2048;
-      v24 = height;
-      _os_log_impl(&dword_1C81FC000, v11, OS_LOG_TYPE_DEFAULT, "SetCanvasOverrideSize to %@: (%f,%f)", buf, 0x20u);
+      v21 = dCopy;
+      v22 = 2048;
+      v23 = width;
+      v24 = 2048;
+      v25 = height;
+      _os_log_impl(&dword_1C81FC000, v12, OS_LOG_TYPE_DEFAULT, "SetCanvasOverrideSize to %@: (%f,%f)", buf, 0x20u);
     }
 
-    v17 = dCopy;
-    v12 = [MEMORY[0x1E696AD98] numberWithDouble:{width, @"Width"}];
-    v15[1] = @"Height";
-    v16[0] = v12;
-    v13 = [MEMORY[0x1E696AD98] numberWithDouble:height];
-    v16[1] = v13;
-    v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:v15 count:2];
-    v18 = v14;
-    v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v18 forKeys:&v17 count:1];
+    v18 = dCopy;
+    v13 = [MEMORY[0x1E696AD98] numberWithDouble:{width, @"Width"}];
+    v16[1] = @"Height";
+    v17[0] = v13;
+    v14 = [MEMORY[0x1E696AD98] numberWithDouble:height];
+    v17[1] = v14;
+    v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:v16 count:2];
+    v19 = v15;
+    v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v19 forKeys:&v18 count:1];
 
-    [(CARSession *)self _setEndpointValue:v11 forKey:@"OverrideCanvasSize"];
+    [(CARSession *)self _setEndpointValue:v12 forKey:@"OverrideCanvasSize"];
   }
 
-  else if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+  else if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
   {
     [CARSession setCanvasOverrideSize:forScreenID:];
   }
@@ -2274,29 +2300,29 @@ void __34__CARSession__clusterURLsUpdated___block_invoke(uint64_t a1)
 + (void)_siriRequestEventForEndpointAction:.cold.1()
 {
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_1();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
+  OUTLINED_FUNCTION_0_1(&dword_1C81FC000, v0, v1, "Invalid Siri Request Event: %@");
+  _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
 }
 
 - (void)_performExtendedEndpointAction:.cold.1()
 {
   OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_0_1();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_0_1(&dword_1C81FC000, v0, v1, "failed to get extended endpoint");
+  _os_log_error_impl(v2, v3, v4, v5, v6, 2u);
 }
 
 - (void)_endpointValueForKey:.cold.2()
 {
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_1();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
+  OUTLINED_FUNCTION_0_1(&dword_1C81FC000, v0, v1, "no endpoint available, failed to get endpoint value for key %@");
+  _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
 }
 
 - (void)createRemoteControlSession:channelID:withoutReply:sendAsIs:qualityOfService:streamPriority:error:.cold.1()
 {
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_1();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
+  OUTLINED_FUNCTION_0_1(&dword_1C81FC000, v0, v1, "Unable to create remote control session for channel uuid: %{public}@, endpoint not activated");
+  _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
 }
 
 - (void)createRemoteControlSession:channelID:withoutReply:sendAsIs:qualityOfService:streamPriority:error:.cold.2()
@@ -2323,18 +2349,18 @@ void __34__CARSession__clusterURLsUpdated___block_invoke(uint64_t a1)
 - (void)_sessionUpdatesQueue_handleAppearanceModeUpdateWithParameters:.cold.1()
 {
   OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_0_1();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_0_1(&dword_1C81FC000, v0, v1, "Screen does not support appearance mode");
+  _os_log_error_impl(v2, v3, v4, v5, v6, 2u);
 }
 
 - (void)_sessionUpdatesQueue_handleAppearanceModeUpdateWithParameters:.cold.2()
 {
   OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_0_1();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_0_1(&dword_1C81FC000, v0, v1, "Unable to find screen for appearance mode update");
+  _os_log_error_impl(v2, v3, v4, v5, v6, 2u);
 }
 
-- (void)_sessionUpdatesQueue_fetchFallbackIsNightWithToken:(uint64_t)a1 .cold.2(uint64_t a1, NSObject *a2)
+- (void)_sessionUpdatesQueue_fetchFallbackIsNightWithToken:(char)a1 .cold.2(char a1, NSObject *a2)
 {
   v5 = *MEMORY[0x1E69E9840];
   v3 = NSStringFromBOOL();
@@ -2345,8 +2371,8 @@ void __34__CARSession__clusterURLsUpdated___block_invoke(uint64_t a1)
 - (void)videoPlaybackAvailable
 {
   OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_0_1();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_0_1(&dword_1C81FC000, v0, v1, "failed to get supported features for endpoint");
+  _os_log_error_impl(v2, v3, v4, v5, v6, 2u);
 }
 
 - (void)_sessionUpdatesQueue_handleViewAreaChangeWithPayload:(uint64_t)a1 .cold.1(uint64_t a1)
@@ -2368,15 +2394,15 @@ void __34__CARSession__clusterURLsUpdated___block_invoke(uint64_t a1)
 - (void)suggestUI:.cold.1()
 {
   OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_0_1();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_0_1(&dword_1C81FC000, v0, v1, "The CarPlay shell should not be sending suggest UIs");
+  _os_log_error_impl(v2, v3, v4, v5, v6, 2u);
 }
 
 void __24__CARSession_suggestUI___block_invoke_cold_1()
 {
   OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_0_1();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_0_1(&dword_1C81FC000, v0, v1, "No parameters returned from CARHandleSuggestUI");
+  _os_log_error_impl(v2, v3, v4, v5, v6, 2u);
 }
 
 - (void)setCornerMaskImageData:(void *)a1 forScreenInfo:.cold.1(void *a1)
@@ -2390,8 +2416,8 @@ void __24__CARSession_suggestUI___block_invoke_cold_1()
 - (void)setCanvasOverrideSize:forScreenID:.cold.1()
 {
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_1();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
+  OUTLINED_FUNCTION_0_1(&dword_1C81FC000, v0, v1, "SetCanvasOverrideSize: Unable to find screenID: %@");
+  _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
 }
 
 @end

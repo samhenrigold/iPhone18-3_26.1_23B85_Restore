@@ -1,205 +1,3 @@
-uint64_t OUTLINED_FUNCTION_67_11()
-{
-
-  return outlined assign with take of AttributedString?();
-}
-
-uint64_t OUTLINED_FUNCTION_69_9()
-{
-}
-
-void OUTLINED_FUNCTION_107_3()
-{
-  v0[43] = 0;
-  v0[44] = 0;
-  v0[45] = 0;
-  v0[46] = 1;
-
-  bzero(v0 + 47, 0xB1uLL);
-}
-
-double OUTLINED_FUNCTION_117_2()
-{
-  v2 = *(v1 - 104);
-  v3 = v2 + *(v0 + 28);
-  result = 0.0;
-  *v3 = 0u;
-  *(v3 + 16) = 0u;
-  *(v3 + 32) = 0;
-  *(v2 + *(v0 + 40)) = 0;
-  return result;
-}
-
-id OUTLINED_FUNCTION_118_2()
-{
-
-  return outlined copy of Participant.RemoteIdentifiers?(v0);
-}
-
-id OUTLINED_FUNCTION_129_2()
-{
-  v2 = *(v0 - 168);
-
-  return outlined copy of Participant.RemoteIdentifiers?(v2);
-}
-
-void *OUTLINED_FUNCTION_130_4()
-{
-
-  return outlined consume of Participant.RemoteIdentifiers?(v0);
-}
-
-uint64_t OUTLINED_FUNCTION_160_2()
-{
-
-  return outlined assign with take of AttributedString?();
-}
-
-uint64_t OUTLINED_FUNCTION_163_2()
-{
-
-  return outlined destroy of Participant.ScreenInfo(v0 + 64);
-}
-
-void *OUTLINED_FUNCTION_164_0(void *a1)
-{
-
-  return memcpy(a1, (v1 + v2), 0x150uLL);
-}
-
-void OUTLINED_FUNCTION_169_2()
-{
-
-  JUMPOUT(0x1BFB20B10);
-}
-
-uint64_t OUTLINED_FUNCTION_177_3(uint64_t result, char a2)
-{
-  *(v2 + 8) = result;
-  *(v2 + 16) = a2 & 1;
-  return result;
-}
-
-uint64_t OUTLINED_FUNCTION_186_1()
-{
-
-  return _s15ConversationKit11ParticipantVWObTm_6();
-}
-
-void OUTLINED_FUNCTION_206_1()
-{
-
-  Participant.screenInfo.getter();
-}
-
-uint64_t OUTLINED_FUNCTION_207_0()
-{
-  *(v1 - 256) = v0;
-
-  return outlined init with copy of [CaptionSectioner.SpeakerSection]();
-}
-
-uint64_t OUTLINED_FUNCTION_209_1()
-{
-
-  return _s15ConversationKit11ParticipantVWObTm_6();
-}
-
-uint64_t OUTLINED_FUNCTION_212_3()
-{
-
-  return _s15ConversationKit11ParticipantV5StateOWOcTm_0();
-}
-
-uint64_t OUTLINED_FUNCTION_223_2()
-{
-  *(v1 - 144) = v0;
-}
-
-void OUTLINED_FUNCTION_224_1()
-{
-
-  JUMPOUT(0x1BFB20B10);
-}
-
-void *OUTLINED_FUNCTION_225_1()
-{
-
-  return outlined consume of Participant.RemoteIdentifiers?(v0);
-}
-
-void *OUTLINED_FUNCTION_238_2(void *a1)
-{
-
-  return memcpy(a1, (v1 + 24), 0x43uLL);
-}
-
-void OUTLINED_FUNCTION_239_2(_BYTE *a1@<X8>)
-{
-  *a1 = *(v1 - 256);
-  a1[1] = v2;
-  a1[2] = v3;
-}
-
-double OUTLINED_FUNCTION_264_1()
-{
-  result = 0.0;
-  *v0 = 0u;
-  v0[1] = 0u;
-  return result;
-}
-
-id OUTLINED_FUNCTION_266_1()
-{
-
-  return outlined copy of Participant.RemoteIdentifiers?(v0);
-}
-
-uint64_t OUTLINED_FUNCTION_267_1()
-{
-
-  return dispatch thunk of Hashable.hash(into:)();
-}
-
-uint64_t OUTLINED_FUNCTION_268_1()
-{
-  *(v1 - 240) = v0;
-
-  return _s15ConversationKit11ParticipantV5StateOWOcTm_0();
-}
-
-uint64_t OUTLINED_FUNCTION_270_2()
-{
-
-  return outlined destroy of CallControlsService?(v1 - 144, v0);
-}
-
-id OUTLINED_FUNCTION_271_2()
-{
-  v3 = *(*(v1 - 112) + *(v0 + 48));
-
-  return v3;
-}
-
-uint64_t OUTLINED_FUNCTION_272_0(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  v5 = *(v3 - 184);
-
-  return __swift_storeEnumTagSinglePayload(a1, a2, a3, v5);
-}
-
-uint64_t OUTLINED_FUNCTION_273_0()
-{
-
-  return type metadata accessor for Participant.State(0);
-}
-
-void OUTLINED_FUNCTION_274()
-{
-
-  JUMPOUT(0x1BFB20B10);
-}
-
 ConversationKit::RemoteControlSuspensionReason_optional __swiftcall RemoteControlSuspensionReason.init(rawValue:)(Swift::Int rawValue)
 {
   v2 = 3;
@@ -224,6 +22,7 @@ uint64_t RemoteControlState.associatedParticipant.getter@<X0>(uint64_t a1@<X8>)
   {
     case 0:
       v10 = &_s15ConversationKit20RemoteControlRequestV_15GroupActivities11ParticipantVSbtMd;
+      v11 = &_s15ConversationKit20RemoteControlRequestV_15GroupActivities11ParticipantVSbtMR;
       goto LABEL_8;
     case 1:
     case 2:
@@ -237,13 +36,14 @@ uint64_t RemoteControlState.associatedParticipant.getter@<X0>(uint64_t a1@<X8>)
 
 LABEL_2:
       v10 = &_s15ConversationKit20RemoteControlRequestV_15GroupActivities11ParticipantVtMd;
+      v11 = &_s15ConversationKit20RemoteControlRequestV_15GroupActivities11ParticipantVtMR;
 LABEL_8:
-      v12 = __swift_instantiateConcreteTypeFromMangledNameV2(v10);
-      v13 = swift_projectBox();
-      (*(v5 + 16))(v9, v13 + *(v12 + 48), v3);
+      v13 = __swift_instantiateConcreteTypeFromMangledNameV2(v10, v11);
+      v14 = swift_projectBox();
+      (*(v5 + 16))(v9, v14 + *(v13 + 48), v3);
       (*(v5 + 32))(a1, v9, v3);
       OUTLINED_FUNCTION_12();
-      result = __swift_storeEnumTagSinglePayload(v14, v15, v16, v3);
+      result = __swift_storeEnumTagSinglePayload(v15, v16, v17, v3);
       break;
     default:
 LABEL_4:
@@ -267,7 +67,7 @@ uint64_t RemoteControlState.requestedParticipant.getter@<X0>(uint64_t a1@<X8>)
 
   else
   {
-    v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15ConversationKit20RemoteControlRequestV_15GroupActivities11ParticipantVSbtMd);
+    v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15ConversationKit20RemoteControlRequestV_15GroupActivities11ParticipantVSbtMd, &_s15ConversationKit20RemoteControlRequestV_15GroupActivities11ParticipantVSbtMR);
     v4 = swift_projectBox();
     v5 = *(v3 + 48);
     v6 = type metadata accessor for Participant();
@@ -340,7 +140,7 @@ unint64_t RemoteControlStateMachine.init(isBroadcasting:)@<X0>(char a1@<W0>, uni
     v3 = 0xA000000000000010;
   }
 
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss13ManagedBufferCy15ConversationKit18RemoteControlStateOSo16os_unfair_lock_sVGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss13ManagedBufferCy15ConversationKit18RemoteControlStateOSo16os_unfair_lock_sVGMd, &_ss13ManagedBufferCy15ConversationKit18RemoteControlStateOSo16os_unfair_lock_sVGMR);
   v4 = swift_allocObject();
   *(v4 + 24) = 0;
   *(v4 + 16) = v3;
@@ -758,7 +558,7 @@ uint64_t static RemoteControlState.== infix(_:_:)(unint64_t *a1, unint64_t *a2)
         goto LABEL_37;
       }
 
-      v105 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15ConversationKit20RemoteControlRequestV_15GroupActivities11ParticipantVtMd);
+      v105 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15ConversationKit20RemoteControlRequestV_15GroupActivities11ParticipantVtMd, &_s15ConversationKit20RemoteControlRequestV_15GroupActivities11ParticipantVtMR);
       v106 = swift_projectBox();
       v107 = *(v105 + 48);
       swift_projectBox();
@@ -805,7 +605,7 @@ uint64_t static RemoteControlState.== infix(_:_:)(unint64_t *a1, unint64_t *a2)
         goto LABEL_37;
       }
 
-      v73 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15ConversationKit20RemoteControlRequestV_15GroupActivities11ParticipantVtMd);
+      v73 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15ConversationKit20RemoteControlRequestV_15GroupActivities11ParticipantVtMd, &_s15ConversationKit20RemoteControlRequestV_15GroupActivities11ParticipantVtMR);
       v74 = swift_projectBox();
       v75 = *(v73 + 48);
       swift_projectBox();
@@ -854,7 +654,7 @@ uint64_t static RemoteControlState.== infix(_:_:)(unint64_t *a1, unint64_t *a2)
         goto LABEL_37;
       }
 
-      v89 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15ConversationKit20RemoteControlRequestV_15GroupActivities11ParticipantVtMd);
+      v89 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15ConversationKit20RemoteControlRequestV_15GroupActivities11ParticipantVtMd, &_s15ConversationKit20RemoteControlRequestV_15GroupActivities11ParticipantVtMR);
       v90 = swift_projectBox();
       v91 = *(v89 + 48);
       v92 = swift_projectBox();
@@ -965,7 +765,7 @@ LABEL_40:
       v68 = 0;
       return v68 & 1;
     default:
-      v50 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15ConversationKit20RemoteControlRequestV_15GroupActivities11ParticipantVSbtMd);
+      v50 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15ConversationKit20RemoteControlRequestV_15GroupActivities11ParticipantVSbtMd, &_s15ConversationKit20RemoteControlRequestV_15GroupActivities11ParticipantVSbtMR);
       v51 = swift_projectBox();
       if (v48 >> 61)
       {
@@ -1049,7 +849,7 @@ uint64_t RemoteControlState.hash(into:)(uint64_t a1)
   switch(v21 >> 61)
   {
     case 1uLL:
-      __swift_instantiateConcreteTypeFromMangledNameV2(&_s15ConversationKit20RemoteControlRequestV_15GroupActivities11ParticipantVtMd);
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_s15ConversationKit20RemoteControlRequestV_15GroupActivities11ParticipantVtMd, &_s15ConversationKit20RemoteControlRequestV_15GroupActivities11ParticipantVtMR);
       swift_projectBox();
       OUTLINED_FUNCTION_1_154();
       _s15ConversationKit20RemoteControlMessageOWOcTm_0(v47, v16, v48);
@@ -1058,7 +858,7 @@ uint64_t RemoteControlState.hash(into:)(uint64_t a1)
       v42 = 4;
       goto LABEL_7;
     case 2uLL:
-      __swift_instantiateConcreteTypeFromMangledNameV2(&_s15ConversationKit20RemoteControlRequestV_15GroupActivities11ParticipantVtMd);
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_s15ConversationKit20RemoteControlRequestV_15GroupActivities11ParticipantVtMd, &_s15ConversationKit20RemoteControlRequestV_15GroupActivities11ParticipantVtMR);
       swift_projectBox();
       OUTLINED_FUNCTION_1_154();
       _s15ConversationKit20RemoteControlMessageOWOcTm_0(v38, v16, v39);
@@ -1067,7 +867,7 @@ uint64_t RemoteControlState.hash(into:)(uint64_t a1)
       v42 = 5;
       goto LABEL_7;
     case 3uLL:
-      __swift_instantiateConcreteTypeFromMangledNameV2(&_s15ConversationKit20RemoteControlRequestV_15GroupActivities11ParticipantVtMd);
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_s15ConversationKit20RemoteControlRequestV_15GroupActivities11ParticipantVtMd, &_s15ConversationKit20RemoteControlRequestV_15GroupActivities11ParticipantVtMR);
       swift_projectBox();
       OUTLINED_FUNCTION_1_154();
       _s15ConversationKit20RemoteControlMessageOWOcTm_0(v43, v16, v44);
@@ -1078,15 +878,15 @@ LABEL_7:
       MEMORY[0x1BFB22640](v42);
       type metadata accessor for UUID();
       OUTLINED_FUNCTION_5_127();
-      _s10Foundation4UUIDVACSHAAWlTm_7(v51, v52);
+      _s10Foundation4UUIDVACSHAAWlTm_7(v51, v52, MEMORY[0x1E69695B8]);
       OUTLINED_FUNCTION_40_4();
       dispatch thunk of Hashable.hash(into:)();
       type metadata accessor for Date();
       OUTLINED_FUNCTION_20_54();
-      _s10Foundation4UUIDVACSHAAWlTm_7(v53, v54);
+      _s10Foundation4UUIDVACSHAAWlTm_7(v53, v54, MEMORY[0x1E6969540]);
       dispatch thunk of Hashable.hash(into:)();
       OUTLINED_FUNCTION_19_46();
-      _s10Foundation4UUIDVACSHAAWlTm_7(v55, v56);
+      _s10Foundation4UUIDVACSHAAWlTm_7(v55, v56, MEMORY[0x1E696B338]);
       OUTLINED_FUNCTION_40_4();
       dispatch thunk of Hashable.hash(into:)();
       (*(v5 + 8))(v9, v3);
@@ -1121,7 +921,7 @@ LABEL_14:
       result = MEMORY[0x1BFB22640](v37);
       break;
     default:
-      v22 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15ConversationKit20RemoteControlRequestV_15GroupActivities11ParticipantVSbtMd);
+      v22 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15ConversationKit20RemoteControlRequestV_15GroupActivities11ParticipantVSbtMd, &_s15ConversationKit20RemoteControlRequestV_15GroupActivities11ParticipantVSbtMR);
       v23 = swift_projectBox();
       v24 = *(v22 + 48);
       LOBYTE(v22) = *(v23 + *(v22 + 64));
@@ -1131,15 +931,15 @@ LABEL_14:
       MEMORY[0x1BFB22640](3);
       type metadata accessor for UUID();
       OUTLINED_FUNCTION_5_127();
-      _s10Foundation4UUIDVACSHAAWlTm_7(v27, v28);
+      _s10Foundation4UUIDVACSHAAWlTm_7(v27, v28, MEMORY[0x1E69695B8]);
       OUTLINED_FUNCTION_40_4();
       dispatch thunk of Hashable.hash(into:)();
       type metadata accessor for Date();
       OUTLINED_FUNCTION_20_54();
-      _s10Foundation4UUIDVACSHAAWlTm_7(v29, v30);
+      _s10Foundation4UUIDVACSHAAWlTm_7(v29, v30, MEMORY[0x1E6969540]);
       dispatch thunk of Hashable.hash(into:)();
       OUTLINED_FUNCTION_19_46();
-      _s10Foundation4UUIDVACSHAAWlTm_7(v31, v32);
+      _s10Foundation4UUIDVACSHAAWlTm_7(v31, v32, MEMORY[0x1E696B338]);
       OUTLINED_FUNCTION_40_4();
       dispatch thunk of Hashable.hash(into:)();
       Hasher._combine(_:)(v22);
@@ -1162,11 +962,11 @@ Swift::Int RemoteControlState.hashValue.getter()
   return Hasher._finalize()();
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance RemoteControlState()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance RemoteControlState(uint64_t a1)
 {
-  v2[9] = *v0;
+  v3[9] = *v1;
   Hasher.init(_seed:)();
-  RemoteControlState.hash(into:)(v2);
+  RemoteControlState.hash(into:)(v3);
   return Hasher._finalize()();
 }
 
@@ -1177,11 +977,11 @@ Swift::Int RemoteControlStateMachine.Errors.hashValue.getter(unsigned __int8 a1)
   return Hasher._finalize()();
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance RemoteControlStateMachine.Errors()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance RemoteControlStateMachine.Errors(uint64_t a1)
 {
-  v1 = *v0;
+  v2 = *v1;
   Hasher.init(_seed:)();
-  RemoteControlStateMachine.Errors.hash(into:)(v3, v1);
+  RemoteControlStateMachine.Errors.hash(into:)(v4, v2);
   return Hasher._finalize()();
 }
 
@@ -1294,7 +1094,7 @@ unint64_t closure #1 in RemoteControlStateMachine.validateIncomingRemoteControlR
   {
     v19 = a2;
     v20 = a3;
-    v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15ConversationKit20RemoteControlRequestV_15GroupActivities11ParticipantVSbtMd);
+    v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15ConversationKit20RemoteControlRequestV_15GroupActivities11ParticipantVSbtMd, &_s15ConversationKit20RemoteControlRequestV_15GroupActivities11ParticipantVSbtMR);
     v10 = swift_allocBox();
     v12 = v11;
     v13 = *(v9 + 48);
@@ -1364,23 +1164,23 @@ unint64_t closure #1 in RemoteControlStateMachine.presentRemoteControlOnboarding
   v6 = *a1;
   if (v6 >> 61)
   {
-    v21 = a2;
-    v22 = a3;
-    v20 = v6;
+    v22 = a2;
+    v23 = a3;
+    v21 = v6;
     outlined copy of RemoteControlState(v6);
-    RemoteControlStateMachine.logInvalidTransition(_:)(&v20);
-    outlined consume of RemoteControlState(v20);
-    lazy protocol witness table accessor for type RemoteControlStateMachine.Errors and conformance RemoteControlStateMachine.Errors();
-    OUTLINED_FUNCTION_19_6();
-    *v19 = 2;
+    RemoteControlStateMachine.logInvalidTransition(_:)(&v21);
+    outlined consume of RemoteControlState(v21);
+    v19 = lazy protocol witness table accessor for type RemoteControlStateMachine.Errors and conformance RemoteControlStateMachine.Errors();
+    OUTLINED_FUNCTION_19_6(&type metadata for RemoteControlStateMachine.Errors, v19);
+    *v20 = 2;
     return swift_willThrow();
   }
 
   else
   {
-    v21 = a2;
-    v22 = a3;
-    v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15ConversationKit20RemoteControlRequestV_15GroupActivities11ParticipantVSbtMd);
+    v22 = a2;
+    v23 = a3;
+    v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15ConversationKit20RemoteControlRequestV_15GroupActivities11ParticipantVSbtMd, &_s15ConversationKit20RemoteControlRequestV_15GroupActivities11ParticipantVSbtMR);
     v10 = swift_allocBox();
     v12 = v11;
     v13 = *(v9 + 48);
@@ -1391,9 +1191,9 @@ unint64_t closure #1 in RemoteControlStateMachine.presentRemoteControlOnboarding
     OUTLINED_FUNCTION_7_0();
     (*(v17 + 16))(v12 + v13, a5);
     *(v12 + v14) = 1;
-    v20 = v10;
-    RemoteControlStateMachine.transformState(_:to:)(a1, &v20);
-    return outlined consume of RemoteControlState(v20);
+    v21 = v10;
+    RemoteControlStateMachine.transformState(_:to:)(a1, &v21);
+    return outlined consume of RemoteControlState(v21);
   }
 }
 
@@ -1404,7 +1204,7 @@ uint64_t closure #1 in RemoteControlStateMachine.validateIncomingRemoteControlRe
   v8 = type metadata accessor for RemoteControlResponse(0);
   MEMORY[0x1EEE9AC00](v8);
   v126 = &v114 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15GroupActivities11ParticipantVSgMd);
+  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15GroupActivities11ParticipantVSgMd, &_s15GroupActivities11ParticipantVSgMR);
   MEMORY[0x1EEE9AC00](v10 - 8);
   v12 = &v114 - v11;
   v13 = type metadata accessor for Participant();
@@ -1438,7 +1238,7 @@ uint64_t closure #1 in RemoteControlStateMachine.validateIncomingRemoteControlRe
   v115 = v12;
   v116 = v23;
   v114 = a4;
-  v27 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15ConversationKit20RemoteControlRequestV_15GroupActivities11ParticipantVtMd);
+  v27 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15ConversationKit20RemoteControlRequestV_15GroupActivities11ParticipantVtMd, &_s15ConversationKit20RemoteControlRequestV_15GroupActivities11ParticipantVtMR);
   v28 = swift_projectBox();
   v128 = v26;
   v129 = v20;
@@ -1480,7 +1280,7 @@ uint64_t closure #1 in RemoteControlStateMachine.validateIncomingRemoteControlRe
       v130 = v127;
       *v55 = 136315394;
       type metadata accessor for UUID();
-      _s10Foundation4UUIDVACSHAAWlTm_7(&lazy protocol witness table cache variable for type UUID and conformance UUID, MEMORY[0x1E69695A8]);
+      _s10Foundation4UUIDVACSHAAWlTm_7(&lazy protocol witness table cache variable for type UUID and conformance UUID, MEMORY[0x1E69695A8], MEMORY[0x1E69695E0]);
       v56 = dispatch thunk of CustomStringConvertible.description.getter();
       v58 = v57;
       _s15ConversationKit20RemoteControlRequestVWOhTm_0(v50, type metadata accessor for RemoteControlResponse);
@@ -1644,11 +1444,11 @@ uint64_t closure #1 in RemoteControlStateMachine.validateIncomingRemoteControlRe
   return outlined consume of RemoteControlState(v128);
 }
 
-uint64_t closure #1 in RemoteControlStateMachine.validateIncomingCancellation(_:from:)(unint64_t *a1, uint64_t a2, char *a3, uint64_t a4, uint64_t a5)
+uint64_t closure #1 in RemoteControlStateMachine.validateIncomingCancellation(_:from:)(NSObject *a1, uint64_t a2, char *a3, uint64_t a4, uint64_t a5)
 {
   v107 = a3;
   v108 = a2;
-  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15GroupActivities11ParticipantVSgMd);
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15GroupActivities11ParticipantVSgMd, &_s15GroupActivities11ParticipantVSgMR);
   MEMORY[0x1EEE9AC00](v8 - 8);
   v10 = &v96 - v9;
   v11 = type metadata accessor for Participant();
@@ -1665,13 +1465,13 @@ uint64_t closure #1 in RemoteControlStateMachine.validateIncomingCancellation(_:
   MEMORY[0x1EEE9AC00](v21);
   v25 = &v96 - v24;
   v102 = a1;
-  v26 = *a1;
-  if (v26 >> 61)
+  isa = a1->isa;
+  if (isa >> 61)
   {
     v110 = a4;
     v111 = a5;
-    v112 = v26;
-    outlined copy of RemoteControlState(v26);
+    v112 = isa;
+    outlined copy of RemoteControlState(isa);
     RemoteControlStateMachine.logInvalidTransition(_:)(&v112);
     outlined consume of RemoteControlState(v112);
     lazy protocol witness table accessor for type RemoteControlStateMachine.Errors and conformance RemoteControlStateMachine.Errors();
@@ -1684,9 +1484,9 @@ uint64_t closure #1 in RemoteControlStateMachine.validateIncomingCancellation(_:
   v99 = v23;
   v100 = v22;
   v97 = v10;
-  v27 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15ConversationKit20RemoteControlRequestV_15GroupActivities11ParticipantVSbtMd);
+  v27 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15ConversationKit20RemoteControlRequestV_15GroupActivities11ParticipantVSbtMd, &_s15ConversationKit20RemoteControlRequestV_15GroupActivities11ParticipantVSbtMR);
   v28 = swift_projectBox();
-  v109 = v26;
+  v109 = isa;
   v29 = v28;
   v104 = v11;
   v30 = *(v27 + 48);
@@ -1723,7 +1523,7 @@ uint64_t closure #1 in RemoteControlStateMachine.validateIncomingCancellation(_:
       v110 = v108;
       *v45 = 136315394;
       type metadata accessor for UUID();
-      _s10Foundation4UUIDVACSHAAWlTm_7(&lazy protocol witness table cache variable for type UUID and conformance UUID, MEMORY[0x1E69695A8]);
+      _s10Foundation4UUIDVACSHAAWlTm_7(&lazy protocol witness table cache variable for type UUID and conformance UUID, MEMORY[0x1E69695A8], MEMORY[0x1E69695E0]);
       LODWORD(v106) = v44;
       v46 = dispatch thunk of CustomStringConvertible.description.getter();
       v48 = v47;
@@ -1867,7 +1667,7 @@ unint64_t closure #1 in RemoteControlStateMachine.validateIncomingSuspendRequest
   v106 = type metadata accessor for RemoteControlSuspendRequest(0);
   MEMORY[0x1EEE9AC00](v106);
   v111 = &v102 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15GroupActivities11ParticipantVSgMd);
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15GroupActivities11ParticipantVSgMd, &_s15GroupActivities11ParticipantVSgMR);
   MEMORY[0x1EEE9AC00](v8 - 8);
   v10 = &v102 - v9;
   v11 = type metadata accessor for Participant();
@@ -1904,7 +1704,7 @@ LABEL_3:
 
   v103 = v10;
   v30 = v11;
-  v31 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15ConversationKit20RemoteControlRequestV_15GroupActivities11ParticipantVtMd);
+  v31 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15ConversationKit20RemoteControlRequestV_15GroupActivities11ParticipantVtMd, &_s15ConversationKit20RemoteControlRequestV_15GroupActivities11ParticipantVtMR);
   v32 = swift_projectBox();
   v33 = *(v31 + 48);
   _s15ConversationKit20RemoteControlMessageOWOcTm_0(v32, v24, type metadata accessor for RemoteControlRequest);
@@ -1936,7 +1736,7 @@ LABEL_3:
       v114 = v52;
       *v51 = 136315394;
       type metadata accessor for UUID();
-      _s10Foundation4UUIDVACSHAAWlTm_7(&lazy protocol witness table cache variable for type UUID and conformance UUID, MEMORY[0x1E69695A8]);
+      _s10Foundation4UUIDVACSHAAWlTm_7(&lazy protocol witness table cache variable for type UUID and conformance UUID, MEMORY[0x1E69695A8], MEMORY[0x1E69695E0]);
       v53 = dispatch thunk of CustomStringConvertible.description.getter();
       v54 = v48;
       v56 = v55;
@@ -2050,7 +1850,7 @@ LABEL_3:
   v114 = a4;
   v115 = v113;
   v39 = swift_allocObject();
-  v40 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15ConversationKit20RemoteControlRequestV_15GroupActivities11ParticipantVtMd);
+  v40 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15ConversationKit20RemoteControlRequestV_15GroupActivities11ParticipantVtMd, &_s15ConversationKit20RemoteControlRequestV_15GroupActivities11ParticipantVtMR);
   v41 = v36;
   v42 = swift_allocBox();
   v43 = v38;
@@ -2069,7 +1869,7 @@ unint64_t closure #1 in RemoteControlStateMachine.validateIncomingResumeRequest(
 {
   v117 = a5;
   v114 = a3;
-  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15GroupActivities11ParticipantVSgMd);
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15GroupActivities11ParticipantVSgMd, &_s15GroupActivities11ParticipantVSgMR);
   MEMORY[0x1EEE9AC00](v8 - 8);
   v111 = &v104 - v9;
   v10 = type metadata accessor for Participant();
@@ -2104,7 +1904,7 @@ unint64_t closure #1 in RemoteControlStateMachine.validateIncomingResumeRequest(
   v107 = v22;
   v108 = v23;
   v24 = &v104 - v21;
-  v25 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15ConversationKit20RemoteControlRequestV_15GroupActivities11ParticipantVtMd);
+  v25 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15ConversationKit20RemoteControlRequestV_15GroupActivities11ParticipantVtMd, &_s15ConversationKit20RemoteControlRequestV_15GroupActivities11ParticipantVtMR);
   v26 = swift_projectBox();
   v110 = v10;
   v105 = v25;
@@ -2143,7 +1943,7 @@ unint64_t closure #1 in RemoteControlStateMachine.validateIncomingResumeRequest(
       v118 = v117;
       *v52 = 136315394;
       type metadata accessor for UUID();
-      _s10Foundation4UUIDVACSHAAWlTm_7(&lazy protocol witness table cache variable for type UUID and conformance UUID, MEMORY[0x1E69695A8]);
+      _s10Foundation4UUIDVACSHAAWlTm_7(&lazy protocol witness table cache variable for type UUID and conformance UUID, MEMORY[0x1E69695A8], MEMORY[0x1E69695E0]);
       v113 = v47;
       v53 = dispatch thunk of CustomStringConvertible.description.getter();
       v55 = v54;
@@ -2290,7 +2090,7 @@ unint64_t closure #1 in RemoteControlStateMachine.validateOutgoingRemoteControlR
   v6 = *a1;
   if (v6 == 0xA000000000000010)
   {
-    v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15ConversationKit20RemoteControlRequestV_15GroupActivities11ParticipantVtMd);
+    v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15ConversationKit20RemoteControlRequestV_15GroupActivities11ParticipantVtMd, &_s15ConversationKit20RemoteControlRequestV_15GroupActivities11ParticipantVtMR);
     v10 = swift_allocBox();
     v12 = v11;
     v13 = *(v9 + 48);
@@ -2317,29 +2117,29 @@ unint64_t closure #1 in RemoteControlStateMachine.validateOutgoingRemoteControlR
 
 unint64_t closure #1 in RemoteControlStateMachine.validateOutgoingRemoteControlResponse(_:to:)(unint64_t *a1, uint64_t a2, uint64_t a3, unint64_t a4, uint64_t a5)
 {
-  v105 = a5;
-  v106 = a4;
-  v101 = a3;
-  v103 = a2;
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15GroupActivities11ParticipantVSgMd);
+  v106 = a5;
+  v107 = a4;
+  v102 = a3;
+  v104 = a2;
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15GroupActivities11ParticipantVSgMd, &_s15GroupActivities11ParticipantVSgMR);
   MEMORY[0x1EEE9AC00](v6 - 8);
-  v8 = &v95 - v7;
+  v8 = &v96 - v7;
   v9 = type metadata accessor for RemoteControlResponse(0);
   MEMORY[0x1EEE9AC00](v9);
-  v11 = &v95 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v11 = &v96 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
   v12 = type metadata accessor for Participant();
-  v104 = *(v12 - 8);
+  v105 = *(v12 - 8);
   MEMORY[0x1EEE9AC00](v12);
-  v102 = &v95 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v103 = &v96 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v14);
-  v16 = &v95 - v15;
+  v16 = &v96 - v15;
   MEMORY[0x1EEE9AC00](v17);
-  v19 = &v95 - v18;
+  v19 = &v96 - v18;
   v20 = type metadata accessor for RemoteControlRequest(0);
   MEMORY[0x1EEE9AC00](v20 - 8);
   MEMORY[0x1EEE9AC00](v21);
-  v24 = &v95 - v23;
-  v100 = a1;
+  v24 = &v96 - v23;
+  v101 = a1;
   v25 = *a1;
   switch(v25 >> 61)
   {
@@ -2352,12 +2152,12 @@ unint64_t closure #1 in RemoteControlStateMachine.validateOutgoingRemoteControlR
       if (*((v25 & 0x1FFFFFFFFFFFFFFFLL) + 0x10) >> 61 != 3)
       {
 LABEL_2:
-        v107 = v106;
-        v108 = v105;
-        v109 = v25;
+        v108 = v107;
+        v109 = v106;
+        v110 = v25;
         outlined copy of RemoteControlState(v25);
-        RemoteControlStateMachine.logInvalidTransition(_:)(&v109);
-        outlined consume of RemoteControlState(v109);
+        RemoteControlStateMachine.logInvalidTransition(_:)(&v110);
+        outlined consume of RemoteControlState(v110);
         lazy protocol witness table accessor for type RemoteControlStateMachine.Errors and conformance RemoteControlStateMachine.Errors();
         swift_allocError();
         v27 = 2;
@@ -2366,22 +2166,23 @@ LABEL_3:
         return swift_willThrow();
       }
 
-      v96 = v22;
-      v97 = v11;
-      v98 = v8;
+      v97 = v22;
+      v98 = v11;
+      v99 = v8;
       v29 = &_s15ConversationKit20RemoteControlRequestV_15GroupActivities11ParticipantVtMd;
+      v30 = &_s15ConversationKit20RemoteControlRequestV_15GroupActivities11ParticipantVtMR;
 LABEL_7:
-      v30 = __swift_instantiateConcreteTypeFromMangledNameV2(v29);
-      v31 = swift_projectBox();
-      v32 = *(v30 + 48);
-      _s15ConversationKit20RemoteControlMessageOWOcTm_0(v31, v24, type metadata accessor for RemoteControlRequest);
-      v33 = v104;
-      v34 = (v31 + v32);
-      v35 = v104 + 16;
-      v99 = *(v104 + 16);
-      v99(v19, v34, v12);
-      v36 = v103;
-      if ((MEMORY[0x1BFB1AFF0](v19, v103) & 1) == 0)
+      v31 = __swift_instantiateConcreteTypeFromMangledNameV2(v29, v30);
+      v32 = swift_projectBox();
+      v33 = *(v31 + 48);
+      _s15ConversationKit20RemoteControlMessageOWOcTm_0(v32, v24, type metadata accessor for RemoteControlRequest);
+      v34 = v105;
+      v35 = (v32 + v33);
+      v36 = v105 + 16;
+      v100 = *(v105 + 16);
+      v100(v19, v35, v12);
+      v37 = v104;
+      if ((MEMORY[0x1BFB1AFF0](v19, v104) & 1) == 0)
       {
         _s15ConversationKit20RemoteControlRequestVWOhTm_0(v24, type metadata accessor for RemoteControlRequest);
         if (one-time initialization token for screenSharing != -1)
@@ -2389,61 +2190,61 @@ LABEL_7:
           swift_once();
         }
 
-        v43 = type metadata accessor for Logger();
-        __swift_project_value_buffer(v43, &static Log.screenSharing);
-        v44 = v99;
-        v99(v16, v36, v12);
-        v45 = v104;
-        v46 = v102;
-        (*(v104 + 32))(v102, v19, v12);
-        v47 = Logger.logObject.getter();
-        v48 = static os_log_type_t.error.getter();
-        v49 = os_log_type_enabled(v47, v48);
-        v50 = v98;
-        if (v49)
+        v44 = type metadata accessor for Logger();
+        __swift_project_value_buffer(v44, &static Log.screenSharing);
+        v45 = v100;
+        v100(v16, v37, v12);
+        v46 = v105;
+        v47 = v103;
+        (*(v105 + 32))(v103, v19, v12);
+        v48 = Logger.logObject.getter();
+        v49 = static os_log_type_t.error.getter();
+        v50 = os_log_type_enabled(v48, v49);
+        v51 = v99;
+        if (v50)
         {
-          v51 = swift_slowAlloc();
-          v106 = swift_slowAlloc();
-          v107 = v106;
-          *v51 = 136315394;
-          v44(v50, v16, v12);
-          __swift_storeEnumTagSinglePayload(v50, 0, 1, v12);
-          specialized >> prefix<A>(_:)(v50, v52, v53, v54, v55, v56, v57, v58, v95, v96, v97, v98, v99, v100, v101, v102, v103, v104);
-          v103 = v35;
-          v60 = v59;
-          v62 = v61;
-          outlined destroy of Participant?(v50);
-          LODWORD(v105) = v48;
-          v63 = *(v45 + 8);
-          v63(v16, v12);
-          v64 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v60, v62, &v107);
+          v52 = swift_slowAlloc();
+          v107 = swift_slowAlloc();
+          v108 = v107;
+          *v52 = 136315394;
+          v45(v51, v16, v12);
+          __swift_storeEnumTagSinglePayload(v51, 0, 1, v12);
+          specialized >> prefix<A>(_:)(v51, v53, v54, v55, v56, v57, v58, v59, v96, v97, v98, v99, v100, v101, v102, v103, v104, v105);
+          v104 = v36;
+          v61 = v60;
+          v63 = v62;
+          outlined destroy of Participant?(v51);
+          LODWORD(v106) = v49;
+          v64 = *(v46 + 8);
+          v64(v16, v12);
+          v65 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v61, v63, &v108);
 
-          *(v51 + 4) = v64;
-          *(v51 + 12) = 2080;
-          v65 = v102;
-          v99(v50, v102, v12);
-          __swift_storeEnumTagSinglePayload(v50, 0, 1, v12);
-          specialized >> prefix<A>(_:)(v50, v66, v67, v68, v69, v70, v71, v72, v95, v96, v97, v98, v99, v100, v101, v102, v103, v104);
-          v74 = v73;
-          v76 = v75;
-          outlined destroy of Participant?(v50);
-          v63(v65, v12);
-          v77 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v74, v76, &v107);
+          *(v52 + 4) = v65;
+          *(v52 + 12) = 2080;
+          v66 = v103;
+          v100(v51, v103, v12);
+          __swift_storeEnumTagSinglePayload(v51, 0, 1, v12);
+          specialized >> prefix<A>(_:)(v51, v67, v68, v69, v70, v71, v72, v73, v96, v97, v98, v99, v100, v101, v102, v103, v104, v105);
+          v75 = v74;
+          v77 = v76;
+          outlined destroy of Participant?(v51);
+          v64(v66, v12);
+          v78 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v75, v77, &v108);
 
-          *(v51 + 14) = v77;
-          _os_log_impl(&dword_1BBC58000, v47, v105, "Rejecting remoteControlResponse from: %s since it mismatches the participant we requested control from: %s", v51, 0x16u);
-          v78 = v106;
+          *(v52 + 14) = v78;
+          _os_log_impl(&dword_1BBC58000, v48, v106, "Rejecting remoteControlResponse from: %s since it mismatches the participant we requested control from: %s", v52, 0x16u);
+          v79 = v107;
           swift_arrayDestroy();
-          MEMORY[0x1BFB23DF0](v78, -1, -1);
-          MEMORY[0x1BFB23DF0](v51, -1, -1);
+          MEMORY[0x1BFB23DF0](v79, -1, -1);
+          MEMORY[0x1BFB23DF0](v52, -1, -1);
         }
 
         else
         {
 
-          v94 = *(v45 + 8);
-          v94(v46, v12);
-          v94(v16, v12);
+          v95 = *(v46 + 8);
+          v95(v47, v12);
+          v95(v16, v12);
         }
 
         lazy protocol witness table accessor for type RemoteControlStateMachine.Errors and conformance RemoteControlStateMachine.Errors();
@@ -2452,8 +2253,8 @@ LABEL_7:
         goto LABEL_3;
       }
 
-      (*(v33 + 8))(v19, v12);
-      v37 = v101;
+      (*(v34 + 8))(v19, v12);
+      v38 = v102;
       if ((static UUID.== infix(_:_:)() & 1) == 0)
       {
         if (one-time initialization token for screenSharing != -1)
@@ -2461,47 +2262,47 @@ LABEL_7:
           swift_once();
         }
 
-        v79 = type metadata accessor for Logger();
-        __swift_project_value_buffer(v79, &static Log.screenSharing);
-        v80 = v97;
-        _s15ConversationKit20RemoteControlMessageOWOcTm_0(v37, v97, type metadata accessor for RemoteControlResponse);
-        v81 = v96;
-        _s15ConversationKit20RemoteControlRequestVWObTm_0(v24, v96, type metadata accessor for RemoteControlRequest);
-        v82 = Logger.logObject.getter();
-        v83 = static os_log_type_t.error.getter();
-        if (os_log_type_enabled(v82, v83))
+        v80 = type metadata accessor for Logger();
+        __swift_project_value_buffer(v80, &static Log.screenSharing);
+        v81 = v98;
+        _s15ConversationKit20RemoteControlMessageOWOcTm_0(v38, v98, type metadata accessor for RemoteControlResponse);
+        v82 = v97;
+        _s15ConversationKit20RemoteControlRequestVWObTm_0(v24, v97, type metadata accessor for RemoteControlRequest);
+        v83 = Logger.logObject.getter();
+        v84 = static os_log_type_t.error.getter();
+        if (os_log_type_enabled(v83, v84))
         {
-          v84 = swift_slowAlloc();
-          v106 = swift_slowAlloc();
-          v107 = v106;
-          *v84 = 136315394;
+          v85 = swift_slowAlloc();
+          v107 = swift_slowAlloc();
+          v108 = v107;
+          *v85 = 136315394;
           type metadata accessor for UUID();
-          _s10Foundation4UUIDVACSHAAWlTm_7(&lazy protocol witness table cache variable for type UUID and conformance UUID, MEMORY[0x1E69695A8]);
-          v85 = dispatch thunk of CustomStringConvertible.description.getter();
-          v87 = v86;
-          _s15ConversationKit20RemoteControlRequestVWOhTm_0(v80, type metadata accessor for RemoteControlResponse);
-          v88 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v85, v87, &v107);
+          _s10Foundation4UUIDVACSHAAWlTm_7(&lazy protocol witness table cache variable for type UUID and conformance UUID, MEMORY[0x1E69695A8], MEMORY[0x1E69695E0]);
+          v86 = dispatch thunk of CustomStringConvertible.description.getter();
+          v88 = v87;
+          _s15ConversationKit20RemoteControlRequestVWOhTm_0(v81, type metadata accessor for RemoteControlResponse);
+          v89 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v86, v88, &v108);
 
-          *(v84 + 4) = v88;
-          *(v84 + 12) = 2080;
-          v89 = dispatch thunk of CustomStringConvertible.description.getter();
-          v91 = v90;
-          _s15ConversationKit20RemoteControlRequestVWOhTm_0(v81, type metadata accessor for RemoteControlRequest);
-          v92 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v89, v91, &v107);
+          *(v85 + 4) = v89;
+          *(v85 + 12) = 2080;
+          v90 = dispatch thunk of CustomStringConvertible.description.getter();
+          v92 = v91;
+          _s15ConversationKit20RemoteControlRequestVWOhTm_0(v82, type metadata accessor for RemoteControlRequest);
+          v93 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v90, v92, &v108);
 
-          *(v84 + 14) = v92;
-          _os_log_impl(&dword_1BBC58000, v82, v83, "Response.requestUUID != request.uuid (%s != %s", v84, 0x16u);
-          v93 = v106;
+          *(v85 + 14) = v93;
+          _os_log_impl(&dword_1BBC58000, v83, v84, "Response.requestUUID != request.uuid (%s != %s", v85, 0x16u);
+          v94 = v107;
           swift_arrayDestroy();
-          MEMORY[0x1BFB23DF0](v93, -1, -1);
-          MEMORY[0x1BFB23DF0](v84, -1, -1);
+          MEMORY[0x1BFB23DF0](v94, -1, -1);
+          MEMORY[0x1BFB23DF0](v85, -1, -1);
         }
 
         else
         {
 
-          _s15ConversationKit20RemoteControlRequestVWOhTm_0(v81, type metadata accessor for RemoteControlRequest);
-          _s15ConversationKit20RemoteControlRequestVWOhTm_0(v80, type metadata accessor for RemoteControlResponse);
+          _s15ConversationKit20RemoteControlRequestVWOhTm_0(v82, type metadata accessor for RemoteControlRequest);
+          _s15ConversationKit20RemoteControlRequestVWOhTm_0(v81, type metadata accessor for RemoteControlResponse);
         }
 
         lazy protocol witness table accessor for type RemoteControlStateMachine.Errors and conformance RemoteControlStateMachine.Errors();
@@ -2510,44 +2311,45 @@ LABEL_7:
         goto LABEL_3;
       }
 
-      if (*(v37 + *(v9 + 28)) == 1)
+      if (*(v38 + *(v9 + 28)) == 1)
       {
-        v107 = v106;
-        v108 = v105;
-        v38 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15ConversationKit20RemoteControlRequestV_15GroupActivities11ParticipantVtMd);
-        v39 = swift_allocBox();
-        v41 = v40;
-        v42 = *(v38 + 48);
-        _s15ConversationKit20RemoteControlRequestVWObTm_0(v24, v40, type metadata accessor for RemoteControlRequest);
-        v99(v41 + v42, v36, v12);
-        v109 = v39 | 0x6000000000000000;
+        v108 = v107;
+        v109 = v106;
+        v39 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15ConversationKit20RemoteControlRequestV_15GroupActivities11ParticipantVtMd, &_s15ConversationKit20RemoteControlRequestV_15GroupActivities11ParticipantVtMR);
+        v40 = swift_allocBox();
+        v42 = v41;
+        v43 = *(v39 + 48);
+        _s15ConversationKit20RemoteControlRequestVWObTm_0(v24, v41, type metadata accessor for RemoteControlRequest);
+        v100(v42 + v43, v37, v12);
+        v110 = v40 | 0x6000000000000000;
       }
 
       else
       {
         _s15ConversationKit20RemoteControlRequestVWOhTm_0(v24, type metadata accessor for RemoteControlRequest);
-        v107 = v106;
-        v108 = v105;
+        v108 = v107;
         v109 = v106;
-        outlined copy of RemoteControlState(v106);
+        v110 = v107;
+        outlined copy of RemoteControlState(v107);
       }
 
-      RemoteControlStateMachine.transformState(_:to:)(v100, &v109);
-      return outlined consume of RemoteControlState(v109);
+      RemoteControlStateMachine.transformState(_:to:)(v101, &v110);
+      return outlined consume of RemoteControlState(v110);
     default:
-      v96 = v22;
-      v97 = v11;
-      v98 = v8;
+      v97 = v22;
+      v98 = v11;
+      v99 = v8;
       v29 = &_s15ConversationKit20RemoteControlRequestV_15GroupActivities11ParticipantVSbtMd;
+      v30 = &_s15ConversationKit20RemoteControlRequestV_15GroupActivities11ParticipantVSbtMR;
       goto LABEL_7;
   }
 }
 
-unint64_t closure #1 in RemoteControlStateMachine.validateOutgoingCancellation(_:to:)(unint64_t *a1, uint64_t a2, uint64_t a3, unint64_t a4, void (*a5)(uint64_t, uint64_t, uint64_t))
+unint64_t closure #1 in RemoteControlStateMachine.validateOutgoingCancellation(_:to:)(unint64_t *a1, uint64_t a2, char *a3, unint64_t a4, void (*a5)(uint64_t, uint64_t, uint64_t))
 {
   v110 = a3;
   v113 = a2;
-  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15GroupActivities11ParticipantVSgMd);
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15GroupActivities11ParticipantVSgMd, &_s15GroupActivities11ParticipantVSgMR);
   MEMORY[0x1EEE9AC00](v8 - 8);
   v10 = &v103 - v9;
   v11 = type metadata accessor for Participant();
@@ -2571,7 +2373,7 @@ unint64_t closure #1 in RemoteControlStateMachine.validateOutgoingCancellation(_
     v104 = v23;
     v105 = v22;
     v106 = v10;
-    v27 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15ConversationKit20RemoteControlRequestV_15GroupActivities11ParticipantVtMd);
+    v27 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15ConversationKit20RemoteControlRequestV_15GroupActivities11ParticipantVtMd, &_s15ConversationKit20RemoteControlRequestV_15GroupActivities11ParticipantVtMR);
     v28 = swift_projectBox();
     v114 = v18;
     v29 = v28;
@@ -2628,7 +2430,7 @@ unint64_t closure #1 in RemoteControlStateMachine.validateOutgoingCancellation(_
           *v87 = 136315394;
           type metadata accessor for UUID();
           v110 = v25;
-          _s10Foundation4UUIDVACSHAAWlTm_7(&lazy protocol witness table cache variable for type UUID and conformance UUID, MEMORY[0x1E69695A8]);
+          _s10Foundation4UUIDVACSHAAWlTm_7(&lazy protocol witness table cache variable for type UUID and conformance UUID, MEMORY[0x1E69695A8], MEMORY[0x1E69695E0]);
           LODWORD(v109) = v85;
           v88 = dispatch thunk of CustomStringConvertible.description.getter();
           v90 = v89;
@@ -2776,112 +2578,112 @@ void closure #1 in RemoteControlStateMachine.validateIncomingEndRequest(_:from:)
   a19 = v20;
   a20 = v21;
   v23 = v22;
-  v142 = v25;
-  v143 = v24;
-  v140 = v27;
-  v141 = v26;
+  v145 = v25;
+  v146 = v24;
+  v143 = v27;
+  v144 = v26;
   v29 = v28;
-  v30 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15GroupActivities11ParticipantVSgMd);
+  v30 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15GroupActivities11ParticipantVSgMd, &_s15GroupActivities11ParticipantVSgMR);
   v31 = OUTLINED_FUNCTION_22(v30);
   MEMORY[0x1EEE9AC00](v31);
-  v137 = &v132 - v32;
+  v140 = &v135 - v32;
   OUTLINED_FUNCTION_4_24();
   v33 = type metadata accessor for Participant();
   OUTLINED_FUNCTION_1();
   v35 = v34;
   MEMORY[0x1EEE9AC00](v36);
   OUTLINED_FUNCTION_17();
-  v139 = v37 - v38;
+  v142 = v37 - v38;
   OUTLINED_FUNCTION_33_1();
   MEMORY[0x1EEE9AC00](v39);
   OUTLINED_FUNCTION_5();
-  v138 = v40;
+  v141 = v40;
   OUTLINED_FUNCTION_33_1();
   MEMORY[0x1EEE9AC00](v41);
-  v43 = (&v132 - v42);
+  v43 = (&v135 - v42);
   v44 = type metadata accessor for RemoteControlRequest(0);
   v45 = OUTLINED_FUNCTION_22(v44);
   MEMORY[0x1EEE9AC00](v45);
   OUTLINED_FUNCTION_17();
   MEMORY[0x1EEE9AC00](v46);
-  v48 = &v132 - v47;
+  v48 = &v135 - v47;
   MEMORY[0x1EEE9AC00](v49);
-  v52 = &v132 - v51;
+  v52 = &v135 - v51;
   v53 = *v29;
   v54 = 1 << (*v29 >> 61);
   if ((v54 & 0x23) != 0 || (v54 & 0xC) == 0 && *((v53 & 0x1FFFFFFFFFFFFFFFLL) + 0x10) >> 62 != 1)
   {
-    v144 = v143;
-    v145 = v142;
+    v147 = v146;
+    v148 = v145;
     a10 = v53;
     outlined copy of RemoteControlState(v53);
     RemoteControlStateMachine.logInvalidTransition(_:)(&a10);
     outlined consume of RemoteControlState(a10);
-    lazy protocol witness table accessor for type RemoteControlStateMachine.Errors and conformance RemoteControlStateMachine.Errors();
-    OUTLINED_FUNCTION_19_6();
-    v56 = 2;
+    v55 = lazy protocol witness table accessor for type RemoteControlStateMachine.Errors and conformance RemoteControlStateMachine.Errors();
+    OUTLINED_FUNCTION_19_6(&type metadata for RemoteControlStateMachine.Errors, v55);
+    v57 = 2;
 LABEL_21:
-    *v55 = v56;
+    *v56 = v57;
     swift_willThrow();
     goto LABEL_22;
   }
 
-  v135 = v50;
-  v133 = v23;
-  v57 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15ConversationKit20RemoteControlRequestV_15GroupActivities11ParticipantVtMd);
-  v136 = v33;
-  v58 = v57;
-  v59 = swift_projectBox();
-  v60 = *(v58 + 48);
+  v138 = v50;
+  v136 = v23;
+  v58 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15ConversationKit20RemoteControlRequestV_15GroupActivities11ParticipantVtMd, &_s15ConversationKit20RemoteControlRequestV_15GroupActivities11ParticipantVtMR);
+  v139 = v33;
+  v59 = v58;
+  v60 = swift_projectBox();
+  v61 = *(v59 + 48);
   OUTLINED_FUNCTION_1_154();
-  _s15ConversationKit20RemoteControlMessageOWOcTm_0(v61, v52, v62);
-  v63 = v59 + v60;
-  v64 = v136;
-  v134 = *(v35 + 16);
-  v134(v43, v63, v136);
-  v65 = v141;
+  _s15ConversationKit20RemoteControlMessageOWOcTm_0(v62, v52, v63);
+  v64 = v60 + v61;
+  v65 = v139;
+  v137 = *(v35 + 16);
+  v137(v43, v64, v139);
+  v66 = v144;
   if ((static UUID.== infix(_:_:)() & 1) == 0)
   {
-    (*(v35 + 8))(v43, v64);
+    (*(v35 + 8))(v43, v65);
     if (one-time initialization token for screenSharing != -1)
     {
-      OUTLINED_FUNCTION_0_7();
+      OUTLINED_FUNCTION_0_7(&one-time initialization token for screenSharing);
     }
 
-    v67 = type metadata accessor for Logger();
-    __swift_project_value_buffer(v67, &static Log.screenSharing);
+    v68 = type metadata accessor for Logger();
+    __swift_project_value_buffer(v68, &static Log.screenSharing);
     OUTLINED_FUNCTION_1_154();
-    _s15ConversationKit20RemoteControlMessageOWOcTm_0(v65, v48, v68);
-    v69 = OUTLINED_FUNCTION_0_190();
-    v70 = v135;
-    _s15ConversationKit20RemoteControlRequestVWObTm_0(v69, v135, v71);
-    v72 = Logger.logObject.getter();
-    v73 = static os_log_type_t.error.getter();
-    if (os_log_type_enabled(v72, v73))
+    _s15ConversationKit20RemoteControlMessageOWOcTm_0(v66, v48, v69);
+    v70 = OUTLINED_FUNCTION_0_190();
+    v71 = v138;
+    _s15ConversationKit20RemoteControlRequestVWObTm_0(v70, v138, v72);
+    v73 = Logger.logObject.getter();
+    v74 = static os_log_type_t.error.getter();
+    if (os_log_type_enabled(v73, v74))
     {
-      v74 = swift_slowAlloc();
-      v143 = swift_slowAlloc();
-      v144 = v143;
-      *v74 = 136315394;
+      v75 = swift_slowAlloc();
+      v146 = swift_slowAlloc();
+      v147 = v146;
+      *v75 = 136315394;
       type metadata accessor for UUID();
       OUTLINED_FUNCTION_5_127();
-      _s10Foundation4UUIDVACSHAAWlTm_7(v75, v76);
-      LODWORD(v142) = v73;
-      v77 = dispatch thunk of CustomStringConvertible.description.getter();
-      v79 = v78;
+      _s10Foundation4UUIDVACSHAAWlTm_7(v76, v77, MEMORY[0x1E69695E0]);
+      LODWORD(v145) = v74;
+      v78 = dispatch thunk of CustomStringConvertible.description.getter();
+      v80 = v79;
       OUTLINED_FUNCTION_6_105();
-      _s15ConversationKit20RemoteControlRequestVWOhTm_0(v48, v80);
-      v81 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v77, v79, &v144);
+      _s15ConversationKit20RemoteControlRequestVWOhTm_0(v48, v81);
+      v82 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v78, v80, &v147);
 
-      *(v74 + 4) = v81;
-      *(v74 + 12) = 2080;
-      v82 = dispatch thunk of CustomStringConvertible.description.getter();
-      v84 = v83;
-      _s15ConversationKit20RemoteControlRequestVWOhTm_0(v70, v43);
-      v85 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v82, v84, &v144);
+      *(v75 + 4) = v82;
+      *(v75 + 12) = 2080;
+      v83 = dispatch thunk of CustomStringConvertible.description.getter();
+      v85 = v84;
+      _s15ConversationKit20RemoteControlRequestVWOhTm_0(v71, v43);
+      v86 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v83, v85, &v147);
 
-      *(v74 + 14) = v85;
-      _os_log_impl(&dword_1BBC58000, v72, v142, "endRequest.uuid != request.uuid (%s != %s", v74, 0x16u);
+      *(v75 + 14) = v86;
+      _os_log_impl(&dword_1BBC58000, v73, v145, "endRequest.uuid != request.uuid (%s != %s", v75, 0x16u);
       swift_arrayDestroy();
       OUTLINED_FUNCTION_27();
       OUTLINED_FUNCTION_27();
@@ -2891,74 +2693,74 @@ LABEL_21:
     {
 
       OUTLINED_FUNCTION_3_139();
-      _s15ConversationKit20RemoteControlRequestVWOhTm_0(v70, v130);
-      _s15ConversationKit20RemoteControlRequestVWOhTm_0(v48, v72);
+      _s15ConversationKit20RemoteControlRequestVWOhTm_0(v71, v131);
+      _s15ConversationKit20RemoteControlRequestVWOhTm_0(v48, v73);
     }
 
-    lazy protocol witness table accessor for type RemoteControlStateMachine.Errors and conformance RemoteControlStateMachine.Errors();
-    OUTLINED_FUNCTION_19_6();
-    v56 = 1;
+    v132 = lazy protocol witness table accessor for type RemoteControlStateMachine.Errors and conformance RemoteControlStateMachine.Errors();
+    OUTLINED_FUNCTION_19_6(&type metadata for RemoteControlStateMachine.Errors, v132);
+    v57 = 1;
     goto LABEL_21;
   }
 
   _s15ConversationKit20RemoteControlRequestVWOhTm_0(v52, type metadata accessor for RemoteControlRequest);
-  v66 = v140;
-  if ((MEMORY[0x1BFB1AFF0](v43, v140) & 1) == 0)
+  v67 = v143;
+  if ((MEMORY[0x1BFB1AFF0](v43, v143) & 1) == 0)
   {
     if (one-time initialization token for screenSharing != -1)
     {
-      OUTLINED_FUNCTION_0_7();
+      OUTLINED_FUNCTION_0_7(&one-time initialization token for screenSharing);
     }
 
-    v86 = type metadata accessor for Logger();
-    __swift_project_value_buffer(v86, &static Log.screenSharing);
-    v87 = v138;
-    v88 = v136;
-    v89 = v134;
-    v134(v138, v66, v136);
-    v90 = v139;
-    (*(v35 + 32))(v139, v43, v88);
-    v91 = Logger.logObject.getter();
-    v92 = static os_log_type_t.error.getter();
-    if (os_log_type_enabled(v91, v92))
+    v87 = type metadata accessor for Logger();
+    __swift_project_value_buffer(v87, &static Log.screenSharing);
+    v88 = v141;
+    v89 = v139;
+    v90 = v137;
+    v137(v141, v67, v139);
+    v91 = v142;
+    (*(v35 + 32))(v142, v43, v89);
+    v92 = Logger.logObject.getter();
+    v93 = static os_log_type_t.error.getter();
+    if (os_log_type_enabled(v92, v93))
     {
-      v93 = swift_slowAlloc();
-      LODWORD(v142) = v92;
-      v94 = v93;
-      v140 = v93;
-      v143 = swift_slowAlloc();
-      v144 = v143;
-      *v94 = 136315394;
-      v141 = v91;
-      v95 = v137;
-      v89(v137, v87, v88);
+      v94 = swift_slowAlloc();
+      LODWORD(v145) = v93;
+      v95 = v94;
+      v143 = v94;
+      v146 = swift_slowAlloc();
+      v147 = v146;
+      *v95 = 136315394;
+      v144 = v92;
+      v96 = v140;
+      v90(v140, v88, v89);
       OUTLINED_FUNCTION_12();
-      __swift_storeEnumTagSinglePayload(v96, v97, v98, v88);
-      specialized >> prefix<A>(_:)(v95, v99, v100, v101, v102, v103, v104, v105, v132, v133, v134, v135, v136, v137, v138, v139, v140, v141);
-      v107 = v106;
-      v109 = v108;
-      outlined destroy of Participant?(v95);
-      v110 = *(v35 + 8);
-      v110(v87, v88);
-      v111 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v107, v109, &v144);
+      __swift_storeEnumTagSinglePayload(v97, v98, v99, v89);
+      specialized >> prefix<A>(_:)(v96, v100, v101, v102, v103, v104, v105, v106, v135, v136, v137, v138, v139, v140, v141, v142, v143, v144);
+      v108 = v107;
+      v110 = v109;
+      outlined destroy of Participant?(v96);
+      v111 = *(v35 + 8);
+      v111(v88, v89);
+      v112 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v108, v110, &v147);
 
-      v112 = v140;
-      *(v140 + 4) = v111;
-      *(v112 + 12) = 2080;
-      v134(v95, v90, v88);
+      v113 = v143;
+      *(v143 + 4) = v112;
+      *(v113 + 12) = 2080;
+      v137(v96, v91, v89);
       OUTLINED_FUNCTION_12();
-      __swift_storeEnumTagSinglePayload(v113, v114, v115, v88);
-      specialized >> prefix<A>(_:)(v95, v116, v117, v118, v119, v120, v121, v122, v132, v133, v134, v135, v136, v137, v138, v139, v140, v141);
-      v124 = v123;
-      v125 = v90;
-      v127 = v126;
-      outlined destroy of Participant?(v95);
-      v110(v125, v88);
-      v128 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v124, v127, &v144);
+      __swift_storeEnumTagSinglePayload(v114, v115, v116, v89);
+      specialized >> prefix<A>(_:)(v96, v117, v118, v119, v120, v121, v122, v123, v135, v136, v137, v138, v139, v140, v141, v142, v143, v144);
+      v125 = v124;
+      v126 = v91;
+      v128 = v127;
+      outlined destroy of Participant?(v96);
+      v111(v126, v89);
+      v129 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v125, v128, &v147);
 
-      *(v112 + 14) = v128;
-      v129 = v141;
-      _os_log_impl(&dword_1BBC58000, v141, v142, v133, v112, 0x16u);
+      *(v113 + 14) = v129;
+      v130 = v144;
+      _os_log_impl(&dword_1BBC58000, v144, v145, v136, v113, 0x16u);
       swift_arrayDestroy();
       OUTLINED_FUNCTION_27();
       OUTLINED_FUNCTION_27();
@@ -2967,22 +2769,22 @@ LABEL_21:
     else
     {
 
-      v131 = *(v35 + 8);
-      v131(v90, v88);
-      v131(v87, v88);
+      v133 = *(v35 + 8);
+      v133(v91, v89);
+      v133(v88, v89);
     }
 
-    lazy protocol witness table accessor for type RemoteControlStateMachine.Errors and conformance RemoteControlStateMachine.Errors();
-    OUTLINED_FUNCTION_19_6();
-    v56 = 0;
+    v134 = lazy protocol witness table accessor for type RemoteControlStateMachine.Errors and conformance RemoteControlStateMachine.Errors();
+    OUTLINED_FUNCTION_19_6(&type metadata for RemoteControlStateMachine.Errors, v134);
+    v57 = 0;
     goto LABEL_21;
   }
 
-  (*(v35 + 8))(v43, v64);
-  v144 = v143;
-  v145 = v142;
-  a10 = v143;
-  outlined copy of RemoteControlState(v143);
+  (*(v35 + 8))(v43, v65);
+  v147 = v146;
+  v148 = v145;
+  a10 = v146;
+  outlined copy of RemoteControlState(v146);
   RemoteControlStateMachine.transformState(_:to:)(v29, &a10);
   outlined consume of RemoteControlState(a10);
 LABEL_22:
@@ -2997,7 +2799,7 @@ unint64_t closure #1 in RemoteControlStateMachine.validateOutgoingSuspendRequest
   v102 = type metadata accessor for RemoteControlSuspendRequest(0);
   MEMORY[0x1EEE9AC00](v102);
   v107 = &v98 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15GroupActivities11ParticipantVSgMd);
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15GroupActivities11ParticipantVSgMd, &_s15GroupActivities11ParticipantVSgMR);
   MEMORY[0x1EEE9AC00](v8 - 8);
   v10 = &v98 - v9;
   v11 = type metadata accessor for Participant();
@@ -3028,7 +2830,7 @@ unint64_t closure #1 in RemoteControlStateMachine.validateOutgoingSuspendRequest
 LABEL_5:
       v99 = v10;
       v29 = v11;
-      v30 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15ConversationKit20RemoteControlRequestV_15GroupActivities11ParticipantVtMd);
+      v30 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15ConversationKit20RemoteControlRequestV_15GroupActivities11ParticipantVtMd, &_s15ConversationKit20RemoteControlRequestV_15GroupActivities11ParticipantVtMR);
       v31 = swift_projectBox();
       v32 = *(v30 + 48);
       _s15ConversationKit20RemoteControlMessageOWOcTm_0(v31, v24, type metadata accessor for RemoteControlRequest);
@@ -3060,7 +2862,7 @@ LABEL_5:
           v110 = v51;
           *v50 = 136315394;
           type metadata accessor for UUID();
-          _s10Foundation4UUIDVACSHAAWlTm_7(&lazy protocol witness table cache variable for type UUID and conformance UUID, MEMORY[0x1E69695A8]);
+          _s10Foundation4UUIDVACSHAAWlTm_7(&lazy protocol witness table cache variable for type UUID and conformance UUID, MEMORY[0x1E69695A8], MEMORY[0x1E69695E0]);
           v52 = dispatch thunk of CustomStringConvertible.description.getter();
           v53 = v47;
           v55 = v54;
@@ -3173,7 +2975,7 @@ LABEL_3:
       v111 = v109;
       v38 = swift_allocObject();
       v39 = v35;
-      v40 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15ConversationKit20RemoteControlRequestV_15GroupActivities11ParticipantVtMd);
+      v40 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15ConversationKit20RemoteControlRequestV_15GroupActivities11ParticipantVtMd, &_s15ConversationKit20RemoteControlRequestV_15GroupActivities11ParticipantVtMR);
       v41 = swift_allocBox();
       v42 = v37;
       v44 = v43;
@@ -3204,7 +3006,7 @@ unint64_t closure #1 in RemoteControlStateMachine.validateOutgoingResumeRequest(
 {
   v117 = a5;
   v114 = a3;
-  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15GroupActivities11ParticipantVSgMd);
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15GroupActivities11ParticipantVSgMd, &_s15GroupActivities11ParticipantVSgMR);
   MEMORY[0x1EEE9AC00](v8 - 8);
   v111 = &v104 - v9;
   v10 = type metadata accessor for Participant();
@@ -3239,7 +3041,7 @@ unint64_t closure #1 in RemoteControlStateMachine.validateOutgoingResumeRequest(
   v107 = v22;
   v108 = v23;
   v24 = &v104 - v21;
-  v25 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15ConversationKit20RemoteControlRequestV_15GroupActivities11ParticipantVtMd);
+  v25 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15ConversationKit20RemoteControlRequestV_15GroupActivities11ParticipantVtMd, &_s15ConversationKit20RemoteControlRequestV_15GroupActivities11ParticipantVtMR);
   v26 = swift_projectBox();
   v110 = v10;
   v105 = v25;
@@ -3278,7 +3080,7 @@ unint64_t closure #1 in RemoteControlStateMachine.validateOutgoingResumeRequest(
       v118 = v117;
       *v52 = 136315394;
       type metadata accessor for UUID();
-      _s10Foundation4UUIDVACSHAAWlTm_7(&lazy protocol witness table cache variable for type UUID and conformance UUID, MEMORY[0x1E69695A8]);
+      _s10Foundation4UUIDVACSHAAWlTm_7(&lazy protocol witness table cache variable for type UUID and conformance UUID, MEMORY[0x1E69695A8], MEMORY[0x1E69695E0]);
       v113 = v47;
       v53 = dispatch thunk of CustomStringConvertible.description.getter();
       v55 = v54;
@@ -3652,7 +3454,7 @@ LABEL_18:
   return result;
 }
 
-uint64_t _s10Foundation4UUIDVACSHAAWlTm_7(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t _s10Foundation4UUIDVACSHAAWlTm_7(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -3680,11 +3482,11 @@ uint64_t InCallControlsParticipantCellViewModel.init(participant:supportsMultiwa
   v144 = a2;
   v135 = a6;
   v8 = a3;
-  v141 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15ConversationKit11ParticipantV5StateO_S2btMd);
+  v141 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15ConversationKit11ParticipantV5StateO_S2btMd, &_s15ConversationKit11ParticipantV5StateO_S2btMR);
   OUTLINED_FUNCTION_7_0();
   MEMORY[0x1EEE9AC00](v9);
   v143 = v134 - v10;
-  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15ConversationKit11ParticipantVSgMd);
+  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15ConversationKit11ParticipantVSgMd, &_s15ConversationKit11ParticipantVSgMR);
   MEMORY[0x1EEE9AC00](v11 - 8);
   v137 = v134 - v12;
   v13 = type metadata accessor for Participant(0);
@@ -3692,7 +3494,7 @@ uint64_t InCallControlsParticipantCellViewModel.init(participant:supportsMultiwa
   MEMORY[0x1EEE9AC00](v14);
   OUTLINED_FUNCTION_8();
   v17 = v16 - v15;
-  v18 = type metadata accessor for InCallControlsParticipantCellViewModel();
+  v18 = type metadata accessor for InCallControlsParticipantCellViewModel(0);
   OUTLINED_FUNCTION_7_0();
   MEMORY[0x1EEE9AC00](v19);
   OUTLINED_FUNCTION_8();
@@ -3759,7 +3561,7 @@ uint64_t InCallControlsParticipantCellViewModel.init(participant:supportsMultiwa
   {
     if (one-time initialization token for tableViewCellTitleLabel != -1)
     {
-      OUTLINED_FUNCTION_11_92();
+      OUTLINED_FUNCTION_11_92(&one-time initialization token for tableViewCellTitleLabel);
     }
 
     v136 = 1;
@@ -3790,7 +3592,7 @@ uint64_t InCallControlsParticipantCellViewModel.init(participant:supportsMultiwa
   v54 = v137;
   specialized Collection.first.getter(v52, v137);
   EnumTagSinglePayload = __swift_getEnumTagSinglePayload(v54, 1, v49);
-  outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v54, &_s15ConversationKit11ParticipantVSgMd);
+  outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v54, &_s15ConversationKit11ParticipantVSgMd, &_s15ConversationKit11ParticipantVSgMR);
   Participant.contactDetails.getter();
   v56 = *(&v145[0] + 1);
   v57 = *&v145[0];
@@ -3805,7 +3607,7 @@ uint64_t InCallControlsParticipantCellViewModel.init(participant:supportsMultiwa
     v60.super.isa = v59;
     OUTLINED_FUNCTION_17_0(v61, v62, v63, v64, v60);
 
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys7CVarArg_pGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys7CVarArg_pGMd, &_ss23_ContiguousArrayStorageCys7CVarArg_pGMR);
     v65 = swift_allocObject();
     *(v65 + 16) = xmmword_1BC4BA940;
     *(v65 + 56) = MEMORY[0x1E69E6158];
@@ -3835,7 +3637,7 @@ uint64_t InCallControlsParticipantCellViewModel.init(participant:supportsMultiwa
       v70.super.isa = v69;
       OUTLINED_FUNCTION_17_0(v71, v72, v73, v74, v70);
 
-      __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys7CVarArg_pGMd);
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys7CVarArg_pGMd, &_ss23_ContiguousArrayStorageCys7CVarArg_pGMR);
       v75 = swift_allocObject();
       *(v75 + 16) = xmmword_1BC4BA940;
       *(v75 + 56) = MEMORY[0x1E69E6158];
@@ -3950,7 +3752,7 @@ LABEL_41:
         break;
       case 4:
 
-        v95 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateV4date_15ConversationKit11ParticipantV9MediaInfoV05mediaH0AG010CopresenceH0VSg010copresenceH0tMd);
+        v95 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateV4date_15ConversationKit11ParticipantV9MediaInfoV05mediaH0AG010CopresenceH0VSg010copresenceH0tMd, &_s10Foundation4DateV4date_15ConversationKit11ParticipantV9MediaInfoV05mediaH0AG010CopresenceH0VSg010copresenceH0tMR);
         v96 = *(v95 + 48);
         v97 = (v68 + *(v95 + 64));
         v98 = v97[1];
@@ -3972,13 +3774,13 @@ LABEL_41:
           v102 = v145[0];
 
           outlined destroy of Participant.MediaInfo(v145);
-          outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v146, &_s15ConversationKit11ParticipantV14CopresenceInfoVSgMd);
+          outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v146, &_s15ConversationKit11ParticipantV14CopresenceInfoVSgMd, &_s15ConversationKit11ParticipantV14CopresenceInfoVSgMR);
           v103 = v102 | 0x40;
         }
 
         else
         {
-          outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v146, &_s15ConversationKit11ParticipantV14CopresenceInfoVSgMd);
+          outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v146, &_s15ConversationKit11ParticipantV14CopresenceInfoVSgMd, &_s15ConversationKit11ParticipantV14CopresenceInfoVSgMR);
 LABEL_47:
           if (*&v145[1])
           {
@@ -4085,7 +3887,7 @@ uint64_t InCallControlsParticipantCellViewModel.Action.buttonText.getter(char a1
   return OUTLINED_FUNCTION_46();
 }
 
-uint64_t type metadata accessor for InCallControlsParticipantCellViewModel()
+uint64_t type metadata accessor for InCallControlsParticipantCellViewModel(uint64_t a1)
 {
   result = type metadata singleton initialization cache for InCallControlsParticipantCellViewModel;
   if (!type metadata singleton initialization cache for InCallControlsParticipantCellViewModel)
@@ -4103,11 +3905,11 @@ Swift::Int InCallControlsParticipantCellViewModel.Action.hashValue.getter(unsign
   return Hasher._finalize()();
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance InCallControlsParticipantCellViewModel.Action()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance InCallControlsParticipantCellViewModel.Action(uint64_t a1)
 {
-  v1 = *v0;
+  v2 = *v1;
   Hasher.init(_seed:)();
-  InCallControlsParticipantCellViewModel.Action.hash(into:)(v3, v1);
+  InCallControlsParticipantCellViewModel.Action.hash(into:)(v4, v2);
   return Hasher._finalize()();
 }
 
@@ -4171,12 +3973,11 @@ LABEL_23:
   }
 }
 
-uint64_t InCallControlsParticipantCellViewModel.ButtonConfiguration.label.setter(uint64_t a1, uint64_t a2)
+void InCallControlsParticipantCellViewModel.ButtonConfiguration.label.setter(uint64_t a1, uint64_t a2)
 {
 
   *v2 = a1;
   v2[1] = a2;
-  return result;
 }
 
 uint64_t InCallControlsParticipantCellViewModel.ButtonConfiguration.init(_:action:)(uint64_t a1, char a2)
@@ -4203,7 +4004,7 @@ uint64_t InCallControlsParticipantCellViewModel.ButtonConfiguration.init(_:actio
       switch(swift_getEnumCaseMultiPayload())
       {
         case 4u:
-          v20 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateV4date_15ConversationKit11ParticipantV9MediaInfoV05mediaH0AG010CopresenceH0VSg010copresenceH0tMd);
+          v20 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateV4date_15ConversationKit11ParticipantV9MediaInfoV05mediaH0AG010CopresenceH0VSg010copresenceH0tMd, &_s10Foundation4DateV4date_15ConversationKit11ParticipantV9MediaInfoV05mediaH0AG010CopresenceH0VSg010copresenceH0tMR);
           v21 = *(v20 + 48);
           OUTLINED_FUNCTION_37(&v9[*(v20 + 64)]);
           outlined destroy of Participant.MediaInfo(&v9[v21]);
@@ -4229,7 +4030,7 @@ LABEL_4:
               (*(v19 + 8))(v6);
               return 0;
             case 4u:
-              v22 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateV4date_15ConversationKit11ParticipantV9MediaInfoV05mediaH0AG010CopresenceH0VSg010copresenceH0tMd);
+              v22 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateV4date_15ConversationKit11ParticipantV9MediaInfoV05mediaH0AG010CopresenceH0VSg010copresenceH0tMd, &_s10Foundation4DateV4date_15ConversationKit11ParticipantV9MediaInfoV05mediaH0AG010CopresenceH0VSg010copresenceH0tMR);
               v23 = *(v22 + 48);
               OUTLINED_FUNCTION_37(&v6[*(v22 + 64)]);
               outlined destroy of Participant.MediaInfo(&v6[v23]);
@@ -4348,7 +4149,7 @@ uint64_t protocol witness for static Equatable.== infix(_:_:) in conformance InC
   return static InCallControlsParticipantCellViewModel.ButtonConfiguration.== infix(_:_:)(*a1, *(a1 + 8), v2 | *(a1 + 16), *a2, *(a2 + 8), v3 | *(a2 + 16));
 }
 
-uint64_t InCallControlsParticipantCellViewModel.contactDetails.getter@<X0>(uint64_t a1@<X8>)
+double InCallControlsParticipantCellViewModel.contactDetails.getter@<D0>(uint64_t a1@<X8>)
 {
   v3 = *(v1 + 2);
   v2 = *(v1 + 3);
@@ -4363,6 +4164,8 @@ uint64_t InCallControlsParticipantCellViewModel.contactDetails.getter@<X0>(uint6
   *(a1 + 40) = v4;
   *(a1 + 48) = v6;
   v8 = v7;
+
+  return result;
 }
 
 __n128 InCallControlsParticipantCellViewModel.contactDetails.setter(__int128 *a1)
@@ -4383,7 +4186,7 @@ __n128 InCallControlsParticipantCellViewModel.contactDetails.setter(__int128 *a1
 
 uint64_t InCallControlsParticipantCellViewModel.participantIdentifier.getter@<X0>(uint64_t a1@<X8>)
 {
-  v3 = *(type metadata accessor for InCallControlsParticipantCellViewModel() + 20);
+  v3 = *(type metadata accessor for InCallControlsParticipantCellViewModel(0) + 20);
   type metadata accessor for UUID();
   OUTLINED_FUNCTION_7_0();
   v6 = *(v5 + 16);
@@ -4393,67 +4196,65 @@ uint64_t InCallControlsParticipantCellViewModel.participantIdentifier.getter@<X0
 
 uint64_t InCallControlsParticipantCellViewModel.participantIdentifier.setter()
 {
-  OUTLINED_FUNCTION_17_1();
-  v2 = *(type metadata accessor for InCallControlsParticipantCellViewModel() + 20);
+  v2 = OUTLINED_FUNCTION_17_1();
+  v3 = *(type metadata accessor for InCallControlsParticipantCellViewModel(v2) + 20);
   type metadata accessor for UUID();
   OUTLINED_FUNCTION_7_0();
-  v4 = *(v3 + 40);
+  v5 = *(v4 + 40);
 
-  return v4(v1 + v2, v0);
+  return v5(v1 + v3, v0);
 }
 
 uint64_t InCallControlsParticipantCellViewModel.participantIdentifier.modify()
 {
-  OUTLINED_FUNCTION_17_1();
-  type metadata accessor for InCallControlsParticipantCellViewModel();
+  v0 = OUTLINED_FUNCTION_17_1();
+  type metadata accessor for InCallControlsParticipantCellViewModel(v0);
   return OUTLINED_FUNCTION_26_0();
 }
 
 uint64_t InCallControlsParticipantCellViewModel.name.getter()
 {
-  type metadata accessor for InCallControlsParticipantCellViewModel();
+  type metadata accessor for InCallControlsParticipantCellViewModel(0);
 
   return OUTLINED_FUNCTION_46();
 }
 
-uint64_t InCallControlsParticipantCellViewModel.name.setter(uint64_t a1, uint64_t a2)
+void InCallControlsParticipantCellViewModel.name.setter(uint64_t a1, uint64_t a2)
 {
-  v5 = (v2 + *(type metadata accessor for InCallControlsParticipantCellViewModel() + 24));
+  v5 = (v2 + *(type metadata accessor for InCallControlsParticipantCellViewModel(0) + 24));
 
   *v5 = a1;
   v5[1] = a2;
-  return result;
 }
 
 uint64_t InCallControlsParticipantCellViewModel.name.modify()
 {
-  OUTLINED_FUNCTION_17_1();
-  type metadata accessor for InCallControlsParticipantCellViewModel();
+  v0 = OUTLINED_FUNCTION_17_1();
+  type metadata accessor for InCallControlsParticipantCellViewModel(v0);
   return OUTLINED_FUNCTION_26_0();
 }
 
 uint64_t InCallControlsParticipantCellViewModel.subtitle.getter()
 {
-  v1 = *(v0 + *(type metadata accessor for InCallControlsParticipantCellViewModel() + 28) + 16);
+  v1 = *(v0 + *(type metadata accessor for InCallControlsParticipantCellViewModel(0) + 28) + 16);
   v2 = OUTLINED_FUNCTION_46();
   outlined copy of InCallControlsParticipantCellViewModel.SubtitleState(v2, v3, v1);
   return OUTLINED_FUNCTION_46();
 }
 
-uint64_t InCallControlsParticipantCellViewModel.subtitle.setter(uint64_t a1, uint64_t a2, char a3)
+void InCallControlsParticipantCellViewModel.subtitle.setter(uint64_t a1, uint64_t a2, char a3)
 {
-  v7 = v3 + *(type metadata accessor for InCallControlsParticipantCellViewModel() + 28);
-  result = outlined consume of InCallControlsParticipantCellViewModel.SubtitleState(*v7, *(v7 + 8), *(v7 + 16));
+  v7 = v3 + *(type metadata accessor for InCallControlsParticipantCellViewModel(0) + 28);
+  outlined consume of InCallControlsParticipantCellViewModel.SubtitleState(*v7, *(v7 + 8), *(v7 + 16));
   *v7 = a1;
   *(v7 + 8) = a2;
   *(v7 + 16) = a3;
-  return result;
 }
 
 uint64_t InCallControlsParticipantCellViewModel.subtitle.modify()
 {
-  OUTLINED_FUNCTION_17_1();
-  type metadata accessor for InCallControlsParticipantCellViewModel();
+  v0 = OUTLINED_FUNCTION_17_1();
+  type metadata accessor for InCallControlsParticipantCellViewModel(v0);
   return OUTLINED_FUNCTION_26_0();
 }
 
@@ -4466,31 +4267,30 @@ uint64_t InCallControlsParticipantCellViewModel.action.setter()
 
 uint64_t InCallControlsParticipantCellViewModel.action.modify()
 {
-  OUTLINED_FUNCTION_17_1();
-  type metadata accessor for InCallControlsParticipantCellViewModel();
+  v0 = OUTLINED_FUNCTION_17_1();
+  type metadata accessor for InCallControlsParticipantCellViewModel(v0);
   return OUTLINED_FUNCTION_26_0();
 }
 
 uint64_t InCallControlsParticipantCellViewModel.actionButtonLabel.getter()
 {
-  type metadata accessor for InCallControlsParticipantCellViewModel();
+  type metadata accessor for InCallControlsParticipantCellViewModel(0);
 
   return OUTLINED_FUNCTION_46();
 }
 
-uint64_t InCallControlsParticipantCellViewModel.actionButtonLabel.setter(uint64_t a1, uint64_t a2)
+void InCallControlsParticipantCellViewModel.actionButtonLabel.setter(uint64_t a1, uint64_t a2)
 {
-  v5 = (v2 + *(type metadata accessor for InCallControlsParticipantCellViewModel() + 36));
+  v5 = (v2 + *(type metadata accessor for InCallControlsParticipantCellViewModel(0) + 36));
 
   *v5 = a1;
   v5[1] = a2;
-  return result;
 }
 
 uint64_t InCallControlsParticipantCellViewModel.actionButtonLabel.modify()
 {
-  OUTLINED_FUNCTION_17_1();
-  type metadata accessor for InCallControlsParticipantCellViewModel();
+  v0 = OUTLINED_FUNCTION_17_1();
+  type metadata accessor for InCallControlsParticipantCellViewModel(v0);
   return OUTLINED_FUNCTION_26_0();
 }
 
@@ -4503,8 +4303,8 @@ uint64_t InCallControlsParticipantCellViewModel.shouldShowActionButton.setter()
 
 uint64_t InCallControlsParticipantCellViewModel.shouldShowActionButton.modify()
 {
-  OUTLINED_FUNCTION_17_1();
-  type metadata accessor for InCallControlsParticipantCellViewModel();
+  v0 = OUTLINED_FUNCTION_17_1();
+  type metadata accessor for InCallControlsParticipantCellViewModel(v0);
   return OUTLINED_FUNCTION_26_0();
 }
 
@@ -4517,8 +4317,8 @@ uint64_t InCallControlsParticipantCellViewModel.shouldEnableActionButton.setter(
 
 uint64_t InCallControlsParticipantCellViewModel.shouldEnableActionButton.modify()
 {
-  OUTLINED_FUNCTION_17_1();
-  type metadata accessor for InCallControlsParticipantCellViewModel();
+  v0 = OUTLINED_FUNCTION_17_1();
+  type metadata accessor for InCallControlsParticipantCellViewModel(v0);
   return OUTLINED_FUNCTION_26_0();
 }
 
@@ -4531,8 +4331,8 @@ uint64_t InCallControlsParticipantCellViewModel.shouldShowKickMemberButton.sette
 
 uint64_t InCallControlsParticipantCellViewModel.shouldShowKickMemberButton.modify()
 {
-  OUTLINED_FUNCTION_17_1();
-  type metadata accessor for InCallControlsParticipantCellViewModel();
+  v0 = OUTLINED_FUNCTION_17_1();
+  type metadata accessor for InCallControlsParticipantCellViewModel(v0);
   return OUTLINED_FUNCTION_26_0();
 }
 
@@ -4545,8 +4345,8 @@ uint64_t InCallControlsParticipantCellViewModel.shouldShowLMIButtons.setter()
 
 uint64_t InCallControlsParticipantCellViewModel.shouldShowLMIButtons.modify()
 {
-  OUTLINED_FUNCTION_17_1();
-  type metadata accessor for InCallControlsParticipantCellViewModel();
+  v0 = OUTLINED_FUNCTION_17_1();
+  type metadata accessor for InCallControlsParticipantCellViewModel(v0);
   return OUTLINED_FUNCTION_26_0();
 }
 
@@ -4559,8 +4359,8 @@ uint64_t InCallControlsParticipantCellViewModel.shouldShowInfoButton.setter()
 
 uint64_t InCallControlsParticipantCellViewModel.shouldShowInfoButton.modify()
 {
-  OUTLINED_FUNCTION_17_1();
-  type metadata accessor for InCallControlsParticipantCellViewModel();
+  v0 = OUTLINED_FUNCTION_17_1();
+  type metadata accessor for InCallControlsParticipantCellViewModel(v0);
   return OUTLINED_FUNCTION_26_0();
 }
 
@@ -4573,51 +4373,52 @@ uint64_t InCallControlsParticipantCellViewModel.shouldUseExtendedHeight.setter()
 
 uint64_t InCallControlsParticipantCellViewModel.shouldUseExtendedHeight.modify()
 {
-  OUTLINED_FUNCTION_17_1();
-  type metadata accessor for InCallControlsParticipantCellViewModel();
+  v0 = OUTLINED_FUNCTION_17_1();
+  type metadata accessor for InCallControlsParticipantCellViewModel(v0);
   return OUTLINED_FUNCTION_26_0();
 }
 
-uint64_t InCallControlsParticipantCellViewModel.contactGradient.getter()
+double InCallControlsParticipantCellViewModel.contactGradient.getter()
 {
-  type metadata accessor for InCallControlsParticipantCellViewModel();
+  type metadata accessor for InCallControlsParticipantCellViewModel(0);
+
+  return result;
 }
 
-uint64_t InCallControlsParticipantCellViewModel.contactGradient.setter()
+void InCallControlsParticipantCellViewModel.contactGradient.setter()
 {
-  OUTLINED_FUNCTION_17_1();
-  v2 = *(type metadata accessor for InCallControlsParticipantCellViewModel() + 64);
+  v2 = OUTLINED_FUNCTION_17_1();
+  v3 = *(type metadata accessor for InCallControlsParticipantCellViewModel(v2) + 64);
 
-  *(v1 + v2) = v0;
-  return result;
+  *(v1 + v3) = v0;
 }
 
 uint64_t InCallControlsParticipantCellViewModel.contactGradient.modify()
 {
-  OUTLINED_FUNCTION_17_1();
-  type metadata accessor for InCallControlsParticipantCellViewModel();
+  v0 = OUTLINED_FUNCTION_17_1();
+  type metadata accessor for InCallControlsParticipantCellViewModel(v0);
   return OUTLINED_FUNCTION_26_0();
 }
 
 id InCallControlsParticipantCellViewModel.nameLabelColor.getter()
 {
-  v1 = *(v0 + *(type metadata accessor for InCallControlsParticipantCellViewModel() + 68));
+  v1 = *(v0 + *(type metadata accessor for InCallControlsParticipantCellViewModel(0) + 68));
 
   return v1;
 }
 
 void InCallControlsParticipantCellViewModel.nameLabelColor.setter()
 {
-  OUTLINED_FUNCTION_17_1();
-  v2 = *(type metadata accessor for InCallControlsParticipantCellViewModel() + 68);
+  v2 = OUTLINED_FUNCTION_17_1();
+  v3 = *(type metadata accessor for InCallControlsParticipantCellViewModel(v2) + 68);
 
-  *(v1 + v2) = v0;
+  *(v1 + v3) = v0;
 }
 
 uint64_t InCallControlsParticipantCellViewModel.nameLabelColor.modify()
 {
-  OUTLINED_FUNCTION_17_1();
-  type metadata accessor for InCallControlsParticipantCellViewModel();
+  v0 = OUTLINED_FUNCTION_17_1();
+  type metadata accessor for InCallControlsParticipantCellViewModel(v0);
   return OUTLINED_FUNCTION_26_0();
 }
 
@@ -4659,7 +4460,7 @@ uint64_t static InCallControlsParticipantCellViewModel.== infix(_:_:)(__int128 *
     return 0;
   }
 
-  v18 = type metadata accessor for InCallControlsParticipantCellViewModel();
+  v18 = type metadata accessor for InCallControlsParticipantCellViewModel(0);
   if ((static UUID.== infix(_:_:)() & 1) == 0)
   {
     return 0;
@@ -4732,7 +4533,7 @@ uint64_t static InCallControlsParticipantCellViewModel.== infix(_:_:)(__int128 *
               _sSasSQRzlE2eeoiySbSayxG_ABtFZSo7UIColorC_Tt1g5(*(a1 + v18[16]), *(a2 + v18[16]));
               if (v31)
               {
-                type metadata accessor for NSObject(0, &lazy cache variable for type metadata for NSObject);
+                type metadata accessor for NSObject(0, &lazy cache variable for type metadata for NSObject, 0x1E69E58C0);
                 return static NSObject.== infix(_:_:)() & 1;
               }
             }
@@ -4754,7 +4555,7 @@ uint64_t InCallControlsParticipantCellViewModel.init(contactDetails:participantI
   *(a9 + 16) = v25;
   *(a9 + 32) = v24;
   *(a9 + 48) = v26;
-  v27 = type metadata accessor for InCallControlsParticipantCellViewModel();
+  v27 = type metadata accessor for InCallControlsParticipantCellViewModel(0);
   v28 = v27[5];
   type metadata accessor for UUID();
   OUTLINED_FUNCTION_7_0();
@@ -4785,10 +4586,10 @@ uint64_t Participant.actionForParticipantCell(isBuzzingAllowed:)(char a1)
 {
   v3 = type metadata accessor for Participant.State(0);
   MEMORY[0x1EEE9AC00](v3);
-  v5 = &v23 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v5 = &v25 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v6);
-  v8 = &v23 - v7;
-  _s15ConversationKit11ParticipantVWOcTm_12(v1, &v23 - v7, type metadata accessor for Participant.State);
+  v8 = &v25 - v7;
+  _s15ConversationKit11ParticipantVWOcTm_12(v1, &v25 - v7, type metadata accessor for Participant.State);
   switch(swift_getEnumCaseMultiPayload())
   {
     case 2u:
@@ -4796,9 +4597,10 @@ uint64_t Participant.actionForParticipantCell(isBuzzingAllowed:)(char a1)
       (*(*(v17 - 8) + 8))(v8, v17);
       return 2;
     case 4u:
-      v18 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateV4date_15ConversationKit11ParticipantV9MediaInfoV05mediaH0AG010CopresenceH0VSg010copresenceH0tMd);
+      v18 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateV4date_15ConversationKit11ParticipantV9MediaInfoV05mediaH0AG010CopresenceH0VSg010copresenceH0tMd, &_s10Foundation4DateV4date_15ConversationKit11ParticipantV9MediaInfoV05mediaH0AG010CopresenceH0VSg010copresenceH0tMR);
       v19 = *(v18 + 48);
-      outlined consume of Participant.CopresenceInfo?(*&v8[*(v18 + 64)], *&v8[*(v18 + 64) + 8]);
+      v20 = &v8[*(v18 + 64)];
+      outlined consume of Participant.CopresenceInfo?(*v20, v20[1], v20[2], v20[3], v20[4], v20[5], v20[6], v20[7]);
       outlined destroy of Participant.MediaInfo(&v8[v19]);
       goto LABEL_2;
     case 6u:
@@ -4826,10 +4628,11 @@ LABEL_3:
         case 5u:
           goto LABEL_6;
         case 4u:
-          v21 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateV4date_15ConversationKit11ParticipantV9MediaInfoV05mediaH0AG010CopresenceH0VSg010copresenceH0tMd);
-          v22 = *(v21 + 48);
-          outlined consume of Participant.CopresenceInfo?(*&v5[*(v21 + 64)], *&v5[*(v21 + 64) + 8]);
-          outlined destroy of Participant.MediaInfo(&v5[v22]);
+          v22 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateV4date_15ConversationKit11ParticipantV9MediaInfoV05mediaH0AG010CopresenceH0VSg010copresenceH0tMd, &_s10Foundation4DateV4date_15ConversationKit11ParticipantV9MediaInfoV05mediaH0AG010CopresenceH0VSg010copresenceH0tMR);
+          v23 = *(v22 + 48);
+          v24 = &v5[*(v22 + 64)];
+          outlined consume of Participant.CopresenceInfo?(*v24, v24[1], v24[2], v24[3], v24[4], v24[5], v24[6], v24[7]);
+          outlined destroy of Participant.MediaInfo(&v5[v23]);
 LABEL_6:
           v11 = type metadata accessor for Date();
           (*(*(v11 - 8) + 8))(v5, v11);
@@ -4837,8 +4640,8 @@ LABEL_6:
         case 6u:
           goto LABEL_7;
         default:
-          v20 = type metadata accessor for Date();
-          (*(*(v20 - 8) + 8))(v5, v20);
+          v21 = type metadata accessor for Date();
+          (*(*(v21 - 8) + 8))(v5, v21);
           goto LABEL_16;
       }
 
@@ -4883,7 +4686,7 @@ id InCallControlsParticipantCellViewModel.init()@<X0>(void *a1@<X8>)
   MEMORY[0x1EEE9AC00](v2);
   OUTLINED_FUNCTION_8();
   v6 = v5 - v4;
-  v7 = type metadata accessor for InCallControlsParticipantCellViewModel();
+  v7 = type metadata accessor for InCallControlsParticipantCellViewModel(0);
   v8 = (a1 + v7[9]);
   *v8 = 0;
   v8[1] = 0;
@@ -4941,7 +4744,7 @@ id InCallControlsParticipantCellViewModel.init()@<X0>(void *a1@<X8>)
 
   if (v17 != -1)
   {
-    OUTLINED_FUNCTION_11_92();
+    OUTLINED_FUNCTION_11_92(&one-time initialization token for tableViewCellTitleLabel);
   }
 
   v18 = static Colors.InCallControls.tableViewCellTitleLabel;
@@ -4950,7 +4753,7 @@ id InCallControlsParticipantCellViewModel.init()@<X0>(void *a1@<X8>)
   return v18;
 }
 
-uint64_t outlined copy of InCallControlsParticipantCellViewModel.SubtitleState(uint64_t a1, uint64_t a2, char a3)
+double outlined copy of InCallControlsParticipantCellViewModel.SubtitleState(uint64_t a1, uint64_t a2, char a3)
 {
   if ((a3 & 0x80) == 0)
   {
@@ -4971,19 +4774,19 @@ unint64_t lazy protocol witness table accessor for type InCallControlsParticipan
   return result;
 }
 
-void type metadata completion function for InCallControlsParticipantCellViewModel()
+void type metadata completion function for InCallControlsParticipantCellViewModel(uint64_t a1)
 {
   type metadata accessor for UUID();
-  if (v0 <= 0x3F)
+  if (v1 <= 0x3F)
   {
     type metadata accessor for String?();
-    if (v1 <= 0x3F)
+    if (v2 <= 0x3F)
     {
-      type metadata accessor for [UIColor]();
-      if (v2 <= 0x3F)
+      type metadata accessor for [UIColor](319);
+      if (v3 <= 0x3F)
       {
-        type metadata accessor for NSObject(319, &lazy cache variable for type metadata for UIColor);
-        if (v3 <= 0x3F)
+        type metadata accessor for NSObject(319, &lazy cache variable for type metadata for UIColor, 0x1E69DC888);
+        if (v4 <= 0x3F)
         {
           swift_cvw_initStructMetadataWithLayoutString();
         }
@@ -4992,15 +4795,15 @@ void type metadata completion function for InCallControlsParticipantCellViewMode
   }
 }
 
-void type metadata accessor for [UIColor]()
+void type metadata accessor for [UIColor](uint64_t a1)
 {
   if (!lazy cache variable for type metadata for [UIColor])
   {
-    type metadata accessor for NSObject(255, &lazy cache variable for type metadata for UIColor);
-    v0 = type metadata accessor for Array();
-    if (!v1)
+    type metadata accessor for NSObject(255, &lazy cache variable for type metadata for UIColor, 0x1E69DC888);
+    v1 = type metadata accessor for Array();
+    if (!v2)
     {
-      atomic_store(v0, &lazy cache variable for type metadata for [UIColor]);
+      atomic_store(v1, &lazy cache variable for type metadata for [UIColor]);
     }
   }
 }
@@ -5272,10 +5075,10 @@ void TUCallCenter.needsMultipleRejection.getter()
   if (TUCallCenter.cnk_hasIncomingAudioOrVideoCall.getter())
   {
     v1 = [v0 currentCallGroups];
-    type metadata accessor for NSObject(0, &lazy cache variable for type metadata for TUCallGroup);
+    type metadata accessor for NSObject(0, &lazy cache variable for type metadata for TUCallGroup, 0x1E69D8A70);
     v2 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
 
-    v3 = specialized Array.count.getter(v2);
+    v3 = specialized Array.count.getter();
     v4 = 0;
     while (1)
     {
@@ -5314,7 +5117,7 @@ void TUCallCenter.needsMultipleRejection.getter()
         v8 = [v0 currentCallGroups];
         v9 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
 
-        v10 = specialized Array.count.getter(v9);
+        v10 = specialized Array.count.getter();
         v11 = 0;
         while (v10 != v11)
         {
@@ -5364,12 +5167,12 @@ LABEL_24:
   }
 }
 
-uint64_t SBUISystemApertureLayoutMode.debugName.getter()
+uint64_t SBUISystemApertureLayoutMode.debugName.getter(uint64_t a1, __n128 a2)
 {
-  v0 = SBUISystemApertureLayoutModeDescription();
-  v1 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+  v2 = SBUISystemApertureLayoutModeDescription();
+  v3 = static String._unconditionallyBridgeFromObjectiveC(_:)();
 
-  return v1;
+  return v3;
 }
 
 uint64_t CallScreeningCaptionsProvider.logger.getter@<X0>(uint64_t a1@<X8>)
@@ -5411,7 +5214,7 @@ uint64_t CallScreeningCaptionsProvider.participantCaptionsProviderDelegate.sette
   return swift_unknownObjectRelease();
 }
 
-uint64_t (*CallScreeningCaptionsProvider.participantCaptionsProviderDelegate.modify(void *a1))()
+void (*CallScreeningCaptionsProvider.participantCaptionsProviderDelegate.modify(void *a1))(uint64_t a1, char a2)
 {
   v3 = __swift_coroFrameAllocStub(0x38uLL);
   *a1 = v3;
@@ -5434,7 +5237,7 @@ void CallScreeningCaptionsProvider.init(logger:call:)()
   v3 = v2;
   v92 = v4;
   ObjectType = swift_getObjectType();
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation6LocaleVSgMd);
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation6LocaleVSgMd, &_s10Foundation6LocaleVSgMR);
   OUTLINED_FUNCTION_22(v6);
   OUTLINED_FUNCTION_21();
   MEMORY[0x1EEE9AC00](v7);
@@ -5509,7 +5312,7 @@ void CallScreeningCaptionsProvider.init(logger:call:)()
     *(v38 + 4) = v45;
     *(v38 + 12) = 2080;
     v93[0] = v34;
-    type metadata accessor for NSObject(0, &lazy cache variable for type metadata for TUCaptionsClient);
+    type metadata accessor for NSObject(0, &lazy cache variable for type metadata for TUCaptionsClient, 0x1E69D8AE0);
     v46 = v34;
     v47 = String.init<A>(reflecting:)();
     v49 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v47, v48, &v94);
@@ -5527,7 +5330,7 @@ void CallScreeningCaptionsProvider.init(logger:call:)()
   LanguageManager.init(featureFlags:)();
   static Locale.current.getter();
   LanguageManager.mappedASRAssetIdentifier(for:useCase:)();
-  v52 = *(v51 + 8);
+  v52 = v51[1];
   v52(v16, v50);
   (*(v81 + 8))(v21, v82);
 
@@ -5545,7 +5348,7 @@ void CallScreeningCaptionsProvider.init(logger:call:)()
     [v54 setTaskHint_];
   }
 
-  v57 = *(v51 + 16);
+  v57 = v51[2];
   v58 = v89;
   v57(v89, v53, v50);
   v59 = Logger.logObject.getter();
@@ -5565,7 +5368,7 @@ void CallScreeningCaptionsProvider.init(logger:call:)()
     v74 = v73;
     v75 = v63;
     v52 = v62;
-    outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v75, &_s10Foundation6LocaleVSgMd);
+    outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v75, &_s10Foundation6LocaleVSgMd, &_s10Foundation6LocaleVSgMR);
     v62(v58, v91);
     v76 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v72, v74, v93);
     v50 = v91;
@@ -5646,12 +5449,11 @@ uint64_t CallScreeningCaptionsProvider.captionsEnabled.getter()
   return *(v0 + v1);
 }
 
-uint64_t CallScreeningCaptionsProvider.captionsEnabled.setter(char a1)
+void CallScreeningCaptionsProvider.captionsEnabled.setter(char a1)
 {
   v3 = OBJC_IVAR____TtC15ConversationKit29CallScreeningCaptionsProvider_captionsEnabled;
-  result = swift_beginAccess();
+  swift_beginAccess();
   *(v1 + v3) = a1;
-  return result;
 }
 
 Swift::Void __swiftcall CallScreeningCaptionsProvider.enableCaptions(_:)(Swift::Bool a1)
@@ -5660,71 +5462,6 @@ Swift::Void __swiftcall CallScreeningCaptionsProvider.enableCaptions(_:)(Swift::
   {
     [*(v1 + OBJC_IVAR____TtC15ConversationKit29CallScreeningCaptionsProvider_captionsClient) enableCaptions_];
   }
-}
-
-void CallScreeningCaptionsProvider.captionsClient(_:didEnableCaptions:error:)()
-{
-  CallScreeningCaptionsProvider.captionsClient(_:didEnableCaptions:error:)();
-}
-
-{
-  OUTLINED_FUNCTION_29();
-  v2 = v1;
-  v4 = v3;
-  v5 = v0;
-  v7 = v6;
-  v9 = v8;
-  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd);
-  OUTLINED_FUNCTION_22(v10);
-  OUTLINED_FUNCTION_21();
-  MEMORY[0x1EEE9AC00](v11);
-  v13 = v29 - v12;
-  v14 = v7;
-  v15 = Logger.logObject.getter();
-  v16 = static os_log_type_t.default.getter();
-
-  if (os_log_type_enabled(v15, v16))
-  {
-    v29[1] = v2;
-    v17 = swift_slowAlloc();
-    v18 = swift_slowAlloc();
-    *v17 = 67109378;
-    *(v17 + 4) = v9 & 1;
-    *(v17 + 8) = 2112;
-    if (v7)
-    {
-      v19 = v7;
-      v20 = _swift_stdlib_bridgeErrorToNSError();
-      v21 = v20;
-    }
-
-    else
-    {
-      v20 = 0;
-      v21 = 0;
-    }
-
-    *(v17 + 10) = v20;
-    *v18 = v21;
-    _os_log_impl(&dword_1BBC58000, v15, v16, v4, v17, 0x12u);
-    outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v18, &_sSo8NSObjectCSgMd);
-    OUTLINED_FUNCTION_27();
-    OUTLINED_FUNCTION_27();
-  }
-
-  v22 = type metadata accessor for TaskPriority();
-  OUTLINED_FUNCTION_10_78(v13, v23, v24, v22);
-  v25 = v5;
-  v26 = static MainActor.shared.getter();
-  v27 = swift_allocObject();
-  v28 = MEMORY[0x1E69E85E0];
-  *(v27 + 16) = v26;
-  *(v27 + 24) = v28;
-  *(v27 + 32) = v25;
-  *(v27 + 40) = v9 & 1;
-  _sScTss5NeverORs_rlE4name8priority9operationScTyxABGSSSg_ScPSgxyYaYAcntcfCytSg_Tt2g5();
-
-  OUTLINED_FUNCTION_30_0();
 }
 
 uint64_t closure #1 in CallScreeningCaptionsProvider.captionsClient(_:didEnableCaptions:error:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, char a5)
@@ -5737,6 +5474,67 @@ uint64_t closure #1 in CallScreeningCaptionsProvider.captionsClient(_:didEnableC
   v7 = dispatch thunk of Actor.unownedExecutor.getter();
 
   return MEMORY[0x1EEE6DFA0](closure #1 in CallScreeningCaptionsProvider.captionsClient(_:didEnableCaptions:error:), v7, v6);
+}
+
+void CallScreeningCaptionsProvider.captionsClient(_:didEnableCaptions:error:)(uint64_t a1, uint64_t a2, uint64_t a3, const char *a4, ...)
+{
+  OUTLINED_FUNCTION_29();
+  v6 = v5;
+  v8 = v7;
+  v9 = v4;
+  v11 = v10;
+  v13 = v12;
+  v14 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd, &_sScPSgMR);
+  OUTLINED_FUNCTION_22(v14);
+  OUTLINED_FUNCTION_21();
+  MEMORY[0x1EEE9AC00](v15);
+  v17 = v33 - v16;
+  v18 = v11;
+  v19 = Logger.logObject.getter();
+  v20 = static os_log_type_t.default.getter();
+
+  if (os_log_type_enabled(v19, v20))
+  {
+    v33[1] = v6;
+    v21 = swift_slowAlloc();
+    v22 = swift_slowAlloc();
+    *v21 = 67109378;
+    *(v21 + 4) = v13 & 1;
+    *(v21 + 8) = 2112;
+    if (v11)
+    {
+      v23 = v11;
+      v24 = _swift_stdlib_bridgeErrorToNSError();
+      v25 = v24;
+    }
+
+    else
+    {
+      v24 = 0;
+      v25 = 0;
+    }
+
+    *(v21 + 10) = v24;
+    *v22 = v25;
+    _os_log_impl(&dword_1BBC58000, v19, v20, v8, v21, 0x12u);
+    outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v22, &_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
+    OUTLINED_FUNCTION_27();
+    OUTLINED_FUNCTION_27();
+  }
+
+  v26 = type metadata accessor for TaskPriority();
+  OUTLINED_FUNCTION_10_78(v17, v27, v28, v26);
+  v29 = v9;
+  v30 = static MainActor.shared.getter();
+  v31 = swift_allocObject();
+  v32 = MEMORY[0x1E69E85E0];
+  *(v31 + 16) = v30;
+  *(v31 + 24) = v32;
+  *(v31 + 32) = v29;
+  *(v31 + 40) = v13 & 1;
+  _sScTss5NeverORs_rlE4name8priority9operationScTyxABGSSSg_ScPSgxyYaYAcntcfCytSg_Tt2g5();
+
+  OUTLINED_FUNCTION_30_0();
 }
 
 uint64_t closure #1 in CallScreeningCaptionsProvider.captionsClient(_:didDisableCaptions:error:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, char a5)
@@ -5772,15 +5570,15 @@ void CallScreeningCaptionsProvider.captionsClient(_:didUpdateCaptions:)()
 {
   OUTLINED_FUNCTION_29();
   v2 = v1;
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd);
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd, &_sScPSgMR);
   OUTLINED_FUNCTION_22(v3);
   OUTLINED_FUNCTION_21();
   MEMORY[0x1EEE9AC00](v4);
-  v6 = &v76 - v5;
+  v6 = &v78 - v5;
   type metadata accessor for Participant.Caption(0);
   OUTLINED_FUNCTION_1();
-  v81 = v7;
-  v82 = v8;
+  v83 = v7;
+  v84 = v8;
   MEMORY[0x1EEE9AC00](v7);
   OUTLINED_FUNCTION_8();
   v11 = (v10 - v9);
@@ -5788,19 +5586,19 @@ void CallScreeningCaptionsProvider.captionsClient(_:didUpdateCaptions:)()
   OUTLINED_FUNCTION_1();
   v14 = v13;
   MEMORY[0x1EEE9AC00](v15);
-  OUTLINED_FUNCTION_6_106(v16, v76);
+  OUTLINED_FUNCTION_6_106(v16, v78);
   MEMORY[0x1EEE9AC00](v17);
-  v88 = &v76 - v18;
+  v90 = &v78 - v18;
   MEMORY[0x1EEE9AC00](v19);
-  v21 = &v76 - v20;
+  v21 = &v78 - v20;
   v22 = v2;
-  v90 = v0;
+  v92 = v0;
   v23 = Logger.logObject.getter();
   v24 = static os_log_type_t.default.getter();
 
   v25 = os_log_type_enabled(v23, v24);
-  v86 = v11;
-  v87 = v6;
+  v88 = v11;
+  v89 = v6;
   if (v25)
   {
     v26 = v21;
@@ -5808,8 +5606,8 @@ void CallScreeningCaptionsProvider.captionsClient(_:didUpdateCaptions:)()
     v28 = swift_slowAlloc();
     v95[0] = v28;
     *v27 = 136315138;
-    v93 = v22;
-    type metadata accessor for NSObject(0, &lazy cache variable for type metadata for TUCaptionsResult);
+    v94[0] = v22;
+    type metadata accessor for NSObject(0, &lazy cache variable for type metadata for TUCaptionsResult, 0x1E69D8AE8);
     v29 = v22;
     v30 = String.init<A>(reflecting:)();
     v32 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v30, v31, v95);
@@ -5823,159 +5621,160 @@ void CallScreeningCaptionsProvider.captionsClient(_:didUpdateCaptions:)()
   }
 
   Date.init()();
-  v80 = [v22 utteranceNumber];
-  v84 = v14;
+  v82 = [v22 utteranceNumber];
+  v86 = v14;
   v33 = *(v14 + 16);
-  v33(v88, v21, v12);
-  v83 = v21;
-  v85 = v12;
-  v33(v89, v21, v12);
+  v33(v90, v21, v12);
+  v85 = v21;
+  v87 = v12;
+  v33(v91, v21, v12);
   v34 = [v22 text];
   v35 = static String._unconditionallyBridgeFromObjectiveC(_:)();
   v37 = v36;
 
   v95[0] = v35;
   v95[1] = v37;
-  v93 = 39;
-  v94 = 0xE100000000000000;
-  v91 = 10060002;
-  v92 = 0xA300000000000000;
-  lazy protocol witness table accessor for type String and conformance String();
-  v38 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)();
-  v78 = v39;
-  v79 = v38;
+  v94[0] = 39;
+  v94[1] = 0xE100000000000000;
+  v93[0] = 10060002;
+  v93[1] = 0xA300000000000000;
+  v38 = lazy protocol witness table accessor for type String and conformance String();
+  v39 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(v94, v93, 0, 0, 0, 1, MEMORY[0x1E69E6158], MEMORY[0x1E69E6158], MEMORY[0x1E69E6158], v38, v38, v38);
+  v80 = v40;
+  v81 = v39;
 
-  v77 = [v22 utteranceComplete];
-  v40 = [v22 tokens];
-  type metadata accessor for NSObject(0, &lazy cache variable for type metadata for TUCaption);
-  v41 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
+  v79 = [v22 utteranceComplete];
+  v41 = [v22 tokens];
+  type metadata accessor for NSObject(0, &lazy cache variable for type metadata for TUCaption, 0x1E69D8AD8);
+  v42 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
 
   v95[0] = MEMORY[0x1E69E7CC0];
-  v42 = specialized Array.count.getter(v41);
-  v43 = 0;
-  v44 = OBJC_IVAR____TtC15ConversationKit29CallScreeningCaptionsProvider_lowConfidenceThreshold;
+  v43 = specialized Array.count.getter();
+  v44 = 0;
+  v45 = OBJC_IVAR____TtC15ConversationKit29CallScreeningCaptionsProvider_lowConfidenceThreshold;
   while (1)
   {
-    if (v42 == v43)
+    if (v43 == v44)
     {
 
-      v48 = v95[0];
-      v49 = specialized Array.count.getter(v95[0]);
-      if (v49)
+      v49 = v95[0];
+      v50 = specialized Array.count.getter();
+      if (v50)
       {
-        v50 = v49;
+        v51 = v50;
         v95[0] = MEMORY[0x1E69E7CC0];
-        specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)();
-        if (v50 < 0)
+        specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v50 & ~(v50 >> 63), 0);
+        if (v51 < 0)
         {
           goto LABEL_28;
         }
 
-        v51 = 0;
-        v52 = v95[0];
+        v52 = 0;
+        v53 = v95[0];
         do
         {
-          if ((v48 & 0xC000000000000001) != 0)
+          if ((v49 & 0xC000000000000001) != 0)
           {
-            v53 = MEMORY[0x1BFB22010](v51, v48);
+            v54 = MEMORY[0x1BFB22010](v52, v49);
           }
 
           else
           {
-            v53 = *(v48 + 8 * v51 + 32);
+            v54 = *(v49 + 8 * v52 + 32);
           }
 
-          v54 = v53;
-          v55 = [v53 range];
-          v57 = v56;
+          v55 = v54;
+          v56 = [v54 range];
+          v58 = v57;
 
-          v95[0] = v52;
-          v58 = *(v52 + 16);
-          if (v58 >= *(v52 + 24) >> 1)
+          v95[0] = v53;
+          v60 = *(v53 + 16);
+          v59 = *(v53 + 24);
+          if (v60 >= v59 >> 1)
           {
-            specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)();
-            v52 = v95[0];
+            specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(v59 > 1, v60 + 1, 1);
+            v53 = v95[0];
           }
 
-          ++v51;
-          *(v52 + 16) = v58 + 1;
-          v59 = v52 + 16 * v58;
-          *(v59 + 32) = v55;
-          *(v59 + 40) = v57;
+          ++v52;
+          *(v53 + 16) = v60 + 1;
+          v61 = v53 + 16 * v60;
+          *(v61 + 32) = v56;
+          *(v61 + 40) = v58;
         }
 
-        while (v50 != v51);
+        while (v51 != v52);
       }
 
       else
       {
 
-        v52 = MEMORY[0x1E69E7CC0];
+        v53 = MEMORY[0x1E69E7CC0];
       }
 
-      v61 = v85;
-      v60 = v86;
-      *v86 = v80;
-      v62 = v81;
-      v63 = v84;
-      v64 = *(v84 + 32);
-      v64(v60 + v81[5], v88, v61);
-      v64(v60 + v62[6], v89, v61);
-      v65 = (v60 + v62[7]);
-      v66 = v78;
-      *v65 = v79;
-      v65[1] = v66;
-      *(v60 + v62[8]) = v77;
-      *(v60 + v62[9]) = v52;
-      __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy15ConversationKit11ParticipantV7CaptionVGMd);
-      v67 = (*(v82 + 80) + 32) & ~*(v82 + 80);
-      v68 = swift_allocObject();
-      *(v68 + 16) = xmmword_1BC4BA940;
-      outlined init with copy of Participant.Caption(v60, v68 + v67);
-      v69 = type metadata accessor for TaskPriority();
-      OUTLINED_FUNCTION_10_78(v87, v70, v71, v69);
-      v72 = v90;
+      v63 = v87;
+      v62 = v88;
+      *v88 = v82;
+      v64 = v83;
+      v65 = v86;
+      v66 = *(v86 + 32);
+      v66(v62 + v83[5], v90, v63);
+      v66(v62 + v64[6], v91, v63);
+      v67 = (v62 + v64[7]);
+      v68 = v80;
+      *v67 = v81;
+      v67[1] = v68;
+      *(v62 + v64[8]) = v79;
+      *(v62 + v64[9]) = v53;
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy15ConversationKit11ParticipantV7CaptionVGMd, &_ss23_ContiguousArrayStorageCy15ConversationKit11ParticipantV7CaptionVGMR);
+      v69 = (*(v84 + 80) + 32) & ~*(v84 + 80);
+      v70 = swift_allocObject();
+      *(v70 + 16) = xmmword_1BC4BA940;
+      outlined init with copy of Participant.Caption(v62, v70 + v69);
+      v71 = type metadata accessor for TaskPriority();
+      OUTLINED_FUNCTION_10_78(v89, v72, v73, v71);
+      v74 = v92;
 
-      v73 = static MainActor.shared.getter();
-      v74 = swift_allocObject();
-      v75 = MEMORY[0x1E69E85E0];
-      v74[2] = v73;
-      v74[3] = v75;
-      v74[4] = v72;
-      v74[5] = v72;
-      v74[6] = &protocol witness table for CallScreeningCaptionsProvider;
-      v74[7] = v68;
+      v75 = static MainActor.shared.getter();
+      v76 = swift_allocObject();
+      v77 = MEMORY[0x1E69E85E0];
+      v76[2] = v75;
+      v76[3] = v77;
+      v76[4] = v74;
+      v76[5] = v74;
+      v76[6] = &protocol witness table for CallScreeningCaptionsProvider;
+      v76[7] = v70;
       OUTLINED_FUNCTION_16_10();
 
-      outlined destroy of Participant.Caption(v60);
-      (*(v63 + 8))(v83, v61);
+      outlined destroy of Participant.Caption(v62);
+      (*(v65 + 8))(v85, v63);
       OUTLINED_FUNCTION_30_0();
       return;
     }
 
-    if ((v41 & 0xC000000000000001) != 0)
+    if ((v42 & 0xC000000000000001) != 0)
     {
-      v45 = MEMORY[0x1BFB22010](v43, v41);
+      v46 = MEMORY[0x1BFB22010](v44, v42);
     }
 
     else
     {
-      if (v43 >= *((v41 & 0xFFFFFFFFFFFFFF8) + 0x10))
+      if (v44 >= *((v42 & 0xFFFFFFFFFFFFFF8) + 0x10))
       {
         goto LABEL_27;
       }
 
-      v45 = *(v41 + 8 * v43 + 32);
+      v46 = *(v42 + 8 * v44 + 32);
     }
 
-    v46 = v45;
-    if (__OFADD__(v43, 1))
+    v47 = v46;
+    if (__OFADD__(v44, 1))
     {
       break;
     }
 
-    [v45 confidence];
-    if (v47 >= *&v90[v44])
+    [v46 confidence];
+    if (v48 >= *&v92[v45])
     {
     }
 
@@ -5987,7 +5786,7 @@ void CallScreeningCaptionsProvider.captionsClient(_:didUpdateCaptions:)()
       specialized ContiguousArray._endMutation()();
     }
 
-    ++v43;
+    ++v44;
   }
 
   __break(1u);
@@ -6037,7 +5836,7 @@ uint64_t closure #2 in CallScreeningCaptionsProvider.captionsClient(_:didUpdateC
 uint64_t CallScreeningCaptionsProvider.captionsClient(_:didDetectGibberish:)(uint64_t a1, char a2)
 {
   v3 = v2;
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd, &_sScPSgMR);
   OUTLINED_FUNCTION_22(v5);
   OUTLINED_FUNCTION_21();
   MEMORY[0x1EEE9AC00](v6);
@@ -6102,7 +5901,7 @@ id CallScreeningCaptionsProvider.__allocating_init()()
   return [v1 init];
 }
 
-uint64_t (*protocol witness for ParticipantCaptionsProvider.participantCaptionsProviderDelegate.modify in conformance CallScreeningCaptionsProvider(void *a1))()
+void (*protocol witness for ParticipantCaptionsProvider.participantCaptionsProviderDelegate.modify in conformance CallScreeningCaptionsProvider(void *a1))(uint64_t a1, char a2)
 {
   v3 = __swift_coroFrameAllocStub(0x38uLL);
   *a1 = v3;
@@ -6167,7 +5966,7 @@ uint64_t partial apply for closure #1 in CallScreeningCaptionsProvider.captionsC
   return closure #1 in CallScreeningCaptionsProvider.captionsClient(_:didDetectGibberish:)(v4, v5, v6, v7, v0);
 }
 
-uint64_t type metadata accessor for CallScreeningCaptionsProvider()
+uint64_t type metadata accessor for CallScreeningCaptionsProvider(uint64_t a1)
 {
   result = type metadata singleton initialization cache for CallScreeningCaptionsProvider;
   if (!type metadata singleton initialization cache for CallScreeningCaptionsProvider)
@@ -6178,10 +5977,10 @@ uint64_t type metadata accessor for CallScreeningCaptionsProvider()
   return result;
 }
 
-uint64_t type metadata completion function for CallScreeningCaptionsProvider()
+uint64_t type metadata completion function for CallScreeningCaptionsProvider(uint64_t a1)
 {
   result = type metadata accessor for Logger();
-  if (v1 <= 0x3F)
+  if (v2 <= 0x3F)
   {
     result = swift_updateClassMetadata2();
     if (!result)
@@ -6223,13 +6022,12 @@ uint64_t ParticipantViewLabelContainerView.isCentered.getter()
   return *(v0 + v1);
 }
 
-uint64_t key path getter for ParticipantViewLabelContainerView.isCentered : ParticipantViewLabelContainerView@<X0>(uint64_t *a1@<X0>, _BYTE *a2@<X8>)
+void key path getter for ParticipantViewLabelContainerView.isCentered : ParticipantViewLabelContainerView(uint64_t *a1@<X0>, _BYTE *a2@<X8>)
 {
   v3 = *a1;
   v4 = OBJC_IVAR____TtC15ConversationKit33ParticipantViewLabelContainerView_isCentered;
-  result = swift_beginAccess();
+  swift_beginAccess();
   *a2 = *(v3 + v4);
-  return result;
 }
 
 void ParticipantViewLabelContainerView.isCentered.didset(char a1)
@@ -6239,7 +6037,7 @@ void ParticipantViewLabelContainerView.isCentered.didset(char a1)
   v5 = *(v4 - 8);
   MEMORY[0x1EEE9AC00](v4);
   v7 = (&v14 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0));
-  type metadata accessor for NSObject(0, &lazy cache variable for type metadata for OS_dispatch_queue);
+  type metadata accessor for NSObject(0, &lazy cache variable for type metadata for OS_dispatch_queue, 0x1E69E9610);
   *v7 = static OS_dispatch_queue.main.getter();
   (*(v5 + 104))(v7, *MEMORY[0x1E69E8020], v4);
   v8 = _dispatchPreconditionTest(_:)();
@@ -6262,7 +6060,7 @@ void ParticipantViewLabelContainerView.isCentered.didset(char a1)
 
       [*(v2 + OBJC_IVAR____TtC15ConversationKit33ParticipantViewLabelContainerView_label) setTextAlignment_];
       v11 = objc_opt_self();
-      type metadata accessor for NSObject(0, &lazy cache variable for type metadata for NSLayoutConstraint);
+      type metadata accessor for NSObject(0, &lazy cache variable for type metadata for NSLayoutConstraint, 0x1E696ACD8);
 
       isa = Array._bridgeToObjectiveC()().super.isa;
 
@@ -6343,131 +6141,132 @@ char *ParticipantViewLabelContainerView.init(frame:)()
 
   v12 = *&v6[v7];
   v13 = OBJC_IVAR____TtC15ConversationKit33ParticipantViewLabelContainerView_isCentered;
-  v80 = OBJC_IVAR____TtC15ConversationKit33ParticipantViewLabelContainerView_isCentered;
+  v82 = OBJC_IVAR____TtC15ConversationKit33ParticipantViewLabelContainerView_isCentered;
   swift_beginAccess();
   [v12 setTextAlignment_];
   [*&v6[v7] setNumberOfLines_];
   LODWORD(v14) = 1148846080;
   [*&v6[v7] setContentHuggingPriority:1 forAxis:v14];
   [v6 addSubview_];
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyyXlGMd);
-  v15 = OUTLINED_FUNCTION_3_6();
-  *(v15 + 16) = xmmword_1BC4BA930;
-  v16 = v15;
-  v17 = [*&v6[v7] topAnchor];
-  v18 = [v6 topAnchor];
-  v19 = [v17 constraintEqualToAnchor_];
+  v15 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyyXlGMd, &_ss23_ContiguousArrayStorageCyyXlGMR);
+  v16 = OUTLINED_FUNCTION_3_6(v15);
+  *(v16 + 16) = xmmword_1BC4BA930;
+  v17 = v16;
+  v18 = [*&v6[v7] topAnchor];
+  v19 = [v6 topAnchor];
+  v20 = [v18 constraintEqualToAnchor_];
 
-  *(v16 + 32) = v19;
-  v20 = [*&v6[v7] bottomAnchor];
-  v21 = [v6 bottomAnchor];
-  v22 = [v20 constraintEqualToAnchor_];
+  *(v17 + 32) = v20;
+  v21 = [*&v6[v7] bottomAnchor];
+  v22 = [v6 bottomAnchor];
+  v23 = [v21 constraintEqualToAnchor_];
 
-  *(v16 + 40) = v22;
-  v23 = [*&v6[v7] centerXAnchor];
-  v24 = [v6 centerXAnchor];
-  v25 = [v23 constraintEqualToAnchor_];
+  *(v17 + 40) = v23;
+  v24 = [*&v6[v7] centerXAnchor];
+  v25 = [v6 centerXAnchor];
+  v26 = [v24 constraintEqualToAnchor_];
 
-  LODWORD(v26) = 1132068864;
-  [v25 setPriority_];
-  v27 = OUTLINED_FUNCTION_3_6();
-  v35 = [OUTLINED_FUNCTION_4_135(v27 v28];
-  v36 = [v6 leadingAnchor];
-  v37 = [v35 constraintGreaterThanOrEqualToAnchor_];
+  LODWORD(v27) = 1132068864;
+  [v26 setPriority_];
+  v28 = OUTLINED_FUNCTION_3_6(v15);
+  v36 = [OUTLINED_FUNCTION_4_135(v28 v29];
+  v37 = [v6 leadingAnchor];
+  v38 = [v36 constraintGreaterThanOrEqualToAnchor_];
 
-  v23[4] = v37;
-  v23[5] = v25;
-  v38 = OBJC_IVAR____TtC15ConversationKit33ParticipantViewLabelContainerView_centerAlignedConstraints;
-  *&v6[OBJC_IVAR____TtC15ConversationKit33ParticipantViewLabelContainerView_centerAlignedConstraints] = v23;
-  v84 = v25;
+  v24[4] = v38;
+  v24[5] = v26;
+  v39 = OBJC_IVAR____TtC15ConversationKit33ParticipantViewLabelContainerView_centerAlignedConstraints;
+  *&v6[OBJC_IVAR____TtC15ConversationKit33ParticipantViewLabelContainerView_centerAlignedConstraints] = v24;
+  v86 = v26;
 
-  v39 = OUTLINED_FUNCTION_3_6();
-  v47 = [OUTLINED_FUNCTION_4_135(v39 v40];
-  v48 = [v6 leadingAnchor];
-  v49 = [v47 constraintEqualToAnchor_];
+  v40 = v15;
+  v41 = OUTLINED_FUNCTION_3_6(v15);
+  v49 = [OUTLINED_FUNCTION_4_135(v41 v42];
+  v50 = [v6 leadingAnchor];
+  v51 = [v49 constraintEqualToAnchor_];
 
-  v23[4] = v49;
-  v50 = [*&v6[v7] trailingAnchor];
-  v51 = [v6 trailingAnchor];
+  v24[4] = v51;
+  v52 = [*&v6[v7] trailingAnchor];
+  v53 = [v6 trailingAnchor];
 
-  v52 = [v50 constraintEqualToAnchor_];
-  v23[5] = v52;
-  v53 = OBJC_IVAR____TtC15ConversationKit33ParticipantViewLabelContainerView_leadingAlignedConstraints;
-  *&v6[OBJC_IVAR____TtC15ConversationKit33ParticipantViewLabelContainerView_leadingAlignedConstraints] = v23;
+  v54 = [v52 constraintEqualToAnchor_];
+  v24[5] = v54;
+  v55 = OBJC_IVAR____TtC15ConversationKit33ParticipantViewLabelContainerView_leadingAlignedConstraints;
+  *&v6[OBJC_IVAR____TtC15ConversationKit33ParticipantViewLabelContainerView_leadingAlignedConstraints] = v24;
 
-  if (v6[v82])
+  if (v6[v84])
   {
-    v54 = v38;
+    v56 = v39;
   }
 
   else
   {
-    v54 = v53;
+    v56 = v55;
   }
 
-  v55 = *&v6[v54];
+  v57 = *&v6[v56];
 
-  v56 = objc_opt_self();
-  specialized Array.append<A>(contentsOf:)(v55);
-  type metadata accessor for NSObject(0, &lazy cache variable for type metadata for NSLayoutConstraint);
+  v58 = objc_opt_self();
+  specialized Array.append<A>(contentsOf:)(v57);
+  type metadata accessor for NSObject(0, &lazy cache variable for type metadata for NSLayoutConstraint, 0x1E696ACD8);
   isa = Array._bridgeToObjectiveC()().super.isa;
 
-  [v56 activateConstraints_];
+  [v58 activateConstraints_];
 
   if (one-time initialization token for shared != -1)
   {
-    OUTLINED_FUNCTION_0_9();
+    OUTLINED_FUNCTION_0_9(&one-time initialization token for shared);
   }
 
   if ((*(*static Defaults.shared + 336))())
   {
-    v58 = [objc_allocWithZone(type metadata accessor for GradientView()) init];
-    v59 = OUTLINED_FUNCTION_3_6();
-    *(v59 + 16) = v87;
+    v60 = [objc_allocWithZone(type metadata accessor for GradientView()) init];
+    v61 = OUTLINED_FUNCTION_3_6(v40);
+    *(v61 + 16) = v89;
     if (one-time initialization token for background != -1)
     {
       swift_once();
     }
 
-    v60 = static Colors.ParticipantViews.background;
-    *(v59 + 32) = [static Colors.ParticipantViews.background colorWithAlphaComponent_];
-    *(v59 + 40) = v60;
-    v61 = OBJC_IVAR____TtC15ConversationKit12GradientView_colors;
+    v62 = static Colors.ParticipantViews.background;
+    *(v61 + 32) = [static Colors.ParticipantViews.background colorWithAlphaComponent_];
+    *(v61 + 40) = v62;
+    v63 = OBJC_IVAR____TtC15ConversationKit12GradientView_colors;
     swift_beginAccess();
-    *&v58[v61] = v59;
-    v62 = v60;
+    *&v60[v63] = v61;
+    v64 = v62;
 
     GradientView.updateGradient()();
-    v63 = GradientView.gradientLayer.getter();
-    [v63 setStartPoint_];
+    v65 = GradientView.gradientLayer.getter();
+    [v65 setStartPoint_];
 
-    v64 = GradientView.gradientLayer.getter();
-    [v64 setEndPoint_];
+    v66 = GradientView.gradientLayer.getter();
+    [v66 setEndPoint_];
 
-    v65 = v58;
-    [v65 setTranslatesAutoresizingMaskIntoConstraints_];
+    v67 = v60;
+    [v67 setTranslatesAutoresizingMaskIntoConstraints_];
     [v6 addSubview_];
-    v66 = swift_allocObject();
-    *(v66 + 16) = xmmword_1BC4BA7F0;
-    v67 = [v65 topAnchor];
-    v68 = OUTLINED_FUNCTION_1_156([v6 topAnchor]);
+    v68 = swift_allocObject();
+    *(v68 + 16) = xmmword_1BC4BA7F0;
+    v69 = [v67 topAnchor];
+    v70 = OUTLINED_FUNCTION_1_156([v6 topAnchor]);
 
-    *(v66 + 32) = v68;
-    v69 = [v65 bottomAnchor];
-    v70 = OUTLINED_FUNCTION_1_156([v6 bottomAnchor]);
+    *(v68 + 32) = v70;
+    v71 = [v67 bottomAnchor];
+    v72 = OUTLINED_FUNCTION_1_156([v6 bottomAnchor]);
 
-    *(v66 + 40) = v70;
-    v71 = [v65 trailingAnchor];
-    v72 = OUTLINED_FUNCTION_1_156([v6 trailingAnchor]);
+    *(v68 + 40) = v72;
+    v73 = [v67 trailingAnchor];
+    v74 = OUTLINED_FUNCTION_1_156([v6 trailingAnchor]);
 
-    *(v66 + 48) = v72;
-    v73 = [v65 widthAnchor];
+    *(v68 + 48) = v74;
+    v75 = [v67 widthAnchor];
 
-    v74 = [v73 constraintEqualToConstant_];
-    *(v66 + 56) = v74;
-    v75 = Array._bridgeToObjectiveC()().super.isa;
+    v76 = [v75 constraintEqualToConstant_];
+    *(v68 + 56) = v76;
+    v77 = Array._bridgeToObjectiveC()().super.isa;
 
-    [v56 activateConstraints_];
+    [v58 activateConstraints_];
   }
 
   return v6;
@@ -6496,12 +6295,12 @@ uint64_t static ParticipantViewLabelContainerView.layerClass.getter()
 {
   if (one-time initialization token for shared != -1)
   {
-    OUTLINED_FUNCTION_0_9();
+    OUTLINED_FUNCTION_0_9(&one-time initialization token for shared);
   }
 
   if ((*(*static Defaults.shared + 336))())
   {
-    return type metadata accessor for NSObject(0, &lazy cache variable for type metadata for CALayer);
+    return type metadata accessor for NSObject(0, &lazy cache variable for type metadata for CALayer, 0x1E6979398);
   }
 
   return type metadata accessor for ParticipantViewLabelContainerViewLayer();
@@ -6515,7 +6314,7 @@ id ParticipantViewLabelContainerViewLayer.init()()
   v2 = objc_allocWithZone(MEMORY[0x1E6979380]);
   v3 = v1;
   v4 = [v2 init];
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyypGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyypGMd, &_ss23_ContiguousArrayStorageCyypGMR);
   v5 = swift_allocObject();
   *(v5 + 16) = xmmword_1BC4BAA20;
   v6 = objc_opt_self();
@@ -6562,7 +6361,7 @@ id ParticipantViewLabelContainerViewLayer.init()()
   return v3;
 }
 
-uint64_t ParticipantViewLabelContainerViewLayer.init(layer:)(uint64_t a1)
+void *ParticipantViewLabelContainerViewLayer.init(layer:)(void *a1)
 {
   ObjectType = swift_getObjectType();
   outlined init with copy of Any(a1, v9);
@@ -6657,7 +6456,7 @@ void static ViewControllerLayout.effectsConstraintManagers(with:layoutIdiom:cont
   v39 = [objc_allocWithZone(MEMORY[0x1E69DCC20]) init];
   [v37 addLayoutGuide_];
   v40 = objc_opt_self();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyyXlGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyyXlGMd, &_ss23_ContiguousArrayStorageCyyXlGMR);
   v41 = swift_allocObject();
   *(v41 + 16) = xmmword_1BC4BA7F0;
   v42 = [v39 topAnchor];
@@ -6684,12 +6483,12 @@ void static ViewControllerLayout.effectsConstraintManagers(with:layoutIdiom:cont
 
   v57 = [v45 constraintEqualToAnchor_];
   *(v41 + 56) = v57;
-  type metadata accessor for NSObject(0, &lazy cache variable for type metadata for NSLayoutConstraint);
+  type metadata accessor for NSObject(0, &lazy cache variable for type metadata for NSLayoutConstraint, 0x1E696ACD8);
   isa = Array._bridgeToObjectiveC()().super.isa;
 
   [v40 activateConstraints_];
 
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy15ConversationKit21ViewConstraintManager_pGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy15ConversationKit21ViewConstraintManager_pGMd, &_ss23_ContiguousArrayStorageCy15ConversationKit21ViewConstraintManager_pGMR);
   v59 = swift_allocObject();
   *(v59 + 16) = xmmword_1BC4BAA20;
   v60 = type metadata accessor for EffectsViewConstraintManager();
@@ -6717,7 +6516,7 @@ void static ViewControllerLayout.effectsConstraintManagers(with:layoutIdiom:cont
 uint64_t static ViewControllerLayout.buttonShelfConstraintManagers(with:localParticipantView:localParticipantButtonShelfView:localParticipantControlsView:layoutIdiom:)(void *a1, void *a2, void *a3, void *a4, char *a5)
 {
   v9 = *a5;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy15ConversationKit21ViewConstraintManager_pGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy15ConversationKit21ViewConstraintManager_pGMd, &_ss23_ContiguousArrayStorageCy15ConversationKit21ViewConstraintManager_pGMR);
   v10 = swift_allocObject();
   *(v10 + 16) = xmmword_1BC4BAA20;
   v18 = v9;
@@ -6738,80 +6537,78 @@ uint64_t static ViewControllerLayout.buttonShelfConstraintManagers(with:localPar
   return v10;
 }
 
-uint64_t static ViewControllerLayout.constraints(with:layoutState:size:deviceOrientation:)(uint64_t result, uint64_t a2, uint64_t a3, double a4, double a5)
+void static ViewControllerLayout.constraints(with:layoutState:size:deviceOrientation:)(uint64_t a1, uint64_t a2, uint64_t a3, double a4, double a5)
 {
-  v52[0] = *a2;
-  *(v52 + 15) = *(a2 + 15);
-  v6 = MEMORY[0x1E69E7CC0];
-  if (!result)
+  v54[0] = *a2;
+  *(v54 + 15) = *(a2 + 15);
+  if (!a1)
   {
-    return v6;
+    return;
   }
 
-  v7 = result;
-  v8 = *(result + 16);
-  if (v8)
+  v7 = *(a1 + 16);
+  if (v7)
   {
-    v51 = MEMORY[0x1E69E7CC0];
-    specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v8, 0);
-    v11 = v51;
-    v12 = v7 + 32;
+    v53 = MEMORY[0x1E69E7CC0];
+    specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v7, 0);
+    v10 = v53;
+    v11 = a1 + 32;
     do
     {
-      outlined init with copy of IDSLookupManager(v12, v48);
-      v13 = v49;
-      v14 = v50;
-      __swift_project_boxed_opaque_existential_1(v48, v49);
-      v47[0] = v52[0];
-      *(v47 + 15) = *(v52 + 15);
-      v15 = (*(v14 + 8))(v47, a3, v13, v14, a4, a5);
-      result = __swift_destroy_boxed_opaque_existential_1(v48);
-      v51 = v11;
-      v17 = *(v11 + 16);
-      v16 = *(v11 + 24);
-      v18 = v17 + 1;
-      if (v17 >= v16 >> 1)
+      outlined init with copy of IDSLookupManager(v11, v50);
+      v12 = v51;
+      v13 = v52;
+      __swift_project_boxed_opaque_existential_1(v50, v51);
+      v49[0] = v54[0];
+      *(v49 + 15) = *(v54 + 15);
+      v14 = (*(v13 + 8))(v49, a3, v12, v13, a4, a5);
+      __swift_destroy_boxed_opaque_existential_1(v50);
+      v53 = v10;
+      v16 = *(v10 + 16);
+      v15 = *(v10 + 24);
+      v17 = v16 + 1;
+      if (v16 >= v15 >> 1)
       {
-        result = specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v16 > 1), v17 + 1, 1);
-        v11 = v51;
+        specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v15 > 1), v16 + 1, 1);
+        v10 = v53;
       }
 
-      *(v11 + 16) = v18;
-      *(v11 + 8 * v17 + 32) = v15;
-      v12 += 40;
-      --v8;
+      *(v10 + 16) = v17;
+      *(v10 + 8 * v16 + 32) = v14;
+      v11 += 40;
+      --v7;
     }
 
-    while (v8);
+    while (v7);
   }
 
   else
   {
-    v18 = *(MEMORY[0x1E69E7CC0] + 16);
-    v11 = MEMORY[0x1E69E7CC0];
+    v17 = *(MEMORY[0x1E69E7CC0] + 16);
+    v10 = MEMORY[0x1E69E7CC0];
   }
 
-  v19 = 0;
-  v6 = MEMORY[0x1E69E7CC0];
-  v42 = v18;
-  v43 = v11 + 32;
+  v18 = 0;
+  v19 = MEMORY[0x1E69E7CC0];
+  v44 = v17;
+  v45 = v10 + 32;
   v20 = &_sSaySo18NSLayoutConstraintCGMd;
-  v40 = v11;
+  v42 = v10;
   while (1)
   {
-    if (v19 == v18)
+    if (v18 == v17)
     {
 
-      return v6;
+      return;
     }
 
-    if (v19 >= *(v11 + 16))
+    if (v18 >= *(v10 + 16))
     {
       break;
     }
 
     v21 = v20;
-    v22 = *(v43 + 8 * v19);
+    v22 = *(v45 + 8 * v18);
     if (v22 >> 62)
     {
       v23 = __CocoaSet.count.getter();
@@ -6822,26 +6619,25 @@ uint64_t static ViewControllerLayout.constraints(with:layoutState:size:deviceOri
       v23 = *((v22 & 0xFFFFFFFFFFFFFF8) + 0x10);
     }
 
-    v24 = v6 >> 62;
-    if (v6 >> 62)
+    v24 = v19 >> 62;
+    if (v19 >> 62)
     {
-      result = __CocoaSet.count.getter();
+      v25 = __CocoaSet.count.getter();
     }
 
     else
     {
-      result = *((v6 & 0xFFFFFFFFFFFFFF8) + 0x10);
+      v25 = *((v19 & 0xFFFFFFFFFFFFFF8) + 0x10);
     }
 
-    v25 = result + v23;
-    if (__OFADD__(result, v23))
+    v26 = v25 + v23;
+    if (__OFADD__(v25, v23))
     {
       goto LABEL_46;
     }
 
-    result = swift_isUniquelyReferenced_nonNull_bridgeObject();
-    v44 = v23;
-    if (!result)
+    v46 = v23;
+    if (!swift_isUniquelyReferenced_nonNull_bridgeObject())
     {
       if (v24)
       {
@@ -6850,9 +6646,8 @@ LABEL_23:
       }
 
 LABEL_24:
-      result = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)();
-      v45 = result;
-      v26 = result & 0xFFFFFFFFFFFFFF8;
+      v47 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)();
+      v27 = v47 & 0xFFFFFFFFFFFFFF8;
       goto LABEL_25;
     }
 
@@ -6861,58 +6656,58 @@ LABEL_24:
       goto LABEL_23;
     }
 
-    v26 = v6 & 0xFFFFFFFFFFFFFF8;
-    if (v25 > *((v6 & 0xFFFFFFFFFFFFFF8) + 0x18) >> 1)
+    v27 = v19 & 0xFFFFFFFFFFFFFF8;
+    if (v26 > *((v19 & 0xFFFFFFFFFFFFFF8) + 0x18) >> 1)
     {
       goto LABEL_24;
     }
 
-    v45 = v6;
+    v47 = v19;
 LABEL_25:
-    v46 = v19 + 1;
-    v27 = *(v26 + 16);
-    v28 = (*(v26 + 24) >> 1) - v27;
-    v29 = v26 + 8 * v27;
+    v48 = v18 + 1;
+    v28 = *(v27 + 16);
+    v29 = (*(v27 + 24) >> 1) - v28;
+    v30 = v27 + 8 * v28;
     if (v22 >> 62)
     {
-      v31 = __CocoaSet.count.getter();
-      if (v31)
+      v32 = __CocoaSet.count.getter();
+      if (v32)
       {
-        v32 = v31;
-        result = __CocoaSet.count.getter();
-        if (v28 < result)
+        v33 = v32;
+        v34 = __CocoaSet.count.getter();
+        if (v29 < v34)
         {
           goto LABEL_50;
         }
 
-        if (v32 < 1)
+        if (v33 < 1)
         {
           goto LABEL_51;
         }
 
-        v41 = result;
-        lazy protocol witness table accessor for type [NSLayoutConstraint] and conformance [A](&lazy protocol witness table cache variable for type [NSLayoutConstraint] and conformance [A], v20);
-        for (i = 0; i != v32; ++i)
+        v43 = v34;
+        lazy protocol witness table accessor for type [NSLayoutConstraint] and conformance [A](&lazy protocol witness table cache variable for type [NSLayoutConstraint] and conformance [A], v20, &_sSaySo18NSLayoutConstraintCGMR);
+        for (i = 0; i != v33; ++i)
         {
-          __swift_instantiateConcreteTypeFromMangledNameV2(v20);
-          v34 = specialized protocol witness for Collection.subscript.read in conformance [A](v48, i, v22);
-          v36 = *v35;
-          v34(v48, 0);
+          __swift_instantiateConcreteTypeFromMangledNameV2(v20, &_sSaySo18NSLayoutConstraintCGMR);
+          v36 = specialized protocol witness for Collection.subscript.read in conformance [A](v50, i, v22);
+          v38 = *v37;
+          v36(v50, 0);
           v20 = v21;
-          *(v29 + 32 + 8 * i) = v36;
+          *(v30 + 32 + 8 * i) = v38;
         }
 
-        v11 = v40;
-        v30 = v41;
+        v10 = v42;
+        v31 = v43;
         goto LABEL_35;
       }
 
 LABEL_39:
 
-      v6 = v45;
-      v18 = v42;
-      ++v19;
-      if (v44 > 0)
+      v19 = v47;
+      v17 = v44;
+      ++v18;
+      if (v46 > 0)
       {
         goto LABEL_47;
       }
@@ -6920,40 +6715,40 @@ LABEL_39:
 
     else
     {
-      v30 = *((v22 & 0xFFFFFFFFFFFFFF8) + 0x10);
-      if (!v30)
+      v31 = *((v22 & 0xFFFFFFFFFFFFFF8) + 0x10);
+      if (!v31)
       {
         goto LABEL_39;
       }
 
-      if (v28 < v30)
+      if (v29 < v31)
       {
         goto LABEL_49;
       }
 
-      type metadata accessor for NSObject(0, &lazy cache variable for type metadata for NSLayoutConstraint);
+      type metadata accessor for NSObject(0, &lazy cache variable for type metadata for NSLayoutConstraint, 0x1E696ACD8);
       swift_arrayInitWithCopy();
 LABEL_35:
 
-      v6 = v45;
-      v18 = v42;
-      v19 = v46;
-      if (v30 < v44)
+      v19 = v47;
+      v17 = v44;
+      v18 = v48;
+      if (v31 < v46)
       {
         goto LABEL_47;
       }
 
-      if (v30 > 0)
+      if (v31 > 0)
       {
-        v37 = *(v26 + 16);
-        v38 = __OFADD__(v37, v30);
-        v39 = v37 + v30;
-        if (v38)
+        v39 = *(v27 + 16);
+        v40 = __OFADD__(v39, v31);
+        v41 = v39 + v31;
+        if (v40)
         {
           goto LABEL_48;
         }
 
-        *(v26 + 16) = v39;
+        *(v27 + 16) = v41;
       }
     }
   }
@@ -6971,7 +6766,6 @@ LABEL_50:
   __break(1u);
 LABEL_51:
   __break(1u);
-  return result;
 }
 
 double static ViewControllerLayout.participantLabelsViewFrame(isDisplayedInBanner:isDisplayedInAmbient:containingView:participantLabelsView:)(char a1, char a2, id a3, void *a4)
@@ -7065,15 +6859,15 @@ uint64_t dispatch thunk of ViewControllerLayout.update(localParticipantAspectRat
   v8[0] = *a1;
   v8[1] = v6;
   v9 = v5;
-  return v4(v8);
+  return v4(v8, a2, a3);
 }
 
-uint64_t lazy protocol witness table accessor for type [NSLayoutConstraint] and conformance [A](unint64_t *a1, uint64_t *a2)
+uint64_t lazy protocol witness table accessor for type [NSLayoutConstraint] and conformance [A](unint64_t *a1, uint64_t *a2, uint64_t *a3)
 {
   result = *a1;
   if (!result)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(a2);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(a2, a3);
     result = swift_getWitnessTable();
     atomic_store(result, a1);
   }
@@ -7104,12 +6898,12 @@ uint64_t LocalVideoRecordButtonViewModel.config.getter()
   v8 = *(v7 - 8);
   MEMORY[0x1EEE9AC00](v7);
   v10 = v32 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI6_GlassVSgMd);
+  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI6_GlassVSgMd, &_s7SwiftUI6_GlassVSgMR);
   MEMORY[0x1EEE9AC00](v11 - 8);
   v13 = v32 - v12;
-  v14 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s16CommunicationsUI15IconButtonStyleV12SystemSymbolVyyt_GMd);
+  v14 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s16CommunicationsUI15IconButtonStyleV12SystemSymbolVyyt_GMd, &_s16CommunicationsUI15IconButtonStyleV12SystemSymbolVyyt_GMR);
   MEMORY[0x1EEE9AC00](v14 - 8);
-  v15 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s16CommunicationsUI15IconButtonStyleVyytGMd);
+  v15 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s16CommunicationsUI15IconButtonStyleVyytGMd, &_s16CommunicationsUI15IconButtonStyleVyytGMR);
   MEMORY[0x1EEE9AC00](v15 - 8);
   if (*(v0 + 16))
   {
@@ -7137,8 +6931,8 @@ uint64_t LocalVideoRecordButtonViewModel.config.getter()
     static IconButtonStyle.SystemSymbol<A>.catalystCallControl(name:color:background:glass:scale:font:weight:)();
 
     (*(v8 + 8))(v10, v7);
-    outlined destroy of TapInteractionHandler?(v13, &_s7SwiftUI6_GlassVSgMd);
-    outlined destroy of TapInteractionHandler?(&v39, &_s7SwiftUI10ShapeStyle_pSgMd);
+    outlined destroy of TapInteractionHandler?(v13, &_s7SwiftUI6_GlassVSgMd, &_s7SwiftUI6_GlassVSgMR);
+    outlined destroy of TapInteractionHandler?(&v39, &_s7SwiftUI10ShapeStyle_pSgMd, &_s7SwiftUI10ShapeStyle_pSgMR);
     v41 = 0;
     v39 = 0u;
     v40 = 0u;
@@ -7173,7 +6967,7 @@ uint64_t LocalVideoRecordButtonViewModel.config.getter()
       NSLocalizedString(_:tableName:bundle:value:comment:)(v23, v24, v22, v25, v42);
     }
 
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_s16CommunicationsUI16IconButtonConfigCyytGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_s16CommunicationsUI16IconButtonConfigCyytGMd, &_s16CommunicationsUI16IconButtonConfigCyytGMR);
     v26 = [objc_opt_self() conversationKit];
     v43._object = 0xE000000000000000;
     v27._object = 0x80000001BC5161C0;
@@ -7232,7 +7026,7 @@ uint64_t MockCaptionsProvider.__allocating_init()()
 
 uint64_t MockCaptionsProvider.participantCaptionsProviderDelegate.setter(uint64_t a1, uint64_t a2)
 {
-  OUTLINED_FUNCTION_3_5();
+  OUTLINED_FUNCTION_3_5(v2 + 16, v6);
   *(v2 + 16) = a1;
   *(v2 + 24) = a2;
   return swift_unknownObjectRelease();
@@ -7240,67 +7034,66 @@ uint64_t MockCaptionsProvider.participantCaptionsProviderDelegate.setter(uint64_
 
 uint64_t MockCaptionsProvider.captionsTask.setter(uint64_t a1)
 {
-  OUTLINED_FUNCTION_3_5();
+  OUTLINED_FUNCTION_3_5(v1 + 32, v4);
   *(v1 + 32) = a1;
 }
 
-uint64_t key path getter for MockCaptionsProvider.captionsEnabled : MockCaptionsProvider@<X0>(uint64_t *a1@<X0>, _BYTE *a2@<X8>)
+void key path getter for MockCaptionsProvider.captionsEnabled : MockCaptionsProvider(uint64_t *a1@<X0>, _BYTE *a2@<X8>)
 {
   v3 = *a1;
-  result = swift_beginAccess();
+  swift_beginAccess();
   *a2 = *(v3 + 40);
-  return result;
 }
 
-uint64_t MockCaptionsProvider.captionsEnabled.setter(char a1)
+void MockCaptionsProvider.captionsEnabled.setter(char a1)
 {
-  OUTLINED_FUNCTION_3_5();
+  OUTLINED_FUNCTION_3_5(v1 + 40, v4);
   v3 = *(v1 + 40);
   *(v1 + 40) = a1;
-  return MockCaptionsProvider.captionsEnabled.didset(v3);
+  MockCaptionsProvider.captionsEnabled.didset(v3);
 }
 
-uint64_t MockCaptionsProvider.captionsEnabled.didset(char a1)
+void MockCaptionsProvider.captionsEnabled.didset(char a1)
 {
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd);
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd, &_sScPSgMR);
   MEMORY[0x1EEE9AC00](v3 - 8);
-  v5 = &v12[-v4];
-  result = swift_beginAccess();
+  v5 = &v11[-v4];
+  swift_beginAccess();
   if (*(v1 + 40) == 1)
   {
     if (a1)
     {
-      return result;
+      return;
     }
 
     swift_beginAccess();
     if (*(v1 + 32))
     {
 
-      MEMORY[0x1BFB21000](v7, MEMORY[0x1E69E7CA8] + 8, MEMORY[0x1E69E73E0], MEMORY[0x1E69E7410]);
+      MEMORY[0x1BFB21000](v6, MEMORY[0x1E69E7CA8] + 8, MEMORY[0x1E69E73E0], MEMORY[0x1E69E7410]);
     }
 
     static TaskPriority.userInitiated.getter();
-    v8 = type metadata accessor for TaskPriority();
-    __swift_storeEnumTagSinglePayload(v5, 0, 1, v8);
-    v9 = swift_allocObject();
-    v9[2] = 0;
-    v9[3] = 0;
-    v9[4] = v1;
+    v7 = type metadata accessor for TaskPriority();
+    __swift_storeEnumTagSinglePayload(v5, 0, 1, v7);
+    v8 = swift_allocObject();
+    v8[2] = 0;
+    v8[3] = 0;
+    v8[4] = v1;
 
     _sScTss5NeverORs_rlE4name8priority9operationScTyxABGSSSg_ScPSgxyYaYAcntcfCyt_Tt2g5();
-    *(v1 + 32) = v10;
+    *(v1 + 32) = v9;
   }
 
   else
   {
-    result = swift_beginAccess();
+    swift_beginAccess();
     if (!*(v1 + 32))
     {
-      return result;
+      return;
     }
 
-    MEMORY[0x1BFB21000](v11, MEMORY[0x1E69E7CA8] + 8, MEMORY[0x1E69E73E0], MEMORY[0x1E69E7410]);
+    MEMORY[0x1BFB21000](v10, MEMORY[0x1E69E7CA8] + 8, MEMORY[0x1E69E73E0], MEMORY[0x1E69E7410]);
   }
 }
 
@@ -7318,7 +7111,7 @@ uint64_t MockCaptionsProvider.start()()
 {
   OUTLINED_FUNCTION_24_0();
   v1[18] = v0;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd, &_sScPSgMR);
   v1[19] = swift_task_alloc();
   v1[20] = swift_task_alloc();
   v2 = type metadata accessor for ContinuousClock.Instant();
@@ -7345,7 +7138,7 @@ uint64_t MockCaptionsProvider.start()()
     v0[30] = v1;
     specialized MutableCollection<>.shuffle<A>(using:)();
     OUTLINED_FUNCTION_12_82(&outlined read-only object #0 of one-time initialization function for phrases);
-    OUTLINED_FUNCTION_3_5();
+    OUTLINED_FUNCTION_3_5((v0 + 17), (v0 + 10));
     v0[33] = 0;
     v0[34] = 0;
     v0[35] = 0;
@@ -7479,7 +7272,7 @@ uint64_t MockCaptionsProvider.start()()
         ++*(v0 + 240);
         specialized MutableCollection<>.shuffle<A>(using:)();
         OUTLINED_FUNCTION_12_82(&outlined read-only object #0 of one-time initialization function for phrases);
-        OUTLINED_FUNCTION_3_5();
+        OUTLINED_FUNCTION_3_5(v0 + 136, v0 + 80);
       }
 
       if (v20 >= *(v3 + 16))
@@ -7496,7 +7289,7 @@ uint64_t MockCaptionsProvider.start()()
       v25 = swift_task_alloc();
       *(v0 + 320) = v25;
       *v25 = v0;
-      OUTLINED_FUNCTION_0_192();
+      OUTLINED_FUNCTION_0_192(v25);
       goto LABEL_12;
     }
 
@@ -7573,135 +7366,154 @@ LABEL_12:
 }
 
 {
-  v45 = *(v0 + 104);
-  v1 = *(v0 + 280);
-  v2 = *(v0 + 152);
-  v3 = *(v0 + 160);
-  v4 = *(v0 + 144);
-  v5 = *(v0 + 112);
+
+  OUTLINED_FUNCTION_6_108();
+
+  OUTLINED_FUNCTION_13();
+
+  return v1();
+}
+
+{
+
+  OUTLINED_FUNCTION_6_108();
+
+  OUTLINED_FUNCTION_13();
+
+  return v1();
+}
+
+uint64_t MockCaptionsProvider.start()(uint64_t a1)
+{
+  v46 = *(v1 + 104);
+  v2 = *(v1 + 280);
+  v3 = *(v1 + 152);
+  v4 = *(v1 + 160);
+  v5 = *(v1 + 144);
+  v6 = *(v1 + 112);
   static TaskPriority.userInitiated.getter();
-  v6 = type metadata accessor for TaskPriority();
-  __swift_storeEnumTagSinglePayload(v3, 0, 1, v6);
+  v7 = type metadata accessor for TaskPriority();
+  __swift_storeEnumTagSinglePayload(v4, 0, 1, v7);
   type metadata accessor for MainActor();
 
-  v7 = static MainActor.shared.getter();
-  v8 = swift_allocObject();
-  v9 = MEMORY[0x1E69E85E0];
-  *(v8 + 16) = v7;
-  *(v8 + 24) = v9;
-  *(v8 + 32) = v1;
-  *(v8 + 40) = v45;
-  *(v8 + 48) = v5;
-  *(v8 + 56) = 0;
-  *(v8 + 64) = v4;
-  outlined init with copy of TaskPriority?(v3, v2);
-  LODWORD(v2) = __swift_getEnumTagSinglePayload(v2, 1, v6);
+  v8 = static MainActor.shared.getter();
+  v9 = swift_allocObject();
+  v10 = MEMORY[0x1E69E85E0];
+  *(v9 + 16) = v8;
+  *(v9 + 24) = v10;
+  *(v9 + 32) = v2;
+  *(v9 + 40) = v46;
+  *(v9 + 48) = v6;
+  *(v9 + 56) = 0;
+  *(v9 + 64) = v5;
+  outlined init with copy of TaskPriority?(v4, v3);
+  LODWORD(v3) = __swift_getEnumTagSinglePayload(v3, 1, v7);
 
-  v10 = *(v0 + 152);
-  if (v2 == 1)
+  v11 = *(v1 + 152);
+  if (v3 == 1)
   {
-    outlined destroy of TaskPriority?(*(v0 + 152));
+    outlined destroy of TaskPriority?(*(v1 + 152));
   }
 
   else
   {
     TaskPriority.rawValue.getter();
-    (*(*(v6 - 8) + 8))(v10, v6);
+    (*(*(v7 - 8) + 8))(v11, v7);
   }
 
-  v11 = *(v8 + 16);
+  v12 = *(v9 + 16);
   swift_unknownObjectRetain();
 
-  if (v11)
+  if (v12)
   {
     swift_getObjectType();
-    v12 = dispatch thunk of Actor.unownedExecutor.getter();
-    v14 = v13;
+    v13 = dispatch thunk of Actor.unownedExecutor.getter();
+    v15 = v14;
     swift_unknownObjectRelease();
   }
 
   else
   {
-    v12 = 0;
-    v14 = 0;
+    v13 = 0;
+    v15 = 0;
   }
 
-  outlined destroy of TaskPriority?(*(v0 + 160));
-  v15 = swift_allocObject();
-  *(v15 + 16) = &async function pointer to partial apply for closure #1 in sendUpdate #1 (_:complete:) in MockCaptionsProvider.start();
-  *(v15 + 24) = v8;
-  if (v14 | v12)
+  outlined destroy of TaskPriority?(*(v1 + 160));
+  v16 = swift_allocObject();
+  *(v16 + 16) = &async function pointer to partial apply for closure #1 in sendUpdate #1 (_:complete:) in MockCaptionsProvider.start();
+  *(v16 + 24) = v9;
+  if (v15 | v13)
   {
-    *(v0 + 48) = 0;
-    *(v0 + 56) = 0;
-    *(v0 + 64) = v12;
-    *(v0 + 72) = v14;
+    *(v1 + 48) = 0;
+    *(v1 + 56) = 0;
+    *(v1 + 64) = v13;
+    *(v1 + 72) = v15;
   }
 
   swift_task_create();
 
-  v19 = *(v0 + 360);
-  v20 = *(v0 + 280);
-  v21 = *(v0 + 368) + 1;
-  *(v0 + 368) = v21;
-  v22 = *(v0 + 352);
-  if (v21 != v19)
+  v20 = *(v1 + 360);
+  v21 = *(v1 + 280);
+  v22 = *(v1 + 368) + 1;
+  *(v1 + 368) = v22;
+  v23 = *(v1 + 352);
+  if (v22 != v20)
   {
-    if (v21 < *(v22 + 16))
+    if (v22 < *(v23 + 16))
     {
-      v30 = *(v0 + 304);
-      v31 = *(v0 + 192);
-      v32 = *(v0 + 168);
-      v33 = v22 + 32 * v21;
-      v35 = *(v33 + 48);
-      v34 = *(v33 + 56);
-      *(v0 + 16) = *(v33 + 32);
-      *(v0 + 32) = v35;
-      *(v0 + 40) = v34;
+      v31 = *(v1 + 304);
+      v32 = *(v1 + 192);
+      v33 = *(v1 + 168);
+      v34 = v23 + 32 * v22;
+      v36 = *(v34 + 48);
+      v35 = *(v34 + 56);
+      *(v1 + 16) = *(v34 + 32);
+      *(v1 + 32) = v36;
+      *(v1 + 40) = v35;
       lazy protocol witness table accessor for type Substring and conformance Substring();
       String.append<A>(contentsOf:)();
       ContinuousClock.init()();
       static ContinuousClock.Instant.now.getter();
       OUTLINED_FUNCTION_13_71();
-      v30(v31, v32);
-      v36 = swift_task_alloc();
-      *(v0 + 376) = v36;
-      *v36 = v0;
-      OUTLINED_FUNCTION_7_95();
+      v31(v32, v33);
+      v37 = swift_task_alloc();
+      *(v1 + 376) = v37;
+      *v37 = v1;
+      OUTLINED_FUNCTION_7_95(v37);
       goto LABEL_20;
     }
 
     goto LABEL_27;
   }
 
-  v24 = *(v0 + 288);
-  v23 = *(v0 + 296);
-  v25 = *(v0 + 144);
+  v25 = *(v1 + 288);
+  v24 = *(v1 + 296);
+  v26 = *(v1 + 144);
 
-  specialized sendUpdate #1 (_:complete:) in MockCaptionsProvider.start()(v24, v23, 1, (v0 + 136), v25);
+  specialized sendUpdate #1 (_:complete:) in MockCaptionsProvider.start()(v25, v24, 1, (v1 + 136), v26);
 
-  if (__OFADD__(v20, 1))
+  if (__OFADD__(v21, 1))
   {
     __break(1u);
 LABEL_27:
     __break(1u);
 LABEL_28:
     __break(1u);
-    return MEMORY[0x1EEE6DC10](v22, v16, v17, v18);
+    return MEMORY[0x1EEE6DC10](v23, v17, v18, v19);
   }
 
-  *(v0 + 136) = v20 + 1;
-  for (i = *(v0 + 264) + 1; ; i = 0)
+  *(v1 + 136) = v21 + 1;
+  for (i = *(v1 + 264) + 1; ; i = 0)
   {
-    v22 = OUTLINED_FUNCTION_20_55(i);
-    if (!v28)
+    v23 = OUTLINED_FUNCTION_20_55(i);
+    if (!v29)
     {
       break;
     }
 
-    v29 = *(v0 + 240);
+    v30 = *(v1 + 240);
 
-    if (v29 == 100)
+    if (v30 == 100)
     {
       OUTLINED_FUNCTION_6_108();
 
@@ -7711,50 +7523,32 @@ LABEL_28:
       __asm { BRAA            X1, X16 }
     }
 
-    ++*(v0 + 240);
+    ++*(v1 + 240);
     specialized MutableCollection<>.shuffle<A>(using:)();
     OUTLINED_FUNCTION_12_82(&outlined read-only object #0 of one-time initialization function for phrases);
-    OUTLINED_FUNCTION_3_5();
+    OUTLINED_FUNCTION_3_5(v1 + 136, v1 + 80);
   }
 
-  if (v27 >= *(v22 + 16))
+  if (v28 >= *(v23 + 16))
   {
     goto LABEL_28;
   }
 
-  OUTLINED_FUNCTION_10_80(v22, v27);
+  OUTLINED_FUNCTION_10_80(v23, v28);
   ContinuousClock.init()();
   static ContinuousClock.Instant.now.getter();
   OUTLINED_FUNCTION_7_16();
-  v38 = OUTLINED_FUNCTION_13_59();
-  v39(v38);
-  v40 = swift_task_alloc();
-  *(v0 + 320) = v40;
-  *v40 = v0;
-  OUTLINED_FUNCTION_0_192();
+  v39 = OUTLINED_FUNCTION_13_59();
+  v40(v39);
+  v41 = swift_task_alloc();
+  *(v1 + 320) = v41;
+  *v41 = v1;
+  OUTLINED_FUNCTION_0_192(v41);
 LABEL_20:
-  OUTLINED_FUNCTION_5_105(v37);
+  OUTLINED_FUNCTION_5_105(v38);
   OUTLINED_FUNCTION_13_3();
 
-  return MEMORY[0x1EEE6DC10](v22, v16, v17, v18);
-}
-
-{
-
-  OUTLINED_FUNCTION_6_108();
-
-  OUTLINED_FUNCTION_13();
-
-  return v1();
-}
-
-{
-
-  OUTLINED_FUNCTION_6_108();
-
-  OUTLINED_FUNCTION_13();
-
-  return v1();
+  return MEMORY[0x1EEE6DC10](v23, v17, v18, v19);
 }
 
 void (*MockCaptionsProvider.captionsEnabled.modify(void *a1))(uint64_t a1)
@@ -7777,7 +7571,7 @@ void MockCaptionsProvider.captionsEnabled.modify(uint64_t a1)
 
 uint64_t specialized sendUpdate #1 (_:complete:) in MockCaptionsProvider.start()(uint64_t a1, uint64_t a2, char a3, uint64_t *a4, uint64_t a5)
 {
-  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd);
+  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd, &_sScPSgMR);
   MEMORY[0x1EEE9AC00](v10 - 8);
   v12 = &v19 - v11;
   swift_beginAccess();
@@ -7837,7 +7631,7 @@ uint64_t closure #1 in sendUpdate #1 (_:complete:) in MockCaptionsProvider.start
   v9[1] = v6;
   *(v1 + v3[8]) = v4;
   *(v1 + v3[9]) = MEMORY[0x1E69E7CC0];
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy15ConversationKit11ParticipantV7CaptionVGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy15ConversationKit11ParticipantV7CaptionVGMd, &_ss23_ContiguousArrayStorageCy15ConversationKit11ParticipantV7CaptionVGMR);
   v10 = (*(v2 + 80) + 32) & ~*(v2 + 80);
   v11 = swift_allocObject();
   *(v11 + 16) = xmmword_1BC4BA940;
@@ -8039,7 +7833,7 @@ uint64_t PushToTalkControlsRecipeGenerator.init()()
 void PushToTalkControlsRecipeGenerator.pttNoticeRecipe(controlsManager:notice:)(void *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X8>)
 {
   v90 = a2;
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation16AttributedStringVSgMd);
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation16AttributedStringVSgMd, &_s10Foundation16AttributedStringVSgMR);
   OUTLINED_FUNCTION_22(v7);
   OUTLINED_FUNCTION_21();
   MEMORY[0x1EEE9AC00](v8);
@@ -8047,16 +7841,16 @@ void PushToTalkControlsRecipeGenerator.pttNoticeRecipe(controlsManager:notice:)(
   v10 = type metadata accessor for AttributedString();
   OUTLINED_FUNCTION_7_0();
   MEMORY[0x1EEE9AC00](v11);
-  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15ConversationKit0A14ControlsRecipeVSgMd);
+  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15ConversationKit0A14ControlsRecipeVSgMd, &_s15ConversationKit0A14ControlsRecipeVSgMR);
   OUTLINED_FUNCTION_22(v12);
   OUTLINED_FUNCTION_21();
   MEMORY[0x1EEE9AC00](v13);
   v15 = &v79 - v14;
-  v16 = type metadata accessor for ConversationControlsRecipe();
+  v16 = type metadata accessor for ConversationControlsRecipe(0);
   OUTLINED_FUNCTION_7_0();
   MEMORY[0x1EEE9AC00](v17);
   v19 = (&v79 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v21 = MEMORY[0x1EEE9AC00](v20);
+  v21.n128_f64[0] = MEMORY[0x1EEE9AC00](v20);
   v23 = &v79 - v22;
   v24 = (*((*MEMORY[0x1E69E7D40] & *a1) + 0x2A0))(v21);
   objc_opt_self();
@@ -8077,12 +7871,12 @@ void PushToTalkControlsRecipeGenerator.pttNoticeRecipe(controlsManager:notice:)(
     boxed_opaque_existential_1 = __swift_allocate_boxed_opaque_existential_1(v92);
     outlined init with copy of PushToTalkNotice(v90, boxed_opaque_existential_1, type metadata accessor for PushToTalkNotice);
     v93 = 1;
-    type metadata accessor for NSObject(0, &lazy cache variable for type metadata for NSAttributedString);
+    type metadata accessor for NSObject(0, &lazy cache variable for type metadata for NSAttributedString, 0x1E696AAB0);
     v87 = v30;
     v86 = v29;
     v32._countAndFlagsBits = PushToTalkNotice.title.getter();
     isa = NSAttributedString.__allocating_init(string:)(v32).super.isa;
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyyXlGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyyXlGMd, &_ss23_ContiguousArrayStorageCyyXlGMR);
     v33 = swift_allocObject();
     *(v33 + 16) = xmmword_1BC4BAC30;
     PushToTalkNotice.attributedSubtitle.getter();
@@ -8122,7 +7916,7 @@ void PushToTalkControlsRecipeGenerator.pttNoticeRecipe(controlsManager:notice:)(
     *v46 = 0;
     *(v46 + 1) = 0;
     v46[16] = -1;
-    outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v35, &_s10Foundation16AttributedStringVSgMd);
+    outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v35, &_s10Foundation16AttributedStringVSgMd, &_s10Foundation16AttributedStringVSgMR);
     outlined destroy of ConversationControlsType(v92);
     *v45 = 0u;
     *(v45 + 1) = 0u;
@@ -8138,7 +7932,7 @@ void PushToTalkControlsRecipeGenerator.pttNoticeRecipe(controlsManager:notice:)(
     {
 
       swift_unknownObjectRelease();
-      outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v15, &_s15ConversationKit0A14ControlsRecipeVSgMd);
+      outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v15, &_s15ConversationKit0A14ControlsRecipeVSgMd, &_s15ConversationKit0A14ControlsRecipeVSgMR);
       OUTLINED_FUNCTION_7_7();
       __swift_storeEnumTagSinglePayload(v56, v57, v58, v59);
     }
@@ -8158,11 +7952,11 @@ void PushToTalkControlsRecipeGenerator.pttNoticeRecipe(controlsManager:notice:)(
         v72 = v89;
         PushToTalkNotice.fullSentence.getter();
         __swift_storeEnumTagSinglePayload(v72, 0, 1, v79);
-        _s10Foundation16AttributedStringVSgWOdTm_0(v72, v68 + v16[9], &_s10Foundation16AttributedStringVSgMd);
+        _s10Foundation16AttributedStringVSgWOdTm_0(v72, v68 + v16[9], &_s10Foundation16AttributedStringVSgMd, &_s10Foundation16AttributedStringVSgMR);
         PushToTalkControlsRecipeGenerator.makePTTHUDSystemApertureElement(controlsManager:alertingStyle:)(v80, 64, v92);
 
         swift_unknownObjectRelease();
-        _s10Foundation16AttributedStringVSgWOdTm_0(v92, v68 + v16[18], &_s15ConversationKit21SystemApertureElementVSgMd);
+        _s10Foundation16AttributedStringVSgWOdTm_0(v92, v68 + v16[18], &_s15ConversationKit21SystemApertureElementVSgMd, &_s15ConversationKit21SystemApertureElementVSgMR);
       }
 
       else
@@ -8194,21 +7988,21 @@ void PushToTalkControlsRecipeGenerator.pttNoticeRecipe(controlsManager:notice:)(
 
 void PushToTalkControlsRecipeGenerator.pttHUDRecipe(controlsManager:)(void *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation16AttributedStringVSgMd);
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation16AttributedStringVSgMd, &_s10Foundation16AttributedStringVSgMR);
   OUTLINED_FUNCTION_22(v6);
   OUTLINED_FUNCTION_21();
   MEMORY[0x1EEE9AC00](v7);
   v9 = &v146._object - v8;
-  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15ConversationKit0A14ControlsRecipeVSgMd);
+  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15ConversationKit0A14ControlsRecipeVSgMd, &_s15ConversationKit0A14ControlsRecipeVSgMR);
   OUTLINED_FUNCTION_22(v10);
   OUTLINED_FUNCTION_21();
   MEMORY[0x1EEE9AC00](v11);
   v13 = &v146._object - v12;
-  v14 = type metadata accessor for ConversationControlsRecipe();
+  v14 = type metadata accessor for ConversationControlsRecipe(0);
   OUTLINED_FUNCTION_7_0();
   MEMORY[0x1EEE9AC00](v15);
   v17 = (&v146._object - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v19 = MEMORY[0x1EEE9AC00](v18);
+  v19.n128_f64[0] = MEMORY[0x1EEE9AC00](v18);
   v21 = &v146._object - v20;
   v22 = (*((*MEMORY[0x1E69E7D40] & *a1) + 0x2A0))(v19);
   objc_opt_self();
@@ -8229,7 +8023,7 @@ void PushToTalkControlsRecipeGenerator.pttHUDRecipe(controlsManager:)(void *a1@<
       v135 = a2;
       v136 = v21;
       v137 = a3;
-      type metadata accessor for NSObject(0, &lazy cache variable for type metadata for NSAttributedString);
+      type metadata accessor for NSObject(0, &lazy cache variable for type metadata for NSAttributedString, 0x1E696AAB0);
       v28 = [v24 channelDisplayName];
       v29 = static String._unconditionallyBridgeFromObjectiveC(_:)();
       v31 = v30;
@@ -8256,7 +8050,7 @@ LABEL_20:
             v143 = 0u;
             v144 = 0u;
             v145 = 7;
-            __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyyXlGMd);
+            __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyyXlGMd, &_ss23_ContiguousArrayStorageCyyXlGMR);
             v64 = swift_allocObject();
             *(v64 + 16) = xmmword_1BC4BAC30;
             v127 = v139;
@@ -8270,8 +8064,8 @@ LABEL_20:
             v68 = v138;
             OUTLINED_FUNCTION_10_0();
             __swift_storeEnumTagSinglePayload(v69, v70, v71, v67);
-            __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy15ConversationKit0D14ControlsActionOGMd);
-            type metadata accessor for ConversationControlsAction();
+            __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy15ConversationKit0D14ControlsActionOGMd, &_ss23_ContiguousArrayStorageCy15ConversationKit0D14ControlsActionOGMR);
+            type metadata accessor for ConversationControlsAction(0);
             v72 = swift_allocObject();
             *(v72 + 16) = xmmword_1BC4BA940;
             swift_storeEnumTagMultiPayload();
@@ -8314,7 +8108,7 @@ LABEL_20:
             v86 = &lazy protocol witness table cache variable for type AsyncStream<Tips.Status> and conformance AsyncStream<A>;
             if (v85 <= 2)
             {
-              outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v68, &_s10Foundation16AttributedStringVSgMd);
+              outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v68, &_s10Foundation16AttributedStringVSgMd, &_s10Foundation16AttributedStringVSgMR);
               outlined destroy of ConversationControlsType(&v142);
               *v79 = v72;
               *(v79 + 8) = 0u;
@@ -8335,7 +8129,7 @@ LABEL_20:
             {
               if (one-time initialization token for conversationControls != -1)
               {
-                OUTLINED_FUNCTION_0_0();
+                OUTLINED_FUNCTION_0_0(&one-time initialization token for conversationControls);
               }
 
               v87 = type metadata accessor for Logger();
@@ -8365,7 +8159,7 @@ LABEL_20:
                 MEMORY[0x1BFB23DF0](v96, -1, -1);
               }
 
-              outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v138, &_s10Foundation16AttributedStringVSgMd);
+              outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v138, &_s10Foundation16AttributedStringVSgMd, &_s10Foundation16AttributedStringVSgMR);
               outlined destroy of ConversationControlsType(&v142);
               v97 = v136;
               v98 = v133;
@@ -8380,7 +8174,7 @@ LABEL_20:
             {
 
               swift_unknownObjectRelease();
-              outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v98, &_s15ConversationKit0A14ControlsRecipeVSgMd);
+              outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v98, &_s15ConversationKit0A14ControlsRecipeVSgMd, &_s15ConversationKit0A14ControlsRecipeVSgMR);
               OUTLINED_FUNCTION_7_7();
               __swift_storeEnumTagSinglePayload(v111, v112, v113, v114);
             }
@@ -8394,7 +8188,7 @@ LABEL_20:
               {
                 if (v86[25] != -1)
                 {
-                  OUTLINED_FUNCTION_0_0();
+                  OUTLINED_FUNCTION_0_0(&one-time initialization token for conversationControls);
                 }
 
                 v116 = type metadata accessor for Logger();
@@ -8412,7 +8206,7 @@ LABEL_20:
                 PushToTalkControlsRecipeGenerator.makePTTHUDSystemApertureElement(controlsManager:alertingStyle:)(v99, 128, &v142);
                 swift_unknownObjectRelease();
 
-                _s10Foundation16AttributedStringVSgWOdTm_0(&v142, v97 + v73[18], &_s15ConversationKit21SystemApertureElementVSgMd);
+                _s10Foundation16AttributedStringVSgWOdTm_0(&v142, v97 + v73[18], &_s15ConversationKit21SystemApertureElementVSgMd, &_s15ConversationKit21SystemApertureElementVSgMR);
               }
 
               else
@@ -8501,7 +8295,7 @@ LABEL_19:
 
 void PushToTalkControlsRecipeGenerator.makePTTHUDSystemApertureElement(controlsManager:alertingStyle:)(void *a1@<X0>, int a2@<W1>, uint64_t a3@<X8>)
 {
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15ConversationKit18SystemApertureIconVSgMd);
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15ConversationKit18SystemApertureIconVSgMd, &_s15ConversationKit18SystemApertureIconVSgMR);
   MEMORY[0x1EEE9AC00](v6 - 8);
   v8 = &v34[-v7];
   v9 = type metadata accessor for SystemApertureIcon(0);
@@ -8512,7 +8306,7 @@ void PushToTalkControlsRecipeGenerator.makePTTHUDSystemApertureElement(controlsM
   SystemApertureIconFactory.makeStatusIcon(with:for:)(0, 0, a1);
   if (__swift_getEnumTagSinglePayload(v8, 1, v9) == 1)
   {
-    outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v8, &_s15ConversationKit18SystemApertureIconVSgMd);
+    outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v8, &_s15ConversationKit18SystemApertureIconVSgMd, &_s15ConversationKit18SystemApertureIconVSgMR);
     if (one-time initialization token for conversationControls != -1)
     {
       swift_once();
@@ -8590,7 +8384,7 @@ id specialized PushToTalkControlsRecipeGenerator.pttLeadingAccessoryView(call:)(
   v8 = &v40 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v9);
   v11 = &v40 - v10;
-  type metadata accessor for NSObject(0, &lazy cache variable for type metadata for UIImageView);
+  type metadata accessor for NSObject(0, &lazy cache variable for type metadata for UIImageView, 0x1E69DCAE0);
   v12 = outlined bridged method (ob) of @objc TUCallProvider.bundleIdentifier.getter([a1 provider]);
   v14 = static UIImageView.appIcon(for:)(v12, v13);
 
@@ -8675,11 +8469,11 @@ id specialized PushToTalkControlsRecipeGenerator.pttLeadingAccessoryView(call:)(
   return v26;
 }
 
-uint64_t _s10Foundation16AttributedStringVSgWOdTm_0(uint64_t a1, uint64_t a2, uint64_t *a3)
+uint64_t _s10Foundation16AttributedStringVSgWOdTm_0(uint64_t a1, uint64_t a2, uint64_t *a3, uint64_t *a4)
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(a3);
+  __swift_instantiateConcreteTypeFromMangledNameV2(a3, a4);
   OUTLINED_FUNCTION_7_0();
-  (*(v5 + 40))(a2, a1);
+  (*(v6 + 40))(a2, a1);
   return a2;
 }
 
@@ -8707,29 +8501,29 @@ void VideoMessageControlsView.verticalSizeClass.getter()
   OUTLINED_FUNCTION_1();
   MEMORY[0x1EEE9AC00](v4);
   OUTLINED_FUNCTION_8();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI11EnvironmentV7ContentOyAA22UserInterfaceSizeClassOSg_GMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI11EnvironmentV7ContentOyAA22UserInterfaceSizeClassOSg_GMd, &_s7SwiftUI11EnvironmentV7ContentOyAA22UserInterfaceSizeClassOSg_GMR);
   OUTLINED_FUNCTION_7_0();
   OUTLINED_FUNCTION_21();
   MEMORY[0x1EEE9AC00](v5);
   OUTLINED_FUNCTION_34();
   v6 = type metadata accessor for VideoMessageControlsView(0);
-  outlined init with copy of IDView<AvatarStackView, [UUID]>(v0 + *(v6 + 20), v1, &_s7SwiftUI11EnvironmentV7ContentOyAA22UserInterfaceSizeClassOSg_GMd);
+  outlined init with copy of IDView<AvatarStackView, [UUID]>(v0 + *(v6 + 20), v1, &_s7SwiftUI11EnvironmentV7ContentOyAA22UserInterfaceSizeClassOSg_GMd, &_s7SwiftUI11EnvironmentV7ContentOyAA22UserInterfaceSizeClassOSg_GMR);
   if (swift_getEnumCaseMultiPayload() == 1)
   {
-    outlined init with take of ZStack<TupleView<(ModifiedContent<_ShapeView<Rectangle, Color>, _AllowsHitTestingModifier>, ModifiedContent<StaticIf<Solarium, _GlassEffectContainer<ModifiedContent<ModifiedContent<ModifiedContent<VStack<TupleView<(ModifiedContent<<<opaque return type of View.accessibilityElement(children:)>>.0, AccessibilityAttachmentModifier>, TranslationTextView??)>>, _PaddingLayout>, _FlexFrameLayout>, PlatterBackgroundModifier>>, ModifiedContent<ModifiedContent<ModifiedContent<VStack<TupleView<(ModifiedContent<<<opaque return type of View.accessibilityElement(children:)>>.0, AccessibilityAttachmentModifier>, TranslationTextView??)>>, _PaddingLayout>, _FlexFrameLayout>, PlatterBackgroundModifier>>, _AnimationModifier<Bool>>)>>(v1, v3, &_s7SwiftUI22UserInterfaceSizeClassOSgMd);
+    outlined init with take of ZStack<TupleView<(ModifiedContent<_ShapeView<Rectangle, Color>, _AllowsHitTestingModifier>, ModifiedContent<StaticIf<Solarium, _GlassEffectContainer<ModifiedContent<ModifiedContent<ModifiedContent<VStack<TupleView<(ModifiedContent<<<opaque return type of View.accessibilityElement(children:)>>.0, AccessibilityAttachmentModifier>, TranslationTextView??)>>, _PaddingLayout>, _FlexFrameLayout>, PlatterBackgroundModifier>>, ModifiedContent<ModifiedContent<ModifiedContent<VStack<TupleView<(ModifiedContent<<<opaque return type of View.accessibilityElement(children:)>>.0, AccessibilityAttachmentModifier>, TranslationTextView??)>>, _PaddingLayout>, _FlexFrameLayout>, PlatterBackgroundModifier>>, _AnimationModifier<Bool>>)>>(v1, v3, &_s7SwiftUI22UserInterfaceSizeClassOSgMd, &_s7SwiftUI22UserInterfaceSizeClassOSgMR);
   }
 
   else
   {
-    static os_log_type_t.fault.getter();
-    v7 = static Log.runtimeIssuesLog.getter();
-    os_log(_:dso:log:_:_:)();
+    v7 = static os_log_type_t.fault.getter();
+    v8 = static Log.runtimeIssuesLog.getter();
+    os_log(_:dso:log:_:_:)(v7, &dword_1BBC58000, v8, "Accessing Environment's value outside of being installed on a View. This will always read the default value and will not update.", 128, 2, MEMORY[0x1E69E7CC0]);
 
     EnvironmentValues.init()();
     swift_getAtKeyPath();
 
-    v8 = OUTLINED_FUNCTION_45_1();
-    v9(v8);
+    v9 = OUTLINED_FUNCTION_45_1();
+    v10(v9);
   }
 
   OUTLINED_FUNCTION_30_0();
@@ -8748,29 +8542,29 @@ void VideoMessageControlsView.horizontalSizeClass.getter()
   OUTLINED_FUNCTION_1();
   MEMORY[0x1EEE9AC00](v6);
   OUTLINED_FUNCTION_8();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI11EnvironmentV7ContentOyAA22UserInterfaceSizeClassOSg_GMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI11EnvironmentV7ContentOyAA22UserInterfaceSizeClassOSg_GMd, &_s7SwiftUI11EnvironmentV7ContentOyAA22UserInterfaceSizeClassOSg_GMR);
   OUTLINED_FUNCTION_7_0();
   OUTLINED_FUNCTION_21();
   MEMORY[0x1EEE9AC00](v7);
   OUTLINED_FUNCTION_34();
   v8 = v3(0);
-  outlined init with copy of IDView<AvatarStackView, [UUID]>(v0 + *(v8 + 24), v1, &_s7SwiftUI11EnvironmentV7ContentOyAA22UserInterfaceSizeClassOSg_GMd);
+  outlined init with copy of IDView<AvatarStackView, [UUID]>(v0 + *(v8 + 24), v1, &_s7SwiftUI11EnvironmentV7ContentOyAA22UserInterfaceSizeClassOSg_GMd, &_s7SwiftUI11EnvironmentV7ContentOyAA22UserInterfaceSizeClassOSg_GMR);
   if (swift_getEnumCaseMultiPayload() == 1)
   {
-    outlined init with take of ZStack<TupleView<(ModifiedContent<_ShapeView<Rectangle, Color>, _AllowsHitTestingModifier>, ModifiedContent<StaticIf<Solarium, _GlassEffectContainer<ModifiedContent<ModifiedContent<ModifiedContent<VStack<TupleView<(ModifiedContent<<<opaque return type of View.accessibilityElement(children:)>>.0, AccessibilityAttachmentModifier>, TranslationTextView??)>>, _PaddingLayout>, _FlexFrameLayout>, PlatterBackgroundModifier>>, ModifiedContent<ModifiedContent<ModifiedContent<VStack<TupleView<(ModifiedContent<<<opaque return type of View.accessibilityElement(children:)>>.0, AccessibilityAttachmentModifier>, TranslationTextView??)>>, _PaddingLayout>, _FlexFrameLayout>, PlatterBackgroundModifier>>, _AnimationModifier<Bool>>)>>(v1, v5, &_s7SwiftUI22UserInterfaceSizeClassOSgMd);
+    outlined init with take of ZStack<TupleView<(ModifiedContent<_ShapeView<Rectangle, Color>, _AllowsHitTestingModifier>, ModifiedContent<StaticIf<Solarium, _GlassEffectContainer<ModifiedContent<ModifiedContent<ModifiedContent<VStack<TupleView<(ModifiedContent<<<opaque return type of View.accessibilityElement(children:)>>.0, AccessibilityAttachmentModifier>, TranslationTextView??)>>, _PaddingLayout>, _FlexFrameLayout>, PlatterBackgroundModifier>>, ModifiedContent<ModifiedContent<ModifiedContent<VStack<TupleView<(ModifiedContent<<<opaque return type of View.accessibilityElement(children:)>>.0, AccessibilityAttachmentModifier>, TranslationTextView??)>>, _PaddingLayout>, _FlexFrameLayout>, PlatterBackgroundModifier>>, _AnimationModifier<Bool>>)>>(v1, v5, &_s7SwiftUI22UserInterfaceSizeClassOSgMd, &_s7SwiftUI22UserInterfaceSizeClassOSgMR);
   }
 
   else
   {
-    static os_log_type_t.fault.getter();
-    v9 = static Log.runtimeIssuesLog.getter();
-    os_log(_:dso:log:_:_:)();
+    v9 = static os_log_type_t.fault.getter();
+    v10 = static Log.runtimeIssuesLog.getter();
+    os_log(_:dso:log:_:_:)(v9, &dword_1BBC58000, v10, "Accessing Environment's value outside of being installed on a View. This will always read the default value and will not update.", 128, 2, MEMORY[0x1E69E7CC0]);
 
     EnvironmentValues.init()();
     swift_getAtKeyPath();
 
-    v10 = OUTLINED_FUNCTION_45_1();
-    v11(v10);
+    v11 = OUTLINED_FUNCTION_45_1();
+    v12(v11);
   }
 
   OUTLINED_FUNCTION_30_0();
@@ -8797,7 +8591,7 @@ void VideoMessageControlsView.$videoMessageViewModel.getter()
   OUTLINED_FUNCTION_52_17();
   type metadata accessor for VideoMessagePlayerViewModel(0);
   OUTLINED_FUNCTION_3_143();
-  lazy protocol witness table accessor for type VideoMessagePlayerViewModel and conformance VideoMessagePlayerViewModel(v0, v1);
+  lazy protocol witness table accessor for type VideoMessagePlayerViewModel and conformance VideoMessagePlayerViewModel(v0, v1, &protocol conformance descriptor for VideoMessagePlayerViewModel);
   OUTLINED_FUNCTION_46();
 
   JUMPOUT(0x1BFB1E3A0);
@@ -8816,12 +8610,12 @@ double VideoMessageControlsView.buttonBottomPaddingDivisor.getter()
   v2 = *(v1 - 8);
   MEMORY[0x1EEE9AC00](v1);
   v40 = &v37 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI22UserInterfaceSizeClassOSg_ADtMd);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI22UserInterfaceSizeClassOSg_ADtMd, &_s7SwiftUI22UserInterfaceSizeClassOSg_ADtMR);
   MEMORY[0x1EEE9AC00](v4);
   v46 = &v37 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v6);
   v8 = &v37 - v7;
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI22UserInterfaceSizeClassOSgMd);
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI22UserInterfaceSizeClassOSgMd, &_s7SwiftUI22UserInterfaceSizeClassOSgMR);
   MEMORY[0x1EEE9AC00](v9 - 8);
   v39 = &v37 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v11);
@@ -8843,31 +8637,31 @@ double VideoMessageControlsView.buttonBottomPaddingDivisor.getter()
   __swift_storeEnumTagSinglePayload(v20, 0, 1, v1);
   v42 = v4;
   v25 = *(v4 + 48);
-  outlined init with copy of IDView<AvatarStackView, [UUID]>(v23, v8, &_s7SwiftUI22UserInterfaceSizeClassOSgMd);
-  outlined init with copy of IDView<AvatarStackView, [UUID]>(v20, &v8[v25], &_s7SwiftUI22UserInterfaceSizeClassOSgMd);
+  outlined init with copy of IDView<AvatarStackView, [UUID]>(v23, v8, &_s7SwiftUI22UserInterfaceSizeClassOSgMd, &_s7SwiftUI22UserInterfaceSizeClassOSgMR);
+  outlined init with copy of IDView<AvatarStackView, [UUID]>(v20, &v8[v25], &_s7SwiftUI22UserInterfaceSizeClassOSgMd, &_s7SwiftUI22UserInterfaceSizeClassOSgMR);
   if (__swift_getEnumTagSinglePayload(v8, 1, v1) == 1)
   {
     v38 = v24;
-    outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v20, &_s7SwiftUI22UserInterfaceSizeClassOSgMd);
-    outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v23, &_s7SwiftUI22UserInterfaceSizeClassOSgMd);
+    outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v20, &_s7SwiftUI22UserInterfaceSizeClassOSgMd, &_s7SwiftUI22UserInterfaceSizeClassOSgMR);
+    outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v23, &_s7SwiftUI22UserInterfaceSizeClassOSgMd, &_s7SwiftUI22UserInterfaceSizeClassOSgMR);
     if (__swift_getEnumTagSinglePayload(&v8[v25], 1, v1) != 1)
     {
 LABEL_11:
-      outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v8, &_s7SwiftUI22UserInterfaceSizeClassOSg_ADtMd);
+      outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v8, &_s7SwiftUI22UserInterfaceSizeClassOSg_ADtMd, &_s7SwiftUI22UserInterfaceSizeClassOSg_ADtMR);
       return 0.0725;
     }
 
-    outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v8, &_s7SwiftUI22UserInterfaceSizeClassOSgMd);
+    outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v8, &_s7SwiftUI22UserInterfaceSizeClassOSgMd, &_s7SwiftUI22UserInterfaceSizeClassOSgMR);
   }
 
   else
   {
-    outlined init with copy of IDView<AvatarStackView, [UUID]>(v8, v17, &_s7SwiftUI22UserInterfaceSizeClassOSgMd);
+    outlined init with copy of IDView<AvatarStackView, [UUID]>(v8, v17, &_s7SwiftUI22UserInterfaceSizeClassOSgMd, &_s7SwiftUI22UserInterfaceSizeClassOSgMR);
     if (__swift_getEnumTagSinglePayload(&v8[v25], 1, v1) == 1)
     {
 LABEL_10:
-      outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v20, &_s7SwiftUI22UserInterfaceSizeClassOSgMd);
-      outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v23, &_s7SwiftUI22UserInterfaceSizeClassOSgMd);
+      outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v20, &_s7SwiftUI22UserInterfaceSizeClassOSgMd, &_s7SwiftUI22UserInterfaceSizeClassOSgMR);
+      outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v23, &_s7SwiftUI22UserInterfaceSizeClassOSgMd, &_s7SwiftUI22UserInterfaceSizeClassOSgMR);
       (*(v47 + 8))(v17, v1);
       goto LABEL_11;
     }
@@ -8876,14 +8670,14 @@ LABEL_10:
     v26 = v47;
     v27 = v40;
     (*(v47 + 32))(v40, &v8[v25], v1);
-    lazy protocol witness table accessor for type VideoMessagePlayerViewModel and conformance VideoMessagePlayerViewModel(&lazy protocol witness table cache variable for type UserInterfaceSizeClass and conformance UserInterfaceSizeClass, MEMORY[0x1E697FF50]);
+    lazy protocol witness table accessor for type VideoMessagePlayerViewModel and conformance VideoMessagePlayerViewModel(&lazy protocol witness table cache variable for type UserInterfaceSizeClass and conformance UserInterfaceSizeClass, MEMORY[0x1E697FF50], MEMORY[0x1E697FF60]);
     v37 = dispatch thunk of static Equatable.== infix(_:_:)();
     v28 = *(v26 + 8);
     v28(v27, v1);
-    outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v20, &_s7SwiftUI22UserInterfaceSizeClassOSgMd);
-    outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v23, &_s7SwiftUI22UserInterfaceSizeClassOSgMd);
+    outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v20, &_s7SwiftUI22UserInterfaceSizeClassOSgMd, &_s7SwiftUI22UserInterfaceSizeClassOSgMR);
+    outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v23, &_s7SwiftUI22UserInterfaceSizeClassOSgMd, &_s7SwiftUI22UserInterfaceSizeClassOSgMR);
     v28(v17, v1);
-    outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v8, &_s7SwiftUI22UserInterfaceSizeClassOSgMd);
+    outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v8, &_s7SwiftUI22UserInterfaceSizeClassOSgMd, &_s7SwiftUI22UserInterfaceSizeClassOSgMR);
     if ((v37 & 1) == 0)
     {
       return 0.0725;
@@ -8897,12 +8691,12 @@ LABEL_10:
   __swift_storeEnumTagSinglePayload(v20, 0, 1, v1);
   v29 = *(v42 + 48);
   v8 = v46;
-  outlined init with copy of IDView<AvatarStackView, [UUID]>(v23, v46, &_s7SwiftUI22UserInterfaceSizeClassOSgMd);
-  outlined init with copy of IDView<AvatarStackView, [UUID]>(v20, &v8[v29], &_s7SwiftUI22UserInterfaceSizeClassOSgMd);
+  outlined init with copy of IDView<AvatarStackView, [UUID]>(v23, v46, &_s7SwiftUI22UserInterfaceSizeClassOSgMd, &_s7SwiftUI22UserInterfaceSizeClassOSgMR);
+  outlined init with copy of IDView<AvatarStackView, [UUID]>(v20, &v8[v29], &_s7SwiftUI22UserInterfaceSizeClassOSgMd, &_s7SwiftUI22UserInterfaceSizeClassOSgMR);
   if (__swift_getEnumTagSinglePayload(v8, 1, v1) != 1)
   {
     v17 = v39;
-    outlined init with copy of IDView<AvatarStackView, [UUID]>(v8, v39, &_s7SwiftUI22UserInterfaceSizeClassOSgMd);
+    outlined init with copy of IDView<AvatarStackView, [UUID]>(v8, v39, &_s7SwiftUI22UserInterfaceSizeClassOSgMd, &_s7SwiftUI22UserInterfaceSizeClassOSgMR);
     if (__swift_getEnumTagSinglePayload(&v8[v29], 1, v1) == 1)
     {
       goto LABEL_10;
@@ -8913,14 +8707,14 @@ LABEL_10:
     v33 = v47;
     v34 = v40;
     (*(v47 + 32))(v40, &v8[v29], v1);
-    lazy protocol witness table accessor for type VideoMessagePlayerViewModel and conformance VideoMessagePlayerViewModel(&lazy protocol witness table cache variable for type UserInterfaceSizeClass and conformance UserInterfaceSizeClass, MEMORY[0x1E697FF50]);
+    lazy protocol witness table accessor for type VideoMessagePlayerViewModel and conformance VideoMessagePlayerViewModel(&lazy protocol witness table cache variable for type UserInterfaceSizeClass and conformance UserInterfaceSizeClass, MEMORY[0x1E697FF50], MEMORY[0x1E697FF60]);
     v35 = dispatch thunk of static Equatable.== infix(_:_:)();
     v36 = *(v33 + 8);
     v36(v34, v1);
-    outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v31, &_s7SwiftUI22UserInterfaceSizeClassOSgMd);
-    outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v32, &_s7SwiftUI22UserInterfaceSizeClassOSgMd);
+    outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v31, &_s7SwiftUI22UserInterfaceSizeClassOSgMd, &_s7SwiftUI22UserInterfaceSizeClassOSgMR);
+    outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v32, &_s7SwiftUI22UserInterfaceSizeClassOSgMd, &_s7SwiftUI22UserInterfaceSizeClassOSgMR);
     v36(v17, v1);
-    outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v8, &_s7SwiftUI22UserInterfaceSizeClassOSgMd);
+    outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v8, &_s7SwiftUI22UserInterfaceSizeClassOSgMd, &_s7SwiftUI22UserInterfaceSizeClassOSgMR);
     if (v35)
     {
       return 0.055;
@@ -8929,14 +8723,14 @@ LABEL_10:
     return 0.0725;
   }
 
-  outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v20, &_s7SwiftUI22UserInterfaceSizeClassOSgMd);
-  outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v23, &_s7SwiftUI22UserInterfaceSizeClassOSgMd);
+  outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v20, &_s7SwiftUI22UserInterfaceSizeClassOSgMd, &_s7SwiftUI22UserInterfaceSizeClassOSgMR);
+  outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v23, &_s7SwiftUI22UserInterfaceSizeClassOSgMd, &_s7SwiftUI22UserInterfaceSizeClassOSgMR);
   if (__swift_getEnumTagSinglePayload(&v8[v29], 1, v1) != 1)
   {
     goto LABEL_11;
   }
 
-  outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v8, &_s7SwiftUI22UserInterfaceSizeClassOSgMd);
+  outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v8, &_s7SwiftUI22UserInterfaceSizeClassOSgMd, &_s7SwiftUI22UserInterfaceSizeClassOSgMR);
   return 0.055;
 }
 
@@ -8949,7 +8743,7 @@ void VideoMessageControlsView.body.getter(uint64_t a1, uint64_t a2, uint64_t a3,
   v25 = *(v24 - 8);
   v26 = *(v25 + 64);
   MEMORY[0x1EEE9AC00](v24 - 8);
-  v27 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyAA14GeometryReaderVyAA4ViewPAAE12onTapGesture5count7performQrSi_yyctFQOyACyACyACyACyACyAA6ZStackVyAA05TupleG0VyAA6VStackVyAA012_ConditionalD0VyANyACyACyARyARyACyACy15ConversationKit020VideoMessageControlsG0V03TopuG033_B419541366E265736F7249488C40E55CLLVAA14_PaddingLayoutVGAZGARyA_A_GGA_GAA16_FlexFrameLayoutVGAA14_OpacityEffectVG_AA6SpacerVtGANyACyAA6HStackVyANyA11__ACyACyAS18AnimatedSaveButtonVAA12_FrameLayoutVGAZGtGGA5_G_A11_tGGG_ARyA14_yANyA11__ARyACyACyACyAU011LocalBottomuG0AWLLVA8_GAA32_EnvironmentKeyTransformModifierVySbGGA8_GACyACyACyAU012RemoteBottomuG0AWLLVAZGAZGA5_GGtGGAPyA41_GGANyACyACyAPyANyA11__ARyACyACyAU010PlayButtonG0AWLLVA8_GA32_GACyA48_AA16_OverlayModifierVyACyACyACyACyACyAA4TextVAA30_EnvironmentKeyWritingModifierVySiSgGGAA24_ForegroundStyleModifierVyAA22HierarchicalShapeStyleVGGA54_yAA8MaterialVSgGGA18_GAA25_AlignmentWritingModifierVGGGGA11_tGGAA30_SafeAreaRegionsIgnoringLayoutVGA5_G_ACyACyACyACyAPyANyA11__ACyACyACyACyACyA52_AZGA54_yAA5ColorVSgGGAA19_BackgroundModifierVyARyAA06_ShapeG0VyAA16RoundedRectangleVA84_GA91_yA93_A65_GGGGAA11_ClipEffectVyA93_GGAA31AccessibilityAttachmentModifierVGACyACyACyAS13MovieScrubberAWLLVA101_GAA16_FixedSizeLayoutVGA18_GtGGA79_GA5_GAZGA8_GSgtGSgtGGAZGA79_GA5_GAA01_D13ShapeModifierVyAA9RectangleVGGA89_yACyACyAA14LinearGradientVA79_GA8_GGG_Qo_GA54_yAA11ColorSchemeOGGMd) - 8;
+  v27 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyAA14GeometryReaderVyAA4ViewPAAE12onTapGesture5count7performQrSi_yyctFQOyACyACyACyACyACyAA6ZStackVyAA05TupleG0VyAA6VStackVyAA012_ConditionalD0VyANyACyACyARyARyACyACy15ConversationKit020VideoMessageControlsG0V03TopuG033_B419541366E265736F7249488C40E55CLLVAA14_PaddingLayoutVGAZGARyA_A_GGA_GAA16_FlexFrameLayoutVGAA14_OpacityEffectVG_AA6SpacerVtGANyACyAA6HStackVyANyA11__ACyACyAS18AnimatedSaveButtonVAA12_FrameLayoutVGAZGtGGA5_G_A11_tGGG_ARyA14_yANyA11__ARyACyACyACyAU011LocalBottomuG0AWLLVA8_GAA32_EnvironmentKeyTransformModifierVySbGGA8_GACyACyACyAU012RemoteBottomuG0AWLLVAZGAZGA5_GGtGGAPyA41_GGANyACyACyAPyANyA11__ARyACyACyAU010PlayButtonG0AWLLVA8_GA32_GACyA48_AA16_OverlayModifierVyACyACyACyACyACyAA4TextVAA30_EnvironmentKeyWritingModifierVySiSgGGAA24_ForegroundStyleModifierVyAA22HierarchicalShapeStyleVGGA54_yAA8MaterialVSgGGA18_GAA25_AlignmentWritingModifierVGGGGA11_tGGAA30_SafeAreaRegionsIgnoringLayoutVGA5_G_ACyACyACyACyAPyANyA11__ACyACyACyACyACyA52_AZGA54_yAA5ColorVSgGGAA19_BackgroundModifierVyARyAA06_ShapeG0VyAA16RoundedRectangleVA84_GA91_yA93_A65_GGGGAA11_ClipEffectVyA93_GGAA31AccessibilityAttachmentModifierVGACyACyACyAS13MovieScrubberAWLLVA101_GAA16_FixedSizeLayoutVGA18_GtGGA79_GA5_GAZGA8_GSgtGSgtGGAZGA79_GA5_GAA01_D13ShapeModifierVyAA9RectangleVGGA89_yACyACyAA14LinearGradientVA79_GA8_GGG_Qo_GA54_yAA11ColorSchemeOGGMd, &_s7SwiftUI15ModifiedContentVyAA14GeometryReaderVyAA4ViewPAAE12onTapGesture5count7performQrSi_yyctFQOyACyACyACyACyACyAA6ZStackVyAA05TupleG0VyAA6VStackVyAA012_ConditionalD0VyANyACyACyARyARyACyACy15ConversationKit020VideoMessageControlsG0V03TopuG033_B419541366E265736F7249488C40E55CLLVAA14_PaddingLayoutVGAZGARyA_A_GGA_GAA16_FlexFrameLayoutVGAA14_OpacityEffectVG_AA6SpacerVtGANyACyAA6HStackVyANyA11__ACyACyAS18AnimatedSaveButtonVAA12_FrameLayoutVGAZGtGGA5_G_A11_tGGG_ARyA14_yANyA11__ARyACyACyACyAU011LocalBottomuG0AWLLVA8_GAA32_EnvironmentKeyTransformModifierVySbGGA8_GACyACyACyAU012RemoteBottomuG0AWLLVAZGAZGA5_GGtGGAPyA41_GGANyACyACyAPyANyA11__ARyACyACyAU010PlayButtonG0AWLLVA8_GA32_GACyA48_AA16_OverlayModifierVyACyACyACyACyACyAA4TextVAA30_EnvironmentKeyWritingModifierVySiSgGGAA24_ForegroundStyleModifierVyAA22HierarchicalShapeStyleVGGA54_yAA8MaterialVSgGGA18_GAA25_AlignmentWritingModifierVGGGGA11_tGGAA30_SafeAreaRegionsIgnoringLayoutVGA5_G_ACyACyACyACyAPyANyA11__ACyACyACyACyACyA52_AZGA54_yAA5ColorVSgGGAA19_BackgroundModifierVyARyAA06_ShapeG0VyAA16RoundedRectangleVA84_GA91_yA93_A65_GGGGAA11_ClipEffectVyA93_GGAA31AccessibilityAttachmentModifierVGACyACyACyAS13MovieScrubberAWLLVA101_GAA16_FixedSizeLayoutVGA18_GtGGA79_GA5_GAZGA8_GSgtGSgtGGAZGA79_GA5_GAA01_D13ShapeModifierVyAA9RectangleVGGA89_yACyACyAA14LinearGradientVA79_GA8_GGG_Qo_GA54_yAA11ColorSchemeOGGMR) - 8;
   OUTLINED_FUNCTION_21();
   MEMORY[0x1EEE9AC00](v28);
   OUTLINED_FUNCTION_6_2();
@@ -8959,7 +8753,7 @@ void VideoMessageControlsView.body.getter(uint64_t a1, uint64_t a2, uint64_t a3,
   outlined init with take of VideoMessageControlsView(&a9 - ((v26 + 15) & 0xFFFFFFFFFFFFFFF0), v30 + v29, type metadata accessor for VideoMessageControlsView);
   KeyPath = swift_getKeyPath();
   v32 = (v21 + *(v27 + 44));
-  v33 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI30_EnvironmentKeyWritingModifierVyAA11ColorSchemeOGMd) + 28);
+  v33 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI30_EnvironmentKeyWritingModifierVyAA11ColorSchemeOGMd, &_s7SwiftUI30_EnvironmentKeyWritingModifierVyAA11ColorSchemeOGMR) + 28);
   v34 = *MEMORY[0x1E697DBA8];
   type metadata accessor for ColorScheme();
   OUTLINED_FUNCTION_7_0();
@@ -8968,48 +8762,48 @@ void VideoMessageControlsView.body.getter(uint64_t a1, uint64_t a2, uint64_t a3,
   *v21 = partial apply for closure #1 in VideoMessageControlsView.body.getter;
   v21[1] = v30;
   specialized VideoMessageControlsView.backgroundOrCurtainAppliedToView<A>(_:)(v21);
-  outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v21, &_s7SwiftUI15ModifiedContentVyAA14GeometryReaderVyAA4ViewPAAE12onTapGesture5count7performQrSi_yyctFQOyACyACyACyACyACyAA6ZStackVyAA05TupleG0VyAA6VStackVyAA012_ConditionalD0VyANyACyACyARyARyACyACy15ConversationKit020VideoMessageControlsG0V03TopuG033_B419541366E265736F7249488C40E55CLLVAA14_PaddingLayoutVGAZGARyA_A_GGA_GAA16_FlexFrameLayoutVGAA14_OpacityEffectVG_AA6SpacerVtGANyACyAA6HStackVyANyA11__ACyACyAS18AnimatedSaveButtonVAA12_FrameLayoutVGAZGtGGA5_G_A11_tGGG_ARyA14_yANyA11__ARyACyACyACyAU011LocalBottomuG0AWLLVA8_GAA32_EnvironmentKeyTransformModifierVySbGGA8_GACyACyACyAU012RemoteBottomuG0AWLLVAZGAZGA5_GGtGGAPyA41_GGANyACyACyAPyANyA11__ARyACyACyAU010PlayButtonG0AWLLVA8_GA32_GACyA48_AA16_OverlayModifierVyACyACyACyACyACyAA4TextVAA30_EnvironmentKeyWritingModifierVySiSgGGAA24_ForegroundStyleModifierVyAA22HierarchicalShapeStyleVGGA54_yAA8MaterialVSgGGA18_GAA25_AlignmentWritingModifierVGGGGA11_tGGAA30_SafeAreaRegionsIgnoringLayoutVGA5_G_ACyACyACyACyAPyANyA11__ACyACyACyACyACyA52_AZGA54_yAA5ColorVSgGGAA19_BackgroundModifierVyARyAA06_ShapeG0VyAA16RoundedRectangleVA84_GA91_yA93_A65_GGGGAA11_ClipEffectVyA93_GGAA31AccessibilityAttachmentModifierVGACyACyACyAS13MovieScrubberAWLLVA101_GAA16_FixedSizeLayoutVGA18_GtGGA79_GA5_GAZGA8_GSgtGSgtGGAZGA79_GA5_GAA01_D13ShapeModifierVyAA9RectangleVGGA89_yACyACyAA14LinearGradientVA79_GA8_GGG_Qo_GA54_yAA11ColorSchemeOGGMd);
+  outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v21, &_s7SwiftUI15ModifiedContentVyAA14GeometryReaderVyAA4ViewPAAE12onTapGesture5count7performQrSi_yyctFQOyACyACyACyACyACyAA6ZStackVyAA05TupleG0VyAA6VStackVyAA012_ConditionalD0VyANyACyACyARyARyACyACy15ConversationKit020VideoMessageControlsG0V03TopuG033_B419541366E265736F7249488C40E55CLLVAA14_PaddingLayoutVGAZGARyA_A_GGA_GAA16_FlexFrameLayoutVGAA14_OpacityEffectVG_AA6SpacerVtGANyACyAA6HStackVyANyA11__ACyACyAS18AnimatedSaveButtonVAA12_FrameLayoutVGAZGtGGA5_G_A11_tGGG_ARyA14_yANyA11__ARyACyACyACyAU011LocalBottomuG0AWLLVA8_GAA32_EnvironmentKeyTransformModifierVySbGGA8_GACyACyACyAU012RemoteBottomuG0AWLLVAZGAZGA5_GGtGGAPyA41_GGANyACyACyAPyANyA11__ARyACyACyAU010PlayButtonG0AWLLVA8_GA32_GACyA48_AA16_OverlayModifierVyACyACyACyACyACyAA4TextVAA30_EnvironmentKeyWritingModifierVySiSgGGAA24_ForegroundStyleModifierVyAA22HierarchicalShapeStyleVGGA54_yAA8MaterialVSgGGA18_GAA25_AlignmentWritingModifierVGGGGA11_tGGAA30_SafeAreaRegionsIgnoringLayoutVGA5_G_ACyACyACyACyAPyANyA11__ACyACyACyACyACyA52_AZGA54_yAA5ColorVSgGGAA19_BackgroundModifierVyARyAA06_ShapeG0VyAA16RoundedRectangleVA84_GA91_yA93_A65_GGGGAA11_ClipEffectVyA93_GGAA31AccessibilityAttachmentModifierVGACyACyACyAS13MovieScrubberAWLLVA101_GAA16_FixedSizeLayoutVGA18_GtGGA79_GA5_GAZGA8_GSgtGSgtGGAZGA79_GA5_GAA01_D13ShapeModifierVyAA9RectangleVGGA89_yACyACyAA14LinearGradientVA79_GA8_GGG_Qo_GA54_yAA11ColorSchemeOGGMd, &_s7SwiftUI15ModifiedContentVyAA14GeometryReaderVyAA4ViewPAAE12onTapGesture5count7performQrSi_yyctFQOyACyACyACyACyACyAA6ZStackVyAA05TupleG0VyAA6VStackVyAA012_ConditionalD0VyANyACyACyARyARyACyACy15ConversationKit020VideoMessageControlsG0V03TopuG033_B419541366E265736F7249488C40E55CLLVAA14_PaddingLayoutVGAZGARyA_A_GGA_GAA16_FlexFrameLayoutVGAA14_OpacityEffectVG_AA6SpacerVtGANyACyAA6HStackVyANyA11__ACyACyAS18AnimatedSaveButtonVAA12_FrameLayoutVGAZGtGGA5_G_A11_tGGG_ARyA14_yANyA11__ARyACyACyACyAU011LocalBottomuG0AWLLVA8_GAA32_EnvironmentKeyTransformModifierVySbGGA8_GACyACyACyAU012RemoteBottomuG0AWLLVAZGAZGA5_GGtGGAPyA41_GGANyACyACyAPyANyA11__ARyACyACyAU010PlayButtonG0AWLLVA8_GA32_GACyA48_AA16_OverlayModifierVyACyACyACyACyACyAA4TextVAA30_EnvironmentKeyWritingModifierVySiSgGGAA24_ForegroundStyleModifierVyAA22HierarchicalShapeStyleVGGA54_yAA8MaterialVSgGGA18_GAA25_AlignmentWritingModifierVGGGGA11_tGGAA30_SafeAreaRegionsIgnoringLayoutVGA5_G_ACyACyACyACyAPyANyA11__ACyACyACyACyACyA52_AZGA54_yAA5ColorVSgGGAA19_BackgroundModifierVyARyAA06_ShapeG0VyAA16RoundedRectangleVA84_GA91_yA93_A65_GGGGAA11_ClipEffectVyA93_GGAA31AccessibilityAttachmentModifierVGACyACyACyAS13MovieScrubberAWLLVA101_GAA16_FixedSizeLayoutVGA18_GtGGA79_GA5_GAZGA8_GSgtGSgtGGAZGA79_GA5_GAA01_D13ShapeModifierVyAA9RectangleVGGA89_yACyACyAA14LinearGradientVA79_GA8_GGG_Qo_GA54_yAA11ColorSchemeOGGMR);
   OUTLINED_FUNCTION_30_0();
 }
 
 uint64_t closure #1 in VideoMessageControlsView.body.getter@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
-  v60 = a1;
+  v63 = a1;
   v5 = type metadata accessor for VideoMessageControlsView(0);
   v6 = v5 - 8;
-  v68 = *(v5 - 8);
+  v71 = *(v5 - 8);
   MEMORY[0x1EEE9AC00](v5);
-  v69 = v7;
-  v70 = &v56 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v72 = v7;
+  v73 = &v59 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   v8 = type metadata accessor for EnvironmentValues();
-  v59 = *(v8 - 8);
+  v62 = *(v8 - 8);
   MEMORY[0x1EEE9AC00](v8);
-  v10 = &v56 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI6ZStackVyAA9TupleViewVyAA6VStackVyAA19_ConditionalContentVyAEyAA08ModifiedH0VyAKyAIyAIyAKyAKy15ConversationKit020VideoMessageControlsE0V03TopnE033_B419541366E265736F7249488C40E55CLLVAA14_PaddingLayoutVGASGAIyA2TGGATGAA010_FlexFrameV0VGAA14_OpacityEffectVG_AA6SpacerVtGAEyAKyAA6HStackVyAEyA4__AKyAKyAL18AnimatedSaveButtonVAA01_xV0VGASGtGGAZG_A4_tGGG_AIyA7_yAEyA4__AIyAKyAKyAKyAN011LocalBottomnE0APLLVA1_GAA32_EnvironmentKeyTransformModifierVySbGGA1_GAKyAKyAKyAN012RemoteBottomnE0APLLVASGASGAZGGtGGAGyA34_GGAEyAKyAKyAGyAEyA4__AIyAKyAKyAN010PlayButtonE0APLLVA1_GA25_GAKyA41_AA16_OverlayModifierVyAKyAKyAKyAKyAKyAA4TextVAA30_EnvironmentKeyWritingModifierVySiSgGGAA24_ForegroundStyleModifierVyAA22HierarchicalShapeStyleVGGA47_yAA8MaterialVSgGGA11_GAA25_AlignmentWritingModifierVGGGGA4_tGGAA024_SafeAreaRegionsIgnoringV0VGAZG_AKyAKyAKyAKyAGyAEyA4__AKyAKyAKyAKyAKyA45_ASGA47_yAA5ColorVSgGGAA19_BackgroundModifierVyAIyAA06_ShapeE0VyAA16RoundedRectangleVA77_GA84_yA86_A58_GGGGAA05_ClipZ0VyA86_GGAA31AccessibilityAttachmentModifierVGAKyAKyAKyAL13MovieScrubberAPLLVA94_GAA010_FixedSizeV0VGA11_GtGGA72_GAZGASGA1_GSgtGSgtGGMd);
+  v10 = &v59 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI6ZStackVyAA9TupleViewVyAA6VStackVyAA19_ConditionalContentVyAEyAA08ModifiedH0VyAKyAIyAIyAKyAKy15ConversationKit020VideoMessageControlsE0V03TopnE033_B419541366E265736F7249488C40E55CLLVAA14_PaddingLayoutVGASGAIyA2TGGATGAA010_FlexFrameV0VGAA14_OpacityEffectVG_AA6SpacerVtGAEyAKyAA6HStackVyAEyA4__AKyAKyAL18AnimatedSaveButtonVAA01_xV0VGASGtGGAZG_A4_tGGG_AIyA7_yAEyA4__AIyAKyAKyAKyAN011LocalBottomnE0APLLVA1_GAA32_EnvironmentKeyTransformModifierVySbGGA1_GAKyAKyAKyAN012RemoteBottomnE0APLLVASGASGAZGGtGGAGyA34_GGAEyAKyAKyAGyAEyA4__AIyAKyAKyAN010PlayButtonE0APLLVA1_GA25_GAKyA41_AA16_OverlayModifierVyAKyAKyAKyAKyAKyAA4TextVAA30_EnvironmentKeyWritingModifierVySiSgGGAA24_ForegroundStyleModifierVyAA22HierarchicalShapeStyleVGGA47_yAA8MaterialVSgGGA11_GAA25_AlignmentWritingModifierVGGGGA4_tGGAA024_SafeAreaRegionsIgnoringV0VGAZG_AKyAKyAKyAKyAGyAEyA4__AKyAKyAKyAKyAKyA45_ASGA47_yAA5ColorVSgGGAA19_BackgroundModifierVyAIyAA06_ShapeE0VyAA16RoundedRectangleVA77_GA84_yA86_A58_GGGGAA05_ClipZ0VyA86_GGAA31AccessibilityAttachmentModifierVGAKyAKyAKyAL13MovieScrubberAPLLVA94_GAA010_FixedSizeV0VGA11_GtGGA72_GAZGASGA1_GSgtGSgtGGMd, &_s7SwiftUI6ZStackVyAA9TupleViewVyAA6VStackVyAA19_ConditionalContentVyAEyAA08ModifiedH0VyAKyAIyAIyAKyAKy15ConversationKit020VideoMessageControlsE0V03TopnE033_B419541366E265736F7249488C40E55CLLVAA14_PaddingLayoutVGASGAIyA2TGGATGAA010_FlexFrameV0VGAA14_OpacityEffectVG_AA6SpacerVtGAEyAKyAA6HStackVyAEyA4__AKyAKyAL18AnimatedSaveButtonVAA01_xV0VGASGtGGAZG_A4_tGGG_AIyA7_yAEyA4__AIyAKyAKyAKyAN011LocalBottomnE0APLLVA1_GAA32_EnvironmentKeyTransformModifierVySbGGA1_GAKyAKyAKyAN012RemoteBottomnE0APLLVASGASGAZGGtGGAGyA34_GGAEyAKyAKyAGyAEyA4__AIyAKyAKyAN010PlayButtonE0APLLVA1_GA25_GAKyA41_AA16_OverlayModifierVyAKyAKyAKyAKyAKyAA4TextVAA30_EnvironmentKeyWritingModifierVySiSgGGAA24_ForegroundStyleModifierVyAA22HierarchicalShapeStyleVGGA47_yAA8MaterialVSgGGA11_GAA25_AlignmentWritingModifierVGGGGA4_tGGAA024_SafeAreaRegionsIgnoringV0VGAZG_AKyAKyAKyAKyAGyAEyA4__AKyAKyAKyAKyAKyA45_ASGA47_yAA5ColorVSgGGAA19_BackgroundModifierVyAIyAA06_ShapeE0VyAA16RoundedRectangleVA77_GA84_yA86_A58_GGGGAA05_ClipZ0VyA86_GGAA31AccessibilityAttachmentModifierVGAKyAKyAKyAL13MovieScrubberAPLLVA94_GAA010_FixedSizeV0VGA11_GtGGA72_GAZGASGA1_GSgtGSgtGGMR);
   MEMORY[0x1EEE9AC00](v11 - 8);
-  v13 = (&v56 - v12);
-  v61 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyAA6ZStackVyAA9TupleViewVyAA6VStackVyAA012_ConditionalD0VyAGyACyACyAKyAKyACyACy15ConversationKit020VideoMessageControlsG0V03TopnG033_B419541366E265736F7249488C40E55CLLVAA14_PaddingLayoutVGASGAKyA2TGGATGAA010_FlexFrameV0VGAA14_OpacityEffectVG_AA6SpacerVtGAGyACyAA6HStackVyAGyA4__ACyACyAL18AnimatedSaveButtonVAA01_xV0VGASGtGGAZG_A4_tGGG_AKyA7_yAGyA4__AKyACyACyACyAN011LocalBottomnG0APLLVA1_GAA32_EnvironmentKeyTransformModifierVySbGGA1_GACyACyACyAN012RemoteBottomnG0APLLVASGASGAZGGtGGAIyA34_GGAGyACyACyAIyAGyA4__AKyACyACyAN010PlayButtonG0APLLVA1_GA25_GACyA41_AA16_OverlayModifierVyACyACyACyACyACyAA4TextVAA30_EnvironmentKeyWritingModifierVySiSgGGAA24_ForegroundStyleModifierVyAA22HierarchicalShapeStyleVGGA47_yAA8MaterialVSgGGA11_GAA25_AlignmentWritingModifierVGGGGA4_tGGAA024_SafeAreaRegionsIgnoringV0VGAZG_ACyACyACyACyAIyAGyA4__ACyACyACyACyACyA45_ASGA47_yAA5ColorVSgGGAA19_BackgroundModifierVyAKyAA06_ShapeG0VyAA16RoundedRectangleVA77_GA84_yA86_A58_GGGGAA05_ClipZ0VyA86_GGAA31AccessibilityAttachmentModifierVGACyACyACyAL13MovieScrubberAPLLVA94_GAA010_FixedSizeV0VGA11_GtGGA72_GAZGASGA1_GSgtGSgtGGASGMd);
-  MEMORY[0x1EEE9AC00](v61);
-  v15 = &v56 - v14;
-  v62 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyACyAA6ZStackVyAA9TupleViewVyAA6VStackVyAA012_ConditionalD0VyAGyACyACyAKyAKyACyACy15ConversationKit020VideoMessageControlsG0V03TopnG033_B419541366E265736F7249488C40E55CLLVAA14_PaddingLayoutVGASGAKyA2TGGATGAA010_FlexFrameV0VGAA14_OpacityEffectVG_AA6SpacerVtGAGyACyAA6HStackVyAGyA4__ACyACyAL18AnimatedSaveButtonVAA01_xV0VGASGtGGAZG_A4_tGGG_AKyA7_yAGyA4__AKyACyACyACyAN011LocalBottomnG0APLLVA1_GAA32_EnvironmentKeyTransformModifierVySbGGA1_GACyACyACyAN012RemoteBottomnG0APLLVASGASGAZGGtGGAIyA34_GGAGyACyACyAIyAGyA4__AKyACyACyAN010PlayButtonG0APLLVA1_GA25_GACyA41_AA16_OverlayModifierVyACyACyACyACyACyAA4TextVAA30_EnvironmentKeyWritingModifierVySiSgGGAA24_ForegroundStyleModifierVyAA22HierarchicalShapeStyleVGGA47_yAA8MaterialVSgGGA11_GAA25_AlignmentWritingModifierVGGGGA4_tGGAA024_SafeAreaRegionsIgnoringV0VGAZG_ACyACyACyACyAIyAGyA4__ACyACyACyACyACyA45_ASGA47_yAA5ColorVSgGGAA19_BackgroundModifierVyAKyAA06_ShapeG0VyAA16RoundedRectangleVA77_GA84_yA86_A58_GGGGAA05_ClipZ0VyA86_GGAA31AccessibilityAttachmentModifierVGACyACyACyAL13MovieScrubberAPLLVA94_GAA010_FixedSizeV0VGA11_GtGGA72_GAZGASGA1_GSgtGSgtGGASGA72_GMd);
-  MEMORY[0x1EEE9AC00](v62);
-  v17 = &v56 - v16;
-  v64 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyACyACyAA6ZStackVyAA9TupleViewVyAA6VStackVyAA012_ConditionalD0VyAGyACyACyAKyAKyACyACy15ConversationKit020VideoMessageControlsG0V03TopnG033_B419541366E265736F7249488C40E55CLLVAA14_PaddingLayoutVGASGAKyA2TGGATGAA010_FlexFrameV0VGAA14_OpacityEffectVG_AA6SpacerVtGAGyACyAA6HStackVyAGyA4__ACyACyAL18AnimatedSaveButtonVAA01_xV0VGASGtGGAZG_A4_tGGG_AKyA7_yAGyA4__AKyACyACyACyAN011LocalBottomnG0APLLVA1_GAA32_EnvironmentKeyTransformModifierVySbGGA1_GACyACyACyAN012RemoteBottomnG0APLLVASGASGAZGGtGGAIyA34_GGAGyACyACyAIyAGyA4__AKyACyACyAN010PlayButtonG0APLLVA1_GA25_GACyA41_AA16_OverlayModifierVyACyACyACyACyACyAA4TextVAA30_EnvironmentKeyWritingModifierVySiSgGGAA24_ForegroundStyleModifierVyAA22HierarchicalShapeStyleVGGA47_yAA8MaterialVSgGGA11_GAA25_AlignmentWritingModifierVGGGGA4_tGGAA024_SafeAreaRegionsIgnoringV0VGAZG_ACyACyACyACyAIyAGyA4__ACyACyACyACyACyA45_ASGA47_yAA5ColorVSgGGAA19_BackgroundModifierVyAKyAA06_ShapeG0VyAA16RoundedRectangleVA77_GA84_yA86_A58_GGGGAA05_ClipZ0VyA86_GGAA31AccessibilityAttachmentModifierVGACyACyACyAL13MovieScrubberAPLLVA94_GAA010_FixedSizeV0VGA11_GtGGA72_GAZGASGA1_GSgtGSgtGGASGA72_GAZGMd);
+  v13 = (&v59 - v12);
+  v64 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyAA6ZStackVyAA9TupleViewVyAA6VStackVyAA012_ConditionalD0VyAGyACyACyAKyAKyACyACy15ConversationKit020VideoMessageControlsG0V03TopnG033_B419541366E265736F7249488C40E55CLLVAA14_PaddingLayoutVGASGAKyA2TGGATGAA010_FlexFrameV0VGAA14_OpacityEffectVG_AA6SpacerVtGAGyACyAA6HStackVyAGyA4__ACyACyAL18AnimatedSaveButtonVAA01_xV0VGASGtGGAZG_A4_tGGG_AKyA7_yAGyA4__AKyACyACyACyAN011LocalBottomnG0APLLVA1_GAA32_EnvironmentKeyTransformModifierVySbGGA1_GACyACyACyAN012RemoteBottomnG0APLLVASGASGAZGGtGGAIyA34_GGAGyACyACyAIyAGyA4__AKyACyACyAN010PlayButtonG0APLLVA1_GA25_GACyA41_AA16_OverlayModifierVyACyACyACyACyACyAA4TextVAA30_EnvironmentKeyWritingModifierVySiSgGGAA24_ForegroundStyleModifierVyAA22HierarchicalShapeStyleVGGA47_yAA8MaterialVSgGGA11_GAA25_AlignmentWritingModifierVGGGGA4_tGGAA024_SafeAreaRegionsIgnoringV0VGAZG_ACyACyACyACyAIyAGyA4__ACyACyACyACyACyA45_ASGA47_yAA5ColorVSgGGAA19_BackgroundModifierVyAKyAA06_ShapeG0VyAA16RoundedRectangleVA77_GA84_yA86_A58_GGGGAA05_ClipZ0VyA86_GGAA31AccessibilityAttachmentModifierVGACyACyACyAL13MovieScrubberAPLLVA94_GAA010_FixedSizeV0VGA11_GtGGA72_GAZGASGA1_GSgtGSgtGGASGMd, &_s7SwiftUI15ModifiedContentVyAA6ZStackVyAA9TupleViewVyAA6VStackVyAA012_ConditionalD0VyAGyACyACyAKyAKyACyACy15ConversationKit020VideoMessageControlsG0V03TopnG033_B419541366E265736F7249488C40E55CLLVAA14_PaddingLayoutVGASGAKyA2TGGATGAA010_FlexFrameV0VGAA14_OpacityEffectVG_AA6SpacerVtGAGyACyAA6HStackVyAGyA4__ACyACyAL18AnimatedSaveButtonVAA01_xV0VGASGtGGAZG_A4_tGGG_AKyA7_yAGyA4__AKyACyACyACyAN011LocalBottomnG0APLLVA1_GAA32_EnvironmentKeyTransformModifierVySbGGA1_GACyACyACyAN012RemoteBottomnG0APLLVASGASGAZGGtGGAIyA34_GGAGyACyACyAIyAGyA4__AKyACyACyAN010PlayButtonG0APLLVA1_GA25_GACyA41_AA16_OverlayModifierVyACyACyACyACyACyAA4TextVAA30_EnvironmentKeyWritingModifierVySiSgGGAA24_ForegroundStyleModifierVyAA22HierarchicalShapeStyleVGGA47_yAA8MaterialVSgGGA11_GAA25_AlignmentWritingModifierVGGGGA4_tGGAA024_SafeAreaRegionsIgnoringV0VGAZG_ACyACyACyACyAIyAGyA4__ACyACyACyACyACyA45_ASGA47_yAA5ColorVSgGGAA19_BackgroundModifierVyAKyAA06_ShapeG0VyAA16RoundedRectangleVA77_GA84_yA86_A58_GGGGAA05_ClipZ0VyA86_GGAA31AccessibilityAttachmentModifierVGACyACyACyAL13MovieScrubberAPLLVA94_GAA010_FixedSizeV0VGA11_GtGGA72_GAZGASGA1_GSgtGSgtGGASGMR);
   MEMORY[0x1EEE9AC00](v64);
-  v19 = &v56 - v18;
-  v63 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyACyACyACyAA6ZStackVyAA9TupleViewVyAA6VStackVyAA012_ConditionalD0VyAGyACyACyAKyAKyACyACy15ConversationKit020VideoMessageControlsG0V03TopnG033_B419541366E265736F7249488C40E55CLLVAA14_PaddingLayoutVGASGAKyA2TGGATGAA010_FlexFrameV0VGAA14_OpacityEffectVG_AA6SpacerVtGAGyACyAA6HStackVyAGyA4__ACyACyAL18AnimatedSaveButtonVAA01_xV0VGASGtGGAZG_A4_tGGG_AKyA7_yAGyA4__AKyACyACyACyAN011LocalBottomnG0APLLVA1_GAA32_EnvironmentKeyTransformModifierVySbGGA1_GACyACyACyAN012RemoteBottomnG0APLLVASGASGAZGGtGGAIyA34_GGAGyACyACyAIyAGyA4__AKyACyACyAN010PlayButtonG0APLLVA1_GA25_GACyA41_AA16_OverlayModifierVyACyACyACyACyACyAA4TextVAA30_EnvironmentKeyWritingModifierVySiSgGGAA24_ForegroundStyleModifierVyAA22HierarchicalShapeStyleVGGA47_yAA8MaterialVSgGGA11_GAA25_AlignmentWritingModifierVGGGGA4_tGGAA024_SafeAreaRegionsIgnoringV0VGAZG_ACyACyACyACyAIyAGyA4__ACyACyACyACyACyA45_ASGA47_yAA5ColorVSgGGAA19_BackgroundModifierVyAKyAA06_ShapeG0VyAA16RoundedRectangleVA77_GA84_yA86_A58_GGGGAA05_ClipZ0VyA86_GGAA31AccessibilityAttachmentModifierVGACyACyACyAL13MovieScrubberAPLLVA94_GAA010_FixedSizeV0VGA11_GtGGA72_GAZGASGA1_GSgtGSgtGGASGA72_GAZGAA01_D13ShapeModifierVyAA9RectangleVGGMd);
-  MEMORY[0x1EEE9AC00](v63);
-  v65 = &v56 - v20;
-  v67 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyACyACyACyACyAA6ZStackVyAA9TupleViewVyAA6VStackVyAA012_ConditionalD0VyAGyACyACyAKyAKyACyACy15ConversationKit020VideoMessageControlsG0V03TopnG033_B419541366E265736F7249488C40E55CLLVAA14_PaddingLayoutVGASGAKyA2TGGATGAA010_FlexFrameV0VGAA14_OpacityEffectVG_AA6SpacerVtGAGyACyAA6HStackVyAGyA4__ACyACyAL18AnimatedSaveButtonVAA01_xV0VGASGtGGAZG_A4_tGGG_AKyA7_yAGyA4__AKyACyACyACyAN011LocalBottomnG0APLLVA1_GAA32_EnvironmentKeyTransformModifierVySbGGA1_GACyACyACyAN012RemoteBottomnG0APLLVASGASGAZGGtGGAIyA34_GGAGyACyACyAIyAGyA4__AKyACyACyAN010PlayButtonG0APLLVA1_GA25_GACyA41_AA16_OverlayModifierVyACyACyACyACyACyAA4TextVAA30_EnvironmentKeyWritingModifierVySiSgGGAA24_ForegroundStyleModifierVyAA22HierarchicalShapeStyleVGGA47_yAA8MaterialVSgGGA11_GAA25_AlignmentWritingModifierVGGGGA4_tGGAA024_SafeAreaRegionsIgnoringV0VGAZG_ACyACyACyACyAIyAGyA4__ACyACyACyACyACyA45_ASGA47_yAA5ColorVSgGGAA19_BackgroundModifierVyAKyAA06_ShapeG0VyAA16RoundedRectangleVA77_GA84_yA86_A58_GGGGAA05_ClipZ0VyA86_GGAA31AccessibilityAttachmentModifierVGACyACyACyAL13MovieScrubberAPLLVA94_GAA010_FixedSizeV0VGA11_GtGGA72_GAZGASGA1_GSgtGSgtGGASGA72_GAZGAA01_D13ShapeModifierVyAA9RectangleVGGA82_yACyACyAA14LinearGradientVA72_GA1_GGGMd);
+  v15 = &v59 - v14;
+  v65 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyACyAA6ZStackVyAA9TupleViewVyAA6VStackVyAA012_ConditionalD0VyAGyACyACyAKyAKyACyACy15ConversationKit020VideoMessageControlsG0V03TopnG033_B419541366E265736F7249488C40E55CLLVAA14_PaddingLayoutVGASGAKyA2TGGATGAA010_FlexFrameV0VGAA14_OpacityEffectVG_AA6SpacerVtGAGyACyAA6HStackVyAGyA4__ACyACyAL18AnimatedSaveButtonVAA01_xV0VGASGtGGAZG_A4_tGGG_AKyA7_yAGyA4__AKyACyACyACyAN011LocalBottomnG0APLLVA1_GAA32_EnvironmentKeyTransformModifierVySbGGA1_GACyACyACyAN012RemoteBottomnG0APLLVASGASGAZGGtGGAIyA34_GGAGyACyACyAIyAGyA4__AKyACyACyAN010PlayButtonG0APLLVA1_GA25_GACyA41_AA16_OverlayModifierVyACyACyACyACyACyAA4TextVAA30_EnvironmentKeyWritingModifierVySiSgGGAA24_ForegroundStyleModifierVyAA22HierarchicalShapeStyleVGGA47_yAA8MaterialVSgGGA11_GAA25_AlignmentWritingModifierVGGGGA4_tGGAA024_SafeAreaRegionsIgnoringV0VGAZG_ACyACyACyACyAIyAGyA4__ACyACyACyACyACyA45_ASGA47_yAA5ColorVSgGGAA19_BackgroundModifierVyAKyAA06_ShapeG0VyAA16RoundedRectangleVA77_GA84_yA86_A58_GGGGAA05_ClipZ0VyA86_GGAA31AccessibilityAttachmentModifierVGACyACyACyAL13MovieScrubberAPLLVA94_GAA010_FixedSizeV0VGA11_GtGGA72_GAZGASGA1_GSgtGSgtGGASGA72_GMd, &_s7SwiftUI15ModifiedContentVyACyAA6ZStackVyAA9TupleViewVyAA6VStackVyAA012_ConditionalD0VyAGyACyACyAKyAKyACyACy15ConversationKit020VideoMessageControlsG0V03TopnG033_B419541366E265736F7249488C40E55CLLVAA14_PaddingLayoutVGASGAKyA2TGGATGAA010_FlexFrameV0VGAA14_OpacityEffectVG_AA6SpacerVtGAGyACyAA6HStackVyAGyA4__ACyACyAL18AnimatedSaveButtonVAA01_xV0VGASGtGGAZG_A4_tGGG_AKyA7_yAGyA4__AKyACyACyACyAN011LocalBottomnG0APLLVA1_GAA32_EnvironmentKeyTransformModifierVySbGGA1_GACyACyACyAN012RemoteBottomnG0APLLVASGASGAZGGtGGAIyA34_GGAGyACyACyAIyAGyA4__AKyACyACyAN010PlayButtonG0APLLVA1_GA25_GACyA41_AA16_OverlayModifierVyACyACyACyACyACyAA4TextVAA30_EnvironmentKeyWritingModifierVySiSgGGAA24_ForegroundStyleModifierVyAA22HierarchicalShapeStyleVGGA47_yAA8MaterialVSgGGA11_GAA25_AlignmentWritingModifierVGGGGA4_tGGAA024_SafeAreaRegionsIgnoringV0VGAZG_ACyACyACyACyAIyAGyA4__ACyACyACyACyACyA45_ASGA47_yAA5ColorVSgGGAA19_BackgroundModifierVyAKyAA06_ShapeG0VyAA16RoundedRectangleVA77_GA84_yA86_A58_GGGGAA05_ClipZ0VyA86_GGAA31AccessibilityAttachmentModifierVGACyACyACyAL13MovieScrubberAPLLVA94_GAA010_FixedSizeV0VGA11_GtGGA72_GAZGASGA1_GSgtGSgtGGASGA72_GMR);
+  MEMORY[0x1EEE9AC00](v65);
+  v17 = &v59 - v16;
+  v67 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyACyACyAA6ZStackVyAA9TupleViewVyAA6VStackVyAA012_ConditionalD0VyAGyACyACyAKyAKyACyACy15ConversationKit020VideoMessageControlsG0V03TopnG033_B419541366E265736F7249488C40E55CLLVAA14_PaddingLayoutVGASGAKyA2TGGATGAA010_FlexFrameV0VGAA14_OpacityEffectVG_AA6SpacerVtGAGyACyAA6HStackVyAGyA4__ACyACyAL18AnimatedSaveButtonVAA01_xV0VGASGtGGAZG_A4_tGGG_AKyA7_yAGyA4__AKyACyACyACyAN011LocalBottomnG0APLLVA1_GAA32_EnvironmentKeyTransformModifierVySbGGA1_GACyACyACyAN012RemoteBottomnG0APLLVASGASGAZGGtGGAIyA34_GGAGyACyACyAIyAGyA4__AKyACyACyAN010PlayButtonG0APLLVA1_GA25_GACyA41_AA16_OverlayModifierVyACyACyACyACyACyAA4TextVAA30_EnvironmentKeyWritingModifierVySiSgGGAA24_ForegroundStyleModifierVyAA22HierarchicalShapeStyleVGGA47_yAA8MaterialVSgGGA11_GAA25_AlignmentWritingModifierVGGGGA4_tGGAA024_SafeAreaRegionsIgnoringV0VGAZG_ACyACyACyACyAIyAGyA4__ACyACyACyACyACyA45_ASGA47_yAA5ColorVSgGGAA19_BackgroundModifierVyAKyAA06_ShapeG0VyAA16RoundedRectangleVA77_GA84_yA86_A58_GGGGAA05_ClipZ0VyA86_GGAA31AccessibilityAttachmentModifierVGACyACyACyAL13MovieScrubberAPLLVA94_GAA010_FixedSizeV0VGA11_GtGGA72_GAZGASGA1_GSgtGSgtGGASGA72_GAZGMd, &_s7SwiftUI15ModifiedContentVyACyACyAA6ZStackVyAA9TupleViewVyAA6VStackVyAA012_ConditionalD0VyAGyACyACyAKyAKyACyACy15ConversationKit020VideoMessageControlsG0V03TopnG033_B419541366E265736F7249488C40E55CLLVAA14_PaddingLayoutVGASGAKyA2TGGATGAA010_FlexFrameV0VGAA14_OpacityEffectVG_AA6SpacerVtGAGyACyAA6HStackVyAGyA4__ACyACyAL18AnimatedSaveButtonVAA01_xV0VGASGtGGAZG_A4_tGGG_AKyA7_yAGyA4__AKyACyACyACyAN011LocalBottomnG0APLLVA1_GAA32_EnvironmentKeyTransformModifierVySbGGA1_GACyACyACyAN012RemoteBottomnG0APLLVASGASGAZGGtGGAIyA34_GGAGyACyACyAIyAGyA4__AKyACyACyAN010PlayButtonG0APLLVA1_GA25_GACyA41_AA16_OverlayModifierVyACyACyACyACyACyAA4TextVAA30_EnvironmentKeyWritingModifierVySiSgGGAA24_ForegroundStyleModifierVyAA22HierarchicalShapeStyleVGGA47_yAA8MaterialVSgGGA11_GAA25_AlignmentWritingModifierVGGGGA4_tGGAA024_SafeAreaRegionsIgnoringV0VGAZG_ACyACyACyACyAIyAGyA4__ACyACyACyACyACyA45_ASGA47_yAA5ColorVSgGGAA19_BackgroundModifierVyAKyAA06_ShapeG0VyAA16RoundedRectangleVA77_GA84_yA86_A58_GGGGAA05_ClipZ0VyA86_GGAA31AccessibilityAttachmentModifierVGACyACyACyAL13MovieScrubberAPLLVA94_GAA010_FixedSizeV0VGA11_GtGGA72_GAZGASGA1_GSgtGSgtGGASGA72_GAZGMR);
   MEMORY[0x1EEE9AC00](v67);
-  v66 = &v56 - v21;
+  v19 = &v59 - v18;
+  v66 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyACyACyACyAA6ZStackVyAA9TupleViewVyAA6VStackVyAA012_ConditionalD0VyAGyACyACyAKyAKyACyACy15ConversationKit020VideoMessageControlsG0V03TopnG033_B419541366E265736F7249488C40E55CLLVAA14_PaddingLayoutVGASGAKyA2TGGATGAA010_FlexFrameV0VGAA14_OpacityEffectVG_AA6SpacerVtGAGyACyAA6HStackVyAGyA4__ACyACyAL18AnimatedSaveButtonVAA01_xV0VGASGtGGAZG_A4_tGGG_AKyA7_yAGyA4__AKyACyACyACyAN011LocalBottomnG0APLLVA1_GAA32_EnvironmentKeyTransformModifierVySbGGA1_GACyACyACyAN012RemoteBottomnG0APLLVASGASGAZGGtGGAIyA34_GGAGyACyACyAIyAGyA4__AKyACyACyAN010PlayButtonG0APLLVA1_GA25_GACyA41_AA16_OverlayModifierVyACyACyACyACyACyAA4TextVAA30_EnvironmentKeyWritingModifierVySiSgGGAA24_ForegroundStyleModifierVyAA22HierarchicalShapeStyleVGGA47_yAA8MaterialVSgGGA11_GAA25_AlignmentWritingModifierVGGGGA4_tGGAA024_SafeAreaRegionsIgnoringV0VGAZG_ACyACyACyACyAIyAGyA4__ACyACyACyACyACyA45_ASGA47_yAA5ColorVSgGGAA19_BackgroundModifierVyAKyAA06_ShapeG0VyAA16RoundedRectangleVA77_GA84_yA86_A58_GGGGAA05_ClipZ0VyA86_GGAA31AccessibilityAttachmentModifierVGACyACyACyAL13MovieScrubberAPLLVA94_GAA010_FixedSizeV0VGA11_GtGGA72_GAZGASGA1_GSgtGSgtGGASGA72_GAZGAA01_D13ShapeModifierVyAA9RectangleVGGMd, &_s7SwiftUI15ModifiedContentVyACyACyACyAA6ZStackVyAA9TupleViewVyAA6VStackVyAA012_ConditionalD0VyAGyACyACyAKyAKyACyACy15ConversationKit020VideoMessageControlsG0V03TopnG033_B419541366E265736F7249488C40E55CLLVAA14_PaddingLayoutVGASGAKyA2TGGATGAA010_FlexFrameV0VGAA14_OpacityEffectVG_AA6SpacerVtGAGyACyAA6HStackVyAGyA4__ACyACyAL18AnimatedSaveButtonVAA01_xV0VGASGtGGAZG_A4_tGGG_AKyA7_yAGyA4__AKyACyACyACyAN011LocalBottomnG0APLLVA1_GAA32_EnvironmentKeyTransformModifierVySbGGA1_GACyACyACyAN012RemoteBottomnG0APLLVASGASGAZGGtGGAIyA34_GGAGyACyACyAIyAGyA4__AKyACyACyAN010PlayButtonG0APLLVA1_GA25_GACyA41_AA16_OverlayModifierVyACyACyACyACyACyAA4TextVAA30_EnvironmentKeyWritingModifierVySiSgGGAA24_ForegroundStyleModifierVyAA22HierarchicalShapeStyleVGGA47_yAA8MaterialVSgGGA11_GAA25_AlignmentWritingModifierVGGGGA4_tGGAA024_SafeAreaRegionsIgnoringV0VGAZG_ACyACyACyACyAIyAGyA4__ACyACyACyACyACyA45_ASGA47_yAA5ColorVSgGGAA19_BackgroundModifierVyAKyAA06_ShapeG0VyAA16RoundedRectangleVA77_GA84_yA86_A58_GGGGAA05_ClipZ0VyA86_GGAA31AccessibilityAttachmentModifierVGACyACyACyAL13MovieScrubberAPLLVA94_GAA010_FixedSizeV0VGA11_GtGGA72_GAZGASGA1_GSgtGSgtGGASGA72_GAZGAA01_D13ShapeModifierVyAA9RectangleVGGMR);
+  MEMORY[0x1EEE9AC00](v66);
+  v68 = &v59 - v20;
+  v70 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyACyACyACyACyAA6ZStackVyAA9TupleViewVyAA6VStackVyAA012_ConditionalD0VyAGyACyACyAKyAKyACyACy15ConversationKit020VideoMessageControlsG0V03TopnG033_B419541366E265736F7249488C40E55CLLVAA14_PaddingLayoutVGASGAKyA2TGGATGAA010_FlexFrameV0VGAA14_OpacityEffectVG_AA6SpacerVtGAGyACyAA6HStackVyAGyA4__ACyACyAL18AnimatedSaveButtonVAA01_xV0VGASGtGGAZG_A4_tGGG_AKyA7_yAGyA4__AKyACyACyACyAN011LocalBottomnG0APLLVA1_GAA32_EnvironmentKeyTransformModifierVySbGGA1_GACyACyACyAN012RemoteBottomnG0APLLVASGASGAZGGtGGAIyA34_GGAGyACyACyAIyAGyA4__AKyACyACyAN010PlayButtonG0APLLVA1_GA25_GACyA41_AA16_OverlayModifierVyACyACyACyACyACyAA4TextVAA30_EnvironmentKeyWritingModifierVySiSgGGAA24_ForegroundStyleModifierVyAA22HierarchicalShapeStyleVGGA47_yAA8MaterialVSgGGA11_GAA25_AlignmentWritingModifierVGGGGA4_tGGAA024_SafeAreaRegionsIgnoringV0VGAZG_ACyACyACyACyAIyAGyA4__ACyACyACyACyACyA45_ASGA47_yAA5ColorVSgGGAA19_BackgroundModifierVyAKyAA06_ShapeG0VyAA16RoundedRectangleVA77_GA84_yA86_A58_GGGGAA05_ClipZ0VyA86_GGAA31AccessibilityAttachmentModifierVGACyACyACyAL13MovieScrubberAPLLVA94_GAA010_FixedSizeV0VGA11_GtGGA72_GAZGASGA1_GSgtGSgtGGASGA72_GAZGAA01_D13ShapeModifierVyAA9RectangleVGGA82_yACyACyAA14LinearGradientVA72_GA1_GGGMd, &_s7SwiftUI15ModifiedContentVyACyACyACyACyAA6ZStackVyAA9TupleViewVyAA6VStackVyAA012_ConditionalD0VyAGyACyACyAKyAKyACyACy15ConversationKit020VideoMessageControlsG0V03TopnG033_B419541366E265736F7249488C40E55CLLVAA14_PaddingLayoutVGASGAKyA2TGGATGAA010_FlexFrameV0VGAA14_OpacityEffectVG_AA6SpacerVtGAGyACyAA6HStackVyAGyA4__ACyACyAL18AnimatedSaveButtonVAA01_xV0VGASGtGGAZG_A4_tGGG_AKyA7_yAGyA4__AKyACyACyACyAN011LocalBottomnG0APLLVA1_GAA32_EnvironmentKeyTransformModifierVySbGGA1_GACyACyACyAN012RemoteBottomnG0APLLVASGASGAZGGtGGAIyA34_GGAGyACyACyAIyAGyA4__AKyACyACyAN010PlayButtonG0APLLVA1_GA25_GACyA41_AA16_OverlayModifierVyACyACyACyACyACyAA4TextVAA30_EnvironmentKeyWritingModifierVySiSgGGAA24_ForegroundStyleModifierVyAA22HierarchicalShapeStyleVGGA47_yAA8MaterialVSgGGA11_GAA25_AlignmentWritingModifierVGGGGA4_tGGAA024_SafeAreaRegionsIgnoringV0VGAZG_ACyACyACyACyAIyAGyA4__ACyACyACyACyACyA45_ASGA47_yAA5ColorVSgGGAA19_BackgroundModifierVyAKyAA06_ShapeG0VyAA16RoundedRectangleVA77_GA84_yA86_A58_GGGGAA05_ClipZ0VyA86_GGAA31AccessibilityAttachmentModifierVGACyACyACyAL13MovieScrubberAPLLVA94_GAA010_FixedSizeV0VGA11_GtGGA72_GAZGASGA1_GSgtGSgtGGASGA72_GAZGAA01_D13ShapeModifierVyAA9RectangleVGGA82_yACyACyAA14LinearGradientVA72_GA1_GGGMR);
+  MEMORY[0x1EEE9AC00](v70);
+  v69 = &v59 - v21;
   *v13 = static Alignment.center.getter();
   v13[1] = v22;
-  v23 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI13_VariadicViewO4TreeVy_AA13_ZStackLayoutVAA05TupleD0VyAA6VStackVyAA19_ConditionalContentVyAIyAA08ModifiedK0VyAOyAMyAMyAOyAOy15ConversationKit020VideoMessageControlsD0V03TopqD033_B419541366E265736F7249488C40E55CLLVAA08_PaddingG0VGAWGAMyA2XGGAXGAA010_FlexFrameG0VGAA14_OpacityEffectVG_AA6SpacerVtGAIyAOyAA6HStackVyAIyA8__AOyAOyAP18AnimatedSaveButtonVAA01_zG0VGAWGtGGA2_G_A8_tGGG_AMyA11_yAIyA8__AMyAOyAOyAOyAR011LocalBottomqD0ATLLVA5_GAA32_EnvironmentKeyTransformModifierVySbGGA5_GAOyAOyAOyAR012RemoteBottomqD0ATLLVAWGAWGA2_GGtGGAKyA38_GGAIyAOyAOyAKyAIyA8__AMyAOyAOyAR010PlayButtonD0ATLLVA5_GA29_GAOyA45_AA16_OverlayModifierVyAOyAOyAOyAOyAOyAA4TextVAA30_EnvironmentKeyWritingModifierVySiSgGGAA24_ForegroundStyleModifierVyAA22HierarchicalShapeStyleVGGA51_yAA8MaterialVSgGGA15_GAA25_AlignmentWritingModifierVGGGGA8_tGGAA024_SafeAreaRegionsIgnoringG0VGA2_G_AOyAOyAOyAOyAKyAIyA8__AOyAOyAOyAOyAOyA49_AWGA51_yAA5ColorVSgGGAA19_BackgroundModifierVyAMyAA06_ShapeD0VyAA16RoundedRectangleVA81_GA88_yA90_A62_GGGGAA11_ClipEffectVyA90_GGAA31AccessibilityAttachmentModifierVGAOyAOyAOyAP13MovieScrubberATLLVA98_GAA010_FixedSizeG0VGA15_GtGGA76_GA2_GAWGA5_GSgtGSgtGGMd);
-  v24 = closure #1 in closure #1 in VideoMessageControlsView.body.getter(a2, v60, v13 + *(v23 + 44));
-  (*((*MEMORY[0x1E69E7D40] & **(a2 + *(v6 + 36) + 8)) + 0x120))(v79, v24);
-  v71 = a2;
-  if (v79[0])
+  v23 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI13_VariadicViewO4TreeVy_AA13_ZStackLayoutVAA05TupleD0VyAA6VStackVyAA19_ConditionalContentVyAIyAA08ModifiedK0VyAOyAMyAMyAOyAOy15ConversationKit020VideoMessageControlsD0V03TopqD033_B419541366E265736F7249488C40E55CLLVAA08_PaddingG0VGAWGAMyA2XGGAXGAA010_FlexFrameG0VGAA14_OpacityEffectVG_AA6SpacerVtGAIyAOyAA6HStackVyAIyA8__AOyAOyAP18AnimatedSaveButtonVAA01_zG0VGAWGtGGA2_G_A8_tGGG_AMyA11_yAIyA8__AMyAOyAOyAOyAR011LocalBottomqD0ATLLVA5_GAA32_EnvironmentKeyTransformModifierVySbGGA5_GAOyAOyAOyAR012RemoteBottomqD0ATLLVAWGAWGA2_GGtGGAKyA38_GGAIyAOyAOyAKyAIyA8__AMyAOyAOyAR010PlayButtonD0ATLLVA5_GA29_GAOyA45_AA16_OverlayModifierVyAOyAOyAOyAOyAOyAA4TextVAA30_EnvironmentKeyWritingModifierVySiSgGGAA24_ForegroundStyleModifierVyAA22HierarchicalShapeStyleVGGA51_yAA8MaterialVSgGGA15_GAA25_AlignmentWritingModifierVGGGGA8_tGGAA024_SafeAreaRegionsIgnoringG0VGA2_G_AOyAOyAOyAOyAKyAIyA8__AOyAOyAOyAOyAOyA49_AWGA51_yAA5ColorVSgGGAA19_BackgroundModifierVyAMyAA06_ShapeD0VyAA16RoundedRectangleVA81_GA88_yA90_A62_GGGGAA11_ClipEffectVyA90_GGAA31AccessibilityAttachmentModifierVGAOyAOyAOyAP13MovieScrubberATLLVA98_GAA010_FixedSizeG0VGA15_GtGGA76_GA2_GAWGA5_GSgtGSgtGGMd, &_s7SwiftUI13_VariadicViewO4TreeVy_AA13_ZStackLayoutVAA05TupleD0VyAA6VStackVyAA19_ConditionalContentVyAIyAA08ModifiedK0VyAOyAMyAMyAOyAOy15ConversationKit020VideoMessageControlsD0V03TopqD033_B419541366E265736F7249488C40E55CLLVAA08_PaddingG0VGAWGAMyA2XGGAXGAA010_FlexFrameG0VGAA14_OpacityEffectVG_AA6SpacerVtGAIyAOyAA6HStackVyAIyA8__AOyAOyAP18AnimatedSaveButtonVAA01_zG0VGAWGtGGA2_G_A8_tGGG_AMyA11_yAIyA8__AMyAOyAOyAOyAR011LocalBottomqD0ATLLVA5_GAA32_EnvironmentKeyTransformModifierVySbGGA5_GAOyAOyAOyAR012RemoteBottomqD0ATLLVAWGAWGA2_GGtGGAKyA38_GGAIyAOyAOyAKyAIyA8__AMyAOyAOyAR010PlayButtonD0ATLLVA5_GA29_GAOyA45_AA16_OverlayModifierVyAOyAOyAOyAOyAOyAA4TextVAA30_EnvironmentKeyWritingModifierVySiSgGGAA24_ForegroundStyleModifierVyAA22HierarchicalShapeStyleVGGA51_yAA8MaterialVSgGGA15_GAA25_AlignmentWritingModifierVGGGGA8_tGGAA024_SafeAreaRegionsIgnoringG0VGA2_G_AOyAOyAOyAOyAKyAIyA8__AOyAOyAOyAOyAOyA49_AWGA51_yAA5ColorVSgGGAA19_BackgroundModifierVyAMyAA06_ShapeD0VyAA16RoundedRectangleVA81_GA88_yA90_A62_GGGGAA11_ClipEffectVyA90_GGAA31AccessibilityAttachmentModifierVGAOyAOyAOyAP13MovieScrubberATLLVA98_GAA010_FixedSizeG0VGA15_GtGGA76_GA2_GAWGA5_GSgtGSgtGGMR);
+  v24 = closure #1 in closure #1 in VideoMessageControlsView.body.getter(a2, v63, v13 + *(v23 + 44));
+  (*((*MEMORY[0x1E69E7D40] & **(a2 + *(v6 + 36) + 8)) + 0x120))(v82, v24);
+  v74 = a2;
+  if (v82[0])
   {
     v25 = 0;
     v26 = 0;
@@ -9018,7 +8812,7 @@ uint64_t closure #1 in VideoMessageControlsView.body.getter@<X0>(uint64_t a1@<X0
 
   else
   {
-    v60 = v8;
+    v63 = v8;
     v26 = *a2;
     if (*(a2 + 8) == 1)
     {
@@ -9028,232 +8822,233 @@ uint64_t closure #1 in VideoMessageControlsView.body.getter@<X0>(uint64_t a1@<X0
     else
     {
 
-      static os_log_type_t.fault.getter();
-      v58 = a3;
-      v29 = static Log.runtimeIssuesLog.getter();
-      os_log(_:dso:log:_:_:)();
+      v29 = static os_log_type_t.fault.getter();
+      v61 = a3;
+      v30 = v29;
+      v31 = static Log.runtimeIssuesLog.getter();
+      os_log(_:dso:log:_:_:)(v30, &dword_1BBC58000, v31, "Accessing Environment's value outside of being installed on a View. This will always read the default value and will not update.", 128, 2, MEMORY[0x1E69E7CC0]);
 
       EnvironmentValues.init()();
       swift_getAtKeyPath();
       outlined consume of Environment<UIInterfaceOrientation>.Content(v26, 0);
-      v57 = v17;
-      v59 = *(v59 + 8);
-      (v59)(v10, v60);
-      v28 = *v79;
+      v60 = v17;
+      v62 = *(v62 + 8);
+      (v62)(v10, v63);
+      v28 = *v82;
 
-      static os_log_type_t.fault.getter();
-      v30 = static Log.runtimeIssuesLog.getter();
-      os_log(_:dso:log:_:_:)();
+      v32 = static os_log_type_t.fault.getter();
+      v33 = static Log.runtimeIssuesLog.getter();
+      os_log(_:dso:log:_:_:)(v32, &dword_1BBC58000, v33, "Accessing Environment's value outside of being installed on a View. This will always read the default value and will not update.", 128, 2, MEMORY[0x1E69E7CC0]);
 
       EnvironmentValues.init()();
       swift_getAtKeyPath();
       outlined consume of Environment<UIInterfaceOrientation>.Content(v26, 0);
-      (v59)(v10, v60);
-      v17 = v57;
-      v26 = v79[0];
+      (v62)(v10, v63);
+      v17 = v60;
+      v26 = v82[0];
     }
 
     v27 = v28 + v28;
     v25 = 0x4030000000000000;
   }
 
-  v31 = static Edge.Set.all.getter();
-  outlined init with take of ZStack<TupleView<(ModifiedContent<_ShapeView<Rectangle, Color>, _AllowsHitTestingModifier>, ModifiedContent<StaticIf<Solarium, _GlassEffectContainer<ModifiedContent<ModifiedContent<ModifiedContent<VStack<TupleView<(ModifiedContent<<<opaque return type of View.accessibilityElement(children:)>>.0, AccessibilityAttachmentModifier>, TranslationTextView??)>>, _PaddingLayout>, _FlexFrameLayout>, PlatterBackgroundModifier>>, ModifiedContent<ModifiedContent<ModifiedContent<VStack<TupleView<(ModifiedContent<<<opaque return type of View.accessibilityElement(children:)>>.0, AccessibilityAttachmentModifier>, TranslationTextView??)>>, _PaddingLayout>, _FlexFrameLayout>, PlatterBackgroundModifier>>, _AnimationModifier<Bool>>)>>(v13, v15, &_s7SwiftUI6ZStackVyAA9TupleViewVyAA6VStackVyAA19_ConditionalContentVyAEyAA08ModifiedH0VyAKyAIyAIyAKyAKy15ConversationKit020VideoMessageControlsE0V03TopnE033_B419541366E265736F7249488C40E55CLLVAA14_PaddingLayoutVGASGAIyA2TGGATGAA010_FlexFrameV0VGAA14_OpacityEffectVG_AA6SpacerVtGAEyAKyAA6HStackVyAEyA4__AKyAKyAL18AnimatedSaveButtonVAA01_xV0VGASGtGGAZG_A4_tGGG_AIyA7_yAEyA4__AIyAKyAKyAKyAN011LocalBottomnE0APLLVA1_GAA32_EnvironmentKeyTransformModifierVySbGGA1_GAKyAKyAKyAN012RemoteBottomnE0APLLVASGASGAZGGtGGAGyA34_GGAEyAKyAKyAGyAEyA4__AIyAKyAKyAN010PlayButtonE0APLLVA1_GA25_GAKyA41_AA16_OverlayModifierVyAKyAKyAKyAKyAKyAA4TextVAA30_EnvironmentKeyWritingModifierVySiSgGGAA24_ForegroundStyleModifierVyAA22HierarchicalShapeStyleVGGA47_yAA8MaterialVSgGGA11_GAA25_AlignmentWritingModifierVGGGGA4_tGGAA024_SafeAreaRegionsIgnoringV0VGAZG_AKyAKyAKyAKyAGyAEyA4__AKyAKyAKyAKyAKyA45_ASGA47_yAA5ColorVSgGGAA19_BackgroundModifierVyAIyAA06_ShapeE0VyAA16RoundedRectangleVA77_GA84_yA86_A58_GGGGAA05_ClipZ0VyA86_GGAA31AccessibilityAttachmentModifierVGAKyAKyAKyAL13MovieScrubberAPLLVA94_GAA010_FixedSizeV0VGA11_GtGGA72_GAZGASGA1_GSgtGSgtGGMd);
-  v32 = &v15[*(v61 + 36)];
-  *v32 = v31;
-  *(v32 + 1) = v27;
-  *(v32 + 2) = v25;
-  *(v32 + 3) = v26;
-  *(v32 + 4) = v25;
-  v32[40] = 0;
-  v33 = static SafeAreaRegions.all.getter();
   v34 = static Edge.Set.all.getter();
-  outlined init with take of ZStack<TupleView<(ModifiedContent<_ShapeView<Rectangle, Color>, _AllowsHitTestingModifier>, ModifiedContent<StaticIf<Solarium, _GlassEffectContainer<ModifiedContent<ModifiedContent<ModifiedContent<VStack<TupleView<(ModifiedContent<<<opaque return type of View.accessibilityElement(children:)>>.0, AccessibilityAttachmentModifier>, TranslationTextView??)>>, _PaddingLayout>, _FlexFrameLayout>, PlatterBackgroundModifier>>, ModifiedContent<ModifiedContent<ModifiedContent<VStack<TupleView<(ModifiedContent<<<opaque return type of View.accessibilityElement(children:)>>.0, AccessibilityAttachmentModifier>, TranslationTextView??)>>, _PaddingLayout>, _FlexFrameLayout>, PlatterBackgroundModifier>>, _AnimationModifier<Bool>>)>>(v15, v17, &_s7SwiftUI15ModifiedContentVyAA6ZStackVyAA9TupleViewVyAA6VStackVyAA012_ConditionalD0VyAGyACyACyAKyAKyACyACy15ConversationKit020VideoMessageControlsG0V03TopnG033_B419541366E265736F7249488C40E55CLLVAA14_PaddingLayoutVGASGAKyA2TGGATGAA010_FlexFrameV0VGAA14_OpacityEffectVG_AA6SpacerVtGAGyACyAA6HStackVyAGyA4__ACyACyAL18AnimatedSaveButtonVAA01_xV0VGASGtGGAZG_A4_tGGG_AKyA7_yAGyA4__AKyACyACyACyAN011LocalBottomnG0APLLVA1_GAA32_EnvironmentKeyTransformModifierVySbGGA1_GACyACyACyAN012RemoteBottomnG0APLLVASGASGAZGGtGGAIyA34_GGAGyACyACyAIyAGyA4__AKyACyACyAN010PlayButtonG0APLLVA1_GA25_GACyA41_AA16_OverlayModifierVyACyACyACyACyACyAA4TextVAA30_EnvironmentKeyWritingModifierVySiSgGGAA24_ForegroundStyleModifierVyAA22HierarchicalShapeStyleVGGA47_yAA8MaterialVSgGGA11_GAA25_AlignmentWritingModifierVGGGGA4_tGGAA024_SafeAreaRegionsIgnoringV0VGAZG_ACyACyACyACyAIyAGyA4__ACyACyACyACyACyA45_ASGA47_yAA5ColorVSgGGAA19_BackgroundModifierVyAKyAA06_ShapeG0VyAA16RoundedRectangleVA77_GA84_yA86_A58_GGGGAA05_ClipZ0VyA86_GGAA31AccessibilityAttachmentModifierVGACyACyACyAL13MovieScrubberAPLLVA94_GAA010_FixedSizeV0VGA11_GtGGA72_GAZGASGA1_GSgtGSgtGGASGMd);
-  v35 = &v17[*(v62 + 36)];
-  *v35 = v33;
-  v35[8] = v34;
+  outlined init with take of ZStack<TupleView<(ModifiedContent<_ShapeView<Rectangle, Color>, _AllowsHitTestingModifier>, ModifiedContent<StaticIf<Solarium, _GlassEffectContainer<ModifiedContent<ModifiedContent<ModifiedContent<VStack<TupleView<(ModifiedContent<<<opaque return type of View.accessibilityElement(children:)>>.0, AccessibilityAttachmentModifier>, TranslationTextView??)>>, _PaddingLayout>, _FlexFrameLayout>, PlatterBackgroundModifier>>, ModifiedContent<ModifiedContent<ModifiedContent<VStack<TupleView<(ModifiedContent<<<opaque return type of View.accessibilityElement(children:)>>.0, AccessibilityAttachmentModifier>, TranslationTextView??)>>, _PaddingLayout>, _FlexFrameLayout>, PlatterBackgroundModifier>>, _AnimationModifier<Bool>>)>>(v13, v15, &_s7SwiftUI6ZStackVyAA9TupleViewVyAA6VStackVyAA19_ConditionalContentVyAEyAA08ModifiedH0VyAKyAIyAIyAKyAKy15ConversationKit020VideoMessageControlsE0V03TopnE033_B419541366E265736F7249488C40E55CLLVAA14_PaddingLayoutVGASGAIyA2TGGATGAA010_FlexFrameV0VGAA14_OpacityEffectVG_AA6SpacerVtGAEyAKyAA6HStackVyAEyA4__AKyAKyAL18AnimatedSaveButtonVAA01_xV0VGASGtGGAZG_A4_tGGG_AIyA7_yAEyA4__AIyAKyAKyAKyAN011LocalBottomnE0APLLVA1_GAA32_EnvironmentKeyTransformModifierVySbGGA1_GAKyAKyAKyAN012RemoteBottomnE0APLLVASGASGAZGGtGGAGyA34_GGAEyAKyAKyAGyAEyA4__AIyAKyAKyAN010PlayButtonE0APLLVA1_GA25_GAKyA41_AA16_OverlayModifierVyAKyAKyAKyAKyAKyAA4TextVAA30_EnvironmentKeyWritingModifierVySiSgGGAA24_ForegroundStyleModifierVyAA22HierarchicalShapeStyleVGGA47_yAA8MaterialVSgGGA11_GAA25_AlignmentWritingModifierVGGGGA4_tGGAA024_SafeAreaRegionsIgnoringV0VGAZG_AKyAKyAKyAKyAGyAEyA4__AKyAKyAKyAKyAKyA45_ASGA47_yAA5ColorVSgGGAA19_BackgroundModifierVyAIyAA06_ShapeE0VyAA16RoundedRectangleVA77_GA84_yA86_A58_GGGGAA05_ClipZ0VyA86_GGAA31AccessibilityAttachmentModifierVGAKyAKyAKyAL13MovieScrubberAPLLVA94_GAA010_FixedSizeV0VGA11_GtGGA72_GAZGASGA1_GSgtGSgtGGMd, &_s7SwiftUI6ZStackVyAA9TupleViewVyAA6VStackVyAA19_ConditionalContentVyAEyAA08ModifiedH0VyAKyAIyAIyAKyAKy15ConversationKit020VideoMessageControlsE0V03TopnE033_B419541366E265736F7249488C40E55CLLVAA14_PaddingLayoutVGASGAIyA2TGGATGAA010_FlexFrameV0VGAA14_OpacityEffectVG_AA6SpacerVtGAEyAKyAA6HStackVyAEyA4__AKyAKyAL18AnimatedSaveButtonVAA01_xV0VGASGtGGAZG_A4_tGGG_AIyA7_yAEyA4__AIyAKyAKyAKyAN011LocalBottomnE0APLLVA1_GAA32_EnvironmentKeyTransformModifierVySbGGA1_GAKyAKyAKyAN012RemoteBottomnE0APLLVASGASGAZGGtGGAGyA34_GGAEyAKyAKyAGyAEyA4__AIyAKyAKyAN010PlayButtonE0APLLVA1_GA25_GAKyA41_AA16_OverlayModifierVyAKyAKyAKyAKyAKyAA4TextVAA30_EnvironmentKeyWritingModifierVySiSgGGAA24_ForegroundStyleModifierVyAA22HierarchicalShapeStyleVGGA47_yAA8MaterialVSgGGA11_GAA25_AlignmentWritingModifierVGGGGA4_tGGAA024_SafeAreaRegionsIgnoringV0VGAZG_AKyAKyAKyAKyAGyAEyA4__AKyAKyAKyAKyAKyA45_ASGA47_yAA5ColorVSgGGAA19_BackgroundModifierVyAIyAA06_ShapeE0VyAA16RoundedRectangleVA77_GA84_yA86_A58_GGGGAA05_ClipZ0VyA86_GGAA31AccessibilityAttachmentModifierVGAKyAKyAKyAL13MovieScrubberAPLLVA94_GAA010_FixedSizeV0VGA11_GtGGA72_GAZGASGA1_GSgtGSgtGGMR);
+  v35 = &v15[*(v64 + 36)];
+  *v35 = v34;
+  *(v35 + 1) = v27;
+  *(v35 + 2) = v25;
+  *(v35 + 3) = v26;
+  *(v35 + 4) = v25;
+  v35[40] = 0;
+  v36 = static SafeAreaRegions.all.getter();
+  v37 = static Edge.Set.all.getter();
+  outlined init with take of ZStack<TupleView<(ModifiedContent<_ShapeView<Rectangle, Color>, _AllowsHitTestingModifier>, ModifiedContent<StaticIf<Solarium, _GlassEffectContainer<ModifiedContent<ModifiedContent<ModifiedContent<VStack<TupleView<(ModifiedContent<<<opaque return type of View.accessibilityElement(children:)>>.0, AccessibilityAttachmentModifier>, TranslationTextView??)>>, _PaddingLayout>, _FlexFrameLayout>, PlatterBackgroundModifier>>, ModifiedContent<ModifiedContent<ModifiedContent<VStack<TupleView<(ModifiedContent<<<opaque return type of View.accessibilityElement(children:)>>.0, AccessibilityAttachmentModifier>, TranslationTextView??)>>, _PaddingLayout>, _FlexFrameLayout>, PlatterBackgroundModifier>>, _AnimationModifier<Bool>>)>>(v15, v17, &_s7SwiftUI15ModifiedContentVyAA6ZStackVyAA9TupleViewVyAA6VStackVyAA012_ConditionalD0VyAGyACyACyAKyAKyACyACy15ConversationKit020VideoMessageControlsG0V03TopnG033_B419541366E265736F7249488C40E55CLLVAA14_PaddingLayoutVGASGAKyA2TGGATGAA010_FlexFrameV0VGAA14_OpacityEffectVG_AA6SpacerVtGAGyACyAA6HStackVyAGyA4__ACyACyAL18AnimatedSaveButtonVAA01_xV0VGASGtGGAZG_A4_tGGG_AKyA7_yAGyA4__AKyACyACyACyAN011LocalBottomnG0APLLVA1_GAA32_EnvironmentKeyTransformModifierVySbGGA1_GACyACyACyAN012RemoteBottomnG0APLLVASGASGAZGGtGGAIyA34_GGAGyACyACyAIyAGyA4__AKyACyACyAN010PlayButtonG0APLLVA1_GA25_GACyA41_AA16_OverlayModifierVyACyACyACyACyACyAA4TextVAA30_EnvironmentKeyWritingModifierVySiSgGGAA24_ForegroundStyleModifierVyAA22HierarchicalShapeStyleVGGA47_yAA8MaterialVSgGGA11_GAA25_AlignmentWritingModifierVGGGGA4_tGGAA024_SafeAreaRegionsIgnoringV0VGAZG_ACyACyACyACyAIyAGyA4__ACyACyACyACyACyA45_ASGA47_yAA5ColorVSgGGAA19_BackgroundModifierVyAKyAA06_ShapeG0VyAA16RoundedRectangleVA77_GA84_yA86_A58_GGGGAA05_ClipZ0VyA86_GGAA31AccessibilityAttachmentModifierVGACyACyACyAL13MovieScrubberAPLLVA94_GAA010_FixedSizeV0VGA11_GtGGA72_GAZGASGA1_GSgtGSgtGGASGMd, &_s7SwiftUI15ModifiedContentVyAA6ZStackVyAA9TupleViewVyAA6VStackVyAA012_ConditionalD0VyAGyACyACyAKyAKyACyACy15ConversationKit020VideoMessageControlsG0V03TopnG033_B419541366E265736F7249488C40E55CLLVAA14_PaddingLayoutVGASGAKyA2TGGATGAA010_FlexFrameV0VGAA14_OpacityEffectVG_AA6SpacerVtGAGyACyAA6HStackVyAGyA4__ACyACyAL18AnimatedSaveButtonVAA01_xV0VGASGtGGAZG_A4_tGGG_AKyA7_yAGyA4__AKyACyACyACyAN011LocalBottomnG0APLLVA1_GAA32_EnvironmentKeyTransformModifierVySbGGA1_GACyACyACyAN012RemoteBottomnG0APLLVASGASGAZGGtGGAIyA34_GGAGyACyACyAIyAGyA4__AKyACyACyAN010PlayButtonG0APLLVA1_GA25_GACyA41_AA16_OverlayModifierVyACyACyACyACyACyAA4TextVAA30_EnvironmentKeyWritingModifierVySiSgGGAA24_ForegroundStyleModifierVyAA22HierarchicalShapeStyleVGGA47_yAA8MaterialVSgGGA11_GAA25_AlignmentWritingModifierVGGGGA4_tGGAA024_SafeAreaRegionsIgnoringV0VGAZG_ACyACyACyACyAIyAGyA4__ACyACyACyACyACyA45_ASGA47_yAA5ColorVSgGGAA19_BackgroundModifierVyAKyAA06_ShapeG0VyAA16RoundedRectangleVA77_GA84_yA86_A58_GGGGAA05_ClipZ0VyA86_GGAA31AccessibilityAttachmentModifierVGACyACyACyAL13MovieScrubberAPLLVA94_GAA010_FixedSizeV0VGA11_GtGGA72_GAZGASGA1_GSgtGSgtGGASGMR);
+  v38 = &v17[*(v65 + 36)];
+  *v38 = v36;
+  v38[8] = v37;
   static Alignment.center.getter();
-  _FlexFrameLayout.init(minWidth:idealWidth:maxWidth:minHeight:idealHeight:maxHeight:alignment:)();
-  outlined init with take of ZStack<TupleView<(ModifiedContent<_ShapeView<Rectangle, Color>, _AllowsHitTestingModifier>, ModifiedContent<StaticIf<Solarium, _GlassEffectContainer<ModifiedContent<ModifiedContent<ModifiedContent<VStack<TupleView<(ModifiedContent<<<opaque return type of View.accessibilityElement(children:)>>.0, AccessibilityAttachmentModifier>, TranslationTextView??)>>, _PaddingLayout>, _FlexFrameLayout>, PlatterBackgroundModifier>>, ModifiedContent<ModifiedContent<ModifiedContent<VStack<TupleView<(ModifiedContent<<<opaque return type of View.accessibilityElement(children:)>>.0, AccessibilityAttachmentModifier>, TranslationTextView??)>>, _PaddingLayout>, _FlexFrameLayout>, PlatterBackgroundModifier>>, _AnimationModifier<Bool>>)>>(v17, v19, &_s7SwiftUI15ModifiedContentVyACyAA6ZStackVyAA9TupleViewVyAA6VStackVyAA012_ConditionalD0VyAGyACyACyAKyAKyACyACy15ConversationKit020VideoMessageControlsG0V03TopnG033_B419541366E265736F7249488C40E55CLLVAA14_PaddingLayoutVGASGAKyA2TGGATGAA010_FlexFrameV0VGAA14_OpacityEffectVG_AA6SpacerVtGAGyACyAA6HStackVyAGyA4__ACyACyAL18AnimatedSaveButtonVAA01_xV0VGASGtGGAZG_A4_tGGG_AKyA7_yAGyA4__AKyACyACyACyAN011LocalBottomnG0APLLVA1_GAA32_EnvironmentKeyTransformModifierVySbGGA1_GACyACyACyAN012RemoteBottomnG0APLLVASGASGAZGGtGGAIyA34_GGAGyACyACyAIyAGyA4__AKyACyACyAN010PlayButtonG0APLLVA1_GA25_GACyA41_AA16_OverlayModifierVyACyACyACyACyACyAA4TextVAA30_EnvironmentKeyWritingModifierVySiSgGGAA24_ForegroundStyleModifierVyAA22HierarchicalShapeStyleVGGA47_yAA8MaterialVSgGGA11_GAA25_AlignmentWritingModifierVGGGGA4_tGGAA024_SafeAreaRegionsIgnoringV0VGAZG_ACyACyACyACyAIyAGyA4__ACyACyACyACyACyA45_ASGA47_yAA5ColorVSgGGAA19_BackgroundModifierVyAKyAA06_ShapeG0VyAA16RoundedRectangleVA77_GA84_yA86_A58_GGGGAA05_ClipZ0VyA86_GGAA31AccessibilityAttachmentModifierVGACyACyACyAL13MovieScrubberAPLLVA94_GAA010_FixedSizeV0VGA11_GtGGA72_GAZGASGA1_GSgtGSgtGGASGA72_GMd);
-  memcpy(&v19[*(v64 + 36)], v79, 0x70uLL);
-  v36 = v65;
-  outlined init with take of ZStack<TupleView<(ModifiedContent<_ShapeView<Rectangle, Color>, _AllowsHitTestingModifier>, ModifiedContent<StaticIf<Solarium, _GlassEffectContainer<ModifiedContent<ModifiedContent<ModifiedContent<VStack<TupleView<(ModifiedContent<<<opaque return type of View.accessibilityElement(children:)>>.0, AccessibilityAttachmentModifier>, TranslationTextView??)>>, _PaddingLayout>, _FlexFrameLayout>, PlatterBackgroundModifier>>, ModifiedContent<ModifiedContent<ModifiedContent<VStack<TupleView<(ModifiedContent<<<opaque return type of View.accessibilityElement(children:)>>.0, AccessibilityAttachmentModifier>, TranslationTextView??)>>, _PaddingLayout>, _FlexFrameLayout>, PlatterBackgroundModifier>>, _AnimationModifier<Bool>>)>>(v19, v65, &_s7SwiftUI15ModifiedContentVyACyACyAA6ZStackVyAA9TupleViewVyAA6VStackVyAA012_ConditionalD0VyAGyACyACyAKyAKyACyACy15ConversationKit020VideoMessageControlsG0V03TopnG033_B419541366E265736F7249488C40E55CLLVAA14_PaddingLayoutVGASGAKyA2TGGATGAA010_FlexFrameV0VGAA14_OpacityEffectVG_AA6SpacerVtGAGyACyAA6HStackVyAGyA4__ACyACyAL18AnimatedSaveButtonVAA01_xV0VGASGtGGAZG_A4_tGGG_AKyA7_yAGyA4__AKyACyACyACyAN011LocalBottomnG0APLLVA1_GAA32_EnvironmentKeyTransformModifierVySbGGA1_GACyACyACyAN012RemoteBottomnG0APLLVASGASGAZGGtGGAIyA34_GGAGyACyACyAIyAGyA4__AKyACyACyAN010PlayButtonG0APLLVA1_GA25_GACyA41_AA16_OverlayModifierVyACyACyACyACyACyAA4TextVAA30_EnvironmentKeyWritingModifierVySiSgGGAA24_ForegroundStyleModifierVyAA22HierarchicalShapeStyleVGGA47_yAA8MaterialVSgGGA11_GAA25_AlignmentWritingModifierVGGGGA4_tGGAA024_SafeAreaRegionsIgnoringV0VGAZG_ACyACyACyACyAIyAGyA4__ACyACyACyACyACyA45_ASGA47_yAA5ColorVSgGGAA19_BackgroundModifierVyAKyAA06_ShapeG0VyAA16RoundedRectangleVA77_GA84_yA86_A58_GGGGAA05_ClipZ0VyA86_GGAA31AccessibilityAttachmentModifierVGACyACyACyAL13MovieScrubberAPLLVA94_GAA010_FixedSizeV0VGA11_GtGGA72_GAZGASGA1_GSgtGSgtGGASGA72_GAZGMd);
-  *(v36 + *(v63 + 36)) = 0;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy7SwiftUI5ColorVGMd);
-  v37 = swift_allocObject();
-  *(v37 + 16) = xmmword_1BC4BB980;
+  _FlexFrameLayout.init(minWidth:idealWidth:maxWidth:minHeight:idealHeight:maxHeight:alignment:)(v82);
+  outlined init with take of ZStack<TupleView<(ModifiedContent<_ShapeView<Rectangle, Color>, _AllowsHitTestingModifier>, ModifiedContent<StaticIf<Solarium, _GlassEffectContainer<ModifiedContent<ModifiedContent<ModifiedContent<VStack<TupleView<(ModifiedContent<<<opaque return type of View.accessibilityElement(children:)>>.0, AccessibilityAttachmentModifier>, TranslationTextView??)>>, _PaddingLayout>, _FlexFrameLayout>, PlatterBackgroundModifier>>, ModifiedContent<ModifiedContent<ModifiedContent<VStack<TupleView<(ModifiedContent<<<opaque return type of View.accessibilityElement(children:)>>.0, AccessibilityAttachmentModifier>, TranslationTextView??)>>, _PaddingLayout>, _FlexFrameLayout>, PlatterBackgroundModifier>>, _AnimationModifier<Bool>>)>>(v17, v19, &_s7SwiftUI15ModifiedContentVyACyAA6ZStackVyAA9TupleViewVyAA6VStackVyAA012_ConditionalD0VyAGyACyACyAKyAKyACyACy15ConversationKit020VideoMessageControlsG0V03TopnG033_B419541366E265736F7249488C40E55CLLVAA14_PaddingLayoutVGASGAKyA2TGGATGAA010_FlexFrameV0VGAA14_OpacityEffectVG_AA6SpacerVtGAGyACyAA6HStackVyAGyA4__ACyACyAL18AnimatedSaveButtonVAA01_xV0VGASGtGGAZG_A4_tGGG_AKyA7_yAGyA4__AKyACyACyACyAN011LocalBottomnG0APLLVA1_GAA32_EnvironmentKeyTransformModifierVySbGGA1_GACyACyACyAN012RemoteBottomnG0APLLVASGASGAZGGtGGAIyA34_GGAGyACyACyAIyAGyA4__AKyACyACyAN010PlayButtonG0APLLVA1_GA25_GACyA41_AA16_OverlayModifierVyACyACyACyACyACyAA4TextVAA30_EnvironmentKeyWritingModifierVySiSgGGAA24_ForegroundStyleModifierVyAA22HierarchicalShapeStyleVGGA47_yAA8MaterialVSgGGA11_GAA25_AlignmentWritingModifierVGGGGA4_tGGAA024_SafeAreaRegionsIgnoringV0VGAZG_ACyACyACyACyAIyAGyA4__ACyACyACyACyACyA45_ASGA47_yAA5ColorVSgGGAA19_BackgroundModifierVyAKyAA06_ShapeG0VyAA16RoundedRectangleVA77_GA84_yA86_A58_GGGGAA05_ClipZ0VyA86_GGAA31AccessibilityAttachmentModifierVGACyACyACyAL13MovieScrubberAPLLVA94_GAA010_FixedSizeV0VGA11_GtGGA72_GAZGASGA1_GSgtGSgtGGASGA72_GMd, &_s7SwiftUI15ModifiedContentVyACyAA6ZStackVyAA9TupleViewVyAA6VStackVyAA012_ConditionalD0VyAGyACyACyAKyAKyACyACy15ConversationKit020VideoMessageControlsG0V03TopnG033_B419541366E265736F7249488C40E55CLLVAA14_PaddingLayoutVGASGAKyA2TGGATGAA010_FlexFrameV0VGAA14_OpacityEffectVG_AA6SpacerVtGAGyACyAA6HStackVyAGyA4__ACyACyAL18AnimatedSaveButtonVAA01_xV0VGASGtGGAZG_A4_tGGG_AKyA7_yAGyA4__AKyACyACyACyAN011LocalBottomnG0APLLVA1_GAA32_EnvironmentKeyTransformModifierVySbGGA1_GACyACyACyAN012RemoteBottomnG0APLLVASGASGAZGGtGGAIyA34_GGAGyACyACyAIyAGyA4__AKyACyACyAN010PlayButtonG0APLLVA1_GA25_GACyA41_AA16_OverlayModifierVyACyACyACyACyACyAA4TextVAA30_EnvironmentKeyWritingModifierVySiSgGGAA24_ForegroundStyleModifierVyAA22HierarchicalShapeStyleVGGA47_yAA8MaterialVSgGGA11_GAA25_AlignmentWritingModifierVGGGGA4_tGGAA024_SafeAreaRegionsIgnoringV0VGAZG_ACyACyACyACyAIyAGyA4__ACyACyACyACyACyA45_ASGA47_yAA5ColorVSgGGAA19_BackgroundModifierVyAKyAA06_ShapeG0VyAA16RoundedRectangleVA77_GA84_yA86_A58_GGGGAA05_ClipZ0VyA86_GGAA31AccessibilityAttachmentModifierVGACyACyACyAL13MovieScrubberAPLLVA94_GAA010_FixedSizeV0VGA11_GtGGA72_GAZGASGA1_GSgtGSgtGGASGA72_GMR);
+  memcpy(&v19[*(v67 + 36)], v82, 0x70uLL);
+  v39 = v68;
+  outlined init with take of ZStack<TupleView<(ModifiedContent<_ShapeView<Rectangle, Color>, _AllowsHitTestingModifier>, ModifiedContent<StaticIf<Solarium, _GlassEffectContainer<ModifiedContent<ModifiedContent<ModifiedContent<VStack<TupleView<(ModifiedContent<<<opaque return type of View.accessibilityElement(children:)>>.0, AccessibilityAttachmentModifier>, TranslationTextView??)>>, _PaddingLayout>, _FlexFrameLayout>, PlatterBackgroundModifier>>, ModifiedContent<ModifiedContent<ModifiedContent<VStack<TupleView<(ModifiedContent<<<opaque return type of View.accessibilityElement(children:)>>.0, AccessibilityAttachmentModifier>, TranslationTextView??)>>, _PaddingLayout>, _FlexFrameLayout>, PlatterBackgroundModifier>>, _AnimationModifier<Bool>>)>>(v19, v68, &_s7SwiftUI15ModifiedContentVyACyACyAA6ZStackVyAA9TupleViewVyAA6VStackVyAA012_ConditionalD0VyAGyACyACyAKyAKyACyACy15ConversationKit020VideoMessageControlsG0V03TopnG033_B419541366E265736F7249488C40E55CLLVAA14_PaddingLayoutVGASGAKyA2TGGATGAA010_FlexFrameV0VGAA14_OpacityEffectVG_AA6SpacerVtGAGyACyAA6HStackVyAGyA4__ACyACyAL18AnimatedSaveButtonVAA01_xV0VGASGtGGAZG_A4_tGGG_AKyA7_yAGyA4__AKyACyACyACyAN011LocalBottomnG0APLLVA1_GAA32_EnvironmentKeyTransformModifierVySbGGA1_GACyACyACyAN012RemoteBottomnG0APLLVASGASGAZGGtGGAIyA34_GGAGyACyACyAIyAGyA4__AKyACyACyAN010PlayButtonG0APLLVA1_GA25_GACyA41_AA16_OverlayModifierVyACyACyACyACyACyAA4TextVAA30_EnvironmentKeyWritingModifierVySiSgGGAA24_ForegroundStyleModifierVyAA22HierarchicalShapeStyleVGGA47_yAA8MaterialVSgGGA11_GAA25_AlignmentWritingModifierVGGGGA4_tGGAA024_SafeAreaRegionsIgnoringV0VGAZG_ACyACyACyACyAIyAGyA4__ACyACyACyACyACyA45_ASGA47_yAA5ColorVSgGGAA19_BackgroundModifierVyAKyAA06_ShapeG0VyAA16RoundedRectangleVA77_GA84_yA86_A58_GGGGAA05_ClipZ0VyA86_GGAA31AccessibilityAttachmentModifierVGACyACyACyAL13MovieScrubberAPLLVA94_GAA010_FixedSizeV0VGA11_GtGGA72_GAZGASGA1_GSgtGSgtGGASGA72_GAZGMd, &_s7SwiftUI15ModifiedContentVyACyACyAA6ZStackVyAA9TupleViewVyAA6VStackVyAA012_ConditionalD0VyAGyACyACyAKyAKyACyACy15ConversationKit020VideoMessageControlsG0V03TopnG033_B419541366E265736F7249488C40E55CLLVAA14_PaddingLayoutVGASGAKyA2TGGATGAA010_FlexFrameV0VGAA14_OpacityEffectVG_AA6SpacerVtGAGyACyAA6HStackVyAGyA4__ACyACyAL18AnimatedSaveButtonVAA01_xV0VGASGtGGAZG_A4_tGGG_AKyA7_yAGyA4__AKyACyACyACyAN011LocalBottomnG0APLLVA1_GAA32_EnvironmentKeyTransformModifierVySbGGA1_GACyACyACyAN012RemoteBottomnG0APLLVASGASGAZGGtGGAIyA34_GGAGyACyACyAIyAGyA4__AKyACyACyAN010PlayButtonG0APLLVA1_GA25_GACyA41_AA16_OverlayModifierVyACyACyACyACyACyAA4TextVAA30_EnvironmentKeyWritingModifierVySiSgGGAA24_ForegroundStyleModifierVyAA22HierarchicalShapeStyleVGGA47_yAA8MaterialVSgGGA11_GAA25_AlignmentWritingModifierVGGGGA4_tGGAA024_SafeAreaRegionsIgnoringV0VGAZG_ACyACyACyACyAIyAGyA4__ACyACyACyACyACyA45_ASGA47_yAA5ColorVSgGGAA19_BackgroundModifierVyAKyAA06_ShapeG0VyAA16RoundedRectangleVA77_GA84_yA86_A58_GGGGAA05_ClipZ0VyA86_GGAA31AccessibilityAttachmentModifierVGACyACyACyAL13MovieScrubberAPLLVA94_GAA010_FixedSizeV0VGA11_GtGGA72_GAZGASGA1_GSgtGSgtGGASGA72_GAZGMR);
+  *(v39 + *(v66 + 36)) = 0;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy7SwiftUI5ColorVGMd, &_ss23_ContiguousArrayStorageCy7SwiftUI5ColorVGMR);
+  v40 = swift_allocObject();
+  *(v40 + 16) = xmmword_1BC4BB980;
   static Color.black.getter();
-  v38 = Color.opacity(_:)();
+  v41 = Color.opacity(_:)();
 
-  *(v37 + 32) = v38;
+  *(v40 + 32) = v41;
   static Color.black.getter();
-  v39 = Color.opacity(_:)();
+  v42 = Color.opacity(_:)();
 
-  *(v37 + 40) = v39;
+  *(v40 + 40) = v42;
   static Color.black.getter();
-  v40 = Color.opacity(_:)();
+  v43 = Color.opacity(_:)();
 
-  *(v37 + 48) = v40;
-  MEMORY[0x1BFB201F0](v37);
+  *(v40 + 48) = v43;
+  MEMORY[0x1BFB201F0](v40);
   static UnitPoint.top.getter();
   static UnitPoint.bottom.getter();
   LinearGradient.init(gradient:startPoint:endPoint:)();
-  v41 = static SafeAreaRegions.all.getter();
-  LOBYTE(v33) = static Edge.Set.all.getter();
-  v42 = v79[14];
-  v43 = v79[15];
-  v44 = v79[16];
-  v45 = v79[17];
-  v46 = v79[18];
-  v47 = VideoMessagePlayerViewModel.playButtonOpacity.getter();
-  v48 = static Alignment.center.getter();
-  v50 = v49;
-  v73[0] = v42;
-  v73[1] = v43;
-  v73[2] = v44;
-  v73[3] = v45;
-  v73[4] = v46;
-  v73[5] = v41;
-  LOBYTE(v73[6]) = v33;
-  *&v73[7] = v47;
-  v73[8] = v48;
-  v73[9] = v49;
-  v51 = v66;
-  outlined init with take of ZStack<TupleView<(ModifiedContent<_ShapeView<Rectangle, Color>, _AllowsHitTestingModifier>, ModifiedContent<StaticIf<Solarium, _GlassEffectContainer<ModifiedContent<ModifiedContent<ModifiedContent<VStack<TupleView<(ModifiedContent<<<opaque return type of View.accessibilityElement(children:)>>.0, AccessibilityAttachmentModifier>, TranslationTextView??)>>, _PaddingLayout>, _FlexFrameLayout>, PlatterBackgroundModifier>>, ModifiedContent<ModifiedContent<ModifiedContent<VStack<TupleView<(ModifiedContent<<<opaque return type of View.accessibilityElement(children:)>>.0, AccessibilityAttachmentModifier>, TranslationTextView??)>>, _PaddingLayout>, _FlexFrameLayout>, PlatterBackgroundModifier>>, _AnimationModifier<Bool>>)>>(v36, v66, &_s7SwiftUI15ModifiedContentVyACyACyACyAA6ZStackVyAA9TupleViewVyAA6VStackVyAA012_ConditionalD0VyAGyACyACyAKyAKyACyACy15ConversationKit020VideoMessageControlsG0V03TopnG033_B419541366E265736F7249488C40E55CLLVAA14_PaddingLayoutVGASGAKyA2TGGATGAA010_FlexFrameV0VGAA14_OpacityEffectVG_AA6SpacerVtGAGyACyAA6HStackVyAGyA4__ACyACyAL18AnimatedSaveButtonVAA01_xV0VGASGtGGAZG_A4_tGGG_AKyA7_yAGyA4__AKyACyACyACyAN011LocalBottomnG0APLLVA1_GAA32_EnvironmentKeyTransformModifierVySbGGA1_GACyACyACyAN012RemoteBottomnG0APLLVASGASGAZGGtGGAIyA34_GGAGyACyACyAIyAGyA4__AKyACyACyAN010PlayButtonG0APLLVA1_GA25_GACyA41_AA16_OverlayModifierVyACyACyACyACyACyAA4TextVAA30_EnvironmentKeyWritingModifierVySiSgGGAA24_ForegroundStyleModifierVyAA22HierarchicalShapeStyleVGGA47_yAA8MaterialVSgGGA11_GAA25_AlignmentWritingModifierVGGGGA4_tGGAA024_SafeAreaRegionsIgnoringV0VGAZG_ACyACyACyACyAIyAGyA4__ACyACyACyACyACyA45_ASGA47_yAA5ColorVSgGGAA19_BackgroundModifierVyAKyAA06_ShapeG0VyAA16RoundedRectangleVA77_GA84_yA86_A58_GGGGAA05_ClipZ0VyA86_GGAA31AccessibilityAttachmentModifierVGACyACyACyAL13MovieScrubberAPLLVA94_GAA010_FixedSizeV0VGA11_GtGGA72_GAZGASGA1_GSgtGSgtGGASGA72_GAZGAA01_D13ShapeModifierVyAA9RectangleVGGMd);
-  memcpy((v51 + *(v67 + 36)), v73, 0x50uLL);
-  v74[0] = v42;
-  v74[1] = v43;
-  v74[2] = v44;
-  v74[3] = v45;
-  v74[4] = v46;
-  v74[5] = v41;
-  v75 = v33;
-  v76 = v47;
-  v77 = v48;
-  v78 = v50;
-  outlined init with copy of IDView<AvatarStackView, [UUID]>(v73, &v72, &_s7SwiftUI19_BackgroundModifierVyAA15ModifiedContentVyAEyAA14LinearGradientVAA30_SafeAreaRegionsIgnoringLayoutVGAA14_OpacityEffectVGGMd);
-  outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v74, &_s7SwiftUI19_BackgroundModifierVyAA15ModifiedContentVyAEyAA14LinearGradientVAA30_SafeAreaRegionsIgnoringLayoutVGAA14_OpacityEffectVGGMd);
-  v52 = v70;
-  outlined init with copy of VideoMessageControlsView(v71, v70);
-  v53 = (*(v68 + 80) + 16) & ~*(v68 + 80);
-  v54 = swift_allocObject();
-  outlined init with take of VideoMessageControlsView(v52, v54 + v53, type metadata accessor for VideoMessageControlsView);
+  v44 = static SafeAreaRegions.all.getter();
+  LOBYTE(v36) = static Edge.Set.all.getter();
+  v45 = v82[14];
+  v46 = v82[15];
+  v47 = v82[16];
+  v48 = v82[17];
+  v49 = v82[18];
+  v50 = VideoMessagePlayerViewModel.playButtonOpacity.getter();
+  v51 = static Alignment.center.getter();
+  v53 = v52;
+  v76[0] = v45;
+  v76[1] = v46;
+  v76[2] = v47;
+  v76[3] = v48;
+  v76[4] = v49;
+  v76[5] = v44;
+  LOBYTE(v76[6]) = v36;
+  *&v76[7] = v50;
+  v76[8] = v51;
+  v76[9] = v52;
+  v54 = v69;
+  outlined init with take of ZStack<TupleView<(ModifiedContent<_ShapeView<Rectangle, Color>, _AllowsHitTestingModifier>, ModifiedContent<StaticIf<Solarium, _GlassEffectContainer<ModifiedContent<ModifiedContent<ModifiedContent<VStack<TupleView<(ModifiedContent<<<opaque return type of View.accessibilityElement(children:)>>.0, AccessibilityAttachmentModifier>, TranslationTextView??)>>, _PaddingLayout>, _FlexFrameLayout>, PlatterBackgroundModifier>>, ModifiedContent<ModifiedContent<ModifiedContent<VStack<TupleView<(ModifiedContent<<<opaque return type of View.accessibilityElement(children:)>>.0, AccessibilityAttachmentModifier>, TranslationTextView??)>>, _PaddingLayout>, _FlexFrameLayout>, PlatterBackgroundModifier>>, _AnimationModifier<Bool>>)>>(v39, v69, &_s7SwiftUI15ModifiedContentVyACyACyACyAA6ZStackVyAA9TupleViewVyAA6VStackVyAA012_ConditionalD0VyAGyACyACyAKyAKyACyACy15ConversationKit020VideoMessageControlsG0V03TopnG033_B419541366E265736F7249488C40E55CLLVAA14_PaddingLayoutVGASGAKyA2TGGATGAA010_FlexFrameV0VGAA14_OpacityEffectVG_AA6SpacerVtGAGyACyAA6HStackVyAGyA4__ACyACyAL18AnimatedSaveButtonVAA01_xV0VGASGtGGAZG_A4_tGGG_AKyA7_yAGyA4__AKyACyACyACyAN011LocalBottomnG0APLLVA1_GAA32_EnvironmentKeyTransformModifierVySbGGA1_GACyACyACyAN012RemoteBottomnG0APLLVASGASGAZGGtGGAIyA34_GGAGyACyACyAIyAGyA4__AKyACyACyAN010PlayButtonG0APLLVA1_GA25_GACyA41_AA16_OverlayModifierVyACyACyACyACyACyAA4TextVAA30_EnvironmentKeyWritingModifierVySiSgGGAA24_ForegroundStyleModifierVyAA22HierarchicalShapeStyleVGGA47_yAA8MaterialVSgGGA11_GAA25_AlignmentWritingModifierVGGGGA4_tGGAA024_SafeAreaRegionsIgnoringV0VGAZG_ACyACyACyACyAIyAGyA4__ACyACyACyACyACyA45_ASGA47_yAA5ColorVSgGGAA19_BackgroundModifierVyAKyAA06_ShapeG0VyAA16RoundedRectangleVA77_GA84_yA86_A58_GGGGAA05_ClipZ0VyA86_GGAA31AccessibilityAttachmentModifierVGACyACyACyAL13MovieScrubberAPLLVA94_GAA010_FixedSizeV0VGA11_GtGGA72_GAZGASGA1_GSgtGSgtGGASGA72_GAZGAA01_D13ShapeModifierVyAA9RectangleVGGMd, &_s7SwiftUI15ModifiedContentVyACyACyACyAA6ZStackVyAA9TupleViewVyAA6VStackVyAA012_ConditionalD0VyAGyACyACyAKyAKyACyACy15ConversationKit020VideoMessageControlsG0V03TopnG033_B419541366E265736F7249488C40E55CLLVAA14_PaddingLayoutVGASGAKyA2TGGATGAA010_FlexFrameV0VGAA14_OpacityEffectVG_AA6SpacerVtGAGyACyAA6HStackVyAGyA4__ACyACyAL18AnimatedSaveButtonVAA01_xV0VGASGtGGAZG_A4_tGGG_AKyA7_yAGyA4__AKyACyACyACyAN011LocalBottomnG0APLLVA1_GAA32_EnvironmentKeyTransformModifierVySbGGA1_GACyACyACyAN012RemoteBottomnG0APLLVASGASGAZGGtGGAIyA34_GGAGyACyACyAIyAGyA4__AKyACyACyAN010PlayButtonG0APLLVA1_GA25_GACyA41_AA16_OverlayModifierVyACyACyACyACyACyAA4TextVAA30_EnvironmentKeyWritingModifierVySiSgGGAA24_ForegroundStyleModifierVyAA22HierarchicalShapeStyleVGGA47_yAA8MaterialVSgGGA11_GAA25_AlignmentWritingModifierVGGGGA4_tGGAA024_SafeAreaRegionsIgnoringV0VGAZG_ACyACyACyACyAIyAGyA4__ACyACyACyACyACyA45_ASGA47_yAA5ColorVSgGGAA19_BackgroundModifierVyAKyAA06_ShapeG0VyAA16RoundedRectangleVA77_GA84_yA86_A58_GGGGAA05_ClipZ0VyA86_GGAA31AccessibilityAttachmentModifierVGACyACyACyAL13MovieScrubberAPLLVA94_GAA010_FixedSizeV0VGA11_GtGGA72_GAZGASGA1_GSgtGSgtGGASGA72_GAZGAA01_D13ShapeModifierVyAA9RectangleVGGMR);
+  memcpy((v54 + *(v70 + 36)), v76, 0x50uLL);
+  v77[0] = v45;
+  v77[1] = v46;
+  v77[2] = v47;
+  v77[3] = v48;
+  v77[4] = v49;
+  v77[5] = v44;
+  v78 = v36;
+  v79 = v50;
+  v80 = v51;
+  v81 = v53;
+  outlined init with copy of IDView<AvatarStackView, [UUID]>(v76, &v75, &_s7SwiftUI19_BackgroundModifierVyAA15ModifiedContentVyAEyAA14LinearGradientVAA30_SafeAreaRegionsIgnoringLayoutVGAA14_OpacityEffectVGGMd, &_s7SwiftUI19_BackgroundModifierVyAA15ModifiedContentVyAEyAA14LinearGradientVAA30_SafeAreaRegionsIgnoringLayoutVGAA14_OpacityEffectVGGMR);
+  outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v77, &_s7SwiftUI19_BackgroundModifierVyAA15ModifiedContentVyAEyAA14LinearGradientVAA30_SafeAreaRegionsIgnoringLayoutVGAA14_OpacityEffectVGGMd, &_s7SwiftUI19_BackgroundModifierVyAA15ModifiedContentVyAEyAA14LinearGradientVAA30_SafeAreaRegionsIgnoringLayoutVGAA14_OpacityEffectVGGMR);
+  v55 = v73;
+  outlined init with copy of VideoMessageControlsView(v74, v73);
+  v56 = (*(v71 + 80) + 16) & ~*(v71 + 80);
+  v57 = swift_allocObject();
+  outlined init with take of VideoMessageControlsView(v55, v57 + v56, type metadata accessor for VideoMessageControlsView);
   lazy protocol witness table accessor for type ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ZStack<TupleView<(VStack<_ConditionalContent<TupleView<(ModifiedContent<ModifiedContent<_ConditionalContent<_ConditionalContent<ModifiedContent<ModifiedContent<VideoMessageControlsView.TopControlsView, _PaddingLayout>, _PaddingLayout>, _ConditionalContent<ModifiedContent<VideoMessageControlsView.TopControlsView, _PaddingLayout>, ModifiedContent<VideoMessageControlsView.TopControlsView, _PaddingLayout>>>, ModifiedContent<VideoMessageControlsView.TopControlsView, _PaddingLayout>>, _FlexFrameLayout>, _OpacityEffect>, Spacer)>, TupleView<(ModifiedContent<HStack<TupleView<(Spacer, ModifiedContent<ModifiedContent<AnimatedSaveButton, _FrameLayout>, _PaddingLayout>)>>, _FlexFrameLayout>, Spacer)>>>, _ConditionalContent<HStack<TupleView<(Spacer, _ConditionalContent<ModifiedContent<ModifiedContent<ModifiedContent<VideoMessageControlsView.LocalBottomControlsView, _OpacityEffect>, _EnvironmentKey();
   View.onTapGesture(count:perform:)();
 
-  return outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v51, &_s7SwiftUI15ModifiedContentVyACyACyACyACyAA6ZStackVyAA9TupleViewVyAA6VStackVyAA012_ConditionalD0VyAGyACyACyAKyAKyACyACy15ConversationKit020VideoMessageControlsG0V03TopnG033_B419541366E265736F7249488C40E55CLLVAA14_PaddingLayoutVGASGAKyA2TGGATGAA010_FlexFrameV0VGAA14_OpacityEffectVG_AA6SpacerVtGAGyACyAA6HStackVyAGyA4__ACyACyAL18AnimatedSaveButtonVAA01_xV0VGASGtGGAZG_A4_tGGG_AKyA7_yAGyA4__AKyACyACyACyAN011LocalBottomnG0APLLVA1_GAA32_EnvironmentKeyTransformModifierVySbGGA1_GACyACyACyAN012RemoteBottomnG0APLLVASGASGAZGGtGGAIyA34_GGAGyACyACyAIyAGyA4__AKyACyACyAN010PlayButtonG0APLLVA1_GA25_GACyA41_AA16_OverlayModifierVyACyACyACyACyACyAA4TextVAA30_EnvironmentKeyWritingModifierVySiSgGGAA24_ForegroundStyleModifierVyAA22HierarchicalShapeStyleVGGA47_yAA8MaterialVSgGGA11_GAA25_AlignmentWritingModifierVGGGGA4_tGGAA024_SafeAreaRegionsIgnoringV0VGAZG_ACyACyACyACyAIyAGyA4__ACyACyACyACyACyA45_ASGA47_yAA5ColorVSgGGAA19_BackgroundModifierVyAKyAA06_ShapeG0VyAA16RoundedRectangleVA77_GA84_yA86_A58_GGGGAA05_ClipZ0VyA86_GGAA31AccessibilityAttachmentModifierVGACyACyACyAL13MovieScrubberAPLLVA94_GAA010_FixedSizeV0VGA11_GtGGA72_GAZGASGA1_GSgtGSgtGGASGA72_GAZGAA01_D13ShapeModifierVyAA9RectangleVGGA82_yACyACyAA14LinearGradientVA72_GA1_GGGMd);
+  return outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v54, &_s7SwiftUI15ModifiedContentVyACyACyACyACyAA6ZStackVyAA9TupleViewVyAA6VStackVyAA012_ConditionalD0VyAGyACyACyAKyAKyACyACy15ConversationKit020VideoMessageControlsG0V03TopnG033_B419541366E265736F7249488C40E55CLLVAA14_PaddingLayoutVGASGAKyA2TGGATGAA010_FlexFrameV0VGAA14_OpacityEffectVG_AA6SpacerVtGAGyACyAA6HStackVyAGyA4__ACyACyAL18AnimatedSaveButtonVAA01_xV0VGASGtGGAZG_A4_tGGG_AKyA7_yAGyA4__AKyACyACyACyAN011LocalBottomnG0APLLVA1_GAA32_EnvironmentKeyTransformModifierVySbGGA1_GACyACyACyAN012RemoteBottomnG0APLLVASGASGAZGGtGGAIyA34_GGAGyACyACyAIyAGyA4__AKyACyACyAN010PlayButtonG0APLLVA1_GA25_GACyA41_AA16_OverlayModifierVyACyACyACyACyACyAA4TextVAA30_EnvironmentKeyWritingModifierVySiSgGGAA24_ForegroundStyleModifierVyAA22HierarchicalShapeStyleVGGA47_yAA8MaterialVSgGGA11_GAA25_AlignmentWritingModifierVGGGGA4_tGGAA024_SafeAreaRegionsIgnoringV0VGAZG_ACyACyACyACyAIyAGyA4__ACyACyACyACyACyA45_ASGA47_yAA5ColorVSgGGAA19_BackgroundModifierVyAKyAA06_ShapeG0VyAA16RoundedRectangleVA77_GA84_yA86_A58_GGGGAA05_ClipZ0VyA86_GGAA31AccessibilityAttachmentModifierVGACyACyACyAL13MovieScrubberAPLLVA94_GAA010_FixedSizeV0VGA11_GtGGA72_GAZGASGA1_GSgtGSgtGGASGA72_GAZGAA01_D13ShapeModifierVyAA9RectangleVGGA82_yACyACyAA14LinearGradientVA72_GA1_GGGMd, &_s7SwiftUI15ModifiedContentVyACyACyACyACyAA6ZStackVyAA9TupleViewVyAA6VStackVyAA012_ConditionalD0VyAGyACyACyAKyAKyACyACy15ConversationKit020VideoMessageControlsG0V03TopnG033_B419541366E265736F7249488C40E55CLLVAA14_PaddingLayoutVGASGAKyA2TGGATGAA010_FlexFrameV0VGAA14_OpacityEffectVG_AA6SpacerVtGAGyACyAA6HStackVyAGyA4__ACyACyAL18AnimatedSaveButtonVAA01_xV0VGASGtGGAZG_A4_tGGG_AKyA7_yAGyA4__AKyACyACyACyAN011LocalBottomnG0APLLVA1_GAA32_EnvironmentKeyTransformModifierVySbGGA1_GACyACyACyAN012RemoteBottomnG0APLLVASGASGAZGGtGGAIyA34_GGAGyACyACyAIyAGyA4__AKyACyACyAN010PlayButtonG0APLLVA1_GA25_GACyA41_AA16_OverlayModifierVyACyACyACyACyACyAA4TextVAA30_EnvironmentKeyWritingModifierVySiSgGGAA24_ForegroundStyleModifierVyAA22HierarchicalShapeStyleVGGA47_yAA8MaterialVSgGGA11_GAA25_AlignmentWritingModifierVGGGGA4_tGGAA024_SafeAreaRegionsIgnoringV0VGAZG_ACyACyACyACyAIyAGyA4__ACyACyACyACyACyA45_ASGA47_yAA5ColorVSgGGAA19_BackgroundModifierVyAKyAA06_ShapeG0VyAA16RoundedRectangleVA77_GA84_yA86_A58_GGGGAA05_ClipZ0VyA86_GGAA31AccessibilityAttachmentModifierVGACyACyACyAL13MovieScrubberAPLLVA94_GAA010_FixedSizeV0VGA11_GtGGA72_GAZGASGA1_GSgtGSgtGGASGA72_GAZGAA01_D13ShapeModifierVyAA9RectangleVGGA82_yACyACyAA14LinearGradientVA72_GA1_GGGMR);
 }
 
 uint64_t closure #1 in closure #1 in VideoMessageControlsView.body.getter@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, void *a3@<X8>)
 {
-  v122 = a3;
-  v121 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI9TupleViewVyAA15ModifiedContentVyAEyAA6VStackVyACyAA6SpacerV_AA012_ConditionalF0VyAEyAEy15ConversationKit020VideoMessageControlsD0V010PlayButtonD033_B419541366E265736F7249488C40E55CLLVAA14_OpacityEffectVGAA32_EnvironmentKeyTransformModifierVySbGGAEyAxA16_OverlayModifierVyAEyAEyAEyAEyAEyAA4TextVAA01_xY15WritingModifierVySiSgGGAA24_ForegroundStyleModifierVyAA22HierarchicalShapeStyleVGGA2_yAA8MaterialVSgGGAA12_FrameLayoutVGAA25_AlignmentWritingModifierVGGGGAItGGAA30_SafeAreaRegionsIgnoringLayoutVGAA16_FlexFrameLayoutVG_AEyAEyAEyAEyAGyACyAI_AEyAEyAEyAEyAEyA0_AA14_PaddingLayoutVGA2_yAA5ColorVSgGGAA19_BackgroundModifierVyAKyAA06_ShapeD0VyAA16RoundedRectangleVA38_GA45_yA47_A13_GGGGAA05_ClipW0VyA47_GGAA31AccessibilityAttachmentModifierVGAEyAEyAEyAL13MovieScrubberAPLLVA55_GAA16_FixedSizeLayoutVGA18_GtGGA29_GA32_GA35_GASGSgtGMd);
-  MEMORY[0x1EEE9AC00](v121);
-  v115 = &v95 - v5;
+  v123 = a3;
+  v122 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI9TupleViewVyAA15ModifiedContentVyAEyAA6VStackVyACyAA6SpacerV_AA012_ConditionalF0VyAEyAEy15ConversationKit020VideoMessageControlsD0V010PlayButtonD033_B419541366E265736F7249488C40E55CLLVAA14_OpacityEffectVGAA32_EnvironmentKeyTransformModifierVySbGGAEyAxA16_OverlayModifierVyAEyAEyAEyAEyAEyAA4TextVAA01_xY15WritingModifierVySiSgGGAA24_ForegroundStyleModifierVyAA22HierarchicalShapeStyleVGGA2_yAA8MaterialVSgGGAA12_FrameLayoutVGAA25_AlignmentWritingModifierVGGGGAItGGAA30_SafeAreaRegionsIgnoringLayoutVGAA16_FlexFrameLayoutVG_AEyAEyAEyAEyAGyACyAI_AEyAEyAEyAEyAEyA0_AA14_PaddingLayoutVGA2_yAA5ColorVSgGGAA19_BackgroundModifierVyAKyAA06_ShapeD0VyAA16RoundedRectangleVA38_GA45_yA47_A13_GGGGAA05_ClipW0VyA47_GGAA31AccessibilityAttachmentModifierVGAEyAEyAEyAL13MovieScrubberAPLLVA55_GAA16_FixedSizeLayoutVGA18_GtGGA29_GA32_GA35_GASGSgtGMd, &_s7SwiftUI9TupleViewVyAA15ModifiedContentVyAEyAA6VStackVyACyAA6SpacerV_AA012_ConditionalF0VyAEyAEy15ConversationKit020VideoMessageControlsD0V010PlayButtonD033_B419541366E265736F7249488C40E55CLLVAA14_OpacityEffectVGAA32_EnvironmentKeyTransformModifierVySbGGAEyAxA16_OverlayModifierVyAEyAEyAEyAEyAEyAA4TextVAA01_xY15WritingModifierVySiSgGGAA24_ForegroundStyleModifierVyAA22HierarchicalShapeStyleVGGA2_yAA8MaterialVSgGGAA12_FrameLayoutVGAA25_AlignmentWritingModifierVGGGGAItGGAA30_SafeAreaRegionsIgnoringLayoutVGAA16_FlexFrameLayoutVG_AEyAEyAEyAEyAGyACyAI_AEyAEyAEyAEyAEyA0_AA14_PaddingLayoutVGA2_yAA5ColorVSgGGAA19_BackgroundModifierVyAKyAA06_ShapeD0VyAA16RoundedRectangleVA38_GA45_yA47_A13_GGGGAA05_ClipW0VyA47_GGAA31AccessibilityAttachmentModifierVGAEyAEyAEyAL13MovieScrubberAPLLVA55_GAA16_FixedSizeLayoutVGA18_GtGGA29_GA32_GA35_GASGSgtGMR);
+  MEMORY[0x1EEE9AC00](v122);
+  v116 = &v96 - v5;
   v6 = type metadata accessor for EnvironmentValues();
-  v98 = *(v6 - 8);
-  v99 = v6;
+  v99 = *(v6 - 8);
+  v100 = v6;
   MEMORY[0x1EEE9AC00](v6);
-  v97 = &v95 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v100 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyAA6VStackVyAA9TupleViewVyAA6SpacerV_ACyACyACyACyACyAA4TextVAA14_PaddingLayoutVGAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGAA011_BackgroundO0VyAA012_ConditionalD0VyAA06_ShapeG0VyAA16RoundedRectangleVARGA_yA1_AA8MaterialVGGGGAA11_ClipEffectVyA1_GGAA023AccessibilityAttachmentO0VGACyACyACy15ConversationKit13MovieScrubber33_B419541366E265736F7249488C40E55CLLVA11_GAA010_FixedSizeK0VGAA06_FrameK0VGtGGAA024_SafeAreaRegionsIgnoringK0VGMd);
-  MEMORY[0x1EEE9AC00](v100);
-  v102 = (&v95 - v8);
-  v101 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyACyAA6VStackVyAA9TupleViewVyAA6SpacerV_ACyACyACyACyACyAA4TextVAA14_PaddingLayoutVGAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGAA011_BackgroundO0VyAA012_ConditionalD0VyAA06_ShapeG0VyAA16RoundedRectangleVARGA_yA1_AA8MaterialVGGGGAA11_ClipEffectVyA1_GGAA023AccessibilityAttachmentO0VGACyACyACy15ConversationKit13MovieScrubber33_B419541366E265736F7249488C40E55CLLVA11_GAA010_FixedSizeK0VGAA06_FrameK0VGtGGAA024_SafeAreaRegionsIgnoringK0VGAA010_FlexFrameK0VGMd);
+  v98 = &v96 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v101 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyAA6VStackVyAA9TupleViewVyAA6SpacerV_ACyACyACyACyACyAA4TextVAA14_PaddingLayoutVGAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGAA011_BackgroundO0VyAA012_ConditionalD0VyAA06_ShapeG0VyAA16RoundedRectangleVARGA_yA1_AA8MaterialVGGGGAA11_ClipEffectVyA1_GGAA023AccessibilityAttachmentO0VGACyACyACy15ConversationKit13MovieScrubber33_B419541366E265736F7249488C40E55CLLVA11_GAA010_FixedSizeK0VGAA06_FrameK0VGtGGAA024_SafeAreaRegionsIgnoringK0VGMd, &_s7SwiftUI15ModifiedContentVyAA6VStackVyAA9TupleViewVyAA6SpacerV_ACyACyACyACyACyAA4TextVAA14_PaddingLayoutVGAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGAA011_BackgroundO0VyAA012_ConditionalD0VyAA06_ShapeG0VyAA16RoundedRectangleVARGA_yA1_AA8MaterialVGGGGAA11_ClipEffectVyA1_GGAA023AccessibilityAttachmentO0VGACyACyACy15ConversationKit13MovieScrubber33_B419541366E265736F7249488C40E55CLLVA11_GAA010_FixedSizeK0VGAA06_FrameK0VGtGGAA024_SafeAreaRegionsIgnoringK0VGMR);
   MEMORY[0x1EEE9AC00](v101);
-  v107 = &v95 - v9;
-  v103 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyACyACyAA6VStackVyAA9TupleViewVyAA6SpacerV_ACyACyACyACyACyAA4TextVAA14_PaddingLayoutVGAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGAA011_BackgroundO0VyAA012_ConditionalD0VyAA06_ShapeG0VyAA16RoundedRectangleVARGA_yA1_AA8MaterialVGGGGAA11_ClipEffectVyA1_GGAA023AccessibilityAttachmentO0VGACyACyACy15ConversationKit13MovieScrubber33_B419541366E265736F7249488C40E55CLLVA11_GAA010_FixedSizeK0VGAA06_FrameK0VGtGGAA024_SafeAreaRegionsIgnoringK0VGAA010_FlexFrameK0VGAMGMd);
-  MEMORY[0x1EEE9AC00](v103);
-  v106 = &v95 - v10;
-  v113 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyACyACyACyAA6VStackVyAA9TupleViewVyAA6SpacerV_ACyACyACyACyACyAA4TextVAA14_PaddingLayoutVGAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGAA011_BackgroundO0VyAA012_ConditionalD0VyAA06_ShapeG0VyAA16RoundedRectangleVARGA_yA1_AA8MaterialVGGGGAA11_ClipEffectVyA1_GGAA023AccessibilityAttachmentO0VGACyACyACy15ConversationKit13MovieScrubber33_B419541366E265736F7249488C40E55CLLVA11_GAA010_FixedSizeK0VGAA06_FrameK0VGtGGAA024_SafeAreaRegionsIgnoringK0VGAA010_FlexFrameK0VGAMGAA08_OpacityX0VGMd);
-  MEMORY[0x1EEE9AC00](v113);
-  v105 = &v95 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v103 = (&v96 - v8);
+  v102 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyACyAA6VStackVyAA9TupleViewVyAA6SpacerV_ACyACyACyACyACyAA4TextVAA14_PaddingLayoutVGAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGAA011_BackgroundO0VyAA012_ConditionalD0VyAA06_ShapeG0VyAA16RoundedRectangleVARGA_yA1_AA8MaterialVGGGGAA11_ClipEffectVyA1_GGAA023AccessibilityAttachmentO0VGACyACyACy15ConversationKit13MovieScrubber33_B419541366E265736F7249488C40E55CLLVA11_GAA010_FixedSizeK0VGAA06_FrameK0VGtGGAA024_SafeAreaRegionsIgnoringK0VGAA010_FlexFrameK0VGMd, &_s7SwiftUI15ModifiedContentVyACyAA6VStackVyAA9TupleViewVyAA6SpacerV_ACyACyACyACyACyAA4TextVAA14_PaddingLayoutVGAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGAA011_BackgroundO0VyAA012_ConditionalD0VyAA06_ShapeG0VyAA16RoundedRectangleVARGA_yA1_AA8MaterialVGGGGAA11_ClipEffectVyA1_GGAA023AccessibilityAttachmentO0VGACyACyACy15ConversationKit13MovieScrubber33_B419541366E265736F7249488C40E55CLLVA11_GAA010_FixedSizeK0VGAA06_FrameK0VGtGGAA024_SafeAreaRegionsIgnoringK0VGAA010_FlexFrameK0VGMR);
+  MEMORY[0x1EEE9AC00](v102);
+  v108 = &v96 - v9;
+  v104 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyACyACyAA6VStackVyAA9TupleViewVyAA6SpacerV_ACyACyACyACyACyAA4TextVAA14_PaddingLayoutVGAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGAA011_BackgroundO0VyAA012_ConditionalD0VyAA06_ShapeG0VyAA16RoundedRectangleVARGA_yA1_AA8MaterialVGGGGAA11_ClipEffectVyA1_GGAA023AccessibilityAttachmentO0VGACyACyACy15ConversationKit13MovieScrubber33_B419541366E265736F7249488C40E55CLLVA11_GAA010_FixedSizeK0VGAA06_FrameK0VGtGGAA024_SafeAreaRegionsIgnoringK0VGAA010_FlexFrameK0VGAMGMd, &_s7SwiftUI15ModifiedContentVyACyACyAA6VStackVyAA9TupleViewVyAA6SpacerV_ACyACyACyACyACyAA4TextVAA14_PaddingLayoutVGAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGAA011_BackgroundO0VyAA012_ConditionalD0VyAA06_ShapeG0VyAA16RoundedRectangleVARGA_yA1_AA8MaterialVGGGGAA11_ClipEffectVyA1_GGAA023AccessibilityAttachmentO0VGACyACyACy15ConversationKit13MovieScrubber33_B419541366E265736F7249488C40E55CLLVA11_GAA010_FixedSizeK0VGAA06_FrameK0VGtGGAA024_SafeAreaRegionsIgnoringK0VGAA010_FlexFrameK0VGAMGMR);
+  MEMORY[0x1EEE9AC00](v104);
+  v107 = &v96 - v10;
+  v114 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyACyACyACyAA6VStackVyAA9TupleViewVyAA6SpacerV_ACyACyACyACyACyAA4TextVAA14_PaddingLayoutVGAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGAA011_BackgroundO0VyAA012_ConditionalD0VyAA06_ShapeG0VyAA16RoundedRectangleVARGA_yA1_AA8MaterialVGGGGAA11_ClipEffectVyA1_GGAA023AccessibilityAttachmentO0VGACyACyACy15ConversationKit13MovieScrubber33_B419541366E265736F7249488C40E55CLLVA11_GAA010_FixedSizeK0VGAA06_FrameK0VGtGGAA024_SafeAreaRegionsIgnoringK0VGAA010_FlexFrameK0VGAMGAA08_OpacityX0VGMd, &_s7SwiftUI15ModifiedContentVyACyACyACyAA6VStackVyAA9TupleViewVyAA6SpacerV_ACyACyACyACyACyAA4TextVAA14_PaddingLayoutVGAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGAA011_BackgroundO0VyAA012_ConditionalD0VyAA06_ShapeG0VyAA16RoundedRectangleVARGA_yA1_AA8MaterialVGGGGAA11_ClipEffectVyA1_GGAA023AccessibilityAttachmentO0VGACyACyACy15ConversationKit13MovieScrubber33_B419541366E265736F7249488C40E55CLLVA11_GAA010_FixedSizeK0VGAA06_FrameK0VGtGGAA024_SafeAreaRegionsIgnoringK0VGAA010_FlexFrameK0VGAMGAA08_OpacityX0VGMR);
+  MEMORY[0x1EEE9AC00](v114);
+  v106 = &v96 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v12);
-  v104 = &v95 - v13;
-  v14 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyACyACyACyAA6VStackVyAA9TupleViewVyAA6SpacerV_ACyACyACyACyACyAA4TextVAA14_PaddingLayoutVGAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGAA011_BackgroundO0VyAA012_ConditionalD0VyAA06_ShapeG0VyAA16RoundedRectangleVARGA_yA1_AA8MaterialVGGGGAA11_ClipEffectVyA1_GGAA023AccessibilityAttachmentO0VGACyACyACy15ConversationKit13MovieScrubber33_B419541366E265736F7249488C40E55CLLVA11_GAA010_FixedSizeK0VGAA06_FrameK0VGtGGAA024_SafeAreaRegionsIgnoringK0VGAA010_FlexFrameK0VGAMGAA08_OpacityX0VGSgMd);
+  v105 = &v96 - v13;
+  v14 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyACyACyACyAA6VStackVyAA9TupleViewVyAA6SpacerV_ACyACyACyACyACyAA4TextVAA14_PaddingLayoutVGAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGAA011_BackgroundO0VyAA012_ConditionalD0VyAA06_ShapeG0VyAA16RoundedRectangleVARGA_yA1_AA8MaterialVGGGGAA11_ClipEffectVyA1_GGAA023AccessibilityAttachmentO0VGACyACyACy15ConversationKit13MovieScrubber33_B419541366E265736F7249488C40E55CLLVA11_GAA010_FixedSizeK0VGAA06_FrameK0VGtGGAA024_SafeAreaRegionsIgnoringK0VGAA010_FlexFrameK0VGAMGAA08_OpacityX0VGSgMd, &_s7SwiftUI15ModifiedContentVyACyACyACyAA6VStackVyAA9TupleViewVyAA6SpacerV_ACyACyACyACyACyAA4TextVAA14_PaddingLayoutVGAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGAA011_BackgroundO0VyAA012_ConditionalD0VyAA06_ShapeG0VyAA16RoundedRectangleVARGA_yA1_AA8MaterialVGGGGAA11_ClipEffectVyA1_GGAA023AccessibilityAttachmentO0VGACyACyACy15ConversationKit13MovieScrubber33_B419541366E265736F7249488C40E55CLLVA11_GAA010_FixedSizeK0VGAA06_FrameK0VGtGGAA024_SafeAreaRegionsIgnoringK0VGAA010_FlexFrameK0VGAMGAA08_OpacityX0VGSgMR);
   MEMORY[0x1EEE9AC00](v14 - 8);
-  v114 = &v95 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v115 = &v96 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v16);
-  v112 = &v95 - v17;
-  v108 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyAA6VStackVyAA9TupleViewVyAA6SpacerV_AA012_ConditionalD0VyACyACy15ConversationKit020VideoMessageControlsG0V010PlayButtonG033_B419541366E265736F7249488C40E55CLLVAA14_OpacityEffectVGAA32_EnvironmentKeyTransformModifierVySbGGACyAxA16_OverlayModifierVyACyACyACyACyACyAA4TextVAA01_xY15WritingModifierVySiSgGGAA24_ForegroundStyleModifierVyAA22HierarchicalShapeStyleVGGA2_yAA8MaterialVSgGGAA12_FrameLayoutVGAA25_AlignmentWritingModifierVGGGGAItGGAA30_SafeAreaRegionsIgnoringLayoutVGMd);
-  MEMORY[0x1EEE9AC00](v108);
-  v19 = &v95 - v18;
-  v110 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyACyAA6VStackVyAA9TupleViewVyAA6SpacerV_AA012_ConditionalD0VyACyACy15ConversationKit020VideoMessageControlsG0V010PlayButtonG033_B419541366E265736F7249488C40E55CLLVAA14_OpacityEffectVGAA32_EnvironmentKeyTransformModifierVySbGGACyAxA16_OverlayModifierVyACyACyACyACyACyAA4TextVAA01_xY15WritingModifierVySiSgGGAA24_ForegroundStyleModifierVyAA22HierarchicalShapeStyleVGGA2_yAA8MaterialVSgGGAA12_FrameLayoutVGAA25_AlignmentWritingModifierVGGGGAItGGAA30_SafeAreaRegionsIgnoringLayoutVGAA16_FlexFrameLayoutVGMd);
-  MEMORY[0x1EEE9AC00](v110);
-  v111 = &v95 - ((v20 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v113 = &v96 - v17;
+  v109 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyAA6VStackVyAA9TupleViewVyAA6SpacerV_AA012_ConditionalD0VyACyACy15ConversationKit020VideoMessageControlsG0V010PlayButtonG033_B419541366E265736F7249488C40E55CLLVAA14_OpacityEffectVGAA32_EnvironmentKeyTransformModifierVySbGGACyAxA16_OverlayModifierVyACyACyACyACyACyAA4TextVAA01_xY15WritingModifierVySiSgGGAA24_ForegroundStyleModifierVyAA22HierarchicalShapeStyleVGGA2_yAA8MaterialVSgGGAA12_FrameLayoutVGAA25_AlignmentWritingModifierVGGGGAItGGAA30_SafeAreaRegionsIgnoringLayoutVGMd, &_s7SwiftUI15ModifiedContentVyAA6VStackVyAA9TupleViewVyAA6SpacerV_AA012_ConditionalD0VyACyACy15ConversationKit020VideoMessageControlsG0V010PlayButtonG033_B419541366E265736F7249488C40E55CLLVAA14_OpacityEffectVGAA32_EnvironmentKeyTransformModifierVySbGGACyAxA16_OverlayModifierVyACyACyACyACyACyAA4TextVAA01_xY15WritingModifierVySiSgGGAA24_ForegroundStyleModifierVyAA22HierarchicalShapeStyleVGGA2_yAA8MaterialVSgGGAA12_FrameLayoutVGAA25_AlignmentWritingModifierVGGGGAItGGAA30_SafeAreaRegionsIgnoringLayoutVGMR);
+  MEMORY[0x1EEE9AC00](v109);
+  v19 = &v96 - v18;
+  v111 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyACyAA6VStackVyAA9TupleViewVyAA6SpacerV_AA012_ConditionalD0VyACyACy15ConversationKit020VideoMessageControlsG0V010PlayButtonG033_B419541366E265736F7249488C40E55CLLVAA14_OpacityEffectVGAA32_EnvironmentKeyTransformModifierVySbGGACyAxA16_OverlayModifierVyACyACyACyACyACyAA4TextVAA01_xY15WritingModifierVySiSgGGAA24_ForegroundStyleModifierVyAA22HierarchicalShapeStyleVGGA2_yAA8MaterialVSgGGAA12_FrameLayoutVGAA25_AlignmentWritingModifierVGGGGAItGGAA30_SafeAreaRegionsIgnoringLayoutVGAA16_FlexFrameLayoutVGMd, &_s7SwiftUI15ModifiedContentVyACyAA6VStackVyAA9TupleViewVyAA6SpacerV_AA012_ConditionalD0VyACyACy15ConversationKit020VideoMessageControlsG0V010PlayButtonG033_B419541366E265736F7249488C40E55CLLVAA14_OpacityEffectVGAA32_EnvironmentKeyTransformModifierVySbGGACyAxA16_OverlayModifierVyACyACyACyACyACyAA4TextVAA01_xY15WritingModifierVySiSgGGAA24_ForegroundStyleModifierVyAA22HierarchicalShapeStyleVGGA2_yAA8MaterialVSgGGAA12_FrameLayoutVGAA25_AlignmentWritingModifierVGGGGAItGGAA30_SafeAreaRegionsIgnoringLayoutVGAA16_FlexFrameLayoutVGMR);
+  MEMORY[0x1EEE9AC00](v111);
+  v112 = &v96 - ((v20 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v21);
-  v23 = &v95 - v22;
+  v23 = &v96 - v22;
   MEMORY[0x1EEE9AC00](v24);
-  v109 = &v95 - v25;
-  v26 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI9TupleViewVyAA15ModifiedContentVyAEyAA6VStackVyACyAA6SpacerV_AA012_ConditionalF0VyAEyAEy15ConversationKit020VideoMessageControlsD0V010PlayButtonD033_B419541366E265736F7249488C40E55CLLVAA14_OpacityEffectVGAA32_EnvironmentKeyTransformModifierVySbGGAEyAxA16_OverlayModifierVyAEyAEyAEyAEyAEyAA4TextVAA01_xY15WritingModifierVySiSgGGAA24_ForegroundStyleModifierVyAA22HierarchicalShapeStyleVGGA2_yAA8MaterialVSgGGAA12_FrameLayoutVGAA25_AlignmentWritingModifierVGGGGAItGGAA30_SafeAreaRegionsIgnoringLayoutVGAA16_FlexFrameLayoutVG_AEyAEyAEyAEyAGyACyAI_AEyAEyAEyAEyAEyA0_AA14_PaddingLayoutVGA2_yAA5ColorVSgGGAA19_BackgroundModifierVyAKyAA06_ShapeD0VyAA16RoundedRectangleVA38_GA45_yA47_A13_GGGGAA05_ClipW0VyA47_GGAA31AccessibilityAttachmentModifierVGAEyAEyAEyAL13MovieScrubberAPLLVA55_GAA16_FixedSizeLayoutVGA18_GtGGA29_GA32_GA35_GASGSgtGSgMd);
+  v110 = &v96 - v25;
+  v26 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI9TupleViewVyAA15ModifiedContentVyAEyAA6VStackVyACyAA6SpacerV_AA012_ConditionalF0VyAEyAEy15ConversationKit020VideoMessageControlsD0V010PlayButtonD033_B419541366E265736F7249488C40E55CLLVAA14_OpacityEffectVGAA32_EnvironmentKeyTransformModifierVySbGGAEyAxA16_OverlayModifierVyAEyAEyAEyAEyAEyAA4TextVAA01_xY15WritingModifierVySiSgGGAA24_ForegroundStyleModifierVyAA22HierarchicalShapeStyleVGGA2_yAA8MaterialVSgGGAA12_FrameLayoutVGAA25_AlignmentWritingModifierVGGGGAItGGAA30_SafeAreaRegionsIgnoringLayoutVGAA16_FlexFrameLayoutVG_AEyAEyAEyAEyAGyACyAI_AEyAEyAEyAEyAEyA0_AA14_PaddingLayoutVGA2_yAA5ColorVSgGGAA19_BackgroundModifierVyAKyAA06_ShapeD0VyAA16RoundedRectangleVA38_GA45_yA47_A13_GGGGAA05_ClipW0VyA47_GGAA31AccessibilityAttachmentModifierVGAEyAEyAEyAL13MovieScrubberAPLLVA55_GAA16_FixedSizeLayoutVGA18_GtGGA29_GA32_GA35_GASGSgtGSgMd, &_s7SwiftUI9TupleViewVyAA15ModifiedContentVyAEyAA6VStackVyACyAA6SpacerV_AA012_ConditionalF0VyAEyAEy15ConversationKit020VideoMessageControlsD0V010PlayButtonD033_B419541366E265736F7249488C40E55CLLVAA14_OpacityEffectVGAA32_EnvironmentKeyTransformModifierVySbGGAEyAxA16_OverlayModifierVyAEyAEyAEyAEyAEyAA4TextVAA01_xY15WritingModifierVySiSgGGAA24_ForegroundStyleModifierVyAA22HierarchicalShapeStyleVGGA2_yAA8MaterialVSgGGAA12_FrameLayoutVGAA25_AlignmentWritingModifierVGGGGAItGGAA30_SafeAreaRegionsIgnoringLayoutVGAA16_FlexFrameLayoutVG_AEyAEyAEyAEyAGyACyAI_AEyAEyAEyAEyAEyA0_AA14_PaddingLayoutVGA2_yAA5ColorVSgGGAA19_BackgroundModifierVyAKyAA06_ShapeD0VyAA16RoundedRectangleVA38_GA45_yA47_A13_GGGGAA05_ClipW0VyA47_GGAA31AccessibilityAttachmentModifierVGAEyAEyAEyAL13MovieScrubberAPLLVA55_GAA16_FixedSizeLayoutVGA18_GtGGA29_GA32_GA35_GASGSgtGSgMR);
   MEMORY[0x1EEE9AC00](v26 - 8);
-  v120 = &v95 - ((v27 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v121 = &v96 - ((v27 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v28);
-  v30 = &v95 - v29;
-  v31 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI19_ConditionalContentVyAA6HStackVyAA9TupleViewVyAA6SpacerV_ACyAA08ModifiedD0VyAKyAKy15ConversationKit020VideoMessageControlsG0V011LocalBottomnG033_B419541366E265736F7249488C40E55CLLVAA14_OpacityEffectVGAA32_EnvironmentKeyTransformModifierVySbGGASGAKyAKyAKyAN06RemotepnG0APLLVAA14_PaddingLayoutVGA1_GAA16_FlexFrameLayoutVGGtGGAA6VStackVyA8_GGMd);
+  v30 = &v96 - v29;
+  v31 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI19_ConditionalContentVyAA6HStackVyAA9TupleViewVyAA6SpacerV_ACyAA08ModifiedD0VyAKyAKy15ConversationKit020VideoMessageControlsG0V011LocalBottomnG033_B419541366E265736F7249488C40E55CLLVAA14_OpacityEffectVGAA32_EnvironmentKeyTransformModifierVySbGGASGAKyAKyAKyAN06RemotepnG0APLLVAA14_PaddingLayoutVGA1_GAA16_FlexFrameLayoutVGGtGGAA6VStackVyA8_GGMd, &_s7SwiftUI19_ConditionalContentVyAA6HStackVyAA9TupleViewVyAA6SpacerV_ACyAA08ModifiedD0VyAKyAKy15ConversationKit020VideoMessageControlsG0V011LocalBottomnG033_B419541366E265736F7249488C40E55CLLVAA14_OpacityEffectVGAA32_EnvironmentKeyTransformModifierVySbGGASGAKyAKyAKyAN06RemotepnG0APLLVAA14_PaddingLayoutVGA1_GAA16_FlexFrameLayoutVGGtGGAA6VStackVyA8_GGMR);
   MEMORY[0x1EEE9AC00](v31 - 8);
-  v119 = &v95 - ((v32 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v120 = &v96 - ((v32 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v33);
-  v35 = &v95 - v34;
-  v118 = static HorizontalAlignment.center.getter();
+  v35 = &v96 - v34;
+  v119 = static HorizontalAlignment.center.getter();
   v36 = 1;
-  v130[0] = 1;
-  closure #1 in closure #1 in closure #1 in VideoMessageControlsView.body.getter(a1, v127);
-  memcpy(v131, v127, 0x122uLL);
-  memcpy(v132, v127, 0x122uLL);
-  outlined init with copy of IDView<AvatarStackView, [UUID]>(v131, v126, &_s7SwiftUI19_ConditionalContentVyAA9TupleViewVyAA08ModifiedD0VyAGyACyACyAGyAGy15ConversationKit020VideoMessageControlsF0V03ToplF033_B419541366E265736F7249488C40E55CLLVAA14_PaddingLayoutVGAOGACyA2PGGAPGAA010_FlexFrameT0VGAA14_OpacityEffectVG_AA6SpacerVtGAEyAGyAA6HStackVyAEyA0__AGyAGyAH18AnimatedSaveButtonVAA01_vT0VGAOGtGGAVG_A0_tGGMd);
-  outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v132, &_s7SwiftUI19_ConditionalContentVyAA9TupleViewVyAA08ModifiedD0VyAGyACyACyAGyAGy15ConversationKit020VideoMessageControlsF0V03ToplF033_B419541366E265736F7249488C40E55CLLVAA14_PaddingLayoutVGAOGACyA2PGGAPGAA010_FlexFrameT0VGAA14_OpacityEffectVG_AA6SpacerVtGAEyAGyAA6HStackVyAEyA0__AGyAGyAH18AnimatedSaveButtonVAA01_vT0VGAOGtGGAVG_A0_tGGMd);
-  memcpy(&v128[7], v131, 0x122uLL);
-  v116 = v130[0];
+  LOBYTE(v131[0]) = 1;
+  closure #1 in closure #1 in closure #1 in VideoMessageControlsView.body.getter(a1, v128);
+  memcpy(v132, v128, 0x122uLL);
+  memcpy(v133, v128, 0x122uLL);
+  outlined init with copy of IDView<AvatarStackView, [UUID]>(v132, v127, &_s7SwiftUI19_ConditionalContentVyAA9TupleViewVyAA08ModifiedD0VyAGyACyACyAGyAGy15ConversationKit020VideoMessageControlsF0V03ToplF033_B419541366E265736F7249488C40E55CLLVAA14_PaddingLayoutVGAOGACyA2PGGAPGAA010_FlexFrameT0VGAA14_OpacityEffectVG_AA6SpacerVtGAEyAGyAA6HStackVyAEyA0__AGyAGyAH18AnimatedSaveButtonVAA01_vT0VGAOGtGGAVG_A0_tGGMd, &_s7SwiftUI19_ConditionalContentVyAA9TupleViewVyAA08ModifiedD0VyAGyACyACyAGyAGy15ConversationKit020VideoMessageControlsF0V03ToplF033_B419541366E265736F7249488C40E55CLLVAA14_PaddingLayoutVGAOGACyA2PGGAPGAA010_FlexFrameT0VGAA14_OpacityEffectVG_AA6SpacerVtGAEyAGyAA6HStackVyAEyA0__AGyAGyAH18AnimatedSaveButtonVAA01_vT0VGAOGtGGAVG_A0_tGGMR);
+  outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v133, &_s7SwiftUI19_ConditionalContentVyAA9TupleViewVyAA08ModifiedD0VyAGyACyACyAGyAGy15ConversationKit020VideoMessageControlsF0V03ToplF033_B419541366E265736F7249488C40E55CLLVAA14_PaddingLayoutVGAOGACyA2PGGAPGAA010_FlexFrameT0VGAA14_OpacityEffectVG_AA6SpacerVtGAEyAGyAA6HStackVyAEyA0__AGyAGyAH18AnimatedSaveButtonVAA01_vT0VGAOGtGGAVG_A0_tGGMd, &_s7SwiftUI19_ConditionalContentVyAA9TupleViewVyAA08ModifiedD0VyAGyACyACyAGyAGy15ConversationKit020VideoMessageControlsF0V03ToplF033_B419541366E265736F7249488C40E55CLLVAA14_PaddingLayoutVGAOGACyA2PGGAPGAA010_FlexFrameT0VGAA14_OpacityEffectVG_AA6SpacerVtGAEyAGyAA6HStackVyAEyA0__AGyAGyAH18AnimatedSaveButtonVAA01_vT0VGAOGtGGAVG_A0_tGGMR);
+  memcpy(&v129[7], v132, 0x122uLL);
+  v117 = LOBYTE(v131[0]);
+  v125 = a1;
+  v126 = a2;
   v124 = a1;
-  v125 = a2;
-  v123 = a1;
-  v117 = v35;
+  v118 = v35;
   specialized View.conditionallyStacked<A>(with:condition:)(partial apply for closure #2 in closure #1 in closure #1 in VideoMessageControlsView.body.getter, partial apply for closure #3 in closure #1 in closure #1 in VideoMessageControlsView.body.getter, v35);
   v37 = type metadata accessor for VideoMessageControlsView(0);
   v38 = *(a1 + *(v37 + 28) + 8);
   if ((*((*MEMORY[0x1E69E7D40] & *v38) + 0xC0))() == 1)
   {
-    v96 = v30;
+    v97 = v30;
     *v19 = static HorizontalAlignment.center.getter();
     *(v19 + 1) = 0;
     v19[16] = 1;
-    v39 = &v19[*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI13_VariadicViewO4TreeVy_AA13_VStackLayoutVAA05TupleD0VyAA6SpacerV_AA19_ConditionalContentVyAA08ModifiedK0VyAOy15ConversationKit020VideoMessageControlsD0V010PlayButtonD033_B419541366E265736F7249488C40E55CLLVAA14_OpacityEffectVGAA32_EnvironmentKeyTransformModifierVySbGGAOyA0_AA16_OverlayModifierVyAOyAOyAOyAOyAOyAA4TextVAA30_EnvironmentKeyWritingModifierVySiSgGGAA24_ForegroundStyleModifierVyAA22HierarchicalShapeStyleVGGA6_yAA8MaterialVSgGGAA06_FrameG0VGAA25_AlignmentWritingModifierVGGGGAKtGGMd) + 44)];
-    v95 = a2;
+    v39 = &v19[*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI13_VariadicViewO4TreeVy_AA13_VStackLayoutVAA05TupleD0VyAA6SpacerV_AA19_ConditionalContentVyAA08ModifiedK0VyAOy15ConversationKit020VideoMessageControlsD0V010PlayButtonD033_B419541366E265736F7249488C40E55CLLVAA14_OpacityEffectVGAA32_EnvironmentKeyTransformModifierVySbGGAOyA0_AA16_OverlayModifierVyAOyAOyAOyAOyAOyAA4TextVAA30_EnvironmentKeyWritingModifierVySiSgGGAA24_ForegroundStyleModifierVyAA22HierarchicalShapeStyleVGGA6_yAA8MaterialVSgGGAA06_FrameG0VGAA25_AlignmentWritingModifierVGGGGAKtGGMd, &_s7SwiftUI13_VariadicViewO4TreeVy_AA13_VStackLayoutVAA05TupleD0VyAA6SpacerV_AA19_ConditionalContentVyAA08ModifiedK0VyAOy15ConversationKit020VideoMessageControlsD0V010PlayButtonD033_B419541366E265736F7249488C40E55CLLVAA14_OpacityEffectVGAA32_EnvironmentKeyTransformModifierVySbGGAOyA0_AA16_OverlayModifierVyAOyAOyAOyAOyAOyAA4TextVAA30_EnvironmentKeyWritingModifierVySiSgGGAA24_ForegroundStyleModifierVyAA22HierarchicalShapeStyleVGGA6_yAA8MaterialVSgGGAA06_FrameG0VGAA25_AlignmentWritingModifierVGGGGAKtGGMR) + 44)];
+    v96 = a2;
     closure #4 in closure #1 in closure #1 in VideoMessageControlsView.body.getter(a1, a2, v39);
     v40 = static SafeAreaRegions.all.getter();
     v41 = static Edge.Set.all.getter();
-    v42 = &v19[*(v108 + 36)];
+    v42 = &v19[*(v109 + 36)];
     *v42 = v40;
     v42[8] = v41;
     static Alignment.center.getter();
-    _FlexFrameLayout.init(minWidth:idealWidth:maxWidth:minHeight:idealHeight:maxHeight:alignment:)();
-    outlined init with take of ZStack<TupleView<(ModifiedContent<_ShapeView<Rectangle, Color>, _AllowsHitTestingModifier>, ModifiedContent<StaticIf<Solarium, _GlassEffectContainer<ModifiedContent<ModifiedContent<ModifiedContent<VStack<TupleView<(ModifiedContent<<<opaque return type of View.accessibilityElement(children:)>>.0, AccessibilityAttachmentModifier>, TranslationTextView??)>>, _PaddingLayout>, _FlexFrameLayout>, PlatterBackgroundModifier>>, ModifiedContent<ModifiedContent<ModifiedContent<VStack<TupleView<(ModifiedContent<<<opaque return type of View.accessibilityElement(children:)>>.0, AccessibilityAttachmentModifier>, TranslationTextView??)>>, _PaddingLayout>, _FlexFrameLayout>, PlatterBackgroundModifier>>, _AnimationModifier<Bool>>)>>(v19, v23, &_s7SwiftUI15ModifiedContentVyAA6VStackVyAA9TupleViewVyAA6SpacerV_AA012_ConditionalD0VyACyACy15ConversationKit020VideoMessageControlsG0V010PlayButtonG033_B419541366E265736F7249488C40E55CLLVAA14_OpacityEffectVGAA32_EnvironmentKeyTransformModifierVySbGGACyAxA16_OverlayModifierVyACyACyACyACyACyAA4TextVAA01_xY15WritingModifierVySiSgGGAA24_ForegroundStyleModifierVyAA22HierarchicalShapeStyleVGGA2_yAA8MaterialVSgGGAA12_FrameLayoutVGAA25_AlignmentWritingModifierVGGGGAItGGAA30_SafeAreaRegionsIgnoringLayoutVGMd);
-    memcpy(&v23[v110[9]], v129, 0x70uLL);
-    v43 = v109;
-    outlined init with take of ZStack<TupleView<(ModifiedContent<_ShapeView<Rectangle, Color>, _AllowsHitTestingModifier>, ModifiedContent<StaticIf<Solarium, _GlassEffectContainer<ModifiedContent<ModifiedContent<ModifiedContent<VStack<TupleView<(ModifiedContent<<<opaque return type of View.accessibilityElement(children:)>>.0, AccessibilityAttachmentModifier>, TranslationTextView??)>>, _PaddingLayout>, _FlexFrameLayout>, PlatterBackgroundModifier>>, ModifiedContent<ModifiedContent<ModifiedContent<VStack<TupleView<(ModifiedContent<<<opaque return type of View.accessibilityElement(children:)>>.0, AccessibilityAttachmentModifier>, TranslationTextView??)>>, _PaddingLayout>, _FlexFrameLayout>, PlatterBackgroundModifier>>, _AnimationModifier<Bool>>)>>(v23, v109, &_s7SwiftUI15ModifiedContentVyACyAA6VStackVyAA9TupleViewVyAA6SpacerV_AA012_ConditionalD0VyACyACy15ConversationKit020VideoMessageControlsG0V010PlayButtonG033_B419541366E265736F7249488C40E55CLLVAA14_OpacityEffectVGAA32_EnvironmentKeyTransformModifierVySbGGACyAxA16_OverlayModifierVyACyACyACyACyACyAA4TextVAA01_xY15WritingModifierVySiSgGGAA24_ForegroundStyleModifierVyAA22HierarchicalShapeStyleVGGA2_yAA8MaterialVSgGGAA12_FrameLayoutVGAA25_AlignmentWritingModifierVGGGGAItGGAA30_SafeAreaRegionsIgnoringLayoutVGAA16_FlexFrameLayoutVGMd);
+    _FlexFrameLayout.init(minWidth:idealWidth:maxWidth:minHeight:idealHeight:maxHeight:alignment:)(v130);
+    outlined init with take of ZStack<TupleView<(ModifiedContent<_ShapeView<Rectangle, Color>, _AllowsHitTestingModifier>, ModifiedContent<StaticIf<Solarium, _GlassEffectContainer<ModifiedContent<ModifiedContent<ModifiedContent<VStack<TupleView<(ModifiedContent<<<opaque return type of View.accessibilityElement(children:)>>.0, AccessibilityAttachmentModifier>, TranslationTextView??)>>, _PaddingLayout>, _FlexFrameLayout>, PlatterBackgroundModifier>>, ModifiedContent<ModifiedContent<ModifiedContent<VStack<TupleView<(ModifiedContent<<<opaque return type of View.accessibilityElement(children:)>>.0, AccessibilityAttachmentModifier>, TranslationTextView??)>>, _PaddingLayout>, _FlexFrameLayout>, PlatterBackgroundModifier>>, _AnimationModifier<Bool>>)>>(v19, v23, &_s7SwiftUI15ModifiedContentVyAA6VStackVyAA9TupleViewVyAA6SpacerV_AA012_ConditionalD0VyACyACy15ConversationKit020VideoMessageControlsG0V010PlayButtonG033_B419541366E265736F7249488C40E55CLLVAA14_OpacityEffectVGAA32_EnvironmentKeyTransformModifierVySbGGACyAxA16_OverlayModifierVyACyACyACyACyACyAA4TextVAA01_xY15WritingModifierVySiSgGGAA24_ForegroundStyleModifierVyAA22HierarchicalShapeStyleVGGA2_yAA8MaterialVSgGGAA12_FrameLayoutVGAA25_AlignmentWritingModifierVGGGGAItGGAA30_SafeAreaRegionsIgnoringLayoutVGMd, &_s7SwiftUI15ModifiedContentVyAA6VStackVyAA9TupleViewVyAA6SpacerV_AA012_ConditionalD0VyACyACy15ConversationKit020VideoMessageControlsG0V010PlayButtonG033_B419541366E265736F7249488C40E55CLLVAA14_OpacityEffectVGAA32_EnvironmentKeyTransformModifierVySbGGACyAxA16_OverlayModifierVyACyACyACyACyACyAA4TextVAA01_xY15WritingModifierVySiSgGGAA24_ForegroundStyleModifierVyAA22HierarchicalShapeStyleVGGA2_yAA8MaterialVSgGGAA12_FrameLayoutVGAA25_AlignmentWritingModifierVGGGGAItGGAA30_SafeAreaRegionsIgnoringLayoutVGMR);
+    memcpy(&v23[v111[9]], v130, 0x70uLL);
+    v43 = v110;
+    outlined init with take of ZStack<TupleView<(ModifiedContent<_ShapeView<Rectangle, Color>, _AllowsHitTestingModifier>, ModifiedContent<StaticIf<Solarium, _GlassEffectContainer<ModifiedContent<ModifiedContent<ModifiedContent<VStack<TupleView<(ModifiedContent<<<opaque return type of View.accessibilityElement(children:)>>.0, AccessibilityAttachmentModifier>, TranslationTextView??)>>, _PaddingLayout>, _FlexFrameLayout>, PlatterBackgroundModifier>>, ModifiedContent<ModifiedContent<ModifiedContent<VStack<TupleView<(ModifiedContent<<<opaque return type of View.accessibilityElement(children:)>>.0, AccessibilityAttachmentModifier>, TranslationTextView??)>>, _PaddingLayout>, _FlexFrameLayout>, PlatterBackgroundModifier>>, _AnimationModifier<Bool>>)>>(v23, v110, &_s7SwiftUI15ModifiedContentVyACyAA6VStackVyAA9TupleViewVyAA6SpacerV_AA012_ConditionalD0VyACyACy15ConversationKit020VideoMessageControlsG0V010PlayButtonG033_B419541366E265736F7249488C40E55CLLVAA14_OpacityEffectVGAA32_EnvironmentKeyTransformModifierVySbGGACyAxA16_OverlayModifierVyACyACyACyACyACyAA4TextVAA01_xY15WritingModifierVySiSgGGAA24_ForegroundStyleModifierVyAA22HierarchicalShapeStyleVGGA2_yAA8MaterialVSgGGAA12_FrameLayoutVGAA25_AlignmentWritingModifierVGGGGAItGGAA30_SafeAreaRegionsIgnoringLayoutVGAA16_FlexFrameLayoutVGMd, &_s7SwiftUI15ModifiedContentVyACyAA6VStackVyAA9TupleViewVyAA6SpacerV_AA012_ConditionalD0VyACyACy15ConversationKit020VideoMessageControlsG0V010PlayButtonG033_B419541366E265736F7249488C40E55CLLVAA14_OpacityEffectVGAA32_EnvironmentKeyTransformModifierVySbGGACyAxA16_OverlayModifierVyACyACyACyACyACyAA4TextVAA01_xY15WritingModifierVySiSgGGAA24_ForegroundStyleModifierVyAA22HierarchicalShapeStyleVGGA2_yAA8MaterialVSgGGAA12_FrameLayoutVGAA25_AlignmentWritingModifierVGGGGAItGGAA30_SafeAreaRegionsIgnoringLayoutVGAA16_FlexFrameLayoutVGMR);
     v44 = *(a1 + *(v37 + 36));
     if (v44)
     {
       v45 = v37;
       v46 = v44;
       v47 = static HorizontalAlignment.center.getter();
-      v48 = v102;
-      *v102 = v47;
+      v48 = v103;
+      *v103 = v47;
       *(v48 + 8) = 0x4018000000000000;
       *(v48 + 16) = 0;
-      v49 = (v48 + *(__swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI13_VariadicViewO4TreeVy_AA13_VStackLayoutVAA05TupleD0VyAA6SpacerV_AA15ModifiedContentVyAMyAMyAMyAMyAA4TextVAA08_PaddingG0VGAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGAA011_BackgroundQ0VyAA012_ConditionalK0VyAA06_ShapeD0VyAA16RoundedRectangleVAVGA3_yA5_AA8MaterialVGGGGAA11_ClipEffectVyA5_GGAA023AccessibilityAttachmentQ0VGAMyAMyAMy15ConversationKit13MovieScrubber33_B419541366E265736F7249488C40E55CLLVA15_GAA010_FixedSizeG0VGAA06_FrameG0VGtGGMd) + 44));
-      v110 = v46;
+      v49 = (v48 + *(__swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI13_VariadicViewO4TreeVy_AA13_VStackLayoutVAA05TupleD0VyAA6SpacerV_AA15ModifiedContentVyAMyAMyAMyAMyAA4TextVAA08_PaddingG0VGAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGAA011_BackgroundQ0VyAA012_ConditionalK0VyAA06_ShapeD0VyAA16RoundedRectangleVAVGA3_yA5_AA8MaterialVGGGGAA11_ClipEffectVyA5_GGAA023AccessibilityAttachmentQ0VGAMyAMyAMy15ConversationKit13MovieScrubber33_B419541366E265736F7249488C40E55CLLVA15_GAA010_FixedSizeG0VGAA06_FrameG0VGtGGMd, &_s7SwiftUI13_VariadicViewO4TreeVy_AA13_VStackLayoutVAA05TupleD0VyAA6SpacerV_AA15ModifiedContentVyAMyAMyAMyAMyAA4TextVAA08_PaddingG0VGAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGAA011_BackgroundQ0VyAA012_ConditionalK0VyAA06_ShapeD0VyAA16RoundedRectangleVAVGA3_yA5_AA8MaterialVGGGGAA11_ClipEffectVyA5_GGAA023AccessibilityAttachmentQ0VGAMyAMyAMy15ConversationKit13MovieScrubber33_B419541366E265736F7249488C40E55CLLVA15_GAA010_FixedSizeG0VGAA06_FrameG0VGtGGMR) + 44));
+      v111 = v46;
       closure #5 in closure #1 in closure #1 in VideoMessageControlsView.body.getter(a1, v46, v49);
       v50 = static SafeAreaRegions.all.getter();
       v51 = static Edge.Set.all.getter();
-      v52 = v48 + *(v100 + 36);
+      v52 = v48 + *(v101 + 36);
       *v52 = v50;
       *(v52 + 8) = v51;
       static Alignment.center.getter();
-      _FlexFrameLayout.init(minWidth:idealWidth:maxWidth:minHeight:idealHeight:maxHeight:alignment:)();
-      v53 = v107;
-      outlined init with take of ZStack<TupleView<(ModifiedContent<_ShapeView<Rectangle, Color>, _AllowsHitTestingModifier>, ModifiedContent<StaticIf<Solarium, _GlassEffectContainer<ModifiedContent<ModifiedContent<ModifiedContent<VStack<TupleView<(ModifiedContent<<<opaque return type of View.accessibilityElement(children:)>>.0, AccessibilityAttachmentModifier>, TranslationTextView??)>>, _PaddingLayout>, _FlexFrameLayout>, PlatterBackgroundModifier>>, ModifiedContent<ModifiedContent<ModifiedContent<VStack<TupleView<(ModifiedContent<<<opaque return type of View.accessibilityElement(children:)>>.0, AccessibilityAttachmentModifier>, TranslationTextView??)>>, _PaddingLayout>, _FlexFrameLayout>, PlatterBackgroundModifier>>, _AnimationModifier<Bool>>)>>(v48, v107, &_s7SwiftUI15ModifiedContentVyAA6VStackVyAA9TupleViewVyAA6SpacerV_ACyACyACyACyACyAA4TextVAA14_PaddingLayoutVGAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGAA011_BackgroundO0VyAA012_ConditionalD0VyAA06_ShapeG0VyAA16RoundedRectangleVARGA_yA1_AA8MaterialVGGGGAA11_ClipEffectVyA1_GGAA023AccessibilityAttachmentO0VGACyACyACy15ConversationKit13MovieScrubber33_B419541366E265736F7249488C40E55CLLVA11_GAA010_FixedSizeK0VGAA06_FrameK0VGtGGAA024_SafeAreaRegionsIgnoringK0VGMd);
-      memcpy((v53 + *(v101 + 36)), v130, 0x70uLL);
+      _FlexFrameLayout.init(minWidth:idealWidth:maxWidth:minHeight:idealHeight:maxHeight:alignment:)(v131);
+      v53 = v108;
+      outlined init with take of ZStack<TupleView<(ModifiedContent<_ShapeView<Rectangle, Color>, _AllowsHitTestingModifier>, ModifiedContent<StaticIf<Solarium, _GlassEffectContainer<ModifiedContent<ModifiedContent<ModifiedContent<VStack<TupleView<(ModifiedContent<<<opaque return type of View.accessibilityElement(children:)>>.0, AccessibilityAttachmentModifier>, TranslationTextView??)>>, _PaddingLayout>, _FlexFrameLayout>, PlatterBackgroundModifier>>, ModifiedContent<ModifiedContent<ModifiedContent<VStack<TupleView<(ModifiedContent<<<opaque return type of View.accessibilityElement(children:)>>.0, AccessibilityAttachmentModifier>, TranslationTextView??)>>, _PaddingLayout>, _FlexFrameLayout>, PlatterBackgroundModifier>>, _AnimationModifier<Bool>>)>>(v48, v108, &_s7SwiftUI15ModifiedContentVyAA6VStackVyAA9TupleViewVyAA6SpacerV_ACyACyACyACyACyAA4TextVAA14_PaddingLayoutVGAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGAA011_BackgroundO0VyAA012_ConditionalD0VyAA06_ShapeG0VyAA16RoundedRectangleVARGA_yA1_AA8MaterialVGGGGAA11_ClipEffectVyA1_GGAA023AccessibilityAttachmentO0VGACyACyACy15ConversationKit13MovieScrubber33_B419541366E265736F7249488C40E55CLLVA11_GAA010_FixedSizeK0VGAA06_FrameK0VGtGGAA024_SafeAreaRegionsIgnoringK0VGMd, &_s7SwiftUI15ModifiedContentVyAA6VStackVyAA9TupleViewVyAA6SpacerV_ACyACyACyACyACyAA4TextVAA14_PaddingLayoutVGAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGAA011_BackgroundO0VyAA012_ConditionalD0VyAA06_ShapeG0VyAA16RoundedRectangleVARGA_yA1_AA8MaterialVGGGGAA11_ClipEffectVyA1_GGAA023AccessibilityAttachmentO0VGACyACyACy15ConversationKit13MovieScrubber33_B419541366E265736F7249488C40E55CLLVA11_GAA010_FixedSizeK0VGAA06_FrameK0VGtGGAA024_SafeAreaRegionsIgnoringK0VGMR);
+      memcpy((v53 + *(v102 + 36)), v131, 0x70uLL);
       LOBYTE(v50) = static Edge.Set.bottom.getter();
       v54 = Edge.Set.init(rawValue:)();
       Edge.Set.init(rawValue:)();
@@ -9263,421 +9058,425 @@ uint64_t closure #1 in closure #1 in VideoMessageControlsView.body.getter@<X0>(u
       }
 
       v55 = GeometryProxy.size.getter();
-      (*((*MEMORY[0x1E69E7D40] & *v38) + 0x120))(v127, v55);
+      (*((*MEMORY[0x1E69E7D40] & *v38) + 0x120))(v128, v55);
       v56 = 0.0;
-      v57 = v106;
-      if (v127[0])
+      v57 = v107;
+      if (v128[0])
       {
         v58 = *a1;
         if (*(a1 + 8) != 1)
         {
 
-          static os_log_type_t.fault.getter();
-          v61 = v45;
-          v62 = v43;
-          v63 = static Log.runtimeIssuesLog.getter();
-          os_log(_:dso:log:_:_:)();
+          v61 = static os_log_type_t.fault.getter();
+          v62 = v45;
+          v63 = v43;
+          v64 = static Log.runtimeIssuesLog.getter();
+          os_log(_:dso:log:_:_:)(v61, &dword_1BBC58000, v64, "Accessing Environment's value outside of being installed on a View. This will always read the default value and will not update.", 128, 2, MEMORY[0x1E69E7CC0]);
 
-          v43 = v62;
-          v45 = v61;
-          v64 = v97;
+          v43 = v63;
+          v45 = v62;
+          v65 = v98;
           EnvironmentValues.init()();
           swift_getAtKeyPath();
           outlined consume of Environment<UIInterfaceOrientation>.Content(v58, 0);
-          v65 = v64;
-          v53 = v107;
-          (*(v98 + 8))(v65, v99);
+          v66 = v65;
+          v53 = v108;
+          (*(v99 + 8))(v66, v100);
         }
       }
 
       EdgeInsets.init(_all:)();
-      v67 = v66;
-      v69 = v68;
-      v71 = v70;
-      v73 = v72;
-      outlined init with take of ZStack<TupleView<(ModifiedContent<_ShapeView<Rectangle, Color>, _AllowsHitTestingModifier>, ModifiedContent<StaticIf<Solarium, _GlassEffectContainer<ModifiedContent<ModifiedContent<ModifiedContent<VStack<TupleView<(ModifiedContent<<<opaque return type of View.accessibilityElement(children:)>>.0, AccessibilityAttachmentModifier>, TranslationTextView??)>>, _PaddingLayout>, _FlexFrameLayout>, PlatterBackgroundModifier>>, ModifiedContent<ModifiedContent<ModifiedContent<VStack<TupleView<(ModifiedContent<<<opaque return type of View.accessibilityElement(children:)>>.0, AccessibilityAttachmentModifier>, TranslationTextView??)>>, _PaddingLayout>, _FlexFrameLayout>, PlatterBackgroundModifier>>, _AnimationModifier<Bool>>)>>(v53, v57, &_s7SwiftUI15ModifiedContentVyACyAA6VStackVyAA9TupleViewVyAA6SpacerV_ACyACyACyACyACyAA4TextVAA14_PaddingLayoutVGAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGAA011_BackgroundO0VyAA012_ConditionalD0VyAA06_ShapeG0VyAA16RoundedRectangleVARGA_yA1_AA8MaterialVGGGGAA11_ClipEffectVyA1_GGAA023AccessibilityAttachmentO0VGACyACyACy15ConversationKit13MovieScrubber33_B419541366E265736F7249488C40E55CLLVA11_GAA010_FixedSizeK0VGAA06_FrameK0VGtGGAA024_SafeAreaRegionsIgnoringK0VGAA010_FlexFrameK0VGMd);
-      v74 = v57 + *(v103 + 36);
-      *v74 = v54;
-      *(v74 + 8) = v67;
-      *(v74 + 16) = v69;
-      *(v74 + 24) = v71;
-      *(v74 + 32) = v73;
-      *(v74 + 40) = 0;
-      v75 = a1 + *(v45 + 32);
-      v76 = *v75;
-      v77 = *(v75 + 8);
-      LOBYTE(v127[0]) = v76;
-      v127[1] = v77;
-      __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI5StateVySbGMd);
-      v78 = State.wrappedValue.getter();
-      if (LOBYTE(v126[0]) == 1)
+      v68 = v67;
+      v70 = v69;
+      v72 = v71;
+      v74 = v73;
+      outlined init with take of ZStack<TupleView<(ModifiedContent<_ShapeView<Rectangle, Color>, _AllowsHitTestingModifier>, ModifiedContent<StaticIf<Solarium, _GlassEffectContainer<ModifiedContent<ModifiedContent<ModifiedContent<VStack<TupleView<(ModifiedContent<<<opaque return type of View.accessibilityElement(children:)>>.0, AccessibilityAttachmentModifier>, TranslationTextView??)>>, _PaddingLayout>, _FlexFrameLayout>, PlatterBackgroundModifier>>, ModifiedContent<ModifiedContent<ModifiedContent<VStack<TupleView<(ModifiedContent<<<opaque return type of View.accessibilityElement(children:)>>.0, AccessibilityAttachmentModifier>, TranslationTextView??)>>, _PaddingLayout>, _FlexFrameLayout>, PlatterBackgroundModifier>>, _AnimationModifier<Bool>>)>>(v53, v57, &_s7SwiftUI15ModifiedContentVyACyAA6VStackVyAA9TupleViewVyAA6SpacerV_ACyACyACyACyACyAA4TextVAA14_PaddingLayoutVGAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGAA011_BackgroundO0VyAA012_ConditionalD0VyAA06_ShapeG0VyAA16RoundedRectangleVARGA_yA1_AA8MaterialVGGGGAA11_ClipEffectVyA1_GGAA023AccessibilityAttachmentO0VGACyACyACy15ConversationKit13MovieScrubber33_B419541366E265736F7249488C40E55CLLVA11_GAA010_FixedSizeK0VGAA06_FrameK0VGtGGAA024_SafeAreaRegionsIgnoringK0VGAA010_FlexFrameK0VGMd, &_s7SwiftUI15ModifiedContentVyACyAA6VStackVyAA9TupleViewVyAA6SpacerV_ACyACyACyACyACyAA4TextVAA14_PaddingLayoutVGAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGAA011_BackgroundO0VyAA012_ConditionalD0VyAA06_ShapeG0VyAA16RoundedRectangleVARGA_yA1_AA8MaterialVGGGGAA11_ClipEffectVyA1_GGAA023AccessibilityAttachmentO0VGACyACyACy15ConversationKit13MovieScrubber33_B419541366E265736F7249488C40E55CLLVA11_GAA010_FixedSizeK0VGAA06_FrameK0VGtGGAA024_SafeAreaRegionsIgnoringK0VGAA010_FlexFrameK0VGMR);
+      v75 = v57 + *(v104 + 36);
+      *v75 = v54;
+      *(v75 + 8) = v68;
+      *(v75 + 16) = v70;
+      *(v75 + 24) = v72;
+      *(v75 + 32) = v74;
+      *(v75 + 40) = 0;
+      v76 = (a1 + *(v45 + 32));
+      v77 = *v76;
+      v78 = *(v76 + 1);
+      LOBYTE(v128[0]) = v77;
+      v128[1] = v78;
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI5StateVySbGMd, &_s7SwiftUI5StateVySbGMR);
+      v79 = State.wrappedValue.getter();
+      if (LOBYTE(v127[0]) == 1)
       {
-        v56 = VideoMessagePlayerViewModel.scrubberOpacity.getter(v78);
+        v56 = VideoMessagePlayerViewModel.scrubberOpacity.getter(v79);
       }
 
-      v79 = v105;
-      outlined init with take of ZStack<TupleView<(ModifiedContent<_ShapeView<Rectangle, Color>, _AllowsHitTestingModifier>, ModifiedContent<StaticIf<Solarium, _GlassEffectContainer<ModifiedContent<ModifiedContent<ModifiedContent<VStack<TupleView<(ModifiedContent<<<opaque return type of View.accessibilityElement(children:)>>.0, AccessibilityAttachmentModifier>, TranslationTextView??)>>, _PaddingLayout>, _FlexFrameLayout>, PlatterBackgroundModifier>>, ModifiedContent<ModifiedContent<ModifiedContent<VStack<TupleView<(ModifiedContent<<<opaque return type of View.accessibilityElement(children:)>>.0, AccessibilityAttachmentModifier>, TranslationTextView??)>>, _PaddingLayout>, _FlexFrameLayout>, PlatterBackgroundModifier>>, _AnimationModifier<Bool>>)>>(v57, v105, &_s7SwiftUI15ModifiedContentVyACyACyAA6VStackVyAA9TupleViewVyAA6SpacerV_ACyACyACyACyACyAA4TextVAA14_PaddingLayoutVGAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGAA011_BackgroundO0VyAA012_ConditionalD0VyAA06_ShapeG0VyAA16RoundedRectangleVARGA_yA1_AA8MaterialVGGGGAA11_ClipEffectVyA1_GGAA023AccessibilityAttachmentO0VGACyACyACy15ConversationKit13MovieScrubber33_B419541366E265736F7249488C40E55CLLVA11_GAA010_FixedSizeK0VGAA06_FrameK0VGtGGAA024_SafeAreaRegionsIgnoringK0VGAA010_FlexFrameK0VGAMGMd);
-      v59 = v113;
-      *(v79 + *(v113 + 36)) = v56;
-      v80 = v79;
-      v81 = v104;
-      outlined init with take of ZStack<TupleView<(ModifiedContent<_ShapeView<Rectangle, Color>, _AllowsHitTestingModifier>, ModifiedContent<StaticIf<Solarium, _GlassEffectContainer<ModifiedContent<ModifiedContent<ModifiedContent<VStack<TupleView<(ModifiedContent<<<opaque return type of View.accessibilityElement(children:)>>.0, AccessibilityAttachmentModifier>, TranslationTextView??)>>, _PaddingLayout>, _FlexFrameLayout>, PlatterBackgroundModifier>>, ModifiedContent<ModifiedContent<ModifiedContent<VStack<TupleView<(ModifiedContent<<<opaque return type of View.accessibilityElement(children:)>>.0, AccessibilityAttachmentModifier>, TranslationTextView??)>>, _PaddingLayout>, _FlexFrameLayout>, PlatterBackgroundModifier>>, _AnimationModifier<Bool>>)>>(v80, v104, &_s7SwiftUI15ModifiedContentVyACyACyACyAA6VStackVyAA9TupleViewVyAA6SpacerV_ACyACyACyACyACyAA4TextVAA14_PaddingLayoutVGAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGAA011_BackgroundO0VyAA012_ConditionalD0VyAA06_ShapeG0VyAA16RoundedRectangleVARGA_yA1_AA8MaterialVGGGGAA11_ClipEffectVyA1_GGAA023AccessibilityAttachmentO0VGACyACyACy15ConversationKit13MovieScrubber33_B419541366E265736F7249488C40E55CLLVA11_GAA010_FixedSizeK0VGAA06_FrameK0VGtGGAA024_SafeAreaRegionsIgnoringK0VGAA010_FlexFrameK0VGAMGAA08_OpacityX0VGMd);
-      v60 = v112;
-      outlined init with take of ZStack<TupleView<(ModifiedContent<_ShapeView<Rectangle, Color>, _AllowsHitTestingModifier>, ModifiedContent<StaticIf<Solarium, _GlassEffectContainer<ModifiedContent<ModifiedContent<ModifiedContent<VStack<TupleView<(ModifiedContent<<<opaque return type of View.accessibilityElement(children:)>>.0, AccessibilityAttachmentModifier>, TranslationTextView??)>>, _PaddingLayout>, _FlexFrameLayout>, PlatterBackgroundModifier>>, ModifiedContent<ModifiedContent<ModifiedContent<VStack<TupleView<(ModifiedContent<<<opaque return type of View.accessibilityElement(children:)>>.0, AccessibilityAttachmentModifier>, TranslationTextView??)>>, _PaddingLayout>, _FlexFrameLayout>, PlatterBackgroundModifier>>, _AnimationModifier<Bool>>)>>(v81, v112, &_s7SwiftUI15ModifiedContentVyACyACyACyAA6VStackVyAA9TupleViewVyAA6SpacerV_ACyACyACyACyACyAA4TextVAA14_PaddingLayoutVGAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGAA011_BackgroundO0VyAA012_ConditionalD0VyAA06_ShapeG0VyAA16RoundedRectangleVARGA_yA1_AA8MaterialVGGGGAA11_ClipEffectVyA1_GGAA023AccessibilityAttachmentO0VGACyACyACy15ConversationKit13MovieScrubber33_B419541366E265736F7249488C40E55CLLVA11_GAA010_FixedSizeK0VGAA06_FrameK0VGtGGAA024_SafeAreaRegionsIgnoringK0VGAA010_FlexFrameK0VGAMGAA08_OpacityX0VGMd);
+      v80 = v106;
+      outlined init with take of ZStack<TupleView<(ModifiedContent<_ShapeView<Rectangle, Color>, _AllowsHitTestingModifier>, ModifiedContent<StaticIf<Solarium, _GlassEffectContainer<ModifiedContent<ModifiedContent<ModifiedContent<VStack<TupleView<(ModifiedContent<<<opaque return type of View.accessibilityElement(children:)>>.0, AccessibilityAttachmentModifier>, TranslationTextView??)>>, _PaddingLayout>, _FlexFrameLayout>, PlatterBackgroundModifier>>, ModifiedContent<ModifiedContent<ModifiedContent<VStack<TupleView<(ModifiedContent<<<opaque return type of View.accessibilityElement(children:)>>.0, AccessibilityAttachmentModifier>, TranslationTextView??)>>, _PaddingLayout>, _FlexFrameLayout>, PlatterBackgroundModifier>>, _AnimationModifier<Bool>>)>>(v57, v106, &_s7SwiftUI15ModifiedContentVyACyACyAA6VStackVyAA9TupleViewVyAA6SpacerV_ACyACyACyACyACyAA4TextVAA14_PaddingLayoutVGAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGAA011_BackgroundO0VyAA012_ConditionalD0VyAA06_ShapeG0VyAA16RoundedRectangleVARGA_yA1_AA8MaterialVGGGGAA11_ClipEffectVyA1_GGAA023AccessibilityAttachmentO0VGACyACyACy15ConversationKit13MovieScrubber33_B419541366E265736F7249488C40E55CLLVA11_GAA010_FixedSizeK0VGAA06_FrameK0VGtGGAA024_SafeAreaRegionsIgnoringK0VGAA010_FlexFrameK0VGAMGMd, &_s7SwiftUI15ModifiedContentVyACyACyAA6VStackVyAA9TupleViewVyAA6SpacerV_ACyACyACyACyACyAA4TextVAA14_PaddingLayoutVGAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGAA011_BackgroundO0VyAA012_ConditionalD0VyAA06_ShapeG0VyAA16RoundedRectangleVARGA_yA1_AA8MaterialVGGGGAA11_ClipEffectVyA1_GGAA023AccessibilityAttachmentO0VGACyACyACy15ConversationKit13MovieScrubber33_B419541366E265736F7249488C40E55CLLVA11_GAA010_FixedSizeK0VGAA06_FrameK0VGtGGAA024_SafeAreaRegionsIgnoringK0VGAA010_FlexFrameK0VGAMGMR);
+      v59 = v114;
+      *(v80 + *(v114 + 36)) = v56;
+      v81 = v80;
+      v82 = v105;
+      outlined init with take of ZStack<TupleView<(ModifiedContent<_ShapeView<Rectangle, Color>, _AllowsHitTestingModifier>, ModifiedContent<StaticIf<Solarium, _GlassEffectContainer<ModifiedContent<ModifiedContent<ModifiedContent<VStack<TupleView<(ModifiedContent<<<opaque return type of View.accessibilityElement(children:)>>.0, AccessibilityAttachmentModifier>, TranslationTextView??)>>, _PaddingLayout>, _FlexFrameLayout>, PlatterBackgroundModifier>>, ModifiedContent<ModifiedContent<ModifiedContent<VStack<TupleView<(ModifiedContent<<<opaque return type of View.accessibilityElement(children:)>>.0, AccessibilityAttachmentModifier>, TranslationTextView??)>>, _PaddingLayout>, _FlexFrameLayout>, PlatterBackgroundModifier>>, _AnimationModifier<Bool>>)>>(v81, v105, &_s7SwiftUI15ModifiedContentVyACyACyACyAA6VStackVyAA9TupleViewVyAA6SpacerV_ACyACyACyACyACyAA4TextVAA14_PaddingLayoutVGAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGAA011_BackgroundO0VyAA012_ConditionalD0VyAA06_ShapeG0VyAA16RoundedRectangleVARGA_yA1_AA8MaterialVGGGGAA11_ClipEffectVyA1_GGAA023AccessibilityAttachmentO0VGACyACyACy15ConversationKit13MovieScrubber33_B419541366E265736F7249488C40E55CLLVA11_GAA010_FixedSizeK0VGAA06_FrameK0VGtGGAA024_SafeAreaRegionsIgnoringK0VGAA010_FlexFrameK0VGAMGAA08_OpacityX0VGMd, &_s7SwiftUI15ModifiedContentVyACyACyACyAA6VStackVyAA9TupleViewVyAA6SpacerV_ACyACyACyACyACyAA4TextVAA14_PaddingLayoutVGAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGAA011_BackgroundO0VyAA012_ConditionalD0VyAA06_ShapeG0VyAA16RoundedRectangleVARGA_yA1_AA8MaterialVGGGGAA11_ClipEffectVyA1_GGAA023AccessibilityAttachmentO0VGACyACyACy15ConversationKit13MovieScrubber33_B419541366E265736F7249488C40E55CLLVA11_GAA010_FixedSizeK0VGAA06_FrameK0VGtGGAA024_SafeAreaRegionsIgnoringK0VGAA010_FlexFrameK0VGAMGAA08_OpacityX0VGMR);
+      v60 = v113;
+      outlined init with take of ZStack<TupleView<(ModifiedContent<_ShapeView<Rectangle, Color>, _AllowsHitTestingModifier>, ModifiedContent<StaticIf<Solarium, _GlassEffectContainer<ModifiedContent<ModifiedContent<ModifiedContent<VStack<TupleView<(ModifiedContent<<<opaque return type of View.accessibilityElement(children:)>>.0, AccessibilityAttachmentModifier>, TranslationTextView??)>>, _PaddingLayout>, _FlexFrameLayout>, PlatterBackgroundModifier>>, ModifiedContent<ModifiedContent<ModifiedContent<VStack<TupleView<(ModifiedContent<<<opaque return type of View.accessibilityElement(children:)>>.0, AccessibilityAttachmentModifier>, TranslationTextView??)>>, _PaddingLayout>, _FlexFrameLayout>, PlatterBackgroundModifier>>, _AnimationModifier<Bool>>)>>(v82, v113, &_s7SwiftUI15ModifiedContentVyACyACyACyAA6VStackVyAA9TupleViewVyAA6SpacerV_ACyACyACyACyACyAA4TextVAA14_PaddingLayoutVGAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGAA011_BackgroundO0VyAA012_ConditionalD0VyAA06_ShapeG0VyAA16RoundedRectangleVARGA_yA1_AA8MaterialVGGGGAA11_ClipEffectVyA1_GGAA023AccessibilityAttachmentO0VGACyACyACy15ConversationKit13MovieScrubber33_B419541366E265736F7249488C40E55CLLVA11_GAA010_FixedSizeK0VGAA06_FrameK0VGtGGAA024_SafeAreaRegionsIgnoringK0VGAA010_FlexFrameK0VGAMGAA08_OpacityX0VGMd, &_s7SwiftUI15ModifiedContentVyACyACyACyAA6VStackVyAA9TupleViewVyAA6SpacerV_ACyACyACyACyACyAA4TextVAA14_PaddingLayoutVGAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGAA011_BackgroundO0VyAA012_ConditionalD0VyAA06_ShapeG0VyAA16RoundedRectangleVARGA_yA1_AA8MaterialVGGGGAA11_ClipEffectVyA1_GGAA023AccessibilityAttachmentO0VGACyACyACy15ConversationKit13MovieScrubber33_B419541366E265736F7249488C40E55CLLVA11_GAA010_FixedSizeK0VGAA06_FrameK0VGtGGAA024_SafeAreaRegionsIgnoringK0VGAA010_FlexFrameK0VGAMGAA08_OpacityX0VGMR);
       v36 = 0;
     }
 
     else
     {
-      v60 = v112;
-      v59 = v113;
+      v60 = v113;
+      v59 = v114;
     }
 
     __swift_storeEnumTagSinglePayload(v60, v36, 1, v59);
-    v82 = v111;
-    outlined init with copy of IDView<AvatarStackView, [UUID]>(v43, v111, &_s7SwiftUI15ModifiedContentVyACyAA6VStackVyAA9TupleViewVyAA6SpacerV_AA012_ConditionalD0VyACyACy15ConversationKit020VideoMessageControlsG0V010PlayButtonG033_B419541366E265736F7249488C40E55CLLVAA14_OpacityEffectVGAA32_EnvironmentKeyTransformModifierVySbGGACyAxA16_OverlayModifierVyACyACyACyACyACyAA4TextVAA01_xY15WritingModifierVySiSgGGAA24_ForegroundStyleModifierVyAA22HierarchicalShapeStyleVGGA2_yAA8MaterialVSgGGAA12_FrameLayoutVGAA25_AlignmentWritingModifierVGGGGAItGGAA30_SafeAreaRegionsIgnoringLayoutVGAA16_FlexFrameLayoutVGMd);
-    v83 = v114;
-    outlined init with copy of IDView<AvatarStackView, [UUID]>(v60, v114, &_s7SwiftUI15ModifiedContentVyACyACyACyAA6VStackVyAA9TupleViewVyAA6SpacerV_ACyACyACyACyACyAA4TextVAA14_PaddingLayoutVGAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGAA011_BackgroundO0VyAA012_ConditionalD0VyAA06_ShapeG0VyAA16RoundedRectangleVARGA_yA1_AA8MaterialVGGGGAA11_ClipEffectVyA1_GGAA023AccessibilityAttachmentO0VGACyACyACy15ConversationKit13MovieScrubber33_B419541366E265736F7249488C40E55CLLVA11_GAA010_FixedSizeK0VGAA06_FrameK0VGtGGAA024_SafeAreaRegionsIgnoringK0VGAA010_FlexFrameK0VGAMGAA08_OpacityX0VGSgMd);
-    v84 = v43;
-    v85 = v115;
-    outlined init with copy of IDView<AvatarStackView, [UUID]>(v82, v115, &_s7SwiftUI15ModifiedContentVyACyAA6VStackVyAA9TupleViewVyAA6SpacerV_AA012_ConditionalD0VyACyACy15ConversationKit020VideoMessageControlsG0V010PlayButtonG033_B419541366E265736F7249488C40E55CLLVAA14_OpacityEffectVGAA32_EnvironmentKeyTransformModifierVySbGGACyAxA16_OverlayModifierVyACyACyACyACyACyAA4TextVAA01_xY15WritingModifierVySiSgGGAA24_ForegroundStyleModifierVyAA22HierarchicalShapeStyleVGGA2_yAA8MaterialVSgGGAA12_FrameLayoutVGAA25_AlignmentWritingModifierVGGGGAItGGAA30_SafeAreaRegionsIgnoringLayoutVGAA16_FlexFrameLayoutVGMd);
-    v86 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyACyAA6VStackVyAA9TupleViewVyAA6SpacerV_AA012_ConditionalD0VyACyACy15ConversationKit020VideoMessageControlsG0V010PlayButtonG033_B419541366E265736F7249488C40E55CLLVAA14_OpacityEffectVGAA32_EnvironmentKeyTransformModifierVySbGGACyAxA16_OverlayModifierVyACyACyACyACyACyAA4TextVAA01_xY15WritingModifierVySiSgGGAA24_ForegroundStyleModifierVyAA22HierarchicalShapeStyleVGGA2_yAA8MaterialVSgGGAA12_FrameLayoutVGAA25_AlignmentWritingModifierVGGGGAItGGAA30_SafeAreaRegionsIgnoringLayoutVGAA16_FlexFrameLayoutVG_ACyACyACyACyAEyAGyAI_ACyACyACyACyACyA0_AA14_PaddingLayoutVGA2_yAA5ColorVSgGGAA19_BackgroundModifierVyAKyAA06_ShapeG0VyAA16RoundedRectangleVA38_GA45_yA47_A13_GGGGAA05_ClipW0VyA47_GGAA31AccessibilityAttachmentModifierVGACyACyACyAL13MovieScrubberAPLLVA55_GAA16_FixedSizeLayoutVGA18_GtGGA29_GA32_GA35_GASGSgtMd);
-    outlined init with copy of IDView<AvatarStackView, [UUID]>(v83, v85 + *(v86 + 48), &_s7SwiftUI15ModifiedContentVyACyACyACyAA6VStackVyAA9TupleViewVyAA6SpacerV_ACyACyACyACyACyAA4TextVAA14_PaddingLayoutVGAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGAA011_BackgroundO0VyAA012_ConditionalD0VyAA06_ShapeG0VyAA16RoundedRectangleVARGA_yA1_AA8MaterialVGGGGAA11_ClipEffectVyA1_GGAA023AccessibilityAttachmentO0VGACyACyACy15ConversationKit13MovieScrubber33_B419541366E265736F7249488C40E55CLLVA11_GAA010_FixedSizeK0VGAA06_FrameK0VGtGGAA024_SafeAreaRegionsIgnoringK0VGAA010_FlexFrameK0VGAMGAA08_OpacityX0VGSgMd);
-    outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v60, &_s7SwiftUI15ModifiedContentVyACyACyACyAA6VStackVyAA9TupleViewVyAA6SpacerV_ACyACyACyACyACyAA4TextVAA14_PaddingLayoutVGAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGAA011_BackgroundO0VyAA012_ConditionalD0VyAA06_ShapeG0VyAA16RoundedRectangleVARGA_yA1_AA8MaterialVGGGGAA11_ClipEffectVyA1_GGAA023AccessibilityAttachmentO0VGACyACyACy15ConversationKit13MovieScrubber33_B419541366E265736F7249488C40E55CLLVA11_GAA010_FixedSizeK0VGAA06_FrameK0VGtGGAA024_SafeAreaRegionsIgnoringK0VGAA010_FlexFrameK0VGAMGAA08_OpacityX0VGSgMd);
-    outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v84, &_s7SwiftUI15ModifiedContentVyACyAA6VStackVyAA9TupleViewVyAA6SpacerV_AA012_ConditionalD0VyACyACy15ConversationKit020VideoMessageControlsG0V010PlayButtonG033_B419541366E265736F7249488C40E55CLLVAA14_OpacityEffectVGAA32_EnvironmentKeyTransformModifierVySbGGACyAxA16_OverlayModifierVyACyACyACyACyACyAA4TextVAA01_xY15WritingModifierVySiSgGGAA24_ForegroundStyleModifierVyAA22HierarchicalShapeStyleVGGA2_yAA8MaterialVSgGGAA12_FrameLayoutVGAA25_AlignmentWritingModifierVGGGGAItGGAA30_SafeAreaRegionsIgnoringLayoutVGAA16_FlexFrameLayoutVGMd);
-    outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v83, &_s7SwiftUI15ModifiedContentVyACyACyACyAA6VStackVyAA9TupleViewVyAA6SpacerV_ACyACyACyACyACyAA4TextVAA14_PaddingLayoutVGAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGAA011_BackgroundO0VyAA012_ConditionalD0VyAA06_ShapeG0VyAA16RoundedRectangleVARGA_yA1_AA8MaterialVGGGGAA11_ClipEffectVyA1_GGAA023AccessibilityAttachmentO0VGACyACyACy15ConversationKit13MovieScrubber33_B419541366E265736F7249488C40E55CLLVA11_GAA010_FixedSizeK0VGAA06_FrameK0VGtGGAA024_SafeAreaRegionsIgnoringK0VGAA010_FlexFrameK0VGAMGAA08_OpacityX0VGSgMd);
-    outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v82, &_s7SwiftUI15ModifiedContentVyACyAA6VStackVyAA9TupleViewVyAA6SpacerV_AA012_ConditionalD0VyACyACy15ConversationKit020VideoMessageControlsG0V010PlayButtonG033_B419541366E265736F7249488C40E55CLLVAA14_OpacityEffectVGAA32_EnvironmentKeyTransformModifierVySbGGACyAxA16_OverlayModifierVyACyACyACyACyACyAA4TextVAA01_xY15WritingModifierVySiSgGGAA24_ForegroundStyleModifierVyAA22HierarchicalShapeStyleVGGA2_yAA8MaterialVSgGGAA12_FrameLayoutVGAA25_AlignmentWritingModifierVGGGGAItGGAA30_SafeAreaRegionsIgnoringLayoutVGAA16_FlexFrameLayoutVGMd);
-    v30 = v96;
-    outlined init with take of ZStack<TupleView<(ModifiedContent<_ShapeView<Rectangle, Color>, _AllowsHitTestingModifier>, ModifiedContent<StaticIf<Solarium, _GlassEffectContainer<ModifiedContent<ModifiedContent<ModifiedContent<VStack<TupleView<(ModifiedContent<<<opaque return type of View.accessibilityElement(children:)>>.0, AccessibilityAttachmentModifier>, TranslationTextView??)>>, _PaddingLayout>, _FlexFrameLayout>, PlatterBackgroundModifier>>, ModifiedContent<ModifiedContent<ModifiedContent<VStack<TupleView<(ModifiedContent<<<opaque return type of View.accessibilityElement(children:)>>.0, AccessibilityAttachmentModifier>, TranslationTextView??)>>, _PaddingLayout>, _FlexFrameLayout>, PlatterBackgroundModifier>>, _AnimationModifier<Bool>>)>>(v85, v96, &_s7SwiftUI9TupleViewVyAA15ModifiedContentVyAEyAA6VStackVyACyAA6SpacerV_AA012_ConditionalF0VyAEyAEy15ConversationKit020VideoMessageControlsD0V010PlayButtonD033_B419541366E265736F7249488C40E55CLLVAA14_OpacityEffectVGAA32_EnvironmentKeyTransformModifierVySbGGAEyAxA16_OverlayModifierVyAEyAEyAEyAEyAEyAA4TextVAA01_xY15WritingModifierVySiSgGGAA24_ForegroundStyleModifierVyAA22HierarchicalShapeStyleVGGA2_yAA8MaterialVSgGGAA12_FrameLayoutVGAA25_AlignmentWritingModifierVGGGGAItGGAA30_SafeAreaRegionsIgnoringLayoutVGAA16_FlexFrameLayoutVG_AEyAEyAEyAEyAGyACyAI_AEyAEyAEyAEyAEyA0_AA14_PaddingLayoutVGA2_yAA5ColorVSgGGAA19_BackgroundModifierVyAKyAA06_ShapeD0VyAA16RoundedRectangleVA38_GA45_yA47_A13_GGGGAA05_ClipW0VyA47_GGAA31AccessibilityAttachmentModifierVGAEyAEyAEyAL13MovieScrubberAPLLVA55_GAA16_FixedSizeLayoutVGA18_GtGGA29_GA32_GA35_GASGSgtGMd);
+    v83 = v112;
+    outlined init with copy of IDView<AvatarStackView, [UUID]>(v43, v112, &_s7SwiftUI15ModifiedContentVyACyAA6VStackVyAA9TupleViewVyAA6SpacerV_AA012_ConditionalD0VyACyACy15ConversationKit020VideoMessageControlsG0V010PlayButtonG033_B419541366E265736F7249488C40E55CLLVAA14_OpacityEffectVGAA32_EnvironmentKeyTransformModifierVySbGGACyAxA16_OverlayModifierVyACyACyACyACyACyAA4TextVAA01_xY15WritingModifierVySiSgGGAA24_ForegroundStyleModifierVyAA22HierarchicalShapeStyleVGGA2_yAA8MaterialVSgGGAA12_FrameLayoutVGAA25_AlignmentWritingModifierVGGGGAItGGAA30_SafeAreaRegionsIgnoringLayoutVGAA16_FlexFrameLayoutVGMd, &_s7SwiftUI15ModifiedContentVyACyAA6VStackVyAA9TupleViewVyAA6SpacerV_AA012_ConditionalD0VyACyACy15ConversationKit020VideoMessageControlsG0V010PlayButtonG033_B419541366E265736F7249488C40E55CLLVAA14_OpacityEffectVGAA32_EnvironmentKeyTransformModifierVySbGGACyAxA16_OverlayModifierVyACyACyACyACyACyAA4TextVAA01_xY15WritingModifierVySiSgGGAA24_ForegroundStyleModifierVyAA22HierarchicalShapeStyleVGGA2_yAA8MaterialVSgGGAA12_FrameLayoutVGAA25_AlignmentWritingModifierVGGGGAItGGAA30_SafeAreaRegionsIgnoringLayoutVGAA16_FlexFrameLayoutVGMR);
+    v84 = v115;
+    outlined init with copy of IDView<AvatarStackView, [UUID]>(v60, v115, &_s7SwiftUI15ModifiedContentVyACyACyACyAA6VStackVyAA9TupleViewVyAA6SpacerV_ACyACyACyACyACyAA4TextVAA14_PaddingLayoutVGAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGAA011_BackgroundO0VyAA012_ConditionalD0VyAA06_ShapeG0VyAA16RoundedRectangleVARGA_yA1_AA8MaterialVGGGGAA11_ClipEffectVyA1_GGAA023AccessibilityAttachmentO0VGACyACyACy15ConversationKit13MovieScrubber33_B419541366E265736F7249488C40E55CLLVA11_GAA010_FixedSizeK0VGAA06_FrameK0VGtGGAA024_SafeAreaRegionsIgnoringK0VGAA010_FlexFrameK0VGAMGAA08_OpacityX0VGSgMd, &_s7SwiftUI15ModifiedContentVyACyACyACyAA6VStackVyAA9TupleViewVyAA6SpacerV_ACyACyACyACyACyAA4TextVAA14_PaddingLayoutVGAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGAA011_BackgroundO0VyAA012_ConditionalD0VyAA06_ShapeG0VyAA16RoundedRectangleVARGA_yA1_AA8MaterialVGGGGAA11_ClipEffectVyA1_GGAA023AccessibilityAttachmentO0VGACyACyACy15ConversationKit13MovieScrubber33_B419541366E265736F7249488C40E55CLLVA11_GAA010_FixedSizeK0VGAA06_FrameK0VGtGGAA024_SafeAreaRegionsIgnoringK0VGAA010_FlexFrameK0VGAMGAA08_OpacityX0VGSgMR);
+    v85 = v43;
+    v86 = v116;
+    outlined init with copy of IDView<AvatarStackView, [UUID]>(v83, v116, &_s7SwiftUI15ModifiedContentVyACyAA6VStackVyAA9TupleViewVyAA6SpacerV_AA012_ConditionalD0VyACyACy15ConversationKit020VideoMessageControlsG0V010PlayButtonG033_B419541366E265736F7249488C40E55CLLVAA14_OpacityEffectVGAA32_EnvironmentKeyTransformModifierVySbGGACyAxA16_OverlayModifierVyACyACyACyACyACyAA4TextVAA01_xY15WritingModifierVySiSgGGAA24_ForegroundStyleModifierVyAA22HierarchicalShapeStyleVGGA2_yAA8MaterialVSgGGAA12_FrameLayoutVGAA25_AlignmentWritingModifierVGGGGAItGGAA30_SafeAreaRegionsIgnoringLayoutVGAA16_FlexFrameLayoutVGMd, &_s7SwiftUI15ModifiedContentVyACyAA6VStackVyAA9TupleViewVyAA6SpacerV_AA012_ConditionalD0VyACyACy15ConversationKit020VideoMessageControlsG0V010PlayButtonG033_B419541366E265736F7249488C40E55CLLVAA14_OpacityEffectVGAA32_EnvironmentKeyTransformModifierVySbGGACyAxA16_OverlayModifierVyACyACyACyACyACyAA4TextVAA01_xY15WritingModifierVySiSgGGAA24_ForegroundStyleModifierVyAA22HierarchicalShapeStyleVGGA2_yAA8MaterialVSgGGAA12_FrameLayoutVGAA25_AlignmentWritingModifierVGGGGAItGGAA30_SafeAreaRegionsIgnoringLayoutVGAA16_FlexFrameLayoutVGMR);
+    v87 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyACyAA6VStackVyAA9TupleViewVyAA6SpacerV_AA012_ConditionalD0VyACyACy15ConversationKit020VideoMessageControlsG0V010PlayButtonG033_B419541366E265736F7249488C40E55CLLVAA14_OpacityEffectVGAA32_EnvironmentKeyTransformModifierVySbGGACyAxA16_OverlayModifierVyACyACyACyACyACyAA4TextVAA01_xY15WritingModifierVySiSgGGAA24_ForegroundStyleModifierVyAA22HierarchicalShapeStyleVGGA2_yAA8MaterialVSgGGAA12_FrameLayoutVGAA25_AlignmentWritingModifierVGGGGAItGGAA30_SafeAreaRegionsIgnoringLayoutVGAA16_FlexFrameLayoutVG_ACyACyACyACyAEyAGyAI_ACyACyACyACyACyA0_AA14_PaddingLayoutVGA2_yAA5ColorVSgGGAA19_BackgroundModifierVyAKyAA06_ShapeG0VyAA16RoundedRectangleVA38_GA45_yA47_A13_GGGGAA05_ClipW0VyA47_GGAA31AccessibilityAttachmentModifierVGACyACyACyAL13MovieScrubberAPLLVA55_GAA16_FixedSizeLayoutVGA18_GtGGA29_GA32_GA35_GASGSgtMd, &_s7SwiftUI15ModifiedContentVyACyAA6VStackVyAA9TupleViewVyAA6SpacerV_AA012_ConditionalD0VyACyACy15ConversationKit020VideoMessageControlsG0V010PlayButtonG033_B419541366E265736F7249488C40E55CLLVAA14_OpacityEffectVGAA32_EnvironmentKeyTransformModifierVySbGGACyAxA16_OverlayModifierVyACyACyACyACyACyAA4TextVAA01_xY15WritingModifierVySiSgGGAA24_ForegroundStyleModifierVyAA22HierarchicalShapeStyleVGGA2_yAA8MaterialVSgGGAA12_FrameLayoutVGAA25_AlignmentWritingModifierVGGGGAItGGAA30_SafeAreaRegionsIgnoringLayoutVGAA16_FlexFrameLayoutVG_ACyACyACyACyAEyAGyAI_ACyACyACyACyACyA0_AA14_PaddingLayoutVGA2_yAA5ColorVSgGGAA19_BackgroundModifierVyAKyAA06_ShapeG0VyAA16RoundedRectangleVA38_GA45_yA47_A13_GGGGAA05_ClipW0VyA47_GGAA31AccessibilityAttachmentModifierVGACyACyACyAL13MovieScrubberAPLLVA55_GAA16_FixedSizeLayoutVGA18_GtGGA29_GA32_GA35_GASGSgtMR);
+    outlined init with copy of IDView<AvatarStackView, [UUID]>(v84, v86 + *(v87 + 48), &_s7SwiftUI15ModifiedContentVyACyACyACyAA6VStackVyAA9TupleViewVyAA6SpacerV_ACyACyACyACyACyAA4TextVAA14_PaddingLayoutVGAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGAA011_BackgroundO0VyAA012_ConditionalD0VyAA06_ShapeG0VyAA16RoundedRectangleVARGA_yA1_AA8MaterialVGGGGAA11_ClipEffectVyA1_GGAA023AccessibilityAttachmentO0VGACyACyACy15ConversationKit13MovieScrubber33_B419541366E265736F7249488C40E55CLLVA11_GAA010_FixedSizeK0VGAA06_FrameK0VGtGGAA024_SafeAreaRegionsIgnoringK0VGAA010_FlexFrameK0VGAMGAA08_OpacityX0VGSgMd, &_s7SwiftUI15ModifiedContentVyACyACyACyAA6VStackVyAA9TupleViewVyAA6SpacerV_ACyACyACyACyACyAA4TextVAA14_PaddingLayoutVGAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGAA011_BackgroundO0VyAA012_ConditionalD0VyAA06_ShapeG0VyAA16RoundedRectangleVARGA_yA1_AA8MaterialVGGGGAA11_ClipEffectVyA1_GGAA023AccessibilityAttachmentO0VGACyACyACy15ConversationKit13MovieScrubber33_B419541366E265736F7249488C40E55CLLVA11_GAA010_FixedSizeK0VGAA06_FrameK0VGtGGAA024_SafeAreaRegionsIgnoringK0VGAA010_FlexFrameK0VGAMGAA08_OpacityX0VGSgMR);
+    outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v60, &_s7SwiftUI15ModifiedContentVyACyACyACyAA6VStackVyAA9TupleViewVyAA6SpacerV_ACyACyACyACyACyAA4TextVAA14_PaddingLayoutVGAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGAA011_BackgroundO0VyAA012_ConditionalD0VyAA06_ShapeG0VyAA16RoundedRectangleVARGA_yA1_AA8MaterialVGGGGAA11_ClipEffectVyA1_GGAA023AccessibilityAttachmentO0VGACyACyACy15ConversationKit13MovieScrubber33_B419541366E265736F7249488C40E55CLLVA11_GAA010_FixedSizeK0VGAA06_FrameK0VGtGGAA024_SafeAreaRegionsIgnoringK0VGAA010_FlexFrameK0VGAMGAA08_OpacityX0VGSgMd, &_s7SwiftUI15ModifiedContentVyACyACyACyAA6VStackVyAA9TupleViewVyAA6SpacerV_ACyACyACyACyACyAA4TextVAA14_PaddingLayoutVGAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGAA011_BackgroundO0VyAA012_ConditionalD0VyAA06_ShapeG0VyAA16RoundedRectangleVARGA_yA1_AA8MaterialVGGGGAA11_ClipEffectVyA1_GGAA023AccessibilityAttachmentO0VGACyACyACy15ConversationKit13MovieScrubber33_B419541366E265736F7249488C40E55CLLVA11_GAA010_FixedSizeK0VGAA06_FrameK0VGtGGAA024_SafeAreaRegionsIgnoringK0VGAA010_FlexFrameK0VGAMGAA08_OpacityX0VGSgMR);
+    outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v85, &_s7SwiftUI15ModifiedContentVyACyAA6VStackVyAA9TupleViewVyAA6SpacerV_AA012_ConditionalD0VyACyACy15ConversationKit020VideoMessageControlsG0V010PlayButtonG033_B419541366E265736F7249488C40E55CLLVAA14_OpacityEffectVGAA32_EnvironmentKeyTransformModifierVySbGGACyAxA16_OverlayModifierVyACyACyACyACyACyAA4TextVAA01_xY15WritingModifierVySiSgGGAA24_ForegroundStyleModifierVyAA22HierarchicalShapeStyleVGGA2_yAA8MaterialVSgGGAA12_FrameLayoutVGAA25_AlignmentWritingModifierVGGGGAItGGAA30_SafeAreaRegionsIgnoringLayoutVGAA16_FlexFrameLayoutVGMd, &_s7SwiftUI15ModifiedContentVyACyAA6VStackVyAA9TupleViewVyAA6SpacerV_AA012_ConditionalD0VyACyACy15ConversationKit020VideoMessageControlsG0V010PlayButtonG033_B419541366E265736F7249488C40E55CLLVAA14_OpacityEffectVGAA32_EnvironmentKeyTransformModifierVySbGGACyAxA16_OverlayModifierVyACyACyACyACyACyAA4TextVAA01_xY15WritingModifierVySiSgGGAA24_ForegroundStyleModifierVyAA22HierarchicalShapeStyleVGGA2_yAA8MaterialVSgGGAA12_FrameLayoutVGAA25_AlignmentWritingModifierVGGGGAItGGAA30_SafeAreaRegionsIgnoringLayoutVGAA16_FlexFrameLayoutVGMR);
+    outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v84, &_s7SwiftUI15ModifiedContentVyACyACyACyAA6VStackVyAA9TupleViewVyAA6SpacerV_ACyACyACyACyACyAA4TextVAA14_PaddingLayoutVGAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGAA011_BackgroundO0VyAA012_ConditionalD0VyAA06_ShapeG0VyAA16RoundedRectangleVARGA_yA1_AA8MaterialVGGGGAA11_ClipEffectVyA1_GGAA023AccessibilityAttachmentO0VGACyACyACy15ConversationKit13MovieScrubber33_B419541366E265736F7249488C40E55CLLVA11_GAA010_FixedSizeK0VGAA06_FrameK0VGtGGAA024_SafeAreaRegionsIgnoringK0VGAA010_FlexFrameK0VGAMGAA08_OpacityX0VGSgMd, &_s7SwiftUI15ModifiedContentVyACyACyACyAA6VStackVyAA9TupleViewVyAA6SpacerV_ACyACyACyACyACyAA4TextVAA14_PaddingLayoutVGAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGAA011_BackgroundO0VyAA012_ConditionalD0VyAA06_ShapeG0VyAA16RoundedRectangleVARGA_yA1_AA8MaterialVGGGGAA11_ClipEffectVyA1_GGAA023AccessibilityAttachmentO0VGACyACyACy15ConversationKit13MovieScrubber33_B419541366E265736F7249488C40E55CLLVA11_GAA010_FixedSizeK0VGAA06_FrameK0VGtGGAA024_SafeAreaRegionsIgnoringK0VGAA010_FlexFrameK0VGAMGAA08_OpacityX0VGSgMR);
+    outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v83, &_s7SwiftUI15ModifiedContentVyACyAA6VStackVyAA9TupleViewVyAA6SpacerV_AA012_ConditionalD0VyACyACy15ConversationKit020VideoMessageControlsG0V010PlayButtonG033_B419541366E265736F7249488C40E55CLLVAA14_OpacityEffectVGAA32_EnvironmentKeyTransformModifierVySbGGACyAxA16_OverlayModifierVyACyACyACyACyACyAA4TextVAA01_xY15WritingModifierVySiSgGGAA24_ForegroundStyleModifierVyAA22HierarchicalShapeStyleVGGA2_yAA8MaterialVSgGGAA12_FrameLayoutVGAA25_AlignmentWritingModifierVGGGGAItGGAA30_SafeAreaRegionsIgnoringLayoutVGAA16_FlexFrameLayoutVGMd, &_s7SwiftUI15ModifiedContentVyACyAA6VStackVyAA9TupleViewVyAA6SpacerV_AA012_ConditionalD0VyACyACy15ConversationKit020VideoMessageControlsG0V010PlayButtonG033_B419541366E265736F7249488C40E55CLLVAA14_OpacityEffectVGAA32_EnvironmentKeyTransformModifierVySbGGACyAxA16_OverlayModifierVyACyACyACyACyACyAA4TextVAA01_xY15WritingModifierVySiSgGGAA24_ForegroundStyleModifierVyAA22HierarchicalShapeStyleVGGA2_yAA8MaterialVSgGGAA12_FrameLayoutVGAA25_AlignmentWritingModifierVGGGGAItGGAA30_SafeAreaRegionsIgnoringLayoutVGAA16_FlexFrameLayoutVGMR);
+    v30 = v97;
+    outlined init with take of ZStack<TupleView<(ModifiedContent<_ShapeView<Rectangle, Color>, _AllowsHitTestingModifier>, ModifiedContent<StaticIf<Solarium, _GlassEffectContainer<ModifiedContent<ModifiedContent<ModifiedContent<VStack<TupleView<(ModifiedContent<<<opaque return type of View.accessibilityElement(children:)>>.0, AccessibilityAttachmentModifier>, TranslationTextView??)>>, _PaddingLayout>, _FlexFrameLayout>, PlatterBackgroundModifier>>, ModifiedContent<ModifiedContent<ModifiedContent<VStack<TupleView<(ModifiedContent<<<opaque return type of View.accessibilityElement(children:)>>.0, AccessibilityAttachmentModifier>, TranslationTextView??)>>, _PaddingLayout>, _FlexFrameLayout>, PlatterBackgroundModifier>>, _AnimationModifier<Bool>>)>>(v86, v97, &_s7SwiftUI9TupleViewVyAA15ModifiedContentVyAEyAA6VStackVyACyAA6SpacerV_AA012_ConditionalF0VyAEyAEy15ConversationKit020VideoMessageControlsD0V010PlayButtonD033_B419541366E265736F7249488C40E55CLLVAA14_OpacityEffectVGAA32_EnvironmentKeyTransformModifierVySbGGAEyAxA16_OverlayModifierVyAEyAEyAEyAEyAEyAA4TextVAA01_xY15WritingModifierVySiSgGGAA24_ForegroundStyleModifierVyAA22HierarchicalShapeStyleVGGA2_yAA8MaterialVSgGGAA12_FrameLayoutVGAA25_AlignmentWritingModifierVGGGGAItGGAA30_SafeAreaRegionsIgnoringLayoutVGAA16_FlexFrameLayoutVG_AEyAEyAEyAEyAGyACyAI_AEyAEyAEyAEyAEyA0_AA14_PaddingLayoutVGA2_yAA5ColorVSgGGAA19_BackgroundModifierVyAKyAA06_ShapeD0VyAA16RoundedRectangleVA38_GA45_yA47_A13_GGGGAA05_ClipW0VyA47_GGAA31AccessibilityAttachmentModifierVGAEyAEyAEyAL13MovieScrubberAPLLVA55_GAA16_FixedSizeLayoutVGA18_GtGGA29_GA32_GA35_GASGSgtGMd, &_s7SwiftUI9TupleViewVyAA15ModifiedContentVyAEyAA6VStackVyACyAA6SpacerV_AA012_ConditionalF0VyAEyAEy15ConversationKit020VideoMessageControlsD0V010PlayButtonD033_B419541366E265736F7249488C40E55CLLVAA14_OpacityEffectVGAA32_EnvironmentKeyTransformModifierVySbGGAEyAxA16_OverlayModifierVyAEyAEyAEyAEyAEyAA4TextVAA01_xY15WritingModifierVySiSgGGAA24_ForegroundStyleModifierVyAA22HierarchicalShapeStyleVGGA2_yAA8MaterialVSgGGAA12_FrameLayoutVGAA25_AlignmentWritingModifierVGGGGAItGGAA30_SafeAreaRegionsIgnoringLayoutVGAA16_FlexFrameLayoutVG_AEyAEyAEyAEyAGyACyAI_AEyAEyAEyAEyAEyA0_AA14_PaddingLayoutVGA2_yAA5ColorVSgGGAA19_BackgroundModifierVyAKyAA06_ShapeD0VyAA16RoundedRectangleVA38_GA45_yA47_A13_GGGGAA05_ClipW0VyA47_GGAA31AccessibilityAttachmentModifierVGAEyAEyAEyAL13MovieScrubberAPLLVA55_GAA16_FixedSizeLayoutVGA18_GtGGA29_GA32_GA35_GASGSgtGMR);
     v36 = 0;
   }
 
-  __swift_storeEnumTagSinglePayload(v30, v36, 1, v121);
-  v87 = v117;
-  v88 = v119;
-  outlined init with copy of IDView<AvatarStackView, [UUID]>(v117, v119, &_s7SwiftUI19_ConditionalContentVyAA6HStackVyAA9TupleViewVyAA6SpacerV_ACyAA08ModifiedD0VyAKyAKy15ConversationKit020VideoMessageControlsG0V011LocalBottomnG033_B419541366E265736F7249488C40E55CLLVAA14_OpacityEffectVGAA32_EnvironmentKeyTransformModifierVySbGGASGAKyAKyAKyAN06RemotepnG0APLLVAA14_PaddingLayoutVGA1_GAA16_FlexFrameLayoutVGGtGGAA6VStackVyA8_GGMd);
+  __swift_storeEnumTagSinglePayload(v30, v36, 1, v122);
+  v88 = v118;
   v89 = v120;
-  outlined init with copy of IDView<AvatarStackView, [UUID]>(v30, v120, &_s7SwiftUI9TupleViewVyAA15ModifiedContentVyAEyAA6VStackVyACyAA6SpacerV_AA012_ConditionalF0VyAEyAEy15ConversationKit020VideoMessageControlsD0V010PlayButtonD033_B419541366E265736F7249488C40E55CLLVAA14_OpacityEffectVGAA32_EnvironmentKeyTransformModifierVySbGGAEyAxA16_OverlayModifierVyAEyAEyAEyAEyAEyAA4TextVAA01_xY15WritingModifierVySiSgGGAA24_ForegroundStyleModifierVyAA22HierarchicalShapeStyleVGGA2_yAA8MaterialVSgGGAA12_FrameLayoutVGAA25_AlignmentWritingModifierVGGGGAItGGAA30_SafeAreaRegionsIgnoringLayoutVGAA16_FlexFrameLayoutVG_AEyAEyAEyAEyAGyACyAI_AEyAEyAEyAEyAEyA0_AA14_PaddingLayoutVGA2_yAA5ColorVSgGGAA19_BackgroundModifierVyAKyAA06_ShapeD0VyAA16RoundedRectangleVA38_GA45_yA47_A13_GGGGAA05_ClipW0VyA47_GGAA31AccessibilityAttachmentModifierVGAEyAEyAEyAL13MovieScrubberAPLLVA55_GAA16_FixedSizeLayoutVGA18_GtGGA29_GA32_GA35_GASGSgtGSgMd);
-  v90 = v118;
-  v126[0] = v118;
-  v126[1] = 0;
-  v91 = v116;
-  LOBYTE(v126[2]) = v116;
-  memcpy(&v126[2] + 1, v128, 0x129uLL);
-  v92 = v122;
-  memcpy(v122, v126, 0x13AuLL);
-  v93 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI6VStackVyAA19_ConditionalContentVyAA9TupleViewVyAA08ModifiedE0VyAIyAEyAEyAIyAIy15ConversationKit020VideoMessageControlsG0V03TopmG033_B419541366E265736F7249488C40E55CLLVAA14_PaddingLayoutVGAQGAEyA2RGGARGAA010_FlexFrameU0VGAA14_OpacityEffectVG_AA6SpacerVtGAGyAIyAA6HStackVyAGyA2__AIyAIyAJ18AnimatedSaveButtonVAA01_wU0VGAQGtGGAXG_A2_tGGG_AEyA5_yAGyA2__AEyAIyAIyAIyAL011LocalBottommG0ANLLVA_GAA32_EnvironmentKeyTransformModifierVySbGGA_GAIyAIyAIyAL012RemoteBottommG0ANLLVAQGAQGAXGGtGGACyA32_GGAGyAIyAIyACyAGyA2__AEyAIyAIyAL010PlayButtonG0ANLLVA_GA23_GAIyA39_AA16_OverlayModifierVyAIyAIyAIyAIyAIyAA4TextVAA30_EnvironmentKeyWritingModifierVySiSgGGAA24_ForegroundStyleModifierVyAA22HierarchicalShapeStyleVGGA45_yAA8MaterialVSgGGA9_GAA25_AlignmentWritingModifierVGGGGA2_tGGAA024_SafeAreaRegionsIgnoringU0VGAXG_AIyAIyAIyAIyACyAGyA2__AIyAIyAIyAIyAIyA43_AQGA45_yAA5ColorVSgGGAA19_BackgroundModifierVyAEyAA06_ShapeG0VyAA16RoundedRectangleVA75_GA82_yA84_A56_GGGGAA05_ClipY0VyA84_GGAA31AccessibilityAttachmentModifierVGAIyAIyAIyAJ13MovieScrubberANLLVA92_GAA010_FixedSizeU0VGA9_GtGGA70_GAXGAQGA_GSgtGSgtMd);
-  outlined init with copy of IDView<AvatarStackView, [UUID]>(v88, v92 + *(v93 + 48), &_s7SwiftUI19_ConditionalContentVyAA6HStackVyAA9TupleViewVyAA6SpacerV_ACyAA08ModifiedD0VyAKyAKy15ConversationKit020VideoMessageControlsG0V011LocalBottomnG033_B419541366E265736F7249488C40E55CLLVAA14_OpacityEffectVGAA32_EnvironmentKeyTransformModifierVySbGGASGAKyAKyAKyAN06RemotepnG0APLLVAA14_PaddingLayoutVGA1_GAA16_FlexFrameLayoutVGGtGGAA6VStackVyA8_GGMd);
-  outlined init with copy of IDView<AvatarStackView, [UUID]>(v89, v92 + *(v93 + 64), &_s7SwiftUI9TupleViewVyAA15ModifiedContentVyAEyAA6VStackVyACyAA6SpacerV_AA012_ConditionalF0VyAEyAEy15ConversationKit020VideoMessageControlsD0V010PlayButtonD033_B419541366E265736F7249488C40E55CLLVAA14_OpacityEffectVGAA32_EnvironmentKeyTransformModifierVySbGGAEyAxA16_OverlayModifierVyAEyAEyAEyAEyAEyAA4TextVAA01_xY15WritingModifierVySiSgGGAA24_ForegroundStyleModifierVyAA22HierarchicalShapeStyleVGGA2_yAA8MaterialVSgGGAA12_FrameLayoutVGAA25_AlignmentWritingModifierVGGGGAItGGAA30_SafeAreaRegionsIgnoringLayoutVGAA16_FlexFrameLayoutVG_AEyAEyAEyAEyAGyACyAI_AEyAEyAEyAEyAEyA0_AA14_PaddingLayoutVGA2_yAA5ColorVSgGGAA19_BackgroundModifierVyAKyAA06_ShapeD0VyAA16RoundedRectangleVA38_GA45_yA47_A13_GGGGAA05_ClipW0VyA47_GGAA31AccessibilityAttachmentModifierVGAEyAEyAEyAL13MovieScrubberAPLLVA55_GAA16_FixedSizeLayoutVGA18_GtGGA29_GA32_GA35_GASGSgtGSgMd);
-  outlined init with copy of IDView<AvatarStackView, [UUID]>(v126, v127, &_s7SwiftUI6VStackVyAA19_ConditionalContentVyAA9TupleViewVyAA08ModifiedE0VyAIyAEyAEyAIyAIy15ConversationKit020VideoMessageControlsG0V03TopmG033_B419541366E265736F7249488C40E55CLLVAA14_PaddingLayoutVGAQGAEyA2RGGARGAA010_FlexFrameU0VGAA14_OpacityEffectVG_AA6SpacerVtGAGyAIyAA6HStackVyAGyA2__AIyAIyAJ18AnimatedSaveButtonVAA01_wU0VGAQGtGGAXG_A2_tGGGMd);
-  outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v30, &_s7SwiftUI9TupleViewVyAA15ModifiedContentVyAEyAA6VStackVyACyAA6SpacerV_AA012_ConditionalF0VyAEyAEy15ConversationKit020VideoMessageControlsD0V010PlayButtonD033_B419541366E265736F7249488C40E55CLLVAA14_OpacityEffectVGAA32_EnvironmentKeyTransformModifierVySbGGAEyAxA16_OverlayModifierVyAEyAEyAEyAEyAEyAA4TextVAA01_xY15WritingModifierVySiSgGGAA24_ForegroundStyleModifierVyAA22HierarchicalShapeStyleVGGA2_yAA8MaterialVSgGGAA12_FrameLayoutVGAA25_AlignmentWritingModifierVGGGGAItGGAA30_SafeAreaRegionsIgnoringLayoutVGAA16_FlexFrameLayoutVG_AEyAEyAEyAEyAGyACyAI_AEyAEyAEyAEyAEyA0_AA14_PaddingLayoutVGA2_yAA5ColorVSgGGAA19_BackgroundModifierVyAKyAA06_ShapeD0VyAA16RoundedRectangleVA38_GA45_yA47_A13_GGGGAA05_ClipW0VyA47_GGAA31AccessibilityAttachmentModifierVGAEyAEyAEyAL13MovieScrubberAPLLVA55_GAA16_FixedSizeLayoutVGA18_GtGGA29_GA32_GA35_GASGSgtGSgMd);
-  outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v87, &_s7SwiftUI19_ConditionalContentVyAA6HStackVyAA9TupleViewVyAA6SpacerV_ACyAA08ModifiedD0VyAKyAKy15ConversationKit020VideoMessageControlsG0V011LocalBottomnG033_B419541366E265736F7249488C40E55CLLVAA14_OpacityEffectVGAA32_EnvironmentKeyTransformModifierVySbGGASGAKyAKyAKyAN06RemotepnG0APLLVAA14_PaddingLayoutVGA1_GAA16_FlexFrameLayoutVGGtGGAA6VStackVyA8_GGMd);
-  outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v89, &_s7SwiftUI9TupleViewVyAA15ModifiedContentVyAEyAA6VStackVyACyAA6SpacerV_AA012_ConditionalF0VyAEyAEy15ConversationKit020VideoMessageControlsD0V010PlayButtonD033_B419541366E265736F7249488C40E55CLLVAA14_OpacityEffectVGAA32_EnvironmentKeyTransformModifierVySbGGAEyAxA16_OverlayModifierVyAEyAEyAEyAEyAEyAA4TextVAA01_xY15WritingModifierVySiSgGGAA24_ForegroundStyleModifierVyAA22HierarchicalShapeStyleVGGA2_yAA8MaterialVSgGGAA12_FrameLayoutVGAA25_AlignmentWritingModifierVGGGGAItGGAA30_SafeAreaRegionsIgnoringLayoutVGAA16_FlexFrameLayoutVG_AEyAEyAEyAEyAGyACyAI_AEyAEyAEyAEyAEyA0_AA14_PaddingLayoutVGA2_yAA5ColorVSgGGAA19_BackgroundModifierVyAKyAA06_ShapeD0VyAA16RoundedRectangleVA38_GA45_yA47_A13_GGGGAA05_ClipW0VyA47_GGAA31AccessibilityAttachmentModifierVGAEyAEyAEyAL13MovieScrubberAPLLVA55_GAA16_FixedSizeLayoutVGA18_GtGGA29_GA32_GA35_GASGSgtGSgMd);
-  outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v88, &_s7SwiftUI19_ConditionalContentVyAA6HStackVyAA9TupleViewVyAA6SpacerV_ACyAA08ModifiedD0VyAKyAKy15ConversationKit020VideoMessageControlsG0V011LocalBottomnG033_B419541366E265736F7249488C40E55CLLVAA14_OpacityEffectVGAA32_EnvironmentKeyTransformModifierVySbGGASGAKyAKyAKyAN06RemotepnG0APLLVAA14_PaddingLayoutVGA1_GAA16_FlexFrameLayoutVGGtGGAA6VStackVyA8_GGMd);
-  v127[0] = v90;
+  outlined init with copy of IDView<AvatarStackView, [UUID]>(v118, v120, &_s7SwiftUI19_ConditionalContentVyAA6HStackVyAA9TupleViewVyAA6SpacerV_ACyAA08ModifiedD0VyAKyAKy15ConversationKit020VideoMessageControlsG0V011LocalBottomnG033_B419541366E265736F7249488C40E55CLLVAA14_OpacityEffectVGAA32_EnvironmentKeyTransformModifierVySbGGASGAKyAKyAKyAN06RemotepnG0APLLVAA14_PaddingLayoutVGA1_GAA16_FlexFrameLayoutVGGtGGAA6VStackVyA8_GGMd, &_s7SwiftUI19_ConditionalContentVyAA6HStackVyAA9TupleViewVyAA6SpacerV_ACyAA08ModifiedD0VyAKyAKy15ConversationKit020VideoMessageControlsG0V011LocalBottomnG033_B419541366E265736F7249488C40E55CLLVAA14_OpacityEffectVGAA32_EnvironmentKeyTransformModifierVySbGGASGAKyAKyAKyAN06RemotepnG0APLLVAA14_PaddingLayoutVGA1_GAA16_FlexFrameLayoutVGGtGGAA6VStackVyA8_GGMR);
+  v90 = v121;
+  outlined init with copy of IDView<AvatarStackView, [UUID]>(v30, v121, &_s7SwiftUI9TupleViewVyAA15ModifiedContentVyAEyAA6VStackVyACyAA6SpacerV_AA012_ConditionalF0VyAEyAEy15ConversationKit020VideoMessageControlsD0V010PlayButtonD033_B419541366E265736F7249488C40E55CLLVAA14_OpacityEffectVGAA32_EnvironmentKeyTransformModifierVySbGGAEyAxA16_OverlayModifierVyAEyAEyAEyAEyAEyAA4TextVAA01_xY15WritingModifierVySiSgGGAA24_ForegroundStyleModifierVyAA22HierarchicalShapeStyleVGGA2_yAA8MaterialVSgGGAA12_FrameLayoutVGAA25_AlignmentWritingModifierVGGGGAItGGAA30_SafeAreaRegionsIgnoringLayoutVGAA16_FlexFrameLayoutVG_AEyAEyAEyAEyAGyACyAI_AEyAEyAEyAEyAEyA0_AA14_PaddingLayoutVGA2_yAA5ColorVSgGGAA19_BackgroundModifierVyAKyAA06_ShapeD0VyAA16RoundedRectangleVA38_GA45_yA47_A13_GGGGAA05_ClipW0VyA47_GGAA31AccessibilityAttachmentModifierVGAEyAEyAEyAL13MovieScrubberAPLLVA55_GAA16_FixedSizeLayoutVGA18_GtGGA29_GA32_GA35_GASGSgtGSgMd, &_s7SwiftUI9TupleViewVyAA15ModifiedContentVyAEyAA6VStackVyACyAA6SpacerV_AA012_ConditionalF0VyAEyAEy15ConversationKit020VideoMessageControlsD0V010PlayButtonD033_B419541366E265736F7249488C40E55CLLVAA14_OpacityEffectVGAA32_EnvironmentKeyTransformModifierVySbGGAEyAxA16_OverlayModifierVyAEyAEyAEyAEyAEyAA4TextVAA01_xY15WritingModifierVySiSgGGAA24_ForegroundStyleModifierVyAA22HierarchicalShapeStyleVGGA2_yAA8MaterialVSgGGAA12_FrameLayoutVGAA25_AlignmentWritingModifierVGGGGAItGGAA30_SafeAreaRegionsIgnoringLayoutVGAA16_FlexFrameLayoutVG_AEyAEyAEyAEyAGyACyAI_AEyAEyAEyAEyAEyA0_AA14_PaddingLayoutVGA2_yAA5ColorVSgGGAA19_BackgroundModifierVyAKyAA06_ShapeD0VyAA16RoundedRectangleVA38_GA45_yA47_A13_GGGGAA05_ClipW0VyA47_GGAA31AccessibilityAttachmentModifierVGAEyAEyAEyAL13MovieScrubberAPLLVA55_GAA16_FixedSizeLayoutVGA18_GtGGA29_GA32_GA35_GASGSgtGSgMR);
+  v91 = v119;
+  v127[0] = v119;
   v127[1] = 0;
-  LOBYTE(v127[2]) = v91;
-  memcpy(&v127[2] + 1, v128, 0x129uLL);
-  return outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v127, &_s7SwiftUI6VStackVyAA19_ConditionalContentVyAA9TupleViewVyAA08ModifiedE0VyAIyAEyAEyAIyAIy15ConversationKit020VideoMessageControlsG0V03TopmG033_B419541366E265736F7249488C40E55CLLVAA14_PaddingLayoutVGAQGAEyA2RGGARGAA010_FlexFrameU0VGAA14_OpacityEffectVG_AA6SpacerVtGAGyAIyAA6HStackVyAGyA2__AIyAIyAJ18AnimatedSaveButtonVAA01_wU0VGAQGtGGAXG_A2_tGGGMd);
+  v92 = v117;
+  LOBYTE(v127[2]) = v117;
+  memcpy(&v127[2] + 1, v129, 0x129uLL);
+  v93 = v123;
+  memcpy(v123, v127, 0x13AuLL);
+  v94 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI6VStackVyAA19_ConditionalContentVyAA9TupleViewVyAA08ModifiedE0VyAIyAEyAEyAIyAIy15ConversationKit020VideoMessageControlsG0V03TopmG033_B419541366E265736F7249488C40E55CLLVAA14_PaddingLayoutVGAQGAEyA2RGGARGAA010_FlexFrameU0VGAA14_OpacityEffectVG_AA6SpacerVtGAGyAIyAA6HStackVyAGyA2__AIyAIyAJ18AnimatedSaveButtonVAA01_wU0VGAQGtGGAXG_A2_tGGG_AEyA5_yAGyA2__AEyAIyAIyAIyAL011LocalBottommG0ANLLVA_GAA32_EnvironmentKeyTransformModifierVySbGGA_GAIyAIyAIyAL012RemoteBottommG0ANLLVAQGAQGAXGGtGGACyA32_GGAGyAIyAIyACyAGyA2__AEyAIyAIyAL010PlayButtonG0ANLLVA_GA23_GAIyA39_AA16_OverlayModifierVyAIyAIyAIyAIyAIyAA4TextVAA30_EnvironmentKeyWritingModifierVySiSgGGAA24_ForegroundStyleModifierVyAA22HierarchicalShapeStyleVGGA45_yAA8MaterialVSgGGA9_GAA25_AlignmentWritingModifierVGGGGA2_tGGAA024_SafeAreaRegionsIgnoringU0VGAXG_AIyAIyAIyAIyACyAGyA2__AIyAIyAIyAIyAIyA43_AQGA45_yAA5ColorVSgGGAA19_BackgroundModifierVyAEyAA06_ShapeG0VyAA16RoundedRectangleVA75_GA82_yA84_A56_GGGGAA05_ClipY0VyA84_GGAA31AccessibilityAttachmentModifierVGAIyAIyAIyAJ13MovieScrubberANLLVA92_GAA010_FixedSizeU0VGA9_GtGGA70_GAXGAQGA_GSgtGSgtMd, &_s7SwiftUI6VStackVyAA19_ConditionalContentVyAA9TupleViewVyAA08ModifiedE0VyAIyAEyAEyAIyAIy15ConversationKit020VideoMessageControlsG0V03TopmG033_B419541366E265736F7249488C40E55CLLVAA14_PaddingLayoutVGAQGAEyA2RGGARGAA010_FlexFrameU0VGAA14_OpacityEffectVG_AA6SpacerVtGAGyAIyAA6HStackVyAGyA2__AIyAIyAJ18AnimatedSaveButtonVAA01_wU0VGAQGtGGAXG_A2_tGGG_AEyA5_yAGyA2__AEyAIyAIyAIyAL011LocalBottommG0ANLLVA_GAA32_EnvironmentKeyTransformModifierVySbGGA_GAIyAIyAIyAL012RemoteBottommG0ANLLVAQGAQGAXGGtGGACyA32_GGAGyAIyAIyACyAGyA2__AEyAIyAIyAL010PlayButtonG0ANLLVA_GA23_GAIyA39_AA16_OverlayModifierVyAIyAIyAIyAIyAIyAA4TextVAA30_EnvironmentKeyWritingModifierVySiSgGGAA24_ForegroundStyleModifierVyAA22HierarchicalShapeStyleVGGA45_yAA8MaterialVSgGGA9_GAA25_AlignmentWritingModifierVGGGGA2_tGGAA024_SafeAreaRegionsIgnoringU0VGAXG_AIyAIyAIyAIyACyAGyA2__AIyAIyAIyAIyAIyA43_AQGA45_yAA5ColorVSgGGAA19_BackgroundModifierVyAEyAA06_ShapeG0VyAA16RoundedRectangleVA75_GA82_yA84_A56_GGGGAA05_ClipY0VyA84_GGAA31AccessibilityAttachmentModifierVGAIyAIyAIyAJ13MovieScrubberANLLVA92_GAA010_FixedSizeU0VGA9_GtGGA70_GAXGAQGA_GSgtGSgtMR);
+  outlined init with copy of IDView<AvatarStackView, [UUID]>(v89, v93 + *(v94 + 48), &_s7SwiftUI19_ConditionalContentVyAA6HStackVyAA9TupleViewVyAA6SpacerV_ACyAA08ModifiedD0VyAKyAKy15ConversationKit020VideoMessageControlsG0V011LocalBottomnG033_B419541366E265736F7249488C40E55CLLVAA14_OpacityEffectVGAA32_EnvironmentKeyTransformModifierVySbGGASGAKyAKyAKyAN06RemotepnG0APLLVAA14_PaddingLayoutVGA1_GAA16_FlexFrameLayoutVGGtGGAA6VStackVyA8_GGMd, &_s7SwiftUI19_ConditionalContentVyAA6HStackVyAA9TupleViewVyAA6SpacerV_ACyAA08ModifiedD0VyAKyAKy15ConversationKit020VideoMessageControlsG0V011LocalBottomnG033_B419541366E265736F7249488C40E55CLLVAA14_OpacityEffectVGAA32_EnvironmentKeyTransformModifierVySbGGASGAKyAKyAKyAN06RemotepnG0APLLVAA14_PaddingLayoutVGA1_GAA16_FlexFrameLayoutVGGtGGAA6VStackVyA8_GGMR);
+  outlined init with copy of IDView<AvatarStackView, [UUID]>(v90, v93 + *(v94 + 64), &_s7SwiftUI9TupleViewVyAA15ModifiedContentVyAEyAA6VStackVyACyAA6SpacerV_AA012_ConditionalF0VyAEyAEy15ConversationKit020VideoMessageControlsD0V010PlayButtonD033_B419541366E265736F7249488C40E55CLLVAA14_OpacityEffectVGAA32_EnvironmentKeyTransformModifierVySbGGAEyAxA16_OverlayModifierVyAEyAEyAEyAEyAEyAA4TextVAA01_xY15WritingModifierVySiSgGGAA24_ForegroundStyleModifierVyAA22HierarchicalShapeStyleVGGA2_yAA8MaterialVSgGGAA12_FrameLayoutVGAA25_AlignmentWritingModifierVGGGGAItGGAA30_SafeAreaRegionsIgnoringLayoutVGAA16_FlexFrameLayoutVG_AEyAEyAEyAEyAGyACyAI_AEyAEyAEyAEyAEyA0_AA14_PaddingLayoutVGA2_yAA5ColorVSgGGAA19_BackgroundModifierVyAKyAA06_ShapeD0VyAA16RoundedRectangleVA38_GA45_yA47_A13_GGGGAA05_ClipW0VyA47_GGAA31AccessibilityAttachmentModifierVGAEyAEyAEyAL13MovieScrubberAPLLVA55_GAA16_FixedSizeLayoutVGA18_GtGGA29_GA32_GA35_GASGSgtGSgMd, &_s7SwiftUI9TupleViewVyAA15ModifiedContentVyAEyAA6VStackVyACyAA6SpacerV_AA012_ConditionalF0VyAEyAEy15ConversationKit020VideoMessageControlsD0V010PlayButtonD033_B419541366E265736F7249488C40E55CLLVAA14_OpacityEffectVGAA32_EnvironmentKeyTransformModifierVySbGGAEyAxA16_OverlayModifierVyAEyAEyAEyAEyAEyAA4TextVAA01_xY15WritingModifierVySiSgGGAA24_ForegroundStyleModifierVyAA22HierarchicalShapeStyleVGGA2_yAA8MaterialVSgGGAA12_FrameLayoutVGAA25_AlignmentWritingModifierVGGGGAItGGAA30_SafeAreaRegionsIgnoringLayoutVGAA16_FlexFrameLayoutVG_AEyAEyAEyAEyAGyACyAI_AEyAEyAEyAEyAEyA0_AA14_PaddingLayoutVGA2_yAA5ColorVSgGGAA19_BackgroundModifierVyAKyAA06_ShapeD0VyAA16RoundedRectangleVA38_GA45_yA47_A13_GGGGAA05_ClipW0VyA47_GGAA31AccessibilityAttachmentModifierVGAEyAEyAEyAL13MovieScrubberAPLLVA55_GAA16_FixedSizeLayoutVGA18_GtGGA29_GA32_GA35_GASGSgtGSgMR);
+  outlined init with copy of IDView<AvatarStackView, [UUID]>(v127, v128, &_s7SwiftUI6VStackVyAA19_ConditionalContentVyAA9TupleViewVyAA08ModifiedE0VyAIyAEyAEyAIyAIy15ConversationKit020VideoMessageControlsG0V03TopmG033_B419541366E265736F7249488C40E55CLLVAA14_PaddingLayoutVGAQGAEyA2RGGARGAA010_FlexFrameU0VGAA14_OpacityEffectVG_AA6SpacerVtGAGyAIyAA6HStackVyAGyA2__AIyAIyAJ18AnimatedSaveButtonVAA01_wU0VGAQGtGGAXG_A2_tGGGMd, &_s7SwiftUI6VStackVyAA19_ConditionalContentVyAA9TupleViewVyAA08ModifiedE0VyAIyAEyAEyAIyAIy15ConversationKit020VideoMessageControlsG0V03TopmG033_B419541366E265736F7249488C40E55CLLVAA14_PaddingLayoutVGAQGAEyA2RGGARGAA010_FlexFrameU0VGAA14_OpacityEffectVG_AA6SpacerVtGAGyAIyAA6HStackVyAGyA2__AIyAIyAJ18AnimatedSaveButtonVAA01_wU0VGAQGtGGAXG_A2_tGGGMR);
+  outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v30, &_s7SwiftUI9TupleViewVyAA15ModifiedContentVyAEyAA6VStackVyACyAA6SpacerV_AA012_ConditionalF0VyAEyAEy15ConversationKit020VideoMessageControlsD0V010PlayButtonD033_B419541366E265736F7249488C40E55CLLVAA14_OpacityEffectVGAA32_EnvironmentKeyTransformModifierVySbGGAEyAxA16_OverlayModifierVyAEyAEyAEyAEyAEyAA4TextVAA01_xY15WritingModifierVySiSgGGAA24_ForegroundStyleModifierVyAA22HierarchicalShapeStyleVGGA2_yAA8MaterialVSgGGAA12_FrameLayoutVGAA25_AlignmentWritingModifierVGGGGAItGGAA30_SafeAreaRegionsIgnoringLayoutVGAA16_FlexFrameLayoutVG_AEyAEyAEyAEyAGyACyAI_AEyAEyAEyAEyAEyA0_AA14_PaddingLayoutVGA2_yAA5ColorVSgGGAA19_BackgroundModifierVyAKyAA06_ShapeD0VyAA16RoundedRectangleVA38_GA45_yA47_A13_GGGGAA05_ClipW0VyA47_GGAA31AccessibilityAttachmentModifierVGAEyAEyAEyAL13MovieScrubberAPLLVA55_GAA16_FixedSizeLayoutVGA18_GtGGA29_GA32_GA35_GASGSgtGSgMd, &_s7SwiftUI9TupleViewVyAA15ModifiedContentVyAEyAA6VStackVyACyAA6SpacerV_AA012_ConditionalF0VyAEyAEy15ConversationKit020VideoMessageControlsD0V010PlayButtonD033_B419541366E265736F7249488C40E55CLLVAA14_OpacityEffectVGAA32_EnvironmentKeyTransformModifierVySbGGAEyAxA16_OverlayModifierVyAEyAEyAEyAEyAEyAA4TextVAA01_xY15WritingModifierVySiSgGGAA24_ForegroundStyleModifierVyAA22HierarchicalShapeStyleVGGA2_yAA8MaterialVSgGGAA12_FrameLayoutVGAA25_AlignmentWritingModifierVGGGGAItGGAA30_SafeAreaRegionsIgnoringLayoutVGAA16_FlexFrameLayoutVG_AEyAEyAEyAEyAGyACyAI_AEyAEyAEyAEyAEyA0_AA14_PaddingLayoutVGA2_yAA5ColorVSgGGAA19_BackgroundModifierVyAKyAA06_ShapeD0VyAA16RoundedRectangleVA38_GA45_yA47_A13_GGGGAA05_ClipW0VyA47_GGAA31AccessibilityAttachmentModifierVGAEyAEyAEyAL13MovieScrubberAPLLVA55_GAA16_FixedSizeLayoutVGA18_GtGGA29_GA32_GA35_GASGSgtGSgMR);
+  outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v88, &_s7SwiftUI19_ConditionalContentVyAA6HStackVyAA9TupleViewVyAA6SpacerV_ACyAA08ModifiedD0VyAKyAKy15ConversationKit020VideoMessageControlsG0V011LocalBottomnG033_B419541366E265736F7249488C40E55CLLVAA14_OpacityEffectVGAA32_EnvironmentKeyTransformModifierVySbGGASGAKyAKyAKyAN06RemotepnG0APLLVAA14_PaddingLayoutVGA1_GAA16_FlexFrameLayoutVGGtGGAA6VStackVyA8_GGMd, &_s7SwiftUI19_ConditionalContentVyAA6HStackVyAA9TupleViewVyAA6SpacerV_ACyAA08ModifiedD0VyAKyAKy15ConversationKit020VideoMessageControlsG0V011LocalBottomnG033_B419541366E265736F7249488C40E55CLLVAA14_OpacityEffectVGAA32_EnvironmentKeyTransformModifierVySbGGASGAKyAKyAKyAN06RemotepnG0APLLVAA14_PaddingLayoutVGA1_GAA16_FlexFrameLayoutVGGtGGAA6VStackVyA8_GGMR);
+  outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v90, &_s7SwiftUI9TupleViewVyAA15ModifiedContentVyAEyAA6VStackVyACyAA6SpacerV_AA012_ConditionalF0VyAEyAEy15ConversationKit020VideoMessageControlsD0V010PlayButtonD033_B419541366E265736F7249488C40E55CLLVAA14_OpacityEffectVGAA32_EnvironmentKeyTransformModifierVySbGGAEyAxA16_OverlayModifierVyAEyAEyAEyAEyAEyAA4TextVAA01_xY15WritingModifierVySiSgGGAA24_ForegroundStyleModifierVyAA22HierarchicalShapeStyleVGGA2_yAA8MaterialVSgGGAA12_FrameLayoutVGAA25_AlignmentWritingModifierVGGGGAItGGAA30_SafeAreaRegionsIgnoringLayoutVGAA16_FlexFrameLayoutVG_AEyAEyAEyAEyAGyACyAI_AEyAEyAEyAEyAEyA0_AA14_PaddingLayoutVGA2_yAA5ColorVSgGGAA19_BackgroundModifierVyAKyAA06_ShapeD0VyAA16RoundedRectangleVA38_GA45_yA47_A13_GGGGAA05_ClipW0VyA47_GGAA31AccessibilityAttachmentModifierVGAEyAEyAEyAL13MovieScrubberAPLLVA55_GAA16_FixedSizeLayoutVGA18_GtGGA29_GA32_GA35_GASGSgtGSgMd, &_s7SwiftUI9TupleViewVyAA15ModifiedContentVyAEyAA6VStackVyACyAA6SpacerV_AA012_ConditionalF0VyAEyAEy15ConversationKit020VideoMessageControlsD0V010PlayButtonD033_B419541366E265736F7249488C40E55CLLVAA14_OpacityEffectVGAA32_EnvironmentKeyTransformModifierVySbGGAEyAxA16_OverlayModifierVyAEyAEyAEyAEyAEyAA4TextVAA01_xY15WritingModifierVySiSgGGAA24_ForegroundStyleModifierVyAA22HierarchicalShapeStyleVGGA2_yAA8MaterialVSgGGAA12_FrameLayoutVGAA25_AlignmentWritingModifierVGGGGAItGGAA30_SafeAreaRegionsIgnoringLayoutVGAA16_FlexFrameLayoutVG_AEyAEyAEyAEyAGyACyAI_AEyAEyAEyAEyAEyA0_AA14_PaddingLayoutVGA2_yAA5ColorVSgGGAA19_BackgroundModifierVyAKyAA06_ShapeD0VyAA16RoundedRectangleVA38_GA45_yA47_A13_GGGGAA05_ClipW0VyA47_GGAA31AccessibilityAttachmentModifierVGAEyAEyAEyAL13MovieScrubberAPLLVA55_GAA16_FixedSizeLayoutVGA18_GtGGA29_GA32_GA35_GASGSgtGSgMR);
+  outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v89, &_s7SwiftUI19_ConditionalContentVyAA6HStackVyAA9TupleViewVyAA6SpacerV_ACyAA08ModifiedD0VyAKyAKy15ConversationKit020VideoMessageControlsG0V011LocalBottomnG033_B419541366E265736F7249488C40E55CLLVAA14_OpacityEffectVGAA32_EnvironmentKeyTransformModifierVySbGGASGAKyAKyAKyAN06RemotepnG0APLLVAA14_PaddingLayoutVGA1_GAA16_FlexFrameLayoutVGGtGGAA6VStackVyA8_GGMd, &_s7SwiftUI19_ConditionalContentVyAA6HStackVyAA9TupleViewVyAA6SpacerV_ACyAA08ModifiedD0VyAKyAKy15ConversationKit020VideoMessageControlsG0V011LocalBottomnG033_B419541366E265736F7249488C40E55CLLVAA14_OpacityEffectVGAA32_EnvironmentKeyTransformModifierVySbGGASGAKyAKyAKyAN06RemotepnG0APLLVAA14_PaddingLayoutVGA1_GAA16_FlexFrameLayoutVGGtGGAA6VStackVyA8_GGMR);
+  v128[0] = v91;
+  v128[1] = 0;
+  LOBYTE(v128[2]) = v92;
+  memcpy(&v128[2] + 1, v129, 0x129uLL);
+  return outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v128, &_s7SwiftUI6VStackVyAA19_ConditionalContentVyAA9TupleViewVyAA08ModifiedE0VyAIyAEyAEyAIyAIy15ConversationKit020VideoMessageControlsG0V03TopmG033_B419541366E265736F7249488C40E55CLLVAA14_PaddingLayoutVGAQGAEyA2RGGARGAA010_FlexFrameU0VGAA14_OpacityEffectVG_AA6SpacerVtGAGyAIyAA6HStackVyAGyA2__AIyAIyAJ18AnimatedSaveButtonVAA01_wU0VGAQGtGGAXG_A2_tGGGMd, &_s7SwiftUI6VStackVyAA19_ConditionalContentVyAA9TupleViewVyAA08ModifiedE0VyAIyAEyAEyAIyAIy15ConversationKit020VideoMessageControlsG0V03TopmG033_B419541366E265736F7249488C40E55CLLVAA14_PaddingLayoutVGAQGAEyA2RGGARGAA010_FlexFrameU0VGAA14_OpacityEffectVG_AA6SpacerVtGAGyAIyAA6HStackVyAGyA2__AIyAIyAJ18AnimatedSaveButtonVAA01_wU0VGAQGtGGAXG_A2_tGGGMR);
 }
 
-void *closure #1 in closure #1 in closure #1 in VideoMessageControlsView.body.getter@<X0>(uint64_t a1@<X0>, void *a2@<X8>)
+void *closure #1 in closure #1 in closure #1 in VideoMessageControlsView.body.getter@<X0>(uint64_t a1@<X0>, void *a3@<X8>)
 {
-  v4 = *(a1 + *(type metadata accessor for VideoMessageControlsView(0) + 28) + 8);
-  (*((*MEMORY[0x1E69E7D40] & *v4) + 0x120))(v28);
-  if (LOBYTE(v28[0]) == 1 && static Platform.current.getter() != 1)
+  v5 = *(a1 + *(type metadata accessor for VideoMessageControlsView(0) + 28) + 8);
+  (*((*MEMORY[0x1E69E7D40] & *v5) + 0x120))(v31);
+  if (LOBYTE(v31[0]) == 1 && static Platform.current.getter() != 1)
   {
-    v12 = static VerticalAlignment.center.getter();
-    v23 = 1;
-    closure #1 in closure #1 in closure #1 in closure #1 in VideoMessageControlsView.body.getter(a1, v28);
-    memcpy(v25, v28, 0x89uLL);
-    memcpy(__src, v28, 0x89uLL);
-    outlined init with copy of IDView<AvatarStackView, [UUID]>(v25, v21, &_s7SwiftUI9TupleViewVyAA6SpacerV_AA15ModifiedContentVyAGy15ConversationKit18AnimatedSaveButtonVAA12_FrameLayoutVGAA08_PaddingN0VGtGMd);
-    outlined destroy of ConversationControlsMoreMenuButtonDelegate?(__src, &_s7SwiftUI9TupleViewVyAA6SpacerV_AA15ModifiedContentVyAGy15ConversationKit18AnimatedSaveButtonVAA12_FrameLayoutVGAA08_PaddingN0VGtGMd);
-    memcpy(&v22[7], v25, 0x89uLL);
-    v13 = v23;
+    v14 = static VerticalAlignment.center.getter();
+    v26 = 1;
+    closure #1 in closure #1 in closure #1 in closure #1 in VideoMessageControlsView.body.getter(a1, v31);
+    memcpy(v28, v31, 0x89uLL);
+    memcpy(__src, v31, 0x89uLL);
+    outlined init with copy of IDView<AvatarStackView, [UUID]>(v28, v24, &_s7SwiftUI9TupleViewVyAA6SpacerV_AA15ModifiedContentVyAGy15ConversationKit18AnimatedSaveButtonVAA12_FrameLayoutVGAA08_PaddingN0VGtGMd, &_s7SwiftUI9TupleViewVyAA6SpacerV_AA15ModifiedContentVyAGy15ConversationKit18AnimatedSaveButtonVAA12_FrameLayoutVGAA08_PaddingN0VGtGMR);
+    outlined destroy of ConversationControlsMoreMenuButtonDelegate?(__src, &_s7SwiftUI9TupleViewVyAA6SpacerV_AA15ModifiedContentVyAGy15ConversationKit18AnimatedSaveButtonVAA12_FrameLayoutVGAA08_PaddingN0VGtGMd, &_s7SwiftUI9TupleViewVyAA6SpacerV_AA15ModifiedContentVyAGy15ConversationKit18AnimatedSaveButtonVAA12_FrameLayoutVGAA08_PaddingN0VGtGMR);
+    memcpy(&v25[7], v28, 0x89uLL);
+    v15 = v26;
     static Alignment.center.getter();
-    _FlexFrameLayout.init(minWidth:idealWidth:maxWidth:minHeight:idealHeight:maxHeight:alignment:)();
-    memcpy(&v24[7], v27, 0x70uLL);
-    v17[0] = v12;
-    v17[1] = 0;
-    LOBYTE(v17[2]) = v13;
-    memcpy(&v17[2] + 1, v22, 0x90uLL);
-    memcpy(&v17[20] + 1, v24, 0x77uLL);
-    memcpy(v20, v17, sizeof(v20));
-    memcpy(v18, v17, sizeof(v18));
-    memcpy(v19, v17, sizeof(v19));
-    v16[296] = 1;
-    v11 = &_s7SwiftUI15ModifiedContentVyAA6HStackVyAA9TupleViewVyAA6SpacerV_ACyACy15ConversationKit18AnimatedSaveButtonVAA12_FrameLayoutVGAA08_PaddingO0VGtGGAA05_FlexnO0VGMd;
-    outlined init with copy of IDView<AvatarStackView, [UUID]>(v17, v28, &_s7SwiftUI15ModifiedContentVyAA6HStackVyAA9TupleViewVyAA6SpacerV_ACyACy15ConversationKit18AnimatedSaveButtonVAA12_FrameLayoutVGAA08_PaddingO0VGtGGAA05_FlexnO0VGMd);
-    outlined init with copy of IDView<AvatarStackView, [UUID]>(v18, v28, &_s7SwiftUI15ModifiedContentVyAA6HStackVyAA9TupleViewVyAA6SpacerV_ACyACy15ConversationKit18AnimatedSaveButtonVAA12_FrameLayoutVGAA08_PaddingO0VGtGGAA05_FlexnO0VGMd);
-    outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v20, &_s7SwiftUI15ModifiedContentVyAA6HStackVyAA9TupleViewVyAA6SpacerV_ACyACy15ConversationKit18AnimatedSaveButtonVAA12_FrameLayoutVGAA08_PaddingO0VGtGGAA05_FlexnO0VGMd);
-    memcpy(v21, v19, 0x118uLL);
-    v21[35] = 0;
-    LOBYTE(v21[36]) = 1;
-    _s7SwiftUI19_ConditionalContentV7StorageOyAA9TupleViewVyAA08ModifiedD0VyAIyACyACyAIyAIy15ConversationKit020VideoMessageControlsG0V03TopmG033_B419541366E265736F7249488C40E55CLLVAA14_PaddingLayoutVGAQGACyA2RGGARGAA010_FlexFrameU0VGAA14_OpacityEffectVG_AA6SpacerVtGAGyAIyAA6HStackVyAGyA2__AIyAIyAJ18AnimatedSaveButtonVAA01_wU0VGAQGtGGAXG_A2_tG_GWOi0_(v21);
+    _FlexFrameLayout.init(minWidth:idealWidth:maxWidth:minHeight:idealHeight:maxHeight:alignment:)(v30);
+    memcpy(&v27[7], v30, 0x70uLL);
+    v20[0] = v14;
+    v20[1] = 0;
+    LOBYTE(v20[2]) = v15;
+    memcpy(&v20[2] + 1, v25, 0x90uLL);
+    memcpy(&v20[20] + 1, v27, 0x77uLL);
+    memcpy(v23, v20, sizeof(v23));
+    memcpy(v21, v20, sizeof(v21));
+    memcpy(v22, v20, sizeof(v22));
+    v19[296] = 1;
+    v12 = &_s7SwiftUI15ModifiedContentVyAA6HStackVyAA9TupleViewVyAA6SpacerV_ACyACy15ConversationKit18AnimatedSaveButtonVAA12_FrameLayoutVGAA08_PaddingO0VGtGGAA05_FlexnO0VGMd;
+    v13 = &_s7SwiftUI15ModifiedContentVyAA6HStackVyAA9TupleViewVyAA6SpacerV_ACyACy15ConversationKit18AnimatedSaveButtonVAA12_FrameLayoutVGAA08_PaddingO0VGtGGAA05_FlexnO0VGMR;
+    outlined init with copy of IDView<AvatarStackView, [UUID]>(v20, v31, &_s7SwiftUI15ModifiedContentVyAA6HStackVyAA9TupleViewVyAA6SpacerV_ACyACy15ConversationKit18AnimatedSaveButtonVAA12_FrameLayoutVGAA08_PaddingO0VGtGGAA05_FlexnO0VGMd, &_s7SwiftUI15ModifiedContentVyAA6HStackVyAA9TupleViewVyAA6SpacerV_ACyACy15ConversationKit18AnimatedSaveButtonVAA12_FrameLayoutVGAA08_PaddingO0VGtGGAA05_FlexnO0VGMR);
+    outlined init with copy of IDView<AvatarStackView, [UUID]>(v21, v31, &_s7SwiftUI15ModifiedContentVyAA6HStackVyAA9TupleViewVyAA6SpacerV_ACyACy15ConversationKit18AnimatedSaveButtonVAA12_FrameLayoutVGAA08_PaddingO0VGtGGAA05_FlexnO0VGMd, &_s7SwiftUI15ModifiedContentVyAA6HStackVyAA9TupleViewVyAA6SpacerV_ACyACy15ConversationKit18AnimatedSaveButtonVAA12_FrameLayoutVGAA08_PaddingO0VGtGGAA05_FlexnO0VGMR);
+    outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v23, &_s7SwiftUI15ModifiedContentVyAA6HStackVyAA9TupleViewVyAA6SpacerV_ACyACy15ConversationKit18AnimatedSaveButtonVAA12_FrameLayoutVGAA08_PaddingO0VGtGGAA05_FlexnO0VGMd, &_s7SwiftUI15ModifiedContentVyAA6HStackVyAA9TupleViewVyAA6SpacerV_ACyACy15ConversationKit18AnimatedSaveButtonVAA12_FrameLayoutVGAA08_PaddingO0VGtGGAA05_FlexnO0VGMR);
+    memcpy(v24, v22, 0x118uLL);
+    v24[35] = 0;
+    LOBYTE(v24[36]) = 1;
+    _s7SwiftUI19_ConditionalContentV7StorageOyAA9TupleViewVyAA08ModifiedD0VyAIyACyACyAIyAIy15ConversationKit020VideoMessageControlsG0V03TopmG033_B419541366E265736F7249488C40E55CLLVAA14_PaddingLayoutVGAQGACyA2RGGARGAA010_FlexFrameU0VGAA14_OpacityEffectVG_AA6SpacerVtGAGyAIyAA6HStackVyAGyA2__AIyAIyAJ18AnimatedSaveButtonVAA01_wU0VGAQGtGGAXG_A2_tG_GWOi0_(v24);
   }
 
   else
   {
     KeyPath = swift_getKeyPath();
     type metadata accessor for VideoMessagePlayerViewModel(0);
-    lazy protocol witness table accessor for type VideoMessagePlayerViewModel and conformance VideoMessagePlayerViewModel(&lazy protocol witness table cache variable for type VideoMessagePlayerViewModel and conformance VideoMessagePlayerViewModel, type metadata accessor for VideoMessagePlayerViewModel);
-    v6 = v4;
-    v7 = ObservedObject.init(wrappedValue:)();
-    v9 = v8;
-    VideoMessageControlsView.TopControlsView.iPadPadded(using:)(KeyPath, 0, v7, v8, __src);
+    lazy protocol witness table accessor for type VideoMessagePlayerViewModel and conformance VideoMessagePlayerViewModel(&lazy protocol witness table cache variable for type VideoMessagePlayerViewModel and conformance VideoMessagePlayerViewModel, type metadata accessor for VideoMessagePlayerViewModel, &protocol conformance descriptor for VideoMessagePlayerViewModel);
+    v7 = v5;
+    v8 = ObservedObject.init(wrappedValue:)();
+    v10 = v9;
+    VideoMessageControlsView.TopControlsView.iPadPadded(using:)(*&KeyPath, 0, v8, v9, __src);
 
     memcpy(__dst, __src, 0x7BuLL);
     static Alignment.center.getter();
-    _FlexFrameLayout.init(minWidth:idealWidth:maxWidth:minHeight:idealHeight:maxHeight:alignment:)();
-    v10 = VideoMessagePlayerViewModel.topControlsOpacity.getter();
-    memcpy(v17, __dst, 0xF0uLL);
-    *&v17[30] = v10;
-    memcpy(v20, v17, 0xF8uLL);
-    memcpy(v18, v17, 0xF8uLL);
-    memcpy(v19, v17, 0xF8uLL);
-    v25[0] = 1;
-    v11 = &_s7SwiftUI15ModifiedContentVyACyAA012_ConditionalD0VyAEyACyACy15ConversationKit24VideoMessageControlsViewV03TopjK033_B419541366E265736F7249488C40E55CLLVAA14_PaddingLayoutVGAMGAEyA2NGGANGAA010_FlexFrameS0VGAA14_OpacityEffectVGMd;
-    outlined init with copy of IDView<AvatarStackView, [UUID]>(v17, v28, &_s7SwiftUI15ModifiedContentVyACyAA012_ConditionalD0VyAEyACyACy15ConversationKit24VideoMessageControlsViewV03TopjK033_B419541366E265736F7249488C40E55CLLVAA14_PaddingLayoutVGAMGAEyA2NGGANGAA010_FlexFrameS0VGAA14_OpacityEffectVGMd);
-    outlined init with copy of IDView<AvatarStackView, [UUID]>(v18, v28, &_s7SwiftUI15ModifiedContentVyACyAA012_ConditionalD0VyAEyACyACy15ConversationKit24VideoMessageControlsViewV03TopjK033_B419541366E265736F7249488C40E55CLLVAA14_PaddingLayoutVGAMGAEyA2NGGANGAA010_FlexFrameS0VGAA14_OpacityEffectVGMd);
-    outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v20, &_s7SwiftUI15ModifiedContentVyACyAA012_ConditionalD0VyAEyACyACy15ConversationKit24VideoMessageControlsViewV03TopjK033_B419541366E265736F7249488C40E55CLLVAA14_PaddingLayoutVGAMGAEyA2NGGANGAA010_FlexFrameS0VGAA14_OpacityEffectVGMd);
-    memcpy(v21, v19, 0xF8uLL);
-    v21[31] = 0;
-    LOBYTE(v21[32]) = 1;
-    _s7SwiftUI19_ConditionalContentV7StorageOyAA9TupleViewVyAA08ModifiedD0VyAIyACyACyAIyAIy15ConversationKit020VideoMessageControlsG0V03TopmG033_B419541366E265736F7249488C40E55CLLVAA14_PaddingLayoutVGAQGACyA2RGGARGAA010_FlexFrameU0VGAA14_OpacityEffectVG_AA6SpacerVtGAGyAIyAA6HStackVyAGyA2__AIyAIyAJ18AnimatedSaveButtonVAA01_wU0VGAQGtGGAXG_A2_tG_GWOi_(v21);
+    _FlexFrameLayout.init(minWidth:idealWidth:maxWidth:minHeight:idealHeight:maxHeight:alignment:)(&__dst[16]);
+    v11 = VideoMessagePlayerViewModel.topControlsOpacity.getter();
+    memcpy(v20, __dst, 0xF0uLL);
+    *&v20[30] = v11;
+    memcpy(v23, v20, 0xF8uLL);
+    memcpy(v21, v20, 0xF8uLL);
+    memcpy(v22, v20, 0xF8uLL);
+    v28[0] = 1;
+    v12 = &_s7SwiftUI15ModifiedContentVyACyAA012_ConditionalD0VyAEyACyACy15ConversationKit24VideoMessageControlsViewV03TopjK033_B419541366E265736F7249488C40E55CLLVAA14_PaddingLayoutVGAMGAEyA2NGGANGAA010_FlexFrameS0VGAA14_OpacityEffectVGMd;
+    v13 = &_s7SwiftUI15ModifiedContentVyACyAA012_ConditionalD0VyAEyACyACy15ConversationKit24VideoMessageControlsViewV03TopjK033_B419541366E265736F7249488C40E55CLLVAA14_PaddingLayoutVGAMGAEyA2NGGANGAA010_FlexFrameS0VGAA14_OpacityEffectVGMR;
+    outlined init with copy of IDView<AvatarStackView, [UUID]>(v20, v31, &_s7SwiftUI15ModifiedContentVyACyAA012_ConditionalD0VyAEyACyACy15ConversationKit24VideoMessageControlsViewV03TopjK033_B419541366E265736F7249488C40E55CLLVAA14_PaddingLayoutVGAMGAEyA2NGGANGAA010_FlexFrameS0VGAA14_OpacityEffectVGMd, &_s7SwiftUI15ModifiedContentVyACyAA012_ConditionalD0VyAEyACyACy15ConversationKit24VideoMessageControlsViewV03TopjK033_B419541366E265736F7249488C40E55CLLVAA14_PaddingLayoutVGAMGAEyA2NGGANGAA010_FlexFrameS0VGAA14_OpacityEffectVGMR);
+    outlined init with copy of IDView<AvatarStackView, [UUID]>(v21, v31, &_s7SwiftUI15ModifiedContentVyACyAA012_ConditionalD0VyAEyACyACy15ConversationKit24VideoMessageControlsViewV03TopjK033_B419541366E265736F7249488C40E55CLLVAA14_PaddingLayoutVGAMGAEyA2NGGANGAA010_FlexFrameS0VGAA14_OpacityEffectVGMd, &_s7SwiftUI15ModifiedContentVyACyAA012_ConditionalD0VyAEyACyACy15ConversationKit24VideoMessageControlsViewV03TopjK033_B419541366E265736F7249488C40E55CLLVAA14_PaddingLayoutVGAMGAEyA2NGGANGAA010_FlexFrameS0VGAA14_OpacityEffectVGMR);
+    outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v23, &_s7SwiftUI15ModifiedContentVyACyAA012_ConditionalD0VyAEyACyACy15ConversationKit24VideoMessageControlsViewV03TopjK033_B419541366E265736F7249488C40E55CLLVAA14_PaddingLayoutVGAMGAEyA2NGGANGAA010_FlexFrameS0VGAA14_OpacityEffectVGMd, &_s7SwiftUI15ModifiedContentVyACyAA012_ConditionalD0VyAEyACyACy15ConversationKit24VideoMessageControlsViewV03TopjK033_B419541366E265736F7249488C40E55CLLVAA14_PaddingLayoutVGAMGAEyA2NGGANGAA010_FlexFrameS0VGAA14_OpacityEffectVGMR);
+    memcpy(v24, v22, 0xF8uLL);
+    v24[31] = 0;
+    LOBYTE(v24[32]) = 1;
+    _s7SwiftUI19_ConditionalContentV7StorageOyAA9TupleViewVyAA08ModifiedD0VyAIyACyACyAIyAIy15ConversationKit020VideoMessageControlsG0V03TopmG033_B419541366E265736F7249488C40E55CLLVAA14_PaddingLayoutVGAQGACyA2RGGARGAA010_FlexFrameU0VGAA14_OpacityEffectVG_AA6SpacerVtGAGyAIyAA6HStackVyAGyA2__AIyAIyAJ18AnimatedSaveButtonVAA01_wU0VGAQGtGGAXG_A2_tG_GWOi_(v24);
   }
 
-  memcpy(v28, v21, 0x122uLL);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI9TupleViewVyAA15ModifiedContentVyAEyAA012_ConditionalF0VyAGyAEyAEy15ConversationKit020VideoMessageControlsD0V03ToplD033_B419541366E265736F7249488C40E55CLLVAA14_PaddingLayoutVGAOGAGyA2PGGAPGAA010_FlexFrameT0VGAA14_OpacityEffectVG_AA6SpacerVtGMd);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI9TupleViewVyAA15ModifiedContentVyAA6HStackVyACyAA6SpacerV_AEyAEy15ConversationKit18AnimatedSaveButtonVAA12_FrameLayoutVGAA08_PaddingO0VGtGGAA05_FlexnO0VG_AItGMd);
-  lazy protocol witness table accessor for type CurrentValueSubject<PreCallControlsContext?, Never> and conformance CurrentValueSubject<A, B>(&lazy protocol witness table cache variable for type TupleView<(ModifiedContent<ModifiedContent<_ConditionalContent<_ConditionalContent<ModifiedContent<ModifiedContent<VideoMessageControlsView.TopControlsView, _PaddingLayout>, _PaddingLayout>, _ConditionalContent<ModifiedContent<VideoMessageControlsView.TopControlsView, _PaddingLayout>, ModifiedContent<VideoMessageControlsView.TopControlsView, _PaddingLayout>>>, ModifiedContent<VideoMessageControlsView.TopControlsView, _PaddingLayout>>, _FlexFrameLayout>, _OpacityEffect>, Spacer)> and conformance TupleView<A>, &_s7SwiftUI9TupleViewVyAA15ModifiedContentVyAEyAA012_ConditionalF0VyAGyAEyAEy15ConversationKit020VideoMessageControlsD0V03ToplD033_B419541366E265736F7249488C40E55CLLVAA14_PaddingLayoutVGAOGAGyA2PGGAPGAA010_FlexFrameT0VGAA14_OpacityEffectVG_AA6SpacerVtGMd);
-  lazy protocol witness table accessor for type CurrentValueSubject<PreCallControlsContext?, Never> and conformance CurrentValueSubject<A, B>(&lazy protocol witness table cache variable for type TupleView<(ModifiedContent<HStack<TupleView<(Spacer, ModifiedContent<ModifiedContent<AnimatedSaveButton, _FrameLayout>, _PaddingLayout>)>>, _FlexFrameLayout>, Spacer)> and conformance TupleView<A>, &_s7SwiftUI9TupleViewVyAA15ModifiedContentVyAA6HStackVyACyAA6SpacerV_AEyAEy15ConversationKit18AnimatedSaveButtonVAA12_FrameLayoutVGAA08_PaddingO0VGtGGAA05_FlexnO0VG_AItGMd);
+  memcpy(v31, v24, 0x122uLL);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI9TupleViewVyAA15ModifiedContentVyAEyAA012_ConditionalF0VyAGyAEyAEy15ConversationKit020VideoMessageControlsD0V03ToplD033_B419541366E265736F7249488C40E55CLLVAA14_PaddingLayoutVGAOGAGyA2PGGAPGAA010_FlexFrameT0VGAA14_OpacityEffectVG_AA6SpacerVtGMd, &_s7SwiftUI9TupleViewVyAA15ModifiedContentVyAEyAA012_ConditionalF0VyAGyAEyAEy15ConversationKit020VideoMessageControlsD0V03ToplD033_B419541366E265736F7249488C40E55CLLVAA14_PaddingLayoutVGAOGAGyA2PGGAPGAA010_FlexFrameT0VGAA14_OpacityEffectVG_AA6SpacerVtGMR);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI9TupleViewVyAA15ModifiedContentVyAA6HStackVyACyAA6SpacerV_AEyAEy15ConversationKit18AnimatedSaveButtonVAA12_FrameLayoutVGAA08_PaddingO0VGtGGAA05_FlexnO0VG_AItGMd, &_s7SwiftUI9TupleViewVyAA15ModifiedContentVyAA6HStackVyACyAA6SpacerV_AEyAEy15ConversationKit18AnimatedSaveButtonVAA12_FrameLayoutVGAA08_PaddingO0VGtGGAA05_FlexnO0VG_AItGMR);
+  v16 = MEMORY[0x1E6981F48];
+  lazy protocol witness table accessor for type CurrentValueSubject<PreCallControlsContext?, Never> and conformance CurrentValueSubject<A, B>(&lazy protocol witness table cache variable for type TupleView<(ModifiedContent<ModifiedContent<_ConditionalContent<_ConditionalContent<ModifiedContent<ModifiedContent<VideoMessageControlsView.TopControlsView, _PaddingLayout>, _PaddingLayout>, _ConditionalContent<ModifiedContent<VideoMessageControlsView.TopControlsView, _PaddingLayout>, ModifiedContent<VideoMessageControlsView.TopControlsView, _PaddingLayout>>>, ModifiedContent<VideoMessageControlsView.TopControlsView, _PaddingLayout>>, _FlexFrameLayout>, _OpacityEffect>, Spacer)> and conformance TupleView<A>, &_s7SwiftUI9TupleViewVyAA15ModifiedContentVyAEyAA012_ConditionalF0VyAGyAEyAEy15ConversationKit020VideoMessageControlsD0V03ToplD033_B419541366E265736F7249488C40E55CLLVAA14_PaddingLayoutVGAOGAGyA2PGGAPGAA010_FlexFrameT0VGAA14_OpacityEffectVG_AA6SpacerVtGMd, &_s7SwiftUI9TupleViewVyAA15ModifiedContentVyAEyAA012_ConditionalF0VyAGyAEyAEy15ConversationKit020VideoMessageControlsD0V03ToplD033_B419541366E265736F7249488C40E55CLLVAA14_PaddingLayoutVGAOGAGyA2PGGAPGAA010_FlexFrameT0VGAA14_OpacityEffectVG_AA6SpacerVtGMR, MEMORY[0x1E6981F48]);
+  lazy protocol witness table accessor for type CurrentValueSubject<PreCallControlsContext?, Never> and conformance CurrentValueSubject<A, B>(&lazy protocol witness table cache variable for type TupleView<(ModifiedContent<HStack<TupleView<(Spacer, ModifiedContent<ModifiedContent<AnimatedSaveButton, _FrameLayout>, _PaddingLayout>)>>, _FlexFrameLayout>, Spacer)> and conformance TupleView<A>, &_s7SwiftUI9TupleViewVyAA15ModifiedContentVyAA6HStackVyACyAA6SpacerV_AEyAEy15ConversationKit18AnimatedSaveButtonVAA12_FrameLayoutVGAA08_PaddingO0VGtGGAA05_FlexnO0VG_AItGMd, &_s7SwiftUI9TupleViewVyAA15ModifiedContentVyAA6HStackVyACyAA6SpacerV_AEyAEy15ConversationKit18AnimatedSaveButtonVAA12_FrameLayoutVGAA08_PaddingO0VGtGGAA05_FlexnO0VG_AItGMR, v16);
   _ConditionalContent<>.init(storage:)();
-  outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v17, v11);
-  memcpy(v28, v16, 0x122uLL);
-  return memcpy(a2, v28, 0x122uLL);
+  outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v20, v12, v13);
+  memcpy(v31, v19, 0x122uLL);
+  return memcpy(a3, v31, 0x122uLL);
 }
 
-void *VideoMessageControlsView.TopControlsView.iPadPadded(using:)@<X0>(uint64_t a1@<X1>, int a2@<W2>, void (*a3)(char *, uint64_t)@<X3>, void *a4@<X4>, void *a5@<X8>)
+void *VideoMessageControlsView.TopControlsView.iPadPadded(using:)@<X0>(double a1@<X1>, int a2@<W2>, void (*a3)(char *, uint64_t)@<X3>, void *a4@<X4>, void *a5@<X8>)
 {
   LODWORD(v7) = a2;
-  v55 = a5;
+  v64 = a5;
   v9 = type metadata accessor for EnvironmentValues();
   v10 = *(v9 - 8);
   MEMORY[0x1EEE9AC00](v9);
-  v12 = &v51 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = &v60 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
   if (static Platform.current.getter() == 1)
   {
-    (*((*MEMORY[0x1E69E7D40] & *a4) + 0x120))(v61);
-    if (v61[0])
+    (*((*MEMORY[0x1E69E7D40] & *a4) + 0x120))(v70);
+    if (v70[0])
     {
       GeometryProxy.safeAreaInsets.getter();
       v14 = v13;
-      v53 = v10;
+      v62 = v10;
       if (v7)
       {
-        v15 = *&a1;
+        v15 = a1;
       }
 
       else
       {
 
-        static os_log_type_t.fault.getter();
-        v28 = v7;
+        v28 = static os_log_type_t.fault.getter();
+        v29 = v7;
         v7 = static Log.runtimeIssuesLog.getter();
-        os_log(_:dso:log:_:_:)();
+        os_log(_:dso:log:_:_:)(v28, &dword_1BBC58000, v7, "Accessing Environment's value outside of being installed on a View. This will always read the default value and will not update.", 128, 2, MEMORY[0x1E69E7CC0]);
 
-        LODWORD(v7) = v28;
-        v10 = v53;
+        LODWORD(v7) = v29;
+        v10 = v62;
         EnvironmentValues.init()();
         swift_getAtKeyPath();
-        outlined consume of Environment<UIInterfaceOrientation>.Content(a1, 0);
+        outlined consume of Environment<UIInterfaceOrientation>.Content(*&a1, 0);
         (*(v10 + 8))(v12, v9);
-        v15 = *v61;
+        v15 = *v70;
       }
 
       GeometryProxy.safeAreaInsets.getter();
-      v30 = v29;
+      v31 = v30;
       if (v7)
       {
-        v31 = *&a1;
         v32 = a1;
+        v33 = *&a1;
       }
 
       else
       {
 
-        static os_log_type_t.fault.getter();
-        v54 = v7;
-        v40 = static Log.runtimeIssuesLog.getter();
-        os_log(_:dso:log:_:_:)();
+        v45 = static os_log_type_t.fault.getter();
+        v63 = v7;
+        v46 = v45;
+        v47 = static Log.runtimeIssuesLog.getter();
+        os_log(_:dso:log:_:_:)(v46, &dword_1BBC58000, v47, "Accessing Environment's value outside of being installed on a View. This will always read the default value and will not update.", 128, 2, MEMORY[0x1E69E7CC0]);
 
         EnvironmentValues.init()();
         swift_getAtKeyPath();
-        outlined consume of Environment<UIInterfaceOrientation>.Content(a1, 0);
-        v52 = a3;
-        v41 = *(v10 + 8);
-        v41(v12, v9);
-        v31 = *v61;
+        outlined consume of Environment<UIInterfaceOrientation>.Content(*&a1, 0);
+        v61 = a3;
+        v48 = *(v10 + 8);
+        v48(v12, v9);
+        v32 = *v70;
 
-        static os_log_type_t.fault.getter();
+        v49 = static os_log_type_t.fault.getter();
         v7 = static Log.runtimeIssuesLog.getter();
-        os_log(_:dso:log:_:_:)();
+        os_log(_:dso:log:_:_:)(v49, &dword_1BBC58000, v7, "Accessing Environment's value outside of being installed on a View. This will always read the default value and will not update.", 128, 2, MEMORY[0x1E69E7CC0]);
 
-        LOBYTE(v7) = v54;
+        LOBYTE(v7) = v63;
         EnvironmentValues.init()();
         swift_getAtKeyPath();
-        outlined consume of Environment<UIInterfaceOrientation>.Content(a1, 0);
-        v41(v12, v9);
-        a3 = v52;
-        v32 = v61[0];
+        outlined consume of Environment<UIInterfaceOrientation>.Content(*&a1, 0);
+        v48(v12, v9);
+        a3 = v61;
+        v33 = v70[0];
       }
 
       GeometryProxy.safeAreaInsets.getter();
-      v43 = v42;
+      v51 = v50;
       if (v7)
       {
-        v60[0] = a1;
-        v44 = *&a1;
+        *v69 = a1;
+        v52 = a1;
       }
 
       else
       {
 
-        static os_log_type_t.fault.getter();
-        v45 = v32;
-        v46 = v7;
+        v53 = static os_log_type_t.fault.getter();
+        v54 = v33;
+        v55 = v7;
         v7 = static Log.runtimeIssuesLog.getter();
-        os_log(_:dso:log:_:_:)();
+        os_log(_:dso:log:_:_:)(v53, &dword_1BBC58000, v7, "Accessing Environment's value outside of being installed on a View. This will always read the default value and will not update.", 128, 2, MEMORY[0x1E69E7CC0]);
 
-        LOBYTE(v7) = v46;
-        v32 = v45;
+        LOBYTE(v7) = v55;
+        v33 = v54;
         EnvironmentValues.init()();
         swift_getAtKeyPath();
-        outlined consume of Environment<UIInterfaceOrientation>.Content(a1, 0);
-        (*(v53 + 8))(v12, v9);
-        v44 = *v60;
+        outlined consume of Environment<UIInterfaceOrientation>.Content(*&a1, 0);
+        (*(v62 + 8))(v12, v9);
+        v52 = *v69;
       }
 
-      v47 = v43 + v44 + v44;
-      v48 = static Edge.Set.all.getter();
-      v59[0] = v7 & 1;
-      v57[0] = 0;
-      v56[0] = 1;
-      v61[0] = a1;
-      LOBYTE(v61[1]) = v7 & 1;
-      v61[2] = a3;
-      v61[3] = a4;
-      LOBYTE(v61[4]) = v48;
-      *&v61[5] = v14 + v15 + v15;
-      *&v61[6] = v30 + v31 + v31;
-      v61[7] = v32;
-      *&v61[8] = v47;
-      LOWORD(v61[9]) = 256;
-      v49 = a4;
-      outlined copy of Environment<Edge>.Content(a1, v7 & 1);
+      v56 = v51 + v52 + v52;
+      v57 = static Edge.Set.all.getter();
+      v68[0] = v7 & 1;
+      v66[0] = 0;
+      v65[0] = 1;
+      *v70 = a1;
+      LOBYTE(v70[1]) = v7 & 1;
+      v70[2] = a3;
+      v70[3] = a4;
+      LOBYTE(v70[4]) = v57;
+      *&v70[5] = v14 + v15 + v15;
+      *&v70[6] = v31 + v32 + v32;
+      v70[7] = v33;
+      *&v70[8] = v56;
+      LOWORD(v70[9]) = 256;
+      v58 = a4;
+      outlined copy of Environment<Edge>.Content(*&a1, v7 & 1);
     }
 
     else
     {
-      v54 = v7;
+      v63 = v7;
       if (v7)
       {
-        v24 = *&a1;
-        v60[0] = a1;
-        v25 = a1;
-        v26 = a1;
-        v27 = a1;
+        v24 = a1;
+        *v69 = a1;
+        v25 = *&a1;
+        v26 = *&a1;
+        v27 = *&a1;
       }
 
       else
       {
 
-        static os_log_type_t.fault.getter();
-        v33 = static Log.runtimeIssuesLog.getter();
-        os_log(_:dso:log:_:_:)();
-
-        EnvironmentValues.init()();
-        swift_getAtKeyPath();
-        outlined consume of Environment<UIInterfaceOrientation>.Content(a1, 0);
-        v34 = *(v10 + 8);
-        v34(v12, v9);
-        v24 = *v61;
-
-        static os_log_type_t.fault.getter();
+        v34 = static os_log_type_t.fault.getter();
         v35 = static Log.runtimeIssuesLog.getter();
-        os_log(_:dso:log:_:_:)();
+        os_log(_:dso:log:_:_:)(v34, &dword_1BBC58000, v35, "Accessing Environment's value outside of being installed on a View. This will always read the default value and will not update.", 128, 2, MEMORY[0x1E69E7CC0]);
 
         EnvironmentValues.init()();
         swift_getAtKeyPath();
-        outlined consume of Environment<UIInterfaceOrientation>.Content(a1, 0);
-        v34(v12, v9);
-        v52 = v34;
-        v53 = v61[0];
+        outlined consume of Environment<UIInterfaceOrientation>.Content(*&a1, 0);
+        v36 = *(v10 + 8);
+        v36(v12, v9);
+        v24 = *v70;
 
-        static os_log_type_t.fault.getter();
-        v36 = static Log.runtimeIssuesLog.getter();
-        os_log(_:dso:log:_:_:)();
-
-        EnvironmentValues.init()();
-        swift_getAtKeyPath();
-        outlined consume of Environment<UIInterfaceOrientation>.Content(a1, 0);
-        v34(v12, v9);
-        v26 = v61[0];
-
-        static os_log_type_t.fault.getter();
-        v37 = static Log.runtimeIssuesLog.getter();
-        os_log(_:dso:log:_:_:)();
+        v37 = static os_log_type_t.fault.getter();
+        v38 = static Log.runtimeIssuesLog.getter();
+        os_log(_:dso:log:_:_:)(v37, &dword_1BBC58000, v38, "Accessing Environment's value outside of being installed on a View. This will always read the default value and will not update.", 128, 2, MEMORY[0x1E69E7CC0]);
 
         EnvironmentValues.init()();
         swift_getAtKeyPath();
-        outlined consume of Environment<UIInterfaceOrientation>.Content(a1, 0);
-        v52(v12, v9);
-        v27 = v53;
-        v25 = v60[0];
+        outlined consume of Environment<UIInterfaceOrientation>.Content(*&a1, 0);
+        v36(v12, v9);
+        v61 = v36;
+        v62 = v70[0];
+
+        v39 = static os_log_type_t.fault.getter();
+        v40 = static Log.runtimeIssuesLog.getter();
+        os_log(_:dso:log:_:_:)(v39, &dword_1BBC58000, v40, "Accessing Environment's value outside of being installed on a View. This will always read the default value and will not update.", 128, 2, MEMORY[0x1E69E7CC0]);
+
+        EnvironmentValues.init()();
+        swift_getAtKeyPath();
+        outlined consume of Environment<UIInterfaceOrientation>.Content(*&a1, 0);
+        v36(v12, v9);
+        v26 = v70[0];
+
+        v41 = static os_log_type_t.fault.getter();
+        v42 = static Log.runtimeIssuesLog.getter();
+        os_log(_:dso:log:_:_:)(v41, &dword_1BBC58000, v42, "Accessing Environment's value outside of being installed on a View. This will always read the default value and will not update.", 128, 2, MEMORY[0x1E69E7CC0]);
+
+        EnvironmentValues.init()();
+        swift_getAtKeyPath();
+        outlined consume of Environment<UIInterfaceOrientation>.Content(*&a1, 0);
+        v61(v12, v9);
+        v27 = v62;
+        v25 = v69[0];
       }
 
-      v38 = static Edge.Set.all.getter();
-      v59[0] = v54 & 1;
-      v57[0] = 0;
-      v56[0] = 0;
-      v61[0] = a1;
-      LOBYTE(v61[1]) = v54 & 1;
-      v61[2] = a3;
-      v61[3] = a4;
-      LOBYTE(v61[4]) = v38;
-      *&v61[5] = v24 + v24;
-      v61[6] = v27;
-      v61[7] = v26;
-      v61[8] = v25;
-      LOWORD(v61[9]) = 0;
-      outlined copy of Environment<Edge>.Content(a1, v54 & 1);
-      v39 = a4;
+      v43 = static Edge.Set.all.getter();
+      v68[0] = v63 & 1;
+      v66[0] = 0;
+      v65[0] = 0;
+      *v70 = a1;
+      LOBYTE(v70[1]) = v63 & 1;
+      v70[2] = a3;
+      v70[3] = a4;
+      LOBYTE(v70[4]) = v43;
+      *&v70[5] = v24 + v24;
+      v70[6] = v27;
+      v70[7] = v26;
+      v70[8] = v25;
+      LOWORD(v70[9]) = 0;
+      outlined copy of Environment<Edge>.Content(*&a1, v63 & 1);
+      v44 = a4;
     }
 
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVy15ConversationKit24VideoMessageControlsViewV03TopiJ033_B419541366E265736F7249488C40E55CLLVAA14_PaddingLayoutVGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVy15ConversationKit24VideoMessageControlsViewV03TopiJ033_B419541366E265736F7249488C40E55CLLVAA14_PaddingLayoutVGMd, &_s7SwiftUI15ModifiedContentVy15ConversationKit24VideoMessageControlsViewV03TopiJ033_B419541366E265736F7249488C40E55CLLVAA14_PaddingLayoutVGMR);
     lazy protocol witness table accessor for type ModifiedContent<VideoMessageControlsView.TopControlsView, _PaddingLayout> and conformance <> ModifiedContent<A, B>();
     _ConditionalContent<>.init(storage:)();
-    memcpy(v57, v58, 0x4AuLL);
-    _s7SwiftUI19_ConditionalContentV7StorageOyAA08ModifiedD0VyAGy15ConversationKit24VideoMessageControlsViewV03TopkL033_B419541366E265736F7249488C40E55CLLVAA14_PaddingLayoutVGAOGACyA2PG_GWOi0_(v57);
-    memcpy(v61, v57, 0x7AuLL);
-    outlined init with copy of IDView<AvatarStackView, [UUID]>(v58, v60, &_s7SwiftUI19_ConditionalContentVyAA08ModifiedD0Vy15ConversationKit24VideoMessageControlsViewV03TopjK033_B419541366E265736F7249488C40E55CLLVAA14_PaddingLayoutVGANGMd);
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyACy15ConversationKit24VideoMessageControlsViewV03TopiJ033_B419541366E265736F7249488C40E55CLLVAA14_PaddingLayoutVGAKGMd);
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI19_ConditionalContentVyAA08ModifiedD0Vy15ConversationKit24VideoMessageControlsViewV03TopjK033_B419541366E265736F7249488C40E55CLLVAA14_PaddingLayoutVGANGMd);
+    memcpy(v66, v67, 0x4AuLL);
+    _s7SwiftUI19_ConditionalContentV7StorageOyAA08ModifiedD0VyAGy15ConversationKit24VideoMessageControlsViewV03TopkL033_B419541366E265736F7249488C40E55CLLVAA14_PaddingLayoutVGAOGACyA2PG_GWOi0_(v66);
+    memcpy(v70, v66, 0x7AuLL);
+    outlined init with copy of IDView<AvatarStackView, [UUID]>(v67, v69, &_s7SwiftUI19_ConditionalContentVyAA08ModifiedD0Vy15ConversationKit24VideoMessageControlsViewV03TopjK033_B419541366E265736F7249488C40E55CLLVAA14_PaddingLayoutVGANGMd, &_s7SwiftUI19_ConditionalContentVyAA08ModifiedD0Vy15ConversationKit24VideoMessageControlsViewV03TopjK033_B419541366E265736F7249488C40E55CLLVAA14_PaddingLayoutVGANGMR);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyACy15ConversationKit24VideoMessageControlsViewV03TopiJ033_B419541366E265736F7249488C40E55CLLVAA14_PaddingLayoutVGAKGMd, &_s7SwiftUI15ModifiedContentVyACy15ConversationKit24VideoMessageControlsViewV03TopiJ033_B419541366E265736F7249488C40E55CLLVAA14_PaddingLayoutVGAKGMR);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI19_ConditionalContentVyAA08ModifiedD0Vy15ConversationKit24VideoMessageControlsViewV03TopjK033_B419541366E265736F7249488C40E55CLLVAA14_PaddingLayoutVGANGMd, &_s7SwiftUI19_ConditionalContentVyAA08ModifiedD0Vy15ConversationKit24VideoMessageControlsViewV03TopjK033_B419541366E265736F7249488C40E55CLLVAA14_PaddingLayoutVGANGMR);
     lazy protocol witness table accessor for type ModifiedContent<ModifiedContent<VideoMessageControlsView.TopControlsView, _PaddingLayout>, _PaddingLayout> and conformance <> ModifiedContent<A, B>();
     lazy protocol witness table accessor for type _ConditionalContent<ModifiedContent<VideoMessageControlsView.TopControlsView, _PaddingLayout>, ModifiedContent<VideoMessageControlsView.TopControlsView, _PaddingLayout>> and conformance <> _ConditionalContent<A, B>();
     _ConditionalContent<>.init(storage:)();
-    memcpy(v60, v56, 0x7AuLL);
-    _s7SwiftUI19_ConditionalContentV7StorageOyACyAA08ModifiedD0VyAGy15ConversationKit24VideoMessageControlsViewV03TopkL033_B419541366E265736F7249488C40E55CLLVAA14_PaddingLayoutVGAOGACyA2PGGAP_GWOi_(v60);
-    memcpy(v61, v60, 0x7BuLL);
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI19_ConditionalContentVyAA08ModifiedD0VyAEy15ConversationKit24VideoMessageControlsViewV03TopjK033_B419541366E265736F7249488C40E55CLLVAA14_PaddingLayoutVGAMGACyA2NGGMd);
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVy15ConversationKit24VideoMessageControlsViewV03TopiJ033_B419541366E265736F7249488C40E55CLLVAA14_PaddingLayoutVGMd);
+    memcpy(v69, v65, 0x7AuLL);
+    _s7SwiftUI19_ConditionalContentV7StorageOyACyAA08ModifiedD0VyAGy15ConversationKit24VideoMessageControlsViewV03TopkL033_B419541366E265736F7249488C40E55CLLVAA14_PaddingLayoutVGAOGACyA2PGGAP_GWOi_(v69);
+    memcpy(v70, v69, 0x7BuLL);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI19_ConditionalContentVyAA08ModifiedD0VyAEy15ConversationKit24VideoMessageControlsViewV03TopjK033_B419541366E265736F7249488C40E55CLLVAA14_PaddingLayoutVGAMGACyA2NGGMd, &_s7SwiftUI19_ConditionalContentVyAA08ModifiedD0VyAEy15ConversationKit24VideoMessageControlsViewV03TopjK033_B419541366E265736F7249488C40E55CLLVAA14_PaddingLayoutVGAMGACyA2NGGMR);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVy15ConversationKit24VideoMessageControlsViewV03TopiJ033_B419541366E265736F7249488C40E55CLLVAA14_PaddingLayoutVGMd, &_s7SwiftUI15ModifiedContentVy15ConversationKit24VideoMessageControlsViewV03TopiJ033_B419541366E265736F7249488C40E55CLLVAA14_PaddingLayoutVGMR);
     lazy protocol witness table accessor for type _ConditionalContent<ModifiedContent<ModifiedContent<VideoMessageControlsView.TopControlsView, _PaddingLayout>, _PaddingLayout>, _ConditionalContent<ModifiedContent<VideoMessageControlsView.TopControlsView, _PaddingLayout>, ModifiedContent<VideoMessageControlsView.TopControlsView, _PaddingLayout>>> and conformance <> _ConditionalContent<A, B>();
     lazy protocol witness table accessor for type ModifiedContent<VideoMessageControlsView.TopControlsView, _PaddingLayout> and conformance <> ModifiedContent<A, B>();
     _ConditionalContent<>.init(storage:)();
-    outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v58, &_s7SwiftUI19_ConditionalContentVyAA08ModifiedD0Vy15ConversationKit24VideoMessageControlsViewV03TopjK033_B419541366E265736F7249488C40E55CLLVAA14_PaddingLayoutVGANGMd);
-    memcpy(v61, v59, 0x7BuLL);
+    outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v67, &_s7SwiftUI19_ConditionalContentVyAA08ModifiedD0Vy15ConversationKit24VideoMessageControlsViewV03TopjK033_B419541366E265736F7249488C40E55CLLVAA14_PaddingLayoutVGANGMd, &_s7SwiftUI19_ConditionalContentVyAA08ModifiedD0Vy15ConversationKit24VideoMessageControlsViewV03TopjK033_B419541366E265736F7249488C40E55CLLVAA14_PaddingLayoutVGANGMR);
+    memcpy(v70, v68, 0x7BuLL);
   }
 
   else
@@ -9693,30 +9492,30 @@ void *VideoMessageControlsView.TopControlsView.iPadPadded(using:)@<X0>(uint64_t 
     v18 = GeometryProxy.safeAreaInsets.getter();
     (*((*MEMORY[0x1E69E7D40] & *a4) + 0xC0))(v18);
     EdgeInsets.init(_all:)();
-    v57[0] = v7 & 1;
-    v56[0] = 0;
-    v60[0] = a1;
-    LOBYTE(v60[1]) = v7 & 1;
-    v60[2] = a3;
-    v60[3] = a4;
-    LOBYTE(v60[4]) = v17;
-    v60[5] = v19;
-    v60[6] = v20;
-    v60[7] = v21;
-    v60[8] = v22;
-    LOBYTE(v60[9]) = 0;
-    _s7SwiftUI19_ConditionalContentV7StorageOyACyAA08ModifiedD0VyAGy15ConversationKit24VideoMessageControlsViewV03TopkL033_B419541366E265736F7249488C40E55CLLVAA14_PaddingLayoutVGAOGACyA2PGGAP_GWOi0_(v60);
-    memcpy(v59, v60, sizeof(v59));
-    outlined copy of Environment<Edge>.Content(a1, v7 & 1);
+    v66[0] = v7 & 1;
+    v65[0] = 0;
+    *v69 = a1;
+    LOBYTE(v69[1]) = v7 & 1;
+    v69[2] = a3;
+    v69[3] = a4;
+    LOBYTE(v69[4]) = v17;
+    v69[5] = v19;
+    v69[6] = v20;
+    v69[7] = v21;
+    v69[8] = v22;
+    LOBYTE(v69[9]) = 0;
+    _s7SwiftUI19_ConditionalContentV7StorageOyACyAA08ModifiedD0VyAGy15ConversationKit24VideoMessageControlsViewV03TopkL033_B419541366E265736F7249488C40E55CLLVAA14_PaddingLayoutVGAOGACyA2PGGAP_GWOi0_(v69);
+    memcpy(v68, v69, sizeof(v68));
+    outlined copy of Environment<Edge>.Content(*&a1, v7 & 1);
     v23 = a4;
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI19_ConditionalContentVyAA08ModifiedD0VyAEy15ConversationKit24VideoMessageControlsViewV03TopjK033_B419541366E265736F7249488C40E55CLLVAA14_PaddingLayoutVGAMGACyA2NGGMd);
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVy15ConversationKit24VideoMessageControlsViewV03TopiJ033_B419541366E265736F7249488C40E55CLLVAA14_PaddingLayoutVGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI19_ConditionalContentVyAA08ModifiedD0VyAEy15ConversationKit24VideoMessageControlsViewV03TopjK033_B419541366E265736F7249488C40E55CLLVAA14_PaddingLayoutVGAMGACyA2NGGMd, &_s7SwiftUI19_ConditionalContentVyAA08ModifiedD0VyAEy15ConversationKit24VideoMessageControlsViewV03TopjK033_B419541366E265736F7249488C40E55CLLVAA14_PaddingLayoutVGAMGACyA2NGGMR);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVy15ConversationKit24VideoMessageControlsViewV03TopiJ033_B419541366E265736F7249488C40E55CLLVAA14_PaddingLayoutVGMd, &_s7SwiftUI15ModifiedContentVy15ConversationKit24VideoMessageControlsViewV03TopiJ033_B419541366E265736F7249488C40E55CLLVAA14_PaddingLayoutVGMR);
     lazy protocol witness table accessor for type _ConditionalContent<ModifiedContent<ModifiedContent<VideoMessageControlsView.TopControlsView, _PaddingLayout>, _PaddingLayout>, _ConditionalContent<ModifiedContent<VideoMessageControlsView.TopControlsView, _PaddingLayout>, ModifiedContent<VideoMessageControlsView.TopControlsView, _PaddingLayout>>> and conformance <> _ConditionalContent<A, B>();
     lazy protocol witness table accessor for type ModifiedContent<VideoMessageControlsView.TopControlsView, _PaddingLayout> and conformance <> ModifiedContent<A, B>();
     _ConditionalContent<>.init(storage:)();
   }
 
-  return memcpy(v55, v61, 0x7BuLL);
+  return memcpy(v64, v70, 0x7BuLL);
 }
 
 double VideoMessagePlayerViewModel.topControlsOpacity.getter()
@@ -9741,7 +9540,7 @@ uint64_t closure #1 in closure #1 in closure #1 in closure #1 in VideoMessageCon
 {
   v3 = *(a1 + *(type metadata accessor for VideoMessageControlsView(0) + 28) + 8);
   type metadata accessor for VideoMessagePlayerViewModel(0);
-  lazy protocol witness table accessor for type VideoMessagePlayerViewModel and conformance VideoMessagePlayerViewModel(&lazy protocol witness table cache variable for type VideoMessagePlayerViewModel and conformance VideoMessagePlayerViewModel, type metadata accessor for VideoMessagePlayerViewModel);
+  lazy protocol witness table accessor for type VideoMessagePlayerViewModel and conformance VideoMessagePlayerViewModel(&lazy protocol witness table cache variable for type VideoMessagePlayerViewModel and conformance VideoMessagePlayerViewModel, type metadata accessor for VideoMessagePlayerViewModel, &protocol conformance descriptor for VideoMessagePlayerViewModel);
   v4 = v3;
   v5 = ObservedObject.init(wrappedValue:)();
   v7 = v6;
@@ -9781,15 +9580,15 @@ uint64_t closure #1 in closure #1 in closure #1 in closure #1 in VideoMessageCon
   v27 = 0;
   v28 = 0x402A000000000000;
   v29 = 0;
-  outlined init with copy of IDView<AvatarStackView, [UUID]>(__src, v11, &_s7SwiftUI15ModifiedContentVyACy15ConversationKit18AnimatedSaveButtonVAA12_FrameLayoutVGAA08_PaddingK0VGMd);
-  return outlined destroy of ConversationControlsMoreMenuButtonDelegate?(&v17, &_s7SwiftUI15ModifiedContentVyACy15ConversationKit18AnimatedSaveButtonVAA12_FrameLayoutVGAA08_PaddingK0VGMd);
+  outlined init with copy of IDView<AvatarStackView, [UUID]>(__src, v11, &_s7SwiftUI15ModifiedContentVyACy15ConversationKit18AnimatedSaveButtonVAA12_FrameLayoutVGAA08_PaddingK0VGMd, &_s7SwiftUI15ModifiedContentVyACy15ConversationKit18AnimatedSaveButtonVAA12_FrameLayoutVGAA08_PaddingK0VGMR);
+  return outlined destroy of ConversationControlsMoreMenuButtonDelegate?(&v17, &_s7SwiftUI15ModifiedContentVyACy15ConversationKit18AnimatedSaveButtonVAA12_FrameLayoutVGAA08_PaddingK0VGMd, &_s7SwiftUI15ModifiedContentVyACy15ConversationKit18AnimatedSaveButtonVAA12_FrameLayoutVGAA08_PaddingK0VGMR);
 }
 
-uint64_t AnimatedSaveButton.init(videoMessageViewModel:showsTitle:)()
+uint64_t AnimatedSaveButton.init(videoMessageViewModel:showsTitle:)(uint64_t a1, char a2)
 {
   type metadata accessor for VideoMessagePlayerViewModel(0);
   OUTLINED_FUNCTION_3_143();
-  lazy protocol witness table accessor for type VideoMessagePlayerViewModel and conformance VideoMessagePlayerViewModel(v0, v1);
+  lazy protocol witness table accessor for type VideoMessagePlayerViewModel and conformance VideoMessagePlayerViewModel(v2, v3, &protocol conformance descriptor for VideoMessagePlayerViewModel);
   OUTLINED_FUNCTION_15_14();
   ObservedObject.init(wrappedValue:)();
   OUTLINED_FUNCTION_18_8();
@@ -9806,12 +9605,12 @@ uint64_t closure #2 in closure #1 in closure #1 in VideoMessageControlsView.body
   v132 = v4;
   MEMORY[0x1EEE9AC00](v4);
   v6 = &v113 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v127 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI22UserInterfaceSizeClassOSg_ADtMd);
+  v127 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI22UserInterfaceSizeClassOSg_ADtMd, &_s7SwiftUI22UserInterfaceSizeClassOSg_ADtMR);
   MEMORY[0x1EEE9AC00](v127);
   v120 = &v113 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v8);
   v130 = &v113 - v9;
-  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI22UserInterfaceSizeClassOSgMd);
+  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI22UserInterfaceSizeClassOSgMd, &_s7SwiftUI22UserInterfaceSizeClassOSgMR);
   MEMORY[0x1EEE9AC00](v10 - 8);
   v118 = &v113 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v12);
@@ -9824,24 +9623,24 @@ uint64_t closure #2 in closure #1 in closure #1 in VideoMessageControlsView.body
   v128 = &v113 - v19;
   MEMORY[0x1EEE9AC00](v20);
   v129 = &v113 - v21;
-  v138 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI19_ConditionalContentV7StorageOyAA08ModifiedD0VyAGyAGy15ConversationKit24VideoMessageControlsViewV011LocalBottomkL033_B419541366E265736F7249488C40E55CLLVAA14_OpacityEffectVGAA32_EnvironmentKeyTransformModifierVySbGGAOGAGyAGyAGyAJ06RemotenkL0ALLLVAA14_PaddingLayoutVGAYGAA16_FlexFrameLayoutVG_GMd);
+  v138 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI19_ConditionalContentV7StorageOyAA08ModifiedD0VyAGyAGy15ConversationKit24VideoMessageControlsViewV011LocalBottomkL033_B419541366E265736F7249488C40E55CLLVAA14_OpacityEffectVGAA32_EnvironmentKeyTransformModifierVySbGGAOGAGyAGyAGyAJ06RemotenkL0ALLLVAA14_PaddingLayoutVGAYGAA16_FlexFrameLayoutVG_GMd, &_s7SwiftUI19_ConditionalContentV7StorageOyAA08ModifiedD0VyAGyAGy15ConversationKit24VideoMessageControlsViewV011LocalBottomkL033_B419541366E265736F7249488C40E55CLLVAA14_OpacityEffectVGAA32_EnvironmentKeyTransformModifierVySbGGAOGAGyAGyAGyAJ06RemotenkL0ALLLVAA14_PaddingLayoutVGAYGAA16_FlexFrameLayoutVG_GMR);
   MEMORY[0x1EEE9AC00](v138);
   v23 = &v113 - v22;
   v24 = type metadata accessor for VideoMessageControlsView.LocalBottomControlsView(0);
   MEMORY[0x1EEE9AC00](v24);
   v26 = &v113 - ((v25 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v123 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVy15ConversationKit24VideoMessageControlsViewV011LocalBottomiJ033_B419541366E265736F7249488C40E55CLLVAA14_OpacityEffectVGMd);
+  v123 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVy15ConversationKit24VideoMessageControlsViewV011LocalBottomiJ033_B419541366E265736F7249488C40E55CLLVAA14_OpacityEffectVGMd, &_s7SwiftUI15ModifiedContentVy15ConversationKit24VideoMessageControlsViewV011LocalBottomiJ033_B419541366E265736F7249488C40E55CLLVAA14_OpacityEffectVGMR);
   MEMORY[0x1EEE9AC00](v123);
   v28 = &v113 - v27;
-  v124 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyACy15ConversationKit24VideoMessageControlsViewV011LocalBottomiJ033_B419541366E265736F7249488C40E55CLLVAA14_OpacityEffectVGAA32_EnvironmentKeyTransformModifierVySbGGMd);
+  v124 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyACy15ConversationKit24VideoMessageControlsViewV011LocalBottomiJ033_B419541366E265736F7249488C40E55CLLVAA14_OpacityEffectVGAA32_EnvironmentKeyTransformModifierVySbGGMd, &_s7SwiftUI15ModifiedContentVyACy15ConversationKit24VideoMessageControlsViewV011LocalBottomiJ033_B419541366E265736F7249488C40E55CLLVAA14_OpacityEffectVGAA32_EnvironmentKeyTransformModifierVySbGGMR);
   MEMORY[0x1EEE9AC00](v124);
   v125 = &v113 - v29;
-  v135 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyACyACy15ConversationKit24VideoMessageControlsViewV011LocalBottomiJ033_B419541366E265736F7249488C40E55CLLVAA14_OpacityEffectVGAA32_EnvironmentKeyTransformModifierVySbGGAKGMd);
+  v135 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyACyACy15ConversationKit24VideoMessageControlsViewV011LocalBottomiJ033_B419541366E265736F7249488C40E55CLLVAA14_OpacityEffectVGAA32_EnvironmentKeyTransformModifierVySbGGAKGMd, &_s7SwiftUI15ModifiedContentVyACyACy15ConversationKit24VideoMessageControlsViewV011LocalBottomiJ033_B419541366E265736F7249488C40E55CLLVAA14_OpacityEffectVGAA32_EnvironmentKeyTransformModifierVySbGGAKGMR);
   MEMORY[0x1EEE9AC00](v135);
   v31 = &v113 - ((v30 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v32);
   v126 = &v113 - v33;
-  v34 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI19_ConditionalContentVyAA08ModifiedD0VyAEyAEy15ConversationKit24VideoMessageControlsViewV011LocalBottomjK033_B419541366E265736F7249488C40E55CLLVAA14_OpacityEffectVGAA32_EnvironmentKeyTransformModifierVySbGGAMGAEyAEyAEyAH06RemotemjK0AJLLVAA14_PaddingLayoutVGAWGAA16_FlexFrameLayoutVGGMd);
+  v34 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI19_ConditionalContentVyAA08ModifiedD0VyAEyAEy15ConversationKit24VideoMessageControlsViewV011LocalBottomjK033_B419541366E265736F7249488C40E55CLLVAA14_OpacityEffectVGAA32_EnvironmentKeyTransformModifierVySbGGAMGAEyAEyAEyAH06RemotemjK0AJLLVAA14_PaddingLayoutVGAWGAA16_FlexFrameLayoutVGGMd, &_s7SwiftUI19_ConditionalContentVyAA08ModifiedD0VyAEyAEy15ConversationKit24VideoMessageControlsViewV011LocalBottomjK033_B419541366E265736F7249488C40E55CLLVAA14_OpacityEffectVGAA32_EnvironmentKeyTransformModifierVySbGGAMGAEyAEyAEyAH06RemotemjK0AJLLVAA14_PaddingLayoutVGAWGAA16_FlexFrameLayoutVGGMR);
   MEMORY[0x1EEE9AC00](v34 - 8);
   v137 = &v113 - ((v35 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v36);
@@ -9855,12 +9654,12 @@ uint64_t closure #2 in closure #1 in closure #1 in VideoMessageControlsView.body
     v113 = v6;
     v126 = a1;
     type metadata accessor for VideoMessagePlayerViewModel(0);
-    lazy protocol witness table accessor for type VideoMessagePlayerViewModel and conformance VideoMessagePlayerViewModel(&lazy protocol witness table cache variable for type VideoMessagePlayerViewModel and conformance VideoMessagePlayerViewModel, type metadata accessor for VideoMessagePlayerViewModel);
+    lazy protocol witness table accessor for type VideoMessagePlayerViewModel and conformance VideoMessagePlayerViewModel(&lazy protocol witness table cache variable for type VideoMessagePlayerViewModel and conformance VideoMessagePlayerViewModel, type metadata accessor for VideoMessagePlayerViewModel, &protocol conformance descriptor for VideoMessagePlayerViewModel);
     v39 = v38;
     v40 = ObservedObject.init(wrappedValue:)();
     v124 = v41;
     v125 = v40;
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy7SwiftUI4EdgeO3SetVGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy7SwiftUI4EdgeO3SetVGMd, _ss23_ContiguousArrayStorageCy7SwiftUI4EdgeO3SetVGMR);
     inited = swift_initStackObject();
     *(inited + 16) = xmmword_1BC4BAA20;
     v43 = static Edge.Set.leading.getter();
@@ -9918,16 +9717,16 @@ uint64_t closure #2 in closure #1 in closure #1 in VideoMessageControlsView.body
     v69 = v48;
     v70 = v48;
     v71 = v130;
-    outlined init with copy of IDView<AvatarStackView, [UUID]>(v69, v130, &_s7SwiftUI22UserInterfaceSizeClassOSgMd);
-    outlined init with copy of IDView<AvatarStackView, [UUID]>(v49, v71 + v68, &_s7SwiftUI22UserInterfaceSizeClassOSgMd);
+    outlined init with copy of IDView<AvatarStackView, [UUID]>(v69, v130, &_s7SwiftUI22UserInterfaceSizeClassOSgMd, &_s7SwiftUI22UserInterfaceSizeClassOSgMR);
+    outlined init with copy of IDView<AvatarStackView, [UUID]>(v49, v71 + v68, &_s7SwiftUI22UserInterfaceSizeClassOSgMd, &_s7SwiftUI22UserInterfaceSizeClassOSgMR);
     if (__swift_getEnumTagSinglePayload(v71, 1, v47) == 1)
     {
-      outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v49, &_s7SwiftUI22UserInterfaceSizeClassOSgMd);
+      outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v49, &_s7SwiftUI22UserInterfaceSizeClassOSgMd, &_s7SwiftUI22UserInterfaceSizeClassOSgMR);
       v71 = v130;
-      outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v70, &_s7SwiftUI22UserInterfaceSizeClassOSgMd);
+      outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v70, &_s7SwiftUI22UserInterfaceSizeClassOSgMd, &_s7SwiftUI22UserInterfaceSizeClassOSgMR);
       if (__swift_getEnumTagSinglePayload(v71 + v68, 1, v47) == 1)
       {
-        outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v71, &_s7SwiftUI22UserInterfaceSizeClassOSgMd);
+        outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v71, &_s7SwiftUI22UserInterfaceSizeClassOSgMd, &_s7SwiftUI22UserInterfaceSizeClassOSgMR);
         goto LABEL_20;
       }
     }
@@ -9935,23 +9734,23 @@ uint64_t closure #2 in closure #1 in closure #1 in VideoMessageControlsView.body
     else
     {
       v90 = v122;
-      outlined init with copy of IDView<AvatarStackView, [UUID]>(v71, v122, &_s7SwiftUI22UserInterfaceSizeClassOSgMd);
+      outlined init with copy of IDView<AvatarStackView, [UUID]>(v71, v122, &_s7SwiftUI22UserInterfaceSizeClassOSgMd, &_s7SwiftUI22UserInterfaceSizeClassOSgMR);
       if (__swift_getEnumTagSinglePayload(v71 + v68, 1, v47) != 1)
       {
         v92 = v131;
         v93 = v71 + v68;
         v94 = v113;
         (*(v131 + 32))(v113, v93, v47);
-        lazy protocol witness table accessor for type VideoMessagePlayerViewModel and conformance VideoMessagePlayerViewModel(&lazy protocol witness table cache variable for type UserInterfaceSizeClass and conformance UserInterfaceSizeClass, MEMORY[0x1E697FF50]);
+        lazy protocol witness table accessor for type VideoMessagePlayerViewModel and conformance VideoMessagePlayerViewModel(&lazy protocol witness table cache variable for type UserInterfaceSizeClass and conformance UserInterfaceSizeClass, MEMORY[0x1E697FF50], MEMORY[0x1E697FF60]);
         v95 = dispatch thunk of static Equatable.== infix(_:_:)();
         v96 = v90;
         v97 = *(v92 + 8);
         v97(v94, v132);
-        outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v128, &_s7SwiftUI22UserInterfaceSizeClassOSgMd);
-        outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v129, &_s7SwiftUI22UserInterfaceSizeClassOSgMd);
+        outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v128, &_s7SwiftUI22UserInterfaceSizeClassOSgMd, &_s7SwiftUI22UserInterfaceSizeClassOSgMR);
+        outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v129, &_s7SwiftUI22UserInterfaceSizeClassOSgMd, &_s7SwiftUI22UserInterfaceSizeClassOSgMR);
         v97(v96, v132);
         v47 = v132;
-        outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v71, &_s7SwiftUI22UserInterfaceSizeClassOSgMd);
+        outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v71, &_s7SwiftUI22UserInterfaceSizeClassOSgMd, &_s7SwiftUI22UserInterfaceSizeClassOSgMR);
         if (v95)
         {
 LABEL_20:
@@ -9962,17 +9761,17 @@ LABEL_20:
           __swift_storeEnumTagSinglePayload(v99, 0, 1, v47);
           v100 = *(v127 + 48);
           v101 = v120;
-          outlined init with copy of IDView<AvatarStackView, [UUID]>(v98, v120, &_s7SwiftUI22UserInterfaceSizeClassOSgMd);
-          outlined init with copy of IDView<AvatarStackView, [UUID]>(v99, v101 + v100, &_s7SwiftUI22UserInterfaceSizeClassOSgMd);
+          outlined init with copy of IDView<AvatarStackView, [UUID]>(v98, v120, &_s7SwiftUI22UserInterfaceSizeClassOSgMd, &_s7SwiftUI22UserInterfaceSizeClassOSgMR);
+          outlined init with copy of IDView<AvatarStackView, [UUID]>(v99, v101 + v100, &_s7SwiftUI22UserInterfaceSizeClassOSgMd, &_s7SwiftUI22UserInterfaceSizeClassOSgMR);
           if (__swift_getEnumTagSinglePayload(v101, 1, v47) == 1)
           {
-            outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v99, &_s7SwiftUI22UserInterfaceSizeClassOSgMd);
-            outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v98, &_s7SwiftUI22UserInterfaceSizeClassOSgMd);
+            outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v99, &_s7SwiftUI22UserInterfaceSizeClassOSgMd, &_s7SwiftUI22UserInterfaceSizeClassOSgMR);
+            outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v98, &_s7SwiftUI22UserInterfaceSizeClassOSgMd, &_s7SwiftUI22UserInterfaceSizeClassOSgMR);
             EnumTagSinglePayload = __swift_getEnumTagSinglePayload(v101 + v100, 1, v47);
             v91 = v134;
             if (EnumTagSinglePayload == 1)
             {
-              outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v101, &_s7SwiftUI22UserInterfaceSizeClassOSgMd);
+              outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v101, &_s7SwiftUI22UserInterfaceSizeClassOSgMd, &_s7SwiftUI22UserInterfaceSizeClassOSgMR);
               goto LABEL_27;
             }
           }
@@ -9980,32 +9779,32 @@ LABEL_20:
           else
           {
             v103 = v118;
-            outlined init with copy of IDView<AvatarStackView, [UUID]>(v101, v118, &_s7SwiftUI22UserInterfaceSizeClassOSgMd);
+            outlined init with copy of IDView<AvatarStackView, [UUID]>(v101, v118, &_s7SwiftUI22UserInterfaceSizeClassOSgMd, &_s7SwiftUI22UserInterfaceSizeClassOSgMR);
             if (__swift_getEnumTagSinglePayload(v101 + v100, 1, v47) != 1)
             {
               v104 = v131;
               v105 = v113;
               (*(v131 + 32))(v113, v101 + v100, v47);
-              lazy protocol witness table accessor for type VideoMessagePlayerViewModel and conformance VideoMessagePlayerViewModel(&lazy protocol witness table cache variable for type UserInterfaceSizeClass and conformance UserInterfaceSizeClass, MEMORY[0x1E697FF50]);
+              lazy protocol witness table accessor for type VideoMessagePlayerViewModel and conformance VideoMessagePlayerViewModel(&lazy protocol witness table cache variable for type UserInterfaceSizeClass and conformance UserInterfaceSizeClass, MEMORY[0x1E697FF50], MEMORY[0x1E697FF60]);
               LODWORD(v133) = dispatch thunk of static Equatable.== infix(_:_:)();
               v106 = v98;
               v107 = *(v104 + 8);
               v107(v105, v47);
-              outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v121, &_s7SwiftUI22UserInterfaceSizeClassOSgMd);
-              outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v106, &_s7SwiftUI22UserInterfaceSizeClassOSgMd);
+              outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v121, &_s7SwiftUI22UserInterfaceSizeClassOSgMd, &_s7SwiftUI22UserInterfaceSizeClassOSgMR);
+              outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v106, &_s7SwiftUI22UserInterfaceSizeClassOSgMd, &_s7SwiftUI22UserInterfaceSizeClassOSgMR);
               v107(v103, v47);
-              outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v101, &_s7SwiftUI22UserInterfaceSizeClassOSgMd);
+              outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v101, &_s7SwiftUI22UserInterfaceSizeClassOSgMd, &_s7SwiftUI22UserInterfaceSizeClassOSgMR);
               v91 = v134;
               goto LABEL_27;
             }
 
-            outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v99, &_s7SwiftUI22UserInterfaceSizeClassOSgMd);
-            outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v98, &_s7SwiftUI22UserInterfaceSizeClassOSgMd);
+            outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v99, &_s7SwiftUI22UserInterfaceSizeClassOSgMd, &_s7SwiftUI22UserInterfaceSizeClassOSgMR);
+            outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v98, &_s7SwiftUI22UserInterfaceSizeClassOSgMd, &_s7SwiftUI22UserInterfaceSizeClassOSgMR);
             (*(v131 + 8))(v103, v47);
             v91 = v134;
           }
 
-          outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v101, &_s7SwiftUI22UserInterfaceSizeClassOSg_ADtMd);
+          outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v101, &_s7SwiftUI22UserInterfaceSizeClassOSg_ADtMd, &_s7SwiftUI22UserInterfaceSizeClassOSg_ADtMR);
           goto LABEL_27;
         }
 
@@ -10013,7 +9812,7 @@ LABEL_18:
         v91 = v134;
 LABEL_27:
         static Alignment.center.getter();
-        _FlexFrameLayout.init(minWidth:idealWidth:maxWidth:minHeight:idealHeight:maxHeight:alignment:)();
+        _FlexFrameLayout.init(minWidth:idealWidth:maxWidth:minHeight:idealHeight:maxHeight:alignment:)(v143);
         memcpy(&v142[7], v143, 0x70uLL);
         v108 = v124;
         *v91 = v125;
@@ -10032,7 +9831,7 @@ LABEL_27:
         *(v91 + 104) = 0;
         memcpy((v91 + 105), v142, 0x77uLL);
         swift_storeEnumTagMultiPayload();
-        __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyACyACy15ConversationKit24VideoMessageControlsViewV012RemoteBottomiJ033_B419541366E265736F7249488C40E55CLLVAA14_PaddingLayoutVGAKGAA010_FlexFrameS0VGMd);
+        __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyACyACy15ConversationKit24VideoMessageControlsViewV012RemoteBottomiJ033_B419541366E265736F7249488C40E55CLLVAA14_PaddingLayoutVGAKGAA010_FlexFrameS0VGMd, &_s7SwiftUI15ModifiedContentVyACyACy15ConversationKit24VideoMessageControlsViewV012RemoteBottomiJ033_B419541366E265736F7249488C40E55CLLVAA14_PaddingLayoutVGAKGAA010_FlexFrameS0VGMR);
         lazy protocol witness table accessor for type ModifiedContent<ModifiedContent<ModifiedContent<VideoMessageControlsView.LocalBottomControlsView, _OpacityEffect>, _EnvironmentKeyTransformModifier<Bool>>, _OpacityEffect> and conformance <> ModifiedContent<A, B>();
         lazy protocol witness table accessor for type ModifiedContent<ModifiedContent<ModifiedContent<VideoMessageControlsView.RemoteBottomControlsView, _PaddingLayout>, _PaddingLayout>, _FlexFrameLayout> and conformance <> ModifiedContent<A, B>();
         v89 = v136;
@@ -10040,12 +9839,12 @@ LABEL_27:
         goto LABEL_28;
       }
 
-      outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v128, &_s7SwiftUI22UserInterfaceSizeClassOSgMd);
-      outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v129, &_s7SwiftUI22UserInterfaceSizeClassOSgMd);
+      outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v128, &_s7SwiftUI22UserInterfaceSizeClassOSgMd, &_s7SwiftUI22UserInterfaceSizeClassOSgMR);
+      outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v129, &_s7SwiftUI22UserInterfaceSizeClassOSgMd, &_s7SwiftUI22UserInterfaceSizeClassOSgMR);
       (*(v131 + 8))(v90, v47);
     }
 
-    outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v71, &_s7SwiftUI22UserInterfaceSizeClassOSg_ADtMd);
+    outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v71, &_s7SwiftUI22UserInterfaceSizeClassOSg_ADtMd, &_s7SwiftUI22UserInterfaceSizeClassOSg_ADtMR);
     goto LABEL_18;
   }
 
@@ -10054,12 +9853,12 @@ LABEL_27:
   GeometryProxy.size.getter();
   v75 = v74 - (1.0 - v73) * v74 + -16.0;
   *&v26[v24[6]] = swift_getKeyPath();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI11EnvironmentV7ContentOyAA22UserInterfaceSizeClassOSg_GMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI11EnvironmentV7ContentOyAA22UserInterfaceSizeClassOSg_GMd, &_s7SwiftUI11EnvironmentV7ContentOyAA22UserInterfaceSizeClassOSg_GMR);
   swift_storeEnumTagMultiPayload();
   *&v26[v24[7]] = swift_getKeyPath();
   swift_storeEnumTagMultiPayload();
   type metadata accessor for VideoMessagePlayerViewModel(0);
-  lazy protocol witness table accessor for type VideoMessagePlayerViewModel and conformance VideoMessagePlayerViewModel(&lazy protocol witness table cache variable for type VideoMessagePlayerViewModel and conformance VideoMessagePlayerViewModel, type metadata accessor for VideoMessagePlayerViewModel);
+  lazy protocol witness table accessor for type VideoMessagePlayerViewModel and conformance VideoMessagePlayerViewModel(&lazy protocol witness table cache variable for type VideoMessagePlayerViewModel and conformance VideoMessagePlayerViewModel, type metadata accessor for VideoMessagePlayerViewModel, &protocol conformance descriptor for VideoMessagePlayerViewModel);
   *v26 = ObservedObject.init(wrappedValue:)();
   *(v26 + 1) = v76;
   *(v26 + 2) = swift_getKeyPath();
@@ -10083,33 +9882,33 @@ LABEL_27:
   v82 = swift_allocObject();
   *(v82 + 16) = v80;
   v83 = v125;
-  v84 = outlined init with take of ZStack<TupleView<(ModifiedContent<_ShapeView<Rectangle, Color>, _AllowsHitTestingModifier>, ModifiedContent<StaticIf<Solarium, _GlassEffectContainer<ModifiedContent<ModifiedContent<ModifiedContent<VStack<TupleView<(ModifiedContent<<<opaque return type of View.accessibilityElement(children:)>>.0, AccessibilityAttachmentModifier>, TranslationTextView??)>>, _PaddingLayout>, _FlexFrameLayout>, PlatterBackgroundModifier>>, ModifiedContent<ModifiedContent<ModifiedContent<VStack<TupleView<(ModifiedContent<<<opaque return type of View.accessibilityElement(children:)>>.0, AccessibilityAttachmentModifier>, TranslationTextView??)>>, _PaddingLayout>, _FlexFrameLayout>, PlatterBackgroundModifier>>, _AnimationModifier<Bool>>)>>(v28, v125, &_s7SwiftUI15ModifiedContentVy15ConversationKit24VideoMessageControlsViewV011LocalBottomiJ033_B419541366E265736F7249488C40E55CLLVAA14_OpacityEffectVGMd);
+  v84 = outlined init with take of ZStack<TupleView<(ModifiedContent<_ShapeView<Rectangle, Color>, _AllowsHitTestingModifier>, ModifiedContent<StaticIf<Solarium, _GlassEffectContainer<ModifiedContent<ModifiedContent<ModifiedContent<VStack<TupleView<(ModifiedContent<<<opaque return type of View.accessibilityElement(children:)>>.0, AccessibilityAttachmentModifier>, TranslationTextView??)>>, _PaddingLayout>, _FlexFrameLayout>, PlatterBackgroundModifier>>, ModifiedContent<ModifiedContent<ModifiedContent<VStack<TupleView<(ModifiedContent<<<opaque return type of View.accessibilityElement(children:)>>.0, AccessibilityAttachmentModifier>, TranslationTextView??)>>, _PaddingLayout>, _FlexFrameLayout>, PlatterBackgroundModifier>>, _AnimationModifier<Bool>>)>>(v28, v125, &_s7SwiftUI15ModifiedContentVy15ConversationKit24VideoMessageControlsViewV011LocalBottomiJ033_B419541366E265736F7249488C40E55CLLVAA14_OpacityEffectVGMd, &_s7SwiftUI15ModifiedContentVy15ConversationKit24VideoMessageControlsViewV011LocalBottomiJ033_B419541366E265736F7249488C40E55CLLVAA14_OpacityEffectVGMR);
   v85 = (v83 + *(v124 + 36));
   *v85 = KeyPath;
   v85[1] = closure #1 in View.disabled(_:)partial apply;
   v85[2] = v82;
   v86 = VideoMessagePlayerViewModel.scrubberOpacity.getter(v84);
-  outlined init with take of ZStack<TupleView<(ModifiedContent<_ShapeView<Rectangle, Color>, _AllowsHitTestingModifier>, ModifiedContent<StaticIf<Solarium, _GlassEffectContainer<ModifiedContent<ModifiedContent<ModifiedContent<VStack<TupleView<(ModifiedContent<<<opaque return type of View.accessibilityElement(children:)>>.0, AccessibilityAttachmentModifier>, TranslationTextView??)>>, _PaddingLayout>, _FlexFrameLayout>, PlatterBackgroundModifier>>, ModifiedContent<ModifiedContent<ModifiedContent<VStack<TupleView<(ModifiedContent<<<opaque return type of View.accessibilityElement(children:)>>.0, AccessibilityAttachmentModifier>, TranslationTextView??)>>, _PaddingLayout>, _FlexFrameLayout>, PlatterBackgroundModifier>>, _AnimationModifier<Bool>>)>>(v83, v31, &_s7SwiftUI15ModifiedContentVyACy15ConversationKit24VideoMessageControlsViewV011LocalBottomiJ033_B419541366E265736F7249488C40E55CLLVAA14_OpacityEffectVGAA32_EnvironmentKeyTransformModifierVySbGGMd);
+  outlined init with take of ZStack<TupleView<(ModifiedContent<_ShapeView<Rectangle, Color>, _AllowsHitTestingModifier>, ModifiedContent<StaticIf<Solarium, _GlassEffectContainer<ModifiedContent<ModifiedContent<ModifiedContent<VStack<TupleView<(ModifiedContent<<<opaque return type of View.accessibilityElement(children:)>>.0, AccessibilityAttachmentModifier>, TranslationTextView??)>>, _PaddingLayout>, _FlexFrameLayout>, PlatterBackgroundModifier>>, ModifiedContent<ModifiedContent<ModifiedContent<VStack<TupleView<(ModifiedContent<<<opaque return type of View.accessibilityElement(children:)>>.0, AccessibilityAttachmentModifier>, TranslationTextView??)>>, _PaddingLayout>, _FlexFrameLayout>, PlatterBackgroundModifier>>, _AnimationModifier<Bool>>)>>(v83, v31, &_s7SwiftUI15ModifiedContentVyACy15ConversationKit24VideoMessageControlsViewV011LocalBottomiJ033_B419541366E265736F7249488C40E55CLLVAA14_OpacityEffectVGAA32_EnvironmentKeyTransformModifierVySbGGMd, &_s7SwiftUI15ModifiedContentVyACy15ConversationKit24VideoMessageControlsViewV011LocalBottomiJ033_B419541366E265736F7249488C40E55CLLVAA14_OpacityEffectVGAA32_EnvironmentKeyTransformModifierVySbGGMR);
   *&v31[*(v135 + 36)] = v86;
   v87 = v126;
-  outlined init with take of ZStack<TupleView<(ModifiedContent<_ShapeView<Rectangle, Color>, _AllowsHitTestingModifier>, ModifiedContent<StaticIf<Solarium, _GlassEffectContainer<ModifiedContent<ModifiedContent<ModifiedContent<VStack<TupleView<(ModifiedContent<<<opaque return type of View.accessibilityElement(children:)>>.0, AccessibilityAttachmentModifier>, TranslationTextView??)>>, _PaddingLayout>, _FlexFrameLayout>, PlatterBackgroundModifier>>, ModifiedContent<ModifiedContent<ModifiedContent<VStack<TupleView<(ModifiedContent<<<opaque return type of View.accessibilityElement(children:)>>.0, AccessibilityAttachmentModifier>, TranslationTextView??)>>, _PaddingLayout>, _FlexFrameLayout>, PlatterBackgroundModifier>>, _AnimationModifier<Bool>>)>>(v31, v126, &_s7SwiftUI15ModifiedContentVyACyACy15ConversationKit24VideoMessageControlsViewV011LocalBottomiJ033_B419541366E265736F7249488C40E55CLLVAA14_OpacityEffectVGAA32_EnvironmentKeyTransformModifierVySbGGAKGMd);
-  outlined init with copy of IDView<AvatarStackView, [UUID]>(v87, v134, &_s7SwiftUI15ModifiedContentVyACyACy15ConversationKit24VideoMessageControlsViewV011LocalBottomiJ033_B419541366E265736F7249488C40E55CLLVAA14_OpacityEffectVGAA32_EnvironmentKeyTransformModifierVySbGGAKGMd);
+  outlined init with take of ZStack<TupleView<(ModifiedContent<_ShapeView<Rectangle, Color>, _AllowsHitTestingModifier>, ModifiedContent<StaticIf<Solarium, _GlassEffectContainer<ModifiedContent<ModifiedContent<ModifiedContent<VStack<TupleView<(ModifiedContent<<<opaque return type of View.accessibilityElement(children:)>>.0, AccessibilityAttachmentModifier>, TranslationTextView??)>>, _PaddingLayout>, _FlexFrameLayout>, PlatterBackgroundModifier>>, ModifiedContent<ModifiedContent<ModifiedContent<VStack<TupleView<(ModifiedContent<<<opaque return type of View.accessibilityElement(children:)>>.0, AccessibilityAttachmentModifier>, TranslationTextView??)>>, _PaddingLayout>, _FlexFrameLayout>, PlatterBackgroundModifier>>, _AnimationModifier<Bool>>)>>(v31, v126, &_s7SwiftUI15ModifiedContentVyACyACy15ConversationKit24VideoMessageControlsViewV011LocalBottomiJ033_B419541366E265736F7249488C40E55CLLVAA14_OpacityEffectVGAA32_EnvironmentKeyTransformModifierVySbGGAKGMd, &_s7SwiftUI15ModifiedContentVyACyACy15ConversationKit24VideoMessageControlsViewV011LocalBottomiJ033_B419541366E265736F7249488C40E55CLLVAA14_OpacityEffectVGAA32_EnvironmentKeyTransformModifierVySbGGAKGMR);
+  outlined init with copy of IDView<AvatarStackView, [UUID]>(v87, v134, &_s7SwiftUI15ModifiedContentVyACyACy15ConversationKit24VideoMessageControlsViewV011LocalBottomiJ033_B419541366E265736F7249488C40E55CLLVAA14_OpacityEffectVGAA32_EnvironmentKeyTransformModifierVySbGGAKGMd, &_s7SwiftUI15ModifiedContentVyACyACy15ConversationKit24VideoMessageControlsViewV011LocalBottomiJ033_B419541366E265736F7249488C40E55CLLVAA14_OpacityEffectVGAA32_EnvironmentKeyTransformModifierVySbGGAKGMR);
   swift_storeEnumTagMultiPayload();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyACyACy15ConversationKit24VideoMessageControlsViewV012RemoteBottomiJ033_B419541366E265736F7249488C40E55CLLVAA14_PaddingLayoutVGAKGAA010_FlexFrameS0VGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyACyACy15ConversationKit24VideoMessageControlsViewV012RemoteBottomiJ033_B419541366E265736F7249488C40E55CLLVAA14_PaddingLayoutVGAKGAA010_FlexFrameS0VGMd, &_s7SwiftUI15ModifiedContentVyACyACy15ConversationKit24VideoMessageControlsViewV012RemoteBottomiJ033_B419541366E265736F7249488C40E55CLLVAA14_PaddingLayoutVGAKGAA010_FlexFrameS0VGMR);
   lazy protocol witness table accessor for type ModifiedContent<ModifiedContent<ModifiedContent<VideoMessageControlsView.LocalBottomControlsView, _OpacityEffect>, _EnvironmentKeyTransformModifier<Bool>>, _OpacityEffect> and conformance <> ModifiedContent<A, B>();
   lazy protocol witness table accessor for type ModifiedContent<ModifiedContent<ModifiedContent<VideoMessageControlsView.RemoteBottomControlsView, _PaddingLayout>, _PaddingLayout>, _FlexFrameLayout> and conformance <> ModifiedContent<A, B>();
   v88 = v136;
   _ConditionalContent<>.init(storage:)();
-  outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v87, &_s7SwiftUI15ModifiedContentVyACyACy15ConversationKit24VideoMessageControlsViewV011LocalBottomiJ033_B419541366E265736F7249488C40E55CLLVAA14_OpacityEffectVGAA32_EnvironmentKeyTransformModifierVySbGGAKGMd);
+  outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v87, &_s7SwiftUI15ModifiedContentVyACyACy15ConversationKit24VideoMessageControlsViewV011LocalBottomiJ033_B419541366E265736F7249488C40E55CLLVAA14_OpacityEffectVGAA32_EnvironmentKeyTransformModifierVySbGGAKGMd, &_s7SwiftUI15ModifiedContentVyACyACy15ConversationKit24VideoMessageControlsViewV011LocalBottomiJ033_B419541366E265736F7249488C40E55CLLVAA14_OpacityEffectVGAA32_EnvironmentKeyTransformModifierVySbGGAKGMR);
   v89 = v88;
 LABEL_28:
   v109 = v137;
-  outlined init with copy of IDView<AvatarStackView, [UUID]>(v89, v137, &_s7SwiftUI19_ConditionalContentVyAA08ModifiedD0VyAEyAEy15ConversationKit24VideoMessageControlsViewV011LocalBottomjK033_B419541366E265736F7249488C40E55CLLVAA14_OpacityEffectVGAA32_EnvironmentKeyTransformModifierVySbGGAMGAEyAEyAEyAH06RemotemjK0AJLLVAA14_PaddingLayoutVGAWGAA16_FlexFrameLayoutVGGMd);
+  outlined init with copy of IDView<AvatarStackView, [UUID]>(v89, v137, &_s7SwiftUI19_ConditionalContentVyAA08ModifiedD0VyAEyAEy15ConversationKit24VideoMessageControlsViewV011LocalBottomjK033_B419541366E265736F7249488C40E55CLLVAA14_OpacityEffectVGAA32_EnvironmentKeyTransformModifierVySbGGAMGAEyAEyAEyAH06RemotemjK0AJLLVAA14_PaddingLayoutVGAWGAA16_FlexFrameLayoutVGGMd, &_s7SwiftUI19_ConditionalContentVyAA08ModifiedD0VyAEyAEy15ConversationKit24VideoMessageControlsViewV011LocalBottomjK033_B419541366E265736F7249488C40E55CLLVAA14_OpacityEffectVGAA32_EnvironmentKeyTransformModifierVySbGGAMGAEyAEyAEyAH06RemotemjK0AJLLVAA14_PaddingLayoutVGAWGAA16_FlexFrameLayoutVGGMR);
   v110 = v139;
   *v139 = 0;
   *(v110 + 8) = 1;
-  v111 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI6SpacerV_AA19_ConditionalContentVyAA08ModifiedE0VyAGyAGy15ConversationKit24VideoMessageControlsViewV011LocalBottomkL033_B419541366E265736F7249488C40E55CLLVAA14_OpacityEffectVGAA32_EnvironmentKeyTransformModifierVySbGGAOGAGyAGyAGyAJ06RemotenkL0ALLLVAA14_PaddingLayoutVGAYGAA16_FlexFrameLayoutVGGtMd);
-  outlined init with copy of IDView<AvatarStackView, [UUID]>(v109, v110 + *(v111 + 48), &_s7SwiftUI19_ConditionalContentVyAA08ModifiedD0VyAEyAEy15ConversationKit24VideoMessageControlsViewV011LocalBottomjK033_B419541366E265736F7249488C40E55CLLVAA14_OpacityEffectVGAA32_EnvironmentKeyTransformModifierVySbGGAMGAEyAEyAEyAH06RemotemjK0AJLLVAA14_PaddingLayoutVGAWGAA16_FlexFrameLayoutVGGMd);
-  outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v89, &_s7SwiftUI19_ConditionalContentVyAA08ModifiedD0VyAEyAEy15ConversationKit24VideoMessageControlsViewV011LocalBottomjK033_B419541366E265736F7249488C40E55CLLVAA14_OpacityEffectVGAA32_EnvironmentKeyTransformModifierVySbGGAMGAEyAEyAEyAH06RemotemjK0AJLLVAA14_PaddingLayoutVGAWGAA16_FlexFrameLayoutVGGMd);
-  return outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v109, &_s7SwiftUI19_ConditionalContentVyAA08ModifiedD0VyAEyAEy15ConversationKit24VideoMessageControlsViewV011LocalBottomjK033_B419541366E265736F7249488C40E55CLLVAA14_OpacityEffectVGAA32_EnvironmentKeyTransformModifierVySbGGAMGAEyAEyAEyAH06RemotemjK0AJLLVAA14_PaddingLayoutVGAWGAA16_FlexFrameLayoutVGGMd);
+  v111 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI6SpacerV_AA19_ConditionalContentVyAA08ModifiedE0VyAGyAGy15ConversationKit24VideoMessageControlsViewV011LocalBottomkL033_B419541366E265736F7249488C40E55CLLVAA14_OpacityEffectVGAA32_EnvironmentKeyTransformModifierVySbGGAOGAGyAGyAGyAJ06RemotenkL0ALLLVAA14_PaddingLayoutVGAYGAA16_FlexFrameLayoutVGGtMd, &_s7SwiftUI6SpacerV_AA19_ConditionalContentVyAA08ModifiedE0VyAGyAGy15ConversationKit24VideoMessageControlsViewV011LocalBottomkL033_B419541366E265736F7249488C40E55CLLVAA14_OpacityEffectVGAA32_EnvironmentKeyTransformModifierVySbGGAOGAGyAGyAGyAJ06RemotenkL0ALLLVAA14_PaddingLayoutVGAYGAA16_FlexFrameLayoutVGGtMR);
+  outlined init with copy of IDView<AvatarStackView, [UUID]>(v109, v110 + *(v111 + 48), &_s7SwiftUI19_ConditionalContentVyAA08ModifiedD0VyAEyAEy15ConversationKit24VideoMessageControlsViewV011LocalBottomjK033_B419541366E265736F7249488C40E55CLLVAA14_OpacityEffectVGAA32_EnvironmentKeyTransformModifierVySbGGAMGAEyAEyAEyAH06RemotemjK0AJLLVAA14_PaddingLayoutVGAWGAA16_FlexFrameLayoutVGGMd, &_s7SwiftUI19_ConditionalContentVyAA08ModifiedD0VyAEyAEy15ConversationKit24VideoMessageControlsViewV011LocalBottomjK033_B419541366E265736F7249488C40E55CLLVAA14_OpacityEffectVGAA32_EnvironmentKeyTransformModifierVySbGGAMGAEyAEyAEyAH06RemotemjK0AJLLVAA14_PaddingLayoutVGAWGAA16_FlexFrameLayoutVGGMR);
+  outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v89, &_s7SwiftUI19_ConditionalContentVyAA08ModifiedD0VyAEyAEy15ConversationKit24VideoMessageControlsViewV011LocalBottomjK033_B419541366E265736F7249488C40E55CLLVAA14_OpacityEffectVGAA32_EnvironmentKeyTransformModifierVySbGGAMGAEyAEyAEyAH06RemotemjK0AJLLVAA14_PaddingLayoutVGAWGAA16_FlexFrameLayoutVGGMd, &_s7SwiftUI19_ConditionalContentVyAA08ModifiedD0VyAEyAEy15ConversationKit24VideoMessageControlsViewV011LocalBottomjK033_B419541366E265736F7249488C40E55CLLVAA14_OpacityEffectVGAA32_EnvironmentKeyTransformModifierVySbGGAMGAEyAEyAEyAH06RemotemjK0AJLLVAA14_PaddingLayoutVGAWGAA16_FlexFrameLayoutVGGMR);
+  return outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v109, &_s7SwiftUI19_ConditionalContentVyAA08ModifiedD0VyAEyAEy15ConversationKit24VideoMessageControlsViewV011LocalBottomjK033_B419541366E265736F7249488C40E55CLLVAA14_OpacityEffectVGAA32_EnvironmentKeyTransformModifierVySbGGAMGAEyAEyAEyAH06RemotemjK0AJLLVAA14_PaddingLayoutVGAWGAA16_FlexFrameLayoutVGGMd, &_s7SwiftUI19_ConditionalContentVyAA08ModifiedD0VyAEyAEy15ConversationKit24VideoMessageControlsViewV011LocalBottomjK033_B419541366E265736F7249488C40E55CLLVAA14_OpacityEffectVGAA32_EnvironmentKeyTransformModifierVySbGGAMGAEyAEyAEyAH06RemotemjK0AJLLVAA14_PaddingLayoutVGAWGAA16_FlexFrameLayoutVGGMR);
 }

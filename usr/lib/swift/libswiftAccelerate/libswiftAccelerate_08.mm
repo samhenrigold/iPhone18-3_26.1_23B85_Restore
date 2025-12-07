@@ -1,3 +1,89 @@
+uint64_t closure #1 in closure #1 in closure #1 in static vForce.pow<A, B, C>(bases:exponents:result:)(uint64_t a1, uint64_t a2, uint64_t *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t (*a7)(void))
+{
+  result = *a3;
+  if (!*a3)
+  {
+    __break(1u);
+    goto LABEL_6;
+  }
+
+  if (!a1)
+  {
+LABEL_6:
+    __break(1u);
+    goto LABEL_7;
+  }
+
+  if (a4)
+  {
+    return a7();
+  }
+
+LABEL_7:
+  __break(1u);
+  return result;
+}
+
+uint64_t static vForce.sin<A>(_:)(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  return static vForce.ceil<A>(_:)(a1, a2, a3, partial apply for closure #1 in static vForce.sin<A>(_:), _sSa28_unsafeUninitializedCapacity16initializingWithSayxGSi_ySryxGz_SiztKXEtKcfCSf_Tt1gq5);
+}
+
+{
+  return static vForce.ceil<A>(_:)(a1, a2, a3, partial apply for closure #1 in static vForce.sin<A>(_:), _sSa28_unsafeUninitializedCapacity16initializingWithSayxGSi_ySryxGz_SiztKXEtKcfCSd_Tt1gq5);
+}
+
+uint64_t static vForce.sin<A, B>(_:result:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
+{
+
+  return static vForce.ceil<A, B>(_:result:)(a1, a2, a3, a4, a5, a6, partial apply for closure #1 in static vForce.sin<A, B>(_:result:));
+}
+
+{
+
+  return static vForce.ceil<A, B>(_:result:)(a1, a2, a3, a4, a5, a6, partial apply for closure #1 in static vForce.sin<A, B>(_:result:));
+}
+
+uint64_t static vForce.sinPi<A>(_:)(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  return static vForce.ceil<A>(_:)(a1, a2, a3, partial apply for closure #1 in static vForce.sinPi<A>(_:), _sSa28_unsafeUninitializedCapacity16initializingWithSayxGSi_ySryxGz_SiztKXEtKcfCSf_Tt1gq5);
+}
+
+{
+  return static vForce.ceil<A>(_:)(a1, a2, a3, partial apply for closure #1 in static vForce.sinPi<A>(_:), _sSa28_unsafeUninitializedCapacity16initializingWithSayxGSi_ySryxGz_SiztKXEtKcfCSd_Tt1gq5);
+}
+
+uint64_t static vForce.sinPi<A, B>(_:result:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
+{
+
+  return static vForce.ceil<A, B>(_:result:)(a1, a2, a3, a4, a5, a6, partial apply for closure #1 in static vForce.sinPi<A, B>(_:result:));
+}
+
+{
+
+  return static vForce.ceil<A, B>(_:result:)(a1, a2, a3, a4, a5, a6, partial apply for closure #1 in static vForce.sinPi<A, B>(_:result:));
+}
+
+uint64_t static vForce.cos<A>(_:)(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  return static vForce.ceil<A>(_:)(a1, a2, a3, partial apply for closure #1 in static vForce.cos<A>(_:), _sSa28_unsafeUninitializedCapacity16initializingWithSayxGSi_ySryxGz_SiztKXEtKcfCSf_Tt1gq5);
+}
+
+{
+  return static vForce.ceil<A>(_:)(a1, a2, a3, partial apply for closure #1 in static vForce.cos<A>(_:), _sSa28_unsafeUninitializedCapacity16initializingWithSayxGSi_ySryxGz_SiztKXEtKcfCSd_Tt1gq5);
+}
+
+uint64_t static vForce.cos<A, B>(_:result:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
+{
+
+  return static vForce.ceil<A, B>(_:result:)(a1, a2, a3, a4, a5, a6, partial apply for closure #1 in static vForce.cos<A, B>(_:result:));
+}
+
+{
+
+  return static vForce.ceil<A, B>(_:result:)(a1, a2, a3, a4, a5, a6, partial apply for closure #1 in static vForce.cos<A, B>(_:result:));
+}
+
 uint64_t static vForce.cosPi<A>(_:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   return static vForce.ceil<A>(_:)(a1, a2, a3, partial apply for closure #1 in static vForce.cosPi<A>(_:), _sSa28_unsafeUninitializedCapacity16initializingWithSayxGSi_ySryxGz_SiztKXEtKcfCSf_Tt1gq5);
@@ -2339,23 +2425,23 @@ uint64_t vImage.PixelBuffer<>.applyMorphology(operation:destination:)(uint64_t a
   return vImage.PixelBuffer<>.applyMorphology(operation:destination:)(a1, a2, v2, v3, v4, v5);
 }
 
-uint64_t vImage.PixelBuffer<>._applyMorphology<A, B>(operation:destination:erodeFunc:dilateFunc:minFunc:maxFunc:)(uint64_t a1, uint64_t *a2, void (*a3)(uint64_t, uint64_t, void, void, unint64_t, uint64_t, uint64_t, void), uint64_t a4, void (*a5)(uint64_t, uint64_t, void, void, unint64_t, uint64_t, uint64_t, void), uint64_t a6, uint64_t (*a7)(uint64_t, uint64_t, void, void, void, uint64_t, uint64_t, void), uint64_t a8, uint64_t (*a9)(uint64_t, uint64_t, void, void, void, uint64_t, uint64_t, void), uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13)
+uint64_t vImage.PixelBuffer<>._applyMorphology<A, B>(operation:destination:erodeFunc:dilateFunc:minFunc:maxFunc:)(uint64_t a1, uint64_t *a2, void (*a3)(uint64_t, uint64_t, void, void, unint64_t, uint64_t, uint64_t, void), uint64_t a4, void (*a5)(uint64_t, uint64_t, void, void, unint64_t, uint64_t, uint64_t, void), uint64_t a6, uint64_t (*a7)(uint64_t, uint64_t, void, void, void, uint64_t, uint64_t, void), uint64_t a8, uint64_t (*a9)(uint64_t, uint64_t, void, void, void, uint64_t, uint64_t, void), uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15)
 {
-  v42 = *MEMORY[0x1E69E9840];
-  v15 = *a1;
-  v36 = *(a1 + 8);
-  v32 = *(a1 + 16);
-  v35 = *(a1 + 24);
-  v16 = *a2;
-  v17 = *v13;
-  v38 = *v13;
-  v18 = vImage.PixelBuffer<>.vImageBuffer.getter();
-  v37[0] = v16;
-  type metadata accessor for vImage.PixelBuffer();
-  v19 = vImage.PixelBuffer<>.vImageBuffer.getter();
-  if (!v18)
+  v45 = *MEMORY[0x1E69E9840];
+  v17 = *a1;
+  v39 = *(a1 + 8);
+  v35 = *(a1 + 16);
+  v38 = *(a1 + 24);
+  v18 = *a2;
+  v19 = *v15;
+  v41 = *v15;
+  v20 = vImage.PixelBuffer<>.vImageBuffer.getter();
+  v40[0] = v18;
+  type metadata accessor for vImage.PixelBuffer(0, a12, *(*(a15 + 8) + 8), v21);
+  v22 = vImage.PixelBuffer<>.vImageBuffer.getter();
+  if (!v20)
   {
-    if (v19)
+    if (v22)
     {
       goto LABEL_4;
     }
@@ -2367,56 +2453,56 @@ LABEL_16:
     goto LABEL_17;
   }
 
-  if (v19 && v18 == v19)
+  if (v22 && v20 == v22)
   {
     goto LABEL_15;
   }
 
 LABEL_4:
-  v28 = a6;
-  v37[3] = v17;
-  vImage.PixelBuffer.size.getter(&v38);
-  v21 = v38;
-  v20 = v39;
-  v37[2] = v16;
-  vImage.PixelBuffer.size.getter(v37);
-  if (v21 != v37[0] || v20 != v37[1])
+  v31 = a6;
+  v40[3] = v19;
+  vImage.PixelBuffer.size.getter(&v41);
+  v24 = v41;
+  v23 = v42;
+  v40[2] = v18;
+  vImage.PixelBuffer.size.getter(v40);
+  if (v24 != v40[0] || v23 != v40[1])
   {
     goto LABEL_16;
   }
 
-  if (v35 >= 2)
+  if (v38 >= 2)
   {
-    v22 = v15;
+    v25 = v17;
   }
 
   else
   {
-    v22 = v15 & ~(v15 >> 63);
+    v25 = v17 & ~(v17 >> 63);
   }
 
-  if (v35 >= 2)
+  if (v38 >= 2)
   {
-    v23 = v36;
+    v26 = v39;
   }
 
   else
   {
-    v23 = v36 & ~(v36 >> 63);
+    v26 = v39 & ~(v39 >> 63);
   }
 
-  if ((v23 & v22 & 1) == 0)
+  if ((v26 & v25 & 1) == 0)
   {
 LABEL_17:
     __break(1u);
   }
 
-  v37[0] = v17;
-  v38 = vImage.PixelBuffer<>.vImageBuffer.getter();
-  v39 = v24;
-  v40 = v25;
-  v41 = v26;
-  return closure #1 in vImage.PixelBuffer<>._applyMorphology<A, B>(operation:destination:erodeFunc:dilateFunc:minFunc:maxFunc:)(&v38, v16, v15, v36, v32, v35, a9, a10, v23, v22, a7, a8, a5, v28, a3, a4, *(a11 + 16), a12, a13);
+  v40[0] = v19;
+  v41 = vImage.PixelBuffer<>.vImageBuffer.getter();
+  v42 = v27;
+  v43 = v28;
+  v44 = v29;
+  return closure #1 in vImage.PixelBuffer<>._applyMorphology<A, B>(operation:destination:erodeFunc:dilateFunc:minFunc:maxFunc:)(&v41, v18, v17, v39, v35, v38, a9, a10, v26, v25, a7, a8, a5, v31, a3, a4, *(a11 + 16), a12, a13, a14, a15);
 }
 
 uint64_t vImage.PixelBuffer<>.applyMorphology(operation:destination:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
@@ -2432,22 +2518,24 @@ uint64_t vImage.PixelBuffer<>.applyMorphology(operation:destination:)(uint64_t a
     v7 = result;
     if (result)
     {
-      v8 = 0;
+      v8 = a1;
+      v9 = 0;
       do
       {
-        v9 = v4;
-        vImage.PixelBuffer<>.subscript.getter(v8, &v13);
-        vImage.PixelBuffer<>.subscript.getter(v8, &v12);
+        v10 = v9 + 1;
+        v11 = v4;
+        vImage.PixelBuffer<>.subscript.getter(v9, &v17);
+        vImage.PixelBuffer<>.subscript.getter(v9, &v16);
         AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-        swift_getAssociatedConformanceWitness();
-        v11 = type metadata accessor for vImage.PixelBuffer();
-        vImage.PixelBuffer<>._applyMorphology<A, B>(operation:destination:erodeFunc:dilateFunc:minFunc:maxFunc:)(a1, &v12, @nonobjc vImageErode_Planar8(_:_:_:_:_:_:_:_:), 0, @nonobjc vImageDilate_Planar8(_:_:_:_:_:_:_:_:), 0, @nonobjc vImageMin_Planar8(_:_:_:_:_:_:_:_:), 0, @nonobjc vImageMax_Planar8(_:_:_:_:_:_:_:_:), 0, v11, AssociatedTypeWitness, MEMORY[0x1E69E7508]);
-        v4 = v9;
+        AssociatedConformanceWitness = swift_getAssociatedConformanceWitness();
+        v15 = type metadata accessor for vImage.PixelBuffer(0, AssociatedTypeWitness, *(*(AssociatedConformanceWitness + 8) + 8), v14);
+        vImage.PixelBuffer<>._applyMorphology<A, B>(operation:destination:erodeFunc:dilateFunc:minFunc:maxFunc:)(v8, &v16, @nonobjc vImageErode_Planar8(_:_:_:_:_:_:_:_:), 0, @nonobjc vImageDilate_Planar8(_:_:_:_:_:_:_:_:), 0, @nonobjc vImageMin_Planar8(_:_:_:_:_:_:_:_:), 0, @nonobjc vImageMax_Planar8(_:_:_:_:_:_:_:_:), 0, v15, AssociatedTypeWitness, MEMORY[0x1E69E7508], AssociatedConformanceWitness, AssociatedConformanceWitness);
+        v4 = v11;
 
-        ++v8;
+        v9 = v10;
       }
 
-      while (v7 != v8);
+      while (v7 != v10);
     }
   }
 
@@ -2466,22 +2554,24 @@ uint64_t vImage.PixelBuffer<>.applyMorphology(operation:destination:)(uint64_t a
     v7 = result;
     if (result)
     {
-      v8 = 0;
+      v8 = a1;
+      v9 = 0;
       do
       {
-        v9 = v4;
-        vImage.PixelBuffer<>.subscript.getter(v8, &v13);
-        vImage.PixelBuffer<>.subscript.getter(v8, &v12);
+        v10 = v9 + 1;
+        v11 = v4;
+        vImage.PixelBuffer<>.subscript.getter(v9, &v17);
+        vImage.PixelBuffer<>.subscript.getter(v9, &v16);
         AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-        swift_getAssociatedConformanceWitness();
-        v11 = type metadata accessor for vImage.PixelBuffer();
-        vImage.PixelBuffer<>._applyMorphology<A, B>(operation:destination:erodeFunc:dilateFunc:minFunc:maxFunc:)(a1, &v12, @nonobjc vImageErode_PlanarF(_:_:_:_:_:_:_:_:), 0, @nonobjc vImageDilate_PlanarF(_:_:_:_:_:_:_:_:), 0, @nonobjc vImageMin_PlanarF(_:_:_:_:_:_:_:_:), 0, @nonobjc vImageMax_PlanarF(_:_:_:_:_:_:_:_:), 0, v11, AssociatedTypeWitness, MEMORY[0x1E69E6448]);
-        v4 = v9;
+        AssociatedConformanceWitness = swift_getAssociatedConformanceWitness();
+        v15 = type metadata accessor for vImage.PixelBuffer(0, AssociatedTypeWitness, *(*(AssociatedConformanceWitness + 8) + 8), v14);
+        vImage.PixelBuffer<>._applyMorphology<A, B>(operation:destination:erodeFunc:dilateFunc:minFunc:maxFunc:)(v8, &v16, @nonobjc vImageErode_PlanarF(_:_:_:_:_:_:_:_:), 0, @nonobjc vImageDilate_PlanarF(_:_:_:_:_:_:_:_:), 0, @nonobjc vImageMin_PlanarF(_:_:_:_:_:_:_:_:), 0, @nonobjc vImageMax_PlanarF(_:_:_:_:_:_:_:_:), 0, v15, AssociatedTypeWitness, MEMORY[0x1E69E6448], AssociatedConformanceWitness, AssociatedConformanceWitness);
+        v4 = v11;
 
-        ++v8;
+        v9 = v10;
       }
 
-      while (v7 != v8);
+      while (v7 != v10);
     }
   }
 
@@ -2701,15 +2791,15 @@ uint64_t vImage.MorphologyOperation.height.getter()
   }
 }
 
-uint64_t closure #1 in vImage.PixelBuffer<>._applyMorphology<A, B>(operation:destination:erodeFunc:dilateFunc:minFunc:maxFunc:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, unint64_t a5, unsigned __int8 a6, uint64_t (*a7)(uint64_t, uint64_t, void, void, void, uint64_t, uint64_t, void), uint64_t a8, uint64_t a9, uint64_t a10, uint64_t (*a11)(uint64_t, uint64_t, void, void, void, uint64_t, uint64_t, void), uint64_t a12, void (*a13)(uint64_t, uint64_t, void, void, unint64_t, uint64_t, uint64_t, void), uint64_t a14, void (*a15)(uint64_t, uint64_t, void, void, unint64_t, uint64_t, uint64_t, void), uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19)
+uint64_t closure #1 in vImage.PixelBuffer<>._applyMorphology<A, B>(operation:destination:erodeFunc:dilateFunc:minFunc:maxFunc:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, unint64_t a5, unsigned __int8 a6, uint64_t (*a7)(uint64_t, uint64_t, void, void, void, uint64_t, uint64_t, void), uint64_t a8, uint64_t a9, uint64_t a10, uint64_t (*a11)(uint64_t, uint64_t, void, void, void, uint64_t, uint64_t, void), uint64_t a12, void (*a13)(uint64_t, uint64_t, void, void, unint64_t, uint64_t, uint64_t, void), uint64_t a14, void (*a15)(uint64_t, uint64_t, void, void, unint64_t, uint64_t, uint64_t, void), uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21)
 {
-  v30[4] = *MEMORY[0x1E69E9840];
-  type metadata accessor for vImage.PixelBuffer();
-  v30[0] = vImage.PixelBuffer<>.vImageBuffer.getter();
-  v30[1] = v20;
-  v30[2] = v21;
-  v30[3] = v22;
-  return closure #1 in closure #1 in vImage.PixelBuffer<>._applyMorphology<A, B>(operation:destination:erodeFunc:dilateFunc:minFunc:maxFunc:)(v30, a3, a4, a5, a6, a7, a8, a1, a9, a10, a11, a12, a13, a14, a15, a16, a17, a18, a19);
+  v32[4] = *MEMORY[0x1E69E9840];
+  type metadata accessor for vImage.PixelBuffer(0, a18, *(*(a21 + 8) + 8), a4);
+  v32[0] = vImage.PixelBuffer<>.vImageBuffer.getter();
+  v32[1] = v22;
+  v32[2] = v23;
+  v32[3] = v24;
+  return closure #1 in closure #1 in vImage.PixelBuffer<>._applyMorphology<A, B>(operation:destination:erodeFunc:dilateFunc:minFunc:maxFunc:)(v32, a3, a4, a5, a6, a7, a8, a1, a9, a10, a11, a12, a13, a14, a15, a16, a17, a18, a19);
 }
 
 uint64_t closure #1 in closure #1 in vImage.PixelBuffer<>._applyMorphology<A, B>(operation:destination:erodeFunc:dilateFunc:minFunc:maxFunc:)(uint64_t a1, uint64_t a2, uint64_t a3, unint64_t a4, unsigned __int8 a5, uint64_t (*a6)(uint64_t, uint64_t, void, void, void, uint64_t, uint64_t, void), uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t (*a11)(uint64_t, uint64_t, void, void, void, uint64_t, uint64_t, void), uint64_t a12, void (*a13)(uint64_t, uint64_t, void, void, unint64_t, uint64_t, uint64_t, void), uint64_t a14, void (*a15)(uint64_t, uint64_t, void, void, unint64_t, uint64_t, uint64_t, void), uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19)
@@ -2875,7 +2965,7 @@ uint64_t outlined copy of vImage.MorphologyOperation<A><A>(uint64_t a1, uint64_t
   return result;
 }
 
-uint64_t type metadata instantiation function for vImage.MorphologyOperation()
+uint64_t type metadata instantiation function for vImage.MorphologyOperation(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   GenericValueMetadataWithLayoutString = swift_cvw_allocateGenericValueMetadataWithLayoutString();
   swift_cvw_instantiateLayoutString();
@@ -3586,21 +3676,21 @@ double BNNS.FusedQuantizationParameters.init(scale:bias:)@<D0>(uint64_t a1@<X0>,
   return result;
 }
 
-uint64_t BNNSGraph.Builder.Tensor.argMin(axis:keepDimension:)@<X0>(uint64_t a1@<X8>)
+uint64_t BNNSGraph.Builder.Tensor.argMin(axis:keepDimension:)@<X0>(uint64_t a3@<X8>)
 {
-  v3 = *v1;
+  v5 = *v3;
 
   specialized static BNNSGraph.Builder.calculateStride(_:)(MEMORY[0x1E69E7CC0]);
 
-  v5 = *(v1 + 1);
+  v7 = *(v3 + 1);
   result = BNNSGraph.Builder.Tensor.tensorData.getter();
   if (!result)
   {
     goto LABEL_5;
   }
 
-  result = v5;
-  if (v5)
+  result = v7;
+  if (v7)
   {
     result = _bnns_graph_builder_register_argmin();
     if (!result)
@@ -3614,10 +3704,10 @@ uint64_t BNNSGraph.Builder.Tensor.argMin(axis:keepDimension:)@<X0>(uint64_t a1@<
     }
 
 LABEL_5:
-    *a1 = v3;
-    *(a1 + 8) = v5;
-    *(a1 + 16) = xmmword_1B7E77980;
-    *(a1 + 32) = result;
+    *a3 = v5;
+    *(a3 + 8) = v7;
+    *(a3 + 16) = xmmword_1B7E77980;
+    *(a3 + 32) = result;
     return result;
   }
 
@@ -3625,21 +3715,21 @@ LABEL_5:
   return result;
 }
 
-uint64_t BNNSGraph.Builder.Tensor.argSort(axis:sortOrder:)@<X0>(uint64_t a1@<X8>)
+uint64_t BNNSGraph.Builder.Tensor.argSort(axis:sortOrder:)@<X0>(uint64_t a3@<X8>)
 {
-  v3 = *v1;
+  v5 = *v3;
 
   specialized static BNNSGraph.Builder.calculateStride(_:)(MEMORY[0x1E69E7CC0]);
 
-  v5 = *(v1 + 1);
+  v7 = *(v3 + 1);
   result = BNNSGraph.Builder.Tensor.tensorData.getter();
   if (!result)
   {
     goto LABEL_5;
   }
 
-  result = v5;
-  if (v5)
+  result = v7;
+  if (v7)
   {
     result = _bnns_graph_builder_register_argsort();
     if (!result)
@@ -3653,10 +3743,10 @@ uint64_t BNNSGraph.Builder.Tensor.argSort(axis:sortOrder:)@<X0>(uint64_t a1@<X8>
     }
 
 LABEL_5:
-    *a1 = v3;
-    *(a1 + 8) = v5;
-    *(a1 + 16) = xmmword_1B7E77980;
-    *(a1 + 32) = result;
+    *a3 = v5;
+    *(a3 + 8) = v7;
+    *(a3 + 16) = xmmword_1B7E77980;
+    *(a3 + 32) = result;
     return result;
   }
 
@@ -3664,37 +3754,37 @@ LABEL_5:
   return result;
 }
 
-uint64_t BNNSGraph.Builder.Tensor.cumulativeSum(axis:)@<X0>(uint64_t a1@<X1>, uint64_t a2@<X8>)
+uint64_t BNNSGraph.Builder.Tensor.cumulativeSum(axis:)@<X0>(uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
-  v13 = *v2;
-  v4 = v13;
-  v5 = *(a1 + 16);
-  v6 = *(a1 + 24);
+  v14 = *v3;
+  v5 = v14;
+  v6 = *(a2 + 16);
+  v7 = *(a2 + 24);
 
-  LOBYTE(v16) = 1;
-  v11 = *(v2 + 8);
-  v12 = *(v2 + 24);
-  v7 = *(v2 + 8);
-  *&v14 = v7;
-  BNNSGraph.Builder.Tensor.init(_:intent:dataType:shape:builder:)(0, 0xE000000000000000, 0x100000000uLL, MEMORY[0x1E69E7CC0], &v13, v5, v6, &v16);
-  v13 = v4;
+  LOBYTE(v17) = 1;
+  v12 = *(v3 + 8);
+  v13 = *(v3 + 24);
+  v8 = *(v3 + 8);
+  *&v15 = v8;
+  BNNSGraph.Builder.Tensor.init(_:intent:dataType:shape:builder:)(0, 0xE000000000000000, 0x100000000uLL, MEMORY[0x1E69E7CC0], &v14, v6, v7, &v17);
+  v14 = v5;
+  v16 = v13;
   v15 = v12;
-  v14 = v11;
   result = BNNSGraph.Builder.Tensor.tensorData.getter();
   if (!result)
   {
     goto LABEL_4;
   }
 
-  if (v7)
+  if (v8)
   {
-    v9 = _bnns_graph_builder_register_cumsum();
-    result = BNNSGraph.Builder.Tensor.setTensorData(_:operationName:)(v9, 0xD000000000000014, 0x80000001B7E7DAB0);
+    v10 = _bnns_graph_builder_register_cumsum();
+    result = BNNSGraph.Builder.Tensor.setTensorData(_:operationName:)(v10, 0xD000000000000014, 0x80000001B7E7DAB0);
 LABEL_4:
-    *a2 = v16;
-    v10 = v18;
-    *(a2 + 8) = v17;
-    *(a2 + 24) = v10;
+    *a3 = v17;
+    v11 = v19;
+    *(a3 + 8) = v18;
+    *(a3 + 24) = v11;
     return result;
   }
 
@@ -3702,35 +3792,35 @@ LABEL_4:
   return result;
 }
 
-uint64_t BNNSGraph.Builder.Tensor.pad(_:padding:)@<X0>(int *a1@<X0>, uint64_t a2@<X2>, uint64_t a3@<X8>)
+uint64_t BNNSGraph.Builder.Tensor.pad(_:padding:)@<X0>(int *a1@<X0>, uint64_t a3@<X2>, uint64_t a4@<X8>)
 {
-  v13 = *a1;
-  v5 = *(a1 + 4);
-  v16 = *v3;
-  v6 = v16;
-  v7 = *(a2 + 16);
-  v8 = *(a2 + 24);
+  v14 = *a1;
+  v6 = *(a1 + 4);
+  v17 = *v4;
+  v7 = v17;
+  v8 = *(a3 + 16);
+  v9 = *(a3 + 24);
 
-  LOBYTE(v19) = 1;
-  v14 = *(v3 + 8);
-  v15 = *(v3 + 24);
-  v9 = *(v3 + 8);
-  *&v17 = v9;
-  BNNSGraph.Builder.Tensor.init(_:intent:dataType:shape:builder:)(0, 0xE000000000000000, 0x100000000uLL, MEMORY[0x1E69E7CC0], &v16, v7, v8, &v19);
-  v16 = v6;
+  LOBYTE(v20) = 1;
+  v15 = *(v4 + 8);
+  v16 = *(v4 + 24);
+  v10 = *(v4 + 8);
+  *&v18 = v10;
+  BNNSGraph.Builder.Tensor.init(_:intent:dataType:shape:builder:)(0, 0xE000000000000000, 0x100000000uLL, MEMORY[0x1E69E7CC0], &v17, v8, v9, &v20);
+  v17 = v7;
+  v19 = v16;
   v18 = v15;
-  v17 = v14;
   result = BNNSGraph.Builder.Tensor.tensorData.getter();
   if (!result)
   {
     goto LABEL_11;
   }
 
-  if ((v5 & 1) == 0)
+  if ((v6 & 1) == 0)
   {
-    if (v9)
+    if (v10)
     {
-      v11 = _bnns_graph_builder_register_constant_pad();
+      v12 = _bnns_graph_builder_register_constant_pad();
       goto LABEL_10;
     }
 
@@ -3738,18 +3828,18 @@ uint64_t BNNSGraph.Builder.Tensor.pad(_:padding:)@<X0>(int *a1@<X0>, uint64_t a2
     goto LABEL_13;
   }
 
-  if (v13)
+  if (v14)
   {
-    if (v9)
+    if (v10)
     {
-      v11 = _bnns_graph_builder_register_replication_pad();
+      v12 = _bnns_graph_builder_register_replication_pad();
 LABEL_10:
-      result = BNNSGraph.Builder.Tensor.setTensorData(_:operationName:)(v11, 0x61703A5F28646170, 0xEF293A676E696464);
+      result = BNNSGraph.Builder.Tensor.setTensorData(_:operationName:)(v12, 0x61703A5F28646170, 0xEF293A676E696464);
 LABEL_11:
-      *a3 = v19;
-      v12 = v21;
-      *(a3 + 8) = v20;
-      *(a3 + 24) = v12;
+      *a4 = v20;
+      v13 = v22;
+      *(a4 + 8) = v21;
+      *(a4 + 24) = v13;
       return result;
     }
 
@@ -3758,9 +3848,9 @@ LABEL_13:
     goto LABEL_14;
   }
 
-  if (v9)
+  if (v10)
   {
-    v11 = _bnns_graph_builder_register_reflection_pad();
+    v12 = _bnns_graph_builder_register_reflection_pad();
     goto LABEL_10;
   }
 
@@ -3857,38 +3947,38 @@ LABEL_6:
   return result;
 }
 
-uint64_t BNNSGraph.Builder.Tensor.reshape(to:)@<X0>(uint64_t a1@<X1>, uint64_t a2@<X8>)
+uint64_t BNNSGraph.Builder.Tensor.reshape(to:)@<X0>(uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
-  v13 = *(v2 + 24);
-  v5 = *(v2 + 8);
-  v14 = *v2;
-  v4 = v14;
-  v6 = v5;
-  *&v15 = v5;
-  v7 = *(a1 + 16);
-  v8 = *(a1 + 24);
-  v12 = v5;
+  v14 = *(v3 + 24);
+  v6 = *(v3 + 8);
+  v15 = *v3;
+  v5 = v15;
+  v7 = v6;
+  *&v16 = v6;
+  v8 = *(a2 + 16);
+  v9 = *(a2 + 24);
+  v13 = v6;
 
-  LOBYTE(v17) = 1;
-  BNNSGraph.Builder.Tensor.init(_:intent:dataType:shape:builder:)(0, 0xE000000000000000, 0x100000000uLL, MEMORY[0x1E69E7CC0], &v14, v7, v8, &v17);
-  v14 = v4;
+  LOBYTE(v18) = 1;
+  BNNSGraph.Builder.Tensor.init(_:intent:dataType:shape:builder:)(0, 0xE000000000000000, 0x100000000uLL, MEMORY[0x1E69E7CC0], &v15, v8, v9, &v18);
+  v15 = v5;
+  v17 = v14;
   v16 = v13;
-  v15 = v12;
   result = BNNSGraph.Builder.Tensor.tensorData.getter();
   if (!result)
   {
     goto LABEL_4;
   }
 
-  if (v6)
+  if (v7)
   {
-    v10 = _bnns_graph_builder_register_reshape();
-    result = BNNSGraph.Builder.Tensor.setTensorData(_:operationName:)(v10, 0x2865706168736572, 0xEC000000293A6F74);
+    v11 = _bnns_graph_builder_register_reshape();
+    result = BNNSGraph.Builder.Tensor.setTensorData(_:operationName:)(v11, 0x2865706168736572, 0xEC000000293A6F74);
 LABEL_4:
-    *a2 = v17;
-    v11 = v19;
-    *(a2 + 8) = v18;
-    *(a2 + 24) = v11;
+    *a3 = v18;
+    v12 = v20;
+    *(a3 + 8) = v19;
+    *(a3 + 24) = v12;
     return result;
   }
 
@@ -3896,46 +3986,46 @@ LABEL_4:
   return result;
 }
 
-uint64_t BNNSGraph.Builder.Tensor.transpose(axes:)@<X0>(uint64_t a1@<X1>, uint64_t a2@<X8>)
+uint64_t BNNSGraph.Builder.Tensor.transpose(axes:)@<X0>(uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
-  v4 = v2[1];
-  v6 = v2[2];
-  v7 = v2[3];
-  v8 = v2[4];
-  v14 = *v2;
-  v5 = v14;
-  v15 = v4;
-  v9 = *(a1 + 16);
-  v10 = *(a1 + 24);
+  v5 = v3[1];
+  v7 = v3[2];
+  v8 = v3[3];
+  v9 = v3[4];
+  v15 = *v3;
+  v6 = v15;
+  v16 = v5;
+  v10 = *(a2 + 16);
+  v11 = *(a2 + 24);
 
-  LOBYTE(v19) = 1;
-  BNNSGraph.Builder.Tensor.init(_:intent:dataType:shape:builder:)(0, 0xE000000000000000, 0x100000000uLL, MEMORY[0x1E69E7CC0], &v14, v9, v10, &v19);
-  v14 = v5;
-  v15 = v4;
-  v16 = v6;
+  LOBYTE(v20) = 1;
+  BNNSGraph.Builder.Tensor.init(_:intent:dataType:shape:builder:)(0, 0xE000000000000000, 0x100000000uLL, MEMORY[0x1E69E7CC0], &v15, v10, v11, &v20);
+  v15 = v6;
+  v16 = v5;
   v17 = v7;
   v18 = v8;
+  v19 = v9;
   result = BNNSGraph.Builder.Tensor.tensorData.getter();
   if (!result)
   {
     goto LABEL_4;
   }
 
-  if (v4)
+  if (v5)
   {
-    v14 = v5;
-    v15 = v4;
-    v16 = v6;
+    v15 = v6;
+    v16 = v5;
     v17 = v7;
     v18 = v8;
+    v19 = v9;
     BNNSGraph.Builder.Tensor.rank.getter();
-    v12 = _bnns_graph_builder_register_transpose();
-    result = BNNSGraph.Builder.Tensor.setTensorData(_:operationName:)(v12, 0xD000000000000010, 0x80000001B7E7DAF0);
+    v13 = _bnns_graph_builder_register_transpose();
+    result = BNNSGraph.Builder.Tensor.setTensorData(_:operationName:)(v13, 0xD000000000000010, 0x80000001B7E7DAF0);
 LABEL_4:
-    *a2 = v19;
-    v13 = v21;
-    *(a2 + 8) = v20;
-    *(a2 + 24) = v13;
+    *a3 = v20;
+    v14 = v22;
+    *(a3 + 8) = v21;
+    *(a3 + 24) = v14;
     return result;
   }
 
@@ -3943,7 +4033,7 @@ LABEL_4:
   return result;
 }
 
-uint64_t BNNSGraph.Builder.Tensor.topK(_:axis:findLargest:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
+uint64_t BNNSGraph.Builder.Tensor.topK(_:axis:findLargest:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, char a5, uint64_t a6)
 {
   v21 = *v6;
   v9 = v21;
@@ -3998,37 +4088,37 @@ LABEL_6:
   return result;
 }
 
-uint64_t BNNSGraph.Builder.concatenate<A>(_:axis:)@<X0>(uint64_t a1@<X0>, char *a2@<X2>, unint64_t a3@<X3>, uint64_t a4@<X8>)
+uint64_t BNNSGraph.Builder.concatenate<A>(_:axis:)@<X0>(uint64_t a1@<X0>, char *a3@<X2>, unint64_t a4@<X3>, uint64_t a5@<X8>)
 {
-  v9 = v4[1];
-  v19[0] = *v4;
-  v19[1] = v9;
+  v10 = v5[1];
+  v21[0] = *v5;
+  v21[1] = v10;
 
-  LOBYTE(v20) = 1;
-  BNNSGraph.Builder.Tensor.init(_:intent:dataType:shape:builder:)(0, 0xE000000000000000, 0x100000000uLL, MEMORY[0x1E69E7CC0], v19, a2, a3, &v20);
-  v19[0] = a1;
-  v18[2] = a2;
-  v18[3] = a3;
-  type metadata accessor for BNNSGraph.Builder.Tensor();
-  v10 = type metadata accessor for Array();
+  LOBYTE(v22) = 1;
+  BNNSGraph.Builder.Tensor.init(_:intent:dataType:shape:builder:)(0, 0xE000000000000000, 0x100000000uLL, MEMORY[0x1E69E7CC0], v21, a3, a4, &v22);
+  v21[0] = a1;
+  v20[2] = a3;
+  v20[3] = a4;
+  type metadata accessor for BNNSGraph.Builder.Tensor(255, a3, a4, v11);
+  v12 = type metadata accessor for Array();
   WitnessTable = swift_getWitnessTable();
-  result = _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lF(partial apply for closure #1 in BNNSGraph.Builder.concatenate<A>(_:axis:), v18, v10, MEMORY[0x1E69E6878], MEMORY[0x1E69E73E0], WitnessTable, MEMORY[0x1E69E7410], v12);
-  if (v9)
+  result = _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lF(partial apply for closure #1 in BNNSGraph.Builder.concatenate<A>(_:axis:), v20, v12, MEMORY[0x1E69E6878], MEMORY[0x1E69E73E0], WitnessTable, MEMORY[0x1E69E7410], v14);
+  if (v10)
   {
-    v14 = result;
-    v15 = *(result + 16);
+    v16 = result;
+    v17 = *(result + 16);
     if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
     {
-      specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, v15, 0, v14);
+      specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, v17, 0, v16);
     }
 
-    v16 = _bnns_graph_builder_register_concat();
+    v18 = _bnns_graph_builder_register_concat();
 
-    result = BNNSGraph.Builder.Tensor.setTensorData(_:operationName:)(v16, 0xD000000000000014, 0x80000001B7E7DB60);
-    *a4 = v20;
-    v17 = v22;
-    *(a4 + 8) = v21;
-    *(a4 + 24) = v17;
+    result = BNNSGraph.Builder.Tensor.setTensorData(_:operationName:)(v18, 0xD000000000000014, 0x80000001B7E7DB60);
+    *a5 = v22;
+    v19 = v24;
+    *(a5 + 8) = v23;
+    *(a5 + 24) = v19;
   }
 
   else
@@ -4039,13 +4129,13 @@ uint64_t BNNSGraph.Builder.concatenate<A>(_:axis:)@<X0>(uint64_t a1@<X0>, char *
   return result;
 }
 
-uint64_t closure #1 in BNNSGraph.Builder.concatenate<A>(_:axis:)@<X0>(uint64_t *a1@<X8>)
+uint64_t closure #1 in BNNSGraph.Builder.concatenate<A>(_:axis:)@<X0>(uint64_t a1@<X1>, uint64_t a2@<X2>, uint64_t a3@<X3>, uint64_t *a4@<X8>)
 {
-  type metadata accessor for BNNSGraph.Builder.Tensor();
+  type metadata accessor for BNNSGraph.Builder.Tensor(0, a1, a2, a3);
   result = BNNSGraph.Builder.Tensor.tensorData.getter();
   if (result)
   {
-    *a1 = result;
+    *a4 = result;
   }
 
   else
@@ -4080,7 +4170,7 @@ uint64_t vImage.PixelBuffer<>.histogram()()
   v6 = *(v5 + 48);
   *&src.data = *(v5 + 32);
   *&src.width = v6;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySpySuGSgGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySpySuGSgGMd, &_ss23_ContiguousArrayStorageCySpySuGSgGMR);
   inited = swift_initStackObject();
   *(inited + 32) = v1 + 32;
   *(inited + 40) = v2 + 32;
@@ -4136,7 +4226,7 @@ LABEL_10:
   v10 = *(v9 + 48);
   *&src.data = *(v9 + 32);
   *&src.width = v10;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySpySuGSgGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySpySuGSgGMd, &_ss23_ContiguousArrayStorageCySpySuGSgGMR);
   inited = swift_initStackObject();
   *(inited + 32) = v5 + 32;
   *(inited + 40) = v6 + 32;
@@ -4265,7 +4355,7 @@ LABEL_27:
   v21 = a5 + 32;
   dest.width = v8;
   dest.rowBytes = v17;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySPySuGSgGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySPySuGSgGMd, &_ss23_ContiguousArrayStorageCySPySuGSgGMR);
   inited = swift_initStackObject();
   *(inited + 32) = v18;
   *(inited + 40) = v19;
@@ -4395,7 +4485,7 @@ LABEL_25:
   v19 = a4 + 32;
   dest.width = v7;
   dest.rowBytes = v15;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySPySuGSgGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySPySuGSgGMd, &_ss23_ContiguousArrayStorageCySPySuGSgGMR);
   inited = swift_initStackObject();
   *(inited + 32) = v16;
   *(inited + 40) = v17;
@@ -4512,7 +4602,7 @@ LABEL_8:
 uint64_t closure #1 in vImage.PixelBuffer<>.equalizeHistogram(destination:)(uint64_t a1, uint64_t a2, unint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t (*a8)(uint64_t, uint64_t, void))
 {
   v22 = *MEMORY[0x1E69E9840];
-  type metadata accessor for vImage.PixelBuffer();
+  type metadata accessor for vImage.PixelBuffer(0, a5, *(a6 + 8), a4);
   v15 = vImage.PixelBuffer<>.vImageBuffers.getter();
   if ((a3 & 0x8000000000000000) != 0)
   {
@@ -4537,7 +4627,7 @@ LABEL_5:
 
 uint64_t closure #1 in closure #1 in vImage.PixelBuffer<>.equalizeHistogram(destination:)(uint64_t a1, uint64_t a2, unint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t (*a9)(uint64_t, uint64_t, void))
 {
-  type metadata accessor for vImage.PixelBuffer();
+  type metadata accessor for vImage.PixelBuffer(0, a6, *(a7 + 8), a4);
   result = vImage.PixelBuffer<>.vImageBuffers.getter();
   if ((a3 & 0x8000000000000000) != 0)
   {
@@ -4888,7 +4978,7 @@ LABEL_8:
 uint64_t closure #1 in vImage.PixelBuffer<>.equalizeHistogram(binCount:destination:)(uint64_t a1, uint64_t a2, unint64_t a3, uint64_t a4, unint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t (*a9)(uint64_t, uint64_t, void, unint64_t, void, double, float))
 {
   v23 = *MEMORY[0x1E69E9840];
-  type metadata accessor for vImage.PixelBuffer();
+  type metadata accessor for vImage.PixelBuffer(0, a6, *(a7 + 8), a4);
   v16 = vImage.PixelBuffer<>.vImageBuffers.getter();
   if ((a3 & 0x8000000000000000) != 0)
   {
@@ -4913,7 +5003,7 @@ LABEL_5:
 
 uint64_t closure #1 in closure #1 in vImage.PixelBuffer<>.equalizeHistogram(binCount:destination:)(uint64_t a1, uint64_t a2, unint64_t a3, uint64_t a4, uint64_t a5, unint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t (*a10)(uint64_t, uint64_t, void, unint64_t, void, double, float))
 {
-  type metadata accessor for vImage.PixelBuffer();
+  type metadata accessor for vImage.PixelBuffer(0, a7, *(a8 + 8), a4);
   result = vImage.PixelBuffer<>.vImageBuffers.getter();
   if ((a3 & 0x8000000000000000) != 0)
   {
@@ -5505,11 +5595,11 @@ LABEL_19:
   return data;
 }
 
-uint64_t vImage.PixelBuffer<>.specifyHistogram(_:destination:)(uint64_t a1, uint64_t a2, uint64_t a3, void **a4)
+uint64_t vImage.PixelBuffer<>.specifyHistogram(_:destination:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4)
 {
   v8 = *a4;
   v9 = *v4;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySaySuGGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySaySuGGMd, &_ss23_ContiguousArrayStorageCySaySuGGMR);
   inited = swift_initStackObject();
   *(inited + 16) = xmmword_1B7E76E00;
   *(inited + 32) = a1;
@@ -5518,7 +5608,7 @@ uint64_t vImage.PixelBuffer<>.specifyHistogram(_:destination:)(uint64_t a1, uint
 
   specialized vImage.PixelBuffer<>._specifyHistogram(_:destination:)(inited, v8, v9);
   swift_setDeallocating();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySuGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySuGMd, &_sSaySuGMR);
   return swift_arrayDestroy();
 }
 
@@ -5955,15 +6045,15 @@ LABEL_29:
 
 uint64_t vImage.PixelBuffer<>._specifyHistogram(_:destination:)(uint64_t a1, uint64_t *a2, uint64_t a3, uint64_t a4)
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v8 = *a2;
   v9 = *v4;
-  v19[3] = *v4;
-  vImage.PixelBuffer.size.getter(&v20);
-  v10 = *&v20.data;
-  v19[2] = v8;
-  vImage.PixelBuffer.size.getter(v19);
-  if (v10 != v19[0] || *(&v10 + 1) != v19[1])
+  v20[3] = *v4;
+  vImage.PixelBuffer.size.getter(&v21);
+  v10 = *&v21.data;
+  v20[2] = v8;
+  vImage.PixelBuffer.size.getter(v20);
+  if (v10 != v20[0] || *(&v10 + 1) != v20[1])
   {
 LABEL_13:
     __break(1u);
@@ -5971,33 +6061,34 @@ LABEL_14:
     __break(1u);
   }
 
-  result = (*(a4 + 32))(*(a3 + 16), a4);
+  v12 = *(a3 + 16);
+  result = (*(a4 + 32))(v12, a4);
   if (result < 0)
   {
     goto LABEL_14;
   }
 
-  v13 = result;
+  v14 = result;
   if (result)
   {
-    v14 = 0;
+    v15 = 0;
     while (1)
     {
-      v19[0] = v9;
-      v15 = vImage.PixelBuffer<>.vImageBuffers.getter();
-      if (v14 >= *(v15 + 16))
+      v20[0] = v9;
+      v16 = vImage.PixelBuffer<>.vImageBuffers.getter();
+      if (v15 >= *(v16 + 16))
       {
         break;
       }
 
-      v16 = v15 + 32 * v14;
-      v17 = *(v16 + 48);
-      v18 = *(v16 + 32);
+      v17 = v16 + 32 * v15;
+      v18 = *(v17 + 48);
+      v19 = *(v17 + 32);
 
-      *&v20.width = v17;
-      *&v20.data = v18;
-      result = closure #1 in vImage.PixelBuffer<>._specifyHistogram(_:destination:)(&v20, v8, v14++, a1);
-      if (v13 == v14)
+      *&v21.width = v18;
+      *&v21.data = v19;
+      result = closure #1 in vImage.PixelBuffer<>._specifyHistogram(_:destination:)(&v21, v8, v15++, a1, v12, a4);
+      if (v14 == v15)
       {
         return result;
       }
@@ -6012,7 +6103,7 @@ LABEL_14:
 
 uint64_t vImage.PixelBuffer<>.specifyHistogram(_:destination:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void **a5)
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySaySuGGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySaySuGGMd, &_ss23_ContiguousArrayStorageCySaySuGGMR);
   inited = swift_initStackObject();
   *(inited + 32) = a1;
   *(inited + 16) = xmmword_1B7E770E0;
@@ -6024,22 +6115,22 @@ uint64_t vImage.PixelBuffer<>.specifyHistogram(_:destination:)(uint64_t a1, uint
 
   specialized vImage.PixelBuffer<>._specifyHistogram(_:destination:)(inited, v12, v13);
   swift_setDeallocating();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySuGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySuGMd, &_sSaySuGMR);
   return swift_arrayDestroy();
 }
 
-uint64_t closure #1 in vImage.PixelBuffer<>._specifyHistogram(_:destination:)(const vImage_Buffer *a1, uint64_t a2, unint64_t a3, uint64_t a4)
+uint64_t closure #1 in vImage.PixelBuffer<>._specifyHistogram(_:destination:)(const vImage_Buffer *a1, uint64_t a2, unint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
-  v14 = *MEMORY[0x1E69E9840];
-  type metadata accessor for vImage.PixelBuffer();
-  v7 = vImage.PixelBuffer<>.vImageBuffers.getter();
+  v16 = *MEMORY[0x1E69E9840];
+  type metadata accessor for vImage.PixelBuffer(0, a5, *(a6 + 8), a4);
+  v9 = vImage.PixelBuffer<>.vImageBuffers.getter();
   if ((a3 & 0x8000000000000000) != 0)
   {
     __break(1u);
     goto LABEL_6;
   }
 
-  if (*(v7 + 16) <= a3)
+  if (*(v9 + 16) <= a3)
   {
 LABEL_6:
     __break(1u);
@@ -6047,20 +6138,20 @@ LABEL_7:
     __break(1u);
   }
 
-  v8 = v7 + 32 * a3;
-  v11 = *(v8 + 48);
-  v12 = *(v8 + 32);
+  v10 = v9 + 32 * a3;
+  v13 = *(v10 + 48);
+  v14 = *(v10 + 32);
 
-  *&dest.width = v11;
-  *&dest.data = v12;
+  *&dest.width = v13;
+  *&dest.data = v14;
   if (*(a4 + 16) <= a3)
   {
     goto LABEL_7;
   }
 
-  v9 = *(a4 + 8 * a3 + 32);
+  v11 = *(a4 + 8 * a3 + 32);
 
-  vImageHistogramSpecification_Planar8(a1, &dest, (v9 + 32), 0);
+  vImageHistogramSpecification_Planar8(a1, &dest, (v11 + 32), 0);
 }
 
 void *vImage.PixelBuffer<>.histogram(binCount:)(unint64_t a1)
@@ -6641,9 +6732,9 @@ LABEL_26:
   return data;
 }
 
-uint64_t vImage.PixelBuffer<>.specifyHistogram(_:destination:)(unint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void **a5)
+uint64_t vImage.PixelBuffer<>.specifyHistogram(_:destination:)(unint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t *a5)
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySaySuGGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySaySuGGMd, &_ss23_ContiguousArrayStorageCySaySuGGMR);
   inited = swift_initStackObject();
   *(inited + 16) = xmmword_1B7E76E00;
   *(inited + 32) = a2;
@@ -6654,7 +6745,7 @@ uint64_t vImage.PixelBuffer<>.specifyHistogram(_:destination:)(unint64_t a1, uin
 
   specialized vImage.PixelBuffer<>._specifyHistogram(_:binCount:destination:)(inited, a1, v12, v13);
   swift_setDeallocating();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySuGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySuGMd, &_sSaySuGMR);
   return swift_arrayDestroy();
 }
 
@@ -7101,15 +7192,15 @@ LABEL_30:
 
 uint64_t vImage.PixelBuffer<>._specifyHistogram(_:binCount:destination:)(uint64_t a1, unint64_t a2, uint64_t *a3, uint64_t a4, uint64_t a5)
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   v9 = *a3;
   v10 = *v5;
-  v21[3] = *v5;
-  vImage.PixelBuffer.size.getter(&v22);
-  v11 = *&v22.data;
-  v21[2] = v9;
-  vImage.PixelBuffer.size.getter(v21);
-  if (v11 != v21[0] || *(&v11 + 1) != v21[1])
+  v22[3] = *v5;
+  vImage.PixelBuffer.size.getter(&v23);
+  v11 = *&v23.data;
+  v22[2] = v9;
+  vImage.PixelBuffer.size.getter(v22);
+  if (v11 != v22[0] || *(&v11 + 1) != v22[1])
   {
 LABEL_13:
     __break(1u);
@@ -7117,33 +7208,34 @@ LABEL_14:
     __break(1u);
   }
 
-  result = (*(a5 + 32))(*(a4 + 16), a5);
+  v13 = *(a4 + 16);
+  result = (*(a5 + 32))(v13, a5);
   if (result < 0)
   {
     goto LABEL_14;
   }
 
-  v14 = result;
+  v15 = result;
   if (result)
   {
-    v15 = 0;
+    v16 = 0;
     while (1)
     {
-      v21[0] = v10;
-      v16 = vImage.PixelBuffer<>.vImageBuffers.getter();
-      if (v15 >= *(v16 + 16))
+      v22[0] = v10;
+      v17 = vImage.PixelBuffer<>.vImageBuffers.getter();
+      if (v16 >= *(v17 + 16))
       {
         break;
       }
 
-      v17 = v16 + 32 * v15;
-      v19 = *(v17 + 48);
-      v20 = *(v17 + 32);
+      v18 = v17 + 32 * v16;
+      v20 = *(v18 + 48);
+      v21 = *(v18 + 32);
 
-      *&v22.width = v19;
-      *&v22.data = v20;
-      result = closure #1 in vImage.PixelBuffer<>._specifyHistogram(_:binCount:destination:)(&v22, v9, v15++, a1, a2);
-      if (v14 == v15)
+      *&v23.width = v20;
+      *&v23.data = v21;
+      result = closure #1 in vImage.PixelBuffer<>._specifyHistogram(_:binCount:destination:)(&v23, v9, v16++, a1, a2, v13, a5);
+      if (v15 == v16)
       {
         return result;
       }
@@ -7202,7 +7294,7 @@ LABEL_9:
 
 uint64_t vImage.PixelBuffer<>.specifyHistogram(_:destination:)(unint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, void **a6)
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySaySuGGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySaySuGGMd, &_ss23_ContiguousArrayStorageCySaySuGGMR);
   inited = swift_initStackObject();
   *(inited + 32) = a2;
   *(inited + 16) = xmmword_1B7E770E0;
@@ -7214,34 +7306,34 @@ uint64_t vImage.PixelBuffer<>.specifyHistogram(_:destination:)(unint64_t a1, uin
 
   specialized vImage.PixelBuffer<>._specifyHistogram(_:binCount:destination:)(inited, a1, v14, v15);
   swift_setDeallocating();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySuGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySuGMd, &_sSaySuGMR);
   return swift_arrayDestroy();
 }
 
-uint64_t closure #1 in vImage.PixelBuffer<>._specifyHistogram(_:binCount:destination:)(const vImage_Buffer *a1, uint64_t a2, unint64_t a3, uint64_t a4, unint64_t a5)
+uint64_t closure #1 in vImage.PixelBuffer<>._specifyHistogram(_:binCount:destination:)(const vImage_Buffer *a1, uint64_t a2, unint64_t a3, uint64_t a4, unint64_t a5, uint64_t a6, uint64_t a7)
 {
-  v16 = *MEMORY[0x1E69E9840];
-  type metadata accessor for vImage.PixelBuffer();
-  v9 = vImage.PixelBuffer<>.vImageBuffers.getter();
+  v18 = *MEMORY[0x1E69E9840];
+  type metadata accessor for vImage.PixelBuffer(0, a6, *(a7 + 8), a4);
+  v11 = vImage.PixelBuffer<>.vImageBuffers.getter();
   if ((a3 & 0x8000000000000000) != 0)
   {
     __break(1u);
     goto LABEL_8;
   }
 
-  if (*(v9 + 16) <= a3)
+  if (*(v11 + 16) <= a3)
   {
 LABEL_8:
     __break(1u);
     goto LABEL_9;
   }
 
-  v10 = v9 + 32 * a3;
-  v13 = *(v10 + 48);
-  v14 = *(v10 + 32);
+  v12 = v11 + 32 * a3;
+  v15 = *(v12 + 48);
+  v16 = *(v12 + 32);
 
-  *&dest.width = v13;
-  *&dest.data = v14;
+  *&dest.width = v15;
+  *&dest.data = v16;
   if (*(a4 + 16) <= a3)
   {
 LABEL_9:
@@ -7262,18 +7354,18 @@ LABEL_11:
     goto LABEL_11;
   }
 
-  v11 = *(a4 + 8 * a3 + 32);
+  v13 = *(a4 + 8 * a3 + 32);
 
-  vImageHistogramSpecification_PlanarF(a1, &dest, 0, (v11 + 32), a5, 0.0, 1.0, 0);
+  vImageHistogramSpecification_PlanarF(a1, &dest, 0, (v13 + 32), a5, 0.0, 1.0, 0);
 }
 
-uint64_t BNNSGraph.Builder.Tensor.rnn(initialHiddenStates:inputHiddenWeight:hiddenHiddenWeight:bias:direction:activation:outputSequence:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
+uint64_t BNNSGraph.Builder.Tensor.rnn(initialHiddenStates:inputHiddenWeight:hiddenHiddenWeight:bias:direction:activation:outputSequence:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, unsigned __int8 *a7, char *a8, char a9, uint64_t a10)
 {
   v30 = *v10;
   v12 = v30;
   v14 = *(a10 + 16);
   v13 = *(a10 + 24);
-  destructiveProjectEnumData for vImage(v14);
+  destructiveProjectEnumData for vImage();
   swift_retain_n();
   LOBYTE(v33) = 1;
   v25 = *(v10 + 24);
@@ -7347,39 +7439,39 @@ LABEL_11:
   return result;
 }
 
-uint64_t BNNSGraph.Builder.Tensor.gru(initialHiddenStates:inputHiddenWeight:hiddenHiddenWeight:bias:inputBias:direction:activation:recurrentActivation:applyResetGateAfterMatMul:outputSequence:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12)
+uint64_t BNNSGraph.Builder.Tensor.gru(initialHiddenStates:inputHiddenWeight:hiddenHiddenWeight:bias:inputBias:direction:activation:recurrentActivation:applyResetGateAfterMatMul:outputSequence:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, unsigned __int8 *a8, char *a9, char *a10, char a11, char a12, uint64_t a13)
 {
-  v33 = *v12;
-  v14 = v33;
-  v16 = *(a12 + 16);
-  v15 = *(a12 + 24);
-  destructiveProjectEnumData for vImage(v16);
+  v34 = *v13;
+  v15 = v34;
+  v17 = *(a13 + 16);
+  v16 = *(a13 + 24);
+  destructiveProjectEnumData for vImage();
   swift_retain_n();
-  LOBYTE(v36) = 1;
-  v27 = *(v12 + 24);
-  v29 = *(v12 + 8);
-  v17 = *(v12 + 8);
-  *&v34 = v17;
-  v18 = MEMORY[0x1E69E7CC0];
-  BNNSGraph.Builder.Tensor.init(_:intent:dataType:shape:builder:)(0, 0xE000000000000000, 0x100000000uLL, MEMORY[0x1E69E7CC0], &v33, v16, v15, &v36);
-  v30 = v14;
-  *&v31 = v29;
-  LOBYTE(v33) = 1;
-  BNNSGraph.Builder.Tensor.init(_:intent:dataType:shape:builder:)(0, 0xE000000000000000, 0x100000000uLL, v18, &v30, v16, v15, &v33);
-  v30 = v14;
-  v32 = v27;
-  v31 = v29;
+  LOBYTE(v37) = 1;
+  v28 = *(v13 + 24);
+  v30 = *(v13 + 8);
+  v18 = *(v13 + 8);
+  *&v35 = v18;
+  v19 = MEMORY[0x1E69E7CC0];
+  BNNSGraph.Builder.Tensor.init(_:intent:dataType:shape:builder:)(0, 0xE000000000000000, 0x100000000uLL, MEMORY[0x1E69E7CC0], &v34, v17, v16, &v37);
+  v31 = v15;
+  *&v32 = v30;
+  LOBYTE(v34) = 1;
+  BNNSGraph.Builder.Tensor.init(_:intent:dataType:shape:builder:)(0, 0xE000000000000000, 0x100000000uLL, v19, &v31, v17, v16, &v34);
+  v31 = v15;
+  v33 = v28;
+  v32 = v30;
   if (!BNNSGraph.Builder.Tensor.tensorData.getter())
   {
 
     goto LABEL_12;
   }
 
-  BNNSGraph.Builder.Tensor.graphBuilderTensor(_:)(&v30);
+  BNNSGraph.Builder.Tensor.graphBuilderTensor(_:)(&v31);
 
-  v19 = BNNSGraph.Builder.Tensor.tensorData.getter();
+  v20 = BNNSGraph.Builder.Tensor.tensorData.getter();
 
-  if (!v19 || (, BNNSGraph.Builder.Tensor.graphBuilderTensor(_:)(&v30), , v20 = BNNSGraph.Builder.Tensor.tensorData.getter(), , !v20) || (, BNNSGraph.Builder.Tensor.graphBuilderTensor(_:)(&v30), , v21 = BNNSGraph.Builder.Tensor.tensorData.getter(), , !v21))
+  if (!v20 || (, BNNSGraph.Builder.Tensor.graphBuilderTensor(_:)(&v31), , v21 = BNNSGraph.Builder.Tensor.tensorData.getter(), , !v21) || (, BNNSGraph.Builder.Tensor.graphBuilderTensor(_:)(&v31), , v22 = BNNSGraph.Builder.Tensor.tensorData.getter(), , !v22))
   {
 
 LABEL_11:
@@ -7387,39 +7479,39 @@ LABEL_11:
     goto LABEL_12;
   }
 
-  BNNSGraph.Builder.Tensor.graphBuilderTensor(_:)(&v30);
-
-  v22 = BNNSGraph.Builder.Tensor.tensorData.getter();
-
-  if (!v22)
-  {
-
-    goto LABEL_11;
-  }
-
-  BNNSGraph.Builder.Tensor.graphBuilderTensor(_:)(&v30);
+  BNNSGraph.Builder.Tensor.graphBuilderTensor(_:)(&v31);
 
   v23 = BNNSGraph.Builder.Tensor.tensorData.getter();
 
   if (!v23)
   {
+
+    goto LABEL_11;
+  }
+
+  BNNSGraph.Builder.Tensor.graphBuilderTensor(_:)(&v31);
+
+  v24 = BNNSGraph.Builder.Tensor.tensorData.getter();
+
+  if (!v24)
+  {
 LABEL_12:
-    *a1 = v36;
-    *(a1 + 8) = v37;
-    *(a1 + 24) = v38;
-    *a2 = v33;
-    v26 = v35;
-    *(a2 + 8) = v34;
-    *(a2 + 24) = v26;
+    *a1 = v37;
+    *(a1 + 8) = v38;
+    *(a1 + 24) = v39;
+    *a2 = v34;
+    v27 = v36;
+    *(a2 + 8) = v35;
+    *(a2 + 24) = v27;
     return result;
   }
 
-  if (v17)
+  if (v18)
   {
     _bnns_graph_builder_register_gru();
-    v25 = v31;
-    BNNSGraph.Builder.Tensor.setTensorData(_:operationName:)(v30, 0xD00000000000009FLL, 0x80000001B7E7DBF0);
-    result = BNNSGraph.Builder.Tensor.setTensorData(_:operationName:)(v25, 0xD00000000000009FLL, 0x80000001B7E7DBF0);
+    v26 = v32;
+    BNNSGraph.Builder.Tensor.setTensorData(_:operationName:)(v31, 0xD00000000000009FLL, 0x80000001B7E7DBF0);
+    result = BNNSGraph.Builder.Tensor.setTensorData(_:operationName:)(v26, 0xD00000000000009FLL, 0x80000001B7E7DBF0);
     goto LABEL_12;
   }
 
@@ -7427,13 +7519,13 @@ LABEL_12:
   return result;
 }
 
-uint64_t BNNSGraph.Builder.Tensor.lstm(initialHiddenStates:initialCellStates:inputHiddenWeight:hiddenHiddenWeight:bias:direction:activation:recurrentActivation:cellActivation:outputSequence:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14)
+uint64_t BNNSGraph.Builder.Tensor.lstm(initialHiddenStates:initialCellStates:inputHiddenWeight:hiddenHiddenWeight:bias:direction:activation:recurrentActivation:cellActivation:outputSequence:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, unsigned __int8 *a9, char *a10, char *a11, char *a12, char a13, uint64_t a14)
 {
   v39 = *v14;
   v15 = v39;
   v16 = *(a14 + 16);
   v17 = *(a14 + 24);
-  destructiveProjectEnumData for vImage(v16);
+  destructiveProjectEnumData for vImage();
   swift_retain_n();
   LOBYTE(v42) = 1;
   v28 = *(v14 + 24);
@@ -7515,13 +7607,13 @@ LABEL_12:
   return result;
 }
 
-uint64_t BNNSGraph.Builder.Tensor.bidirectionalLSTM(initialHiddenStates:initialCellStates:inputHiddenWeight:hiddenHiddenWeight:bias:inputHiddenWeightBack:hiddenHiddenWeightBack:biasBack:activation:recurrentActivation:cellActivation:outputSequence:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16)
+uint64_t BNNSGraph.Builder.Tensor.bidirectionalLSTM(initialHiddenStates:initialCellStates:inputHiddenWeight:hiddenHiddenWeight:bias:inputHiddenWeightBack:hiddenHiddenWeightBack:biasBack:activation:recurrentActivation:cellActivation:outputSequence:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, char *a12, char *a13, char *a14, char a15, uint64_t a16)
 {
   v44 = *v16;
   v17 = v44;
   v18 = *(a16 + 16);
   v19 = *(a16 + 24);
-  destructiveProjectEnumData for vImage(v18);
+  destructiveProjectEnumData for vImage();
   swift_retain_n();
   LOBYTE(v47) = 1;
   v33 = *(v16 + 24);
@@ -7653,7 +7745,7 @@ void *vImage.PixelBuffer<>.init(size:pixelFormat:)@<X0>(uint64_t a1@<X0>, uint64
 {
   v7 = *a1;
   v8 = *(a1 + 8);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy10Accelerate6vImageO13BufferWrapperVGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy10Accelerate6vImageO13BufferWrapperVGMd, &_ss23_ContiguousArrayStorageCy10Accelerate6vImageO13BufferWrapperVGMR);
   v9 = swift_allocObject();
   *(v9 + 16) = xmmword_1B7E76D90;
   v10 = (*(a3 + 16))(a2, a3);
@@ -7805,7 +7897,7 @@ uint64_t vImage.PixelBuffer<>.withUnsafePixelBuffers<A>(_:)(void (*a1)(void), ui
 
 uint64_t vImage.PixelBuffer<>.init(data:width:height:byteCountPerRow:pixelFormat:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t *a5@<X8>)
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy10Accelerate6vImageO13BufferWrapperVGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy10Accelerate6vImageO13BufferWrapperVGMd, &_ss23_ContiguousArrayStorageCy10Accelerate6vImageO13BufferWrapperVGMR);
   result = swift_allocObject();
   *(result + 16) = xmmword_1B7E76D90;
   if ((a3 | a2) < 0)
@@ -7846,7 +7938,7 @@ uint64_t vImage.PixelBuffer<>.withUnsafePointerToVImageBuffer<A>(_:)(uint64_t a1
   v17[6] = v12;
   type metadata accessor for vImage_Buffer(0);
   v14 = v13;
-  v15 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss5Error_pMd);
+  v15 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss5Error_pMd, "Bz");
   return _ss17withUnsafePointer2to_q0_x_q0_SPyxGq_YKXEtq_YKs5ErrorR_Ri_zRi_0_r1_lF(v19, partial apply for closure #1 in vImage.PixelBuffer<>.withUnsafePointerToVImageBuffer<A>(_:), v17, v14, v15, a4, MEMORY[0x1E69E7288], &v18);
 }
 
@@ -7865,7 +7957,7 @@ unint64_t vImage.PixelBuffer<>.subscript.getter@<X0>(unint64_t result@<X0>, uint
     v13 = *(v4 + 64);
     v11 = v5;
     v12 = v6;
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy10Accelerate6vImageO13BufferWrapperVGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy10Accelerate6vImageO13BufferWrapperVGMd, &_ss23_ContiguousArrayStorageCy10Accelerate6vImageO13BufferWrapperVGMR);
     v7 = swift_allocObject();
     v8 = v11;
     v9 = v12;
@@ -8106,18 +8198,18 @@ uint64_t vImage.PixelBuffer<>.withUnsafeVImageBuffers<A>(_:)(void (*a1)(void))
 
 uint64_t vImage.PixelBuffer<>.pixelBuffers.getter(uint64_t a1, uint64_t a2)
 {
-  v9[5] = *v2;
-  v9[2] = *(a1 + 16);
-  v9[3] = a2;
+  v12[5] = *v2;
+  v12[2] = *(a1 + 16);
+  v12[3] = a2;
 
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay10Accelerate6vImageO13BufferWrapperVGMd);
-  swift_getAssociatedTypeWitness();
-  swift_getAssociatedConformanceWitness();
-  v4 = type metadata accessor for vImage.PixelBuffer();
-  v5 = lazy protocol witness table accessor for type [vImage.BufferWrapper] and conformance [A]();
-  v7 = _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lF(partial apply for closure #1 in vImage.PixelBuffer<>.pixelBuffers.getter, v9, v3, v4, MEMORY[0x1E69E73E0], v5, MEMORY[0x1E69E7410], v6);
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay10Accelerate6vImageO13BufferWrapperVGMd, &_sSay10Accelerate6vImageO13BufferWrapperVGMR);
+  AssociatedTypeWitness = swift_getAssociatedTypeWitness();
+  AssociatedConformanceWitness = swift_getAssociatedConformanceWitness();
+  v7 = type metadata accessor for vImage.PixelBuffer(0, AssociatedTypeWitness, *(*(AssociatedConformanceWitness + 8) + 8), v6);
+  v8 = lazy protocol witness table accessor for type [vImage.BufferWrapper] and conformance [A]();
+  v10 = _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lF(partial apply for closure #1 in vImage.PixelBuffer<>.pixelBuffers.getter, v12, v3, v7, MEMORY[0x1E69E73E0], v8, MEMORY[0x1E69E7410], v9);
 
-  return v7;
+  return v10;
 }
 
 uint64_t vImage.PixelBuffer<>.withUnsafePixelBuffer<A>(at:_:)(unint64_t a1, void (*a2)(uint64_t *))
@@ -8133,7 +8225,7 @@ uint64_t closure #1 in vImage.PixelBuffer<>.pixelBuffers.getter@<X0>(__int128 *a
   v10[0] = *a1;
   v10[1] = v4;
   v11 = *(a1 + 4);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy10Accelerate6vImageO13BufferWrapperVGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy10Accelerate6vImageO13BufferWrapperVGMd, &_ss23_ContiguousArrayStorageCy10Accelerate6vImageO13BufferWrapperVGMR);
   v5 = swift_allocObject();
   v6 = *a1;
   v7 = a1[1];
@@ -8147,7 +8239,7 @@ uint64_t closure #1 in vImage.PixelBuffer<>.pixelBuffers.getter@<X0>(__int128 *a
 
 double vImage.PixelBuffer<>.init(bufferWrapper:pixelFormat:)@<D0>(__int128 *a1@<X0>, uint64_t *a2@<X8>)
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy10Accelerate6vImageO13BufferWrapperVGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy10Accelerate6vImageO13BufferWrapperVGMd, &_ss23_ContiguousArrayStorageCy10Accelerate6vImageO13BufferWrapperVGMR);
   v4 = swift_allocObject();
   *&result = 1;
   v6 = *a1;
@@ -8184,7 +8276,7 @@ LABEL_7:
   if ((v19 * result) >> 64 == (v19 * result) >> 63)
   {
 LABEL_4:
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy10Accelerate6vImageO13BufferWrapperVGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy10Accelerate6vImageO13BufferWrapperVGMd, &_ss23_ContiguousArrayStorageCy10Accelerate6vImageO13BufferWrapperVGMR);
     result = swift_allocObject();
     *(result + 16) = xmmword_1B7E76D90;
     if (((a3 | a2) & 0x8000000000000000) == 0)
@@ -8207,7 +8299,7 @@ LABEL_8:
   return result;
 }
 
-int64_t vImage.PixelBuffer<>.init(size:pixelFormat:)@<X0>(uint64_t *a1@<X0>, void *a2@<X2>, uint64_t a3@<X3>, void *a4@<X8>)
+uint64_t vImage.PixelBuffer<>.init(size:pixelFormat:)@<X0>(uint64_t *a1@<X0>, void *a2@<X2>, uint64_t a3@<X3>, void *a4@<X8>)
 {
   v7 = *a1;
   v8 = a1[1];
@@ -8312,13 +8404,13 @@ LABEL_7:
 
 uint64_t vImage.PixelBuffer<>.init(planarBuffers:pixelFormat:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X2>, uint64_t a3@<X3>, void *a4@<X8>)
 {
-  swift_getAssociatedTypeWitness();
-  swift_getAssociatedConformanceWitness();
-  v8 = type metadata accessor for vImage.PixelBuffer();
-  v9 = MEMORY[0x1B8CB13E0](a1, v8);
-  v10 = *(a3 + 32);
-  v11 = v10(a2, a3);
-  if (v9 != v11)
+  AssociatedTypeWitness = swift_getAssociatedTypeWitness();
+  AssociatedConformanceWitness = swift_getAssociatedConformanceWitness();
+  v11 = type metadata accessor for vImage.PixelBuffer(0, AssociatedTypeWitness, *(*(AssociatedConformanceWitness + 8) + 8), v10);
+  v12 = MEMORY[0x1B8CB13E0](a1, v11);
+  v13 = *(a3 + 32);
+  v14 = v13(a2, a3);
+  if (v12 != v14)
   {
     __break(1u);
 LABEL_14:
@@ -8326,31 +8418,31 @@ LABEL_14:
     goto LABEL_15;
   }
 
-  v40 = v10;
-  *&v41 = a3 + 32;
-  v39 = a4;
-  *&v45 = a1;
-  MEMORY[0x1EEE9AC00](v11);
-  v37 = a2;
-  v38 = a3;
-  v12 = type metadata accessor for Array();
-  *&v42 = swift_getWitnessTable();
-  v14 = _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lF(partial apply for closure #1 in vImage.PixelBuffer<>.init(planarBuffers:pixelFormat:), v36, v12, MEMORY[0x1E69E6530], MEMORY[0x1E69E73E0], v42, MEMORY[0x1E69E7410], v13);
-  v15 = _sShyShyxGqd__nc7ElementQyd__RszSTRd__lufCSi_SaySiGTt0g5Tf4g_n(v14);
+  v43 = v13;
+  *&v44 = a3 + 32;
+  v42 = a4;
+  *&v48 = a1;
+  MEMORY[0x1EEE9AC00](v14);
+  v40 = a2;
+  v41 = a3;
+  v15 = type metadata accessor for Array();
+  *&v45 = swift_getWitnessTable();
+  v17 = _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lF(partial apply for closure #1 in vImage.PixelBuffer<>.init(planarBuffers:pixelFormat:), v39, v15, MEMORY[0x1E69E6530], MEMORY[0x1E69E73E0], v45, MEMORY[0x1E69E7410], v16);
+  v18 = _sShyShyxGqd__nc7ElementQyd__RszSTRd__lufCSi_SaySiGTt0g5Tf4g_n(v17);
 
-  v43 = a1;
-  *&v45 = a1;
-  MEMORY[0x1EEE9AC00](v16);
-  v17 = a2;
-  v37 = a2;
-  v38 = a3;
-  v18 = a3;
-  v20 = _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lF(partial apply for closure #2 in vImage.PixelBuffer<>.init(planarBuffers:pixelFormat:), v36, v12, MEMORY[0x1E69E6530], MEMORY[0x1E69E73E0], v42, MEMORY[0x1E69E7410], v19);
-  v21 = _sShyShyxGqd__nc7ElementQyd__RszSTRd__lufCSi_SaySiGTt0g5Tf4g_n(v20);
+  v46 = a1;
+  *&v48 = a1;
+  MEMORY[0x1EEE9AC00](v19);
+  v20 = a2;
+  v40 = a2;
+  v41 = a3;
+  v21 = a3;
+  v23 = _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lF(partial apply for closure #2 in vImage.PixelBuffer<>.init(planarBuffers:pixelFormat:), v39, v15, MEMORY[0x1E69E6530], MEMORY[0x1E69E73E0], v45, MEMORY[0x1E69E7410], v22);
+  v24 = _sShyShyxGqd__nc7ElementQyd__RszSTRd__lufCSi_SaySiGTt0g5Tf4g_n(v23);
 
-  v22 = *(v15 + 16);
+  v25 = *(v18 + 16);
 
-  if (v22 != 1)
+  if (v25 != 1)
   {
 LABEL_16:
 
@@ -8358,91 +8450,91 @@ LABEL_16:
     return result;
   }
 
-  v23 = *(v21 + 16);
+  v26 = *(v24 + 16);
 
-  if (v23 != 1)
+  if (v26 != 1)
   {
     goto LABEL_14;
   }
 
-  v24 = v40(a2, a3);
-  if (v24 < 0)
+  v27 = v43(a2, a3);
+  if (v27 < 0)
   {
 LABEL_15:
     __break(1u);
     goto LABEL_16;
   }
 
-  v25 = v24;
-  if (v24)
+  v28 = v27;
+  if (v27)
   {
-    v48 = MEMORY[0x1E69E7CC0];
-    specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v24, 0);
-    v26 = 0;
-    v27 = v48;
-    v28 = v17;
+    v51 = MEMORY[0x1E69E7CC0];
+    specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v27, 0);
+    v29 = 0;
+    v30 = v51;
+    v31 = v20;
     do
     {
-      v44 = v26;
-      closure #3 in vImage.PixelBuffer<>.init(planarBuffers:pixelFormat:)(v28, v18, &v45);
-      v29 = v45;
-      v30 = v46;
-      v31 = v47;
-      v48 = v27;
-      v33 = *(v27 + 16);
-      v32 = *(v27 + 24);
-      if (v33 >= v32 >> 1)
+      v47 = v29;
+      closure #3 in vImage.PixelBuffer<>.init(planarBuffers:pixelFormat:)(v31, v21, &v48);
+      v32 = v48;
+      v33 = v49;
+      v34 = v50;
+      v51 = v30;
+      v36 = *(v30 + 16);
+      v35 = *(v30 + 24);
+      if (v36 >= v35 >> 1)
       {
-        v41 = v46;
-        v42 = v45;
-        specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v32 > 1), v33 + 1, 1);
-        v30 = v41;
-        v29 = v42;
-        v27 = v48;
+        v44 = v49;
+        v45 = v48;
+        specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v35 > 1), v36 + 1, 1);
+        v33 = v44;
+        v32 = v45;
+        v30 = v51;
       }
 
-      ++v26;
-      *(v27 + 16) = v33 + 1;
-      v34 = v27 + 40 * v33;
-      *(v34 + 32) = v29;
-      *(v34 + 48) = v30;
-      *(v34 + 64) = v31;
-      v28 = v17;
+      ++v29;
+      *(v30 + 16) = v36 + 1;
+      v37 = v30 + 40 * v36;
+      *(v37 + 32) = v32;
+      *(v37 + 48) = v33;
+      *(v37 + 64) = v34;
+      v31 = v20;
     }
 
-    while (v25 != v26);
+    while (v28 != v29);
   }
 
   else
   {
 
-    v27 = MEMORY[0x1E69E7CC0];
+    v30 = MEMORY[0x1E69E7CC0];
   }
 
-  *v39 = v27;
+  *v42 = v30;
   return result;
 }
 
-void *closure #3 in vImage.PixelBuffer<>.init(planarBuffers:pixelFormat:)@<X0>(uint64_t a1@<X2>, uint64_t a2@<X3>, uint64_t a3@<X8>)
+void *closure #3 in vImage.PixelBuffer<>.init(planarBuffers:pixelFormat:)@<X0>(uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X8>)
 {
-  swift_getAssociatedTypeWitness();
-  swift_getAssociatedConformanceWitness();
-  type metadata accessor for vImage.PixelBuffer();
+  AssociatedTypeWitness = swift_getAssociatedTypeWitness();
+  AssociatedConformanceWitness = swift_getAssociatedConformanceWitness();
+  type metadata accessor for vImage.PixelBuffer(0, AssociatedTypeWitness, *(*(AssociatedConformanceWitness + 8) + 8), v10);
   Array.subscript.getter();
-  result = v13;
-  if (v13[2])
+  result = v18;
+  if (v18[2])
   {
-    v7 = v13[4];
-    v8 = v13[5];
-    v9 = v13[6];
-    v10 = v13[7];
+    v12 = v18[4];
+    v13 = v18[5];
+    v14 = v18[6];
+    v15 = v18[7];
 
-    v11 = (*(a2 + 40))(a1, a2);
-    result = specialized vImage.BufferWrapper.init(copying:bitsPerPixel:)(v7, v8, v9, v10, v11, v14);
-    v12 = v14[1];
-    *a3 = v14[0];
-    *(a3 + 16) = v12;
-    *(a3 + 32) = v15;
+    v16 = (*(a4 + 40))(a3, a4);
+    result = specialized vImage.BufferWrapper.init(copying:bitsPerPixel:)(v12, v13, v14, v15, v16, v19);
+    v17 = v19[1];
+    *a5 = v19[0];
+    *(a5 + 16) = v17;
+    *(a5 + 32) = v20;
   }
 
   else
@@ -8461,7 +8553,7 @@ void *vImage.PixelBuffer<>.init(width:height:pixelFormat:)@<X0>(uint64_t a1@<X0>
     goto LABEL_7;
   }
 
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy10Accelerate6vImageO13BufferWrapperVGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy10Accelerate6vImageO13BufferWrapperVGMd, &_ss23_ContiguousArrayStorageCy10Accelerate6vImageO13BufferWrapperVGMR);
   v10 = swift_allocObject();
   *(v10 + 16) = xmmword_1B7E76D90;
   v11 = (*(a4 + 16))(a3, a4);
@@ -8528,11 +8620,11 @@ vImage_Error closure #1 in vImage.PixelBuffer<>.copy(to:)(const vImage_Buffer *a
   v6 = *(a2 + 48);
   *&v9.data = *(a2 + 32);
   *&v9.width = v6;
-  v7 = (*(a5 + 16))(a4, a5);
+  v7 = (*(a5 + 16))(a4, a5, a3);
   return vImageCopyBuffer(a1, &v9, v7 / 8, 0);
 }
 
-unint64_t vImage.PixelBuffer<>.cropped(to:)@<X0>(unint64_t result@<X0>, uint64_t a2@<X1>, uint64_t *a3@<X8>, double a4@<D0>)
+void *vImage.PixelBuffer<>.cropped(to:)@<X0>(void *result@<X0>, uint64_t a2@<X1>, uint64_t *a3@<X8>, double a4@<D0>)
 {
   v9 = *v7;
   if (!*(*v7 + 16))
@@ -8576,7 +8668,7 @@ LABEL_11:
     return result;
   }
 
-  vImage.PixelBuffer<>.init(size:pixelFormat:)(v18, *(v13 + 16), a2, a3);
+  vImage.PixelBuffer<>.init(size:pixelFormat:)(v18, v13[2], a2, a3);
 
   return vImage.PixelBuffer<>.crop(at:destination:)(a3, v13, a2, x, y);
 }
@@ -8849,7 +8941,7 @@ vImage_Error closure #1 in vImage.PixelBuffer<>.crop(at:destination:)(const vIma
   v7 = *(v5 + 48);
   *&v10.data = *(v5 + 32);
   *&v10.width = v7;
-  v8 = (*(a5 + 16))(a4, a5);
+  v8 = (*(a5 + 16))(a4, a5, a3);
   return vImageCopyBuffer(a1, &v10, v8 / 8, 0);
 }
 
@@ -9062,7 +9154,7 @@ double static vImage.PixelBuffer<>.makeDynamicPixelBufferAndCGImageFormat(cgImag
 
   if (!v3)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy10Accelerate6vImageO13BufferWrapperVGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy10Accelerate6vImageO13BufferWrapperVGMd, &_ss23_ContiguousArrayStorageCy10Accelerate6vImageO13BufferWrapperVGMR);
     v8 = swift_allocObject();
     v9 = v17[0];
     v10 = v17[1];
@@ -9085,13 +9177,13 @@ double static vImage.PixelBuffer<>.makeDynamicPixelBufferAndCGImageFormat(cgImag
   return result;
 }
 
-double static vImage.PixelBuffer<>.makePixelBufferAndCGImageFormat(cgImage:pixelFormat:)@<D0>(void *a1@<X0>, void *a2@<X1>, uint64_t a3@<X3>, uint64_t a4@<X4>, size_t a5@<X5>, uint64_t a6@<X8>)
+double static vImage.PixelBuffer<>.makePixelBufferAndCGImageFormat(cgImage:pixelFormat:)@<D0>(void *a1@<X0>, void *a2@<X1>, uint64_t a3@<X8>, uint64_t a4@<X3>, uint64_t a5@<X4>, size_t a6@<X5>)
 {
   v17 = *MEMORY[0x1E69E9840];
   v16 = 0;
   v14 = 0u;
   v15 = 0u;
-  vImage.PixelBuffer<>.init(cgImage:cgImageFormat:pixelFormat:)(a2, &v14, a3, a4, a5, &v13);
+  vImage.PixelBuffer<>.init(cgImage:cgImageFormat:pixelFormat:)(a2, &v14, a4, a5, a6, &v13);
   if (!v6)
   {
     *a1 = v13;
@@ -9099,11 +9191,11 @@ double static vImage.PixelBuffer<>.makePixelBufferAndCGImageFormat(cgImage:pixel
     v11 = *(&v15 + 1);
     v12 = v16;
     result = *&v15;
-    *a6 = v14;
-    *(a6 + 8) = v10;
-    *(a6 + 16) = result;
-    *(a6 + 24) = v11;
-    *(a6 + 32) = v12;
+    *a3 = v14;
+    *(a3 + 8) = v10;
+    *(a3 + 16) = result;
+    *(a3 + 24) = v11;
+    *(a3 + 32) = v12;
   }
 
   return result;
@@ -9166,7 +9258,7 @@ LABEL_7:
 
   else
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy10Accelerate6vImageO13BufferWrapperVGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy10Accelerate6vImageO13BufferWrapperVGMd, &_ss23_ContiguousArrayStorageCy10Accelerate6vImageO13BufferWrapperVGMR);
     v19 = swift_allocObject();
     v20 = v29[0];
     v21 = v29[1];
@@ -9228,7 +9320,7 @@ void vImage.PixelBuffer<>.init(referencing:planeIndex:overrideSize:pixelFormat:)
 
 void vImage.PixelBuffer<>.init(copying:cvImageFormat:cgImageFormat:pixelFormat:)(void *a1@<X0>, void *a2@<X1>, uint64_t a3@<X2>, uint64_t *a4@<X8>)
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy10Accelerate6vImageO13BufferWrapperVGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy10Accelerate6vImageO13BufferWrapperVGMd, &_ss23_ContiguousArrayStorageCy10Accelerate6vImageO13BufferWrapperVGMR);
   v9 = swift_allocObject();
   *(v9 + 16) = xmmword_1B7E76D90;
   specialized vImage.BufferWrapper.init(cvPixelBuffer:cvImageFormat:cgImageFormat:)(a1, a2, a3, v11);
@@ -9252,7 +9344,7 @@ void vImage.PixelBuffer<>.init(copying:cvImageFormat:cgImageFormat:pixelFormat:)
 void vImage.PixelBuffer<>.init(referencing:converter:destinationPixelFormat:)(void *a1@<X0>, void *a2@<X1>, uint64_t *a3@<X8>)
 {
   v10 = *MEMORY[0x1E69E9840];
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy10Accelerate6vImageO13BufferWrapperVGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy10Accelerate6vImageO13BufferWrapperVGMd, &_ss23_ContiguousArrayStorageCy10Accelerate6vImageO13BufferWrapperVGMR);
   v6 = swift_allocObject();
   *(v6 + 16) = xmmword_1B7E76D90;
   v8 = 0u;
@@ -9416,7 +9508,7 @@ LABEL_15:
   v34 = v25;
   MEMORY[0x1EEE9AC00](v31);
   (*(a6 + 24))(partial apply for closure #1 in vImage.PixelBuffer<>.init<A>(pixelValues:size:pixelFormat:));
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy10Accelerate6vImageO13BufferWrapperVGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy10Accelerate6vImageO13BufferWrapperVGMd, &_ss23_ContiguousArrayStorageCy10Accelerate6vImageO13BufferWrapperVGMR);
   v26 = swift_allocObject();
   *(v26 + 16) = xmmword_1B7E76D90;
   type metadata accessor for vImage.BufferReference();
@@ -9435,7 +9527,7 @@ LABEL_15:
   return result;
 }
 
-vImage_Error closure #1 in vImage.PixelBuffer<>.init<A>(pixelValues:size:pixelFormat:)(uint64_t a1, uint64_t a2, vImagePixelCount a3, int64_t a4, vImage_Buffer *a5, uint64_t a6, uint64_t a7, uint64_t a8)
+vImage_Error closure #1 in vImage.PixelBuffer<>.init<A>(pixelValues:size:pixelFormat:)(uint64_t a1, uint64_t a2, vImagePixelCount a3, vImagePixelCount a4, vImage_Buffer *a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   v24 = *MEMORY[0x1E69E9840];
   AssociatedTypeWitness = swift_getAssociatedTypeWitness();
@@ -9533,7 +9625,7 @@ LABEL_11:
   return result;
 }
 
-vImage_Error closure #1 in vImage.PixelBuffer<>.array.getter(uint64_t a1, void *a2, void *a3, uint64_t a4, uint64_t a5, uint64_t a6)
+vImage_Error closure #1 in vImage.PixelBuffer<>.array.getter(uint64_t *a1, void *a2, void *a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
   v30 = *MEMORY[0x1E69E9840];
   AssociatedTypeWitness = swift_getAssociatedTypeWitness();
@@ -9872,83 +9964,4 @@ LABEL_53:
   v48[1] = 0;
   *(v48 + 16) = 1;
   return result;
-}
-
-uint64_t vImage.Size.init<A>(exactWidth:height:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X8>)
-{
-  v10 = *(a3 - 8);
-  MEMORY[0x1EEE9AC00](a1);
-  v12 = v18 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v13 = *(v10 + 16);
-  v13(v12, a1);
-  lazy protocol witness table accessor for type Int and conformance Int();
-  v18[1] = a4;
-  FixedWidthInteger.init<A>(exactly:)();
-  if (v20 == 1 || v19 < 1)
-  {
-    v17 = *(v10 + 8);
-    v17(a2, a3);
-    result = (v17)(a1, a3);
-  }
-
-  else
-  {
-    v18[0] = v19;
-    (v13)(v12, a2, a3);
-    FixedWidthInteger.init<A>(exactly:)();
-    v14 = *(v10 + 8);
-    v14(a2, a3);
-    result = (v14)(a1, a3);
-    if ((v20 & 1) == 0)
-    {
-      v16 = v19;
-      if (v19 >= 1)
-      {
-        *a5 = v18[0];
-        *(a5 + 8) = v16;
-        *(a5 + 16) = 0;
-        return result;
-      }
-    }
-  }
-
-  *a5 = 0;
-  *(a5 + 8) = 0;
-  *(a5 + 16) = 1;
-  return result;
-}
-
-uint64_t vImage.Size.init(width:height:)@<X0>(uint64_t result@<X0>, uint64_t a2@<X1>, void *a3@<X8>)
-{
-  if (result < 0)
-  {
-    __break(1u);
-  }
-
-  else if ((a2 & 0x8000000000000000) == 0)
-  {
-    *a3 = result;
-    a3[1] = a2;
-    return result;
-  }
-
-  __break(1u);
-  return result;
-}
-
-void vImage.Size.init(cvPixelBuffer:)(__CVBuffer *a1@<X0>, int64_t *a2@<X8>)
-{
-  Width = CVPixelBufferGetWidth(a1);
-  Height = CVPixelBufferGetHeight(a1);
-
-  if (Width < 1 || Height < 1)
-  {
-    __break(1u);
-  }
-
-  else
-  {
-    *a2 = Width;
-    a2[1] = Height;
-  }
 }

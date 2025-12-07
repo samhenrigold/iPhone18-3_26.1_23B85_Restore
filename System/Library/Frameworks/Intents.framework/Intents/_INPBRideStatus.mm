@@ -3,6 +3,7 @@
 - (_INPBRideStatus)initWithCoder:(id)coder;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)dictionaryRepresentation;
+- (id)phaseAsString:(int)string;
 - (int)StringAsPhase:(id)phase;
 - (unint64_t)hash;
 - (void)addAdditionalActionItems:(id)items;
@@ -19,35 +20,35 @@
 
 - (id)dictionaryRepresentation
 {
-  v57 = *MEMORY[0x1E69E9840];
+  v56 = *MEMORY[0x1E69E9840];
   dictionary = [MEMORY[0x1E695DF90] dictionary];
   if ([(NSArray *)self->_additionalActionItems count])
   {
     array = [MEMORY[0x1E695DF70] array];
+    v50 = 0u;
     v51 = 0u;
     v52 = 0u;
     v53 = 0u;
-    v54 = 0u;
     v5 = self->_additionalActionItems;
-    v6 = [(NSArray *)v5 countByEnumeratingWithState:&v51 objects:v56 count:16];
+    v6 = [(NSArray *)v5 countByEnumeratingWithState:&v50 objects:v55 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v52;
+      v8 = *v51;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v52 != v8)
+          if (*v51 != v8)
           {
             objc_enumerationMutation(v5);
           }
 
-          dictionaryRepresentation = [*(*(&v51 + 1) + 8 * i) dictionaryRepresentation];
+          dictionaryRepresentation = [*(*(&v50 + 1) + 8 * i) dictionaryRepresentation];
           [array addObject:dictionaryRepresentation];
         }
 
-        v7 = [(NSArray *)v5 countByEnumeratingWithState:&v51 objects:v56 count:16];
+        v7 = [(NSArray *)v5 countByEnumeratingWithState:&v50 objects:v55 count:16];
       }
 
       while (v7);
@@ -127,30 +128,30 @@
   if ([(NSArray *)self->_waypoints count])
   {
     array2 = [MEMORY[0x1E695DF70] array];
+    v46 = 0u;
     v47 = 0u;
     v48 = 0u;
     v49 = 0u;
-    v50 = 0u;
     v39 = self->_waypoints;
-    v40 = [(NSArray *)v39 countByEnumeratingWithState:&v47 objects:v55 count:16];
+    v40 = [(NSArray *)v39 countByEnumeratingWithState:&v46 objects:v54 count:16];
     if (v40)
     {
       v41 = v40;
-      v42 = *v48;
+      v42 = *v47;
       do
       {
         for (j = 0; j != v41; ++j)
         {
-          if (*v48 != v42)
+          if (*v47 != v42)
           {
             objc_enumerationMutation(v39);
           }
 
-          dictionaryRepresentation13 = [*(*(&v47 + 1) + 8 * j) dictionaryRepresentation];
+          dictionaryRepresentation13 = [*(*(&v46 + 1) + 8 * j) dictionaryRepresentation];
           [array2 addObject:dictionaryRepresentation13];
         }
 
-        v41 = [(NSArray *)v39 countByEnumeratingWithState:&v47 objects:v55 count:16];
+        v41 = [(NSArray *)v39 countByEnumeratingWithState:&v46 objects:v54 count:16];
       }
 
       while (v41);
@@ -158,8 +159,6 @@
 
     [dictionary setObject:array2 forKeyedSubscript:@"waypoints"];
   }
-
-  v45 = *MEMORY[0x1E69E9840];
 
   return dictionary;
 }
@@ -659,35 +658,34 @@ LABEL_77:
 
 - (void)writeTo:(id)to
 {
-  v53 = *MEMORY[0x1E69E9840];
+  v48 = *MEMORY[0x1E69E9840];
   toCopy = to;
-  v47 = 0u;
-  v48 = 0u;
-  v49 = 0u;
-  v50 = 0u;
+  v42 = 0u;
+  v43 = 0u;
+  v44 = 0u;
+  v45 = 0u;
   v5 = self->_additionalActionItems;
-  v6 = [(NSArray *)v5 countByEnumeratingWithState:&v47 objects:v52 count:16];
+  v6 = [(NSArray *)v5 countByEnumeratingWithState:&v42 objects:v47 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v48;
+    v8 = *v43;
     do
     {
       v9 = 0;
       do
       {
-        if (*v48 != v8)
+        if (*v43 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v47 + 1) + 8 * v9);
         PBDataWriterWriteSubmessage();
         ++v9;
       }
 
       while (v7 != v9);
-      v7 = [(NSArray *)v5 countByEnumeratingWithState:&v47 objects:v52 count:16];
+      v7 = [(NSArray *)v5 countByEnumeratingWithState:&v42 objects:v47 count:16];
     }
 
     while (v7);
@@ -743,7 +741,6 @@ LABEL_77:
 
   if ([(_INPBRideStatus *)self hasPhase])
   {
-    phase = self->_phase;
     PBDataWriterWriteInt32Field();
   }
 
@@ -759,7 +756,6 @@ LABEL_77:
 
   if (rideIdentifier)
   {
-    rideIdentifier = self->_rideIdentifier;
     PBDataWriterWriteStringField();
   }
 
@@ -795,39 +791,36 @@ LABEL_77:
     PBDataWriterWriteSubmessage();
   }
 
-  v45 = 0u;
-  v46 = 0u;
-  v43 = 0u;
-  v44 = 0u;
-  v36 = self->_waypoints;
-  v37 = [(NSArray *)v36 countByEnumeratingWithState:&v43 objects:v51 count:16];
-  if (v37)
+  v40 = 0u;
+  v41 = 0u;
+  v38 = 0u;
+  v39 = 0u;
+  v33 = self->_waypoints;
+  v34 = [(NSArray *)v33 countByEnumeratingWithState:&v38 objects:v46 count:16];
+  if (v34)
   {
-    v38 = v37;
-    v39 = *v44;
+    v35 = v34;
+    v36 = *v39;
     do
     {
-      v40 = 0;
+      v37 = 0;
       do
       {
-        if (*v44 != v39)
+        if (*v39 != v36)
         {
-          objc_enumerationMutation(v36);
+          objc_enumerationMutation(v33);
         }
 
-        v41 = *(*(&v43 + 1) + 8 * v40);
         PBDataWriterWriteSubmessage();
-        ++v40;
+        ++v37;
       }
 
-      while (v38 != v40);
-      v38 = [(NSArray *)v36 countByEnumeratingWithState:&v43 objects:v51 count:16];
+      while (v35 != v37);
+      v35 = [(NSArray *)v33 countByEnumeratingWithState:&v38 objects:v46 count:16];
     }
 
-    while (v38);
+    while (v35);
   }
-
-  v42 = *MEMORY[0x1E69E9840];
 }
 
 - (void)addWaypoints:(id)waypoints
@@ -905,6 +898,22 @@ LABEL_77:
   }
 
   return v4;
+}
+
+- (id)phaseAsString:(int)string
+{
+  v4 = string - 1;
+  if (string - 1) < 7 && ((0x6Fu >> v4))
+  {
+    v5 = off_1E7281E88[v4];
+  }
+
+  else
+  {
+    v5 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  return v5;
 }
 
 - (void)setPhase:(int)phase

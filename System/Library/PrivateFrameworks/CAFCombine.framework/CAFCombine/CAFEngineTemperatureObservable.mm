@@ -23,7 +23,7 @@
 {
   serviceCopy = service;
   selfCopy = self;
-  CAFEngineTemperatureObservable.engineTemperatureService(_:didUpdateTemperatureState:)();
+  CAFEngineTemperatureObservable.engineTemperatureService(_:didUpdateTemperatureState:)(selfCopy, state);
 }
 
 - (void)serviceDidUpdate:(id)update characteristic:(id)characteristic fromGroupUpdate:(BOOL)groupUpdate

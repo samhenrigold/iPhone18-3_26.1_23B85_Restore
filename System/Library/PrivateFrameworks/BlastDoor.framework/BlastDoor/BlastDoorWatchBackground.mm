@@ -46,12 +46,10 @@
 
 - (NSString)extensionIdentifier
 {
-  v2 = *&self->watchBackground[OBJC_IVAR___BlastDoorWatchBackground_watchBackground + 464];
-  v3 = *&self->watchBackground[OBJC_IVAR___BlastDoorWatchBackground_watchBackground + 472];
 
-  v4 = sub_2146D9588();
+  v2 = sub_2146D9588();
 
-  return v4;
+  return v2;
 }
 
 - (BlastDoorWatchBackground)init

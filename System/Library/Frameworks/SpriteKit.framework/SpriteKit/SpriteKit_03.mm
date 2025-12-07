@@ -1,3 +1,11 @@
+float _perfEndEmitters(double a1)
+{
+  v1 = (a1 - *&qword_27CDDD128) * 1000.0;
+  result = *&dword_27CDDD130 + fmaxf(v1, 0.0);
+  dword_27CDDD130 = LODWORD(result);
+  return result;
+}
+
 float _perfEndRender(double a1)
 {
   v1 = (a1 - *&qword_27CDDD110) * 1000.0;
@@ -29,33 +37,33 @@ float _perfEndRequestDrawable(double a1)
   return result;
 }
 
-uint64_t *std::__hash_table<std::__hash_value_type<int,SKPerformanceDataMapping>,std::__unordered_map_hasher<int,std::__hash_value_type<int,SKPerformanceDataMapping>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,SKPerformanceDataMapping>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,SKPerformanceDataMapping>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(void *a1, int *a2)
+uint64_t *std::__hash_table<std::__hash_value_type<int,SKPerformanceDataMapping>,std::__unordered_map_hasher<int,std::__hash_value_type<int,SKPerformanceDataMapping>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,SKPerformanceDataMapping>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,SKPerformanceDataMapping>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(void *a1, int *a2, uint64_t a3, _DWORD **a4)
 {
-  v2 = *a2;
-  v3 = a1[1];
-  if (!*&v3)
+  v4 = *a2;
+  v5 = a1[1];
+  if (!*&v5)
   {
     goto LABEL_18;
   }
 
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
+  v6 = vcnt_s8(v5);
+  v6.i16[0] = vaddlv_u8(v6);
+  if (v6.u32[0] > 1uLL)
   {
-    v5 = *a2;
-    if (*&v3 <= v2)
+    v7 = *a2;
+    if (*&v5 <= v4)
     {
-      v5 = v2 % *&v3;
+      v7 = v4 % *&v5;
     }
   }
 
   else
   {
-    v5 = (*&v3 - 1) & v2;
+    v7 = (*&v5 - 1) & v4;
   }
 
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
+  v8 = *(*a1 + 8 * v7);
+  if (!v8 || (v9 = *v8) == 0)
   {
 LABEL_18:
     operator new();
@@ -63,44 +71,44 @@ LABEL_18:
 
   while (1)
   {
-    v8 = v7[1];
-    if (v8 == v2)
+    v10 = v9[1];
+    if (v10 == v4)
     {
       break;
     }
 
-    if (v4.u32[0] > 1uLL)
+    if (v6.u32[0] > 1uLL)
     {
-      if (v8 >= *&v3)
+      if (v10 >= *&v5)
       {
-        v8 %= *&v3;
+        v10 %= *&v5;
       }
     }
 
     else
     {
-      v8 &= *&v3 - 1;
+      v10 &= *&v5 - 1;
     }
 
-    if (v8 != v5)
+    if (v10 != v7)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v7 = *v7;
-    if (!v7)
+    v9 = *v9;
+    if (!v9)
     {
       goto LABEL_18;
     }
   }
 
-  if (*(v7 + 4) != v2)
+  if (*(v9 + 4) != v4)
   {
     goto LABEL_17;
   }
 
-  return v7;
+  return v9;
 }
 
 uint64_t std::unordered_map<int,SKPerformanceDataMapping>::unordered_map(uint64_t a1, uint64_t a2)
@@ -111,39 +119,39 @@ uint64_t std::unordered_map<int,SKPerformanceDataMapping>::unordered_map(uint64_
   std::__hash_table<std::__hash_value_type<unsigned long long,SKCTileMapNodeRenderBatch>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,SKCTileMapNodeRenderBatch>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,SKCTileMapNodeRenderBatch>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,SKCTileMapNodeRenderBatch>>>::__rehash<true>(a1, *(a2 + 8));
   for (i = *(a2 + 16); i; i = *i)
   {
-    std::__hash_table<std::__hash_value_type<int,SKPerformanceDataMapping>,std::__unordered_map_hasher<int,std::__hash_value_type<int,SKPerformanceDataMapping>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,SKPerformanceDataMapping>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,SKPerformanceDataMapping>>>::__emplace_unique_key_args<int,std::pair<int const,SKPerformanceDataMapping> const&>(a1, i + 4);
+    std::__hash_table<std::__hash_value_type<int,SKPerformanceDataMapping>,std::__unordered_map_hasher<int,std::__hash_value_type<int,SKPerformanceDataMapping>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,SKPerformanceDataMapping>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,SKPerformanceDataMapping>>>::__emplace_unique_key_args<int,std::pair<int const,SKPerformanceDataMapping> const&>(a1, i + 4, i + 1);
   }
 
   return a1;
 }
 
-uint64_t *std::__hash_table<std::__hash_value_type<int,SKPerformanceDataMapping>,std::__unordered_map_hasher<int,std::__hash_value_type<int,SKPerformanceDataMapping>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,SKPerformanceDataMapping>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,SKPerformanceDataMapping>>>::__emplace_unique_key_args<int,std::pair<int const,SKPerformanceDataMapping> const&>(void *a1, int *a2)
+uint64_t *std::__hash_table<std::__hash_value_type<int,SKPerformanceDataMapping>,std::__unordered_map_hasher<int,std::__hash_value_type<int,SKPerformanceDataMapping>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,SKPerformanceDataMapping>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,SKPerformanceDataMapping>>>::__emplace_unique_key_args<int,std::pair<int const,SKPerformanceDataMapping> const&>(void *a1, int *a2, _OWORD *a3)
 {
-  v2 = *a2;
-  v3 = a1[1];
-  if (!*&v3)
+  v3 = *a2;
+  v4 = a1[1];
+  if (!*&v4)
   {
     goto LABEL_18;
   }
 
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
+  v5 = vcnt_s8(v4);
+  v5.i16[0] = vaddlv_u8(v5);
+  if (v5.u32[0] > 1uLL)
   {
-    v5 = *a2;
-    if (*&v3 <= v2)
+    v6 = *a2;
+    if (*&v4 <= v3)
     {
-      v5 = v2 % *&v3;
+      v6 = v3 % *&v4;
     }
   }
 
   else
   {
-    v5 = (*&v3 - 1) & v2;
+    v6 = (*&v4 - 1) & v3;
   }
 
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
+  v7 = *(*a1 + 8 * v6);
+  if (!v7 || (v8 = *v7) == 0)
   {
 LABEL_18:
     operator new();
@@ -151,44 +159,44 @@ LABEL_18:
 
   while (1)
   {
-    v8 = v7[1];
-    if (v8 == v2)
+    v9 = v8[1];
+    if (v9 == v3)
     {
       break;
     }
 
-    if (v4.u32[0] > 1uLL)
+    if (v5.u32[0] > 1uLL)
     {
-      if (v8 >= *&v3)
+      if (v9 >= *&v4)
       {
-        v8 %= *&v3;
+        v9 %= *&v4;
       }
     }
 
     else
     {
-      v8 &= *&v3 - 1;
+      v9 &= *&v4 - 1;
     }
 
-    if (v8 != v5)
+    if (v9 != v6)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v7 = *v7;
-    if (!v7)
+    v8 = *v8;
+    if (!v8)
     {
       goto LABEL_18;
     }
   }
 
-  if (*(v7 + 4) != v2)
+  if (*(v8 + 4) != v3)
   {
     goto LABEL_17;
   }
 
-  return v7;
+  return v8;
 }
 
 uint64_t std::__hash_table<std::__hash_value_type<int,SKPerformanceDataMapping>,std::__unordered_map_hasher<int,std::__hash_value_type<int,SKPerformanceDataMapping>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,SKPerformanceDataMapping>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,SKPerformanceDataMapping>>>::~__hash_table(uint64_t a1)
@@ -406,7 +414,7 @@ int32x2_t SKCStats::operator+=(uint64_t a1, uint64_t a2)
   return result;
 }
 
-uint64_t SKCEmitterNode::addSubEmitterNode(uint64_t this, SKCEmitterNode *a2)
+void *SKCEmitterNode::addSubEmitterNode(void *this, SKCEmitterNode *a2)
 {
   if (a2)
   {
@@ -733,18 +741,18 @@ void sub_21C46B03C(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_21C46C048(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_21C46C048(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   v10 = v9;
   a9.receiver = v10;
   a9.super_class = SKTextureCache;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
-void sub_21C46CC54(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_21C46CC54(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -864,7 +872,7 @@ void sub_21C471D14(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void sub_21C471E74(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, std::__shared_weak_count *a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, char a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, std::__shared_weak_count *a26)
+void sub_21C471E74(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, std::__shared_weak_count *a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, std::__shared_weak_count *a26)
 {
   if (a11)
   {
@@ -884,8 +892,7 @@ __n128 __Block_byref_object_copy__4(__n128 *a1, __n128 *a2)
 {
   result = a2[3];
   a1[3] = result;
-  a2[3].n128_u64[0] = 0;
-  a2[3].n128_u64[1] = 0;
+  a2[3] = 0uLL;
   return result;
 }
 
@@ -898,7 +905,7 @@ void __Block_byref_object_dispose__4(uint64_t a1)
   }
 }
 
-void sub_21C4720BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, std::__shared_weak_count *a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *a15, uint64_t a16, char a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, std::__shared_weak_count *a24)
+void sub_21C4720BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, std::__shared_weak_count *a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, std::__shared_weak_count *a24)
 {
   if (a10)
   {
@@ -1009,20 +1016,20 @@ void sub_21C473380(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_21C4756D4(_Unwind_Exception *a1, void *a2, void *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_21C4756D4(_Unwind_Exception *a1, void *a2, void *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *a9, void *a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
+  va_start(va, a22);
 
   std::__hash_table<std::__hash_value_type<CGImage *,SKTexture * {__strong}>,std::__unordered_map_hasher<CGImage *,std::__hash_value_type<CGImage *,SKTexture * {__strong}>,std::hash<CGImage *>,std::equal_to<CGImage *>,true>,std::__unordered_map_equal<CGImage *,std::__hash_value_type<CGImage *,SKTexture * {__strong}>,std::equal_to<CGImage *>,std::hash<CGImage *>,true>,std::allocator<std::__hash_value_type<CGImage *,SKTexture * {__strong}>>>::~__hash_table(va);
   _Unwind_Resume(a1);
 }
 
-void sub_21C476324(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_21C476324(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   v10 = v9;
   a9.receiver = v10;
   a9.super_class = SKTextureAtlas;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
@@ -1036,35 +1043,35 @@ void sub_21C476718(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-const void **std::__hash_table<std::__hash_value_type<std::string,SKTexture * {__strong}>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,SKTexture * {__strong}>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,SKTexture * {__strong}>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,SKTexture * {__strong}>>>::__emplace_unique_key_args<std::string,std::pair<std::string,SKTexture * {__strong}>>(void *a1, const void **a2)
+const void **std::__hash_table<std::__hash_value_type<std::string,SKTexture * {__strong}>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,SKTexture * {__strong}>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,SKTexture * {__strong}>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,SKTexture * {__strong}>>>::__emplace_unique_key_args<std::string,std::pair<std::string,SKTexture * {__strong}>>(void *a1, uint64_t *a2, __int128 *a3)
 {
-  v4 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
-  v5 = v4;
-  v6 = a1[1];
-  if (!*&v6)
+  v5 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
+  v6 = v5;
+  v7 = a1[1];
+  if (!*&v7)
   {
     goto LABEL_18;
   }
 
-  v7 = vcnt_s8(v6);
-  v7.i16[0] = vaddlv_u8(v7);
-  v8 = v7.u32[0];
-  if (v7.u32[0] > 1uLL)
+  v8 = vcnt_s8(v7);
+  v8.i16[0] = vaddlv_u8(v8);
+  v9 = v8.u32[0];
+  if (v8.u32[0] > 1uLL)
   {
-    v9 = v4;
-    if (v4 >= *&v6)
+    v10 = v5;
+    if (v5 >= *&v7)
     {
-      v9 = v4 % *&v6;
+      v10 = v5 % *&v7;
     }
   }
 
   else
   {
-    v9 = (*&v6 - 1) & v4;
+    v10 = (*&v7 - 1) & v5;
   }
 
-  v10 = *(*a1 + 8 * v9);
-  if (!v10 || (v11 = *v10) == 0)
+  v11 = *(*a1 + 8 * v10);
+  if (!v11 || (v12 = *v11) == 0)
   {
 LABEL_18:
     operator new();
@@ -1072,49 +1079,49 @@ LABEL_18:
 
   while (1)
   {
-    v12 = v11[1];
-    if (v12 == v5)
+    v13 = v12[1];
+    if (v13 == v6)
     {
       break;
     }
 
-    if (v8 > 1)
+    if (v9 > 1)
     {
-      if (v12 >= *&v6)
+      if (v13 >= *&v7)
       {
-        v12 %= *&v6;
+        v13 %= *&v7;
       }
     }
 
     else
     {
-      v12 &= *&v6 - 1;
+      v13 &= *&v7 - 1;
     }
 
-    if (v12 != v9)
+    if (v13 != v10)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v11 = *v11;
-    if (!v11)
+    v12 = *v12;
+    if (!v12)
     {
       goto LABEL_18;
     }
   }
 
-  if (!std::equal_to<std::string>::operator()[abi:ne200100](a1, v11 + 2, a2))
+  if (!std::equal_to<std::string>::operator()[abi:ne200100](a1, v12 + 2, a2))
   {
     goto LABEL_17;
   }
 
-  return v11;
+  return v12;
 }
 
-void sub_21C477D90(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_21C477D90(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,SKAttributeValue * {__strong}>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::string,SKAttributeValue * {__strong}>,void *>>>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -1182,79 +1189,71 @@ void *std::__hash_table<std::__hash_value_type<CGImage *,SKTexture * {__strong}>
     return 0;
   }
 
-  result = *v8;
-  if (*v8)
+  for (result = *v8; result; result = *result)
   {
-    do
+    v10 = result[1];
+    if (v10 == v5)
     {
-      v10 = result[1];
-      if (v10 == v5)
+      if (result[2] == *a2)
       {
-        if (result[2] == *a2)
+        return result;
+      }
+    }
+
+    else
+    {
+      if (v6.u32[0] > 1uLL)
+      {
+        if (v10 >= *&v2)
         {
-          return result;
+          v10 %= *&v2;
         }
       }
 
       else
       {
-        if (v6.u32[0] > 1uLL)
-        {
-          if (v10 >= *&v2)
-          {
-            v10 %= *&v2;
-          }
-        }
-
-        else
-        {
-          v10 &= *&v2 - 1;
-        }
-
-        if (v10 != v7)
-        {
-          return 0;
-        }
+        v10 &= *&v2 - 1;
       }
 
-      result = *result;
+      if (v10 != v7)
+      {
+        return 0;
+      }
     }
-
-    while (result);
   }
 
   return result;
 }
 
-void *std::__hash_table<std::__hash_value_type<CGImage *,SKTexture * {__strong}>,std::__unordered_map_hasher<CGImage *,std::__hash_value_type<CGImage *,SKTexture * {__strong}>,std::hash<CGImage *>,std::equal_to<CGImage *>,true>,std::__unordered_map_equal<CGImage *,std::__hash_value_type<CGImage *,SKTexture * {__strong}>,std::equal_to<CGImage *>,std::hash<CGImage *>,true>,std::allocator<std::__hash_value_type<CGImage *,SKTexture * {__strong}>>>::__emplace_unique_key_args<CGImage *,std::piecewise_construct_t const&,std::tuple<CGImage * const&>,std::tuple<>>(void *a1, void *a2)
+void *std::__hash_table<std::__hash_value_type<CGImage *,SKTexture * {__strong}>,std::__unordered_map_hasher<CGImage *,std::__hash_value_type<CGImage *,SKTexture * {__strong}>,std::hash<CGImage *>,std::equal_to<CGImage *>,true>,std::__unordered_map_equal<CGImage *,std::__hash_value_type<CGImage *,SKTexture * {__strong}>,std::equal_to<CGImage *>,std::hash<CGImage *>,true>,std::allocator<std::__hash_value_type<CGImage *,SKTexture * {__strong}>>>::__emplace_unique_key_args<CGImage *,std::piecewise_construct_t const&,std::tuple<CGImage * const&>,std::tuple<>>(void *a1, void *a2, uint64_t a3, void **a4)
 {
-  v2 = 0x9DDFEA08EB382D69 * ((8 * (*a2 & 0x1FFFFFFFLL) + 8) ^ HIDWORD(*a2));
-  v3 = 0x9DDFEA08EB382D69 * (HIDWORD(*a2) ^ (v2 >> 47) ^ v2);
-  v4 = 0x9DDFEA08EB382D69 * (v3 ^ (v3 >> 47));
-  v5 = a1[1];
-  if (!*&v5)
+  v4 = 0x9DDFEA08EB382D69 * ((8 * (*a2 & 0x1FFFFFFFLL) + 8) ^ HIDWORD(*a2));
+  v5 = 0x9DDFEA08EB382D69 * (HIDWORD(*a2) ^ (v4 >> 47) ^ v4);
+  v6 = 0x9DDFEA08EB382D69 * (v5 ^ (v5 >> 47));
+  v7 = a1[1];
+  if (!*&v7)
   {
     goto LABEL_18;
   }
 
-  v6 = vcnt_s8(v5);
-  v6.i16[0] = vaddlv_u8(v6);
-  if (v6.u32[0] > 1uLL)
+  v8 = vcnt_s8(v7);
+  v8.i16[0] = vaddlv_u8(v8);
+  if (v8.u32[0] > 1uLL)
   {
-    v7 = 0x9DDFEA08EB382D69 * (v3 ^ (v3 >> 47));
-    if (v4 >= *&v5)
+    v9 = 0x9DDFEA08EB382D69 * (v5 ^ (v5 >> 47));
+    if (v6 >= *&v7)
     {
-      v7 = v4 % *&v5;
+      v9 = v6 % *&v7;
     }
   }
 
   else
   {
-    v7 = v4 & (*&v5 - 1);
+    v9 = v6 & (*&v7 - 1);
   }
 
-  v8 = *(*a1 + 8 * v7);
-  if (!v8 || (v9 = *v8) == 0)
+  v10 = *(*a1 + 8 * v9);
+  if (!v10 || (v11 = *v10) == 0)
   {
 LABEL_18:
     operator new();
@@ -1262,49 +1261,49 @@ LABEL_18:
 
   while (1)
   {
-    v10 = v9[1];
-    if (v10 == v4)
+    v12 = v11[1];
+    if (v12 == v6)
     {
       break;
     }
 
-    if (v6.u32[0] > 1uLL)
+    if (v8.u32[0] > 1uLL)
     {
-      if (v10 >= *&v5)
+      if (v12 >= *&v7)
       {
-        v10 %= *&v5;
+        v12 %= *&v7;
       }
     }
 
     else
     {
-      v10 &= *&v5 - 1;
+      v12 &= *&v7 - 1;
     }
 
-    if (v10 != v7)
+    if (v12 != v9)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v9 = *v9;
-    if (!v9)
+    v11 = *v11;
+    if (!v11)
     {
       goto LABEL_18;
     }
   }
 
-  if (v9[2] != *a2)
+  if (v11[2] != *a2)
   {
     goto LABEL_17;
   }
 
-  return v9;
+  return v11;
 }
 
-void sub_21C478190(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_21C478190(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__hash_node<std::__hash_value_type<CGImage *,SKTexture * {__strong}>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<CGImage *,SKTexture * {__strong}>,void *>>>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -1325,7 +1324,7 @@ uint64_t std::unique_ptr<std::__hash_node<std::__hash_value_type<CGImage *,SKTex
   return a1;
 }
 
-const void **std::__hash_table<std::__hash_value_type<std::string,SKTexture * {__strong}>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,SKTexture * {__strong}>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,SKTexture * {__strong}>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,SKTexture * {__strong}>>>::find<std::string>(void *a1, const void **a2)
+const void **std::__hash_table<std::__hash_value_type<std::string,SKTexture * {__strong}>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,SKTexture * {__strong}>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,SKTexture * {__strong}>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,SKTexture * {__strong}>>>::find<std::string>(void *a1, uint64_t *a2)
 {
   v4 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
   v5 = a1[1];
@@ -1401,7 +1400,7 @@ void SKCVideoBackdropNode::~SKCVideoBackdropNode(SKCVideoBackdropNode *this)
   JUMPOUT(0x21CF0A160);
 }
 
-void SKCVideoBackdropNode::addRenderOps(float32x4_t *a1, uint64_t a2, uint64_t *a3)
+void SKCVideoBackdropNode::addRenderOps(float32x4_t *a1, uint64_t a2, unint64_t **a3)
 {
   v67 = *MEMORY[0x277D85DE8];
   v6 = a1[43].i64[1];
@@ -1585,10 +1584,10 @@ LABEL_17:
   v42 = *a3;
   v43 = *(a2 + 280);
   LODWORD(__p.__r_.__value_.__l.__data_) = 31;
-  v44 = *(v42 + 16);
-  if (v44 >= *(v42 + 24))
+  v44 = v42[2];
+  if (v44 >= v42[3])
   {
-    v45 = std::vector<jet_render_op>::__emplace_back_slow_path<jet_render_opcode>(v42 + 8, &__p);
+    v45 = std::vector<jet_render_op>::__emplace_back_slow_path<jet_render_opcode>(v42 + 1, &__p);
   }
 
   else
@@ -1603,7 +1602,7 @@ LABEL_17:
     *(v44 + 96) = 0;
   }
 
-  *(v42 + 16) = v45;
+  v42[2] = v45;
   *(v45 - 80) = v43;
   *(v45 - 64) = xmmword_21C4B8530;
   *(v45 - 48) = 0x30000000FLL;
@@ -1650,10 +1649,10 @@ LABEL_17:
   v51 = *a3;
   v52 = *(a2 + 400);
   LODWORD(__p.__r_.__value_.__l.__data_) = 4;
-  v53 = *(v51 + 16);
-  if (v53 >= *(v51 + 24))
+  v53 = v51[2];
+  if (v53 >= v51[3])
   {
-    v54 = std::vector<jet_render_op>::__emplace_back_slow_path<jet_render_opcode>(v51 + 8, &__p);
+    v54 = std::vector<jet_render_op>::__emplace_back_slow_path<jet_render_opcode>(v51 + 1, &__p);
   }
 
   else
@@ -1668,7 +1667,7 @@ LABEL_17:
     *(v53 + 96) = 0;
   }
 
-  *(v51 + 16) = v54;
+  v51[2] = v54;
   *(v54 - 80) = v52;
   *(v54 - 64) = 3;
   *(v54 - 60) = 6 * v39;
@@ -1852,7 +1851,7 @@ id sk_debug_option_get_string(NSString *a1)
   return v3;
 }
 
-uint64_t sk_debug_check_optional(void)
+void *sk_debug_check_optional(void)
 {
   result = sk_debug_option_get_BOOL(&cfstr_Enablealldebug.isa);
   enableAllDebugEvents = result;
@@ -2004,13 +2003,13 @@ void sub_21C479420(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void SKCParticleSystem::resize(SKCParticleSystem *this, int a2)
+void SKCParticleSystem::resize(uint64_t this, int a2)
 {
-  if (*(this + 20) != a2)
+  if (*(this + 80) != a2)
   {
     v4[5] = v2;
     v4[6] = v3;
-    *(this + 20) = a2;
+    *(this + 80) = a2;
     v4[0] = MEMORY[0x277D85DD0];
     v4[1] = 3221225472;
     v4[2] = ___ZN17SKCParticleSystem6resizeEj_block_invoke;
@@ -2042,12 +2041,12 @@ void SKCParticleSystem::update(SKCParticleSystem *this, float a2)
   }
 }
 
-void *std::list<SKCParticleUpdater *>::remove(uint64_t a1, void *a2)
+void *std::list<SKCParticleUpdater *>::remove(void *a1, void *a2)
 {
   v10[0] = v10;
   v10[1] = v10;
   v10[2] = 0;
-  v2 = *(a1 + 8);
+  v2 = a1[1];
   if (v2 != a1)
   {
     do
@@ -2094,9 +2093,9 @@ void *std::list<SKCParticleUpdater *>::remove(uint64_t a1, void *a2)
   return std::__list_imp<SKCRenderSortInfo *>::clear(v10);
 }
 
-void sub_21C4796B4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_21C4796B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__list_imp<SKCRenderSortInfo *>::clear(va);
   _Unwind_Resume(a1);
 }
@@ -2226,10 +2225,10 @@ void *___ZN17SKCParticleSystem7compactEv_block_invoke(void *result, uint64_t a2)
   return result;
 }
 
-void SKCParticleSystem::addPatricles(SKCParticleSystem *this, int a2)
+void SKCParticleSystem::addPatricles(uint64_t this, int a2)
 {
-  v3 = *(this + 20);
-  v4 = *(this + 21) + a2;
+  v3 = *(this + 80);
+  v4 = *(this + 84) + a2;
   if (v4 <= v3)
   {
 LABEL_7:
@@ -2246,7 +2245,7 @@ LABEL_7:
 
     else
     {
-      v5 = *(this + 21) + a2;
+      v5 = *(this + 84) + a2;
     }
 
     SKCParticleSystem::resize(this, v5);
@@ -2254,13 +2253,13 @@ LABEL_7:
   }
 
 LABEL_8:
-  *(this + 21) = v3;
+  *(this + 84) = v3;
 }
 
-void SKCParticleSystem::addPatricles(SKCParticleSystem *this, int a2, unsigned int *a3, unsigned int *a4)
+void SKCParticleSystem::addPatricles(uint64_t this, int a2, unsigned int *a3, unsigned int *a4)
 {
-  v7 = *(this + 20);
-  v8 = *(this + 21) + a2;
+  v7 = *(this + 80);
+  v8 = *(this + 84) + a2;
   if (v8 > v7)
   {
     if (*(this + 88) != 1)
@@ -2275,7 +2274,7 @@ void SKCParticleSystem::addPatricles(SKCParticleSystem *this, int a2, unsigned i
 
     else
     {
-      v9 = *(this + 21) + a2;
+      v9 = *(this + 84) + a2;
     }
 
     SKCParticleSystem::resize(this, v9);
@@ -2285,15 +2284,15 @@ void SKCParticleSystem::addPatricles(SKCParticleSystem *this, int a2, unsigned i
 LABEL_8:
   if (a4)
   {
-    *a4 = v7 - *(this + 21);
+    *a4 = v7 - *(this + 84);
   }
 
   if (a3)
   {
-    *a3 = *(this + 21);
+    *a3 = *(this + 84);
   }
 
-  *(this + 21) = v7;
+  *(this + 84) = v7;
 }
 
 void SKCParticleSystem::removePatricles(SKCParticleSystem *this, int a2, int a3)
@@ -2349,7 +2348,7 @@ void SKCParticleSystem::removePatricles(SKCParticleSystem *this, int a2, int a3)
           v15 = (4 * v10);
           v16 = (4 * v10 - 4 * v14);
           *v15 = v3;
-          v6 = (v15 + 1);
+          v6 = v15 + 1;
           memcpy(v16, v8, v9);
           v17 = *(this + 4);
           *(this + 4) = v16;
@@ -2363,8 +2362,7 @@ void SKCParticleSystem::removePatricles(SKCParticleSystem *this, int a2, int a3)
 
         else
         {
-          *v6 = v3;
-          v6 += 4;
+          *v6++ = v3;
         }
 
         *(this + 5) = v6;
@@ -2605,15 +2603,15 @@ BOOL std::__map_value_compare<std::string,std::__value_type<std::string,SKCDataS
   }
 }
 
-uint64_t std::__tree<std::__value_type<std::string,SKCDataSlice *>,std::__map_value_compare<std::string,std::__value_type<std::string,SKCDataSlice *>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,SKCDataSlice *>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(uint64_t a1, const void **a2)
+uint64_t std::__tree<std::__value_type<std::string,SKCDataSlice *>,std::__map_value_compare<std::string,std::__value_type<std::string,SKCDataSlice *>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,SKCDataSlice *>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(uint64_t **a1, const void **a2, uint64_t a3, _OWORD **a4)
 {
-  v2 = *std::__tree<std::__value_type<std::string,SKCDataSlice *>,std::__map_value_compare<std::string,std::__value_type<std::string,SKCDataSlice *>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,SKCDataSlice *>>>::__find_equal<std::string>(a1, &v4, a2);
-  if (!v2)
+  v4 = *std::__tree<std::__value_type<std::string,SKCDataSlice *>,std::__map_value_compare<std::string,std::__value_type<std::string,SKCDataSlice *>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,SKCDataSlice *>>>::__find_equal<std::string>(a1, &v6, a2);
+  if (!v4)
   {
     operator new();
   }
 
-  return v2;
+  return v4;
 }
 
 uint64_t std::__tree<std::__value_type<std::string,SKCDataSlice *>,std::__map_value_compare<std::string,std::__value_type<std::string,SKCDataSlice *>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,SKCDataSlice *>>>::__find_equal<std::string>(uint64_t a1, uint64_t *a2, const void **a3)
@@ -3081,7 +3079,7 @@ double SKCSceneNode::getInverseTransformMatrix(SKCSceneNode *this)
   return result;
 }
 
-void SKCSceneNode::matrixForDestination(SKCSceneNode *this, __n128 a2, float a3)
+void SKCSceneNode::matrixForDestination(float32x2_t *this, __n128 a2, float a3)
 {
   *v4.i64 = (*(*this + 120))(this);
   v85.columns[0] = v4;
@@ -3089,7 +3087,7 @@ void SKCSceneNode::matrixForDestination(SKCSceneNode *this, __n128 a2, float a3)
   v85.columns[2] = v6;
   v85.columns[3] = v7;
   AABB = SKCBoundingBoxGetAABB(&v85);
-  v9 = *(this + 1);
+  v9 = this[1];
   if (v9)
   {
     v10 = v9;
@@ -3127,16 +3125,16 @@ void SKCSceneNode::matrixForDestination(SKCSceneNode *this, __n128 a2, float a3)
   v29 = vextq_s8(AABB, AABB, 8uLL).u64[0];
   *&v30 = vadd_f32(*AABB.f32, v29);
   *(&v30 + 1) = 1157234688;
-  v31 = *(this + 91);
+  v31 = this[91];
   v32 = AABB.f32[2] / AABB.f32[3];
   v71 = v29;
   v75 = v30;
   v77 = v28;
-  if (v31 == 1)
+  if (*&v31 == 1)
   {
     v74 = AABB.f32[0];
-    SKCNode::setHidden(*(this + 93), 1);
-    SKCNode::setHidden(*(this + 94), 1);
+    SKCNode::setHidden(*&this[93], 1);
+    SKCNode::setHidden(*&this[94], 1);
     if (v25 >= v32)
     {
       v41 = v27 + (*(&v26 + 1) * 0.5);
@@ -3158,13 +3156,13 @@ void SKCSceneNode::matrixForDestination(SKCSceneNode *this, __n128 a2, float a3)
 
   else
   {
-    if (v31 == 2 && (COERCE_UNSIGNED_INT(v25 - v32) & 0x60000000) != 0)
+    if (*&v31 == 2 && (COERCE_UNSIGNED_INT(v25 - v32) & 0x60000000) != 0)
     {
       v73 = AABB.f32[0];
-      SKCNode::setHidden(*(this + 93), 0);
-      SKCNode::setHidden(*(this + 94), 0);
-      SKCNode::setTranslation(*(this + 94), a2, a3);
-      v33 = *(this + 93);
+      SKCNode::setHidden(*&this[93], 0);
+      SKCNode::setHidden(*&this[94], 0);
+      SKCNode::setTranslation(*&this[94], a2, a3);
+      v33 = this[93];
       if (v25 <= v32)
       {
         v42 = v27 + (*(&v26 + 1) * 0.5);
@@ -3194,15 +3192,15 @@ void SKCSceneNode::matrixForDestination(SKCSceneNode *this, __n128 a2, float a3)
       }
 
       SKCNode::setSize(v33, &v85);
-      v45 = *(this + 94);
+      v45 = this[94];
       v85.columns[0] = v82;
       SKCNode::setSize(v45, &v85);
     }
 
     else
     {
-      SKCNode::setHidden(*(this + 93), 1);
-      SKCNode::setHidden(*(this + 94), 1);
+      SKCNode::setHidden(*&this[93], 1);
+      SKCNode::setHidden(*&this[94], 1);
     }
 
     v40 = v75;
@@ -3267,7 +3265,7 @@ void SKCSceneNode::matrixForDestination(SKCSceneNode *this, __n128 a2, float a3)
     v83 = v85.columns[0];
     ConversionMatrixFromWorld = SKCNode::getConversionMatrixFromWorld(v20);
     v61 = 0;
-    *v66.f32 = vmul_f32(v71, vsub_f32(0x3F0000003F000000, *(this + 352)));
+    *v66.f32 = vmul_f32(v71, vsub_f32(0x3F0000003F000000, this[44]));
     v62 = *v49;
     v63 = *(v49 + 1);
     v64 = *(v49 + 2);
@@ -3318,11 +3316,11 @@ void SKCSceneNode::notifyDirtyState(SKCSceneNode *this)
   }
 }
 
-void SKCSceneNode::setBackgroundFromPixelBuffer(SKCSceneNode *this, CVPixelBufferRef texture)
+void SKCSceneNode::setBackgroundFromPixelBuffer(SKCVideoNode **this, CVPixelBufferRef texture)
 {
   if (texture)
   {
-    v3 = *(this + 95);
+    v3 = this[95];
     if (!v3)
     {
       operator new();
@@ -3403,10 +3401,10 @@ void sub_21C47CD90(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_21C47D8D0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_21C47D8D0(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   a9.super_class = SKSoundBuffer;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
@@ -4143,10 +4141,10 @@ uint64_t MaxRectsBinPack::SplitFreeNode(MaxRectsBinPack *this, CGRect a2, const 
   return 1;
 }
 
-const CGRect **MaxRectsBinPack::PruneFreeList(const CGRect **this)
+MaxRectsBinPack *MaxRectsBinPack::PruneFreeList(MaxRectsBinPack *this)
 {
-  v1 = this[4];
-  v2 = this[5];
+  v1 = *(this + 4);
+  v2 = *(this + 5);
   if (v2 != v1)
   {
     v3 = this;
@@ -4180,11 +4178,11 @@ LABEL_12:
             if (v2 != &v8[1])
             {
               this = memmove(&v1[v5], &v8[1], v2 - &v8[1]);
-              v1 = *(v3 + 32);
+              v1 = *(v3 + 4);
             }
 
             --v2;
-            *(v3 + 40) = v8 + v9;
+            *(v3 + 5) = v8 + v9;
           }
 
           else
@@ -4203,11 +4201,11 @@ LABEL_12:
         if (v2 != &v7[1])
         {
           this = memmove(&v1[v4], &v7[1], v2 - &v7[1]);
-          v1 = *(v3 + 32);
+          v1 = *(v3 + 4);
         }
 
         --v2;
-        *(v3 + 40) = v7 + v10;
+        *(v3 + 5) = v7 + v10;
       }
     }
 
@@ -4333,7 +4331,7 @@ LABEL_25:
   return v10;
 }
 
-void MaxRectsBinPack::Insert(MaxRectsBinPack *a1, uint64_t *a2, void *a3, int a4)
+void MaxRectsBinPack::Insert(MaxRectsBinPack *result, uint64_t *a2, void *a3, int a4)
 {
   a3[1] = *a3;
   v6 = *a2;
@@ -4359,7 +4357,7 @@ void MaxRectsBinPack::Insert(MaxRectsBinPack *a1, uint64_t *a2, void *a3, int a4
       do
       {
         *v26 = 0;
-        MaxRectsBinPack::ScoreRect(a1, *(v14 - 1), *v14, a4, &v26[1], v26);
+        MaxRectsBinPack::ScoreRect(result, *(v14 - 1), *v14, a4, &v26[1], v26);
         if (v26[1] < v16 || (v26[1] == v16 ? (v22 = v26[0] < v17) : (v22 = 0), v22))
         {
           v27.origin.x = v18;
@@ -4381,7 +4379,7 @@ void MaxRectsBinPack::Insert(MaxRectsBinPack *a1, uint64_t *a2, void *a3, int a4
         break;
       }
 
-      MaxRectsBinPack::PlaceRect(a1, &v27);
+      MaxRectsBinPack::PlaceRect(result, &v27);
       v6 = *a2;
       v23 = a2[1];
       v24 = *a2 + 16 * v15;
@@ -4675,7 +4673,7 @@ void sub_21C480300(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-uint64_t std::vector<TextureInfo>::push_back[abi:ne200100](uint64_t *a1, uint64_t a2)
+uint64_t std::vector<TextureInfo>::push_back[abi:ne200100](void *a1, uint64_t a2)
 {
   v3 = a1[1];
   if (v3 >= a1[2])
@@ -4933,13 +4931,13 @@ void sub_21C48127C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-BOOL MaxRectTexturePacker::getTextureLocationInAtlas(MaxRectTexturePacker *this, uint64_t a2, uint64_t a3, unsigned int *a4, CGRect *a5, unsigned int *a6)
+BOOL MaxRectTexturePacker::getTextureLocationInAtlas(MaxRectTexturePacker *this, unint64_t a2, uint64_t a3, unsigned int *a4, CGRect *a5, unsigned int *a6)
 {
-  v11 = (*(this + 5) + 24 * a2);
+  v11 = *(this + 5) + 24 * a2;
   v23 = 0;
   v24 = 0;
   __p = 0;
-  std::vector<MaxRectTexturePacker::PackedTexInfo>::__init_with_size[abi:ne200100]<MaxRectTexturePacker::PackedTexInfo*,MaxRectTexturePacker::PackedTexInfo*>(&__p, *v11, v11[1], 0xCCCCCCCCCCCCCCCDLL * ((v11[1] - *v11) >> 3));
+  std::vector<MaxRectTexturePacker::PackedTexInfo>::__init_with_size[abi:ne200100]<MaxRectTexturePacker::PackedTexInfo*,MaxRectTexturePacker::PackedTexInfo*>(&__p, *v11, *(v11 + 8), 0xCCCCCCCCCCCCCCCDLL * ((*(v11 + 8) - *v11) >> 3));
   v12 = __p;
   v13 = __p + 40 * a3;
   v15 = *v13;
@@ -5182,7 +5180,7 @@ void std::vector<CGSize>::push_back[abi:ne200100](uint64_t a1, _OWORD *a2)
   *(a1 + 8) = v6;
 }
 
-uint64_t std::vector<std::vector<MaxRectTexturePacker::PackedTexInfo>>::push_back[abi:ne200100](uint64_t a1, uint64_t *a2)
+void *std::vector<std::vector<MaxRectTexturePacker::PackedTexInfo>>::push_back[abi:ne200100](uint64_t a1, uint64_t a2)
 {
   v3 = *(a1 + 8);
   if (v3 >= *(a1 + 16))
@@ -5193,7 +5191,7 @@ uint64_t std::vector<std::vector<MaxRectTexturePacker::PackedTexInfo>>::push_bac
   else
   {
     std::vector<std::vector<MaxRectTexturePacker::PackedTexInfo>>::__construct_one_at_end[abi:ne200100]<std::vector<MaxRectTexturePacker::PackedTexInfo> const&>(a1, a2);
-    result = v3 + 24;
+    result = (v3 + 24);
   }
 
   *(a1 + 8) = result;
@@ -5272,32 +5270,32 @@ void std::__allocate_at_least[abi:ne200100]<std::allocator<CGSize>>(uint64_t a1,
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-uint64_t std::vector<std::vector<MaxRectTexturePacker::PackedTexInfo>>::__construct_one_at_end[abi:ne200100]<std::vector<MaxRectTexturePacker::PackedTexInfo> const&>(uint64_t a1, uint64_t *a2)
+uint64_t *std::vector<std::vector<MaxRectTexturePacker::PackedTexInfo>>::__construct_one_at_end[abi:ne200100]<std::vector<MaxRectTexturePacker::PackedTexInfo> const&>(uint64_t a1, uint64_t a2)
 {
   v3 = *(a1 + 8);
   *v3 = 0;
   v3[1] = 0;
   v3[2] = 0;
-  result = std::vector<MaxRectTexturePacker::PackedTexInfo>::__init_with_size[abi:ne200100]<MaxRectTexturePacker::PackedTexInfo*,MaxRectTexturePacker::PackedTexInfo*>(v3, *a2, a2[1], 0xCCCCCCCCCCCCCCCDLL * ((a2[1] - *a2) >> 3));
+  result = std::vector<MaxRectTexturePacker::PackedTexInfo>::__init_with_size[abi:ne200100]<MaxRectTexturePacker::PackedTexInfo*,MaxRectTexturePacker::PackedTexInfo*>(v3, *a2, *(a2 + 8), 0xCCCCCCCCCCCCCCCDLL * ((*(a2 + 8) - *a2) >> 3));
   *(a1 + 8) = v3 + 3;
   return result;
 }
 
-uint64_t std::vector<std::vector<MaxRectTexturePacker::PackedTexInfo>>::__emplace_back_slow_path<std::vector<MaxRectTexturePacker::PackedTexInfo> const&>(uint64_t a1, uint64_t *a2)
+void *std::vector<std::vector<MaxRectTexturePacker::PackedTexInfo>>::__emplace_back_slow_path<std::vector<MaxRectTexturePacker::PackedTexInfo> const&>(char **a1, uint64_t a2)
 {
-  v2 = 0xAAAAAAAAAAAAAAABLL * ((*(a1 + 8) - *a1) >> 3);
+  v2 = 0xAAAAAAAAAAAAAAABLL * ((a1[1] - *a1) >> 3);
   v3 = v2 + 1;
   if (v2 + 1 > 0xAAAAAAAAAAAAAAALL)
   {
     std::vector<jet_render_op>::__throw_length_error[abi:ne200100]();
   }
 
-  if (0x5555555555555556 * ((*(a1 + 16) - *a1) >> 3) > v3)
+  if (0x5555555555555556 * ((a1[2] - *a1) >> 3) > v3)
   {
-    v3 = 0x5555555555555556 * ((*(a1 + 16) - *a1) >> 3);
+    v3 = 0x5555555555555556 * ((a1[2] - *a1) >> 3);
   }
 
-  if (0xAAAAAAAAAAAAAAABLL * ((*(a1 + 16) - *a1) >> 3) >= 0x555555555555555)
+  if (0xAAAAAAAAAAAAAAABLL * ((a1[2] - *a1) >> 3) >= 0x555555555555555)
   {
     v6 = 0xAAAAAAAAAAAAAAALL;
   }
@@ -5321,16 +5319,16 @@ uint64_t std::vector<std::vector<MaxRectTexturePacker::PackedTexInfo>>::__emplac
   *v7 = 0;
   *(v7 + 8) = 0;
   *(v7 + 16) = 0;
-  std::vector<MaxRectTexturePacker::PackedTexInfo>::__init_with_size[abi:ne200100]<MaxRectTexturePacker::PackedTexInfo*,MaxRectTexturePacker::PackedTexInfo*>(24 * v2, *a2, a2[1], 0xCCCCCCCCCCCCCCCDLL * ((a2[1] - *a2) >> 3));
+  std::vector<MaxRectTexturePacker::PackedTexInfo>::__init_with_size[abi:ne200100]<MaxRectTexturePacker::PackedTexInfo*,MaxRectTexturePacker::PackedTexInfo*>((24 * v2), *a2, *(a2 + 8), 0xCCCCCCCCCCCCCCCDLL * ((*(a2 + 8) - *a2) >> 3));
   v8 = v16 + 24;
-  v9 = *(a1 + 8) - *a1;
+  v9 = a1[1] - *a1;
   v10 = &v15[-v9];
   memcpy(&v15[-v9], *a1, v9);
   v11 = *a1;
   *a1 = v10;
-  *(a1 + 8) = v8;
-  v12 = *(a1 + 16);
-  *(a1 + 16) = v17;
+  a1[1] = v8;
+  v12 = a1[2];
+  a1[2] = v17;
   v16 = v11;
   v17 = v12;
   v14 = v11;
@@ -5339,14 +5337,14 @@ uint64_t std::vector<std::vector<MaxRectTexturePacker::PackedTexInfo>>::__emplac
   return v8;
 }
 
-void sub_21C481BEC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_21C481BEC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__split_buffer<std::vector<MaxRectTexturePacker::PackedTexInfo>>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t std::vector<MaxRectTexturePacker::PackedTexInfo>::__init_with_size[abi:ne200100]<MaxRectTexturePacker::PackedTexInfo*,MaxRectTexturePacker::PackedTexInfo*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<MaxRectTexturePacker::PackedTexInfo>::__init_with_size[abi:ne200100]<MaxRectTexturePacker::PackedTexInfo*,MaxRectTexturePacker::PackedTexInfo*>(uint64_t *result, const void *a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -5368,7 +5366,7 @@ void sub_21C481C60(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<MaxRectTexturePacker::PackedTexInfo>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<MaxRectTexturePacker::PackedTexInfo>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (a2 < 0x666666666666667)
   {
@@ -5476,7 +5474,7 @@ void std::vector<TextureInfo>::__construct_one_at_end[abi:ne200100]<TextureInfo 
   *(a1 + 8) = v3 + 4;
 }
 
-uint64_t std::vector<TextureInfo>::__emplace_back_slow_path<TextureInfo const&>(uint64_t *a1, uint64_t a2)
+uint64_t std::vector<TextureInfo>::__emplace_back_slow_path<TextureInfo const&>(void *a1, uint64_t a2)
 {
   v2 = (a1[1] - *a1) >> 5;
   v3 = v2 + 1;
@@ -5544,9 +5542,9 @@ uint64_t std::vector<TextureInfo>::__emplace_back_slow_path<TextureInfo const&>(
   return v16;
 }
 
-void sub_21C482030(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_21C482030(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<TextureInfo>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -5665,15 +5663,15 @@ void std::__split_buffer<TextureInfo>::__destruct_at_end[abi:ne200100](uint64_t 
   }
 }
 
-void std::__introsort<std::_ClassicAlgPolicy,BOOL (*&)(TextureInfo const&,TextureInfo const&),TextureInfo*,false>(__int128 *a1, char *a2, uint64_t (**a3)(__int128 *, __int128 *), uint64_t a4, char a5, __n128 a6)
+void std::__introsort<std::_ClassicAlgPolicy,BOOL (*&)(TextureInfo const&,TextureInfo const&),TextureInfo*,false>(__int128 *result, uint64_t *a2, uint64_t (**a3)(__int128 *, __int128 *), uint64_t a4, char a5, __n128 a6)
 {
 LABEL_1:
-  v10 = a1;
+  v10 = result;
 LABEL_2:
   v11 = 1 - a4;
   while (1)
   {
-    a1 = v10;
+    result = v10;
     v12 = v11;
     v13 = (a2 - v10) >> 5;
     if (v13 <= 2)
@@ -5695,7 +5693,7 @@ LABEL_2:
           *(v10 + 3) = 0;
           *(v10 + 1) = 0;
           *v10 = *(a2 - 4);
-          v25 = *(a2 - 24);
+          v25 = *(a2 - 3);
           *(v10 + 3) = *(a2 - 1);
           *(v10 + 8) = v25;
           *(a2 - 2) = v24;
@@ -5728,7 +5726,7 @@ LABEL_2:
         *(v10 + 11) = 0;
         *(v10 + 10) = 0;
         *(v10 + 8) = *(a2 - 4);
-        v28 = *(a2 - 24);
+        v28 = *(a2 - 3);
         *(v10 + 11) = *(a2 - 1);
         *(v10 + 72) = v28;
         *(a2 - 2) = v26;
@@ -5771,7 +5769,7 @@ LABEL_2:
     if (v13 == 5)
     {
 
-      std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(TextureInfo const&,TextureInfo const&),TextureInfo*,0>(v10, (v10 + 2), (v10 + 4), (v10 + 6), (a2 - 32), a3);
+      std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(TextureInfo const&,TextureInfo const&),TextureInfo*,0>(v10, (v10 + 2), (v10 + 4), (v10 + 6), (a2 - 4), a3);
       return;
     }
 
@@ -5808,7 +5806,7 @@ LABEL_10:
     v15 = &v10[2 * (v13 >> 1)];
     if (v13 < 0x81)
     {
-      std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(TextureInfo const&,TextureInfo const&),TextureInfo*,0>(&v10[2 * (v13 >> 1)], v10, (a2 - 32), a3);
+      std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(TextureInfo const&,TextureInfo const&),TextureInfo*,0>(&v10[2 * (v13 >> 1)], v10, (a2 - 4), a3);
       if (a5)
       {
         goto LABEL_17;
@@ -5817,9 +5815,9 @@ LABEL_10:
 
     else
     {
-      std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(TextureInfo const&,TextureInfo const&),TextureInfo*,0>(v10, &v10[2 * (v13 >> 1)], (a2 - 32), a3);
-      std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(TextureInfo const&,TextureInfo const&),TextureInfo*,0>(v10 + 2, v15 - 2, (a2 - 64), a3);
-      std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(TextureInfo const&,TextureInfo const&),TextureInfo*,0>(v10 + 4, &v10[2 * v14 + 2], (a2 - 96), a3);
+      std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(TextureInfo const&,TextureInfo const&),TextureInfo*,0>(v10, &v10[2 * (v13 >> 1)], (a2 - 4), a3);
+      std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(TextureInfo const&,TextureInfo const&),TextureInfo*,0>(v10 + 2, v15 - 2, (a2 - 8), a3);
+      std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(TextureInfo const&,TextureInfo const&),TextureInfo*,0>(v10 + 4, &v10[2 * v14 + 2], (a2 - 12), a3);
       std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(TextureInfo const&,TextureInfo const&),TextureInfo*,0>(v15 - 2, v15, &v10[2 * v14 + 2], a3);
       *&v33 = *(v10 + 2);
       *(&v33 + 7) = *(v10 + 23);
@@ -5856,8 +5854,8 @@ LABEL_17:
     }
 
     v21 = std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(TextureInfo const&,TextureInfo const&),TextureInfo*>(v10, v19, a3);
-    v10 = (v19 + 32);
-    if (std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(TextureInfo const&,TextureInfo const&),TextureInfo*>(v19 + 32, a2, a3))
+    v10 = (v19 + 4);
+    if (std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(TextureInfo const&,TextureInfo const&),TextureInfo*>((v19 + 4), a2, a3))
     {
       a4 = -v12;
       a2 = v19;
@@ -5873,8 +5871,8 @@ LABEL_17:
     if (!v21)
     {
 LABEL_20:
-      std::__introsort<std::_ClassicAlgPolicy,BOOL (*&)(TextureInfo const&,TextureInfo const&),TextureInfo*,false>(a1, v19, a3, -v12, a5 & 1);
-      v10 = (v19 + 32);
+      std::__introsort<std::_ClassicAlgPolicy,BOOL (*&)(TextureInfo const&,TextureInfo const&),TextureInfo*,false>(result, v19, a3, -v12, a5 & 1);
+      v10 = (v19 + 4);
 LABEL_22:
       a5 = 0;
       a4 = -v12;
@@ -5882,7 +5880,7 @@ LABEL_22:
     }
   }
 
-  std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(TextureInfo const&,TextureInfo const&),TextureInfo*,0>(v10, v10 + 2, (a2 - 32), a3);
+  std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(TextureInfo const&,TextureInfo const&),TextureInfo*,0>(v10, v10 + 2, (a2 - 4), a3);
 }
 
 uint64_t std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(TextureInfo const&,TextureInfo const&),TextureInfo*,0>(__int128 *a1, __int128 *a2, uint64_t a3, uint64_t (**a4)(__int128 *, __int128 *))
@@ -6127,7 +6125,7 @@ uint64_t std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(TextureInfo
   return result;
 }
 
-void std::__insertion_sort[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(TextureInfo const&,TextureInfo const&),TextureInfo*>(void *a1, void *a2, uint64_t (**a3)(uint64_t *, uint64_t))
+void std::__insertion_sort[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(TextureInfo const&,TextureInfo const&),TextureInfo*>(uint64_t *a1, uint64_t *a2, uint64_t (**a3)(uint64_t *, uint64_t))
 {
   if (a1 != a2)
   {
@@ -6207,7 +6205,7 @@ void sub_21C482F70(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void std::__insertion_sort_unguarded[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(TextureInfo const&,TextureInfo const&),TextureInfo*>(void *a1, void *a2, uint64_t (**a3)(uint64_t *, void *))
+void std::__insertion_sort_unguarded[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(TextureInfo const&,TextureInfo const&),TextureInfo*>(uint64_t *a1, uint64_t *a2, uint64_t (**a3)(uint64_t *, uint64_t *))
 {
   if (a1 != a2)
   {
@@ -6282,8 +6280,7 @@ __int128 *std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPol
   v17 = *a1;
   v18 = *(a1 + 8);
   v19 = *(a1 + 3);
-  *(a1 + 1) = 0;
-  *(a1 + 2) = 0;
+  *(a1 + 8) = 0uLL;
   *(a1 + 3) = 0;
   if ((*a3)(&v17, (a2 - 32)))
   {
@@ -6384,7 +6381,7 @@ __int128 *std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPol
   }
 
   v15 = v18;
-  *(v12 + 16) = v19;
+  *(v12 + 2) = v19;
   *v12 = v15;
   return v6;
 }
@@ -6399,7 +6396,7 @@ void sub_21C4832D8(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-unint64_t std::__partition_with_equals_on_right[abi:ne200100]<std::_ClassicAlgPolicy,TextureInfo *,BOOL (*&)(TextureInfo const&,TextureInfo const&)>(uint64_t *a1, unint64_t a2, uint64_t (**a3)(uint64_t, uint64_t *))
+uint64_t *std::__partition_with_equals_on_right[abi:ne200100]<std::_ClassicAlgPolicy,TextureInfo *,BOOL (*&)(TextureInfo const&,TextureInfo const&)>(uint64_t *a1, unint64_t a2, uint64_t (**a3)(uint64_t, uint64_t *))
 {
   v6 = 0;
   v23 = *MEMORY[0x277D85DE8];
@@ -6450,22 +6447,22 @@ unint64_t std::__partition_with_equals_on_right[abi:ne200100]<std::_ClassicAlgPo
     {
       v11 = *v9;
       *&v22[7] = *(v9 + 23);
-      *v22 = *(v9 + 16);
+      *v22 = v9[2];
       v12 = *(v9 + 31);
-      *(v9 + 16) = 0;
-      *(v9 + 24) = 0;
-      *(v9 + 8) = 0;
+      v9[2] = 0;
+      v9[3] = 0;
+      v9[1] = 0;
       *v9 = *v10;
       v13 = *(v10 + 8);
-      *(v9 + 24) = *(v10 + 24);
-      *(v9 + 8) = v13;
+      v9[3] = *(v10 + 24);
+      *(v9 + 1) = v13;
       *v10 = v11;
       *(v10 + 16) = *v22;
       *(v10 + 23) = *&v22[7];
       *(v10 + 31) = v12;
       do
       {
-        v9 += 32;
+        v9 += 4;
       }
 
       while (((*a3)(v9, &v19) & 1) != 0);
@@ -6480,11 +6477,11 @@ unint64_t std::__partition_with_equals_on_right[abi:ne200100]<std::_ClassicAlgPo
     while (v9 < v10);
   }
 
-  if ((v9 - 32) == a1)
+  if (v9 - 4 == a1)
   {
     v16 = *(v9 - 1);
-    *(v9 - 32) = v19;
-    v14 = v9 - 24;
+    *(v9 - 4) = v19;
+    v14 = v9 - 3;
     if (v16 < 0)
     {
       operator delete(*v14);
@@ -6493,25 +6490,25 @@ unint64_t std::__partition_with_equals_on_right[abi:ne200100]<std::_ClassicAlgPo
 
   else
   {
-    *a1 = *(v9 - 32);
+    *a1 = *(v9 - 4);
     if (*(a1 + 31) < 0)
     {
       operator delete(a1[1]);
     }
 
-    v14 = v9 - 24;
-    v15 = *(v9 - 24);
-    a1[3] = *(v9 - 8);
+    v14 = v9 - 3;
+    v15 = *(v9 - 3);
+    a1[3] = *(v9 - 1);
     *(a1 + 1) = v15;
     *(v9 - 1) = 0;
     *(v9 - 24) = 0;
-    *(v9 - 32) = v19;
+    *(v9 - 4) = v19;
   }
 
   v17 = v20;
-  *(v14 + 16) = v21;
+  v14[2] = v21;
   *v14 = v17;
-  return v9 - 32;
+  return v9 - 4;
 }
 
 void sub_21C483524(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, int a13, __int16 a14, char a15, char a16)
@@ -6699,7 +6696,7 @@ LABEL_22:
   }
 }
 
-uint64_t std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(TextureInfo const&,TextureInfo const&),TextureInfo*,TextureInfo*>(uint64_t a1, uint64_t a2, uint64_t a3, unsigned int (**a4)(uint64_t, uint64_t), __n128 a5)
+__int128 *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(TextureInfo const&,TextureInfo const&),TextureInfo*,TextureInfo*>(uint64_t a1, __int128 *a2, __int128 *a3, uint64_t (**a4)(uint64_t, uint64_t *), __n128 a5)
 {
   if (a1 != a2)
   {
@@ -6728,16 +6725,16 @@ uint64_t std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)
       {
         if ((*a4)(v13, a1, a5))
         {
-          *&v19 = *(v13 + 16);
+          *&v19 = *(v13 + 2);
           *(&v19 + 7) = *(v13 + 23);
           v14 = *(v13 + 31);
           v15 = *v13;
-          *(v13 + 16) = 0;
-          *(v13 + 24) = 0;
-          *(v13 + 8) = 0;
+          *(v13 + 2) = 0;
+          *(v13 + 3) = 0;
+          *(v13 + 1) = 0;
           *v13 = *a1;
           v16 = *(a1 + 8);
-          *(v13 + 24) = *(a1 + 24);
+          *(v13 + 3) = *(a1 + 24);
           *(v13 + 8) = v16;
           *a1 = v15;
           *(a1 + 23) = *(&v19 + 7);
@@ -6746,7 +6743,7 @@ uint64_t std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)
           a5 = std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(TextureInfo const&,TextureInfo const&),TextureInfo*>(a1, a4, v9, a1);
         }
 
-        v13 += 32;
+        v13 += 2;
       }
 
       while (v13 != a3);
@@ -6757,7 +6754,7 @@ uint64_t std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)
       do
       {
         std::__pop_heap[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*)(TextureInfo const&,TextureInfo const&),TextureInfo*>(a1, v7, a4, v9);
-        v7 -= 32;
+        v7 -= 2;
       }
 
       while (v9-- > 2);
@@ -6769,7 +6766,7 @@ uint64_t std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)
   return a3;
 }
 
-__n128 std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(TextureInfo const&,TextureInfo const&),TextureInfo*>(uint64_t a1, unsigned int (**a2)(uint64_t, uint64_t), uint64_t a3, uint64_t *a4)
+__n128 std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(TextureInfo const&,TextureInfo const&),TextureInfo*>(uint64_t a1, uint64_t (**a2)(uint64_t, uint64_t *), uint64_t a3, uint64_t *a4)
 {
   v4 = a3 - 2;
   if (a3 >= 2)
@@ -6780,11 +6777,11 @@ __n128 std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(TextureIn
     {
       v10 = (a4 - a1) >> 4;
       v11 = v10 + 1;
-      v12 = (a1 + 32 * (v10 + 1));
+      v12 = a1 + 32 * (v10 + 1);
       v13 = v10 + 2;
-      if (v10 + 2 < a3 && (*a2)(v12, (v12 + 4)))
+      if (v10 + 2 < a3 && (*a2)(v12, (v12 + 32)))
       {
-        v12 += 4;
+        v12 += 32;
         v11 = v13;
       }
 
@@ -6805,8 +6802,8 @@ __n128 std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(TextureIn
             operator delete(v5[1]);
           }
 
-          v16 = *(v12 + 1);
-          v5[3] = v12[3];
+          v16 = *(v12 + 8);
+          v5[3] = *(v12 + 24);
           *(v5 + 1) = v16;
           *(v12 + 31) = 0;
           *(v12 + 8) = 0;
@@ -6817,16 +6814,16 @@ __n128 std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(TextureIn
           }
 
           v17 = (2 * v11) | 1;
-          v12 = (a1 + 32 * v17);
+          v12 = a1 + 32 * v17;
           v11 = 2 * v11 + 2;
           if (v11 >= a3)
           {
             v11 = v17;
           }
 
-          else if ((*a2)(a1 + 32 * v17, (v12 + 4)))
+          else if ((*a2)(a1 + 32 * v17, (v12 + 32)))
           {
-            v12 += 4;
+            v12 += 32;
           }
 
           else
@@ -6842,13 +6839,13 @@ __n128 std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(TextureIn
         *v15 = v19;
         if (v18 < 0)
         {
-          operator delete(v15[1]);
+          operator delete(*(v15 + 8));
         }
 
 LABEL_20:
         result = v20;
-        v15[3] = v21;
-        *(v15 + 1) = result;
+        *(v15 + 24) = v21;
+        *(v15 + 8) = result;
       }
     }
   }
@@ -6866,18 +6863,18 @@ void sub_21C483C74(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void std::__pop_heap[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*)(TextureInfo const&,TextureInfo const&),TextureInfo*>(uint64_t a1, uint64_t a2, unsigned int (**a3)(uint64_t, uint64_t), uint64_t a4)
+void std::__pop_heap[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*)(TextureInfo const&,TextureInfo const&),TextureInfo*>(uint64_t *a1, uint64_t a2, unsigned int (**a3)(uint64_t, uint64_t), uint64_t a4)
 {
   if (a4 >= 2)
   {
     v8 = *a1;
-    v7 = *(a1 + 8);
-    *v13 = *(a1 + 16);
+    v7 = a1[1];
+    *v13 = a1[2];
     *&v13[7] = *(a1 + 23);
     v9 = *(a1 + 31);
-    *(a1 + 16) = 0;
-    *(a1 + 24) = 0;
-    *(a1 + 8) = 0;
+    a1[2] = 0;
+    a1[3] = 0;
+    a1[1] = 0;
     v10 = std::__floyd_sift_down[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(TextureInfo const&,TextureInfo const&),TextureInfo*>(a1, a3, a4);
     v11 = v10;
     if (v10 == a2 - 32)
@@ -7112,7 +7109,7 @@ void SKCSpriteNode::getBatchInfo(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3
   v9 = *(a1 + 600);
   if (v9)
   {
-    [v9 _backingTexture];
+    objc_msgSend__backingTexture(v9);
     v10 = *(&v16 + 1);
     *(a3 + 32) = v16;
     if (v10)
@@ -7133,7 +7130,7 @@ void SKCSpriteNode::getBatchInfo(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3
   v13 = *(a1 + 608);
   if (v13)
   {
-    [v13 _backingTexture];
+    objc_msgSend__backingTexture(v13);
     v14 = *(&v16 + 1);
     *(a3 + 40) = v16;
     if (v14)
@@ -7243,7 +7240,7 @@ BOOL SKCSpriteNode::canAppendToCurrentBatch(uint64_t a1, uint64_t a2)
   v5 = *(a1 + 600);
   if (v5)
   {
-    [v5 _backingTexture];
+    objc_msgSend__backingTexture(v5);
     v6 = v14;
   }
 
@@ -7259,7 +7256,7 @@ BOOL SKCSpriteNode::canAppendToCurrentBatch(uint64_t a1, uint64_t a2)
     v9 = *(a1 + 608);
     if (v9)
     {
-      [v9 _backingTexture];
+      objc_msgSend__backingTexture(v9);
       v10 = v12;
     }
 
@@ -7397,7 +7394,7 @@ LABEL_11:
   {
     LODWORD(v28) = HIDWORD(v38);
     LODWORD(v27) = v10;
-    [v26 pathFromOutlineWithSmoothingThreshold:1.0 bounds:{v40, v27, v38, v28}];
+    objc_msgSend_pathFromOutlineWithSmoothingThreshold_bounds_(v26, 1.0, v40, v27, v38, v28);
     v31 = v41;
     v30 = v42;
   }
@@ -7427,7 +7424,7 @@ LABEL_11:
 
 double SKCSpriteNode::getBoundingBox(SKCSpriteNode *this)
 {
-  v36 = unk_21C4B92F0;
+  v36 = *&SKCBoundingBoxEmpty[48];
   *v2.i64 = (*(*this + 104))(this);
   v34 = v5;
   v35 = v2;
@@ -7438,9 +7435,9 @@ double SKCSpriteNode::getBoundingBox(SKCSpriteNode *this)
     isKindOfClass = objc_opt_isKindOfClass();
     v4 = v32;
     v3 = v33;
-    v12 = *algn_21C4B92D0;
-    v15 = xmmword_21C4B92E0;
-    v11 = SKCBoundingBoxEmpty;
+    v12 = *&SKCBoundingBoxEmpty[16];
+    v15 = *&SKCBoundingBoxEmpty[32];
+    v11 = *SKCBoundingBoxEmpty;
     if (isKindOfClass)
     {
       v19 = *(this + 77);
@@ -7480,12 +7477,12 @@ double SKCSpriteNode::getBoundingBox(SKCSpriteNode *this)
     v8.i64[1] = 0x3F0000003F000000;
     v9 = *(this + 21);
     *&v11 = vmulq_f32(vsubq_f32(v8, *(this + 22)), v9).u64[0];
-    v10 = *algn_21C4B92D0;
-    *(&v11 + 1) = *(&SKCBoundingBoxEmpty + 1);
+    v10 = *&SKCBoundingBoxEmpty[16];
+    *(&v11 + 1) = *&SKCBoundingBoxEmpty[8];
     *&v10 = 0.5 * v9.f32[0];
     v12 = v10;
     v13 = vmuls_lane_f32(0.5, *v9.f32, 1);
-    v14 = xmmword_21C4B92E0;
+    v14 = *&SKCBoundingBoxEmpty[32];
     *(&v14 + 1) = v13;
     v15 = v14;
   }
@@ -7564,7 +7561,7 @@ uint64_t SKCSpriteNode::addBatchRenderElements(SKCSpriteNode *this, float32x4_t 
       v33 = MaxY;
       if (v32)
       {
-        [v32 _backingTexture];
+        objc_msgSend__backingTexture(v32);
         if (*&v126.x && (*(**&v126.x + 24))(*&v126.x) == 1)
         {
           v110 = v110 * (***&v126.x)(*&v126.x);
@@ -7733,7 +7730,7 @@ uint64_t SKCSpriteNode::addBatchRenderElements(SKCSpriteNode *this, float32x4_t 
               v79 = vmulq_f32(v120, vaddq_f32(v122, vsubq_f32(v69, v124)));
               v80 = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v71, v79.f32[0]), v72, *v79.f32, 1), v73, v79, 2), v74, v79, 3);
               v81 = vmulq_f32(v120, vaddq_f32(v122, vsubq_f32(v70, v124)));
-              add_subdivs(&v126, &v125, *(this + 156), v76, v78, v80, vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v71, v81.f32[0]), v72, *v81.f32, 1), v73, v81, 2), v74, v81, 3), vmla_lane_f32(vmla_n_f32(*&v50, v117, COERCE_FLOAT(*&v63[-1])), __PAIR64__(LODWORD(v115), 0), v63[-1], 1), vmla_lane_f32(vmla_n_f32(*&v50, v117, COERCE_FLOAT(*v63)), __PAIR64__(LODWORD(v115), 0), *v63, 1), vmla_lane_f32(vmla_n_f32(*&v50, v117, COERCE_FLOAT(*v61)), __PAIR64__(LODWORD(v115), 0), *v61, 1), COERCE_DOUBLE(vmla_lane_f32(vmla_n_f32(*&v50, v117, COERCE_FLOAT(*&v61[-1])), __PAIR64__(LODWORD(v115), 0), v61[-1], 1)));
+              add_subdivs(&v126, &v125, *(this + 156), v76, v78, v80, vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v71, v81.f32[0]), v72, *v81.f32, 1), v73, v81, 2), v74, v81, 3), COERCE_DOUBLE(vmla_lane_f32(vmla_n_f32(*&v50, v117, COERCE_FLOAT(*&v63[-1])), __PAIR64__(LODWORD(v115), 0), v63[-1], 1)), COERCE_DOUBLE(vmla_lane_f32(vmla_n_f32(*&v50, v117, COERCE_FLOAT(*v63)), __PAIR64__(LODWORD(v115), 0), *v63, 1)), COERCE_DOUBLE(vmla_lane_f32(vmla_n_f32(*&v50, v117, COERCE_FLOAT(*v61)), __PAIR64__(LODWORD(v115), 0), *v61, 1)), COERCE_DOUBLE(vmla_lane_f32(vmla_n_f32(*&v50, v117, COERCE_FLOAT(*&v61[-1])), __PAIR64__(LODWORD(v115), 0), v61[-1], 1)));
               v57 += v82;
               ++v61;
               ++v63;
@@ -7956,7 +7953,7 @@ LABEL_11:
     v50 = *(a1 + 600);
     if (v50)
     {
-      [v50 _backingTexture];
+      objc_msgSend__backingTexture(v50);
       if (*&__src[0].f64[0] && (*(**&__src[0].f64[0] + 24))(*&__src[0].f64[0]) == 1)
       {
         v51 = (***&__src[0].f64[0])(*&__src[0].f64[0]);
@@ -8153,99 +8150,109 @@ void sub_21C485A5C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-double add_subdivs(__n128 **a1, double **a2, int a3, float32x4_t a4, float32x4_t a5, float32x4_t a6, float32x4_t a7, float32x2_t a8, float32x2_t a9, float32x2_t a10, double a11)
+double add_subdivs(__n128 **a1, double **a2, int a3, __n128 a4, float32x4_t a5, float32x4_t a6, float32x4_t a7, double a8, double a9, double a10, double a11)
 {
   v15 = a7;
   if (a3)
   {
     v18 = 0;
-    v19 = (a3 - 1);
-    v52 = vdup_n_s32(0x3C75C28Fu);
+    v19 = a3 - 1;
+    v57 = vdup_n_s32(0x3C75C28Fu);
     while (1)
     {
       v20 = vaddq_f32(vsubq_f32(a4, a5), vsubq_f32(a6, v15));
       v21 = vmulq_f32(v20, v20);
       v22 = vadd_f32(*v21.i8, *&vextq_s8(v21, v21, 8uLL));
-      v23 = vaddq_f32(vsubq_f32(a4, v15), vsubq_f32(a6, a5));
-      v24 = vmulq_f32(v23, v23);
-      *v24.i8 = vadd_f32(*v24.i8, *&vextq_s8(v24, v24, 8uLL));
-      v25 = vcgt_f32(vsqrt_f32(vadd_f32(vzip1_s32(*v24.i8, v22), vzip2_s32(*v24.i8, v22))), v52);
-      if (((v25.i32[1] | v25.i32[0]) & 1) == 0)
+      v23 = vsubq_f32(a6, a5);
+      v24 = vaddq_f32(vsubq_f32(a4, v15), v23);
+      v25 = vmulq_f32(v24, v24);
+      *v25.i8 = vadd_f32(*v25.i8, *&vextq_s8(v25, v25, 8uLL));
+      v26 = vcgt_f32(vsqrt_f32(vadd_f32(vzip1_s32(*v25.i8, v22), vzip2_s32(*v25.i8, v22))), v57);
+      if (((v26.i32[1] | v26.i32[0]) & 1) == 0)
       {
         break;
       }
 
-      v26.i64[0] = 0x3F0000003F000000;
-      v26.i64[1] = 0x3F0000003F000000;
-      v27 = vmlaq_f32(a4, v26, vsubq_f32(a5, a4));
-      v27.i32[3] = 1.0;
-      v28 = v27;
-      v29 = vmlaq_f32(a4, v26, vsubq_f32(v15, a4));
-      v29.i32[3] = 1.0;
-      v54 = v29;
-      v30 = vmlaq_f32(a6, v26, vsubq_f32(v15, a6));
-      v30.i32[3] = 1.0;
-      v55 = v30;
-      v31 = vmlaq_f32(v28, v26, vsubq_f32(v30, v28));
+      v27.i64[0] = 0x3F0000003F000000;
+      v27.i64[1] = 0x3F0000003F000000;
+      v28 = vmlaq_f32(a4, v27, vsubq_f32(a5, a4));
+      v28.i32[3] = 1.0;
+      v29 = v28;
+      v30 = vmlaq_f32(a4, v27, vsubq_f32(v15, a4));
+      v30.n128_u32[3] = 1.0;
+      v31 = vmlaq_f32(a5, v27, v23);
       v31.i32[3] = 1.0;
-      v56 = v31;
-      v32 = vmla_f32(a8, 0x3F0000003F000000, vsub_f32(a9, a8));
-      v33 = vmla_f32(a8, 0x3F0000003F000000, vsub_f32(*&a11, a8));
-      v34 = COERCE_DOUBLE(vmla_f32(a10, 0x3F0000003F000000, vsub_f32(*&a11, a10)));
-      v35 = vmla_f32(v32, 0x3F0000003F000000, vsub_f32(*&v34, v32));
-      v36 = add_subdivs(a1, a2, v19);
-      v37 = add_subdivs(a1, a2, v19);
-      v38 = add_subdivs(a1, a2, v19);
-      v39 = v55;
-      v40 = v56;
-      v41 = v54;
+      v62 = v30;
+      v63 = v31;
+      v32 = vmlaq_f32(a6, v27, vsubq_f32(v15, a6));
+      v32.i32[3] = 1.0;
+      v64 = v32;
+      v60 = v29;
+      v33 = vmlaq_f32(v29, v27, vsubq_f32(v32, v29));
+      v33.i32[3] = 1.0;
+      v65 = v33;
+      v34 = vmla_f32(*&a8, 0x3F0000003F000000, vsub_f32(*&a9, *&a8));
+      v35 = COERCE_DOUBLE(vmla_f32(*&a8, 0x3F0000003F000000, vsub_f32(*&a11, *&a8)));
+      v36 = COERCE_DOUBLE(vmla_f32(*&a9, 0x3F0000003F000000, vsub_f32(*&a10, *&a9)));
+      v37 = COERCE_DOUBLE(vmla_f32(*&a10, 0x3F0000003F000000, vsub_f32(*&a11, *&a10)));
+      v38 = COERCE_DOUBLE(vmla_f32(v34, 0x3F0000003F000000, vsub_f32(*&v37, v34)));
+      v61 = a6;
+      v59 = a5;
+      add_subdivs(a1, a2, v19, a4, v29, v33, v30, a8, *&v34, v38, v35);
+      v40 = v39;
+      add_subdivs(a1, a2, v19, v60, v59, v63, v65, *&v34, a9, v36, v38);
+      v42 = v41;
+      add_subdivs(a1, a2, v19, v65, v63, v61, v64, v38, v36, a10, v37);
+      v43 = v64;
+      v44 = v65;
+      v45 = v62;
       v15 = a7;
-      v18 += v36 + v37 + v38;
-      v19 = (v19 - 1);
-      *&a10 = v34;
-      a9 = v35;
-      a8 = v33;
-      a6 = v55;
-      a5 = v56;
-      a4 = v54;
+      v18 += v40 + v42 + v46;
+      --v19;
+      a10 = v37;
+      a9 = v38;
+      a8 = v35;
+      a6 = v64;
+      a5 = v65;
+      a4 = v62;
       if (v19 == -1)
       {
         goto LABEL_8;
       }
     }
 
-    v41 = a4;
-    v40 = a5;
-    v39 = a6;
-    v33 = a8;
-    v35 = a9;
-    v34 = *&a10;
+    v45 = a4;
+    v44 = a5;
+    v43 = a6;
+    v35 = a8;
+    v38 = a9;
+    v37 = a10;
 LABEL_8:
-    a4 = v41;
-    a5 = v40;
-    a6 = v39;
-    a8 = v33;
-    a9 = v35;
-    *&a10 = v34;
+    a4 = v45;
+    a5 = v44;
+    a6 = v43;
+    a8 = v35;
+    a9 = v38;
+    a10 = v37;
   }
 
-  v42 = (*a1)++;
-  *v42 = a4;
-  v43 = (*a1)++;
-  *v43 = a5;
-  v44 = (*a1)++;
-  *v44 = a6;
-  v45 = (*a1)++;
-  *v45 = v15;
-  v46 = (*a2)++;
-  *v46 = *&a8;
-  v47 = (*a2)++;
-  *v47 = *&a9;
-  v48 = (*a2)++;
-  *v48 = *&a10;
-  v49 = (*a2)++;
+  v47 = (*a1)++;
+  *v47 = a4;
+  v48 = (*a1)++;
+  *v48 = a5;
+  v49 = (*a1)++;
+  *v49 = a6;
+  v50 = (*a1)++;
+  *v50 = v15;
+  v51 = (*a2)++;
+  *v51 = a8;
+  v52 = (*a2)++;
+  *v52 = a9;
+  v53 = (*a2)++;
+  *v53 = a10;
+  v54 = (*a2)++;
   result = a11;
-  *v49 = a11;
+  *v54 = a11;
   return result;
 }
 
@@ -8315,16 +8322,16 @@ id SKGetGlobalDefaults(void)
   return v0;
 }
 
-uint64_t SKCRendererEnsureSoundContext(void)
+uint64_t SKCRendererEnsureSoundContext(uint64_t a1)
 {
   if (SKCRendererEnsureSoundContext(void)::onceToken != -1)
   {
     SKCRendererEnsureSoundContext();
   }
 
-  v1 = _soundContext;
+  v2 = _soundContext;
 
-  return [v1 makeCurrentContext];
+  return [v2 makeCurrentContext];
 }
 
 void ___Z29SKCRendererEnsureSoundContextv_block_invoke()
@@ -8510,7 +8517,7 @@ double SKCParticleSystemNode::getBatchInfo@<D0>(uint64_t a1@<X8>)
   return result;
 }
 
-void SKCParticleSystemNode::addRenderOps(uint64_t a1, uint64_t a2, jet_command_buffer **a3)
+void SKCParticleSystemNode::addRenderOps(uint64_t a1, uint64_t a2, unint64_t **a3)
 {
   if (*(a1 + 560) == 1)
   {
@@ -8523,7 +8530,7 @@ void SKCParticleSystemNode::addRenderOps(uint64_t a1, uint64_t a2, jet_command_b
   }
 }
 
-void SKCParticleSystemNode::addRenderOps_Points(uint64_t a1, uint64_t a2, jet_command_buffer **a3)
+void SKCParticleSystemNode::addRenderOps_Points(uint64_t a1, uint64_t a2, unint64_t **a3)
 {
   RenderData_Points = SKCParticleSystemNode::generateRenderData_Points(a1, a2);
   if (RenderData_Points)
@@ -8535,7 +8542,7 @@ void SKCParticleSystemNode::addRenderOps_Points(uint64_t a1, uint64_t a2, jet_co
       goto LABEL_9;
     }
 
-    [v8 _backingProgram];
+    objc_msgSend__backingProgram(v8);
     if (__p.__r_.__value_.__l.__size_)
     {
       std::__shared_weak_count::__release_shared[abi:ne200100](__p.__r_.__value_.__l.__size_);
@@ -8546,7 +8553,7 @@ void SKCParticleSystemNode::addRenderOps_Points(uint64_t a1, uint64_t a2, jet_co
       v9 = *(a1 + 576);
       if (v9)
       {
-        [v9 _backingProgram];
+        objc_msgSend__backingProgram(v9);
         v10 = __p.__r_.__value_.__r.__words[0];
         if (__p.__r_.__value_.__l.__size_)
         {
@@ -8562,10 +8569,10 @@ void SKCParticleSystemNode::addRenderOps_Points(uint64_t a1, uint64_t a2, jet_co
       v19 = *a3;
       BackingBlendMode = SKBlendModeGetBackingBlendMode(*(a1 + 288));
       LODWORD(__p.__r_.__value_.__l.__data_) = 31;
-      v21 = *(v19 + 2);
-      if (v21 >= *(v19 + 3))
+      v21 = v19[2];
+      if (v21 >= v19[3])
       {
-        v22 = std::vector<jet_render_op>::__emplace_back_slow_path<jet_render_opcode>(v19 + 8, &__p);
+        v22 = std::vector<jet_render_op>::__emplace_back_slow_path<jet_render_opcode>(v19 + 1, &__p);
       }
 
       else
@@ -8580,7 +8587,7 @@ void SKCParticleSystemNode::addRenderOps_Points(uint64_t a1, uint64_t a2, jet_co
         *(v21 + 96) = 0;
       }
 
-      *(v19 + 2) = v22;
+      v19[2] = v22;
       *(v22 - 80) = v10;
       *(v22 - 64) = BackingBlendMode;
       *(v22 - 60) = xmmword_21C4B9130;
@@ -8589,7 +8596,7 @@ void SKCParticleSystemNode::addRenderOps_Points(uint64_t a1, uint64_t a2, jet_co
       v24 = *(a1 + 576);
       if (v24)
       {
-        [v24 _commandsForBatchOffset:0 count:v7];
+        objc_msgSend__commandsForBatchOffset_count_(v24);
         v25 = __p.__r_.__value_.__r.__words[0];
       }
 
@@ -8628,10 +8635,10 @@ LABEL_9:
       {
         v12 = *(a2 + 264);
         LODWORD(__p.__r_.__value_.__l.__data_) = 31;
-        v13 = *(v11 + 2);
-        if (v13 >= *(v11 + 3))
+        v13 = v11[2];
+        if (v13 >= v11[3])
         {
-          v14 = std::vector<jet_render_op>::__emplace_back_slow_path<jet_render_opcode>(v11 + 8, &__p);
+          v14 = std::vector<jet_render_op>::__emplace_back_slow_path<jet_render_opcode>(v11 + 1, &__p);
         }
 
         else
@@ -8646,7 +8653,7 @@ LABEL_9:
           *(v13 + 96) = 0;
         }
 
-        *(v11 + 2) = v14;
+        v11[2] = v14;
         *(v14 - 80) = v12;
         *(v14 - 64) = xmmword_21C4B8520;
         *(v14 - 48) = 0x30000000FLL;
@@ -8657,10 +8664,10 @@ LABEL_9:
         v15 = *(a2 + 248);
         v16 = SKBlendModeGetBackingBlendMode(*(a1 + 288));
         LODWORD(__p.__r_.__value_.__l.__data_) = 31;
-        v17 = *(v11 + 2);
-        if (v17 >= *(v11 + 3))
+        v17 = v11[2];
+        if (v17 >= v11[3])
         {
-          v18 = std::vector<jet_render_op>::__emplace_back_slow_path<jet_render_opcode>(v11 + 8, &__p);
+          v18 = std::vector<jet_render_op>::__emplace_back_slow_path<jet_render_opcode>(v11 + 1, &__p);
         }
 
         else
@@ -8675,7 +8682,7 @@ LABEL_9:
           *(v17 + 96) = 0;
         }
 
-        *(v11 + 2) = v18;
+        v11[2] = v18;
         *(v18 - 80) = v15;
         *(v18 - 64) = v16;
         *(v18 - 60) = xmmword_21C4B9130;
@@ -8684,7 +8691,7 @@ LABEL_9:
     }
 
     size = *(a1 + 568);
-    if (!size || ([(std::__shared_weak_count *)size _backingTexture], size = __p.__r_.__value_.__l.__size_, v32 = *&__p.__r_.__value_.__l.__data_, v30 = (v32 >> 64), v31 = v32, !__p.__r_.__value_.__r.__words[0]))
+    if (!size || (objc_msgSend__backingTexture(size), size = __p.__r_.__value_.__l.__size_, v32 = *&__p.__r_.__value_.__l.__data_, v30 = (v32 >> 64), v31 = v32, !__p.__r_.__value_.__r.__words[0]))
     {
       v31 = *(a2 + 432);
       v30 = *(a2 + 440);
@@ -8736,10 +8743,10 @@ LABEL_9:
 
     v39 = *a3;
     LODWORD(__p.__r_.__value_.__l.__data_) = 3;
-    v40 = *(v39 + 2);
-    if (v40 >= *(v39 + 3))
+    v40 = v39[2];
+    if (v40 >= v39[3])
     {
-      v41 = std::vector<jet_render_op>::__emplace_back_slow_path<jet_render_opcode>(v39 + 8, &__p);
+      v41 = std::vector<jet_render_op>::__emplace_back_slow_path<jet_render_opcode>(v39 + 1, &__p);
     }
 
     else
@@ -8754,7 +8761,7 @@ LABEL_9:
       *(v40 + 96) = 0;
     }
 
-    *(v39 + 2) = v41;
+    v39[2] = v41;
     *(v41 - 64) = 0;
     *(v41 - 56) = v7;
     v42 = *(a2 + 664);
@@ -8767,7 +8774,7 @@ LABEL_9:
   }
 }
 
-void SKCParticleSystemNode::addRenderOps_Quads(uint64_t a1, uint64_t a2, jet_command_buffer **a3)
+void SKCParticleSystemNode::addRenderOps_Quads(uint64_t a1, uint64_t a2, unint64_t **a3)
 {
   RenderData_Quads = SKCParticleSystemNode::generateRenderData_Quads(a1, a2);
   if (RenderData_Quads)
@@ -8779,7 +8786,7 @@ void SKCParticleSystemNode::addRenderOps_Quads(uint64_t a1, uint64_t a2, jet_com
       goto LABEL_9;
     }
 
-    [v8 _backingProgram];
+    objc_msgSend__backingProgram(v8);
     if (__p.__r_.__value_.__l.__size_)
     {
       std::__shared_weak_count::__release_shared[abi:ne200100](__p.__r_.__value_.__l.__size_);
@@ -8790,7 +8797,7 @@ void SKCParticleSystemNode::addRenderOps_Quads(uint64_t a1, uint64_t a2, jet_com
       v9 = *(a1 + 576);
       if (v9)
       {
-        [v9 _backingProgram];
+        objc_msgSend__backingProgram(v9);
         v10 = __p.__r_.__value_.__r.__words[0];
         if (__p.__r_.__value_.__l.__size_)
         {
@@ -8806,10 +8813,10 @@ void SKCParticleSystemNode::addRenderOps_Quads(uint64_t a1, uint64_t a2, jet_com
       v20 = *a3;
       BackingBlendMode = SKBlendModeGetBackingBlendMode(*(a1 + 288));
       LODWORD(__p.__r_.__value_.__l.__data_) = 31;
-      v22 = *(v20 + 2);
-      if (v22 >= *(v20 + 3))
+      v22 = v20[2];
+      if (v22 >= v20[3])
       {
-        v23 = std::vector<jet_render_op>::__emplace_back_slow_path<jet_render_opcode>(v20 + 8, &__p);
+        v23 = std::vector<jet_render_op>::__emplace_back_slow_path<jet_render_opcode>(v20 + 1, &__p);
       }
 
       else
@@ -8824,7 +8831,7 @@ void SKCParticleSystemNode::addRenderOps_Quads(uint64_t a1, uint64_t a2, jet_com
         *(v22 + 96) = 0;
       }
 
-      *(v20 + 2) = v23;
+      v20[2] = v23;
       *(v23 - 80) = v10;
       *(v23 - 64) = BackingBlendMode;
       *(v23 - 60) = xmmword_21C4B9130;
@@ -8833,7 +8840,7 @@ void SKCParticleSystemNode::addRenderOps_Quads(uint64_t a1, uint64_t a2, jet_com
       v25 = *(a1 + 576);
       if (v25)
       {
-        [v25 _commandsForBatchOffset:0 count:v7];
+        objc_msgSend__commandsForBatchOffset_count_(v25);
         v26 = __p.__r_.__value_.__r.__words[0];
       }
 
@@ -8872,10 +8879,10 @@ LABEL_9:
         v11 = *a3;
         v12 = *(a2 + 184);
         LODWORD(__p.__r_.__value_.__l.__data_) = 31;
-        v13 = *(v11 + 2);
-        if (v13 >= *(v11 + 3))
+        v13 = v11[2];
+        if (v13 >= v11[3])
         {
-          v14 = std::vector<jet_render_op>::__emplace_back_slow_path<jet_render_opcode>(v11 + 8, &__p);
+          v14 = std::vector<jet_render_op>::__emplace_back_slow_path<jet_render_opcode>(v11 + 1, &__p);
         }
 
         else
@@ -8890,7 +8897,7 @@ LABEL_9:
           *(v13 + 96) = 0;
         }
 
-        *(v11 + 2) = v14;
+        v11[2] = v14;
         *(v14 - 80) = v12;
         *(v14 - 64) = xmmword_21C4B8520;
         *(v14 - 48) = 0x30000000FLL;
@@ -8902,10 +8909,10 @@ LABEL_9:
         v16 = *a3;
         v17 = SKBlendModeGetBackingBlendMode(*(a1 + 288));
         LODWORD(__p.__r_.__value_.__l.__data_) = 31;
-        v18 = *(v16 + 2);
-        if (v18 >= *(v16 + 3))
+        v18 = v16[2];
+        if (v18 >= v16[3])
         {
-          v19 = std::vector<jet_render_op>::__emplace_back_slow_path<jet_render_opcode>(v16 + 8, &__p);
+          v19 = std::vector<jet_render_op>::__emplace_back_slow_path<jet_render_opcode>(v16 + 1, &__p);
         }
 
         else
@@ -8920,7 +8927,7 @@ LABEL_9:
           *(v18 + 96) = 0;
         }
 
-        *(v16 + 2) = v19;
+        v16[2] = v19;
         *(v19 - 80) = v15;
         *(v19 - 64) = v17;
         *(v19 - 60) = xmmword_21C4B9130;
@@ -8929,7 +8936,7 @@ LABEL_9:
     }
 
     size = *(a1 + 568);
-    if (!size || ([(std::__shared_weak_count *)size _backingTexture], size = __p.__r_.__value_.__l.__size_, v33 = *&__p.__r_.__value_.__l.__data_, v31 = (v33 >> 64), v32 = v33, !__p.__r_.__value_.__r.__words[0]))
+    if (!size || (objc_msgSend__backingTexture(size), size = __p.__r_.__value_.__l.__size_, v33 = *&__p.__r_.__value_.__l.__data_, v31 = (v33 >> 64), v32 = v33, !__p.__r_.__value_.__r.__words[0]))
     {
       v32 = *(a2 + 432);
       v31 = *(a2 + 440);
@@ -8991,10 +8998,10 @@ LABEL_9:
     v42 = *a3;
     v43 = *(a2 + 416);
     LODWORD(__p.__r_.__value_.__l.__data_) = 4;
-    v44 = *(v42 + 2);
-    if (v44 >= *(v42 + 3))
+    v44 = v42[2];
+    if (v44 >= v42[3])
     {
-      v45 = std::vector<jet_render_op>::__emplace_back_slow_path<jet_render_opcode>(v42 + 8, &__p);
+      v45 = std::vector<jet_render_op>::__emplace_back_slow_path<jet_render_opcode>(v42 + 1, &__p);
     }
 
     else
@@ -9009,7 +9016,7 @@ LABEL_9:
       *(v44 + 96) = 0;
     }
 
-    *(v42 + 2) = v45;
+    v42[2] = v45;
     *(v45 - 80) = v43;
     *(v45 - 64) = 3;
     *(v45 - 56) = 6 * v7;
@@ -9025,7 +9032,7 @@ LABEL_9:
 
 uint64_t SKCParticleSystemNode::generateRenderData_Quads(uint64_t a1, uint64_t a2)
 {
-  SKCRenderer::getBackingContext(*(a2 + 104), &v87);
+  SKCRenderer::getBackingContext(&v87, *(a2 + 104));
   v83 = 0;
   v84 = &v83;
   v85 = 0x2020000000;
@@ -9168,7 +9175,7 @@ uint64_t SKCParticleSystemNode::generateRenderData_Quads(uint64_t a1, uint64_t a
       v39 = *(a1 + 568);
       if (v39)
       {
-        [v39 _backingTexture];
+        objc_msgSend__backingTexture(v39);
         if (*&v75.y)
         {
           std::__shared_weak_count::__release_shared[abi:ne200100](*&v75.y);
@@ -9222,7 +9229,7 @@ LABEL_38:
   v56 = MaxY;
   if (v55)
   {
-    [v55 _backingTexture];
+    objc_msgSend__backingTexture(v55);
     if (*&v75.x && (*(**&v75.x + 24))(*&v75.x) == 1)
     {
       v52 = v52 * (***&v75.x)(*&v75.x);
@@ -9338,14 +9345,15 @@ LABEL_59:
   return v9;
 }
 
-void sub_21C488CD8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, char a31)
+void sub_21C488CD8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, ...)
 {
-  _Block_object_dispose(&a31, 8);
-  _Block_object_dispose((v31 - 192), 8);
-  v33 = *(v31 - 152);
-  if (v33)
+  va_start(va, a30);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v30 - 192), 8);
+  v32 = *(v30 - 152);
+  if (v32)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v33);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v32);
   }
 
   _Unwind_Resume(a1);
@@ -9362,7 +9370,7 @@ void SKCParticleSystemNode::subclassRecomputeFlags(id *this)
 
 uint64_t SKCParticleSystemNode::generateRenderData_Points(uint64_t a1, uint64_t a2)
 {
-  SKCRenderer::getBackingContext(*(a2 + 104), &v49);
+  SKCRenderer::getBackingContext(&v49, *(a2 + 104));
   v45 = 0;
   v46 = &v45;
   v47 = 0x2020000000;
@@ -9515,15 +9523,16 @@ uint64_t SKCParticleSystemNode::generateRenderData_Points(uint64_t a1, uint64_t 
   return v9;
 }
 
-void sub_21C4891B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, char a23, uint64_t a24, uint64_t a25, uint64_t a26, char a27)
+void sub_21C4891B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
 {
+  va_start(va, a26);
   _Block_object_dispose(&a23, 8);
-  _Block_object_dispose(&a27, 8);
-  _Block_object_dispose((v27 - 128), 8);
-  v29 = *(v27 - 88);
-  if (v29)
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v26 - 128), 8);
+  v28 = *(v26 - 88);
+  if (v28)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v29);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v28);
   }
 
   _Unwind_Resume(a1);
@@ -9746,13 +9755,13 @@ void ___ZN21SKCParticleSystemNode25generateRenderData_PointsEP13SKCRenderInfo_bl
     {
       v11 = vmul_n_f32(*(v7 + 8 * v9), *(v8 + 4 * v9));
       v12 = a1[4].i64[1];
-      v13 = v12[2];
-      v14 = v12[3];
-      v15 = v12[4];
-      v16 = v12[5];
+      v13 = *(v12 + 32);
+      v14 = *(v12 + 48);
+      v15 = *(v12 + 64);
+      v16 = *(v12 + 80);
       v17 = vmulq_f32(a1[2], vabsq_f32(vmlaq_f32(vmlaq_f32(vmlaq_lane_f32(vmulq_n_f32(v13, v11.f32[0]), v14, v11, 1), 0, v15), 0, v16)));
       v18 = vaddq_f32(v16, vmlaq_f32(vmlaq_lane_f32(vmulq_n_f32(v13, COERCE_FLOAT(*(v6 + 8 * v9))), v14, *(v6 + 8 * v9), 1), 0, v15));
-      v18.f32[3] = (v12[8].f32[0] * vaddv_f32(*v17.f32)) * 0.25;
+      v18.f32[3] = (*(v12 + 128) * vaddv_f32(*v17.f32)) * 0.25;
       *(a1[5].i64[0] + 16 * (v9 + *(*(a1[3].i64[0] + 8) + 24))) = v18;
       v19 = vminnmq_f32(v4[41], vmlsq_f32(v18, v10, v17));
       v20 = vmaxnmq_f32(v4[42], vmlaq_f32(v18, v10, v17));

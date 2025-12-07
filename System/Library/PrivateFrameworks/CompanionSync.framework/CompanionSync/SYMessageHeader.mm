@@ -61,8 +61,6 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  timestamp = self->_timestamp;
-  v9 = toCopy;
   PBDataWriterWriteDoubleField();
   if (!self->_sender)
   {
@@ -76,13 +74,10 @@
   }
 
   PBDataWriterWriteSubmessage();
-  version = self->_version;
   PBDataWriterWriteUint32Field();
-  sequenceNumber = self->_sequenceNumber;
   PBDataWriterWriteUint64Field();
   if (*&self->_has)
   {
-    timeout = self->_timeout;
     PBDataWriterWriteDoubleField();
   }
 }

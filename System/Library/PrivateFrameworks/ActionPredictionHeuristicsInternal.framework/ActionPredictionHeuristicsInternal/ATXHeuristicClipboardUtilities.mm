@@ -26,137 +26,137 @@
 
 - (void)fetchContents
 {
-  v51 = *MEMORY[0x277D85DE8];
+  v56 = *MEMORY[0x277D85DE8];
   v3 = [[ATXClipboardContents alloc] initWithDevice:self->_heuristicDevice];
-  v39 = 0;
-  v40 = &v39;
-  v41 = 0x3032000000;
-  v42 = __Block_byref_object_copy__1;
-  v43 = __Block_byref_object_dispose__1;
   v44 = 0;
-  v33 = 0;
-  v34 = &v33;
-  v35 = 0x3032000000;
-  v36 = __Block_byref_object_copy__1;
-  v37 = __Block_byref_object_dispose__1;
+  v45 = &v44;
+  v46 = 0x3032000000;
+  v47 = __Block_byref_object_copy__1;
+  v48 = __Block_byref_object_dispose__1;
+  v49 = 0;
   v38 = 0;
-  v27 = 0;
-  v28 = &v27;
-  v29 = 0x3032000000;
-  v30 = __Block_byref_object_copy__1;
-  v31 = __Block_byref_object_dispose__1;
+  v39 = &v38;
+  v40 = 0x3032000000;
+  v41 = __Block_byref_object_copy__1;
+  v42 = __Block_byref_object_dispose__1;
+  v43 = 0;
   v32 = 0;
-  v26[0] = MEMORY[0x277D85DD0];
-  v26[1] = 3221225472;
-  v26[2] = __47__ATXHeuristicClipboardUtilities_fetchContents__block_invoke;
-  v26[3] = &unk_278C3CCF8;
-  v26[4] = &v39;
-  v26[5] = &v27;
-  v26[6] = &v33;
-  [(ATXClipboardContents *)v3 contentsWithCallback:v26];
-  v4 = __atxlog_handle_context_heuristic();
+  v33 = &v32;
+  v34 = 0x3032000000;
+  v35 = __Block_byref_object_copy__1;
+  v36 = __Block_byref_object_dispose__1;
+  v37 = 0;
+  v31[0] = MEMORY[0x277D85DD0];
+  v31[1] = 3221225472;
+  v31[2] = __47__ATXHeuristicClipboardUtilities_fetchContents__block_invoke;
+  v31[3] = &unk_278C3CCF8;
+  v31[4] = &v44;
+  v31[5] = &v32;
+  v31[6] = &v38;
+  v4 = __atxlog_handle_context_heuristic([(ATXClipboardContents *)v3 contentsWithCallback:v31]);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = v28[5];
-    v6 = v34[5];
+    v5 = v33[5];
+    v6 = v39[5];
     *buf = 138478083;
-    v46 = v5;
-    v47 = 2113;
-    v48 = v6;
+    v51 = v5;
+    v52 = 2113;
+    v53 = v6;
     _os_log_impl(&dword_23E3EA000, v4, OS_LOG_TYPE_DEFAULT, "ATXHeuristicClipboardUtilities: Clipboard provided creationDate : %{private}@ originatorBundleID; %{private}@", buf, 0x16u);
   }
 
-  v7 = __atxlog_handle_context_heuristic();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  v8 = __atxlog_handle_context_heuristic(v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = v40[5];
+    v9 = v45[5];
     *buf = 138739971;
-    v46 = v8;
-    _os_log_impl(&dword_23E3EA000, v7, OS_LOG_TYPE_DEFAULT, "ATXHeuristicClipboardUtilities content: %{sensitive}@", buf, 0xCu);
+    v51 = v9;
+    _os_log_impl(&dword_23E3EA000, v8, OS_LOG_TYPE_DEFAULT, "ATXHeuristicClipboardUtilities content: %{sensitive}@", buf, 0xCu);
   }
 
-  [(ATXHeuristicClipboardUtilities *)self _resetContents];
-  if (v40[5] && v28[5] && v34[5])
+  _resetContents = [(ATXHeuristicClipboardUtilities *)self _resetContents];
+  if (v45[5] && v33[5] && v39[5])
   {
-    v9 = objc_autoreleasePoolPush();
-    v10 = [objc_alloc(MEMORY[0x277CBEB98]) initWithObjects:{@"com.apple.Spotlight", @"com.apple.SafariViewService", @"com.apple.mobilesms.compose", @"com.apple.InCallService", 0}];
-    objc_autoreleasePoolPop(v9);
-    LODWORD(v9) = [v10 containsObject:v34[5]];
+    v11 = objc_autoreleasePoolPush();
+    v12 = [objc_alloc(MEMORY[0x277CBEB98]) initWithObjects:{@"com.apple.Spotlight", @"com.apple.SafariViewService", @"com.apple.mobilesms.compose", @"com.apple.InCallService", 0}];
+    objc_autoreleasePoolPop(v11);
+    LODWORD(v11) = [v12 containsObject:v39[5]];
 
-    if (v9)
+    if (v11)
     {
-      v11 = __atxlog_handle_context_heuristic();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+      v14 = __atxlog_handle_context_heuristic(v13);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
       {
-        v12 = v34[5];
+        v15 = v39[5];
         *buf = 138477827;
-        v46 = v12;
-        v13 = "ATXHeuristicClipboardUtilities: Bundle ID blacklisted %{private}@";
-        v14 = v11;
-        v15 = 12;
+        v51 = v15;
+        v16 = "ATXHeuristicClipboardUtilities: Bundle ID blacklisted %{private}@";
+        v17 = v14;
+        v18 = 12;
 LABEL_13:
-        _os_log_impl(&dword_23E3EA000, v14, OS_LOG_TYPE_DEFAULT, v13, buf, v15);
+        _os_log_impl(&dword_23E3EA000, v17, OS_LOG_TYPE_DEFAULT, v16, buf, v18);
       }
     }
 
     else
     {
-      if ([v40[5] length] >= 0x201)
+      v19 = [v45[5] length];
+      if (v19 >= 0x201)
       {
-        v11 = __atxlog_handle_context_heuristic();
-        if (!os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+        v14 = __atxlog_handle_context_heuristic(v19);
+        if (!os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
         {
           goto LABEL_14;
         }
 
-        v17 = [v40[5] length];
+        v20 = [v45[5] length];
         *buf = 134218240;
-        v46 = v17;
-        v47 = 2048;
-        v48 = 512;
-        v13 = "Clipboard too long, length = %lu exceeds max of %lu";
-        v14 = v11;
-        v15 = 22;
+        v51 = v20;
+        v52 = 2048;
+        v53 = 512;
+        v16 = "Clipboard too long, length = %lu exceeds max of %lu";
+        v17 = v14;
+        v18 = 22;
         goto LABEL_13;
       }
 
-      v11 = [MEMORY[0x277CBEAA8] dateWithTimeInterval:v28[5] sinceDate:600.0];
+      v14 = [MEMORY[0x277CBEAA8] dateWithTimeInterval:v33[5] sinceDate:600.0];
       date = [MEMORY[0x277CBEAA8] date];
-      v19 = [date compare:v11] == 1;
+      v22 = [date compare:v14] == 1;
 
-      if (v19)
+      if (v22)
       {
-        v20 = __atxlog_handle_context_heuristic();
-        if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+        v24 = __atxlog_handle_context_heuristic(v23);
+        if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v46 = v11;
-          _os_log_impl(&dword_23E3EA000, v20, OS_LOG_TYPE_DEFAULT, "Clipboard content expired at %@", buf, 0xCu);
+          v51 = v14;
+          _os_log_impl(&dword_23E3EA000, v24, OS_LOG_TYPE_DEFAULT, "Clipboard content expired at %@", buf, 0xCu);
         }
       }
 
       else
       {
-        [(ATXHeuristicClipboardUtilities *)self setContent:v40[5]];
-        v21 = [(ATXHeuristicClipboardUtilities *)self _appNameFromBundleID:v34[5]];
-        [(ATXHeuristicClipboardUtilities *)self setAppName:v21];
+        [(ATXHeuristicClipboardUtilities *)self setContent:v45[5]];
+        v25 = [(ATXHeuristicClipboardUtilities *)self _appNameFromBundleID:v39[5]];
+        [(ATXHeuristicClipboardUtilities *)self setAppName:v25];
 
-        v22 = [(ATXHeuristicClipboardUtilities *)self _dataDetectorsWithContent:v40[5]];
-        [(ATXHeuristicClipboardUtilities *)self setDataDetectors:v22];
+        v26 = [(ATXHeuristicClipboardUtilities *)self _dataDetectorsWithContent:v45[5]];
+        [(ATXHeuristicClipboardUtilities *)self setDataDetectors:v26];
 
-        v20 = __atxlog_handle_context_heuristic();
-        if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+        v24 = __atxlog_handle_context_heuristic(v27);
+        if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
         {
           content = [(ATXHeuristicClipboardUtilities *)self content];
           dataDetectors = [(ATXHeuristicClipboardUtilities *)self dataDetectors];
           appName = [(ATXHeuristicClipboardUtilities *)self appName];
           *buf = 138740483;
-          v46 = content;
-          v47 = 2112;
-          v48 = dataDetectors;
-          v49 = 2112;
-          v50 = appName;
-          _os_log_impl(&dword_23E3EA000, v20, OS_LOG_TYPE_DEFAULT, "ATXHeuristicClipboardUtilities: content %{sensitive}@ dataDetectors:%@ appName:%@", buf, 0x20u);
+          v51 = content;
+          v52 = 2112;
+          v53 = dataDetectors;
+          v54 = 2112;
+          v55 = appName;
+          _os_log_impl(&dword_23E3EA000, v24, OS_LOG_TYPE_DEFAULT, "ATXHeuristicClipboardUtilities: content %{sensitive}@ dataDetectors:%@ appName:%@", buf, 0x20u);
         }
       }
     }
@@ -164,24 +164,23 @@ LABEL_13:
 
   else
   {
-    v11 = __atxlog_handle_context_heuristic();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v14 = __atxlog_handle_context_heuristic(_resetContents);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      v13 = "ATXHeuristicClipboardUtilities: no clipboard data";
-      v14 = v11;
-      v15 = 2;
+      v16 = "ATXHeuristicClipboardUtilities: no clipboard data";
+      v17 = v14;
+      v18 = 2;
       goto LABEL_13;
     }
   }
 
 LABEL_14:
 
-  _Block_object_dispose(&v27, 8);
-  _Block_object_dispose(&v33, 8);
+  _Block_object_dispose(&v32, 8);
+  _Block_object_dispose(&v38, 8);
 
-  _Block_object_dispose(&v39, 8);
-  v16 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v44, 8);
 }
 
 void __47__ATXHeuristicClipboardUtilities_fetchContents__block_invoke(void *a1, void *a2, void *a3, void *a4, uint64_t a5)
@@ -189,12 +188,13 @@ void __47__ATXHeuristicClipboardUtilities_fetchContents__block_invoke(void *a1, 
   v10 = a2;
   v11 = a3;
   v12 = a4;
+  v13 = v12;
   if (a5)
   {
-    v13 = __atxlog_handle_context_heuristic();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v14 = __atxlog_handle_context_heuristic(v12);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
-      __47__ATXHeuristicClipboardUtilities_fetchContents__block_invoke_cold_1(v13, v14, v15, v16, v17, v18, v19, v20);
+      __47__ATXHeuristicClipboardUtilities_fetchContents__block_invoke_cold_1(v14, v15, v16, v17, v18, v19, v20, v21);
     }
   }
 
@@ -216,7 +216,7 @@ void __47__ATXHeuristicClipboardUtilities_fetchContents__block_invoke(void *a1, 
 
 - (id)_appNameFromBundleID:(id)d
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   dCopy = d;
   if ([dCopy isEqualToString:@"com.apple.Pasteboard.pbutil"])
   {
@@ -229,67 +229,66 @@ void __47__ATXHeuristicClipboardUtilities_fetchContents__block_invoke(void *a1, 
 
   if ((v6 & 1) == 0)
   {
-    v8 = __atxlog_handle_context_heuristic();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+    v10 = __atxlog_handle_context_heuristic(v7);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v23 = dCopy;
-      _os_log_impl(&dword_23E3EA000, v8, OS_LOG_TYPE_INFO, "bundleID has no installed application: %@", buf, 0xCu);
+      v24 = dCopy;
+      _os_log_impl(&dword_23E3EA000, v10, OS_LOG_TYPE_INFO, "bundleID has no installed application: %@", buf, 0xCu);
     }
 
     v4 = 0;
     goto LABEL_18;
   }
 
-  v21 = 0;
-  v7 = [objc_alloc(MEMORY[0x277CC1E70]) initWithBundleIdentifier:dCopy allowPlaceholder:1 error:&v21];
-  v8 = v21;
-  if (v8)
+  v22 = 0;
+  v8 = [objc_alloc(MEMORY[0x277CC1E70]) initWithBundleIdentifier:dCopy allowPlaceholder:1 error:&v22];
+  v9 = v22;
+  v10 = v9;
+  if (v9)
   {
-    v9 = __atxlog_handle_context_heuristic();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v11 = __atxlog_handle_context_heuristic(v9);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      [(ATXHeuristicClipboardUtilities *)dCopy _appNameFromBundleID:v8, v9];
+      [(ATXHeuristicClipboardUtilities *)dCopy _appNameFromBundleID:v10, v11];
     }
   }
 
   else
   {
-    if (v7)
+    if (v8)
     {
       goto LABEL_12;
     }
 
-    v9 = __atxlog_handle_context_heuristic();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v11 = __atxlog_handle_context_heuristic(0);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      [(ATXHeuristicClipboardUtilities *)dCopy _appNameFromBundleID:v9, v15, v16, v17, v18, v19, v20];
+      [(ATXHeuristicClipboardUtilities *)dCopy _appNameFromBundleID:v11, v16, v17, v18, v19, v20, v21];
     }
   }
 
 LABEL_12:
-  localizedName = [v7 localizedName];
+  localizedName = [v8 localizedName];
   v4 = localizedName;
   if (localizedName)
   {
-    v11 = localizedName;
+    v13 = localizedName;
   }
 
   else
   {
-    v12 = __atxlog_handle_context_heuristic();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+    v14 = __atxlog_handle_context_heuristic(0);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v23 = dCopy;
-      _os_log_impl(&dword_23E3EA000, v12, OS_LOG_TYPE_INFO, "LSApplicationRecord cannot find localizedName for bundleID even though it is installed: %@", buf, 0xCu);
+      v24 = dCopy;
+      _os_log_impl(&dword_23E3EA000, v14, OS_LOG_TYPE_INFO, "LSApplicationRecord cannot find localizedName for bundleID even though it is installed: %@", buf, 0xCu);
     }
   }
 
 LABEL_18:
 LABEL_19:
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
@@ -298,83 +297,82 @@ LABEL_19:
 {
   v24 = *MEMORY[0x277D85DE8];
   contentCopy = content;
-  if (![(__CFString *)contentCopy length])
+  v4 = [(__CFString *)contentCopy length];
+  if (!v4)
   {
 LABEL_11:
-    v10 = MEMORY[0x277CBEBF8];
+    v11 = MEMORY[0x277CBEBF8];
     goto LABEL_19;
   }
 
-  v4 = __atxlog_handle_context_heuristic();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  v5 = __atxlog_handle_context_heuristic(v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138739971;
     *&buf[4] = contentCopy;
-    _os_log_impl(&dword_23E3EA000, v4, OS_LOG_TYPE_DEFAULT, "Running data detectors on: %{sensitive}@", buf, 0xCu);
+    _os_log_impl(&dword_23E3EA000, v5, OS_LOG_TYPE_DEFAULT, "Running data detectors on: %{sensitive}@", buf, 0xCu);
   }
 
   *buf = 0;
-  v5 = DDScannerCreate();
-  if (!v5)
+  v6 = DDScannerCreate();
+  if (!v6)
   {
-    v11 = __atxlog_handle_context_heuristic();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v12 = __atxlog_handle_context_heuristic(0);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      [(ATXHeuristicClipboardUtilities *)buf _dataDetectorsWithContent:v11, v12, v13, v14, v15, v16, v17];
+      [(ATXHeuristicClipboardUtilities *)buf _dataDetectorsWithContent:v12, v13, v14, v15, v16, v17, v18];
     }
 
     goto LABEL_11;
   }
 
-  v6 = v5;
-  if (!DDScannerScanString())
+  v7 = v6;
+  v8 = DDScannerScanString();
+  if (!v8)
   {
-    v18 = __atxlog_handle_context_heuristic();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+    v19 = __atxlog_handle_context_heuristic(v8);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
     {
       *v22 = 0;
-      v19 = "ScanString returned no results";
+      v20 = "ScanString returned no results";
 LABEL_16:
-      _os_log_impl(&dword_23E3EA000, v18, OS_LOG_TYPE_DEFAULT, v19, v22, 2u);
+      _os_log_impl(&dword_23E3EA000, v19, OS_LOG_TYPE_DEFAULT, v20, v22, 2u);
     }
 
 LABEL_17:
 
-    v10 = 0;
+    v11 = 0;
     goto LABEL_18;
   }
 
-  v7 = *MEMORY[0x277D041E8];
-  v8 = DDScannerCopyResultsWithOptions();
-  if (!v8)
+  v9 = DDScannerCopyResultsWithOptions();
+  if (!v9)
   {
-    v18 = __atxlog_handle_context_heuristic();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+    v19 = __atxlog_handle_context_heuristic(0);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
     {
       *v22 = 0;
-      v19 = "No detector results to copy";
+      v20 = "No detector results to copy";
       goto LABEL_16;
     }
 
     goto LABEL_17;
   }
 
-  v9 = v8;
-  v10 = dataDetectorResultsToPlist(v8, contentCopy, 0);
-  CFRelease(v9);
+  v10 = v9;
+  v11 = dataDetectorResultsToPlist(v9, contentCopy, 0);
+  CFRelease(v10);
 LABEL_18:
-  CFRelease(v6);
+  CFRelease(v7);
 LABEL_19:
 
-  v20 = *MEMORY[0x277D85DE8];
-
-  return v10;
+  return v11;
 }
 
 - (id)resultWithActions:(id)actions predictionReasons:(unint64_t)reasons
 {
   actionsCopy = actions;
-  v6 = __atxlog_handle_context_heuristic();
+  v6 = __atxlog_handle_context_heuristic(actionsCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -409,35 +407,33 @@ id __70__ATXHeuristicClipboardUtilities_resultWithActions_predictionReasons___bl
 
 void __47__ATXHeuristicClipboardUtilities_fetchContents__block_invoke_cold_1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_2(&dword_23E3EA000, a1, a3, "Error querying data source %{public}s", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[ATXHeuristicClipboardUtilities fetchContents]_block_invoke";
+  OUTLINED_FUNCTION_0_2(&dword_23E3EA000, a1, a3, "Error querying data source %{public}s", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)_appNameFromBundleID:(os_log_t)log .cold.1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v4 = 138412546;
-  v5 = a1;
-  v6 = 2112;
-  v7 = a2;
-  _os_log_error_impl(&dword_23E3EA000, log, OS_LOG_TYPE_ERROR, "Couldn't fetch record for bundle %@, error: %@", &v4, 0x16u);
-  v3 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = 138412546;
+  v4 = a1;
+  v5 = 2112;
+  v6 = a2;
+  _os_log_error_impl(&dword_23E3EA000, log, OS_LOG_TYPE_ERROR, "Couldn't fetch record for bundle %@, error: %@", &v3, 0x16u);
 }
 
 - (void)_appNameFromBundleID:(uint64_t)a3 .cold.2(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_2(&dword_23E3EA000, a2, a3, "Fetched nil record for bundle %@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0_2(&dword_23E3EA000, a2, a3, "Fetched nil record for bundle %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)_dataDetectorsWithContent:(uint64_t)a3 .cold.1(void *a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v9 = HIDWORD(*a1);
-  OUTLINED_FUNCTION_0_2(&dword_23E3EA000, a2, a3, "Error making scanner: %@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = *a1;
+  OUTLINED_FUNCTION_0_2(&dword_23E3EA000, a2, a3, "Error making scanner: %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

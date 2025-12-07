@@ -27,7 +27,7 @@
 
 - (void)clearModel
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   [(RMUIKeyValueViewModel *)self setTitle:0];
   [(RMUIKeyValueViewModel *)self setSymbol:0];
   [(RMUIKeyValueViewModel *)self setDeclaration:0];
@@ -35,37 +35,35 @@
   [(RMUIKeyValueViewModel *)self setDeclarationServerToken:0];
   [(RMUIKeyValueViewModel *)self setDeclarationType:0];
   [(RMUIKeyValueViewModel *)self setHiddenDetails:MEMORY[0x277CBEC10]];
-  v11 = 0u;
-  v12 = 0u;
-  v9 = 0u;
   v10 = 0u;
+  v11 = 0u;
+  v8 = 0u;
+  v9 = 0u;
   detailViewModels = [(RMUIKeyValueViewModel *)self detailViewModels];
-  v4 = [detailViewModels countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v4 = [detailViewModels countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v10;
+    v6 = *v9;
     do
     {
       v7 = 0;
       do
       {
-        if (*v10 != v6)
+        if (*v9 != v6)
         {
           objc_enumerationMutation(detailViewModels);
         }
 
-        [*(*(&v9 + 1) + 8 * v7++) clearModel];
+        [*(*(&v8 + 1) + 8 * v7++) clearModel];
       }
 
       while (v5 != v7);
-      v5 = [detailViewModels countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v5 = [detailViewModels countByEnumeratingWithState:&v8 objects:v12 count:16];
     }
 
     while (v5);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)encodeWithCoder:(id)coder

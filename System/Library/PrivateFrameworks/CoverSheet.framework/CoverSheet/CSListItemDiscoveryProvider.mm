@@ -531,11 +531,11 @@ void __108__CSListItemDiscoveryProvider__presentPlatterDiscoveryView_discoveryIt
   }
 }
 
-uint64_t __108__CSListItemDiscoveryProvider__presentPlatterDiscoveryView_discoveryItemViewController_withSuggestion_type___block_invoke_70(uint64_t result, int a2)
+void *__108__CSListItemDiscoveryProvider__presentPlatterDiscoveryView_discoveryItemViewController_withSuggestion_type___block_invoke_70(void *result, int a2)
 {
   if (a2)
   {
-    return [*(*(*(result + 40) + 8) + 40) performWithSender:*(result + 32) target:0];
+    return [*(*(result[5] + 8) + 40) performWithSender:result[4] target:0];
   }
 
   return result;

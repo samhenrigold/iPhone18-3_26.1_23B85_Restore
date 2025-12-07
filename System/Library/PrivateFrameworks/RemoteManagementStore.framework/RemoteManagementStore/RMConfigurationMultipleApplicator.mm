@@ -5,6 +5,7 @@
 - (id)_configurationByDeclarationKeyFromConfigurations:(id)configurations;
 - (void)_beginProcessingWithConfigurations:(id)configurations storesByIdentifier:(id)identifier scope:(int64_t)scope completionHandler:(id)handler;
 - (void)_cleanupDeclarationKeysIfNeeded:(id)needed scope:(int64_t)scope doIt:(BOOL)it completionHandler:(id)handler;
+- (void)_endProcessingWithSuccess:(BOOL)success configurations:(id)configurations storesByIdentifier:(id)identifier scope:(int64_t)scope completionHandler:(id)handler;
 - (void)_fetchExistingDeclarationKeysWithConfigurations:(id)configurations storesByIdentifier:(id)identifier scope:(int64_t)scope completionHandler:(id)handler;
 - (void)_installDeclarationKeys:(id)keys scope:(int64_t)scope configurations:(id)configurations completionHandler:(id)handler;
 - (void)_processExistingDeclarationKeysWithConfigurations:(id)configurations oldDeclarationKeys:(id)keys storesByIdentifier:(id)identifier scope:(int64_t)scope completionHandler:(id)handler;
@@ -650,7 +651,7 @@ void __98__RMConfigurationMultipleApplicator__cleanupDeclarationKeysIfNeeded_sco
 
 void __87__RMConfigurationMultipleApplicator__uninstallDeclarationKeys_scope_completionHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v20[1] = *MEMORY[0x277D85DE8];
+  v19[1] = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [MEMORY[0x277D45F58] configurationMultipleApplicator];
   v5 = v4;
@@ -674,8 +675,8 @@ void __87__RMConfigurationMultipleApplicator__uninstallDeclarationKeys_scope_com
     [*(a1 + 40) setRemoveSuccess:{objc_msgSend(*(a1 + 40), "removeSuccess") + 1}];
   }
 
-  v20[0] = *(a1 + 32);
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:1];
+  v19[0] = *(a1 + 32);
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:1];
   v7 = *(a1 + 40);
   v8 = [v6 objectEnumerator];
   v9 = *(a1 + 64);
@@ -689,21 +690,41 @@ void __87__RMConfigurationMultipleApplicator__uninstallDeclarationKeys_scope_com
     v10 = [*(a1 + 40) doKeychainUnassign];
   }
 
-  v16[0] = MEMORY[0x277D85DD0];
-  v16[1] = 3221225472;
-  v16[2] = __87__RMConfigurationMultipleApplicator__uninstallDeclarationKeys_scope_completionHandler___block_invoke_61;
-  v16[3] = &unk_279B05768;
+  v15[0] = MEMORY[0x277D85DD0];
+  v15[1] = 3221225472;
+  v15[2] = __87__RMConfigurationMultipleApplicator__uninstallDeclarationKeys_scope_completionHandler___block_invoke_61;
+  v15[3] = &unk_279B05768;
   v11 = *(a1 + 48);
-  v16[4] = *(a1 + 40);
+  v15[4] = *(a1 + 40);
   v12 = v11;
   v14 = *(a1 + 56);
   v13 = *(a1 + 64);
-  v17 = v12;
-  v19 = v13;
-  v18 = v14;
-  [v7 _cleanupDeclarationKeysIfNeeded:v8 scope:v9 doIt:v10 completionHandler:v16];
+  v16 = v12;
+  v18 = v13;
+  v17 = v14;
+  [v7 _cleanupDeclarationKeysIfNeeded:v8 scope:v9 doIt:v10 completionHandler:v15];
+}
 
-  v15 = *MEMORY[0x277D85DE8];
+- (void)_endProcessingWithSuccess:(BOOL)success configurations:(id)configurations storesByIdentifier:(id)identifier scope:(int64_t)scope completionHandler:(id)handler
+{
+  successCopy = success;
+  configurationsCopy = configurations;
+  identifierCopy = identifier;
+  handlerCopy = handler;
+  wrappingAdapter = [(RMConfigurationMultipleApplicator *)self wrappingAdapter];
+  v19[0] = MEMORY[0x277D85DD0];
+  v19[1] = 3221225472;
+  v19[2] = __121__RMConfigurationMultipleApplicator__endProcessingWithSuccess_configurations_storesByIdentifier_scope_completionHandler___block_invoke;
+  v19[3] = &unk_279B056F0;
+  v19[4] = self;
+  v20 = configurationsCopy;
+  v22 = handlerCopy;
+  scopeCopy = scope;
+  v21 = identifierCopy;
+  v16 = handlerCopy;
+  v17 = identifierCopy;
+  v18 = configurationsCopy;
+  [wrappingAdapter endProcessingConfigurations:successCopy scope:scope completionHandler:v19];
 }
 
 void __121__RMConfigurationMultipleApplicator__endProcessingWithSuccess_configurations_storesByIdentifier_scope_completionHandler___block_invoke(uint64_t a1, void *a2)
@@ -743,71 +764,67 @@ void __121__RMConfigurationMultipleApplicator__endProcessingWithSuccess_configur
 
 - (id)_configurationByDeclarationKeyFromConfigurations:(id)configurations
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   configurationsCopy = configurations;
   v5 = objc_opt_new();
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   v6 = configurationsCopy;
-  v7 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v17;
+    v9 = *v16;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v17 != v9)
+        if (*v16 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v16 + 1) + 8 * i);
+        v11 = *(*(&v15 + 1) + 8 * i);
         adapter = [(RMConfigurationMultipleApplicator *)self adapter];
         v13 = [adapter declarationKeyForConfiguration:v11];
 
         [v5 setObject:v11 forKeyedSubscript:v13];
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v8);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
 
 - (BOOL)_supportedConfigurationType:(id)type
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   typeCopy = type;
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
-  v16 = 0u;
-  adapter = [(RMConfigurationMultipleApplicator *)self adapter];
-  configurationClasses = [adapter configurationClasses];
+  v5 = [(RMConfigurationMultipleApplicator *)self adapter:0];
+  configurationClasses = [v5 configurationClasses];
 
-  v7 = [configurationClasses countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v7 = [configurationClasses countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v7)
   {
-    v8 = *v14;
+    v8 = *v12;
     while (2)
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v14 != v8)
+        if (*v12 != v8)
         {
           objc_enumerationMutation(configurationClasses);
         }
 
-        v10 = *(*(&v13 + 1) + 8 * i);
         if (objc_opt_isKindOfClass())
         {
           LOBYTE(v7) = 1;
@@ -815,7 +832,7 @@ void __121__RMConfigurationMultipleApplicator__endProcessingWithSuccess_configur
         }
       }
 
-      v7 = [configurationClasses countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v7 = [configurationClasses countByEnumeratingWithState:&v11 objects:v15 count:16];
       if (v7)
       {
         continue;
@@ -827,35 +844,34 @@ void __121__RMConfigurationMultipleApplicator__endProcessingWithSuccess_configur
 
 LABEL_11:
 
-  v11 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
 - (BOOL)_usesKeychain
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   adapter = [(RMConfigurationMultipleApplicator *)self adapter];
   configurationClasses = [adapter configurationClasses];
 
-  v4 = [configurationClasses countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v4 = [configurationClasses countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v13;
+    v6 = *v12;
     while (2)
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v13 != v6)
+        if (*v12 != v6)
         {
           objc_enumerationMutation(configurationClasses);
         }
 
-        if ([*(*(&v12 + 1) + 8 * i) usesKeychainAssets])
+        if ([*(*(&v11 + 1) + 8 * i) usesKeychainAssets])
         {
           configurationMultipleApplicator = [MEMORY[0x277D45F58] configurationMultipleApplicator];
           if (os_log_type_enabled(configurationMultipleApplicator, OS_LOG_TYPE_DEBUG))
@@ -868,7 +884,7 @@ LABEL_11:
         }
       }
 
-      v5 = [configurationClasses countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v5 = [configurationClasses countByEnumeratingWithState:&v11 objects:v15 count:16];
       if (v5)
       {
         continue;
@@ -887,74 +903,42 @@ LABEL_11:
   v8 = 0;
 LABEL_15:
 
-  v10 = *MEMORY[0x277D85DE8];
   return v8;
-}
-
-- (void)_installDeclarationKeys:scope:configurations:completionHandler:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_5();
-  OUTLINED_FUNCTION_3(&dword_261E36000, v0, v1, "Incorrect declaration class: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_installDeclarationKeys:scope:configurations:completionHandler:.cold.2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_5();
-  OUTLINED_FUNCTION_3(&dword_261E36000, v0, v1, "Declaration not supported: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __100__RMConfigurationMultipleApplicator__installDeclarationKeys_scope_configurations_completionHandler___block_invoke_2_cold_1(uint64_t a1)
 {
-  v1 = *MEMORY[0x277D85DE8];
-  v2 = [OUTLINED_FUNCTION_3_0(a1) key];
+  v1 = [OUTLINED_FUNCTION_3_0(a1) key];
   OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_3_1(&dword_261E36000, v3, v4, "Failed to apply new configuration: %{public}@ error:%{public}@", v5, v6, v7, v8, v10);
-
-  v9 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3_1(&dword_261E36000, v2, v3, "Failed to apply new configuration: %{public}@ error:%{public}@", v4, v5, v6, v7);
 }
 
 void __100__RMConfigurationMultipleApplicator__installDeclarationKeys_scope_configurations_completionHandler___block_invoke_2_cold_2(uint64_t a1)
 {
-  v1 = *MEMORY[0x277D85DE8];
-  v2 = [OUTLINED_FUNCTION_3_0(a1) key];
+  v1 = [OUTLINED_FUNCTION_3_0(a1) key];
   OUTLINED_FUNCTION_5();
-  OUTLINED_FUNCTION_5_0(&dword_261E36000, v3, v4, "Applied new configuration: %{public}@", v5, v6, v7, v8, v10);
-
-  v9 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_5_0(&dword_261E36000, v2, v3, "Applied new configuration: %{public}@", v4, v5, v6, v7);
 }
 
 void __98__RMConfigurationMultipleApplicator__cleanupDeclarationKeysIfNeeded_scope_doIt_completionHandler___block_invoke_cold_1(uint64_t a1)
 {
-  v1 = *MEMORY[0x277D85DE8];
-  v2 = [OUTLINED_FUNCTION_3_0(a1) key];
+  v1 = [OUTLINED_FUNCTION_3_0(a1) key];
   OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_3_1(&dword_261E36000, v3, v4, "Failed to unassign asset reference %{public}@: %{public}@", v5, v6, v7, v8, v10);
-
-  v9 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3_1(&dword_261E36000, v2, v3, "Failed to unassign asset reference %{public}@: %{public}@", v4, v5, v6, v7);
 }
 
 void __87__RMConfigurationMultipleApplicator__uninstallDeclarationKeys_scope_completionHandler___block_invoke_cold_1(uint64_t a1)
 {
-  v1 = *MEMORY[0x277D85DE8];
-  v2 = [OUTLINED_FUNCTION_3_0(a1) key];
+  v1 = [OUTLINED_FUNCTION_3_0(a1) key];
   OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_3_1(&dword_261E36000, v3, v4, "Failed to remove configuration: %{public}@ error:%{public}@", v5, v6, v7, v8, v10);
-
-  v9 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3_1(&dword_261E36000, v2, v3, "Failed to remove configuration: %{public}@ error:%{public}@", v4, v5, v6, v7);
 }
 
 void __87__RMConfigurationMultipleApplicator__uninstallDeclarationKeys_scope_completionHandler___block_invoke_cold_2(uint64_t a1)
 {
-  v1 = *MEMORY[0x277D85DE8];
-  v2 = [OUTLINED_FUNCTION_3_0(a1) key];
+  v1 = [OUTLINED_FUNCTION_3_0(a1) key];
   OUTLINED_FUNCTION_5();
-  OUTLINED_FUNCTION_5_0(&dword_261E36000, v3, v4, "Removed configuration: %{public}@", v5, v6, v7, v8, v10);
-
-  v9 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_5_0(&dword_261E36000, v2, v3, "Removed configuration: %{public}@", v4, v5, v6, v7);
 }
 
 @end

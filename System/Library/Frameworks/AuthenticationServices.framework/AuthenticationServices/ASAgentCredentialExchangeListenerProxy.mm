@@ -6,27 +6,28 @@
 void __60___ASAgentCredentialExchangeListenerProxy__setUpConnection___block_invoke(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 32));
+  v3 = WeakRetained;
   if (WeakRetained)
   {
-    v2 = WBS_LOG_CHANNEL_PREFIXAuthorization();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+    v4 = WBS_LOG_CHANNEL_PREFIXAuthorization(WeakRetained, v2);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      __58___ASAgentCredentialUpdateListenerProxy__setUpConnection___block_invoke_cold_1(v2);
+      __58___ASAgentCredentialUpdateListenerProxy__setUpConnection___block_invoke_cold_1(v4);
     }
 
-    [WeakRetained[1] invalidate];
-    v3 = WeakRetained[1];
-    WeakRetained[1] = 0;
+    [v3[1] invalidate];
+    v5 = v3[1];
+    v3[1] = 0;
   }
 }
 
 void __78___ASAgentCredentialExchangeListenerProxy__remoteObjectProxyWithErrorHandler___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = WBS_LOG_CHANNEL_PREFIXAuthenticationServicesAgent();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  v5 = WBS_LOG_CHANNEL_PREFIXAuthenticationServicesAgent(v3, v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
-    __76___ASAgentCredentialUpdateListenerProxy__remoteObjectProxyWithErrorHandler___block_invoke_cold_1(v4, v3);
+    __76___ASAgentCredentialUpdateListenerProxy__remoteObjectProxyWithErrorHandler___block_invoke_cold_1(v5, v3);
   }
 
   (*(*(a1 + 32) + 16))();
@@ -48,12 +49,12 @@ void __118___ASAgentCredentialExchangeListenerProxy_requestExportForCredentialPr
   (*(a1[5] + 16))(a1[5], 0, v6, v7);
 }
 
-void __118___ASAgentCredentialExchangeListenerProxy_requestExportForCredentialProvider_windowSceneIdentifier_completionHandler___block_invoke_2(uint64_t a1)
+void __118___ASAgentCredentialExchangeListenerProxy_requestExportForCredentialProvider_windowSceneIdentifier_completionHandler___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v2 = WBS_LOG_CHANNEL_PREFIXAuthorization();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+  v3 = WBS_LOG_CHANNEL_PREFIXAuthorization(a1, a2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    __150___ASAgentCredentialUpdateListenerProxy_reportPublicKeyCredentialUpdateForRelyingParty_userHandle_newName_credentialUpdaterOptions_completionHandler___block_invoke_2_cold_1(a1, v2);
+    __150___ASAgentCredentialUpdateListenerProxy_reportPublicKeyCredentialUpdateForRelyingParty_userHandle_newName_credentialUpdaterOptions_completionHandler___block_invoke_2_cold_1(a1, v3);
   }
 }
 
@@ -73,12 +74,12 @@ void __91___ASAgentCredentialExchangeListenerProxy_continueExportWithCredentials
   (*(a1[5] + 16))(a1[5], v6, v7, v8);
 }
 
-void __91___ASAgentCredentialExchangeListenerProxy_continueExportWithCredentials_completionHandler___block_invoke_2(uint64_t a1)
+void __91___ASAgentCredentialExchangeListenerProxy_continueExportWithCredentials_completionHandler___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v2 = WBS_LOG_CHANNEL_PREFIXAuthorization();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+  v3 = WBS_LOG_CHANNEL_PREFIXAuthorization(a1, a2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    __150___ASAgentCredentialUpdateListenerProxy_reportPublicKeyCredentialUpdateForRelyingParty_userHandle_newName_credentialUpdaterOptions_completionHandler___block_invoke_2_cold_1(a1, v2);
+    __150___ASAgentCredentialUpdateListenerProxy_reportPublicKeyCredentialUpdateForRelyingParty_userHandle_newName_credentialUpdaterOptions_completionHandler___block_invoke_2_cold_1(a1, v3);
   }
 }
 
@@ -98,12 +99,12 @@ void __88___ASAgentCredentialExchangeListenerProxy_importCredentialsWithToken_co
   (*(a1[5] + 16))(a1[5], 0, v6, v7);
 }
 
-void __88___ASAgentCredentialExchangeListenerProxy_importCredentialsWithToken_completionHandler___block_invoke_2(uint64_t a1)
+void __88___ASAgentCredentialExchangeListenerProxy_importCredentialsWithToken_completionHandler___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v2 = WBS_LOG_CHANNEL_PREFIXAuthorization();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+  v3 = WBS_LOG_CHANNEL_PREFIXAuthorization(a1, a2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    __150___ASAgentCredentialUpdateListenerProxy_reportPublicKeyCredentialUpdateForRelyingParty_userHandle_newName_credentialUpdaterOptions_completionHandler___block_invoke_2_cold_1(a1, v2);
+    __150___ASAgentCredentialUpdateListenerProxy_reportPublicKeyCredentialUpdateForRelyingParty_userHandle_newName_credentialUpdaterOptions_completionHandler___block_invoke_2_cold_1(a1, v3);
   }
 }
 
@@ -122,12 +123,12 @@ void __61___ASAgentCredentialExchangeListenerProxy_setTokenForImport___block_inv
   os_activity_apply(v4, v7);
 }
 
-void __61___ASAgentCredentialExchangeListenerProxy_setTokenForImport___block_invoke_2(uint64_t a1)
+void __61___ASAgentCredentialExchangeListenerProxy_setTokenForImport___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v2 = WBS_LOG_CHANNEL_PREFIXAuthorization();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+  v3 = WBS_LOG_CHANNEL_PREFIXAuthorization(a1, a2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    __150___ASAgentCredentialUpdateListenerProxy_reportPublicKeyCredentialUpdateForRelyingParty_userHandle_newName_credentialUpdaterOptions_completionHandler___block_invoke_2_cold_1(a1, v2);
+    __150___ASAgentCredentialUpdateListenerProxy_reportPublicKeyCredentialUpdateForRelyingParty_userHandle_newName_credentialUpdaterOptions_completionHandler___block_invoke_2_cold_1(a1, v3);
   }
 }
 
@@ -147,12 +148,12 @@ void __69___ASAgentCredentialExchangeListenerProxy_getExportedCredentialData___b
   (*(a1[5] + 16))(a1[5], 0, v7, v8);
 }
 
-void __69___ASAgentCredentialExchangeListenerProxy_getExportedCredentialData___block_invoke_2(uint64_t a1)
+void __69___ASAgentCredentialExchangeListenerProxy_getExportedCredentialData___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v2 = WBS_LOG_CHANNEL_PREFIXAuthorization();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+  v3 = WBS_LOG_CHANNEL_PREFIXAuthorization(a1, a2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    __150___ASAgentCredentialUpdateListenerProxy_reportPublicKeyCredentialUpdateForRelyingParty_userHandle_newName_credentialUpdaterOptions_completionHandler___block_invoke_2_cold_1(a1, v2);
+    __150___ASAgentCredentialUpdateListenerProxy_reportPublicKeyCredentialUpdateForRelyingParty_userHandle_newName_credentialUpdaterOptions_completionHandler___block_invoke_2_cold_1(a1, v3);
   }
 }
 
@@ -171,12 +172,12 @@ void __65___ASAgentCredentialExchangeListenerProxy_cancelCurrentOperation__block
   os_activity_apply(v4, v7);
 }
 
-void __65___ASAgentCredentialExchangeListenerProxy_cancelCurrentOperation__block_invoke_2(uint64_t a1)
+void __65___ASAgentCredentialExchangeListenerProxy_cancelCurrentOperation__block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v2 = WBS_LOG_CHANNEL_PREFIXAuthorization();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+  v3 = WBS_LOG_CHANNEL_PREFIXAuthorization(a1, a2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    __150___ASAgentCredentialUpdateListenerProxy_reportPublicKeyCredentialUpdateForRelyingParty_userHandle_newName_credentialUpdaterOptions_completionHandler___block_invoke_2_cold_1(a1, v2);
+    __150___ASAgentCredentialUpdateListenerProxy_reportPublicKeyCredentialUpdateForRelyingParty_userHandle_newName_credentialUpdaterOptions_completionHandler___block_invoke_2_cold_1(a1, v3);
   }
 }
 

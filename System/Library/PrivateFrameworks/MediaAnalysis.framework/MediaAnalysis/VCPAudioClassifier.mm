@@ -96,39 +96,39 @@
 
 - (void)cacheModelsForDetectSoundRequest:(id)request requestIdentifier:(id)identifier
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   requestCopy = request;
   identifierCopy = identifier;
-  HasANE = DeviceHasANE();
+  HasANE = DeviceHasANE(identifierCopy, v7);
   if (requestCopy)
   {
-    v8 = HasANE;
+    v9 = HasANE;
   }
 
   else
   {
-    v8 = 0;
+    v9 = 0;
   }
 
-  if (identifierCopy && v8)
+  if (identifierCopy && v9)
   {
-    v9 = +[VCPSharedInstanceManager sharedManager];
-    v14[0] = MEMORY[0x1E69E9820];
-    v14[1] = 3221225472;
-    v14[2] = __73__VCPAudioClassifier_cacheModelsForDetectSoundRequest_requestIdentifier___block_invoke;
-    v14[3] = &unk_1E8350188;
-    v15 = requestCopy;
-    v10 = [v9 sharedInstanceWithIdentifier:identifierCopy andCreationBlock:v14];
-    v11 = v10 == 0;
+    v10 = +[VCPSharedInstanceManager sharedManager];
+    v15[0] = MEMORY[0x1E69E9820];
+    v15[1] = 3221225472;
+    v15[2] = __73__VCPAudioClassifier_cacheModelsForDetectSoundRequest_requestIdentifier___block_invoke;
+    v15[3] = &unk_1E8350188;
+    v16 = requestCopy;
+    v11 = [v10 sharedInstanceWithIdentifier:identifierCopy andCreationBlock:v15];
+    v12 = v11 == 0;
 
-    if (v11 && MediaAnalysisLogLevel() >= 4 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
+    if (v12 && MediaAnalysisLogLevel() >= 4 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
     {
-      v12 = objc_opt_class();
+      v13 = objc_opt_class();
       *buf = 138412546;
-      v17 = v12;
-      v18 = 2112;
-      v19 = identifierCopy;
-      v13 = v12;
+      v18 = v13;
+      v19 = 2112;
+      v20 = identifierCopy;
+      v14 = v13;
       _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "[%@] failed to retain models for %@", buf, 0x16u);
     }
   }
@@ -136,39 +136,39 @@
 
 - (void)cacheModelsForClassifySoundRequest:(id)request requestIdentifier:(id)identifier
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   requestCopy = request;
   identifierCopy = identifier;
-  HasANE = DeviceHasANE();
+  HasANE = DeviceHasANE(identifierCopy, v7);
   if (requestCopy)
   {
-    v8 = HasANE;
+    v9 = HasANE;
   }
 
   else
   {
-    v8 = 0;
+    v9 = 0;
   }
 
-  if (identifierCopy && v8)
+  if (identifierCopy && v9)
   {
-    v9 = +[VCPSharedInstanceManager sharedManager];
-    v14[0] = MEMORY[0x1E69E9820];
-    v14[1] = 3221225472;
-    v14[2] = __75__VCPAudioClassifier_cacheModelsForClassifySoundRequest_requestIdentifier___block_invoke;
-    v14[3] = &unk_1E8350188;
-    v15 = requestCopy;
-    v10 = [v9 sharedInstanceWithIdentifier:identifierCopy andCreationBlock:v14];
-    v11 = v10 == 0;
+    v10 = +[VCPSharedInstanceManager sharedManager];
+    v15[0] = MEMORY[0x1E69E9820];
+    v15[1] = 3221225472;
+    v15[2] = __75__VCPAudioClassifier_cacheModelsForClassifySoundRequest_requestIdentifier___block_invoke;
+    v15[3] = &unk_1E8350188;
+    v16 = requestCopy;
+    v11 = [v10 sharedInstanceWithIdentifier:identifierCopy andCreationBlock:v15];
+    v12 = v11 == 0;
 
-    if (v11 && MediaAnalysisLogLevel() >= 4 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
+    if (v12 && MediaAnalysisLogLevel() >= 4 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
     {
-      v12 = objc_opt_class();
+      v13 = objc_opt_class();
       *buf = 138412546;
-      v17 = v12;
-      v18 = 2112;
-      v19 = identifierCopy;
-      v13 = v12;
+      v18 = v13;
+      v19 = 2112;
+      v20 = identifierCopy;
+      v14 = v13;
       _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "[%@] failed to retain models for %@", buf, 0x16u);
     }
   }

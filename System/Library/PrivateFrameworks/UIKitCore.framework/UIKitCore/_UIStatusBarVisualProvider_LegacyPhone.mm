@@ -778,7 +778,7 @@
     placements2 = [v84 placements];
     [array4 addObjectsFromArray:placements2];
 
-    if ((_UIGetFullWidthBackgroundActivity() & 1) == 0)
+    if (!_UIGetFullWidthBackgroundActivity())
     {
       v86 = +[_UIStatusBarPillBackgroundActivityItem pillCombinedDisplayIdentifier];
       v87 = [_UIStatusBarDisplayItemPlacement placementWithIdentifier:v86 priority:1950];
@@ -1285,7 +1285,7 @@ LABEL_6:
 - (id)regionIdentifiersForPartWithIdentifier:(id)identifier
 {
   identifierCopy = identifier;
-  if ([identifierCopy isEqual:@"leadingPartIdentifier"])
+  if (objc_msgSend_isEqual_(identifierCopy))
   {
     v5 = MEMORY[0x1E695DFD8];
     v20 = 0;
@@ -1297,19 +1297,19 @@ LABEL_3:
     goto LABEL_16;
   }
 
-  if ([identifierCopy isEqual:@"trailingPartIdentifier"])
+  if (objc_msgSend_isEqual_(identifierCopy))
   {
     [MEMORY[0x1E695DFD8] setWithObjects:{@"trailing", @"expandedTrailing", @"expandedLowerTrailing", 0, v21}];
     goto LABEL_15;
   }
 
-  if ([identifierCopy isEqual:@"centerPartIdentifier"])
+  if (objc_msgSend_isEqual_(identifierCopy))
   {
     [MEMORY[0x1E695DFD8] setWithObjects:{@"center", @"background", 0, v19, v21}];
     goto LABEL_15;
   }
 
-  if ([identifierCopy isEqual:0x1EFB9C3D0])
+  if (objc_msgSend_isEqual_(identifierCopy))
   {
     v5 = MEMORY[0x1E695DFD8];
     v20 = @"trailing";
@@ -1319,12 +1319,12 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  if ([identifierCopy isEqual:0x1EFB9C3F0])
+  if (objc_msgSend_isEqual_(identifierCopy))
   {
     goto LABEL_11;
   }
 
-  if ([identifierCopy isEqual:0x1EFB9C410])
+  if (objc_msgSend_isEqual_(identifierCopy))
   {
 LABEL_13:
     v8 = MEMORY[0x1E695DFD8];
@@ -1333,13 +1333,13 @@ LABEL_13:
     goto LABEL_14;
   }
 
-  if ([identifierCopy isEqual:0x1EFB9C430])
+  if (objc_msgSend_isEqual_(identifierCopy))
   {
     [MEMORY[0x1E695DFD8] setWithObjects:{@"expandedLowerLeading", @"expandedLowerTrailing", 0, v19, v21}];
     goto LABEL_15;
   }
 
-  if ([identifierCopy isEqual:@"visibleExpandedPartIdentifier"])
+  if (objc_msgSend_isEqual_(identifierCopy))
   {
     statusBar = [(_UIStatusBarVisualProvider_iOS *)self statusBar];
     currentData = [statusBar currentData];
@@ -1452,7 +1452,7 @@ LABEL_12:
 - (id)displayItemIdentifiersForPartWithIdentifier:(id)identifier
 {
   identifierCopy = identifier;
-  if ([identifierCopy isEqual:@"clockPartIdentifier"])
+  if (objc_msgSend_isEqual_(identifierCopy))
   {
     v5 = MEMORY[0x1E695DFD8];
     v6 = +[_UIStatusBarTimeItem timeDisplayIdentifier];

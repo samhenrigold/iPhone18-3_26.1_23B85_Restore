@@ -70,23 +70,23 @@ LABEL_6:
 
 - (BOOL)generateStateWithError:(id *)error
 {
-  v32[1] = *MEMORY[0x277D85DE8];
+  v31[1] = *MEMORY[0x277D85DE8];
   code = [(SPAKE2Common *)self code];
   uTF8String = [code UTF8String];
 
-  v7 = &v26 - ((2 * [(SPAKE2Common *)self w_size]+ 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = &v25 - ((2 * [(SPAKE2Common *)self w_size]+ 15) & 0xFFFFFFFFFFFFFFF0);
   v8 = ccscrypt_storage_size();
   if ((v8 & 0x8000000000000000) != 0)
   {
     if (!error)
     {
-      goto LABEL_11;
+      return 0;
     }
 
     v19 = MEMORY[0x277CCA9B8];
-    v31 = *MEMORY[0x277CCA450];
-    v32[0] = @"sscrypt_storage_size params failed";
-    v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v32 forKeys:&v31 count:1];
+    v30 = *MEMORY[0x277CCA450];
+    v31[0] = @"sscrypt_storage_size params failed";
+    v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v31 forKeys:&v30 count:1];
     v20 = v19;
     v21 = -1;
 LABEL_10:
@@ -100,13 +100,13 @@ LABEL_10:
   {
     if (!error)
     {
-      goto LABEL_11;
+      return 0;
     }
 
     v22 = MEMORY[0x277CCA9B8];
-    v29 = *MEMORY[0x277CCA450];
-    v30 = @"malloc failed";
-    v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v30 forKeys:&v29 count:1];
+    v28 = *MEMORY[0x277CCA450];
+    v29 = @"malloc failed";
+    v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v29 forKeys:&v28 count:1];
     v20 = v22;
     v21 = -8;
     goto LABEL_10;
@@ -136,28 +136,24 @@ LABEL_10:
   {
     v14 = MEMORY[0x277CCA9B8];
     v15 = v13;
-    v27 = *MEMORY[0x277CCA450];
+    v26 = *MEMORY[0x277CCA450];
     v16 = [MEMORY[0x277CCACA8] stringWithFormat:@"ccscrypt failed: %d", v13];
-    v28 = v16;
-    v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v28 forKeys:&v27 count:1];
+    v27 = v16;
+    v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v27 forKeys:&v26 count:1];
     *error = [v14 errorWithDomain:@"SFCoreCryptoErrorDomain" code:v15 userInfo:v17];
 
     v18 = 0;
 LABEL_13:
 
-    goto LABEL_14;
+    return v18;
   }
 
-LABEL_11:
-  v18 = 0;
-LABEL_14:
-  v24 = *MEMORY[0x277D85DE8];
-  return v18;
+  return 0;
 }
 
 - (BOOL)setupProver:(id *)prover
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   [(SPAKE2Common *)self spake_ctx];
   [(SPAKE2Common *)self cp];
   [(SPAKE2Common *)self mac];
@@ -173,19 +169,17 @@ LABEL_14:
   {
     v8 = MEMORY[0x277CCA9B8];
     v9 = [MEMORY[0x277CCACA8] stringWithFormat:@"ccspake_prover_init failed: %d", v7, *MEMORY[0x277CCA450]];
-    v14[0] = v9;
-    v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:&v13 count:1];
+    v13[0] = v9;
+    v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:&v12 count:1];
     *prover = [v8 errorWithDomain:@"SFCoreCryptoErrorDomain" code:v7 userInfo:v10];
   }
 
-  result = v7 == 0;
-  v12 = *MEMORY[0x277D85DE8];
-  return result;
+  return v7 == 0;
 }
 
 - (BOOL)setupRFCProver:(id *)prover
 {
-  v18[1] = *MEMORY[0x277D85DE8];
+  v17[1] = *MEMORY[0x277D85DE8];
   [(SPAKE2Common *)self spake_ctx];
   [(SPAKE2Common *)self cp];
   [(SPAKE2Common *)self mac];
@@ -197,28 +191,26 @@ LABEL_14:
   v5 = [(SPAKE2Common *)self w0];
   bytes = [v5 bytes];
   v7 = [(SPAKE2Common *)self w1];
-  v14 = bytes;
+  v13 = bytes;
   bytes2 = [v7 bytes];
   v8 = ccspake_prover_initialize();
 
   if (prover && v8)
   {
     v9 = MEMORY[0x277CCA9B8];
-    v17 = *MEMORY[0x277CCA450];
-    v10 = [MEMORY[0x277CCACA8] stringWithFormat:@"ccspake_prover_initialize failed: %d", v8, idVerifier, w_size, v14, bytes2];
-    v18[0] = v10;
-    v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:&v17 count:1];
+    v16 = *MEMORY[0x277CCA450];
+    v10 = [MEMORY[0x277CCACA8] stringWithFormat:@"ccspake_prover_initialize failed: %d", v8, idVerifier, w_size, v13, bytes2];
+    v17[0] = v10;
+    v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:&v16 count:1];
     *prover = [v9 errorWithDomain:@"SFCoreCryptoErrorDomain" code:v8 userInfo:v11];
   }
 
-  result = v8 == 0;
-  v13 = *MEMORY[0x277D85DE8];
-  return result;
+  return v8 == 0;
 }
 
 - (BOOL)setupVerifier:(id *)verifier
 {
-  v26[1] = *MEMORY[0x277D85DE8];
+  v25[1] = *MEMORY[0x277D85DE8];
   v5 = malloc_type_malloc([(SPAKE2Common *)self point_size], 0xDFF5DE34uLL);
   if (v5)
   {
@@ -238,10 +230,10 @@ LABEL_14:
       {
         v9 = MEMORY[0x277CCA9B8];
         v10 = L;
-        v23 = *MEMORY[0x277CCA450];
+        v22 = *MEMORY[0x277CCA450];
         v11 = [MEMORY[0x277CCACA8] stringWithFormat:@"ccspake_generate_L failed: %d", L];
-        v24 = v11;
-        v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v24 forKeys:&v23 count:1];
+        v23 = v11;
+        v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v23 forKeys:&v22 count:1];
         *verifier = [v9 errorWithDomain:@"SFCoreCryptoErrorDomain" code:v10 userInfo:v12];
 
 LABEL_10:
@@ -263,18 +255,17 @@ LABEL_10:
       free(v6);
       if (!v15)
       {
-        result = 1;
-        goto LABEL_12;
+        return 1;
       }
 
       if (verifier)
       {
         v16 = MEMORY[0x277CCA9B8];
         v17 = v15;
-        v21 = *MEMORY[0x277CCA450];
+        v20 = *MEMORY[0x277CCA450];
         v11 = [MEMORY[0x277CCACA8] stringWithFormat:@"ccspake_verifier_init failed: %d", v15, v6];
-        v22 = v11;
-        v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v22 forKeys:&v21 count:1];
+        v21 = v11;
+        v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v21 forKeys:&v20 count:1];
         *verifier = [v16 errorWithDomain:@"SFCoreCryptoErrorDomain" code:v17 userInfo:v18];
 
         goto LABEL_10;
@@ -285,22 +276,19 @@ LABEL_10:
   else if (verifier)
   {
     v13 = MEMORY[0x277CCA9B8];
-    v25 = *MEMORY[0x277CCA450];
-    v26[0] = @"malloc failed";
-    v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v26 forKeys:&v25 count:1];
+    v24 = *MEMORY[0x277CCA450];
+    v25[0] = @"malloc failed";
+    v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:&v24 count:1];
     *verifier = [v13 errorWithDomain:@"SFCoreCryptoErrorDomain" code:-8 userInfo:v11];
     goto LABEL_10;
   }
 
-  result = 0;
-LABEL_12:
-  v20 = *MEMORY[0x277D85DE8];
-  return result;
+  return 0;
 }
 
 - (BOOL)setupRFCVerifier:(id *)verifier
 {
-  v30[1] = *MEMORY[0x277D85DE8];
+  v29[1] = *MEMORY[0x277D85DE8];
   v5 = malloc_type_malloc([(SPAKE2Common *)self point_size], 0x1C64FC9AuLL);
   if (v5)
   {
@@ -320,10 +308,10 @@ LABEL_12:
       {
         v9 = MEMORY[0x277CCA9B8];
         v10 = L;
-        v27 = *MEMORY[0x277CCA450];
+        v26 = *MEMORY[0x277CCA450];
         v11 = [MEMORY[0x277CCACA8] stringWithFormat:@"ccspake_generate_L failed: %d", L];
-        v28 = v11;
-        v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v28 forKeys:&v27 count:1];
+        v27 = v11;
+        v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v27 forKeys:&v26 count:1];
         *verifier = [v9 errorWithDomain:@"SFCoreCryptoErrorDomain" code:v10 userInfo:v12];
 
 LABEL_10:
@@ -343,24 +331,23 @@ LABEL_10:
       v15 = [(SPAKE2Common *)self w0];
       bytes = [v15 bytes];
       point_size = [(SPAKE2Common *)self point_size];
-      v23 = w_size;
+      v22 = w_size;
       v17 = ccspake_verifier_initialize();
 
       free(v6);
       if (!v17)
       {
-        result = 1;
-        goto LABEL_12;
+        return 1;
       }
 
       if (verifier)
       {
         v18 = MEMORY[0x277CCA9B8];
         v19 = v17;
-        v25 = *MEMORY[0x277CCA450];
-        v11 = [MEMORY[0x277CCACA8] stringWithFormat:@"ccspake_verifier_initialize failed: %d", v17, idVerifier, v23, bytes, point_size, v6];
-        v26 = v11;
-        v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v26 forKeys:&v25 count:1];
+        v24 = *MEMORY[0x277CCA450];
+        v11 = [MEMORY[0x277CCACA8] stringWithFormat:@"ccspake_verifier_initialize failed: %d", v17, idVerifier, v22, bytes, point_size, v6];
+        v25 = v11;
+        v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v25 forKeys:&v24 count:1];
         *verifier = [v18 errorWithDomain:@"SFCoreCryptoErrorDomain" code:v19 userInfo:v20];
 
         goto LABEL_10;
@@ -371,17 +358,14 @@ LABEL_10:
   else if (verifier)
   {
     v13 = MEMORY[0x277CCA9B8];
-    v29 = *MEMORY[0x277CCA450];
-    v30[0] = @"malloc failed";
-    v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v30 forKeys:&v29 count:1];
+    v28 = *MEMORY[0x277CCA450];
+    v29[0] = @"malloc failed";
+    v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v29 forKeys:&v28 count:1];
     *verifier = [v13 errorWithDomain:@"SFCoreCryptoErrorDomain" code:-8 userInfo:v11];
     goto LABEL_10;
   }
 
-  result = 0;
-LABEL_12:
-  v22 = *MEMORY[0x277D85DE8];
-  return result;
+  return 0;
 }
 
 - (void)dealloc
@@ -400,7 +384,7 @@ LABEL_12:
 
 - (id)getMsg1WithError:(id *)error
 {
-  v20[1] = *MEMORY[0x277D85DE8];
+  v19[1] = *MEMORY[0x277D85DE8];
   v5 = malloc_type_malloc([(SPAKE2Common *)self point_size], 0xD365D7C2uLL);
   if (!v5)
   {
@@ -410,9 +394,9 @@ LABEL_12:
     }
 
     v13 = MEMORY[0x277CCA9B8];
-    v19 = *MEMORY[0x277CCA450];
-    v20[0] = @"malloc failed";
-    v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:&v19 count:1];
+    v18 = *MEMORY[0x277CCA450];
+    v19[0] = @"malloc failed";
+    v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:&v18 count:1];
     *error = [v13 errorWithDomain:@"SFCoreCryptoErrorDomain" code:-8 userInfo:v14];
 
     goto LABEL_7;
@@ -434,8 +418,8 @@ LABEL_12:
     v9 = MEMORY[0x277CCA9B8];
     v10 = v8;
     v11 = [MEMORY[0x277CCACA8] stringWithFormat:@"ccspake_kex_generate failed: %d", v8, *MEMORY[0x277CCA450]];
-    v18 = v11;
-    v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v18 forKeys:&v17 count:1];
+    v17 = v11;
+    v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v17 forKeys:&v16 count:1];
     *error = [v9 errorWithDomain:@"SFCoreCryptoErrorDomain" code:v10 userInfo:v12];
 
 LABEL_7:
@@ -446,14 +430,13 @@ LABEL_7:
   error = [MEMORY[0x277CBEA90] dataWithBytes:v6 length:{-[SPAKE2Common point_size](self, "point_size")}];
   free(v6);
 LABEL_9:
-  v15 = *MEMORY[0x277D85DE8];
 
   return error;
 }
 
 - (BOOL)processMsg1:(id)msg1 error:(id *)error
 {
-  v15[1] = *MEMORY[0x277D85DE8];
+  v14[1] = *MEMORY[0x277D85DE8];
   msg1Copy = msg1;
   [(SPAKE2Common *)self spake_ctx];
   [msg1Copy length];
@@ -465,19 +448,17 @@ LABEL_9:
   {
     v9 = MEMORY[0x277CCA9B8];
     v10 = [MEMORY[0x277CCACA8] stringWithFormat:@"ccspake_kex_process failed: %d", v7, *MEMORY[0x277CCA450]];
-    v15[0] = v10;
-    v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:&v14 count:1];
+    v14[0] = v10;
+    v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:&v13 count:1];
     *error = [v9 errorWithDomain:@"SFCoreCryptoErrorDomain" code:v8 userInfo:v11];
   }
 
-  result = v8 == 0;
-  v13 = *MEMORY[0x277D85DE8];
-  return result;
+  return v8 == 0;
 }
 
 - (id)getMsg2WithError:(id *)error
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   [(SPAKE2Common *)self spake_ctx];
   v4 = ccspake_mac_compute();
   if (v4)
@@ -487,8 +468,8 @@ LABEL_9:
       v5 = MEMORY[0x277CCA9B8];
       v6 = v4;
       v7 = [MEMORY[0x277CCACA8] stringWithFormat:@"ccspake_mac_generate failed: %d", v4, *MEMORY[0x277CCA450]];
-      v13 = v7;
-      v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v13 forKeys:&v12 count:1];
+      v12 = v7;
+      v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v12 forKeys:&v11 count:1];
       *error = [v5 errorWithDomain:@"SFCoreCryptoErrorDomain" code:v6 userInfo:v8];
     }
 
@@ -497,17 +478,15 @@ LABEL_9:
 
   else
   {
-    v9 = [MEMORY[0x277CBEA90] dataWithBytes:v14 length:32];
+    v9 = [MEMORY[0x277CBEA90] dataWithBytes:v13 length:32];
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v9;
 }
 
 - (BOOL)processMsg2Orig:(id)orig error:(id *)error
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   origCopy = orig;
   [(SPAKE2Common *)self spake_ctx];
   [origCopy length];
@@ -518,15 +497,14 @@ LABEL_9:
   {
     if (!error)
     {
-      v12 = 0;
-      goto LABEL_8;
+      return 0;
     }
 
     v8 = MEMORY[0x277CCA9B8];
     v9 = session_key;
     v10 = [MEMORY[0x277CCACA8] stringWithFormat:@"ccspake_mac_verify_and_get_session_key failed: %d", session_key, *MEMORY[0x277CCA450]];
-    v18 = v10;
-    v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v18 forKeys:&v17 count:1];
+    v17 = v10;
+    v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v17 forKeys:&v16 count:1];
     [v8 errorWithDomain:@"SFCoreCryptoErrorDomain" code:v9 userInfo:v11];
     *error = v12 = 0;
   }
@@ -534,7 +512,7 @@ LABEL_9:
   else
   {
     v10 = [[_SFAESKeySpecifier alloc] initWithBitSize:0];
-    v11 = [MEMORY[0x277CBEA90] dataWithBytesNoCopy:v19 length:16 freeWhenDone:0];
+    v11 = [MEMORY[0x277CBEA90] dataWithBytesNoCopy:v18 length:16 freeWhenDone:0];
     v13 = [(_SFSymmetricKey *)[_SFAESKey alloc] initWithData:v11 specifier:v10 error:error];
     [(SPAKE2Common *)self setSession_key:v13];
 
@@ -549,14 +527,12 @@ LABEL_9:
     }
   }
 
-LABEL_8:
-  v15 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
 - (BOOL)processMsg2Web:(id)web error:(id *)error
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   webCopy = web;
   [(SPAKE2Common *)self spake_ctx];
   [webCopy length];
@@ -569,24 +545,22 @@ LABEL_8:
     {
       v8 = MEMORY[0x277CCA9B8];
       v9 = [MEMORY[0x277CCACA8] stringWithFormat:@"ccspake_mac_verify_and_get_session_key failed: %d", session_key, *MEMORY[0x277CCA450]];
-      v15 = v9;
-      v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v15 forKeys:&v14 count:1];
+      v14 = v9;
+      v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v14 forKeys:&v13 count:1];
       *error = [v8 errorWithDomain:@"SFCoreCryptoErrorDomain" code:session_key userInfo:v10];
     }
   }
 
   else
   {
-    v11 = [MEMORY[0x277CBEB28] dataWithBytes:v16 length:32];
+    v11 = [MEMORY[0x277CBEB28] dataWithBytes:v15 length:32];
     [(SPAKE2Common *)self setRaw_session_key:v11];
 
     cc_clear();
     [(SPAKE2Common *)self setVerified:1];
   }
 
-  result = session_key == 0;
-  v13 = *MEMORY[0x277D85DE8];
-  return result;
+  return session_key == 0;
 }
 
 - (id)encryptMessage:(id)message error:(id *)error
@@ -655,7 +629,7 @@ LABEL_8:
 
 - (id)_encodeBinary:(id)binary withKey:(id)key info:(id)info error:(id *)error
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   binaryCopy = binary;
   infoCopy = info;
   keyCopy = key;
@@ -671,20 +645,20 @@ LABEL_8:
   {
     errorCopy = error;
     ccaes_gcm_encrypt_mode();
-    v16 = [MEMORY[0x277CBEB28] dataWithLength:{12, v39}];
+    v16 = [MEMORY[0x277CBEB28] dataWithLength:{12, v38}];
     v19 = [(SPAKE2Common *)self rng];
     (v19->var0)(v19, [v16 length], objc_msgSend(v16, "mutableBytes"));
     v17 = [MEMORY[0x277CBEB28] dataWithLength:{objc_msgSend(binaryCopy, "length")}];
     v20 = [MEMORY[0x277CBEB28] dataWithLength:16];
-    v34 = 0;
+    v33 = 0;
     [v16 length];
     [v16 bytes];
     [binaryCopy length];
     bytes = [binaryCopy bytes];
     mutableBytes = [v17 mutableBytes];
-    v31 = [v20 length];
+    v30 = [v20 length];
     mutableBytes2 = [v20 mutableBytes];
-    v30 = mutableBytes;
+    v29 = mutableBytes;
     v23 = ccgcm_one_shot();
     cc_clear();
     if (v23)
@@ -697,10 +671,10 @@ LABEL_8:
 
       v24 = MEMORY[0x277CCA9B8];
       v25 = v23;
-      v35 = *MEMORY[0x277CCA450];
-      v26 = [MEMORY[0x277CCACA8] stringWithFormat:@"ccgm_one_shot failed: %d", v23, v30, v31, mutableBytes2];
-      v36 = v26;
-      v27 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v36 forKeys:&v35 count:1];
+      v34 = *MEMORY[0x277CCA450];
+      v26 = [MEMORY[0x277CCACA8] stringWithFormat:@"ccgm_one_shot failed: %d", v23, v29, v30, mutableBytes2];
+      v35 = v26;
+      v27 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v35 forKeys:&v34 count:1];
       *errorCopy = [v24 errorWithDomain:@"SFCoreCryptoErrorDomain" code:v25 userInfo:v27];
 
       v18 = 0;
@@ -709,7 +683,7 @@ LABEL_8:
     else
     {
       v26 = objc_alloc_init(MEMORY[0x277CBEB28]);
-      [v26 appendBytes:&v34 length:{1, bytes, v30, v31, mutableBytes2}];
+      [v26 appendBytes:&v33 length:{1, bytes, v29, v30, mutableBytes2}];
       [v26 appendData:v16];
       [v26 appendData:v20];
       [v26 appendData:v17];
@@ -728,23 +702,22 @@ LABEL_11:
 
   v14 = MEMORY[0x277CCA9B8];
   v15 = v13;
-  v37 = *MEMORY[0x277CCA450];
+  v36 = *MEMORY[0x277CCA450];
   v16 = [MEMORY[0x277CCACA8] stringWithFormat:@"cchkdf failed: %d", v13];
-  v38 = v16;
-  v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v38 forKeys:&v37 count:1];
+  v37 = v16;
+  v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v37 forKeys:&v36 count:1];
   [v14 errorWithDomain:@"SFCoreCryptoErrorDomain" code:v15 userInfo:v17];
   *error = v18 = 0;
 LABEL_12:
 
 LABEL_13:
-  v28 = *MEMORY[0x277D85DE8];
 
   return v18;
 }
 
 - (id)_decodeBinary:(id)binary withKey:(id)key info:(id)info error:(id *)error
 {
-  v47[1] = *MEMORY[0x277D85DE8];
+  v46[1] = *MEMORY[0x277D85DE8];
   binaryCopy = binary;
   keyCopy = key;
   infoCopy = info;
@@ -753,9 +726,9 @@ LABEL_13:
     if (error)
     {
       v12 = MEMORY[0x277CCA9B8];
-      v46 = *MEMORY[0x277CCA450];
-      v47[0] = @"message too short";
-      v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v47 forKeys:&v46 count:1];
+      v45 = *MEMORY[0x277CCA450];
+      v46[0] = @"message too short";
+      v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v46 forKeys:&v45 count:1];
       *error = [v12 errorWithDomain:@"SFCoreCryptoErrorDomain" code:-163 userInfo:v13];
 LABEL_7:
 
@@ -765,16 +738,16 @@ LABEL_7:
     goto LABEL_8;
   }
 
-  v38 = *[binaryCopy bytes];
-  if (v38)
+  v37 = *[binaryCopy bytes];
+  if (v37)
   {
     if (error)
     {
       v14 = MEMORY[0x277CCA9B8];
-      v44 = *MEMORY[0x277CCA450];
-      v13 = [MEMORY[0x277CCACA8] stringWithFormat:@"unknown version: %d", v38];
-      v45 = v13;
-      v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v45 forKeys:&v44 count:1];
+      v43 = *MEMORY[0x277CCA450];
+      v13 = [MEMORY[0x277CCACA8] stringWithFormat:@"unknown version: %d", v37];
+      v44 = v13;
+      v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v44 forKeys:&v43 count:1];
       *error = [v14 errorWithDomain:@"SFCoreCryptoErrorDomain" code:-7 userInfo:v15];
 
       goto LABEL_7;
@@ -790,53 +763,53 @@ LABEL_8:
   [keyCopy bytes];
   [infoCopy length];
   [infoCopy UTF8String];
-  v19 = cchkdf();
-  if (v19)
+  v18 = cchkdf();
+  if (v18)
   {
     if (!error)
     {
       goto LABEL_8;
     }
 
-    v20 = MEMORY[0x277CCA9B8];
-    v21 = v19;
-    v41 = *MEMORY[0x277CCA450];
-    v22 = [MEMORY[0x277CCACA8] stringWithFormat:@"cchkdf failed: %d", v19];
-    v42 = v22;
-    v23 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v42 forKeys:&v41 count:1];
-    [v20 errorWithDomain:@"SFCoreCryptoErrorDomain" code:v21 userInfo:v23];
+    v19 = MEMORY[0x277CCA9B8];
+    v20 = v18;
+    v40 = *MEMORY[0x277CCA450];
+    v21 = [MEMORY[0x277CCACA8] stringWithFormat:@"cchkdf failed: %d", v18];
+    v41 = v21;
+    v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v41 forKeys:&v40 count:1];
+    [v19 errorWithDomain:@"SFCoreCryptoErrorDomain" code:v20 userInfo:v22];
     *error = v16 = 0;
   }
 
   else
   {
     ccaes_gcm_decrypt_mode();
-    v24 = [MEMORY[0x277CBEA90] dataWithBytes:objc_msgSend(binaryCopy length:{"bytes", v43) + 1, 12}];
-    v23 = [MEMORY[0x277CBEB28] dataWithBytes:objc_msgSend(binaryCopy length:{"bytes") + 13, 16}];
-    v25 = [MEMORY[0x277CBEA90] dataWithBytes:objc_msgSend(binaryCopy length:{"bytes") + 29, objc_msgSend(binaryCopy, "length") - 29}];
-    v26 = [MEMORY[0x277CBEB28] dataWithLength:{objc_msgSend(v25, "length")}];
+    v23 = [MEMORY[0x277CBEA90] dataWithBytes:objc_msgSend(binaryCopy length:{"bytes", v42) + 1, 12}];
+    v22 = [MEMORY[0x277CBEB28] dataWithBytes:objc_msgSend(binaryCopy length:{"bytes") + 13, 16}];
+    v24 = [MEMORY[0x277CBEA90] dataWithBytes:objc_msgSend(binaryCopy length:{"bytes") + 29, objc_msgSend(binaryCopy, "length") - 29}];
+    v25 = [MEMORY[0x277CBEB28] dataWithLength:{objc_msgSend(v24, "length")}];
+    [v23 length];
+    v36 = v23;
+    [v23 bytes];
     [v24 length];
-    v37 = v24;
-    [v24 bytes];
-    [v25 length];
-    bytes = [v25 bytes];
-    mutableBytes = [v26 mutableBytes];
-    v34 = [v23 length];
-    mutableBytes2 = [v23 mutableBytes];
-    v33 = mutableBytes;
-    v29 = ccgcm_one_shot();
+    bytes = [v24 bytes];
+    mutableBytes = [v25 mutableBytes];
+    v33 = [v22 length];
+    mutableBytes2 = [v22 mutableBytes];
+    v32 = mutableBytes;
+    v28 = ccgcm_one_shot();
     cc_clear();
-    if (v29)
+    if (v28)
     {
       if (error)
       {
-        v36 = MEMORY[0x277CCA9B8];
-        v30 = v29;
-        v39 = *MEMORY[0x277CCA450];
-        v31 = [MEMORY[0x277CCACA8] stringWithFormat:@"ccgm_one_shot failed: %d", v29, v33, v34, mutableBytes2];
-        v40 = v31;
-        v32 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v40 forKeys:&v39 count:1];
-        *error = [v36 errorWithDomain:@"SFCoreCryptoErrorDomain" code:v30 userInfo:v32];
+        v35 = MEMORY[0x277CCA9B8];
+        v29 = v28;
+        v38 = *MEMORY[0x277CCA450];
+        v30 = [MEMORY[0x277CCACA8] stringWithFormat:@"ccgm_one_shot failed: %d", v28, v32, v33, mutableBytes2];
+        v39 = v30;
+        v31 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v39 forKeys:&v38 count:1];
+        *error = [v35 errorWithDomain:@"SFCoreCryptoErrorDomain" code:v29 userInfo:v31];
       }
 
       v16 = 0;
@@ -844,14 +817,13 @@ LABEL_8:
 
     else
     {
-      v16 = [MEMORY[0x277CBEA90] dataWithData:{v26, bytes, v33, v34, mutableBytes2}];
+      v16 = [MEMORY[0x277CBEA90] dataWithData:{v25, bytes, v32, v33, mutableBytes2}];
     }
 
-    v22 = v37;
+    v21 = v36;
   }
 
 LABEL_9:
-  v17 = *MEMORY[0x277D85DE8];
 
   return v16;
 }
@@ -895,7 +867,7 @@ LABEL_9:
 
 - (id)_decodeBase64:(id)base64 withKey:(id)key info:(id)info error:(id *)error
 {
-  v20[1] = *MEMORY[0x277D85DE8];
+  v19[1] = *MEMORY[0x277D85DE8];
   keyCopy = key;
   infoCopy = info;
   v12 = MEMORY[0x277CBEA90];
@@ -910,15 +882,13 @@ LABEL_9:
   else if (error)
   {
     v15 = MEMORY[0x277CCA9B8];
-    v19 = *MEMORY[0x277CCA450];
-    v20[0] = @"failed to decode base64";
-    v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:&v19 count:1];
+    v18 = *MEMORY[0x277CCA450];
+    v19[0] = @"failed to decode base64";
+    v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:&v18 count:1];
     *error = [v15 errorWithDomain:@"SFCoreCryptoErrorDomain" code:-7 userInfo:v16];
 
     error = 0;
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return error;
 }

@@ -1,6 +1,6 @@
-void sub_257A91434(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14, void *a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, void *a20, uint64_t a21, void *a22, uint64_t a23, uint64_t a24, void *a25, void *__p, uint64_t a27, int a28, __int16 a29, char a30, char a31)
+void sub_257A91434(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14, void *a15, void **a16, void **a17, void **a18, uint64_t a19, void *a20, uint64_t a21, void *a22, uint64_t a23, uint64_t a24, void *a25, void *__p, uint64_t a27, int a28, __int16 a29, char a30, char a31)
 {
-  std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::~__hash_table(v31 + 168);
+  std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::~__hash_table(v31 + 21);
 
   std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::~__hash_table(a16);
   std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::~__hash_table(a17);
@@ -10,7 +10,7 @@ void sub_257A91434(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t DYDerivedCounterInfo::_dfs(void *a1, const void **a2, void *a3)
+uint64_t DYDerivedCounterInfo::_dfs(void *a1, uint64_t *a2, void *a3)
 {
   if (std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::find<std::string>(a1 + 5, a2))
   {
@@ -19,7 +19,7 @@ uint64_t DYDerivedCounterInfo::_dfs(void *a1, const void **a2, void *a3)
 
   if (!std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::find<std::string>(a1, a2))
   {
-    std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__emplace_unique_key_args<std::string,std::string const&>(a1, a2);
+    std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__emplace_unique_key_args<std::string,std::string const&>(a1, a2, a2);
     v7 = std::__hash_table<std::__hash_value_type<std::string,std::vector<std::string>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::vector<std::string>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::vector<std::string>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::vector<std::string>>>>::find<std::string>(a3, a2);
     v8 = v7[5];
     v9 = v7[6];
@@ -35,14 +35,14 @@ uint64_t DYDerivedCounterInfo::_dfs(void *a1, const void **a2, void *a3)
 
       else
       {
-        std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__emplace_unique_key_args<std::string,std::string const&>(a1 + 10, v8);
+        std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__emplace_unique_key_args<std::string,std::string const&>(a1 + 10, v8, v8);
       }
 
       v8 += 3;
     }
 
     std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__erase_unique<std::string>(a1, a2);
-    std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__emplace_unique_key_args<std::string,std::string const&>(a1 + 5, a2);
+    std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__emplace_unique_key_args<std::string,std::string const&>(a1 + 5, a2, a2);
     return 1;
   }
 
@@ -99,7 +99,7 @@ LABEL_5:
     {
       if (std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::find<std::string>(this + 10, v4))
       {
-        std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__emplace_unique_key_args<std::string,std::string const&>(this + 15, v4);
+        std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__emplace_unique_key_args<std::string,std::string const&>(this + 15, v4, v4);
       }
 
       v4 += 3;
@@ -116,129 +116,127 @@ LABEL_5:
   return v6;
 }
 
-void sub_257A9185C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_257A9185C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va1, a8);
-  va_start(va, a8);
-  v12 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
-  v17 = va_arg(va1, void);
-  v18 = va_arg(va1, void);
+  va_start(va1, a15);
+  va_start(va, a15);
   v19 = va_arg(va1, void);
-  v20 = va_arg(va1, void);
   v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
+  v24 = va_arg(va1, void);
+  v25 = va_arg(va1, void);
+  v26 = va_arg(va1, void);
+  v27 = va_arg(va1, void);
+  v28 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
-  *(v10 - 56) = v9;
-  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100]((v10 - 56));
+  *(v17 - 56) = v16;
+  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100]((v17 - 56));
   _Block_object_dispose(va1, 8);
-  std::__hash_table<std::__hash_value_type<std::string,std::vector<std::string>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::vector<std::string>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::vector<std::string>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::vector<std::string>>>>::~__hash_table(v8 + 48);
+  std::__hash_table<std::__hash_value_type<std::string,std::vector<std::string>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::vector<std::string>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::vector<std::string>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::vector<std::string>>>>::~__hash_table(v15 + 48);
   _Unwind_Resume(a1);
 }
 
 __n128 __Block_byref_object_copy__46(__n128 *a1, __n128 *a2)
 {
-  a1[3].n128_u64[0] = 0;
-  a1[3].n128_u64[1] = 0;
+  a1[3] = 0uLL;
   a1[4].n128_u64[0] = 0;
   result = a2[3];
   a1[3] = result;
   a1[4].n128_u64[0] = a2[4].n128_u64[0];
-  a2[3].n128_u64[0] = 0;
-  a2[3].n128_u64[1] = 0;
+  a2[3] = 0uLL;
   a2[4].n128_u64[0] = 0;
   return result;
 }
 
 void ___ZN20DYDerivedCounterInfo11ProcessInfoEv_block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
-  v21 = a1;
+  v20 = a1;
   v7 = *(a1 + 48);
   std::string::basic_string[abi:ne200100]<0>(&__p, [v5 UTF8String]);
-  if (std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::find<std::string>((v7 + 168), &__p.__r_.__value_.__l.__data_))
+  if (std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::find<std::string>((v7 + 168), &__p))
   {
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v8 = std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::find<std::string>((*(*(v21 + 32) + 8) + 48), &__p.__r_.__value_.__l.__data_);
+      v8 = std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::find<std::string>((*(*(v20 + 32) + 8) + 48), &__p);
       if (!v8)
       {
-        v9 = *(*(v21 + 32) + 8);
-        v26 = 0uLL;
-        v27 = 0;
+        v9 = *(*(v20 + 32) + 8);
+        v25 = 0uLL;
+        v26 = 0;
         if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
         {
-          std::string::__init_copy_ctor_external(&v28, __p.__r_.__value_.__l.__data_, __p.__r_.__value_.__l.__size_);
-          v11 = v26;
-          v10 = v27;
+          std::string::__init_copy_ctor_external(&v27, __p.__r_.__value_.__l.__data_, __p.__r_.__value_.__l.__size_);
+          v11 = v25;
+          v10 = v26;
         }
 
         else
         {
           v10 = 0;
-          v28 = __p;
+          v27 = __p;
           v11 = 0uLL;
         }
 
-        v29 = v11;
-        v30 = v10;
-        v27 = 0;
-        v26 = 0uLL;
-        v8 = std::__hash_table<std::__hash_value_type<std::string,std::vector<std::string>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::vector<std::string>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::vector<std::string>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::vector<std::string>>>>::__emplace_unique_key_args<std::string,std::pair<std::string,std::vector<std::string>>>((v9 + 48), &v28.__r_.__value_.__l.__data_);
-        v32 = &v29;
-        std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v32);
-        if (SHIBYTE(v28.__r_.__value_.__r.__words[2]) < 0)
+        v28 = v11;
+        v29 = v10;
+        v26 = 0;
+        v25 = 0uLL;
+        v8 = std::__hash_table<std::__hash_value_type<std::string,std::vector<std::string>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::vector<std::string>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::vector<std::string>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::vector<std::string>>>>::__emplace_unique_key_args<std::string,std::pair<std::string,std::vector<std::string>>>((v9 + 48), &v27, &v27);
+        v31 = &v28;
+        std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v31);
+        if (SHIBYTE(v27.__r_.__value_.__r.__words[2]) < 0)
         {
-          operator delete(v28.__r_.__value_.__l.__data_);
+          operator delete(v27.__r_.__value_.__l.__data_);
         }
 
-        v32 = &v26;
-        std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v32);
+        v31 = &v25;
+        std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v31);
       }
 
-      v24 = 0u;
-      v25 = 0u;
-      v22 = 0u;
       v23 = 0u;
+      v24 = 0u;
+      v21 = 0u;
+      v22 = 0u;
       v12 = [v6 objectForKeyedSubscript:@"counters"];
-      v13 = [v12 countByEnumeratingWithState:&v22 objects:v33 count:16];
+      v13 = [v12 countByEnumeratingWithState:&v21 objects:v32 count:16];
       if (v13)
       {
-        v14 = *v23;
+        v14 = *v22;
         do
         {
           for (i = 0; i != v13; ++i)
           {
-            if (*v23 != v14)
+            if (*v22 != v14)
             {
               objc_enumerationMutation(v12);
             }
 
-            v16 = *(*(&v22 + 1) + 8 * i);
+            v16 = *(*(&v21 + 1) + 8 * i);
             if (([v5 isEqualToString:v16] & 1) == 0)
             {
               v17 = v16;
-              std::string::basic_string[abi:ne200100]<0>(&v28, [v16 UTF8String]);
-              std::vector<std::string>::push_back[abi:ne200100]((v8 + 5), &v28);
+              std::string::basic_string[abi:ne200100]<0>(&v27, [v16 UTF8String]);
+              std::vector<std::string>::push_back[abi:ne200100]((v8 + 5), &v27);
               v18 = [v6 objectForKeyedSubscript:@"subtype"];
               v19 = v18;
               if (v18 && [v18 isEqualToString:@"Normalize"])
               {
-                std::vector<std::string>::push_back[abi:ne200100](*(*(v21 + 40) + 8) + 48, &v28);
+                std::vector<std::string>::push_back[abi:ne200100](*(*(v20 + 40) + 8) + 48, &v27);
               }
 
-              if (SHIBYTE(v28.__r_.__value_.__r.__words[2]) < 0)
+              if (SHIBYTE(v27.__r_.__value_.__r.__words[2]) < 0)
               {
-                operator delete(v28.__r_.__value_.__l.__data_);
+                operator delete(v27.__r_.__value_.__l.__data_);
               }
             }
           }
 
-          v13 = [v12 countByEnumeratingWithState:&v22 objects:v33 count:16];
+          v13 = [v12 countByEnumeratingWithState:&v21 objects:v32 count:16];
         }
 
         while (v13);
@@ -250,8 +248,6 @@ void ___ZN20DYDerivedCounterInfo11ProcessInfoEv_block_invoke(uint64_t a1, void *
   {
     operator delete(__p.__r_.__value_.__l.__data_);
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 void sub_257A91BE0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, char a19, uint64_t a20, uint64_t a21, uint64_t a22, void *a23, uint64_t a24, int a25, __int16 a26, char a27, char a28, uint64_t a29, uint64_t a30, uint64_t a31, void *__p, uint64_t a33, int a34, __int16 a35, char a36, char a37, char *a38)
@@ -442,28 +438,28 @@ NSDictionary *DYDerivedCounterInfo::AppendDerivedCounterInfoToPayload(DYDerivedC
 
 void DYDerivedCounterInfo::MergeDictionaries(DYDerivedCounterInfo *this, NSMutableDictionary *a2, NSMutableDictionary *a3)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v4 = this;
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v5 = a2;
-  v6 = [(NSMutableDictionary *)v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v6 = [(NSMutableDictionary *)v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v6)
   {
-    v7 = *v15;
+    v7 = *v14;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v15 != v7)
+        if (*v14 != v7)
         {
           objc_enumerationMutation(v5);
         }
 
-        v9 = *(*(&v14 + 1) + 8 * i);
-        v10 = [(DYDerivedCounterInfo *)v4 objectForKey:v9, v14];
+        v9 = *(*(&v13 + 1) + 8 * i);
+        v10 = [(DYDerivedCounterInfo *)v4 objectForKey:v9, v13];
         v11 = [(NSMutableDictionary *)v5 objectForKey:v9];
         if (v10)
         {
@@ -493,13 +489,11 @@ void DYDerivedCounterInfo::MergeDictionaries(DYDerivedCounterInfo *this, NSMutab
         }
       }
 
-      v6 = [(NSMutableDictionary *)v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v6 = [(NSMutableDictionary *)v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v6);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 NSString *DYDerivedCounterInfo::MergeDerivedCounterDataFromHost(DYDerivedCounterInfo *this, NSString *a2, NSString *a3, NSDictionary *a4)
@@ -642,20 +636,20 @@ LABEL_8:
 
 void DYDerivedCounterInfo::_ProcessKickCounters(void *a1, uint64_t a2, uint64_t a3, void *a4, unint64_t a5, unint64_t a6, void *a7, void *a8, uint64_t a9, void *a10, void *a11, void *a12)
 {
-  v75 = *MEMORY[0x277D85DE8];
-  v67 = a1;
-  v63 = a4;
+  v74 = *MEMORY[0x277D85DE8];
+  v66 = a1;
+  v62 = a4;
   v16 = a7;
-  v59 = a8;
-  v53 = a11;
-  v55 = a12;
-  v65 = v16;
+  v58 = a8;
+  v52 = a11;
+  v54 = a12;
+  v64 = v16;
   v17 = [v16 objectAtIndexedSubscript:0];
   objc_opt_class();
   isKindOfClass = objc_opt_isKindOfClass();
 
-  v64 = isKindOfClass;
-  [v16 objectAtIndexedSubscript:{a2, v53}];
+  v63 = isKindOfClass;
+  [v16 objectAtIndexedSubscript:{a2, v52}];
   if (isKindOfClass)
     v19 = {;
     v20 = [v19 objectAtIndexedSubscript:0];
@@ -666,17 +660,17 @@ void DYDerivedCounterInfo::_ProcessKickCounters(void *a1, uint64_t a2, uint64_t 
     v19 = v20;
   }
 
-  v62 = [v20 unsignedLongLongValue];
+  v61 = [v20 unsignedLongLongValue];
   if (isKindOfClass)
   {
   }
 
-  if (v62 < 4)
+  if (v61 < 4)
   {
-    v56 = [v16 count];
-    if (v63 && [v63 count] > a5)
+    v55 = [v16 count];
+    if (v62 && [v62 count] > a5)
     {
-      v21 = [v63 objectAtIndexedSubscript:?];
+      v21 = [v62 objectAtIndexedSubscript:?];
       v22 = [v21 count];
       if (v22 <= 1)
       {
@@ -692,41 +686,41 @@ void DYDerivedCounterInfo::_ProcessKickCounters(void *a1, uint64_t a2, uint64_t 
     }
 
     v24 = 0;
-    v61 = 0;
+    v60 = 0;
     while (1)
     {
-      if (v24 >= [v65 count])
+      if (v24 >= [v64 count])
       {
         goto LABEL_46;
       }
 
-      v66 = [v65 objectAtIndexedSubscript:v24];
-      if (v64)
+      v65 = [v64 objectAtIndexedSubscript:v24];
+      if (v63)
       {
-        v68 = [v66 objectAtIndexedSubscript:0];
+        v67 = [v65 objectAtIndexedSubscript:0];
       }
 
       else
       {
-        v68 = v66;
+        v67 = v65;
       }
 
-      if (v63 && v24 == a3 && [v63 count] > a5)
+      if (v62 && v24 == a3 && [v62 count] > a5)
       {
-        v25 = [v63 objectAtIndexedSubscript:?];
+        v25 = [v62 objectAtIndexedSubscript:?];
         v26 = [v25 objectAtIndexedSubscript:a6];
 
-        v68 = v26;
+        v67 = v26;
       }
 
       v27 = MEMORY[0x277CCABB0];
-      v28 = [v68 unsignedLongLongValue];
-      v29 = [v67 objectAtIndexedSubscript:v24 + *(a9 + 12)];
+      v28 = [v67 unsignedLongLongValue];
+      v29 = [v66 objectAtIndexedSubscript:v24 + *(a9 + 12)];
       v30 = [v27 numberWithUnsignedLongLong:{objc_msgSend(v29, "unsignedLongLongValue") + v28}];
-      [v67 setObject:v30 atIndexedSubscript:v24 + *(a9 + 12)];
+      [v66 setObject:v30 atIndexedSubscript:v24 + *(a9 + 12)];
 
-      [v67 setObject:v68 atIndexedSubscript:v24 + *(a9 + 4 * v62)];
-      if (v64 & 1) != 0 && ((*(*a10 + ((v24 >> 3) & 0x1FFFFFFFFFFFFFF8)) >> v24))
+      [v66 setObject:v67 atIndexedSubscript:v24 + *(a9 + 4 * v61)];
+      if (v63 & 1) != 0 && ((*(*a10 + ((v24 >> 3) & 0x1FFFFFFFFFFFFFF8)) >> v24))
       {
         break;
       }
@@ -736,8 +730,8 @@ LABEL_45:
       ++v24;
     }
 
-    v31 = [v68 unsignedLongLongValue];
-    v32 = [v66 objectAtIndexedSubscript:1];
+    v31 = [v67 unsignedLongLongValue];
+    v32 = [v65 objectAtIndexedSubscript:1];
     v33 = [v32 unsignedLongLongValue];
 
     if (v33 <= 1)
@@ -752,46 +746,46 @@ LABEL_45:
 
     v35 = v31 * 100.0 / v34;
     v36 = [MEMORY[0x277CCABB0] numberWithDouble:v35];
-    [v67 setObject:v36 atIndexedSubscript:v61 + (*(a9 + 4 * v62) + v56)];
+    [v66 setObject:v36 atIndexedSubscript:v60 + (*(a9 + 4 * v61) + v55)];
 
-    v37 = [v59 count];
+    v37 = [v58 count];
     if (a6 || v37 < 2)
     {
-      if ([v59 count] != 1)
+      if ([v58 count] != 1)
       {
 LABEL_44:
-        ++v61;
+        ++v60;
         goto LABEL_45;
       }
 
       v51 = [MEMORY[0x277CCABB0] numberWithDouble:v35];
-      [v67 setObject:v51 atIndexedSubscript:v61 + (*(a9 + 12) + v56)];
+      [v66 setObject:v51 atIndexedSubscript:v60 + (*(a9 + 12) + v55)];
 LABEL_43:
 
       goto LABEL_44;
     }
 
-    v72 = 0u;
-    v73 = 0u;
-    v70 = 0u;
     v71 = 0u;
-    obj = v59;
-    v38 = [obj countByEnumeratingWithState:&v70 objects:v74 count:16];
+    v72 = 0u;
+    v69 = 0u;
+    v70 = 0u;
+    obj = v58;
+    v38 = [obj countByEnumeratingWithState:&v69 objects:v73 count:16];
     if (v38)
     {
       v39 = 0;
       v40 = 0;
-      v41 = *v71;
+      v41 = *v70;
       do
       {
         for (i = 0; i != v38; ++i)
         {
-          if (*v71 != v41)
+          if (*v70 != v41)
           {
             objc_enumerationMutation(obj);
           }
 
-          v43 = *(*(&v70 + 1) + 8 * i);
+          v43 = *(*(&v69 + 1) + 8 * i);
           v44 = [v43 objectAtIndexedSubscript:v24];
           v45 = [v44 objectAtIndexedSubscript:0];
           v46 = [v45 unsignedLongLongValue];
@@ -804,7 +798,7 @@ LABEL_43:
           v39 += v49;
         }
 
-        v38 = [obj countByEnumeratingWithState:&v70 objects:v74 count:16];
+        v38 = [obj countByEnumeratingWithState:&v69 objects:v73 count:16];
       }
 
       while (v38);
@@ -825,58 +819,56 @@ LABEL_43:
     v39 = 1;
 LABEL_42:
     v51 = [MEMORY[0x277CCABB0] numberWithDouble:v50 / v39];
-    [v67 setObject:v51 atIndexedSubscript:v61 + (*(a9 + 12) + v56)];
+    [v66 setObject:v51 atIndexedSubscript:v60 + (*(a9 + 12) + v55)];
     goto LABEL_43;
   }
 
 LABEL_46:
-
-  v52 = *MEMORY[0x277D85DE8];
 }
 
 id DYDerivedCounterInfo::_ProcessSplitEncoderDerivedCounterDataFromDevice(void *a1, void *a2, void *a3)
 {
-  v84 = *MEMORY[0x277D85DE8];
+  v83 = *MEMORY[0x277D85DE8];
   v5 = a1;
-  v50 = a2;
-  v49 = v5;
-  v51 = [v5 objectForKeyedSubscript:*MEMORY[0x277D0B4E0]];
-  if (!v51)
+  v49 = a2;
+  v48 = v5;
+  v50 = [v5 objectForKeyedSubscript:*MEMORY[0x277D0B4E0]];
+  if (!v50)
   {
     v14 = 0;
     goto LABEL_16;
   }
 
-  v48 = objc_opt_new();
+  v47 = objc_opt_new();
   v6 = *MEMORY[0x277D0B0D0];
-  v7 = [v51 objectForKeyedSubscript:*MEMORY[0x277D0B0D0]];
+  v7 = [v50 objectForKeyedSubscript:*MEMORY[0x277D0B0D0]];
   v8 = v7;
   if (v7)
   {
     [v7 count];
-    v46 = v6;
+    v45 = v6;
+    v74 = 0u;
     v75 = 0u;
     v76 = 0u;
     v77 = 0u;
-    v78 = 0u;
     v8 = v8;
-    v9 = [v8 countByEnumeratingWithState:&v75 objects:v83 count:16];
+    v9 = [v8 countByEnumeratingWithState:&v74 objects:v82 count:16];
     if (v9)
     {
       v10 = 0;
-      v11 = *v76;
+      v11 = *v75;
 LABEL_5:
       v12 = 0;
       v13 = -v10;
       v10 += v9;
       while (1)
       {
-        if (*v76 != v11)
+        if (*v75 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        if ([*(*(&v75 + 1) + 8 * v12) isEqualToString:@"MTLStatDataMaster"])
+        if ([*(*(&v74 + 1) + 8 * v12) isEqualToString:@"MTLStatDataMaster"])
         {
           break;
         }
@@ -885,7 +877,7 @@ LABEL_5:
         --v13;
         if (v9 == v12)
         {
-          v9 = [v8 countByEnumeratingWithState:&v75 objects:v83 count:16];
+          v9 = [v8 countByEnumeratingWithState:&v74 objects:v82 count:16];
           if (v9)
           {
             goto LABEL_5;
@@ -900,152 +892,152 @@ LABEL_5:
         goto LABEL_14;
       }
 
-      v17 = [v8 arrayByAddingObjectsFromArray:v50];
+      v16 = [v8 arrayByAddingObjectsFromArray:v49];
 
-      v19 = v55 = [v17 count];
-      v83[0] = 0;
-      v83[1] = v55;
-      v83[2] = 2 * v55;
-      v83[3] = 3 * v55;
-      v36 = *MEMORY[0x277D0B030];
-      v40 = [v51 objectForKeyedSubscript:?];
-      v41 = objc_opt_new();
-      v73 = 0u;
-      v74 = 0u;
-      v71 = 0u;
+      v18 = v54 = [v16 count];
+      v82[0] = 0;
+      v82[1] = v54;
+      v82[2] = 2 * v54;
+      v82[3] = 3 * v54;
+      v35 = *MEMORY[0x277D0B030];
+      v39 = [v50 objectForKeyedSubscript:?];
+      v40 = objc_opt_new();
       v72 = 0u;
-      v20 = v40;
-      v39 = v20;
-      v37 = [v20 countByEnumeratingWithState:&v71 objects:v82 count:16];
-      if (v37)
+      v73 = 0u;
+      v70 = 0u;
+      v71 = 0u;
+      v19 = v39;
+      v38 = v19;
+      v36 = [v19 countByEnumeratingWithState:&v70 objects:v81 count:16];
+      if (v36)
       {
-        v21 = -v13;
-        v38 = *v72;
+        v20 = -v13;
+        v37 = *v71;
         do
         {
-          for (i = 0; i != v37; ++i)
+          for (i = 0; i != v36; ++i)
           {
-            if (*v72 != v38)
+            if (*v71 != v37)
             {
-              objc_enumerationMutation(v20);
+              objc_enumerationMutation(v19);
             }
 
-            v22 = *(*(&v71 + 1) + 8 * i);
-            v45 = objc_opt_new();
-            v69 = 0u;
-            v70 = 0u;
-            v67 = 0u;
+            v21 = *(*(&v70 + 1) + 8 * i);
+            v44 = objc_opt_new();
             v68 = 0u;
-            obj = v22;
-            v23 = [obj countByEnumeratingWithState:&v67 objects:v81 count:16];
-            if (v23)
+            v69 = 0u;
+            v66 = 0u;
+            v67 = 0u;
+            obj = v21;
+            v22 = [obj countByEnumeratingWithState:&v66 objects:v80 count:16];
+            if (v22)
             {
-              v44 = *v68;
+              v43 = *v67;
               do
               {
-                v47 = 0;
-                v53 = v23;
+                v46 = 0;
+                v52 = v22;
                 do
                 {
-                  if (*v68 != v44)
+                  if (*v67 != v43)
                   {
                     objc_enumerationMutation(obj);
                   }
 
-                  v24 = *(*(&v67 + 1) + 8 * v47);
-                  v56 = objc_opt_new();
-                  v65 = 0u;
-                  v66 = 0u;
-                  v63 = 0u;
+                  v23 = *(*(&v66 + 1) + 8 * v46);
+                  v55 = objc_opt_new();
                   v64 = 0u;
-                  v52 = v24;
-                  v25 = [v52 countByEnumeratingWithState:&v63 objects:v80 count:16];
-                  if (v25)
+                  v65 = 0u;
+                  v62 = 0u;
+                  v63 = 0u;
+                  v51 = v23;
+                  v24 = [v51 countByEnumeratingWithState:&v62 objects:v79 count:16];
+                  if (v24)
                   {
-                    v54 = *v64;
+                    v53 = *v63;
                     do
                     {
-                      v26 = 0;
-                      v57 = v25;
+                      v25 = 0;
+                      v56 = v24;
                       do
                       {
-                        if (*v64 != v54)
+                        if (*v63 != v53)
                         {
-                          objc_enumerationMutation(v52);
+                          objc_enumerationMutation(v51);
                         }
 
-                        v58 = v26;
-                        v28 = v27 = *(*(&v63 + 1) + 8 * v26);
-                        v61 = 0u;
-                        v62 = 0u;
-                        v59 = 0u;
+                        v57 = v25;
+                        v27 = v26 = *(*(&v62 + 1) + 8 * v25);
                         v60 = 0u;
-                        v29 = v27;
-                        v30 = [v29 countByEnumeratingWithState:&v59 objects:v79 count:16];
-                        if (v30)
+                        v61 = 0u;
+                        v58 = 0u;
+                        v59 = 0u;
+                        v28 = v26;
+                        v29 = [v28 countByEnumeratingWithState:&v58 objects:v78 count:16];
+                        if (v29)
                         {
-                          v31 = *v60;
+                          v30 = *v59;
                           do
                           {
-                            for (j = 0; j != v30; ++j)
+                            for (j = 0; j != v29; ++j)
                             {
-                              if (*v60 != v31)
+                              if (*v59 != v30)
                               {
-                                objc_enumerationMutation(v29);
+                                objc_enumerationMutation(v28);
                               }
 
-                              DYDerivedCounterInfo::_ProcessKickCounters(v28, v21, 0xFFFFFFFFLL, 0, 0, 0, *(*(&v59 + 1) + 8 * j), v29, v83, a3, v17, v19);
+                              DYDerivedCounterInfo::_ProcessKickCounters(v27, v20, 0xFFFFFFFFLL, 0, 0, 0, *(*(&v58 + 1) + 8 * j), v28, v82, a3, v16, v18);
                             }
 
-                            v30 = [v29 countByEnumeratingWithState:&v59 objects:v79 count:16];
+                            v29 = [v28 countByEnumeratingWithState:&v58 objects:v78 count:16];
                           }
 
-                          while (v30);
+                          while (v29);
                         }
 
-                        v23 = v53;
-                        [v56 addObject:v28];
+                        v22 = v52;
+                        [v55 addObject:v27];
 
-                        v26 = v58 + 1;
+                        v25 = v57 + 1;
                       }
 
-                      while (v58 + 1 != v57);
-                      v25 = [v52 countByEnumeratingWithState:&v63 objects:v80 count:16];
+                      while (v57 + 1 != v56);
+                      v24 = [v51 countByEnumeratingWithState:&v62 objects:v79 count:16];
                     }
 
-                    while (v25);
+                    while (v24);
                   }
 
-                  [v45 addObject:v56];
-                  ++v47;
+                  [v44 addObject:v55];
+                  ++v46;
                 }
 
-                while (v47 != v23);
-                v23 = [obj countByEnumeratingWithState:&v67 objects:v81 count:16];
+                while (v46 != v22);
+                v22 = [obj countByEnumeratingWithState:&v66 objects:v80 count:16];
               }
 
-              while (v23);
+              while (v22);
             }
 
-            [v41 addObject:v45];
-            v20 = v39;
+            [v40 addObject:v44];
+            v19 = v38;
           }
 
-          v37 = [v39 countByEnumeratingWithState:&v71 objects:v82 count:16];
+          v36 = [v38 countByEnumeratingWithState:&v70 objects:v81 count:16];
         }
 
-        while (v37);
+        while (v36);
       }
 
-      [v48 setObject:v19 forKeyedSubscript:v46];
-      [v48 setObject:v41 forKeyedSubscript:v36];
-      v33 = *MEMORY[0x277D0B0C8];
-      v34 = [v51 objectForKeyedSubscript:*MEMORY[0x277D0B0C8]];
-      v35 = [v34 copy];
-      [v48 setObject:v35 forKeyedSubscript:v33];
+      [v47 setObject:v18 forKeyedSubscript:v45];
+      [v47 setObject:v40 forKeyedSubscript:v35];
+      v32 = *MEMORY[0x277D0B0C8];
+      v33 = [v50 objectForKeyedSubscript:*MEMORY[0x277D0B0C8]];
+      v34 = [v33 copy];
+      [v47 setObject:v34 forKeyedSubscript:v32];
 
-      v14 = v48;
-      v8 = v17;
+      v14 = v47;
+      v8 = v16;
       goto LABEL_15;
     }
 
@@ -1057,46 +1049,45 @@ LABEL_14:
 LABEL_15:
 
 LABEL_16:
-  v15 = *MEMORY[0x277D85DE8];
 
   return v14;
 }
 
 id anonymous namespace::AddSuffixToCounters(_anonymous_namespace_ *this, NSArray *a2)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v2 = this;
   v3 = objc_opt_new();
   v4 = 0;
-  v17[0] = @"_vtx";
-  v17[1] = @"_frg";
-  v17[2] = @"_cmp";
-  v17[3] = &stru_2868EDC68;
+  v16[0] = @"_vtx";
+  v16[1] = @"_frg";
+  v16[2] = @"_cmp";
+  v16[3] = &stru_2868EDC68;
   do
   {
-    v15 = 0u;
-    v16 = 0u;
-    v13 = 0u;
     v14 = 0u;
+    v15 = 0u;
+    v12 = 0u;
+    v13 = 0u;
     v5 = v2;
-    v6 = [(_anonymous_namespace_ *)v5 countByEnumeratingWithState:&v13 objects:v18 count:16];
+    v6 = [(_anonymous_namespace_ *)v5 countByEnumeratingWithState:&v12 objects:v17 count:16];
     if (v6)
     {
-      v7 = *v14;
+      v7 = *v13;
       do
       {
         for (i = 0; i != v6; ++i)
         {
-          if (*v14 != v7)
+          if (*v13 != v7)
           {
             objc_enumerationMutation(v5);
           }
 
-          v9 = [*(*(&v13 + 1) + 8 * i) stringByAppendingString:v17[v4]];
+          v9 = [*(*(&v12 + 1) + 8 * i) stringByAppendingString:v16[v4]];
           [v3 addObject:v9];
         }
 
-        v6 = [(_anonymous_namespace_ *)v5 countByEnumeratingWithState:&v13 objects:v18 count:16];
+        v6 = [(_anonymous_namespace_ *)v5 countByEnumeratingWithState:&v12 objects:v17 count:16];
       }
 
       while (v6);
@@ -1109,8 +1100,6 @@ id anonymous namespace::AddSuffixToCounters(_anonymous_namespace_ *this, NSArray
   for (j = 3; j != -1; --j)
   {
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
@@ -1135,49 +1124,49 @@ id anonymous namespace::CreateCounterSpaceForSuffixes(_anonymous_namespace_ *thi
 
 id DYDerivedCounterInfo::ProcessDerivedCounterDataFromDevice(DYDerivedCounterInfo *this, NSDictionary *a2, NSDictionary *a3, NSArray *a4)
 {
-  v110 = *MEMORY[0x277D85DE8];
+  v109 = *MEMORY[0x277D85DE8];
   v6 = this;
-  v72 = a2;
-  v86 = a3;
+  v71 = a2;
+  v85 = a3;
   if (v6)
   {
-    v69 = objc_opt_new();
-    v65 = *MEMORY[0x277D0B0D0];
+    v68 = objc_opt_new();
+    v64 = *MEMORY[0x277D0B0D0];
     v7 = [(DYDerivedCounterInfo *)v6 objectForKeyedSubscript:?];
-    v84 = [(NSDictionary *)v72 objectForKeyedSubscript:*MEMORY[0x277D0B390]];
+    v83 = [(NSDictionary *)v71 objectForKeyedSubscript:*MEMORY[0x277D0B390]];
     if (v7)
     {
       [v7 count];
-      v83 = objc_opt_new();
-      if (v84)
+      v82 = objc_opt_new();
+      if (v83)
       {
-        v99 = 0u;
-        v100 = 0u;
-        v97 = 0u;
         v98 = 0u;
+        v99 = 0u;
+        v96 = 0u;
+        v97 = 0u;
         v8 = v7;
-        v9 = [v8 countByEnumeratingWithState:&v97 objects:v109 count:16];
+        v9 = [v8 countByEnumeratingWithState:&v96 objects:v108 count:16];
         if (v9)
         {
-          v10 = *v98;
+          v10 = *v97;
           do
           {
             for (i = 0; i != v9; ++i)
             {
-              if (*v98 != v10)
+              if (*v97 != v10)
               {
                 objc_enumerationMutation(v8);
               }
 
-              v12 = *(*(&v97 + 1) + 8 * i);
-              if ([v84 containsObject:v12])
+              v12 = *(*(&v96 + 1) + 8 * i);
+              if ([v83 containsObject:v12])
               {
                 v13 = [v12 stringByAppendingString:@"_norm"];
-                [v83 addObject:v13];
+                [v82 addObject:v13];
               }
             }
 
-            v9 = [v8 countByEnumeratingWithState:&v97 objects:v109 count:16];
+            v9 = [v8 countByEnumeratingWithState:&v96 objects:v108 count:16];
           }
 
           while (v9);
@@ -1185,29 +1174,29 @@ id DYDerivedCounterInfo::ProcessDerivedCounterDataFromDevice(DYDerivedCounterInf
       }
 
       memset(__p, 0, sizeof(__p));
+      v91 = 0u;
       v92 = 0u;
       v93 = 0u;
       v94 = 0u;
-      v95 = 0u;
       v14 = v7;
-      v15 = [v14 countByEnumeratingWithState:&v92 objects:v108 count:16];
+      v15 = [v14 countByEnumeratingWithState:&v91 objects:v107 count:16];
       if (v15)
       {
-        v16 = *v93;
+        v16 = *v92;
         do
         {
           for (j = 0; j != v15; ++j)
           {
-            if (*v93 != v16)
+            if (*v92 != v16)
             {
               objc_enumerationMutation(v14);
             }
 
-            LOBYTE(v101) = [v84 containsObject:*(*(&v92 + 1) + 8 * j)];
-            std::vector<BOOL>::push_back(__p, &v101);
+            LOBYTE(v100) = [v83 containsObject:*(*(&v91 + 1) + 8 * j)];
+            std::vector<BOOL>::push_back(__p, &v100);
           }
 
-          v15 = [v14 countByEnumeratingWithState:&v92 objects:v108 count:16];
+          v15 = [v14 countByEnumeratingWithState:&v91 objects:v107 count:16];
         }
 
         while (v15);
@@ -1216,21 +1205,21 @@ id DYDerivedCounterInfo::ProcessDerivedCounterDataFromDevice(DYDerivedCounterInf
       v18 = [MEMORY[0x277CBEB98] setWithObjects:{@"MTLStatDataMaster", @"MTLStat_nSec", 0}];
       v19 = v14;
       v20 = objc_opt_new();
-      v101 = MEMORY[0x277D85DD0];
-      v102 = 3221225472;
-      v103 = ___ZN12_GLOBAL__N_128CounterIndicesFromCounterSetEP5NSSetP7NSArray_block_invoke;
-      v104 = &unk_27984EBF0;
+      v100 = MEMORY[0x277D85DD0];
+      v101 = 3221225472;
+      v102 = ___ZN12_GLOBAL__N_128CounterIndicesFromCounterSetEP5NSSetP7NSArray_block_invoke;
+      v103 = &unk_27984EBF0;
       v21 = v18;
-      v105 = v21;
+      v104 = v21;
       v22 = v20;
-      v106 = v22;
-      [v19 enumerateObjectsUsingBlock:&v101];
-      v23 = v106;
-      v71 = v22;
+      v105 = v22;
+      [v19 enumerateObjectsUsingBlock:&v100];
+      v23 = v105;
+      v70 = v22;
 
-      v24 = [v71 objectForKeyedSubscript:@"MTLStatDataMaster"];
+      v24 = [v70 objectForKeyedSubscript:@"MTLStatDataMaster"];
 
-      v27 = [v71 objectForKeyedSubscript:@"MTLStat_nSec"];
+      v27 = [v70 objectForKeyedSubscript:@"MTLStat_nSec"];
 
       v7 = 0;
       if (v26 == -1 || v29 == -1)
@@ -1240,72 +1229,72 @@ id DYDerivedCounterInfo::ProcessDerivedCounterDataFromDevice(DYDerivedCounterInf
 
       else
       {
-        v30 = [v19 arrayByAddingObjectsFromArray:v83];
+        v30 = [v19 arrayByAddingObjectsFromArray:v82];
 
-        v85 = v74 = [v30 count];
-        LODWORD(v101) = 0;
-        HIDWORD(v101) = v74;
-        LODWORD(v102) = 2 * v74;
-        HIDWORD(v102) = 3 * v74;
-        v64 = *MEMORY[0x277D0B030];
-        v87 = v30;
-        v68 = [(DYDerivedCounterInfo *)v6 objectForKeyedSubscript:?];
-        v66 = objc_opt_new();
-        v70 = [(NSDictionary *)v72 objectForKeyedSubscript:@"perCommandBufferEncoderCount"];
-        v76 = [(NSDictionary *)v72 objectForKeyedSubscript:@"activePerEncoderDrawCallCount"];
-        v77 = [(NSDictionary *)v72 objectForKeyedSubscript:@"perEncoderKickCount"];
+        v84 = v73 = [v30 count];
+        LODWORD(v100) = 0;
+        HIDWORD(v100) = v73;
+        LODWORD(v101) = 2 * v73;
+        HIDWORD(v101) = 3 * v73;
+        v63 = *MEMORY[0x277D0B030];
+        v86 = v30;
+        v67 = [(DYDerivedCounterInfo *)v6 objectForKeyedSubscript:?];
+        v65 = objc_opt_new();
+        v69 = [(NSDictionary *)v71 objectForKeyedSubscript:@"perCommandBufferEncoderCount"];
+        v75 = [(NSDictionary *)v71 objectForKeyedSubscript:@"activePerEncoderDrawCallCount"];
+        v76 = [(NSDictionary *)v71 objectForKeyedSubscript:@"perEncoderKickCount"];
         v32 = 0;
         v33 = 0;
-        v67 = 0;
+        v66 = 0;
         v34 = v26;
         v35 = v29;
         while (1)
         {
           v36 = v32;
-          if ([v70 count] <= v32)
+          if ([v69 count] <= v32)
           {
-            [v69 setObject:v85 forKeyedSubscript:v65];
-            [v69 setObject:v66 forKeyedSubscript:v64];
-            v53 = *MEMORY[0x277D0B0C8];
-            v54 = [(DYDerivedCounterInfo *)v6 objectForKeyedSubscript:*MEMORY[0x277D0B0C8]];
-            v55 = [v54 copy];
-            [v69 setObject:v55 forKeyedSubscript:v53];
+            [v68 setObject:v84 forKeyedSubscript:v64];
+            [v68 setObject:v65 forKeyedSubscript:v63];
+            v52 = *MEMORY[0x277D0B0C8];
+            v53 = [(DYDerivedCounterInfo *)v6 objectForKeyedSubscript:*MEMORY[0x277D0B0C8]];
+            v54 = [v53 copy];
+            [v68 setObject:v54 forKeyedSubscript:v52];
 
-            v56 = *MEMORY[0x277D0B038];
-            v57 = [(DYDerivedCounterInfo *)v6 objectForKeyedSubscript:*MEMORY[0x277D0B038]];
-            LOBYTE(v54) = v57 == 0;
+            v55 = *MEMORY[0x277D0B038];
+            v56 = [(DYDerivedCounterInfo *)v6 objectForKeyedSubscript:*MEMORY[0x277D0B038]];
+            LOBYTE(v53) = v56 == 0;
 
-            if ((v54 & 1) == 0)
+            if ((v53 & 1) == 0)
             {
-              v58 = [(DYDerivedCounterInfo *)v6 objectForKeyedSubscript:v56];
-              v59 = [v58 copy];
-              [v69 setObject:v59 forKeyedSubscript:v56];
+              v57 = [(DYDerivedCounterInfo *)v6 objectForKeyedSubscript:v55];
+              v58 = [v57 copy];
+              [v68 setObject:v58 forKeyedSubscript:v55];
 
-              v60 = *MEMORY[0x277D0B220];
-              v61 = [(DYDerivedCounterInfo *)v6 objectForKeyedSubscript:*MEMORY[0x277D0B220]];
-              LOBYTE(v58) = v61 == 0;
+              v59 = *MEMORY[0x277D0B220];
+              v60 = [(DYDerivedCounterInfo *)v6 objectForKeyedSubscript:*MEMORY[0x277D0B220]];
+              LOBYTE(v57) = v60 == 0;
 
-              if ((v58 & 1) == 0)
+              if ((v57 & 1) == 0)
               {
-                v62 = [(DYDerivedCounterInfo *)v6 objectForKeyedSubscript:v60];
-                v63 = [v62 copy];
-                [v69 setObject:v63 forKeyedSubscript:v60];
+                v61 = [(DYDerivedCounterInfo *)v6 objectForKeyedSubscript:v59];
+                v62 = [v61 copy];
+                [v68 setObject:v62 forKeyedSubscript:v59];
               }
             }
 
-            v50 = DYDerivedCounterInfo::_ProcessSplitEncoderDerivedCounterDataFromDevice(v6, v83, __p);
+            v50 = DYDerivedCounterInfo::_ProcessSplitEncoderDerivedCounterDataFromDevice(v6, v82, __p);
             if (v50)
             {
-              [v69 setObject:v50 forKeyedSubscript:*MEMORY[0x277D0B4E0]];
+              [v68 setObject:v50 forKeyedSubscript:*MEMORY[0x277D0B4E0]];
             }
 
-            v7 = v69;
+            v7 = v68;
 LABEL_46:
 
             goto LABEL_47;
           }
 
-          v37 = [v70 objectAtIndexedSubscript:v32];
+          v37 = [v69 objectAtIndexedSubscript:v32];
           v38 = [v37 unsignedIntValue];
 
           if (v38)
@@ -1317,36 +1306,36 @@ LABEL_42:
           v32 = v36 + 1;
         }
 
-        if ([v68 count] > v67)
+        if ([v67 count] > v66)
         {
-          v80 = [v68 objectAtIndexedSubscript:?];
-          v79 = objc_opt_new();
-          v81 = 0;
-          v78 = v33 + v38;
-          v73 = 1;
-          v75 = v36;
+          v79 = [v67 objectAtIndexedSubscript:?];
+          v78 = objc_opt_new();
+          v80 = 0;
+          v77 = v33 + v38;
+          v72 = 1;
+          v74 = v36;
           while (1)
           {
             v39 = v33;
-            v40 = [v77 objectAtIndexedSubscript:v33];
+            v40 = [v76 objectAtIndexedSubscript:v33];
             v41 = [v40 unsignedIntValue];
 
-            v42 = [v76 objectAtIndexedSubscript:v39];
+            v42 = [v75 objectAtIndexedSubscript:v39];
             LODWORD(v40) = [v42 unsignedIntValue];
 
             if (v40 || v41 != 1)
             {
-              if ([v80 count] <= v81)
+              if ([v79 count] <= v80)
               {
 
                 v7 = 0;
-                v50 = v80;
+                v50 = v79;
                 goto LABEL_46;
               }
 
-              v43 = [v80 objectAtIndexedSubscript:?];
-              v73 = 0;
-              ++v81;
+              v43 = [v79 objectAtIndexedSubscript:?];
+              v72 = 0;
+              ++v80;
             }
 
             else
@@ -1354,47 +1343,47 @@ LABEL_42:
               v43 = objc_opt_new();
             }
 
-            v44 = v82 = objc_opt_new();
-            v90 = 0u;
-            v91 = 0u;
-            v88 = 0u;
+            v44 = v81 = objc_opt_new();
             v89 = 0u;
+            v90 = 0u;
+            v87 = 0u;
+            v88 = 0u;
             v45 = v43;
-            v46 = [v45 countByEnumeratingWithState:&v88 objects:v107 count:16];
+            v46 = [v45 countByEnumeratingWithState:&v87 objects:v106 count:16];
             if (v46)
             {
               v47 = 0;
-              v48 = *v89;
+              v48 = *v88;
               do
               {
                 for (k = 0; k != v46; ++k)
                 {
-                  if (*v89 != v48)
+                  if (*v88 != v48)
                   {
                     objc_enumerationMutation(v45);
                   }
 
-                  DYDerivedCounterInfo::_ProcessKickCounters(v44, v34, v35, v86, v39, v47++, *(*(&v88 + 1) + 8 * k), v45, &v101, __p, v87, v85);
+                  DYDerivedCounterInfo::_ProcessKickCounters(v44, v34, v35, v85, v39, v47++, *(*(&v87 + 1) + 8 * k), v45, &v100, __p, v86, v84);
                 }
 
-                v46 = [v45 countByEnumeratingWithState:&v88 objects:v107 count:16];
+                v46 = [v45 countByEnumeratingWithState:&v87 objects:v106 count:16];
               }
 
               while (v46);
             }
 
-            v30 = v87;
-            v36 = v75;
-            [v82 addObject:v44];
-            [v79 addObject:v82];
+            v30 = v86;
+            v36 = v74;
+            [v81 addObject:v44];
+            [v78 addObject:v81];
 
             v33 = v39 + 1;
-            if (v39 + 1 == v78)
+            if (v39 + 1 == v77)
             {
-              [v66 addObject:v79];
+              [v65 addObject:v78];
 
-              v67 += (v73 & 1) == 0;
-              v33 = v78;
+              v66 += (v72 & 1) == 0;
+              v33 = v77;
               goto LABEL_42;
             }
           }
@@ -1416,8 +1405,6 @@ LABEL_47:
     v7 = 0;
   }
 
-  v51 = *MEMORY[0x277D85DE8];
-
   return v7;
 }
 
@@ -1431,9 +1418,8 @@ void sub_257A9463C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-uint64_t std::vector<BOOL>::push_back(uint64_t result, _BYTE *a2)
+void std::vector<BOOL>::push_back(uint64_t result, _BYTE *a2)
 {
-  v3 = result;
   v4 = *(result + 8);
   v5 = *(result + 16);
   if (v4 == v5 << 6)
@@ -1459,26 +1445,25 @@ uint64_t std::vector<BOOL>::push_back(uint64_t result, _BYTE *a2)
       v7 = 0x7FFFFFFFFFFFFFFFLL;
     }
 
-    result = std::vector<BOOL>::reserve(result, v7);
-    v4 = v3[1];
+    std::vector<BOOL>::reserve(result, v7);
+    v4 = *(result + 8);
   }
 
-  v3[1] = v4 + 1;
-  v8 = *v3;
+  *(result + 8) = v4 + 1;
+  v8 = *result;
   v9 = v4 >> 6;
   v10 = 1 << v4;
   if (*a2 == 1)
   {
-    v11 = *(v8 + 8 * v9) | v10;
+    v11 = *&v8[8 * v9] | v10;
   }
 
   else
   {
-    v11 = *(v8 + 8 * v9) & ~v10;
+    v11 = *&v8[8 * v9] & ~v10;
   }
 
-  *(v8 + 8 * v9) = v11;
-  return result;
+  *&v8[8 * v9] = v11;
 }
 
 uint64_t anonymous namespace::CounterIndex(_anonymous_namespace_ *this, NSNumber *a2)
@@ -1500,88 +1485,88 @@ uint64_t anonymous namespace::CounterIndex(_anonymous_namespace_ *this, NSNumber
 
 NSDictionary *DYDerivedCounterInfo::WriteToJSONPerDerivedCounterData(DYDerivedCounterInfo *this, NSDictionary *a2, NSString *a3, NSString *a4)
 {
-  v70 = *MEMORY[0x277D85DE8];
+  v69 = *MEMORY[0x277D85DE8];
   v6 = this;
-  v43 = a2;
-  v45 = a3;
-  v44 = v6;
+  v42 = a2;
+  v44 = a3;
+  v43 = v6;
   v7 = [(DYDerivedCounterInfo *)v6 objectForKeyedSubscript:*MEMORY[0x277D0B130]];
   v8 = v7;
-  v42 = v7;
+  v41 = v7;
   if (v7)
   {
-    v39 = [v7 objectForKeyedSubscript:*MEMORY[0x277D0B0D0]];
-    v40 = [v8 objectForKeyedSubscript:*MEMORY[0x277D0B030]];
-    v41 = objc_opt_new();
+    v38 = [v7 objectForKeyedSubscript:*MEMORY[0x277D0B0D0]];
+    v39 = [v8 objectForKeyedSubscript:*MEMORY[0x277D0B030]];
+    v40 = objc_opt_new();
     v9 = objc_opt_new();
-    v65 = 0u;
-    v66 = 0u;
-    v63 = 0u;
     v64 = 0u;
-    v10 = v39;
-    v11 = [v10 countByEnumeratingWithState:&v63 objects:v69 count:16];
+    v65 = 0u;
+    v62 = 0u;
+    v63 = 0u;
+    v10 = v38;
+    v11 = [v10 countByEnumeratingWithState:&v62 objects:v68 count:16];
     if (v11)
     {
-      v12 = *v64;
+      v12 = *v63;
       do
       {
         for (i = 0; i != v11; ++i)
         {
-          if (*v64 != v12)
+          if (*v63 != v12)
           {
             objc_enumerationMutation(v10);
           }
 
-          v14 = *(*(&v63 + 1) + 8 * i);
+          v14 = *(*(&v62 + 1) + 8 * i);
           v15 = objc_opt_new();
           [v9 setObject:v15 forKeyedSubscript:v14];
         }
 
-        v11 = [v10 countByEnumeratingWithState:&v63 objects:v69 count:16];
+        v11 = [v10 countByEnumeratingWithState:&v62 objects:v68 count:16];
       }
 
       while (v11);
     }
 
-    v61 = 0u;
-    v62 = 0u;
-    v59 = 0u;
     v60 = 0u;
-    obj = v40;
-    v49 = [obj countByEnumeratingWithState:&v59 objects:v68 count:16];
-    if (v49)
+    v61 = 0u;
+    v58 = 0u;
+    v59 = 0u;
+    obj = v39;
+    v48 = [obj countByEnumeratingWithState:&v58 objects:v67 count:16];
+    if (v48)
     {
-      v47 = *v60;
+      v46 = *v59;
       do
       {
-        for (j = 0; j != v49; ++j)
+        for (j = 0; j != v48; ++j)
         {
-          if (*v60 != v47)
+          if (*v59 != v46)
           {
             objc_enumerationMutation(obj);
           }
 
-          v16 = *(*(&v59 + 1) + 8 * j);
+          v16 = *(*(&v58 + 1) + 8 * j);
+          v54 = 0u;
           v55 = 0u;
           v56 = 0u;
           v57 = 0u;
-          v58 = 0u;
           v17 = v16;
-          v18 = [v17 countByEnumeratingWithState:&v55 objects:v67 count:16];
+          v18 = [v17 countByEnumeratingWithState:&v54 objects:v66 count:16];
           if (v18)
           {
             v19 = 0;
-            v20 = *v56;
+            v20 = *v55;
             do
             {
               for (k = 0; k != v18; ++k)
               {
-                if (*v56 != v20)
+                if (*v55 != v20)
                 {
                   objc_enumerationMutation(v17);
                 }
 
-                v22 = *(*(&v55 + 1) + 8 * k);
+                v22 = *(*(&v54 + 1) + 8 * k);
                 v23 = [v10 objectAtIndexedSubscript:v19];
                 v24 = [v9 objectForKeyedSubscript:v23];
                 [v24 addObject:v22];
@@ -1589,40 +1574,40 @@ NSDictionary *DYDerivedCounterInfo::WriteToJSONPerDerivedCounterData(DYDerivedCo
                 ++v19;
               }
 
-              v18 = [v17 countByEnumeratingWithState:&v55 objects:v67 count:16];
+              v18 = [v17 countByEnumeratingWithState:&v54 objects:v66 count:16];
             }
 
             while (v18);
           }
         }
 
-        v49 = [obj countByEnumeratingWithState:&v59 objects:v68 count:16];
+        v48 = [obj countByEnumeratingWithState:&v58 objects:v67 count:16];
       }
 
-      while (v49);
+      while (v48);
     }
 
-    if (v45)
+    if (v44)
     {
-      [v41 setObject:v45 forKeyedSubscript:@"MetalPluginName"];
+      [v40 setObject:v44 forKeyedSubscript:@"MetalPluginName"];
     }
 
-    v25 = [(DYDerivedCounterInfo *)v44 objectForKeyedSubscript:@"perEncoderIndexDrawCallCount"];
-    v50 = v25;
+    v25 = [(DYDerivedCounterInfo *)v43 objectForKeyedSubscript:@"perEncoderIndexDrawCallCount"];
+    v49 = v25;
     if (v25)
     {
-      [v41 setObject:v25 forKeyedSubscript:@"perEncoderIndexDrawCallCount"];
+      [v40 setObject:v25 forKeyedSubscript:@"perEncoderIndexDrawCallCount"];
     }
 
-    [v41 setObject:v9 forKeyedSubscript:@"PerCounterDrawCallData"];
-    v54 = 0;
-    v26 = [MEMORY[0x277CCAAA0] dataWithJSONObject:v41 options:1 error:&v54];
-    v52 = v54;
+    [v40 setObject:v9 forKeyedSubscript:@"PerCounterDrawCallData"];
+    v53 = 0;
+    v26 = [MEMORY[0x277CCAAA0] dataWithJSONObject:v40 options:1 error:&v53];
+    v51 = v53;
     if (v26)
     {
-      v38 = v26;
-      v48 = [objc_alloc(MEMORY[0x277CCACA8]) initWithData:v26 encoding:4];
-      v27 = v43;
+      v37 = v26;
+      v47 = [objc_alloc(MEMORY[0x277CCACA8]) initWithData:v26 encoding:4];
+      v27 = v42;
       v28 = [(NSDictionary *)v27 pathExtension];
       v29 = [v28 isEqualToString:@"json"];
 
@@ -1647,12 +1632,12 @@ NSDictionary *DYDerivedCounterInfo::WriteToJSONPerDerivedCounterData(DYDerivedCo
         v27 = m;
       }
 
-      v53 = v52;
-      [v48 writeToFile:v27 atomically:0 encoding:4 error:&v53];
-      v35 = v53;
+      v52 = v51;
+      [v47 writeToFile:v27 atomically:0 encoding:4 error:&v52];
+      v35 = v52;
 
-      v52 = v35;
-      v26 = v38;
+      v51 = v35;
+      v26 = v37;
     }
 
     else
@@ -1666,21 +1651,19 @@ NSDictionary *DYDerivedCounterInfo::WriteToJSONPerDerivedCounterData(DYDerivedCo
     v27 = 0;
   }
 
-  v36 = *MEMORY[0x277D85DE8];
-
   return v27;
 }
 
 id DYDerivedCounterInfo::ComputeDerivedCountersFromData(DYDerivedCounterInfo *this, NSDictionary *a2, NSDictionary *a3)
 {
-  v163 = *MEMORY[0x277D85DE8];
+  v159 = *MEMORY[0x277D85DE8];
   v5 = a2;
-  v102 = a3;
-  v89 = v5;
+  v101 = a3;
+  v88 = v5;
   v6 = objc_opt_new();
   v7 = *MEMORY[0x277D0B030];
-  v90 = v6;
-  v96 = [(NSDictionary *)v5 objectForKeyedSubscript:*MEMORY[0x277D0B030]];
+  v89 = v6;
+  v95 = [(NSDictionary *)v5 objectForKeyedSubscript:*MEMORY[0x277D0B030]];
   v8 = *MEMORY[0x277D0B0D0];
   v9 = [(NSDictionary *)v5 objectForKeyedSubscript:*MEMORY[0x277D0B0D0]];
   if (!v9)
@@ -1689,34 +1672,29 @@ id DYDerivedCounterInfo::ComputeDerivedCountersFromData(DYDerivedCounterInfo *th
     goto LABEL_94;
   }
 
-  v79 = v8;
-  v80 = v7;
-  v152 = 0;
-  v151 = 0;
-  v150 = &v151;
-  v146 = 0u;
-  v147 = 0u;
-  v148 = 0u;
-  v149 = 0u;
-  v81 = v9;
+  v78 = v8;
+  v79 = v7;
+  v148 = 0;
+  v147 = 0;
+  v146 = &v147;
+  memset(v145, 0, sizeof(v145));
+  v80 = v9;
   obj = v9;
-  if ([obj countByEnumeratingWithState:&v146 objects:v162 count:16])
+  if ([obj countByEnumeratingWithState:v145 objects:v158 count:16])
   {
-    *v147;
-    *v147;
-    v119 = [**(&v146 + 1) UTF8String];
+    v118 = [**(&v145[0] + 1) UTF8String];
     __src = 0;
-    std::__tree<std::__value_type<std::string,unsigned long>,std::__map_value_compare<std::string,std::__value_type<std::string,unsigned long>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,unsigned long>>>::__emplace_unique_impl<char const*,unsigned long>();
+    std::__tree<std::__value_type<std::string,unsigned long>,std::__map_value_compare<std::string,std::__value_type<std::string,unsigned long>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,unsigned long>>>::__emplace_unique_impl<char const*,unsigned long>(&v146);
   }
 
-  v144 = 0;
+  v143 = 0;
   __src = 0;
-  v145 = 0;
-  std::vector<unsigned long>::reserve(&__src, v152);
-  v10 = v102;
-  v101 = objc_opt_new();
-  v11 = v150;
-  if (v150 != &v151)
+  v144 = 0;
+  std::vector<unsigned long>::reserve(&__src, v148);
+  v10 = v101;
+  v100 = objc_opt_new();
+  v11 = v146;
+  if (v146 != &v147)
   {
     do
     {
@@ -1727,21 +1705,21 @@ id DYDerivedCounterInfo::ComputeDerivedCountersFromData(DYDerivedCounterInfo *th
       }
 
       v13 = [MEMORY[0x277CCACA8] stringWithUTF8String:v12];
-      [v101 addObject:v13];
-      v14 = v144;
-      if (v144 >= v145)
+      [v100 addObject:v13];
+      v14 = v143;
+      if (v143 >= v144)
       {
         v16 = __src;
-        v17 = v144 - __src;
-        v18 = (v144 - __src) >> 3;
+        v17 = v143 - __src;
+        v18 = (v143 - __src) >> 3;
         v19 = v18 + 1;
         if ((v18 + 1) >> 61)
         {
           std::vector<float>::__throw_length_error[abi:ne200100]();
         }
 
-        v20 = v145 - __src;
-        if ((v145 - __src) >> 2 > v19)
+        v20 = v144 - __src;
+        if ((v144 - __src) >> 2 > v19)
         {
           v19 = v20 >> 2;
         }
@@ -1766,8 +1744,8 @@ id DYDerivedCounterInfo::ComputeDerivedCountersFromData(DYDerivedCounterInfo *th
         memcpy(0, v16, v17);
         v22 = __src;
         __src = 0;
-        v144 = v15;
-        v145 = 0;
+        v143 = v15;
+        v144 = 0;
         if (v22)
         {
           operator delete(v22);
@@ -1776,11 +1754,11 @@ id DYDerivedCounterInfo::ComputeDerivedCountersFromData(DYDerivedCounterInfo *th
 
       else
       {
-        *v144 = v11[7];
+        *v143 = v11[7];
         v15 = v14 + 1;
       }
 
-      v144 = v15;
+      v143 = v15;
 
       v23 = v11[1];
       if (v23)
@@ -1807,157 +1785,157 @@ id DYDerivedCounterInfo::ComputeDerivedCountersFromData(DYDerivedCounterInfo *th
       }
 
       v11 = v24;
-      v10 = v102;
+      v10 = v101;
     }
 
-    while (v24 != &v151);
+    while (v24 != &v147);
   }
 
-  v93 = DYDerivedCounterInfo::DerivedCounterList(this);
-  v91 = [(NSDictionary *)v10 objectForKeyedSubscript:*MEMORY[0x277D0B140]];
-  v82 = DYDerivedCounterInfo::BottleneckFunctions(this);
+  v92 = DYDerivedCounterInfo::DerivedCounterList(this);
+  v90 = [(NSDictionary *)v10 objectForKeyedSubscript:*MEMORY[0x277D0B140]];
+  v81 = DYDerivedCounterInfo::BottleneckFunctions(this);
   v26 = *MEMORY[0x277D0B110];
-  v83 = [(NSDictionary *)v10 objectForKeyedSubscript:*MEMORY[0x277D0B110]];
-  v78 = *MEMORY[0x277D0B120];
-  v92 = [(NSDictionary *)v10 objectForKeyedSubscript:?];
+  v82 = [(NSDictionary *)v10 objectForKeyedSubscript:*MEMORY[0x277D0B110]];
+  v77 = *MEMORY[0x277D0B120];
+  v91 = [(NSDictionary *)v10 objectForKeyedSubscript:?];
+  v98 = objc_opt_new();
   v99 = objc_opt_new();
-  v100 = objc_opt_new();
-  v77 = v26;
-  v141 = 0u;
-  v142 = 0u;
-  v139 = 0u;
+  v76 = v26;
   v140 = 0u;
-  v27 = v96;
-  v28 = [v27 countByEnumeratingWithState:&v139 objects:v161 count:16];
+  v141 = 0u;
+  v138 = 0u;
+  v139 = 0u;
+  v27 = v95;
+  v28 = [v27 countByEnumeratingWithState:&v138 objects:v157 count:16];
   if (v28)
   {
-    v29 = *v140;
+    v29 = *v139;
     do
     {
       for (i = 0; i != v28; ++i)
       {
-        if (*v140 != v29)
+        if (*v139 != v29)
         {
           objc_enumerationMutation(v27);
         }
 
-        v31 = *(*(&v139 + 1) + 8 * i);
+        v31 = *(*(&v138 + 1) + 8 * i);
+        v134 = 0u;
         v135 = 0u;
         v136 = 0u;
         v137 = 0u;
-        v138 = 0u;
         v32 = v31;
-        v33 = [v32 countByEnumeratingWithState:&v135 objects:v160 count:16];
+        v33 = [v32 countByEnumeratingWithState:&v134 objects:v156 count:16];
         if (v33)
         {
-          v34 = *v136;
+          v34 = *v135;
           do
           {
             for (j = 0; j != v33; ++j)
             {
-              if (*v136 != v34)
+              if (*v135 != v34)
               {
                 objc_enumerationMutation(v32);
               }
 
-              [*(*(&v135 + 1) + 8 * j) count];
+              [*(*(&v134 + 1) + 8 * j) count];
             }
 
-            v33 = [v32 countByEnumeratingWithState:&v135 objects:v160 count:16];
+            v33 = [v32 countByEnumeratingWithState:&v134 objects:v156 count:16];
           }
 
           while (v33);
         }
       }
 
-      v28 = [v27 countByEnumeratingWithState:&v139 objects:v161 count:16];
+      v28 = [v27 countByEnumeratingWithState:&v138 objects:v157 count:16];
     }
 
     while (v28);
   }
 
   v36 = objc_opt_new();
-  v133 = 0u;
-  v134 = 0u;
-  v131 = 0u;
   v132 = 0u;
-  v87 = v27;
-  v37 = [v87 countByEnumeratingWithState:&v131 objects:v159 count:16];
+  v133 = 0u;
+  v130 = 0u;
+  v131 = 0u;
+  v86 = v27;
+  v37 = [v86 countByEnumeratingWithState:&v130 objects:v155 count:16];
   if (v37)
   {
-    v94 = *v132;
+    v93 = *v131;
     do
     {
       for (k = 0; k != v37; ++k)
       {
-        if (*v132 != v94)
+        if (*v131 != v93)
         {
-          objc_enumerationMutation(v87);
+          objc_enumerationMutation(v86);
         }
 
-        v38 = *(*(&v131 + 1) + 8 * k);
+        v38 = *(*(&v130 + 1) + 8 * k);
+        v126 = 0u;
         v127 = 0u;
         v128 = 0u;
         v129 = 0u;
-        v130 = 0u;
-        v103 = v38;
-        v39 = [v103 countByEnumeratingWithState:&v127 objects:v158 count:16];
+        v102 = v38;
+        v39 = [v102 countByEnumeratingWithState:&v126 objects:v154 count:16];
         if (v39)
         {
-          v40 = *v128;
+          v40 = *v127;
           do
           {
             for (m = 0; m != v39; ++m)
             {
-              if (*v128 != v40)
+              if (*v127 != v40)
               {
-                objc_enumerationMutation(v103);
+                objc_enumerationMutation(v102);
               }
 
-              v42 = *(*(&v127 + 1) + 8 * m);
+              v42 = *(*(&v126 + 1) + 8 * m);
+              v122 = 0u;
               v123 = 0u;
               v124 = 0u;
               v125 = 0u;
-              v126 = 0u;
               v43 = v42;
-              v44 = [v43 countByEnumeratingWithState:&v123 objects:v157 count:16];
+              v44 = [v43 countByEnumeratingWithState:&v122 objects:v153 count:16];
               if (v44)
               {
-                v45 = *v124;
+                v45 = *v123;
                 do
                 {
                   for (n = 0; n != v44; ++n)
                   {
-                    if (*v124 != v45)
+                    if (*v123 != v45)
                     {
                       objc_enumerationMutation(v43);
                     }
 
-                    [v36 addObject:*(*(&v123 + 1) + 8 * n)];
+                    [v36 addObject:*(*(&v122 + 1) + 8 * n)];
                   }
 
-                  v44 = [v43 countByEnumeratingWithState:&v123 objects:v157 count:16];
+                  v44 = [v43 countByEnumeratingWithState:&v122 objects:v153 count:16];
                 }
 
                 while (v44);
               }
             }
 
-            v39 = [v103 countByEnumeratingWithState:&v127 objects:v158 count:16];
+            v39 = [v102 countByEnumeratingWithState:&v126 objects:v154 count:16];
           }
 
           while (v39);
         }
       }
 
-      v37 = [v87 countByEnumeratingWithState:&v131 objects:v159 count:16];
+      v37 = [v86 countByEnumeratingWithState:&v130 objects:v155 count:16];
     }
 
     while (v37);
   }
 
   v47 = objc_opt_new();
-  v98 = v47;
+  v97 = v47;
   v48 = objc_opt_new();
   v49 = std::thread::hardware_concurrency();
   if (v49 <= 1)
@@ -1970,8 +1948,8 @@ id DYDerivedCounterInfo::ComputeDerivedCountersFromData(DYDerivedCounterInfo *th
     v50 = v49 >> 1;
   }
 
-  v86 = dispatch_get_global_queue(0, 0);
-  v88 = dispatch_group_create();
+  v85 = dispatch_get_global_queue(0, 0);
+  v87 = dispatch_group_create();
   v51 = [v36 count];
   if (v50 <= 1)
   {
@@ -1984,8 +1962,8 @@ id DYDerivedCounterInfo::ComputeDerivedCountersFromData(DYDerivedCounterInfo *th
   }
 
   v53 = v52;
-  v95 = v50;
-  v85 = v51 / v50;
+  v94 = v50;
+  v84 = v51 / v50;
   do
   {
     v54 = objc_opt_new();
@@ -1998,27 +1976,27 @@ id DYDerivedCounterInfo::ComputeDerivedCountersFromData(DYDerivedCounterInfo *th
   }
 
   while (v53);
-  v119 = 0;
-  v120 = &v119;
-  v121 = 0x2020000000;
-  v122 = 0;
-  v104 = objc_opt_new();
-  if ((v120[3] & 1) == 0)
+  v118 = 0;
+  v119 = &v118;
+  v120 = 0x2020000000;
+  v121 = 0;
+  v103 = objc_opt_new();
+  if ((v119[3] & 1) == 0)
   {
     v57 = 0;
     v58 = 1;
-    v84 = v52;
+    v83 = v52;
     while (1)
     {
       v59 = objc_alloc_init(MEMORY[0x277D0AF60]);
-      [v104 addObject:v59];
-      if (([v59 evaluateScriptCode:v91] & 1) == 0)
+      [v103 addObject:v59];
+      if (([v59 evaluateScriptCode:v90] & 1) == 0)
       {
         v56 = 0;
         goto LABEL_90;
       }
 
-      v60 = [v93 objectAtIndexedSubscript:0];
+      v60 = [v92 objectAtIndexedSubscript:0];
       v61 = objc_opt_new();
       v62 = [v59 prepareCounterNames:obj softwareCounterNames:v61 derivedCounterNames:v60];
 
@@ -2027,18 +2005,18 @@ id DYDerivedCounterInfo::ComputeDerivedCountersFromData(DYDerivedCounterInfo *th
         break;
       }
 
-      [v59 exportCounterValues:v92];
+      [v59 exportCounterValues:v91];
       v63 = v57 + 1;
-      if (v95 == v58)
+      if (v94 == v58)
       {
         v64 = [v36 count];
-        v65 = v85;
+        v65 = v84;
       }
 
       else
       {
-        v65 = v85;
-        v64 = v63 * v85;
+        v65 = v84;
+        v64 = v63 * v84;
       }
 
       v66 = v57 * v65;
@@ -2046,35 +2024,35 @@ id DYDerivedCounterInfo::ComputeDerivedCountersFromData(DYDerivedCounterInfo *th
       block[1] = 3321888768;
       block[2] = ___ZN20DYDerivedCounterInfo30ComputeDerivedCountersFromDataEP12NSDictionaryS1__block_invoke;
       block[3] = &unk_2868ED858;
-      v67 = v104;
-      v116 = v58 - 1;
-      v117 = v66;
-      v107 = v67;
-      v112 = &v119;
-      v118 = v64;
-      v108 = v36;
+      v67 = v103;
+      v115 = v58 - 1;
+      v116 = v66;
+      v106 = v67;
+      v111 = &v118;
+      v117 = v64;
+      v107 = v36;
       v68 = v60;
-      v109 = v68;
-      v110 = v98;
+      v108 = v68;
+      v109 = v97;
+      v113 = 0;
       v114 = 0;
-      v115 = 0;
       __p = 0;
-      std::vector<unsigned long>::__init_with_size[abi:ne200100]<unsigned long *,unsigned long *>(&__p, __src, v144, (v144 - __src) >> 3);
-      v111 = v48;
-      dispatch_group_async(v88, v86, block);
+      std::vector<unsigned long>::__init_with_size[abi:ne200100]<unsigned long *,unsigned long *>(&__p, __src, v143, (v143 - __src) >> 3);
+      v110 = v48;
+      dispatch_group_async(v87, v85, block);
 
-      v52 = v84;
-      v47 = v98;
+      v52 = v83;
+      v47 = v97;
       if (__p)
       {
-        v114 = __p;
+        v113 = __p;
         operator delete(__p);
       }
 
-      if ((v120[3] & 1) == 0)
+      if ((v119[3] & 1) == 0)
       {
         v57 = v63;
-        if (v58++ < v95)
+        if (v58++ < v94)
         {
           continue;
         }
@@ -2088,38 +2066,38 @@ id DYDerivedCounterInfo::ComputeDerivedCountersFromData(DYDerivedCounterInfo *th
   }
 
 LABEL_69:
-  dispatch_group_wait(v88, 0xFFFFFFFFFFFFFFFFLL);
-  if ((v120[3] & 1) == 0)
+  dispatch_group_wait(v87, 0xFFFFFFFFFFFFFFFFLL);
+  if ((v119[3] & 1) == 0)
   {
     for (ii = 0; ii != v52; ++ii)
     {
       v71 = [v47 objectAtIndexedSubscript:ii];
-      [v99 addObjectsFromArray:v71];
+      [v98 addObjectsFromArray:v71];
 
       v72 = [v48 objectAtIndexedSubscript:ii];
-      [v100 addObjectsFromArray:v72];
+      [v99 addObjectsFromArray:v72];
     }
 
-    v73 = [v93 objectAtIndexedSubscript:0];
-    v59 = [v73 arrayByAddingObjectsFromArray:v101];
+    v73 = [v92 objectAtIndexedSubscript:0];
+    v59 = [v73 arrayByAddingObjectsFromArray:v100];
 
-    v155[0] = v80;
-    v155[1] = v79;
-    v156[0] = v100;
-    v156[1] = v59;
-    v60 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v156 forKeys:v155 count:2];
-    [v90 setObject:v60 forKeyedSubscript:*MEMORY[0x277D0B130]];
-    [v90 setObject:v92 forKeyedSubscript:v78];
-    v153[0] = v80;
-    v153[1] = v79;
-    v154[0] = v99;
-    v154[1] = v93;
-    v74 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v154 forKeys:v153 count:2];
-    [v90 setObject:v74 forKeyedSubscript:*MEMORY[0x277D0B128]];
+    v151[0] = v79;
+    v151[1] = v78;
+    v152[0] = v99;
+    v152[1] = v59;
+    v60 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v152 forKeys:v151 count:2];
+    [v89 setObject:v60 forKeyedSubscript:*MEMORY[0x277D0B130]];
+    [v89 setObject:v91 forKeyedSubscript:v77];
+    v149[0] = v79;
+    v149[1] = v78;
+    v150[0] = v98;
+    v150[1] = v92;
+    v74 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v150 forKeys:v149 count:2];
+    [v89 setObject:v74 forKeyedSubscript:*MEMORY[0x277D0B128]];
 
-    [v90 setObject:v83 forKeyedSubscript:v77];
-    [v90 setObject:v82 forKeyedSubscript:*MEMORY[0x277D0B118]];
-    v56 = v90;
+    [v89 setObject:v82 forKeyedSubscript:v76];
+    [v89 setObject:v81 forKeyedSubscript:*MEMORY[0x277D0B118]];
+    v56 = v89;
 LABEL_89:
 
 LABEL_90:
@@ -2129,18 +2107,16 @@ LABEL_90:
   v56 = 0;
 LABEL_91:
 
-  _Block_object_dispose(&v119, 8);
+  _Block_object_dispose(&v118, 8);
   if (__src)
   {
-    v144 = __src;
+    v143 = __src;
     operator delete(__src);
   }
 
-  std::__tree<std::__value_type<std::string,unsigned long>,std::__map_value_compare<std::string,std::__value_type<std::string,unsigned long>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,unsigned long>>>::destroy(&v150, v151);
-  v9 = v81;
+  std::__tree<std::__value_type<std::string,unsigned long>,std::__map_value_compare<std::string,std::__value_type<std::string,unsigned long>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,unsigned long>>>::destroy(&v146, v147);
+  v9 = v80;
 LABEL_94:
-
-  v75 = *MEMORY[0x277D85DE8];
 
   return v56;
 }
@@ -2159,20 +2135,17 @@ void sub_257A95BF0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void *std::vector<unsigned long>::reserve(void *result, unint64_t a2)
+void std::vector<unsigned long>::reserve(void *a1, unint64_t a2)
 {
-  if (a2 > (result[2] - *result) >> 3)
+  if (a2 > (a1[2] - *a1) >> 3)
   {
     if (!(a2 >> 61))
     {
-      v2 = result[1] - *result;
-      std::__allocate_at_least[abi:ne200100]<std::allocator<unsigned long long>>(result, a2);
+      std::__allocate_at_least[abi:ne200100]<std::allocator<unsigned long long>>(a1, a2);
     }
 
     std::vector<float>::__throw_length_error[abi:ne200100]();
   }
-
-  return result;
 }
 
 void ___ZN20DYDerivedCounterInfo30ComputeDerivedCountersFromDataEP12NSDictionaryS1__block_invoke(uint64_t a1)
@@ -2245,12 +2218,12 @@ void ___ZN20DYDerivedCounterInfo30ComputeDerivedCountersFromDataEP12NSDictionary
   }
 }
 
-uint64_t __copy_helper_block_ea8_80c39_ZTSNSt3__16vectorImNS_9allocatorImEEEE(uint64_t a1, uint64_t a2)
+uint64_t *__copy_helper_block_ea8_80c39_ZTSNSt3__16vectorImNS_9allocatorImEEEE(uint64_t a1, uint64_t a2)
 {
   *(a1 + 80) = 0;
   *(a1 + 88) = 0;
-  v2 = a1 + 80;
-  *(v2 + 16) = 0;
+  v2 = (a1 + 80);
+  v2[2] = 0;
   return std::vector<unsigned long>::__init_with_size[abi:ne200100]<unsigned long *,unsigned long *>(v2, *(a2 + 80), *(a2 + 88), (*(a2 + 88) - *(a2 + 80)) >> 3);
 }
 
@@ -2286,9 +2259,9 @@ void ___ZN12_GLOBAL__N_128CounterIndicesFromCounterSetEP5NSSetP7NSArray_block_in
   }
 }
 
-uint64_t std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::~__hash_table(uint64_t a1)
+void **std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::~__hash_table(void **a1)
 {
-  std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__deallocate_node(a1, *(a1 + 16));
+  std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__deallocate_node(a1, a1[2]);
   v2 = *a1;
   *a1 = 0;
   if (v2)
@@ -2320,35 +2293,35 @@ void std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::str
   }
 }
 
-const void **std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__emplace_unique_key_args<std::string,std::string>(void *a1, const void **a2)
+const void **std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__emplace_unique_key_args<std::string,std::string>(void *a1, uint64_t *a2, uint64_t a3)
 {
-  v4 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
-  v5 = v4;
-  v6 = a1[1];
-  if (!*&v6)
+  v5 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
+  v6 = v5;
+  v7 = a1[1];
+  if (!*&v7)
   {
     goto LABEL_18;
   }
 
-  v7 = vcnt_s8(v6);
-  v7.i16[0] = vaddlv_u8(v7);
-  v8 = v7.u32[0];
-  if (v7.u32[0] > 1uLL)
+  v8 = vcnt_s8(v7);
+  v8.i16[0] = vaddlv_u8(v8);
+  v9 = v8.u32[0];
+  if (v8.u32[0] > 1uLL)
   {
-    v9 = v4;
-    if (v4 >= *&v6)
+    v10 = v5;
+    if (v5 >= *&v7)
     {
-      v9 = v4 % *&v6;
+      v10 = v5 % *&v7;
     }
   }
 
   else
   {
-    v9 = (*&v6 - 1) & v4;
+    v10 = (*&v7 - 1) & v5;
   }
 
-  v10 = *(*a1 + 8 * v9);
-  if (!v10 || (v11 = *v10) == 0)
+  v11 = *(*a1 + 8 * v10);
+  if (!v11 || (v12 = *v11) == 0)
   {
 LABEL_18:
     operator new();
@@ -2356,49 +2329,49 @@ LABEL_18:
 
   while (1)
   {
-    v12 = v11[1];
-    if (v12 == v5)
+    v13 = v12[1];
+    if (v13 == v6)
     {
       break;
     }
 
-    if (v8 > 1)
+    if (v9 > 1)
     {
-      if (v12 >= *&v6)
+      if (v13 >= *&v7)
       {
-        v12 %= *&v6;
+        v13 %= *&v7;
       }
     }
 
     else
     {
-      v12 &= *&v6 - 1;
+      v13 &= *&v7 - 1;
     }
 
-    if (v12 != v9)
+    if (v13 != v10)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v11 = *v11;
-    if (!v11)
+    v12 = *v12;
+    if (!v12)
     {
       goto LABEL_18;
     }
   }
 
-  if (!std::equal_to<std::string>::operator()[abi:ne200100](a1, v11 + 2, a2))
+  if (!std::equal_to<std::string>::operator()[abi:ne200100](a1, v12 + 2, a2))
   {
     goto LABEL_17;
   }
 
-  return v11;
+  return v12;
 }
 
-unint64_t std::__string_hash<char>::operator()[abi:ne200100](uint64_t a1, uint64_t a2)
+unint64_t std::__string_hash<char>::operator()[abi:ne200100](uint64_t a1, uint64_t *a2)
 {
-  v2 = *(a2 + 8);
+  v2 = a2[1];
   if (*(a2 + 23) >= 0)
   {
     v3 = *(a2 + 23);
@@ -2613,7 +2586,7 @@ void std::__hash_node_destructor<std::allocator<std::__hash_node<std::string,voi
   operator delete(__p);
 }
 
-const void **std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::find<std::string>(void *a1, const void **a2)
+const void **std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::find<std::string>(void *a1, uint64_t *a2)
 {
   v4 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
   v5 = a1[1];
@@ -2682,35 +2655,35 @@ const void **std::__hash_table<std::string,std::hash<std::string>,std::equal_to<
   return i;
 }
 
-const void **std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__emplace_unique_key_args<std::string,std::string const&>(void *a1, const void **a2)
+const void **std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__emplace_unique_key_args<std::string,std::string const&>(void *a1, uint64_t *a2, uint64_t a3)
 {
-  v4 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
-  v5 = v4;
-  v6 = a1[1];
-  if (!*&v6)
+  v5 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
+  v6 = v5;
+  v7 = a1[1];
+  if (!*&v7)
   {
     goto LABEL_18;
   }
 
-  v7 = vcnt_s8(v6);
-  v7.i16[0] = vaddlv_u8(v7);
-  v8 = v7.u32[0];
-  if (v7.u32[0] > 1uLL)
+  v8 = vcnt_s8(v7);
+  v8.i16[0] = vaddlv_u8(v8);
+  v9 = v8.u32[0];
+  if (v8.u32[0] > 1uLL)
   {
-    v9 = v4;
-    if (v4 >= *&v6)
+    v10 = v5;
+    if (v5 >= *&v7)
     {
-      v9 = v4 % *&v6;
+      v10 = v5 % *&v7;
     }
   }
 
   else
   {
-    v9 = (*&v6 - 1) & v4;
+    v10 = (*&v7 - 1) & v5;
   }
 
-  v10 = *(*a1 + 8 * v9);
-  if (!v10 || (v11 = *v10) == 0)
+  v11 = *(*a1 + 8 * v10);
+  if (!v11 || (v12 = *v11) == 0)
   {
 LABEL_18:
     std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__construct_node_hash<std::string const&>();
@@ -2718,44 +2691,44 @@ LABEL_18:
 
   while (1)
   {
-    v12 = v11[1];
-    if (v12 == v5)
+    v13 = v12[1];
+    if (v13 == v6)
     {
       break;
     }
 
-    if (v8 > 1)
+    if (v9 > 1)
     {
-      if (v12 >= *&v6)
+      if (v13 >= *&v7)
       {
-        v12 %= *&v6;
+        v13 %= *&v7;
       }
     }
 
     else
     {
-      v12 &= *&v6 - 1;
+      v13 &= *&v7 - 1;
     }
 
-    if (v12 != v9)
+    if (v13 != v10)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v11 = *v11;
-    if (!v11)
+    v12 = *v12;
+    if (!v12)
     {
       goto LABEL_18;
     }
   }
 
-  if (!std::equal_to<std::string>::operator()[abi:ne200100](a1, v11 + 2, a2))
+  if (!std::equal_to<std::string>::operator()[abi:ne200100](a1, v12 + 2, a2))
   {
     goto LABEL_17;
   }
 
-  return v11;
+  return v12;
 }
 
 void sub_257A96EF8(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void **__p, uint64_t a11)
@@ -2775,7 +2748,7 @@ void sub_257A96FB8(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-const void **std::__hash_table<std::__hash_value_type<std::string,std::vector<std::string>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::vector<std::string>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::vector<std::string>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::vector<std::string>>>>::find<std::string>(void *a1, const void **a2)
+const void **std::__hash_table<std::__hash_value_type<std::string,std::vector<std::string>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::vector<std::string>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::vector<std::string>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::vector<std::string>>>>::find<std::string>(void *a1, uint64_t *a2)
 {
   v4 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
   v5 = a1[1];
@@ -2844,7 +2817,7 @@ const void **std::__hash_table<std::__hash_value_type<std::string,std::vector<st
   return i;
 }
 
-uint64_t *std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__erase_unique<std::string>(void *a1, const void **a2)
+const void **std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__erase_unique<std::string>(void *a1, uint64_t *a2)
 {
   result = std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::find<std::string>(a1, a2);
   if (result)
@@ -3020,35 +2993,35 @@ void std::__destroy_at[abi:ne200100]<std::pair<std::string const,std::vector<std
   }
 }
 
-const void **std::__hash_table<std::__hash_value_type<std::string,std::vector<std::string>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::vector<std::string>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::vector<std::string>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::vector<std::string>>>>::__emplace_unique_key_args<std::string,std::pair<std::string,std::vector<std::string>>>(void *a1, const void **a2)
+const void **std::__hash_table<std::__hash_value_type<std::string,std::vector<std::string>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::vector<std::string>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::vector<std::string>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::vector<std::string>>>>::__emplace_unique_key_args<std::string,std::pair<std::string,std::vector<std::string>>>(void *a1, uint64_t *a2, uint64_t a3)
 {
-  v4 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
-  v5 = v4;
-  v6 = a1[1];
-  if (!*&v6)
+  v5 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
+  v6 = v5;
+  v7 = a1[1];
+  if (!*&v7)
   {
     goto LABEL_18;
   }
 
-  v7 = vcnt_s8(v6);
-  v7.i16[0] = vaddlv_u8(v7);
-  v8 = v7.u32[0];
-  if (v7.u32[0] > 1uLL)
+  v8 = vcnt_s8(v7);
+  v8.i16[0] = vaddlv_u8(v8);
+  v9 = v8.u32[0];
+  if (v8.u32[0] > 1uLL)
   {
-    v9 = v4;
-    if (v4 >= *&v6)
+    v10 = v5;
+    if (v5 >= *&v7)
     {
-      v9 = v4 % *&v6;
+      v10 = v5 % *&v7;
     }
   }
 
   else
   {
-    v9 = (*&v6 - 1) & v4;
+    v10 = (*&v7 - 1) & v5;
   }
 
-  v10 = *(*a1 + 8 * v9);
-  if (!v10 || (v11 = *v10) == 0)
+  v11 = *(*a1 + 8 * v10);
+  if (!v11 || (v12 = *v11) == 0)
   {
 LABEL_18:
     operator new();
@@ -3056,49 +3029,49 @@ LABEL_18:
 
   while (1)
   {
-    v12 = v11[1];
-    if (v12 == v5)
+    v13 = v12[1];
+    if (v13 == v6)
     {
       break;
     }
 
-    if (v8 > 1)
+    if (v9 > 1)
     {
-      if (v12 >= *&v6)
+      if (v13 >= *&v7)
       {
-        v12 %= *&v6;
+        v13 %= *&v7;
       }
     }
 
     else
     {
-      v12 &= *&v6 - 1;
+      v13 &= *&v7 - 1;
     }
 
-    if (v12 != v9)
+    if (v13 != v10)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v11 = *v11;
-    if (!v11)
+    v12 = *v12;
+    if (!v12)
     {
       goto LABEL_18;
     }
   }
 
-  if (!std::equal_to<std::string>::operator()[abi:ne200100](a1, v11 + 2, a2))
+  if (!std::equal_to<std::string>::operator()[abi:ne200100](a1, v12 + 2, a2))
   {
     goto LABEL_17;
   }
 
-  return v11;
+  return v12;
 }
 
-void sub_257A975E0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_257A975E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,std::vector<std::string>>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::string,std::vector<std::string>>,void *>>>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -3207,9 +3180,9 @@ std::__split_buffer<std::string>::pointer std::vector<std::string>::__emplace_ba
   return v11;
 }
 
-uint64_t std::vector<BOOL>::reserve(uint64_t result, unint64_t a2)
+void std::vector<BOOL>::reserve(char **a1, unint64_t a2)
 {
-  if (a2 > *(result + 16) << 6)
+  if (a2 > a1[2] << 6)
   {
     if ((a2 & 0x8000000000000000) == 0)
     {
@@ -3220,8 +3193,6 @@ uint64_t std::vector<BOOL>::reserve(uint64_t result, unint64_t a2)
 
     std::vector<float>::__throw_length_error[abi:ne200100]();
   }
-
-  return result;
 }
 
 void sub_257A97884(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *__p)
@@ -3234,7 +3205,7 @@ void sub_257A97884(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<BOOL>::__vallocate[abi:ne200100](uint64_t a1, uint64_t a2)
+void std::vector<BOOL>::__vallocate[abi:ne200100](uint64_t *a1, uint64_t a2)
 {
   if ((a2 & 0x8000000000000000) == 0)
   {
@@ -3254,7 +3225,7 @@ void std::vector<BOOL>::__vallocate[abi:ne200100](uint64_t a1, uint64_t a2)
   std::vector<float>::__throw_length_error[abi:ne200100]();
 }
 
-void std::vector<BOOL>::__construct_at_end<std::__bit_iterator<std::vector<BOOL>,false,0ul>,std::__bit_iterator<std::vector<BOOL>,false,0ul>>(void *a1, uint64_t a2, uint64_t a3, uint64_t a4)
+void std::vector<BOOL>::__construct_at_end<std::__bit_iterator<std::vector<BOOL>,false,0ul>,std::__bit_iterator<std::vector<BOOL>,false,0ul>>(void *a1, uint64_t *a2, uint64_t *a3, uint64_t a4)
 {
   v6 = a1[1];
   v7 = v6 + a4;
@@ -3276,9 +3247,9 @@ void std::vector<BOOL>::__construct_at_end<std::__bit_iterator<std::vector<BOOL>
 
   v20 = v4;
   v21 = v5;
-  v9 = *(a2 + 8);
+  v9 = *(a2 + 2);
   v10 = *a3;
-  v11 = *(a3 + 8);
+  v11 = *(a3 + 2);
   v12 = *a1 + 8 * (v6 >> 6);
   v18 = *a2;
   v19 = v9;
@@ -3286,7 +3257,7 @@ void std::vector<BOOL>::__construct_at_end<std::__bit_iterator<std::vector<BOOL>
   v17 = v11;
   v14 = v12;
   v15 = v6 & 0x3F;
-  std::__copy_move_unwrap_iters[abi:ne200100]<std::__copy_impl,std::__bit_iterator<std::vector<BOOL>,false,0ul>,std::__bit_iterator<std::vector<BOOL>,false,0ul>,std::__bit_iterator<std::vector<BOOL>,false,0ul>,0>(&v18, &v16, &v14, &v13);
+  std::__copy_move_unwrap_iters[abi:ne200100]<std::__copy_impl,std::__bit_iterator<std::vector<BOOL>,false,0ul>,std::__bit_iterator<std::vector<BOOL>,false,0ul>,std::__bit_iterator<std::vector<BOOL>,false,0ul>,0>(&v18, &v16, &v14, v13);
 }
 
 void std::__copy_move_unwrap_iters[abi:ne200100]<std::__copy_impl,std::__bit_iterator<std::vector<BOOL>,false,0ul>,std::__bit_iterator<std::vector<BOOL>,false,0ul>,std::__bit_iterator<std::vector<BOOL>,false,0ul>,0>(uint64_t *a1@<X0>, uint64_t *a2@<X1>, uint64_t *a3@<X2>, uint64_t a4@<X8>)
@@ -3518,7 +3489,7 @@ LABEL_28:
   return v5;
 }
 
-uint64_t *std::__tree<std::__value_type<std::string,unsigned long>,std::__map_value_compare<std::string,std::__value_type<std::string,unsigned long>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,unsigned long>>>::__insert_node_at(uint64_t **a1, uint64_t a2, uint64_t **a3, uint64_t *a4)
+uint64_t *std::__tree<std::__value_type<std::string,unsigned long>,std::__map_value_compare<std::string,std::__value_type<std::string,unsigned long>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,unsigned long>>>::__insert_node_at(uint64_t ***a1, uint64_t a2, uint64_t **a3, uint64_t *a4)
 {
   *a4 = 0;
   a4[1] = 0;
@@ -3544,12 +3515,12 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
     do
     {
       v2 = a2[2];
-      if (v2[3])
+      if (*(v2 + 24))
       {
         break;
       }
 
-      v3 = v2[2];
+      v3 = *(v2 + 16);
       v4 = *v3;
       if (*v3 == v2)
       {
@@ -3563,22 +3534,22 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
 
           else
           {
-            v11 = v2[1];
+            v11 = *(v2 + 8);
             v12 = *v11;
-            v2[1] = *v11;
+            *(v2 + 8) = *v11;
             v13 = v2;
             if (v12)
             {
-              v12[2] = v2;
-              v3 = v2[2];
+              *(v12 + 16) = v2;
+              v3 = *(v2 + 16);
               v13 = *v3;
             }
 
-            v11[2] = v3;
+            *(v11 + 16) = v3;
             v3[v13 != v2] = v11;
             *v11 = v2;
-            v2[2] = v11;
-            v3 = v11[2];
+            *(v2 + 16) = v11;
+            v3 = *(v11 + 16);
             v4 = *v3;
           }
 
@@ -3612,13 +3583,13 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
             if (v14)
             {
               *(v14 + 16) = v2;
-              v3 = v2[2];
+              v3 = *(v2 + 16);
             }
 
             v10[2] = v3;
             v3[*v3 != v2] = v10;
             v10[1] = v2;
-            v2[2] = v10;
+            *(v2 + 16) = v10;
             v3 = v10[2];
           }
 
@@ -3678,20 +3649,20 @@ void std::__tree_node_destructor<std::allocator<std::__tree_node<std::__value_ty
   operator delete(__p);
 }
 
-void *std::vector<NSNumber * {__strong}>::vector[abi:ne200100](void *result, unint64_t a2)
+uint64_t *std::vector<NSNumber * {__strong}>::vector[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<NSNumber * {__strong}>::__vallocate[abi:ne200100](result, a2);
+    std::vector<NSNumber * {__strong}>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
-void std::vector<NSNumber * {__strong}>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<NSNumber * {__strong}>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 61))
   {
@@ -3737,7 +3708,7 @@ void std::vector<NSNumber * {__strong}>::__destroy_vector::operator()[abi:ne2001
   }
 }
 
-uint64_t std::vector<unsigned long>::__init_with_size[abi:ne200100]<unsigned long *,unsigned long *>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<unsigned long>::__init_with_size[abi:ne200100]<unsigned long *,unsigned long *>(uint64_t *result, const void *a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {

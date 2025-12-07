@@ -11,7 +11,7 @@
   sub_4220();
   v6[2] = self;
   selfCopy = self;
-  v4 = sub_23AC(sub_3DF4, v6, "NanoSleepBridgeSetup/NanoSleepBridgeSetupController.swift", 57);
+  v4 = sub_23AC(sub_3DF4, v6, "NanoSleepBridgeSetup/NanoSleepBridgeSetupController.swift", 57, 2, 60);
 
   return v4;
 }
@@ -30,7 +30,7 @@
   sub_4220();
   v6[2] = self;
   selfCopy = self;
-  v4 = sub_2564(sub_3CF4, v6, "NanoSleepBridgeSetup/NanoSleepBridgeSetupController.swift");
+  v4 = sub_2564(sub_3CF4, v6, "NanoSleepBridgeSetup/NanoSleepBridgeSetupController.swift", 57, 2, 88);
 
   return v4 & 1;
 }

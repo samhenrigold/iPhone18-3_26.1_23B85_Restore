@@ -19,8 +19,9 @@
 
 - (void)setIsPipped:(BOOL)pipped
 {
+  pippedCopy = pipped;
   selfCopy = self;
-  SharedContentViewController.isPipped.setter(pipped);
+  SharedContentViewController.isPipped.setter(pippedCopy);
 }
 
 - (void)viewDidLoad

@@ -162,8 +162,7 @@ id __58__NANowPlayingTitleView_initWithFrame_layoutSpecProvider___block_invoke_5
 
   [v1 setImage:v2 forState:0];
   [v1 setPreferredSymbolConfiguration:v14 forImageInState:0];
-  [v1 addTarget:*(a1 + 32) action:sel_ellipsisButtonTapped_ forControlEvents:0x2000];
-  v15 = NABundle();
+  v15 = NABundle([v1 addTarget:*(a1 + 32) action:sel_ellipsisButtonTapped_ forControlEvents:0x2000]);
   v16 = [v15 localizedStringForKey:@"more" value:&stru_1F52B5BC8 table:0];
   [v1 setAccessibilityLabel:v16];
 
@@ -487,7 +486,7 @@ uint64_t __34__NANowPlayingTitleView_setTitle___block_invoke(uint64_t a1)
 
 - (void)ellipsisButtonTapped:(id)tapped
 {
-  v4 = NANowPlayingLog();
+  v4 = NANowPlayingLog(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *v6 = 0;

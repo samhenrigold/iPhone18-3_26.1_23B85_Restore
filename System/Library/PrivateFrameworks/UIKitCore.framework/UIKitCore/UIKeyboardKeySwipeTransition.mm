@@ -106,9 +106,9 @@
 - (void)animationDidStop:(id)stop finished:(BOOL)finished
 {
   keyPath = [stop keyPath];
-  v6 = [keyPath isEqualToString:@"meshTransform"];
+  isEqualToString = objc_msgSend_isEqualToString_(keyPath);
 
-  if (v6)
+  if (isEqualToString)
   {
     completionBlock = [(UIKeyboardKeyplaneTransition *)self completionBlock];
 

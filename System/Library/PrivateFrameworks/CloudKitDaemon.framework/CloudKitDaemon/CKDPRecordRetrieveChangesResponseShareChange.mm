@@ -119,24 +119,23 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v6 = toCopy;
+  v5 = toCopy;
   if (self->_shareIdentifier)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (*&self->_has)
   {
-    changeType = self->_changeType;
     PBDataWriterWriteInt32Field();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_share)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v6;
+    toCopy = v5;
   }
 }
 
@@ -206,7 +205,6 @@
     }
   }
 
-  v10 = *(equalCopy + 32);
   if (*&self->_has)
   {
     if ((equalCopy[4] & 1) == 0 || self->_changeType != *(equalCopy + 2))
@@ -223,10 +221,10 @@ LABEL_11:
   }
 
   share = self->_share;
-  v12 = equalCopy[2];
-  if (share | v12)
+  v11 = equalCopy[2];
+  if (share | v11)
   {
-    isEqual = objc_msgSend_isEqual_(share, v7, v12);
+    isEqual = objc_msgSend_isEqual_(share, v7, v11);
   }
 
   else

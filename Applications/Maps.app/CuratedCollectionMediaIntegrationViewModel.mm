@@ -439,7 +439,7 @@ LABEL_12:
 
       classType = [resultCopy classType];
       formatterForDurationString = [self formatterForDurationString];
-      [resultCopy duration];
+      objc_msgSend_duration(resultCopy);
       v14 = [formatterForDurationString stringFromTimeInterval:v13 * 0.001];
       v15 = +[NSNumber numberWithInt:](NSNumber, "numberWithInt:", [resultCopy episodeNumber]);
       v16 = [NSNumberFormatter localizedStringFromNumber:v15 numberStyle:1];

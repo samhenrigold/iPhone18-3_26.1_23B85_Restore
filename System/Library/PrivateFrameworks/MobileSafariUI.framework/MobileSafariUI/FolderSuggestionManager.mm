@@ -32,7 +32,7 @@
   selfCopy = self;
   sub_215A4415C();
 
-  sub_2159F7DA8(0, &unk_2811A28A0);
+  sub_2159F7DA8(0, &unk_2811A28A0, 0x277D7B5A0);
   v3 = sub_215A705D0();
 
   return v3;

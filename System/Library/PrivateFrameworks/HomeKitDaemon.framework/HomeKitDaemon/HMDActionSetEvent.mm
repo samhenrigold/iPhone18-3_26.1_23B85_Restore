@@ -11,14 +11,14 @@
 
 - (id)biomeEventsRepresentationForLogObserver:(id)observer
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   observerCopy = observer;
   home = [(HMDActionSetEvent *)self home];
   v6 = home;
   if (home)
   {
-    v41 = home;
-    v42 = observerCopy;
+    v40 = home;
+    v41 = observerCopy;
     if (self)
     {
       v7 = MEMORY[0x277CCA970];
@@ -47,10 +47,10 @@
         [MEMORY[0x277CCAD78] UUID];
         v28 = v27 = v12;
         [v28 UUIDString];
-        v29 = v40 = spiClientIdentifier;
+        v29 = v39 = spiClientIdentifier;
         v21 = [v13 initWithDateInterval:v27 homeUniqueIdentifier:uUIDString homeOccupancy:v17 source:v18 clientName:bundleId eventCorrelationIdentifier:v29];
 
-        spiClientIdentifier = v40;
+        spiClientIdentifier = v39;
         v12 = v27;
       }
     }
@@ -66,13 +66,13 @@
     actionSetType = [(HMDActionSetEvent *)self actionSetType];
     accessoryUniqueIdentifiers = [(HMDActionSetEvent *)self accessoryUniqueIdentifiers];
     actionSetName = [(HMDActionSetEvent *)self actionSetName];
-    v6 = v41;
-    name = [v41 name];
+    v6 = v40;
+    name = [v40 name];
     v37 = [v30 initWithBase:v21 actionSetUniqueIdentifier:uUIDString2 actionSetType:actionSetType associatedAccessoryUniqueIdentifiers:accessoryUniqueIdentifiers actionSetName:actionSetName homeName:name];
-    v43 = v37;
-    v26 = [MEMORY[0x277CBEA60] arrayWithObjects:&v43 count:1];
+    v42 = v37;
+    v26 = [MEMORY[0x277CBEA60] arrayWithObjects:&v42 count:1];
 
-    observerCopy = v42;
+    observerCopy = v41;
   }
 
   else
@@ -84,15 +84,13 @@
     {
       v25 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v45 = v25;
+      v44 = v25;
       _os_log_impl(&dword_229538000, v24, OS_LOG_TYPE_ERROR, "%{public}@Unable to log action set event metadata to biome, no home", buf, 0xCu);
     }
 
     objc_autoreleasePoolPop(v22);
     v26 = MEMORY[0x277CBEBF8];
   }
-
-  v38 = *MEMORY[0x277D85DE8];
 
   return v26;
 }
@@ -182,12 +180,12 @@
     v17->_clientMetricIdentifier = clientMetricIdentifier;
 
     uuid2 = [setCopy uuid];
-    v23 = [uuid2 copy];
+    v23 = objc_msgSend_copy(uuid2);
     actionSetUUID = v17->_actionSetUUID;
     v17->_actionSetUUID = v23;
 
     spiClientIdentifier = [setCopy spiClientIdentifier];
-    v26 = [spiClientIdentifier copy];
+    v26 = objc_msgSend_copy(spiClientIdentifier);
     actionSetUniqueIdentifier = v17->_actionSetUniqueIdentifier;
     v17->_actionSetUniqueIdentifier = v26;
 
@@ -200,32 +198,32 @@
     v17->_numNonEmptyScenesInHome = [v30 count];
 
     v17->_triggerSource = source;
-    v31 = [idCopy copy];
+    v31 = objc_msgSend_copy(idCopy);
     bundleId = v17->_bundleId;
     v17->_bundleId = v31;
 
-    v33 = [transactionIdCopy copy];
+    v33 = objc_msgSend_copy(transactionIdCopy);
     transactionId = v17->_transactionId;
     v17->_transactionId = v33;
 
     serializedIdentifier = [setCopy serializedIdentifier];
-    v36 = [serializedIdentifier copy];
+    v36 = objc_msgSend_copy(serializedIdentifier);
     serializedIdentifier = v17->_serializedIdentifier;
     v17->_serializedIdentifier = v36;
 
     name = [setCopy name];
-    v39 = [name copy];
+    v39 = objc_msgSend_copy(name);
     actionSetName = v17->_actionSetName;
     v17->_actionSetName = v39;
 
     type = [setCopy type];
-    v42 = [type copy];
+    v42 = objc_msgSend_copy(type);
     actionSetType = v17->_actionSetType;
     v17->_actionSetType = v42;
 
     objc_storeWeak(&v17->_home, home2);
     name2 = [home2 name];
-    v45 = [name2 copy];
+    v45 = objc_msgSend_copy(name2);
     homeName = v17->_homeName;
     v17->_homeName = v45;
 

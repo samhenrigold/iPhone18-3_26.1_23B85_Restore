@@ -38,7 +38,7 @@
   v13 = flexMusicAsset2;
   if (flexMusicAsset2)
   {
-    [flexMusicAsset2 targetDuration];
+    objc_msgSend_targetDuration(flexMusicAsset2);
   }
 
   else

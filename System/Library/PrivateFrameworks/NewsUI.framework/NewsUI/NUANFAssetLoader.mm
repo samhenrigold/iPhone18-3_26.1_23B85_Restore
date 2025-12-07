@@ -299,16 +299,14 @@ uint64_t __57__NUANFAssetLoader_asyncLoadAssetURLsOnceWithCompletion___block_inv
   fc_sharedConcurrentQueue = [MEMORY[0x277CCABD8] fc_sharedConcurrentQueue];
   [fc_sharedConcurrentQueue addOperation:v10];
 
-  v13 = NUArticleLoadLog();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+  v14 = NUArticleLoadLog(v13);
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
     shortOperationDescription = [v10 shortOperationDescription];
     *buf = 138543362;
     v20 = shortOperationDescription;
-    _os_log_impl(&dword_25C2D6000, v13, OS_LOG_TYPE_DEFAULT, "Article data loader will prefetch assets with operation=%{public}@", buf, 0xCu);
+    _os_log_impl(&dword_25C2D6000, v14, OS_LOG_TYPE_DEFAULT, "Article data loader will prefetch assets with operation=%{public}@", buf, 0xCu);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v10;
 }

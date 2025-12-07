@@ -18,9 +18,9 @@ void sub_23F3904C8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_23F3916BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_23F3916BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -43,43 +43,38 @@ void __getPRMutablePosterTitleStyleConfigurationClass_block_invoke(uint64_t a1)
 
 void PosterKitLibrary()
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v2[0] = 0;
+  v4 = *MEMORY[0x277D85DE8];
+  v1[0] = 0;
   if (!PosterKitLibraryCore_frameworkLibrary)
   {
-    v2[1] = MEMORY[0x277D85DD0];
-    v2[2] = 3221225472;
-    v2[3] = __PosterKitLibraryCore_block_invoke;
-    v2[4] = &__block_descriptor_40_e5_v8__0l;
-    v2[5] = v2;
-    v3 = xmmword_278C75E90;
-    v4 = 0;
+    v1[1] = MEMORY[0x277D85DD0];
+    v1[2] = 3221225472;
+    v1[3] = __PosterKitLibraryCore_block_invoke;
+    v1[4] = &__block_descriptor_40_e5_v8__0l;
+    v1[5] = v1;
+    v2 = xmmword_278C75E90;
+    v3 = 0;
     PosterKitLibraryCore_frameworkLibrary = _sl_dlopen();
   }
 
-  v0 = v2[0];
+  v0 = v1[0];
   if (!PosterKitLibraryCore_frameworkLibrary)
   {
-    v0 = abort_report_np();
+    v0 = abort_report_np("%s", v1[0]);
     goto LABEL_7;
   }
 
-  if (v2[0])
+  if (v1[0])
   {
 LABEL_7:
     free(v0);
   }
-
-  v1 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __PosterKitLibraryCore_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   PosterKitLibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -94,7 +89,7 @@ double __getPRPosterColorClass_block_invoke(uint64_t a1)
 
   else
   {
-    v3 = __getPRPosterColorClass_block_invoke_cold_1();
+    __getPRPosterColorClass_block_invoke_cold_1();
     return AMUIConvertSpringDampingRatioAndResponseToTensionAndFriction(v3, v4, v5, v6);
   }
 
@@ -150,16 +145,16 @@ id getPRUISAmbientPosterViewControllerClass()
   return v1;
 }
 
-void sub_23F39358C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_23F39358C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_23F393ACC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_23F393ACC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -182,43 +177,38 @@ void __getPRUISAmbientPosterViewControllerClass_block_invoke(uint64_t a1)
 
 void PosterBoardUIServicesLibrary()
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v2[0] = 0;
+  v4 = *MEMORY[0x277D85DE8];
+  v1[0] = 0;
   if (!PosterBoardUIServicesLibraryCore_frameworkLibrary)
   {
-    v2[1] = MEMORY[0x277D85DD0];
-    v2[2] = 3221225472;
-    v2[3] = __PosterBoardUIServicesLibraryCore_block_invoke;
-    v2[4] = &__block_descriptor_40_e5_v8__0l;
-    v2[5] = v2;
-    v3 = xmmword_278C75F18;
-    v4 = 0;
+    v1[1] = MEMORY[0x277D85DD0];
+    v1[2] = 3221225472;
+    v1[3] = __PosterBoardUIServicesLibraryCore_block_invoke;
+    v1[4] = &__block_descriptor_40_e5_v8__0l;
+    v1[5] = v1;
+    v2 = xmmword_278C75F18;
+    v3 = 0;
     PosterBoardUIServicesLibraryCore_frameworkLibrary = _sl_dlopen();
   }
 
-  v0 = v2[0];
+  v0 = v1[0];
   if (!PosterBoardUIServicesLibraryCore_frameworkLibrary)
   {
-    v0 = abort_report_np();
+    v0 = abort_report_np("%s", v1[0]);
     goto LABEL_7;
   }
 
-  if (v2[0])
+  if (v1[0])
   {
 LABEL_7:
     free(v0);
   }
-
-  v1 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __PosterBoardUIServicesLibraryCore_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   PosterBoardUIServicesLibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -266,16 +256,18 @@ void sub_23F398C3C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void OUTLINED_FUNCTION_1_1(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_1_1(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 2u);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 2u);
 }
 
-void OUTLINED_FUNCTION_2_0(void *a1, NSObject *a2, int a3, const char *a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint8_t buf)
+void OUTLINED_FUNCTION_2_0(void *a1, NSObject *a2, int a3, const char *a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, ...)
 {
+  va_start(va, a10);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &buf, 0x3Au);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0x3Au);
 }
 
 uint64_t OUTLINED_FUNCTION_4()
@@ -421,22 +413,23 @@ uint64_t AMUIRingPowerStatusForBatteryState(char a1, unsigned int a2, double a3)
   return a2;
 }
 
-void OUTLINED_FUNCTION_0_2(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0_2(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
-id AMUILogGeneral()
+id AMUILogGeneral(uint64_t a1)
 {
   if (AMUILogGeneral_onceToken != -1)
   {
     AMUILogGeneral_cold_1();
   }
 
-  v1 = AMUILogGeneral___logObj;
+  v2 = AMUILogGeneral___logObj;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __AMUILogGeneral_block_invoke()
@@ -448,16 +441,16 @@ uint64_t __AMUILogGeneral_block_invoke()
   return MEMORY[0x2821F96F8](v0, v1);
 }
 
-id AMUILogDataLayer()
+id AMUILogDataLayer(uint64_t a1)
 {
   if (AMUILogDataLayer_onceToken != -1)
   {
     AMUILogDataLayer_cold_1();
   }
 
-  v1 = AMUILogDataLayer___logObj;
+  v2 = AMUILogDataLayer___logObj;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __AMUILogDataLayer_block_invoke()
@@ -469,16 +462,16 @@ uint64_t __AMUILogDataLayer_block_invoke()
   return MEMORY[0x2821F96F8](v0, v1);
 }
 
-id AMUILogInfograph()
+id AMUILogInfograph(uint64_t a1)
 {
   if (AMUILogInfograph_onceToken != -1)
   {
     AMUILogInfograph_cold_1();
   }
 
-  v1 = AMUILogInfograph___logObj;
+  v2 = AMUILogInfograph___logObj;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __AMUILogInfograph_block_invoke()
@@ -490,16 +483,16 @@ uint64_t __AMUILogInfograph_block_invoke()
   return MEMORY[0x2821F96F8](v0, v1);
 }
 
-id AMUILogWidgets()
+id AMUILogWidgets(uint64_t a1)
 {
   if (AMUILogWidgets_onceToken != -1)
   {
     AMUILogWidgets_cold_1();
   }
 
-  v1 = AMUILogWidgets___logObj;
+  v2 = AMUILogWidgets___logObj;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __AMUILogWidgets_block_invoke()
@@ -511,16 +504,16 @@ uint64_t __AMUILogWidgets_block_invoke()
   return MEMORY[0x2821F96F8](v0, v1);
 }
 
-id AMUILogSwitcher()
+id AMUILogSwitcher(uint64_t a1)
 {
   if (AMUILogSwitcher_onceToken != -1)
   {
     AMUILogSwitcher_cold_1();
   }
 
-  v1 = AMUILogSwitcher___logObj;
+  v2 = AMUILogSwitcher___logObj;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __AMUILogSwitcher_block_invoke()
@@ -532,16 +525,16 @@ uint64_t __AMUILogSwitcher_block_invoke()
   return MEMORY[0x2821F96F8](v0, v1);
 }
 
-id AMUILogEditingSwitcher()
+id AMUILogEditingSwitcher(uint64_t a1)
 {
   if (AMUILogEditingSwitcher_onceToken != -1)
   {
     AMUILogEditingSwitcher_cold_1();
   }
 
-  v1 = AMUILogEditingSwitcher___logObj;
+  v2 = AMUILogEditingSwitcher___logObj;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __AMUILogEditingSwitcher_block_invoke()
@@ -553,16 +546,16 @@ uint64_t __AMUILogEditingSwitcher_block_invoke()
   return MEMORY[0x2821F96F8](v0, v1);
 }
 
-id AMUILogProactive()
+id AMUILogProactive(uint64_t a1)
 {
   if (AMUILogProactive_onceToken != -1)
   {
     AMUILogProactive_cold_1();
   }
 
-  v1 = AMUILogProactive___logObj;
+  v2 = AMUILogProactive___logObj;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __AMUILogProactive_block_invoke()
@@ -574,9 +567,9 @@ uint64_t __AMUILogProactive_block_invoke()
   return MEMORY[0x2821F96F8](v0, v1);
 }
 
-void sub_23F3A486C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_23F3A486C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -588,10 +581,11 @@ uint64_t __Block_byref_object_copy__0(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_23F3A4D34(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, char a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, char a31)
+void sub_23F3A4D34(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, ...)
 {
+  va_start(va, a30);
   _Block_object_dispose(&a25, 8);
-  _Block_object_dispose(&a31, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -611,16 +605,16 @@ void sub_23F3A6740(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-id AMUIAmbientUIFrameworkBundle()
+id AMUIAmbientUIFrameworkBundle(uint64_t a1)
 {
   if (AMUIAmbientUIFrameworkBundle___once != -1)
   {
     AMUIAmbientUIFrameworkBundle_cold_1();
   }
 
-  v1 = AMUIAmbientUIFrameworkBundle___bundle;
+  v2 = AMUIAmbientUIFrameworkBundle___bundle;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __AMUIAmbientUIFrameworkBundle_block_invoke()
@@ -689,10 +683,11 @@ void sub_23F3AECA8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void OUTLINED_FUNCTION_0_3(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0_3(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
 void sub_23F3B4F68(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, id location)
@@ -716,9 +711,19 @@ void sub_23F3B615C(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_23F3B893C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_23F3B893C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
+  va_start(va, a22);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
+}
+
+CGRect CGRectInset(CGRect rect, CGFloat dx, CGFloat dy)
+{
+  MEMORY[0x2821115C8](rect.origin, *&rect.origin.y, rect.size, *&rect.size.height, dx, dy);
+  result.size.height = v6;
+  result.size.width = v5;
+  result.origin.y = v4;
+  result.origin.x = v3;
+  return result;
 }

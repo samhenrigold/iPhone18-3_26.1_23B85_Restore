@@ -97,39 +97,39 @@
 
 - (BOOL)isSatisfiedForValue:(id)value
 {
-  OUTLINED_FUNCTION_1_2();
-  OUTLINED_FUNCTION_0_4();
+  v3 = OUTLINED_FUNCTION_1_2(self);
+  OUTLINED_FUNCTION_0_4(v3);
   return 0;
 }
 
 - (id)whichUserDefaultsDataSourceInDataSource:(id)source
 {
-  OUTLINED_FUNCTION_1_2();
-  OUTLINED_FUNCTION_0_4();
-  v3 = [HKUserDefaultsDataSource alloc];
+  v3 = OUTLINED_FUNCTION_1_2(self);
+  OUTLINED_FUNCTION_0_4(v3);
+  v4 = [HKUserDefaultsDataSource alloc];
   standardUserDefaults = [MEMORY[0x1E695E000] standardUserDefaults];
-  v5 = [(HKUserDefaultsDataSource *)v3 initWithUserDefaults:standardUserDefaults];
+  v6 = [(HKUserDefaultsDataSource *)v4 initWithUserDefaults:standardUserDefaults];
 
-  return v5;
+  return v6;
 }
 
 + (NSString)requirementIdentifier
 {
-  OUTLINED_FUNCTION_1_2();
-  OUTLINED_FUNCTION_0_4();
+  v2 = OUTLINED_FUNCTION_1_2(self);
+  OUTLINED_FUNCTION_0_4(v2);
   return &stru_1F05FF230;
 }
 
 - (NSString)requirementDescription
 {
-  OUTLINED_FUNCTION_1_2();
-  OUTLINED_FUNCTION_0_4();
+  v2 = OUTLINED_FUNCTION_1_2(self);
+  OUTLINED_FUNCTION_0_4(v2);
   return &stru_1F05FF230;
 }
 
 - (void)_notifyObserver:(void *)observer forNewValue:
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   v5 = a2;
   observerCopy = observer;
   if (self)
@@ -137,44 +137,43 @@
     if (observerCopy)
     {
       v7 = [self isSatisfiedForValue:observerCopy];
+      v9 = v7;
     }
 
     else
     {
       defaultValueWhenKeyIsMissing = [self defaultValueWhenKeyIsMissing];
-      v7 = [self isSatisfiedForValue:defaultValueWhenKeyIsMissing];
+      v9 = [self isSatisfiedForValue:defaultValueWhenKeyIsMissing];
     }
 
-    _HKInitializeLogging();
-    v9 = HKLogInfrastructure();
-    v10 = os_log_type_enabled(v9, OS_LOG_TYPE_INFO);
+    _HKInitializeLogging(v7, v8);
+    v13 = HKLogInfrastructure(v11, v12);
+    v14 = os_log_type_enabled(v13, OS_LOG_TYPE_INFO);
 
-    if (v10)
+    if (v14)
     {
-      v11 = HKLogInfrastructure();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+      v17 = HKLogInfrastructure(v15, v16);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
       {
-        v12 = objc_opt_class();
-        v13 = self[1];
-        v14 = MEMORY[0x1E696AD98];
-        v15 = v12;
-        v16 = [v14 numberWithBool:v7];
-        v18 = 138544130;
-        v19 = v12;
-        v20 = 2114;
-        v21 = v5;
-        v22 = 2114;
-        v23 = v13;
-        v24 = 2114;
-        v25 = v16;
-        _os_log_impl(&dword_19197B000, v11, OS_LOG_TYPE_INFO, "[%{public}@] Notifying %{public}@ of satisfaction for key %{public}@: %{public}@", &v18, 0x2Au);
+        v18 = objc_opt_class();
+        v19 = self[1];
+        v20 = MEMORY[0x1E696AD98];
+        v21 = v18;
+        v22 = [v20 numberWithBool:v9];
+        v23 = 138544130;
+        v24 = v18;
+        v25 = 2114;
+        v26 = v5;
+        v27 = 2114;
+        v28 = v19;
+        v29 = 2114;
+        v30 = v22;
+        _os_log_impl(&dword_19197B000, v17, OS_LOG_TYPE_INFO, "[%{public}@] Notifying %{public}@ of satisfaction for key %{public}@: %{public}@", &v23, 0x2Au);
       }
     }
 
-    [v5 featureAvailabilityRequirement:self didUpdateSatisfaction:v7];
+    [v5 featureAvailabilityRequirement:self didUpdateSatisfaction:v9];
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 @end

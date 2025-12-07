@@ -91,21 +91,19 @@ LABEL_10:
 
 - (id)toPlistWithChunks:(id)chunks
 {
-  v14[2] = *MEMORY[0x277D85DE8];
+  v13[2] = *MEMORY[0x277D85DE8];
   v4 = MEMORY[0x277D41F60];
   chunksCopy = chunks;
   v6 = [v4 alloc];
   v7 = [v6 initWithClassNameKey:*MEMORY[0x277D41F98]];
-  v13[0] = @"PREPROCESSOR";
+  v12[0] = @"PREPROCESSOR";
   v8 = [v7 writeToPlistWithObject:self->_preprocessor andChunks:chunksCopy];
-  v13[1] = @"LABELER";
-  v14[0] = v8;
+  v12[1] = @"LABELER";
+  v13[0] = v8;
   v9 = [v7 writeToPlistWithObject:self->_labeler andChunks:chunksCopy];
 
-  v14[1] = v9;
-  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:2];
-
-  v11 = *MEMORY[0x277D85DE8];
+  v13[1] = v9;
+  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:2];
 
   return v10;
 }

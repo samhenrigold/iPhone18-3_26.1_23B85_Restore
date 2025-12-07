@@ -105,16 +105,17 @@
       dispatch_once(&qword_1EAFE2988, &unk_1F0E3B598);
     }
 
-    v13 = 0;
-    v9 = _os_log_send_and_compose_impl();
+    v13[0] = 0;
+    _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, qword_1EAFE2990, 0, "Starting magic mount updates", v13, 2);
+    v10 = v9;
     sub_19B6BB7CC("Generic", 1, 0, 2, "[CMMagicMountManager startMagicMountUpdatesToQueue:withHandler:]", "CoreLocation: %s\n", v9);
-    if (v9 != buf)
+    if (v10 != buf)
     {
-      free(v9);
+      free(v10);
     }
   }
 
-  v10 = sub_19B420D84();
+  v11 = sub_19B420D84();
   v12[0] = MEMORY[0x1E69E9820];
   v12[1] = 3221225472;
   v12[2] = sub_19B7590F0;
@@ -122,8 +123,7 @@
   v12[4] = self;
   v12[5] = queue;
   v12[6] = handler;
-  sub_19B420C9C(v10, v12);
-  v11 = *MEMORY[0x1E69E9840];
+  sub_19B420C9C(v11, v12);
 }
 
 - (void)stopMagicMountUpdates
@@ -150,28 +150,28 @@
       dispatch_once(&qword_1EAFE2988, &unk_1F0E3B598);
     }
 
-    v9 = 0;
-    v5 = _os_log_send_and_compose_impl();
+    v9[0] = 0;
+    _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, qword_1EAFE2990, 0, "Stopping magic mount updates", v9, 2);
+    v6 = v5;
     sub_19B6BB7CC("Generic", 1, 0, 2, "[CMMagicMountManager stopMagicMountUpdates]", "CoreLocation: %s\n", v5);
-    if (v5 != buf)
+    if (v6 != buf)
     {
-      free(v5);
+      free(v6);
     }
   }
 
-  v6 = sub_19B420D84();
+  v7 = sub_19B420D84();
   v8[0] = MEMORY[0x1E69E9820];
   v8[1] = 3221225472;
   v8[2] = sub_19B759304;
   v8[3] = &unk_1E7532988;
   v8[4] = self;
-  sub_19B420C9C(v6, v8);
-  v7 = *MEMORY[0x1E69E9840];
+  sub_19B420C9C(v7, v8);
 }
 
 - (void)setMagicMountConfiguration:(int64_t)configuration
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   if (qword_1EAFE2988 != -1)
   {
     dispatch_once(&qword_1EAFE2988, &unk_1F0E3B598);
@@ -182,8 +182,8 @@
   {
     magicMountConfiguration = self->_magicMountConfiguration;
     *buf = 134349312;
-    v12 = magicMountConfiguration;
-    v13 = 2050;
+    v16 = magicMountConfiguration;
+    v17 = 2050;
     configurationCopy = configuration;
     _os_log_impl(&dword_19B41C000, v5, OS_LOG_TYPE_DEFAULT, "setMagicMountConfiguration: %{public}ld -> %{public}ld", buf, 0x16u);
   }
@@ -197,17 +197,21 @@
       dispatch_once(&qword_1EAFE2988, &unk_1F0E3B598);
     }
 
-    v10 = self->_magicMountConfiguration;
-    v8 = _os_log_send_and_compose_impl();
-    sub_19B6BB7CC("Generic", 1, 0, 2, "[CMMagicMountManager setMagicMountConfiguration:]", "CoreLocation: %s\n", v8);
-    if (v8 != buf)
+    v8 = self->_magicMountConfiguration;
+    v11 = 134349312;
+    v12 = v8;
+    v13 = 2050;
+    configurationCopy2 = configuration;
+    _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, qword_1EAFE2990, 0, "setMagicMountConfiguration: %{public}ld -> %{public}ld", &v11, 22);
+    v10 = v9;
+    sub_19B6BB7CC("Generic", 1, 0, 2, "[CMMagicMountManager setMagicMountConfiguration:]", "CoreLocation: %s\n", v9);
+    if (v10 != buf)
     {
-      free(v8);
+      free(v10);
     }
   }
 
   self->_magicMountConfiguration = configuration;
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setAPWakesAllowed:(BOOL)allowed
@@ -234,24 +238,24 @@
       dispatch_once(&qword_1EAFE2988, &unk_1F0E3B598);
     }
 
-    v12 = 0;
-    v7 = _os_log_send_and_compose_impl();
+    v12[0] = 0;
+    _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, qword_1EAFE2990, 0, "Changing the AP wakes setting for magic mount events", v12, 2);
+    v8 = v7;
     sub_19B6BB7CC("Generic", 1, 0, 2, "[CMMagicMountManager setAPWakesAllowed:]", "CoreLocation: %s\n", v7);
-    if (v7 != buf)
+    if (v8 != buf)
     {
-      free(v7);
+      free(v8);
     }
   }
 
-  v8 = sub_19B420D84();
+  v9 = sub_19B420D84();
   v10[0] = MEMORY[0x1E69E9820];
   v10[1] = 3221225472;
   v10[2] = sub_19B75970C;
   v10[3] = &unk_1E75337D0;
   v10[4] = self;
   allowedCopy = allowed;
-  sub_19B420C9C(v8, v10);
-  v9 = *MEMORY[0x1E69E9840];
+  sub_19B420C9C(v9, v10);
 }
 
 - (void)sendMagicMountStateToClientPrivate
@@ -297,33 +301,32 @@
 
       v19 = 138543362;
       v20 = v10;
-      v14 = _os_log_send_and_compose_impl();
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, qword_1EAFE2990, 0, "Sending to client: %{public}@", &v19, 12);
+      v15 = v14;
       sub_19B6BB7CC("Generic", 1, 0, 2, "[CMMagicMountManager sendMagicMountStateToClientPrivate]", "CoreLocation: %s\n", v14);
-      if (v14 != buf)
+      if (v15 != buf)
       {
-        free(v14);
+        free(v15);
       }
     }
 
-    v16 = *(internal + 3);
-    v15 = *(internal + 4);
+    v17 = *(internal + 3);
+    v16 = *(internal + 4);
     v18[0] = MEMORY[0x1E69E9820];
     v18[1] = 3221225472;
     v18[2] = sub_19B7599C0;
     v18[3] = &unk_1E7532B90;
     v18[4] = v10;
-    v18[5] = v16;
-    objc_msgSend_addOperationWithBlock_(v15, v13, v18);
+    v18[5] = v17;
+    objc_msgSend_addOperationWithBlock_(v16, v13, v18);
 
     objc_autoreleasePoolPop(v6);
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (void)onMagicMountData:(const MagicMountState *)data
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   if (data)
   {
     if (qword_1EAFE2988 != -1)
@@ -339,13 +342,13 @@
       var3 = data->var3;
       var0 = data->var0;
       *buf = 67240960;
-      v22 = var1;
-      v23 = 1026;
-      v24 = var2;
-      v25 = 1026;
-      v26 = var3;
-      v27 = 2050;
-      v28 = var0;
+      v30 = var1;
+      v31 = 1026;
+      v32 = var2;
+      v33 = 1026;
+      v34 = var3;
+      v35 = 2050;
+      v36 = var0;
       _os_log_impl(&dword_19B41C000, v5, OS_LOG_TYPE_INFO, "Incoming magic mount state, mountStatus,%{public}u, isAPAwake,%{public}u, isSimulated,%{public}u, timestampSecs,%{public}f", buf, 0x1Eu);
     }
 
@@ -358,15 +361,24 @@
         dispatch_once(&qword_1EAFE2988, &unk_1F0E3B598);
       }
 
-      v17 = data->var1;
-      v18 = data->var2;
-      v19 = data->var3;
-      v20 = data->var0;
-      v12 = _os_log_send_and_compose_impl();
-      sub_19B6BB7CC("Generic", 1, 0, 2, "[CMMagicMountManager onMagicMountData:]", "CoreLocation: %s\n", v12);
-      if (v12 != buf)
+      v12 = data->var1;
+      v13 = data->var2;
+      v14 = data->var3;
+      v15 = data->var0;
+      v22[0] = 67240960;
+      v22[1] = v12;
+      v23 = 1026;
+      v24 = v13;
+      v25 = 1026;
+      v26 = v14;
+      v27 = 2050;
+      v28 = v15;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, qword_1EAFE2990, 1, "Incoming magic mount state, mountStatus,%{public}u, isAPAwake,%{public}u, isSimulated,%{public}u, timestampSecs,%{public}f", v22, 30);
+      v17 = v16;
+      sub_19B6BB7CC("Generic", 1, 0, 2, "[CMMagicMountManager onMagicMountData:]", "CoreLocation: %s\n", v16);
+      if (v17 != buf)
       {
-        free(v12);
+        free(v17);
       }
     }
 
@@ -380,15 +392,15 @@
       dispatch_once(&qword_1EAFE2988, &unk_1F0E3B598);
     }
 
-    v13 = qword_1EAFE2990;
+    v18 = qword_1EAFE2990;
     if (os_log_type_enabled(qword_1EAFE2990, OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
-      _os_log_impl(&dword_19B41C000, v13, OS_LOG_TYPE_ERROR, "Invalid data parameter!", buf, 2u);
+      _os_log_impl(&dword_19B41C000, v18, OS_LOG_TYPE_ERROR, "Invalid data parameter!", buf, 2u);
     }
 
-    v14 = sub_19B420058();
-    if ((*(v14 + 160) & 0x80000000) == 0 || (*(v14 + 164) & 0x80000000) == 0 || (*(v14 + 168) & 0x80000000) == 0 || *(v14 + 152))
+    v19 = sub_19B420058();
+    if ((*(v19 + 160) & 0x80000000) == 0 || (*(v19 + 164) & 0x80000000) == 0 || (*(v19 + 168) & 0x80000000) == 0 || *(v19 + 152))
     {
       bzero(buf, 0x65CuLL);
       if (qword_1EAFE2988 != -1)
@@ -396,16 +408,16 @@
         dispatch_once(&qword_1EAFE2988, &unk_1F0E3B598);
       }
 
-      v15 = _os_log_send_and_compose_impl();
-      sub_19B6BB7CC("Generic", 1, 0, 0, "[CMMagicMountManager onMagicMountData:]", "CoreLocation: %s\n", v15);
-      if (v15 != buf)
+      LOWORD(v22[0]) = 0;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, qword_1EAFE2990, 16, "Invalid data parameter!", v22, 2);
+      v21 = v20;
+      sub_19B6BB7CC("Generic", 1, 0, 0, "[CMMagicMountManager onMagicMountData:]", "CoreLocation: %s\n", v20);
+      if (v21 != buf)
       {
-        free(v15);
+        free(v21);
       }
     }
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (CMMagicMountStateStruct)currentMagicMountState
@@ -549,57 +561,53 @@
   sub_19B420D84();
   sub_19B44B9A0();
   internal = self->_internal;
-  if ((sub_19B421620() & 0x400) == 0)
+  if ((sub_19B421620() & 0x400) != 0)
   {
-    goto LABEL_19;
-  }
-
-  if ((internal[64] & 1) == 0)
-  {
-    internal[65] = privateCopy;
-    if (qword_1EAFE2988 != -1)
+    if (internal[64])
     {
-      dispatch_once(&qword_1EAFE2988, &unk_1F0E3B598);
+      if (internal[65] != privateCopy)
+      {
+        internal[65] = privateCopy;
+
+        MEMORY[0x1EEE66B58](internal, sel_sendAPWakesRequestPrivate, v6);
+      }
     }
 
-    v8 = qword_1EAFE2990;
-    if (os_log_type_enabled(qword_1EAFE2990, OS_LOG_TYPE_DEBUG))
+    else
     {
-      *buf = 0;
-      _os_log_impl(&dword_19B41C000, v8, OS_LOG_TYPE_DEBUG, "Client hasn't called startMagicMountUpdates yet, holding request until this happens", buf, 2u);
-    }
-
-    v9 = sub_19B420058();
-    if (*(v9 + 160) > 1 || *(v9 + 164) > 1 || *(v9 + 168) > 1 || *(v9 + 152))
-    {
-      bzero(buf, 0x65CuLL);
+      internal[65] = privateCopy;
       if (qword_1EAFE2988 != -1)
       {
         dispatch_once(&qword_1EAFE2988, &unk_1F0E3B598);
       }
 
-      v10 = _os_log_send_and_compose_impl();
-      sub_19B6BB7CC("Generic", 1, 0, 2, "[CMMagicMountManager setAPWakesAllowedPrivate:]", "CoreLocation: %s\n", v10);
-      if (v10 != buf)
+      v7 = qword_1EAFE2990;
+      if (os_log_type_enabled(qword_1EAFE2990, OS_LOG_TYPE_DEBUG))
       {
-        free(v10);
+        *buf = 0;
+        _os_log_impl(&dword_19B41C000, v7, OS_LOG_TYPE_DEBUG, "Client hasn't called startMagicMountUpdates yet, holding request until this happens", buf, 2u);
+      }
+
+      v8 = sub_19B420058();
+      if (*(v8 + 160) > 1 || *(v8 + 164) > 1 || *(v8 + 168) > 1 || *(v8 + 152))
+      {
+        bzero(buf, 0x65CuLL);
+        if (qword_1EAFE2988 != -1)
+        {
+          dispatch_once(&qword_1EAFE2988, &unk_1F0E3B598);
+        }
+
+        v11[0] = 0;
+        _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, qword_1EAFE2990, 2, "Client hasn't called startMagicMountUpdates yet, holding request until this happens", v11, 2);
+        v10 = v9;
+        sub_19B6BB7CC("Generic", 1, 0, 2, "[CMMagicMountManager setAPWakesAllowedPrivate:]", "CoreLocation: %s\n", v9);
+        if (v10 != buf)
+        {
+          free(v10);
+        }
       }
     }
-
-    goto LABEL_19;
   }
-
-  if (internal[65] == privateCopy)
-  {
-LABEL_19:
-    v11 = *MEMORY[0x1E69E9840];
-    return;
-  }
-
-  internal[65] = privateCopy;
-  v7 = *MEMORY[0x1E69E9840];
-
-  MEMORY[0x1EEE66B58](internal, sel_sendAPWakesRequestPrivate, v6);
 }
 
 @end

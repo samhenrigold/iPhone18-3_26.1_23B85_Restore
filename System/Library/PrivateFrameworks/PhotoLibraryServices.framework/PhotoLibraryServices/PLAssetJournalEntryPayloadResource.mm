@@ -156,7 +156,7 @@
   payloadAttributes = [resourceCopy payloadAttributes];
 
   [(NSDictionary *)v8 addEntriesFromDictionary:payloadAttributes];
-  if ([attributesCopy count])
+  if (objc_msgSend_count(attributesCopy))
   {
     allObjects = [attributesCopy allObjects];
     [(NSDictionary *)v8 removeObjectsForKeys:allObjects];
@@ -171,7 +171,7 @@
   resourceCopy = resource;
   if ([resourceCopy cplType] && objc_msgSend(resourceCopy, "resourceType") != 5 && (v5 = objc_msgSend(resourceCopy, "cplType"), v5 == -[PLAssetJournalEntryPayloadResource cplType](self, "cplType")) && (v6 = objc_msgSend(resourceCopy, "version"), v6 == -[PLAssetJournalEntryPayloadResource version](self, "version")))
   {
-    v7 = 1;
+    isEqualToString = 1;
   }
 
   else
@@ -181,16 +181,16 @@
     {
       uniformTypeIdentifierString = [resourceCopy uniformTypeIdentifierString];
       uniformTypeIdentifierString2 = [(PLAssetJournalEntryPayloadResource *)self uniformTypeIdentifierString];
-      v7 = [uniformTypeIdentifierString isEqualToString:uniformTypeIdentifierString2];
+      isEqualToString = objc_msgSend_isEqualToString_(uniformTypeIdentifierString);
     }
 
     else
     {
-      v7 = 0;
+      isEqualToString = 0;
     }
   }
 
-  return v7;
+  return isEqualToString;
 }
 
 - (void)appendToDescriptionBuilder:(id)builder
@@ -221,7 +221,7 @@
         }
 
         v11 = *(*(&v28 + 1) + 8 * v10);
-        if ([v11 isEqualToString:@"volume"])
+        if (objc_msgSend_isEqualToString_(v11))
         {
           volumeUuidString = [(PLAssetJournalEntryPayloadResource *)self volumeUuidString];
 LABEL_8:
@@ -230,7 +230,7 @@ LABEL_8:
           goto LABEL_19;
         }
 
-        if ([v11 isEqualToString:@"type"])
+        if (objc_msgSend_isEqualToString_(v11))
         {
           v14 = MEMORY[0x1E696AEC0];
           resourceType = [(PLAssetJournalEntryPayloadResource *)self resourceType];
@@ -245,7 +245,7 @@ LABEL_8:
           goto LABEL_17;
         }
 
-        if ([v11 isEqualToString:@"version"])
+        if (objc_msgSend_isEqualToString_(v11))
         {
           v14 = MEMORY[0x1E696AEC0];
           version = [(PLAssetJournalEntryPayloadResource *)self version];
@@ -265,9 +265,9 @@ LABEL_17:
           goto LABEL_19;
         }
 
-        if (![v11 isEqualToString:@"recipeID"])
+        if (!objc_msgSend_isEqualToString_(v11))
         {
-          if (![v11 isEqualToString:@"subType"])
+          if (!objc_msgSend_isEqualToString_(v11))
           {
             volumeUuidString = [(NSDictionary *)self->_payloadAttributes objectForKeyedSubscript:v11];
             goto LABEL_8;

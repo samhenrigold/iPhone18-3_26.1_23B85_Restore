@@ -11,7 +11,7 @@
   v5 = *(v4 - 8);
   MEMORY[0x1EEE9AC00](v4);
   v7 = &v15 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v8 = type metadata accessor for PhotosDetailsFilenameWidgetView();
+  v8 = type metadata accessor for PhotosDetailsFilenameWidgetView(0);
   v9 = *((*MEMORY[0x1E69E7D40] & *self->PXPhotosDetailsWidget_opaque) + 0x108);
   selfCopy = self;
   v11 = v9();

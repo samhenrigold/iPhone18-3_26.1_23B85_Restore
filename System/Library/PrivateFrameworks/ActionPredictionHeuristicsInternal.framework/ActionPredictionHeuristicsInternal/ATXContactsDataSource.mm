@@ -61,7 +61,7 @@
 
 - (void)_contactsWithPredicate:(id)predicate callback:(id)callback
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   predicateCopy = predicate;
   callbackCopy = callback;
   if (ATXHeuristicCanLearnFromApp(&unk_2850BA380))
@@ -70,33 +70,33 @@
     if (v8)
     {
       v9 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(v8, "count")}];
+      v17 = 0u;
       v18 = 0u;
       v19 = 0u;
       v20 = 0u;
-      v21 = 0u;
       v10 = v8;
-      v11 = [v10 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v11 = [v10 countByEnumeratingWithState:&v17 objects:v21 count:16];
       if (v11)
       {
         v12 = v11;
-        v13 = *v19;
+        v13 = *v18;
         do
         {
           for (i = 0; i != v12; ++i)
           {
-            if (*v19 != v13)
+            if (*v18 != v13)
             {
               objc_enumerationMutation(v10);
             }
 
-            v15 = [(ATXHeuristicDevice *)self->_device dictContactForCNContact:*(*(&v18 + 1) + 8 * i), v18];
+            v15 = [(ATXHeuristicDevice *)self->_device dictContactForCNContact:*(*(&v17 + 1) + 8 * i), v17];
             if (v15)
             {
               [v9 addObject:v15];
             }
           }
 
-          v12 = [v10 countByEnumeratingWithState:&v18 objects:v22 count:16];
+          v12 = [v10 countByEnumeratingWithState:&v17 objects:v21 count:16];
         }
 
         while (v12);
@@ -121,17 +121,14 @@
   {
     callbackCopy[2](callbackCopy, MEMORY[0x277CBEBF8], 0);
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_contactsWithPredicate:(os_log_t)log callback:.cold.1(os_log_t log)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v2 = 138412290;
-  v3 = 0;
-  _os_log_error_impl(&dword_23E3EA000, log, OS_LOG_TYPE_ERROR, "Error in contacts fetch: %@", &v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v1 = 138412290;
+  v2 = 0;
+  _os_log_error_impl(&dword_23E3EA000, log, OS_LOG_TYPE_ERROR, "Error in contacts fetch: %@", &v1, 0xCu);
 }
 
 @end

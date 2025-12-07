@@ -25,8 +25,9 @@
 
 - (void)viewDidDisappear:(BOOL)disappear
 {
+  disappearCopy = disappear;
   selfCopy = self;
-  sub_20BD7E664(disappear);
+  sub_20BD7E664(disappearCopy, selfCopy);
 }
 
 - (_TtC9SeymourUI41TVSubscribeOnPersonalDeviceViewController)initWithNibName:(id)name bundle:(id)bundle

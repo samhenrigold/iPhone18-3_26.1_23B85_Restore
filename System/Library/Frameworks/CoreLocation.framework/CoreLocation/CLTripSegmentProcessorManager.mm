@@ -53,40 +53,41 @@
 
 - (id)errorObject:(int64_t)object description:(id)description
 {
-  v10[1] = *MEMORY[0x1E69E9840];
+  v14[1] = *MEMORY[0x1E69E9840];
   v6 = objc_alloc(MEMORY[0x1E696ABC0]);
-  v10[0] = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@", description, *MEMORY[0x1E696A578]];
-  result = [v6 initWithDomain:@"com.apple.locationd.TripSegmentProcessor" code:object userInfo:{objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", v10, &v9, 1)}];
-  v8 = *MEMORY[0x1E69E9840];
-  return result;
+  v14[0] = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], v7, @"%@", v8, description, *MEMORY[0x1E696A578]);
+  v10 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v9, v14, &v13, 1);
+  return objc_msgSend_initWithDomain_code_userInfo_(v6, v11, @"com.apple.locationd.TripSegmentProcessor", object, v10);
 }
 
 - (id)processTripSegmentData:(id)data withOptions:(id)options outputHandler:(id)handler
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v101 = *MEMORY[0x1E69E9840];
   if (data)
   {
-    if ([data modeOfTransport])
+    if (objc_msgSend_modeOfTransport(data, a2, data, options))
     {
-      if ([objc_msgSend(data "tripLocations")] > 1)
+      v12 = objc_msgSend_tripLocations(data, v9, v10, v11);
+      if (objc_msgSend_count(v12, v13, v14, v15) > 1)
       {
         if (qword_1EAFE46B8 != -1)
         {
           dispatch_once(&qword_1EAFE46B8, &unk_1F0E6D650);
         }
 
-        v19 = qword_1EAFE46E8;
+        v44 = qword_1EAFE46E8;
         if (os_log_type_enabled(qword_1EAFE46E8, OS_LOG_TYPE_DEFAULT))
         {
+          v48 = objc_msgSend_tripLocations(data, v45, v46, v47);
           *buf = 67240450;
-          *&buf[4] = [objc_msgSend(data "tripLocations")];
-          v29 = 2114;
-          tripSegmentID = [data tripSegmentID];
-          _os_log_impl(&dword_19B873000, v19, OS_LOG_TYPE_DEFAULT, "CLTSP,processTripSegmentData called with locations count,%{public}d,tripSegmentID,%{public}@", buf, 0x12u);
+          *&buf[4] = objc_msgSend_count(v48, v49, v50, v51);
+          v98 = 2114;
+          v99 = objc_msgSend_tripSegmentID(data, v52, v53, v54);
+          _os_log_impl(&dword_19B873000, v44, OS_LOG_TYPE_DEFAULT, "CLTSP,processTripSegmentData called with locations count,%{public}d,tripSegmentID,%{public}@", buf, 0x12u);
         }
 
-        v20 = sub_19B87DD40();
-        if (*(v20 + 160) > 1 || *(v20 + 164) > 1 || *(v20 + 168) > 1 || *(v20 + 152))
+        v55 = sub_19B87DD40();
+        if (*(v55 + 160) > 1 || *(v55 + 164) > 1 || *(v55 + 168) > 1 || *(v55 + 152))
         {
           bzero(buf, 0x65CuLL);
           if (qword_1EAFE46B8 != -1)
@@ -94,19 +95,23 @@
             dispatch_once(&qword_1EAFE46B8, &unk_1F0E6D650);
           }
 
-          [objc_msgSend(data "tripLocations")];
-          [data tripSegmentID];
-          v21 = _os_log_send_and_compose_impl();
-          sub_19B885924("Generic", 1, 0, 2, "[CLTripSegmentProcessorManager processTripSegmentData:withOptions:outputHandler:]", "CoreLocation: %s\n", v21);
-          if (v21 != buf)
+          v59 = qword_1EAFE46E8;
+          v60 = objc_msgSend_tripLocations(data, v56, v57, v58);
+          v93 = 67240450;
+          v94 = objc_msgSend_count(v60, v61, v62, v63);
+          v95 = 2114;
+          v96 = objc_msgSend_tripSegmentID(data, v64, v65, v66);
+          v67 = _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B873000, v59, 0, "CLTSP,processTripSegmentData called with locations count,%{public}d,tripSegmentID,%{public}@", &v93, 18);
+          sub_19B885924("Generic", 1, 0, 2, "[CLTripSegmentProcessorManager processTripSegmentData:withOptions:outputHandler:]", "CoreLocation: %s\n", v67);
+          if (v67 != buf)
           {
-            free(v21);
+            free(v67);
           }
         }
 
         if (sub_19BA51D50(&self->cltsp, data, options, handler))
         {
-          result = 0;
+          return 0;
         }
 
         else
@@ -116,36 +121,41 @@
             dispatch_once(&qword_1EAFE5B00, &unk_1F0E6D570);
           }
 
-          v22 = qword_1EAFE5B10;
-          sub_19B8759E8(buf, [objc_msgSend(objc_msgSend(data "tripSegmentID")]);
-          v23 = sub_19B95D0F0(v22, buf);
-          if (v31 < 0)
+          v71 = qword_1EAFE5B10;
+          v72 = objc_msgSend_tripSegmentID(data, v68, v69, v70);
+          v76 = objc_msgSend_UUIDString(v72, v73, v74, v75);
+          v80 = objc_msgSend_UTF8String(v76, v77, v78, v79);
+          sub_19B8759E8(buf, v80);
+          v81 = sub_19B95D0F0(v71, buf);
+          if (v100 < 0)
           {
             operator delete(*buf);
           }
 
-          sub_19BA566AC(&self->cltsp, data, v23);
+          sub_19BA566AC(&self->cltsp, data, v81);
           if (qword_1EAFE5B00 != -1)
           {
             dispatch_once(&qword_1EAFE5B00, &unk_1F0E6D570);
           }
 
-          sub_19B9545AC(qword_1EAFE5B10, [data tripSegmentID]);
+          v85 = qword_1EAFE5B10;
+          v86 = objc_msgSend_tripSegmentID(data, v82, v83, v84);
+          sub_19B9545AC(v85, v86, v87, v88);
           if (qword_1EAFE46B8 != -1)
           {
             dispatch_once(&qword_1EAFE46B8, &unk_1F0E6D650);
           }
 
-          v24 = qword_1EAFE46E8;
+          v89 = qword_1EAFE46E8;
           if (os_log_type_enabled(qword_1EAFE46E8, OS_LOG_TYPE_ERROR))
           {
             *buf = 67240192;
-            *&buf[4] = v23;
-            _os_log_impl(&dword_19B873000, v24, OS_LOG_TYPE_ERROR, "CLTSP,trip segment processing failed,%{public}d", buf, 8u);
+            *&buf[4] = v81;
+            _os_log_impl(&dword_19B873000, v89, OS_LOG_TYPE_ERROR, "CLTSP,trip segment processing failed,%{public}d", buf, 8u);
           }
 
-          v25 = sub_19B87DD40();
-          if ((*(v25 + 160) & 0x80000000) == 0 || (*(v25 + 164) & 0x80000000) == 0 || (*(v25 + 168) & 0x80000000) == 0 || *(v25 + 152))
+          v90 = sub_19B87DD40();
+          if ((*(v90 + 160) & 0x80000000) == 0 || (*(v90 + 164) & 0x80000000) == 0 || (*(v90 + 168) & 0x80000000) == 0 || *(v90 + 152))
           {
             bzero(buf, 0x65CuLL);
             if (qword_1EAFE46B8 != -1)
@@ -153,15 +163,17 @@
               dispatch_once(&qword_1EAFE46B8, &unk_1F0E6D650);
             }
 
-            v26 = _os_log_send_and_compose_impl();
-            sub_19B885924("Generic", 1, 0, 0, "[CLTripSegmentProcessorManager processTripSegmentData:withOptions:outputHandler:]", "CoreLocation: %s\n", v26);
-            if (v26 != buf)
+            v93 = 67240192;
+            v94 = v81;
+            v92 = _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B873000, qword_1EAFE46E8, 16, "CLTSP,trip segment processing failed,%{public}d", &v93, 8);
+            sub_19B885924("Generic", 1, 0, 0, "[CLTripSegmentProcessorManager processTripSegmentData:withOptions:outputHandler:]", "CoreLocation: %s\n", v92);
+            if (v92 != buf)
             {
-              free(v26);
+              free(v92);
             }
           }
 
-          result = [(CLTripSegmentProcessorManager *)self errorObject:v23 description:@"CLTSP, trip segment processing failed"];
+          return objc_msgSend_errorObject_description_(self, v91, v81, @"CLTSP,trip segment processing failed");
         }
       }
 
@@ -172,16 +184,17 @@
           dispatch_once(&qword_1EAFE46B8, &unk_1F0E6D650);
         }
 
-        v9 = qword_1EAFE46E8;
+        v16 = qword_1EAFE46E8;
         if (os_log_type_enabled(qword_1EAFE46E8, OS_LOG_TYPE_ERROR))
         {
+          v20 = objc_msgSend_tripLocations(data, v17, v18, v19);
           *buf = 67240192;
-          *&buf[4] = [objc_msgSend(data "tripLocations")];
-          _os_log_impl(&dword_19B873000, v9, OS_LOG_TYPE_ERROR, "CLTSP,location count less than two,count,%{public}d", buf, 8u);
+          *&buf[4] = objc_msgSend_count(v20, v21, v22, v23);
+          _os_log_impl(&dword_19B873000, v16, OS_LOG_TYPE_ERROR, "CLTSP,location count less than two,count,%{public}d", buf, 8u);
         }
 
-        v10 = sub_19B87DD40();
-        if ((*(v10 + 160) & 0x80000000) == 0 || (*(v10 + 164) & 0x80000000) == 0 || (*(v10 + 168) & 0x80000000) == 0 || *(v10 + 152))
+        v24 = sub_19B87DD40();
+        if ((*(v24 + 160) & 0x80000000) == 0 || (*(v24 + 164) & 0x80000000) == 0 || (*(v24 + 168) & 0x80000000) == 0 || *(v24 + 152))
         {
           bzero(buf, 0x65CuLL);
           if (qword_1EAFE46B8 != -1)
@@ -189,16 +202,19 @@
             dispatch_once(&qword_1EAFE46B8, &unk_1F0E6D650);
           }
 
-          [objc_msgSend(data "tripLocations")];
-          v11 = _os_log_send_and_compose_impl();
-          sub_19B885924("Generic", 1, 0, 0, "[CLTripSegmentProcessorManager processTripSegmentData:withOptions:outputHandler:]", "CoreLocation: %s\n", v11);
-          if (v11 != buf)
+          v29 = qword_1EAFE46E8;
+          v30 = objc_msgSend_tripLocations(data, v26, v27, v28);
+          v93 = 67240192;
+          v94 = objc_msgSend_count(v30, v31, v32, v33);
+          v34 = _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B873000, v29, 16, "CLTSP,location count less than two,count,%{public}d", &v93, 8);
+          sub_19B885924("Generic", 1, 0, 0, "[CLTripSegmentProcessorManager processTripSegmentData:withOptions:outputHandler:]", "CoreLocation: %s\n", v34);
+          if (v34 != buf)
           {
-            free(v11);
+            free(v34);
           }
         }
 
-        result = [(CLTripSegmentProcessorManager *)self errorObject:1 description:@"CLTSP, location object has less than two entries"];
+        return objc_msgSend_errorObject_description_(self, v25, 1, @"CLTSP,location object has less than two entries");
       }
     }
 
@@ -209,15 +225,15 @@
         dispatch_once(&qword_1EAFE46B8, &unk_1F0E6D650);
       }
 
-      v16 = qword_1EAFE46E8;
+      v40 = qword_1EAFE46E8;
       if (os_log_type_enabled(qword_1EAFE46E8, OS_LOG_TYPE_ERROR))
       {
         *buf = 0;
-        _os_log_impl(&dword_19B873000, v16, OS_LOG_TYPE_ERROR, "CLTSP,unknown mode of transport", buf, 2u);
+        _os_log_impl(&dword_19B873000, v40, OS_LOG_TYPE_ERROR, "CLTSP,unknown mode of transport", buf, 2u);
       }
 
-      v17 = sub_19B87DD40();
-      if ((*(v17 + 160) & 0x80000000) == 0 || (*(v17 + 164) & 0x80000000) == 0 || (*(v17 + 168) & 0x80000000) == 0 || *(v17 + 152))
+      v41 = sub_19B87DD40();
+      if ((*(v41 + 160) & 0x80000000) == 0 || (*(v41 + 164) & 0x80000000) == 0 || (*(v41 + 168) & 0x80000000) == 0 || *(v41 + 152))
       {
         bzero(buf, 0x65CuLL);
         if (qword_1EAFE46B8 != -1)
@@ -225,15 +241,16 @@
           dispatch_once(&qword_1EAFE46B8, &unk_1F0E6D650);
         }
 
-        v18 = _os_log_send_and_compose_impl();
-        sub_19B885924("Generic", 1, 0, 0, "[CLTripSegmentProcessorManager processTripSegmentData:withOptions:outputHandler:]", "CoreLocation: %s\n", v18);
-        if (v18 != buf)
+        LOWORD(v93) = 0;
+        v43 = _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B873000, qword_1EAFE46E8, 16, "CLTSP,unknown mode of transport", &v93, 2);
+        sub_19B885924("Generic", 1, 0, 0, "[CLTripSegmentProcessorManager processTripSegmentData:withOptions:outputHandler:]", "CoreLocation: %s\n", v43);
+        if (v43 != buf)
         {
-          free(v18);
+          free(v43);
         }
       }
 
-      result = [(CLTripSegmentProcessorManager *)self errorObject:1 description:@"CLTSP, invalid mode of transport"];
+      return objc_msgSend_errorObject_description_(self, v42, 1, @"CLTSP,invalid mode of transport");
     }
   }
 
@@ -244,15 +261,15 @@
       dispatch_once(&qword_1EAFE46B8, &unk_1F0E6D650);
     }
 
-    v13 = qword_1EAFE46E8;
+    v36 = qword_1EAFE46E8;
     if (os_log_type_enabled(qword_1EAFE46E8, OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
-      _os_log_impl(&dword_19B873000, v13, OS_LOG_TYPE_ERROR, "CLTSP,trip segment data is nil", buf, 2u);
+      _os_log_impl(&dword_19B873000, v36, OS_LOG_TYPE_ERROR, "CLTSP,trip segment data is nil", buf, 2u);
     }
 
-    v14 = sub_19B87DD40();
-    if ((*(v14 + 160) & 0x80000000) == 0 || (*(v14 + 164) & 0x80000000) == 0 || (*(v14 + 168) & 0x80000000) == 0 || *(v14 + 152))
+    v37 = sub_19B87DD40();
+    if ((*(v37 + 160) & 0x80000000) == 0 || (*(v37 + 164) & 0x80000000) == 0 || (*(v37 + 168) & 0x80000000) == 0 || *(v37 + 152))
     {
       bzero(buf, 0x65CuLL);
       if (qword_1EAFE46B8 != -1)
@@ -260,19 +277,17 @@
         dispatch_once(&qword_1EAFE46B8, &unk_1F0E6D650);
       }
 
-      v15 = _os_log_send_and_compose_impl();
-      sub_19B885924("Generic", 1, 0, 0, "[CLTripSegmentProcessorManager processTripSegmentData:withOptions:outputHandler:]", "CoreLocation: %s\n", v15);
-      if (v15 != buf)
+      LOWORD(v93) = 0;
+      v39 = _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B873000, qword_1EAFE46E8, 16, "CLTSP,trip segment data is nil", &v93, 2);
+      sub_19B885924("Generic", 1, 0, 0, "[CLTripSegmentProcessorManager processTripSegmentData:withOptions:outputHandler:]", "CoreLocation: %s\n", v39);
+      if (v39 != buf)
       {
-        free(v15);
+        free(v39);
       }
     }
 
-    result = [(CLTripSegmentProcessorManager *)self errorObject:1 description:@"CLTSP, trip segment data is nil"];
+    return objc_msgSend_errorObject_description_(self, v38, 1, @"CLTSP,trip segment data is nil");
   }
-
-  v27 = *MEMORY[0x1E69E9840];
-  return result;
 }
 
 - (void)processTripSegmentData:(id)data withOptions:(id)options outputHandler:(id)handler completionHandler:(id)completionHandler
@@ -307,9 +322,8 @@
 - (void)outputRouteLearningDebuggingDataInCLTSPFile:(id)file
 {
   v11 = *MEMORY[0x1E69E9840];
-  if (file && [file count])
+  if (file && objc_msgSend_count(file, a2, file, v3))
   {
-    v5 = *MEMORY[0x1E69E9840];
 
     sub_19BA60970(&self->cltsp, 1, 8, file);
   }
@@ -337,38 +351,38 @@
         dispatch_once(&qword_1EAFE46B8, &unk_1F0E6D650);
       }
 
-      v8 = _os_log_send_and_compose_impl();
+      v9[0] = 0;
+      v8 = _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B873000, qword_1EAFE46E8, 16, "CLTSP,tspManager,outputTripMatchingDebuggingDataInCLTSPFile - invalid data", v9, 2);
       sub_19B885924("Generic", 1, 0, 0, "[CLTripSegmentProcessorManager outputRouteLearningDebuggingDataInCLTSPFile:]", "CoreLocation: %s\n", v8);
       if (v8 != buf)
       {
         free(v8);
       }
     }
-
-    v9 = *MEMORY[0x1E69E9840];
   }
 }
 
 - (id)constructRouteWithID:(id)d withOptions:(id)options usingRoadData:(id)data startRoad:(id)road endRoad:(id)endRoad modeOfTransport:(int64_t)transport outputHandler:(id)handler
 {
-  *(&v35[203] + 4) = *MEMORY[0x1E69E9840];
-  if (!data || ![data count])
+  *(&v105[203] + 4) = *MEMORY[0x1E69E9840];
+  if (!data || !objc_msgSend_count(data, a2, d, options))
   {
     if (qword_1EAFE46B8 != -1)
     {
       dispatch_once(&qword_1EAFE46B8, &unk_1F0E6D650);
     }
 
-    v20 = qword_1EAFE46E8;
+    v43 = qword_1EAFE46E8;
     if (os_log_type_enabled(qword_1EAFE46E8, OS_LOG_TYPE_ERROR))
     {
+      v47 = objc_msgSend_UUIDString(d, v44, v45, v46);
       *buf = 136446210;
-      v35[0] = [objc_msgSend(d "UUIDString")];
-      _os_log_impl(&dword_19B873000, v20, OS_LOG_TYPE_ERROR, "CLTSP,route road data is nil or empty,tripID,%{public}s", buf, 0xCu);
+      v105[0] = objc_msgSend_UTF8String(v47, v48, v49, v50);
+      _os_log_impl(&dword_19B873000, v43, OS_LOG_TYPE_ERROR, "CLTSP,route road data is nil or empty,tripID,%{public}s", buf, 0xCu);
     }
 
-    v21 = sub_19B87DD40();
-    if ((*(v21 + 160) & 0x80000000) == 0 || (*(v21 + 164) & 0x80000000) == 0 || (*(v21 + 168) & 0x80000000) == 0 || *(v21 + 152))
+    v51 = sub_19B87DD40();
+    if ((*(v51 + 160) & 0x80000000) == 0 || (*(v51 + 164) & 0x80000000) == 0 || (*(v51 + 168) & 0x80000000) == 0 || *(v51 + 152))
     {
       bzero(buf, 0x65CuLL);
       if (qword_1EAFE46B8 != -1)
@@ -376,17 +390,20 @@
         dispatch_once(&qword_1EAFE46B8, &unk_1F0E6D650);
       }
 
-      [objc_msgSend(d "UUIDString")];
-      v22 = _os_log_send_and_compose_impl();
-      sub_19B885924("Generic", 1, 0, 0, "[CLTripSegmentProcessorManager constructRouteWithID:withOptions:usingRoadData:startRoad:endRoad:modeOfTransport:outputHandler:]", "CoreLocation: %s\n", v22);
-      if (v22 != buf)
+      v56 = qword_1EAFE46E8;
+      v57 = objc_msgSend_UUIDString(d, v53, v54, v55);
+      v102 = 136446210;
+      v103[0] = objc_msgSend_UTF8String(v57, v58, v59, v60);
+      v61 = _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B873000, v56, 16, "CLTSP,route road data is nil or empty,tripID,%{public}s", &v102, 12);
+      sub_19B885924("Generic", 1, 0, 0, "[CLTripSegmentProcessorManager constructRouteWithID:withOptions:usingRoadData:startRoad:endRoad:modeOfTransport:outputHandler:]", "CoreLocation: %s\n", v61);
+      if (v61 != buf)
       {
-        free(v22);
+        free(v61);
       }
     }
 
-    v23 = @"CLTSP,route road data is nil or empty";
-    goto LABEL_42;
+    v62 = @"CLTSP,route road data is nil or empty";
+    return objc_msgSend_errorObject_description_(self, v52, 1, v62);
   }
 
   if (transport != 1)
@@ -396,16 +413,17 @@
       dispatch_once(&qword_1EAFE46B8, &unk_1F0E6D650);
     }
 
-    v24 = qword_1EAFE46E8;
+    v63 = qword_1EAFE46E8;
     if (os_log_type_enabled(qword_1EAFE46E8, OS_LOG_TYPE_ERROR))
     {
+      v67 = objc_msgSend_UUIDString(d, v64, v65, v66);
       *buf = 136446210;
-      v35[0] = [objc_msgSend(d "UUIDString")];
-      _os_log_impl(&dword_19B873000, v24, OS_LOG_TYPE_ERROR, "CLTSP,unsupported mode of transport,tripID,%{public}s", buf, 0xCu);
+      v105[0] = objc_msgSend_UTF8String(v67, v68, v69, v70);
+      _os_log_impl(&dword_19B873000, v63, OS_LOG_TYPE_ERROR, "CLTSP,unsupported mode of transport,tripID,%{public}s", buf, 0xCu);
     }
 
-    v25 = sub_19B87DD40();
-    if ((*(v25 + 160) & 0x80000000) == 0 || (*(v25 + 164) & 0x80000000) == 0 || (*(v25 + 168) & 0x80000000) == 0 || *(v25 + 152))
+    v71 = sub_19B87DD40();
+    if ((*(v71 + 160) & 0x80000000) == 0 || (*(v71 + 164) & 0x80000000) == 0 || (*(v71 + 168) & 0x80000000) == 0 || *(v71 + 152))
     {
       bzero(buf, 0x65CuLL);
       if (qword_1EAFE46B8 != -1)
@@ -413,22 +431,20 @@
         dispatch_once(&qword_1EAFE46B8, &unk_1F0E6D650);
       }
 
-      [objc_msgSend(d "UUIDString")];
-      v26 = _os_log_send_and_compose_impl();
-      sub_19B885924("Generic", 1, 0, 0, "[CLTripSegmentProcessorManager constructRouteWithID:withOptions:usingRoadData:startRoad:endRoad:modeOfTransport:outputHandler:]", "CoreLocation: %s\n", v26);
-      if (v26 != buf)
+      v75 = qword_1EAFE46E8;
+      v76 = objc_msgSend_UUIDString(d, v72, v73, v74);
+      v102 = 136446210;
+      v103[0] = objc_msgSend_UTF8String(v76, v77, v78, v79);
+      v80 = _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B873000, v75, 16, "CLTSP,unsupported mode of transport,tripID,%{public}s", &v102, 12);
+      sub_19B885924("Generic", 1, 0, 0, "[CLTripSegmentProcessorManager constructRouteWithID:withOptions:usingRoadData:startRoad:endRoad:modeOfTransport:outputHandler:]", "CoreLocation: %s\n", v80);
+      if (v80 != buf)
       {
-        free(v26);
+        free(v80);
       }
     }
 
-    v23 = @"CLTSP,input modeOfTransport not supported";
-LABEL_42:
-    selfCopy2 = self;
-    v28 = 1;
-LABEL_43:
-    result = [(CLTripSegmentProcessorManager *)selfCopy2 errorObject:v28 description:v23];
-    goto LABEL_44;
+    v62 = @"CLTSP,input modeOfTransport not supported";
+    return objc_msgSend_errorObject_description_(self, v52, 1, v62);
   }
 
   if (qword_1EAFE46B8 != -1)
@@ -439,15 +455,17 @@ LABEL_43:
   v16 = qword_1EAFE46E8;
   if (os_log_type_enabled(qword_1EAFE46E8, OS_LOG_TYPE_DEFAULT))
   {
+    v20 = objc_msgSend_count(data, v17, v18, v19);
+    v24 = objc_msgSend_UUIDString(d, v21, v22, v23);
     *buf = 67240450;
-    LODWORD(v35[0]) = [data count];
-    WORD2(v35[0]) = 2082;
-    *(v35 + 6) = [objc_msgSend(d "UUIDString")];
+    LODWORD(v105[0]) = v20;
+    WORD2(v105[0]) = 2082;
+    *(v105 + 6) = objc_msgSend_UTF8String(v24, v25, v26, v27);
     _os_log_impl(&dword_19B873000, v16, OS_LOG_TYPE_DEFAULT, "CLTSP,constructRouteUsingRoadData called with roads,%{public}d,tripID,%{public}s", buf, 0x12u);
   }
 
-  v17 = sub_19B87DD40();
-  if (*(v17 + 160) > 1 || *(v17 + 164) > 1 || *(v17 + 168) > 1 || *(v17 + 152))
+  v28 = sub_19B87DD40();
+  if (*(v28 + 160) > 1 || *(v28 + 164) > 1 || *(v28 + 168) > 1 || *(v28 + 152))
   {
     bzero(buf, 0x65CuLL);
     if (qword_1EAFE46B8 != -1)
@@ -455,60 +473,64 @@ LABEL_43:
       dispatch_once(&qword_1EAFE46B8, &unk_1F0E6D650);
     }
 
-    [data count];
-    [objc_msgSend(d "UUIDString")];
-    v18 = _os_log_send_and_compose_impl();
-    sub_19B885924("Generic", 1, 0, 2, "[CLTripSegmentProcessorManager constructRouteWithID:withOptions:usingRoadData:startRoad:endRoad:modeOfTransport:outputHandler:]", "CoreLocation: %s\n", v18);
-    if (v18 != buf)
+    v32 = qword_1EAFE46E8;
+    v33 = objc_msgSend_count(data, v29, v30, v31);
+    v37 = objc_msgSend_UUIDString(d, v34, v35, v36);
+    v102 = 67240450;
+    LODWORD(v103[0]) = v33;
+    WORD2(v103[0]) = 2082;
+    *(v103 + 6) = objc_msgSend_UTF8String(v37, v38, v39, v40);
+    v41 = _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B873000, v32, 0, "CLTSP,constructRouteUsingRoadData called with roads,%{public}d,tripID,%{public}s", &v102, 18);
+    sub_19B885924("Generic", 1, 0, 2, "[CLTripSegmentProcessorManager constructRouteWithID:withOptions:usingRoadData:startRoad:endRoad:modeOfTransport:outputHandler:]", "CoreLocation: %s\n", v41);
+    if (v41 != buf)
     {
-      free(v18);
+      free(v41);
     }
   }
 
-  if ((sub_19BA61BD0(&self->cltsp, d, data, road, endRoad, 1, options) & 1) == 0)
+  if (sub_19BA61BD0(&self->cltsp, d, data, road, endRoad, 1, options, handler))
   {
+    return 0;
+  }
+
+  if (qword_1EAFE46B8 != -1)
+  {
+    dispatch_once(&qword_1EAFE46B8, &unk_1F0E6D650);
+  }
+
+  v81 = qword_1EAFE46E8;
+  if (os_log_type_enabled(qword_1EAFE46E8, OS_LOG_TYPE_ERROR))
+  {
+    v85 = objc_msgSend_UUIDString(d, v82, v83, v84);
+    v89 = objc_msgSend_UTF8String(v85, v86, v87, v88);
+    *buf = 136446210;
+    v105[0] = v89;
+    _os_log_impl(&dword_19B873000, v81, OS_LOG_TYPE_ERROR, "CLTSP,constructRouteUsingRoadData failed,tripID,%{public}s", buf, 0xCu);
+  }
+
+  v90 = sub_19B87DD40();
+  if ((*(v90 + 160) & 0x80000000) == 0 || (*(v90 + 164) & 0x80000000) == 0 || (*(v90 + 168) & 0x80000000) == 0 || *(v90 + 152))
+  {
+    bzero(buf, 0x65CuLL);
     if (qword_1EAFE46B8 != -1)
     {
       dispatch_once(&qword_1EAFE46B8, &unk_1F0E6D650);
     }
 
-    v30 = qword_1EAFE46E8;
-    if (os_log_type_enabled(qword_1EAFE46E8, OS_LOG_TYPE_ERROR))
+    v95 = qword_1EAFE46E8;
+    v96 = objc_msgSend_UUIDString(d, v92, v93, v94);
+    v100 = objc_msgSend_UTF8String(v96, v97, v98, v99);
+    v102 = 136446210;
+    v103[0] = v100;
+    v101 = _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B873000, v95, 16, "CLTSP,constructRouteUsingRoadData failed,tripID,%{public}s", &v102, 12);
+    sub_19B885924("Generic", 1, 0, 0, "[CLTripSegmentProcessorManager constructRouteWithID:withOptions:usingRoadData:startRoad:endRoad:modeOfTransport:outputHandler:]", "CoreLocation: %s\n", v101);
+    if (v101 != buf)
     {
-      v31 = [objc_msgSend(d "UUIDString")];
-      *buf = 136446210;
-      v35[0] = v31;
-      _os_log_impl(&dword_19B873000, v30, OS_LOG_TYPE_ERROR, "CLTSP,constructRouteUsingRoadData failed,tripID,%{public}s", buf, 0xCu);
+      free(v101);
     }
-
-    v32 = sub_19B87DD40();
-    if ((*(v32 + 160) & 0x80000000) == 0 || (*(v32 + 164) & 0x80000000) == 0 || (*(v32 + 168) & 0x80000000) == 0 || *(v32 + 152))
-    {
-      bzero(buf, 0x65CuLL);
-      if (qword_1EAFE46B8 != -1)
-      {
-        dispatch_once(&qword_1EAFE46B8, &unk_1F0E6D650);
-      }
-
-      [objc_msgSend(d "UUIDString")];
-      v33 = _os_log_send_and_compose_impl();
-      sub_19B885924("Generic", 1, 0, 0, "[CLTripSegmentProcessorManager constructRouteWithID:withOptions:usingRoadData:startRoad:endRoad:modeOfTransport:outputHandler:]", "CoreLocation: %s\n", v33);
-      if (v33 != buf)
-      {
-        free(v33);
-      }
-    }
-
-    v23 = @"CLTSP,constructRouteUsingRoadData";
-    selfCopy2 = self;
-    v28 = 7;
-    goto LABEL_43;
   }
 
-  result = 0;
-LABEL_44:
-  v29 = *MEMORY[0x1E69E9840];
-  return result;
+  return objc_msgSend_errorObject_description_(self, v91, 7, @"CLTSP,constructRouteUsingRoadData");
 }
 
 - (void)constructRouteWithID:(id)d withOptions:(id)options usingRoadData:(id)data startRoad:(id)road endRoad:(id)endRoad modeOfTransport:(int64_t)transport outputHandler:(id)handler completionHandler:(id)self0
@@ -567,24 +589,25 @@ LABEL_44:
 
 - (id)simulateLocationOnRouteID:(id)d withOptions:(id)options usingRoadData:(id)data modeOfTransport:(int64_t)transport constantSpeed:(double)speed outputHandler:(id)handler
 {
-  *(&v33[203] + 4) = *MEMORY[0x1E69E9840];
-  if (!data || ![data count])
+  *(&v104[203] + 4) = *MEMORY[0x1E69E9840];
+  if (!data || !objc_msgSend_count(data, a2, d, options))
   {
     if (qword_1EAFE46B8 != -1)
     {
       dispatch_once(&qword_1EAFE46B8, &unk_1F0E6D650);
     }
 
-    v18 = qword_1EAFE46E8;
+    v42 = qword_1EAFE46E8;
     if (os_log_type_enabled(qword_1EAFE46E8, OS_LOG_TYPE_ERROR))
     {
+      v46 = objc_msgSend_UUIDString(d, v43, v44, v45);
       *buf = 136446210;
-      v33[0] = [objc_msgSend(d "UUIDString")];
-      _os_log_impl(&dword_19B873000, v18, OS_LOG_TYPE_ERROR, "CLTSP,route road data is nil or empty,tripID,%{public}s", buf, 0xCu);
+      v104[0] = objc_msgSend_UTF8String(v46, v47, v48, v49);
+      _os_log_impl(&dword_19B873000, v42, OS_LOG_TYPE_ERROR, "CLTSP,route road data is nil or empty,tripID,%{public}s", buf, 0xCu);
     }
 
-    v19 = sub_19B87DD40();
-    if ((*(v19 + 160) & 0x80000000) == 0 || (*(v19 + 164) & 0x80000000) == 0 || (*(v19 + 168) & 0x80000000) == 0 || *(v19 + 152))
+    v50 = sub_19B87DD40();
+    if ((*(v50 + 160) & 0x80000000) == 0 || (*(v50 + 164) & 0x80000000) == 0 || (*(v50 + 168) & 0x80000000) == 0 || *(v50 + 152))
     {
       bzero(buf, 0x65CuLL);
       if (qword_1EAFE46B8 != -1)
@@ -592,17 +615,20 @@ LABEL_44:
         dispatch_once(&qword_1EAFE46B8, &unk_1F0E6D650);
       }
 
-      [objc_msgSend(d "UUIDString")];
-      v20 = _os_log_send_and_compose_impl();
-      sub_19B885924("Generic", 1, 0, 0, "[CLTripSegmentProcessorManager simulateLocationOnRouteID:withOptions:usingRoadData:modeOfTransport:constantSpeed:outputHandler:]", "CoreLocation: %s\n", v20);
-      if (v20 != buf)
+      v55 = qword_1EAFE46E8;
+      v56 = objc_msgSend_UUIDString(d, v52, v53, v54);
+      v101 = 136446210;
+      v102[0] = objc_msgSend_UTF8String(v56, v57, v58, v59);
+      v60 = _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B873000, v55, 16, "CLTSP,route road data is nil or empty,tripID,%{public}s", &v101, 12);
+      sub_19B885924("Generic", 1, 0, 0, "[CLTripSegmentProcessorManager simulateLocationOnRouteID:withOptions:usingRoadData:modeOfTransport:constantSpeed:outputHandler:]", "CoreLocation: %s\n", v60);
+      if (v60 != buf)
       {
-        free(v20);
+        free(v60);
       }
     }
 
-    v21 = @"CLTSP,route road data is nil or empty";
-    goto LABEL_42;
+    v61 = @"CLTSP,route road data is nil or empty";
+    return objc_msgSend_errorObject_description_(self, v51, 1, v61);
   }
 
   if (transport != 1)
@@ -612,16 +638,17 @@ LABEL_44:
       dispatch_once(&qword_1EAFE46B8, &unk_1F0E6D650);
     }
 
-    v22 = qword_1EAFE46E8;
+    v62 = qword_1EAFE46E8;
     if (os_log_type_enabled(qword_1EAFE46E8, OS_LOG_TYPE_ERROR))
     {
+      v66 = objc_msgSend_UUIDString(d, v63, v64, v65);
       *buf = 136446210;
-      v33[0] = [objc_msgSend(d "UUIDString")];
-      _os_log_impl(&dword_19B873000, v22, OS_LOG_TYPE_ERROR, "CLTSP,unsupported mode of transport,tripID,%{public}s", buf, 0xCu);
+      v104[0] = objc_msgSend_UTF8String(v66, v67, v68, v69);
+      _os_log_impl(&dword_19B873000, v62, OS_LOG_TYPE_ERROR, "CLTSP,unsupported mode of transport,tripID,%{public}s", buf, 0xCu);
     }
 
-    v23 = sub_19B87DD40();
-    if ((*(v23 + 160) & 0x80000000) == 0 || (*(v23 + 164) & 0x80000000) == 0 || (*(v23 + 168) & 0x80000000) == 0 || *(v23 + 152))
+    v70 = sub_19B87DD40();
+    if ((*(v70 + 160) & 0x80000000) == 0 || (*(v70 + 164) & 0x80000000) == 0 || (*(v70 + 168) & 0x80000000) == 0 || *(v70 + 152))
     {
       bzero(buf, 0x65CuLL);
       if (qword_1EAFE46B8 != -1)
@@ -629,22 +656,20 @@ LABEL_44:
         dispatch_once(&qword_1EAFE46B8, &unk_1F0E6D650);
       }
 
-      [objc_msgSend(d "UUIDString")];
-      v24 = _os_log_send_and_compose_impl();
-      sub_19B885924("Generic", 1, 0, 0, "[CLTripSegmentProcessorManager simulateLocationOnRouteID:withOptions:usingRoadData:modeOfTransport:constantSpeed:outputHandler:]", "CoreLocation: %s\n", v24);
-      if (v24 != buf)
+      v74 = qword_1EAFE46E8;
+      v75 = objc_msgSend_UUIDString(d, v71, v72, v73);
+      v101 = 136446210;
+      v102[0] = objc_msgSend_UTF8String(v75, v76, v77, v78);
+      v79 = _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B873000, v74, 16, "CLTSP,unsupported mode of transport,tripID,%{public}s", &v101, 12);
+      sub_19B885924("Generic", 1, 0, 0, "[CLTripSegmentProcessorManager simulateLocationOnRouteID:withOptions:usingRoadData:modeOfTransport:constantSpeed:outputHandler:]", "CoreLocation: %s\n", v79);
+      if (v79 != buf)
       {
-        free(v24);
+        free(v79);
       }
     }
 
-    v21 = @"CLTSP,input modeOfTransport not supported";
-LABEL_42:
-    selfCopy2 = self;
-    v26 = 1;
-LABEL_43:
-    result = [(CLTripSegmentProcessorManager *)selfCopy2 errorObject:v26 description:v21];
-    goto LABEL_44;
+    v61 = @"CLTSP,input modeOfTransport not supported";
+    return objc_msgSend_errorObject_description_(self, v51, 1, v61);
   }
 
   if (qword_1EAFE46B8 != -1)
@@ -652,18 +677,20 @@ LABEL_43:
     dispatch_once(&qword_1EAFE46B8, &unk_1F0E6D650);
   }
 
-  v14 = qword_1EAFE46E8;
+  v15 = qword_1EAFE46E8;
   if (os_log_type_enabled(qword_1EAFE46E8, OS_LOG_TYPE_DEFAULT))
   {
+    v19 = objc_msgSend_count(data, v16, v17, v18);
+    v23 = objc_msgSend_UUIDString(d, v20, v21, v22);
     *buf = 67240450;
-    LODWORD(v33[0]) = [data count];
-    WORD2(v33[0]) = 2082;
-    *(v33 + 6) = [objc_msgSend(d "UUIDString")];
-    _os_log_impl(&dword_19B873000, v14, OS_LOG_TYPE_DEFAULT, "CLTSP,simulateLocationOnRouteID called with roads,%{public}d,tripID,%{public}s", buf, 0x12u);
+    LODWORD(v104[0]) = v19;
+    WORD2(v104[0]) = 2082;
+    *(v104 + 6) = objc_msgSend_UTF8String(v23, v24, v25, v26);
+    _os_log_impl(&dword_19B873000, v15, OS_LOG_TYPE_DEFAULT, "CLTSP,simulateLocationOnRouteID called with roads,%{public}d,tripID,%{public}s", buf, 0x12u);
   }
 
-  v15 = sub_19B87DD40();
-  if (*(v15 + 160) > 1 || *(v15 + 164) > 1 || *(v15 + 168) > 1 || *(v15 + 152))
+  v27 = sub_19B87DD40();
+  if (*(v27 + 160) > 1 || *(v27 + 164) > 1 || *(v27 + 168) > 1 || *(v27 + 152))
   {
     bzero(buf, 0x65CuLL);
     if (qword_1EAFE46B8 != -1)
@@ -671,60 +698,64 @@ LABEL_43:
       dispatch_once(&qword_1EAFE46B8, &unk_1F0E6D650);
     }
 
-    [data count];
-    [objc_msgSend(d "UUIDString")];
-    v16 = _os_log_send_and_compose_impl();
-    sub_19B885924("Generic", 1, 0, 2, "[CLTripSegmentProcessorManager simulateLocationOnRouteID:withOptions:usingRoadData:modeOfTransport:constantSpeed:outputHandler:]", "CoreLocation: %s\n", v16);
-    if (v16 != buf)
+    v31 = qword_1EAFE46E8;
+    v32 = objc_msgSend_count(data, v28, v29, v30);
+    v36 = objc_msgSend_UUIDString(d, v33, v34, v35);
+    v101 = 67240450;
+    LODWORD(v102[0]) = v32;
+    WORD2(v102[0]) = 2082;
+    *(v102 + 6) = objc_msgSend_UTF8String(v36, v37, v38, v39);
+    v40 = _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B873000, v31, 0, "CLTSP,simulateLocationOnRouteID called with roads,%{public}d,tripID,%{public}s", &v101, 18);
+    sub_19B885924("Generic", 1, 0, 2, "[CLTripSegmentProcessorManager simulateLocationOnRouteID:withOptions:usingRoadData:modeOfTransport:constantSpeed:outputHandler:]", "CoreLocation: %s\n", v40);
+    if (v40 != buf)
     {
-      free(v16);
+      free(v40);
     }
   }
 
-  if ((sub_19BA5F0E0(&self->cltsp, d, data, 1, options, speed) & 1) == 0)
+  if (sub_19BA5F0E0(&self->cltsp, d, data, 1, options, handler, speed))
   {
+    return 0;
+  }
+
+  if (qword_1EAFE46B8 != -1)
+  {
+    dispatch_once(&qword_1EAFE46B8, &unk_1F0E6D650);
+  }
+
+  v80 = qword_1EAFE46E8;
+  if (os_log_type_enabled(qword_1EAFE46E8, OS_LOG_TYPE_ERROR))
+  {
+    v84 = objc_msgSend_UUIDString(d, v81, v82, v83);
+    v88 = objc_msgSend_UTF8String(v84, v85, v86, v87);
+    *buf = 136446210;
+    v104[0] = v88;
+    _os_log_impl(&dword_19B873000, v80, OS_LOG_TYPE_ERROR, "CLTSP,simulateLocationOnRouteID failed,tripID,%{public}s", buf, 0xCu);
+  }
+
+  v89 = sub_19B87DD40();
+  if ((*(v89 + 160) & 0x80000000) == 0 || (*(v89 + 164) & 0x80000000) == 0 || (*(v89 + 168) & 0x80000000) == 0 || *(v89 + 152))
+  {
+    bzero(buf, 0x65CuLL);
     if (qword_1EAFE46B8 != -1)
     {
       dispatch_once(&qword_1EAFE46B8, &unk_1F0E6D650);
     }
 
-    v28 = qword_1EAFE46E8;
-    if (os_log_type_enabled(qword_1EAFE46E8, OS_LOG_TYPE_ERROR))
+    v94 = qword_1EAFE46E8;
+    v95 = objc_msgSend_UUIDString(d, v91, v92, v93);
+    v99 = objc_msgSend_UTF8String(v95, v96, v97, v98);
+    v101 = 136446210;
+    v102[0] = v99;
+    v100 = _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B873000, v94, 16, "CLTSP,simulateLocationOnRouteID failed,tripID,%{public}s", &v101, 12);
+    sub_19B885924("Generic", 1, 0, 0, "[CLTripSegmentProcessorManager simulateLocationOnRouteID:withOptions:usingRoadData:modeOfTransport:constantSpeed:outputHandler:]", "CoreLocation: %s\n", v100);
+    if (v100 != buf)
     {
-      v29 = [objc_msgSend(d "UUIDString")];
-      *buf = 136446210;
-      v33[0] = v29;
-      _os_log_impl(&dword_19B873000, v28, OS_LOG_TYPE_ERROR, "CLTSP,simulateLocationOnRouteID failed,tripID,%{public}s", buf, 0xCu);
+      free(v100);
     }
-
-    v30 = sub_19B87DD40();
-    if ((*(v30 + 160) & 0x80000000) == 0 || (*(v30 + 164) & 0x80000000) == 0 || (*(v30 + 168) & 0x80000000) == 0 || *(v30 + 152))
-    {
-      bzero(buf, 0x65CuLL);
-      if (qword_1EAFE46B8 != -1)
-      {
-        dispatch_once(&qword_1EAFE46B8, &unk_1F0E6D650);
-      }
-
-      [objc_msgSend(d "UUIDString")];
-      v31 = _os_log_send_and_compose_impl();
-      sub_19B885924("Generic", 1, 0, 0, "[CLTripSegmentProcessorManager simulateLocationOnRouteID:withOptions:usingRoadData:modeOfTransport:constantSpeed:outputHandler:]", "CoreLocation: %s\n", v31);
-      if (v31 != buf)
-      {
-        free(v31);
-      }
-    }
-
-    v21 = @"CLTSP,simulateLocationOnRouteID";
-    selfCopy2 = self;
-    v26 = 8;
-    goto LABEL_43;
   }
 
-  result = 0;
-LABEL_44:
-  v27 = *MEMORY[0x1E69E9840];
-  return result;
+  return objc_msgSend_errorObject_description_(self, v90, 8, @"CLTSP,simulateLocationOnRouteID");
 }
 
 - (void)simulateLocationOnRouteID:(id)d withOptions:(id)options usingRoadData:(id)data modeOfTransport:(int64_t)transport constantSpeed:(double)speed outputHandler:(id)handler completionHandler:(id)completionHandler
@@ -768,24 +799,25 @@ LABEL_44:
 
 - (id)matchLocations:(id)locations toRoute:(id)route waypoints:(id)waypoints withOptions:(id)options andRouteID:(id)d modeOfTransport:(int64_t)transport outputHandler:(id)handler
 {
-  *(&v38[203] + 4) = *MEMORY[0x1E69E9840];
-  if (!route || ![route count])
+  *(&v126[203] + 4) = *MEMORY[0x1E69E9840];
+  if (!route || !objc_msgSend_count(route, a2, locations, route))
   {
     if (qword_1EAFE46B8 != -1)
     {
       dispatch_once(&qword_1EAFE46B8, &unk_1F0E6D650);
     }
 
-    v20 = qword_1EAFE46E8;
+    v46 = qword_1EAFE46E8;
     if (os_log_type_enabled(qword_1EAFE46E8, OS_LOG_TYPE_ERROR))
     {
+      v50 = objc_msgSend_UUIDString(d, v47, v48, v49);
       *buf = 136446210;
-      v38[0] = [objc_msgSend(d "UUIDString")];
-      _os_log_impl(&dword_19B873000, v20, OS_LOG_TYPE_ERROR, "CLTSP,route road data is nil or empty,tripID,%{public}s", buf, 0xCu);
+      v126[0] = objc_msgSend_UTF8String(v50, v51, v52, v53);
+      _os_log_impl(&dword_19B873000, v46, OS_LOG_TYPE_ERROR, "CLTSP,route road data is nil or empty,tripID,%{public}s", buf, 0xCu);
     }
 
-    v21 = sub_19B87DD40();
-    if ((*(v21 + 160) & 0x80000000) == 0 || (*(v21 + 164) & 0x80000000) == 0 || (*(v21 + 168) & 0x80000000) == 0 || *(v21 + 152))
+    v54 = sub_19B87DD40();
+    if ((*(v54 + 160) & 0x80000000) == 0 || (*(v54 + 164) & 0x80000000) == 0 || (*(v54 + 168) & 0x80000000) == 0 || *(v54 + 152))
     {
       bzero(buf, 0x65CuLL);
       if (qword_1EAFE46B8 != -1)
@@ -793,36 +825,40 @@ LABEL_44:
         dispatch_once(&qword_1EAFE46B8, &unk_1F0E6D650);
       }
 
-      [objc_msgSend(d "UUIDString")];
-      v22 = _os_log_send_and_compose_impl();
-      sub_19B885924("Generic", 1, 0, 0, "[CLTripSegmentProcessorManager matchLocations:toRoute:waypoints:withOptions:andRouteID:modeOfTransport:outputHandler:]", "CoreLocation: %s\n", v22);
-      if (v22 != buf)
+      v59 = qword_1EAFE46E8;
+      v60 = objc_msgSend_UUIDString(d, v56, v57, v58);
+      v123 = 136446210;
+      v124[0] = objc_msgSend_UTF8String(v60, v61, v62, v63);
+      v64 = _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B873000, v59, 16, "CLTSP,route road data is nil or empty,tripID,%{public}s", &v123, 12);
+      sub_19B885924("Generic", 1, 0, 0, "[CLTripSegmentProcessorManager matchLocations:toRoute:waypoints:withOptions:andRouteID:modeOfTransport:outputHandler:]", "CoreLocation: %s\n", v64);
+      if (v64 != buf)
       {
-        free(v22);
+        free(v64);
       }
     }
 
-    v23 = @"CLTSP,route road data is nil or empty";
-    goto LABEL_56;
+    v65 = @"CLTSP,route road data is nil or empty";
+    return objc_msgSend_errorObject_description_(self, v55, 1, v65);
   }
 
-  if (!locations || ![locations count])
+  if (!locations || !objc_msgSend_count(locations, v16, v17, v18))
   {
     if (qword_1EAFE46B8 != -1)
     {
       dispatch_once(&qword_1EAFE46B8, &unk_1F0E6D650);
     }
 
-    v24 = qword_1EAFE46E8;
+    v66 = qword_1EAFE46E8;
     if (os_log_type_enabled(qword_1EAFE46E8, OS_LOG_TYPE_ERROR))
     {
+      v70 = objc_msgSend_UUIDString(d, v67, v68, v69);
       *buf = 136446210;
-      v38[0] = [objc_msgSend(d "UUIDString")];
-      _os_log_impl(&dword_19B873000, v24, OS_LOG_TYPE_ERROR, "CLTSP,location data is nil or empty,tripID,%{public}s", buf, 0xCu);
+      v126[0] = objc_msgSend_UTF8String(v70, v71, v72, v73);
+      _os_log_impl(&dword_19B873000, v66, OS_LOG_TYPE_ERROR, "CLTSP,location data is nil or empty,tripID,%{public}s", buf, 0xCu);
     }
 
-    v25 = sub_19B87DD40();
-    if ((*(v25 + 160) & 0x80000000) == 0 || (*(v25 + 164) & 0x80000000) == 0 || (*(v25 + 168) & 0x80000000) == 0 || *(v25 + 152))
+    v74 = sub_19B87DD40();
+    if ((*(v74 + 160) & 0x80000000) == 0 || (*(v74 + 164) & 0x80000000) == 0 || (*(v74 + 168) & 0x80000000) == 0 || *(v74 + 152))
     {
       bzero(buf, 0x65CuLL);
       if (qword_1EAFE46B8 != -1)
@@ -830,17 +866,20 @@ LABEL_44:
         dispatch_once(&qword_1EAFE46B8, &unk_1F0E6D650);
       }
 
-      [objc_msgSend(d "UUIDString")];
-      v26 = _os_log_send_and_compose_impl();
-      sub_19B885924("Generic", 1, 0, 0, "[CLTripSegmentProcessorManager matchLocations:toRoute:waypoints:withOptions:andRouteID:modeOfTransport:outputHandler:]", "CoreLocation: %s\n", v26);
-      if (v26 != buf)
+      v78 = qword_1EAFE46E8;
+      v79 = objc_msgSend_UUIDString(d, v75, v76, v77);
+      v123 = 136446210;
+      v124[0] = objc_msgSend_UTF8String(v79, v80, v81, v82);
+      v83 = _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B873000, v78, 16, "CLTSP,location data is nil or empty,tripID,%{public}s", &v123, 12);
+      sub_19B885924("Generic", 1, 0, 0, "[CLTripSegmentProcessorManager matchLocations:toRoute:waypoints:withOptions:andRouteID:modeOfTransport:outputHandler:]", "CoreLocation: %s\n", v83);
+      if (v83 != buf)
       {
-        free(v26);
+        free(v83);
       }
     }
 
-    v23 = @"CLTSP,location data is nil or empty";
-    goto LABEL_56;
+    v65 = @"CLTSP,location data is nil or empty";
+    return objc_msgSend_errorObject_description_(self, v55, 1, v65);
   }
 
   if (transport != 1)
@@ -850,16 +889,17 @@ LABEL_44:
       dispatch_once(&qword_1EAFE46B8, &unk_1F0E6D650);
     }
 
-    v27 = qword_1EAFE46E8;
+    v84 = qword_1EAFE46E8;
     if (os_log_type_enabled(qword_1EAFE46E8, OS_LOG_TYPE_ERROR))
     {
+      v88 = objc_msgSend_UUIDString(d, v85, v86, v87);
       *buf = 136446210;
-      v38[0] = [objc_msgSend(d "UUIDString")];
-      _os_log_impl(&dword_19B873000, v27, OS_LOG_TYPE_ERROR, "CLTSP,unsupported mode of transport,tripID,%{public}s", buf, 0xCu);
+      v126[0] = objc_msgSend_UTF8String(v88, v89, v90, v91);
+      _os_log_impl(&dword_19B873000, v84, OS_LOG_TYPE_ERROR, "CLTSP,unsupported mode of transport,tripID,%{public}s", buf, 0xCu);
     }
 
-    v28 = sub_19B87DD40();
-    if ((*(v28 + 160) & 0x80000000) == 0 || (*(v28 + 164) & 0x80000000) == 0 || (*(v28 + 168) & 0x80000000) == 0 || *(v28 + 152))
+    v92 = sub_19B87DD40();
+    if ((*(v92 + 160) & 0x80000000) == 0 || (*(v92 + 164) & 0x80000000) == 0 || (*(v92 + 168) & 0x80000000) == 0 || *(v92 + 152))
     {
       bzero(buf, 0x65CuLL);
       if (qword_1EAFE46B8 != -1)
@@ -867,22 +907,20 @@ LABEL_44:
         dispatch_once(&qword_1EAFE46B8, &unk_1F0E6D650);
       }
 
-      [objc_msgSend(d "UUIDString")];
-      v29 = _os_log_send_and_compose_impl();
-      sub_19B885924("Generic", 1, 0, 0, "[CLTripSegmentProcessorManager matchLocations:toRoute:waypoints:withOptions:andRouteID:modeOfTransport:outputHandler:]", "CoreLocation: %s\n", v29);
-      if (v29 != buf)
+      v96 = qword_1EAFE46E8;
+      v97 = objc_msgSend_UUIDString(d, v93, v94, v95);
+      v123 = 136446210;
+      v124[0] = objc_msgSend_UTF8String(v97, v98, v99, v100);
+      v101 = _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B873000, v96, 16, "CLTSP,unsupported mode of transport,tripID,%{public}s", &v123, 12);
+      sub_19B885924("Generic", 1, 0, 0, "[CLTripSegmentProcessorManager matchLocations:toRoute:waypoints:withOptions:andRouteID:modeOfTransport:outputHandler:]", "CoreLocation: %s\n", v101);
+      if (v101 != buf)
       {
-        free(v29);
+        free(v101);
       }
     }
 
-    v23 = @"CLTSP,input modeOfTransport not supported";
-LABEL_56:
-    selfCopy2 = self;
-    v31 = 1;
-LABEL_57:
-    result = [(CLTripSegmentProcessorManager *)selfCopy2 errorObject:v31 description:v23];
-    goto LABEL_58;
+    v65 = @"CLTSP,input modeOfTransport not supported";
+    return objc_msgSend_errorObject_description_(self, v55, 1, v65);
   }
 
   if (qword_1EAFE46B8 != -1)
@@ -890,18 +928,20 @@ LABEL_57:
     dispatch_once(&qword_1EAFE46B8, &unk_1F0E6D650);
   }
 
-  v16 = qword_1EAFE46E8;
+  v19 = qword_1EAFE46E8;
   if (os_log_type_enabled(qword_1EAFE46E8, OS_LOG_TYPE_DEFAULT))
   {
+    v23 = objc_msgSend_count(route, v20, v21, v22);
+    v27 = objc_msgSend_UUIDString(d, v24, v25, v26);
     *buf = 67240450;
-    LODWORD(v38[0]) = [route count];
-    WORD2(v38[0]) = 2082;
-    *(v38 + 6) = [objc_msgSend(d "UUIDString")];
-    _os_log_impl(&dword_19B873000, v16, OS_LOG_TYPE_DEFAULT, "CLTSP,matchLocationsToRoute called with roads,%{public}d,tripID,%{public}s", buf, 0x12u);
+    LODWORD(v126[0]) = v23;
+    WORD2(v126[0]) = 2082;
+    *(v126 + 6) = objc_msgSend_UTF8String(v27, v28, v29, v30);
+    _os_log_impl(&dword_19B873000, v19, OS_LOG_TYPE_DEFAULT, "CLTSP,matchLocationsToRoute called with roads,%{public}d,tripID,%{public}s", buf, 0x12u);
   }
 
-  v17 = sub_19B87DD40();
-  if (*(v17 + 160) > 1 || *(v17 + 164) > 1 || *(v17 + 168) > 1 || *(v17 + 152))
+  v31 = sub_19B87DD40();
+  if (*(v31 + 160) > 1 || *(v31 + 164) > 1 || *(v31 + 168) > 1 || *(v31 + 152))
   {
     bzero(buf, 0x65CuLL);
     if (qword_1EAFE46B8 != -1)
@@ -909,82 +949,87 @@ LABEL_57:
       dispatch_once(&qword_1EAFE46B8, &unk_1F0E6D650);
     }
 
-    [route count];
-    [objc_msgSend(d "UUIDString")];
-    v18 = _os_log_send_and_compose_impl();
-    sub_19B885924("Generic", 1, 0, 2, "[CLTripSegmentProcessorManager matchLocations:toRoute:waypoints:withOptions:andRouteID:modeOfTransport:outputHandler:]", "CoreLocation: %s\n", v18);
-    if (v18 != buf)
+    v35 = qword_1EAFE46E8;
+    v36 = objc_msgSend_count(route, v32, v33, v34);
+    v40 = objc_msgSend_UUIDString(d, v37, v38, v39);
+    v123 = 67240450;
+    LODWORD(v124[0]) = v36;
+    WORD2(v124[0]) = 2082;
+    *(v124 + 6) = objc_msgSend_UTF8String(v40, v41, v42, v43);
+    v44 = _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B873000, v35, 0, "CLTSP,matchLocationsToRoute called with roads,%{public}d,tripID,%{public}s", &v123, 18);
+    sub_19B885924("Generic", 1, 0, 2, "[CLTripSegmentProcessorManager matchLocations:toRoute:waypoints:withOptions:andRouteID:modeOfTransport:outputHandler:]", "CoreLocation: %s\n", v44);
+    if (v44 != buf)
     {
-      free(v18);
+      free(v44);
     }
   }
 
-  if ((sub_19BA66898(&self->cltsp, d, route, waypoints, 1, locations, options) & 1) == 0)
+  if (sub_19BA66898(&self->cltsp, d, route, waypoints, 1, locations, options, handler))
   {
+    return 0;
+  }
+
+  if (qword_1EAFE46B8 != -1)
+  {
+    dispatch_once(&qword_1EAFE46B8, &unk_1F0E6D650);
+  }
+
+  v102 = qword_1EAFE46E8;
+  if (os_log_type_enabled(qword_1EAFE46E8, OS_LOG_TYPE_ERROR))
+  {
+    v106 = objc_msgSend_UUIDString(d, v103, v104, v105);
+    v110 = objc_msgSend_UTF8String(v106, v107, v108, v109);
+    *buf = 136446210;
+    v126[0] = v110;
+    _os_log_impl(&dword_19B873000, v102, OS_LOG_TYPE_ERROR, "CLTSP,matchLocationsToRoute failed,routeID,%{public}s", buf, 0xCu);
+  }
+
+  v111 = sub_19B87DD40();
+  if ((*(v111 + 160) & 0x80000000) == 0 || (*(v111 + 164) & 0x80000000) == 0 || (*(v111 + 168) & 0x80000000) == 0 || *(v111 + 152))
+  {
+    bzero(buf, 0x65CuLL);
     if (qword_1EAFE46B8 != -1)
     {
       dispatch_once(&qword_1EAFE46B8, &unk_1F0E6D650);
     }
 
-    v33 = qword_1EAFE46E8;
-    if (os_log_type_enabled(qword_1EAFE46E8, OS_LOG_TYPE_ERROR))
+    v116 = qword_1EAFE46E8;
+    v117 = objc_msgSend_UUIDString(d, v113, v114, v115);
+    v121 = objc_msgSend_UTF8String(v117, v118, v119, v120);
+    v123 = 136446210;
+    v124[0] = v121;
+    v122 = _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B873000, v116, 16, "CLTSP,matchLocationsToRoute failed,routeID,%{public}s", &v123, 12);
+    sub_19B885924("Generic", 1, 0, 0, "[CLTripSegmentProcessorManager matchLocations:toRoute:waypoints:withOptions:andRouteID:modeOfTransport:outputHandler:]", "CoreLocation: %s\n", v122);
+    if (v122 != buf)
     {
-      v34 = [objc_msgSend(d "UUIDString")];
-      *buf = 136446210;
-      v38[0] = v34;
-      _os_log_impl(&dword_19B873000, v33, OS_LOG_TYPE_ERROR, "CLTSP,matchLocationsToRoute failed,routeID,%{public}s", buf, 0xCu);
+      free(v122);
     }
-
-    v35 = sub_19B87DD40();
-    if ((*(v35 + 160) & 0x80000000) == 0 || (*(v35 + 164) & 0x80000000) == 0 || (*(v35 + 168) & 0x80000000) == 0 || *(v35 + 152))
-    {
-      bzero(buf, 0x65CuLL);
-      if (qword_1EAFE46B8 != -1)
-      {
-        dispatch_once(&qword_1EAFE46B8, &unk_1F0E6D650);
-      }
-
-      [objc_msgSend(d "UUIDString")];
-      v36 = _os_log_send_and_compose_impl();
-      sub_19B885924("Generic", 1, 0, 0, "[CLTripSegmentProcessorManager matchLocations:toRoute:waypoints:withOptions:andRouteID:modeOfTransport:outputHandler:]", "CoreLocation: %s\n", v36);
-      if (v36 != buf)
-      {
-        free(v36);
-      }
-    }
-
-    v23 = @"CLTSP,matchLocationsToRoute failed to snap";
-    selfCopy2 = self;
-    v31 = 2;
-    goto LABEL_57;
   }
 
-  result = 0;
-LABEL_58:
-  v32 = *MEMORY[0x1E69E9840];
-  return result;
+  return objc_msgSend_errorObject_description_(self, v112, 2, @"CLTSP,matchLocationsToRoute failed to snap");
 }
 
 - (id)matchLocations:(id)locations toRoute:(id)route withOptions:(id)options andRouteID:(id)d modeOfTransport:(int64_t)transport outputHandler:(id)handler
 {
-  *(&v36[203] + 4) = *MEMORY[0x1E69E9840];
-  if (!route || ![route count])
+  *(&v125[203] + 4) = *MEMORY[0x1E69E9840];
+  if (!route || !objc_msgSend_count(route, a2, locations, route))
   {
     if (qword_1EAFE46B8 != -1)
     {
       dispatch_once(&qword_1EAFE46B8, &unk_1F0E6D650);
     }
 
-    v18 = qword_1EAFE46E8;
+    v45 = qword_1EAFE46E8;
     if (os_log_type_enabled(qword_1EAFE46E8, OS_LOG_TYPE_ERROR))
     {
+      v49 = objc_msgSend_UUIDString(d, v46, v47, v48);
       *buf = 136446210;
-      v36[0] = [objc_msgSend(d "UUIDString")];
-      _os_log_impl(&dword_19B873000, v18, OS_LOG_TYPE_ERROR, "CLTSP,route road data is nil or empty,tripID,%{public}s", buf, 0xCu);
+      v125[0] = objc_msgSend_UTF8String(v49, v50, v51, v52);
+      _os_log_impl(&dword_19B873000, v45, OS_LOG_TYPE_ERROR, "CLTSP,route road data is nil or empty,tripID,%{public}s", buf, 0xCu);
     }
 
-    v19 = sub_19B87DD40();
-    if ((*(v19 + 160) & 0x80000000) == 0 || (*(v19 + 164) & 0x80000000) == 0 || (*(v19 + 168) & 0x80000000) == 0 || *(v19 + 152))
+    v53 = sub_19B87DD40();
+    if ((*(v53 + 160) & 0x80000000) == 0 || (*(v53 + 164) & 0x80000000) == 0 || (*(v53 + 168) & 0x80000000) == 0 || *(v53 + 152))
     {
       bzero(buf, 0x65CuLL);
       if (qword_1EAFE46B8 != -1)
@@ -992,36 +1037,40 @@ LABEL_58:
         dispatch_once(&qword_1EAFE46B8, &unk_1F0E6D650);
       }
 
-      [objc_msgSend(d "UUIDString")];
-      v20 = _os_log_send_and_compose_impl();
-      sub_19B885924("Generic", 1, 0, 0, "[CLTripSegmentProcessorManager matchLocations:toRoute:withOptions:andRouteID:modeOfTransport:outputHandler:]", "CoreLocation: %s\n", v20);
-      if (v20 != buf)
+      v58 = qword_1EAFE46E8;
+      v59 = objc_msgSend_UUIDString(d, v55, v56, v57);
+      v122 = 136446210;
+      v123[0] = objc_msgSend_UTF8String(v59, v60, v61, v62);
+      v63 = _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B873000, v58, 16, "CLTSP,route road data is nil or empty,tripID,%{public}s", &v122, 12);
+      sub_19B885924("Generic", 1, 0, 0, "[CLTripSegmentProcessorManager matchLocations:toRoute:withOptions:andRouteID:modeOfTransport:outputHandler:]", "CoreLocation: %s\n", v63);
+      if (v63 != buf)
       {
-        free(v20);
+        free(v63);
       }
     }
 
-    v21 = @"CLTSP,route road data is nil or empty";
-    goto LABEL_56;
+    v64 = @"CLTSP,route road data is nil or empty";
+    return objc_msgSend_errorObject_description_(self, v54, 1, v64);
   }
 
-  if (!locations || ![locations count])
+  if (!locations || !objc_msgSend_count(locations, v15, v16, v17))
   {
     if (qword_1EAFE46B8 != -1)
     {
       dispatch_once(&qword_1EAFE46B8, &unk_1F0E6D650);
     }
 
-    v22 = qword_1EAFE46E8;
+    v65 = qword_1EAFE46E8;
     if (os_log_type_enabled(qword_1EAFE46E8, OS_LOG_TYPE_ERROR))
     {
+      v69 = objc_msgSend_UUIDString(d, v66, v67, v68);
       *buf = 136446210;
-      v36[0] = [objc_msgSend(d "UUIDString")];
-      _os_log_impl(&dword_19B873000, v22, OS_LOG_TYPE_ERROR, "CLTSP,location data is nil or empty,tripID,%{public}s", buf, 0xCu);
+      v125[0] = objc_msgSend_UTF8String(v69, v70, v71, v72);
+      _os_log_impl(&dword_19B873000, v65, OS_LOG_TYPE_ERROR, "CLTSP,location data is nil or empty,tripID,%{public}s", buf, 0xCu);
     }
 
-    v23 = sub_19B87DD40();
-    if ((*(v23 + 160) & 0x80000000) == 0 || (*(v23 + 164) & 0x80000000) == 0 || (*(v23 + 168) & 0x80000000) == 0 || *(v23 + 152))
+    v73 = sub_19B87DD40();
+    if ((*(v73 + 160) & 0x80000000) == 0 || (*(v73 + 164) & 0x80000000) == 0 || (*(v73 + 168) & 0x80000000) == 0 || *(v73 + 152))
     {
       bzero(buf, 0x65CuLL);
       if (qword_1EAFE46B8 != -1)
@@ -1029,17 +1078,20 @@ LABEL_58:
         dispatch_once(&qword_1EAFE46B8, &unk_1F0E6D650);
       }
 
-      [objc_msgSend(d "UUIDString")];
-      v24 = _os_log_send_and_compose_impl();
-      sub_19B885924("Generic", 1, 0, 0, "[CLTripSegmentProcessorManager matchLocations:toRoute:withOptions:andRouteID:modeOfTransport:outputHandler:]", "CoreLocation: %s\n", v24);
-      if (v24 != buf)
+      v77 = qword_1EAFE46E8;
+      v78 = objc_msgSend_UUIDString(d, v74, v75, v76);
+      v122 = 136446210;
+      v123[0] = objc_msgSend_UTF8String(v78, v79, v80, v81);
+      v82 = _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B873000, v77, 16, "CLTSP,location data is nil or empty,tripID,%{public}s", &v122, 12);
+      sub_19B885924("Generic", 1, 0, 0, "[CLTripSegmentProcessorManager matchLocations:toRoute:withOptions:andRouteID:modeOfTransport:outputHandler:]", "CoreLocation: %s\n", v82);
+      if (v82 != buf)
       {
-        free(v24);
+        free(v82);
       }
     }
 
-    v21 = @"CLTSP,location data is nil or empty";
-    goto LABEL_56;
+    v64 = @"CLTSP,location data is nil or empty";
+    return objc_msgSend_errorObject_description_(self, v54, 1, v64);
   }
 
   if (transport != 1)
@@ -1049,16 +1101,17 @@ LABEL_58:
       dispatch_once(&qword_1EAFE46B8, &unk_1F0E6D650);
     }
 
-    v25 = qword_1EAFE46E8;
+    v83 = qword_1EAFE46E8;
     if (os_log_type_enabled(qword_1EAFE46E8, OS_LOG_TYPE_ERROR))
     {
+      v87 = objc_msgSend_UUIDString(d, v84, v85, v86);
       *buf = 136446210;
-      v36[0] = [objc_msgSend(d "UUIDString")];
-      _os_log_impl(&dword_19B873000, v25, OS_LOG_TYPE_ERROR, "CLTSP,unsupported mode of transport,tripID,%{public}s", buf, 0xCu);
+      v125[0] = objc_msgSend_UTF8String(v87, v88, v89, v90);
+      _os_log_impl(&dword_19B873000, v83, OS_LOG_TYPE_ERROR, "CLTSP,unsupported mode of transport,tripID,%{public}s", buf, 0xCu);
     }
 
-    v26 = sub_19B87DD40();
-    if ((*(v26 + 160) & 0x80000000) == 0 || (*(v26 + 164) & 0x80000000) == 0 || (*(v26 + 168) & 0x80000000) == 0 || *(v26 + 152))
+    v91 = sub_19B87DD40();
+    if ((*(v91 + 160) & 0x80000000) == 0 || (*(v91 + 164) & 0x80000000) == 0 || (*(v91 + 168) & 0x80000000) == 0 || *(v91 + 152))
     {
       bzero(buf, 0x65CuLL);
       if (qword_1EAFE46B8 != -1)
@@ -1066,22 +1119,20 @@ LABEL_58:
         dispatch_once(&qword_1EAFE46B8, &unk_1F0E6D650);
       }
 
-      [objc_msgSend(d "UUIDString")];
-      v27 = _os_log_send_and_compose_impl();
-      sub_19B885924("Generic", 1, 0, 0, "[CLTripSegmentProcessorManager matchLocations:toRoute:withOptions:andRouteID:modeOfTransport:outputHandler:]", "CoreLocation: %s\n", v27);
-      if (v27 != buf)
+      v95 = qword_1EAFE46E8;
+      v96 = objc_msgSend_UUIDString(d, v92, v93, v94);
+      v122 = 136446210;
+      v123[0] = objc_msgSend_UTF8String(v96, v97, v98, v99);
+      v100 = _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B873000, v95, 16, "CLTSP,unsupported mode of transport,tripID,%{public}s", &v122, 12);
+      sub_19B885924("Generic", 1, 0, 0, "[CLTripSegmentProcessorManager matchLocations:toRoute:withOptions:andRouteID:modeOfTransport:outputHandler:]", "CoreLocation: %s\n", v100);
+      if (v100 != buf)
       {
-        free(v27);
+        free(v100);
       }
     }
 
-    v21 = @"CLTSP,input modeOfTransport not supported";
-LABEL_56:
-    selfCopy2 = self;
-    v29 = 1;
-LABEL_57:
-    result = [(CLTripSegmentProcessorManager *)selfCopy2 errorObject:v29 description:v21];
-    goto LABEL_58;
+    v64 = @"CLTSP,input modeOfTransport not supported";
+    return objc_msgSend_errorObject_description_(self, v54, 1, v64);
   }
 
   if (qword_1EAFE46B8 != -1)
@@ -1089,18 +1140,20 @@ LABEL_57:
     dispatch_once(&qword_1EAFE46B8, &unk_1F0E6D650);
   }
 
-  v14 = qword_1EAFE46E8;
+  v18 = qword_1EAFE46E8;
   if (os_log_type_enabled(qword_1EAFE46E8, OS_LOG_TYPE_DEFAULT))
   {
+    v22 = objc_msgSend_count(route, v19, v20, v21);
+    v26 = objc_msgSend_UUIDString(d, v23, v24, v25);
     *buf = 67240450;
-    LODWORD(v36[0]) = [route count];
-    WORD2(v36[0]) = 2082;
-    *(v36 + 6) = [objc_msgSend(d "UUIDString")];
-    _os_log_impl(&dword_19B873000, v14, OS_LOG_TYPE_DEFAULT, "CLTSP,matchLocationsToRoute called with roads,%{public}d,tripID,%{public}s", buf, 0x12u);
+    LODWORD(v125[0]) = v22;
+    WORD2(v125[0]) = 2082;
+    *(v125 + 6) = objc_msgSend_UTF8String(v26, v27, v28, v29);
+    _os_log_impl(&dword_19B873000, v18, OS_LOG_TYPE_DEFAULT, "CLTSP,matchLocationsToRoute called with roads,%{public}d,tripID,%{public}s", buf, 0x12u);
   }
 
-  v15 = sub_19B87DD40();
-  if (*(v15 + 160) > 1 || *(v15 + 164) > 1 || *(v15 + 168) > 1 || *(v15 + 152))
+  v30 = sub_19B87DD40();
+  if (*(v30 + 160) > 1 || *(v30 + 164) > 1 || *(v30 + 168) > 1 || *(v30 + 152))
   {
     bzero(buf, 0x65CuLL);
     if (qword_1EAFE46B8 != -1)
@@ -1108,82 +1161,87 @@ LABEL_57:
       dispatch_once(&qword_1EAFE46B8, &unk_1F0E6D650);
     }
 
-    [route count];
-    [objc_msgSend(d "UUIDString")];
-    v16 = _os_log_send_and_compose_impl();
-    sub_19B885924("Generic", 1, 0, 2, "[CLTripSegmentProcessorManager matchLocations:toRoute:withOptions:andRouteID:modeOfTransport:outputHandler:]", "CoreLocation: %s\n", v16);
-    if (v16 != buf)
+    v34 = qword_1EAFE46E8;
+    v35 = objc_msgSend_count(route, v31, v32, v33);
+    v39 = objc_msgSend_UUIDString(d, v36, v37, v38);
+    v122 = 67240450;
+    LODWORD(v123[0]) = v35;
+    WORD2(v123[0]) = 2082;
+    *(v123 + 6) = objc_msgSend_UTF8String(v39, v40, v41, v42);
+    v43 = _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B873000, v34, 0, "CLTSP,matchLocationsToRoute called with roads,%{public}d,tripID,%{public}s", &v122, 18);
+    sub_19B885924("Generic", 1, 0, 2, "[CLTripSegmentProcessorManager matchLocations:toRoute:withOptions:andRouteID:modeOfTransport:outputHandler:]", "CoreLocation: %s\n", v43);
+    if (v43 != buf)
     {
-      free(v16);
+      free(v43);
     }
   }
 
-  if ((sub_19BA686C4(&self->cltsp, d, route, 1, locations, options) & 1) == 0)
+  if (sub_19BA686C4(&self->cltsp, d, route, 1, locations, options, handler))
   {
+    return 0;
+  }
+
+  if (qword_1EAFE46B8 != -1)
+  {
+    dispatch_once(&qword_1EAFE46B8, &unk_1F0E6D650);
+  }
+
+  v101 = qword_1EAFE46E8;
+  if (os_log_type_enabled(qword_1EAFE46E8, OS_LOG_TYPE_ERROR))
+  {
+    v105 = objc_msgSend_UUIDString(d, v102, v103, v104);
+    v109 = objc_msgSend_UTF8String(v105, v106, v107, v108);
+    *buf = 136446210;
+    v125[0] = v109;
+    _os_log_impl(&dword_19B873000, v101, OS_LOG_TYPE_ERROR, "CLTSP,matchLocationsToRoute failed,routeID,%{public}s", buf, 0xCu);
+  }
+
+  v110 = sub_19B87DD40();
+  if ((*(v110 + 160) & 0x80000000) == 0 || (*(v110 + 164) & 0x80000000) == 0 || (*(v110 + 168) & 0x80000000) == 0 || *(v110 + 152))
+  {
+    bzero(buf, 0x65CuLL);
     if (qword_1EAFE46B8 != -1)
     {
       dispatch_once(&qword_1EAFE46B8, &unk_1F0E6D650);
     }
 
-    v31 = qword_1EAFE46E8;
-    if (os_log_type_enabled(qword_1EAFE46E8, OS_LOG_TYPE_ERROR))
+    v115 = qword_1EAFE46E8;
+    v116 = objc_msgSend_UUIDString(d, v112, v113, v114);
+    v120 = objc_msgSend_UTF8String(v116, v117, v118, v119);
+    v122 = 136446210;
+    v123[0] = v120;
+    v121 = _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B873000, v115, 16, "CLTSP,matchLocationsToRoute failed,routeID,%{public}s", &v122, 12);
+    sub_19B885924("Generic", 1, 0, 0, "[CLTripSegmentProcessorManager matchLocations:toRoute:withOptions:andRouteID:modeOfTransport:outputHandler:]", "CoreLocation: %s\n", v121);
+    if (v121 != buf)
     {
-      v32 = [objc_msgSend(d "UUIDString")];
-      *buf = 136446210;
-      v36[0] = v32;
-      _os_log_impl(&dword_19B873000, v31, OS_LOG_TYPE_ERROR, "CLTSP,matchLocationsToRoute failed,routeID,%{public}s", buf, 0xCu);
+      free(v121);
     }
-
-    v33 = sub_19B87DD40();
-    if ((*(v33 + 160) & 0x80000000) == 0 || (*(v33 + 164) & 0x80000000) == 0 || (*(v33 + 168) & 0x80000000) == 0 || *(v33 + 152))
-    {
-      bzero(buf, 0x65CuLL);
-      if (qword_1EAFE46B8 != -1)
-      {
-        dispatch_once(&qword_1EAFE46B8, &unk_1F0E6D650);
-      }
-
-      [objc_msgSend(d "UUIDString")];
-      v34 = _os_log_send_and_compose_impl();
-      sub_19B885924("Generic", 1, 0, 0, "[CLTripSegmentProcessorManager matchLocations:toRoute:withOptions:andRouteID:modeOfTransport:outputHandler:]", "CoreLocation: %s\n", v34);
-      if (v34 != buf)
-      {
-        free(v34);
-      }
-    }
-
-    v21 = @"CLTSP,matchLocationsToRoute failed to snap";
-    selfCopy2 = self;
-    v29 = 2;
-    goto LABEL_57;
   }
 
-  result = 0;
-LABEL_58:
-  v30 = *MEMORY[0x1E69E9840];
-  return result;
+  return objc_msgSend_errorObject_description_(self, v111, 2, @"CLTSP,matchLocationsToRoute failed to snap");
 }
 
 - (id)getWaypointsSubsetFromSnapPointOnRoute:(id)route modeOfTransport:(int64_t)transport snapLocation:(id)location snapRoad:(id)road waypoints:(id)waypoints routeID:(id)d withOptions:(id)options outputHandler:(id)self0
 {
-  *(&v40[203] + 4) = *MEMORY[0x1E69E9840];
-  if (!route || ![route count])
+  *(&v125[203] + 4) = *MEMORY[0x1E69E9840];
+  if (!route || !objc_msgSend_count(route, a2, route, transport))
   {
     if (qword_1EAFE46B8 != -1)
     {
       dispatch_once(&qword_1EAFE46B8, &unk_1F0E6D650);
     }
 
-    v22 = qword_1EAFE46E8;
+    v45 = qword_1EAFE46E8;
     if (os_log_type_enabled(qword_1EAFE46E8, OS_LOG_TYPE_ERROR))
     {
+      v49 = objc_msgSend_UUIDString(d, v46, v47, v48);
       *buf = 136446210;
-      v40[0] = [objc_msgSend(d "UUIDString")];
-      _os_log_impl(&dword_19B873000, v22, OS_LOG_TYPE_ERROR, "CLTSP,route road data is nil or empty,tripID,%{public}s", buf, 0xCu);
+      v125[0] = objc_msgSend_UTF8String(v49, v50, v51, v52);
+      _os_log_impl(&dword_19B873000, v45, OS_LOG_TYPE_ERROR, "CLTSP,route road data is nil or empty,tripID,%{public}s", buf, 0xCu);
     }
 
-    v23 = sub_19B87DD40();
-    if ((*(v23 + 160) & 0x80000000) == 0 || (*(v23 + 164) & 0x80000000) == 0 || (*(v23 + 168) & 0x80000000) == 0 || *(v23 + 152))
+    v53 = sub_19B87DD40();
+    if ((*(v53 + 160) & 0x80000000) == 0 || (*(v53 + 164) & 0x80000000) == 0 || (*(v53 + 168) & 0x80000000) == 0 || *(v53 + 152))
     {
       bzero(buf, 0x65CuLL);
       if (qword_1EAFE46B8 != -1)
@@ -1191,17 +1249,20 @@ LABEL_58:
         dispatch_once(&qword_1EAFE46B8, &unk_1F0E6D650);
       }
 
-      [objc_msgSend(d "UUIDString")];
-      v24 = _os_log_send_and_compose_impl();
-      sub_19B885924("Generic", 1, 0, 0, "[CLTripSegmentProcessorManager getWaypointsSubsetFromSnapPointOnRoute:modeOfTransport:snapLocation:snapRoad:waypoints:routeID:withOptions:outputHandler:]", "CoreLocation: %s\n", v24);
-      if (v24 != buf)
+      v58 = qword_1EAFE46E8;
+      v59 = objc_msgSend_UUIDString(d, v55, v56, v57);
+      v122 = 136446210;
+      v123[0] = objc_msgSend_UTF8String(v59, v60, v61, v62);
+      v63 = _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B873000, v58, 16, "CLTSP,route road data is nil or empty,tripID,%{public}s", &v122, 12);
+      sub_19B885924("Generic", 1, 0, 0, "[CLTripSegmentProcessorManager getWaypointsSubsetFromSnapPointOnRoute:modeOfTransport:snapLocation:snapRoad:waypoints:routeID:withOptions:outputHandler:]", "CoreLocation: %s\n", v63);
+      if (v63 != buf)
       {
-        free(v24);
+        free(v63);
       }
     }
 
-    v25 = @"CLTSP,route road data is nil or empty";
-    goto LABEL_57;
+    v64 = @"CLTSP,route road data is nil or empty";
+    return objc_msgSend_errorObject_description_(self, v54, 1, v64);
   }
 
   if (!location || !road)
@@ -1211,16 +1272,17 @@ LABEL_58:
       dispatch_once(&qword_1EAFE46B8, &unk_1F0E6D650);
     }
 
-    v26 = qword_1EAFE46E8;
+    v65 = qword_1EAFE46E8;
     if (os_log_type_enabled(qword_1EAFE46E8, OS_LOG_TYPE_ERROR))
     {
+      v69 = objc_msgSend_UUIDString(d, v66, v67, v68);
       *buf = 136446210;
-      v40[0] = [objc_msgSend(d "UUIDString")];
-      _os_log_impl(&dword_19B873000, v26, OS_LOG_TYPE_ERROR, "CLTSP,location data is nil or empty,tripID,%{public}s", buf, 0xCu);
+      v125[0] = objc_msgSend_UTF8String(v69, v70, v71, v72);
+      _os_log_impl(&dword_19B873000, v65, OS_LOG_TYPE_ERROR, "CLTSP,location data is nil or empty,tripID,%{public}s", buf, 0xCu);
     }
 
-    v27 = sub_19B87DD40();
-    if ((*(v27 + 160) & 0x80000000) == 0 || (*(v27 + 164) & 0x80000000) == 0 || (*(v27 + 168) & 0x80000000) == 0 || *(v27 + 152))
+    v73 = sub_19B87DD40();
+    if ((*(v73 + 160) & 0x80000000) == 0 || (*(v73 + 164) & 0x80000000) == 0 || (*(v73 + 168) & 0x80000000) == 0 || *(v73 + 152))
     {
       bzero(buf, 0x65CuLL);
       if (qword_1EAFE46B8 != -1)
@@ -1228,17 +1290,20 @@ LABEL_58:
         dispatch_once(&qword_1EAFE46B8, &unk_1F0E6D650);
       }
 
-      [objc_msgSend(d "UUIDString")];
-      v28 = _os_log_send_and_compose_impl();
-      sub_19B885924("Generic", 1, 0, 0, "[CLTripSegmentProcessorManager getWaypointsSubsetFromSnapPointOnRoute:modeOfTransport:snapLocation:snapRoad:waypoints:routeID:withOptions:outputHandler:]", "CoreLocation: %s\n", v28);
-      if (v28 != buf)
+      v77 = qword_1EAFE46E8;
+      v78 = objc_msgSend_UUIDString(d, v74, v75, v76);
+      v122 = 136446210;
+      v123[0] = objc_msgSend_UTF8String(v78, v79, v80, v81);
+      v82 = _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B873000, v77, 16, "CLTSP,location data is nil or empty,tripID,%{public}s", &v122, 12);
+      sub_19B885924("Generic", 1, 0, 0, "[CLTripSegmentProcessorManager getWaypointsSubsetFromSnapPointOnRoute:modeOfTransport:snapLocation:snapRoad:waypoints:routeID:withOptions:outputHandler:]", "CoreLocation: %s\n", v82);
+      if (v82 != buf)
       {
-        free(v28);
+        free(v82);
       }
     }
 
-    v25 = @"CLTSP,snap data is nil";
-    goto LABEL_57;
+    v64 = @"CLTSP,snap data is nil";
+    return objc_msgSend_errorObject_description_(self, v54, 1, v64);
   }
 
   if (transport != 1)
@@ -1248,16 +1313,17 @@ LABEL_58:
       dispatch_once(&qword_1EAFE46B8, &unk_1F0E6D650);
     }
 
-    v29 = qword_1EAFE46E8;
+    v83 = qword_1EAFE46E8;
     if (os_log_type_enabled(qword_1EAFE46E8, OS_LOG_TYPE_ERROR))
     {
+      v87 = objc_msgSend_UUIDString(d, v84, v85, v86);
       *buf = 136446210;
-      v40[0] = [objc_msgSend(d "UUIDString")];
-      _os_log_impl(&dword_19B873000, v29, OS_LOG_TYPE_ERROR, "CLTSP,unsupported mode of transport,tripID,%{public}s", buf, 0xCu);
+      v125[0] = objc_msgSend_UTF8String(v87, v88, v89, v90);
+      _os_log_impl(&dword_19B873000, v83, OS_LOG_TYPE_ERROR, "CLTSP,unsupported mode of transport,tripID,%{public}s", buf, 0xCu);
     }
 
-    v30 = sub_19B87DD40();
-    if ((*(v30 + 160) & 0x80000000) == 0 || (*(v30 + 164) & 0x80000000) == 0 || (*(v30 + 168) & 0x80000000) == 0 || *(v30 + 152))
+    v91 = sub_19B87DD40();
+    if ((*(v91 + 160) & 0x80000000) == 0 || (*(v91 + 164) & 0x80000000) == 0 || (*(v91 + 168) & 0x80000000) == 0 || *(v91 + 152))
     {
       bzero(buf, 0x65CuLL);
       if (qword_1EAFE46B8 != -1)
@@ -1265,22 +1331,20 @@ LABEL_58:
         dispatch_once(&qword_1EAFE46B8, &unk_1F0E6D650);
       }
 
-      [objc_msgSend(d "UUIDString")];
-      v31 = _os_log_send_and_compose_impl();
-      sub_19B885924("Generic", 1, 0, 0, "[CLTripSegmentProcessorManager getWaypointsSubsetFromSnapPointOnRoute:modeOfTransport:snapLocation:snapRoad:waypoints:routeID:withOptions:outputHandler:]", "CoreLocation: %s\n", v31);
-      if (v31 != buf)
+      v95 = qword_1EAFE46E8;
+      v96 = objc_msgSend_UUIDString(d, v92, v93, v94);
+      v122 = 136446210;
+      v123[0] = objc_msgSend_UTF8String(v96, v97, v98, v99);
+      v100 = _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B873000, v95, 16, "CLTSP,unsupported mode of transport,tripID,%{public}s", &v122, 12);
+      sub_19B885924("Generic", 1, 0, 0, "[CLTripSegmentProcessorManager getWaypointsSubsetFromSnapPointOnRoute:modeOfTransport:snapLocation:snapRoad:waypoints:routeID:withOptions:outputHandler:]", "CoreLocation: %s\n", v100);
+      if (v100 != buf)
       {
-        free(v31);
+        free(v100);
       }
     }
 
-    v25 = @"CLTSP,input modeOfTransport not supported";
-LABEL_57:
-    selfCopy2 = self;
-    v33 = 1;
-LABEL_58:
-    result = [(CLTripSegmentProcessorManager *)selfCopy2 errorObject:v33 description:v25];
-    goto LABEL_59;
+    v64 = @"CLTSP,input modeOfTransport not supported";
+    return objc_msgSend_errorObject_description_(self, v54, 1, v64);
   }
 
   if (qword_1EAFE46B8 != -1)
@@ -1291,16 +1355,18 @@ LABEL_58:
   v17 = qword_1EAFE46E8;
   if (os_log_type_enabled(qword_1EAFE46E8, OS_LOG_TYPE_DEFAULT))
   {
+    v21 = objc_msgSend_count(route, v18, v19, v20);
+    v25 = objc_msgSend_UUIDString(d, v22, v23, v24);
     *buf = 67240450;
-    LODWORD(v40[0]) = [route count];
-    WORD2(v40[0]) = 2082;
-    *(v40 + 6) = [objc_msgSend(d "UUIDString")];
+    LODWORD(v125[0]) = v21;
+    WORD2(v125[0]) = 2082;
+    *(v125 + 6) = objc_msgSend_UTF8String(v25, v26, v27, v28);
     _os_log_impl(&dword_19B873000, v17, OS_LOG_TYPE_DEFAULT, "CLTSP,matchLocationsToRoute called with roads,%{public}d,tripID,%{public}s", buf, 0x12u);
   }
 
   handlerCopy2 = handler;
-  v19 = sub_19B87DD40();
-  if (*(v19 + 160) > 1 || *(v19 + 164) > 1 || *(v19 + 168) > 1 || *(v19 + 152))
+  v30 = sub_19B87DD40();
+  if (*(v30 + 160) > 1 || *(v30 + 164) > 1 || *(v30 + 168) > 1 || *(v30 + 152))
   {
     bzero(buf, 0x65CuLL);
     if (qword_1EAFE46B8 != -1)
@@ -1308,62 +1374,66 @@ LABEL_58:
       dispatch_once(&qword_1EAFE46B8, &unk_1F0E6D650);
     }
 
-    [route count];
-    [objc_msgSend(d "UUIDString")];
-    v20 = _os_log_send_and_compose_impl();
-    sub_19B885924("Generic", 1, 0, 2, "[CLTripSegmentProcessorManager getWaypointsSubsetFromSnapPointOnRoute:modeOfTransport:snapLocation:snapRoad:waypoints:routeID:withOptions:outputHandler:]", "CoreLocation: %s\n", v20);
-    if (v20 != buf)
+    v34 = qword_1EAFE46E8;
+    v35 = objc_msgSend_count(route, v31, v32, v33);
+    v39 = objc_msgSend_UUIDString(d, v36, v37, v38);
+    v122 = 67240450;
+    LODWORD(v123[0]) = v35;
+    WORD2(v123[0]) = 2082;
+    *(v123 + 6) = objc_msgSend_UTF8String(v39, v40, v41, v42);
+    v43 = _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B873000, v34, 0, "CLTSP,matchLocationsToRoute called with roads,%{public}d,tripID,%{public}s", &v122, 18);
+    sub_19B885924("Generic", 1, 0, 2, "[CLTripSegmentProcessorManager getWaypointsSubsetFromSnapPointOnRoute:modeOfTransport:snapLocation:snapRoad:waypoints:routeID:withOptions:outputHandler:]", "CoreLocation: %s\n", v43);
+    if (v43 != buf)
     {
-      free(v20);
+      free(v43);
     }
 
     handlerCopy2 = handler;
   }
 
-  if ((sub_19BA6984C(&self->cltsp, d, 1, location, road, route, waypoints, options, handlerCopy2) & 1) == 0)
+  if (sub_19BA6984C(&self->cltsp, d, 1, location, road, route, waypoints, options, handlerCopy2))
   {
+    return 0;
+  }
+
+  if (qword_1EAFE46B8 != -1)
+  {
+    dispatch_once(&qword_1EAFE46B8, &unk_1F0E6D650);
+  }
+
+  v101 = qword_1EAFE46E8;
+  if (os_log_type_enabled(qword_1EAFE46E8, OS_LOG_TYPE_ERROR))
+  {
+    v105 = objc_msgSend_UUIDString(d, v102, v103, v104);
+    v109 = objc_msgSend_UTF8String(v105, v106, v107, v108);
+    *buf = 136446210;
+    v125[0] = v109;
+    _os_log_impl(&dword_19B873000, v101, OS_LOG_TYPE_ERROR, "CLTSP,matchLocationsToRoute failed,routeID,%{public}s", buf, 0xCu);
+  }
+
+  v110 = sub_19B87DD40();
+  if ((*(v110 + 160) & 0x80000000) == 0 || (*(v110 + 164) & 0x80000000) == 0 || (*(v110 + 168) & 0x80000000) == 0 || *(v110 + 152))
+  {
+    bzero(buf, 0x65CuLL);
     if (qword_1EAFE46B8 != -1)
     {
       dispatch_once(&qword_1EAFE46B8, &unk_1F0E6D650);
     }
 
-    v35 = qword_1EAFE46E8;
-    if (os_log_type_enabled(qword_1EAFE46E8, OS_LOG_TYPE_ERROR))
+    v115 = qword_1EAFE46E8;
+    v116 = objc_msgSend_UUIDString(d, v112, v113, v114);
+    v120 = objc_msgSend_UTF8String(v116, v117, v118, v119);
+    v122 = 136446210;
+    v123[0] = v120;
+    v121 = _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B873000, v115, 16, "CLTSP,matchLocationsToRoute failed,routeID,%{public}s", &v122, 12);
+    sub_19B885924("Generic", 1, 0, 0, "[CLTripSegmentProcessorManager getWaypointsSubsetFromSnapPointOnRoute:modeOfTransport:snapLocation:snapRoad:waypoints:routeID:withOptions:outputHandler:]", "CoreLocation: %s\n", v121);
+    if (v121 != buf)
     {
-      v36 = [objc_msgSend(d "UUIDString")];
-      *buf = 136446210;
-      v40[0] = v36;
-      _os_log_impl(&dword_19B873000, v35, OS_LOG_TYPE_ERROR, "CLTSP,matchLocationsToRoute failed,routeID,%{public}s", buf, 0xCu);
+      free(v121);
     }
-
-    v37 = sub_19B87DD40();
-    if ((*(v37 + 160) & 0x80000000) == 0 || (*(v37 + 164) & 0x80000000) == 0 || (*(v37 + 168) & 0x80000000) == 0 || *(v37 + 152))
-    {
-      bzero(buf, 0x65CuLL);
-      if (qword_1EAFE46B8 != -1)
-      {
-        dispatch_once(&qword_1EAFE46B8, &unk_1F0E6D650);
-      }
-
-      [objc_msgSend(d "UUIDString")];
-      v38 = _os_log_send_and_compose_impl();
-      sub_19B885924("Generic", 1, 0, 0, "[CLTripSegmentProcessorManager getWaypointsSubsetFromSnapPointOnRoute:modeOfTransport:snapLocation:snapRoad:waypoints:routeID:withOptions:outputHandler:]", "CoreLocation: %s\n", v38);
-      if (v38 != buf)
-      {
-        free(v38);
-      }
-    }
-
-    v25 = @"CLTSP,getWaypointsSubsetFromSnapPointOnRoute failed to snap";
-    selfCopy2 = self;
-    v33 = 2;
-    goto LABEL_58;
   }
 
-  result = 0;
-LABEL_59:
-  v34 = *MEMORY[0x1E69E9840];
-  return result;
+  return objc_msgSend_errorObject_description_(self, v111, 2, @"CLTSP,getWaypointsSubsetFromSnapPointOnRoute failed to snap");
 }
 
 - (void)matchLocations:(id)locations toRoute:(id)route waypoints:(id)waypoints withOptions:(id)options andRouteID:(id)d modeOfTransport:(int64_t)transport outputHandler:(id)handler completionHandler:(id)self0
@@ -1422,7 +1492,7 @@ LABEL_59:
 
 - (id)propagateLocation:(id)location route:(id)route distance:(double)distance withOptions:(id)options modeOfTransport:(int64_t)transport outputHandler:(id)handler
 {
-  *(&v42[203] + 4) = *MEMORY[0x1E69E9840];
+  *(&v101[203] + 4) = *MEMORY[0x1E69E9840];
   if ((*&distance <= -1 || ((*&distance & 0x7FFFFFFFFFFFFFFFuLL) - 0x10000000000000) >> 53 >= 0x3FF) && (*&distance - 1) >= 0xFFFFFFFFFFFFFLL)
   {
     if (qword_1EAFE46B8 != -1)
@@ -1430,16 +1500,16 @@ LABEL_59:
       dispatch_once(&qword_1EAFE46B8, &unk_1F0E6D650);
     }
 
-    v18 = qword_1EAFE46E8;
+    v19 = qword_1EAFE46E8;
     if (os_log_type_enabled(qword_1EAFE46E8, OS_LOG_TYPE_ERROR))
     {
       *buf = 134349056;
-      *v42 = distance;
-      _os_log_impl(&dword_19B873000, v18, OS_LOG_TYPE_ERROR, "CLTSP,propagateLocation,distance invalid,%{public}.2lf", buf, 0xCu);
+      *v101 = distance;
+      _os_log_impl(&dword_19B873000, v19, OS_LOG_TYPE_ERROR, "CLTSP,propagateLocation,distance invalid,%{public}.2lf", buf, 0xCu);
     }
 
-    v19 = sub_19B87DD40();
-    if ((*(v19 + 160) & 0x80000000) == 0 || (*(v19 + 164) & 0x80000000) == 0 || (*(v19 + 168) & 0x80000000) == 0 || *(v19 + 152))
+    v20 = sub_19B87DD40();
+    if ((*(v20 + 160) & 0x80000000) == 0 || (*(v20 + 164) & 0x80000000) == 0 || (*(v20 + 168) & 0x80000000) == 0 || *(v20 + 152))
     {
       bzero(buf, 0x65CuLL);
       if (qword_1EAFE46B8 != -1)
@@ -1447,16 +1517,18 @@ LABEL_59:
         dispatch_once(&qword_1EAFE46B8, &unk_1F0E6D650);
       }
 
-      v20 = _os_log_send_and_compose_impl();
-      sub_19B885924("Generic", 1, 0, 0, "[CLTripSegmentProcessorManager propagateLocation:route:distance:withOptions:modeOfTransport:outputHandler:]", "CoreLocation: %s\n", v20);
-      if (v20 != buf)
+      v98 = 134349056;
+      *v99 = distance;
+      v21 = _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B873000, qword_1EAFE46E8, 16, "CLTSP,propagateLocation,distance invalid,%{public}.2lf", &v98, 12);
+      sub_19B885924("Generic", 1, 0, 0, "[CLTripSegmentProcessorManager propagateLocation:route:distance:withOptions:modeOfTransport:outputHandler:]", "CoreLocation: %s\n", v21);
+      if (v21 != buf)
       {
-        free(v20);
+        free(v21);
       }
     }
 
-    v17 = @"CLTSP,propagateLocation,distance invalid";
-    goto LABEL_33;
+    v18 = @"CLTSP,propagateLocation,distance invalid";
+    return objc_msgSend_errorObject_description_(self, v16, 1, v18);
   }
 
   if (!(location | route))
@@ -1470,7 +1542,7 @@ LABEL_59:
     if (os_log_type_enabled(qword_1EAFE46E8, OS_LOG_TYPE_ERROR))
     {
       *buf = 134349056;
-      *v42 = distance;
+      *v101 = distance;
       _os_log_impl(&dword_19B873000, v14, OS_LOG_TYPE_ERROR, "CLTSP,propagateLocation,both locations and route are nil, one must be provided,%{public}.2lf", buf, 0xCu);
     }
 
@@ -1483,38 +1555,37 @@ LABEL_59:
         dispatch_once(&qword_1EAFE46B8, &unk_1F0E6D650);
       }
 
-      v16 = _os_log_send_and_compose_impl();
-      sub_19B885924("Generic", 1, 0, 0, "[CLTripSegmentProcessorManager propagateLocation:route:distance:withOptions:modeOfTransport:outputHandler:]", "CoreLocation: %s\n", v16);
-      if (v16 != buf)
+      v98 = 134349056;
+      *v99 = distance;
+      v17 = _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B873000, qword_1EAFE46E8, 16, "CLTSP,propagateLocation,both locations and route are nil, one must be provided,%{public}.2lf", &v98, 12);
+      sub_19B885924("Generic", 1, 0, 0, "[CLTripSegmentProcessorManager propagateLocation:route:distance:withOptions:modeOfTransport:outputHandler:]", "CoreLocation: %s\n", v17);
+      if (v17 != buf)
       {
-        free(v16);
+        free(v17);
       }
     }
 
-    v17 = @"CLTSP,propagateLocation,both locations and route are nil, one must be provided";
-LABEL_33:
-    selfCopy2 = self;
-    v22 = 1;
-    goto LABEL_34;
+    v18 = @"CLTSP,propagateLocation,both locations and route are nil, one must be provided";
+    return objc_msgSend_errorObject_description_(self, v16, 1, v18);
   }
 
-  if (![location count] && !objc_msgSend(route, "count"))
+  if (!objc_msgSend_count(location, a2, location, route) && !objc_msgSend_count(route, v26, v27, v28))
   {
     if (qword_1EAFE46B8 != -1)
     {
       dispatch_once(&qword_1EAFE46B8, &unk_1F0E6D650);
     }
 
-    v38 = qword_1EAFE46E8;
+    v95 = qword_1EAFE46E8;
     if (os_log_type_enabled(qword_1EAFE46E8, OS_LOG_TYPE_ERROR))
     {
       *buf = 134349056;
-      *v42 = distance;
-      _os_log_impl(&dword_19B873000, v38, OS_LOG_TYPE_ERROR, "CLTSP,propagateLocation,both locations and route are empty, one must be provided,%{public}.2lf", buf, 0xCu);
+      *v101 = distance;
+      _os_log_impl(&dword_19B873000, v95, OS_LOG_TYPE_ERROR, "CLTSP,propagateLocation,both locations and route are empty, one must be provided,%{public}.2lf", buf, 0xCu);
     }
 
-    v39 = sub_19B87DD40();
-    if ((*(v39 + 160) & 0x80000000) == 0 || (*(v39 + 164) & 0x80000000) == 0 || (*(v39 + 168) & 0x80000000) == 0 || *(v39 + 152))
+    v96 = sub_19B87DD40();
+    if ((*(v96 + 160) & 0x80000000) == 0 || (*(v96 + 164) & 0x80000000) == 0 || (*(v96 + 168) & 0x80000000) == 0 || *(v96 + 152))
     {
       bzero(buf, 0x65CuLL);
       if (qword_1EAFE46B8 != -1)
@@ -1522,19 +1593,21 @@ LABEL_33:
         dispatch_once(&qword_1EAFE46B8, &unk_1F0E6D650);
       }
 
-      v40 = _os_log_send_and_compose_impl();
-      sub_19B885924("Generic", 1, 0, 0, "[CLTripSegmentProcessorManager propagateLocation:route:distance:withOptions:modeOfTransport:outputHandler:]", "CoreLocation: %s\n", v40);
-      if (v40 != buf)
+      v98 = 134349056;
+      *v99 = distance;
+      v97 = _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B873000, qword_1EAFE46E8, 16, "CLTSP,propagateLocation,both locations and route are empty, one must be provided,%{public}.2lf", &v98, 12);
+      sub_19B885924("Generic", 1, 0, 0, "[CLTripSegmentProcessorManager propagateLocation:route:distance:withOptions:modeOfTransport:outputHandler:]", "CoreLocation: %s\n", v97);
+      if (v97 != buf)
       {
-        free(v40);
+        free(v97);
       }
     }
 
-    v17 = @"CLTSP,propagateLocation,both locations and route are empty, one must be provided";
-    goto LABEL_33;
+    v18 = @"CLTSP,propagateLocation,both locations and route are empty, one must be provided";
+    return objc_msgSend_errorObject_description_(self, v16, 1, v18);
   }
 
-  v27 = objc_alloc_init(MEMORY[0x1E696AFB0]);
+  v29 = objc_alloc_init(MEMORY[0x1E696AFB0]);
   if (transport != 1)
   {
     if (qword_1EAFE46B8 != -1)
@@ -1542,16 +1615,17 @@ LABEL_33:
       dispatch_once(&qword_1EAFE46B8, &unk_1F0E6D650);
     }
 
-    v31 = qword_1EAFE46E8;
+    v56 = qword_1EAFE46E8;
     if (os_log_type_enabled(qword_1EAFE46E8, OS_LOG_TYPE_ERROR))
     {
+      v60 = objc_msgSend_UUIDString(v29, v57, v58, v59);
       *buf = 136446210;
-      v42[0] = [objc_msgSend(v27 "UUIDString")];
-      _os_log_impl(&dword_19B873000, v31, OS_LOG_TYPE_ERROR, "CLTSP,propagateLocation,input modeOfTransport not supported,tripID,%{public}s", buf, 0xCu);
+      v101[0] = objc_msgSend_UTF8String(v60, v61, v62, v63);
+      _os_log_impl(&dword_19B873000, v56, OS_LOG_TYPE_ERROR, "CLTSP,propagateLocation,input modeOfTransport not supported,tripID,%{public}s", buf, 0xCu);
     }
 
-    v32 = sub_19B87DD40();
-    if ((*(v32 + 160) & 0x80000000) == 0 || (*(v32 + 164) & 0x80000000) == 0 || (*(v32 + 168) & 0x80000000) == 0 || *(v32 + 152))
+    v64 = sub_19B87DD40();
+    if ((*(v64 + 160) & 0x80000000) == 0 || (*(v64 + 164) & 0x80000000) == 0 || (*(v64 + 168) & 0x80000000) == 0 || *(v64 + 152))
     {
       bzero(buf, 0x65CuLL);
       if (qword_1EAFE46B8 != -1)
@@ -1559,17 +1633,20 @@ LABEL_33:
         dispatch_once(&qword_1EAFE46B8, &unk_1F0E6D650);
       }
 
-      [objc_msgSend(v27 "UUIDString")];
-      v33 = _os_log_send_and_compose_impl();
-      sub_19B885924("Generic", 1, 0, 0, "[CLTripSegmentProcessorManager propagateLocation:route:distance:withOptions:modeOfTransport:outputHandler:]", "CoreLocation: %s\n", v33);
-      if (v33 != buf)
+      v68 = qword_1EAFE46E8;
+      v69 = objc_msgSend_UUIDString(v29, v65, v66, v67);
+      v98 = 136446210;
+      v99[0] = objc_msgSend_UTF8String(v69, v70, v71, v72);
+      v73 = _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B873000, v68, 16, "CLTSP,propagateLocation,input modeOfTransport not supported,tripID,%{public}s", &v98, 12);
+      sub_19B885924("Generic", 1, 0, 0, "[CLTripSegmentProcessorManager propagateLocation:route:distance:withOptions:modeOfTransport:outputHandler:]", "CoreLocation: %s\n", v73);
+      if (v73 != buf)
       {
-        free(v33);
+        free(v73);
       }
     }
 
-    v17 = @"CLTSP,input modeOfTransport not supported";
-    goto LABEL_33;
+    v18 = @"CLTSP,input modeOfTransport not supported";
+    return objc_msgSend_errorObject_description_(self, v16, 1, v18);
   }
 
   if (qword_1EAFE46B8 != -1)
@@ -1577,18 +1654,20 @@ LABEL_33:
     dispatch_once(&qword_1EAFE46B8, &unk_1F0E6D650);
   }
 
-  v28 = qword_1EAFE46E8;
+  v30 = qword_1EAFE46E8;
   if (os_log_type_enabled(qword_1EAFE46E8, OS_LOG_TYPE_DEFAULT))
   {
+    v34 = objc_msgSend_count(location, v31, v32, v33);
+    v38 = objc_msgSend_UUIDString(v29, v35, v36, v37);
     *buf = 67240450;
-    LODWORD(v42[0]) = [location count];
-    WORD2(v42[0]) = 2082;
-    *(v42 + 6) = [objc_msgSend(v27 "UUIDString")];
-    _os_log_impl(&dword_19B873000, v28, OS_LOG_TYPE_DEFAULT, "CLTSP,propagateLocation called with locations,%{public}d,tripID,%{public}s", buf, 0x12u);
+    LODWORD(v101[0]) = v34;
+    WORD2(v101[0]) = 2082;
+    *(v101 + 6) = objc_msgSend_UTF8String(v38, v39, v40, v41);
+    _os_log_impl(&dword_19B873000, v30, OS_LOG_TYPE_DEFAULT, "CLTSP,propagateLocation called with locations,%{public}d,tripID,%{public}s", buf, 0x12u);
   }
 
-  v29 = sub_19B87DD40();
-  if (*(v29 + 160) > 1 || *(v29 + 164) > 1 || *(v29 + 168) > 1 || *(v29 + 152))
+  v42 = sub_19B87DD40();
+  if (*(v42 + 160) > 1 || *(v42 + 164) > 1 || *(v42 + 168) > 1 || *(v42 + 152))
   {
     bzero(buf, 0x65CuLL);
     if (qword_1EAFE46B8 != -1)
@@ -1596,20 +1675,24 @@ LABEL_33:
       dispatch_once(&qword_1EAFE46B8, &unk_1F0E6D650);
     }
 
-    [location count];
-    [objc_msgSend(v27 "UUIDString")];
-    v30 = _os_log_send_and_compose_impl();
-    sub_19B885924("Generic", 1, 0, 2, "[CLTripSegmentProcessorManager propagateLocation:route:distance:withOptions:modeOfTransport:outputHandler:]", "CoreLocation: %s\n", v30);
-    if (v30 != buf)
+    v46 = qword_1EAFE46E8;
+    v47 = objc_msgSend_count(location, v43, v44, v45);
+    v51 = objc_msgSend_UUIDString(v29, v48, v49, v50);
+    v98 = 67240450;
+    LODWORD(v99[0]) = v47;
+    WORD2(v99[0]) = 2082;
+    *(v99 + 6) = objc_msgSend_UTF8String(v51, v52, v53, v54);
+    v55 = _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B873000, v46, 0, "CLTSP,propagateLocation called with locations,%{public}d,tripID,%{public}s", &v98, 18);
+    sub_19B885924("Generic", 1, 0, 2, "[CLTripSegmentProcessorManager propagateLocation:route:distance:withOptions:modeOfTransport:outputHandler:]", "CoreLocation: %s\n", v55);
+    if (v55 != buf)
     {
-      free(v30);
+      free(v55);
     }
   }
 
-  if (sub_19BA6AA10(&self->cltsp, v27, 1, location, route, options, distance))
+  if (sub_19BA6AA10(&self->cltsp, v29, 1, location, route, options, handler, distance))
   {
-    result = 0;
-    goto LABEL_35;
+    return 0;
   }
 
   if (qword_1EAFE46B8 != -1)
@@ -1617,17 +1700,18 @@ LABEL_33:
     dispatch_once(&qword_1EAFE46B8, &unk_1F0E6D650);
   }
 
-  v34 = qword_1EAFE46E8;
+  v74 = qword_1EAFE46E8;
   if (os_log_type_enabled(qword_1EAFE46E8, OS_LOG_TYPE_ERROR))
   {
-    v35 = [objc_msgSend(v27 "UUIDString")];
+    v78 = objc_msgSend_UUIDString(v29, v75, v76, v77);
+    v82 = objc_msgSend_UTF8String(v78, v79, v80, v81);
     *buf = 136446210;
-    v42[0] = v35;
-    _os_log_impl(&dword_19B873000, v34, OS_LOG_TYPE_ERROR, "CLTSP,propagateLocation failed,routeID,%{public}s", buf, 0xCu);
+    v101[0] = v82;
+    _os_log_impl(&dword_19B873000, v74, OS_LOG_TYPE_ERROR, "CLTSP,propagateLocation failed,routeID,%{public}s", buf, 0xCu);
   }
 
-  v36 = sub_19B87DD40();
-  if ((*(v36 + 160) & 0x80000000) == 0 || (*(v36 + 164) & 0x80000000) == 0 || (*(v36 + 168) & 0x80000000) == 0 || *(v36 + 152))
+  v83 = sub_19B87DD40();
+  if ((*(v83 + 160) & 0x80000000) == 0 || (*(v83 + 164) & 0x80000000) == 0 || (*(v83 + 168) & 0x80000000) == 0 || *(v83 + 152))
   {
     bzero(buf, 0x65CuLL);
     if (qword_1EAFE46B8 != -1)
@@ -1635,23 +1719,20 @@ LABEL_33:
       dispatch_once(&qword_1EAFE46B8, &unk_1F0E6D650);
     }
 
-    [objc_msgSend(v27 "UUIDString")];
-    v37 = _os_log_send_and_compose_impl();
-    sub_19B885924("Generic", 1, 0, 0, "[CLTripSegmentProcessorManager propagateLocation:route:distance:withOptions:modeOfTransport:outputHandler:]", "CoreLocation: %s\n", v37);
-    if (v37 != buf)
+    v88 = qword_1EAFE46E8;
+    v89 = objc_msgSend_UUIDString(v29, v85, v86, v87);
+    v93 = objc_msgSend_UTF8String(v89, v90, v91, v92);
+    v98 = 136446210;
+    v99[0] = v93;
+    v94 = _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B873000, v88, 16, "CLTSP,propagateLocation failed,routeID,%{public}s", &v98, 12);
+    sub_19B885924("Generic", 1, 0, 0, "[CLTripSegmentProcessorManager propagateLocation:route:distance:withOptions:modeOfTransport:outputHandler:]", "CoreLocation: %s\n", v94);
+    if (v94 != buf)
     {
-      free(v37);
+      free(v94);
     }
   }
 
-  v17 = @"CLTSP,propagateLocation failed to snap";
-  selfCopy2 = self;
-  v22 = 2;
-LABEL_34:
-  result = [(CLTripSegmentProcessorManager *)selfCopy2 errorObject:v22 description:v17];
-LABEL_35:
-  v24 = *MEMORY[0x1E69E9840];
-  return result;
+  return objc_msgSend_errorObject_description_(self, v84, 2, @"CLTSP,propagateLocation failed to snap");
 }
 
 - (void)propagateLocation:(id)location route:(id)route distance:(double)distance withOptions:(id)options modeOfTransport:(int64_t)transport outputHandler:(id)handler completionHandler:(id)completionHandler
@@ -1695,8 +1776,8 @@ LABEL_35:
 
 - (id)generateWaypointsOnTheRoute:(id)route forRouteID:(id)d withOptions:(id)options modeOfTransport:(int64_t)transport outputHandler:(id)handler
 {
-  *(&v25[203] + 4) = *MEMORY[0x1E69E9840];
-  if (route && [route count])
+  *(&v81[203] + 4) = *MEMORY[0x1E69E9840];
+  if (route && objc_msgSend_count(route, a2, route, d))
   {
     if (transport == 1)
     {
@@ -1705,18 +1786,20 @@ LABEL_35:
         dispatch_once(&qword_1EAFE46B8, &unk_1F0E6D650);
       }
 
-      v12 = qword_1EAFE46E8;
+      v13 = qword_1EAFE46E8;
       if (os_log_type_enabled(qword_1EAFE46E8, OS_LOG_TYPE_DEFAULT))
       {
+        v17 = objc_msgSend_count(route, v14, v15, v16);
+        v21 = objc_msgSend_UUIDString(d, v18, v19, v20);
         *buf = 67240450;
-        LODWORD(v25[0]) = [route count];
-        WORD2(v25[0]) = 2082;
-        *(v25 + 6) = [objc_msgSend(d "UUIDString")];
-        _os_log_impl(&dword_19B873000, v12, OS_LOG_TYPE_DEFAULT, "CLTSP,generateWaypointsOnTheRoute called with roads,%{public}d,tripID,%{public}s", buf, 0x12u);
+        LODWORD(v81[0]) = v17;
+        WORD2(v81[0]) = 2082;
+        *(v81 + 6) = objc_msgSend_UTF8String(v21, v22, v23, v24);
+        _os_log_impl(&dword_19B873000, v13, OS_LOG_TYPE_DEFAULT, "CLTSP,generateWaypointsOnTheRoute called with roads,%{public}d,tripID,%{public}s", buf, 0x12u);
       }
 
-      v13 = sub_19B87DD40();
-      if (*(v13 + 160) > 1 || *(v13 + 164) > 1 || *(v13 + 168) > 1 || *(v13 + 152))
+      v25 = sub_19B87DD40();
+      if (*(v25 + 160) > 1 || *(v25 + 164) > 1 || *(v25 + 168) > 1 || *(v25 + 152))
       {
         bzero(buf, 0x65CuLL);
         if (qword_1EAFE46B8 != -1)
@@ -1724,17 +1807,22 @@ LABEL_35:
           dispatch_once(&qword_1EAFE46B8, &unk_1F0E6D650);
         }
 
-        [route count];
-        [objc_msgSend(d "UUIDString")];
-        v14 = _os_log_send_and_compose_impl();
-        sub_19B885924("Generic", 1, 0, 2, "[CLTripSegmentProcessorManager generateWaypointsOnTheRoute:forRouteID:withOptions:modeOfTransport:outputHandler:]", "CoreLocation: %s\n", v14);
-        if (v14 != buf)
+        v29 = qword_1EAFE46E8;
+        v30 = objc_msgSend_count(route, v26, v27, v28);
+        v34 = objc_msgSend_UUIDString(d, v31, v32, v33);
+        v78 = 67240450;
+        LODWORD(v79[0]) = v30;
+        WORD2(v79[0]) = 2082;
+        *(v79 + 6) = objc_msgSend_UTF8String(v34, v35, v36, v37);
+        v38 = _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B873000, v29, 0, "CLTSP,generateWaypointsOnTheRoute called with roads,%{public}d,tripID,%{public}s", &v78, 18);
+        sub_19B885924("Generic", 1, 0, 2, "[CLTripSegmentProcessorManager generateWaypointsOnTheRoute:forRouteID:withOptions:modeOfTransport:outputHandler:]", "CoreLocation: %s\n", v38);
+        if (v38 != buf)
         {
-          free(v14);
+          free(v38);
         }
       }
 
-      sub_19BA6C9AC(&self->cltsp, d, route, 1, options);
+      sub_19BA6C9AC(&self->cltsp, d, route, 1, options, handler);
     }
 
     if (qword_1EAFE46B8 != -1)
@@ -1742,16 +1830,17 @@ LABEL_35:
       dispatch_once(&qword_1EAFE46B8, &unk_1F0E6D650);
     }
 
-    v19 = qword_1EAFE46E8;
+    v59 = qword_1EAFE46E8;
     if (os_log_type_enabled(qword_1EAFE46E8, OS_LOG_TYPE_ERROR))
     {
+      v63 = objc_msgSend_UUIDString(d, v60, v61, v62);
       *buf = 136446210;
-      v25[0] = [objc_msgSend(d "UUIDString")];
-      _os_log_impl(&dword_19B873000, v19, OS_LOG_TYPE_ERROR, "CLTSP,generateWaypointsOnTheRoute,unsupported mode of transport,tripID,%{public}s", buf, 0xCu);
+      v81[0] = objc_msgSend_UTF8String(v63, v64, v65, v66);
+      _os_log_impl(&dword_19B873000, v59, OS_LOG_TYPE_ERROR, "CLTSP,generateWaypointsOnTheRoute,unsupported mode of transport,tripID,%{public}s", buf, 0xCu);
     }
 
-    v20 = sub_19B87DD40();
-    if ((*(v20 + 160) & 0x80000000) == 0 || (*(v20 + 164) & 0x80000000) == 0 || (*(v20 + 168) & 0x80000000) == 0 || *(v20 + 152))
+    v67 = sub_19B87DD40();
+    if ((*(v67 + 160) & 0x80000000) == 0 || (*(v67 + 164) & 0x80000000) == 0 || (*(v67 + 168) & 0x80000000) == 0 || *(v67 + 152))
     {
       bzero(buf, 0x65CuLL);
       if (qword_1EAFE46B8 != -1)
@@ -1759,16 +1848,19 @@ LABEL_35:
         dispatch_once(&qword_1EAFE46B8, &unk_1F0E6D650);
       }
 
-      [objc_msgSend(d "UUIDString")];
-      v21 = _os_log_send_and_compose_impl();
-      sub_19B885924("Generic", 1, 0, 0, "[CLTripSegmentProcessorManager generateWaypointsOnTheRoute:forRouteID:withOptions:modeOfTransport:outputHandler:]", "CoreLocation: %s\n", v21);
-      if (v21 != buf)
+      v71 = qword_1EAFE46E8;
+      v72 = objc_msgSend_UUIDString(d, v68, v69, v70);
+      v78 = 136446210;
+      v79[0] = objc_msgSend_UTF8String(v72, v73, v74, v75);
+      v76 = _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B873000, v71, 16, "CLTSP,generateWaypointsOnTheRoute,unsupported mode of transport,tripID,%{public}s", &v78, 12);
+      sub_19B885924("Generic", 1, 0, 0, "[CLTripSegmentProcessorManager generateWaypointsOnTheRoute:forRouteID:withOptions:modeOfTransport:outputHandler:]", "CoreLocation: %s\n", v76);
+      if (v76 != buf)
       {
-        free(v21);
+        free(v76);
       }
     }
 
-    v18 = @"CLTSP,input modeOfTransport not supported";
+    v58 = @"CLTSP,input modeOfTransport not supported";
   }
 
   else
@@ -1778,16 +1870,17 @@ LABEL_35:
       dispatch_once(&qword_1EAFE46B8, &unk_1F0E6D650);
     }
 
-    v15 = qword_1EAFE46E8;
+    v39 = qword_1EAFE46E8;
     if (os_log_type_enabled(qword_1EAFE46E8, OS_LOG_TYPE_ERROR))
     {
+      v43 = objc_msgSend_UUIDString(d, v40, v41, v42);
       *buf = 136446210;
-      v25[0] = [objc_msgSend(d "UUIDString")];
-      _os_log_impl(&dword_19B873000, v15, OS_LOG_TYPE_ERROR, "CLTSP,generateWaypointsOnTheRoute,route road data is nil or empty,tripID,%{public}s", buf, 0xCu);
+      v81[0] = objc_msgSend_UTF8String(v43, v44, v45, v46);
+      _os_log_impl(&dword_19B873000, v39, OS_LOG_TYPE_ERROR, "CLTSP,generateWaypointsOnTheRoute,route road data is nil or empty,tripID,%{public}s", buf, 0xCu);
     }
 
-    v16 = sub_19B87DD40();
-    if ((*(v16 + 160) & 0x80000000) == 0 || (*(v16 + 164) & 0x80000000) == 0 || (*(v16 + 168) & 0x80000000) == 0 || *(v16 + 152))
+    v47 = sub_19B87DD40();
+    if ((*(v47 + 160) & 0x80000000) == 0 || (*(v47 + 164) & 0x80000000) == 0 || (*(v47 + 168) & 0x80000000) == 0 || *(v47 + 152))
     {
       bzero(buf, 0x65CuLL);
       if (qword_1EAFE46B8 != -1)
@@ -1795,21 +1888,22 @@ LABEL_35:
         dispatch_once(&qword_1EAFE46B8, &unk_1F0E6D650);
       }
 
-      [objc_msgSend(d "UUIDString")];
-      v17 = _os_log_send_and_compose_impl();
-      sub_19B885924("Generic", 1, 0, 0, "[CLTripSegmentProcessorManager generateWaypointsOnTheRoute:forRouteID:withOptions:modeOfTransport:outputHandler:]", "CoreLocation: %s\n", v17);
-      if (v17 != buf)
+      v52 = qword_1EAFE46E8;
+      v53 = objc_msgSend_UUIDString(d, v49, v50, v51);
+      v78 = 136446210;
+      v79[0] = objc_msgSend_UTF8String(v53, v54, v55, v56);
+      v57 = _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B873000, v52, 16, "CLTSP,generateWaypointsOnTheRoute,route road data is nil or empty,tripID,%{public}s", &v78, 12);
+      sub_19B885924("Generic", 1, 0, 0, "[CLTripSegmentProcessorManager generateWaypointsOnTheRoute:forRouteID:withOptions:modeOfTransport:outputHandler:]", "CoreLocation: %s\n", v57);
+      if (v57 != buf)
       {
-        free(v17);
+        free(v57);
       }
     }
 
-    v18 = @"CLTSP,route road data is nil or empty";
+    v58 = @"CLTSP,route road data is nil or empty";
   }
 
-  result = [(CLTripSegmentProcessorManager *)self errorObject:1 description:v18];
-  v23 = *MEMORY[0x1E69E9840];
-  return result;
+  return objc_msgSend_errorObject_description_(self, v48, 1, v58);
 }
 
 - (void)generateWaypointsOnTheRoute:(id)route forRouteID:(id)d withOptions:(id)options modeOfTransport:(int64_t)transport outputHandler:(id)handler completionHandler:(id)completionHandler
@@ -1852,24 +1946,28 @@ LABEL_35:
 
 - (id)constructRouteFromWaypoints:(id)waypoints forRouteID:(id)d withOptions:(id)options outputHandler:(id)handler
 {
-  *(&v26[203] + 4) = *MEMORY[0x1E69E9840];
-  if (!waypoints || ![waypoints count])
+  *(&v81[203] + 4) = *MEMORY[0x1E69E9840];
+  if (waypoints && objc_msgSend_count(waypoints, a2, waypoints, d))
   {
     if (qword_1EAFE46B8 != -1)
     {
       dispatch_once(&qword_1EAFE46B8, &unk_1F0E6D650);
     }
 
-    v14 = qword_1EAFE46E8;
-    if (os_log_type_enabled(qword_1EAFE46E8, OS_LOG_TYPE_ERROR))
+    v11 = qword_1EAFE46E8;
+    if (os_log_type_enabled(qword_1EAFE46E8, OS_LOG_TYPE_DEFAULT))
     {
-      *buf = 136446210;
-      v26[0] = [objc_msgSend(d "UUIDString")];
-      _os_log_impl(&dword_19B873000, v14, OS_LOG_TYPE_ERROR, "CLTSP,constructRouteFromWaypoints,waypoints data is nil or empty,tripID,%{public}s", buf, 0xCu);
+      v15 = objc_msgSend_count(waypoints, v12, v13, v14);
+      v19 = objc_msgSend_UUIDString(d, v16, v17, v18);
+      *buf = 67240450;
+      LODWORD(v81[0]) = v15;
+      WORD2(v81[0]) = 2082;
+      *(v81 + 6) = objc_msgSend_UTF8String(v19, v20, v21, v22);
+      _os_log_impl(&dword_19B873000, v11, OS_LOG_TYPE_DEFAULT, "CLTSP,constructRouteFromWaypoints called with waypoints,%{public}d,tripID,%{public}s", buf, 0x12u);
     }
 
-    v15 = sub_19B87DD40();
-    if ((*(v15 + 160) & 0x80000000) == 0 || (*(v15 + 164) & 0x80000000) == 0 || (*(v15 + 168) & 0x80000000) == 0 || *(v15 + 152))
+    v23 = sub_19B87DD40();
+    if (*(v23 + 160) > 1 || *(v23 + 164) > 1 || *(v23 + 168) > 1 || *(v23 + 152))
     {
       bzero(buf, 0x65CuLL);
       if (qword_1EAFE46B8 != -1)
@@ -1877,73 +1975,87 @@ LABEL_35:
         dispatch_once(&qword_1EAFE46B8, &unk_1F0E6D650);
       }
 
-      [objc_msgSend(d "UUIDString")];
-      v16 = _os_log_send_and_compose_impl();
-      sub_19B885924("Generic", 1, 0, 0, "[CLTripSegmentProcessorManager constructRouteFromWaypoints:forRouteID:withOptions:outputHandler:]", "CoreLocation: %s\n", v16);
-      if (v16 != buf)
+      v27 = qword_1EAFE46E8;
+      v28 = objc_msgSend_count(waypoints, v24, v25, v26);
+      v32 = objc_msgSend_UUIDString(d, v29, v30, v31);
+      v78 = 67240450;
+      LODWORD(v79[0]) = v28;
+      WORD2(v79[0]) = 2082;
+      *(v79 + 6) = objc_msgSend_UTF8String(v32, v33, v34, v35);
+      v36 = _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B873000, v27, 0, "CLTSP,constructRouteFromWaypoints called with waypoints,%{public}d,tripID,%{public}s", &v78, 18);
+      sub_19B885924("Generic", 1, 0, 2, "[CLTripSegmentProcessorManager constructRouteFromWaypoints:forRouteID:withOptions:outputHandler:]", "CoreLocation: %s\n", v36);
+      if (v36 != buf)
       {
-        free(v16);
+        free(v36);
       }
     }
 
-    v17 = @"CLTSP,waypoints data is nil or empty";
-    selfCopy2 = self;
-    v19 = 1;
-    goto LABEL_41;
+    if (sub_19BA6E0B0(&self->cltsp, d, waypoints, options, handler))
+    {
+      return 0;
+    }
+
+    else
+    {
+      if (qword_1EAFE46B8 != -1)
+      {
+        dispatch_once(&qword_1EAFE46B8, &unk_1F0E6D650);
+      }
+
+      v57 = qword_1EAFE46E8;
+      if (os_log_type_enabled(qword_1EAFE46E8, OS_LOG_TYPE_ERROR))
+      {
+        v61 = objc_msgSend_UUIDString(d, v58, v59, v60);
+        v65 = objc_msgSend_UTF8String(v61, v62, v63, v64);
+        *buf = 136446210;
+        v81[0] = v65;
+        _os_log_impl(&dword_19B873000, v57, OS_LOG_TYPE_ERROR, "CLTSP,constructRouteFromWaypoints failed,routeID,%{public}s", buf, 0xCu);
+      }
+
+      v66 = sub_19B87DD40();
+      if ((*(v66 + 160) & 0x80000000) == 0 || (*(v66 + 164) & 0x80000000) == 0 || (*(v66 + 168) & 0x80000000) == 0 || *(v66 + 152))
+      {
+        bzero(buf, 0x65CuLL);
+        if (qword_1EAFE46B8 != -1)
+        {
+          dispatch_once(&qword_1EAFE46B8, &unk_1F0E6D650);
+        }
+
+        v71 = qword_1EAFE46E8;
+        v72 = objc_msgSend_UUIDString(d, v68, v69, v70);
+        v76 = objc_msgSend_UTF8String(v72, v73, v74, v75);
+        v78 = 136446210;
+        v79[0] = v76;
+        v77 = _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B873000, v71, 16, "CLTSP,constructRouteFromWaypoints failed,routeID,%{public}s", &v78, 12);
+        sub_19B885924("Generic", 1, 0, 0, "[CLTripSegmentProcessorManager constructRouteFromWaypoints:forRouteID:withOptions:outputHandler:]", "CoreLocation: %s\n", v77);
+        if (v77 != buf)
+        {
+          free(v77);
+        }
+      }
+
+      return objc_msgSend_errorObject_description_(self, v67, 2, @"CLTSP,constructRouteFromWaypoints failed");
+    }
   }
 
-  if (qword_1EAFE46B8 != -1)
+  else
   {
-    dispatch_once(&qword_1EAFE46B8, &unk_1F0E6D650);
-  }
-
-  v10 = qword_1EAFE46E8;
-  if (os_log_type_enabled(qword_1EAFE46E8, OS_LOG_TYPE_DEFAULT))
-  {
-    *buf = 67240450;
-    LODWORD(v26[0]) = [waypoints count];
-    WORD2(v26[0]) = 2082;
-    *(v26 + 6) = [objc_msgSend(d "UUIDString")];
-    _os_log_impl(&dword_19B873000, v10, OS_LOG_TYPE_DEFAULT, "CLTSP,constructRouteFromWaypoints called with waypoints,%{public}d,tripID,%{public}s", buf, 0x12u);
-  }
-
-  v11 = sub_19B87DD40();
-  if (*(v11 + 160) > 1 || *(v11 + 164) > 1 || *(v11 + 168) > 1 || *(v11 + 152))
-  {
-    bzero(buf, 0x65CuLL);
     if (qword_1EAFE46B8 != -1)
     {
       dispatch_once(&qword_1EAFE46B8, &unk_1F0E6D650);
     }
 
-    [waypoints count];
-    [objc_msgSend(d "UUIDString")];
-    v12 = _os_log_send_and_compose_impl();
-    sub_19B885924("Generic", 1, 0, 2, "[CLTripSegmentProcessorManager constructRouteFromWaypoints:forRouteID:withOptions:outputHandler:]", "CoreLocation: %s\n", v12);
-    if (v12 != buf)
-    {
-      free(v12);
-    }
-  }
-
-  if ((sub_19BA6E0B0(&self->cltsp, d, waypoints, options) & 1) == 0)
-  {
-    if (qword_1EAFE46B8 != -1)
-    {
-      dispatch_once(&qword_1EAFE46B8, &unk_1F0E6D650);
-    }
-
-    v20 = qword_1EAFE46E8;
+    v38 = qword_1EAFE46E8;
     if (os_log_type_enabled(qword_1EAFE46E8, OS_LOG_TYPE_ERROR))
     {
-      v21 = [objc_msgSend(d "UUIDString")];
+      v42 = objc_msgSend_UUIDString(d, v39, v40, v41);
       *buf = 136446210;
-      v26[0] = v21;
-      _os_log_impl(&dword_19B873000, v20, OS_LOG_TYPE_ERROR, "CLTSP,constructRouteFromWaypoints failed,routeID,%{public}s", buf, 0xCu);
+      v81[0] = objc_msgSend_UTF8String(v42, v43, v44, v45);
+      _os_log_impl(&dword_19B873000, v38, OS_LOG_TYPE_ERROR, "CLTSP,constructRouteFromWaypoints,waypoints data is nil or empty,tripID,%{public}s", buf, 0xCu);
     }
 
-    v22 = sub_19B87DD40();
-    if ((*(v22 + 160) & 0x80000000) == 0 || (*(v22 + 164) & 0x80000000) == 0 || (*(v22 + 168) & 0x80000000) == 0 || *(v22 + 152))
+    v46 = sub_19B87DD40();
+    if ((*(v46 + 160) & 0x80000000) == 0 || (*(v46 + 164) & 0x80000000) == 0 || (*(v46 + 168) & 0x80000000) == 0 || *(v46 + 152))
     {
       bzero(buf, 0x65CuLL);
       if (qword_1EAFE46B8 != -1)
@@ -1951,27 +2063,20 @@ LABEL_35:
         dispatch_once(&qword_1EAFE46B8, &unk_1F0E6D650);
       }
 
-      [objc_msgSend(d "UUIDString")];
-      v23 = _os_log_send_and_compose_impl();
-      sub_19B885924("Generic", 1, 0, 0, "[CLTripSegmentProcessorManager constructRouteFromWaypoints:forRouteID:withOptions:outputHandler:]", "CoreLocation: %s\n", v23);
-      if (v23 != buf)
+      v51 = qword_1EAFE46E8;
+      v52 = objc_msgSend_UUIDString(d, v48, v49, v50);
+      v78 = 136446210;
+      v79[0] = objc_msgSend_UTF8String(v52, v53, v54, v55);
+      v56 = _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B873000, v51, 16, "CLTSP,constructRouteFromWaypoints,waypoints data is nil or empty,tripID,%{public}s", &v78, 12);
+      sub_19B885924("Generic", 1, 0, 0, "[CLTripSegmentProcessorManager constructRouteFromWaypoints:forRouteID:withOptions:outputHandler:]", "CoreLocation: %s\n", v56);
+      if (v56 != buf)
       {
-        free(v23);
+        free(v56);
       }
     }
 
-    v17 = @"CLTSP,constructRouteFromWaypoints failed";
-    selfCopy2 = self;
-    v19 = 2;
-LABEL_41:
-    result = [(CLTripSegmentProcessorManager *)selfCopy2 errorObject:v19 description:v17];
-    goto LABEL_42;
+    return objc_msgSend_errorObject_description_(self, v47, 1, @"CLTSP,waypoints data is nil or empty");
   }
-
-  result = 0;
-LABEL_42:
-  v24 = *MEMORY[0x1E69E9840];
-  return result;
 }
 
 - (void)constructRouteFromWaypoints:(id)waypoints forRouteID:(id)d withOptions:(id)options outputHandler:(id)handler completionHandler:(id)completionHandler
@@ -2013,22 +2118,23 @@ LABEL_42:
 
 - (void)clearMapHelperMemoryAndExitCleanly
 {
-  v7 = *MEMORY[0x1E69E9840];
-  [+[CLMapsXPCServiceManager sharedInstance](CLMapsXPCServiceManager clearMemoryAndExitHelperProcessCleanly];
+  v13 = *MEMORY[0x1E69E9840];
+  v4 = objc_msgSend_sharedInstance(CLMapsXPCServiceManager, a2, v2, v3);
+  objc_msgSend_clearMemoryAndExitHelperProcessCleanly(v4, v5, v6, v7);
   if (qword_1EAFE46B8 != -1)
   {
     dispatch_once(&qword_1EAFE46B8, &unk_1F0E6D650);
   }
 
-  v2 = qword_1EAFE46E8;
+  v8 = qword_1EAFE46E8;
   if (os_log_type_enabled(qword_1EAFE46E8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_19B873000, v2, OS_LOG_TYPE_DEFAULT, "CLTSP,tspManager,clearMemoryAndExitHelperProcessCleanly", buf, 2u);
+    _os_log_impl(&dword_19B873000, v8, OS_LOG_TYPE_DEFAULT, "CLTSP,tspManager,clearMemoryAndExitHelperProcessCleanly", buf, 2u);
   }
 
-  v3 = sub_19B87DD40();
-  if (*(v3 + 160) > 1 || *(v3 + 164) > 1 || *(v3 + 168) > 1 || *(v3 + 152))
+  v9 = sub_19B87DD40();
+  if (*(v9 + 160) > 1 || *(v9 + 164) > 1 || *(v9 + 168) > 1 || *(v9 + 152))
   {
     bzero(buf, 0x65CuLL);
     if (qword_1EAFE46B8 != -1)
@@ -2036,35 +2142,35 @@ LABEL_42:
       dispatch_once(&qword_1EAFE46B8, &unk_1F0E6D650);
     }
 
-    v4 = _os_log_send_and_compose_impl();
-    sub_19B885924("Generic", 1, 0, 2, "[CLTripSegmentProcessorManager clearMapHelperMemoryAndExitCleanly]", "CoreLocation: %s\n", v4);
-    if (v4 != buf)
+    v11[0] = 0;
+    v10 = _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B873000, qword_1EAFE46E8, 0, "CLTSP,tspManager,clearMemoryAndExitHelperProcessCleanly", v11, 2);
+    sub_19B885924("Generic", 1, 0, 2, "[CLTripSegmentProcessorManager clearMapHelperMemoryAndExitCleanly]", "CoreLocation: %s\n", v10);
+    if (v10 != buf)
     {
-      free(v4);
+      free(v10);
     }
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)cancelMapHelperRoadDataRequest
 {
-  v7 = *MEMORY[0x1E69E9840];
-  [+[CLMapsXPCServiceManager sharedInstance](CLMapsXPCServiceManager cancelRoadDataRequest];
+  v13 = *MEMORY[0x1E69E9840];
+  v4 = objc_msgSend_sharedInstance(CLMapsXPCServiceManager, a2, v2, v3);
+  objc_msgSend_cancelRoadDataRequest(v4, v5, v6, v7);
   if (qword_1EAFE46B8 != -1)
   {
     dispatch_once(&qword_1EAFE46B8, &unk_1F0E6D650);
   }
 
-  v2 = qword_1EAFE46E8;
+  v8 = qword_1EAFE46E8;
   if (os_log_type_enabled(qword_1EAFE46E8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_19B873000, v2, OS_LOG_TYPE_DEFAULT, "CLTSP,tspManager,cancelRoadDataRequest", buf, 2u);
+    _os_log_impl(&dword_19B873000, v8, OS_LOG_TYPE_DEFAULT, "CLTSP,tspManager,cancelRoadDataRequest", buf, 2u);
   }
 
-  v3 = sub_19B87DD40();
-  if (*(v3 + 160) > 1 || *(v3 + 164) > 1 || *(v3 + 168) > 1 || *(v3 + 152))
+  v9 = sub_19B87DD40();
+  if (*(v9 + 160) > 1 || *(v9 + 164) > 1 || *(v9 + 168) > 1 || *(v9 + 152))
   {
     bzero(buf, 0x65CuLL);
     if (qword_1EAFE46B8 != -1)
@@ -2072,20 +2178,19 @@ LABEL_42:
       dispatch_once(&qword_1EAFE46B8, &unk_1F0E6D650);
     }
 
-    v4 = _os_log_send_and_compose_impl();
-    sub_19B885924("Generic", 1, 0, 2, "[CLTripSegmentProcessorManager cancelMapHelperRoadDataRequest]", "CoreLocation: %s\n", v4);
-    if (v4 != buf)
+    v11[0] = 0;
+    v10 = _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B873000, qword_1EAFE46E8, 0, "CLTSP,tspManager,cancelRoadDataRequest", v11, 2);
+    sub_19B885924("Generic", 1, 0, 2, "[CLTripSegmentProcessorManager cancelMapHelperRoadDataRequest]", "CoreLocation: %s\n", v10);
+    if (v10 != buf)
     {
-      free(v4);
+      free(v10);
     }
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (id)getMatchedLocationCandidates:(id)candidates dataID:(id)d modeOfTransport:(int64_t)transport options:(id)options outputHandler:(id)handler
 {
-  *(&v34[203] + 4) = *MEMORY[0x1E69E9840];
+  *(&v90[203] + 4) = *MEMORY[0x1E69E9840];
   if (!candidates)
   {
     if (qword_1EAFE46B8 != -1)
@@ -2093,15 +2198,15 @@ LABEL_42:
       dispatch_once(&qword_1EAFE46B8, &unk_1F0E6D650);
     }
 
-    v16 = qword_1EAFE46E8;
+    v40 = qword_1EAFE46E8;
     if (os_log_type_enabled(qword_1EAFE46E8, OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
-      _os_log_impl(&dword_19B873000, v16, OS_LOG_TYPE_ERROR, "CLTSP,getMatchedLocationCandidates,locations are nil", buf, 2u);
+      _os_log_impl(&dword_19B873000, v40, OS_LOG_TYPE_ERROR, "CLTSP,getMatchedLocationCandidates,locations are nil", buf, 2u);
     }
 
-    v17 = sub_19B87DD40();
-    if ((*(v17 + 160) & 0x80000000) == 0 || (*(v17 + 164) & 0x80000000) == 0 || (*(v17 + 168) & 0x80000000) == 0 || *(v17 + 152))
+    v41 = sub_19B87DD40();
+    if ((*(v41 + 160) & 0x80000000) == 0 || (*(v41 + 164) & 0x80000000) == 0 || (*(v41 + 168) & 0x80000000) == 0 || *(v41 + 152))
     {
       bzero(buf, 0x65CuLL);
       if (qword_1EAFE46B8 != -1)
@@ -2109,34 +2214,35 @@ LABEL_42:
         dispatch_once(&qword_1EAFE46B8, &unk_1F0E6D650);
       }
 
-      v18 = _os_log_send_and_compose_impl();
-      sub_19B885924("Generic", 1, 0, 0, "[CLTripSegmentProcessorManager getMatchedLocationCandidates:dataID:modeOfTransport:options:outputHandler:]", "CoreLocation: %s\n", v18);
-      if (v18 != buf)
+      LOWORD(v87) = 0;
+      v43 = _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B873000, qword_1EAFE46E8, 16, "CLTSP,getMatchedLocationCandidates,locations are nil", &v87, 2);
+      sub_19B885924("Generic", 1, 0, 0, "[CLTripSegmentProcessorManager getMatchedLocationCandidates:dataID:modeOfTransport:options:outputHandler:]", "CoreLocation: %s\n", v43);
+      if (v43 != buf)
       {
-        free(v18);
+        free(v43);
       }
     }
 
-    v19 = @"CLTSP,locations are nil";
-    goto LABEL_54;
+    v44 = @"CLTSP,locations are nil";
+    return objc_msgSend_errorObject_description_(self, v42, 1, v44);
   }
 
-  if (![candidates count])
+  if (!objc_msgSend_count(candidates, a2, candidates, d))
   {
     if (qword_1EAFE46B8 != -1)
     {
       dispatch_once(&qword_1EAFE46B8, &unk_1F0E6D650);
     }
 
-    v20 = qword_1EAFE46E8;
+    v45 = qword_1EAFE46E8;
     if (os_log_type_enabled(qword_1EAFE46E8, OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
-      _os_log_impl(&dword_19B873000, v20, OS_LOG_TYPE_ERROR, "CLTSP,getMatchedLocationCandidates,location count received is 0", buf, 2u);
+      _os_log_impl(&dword_19B873000, v45, OS_LOG_TYPE_ERROR, "CLTSP,getMatchedLocationCandidates,location count received is 0", buf, 2u);
     }
 
-    v21 = sub_19B87DD40();
-    if ((*(v21 + 160) & 0x80000000) == 0 || (*(v21 + 164) & 0x80000000) == 0 || (*(v21 + 168) & 0x80000000) == 0 || *(v21 + 152))
+    v46 = sub_19B87DD40();
+    if ((*(v46 + 160) & 0x80000000) == 0 || (*(v46 + 164) & 0x80000000) == 0 || (*(v46 + 168) & 0x80000000) == 0 || *(v46 + 152))
     {
       bzero(buf, 0x65CuLL);
       if (qword_1EAFE46B8 != -1)
@@ -2144,16 +2250,17 @@ LABEL_42:
         dispatch_once(&qword_1EAFE46B8, &unk_1F0E6D650);
       }
 
-      v22 = _os_log_send_and_compose_impl();
-      sub_19B885924("Generic", 1, 0, 0, "[CLTripSegmentProcessorManager getMatchedLocationCandidates:dataID:modeOfTransport:options:outputHandler:]", "CoreLocation: %s\n", v22);
-      if (v22 != buf)
+      LOWORD(v87) = 0;
+      v47 = _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B873000, qword_1EAFE46E8, 16, "CLTSP,getMatchedLocationCandidates,location count received is 0", &v87, 2);
+      sub_19B885924("Generic", 1, 0, 0, "[CLTripSegmentProcessorManager getMatchedLocationCandidates:dataID:modeOfTransport:options:outputHandler:]", "CoreLocation: %s\n", v47);
+      if (v47 != buf)
       {
-        free(v22);
+        free(v47);
       }
     }
 
-    v19 = @"CLTSP,location count received is 0";
-    goto LABEL_54;
+    v44 = @"CLTSP,location count received is 0";
+    return objc_msgSend_errorObject_description_(self, v42, 1, v44);
   }
 
   if (transport != 1)
@@ -2163,16 +2270,17 @@ LABEL_42:
       dispatch_once(&qword_1EAFE46B8, &unk_1F0E6D650);
     }
 
-    v23 = qword_1EAFE46E8;
+    v48 = qword_1EAFE46E8;
     if (os_log_type_enabled(qword_1EAFE46E8, OS_LOG_TYPE_ERROR))
     {
+      v52 = objc_msgSend_UUIDString(d, v49, v50, v51);
       *buf = 136446210;
-      v34[0] = [objc_msgSend(d "UUIDString")];
-      _os_log_impl(&dword_19B873000, v23, OS_LOG_TYPE_ERROR, "CLTSP,getMatchedLocationCandidates,input modeOfTransport not supported,tripID,%{public}s", buf, 0xCu);
+      v90[0] = objc_msgSend_UTF8String(v52, v53, v54, v55);
+      _os_log_impl(&dword_19B873000, v48, OS_LOG_TYPE_ERROR, "CLTSP,getMatchedLocationCandidates,input modeOfTransport not supported,tripID,%{public}s", buf, 0xCu);
     }
 
-    v24 = sub_19B87DD40();
-    if ((*(v24 + 160) & 0x80000000) == 0 || (*(v24 + 164) & 0x80000000) == 0 || (*(v24 + 168) & 0x80000000) == 0 || *(v24 + 152))
+    v56 = sub_19B87DD40();
+    if ((*(v56 + 160) & 0x80000000) == 0 || (*(v56 + 164) & 0x80000000) == 0 || (*(v56 + 168) & 0x80000000) == 0 || *(v56 + 152))
     {
       bzero(buf, 0x65CuLL);
       if (qword_1EAFE46B8 != -1)
@@ -2180,22 +2288,20 @@ LABEL_42:
         dispatch_once(&qword_1EAFE46B8, &unk_1F0E6D650);
       }
 
-      [objc_msgSend(d "UUIDString")];
-      v25 = _os_log_send_and_compose_impl();
-      sub_19B885924("Generic", 1, 0, 0, "[CLTripSegmentProcessorManager getMatchedLocationCandidates:dataID:modeOfTransport:options:outputHandler:]", "CoreLocation: %s\n", v25);
-      if (v25 != buf)
+      v60 = qword_1EAFE46E8;
+      v61 = objc_msgSend_UUIDString(d, v57, v58, v59);
+      v87 = 136446210;
+      v88[0] = objc_msgSend_UTF8String(v61, v62, v63, v64);
+      v65 = _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B873000, v60, 16, "CLTSP,getMatchedLocationCandidates,input modeOfTransport not supported,tripID,%{public}s", &v87, 12);
+      sub_19B885924("Generic", 1, 0, 0, "[CLTripSegmentProcessorManager getMatchedLocationCandidates:dataID:modeOfTransport:options:outputHandler:]", "CoreLocation: %s\n", v65);
+      if (v65 != buf)
       {
-        free(v25);
+        free(v65);
       }
     }
 
-    v19 = @"CLTSP,input modeOfTransport not supported";
-LABEL_54:
-    selfCopy2 = self;
-    v27 = 1;
-LABEL_55:
-    result = [(CLTripSegmentProcessorManager *)selfCopy2 errorObject:v27 description:v19];
-    goto LABEL_56;
+    v44 = @"CLTSP,input modeOfTransport not supported";
+    return objc_msgSend_errorObject_description_(self, v42, 1, v44);
   }
 
   if (qword_1EAFE46B8 != -1)
@@ -2203,18 +2309,20 @@ LABEL_55:
     dispatch_once(&qword_1EAFE46B8, &unk_1F0E6D650);
   }
 
-  v12 = qword_1EAFE46E8;
+  v13 = qword_1EAFE46E8;
   if (os_log_type_enabled(qword_1EAFE46E8, OS_LOG_TYPE_DEFAULT))
   {
+    v17 = objc_msgSend_count(candidates, v14, v15, v16);
+    v21 = objc_msgSend_UUIDString(d, v18, v19, v20);
     *buf = 67240450;
-    LODWORD(v34[0]) = [candidates count];
-    WORD2(v34[0]) = 2082;
-    *(v34 + 6) = [objc_msgSend(d "UUIDString")];
-    _os_log_impl(&dword_19B873000, v12, OS_LOG_TYPE_DEFAULT, "CLTSP,getMatchedLocationCandidates called with locations,%{public}d,dataID,%{public}s", buf, 0x12u);
+    LODWORD(v90[0]) = v17;
+    WORD2(v90[0]) = 2082;
+    *(v90 + 6) = objc_msgSend_UTF8String(v21, v22, v23, v24);
+    _os_log_impl(&dword_19B873000, v13, OS_LOG_TYPE_DEFAULT, "CLTSP,getMatchedLocationCandidates called with locations,%{public}d,dataID,%{public}s", buf, 0x12u);
   }
 
-  v13 = sub_19B87DD40();
-  if (*(v13 + 160) > 1 || *(v13 + 164) > 1 || *(v13 + 168) > 1 || *(v13 + 152))
+  v25 = sub_19B87DD40();
+  if (*(v25 + 160) > 1 || *(v25 + 164) > 1 || *(v25 + 168) > 1 || *(v25 + 152))
   {
     bzero(buf, 0x65CuLL);
     if (qword_1EAFE46B8 != -1)
@@ -2222,60 +2330,64 @@ LABEL_55:
       dispatch_once(&qword_1EAFE46B8, &unk_1F0E6D650);
     }
 
-    [candidates count];
-    [objc_msgSend(d "UUIDString")];
-    v14 = _os_log_send_and_compose_impl();
-    sub_19B885924("Generic", 1, 0, 2, "[CLTripSegmentProcessorManager getMatchedLocationCandidates:dataID:modeOfTransport:options:outputHandler:]", "CoreLocation: %s\n", v14);
-    if (v14 != buf)
+    v29 = qword_1EAFE46E8;
+    v30 = objc_msgSend_count(candidates, v26, v27, v28);
+    v34 = objc_msgSend_UUIDString(d, v31, v32, v33);
+    v87 = 67240450;
+    LODWORD(v88[0]) = v30;
+    WORD2(v88[0]) = 2082;
+    *(v88 + 6) = objc_msgSend_UTF8String(v34, v35, v36, v37);
+    v38 = _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B873000, v29, 0, "CLTSP,getMatchedLocationCandidates called with locations,%{public}d,dataID,%{public}s", &v87, 18);
+    sub_19B885924("Generic", 1, 0, 2, "[CLTripSegmentProcessorManager getMatchedLocationCandidates:dataID:modeOfTransport:options:outputHandler:]", "CoreLocation: %s\n", v38);
+    if (v38 != buf)
     {
-      free(v14);
+      free(v38);
     }
   }
 
-  if ((sub_19BA6D394(&self->cltsp, d, 1, candidates, options) & 1) == 0)
+  if (sub_19BA6D394(&self->cltsp, d, 1, candidates, options, handler))
   {
+    return 0;
+  }
+
+  if (qword_1EAFE46B8 != -1)
+  {
+    dispatch_once(&qword_1EAFE46B8, &unk_1F0E6D650);
+  }
+
+  v66 = qword_1EAFE46E8;
+  if (os_log_type_enabled(qword_1EAFE46E8, OS_LOG_TYPE_ERROR))
+  {
+    v70 = objc_msgSend_UUIDString(d, v67, v68, v69);
+    v74 = objc_msgSend_UTF8String(v70, v71, v72, v73);
+    *buf = 136446210;
+    v90[0] = v74;
+    _os_log_impl(&dword_19B873000, v66, OS_LOG_TYPE_ERROR, "CLTSP,getMatchedLocationCandidates failed,dataID,%{public}s", buf, 0xCu);
+  }
+
+  v75 = sub_19B87DD40();
+  if ((*(v75 + 160) & 0x80000000) == 0 || (*(v75 + 164) & 0x80000000) == 0 || (*(v75 + 168) & 0x80000000) == 0 || *(v75 + 152))
+  {
+    bzero(buf, 0x65CuLL);
     if (qword_1EAFE46B8 != -1)
     {
       dispatch_once(&qword_1EAFE46B8, &unk_1F0E6D650);
     }
 
-    v29 = qword_1EAFE46E8;
-    if (os_log_type_enabled(qword_1EAFE46E8, OS_LOG_TYPE_ERROR))
+    v80 = qword_1EAFE46E8;
+    v81 = objc_msgSend_UUIDString(d, v77, v78, v79);
+    v85 = objc_msgSend_UTF8String(v81, v82, v83, v84);
+    v87 = 136446210;
+    v88[0] = v85;
+    v86 = _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B873000, v80, 16, "CLTSP,getMatchedLocationCandidates failed,dataID,%{public}s", &v87, 12);
+    sub_19B885924("Generic", 1, 0, 0, "[CLTripSegmentProcessorManager getMatchedLocationCandidates:dataID:modeOfTransport:options:outputHandler:]", "CoreLocation: %s\n", v86);
+    if (v86 != buf)
     {
-      v30 = [objc_msgSend(d "UUIDString")];
-      *buf = 136446210;
-      v34[0] = v30;
-      _os_log_impl(&dword_19B873000, v29, OS_LOG_TYPE_ERROR, "CLTSP,getMatchedLocationCandidates failed,dataID,%{public}s", buf, 0xCu);
+      free(v86);
     }
-
-    v31 = sub_19B87DD40();
-    if ((*(v31 + 160) & 0x80000000) == 0 || (*(v31 + 164) & 0x80000000) == 0 || (*(v31 + 168) & 0x80000000) == 0 || *(v31 + 152))
-    {
-      bzero(buf, 0x65CuLL);
-      if (qword_1EAFE46B8 != -1)
-      {
-        dispatch_once(&qword_1EAFE46B8, &unk_1F0E6D650);
-      }
-
-      [objc_msgSend(d "UUIDString")];
-      v32 = _os_log_send_and_compose_impl();
-      sub_19B885924("Generic", 1, 0, 0, "[CLTripSegmentProcessorManager getMatchedLocationCandidates:dataID:modeOfTransport:options:outputHandler:]", "CoreLocation: %s\n", v32);
-      if (v32 != buf)
-      {
-        free(v32);
-      }
-    }
-
-    v19 = @"CLTSP,getMatchedLocationCandidates failed to snap";
-    selfCopy2 = self;
-    v27 = 2;
-    goto LABEL_55;
   }
 
-  result = 0;
-LABEL_56:
-  v28 = *MEMORY[0x1E69E9840];
-  return result;
+  return objc_msgSend_errorObject_description_(self, v76, 2, @"CLTSP,getMatchedLocationCandidates failed to snap");
 }
 
 - (void)getMatchedLocationCandidates:(id)candidates dataID:(id)d modeOfTransport:(int64_t)transport options:(id)options outputHandler:(id)handler completionHandler:(id)completionHandler
@@ -2318,7 +2430,7 @@ LABEL_56:
 
 - (void)killProcessingWithID:(id)d
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   if (qword_1EAFE46B8 != -1)
   {
     dispatch_once(&qword_1EAFE46B8, &unk_1F0E6D650);
@@ -2328,12 +2440,12 @@ LABEL_56:
   if (os_log_type_enabled(qword_1EAFE46E8, OS_LOG_TYPE_INFO))
   {
     *buf = 138543362;
-    *&buf[4] = [d UUIDString];
+    *&buf[4] = objc_msgSend_UUIDString(d, v5, v6, v7);
     _os_log_impl(&dword_19B873000, v4, OS_LOG_TYPE_INFO, "CLTSP,killProcessingWithID,ID,%{public}@", buf, 0xCu);
   }
 
-  v5 = sub_19B87DD40();
-  if (*(v5 + 160) > 1 || *(v5 + 164) > 1 || *(v5 + 168) > 1 || *(v5 + 152))
+  v8 = sub_19B87DD40();
+  if (*(v8 + 160) > 1 || *(v8 + 164) > 1 || *(v8 + 168) > 1 || *(v8 + 152))
   {
     bzero(buf, 0x65CuLL);
     if (qword_1EAFE46B8 != -1)
@@ -2341,12 +2453,14 @@ LABEL_56:
       dispatch_once(&qword_1EAFE46B8, &unk_1F0E6D650);
     }
 
-    [d UUIDString];
-    v6 = _os_log_send_and_compose_impl();
-    sub_19B885924("Generic", 1, 0, 2, "[CLTripSegmentProcessorManager killProcessingWithID:]", "CoreLocation: %s\n", v6);
-    if (v6 != buf)
+    v15 = qword_1EAFE46E8;
+    v23 = 138543362;
+    v24 = objc_msgSend_UUIDString(d, v12, v13, v14);
+    v16 = _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B873000, v15, 1, "CLTSP,killProcessingWithID,ID,%{public}@", &v23, 12);
+    sub_19B885924("Generic", 1, 0, 2, "[CLTripSegmentProcessorManager killProcessingWithID:]", "CoreLocation: %s\n", v16);
+    if (v16 != buf)
     {
-      free(v6);
+      free(v16);
     }
   }
 
@@ -2355,98 +2469,102 @@ LABEL_56:
     dispatch_once(&qword_1EAFE5B00, &unk_1F0E6D570);
   }
 
-  v7 = qword_1EAFE5B10;
-  sub_19B8759E8(buf, [objc_msgSend(d "UUIDString")]);
-  std::mutex::lock(v7);
-  sub_19B95D910(v7, buf, 1);
-  std::mutex::unlock(v7);
-  if (v10 < 0)
+  v17 = qword_1EAFE5B10;
+  v18 = objc_msgSend_UUIDString(d, v9, v10, v11);
+  v22 = objc_msgSend_UTF8String(v18, v19, v20, v21);
+  sub_19B8759E8(buf, v22);
+  std::mutex::lock(v17);
+  sub_19B95D910(v17, buf, 1);
+  std::mutex::unlock(v17);
+  if (v26 < 0)
   {
     operator delete(*buf);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)simulateSparseTrajectoryAndSubmitCoreAnalytics:(id)analytics
 {
-  v123 = *MEMORY[0x1E69E9840];
-  v96 = 0;
-  v97 = &v96;
-  v98 = 0x3812000000;
-  v99 = sub_19B95CCC0;
-  v100 = nullsub_22;
-  v101 = "";
-  v102 = -1.0;
+  v368 = *MEMORY[0x1E69E9840];
+  v341 = 0;
+  v342 = &v341;
+  v343 = 0x3812000000;
+  v344 = sub_19B95CCC0;
+  v345 = nullsub_22;
+  v346 = "";
+  v347 = -1.0;
   v4 = mach_continuous_time();
-  v102 = sub_19B994BF4(v4);
-  v92 = 0;
-  v93 = &v92;
-  v94 = 0x2020000000;
-  v95 = 0;
-  v91[0] = MEMORY[0x1E69E9820];
-  v91[1] = 3221225472;
-  v91[2] = sub_19B95CCD0;
-  v91[3] = &unk_1E753DDE0;
-  v91[4] = analytics;
-  v91[5] = &v92;
-  v91[6] = &v96;
-  tripLocations = [analytics tripLocations];
-  if ([tripLocations count] < 2)
+  v347 = sub_19B994BF4(v4);
+  v337 = 0;
+  v338 = &v337;
+  v339 = 0x2020000000;
+  v340 = 0;
+  v336[0] = MEMORY[0x1E69E9820];
+  v336[1] = 3221225472;
+  v336[2] = sub_19B95CCD0;
+  v336[3] = &unk_1E753DDE0;
+  v336[4] = analytics;
+  v336[5] = &v337;
+  v336[6] = &v341;
+  v8 = objc_msgSend_tripLocations(analytics, v5, v6, v7);
+  if (objc_msgSend_count(v8, v9, v10, v11) < 2)
   {
 LABEL_52:
-    v16 = [tripLocations mutableCopy];
+    v46 = objc_msgSend_mutableCopy(v8, v12, v13, v14);
     goto LABEL_53;
   }
 
-  v105 = 0u;
-  v106 = 0u;
-  v103 = 0u;
-  v104 = 0u;
-  v6 = 0;
-  v7 = [tripLocations countByEnumeratingWithState:&v103 objects:v122 count:16];
-  if (v7)
+  v350 = 0u;
+  v351 = 0u;
+  v348 = 0u;
+  v349 = 0u;
+  v15 = 0;
+  v19 = objc_msgSend_countByEnumeratingWithState_objects_count_(v8, v12, &v348, v367, 16);
+  if (v19)
   {
-    v8 = *v104;
+    v20 = *v349;
     do
     {
-      for (i = 0; i != v7; ++i)
+      for (i = 0; i != v19; ++i)
       {
-        if (*v104 != v8)
+        if (*v349 != v20)
         {
-          objc_enumerationMutation(tripLocations);
+          objc_enumerationMutation(v8);
         }
 
-        v6 += [*(*(&v103 + 1) + 8 * i) isGPSLocationType];
+        v15 += objc_msgSend_isGPSLocationType(*(*(&v348 + 1) + 8 * i), v16, v17, v18);
       }
 
-      v7 = [tripLocations countByEnumeratingWithState:&v103 objects:v122 count:16];
+      v19 = objc_msgSend_countByEnumeratingWithState_objects_count_(v8, v16, &v348, v367, 16);
     }
 
-    while (v7);
+    while (v19);
   }
 
-  [objc_msgSend(objc_msgSend(tripLocations "lastObject")];
-  v11 = v10;
-  if (v6 < 2 || (v12 = (v10 * 0.6), v6 <= v12))
+  Object = objc_msgSend_lastObject(v8, v16, v17, v18);
+  v26 = objc_msgSend_timestamp(Object, v23, v24, v25);
+  v30 = objc_msgSend_firstObject(v8, v27, v28, v29);
+  v34 = objc_msgSend_timestamp(v30, v31, v32, v33);
+  objc_msgSend_timeIntervalSinceDate_(v26, v35, v34, v36);
+  v38 = v37;
+  if (v15 < 2 || (v39 = (v37 * 0.6), v15 <= v39))
   {
     if (qword_1EAFE46B8 != -1)
     {
       dispatch_once(&qword_1EAFE46B8, &unk_1F0E6D650);
     }
 
-    v27 = qword_1EAFE46E8;
+    v68 = qword_1EAFE46E8;
     if (os_log_type_enabled(qword_1EAFE46E8, OS_LOG_TYPE_INFO))
     {
       *buf = 134349312;
-      v114 = *&v11;
-      v115 = 1026;
-      *v116 = v6;
-      _os_log_impl(&dword_19B873000, v27, OS_LOG_TYPE_INFO, "CLTSP,hasSubstantialGPSData,0,duration,%{public}.1lf,numberOfGPSLocations,%{public}d", buf, 0x12u);
+      v359 = *&v38;
+      v360 = 1026;
+      *v361 = v15;
+      _os_log_impl(&dword_19B873000, v68, OS_LOG_TYPE_INFO, "CLTSP,hasSubstantialGPSData,0,duration,%{public}.1lf,numberOfGPSLocations,%{public}d", buf, 0x12u);
     }
 
-    v28 = sub_19B87DD40();
-    if (*(v28 + 160) > 1 || *(v28 + 164) > 1 || *(v28 + 168) > 1 || *(v28 + 152))
+    v69 = sub_19B87DD40();
+    if (*(v69 + 160) > 1 || *(v69 + 164) > 1 || *(v69 + 168) > 1 || *(v69 + 152))
     {
       bzero(buf, 0x65CuLL);
       if (qword_1EAFE46B8 != -1)
@@ -2454,16 +2572,15 @@ LABEL_52:
         dispatch_once(&qword_1EAFE46B8, &unk_1F0E6D650);
       }
 
-      v107 = 134349312;
-      v108 = v11;
-      v109 = 1026;
-      v110 = v6;
-      LODWORD(v88) = 18;
-      v29 = _os_log_send_and_compose_impl();
-      sub_19B885924("Generic", 1, 0, 2, "static BOOL CLTripSegmentUtilities::hasSubstantialGPSData(NSArray<CLTripSegmentLocation *> * _Nonnull, double)", "CoreLocation: %s\n", v29);
-      if (v29 != buf)
+      v352 = 134349312;
+      v353 = v38;
+      v354 = 1026;
+      v355 = v15;
+      v70 = _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B873000, qword_1EAFE46E8, 1, "CLTSP,hasSubstantialGPSData,0,duration,%{public}.1lf,numberOfGPSLocations,%{public}d", &v352, 18);
+      sub_19B885924("Generic", 1, 0, 2, "static BOOL CLTripSegmentUtilities::hasSubstantialGPSData(NSArray<CLTripSegmentLocation *> * _Nonnull, double)", "CoreLocation: %s\n", v70);
+      if (v70 != buf)
       {
-        free(v29);
+        free(v70);
       }
     }
 
@@ -2475,20 +2592,20 @@ LABEL_52:
     dispatch_once(&qword_1EAFE46B8, &unk_1F0E6D650);
   }
 
-  v13 = qword_1EAFE46E8;
+  v40 = qword_1EAFE46E8;
   if (os_log_type_enabled(qword_1EAFE46E8, OS_LOG_TYPE_INFO))
   {
     *buf = 134349568;
-    v114 = *&v11;
-    v115 = 1026;
-    *v116 = v6;
-    *&v116[4] = 1026;
-    *&v116[6] = v12;
-    _os_log_impl(&dword_19B873000, v13, OS_LOG_TYPE_INFO, "CLTSP,hasSubstantialGPSData,1,duration,%{public}.1lf,numberOfGPSLocations,%{public}d,threshold,%{public}d", buf, 0x18u);
+    v359 = *&v38;
+    v360 = 1026;
+    *v361 = v15;
+    *&v361[4] = 1026;
+    *&v361[6] = v39;
+    _os_log_impl(&dword_19B873000, v40, OS_LOG_TYPE_INFO, "CLTSP,hasSubstantialGPSData,1,duration,%{public}.1lf,numberOfGPSLocations,%{public}d,threshold,%{public}d", buf, 0x18u);
   }
 
-  v14 = sub_19B87DD40();
-  if (*(v14 + 160) > 1 || *(v14 + 164) > 1 || *(v14 + 168) > 1 || *(v14 + 152))
+  v41 = sub_19B87DD40();
+  if (*(v41 + 160) > 1 || *(v41 + 164) > 1 || *(v41 + 168) > 1 || *(v41 + 152))
   {
     bzero(buf, 0x65CuLL);
     if (qword_1EAFE46B8 != -1)
@@ -2496,111 +2613,116 @@ LABEL_52:
       dispatch_once(&qword_1EAFE46B8, &unk_1F0E6D650);
     }
 
-    v107 = 134349568;
-    v108 = v11;
-    v109 = 1026;
-    v110 = v6;
-    v111 = 1026;
-    v112 = v12;
-    LODWORD(v88) = 24;
-    v15 = _os_log_send_and_compose_impl();
-    sub_19B885924("Generic", 1, 0, 2, "static BOOL CLTripSegmentUtilities::hasSubstantialGPSData(NSArray<CLTripSegmentLocation *> * _Nonnull, double)", "CoreLocation: %s\n", v15);
-    if (v15 != buf)
+    v352 = 134349568;
+    v353 = v38;
+    v354 = 1026;
+    v355 = v15;
+    v356 = 1026;
+    v357 = v39;
+    v42 = _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B873000, qword_1EAFE46E8, 1, "CLTSP,hasSubstantialGPSData,1,duration,%{public}.1lf,numberOfGPSLocations,%{public}d,threshold,%{public}d", &v352, 24);
+    sub_19B885924("Generic", 1, 0, 2, "static BOOL CLTripSegmentUtilities::hasSubstantialGPSData(NSArray<CLTripSegmentLocation *> * _Nonnull, double)", "CoreLocation: %s\n", v42);
+    if (v42 != buf)
     {
-      free(v15);
+      free(v42);
     }
   }
 
-  v16 = [objc_alloc(MEMORY[0x1E695DF70]) initWithArray:tripLocations];
-  v17 = objc_alloc_init(MEMORY[0x1E695DF70]);
-  memset(v122, 0, 64);
-  v18 = [tripLocations countByEnumeratingWithState:v122 objects:buf count:16];
+  v43 = objc_alloc(MEMORY[0x1E695DF70]);
+  v46 = objc_msgSend_initWithArray_(v43, v44, v8, v45);
+  v47 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  memset(v367, 0, 64);
+  v52 = objc_msgSend_countByEnumeratingWithState_objects_count_(v8, v48, v367, buf, 16);
   analyticsCopy = analytics;
-  if (v18)
+  if (v52)
   {
-    v19 = 0;
-    v20 = 0;
-    v21 = **&v122[1];
-    v22 = -1.0;
+    v53 = 0;
+    v54 = 0;
+    v55 = **&v367[1];
+    v56 = -1.0;
     do
     {
-      for (j = 0; j != v18; ++j)
+      for (j = 0; j != v52; ++j)
       {
-        if (**&v122[1] != v21)
+        if (**&v367[1] != v55)
         {
-          objc_enumerationMutation(tripLocations);
+          objc_enumerationMutation(v8);
         }
 
-        v24 = *(*(&v122[0] + 1) + 8 * j);
-        if ([v24 isGPSLocationType])
+        v58 = *(*(&v367[0] + 1) + 8 * j);
+        if (objc_msgSend_isGPSLocationType(v58, v49, v50, v51))
         {
-          [objc_msgSend(v24 "timestamp")];
-          v26 = v25;
-          if (vabdd_f64(v25, v22) < 3.0)
+          v59 = objc_msgSend_timestamp(v58, v49, v50, v51);
+          objc_msgSend_timeIntervalSinceReferenceDate(v59, v60, v61, v62);
+          v64 = v63;
+          if (vabdd_f64(v63, v56) < 3.0)
           {
-            ++v19;
+            ++v53;
           }
 
           else
           {
-            v19 = 1;
+            v53 = 1;
           }
 
-          if (v19 >= 11)
+          if (v53 >= 11)
           {
-            [v17 addObject:v24];
-            if (v20 <= 119)
+            objc_msgSend_addObject_(v47, v49, v58, v51);
+            if (v54 <= 119)
             {
-              ++v20;
+              ++v54;
             }
 
             else
             {
-              v19 = 0;
-              v20 = 0;
+              v53 = 0;
+              v54 = 0;
             }
           }
 
-          v22 = v26;
+          v56 = v64;
         }
       }
 
-      v18 = [tripLocations countByEnumeratingWithState:v122 objects:buf count:16];
+      v52 = objc_msgSend_countByEnumeratingWithState_objects_count_(v8, v49, v367, buf, 16);
     }
 
-    while (v18);
+    while (v52);
   }
 
-  [v16 removeObjectsInArray:v17];
+  objc_msgSend_removeObjectsInArray_(v46, v49, v47, v51);
   analytics = analyticsCopy;
 LABEL_53:
-  v30 = [v16 count];
-  *(v93 + 6) = v30;
-  v31 = [objc_msgSend(analytics "tripLocations")];
-  if (v31 == [v16 count])
+  v71 = objc_msgSend_count(v46, v65, v66, v67);
+  *(v338 + 6) = v71;
+  v75 = objc_msgSend_tripLocations(analytics, v72, v73, v74);
+  v79 = objc_msgSend_count(v75, v76, v77, v78);
+  if (v79 == objc_msgSend_count(v46, v80, v81, v82))
   {
     if (qword_1EAFE46B8 != -1)
     {
       dispatch_once(&qword_1EAFE46B8, &unk_1F0E6D650);
     }
 
-    v32 = qword_1EAFE46E8;
+    v83 = qword_1EAFE46E8;
     if (os_log_type_enabled(qword_1EAFE46E8, OS_LOG_TYPE_DEFAULT))
     {
-      v33 = [objc_msgSend(objc_msgSend(analytics "tripSegmentID")];
-      modeOfTransport = [analytics modeOfTransport];
-      v35 = [objc_msgSend(analytics "tripLocations")];
+      v87 = objc_msgSend_tripSegmentID(analytics, v84, v85, v86);
+      v91 = objc_msgSend_UUIDString(v87, v88, v89, v90);
+      v95 = objc_msgSend_UTF8String(v91, v92, v93, v94);
+      v99 = objc_msgSend_modeOfTransport(analytics, v96, v97, v98);
+      v103 = objc_msgSend_tripLocations(analytics, v100, v101, v102);
+      v107 = objc_msgSend_count(v103, v104, v105, v106);
       *buf = 136446722;
-      v114 = v33;
-      v115 = 1026;
-      *v116 = modeOfTransport;
-      *&v116[4] = 1026;
-      *&v116[6] = v35;
-      _os_log_impl(&dword_19B873000, v32, OS_LOG_TYPE_DEFAULT, "CLTSP,simulatedSparse,data not created,ID,%{public}s,modeOfTransport,%{public}d,locations,%{public}d", buf, 0x18u);
+      v359 = v95;
+      v360 = 1026;
+      *v361 = v99;
+      *&v361[4] = 1026;
+      *&v361[6] = v107;
+      _os_log_impl(&dword_19B873000, v83, OS_LOG_TYPE_DEFAULT, "CLTSP,simulatedSparse,data not created,ID,%{public}s,modeOfTransport,%{public}d,locations,%{public}d", buf, 0x18u);
     }
 
-    v36 = sub_19B87DD40();
-    if (*(v36 + 160) > 1 || *(v36 + 164) > 1 || *(v36 + 168) > 1 || *(v36 + 152))
+    v108 = sub_19B87DD40();
+    if (*(v108 + 160) > 1 || *(v108 + 164) > 1 || *(v108 + 168) > 1 || *(v108 + 152))
     {
       bzero(buf, 0x65CuLL);
       if (qword_1EAFE46B8 != -1)
@@ -2608,27 +2730,31 @@ LABEL_53:
         dispatch_once(&qword_1EAFE46B8, &unk_1F0E6D650);
       }
 
-      v37 = [objc_msgSend(objc_msgSend(analytics "tripSegmentID")];
-      modeOfTransport2 = [analytics modeOfTransport];
-      v39 = [objc_msgSend(analytics "tripLocations")];
-      LODWORD(v122[0]) = 136446722;
-      *(v122 + 4) = v37;
-      WORD6(v122[0]) = 1026;
-      *(v122 + 14) = modeOfTransport2;
-      WORD1(v122[1]) = 1026;
-      DWORD1(v122[1]) = v39;
-      v40 = _os_log_send_and_compose_impl();
-      sub_19B885924("Generic", 1, 0, 2, "[CLTripSegmentProcessorManager simulateSparseTrajectoryAndSubmitCoreAnalytics:]", "CoreLocation: %s\n", v40);
-      if (v40 != buf)
+      v115 = qword_1EAFE46E8;
+      v116 = objc_msgSend_tripSegmentID(analytics, v112, v113, v114);
+      v120 = objc_msgSend_UUIDString(v116, v117, v118, v119);
+      v124 = objc_msgSend_UTF8String(v120, v121, v122, v123);
+      v128 = objc_msgSend_modeOfTransport(analytics, v125, v126, v127);
+      v132 = objc_msgSend_tripLocations(analytics, v129, v130, v131);
+      v136 = objc_msgSend_count(v132, v133, v134, v135);
+      LODWORD(v367[0]) = 136446722;
+      *(v367 + 4) = v124;
+      WORD6(v367[0]) = 1026;
+      *(v367 + 14) = v128;
+      WORD1(v367[1]) = 1026;
+      DWORD1(v367[1]) = v136;
+      v137 = _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B873000, v115, 0, "CLTSP,simulatedSparse,data not created,ID,%{public}s,modeOfTransport,%{public}d,locations,%{public}d", v367, 24);
+      sub_19B885924("Generic", 1, 0, 2, "[CLTripSegmentProcessorManager simulateSparseTrajectoryAndSubmitCoreAnalytics:]", "CoreLocation: %s\n", v137);
+      if (v137 != buf)
       {
-        free(v40);
+        free(v137);
       }
     }
 
-    if ([analytics isFinalPart])
+    if (objc_msgSend_isFinalPart(analytics, v109, v110, v111))
     {
-      v41 = sub_19BA3C324();
-      sub_19BA3D1E8(v41);
+      v138 = sub_19BA3C324();
+      sub_19BA3D1E8(v138);
     }
   }
 
@@ -2636,55 +2762,67 @@ LABEL_53:
   {
     if (*(sub_19BA3C324() + 608) < 1)
     {
-      uUID = [MEMORY[0x1E696AFB0] UUID];
+      v152 = objc_msgSend_UUID(MEMORY[0x1E696AFB0], v139, v140, v141);
       analyticsCopy3 = analytics;
     }
 
     else
     {
       analyticsCopy3 = analytics;
-      v43 = MEMORY[0x1E696AEC0];
-      v44 = sub_19BA3C324();
-      v45 = (v44 + 40);
-      if (*(v44 + 63) < 0)
+      v143 = MEMORY[0x1E696AEC0];
+      v144 = sub_19BA3C324();
+      v147 = (v144 + 40);
+      if (*(v144 + 63) < 0)
       {
-        v45 = *v45;
+        v147 = *v147;
       }
 
-      v46 = [v43 stringWithFormat:@"%s", v45, v88];
-      uUID = [objc_alloc(MEMORY[0x1E696AFB0]) initWithUUIDString:v46];
+      v148 = objc_msgSend_stringWithFormat_(v143, v145, @"%s", v146, v147);
+      v149 = objc_alloc(MEMORY[0x1E696AFB0]);
+      v152 = objc_msgSend_initWithUUIDString_(v149, v150, v148, v151);
     }
 
-    v48 = -[CLTripSegmentInputData initWithTripSegmentID:isFinalPart:modeOfTransport:tripLocations:startTripLocation:stopTripLocation:inertialData:]([CLTripSegmentInputData alloc], "initWithTripSegmentID:isFinalPart:modeOfTransport:tripLocations:startTripLocation:stopTripLocation:inertialData:", uUID, [analyticsCopy3 isFinalPart], objc_msgSend(analyticsCopy3, "modeOfTransport"), v16, objc_msgSend(analyticsCopy3, "startTripLocation"), objc_msgSend(analyticsCopy3, "stopTripLocation"), objc_msgSend(analyticsCopy3, "inertialData"));
+    v153 = [CLTripSegmentInputData alloc];
+    isFinalPart = objc_msgSend_isFinalPart(analyticsCopy3, v154, v155, v156);
+    v161 = objc_msgSend_modeOfTransport(analyticsCopy3, v158, v159, v160);
+    started = objc_msgSend_startTripLocation(analyticsCopy3, v162, v163, v164);
+    v169 = objc_msgSend_stopTripLocation(analyticsCopy3, v166, v167, v168);
+    v173 = objc_msgSend_inertialData(analyticsCopy3, v170, v171, v172);
+    isFinalPart_modeOfTransport_tripLocations_startTripLocation_stopTripLocation_inertialData = objc_msgSend_initWithTripSegmentID_isFinalPart_modeOfTransport_tripLocations_startTripLocation_stopTripLocation_inertialData_(v153, v174, v152, isFinalPart, v161, v46, started, v169, v173);
     if (qword_1EAFE46B8 != -1)
     {
       dispatch_once(&qword_1EAFE46B8, &unk_1F0E6D650);
     }
 
-    v49 = qword_1EAFE46E8;
+    v176 = qword_1EAFE46E8;
     if (os_log_type_enabled(qword_1EAFE46E8, OS_LOG_TYPE_DEFAULT))
     {
-      v50 = [objc_msgSend(objc_msgSend(analyticsCopy3 "tripSegmentID")];
-      uTF8String = [(NSString *)[(NSUUID *)[(CLTripSegmentInputData *)v48 tripSegmentID] UUIDString] UTF8String];
-      modeOfTransport3 = [analyticsCopy3 modeOfTransport];
-      v53 = [objc_msgSend(analyticsCopy3 "tripLocations")];
-      v54 = [v16 count];
+      v180 = objc_msgSend_tripSegmentID(analyticsCopy3, v177, v178, v179);
+      v184 = objc_msgSend_UUIDString(v180, v181, v182, v183);
+      v188 = objc_msgSend_UTF8String(v184, v185, v186, v187);
+      v192 = objc_msgSend_tripSegmentID(isFinalPart_modeOfTransport_tripLocations_startTripLocation_stopTripLocation_inertialData, v189, v190, v191);
+      v196 = objc_msgSend_UUIDString(v192, v193, v194, v195);
+      v200 = objc_msgSend_UTF8String(v196, v197, v198, v199);
+      v204 = objc_msgSend_modeOfTransport(analyticsCopy3, v201, v202, v203);
+      v208 = objc_msgSend_tripLocations(analyticsCopy3, v205, v206, v207);
+      v212 = objc_msgSend_count(v208, v209, v210, v211);
+      v216 = objc_msgSend_count(v46, v213, v214, v215);
       *buf = 136447234;
-      v114 = v50;
-      v115 = 2082;
-      *v116 = uTF8String;
-      *&v116[8] = 1026;
-      v117 = modeOfTransport3;
-      v118 = 1026;
-      v119 = v53;
-      v120 = 1026;
-      v121 = v54;
-      _os_log_impl(&dword_19B873000, v49, OS_LOG_TYPE_DEFAULT, "CLTSP,simulatedSparse,data created,origID,%{public}s,newID,%{public}s,modeOfTransport,%{public}d,origLocations,%{public}d,sparseLocations,%{public}d", buf, 0x28u);
+      v359 = v188;
+      v360 = 2082;
+      *v361 = v200;
+      *&v361[8] = 1026;
+      v362 = v204;
+      v363 = 1026;
+      v364 = v212;
+      v365 = 1026;
+      v366 = v216;
+      _os_log_impl(&dword_19B873000, v176, OS_LOG_TYPE_DEFAULT, "CLTSP,simulatedSparse,data created,origID,%{public}s,newID,%{public}s,modeOfTransport,%{public}d,origLocations,%{public}d,sparseLocations,%{public}d", buf, 0x28u);
     }
 
-    v55 = sub_19B87DD40();
-    v56 = analyticsCopy3;
-    if (*(v55 + 160) > 1 || *(v55 + 164) > 1 || *(v55 + 168) > 1 || *(v55 + 152))
+    v217 = sub_19B87DD40();
+    v218 = analyticsCopy3;
+    if (*(v217 + 160) > 1 || *(v217 + 164) > 1 || *(v217 + 168) > 1 || *(v217 + 152))
     {
       bzero(buf, 0x65CuLL);
       if (qword_1EAFE46B8 != -1)
@@ -2692,61 +2830,69 @@ LABEL_53:
         dispatch_once(&qword_1EAFE46B8, &unk_1F0E6D650);
       }
 
-      v57 = analyticsCopy3;
-      v58 = [objc_msgSend(objc_msgSend(analyticsCopy3 "tripSegmentID")];
-      uTF8String2 = [(NSString *)[(NSUUID *)[(CLTripSegmentInputData *)v48 tripSegmentID] UUIDString] UTF8String];
-      modeOfTransport4 = [v57 modeOfTransport];
-      v61 = [objc_msgSend(v57 "tripLocations")];
-      v62 = [v16 count];
-      LODWORD(v122[0]) = 136447234;
-      *(v122 + 4) = v58;
-      WORD6(v122[0]) = 2082;
-      *(v122 + 14) = uTF8String2;
-      WORD3(v122[1]) = 1026;
-      DWORD2(v122[1]) = modeOfTransport4;
-      WORD6(v122[1]) = 1026;
-      *(&v122[1] + 14) = v61;
-      WORD1(v122[2]) = 1026;
-      DWORD1(v122[2]) = v62;
-      v63 = _os_log_send_and_compose_impl();
-      sub_19B885924("Generic", 1, 0, 2, "[CLTripSegmentProcessorManager simulateSparseTrajectoryAndSubmitCoreAnalytics:]", "CoreLocation: %s\n", v63);
-      v56 = v57;
-      if (v63 != buf)
+      v222 = qword_1EAFE46E8;
+      v223 = analyticsCopy3;
+      v224 = objc_msgSend_tripSegmentID(analyticsCopy3, v219, v220, v221);
+      v228 = objc_msgSend_UUIDString(v224, v225, v226, v227);
+      v232 = objc_msgSend_UTF8String(v228, v229, v230, v231);
+      v236 = objc_msgSend_tripSegmentID(isFinalPart_modeOfTransport_tripLocations_startTripLocation_stopTripLocation_inertialData, v233, v234, v235);
+      v240 = objc_msgSend_UUIDString(v236, v237, v238, v239);
+      v244 = objc_msgSend_UTF8String(v240, v241, v242, v243);
+      v248 = objc_msgSend_modeOfTransport(v223, v245, v246, v247);
+      v252 = objc_msgSend_tripLocations(v223, v249, v250, v251);
+      v256 = objc_msgSend_count(v252, v253, v254, v255);
+      v260 = objc_msgSend_count(v46, v257, v258, v259);
+      LODWORD(v367[0]) = 136447234;
+      *(v367 + 4) = v232;
+      WORD6(v367[0]) = 2082;
+      *(v367 + 14) = v244;
+      WORD3(v367[1]) = 1026;
+      DWORD2(v367[1]) = v248;
+      WORD6(v367[1]) = 1026;
+      *(&v367[1] + 14) = v256;
+      WORD1(v367[2]) = 1026;
+      DWORD1(v367[2]) = v260;
+      v261 = _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B873000, v222, 0, "CLTSP,simulatedSparse,data created,origID,%{public}s,newID,%{public}s,modeOfTransport,%{public}d,origLocations,%{public}d,sparseLocations,%{public}d", v367, 40);
+      sub_19B885924("Generic", 1, 0, 2, "[CLTripSegmentProcessorManager simulateSparseTrajectoryAndSubmitCoreAnalytics:]", "CoreLocation: %s\n", v261);
+      v218 = v223;
+      if (v261 != buf)
       {
-        free(v63);
+        free(v261);
       }
     }
 
-    v64 = objc_alloc_init(CLTripSegmentProcessorOptions);
-    [(CLTripSegmentProcessorOptions *)v64 setSimulatedSparseProcessing:1];
-    if ([(CLTripSegmentProcessorManager *)self processTripSegmentData:v48 withOptions:v64 outputHandler:v91])
+    v262 = objc_alloc_init(CLTripSegmentProcessorOptions);
+    objc_msgSend_setSimulatedSparseProcessing_(v262, v263, 1, v264);
+    if (objc_msgSend_processTripSegmentData_withOptions_outputHandler_(self, v265, isFinalPart_modeOfTransport_tripLocations_startTripLocation_stopTripLocation_inertialData, v262, v336))
     {
       if (qword_1EAFE46B8 != -1)
       {
         dispatch_once(&qword_1EAFE46B8, &unk_1F0E6D650);
       }
 
-      v65 = qword_1EAFE46E8;
+      v266 = qword_1EAFE46E8;
       if (os_log_type_enabled(qword_1EAFE46E8, OS_LOG_TYPE_DEFAULT))
       {
-        v66 = [objc_msgSend(objc_msgSend(v56 "tripSegmentID")];
-        v67 = v97;
-        v68 = 0.0;
-        if (v97[6] >= 0.0)
+        v270 = objc_msgSend_tripSegmentID(v218, v267, v268, v269);
+        v274 = objc_msgSend_UUIDString(v270, v271, v272, v273);
+        v278 = objc_msgSend_UTF8String(v274, v275, v276, v277);
+        v279 = v342;
+        v280 = 0.0;
+        if (v342[6] >= 0.0)
         {
-          v69 = mach_continuous_time();
-          v68 = vabdd_f64(sub_19B994BF4(v69), v67[6]) * 1000.0;
+          v281 = mach_continuous_time();
+          v280 = vabdd_f64(sub_19B994BF4(v281), v279[6]) * 1000.0;
         }
 
         *buf = 136446466;
-        v114 = v66;
-        v115 = 2050;
-        *v116 = v68;
-        _os_log_impl(&dword_19B873000, v65, OS_LOG_TYPE_DEFAULT, "CLTSP,simulatedSparse,failedtripID,%{public}s,processingTime,%{public}.2lf", buf, 0x16u);
+        v359 = v278;
+        v360 = 2050;
+        *v361 = v280;
+        _os_log_impl(&dword_19B873000, v266, OS_LOG_TYPE_DEFAULT, "CLTSP,simulatedSparse,failedtripID,%{public}s,processingTime,%{public}.2lf", buf, 0x16u);
       }
 
-      v70 = sub_19B87DD40();
-      if (*(v70 + 160) > 1 || *(v70 + 164) > 1 || *(v70 + 168) > 1 || *(v70 + 152))
+      v282 = sub_19B87DD40();
+      if (*(v282 + 160) > 1 || *(v282 + 164) > 1 || *(v282 + 168) > 1 || *(v282 + 152))
       {
         bzero(buf, 0x65CuLL);
         if (qword_1EAFE46B8 != -1)
@@ -2754,24 +2900,27 @@ LABEL_53:
           dispatch_once(&qword_1EAFE46B8, &unk_1F0E6D650);
         }
 
-        v71 = [objc_msgSend(objc_msgSend(v56 "tripSegmentID")];
-        v72 = v97;
-        v73 = 0.0;
-        if (v97[6] >= 0.0)
+        v286 = qword_1EAFE46E8;
+        v287 = objc_msgSend_tripSegmentID(v218, v283, v284, v285);
+        v291 = objc_msgSend_UUIDString(v287, v288, v289, v290);
+        v295 = objc_msgSend_UTF8String(v291, v292, v293, v294);
+        v296 = v342;
+        v297 = 0.0;
+        if (v342[6] >= 0.0)
         {
-          v74 = mach_continuous_time();
-          v73 = vabdd_f64(sub_19B994BF4(v74), v72[6]) * 1000.0;
+          v298 = mach_continuous_time();
+          v297 = vabdd_f64(sub_19B994BF4(v298), v296[6]) * 1000.0;
         }
 
-        LODWORD(v122[0]) = 136446466;
-        *(v122 + 4) = v71;
-        WORD6(v122[0]) = 2050;
-        *(v122 + 14) = v73;
-        v75 = _os_log_send_and_compose_impl();
-        sub_19B885924("Generic", 1, 0, 2, "[CLTripSegmentProcessorManager simulateSparseTrajectoryAndSubmitCoreAnalytics:]", "CoreLocation: %s\n", v75);
-        if (v75 != buf)
+        LODWORD(v367[0]) = 136446466;
+        *(v367 + 4) = v295;
+        WORD6(v367[0]) = 2050;
+        *(v367 + 14) = v297;
+        v299 = _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B873000, v286, 0, "CLTSP,simulatedSparse,failedtripID,%{public}s,processingTime,%{public}.2lf", v367, 22);
+        sub_19B885924("Generic", 1, 0, 2, "[CLTripSegmentProcessorManager simulateSparseTrajectoryAndSubmitCoreAnalytics:]", "CoreLocation: %s\n", v299);
+        if (v299 != buf)
         {
-          free(v75);
+          free(v299);
         }
       }
     }
@@ -2781,27 +2930,29 @@ LABEL_53:
       dispatch_once(&qword_1EAFE46B8, &unk_1F0E6D650);
     }
 
-    v76 = qword_1EAFE46E8;
+    v300 = qword_1EAFE46E8;
     if (os_log_type_enabled(qword_1EAFE46E8, OS_LOG_TYPE_DEFAULT))
     {
-      v77 = [objc_msgSend(objc_msgSend(v56 "tripSegmentID")];
-      v78 = v97;
-      v79 = 0.0;
-      if (v97[6] >= 0.0)
+      v304 = objc_msgSend_tripSegmentID(v218, v301, v302, v303);
+      v308 = objc_msgSend_UUIDString(v304, v305, v306, v307);
+      v312 = objc_msgSend_UTF8String(v308, v309, v310, v311);
+      v313 = v342;
+      v314 = 0.0;
+      if (v342[6] >= 0.0)
       {
-        v80 = mach_continuous_time();
-        v79 = vabdd_f64(sub_19B994BF4(v80), v78[6]) * 1000.0;
+        v315 = mach_continuous_time();
+        v314 = vabdd_f64(sub_19B994BF4(v315), v313[6]) * 1000.0;
       }
 
       *buf = 136446466;
-      v114 = v77;
-      v115 = 2050;
-      *v116 = v79;
-      _os_log_impl(&dword_19B873000, v76, OS_LOG_TYPE_DEFAULT, "CLTSP,simulatedSparse,success,tripID,%{public}s,processingTime,%{public}.2lf", buf, 0x16u);
+      v359 = v312;
+      v360 = 2050;
+      *v361 = v314;
+      _os_log_impl(&dword_19B873000, v300, OS_LOG_TYPE_DEFAULT, "CLTSP,simulatedSparse,success,tripID,%{public}s,processingTime,%{public}.2lf", buf, 0x16u);
     }
 
-    v81 = sub_19B87DD40();
-    if (*(v81 + 160) > 1 || *(v81 + 164) > 1 || *(v81 + 168) > 1 || *(v81 + 152))
+    v316 = sub_19B87DD40();
+    if (*(v316 + 160) > 1 || *(v316 + 164) > 1 || *(v316 + 168) > 1 || *(v316 + 152))
     {
       bzero(buf, 0x65CuLL);
       if (qword_1EAFE46B8 != -1)
@@ -2809,31 +2960,33 @@ LABEL_53:
         dispatch_once(&qword_1EAFE46B8, &unk_1F0E6D650);
       }
 
-      v82 = [objc_msgSend(objc_msgSend(v56 "tripSegmentID")];
-      v83 = v97;
-      v84 = 0.0;
-      if (v97[6] >= 0.0)
+      v320 = qword_1EAFE46E8;
+      v321 = objc_msgSend_tripSegmentID(v218, v317, v318, v319);
+      v325 = objc_msgSend_UUIDString(v321, v322, v323, v324);
+      v329 = objc_msgSend_UTF8String(v325, v326, v327, v328);
+      v330 = v342;
+      v331 = 0.0;
+      if (v342[6] >= 0.0)
       {
-        v85 = mach_continuous_time();
-        v84 = vabdd_f64(sub_19B994BF4(v85), v83[6]) * 1000.0;
+        v332 = mach_continuous_time();
+        v331 = vabdd_f64(sub_19B994BF4(v332), v330[6]) * 1000.0;
       }
 
-      LODWORD(v122[0]) = 136446466;
-      *(v122 + 4) = v82;
-      WORD6(v122[0]) = 2050;
-      *(v122 + 14) = v84;
-      v86 = _os_log_send_and_compose_impl();
-      sub_19B885924("Generic", 1, 0, 2, "[CLTripSegmentProcessorManager simulateSparseTrajectoryAndSubmitCoreAnalytics:]", "CoreLocation: %s\n", v86);
-      if (v86 != buf)
+      LODWORD(v367[0]) = 136446466;
+      *(v367 + 4) = v329;
+      WORD6(v367[0]) = 2050;
+      *(v367 + 14) = v331;
+      v333 = _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B873000, v320, 0, "CLTSP,simulatedSparse,success,tripID,%{public}s,processingTime,%{public}.2lf", v367, 22);
+      sub_19B885924("Generic", 1, 0, 2, "[CLTripSegmentProcessorManager simulateSparseTrajectoryAndSubmitCoreAnalytics:]", "CoreLocation: %s\n", v333);
+      if (v333 != buf)
       {
-        free(v86);
+        free(v333);
       }
     }
   }
 
-  _Block_object_dispose(&v92, 8);
-  _Block_object_dispose(&v96, 8);
-  v87 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v337, 8);
+  _Block_object_dispose(&v341, 8);
 }
 
 - (id).cxx_construct

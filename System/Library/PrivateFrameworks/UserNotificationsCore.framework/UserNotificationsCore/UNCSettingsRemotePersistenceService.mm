@@ -44,7 +44,7 @@ uint64_t __54__UNCSettingsRemotePersistenceService_clientInterface__block_invoke
 
 void __54__UNCSettingsRemotePersistenceService_serverInterface__block_invoke(uint64_t a1)
 {
-  v46[2] = *MEMORY[0x1E69E9840];
+  v45[2] = *MEMORY[0x1E69E9840];
   v2 = [MEMORY[0x1E696B0D0] interfaceWithProtocol:&unk_1F5673DC0];
   v3 = serverInterface___interface;
   serverInterface___interface = v2;
@@ -115,21 +115,19 @@ void __54__UNCSettingsRemotePersistenceService_serverInterface__block_invoke(uin
 
   v36 = serverInterface___interface;
   v37 = MEMORY[0x1E695DFD8];
-  v46[0] = objc_opt_class();
-  v46[1] = objc_opt_class();
-  v38 = [MEMORY[0x1E695DEC8] arrayWithObjects:v46 count:2];
+  v45[0] = objc_opt_class();
+  v45[1] = objc_opt_class();
+  v38 = [MEMORY[0x1E695DEC8] arrayWithObjects:v45 count:2];
   v39 = [v37 setWithArray:v38];
   [v36 setClasses:v39 forSelector:sel_getEffectiveGlobalScheduledDeliveryTimesWithHandler_ argumentIndex:0 ofReply:1];
 
   v40 = serverInterface___interface;
   v41 = MEMORY[0x1E695DFD8];
-  v45[0] = objc_opt_class();
-  v45[1] = objc_opt_class();
-  v42 = [MEMORY[0x1E695DEC8] arrayWithObjects:v45 count:2];
+  v44[0] = objc_opt_class();
+  v44[1] = objc_opt_class();
+  v42 = [MEMORY[0x1E695DEC8] arrayWithObjects:v44 count:2];
   v43 = [v41 setWithArray:v42];
   [v40 setClasses:v43 forSelector:sel_setEffectiveGlobalScheduledDeliveryTimes_withHandler_ argumentIndex:0 ofReply:0];
-
-  v44 = *MEMORY[0x1E69E9840];
 }
 
 + (id)_allowedClasses
@@ -146,19 +144,17 @@ void __54__UNCSettingsRemotePersistenceService_serverInterface__block_invoke(uin
 
 void __54__UNCSettingsRemotePersistenceService__allowedClasses__block_invoke()
 {
-  v4[6] = *MEMORY[0x1E69E9840];
-  v4[0] = objc_opt_class();
-  v4[1] = objc_opt_class();
-  v4[2] = objc_opt_class();
-  v4[3] = objc_opt_class();
-  v4[4] = objc_opt_class();
-  v4[5] = objc_opt_class();
-  v0 = [MEMORY[0x1E695DEC8] arrayWithObjects:v4 count:6];
+  v3[6] = *MEMORY[0x1E69E9840];
+  v3[0] = objc_opt_class();
+  v3[1] = objc_opt_class();
+  v3[2] = objc_opt_class();
+  v3[3] = objc_opt_class();
+  v3[4] = objc_opt_class();
+  v3[5] = objc_opt_class();
+  v0 = [MEMORY[0x1E695DEC8] arrayWithObjects:v3 count:6];
   v1 = [MEMORY[0x1E695DFD8] setWithArray:v0];
   v2 = _allowedClasses_allowedClasses;
   _allowedClasses_allowedClasses = v1;
-
-  v3 = *MEMORY[0x1E69E9840];
 }
 
 @end

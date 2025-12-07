@@ -15,7 +15,7 @@
   v6 = &v10 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
   v7 = OBJC_IVAR___VUWTag__UUID;
   swift_beginAccess();
-  result = sub_1D2174DA8(self + v7, &v11, &unk_1EC6D2180);
+  result = sub_1D2174DA8(self + v7, &v11, &unk_1EC6D2180, &qword_1D2252820);
   if (v12)
   {
     sub_1D21A6450(&v11, &v13);

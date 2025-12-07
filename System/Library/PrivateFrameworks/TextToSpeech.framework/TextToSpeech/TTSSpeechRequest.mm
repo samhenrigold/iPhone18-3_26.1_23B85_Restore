@@ -11,83 +11,74 @@
   v3 = MEMORY[0x1E696AEC0];
   v4 = objc_opt_class();
   v5 = MEMORY[0x1E696AD98];
-  v10 = objc_msgSend_text(self, v6, v7, v8, v9);
-  v15 = objc_msgSend_length(v10, v11, v12, v13, v14);
-  v19 = objc_msgSend_numberWithUnsignedInteger_(v5, v16, v15, v17, v18);
+  text = [(TTSSpeechRequest *)self text];
+  v7 = [v5 numberWithUnsignedInteger:{objc_msgSend(text, "length")}];
   languageCode = self->_languageCode;
-  v25 = objc_msgSend_voice(self, v21, v22, v23, v24);
-  v30 = objc_msgSend_footprint(v25, v26, v27, v28, v29);
-  if ((v30 - 1) > 4)
+  voice = [(TTSSpeechRequest *)self voice];
+  footprint = [voice footprint];
+  if ((footprint - 1) > 4)
   {
-    objc_msgSend_stringWithFormat_(v3, v31, @"[%@ %p] %@ language: %@ footprint: %@ rate: %lf pitch: %lf volume: %lf", v32, v33, v4, self, v19, languageCode, 0, *&self->_rate, *&self->_pitch, *&self->_volume);
+    v11 = 0;
   }
 
   else
   {
-    objc_msgSend_stringWithFormat_(v3, v31, @"[%@ %p] %@ language: %@ footprint: %@ rate: %lf pitch: %lf volume: %lf", v32, v33, v4, self, v19, languageCode, off_1E78806C0[v30 - 1], *&self->_rate, *&self->_pitch, *&self->_volume);
+    v11 = off_1E78806C0[footprint - 1];
   }
-  v34 = ;
 
-  return v34;
+  v12 = [v3 stringWithFormat:@"[%@ %p] %@ language: %@ footprint: %@ rate: %lf pitch: %lf volume: %lf", v4, self, v7, languageCode, v11, *&self->_rate, *&self->_pitch, *&self->_volume];
+
+  return v12;
 }
 
 - (void)encodeWithCoder:(id)coder
 {
   jobIdentifier = self->_jobIdentifier;
   coderCopy = coder;
-  objc_msgSend_encodeObject_forKey_(coderCopy, v5, jobIdentifier, @"jobIdentifier", v6);
-  objc_msgSend_encodeObject_forKey_(coderCopy, v7, self->_languageCode, @"languageCode", v8);
-  objc_msgSend_encodeObject_forKey_(coderCopy, v9, self->_voice, @"voice", v10);
-  objc_msgSend_encodeInteger_forKey_(coderCopy, v11, self->_gender, @"gender", v12);
-  objc_msgSend_encodeDouble_forKey_(coderCopy, v13, @"rate", v14, v15, self->_rate);
-  objc_msgSend_encodeDouble_forKey_(coderCopy, v16, @"pitch", v17, v18, self->_pitch);
-  objc_msgSend_encodeDouble_forKey_(coderCopy, v19, @"volume", v20, v21, self->_volume);
-  objc_msgSend_encodeBool_forKey_(coderCopy, v22, self->_maintainsInput, @"maintainsInput", v23);
-  objc_msgSend_encodeBool_forKey_(coderCopy, v24, self->_audioSessionIDIsValid, @"audioSessionIDIsValid", v25);
-  objc_msgSend_encodeInt32_forKey_(coderCopy, v26, self->_audioSessionID, @"audioSessionID", v27);
-  objc_msgSend_encodeInt32_forKey_(coderCopy, v28, self->_audioQueueFlags, @"audioQueueFlags", v29);
-  objc_msgSend_encodeObject_forKey_(coderCopy, v30, self->_synthesisProviderVoice, @"synthesisProviderVoice", v31);
+  [coderCopy encodeObject:jobIdentifier forKey:@"jobIdentifier"];
+  [coderCopy encodeObject:self->_languageCode forKey:@"languageCode"];
+  [coderCopy encodeObject:self->_voice forKey:@"voice"];
+  [coderCopy encodeInteger:self->_gender forKey:@"gender"];
+  [coderCopy encodeDouble:@"rate" forKey:self->_rate];
+  [coderCopy encodeDouble:@"pitch" forKey:self->_pitch];
+  [coderCopy encodeDouble:@"volume" forKey:self->_volume];
+  [coderCopy encodeBool:self->_maintainsInput forKey:@"maintainsInput"];
+  [coderCopy encodeBool:self->_audioSessionIDIsValid forKey:@"audioSessionIDIsValid"];
+  [coderCopy encodeInt32:self->_audioSessionID forKey:@"audioSessionID"];
+  [coderCopy encodeInt32:self->_audioQueueFlags forKey:@"audioQueueFlags"];
+  [coderCopy encodeObject:self->_synthesisProviderVoice forKey:@"synthesisProviderVoice"];
 }
 
 - (TTSSpeechRequest)initWithCoder:(id)coder
 {
   coderCopy = coder;
-  v91.receiver = self;
-  v91.super_class = TTSSpeechRequest;
-  v5 = [(TTSSpeechRequest *)&v91 init];
+  v11.receiver = self;
+  v11.super_class = TTSSpeechRequest;
+  v5 = [(TTSSpeechRequest *)&v11 init];
   if (v5)
   {
-    v6 = objc_opt_class();
-    v9 = objc_msgSend_decodeObjectOfClass_forKey_(coderCopy, v7, v6, @"languageCode", v8);
-    objc_msgSend_setLanguageCode_(v5, v10, v9, v11, v12);
+    v6 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"languageCode"];
+    [(TTSSpeechRequest *)v5 setLanguageCode:v6];
 
-    v13 = objc_opt_class();
-    v16 = objc_msgSend_decodeObjectOfClass_forKey_(coderCopy, v14, v13, @"voice", v15);
-    objc_msgSend_setVoice_(v5, v17, v16, v18, v19);
+    v7 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"voice"];
+    [(TTSSpeechRequest *)v5 setVoice:v7];
 
-    v20 = objc_opt_class();
-    v23 = objc_msgSend_decodeObjectOfClass_forKey_(coderCopy, v21, v20, @"jobIdentifier", v22);
-    objc_msgSend_setJobIdentifier_(v5, v24, v23, v25, v26);
+    v8 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"jobIdentifier"];
+    [(TTSSpeechRequest *)v5 setJobIdentifier:v8];
 
-    v30 = objc_msgSend_decodeIntegerForKey_(coderCopy, v27, @"gender", v28, v29);
-    objc_msgSend_setGender_(v5, v31, v30, v32, v33);
-    objc_msgSend_decodeDoubleForKey_(coderCopy, v34, @"rate", v35, v36);
-    objc_msgSend_setRate_(v5, v37, v38, v39, v40);
-    objc_msgSend_decodeDoubleForKey_(coderCopy, v41, @"pitch", v42, v43);
-    objc_msgSend_setPitch_(v5, v44, v45, v46, v47);
-    objc_msgSend_decodeDoubleForKey_(coderCopy, v48, @"volume", v49, v50);
-    objc_msgSend_setVolume_(v5, v51, v52, v53, v54);
-    v58 = objc_msgSend_decodeBoolForKey_(coderCopy, v55, @"maintainsInput", v56, v57);
-    objc_msgSend_setMaintainsInput_(v5, v59, v58, v60, v61);
-    v65 = objc_msgSend_decodeBoolForKey_(coderCopy, v62, @"audioSessionIDIsValid", v63, v64);
-    objc_msgSend_setAudioSessionIDIsValid_(v5, v66, v65, v67, v68);
-    v72 = objc_msgSend_decodeInt32ForKey_(coderCopy, v69, @"audioSessionID", v70, v71);
-    objc_msgSend_setAudioSessionID_(v5, v73, v72, v74, v75);
-    v79 = objc_msgSend_decodeInt32ForKey_(coderCopy, v76, @"audioQueueFlags", v77, v78);
-    objc_msgSend_setAudioQueueFlags_(v5, v80, v79, v81, v82);
-    v83 = objc_opt_class();
-    v86 = objc_msgSend_decodeObjectOfClass_forKey_(coderCopy, v84, v83, @"synthesisProviderVoice", v85);
-    objc_msgSend_setSynthesisProviderVoice_(v5, v87, v86, v88, v89);
+    -[TTSSpeechRequest setGender:](v5, "setGender:", [coderCopy decodeIntegerForKey:@"gender"]);
+    [coderCopy decodeDoubleForKey:@"rate"];
+    [(TTSSpeechRequest *)v5 setRate:?];
+    [coderCopy decodeDoubleForKey:@"pitch"];
+    [(TTSSpeechRequest *)v5 setPitch:?];
+    [coderCopy decodeDoubleForKey:@"volume"];
+    [(TTSSpeechRequest *)v5 setVolume:?];
+    -[TTSSpeechRequest setMaintainsInput:](v5, "setMaintainsInput:", [coderCopy decodeBoolForKey:@"maintainsInput"]);
+    -[TTSSpeechRequest setAudioSessionIDIsValid:](v5, "setAudioSessionIDIsValid:", [coderCopy decodeBoolForKey:@"audioSessionIDIsValid"]);
+    -[TTSSpeechRequest setAudioSessionID:](v5, "setAudioSessionID:", [coderCopy decodeInt32ForKey:@"audioSessionID"]);
+    -[TTSSpeechRequest setAudioQueueFlags:](v5, "setAudioQueueFlags:", [coderCopy decodeInt32ForKey:@"audioQueueFlags"]);
+    v9 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"synthesisProviderVoice"];
+    [(TTSSpeechRequest *)v5 setSynthesisProviderVoice:v9];
   }
 
   return v5;

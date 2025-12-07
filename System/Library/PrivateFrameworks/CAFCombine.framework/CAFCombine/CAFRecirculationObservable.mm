@@ -24,14 +24,14 @@
 {
   serviceCopy = service;
   selfCopy = self;
-  CAFRecirculationObservable.recirculationService(_:didUpdateOn:)();
+  CAFRecirculationObservable.recirculationService(_:didUpdateOn:)(selfCopy, on);
 }
 
 - (void)recirculationService:(id)service didUpdateAutoMode:(BOOL)mode
 {
   serviceCopy = service;
   selfCopy = self;
-  CAFRecirculationObservable.recirculationService(_:didUpdateAutoMode:)();
+  CAFRecirculationObservable.recirculationService(_:didUpdateAutoMode:)(selfCopy, mode);
 }
 
 - (void)serviceDidUpdate:(id)update characteristic:(id)characteristic fromGroupUpdate:(BOOL)groupUpdate

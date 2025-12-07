@@ -2,12 +2,12 @@
 + (uint64_t)applayoutsType;
 - (BOOL)isEqual:(id)equal;
 - (id)applayoutsAtIndex:(id *)index;
+- (id)applayoutsCount;
+- (id)clearApplayouts;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
 - (uint64_t)applayouts;
-- (uint64_t)applayoutsCount;
-- (uint64_t)clearApplayouts;
 - (void)addApplayouts:(uint64_t)applayouts;
 - (void)copyTo:(uint64_t)to;
 - (void)mergeFrom:(uint64_t)from;
@@ -179,11 +179,11 @@
   return v6;
 }
 
-- (uint64_t)clearApplayouts
+- (id)clearApplayouts
 {
   if (result)
   {
-    return [*(result + 8) removeAllObjects];
+    return [result[1] removeAllObjects];
   }
 
   return result;
@@ -210,11 +210,11 @@
   }
 }
 
-- (uint64_t)applayoutsCount
+- (id)applayoutsCount
 {
   if (result)
   {
-    return [*(result + 8) count];
+    return [result[1] count];
   }
 
   return result;

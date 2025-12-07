@@ -1,6 +1,6 @@
-void sub_184316D0C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, void *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, ...)
+void sub_184316D0C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, void *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void *a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, ...)
 {
-  va_start(va, a14);
+  va_start(va, a21);
 
   applesauce::CF::ObjectRef<CGPDFPageLayout *>::~ObjectRef(va);
   _Unwind_Resume(a1);
@@ -211,9 +211,9 @@ BOOL CGPDFSelectionIsWord(_BOOL8 result)
   return result;
 }
 
-void sub_1843170D0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1843170D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   applesauce::CF::ObjectRef<CGPDFPageLayout *>::~ObjectRef(va);
   _Unwind_Resume(a1);
 }
@@ -235,9 +235,9 @@ uint64_t CGPDFSelectionIsWithinParagraph(uint64_t a1)
   return v4;
 }
 
-void sub_184317170(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_184317170(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   applesauce::CF::ObjectRef<CGPDFLayout *>::~ObjectRef(va);
   _Unwind_Resume(a1);
 }
@@ -505,7 +505,7 @@ void *CGTriangleMeshAddTriangleWithRelativePoint(void *result, float64x2_t *a2, 
             v14 = -16;
           }
 
-          v15 = *(v7 + 80) + 24 * v8;
+          v15 = v7[10] + 24 * v8;
           *result = *(v15 + v14);
           result[1] = *(v15 - 8);
           result = add_point(v7, a2, a4, a5, a6);
@@ -643,7 +643,7 @@ void CG::DisplayListXMLHelper::parseAttributesFromNode(CG::DisplayListXMLHelper 
       std::string::basic_string[abi:fe200100]<0>(v10, String);
       std::string::basic_string[abi:fe200100]<0>(__p, i->name);
       v12 = __p;
-      v6 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this, __p);
+      v6 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this, __p, &v12);
       v7 = v6;
       if (*(v6 + 79) < 0)
       {
@@ -684,39 +684,40 @@ void sub_184317AB8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(uint64_t a1, void *a2)
+uint64_t std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(uint64_t **a1, void *a2, _OWORD **a3)
 {
-  v2 = *std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__find_equal<std::string>(a1, &v4, a2);
-  if (!v2)
+  v3 = *std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__find_equal<std::string>(a1, &v5, a2);
+  if (!v3)
   {
     operator new();
   }
 
-  return v2;
+  return v3;
 }
 
-uint64_t CG::DisplayListXMLHelper::parseFormatFromAttributes(uint64_t a1, char *a2, const char *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
+uint64_t CG::DisplayListXMLHelper::parseFormatFromAttributes(uint64_t a1, char *a2, const char *a3, ...)
 {
+  va_start(va, a3);
   std::string::basic_string[abi:fe200100]<0>(__p, a2);
-  v11 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::find<std::string>(a1, __p);
-  if (v15 < 0)
+  v5 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::find<std::string>(a1, __p);
+  if (v9 < 0)
   {
     operator delete(__p[0]);
   }
 
-  if (a1 + 8 == v11)
+  if (a1 + 8 == v5)
   {
     return 0;
   }
 
-  __p[0] = &a9;
-  v12 = (v11 + 56);
-  if (*(v11 + 79) < 0)
+  va_copy(__p, va);
+  v6 = (v5 + 56);
+  if (*(v5 + 79) < 0)
   {
-    v12 = *v12;
+    v6 = *v6;
   }
 
-  return vsscanf(v12, a3, __p[0]);
+  return vsscanf(v6, a3, __p[0]);
 }
 
 uint64_t CG::DisplayListXMLHelper::parseStringFromAttributes(uint64_t a1, char *a2)
@@ -898,24 +899,26 @@ LABEL_38:
   return 0;
 }
 
-BOOL CG::DisplayListXMLHelper::parsePointFromAttributes(uint64_t a1, char *a2, void *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+BOOL CG::DisplayListXMLHelper::parsePointFromAttributes(uint64_t a1, char *a2, void *a3)
 {
-  v11 = 0;
-  v9 = CG::DisplayListXMLHelper::parseFormatFromAttributes(a1, a2, "{%lg, %lg}", a4, a5, a6, a7, a8, &v11);
-  if (v9)
+  v7 = 0;
+  v8 = 0;
+  v4 = CG::DisplayListXMLHelper::parseFormatFromAttributes(a1, a2, "{%lg, %lg}", COERCE_DOUBLE(&v8), COERCE_DOUBLE(&v7));
+  if (v4)
   {
-    *a3 = v11;
-    a3[1] = 0;
+    v5 = v7;
+    *a3 = v8;
+    a3[1] = v5;
   }
 
-  return v9 != 0;
+  return v4 != 0;
 }
 
-uint64_t CG::DisplayListXMLHelper::parseRectFromAttributes(uint64_t a1, char *a2, uint64_t a3)
+BOOL CG::DisplayListXMLHelper::parseRectFromAttributes(uint64_t a1, char *a2, uint64_t a3)
 {
   std::string::basic_string[abi:fe200100]<0>(__p, a2);
   v6 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::find<std::string>(a1, __p);
-  if (v18 < 0)
+  if (v19 < 0)
   {
     operator delete(__p[0]);
   }
@@ -933,29 +936,35 @@ uint64_t CG::DisplayListXMLHelper::parseRectFromAttributes(uint64_t a1, char *a2
 
   if (!strcmp(v7, "rectNull"))
   {
-    v15 = &CGRectNull;
+    v13 = &CGRectNull;
 LABEL_14:
-    size = v15->size;
-    *a3 = v15->origin;
+    size = v13->size;
+    *a3 = v13->origin;
     *(a3 + 16) = size;
     return 1;
   }
 
   if (!strcmp(v7, "rectInfinite"))
   {
-    v15 = &CGRectInfinite;
+    v13 = &CGRectInfinite;
     goto LABEL_14;
   }
 
+  v17 = 0;
   __p[0] = 0;
-  v13 = CG::DisplayListXMLHelper::parseFormatFromAttributes(a1, a2, "{%lg, %lg}, {%lg, %lg}", v8, v9, v10, v11, v12, __p) == 4;
-  result = v13;
-  if (v13)
+  v15 = 0;
+  v16 = 0;
+  v8 = CG::DisplayListXMLHelper::parseFormatFromAttributes(a1, a2, "{%lg, %lg}, {%lg, %lg}", COERCE_DOUBLE(__p), COERCE_DOUBLE(&v17), COERCE_DOUBLE(&v16), COERCE_DOUBLE(&v15)) == 4;
+  result = v8;
+  if (v8)
   {
+    v10 = v17;
+    v12 = v15;
+    v11 = v16;
     *a3 = __p[0];
-    *(a3 + 8) = 0;
-    *(a3 + 16) = 0;
-    *(a3 + 24) = 0;
+    *(a3 + 8) = v10;
+    *(a3 + 16) = v11;
+    *(a3 + 24) = v12;
   }
 
   return result;
@@ -963,29 +972,39 @@ LABEL_14:
 
 BOOL CG::DisplayListXMLHelper::parseAffineTransformFromAttributes(uint64_t a1, char *a2, uint64_t a3)
 {
-  std::string::basic_string[abi:fe200100]<0>(v14, a2);
-  v11 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::find<std::string>(a1, v14);
-  if (v15 < 0)
+  std::string::basic_string[abi:fe200100]<0>(v19, a2);
+  v6 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::find<std::string>(a1, v19);
+  if (v20 < 0)
   {
-    operator delete(v14[0]);
+    operator delete(v19[0]);
   }
 
-  if (a1 + 8 == v11)
+  if (a1 + 8 == v6)
   {
     return 0;
   }
 
-  v14[0] = 0;
-  v12 = CG::DisplayListXMLHelper::parseFormatFromAttributes(a1, a2, "[%lg %lg %lg %lg %lg %lg]", v6, v7, v8, v9, v10, v14) == 6;
-  result = v12;
-  if (v12)
+  v18 = 0;
+  v19[0] = 0;
+  v16 = 0;
+  v17 = 0;
+  v14 = 0;
+  v15 = 0;
+  v7 = CG::DisplayListXMLHelper::parseFormatFromAttributes(a1, a2, "[%lg %lg %lg %lg %lg %lg]", COERCE_DOUBLE(v19), COERCE_DOUBLE(&v18), COERCE_DOUBLE(&v17), COERCE_DOUBLE(&v16), COERCE_DOUBLE(&v15), COERCE_DOUBLE(&v14)) == 6;
+  result = v7;
+  if (v7)
   {
-    *a3 = v14[0];
-    *(a3 + 8) = 0;
-    *(a3 + 16) = 0;
-    *(a3 + 24) = 0;
-    *(a3 + 32) = 0;
-    *(a3 + 40) = 0;
+    v9 = v18;
+    v11 = v16;
+    v10 = v17;
+    v13 = v14;
+    v12 = v15;
+    *a3 = v19[0];
+    *(a3 + 8) = v9;
+    *(a3 + 16) = v10;
+    *(a3 + 24) = v11;
+    *(a3 + 32) = v12;
+    *(a3 + 40) = v13;
   }
 
   return result;
@@ -1423,12 +1442,12 @@ void CG::DisplayListXMLHelper::parseCGFloatArrayFromElement(uint64_t a1, xmlChar
   }
 }
 
-void CG::DisplayListXMLHelper::addStringToAttributes(uint64_t a1, char *a2, char *__s)
+void CG::DisplayListXMLHelper::addStringToAttributes(uint64_t **a1, char *a2, char *__s)
 {
   std::string::basic_string[abi:fe200100]<0>(v9, __s);
   std::string::basic_string[abi:fe200100]<0>(__p, a2);
   v11 = __p;
-  v5 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, __p);
+  v5 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, __p, &v11);
   v6 = v5;
   if (*(v5 + 79) < 0)
   {
@@ -1464,60 +1483,61 @@ void sub_184318BBC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void CG::DisplayListXMLHelper::addFormatToAttributes(uint64_t a1, char *a2, const char *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
+void CG::DisplayListXMLHelper::addFormatToAttributes(uint64_t **a1, char *a2, const char *a3, ...)
 {
-  v25 = *MEMORY[0x1E69E9840];
-  v21 = &a9;
-  v12 = vsnprintf(0, 0, a3, &a9) + 1;
-  v24 = 0;
-  if (v12 >= 0x101)
+  va_start(va, a3);
+  v19 = *MEMORY[0x1E69E9840];
+  va_copy(v15, va);
+  v6 = vsnprintf(0, 0, a3, va) + 1;
+  v18 = 0;
+  if (v6 >= 0x101)
   {
     operator new[]();
   }
 
-  v21 = &a9;
-  vsnprintf(v23, v12, a3, &a9);
-  v13 = v24;
-  if (v24)
+  va_copy(v15, va);
+  vsnprintf(v17, v6, a3, va);
+  v7 = v18;
+  if (v18)
   {
-    v14 = v24;
+    v8 = v18;
   }
 
   else
   {
-    v14 = v23;
+    v8 = v17;
   }
 
-  std::string::basic_string[abi:fe200100]<0>(v19, v14);
+  std::string::basic_string[abi:fe200100]<0>(v13, v8);
   std::string::basic_string[abi:fe200100]<0>(__p, a2);
-  v22 = __p;
-  v15 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, __p);
-  v16 = v15;
-  if (*(v15 + 79) < 0)
+  v16 = __p;
+  v9 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, __p, &v16);
+  v10 = v9;
+  if (*(v9 + 79) < 0)
   {
-    operator delete(*(v15 + 56));
+    operator delete(*(v9 + 56));
   }
 
-  *(v16 + 56) = *v19;
-  *(v16 + 72) = v20;
-  HIBYTE(v20) = 0;
-  LOBYTE(v19[0]) = 0;
-  if (v18 < 0)
+  *(v10 + 56) = *v13;
+  *(v10 + 72) = v14;
+  HIBYTE(v14) = 0;
+  LOBYTE(v13[0]) = 0;
+  if (v12 < 0)
   {
     operator delete(__p[0]);
-    if (SHIBYTE(v20) < 0)
+    if (SHIBYTE(v14) < 0)
     {
-      operator delete(v19[0]);
+      operator delete(v13[0]);
     }
   }
 
-  if (v13)
+  if (v7)
   {
-    MEMORY[0x1865EE610](v13, 0x1000C4077774924);
+    MEMORY[0x1865EE610](v7, 0x1000C4077774924);
   }
 }
 
-void CG::DisplayListXMLHelper::addBoolToAttributes(uint64_t a1, char *a2, int a3)
+void CG::DisplayListXMLHelper::addBoolToAttributes(uint64_t **a1, char *a2, int a3)
 {
   if (a3)
   {
@@ -1532,7 +1552,7 @@ void CG::DisplayListXMLHelper::addBoolToAttributes(uint64_t a1, char *a2, int a3
   std::string::basic_string[abi:fe200100]<0>(v10, v5);
   std::string::basic_string[abi:fe200100]<0>(__p, a2);
   v12 = __p;
-  v6 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, __p);
+  v6 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, __p, &v12);
   v7 = v6;
   if (*(v6 + 79) < 0)
   {
@@ -1568,26 +1588,35 @@ void sub_184318E90(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void CG::DisplayListXMLHelper::addRectToAttributes(uint64_t a1, char *a2, float64x2_t *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void CG::DisplayListXMLHelper::addRectToAttributes(uint64_t **a1, char *a2, float64x2_t *a3)
 {
-  v9 = *a3;
-  if (a3->f64[0] == INFINITY || a3->f64[1] == INFINITY)
+  v4 = *a3;
+  v5 = a3->f64[1];
+  if (a3->f64[0] == INFINITY || v5 == INFINITY)
   {
-    v11 = "rectNull";
+    v7 = "rectNull";
 
     goto LABEL_8;
   }
 
-  if ((vmaxv_u16(vmovn_s32(vmvnq_s8(vuzp1q_s32(vceqq_f64(v9, vdupq_n_s64(0xFFDFFFFFFFFFFFFFLL)), vceqq_f64(a3[1], vdupq_n_s64(0x7FEFFFFFFFFFFFFFuLL)))))) & 1) == 0)
+  v8 = a3[1];
+  if ((vmaxv_u16(vmovn_s32(vmvnq_s8(vuzp1q_s32(vceqq_f64(v4, vdupq_n_s64(0xFFDFFFFFFFFFFFFFLL)), vceqq_f64(v8, vdupq_n_s64(0x7FEFFFFFFFFFFFFFuLL)))))) & 1) == 0)
   {
-    v11 = "rectInfinite";
+    v7 = "rectInfinite";
 
 LABEL_8:
-    CG::DisplayListXMLHelper::addStringToAttributes(a1, a2, v11);
+    CG::DisplayListXMLHelper::addStringToAttributes(a1, a2, v7);
     return;
   }
 
-  CG::DisplayListXMLHelper::addFormatToAttributes(a1, a2, "{%.17lg, %.17lg}, {%.17lg, %.17lg}", a4, a5, a6, a7, a8, SLOBYTE(v9.f64[0]));
+  CG::DisplayListXMLHelper::addFormatToAttributes(a1, a2, "{%.17lg, %.17lg}, {%.17lg, %.17lg}", v4.f64[0], v5, v8.f64[0], v8.f64[1]);
+}
+
+void CG::DisplayListXMLHelper::appendFormatToString(std::string *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+{
+  va_start(va, a8);
+  vsnprintf(0, 0, "%.17lg", va);
+  operator new[]();
 }
 
 void CG::DisplayListXMLHelper::writeAttributes(void *a1, xmlTextWriterPtr writer)
@@ -1723,9 +1752,9 @@ BOOL CG::DisplayListXMLHelper::writeCGPath(CG::DisplayListXMLHelper *this, const
   return v3;
 }
 
-void sub_184319244(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_184319244(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   applesauce::CF::ObjectRef<__CFData const*>::~ObjectRef(va);
   _Unwind_Resume(a1);
 }
@@ -2327,7 +2356,7 @@ LABEL_28:
   }
 }
 
-size_t get_type1_glyph_vector(size_t result, uint64_t a2, int a3, uint64_t a4)
+uint64_t get_type1_glyph_vector(uint64_t result, uint64_t a2, int a3, uint64_t a4)
 {
   v7 = result;
   v8 = *(result + 8);
@@ -2517,60 +2546,60 @@ void *get_unichar_info(uint64_t a1)
   explicit = atomic_load_explicit((a1 + 56), memory_order_acquire);
   if (!explicit)
   {
-    v8 = CGPDFFontGetToUnicodeCMap(*a1);
-    v9 = *(a1 + 8) - 1;
-    if (v9 > 6)
+    v3 = CGPDFFontGetToUnicodeCMap(*a1);
+    v4 = *(a1 + 8) - 1;
+    if (v4 > 6)
     {
-      v10 = 0;
+      v5 = 0;
     }
 
     else
     {
-      v10 = *(&off_1E6E31150 + v9);
+      v5 = *(&off_1E6E31150 + v4);
     }
 
-    v11 = 0;
-    v12 = 0;
+    v6 = 0;
+    v7 = 0;
     for (i = 0; i != 256; ++i)
     {
-      if (!v8 || (v14 = *(*(v8 + 16) + 48)) == 0 || (unichars_for_index = cmap_bf_set_get_unichars(*(v14 + 16), i, 0, v3, v4, v5, v6, v7)) == 0)
+      if (!v3 || (v9 = *(*(v3 + 16) + 48)) == 0 || (unichars_for_index = cmap_bf_set_get_unichars(*(v9 + 16), i, 0)) == 0)
       {
-        unichars_for_index = get_unichars_for_index(a1, v10, i, 0);
+        unichars_for_index = get_unichars_for_index(a1, v5, i, 0);
       }
 
-      if (v11 <= unichars_for_index)
+      if (v6 <= unichars_for_index)
       {
-        v11 = unichars_for_index;
+        v6 = unichars_for_index;
       }
 
-      v12 += unichars_for_index;
+      v7 += unichars_for_index;
     }
 
-    explicit = malloc_type_calloc(1uLL, 2 * v12 + 2056, 0x100004078B9B834uLL);
+    explicit = malloc_type_calloc(1uLL, 2 * v7 + 2056, 0x100004078B9B834uLL);
     __CFSetLastAllocationEventName();
-    v21 = 0;
-    v22 = 0;
-    *explicit = v11;
-    v23 = explicit + 257;
+    v11 = 0;
+    v12 = 0;
+    *explicit = v6;
+    v13 = explicit + 257;
     do
     {
-      if (!v8 || (v24 = *(*(v8 + 16) + 48)) == 0 || (unichars = cmap_bf_set_get_unichars(*(v24 + 16), v22, v23, v16, v17, v18, v19, v20)) == 0)
+      if (!v3 || (v14 = *(*(v3 + 16) + 48)) == 0 || (unichars = cmap_bf_set_get_unichars(*(v14 + 16), v12, v13)) == 0)
       {
-        unichars = get_unichars_for_index(a1, v10, v22, v23);
+        unichars = get_unichars_for_index(a1, v5, v12, v13);
       }
 
-      v23 += unichars;
-      v21 += unichars;
-      explicit[++v22] = v21;
+      v13 += unichars;
+      v11 += unichars;
+      explicit[++v12] = v11;
     }
 
-    while (v22 != 256);
-    v26 = 0;
-    atomic_compare_exchange_strong((a1 + 56), &v26, explicit);
-    if (v26)
+    while (v12 != 256);
+    v16 = 0;
+    atomic_compare_exchange_strong((a1 + 56), &v16, explicit);
+    if (v16)
     {
       free(explicit);
-      return v26;
+      return v16;
     }
   }
 
@@ -2632,17 +2661,17 @@ LABEL_13:
   }
 }
 
-uint64_t CGPDFEncodingGetNameForIndex(uint64_t a1, unint64_t a2)
+uint64_t CGPDFEncodingGetNameForIndex(void *a1, unint64_t a2)
 {
   result = 0;
   if (a1)
   {
     if (a2 <= 0xFF)
     {
-      v5 = *(a1 + 32);
+      v5 = a1[4];
       if (!v5 || (result = *(v5 + 8 * a2)) == 0)
       {
-        v6 = *(a1 + 8);
+        v6 = *(a1 + 2);
         if (v6 != -1)
         {
           v7 = v6 - 1;
@@ -2655,7 +2684,7 @@ uint64_t CGPDFEncodingGetNameForIndex(uint64_t a1, unint64_t a2)
           return 0;
         }
 
-        explicit = atomic_load_explicit((a1 + 16), memory_order_acquire);
+        explicit = atomic_load_explicit(a1 + 2, memory_order_acquire);
         if (!explicit)
         {
           if (!*a1)
@@ -2686,11 +2715,11 @@ uint64_t CGPDFEncodingGetNameForIndex(uint64_t a1, unint64_t a2)
 
           else
           {
-            get_builtin_type1_names(*a1, explicit, (a1 + 24));
+            get_builtin_type1_names(*a1, explicit, a1 + 24);
           }
 
           v14 = 0;
-          atomic_compare_exchange_strong((a1 + 16), &v14, explicit);
+          atomic_compare_exchange_strong(a1 + 2, &v14, explicit);
           if (v14)
           {
             free_builtin_names(explicit);
@@ -2759,44 +2788,44 @@ LABEL_10:
 
 void get_builtin_type1_names(uint64_t a1, uint64_t a2, _BYTE *a3)
 {
-  v27 = a3;
-  v29 = *MEMORY[0x1E69E9840];
+  v26 = a3;
+  v28 = *MEMORY[0x1E69E9840];
   Font = CGPDFFontGetFont(a1);
-  v6 = Font;
+  v5 = Font;
   if (Font)
   {
-    (*(*(Font + 16) + 248))(*(Font + 112), v28);
-    Font = (*(*(v6 + 16) + 296))(*(v6 + 112));
+    (*(*(Font + 16) + 248))(*(Font + 112), v27);
+    Font = (*(*(v5 + 16) + 296))(*(v5 + 112));
   }
 
-  v26 = &v26;
-  v7 = Font + 1;
-  MEMORY[0x1EEE9AC00](Font, v5);
-  v10 = &v26 - v9;
-  if (v7 == -1)
+  v25 = &v25;
+  v6 = Font + 1;
+  MEMORY[0x1EEE9AC00](Font);
+  v9 = &v25 - v8;
+  if (v6 == -1)
   {
-    v11 = 0;
+    v10 = 0;
   }
 
   else
   {
-    v11 = &v26 - v9;
+    v10 = &v25 - v8;
   }
 
-  if (v8 >= 0x82)
+  if (v7 >= 0x82)
   {
-    v11 = malloc_type_malloc(v7, 0x7CC0FF1BuLL);
+    v10 = malloc_type_malloc(v6, 0x7CC0FF1BuLL);
   }
 
   for (i = 0; i != 256; ++i)
   {
-    if (v6 && ((*(*(v6 + 16) + 304))(*(v6 + 112), v28[i], v11, v7) & 1) != 0)
+    if (v5 && ((*(*(v5 + 16) + 304))(*(v5 + 112), v27[i], v10, v6) & 1) != 0)
     {
-      v13 = strlen(v11);
-      v14 = malloc_type_malloc(v13 + 1, 0x13F79552uLL);
+      v12 = strlen(v10);
+      v13 = malloc_type_malloc(v12 + 1, 0x13F79552uLL);
       __CFSetLastAllocationEventName();
-      *(a2 + 8 * i) = v14;
-      strcpy(v14, v11);
+      *(a2 + 8 * i) = v13;
+      strcpy(v13, v10);
     }
 
     else
@@ -2805,67 +2834,67 @@ void get_builtin_type1_names(uint64_t a1, uint64_t a2, _BYTE *a3)
     }
   }
 
-  if (v11 != v10)
+  if (v10 != v9)
   {
-    free(v11);
+    free(v10);
   }
 
+  v14 = 0;
   v15 = 0;
-  v16 = 0;
-  v17 = 1;
-  v18 = MEMORY[0x1E69E9830];
+  v16 = 1;
+  v17 = MEMORY[0x1E69E9830];
   while (1)
   {
-    v19 = *(a2 + v15);
-    if (v19)
+    v18 = *(a2 + v14);
+    if (v18)
     {
-      if (strcmp(*(a2 + v15), ".notdef"))
+      if (strcmp(*(a2 + v14), ".notdef"))
       {
         break;
       }
     }
 
-    v20 = v16;
+    v19 = v15;
 LABEL_36:
-    v15 += 8;
-    v16 = v20;
-    if (v15 == 2048)
+    v14 += 8;
+    v15 = v19;
+    if (v14 == 2048)
     {
-      LOBYTE(v21) = v17 ^ 1;
+      LOBYTE(v20) = v16 ^ 1;
       goto LABEL_39;
     }
   }
 
-  if (strlen(v19) != 3)
+  if (strlen(v18) != 3)
   {
     goto LABEL_38;
   }
 
-  v20 = *v19;
-  if (!v16)
+  v19 = *v18;
+  if (!v15)
   {
-    if ((v20 & 0x80000000) != 0)
+    if ((v19 & 0x80000000) != 0)
     {
-      v21 = __maskrune_l(*v19, 0x100uLL, 0);
+      v20 = __maskrune_l(*v18, 0x100uLL, 0);
     }
 
     else
     {
-      v21 = *(v18 + 4 * v20 + 60) & 0x100;
+      v20 = *(v17 + 4 * v19 + 60) & 0x100;
     }
 
-    if (!v21)
+    if (!v20)
     {
       goto LABEL_39;
     }
 
 LABEL_28:
-    v22 = v19[1];
-    if ((v22 & 0x80000000) != 0)
+    v21 = v18[1];
+    if ((v21 & 0x80000000) != 0)
     {
-      v23 = __maskrune_l(v22, 0x10000uLL, 0);
-      LOBYTE(v21) = v23;
-      if (!v23)
+      v22 = __maskrune_l(v21, 0x10000uLL, 0);
+      LOBYTE(v20) = v22;
+      if (!v22)
       {
         goto LABEL_39;
       }
@@ -2873,27 +2902,27 @@ LABEL_28:
 
     else
     {
-      LODWORD(v21) = *(v18 + 4 * v22 + 60) & 0x10000;
-      if (!v21)
+      LODWORD(v20) = *(v17 + 4 * v21 + 60) & 0x10000;
+      if (!v20)
       {
         goto LABEL_39;
       }
     }
 
-    v24 = v19[2];
-    if ((v24 & 0x80000000) != 0)
+    v23 = v18[2];
+    if ((v23 & 0x80000000) != 0)
     {
-      v25 = __maskrune_l(v24, 0x10000uLL, 0);
+      v24 = __maskrune_l(v23, 0x10000uLL, 0);
     }
 
     else
     {
-      v25 = *(v18 + 4 * v24 + 60) & 0x10000;
+      v24 = *(v17 + 4 * v23 + 60) & 0x10000;
     }
 
-    v17 = 0;
-    LOBYTE(v21) = 0;
-    if (!v25)
+    v16 = 0;
+    LOBYTE(v20) = 0;
+    if (!v24)
     {
       goto LABEL_39;
     }
@@ -2901,16 +2930,16 @@ LABEL_28:
     goto LABEL_36;
   }
 
-  v20 = v16;
-  if (*v19 == v16)
+  v19 = v15;
+  if (*v18 == v15)
   {
     goto LABEL_28;
   }
 
 LABEL_38:
-  LOBYTE(v21) = 0;
+  LOBYTE(v20) = 0;
 LABEL_39:
-  *v27 = v21 & 1;
+  *v26 = v20 & 1;
 }
 
 void lookup_glyphs_by_cmap(uint64_t a1, uint64_t a2, _WORD *a3)
@@ -2992,16 +3021,16 @@ LABEL_24:
 
 void lookup_glyphs_by_cmap_nonsymbolic(uint64_t a1, uint64_t a2, _OWORD *a3)
 {
-  v52 = *MEMORY[0x1E69E9840];
+  v46 = *MEMORY[0x1E69E9840];
   v6 = *(a1 + 8) - 1;
   if (v6 > 6)
   {
-    bzero(v51, 0x800uLL);
+    bzero(v45, 0x800uLL);
   }
 
   else
   {
-    memcpy(v51, *(&off_1E6E31118 + v6), sizeof(v51));
+    memcpy(v45, *(&off_1E6E31118 + v6), sizeof(v45));
   }
 
   v7 = *(a1 + 32);
@@ -3012,23 +3041,23 @@ void lookup_glyphs_by_cmap_nonsymbolic(uint64_t a1, uint64_t a2, _OWORD *a3)
       v9 = *(v7 + i);
       if (v9)
       {
-        *&v51[i] = v9;
+        *&v45[i] = v9;
       }
     }
   }
 
   for (j = 0; j != 128; ++j)
   {
-    v11 = vmovn_s64(vceqzq_s64(*&v51[j * 16]));
+    v11 = vmovn_s64(vceqzq_s64(*&v45[j * 16]));
     v12 = CGPDFEncodingVectorStandard[j];
     if (v11.i8[0])
     {
-      *&v51[j * 16] = v12;
+      *&v45[j * 16] = v12;
     }
 
     if (v11.i8[4])
     {
-      *&v51[j * 16 + 8] = *(&v12 + 1);
+      *&v45[j * 16 + 8] = *(&v12 + 1);
     }
   }
 
@@ -3046,20 +3075,20 @@ void lookup_glyphs_by_cmap_nonsymbolic(uint64_t a1, uint64_t a2, _OWORD *a3)
     v16 = v13 + 4;
     do
     {
-      v17 = *&v51[8 * v14];
-      if (v17 && CGPDFGetUnicharsForGlyphName(*&v51[8 * v14], 0, 0) == 1)
+      v17 = *&v45[8 * v14];
+      if (v17 && CGPDFGetUnicharsForGlyphName(*&v45[8 * v14], 0, 0) == 1)
       {
-        LOWORD(v50) = 0;
-        CGPDFGetUnicharsForGlyphName(v17, 0, &v50);
+        LOWORD(v44) = 0;
+        CGPDFGetUnicharsForGlyphName(v17, 0, &v44);
         if (v13)
         {
-          v18 = v50;
+          v18 = v44;
           if (v13 != -1)
           {
-            v19 = atomic_load(&v16[4 * (v50 >> 10)]);
+            v19 = atomic_load(&v16[4 * (v44 >> 10)]);
             if (v19)
             {
-              v18 = *(v19 + 2 * (v50 & 0x3FF));
+              v18 = *(v19 + 2 * (v44 & 0x3FF));
             }
 
             else
@@ -3091,75 +3120,75 @@ void lookup_glyphs_by_cmap_nonsymbolic(uint64_t a1, uint64_t a2, _OWORD *a3)
       v24 = CGPDFFontGetToUnicodeCMap(*a1);
       if (v24)
       {
-        v26 = v24;
-        v27 = *(*(v24 + 16) + 48);
-        if (v27)
+        v25 = v24;
+        v26 = *(*(v24 + 16) + 48);
+        if (v26)
         {
-          v27 = *(v27 + 16);
-          if (v27)
+          v26 = *(v26 + 16);
+          if (v26)
           {
-            v27 = *(v27 + 40);
+            v26 = *(v26 + 40);
           }
         }
 
-        v28 = MEMORY[0x1EEE9AC00](2 * v27, v25);
-        v36 = &v48[-v35];
-        if (v34 <= 0x7FFFFFFFFFFFFFFELL)
+        v27 = MEMORY[0x1EEE9AC00](2 * v26);
+        v30 = &v42[-v29];
+        if (v28 <= 0x7FFFFFFFFFFFFFFELL)
         {
-          v37 = &v48[-v35];
+          v31 = &v42[-v29];
         }
 
         else
         {
-          v37 = 0;
+          v31 = 0;
         }
 
-        if (v34 - 0x7FFFFFFFFFFFFFFFLL >= 0x8000000000000022)
+        if (v28 - 0x7FFFFFFFFFFFFFFFLL >= 0x8000000000000022)
         {
-          v37 = malloc_type_malloc(v28, 0xA775060EuLL);
+          v31 = malloc_type_malloc(v27, 0xA775060EuLL);
         }
 
         for (k = 0; k != 256; ++k)
         {
           if (!*(a3 + k))
           {
-            v39 = *(*(v26 + 16) + 48);
-            if (v39)
+            v33 = *(*(v25 + 16) + 48);
+            if (v33)
             {
-              if (cmap_bf_set_get_unichars(*(v39 + 16), k, v37, v29, v30, v31, v32, v33))
+              if (cmap_bf_set_get_unichars(*(v33 + 16), k, v31))
               {
                 if (v13)
                 {
-                  v40 = *v37;
+                  v34 = *v31;
                   if (v13 != -1)
                   {
-                    v41 = atomic_load((v16 + ((v40 >> 7) & 0x1F8)));
-                    if (v41)
+                    v35 = atomic_load((v16 + ((v34 >> 7) & 0x1F8)));
+                    if (v35)
                     {
-                      LOWORD(v40) = *(v41 + 2 * (v40 & 0x3FF));
+                      LOWORD(v34) = *(v35 + 2 * (v34 & 0x3FF));
                     }
 
                     else
                     {
-                      LOWORD(v40) = *v13;
+                      LOWORD(v34) = *v13;
                     }
                   }
                 }
 
                 else
                 {
-                  LOWORD(v40) = -1;
+                  LOWORD(v34) = -1;
                 }
 
-                *(a3 + k) = v40;
+                *(a3 + k) = v34;
               }
             }
           }
         }
 
-        if (v37 != v36)
+        if (v31 != v30)
         {
-          free(v37);
+          free(v31);
         }
       }
     }
@@ -3241,13 +3270,13 @@ LABEL_77:
 
   for (n = 0; n != 256; ++n)
   {
-    v43 = *&v51[8 * n];
-    if (v43)
+    v37 = *&v45[8 * n];
+    if (v37)
     {
-      v44 = 0;
-      while (strcmp(v43, CGPDFEncodingVectorMacRoman[v44]))
+      v38 = 0;
+      while (strcmp(v37, CGPDFEncodingVectorMacRoman[v38]))
       {
-        if (++v44 == 256)
+        if (++v38 == 256)
         {
           goto LABEL_68;
         }
@@ -3257,54 +3286,54 @@ LABEL_77:
       {
         if (v13 != -1)
         {
-          v45 = atomic_load(&v13[4 * (v44 >> 10) + 4]);
-          if (v45)
+          v39 = atomic_load(&v13[4 * (v38 >> 10) + 4]);
+          if (v39)
           {
-            LOWORD(v44) = *(v45 + 2 * (v44 & 0x3FF));
+            LOWORD(v38) = *(v39 + 2 * (v38 & 0x3FF));
           }
 
           else
           {
-            LOWORD(v44) = *v13;
+            LOWORD(v38) = *v13;
           }
         }
       }
 
       else
       {
-        LOWORD(v44) = -1;
+        LOWORD(v38) = -1;
       }
     }
 
     else
     {
 LABEL_68:
-      LOWORD(v44) = 0;
+      LOWORD(v38) = 0;
     }
 
-    *(a3 + n) = v44;
+    *(a3 + n) = v38;
   }
 
 LABEL_78:
   CGFontIndexMapRelease(v13);
   for (ii = 0; ii != 256; ++ii)
   {
-    if (!*(a3 + ii) && *&v51[8 * ii])
+    if (!*(a3 + ii) && *&v45[8 * ii])
     {
-      v50 = *&v51[8 * ii];
-      v49 = 0;
+      v44 = *&v45[8 * ii];
+      v43 = 0;
       if (a2)
       {
-        (*(*(a2 + 16) + 288))(*(a2 + 112), &v50, &v49, 1);
-        v47 = v49;
+        (*(*(a2 + 16) + 288))(*(a2 + 112), &v44, &v43, 1);
+        v41 = v43;
       }
 
       else
       {
-        v47 = 0;
+        v41 = 0;
       }
 
-      *(a3 + ii) = v47;
+      *(a3 + ii) = v41;
     }
   }
 }
@@ -3377,7 +3406,7 @@ uint64_t get_3_0_cmap_prefix(__int16 *a1)
   return v5;
 }
 
-uint64_t CGPDFEncodingGetGlyphVectorWithFont(size_t a1, uint64_t a2, int a3, _WORD *a4)
+uint64_t CGPDFEncodingGetGlyphVectorWithFont(uint64_t a1, uint64_t a2, int a3, _WORD *a4)
 {
   if (!*a1)
   {
@@ -3541,14 +3570,12 @@ uint64_t *std::unique_ptr<CGPageOffsetHintTable>::reset[abi:fe200100](uint64_t *
   return result;
 }
 
-void *std::vector<CGSharedObjectGroupEntry>::reserve(void *result, unint64_t a2)
+void std::vector<CGSharedObjectGroupEntry>::reserve(void *a1, unint64_t a2)
 {
-  if (a2 > (result[2] - *result) >> 4)
+  if (a2 > (a1[2] - *a1) >> 4)
   {
     std::__allocate_at_least[abi:fe200100]<std::allocator<CGSharedObjectGroupEntry>>(a2);
   }
-
-  return result;
 }
 
 void std::__allocate_at_least[abi:fe200100]<std::allocator<CGSharedObjectGroupEntry>>(unint64_t a1)
@@ -3723,7 +3750,7 @@ std::runtime_error *std::range_error::range_error[abi:fe200100](std::runtime_err
   return result;
 }
 
-uint64_t ___ZN17CGPDFHintTableSet23writeSharedObjectsTableEP14CGDataConsumerx_block_invoke(uint64_t result, uint64_t a2)
+uint64_t ___ZN17CGPDFHintTableSet23writeSharedObjectsTableEP14CGDataConsumerx_block_invoke(uint64_t result, unint64_t a2, uint64_t a3)
 {
   if (a2)
   {
@@ -3736,7 +3763,7 @@ uint64_t ___ZN17CGPDFHintTableSet23writeSharedObjectsTableEP14CGDataConsumerx_bl
   return result;
 }
 
-uint64_t ___ZN17CGPDFHintTableSet21writePageOffsetsTableEP14CGDataConsumerx_block_invoke(uint64_t result, uint64_t a2)
+uint64_t ___ZN17CGPDFHintTableSet21writePageOffsetsTableEP14CGDataConsumerx_block_invoke(uint64_t result, unint64_t a2, uint64_t a3)
 {
   if (a2)
   {
@@ -3749,24 +3776,24 @@ uint64_t ___ZN17CGPDFHintTableSet21writePageOffsetsTableEP14CGDataConsumerx_bloc
   return result;
 }
 
-uint64_t ___ZN17CGPDFHintTableSet21writePageOffsetsTableEP14CGDataConsumerx_block_invoke_2(uint64_t result, uint64_t a2)
+uint64_t ___ZN17CGPDFHintTableSet21writePageOffsetsTableEP14CGDataConsumerx_block_invoke_2(uint64_t result, unint64_t a2, uint64_t a3)
 {
   if (a2)
   {
-    v2 = *(*(result + 32) + 64);
-    v3 = *(v2 + 48);
-    v4 = *(v2 + 56);
-    if (v3 != v4)
+    v3 = *(*(result + 32) + 64);
+    v4 = *(v3 + 48);
+    v5 = *(v3 + 56);
+    if (v4 != v5)
     {
-      v5 = 0;
+      v6 = 0;
       do
       {
-        v5 += (*(v3 + 32) - *(v3 + 24)) >> 3;
-        v3 += 64;
+        v6 += (*(v4 + 32) - *(v4 + 24)) >> 3;
+        v4 += 64;
       }
 
-      while (v3 != v4);
-      if (v5)
+      while (v4 != v5);
+      if (v6)
       {
         operator new[]();
       }
@@ -4166,7 +4193,7 @@ uint64_t create_subset(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
   return FontSubset;
 }
 
-uint64_t get_glyph_vertical_offsets(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t get_glyph_vertical_offsets(uint64_t a1, unsigned __int16 *a2, uint64_t a3, uint64_t a4)
 {
   if (a1)
   {
@@ -4189,7 +4216,7 @@ uint64_t get_glyph_vertical_offsets(uint64_t a1, uint64_t a2, uint64_t a3, uint6
       v9 = (a4 + 8);
       do
       {
-        v8 += 2;
+        ++v8;
         FPFontGetGlyphVerticalTranslate();
         *(v9 - 1) = v10;
         *v9 = v11;
@@ -4204,7 +4231,7 @@ uint64_t get_glyph_vertical_offsets(uint64_t a1, uint64_t a2, uint64_t a3, uint6
   return v6;
 }
 
-uint64_t get_glyph_vertical_advances(uint64_t a1, uint64_t a2, uint64_t a3, _DWORD *a4)
+uint64_t get_glyph_vertical_advances(uint64_t a1, unsigned __int16 *a2, uint64_t a3, _DWORD *a4)
 {
   result = 0;
   if (a1)
@@ -4220,7 +4247,7 @@ uint64_t get_glyph_vertical_advances(uint64_t a1, uint64_t a2, uint64_t a3, _DWO
         {
           do
           {
-            v8 += 2;
+            ++v8;
             FPFontGetGlyphIdealVerticalAdvanceWidth();
             *v6++ = v9;
             --v7;
@@ -4366,16 +4393,16 @@ void *create_private_data_with_data_provider(CGDataProvider *a1)
   return result;
 }
 
-void *create_private_data_with_parser_font()
+void *create_private_data_with_parser_font(uint64_t a1)
 {
-  v0 = FPFontRetain();
+  v1 = FPFontRetain();
   result = malloc_type_calloc(1uLL, 0x20uLL, 0x1060040D8C947D5uLL);
   *result = 1;
-  result[1] = v0;
+  result[1] = v1;
   return result;
 }
 
-unint64_t rgba32_sample_RGBAf(uint64_t a1, uint64_t a2, unint64_t a3, int a4, double a5, double a6, double a7, double a8, double a9, double a10, double a11)
+unint64_t rgba32_sample_RGBAf(uint64_t a1, uint64_t a2, int64_t a3, int a4, __n128 a5, __n128 a6, double a7, __n128 a8, double a9, double a10, double a11)
 {
   v15 = *(a1 + 176);
   v16 = *(a1 + 64);
@@ -4702,7 +4729,7 @@ LABEL_40:
       return result;
     }
 
-    if (((v52 | v53 | (v80 + a3) | (v79 + a2)) & 0x8000000000000000) != 0)
+    if ((v52 | v53 | (v80 + a3) | (v79 + a2)) < 0)
     {
       v78 += v49 + 1;
       v45 = ~v49 + v72;
@@ -4816,7 +4843,7 @@ int *RGBAF_21861(int *result, float a2, float a3, float a4, float a5)
   return result;
 }
 
-int *rgba32_sample_RGBAF(int *result, uint64_t a2, unint64_t a3, int a4, double a5, double a6, double a7, double a8, double a9, double a10, double a11)
+int *rgba32_sample_RGBAF(int *result, uint64_t a2, int64_t a3, int a4, double a5, double a6, double a7, double a8, double a9, double a10, double a11)
 {
   v15 = *(result + 22);
   v71 = *(result + 10);
@@ -5124,7 +5151,7 @@ LABEL_39:
       return result;
     }
 
-    if (((v49 | v50 | (a3 - v73) | (a2 - v74)) & 0x8000000000000000) != 0)
+    if ((v49 | v50 | (a3 - v73) | (a2 - v74)) < 0)
     {
       v75 += v46 + 1;
       v42 = ~v46 + v69;
@@ -5178,7 +5205,7 @@ LABEL_39:
   }
 }
 
-int *rgba32_sample_RGBf(int *result, unint64_t a2, unint64_t a3, int a4, double a5, double a6, double a7, double a8, double a9, double a10)
+int *rgba32_sample_RGBf(int *result, int64_t a2, int64_t a3, int a4, double a5, double a6, double a7, double a8, double a9, double a10)
 {
   v12 = *(result + 22);
   v60 = *(result + 10);
@@ -5453,7 +5480,7 @@ LABEL_37:
       return result;
     }
 
-    if (((v45 | v46 | (a3 - v61) | (a2 - v62)) & 0x8000000000000000) != 0)
+    if ((v45 | v46 | (a3 - v61) | (a2 - v62)) < 0)
     {
       v64 += v42 + 1;
       v41 = ~v42 + v58;
@@ -5498,7 +5525,7 @@ LABEL_37:
   }
 }
 
-int *rgba32_sample_RGBF(int *result, unint64_t a2, unint64_t a3, int a4, double a5, double a6, double a7, double a8, double a9, double a10)
+int *rgba32_sample_RGBF(int *result, int64_t a2, int64_t a3, int a4, double a5, double a6, double a7, double a8, double a9, double a10)
 {
   v12 = *(result + 22);
   v61 = *(result + 10);
@@ -5774,7 +5801,7 @@ LABEL_37:
       return result;
     }
 
-    if (((v45 | v46 | (a3 - v62) | (a2 - v63)) & 0x8000000000000000) != 0)
+    if ((v45 | v46 | (a3 - v62) | (a2 - v63)) < 0)
     {
       v65 += v42 + 1;
       v41 = ~v42 + v59;
@@ -5819,7 +5846,7 @@ LABEL_37:
   }
 }
 
-uint64_t rgba32_sample_rgba64(uint64_t result, uint64_t a2, unint64_t a3, int a4)
+uint64_t rgba32_sample_rgba64(uint64_t result, uint64_t a2, int64_t a3, int a4)
 {
   v4 = *(result + 24);
   v5 = *(result + 176);
@@ -6108,7 +6135,7 @@ LABEL_39:
       return result;
     }
 
-    if (((v45 | v46 | (a3 - v7) | (a2 - v6)) & 0x8000000000000000) != 0)
+    if ((v45 | v46 | (a3 - v7) | (a2 - v6)) < 0)
     {
       v12 += v43 + 1;
       v11 = v11 - v42 + 4;
@@ -6163,7 +6190,7 @@ LABEL_39:
   }
 }
 
-uint64_t rgba32_sample_RGBA64(uint64_t result, uint64_t a2, unint64_t a3, int a4)
+uint64_t rgba32_sample_RGBA64(uint64_t result, uint64_t a2, int64_t a3, int a4)
 {
   v4 = *(result + 24);
   v5 = *(result + 176);
@@ -6446,7 +6473,7 @@ LABEL_80:
       return result;
     }
 
-    if (((v44 | v45 | (a3 - v6) | (a2 - v70)) & 0x8000000000000000) != 0)
+    if ((v44 | v45 | (a3 - v6) | (a2 - v70)) < 0)
     {
       v10 += v42 + 1;
       v9 = v9 - v41 + 4;
@@ -6501,7 +6528,7 @@ LABEL_80:
   }
 }
 
-uint64_t rgba32_sample_rgb48(uint64_t result, uint64_t a2, unint64_t a3, int a4)
+uint64_t rgba32_sample_rgb48(uint64_t result, unint64_t a2, int64_t a3, int a4)
 {
   v4 = *(result + 32);
   v5 = *(result + 24);
@@ -6832,7 +6859,7 @@ LABEL_36:
   }
 }
 
-uint64_t rgba32_sample_RGB48(uint64_t result, uint64_t a2, unint64_t a3, int a4)
+uint64_t rgba32_sample_RGB48(uint64_t result, unint64_t a2, int64_t a3, int a4)
 {
   v4 = *(result + 32);
   v5 = *(result + 24);
@@ -7170,7 +7197,7 @@ LABEL_36:
   }
 }
 
-uint64_t rgba32_sample_cmyk32(uint64_t result, uint64_t a2, uint64_t a3, int a4)
+uint64_t rgba32_sample_cmyk32(uint64_t result, uint64_t a2, unint64_t a3, int a4)
 {
   v4 = *(result + 32);
   v5 = *(result + 40);
@@ -7579,7 +7606,7 @@ LABEL_47:
       return result;
     }
 
-    if ((v49 | v50 | (a3 - v89) | (a2 - v87)) < 0)
+    if (((v49 | v50 | (a3 - v89) | (a2 - v87)) & 0x8000000000000000) != 0)
     {
       v91 += v47 + 1;
       v92 = v92 - v46 + 4;
@@ -7655,7 +7682,7 @@ LABEL_47:
   }
 }
 
-uint64_t rgba32_sample_CMYK32(uint64_t result, uint64_t a2, uint64_t a3, int a4)
+uint64_t rgba32_sample_CMYK32(uint64_t result, uint64_t a2, unint64_t a3, int a4)
 {
   v4 = *(result + 32);
   v5 = *(result + 40);
@@ -8064,7 +8091,7 @@ LABEL_47:
       return result;
     }
 
-    if ((v49 | v50 | (a3 - v89) | (a2 - v87)) < 0)
+    if (((v49 | v50 | (a3 - v89) | (a2 - v87)) & 0x8000000000000000) != 0)
     {
       v91 += v47 + 1;
       v92 = v92 - v46 + 4;
@@ -8140,7 +8167,7 @@ LABEL_47:
   }
 }
 
-uint64_t rgba32_sample_argb32(uint64_t result, uint64_t a2, unint64_t a3, int a4)
+uint64_t rgba32_sample_argb32(uint64_t result, uint64_t a2, int64_t a3, int a4)
 {
   v4 = *(result + 24);
   v5 = *(result + 176);
@@ -8486,7 +8513,7 @@ LABEL_39:
   return result;
 }
 
-uint64_t rgba32_sample_ARGB32(uint64_t result, uint64_t a2, unint64_t a3, int a4)
+uint64_t rgba32_sample_ARGB32(uint64_t result, uint64_t a2, int64_t a3, int a4)
 {
   v4 = *(result + 24);
   v5 = *(result + 176);
@@ -8831,7 +8858,7 @@ LABEL_39:
   return result;
 }
 
-uint64_t rgba32_sample_rgba32(uint64_t result, uint64_t a2, uint64_t a3, int a4)
+uint64_t rgba32_sample_rgba32(uint64_t result, unint64_t a2, unint64_t a3, int a4)
 {
   v4 = *(result + 24);
   v5 = *(result + 112);
@@ -9341,7 +9368,7 @@ LABEL_125:
   return result;
 }
 
-uint64_t rgba32_sample_RGBA32(uint64_t result, uint64_t a2, uint64_t a3, int a4)
+uint64_t rgba32_sample_RGBA32(uint64_t result, unint64_t a2, unint64_t a3, int a4)
 {
   v4 = *(result + 24);
   v5 = *(result + 112);

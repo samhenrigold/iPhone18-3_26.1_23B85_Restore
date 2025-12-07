@@ -130,7 +130,7 @@
 - (id)groupsForAssetIds:(__CFArray *)ids indexCategories:(id)categories includeObjects:(BOOL)objects
 {
   categoriesCopy = categories;
-  if ([categoriesCopy count])
+  if (objc_msgSend_count(categoriesCopy))
   {
     if (ids)
     {
@@ -196,12 +196,12 @@ void __64__PSIDatabase_groupsForAssetIds_indexCategories_includeObjects___block_
   Mutable = CFArrayCreateMutable(*MEMORY[0x1E695E480], 0, 0);
   Value = CFDictionaryGetValue(*(*(a1 + 32) + 24), @"selectGroupIdsInGAWithAssetIds");
   v5 = *(a1 + 32);
-  v15[0] = MEMORY[0x1E69E9820];
-  v15[1] = 3221225472;
-  v15[2] = __64__PSIDatabase_groupsForAssetIds_indexCategories_includeObjects___block_invoke_2;
-  v15[3] = &__block_descriptor_40_e23_v16__0__sqlite3_stmt__8l;
-  v15[4] = Mutable;
-  [v5 _inqExecutePreparedStatement:Value withStatementBlock:v15];
+  v16[0] = MEMORY[0x1E69E9820];
+  v16[1] = 3221225472;
+  v16[2] = __64__PSIDatabase_groupsForAssetIds_indexCategories_includeObjects___block_invoke_2;
+  v16[3] = &__block_descriptor_40_e23_v16__0__sqlite3_stmt__8l;
+  v16[4] = Mutable;
+  [v5 _inqExecutePreparedStatement:Value withStatementBlock:v16];
   [*(*(a1 + 32) + 32) unbind];
   if (Mutable)
   {
@@ -209,28 +209,29 @@ void __64__PSIDatabase_groupsForAssetIds_indexCategories_includeObjects___block_
     if (Count)
     {
       [*(*(a1 + 32) + 32) bindElements:Mutable range:{0, Count}];
-      v7 = CFArrayCreateMutable(v2, [*(a1 + 40) count], 0);
-      v8 = *(a1 + 40);
-      v14[0] = MEMORY[0x1E69E9820];
-      v14[1] = 3221225472;
-      v14[2] = __64__PSIDatabase_groupsForAssetIds_indexCategories_includeObjects___block_invoke_3;
-      v14[3] = &__block_descriptor_40_e12_v24__0Q8_B16l;
-      v14[4] = v7;
-      [v8 enumerateIndexesUsingBlock:v14];
-      [*(*(a1 + 32) + 40) bindElements:v7 range:{0, objc_msgSend(*(a1 + 40), "count")}];
-      v9 = CFDictionaryGetValue(*(*(a1 + 32) + 24), @"fetchGroupsForGroupIdsAndCategories");
-      v10 = *(a1 + 32);
-      v12[0] = MEMORY[0x1E69E9820];
-      v12[1] = 3221225472;
-      v12[2] = __64__PSIDatabase_groupsForAssetIds_indexCategories_includeObjects___block_invoke_4;
-      v12[3] = &unk_1E7576608;
-      v13 = *(a1 + 72);
-      v11 = *(a1 + 48);
-      v12[4] = v10;
-      v12[5] = v11;
-      [v10 _inqExecutePreparedStatement:v9 withStatementBlock:v12];
+      v7 = objc_msgSend_count(*(a1 + 40));
+      v8 = CFArrayCreateMutable(v2, v7, 0);
+      v9 = *(a1 + 40);
+      v15[0] = MEMORY[0x1E69E9820];
+      v15[1] = 3221225472;
+      v15[2] = __64__PSIDatabase_groupsForAssetIds_indexCategories_includeObjects___block_invoke_3;
+      v15[3] = &__block_descriptor_40_e12_v24__0Q8_B16l;
+      v15[4] = v8;
+      [v9 enumerateIndexesUsingBlock:v15];
+      [*(*(a1 + 32) + 40) bindElements:v8 range:{0, objc_msgSend_count(*(a1 + 40))}];
+      v10 = CFDictionaryGetValue(*(*(a1 + 32) + 24), @"fetchGroupsForGroupIdsAndCategories");
+      v11 = *(a1 + 32);
+      v13[0] = MEMORY[0x1E69E9820];
+      v13[1] = 3221225472;
+      v13[2] = __64__PSIDatabase_groupsForAssetIds_indexCategories_includeObjects___block_invoke_4;
+      v13[3] = &unk_1E7576608;
+      v14 = *(a1 + 72);
+      v12 = *(a1 + 48);
+      v13[4] = v11;
+      v13[5] = v12;
+      [v11 _inqExecutePreparedStatement:v10 withStatementBlock:v13];
       [*(*(a1 + 32) + 40) unbind];
-      CFRelease(v7);
+      CFRelease(v8);
       [*(*(a1 + 32) + 32) unbind];
     }
 
@@ -403,7 +404,7 @@ void __68__PSIDatabase_groupsForGroupIds_includeObjectIds_searchResultTypes___bl
   return v12;
 }
 
-uint64_t __69__PSIDatabase_groupIdsMatchingFTSString_categories_textIsSearchable___block_invoke(uint64_t a1)
+void *__69__PSIDatabase_groupIdsMatchingFTSString_categories_textIsSearchable___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _inqNewGroupIdsMatchingFTSString:*(a1 + 40) categories:*(a1 + 48) textIsSearchable:*(a1 + 64)];
   *(*(*(a1 + 56) + 8) + 24) = result;
@@ -559,7 +560,7 @@ void __49__PSIDatabase_mostRecentSortedAssetIdsWithLimit___block_invoke_619(uint
   return v7;
 }
 
-uint64_t __38__PSIDatabase_assetIdsWithDateFilter___block_invoke(uint64_t a1)
+void *__38__PSIDatabase_assetIdsWithDateFilter___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _inqNewAssetIdsWithDateFilter:*(a1 + 40)];
   *(*(*(a1 + 48) + 8) + 24) = result;
@@ -2636,7 +2637,7 @@ LABEL_64:
   return insert_rowid;
 }
 
-uint64_t __185__PSIDatabase__inqGroupIdForCategory_owningGroupId_contentString_normalizedString_identifier_rankingScore_insertIfNeeded_tokenOutput_shouldUpdateOwningGroupId_shouldUpdateRankingScore___block_invoke(uint64_t a1, sqlite3_int64 a2, sqlite3_int64 a3)
+uint64_t __185__PSIDatabase__inqGroupIdForCategory_owningGroupId_contentString_normalizedString_identifier_rankingScore_insertIfNeeded_tokenOutput_shouldUpdateOwningGroupId_shouldUpdateRankingScore___block_invoke(uint64_t a1, __CFString *a2, sqlite3_int64 a3)
 {
   v13 = *MEMORY[0x1E69E9840];
   v6 = PLSearchBackendPSIDatabaseGetLog();
@@ -3898,7 +3899,7 @@ LABEL_4:
   return self;
 }
 
-uint64_t __35__PSIDatabase_assetExistsWithUUID___block_invoke(uint64_t a1)
+void *__35__PSIDatabase_assetExistsWithUUID___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _inqAssetIdForUUID:*(a1 + 40)];
   *(*(*(a1 + 48) + 8) + 24) = result != 0;
@@ -4107,10 +4108,10 @@ void __77__PSIDatabase__sortedSearchIndexRowIdsFromUUIDs_searchResultType_comple
 
   v46[9] = null6;
   v45[10] = @"assetCount";
-  v32 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(v21, "count")}];
+  v32 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:objc_msgSend_count(v21)];
   v46[10] = v32;
   v45[11] = @"collectionCount";
-  v33 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(v22, "count")}];
+  v33 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:objc_msgSend_count(v22)];
   v46[11] = v33;
   v34 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v46 forKeys:v45 count:12];
 
@@ -4181,13 +4182,13 @@ LABEL_28:
   return v9;
 }
 
-void __52__PSIDatabase_dumpLookupStringsWithIndexCategories___block_invoke(id *a1)
+void __52__PSIDatabase_dumpLookupStringsWithIndexCategories___block_invoke(void **a1)
 {
   v19 = *MEMORY[0x1E69E9840];
   if (a1[4])
   {
     v2 = objc_msgSend(MEMORY[0x1E696AD60], "stringWithFormat:", @"SELECT lookup_identifier from groups WHERE category IN (?");
-    if ([a1[4] count] >= 2)
+    if (objc_msgSend_count(a1[4]) >= 2)
     {
       v3 = 1;
       do
@@ -4196,7 +4197,7 @@ void __52__PSIDatabase_dumpLookupStringsWithIndexCategories___block_invoke(id *a
         ++v3;
       }
 
-      while (v3 < [a1[4] count]);
+      while (v3 < objc_msgSend_count(a1[4]));
     }
 
     [v2 appendString:@""]);
@@ -4347,10 +4348,10 @@ void __71__PSIDatabase_dumpGroupsInfoForAssetUUID_indexCategories_includeUUIDs__
   v9 = v7;
   v43 = v9;
   [v8 enumerateIndexesUsingBlock:v42];
-  if ([v9 count])
+  if (objc_msgSend_count(v9))
   {
     v10 = objc_msgSend(MEMORY[0x1E696AD60], "stringWithFormat:", @"SELECT content_string, normalized_string, lookup_identifier, category, rowid, owning_groupid, score from groups WHERE rowid IN matchingIds AND category IN (?");
-    for (i = 1; i < [v9 count]; ++i)
+    for (i = 1; i < objc_msgSend_count(v9); ++i)
     {
       [v10 appendString:{@", ?"}];
     }
@@ -4404,10 +4405,10 @@ void __71__PSIDatabase_dumpGroupsInfoForAssetUUID_indexCategories_includeUUIDs__
   v17 = v16;
   v28 = v17;
   [v15 enumerateIndexesUsingBlock:v26];
-  if ([v17 count])
+  if (objc_msgSend_count(v17))
   {
     v18 = objc_msgSend(MEMORY[0x1E696AD60], "stringWithFormat:", @"SELECT content_string, normalized_string, lookup_identifier, category, rowid, owning_groupid, score from groups WHERE owning_groupid IN matchingIds AND category IN (?");
-    for (j = 1; j < [v17 count]; ++j)
+    for (j = 1; j < objc_msgSend_count(v17); ++j)
     {
       [v18 appendString:{@", ?"}];
     }
@@ -4466,7 +4467,7 @@ void __71__PSIDatabase_dumpGroupsInfoForAssetUUID_indexCategories_includeUUIDs__
   CFSetAddValue(v4, v3);
 }
 
-uint64_t __71__PSIDatabase_dumpGroupsInfoForAssetUUID_indexCategories_includeUUIDs___block_invoke_4(uint64_t a1, uint64_t a2)
+void *__71__PSIDatabase_dumpGroupsInfoForAssetUUID_indexCategories_includeUUIDs___block_invoke_4(uint64_t a1, uint64_t a2)
 {
   result = PLSearchIndexCategoryIsSynonym(a2);
   if (result)
@@ -4509,13 +4510,13 @@ void __71__PSIDatabase_dumpGroupsInfoForAssetUUID_indexCategories_includeUUIDs__
   [*(a1 + 48) addIndex:v7];
 }
 
-uint64_t __71__PSIDatabase_dumpGroupsInfoForAssetUUID_indexCategories_includeUUIDs___block_invoke_2_529(uint64_t a1, uint64_t a2)
+void *__71__PSIDatabase_dumpGroupsInfoForAssetUUID_indexCategories_includeUUIDs___block_invoke_2_529(uint64_t a1, uint64_t a2)
 {
   result = PLSearchIndexSynonymCategoryForCategory(a2);
   if (result)
   {
     v4 = result;
-    if (![*(a1 + 32) count] || (result = objc_msgSend(*(a1 + 32), "containsIndex:", v4), result))
+    if (!objc_msgSend_count(*(a1 + 32)) || (result = [*(a1 + 32) containsIndex:v4], result))
     {
       v5 = *(a1 + 40);
 
@@ -4581,7 +4582,7 @@ void __62__PSIDatabase_dumpGroupsInfoWithIndexCategories_includeUUIDs___block_in
   if (*(a1 + 32))
   {
     v2 = objc_msgSend(MEMORY[0x1E696AD60], "stringWithFormat:", @"SELECT content_string, normalized_string, lookup_identifier, category, rowid, owning_groupid, score from groups WHERE category IN (?");
-    if ([*(a1 + 32) count] >= 2)
+    if (objc_msgSend_count(*(a1 + 32)) >= 2)
     {
       v3 = 1;
       do
@@ -4590,7 +4591,7 @@ void __62__PSIDatabase_dumpGroupsInfoWithIndexCategories_includeUUIDs___block_in
         ++v3;
       }
 
-      while (v3 < [*(a1 + 32) count]);
+      while (v3 < objc_msgSend_count(*(a1 + 32)));
     }
 
     [v2 appendString:{@" ORDER BY category ASC, normalized_string ASC"}]);
@@ -4717,7 +4718,7 @@ void __69__PSIDatabase__inqNumberOfCollectionsByGroupIdMatchingGroupsWithIds___b
   return v5;
 }
 
-uint64_t __58__PSIDatabase__inqNumberOfCollectionsMatchingGroupWithId___block_invoke(uint64_t a1, void *a2)
+void *__58__PSIDatabase__inqNumberOfCollectionsMatchingGroupWithId___block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 int64AtColumn:0];
   *(*(*(a1 + 32) + 8) + 24) = result;
@@ -4775,7 +4776,7 @@ void __64__PSIDatabase__inqNumberOfAssetsByGroupIdMatchingGroupsWithIds___block_
   return v5;
 }
 
-uint64_t __53__PSIDatabase__inqNumberOfAssetsMatchingGroupWithId___block_invoke(uint64_t a1, void *a2)
+void *__53__PSIDatabase__inqNumberOfAssetsMatchingGroupWithId___block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 int64AtColumn:0];
   *(*(*(a1 + 32) + 8) + 24) = result;
@@ -5087,7 +5088,7 @@ LABEL_18:
   v4 = *MEMORY[0x1E695E480];
   categoriesCopy = categories;
   Mutable = CFSetCreateMutable(v4, 0, 0);
-  v7 = [categoriesCopy count];
+  v7 = objc_msgSend_count(categoriesCopy);
   v8 = CFArrayCreateMutable(v4, v7, 0);
   v12[0] = MEMORY[0x1E69E9820];
   v12[1] = 3221225472;
@@ -5143,7 +5144,7 @@ void __45__PSIDatabase__inqNewGroupIdsWithCategories___block_invoke_2(uint64_t a
     }
 
     v13 = [MEMORY[0x1E696AD60] stringWithFormat:v12];
-    for (i = 1; i < [categoriesCopy count]; ++i)
+    for (i = 1; i < objc_msgSend_count(categoriesCopy); ++i)
     {
       [v13 appendString:{@", ?"}];
     }
@@ -5917,7 +5918,7 @@ uint64_t __60__PSIDatabase__removeUUID_categories_objectType_completion___block_
     _os_log_error_impl(&dword_19BF1F000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%@", buf, 0xCu);
   }
 
-  v12 = [dsCopy count];
+  v12 = objc_msgSend_count(dsCopy);
   if ((self->_options & 2) != 0 && self->_databaseIsValid && v12)
   {
     v13[0] = MEMORY[0x1E69E9820];
@@ -6063,7 +6064,7 @@ void __76__PSIDatabase__removeUUIDs_objectType_deferRemovingUnusedGroups_complet
     _os_log_error_impl(&dword_19BF1F000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%@", buf, 0xCu);
   }
 
-  v11 = [(__CFString *)collectionsCopy count];
+  v11 = objc_msgSend_count(collectionsCopy);
   if ((self->_options & 2) != 0 && self->_databaseIsValid && v11)
   {
     v12[0] = MEMORY[0x1E69E9820];
@@ -6314,7 +6315,7 @@ void __71__PSIDatabase_addCollections_deferRemovingUnusedGroups_withCompletion__
   v34 = PLSearchBackendPSIDatabaseGetLog();
   if (os_log_type_enabled(v34, OS_LOG_TYPE_INFO))
   {
-    v35 = [v26 count];
+    v35 = objc_msgSend_count(v26);
     v36 = v69[3];
     *buf = 67240448;
     *v74 = v35;
@@ -6376,7 +6377,7 @@ void __71__PSIDatabase_addCollections_deferRemovingUnusedGroups_withCompletion__
     _os_log_error_impl(&dword_19BF1F000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%@", buf, 0xCu);
   }
 
-  v11 = [(__CFString *)assetsCopy count];
+  v11 = objc_msgSend_count(assetsCopy);
   if ((self->_options & 2) == 0)
   {
     goto LABEL_7;
@@ -6662,7 +6663,7 @@ void __66__PSIDatabase_addAssets_deferRemovingUnusedGroups_withCompletion___bloc
   v34 = PLSearchBackendPSIDatabaseGetLog();
   if (os_log_type_enabled(v34, OS_LOG_TYPE_INFO))
   {
-    v35 = [v26 count];
+    v35 = objc_msgSend_count(v26);
     v36 = v69[3];
     *buf = 67240448;
     *v74 = v35;
@@ -6725,7 +6726,7 @@ void __66__PSIDatabase_addAssets_deferRemovingUnusedGroups_withCompletion___bloc
     _os_log_error_impl(&dword_19BF1F000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%@", buf, 0xCu);
   }
 
-  v8 = [groupsCopy count];
+  v8 = objc_msgSend_count(groupsCopy);
   if ((self->_options & 2) != 0 && self->_databaseIsValid && (v9 = v8) != 0)
   {
     v10 = PLSearchBackendPSIDatabaseGetLog();
@@ -7783,7 +7784,7 @@ void __49__PSIDatabase__prepareSearchIndexAtPath_options___block_invoke(uint64_t
   return v2;
 }
 
-uint64_t __46__PSIDatabase__inqVerifyTablesExistInDatabase__block_invoke(uint64_t a1, void *a2)
+void *__46__PSIDatabase__inqVerifyTablesExistInDatabase__block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 int64AtColumn:0];
   *(*(*(a1 + 32) + 8) + 24) = result == 1;
@@ -8247,7 +8248,7 @@ void __40__PSIDatabase_UnitTesting__insertGroup___block_invoke(uint64_t a1)
   return v6;
 }
 
-uint64_t __45__PSIDatabase_UnitTesting__insertCollection___block_invoke(uint64_t a1)
+void *__45__PSIDatabase_UnitTesting__insertCollection___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _inqCollectionIdWithCollection:*(a1 + 40)];
   *(*(*(a1 + 48) + 8) + 24) = result;
@@ -8276,7 +8277,7 @@ uint64_t __45__PSIDatabase_UnitTesting__insertCollection___block_invoke(uint64_t
   return v6;
 }
 
-uint64_t __40__PSIDatabase_UnitTesting__insertAsset___block_invoke(uint64_t a1)
+void *__40__PSIDatabase_UnitTesting__insertAsset___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _inqAssetIdWithAsset:*(a1 + 40)];
   *(*(*(a1 + 48) + 8) + 24) = result;
@@ -8581,7 +8582,7 @@ void __67__PSIDatabase_PSIQueryDelegate__groupsForCollectionIds_completion___blo
           v18 = *(*(&v27 + 1) + 8 * i);
           v19 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:{objc_msgSend(v18, "groupId", v24)}];
           v20 = [v9 objectForKeyedSubscript:v19];
-          v21 = [v20 count];
+          v21 = objc_msgSend_count(v20);
 
           if (v21)
           {
@@ -8713,7 +8714,7 @@ void __62__PSIDatabase_PSIQueryDelegate__groupsForAssetIds_completion___block_in
           v18 = *(*(&v27 + 1) + 8 * i);
           v19 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:{objc_msgSend(v18, "groupId", v24)}];
           v20 = [v9 objectForKeyedSubscript:v19];
-          v21 = [v20 count];
+          v21 = objc_msgSend_count(v20);
 
           if (v21)
           {

@@ -5,9 +5,9 @@
 - (float64x2_t)valueOfKeyframeAtIndex:(float64x2_t *)index@<X8>;
 - (id)debugQuickLookObject;
 - (id)sparseSequence;
-- (uint64_t)sampleAtTime:(float64x2_t *)time@<X8>;
 - (void)_compressAndStoreValues:(NUKeyframeSequenceDouble4 *)self count:(SEL)count;
 - (void)dealloc;
+- (void)sampleAtTime:(__int128 *)time@<X2>;
 @end
 
 @implementation NUKeyframeSequenceDouble4
@@ -34,9 +34,9 @@
   CGContextSetLineWidth(v4, 1.5);
   v8 = [(NUKeyframeSequence *)self count];
   memset(&v77[1], 0, sizeof(CMTime));
-  [(NUKeyframeSequence *)self timeOfKeyframeAtIndex:0];
+  objc_msgSend_timeOfKeyframeAtIndex_(self);
   memset(v77, 0, 24);
-  [(NUKeyframeSequence *)self timeOfKeyframeAtIndex:v8 - 1];
+  objc_msgSend_timeOfKeyframeAtIndex_(self);
   memset(&v76, 0, sizeof(v76));
   lhs = v77[0];
   rhs = v77[1];
@@ -48,7 +48,7 @@
   lhs.epoch = CGPathCreateMutable();
   Mutable = CGPathCreateMutable();
   memset(&v75, 0, sizeof(v75));
-  [(NUKeyframeSequence *)self timeOfKeyframeAtIndex:0];
+  objc_msgSend_timeOfKeyframeAtIndex_(self);
   if (v8 >= 1)
   {
     v9 = 0;
@@ -66,13 +66,13 @@
       v57 = v17;
       v60 = v15;
       memset(&rhs, 0, sizeof(rhs));
-      [(NUKeyframeSequence *)self timeOfKeyframeAtIndex:v9];
+      objc_msgSend_timeOfKeyframeAtIndex_(self);
       memset(&v74, 0, sizeof(v74));
       v73 = rhs;
       v72 = v77[1];
       CMTimeSubtract(&v74, &v73, &v72);
       v18 = v74.value / v74.timescale * 1024.0 / (v76.value / v76.timescale);
-      [(NUKeyframeSequenceDouble4 *)self valueOfKeyframeAtIndex:v9];
+      objc_msgSend_valueOfKeyframeAtIndex_(self);
       v17 = vmulq_f64(v53, vmulq_f64(vsubq_f64(v71, *&self->_bias[16]), v47));
       v15 = vmulq_f64(v52, vmulq_f64(vsubq_f64(v70, *self->_bias), v47));
       v50 = v15;
@@ -106,7 +106,7 @@
           CMTimeMultiplyByRatio(&time, &v68, 32 - v23, 32);
           CMTimeAdd(&v73, &v72, &time);
           v72 = v73;
-          [(NUKeyframeSequenceDouble4 *)self sampleAtTime:&v72];
+          objc_msgSend_sampleAtTime_(self);
           v27 = 0;
           v28 = 0;
           v58 = v67[2];
@@ -226,8 +226,8 @@
     v4 = vandq_s8(vceqzq_f64(*self->_scale), vceqzq_f64(*&self->_scale[16]));
     if ((vandq_s8(v4, vdupq_laneq_s64(v4, 1)).u64[0] & 0x8000000000000000) != 0)
     {
-      [(NUKeyframeSequence *)self timeOfKeyframeAtIndex:0];
-      [(NUKeyframeSequenceDouble4 *)self valueOfKeyframeAtIndex:0];
+      objc_msgSend_timeOfKeyframeAtIndex_(self);
+      objc_msgSend_valueOfKeyframeAtIndex_(self);
       v78 = v75;
       v79 = v76;
       v34 = objc_alloc(objc_opt_class());
@@ -251,13 +251,13 @@
         {
           v78 = 0uLL;
           *&v79 = 0;
-          [(NUKeyframeSequence *)self timeOfKeyframeAtIndex:v11 - 2, *&v41, *&v42, *&v43];
+          objc_msgSend_timeOfKeyframeAtIndex_(self, *&v41, *&v42, *&v43);
           memset(&v80, 0, sizeof(v80));
-          [(NUKeyframeSequence *)self timeOfKeyframeAtIndex:v11 + 2];
-          [(NUKeyframeSequenceDouble4 *)self valueOfKeyframeAtIndex:v11 - 2];
+          objc_msgSend_timeOfKeyframeAtIndex_(self);
+          objc_msgSend_valueOfKeyframeAtIndex_(self);
           v47 = v73;
           v49 = v74;
-          [(NUKeyframeSequenceDouble4 *)self valueOfKeyframeAtIndex:v11 + 2];
+          objc_msgSend_valueOfKeyframeAtIndex_(self);
           v12 = 1;
           v13 = 7;
           v44 = v71;
@@ -275,7 +275,7 @@
             v52 = vmlaq_n_f64(vmulq_n_f64(v44, v14), v47, 1.0 - v14);
             objb = vmlaq_n_f64(vmulq_n_f64(v45, v14), v49, 1.0 - v14);
             lhs = v70;
-            [(NUKeyframeSequenceDouble4 *)self sampleAtTime:&lhs];
+            objc_msgSend_sampleAtTime_(self);
             v15 = vcgtq_f64(vmaxnmq_f64(vmulq_f64(v43, vabdq_f64(v52, v65)), vmulq_f64(v42, vabdq_f64(objb, v66))), v41);
             if ((vorrq_s8(v15, vdupq_laneq_s64(v15, 1)).u64[0] & 0x8000000000000000) != 0)
             {
@@ -345,12 +345,12 @@
                 do
                 {
                   v31 = v28;
-                  [(NUKeyframeSequence *)self timeOfKeyframeAtIndex:v22];
+                  objc_msgSend_timeOfKeyframeAtIndex_(self);
                   v32 = v78;
                   *(v29 + 2) = v79;
                   *v29 = v32;
                   v29 += 24;
-                  [(NUKeyframeSequenceDouble4 *)self valueOfKeyframeAtIndex:v22];
+                  objc_msgSend_valueOfKeyframeAtIndex_(self);
                   v28 = v31 + 1;
                   v33 = &v19[32 * v31];
                   *v33 = v59;
@@ -388,12 +388,12 @@
           v37 = &v50[24 * v23];
           do
           {
-            [(NUKeyframeSequence *)self timeOfKeyframeAtIndex:v22];
+            objc_msgSend_timeOfKeyframeAtIndex_(self);
             v38 = v78;
             *(v37 + 2) = v79;
             *v37 = v38;
             v37 += 24;
-            [(NUKeyframeSequenceDouble4 *)self valueOfKeyframeAtIndex:v22];
+            objc_msgSend_valueOfKeyframeAtIndex_(self);
             *v35 = v57;
             *(v35 + 1) = v58;
             v35 += 32;
@@ -426,50 +426,55 @@
   return selfCopy2;
 }
 
-- (uint64_t)sampleAtTime:(float64x2_t *)time@<X8>
+- (void)sampleAtTime:(__int128 *)time@<X2>
 {
-  if ((*(a2 + 12) & 1) == 0)
+  if ((*(time + 12) & 1) == 0)
   {
-    result = [self valueOfKeyframeAtIndex:0];
-    v7 = v29;
-    v6 = v30;
+    result = objc_msgSend_valueOfKeyframeAtIndex_(self, a2, 0);
+    v8 = v29;
+    v7 = v30;
 LABEL_3:
-    *time = v7;
-    time[1] = v6;
+    *a4 = v8;
+    a4[1] = v7;
     return result;
   }
 
-  v27 = *a2;
-  v28 = *(a2 + 2);
-  v9 = [self indexOfKeyframeAtOrBeforeTime:&v27];
+  v27 = *time;
+  v28 = *(time + 2);
+  [self indexOfKeyframeAtOrBeforeTime:&v27];
   result = [self interpolation];
-  switch(result)
+  if (result == 2)
   {
-    case 2:
-      [self valueOfKeyframeAtIndex:v9];
-      [self valueOfKeyframeAtIndex:v9 + 1];
-      [self tangentOfKeyframeAtIndex:v9];
-      [self tangentOfKeyframeAtIndex:v9 + 1];
-      v27 = *a2;
-      v28 = *(a2 + 2);
-      result = [self interpolantAtTime:&v27];
-      v6 = vmlaq_laneq_f64(vmlaq_n_f64(vmlaq_n_f64(vmulq_laneq_f64(v15, v10, 1), v19, v10.f64[0]), v17, v11.f64[0]), v13, v11, 1);
-      v7 = vmlaq_laneq_f64(vmlaq_n_f64(vmlaq_n_f64(vmulq_laneq_f64(v14, v10, 1), v18, v10.f64[0]), v16, v11.f64[0]), v12, v11, 1);
-      goto LABEL_3;
-    case 1:
-      [self valueOfKeyframeAtIndex:v9];
-      [self valueOfKeyframeAtIndex:v9 + 1];
-      v27 = *a2;
-      v28 = *(a2 + 2);
-      result = [self interpolantAtTime:&v27];
-      v6 = vmlaq_n_f64(vmulq_laneq_f64(v22, v20, 1), v24, v20.f64[0]);
-      v7 = vmlaq_n_f64(vmulq_laneq_f64(v21, v20, 1), v23, v20.f64[0]);
-      goto LABEL_3;
-    case 0:
-      result = [self valueOfKeyframeAtIndex:v9];
-      v7 = v25;
-      v6 = v26;
-      goto LABEL_3;
+    objc_msgSend_valueOfKeyframeAtIndex_(self);
+    objc_msgSend_valueOfKeyframeAtIndex_(self);
+    objc_msgSend_tangentOfKeyframeAtIndex_(self);
+    objc_msgSend_tangentOfKeyframeAtIndex_(self);
+    v27 = *time;
+    v28 = *(time + 2);
+    result = objc_msgSend_interpolantAtTime_(self);
+    v7 = vmlaq_laneq_f64(vmlaq_n_f64(vmlaq_n_f64(vmulq_laneq_f64(v15, v10, 1), v19, v10.f64[0]), v17, v11.f64[0]), v13, v11, 1);
+    v8 = vmlaq_laneq_f64(vmlaq_n_f64(vmlaq_n_f64(vmulq_laneq_f64(v14, v10, 1), v18, v10.f64[0]), v16, v11.f64[0]), v12, v11, 1);
+    goto LABEL_3;
+  }
+
+  if (result == 1)
+  {
+    objc_msgSend_valueOfKeyframeAtIndex_(self);
+    objc_msgSend_valueOfKeyframeAtIndex_(self);
+    v27 = *time;
+    v28 = *(time + 2);
+    result = objc_msgSend_interpolantAtTime_(self);
+    v7 = vmlaq_n_f64(vmulq_laneq_f64(v22, v20, 1), v24, v20.f64[0]);
+    v8 = vmlaq_n_f64(vmulq_laneq_f64(v21, v20, 1), v23, v20.f64[0]);
+    goto LABEL_3;
+  }
+
+  if (!result)
+  {
+    result = objc_msgSend_valueOfKeyframeAtIndex_(self);
+    v8 = v25;
+    v7 = v26;
+    goto LABEL_3;
   }
 
   return result;
@@ -477,8 +482,7 @@ LABEL_3:
 
 - (CMTime)tangentOfKeyframeAtIndex:(float64x2_t *)index@<X8>
 {
-  v4 = a2 - 1;
-  if (a2 < 1 || (v6 = result, result = [(CMTime *)result count], &result[-1].epoch + 7 <= a2))
+  if (a2 < 1 || (v5 = result, result = [(CMTime *)result count], &result[-1].epoch + 7 <= a2))
   {
     *index = 0u;
     index[1] = 0u;
@@ -486,35 +490,35 @@ LABEL_3:
 
   else
   {
-    [(CMTime *)v6 valueOfKeyframeAtIndex:v4];
-    v12 = v20;
-    v13 = v21;
-    [(CMTime *)v6 valueOfKeyframeAtIndex:a2 + 1];
-    v10 = v18;
+    objc_msgSend_valueOfKeyframeAtIndex_(v5);
     v11 = v19;
-    memset(&v17[1], 0, sizeof(CMTime));
-    [(CMTime *)v6 timeOfKeyframeAtIndex:v4];
-    memset(v17, 0, 24);
-    [(CMTime *)v6 timeOfKeyframeAtIndex:a2 + 1];
-    memset(&v16, 0, sizeof(v16));
-    lhs = v17[0];
-    rhs = v17[1];
-    result = CMTimeSubtract(&v16, &lhs, &rhs);
-    if (v16.value < 1)
+    v12 = v20;
+    objc_msgSend_valueOfKeyframeAtIndex_(v5);
+    v9 = v17;
+    v10 = v18;
+    memset(&v16[1], 0, sizeof(CMTime));
+    objc_msgSend_timeOfKeyframeAtIndex_(v5);
+    memset(v16, 0, 24);
+    objc_msgSend_timeOfKeyframeAtIndex_(v5);
+    memset(&v15, 0, sizeof(v15));
+    lhs = v16[0];
+    rhs = v16[1];
+    result = CMTimeSubtract(&v15, &lhs, &rhs);
+    if (v15.value < 1)
     {
-      v9 = 0uLL;
       v8 = 0uLL;
+      v7 = 0uLL;
     }
 
     else
     {
-      v7 = vdupq_lane_s64(COERCE__INT64(fmax(v16.value / v16.timescale, 0.015625)), 0);
-      v8 = vdivq_f64(vsubq_f64(v11, v13), v7);
-      v9 = vdivq_f64(vsubq_f64(v10, v12), v7);
+      v6 = vdupq_lane_s64(COERCE__INT64(fmax(v15.value / v15.timescale, 0.015625)), 0);
+      v7 = vdivq_f64(vsubq_f64(v10, v12), v6);
+      v8 = vdivq_f64(vsubq_f64(v9, v11), v6);
     }
 
-    *index = v9;
-    index[1] = v8;
+    *index = v8;
+    index[1] = v7;
   }
 
   return result;

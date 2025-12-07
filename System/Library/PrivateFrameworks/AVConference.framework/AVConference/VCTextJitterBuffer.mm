@@ -462,7 +462,7 @@ LABEL_11:
 
 - (void)heartbeat
 {
-  v58 = *MEMORY[0x1E69E9840];
+  v59 = *MEMORY[0x1E69E9840];
   v3 = JitterPreloadQueue_Dequeue(self->_preloadQueue);
   v4 = v3;
   if (v3 && v3[1] || self->_resetRequested)
@@ -482,11 +482,11 @@ LABEL_11:
       }
 
       *buf = 136315650;
-      v44 = v6;
-      v45 = 2080;
-      v46 = "[VCTextJitterBuffer heartbeat]";
-      v47 = 1024;
-      v48 = 141;
+      v45 = v6;
+      v46 = 2080;
+      v47 = "[VCTextJitterBuffer heartbeat]";
+      v48 = 1024;
+      v49 = 141;
       v8 = " [%s] %s:%d Reset the queue";
       v9 = v7;
       v10 = 28;
@@ -517,14 +517,14 @@ LABEL_11:
       }
 
       *buf = 136316162;
-      v44 = v11;
-      v45 = 2080;
-      v46 = "[VCTextJitterBuffer heartbeat]";
-      v47 = 1024;
-      v48 = 141;
-      v49 = 2112;
-      *v50 = v5;
-      *&v50[8] = 2048;
+      v45 = v11;
+      v46 = 2080;
+      v47 = "[VCTextJitterBuffer heartbeat]";
+      v48 = 1024;
+      v49 = 141;
+      v50 = 2112;
+      *v51 = v5;
+      *&v51[8] = 2048;
       selfCopy3 = self;
       v8 = " [%s] %s:%d %@(%p) Reset the queue";
       v9 = v12;
@@ -554,23 +554,24 @@ LABEL_15:
   v14 = JitterQueue_Pop(self->_jitterQueue);
   if (v14)
   {
-    v16 = v14;
-    *&v15 = 136316418;
-    v42 = v15;
-    while (self->_firstFrameReceived && (*(v16 + 10) - LOWORD(self->_lastSequenceNumber)) != 1)
+    v17 = v14;
+    *&v16 = 136316418;
+    v43 = v16;
+    while (self->_firstFrameReceived && (*(v17 + 10) - LOWORD(self->_lastSequenceNumber)) != 1)
     {
-      if (micro() - *(v16 + 1184) < 1.0)
+      if (micro(v14, v15) - *(v17 + 1184) < 1.0)
       {
-        JitterQueue_Insert(self->_jitterQueue, v16, 0);
+        JitterQueue_Insert(self->_jitterQueue, v17, 0);
         return;
       }
 
       [-[VCTextJitterBuffer delegate](self "delegate")];
       ++self->_lastSequenceNumber;
-      JitterQueue_Insert(self->_jitterQueue, v16, 0);
+      JitterQueue_Insert(self->_jitterQueue, v17, 0);
 LABEL_44:
-      v16 = JitterQueue_Pop(self->_jitterQueue);
-      if (!v16)
+      v14 = JitterQueue_Pop(self->_jitterQueue);
+      v17 = v14;
+      if (!v14)
       {
         return;
       }
@@ -583,73 +584,73 @@ LABEL_44:
         goto LABEL_43;
       }
 
-      v27 = VRTraceErrorLogLevelToCSTR();
-      v28 = *MEMORY[0x1E6986650];
+      v28 = VRTraceErrorLogLevelToCSTR();
       v29 = *MEMORY[0x1E6986650];
+      v30 = *MEMORY[0x1E6986650];
       if (*MEMORY[0x1E6986640] == 1)
       {
-        if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
+        if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
         {
-          v30 = *(v16 + 10);
-          v31 = *(v16 + 1144);
-          v32 = *(v16 + 8);
-          *buf = v42;
-          v44 = v27;
-          v45 = 2080;
-          v46 = "[VCTextJitterBuffer heartbeat]";
-          v47 = 1024;
-          v48 = 171;
-          v49 = 1024;
-          *v50 = v30;
-          *&v50[4] = 1024;
-          *&v50[6] = v31;
+          v31 = *(v17 + 10);
+          v32 = *(v17 + 1144);
+          v33 = *(v17 + 8);
+          *buf = v43;
+          v45 = v28;
+          v46 = 2080;
+          v47 = "[VCTextJitterBuffer heartbeat]";
+          v48 = 1024;
+          v49 = 171;
+          v50 = 1024;
+          *v51 = v31;
+          *&v51[4] = 1024;
+          *&v51[6] = v32;
           LOWORD(selfCopy3) = 1024;
-          *(&selfCopy3 + 2) = v32;
-          v24 = v28;
-          v25 = " [%s] %s:%d Frame received seqNumber:%d length:%d isRed:%d";
-          v26 = 46;
+          *(&selfCopy3 + 2) = v33;
+          v25 = v29;
+          v26 = " [%s] %s:%d Frame received seqNumber:%d length:%d isRed:%d";
+          v27 = 46;
           goto LABEL_37;
         }
 
 LABEL_43:
         [-[VCTextJitterBuffer delegate](self delegate];
-        self->_lastSequenceNumber = *(v16 + 10);
+        self->_lastSequenceNumber = *(v17 + 10);
         self->_firstFrameReceived = 1;
-        [(VCTextJitterBuffer *)self releaseTextFrame:v16];
+        [(VCTextJitterBuffer *)self releaseTextFrame:v17];
         goto LABEL_44;
       }
 
-      if (!os_log_type_enabled(v29, OS_LOG_TYPE_DEBUG))
+      if (!os_log_type_enabled(v30, OS_LOG_TYPE_DEBUG))
       {
         goto LABEL_43;
       }
 
-      v39 = *(v16 + 10);
-      v40 = *(v16 + 1144);
-      v41 = *(v16 + 8);
-      *buf = v42;
-      v44 = v27;
-      v45 = 2080;
-      v46 = "[VCTextJitterBuffer heartbeat]";
-      v47 = 1024;
-      v48 = 171;
-      v49 = 1024;
-      *v50 = v39;
-      *&v50[4] = 1024;
-      *&v50[6] = v40;
+      v40 = *(v17 + 10);
+      v41 = *(v17 + 1144);
+      v42 = *(v17 + 8);
+      *buf = v43;
+      v45 = v28;
+      v46 = 2080;
+      v47 = "[VCTextJitterBuffer heartbeat]";
+      v48 = 1024;
+      v49 = 171;
+      v50 = 1024;
+      *v51 = v40;
+      *&v51[4] = 1024;
+      *&v51[6] = v41;
       LOWORD(selfCopy3) = 1024;
-      *(&selfCopy3 + 2) = v41;
-      v36 = v28;
-      v37 = " [%s] %s:%d Frame received seqNumber:%d length:%d isRed:%d";
-      v38 = 46;
+      *(&selfCopy3 + 2) = v42;
+      v37 = v29;
+      v38 = " [%s] %s:%d Frame received seqNumber:%d length:%d isRed:%d";
+      v39 = 46;
     }
 
     else
     {
-      v17 = &stru_1F570E008;
+      v18 = &stru_1F570E008;
       if (objc_opt_respondsToSelector())
       {
-        v17 = [(VCTextJitterBuffer *)self performSelector:sel_logPrefix];
+        v18 = [(VCTextJitterBuffer *)self performSelector:sel_logPrefix];
       }
 
       if (VRTraceGetErrorLogLevelForModule() < 8)
@@ -657,73 +658,73 @@ LABEL_43:
         goto LABEL_43;
       }
 
-      v18 = VRTraceErrorLogLevelToCSTR();
-      v19 = *MEMORY[0x1E6986650];
+      v19 = VRTraceErrorLogLevelToCSTR();
       v20 = *MEMORY[0x1E6986650];
+      v21 = *MEMORY[0x1E6986650];
       if (*MEMORY[0x1E6986640] == 1)
       {
-        if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+        if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
         {
-          v21 = *(v16 + 10);
-          v22 = *(v16 + 1144);
-          v23 = *(v16 + 8);
+          v22 = *(v17 + 10);
+          v23 = *(v17 + 1144);
+          v24 = *(v17 + 8);
           *buf = 136316930;
-          v44 = v18;
-          v45 = 2080;
-          v46 = "[VCTextJitterBuffer heartbeat]";
-          v47 = 1024;
-          v48 = 171;
-          v49 = 2112;
-          *v50 = v17;
-          *&v50[8] = 2048;
+          v45 = v19;
+          v46 = 2080;
+          v47 = "[VCTextJitterBuffer heartbeat]";
+          v48 = 1024;
+          v49 = 171;
+          v50 = 2112;
+          *v51 = v18;
+          *&v51[8] = 2048;
           selfCopy3 = self;
-          v52 = 1024;
-          v53 = v21;
-          v54 = 1024;
-          v55 = v22;
-          v56 = 1024;
-          v57 = v23;
-          v24 = v19;
-          v25 = " [%s] %s:%d %@(%p) Frame received seqNumber:%d length:%d isRed:%d";
-          v26 = 66;
+          v53 = 1024;
+          v54 = v22;
+          v55 = 1024;
+          v56 = v23;
+          v57 = 1024;
+          v58 = v24;
+          v25 = v20;
+          v26 = " [%s] %s:%d %@(%p) Frame received seqNumber:%d length:%d isRed:%d";
+          v27 = 66;
 LABEL_37:
-          _os_log_impl(&dword_1DB56E000, v24, OS_LOG_TYPE_DEFAULT, v25, buf, v26);
+          _os_log_impl(&dword_1DB56E000, v25, OS_LOG_TYPE_DEFAULT, v26, buf, v27);
           goto LABEL_43;
         }
 
         goto LABEL_43;
       }
 
-      if (!os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
+      if (!os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
       {
         goto LABEL_43;
       }
 
-      v33 = *(v16 + 10);
-      v34 = *(v16 + 1144);
-      v35 = *(v16 + 8);
+      v34 = *(v17 + 10);
+      v35 = *(v17 + 1144);
+      v36 = *(v17 + 8);
       *buf = 136316930;
-      v44 = v18;
-      v45 = 2080;
-      v46 = "[VCTextJitterBuffer heartbeat]";
-      v47 = 1024;
-      v48 = 171;
-      v49 = 2112;
-      *v50 = v17;
-      *&v50[8] = 2048;
+      v45 = v19;
+      v46 = 2080;
+      v47 = "[VCTextJitterBuffer heartbeat]";
+      v48 = 1024;
+      v49 = 171;
+      v50 = 2112;
+      *v51 = v18;
+      *&v51[8] = 2048;
       selfCopy3 = self;
-      v52 = 1024;
-      v53 = v33;
-      v54 = 1024;
-      v55 = v34;
-      v56 = 1024;
-      v57 = v35;
-      v36 = v19;
-      v37 = " [%s] %s:%d %@(%p) Frame received seqNumber:%d length:%d isRed:%d";
-      v38 = 66;
+      v53 = 1024;
+      v54 = v34;
+      v55 = 1024;
+      v56 = v35;
+      v57 = 1024;
+      v58 = v36;
+      v37 = v20;
+      v38 = " [%s] %s:%d %@(%p) Frame received seqNumber:%d length:%d isRed:%d";
+      v39 = 66;
     }
 
-    _os_log_debug_impl(&dword_1DB56E000, v36, OS_LOG_TYPE_DEBUG, v37, buf, v38);
+    _os_log_debug_impl(&dword_1DB56E000, v37, OS_LOG_TYPE_DEBUG, v38, buf, v39);
     goto LABEL_43;
   }
 }
@@ -737,7 +738,7 @@ LABEL_37:
     {
       OUTLINED_FUNCTION_11();
       OUTLINED_FUNCTION_0();
-      OUTLINED_FUNCTION_17(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to create jitter queue", v2, v3, v4, v5, v6);
+      OUTLINED_FUNCTION_17(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to create jitter queue", v2, v3, v4, v5);
     }
   }
 }
@@ -751,7 +752,7 @@ LABEL_37:
     {
       OUTLINED_FUNCTION_11();
       OUTLINED_FUNCTION_0();
-      OUTLINED_FUNCTION_17(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to create pre-load queue", v2, v3, v4, v5, v6);
+      OUTLINED_FUNCTION_17(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to create pre-load queue", v2, v3, v4, v5);
     }
   }
 }
@@ -765,7 +766,7 @@ LABEL_37:
     {
       OUTLINED_FUNCTION_11();
       OUTLINED_FUNCTION_0();
-      OUTLINED_FUNCTION_17(&dword_1DB56E000, v0, v1, " [%s] %s:%d Invalid Config (nil)", v2, v3, v4, v5, v6);
+      OUTLINED_FUNCTION_17(&dword_1DB56E000, v0, v1, " [%s] %s:%d Invalid Config (nil)", v2, v3, v4, v5);
     }
   }
 }

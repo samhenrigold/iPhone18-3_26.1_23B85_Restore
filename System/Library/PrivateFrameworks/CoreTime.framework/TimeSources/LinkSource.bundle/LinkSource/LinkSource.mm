@@ -244,7 +244,7 @@ LABEL_11:
   v23 = TIMELINK_FACILITY;
   if (os_log_type_enabled(TIMELINK_FACILITY, OS_LOG_TYPE_ERROR))
   {
-    sub_82D0(v23);
+    sub_82D0(v23, v3);
   }
 
 LABEL_13:
@@ -302,17 +302,17 @@ id sub_413C(uint64_t a1)
   return [v2 systemTimeZoneChanged];
 }
 
-const __CFString *lazy cache variable for type metadata for String(int a1)
+const __CFString *lazy cache variable for type metadata for String(uint64_t a1, uint64_t a2)
 {
   if (a1 <= 1001)
   {
     switch(a1)
     {
-      case 1000:
+      case 0x3E8:
         return @"TMLSSourceUser";
-      case 1001:
+      case 0x3E9:
         return @"TMLSSourceComputed";
-      case 999:
+      case 0x3E7:
         sub_864C();
     }
   }
@@ -699,16 +699,18 @@ void sub_7954(uint64_t a1)
   [WeakRetained handleSyncTimer];
 }
 
-void sub_7BA4(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_7BA4(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, &a9, 2u);
+  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, va, 2u);
 }
 
-void sub_7BCC(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_7BCC(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 8u);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 8u);
 }
 
 id sub_7BF8()
@@ -717,10 +719,11 @@ id sub_7BF8()
   return [v0 syncState];
 }
 
-void sub_7C10(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_7C10(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, v9, OS_LOG_TYPE_DEBUG, a4, &a9, 8u);
+  _os_log_debug_impl(a1, v8, OS_LOG_TYPE_DEBUG, a4, va, 8u);
 }
 
 void sub_7C30(int a1, NSObject *a2)
@@ -759,13 +762,12 @@ void sub_7E74()
   [v1 handleFailureInFunction:v0 file:@"TMLSLinkSource.m" lineNumber:173 description:@"Expect to be torn down from the main thread"];
 }
 
-void sub_7F58(uint64_t a1, uint64_t a2)
+void sub_7F58()
 {
-  v2 = *(a2 + 72);
   sub_4178();
-  v6 = 2112;
-  v7 = v3;
-  _os_log_debug_impl(&dword_0, v4, OS_LOG_TYPE_DEBUG, "setCompanionTimeZone:%@ (was %@)", v5, 0x16u);
+  v3 = 2112;
+  v4 = v0;
+  _os_log_debug_impl(&dword_0, v1, OS_LOG_TYPE_DEBUG, "setCompanionTimeZone:%@ (was %@)", v2, 0x16u);
 }
 
 void sub_800C(void *a1, void *a2)
@@ -782,13 +784,13 @@ void sub_8108(uint64_t a1, uint64_t a2)
   [v4 handleFailureInMethod:a1 object:a2 file:@"TMLSLinkSource.m" lineNumber:228 description:{@"Invalid parameter not satisfying: %@", @"valid == NO"}];
 }
 
-void sub_82D0(void *a1)
+void sub_82D0(void *a1, uint64_t a2)
 {
-  v1 = a1;
+  v2 = a1;
   objc_opt_class();
   sub_4178();
-  v3 = v2;
-  _os_log_error_impl(&dword_0, v1, OS_LOG_TYPE_ERROR, "Pending data unexpected type: %@", v4, 0xCu);
+  v4 = v3;
+  _os_log_error_impl(&dword_0, v2, OS_LOG_TYPE_ERROR, "Pending data unexpected type: %@", v5, 0xCu);
 }
 
 void sub_8468(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -841,7 +843,7 @@ void sub_8B2C(void *a1)
   v2 = a1;
   sub_7BF8();
   sub_7BEC();
-  sub_7C10(&dword_0, v3, v4, "TMLS_MSG_CONVERT_BT_TIME_FINAL sent successfully, syncState %d", v5, v6, v7, v8, v9);
+  sub_7C10(&dword_0, v3, v4, "TMLS_MSG_CONVERT_BT_TIME_FINAL sent successfully, syncState %d", v5, v6, v7, v8);
 }
 
 void sub_8BAC(uint64_t a1, uint64_t a2)
@@ -855,7 +857,7 @@ void sub_8C10(void *a1)
   v2 = a1;
   sub_7BF8();
   sub_7BEC();
-  sub_7BCC(&dword_0, v3, v4, "sendSyncRTCRequest called in sync-state %d, ignoring", v5, v6, v7, v8, v9);
+  sub_7BCC(&dword_0, v3, v4, "sendSyncRTCRequest called in sync-state %d, ignoring", v5, v6, v7, v8);
 }
 
 void sub_8C90(void *a1)
@@ -863,7 +865,7 @@ void sub_8C90(void *a1)
   v2 = a1;
   sub_7BF8();
   sub_7BEC();
-  sub_7BCC(&dword_0, v3, v4, "attempted to handle conversion failure on companion, sync state %d, ignoring", v5, v6, v7, v8, v9);
+  sub_7BCC(&dword_0, v3, v4, "attempted to handle conversion failure on companion, sync state %d, ignoring", v5, v6, v7, v8);
 }
 
 void sub_8D10(uint64_t a1, uint64_t a2, os_log_t log)
@@ -881,7 +883,7 @@ void sub_8ED0(void *a1)
   v2 = a1;
   sub_7BF8();
   sub_7BEC();
-  sub_7BCC(&dword_0, v3, v4, "convertBTTime, machTime in future, sync state %d, dropping message", v5, v6, v7, v8, v9);
+  sub_7BCC(&dword_0, v3, v4, "convertBTTime, machTime in future, sync state %d, dropping message", v5, v6, v7, v8);
 }
 
 void sub_8F50(void *a1)
@@ -889,7 +891,7 @@ void sub_8F50(void *a1)
   v2 = a1;
   sub_7BF8();
   sub_7BEC();
-  sub_7C10(&dword_0, v3, v4, "restartSync from state %d", v5, v6, v7, v8, v9);
+  sub_7C10(&dword_0, v3, v4, "restartSync from state %d", v5, v6, v7, v8);
 }
 
 void sub_8FD0(void *a1)
@@ -897,19 +899,5 @@ void sub_8FD0(void *a1)
   v2 = a1;
   sub_7BF8();
   sub_7BEC();
-  sub_7BCC(&dword_0, v3, v4, "restartSync called on companion, state %d, ignoring", v5, v6, v7, v8, v9);
-}
-
-void sub_9090(int *a1)
-{
-  v6 = *a1;
-  sub_7BC0();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 8u);
-}
-
-void sub_9108(uint64_t a1)
-{
-  v6 = *(a1 + 44);
-  sub_7BC0();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 8u);
+  sub_7BCC(&dword_0, v3, v4, "restartSync called on companion, state %d, ignoring", v5, v6, v7, v8);
 }

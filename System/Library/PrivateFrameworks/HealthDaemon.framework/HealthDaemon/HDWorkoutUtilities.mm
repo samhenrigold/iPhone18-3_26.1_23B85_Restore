@@ -36,14 +36,14 @@
 
 - (BOOL)shouldAllowWorkoutDatabaseAccessWhileLocked
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   os_unfair_lock_lock(&self->_lock);
   if (!self->_fetchedOnce)
   {
     WeakRetained = objc_loadWeakRetained(&self->_profile);
-    v10 = 0;
-    v4 = [(HDWorkoutUtilities *)self shouldAllowDatabaseAccessWhileLockedForProfile:WeakRetained error:&v10];
-    v5 = v10;
+    v9 = 0;
+    v4 = [(HDWorkoutUtilities *)self shouldAllowDatabaseAccessWhileLockedForProfile:WeakRetained error:&v9];
+    v5 = v9;
     self->_lock_shouldAllowWorkoutDatabaseAccessWhileLocked = v4;
 
     if (v5)
@@ -54,8 +54,8 @@
       {
         *buf = 138543618;
         selfCopy = self;
-        v13 = 2114;
-        v14 = v5;
+        v12 = 2114;
+        v13 = v5;
         _os_log_error_impl(&dword_228986000, v6, OS_LOG_TYPE_ERROR, "%{public}@: Failed to fetch workout database access while locked with error %{public}@", buf, 0x16u);
       }
     }
@@ -65,18 +65,17 @@
 
   lock_shouldAllowWorkoutDatabaseAccessWhileLocked = self->_lock_shouldAllowWorkoutDatabaseAccessWhileLocked;
   os_unfair_lock_unlock(&self->_lock);
-  v8 = *MEMORY[0x277D85DE8];
   return lock_shouldAllowWorkoutDatabaseAccessWhileLocked;
 }
 
 - (BOOL)shouldDisplayWorkoutTransparencyAlert
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   os_unfair_lock_lock(&self->_lock);
   domain = self->_domain;
-  v23 = 0;
-  v4 = [(HDKeyValueDomain *)domain numberForKey:@"WorkoutTransparencyAlertCount" error:&v23];
-  v5 = v23;
+  v22 = 0;
+  v4 = [(HDKeyValueDomain *)domain numberForKey:@"WorkoutTransparencyAlertCount" error:&v22];
+  v5 = v22;
   v6 = v5;
   if (v4)
   {
@@ -95,7 +94,7 @@
     if (os_log_type_enabled(*MEMORY[0x277CCC330], OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v25 = v6;
+      v24 = v6;
       _os_log_error_impl(&dword_228986000, v15, OS_LOG_TYPE_ERROR, "Failed to fetch workout transparency alert count %@{public}", buf, 0xCu);
     }
 
@@ -105,9 +104,9 @@
   if (!v4)
   {
     v17 = self->_domain;
-    v22 = v6;
-    v18 = [(HDKeyValueDomain *)v17 setNumber:&unk_283CB3DF8 forKey:@"WorkoutTransparencyAlertCount" error:&v22];
-    v12 = v22;
+    v21 = v6;
+    v18 = [(HDKeyValueDomain *)v17 setNumber:&unk_283CB3DF8 forKey:@"WorkoutTransparencyAlertCount" error:&v21];
+    v12 = v21;
 
     if (v18)
     {
@@ -122,7 +121,7 @@
     }
 
     *buf = 138412290;
-    v25 = v12;
+    v24 = v12;
     v14 = "Failed to set workout transparency alert count for the first time %@{public}";
     goto LABEL_20;
   }
@@ -132,9 +131,9 @@
     v8 = self->_domain;
     v9 = 1;
     v10 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:1];
-    v21 = v6;
-    v11 = [(HDKeyValueDomain *)v8 setNumber:v10 forKey:@"WorkoutTransparencyAlertCount" error:&v21];
-    v12 = v21;
+    v20 = v6;
+    v11 = [(HDKeyValueDomain *)v8 setNumber:v10 forKey:@"WorkoutTransparencyAlertCount" error:&v20];
+    v12 = v20;
 
     if (v11)
     {
@@ -153,7 +152,7 @@ LABEL_16:
     }
 
     *buf = 138412290;
-    v25 = v12;
+    v24 = v12;
     v14 = "Failed to update workout transparency alert count %@{public}";
 LABEL_20:
     _os_log_error_impl(&dword_228986000, v13, OS_LOG_TYPE_ERROR, v14, buf, 0xCu);
@@ -165,7 +164,6 @@ LABEL_13:
 LABEL_18:
   os_unfair_lock_unlock(&self->_lock);
 
-  v19 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
@@ -229,7 +227,7 @@ LABEL_18:
 
 - (void)didUpdateKeyValueDomain:(id)domain
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   domainName = [domain domainName];
   v5 = [domainName isEqualToString:*MEMORY[0x277CCE5B0]];
 
@@ -247,9 +245,9 @@ LABEL_18:
 
     os_unfair_lock_lock(&self->_lock);
     WeakRetained = objc_loadWeakRetained(&self->_profile);
-    v13 = 0;
-    v9 = [(HDWorkoutUtilities *)self shouldAllowDatabaseAccessWhileLockedForProfile:WeakRetained error:&v13];
-    v10 = v13;
+    v12 = 0;
+    v9 = [(HDWorkoutUtilities *)self shouldAllowDatabaseAccessWhileLockedForProfile:WeakRetained error:&v12];
+    v10 = v12;
     self->_lock_shouldAllowWorkoutDatabaseAccessWhileLocked = v9;
 
     os_unfair_lock_unlock(&self->_lock);
@@ -261,14 +259,12 @@ LABEL_18:
       {
         *buf = 138543618;
         selfCopy2 = self;
-        v16 = 2114;
-        v17 = v10;
+        v15 = 2114;
+        v16 = v10;
         _os_log_error_impl(&dword_228986000, v11, OS_LOG_TYPE_ERROR, "%{public}@: Failed to fetch workout database access while locked with error %{public}@", buf, 0x16u);
       }
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)profileDidInitialize:(id)initialize
@@ -285,13 +281,13 @@ LABEL_18:
 
 uint64_t __43__HDWorkoutUtilities_profileDidInitialize___block_invoke(uint64_t a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   os_unfair_lock_lock((*(a1 + 32) + 20));
   v2 = *(a1 + 32);
   WeakRetained = objc_loadWeakRetained(v2 + 3);
-  v10 = 0;
-  v4 = [v2 shouldAllowDatabaseAccessWhileLockedForProfile:WeakRetained error:&v10];
-  v5 = v10;
+  v9 = 0;
+  v4 = [v2 shouldAllowDatabaseAccessWhileLockedForProfile:WeakRetained error:&v9];
+  v5 = v9;
   *(*(a1 + 32) + 17) = v4;
 
   os_unfair_lock_unlock((*(a1 + 32) + 20));
@@ -301,16 +297,15 @@ uint64_t __43__HDWorkoutUtilities_profileDidInitialize___block_invoke(uint64_t a
     v6 = *MEMORY[0x277CCC330];
     if (os_log_type_enabled(*MEMORY[0x277CCC330], OS_LOG_TYPE_ERROR))
     {
-      v9 = *(a1 + 32);
+      v8 = *(a1 + 32);
       *buf = 138543618;
-      v12 = v9;
-      v13 = 2114;
-      v14 = v5;
+      v11 = v8;
+      v12 = 2114;
+      v13 = v5;
       _os_log_error_impl(&dword_228986000, v6, OS_LOG_TYPE_ERROR, "%{public}@: Failed to fetch workout database access while locked with error %{public}@", buf, 0x16u);
     }
   }
 
-  v7 = *MEMORY[0x277D85DE8];
   return 1;
 }
 

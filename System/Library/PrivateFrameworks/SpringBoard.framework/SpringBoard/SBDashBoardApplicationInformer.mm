@@ -82,7 +82,7 @@
   iconController = [windowScene iconController];
 
   visibleIconStateDisplayIdentifiers = [iconController visibleIconStateDisplayIdentifiers];
-  v8 = [visibleIconStateDisplayIdentifiers containsObject:visibleCopy];
+  v8 = objc_msgSend_containsObject_(visibleIconStateDisplayIdentifiers);
 
   return v8;
 }

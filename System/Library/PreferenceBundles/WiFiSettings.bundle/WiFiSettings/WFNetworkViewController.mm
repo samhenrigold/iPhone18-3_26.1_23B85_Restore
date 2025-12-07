@@ -8,10 +8,9 @@
 
 - (WFNetworkListRecord)currentNetwork
 {
-  v2 = *(&self->super.super.super.isa + OBJC_IVAR____TtC12WiFiSettingsP33_511C3BED488214802509FE4ACFB1080023WFNetworkViewController_currentNetwork);
-  v3 = swift_unknownObjectRetain();
+  v2 = swift_unknownObjectRetain();
 
-  return v3;
+  return v2;
 }
 
 - (void)setCurrentNetwork:(id)network
@@ -20,7 +19,7 @@
   *(&self->super.super.super.isa + OBJC_IVAR____TtC12WiFiSettingsP33_511C3BED488214802509FE4ACFB1080023WFNetworkViewController_currentNetwork) = network;
   swift_unknownObjectRetain();
 
-  _swift_unknownObjectRelease(v3, v4);
+  _swift_unknownObjectRelease(v3);
 }
 
 - (_TtC12WiFiSettingsP33_511C3BED488214802509FE4ACFB1080023WFNetworkViewController)initWithNibName:(id)name bundle:(id)bundle

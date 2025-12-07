@@ -1,6 +1,6 @@
-void sub_100000D94(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_100000D94(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -26,148 +26,149 @@ void sub_100000DC4(uint64_t a1, void *a2, void *a3)
   v10 = [*(a1 + 32) filesInDir:v7 matchingPattern:v8 excludingPattern:v9];
   if ([v10 count])
   {
-    v39 = v9;
-    v41 = v7;
+    v41 = v9;
+    v43 = v7;
     v11 = +[NSFileManager defaultManager];
     v12 = NSTemporaryDirectory();
     v13 = [*(a1 + 32) _fileDateSuffix];
-    v42 = v6;
+    v44 = v6;
     v14 = [v6 stringByAppendingString:v13];
     v15 = [v12 stringByAppendingPathComponent:v14];
 
-    v52 = 1;
-    if ([v11 fileExistsAtPath:v15 isDirectory:&v52])
+    v54 = 1;
+    if ([v11 fileExistsAtPath:v15 isDirectory:&v54])
     {
       [v11 removeItemAtPath:v15 error:0];
     }
 
-    v51 = 0;
-    v16 = [v11 createDirectoryAtPath:v15 withIntermediateDirectories:1 attributes:0 error:&v51];
-    v17 = v51;
+    v53 = 0;
+    v16 = [v11 createDirectoryAtPath:v15 withIntermediateDirectories:1 attributes:0 error:&v53];
+    v17 = v53;
+    v18 = v17;
     if ((v16 & 1) == 0)
     {
-      v18 = BLBooksDiagnosticExtensionLog();
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+      v19 = BLBooksDiagnosticExtensionLog(v17);
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412546;
-        v55 = v15;
-        v56 = 2112;
-        v57 = v17;
-        _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_ERROR, "Could not create temporary directory at path: %@ %@", buf, 0x16u);
+        v57 = v15;
+        v58 = 2112;
+        v59 = v18;
+        _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_ERROR, "Could not create temporary directory at path: %@ %@", buf, 0x16u);
       }
     }
 
-    v36 = v17;
-    v40 = v8;
-    v37 = v15;
-    v45 = [NSURL fileURLWithPath:v15, a1];
-    v47 = 0u;
-    v48 = 0u;
+    v38 = v18;
+    v42 = v8;
+    v39 = v15;
+    v47 = [NSURL fileURLWithPath:v15, a1];
     v49 = 0u;
     v50 = 0u;
-    v38 = v10;
+    v51 = 0u;
+    v52 = 0u;
+    v40 = v10;
     obj = v10;
-    v19 = [obj countByEnumeratingWithState:&v47 objects:v53 count:16];
-    if (v19)
+    v20 = [obj countByEnumeratingWithState:&v49 objects:v55 count:16];
+    if (v20)
     {
-      v20 = v19;
-      v44 = *v48;
+      v21 = v20;
+      v46 = *v50;
       do
       {
-        for (i = 0; i != v20; i = i + 1)
+        for (i = 0; i != v21; i = i + 1)
         {
-          if (*v48 != v44)
+          if (*v50 != v46)
           {
             objc_enumerationMutation(obj);
           }
 
-          v22 = *(*(&v47 + 1) + 8 * i);
-          v23 = [v22 path];
-          v24 = [v22 path];
-          v25 = [v24 lastPathComponent];
-          v26 = [v45 URLByAppendingPathComponent:v25];
-          v46 = 0;
-          v27 = v11;
-          v28 = [v11 copyItemAtURL:v23 toURL:v26 error:&v46];
-          v29 = v46;
+          v23 = *(*(&v49 + 1) + 8 * i);
+          v24 = [v23 path];
+          v25 = [v23 path];
+          v26 = [v25 lastPathComponent];
+          v27 = [v47 URLByAppendingPathComponent:v26];
+          v48 = 0;
+          v28 = v11;
+          v29 = [v11 copyItemAtURL:v24 toURL:v27 error:&v48];
+          v30 = v48;
 
-          if ((v28 & 1) == 0)
+          if ((v29 & 1) == 0)
           {
-            v30 = BLBooksDiagnosticExtensionLog();
-            if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+            v32 = BLBooksDiagnosticExtensionLog(v31);
+            if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
             {
               *buf = 138412546;
-              v55 = v22;
-              v56 = 2112;
-              v57 = v29;
-              _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_ERROR, "Error zipping item: %@ %@", buf, 0x16u);
+              v57 = v23;
+              v58 = 2112;
+              v59 = v30;
+              _os_log_impl(&_mh_execute_header, v32, OS_LOG_TYPE_ERROR, "Error zipping item: %@ %@", buf, 0x16u);
             }
           }
 
-          v11 = v27;
+          v11 = v28;
         }
 
-        v20 = [obj countByEnumeratingWithState:&v47 objects:v53 count:16];
+        v21 = [obj countByEnumeratingWithState:&v49 objects:v55 count:16];
       }
 
-      while (v20);
+      while (v21);
     }
 
-    v31 = [DEArchiver archiveDirectoryAt:v45 deleteOriginal:1];
-    if (v31)
+    v33 = [DEArchiver archiveDirectoryAt:v47 deleteOriginal:1];
+    if (v33)
     {
-      v32 = *(v35 + 40);
-      v33 = [DEAttachmentItem attachmentWithPathURL:v31];
-      [v32 addObject:v33];
-      v6 = v42;
-      v8 = v40;
+      v34 = *(v37 + 40);
+      v35 = [DEAttachmentItem attachmentWithPathURL:v33];
+      [v34 addObject:v35];
+      v6 = v44;
+      v8 = v42;
     }
 
     else
     {
-      v33 = BLBooksDiagnosticExtensionLog();
-      v8 = v40;
-      if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
+      v35 = BLBooksDiagnosticExtensionLog(0);
+      v8 = v42;
+      if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v55 = v45;
-        _os_log_impl(&_mh_execute_header, v33, OS_LOG_TYPE_ERROR, "Could not create archive directory %@", buf, 0xCu);
+        v57 = v47;
+        _os_log_impl(&_mh_execute_header, v35, OS_LOG_TYPE_ERROR, "Could not create archive directory %@", buf, 0xCu);
       }
 
-      v6 = v42;
+      v6 = v44;
     }
 
-    v10 = v38;
-    v34 = v36;
+    v10 = v40;
+    v36 = v38;
 
-    v7 = v41;
-    v9 = v39;
+    v7 = v43;
+    v9 = v41;
   }
 
   else
   {
-    v34 = BLBooksDiagnosticExtensionLog();
-    if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
+    v36 = BLBooksDiagnosticExtensionLog(0);
+    if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412546;
-      v55 = v6;
-      v56 = 2112;
-      v57 = v7;
-      _os_log_impl(&_mh_execute_header, v34, OS_LOG_TYPE_ERROR, "Cannot find %@ in directory %@", buf, 0x16u);
+      v57 = v6;
+      v58 = 2112;
+      v59 = v7;
+      _os_log_impl(&_mh_execute_header, v36, OS_LOG_TYPE_ERROR, "Cannot find %@ in directory %@", buf, 0x16u);
     }
   }
 }
 
-id BLBooksDiagnosticExtensionLog()
+id BLBooksDiagnosticExtensionLog(uint64_t a1)
 {
   if (qword_10000C410 != -1)
   {
     sub_100002E74();
   }
 
-  v1 = qword_10000C408;
+  v2 = qword_10000C408;
 
-  return v1;
+  return v2;
 }
 
 void sub_1000018C0(id a1)

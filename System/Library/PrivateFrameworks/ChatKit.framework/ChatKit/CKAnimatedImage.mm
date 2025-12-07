@@ -28,7 +28,7 @@
   images = [image2 images];
   v7 = [images count];
   image3 = [(CKAnimatedImage *)self image];
-  [image3 duration];
+  objc_msgSend_duration(image3);
   v10 = v9;
   durations = [(CKAnimatedImage *)self durations];
   v12 = [v3 stringByAppendingFormat:@" (image:%@ #images:%ld duration:%f #durations:%ld)", image, v7, v10, objc_msgSend(durations, "count")];

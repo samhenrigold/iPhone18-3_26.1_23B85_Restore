@@ -11,9 +11,9 @@
     +[NSBundle(PFAdditions) podcastsFoundationBundle];
   }
 
-  v1 = podcastsFoundationBundle_bundle;
+  v2 = podcastsFoundationBundle_bundle;
 
-  return v1;
+  return v2;
 }
 
 @end

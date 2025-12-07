@@ -193,7 +193,7 @@ LABEL_15:
 
     else
     {
-      userConsent2 = ENErrorF(10);
+      userConsent2 = ENErrorF(10, "Version 2 configuration require User Consent to be set");
       [coderCopy failWithError:userConsent2];
     }
   }
@@ -425,7 +425,7 @@ LABEL_5:
   return v9;
 }
 
-- (uint64_t)initWithCoder:(uint64_t)result .cold.1(uint64_t result)
+- (void)initWithCoder:(void *)result .cold.1(void *result)
 {
   v1 = result;
   if (gLogCategory_ENRegionConfiguration <= 90)
@@ -440,7 +440,7 @@ LABEL_5:
   return result;
 }
 
-- (uint64_t)initWithCoder:(uint64_t)result .cold.2(uint64_t result)
+- (void)initWithCoder:(void *)result .cold.2(void *result)
 {
   v1 = result;
   if (gLogCategory_ENRegionConfiguration <= 90)

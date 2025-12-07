@@ -412,8 +412,7 @@ float64x2_t *CA::BoundsImpl::inset(float64x2_t *result, float64_t a2, float64_t 
       result[1].f64[1] = v9;
       if (v8 <= 0.0 || v9 <= 0.0)
       {
-        result[1].f64[0] = 0.0;
-        result[1].f64[1] = 0.0;
+        result[1] = 0uLL;
       }
     }
   }
@@ -421,7 +420,7 @@ float64x2_t *CA::BoundsImpl::inset(float64x2_t *result, float64_t a2, float64_t 
   return result;
 }
 
-void CA::OGL::emit_combine_scaled(uint64_t a1, unsigned int a2, uint64_t a3, uint64_t a4, CA::Shape *a5, unsigned int *a6, float a7, float a8)
+void CA::OGL::emit_combine_scaled(uint64_t a1, unsigned int a2, uint64_t a3, int32x4_t *a4, CA::Shape *a5, unsigned int *a6, float a7, float a8)
 {
   v121[3] = *MEMORY[0x1E69E9840];
   *(*(a1 + 16) + 16) = a2;
@@ -453,7 +452,7 @@ LABEL_3:
     v115 = v19;
     CA::OGL::Context::bind_surface(a1, a4, 1u, 1u, 1, 0.0);
     v19 = v115;
-    v14 = *(a4 + 48);
+    v14 = a4[3];
   }
 
 LABEL_4:
@@ -1012,9 +1011,9 @@ float CA::OGL::adjust_skipped_corner_vertices_simple(_OWORD *a1, uint64_t a2, ui
   return result;
 }
 
-CA::OGL::ImagingNode *CA::OGL::ImagingNode::remove_feature_passthrough_aware(CA::OGL::ImagingNode *this, unsigned int a2)
+CA::OGL::ImagingNode *CA::OGL::ImagingNode::remove_feature_passthrough_aware(CA::OGL::ImagingNode *this, uint64_t a2)
 {
-  if ((*(this + 229) & 1) != 0 || (result = (*(*this + 120))(this), result))
+  if ((*(this + 229) & 1) != 0 || (result = (*(*this + 120))(this, a2), result))
   {
     result = *(this + 3);
     if (result)
@@ -1033,7 +1032,7 @@ uint64_t CA::OGL::render_alpha_threshold_filter(uint64_t a1, CA::Render::KeyValu
   float_key = CA::Render::KeyValueArray::get_float_key(this, 325, 0.5);
   v14.i64[0] = 0;
   v14.i64[1] = 0x3F80000000000000;
-  CA::Render::KeyValueArray::get_float_color_key(this, 360, &v14);
+  CA::Render::KeyValueArray::get_float_color_key(this, 0x168, &v14);
   CA::OGL::bind_filter_surface(a1, a3, 0, a4);
   v9 = vmul_f32(*(*(a1 + 16) + 96), 0x3F0000003F000000);
   v18 = 0;
@@ -1101,7 +1100,7 @@ CGImageRef CA_copyL8CGImageAsA8(CGImage *a1)
   return CGImageMaskCreate(Width, Height, 8uLL, 8uLL, BytesPerRow, DataProvider, &v7, 0);
 }
 
-uint64_t foreachLayer(void *a1, uint64_t a2)
+void *foreachLayer(void *a1, uint64_t a2)
 {
   v25 = *MEMORY[0x1E69E9840];
   (*(a2 + 16))(a2, a1);
@@ -1161,7 +1160,8 @@ uint64_t foreachLayer(void *a1, uint64_t a2)
           objc_enumerationMutation(v10);
         }
 
-        [*(*(&v16 + 1) + 8 * v14++) foreachLayer:a2];
+        [*(*(&v16 + 1) + 8 * v14) foreachLayer:a2];
+        v14 = v14 + 1;
       }
 
       while (v12 != v14);
@@ -3296,7 +3296,7 @@ LABEL_90:
         {
           for (i = *(v52 + 40); i; i = *i)
           {
-            std::__hash_table<unsigned int,std::hash<unsigned int>,std::equal_to<unsigned int>,std::allocator<unsigned int>>::__emplace_unique_key_args<unsigned int,unsigned int const&>((a1 + 24), *(i + 4));
+            std::__hash_table<unsigned int,std::hash<unsigned int>,std::equal_to<unsigned int>,std::allocator<unsigned int>>::__emplace_unique_key_args<unsigned int,unsigned int const&>((a1 + 24), *(i + 4), i + 4);
           }
 
           v54 = CA::Render::HitTestTree::hit_test(v52, a3, a4, a5, v89.f64[0], v89.f64[1]);
@@ -3437,7 +3437,7 @@ LABEL_137:
                   v77 = v76;
                   for (j = *(v76 + 5); j; j = *j)
                   {
-                    std::__hash_table<unsigned int,std::hash<unsigned int>,std::equal_to<unsigned int>,std::allocator<unsigned int>>::__emplace_unique_key_args<unsigned int,unsigned int const&>((a1 + 24), *(j + 4));
+                    std::__hash_table<unsigned int,std::hash<unsigned int>,std::equal_to<unsigned int>,std::allocator<unsigned int>>::__emplace_unique_key_args<unsigned int,unsigned int const&>((a1 + 24), *(j + 4), j + 4);
                   }
 
                   v79 = CA::Render::HitTestTree::hit_test(v77, a3, a4, a5, v89.f64[0], v89.f64[1]);
@@ -3797,7 +3797,7 @@ uint64_t CA::Render::BackdropLayer::hit_test(_BYTE *a1, uint64_t a2, double *a3)
 
 uint64_t CA::Render::hit_test_contents(uint64_t a1, uint64_t a2, int a3, double a4, double a5)
 {
-  v47 = *MEMORY[0x1E69E9840];
+  v46 = *MEMORY[0x1E69E9840];
   result = (*(*a2 + 80))(a2);
   if (result)
   {
@@ -3814,21 +3814,21 @@ uint64_t CA::Render::hit_test_contents(uint64_t a1, uint64_t a2, int a3, double 
   {
 LABEL_2:
     v13 = result;
-    *v44 = 0;
+    *v43 = 0;
     if ((*(result + 13) & 0x64) != 0)
     {
-      CA::Render::Texture::displayed_size_(result, &v44[1], v44);
+      CA::Render::Texture::displayed_size_(result, &v43[1], v43);
     }
 
     else
     {
       v14 = *(result + 16);
-      v44[0] = *(result + 20);
-      v44[1] = v14;
+      v43[0] = *(result + 20);
+      v43[1] = v14;
     }
 
     v15 = (a2 + 32);
-    v16 = v44;
+    v16 = v43;
     if (*(a2 + 12) == 56)
     {
       v16 = (a2 + 36);
@@ -3836,17 +3836,16 @@ LABEL_2:
 
     else
     {
-      v15 = &v44[1];
+      v15 = &v43[1];
     }
 
     LODWORD(v11) = *v15;
     LODWORD(v12) = *v16;
     v17 = v11;
     v18 = v12;
-    v40 = 0.0;
-    v41 = 0.0;
-    v42 = v17;
-    v43 = v12;
+    v40 = 0uLL;
+    v41 = v17;
+    v42 = v12;
     v19 = *(a1 + 136);
     if (v19)
     {
@@ -3866,8 +3865,8 @@ LABEL_2:
         v23 = *&v12;
         v17 = v17 / v23;
         v18 = v18 / v23;
-        v42 = v17;
-        v43 = v18;
+        v41 = v17;
+        v42 = v18;
         if (!v19)
         {
           goto LABEL_20;
@@ -3876,8 +3875,8 @@ LABEL_2:
         goto LABEL_18;
       }
 
+      v41 = 0.0;
       v42 = 0.0;
-      v43 = 0.0;
       v18 = 0.0;
       v17 = 0.0;
     }
@@ -3893,8 +3892,8 @@ LABEL_18:
     {
       v17 = (v20[5] - v20[3]) * v17;
       v18 = (v20[6] - v20[4]) * v18;
-      v42 = v17;
-      v43 = v18;
+      v41 = v17;
+      v42 = v18;
     }
 
 LABEL_20:
@@ -3909,10 +3908,10 @@ LABEL_20:
     else
     {
       CA::Render::Layer::apply_contents_transform(a1, &v40, &v39, 0);
-      v22 = v40;
+      v22 = *v40.i64;
     }
 
-    if (v22 <= a4 && v42 + v22 > a4 && v41 <= a5 && v43 + v41 > a5)
+    if (v22 <= a4 && v41 + v22 > a4 && *&v40.i64[1] <= a5 && v42 + *&v40.i64[1] > a5)
     {
       if ((*(a1 + 48) & 0x40) == 0)
       {
@@ -3929,33 +3928,33 @@ LABEL_20:
         return 1;
       }
 
-      v45[0] = xmmword_183E20E00;
-      v45[1] = 0u;
-      v45[2] = xmmword_183E20E60;
-      memset(&v45[3], 0, 32);
-      v45[5] = xmmword_183E20E00;
-      v45[6] = 0u;
-      v45[7] = xmmword_183E20E60;
+      v44[0] = xmmword_183E20E00;
+      v44[1] = 0u;
+      v44[2] = xmmword_183E20E60;
+      memset(&v44[3], 0, 32);
+      v44[5] = xmmword_183E20E00;
+      v44[6] = 0u;
+      v44[7] = xmmword_183E20E60;
       __asm { FMOV            V0.2D, #1.0 }
 
-      v45[8] = _Q0;
-      v46 = 0;
-      if (!CA::Render::Layer::append_texture_transform(a1, v45, v13, a2))
+      v44[8] = _Q0;
+      v45 = 0;
+      if (!CA::Render::Layer::append_texture_transform(a1, v44, v13, a2))
       {
         return 1;
       }
 
       v37 = a4;
       v38 = a5;
-      if ((v46 & 0x10) != 0)
+      if ((v45 & 0x10) != 0)
       {
-        CA::Mat4Impl::mat4_invert(v36, v45, v29);
+        CA::Mat4Impl::mat4_invert(v36, v44, v29);
         CA::Mat4Impl::mat4_unapply_inverse_to_point2(v36, &v37, v30);
       }
 
       else
       {
-        CA::TransformDetails::unapply<CA::Transform,double>(v45, &v37, &v38);
+        CA::TransformDetails::unapply<CA::Transform,double>(v44, &v37, &v38);
       }
 
       v31 = *(v13 + 20);
@@ -4177,7 +4176,7 @@ char *CA::Render::show_object(X::Stream *this, uint64_t a2)
   }
 }
 
-void *CA::Render::KeyPathValue::encode(CA::Render::KeyPathValue *this, CA::Render::Encoder *a2)
+CA::Render::Encoder *CA::Render::KeyPathValue::encode(CA::Render::KeyPathValue *this, CA::Render::Encoder *a2)
 {
   CA::Render::Encoder::encode_keypath(a2, this + 2);
   CA::Render::Encoder::encode_object(a2, *(this + 3));
@@ -4376,7 +4375,7 @@ double *CA::OGL::anonymous namespace::clamp_twenty_part_rect(double *this, doubl
   return this;
 }
 
-unint64_t CA::OGL::emit_twenty_part_rect(unint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, int a9)
+unint64_t CA::OGL::emit_twenty_part_rect(unint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, unint64_t a6, uint64_t a7, uint64_t a8, int a9)
 {
   v33[143] = *MEMORY[0x1E69E9840];
   if (*(result + 152) < 0x24u)
@@ -4436,7 +4435,7 @@ unint64_t CA::OGL::emit_twenty_part_rect(unint64_t result, uint64_t a2, uint64_t
     v21(a2, &v32, v12, 36, xmmword_183E20E60);
   }
 
-  CA::OGL::transform_vertices(&v32, v12, 0x24, *(a2 + 8));
+  CA::OGL::transform_vertices(&v32, v12, 0x24, *(a2 + 8), a5, a6);
   v22 = *(a2 + 32);
   if (v22)
   {
@@ -5139,7 +5138,7 @@ LABEL_38:
   v43 = CAGetCachedCGBitmapContext_(a6, v24, v25, v23, a7, v41);
   if (v43)
   {
-    v44 = *(v43 + 2);
+    v44 = v43[2];
   }
 
   else
@@ -5159,9 +5158,9 @@ LABEL_38:
   CGImageRelease(v42);
 }
 
-CA::OGL::Context *CA::OGL::fill_uneven_round_rect_tex(CA::OGL::Context *result, uint64_t a2, float64_t *a3, uint64_t a4, uint64_t a5)
+CA::OGL::Context *CA::OGL::fill_uneven_round_rect_tex(CA::OGL::Context *result, uint64_t a2, float64_t *a3, const CA::Transform *a4, uint64_t a5)
 {
-  v85 = *MEMORY[0x1E69E9840];
+  v87 = *MEMORY[0x1E69E9840];
   v5 = *a2;
   v6 = *(*a2 + 16);
   if (v6 >= *(*a2 + 24))
@@ -5277,13 +5276,13 @@ CA::OGL::Context *CA::OGL::fill_uneven_round_rect_tex(CA::OGL::Context *result, 
     __asm { FMOV            V1.2D, #0.5 }
 
     v38 = v5[1];
-    v83 = 0u;
-    v84 = 0u;
+    v85 = 0u;
+    v86 = 0u;
     v39 = v38.f64[0] + v31;
     v40 = vcvtq_f64_f32(vcvt_f32_f64(vdivq_f64(_Q1, v17)));
     __asm { FMOV            V0.2D, #1.0 }
 
-    v69 = v38.f64[1];
+    v71 = v38.f64[1];
     v42 = vdivq_f64(_Q0, v38);
     v43 = vdup_n_s32(0x3FC3AB4Bu);
     do
@@ -5291,30 +5290,30 @@ CA::OGL::Context *CA::OGL::fill_uneven_round_rect_tex(CA::OGL::Context *result, 
       while (1)
       {
         v44 = vcvt_f32_f64(vmulq_f64(vbslq_s8(vcgtq_f64(*&a3[2 * v30], v40), *&a3[2 * v30], v40), v42));
-        *(&v83 + v30) = v44;
+        *(&v85 + v30) = v44;
         if (!a5)
         {
           break;
         }
 
-        *(&v83 + v30++) = vmul_f32(v44, v43);
+        *(&v85 + v30++) = vmul_f32(v44, v43);
         if (v30 == 4)
         {
           v45 = result + 16;
           *(*(result + 2) + 16) = 5;
-          v82 = 0;
-          v46.i64[0] = __PAIR64__(HIDWORD(v83), v83);
-          v47.i64[0] = __PAIR64__(DWORD1(v84), DWORD2(v83));
-          v47.i64[1] = __PAIR64__(DWORD1(v83), DWORD2(v84));
-          v46.i64[1] = __PAIR64__(HIDWORD(v84), v84);
+          v84 = 0;
+          v46.i64[0] = __PAIR64__(HIDWORD(v85), v85);
+          v47.i64[0] = __PAIR64__(DWORD1(v86), DWORD2(v85));
+          v47.i64[1] = __PAIR64__(DWORD1(v85), DWORD2(v86));
+          v46.i64[1] = __PAIR64__(HIDWORD(v86), v86);
           v48 = vaddq_f32(v47, v46);
           v49 = vdupq_n_s64(0x400721E8A7A4B61BuLL);
           v50 = vsubq_f64(v49, vdivq_f64(v49, vcvt_hight_f64_f32(v48)));
           v51 = vsubq_f64(v49, vdivq_f64(v49, vcvtq_f64_f32(*v48.f32)));
           v52 = vbslq_s8(vcgtq_f64(v50, _Q0), _Q0, v50);
           v53 = vbslq_s8(vcgtq_f64(v51, _Q0), _Q0, v51);
-          v72[0] = vcvt_hight_f32_f64(vcvt_f32_f64(vbicq_s8(v53, vcltzq_f64(v53))), vbicq_s8(v52, vcltzq_f64(v52)));
-          result = (*(*result + 536))(result, 1, &v83, &v82);
+          v74[0] = vcvt_hight_f32_f64(vcvt_f32_f64(vbicq_s8(v53, vcltzq_f64(v53))), vbicq_s8(v52, vcltzq_f64(v52)));
+          result = (*(*result + 536))(result, 1, &v85, &v84);
           goto LABEL_43;
         }
       }
@@ -5325,77 +5324,77 @@ CA::OGL::Context *CA::OGL::fill_uneven_round_rect_tex(CA::OGL::Context *result, 
     while (v30 != 4);
     v45 = result + 16;
     *(*(result + 2) + 16) = 5;
-    v82 = 0;
-    result = (*(*result + 528))(result, 1, &v83, &v82);
+    v84 = 0;
+    result = (*(*result + 528))(result, 1, &v85, &v84);
 LABEL_43:
-    if ((*(v9 + 152) & 0xFFFFFFFC) != 0)
+    if ((*(v9 + 38) & 0xFFFFFFFC) != 0)
     {
-      v54 = *(v9 + 136);
-      v72[1] = xmmword_183E20E60;
-      v75 = xmmword_183E20E60;
-      v78 = xmmword_183E20E60;
-      v81 = xmmword_183E20E60;
-      v72[0].f64[0] = v31;
-      v72[0].f64[1] = v32;
-      v73 = v39;
-      v74 = v32;
-      v76 = v31;
-      v77 = v69 + v32;
-      v79 = v39;
-      v80 = v69 + v32;
-      v55 = *a4;
-      *(v54 + 112) = *a4;
-      *(v54 + 16) = v55;
-      v56 = *(a4 + 8);
-      *(v54 + 160) = v56;
-      *(v54 + 64) = v56;
-      v57 = *(a4 + 4);
-      *(v54 + 68) = v57;
-      *(v54 + 20) = v57;
-      v58 = *(a4 + 12);
-      v59 = v82;
-      *(v54 + 116) = v58;
-      *(v54 + 120) = v59;
-      *(v54 + 164) = v58;
-      *(v54 + 168) = HIDWORD(v59);
-      *(v54 + 72) = HIDWORD(v59);
-      *(v54 + 76) = v59;
-      *(v54 + 24) = v59;
-      *(v54 + 28) = v59;
-      *(v54 + 172) = HIDWORD(v59);
-      *(v54 + 124) = HIDWORD(v59);
-      v60 = *(*v45 + 8);
-      *(v54 + 32) = v60;
-      *(v54 + 80) = v60;
-      *(v54 + 128) = v60;
-      *(v54 + 176) = v60;
-      v61 = *(a2 + 24);
-      if (v61)
+      v56 = *(v9 + 17);
+      v74[1] = xmmword_183E20E60;
+      v77 = xmmword_183E20E60;
+      v80 = xmmword_183E20E60;
+      v83 = xmmword_183E20E60;
+      v74[0].f64[0] = v31;
+      v74[0].f64[1] = v32;
+      v75 = v39;
+      v76 = v32;
+      v78 = v31;
+      v79 = v71 + v32;
+      v81 = v39;
+      v82 = v71 + v32;
+      v57 = *a4;
+      *(v56 + 112) = *a4;
+      *(v56 + 16) = v57;
+      v58 = *(a4 + 2);
+      *(v56 + 160) = v58;
+      *(v56 + 64) = v58;
+      v59 = *(a4 + 1);
+      *(v56 + 68) = v59;
+      *(v56 + 20) = v59;
+      v60 = *(a4 + 3);
+      v61 = v84;
+      *(v56 + 116) = v60;
+      *(v56 + 120) = v61;
+      *(v56 + 164) = v60;
+      *(v56 + 168) = HIDWORD(v61);
+      *(v56 + 72) = HIDWORD(v61);
+      *(v56 + 76) = v61;
+      *(v56 + 24) = v61;
+      *(v56 + 28) = v61;
+      *(v56 + 172) = HIDWORD(v61);
+      *(v56 + 124) = HIDWORD(v61);
+      v62 = *(*v45 + 8);
+      *(v56 + 32) = v62;
+      *(v56 + 80) = v62;
+      *(v56 + 128) = v62;
+      *(v56 + 176) = v62;
+      v63 = *(a2 + 24);
+      if (v63)
       {
-        v61(a2, v72, v54, 4);
+        v63(a2, v74, v56, 4);
       }
 
-      CA::OGL::transform_vertices(v72, v54, 4, *(a2 + 8));
-      v62 = *(a2 + 32);
-      if (v62)
+      CA::OGL::transform_vertices(v74, v56, 4, *(a2 + 8), v54, v55);
+      v64 = *(a2 + 32);
+      if (v64)
       {
-        v62(a2, v54, 4);
+        v64(a2, v56, 4);
       }
 
-      v63 = *(a2 + 20);
-      if ((v63 & 0xF) == 0 || (*(a2 + 16) & 9) == 0)
+      v65 = *(a2 + 20);
+      if ((v65 & 0xF) == 0 || (*(a2 + 16) & 9) == 0)
       {
         goto LABEL_55;
       }
 
-      if ((v63 & 4) != 0)
+      if ((v65 & 4) != 0)
       {
-        CA::OGL::aa_adjust_vertices(v54, (v54 + 96), 48, 2);
-        v63 = *(a2 + 20);
-        if ((v63 & 8) == 0)
+        CA::OGL::aa_adjust_vertices(v56, (v56 + 96), 48, 2);
+        v65 = *(a2 + 20);
+        if ((v65 & 8) == 0)
         {
 LABEL_52:
-          if ((v63 & 1) == 0)
+          if ((v65 & 1) == 0)
           {
             goto LABEL_53;
           }
@@ -5404,17 +5403,17 @@ LABEL_52:
         }
       }
 
-      else if ((v63 & 8) == 0)
+      else if ((v65 & 8) == 0)
       {
         goto LABEL_52;
       }
 
-      CA::OGL::aa_adjust_vertices((v54 + 96), v54, 48, 2);
-      v63 = *(a2 + 20);
-      if ((v63 & 1) == 0)
+      CA::OGL::aa_adjust_vertices((v56 + 96), v56, 48, 2);
+      v65 = *(a2 + 20);
+      if ((v65 & 1) == 0)
       {
 LABEL_53:
-        if ((v63 & 2) == 0)
+        if ((v65 & 2) == 0)
         {
           goto LABEL_55;
         }
@@ -5423,37 +5422,37 @@ LABEL_53:
       }
 
 LABEL_59:
-      CA::OGL::aa_adjust_vertices(v54, (v54 + 48), 96, 2);
+      CA::OGL::aa_adjust_vertices(v56, (v56 + 48), 96, 2);
       if ((*(a2 + 20) & 2) == 0)
       {
 LABEL_55:
-        v64 = CA::OGL::Context::need_transparent_source(v9);
+        v66 = CA::OGL::Context::need_transparent_source(v9);
         CA::OGL::emit_quad_indices(v9, *(a2 + 40), CA::OGL::fill_uneven_round_rect_tex(CA::OGL::Context &,CA::OGL::RectState const&,CA::Vec2<double> *,float const*,unsigned int)::indices, 4uLL, 4u);
         result = (*(*v9 + 560))(v9, 0, 0);
-        *(*(v9 + 16) + 16) = 0;
-        if (v64)
+        *(*(v9 + 2) + 16) = 0;
+        if (v66)
         {
-          v65 = vcvtq_f64_f32(*(v54 + 8));
-          v71[0] = vcvtq_f64_f32(*v54);
-          v71[1] = v65;
-          v66 = vcvtq_f64_f32(*(v54 + 56));
-          v71[2] = vcvtq_f64_f32(*(v54 + 48));
-          v71[3] = v66;
-          v67 = vcvtq_f64_f32(*(v54 + 152));
-          v71[4] = vcvtq_f64_f32(*(v54 + 144));
-          v71[5] = v67;
-          v68 = vcvtq_f64_f32(*(v54 + 104));
-          v71[6] = vcvtq_f64_f32(*(v54 + 96));
-          v71[7] = v68;
-          v70 = 0;
-          return CA::OGL::emit_quad_surround(v9, v71, &v70);
+          v67 = vcvtq_f64_f32(*(v56 + 8));
+          v73[0] = vcvtq_f64_f32(*v56);
+          v73[1] = v67;
+          v68 = vcvtq_f64_f32(*(v56 + 56));
+          v73[2] = vcvtq_f64_f32(*(v56 + 48));
+          v73[3] = v68;
+          v69 = vcvtq_f64_f32(*(v56 + 152));
+          v73[4] = vcvtq_f64_f32(*(v56 + 144));
+          v73[5] = v69;
+          v70 = vcvtq_f64_f32(*(v56 + 104));
+          v73[6] = vcvtq_f64_f32(*(v56 + 96));
+          v73[7] = v70;
+          v72 = 0;
+          return CA::OGL::emit_quad_surround(v9, v73, &v72);
         }
 
         return result;
       }
 
 LABEL_54:
-      CA::OGL::aa_adjust_vertices((v54 + 48), v54, 96, 2);
+      CA::OGL::aa_adjust_vertices((v56 + 48), v56, 96, 2);
       goto LABEL_55;
     }
   }
@@ -5490,7 +5489,7 @@ uint64_t CA::OGL::MaskNode::MaskRectState::map_(uint64_t result, float32x2_t *a2
   return result;
 }
 
-uint64_t CA::Layer::toggle_flipped(CA::Layer *this, CA::Transaction *a2)
+void *CA::Layer::toggle_flipped(CA::Layer *this, CA::Transaction *a2)
 {
   while (1)
   {
@@ -5881,7 +5880,7 @@ uint64_t CA::Render::ShapeLayer::get_keypath_object(CA::Render::ShapeLayer *this
   return *(this + v4);
 }
 
-CA::Render *CA::Render::morph_paths(CA::Render **this, CA::Render **a2, CA::Render::Path *a3, float a4)
+atomic_uint *CA::Render::morph_paths(atomic_uint *this, atomic_uint *a2, CA::Render::Path *a3, float a4)
 {
   v5 = this;
   v111 = *MEMORY[0x1E69E9840];
@@ -5894,7 +5893,7 @@ CA::Render *CA::Render::morph_paths(CA::Render **this, CA::Render **a2, CA::Rend
         return 0;
       }
 
-      v6 = (a2 + 1);
+      v6 = (a2 + 2);
       v5 = a2;
       if (!atomic_fetch_add(a2 + 2, 1u))
       {
@@ -5904,8 +5903,8 @@ CA::Render *CA::Render::morph_paths(CA::Render **this, CA::Render **a2, CA::Rend
       return v5;
     }
 
-    v8 = CA::Render::spline_count(this[4], this[5]);
-    v9 = CA::Render::spline_count(a2[4], a2[5]);
+    v8 = CA::Render::spline_count(*(this + 4), *(this + 5));
+    v9 = CA::Render::spline_count(*(a2 + 4), *(a2 + 5));
     v106 = v8;
     v107 = v9;
     if (v8 <= v9)
@@ -5969,7 +5968,7 @@ CA::Render *CA::Render::morph_paths(CA::Render **this, CA::Render **a2, CA::Rend
     }
 
     CA::Render::make_splines(*(v5 + 4), *(v5 + 5), v14);
-    splines = CA::Render::make_splines(a2[4], a2[5], v17);
+    splines = CA::Render::make_splines(*(a2 + 4), *(a2 + 5), v17);
     v23 = v106;
     v22 = v107;
     if (v106 >= v107)
@@ -6346,7 +6345,7 @@ LABEL_101:
 
   if (this)
   {
-    v6 = (this + 1);
+    v6 = (this + 2);
     if (!atomic_fetch_add(this + 2, 1u))
     {
 LABEL_8:
@@ -6358,7 +6357,7 @@ LABEL_8:
   return v5;
 }
 
-CA::Render *CA::Render::Path::mix@<X0>(CA::Render **this@<X0>, CA::Render **a2@<X1>, const CA::Render::ValueInterpolator *a3@<X2>, CA::Render **a4@<X8>)
+CA::Render *CA::Render::Path::mix@<X0>(atomic_uint *this@<X0>, atomic_uint *a2@<X1>, const CA::Render::ValueInterpolator *a3@<X2>, CA::Render **a4@<X8>)
 {
   v5 = *a3;
   result = CA::Render::morph_paths(this, a2, a3, v5);
@@ -6464,7 +6463,7 @@ LABEL_24:
   return v4;
 }
 
-__int128 *CA::Render::make_splines(__int128 *result, unsigned __int8 *a2, unint64_t a3)
+float64x2_t *CA::Render::make_splines(float64x2_t *result, unsigned __int8 *a2, unint64_t a3)
 {
   v5 = 0;
   v6 = 0;
@@ -6515,7 +6514,7 @@ __int128 *CA::Render::make_splines(__int128 *result, unsigned __int8 *a2, unint6
               CA::Render::compute_angles(v7, v20.f64, v19.f64);
               *(v7 + 64) = 0;
               v7 += 72;
-              result = v9 + 1;
+              result = (v9 + 1);
               v5 = v8;
               v6 = v9;
             }
@@ -6526,7 +6525,7 @@ __int128 *CA::Render::make_splines(__int128 *result, unsigned __int8 *a2, unint6
             v5 = 0;
             if (v8)
             {
-              if (*v6 == *v8 && v6[1] == v8[1])
+              if (*v6 == *v8 && *(v6 + 1) == *(v8 + 1))
               {
                 v5 = 0;
                 if (v7 > a3)
@@ -6561,13 +6560,13 @@ __int128 *CA::Render::make_splines(__int128 *result, unsigned __int8 *a2, unint6
         v20 = 0uLL;
         v15 = vaddq_f64(*result, *result);
         v16 = vmulq_f64(vaddq_f64(*v7, v15), v18);
-        v6 = (result + 1);
+        v6 = &result[1];
         v19 = vmulq_f64(vaddq_f64(*(v7 + 16), v15), v18);
         v20 = v16;
         CA::Render::compute_angles(v7, v20.f64, v19.f64);
         *(v7 + 64) = 0;
         v7 += 72;
-        result = v9 + 2;
+        result = (v9 + 2);
         v5 = v8;
       }
 
@@ -6577,12 +6576,12 @@ __int128 *CA::Render::make_splines(__int128 *result, unsigned __int8 *a2, unint6
       }
 
       *v7 = *v6;
-      v6 = (result + 2);
+      v6 = &result[2];
       *(v7 + 16) = result[2];
-      CA::Render::compute_angles(v7, result, result + 2);
+      CA::Render::compute_angles(v7, result->f64, result[1].f64);
       *(v7 + 64) = 0;
       v7 += 72;
-      result = v9 + 3;
+      result = (v9 + 3);
       v5 = v8;
     }
   }
@@ -6666,20 +6665,20 @@ LABEL_23:
   *(a1 + 56) = v21;
 }
 
-void CA::Render::mix_splines(CA::Render *a1, uint64_t a2, uint64_t a3, int a4, int a5, float a6)
+void CA::Render::mix_splines(CA::Render *result, uint64_t a2, uint64_t a3, int a4, int a5, float a6)
 {
   v7 = (a2 + 72 * a4);
   v8 = a6;
   v9 = a3 + 72 * a4;
-  v10 = (a1 + 72 * a5);
-  v11 = (a1 + 72 * a4);
+  v10 = (result + 72 * a5);
+  v11 = (result + 72 * a4);
   v12 = vmlaq_n_f64(v7[1], vsubq_f64(*(v9 + 16), v7[1]), v8);
   *v10 = v12;
   v11[1] = v12;
   v11[3].f64[1] = v7[3].f64[1] + (*(v9 + 56) - v7[3].f64[1]) * v8;
   v13 = a2 + 72 * a5;
   v14 = a3 + 72 * a5;
-  v10[3].f64[0] = *(v13 + 48) + (*(v14 + 48) - *(v13 + 48)) * v8;
+  v10[6] = *(v13 + 48) + (*(v14 + 48) - *(v13 + 48)) * v8;
   v15 = v7[2].f64[1];
   if ((*&v15 & 0x7FFFFFFFFFFFFFFFuLL) > 0x7FEFFFFFFFFFFFFFLL || v7[3].f64[1] == 0.0)
   {
@@ -6692,7 +6691,7 @@ void CA::Render::mix_splines(CA::Render *a1, uint64_t a2, uint64_t a3, int a4, i
 
   else if ((*(v9 + 40) & 0x7FFFFFFFFFFFFFFFuLL) <= 0x7FEFFFFFFFFFFFFFLL && *(v9 + 56) != 0.0)
   {
-    v15 = CA::Render::mix_angle(a1, v15, *(v9 + 40), a6);
+    v15 = CA::Render::mix_angle(result, v15, *(v9 + 40), a6);
   }
 
   v11[2].f64[1] = v15;
@@ -6713,11 +6712,11 @@ void CA::Render::mix_splines(CA::Render *a1, uint64_t a2, uint64_t a3, int a4, i
     v19 = *(v13 + 32);
     if (!v22)
     {
-      v19 = CA::Render::mix_angle(a1, v19, *(v14 + 32), a6);
+      v19 = CA::Render::mix_angle(result, v19, *(v14 + 32), a6);
     }
   }
 
-  v10[2].f64[0] = v19;
+  v10[4] = v19;
   LOWORD(v11[4].f64[0]) = *(v9 + 64);
 }
 
@@ -6756,7 +6755,7 @@ double CA::Render::mix_angle(CA::Render *this, double result, double a3, float a
   return result;
 }
 
-atomic_uint *CA::Render::ShapeLayer::set_keypath_object(atomic_uint *this, void *const *a2, CA::Render::Object *a3)
+atomic_uint *CA::Render::ShapeLayer::set_keypath_object(atomic_uint *this, void *const *a2, atomic_uint *a3)
 {
   v3 = *a2;
   if (*a2)
@@ -6821,7 +6820,7 @@ atomic_uint *CA::Render::ShapeLayer::set_keypath_object(atomic_uint *this, void 
 
         if (v4)
         {
-          v8 = (v4 + 8);
+          v8 = v4 + 2;
           if (!atomic_fetch_add(v4 + 2, 1u))
           {
             v4 = 0;
@@ -6980,7 +6979,7 @@ void CA::Render::Fence::ftimeout_callback(CA::Render::Fence *this, double a2, vo
         _os_log_error_impl(&dword_183AA6000, v10, OS_LOG_TYPE_ERROR, "timed out fence %llu\n", buf, 0xCu);
       }
 
-      v7 = std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::__emplace_unique_key_args<unsigned long long,unsigned long long const&>(CA::Render::Fence::cleared_f_names, v4[2]);
+      std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::__emplace_unique_key_args<unsigned long long,unsigned long long const&>(CA::Render::Fence::cleared_f_names, v4[2], v4 + 2);
       v4 = *v4;
       v5 = 1;
       if (!v4)
@@ -7322,7 +7321,6 @@ void CAImageQueueInvalidate(uint64_t a1)
       while ((*(a1 + 112) & 1) != 0);
     }
 
-    v3 = collectable_list;
     x_list_remove(collectable_list, a1);
     collectable_list = v3;
     v4 = *(a1 + 72);
@@ -7356,7 +7354,6 @@ void CAImageQueueInvalidate(uint64_t a1)
       while ((*(a1 + 160) & 1) != 0);
     }
 
-    v6 = composited_list;
     x_list_remove(composited_list, a1);
     composited_list = v6;
     *(a1 + 144) = 0;
@@ -7383,7 +7380,6 @@ void CAImageQueueInvalidate(uint64_t a1)
       while ((*(a1 + 136) & 1) != 0);
     }
 
-    v8 = presented_list;
     x_list_remove(presented_list, a1);
     presented_list = v8;
     *(a1 + 120) = 0;
@@ -7412,7 +7408,6 @@ void CAImageQueueInvalidate(uint64_t a1)
       while ((*(a1 + 176) & 1) != 0);
     }
 
-    v11 = display_change_list;
     x_list_remove(display_change_list, a1);
     display_change_list = v11;
     _Block_release(*(a1 + 168));
@@ -7648,7 +7643,7 @@ void CAImageQueueBuffer::~CAImageQueueBuffer(CAImageQueueBuffer *this, const CA:
   v3 = *(this + 3);
   if (v3 && atomic_fetch_add(v3 + 2, 0xFFFFFFFF) == 1)
   {
-    (*(*v3 + 16))(v3);
+    (*(*v3 + 16))(v3, a2);
   }
 
   --CA::Render::Object::_instance_counts[0];
@@ -7674,13 +7669,13 @@ void CAImageQueueBuffer::~CAImageQueueBuffer(CAImageQueueBuffer *this, const CA:
 void CA::Render::sync_req_timeout(os_unfair_lock_s *this, double a2, void *a3)
 {
   os_unfair_lock_lock(this + 13);
-  CA::Render::Context::check_sync_reqs(this, a2);
+  CA::Render::Context::check_sync_reqs(this, a2, v5, v6, v7, v8, v9);
   os_unfair_lock_unlock(this + 13);
   if (atomic_fetch_add(&this[2], 0xFFFFFFFF) == 1)
   {
-    v5 = *(*&this->_os_unfair_lock_opaque + 16);
+    v10 = *(*&this->_os_unfair_lock_opaque + 16);
 
-    v5(this);
+    v10(this);
   }
 }
 
@@ -7785,7 +7780,7 @@ LABEL_9:
 LABEL_10:
   if ((*a6)(a4, a3))
   {
-    v27 = a3[1].n128_i64[0];
+    v27 = a3[1].n128_u64[0];
     v28 = *a3;
     v29 = a4[1].n128_u64[0];
     *a3 = *a4;
@@ -7816,7 +7811,7 @@ LABEL_10:
 
   if ((*a6)(a5, a4))
   {
-    v37 = a4[1].n128_i64[0];
+    v37 = a4[1].n128_u64[0];
     v38 = *a4;
     v39 = a5[1].n128_u64[0];
     *a4 = *a5;
@@ -7825,7 +7820,7 @@ LABEL_10:
     a5[1].n128_u64[0] = v37;
     if ((*a6)(a4, a3))
     {
-      v40 = a3[1].n128_i64[0];
+      v40 = a3[1].n128_u64[0];
       v41 = *a3;
       v42 = a4[1].n128_u64[0];
       *a3 = *a4;
@@ -8281,17 +8276,17 @@ void CA::WindowServer::IOMFBServer::post_power_notification(CA::WindowServer::IO
   }
 }
 
-void CA::IOMobileFramebuffer::set_power_state(CA::IOMobileFramebuffer *this)
+void CA::IOMobileFramebuffer::set_power_state(CA::IOMobileFramebuffer *this, char a2)
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
   if (*(this + 8) == 1)
   {
-    v1[0] = 0;
-    v1[1] = v1;
-    v1[2] = 0x2000000000;
-    v2 = 0;
+    v2[0] = 0;
+    v2[1] = v2;
+    v2[2] = 0x2000000000;
+    v3 = 0;
     BMMonitorBlockExecutionWithSignature();
-    _Block_object_dispose(v1, 8);
+    _Block_object_dispose(v2, 8);
   }
 
   else
@@ -8301,9 +8296,9 @@ void CA::IOMobileFramebuffer::set_power_state(CA::IOMobileFramebuffer *this)
   }
 }
 
-uint64_t CA::WindowServer::IOMFBDisplay::update_power_state_locked(CA::WindowServer::IOMFBDisplay *this, int a2)
+uint64_t CA::WindowServer::IOMFBDisplay::update_power_state_locked(CA::WindowServer::IOMFBDisplay *this, unsigned int a2)
 {
-  v57 = *MEMORY[0x1E69E9840];
+  v58 = *MEMORY[0x1E69E9840];
   v4 = this + 28672;
   v5 = *(this + 96);
   v6 = (v5 + 4);
@@ -8338,25 +8333,25 @@ uint64_t CA::WindowServer::IOMFBDisplay::update_power_state_locked(CA::WindowSer
       v14 = *(v4 + 58) != 0;
       *buf = 67110656;
       *&buf[4] = v10;
-      LOWORD(v49) = 1024;
-      *(&v49 + 2) = v11;
-      HIWORD(v49) = 1024;
-      *v50 = v12;
-      *&v50[4] = 1024;
-      *&v50[6] = v8;
-      v51 = 1024;
-      v52 = a2;
-      v53 = 1024;
-      v54 = v13;
-      v55 = 1024;
-      v56 = v14;
+      LOWORD(v50) = 1024;
+      *(&v50 + 2) = v11;
+      HIWORD(v50) = 1024;
+      *v51 = v12;
+      *&v51[4] = 1024;
+      *&v51[6] = v8;
+      v52 = 1024;
+      v53 = a2;
+      v54 = 1024;
+      v55 = v13;
+      v56 = 1024;
+      v57 = v14;
       _os_log_impl(&dword_183AA6000, v9, OS_LOG_TYPE_DEFAULT, "IOMFBDisplay::update_power_state display_id=%u current_power_state=%i target_power_state=%i new_target_power_state=%i sync=%i raw_power_state=%i power_assertions=%i", buf, 0x2Cu);
     }
   }
 
   *buf = this;
-  v49 = v6;
-  *v50 = v7;
+  v50 = v6;
+  *v51 = v7;
   v15 = atomic_load(v7);
   if (v15 == v8)
   {
@@ -8378,27 +8373,27 @@ uint64_t CA::WindowServer::IOMFBDisplay::update_power_state_locked(CA::WindowSer
   atomic_store(v8, v7);
   v17 = atomic_load(v7);
   os_unfair_lock_lock(this + 6576);
-  CA::WindowServer::IOMFBDisplay::initialize_timings(this);
-  v18 = *(this + 3290);
-  if (v18)
+  CA::WindowServer::IOMFBDisplay::initialize_timings(this, v18);
+  v19 = *(this + 3290);
+  if (v19)
   {
-    atomic_store(v17 == 1, (v18 + 1));
+    atomic_store(v17 == 1, (v19 + 1));
   }
 
   os_unfair_lock_unlock(this + 6576);
-  v43 = 0;
-  v42 = 0x100000000;
-  LODWORD(v42) = *(this + 6);
+  v44 = 0;
+  v43 = 0x100000000;
+  LODWORD(v43) = *(this + 6);
   IOMobileFramebufferGetDigitalOutState();
-  HIWORD(v42) = v17 == 1;
-  CA::Render::post_notification(0x35u, 0, &v42, 0);
-  v19 = *(this + 3220);
-  if (!v19)
+  HIWORD(v43) = v17 == 1;
+  CA::Render::post_notification(0x35u, 0, &v43, 0);
+  v20 = *(this + 3220);
+  if (!v20)
   {
     goto LABEL_25;
   }
 
-  if (*v19)
+  if (*v20)
   {
     if (v17 == 1)
     {
@@ -8408,44 +8403,44 @@ uint64_t CA::WindowServer::IOMFBDisplay::update_power_state_locked(CA::WindowSer
     goto LABEL_21;
   }
 
-  v20 = sil_mgr_instance(0, 0xFFFFFFFFLL);
-  *v19 = v20;
-  if (v20 && v17 != 1)
+  v21 = sil_mgr_instance(0, 0xFFFFFFFFLL);
+  *v20 = v21;
+  if (v21 && v17 != 1)
   {
 LABEL_21:
-    v21 = (this + 26804);
+    v22 = (this + 26804);
     os_unfair_lock_lock(this + 6701);
     IOMobileFramebufferSwapSetIndicatorBrightness();
     CA::WindowServer::SILMgr::set_power(*(this + 3220), 0, 1);
     CA::WindowServer::IOMFBDisplay::SecureIndicator::set_state(this + 25760, 1);
     CA::WindowServer::IOMFBDisplay::post_secure_indicator_statistics_power_log(this);
 LABEL_29:
-    os_unfair_lock_unlock(v21);
+    os_unfair_lock_unlock(v22);
     goto LABEL_30;
   }
 
-  v22 = *(this + 3220);
-  if (v22)
+  v23 = *(this + 3220);
+  if (v23)
   {
-    if (*v22)
+    if (*v23)
     {
       goto LABEL_30;
     }
 
-    v23 = sil_mgr_instance(0, 0xFFFFFFFFLL);
-    *v22 = v23;
-    v24 = v23 != 0;
+    v24 = sil_mgr_instance(0, 0xFFFFFFFFLL);
+    *v23 = v24;
+    v25 = v24 != 0;
   }
 
   else
   {
 LABEL_25:
-    v24 = 0;
+    v25 = 0;
   }
 
-  if (!v24 && v17 == 1)
+  if (!v25 && v17 == 1)
   {
-    v21 = (this + 26804);
+    v22 = (this + 26804);
     os_unfair_lock_lock(this + 6701);
     CA::WindowServer::IOMFBDisplay::SecureIndicator::set_state(this + 25760, 0);
     goto LABEL_29;
@@ -8457,36 +8452,36 @@ LABEL_30:
     dispatch_once(&x_log_get_windowserver(void)::once, &__block_literal_global_17283);
   }
 
-  v25 = x_log_get_windowserver(void)::log;
+  v26 = x_log_get_windowserver(void)::log;
   if (os_log_type_enabled(x_log_get_windowserver(void)::log, OS_LOG_TYPE_DEFAULT))
   {
-    v26 = *(this + 6);
-    *v44 = 67109376;
-    v45 = v26;
-    v46 = 1024;
-    v47 = v17 == 1;
-    _os_log_impl(&dword_183AA6000, v25, OS_LOG_TYPE_DEFAULT, "Display %u set power state %d", v44, 0xEu);
+    v27 = *(this + 6);
+    *v45 = 67109376;
+    v46 = v27;
+    v47 = 1024;
+    v48 = v17 == 1;
+    _os_log_impl(&dword_183AA6000, v26, OS_LOG_TYPE_DEFAULT, "Display %u set power state %d", v45, 0xEu);
   }
 
-  CA::IOMobileFramebuffer::set_power_state((this + 25696));
+  CA::IOMobileFramebuffer::set_power_state((this + 25696), v17 == 1);
   if (atomic_load(v7))
   {
     *(this + 3416) = 0;
-    v28 = (*(this + 336) >> 10) & 7;
-    if (v28 == 1)
+    v29 = (*(this + 336) >> 10) & 7;
+    if (v29 == 1)
     {
       (*(*this + 824))(this, 1);
     }
 
-    else if (!v28 && *(this + 3341) >= 2uLL)
+    else if (!v29 && *(this + 3341) >= 2uLL)
     {
       current_iomfb_mode = CA::WindowServer::IOMFBDisplay::fetch_current_iomfb_mode(this);
-      if (!current_iomfb_mode || (v30 = vshrn_n_s64(current_iomfb_mode, 0x1DuLL), v31.i64[0] = v30.i32[0] & 0x1FFFFFF, v31.i64[1] = v30.i32[1] & 0x1FFFFFF, v32 = vbslq_s8(vdupq_n_s64(0x3FFFFFE0000000uLL), vshlq_n_s64(vcvtq_u64_f64(vmulq_f64(vrndaq_f64(vmulq_f64(vcvtq_f64_u64(v31), vdupq_n_s64(0x3F59000000000000uLL))), vdupq_n_s64(0x40847AE147AE147BuLL))), 0x1DuLL), current_iomfb_mode), (vmovn_s64(vceqq_s64(v32, vdupq_laneq_s64(v32, 1))).u8[0] & 1) != 0))
+      if (!current_iomfb_mode || (v31 = vshrn_n_s64(current_iomfb_mode, 0x1DuLL), v32.i64[0] = v31.i32[0] & 0x1FFFFFF, v32.i64[1] = v31.i32[1] & 0x1FFFFFF, v33 = vbslq_s8(vdupq_n_s64(0x3FFFFFE0000000uLL), vshlq_n_s64(vcvtq_u64_f64(vmulq_f64(vrndaq_f64(vmulq_f64(vcvtq_f64_u64(v32), vdupq_n_s64(0x3F59000000000000uLL))), vdupq_n_s64(0x40847AE147AE147BuLL))), 0x1DuLL), current_iomfb_mode), (vmovn_s64(vceqq_s64(v33, vdupq_laneq_s64(v33, 1))).u8[0] & 1) != 0))
       {
         current_iomfb_mode = *(this + 83);
       }
 
-      if (*(this + 3415) != current_iomfb_mode && (v33.i64[0] = *(this + 3415), v33.i64[1] = current_iomfb_mode, v34 = vshrn_n_s64(v33, 0x1DuLL), v35.i64[0] = v34.i32[0] & 0x1FFFFFF, v35.i64[1] = v34.i32[1] & 0x1FFFFFF, v36 = vbslq_s8(vdupq_n_s64(0x3FFFFFE0000000uLL), vshlq_n_s64(vcvtq_u64_f64(vmulq_f64(vrndaq_f64(vmulq_f64(vcvtq_f64_u64(v35), vdupq_n_s64(0x3F59000000000000uLL))), vdupq_n_s64(0x40847AE147AE147BuLL))), 0x1DuLL), v33), (vmovn_s64(vceqq_s64(v36, vdupq_laneq_s64(v36, 1))).u8[0] & 1) == 0) || v4[904] == 1)
+      if (*(this + 3415) != current_iomfb_mode && (v34.i64[0] = *(this + 3415), v34.i64[1] = current_iomfb_mode, v35 = vshrn_n_s64(v34, 0x1DuLL), v36.i64[0] = v35.i32[0] & 0x1FFFFFF, v36.i64[1] = v35.i32[1] & 0x1FFFFFF, v37 = vbslq_s8(vdupq_n_s64(0x3FFFFFE0000000uLL), vshlq_n_s64(vcvtq_u64_f64(vmulq_f64(vrndaq_f64(vmulq_f64(vcvtq_f64_u64(v36), vdupq_n_s64(0x3F59000000000000uLL))), vdupq_n_s64(0x40847AE147AE147BuLL))), 0x1DuLL), v34), (vmovn_s64(vceqq_s64(v37, vdupq_laneq_s64(v37, 1))).u8[0] & 1) == 0) || v4[904] == 1)
       {
         *(this + 3415) = current_iomfb_mode;
         pthread_mutex_lock(this + 9);
@@ -8499,8 +8494,8 @@ LABEL_30:
 
   else
   {
-    v37 = atomic_load(v7);
-    atomic_store(v37, v6);
+    v38 = atomic_load(v7);
+    atomic_store(v38, v6);
     v4[855] = 0;
     if (v4[912] == 1)
     {
@@ -8510,16 +8505,16 @@ LABEL_30:
         dispatch_once(&x_log_get_windowserver(void)::once, &__block_literal_global_17283);
       }
 
-      v38 = x_log_get_windowserver(void)::log;
+      v39 = x_log_get_windowserver(void)::log;
       if (os_log_type_enabled(x_log_get_windowserver(void)::log, OS_LOG_TYPE_DEFAULT))
       {
-        *v44 = 0;
-        _os_log_impl(&dword_183AA6000, v38, OS_LOG_TYPE_DEFAULT, "DBVFlashWorkaround: reset", v44, 2u);
+        *v45 = 0;
+        _os_log_impl(&dword_183AA6000, v39, OS_LOG_TYPE_DEFAULT, "DBVFlashWorkaround: reset", v45, 2u);
       }
     }
 
-    CA::WindowServer::IOMFBDisplay::collect_frame_info(&v41, this, 0);
-    std::unique_ptr<CA::WindowServer::IOMFBDisplay::FrameInfo>::reset[abi:nn200100](&v41, 0);
+    CA::WindowServer::IOMFBDisplay::collect_frame_info(&v42, this, 0);
+    std::unique_ptr<CA::WindowServer::IOMFBDisplay::FrameInfo>::reset[abi:nn200100](&v42, 0);
   }
 
   CA::WindowServer::IOMFBDisplay::set_timings_enabled(this, v17 == 1);
@@ -8528,15 +8523,15 @@ LABEL_30:
     notify_post("com.apple.CoreAnimation.CAWindowServer.DisplayPower");
   }
 
-  BYTE4(v42) = 0;
-  CA::Render::post_notification(0x35u, 0, &v42, 0);
+  BYTE4(v43) = 0;
+  CA::Render::post_notification(0x35u, 0, &v43, 0);
   CA::WindowServer::IOMFBDisplay::set_needs_icc_reload(this);
   CA::WindowServer::IOMFBDisplay::update_fastest_display(this);
   if (a2)
   {
 LABEL_55:
-    v39 = atomic_load(v7);
-    if (v39 == 1)
+    v40 = atomic_load(v7);
+    if (v40 == 1)
     {
       CA::WindowServer::IOMFBDisplay::update_power_state_locked(BOOL)::$_0::operator()(buf);
     }
@@ -8599,10 +8594,10 @@ uint64_t CA::WindowServer::IOMFBDisplay::fetch_current_iomfb_mode(CA::WindowServ
 
   v6 = (this + 27320);
   *buf = this + 27320;
-  if (!*(std::__hash_table<std::__hash_value_type<CA::WindowServer::Display::Mode,CA::WindowServer::IOMFBDisplay::ModeInfo>,std::__unordered_map_hasher<CA::WindowServer::Display::Mode,std::__hash_value_type<CA::WindowServer::Display::Mode,CA::WindowServer::IOMFBDisplay::ModeInfo>,CA::WindowServer::IOMFBDisplay::ModeHash,std::equal_to<CA::WindowServer::Display::Mode>,true>,std::__unordered_map_equal<CA::WindowServer::Display::Mode,std::__hash_value_type<CA::WindowServer::Display::Mode,CA::WindowServer::IOMFBDisplay::ModeInfo>,std::equal_to<CA::WindowServer::Display::Mode>,CA::WindowServer::IOMFBDisplay::ModeHash,true>,std::allocator<std::__hash_value_type<CA::WindowServer::Display::Mode,CA::WindowServer::IOMFBDisplay::ModeInfo>>>::__emplace_unique_key_args<CA::WindowServer::Display::Mode,std::piecewise_construct_t const&,std::tuple<CA::WindowServer::Display::Mode const&>,std::tuple<>>(this + 3338, *(this + 3415)) + 6))
+  if (!*(std::__hash_table<std::__hash_value_type<CA::WindowServer::Display::Mode,CA::WindowServer::IOMFBDisplay::ModeInfo>,std::__unordered_map_hasher<CA::WindowServer::Display::Mode,std::__hash_value_type<CA::WindowServer::Display::Mode,CA::WindowServer::IOMFBDisplay::ModeInfo>,CA::WindowServer::IOMFBDisplay::ModeHash,std::equal_to<CA::WindowServer::Display::Mode>,true>,std::__unordered_map_equal<CA::WindowServer::Display::Mode,std::__hash_value_type<CA::WindowServer::Display::Mode,CA::WindowServer::IOMFBDisplay::ModeInfo>,std::equal_to<CA::WindowServer::Display::Mode>,CA::WindowServer::IOMFBDisplay::ModeHash,true>,std::allocator<std::__hash_value_type<CA::WindowServer::Display::Mode,CA::WindowServer::IOMFBDisplay::ModeInfo>>>::__emplace_unique_key_args<CA::WindowServer::Display::Mode,std::piecewise_construct_t const&,std::tuple<CA::WindowServer::Display::Mode const&>,std::tuple<>>(this + 6676, *(this + 3415), buf) + 6))
   {
     *buf = this + 27320;
-    if (!*(std::__hash_table<std::__hash_value_type<CA::WindowServer::Display::Mode,CA::WindowServer::IOMFBDisplay::ModeInfo>,std::__unordered_map_hasher<CA::WindowServer::Display::Mode,std::__hash_value_type<CA::WindowServer::Display::Mode,CA::WindowServer::IOMFBDisplay::ModeInfo>,CA::WindowServer::IOMFBDisplay::ModeHash,std::equal_to<CA::WindowServer::Display::Mode>,true>,std::__unordered_map_equal<CA::WindowServer::Display::Mode,std::__hash_value_type<CA::WindowServer::Display::Mode,CA::WindowServer::IOMFBDisplay::ModeInfo>,std::equal_to<CA::WindowServer::Display::Mode>,CA::WindowServer::IOMFBDisplay::ModeHash,true>,std::allocator<std::__hash_value_type<CA::WindowServer::Display::Mode,CA::WindowServer::IOMFBDisplay::ModeInfo>>>::__emplace_unique_key_args<CA::WindowServer::Display::Mode,std::piecewise_construct_t const&,std::tuple<CA::WindowServer::Display::Mode const&>,std::tuple<>>(this + 3338, *v6) + 7))
+    if (!*(std::__hash_table<std::__hash_value_type<CA::WindowServer::Display::Mode,CA::WindowServer::IOMFBDisplay::ModeInfo>,std::__unordered_map_hasher<CA::WindowServer::Display::Mode,std::__hash_value_type<CA::WindowServer::Display::Mode,CA::WindowServer::IOMFBDisplay::ModeInfo>,CA::WindowServer::IOMFBDisplay::ModeHash,std::equal_to<CA::WindowServer::Display::Mode>,true>,std::__unordered_map_equal<CA::WindowServer::Display::Mode,std::__hash_value_type<CA::WindowServer::Display::Mode,CA::WindowServer::IOMFBDisplay::ModeInfo>,std::equal_to<CA::WindowServer::Display::Mode>,CA::WindowServer::IOMFBDisplay::ModeHash,true>,std::allocator<std::__hash_value_type<CA::WindowServer::Display::Mode,CA::WindowServer::IOMFBDisplay::ModeInfo>>>::__emplace_unique_key_args<CA::WindowServer::Display::Mode,std::piecewise_construct_t const&,std::tuple<CA::WindowServer::Display::Mode const&>,std::tuple<>>(this + 6676, *v6, buf) + 7))
     {
       return *v6;
     }
@@ -8761,7 +8756,7 @@ uint64_t CA::OGL::Context::purge(os_unfair_lock_s *this, char a2)
   os_unfair_lock_lock(this + 178);
   for (i = *&this[184]._os_unfair_lock_opaque; i; i = std::__hash_table<std::__hash_value_type<CA::OGL::Context::RenderObjectSlice,CA::OGL::Image *>,std::__unordered_map_hasher<CA::OGL::Context::RenderObjectSlice,std::__hash_value_type<CA::OGL::Context::RenderObjectSlice,CA::OGL::Image *>,CA::OGL::Context::RenderObjectSlice::Hash,std::equal_to<CA::OGL::Context::RenderObjectSlice>,true>,std::__unordered_map_equal<CA::OGL::Context::RenderObjectSlice,std::__hash_value_type<CA::OGL::Context::RenderObjectSlice,CA::OGL::Image *>,std::equal_to<CA::OGL::Context::RenderObjectSlice>,CA::OGL::Context::RenderObjectSlice::Hash,true>,std::allocator<std::__hash_value_type<CA::OGL::Context::RenderObjectSlice,CA::OGL::Image *>>>::erase(&this[180]._os_unfair_lock_opaque, i))
   {
-    CA::OGL::Context::prepend_deleted_image(this, i[4]);
+    CA::OGL::Context::prepend_deleted_image(this, *(i + 32));
   }
 
   os_unfair_lock_unlock(this + 178);
@@ -8948,14 +8943,14 @@ uint64_t Transition::begin(os_unfair_lock_s *a1, uint64_t a2, uint64_t a3, const
       v13 = a2;
       v14 = *&a1[2]._os_unfair_lock_opaque;
       v15 = (*&a1[4]._os_unfair_lock_opaque)(v9);
-      v16._os_unfair_lock_opaque = a1->_os_unfair_lock_opaque;
+      os_unfair_lock_opaque = a1->_os_unfair_lock_opaque;
       *buf = 136315906;
       v25 = v14;
       a2 = v13;
       v26 = 2080;
       v27 = v15;
       v28 = 1024;
-      os_unfair_lock_opaque = v16._os_unfair_lock_opaque;
+      v29 = os_unfair_lock_opaque;
       v30 = 1024;
       v31 = os_unfair_lock_opaque_low;
       _os_log_impl(&dword_183AA6000, v12, OS_LOG_TYPE_DEFAULT, "CADisplayStateControl %s=%s display_id=%u seed=%u interrupted", buf, 0x22u);
@@ -8976,13 +8971,13 @@ uint64_t Transition::begin(os_unfair_lock_s *a1, uint64_t a2, uint64_t a3, const
   {
     v18 = *&a1[2]._os_unfair_lock_opaque;
     v19 = (*&a1[4]._os_unfair_lock_opaque)(a3);
-    v20._os_unfair_lock_opaque = a1->_os_unfair_lock_opaque;
+    v20 = a1->_os_unfair_lock_opaque;
     *buf = 136316162;
     v25 = v18;
     v26 = 2080;
     v27 = v19;
     v28 = 1024;
-    os_unfair_lock_opaque = v20._os_unfair_lock_opaque;
+    v29 = v20;
     v30 = 1024;
     v31 = v11;
     v32 = 2048;
@@ -9130,8 +9125,10 @@ uint64_t _XSetDisplayState(uint64_t result, uint64_t a2)
   return result;
 }
 
-uint64_t CA::WindowServer::Server::set_display_state(uint64_t a1, uint64_t a2, int a3, mach_port_t a4)
+uint64_t CA::WindowServer::Server::set_display_state(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
+  v4 = a4;
+  v5 = a3;
   v74 = *MEMORY[0x1E69E9840];
   pthread_mutex_lock((a1 + 24));
   v8 = *(a1 + 96);
@@ -9189,7 +9186,7 @@ uint64_t CA::WindowServer::Server::set_display_state(uint64_t a1, uint64_t a2, i
     LODWORD(buf[0]) = 67110146;
     HIDWORD(buf[0]) = v13;
     LOWORD(buf[1]) = 1024;
-    *(&buf[1] + 2) = a3;
+    *(&buf[1] + 2) = v5;
     HIWORD(buf[1]) = 2080;
     buf[2] = v16;
     LOWORD(buf[3]) = 2080;
@@ -9549,7 +9546,7 @@ LABEL_42:
     LODWORD(buf[0]) = 67110146;
     HIDWORD(buf[0]) = v34;
     LOWORD(buf[1]) = 1024;
-    *(&buf[1] + 2) = a3;
+    *(&buf[1] + 2) = v5;
     HIWORD(buf[1]) = 2080;
     buf[2] = v37;
     LOWORD(buf[3]) = 2080;
@@ -9559,7 +9556,7 @@ LABEL_42:
     _os_log_impl(&dword_183AA6000, v33, OS_LOG_TYPE_DEFAULT, "Server::set_display_state display_id=%u seed=%u current_state=%s target_state=%s result=%s", buf, 0x2Cu);
   }
 
-  if (a4)
+  if (v4)
   {
     if (v21 == 255)
     {
@@ -9569,8 +9566,8 @@ LABEL_42:
       }
 
       *(v9 + 808) = a2;
-      *(v9 + 816) = a3;
-      *(v9 + 812) = a4;
+      *(v9 + 816) = v5;
+      *(v9 + 812) = v4;
     }
 
     else
@@ -9601,8 +9598,8 @@ LABEL_42:
         _os_log_impl(&dword_183AA6000, v42, OS_LOG_TYPE_DEFAULT, "signal clients display %u state changed to %s", buf, 0x12u);
       }
 
-      _CACDisplayStateDidChange(a4, *(*(a1 + 96) + 24), a2, a3, v21);
-      mach_port_deallocate(*MEMORY[0x1E69E9A60], a4);
+      _CACDisplayStateDidChange(v4, *(*(a1 + 96) + 24), a2, v5, v21);
+      mach_port_deallocate(*MEMORY[0x1E69E9A60], v4);
     }
   }
 
@@ -9611,7 +9608,7 @@ LABEL_42:
   return pthread_mutex_unlock((a1 + 24));
 }
 
-uint64_t CA::WindowServer::Server::set_display_state(CA::WindowServer::Server *this, CA::Render::Object *a2, unsigned __int8 *a3, void *a4)
+uint64_t CA::WindowServer::Server::set_display_state(CA::WindowServer::Server *this, CA::Render::Object *a2, _BYTE *a3, void *a4)
 {
   if (*a3 == *(*(a2 + 12) + 24))
   {
@@ -9681,7 +9678,7 @@ atomic_uint *CA::WindowServer::Server::destroy_blank_context(CA::WindowServer::S
 
 void CA::Render::Context::destroy(CA::Render::Context *this)
 {
-  v63[1] = *MEMORY[0x1E69E9840];
+  v66[1] = *MEMORY[0x1E69E9840];
   CA::Render::Context::run_scheduled_dependence_removals(this);
   pthread_mutex_lock((this + 72));
   v2 = *(this + 3);
@@ -9722,8 +9719,7 @@ void CA::Render::Context::destroy(CA::Render::Context *this)
             atomic_fetch_add(v6, 0xFFFFFFFF);
           }
 
-          v7 = *(v3[12] + 456);
-          x_list_remove(v7, v3);
+          x_list_remove(*(v3[12] + 456), v3);
           *(v3[12] + 456) = v7;
           v3[12] = 0;
         }
@@ -9834,20 +9830,20 @@ LABEL_41:
         if (v20)
         {
           *&v20[13] |= 8uLL;
-          CA::Render::Context::invalidate(v4, v20 + 15, v22);
+          CA::Render::Context::invalidate(v4, v20 + 15, v22, v23, v24);
         }
 
-        v23 = CA::Render::Context::copy_dirty_shape(this, v21);
-        if (v23)
+        v25 = CA::Render::Context::copy_dirty_shape(this, v21);
+        if (v25)
         {
-          v25 = v23;
-          CA::Render::Context::invalidate(v4, v23, v24);
-          CA::Shape::unref(v25);
+          v27 = v25;
+          CA::Render::Context::invalidate(v4, v25, v26);
+          CA::Shape::unref(v27);
           pthread_mutex_lock((this + 72));
-          v26 = *(this + 76);
-          if (v26)
+          v28 = *(this + 76);
+          if (v28)
           {
-            CA::Shape::unref(v26);
+            CA::Shape::unref(v28);
           }
 
           *(this + 76) = 1;
@@ -9865,123 +9861,123 @@ LABEL_41:
 
 LABEL_49:
     CA::Render::post_notification(2u, this, 0, 1);
-    CA::Render::remove_every_observer(this, v27);
+    CA::Render::remove_every_observer(this, v29);
     os_unfair_lock_lock(&CA::Render::Context::_context_lock);
-    v28 = x_hash_table_remove(CA::Render::Context::_context_table, *(this + 4));
-    v29 = *(this + 21);
-    v30 = *(this + 22);
-    v31 = v30 - v29;
-    if (v30 == v29)
+    v30 = x_hash_table_remove(CA::Render::Context::_context_table, *(this + 4));
+    v31 = *(this + 21);
+    v32 = *(this + 22);
+    v33 = v32 - v31;
+    if (v32 == v31)
     {
-      v32 = 0;
-      v33 = 0;
       v34 = 0;
+      v35 = 0;
+      v36 = 0;
     }
 
     else
     {
-      if (v31 > 0x1000)
+      if (v33 > 0x1000)
       {
-        v32 = malloc_type_malloc(v30 - v29, 0x1D5207CuLL);
-        v29 = *(this + 21);
-        v30 = *(this + 22);
+        v34 = malloc_type_malloc(v32 - v31, 0x1D5207CuLL);
+        v31 = *(this + 21);
+        v32 = *(this + 22);
       }
 
       else
       {
-        MEMORY[0x1EEE9AC00](v28);
-        v32 = v63 - ((v31 + 15) & 0xFFFFFFFFFFFFFFF0);
-        bzero(v32, v30 - v29);
+        MEMORY[0x1EEE9AC00](v30);
+        v34 = v66 - ((v33 + 15) & 0xFFFFFFFFFFFFFFF0);
+        bzero(v34, v32 - v31);
       }
 
-      if (v29 == v30)
+      if (v31 == v32)
       {
-        v34 = 0;
+        v36 = 0;
       }
 
       else
       {
-        v35 = 0;
-        v36 = v29;
+        v37 = 0;
+        v38 = v31;
         do
         {
-          v37 = *v36;
-          v36 += 2;
-          v34 = v35 + 1;
-          *&v32[8 * v35] = x_hash_table_remove(CA::Render::Context::_slot_table, v37);
-          CA::Render::post_notification(0x39u, 0, v29, 0);
-          ++v35;
-          v29 = v36;
+          v39 = *v38;
+          v38 += 2;
+          v36 = v37 + 1;
+          *&v34[8 * v37] = x_hash_table_remove(CA::Render::Context::_slot_table, v39);
+          CA::Render::post_notification(0x39u, 0, v31, 0);
+          ++v37;
+          v31 = v38;
         }
 
-        while (v36 != v30);
+        while (v38 != v32);
       }
 
-      v33 = v31 > 0x1000;
+      v35 = v33 > 0x1000;
     }
 
-    v38 = *(this + 62);
-    v39 = MEMORY[0x1E69E9A60];
-    if (v38)
+    v40 = *(this + 62);
+    v41 = MEMORY[0x1E69E9A60];
+    if (v40)
     {
-      mach_port_mod_refs(*MEMORY[0x1E69E9A60], v38, 1u, -1);
-      mach_port_deallocate(*v39, *(this + 62));
+      mach_port_mod_refs(*MEMORY[0x1E69E9A60], v40, 1u, -1);
+      mach_port_deallocate(*v41, *(this + 62));
       x_hash_table_remove(CA::Render::Context::_port_table, *(this + 62));
       *(this + 62) = 0;
     }
 
-    v41 = (this + 252);
-    v40 = *(this + 63);
-    if (v40)
+    v43 = (this + 252);
+    v42 = *(this + 63);
+    if (v42)
     {
-      mach_port_destruct(*v39, v40, 0, this + 252);
-      x_hash_table_remove(CA::Render::Context::_port_table, *v41);
-      *v41 = 0;
+      mach_port_destruct(*v41, v42, 0, this + 252);
+      x_hash_table_remove(CA::Render::Context::_port_table, *v43);
+      *v43 = 0;
     }
 
     os_unfair_lock_unlock(&CA::Render::Context::_context_lock);
     os_unfair_lock_lock(&CA::Render::Context::_image_queues_lock);
-    v42 = *(this + 45);
-    v43 = *(this + 46);
-    if (v42 != v43)
+    v44 = *(this + 45);
+    v45 = *(this + 46);
+    if (v44 != v45)
     {
-      v44 = *(this + 45);
+      v46 = *(this + 45);
       do
       {
-        v45 = *v44++;
-        *(v45 + 512) = 0;
+        v47 = *v46++;
+        *(v47 + 512) = 0;
       }
 
-      while (v44 != v43);
+      while (v46 != v45);
     }
 
-    *(this + 46) = v42;
+    *(this + 46) = v44;
     os_unfair_lock_unlock(&CA::Render::Context::_image_queues_lock);
     pthread_mutex_lock((this + 72));
-    if (v34)
+    if (v36)
     {
-      v47 = v32;
+      v50 = v34;
       do
       {
-        v48 = *v47;
-        if (*v47 && atomic_fetch_add(v48 + 2, 0xFFFFFFFF) == 1)
+        v51 = *v50;
+        if (*v50 && atomic_fetch_add(v51 + 2, 0xFFFFFFFF) == 1)
         {
-          (*(*v48 + 16))(v48);
+          (*(*v51 + 16))(v51);
         }
 
-        ++v47;
-        --v34;
+        ++v50;
+        --v36;
       }
 
-      while (v34);
+      while (v36);
     }
 
-    CA::Render::Context::ResourceTable::remove_all((this + 136), v46);
+    CA::Render::Context::ResourceTable::remove_all((this + 136), v48, v49);
     os_unfair_lock_lock(this + 13);
     for (i = *(this + 7); i; i = *(this + 7))
     {
       *(this + 7) = *i;
-      mach_port_deallocate(*v39, i[2]);
+      mach_port_deallocate(*v41, i[2]);
       if (x_malloc_get_zone::once != -1)
       {
         dispatch_once_f(&x_malloc_get_zone::once, 0, malloc_zone_init);
@@ -9994,24 +9990,24 @@ LABEL_49:
     os_unfair_lock_lock(this + 178);
     if (*(this + 94))
     {
-      v50 = *(this + 93);
-      if (v50)
+      v53 = *(this + 93);
+      if (v53)
       {
         do
         {
-          v51 = *v50;
-          operator delete(v50);
-          v50 = v51;
+          v54 = *v53;
+          operator delete(v53);
+          v53 = v54;
         }
 
-        while (v51);
+        while (v54);
       }
 
       *(this + 93) = 0;
-      v52 = *(this + 92);
-      if (v52)
+      v55 = *(this + 92);
+      if (v55)
       {
-        for (j = 0; j != v52; ++j)
+        for (j = 0; j != v55; ++j)
         {
           *(*(this + 91) + 8 * j) = 0;
         }
@@ -10023,17 +10019,17 @@ LABEL_49:
     for (k = *(this + 90); k; k = *(this + 90))
     {
       *(this + 90) = *k;
-      v55 = k[3];
-      if (v55)
+      v58 = k[3];
+      if (v58)
       {
-        (*(*v55 + 8))(v55);
+        (*(*v58 + 8))(v58);
       }
 
-      v56 = k[1];
-      if (v56)
+      v59 = k[1];
+      if (v59)
       {
-        v57 = std::__hash_table<std::__hash_value_type<unsigned long long,CA::Render::PerModeInfo>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,CA::Render::PerModeInfo>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,CA::Render::PerModeInfo>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,CA::Render::PerModeInfo>>>::~__hash_table(v56);
-        MEMORY[0x1865EA9A0](v57, 0x10A0C408EF24B1CLL);
+        v60 = std::__hash_table<std::__hash_value_type<unsigned long long,CA::Render::PerModeInfo>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,CA::Render::PerModeInfo>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,CA::Render::PerModeInfo>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,CA::Render::PerModeInfo>>>::~__hash_table(v59);
+        MEMORY[0x1865EA9A0](v60, 0x10A0C408EF24B1CLL);
       }
 
       if (x_malloc_get_zone::once != -1)
@@ -10045,45 +10041,45 @@ LABEL_49:
     }
 
     os_unfair_lock_unlock(this + 178);
-    v58 = *(this + 64);
-    if (v58)
+    v61 = *(this + 64);
+    if (v61)
     {
-      mach_port_deallocate(*v39, v58);
+      mach_port_deallocate(*v41, v61);
       *(this + 64) = 0;
     }
 
-    v59 = *(this + 65);
-    if (v59)
+    v62 = *(this + 65);
+    if (v62)
     {
-      mach_port_deallocate(*v39, v59);
+      mach_port_deallocate(*v41, v62);
       *(this + 65) = 0;
     }
 
-    v60 = *(this + 66);
-    if (v60)
+    v63 = *(this + 66);
+    if (v63)
     {
-      mach_port_deallocate(*v39, v60);
+      mach_port_deallocate(*v41, v63);
       *(this + 66) = 0;
     }
 
-    v61 = *(this + 67);
-    if (v61)
+    v64 = *(this + 67);
+    if (v64)
     {
-      mach_port_deallocate(*v39, v61);
+      mach_port_deallocate(*v41, v64);
       *(this + 67) = 0;
     }
 
     pthread_mutex_unlock((this + 72));
-    if (v33)
+    if (v35)
     {
-      free(v32);
+      free(v34);
     }
 
     if (atomic_fetch_add(this + 2, 0xFFFFFFFF) == 1)
     {
-      v62 = *(*this + 16);
+      v65 = *(*this + 16);
 
-      v62(this);
+      v65(this);
     }
 
     return;

@@ -92,7 +92,7 @@
     goto LABEL_9;
   }
 
-  if (!isDimensional() || !isDimensional())
+  if (!isDimensional(self->_unit) || !isDimensional(unit))
   {
     v14 = objc_opt_class();
     v13 = [NSString stringWithFormat:@"Cannot convert differing units that are non-dimensional! lhs: %@ rhs: %@", v14, objc_opt_class()];
@@ -167,8 +167,7 @@ LABEL_9:
     goto LABEL_24;
   }
 
-  [measurement unit];
-  if (!isDimensional() || !isDimensional())
+  if (!isDimensional([measurement unit]) || !isDimensional(self->_unit))
   {
     v23 = objc_opt_class();
     [measurement unit];

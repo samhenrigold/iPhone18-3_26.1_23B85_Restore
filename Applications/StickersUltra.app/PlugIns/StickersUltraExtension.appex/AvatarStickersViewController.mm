@@ -47,18 +47,19 @@
   v8 = sub_10007C3B0();
   v9 = *(v8 - 8);
   __chkstk_darwin(v8);
-  v11 = &v19 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v11 = &v22 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_10007C390();
   v12 = sub_10007D7D0();
   v14 = v13;
-  sub_10007D7D0();
+  v15 = sub_10007D7D0();
+  v17 = v16;
   providerCopy = provider;
   selfCopy = self;
-  v17 = sub_10007BD80(v11, v12, v14);
+  v20 = sub_10007BD80(v11, v12, v14, v15, v17);
 
   (*(v9 + 8))(v11, v8);
 
-  return v17;
+  return v20;
 }
 
 - (void)stickerSheetControllerDidScrollToContentOffset:(CGPoint)offset

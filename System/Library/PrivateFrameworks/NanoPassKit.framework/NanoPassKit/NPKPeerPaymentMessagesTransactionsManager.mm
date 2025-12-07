@@ -141,7 +141,7 @@ void __59__NPKPeerPaymentMessagesTransactionsManager_sharedInstance__block_invok
   dispatch_async(peerPaymentPassQueue, v7);
 }
 
-uint64_t __72__NPKPeerPaymentMessagesTransactionsManager_setPeerPaymentPassUniqueID___block_invoke(uint64_t a1)
+void *__72__NPKPeerPaymentMessagesTransactionsManager_setPeerPaymentPassUniqueID___block_invoke(uint64_t a1)
 {
   v2 = *(a1 + 40);
   result = *(*(a1 + 32) + 24);
@@ -206,7 +206,7 @@ uint64_t __72__NPKPeerPaymentMessagesTransactionsManager_setPeerPaymentPassUniqu
   return v7;
 }
 
-uint64_t __93__NPKPeerPaymentMessagesTransactionsManager_statusOfPaymentTransactionWithServiceIdentifier___block_invoke(uint64_t a1)
+void *__93__NPKPeerPaymentMessagesTransactionsManager_statusOfPaymentTransactionWithServiceIdentifier___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _transactionQueue_statusOfPaymentTransactionWithServiceIdentifier:*(a1 + 40)];
   *(*(*(a1 + 48) + 8) + 24) = result;
@@ -251,37 +251,38 @@ void __104__NPKPeerPaymentMessagesTransactionsManager_availableActionsForPayment
 
 - (unint64_t)_transactionQueue_statusOfPaymentTransactionWithServiceIdentifier:(id)identifier
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   peerPaymentPassUniqueID = [(NPKPeerPaymentMessagesTransactionsManager *)self peerPaymentPassUniqueID];
 
   if (peerPaymentPassUniqueID)
   {
     transactionDetails = [(NPKPeerPaymentMessagesTransactionsManager *)self transactionDetails];
-    v7 = [transactionDetails objectForKey:identifierCopy];
+    v8 = [transactionDetails objectForKey:identifierCopy];
 
-    if (v7)
+    if (v8)
     {
-      paymentStatus = [v7 paymentStatus];
+      paymentStatus = [v8 paymentStatus];
+      v10 = paymentStatus;
       if (paymentStatus)
       {
 LABEL_18:
-        v19 = pk_Payment_log();
-        v20 = os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT);
+        v23 = pk_Payment_log(paymentStatus);
+        v24 = os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT);
 
-        if (v20)
+        if (v24)
         {
-          v21 = pk_Payment_log();
-          if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+          v26 = pk_Payment_log(v25);
+          if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
           {
-            v22 = NSStringWithNPKPeerPaymentStatus(paymentStatus);
-            v25 = 138412802;
-            v26 = v22;
-            v27 = 2112;
-            v28 = v7;
-            v29 = 2112;
-            v30 = identifierCopy;
-            _os_log_impl(&dword_25B300000, v21, OS_LOG_TYPE_DEFAULT, "Notice: Returning status %@ for transaction details %@ (service identifier %@)", &v25, 0x20u);
+            v27 = NSStringWithNPKPeerPaymentStatus(v10);
+            v29 = 138412802;
+            v30 = v27;
+            v31 = 2112;
+            v32 = v8;
+            v33 = 2112;
+            v34 = identifierCopy;
+            _os_log_impl(&dword_25B300000, v26, OS_LOG_TYPE_DEFAULT, "Notice: Returning status %@ for transaction details %@ (service identifier %@)", &v29, 0x20u);
           }
         }
 
@@ -293,73 +294,72 @@ LABEL_22:
 
     if (NPKShouldHonorUserPreferenceTransactionStatus())
     {
-      v9 = NPKGlobalDomainPreferencesGetValue(@"NPKUserPreferenceTransactionsStatus");
-      paymentStatus = NPKPeerPaymentStatusWithNSString(v9);
-      v10 = pk_General_log();
-      v11 = os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT);
+      v11 = NPKGlobalDomainPreferencesGetValue(@"NPKUserPreferenceTransactionsStatus");
+      v10 = NPKPeerPaymentStatusWithNSString(v11);
+      v12 = pk_General_log(v10);
+      v13 = os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT);
 
-      if (!v11)
+      if (!v13)
       {
 LABEL_17:
 
         goto LABEL_18;
       }
 
-      availableActions = pk_General_log();
+      availableActions = pk_General_log(v14);
       if (os_log_type_enabled(availableActions, OS_LOG_TYPE_DEFAULT))
       {
-        v13 = NSStringWithNPKPeerPaymentStatus(paymentStatus);
-        v25 = 138412546;
-        v26 = v13;
-        v27 = 2112;
-        v28 = identifierCopy;
-        _os_log_impl(&dword_25B300000, availableActions, OS_LOG_TYPE_DEFAULT, "Notice: Using mock SURF server; will return status %@ for transaction with identifier %@", &v25, 0x16u);
+        v16 = NSStringWithNPKPeerPaymentStatus(v10);
+        v29 = 138412546;
+        v30 = v16;
+        v31 = 2112;
+        v32 = identifierCopy;
+        _os_log_impl(&dword_25B300000, availableActions, OS_LOG_TYPE_DEFAULT, "Notice: Using mock SURF server; will return status %@ for transaction with identifier %@", &v29, 0x16u);
       }
     }
 
     else
     {
-      transaction = [v7 transaction];
-      v9 = transaction;
+      transaction = [v8 transaction];
+      v11 = transaction;
       if (!transaction)
       {
-        paymentStatus = 0;
+        v10 = 0;
         goto LABEL_17;
       }
 
       peerPaymentStatus = [transaction peerPaymentStatus];
-      availableActions = [v7 availableActions];
-      paymentStatus = NPKPeerPaymentStatusWithPKPeerPaymentStatusAndActions(peerPaymentStatus, availableActions);
+      availableActions = [v8 availableActions];
+      v10 = NPKPeerPaymentStatusWithPKPeerPaymentStatusAndActions(peerPaymentStatus, availableActions);
     }
 
     goto LABEL_17;
   }
 
-  v14 = pk_Payment_log();
-  v15 = os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT);
+  v17 = pk_Payment_log(v6);
+  v18 = os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT);
 
-  if (v15)
+  if (v18)
   {
-    v7 = pk_Payment_log();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = pk_Payment_log(v19);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v16 = NSStringWithNPKPeerPaymentStatus(0);
-      v25 = 138412546;
-      v26 = v16;
-      v27 = 2112;
-      v28 = identifierCopy;
-      _os_log_impl(&dword_25B300000, v7, OS_LOG_TYPE_DEFAULT, "Notice: Returning status %@ (service identifier %@). We don't have a peer payment pass setup.", &v25, 0x16u);
+      v20 = NSStringWithNPKPeerPaymentStatus(0);
+      v29 = 138412546;
+      v30 = v20;
+      v31 = 2112;
+      v32 = identifierCopy;
+      _os_log_impl(&dword_25B300000, v8, OS_LOG_TYPE_DEFAULT, "Notice: Returning status %@ (service identifier %@). We don't have a peer payment pass setup.", &v29, 0x16u);
     }
 
-    paymentStatus = 1;
+    v10 = 1;
     goto LABEL_22;
   }
 
-  paymentStatus = 1;
+  v10 = 1;
 LABEL_23:
 
-  v23 = *MEMORY[0x277D85DE8];
-  return paymentStatus;
+  return v10;
 }
 
 - (void)setStatus:(unint64_t)status forPaymentTransactionWithServiceIdentifier:(id)identifier
@@ -386,14 +386,14 @@ LABEL_23:
   v9 = [(NPKPeerPaymentMessagesTransactionsManager *)self _transactionsQueue_transactionDetailsCreatedIfNecessaryForServiceIdentifier:identifierCopy];
   transaction = [v9 transaction];
   v11 = transaction;
-  if (transaction && (v12 = NPKPeerPaymentStatusWithPKPeerPaymentStatus([transaction peerPaymentStatus]), v12 > status) && (v12 > 7 || ((1 << v12) & 0xB0) == 0))
+  if (transaction && (transaction = NPKPeerPaymentStatusWithPKPeerPaymentStatus([transaction peerPaymentStatus]), transaction > status) && (transaction > 7 || ((1 << transaction) & 0xB0) == 0))
   {
-    v18 = pk_General_log();
-    v19 = os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT);
+    v17 = pk_General_log(transaction);
+    v18 = os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT);
 
-    if (v19)
+    if (v18)
     {
-      v20 = pk_General_log();
+      v20 = pk_General_log(v19);
       if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
       {
         v21 = NSStringWithNPKPeerPaymentStatus(status);
@@ -410,12 +410,12 @@ LABEL_23:
 
   else
   {
-    v13 = pk_General_log();
-    v14 = os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT);
+    v12 = pk_General_log(transaction);
+    v13 = os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT);
 
-    if (v14)
+    if (v13)
     {
-      v15 = pk_General_log();
+      v15 = pk_General_log(v14);
       if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
       {
         v16 = NSStringWithNPKPeerPaymentStatus(status);
@@ -433,8 +433,6 @@ LABEL_23:
       [(NPKPeerPaymentMessagesTransactionsManager *)self _transactionsQueue_notifyStatusUpdateOfTransactionWithServiceIdentifier:identifierCopy];
     }
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (id)peerPaymentTransactionWithServiceIdentifier:(id)identifier
@@ -492,69 +490,67 @@ void __89__NPKPeerPaymentMessagesTransactionsManager_peerPaymentTransactionWithS
 
 void __99__NPKPeerPaymentMessagesTransactionsManager_lookupTransactionActionsIfNeededWithServiceIdentifier___block_invoke(uint64_t a1)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) currentLookupIdentifiers];
-  if (![v2 containsObject:*(a1 + 40)])
+  v3 = [v2 containsObject:*(a1 + 40)];
+  if (!v3)
   {
-    v7 = [*(a1 + 32) _transactionQueue_statusOfPaymentTransactionWithServiceIdentifier:*(a1 + 40)];
-    v8 = [*(a1 + 32) transactionDetails];
-    v9 = [v8 objectForKey:*(a1 + 40)];
-    v5 = [v9 availableActionsFetchDate];
+    v9 = [*(a1 + 32) _transactionQueue_statusOfPaymentTransactionWithServiceIdentifier:*(a1 + 40)];
+    v10 = [*(a1 + 32) transactionDetails];
+    v11 = [v10 objectForKey:*(a1 + 40)];
+    v7 = [v11 availableActionsFetchDate];
 
-    if (v7 <= 3 && v7 != 1)
+    if (v9 <= 3 && v9 != 1)
     {
-      if (!v5 || ([v5 timeIntervalSinceNow], fabs(v10) >= 60.0))
+      if (!v7 || ([v7 timeIntervalSinceNow], fabs(v12) >= 60.0))
       {
-        [v2 addObject:*(a1 + 40)];
-        v11 = pk_General_log();
-        v12 = os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT);
+        v13 = pk_General_log([v2 addObject:*(a1 + 40)]);
+        v14 = os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT);
 
-        if (v12)
+        if (v14)
         {
-          v13 = pk_General_log();
-          if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+          v16 = pk_General_log(v15);
+          if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
           {
-            v14 = *(a1 + 40);
+            v17 = *(a1 + 40);
             *buf = 138412290;
-            v22 = v14;
-            _os_log_impl(&dword_25B300000, v13, OS_LOG_TYPE_DEFAULT, "Notice: Starting looking up actions for transaction with service identifier: %@", buf, 0xCu);
+            v24 = v17;
+            _os_log_impl(&dword_25B300000, v16, OS_LOG_TYPE_DEFAULT, "Notice: Starting looking up actions for transaction with service identifier: %@", buf, 0xCu);
           }
         }
 
-        v15 = [*(a1 + 32) _sharedPeerPaymentWebService];
-        v18[0] = MEMORY[0x277D85DD0];
-        v18[1] = 3221225472;
-        v18[2] = __99__NPKPeerPaymentMessagesTransactionsManager_lookupTransactionActionsIfNeededWithServiceIdentifier___block_invoke_117;
-        v18[3] = &unk_279947B60;
-        v16 = *(a1 + 40);
-        v18[4] = *(a1 + 32);
-        v19 = v2;
-        v20 = *(a1 + 40);
-        [v15 peerPaymentStatusWithPaymentIdentifier:v16 completion:v18];
+        v18 = [*(a1 + 32) _sharedPeerPaymentWebService];
+        v20[0] = MEMORY[0x277D85DD0];
+        v20[1] = 3221225472;
+        v20[2] = __99__NPKPeerPaymentMessagesTransactionsManager_lookupTransactionActionsIfNeededWithServiceIdentifier___block_invoke_117;
+        v20[3] = &unk_279947B60;
+        v19 = *(a1 + 40);
+        v20[4] = *(a1 + 32);
+        v21 = v2;
+        v22 = *(a1 + 40);
+        [v18 peerPaymentStatusWithPaymentIdentifier:v19 completion:v20];
       }
     }
 
     goto LABEL_14;
   }
 
-  v3 = pk_General_log();
-  v4 = os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT);
+  v4 = pk_General_log(v3);
+  v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
 
-  if (v4)
+  if (v5)
   {
-    v5 = pk_General_log();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v7 = pk_General_log(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = *(a1 + 40);
+      v8 = *(a1 + 40);
       *buf = 138412290;
-      v22 = v6;
-      _os_log_impl(&dword_25B300000, v5, OS_LOG_TYPE_DEFAULT, "Notice: We are currently looking up actions for transaction with service identifier: %@", buf, 0xCu);
+      v24 = v8;
+      _os_log_impl(&dword_25B300000, v7, OS_LOG_TYPE_DEFAULT, "Notice: We are currently looking up actions for transaction with service identifier: %@", buf, 0xCu);
     }
 
 LABEL_14:
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 void __99__NPKPeerPaymentMessagesTransactionsManager_lookupTransactionActionsIfNeededWithServiceIdentifier___block_invoke_117(uint64_t a1, void *a2, void *a3)
@@ -579,70 +575,67 @@ void __99__NPKPeerPaymentMessagesTransactionsManager_lookupTransactionActionsIfN
 
 void __99__NPKPeerPaymentMessagesTransactionsManager_lookupTransactionActionsIfNeededWithServiceIdentifier___block_invoke_2(uint64_t a1)
 {
-  v25 = *MEMORY[0x277D85DE8];
-  [*(a1 + 32) removeObject:*(a1 + 40)];
-  if (!*(a1 + 48) && *(a1 + 56))
+  v28 = *MEMORY[0x277D85DE8];
+  v2 = [*(a1 + 32) removeObject:*(a1 + 40)];
+  if (*(a1 + 48) || !*(a1 + 56))
   {
-    v4 = [*(a1 + 64) _transactionsQueue_transactionDetailsCreatedIfNecessaryForServiceIdentifier:*(a1 + 40)];
-    v7 = [*(a1 + 56) actions];
-    [v4 setAvailableActions:v7];
+    v3 = pk_General_log(v2);
+    v4 = os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT);
 
-    v8 = [MEMORY[0x277CBEAA8] date];
-    [v4 setAvailableActionsFetchDate:v8];
-
-    v9 = [*(a1 + 56) status];
-    v10 = [*(a1 + 56) actions];
-    v11 = NPKPeerPaymentStatusWithPKPeerPaymentStatusAndActions(v9, v10);
-
-    v12 = pk_General_log();
-    v13 = os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT);
-
-    if (v13)
+    if (!v4)
     {
-      v14 = pk_General_log();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+      return;
+    }
+
+    v6 = pk_General_log(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    {
+      v7 = *(a1 + 40);
+      v8 = *(a1 + 48);
+      v22 = 138412546;
+      v23 = v7;
+      v24 = 2112;
+      v25 = v8;
+      _os_log_impl(&dword_25B300000, v6, OS_LOG_TYPE_DEFAULT, "Warning: Error when looking up actions for transaction with service identifier %@: %@", &v22, 0x16u);
+    }
+  }
+
+  else
+  {
+    v6 = [*(a1 + 64) _transactionsQueue_transactionDetailsCreatedIfNecessaryForServiceIdentifier:*(a1 + 40)];
+    v9 = [*(a1 + 56) actions];
+    [v6 setAvailableActions:v9];
+
+    v10 = [MEMORY[0x277CBEAA8] date];
+    [v6 setAvailableActionsFetchDate:v10];
+
+    v11 = [*(a1 + 56) status];
+    v12 = [*(a1 + 56) actions];
+    v13 = NPKPeerPaymentStatusWithPKPeerPaymentStatusAndActions(v11, v12);
+
+    v15 = pk_General_log(v14);
+    v16 = os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT);
+
+    if (v16)
+    {
+      v18 = pk_General_log(v17);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
       {
-        v15 = *(a1 + 40);
-        v16 = [v4 availableActions];
-        v17 = NSStringWithNPKPeerPaymentStatus(v11);
-        v19 = 138412802;
-        v20 = v15;
-        v21 = 2112;
-        v22 = v16;
-        v23 = 2112;
-        v24 = v17;
-        _os_log_impl(&dword_25B300000, v14, OS_LOG_TYPE_DEFAULT, "Notice: Finished looking up actions for transaction with service identifier %@: actions %@, status %@", &v19, 0x20u);
+        v19 = *(a1 + 40);
+        v20 = [v6 availableActions];
+        v21 = NSStringWithNPKPeerPaymentStatus(v13);
+        v22 = 138412802;
+        v23 = v19;
+        v24 = 2112;
+        v25 = v20;
+        v26 = 2112;
+        v27 = v21;
+        _os_log_impl(&dword_25B300000, v18, OS_LOG_TYPE_DEFAULT, "Notice: Finished looking up actions for transaction with service identifier %@: actions %@, status %@", &v22, 0x20u);
       }
     }
 
-    [*(a1 + 64) _transactionsQueue_setStatus:v11 forPaymentTransactionWithServiceIdentifier:*(a1 + 40) notifyUpdate:1];
-LABEL_11:
-
-    goto LABEL_12;
+    [*(a1 + 64) _transactionsQueue_setStatus:v13 forPaymentTransactionWithServiceIdentifier:*(a1 + 40) notifyUpdate:1];
   }
-
-  v2 = pk_General_log();
-  v3 = os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT);
-
-  if (v3)
-  {
-    v4 = pk_General_log();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
-    {
-      v5 = *(a1 + 40);
-      v6 = *(a1 + 48);
-      v19 = 138412546;
-      v20 = v5;
-      v21 = 2112;
-      v22 = v6;
-      _os_log_impl(&dword_25B300000, v4, OS_LOG_TYPE_DEFAULT, "Warning: Error when looking up actions for transaction with service identifier %@: %@", &v19, 0x16u);
-    }
-
-    goto LABEL_11;
-  }
-
-LABEL_12:
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)transactionSourceIdentifier:(id)identifier didReceiveTransaction:(id)transaction
@@ -650,19 +643,19 @@ LABEL_12:
   v22 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   transactionCopy = transaction;
-  v8 = pk_General_log();
+  v8 = pk_General_log(transactionCopy);
   v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
 
   if (v9)
   {
-    v10 = pk_General_log();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v11 = pk_General_log(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412546;
       v19 = identifierCopy;
       v20 = 2112;
       v21 = transactionCopy;
-      _os_log_impl(&dword_25B300000, v10, OS_LOG_TYPE_DEFAULT, "Notice: TransactionManager: transactionSourceIdentifier:%@ didReceiveTransaction:%@", buf, 0x16u);
+      _os_log_impl(&dword_25B300000, v11, OS_LOG_TYPE_DEFAULT, "Notice: TransactionManager: transactionSourceIdentifier:%@ didReceiveTransaction:%@", buf, 0x16u);
     }
   }
 
@@ -674,16 +667,14 @@ LABEL_12:
   block[4] = self;
   v16 = identifierCopy;
   v17 = transactionCopy;
-  v12 = transactionCopy;
-  v13 = identifierCopy;
+  v13 = transactionCopy;
+  v14 = identifierCopy;
   dispatch_async(transactionsQueue, block);
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __95__NPKPeerPaymentMessagesTransactionsManager_transactionSourceIdentifier_didReceiveTransaction___block_invoke(uint64_t a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277D37FC0] sharedInstance];
   v3 = [*(a1 + 32) peerPaymentPassUniqueID];
   v4 = [v2 passWithUniqueID:v3];
@@ -693,30 +684,29 @@ void __95__NPKPeerPaymentMessagesTransactionsManager_transactionSourceIdentifier
   if ([v6 containsObject:*(a1 + 40)])
   {
     v7 = [*(a1 + 48) serviceIdentifier];
+    v8 = v7;
     if (v7)
     {
-      v8 = pk_General_log();
-      v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
+      v9 = pk_General_log(v7);
+      v10 = os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT);
 
-      if (v9)
+      if (v10)
       {
-        v10 = pk_General_log();
-        if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+        v12 = pk_General_log(v11);
+        if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
         {
-          v13 = 138412290;
-          v14 = v7;
-          _os_log_impl(&dword_25B300000, v10, OS_LOG_TYPE_DEFAULT, "Notice: TransactionManager: did update transaction detail with service Identifier:%@", &v13, 0xCu);
+          v14 = 138412290;
+          v15 = v8;
+          _os_log_impl(&dword_25B300000, v12, OS_LOG_TYPE_DEFAULT, "Notice: TransactionManager: did update transaction detail with service Identifier:%@", &v14, 0xCu);
         }
       }
 
-      v11 = [*(a1 + 32) _transactionsQueue_transactionDetailsCreatedIfNecessaryForServiceIdentifier:v7];
-      [v11 setTransaction:*(a1 + 48)];
-      [v11 setPaymentStatus:0];
-      [*(a1 + 32) _transactionsQueue_notifyStatusUpdateOfTransactionWithServiceIdentifier:v7];
+      v13 = [*(a1 + 32) _transactionsQueue_transactionDetailsCreatedIfNecessaryForServiceIdentifier:v8];
+      [v13 setTransaction:*(a1 + 48)];
+      [v13 setPaymentStatus:0];
+      [*(a1 + 32) _transactionsQueue_notifyStatusUpdateOfTransactionWithServiceIdentifier:v8];
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)transactionSourceIdentifier:(id)identifier didRemoveTransactionWithIdentifier:(id)withIdentifier
@@ -842,56 +832,54 @@ void __108__NPKPeerPaymentMessagesTransactionsManager_transactionSourceIdentifie
 
 void __117__NPKPeerPaymentMessagesTransactionsManager__transactionsQueue_notifyStatusUpdateOfTransactionWithServiceIdentifier___block_invoke(void *a1)
 {
-  v7[2] = *MEMORY[0x277D85DE8];
-  v6[0] = @"kNPKPeerPaymentMessagesTransactionsManagerTransactionStatus";
+  v6[2] = *MEMORY[0x277D85DE8];
+  v5[0] = @"kNPKPeerPaymentMessagesTransactionsManagerTransactionStatus";
   v2 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:a1[7]];
-  v6[1] = @"kNPKPeerPaymentMessagesTransactionsManagerAvailableActions";
-  v7[0] = v2;
-  v7[1] = a1[4];
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:v6 count:2];
+  v5[1] = @"kNPKPeerPaymentMessagesTransactionsManagerAvailableActions";
+  v6[0] = v2;
+  v6[1] = a1[4];
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:v5 count:2];
 
   v4 = [MEMORY[0x277CCAB98] defaultCenter];
   [v4 postNotificationName:a1[5] object:a1[6] userInfo:v3];
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_fetchAllPeerPaymentTransactionsWithPeerPaymentPassID:(id)d
 {
   v22 = *MEMORY[0x277D85DE8];
   dCopy = d;
-  v5 = pk_General_log();
+  v5 = pk_General_log(dCopy);
   v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
 
   if (v6)
   {
-    v7 = pk_General_log();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = pk_General_log(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
       v21 = dCopy;
-      _os_log_impl(&dword_25B300000, v7, OS_LOG_TYPE_DEFAULT, "Notice: Start fetching all peer payment transactions With peer payment pass ID: %@", buf, 0xCu);
+      _os_log_impl(&dword_25B300000, v8, OS_LOG_TYPE_DEFAULT, "Notice: Start fetching all peer payment transactions With peer payment pass ID: %@", buf, 0xCu);
     }
   }
 
   if (dCopy)
   {
     mEMORY[0x277D37FC0] = [MEMORY[0x277D37FC0] sharedInstance];
-    v9 = [mEMORY[0x277D37FC0] passWithUniqueID:dCopy];
-    paymentPass = [v9 paymentPass];
+    v10 = [mEMORY[0x277D37FC0] passWithUniqueID:dCopy];
+    paymentPass = [v10 paymentPass];
 
     if (paymentPass)
     {
       deviceTransactionSourceIdentifiers = [paymentPass deviceTransactionSourceIdentifiers];
       paymentService = [(NPKPeerPaymentMessagesTransactionsManager *)self paymentService];
-      v13 = *MEMORY[0x277D38648];
+      v14 = *MEMORY[0x277D38648];
       v16[0] = MEMORY[0x277D85DD0];
       v16[1] = 3221225472;
       v16[2] = __99__NPKPeerPaymentMessagesTransactionsManager__fetchAllPeerPaymentTransactionsWithPeerPaymentPassID___block_invoke_2;
       v16[3] = &unk_279947BD8;
       v17 = dCopy;
       selfCopy = self;
-      [paymentService transactionsForTransactionSourceIdentifiers:deviceTransactionSourceIdentifiers withTransactionSource:0 withBackingData:0 limit:v13 completion:v16];
+      [paymentService transactionsForTransactionSourceIdentifiers:deviceTransactionSourceIdentifiers withTransactionSource:0 withBackingData:0 limit:v14 completion:v16];
     }
   }
 
@@ -905,73 +893,69 @@ void __117__NPKPeerPaymentMessagesTransactionsManager__transactionsQueue_notifyS
     block[4] = self;
     dispatch_async(transactionsQueue, block);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void __99__NPKPeerPaymentMessagesTransactionsManager__fetchAllPeerPaymentTransactionsWithPeerPaymentPassID___block_invoke(uint64_t a1)
 {
-  v2 = pk_General_log();
+  v2 = pk_General_log(a1);
   v3 = os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT);
 
   if (v3)
   {
-    v4 = pk_General_log();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = pk_General_log(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_25B300000, v4, OS_LOG_TYPE_DEFAULT, "Notice: New peer payment pass identifier is nil. Removing existing transactions.", buf, 2u);
+      _os_log_impl(&dword_25B300000, v5, OS_LOG_TYPE_DEFAULT, "Notice: New peer payment pass identifier is nil. Removing existing transactions.", buf, 2u);
     }
   }
 
-  v5 = [*(a1 + 32) transactionDetails];
-  v6 = [v5 allKeys];
+  v6 = [*(a1 + 32) transactionDetails];
+  v7 = [v6 allKeys];
 
-  v7 = [*(a1 + 32) transactionDetails];
-  [v7 removeAllObjects];
+  v8 = [*(a1 + 32) transactionDetails];
+  [v8 removeAllObjects];
 
-  v8[0] = MEMORY[0x277D85DD0];
-  v8[1] = 3221225472;
-  v8[2] = __99__NPKPeerPaymentMessagesTransactionsManager__fetchAllPeerPaymentTransactionsWithPeerPaymentPassID___block_invoke_124;
-  v8[3] = &unk_279945858;
-  v8[4] = *(a1 + 32);
-  [v6 enumerateObjectsUsingBlock:v8];
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v9[2] = __99__NPKPeerPaymentMessagesTransactionsManager__fetchAllPeerPaymentTransactionsWithPeerPaymentPassID___block_invoke_124;
+  v9[3] = &unk_279945858;
+  v9[4] = *(a1 + 32);
+  [v7 enumerateObjectsUsingBlock:v9];
 }
 
 void __99__NPKPeerPaymentMessagesTransactionsManager__fetchAllPeerPaymentTransactionsWithPeerPaymentPassID___block_invoke_2(uint64_t a1, void *a2)
 {
   v20 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v4 = pk_General_log();
+  v4 = pk_General_log(v3);
   v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
 
   if (v5)
   {
-    v6 = pk_General_log();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = pk_General_log(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = [v3 count];
-      v8 = *(a1 + 32);
+      v8 = [v3 count];
+      v9 = *(a1 + 32);
       *buf = 134218242;
-      v17 = v7;
+      v17 = v8;
       v18 = 2112;
-      v19 = v8;
-      _os_log_impl(&dword_25B300000, v6, OS_LOG_TYPE_DEFAULT, "Notice: Received %ld transactions for peer payment pass with unique ID %@", buf, 0x16u);
+      v19 = v9;
+      _os_log_impl(&dword_25B300000, v7, OS_LOG_TYPE_DEFAULT, "Notice: Received %ld transactions for peer payment pass with unique ID %@", buf, 0x16u);
     }
   }
 
-  v9 = *(a1 + 40);
-  v10 = *(v9 + 8);
+  v10 = *(a1 + 40);
+  v11 = *(v10 + 8);
   v13[0] = MEMORY[0x277D85DD0];
   v13[1] = 3221225472;
   v13[2] = __99__NPKPeerPaymentMessagesTransactionsManager__fetchAllPeerPaymentTransactionsWithPeerPaymentPassID___block_invoke_126;
   v13[3] = &unk_2799454E0;
   v14 = v3;
-  v15 = v9;
-  v11 = v3;
-  dispatch_async(v10, v13);
-
-  v12 = *MEMORY[0x277D85DE8];
+  v15 = v10;
+  v12 = v3;
+  dispatch_async(v11, v13);
 }
 
 uint64_t __99__NPKPeerPaymentMessagesTransactionsManager__fetchAllPeerPaymentTransactionsWithPeerPaymentPassID___block_invoke_126(uint64_t a1)

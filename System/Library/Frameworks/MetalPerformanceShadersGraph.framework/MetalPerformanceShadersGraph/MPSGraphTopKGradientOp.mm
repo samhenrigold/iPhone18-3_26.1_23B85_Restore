@@ -6,124 +6,124 @@
 
 - (void)makeMLIROpWithBuilder:(void *)builder symbolTable:(void *)table inputValues:(void *)values opInitialization:(BOOL)initialization name:(id)name
 {
-  v49 = *MEMORY[0x1E69E9840];
+  v48 = *MEMORY[0x1E69E9840];
   nameCopy = name;
-  mpsFileLoc("[MPSGraphTopKGradientOp makeMLIROpWithBuilder:symbolTable:inputValues:opInitialization:name:]", "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShadersGraph/mpsgraph/MetalPerformanceShadersGraph/Core/Files/Operations/MPSGraphTopKOps.mm", __p);
+  mpsFileLoc(__p, "[MPSGraphTopKGradientOp makeMLIROpWithBuilder:symbolTable:inputValues:opInitialization:name:]", "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShadersGraph/mpsgraph/MetalPerformanceShadersGraph/Core/Files/Operations/MPSGraphTopKOps.mm");
   v12 = nameCopy;
-  v48 = 260;
-  v47[0] = __p;
-  StringAttr = mlir::Builder::getStringAttr(builder, v47);
-  v15 = mlir::FileLineColLoc::get(StringAttr, 0x7Eu, 0);
+  v47 = 260;
+  v46[0] = __p;
+  StringAttr = mlir::Builder::getStringAttr(builder, v46);
+  v16 = mlir::FileLineColLoc::get(StringAttr, 0x7Eu, 0);
   if (v12)
   {
-    v16 = v12;
+    v17 = v12;
     uTF8String = [v12 UTF8String];
-    v18 = strlen(uTF8String);
-    if (v18 >= 0x7FFFFFFFFFFFFFF8)
+    v19 = strlen(uTF8String);
+    if (v19 >= 0x7FFFFFFFFFFFFFF8)
     {
       std::string::__throw_length_error[abi:ne200100]();
     }
 
-    v19 = v18;
-    if (v18 >= 0x17)
+    v20 = v19;
+    if (v19 >= 0x17)
     {
       operator new();
     }
 
-    v46 = v18;
-    if (v18)
+    *(&__dst.__r_.__value_.__s + 23) = v19;
+    if (v19)
     {
-      memmove(__dst, uTF8String, v18);
+      memmove(&__dst, uTF8String, v19);
     }
 
-    v20 = &__dst[v19];
+    v21 = &__dst + v20;
   }
 
   else
   {
-    v46 = 14;
-    qmemcpy(__dst, "mps.top_k_grad", sizeof(__dst));
-    v20 = v45;
+    *(&__dst.__r_.__value_.__s + 23) = 14;
+    qmemcpy(&__dst, "mps.top_k_grad", 14);
+    v21 = &__dst.__r_.__value_.__s.__data_[14];
   }
 
-  *v20 = 0;
-  MPSSymbolTable::insertOpInSymbolTable(table, __dst, v14, &v41);
-  v21 = v41.__r_.__value_.__r.__words[0];
-  if ((v41.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  *v21 = 0;
+  MPSSymbolTable::insertOpInSymbolTable(table, &__dst, &v42, v14, v15);
+  v22 = v42.__r_.__value_.__r.__words[0];
+  if ((v42.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
-    v21 = &v41;
+    v22 = &v42;
   }
 
-  v22 = 1;
-  HIBYTE(v48) = 1;
-  if (v21->__r_.__value_.__s.__data_[0])
+  v23 = 1;
+  HIBYTE(v47) = 1;
+  if (v22->__r_.__value_.__s.__data_[0])
   {
-    v47[0] = v21;
-    v22 = 3;
+    v46[0] = v22;
+    v23 = 3;
   }
 
-  LOBYTE(v48) = v22;
-  v23 = mlir::Builder::getStringAttr(builder, v47);
-  v24 = mlir::NameLoc::get(v23, v15);
-  if (SHIBYTE(v41.__r_.__value_.__r.__words[2]) < 0)
+  LOBYTE(v47) = v23;
+  v24 = mlir::Builder::getStringAttr(builder, v46);
+  v25 = mlir::NameLoc::get(v24, v16);
+  if (SHIBYTE(v42.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v41.__r_.__value_.__l.__data_);
-    if ((v46 & 0x80000000) == 0)
+    operator delete(v42.__r_.__value_.__l.__data_);
+    if ((SHIBYTE(__dst.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
     {
       goto LABEL_16;
     }
   }
 
-  else if ((v46 & 0x80000000) == 0)
+  else if ((SHIBYTE(__dst.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
   {
     goto LABEL_16;
   }
 
-  operator delete(*__dst);
+  operator delete(__dst.__r_.__value_.__l.__data_);
 LABEL_16:
 
-  if (v37 < 0)
+  if (v38 < 0)
   {
     operator delete(__p[0]);
   }
 
-  v25 = *values;
+  v26 = *values;
   if (*(values + 1) - *values < 0x20uLL)
   {
     std::vector<mlir::Value>::__throw_out_of_range[abi:ne200100]();
   }
 
   smallest = self->super._smallest;
-  v38 = v24;
-  Context = mlir::Attribute::getContext(&v38);
-  v28 = mlir::RegisteredOperationName::lookup(&mlir::detail::TypeIDResolver<mlir::mps::TopKGradientOp,void>::id, Context);
-  if ((v29 & 1) == 0)
+  v39 = v25;
+  Context = mlir::Attribute::getContext(&v39);
+  v29 = mlir::RegisteredOperationName::lookup(&mlir::detail::TypeIDResolver<mlir::mps::TopKGradientOp,void>::id, Context);
+  if ((v30 & 1) == 0)
   {
-    v43 = 1283;
-    v41.__r_.__value_.__r.__words[2] = "mps.top_k_grad";
-    v42 = 14;
-    v40 = 259;
-    llvm::operator+(&v41, &v39, __dst);
-    llvm::report_fatal_error(__dst, 1);
+    v44 = 1283;
+    v42.__r_.__value_.__r.__words[2] = "mps.top_k_grad";
+    v43 = 14;
+    v41 = 259;
+    llvm::operator+(&v42, &v40, &__dst);
+    llvm::report_fatal_error(&__dst, 1);
   }
 
-  mlir::OperationState::OperationState(v47, v24, v28);
-  mlir::mps::TopKGradientOp::build(builder, v47, *v25, v25[1], v25[2], v25[3], smallest);
-  v30 = mlir::OpBuilder::create(builder, v47);
-  v31 = *(*(v30 + 48) + 16);
-  mlir::OperationState::~OperationState(v47);
-  if (v31 == &mlir::detail::TypeIDResolver<mlir::mps::TopKGradientOp,void>::id)
+  mlir::OperationState::OperationState(v46, v25, v29);
+  mlir::mps::TopKGradientOp::build(builder, v46, *v26, v26[1], v26[2], v26[3], smallest);
+  v31 = mlir::OpBuilder::create(builder, v46);
+  v32 = *(*(v31 + 6) + 16);
+  mlir::OperationState::~OperationState(v46);
+  if (v32 == &mlir::detail::TypeIDResolver<mlir::mps::TopKGradientOp,void>::id)
   {
-    v32 = v30;
+    v33 = v31;
   }
 
   else
   {
-    v32 = 0;
+    v33 = 0;
   }
 
-  v35 = v32 - 16;
-  DefiningOp = mlir::Value::getDefiningOp(&v35);
+  v36 = v33 - 16;
+  DefiningOp = mlir::Value::getDefiningOp(&v36);
 
   return DefiningOp;
 }

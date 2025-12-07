@@ -220,7 +220,7 @@ LABEL_6:
 
 - (void)_shareExportFileAndCleanUp
 {
-  v32[1] = *MEMORY[0x277D85DE8];
+  v31[1] = *MEMORY[0x277D85DE8];
   if (self->_exportFileURL)
   {
     v3 = objc_alloc_init(WDExportSource);
@@ -230,8 +230,8 @@ LABEL_6:
     [(WDExportSource *)v3 setSubject:v5];
 
     v6 = objc_alloc(MEMORY[0x277D546D8]);
-    v32[0] = v3;
-    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v32 count:1];
+    v31[0] = v3;
+    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v31 count:1];
     v8 = [v6 initWithActivityItems:v7 applicationActivities:0];
 
     popoverPresentationController = [v8 popoverPresentationController];
@@ -239,37 +239,37 @@ LABEL_6:
     [popoverPresentationController setSourceView:WeakRetained];
 
     v11 = *MEMORY[0x277D54748];
-    v31[0] = @"com.apple.Health.ShareExtension";
-    v31[1] = v11;
+    v30[0] = @"com.apple.Health.ShareExtension";
+    v30[1] = v11;
     v12 = *MEMORY[0x277D54770];
-    v31[2] = *MEMORY[0x277D54760];
-    v31[3] = v12;
+    v30[2] = *MEMORY[0x277D54760];
+    v30[3] = v12;
     v13 = *MEMORY[0x277D54718];
-    v31[4] = *MEMORY[0x277D54778];
-    v31[5] = v13;
+    v30[4] = *MEMORY[0x277D54778];
+    v30[5] = v13;
     v14 = *MEMORY[0x277D54708];
-    v31[6] = *MEMORY[0x277D54780];
-    v31[7] = v14;
+    v30[6] = *MEMORY[0x277D54780];
+    v30[7] = v14;
     v15 = *MEMORY[0x277D54768];
-    v31[8] = *MEMORY[0x277D54750];
-    v31[9] = v15;
-    v31[10] = *MEMORY[0x277D54758];
-    v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v31 count:11];
+    v30[8] = *MEMORY[0x277D54750];
+    v30[9] = v15;
+    v30[10] = *MEMORY[0x277D54758];
+    v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v30 count:11];
     [v8 setExcludedActivityTypes:v16];
 
-    v30[0] = MEMORY[0x277D85DD0];
-    v30[1] = 3221225472;
-    v30[2] = __48__WDExportController__shareExportFileAndCleanUp__block_invoke;
-    v30[3] = &unk_2796E70D8;
-    v30[4] = self;
-    [v8 setCompletionWithItemsHandler:v30];
-    v17 = objc_loadWeakRetained(&self->_exportPresentingViewController);
     v29[0] = MEMORY[0x277D85DD0];
     v29[1] = 3221225472;
-    v29[2] = __48__WDExportController__shareExportFileAndCleanUp__block_invoke_2;
-    v29[3] = &unk_2796E6D18;
+    v29[2] = __48__WDExportController__shareExportFileAndCleanUp__block_invoke;
+    v29[3] = &unk_2796E70D8;
     v29[4] = self;
-    [v17 presentViewController:v8 animated:1 completion:v29];
+    [v8 setCompletionWithItemsHandler:v29];
+    v17 = objc_loadWeakRetained(&self->_exportPresentingViewController);
+    v28[0] = MEMORY[0x277D85DD0];
+    v28[1] = 3221225472;
+    v28[2] = __48__WDExportController__shareExportFileAndCleanUp__block_invoke_2;
+    v28[3] = &unk_2796E6D18;
+    v28[4] = self;
+    [v17 presentViewController:v8 animated:1 completion:v28];
   }
 
   else
@@ -288,17 +288,15 @@ LABEL_6:
 
     [(WDExportSource *)v3 addAction:v8];
     v26 = objc_loadWeakRetained(&self->_exportPresentingViewController);
-    v28[0] = MEMORY[0x277D85DD0];
-    v28[1] = 3221225472;
-    v28[2] = __48__WDExportController__shareExportFileAndCleanUp__block_invoke_3;
-    v28[3] = &unk_2796E6D18;
-    v28[4] = self;
-    [v26 presentViewController:v3 animated:1 completion:v28];
+    v27[0] = MEMORY[0x277D85DD0];
+    v27[1] = 3221225472;
+    v27[2] = __48__WDExportController__shareExportFileAndCleanUp__block_invoke_3;
+    v27[3] = &unk_2796E6D18;
+    v27[4] = self;
+    [v26 presentViewController:v3 animated:1 completion:v27];
 
     [(WDExportController *)self _cleanUpExport];
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 id __48__WDExportController__shareExportFileAndCleanUp__block_invoke_2(uint64_t a1)

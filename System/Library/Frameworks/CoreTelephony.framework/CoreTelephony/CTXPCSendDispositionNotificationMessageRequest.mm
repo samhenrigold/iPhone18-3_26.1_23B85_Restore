@@ -15,58 +15,54 @@
 
 - (CTXPCSendDispositionNotificationMessageRequest)initWithContext:(id)context destination:(id)destination messageID:(id)d notificationType:(int64_t)type notificationMessageID:(id)iD security:(id)security
 {
-  v28[4] = *MEMORY[0x1E69E9840];
+  v27[4] = *MEMORY[0x1E69E9840];
   contextCopy = context;
   destinationCopy = destination;
   dCopy = d;
   iDCopy = iD;
   securityCopy = security;
-  v27[0] = @"destination";
-  v27[1] = @"messageID";
-  v28[0] = destinationCopy;
-  v28[1] = dCopy;
-  v27[2] = @"notificationType";
+  v26[0] = @"destination";
+  v26[1] = @"messageID";
+  v27[0] = destinationCopy;
+  v27[1] = dCopy;
+  v26[2] = @"notificationType";
   v19 = [MEMORY[0x1E696AD98] numberWithInteger:type];
-  v27[3] = @"notificationMessageID";
-  v28[2] = v19;
-  v28[3] = iDCopy;
-  v20 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v28 forKeys:v27 count:4];
-  v22 = objc_claimAutoreleasedReturnValue();
-  v26.receiver = self;
-  v26.super_class = CTXPCSendDispositionNotificationMessageRequest;
-  v23 = [(CTXPCSubscriptionContextRequest *)&v26 initWithContext:contextCopy namedArguments:v22];
+  v26[3] = @"notificationMessageID";
+  v27[2] = v19;
+  v27[3] = iDCopy;
+  v22 = v20 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v27 forKeys:v26 count:4];
+  v25.receiver = self;
+  v25.super_class = CTXPCSendDispositionNotificationMessageRequest;
+  v23 = [(CTXPCSubscriptionContextRequest *)&v25 initWithContext:contextCopy namedArguments:v22];
 
-  v24 = *MEMORY[0x1E69E9840];
   return v23;
 }
 
 - (CTXPCSendDispositionNotificationMessageRequest)initWithContext:(id)context groupChatURI:(id)i destination:(id)destination messageID:(id)d notificationType:(int64_t)type notificationMessageID:(id)iD security:(id)security
 {
-  v30[5] = *MEMORY[0x1E69E9840];
+  v29[5] = *MEMORY[0x1E69E9840];
   contextCopy = context;
   iCopy = i;
   destinationCopy = destination;
   dCopy = d;
   iDCopy = iD;
   securityCopy = security;
-  v29[0] = @"groupChatURI";
-  v29[1] = @"destination";
-  v30[0] = iCopy;
-  v30[1] = destinationCopy;
-  v30[2] = dCopy;
-  v29[2] = @"messageID";
-  v29[3] = @"notificationType";
+  v28[0] = @"groupChatURI";
+  v28[1] = @"destination";
+  v29[0] = iCopy;
+  v29[1] = destinationCopy;
+  v29[2] = dCopy;
+  v28[2] = @"messageID";
+  v28[3] = @"notificationType";
   v21 = [MEMORY[0x1E696AD98] numberWithInteger:type];
-  v29[4] = @"notificationMessageID";
-  v30[3] = v21;
-  v30[4] = iDCopy;
-  v22 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v30 forKeys:v29 count:5];
-  v24 = objc_claimAutoreleasedReturnValue();
-  v28.receiver = self;
-  v28.super_class = CTXPCSendDispositionNotificationMessageRequest;
-  v25 = [(CTXPCSubscriptionContextRequest *)&v28 initWithContext:contextCopy namedArguments:v24];
+  v28[4] = @"notificationMessageID";
+  v29[3] = v21;
+  v29[4] = iDCopy;
+  v24 = v22 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v29 forKeys:v28 count:5];
+  v27.receiver = self;
+  v27.super_class = CTXPCSendDispositionNotificationMessageRequest;
+  v25 = [(CTXPCSubscriptionContextRequest *)&v27 initWithContext:contextCopy namedArguments:v24];
 
-  v26 = *MEMORY[0x1E69E9840];
   return v25;
 }
 
@@ -179,19 +175,17 @@
 
 + (id)allowedClassesForArguments
 {
-  v8[5] = *MEMORY[0x1E69E9840];
-  v7.receiver = self;
-  v7.super_class = &OBJC_METACLASS___CTXPCSendDispositionNotificationMessageRequest;
-  v2 = objc_msgSendSuper2(&v7, sel_allowedClassesForArguments);
-  v8[0] = objc_opt_class();
-  v8[1] = objc_opt_class();
-  v8[2] = objc_opt_class();
-  v8[3] = objc_opt_class();
-  v8[4] = objc_opt_class();
-  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:5];
+  v7[5] = *MEMORY[0x1E69E9840];
+  v6.receiver = self;
+  v6.super_class = &OBJC_METACLASS___CTXPCSendDispositionNotificationMessageRequest;
+  v2 = objc_msgSendSuper2(&v6, sel_allowedClassesForArguments);
+  v7[0] = objc_opt_class();
+  v7[1] = objc_opt_class();
+  v7[2] = objc_opt_class();
+  v7[3] = objc_opt_class();
+  v7[4] = objc_opt_class();
+  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:5];
   v4 = [v2 setByAddingObjectsFromArray:v3];
-
-  v5 = *MEMORY[0x1E69E9840];
 
   return v4;
 }

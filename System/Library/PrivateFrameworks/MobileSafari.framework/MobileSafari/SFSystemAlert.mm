@@ -193,19 +193,19 @@
       self->_cfRunloopSource = CFUserNotificationCreateRunLoopSource(0, v9, SFUserNotificationRunLoopSourceCallback, 0);
       Main = CFRunLoopGetMain();
       CFRunLoopAddSource(Main, self->_cfRunloopSource, *MEMORY[0x1E695E8E0]);
-      v11 = _Block_copy(v5);
+      v12 = _Block_copy(v5);
       completionBlock = self->_completionBlock;
-      self->_completionBlock = v11;
+      self->_completionBlock = v12;
 
       objc_storeStrong(&activeNotification, self);
     }
 
     else
     {
-      v13 = WBS_LOG_CHANNEL_PREFIXViewService();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+      v14 = WBS_LOG_CHANNEL_PREFIXViewService(0, v10);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
-        [(SFSystemAlert *)p_title scheduleWithCompletionBlock:v13];
+        [(SFSystemAlert *)p_title scheduleWithCompletionBlock:v14];
       }
 
       v5[2](v5, 2);

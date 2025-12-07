@@ -52,7 +52,7 @@ uint64_t IDSOSDataChannelSetNonBlocking(uint64_t a1)
 
 ssize_t IDSOSDataChannelRead(uint64_t a1, char *__dst, size_t __n, int a4, BOOL *a5)
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v45 = *MEMORY[0x1E69E9840];
   if (!a1)
   {
     *a5 = 0;
@@ -87,7 +87,7 @@ ssize_t IDSOSDataChannelRead(uint64_t a1, char *__dst, size_t __n, int a4, BOOL 
       v11 = __dst;
     }
 
-    v31 = __dst;
+    v40 = __dst;
     if (*(a1 + 16) && v6)
     {
       v16 = 0;
@@ -101,8 +101,8 @@ ssize_t IDSOSDataChannelRead(uint64_t a1, char *__dst, size_t __n, int a4, BOOL 
           {
             *&v19 = 0xAAAAAAAAAAAAAAAALL;
             *(&v19 + 1) = 0xAAAAAAAAAAAAAAAALL;
-            v34 = v19;
-            v35 = v19;
+            v43 = v19;
+            v44 = v19;
             *__na = v19;
             *__src = v19;
             next_slot = os_channel_get_next_slot();
@@ -159,10 +159,10 @@ LABEL_22:
             {
               if (_IDSShouldLogTransport())
               {
-                _IDSLogTransport(@"IDSOSDataChannel", @"IDS", @"advance_slot failed for read %d");
-                if (_IDSShouldLog())
+                _IDSLogTransport(@"IDSOSDataChannel", @"IDS", @"advance_slot failed for read %d", v25, v26, v27, v28, v29, v23);
+                if (_IDSShouldLog(0))
                 {
-                  _IDSLogV(0, @"IDSFoundation", @"IDSOSDataChannel", @"advance_slot failed for read %d");
+                  _IDSLogV(0, @"IDSFoundation", @"IDSOSDataChannel", @"advance_slot failed for read %d", v30, v31, v32, v33, v23);
                 }
               }
             }
@@ -176,25 +176,25 @@ LABEL_29:
       while (++v16 < *(a1 + 16) && v6 != 0);
     }
 
-    v26 = *(a1 + 8);
-    if (v26)
+    v35 = *(a1 + 8);
+    if (v35)
     {
       os_channel_sync();
     }
 
-    *a5 = v26 != 0;
-    v27 = qword_1EB2DC1E8;
+    *a5 = v35 != 0;
+    v36 = qword_1EB2DC1E8;
     if (qword_1EB2DC1E8)
     {
-      v28 = os_channel_ring_notify_time();
-      [v27 consumeTimeCheckForEvent:@"IDSOSDataChannelRead RX" produceTime:v28 consumeTime:os_channel_ring_sync_time()];
-      v29 = qword_1EB2DC1E8;
-      v30 = os_channel_ring_sync_time();
-      [v29 consumeTimeCheckForEvent:@"IDSOSDataChannelRead TX" produceTime:v30 consumeTime:os_channel_ring_notify_time()];
+      v37 = os_channel_ring_notify_time();
+      [v36 consumeTimeCheckForEvent:@"IDSOSDataChannelRead RX" produceTime:v37 consumeTime:os_channel_ring_sync_time()];
+      v38 = qword_1EB2DC1E8;
+      v39 = os_channel_ring_sync_time();
+      [v38 consumeTimeCheckForEvent:@"IDSOSDataChannelRead TX" produceTime:v39 consumeTime:os_channel_ring_notify_time()];
     }
 
-    v6 = v11 - v31;
-    if (v11 > v31)
+    v6 = v11 - v40;
+    if (v11 > v40)
     {
       return v6;
     }
@@ -212,7 +212,7 @@ LABEL_40:
   return recv(v14, __dst, __n, a4);
 }
 
-uint64_t IDSOSDataChannelSync(uint64_t a1, uint64_t a2, _DWORD *a3)
+uint64_t IDSOSDataChannelSync(uint64_t a1, int a2, _DWORD *a3)
 {
   if (!a1 || !*(a1 + 8))
   {
@@ -245,7 +245,7 @@ uint64_t IDSOSDataChannelSync(uint64_t a1, uint64_t a2, _DWORD *a3)
 
 ssize_t IDSOSDataChannelWrite(uint64_t a1, char *a2, size_t a3, int a4, int a5, _DWORD *a6, _BYTE *a7)
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v45 = *MEMORY[0x1E69E9840];
   if (!a1)
   {
     *a7 = 0;
@@ -263,7 +263,7 @@ ssize_t IDSOSDataChannelWrite(uint64_t a1, char *a2, size_t a3, int a4, int a5, 
 
     if (*(a1 + 20) && a3)
     {
-      v31 = a7;
+      v40 = a7;
       v10 = 0;
       v11 = a2;
       do
@@ -276,8 +276,8 @@ ssize_t IDSOSDataChannelWrite(uint64_t a1, char *a2, size_t a3, int a4, int a5, 
           {
             *&v14 = 0xAAAAAAAAAAAAAAAALL;
             *(&v14 + 1) = 0xAAAAAAAAAAAAAAAALL;
-            v34 = v14;
-            v35 = v14;
+            v43 = v14;
+            v44 = v14;
             *buf = v14;
             *__dst = v14;
             next_slot = os_channel_get_next_slot();
@@ -321,10 +321,10 @@ ssize_t IDSOSDataChannelWrite(uint64_t a1, char *a2, size_t a3, int a4, int a5, 
               {
                 if (_IDSShouldLogTransport())
                 {
-                  _IDSLogTransport(@"IDSOSDataChannel", @"IDS", @"advance_slot failed for write %d");
-                  if (_IDSShouldLog())
+                  _IDSLogTransport(@"IDSOSDataChannel", @"IDS", @"advance_slot failed for write %d", v20, v21, v22, v23, v24, v18);
+                  if (_IDSShouldLog(0))
                   {
-                    _IDSLogV(0, @"IDSFoundation", @"IDSOSDataChannel", @"advance_slot failed for write %d");
+                    _IDSLogV(0, @"IDSFoundation", @"IDSOSDataChannel", @"advance_slot failed for write %d", v25, v26, v27, v28, v18);
                   }
                 }
               }
@@ -334,15 +334,15 @@ ssize_t IDSOSDataChannelWrite(uint64_t a1, char *a2, size_t a3, int a4, int a5, 
       }
 
       while (++v10 < *(a1 + 20) && v7 != 0);
-      a7 = v31;
-      *v31 = 0;
-      v24 = v11 > a2;
-      v21 = v11 - a2;
-      if (v24)
+      a7 = v40;
+      *v40 = 0;
+      v33 = v11 > a2;
+      v30 = v11 - a2;
+      if (v33)
       {
         if (a5)
         {
-          *v31 = IDSOSDataChannelSync(a1, 1, a6);
+          *v40 = IDSOSDataChannelSync(a1, 1, a6);
         }
 
         goto LABEL_37;
@@ -356,25 +356,25 @@ ssize_t IDSOSDataChannelWrite(uint64_t a1, char *a2, size_t a3, int a4, int a5, 
 
     *a7 = IDSOSDataChannelSync(a1, 1, a6);
     *__error() = 35;
-    v21 = -1;
+    v30 = -1;
 LABEL_37:
-    v25 = qword_1EB2DC1E8;
+    v34 = qword_1EB2DC1E8;
     if (qword_1EB2DC1E8)
     {
-      v26 = os_channel_ring_notify_time();
-      [v25 consumeTimeCheckForEvent:@"IDSOSDataChannelWrite RX" produceTime:v26 consumeTime:os_channel_ring_sync_time()];
-      v27 = qword_1EB2DC1E8;
-      v28 = os_channel_ring_sync_time();
-      [v27 consumeTimeCheckForEvent:@"IDSOSDataChannelWrite TX" produceTime:v28 consumeTime:os_channel_ring_notify_time()];
+      v35 = os_channel_ring_notify_time();
+      [v34 consumeTimeCheckForEvent:@"IDSOSDataChannelWrite RX" produceTime:v35 consumeTime:os_channel_ring_sync_time()];
+      v36 = qword_1EB2DC1E8;
+      v37 = os_channel_ring_sync_time();
+      [v36 consumeTimeCheckForEvent:@"IDSOSDataChannelWrite TX" produceTime:v37 consumeTime:os_channel_ring_notify_time()];
     }
 
-    return v21;
+    return v30;
   }
 
   *a7 = 0;
-  v22 = *a1;
+  v31 = *a1;
 
-  return send(v22, a2, a3, a4);
+  return send(v31, a2, a3, a4);
 }
 
 uint64_t IDSQRProtoPutMaterialResponseReadFrom(uint64_t a1, void *a2)
@@ -1335,16 +1335,16 @@ LABEL_54:
   return [a2 hasError] ^ 1;
 }
 
-id NWLinkQueue()
+id NWLinkQueue(uint64_t a1)
 {
   if (qword_1EB2B8928 != -1)
   {
     sub_1A7E12368();
   }
 
-  v1 = qword_1EB2B8920;
+  v2 = qword_1EB2B8920;
 
-  return v1;
+  return v2;
 }
 
 void sub_1A7B2EB6C()
@@ -1354,12 +1354,12 @@ void sub_1A7B2EB6C()
   v2 = qword_1EB2B8920;
   qword_1EB2B8920 = v1;
 
-  v3 = IDSRealTimeContext();
+  v4 = IDSRealTimeContext(v3);
   nw_queue_context_target_dispatch_queue();
 
-  v4 = qword_1EB2B8920;
+  v5 = qword_1EB2B8920;
 
-  dispatch_activate(v4);
+  dispatch_activate(v5);
 }
 
 id _tokenWithParameters(void *a1, void *a2, void *a3, unint64_t a4, uint64_t a5)
@@ -1458,8 +1458,9 @@ id _tokenForNWLinkConnection(void *a1)
   return v7;
 }
 
-uint64_t _supportsNAT64(uint64_t a1, int a2)
+uint64_t _supportsNAT64(uint64_t a1, uint64_t a2)
 {
+  v2 = a2;
   v23 = *MEMORY[0x1E69E9840];
   if (*(a1 + 1) == 2)
   {
@@ -1487,7 +1488,7 @@ uint64_t _supportsNAT64(uint64_t a1, int a2)
     v7 = SAToIPPortString(__str, 0x80uLL, a1);
     v8 = @"NO";
     v10[0] = 67109634;
-    v10[1] = a2;
+    v10[1] = v2;
     if (does_interface_index_support_nat64)
     {
       v8 = @"YES";
@@ -1503,8 +1504,9 @@ uint64_t _supportsNAT64(uint64_t a1, int a2)
   return does_interface_index_support_nat64;
 }
 
-const char *_getPathForMessageType(int a1)
+const char *_getPathForMessageType(uint64_t a1)
 {
+  v1 = a1;
   v2 = a1 - 1;
   result = "/QR/AllocBind";
   switch(v2)
@@ -1579,7 +1581,7 @@ const char *_getPathForMessageType(int a1)
       result = "/QR/ChannelConfig";
       break;
     default:
-      if (a1 == 1001)
+      if (v1 == 1001)
       {
         result = "/QR/ChannelData";
       }
@@ -1889,10 +1891,10 @@ LABEL_22:
 
 void sub_1A7B3260C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
 {
-  objc_destroyWeak((v72 + 48));
-  objc_destroyWeak((v72 + 40));
+  objc_destroyWeak((v66 + 48));
+  objc_destroyWeak((v66 + 40));
   objc_destroyWeak(&location);
-  objc_destroyWeak(&a72);
+  objc_destroyWeak(&a66);
   _Unwind_Resume(a1);
 }
 
@@ -2128,10 +2130,11 @@ uint64_t sub_1A7B32ECC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
   return v9();
 }
 
-void sub_1A7B338B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, char a57)
+void sub_1A7B338B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, ...)
 {
-  _Block_object_dispose(&a57, 8);
-  _Block_object_dispose((v57 - 176), 8);
+  va_start(va, a56);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v56 - 176), 8);
   _Unwind_Resume(a1);
 }
 
@@ -2543,10 +2546,11 @@ uint64_t sub_1A7B361D4(uint64_t a1, void *a2)
   return v11;
 }
 
-void sub_1A7B37BF8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, char a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, char a28)
+void sub_1A7B37BF8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, ...)
 {
+  va_start(va, a27);
   _Block_object_dispose(&a22, 8);
-  _Block_object_dispose(&a28, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -2664,8 +2668,7 @@ LABEL_7:
       v34 = v23;
       v40 = v34;
       nw_connection_set_state_changed_handler(v3, handler);
-      [*(a1 + 32) _addUDPConnectionInProgress:v32 token:v34];
-      v35 = NWLinkQueue();
+      v35 = NWLinkQueue([*(a1 + 32) _addUDPConnectionInProgress:v32 token:v34]);
       nw_connection_set_queue(v3, v35);
 
       nw_connection_start(v3);
@@ -2927,7 +2930,7 @@ LABEL_11:
   {
     sub_1A7B306B4(*(a1 + 40), 1, "_tryReadH2Header: received 200 OK", v23, v24, v25, v26, v27, v34);
     v29 = [IDSCapsuleParser alloc];
-    v30 = NWLinkQueue();
+    v30 = NWLinkQueue(v29);
     v31 = [(IDSCapsuleParser *)v29 initWithQueue:v30];
     [*(a1 + 40) setCapsuleParser:v31];
 
@@ -3217,8 +3220,7 @@ void sub_1A7B3A8E8(uint64_t a1, void *a2)
     [v3 connectionID];
     sub_1A7B306B4(v12, 1, "peeled off [C%llu(%llu)]", v16, v17, v18, v19, v20, v15);
     [(NWLinkConnection *)v12 setParent:v3];
-    [*(a1 + 40) _addNWLinkConnection:v12 token:v5];
-    v21 = NWLinkQueue();
+    v21 = NWLinkQueue([*(a1 + 40) _addNWLinkConnection:v12 token:v5]);
     nw_connection_set_queue(v10, v21);
 
     nw_connection_start(v10);
@@ -3233,9 +3235,9 @@ void sub_1A7B3A8E8(uint64_t a1, void *a2)
   }
 }
 
-void sub_1A7B3ABB4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_1A7B3ABB4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3496,14 +3498,14 @@ uint64_t sub_1A7B3C578(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t
   }
 }
 
-uint64_t sub_1A7B3C614(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void **sub_1A7B3C614(void **result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   if (a2)
   {
     v8 = result;
-    sub_1A7B306B4(*(result + 32), 2, "send failed (%@)", a4, a5, a6, a7, a8, a2);
-    v10 = *(v8 + 32);
-    v9 = *(v8 + 40);
+    sub_1A7B306B4(result[4], 2, "send failed (%@)", a4, a5, a6, a7, a8, a2);
+    v10 = v8[4];
+    v9 = v8[5];
 
     return [v9 _failNWLinkConnection:v10];
   }
@@ -3511,14 +3513,14 @@ uint64_t sub_1A7B3C614(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, u
   return result;
 }
 
-uint64_t sub_1A7B3C670(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void **sub_1A7B3C670(void **result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   if (a2)
   {
     v8 = result;
-    sub_1A7B306B4(*(result + 32), 2, "_sendData: h2 send failed (%@)", a4, a5, a6, a7, a8, a2);
-    v10 = *(v8 + 32);
-    v9 = *(v8 + 40);
+    sub_1A7B306B4(result[4], 2, "_sendData: h2 send failed (%@)", a4, a5, a6, a7, a8, a2);
+    v10 = v8[4];
+    v9 = v8[5];
 
     return [v9 _failNWLinkConnection:v10];
   }
@@ -3804,9 +3806,10 @@ LABEL_53:
   _Block_object_dispose(&v111, 8);
 }
 
-void sub_1A7B3D09C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, char a47, uint64_t a48, uint64_t a49, uint64_t a50, char a51)
+void sub_1A7B3D09C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, ...)
 {
-  _Block_object_dispose(&a51, 8);
+  va_start(va, a50);
+  _Block_object_dispose(va, 8);
   _Block_object_dispose(&a47, 8);
   _Unwind_Resume(a1);
 }
@@ -4047,9 +4050,9 @@ id sub_1A7B3DA88(NSObject *a1)
   return v2;
 }
 
-void sub_1A7B3DC68(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1A7B3DC68(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4322,17 +4325,17 @@ LABEL_62:
   return [a2 hasError] ^ 1;
 }
 
-uint64_t sub_1A7B43CA4(uint64_t a1, uint64_t a2)
+uint64_t sub_1A7B43CA4(uint64_t a1)
 {
-  v2 = MEMORY[0x1EEE9AC00](a1, a2);
+  MEMORY[0x1EEE9AC00](a1);
+  v2 = v1;
   v4 = v3;
   v6 = v5;
-  v7 = v2;
-  v36 = *MEMORY[0x1E69E9840];
-  memset(&__b, 170, 0x4000uLL);
-  if (v4 < 1025)
+  v93 = *MEMORY[0x1E69E9840];
+  memset(__b, 170, sizeof(__b));
+  if (v2 < 1025)
   {
-    if (v4 < 1)
+    if (v2 < 1)
     {
       goto LABEL_21;
     }
@@ -4340,103 +4343,103 @@ uint64_t sub_1A7B43CA4(uint64_t a1, uint64_t a2)
 
   else
   {
-    v8 = OSLogHandleForTransportCategory();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v7 = OSLogHandleForTransportCategory();
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109376;
-      *v31 = v4;
-      *&v31[4] = 1024;
-      *&v31[6] = 1024;
-      _os_log_impl(&dword_1A7AD9000, v8, OS_LOG_TYPE_DEFAULT, "buffer array count too big: %d, use %d", buf, 0xEu);
+      *v88 = v2;
+      *&v88[4] = 1024;
+      *&v88[6] = 1024;
+      _os_log_impl(&dword_1A7AD9000, v7, OS_LOG_TYPE_DEFAULT, "buffer array count too big: %d, use %d", buf, 0xEu);
     }
 
     if (os_log_shim_legacy_logging_enabled())
     {
       if (_IDSShouldLogTransport())
       {
-        _IDSLogTransport(@"TCPLink", @"IDS", @"buffer array count too big: %d, use %d");
-        if (_IDSShouldLog())
+        _IDSLogTransport(@"TCPLink", @"IDS", @"buffer array count too big: %d, use %d", v8, v9, v10, v11, v12, v2);
+        if (_IDSShouldLog(0))
         {
-          _IDSLogV(0, @"IDSFoundation", @"TCPLink", @"buffer array count too big: %d, use %d");
+          _IDSLogV(0, @"IDSFoundation", @"TCPLink", @"buffer array count too big: %d, use %d", v13, v14, v15, v16, v2);
         }
       }
     }
 
-    v4 = 1024;
+    LODWORD(v2) = 1024;
   }
 
-  v9 = 0;
-  v10 = 0;
-  v11 = v4;
-  p_iov_len = &__b.iov_len;
+  v17 = 0;
+  v18 = 0;
+  v19 = v2;
+  p_iov_len = &__b[0].iov_len;
   do
   {
-    v13 = v6[v9];
-    *(p_iov_len - 1) = *v13;
-    v14 = v13[2];
-    *p_iov_len = v14;
+    v21 = v4[v17];
+    *(p_iov_len - 1) = *v21;
+    v22 = v21[2];
+    *p_iov_len = v22;
     p_iov_len += 2;
-    v10 += v14;
-    ++v9;
+    v18 += v22;
+    ++v17;
   }
 
-  while (v4 != v9);
-  if (v10)
+  while (v2 != v17);
+  if (v18)
   {
-    if ((*(v7 + 5) & 1) == 0)
+    if ((*(v6 + 5) & 1) == 0)
     {
-      v23 = OSLogHandleForTransportCategory();
-      if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+      v40 = OSLogHandleForTransportCategory();
+      if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_1A7AD9000, v23, OS_LOG_TYPE_DEFAULT, "connecting", buf, 2u);
+        _os_log_impl(&dword_1A7AD9000, v40, OS_LOG_TYPE_DEFAULT, "connecting", buf, 2u);
       }
 
       if (os_log_shim_legacy_logging_enabled())
       {
         if (_IDSShouldLogTransport())
         {
-          _IDSLogTransport(@"TCPLink", @"IDS", @"connecting");
-          if (_IDSShouldLog())
+          _IDSLogTransport(@"TCPLink", @"IDS", @"connecting", v41, v42, v43, v44, v45, v83);
+          if (_IDSShouldLog(0))
           {
-            _IDSLogV(0, @"IDSFoundation", @"TCPLink", @"connecting");
+            _IDSLogV(0, @"IDSFoundation", @"TCPLink", @"connecting", v46, v47, v48, v49, v85);
           }
         }
       }
 
-      if (!*(v7 + 288))
+      if (!*(v6 + 36))
       {
-        *(v7 + 288) = _IDSLinkPacketBufferClone("/Library/Caches/com.apple.xbs/Sources/IdentityServices/IDSFoundation/IDSTCPLink.m", 743, *v6);
+        *(v6 + 36) = _IDSLinkPacketBufferClone("/Library/Caches/com.apple.xbs/Sources/IdentityServices/IDSFoundation/IDSTCPLink.m", 743, *v4);
       }
 
       return 14;
     }
 
-    v15 = writev(*v7, &__b, v4);
-    v16 = v15;
-    if (v15 >= 1)
+    v23 = writev(*v6, __b, v2);
+    v24 = v23;
+    if (v23 >= 1)
     {
-      v17 = *(v7 + 296);
-      *v17 += v15;
-      if (v15 >= v10)
+      v25 = *(v6 + 37);
+      *v25 += v23;
+      if (v23 >= v18)
       {
         result = 0;
-        v17[1] += v4;
+        v25[1] += v2;
         return result;
       }
 
-      for (i = v6; ; ++i)
+      for (i = v4; ; ++i)
       {
-        v19 = *i;
-        v20 = *(*i + 16);
-        if (v16 < v20)
+        v27 = *i;
+        v28 = *(*i + 16);
+        if (v24 < v28)
         {
           break;
         }
 
-        ++v17[1];
-        v16 -= v20;
-        if (!--v11)
+        ++v25[1];
+        v24 -= v28;
+        if (!--v19)
         {
           if (isRunningTests())
           {
@@ -4447,78 +4450,78 @@ uint64_t sub_1A7B43CA4(uint64_t a1, uint64_t a2)
         }
       }
 
-      IDSLinkPacketBufferAddBufferStart(*i, v16);
+      IDSLinkPacketBufferAddBufferStart(*i, v24);
       goto LABEL_59;
     }
 
-    if (v15 == -1)
+    if (v23 == -1)
     {
-      v25 = *__error();
-      if (v25 == 55 || v25 == 35)
+      v60 = *__error();
+      if (v60 == 55 || v60 == 35)
       {
-        v19 = *v6;
+        v27 = *v4;
       }
 
       else
       {
-        v26 = OSLogHandleForTransportCategory();
-        if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+        v61 = OSLogHandleForTransportCategory();
+        if (os_log_type_enabled(v61, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 67109120;
-          *v31 = v25;
-          _os_log_impl(&dword_1A7AD9000, v26, OS_LOG_TYPE_DEFAULT, "write failed: %d", buf, 8u);
+          *v88 = v60;
+          _os_log_impl(&dword_1A7AD9000, v61, OS_LOG_TYPE_DEFAULT, "write failed: %d", buf, 8u);
         }
 
         if (os_log_shim_legacy_logging_enabled())
         {
           if (_IDSShouldLogTransport())
           {
-            _IDSLogTransport(@"TCPLink", @"IDS", @"write failed: %d");
-            if (_IDSShouldLog())
+            _IDSLogTransport(@"TCPLink", @"IDS", @"write failed: %d", v62, v63, v64, v65, v66, v60);
+            if (_IDSShouldLog(0))
             {
-              _IDSLogV(0, @"IDSFoundation", @"TCPLink", @"write failed: %d");
+              _IDSLogV(0, @"IDSFoundation", @"TCPLink", @"write failed: %d", v67, v68, v69, v70, v60);
             }
           }
         }
 
-        sub_1A7B449F8(v7);
-        v19 = 0;
+        sub_1A7B449F8(v6);
+        v27 = 0;
       }
 
-      v16 = -1;
-      if (v25 == 35 || v25 == 55)
+      v24 = -1;
+      if (v60 == 35 || v60 == 55)
       {
 LABEL_59:
-        v27 = OSLogHandleForTransportCategory();
-        if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
+        v71 = OSLogHandleForTransportCategory();
+        if (os_log_type_enabled(v71, OS_LOG_TYPE_DEFAULT))
         {
-          v28 = *(v19 + 16);
-          v29 = *(v7 + 288);
+          v72 = *(v27 + 16);
+          v73 = *(v6 + 36);
           *buf = 134218496;
-          *v31 = v28;
-          *&v31[8] = 2048;
-          v32 = v16;
-          v33 = 2048;
-          v34 = v29;
-          _os_log_impl(&dword_1A7AD9000, v27, OS_LOG_TYPE_DEFAULT, "would block: %zd %zd %p", buf, 0x20u);
+          *v88 = v72;
+          *&v88[8] = 2048;
+          v89 = v24;
+          v90 = 2048;
+          v91 = v73;
+          _os_log_impl(&dword_1A7AD9000, v71, OS_LOG_TYPE_DEFAULT, "would block: %zd %zd %p", buf, 0x20u);
         }
 
         if (os_log_shim_legacy_logging_enabled())
         {
           if (_IDSShouldLogTransport())
           {
-            _IDSLogTransport(@"TCPLink", @"IDS", @"would block: %zd %zd %p");
-            if (_IDSShouldLog())
+            _IDSLogTransport(@"TCPLink", @"IDS", @"would block: %zd %zd %p", v74, v75, v76, v77, v78, *(v27 + 16));
+            if (_IDSShouldLog(0))
             {
-              _IDSLogV(0, @"IDSFoundation", @"TCPLink", @"would block: %zd %zd %p");
+              _IDSLogV(0, @"IDSFoundation", @"TCPLink", @"would block: %zd %zd %p", v79, v80, v81, v82, *(v27 + 16));
             }
           }
         }
 
-        if (!*(v7 + 288))
+        if (!*(v6 + 36))
         {
-          *(v7 + 288) = _IDSLinkPacketBufferClone("/Library/Caches/com.apple.xbs/Sources/IdentityServices/IDSFoundation/IDSTCPLink.m", 789, v19);
-          IDSTransportThreadResumeSocket(*v7, 2);
+          *(v6 + 36) = _IDSLinkPacketBufferClone("/Library/Caches/com.apple.xbs/Sources/IdentityServices/IDSFoundation/IDSTCPLink.m", 789, v27);
+          IDSTransportThreadResumeSocket(*v6, 2);
         }
 
         return 14;
@@ -4527,47 +4530,47 @@ LABEL_59:
 
     else
     {
-      v24 = OSLogHandleForTransportCategory();
-      if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+      v50 = OSLogHandleForTransportCategory();
+      if (os_log_type_enabled(v50, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_1A7AD9000, v24, OS_LOG_TYPE_DEFAULT, "connection closed by peer", buf, 2u);
+        _os_log_impl(&dword_1A7AD9000, v50, OS_LOG_TYPE_DEFAULT, "connection closed by peer", buf, 2u);
       }
 
       if (os_log_shim_legacy_logging_enabled())
       {
         if (_IDSShouldLogTransport())
         {
-          _IDSLogTransport(@"TCPLink", @"IDS", @"connection closed by peer");
-          if (_IDSShouldLog())
+          _IDSLogTransport(@"TCPLink", @"IDS", @"connection closed by peer", v51, v52, v53, v54, v55, v83);
+          if (_IDSShouldLog(0))
           {
-            _IDSLogV(0, @"IDSFoundation", @"TCPLink", @"connection closed by peer");
+            _IDSLogV(0, @"IDSFoundation", @"TCPLink", @"connection closed by peer", v56, v57, v58, v59, v86);
           }
         }
       }
 
-      sub_1A7B449F8(v7);
+      sub_1A7B449F8(v6);
     }
 
     return 11;
   }
 
 LABEL_21:
-  v21 = OSLogHandleForTransportCategory();
-  if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+  v29 = OSLogHandleForTransportCategory();
+  if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_1A7AD9000, v21, OS_LOG_TYPE_DEFAULT, "nothing to write", buf, 2u);
+    _os_log_impl(&dword_1A7AD9000, v29, OS_LOG_TYPE_DEFAULT, "nothing to write", buf, 2u);
   }
 
   if (os_log_shim_legacy_logging_enabled())
   {
     if (_IDSShouldLogTransport())
     {
-      _IDSLogTransport(@"TCPLink", @"IDS", @"nothing to write");
-      if (_IDSShouldLog())
+      _IDSLogTransport(@"TCPLink", @"IDS", @"nothing to write", v30, v31, v32, v33, v34, v83);
+      if (_IDSShouldLog(0))
       {
-        _IDSLogV(0, @"IDSFoundation", @"TCPLink", @"nothing to write");
+        _IDSLogV(0, @"IDSFoundation", @"TCPLink", @"nothing to write", v35, v36, v37, v38, v84);
       }
     }
   }
@@ -4580,18 +4583,18 @@ void sub_1A7B448FC(unsigned int *a1)
   v2 = OSLogHandleForTransportCategory();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    *v3 = 0;
-    _os_log_impl(&dword_1A7AD9000, v2, OS_LOG_TYPE_DEFAULT, "IDSTCPConnectionDestroy", v3, 2u);
+    *v12 = 0;
+    _os_log_impl(&dword_1A7AD9000, v2, OS_LOG_TYPE_DEFAULT, "IDSTCPConnectionDestroy", v12, 2u);
   }
 
   if (os_log_shim_legacy_logging_enabled())
   {
     if (_IDSShouldLogTransport())
     {
-      _IDSLogTransport(@"TCPLink", @"IDS", @"IDSTCPConnectionDestroy");
-      if (_IDSShouldLog())
+      _IDSLogTransport(@"TCPLink", @"IDS", @"IDSTCPConnectionDestroy", v3, v4, v5, v6, v7, *v12);
+      if (_IDSShouldLog(0))
       {
-        _IDSLogV(0, @"IDSFoundation", @"TCPLink", @"IDSTCPConnectionDestroy");
+        _IDSLogV(0, @"IDSFoundation", @"TCPLink", @"IDSTCPConnectionDestroy", v8, v9, v10, v11, *v12);
       }
     }
   }
@@ -4602,12 +4605,12 @@ void sub_1A7B448FC(unsigned int *a1)
 
 uint64_t sub_1A7B449F8(unsigned int *a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v2 = OSLogHandleForTransportCategory();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;
-    v9 = a1;
+    v18 = a1;
     _os_log_impl(&dword_1A7AD9000, v2, OS_LOG_TYPE_DEFAULT, "IDSTCPConnectionInvalidate: conn: %p", buf, 0xCu);
   }
 
@@ -4615,39 +4618,39 @@ uint64_t sub_1A7B449F8(unsigned int *a1)
   {
     if (_IDSShouldLogTransport())
     {
-      _IDSLogTransport(@"TCPLink", @"IDS", @"IDSTCPConnectionInvalidate: conn: %p");
-      if (_IDSShouldLog())
+      _IDSLogTransport(@"TCPLink", @"IDS", @"IDSTCPConnectionInvalidate: conn: %p", v3, v4, v5, v6, v7, a1);
+      if (_IDSShouldLog(0))
       {
-        _IDSLogV(0, @"IDSFoundation", @"TCPLink", @"IDSTCPConnectionInvalidate: conn: %p");
+        _IDSLogV(0, @"IDSFoundation", @"TCPLink", @"IDSTCPConnectionInvalidate: conn: %p", v8, v9, v10, v11, a1);
       }
     }
   }
 
-  v3 = *(a1 + 2);
-  if (v3)
+  v12 = *(a1 + 2);
+  if (v12)
   {
-    sub_1A7C22710(v3);
+    sub_1A7C22710(v12);
     *(a1 + 2) = 0;
   }
 
-  v4 = *(a1 + 35);
-  if (v4)
+  v13 = *(a1 + 35);
+  if (v13)
   {
-    _IDSLinkPacketBufferRelease("/Library/Caches/com.apple.xbs/Sources/IdentityServices/IDSFoundation/IDSTCPLink.m", 453, v4);
+    _IDSLinkPacketBufferRelease("/Library/Caches/com.apple.xbs/Sources/IdentityServices/IDSFoundation/IDSTCPLink.m", 453, v13);
     *(a1 + 35) = 0;
   }
 
-  v5 = *(a1 + 36);
-  if (v5)
+  v14 = *(a1 + 36);
+  if (v14)
   {
-    _IDSLinkPacketBufferRelease("/Library/Caches/com.apple.xbs/Sources/IdentityServices/IDSFoundation/IDSTCPLink.m", 457, v5);
+    _IDSLinkPacketBufferRelease("/Library/Caches/com.apple.xbs/Sources/IdentityServices/IDSFoundation/IDSTCPLink.m", 457, v14);
     *(a1 + 36) = 0;
   }
 
-  v6 = *(a1 + 41);
-  if (v6)
+  v15 = *(a1 + 41);
+  if (v15)
   {
-    _Block_release(v6);
+    _Block_release(v15);
     *(a1 + 41) = 0;
   }
 
@@ -4665,18 +4668,18 @@ uint64_t sub_1A7B449F8(unsigned int *a1)
 
 void sub_1A7B44BA0(uint64_t a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   v1 = *(a1 + 32);
-  v6 = 4;
-  v7 = -1431655766;
-  if (getsockopt(*v1, 0xFFFF, 4103, &v7, &v6))
+  v26 = 4;
+  v27 = -1431655766;
+  if (getsockopt(*v1, 0xFFFF, 4103, &v27, &v26))
   {
-    v7 = *__error();
+    v27 = *__error();
     v2 = OSLogHandleForTransportCategory();
     if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109120;
-      LODWORD(v9) = v7;
+      LODWORD(v29) = v27;
       _os_log_impl(&dword_1A7AD9000, v2, OS_LOG_TYPE_DEFAULT, "getsockopt failed: %d", buf, 8u);
     }
 
@@ -4684,10 +4687,10 @@ void sub_1A7B44BA0(uint64_t a1)
     {
       if (_IDSShouldLogTransport())
       {
-        _IDSLogTransport(@"TCPLink", @"IDS", @"getsockopt failed: %d");
-        if (_IDSShouldLog())
+        _IDSLogTransport(@"TCPLink", @"IDS", @"getsockopt failed: %d", v3, v4, v5, v6, v7, v27);
+        if (_IDSShouldLog(0))
         {
-          _IDSLogV(0, @"IDSFoundation", @"TCPLink", @"getsockopt failed: %d");
+          _IDSLogV(0, @"IDSFoundation", @"TCPLink", @"getsockopt failed: %d", v8, v9, v10, v11, v27);
         }
       }
     }
@@ -4695,37 +4698,45 @@ void sub_1A7B44BA0(uint64_t a1)
 
   else
   {
-    v3 = OSLogHandleForTransportCategory();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    v12 = OSLogHandleForTransportCategory();
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
-      if (v7)
+      if (v27)
       {
-        v4 = "not connected";
+        v13 = "not connected";
       }
 
       else
       {
-        v4 = "connected";
+        v13 = "connected";
       }
 
       *buf = 136315138;
-      v9 = v4;
-      _os_log_impl(&dword_1A7AD9000, v3, OS_LOG_TYPE_DEFAULT, "async connect completed, status: %s", buf, 0xCu);
+      v29 = v13;
+      _os_log_impl(&dword_1A7AD9000, v12, OS_LOG_TYPE_DEFAULT, "async connect completed, status: %s", buf, 0xCu);
     }
 
-    if (os_log_shim_legacy_logging_enabled())
+    if (os_log_shim_legacy_logging_enabled() && _IDSShouldLogTransport())
     {
-      if (_IDSShouldLogTransport())
+      v19 = v27 ? "not connected" : "connected";
+      _IDSLogTransport(@"TCPLink", @"IDS", @"async connect completed, status: %s", v14, v15, v16, v17, v18, v19);
+      if (_IDSShouldLog(0))
       {
-        _IDSLogTransport(@"TCPLink", @"IDS", @"async connect completed, status: %s");
-        if (_IDSShouldLog())
+        if (v27)
         {
-          _IDSLogV(0, @"IDSFoundation", @"TCPLink", @"async connect completed, status: %s");
+          v24 = "not connected";
         }
+
+        else
+        {
+          v24 = "connected";
+        }
+
+        _IDSLogV(0, @"IDSFoundation", @"TCPLink", @"async connect completed, status: %s", v20, v21, v22, v23, v24);
       }
     }
 
-    if (v7)
+    if (v27)
     {
       sub_1A7B449F8(v1);
     }
@@ -4736,27 +4747,27 @@ void sub_1A7B44BA0(uint64_t a1)
     }
   }
 
-  if (v7 || !*(v1 + 12))
+  if (v27 || !*(v1 + 12))
   {
-    v5 = *(v1 + 328);
-    if (v5)
+    v25 = *(v1 + 328);
+    if (v25)
     {
-      (*(v5 + 16))(v5);
+      (*(v25 + 16))();
       _Block_release(*(v1 + 328));
       *(v1 + 328) = 0;
     }
   }
 }
 
-uint64_t sub_1A7B44E80(uint64_t a1)
+uint64_t sub_1A7B44E80(unsigned int *a1)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v2 = OSLogHandleForTransportCategory();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = *(a1 + 288);
+    v3 = *(a1 + 36);
     *buf = 134217984;
-    v11 = v3;
+    v20 = v3;
     _os_log_impl(&dword_1A7AD9000, v2, OS_LOG_TYPE_DEFAULT, "connect done, outbound packet: %p", buf, 0xCu);
   }
 
@@ -4764,44 +4775,44 @@ uint64_t sub_1A7B44E80(uint64_t a1)
   {
     if (_IDSShouldLogTransport())
     {
-      _IDSLogTransport(@"TCPLink", @"IDS", @"connect done, outbound packet: %p");
-      if (_IDSShouldLog())
+      _IDSLogTransport(@"TCPLink", @"IDS", @"connect done, outbound packet: %p", v4, v5, v6, v7, v8, *(a1 + 36));
+      if (_IDSShouldLog(0))
       {
-        _IDSLogV(0, @"IDSFoundation", @"TCPLink", @"connect done, outbound packet: %p");
+        _IDSLogV(0, @"IDSFoundation", @"TCPLink", @"connect done, outbound packet: %p", v9, v10, v11, v12, *(a1 + 36));
       }
     }
   }
 
-  if (*(a1 + 12))
+  if (a1[3])
   {
     result = sub_1A7B450C8(a1, &unk_1A7E40B68, 0x33uLL);
     if (result)
     {
-      v5 = *a1;
-      v9[0] = MEMORY[0x1E69E9820];
-      v9[1] = 3221225472;
-      v9[2] = sub_1A7B45254;
-      v9[3] = &unk_1E77DD328;
-      v9[4] = a1;
-      return IDSTransportThreadAddSocket(v5, v9, 0);
+      v14 = *a1;
+      v18[0] = MEMORY[0x1E69E9820];
+      v18[1] = 3221225472;
+      v18[2] = sub_1A7B45254;
+      v18[3] = &unk_1E77DD328;
+      v18[4] = a1;
+      return IDSTransportThreadAddSocket(v14, v18, 0);
     }
   }
 
   else
   {
     *(a1 + 5) = 1;
-    v6 = *a1;
-    v7[4] = a1;
-    v8[0] = MEMORY[0x1E69E9820];
-    v8[1] = 3221225472;
-    v8[2] = sub_1A7B46628;
-    v8[3] = &unk_1E77DD328;
-    v8[4] = a1;
-    v7[0] = MEMORY[0x1E69E9820];
-    v7[1] = 3221225472;
-    v7[2] = sub_1A7B46630;
-    v7[3] = &unk_1E77DD328;
-    return IDSTransportThreadAddSocket(v6, v8, v7);
+    v15 = *a1;
+    v16[4] = a1;
+    v17[0] = MEMORY[0x1E69E9820];
+    v17[1] = 3221225472;
+    v17[2] = sub_1A7B46628;
+    v17[3] = &unk_1E77DD328;
+    v17[4] = a1;
+    v16[0] = MEMORY[0x1E69E9820];
+    v16[1] = 3221225472;
+    v16[2] = sub_1A7B46630;
+    v16[3] = &unk_1E77DD328;
+    return IDSTransportThreadAddSocket(v15, v17, v16);
   }
 
   return result;
@@ -4809,7 +4820,7 @@ uint64_t sub_1A7B44E80(uint64_t a1)
 
 BOOL sub_1A7B450C8(int *a1, const void *a2, size_t a3)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   v5 = write(*a1, a2, a3);
   if (v5 != a3)
   {
@@ -4818,11 +4829,11 @@ BOOL sub_1A7B450C8(int *a1, const void *a2, size_t a3)
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134218496;
-      v10 = a3;
-      v11 = 2048;
-      v12 = v5;
-      v13 = 1024;
-      v14 = v6;
+      v19 = a3;
+      v20 = 2048;
+      v21 = v5;
+      v22 = 1024;
+      v23 = v6;
       _os_log_impl(&dword_1A7AD9000, v7, OS_LOG_TYPE_DEFAULT, "IDSTCPConnectionSmallWrite: %zu %zd %d", buf, 0x1Cu);
     }
 
@@ -4830,10 +4841,10 @@ BOOL sub_1A7B450C8(int *a1, const void *a2, size_t a3)
     {
       if (_IDSShouldLogTransport())
       {
-        _IDSLogTransport(@"TCPLink", @"IDS", @"IDSTCPConnectionSmallWrite: %zu %zd %d");
-        if (_IDSShouldLog())
+        _IDSLogTransport(@"TCPLink", @"IDS", @"IDSTCPConnectionSmallWrite: %zu %zd %d", v8, v9, v10, v11, v12, a3);
+        if (_IDSShouldLog(0))
         {
-          _IDSLogV(0, @"IDSFoundation", @"TCPLink", @"IDSTCPConnectionSmallWrite: %zu %zd %d");
+          _IDSLogV(0, @"IDSFoundation", @"TCPLink", @"IDSTCPConnectionSmallWrite: %zu %zd %d", v13, v14, v15, v16, a3);
         }
       }
     }
@@ -4844,9 +4855,9 @@ BOOL sub_1A7B450C8(int *a1, const void *a2, size_t a3)
   return v5 == a3;
 }
 
-void sub_1A7B4525C(uint64_t a1)
+void sub_1A7B4525C(unsigned int *a1)
 {
-  v57 = *MEMORY[0x1E69E9840];
+  v244 = *MEMORY[0x1E69E9840];
   if (*(a1 + 4) == 1)
   {
     v1 = OSLogHandleForTransportCategory();
@@ -4858,43 +4869,43 @@ void sub_1A7B4525C(uint64_t a1)
 
     if (os_log_shim_legacy_logging_enabled() && _IDSShouldLogTransport())
     {
-      _IDSLogTransport(@"TCPLink", @"IDS", @"Connection already invalidated");
-      if (_IDSShouldLog())
+      _IDSLogTransport(@"TCPLink", @"IDS", @"Connection already invalidated", v2, v3, v4, v5, v6, v228);
+      if (_IDSShouldLog(0))
       {
-        _IDSLogV(0, @"IDSFoundation", @"TCPLink", @"Connection already invalidated");
+        _IDSLogV(0, @"IDSFoundation", @"TCPLink", @"Connection already invalidated", v7, v8, v9, v10, v229);
       }
     }
 
     return;
   }
 
-  v3 = *(a1 + 16);
-  v4 = *(a1 + 280);
-  v5 = v3[3];
-  v6 = v3[1] - v5;
-  if (v6 <= 0x3FF)
+  v12 = *(a1 + 2);
+  v13 = *(a1 + 35);
+  v14 = v12[3];
+  v15 = v12[1] - v14;
+  if (v15 <= 0x3FF)
   {
-    sub_1A7C2271C(*(a1 + 16));
-    v7 = v3[1];
-    v5 = v3[3];
-    v6 = v7 - v5;
-    if (v7 == v5)
+    sub_1A7C2271C(*(a1 + 2));
+    v16 = v12[1];
+    v14 = v12[3];
+    v15 = v16 - v14;
+    if (v16 == v14)
     {
-      v34 = OSLogHandleForTransportCategory();
-      if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
+      v115 = OSLogHandleForTransportCategory();
+      if (os_log_type_enabled(v115, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_1A7AD9000, v34, OS_LOG_TYPE_DEFAULT, "buffer full", buf, 2u);
+        _os_log_impl(&dword_1A7AD9000, v115, OS_LOG_TYPE_DEFAULT, "buffer full", buf, 2u);
       }
 
       if (os_log_shim_legacy_logging_enabled())
       {
         if (_IDSShouldLogTransport())
         {
-          _IDSLogTransport(@"TCPLink", @"IDS", @"buffer full");
-          if (_IDSShouldLog())
+          _IDSLogTransport(@"TCPLink", @"IDS", @"buffer full", v116, v117, v118, v119, v120, v228);
+          if (_IDSShouldLog(0))
           {
-            _IDSLogV(0, @"IDSFoundation", @"TCPLink", @"buffer full");
+            _IDSLogV(0, @"IDSFoundation", @"TCPLink", @"buffer full", v121, v122, v123, v124, v231);
           }
         }
       }
@@ -4903,28 +4914,28 @@ void sub_1A7B4525C(uint64_t a1)
     }
   }
 
-  v8 = read(*a1, v5, v6);
-  if (v8 <= 0)
+  v17 = read(*a1, v14, v15);
+  if (v17 <= 0)
   {
-    if (v8 < 0)
+    if (v17 < 0)
     {
-      v35 = *__error();
-      v36 = OSLogHandleForTransportCategory();
-      if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
+      v125 = *__error();
+      v126 = OSLogHandleForTransportCategory();
+      if (os_log_type_enabled(v126, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 67109120;
-        *&buf[4] = v35;
-        _os_log_impl(&dword_1A7AD9000, v36, OS_LOG_TYPE_DEFAULT, "read failed: %d", buf, 8u);
+        *&buf[4] = v125;
+        _os_log_impl(&dword_1A7AD9000, v126, OS_LOG_TYPE_DEFAULT, "read failed: %d", buf, 8u);
       }
 
       if (os_log_shim_legacy_logging_enabled())
       {
         if (_IDSShouldLogTransport())
         {
-          _IDSLogTransport(@"TCPLink", @"IDS", @"read failed: %d");
-          if (_IDSShouldLog())
+          _IDSLogTransport(@"TCPLink", @"IDS", @"read failed: %d", v127, v128, v129, v130, v131, v125);
+          if (_IDSShouldLog(0))
           {
-            _IDSLogV(0, @"IDSFoundation", @"TCPLink", @"read failed: %d");
+            _IDSLogV(0, @"IDSFoundation", @"TCPLink", @"read failed: %d", v132, v133, v134, v135, v125);
           }
         }
       }
@@ -4932,21 +4943,21 @@ void sub_1A7B4525C(uint64_t a1)
 
     else
     {
-      v33 = OSLogHandleForTransportCategory();
-      if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
+      v105 = OSLogHandleForTransportCategory();
+      if (os_log_type_enabled(v105, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_1A7AD9000, v33, OS_LOG_TYPE_DEFAULT, "Connection closed by peer", buf, 2u);
+        _os_log_impl(&dword_1A7AD9000, v105, OS_LOG_TYPE_DEFAULT, "Connection closed by peer", buf, 2u);
       }
 
       if (os_log_shim_legacy_logging_enabled())
       {
         if (_IDSShouldLogTransport())
         {
-          _IDSLogTransport(@"TCPLink", @"IDS", @"Connection closed by peer");
-          if (_IDSShouldLog())
+          _IDSLogTransport(@"TCPLink", @"IDS", @"Connection closed by peer", v106, v107, v108, v109, v110, v228);
+          if (_IDSShouldLog(0))
           {
-            _IDSLogV(0, @"IDSFoundation", @"TCPLink", @"Connection closed by peer");
+            _IDSLogV(0, @"IDSFoundation", @"TCPLink", @"Connection closed by peer", v111, v112, v113, v114, v230);
           }
         }
       }
@@ -4957,37 +4968,37 @@ LABEL_112:
     return;
   }
 
-  v9 = 0;
-  v10 = (v3[3] + v8);
-  v3[3] = v10;
-  *(*(a1 + 296) + 16) += v8;
-  v11 = v3[2];
+  v18 = 0;
+  v19 = (v12[3] + v17);
+  v12[3] = v19;
+  *(*(a1 + 37) + 16) += v17;
+  v20 = v12[2];
   while (1)
   {
-    v12 = *(a1 + 12);
-    if (!v12)
+    v21 = a1[3];
+    if (!v21)
     {
-      v14 = v9;
+      v23 = v18;
       goto LABEL_32;
     }
 
-    if ((v10 - v11) <= 4)
+    if ((v19 - v20) <= 4)
     {
-      v38 = OSLogHandleForTransportCategory();
-      if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
+      v137 = OSLogHandleForTransportCategory();
+      if (os_log_type_enabled(v137, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_1A7AD9000, v38, OS_LOG_TYPE_DEFAULT, "partial header received", buf, 2u);
+        _os_log_impl(&dword_1A7AD9000, v137, OS_LOG_TYPE_DEFAULT, "partial header received", buf, 2u);
       }
 
       if (os_log_shim_legacy_logging_enabled())
       {
         if (_IDSShouldLogTransport())
         {
-          _IDSLogTransport(@"TCPLink", @"IDS", @"partial header received");
-          if (_IDSShouldLog())
+          _IDSLogTransport(@"TCPLink", @"IDS", @"partial header received", v138, v139, v140, v141, v142, v228);
+          if (_IDSShouldLog(0))
           {
-            _IDSLogV(0, @"IDSFoundation", @"TCPLink", @"partial header received");
+            _IDSLogV(0, @"IDSFoundation", @"TCPLink", @"partial header received", v143, v144, v145, v146, v232);
           }
         }
       }
@@ -4995,25 +5006,25 @@ LABEL_112:
       return;
     }
 
-    v13 = *(v11 + 3);
-    v14 = bswap32(v13) >> 16;
-    if (v10 - v11 < (v14 + 5))
+    v22 = *(v20 + 3);
+    v23 = bswap32(v22) >> 16;
+    if (v19 - v20 < (v23 + 5))
     {
-      v39 = OSLogHandleForTransportCategory();
-      if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
+      v147 = OSLogHandleForTransportCategory();
+      if (os_log_type_enabled(v147, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_1A7AD9000, v39, OS_LOG_TYPE_DEFAULT, "partial record received", buf, 2u);
+        _os_log_impl(&dword_1A7AD9000, v147, OS_LOG_TYPE_DEFAULT, "partial record received", buf, 2u);
       }
 
       if (os_log_shim_legacy_logging_enabled())
       {
         if (_IDSShouldLogTransport())
         {
-          _IDSLogTransport(@"TCPLink", @"IDS", @"partial record received");
-          if (_IDSShouldLog())
+          _IDSLogTransport(@"TCPLink", @"IDS", @"partial record received", v148, v149, v150, v151, v152, v228);
+          if (_IDSShouldLog(0))
           {
-            _IDSLogV(0, @"IDSFoundation", @"TCPLink", @"partial record received");
+            _IDSLogV(0, @"IDSFoundation", @"TCPLink", @"partial record received", v153, v154, v155, v156, v233);
           }
         }
       }
@@ -5021,60 +5032,60 @@ LABEL_112:
       return;
     }
 
-    v15 = v11 + 5;
-    v3[2] = (v11 + 5);
-    v16 = *v11;
-    if (v16 <= 0x15)
+    v24 = v20 + 5;
+    v12[2] = (v20 + 5);
+    v25 = *v20;
+    if (v25 <= 0x15)
     {
-      if (v16 == 20)
+      if (v25 == 20)
       {
-        v23 = OSLogHandleForTransportCategory();
-        if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+        v41 = OSLogHandleForTransportCategory();
+        if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
-          _os_log_impl(&dword_1A7AD9000, v23, OS_LOG_TYPE_DEFAULT, "SSL change cipher spec", buf, 2u);
+          _os_log_impl(&dword_1A7AD9000, v41, OS_LOG_TYPE_DEFAULT, "SSL change cipher spec", buf, 2u);
         }
 
         if (os_log_shim_legacy_logging_enabled())
         {
           if (_IDSShouldLogTransport())
           {
-            _IDSLogTransport(@"TCPLink", @"IDS", @"SSL change cipher spec");
-            if (_IDSShouldLog())
+            _IDSLogTransport(@"TCPLink", @"IDS", @"SSL change cipher spec", v42, v43, v44, v45, v46, v228);
+            if (_IDSShouldLog(0))
             {
-              _IDSLogV(0, @"IDSFoundation", @"TCPLink", @"SSL change cipher spec");
+              _IDSLogV(0, @"IDSFoundation", @"TCPLink", @"SSL change cipher spec", v47, v48, v49, v50, v228);
             }
           }
         }
 
-        *(a1 + 12) = 7;
-        v9 = v14;
+        a1[3] = 7;
+        v18 = v23;
         goto LABEL_89;
       }
 
-      if (v16 != 21)
+      if (v25 != 21)
       {
         goto LABEL_143;
       }
 
-      if (v13 != 512)
+      if (v22 != 512)
       {
-        v44 = OSLogHandleForTransportCategory();
-        if (os_log_type_enabled(v44, OS_LOG_TYPE_DEFAULT))
+        v188 = OSLogHandleForTransportCategory();
+        if (os_log_type_enabled(v188, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 67109120;
-          *&buf[4] = v14;
-          _os_log_impl(&dword_1A7AD9000, v44, OS_LOG_TYPE_DEFAULT, "SSL3 slert, bad record length: %u", buf, 8u);
+          *&buf[4] = v23;
+          _os_log_impl(&dword_1A7AD9000, v188, OS_LOG_TYPE_DEFAULT, "SSL3 slert, bad record length: %u", buf, 8u);
         }
 
         if (os_log_shim_legacy_logging_enabled())
         {
           if (_IDSShouldLogTransport())
           {
-            _IDSLogTransport(@"TCPLink", @"IDS", @"SSL3 slert, bad record length: %u");
-            if (_IDSShouldLog())
+            _IDSLogTransport(@"TCPLink", @"IDS", @"SSL3 slert, bad record length: %u", v189, v190, v191, v192, v193, v23);
+            if (_IDSShouldLog(0))
             {
-              _IDSLogV(0, @"IDSFoundation", @"TCPLink", @"SSL3 slert, bad record length: %u");
+              _IDSLogV(0, @"IDSFoundation", @"TCPLink", @"SSL3 slert, bad record length: %u", v194, v195, v196, v197, v23);
             }
           }
         }
@@ -5082,35 +5093,31 @@ LABEL_112:
         goto LABEL_129;
       }
 
-      v17 = OSLogHandleForTransportCategory();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+      v26 = OSLogHandleForTransportCategory();
+      if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
       {
-        v18 = v11[5];
-        v19 = v11[6];
+        v27 = v20[5];
+        v28 = v20[6];
         *buf = 67109376;
-        *&buf[4] = v18;
+        *&buf[4] = v27;
         *&buf[8] = 1024;
-        *&buf[10] = v19;
-        _os_log_impl(&dword_1A7AD9000, v17, OS_LOG_TYPE_DEFAULT, "SSL3 slert: %u %u", buf, 0xEu);
+        *&buf[10] = v28;
+        _os_log_impl(&dword_1A7AD9000, v26, OS_LOG_TYPE_DEFAULT, "SSL3 slert: %u %u", buf, 0xEu);
       }
 
       if (os_log_shim_legacy_logging_enabled())
       {
         if (_IDSShouldLogTransport())
         {
-          v48 = v11[5];
-          v49 = v11[6];
-          _IDSLogTransport(@"TCPLink", @"IDS", @"SSL3 slert: %u %u");
-          if (_IDSShouldLog())
+          _IDSLogTransport(@"TCPLink", @"IDS", @"SSL3 slert: %u %u", v29, v30, v31, v32, v33, v20[5]);
+          if (_IDSShouldLog(0))
           {
-            v48 = v11[5];
-            v49 = v11[6];
-            _IDSLogV(0, @"IDSFoundation", @"TCPLink", @"SSL3 slert: %u %u");
+            _IDSLogV(0, @"IDSFoundation", @"TCPLink", @"SSL3 slert: %u %u", v34, v35, v36, v37, v20[5]);
           }
         }
       }
 
-      if (*v15 == 2)
+      if (*v24 == 2)
       {
         goto LABEL_129;
       }
@@ -5118,102 +5125,100 @@ LABEL_112:
       goto LABEL_78;
     }
 
-    if (v16 != 22)
+    if (v25 != 22)
     {
       break;
     }
 
-    if (v12 == 7)
+    if (v21 == 7)
     {
-      v24 = OSLogHandleForTransportCategory();
-      if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+      v51 = OSLogHandleForTransportCategory();
+      if (os_log_type_enabled(v51, OS_LOG_TYPE_DEFAULT))
       {
-        v25 = *(a1 + 288);
-        *v55 = 134217984;
-        v56 = v25;
-        _os_log_impl(&dword_1A7AD9000, v24, OS_LOG_TYPE_DEFAULT, "SSL handshake completed, %p", v55, 0xCu);
+        v52 = *(a1 + 36);
+        *v242 = 134217984;
+        v243 = v52;
+        _os_log_impl(&dword_1A7AD9000, v51, OS_LOG_TYPE_DEFAULT, "SSL handshake completed, %p", v242, 0xCu);
       }
 
       if (os_log_shim_legacy_logging_enabled())
       {
         if (_IDSShouldLogTransport())
         {
-          v48 = *(a1 + 288);
-          _IDSLogTransport(@"TCPLink", @"IDS", @"SSL handshake completed, %p");
-          if (_IDSShouldLog())
+          _IDSLogTransport(@"TCPLink", @"IDS", @"SSL handshake completed, %p", v53, v54, v55, v56, v57, *(a1 + 36));
+          if (_IDSShouldLog(0))
           {
-            v48 = *(a1 + 288);
-            _IDSLogV(0, @"IDSFoundation", @"TCPLink", @"SSL handshake completed, %p");
+            _IDSLogV(0, @"IDSFoundation", @"TCPLink", @"SSL handshake completed, %p", v58, v59, v60, v61, *(a1 + 36));
           }
         }
       }
 
-      *(a1 + 12) = 8;
+      a1[3] = 8;
       *(a1 + 5) = 1;
-      v26 = *a1;
-      v51[4] = a1;
+      v62 = *a1;
+      v238[4] = a1;
       *buf = MEMORY[0x1E69E9820];
       *&buf[8] = 3221225472;
       *&buf[16] = sub_1A7B46780;
-      v53 = &unk_1E77DD328;
-      v54 = a1;
-      v51[0] = MEMORY[0x1E69E9820];
-      v51[1] = 3221225472;
-      v51[2] = sub_1A7B46788;
-      v51[3] = &unk_1E77DD328;
-      IDSTransportThreadAddSocket(v26, buf, v51);
-      v27 = *(a1 + 328);
-      if (v27)
+      v240 = &unk_1E77DD328;
+      v241 = a1;
+      v238[0] = MEMORY[0x1E69E9820];
+      v238[1] = 3221225472;
+      v238[2] = sub_1A7B46788;
+      v238[3] = &unk_1E77DD328;
+      IDSTransportThreadAddSocket(v62, buf, v238);
+      v63 = *(a1 + 41);
+      if (v63)
       {
-        (*(v27 + 16))(v27, 0);
-        _Block_release(*(a1 + 328));
-        *(a1 + 328) = 0;
+        (*(v63 + 16))(v63, 0);
+        _Block_release(*(a1 + 41));
+        *(a1 + 41) = 0;
       }
     }
 
     else
     {
-      v28 = *v15;
-      switch(v28)
+      v64 = *v24;
+      switch(v64)
       {
-        case 14:
-          v31 = OSLogHandleForTransportCategory();
-          if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
+        case 0xE:
+          v85 = OSLogHandleForTransportCategory();
+          if (os_log_type_enabled(v85, OS_LOG_TYPE_DEFAULT))
           {
-            *v55 = 0;
-            _os_log_impl(&dword_1A7AD9000, v31, OS_LOG_TYPE_DEFAULT, "SSL server done", v55, 2u);
+            *v242 = 0;
+            _os_log_impl(&dword_1A7AD9000, v85, OS_LOG_TYPE_DEFAULT, "SSL server done", v242, 2u);
           }
 
           if (os_log_shim_legacy_logging_enabled())
           {
             if (_IDSShouldLogTransport())
             {
-              _IDSLogTransport(@"TCPLink", @"IDS", @"SSL server done");
-              if (_IDSShouldLog())
+              _IDSLogTransport(@"TCPLink", @"IDS", @"SSL server done", v86, v87, v88, v89, v90, v228);
+              if (_IDSShouldLog(0))
               {
-                _IDSLogV(0, @"IDSFoundation", @"TCPLink", @"SSL server done");
+                _IDSLogV(0, @"IDSFoundation", @"TCPLink", @"SSL server done", v91, v92, v93, v94, v228);
               }
             }
           }
 
-          *(a1 + 12) = 6;
+          a1[3] = 6;
           if (!sub_1A7B450C8(a1, &unk_1A7E40B9B, 0x6DuLL))
           {
-            v47 = OSLogHandleForTransportCategory();
-            if (os_log_type_enabled(v47, OS_LOG_TYPE_DEFAULT))
+            v218 = OSLogHandleForTransportCategory();
+            if (os_log_type_enabled(v218, OS_LOG_TYPE_DEFAULT))
             {
-              *v55 = 0;
-              _os_log_impl(&dword_1A7AD9000, v47, OS_LOG_TYPE_DEFAULT, "failed to send client hello done", v55, 2u);
+              *v242 = 0;
+              _os_log_impl(&dword_1A7AD9000, v218, OS_LOG_TYPE_DEFAULT, "failed to send client hello done", v242, 2u);
             }
 
             if (os_log_shim_legacy_logging_enabled())
             {
               if (_IDSShouldLogTransport())
               {
-                _IDSLogTransport(@"TCPLink", @"IDS", @"failed to send client hello done");
-                if (_IDSShouldLog())
+                _IDSLogTransport(@"TCPLink", @"IDS", @"failed to send client hello done", v219, v220, v221, v222, v223, v228);
+                if (_IDSShouldLog(0))
                 {
-                  _IDSLogV(0, @"IDSFoundation", @"TCPLink", @"failed to send client hello done");
+                  _IDSLogV(0, @"IDSFoundation", @"TCPLink", @"failed to send client hello done", v224, v225, v226, v227, v236);
                 }
               }
             }
@@ -5222,65 +5227,65 @@ LABEL_112:
           }
 
           break;
-        case 12:
-          v30 = OSLogHandleForTransportCategory();
-          if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
+        case 0xC:
+          v75 = OSLogHandleForTransportCategory();
+          if (os_log_type_enabled(v75, OS_LOG_TYPE_DEFAULT))
           {
-            *v55 = 0;
-            _os_log_impl(&dword_1A7AD9000, v30, OS_LOG_TYPE_DEFAULT, "SSL server key exchange", v55, 2u);
+            *v242 = 0;
+            _os_log_impl(&dword_1A7AD9000, v75, OS_LOG_TYPE_DEFAULT, "SSL server key exchange", v242, 2u);
           }
 
           if (os_log_shim_legacy_logging_enabled())
           {
             if (_IDSShouldLogTransport())
             {
-              _IDSLogTransport(@"TCPLink", @"IDS", @"SSL server key exchange");
-              if (_IDSShouldLog())
+              _IDSLogTransport(@"TCPLink", @"IDS", @"SSL server key exchange", v76, v77, v78, v79, v80, v228);
+              if (_IDSShouldLog(0))
               {
-                _IDSLogV(0, @"IDSFoundation", @"TCPLink", @"SSL server key exchange");
+                _IDSLogV(0, @"IDSFoundation", @"TCPLink", @"SSL server key exchange", v81, v82, v83, v84, v228);
               }
             }
           }
 
           break;
         case 2:
-          v29 = OSLogHandleForTransportCategory();
-          if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
+          v65 = OSLogHandleForTransportCategory();
+          if (os_log_type_enabled(v65, OS_LOG_TYPE_DEFAULT))
           {
-            *v55 = 0;
-            _os_log_impl(&dword_1A7AD9000, v29, OS_LOG_TYPE_DEFAULT, "SSL server hello", v55, 2u);
+            *v242 = 0;
+            _os_log_impl(&dword_1A7AD9000, v65, OS_LOG_TYPE_DEFAULT, "SSL server hello", v242, 2u);
           }
 
           if (os_log_shim_legacy_logging_enabled())
           {
             if (_IDSShouldLogTransport())
             {
-              _IDSLogTransport(@"TCPLink", @"IDS", @"SSL server hello");
-              if (_IDSShouldLog())
+              _IDSLogTransport(@"TCPLink", @"IDS", @"SSL server hello", v66, v67, v68, v69, v70, v228);
+              if (_IDSShouldLog(0))
               {
-                _IDSLogV(0, @"IDSFoundation", @"TCPLink", @"SSL server hello");
+                _IDSLogV(0, @"IDSFoundation", @"TCPLink", @"SSL server hello", v71, v72, v73, v74, v228);
               }
             }
           }
 
           break;
         default:
-          v46 = OSLogHandleForTransportCategory();
-          if (os_log_type_enabled(v46, OS_LOG_TYPE_DEFAULT))
+          v208 = OSLogHandleForTransportCategory();
+          if (os_log_type_enabled(v208, OS_LOG_TYPE_DEFAULT))
           {
-            *v55 = 67109120;
-            LODWORD(v56) = v28;
-            _os_log_impl(&dword_1A7AD9000, v46, OS_LOG_TYPE_DEFAULT, "Unknown SSL handshake type: %u", v55, 8u);
+            *v242 = 67109120;
+            LODWORD(v243) = v64;
+            _os_log_impl(&dword_1A7AD9000, v208, OS_LOG_TYPE_DEFAULT, "Unknown SSL handshake type: %u", v242, 8u);
           }
 
           if (os_log_shim_legacy_logging_enabled())
           {
             if (_IDSShouldLogTransport())
             {
-              _IDSLogTransport(@"TCPLink", @"IDS", @"Unknown SSL handshake type: %u");
-              if (_IDSShouldLog())
+              _IDSLogTransport(@"TCPLink", @"IDS", @"Unknown SSL handshake type: %u", v209, v210, v211, v212, v213, v64);
+              if (_IDSShouldLog(0))
               {
-                _IDSLogV(0, @"IDSFoundation", @"TCPLink", @"Unknown SSL handshake type: %u");
+                _IDSLogV(0, @"IDSFoundation", @"TCPLink", @"Unknown SSL handshake type: %u", v214, v215, v216, v217, v64);
               }
             }
           }
@@ -5290,35 +5295,31 @@ LABEL_112:
     }
 
 LABEL_78:
-    v21 = 0;
+    v39 = 0;
 LABEL_79:
-    v9 = v14;
-    if (*(a1 + 12))
+    v18 = v23;
+    if (a1[3])
     {
-      if (v14 < v21)
+      if (v23 < v39)
       {
-        v32 = OSLogHandleForTransportCategory();
-        if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
+        v95 = OSLogHandleForTransportCategory();
+        if (os_log_type_enabled(v95, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 134218240;
-          *&buf[4] = v14;
+          *&buf[4] = v23;
           *&buf[12] = 2048;
-          *&buf[14] = v21;
-          _os_log_impl(&dword_1A7AD9000, v32, OS_LOG_TYPE_DEFAULT, "cross SSL record boundary: %zu %zd", buf, 0x16u);
+          *&buf[14] = v39;
+          _os_log_impl(&dword_1A7AD9000, v95, OS_LOG_TYPE_DEFAULT, "cross SSL record boundary: %zu %zd", buf, 0x16u);
         }
 
         if (os_log_shim_legacy_logging_enabled())
         {
           if (_IDSShouldLogTransport())
           {
-            v48 = v14;
-            v49 = v21;
-            _IDSLogTransport(@"TCPLink", @"IDS", @"cross SSL record boundary: %zu %zd");
-            if (_IDSShouldLog())
+            _IDSLogTransport(@"TCPLink", @"IDS", @"cross SSL record boundary: %zu %zd", v96, v97, v98, v99, v100, v23);
+            if (_IDSShouldLog(0))
             {
-              v48 = v14;
-              v49 = v21;
-              _IDSLogV(0, @"IDSFoundation", @"TCPLink", @"cross SSL record boundary: %zu %zd");
+              _IDSLogV(0, @"IDSFoundation", @"TCPLink", @"cross SSL record boundary: %zu %zd", v101, v102, v103, v104, v23);
             }
           }
         }
@@ -5327,47 +5328,47 @@ LABEL_79:
 
     else
     {
-      v14 = v21;
+      v23 = v39;
     }
 
 LABEL_89:
-    v11 = (v3[2] + v14);
-    v3[2] = v11;
-    ++*(*(a1 + 296) + 24);
-    v10 = v3[3];
-    if (!*(a1 + 280) || v10 == v11)
+    v20 = (v12[2] + v23);
+    v12[2] = v20;
+    ++*(*(a1 + 37) + 24);
+    v19 = v12[3];
+    if (!*(a1 + 35) || v19 == v20)
     {
-      if (v10 == v11)
+      if (v19 == v20)
       {
-        v37 = *v3;
-        v3[2] = *v3;
-        v3[3] = v37;
+        v136 = *v12;
+        v12[2] = *v12;
+        v12[3] = v136;
       }
 
       return;
     }
   }
 
-  if (v16 != 23)
+  if (v25 != 23)
   {
 LABEL_143:
-    v42 = OSLogHandleForTransportCategory();
-    if (os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
+    v177 = OSLogHandleForTransportCategory();
+    if (os_log_type_enabled(v177, OS_LOG_TYPE_DEFAULT))
     {
-      v43 = *v11;
+      v178 = *v20;
       *buf = 67109120;
-      *&buf[4] = v43;
-      _os_log_impl(&dword_1A7AD9000, v42, OS_LOG_TYPE_DEFAULT, "Unknown SSL record type: %u", buf, 8u);
+      *&buf[4] = v178;
+      _os_log_impl(&dword_1A7AD9000, v177, OS_LOG_TYPE_DEFAULT, "Unknown SSL record type: %u", buf, 8u);
     }
 
     if (os_log_shim_legacy_logging_enabled())
     {
       if (_IDSShouldLogTransport())
       {
-        _IDSLogTransport(@"TCPLink", @"IDS", @"Unknown SSL record type: %u");
-        if (_IDSShouldLog())
+        _IDSLogTransport(@"TCPLink", @"IDS", @"Unknown SSL record type: %u", v179, v180, v181, v182, v183, *v20);
+        if (_IDSShouldLog(0))
         {
-          _IDSLogV(0, @"IDSFoundation", @"TCPLink", @"Unknown SSL record type: %u");
+          _IDSLogV(0, @"IDSFoundation", @"TCPLink", @"Unknown SSL record type: %u", v184, v185, v186, v187, *v20);
         }
       }
     }
@@ -5375,24 +5376,24 @@ LABEL_143:
     goto LABEL_129;
   }
 
-  if (v14 <= 2)
+  if (v23 <= 2)
   {
-    v45 = OSLogHandleForTransportCategory();
-    if (os_log_type_enabled(v45, OS_LOG_TYPE_DEFAULT))
+    v198 = OSLogHandleForTransportCategory();
+    if (os_log_type_enabled(v198, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109120;
-      *&buf[4] = v14;
-      _os_log_impl(&dword_1A7AD9000, v45, OS_LOG_TYPE_DEFAULT, "SSL user data has no padding: %u", buf, 8u);
+      *&buf[4] = v23;
+      _os_log_impl(&dword_1A7AD9000, v198, OS_LOG_TYPE_DEFAULT, "SSL user data has no padding: %u", buf, 8u);
     }
 
     if (os_log_shim_legacy_logging_enabled())
     {
       if (_IDSShouldLogTransport())
       {
-        _IDSLogTransport(@"TCPLink", @"IDS", @"SSL user data has no padding: %u");
-        if (_IDSShouldLog())
+        _IDSLogTransport(@"TCPLink", @"IDS", @"SSL user data has no padding: %u", v199, v200, v201, v202, v203, v23);
+        if (_IDSShouldLog(0))
         {
-          _IDSLogV(0, @"IDSFoundation", @"TCPLink", @"SSL user data has no padding: %u");
+          _IDSLogV(0, @"IDSFoundation", @"TCPLink", @"SSL user data has no padding: %u", v204, v205, v206, v207, v23);
         }
       }
     }
@@ -5400,53 +5401,53 @@ LABEL_143:
     goto LABEL_129;
   }
 
-  v14 -= 3;
-  v11 += 8;
-  v3[2] = v11;
+  v23 -= 3;
+  v20 += 8;
+  v12[2] = v20;
 LABEL_32:
-  *v4 = v11;
-  v4[2] = (v10 - v11);
-  v50 = -86;
-  v20 = [*(a1 + 320) getPacketLength:v4 isChannelData:{&v50, v48, v49}];
-  if ((v20 & 0x8000000000000000) == 0)
+  *v13 = v20;
+  v13[2] = (v19 - v20);
+  v237 = -86;
+  v38 = [*(a1 + 40) getPacketLength:v13 isChannelData:&v237];
+  if ((v38 & 0x8000000000000000) == 0)
   {
-    if ((((v20 & 3) != 0) & v50) != 0)
+    if ((((v38 & 3) != 0) & v237) != 0)
     {
-      v21 = (v20 & 0x7FFFFFFFFFFFFFFCLL) + 4;
+      v39 = (v38 & 0x7FFFFFFFFFFFFFFCLL) + 4;
     }
 
     else
     {
-      v21 = v20;
+      v39 = v38;
     }
 
-    if (v21 > v4[2])
+    if (v39 > v13[2])
     {
       return;
     }
 
-    v4[2] = v20;
-    ++*(a1 + 8);
-    [*(a1 + 320) processIncomingPacket:v4];
-    if ((*(a1 + 8))-- == 1)
+    v13[2] = v38;
+    ++a1[2];
+    [*(a1 + 40) processIncomingPacket:v13];
+    if (a1[2]-- == 1)
     {
       sub_1A7B448FC(a1);
 LABEL_131:
-      v40 = OSLogHandleForTransportCategory();
-      if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
+      v157 = OSLogHandleForTransportCategory();
+      if (os_log_type_enabled(v157, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_1A7AD9000, v40, OS_LOG_TYPE_DEFAULT, "conn was destroyed or invalidated", buf, 2u);
+        _os_log_impl(&dword_1A7AD9000, v157, OS_LOG_TYPE_DEFAULT, "conn was destroyed or invalidated", buf, 2u);
       }
 
       if (os_log_shim_legacy_logging_enabled())
       {
         if (_IDSShouldLogTransport())
         {
-          _IDSLogTransport(@"TCPLink", @"IDS", @"conn was destroyed or invalidated");
-          if (_IDSShouldLog())
+          _IDSLogTransport(@"TCPLink", @"IDS", @"conn was destroyed or invalidated", v158, v159, v160, v161, v162, v228);
+          if (_IDSShouldLog(0))
           {
-            _IDSLogV(0, @"IDSFoundation", @"TCPLink", @"conn was destroyed or invalidated");
+            _IDSLogV(0, @"IDSFoundation", @"TCPLink", @"conn was destroyed or invalidated", v163, v164, v165, v166, v234);
           }
         }
       }
@@ -5462,68 +5463,71 @@ LABEL_131:
     goto LABEL_79;
   }
 
-  if (v20 != -1)
+  if (v38 != -1)
   {
 LABEL_129:
     sub_1A7B449F8(a1);
     return;
   }
 
-  v41 = OSLogHandleForTransportCategory();
-  if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
+  v167 = OSLogHandleForTransportCategory();
+  if (os_log_type_enabled(v167, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_1A7AD9000, v41, OS_LOG_TYPE_DEFAULT, "need more bytes to find packet length", buf, 2u);
+    _os_log_impl(&dword_1A7AD9000, v167, OS_LOG_TYPE_DEFAULT, "need more bytes to find packet length", buf, 2u);
   }
 
   if (os_log_shim_legacy_logging_enabled())
   {
     if (_IDSShouldLogTransport())
     {
-      _IDSLogTransport(@"TCPLink", @"IDS", @"need more bytes to find packet length");
-      if (_IDSShouldLog())
+      _IDSLogTransport(@"TCPLink", @"IDS", @"need more bytes to find packet length", v168, v169, v170, v171, v172, v228);
+      if (_IDSShouldLog(0))
       {
-        _IDSLogV(0, @"IDSFoundation", @"TCPLink", @"need more bytes to find packet length");
+        _IDSLogV(0, @"IDSFoundation", @"TCPLink", @"need more bytes to find packet length", v173, v174, v175, v176, v235);
       }
     }
   }
 }
 
-void sub_1A7B46638(uint64_t a1)
+double sub_1A7B46638(unsigned int *a1)
 {
-  if (*(a1 + 288))
+  if (*(a1 + 36))
   {
-    v2 = sub_1A7B43CA4(a1, a1 + 288);
-    if (*a1 != -1 && v2 != 14)
+    v2 = sub_1A7B43CA4(a1);
+    v4 = *a1;
+    if (v4 != -1 && v2 != 14)
     {
-      IDSTransportThreadSuspendSocket(*a1, 2);
-      _IDSLinkPacketBufferRelease("/Library/Caches/com.apple.xbs/Sources/IdentityServices/IDSFoundation/IDSTCPLink.m", 804, *(a1 + 288));
-      *(a1 + 288) = 0;
+      IDSTransportThreadSuspendSocket(v4, 2);
+      _IDSLinkPacketBufferRelease("/Library/Caches/com.apple.xbs/Sources/IdentityServices/IDSFoundation/IDSTCPLink.m", 804, *(a1 + 36));
+      *(a1 + 36) = 0;
     }
   }
 
   else
   {
     IDSTransportThreadSuspendSocket(*a1, 2);
-    v4 = OSLogHandleForTransportCategory();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v6 = OSLogHandleForTransportCategory();
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      *v5 = 0;
-      _os_log_impl(&dword_1A7AD9000, v4, OS_LOG_TYPE_DEFAULT, "nothing to send", v5, 2u);
+      *v16 = 0;
+      _os_log_impl(&dword_1A7AD9000, v6, OS_LOG_TYPE_DEFAULT, "nothing to send", v16, 2u);
     }
 
     if (os_log_shim_legacy_logging_enabled())
     {
       if (_IDSShouldLogTransport())
       {
-        _IDSLogTransport(@"TCPLink", @"IDS", @"nothing to send");
-        if (_IDSShouldLog())
+        _IDSLogTransport(@"TCPLink", @"IDS", @"nothing to send", v7, v8, v9, v10, v11, *v16);
+        if (_IDSShouldLog(0))
         {
-          _IDSLogV(0, @"IDSFoundation", @"TCPLink", @"nothing to send");
+          _IDSLogV(0, @"IDSFoundation", @"TCPLink", @"nothing to send", v12, v13, v14, v15, *v16);
         }
       }
     }
   }
+
+  return result;
 }
 
 uint64_t IDSQRProtoH3EndToEndChannelRegisterAckE2EChannelRegisterAckReadFrom(uint64_t a1, void *a2)
@@ -6449,16 +6453,17 @@ LABEL_12:
   return v4;
 }
 
-uint64_t readStunXORAddressAttribute(int8x16_t *a1, _DWORD *a2, void *a3, uint64_t a4, unsigned int a5)
+uint64_t readStunXORAddressAttribute(int8x16_t *a1, _DWORD *a2, void *a3, uint64_t a4, uint64_t a5)
 {
+  v5 = a5;
   v9 = a3;
   v10 = v9;
-  if (*a2 > a5)
+  if (*a2 > v5)
   {
     goto LABEL_23;
   }
 
-  if (a5 > 1)
+  if (v5 > 1)
   {
     if (*(a4 + 1) == 2)
     {
@@ -6476,7 +6481,7 @@ LABEL_22:
       }
 
       v13 = [v10 bytes];
-      if (a5 < 4)
+      if (v5 < 4)
       {
         v12 = +[IDSFoundationLog Stun];
         if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
@@ -6496,7 +6501,7 @@ LABEL_22:
       a1[1].i64[1] = 0;
       a1->i16[4] = 7708;
       a1->i16[5] = v15 ^ 0x1221;
-      if (a5 < 0x14)
+      if (v5 < 0x14)
       {
         v12 = +[IDSFoundationLog Stun];
         if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
@@ -6515,7 +6520,7 @@ LABEL_22:
 
     else
     {
-      if (a5 <= 3)
+      if (v5 <= 3)
       {
         v11 = +[IDSFoundationLog Stun];
         if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
@@ -6526,7 +6531,7 @@ LABEL_22:
         goto LABEL_5;
       }
 
-      if (a5 <= 7)
+      if (v5 <= 7)
       {
         v11 = +[IDSFoundationLog Stun];
         if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
@@ -6591,7 +6596,7 @@ uint64_t readStunUINT8Attribute(uint64_t a1, _DWORD *a2, _BYTE *a3, int a4)
   }
 }
 
-uint64_t readStunUINT16Attribute(uint64_t a1, _DWORD *a2, unsigned __int16 *a3, unsigned int a4)
+uint64_t readStunUINT16Attribute(uint64_t a1, _DWORD *a2, unsigned __int16 *a3, uint64_t a4)
 {
   if (*a2 > a4)
   {
@@ -6617,7 +6622,7 @@ uint64_t readStunUINT16Attribute(uint64_t a1, _DWORD *a2, unsigned __int16 *a3, 
   }
 }
 
-uint64_t readStunUINT32Attribute(uint64_t a1, _DWORD *a2, unsigned int *a3, unsigned int a4)
+uint64_t readStunUINT32Attribute(uint64_t a1, _DWORD *a2, unsigned int *a3, uint64_t a4)
 {
   if (*a2 > a4)
   {
@@ -6643,7 +6648,7 @@ uint64_t readStunUINT32Attribute(uint64_t a1, _DWORD *a2, unsigned int *a3, unsi
   }
 }
 
-uint64_t readStunUINT64Attribute(uint64_t a1, _DWORD *a2, unint64_t *a3, unsigned int a4)
+uint64_t readStunUINT64Attribute(uint64_t a1, _DWORD *a2, unint64_t *a3, uint64_t a4)
 {
   if (*a2 > a4)
   {
@@ -6696,7 +6701,7 @@ BOOL readStunBinaryDataAttribute(uint64_t a1, int *a2, void *__src, int a4)
   return v6;
 }
 
-uint64_t readStunErrorCodeAttribute(_DWORD *a1, int *a2, unsigned __int8 *a3, int a4)
+uint64_t readStunErrorCodeAttribute(_DWORD *a1, int *a2, unsigned __int8 *a3, uint64_t a4)
 {
   if (*a2 > a4)
   {
@@ -7475,9 +7480,9 @@ LABEL_46:
   return [a2 hasError] ^ 1;
 }
 
-const char *IDSRadioAccessTechnologyToString(unsigned int a1)
+const char *IDSRadioAccessTechnologyToString(uint64_t a1)
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   if (a1 < 0xB)
   {
     return off_1E77E0948[a1];
@@ -7487,16 +7492,16 @@ const char *IDSRadioAccessTechnologyToString(unsigned int a1)
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109120;
-    v5 = a1;
+    v14 = a1;
     _os_log_impl(&dword_1A7AD9000, v3, OS_LOG_TYPE_DEFAULT, "Reserved IDS RAT: %u", buf, 8u);
   }
 
   if (os_log_shim_legacy_logging_enabled() && _IDSShouldLogTransport())
   {
-    _IDSLogTransport(@"GL", @"IDS", @"Reserved IDS RAT: %u");
-    if (_IDSShouldLog())
+    _IDSLogTransport(@"GL", @"IDS", @"Reserved IDS RAT: %u", v4, v5, v6, v7, v8, a1);
+    if (_IDSShouldLog(0))
     {
-      _IDSLogV(0, @"IDSFoundation", @"GL", @"Reserved IDS RAT: %u");
+      _IDSLogV(0, @"IDSFoundation", @"GL", @"Reserved IDS RAT: %u", v9, v10, v11, v12, a1);
     }
   }
 
@@ -7510,9 +7515,9 @@ void sub_1A7B556D0()
   qword_1ED5DF710 = v0;
 }
 
-uint64_t sub_1A7B55A04(uint64_t a1)
+double sub_1A7B55A04(uint64_t a1)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v2 = *(*(a1 + 32) + 48);
   if (!v2)
   {
@@ -7524,8 +7529,7 @@ uint64_t sub_1A7B55A04(uint64_t a1)
     v2 = *(*(a1 + 32) + 48);
   }
 
-  result = [v2 containsObject:*(a1 + 40)];
-  if ((result & 1) == 0)
+  if (([v2 containsObject:*(a1 + 40)] & 1) == 0)
   {
     [*(*(a1 + 32) + 48) addObject:*(a1 + 40)];
     v7 = OSLogHandleForTransportCategory();
@@ -7533,22 +7537,16 @@ uint64_t sub_1A7B55A04(uint64_t a1)
     {
       v8 = *(a1 + 40);
       *buf = 138412290;
-      v10 = v8;
+      v19 = v8;
       _os_log_impl(&dword_1A7AD9000, v7, OS_LOG_TYPE_DEFAULT, "add cellularLinkDelegate %@.", buf, 0xCu);
     }
 
-    result = os_log_shim_legacy_logging_enabled();
-    if (result)
+    if (os_log_shim_legacy_logging_enabled() && _IDSShouldLogTransport())
     {
-      result = _IDSShouldLogTransport();
-      if (result)
+      _IDSLogTransport(@"GL", @"IDS", @"add cellularLinkDelegate %@.", v9, v10, v11, v12, v13, *(a1 + 40));
+      if (_IDSShouldLog(0))
       {
-        _IDSLogTransport(@"GL", @"IDS", @"add cellularLinkDelegate %@.");
-        result = _IDSShouldLog();
-        if (result)
-        {
-          return _IDSLogV(0, @"IDSFoundation", @"GL", @"add cellularLinkDelegate %@.");
-        }
+        _IDSLogV(0, @"IDSFoundation", @"GL", @"add cellularLinkDelegate %@.", v14, v15, v16, v17, *(a1 + 40));
       }
     }
   }
@@ -7558,13 +7556,13 @@ uint64_t sub_1A7B55A04(uint64_t a1)
 
 uint64_t sub_1A7B55C1C(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v2 = OSLogHandleForTransportCategory();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
     *buf = 138412290;
-    v7 = v3;
+    v15 = v3;
     _os_log_impl(&dword_1A7AD9000, v2, OS_LOG_TYPE_DEFAULT, "remove cellularLinkDelegate %@.", buf, 0xCu);
   }
 
@@ -7572,31 +7570,29 @@ uint64_t sub_1A7B55C1C(uint64_t a1)
   {
     if (_IDSShouldLogTransport())
     {
-      v5 = *(a1 + 32);
-      _IDSLogTransport(@"GL", @"IDS", @"remove cellularLinkDelegate %@.");
-      if (_IDSShouldLog())
+      _IDSLogTransport(@"GL", @"IDS", @"remove cellularLinkDelegate %@.", v4, v5, v6, v7, v8, *(a1 + 32));
+      if (_IDSShouldLog(0))
       {
-        v5 = *(a1 + 32);
-        _IDSLogV(0, @"IDSFoundation", @"GL", @"remove cellularLinkDelegate %@.");
+        _IDSLogV(0, @"IDSFoundation", @"GL", @"remove cellularLinkDelegate %@.", v9, v10, v11, v12, *(a1 + 32));
       }
     }
   }
 
-  return [*(*(a1 + 40) + 48) removeObject:{*(a1 + 32), v5}];
+  return [*(*(a1 + 40) + 48) removeObject:*(a1 + 32)];
 }
 
 void sub_1A7B55F18(uint64_t a1, void *a2, void *a3)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v4 = [a2 copy];
   v5 = [a3 copy];
   v6 = OSLogHandleForTransportCategory();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
-    v8 = v4;
-    v9 = 2112;
-    v10 = v5;
+    v17 = v4;
+    v18 = 2112;
+    v19 = v5;
     _os_log_impl(&dword_1A7AD9000, v6, OS_LOG_TYPE_DEFAULT, "Data status notification shouldn't be called: %@ %@", buf, 0x16u);
   }
 
@@ -7604,10 +7600,10 @@ void sub_1A7B55F18(uint64_t a1, void *a2, void *a3)
   {
     if (_IDSShouldLogTransport())
     {
-      _IDSLogTransport(@"GL", @"IDS", @"Data status notification shouldn't be called: %@ %@");
-      if (_IDSShouldLog())
+      _IDSLogTransport(@"GL", @"IDS", @"Data status notification shouldn't be called: %@ %@", v7, v8, v9, v10, v11, v4);
+      if (_IDSShouldLog(0))
       {
-        _IDSLogV(0, @"IDSFoundation", @"GL", @"Data status notification shouldn't be called: %@ %@");
+        _IDSLogV(0, @"IDSFoundation", @"GL", @"Data status notification shouldn't be called: %@ %@", v12, v13, v14, v15, v4);
       }
     }
   }
@@ -8965,28 +8961,28 @@ uint64_t TrafficClassForIDSOpenSocketPriorityLevel(uint64_t a1)
 
 void sub_1A7B66160(uint64_t a1, void *a2)
 {
-  v30 = *MEMORY[0x1E69E9840];
-  v9 = a2;
-  v3 = fopen([v9 UTF8String], "r");
+  v48 = *MEMORY[0x1E69E9840];
+  v27 = a2;
+  v3 = fopen([v27 UTF8String], "r");
   *&v4 = 0xAAAAAAAAAAAAAAAALL;
   *(&v4 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  *&v28[15] = v4;
-  v27 = v4;
-  *v28 = v4;
-  v25 = v4;
-  v26 = v4;
-  v23 = v4;
-  v24 = v4;
-  v21 = v4;
-  v22 = v4;
-  v19 = v4;
-  v20 = v4;
-  v17 = v4;
-  v18 = v4;
-  v15 = v4;
-  v16 = v4;
+  *&v46[15] = v4;
+  v45 = v4;
+  *v46 = v4;
+  v43 = v4;
+  v44 = v4;
+  v41 = v4;
+  v42 = v4;
+  v39 = v4;
+  v40 = v4;
+  v37 = v4;
+  v38 = v4;
+  v35 = v4;
+  v36 = v4;
+  v33 = v4;
+  v34 = v4;
   *__s = v4;
-  v29 = 0;
+  v47 = 0;
   if (v3)
   {
     v5 = v3;
@@ -9002,9 +8998,9 @@ void sub_1A7B66160(uint64_t a1, void *a2)
       if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315394;
-        v11 = a1;
-        v12 = 2080;
-        v13 = __s;
+        v29 = a1;
+        v30 = 2080;
+        v31 = __s;
         _os_log_impl(&dword_1A7AD9000, v7, OS_LOG_TYPE_DEFAULT, "%s: %s", buf, 0x16u);
       }
 
@@ -9012,10 +9008,10 @@ void sub_1A7B66160(uint64_t a1, void *a2)
       {
         if (_IDSShouldLogTransport())
         {
-          _IDSLogTransport(@"IDSNetworkingLogDump", @"IDS", @"%s: %s");
-          if (_IDSShouldLog())
+          _IDSLogTransport(@"IDSNetworkingLogDump", @"IDS", @"%s: %s", v8, v9, v10, v11, v12, a1);
+          if (_IDSShouldLog(0))
           {
-            _IDSLogV(0, @"IDSFoundation", @"IDSNetworkingLogDump", @"%s: %s");
+            _IDSLogV(0, @"IDSFoundation", @"IDSNetworkingLogDump", @"%s: %s", v13, v14, v15, v16, a1);
           }
         }
       }
@@ -9024,24 +9020,24 @@ void sub_1A7B66160(uint64_t a1, void *a2)
 
   else
   {
-    v8 = OSLogHandleForTransportCategory();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v17 = OSLogHandleForTransportCategory();
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315394;
-      v11 = a1;
-      v12 = 2112;
-      v13 = v9;
-      _os_log_impl(&dword_1A7AD9000, v8, OS_LOG_TYPE_DEFAULT, "%s: No such file %@ to dump", buf, 0x16u);
+      v29 = a1;
+      v30 = 2112;
+      v31 = v27;
+      _os_log_impl(&dword_1A7AD9000, v17, OS_LOG_TYPE_DEFAULT, "%s: No such file %@ to dump", buf, 0x16u);
     }
 
     if (os_log_shim_legacy_logging_enabled())
     {
       if (_IDSShouldLogTransport())
       {
-        _IDSLogTransport(@"IDSNetworkingLogDump", @"IDS", @"%s: No such file %@ to dump");
-        if (_IDSShouldLog())
+        _IDSLogTransport(@"IDSNetworkingLogDump", @"IDS", @"%s: No such file %@ to dump", v18, v19, v20, v21, v22, a1);
+        if (_IDSShouldLog(0))
         {
-          _IDSLogV(0, @"IDSFoundation", @"IDSNetworkingLogDump", @"%s: No such file %@ to dump");
+          _IDSLogV(0, @"IDSFoundation", @"IDSNetworkingLogDump", @"%s: No such file %@ to dump", v23, v24, v25, v26, a1);
         }
       }
     }
@@ -9050,14 +9046,14 @@ void sub_1A7B66160(uint64_t a1, void *a2)
 
 void IDSNetworkingLogDump(uint64_t a1, unsigned int a2)
 {
-  v56 = *MEMORY[0x1E69E9840];
+  v153 = *MEMORY[0x1E69E9840];
   v4 = OSLogHandleForTransportCategory();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v53 = a1;
-    v54 = 2048;
-    *&v55 = a2;
+    v150 = a1;
+    v151 = 2048;
+    *&v152 = a2;
     _os_log_impl(&dword_1A7AD9000, v4, OS_LOG_TYPE_DEFAULT, "%s: asked to dump networking logs flags %lu", buf, 0x16u);
   }
 
@@ -9065,340 +9061,318 @@ void IDSNetworkingLogDump(uint64_t a1, unsigned int a2)
   {
     if (_IDSShouldLogTransport())
     {
-      v48 = a1;
-      *&v49 = a2;
-      _IDSLogTransport(@"IDSNetworkingLogDump", @"IDS", @"%s: asked to dump networking logs flags %lu");
-      if (_IDSShouldLog())
+      _IDSLogTransport(@"IDSNetworkingLogDump", @"IDS", @"%s: asked to dump networking logs flags %lu", v5, v6, v7, v8, v9, a1);
+      if (_IDSShouldLog(0))
       {
-        v48 = a1;
-        *&v49 = a2;
-        _IDSLogV(0, @"IDSFoundation", @"IDSNetworkingLogDump", @"%s: asked to dump networking logs flags %lu");
+        _IDSLogV(0, @"IDSFoundation", @"IDSNetworkingLogDump", @"%s: asked to dump networking logs flags %lu", v10, v11, v12, v13, a1);
       }
     }
   }
 
   if ((a2 & 8) != 0)
   {
-    v5 = OSLogHandleForTransportCategory();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v14 = OSLogHandleForTransportCategory();
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v53 = a1;
-      _os_log_impl(&dword_1A7AD9000, v5, OS_LOG_TYPE_DEFAULT, "%s: netdiagnose start packetcapture", buf, 0xCu);
+      v150 = a1;
+      _os_log_impl(&dword_1A7AD9000, v14, OS_LOG_TYPE_DEFAULT, "%s: netdiagnose start packetcapture", buf, 0xCu);
     }
 
     if (os_log_shim_legacy_logging_enabled())
     {
       if (_IDSShouldLogTransport())
       {
-        _IDSLogTransport(@"IDSNetworkingLogDump", @"IDS", @"%s: netdiagnose start packetcapture");
-        if (_IDSShouldLog())
+        _IDSLogTransport(@"IDSNetworkingLogDump", @"IDS", @"%s: netdiagnose start packetcapture", v15, v16, v17, v18, v19, a1);
+        if (_IDSShouldLog(0))
         {
-          _IDSLogV(0, @"IDSFoundation", @"IDSNetworkingLogDump", @"%s: netdiagnose start packetcapture");
+          _IDSLogV(0, @"IDSFoundation", @"IDSNetworkingLogDump", @"%s: netdiagnose start packetcapture", v20, v21, v22, v23, a1);
         }
       }
     }
 
-    v6 = MEMORY[0x1E696AEC0];
-    v7 = NSTemporaryDirectory();
-    v8 = [MEMORY[0x1E696AEC0] stringGUID];
-    v9 = [v6 stringWithFormat:@"%@/netdiagnose_identityservicesd_%@.txt", v7, v8];
+    v24 = MEMORY[0x1E696AEC0];
+    v25 = NSTemporaryDirectory();
+    v26 = [MEMORY[0x1E696AEC0] stringGUID];
+    v27 = [v24 stringWithFormat:@"%@/netdiagnose_identityservicesd_%@.txt", v25, v26];
 
-    v10 = [MEMORY[0x1E696AEC0] stringWithFormat:@"/usr/local/bin/netdiagnose start packetcapture > %@", v9];
-    v11 = v10;
-    [v10 UTF8String];
+    v28 = [MEMORY[0x1E696AEC0] stringWithFormat:@"/usr/local/bin/netdiagnose start packetcapture > %@", v27];
+    v29 = v28;
+    [v28 UTF8String];
     IMPerformSystem();
-    v12 = OSLogHandleForTransportCategory();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v30 = OSLogHandleForTransportCategory();
+    if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v53 = a1;
-      _os_log_impl(&dword_1A7AD9000, v12, OS_LOG_TYPE_DEFAULT, "%s: wait 1 second to capture", buf, 0xCu);
+      v150 = a1;
+      _os_log_impl(&dword_1A7AD9000, v30, OS_LOG_TYPE_DEFAULT, "%s: wait 1 second to capture", buf, 0xCu);
     }
 
     if (os_log_shim_legacy_logging_enabled())
     {
       if (_IDSShouldLogTransport())
       {
-        v48 = a1;
-        _IDSLogTransport(@"IDSNetworkingLogDump", @"IDS", @"%s: wait 1 second to capture");
-        if (_IDSShouldLog())
+        _IDSLogTransport(@"IDSNetworkingLogDump", @"IDS", @"%s: wait 1 second to capture", v31, v32, v33, v34, v35, a1);
+        if (_IDSShouldLog(0))
         {
-          v48 = a1;
-          _IDSLogV(0, @"IDSFoundation", @"IDSNetworkingLogDump", @"%s: wait 1 second to capture");
+          _IDSLogV(0, @"IDSFoundation", @"IDSNetworkingLogDump", @"%s: wait 1 second to capture", v36, v37, v38, v39, a1);
         }
       }
     }
 
-    v13 = dispatch_time(0, 1000000000);
-    v14 = MEMORY[0x1E69E96A0];
-    v15 = MEMORY[0x1E69E96A0];
+    v40 = dispatch_time(0, 1000000000);
+    v41 = MEMORY[0x1E69E96A0];
+    v42 = MEMORY[0x1E69E96A0];
     block[0] = MEMORY[0x1E69E9820];
     block[1] = 3221225472;
     block[2] = sub_1A7B671EC;
     block[3] = &unk_1E77DD328;
     block[4] = a1;
-    dispatch_after(v13, v14, block);
+    dispatch_after(v40, v41, block);
 
-    sub_1A7B66160(a1, v9);
+    sub_1A7B66160(a1, v27);
   }
 
   if (a2)
   {
-    v16 = getpid();
-    v17 = OSLogHandleForTransportCategory();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+    v43 = getpid();
+    v44 = OSLogHandleForTransportCategory();
+    if (os_log_type_enabled(v44, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315394;
-      v53 = a1;
-      v54 = 2048;
-      *&v55 = v16;
-      _os_log_impl(&dword_1A7AD9000, v17, OS_LOG_TYPE_DEFAULT, "%s: lskq for identityservicesd %lu", buf, 0x16u);
+      v150 = a1;
+      v151 = 2048;
+      *&v152 = v43;
+      _os_log_impl(&dword_1A7AD9000, v44, OS_LOG_TYPE_DEFAULT, "%s: lskq for identityservicesd %lu", buf, 0x16u);
     }
 
     if (os_log_shim_legacy_logging_enabled())
     {
       if (_IDSShouldLogTransport())
       {
-        _IDSLogTransport(@"IDSNetworkingLogDump", @"IDS", @"%s: lskq for identityservicesd %lu");
-        if (_IDSShouldLog())
+        _IDSLogTransport(@"IDSNetworkingLogDump", @"IDS", @"%s: lskq for identityservicesd %lu", v45, v46, v47, v48, v49, a1);
+        if (_IDSShouldLog(0))
         {
-          _IDSLogV(0, @"IDSFoundation", @"IDSNetworkingLogDump", @"%s: lskq for identityservicesd %lu");
+          _IDSLogV(0, @"IDSFoundation", @"IDSNetworkingLogDump", @"%s: lskq for identityservicesd %lu", v50, v51, v52, v53, a1);
         }
       }
     }
 
-    v18 = MEMORY[0x1E696AEC0];
-    v19 = NSTemporaryDirectory();
-    v20 = [MEMORY[0x1E696AEC0] stringGUID];
-    v21 = [v18 stringWithFormat:@"%@/lskq_identityservicesd_%@.txt", v19, v20];
+    v54 = MEMORY[0x1E696AEC0];
+    v55 = NSTemporaryDirectory();
+    v56 = [MEMORY[0x1E696AEC0] stringGUID];
+    v57 = [v54 stringWithFormat:@"%@/lskq_identityservicesd_%@.txt", v55, v56];
 
-    v22 = [MEMORY[0x1E696AEC0] stringWithFormat:@"/usr/bin/lskq -p %lu > %@", v16, v21];
-    v23 = v22;
-    [v22 UTF8String];
+    v58 = [MEMORY[0x1E696AEC0] stringWithFormat:@"/usr/bin/lskq -p %lu > %@", v43, v57];
+    v59 = v58;
+    [v58 UTF8String];
     IMPerformSystem();
-    v24 = OSLogHandleForTransportCategory();
-    if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+    v60 = OSLogHandleForTransportCategory();
+    if (os_log_type_enabled(v60, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315394;
-      v53 = a1;
-      v54 = 2112;
-      v55 = *&v21;
-      _os_log_impl(&dword_1A7AD9000, v24, OS_LOG_TYPE_DEFAULT, "%s: === lskq file [%@] ===", buf, 0x16u);
+      v150 = a1;
+      v151 = 2112;
+      v152 = *&v57;
+      _os_log_impl(&dword_1A7AD9000, v60, OS_LOG_TYPE_DEFAULT, "%s: === lskq file [%@] ===", buf, 0x16u);
     }
 
     if (os_log_shim_legacy_logging_enabled())
     {
       if (_IDSShouldLogTransport())
       {
-        v48 = a1;
-        v49 = *&v21;
-        _IDSLogTransport(@"IDSNetworkingLogDump", @"IDS", @"%s: === lskq file [%@] ===");
-        if (_IDSShouldLog())
+        _IDSLogTransport(@"IDSNetworkingLogDump", @"IDS", @"%s: === lskq file [%@] ===", v61, v62, v63, v64, v65, a1);
+        if (_IDSShouldLog(0))
         {
-          v48 = a1;
-          v49 = *&v21;
-          _IDSLogV(0, @"IDSFoundation", @"IDSNetworkingLogDump", @"%s: === lskq file [%@] ===");
+          _IDSLogV(0, @"IDSFoundation", @"IDSNetworkingLogDump", @"%s: === lskq file [%@] ===", v66, v67, v68, v69, a1);
         }
       }
     }
 
-    sub_1A7B66160(a1, v21);
+    sub_1A7B66160(a1, v57);
   }
 
   if ((a2 & 0x10) != 0)
   {
-    v25 = [MEMORY[0x1E69A60F0] sharedInstance];
-    v26 = [v25 isInternalInstall];
+    v70 = [MEMORY[0x1E69A60F0] sharedInstance];
+    v71 = [v70 isInternalInstall];
 
-    if (v26)
+    if (v71)
     {
-      v27 = getpid();
-      v28 = OSLogHandleForTransportCategory();
-      if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
+      v72 = getpid();
+      v73 = OSLogHandleForTransportCategory();
+      if (os_log_type_enabled(v73, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315394;
-        v53 = a1;
-        v54 = 2048;
-        *&v55 = v27;
-        _os_log_impl(&dword_1A7AD9000, v28, OS_LOG_TYPE_DEFAULT, "%s: lsof for identityservicesd %lu", buf, 0x16u);
+        v150 = a1;
+        v151 = 2048;
+        *&v152 = v72;
+        _os_log_impl(&dword_1A7AD9000, v73, OS_LOG_TYPE_DEFAULT, "%s: lsof for identityservicesd %lu", buf, 0x16u);
       }
 
       if (os_log_shim_legacy_logging_enabled())
       {
         if (_IDSShouldLogTransport())
         {
-          _IDSLogTransport(@"IDSNetworkingLogDump", @"IDS", @"%s: lsof for identityservicesd %lu");
-          if (_IDSShouldLog())
+          _IDSLogTransport(@"IDSNetworkingLogDump", @"IDS", @"%s: lsof for identityservicesd %lu", v74, v75, v76, v77, v78, a1);
+          if (_IDSShouldLog(0))
           {
-            _IDSLogV(0, @"IDSFoundation", @"IDSNetworkingLogDump", @"%s: lsof for identityservicesd %lu");
+            _IDSLogV(0, @"IDSFoundation", @"IDSNetworkingLogDump", @"%s: lsof for identityservicesd %lu", v79, v80, v81, v82, a1);
           }
         }
       }
 
-      v29 = MEMORY[0x1E696AEC0];
-      v30 = NSTemporaryDirectory();
-      v31 = [MEMORY[0x1E696AEC0] stringGUID];
-      v32 = [v29 stringWithFormat:@"%@/lsof_identityservicesd_%@.txt", v30, v31];
+      v83 = MEMORY[0x1E696AEC0];
+      v84 = NSTemporaryDirectory();
+      v85 = [MEMORY[0x1E696AEC0] stringGUID];
+      v86 = [v83 stringWithFormat:@"%@/lsof_identityservicesd_%@.txt", v84, v85];
 
-      v33 = [MEMORY[0x1E696AEC0] stringWithFormat:@"/usr/sbin/lsof -lnPp %lu > %@", v27, v32];
-      v34 = v33;
-      [v33 UTF8String];
+      v87 = [MEMORY[0x1E696AEC0] stringWithFormat:@"/usr/sbin/lsof -lnPp %lu > %@", v72, v86];
+      v88 = v87;
+      [v87 UTF8String];
       IMPerformSystem();
-      v35 = OSLogHandleForTransportCategory();
-      if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
+      v89 = OSLogHandleForTransportCategory();
+      if (os_log_type_enabled(v89, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315394;
-        v53 = a1;
-        v54 = 2112;
-        v55 = *&v32;
-        _os_log_impl(&dword_1A7AD9000, v35, OS_LOG_TYPE_DEFAULT, "%s: === lsof file [%@] ===", buf, 0x16u);
+        v150 = a1;
+        v151 = 2112;
+        v152 = *&v86;
+        _os_log_impl(&dword_1A7AD9000, v89, OS_LOG_TYPE_DEFAULT, "%s: === lsof file [%@] ===", buf, 0x16u);
       }
 
       if (os_log_shim_legacy_logging_enabled())
       {
         if (_IDSShouldLogTransport())
         {
-          v48 = a1;
-          v49 = *&v32;
-          _IDSLogTransport(@"IDSNetworkingLogDump", @"IDS", @"%s: === lsof file [%@] ===");
-          if (_IDSShouldLog())
+          _IDSLogTransport(@"IDSNetworkingLogDump", @"IDS", @"%s: === lsof file [%@] ===", v90, v91, v92, v93, v94, a1);
+          if (_IDSShouldLog(0))
           {
-            v48 = a1;
-            v49 = *&v32;
-            _IDSLogV(0, @"IDSFoundation", @"IDSNetworkingLogDump", @"%s: === lsof file [%@] ===");
+            _IDSLogV(0, @"IDSFoundation", @"IDSNetworkingLogDump", @"%s: === lsof file [%@] ===", v95, v96, v97, v98, a1);
           }
         }
       }
 
-      sub_1A7B66160(a1, v32);
+      sub_1A7B66160(a1, v86);
     }
   }
 
   if ((a2 & 2) != 0)
   {
-    v36 = ids_monotonic_time();
-    if (*&qword_1EB2BBCB0 == 0.0 || (v37 = v36 - *&qword_1EB2BBCB0, v36 - *&qword_1EB2BBCB0 > 10.0))
+    v99 = ids_monotonic_time();
+    if (*&qword_1EB2BBCB0 == 0.0 || (v100 = v99 - *&qword_1EB2BBCB0, v99 - *&qword_1EB2BBCB0 > 10.0))
     {
-      v39 = OSLogHandleForTransportCategory();
-      if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
+      v111 = OSLogHandleForTransportCategory();
+      if (os_log_type_enabled(v111, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315138;
-        v53 = a1;
-        _os_log_impl(&dword_1A7AD9000, v39, OS_LOG_TYPE_DEFAULT, "%s: simulate crash", buf, 0xCu);
+        v150 = a1;
+        _os_log_impl(&dword_1A7AD9000, v111, OS_LOG_TYPE_DEFAULT, "%s: simulate crash", buf, 0xCu);
       }
 
       if (os_log_shim_legacy_logging_enabled())
       {
         if (_IDSShouldLogTransport())
         {
-          v48 = a1;
-          _IDSLogTransport(@"IDSNetworkingLogDump", @"IDS", @"%s: simulate crash");
-          if (_IDSShouldLog())
+          _IDSLogTransport(@"IDSNetworkingLogDump", @"IDS", @"%s: simulate crash", v112, v113, v114, v115, v116, a1);
+          if (_IDSShouldLog(0))
           {
-            v48 = a1;
-            _IDSLogV(0, @"IDSFoundation", @"IDSNetworkingLogDump", @"%s: simulate crash");
+            _IDSLogV(0, @"IDSFoundation", @"IDSNetworkingLogDump", @"%s: simulate crash", v117, v118, v119, v120, a1);
           }
         }
       }
 
-      v40 = [MEMORY[0x1E696AE30] processInfo];
-      v41 = [v40 processName];
+      v121 = [MEMORY[0x1E696AE30] processInfo];
+      v122 = [v121 processName];
       getpid();
-      v42 = [MEMORY[0x1E696AEC0] stringWithUTF8String:a1];
+      v123 = [MEMORY[0x1E696AEC0] stringWithUTF8String:a1];
       IMLogSimulateCrashForProcessAndPID();
     }
 
     else
     {
-      v38 = OSLogHandleForTransportCategory();
-      if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
+      v101 = OSLogHandleForTransportCategory();
+      if (os_log_type_enabled(v101, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315394;
-        v53 = a1;
-        v54 = 2048;
-        v55 = v37;
-        _os_log_impl(&dword_1A7AD9000, v38, OS_LOG_TYPE_DEFAULT, "%s: simulate crash skipped - already done recently (%.6lfs ago)", buf, 0x16u);
+        v150 = a1;
+        v151 = 2048;
+        v152 = v100;
+        _os_log_impl(&dword_1A7AD9000, v101, OS_LOG_TYPE_DEFAULT, "%s: simulate crash skipped - already done recently (%.6lfs ago)", buf, 0x16u);
       }
 
       if (os_log_shim_legacy_logging_enabled())
       {
         if (_IDSShouldLogTransport())
         {
-          v49 = v37;
-          v48 = a1;
-          _IDSLogTransport(@"IDSNetworkingLogDump", @"IDS", @"%s: simulate crash skipped - already done recently (%.6lfs ago)");
-          if (_IDSShouldLog())
+          _IDSLogTransport(@"IDSNetworkingLogDump", @"IDS", @"%s: simulate crash skipped - already done recently (%.6lfs ago)", v102, v103, v104, v105, v106, a1);
+          if (_IDSShouldLog(0))
           {
-            v49 = v37;
-            v48 = a1;
-            _IDSLogV(0, @"IDSFoundation", @"IDSNetworkingLogDump", @"%s: simulate crash skipped - already done recently (%.6lfs ago)");
+            _IDSLogV(0, @"IDSFoundation", @"IDSNetworkingLogDump", @"%s: simulate crash skipped - already done recently (%.6lfs ago)", v107, v108, v109, v110, a1);
           }
         }
       }
     }
 
-    qword_1EB2BBCB0 = *&v36;
+    qword_1EB2BBCB0 = *&v99;
   }
 
   if ((a2 & 4) != 0)
   {
-    v43 = ids_monotonic_time();
-    if (*&qword_1EB2BBCB8 == 0.0 || (v44 = v43 - *&qword_1EB2BBCB8, v43 - *&qword_1EB2BBCB8 > 30.0))
+    v124 = ids_monotonic_time();
+    if (*&qword_1EB2BBCB8 == 0.0 || (v125 = v124 - *&qword_1EB2BBCB8, v124 - *&qword_1EB2BBCB8 > 30.0))
     {
-      v46 = OSLogHandleForTransportCategory();
-      if (os_log_type_enabled(v46, OS_LOG_TYPE_DEFAULT))
+      v136 = OSLogHandleForTransportCategory();
+      if (os_log_type_enabled(v136, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315138;
-        v53 = a1;
-        _os_log_impl(&dword_1A7AD9000, v46, OS_LOG_TYPE_DEFAULT, "%s: kick off sysdiagnose", buf, 0xCu);
+        v150 = a1;
+        _os_log_impl(&dword_1A7AD9000, v136, OS_LOG_TYPE_DEFAULT, "%s: kick off sysdiagnose", buf, 0xCu);
       }
 
       if (os_log_shim_legacy_logging_enabled())
       {
         if (_IDSShouldLogTransport())
         {
-          v48 = a1;
-          _IDSLogTransport(@"IDSNetworkingLogDump", @"IDS", @"%s: kick off sysdiagnose");
-          if (_IDSShouldLog())
+          _IDSLogTransport(@"IDSNetworkingLogDump", @"IDS", @"%s: kick off sysdiagnose", v137, v138, v139, v140, v141, a1);
+          if (_IDSShouldLog(0))
           {
-            v48 = a1;
-            _IDSLogV(0, @"IDSFoundation", @"IDSNetworkingLogDump", @"%s: kick off sysdiagnose");
+            _IDSLogV(0, @"IDSFoundation", @"IDSNetworkingLogDump", @"%s: kick off sysdiagnose", v142, v143, v144, v145, a1);
           }
         }
       }
 
-      v47 = [IDSSysdiagnoseLogCollector sharedInstance:v48];
-      v50[0] = MEMORY[0x1E69E9820];
-      v50[1] = 3221225472;
-      v50[2] = sub_1A7B67358;
-      v50[3] = &unk_1E77E0A80;
-      v50[4] = a1;
-      [v47 collectSysdiagnoseLog:v50];
+      v146 = +[IDSSysdiagnoseLogCollector sharedInstance];
+      v147[0] = MEMORY[0x1E69E9820];
+      v147[1] = 3221225472;
+      v147[2] = sub_1A7B67358;
+      v147[3] = &unk_1E77E0A80;
+      v147[4] = a1;
+      [v146 collectSysdiagnoseLog:v147];
     }
 
     else
     {
-      v45 = OSLogHandleForTransportCategory();
-      if (os_log_type_enabled(v45, OS_LOG_TYPE_DEFAULT))
+      v126 = OSLogHandleForTransportCategory();
+      if (os_log_type_enabled(v126, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315394;
-        v53 = a1;
-        v54 = 2048;
-        v55 = v44;
-        _os_log_impl(&dword_1A7AD9000, v45, OS_LOG_TYPE_DEFAULT, "%s: sysdiagnose skipped - already done recently (%.6lfs ago)", buf, 0x16u);
+        v150 = a1;
+        v151 = 2048;
+        v152 = v125;
+        _os_log_impl(&dword_1A7AD9000, v126, OS_LOG_TYPE_DEFAULT, "%s: sysdiagnose skipped - already done recently (%.6lfs ago)", buf, 0x16u);
       }
 
       if (os_log_shim_legacy_logging_enabled() && _IDSShouldLogTransport())
       {
-        _IDSLogTransport(@"IDSNetworkingLogDump", @"IDS", @"%s: sysdiagnose skipped - already done recently (%.6lfs ago)");
-        if (_IDSShouldLog())
+        _IDSLogTransport(@"IDSNetworkingLogDump", @"IDS", @"%s: sysdiagnose skipped - already done recently (%.6lfs ago)", v127, v128, v129, v130, v131, a1);
+        if (_IDSShouldLog(0))
         {
-          _IDSLogV(0, @"IDSFoundation", @"IDSNetworkingLogDump", @"%s: sysdiagnose skipped - already done recently (%.6lfs ago)");
+          _IDSLogV(0, @"IDSFoundation", @"IDSNetworkingLogDump", @"%s: sysdiagnose skipped - already done recently (%.6lfs ago)", v132, v133, v134, v135, a1);
         }
       }
     }
 
-    qword_1EB2BBCB8 = *&v43;
+    qword_1EB2BBCB8 = *&v124;
   }
 }

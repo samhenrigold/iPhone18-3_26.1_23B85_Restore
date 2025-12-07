@@ -27,22 +27,23 @@
 + (void)completeCurrentBootModeWithSuccess:(BOOL)success
 {
   successCopy = success;
-  v19 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   _securityBootMode = [self _securityBootMode];
   v5 = _securityBootMode;
   if (_securityBootMode == 2)
   {
-    v11 = AMFIDeveloperModeCommit();
-    v7 = LACLogPreboard();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v12 = AMFIDeveloperModeCommit();
+    v13 = v12;
+    v8 = LACLogPreboard(v12);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v15 = 67109376;
-      v16 = successCopy;
-      v17 = 1024;
-      v18 = v11;
-      v8 = "Committing developer mode value: %u with result: %u";
-      v9 = v7;
-      v10 = 14;
+      v17 = 67109376;
+      v18 = successCopy;
+      v19 = 1024;
+      v20 = v13;
+      v9 = "Committing developer mode value: %u with result: %u";
+      v10 = v8;
+      v11 = 14;
       goto LABEL_8;
     }
 
@@ -54,16 +55,17 @@ LABEL_9:
   if (_securityBootMode == 3 && !successCopy)
   {
     v6 = AMFIProfileCommitProfile();
-    v7 = LACLogPreboard();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v7 = v6;
+    v8 = LACLogPreboard(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v15 = 67109120;
-      v16 = v6;
-      v8 = "Committing UPP profile value: nil with result: %u";
-      v9 = v7;
-      v10 = 8;
+      v17 = 67109120;
+      v18 = v7;
+      v9 = "Committing UPP profile value: nil with result: %u";
+      v10 = v8;
+      v11 = 8;
 LABEL_8:
-      _os_log_impl(&dword_1B0233000, v9, OS_LOG_TYPE_DEFAULT, v8, &v15, v10);
+      _os_log_impl(&dword_1B0233000, v10, OS_LOG_TYPE_DEFAULT, v9, &v17, v11);
       goto LABEL_9;
     }
 
@@ -71,91 +73,92 @@ LABEL_8:
   }
 
 LABEL_10:
-  v12 = AMFICompleteSecurityBootMode();
-  v13 = LACLogPreboard();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+  v14 = AMFICompleteSecurityBootMode();
+  v15 = v14;
+  v16 = LACLogPreboard(v14);
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
   {
-    v15 = 67109376;
-    v16 = v5;
-    v17 = 1024;
-    v18 = v12;
-    _os_log_impl(&dword_1B0233000, v13, OS_LOG_TYPE_DEFAULT, "Completing boot mode: %u with result: %u", &v15, 0xEu);
+    v17 = 67109376;
+    v18 = v5;
+    v19 = 1024;
+    v20 = v15;
+    _os_log_impl(&dword_1B0233000, v16, OS_LOG_TYPE_DEFAULT, "Completing boot mode: %u with result: %u", &v17, 0xEu);
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 + (id)getUPPProfile
 {
   ScheduledProfile = AMFIProfileGetScheduledProfile();
+  v3 = ScheduledProfile;
   if (ScheduledProfile)
   {
-    v3 = LACLogPreboard();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v4 = LACLogPreboard(ScheduledProfile);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      +[(LACPreboardAMFIHelper *)ScheduledProfile];
+      +[(LACPreboardAMFIHelper *)v3];
     }
 
-    v4 = 0;
+    v5 = 0;
   }
 
   else
   {
-    v4 = [[LACPreboardUPPProfile alloc] initWithUUID:0 teamID:0 teamName:0];
+    v5 = [[LACPreboardUPPProfile alloc] initWithUUID:0 teamID:0 teamName:0];
   }
 
-  return v4;
+  return v5;
 }
 
 + (BOOL)installProfileWithUUID:(id)d signature:(id)signature error:(id *)error
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   dCopy = d;
   signatureCopy = signature;
   v9 = [signatureCopy copy];
   v10 = AMFIProfileSetTrustWithOptions();
-  v11 = LACLogDefault();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+  v11 = v10;
+  v12 = LACLogDefault(v10);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
-    v18 = 67109120;
-    v19 = v10;
-    _os_log_impl(&dword_1B0233000, v11, OS_LOG_TYPE_DEFAULT, "AMFIProfileSetTrustWithOptions returned: %d", &v18, 8u);
+    v19 = 67109120;
+    v20 = v11;
+    _os_log_impl(&dword_1B0233000, v12, OS_LOG_TYPE_DEFAULT, "AMFIProfileSetTrustWithOptions returned: %d", &v19, 8u);
   }
 
-  if (v10)
+  if (v11)
   {
     if (!error)
     {
-      v15 = 0;
+      v17 = 0;
       goto LABEL_13;
     }
 
-    v12 = [LACError errorWithCode:-1000 debugDescription:@"Unable to set profile trust"];
+    v13 = [LACError errorWithCode:-1000 debugDescription:@"Unable to set profile trust"];
     goto LABEL_11;
   }
 
-  v13 = AMFIProfileCommitProfile();
-  v14 = LACLogDefault();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+  v14 = AMFIProfileCommitProfile();
+  v15 = v14;
+  v16 = LACLogDefault(v14);
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
   {
-    v18 = 67109120;
-    v19 = v13;
-    _os_log_impl(&dword_1B0233000, v14, OS_LOG_TYPE_DEFAULT, "AMFIProfileCommitProfile returned: %d", &v18, 8u);
+    v19 = 67109120;
+    v20 = v15;
+    _os_log_impl(&dword_1B0233000, v16, OS_LOG_TYPE_DEFAULT, "AMFIProfileCommitProfile returned: %d", &v19, 8u);
   }
 
-  v15 = v13 == 0;
-  if (error && v13)
+  v17 = v15 == 0;
+  if (error && v15)
   {
-    v12 = [LACError errorWithCode:-1000 debugDescription:@"Unable to commit profile"];
+    v13 = [LACError errorWithCode:-1000 debugDescription:@"Unable to commit profile"];
 LABEL_11:
-    v15 = 0;
-    *error = v12;
+    v17 = 0;
+    *error = v13;
   }
 
 LABEL_13:
 
-  v16 = *MEMORY[0x1E69E9840];
-  return v15;
+  return v17;
 }
 
 + (int64_t)_useCaseFromBootMode:(unsigned int)mode
@@ -177,11 +180,10 @@ LABEL_13:
 
 + (void)getUPPProfile
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v3[0] = 67109120;
-  v3[1] = self;
-  _os_log_error_impl(&dword_1B0233000, a2, OS_LOG_TYPE_ERROR, "AMFIProfileGetScheduledProfile returned error code: %d", v3, 8u);
-  v2 = *MEMORY[0x1E69E9840];
+  v3 = *MEMORY[0x1E69E9840];
+  v2[0] = 67109120;
+  v2[1] = self;
+  _os_log_error_impl(&dword_1B0233000, a2, OS_LOG_TYPE_ERROR, "AMFIProfileGetScheduledProfile returned error code: %d", v2, 8u);
 }
 
 @end

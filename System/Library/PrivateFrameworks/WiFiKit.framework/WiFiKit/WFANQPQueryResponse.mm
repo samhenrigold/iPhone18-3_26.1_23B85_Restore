@@ -10,7 +10,7 @@
 
 - (WFANQPQueryResponse)initWithScanResult:(id)result ANQPResponse:(id)response
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   resultCopy = result;
   responseCopy = response;
   v9 = responseCopy;
@@ -28,7 +28,7 @@ LABEL_17:
   {
     [WFANQPQueryResponse initWithScanResult:buf ANQPResponse:?];
 LABEL_15:
-    v30 = v32;
+    v29 = v33;
     v18 = *buf;
 LABEL_16:
 
@@ -77,13 +77,14 @@ LABEL_16:
 
   if (!self->_bssid)
   {
-    v30 = WFLogForCategory(0);
-    v31 = OSLogForWFLogLevel(1uLL);
-    if (WFCurrentLogLevel() && v30 && os_log_type_enabled(v30, v31))
+    v29 = WFLogForCategory(0);
+    v30 = OSLogForWFLogLevel(1uLL);
+    v31 = v30;
+    if (WFCurrentLogLevel(v30, v32) && v29 && os_log_type_enabled(v29, v31))
     {
       *buf = 138412290;
       *&buf[4] = v9;
-      _os_log_impl(&dword_273ECD000, v30, v31, "BSSID was nil for ANQP response %@", buf, 0xCu);
+      _os_log_impl(&dword_273ECD000, v29, v31, "BSSID was nil for ANQP response %@", buf, 0xCu);
     }
 
     goto LABEL_16;
@@ -99,7 +100,6 @@ LABEL_16:
 LABEL_11:
   selfCopy = self;
 
-  v28 = *MEMORY[0x277D85DE8];
   return selfCopy;
 }
 
@@ -144,32 +144,34 @@ LABEL_11:
 
 - (void)initWithScanResult:(NSObject *)a1 ANQPResponse:(void *)a2 .cold.1(NSObject **a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
   v4 = WFLogForCategory(0);
   v5 = OSLogForWFLogLevel(1uLL);
-  if (WFCurrentLogLevel() && v4 && os_log_type_enabled(v4, v5))
+  v6 = v5;
+  if (WFCurrentLogLevel(v5, v7) && v4 && os_log_type_enabled(v4, v6))
   {
-    OUTLINED_FUNCTION_0_13(&dword_273ECD000, v6, v7, "%s: missing response", v8, v9, v10, v11, 2u);
+    LODWORD(v14) = 136315138;
+    *(&v14 + 4) = "[WFANQPQueryResponse initWithScanResult:ANQPResponse:]";
+    OUTLINED_FUNCTION_0_13(&dword_273ECD000, v8, v9, "%s: missing response", v10, v11, v12, v13, v14, DWORD2(v14));
   }
 
   *a2 = 0;
   *a1 = v4;
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initWithScanResult:(NSObject *)a1 ANQPResponse:(void *)a2 .cold.2(NSObject **a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
   v4 = WFLogForCategory(0);
   v5 = OSLogForWFLogLevel(1uLL);
-  if (WFCurrentLogLevel() && v4 && os_log_type_enabled(v4, v5))
+  v6 = v5;
+  if (WFCurrentLogLevel(v5, v7) && v4 && os_log_type_enabled(v4, v6))
   {
-    OUTLINED_FUNCTION_0_13(&dword_273ECD000, v6, v7, "%s: missing scan result", v8, v9, v10, v11, 2u);
+    LODWORD(v14) = 136315138;
+    *(&v14 + 4) = "[WFANQPQueryResponse initWithScanResult:ANQPResponse:]";
+    OUTLINED_FUNCTION_0_13(&dword_273ECD000, v8, v9, "%s: missing scan result", v10, v11, v12, v13, v14, DWORD2(v14));
   }
 
   *a2 = 0;
   *a1 = v4;
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 @end

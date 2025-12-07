@@ -3,6 +3,7 @@
 - (NotificationFromGEODHandlerDelegate)delegate;
 - (void)clearIncompatibleOfflineDataNotification;
 - (void)expiredOfflineSubscriptions:(id)subscriptions withDisplayNames:(id)names forReason:(int64_t)reason;
+- (void)finishedDownloadingOfflineSubscription:(id)subscription withDisplayName:(id)name willSyncToPairedDevice:(BOOL)device;
 - (void)geoDInternalError:(int64_t)error;
 - (void)notifyForIncompatibleOfflineDataVersionsForIdentifiers:(id)identifiers displayNames:(id)names completionHandler:(id)handler;
 - (void)pairedDeviceHasInsufficientDiskSpace:(unint64_t)space forSubscriptions:(id)subscriptions withDisplayNames:(id)names;
@@ -16,16 +17,7 @@
 - (NotificationFromGEODHandler)initWithDelegate:(id)delegate
 {
   delegateCopy = delegate;
-  if (!delegateCopy)
-  {
-    goto LABEL_5;
-  }
-
-  v10.receiver = self;
-  v10.super_class = NotificationFromGEODHandler;
-  v5 = [(NotificationFromGEODHandler *)&v10 init];
-  self = v5;
-  if (!v5 || (objc_storeWeak(&v5->_delegate, delegateCopy), v6 = [[GEODaemonToMapsPushDaemonListener alloc] initWithMapsPushDaemon:self], geodListener = self->_geodListener, self->_geodListener = v6, geodListener, self->_geodListener))
+  if (delegateCopy && ((v10.receiver = self, v10.super_class = NotificationFromGEODHandler, v5 = [(NotificationFromGEODHandler *)&v10 init], (self = v5) == 0) || (objc_storeWeak(&v5->_delegate, delegateCopy), v6 = [[GEODaemonToMapsPushDaemonListener alloc] initWithMapsPushDaemon:self], geodListener = self->_geodListener, self->_geodListener = v6, geodListener, self->_geodListener)))
   {
     self = self;
     selfCopy = self;
@@ -33,7 +25,6 @@
 
   else
   {
-LABEL_5:
     selfCopy = 0;
   }
 
@@ -91,6 +82,15 @@ LABEL_5:
   {
     (*(reply + 2))(reply);
   }
+}
+
+- (void)finishedDownloadingOfflineSubscription:(id)subscription withDisplayName:(id)name willSyncToPairedDevice:(BOOL)device
+{
+  deviceCopy = device;
+  nameCopy = name;
+  subscriptionCopy = subscription;
+  WeakRetained = objc_loadWeakRetained(&self->_delegate);
+  [WeakRetained finishedDownloadingOfflineSubscription:subscriptionCopy withDisplayName:nameCopy willSyncToPairedDevice:deviceCopy];
 }
 
 - (void)expiredOfflineSubscriptions:(id)subscriptions withDisplayNames:(id)names forReason:(int64_t)reason

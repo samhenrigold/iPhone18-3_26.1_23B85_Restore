@@ -66,181 +66,30 @@
 - (BOOL)isEqualToUpNextInfo:(id)info
 {
   infoCopy = info;
-  if (!infoCopy)
+  if (infoCopy
+    && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0)
+    && (-[TVRCUpNextInfo progress](self, "progress"), v5 = objc_claimAutoreleasedReturnValue(), [infoCopy progress], v6 = objc_claimAutoreleasedReturnValue(), v7 = (v5 == 0) ^ (v6 == 0), v6, v5, (v7 & 1) == 0)
+    && (-[TVRCUpNextInfo timeRemaining](self, "timeRemaining"), v8 = objc_claimAutoreleasedReturnValue(), [infoCopy timeRemaining], v9 = objc_claimAutoreleasedReturnValue(), v10 = (v8 == 0) ^ (v9 == 0), v9, v8, (v10 & 1) == 0)
+    && (-[TVRCUpNextInfo actionURL](self, "actionURL"), v11 = objc_claimAutoreleasedReturnValue(), [infoCopy actionURL], v12 = objc_claimAutoreleasedReturnValue(), v13 = (v11 == 0) ^ (v12 == 0), v12, v11, (v13 & 1) == 0)
+    && (-[TVRCUpNextInfo shareURL](self, "shareURL"), v14 = objc_claimAutoreleasedReturnValue(), [infoCopy shareURL], v15 = objc_claimAutoreleasedReturnValue(), v16 = (v14 == 0) ^ (v15 == 0), v15, v14, (v16 & 1) == 0)
+    && (-[TVRCUpNextInfo shareShowURL](self, "shareShowURL"), v17 = objc_claimAutoreleasedReturnValue(), [infoCopy shareShowURL], v18 = objc_claimAutoreleasedReturnValue(), v19 = (v17 == 0) ^ (v18 == 0), v18, v17, (v19 & 1) == 0)
+    && (-[TVRCUpNextInfo reason](self, "reason"), v20 = objc_claimAutoreleasedReturnValue(), [infoCopy reason], v21 = objc_claimAutoreleasedReturnValue(), v22 = objc_msgSend(v20, "isEqualToString:", v21), v21, v20, v22)
+    && (-[TVRCUpNextInfo timestamp](self, "timestamp"), v23 = objc_claimAutoreleasedReturnValue(), [infoCopy timestamp], v24 = objc_claimAutoreleasedReturnValue(), v25 = objc_msgSend(v23, "isEqualToNumber:", v24), v24, v23, v25)
+    && (-[TVRCUpNextInfo service](self, "service"), v26 = objc_claimAutoreleasedReturnValue(), [infoCopy service], v27 = objc_claimAutoreleasedReturnValue(), v28 = objc_msgSend(v26, "isEqualToString:", v27), v27, v26, v28)
+    && (v29 = -[TVRCUpNextInfo isAppleOriginal](self, "isAppleOriginal"), v29 == [infoCopy isAppleOriginal])
+    && (-[TVRCUpNextInfo mediaInfo](self, "mediaInfo"), v30 = objc_claimAutoreleasedReturnValue(), [infoCopy mediaInfo], v31 = objc_claimAutoreleasedReturnValue(), v32 = objc_msgSend(v30, "isEqualToMediaInfo:", v31), v31, v30, v32)
+    && ((-[TVRCUpNextInfo progress](self, "progress"), (v33 = objc_claimAutoreleasedReturnValue()) == 0) || (v34 = v33, -[TVRCUpNextInfo progress](self, "progress"), v35 = objc_claimAutoreleasedReturnValue(), [infoCopy progress], v36 = objc_claimAutoreleasedReturnValue(), v37 = objc_msgSend(v35, "isEqual:", v36), v36, v35, v34, v37))
+    && ((-[TVRCUpNextInfo timeRemaining](self, "timeRemaining"), (v38 = objc_claimAutoreleasedReturnValue()) == 0) || (v39 = v38, -[TVRCUpNextInfo timeRemaining](self, "timeRemaining"), v40 = objc_claimAutoreleasedReturnValue(), [infoCopy timeRemaining], v41 = objc_claimAutoreleasedReturnValue(), v42 = objc_msgSend(v40, "isEqual:", v41), v41, v40, v39, v42))
+    && ((-[TVRCUpNextInfo actionURL](self, "actionURL"), (v43 = objc_claimAutoreleasedReturnValue()) == 0) || (v44 = v43, -[TVRCUpNextInfo actionURL](self, "actionURL"), v45 = objc_claimAutoreleasedReturnValue(), [infoCopy actionURL], v46 = objc_claimAutoreleasedReturnValue(), v47 = objc_msgSend(v45, "isEqual:", v46), v46, v45, v44, v47))
+    && ((-[TVRCUpNextInfo shareURL](self, "shareURL"), (v48 = objc_claimAutoreleasedReturnValue()) == 0) || (v49 = v48, -[TVRCUpNextInfo shareURL](self, "shareURL"), v50 = objc_claimAutoreleasedReturnValue(), [infoCopy shareURL], v51 = objc_claimAutoreleasedReturnValue(), v52 = objc_msgSend(v50, "isEqual:", v51), v51, v50, v49, v52))
+    && ((-[TVRCUpNextInfo shareShowURL](self, "shareShowURL"), (v53 = objc_claimAutoreleasedReturnValue()) == 0) || (v54 = v53, -[TVRCUpNextInfo shareShowURL](self, "shareShowURL"), v55 = objc_claimAutoreleasedReturnValue(), [infoCopy shareShowURL], v56 = objc_claimAutoreleasedReturnValue(), v57 = objc_msgSend(v55, "isEqual:", v56), v56, v55, v54, v57)))
   {
-    goto LABEL_24;
-  }
-
-  objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) == 0)
-  {
-    goto LABEL_24;
-  }
-
-  progress = [(TVRCUpNextInfo *)self progress];
-  progress2 = [infoCopy progress];
-  v7 = (progress == 0) ^ (progress2 == 0);
-
-  if (v7)
-  {
-    goto LABEL_24;
-  }
-
-  timeRemaining = [(TVRCUpNextInfo *)self timeRemaining];
-  timeRemaining2 = [infoCopy timeRemaining];
-  v10 = (timeRemaining == 0) ^ (timeRemaining2 == 0);
-
-  if (v10)
-  {
-    goto LABEL_24;
-  }
-
-  actionURL = [(TVRCUpNextInfo *)self actionURL];
-  actionURL2 = [infoCopy actionURL];
-  v13 = (actionURL == 0) ^ (actionURL2 == 0);
-
-  if (v13)
-  {
-    goto LABEL_24;
-  }
-
-  shareURL = [(TVRCUpNextInfo *)self shareURL];
-  shareURL2 = [infoCopy shareURL];
-  v16 = (shareURL == 0) ^ (shareURL2 == 0);
-
-  if (v16)
-  {
-    goto LABEL_24;
-  }
-
-  shareShowURL = [(TVRCUpNextInfo *)self shareShowURL];
-  shareShowURL2 = [infoCopy shareShowURL];
-  v19 = (shareShowURL == 0) ^ (shareShowURL2 == 0);
-
-  if (v19)
-  {
-    goto LABEL_24;
-  }
-
-  reason = [(TVRCUpNextInfo *)self reason];
-  reason2 = [infoCopy reason];
-  v22 = [reason isEqualToString:reason2];
-
-  if (!v22)
-  {
-    goto LABEL_24;
-  }
-
-  timestamp = [(TVRCUpNextInfo *)self timestamp];
-  timestamp2 = [infoCopy timestamp];
-  v25 = [timestamp isEqualToNumber:timestamp2];
-
-  if (!v25)
-  {
-    goto LABEL_24;
-  }
-
-  service = [(TVRCUpNextInfo *)self service];
-  service2 = [infoCopy service];
-  v28 = [service isEqualToString:service2];
-
-  if (!v28)
-  {
-    goto LABEL_24;
-  }
-
-  isAppleOriginal = [(TVRCUpNextInfo *)self isAppleOriginal];
-  if (isAppleOriginal != [infoCopy isAppleOriginal])
-  {
-    goto LABEL_24;
-  }
-
-  mediaInfo = [(TVRCUpNextInfo *)self mediaInfo];
-  mediaInfo2 = [infoCopy mediaInfo];
-  v32 = [mediaInfo isEqualToMediaInfo:mediaInfo2];
-
-  if (!v32)
-  {
-    goto LABEL_24;
-  }
-
-  progress3 = [(TVRCUpNextInfo *)self progress];
-  if (progress3)
-  {
-    v34 = progress3;
-    progress4 = [(TVRCUpNextInfo *)self progress];
-    progress5 = [infoCopy progress];
-    v37 = [progress4 isEqual:progress5];
-
-    if (!v37)
-    {
-      goto LABEL_24;
-    }
-  }
-
-  timeRemaining3 = [(TVRCUpNextInfo *)self timeRemaining];
-  if (timeRemaining3)
-  {
-    v39 = timeRemaining3;
-    timeRemaining4 = [(TVRCUpNextInfo *)self timeRemaining];
-    timeRemaining5 = [infoCopy timeRemaining];
-    v42 = [timeRemaining4 isEqual:timeRemaining5];
-
-    if (!v42)
-    {
-      goto LABEL_24;
-    }
-  }
-
-  actionURL3 = [(TVRCUpNextInfo *)self actionURL];
-  if (actionURL3)
-  {
-    v44 = actionURL3;
-    actionURL4 = [(TVRCUpNextInfo *)self actionURL];
-    actionURL5 = [infoCopy actionURL];
-    v47 = [actionURL4 isEqual:actionURL5];
-
-    if (!v47)
-    {
-      goto LABEL_24;
-    }
-  }
-
-  shareURL3 = [(TVRCUpNextInfo *)self shareURL];
-  if (shareURL3)
-  {
-    v49 = shareURL3;
-    shareURL4 = [(TVRCUpNextInfo *)self shareURL];
-    shareURL5 = [infoCopy shareURL];
-    v52 = [shareURL4 isEqual:shareURL5];
-
-    if (!v52)
-    {
-      goto LABEL_24;
-    }
-  }
-
-  shareShowURL3 = [(TVRCUpNextInfo *)self shareShowURL];
-  if (!shareShowURL3)
-  {
-    goto LABEL_23;
-  }
-
-  v54 = shareShowURL3;
-  shareShowURL4 = [(TVRCUpNextInfo *)self shareShowURL];
-  shareShowURL5 = [infoCopy shareShowURL];
-  v57 = [shareShowURL4 isEqual:shareShowURL5];
-
-  if (v57)
-  {
-LABEL_23:
     artworkNeedsCornerBlur = [(TVRCUpNextInfo *)self artworkNeedsCornerBlur];
     v59 = artworkNeedsCornerBlur ^ [infoCopy artworkNeedsCornerBlur] ^ 1;
   }
 
   else
   {
-LABEL_24:
     LOBYTE(v59) = 0;
   }
 

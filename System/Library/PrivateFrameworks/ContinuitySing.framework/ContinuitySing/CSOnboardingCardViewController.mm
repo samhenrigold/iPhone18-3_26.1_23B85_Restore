@@ -167,7 +167,7 @@ void __45__CSOnboardingCardViewController__setupViews__block_invoke_2(uint64_t a
 
 - (void)_dismissAndSing
 {
-  v3 = ContinuitySingLog();
+  v3 = ContinuitySingLog(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
@@ -196,7 +196,7 @@ void __49__CSOnboardingCardViewController__dismissAndSing__block_invoke(uint64_t
 
 - (void)_dismissAndAudioCheck
 {
-  v3 = ContinuitySingLog();
+  v3 = ContinuitySingLog(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v5 = 136315138;
@@ -224,10 +224,10 @@ void __49__CSOnboardingCardViewController__dismissAndSing__block_invoke(uint64_t
 
   else
   {
-    v7 = ContinuitySingLog();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = ContinuitySingLog(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      [CSOnboardingCardViewController _callCompletionBlockWithAction:v7];
+      [CSOnboardingCardViewController _callCompletionBlockWithAction:v8];
     }
   }
 }

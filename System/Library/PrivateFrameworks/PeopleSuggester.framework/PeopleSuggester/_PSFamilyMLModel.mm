@@ -66,18 +66,16 @@
 
 - (void)initializeModels
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v4 = [self count];
   allKeys = [self allKeys];
-  v7 = 134218498;
-  v8 = 4;
-  v9 = 2048;
-  v10 = v4;
-  v11 = 2114;
-  v12 = allKeys;
-  _os_log_error_impl(&dword_1B5ED1000, a2, OS_LOG_TYPE_ERROR, "Failed to load all %tu models (successfully loaded %tu models: %{public}@)", &v7, 0x20u);
-
-  v6 = *MEMORY[0x1E69E9840];
+  v6 = 134218498;
+  v7 = 4;
+  v8 = 2048;
+  v9 = v4;
+  v10 = 2114;
+  v11 = allKeys;
+  _os_log_error_impl(&dword_1B5ED1000, a2, OS_LOG_TYPE_ERROR, "Failed to load all %tu models (successfully loaded %tu models: %{public}@)", &v6, 0x20u);
 }
 
 - (void)commonInit
@@ -115,35 +113,35 @@
 
 - (id)familiesPredictionForContacts:(id)contacts withMaxSuggestion:(int64_t)suggestion
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   contactsCopy = contacts;
   v6 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v30 = 0u;
   v31 = 0u;
   v32 = 0u;
   v33 = 0u;
-  v34 = 0u;
   obj = contactsCopy;
-  v7 = [obj countByEnumeratingWithState:&v31 objects:v37 count:16];
+  v7 = [obj countByEnumeratingWithState:&v30 objects:v36 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v32;
+    v9 = *v31;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v32 != v9)
+        if (*v31 != v9)
         {
           objc_enumerationMutation(obj);
         }
 
-        v11 = *(*(&v31 + 1) + 8 * i);
+        v11 = *(*(&v30 + 1) + 8 * i);
         v12 = [(_PSFamilyMLModel *)self familyProbability:v11];
         v13 = [v12 objectForKey:&unk_1F2D8B568];
 
-        v36[0] = v11;
-        v36[1] = v13;
-        v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v36 count:2];
+        v35[0] = v11;
+        v35[1] = v13;
+        v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v35 count:2];
         if (v6)
         {
           [v6 insertObject:v14 atIndex:{objc_msgSend(v6, "indexOfObject:inSortedRange:options:usingComparator:", v14, 0, objc_msgSend(v6, "count"), 1024, &__block_literal_global_13)}];
@@ -159,44 +157,43 @@
         }
       }
 
-      v8 = [obj countByEnumeratingWithState:&v31 objects:v37 count:16];
+      v8 = [obj countByEnumeratingWithState:&v30 objects:v36 count:16];
     }
 
     while (v8);
   }
 
   v15 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:suggestion];
+  v26 = 0u;
   v27 = 0u;
   v28 = 0u;
   v29 = 0u;
-  v30 = 0u;
   v16 = v6;
-  v17 = [v16 countByEnumeratingWithState:&v27 objects:v35 count:16];
+  v17 = [v16 countByEnumeratingWithState:&v26 objects:v34 count:16];
   if (v17)
   {
     v18 = v17;
-    v19 = *v28;
+    v19 = *v27;
     do
     {
       for (j = 0; j != v18; ++j)
       {
-        if (*v28 != v19)
+        if (*v27 != v19)
         {
           objc_enumerationMutation(v16);
         }
 
-        firstObject = [*(*(&v27 + 1) + 8 * j) firstObject];
+        firstObject = [*(*(&v26 + 1) + 8 * j) firstObject];
         [v15 addObject:firstObject];
       }
 
-      v18 = [v16 countByEnumeratingWithState:&v27 objects:v35 count:16];
+      v18 = [v16 countByEnumeratingWithState:&v26 objects:v34 count:16];
     }
 
     while (v18);
   }
 
   v22 = [v15 copy];
-  v23 = *MEMORY[0x1E69E9840];
 
   return v22;
 }
@@ -336,7 +333,7 @@
 
 - (id)ensemblePredictionForInputFeatures:(id)features
 {
-  v67 = *MEMORY[0x1E69E9840];
+  v66 = *MEMORY[0x1E69E9840];
   featuresCopy = features;
   v5 = objc_alloc_init(MEMORY[0x1E695DF70]);
   v6 = [(_PSFamilyMLModel *)self getPredictionFromModel:@"model_dt" withInputFeatures:featuresCopy];
@@ -346,14 +343,14 @@
   v9 = [v6 featureValueForName:@"classProbability"];
   dictionaryValue = [v9 dictionaryValue];
 
-  v60 = dictionaryValue;
+  v59 = dictionaryValue;
   [v5 addObject:dictionaryValue];
   v11 = [(_PSFamilyMLModel *)self getPredictionFromModel:@"model_rf" withInputFeatures:featuresCopy];
   v12 = [v11 featureValueForName:@"labelFinal"];
   int64Value2 = [v12 int64Value];
 
   v14 = int64Value2 + int64Value;
-  v59 = v11;
+  v58 = v11;
   v15 = [v11 featureValueForName:@"classProbability"];
   dictionaryValue2 = [v15 dictionaryValue];
 
@@ -366,54 +363,54 @@
   v21 = [v17 featureValueForName:@"classProbability"];
   dictionaryValue3 = [v21 dictionaryValue];
 
-  v58 = dictionaryValue3;
+  v57 = dictionaryValue3;
   [v5 addObject:dictionaryValue3];
   v23 = [(_PSFamilyMLModel *)self getPredictionFromModel:@"IP_model_gbdt" withInputFeatures:featuresCopy];
   v24 = [v23 featureValueForName:@"target"];
   int64Value4 = [v24 int64Value];
 
   v26 = v20 + 3 * int64Value4;
-  v57 = v23;
+  v56 = v23;
   v27 = [v23 featureValueForName:@"classProbability"];
   dictionaryValue4 = [v27 dictionaryValue];
 
-  v56 = dictionaryValue4;
+  v55 = dictionaryValue4;
   [v5 addObject:dictionaryValue4];
   v29 = v26 > 1;
   v30 = objc_alloc_init(MEMORY[0x1E695DF90]);
+  v61 = 0u;
   v62 = 0u;
   v63 = 0u;
   v64 = 0u;
-  v65 = 0u;
   v31 = v5;
-  v32 = [v31 countByEnumeratingWithState:&v62 objects:v66 count:16];
+  v32 = [v31 countByEnumeratingWithState:&v61 objects:v65 count:16];
   if (v32)
   {
     v33 = v32;
-    v54 = v29;
-    v55 = featuresCopy;
+    v53 = v29;
+    v54 = featuresCopy;
     v34 = v17;
     v35 = dictionaryValue2;
     v36 = v6;
-    v37 = *v63;
+    v37 = *v62;
     v38 = 0.0;
     do
     {
       for (i = 0; i != v33; ++i)
       {
-        if (*v63 != v37)
+        if (*v62 != v37)
         {
           objc_enumerationMutation(v31);
         }
 
-        v40 = [*(*(&v62 + 1) + 8 * i) objectForKey:{&unk_1F2D8B568, v54, v55}];
+        v40 = [*(*(&v61 + 1) + 8 * i) objectForKey:{&unk_1F2D8B568, v53, v54}];
         [v40 doubleValue];
         v42 = v41;
 
         v38 = v38 + v42;
       }
 
-      v33 = [v31 countByEnumeratingWithState:&v62 objects:v66 count:16];
+      v33 = [v31 countByEnumeratingWithState:&v61 objects:v65 count:16];
     }
 
     while (v33);
@@ -421,8 +418,8 @@
     v6 = v36;
     dictionaryValue2 = v35;
     v17 = v34;
-    v29 = v54;
-    featuresCopy = v55;
+    v29 = v53;
+    featuresCopy = v54;
   }
 
   else
@@ -441,9 +438,9 @@
   v47 = [MEMORY[0x1E696AD98] numberWithLongLong:v29];
   [v46 setObject:v47 forKey:@"labelFinal"];
 
-  v61 = 0;
-  v48 = [objc_alloc(getMLDictionaryFeatureProviderClass_0()) initWithDictionary:v46 error:&v61];
-  v49 = v61;
+  v60 = 0;
+  v48 = [objc_alloc(getMLDictionaryFeatureProviderClass_0()) initWithDictionary:v46 error:&v60];
+  v49 = v60;
   if (v49)
   {
     v50 = +[_PSLogging familyRecommenderChannel];
@@ -459,8 +456,6 @@
   {
     v51 = v48;
   }
-
-  v52 = *MEMORY[0x1E69E9840];
 
   return v51;
 }
@@ -495,40 +490,35 @@
 
 - (void)loadModelFromUrlResource:(NSObject *)a3 .cold.1(void *a1, uint64_t a2, NSObject *a3)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v5 = [a1 absoluteString];
   OUTLINED_FUNCTION_1();
-  v8 = 2112;
-  v9 = a2;
-  _os_log_fault_impl(&dword_1B5ED1000, a3, OS_LOG_TYPE_FAULT, "Error loading compiled CoreML Model from path %@ : %@", v7, 0x16u);
-
-  v6 = *MEMORY[0x1E69E9840];
+  v7 = 2112;
+  v8 = a2;
+  _os_log_fault_impl(&dword_1B5ED1000, a3, OS_LOG_TYPE_FAULT, "Error loading compiled CoreML Model from path %@ : %@", v6, 0x16u);
 }
 
 - (void)defaultPredictionForInputFeatures:.cold.1()
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1();
-  _os_log_error_impl(&dword_1B5ED1000, v0, OS_LOG_TYPE_ERROR, "Error while making prediction from features: %@", v2, 0xCu);
-  v1 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(&dword_1B5ED1000, v0, OS_LOG_TYPE_ERROR, "Error while making prediction from features: %@", v1, 0xCu);
 }
 
 - (void)ensemblePredictionForInputFeatures:.cold.1()
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1();
-  _os_log_error_impl(&dword_1B5ED1000, v0, OS_LOG_TYPE_ERROR, "Error while preparing prediction result for ensemble modeling:  %@", v2, 0xCu);
-  v1 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(&dword_1B5ED1000, v0, OS_LOG_TYPE_ERROR, "Error while preparing prediction result for ensemble modeling:  %@", v1, 0xCu);
 }
 
 - (void)getPredictionFromModel:withInputFeatures:.cold.1()
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1();
-  v4 = 2112;
-  v5 = v0;
-  _os_log_error_impl(&dword_1B5ED1000, v1, OS_LOG_TYPE_ERROR, "Error while using %@ model to make prediction from features: %@", v3, 0x16u);
-  v2 = *MEMORY[0x1E69E9840];
+  v3 = 2112;
+  v4 = v0;
+  _os_log_error_impl(&dword_1B5ED1000, v1, OS_LOG_TYPE_ERROR, "Error while using %@ model to make prediction from features: %@", v2, 0x16u);
 }
 
 @end

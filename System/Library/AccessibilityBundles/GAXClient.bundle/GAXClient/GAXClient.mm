@@ -194,7 +194,7 @@ void sub_267C(uint64_t a1, void *a2, void *a3)
     v7 = GAXLogCommon();
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      sub_AB54(a1);
+      sub_AB54();
     }
 
     v8 = 0;
@@ -454,9 +454,9 @@ uint64_t sub_3CB0(uint64_t a1)
   return _objc_release_x2();
 }
 
-void sub_3E64(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_3E64(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -473,9 +473,9 @@ id sub_3E7C(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
   return result;
 }
 
-void sub_3FC8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_3FC8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1040,10 +1040,7 @@ uint64_t sub_6AD4(uint64_t result, uint64_t a2)
 
 uint64_t sub_6AEC(uint64_t a1)
 {
-  v2 = [*(a1 + 32) _contentsOfUserInterfaceItem:@"contextMenu"];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(a1 + 32) _contentsOfUserInterfaceItem:@"contextMenu"];
 
   return _objc_release_x1();
 }
@@ -1068,10 +1065,11 @@ BOOL sub_6C40(id a1, id a2, unint64_t a3, BOOL *a4)
   return v7;
 }
 
-void sub_83CC(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_83CC(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, &a9, 0xCu);
+  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, va, 0xCu);
 }
 
 id GAXFallbackValueForProfileKey(void *a1, uint64_t a2, int a3)
@@ -1549,16 +1547,16 @@ BOOL GAXSecTaskHasBooleanEntitlement(__SecTask *a1, void *a2)
   return v7;
 }
 
-id GAXAllowedRemoteUIProcesses()
+id GAXAllowedRemoteUIProcesses(uint64_t a1)
 {
   if (qword_1BCD0 != -1)
   {
     sub_B0C4();
   }
 
-  v1 = qword_1BCC8;
+  v2 = qword_1BCC8;
 
-  return v1;
+  return v2;
 }
 
 void sub_9CB0(id a1)
@@ -1682,18 +1680,25 @@ void sub_AAD4(const char *a1)
   _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
 }
 
-void sub_AB54(uint64_t a1)
-{
-  v6 = *(a1 + 32);
-  sub_44E4();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-}
-
 void sub_AC40()
 {
   sub_44D8();
   sub_44E4();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
+}
+
+void sub_AD8C(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = currentlyActiveSession;
+  sub_83CC(&dword_0, a1, a3, "set active session in app: %@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_AE48(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = currentlyActiveSession;
+  sub_83CC(&dword_0, a1, a3, "gax is enabled, current session = %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void sub_AEC0(int a1, NSObject *a2)

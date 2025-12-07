@@ -1,3 +1,153 @@
+void **DspLib::MultiChannelCircularDelay::read(void **result, unint64_t a2, void *a3)
+{
+  v3 = *result;
+  if (result[1] != *result)
+  {
+    v6 = result;
+    v7 = 0;
+    v8 = 1;
+    do
+    {
+      result = DspLib::CircularDelay::read(&v3[4 * v7], a2, *(*a3 + 8 * v7), a3[2]);
+      v7 = v8;
+      v3 = *v6;
+      ++v8;
+    }
+
+    while (v7 < (v6[1] - *v6) >> 5);
+  }
+
+  return result;
+}
+
+char **DspLib::MultiChannelCircularDelay::write(char **result, void *a2)
+{
+  v2 = *result;
+  if (result[1] != *result)
+  {
+    v4 = result;
+    v5 = 0;
+    v6 = 1;
+    do
+    {
+      result = DspLib::CircularDelay::write(&v2[32 * v5], *(*a2 + 8 * v5), a2[2]);
+      v5 = v6;
+      v2 = *v4;
+      ++v6;
+    }
+
+    while (v5 < (v4[1] - *v4) >> 5);
+  }
+
+  return result;
+}
+
+char **DspLib::MultiChannelCircularDelay::process(char **result, void *a2, void *a3)
+{
+  v3 = *result;
+  if (result[1] != *result)
+  {
+    v6 = result;
+    v7 = 0;
+    v8 = 1;
+    do
+    {
+      result = DspLib::CircularDelay::process(&v3[32 * v7], *(*a2 + 8 * v7), a2[2], *(*a3 + 8 * v7), a3[2]);
+      v7 = v8;
+      v3 = *v6;
+      ++v8;
+    }
+
+    while (v7 < (v6[1] - *v6) >> 5);
+  }
+
+  return result;
+}
+
+void DspLib::LinearDelay::setLength(float **this, unint64_t a2)
+{
+  if (a2 != this[1] - *this)
+  {
+    std::vector<float>::resize(this, a2);
+    v4 = *this;
+    v5 = this[1] - *this;
+
+    DspLib::clear(v4, v5);
+  }
+}
+
+char **DspLib::LinearDelay::process(char **result, char *__src, unint64_t a3, char *__dst, uint64_t a5)
+{
+  v18[1] = *MEMORY[0x1E69E9840];
+  if (a3)
+  {
+    v10 = *result;
+    v9 = result[1];
+    v11 = v9 - *result;
+    if (v9 == *result)
+    {
+      if (__src != __dst)
+      {
+
+        return DspLib::copy(__src, a3, __dst);
+      }
+    }
+
+    else
+    {
+      v12 = v11 >> 2;
+      v13 = a3 - (v11 >> 2);
+      if (a3 <= v11 >> 2)
+      {
+        MEMORY[0x1EEE9AC00](result);
+        v17 = v18 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
+        DspLib::copy(__src, a3, v17);
+        DspLib::copy(v10, a3, __dst);
+        DspLib::copy(&v10[v11 + -4 * (v12 - a3)], v12 - a3, v10);
+        return DspLib::copy(v17, a3, &v10[v11 + -4 * a3]);
+      }
+
+      else
+      {
+        MEMORY[0x1EEE9AC00](result);
+        v15 = v18 - v14;
+        DspLib::copy(&__src[4 * a3 + -4 * v12], v12, v18 - v14);
+        DspLib::copy_backward(__src, v13, &__dst[4 * a5 + -4 * v13], v13);
+        DspLib::copy(v10, v12, __dst);
+        return DspLib::copy(v15, v12, v10);
+      }
+    }
+  }
+
+  return result;
+}
+
+char **DspLib::LinearDelay::write(char **result, char *a2, unint64_t a3)
+{
+  if (a3)
+  {
+    v5 = *result;
+    v6 = result[1] - *result;
+    v7 = v6 >> 2;
+    if (v6 >> 2 >= a3)
+    {
+      v8 = &v5[v6];
+      DspLib::copy(&v5[v6 + -4 * ((v6 >> 2) - a3)], (v6 >> 2) - a3, v5);
+      v5 = &v8[-4 * a3];
+      v7 = a3;
+    }
+
+    else
+    {
+      a2 = &a2[4 * a3 + -4 * v7];
+    }
+
+    return DspLib::copy(a2, v7, v5);
+  }
+
+  return result;
+}
+
 DspLib::FourBandRandomOrderLrFilterBank::FilterBank *DspLib::FourBandRandomOrderLrFilterBank::FilterBank::FilterBank(DspLib::FourBandRandomOrderLrFilterBank::FilterBank *this)
 {
   *this = 0;
@@ -832,9 +982,9 @@ void sub_1DDBFB668(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 void DspLib::FourBandRandomOrderLrFilterBank::applyGain(DspLib::FourBandRandomOrderLrFilterBank *this, DspLib::Biquad::Filter *a2, unsigned int a3, float a4, uint64_t a5)
 {
   v6 = a2 * a5 + a3;
-  DspLib::Biquad::Filter::section(this, 0, v6, &v10);
-  *v10.f32 = vmul_n_f32(*v10.f32, a4);
-  v10.f32[2] = v10.f32[2] * a4;
+  DspLib::Biquad::Filter::section(&v10, this, 0, v6);
+  *&v10 = vmul_n_f32(*&v10, a4);
+  *(&v10 + 2) = *(&v10 + 2) * a4;
   v8 = v10;
   v9 = v11;
   DspLib::Biquad::Filter::setCoefficients(this, &v8, 1, 0, v6);
@@ -1408,24 +1558,24 @@ void DspLib::VirtualBass::Resampler::Stage::configure(_DWORD *a1, uint64_t a2, v
   }
 }
 
-void DspLib::VirtualBass::Resampler::downsample(uint64_t a1, void *__src, uint64_t a3)
+void DspLib::VirtualBass::Resampler::downsample(uint64_t a1, void *__src, uint64_t a3, uint64_t a4, uint64_t a5, unint64_t a6)
 {
-  v4 = *(a1 + 104);
+  v7 = *(a1 + 104);
   if (*(a1 + 96))
   {
-    *(a1 + 136) = v4;
-    v5 = a1 + 136;
-    *(a1 + 144) = (*(a1 + 112) - v4) >> 2;
-    DspLib::DownSampler::process((a1 + 8), __src, a3, (a1 + 136));
-    *(v5 - 120) = a3;
+    *(a1 + 136) = v7;
+    v8 = a1 + 136;
+    *(a1 + 144) = (*(a1 + 112) - v7) >> 2;
+    DspLib::DownSampler::process((a1 + 8), __src, a3, (a1 + 136), a5, a6);
+    *(v8 - 120) = a3;
   }
 
   else
   {
-    *(a1 + 136) = v4;
+    *(a1 + 136) = v7;
     *(a1 + 144) = a3;
 
-    DspLib::copy(__src, a3, v4);
+    DspLib::copy(__src, a3, v7);
   }
 }
 
@@ -1505,10 +1655,10 @@ uint64_t DspLib::VirtualBass::Algorithm::initialize(DspLib::VirtualBass::Algorit
     {
       v19 = (*(*this + 64))(this);
       v20 = (*(*this + 48))(this);
-      DspLib::AudioMeter::Algorithm::initialize((this + 1232), v19, v20);
+      DspLib::AudioMeter::Algorithm::initialize(this + 1232, v19, v20);
       v21 = (*(*this + 64))(this);
       v22 = (*(*this + 48))(this);
-      DspLib::AudioMeter::Algorithm::initialize((this + 1432), v21, v22);
+      DspLib::AudioMeter::Algorithm::initialize(this + 1432, v21, v22);
     }
 
     else
@@ -1706,10 +1856,10 @@ uint64_t DspLib::VirtualBass::Algorithm::setMeteringIsEnabled(DspLib::VirtualBas
       std::vector<DspLib::RMS>::__destroy_vector::operator()[abi:ne200100](&v23);
       v4 = (*(*this + 64))(this);
       v5 = (*(*this + 48))(this);
-      DspLib::AudioMeter::Algorithm::initialize((this + 1232), v4, v5);
+      DspLib::AudioMeter::Algorithm::initialize(this + 1232, v4, v5);
       v6 = (*(*this + 64))(this);
       v7 = (*(*this + 48))(this);
-      DspLib::AudioMeter::Algorithm::initialize((this + 1432), v6, v7);
+      DspLib::AudioMeter::Algorithm::initialize(this + 1432, v6, v7);
     }
 
     else
@@ -2042,9 +2192,9 @@ void DspLib::VirtualBass::Algorithm::processBlock(uint64_t a1, uint64_t *a2)
       v7 = *(a1 + 896);
       if (v7 != 1.0)
       {
-        v33 = *a2;
-        v34 = a2[2];
-        DspLib::multiply(&v33, v7);
+        v36 = *a2;
+        v37 = a2[2];
+        DspLib::multiply(&v36, v7);
       }
 
       v8 = *a2;
@@ -2053,10 +2203,10 @@ void DspLib::VirtualBass::Algorithm::processBlock(uint64_t a1, uint64_t *a2)
       if ((*(*a1 + 208))(a1))
       {
         DspLib::CPUMeasure::pause((a1 + 104));
-        *&v33 = v8;
-        *(&v33 + 1) = v9;
-        v34 = v10;
-        DspLib::AudioMeter::Algorithm::analyze(a1 + 1232, &v33);
+        *&v36 = v8;
+        *(&v36 + 1) = v9;
+        v37 = v10;
+        DspLib::AudioMeter::Algorithm::analyze(a1 + 1232, &v36);
         DspLib::CPUMeasure::resume((a1 + 104));
       }
 
@@ -2064,98 +2214,98 @@ void DspLib::VirtualBass::Algorithm::processBlock(uint64_t a1, uint64_t *a2)
       v12 = (*(a1 + 280) - v11) >> 3;
       v13 = a2[1];
       v14 = a2[2];
-      *&v33 = *a2;
-      *(&v33 + 1) = v13;
-      v34 = v14;
-      *&v31 = v11;
-      *(&v31 + 1) = v12;
-      v32 = v14;
-      DspLib::Biquad::Filter::process((a1 + 392), &v33, &v31);
-      *&v33 = v11;
-      *(&v33 + 1) = v12;
-      v34 = v14;
-      *&v31 = v11;
-      *(&v31 + 1) = v12;
-      v32 = v14;
-      DspLib::Biquad::Filter::process((a1 + 752), &v33, &v31);
+      *&v36 = *a2;
+      *(&v36 + 1) = v13;
+      v37 = v14;
+      *&v34 = v11;
+      *(&v34 + 1) = v12;
+      v35 = v14;
+      DspLib::Biquad::Filter::process((a1 + 392), &v36, &v34);
+      *&v36 = v11;
+      *(&v36 + 1) = v12;
+      v37 = v14;
+      *&v34 = v11;
+      *(&v34 + 1) = v12;
+      v35 = v14;
+      DspLib::Biquad::Filter::process((a1 + 752), &v36, &v34);
       v15 = a2[1];
       v16 = a2[2];
       v17 = *(a1 + 320);
-      *&v31 = v17;
-      *(&v31 + 1) = v16;
-      *&v33 = *a2;
-      *(&v33 + 1) = v15;
-      v34 = v16;
-      DspLib::sum(&v33, v17, v16);
+      *&v34 = v17;
+      *(&v34 + 1) = v16;
+      *&v36 = *a2;
+      *(&v36 + 1) = v15;
+      v37 = v16;
+      DspLib::sum(&v36, v17, v16);
       DspLib::Biquad::Filter::process((a1 + 464), v17, v16, v17, v16);
-      DspLib::VirtualBass::Resampler::downsample(a1 + 1080, v17, v16);
-      v18 = *(a1 + 244);
-      if (v18 == 2)
+      DspLib::VirtualBass::Resampler::downsample(a1 + 1080, v17, v16, v18, v19, v20);
+      v21 = *(a1 + 244);
+      if (v21 == 2)
       {
-        DspLib::VirtualBass::Resampler::upsample(a1 + 1080, &v31);
+        DspLib::VirtualBass::Resampler::upsample(a1 + 1080, &v34);
         if ((*(*a1 + 64))(a1))
         {
-          v19 = 0;
-          v20 = v31;
+          v22 = 0;
+          v23 = v34;
           do
           {
-            DspLib::copy(v20, *(&v20 + 1), *(*a2 + 8 * v19++));
+            DspLib::copy(v23, *(&v23 + 1), *(*a2 + 8 * v22++));
           }
 
-          while (v19 < (*(*a1 + 64))(a1));
+          while (v22 < (*(*a1 + 64))(a1));
         }
       }
 
-      else if (!v18)
+      else if (!v21)
       {
-        DspLib::VirtualBass::Resampler::upsample(a1 + 1080, &v31);
+        DspLib::VirtualBass::Resampler::upsample(a1 + 1080, &v34);
       }
 
-      v21 = *(a1 + 1216);
-      v22 = *(a1 + 1224);
-      DspLib::Biquad::Filter::process((a1 + 824), v21, v22, *(a1 + 296), v22);
-      v23 = *(a1 + 344);
-      v24 = *(a1 + 368);
+      v24 = *(a1 + 1216);
+      v25 = *(a1 + 1224);
+      DspLib::Biquad::Filter::process((a1 + 824), v24, v25, *(a1 + 296), v25);
+      v26 = *(a1 + 344);
+      v27 = *(a1 + 368);
       if (*(a1 + 242) == 1)
       {
-        v25 = DspLib::VirtualBass::PeakFollower::process(a1 + 940, v21, v22, *(a1 + 344), v22);
-        v26 = (*(*a1 + 104))(a1, 14, v25);
-        DspLib::clip(v23, v22, v24, v26, 1000.0);
-        DspLib::svdiv(v24, v22, 1.0);
+        v28 = DspLib::VirtualBass::PeakFollower::process(a1 + 940, v24, v25, *(a1 + 344), v25);
+        v29 = (*(*a1 + 104))(a1, 14, v28);
+        DspLib::clip(v26, v25, v27, v29, 1000.0);
+        DspLib::svdiv(v27, v25, 1.0);
         DspLib::multiply();
       }
 
-      DspLib::NonLinearDevice::Algorithm::process(a1 + 912, v21, v22);
-      DspLib::Biquad::Filter::process((a1 + 536), v21, v22, v21, v22);
+      DspLib::NonLinearDevice::Algorithm::process(a1 + 912, v24, v25);
+      DspLib::Biquad::Filter::process((a1 + 536), v24, v25, v24, v25);
       if (*(a1 + 242) == 1)
       {
-        v27 = DspLib::VirtualBass::PeakFollower::process(a1 + 968, v21, v22, v24, v22);
-        v28 = (*(*a1 + 104))(a1, 14, v27);
-        DspLib::clip(v24, v22, v28, 1000.0);
-        DspLib::divide(v23, v22, v24, v22, v24);
+        v30 = DspLib::VirtualBass::PeakFollower::process(a1 + 968, v24, v25, v27, v25);
+        v31 = (*(*a1 + 104))(a1, 14, v30);
+        DspLib::clip(v27, v25, v31, 1000.0);
+        DspLib::divide(v26, v25, v27, v25, v27);
         DspLib::multiply();
       }
 
-      DspLib::multiply(v21, v22, *(a1 + 908));
+      DspLib::multiply(v24, v25, *(a1 + 908));
       if (*(a1 + 241) == 1)
       {
-        DspLib::VirtualBass::Compressor::process(a1 + 1000, v21, v22);
+        DspLib::VirtualBass::Compressor::process(a1 + 1000, v24, v25);
       }
 
-      DspLib::Biquad::Filter::process((a1 + 608), v21, v22, v21, v22);
+      DspLib::Biquad::Filter::process((a1 + 608), v24, v25, v24, v25);
       if (*(a1 + 244) == 3)
       {
-        DspLib::VirtualBass::Resampler::upsample(a1 + 1080, &v31);
+        DspLib::VirtualBass::Resampler::upsample(a1 + 1080, &v34);
         if ((*(*a1 + 64))(a1))
         {
-          v29 = 0;
-          v30 = v31;
+          v32 = 0;
+          v33 = v34;
           do
           {
-            DspLib::copy(v30, *(&v30 + 1), *(*a2 + 8 * v29++));
+            DspLib::copy(v33, *(&v33 + 1), *(*a2 + 8 * v32++));
           }
 
-          while (v29 < (*(*a1 + 64))(a1));
+          while (v32 < (*(*a1 + 64))(a1));
         }
       }
 
@@ -2168,14 +2318,14 @@ void DspLib::VirtualBass::Algorithm::processBlock(uint64_t a1, uint64_t *a2)
     if ((*(*a1 + 208))(a1))
     {
       DspLib::CPUMeasure::pause((a1 + 104));
-      *&v33 = v4;
-      *(&v33 + 1) = v5;
-      v34 = v6;
-      DspLib::AudioMeter::Algorithm::analyze(a1 + 1232, &v33);
-      *&v33 = v4;
-      *(&v33 + 1) = v5;
-      v34 = v6;
-      DspLib::AudioMeter::Algorithm::analyze(a1 + 1432, &v33);
+      *&v36 = v4;
+      *(&v36 + 1) = v5;
+      v37 = v6;
+      DspLib::AudioMeter::Algorithm::analyze(a1 + 1232, &v36);
+      *&v36 = v4;
+      *(&v36 + 1) = v5;
+      v37 = v6;
+      DspLib::AudioMeter::Algorithm::analyze(a1 + 1432, &v36);
       DspLib::CPUMeasure::resume((a1 + 104));
     }
   }
@@ -2420,22 +2570,22 @@ void DspLib::VirtualBass::Resampler::Stage::~Stage(DspLib::VirtualBass::Resample
   }
 }
 
-void DspLib::DownSampler::process(unsigned int *a1, uint64_t a2, uint64_t a3, uint64_t *a4)
+void DspLib::DownSampler::process(unsigned int *a1, uint64_t a2, uint64_t a3, uint64_t *a4, uint64_t a5, unint64_t a6)
 {
-  v5 = a4[1];
-  v10 = *a4;
-  v8[0] = &v10;
+  v7 = a4[1];
+  v12 = *a4;
+  v10[0] = &v12;
+  v10[1] = 1;
+  v11 = v7;
+  v8[2] = a3;
+  v9 = a2;
+  v8[0] = &v9;
   v8[1] = 1;
-  v9 = v5;
-  v6[2] = a3;
-  v7 = a2;
-  v6[0] = &v7;
-  v6[1] = 1;
-  DspLib::DownSampler::process(a1, v6, v8);
-  a4[1] = v9;
+  DspLib::DownSampler::process(a1, v8, v10, a4, a5, a6);
+  a4[1] = v11;
 }
 
-_DWORD *std::vector<float>::assign(void *a1, unint64_t a2, __int32 *a3, int16x4_t a4)
+_DWORD *std::vector<float>::assign(uint64_t *a1, unint64_t a2, __int32 *a3, int16x4_t a4)
 {
   v6 = a1[2];
   result = *a1;
@@ -2857,7 +3007,7 @@ void DspLib::ControlFreak::Algorithm::reset(float **this)
   DspLib::clear(this[207], this[208] - this[207]);
   DspLib::ControlFreak::Algorithm::clearAudioBuffers(this);
   DspLib::EnvelopeProcessor::reset((this + 147));
-  DspLib::FIRDecimator::reset((this + 97));
+  DspLib::FIRDecimator::reset(this + 97);
   v2 = this[113];
   v3 = this[114];
   while (v2 != v3)
@@ -3134,7 +3284,7 @@ void DspLib::ControlFreak::Algorithm::setParameters(uint64_t a1, void *a2, uint6
       DspLib::copy((*(a1 + 240) + 4 * *(a1 + 1608)), v22, *(a1 + 240));
     }
 
-    DspLib::RMS::setParameters(a1 + 1344, 1, *(*(a1 + 24) + 28));
+    DspLib::RMS::setParameters(a1 + 1344, 1u, *(*(a1 + 24) + 28));
     v44 = DspLib::dB2Amp(v43, *(*(a1 + 24) + 64) * 0.5);
     *(a1 + 1536) = v44;
     *(a1 + 1540) = 1.0 / v44;
@@ -3736,80 +3886,80 @@ void DspLib::ControlFreak::Algorithm::processAutorelease(uint64_t a1)
   __N = v1;
   v3 = v2;
   v5 = v4;
-  v27 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   v7 = *v6;
   v9 = (v6 + 16);
   v8 = *(v6 + 16);
-  v25[256] = v8;
-  v24 = v7;
-  v25[0] = *(v6 + 16);
-  DspLib::sum(&v24, v26, v8);
-  v16 = v26;
-  *&v24 = &v16;
-  *(&v24 + 1) = 1;
-  v25[0] = v8;
-  v22 = v8;
-  v23 = v26;
-  v20 = &v23;
-  v21 = 1;
-  DspLib::FIRDecimator::process((v5 + 776), &v20, &v24);
-  v10 = v25[0];
-  v16 = v26;
-  v23 = v26;
-  *&v24 = &v16;
-  *(&v24 + 1) = 1;
-  v20 = &v23;
-  v21 = 1;
-  v22 = v25[0];
-  DspLib::EnvelopeProcessor::process(v5 + 1176, &v24, &v20);
-  v16 = v26;
-  *&v24 = &v16;
-  *(&v24 + 1) = 1;
-  v25[0] = v10;
-  v22 = v10;
-  v23 = v26;
-  v20 = &v23;
-  v21 = 1;
-  DspLib::DownSampler::process((v5 + 960), &v20, &v24);
-  v11 = v25[0];
-  v20 = v26;
-  *&v24 = &v20;
-  *(&v24 + 1) = 1;
-  DspLib::RMS::process(v5 + 1344, &v24, v26, v25[0]);
-  DspLib::ControlFreak::Algorithm::audioActivityDetector(v5, v26, v11);
-  v12 = *v9;
-  v23 = v25;
-  *&v24 = v12;
-  v19 = v26;
-  v20 = &v19;
-  v21 = 1;
-  v22 = v11;
-  v16 = &v23;
-  v17 = 1;
-  v18 = v10;
-  DspLib::PolyPhaseInterpolator::process((v5 + 968), &v20, &v16);
-  v13 = *v9;
-  v22 = v10;
-  v23 = v26;
-  v19 = v25;
-  v20 = &v19;
-  v21 = 1;
-  v16 = &v23;
-  v17 = 1;
-  v18 = v13;
-  DspLib::PolyPhaseInterpolator::process((v5 + 856), &v20, &v16);
-  DspLib::ControlFreak::Algorithm::computeSlowGain(v5, v3, __N, v26, v13, v25, v12);
+  v28[256] = v8;
+  v27 = v7;
+  v28[0] = *(v6 + 16);
+  DspLib::sum(&v27, v29, v8);
+  v19 = v29;
+  *&v27 = &v19;
+  *(&v27 + 1) = 1;
+  v28[0] = v8;
+  v25 = v8;
+  v26 = v29;
+  v23 = &v26;
+  v24 = 1;
+  DspLib::FIRDecimator::process((v5 + 776), &v23, &v27);
+  v10 = v28[0];
+  v19 = v29;
+  v26 = v29;
+  *&v27 = &v19;
+  *(&v27 + 1) = 1;
+  v23 = &v26;
+  v24 = 1;
+  v25 = v28[0];
+  DspLib::EnvelopeProcessor::process(v5 + 1176, &v27, &v23);
+  v19 = v29;
+  *&v27 = &v19;
+  *(&v27 + 1) = 1;
+  v28[0] = v10;
+  v25 = v10;
+  v26 = v29;
+  v23 = &v26;
+  v24 = 1;
+  DspLib::DownSampler::process((v5 + 960), &v23, &v27, v11, v12, v13);
+  v14 = v28[0];
+  v23 = v29;
+  *&v27 = &v23;
+  *(&v27 + 1) = 1;
+  DspLib::RMS::process(v5 + 1344, &v27, v29, v28[0]);
+  DspLib::ControlFreak::Algorithm::audioActivityDetector(v5, v29, v14);
+  v15 = *v9;
+  v26 = v28;
+  *&v27 = v15;
+  v22 = v29;
+  v23 = &v22;
+  v24 = 1;
+  v25 = v14;
+  v19 = &v26;
+  v20 = 1;
+  v21 = v10;
+  DspLib::PolyPhaseInterpolator::process((v5 + 968), &v23, &v19);
+  v16 = *v9;
+  v25 = v10;
+  v26 = v29;
+  v22 = v28;
+  v23 = &v22;
+  v24 = 1;
+  v19 = &v26;
+  v20 = 1;
+  v21 = v16;
+  DspLib::PolyPhaseInterpolator::process((v5 + 856), &v23, &v19);
+  DspLib::ControlFreak::Algorithm::computeSlowGain(v5, v3, __N, v29, v16, v28, v15);
   DspLib::clip(v3, __N, *(v5 + 1588), 1.0);
   if ((*(*v5 + 208))(v5))
   {
     DspLib::CPUMeasure::pause((v5 + 104));
-    v14 = DspLib::minv(v3, __N);
-    if (v14 >= *(v5 + 1716))
+    v17 = DspLib::minv(v3, __N);
+    if (v17 >= *(v5 + 1716))
     {
-      v14 = *(v5 + 1716);
+      v17 = *(v5 + 1716);
     }
 
-    *(v5 + 1716) = v14;
+    *(v5 + 1716) = v17;
     DspLib::CPUMeasure::resume((v5 + 104));
   }
 
@@ -4064,8 +4214,8 @@ void DspLib::Saturation::SmartSaturation::configure(uint64_t a1, _OWORD *a2)
   {
     DspLib::Biquad::ParametricFilter::initialize((a1 + 96), *(a1 + 40), *(a1 + 32), 1uLL);
     DspLib::Biquad::ParametricFilter::initialize((a1 + 200), *(a1 + 40), *(a1 + 32), 1uLL);
-    DspLib::Biquad::ParametricFilter::setParametricEQ(a1 + 96, (*(a1 + 20) << 32) | 0x10, (*(a1 + 16) ^ 0x80000000 | (*(a1 + 24) << 32)), 0, 0x41uLL);
-    DspLib::Biquad::ParametricFilter::setParametricEQ(a1 + 200, (*(a1 + 20) << 32) | 0x10, (*(a1 + 16) | (*(a1 + 24) << 32)), 0, 0x41uLL);
+    DspLib::Biquad::ParametricFilter::setParametricEQ(a1 + 96, (*(a1 + 20) << 32) | 0x10, (*(a1 + 16) ^ 0x80000000 | (*(a1 + 24) << 32)), 0, 0x41uLL, v5);
+    DspLib::Biquad::ParametricFilter::setParametricEQ(a1 + 200, (*(a1 + 20) << 32) | 0x10, (*(a1 + 16) | (*(a1 + 24) << 32)), 0, 0x41uLL, v6);
   }
 }
 
@@ -4297,7 +4447,7 @@ void DspLib::Saturation::OversampledProcess::reset(DspLib::Saturation::Oversampl
 
   *(this + 26) = 0;
 
-  DspLib::FIRDecimator::reset((this + 136));
+  DspLib::FIRDecimator::reset(this + 17);
 }
 
 void DspLib::Saturation::SmartSaturation::processAnalysis(uint64_t a1, uint64_t a2)
@@ -4551,7 +4701,7 @@ void DspLib::Saturation::OversampledProcess::setCutoffFrequency(DspLib::Saturati
   *(this + 6) = DspLib::makeSincWindow(v14, v13, v7, v8, v12, v6);
   std::__function::__value_func<void ()(std::span<float,18446744073709551615ul>)>::~__value_func[abi:ne200100](v12);
   DspLib::FIRDecimator::setCoefficients(this + 17, v14, v13);
-  DspLib::FIRDecimator::reset((this + 136));
+  DspLib::FIRDecimator::reset(this + 17);
   DspLib::multiply(v14, v13, *(this + 4));
   DspLib::PolyPhaseInterpolator::setCoefficients(this + 8, v14, v13);
   v9 = *(this + 10);
@@ -4682,9 +4832,9 @@ LABEL_7:
   return result;
 }
 
-void std::vector<DspLib::ComplexVector>::resize(void *a1, unint64_t a2)
+void std::vector<DspLib::ComplexVector>::resize(uint64_t a1, unint64_t a2)
 {
-  v3 = a1[1];
+  v3 = *(a1 + 8);
   v4 = 0xCCCCCCCCCCCCCCCDLL * ((v3 - *a1) >> 4);
   v5 = a2 >= v4;
   v6 = a2 - v4;
@@ -4702,7 +4852,7 @@ void std::vector<DspLib::ComplexVector>::resize(void *a1, unint64_t a2)
       DspLib::ComplexVector::~ComplexVector((v3 - 80));
     }
 
-    a1[1] = v7;
+    *(a1 + 8) = v7;
   }
 }
 
@@ -4742,7 +4892,7 @@ void DspLib::LinearPhaseFilterbank::calculateCoeffsFromCenterFrequencies(uint64_
   v45 = 0;
   std::vector<float>::resize(&v43, 2 * v9);
   DspLib::makePeriodicHannWindow(v43, v44 - v43);
-  v11 = MEMORY[0x1EEE9AC00](v10);
+  MEMORY[0x1EEE9AC00](v10);
   MEMORY[0x1EEE9AC00](v11);
   v12 = *a1 >> 1;
   __Z.realp = v14;
@@ -4882,7 +5032,7 @@ void DspLib::LinearPhaseFilterbank::process(uint64_t a1, char *a2, unint64_t a3,
     v9 = a3 == -1 ? ((*(a1 + 80) - v7) >> 2) - v8 : a3;
     v10 = DspLib::copy((v7 + 4 * v8), v9, (*a4)[*(a1 + 8) - 1]);
     v28[1] = v28;
-    v11 = MEMORY[0x1EEE9AC00](v10);
+    MEMORY[0x1EEE9AC00](v10);
     MEMORY[0x1EEE9AC00](v11);
     v13 = *(a1 + 104);
     v14 = *(a1 + 96) >> 1;
@@ -4892,7 +5042,7 @@ void DspLib::LinearPhaseFilterbank::process(uint64_t a1, char *a2, unint64_t a3,
     DspLib::FFT::Transform<(DspLib::FFT::Direction)1>::process<(DspLib::FFT::Direction)1>(v13, *(a1 + 72), (*(a1 + 80) - *(a1 + 72)) >> 2, &v31);
     if (*(a1 + 8) != 1)
     {
-      v17 = MEMORY[0x1EEE9AC00](v16);
+      MEMORY[0x1EEE9AC00](v16);
       MEMORY[0x1EEE9AC00](v17);
       v19 = *(a1 + 96) >> 1;
       v29.realp = v20;
@@ -4923,12 +5073,12 @@ void *DspLib::FFT::shift(void *a1, unint64_t a2)
 {
   v10[1] = *MEMORY[0x1E69E9840];
   v3 = a2 >> 1;
-  v4 = MEMORY[0x1EEE9AC00](a1);
-  v6 = v10 - v5;
-  v8 = (v4 + 4 * v7 - 4 * v3);
-  DspLib::copy(v8, v3, v10 - v5);
+  MEMORY[0x1EEE9AC00](a1);
+  v5 = v10 - v4;
+  v8 = (v6 + 4 * v7 - 4 * v3);
+  DspLib::copy(v8, v3, v10 - v4);
   DspLib::copy(a1, v3, v8);
-  return DspLib::copy(v6, v3, a1);
+  return DspLib::copy(v5, v3, a1);
 }
 
 void DspLib::GainSmoother::initialize(DspLib::GainSmoother *this, unint64_t a2)
@@ -5685,10 +5835,10 @@ uint64_t std::unique_ptr<DspLib::FFT::Transform<(DspLib::FFT::Direction)-1>>::re
   return result;
 }
 
-uint64_t std::vector<DspLib::ComplexVector>::__append(uint64_t a1, unint64_t a2)
+DspLib::ComplexVector *std::vector<DspLib::ComplexVector>::__append(DspLib::ComplexVector **a1, unint64_t a2)
 {
-  v5 = *(a1 + 8);
-  v4 = *(a1 + 16);
+  v5 = a1[1];
+  v4 = a1[2];
   if (0xCCCCCCCCCCCCCCCDLL * ((v4 - v5) >> 4) >= a2)
   {
 
@@ -5742,13 +5892,13 @@ uint64_t std::vector<DspLib::ComplexVector>::__append(uint64_t a1, unint64_t a2)
 
     while (v14);
     *&v21 = v13;
-    v15 = *(a1 + 8);
+    v15 = a1[1];
     v16 = (v20 + *a1 - v15);
     std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<DspLib::ComplexVector>,DspLib::ComplexVector*>(a1, *a1, v15, v16);
     v17 = *a1;
     *a1 = v16;
-    v18 = *(a1 + 16);
-    *(a1 + 8) = v21;
+    v18 = a1[2];
+    *(a1 + 1) = v21;
     *&v21 = v17;
     *(&v21 + 1) = v18;
     v19 = v17;
@@ -5764,10 +5914,10 @@ void sub_1DDC04A30(_Unwind_Exception *a1, uint64_t a2, ...)
   _Unwind_Resume(a1);
 }
 
-uint64_t std::vector<DspLib::ComplexVector>::__construct_at_end(uint64_t result, uint64_t a2)
+DspLib::ComplexVector *std::vector<DspLib::ComplexVector>::__construct_at_end(DspLib::ComplexVector *result, uint64_t a2)
 {
   v2 = result;
-  v3 = *(result + 8);
+  v3 = *(result + 1);
   if (a2)
   {
     v4 = (v3 + 80 * a2);
@@ -5783,7 +5933,7 @@ uint64_t std::vector<DspLib::ComplexVector>::__construct_at_end(uint64_t result,
     v3 = v4;
   }
 
-  *(v2 + 8) = v3;
+  *(v2 + 1) = v3;
   return result;
 }
 
@@ -6776,9 +6926,9 @@ void DspLib::AnalyticSignalTransformPolyPhase::reset(DspLib::AnalyticSignalTrans
 
 void DspLib::AnalyticSignalTransformPolyPhase::process(uint64_t a1, uint64_t a2, uint64_t **a3, uint64_t **a4)
 {
-  v29 = a3;
-  v30 = a4;
-  v34[3] = *MEMORY[0x1E69E9840];
+  v31 = a3;
+  v32 = a4;
+  v36[3] = *MEMORY[0x1E69E9840];
   if (*(a1 + 8))
   {
     v5 = *(a2 + 16);
@@ -6787,7 +6937,7 @@ void DspLib::AnalyticSignalTransformPolyPhase::process(uint64_t a1, uint64_t a2,
       v7 = 0;
       do
       {
-        v31 = &v28;
+        v33 = &v30;
         v8 = v5 - v7;
         if (v8 >= 0x40)
         {
@@ -6800,7 +6950,7 @@ void DspLib::AnalyticSignalTransformPolyPhase::process(uint64_t a1, uint64_t a2,
         }
 
         MEMORY[0x1EEE9AC00](a1);
-        v11 = &v28 - ((v10 + 15) & 0xFFFFFFFF0);
+        v11 = &v30 - ((v10 + 15) & 0xFFFFFFFF0);
         v12 = 512;
         if (v10 >= 0x200)
         {
@@ -6812,7 +6962,7 @@ void DspLib::AnalyticSignalTransformPolyPhase::process(uint64_t a1, uint64_t a2,
           v13 = v10;
         }
 
-        bzero(&v28 - ((v10 + 15) & 0xFFFFFFFF0), v13);
+        bzero(&v30 - ((v10 + 15) & 0xFFFFFFFF0), v13);
         v14 = *(a1 + 12);
         MEMORY[0x1EEE9AC00](v15);
         v16 = (8 * v14 + 15) & 0xFFFFFFFF0;
@@ -6821,42 +6971,42 @@ void DspLib::AnalyticSignalTransformPolyPhase::process(uint64_t a1, uint64_t a2,
           v12 = 8 * v14;
         }
 
-        bzero(&v28 - v16, v12);
+        bzero(&v30 - v16, v12);
         MEMORY[0x1EEE9AC00](v17);
-        bzero(&v28 - v16, v12);
+        bzero(&v30 - v16, v12);
         if (v14)
         {
-          v18 = *a2;
-          v19 = *v29;
-          v20 = v14;
-          v21 = (&v28 - v16);
-          v22 = (&v28 - v16);
-          v23 = v11;
-          v24 = *v30;
+          v20 = *a2;
+          v21 = *v31;
+          v22 = v14;
+          v23 = (&v30 - v16);
+          v24 = (&v30 - v16);
+          v25 = v11;
+          v26 = *v32;
           do
           {
-            v25 = *v18++;
-            *v23++ = v25 + 4 * v7;
-            v26 = *v19++;
-            *v22++ = v26 + 4 * v7;
-            v27 = *v24++;
-            *v21++ = v27 + 4 * v7;
-            --v20;
+            v27 = *v20++;
+            *v25++ = v27 + 4 * v7;
+            v28 = *v21++;
+            *v24++ = v28 + 4 * v7;
+            v29 = *v26++;
+            *v23++ = v29 + 4 * v7;
+            --v22;
           }
 
-          while (v20);
+          while (v22);
         }
 
-        v34[0] = v11;
+        v36[0] = v11;
+        v36[1] = v14;
+        v36[2] = v9;
+        v35[0] = &v30 - v16;
+        v35[1] = v14;
+        v35[2] = v9;
+        v34[0] = &v30 - v16;
         v34[1] = v14;
         v34[2] = v9;
-        v33[0] = &v28 - v16;
-        v33[1] = v14;
-        v33[2] = v9;
-        v32[0] = &v28 - v16;
-        v32[1] = v14;
-        v32[2] = v9;
-        DspLib::AnalyticSignalTransformPolyPhase::processBlock(a1, v34, v33, v32);
+        DspLib::AnalyticSignalTransformPolyPhase::processBlock(a1, v36, v35, v34, v18, v19);
         v7 = (v9 + v7);
         v5 = *(a2 + 16);
       }
@@ -6871,168 +7021,168 @@ void DspLib::AnalyticSignalTransformPolyPhase::process(uint64_t a1, uint64_t a2,
   }
 }
 
-void DspLib::AnalyticSignalTransformPolyPhase::processBlock(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+void DspLib::AnalyticSignalTransformPolyPhase::processBlock(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, unint64_t a6)
 {
-  v8 = (*(a1 + 480) - *(a1 + 472)) >> 3;
-  v34 = *(a1 + 472);
-  *&v35 = v8;
-  v9 = *(a1 + 448);
-  if (*(a1 + 456) == v9)
+  v10 = (*(a1 + 480) - *(a1 + 472)) >> 3;
+  v39 = *(a1 + 472);
+  *&v40 = v10;
+  v11 = *(a1 + 448);
+  if (*(a1 + 456) == v11)
   {
-    v10 = 0;
-  }
-
-  else
-  {
-    v10 = (v9[1] - *v9) >> 2;
-  }
-
-  *(&v35 + 1) = v10;
-  *v33 = *a2;
-  *&v33[16] = *(a2 + 16);
-  DspLib::DownSampler::process((a1 + 400), v33, &v34);
-  if (*(a1 + 12))
-  {
-    v11 = 0;
     v12 = 0;
-    do
-    {
-      DspLib::SingleSampleDelay::process((*(a1 + 304) + v11), *(*a2 + 8 * v12), *(a2 + 16), *(*a3 + 8 * v12), *(a3 + 16));
-      ++v12;
-      v11 += 4;
-    }
-
-    while (v12 < *(a1 + 12));
-  }
-
-  v13 = (*(a1 + 528) - *(a1 + 520)) >> 3;
-  *v33 = *(a1 + 520);
-  *&v33[8] = v13;
-  v14 = *(a1 + 496);
-  if (*(a1 + 504) == v14)
-  {
-    v15 = 0;
   }
 
   else
   {
-    v15 = (v14[1] - *v14) >> 2;
+    v12 = (v11[1] - *v11) >> 2;
   }
 
-  *&v33[16] = v15;
-  *v32 = *a3;
-  *&v32[8] = *(a3 + 8);
-  DspLib::DownSampler::process((a1 + 408), v32, v33);
-  v16 = *(a1 + 568);
-  v17 = (*(a1 + 576) - v16) >> 3;
-  v18 = *(&v35 + 1);
-  *v32 = __PAIR128__(v35, v34);
-  *&v32[16] = *(&v35 + 1);
-  *&v30 = v16;
-  *(&v30 + 1) = v17;
-  v31 = *(&v35 + 1);
-  DspLib::Biquad::Filter::process((a1 + 16), v32, &v30);
-  v19 = *(a1 + 616);
-  v20 = (*(a1 + 624) - v19) >> 3;
-  *v32 = *v33;
-  *&v32[8] = *&v33[8];
-  v29 = v20;
-  *&v30 = v19;
-  *(&v30 + 1) = v20;
-  v31 = *(&v35 + 1);
-  v28 = *(&v35 + 1);
-  DspLib::Biquad::Filter::process((a1 + 88), v32, &v30);
-  *v32 = v16;
-  *&v32[8] = v17;
-  *&v32[16] = v18;
-  v30 = *a3;
-  v31 = *(a3 + 16);
-  DspLib::UpSampler::process((a1 + 416), v32, &v30);
+  *(&v40 + 1) = v12;
+  *v38 = *a2;
+  *&v38[16] = *(a2 + 16);
+  DspLib::DownSampler::process((a1 + 400), v38, &v39, a4, a5, a6);
   if (*(a1 + 12))
   {
-    v21 = 0;
-    v22 = 0;
+    v16 = 0;
+    v17 = 0;
     do
     {
-      DspLib::SingleSampleDelay::process((*(a1 + 328) + v21), *(*a3 + 8 * v22), *(a3 + 16), *(*a3 + 8 * v22), *(a3 + 16));
-      ++v22;
-      v21 += 4;
+      DspLib::SingleSampleDelay::process((*(a1 + 304) + v16), *(*a2 + 8 * v17), *(a2 + 16), *(*a3 + 8 * v17), *(a3 + 16));
+      ++v17;
+      v16 += 4;
     }
 
-    while (v22 < *(a1 + 12));
+    while (v17 < *(a1 + 12));
   }
 
-  v23 = *(a2 + 16);
-  *v32 = v19;
-  *&v32[8] = v29;
-  *&v32[16] = v28;
-  *&v30 = v16;
-  *(&v30 + 1) = v17;
-  v31 = v23;
-  DspLib::UpSampler::process((a1 + 424), v32, &v30);
-  *v32 = *a3;
-  *&v32[16] = *(a3 + 16);
-  *&v30 = v16;
-  *(&v30 + 1) = v17;
-  v31 = v23;
-  DspLib::add(v32, &v30);
-  *v32 = v34;
-  *&v32[8] = v35;
-  *&v30 = v16;
-  *(&v30 + 1) = v17;
-  v31 = v18;
-  DspLib::Biquad::Filter::process((a1 + 160), v32, &v30);
-  *v32 = *v33;
-  *&v32[8] = *&v33[8];
-  *&v30 = v19;
-  *(&v30 + 1) = v29;
-  v31 = v28;
-  DspLib::Biquad::Filter::process((a1 + 232), v32, &v30);
-  *v32 = v16;
-  *&v32[8] = v17;
-  *&v32[16] = v18;
-  v30 = *a4;
-  v31 = *(a4 + 16);
-  DspLib::UpSampler::process((a1 + 432), v32, &v30);
-  if (*(a1 + 12))
+  v18 = (*(a1 + 528) - *(a1 + 520)) >> 3;
+  *v38 = *(a1 + 520);
+  *&v38[8] = v18;
+  v19 = *(a1 + 496);
+  if (*(a1 + 504) == v19)
   {
-    v24 = 0;
-    v25 = 0;
-    do
-    {
-      DspLib::SingleSampleDelay::process((*(a1 + 352) + v24), *(*a4 + 8 * v25), *(a4 + 16), *(*a4 + 8 * v25), *(a4 + 16));
-      ++v25;
-      v24 += 4;
-    }
-
-    while (v25 < *(a1 + 12));
+    v20 = 0;
   }
 
-  *v32 = v19;
-  *&v32[8] = v29;
-  *&v32[16] = v28;
-  *&v30 = v16;
-  *(&v30 + 1) = v17;
-  v31 = v23;
-  DspLib::UpSampler::process((a1 + 440), v32, &v30);
-  *v32 = *a4;
-  *&v32[16] = *(a4 + 16);
-  *&v30 = v16;
-  *(&v30 + 1) = v17;
-  v31 = v23;
-  DspLib::add(v32, &v30);
+  else
+  {
+    v20 = (v19[1] - *v19) >> 2;
+  }
+
+  *&v38[16] = v20;
+  *v37 = *a3;
+  *&v37[8] = *(a3 + 8);
+  DspLib::DownSampler::process((a1 + 408), v37, v38, v13, v14, v15);
+  v21 = *(a1 + 568);
+  v22 = (*(a1 + 576) - v21) >> 3;
+  v23 = *(&v40 + 1);
+  *v37 = __PAIR128__(v40, v39);
+  *&v37[16] = *(&v40 + 1);
+  *&v35 = v21;
+  *(&v35 + 1) = v22;
+  v36 = *(&v40 + 1);
+  DspLib::Biquad::Filter::process((a1 + 16), v37, &v35);
+  v24 = *(a1 + 616);
+  v25 = (*(a1 + 624) - v24) >> 3;
+  *v37 = *v38;
+  *&v37[8] = *&v38[8];
+  v34 = v25;
+  *&v35 = v24;
+  *(&v35 + 1) = v25;
+  v36 = *(&v40 + 1);
+  v33 = *(&v40 + 1);
+  DspLib::Biquad::Filter::process((a1 + 88), v37, &v35);
+  *v37 = v21;
+  *&v37[8] = v22;
+  *&v37[16] = v23;
+  v35 = *a3;
+  v36 = *(a3 + 16);
+  DspLib::UpSampler::process((a1 + 416), v37, &v35);
   if (*(a1 + 12))
   {
     v26 = 0;
     v27 = 0;
     do
     {
-      DspLib::SingleSampleDelay::process((*(a1 + 376) + v26), *(*a3 + 8 * v27), *(a3 + 16), *(*a3 + 8 * v27), *(a3 + 16));
+      DspLib::SingleSampleDelay::process((*(a1 + 328) + v26), *(*a3 + 8 * v27), *(a3 + 16), *(*a3 + 8 * v27), *(a3 + 16));
       ++v27;
       v26 += 4;
     }
 
     while (v27 < *(a1 + 12));
+  }
+
+  v28 = *(a2 + 16);
+  *v37 = v24;
+  *&v37[8] = v34;
+  *&v37[16] = v33;
+  *&v35 = v21;
+  *(&v35 + 1) = v22;
+  v36 = v28;
+  DspLib::UpSampler::process((a1 + 424), v37, &v35);
+  *v37 = *a3;
+  *&v37[16] = *(a3 + 16);
+  *&v35 = v21;
+  *(&v35 + 1) = v22;
+  v36 = v28;
+  DspLib::add(v37, &v35);
+  *v37 = v39;
+  *&v37[8] = v40;
+  *&v35 = v21;
+  *(&v35 + 1) = v22;
+  v36 = v23;
+  DspLib::Biquad::Filter::process((a1 + 160), v37, &v35);
+  *v37 = *v38;
+  *&v37[8] = *&v38[8];
+  *&v35 = v24;
+  *(&v35 + 1) = v34;
+  v36 = v33;
+  DspLib::Biquad::Filter::process((a1 + 232), v37, &v35);
+  *v37 = v21;
+  *&v37[8] = v22;
+  *&v37[16] = v23;
+  v35 = *a4;
+  v36 = *(a4 + 16);
+  DspLib::UpSampler::process((a1 + 432), v37, &v35);
+  if (*(a1 + 12))
+  {
+    v29 = 0;
+    v30 = 0;
+    do
+    {
+      DspLib::SingleSampleDelay::process((*(a1 + 352) + v29), *(*a4 + 8 * v30), *(a4 + 16), *(*a4 + 8 * v30), *(a4 + 16));
+      ++v30;
+      v29 += 4;
+    }
+
+    while (v30 < *(a1 + 12));
+  }
+
+  *v37 = v24;
+  *&v37[8] = v34;
+  *&v37[16] = v33;
+  *&v35 = v21;
+  *(&v35 + 1) = v22;
+  v36 = v28;
+  DspLib::UpSampler::process((a1 + 440), v37, &v35);
+  *v37 = *a4;
+  *&v37[16] = *(a4 + 16);
+  *&v35 = v21;
+  *(&v35 + 1) = v22;
+  v36 = v28;
+  DspLib::add(v37, &v35);
+  if (*(a1 + 12))
+  {
+    v31 = 0;
+    v32 = 0;
+    do
+    {
+      DspLib::SingleSampleDelay::process((*(a1 + 376) + v31), *(*a3 + 8 * v32), *(a3 + 16), *(*a3 + 8 * v32), *(a3 + 16));
+      ++v32;
+      v31 += 4;
+    }
+
+    while (v32 < *(a1 + 12));
   }
 }
 
@@ -7615,18 +7765,18 @@ uint64_t DspLib::LoudnessNormalizer::Algorithm::initialize(DspLib::LoudnessNorma
       *(this + 86) = 0;
       DspLib::Biquad::ParametricFilter::initialize((this + 432), 1uLL, *(this + 2), 1uLL);
       DspLib::Biquad::ParametricFilter::initialize((this + 240), 1uLL, *(this + 2), 1uLL);
-      DspLib::Biquad::ParametricFilter::setParametricEQ(this + 240, 0x4348000000000006uLL, 0x3F80000000000000, 0, 0x41uLL);
-      v8 = (*(*this + 64))(this);
-      std::vector<DspLib::CircularDelay>::resize(this + 170, v8);
-      v9 = *(this + 2);
-      *(this + 194) = v9;
+      DspLib::Biquad::ParametricFilter::setParametricEQ(this + 240, 0x4348000000000006uLL, 0x3F80000000000000, 0, 0x41uLL, v8);
+      v9 = (*(*this + 64))(this);
+      std::vector<DspLib::CircularDelay>::resize(this + 170, v9);
+      v10 = *(this + 2);
+      *(this + 194) = v10;
       *(this + 8) = 1;
       (*(*this + 160))(this);
-      v10 = (*(*this + 208))(this);
-      (*(*this + 216))(this, v10);
-      v11 = (*(*this + 152))(this, 0);
-      DspLib::LoudnessNormalizer::Parameters::expectedLoudnessAfterReset(v11);
-      DspLib::LoudnessNormalizer::Algorithm::resetLoudnessComputation(this, v12);
+      v11 = (*(*this + 208))(this);
+      (*(*this + 216))(this, v11);
+      v12 = (*(*this + 152))(this, 0);
+      DspLib::LoudnessNormalizer::Parameters::expectedLoudnessAfterReset(v12, v13);
+      DspLib::LoudnessNormalizer::Algorithm::resetLoudnessComputation(this, v14);
       DspLib::LoudnessNormalizer::Algorithm::resetSampleRateConverters(this);
     }
   }
@@ -7704,17 +7854,17 @@ double DspLib::LoudnessNormalizer::Algorithm::reset(DspLib::LoudnessNormalizer::
   if (!DspLib::LoudnessNormalizer::Parameters::resetModeFlagsAreSet(1, *(this + 213)))
   {
     v2 = (*(*this + 152))(this, 0);
-    DspLib::LoudnessNormalizer::Parameters::expectedLoudnessAfterReset(v2);
-    DspLib::LoudnessNormalizer::Algorithm::resetLoudnessComputation(this, v3);
+    DspLib::LoudnessNormalizer::Parameters::expectedLoudnessAfterReset(v2, v3);
+    DspLib::LoudnessNormalizer::Algorithm::resetLoudnessComputation(this, v4);
     DspLib::LoudnessNormalizer::Algorithm::resetSampleRateConverters(this);
   }
 
-  v4 = *(this + 170);
-  v5 = *(this + 171);
-  while (v4 != v5)
+  v5 = *(this + 170);
+  v6 = *(this + 171);
+  while (v5 != v6)
   {
-    DspLib::CircularDelay::reset(v4);
-    v4 = (v4 + 32);
+    DspLib::CircularDelay::reset(v5);
+    v5 = (v5 + 32);
   }
 
   *(this + 9840) = 0;
@@ -7783,7 +7933,7 @@ void DspLib::LoudnessNormalizer::Algorithm::resetLoudnessComputation(DspLib::Lou
     }
 
     *(this + 158) = a2;
-    DspLib::FastMedianFilter::reset((this + 576));
+    DspLib::FastMedianFilter::reset(this + 72);
     *(this + 365) = a2;
     *(this + 366) = a2;
     DspLib::Biquad::SetupWrapper::reset((this + 288));
@@ -7955,8 +8105,8 @@ void DspLib::LoudnessNormalizer::Algorithm::setParameter(float32x2_t *this, uint
       case 1:
         updated = DspLib::LoudnessNormalizer::Algorithm::updateGainTable(this);
         v12 = (*(*this + 152))(this, 0, updated);
-        DspLib::LoudnessNormalizer::Parameters::expectedLoudnessAfterReset(v12);
-        this[79].i32[0] = v13;
+        DspLib::LoudnessNormalizer::Parameters::expectedLoudnessAfterReset(v12, v13);
+        this[79].i32[0] = v14;
         return;
       case 34:
         this[1204].f32[0] = a3;
@@ -7971,9 +8121,9 @@ LABEL_10:
     }
 
 LABEL_19:
-    v14 = *(*this + 160);
+    v15 = *(*this + 160);
 
-    v14(this);
+    v15(this);
     return;
   }
 
@@ -8382,7 +8532,7 @@ void DspLib::LoudnessNormalizer::Algorithm::configureSideChainLowPassFilter(DspL
     v4 = (*(*this + 48))(this);
     DspLib::Biquad::ParametricFilter::initialize((this + 648), v3, round(v4), 1uLL);
 
-    DspLib::Biquad::ParametricFilter::setParametricEQ(this + 648, (LODWORD(v2) << 32) | 8, 0x3F80000000000000, 0, 0x41uLL);
+    DspLib::Biquad::ParametricFilter::setParametricEQ(this + 648, (LODWORD(v2) << 32) | 8, 0x3F80000000000000, 0, 0x41uLL, v5);
   }
 
   else
@@ -8456,74 +8606,78 @@ double DspLib::LoudnessNormalizer::Algorithm::configureHysteresisAndOffsets(DspL
 
 void DspLib::LoudnessNormalizer::Algorithm::configureWeightingFilter(DspLib::LoudnessNormalizer::Algorithm *this)
 {
-  v26 = 0;
-  v27 = 0;
-  v28 = 0;
-  v2 = vcvtas_u32_f32((*(*this + 104))(this, 36));
-  if (v2)
+  v29 = 0;
+  v30 = 0;
+  v31 = 0;
+  v3 = vcvtas_u32_f32((*(*this + 104))(this, 36));
+  if (v3)
   {
-    if (v2 == 1)
+    if (v3 == 1)
     {
-      DspLib::Biquad::Design::aWeighting(*(this + 87), __p);
-      std::vector<DspLib::Biquad::Section>::__assign_with_size[abi:ne200100]<DspLib::Biquad::Section const*,DspLib::Biquad::Section const*>(&v26, __p, v20, 3uLL);
+      DspLib::Biquad::Design::aWeighting(*(this + 87), v2, __p);
+      std::vector<DspLib::Biquad::Section>::__assign_with_size[abi:ne200100]<DspLib::Biquad::Section const*,DspLib::Biquad::Section const*>(&v29, __p, v23, 3uLL);
       if ((*(*this + 104))(this, 14) >= 0.5)
       {
-        v23 = 9;
-        v24 = (*(*this + 104))(this, 15);
-        v25 = 0x3F80000000000000;
-        std::vector<DspLib::Biquad::Section>::resize(&v26, 0xCCCCCCCCCCCCCCCDLL * ((v27 - v26) >> 2) + 1);
-        DspLib::Biquad::Design::ParametricEQ::design(&v23, *(this + 87), 0, v3, &v21);
-        v4 = v27;
-        v5 = v21;
-        *(v27 - 1) = v22;
-        *(v4 - 20) = v5;
+        v26 = 9;
+        v27 = (*(*this + 104))(this, 15);
+        v28 = 0x3F80000000000000;
+        std::vector<DspLib::Biquad::Section>::resize(&v29, 0xCCCCCCCCCCCCCCCDLL * ((v30 - v29) >> 2) + 1);
+        v4.n128_u32[0] = *(this + 87);
+        DspLib::Biquad::Design::ParametricEQ::design(&v26, v4, 0, &v24, v5);
+        v6 = v30;
+        v7 = v24;
+        *(v30 - 1) = v25;
+        *(v6 - 20) = v7;
       }
     }
   }
 
   else
   {
-    DspLib::Biquad::Design::kWeighting(*(this + 87), __p);
-    std::vector<DspLib::Biquad::Section>::__assign_with_size[abi:ne200100]<DspLib::Biquad::Section const*,DspLib::Biquad::Section const*>(&v26, __p, v19, 2uLL);
+    DspLib::Biquad::Design::kWeighting(__p, *(this + 87));
+    std::vector<DspLib::Biquad::Section>::__assign_with_size[abi:ne200100]<DspLib::Biquad::Section const*,DspLib::Biquad::Section const*>(&v29, __p, v22, 2uLL);
     if ((*(*this + 104))(this, 14) >= 0.5)
     {
-      v23 = 9;
-      v24 = (*(*this + 104))(this, 15);
-      v25 = 0x3F80000000000000;
-      DspLib::Biquad::Design::ParametricEQ::design(&v23, *(this + 87), 0, v6, &v21);
-      v7 = v26;
-      *(v26 + 20) = v21;
-      *(v7 + 9) = v22;
+      v26 = 9;
+      v8 = (*(*this + 104))(this, 15);
+      v27 = v8.n128_f32[0];
+      v8.n128_u32[1] = 1065353216;
+      v28 = 0x3F80000000000000;
+      v8.n128_u32[0] = *(this + 87);
+      DspLib::Biquad::Design::ParametricEQ::design(&v26, v8, 0, &v24, v9);
+      v10 = v29;
+      *(v29 + 20) = v24;
+      *(v10 + 9) = v25;
     }
   }
 
-  v8 = *(*(this + 3) + 68);
-  v9 = (*(*this + 56))(this);
-  DspLib_ITU1770_channelWeightsForLayout(v9, v8 < 4.0, __p);
-  v11 = __p[0];
-  v10 = __p[1];
-  if ((*(*this + 64))(this) != (v10 - v11) >> 2)
+  v11 = *(*(this + 3) + 68);
+  v12 = (*(*this + 56))(this);
+  DspLib_ITU1770_channelWeightsForLayout(v12, __p, v11 < 4.0);
+  v14 = __p[0];
+  v13 = __p[1];
+  if ((*(*this + 64))(this) != (v13 - v14) >> 2)
   {
-    v12 = (*(*this + 64))(this);
-    std::vector<float>::resize(__p, v12);
+    v15 = (*(*this + 64))(this);
+    std::vector<float>::resize(__p, v15);
     *(this + 840) = 1;
   }
 
-  v13 = (*(*this + 64))(this);
-  DspLib::Biquad::Filter::initialize((this + 864), v13, 0xCCCCCCCCCCCCCCCDLL * ((v27 - v26) >> 2));
-  v14 = 0;
-  v21 = *v26;
-  v22 = *(v26 + 4);
-  while (v14 < (*(*this + 64))(this))
+  v16 = (*(*this + 64))(this);
+  DspLib::Biquad::Filter::initialize((this + 864), v16, 0xCCCCCCCCCCCCCCCDLL * ((v30 - v29) >> 2));
+  v17 = 0;
+  v24 = *v29;
+  v25 = *(v29 + 4);
+  while (v17 < (*(*this + 64))(this))
   {
-    v15 = v26;
-    *v26 = v21;
-    *(v15 + 4) = v22;
-    v16 = v26;
-    v17 = sqrtf(*(__p[0] + v14));
-    *v26 = vmul_n_f32(*v26, v17);
-    v16[2] = v17 * v16[2];
-    DspLib::Biquad::Filter::setCoefficients(this + 864, v16, 0xCCCCCCCCCCCCCCCDLL * ((v27 - v16) >> 2), 0, v14++);
+    v18 = v29;
+    *v29 = v24;
+    *(v18 + 4) = v25;
+    v19 = v29;
+    v20 = sqrtf(*(__p[0] + v17));
+    *v29 = vmul_n_f32(*v29, v20);
+    v19[2] = v20 * v19[2];
+    DspLib::Biquad::Filter::setCoefficients(this + 864, v19, 0xCCCCCCCCCCCCCCCDLL * ((v30 - v19) >> 2), 0, v17++);
   }
 
   if (__p[0])
@@ -8532,10 +8686,10 @@ void DspLib::LoudnessNormalizer::Algorithm::configureWeightingFilter(DspLib::Lou
     operator delete(__p[0]);
   }
 
-  if (v26)
+  if (v29)
   {
-    v27 = v26;
-    operator delete(v26);
+    v30 = v29;
+    operator delete(v29);
   }
 }
 
@@ -8565,7 +8719,7 @@ void DspLib::LoudnessNormalizer::Algorithm::configurePeakPowerFilter(DspLib::Lou
 
   DspLib::Biquad::ParametricFilter::initialize((this + 432), 1uLL, roundf(*(this + 87)), 1uLL);
 
-  DspLib::Biquad::ParametricFilter::setParametricEQ(this + 432, v2, 0x3F80000000000000, 0, 0x41uLL);
+  DspLib::Biquad::ParametricFilter::setParametricEQ(this + 432, v2, 0x3F80000000000000, 0, 0x41uLL, v3);
 }
 
 void DspLib::LoudnessNormalizer::Algorithm::configureIntegratedLoudnessDelay(DspLib::LoudnessNormalizer::Algorithm *this)
@@ -8597,16 +8751,16 @@ void DspLib::LoudnessNormalizer::Algorithm::configureIntegratedLoudnessDelay(Dsp
 void DspLib::LoudnessNormalizer::Algorithm::configureMedianFilter(DspLib::LoudnessNormalizer::Algorithm *this)
 {
   v2 = (*(*this + 152))(this, 0);
-  DspLib::LoudnessNormalizer::Parameters::expectedLoudnessAfterReset(v2);
-  *(this + 158) = v3;
+  DspLib::LoudnessNormalizer::Parameters::expectedLoudnessAfterReset(v2, v3);
+  *(this + 158) = v4;
   DspLib::FastMedianFilter::initialize((this + 576), vcvtas_u32_f32(*(this + 89)));
-  v4 = 1.0;
+  v5 = 1.0;
   if (*(this + 211) >= 2u)
   {
-    v4 = 1.0 - expf(-1.0 / ((*(this + 89) * 2316.0) / 1000.0));
+    v5 = 1.0 - expf(-1.0 / ((*(this + 89) * 2316.0) / 1000.0));
   }
 
-  *(this + 160) = v4;
+  *(this + 160) = v5;
 }
 
 void DspLib::LoudnessNormalizer::Algorithm::configureAGC(DspLib::LoudnessNormalizer::Algorithm *this)
@@ -8632,30 +8786,30 @@ void DspLib::LoudnessNormalizer::Algorithm::configureAGC(DspLib::LoudnessNormali
 
     *(v4 + 2023) = *(this + 211);
     v6 = (*(*this + 152))(this, 0);
-    DspLib::LoudnessNormalizer::Parameters::expectedLoudnessAfterReset(v6);
-    DspLib::LoudnessNormalizer::IntegratedLoudnessProcessor::reset(v4, v7);
-    v8 = *(this + 1208);
-    v9 = *(this + 90);
-    v8[2010] = v9;
-    v8[2018] = 1.0 - expf(-1.0 / ((v9 * (v8[2017] * 1000.0)) / 1000.0));
-    v10 = (*(*this + 152))(this, 0);
-    DspLib::LoudnessNormalizer::Parameters::expectedLoudnessAfterReset(v10);
-    *(this + 2419) = v11;
-    v12 = (*(*this + 152))(this, 0);
-    v13 = DspLib::LoudnessNormalizer::Parameters::targetLoudness(v12) - *(this + 2419);
+    DspLib::LoudnessNormalizer::Parameters::expectedLoudnessAfterReset(v6, v7);
+    DspLib::LoudnessNormalizer::IntegratedLoudnessProcessor::reset(v4, v8);
+    v9 = *(this + 1208);
+    v10 = *(this + 90);
+    v9[2010] = v10;
+    v9[2018] = 1.0 - expf(-1.0 / ((v10 * (v9[2017] * 1000.0)) / 1000.0));
+    v11 = (*(*this + 152))(this, 0);
+    DspLib::LoudnessNormalizer::Parameters::expectedLoudnessAfterReset(v11, v12);
+    *(this + 2419) = v13;
+    v14 = (*(*this + 152))(this, 0);
+    v15 = DspLib::LoudnessNormalizer::Parameters::targetLoudness(v14) - *(this + 2419);
   }
 
   else
   {
     *(this + 1208) = 0;
-    v13 = 0.0;
+    v15 = 0.0;
     if (v3)
     {
       MEMORY[0x1E12BD150](v3, 64);
     }
   }
 
-  *(this + 2420) = v13;
+  *(this + 2420) = v15;
 }
 
 void DspLib::LoudnessNormalizer::Algorithm::configureShapingFilter(DspLib::LoudnessNormalizer::Algorithm *this)
@@ -8722,8 +8876,8 @@ void DspLib::LoudnessNormalizer::Algorithm::configureAutoReset(DspLib::LoudnessN
   if (DspLib::LoudnessNormalizer::Parameters::resetModeFlagsAreSet(2, *(this + 213)))
   {
     v2 = (*(*this + 152))(this, 0);
-    DspLib::LoudnessNormalizer::Parameters::expectedLoudnessAfterReset(v2);
-    DspLib::LoudnessNormalizer::Algorithm::resetLoudnessComputation(this, v3);
+    DspLib::LoudnessNormalizer::Parameters::expectedLoudnessAfterReset(v2, v3);
+    DspLib::LoudnessNormalizer::Algorithm::resetLoudnessComputation(this, v4);
     DspLib::LoudnessNormalizer::Algorithm::resetSampleRateConverters(this);
   }
 
@@ -8741,80 +8895,80 @@ void DspLib::LoudnessNormalizer::Algorithm::configureAutoReset(DspLib::LoudnessN
   *(this + 1422) = *(this + 211) > 1u;
 }
 
-uint64_t DspLib::LoudnessNormalizer::Algorithm::sidechainFilterAndDownsample(uint64_t a1, uint64_t a2, void *a3)
+uint64_t DspLib::LoudnessNormalizer::Algorithm::sidechainFilterAndDownsample(uint64_t a1, uint64_t a2, void *a3, uint64_t a4, uint64_t a5, unint64_t a6)
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   if (*(a1 + 648) == 1)
   {
     if (*(a2 + 16) <= 1uLL)
     {
-      v6 = 1;
+      v9 = 1;
     }
 
     else
     {
-      v6 = *(a2 + 16);
+      v9 = *(a2 + 16);
     }
 
     if ((*(*a1 + 64))(a1) == 1)
     {
-      v7 = v6;
+      v10 = v9;
     }
 
     else
     {
-      v7 = ((v6 - 1) & 0xFFFFFFFFFFFFFFFCLL) + 4;
+      v10 = ((v9 - 1) & 0xFFFFFFFFFFFFFFFCLL) + 4;
     }
 
-    v8 = (*(*a1 + 64))(a1);
-    v9 = MEMORY[0x1EEE9AC00](v8);
-    v11 = &v22 - v10;
-    v12 = (*(*a1 + 64))(a1, v9);
-    MEMORY[0x1EEE9AC00](v12);
-    v15 = &v22 - v14;
-    if (v13 >= 0x200)
+    v11 = (*(*a1 + 64))(a1);
+    v12 = MEMORY[0x1EEE9AC00](v11);
+    v14 = &v28 - v13;
+    v15 = (*(*a1 + 64))(a1, v12);
+    MEMORY[0x1EEE9AC00](v15);
+    v18 = &v28 - v17;
+    if (v16 >= 0x200)
     {
-      v16 = 512;
+      v19 = 512;
     }
 
     else
     {
-      v16 = v13;
+      v19 = v16;
     }
 
-    bzero(&v22 - v14, v16);
+    bzero(&v28 - v17, v19);
     if ((*(*a1 + 64))(a1))
     {
-      v17 = 0;
-      v18 = 4 * v7;
+      v20 = 0;
+      v21 = 4 * v10;
       do
       {
-        *&v15[8 * v17++] = v11;
-        v11 += v18;
+        *&v18[8 * v20++] = v14;
+        v14 += v21;
       }
 
-      while (v17 < (*(*a1 + 64))(a1));
+      while (v20 < (*(*a1 + 64))(a1));
     }
 
-    v19 = (*(*a1 + 64))(a1);
-    v20 = *(a2 + 16);
-    v25 = *a2;
-    v26 = *(a2 + 16);
-    *&v23 = v15;
-    *(&v23 + 1) = v19;
-    v24 = v20;
-    DspLib::Biquad::Filter::process((a1 + 648), &v25, &v23);
-    *&v25 = v15;
-    *(&v25 + 1) = v19;
-    v26 = v20;
-    DspLib::DownSampler::process((a1 + 364), &v25, a3);
+    v22 = (*(*a1 + 64))(a1);
+    v23 = *(a2 + 16);
+    v31 = *a2;
+    v32 = *(a2 + 16);
+    *&v29 = v18;
+    *(&v29 + 1) = v22;
+    v30 = v23;
+    DspLib::Biquad::Filter::process((a1 + 648), &v31, &v29);
+    *&v31 = v18;
+    *(&v31 + 1) = v22;
+    v32 = v23;
+    DspLib::DownSampler::process((a1 + 364), &v31, a3, v24, v25, v26);
   }
 
   else
   {
-    v25 = *a2;
-    v26 = *(a2 + 16);
-    DspLib::DownSampler::process((a1 + 364), &v25, a3);
+    v31 = *a2;
+    v32 = *(a2 + 16);
+    DspLib::DownSampler::process((a1 + 364), &v31, a3, a4, a5, a6);
   }
 
   return a3[2];
@@ -8823,16 +8977,16 @@ uint64_t DspLib::LoudnessNormalizer::Algorithm::sidechainFilterAndDownsample(uin
 uint64_t DspLib::LoudnessNormalizer::Algorithm::calculatePeakPower(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   DspLib::Biquad::Filter::process((a1 + 432), a2, a3, a2, a3);
-  v14 = a5;
-  v15 = a4;
-  v13[0] = &v15;
-  v13[1] = 1;
-  v11[2] = a3;
-  v12 = a2;
-  v11[0] = &v12;
-  v11[1] = 1;
-  DspLib::DownSampler::process((a1 + 372), v11, v13);
-  return v14;
+  v17 = a5;
+  v18 = a4;
+  v16[0] = &v18;
+  v16[1] = 1;
+  v14[2] = a3;
+  v15 = a2;
+  v14[0] = &v15;
+  v14[1] = 1;
+  DspLib::DownSampler::process((a1 + 372), v14, v16, v10, v11, v12);
+  return v17;
 }
 
 void DspLib::LoudnessNormalizer::Algorithm::audioActivityShift(uint64_t a1, const float *a2, vDSP_Length a3, uint64_t a4, uint64_t a5)
@@ -8898,53 +9052,53 @@ double DspLib::AudioActivityDetector::process(uint64_t a1, const float *a2, vDSP
   return result;
 }
 
-unint64_t DspLib::LoudnessNormalizer::Algorithm::medianLevelWithHysteresis(uint64_t a1, uint64_t a2, uint64_t a3, const float *a4, unint64_t a5)
+unint64_t DspLib::LoudnessNormalizer::Algorithm::medianLevelWithHysteresis(uint64_t a1, uint64_t a2, uint64_t a3, const float *a4, uint64_t a5, unint64_t a6)
 {
-  v20 = a4;
-  v18[0] = &v20;
-  v18[1] = 1;
-  v19 = a5;
-  v16[2] = a3;
-  v17 = a2;
-  v16[0] = &v17;
-  v16[1] = 1;
-  DspLib::DownSampler::process((a1 + 380), v16, v18);
-  v7 = v19;
-  DspLib::FastMedianFilter::process((a1 + 576), a4, v19, a4);
-  DspLib::add(a4, v7, *(a1 + 1424));
-  if (v7)
+  v21 = a4;
+  v19[0] = &v21;
+  v19[1] = 1;
+  v20 = a5;
+  v17[2] = a3;
+  v18 = a2;
+  v17[0] = &v18;
+  v17[1] = 1;
+  DspLib::DownSampler::process((a1 + 380), v17, v19, a4, a5, a6);
+  v8 = v20;
+  DspLib::FastMedianFilter::process((a1 + 576), a4, v20, a4);
+  DspLib::add(a4, v8, *(a1 + 1424));
+  if (v8)
   {
-    v8 = *(a1 + 640);
-    v9 = *(a1 + 1464);
-    v10 = 4 * v7;
-    v11 = a4;
+    v9 = *(a1 + 640);
+    v10 = *(a1 + 1464);
+    v11 = 4 * v8;
+    v12 = a4;
     while (1)
     {
-      v12 = *v11;
-      if (*v11 > v9)
+      v13 = *v12;
+      if (*v12 > v10)
       {
         goto LABEL_6;
       }
 
-      v13 = v12 + 5.0;
-      if (v13 < v9)
+      v14 = v13 + 5.0;
+      if (v14 < v10)
       {
         break;
       }
 
 LABEL_7:
-      *v11++ = v9;
-      v10 -= 4;
-      if (!v10)
+      *v12++ = v10;
+      v11 -= 4;
+      if (!v11)
       {
         goto LABEL_8;
       }
     }
 
-    v12 = v9 + ((v13 - v9) * v8);
+    v13 = v10 + ((v14 - v10) * v9);
 LABEL_6:
-    *(a1 + 1464) = v12;
-    v9 = v12;
+    *(a1 + 1464) = v13;
+    v10 = v13;
     goto LABEL_7;
   }
 
@@ -8952,197 +9106,197 @@ LABEL_8:
   if ((*(*a1 + 208))(a1))
   {
     DspLib::CPUMeasure::pause((a1 + 104));
-    if (v7)
+    if (v8)
     {
-      v14 = DspLib::maxv(a4, v7);
-      if (*(a1 + 10072) >= v14)
+      v15 = DspLib::maxv(a4, v8);
+      if (*(a1 + 10072) >= v15)
       {
-        v14 = *(a1 + 10072);
+        v15 = *(a1 + 10072);
       }
 
-      *(a1 + 10072) = v14;
+      *(a1 + 10072) = v15;
     }
 
     DspLib::CPUMeasure::resume((a1 + 104));
   }
 
-  return v7;
+  return v8;
 }
 
-vDSP_Length DspLib::LoudnessNormalizer::Algorithm::gatingAndModifiedPeakLevel(uint64_t a1, float *a2, unint64_t a3, const float *a4, vDSP_Length a5)
+vDSP_Length DspLib::LoudnessNormalizer::Algorithm::gatingAndModifiedPeakLevel(uint64_t a1, float *a2, unint64_t a3, const float *a4, uint64_t a5, unint64_t a6)
 {
   if (*(a1 + 844) >= 2u)
   {
-    v42 = a5;
-    v43 = a4;
+    v46 = a5;
+    v47 = a4;
+    v44 = &v47;
+    v45 = 1;
+    v42 = a3;
+    v43 = a2;
     v40 = &v43;
     v41 = 1;
-    v38 = a3;
-    v39 = a2;
-    v36 = &v39;
-    v37 = 1;
-    DspLib::DownSampler::process((a1 + 388), &v36, &v40);
-    v10 = v42;
+    DspLib::DownSampler::process((a1 + 388), &v40, &v44, a4, a5, a6);
+    v11 = v46;
     if (!a3)
     {
-      return v10;
+      return v11;
     }
 
-    v11 = DspLib::maxv(a2, a3);
-    v12 = *(a1 + 9976);
-    *v12 = v11;
-    v13 = v11 + (*(a1 + 1428) + *(a1 + 1432));
-    *v12 = v13;
-    if (v13 <= -70.0)
+    v12 = DspLib::maxv(a2, a3);
+    v13 = *(a1 + 9976);
+    *v13 = v12;
+    v14 = v12 + (*(a1 + 1428) + *(a1 + 1432));
+    *v13 = v14;
+    if (v14 <= -70.0)
     {
-      v15 = *(a1 + 9800);
-      v14 = *(a1 + 348) / a3;
-    }
-
-    else
-    {
-      v14 = *(a1 + 348) / a3;
-      v15 = *(a1 + 9800) + (((1.0 - *(a1 + 9800)) * 100.0) / v14);
-      *(a1 + 9800) = v15;
-    }
-
-    v24 = *(a1 + 1460);
-    v25 = *(a1 + 10064);
-    if (v25 < *(a1 + 10072))
-    {
-      v25 = *(a1 + 10072);
-    }
-
-    v26 = v24 - v25;
-    if (v26 <= 12.0)
-    {
-      v27 = v26;
+      v16 = *(a1 + 9800);
+      v15 = *(a1 + 348) / a3;
     }
 
     else
     {
-      v27 = 12.0;
+      v15 = *(a1 + 348) / a3;
+      v16 = *(a1 + 9800) + (((1.0 - *(a1 + 9800)) * 100.0) / v15);
+      *(a1 + 9800) = v16;
     }
 
-    if (v26 >= 0.0)
+    v28 = *(a1 + 1460);
+    v29 = *(a1 + 10064);
+    if (v29 < *(a1 + 10072))
     {
-      v28 = 1.0 - (v27 / 12.0);
+      v29 = *(a1 + 10072);
+    }
+
+    v30 = v28 - v29;
+    if (v30 <= 12.0)
+    {
+      v31 = v30;
     }
 
     else
     {
-      v28 = 1.0;
+      v31 = 12.0;
     }
 
-    v29 = ((v28 * v28) * 99.0) + 1.0;
-    if (v29 >= v15)
+    if (v30 >= 0.0)
     {
-      v15 = v29;
+      v32 = 1.0 - (v31 / 12.0);
     }
 
-    *(a1 + 10088) = v15;
-    v30 = expf(-1.0 / ((v14 * v15) / 1000.0));
-    v31 = *a2;
-    if (*a2 <= (*(a1 + 1436) + v24))
+    else
     {
-      v32 = v31 - *(a1 + 1440);
-      if (v32 >= v24)
+      v32 = 1.0;
+    }
+
+    v33 = ((v32 * v32) * 99.0) + 1.0;
+    if (v33 >= v16)
+    {
+      v16 = v33;
+    }
+
+    *(a1 + 10088) = v16;
+    v34 = expf(-1.0 / ((v15 * v16) / 1000.0));
+    v35 = *a2;
+    if (*a2 <= (*(a1 + 1436) + v28))
+    {
+      v36 = v35 - *(a1 + 1440);
+      if (v36 >= v28)
       {
 LABEL_33:
-        *a2 = v24;
+        *a2 = v28;
         if ((*(*a1 + 208))(a1))
         {
           DspLib::CPUMeasure::pause((a1 + 104));
-          v33 = *(a1 + 9976);
-          v34 = *(a1 + 10076);
-          if (v34 < *v33)
+          v37 = *(a1 + 9976);
+          v38 = *(a1 + 10076);
+          if (v38 < *v37)
           {
-            v34 = *v33;
+            v38 = *v37;
           }
 
-          *(a1 + 10076) = v34;
+          *(a1 + 10076) = v38;
           DspLib::CPUMeasure::resume((a1 + 104));
         }
 
         DspLib::fill(a2, a3, **(a1 + 9976));
-        return v10;
+        return v11;
       }
 
-      v31 = v24 + ((v32 - v24) * (1.0 - v30));
+      v35 = v28 + ((v36 - v28) * (1.0 - v34));
     }
 
-    *(a1 + 1460) = v31;
-    v24 = v31;
+    *(a1 + 1460) = v35;
+    v28 = v35;
     goto LABEL_33;
   }
 
   DspLib::add(a2, a3, *(a1 + 1428));
   if (a3)
   {
-    v16 = *(a1 + 1436);
-    v17 = *(a1 + 1440);
-    v18 = 4 * a3;
-    v19 = a2;
-    v20 = *(a1 + 1460);
+    v20 = *(a1 + 1436);
+    v21 = *(a1 + 1440);
+    v22 = 4 * a3;
+    v23 = a2;
+    v24 = *(a1 + 1460);
     while (1)
     {
-      v21 = *v19;
-      if (*v19 > (v16 + v20))
+      v25 = *v23;
+      if (*v23 > (v20 + v24))
       {
         goto LABEL_10;
       }
 
-      v22 = v21 - v17;
-      if (v22 < v20)
+      v26 = v25 - v21;
+      if (v26 < v24)
       {
         break;
       }
 
 LABEL_11:
-      *v19++ = v20;
-      v18 -= 4;
-      if (!v18)
+      *v23++ = v24;
+      v22 -= 4;
+      if (!v22)
       {
         goto LABEL_12;
       }
     }
 
-    v21 = v20 + (v22 - v20);
+    v25 = v24 + (v26 - v24);
 LABEL_10:
-    *(a1 + 1460) = v21;
-    v20 = v21;
+    *(a1 + 1460) = v25;
+    v24 = v25;
     goto LABEL_11;
   }
 
 LABEL_12:
-  v42 = a5;
-  v43 = a4;
+  v46 = a5;
+  v47 = a4;
+  v44 = &v47;
+  v45 = 1;
+  v42 = a3;
+  v43 = a2;
   v40 = &v43;
   v41 = 1;
-  v38 = a3;
-  v39 = a2;
-  v36 = &v39;
-  v37 = 1;
-  DspLib::DownSampler::process((a1 + 388), &v36, &v40);
-  v10 = v42;
+  DspLib::DownSampler::process((a1 + 388), &v40, &v44, v17, v18, v19);
+  v11 = v46;
   if ((*(*a1 + 208))(a1))
   {
     DspLib::CPUMeasure::pause((a1 + 104));
-    if (v10)
+    if (v11)
     {
-      v23 = DspLib::maxv(a4, v10);
-      if (*(a1 + 10076) >= v23)
+      v27 = DspLib::maxv(a4, v11);
+      if (*(a1 + 10076) >= v27)
       {
-        v23 = *(a1 + 10076);
+        v27 = *(a1 + 10076);
       }
 
-      *(a1 + 10076) = v23;
+      *(a1 + 10076) = v27;
     }
 
     DspLib::CPUMeasure::resume((a1 + 104));
   }
 
-  return v10;
+  return v11;
 }
 
 double DspLib::LoudnessNormalizer::Algorithm::gateIntegratedLoudness(uint64_t a1, const float *a2, vDSP_Length a3, const float *a4, vDSP_Length a5)
@@ -9429,395 +9583,285 @@ void DspLib::LoudnessNormalizer::Algorithm::processBlock(uint64_t a1, void *a2, 
     {
       v11 = *(a1 + 9880);
       v7 = (*(a1 + 9888) - v11) >> 3;
-      *v54 = v8;
-      *&v54[8] = *(a2 + 1);
+      *v60 = v8;
+      *&v60[8] = *(a2 + 1);
       v12 = *(a1 + 1444);
-      *&v56 = v11;
-      *(&v56 + 1) = v7;
-      v57 = v3;
-      DspLib::multiply(v54, &v56, v12);
+      *&v62 = v11;
+      *(&v62 + 1) = v7;
+      v63 = v3;
+      DspLib::multiply(v60, &v62, v12);
       v8 = v11;
     }
 
     if ((*(*a1 + 208))(a1))
     {
       DspLib::CPUMeasure::pause((a1 + 104));
-      v13 = *(a1 + 10104);
-      *&v56 = v8;
-      *(&v56 + 1) = v7;
-      v57 = v3;
-      v54[0] = 0;
-      v55 = 0;
-      DspLib::AlgorithmBase::process(v13, &v56, v54);
-      *v54 = v8;
-      *&v54[8] = v7;
-      *&v54[16] = v3;
-      v14 = DspLib::maxMagnitude(v54);
-      if (*(a1 + 10080) >= v14)
+      v16 = *(a1 + 10104);
+      *&v62 = v8;
+      *(&v62 + 1) = v7;
+      v63 = v3;
+      v60[0] = 0;
+      v61 = 0;
+      DspLib::AlgorithmBase::process(v16, &v62, v60);
+      *v60 = v8;
+      *&v60[8] = v7;
+      *&v60[16] = v3;
+      v17 = DspLib::maxMagnitude(v60);
+      if (*(a1 + 10080) >= v17)
       {
-        v14 = *(a1 + 10080);
+        v17 = *(a1 + 10080);
       }
 
-      *(a1 + 10080) = v14;
+      *(a1 + 10080) = v17;
       DspLib::CPUMeasure::resume((a1 + 104));
     }
 
     if (*(a3 + 24) == 1)
     {
-      *v54 = *a3;
-      *&v54[16] = *(a3 + 16);
-      v15 = !DspLib::isSilent(v54, 0.000001);
+      *v60 = *a3;
+      *&v60[16] = *(a3 + 16);
+      v18 = !DspLib::isSilent(v60, 0.000001);
     }
 
     else
     {
-      v15 = 0;
+      v18 = 0;
     }
 
-    *(a1 + 9840) = v15;
+    *(a1 + 9840) = v18;
     if (*(a1 + 840) == 1)
     {
-      *v54 = v8;
-      *&v54[8] = v7;
-      *&v54[16] = v3;
-      v56 = *a2;
-      v57 = a2[2];
-      DspLib::MultiChannelCircularDelay::process((a1 + 1360), v54, &v56);
+      *v60 = v8;
+      *&v60[8] = v7;
+      *&v60[16] = v3;
+      v62 = *a2;
+      v63 = a2[2];
+      DspLib::MultiChannelCircularDelay::process((a1 + 1360), v60, &v62);
     }
 
-    else if ((*(a1 + 848) | v15))
+    else if ((*(a1 + 848) | v18))
     {
       if (*(a1 + 9688) == 1)
       {
-        v56 = *a2;
-        v57 = a2[2];
-        *v54 = v8;
-        *&v54[8] = v7;
-        *&v54[16] = v3;
-        DspLib::Biquad::Filter::process((a1 + 9688), v54, &v56);
-        v16 = a2[1];
-        v17 = a2[2];
-        *v54 = *a2;
-        *&v54[8] = v16;
-        *&v54[16] = v17;
-        *&v56 = *v54;
-        *(&v56 + 1) = v16;
-        v57 = v17;
+        v62 = *a2;
+        v63 = a2[2];
+        *v60 = v8;
+        *&v60[8] = v7;
+        *&v60[16] = v3;
+        DspLib::Biquad::Filter::process((a1 + 9688), v60, &v62);
+        v19 = a2[1];
+        v20 = a2[2];
+        *v60 = *a2;
+        *&v60[8] = v19;
+        *&v60[16] = v20;
+        *&v62 = *v60;
+        *(&v62 + 1) = v19;
+        v63 = v20;
       }
 
       else
       {
-        *v54 = v8;
-        *&v54[8] = v7;
-        *&v54[16] = v3;
-        v56 = *a2;
-        v57 = a2[2];
+        *v60 = v8;
+        *&v60[8] = v7;
+        *&v60[16] = v3;
+        v62 = *a2;
+        v63 = a2[2];
       }
 
-      DspLib::MultiChannelCircularDelay::process((a1 + 1360), v54, &v56);
-      v23 = *(a1 + 9832);
-      if (v23)
+      DspLib::MultiChannelCircularDelay::process((a1 + 1360), v60, &v62);
+      v26 = *(a1 + 9832);
+      if (v26)
       {
-        *v54 = *a2;
-        *&v54[16] = a2[2];
-        DspLib::multiply(v54, *(*(a1 + 9808) + 4 * v23 - 4));
+        *v60 = *a2;
+        *&v60[16] = a2[2];
+        DspLib::multiply(v60, *(*(a1 + 9808) + 4 * v26 - 4));
       }
 
-      DspLib::elapsedTimeInMilliseconds((a1 + 1408), v22);
+      DspLib::elapsedTimeInMilliseconds((a1 + 1408), v25);
     }
 
     else
     {
-      v18 = *(a1 + 9928);
-      v19 = (*(a1 + 9936) - v18) >> 3;
-      v20 = *(a1 + 9904);
-      if (*(a1 + 9912) == v20)
+      v21 = *(a1 + 9928);
+      v22 = (*(a1 + 9936) - v21) >> 3;
+      v23 = *(a1 + 9904);
+      if (*(a1 + 9912) == v23)
       {
-        v21 = 0;
+        v24 = 0;
       }
 
       else
       {
-        v21 = (v20[1] - *v20) >> 2;
+        v24 = (v23[1] - *v23) >> 2;
       }
 
-      *(&v53 + 1) = v7;
-      *v54 = v8;
-      *&v54[8] = v7;
-      *&v54[16] = v3;
-      *&v56 = v18;
-      *(&v56 + 1) = v19;
-      v57 = v21;
-      v24 = DspLib::LoudnessNormalizer::Algorithm::sidechainFilterAndDownsample(a1, v54, &v56);
-      v25 = v24;
+      *(&v59 + 1) = v7;
+      *v60 = v8;
+      *&v60[8] = v7;
+      *&v60[16] = v3;
+      *&v62 = v21;
+      *(&v62 + 1) = v22;
+      v63 = v24;
+      v27 = DspLib::LoudnessNormalizer::Algorithm::sidechainFilterAndDownsample(a1, v60, &v62, v13, v14, v15);
+      v28 = v27;
       if (*(a1 + 864) == 1)
       {
-        *v54 = v18;
-        *&v54[8] = v19;
-        *&v54[16] = v24;
-        *&v56 = v18;
-        *(&v56 + 1) = v19;
-        v57 = v24;
-        DspLib::Biquad::Filter::process((a1 + 864), v54, &v56);
+        *v60 = v21;
+        *&v60[8] = v22;
+        *&v60[16] = v27;
+        *&v62 = v21;
+        *(&v62 + 1) = v22;
+        v63 = v27;
+        DspLib::Biquad::Filter::process((a1 + 864), v60, &v62);
       }
 
-      v26 = *(a1 + 9952);
-      *v54 = v18;
-      *&v54[8] = v19;
-      *&v54[16] = v25;
-      DspLib::square(v54);
-      *v54 = v18;
-      *&v54[8] = v19;
-      *&v54[16] = v25;
-      DspLib::sum(v54, v26, v25);
-      DspLib::threshold(v26, v25, 1.0e-12);
-      if (DspLib::LoudnessNormalizer::AutoReset::process(a1 + 1392, v26, v25))
+      v29 = *(a1 + 9952);
+      *v60 = v21;
+      *&v60[8] = v22;
+      *&v60[16] = v28;
+      DspLib::square(v60);
+      *v60 = v21;
+      *&v60[8] = v22;
+      *&v60[16] = v28;
+      DspLib::sum(v60, v29, v28);
+      DspLib::threshold(v29, v28, 1.0e-12);
+      if (DspLib::LoudnessNormalizer::AutoReset::process(a1 + 1392, v29, v28))
       {
-        v27 = (*(*a1 + 152))(a1, 0);
-        DspLib::LoudnessNormalizer::Parameters::expectedLoudnessAfterReset(v27);
-        DspLib::LoudnessNormalizer::Algorithm::resetLoudnessComputation(a1, v28);
+        v30 = (*(*a1 + 152))(a1, 0);
+        DspLib::LoudnessNormalizer::Parameters::expectedLoudnessAfterReset(v30, v31);
+        DspLib::LoudnessNormalizer::Algorithm::resetLoudnessComputation(a1, v32);
       }
 
-      v29 = DspLib::LoudnessNormalizer::Algorithm::calculatePeakPower(a1, v26, v25, *(a1 + 9976), (*(a1 + 9984) - *(a1 + 9976)) >> 2);
-      v30 = *(a1 + 9976);
-      v31 = DspLib::MovingAverageProcessor::process(a1 + 536, v30, v29, *v18);
-      DspLib::power2dB(v30, v29, 1.0);
-      if (v31)
+      v33 = DspLib::LoudnessNormalizer::Algorithm::calculatePeakPower(a1, v29, v28, *(a1 + 9976), (*(a1 + 9984) - *(a1 + 9976)) >> 2);
+      v34 = *(a1 + 9976);
+      v35 = DspLib::MovingAverageProcessor::process(a1 + 536, v34, v33, *v21);
+      DspLib::power2dB(v34, v33, 1.0);
+      if (v35)
       {
-        v32 = *(a1 + 9664);
-        if (v32)
+        v37 = *(a1 + 9664);
+        if (v37)
         {
-          DspLib::LoudnessNormalizer::IntegratedLoudnessProcessor::process(v32, *v18, v31, *(a1 + 9952));
+          DspLib::LoudnessNormalizer::IntegratedLoudnessProcessor::process(v37, *v21, v35, *(a1 + 9952));
           *(a1 + 9676) = **(a1 + 9952);
         }
 
-        DspLib::LoudnessNormalizer::IntegratedLoudnessProcessor::process((a1 + 1536), *v18, v31, *v18);
+        DspLib::LoudnessNormalizer::IntegratedLoudnessProcessor::process((a1 + 1536), *v21, v35, *v21);
         if ((*(*a1 + 208))(a1))
         {
           DspLib::CPUMeasure::pause((a1 + 104));
-          *(a1 + 10068) = **v18;
+          *(a1 + 10068) = **v21;
           DspLib::CPUMeasure::resume((a1 + 104));
         }
 
-        v33 = *(a1 + 1384);
-        if (v33)
+        v38 = *(a1 + 1384);
+        if (v38)
         {
-          DspLib::CircularDelay::process(v33, *v18, v31, *v18, v31);
+          DspLib::CircularDelay::process(v38, *v21, v35, *v21, v35);
         }
       }
 
-      *&v53 = v8;
+      *&v59 = v8;
       if (*(a1 + 844) >= 2u && ((*(*a1 + 104))(a1, 35) < 0.5 || (*(*a1 + 104))(a1, 34) > 0.1))
       {
-        DspLib::LoudnessNormalizer::Algorithm::audioActivityShift(a1, v30, v29, *v18, v31);
+        DspLib::LoudnessNormalizer::Algorithm::audioActivityShift(a1, v34, v33, *v21, v35);
       }
 
-      v34 = DspLib::LoudnessNormalizer::Algorithm::medianLevelWithHysteresis(a1, v30, v29, *(a1 + 10024), (*(a1 + 10032) - *(a1 + 10024)) >> 2);
-      v51 = *(a1 + 10024);
-      v35 = DspLib::LoudnessNormalizer::Algorithm::gatingAndModifiedPeakLevel(a1, v30, v29, *(a1 + 10000), (*(a1 + 10008) - *(a1 + 10000)) >> 2);
-      v36 = *(a1 + 10000);
-      v52 = v30;
-      v37 = *(a1 + 9952);
-      DspLib::SampleAndHoldUpSampler::process((a1 + 396), *v18, v31, v37, v34);
-      DspLib::LoudnessNormalizer::Algorithm::gateIntegratedLoudness(a1, v37, v34, v36, v35);
-      DspLib::vmax(v37, v34, v51);
-      DspLib::SampleAndHoldUpSampler::process((a1 + 408), v37, v34, *v18, v29);
-      v38 = *(a1 + 9952);
-      DspLib::vmax(v52, v29, *v18, v29, v38);
+      v39 = DspLib::LoudnessNormalizer::Algorithm::medianLevelWithHysteresis(a1, v34, v33, *(a1 + 10024), (*(a1 + 10032) - *(a1 + 10024)) >> 2, v36);
+      v57 = *(a1 + 10024);
+      v41 = DspLib::LoudnessNormalizer::Algorithm::gatingAndModifiedPeakLevel(a1, v34, v33, *(a1 + 10000), (*(a1 + 10008) - *(a1 + 10000)) >> 2, v40);
+      v42 = *(a1 + 10000);
+      v58 = v34;
+      v43 = *(a1 + 9952);
+      DspLib::SampleAndHoldUpSampler::process((a1 + 396), *v21, v35, v43, v39);
+      DspLib::LoudnessNormalizer::Algorithm::gateIntegratedLoudness(a1, v43, v39, v42, v41);
+      DspLib::vmax(v43, v39, v57);
+      DspLib::SampleAndHoldUpSampler::process((a1 + 408), v43, v39, *v21, v33);
+      v44 = *(a1 + 9952);
+      DspLib::vmax(v58, v33, *v21, v33, v44);
       if ((*(*a1 + 208))(a1))
       {
         DspLib::CPUMeasure::pause((a1 + 104));
-        if (v29)
+        if (v33)
         {
-          *(a1 + 10060) = DspLib::mean(v38, v29);
+          *(a1 + 10060) = DspLib::mean(v44, v33);
         }
 
         DspLib::CPUMeasure::resume((a1 + 104));
       }
 
-      DspLib::LoudnessNormalizer::Algorithm::applyAGC(a1, v38, v29, v3);
-      if (*(a1 + 856) == 2 && v29)
+      DspLib::LoudnessNormalizer::Algorithm::applyAGC(a1, v44, v33, v3);
+      if (*(a1 + 856) == 2 && v33)
       {
-        v39 = *(a1 + 24);
-        v40 = DspLib::mean(v38, v29);
-        v41 = v39[57];
-        v42 = v39[46];
-        v43 = v39[47];
-        DspLib::LoudnessNormalizer::Algorithm::applyCompressor(a1, v38, v29);
-        v44 = fmaxf(((v41 - v40) - v42) - v43, 0.0);
-        *(a1 + 10092) = v44;
-        DspLib::clip(v38, v29, -100.0, v44);
+        v45 = *(a1 + 24);
+        v46 = DspLib::mean(v44, v33);
+        v47 = v45[57];
+        v48 = v45[46];
+        v49 = v45[47];
+        DspLib::LoudnessNormalizer::Algorithm::applyCompressor(a1, v44, v33);
+        v50 = fmaxf(((v47 - v46) - v48) - v49, 0.0);
+        *(a1 + 10092) = v50;
+        DspLib::clip(v44, v33, -100.0, v50);
       }
 
       else
       {
-        DspLib::LoudnessNormalizer::Algorithm::applyCompressor(a1, v38, v29);
+        DspLib::LoudnessNormalizer::Algorithm::applyCompressor(a1, v44, v33);
       }
 
-      if (*(a1 + 9688) == 1 && v29)
+      if (*(a1 + 9688) == 1 && v33)
       {
-        v45 = DspLib::mean(v38, v29);
-        DspLib::LoudnessNormalizer::ShapingFilter::setGain((a1 + 9688), v45);
+        v51 = DspLib::mean(v44, v33);
+        DspLib::LoudnessNormalizer::ShapingFilter::setGain((a1 + 9688), v51);
       }
 
       if (*(a1 + 849) == 1)
       {
-        DspLib::add(v38, v29, *(a1 + 9680));
+        DspLib::add(v44, v33, *(a1 + 9680));
       }
 
       if ((*(*a1 + 208))(a1))
       {
         DspLib::CPUMeasure::pause((a1 + 104));
-        if (v29)
+        if (v33)
         {
-          *(a1 + 10056) = DspLib::mean(v38, v29);
+          *(a1 + 10056) = DspLib::mean(v44, v33);
         }
 
         DspLib::CPUMeasure::resume((a1 + 104));
       }
 
-      DspLib::dB2Amp(v38, v29);
+      DspLib::dB2Amp(v44, v33);
       *(a1 + 9832) = v3;
-      v46 = *(a1 + 9808);
-      DspLib::SampleAndHoldUpSampler::process((a1 + 420), v38, v29, v46, v3);
-      *v54 = v53;
-      *&v54[16] = v3;
-      v56 = *a2;
-      v57 = a2[2];
-      DspLib::LoudnessNormalizer::Algorithm::applyGain(a1, v54, &v56, v46, v3);
+      v52 = *(a1 + 9808);
+      DspLib::SampleAndHoldUpSampler::process((a1 + 420), v44, v33, v52, v3);
+      *v60 = v59;
+      *&v60[16] = v3;
+      v62 = *a2;
+      v63 = a2[2];
+      DspLib::LoudnessNormalizer::Algorithm::applyGain(a1, v60, &v62, v52, v3);
     }
 
     if (*(a1 + 1453) == 1)
     {
-      *v54 = *a2;
-      *&v54[16] = a2[2];
-      DspLib::multiply(v54, *(a1 + 1448));
+      *v60 = *a2;
+      *&v60[16] = a2[2];
+      DspLib::multiply(v60, *(a1 + 1448));
     }
 
-    v47 = *a2;
-    v48 = a2[1];
-    v49 = a2[2];
+    v53 = *a2;
+    v54 = a2[1];
+    v55 = a2[2];
     if ((*(*a1 + 208))(a1))
     {
       DspLib::CPUMeasure::pause((a1 + 104));
-      v50 = *(a1 + 10112);
-      *&v56 = v47;
-      *(&v56 + 1) = v48;
-      v57 = v49;
-      v54[0] = 0;
-      v55 = 0;
-      DspLib::AlgorithmBase::process(v50, &v56, v54);
+      v56 = *(a1 + 10112);
+      *&v62 = v53;
+      *(&v62 + 1) = v54;
+      v63 = v55;
+      v60[0] = 0;
+      v61 = 0;
+      DspLib::AlgorithmBase::process(v56, &v62, v60);
       DspLib::CPUMeasure::resume((a1 + 104));
     }
   }
-}
-
-uint64_t DspLib::LoudnessNormalizer::AutoReset::process(uint64_t a1, const float *a2, vDSP_Length __N)
-{
-  if (*(a1 + 30) == 1)
-  {
-    v4 = *(a1 + 29);
-  }
-
-  else
-  {
-    v4 = 0;
-  }
-
-  *(a1 + 29) = 0;
-  if (*a1 == 1 && __N != 0)
-  {
-    v6 = DspLib::mean(a2, __N);
-    v9 = DspLib::elapsedTimeInMilliseconds((a1 + 16), v7) / 1000.0;
-    if (v9 <= 0.2 && v6 >= DspLib::dB2Power(v8, -100.0))
-    {
-      if (v6 > DspLib::dB2Power(v10, -70.0))
-      {
-        *(a1 + 8) = 0;
-      }
-    }
-
-    else
-    {
-      if (*(a1 + 8))
-      {
-        if (*(a1 + 28))
-        {
-          return v4 & 1;
-        }
-      }
-
-      else
-      {
-        *(a1 + 24) = 0;
-        *(a1 + 28) = 0;
-        *(a1 + 8) = 1;
-      }
-
-      v11 = v9 + *(a1 + 24);
-      *(a1 + 24) = v11;
-      if (v11 >= *(a1 + 4))
-      {
-        v4 = 1;
-        *(a1 + 28) = 1;
-      }
-    }
-  }
-
-  return v4 & 1;
-}
-
-uint64_t DspLib::MovingAverageProcessor::process(uint64_t a1, uint64_t a2, unint64_t a3, uint64_t a4)
-{
-  if (!a3)
-  {
-    return 0;
-  }
-
-  v8 = 0;
-  v9 = 0;
-  v10 = *(a1 + 32);
-  do
-  {
-    if (!v10)
-    {
-      *(a1 + 32) = *(a1 + 24);
-      *(a4 + 4 * v9++) = DspLib::mean(*a1, (*(a1 + 8) - *a1) >> 2);
-      v10 = *(a1 + 32);
-    }
-
-    v11 = *(a1 + 8) - *a1;
-    if (v10 >= a3 - v8)
-    {
-      v10 = a3 - v8;
-    }
-
-    if (v10 >= v11 >> 2)
-    {
-      v12 = v11 >> 2;
-    }
-
-    else
-    {
-      v12 = v10;
-    }
-
-    if (v12 == -1)
-    {
-      v13 = a3 - v8;
-    }
-
-    else
-    {
-      v13 = v12;
-    }
-
-    DspLib::LinearDelay::write(a1, (a2 + 4 * v8), v13);
-    v10 = *(a1 + 32) - v12;
-    *(a1 + 32) = v10;
-    v8 += v12;
-  }
-
-  while (v8 < a3);
-  return v9;
 }

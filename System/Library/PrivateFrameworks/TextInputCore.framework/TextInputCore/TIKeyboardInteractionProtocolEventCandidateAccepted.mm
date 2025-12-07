@@ -36,9 +36,9 @@
 - (TIKeyboardInteractionProtocolEventCandidateAccepted)initWithCoder:(id)coder
 {
   coderCopy = coder;
-  v36.receiver = self;
-  v36.super_class = TIKeyboardInteractionProtocolEventCandidateAccepted;
-  v5 = [(TIKeyboardInteractionProtocolBase *)&v36 initWithCoder:coderCopy];
+  v34.receiver = self;
+  v34.super_class = TIKeyboardInteractionProtocolEventCandidateAccepted;
+  v5 = [(TIKeyboardInteractionProtocolBase *)&v34 initWithCoder:coderCopy];
   if (v5)
   {
     v6 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"candWord"];
@@ -113,29 +113,27 @@
       v26 = v23;
     }
 
-    v27 = v5->_candWord;
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v28 = v26 | 4;
+      v27 = v26 | 4;
     }
 
     else
     {
-      v28 = v26;
+      v27 = v26;
     }
 
     if ([(TIKeyboardCandidate *)v5->_candWord isResponseKitCandidate])
     {
-      v29 = v28 | 0x2000;
+      v28 = v27 | 0x2000;
     }
 
     else
     {
-      v29 = v28;
+      v28 = v27;
     }
 
-    v30 = v5->_candWord;
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
@@ -143,7 +141,7 @@
 
       if (proactiveTrigger)
       {
-        v29 |= 0x40u;
+        v28 |= 0x40u;
       }
     }
 
@@ -152,15 +150,15 @@
 
     if (_containsEmoji)
     {
-      v34 = v29 | 0x4000;
+      v32 = v28 | 0x4000;
     }
 
     else
     {
-      v34 = v29;
+      v32 = v28;
     }
 
-    [(TIKeyboardCandidate *)v5->_candWord setSourceMask:v34];
+    [(TIKeyboardCandidate *)v5->_candWord setSourceMask:v32];
   }
 
   return v5;

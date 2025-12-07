@@ -55,7 +55,7 @@
           {
             v16 = 0;
             v17 = 0;
-            v11 = [_NSAttributeDictionaryClass() newWithDictionary:{objc_msgSend(string, "attributesAtIndex:effectiveRange:", i, &v16)}];
+            v11 = -[objc_class newWithDictionary:](_NSAttributeDictionaryClass(), "newWithDictionary:", [string attributesAtIndex:i effectiveRange:&v16]);
             if (v17 + v16 <= v9)
             {
               v12 = v16 - i + v17;
@@ -129,7 +129,7 @@
   if (v10)
   {
     [(NSConcreteMutableAttributedString *)v10 replaceCharactersInRange:0 withString:0, string];
-    v12 = [_NSAttributeDictionaryClass() newWithDictionary:attributes];
+    v12 = [(objc_class *)_NSAttributeDictionaryClass() newWithDictionary:attributes];
     v13 = [(NSConcreteMutableAttributedString *)v11 length];
     [(NSMutableRLEArray *)v11->mutableAttributes replaceObjectsInRange:0 withObject:v13 length:v12, v13];
     if ([(NSAttributedString *)v11 _willRequireIntentResolutionWhenContainingAttributes:v12])
@@ -192,7 +192,7 @@
     v12 = 0;
     do
     {
-      v10 = [_NSAttributeDictionaryClass() newWithDictionary:{objc_msgSend(string, "attributesAtIndex:effectiveRange:", v11, &v11)}];
+      v10 = -[objc_class newWithDictionary:](_NSAttributeDictionaryClass(), "newWithDictionary:", [string attributesAtIndex:v11 effectiveRange:&v11]);
       [(NSMutableRLEArray *)self->mutableAttributes insertObject:v10 range:v11 + location, v12];
 
       v11 += v12;
@@ -432,7 +432,7 @@
   {
     length = range.length;
     location = range.location;
-    v7 = [_NSAttributeDictionaryClass() newWithDictionary:attributes];
+    v7 = [(objc_class *)_NSAttributeDictionaryClass() newWithDictionary:attributes];
     [(NSMutableRLEArray *)self->mutableAttributes replaceObjectsInRange:location withObject:length length:v7, length];
     if ([(NSAttributedString *)self _willRequireIntentResolutionWhenContainingAttributes:v7])
     {
@@ -489,7 +489,7 @@ LABEL_15:
     goto LABEL_15;
   }
 
-  emptyAttributeDictionary = [_NSAttributeDictionaryClass() emptyAttributeDictionary];
+  emptyAttributeDictionary = [(objc_class *)_NSAttributeDictionaryClass() emptyAttributeDictionary];
 LABEL_16:
   v9 = emptyAttributeDictionary;
   v14 = emptyAttributeDictionary;
@@ -508,7 +508,7 @@ LABEL_8:
 - (NSConcreteMutableAttributedString)initWithCoder:(id)coder
 {
   v4 = [(NSConcreteMutableAttributedString *)self init];
-  if ((_NSReadMutableAttributedStringWithCoder(coder, v4) & 1) == 0)
+  if (!_NSReadMutableAttributedStringWithCoder(coder, v4))
   {
 
     return 0;

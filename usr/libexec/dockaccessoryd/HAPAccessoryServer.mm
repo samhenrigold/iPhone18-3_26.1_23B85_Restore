@@ -32,6 +32,7 @@
 - (NSString)productData;
 - (NSString)reachabilityChangedReason;
 - (OS_dispatch_queue)delegateQueue;
+- (id)buildReachabilityNotificationDictionary:(id)dictionary reachable:(BOOL)reachable linkType:(int64_t)type withError:(int64_t)error;
 - (id)getControllerUserName;
 - (id)shortDescription;
 - (unint64_t)authMethod;
@@ -86,6 +87,7 @@
 - (void)setProductData:(id)data;
 - (void)setReachabilityChangedReason:(id)reason;
 - (void)setReachabilityPingEnabled:(BOOL)enabled;
+- (void)setReachable:(BOOL)reachable;
 - (void)setSecuritySessionOpen:(BOOL)open;
 - (void)setSessionRestoreActive:(BOOL)active;
 - (void)setSetupHash:(id)hash;
@@ -212,6 +214,50 @@
   reachable = self->_reachable;
   os_unfair_lock_unlock(&self->_lock);
   return reachable;
+}
+
+- (void)setReachable:(BOOL)reachable
+{
+  reachableCopy = reachable;
+  os_unfair_lock_lock_with_options();
+  if (self->_reachable == reachableCopy)
+  {
+
+    os_unfair_lock_unlock(&self->_lock);
+  }
+
+  else
+  {
+    self->_reachable = reachableCopy;
+    os_unfair_lock_unlock(&self->_lock);
+    v12 = 0u;
+    v13 = 0u;
+    v10 = 0u;
+    v11 = 0u;
+    accessories = [(HAPAccessoryServer *)self accessories];
+    v6 = [accessories countByEnumeratingWithState:&v10 objects:v14 count:16];
+    if (v6)
+    {
+      v7 = v6;
+      v8 = *v11;
+      do
+      {
+        for (i = 0; i != v7; i = i + 1)
+        {
+          if (*v11 != v8)
+          {
+            objc_enumerationMutation(accessories);
+          }
+
+          [*(*(&v10 + 1) + 8 * i) setReachable:reachableCopy];
+        }
+
+        v7 = [accessories countByEnumeratingWithState:&v10 objects:v14 count:16];
+      }
+
+      while (v7);
+    }
+  }
 }
 
 - (void)setShouldDisconnectOnIdle:(BOOL)idle
@@ -1124,7 +1170,7 @@ LABEL_18:
       }
 
       selfCopy = self;
-      v19 = sub_10007FAA0();
+      v19 = sub_10007FAA0(selfCopy);
       writeCopy = v22;
       if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
       {
@@ -1201,7 +1247,7 @@ LABEL_23:
 - (void)startPing
 {
   selfCopy = self;
-  v3 = sub_10007FAA0();
+  v3 = sub_10007FAA0(selfCopy);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     v4 = sub_10007FAFC(selfCopy);
@@ -1214,7 +1260,7 @@ LABEL_23:
 - (void)stopPing
 {
   selfCopy = self;
-  v3 = sub_10007FAA0();
+  v3 = sub_10007FAA0(selfCopy);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     v4 = sub_10007FAFC(selfCopy);
@@ -1234,7 +1280,7 @@ LABEL_23:
     [(NSHashTable *)notificationClients addObject:notificationsCopy];
     os_unfair_lock_unlock(&self->_lock);
     selfCopy = self;
-    v7 = sub_10007FAA0();
+    v7 = sub_10007FAA0(selfCopy);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
       v8 = sub_10007FAFC(selfCopy);
@@ -1264,7 +1310,7 @@ LABEL_23:
 
   os_unfair_lock_unlock(&self->_lock);
   selfCopy = self;
-  v7 = sub_10007FAA0();
+  v7 = sub_10007FAA0(selfCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     v8 = sub_10007FAFC(selfCopy);
@@ -1288,7 +1334,7 @@ LABEL_23:
     if (v6)
     {
       selfCopy = self;
-      v7 = sub_10007FAA0();
+      v7 = sub_10007FAA0(selfCopy);
       if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
       {
         v8 = sub_10007FAFC(selfCopy);
@@ -1346,7 +1392,7 @@ LABEL_23:
             }
 
             v19 = selfCopy;
-            v20 = sub_10007FAA0();
+            v20 = sub_10007FAA0(v19);
             if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
             {
               v21 = sub_10007FAFC(v19);
@@ -1387,7 +1433,7 @@ LABEL_23:
   }
 
   obj = self;
-  v11 = sub_10007FAA0();
+  v11 = sub_10007FAA0(obj);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
   {
     v12 = sub_10007FAFC(obj);
@@ -1400,6 +1446,32 @@ LABEL_23:
 LABEL_30:
 
   return v27 & 1;
+}
+
+- (id)buildReachabilityNotificationDictionary:(id)dictionary reachable:(BOOL)reachable linkType:(int64_t)type withError:(int64_t)error
+{
+  reachableCopy = reachable;
+  v17[0] = @"HAPAccessoryReachable";
+  dictionaryCopy = dictionary;
+  v10 = [NSNumber numberWithBool:reachableCopy];
+  v18[0] = v10;
+  v18[1] = dictionaryCopy;
+  v17[1] = @"HAPAccessoryInstance";
+  v17[2] = @"HAPAccessoryIdentifier";
+  identifier = [dictionaryCopy identifier];
+  v18[2] = identifier;
+  v17[3] = @"HAPAccessoryLinkType";
+  v12 = [NSNumber numberWithInt:type];
+  v18[3] = v12;
+  v17[4] = @"HAPAccessoryInstanceID";
+  instanceID = [dictionaryCopy instanceID];
+  v18[4] = instanceID;
+  v17[5] = @"HAPAccessoryError";
+  v14 = [NSNumber numberWithInt:error];
+  v18[5] = v14;
+  v15 = [NSDictionary dictionaryWithObjects:v18 forKeys:v17 count:6];
+
+  return v15;
 }
 
 - (void)incrementSuccessfulPing
@@ -1517,7 +1589,7 @@ LABEL_30:
   if (keyBag && (-[HAPAccessoryServer keyBag](self, "keyBag"), v4 = objc_claimAutoreleasedReturnValue(), [v4 currentIdentity], v5 = objc_claimAutoreleasedReturnValue(), v4, v5))
   {
     selfCopy = self;
-    v7 = sub_10007FAA0();
+    v7 = sub_10007FAA0(selfCopy);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
       v8 = sub_10007FAFC(selfCopy);
@@ -1555,7 +1627,7 @@ LABEL_30:
     identifier2 = v14;
 
     selfCopy2 = self;
-    v16 = sub_10007FAA0();
+    v16 = sub_10007FAA0(selfCopy2);
     if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
     {
       v17 = sub_10007FAFC(selfCopy2);
@@ -1607,7 +1679,7 @@ LABEL_30:
   if (errorCopy && useHH2)
   {
     selfCopy = self;
-    v8 = sub_10007FAA0();
+    v8 = sub_10007FAA0(selfCopy);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       v9 = sub_10007FAFC(selfCopy);
@@ -1644,7 +1716,7 @@ LABEL_30:
 
       v6 = nextIdentity != 0;
       v19 = selfCopy;
-      v20 = sub_10007FAA0();
+      v20 = sub_10007FAA0(v19);
       v21 = os_log_type_enabled(v20, OS_LOG_TYPE_INFO);
       if (nextIdentity)
       {
@@ -1716,7 +1788,7 @@ LABEL_30:
   {
     [(HAPAccessoryServer *)self initializeKeyBagIfNecessary];
     selfCopy = self;
-    v9 = sub_10007FAA0();
+    v9 = sub_10007FAA0(selfCopy);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
       v10 = sub_10007FAFC(selfCopy);
@@ -1740,7 +1812,7 @@ LABEL_30:
     if (!v16 || v17)
     {
       v19 = selfCopy;
-      v20 = sub_10007FAA0();
+      v20 = sub_10007FAA0(v19);
       if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
       {
         v21 = sub_10007FAFC(v19);
@@ -1802,7 +1874,7 @@ LABEL_6:
   {
     [(HAPAccessoryServer *)self initializeKeyBagIfNecessary];
     selfCopy = self;
-    v6 = sub_10007FAA0();
+    v6 = sub_10007FAA0(selfCopy);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
       v7 = sub_10007FAFC(selfCopy);
@@ -1830,7 +1902,7 @@ LABEL_6:
       if (!v15 || v16)
       {
         v17 = selfCopy;
-        v18 = sub_10007FAA0();
+        v18 = sub_10007FAA0(v17);
         if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
         {
           v19 = sub_10007FAFC(v17);
@@ -1871,7 +1943,7 @@ LABEL_6:
       if (!v10 || v11)
       {
         selfCopy = self;
-        v13 = sub_10007FAA0();
+        v13 = sub_10007FAA0(selfCopy);
         if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
         {
           v14 = sub_10007FAFC(selfCopy);
@@ -1917,7 +1989,7 @@ LABEL_13:
       {
         *error = [NSError errorWithOSStatus:4294960542];
         selfCopy = self;
-        v13 = sub_10007FAA0();
+        v13 = sub_10007FAA0(selfCopy);
         if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
         {
           v14 = sub_10007FAFC(selfCopy);

@@ -101,7 +101,7 @@
 
       [(PLPillControl *)v16->_disambiguationButton setAlpha:0.0];
       v27 = v16->_disambiguationButton;
-      [(HUQuickControlContainerView *)v16 _disambiguationButtonHiddenTransform];
+      objc_msgSend__disambiguationButtonHiddenTransform(v16);
       [(PLPillControl *)v27 setTransform:&v53];
       [(PLPillControl *)v16->_disambiguationButton setOpaque:1];
       [(PLPillControl *)v16->_disambiguationButton addTarget:v16 action:sel__disambiguationButtonTapped_ forControlEvents:64];
@@ -1275,7 +1275,7 @@ void __66__HUQuickControlContainerView__updateDisambiguationButtonVisible___bloc
 
   else if (v3)
   {
-    [v3 _disambiguationButtonHiddenTransform];
+    objc_msgSend__disambiguationButtonHiddenTransform(v3);
   }
 
   else

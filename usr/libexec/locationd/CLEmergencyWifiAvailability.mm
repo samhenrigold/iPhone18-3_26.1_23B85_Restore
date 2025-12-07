@@ -353,7 +353,7 @@ LABEL_12:
 
         if (sub_10000A100(121, 2))
         {
-          sub_1018849B4();
+          sub_1018849B4(&self->fWifiDevice);
         }
 
         WiFiDeviceClientRegisterLQMCallback();

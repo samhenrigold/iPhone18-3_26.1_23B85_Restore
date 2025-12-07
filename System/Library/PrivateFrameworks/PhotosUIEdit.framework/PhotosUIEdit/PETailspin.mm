@@ -77,7 +77,7 @@ void __47__PETailspin_dumpTailspinOutputWithCompletion___block_invoke(uint64_t a
   [(PETailspin *)&v4 dealloc];
 }
 
-uint64_t __21__PETailspin_dealloc__block_invoke(uint64_t a1)
+void *__21__PETailspin_dealloc__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) tailspinConfig];
   if (result)

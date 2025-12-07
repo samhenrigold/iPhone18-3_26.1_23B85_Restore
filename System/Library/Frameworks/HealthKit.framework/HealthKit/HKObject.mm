@@ -9,6 +9,7 @@
 - (id)_copyByArchiving;
 - (id)_init;
 - (id)_validateConfiguration;
+- (id)_validateConfigurationAllowingPrivateMetadata:(BOOL)metadata applicationSDKVersionToken:(unint64_t)token;
 - (id)_validateWithConfiguration:(HKObjectValidationConfiguration)configuration;
 - (id)asJSONObject;
 - (int64_t)hk_integerValue;
@@ -34,19 +35,17 @@
 
 - (void)_validateForCreation
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   selfCopy = self;
   localizedDescription = [a2 localizedDescription];
-  v6 = 138412290;
-  v7 = localizedDescription;
-  _os_log_fault_impl(&dword_19197B000, selfCopy, OS_LOG_TYPE_FAULT, "_validateForCreation encountered an error: %@", &v6, 0xCu);
-
-  v5 = *MEMORY[0x1E69E9840];
+  v5 = 138412290;
+  v6 = localizedDescription;
+  _os_log_fault_impl(&dword_19197B000, selfCopy, OS_LOG_TYPE_FAULT, "_validateForCreation encountered an error: %@", &v5, 0xCu);
 }
 
 - (id)_validateConfiguration
 {
-  v3 = HKApplicationSDKVersionToken();
+  v3 = HKApplicationSDKVersionToken(self, a2);
 
   return [(HKObject *)self _validateWithConfiguration:0, v3];
 }
@@ -73,7 +72,7 @@
     uUIDString = [(NSUUID *)self->_UUID UUIDString];
     version = [sourceRevision version];
     productType = [sourceRevision productType];
-    [sourceRevision operatingSystemVersion];
+    objc_msgSend_operatingSystemVersion(sourceRevision);
     v14 = HKNSOperatingSystemVersionString(v24);
     [v9 appendFormat:@"%@, (%@), %@ (%@)", uUIDString, version, productType, v14];
   }
@@ -191,6 +190,31 @@
   return v4;
 }
 
+- (id)_validateConfigurationAllowingPrivateMetadata:(BOOL)metadata applicationSDKVersionToken:(unint64_t)token
+{
+  metadataCopy = metadata;
+  if (metadata)
+  {
+    v7 = 8;
+  }
+
+  else
+  {
+    v7 = 0;
+  }
+
+  v8 = [(HKObject *)self _validateWithConfiguration:v7];
+  if (!v8)
+  {
+    metadata = self->_metadata;
+    v11 = 0;
+    [(NSDictionary *)metadata hk_validateMetadataKeysAndValuesAllowingPrivateMetadataKeys:metadataCopy applicationSDKVersionToken:token error:&v11];
+    v8 = v11;
+  }
+
+  return v8;
+}
+
 - (BOOL)isEqual:(id)equal
 {
   equalCopy = equal;
@@ -289,7 +313,7 @@
   metadata = self->_metadata;
   self->_metadata = v4;
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](v4, metadata);
 }
 
 - (NSString)_timeZoneName
@@ -313,19 +337,18 @@
 
 - (int64_t)hk_integerValue
 {
-  v10 = *MEMORY[0x1E69E9840];
-  _HKInitializeLogging();
+  v9 = *MEMORY[0x1E69E9840];
+  _HKInitializeLogging(self, a2);
   v3 = HKLogDefault;
   if (os_log_type_enabled(HKLogDefault, OS_LOG_TYPE_DEFAULT))
   {
     v4 = v3;
     v5 = NSStringFromSelector(a2);
-    v8 = 138543362;
-    v9 = v5;
-    _os_log_impl(&dword_19197B000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@ is being performed on an HKObject that it is not compatible with. This is probably a mistake.", &v8, 0xCu);
+    v7 = 138543362;
+    v8 = v5;
+    _os_log_impl(&dword_19197B000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@ is being performed on an HKObject that it is not compatible with. This is probably a mistake.", &v7, 0xCu);
   }
 
-  v6 = *MEMORY[0x1E69E9840];
   return 0;
 }
 

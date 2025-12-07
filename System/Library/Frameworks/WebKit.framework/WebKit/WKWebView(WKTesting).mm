@@ -344,69 +344,70 @@
   v3 = *(a2 + 3);
   if (v3)
   {
-    if (v3 >> 28)
+    v4 = (v3 >> 28);
+    if (v4)
     {
       __break(0xC471u);
       return;
     }
 
-    v5 = WTF::fastMalloc((16 * v3));
-    v6 = v5;
-    v7 = *(a2 + 3);
-    if (v7)
+    v6 = WTF::fastMalloc(v4, (16 * v3));
+    v7 = v6;
+    v8 = *(a2 + 3);
+    if (v8)
     {
-      v8 = 0;
-      v9 = *a2;
-      v10 = 16 * v7;
+      v9 = 0;
+      v10 = *a2;
+      v11 = 16 * v8;
       do
       {
-        *(v5 + v8) = *(v9 + v8);
-        v8 += 16;
+        *&v6[v9 / 8] = *(v10 + v9);
+        v9 += 16;
       }
 
-      while (v10 != v8);
+      while (v11 != v9);
     }
   }
 
   else
   {
-    v6 = 0;
+    v7 = 0;
   }
 
   array = [MEMORY[0x1E695DF70] array];
-  v12 = array;
+  v13 = array;
   if (array)
   {
-    v13 = array;
+    v14 = array;
   }
 
   if (v3)
   {
-    v14 = 16 * v3;
-    v15 = v6 + 8;
+    v15 = 16 * v3;
+    v16 = v7 + 8;
     do
     {
-      if ((*(v15 - 1) | 0x8000000000000000) != 0xFFFFFFFFFFFFFFFFLL)
+      if ((*(v16 - 1) | 0x8000000000000000) != 0xFFFFFFFFFFFFFFFFLL)
       {
-        [v12 addObject:{objc_msgSend(MEMORY[0x1E696B098], "valueWithRange:")}];
+        [v13 addObject:{objc_msgSend(MEMORY[0x1E696B098], "valueWithRange:")}];
       }
 
-      v15 += 16;
-      v14 -= 16;
+      v16 += 16;
+      v15 -= 16;
     }
 
-    while (v14);
+    while (v15);
   }
 
   (*(*(self + 8) + 16))();
-  if (v12)
+  if (v13)
   {
   }
 
-  if (v6)
+  if (v7)
   {
 
-    WTF::fastFree(v6, v16);
+    WTF::fastFree(v7, v17);
   }
 }
 

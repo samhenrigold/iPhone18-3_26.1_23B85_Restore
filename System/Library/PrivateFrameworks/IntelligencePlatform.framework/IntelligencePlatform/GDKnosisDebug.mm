@@ -8,7 +8,7 @@
 
 - (GDKnosisDebug)initWithCoder:(id)coder
 {
-  v28[1] = *MEMORY[0x1E69E9840];
+  v27[1] = *MEMORY[0x1E69E9840];
   coderCopy = coder;
   v5 = NSStringFromSelector(sel_indexCallCount);
   v6 = [coderCopy decodeIntForKey:v5];
@@ -33,12 +33,12 @@ LABEL_11:
         goto LABEL_12;
       }
 
-      v19 = MEMORY[0x1E696ABC0];
-      v27 = *MEMORY[0x1E696A578];
-      v28[0] = @"GDKnosisDebug execSteps is nil";
-      v20 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v28 forKeys:&v27 count:1];
-      v21 = [v19 errorWithDomain:@"GDErrorDomain" code:9 userInfo:v20];
-      [coderCopy failWithError:v21];
+      v18 = MEMORY[0x1E696ABC0];
+      v26 = *MEMORY[0x1E696A578];
+      v27[0] = @"GDKnosisDebug execSteps is nil";
+      v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v27 forKeys:&v26 count:1];
+      v20 = [v18 errorWithDomain:@"GDErrorDomain" code:9 userInfo:v19];
+      [coderCopy failWithError:v20];
     }
 
     v12 = objc_opt_class();
@@ -55,12 +55,12 @@ LABEL_11:
         goto LABEL_10;
       }
 
-      v22 = MEMORY[0x1E696ABC0];
-      v25 = *MEMORY[0x1E696A578];
-      v26 = @"GDKnosisDebug messages is nil";
-      v23 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v26 forKeys:&v25 count:1];
-      v24 = [v22 errorWithDomain:@"GDErrorDomain" code:9 userInfo:v23];
-      [coderCopy failWithError:v24];
+      v21 = MEMORY[0x1E696ABC0];
+      v24 = *MEMORY[0x1E696A578];
+      v25 = @"GDKnosisDebug messages is nil";
+      v22 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v25 forKeys:&v24 count:1];
+      v23 = [v21 errorWithDomain:@"GDErrorDomain" code:9 userInfo:v22];
+      [coderCopy failWithError:v23];
     }
 
     self = [(GDKnosisDebug *)self initWithIndexCallCount:v6 execSteps:v11 messages:v14];
@@ -73,7 +73,6 @@ LABEL_10:
   selfCopy = 0;
 LABEL_12:
 
-  v17 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 

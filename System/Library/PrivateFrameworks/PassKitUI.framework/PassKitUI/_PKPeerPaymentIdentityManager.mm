@@ -30,7 +30,7 @@
     v5 = *v2;
     sub_1BD041A38(*v2, v3);
     v6 = sub_1BE04AAB4();
-    sub_1BD030220(v5, v3);
+    sub_1BD030220(v5, v3, v7, v8, v9, v10, v11, v12);
     v4 = v6;
   }
 
@@ -61,38 +61,38 @@
   v10[1] = v8;
   sub_1BD030394(v11, v12);
   sub_1BD030394(dataCopy, v8);
-  sub_1BD030220(v11, v12);
+  sub_1BD030220(v11, v12, v13, v14, v15, v16, v17, v18);
   sub_1BD217824(v11, v12);
 
-  sub_1BD030220(v11, v12);
+  sub_1BD030220(v11, v12, v19, v20, v21, v22, v23, v24);
 
-  sub_1BD030220(dataCopy, v8);
+  sub_1BD030220(dataCopy, v8, v25, v26, v27, v28, v29, v30);
 }
 
 - (NSData)profilePictureData
 {
-  swift_getKeyPath();
-  sub_1BD21AB90(&qword_1EBD3F6F0, type metadata accessor for PeerPaymentIdentityManager);
+  KeyPath = swift_getKeyPath();
+  sub_1BD21AB90(&qword_1EBD3F6F0, type metadata accessor for PeerPaymentIdentityManager, &protocol conformance descriptor for PeerPaymentIdentityManager);
   selfCopy = self;
   sub_1BE04B594();
+  KeyPath, v5, v6, v7, v8, v9, v10, v11;
+  v12 = *(selfCopy + OBJC_IVAR____PKPeerPaymentIdentityManager__profilePictureData);
+  v13 = *(selfCopy + OBJC_IVAR____PKPeerPaymentIdentityManager__profilePictureData + 8);
+  sub_1BD030394(v12, v13);
 
-  v4 = *(selfCopy + OBJC_IVAR____PKPeerPaymentIdentityManager__profilePictureData);
-  v5 = *(selfCopy + OBJC_IVAR____PKPeerPaymentIdentityManager__profilePictureData + 8);
-  sub_1BD030394(v4, v5);
-
-  if (v5 >> 60 == 15)
+  if (v13 >> 60 == 15)
   {
-    v6 = 0;
+    v14 = 0;
   }
 
   else
   {
-    v7 = sub_1BE04AAB4();
-    sub_1BD030220(v4, v5);
-    v6 = v7;
+    v15 = sub_1BE04AAB4();
+    sub_1BD030220(v12, v13, v16, v17, v18, v19, v20, v21);
+    v14 = v15;
   }
 
-  return v6;
+  return v14;
 }
 
 - (void)setProfilePictureData:(id)data
@@ -124,15 +124,15 @@
 
 - (PKPeerPaymentProfileAppearanceData)appearanceData
 {
-  swift_getKeyPath();
-  sub_1BD21AB90(&qword_1EBD3F6F0, type metadata accessor for PeerPaymentIdentityManager);
+  KeyPath = swift_getKeyPath();
+  sub_1BD21AB90(&qword_1EBD3F6F0, type metadata accessor for PeerPaymentIdentityManager, &protocol conformance descriptor for PeerPaymentIdentityManager);
   selfCopy = self;
   sub_1BE04B594();
+  KeyPath, v5, v6, v7, v8, v9, v10, v11;
+  v12 = *(selfCopy + OBJC_IVAR____PKPeerPaymentIdentityManager__appearanceData);
+  v13 = v12;
 
-  v4 = *(selfCopy + OBJC_IVAR____PKPeerPaymentIdentityManager__appearanceData);
-  v5 = v4;
-
-  return v4;
+  return v12;
 }
 
 - (void)setAppearanceData:(id)data
@@ -144,14 +144,16 @@
 
 - (void)setShareLastName:(BOOL)name
 {
+  nameCopy = name;
   selfCopy = self;
-  PeerPaymentIdentityManager.shareLastName.setter(name);
+  PeerPaymentIdentityManager.shareLastName.setter(nameCopy);
 }
 
 - (void)setShareProfilePicture:(BOOL)picture
 {
+  pictureCopy = picture;
   selfCopy = self;
-  PeerPaymentIdentityManager.shareProfilePicture.setter(picture);
+  PeerPaymentIdentityManager.shareProfilePicture.setter(pictureCopy);
 }
 
 - (_PeerPaymentIdentityManagerDelegate)_delegate
@@ -164,11 +166,11 @@
 
 - (_PeerPaymentIdentityManagerDelegate)delegate
 {
-  swift_getKeyPath();
-  sub_1BD21AB90(&qword_1EBD3F6F0, type metadata accessor for PeerPaymentIdentityManager);
+  KeyPath = swift_getKeyPath();
+  sub_1BD21AB90(&qword_1EBD3F6F0, type metadata accessor for PeerPaymentIdentityManager, &protocol conformance descriptor for PeerPaymentIdentityManager);
   selfCopy = self;
   sub_1BE04B594();
-
+  KeyPath, v5, v6, v7, v8, v9, v10, v11;
   swift_beginAccess();
   Strong = swift_unknownObjectWeakLoadStrong();
 
@@ -177,12 +179,13 @@
 
 - (void)setDelegate:(id)delegate
 {
-  swift_getKeyPath();
-  sub_1BD21AB90(&qword_1EBD3F6F0, type metadata accessor for PeerPaymentIdentityManager);
+  KeyPath = swift_getKeyPath();
+  sub_1BD21AB90(&qword_1EBD3F6F0, type metadata accessor for PeerPaymentIdentityManager, &protocol conformance descriptor for PeerPaymentIdentityManager);
   swift_unknownObjectRetain();
   selfCopy = self;
   sub_1BE04B584();
 
+  KeyPath, v6, v7, v8, v9, v10, v11, v12;
   swift_unknownObjectRelease();
 }
 

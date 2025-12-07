@@ -115,12 +115,10 @@
 
 - (NSString)plainTextBody
 {
-  v2 = *&self->emojiTapBack[OBJC_IVAR___BlastDoorEmojiTapBack_emojiTapBack + 200];
-  v3 = *&self->emojiTapBack[OBJC_IVAR___BlastDoorEmojiTapBack_emojiTapBack + 208];
 
-  v4 = sub_2146D9588();
+  v2 = sub_2146D9588();
 
-  return v4;
+  return v2;
 }
 
 - (BlastDoorEmojiTapBack)init

@@ -134,7 +134,7 @@ void __47__FPDDomainIndexerSchedulerAssertion_stopQueue__block_invoke()
       goto LABEL_7;
     }
 
-    v8 = indexingScheduler();
+    v8 = indexingScheduler(0);
     v9 = [MEMORY[0x1E696AEC0] stringWithFormat:@"request from pid: %d", selfCopy->_pid];
     v10 = [v8 forceRunningWithReason:v9];
     v11 = selfCopy->_unregisterForceRunning;

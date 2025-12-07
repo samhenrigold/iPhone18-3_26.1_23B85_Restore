@@ -3,8 +3,10 @@
 - (CGSize)preferredContentSize;
 - (void)dealloc;
 - (void)teardown;
+- (void)viewDidDisappear:(BOOL)disappear;
 - (void)viewDidLayoutSubviews;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation PSEnrollContainerViewController
@@ -48,6 +50,47 @@
 
   navigationItem2 = [(PSEnrollContainerViewController *)self navigationItem];
   [navigationItem2 setStandardAppearance:v5];
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v12.receiver = self;
+  v12.super_class = PSEnrollContainerViewController;
+  [(PSEnrollContainerViewController *)&v12 viewWillAppear:appear];
+  enrollController = [(PSEnrollContainerViewController *)self enrollController];
+  [(PSEnrollContainerViewController *)self addChildViewController:enrollController];
+
+  enrollController2 = [(PSEnrollContainerViewController *)self enrollController];
+  view = [enrollController2 view];
+  view2 = [(PSEnrollContainerViewController *)self view];
+  [view2 bounds];
+  [view setFrame:?];
+
+  view3 = [(PSEnrollContainerViewController *)self view];
+  enrollController3 = [(PSEnrollContainerViewController *)self enrollController];
+  view4 = [enrollController3 view];
+  [view3 addSubview:view4];
+
+  enrollController4 = [(PSEnrollContainerViewController *)self enrollController];
+  [enrollController4 didMoveToParentViewController:self];
+}
+
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  v6.receiver = self;
+  v6.super_class = PSEnrollContainerViewController;
+  [(PSEnrollContainerViewController *)&v6 viewDidDisappear:disappear];
+  if (objc_opt_class())
+  {
+    enrollController = [(PSEnrollContainerViewController *)self enrollController];
+    [enrollController beginAppearanceTransition:0 animated:1];
+    [enrollController willMoveToParentViewController:0];
+    view = [enrollController view];
+    [view removeFromSuperview];
+
+    [enrollController removeFromParentViewController];
+    [enrollController endAppearanceTransition];
+  }
 }
 
 - (void)viewDidLayoutSubviews

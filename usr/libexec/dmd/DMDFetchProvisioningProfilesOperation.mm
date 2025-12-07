@@ -30,26 +30,25 @@
   v6 = [v5 listInstalledProvisioningProfileUUIDsWithManagedOnly:{objc_msgSend(requestCopy, "managedOnly")}];
 
   v7 = +[NSMutableArray arrayWithCapacity:](NSMutableArray, "arrayWithCapacity:", [v6 count]);
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   v8 = v6;
-  v9 = [v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v17;
+    v11 = *v16;
     while (2)
     {
-      for (i = 0; i != v10; i = i + 1)
+      for (i = 0; i != v10; ++i)
       {
-        if (*v17 != v11)
+        if (*v16 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = *(*(&v16 + 1) + 8 * i);
         if (MISCopyProvisioningProfile())
         {
 
@@ -57,11 +56,11 @@
           goto LABEL_11;
         }
 
-        v14 = [[DMFProvisioningProfile alloc] initWithProfileRef:0];
-        [v7 addObject:v14];
+        v13 = [[DMFProvisioningProfile alloc] initWithProfileRef:0];
+        [v7 addObject:v13];
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
       if (v10)
       {
         continue;
@@ -71,8 +70,8 @@
     }
   }
 
-  v15 = [[DMFFetchProvisioningProfilesResultObject alloc] initWithProfiles:v7];
-  [(DMDFetchProvisioningProfilesOperation *)self endOperationWithResultObject:v15];
+  v14 = [[DMFFetchProvisioningProfilesResultObject alloc] initWithProfiles:v7];
+  [(DMDFetchProvisioningProfilesOperation *)self endOperationWithResultObject:v14];
 
 LABEL_11:
 }

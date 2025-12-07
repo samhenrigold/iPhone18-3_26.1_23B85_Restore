@@ -8,31 +8,31 @@
 
 - (void)handleMessages:(id)messages
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   messagesCopy = messages;
+  v30 = 0u;
   v31 = 0u;
   v32 = 0u;
   v33 = 0u;
-  v34 = 0u;
-  v5 = [messagesCopy countByEnumeratingWithState:&v31 objects:v37 count:16];
+  v5 = [messagesCopy countByEnumeratingWithState:&v30 objects:v36 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v32;
-    v28 = *v32;
-    v29 = messagesCopy;
+    v7 = *v31;
+    v27 = *v31;
+    v28 = messagesCopy;
     do
     {
       v8 = 0;
-      v30 = v6;
+      v29 = v6;
       do
       {
-        if (*v32 != v7)
+        if (*v31 != v7)
         {
           objc_enumerationMutation(messagesCopy);
         }
 
-        v9 = *(*(&v31 + 1) + 8 * v8);
+        v9 = *(*(&v30 + 1) + 8 * v8);
         lastMessage = [(TIRecipientModel *)self lastMessage];
         if (([lastMessage fromMe] & 1) == 0)
         {
@@ -50,7 +50,7 @@
           body2 = [v9 body];
           v15 = [(TIRecipientModel *)self languageGuessForString:body2];
 
-          if (v15 && [v15 isEqualToString:lastMessage])
+          if (v15 && objc_msgSend_isEqualToString_(v15))
           {
             if (TICanLogMessageAtLevel_onceToken != -1)
             {
@@ -68,7 +68,7 @@
                 body4 = [v9 body];
                 v26 = [v22 stringWithFormat:@"%s ResponseKitTrainer: training with message pair (%@), (%@) (language = %@)", "-[TIRecipientModel handleMessages:]", body3, body4, v15];
                 *buf = 138412290;
-                v36 = v26;
+                v35 = v26;
                 _os_log_debug_impl(&dword_22CA55000, v16, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
               }
             }
@@ -80,9 +80,9 @@
             identifier = [(TIRecipientModel *)self identifier];
             [trainer registerResponse:body5 forMessage:body6 forContext:identifier withLanguage:v15];
 
-            v7 = v28;
-            messagesCopy = v29;
-            v6 = v30;
+            v7 = v27;
+            messagesCopy = v28;
+            v6 = v29;
           }
         }
 
@@ -92,13 +92,11 @@ LABEL_19:
       }
 
       while (v6 != v8);
-      v6 = [messagesCopy countByEnumeratingWithState:&v31 objects:v37 count:16];
+      v6 = [messagesCopy countByEnumeratingWithState:&v30 objects:v36 count:16];
     }
 
     while (v6);
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 - (id)languageGuessForString:(id)string

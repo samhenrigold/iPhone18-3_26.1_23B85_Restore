@@ -68,72 +68,72 @@
   objc_storeStrong(location, context);
   v3 = selfCopy;
   selfCopy = 0;
-  v34.receiver = v3;
-  v34.super_class = AKIcon;
-  selfCopy = [(AKIcon *)&v34 init];
+  v38.receiver = v3;
+  v38.super_class = AKIcon;
+  selfCopy = [(AKIcon *)&v38 init];
   objc_storeStrong(&selfCopy, selfCopy);
   if (selfCopy)
   {
     iconData = [location[0] iconData];
+    v36 = 0;
     v32 = 0;
-    v28 = 0;
     if (iconData)
     {
       iconScale = [location[0] iconScale];
-      v32 = 1;
-      v28 = iconScale != 0;
+      v36 = 1;
+      v32 = iconScale != 0;
     }
 
-    if (v32)
+    if (v36)
     {
       MEMORY[0x277D82BD8](iconScale);
     }
 
-    MEMORY[0x277D82BD8](iconData);
-    if (v28)
+    *&v4 = MEMORY[0x277D82BD8](iconData).n128_u64[0];
+    if (v32)
     {
       iconData2 = [location[0] iconData];
       data = selfCopy->_data;
       selfCopy->_data = iconData2;
-      MEMORY[0x277D82BD8](data);
+      *&v7 = MEMORY[0x277D82BD8](data).n128_u64[0];
       iconScale2 = [location[0] iconScale];
       [iconScale2 doubleValue];
-      selfCopy->_scale = v6;
+      selfCopy->_scale = v8;
       MEMORY[0x277D82BD8](iconScale2);
     }
 
     else
     {
       iconName = [location[0] iconName];
-      MEMORY[0x277D82BD8](iconName);
+      *&v9 = MEMORY[0x277D82BD8](iconName).n128_u64[0];
       if (iconName)
       {
         iconName2 = [location[0] iconName];
         name = selfCopy->_name;
         selfCopy->_name = iconName2;
         MEMORY[0x277D82BD8](name);
-        v24 = selfCopy;
+        v28 = selfCopy;
         CGSizeMake_1();
-        v31.width = v9;
-        v31.height = v10;
-        v24->_size = v31;
+        v35.width = v12;
+        v35.height = v13;
+        v28->_size = v35;
       }
 
       else
       {
         iconTypeID = [location[0] iconTypeID];
-        MEMORY[0x277D82BD8](iconTypeID);
+        *&v14 = MEMORY[0x277D82BD8](iconTypeID).n128_u64[0];
         if (iconTypeID)
         {
           iconTypeID2 = [location[0] iconTypeID];
           typeID = selfCopy->_typeID;
           selfCopy->_typeID = iconTypeID2;
           MEMORY[0x277D82BD8](typeID);
-          v22 = selfCopy;
+          v26 = selfCopy;
           CGSizeMake_1();
-          v30.width = v13;
-          v30.height = v14;
-          v22->_size = v30;
+          v34.width = v17;
+          v34.height = v18;
+          v26->_size = v34;
         }
 
         else
@@ -142,20 +142,20 @@
           bundleID = selfCopy->_bundleID;
           selfCopy->_bundleID = bundleID;
           MEMORY[0x277D82BD8](bundleID);
-          v21 = selfCopy;
+          v25 = selfCopy;
           CGSizeMake_1();
-          v29.width = v17;
-          v29.height = v18;
-          v21->_size = v29;
+          v33.width = v21;
+          v33.height = v22;
+          v25->_size = v33;
         }
       }
     }
   }
 
-  v20 = MEMORY[0x277D82BE0](selfCopy);
+  v24 = MEMORY[0x277D82BE0](selfCopy);
   objc_storeStrong(location, 0);
   objc_storeStrong(&selfCopy, 0);
-  return v20;
+  return v24;
 }
 
 - (AKIcon)initWithIconContext:(id)context
@@ -166,28 +166,28 @@
   objc_storeStrong(location, context);
   v3 = selfCopy;
   selfCopy = 0;
-  v11.receiver = v3;
-  v11.super_class = AKIcon;
-  selfCopy = [(AKIcon *)&v11 init];
+  v13.receiver = v3;
+  v13.super_class = AKIcon;
+  selfCopy = [(AKIcon *)&v13 init];
   objc_storeStrong(&selfCopy, selfCopy);
   if (selfCopy)
   {
     data = [location[0] data];
     data = selfCopy->_data;
     selfCopy->_data = data;
-    MEMORY[0x277D82BD8](data);
+    *&v6 = MEMORY[0x277D82BD8](data).n128_u64[0];
     scale = [location[0] scale];
     [scale doubleValue];
-    selfCopy->_scale = v6;
-    MEMORY[0x277D82BD8](scale);
+    selfCopy->_scale = v7;
+    *&v8 = MEMORY[0x277D82BD8](scale).n128_u64[0];
     maskingStyle = [location[0] maskingStyle];
     selfCopy->_maskingStyle = maskingStyle;
   }
 
-  v9 = MEMORY[0x277D82BE0](selfCopy);
+  v11 = MEMORY[0x277D82BE0](selfCopy);
   objc_storeStrong(location, 0);
   objc_storeStrong(&selfCopy, 0);
-  return v9;
+  return v11;
 }
 
 - (AKIcon)initWithName:(id)name size:(CGSize)size
@@ -531,38 +531,38 @@
   objc_storeStrong(location, data);
   scaleCopy = scale;
   maskedCopy = masked;
-  v17 = 0;
-  v18 = [MEMORY[0x277D755B8] imageWithData:location[0] scale:scale];
-  MEMORY[0x277D82BD8](0);
-  if (masked && v18)
+  v18 = 0;
+  v19 = [MEMORY[0x277D755B8] imageWithData:location[0] scale:scale];
+  *&v5 = MEMORY[0x277D82BD8](0).n128_u64[0];
+  if (masked && v19)
   {
-    v16 = [(AKIcon *)selfCopy _iconWithImage:v18];
-    v12 = selfCopy;
-    v13 = v16;
-    [v18 size];
-    v7 = [(AKIcon *)v12 _imageWithIcon:v13 size:1 masked:v5, v6];
-    v8 = v17;
-    v17 = v7;
-    MEMORY[0x277D82BD8](v8);
-    objc_storeStrong(&v16, 0);
+    v17 = [(AKIcon *)selfCopy _iconWithImage:v19, v5];
+    v13 = selfCopy;
+    v14 = v17;
+    [v19 size];
+    v8 = [(AKIcon *)v13 _imageWithIcon:v14 size:1 masked:v6, v7];
+    v9 = v18;
+    v18 = v8;
+    MEMORY[0x277D82BD8](v9);
+    objc_storeStrong(&v17, 0);
   }
 
-  if (v17)
+  if (v18)
   {
-    v9 = MEMORY[0x277D82BE0](v17);
+    v10 = MEMORY[0x277D82BE0](v18);
   }
 
   else
   {
-    v9 = MEMORY[0x277D82BE0](v18);
+    v10 = MEMORY[0x277D82BE0](v19);
   }
 
-  v11 = v9;
-  objc_storeStrong(&v17, 0);
+  v12 = v10;
   objc_storeStrong(&v18, 0);
+  objc_storeStrong(&v19, 0);
   objc_storeStrong(location, 0);
 
-  return v11;
+  return v12;
 }
 
 - (id)_imageWithTypeID:(id)d size:(CGSize)size masked:(BOOL)masked
@@ -651,49 +651,47 @@
   objc_storeStrong(&v8, 0);
   objc_storeStrong(&v9, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 
   return v7;
 }
 
 - (id)_imageWithIcon:(id)icon size:(CGSize)size masked:(BOOL)masked
 {
-  v23[1] = *MEMORY[0x277D85DE8];
+  v24[1] = *MEMORY[0x277D85DE8];
   sizeCopy = size;
   location[2] = self;
   location[1] = a2;
   location[0] = 0;
   objc_storeStrong(location, icon);
   maskedCopy = masked;
-  v19 = 0;
+  v20 = 0;
   [objc_opt_class() _screenScale];
-  v18 = v5;
+  v19 = v5;
   v6 = objc_alloc(MEMORY[0x277D1B1C8]);
-  v17 = [v6 initWithSize:sizeCopy.width scale:{sizeCopy.height, v18}];
-  [v17 setShape:?];
-  [v17 setShouldApplyMask:maskedCopy];
-  [v17 setDrawBorder:1];
-  v11 = location[0];
-  v23[0] = v17;
-  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:1];
-  [v11 prepareImagesForImageDescriptors:?];
-  MEMORY[0x277D82BD8](v12);
-  v16 = [location[0] imageForDescriptor:v17];
-  v13 = MEMORY[0x277D755B8];
-  cGImage = [v16 CGImage];
-  [v16 scale];
-  v7 = [v13 imageWithCGImage:cGImage scale:0 orientation:?];
-  v8 = v19;
-  v19 = v7;
-  MEMORY[0x277D82BD8](v8);
-  v15 = MEMORY[0x277D82BE0](v19);
-  objc_storeStrong(&v16, 0);
+  v18 = [v6 initWithSize:sizeCopy.width scale:{sizeCopy.height, v19}];
+  [v18 setShape:?];
+  [v18 setShouldApplyMask:maskedCopy];
+  [v18 setDrawBorder:1];
+  v12 = location[0];
+  v24[0] = v18;
+  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:1];
+  [v12 prepareImagesForImageDescriptors:?];
+  *&v7 = MEMORY[0x277D82BD8](v13).n128_u64[0];
+  v17 = [location[0] imageForDescriptor:{v18, v7}];
+  v14 = MEMORY[0x277D755B8];
+  cGImage = [v17 CGImage];
+  [v17 scale];
+  v8 = [v14 imageWithCGImage:cGImage scale:0 orientation:?];
+  v9 = v20;
+  v20 = v8;
+  MEMORY[0x277D82BD8](v9);
+  v16 = MEMORY[0x277D82BE0](v20);
   objc_storeStrong(&v17, 0);
-  objc_storeStrong(&v19, 0);
+  objc_storeStrong(&v18, 0);
+  objc_storeStrong(&v20, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 
-  return v15;
+  return v16;
 }
 
 - (id)_dataForImage:(id)image

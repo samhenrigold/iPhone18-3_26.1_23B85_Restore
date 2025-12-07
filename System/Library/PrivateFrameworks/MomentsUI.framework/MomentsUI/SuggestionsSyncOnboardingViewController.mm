@@ -16,7 +16,7 @@
   v8 = *(v7 + 64);
   MEMORY[0x28223BE20](v6);
   v9 = &v20 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd);
+  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd, &_sScPSgMR);
   MEMORY[0x28223BE20](v10 - 8);
   v12 = &v20 - v11;
   v13 = OBJC_IVAR____TtC9MomentsUI39SuggestionsSyncOnboardingViewController_sessionUUID;
@@ -48,7 +48,7 @@
   v8 = *(v7 + 64);
   MEMORY[0x28223BE20](v6);
   v9 = &v20 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd);
+  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd, &_sScPSgMR);
   MEMORY[0x28223BE20](v10 - 8);
   v12 = &v20 - v11;
   v20.receiver = self;

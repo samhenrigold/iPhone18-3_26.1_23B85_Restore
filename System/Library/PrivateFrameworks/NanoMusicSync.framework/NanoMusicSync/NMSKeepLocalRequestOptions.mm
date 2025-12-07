@@ -24,13 +24,12 @@
 
 - (id)description
 {
-  v7.receiver = self;
-  v7.super_class = NMSKeepLocalRequestOptions;
-  v3 = [(NMSKeepLocalRequestOptions *)&v7 description];
-  qualityOfService = self->_qualityOfService;
-  v5 = [v3 stringByAppendingFormat:@"requiresValidation:%u, powerPolicy:%lu, cellularPolicy:%lu, qualityOfService:%lu, bundleIdentifier:%@", self->_requiresValidation, self->_powerPolicy, self->_cellularPolicy, qualityOfService, self->_cellularBundleIdentifier];
+  v6.receiver = self;
+  v6.super_class = NMSKeepLocalRequestOptions;
+  v3 = [(NMSKeepLocalRequestOptions *)&v6 description];
+  v4 = [v3 stringByAppendingFormat:@"requiresValidation:%u, powerPolicy:%lu, cellularPolicy:%lu, qualityOfService:%lu, bundleIdentifier:%@", self->_requiresValidation, self->_powerPolicy, self->_cellularPolicy, self->_qualityOfService, self->_cellularBundleIdentifier];
 
-  return v5;
+  return v4;
 }
 
 - (unint64_t)resolvedConstraints:(unint64_t)constraints

@@ -26,7 +26,7 @@ uint64_t __30__SODebugHints_sharedInstance__block_invoke()
 
 - (SODebugHints)debugHintsWithCompletion:(id)completion
 {
-  v43 = *MEMORY[0x1E69E9840];
+  v42 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
   if (SO_LOG_SODebugConfiguration_once != -1)
   {
@@ -48,9 +48,9 @@ uint64_t __30__SODebugHints_sharedInstance__block_invoke()
     if ([getSOUtilsClass() isInternalBuild])
     {
       v6 = +[SOConfigurationHost defaultManager];
-      v33 = 0;
-      v7 = [v6 configurationForClientWithError:&v33];
-      v8 = v33;
+      v32 = 0;
+      v7 = [v6 configurationForClientWithError:&v32];
+      v8 = v32;
 
       if (v8)
       {
@@ -62,12 +62,12 @@ uint64_t __30__SODebugHints_sharedInstance__block_invoke()
         SOUtilsClass = getSOUtilsClass();
         v12 = +[SOExtensionManager sharedInstance];
         loadedExtensions = [v12 loadedExtensions];
-        v32 = [SOUtilsClass mapArray:loadedExtensions usingBlock:&__block_literal_global_27];
+        v31 = [SOUtilsClass mapArray:loadedExtensions usingBlock:&__block_literal_global_27];
 
         v14 = +[SOConfigurationHost defaultManager];
         realms = [v14 realms];
 
-        v38[0] = @"Configuration";
+        v37[0] = @"Configuration";
         v16 = [v7 description];
         v17 = v16;
         if (v16)
@@ -80,16 +80,16 @@ uint64_t __30__SODebugHints_sharedInstance__block_invoke()
           v18 = @"(null)";
         }
 
-        v19 = v32;
-        if (!v32)
+        v19 = v31;
+        if (!v31)
         {
           v19 = @"(null)";
         }
 
-        v39[0] = v18;
-        v39[1] = v19;
-        v38[1] = @"Plugins";
-        v38[2] = @"Realms";
+        v38[0] = v18;
+        v38[1] = v19;
+        v37[1] = @"Plugins";
+        v37[2] = @"Realms";
         if (realms)
         {
           v20 = realms;
@@ -100,8 +100,8 @@ uint64_t __30__SODebugHints_sharedInstance__block_invoke()
           v20 = @"(null)";
         }
 
-        v39[2] = v20;
-        v38[3] = @"Signature Validated";
+        v38[2] = v20;
+        v37[3] = @"Signature Validated";
         if (+[SOPreferences isExtensionSignatureValidated])
         {
           v21 = @"YES";
@@ -112,8 +112,8 @@ uint64_t __30__SODebugHints_sharedInstance__block_invoke()
           v21 = @"NO";
         }
 
-        v39[3] = v21;
-        v38[4] = @"Associated Domains Validated";
+        v38[3] = v21;
+        v37[4] = @"Associated Domains Validated";
         if (+[SOPreferences isAssociatedDomainValidated])
         {
           v22 = @"YES";
@@ -124,8 +124,8 @@ uint64_t __30__SODebugHints_sharedInstance__block_invoke()
           v22 = @"NO";
         }
 
-        v39[4] = v22;
-        v38[5] = @"Requests";
+        v38[4] = v22;
+        v37[5] = @"Requests";
         v23 = +[SORequestQueue debugDescription];
         v24 = v23;
         if (v23)
@@ -138,13 +138,13 @@ uint64_t __30__SODebugHints_sharedInstance__block_invoke()
           v25 = @"(null)";
         }
 
-        v39[5] = v25;
-        v38[6] = @"Config Version";
+        v38[5] = v25;
+        v37[6] = @"Config Version";
         v26 = MEMORY[0x1E696AEC0];
         v27 = +[SOConfigurationHost defaultManager];
         v28 = [v26 stringWithFormat:@"0x%016llX", objc_msgSend(v27, "configVersion")];
-        v39[6] = v28;
-        v29 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v39 forKeys:v38 count:7];
+        v38[6] = v28;
+        v29 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v38 forKeys:v37 count:7];
 
         (completionCopy)[2](completionCopy, v29, 0);
       }
@@ -152,30 +152,29 @@ uint64_t __30__SODebugHints_sharedInstance__block_invoke()
 
     else
     {
-      v34 = 0;
-      v35 = &v34;
-      v36 = 0x2050000000;
+      v33 = 0;
+      v34 = &v33;
+      v35 = 0x2050000000;
       v9 = getSOErrorHelperClass_softClass_3;
-      v37 = getSOErrorHelperClass_softClass_3;
+      v36 = getSOErrorHelperClass_softClass_3;
       if (!getSOErrorHelperClass_softClass_3)
       {
         *buf = MEMORY[0x1E69E9820];
         *&buf[8] = 3221225472;
         *&buf[16] = __getSOErrorHelperClass_block_invoke_3;
-        v41 = &unk_1E813E230;
-        v42 = &v34;
+        v40 = &unk_1E813E230;
+        v41 = &v33;
         __getSOErrorHelperClass_block_invoke_3(buf);
-        v9 = v35[3];
+        v9 = v34[3];
       }
 
       v10 = v9;
-      _Block_object_dispose(&v34, 8);
+      _Block_object_dispose(&v33, 8);
       v8 = [v9 internalErrorWithMessage:@"not internal build"];
       completionCopy[2](completionCopy, 0, v8);
     }
   }
 
-  v31 = *MEMORY[0x1E69E9840];
   return result;
 }
 

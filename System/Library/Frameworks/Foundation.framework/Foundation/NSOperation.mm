@@ -678,7 +678,7 @@ CFMutableArrayRef __19__NSOperation_init__block_invoke()
 + (BOOL)automaticallyNotifiesObserversForKey:(id)key
 {
   v7 = *MEMORY[0x1E69E9840];
-  if ([key isEqualToString:@"isFinished"] & 1) != 0 || (objc_msgSend(key, "isEqualToString:", @"finished") & 1) != 0 || (objc_msgSend(key, "isEqualToString:", @"isReady") & 1) != 0 || (objc_msgSend(key, "isEqualToString:", @"ready") & 1) != 0 || (objc_msgSend(key, "isEqualToString:", @"isExecuting") & 1) != 0 || (objc_msgSend(key, "isEqualToString:", @"executing") & 1) != 0 || (objc_msgSend(key, "isEqualToString:", @"isCancelled") & 1) != 0 || (objc_msgSend(key, "isEqualToString:", @"cancelled") & 1) != 0 || (objc_msgSend(key, "isEqualToString:", @"dependencies") & 1) != 0 || (objc_msgSend(key, "isEqualToString:", @"queuePriority") & 1) != 0 || (objc_msgSend(key, "isEqualToString:", @"isAsynchronous") & 1) != 0 || (objc_msgSend(key, "isEqualToString:", @"name") & 1) != 0 || (objc_msgSend(key, "isEqualToString:", @"qualityOfService") & 1) != 0 || (objc_msgSend(key, "isEqualToString:", @"completionBlock"))
+  if (objc_msgSend_isEqualToString_(key, a2, @"isFinished") & 1) != 0 || (objc_msgSend_isEqualToString_(key) & 1) != 0 || (objc_msgSend_isEqualToString_(key) & 1) != 0 || (objc_msgSend_isEqualToString_(key) & 1) != 0 || (objc_msgSend_isEqualToString_(key) & 1) != 0 || (objc_msgSend_isEqualToString_(key) & 1) != 0 || (objc_msgSend_isEqualToString_(key) & 1) != 0 || (objc_msgSend_isEqualToString_(key) & 1) != 0 || (objc_msgSend_isEqualToString_(key) & 1) != 0 || (objc_msgSend_isEqualToString_(key) & 1) != 0 || (objc_msgSend_isEqualToString_(key) & 1) != 0 || (objc_msgSend_isEqualToString_(key) & 1) != 0 || (objc_msgSend_isEqualToString_(key) & 1) != 0 || (objc_msgSend_isEqualToString_(key))
   {
     return 0;
   }
@@ -1039,7 +1039,7 @@ LABEL_21:
 - (void)addObserver:(id)observer forKeyPath:(id)path options:(unint64_t)options context:(void *)context
 {
   v14 = *MEMORY[0x1E69E9840];
-  if ([path isEqualToString:@"isReady"] & 1) != 0 || (objc_msgSend(path, "isEqualToString:", @"ready"))
+  if (objc_msgSend_isEqualToString_(path, a2, @"isReady") & 1) != 0 || (objc_msgSend_isEqualToString_(path))
   {
     if (atomic_fetch_add(&self->_iop.__isReadyObserverCount, 1u) != 255)
     {
@@ -1053,7 +1053,7 @@ LABEL_18:
     objc_exception_throw([MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:v12 userInfo:0]);
   }
 
-  if ([path isEqualToString:@"isExecuting"] & 1) != 0 || (objc_msgSend(path, "isEqualToString:", @"executing"))
+  if (objc_msgSend_isEqualToString_(path) & 1) != 0 || (objc_msgSend_isEqualToString_(path))
   {
     if (atomic_fetch_add(&self->_iop.__isExecutingObserverCount, 1u) != 255)
     {
@@ -1065,7 +1065,7 @@ LABEL_18:
     goto LABEL_18;
   }
 
-  if ([path isEqualToString:@"isCancelled"] & 1) != 0 || (objc_msgSend(path, "isEqualToString:", @"cancelled"))
+  if (objc_msgSend_isEqualToString_(path) & 1) != 0 || (objc_msgSend_isEqualToString_(path))
   {
     if (atomic_fetch_add(&self->_iop.__isCancelledObserverCount, 1u) != 255)
     {
@@ -1077,7 +1077,7 @@ LABEL_18:
     goto LABEL_18;
   }
 
-  if (([path isEqualToString:@"isFinished"] & 1) != 0 || (objc_msgSend(path, "isEqualToString:", @"finished")) && atomic_fetch_add(&self->_iop.__isFinishedObserverCount, 1u) == 255)
+  if ((objc_msgSend_isEqualToString_(path) & 1) != 0 || (objc_msgSend_isEqualToString_(path)) && atomic_fetch_add(&self->_iop.__isFinishedObserverCount, 1u) == 255)
   {
     atomic_store(0xFFu, &self->_iop.__isFinishedObserverCount);
     v11 = @"isFinished";
@@ -1096,7 +1096,7 @@ LABEL_4:
   v7.receiver = self;
   v7.super_class = NSOperation;
   [(NSOperation *)&v7 removeObserver:observer forKeyPath:?];
-  if ([path isEqualToString:@"isReady"] & 1) != 0 || (objc_msgSend(path, "isEqualToString:", @"ready"))
+  if (objc_msgSend_isEqualToString_(path) & 1) != 0 || (objc_msgSend_isEqualToString_(path))
   {
     v6 = 244;
 LABEL_4:
@@ -1104,19 +1104,19 @@ LABEL_4:
     return;
   }
 
-  if ([path isEqualToString:@"isExecuting"] & 1) != 0 || (objc_msgSend(path, "isEqualToString:", @"executing"))
+  if (objc_msgSend_isEqualToString_(path) & 1) != 0 || (objc_msgSend_isEqualToString_(path))
   {
     v6 = 242;
     goto LABEL_4;
   }
 
-  if ([path isEqualToString:@"isCancelled"] & 1) != 0 || (objc_msgSend(path, "isEqualToString:", @"cancelled"))
+  if (objc_msgSend_isEqualToString_(path) & 1) != 0 || (objc_msgSend_isEqualToString_(path))
   {
     v6 = 245;
     goto LABEL_4;
   }
 
-  if (([path isEqualToString:@"isFinished"] & 1) != 0 || objc_msgSend(path, "isEqualToString:", @"finished"))
+  if ((objc_msgSend_isEqualToString_(path) & 1) != 0 || objc_msgSend_isEqualToString_(path))
   {
     v6 = 243;
     goto LABEL_4;

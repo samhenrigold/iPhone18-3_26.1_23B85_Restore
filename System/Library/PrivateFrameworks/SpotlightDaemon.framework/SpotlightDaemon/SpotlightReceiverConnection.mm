@@ -152,13 +152,10 @@ LABEL_2:
 
 - (void)invalidationHandler
 {
-  v7 = *MEMORY[0x277D85DE8];
   serviceName = [self serviceName];
   OUTLINED_FUNCTION_4_0();
   OUTLINED_FUNCTION_3_0();
   _os_log_error_impl(v2, v3, OS_LOG_TYPE_ERROR, v4, v5, 0xCu);
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setupComplete:(BOOL)complete
@@ -182,7 +179,7 @@ LABEL_2:
 - (void)handleError:(id)error
 {
   string = xpc_dictionary_get_string(error, *MEMORY[0x277D86400]);
-  v6 = logForCSLogCategoryDefault();
+  v6 = logForCSLogCategoryDefault(string);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
     [(SpotlightReceiverConnection *)string handleError:?];
@@ -196,35 +193,35 @@ LABEL_2:
 
 - (BOOL)updateConfigsForClient:(int64_t)client configurationValues:(id)values
 {
-  v74 = *MEMORY[0x277D85DE8];
+  v73 = *MEMORY[0x277D85DE8];
   valuesCopy = values;
   v6 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v68 = 0u;
   v69 = 0u;
   v70 = 0u;
   v71 = 0u;
-  v72 = 0u;
   obj = valuesCopy;
-  v7 = [obj countByEnumeratingWithState:&v69 objects:v73 count:16];
+  v7 = [obj countByEnumeratingWithState:&v68 objects:v72 count:16];
   if (v7)
   {
     v8 = v7;
     v9 = 0x278933000uLL;
     v10 = @"name";
-    v11 = *v70;
-    v65 = *v70;
+    v11 = *v69;
+    v64 = *v69;
     do
     {
       v12 = 0;
-      v66 = v8;
+      v65 = v8;
       do
       {
-        if (*v70 != v11)
+        if (*v69 != v11)
         {
           objc_enumerationMutation(obj);
         }
 
-        v68 = v12;
-        v13 = *(*(&v69 + 1) + 8 * v12);
+        v67 = v12;
+        v13 = *(*(&v68 + 1) + 8 * v12);
         v14 = [objc_alloc(*(v9 + 1576)) initForClient:client];
         v15 = [v13 objectForKeyedSubscript:v10];
         [v14 setName:v15];
@@ -247,12 +244,12 @@ LABEL_2:
           v24 = [v17 stringWithFormat:@"_kMDItem%@Version", v23];
           [v14 setVersionName:v24];
 
-          v11 = v65;
+          v11 = v64;
           v6 = v22;
           client = clientCopy;
           v9 = v20;
           v10 = v19;
-          v8 = v66;
+          v8 = v65;
         }
 
         v25 = [v13 objectForKeyedSubscript:@"versionValue"];
@@ -421,11 +418,11 @@ LABEL_2:
 
         [v6 addObject:v14];
 
-        v12 = v68 + 1;
+        v12 = v67 + 1;
       }
 
-      while (v8 != v68 + 1);
-      v8 = [obj countByEnumeratingWithState:&v69 objects:v73 count:16];
+      while (v8 != v67 + 1);
+      v8 = [obj countByEnumeratingWithState:&v68 objects:v72 count:16];
     }
 
     while (v8);
@@ -438,7 +435,6 @@ LABEL_2:
     objc_storeStrong(&self->_configs, v6);
   }
 
-  v62 = *MEMORY[0x277D85DE8];
   return v61 != 0;
 }
 
@@ -469,7 +465,7 @@ uint64_t __71__SpotlightReceiverConnection_startSetupForClient_configurationValu
 
 void __41__SpotlightReceiverConnection_startSetup__block_invoke(uint64_t a1)
 {
-  v71 = *MEMORY[0x277D85DE8];
+  v69 = *MEMORY[0x277D85DE8];
   v1 = *(a1 + 32);
   if ((*(v1 + 75) & 1) == 0)
   {
@@ -484,33 +480,34 @@ void __41__SpotlightReceiverConnection_startSetup__block_invoke(uint64_t a1)
     if (v8)
     {
       v9 = [MEMORY[0x277CBEAC0] dictionaryWithContentsOfURL:v8 error:0];
+      v10 = v9;
     }
 
     else
     {
-      v9 = 0;
+      v10 = 0;
     }
 
-    v10 = getSystemVersionString();
+    v11 = getSystemVersionString(v9);
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v11 = [v9 objectForKeyedSubscript:@"rcv"];
+      v12 = [v10 objectForKeyedSubscript:@"rcv"];
       objc_opt_class();
-      if ((objc_opt_isKindOfClass() & 1) != 0 && [v11 integerValue] == 2)
+      if ((objc_opt_isKindOfClass() & 1) != 0 && [v12 integerValue] == 2)
       {
-        v12 = [v9 objectForKeyedSubscript:@"sv"];
+        v13 = [v10 objectForKeyedSubscript:@"sv"];
         objc_opt_class();
-        if (objc_opt_isKindOfClass() & 1) != 0 && ([v10 isEqualToString:v12])
+        if (objc_opt_isKindOfClass() & 1) != 0 && ([v11 isEqualToString:v13])
         {
 
-          v13 = [v9 objectForKeyedSubscript:@"jt"];
+          v14 = [v10 objectForKeyedSubscript:@"jt"];
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            v14 = [v13 integerValue];
+            v15 = [v14 integerValue];
 
-            if (!v14)
+            if (!v15)
             {
               goto LABEL_15;
             }
@@ -519,34 +516,33 @@ void __41__SpotlightReceiverConnection_startSetup__block_invoke(uint64_t a1)
           else
           {
 
-            v14 = 0;
+            v15 = 0;
           }
 
-          v45 = v14;
-          v15 = [v9 objectForKeyedSubscript:@"bids"];
+          v43 = v15;
+          v16 = [v10 objectForKeyedSubscript:@"bids"];
           objc_opt_class();
-          if ((objc_opt_isKindOfClass() & 1) != 0 && [v15 count])
+          if ((objc_opt_isKindOfClass() & 1) != 0 && [v16 count])
           {
-            v64 = 0u;
-            v65 = 0u;
             v62 = 0u;
             v63 = 0u;
-            v22 = v15;
-            v23 = [v22 countByEnumeratingWithState:&v62 objects:v70 count:16];
+            v60 = 0u;
+            v61 = 0u;
+            v22 = v16;
+            v23 = [v22 countByEnumeratingWithState:&v60 objects:v68 count:16];
             if (v23)
             {
               v24 = v23;
-              v25 = *v63;
+              v25 = *v61;
               while (2)
               {
                 for (i = 0; i != v24; ++i)
                 {
-                  if (*v63 != v25)
+                  if (*v61 != v25)
                   {
                     objc_enumerationMutation(v22);
                   }
 
-                  v27 = *(*(&v62 + 1) + 8 * i);
                   objc_opt_class();
                   if ((objc_opt_isKindOfClass() & 1) == 0)
                   {
@@ -555,7 +551,7 @@ void __41__SpotlightReceiverConnection_startSetup__block_invoke(uint64_t a1)
                   }
                 }
 
-                v24 = [v22 countByEnumeratingWithState:&v62 objects:v70 count:16];
+                v24 = [v22 countByEnumeratingWithState:&v60 objects:v68 count:16];
                 if (v24)
                 {
                   continue;
@@ -566,30 +562,29 @@ void __41__SpotlightReceiverConnection_startSetup__block_invoke(uint64_t a1)
             }
           }
 
-          v16 = [v9 objectForKeyedSubscript:@"cts"];
+          v17 = [v10 objectForKeyedSubscript:@"cts"];
           objc_opt_class();
-          if ((objc_opt_isKindOfClass() & 1) != 0 && [v16 count])
+          if ((objc_opt_isKindOfClass() & 1) != 0 && [v17 count])
           {
-            v60 = 0u;
-            v61 = 0u;
             v58 = 0u;
             v59 = 0u;
-            obj = v16;
-            v28 = [obj countByEnumeratingWithState:&v58 objects:v69 count:16];
-            if (v28)
+            v56 = 0u;
+            v57 = 0u;
+            obj = v17;
+            v27 = [obj countByEnumeratingWithState:&v56 objects:v67 count:16];
+            if (v27)
             {
-              v29 = v28;
-              v30 = *v59;
+              v28 = v27;
+              v29 = *v57;
               while (2)
               {
-                for (j = 0; j != v29; ++j)
+                for (j = 0; j != v28; ++j)
                 {
-                  if (*v59 != v30)
+                  if (*v57 != v29)
                   {
                     objc_enumerationMutation(obj);
                   }
 
-                  v32 = *(*(&v58 + 1) + 8 * j);
                   objc_opt_class();
                   if ((objc_opt_isKindOfClass() & 1) == 0)
                   {
@@ -598,8 +593,8 @@ void __41__SpotlightReceiverConnection_startSetup__block_invoke(uint64_t a1)
                   }
                 }
 
-                v29 = [obj countByEnumeratingWithState:&v58 objects:v69 count:16];
-                if (v29)
+                v28 = [obj countByEnumeratingWithState:&v56 objects:v67 count:16];
+                if (v28)
                 {
                   continue;
                 }
@@ -609,30 +604,29 @@ void __41__SpotlightReceiverConnection_startSetup__block_invoke(uint64_t a1)
             }
           }
 
-          v20 = [v9 objectForKeyedSubscript:@"icls"];
+          v21 = [v10 objectForKeyedSubscript:@"icls"];
           objc_opt_class();
-          if ((objc_opt_isKindOfClass() & 1) != 0 && [v20 count])
+          if ((objc_opt_isKindOfClass() & 1) != 0 && [v21 count])
           {
-            v56 = 0u;
-            v57 = 0u;
             v54 = 0u;
             v55 = 0u;
-            v46 = v20;
-            v33 = [v46 countByEnumeratingWithState:&v54 objects:v68 count:16];
-            if (v33)
+            v52 = 0u;
+            v53 = 0u;
+            v44 = v21;
+            v31 = [v44 countByEnumeratingWithState:&v52 objects:v66 count:16];
+            if (v31)
             {
-              v34 = v33;
-              obja = *v55;
+              v32 = v31;
+              obja = *v53;
               while (2)
               {
-                for (k = 0; k != v34; ++k)
+                for (k = 0; k != v32; ++k)
                 {
-                  if (*v55 != obja)
+                  if (*v53 != obja)
                   {
-                    objc_enumerationMutation(v46);
+                    objc_enumerationMutation(v44);
                   }
 
-                  v36 = *(*(&v54 + 1) + 8 * k);
                   objc_opt_class();
                   if ((objc_opt_isKindOfClass() & 1) == 0)
                   {
@@ -641,8 +635,8 @@ void __41__SpotlightReceiverConnection_startSetup__block_invoke(uint64_t a1)
                   }
                 }
 
-                v34 = [v46 countByEnumeratingWithState:&v54 objects:v68 count:16];
-                if (v34)
+                v32 = [v44 countByEnumeratingWithState:&v52 objects:v66 count:16];
+                if (v32)
                 {
                   continue;
                 }
@@ -652,34 +646,34 @@ void __41__SpotlightReceiverConnection_startSetup__block_invoke(uint64_t a1)
             }
           }
 
-          v37 = [*(*(a1 + 32) + 56) client];
-          v38 = *(a1 + 32);
-          v39 = [v9 objectForKeyedSubscript:@"jps"];
-          LOBYTE(v37) = [v38 updateConfigsForClient:v37 configurationValues:v39];
+          v34 = [*(*(a1 + 32) + 56) client];
+          v35 = *(a1 + 32);
+          v36 = [v10 objectForKeyedSubscript:@"jps"];
+          LOBYTE(v34) = [v35 updateConfigsForClient:v34 configurationValues:v36];
 
-          if ((v37 & 1) == 0)
+          if ((v34 & 1) == 0)
           {
-            *(*(a1 + 32) + 80) = v45;
+            *(*(a1 + 32) + 80) = v43;
           }
 
-          v40 = [v15 copy];
-          [*(*(a1 + 32) + 56) setBundleIDs:v40];
+          v37 = [v16 copy];
+          [*(*(a1 + 32) + 56) setBundleIDs:v37];
 
-          v41 = [v16 copy];
-          [*(*(a1 + 32) + 56) setContentTypes:v41];
+          v38 = [v17 copy];
+          [*(*(a1 + 32) + 56) setContentTypes:v38];
 
-          v42 = [v20 copy];
-          [*(*(a1 + 32) + 56) setINIntentClassNames:v42];
+          v39 = [v21 copy];
+          [*(*(a1 + 32) + 56) setINIntentClassNames:v39];
 
           if ((*(*(a1 + 32) + 76) & 1) == 0)
           {
-            v43 = logForCSLogCategoryDefault();
-            if (os_log_type_enabled(v43, OS_LOG_TYPE_INFO))
+            v41 = logForCSLogCategoryDefault(v40);
+            if (os_log_type_enabled(v41, OS_LOG_TYPE_INFO))
             {
-              v44 = [*(a1 + 32) serviceName];
+              v42 = [*(a1 + 32) serviceName];
               *buf = 138412290;
-              v67 = v44;
-              _os_log_impl(&dword_231A35000, v43, OS_LOG_TYPE_INFO, "### RECEIVER %@ enable", buf, 0xCu);
+              v65 = v42;
+              _os_log_impl(&dword_231A35000, v41, OS_LOG_TYPE_INFO, "### RECEIVER %@ enable", buf, 0xCu);
             }
 
             [*(a1 + 32) enableReceiver];
@@ -692,60 +686,59 @@ void __41__SpotlightReceiverConnection_startSetup__block_invoke(uint64_t a1)
     }
 
 LABEL_15:
-    v15 = 0;
-LABEL_16:
     v16 = 0;
+LABEL_16:
+    v17 = 0;
 LABEL_17:
     Current = CFAbsoluteTimeGetCurrent();
-    v18 = xpc_dictionary_create(0, 0, 0);
-    xpc_dictionary_set_string(v18, "command", "s");
-    v19 = *(a1 + 32);
-    v49[0] = MEMORY[0x277D85DD0];
-    v49[1] = 3221225472;
-    v49[2] = __41__SpotlightReceiverConnection_startSetup__block_invoke_289;
-    v49[3] = &unk_278934180;
-    v49[4] = v19;
-    v53 = Current;
-    v50 = v8;
-    v51 = v10;
-    v52 = v9;
-    [v19 sendMessageAsync:v18 completion:v49];
+    v19 = xpc_dictionary_create(0, 0, 0);
+    xpc_dictionary_set_string(v19, "command", "s");
+    v20 = *(a1 + 32);
+    v47[0] = MEMORY[0x277D85DD0];
+    v47[1] = 3221225472;
+    v47[2] = __41__SpotlightReceiverConnection_startSetup__block_invoke_289;
+    v47[3] = &unk_278934180;
+    v47[4] = v20;
+    v51 = Current;
+    v48 = v8;
+    v49 = v11;
+    v50 = v10;
+    [v20 sendMessageAsync:v19 completion:v47];
 
-    v20 = 0;
+    v21 = 0;
 LABEL_18:
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 void __41__SpotlightReceiverConnection_startSetup__block_invoke_289(uint64_t a1, void *a2)
 {
-  v68 = *MEMORY[0x277D85DE8];
-  v3 = a2;
-  v4 = v3;
-  if (!v3)
+  v69 = *MEMORY[0x277D85DE8];
+  string = a2;
+  v4 = string;
+  if (!string)
   {
-    string = 0;
+    v7 = 0;
     v6 = -1;
     goto LABEL_5;
   }
 
-  int64 = xpc_dictionary_get_int64(v3, "status");
+  int64 = xpc_dictionary_get_int64(string, "status");
   if (int64)
   {
     v6 = int64;
     string = xpc_dictionary_get_string(v4, "ed");
+    v7 = string;
 LABEL_5:
-    v8 = logForCSLogCategoryDefault();
+    v8 = logForCSLogCategoryDefault(string);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      v56 = [*(a1 + 32) serviceName];
+      v57 = [*(a1 + 32) serviceName];
       *buf = 138412802;
-      v63 = v56;
-      v64 = 2048;
-      *v65 = v6;
-      *&v65[8] = 2080;
-      *&v65[10] = string;
+      v64 = v57;
+      v65 = 2048;
+      *v66 = v6;
+      *&v66[8] = 2080;
+      *&v66[10] = v7;
       _os_log_error_impl(&dword_231A35000, v8, OS_LOG_TYPE_ERROR, "### RECEIVER %@ setup error %ld domain %s", buf, 0x20u);
     }
 
@@ -758,7 +751,7 @@ LABEL_5:
   v10 = xpc_dictionary_get_array(v4, "jps");
   v11 = [v9 copyNSStringOrDictArrayFromXPCArray:v10];
 
-  v60 = v11;
+  v61 = v11;
   if (v11)
   {
     [*(a1 + 32) updateConfigsForClient:objc_msgSend(*(*(a1 + 32) + 56) configurationValues:{"client"), v11}];
@@ -794,137 +787,136 @@ LABEL_5:
   v24 = [v20 copy];
   [*(*(a1 + 32) + 56) setINIntentClassNames:v24];
 
-  v25 = logForCSLogCategoryDefault();
-  if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
+  v26 = logForCSLogCategoryDefault(v25);
+  if (os_log_type_enabled(v26, OS_LOG_TYPE_INFO))
   {
-    v26 = [*(a1 + 32) serviceName];
-    v27 = *(a1 + 32);
-    v28 = v20;
-    v29 = *(v27 + 80);
-    v30 = [*(v27 + 56) bundleIDs];
+    v27 = [*(a1 + 32) serviceName];
+    v28 = *(a1 + 32);
+    v29 = v20;
+    v30 = *(v28 + 80);
+    v31 = [*(v28 + 56) bundleIDs];
     [*(*(a1 + 32) + 56) contentTypes];
-    v31 = v58 = v14;
+    v32 = v59 = v14;
     [*(*(a1 + 32) + 56) INIntentClassNames];
-    v32 = v57 = v17;
+    v33 = v58 = v17;
     *buf = 138413314;
-    v63 = v26;
-    v64 = 1024;
-    *v65 = v29;
-    v20 = v28;
-    *&v65[4] = 2112;
-    *&v65[6] = v30;
-    *&v65[14] = 2112;
-    *&v65[16] = v31;
-    v66 = 2112;
-    v67 = v32;
-    _os_log_impl(&dword_231A35000, v25, OS_LOG_TYPE_INFO, "### RECEIVER client: %@, supportedJobTypes: 0x%x bundleIDs: %@, contentTypes: %@, INIntentClassNames:  %@", buf, 0x30u);
+    v64 = v27;
+    v65 = 1024;
+    *v66 = v30;
+    v20 = v29;
+    *&v66[4] = 2112;
+    *&v66[6] = v31;
+    *&v66[14] = 2112;
+    *&v66[16] = v32;
+    v67 = 2112;
+    v68 = v33;
+    _os_log_impl(&dword_231A35000, v26, OS_LOG_TYPE_INFO, "### RECEIVER client: %@, supportedJobTypes: 0x%x bundleIDs: %@, contentTypes: %@, INIntentClassNames:  %@", buf, 0x30u);
 
-    v17 = v57;
-    v14 = v58;
+    v17 = v58;
+    v14 = v59;
   }
 
-  v33 = logForCSLogCategoryDefault();
-  if (os_log_type_enabled(v33, OS_LOG_TYPE_INFO))
+  v35 = logForCSLogCategoryDefault(v34);
+  if (os_log_type_enabled(v35, OS_LOG_TYPE_INFO))
   {
     [*(a1 + 32) serviceName];
-    v34 = v20;
-    v36 = v35 = v17;
-    v37 = CFAbsoluteTimeGetCurrent() - *(a1 + 64);
+    v36 = v20;
+    v38 = v37 = v17;
+    v39 = CFAbsoluteTimeGetCurrent() - *(a1 + 64);
     *buf = 138412546;
-    v63 = v36;
-    v64 = 2048;
-    *v65 = v37;
-    _os_log_impl(&dword_231A35000, v33, OS_LOG_TYPE_INFO, "### RECEIVER %@ setup time %f ####", buf, 0x16u);
+    v64 = v38;
+    v65 = 2048;
+    *v66 = v39;
+    _os_log_impl(&dword_231A35000, v35, OS_LOG_TYPE_INFO, "### RECEIVER %@ setup time %f ####", buf, 0x16u);
 
-    v17 = v35;
-    v20 = v34;
+    v17 = v37;
+    v20 = v36;
   }
 
   if (*(a1 + 40) && *(a1 + 48))
   {
-    v59 = v20;
-    v38 = v17;
-    v39 = objc_opt_new();
-    [v39 setObject:*(a1 + 48) forKeyedSubscript:@"sv"];
-    [v39 setObject:&unk_2846C9560 forKeyedSubscript:@"rcv"];
-    v40 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:*(*(a1 + 32) + 80)];
-    [v39 setObject:v40 forKeyedSubscript:@"jt"];
+    v60 = v20;
+    v40 = v17;
+    v41 = objc_opt_new();
+    [v41 setObject:*(a1 + 48) forKeyedSubscript:@"sv"];
+    [v41 setObject:&unk_2846C9560 forKeyedSubscript:@"rcv"];
+    v42 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:*(*(a1 + 32) + 80)];
+    [v41 setObject:v42 forKeyedSubscript:@"jt"];
 
-    v41 = [*(*(a1 + 32) + 56) bundleIDs];
-
-    if (v41)
-    {
-      v42 = [*(*(a1 + 32) + 56) bundleIDs];
-      [v39 setObject:v42 forKeyedSubscript:@"bids"];
-    }
-
-    v43 = [*(*(a1 + 32) + 56) contentTypes];
+    v43 = [*(*(a1 + 32) + 56) bundleIDs];
 
     if (v43)
     {
-      v44 = [*(*(a1 + 32) + 56) contentTypes];
-      [v39 setObject:v44 forKeyedSubscript:@"cts"];
+      v44 = [*(*(a1 + 32) + 56) bundleIDs];
+      [v41 setObject:v44 forKeyedSubscript:@"bids"];
     }
 
-    v45 = [*(*(a1 + 32) + 56) INIntentClassNames];
+    v45 = [*(*(a1 + 32) + 56) contentTypes];
 
     if (v45)
     {
-      v46 = [*(*(a1 + 32) + 56) INIntentClassNames];
-      [v39 setObject:v46 forKeyedSubscript:@"icls"];
+      v46 = [*(*(a1 + 32) + 56) contentTypes];
+      [v41 setObject:v46 forKeyedSubscript:@"cts"];
     }
 
-    v47 = v14;
+    v47 = [*(*(a1 + 32) + 56) INIntentClassNames];
+
+    if (v47)
+    {
+      v48 = [*(*(a1 + 32) + 56) INIntentClassNames];
+      [v41 setObject:v48 forKeyedSubscript:@"icls"];
+    }
+
+    v49 = v14;
     if ([*(*(a1 + 32) + 64) count])
     {
-      [v39 setObject:v60 forKeyedSubscript:@"jps"];
+      [v41 setObject:v61 forKeyedSubscript:@"jps"];
     }
 
-    v48 = *(a1 + 40);
-    v61 = 0;
-    v49 = [v39 writeToURL:v48 error:&v61];
-    v50 = v61;
-    v51 = logForCSLogCategoryDefault();
-    v52 = v51;
-    if (v49)
+    v50 = *(a1 + 40);
+    v62 = 0;
+    v51 = [v41 writeToURL:v50 error:&v62];
+    v52 = v62;
+    v53 = logForCSLogCategoryDefault(v52);
+    v54 = v53;
+    if (v51)
     {
-      if (os_log_type_enabled(v51, OS_LOG_TYPE_INFO))
+      if (os_log_type_enabled(v53, OS_LOG_TYPE_INFO))
       {
-        v53 = [*(a1 + 32) serviceName];
-        v54 = *(a1 + 56);
+        v55 = [*(a1 + 32) serviceName];
+        v56 = *(a1 + 56);
         *buf = 138412546;
-        v63 = v53;
-        v64 = 2112;
-        *v65 = v54;
-        _os_log_impl(&dword_231A35000, v52, OS_LOG_TYPE_INFO, "### RECEIVER %@ write %@", buf, 0x16u);
+        v64 = v55;
+        v65 = 2112;
+        *v66 = v56;
+        _os_log_impl(&dword_231A35000, v54, OS_LOG_TYPE_INFO, "### RECEIVER %@ write %@", buf, 0x16u);
       }
     }
 
-    else if (os_log_type_enabled(v51, OS_LOG_TYPE_ERROR))
+    else if (os_log_type_enabled(v53, OS_LOG_TYPE_ERROR))
     {
-      __41__SpotlightReceiverConnection_startSetup__block_invoke_289_cold_1((a1 + 40), v50, v52);
+      __41__SpotlightReceiverConnection_startSetup__block_invoke_289_cold_1((a1 + 40), v52, v54);
     }
 
-    v14 = v47;
-    v17 = v38;
-    v20 = v59;
+    v14 = v49;
+    v17 = v40;
+    v20 = v60;
   }
 
   [*(a1 + 32) enableReceiver];
   [*(a1 + 32) setupComplete:1];
 
 LABEL_34:
-  v55 = *MEMORY[0x277D85DE8];
 }
 
 - (SpotlightReceiverConnection)initWithServiceName:(id)name client:(int64_t)client configPath:(id)path
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   pathCopy = path;
-  v31.receiver = self;
-  v31.super_class = SpotlightReceiverConnection;
-  v10 = [(CSXPCConnection *)&v31 initWithMachServiceName:nameCopy];
+  v30.receiver = self;
+  v30.super_class = SpotlightReceiverConnection;
+  v10 = [(CSXPCConnection *)&v30 initWithMachServiceName:nameCopy];
   if (v10)
   {
     v11 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
@@ -941,63 +933,65 @@ LABEL_34:
     if (pathCopy)
     {
       v17 = [MEMORY[0x277CBEBC0] fileURLWithPath:pathCopy];
+      v18 = v17;
       if (v17)
       {
-        v30 = 0;
-        v18 = [MEMORY[0x277CBEAC0] dictionaryWithContentsOfURL:v17 error:&v30];
-        v19 = v30;
-        if (v18)
+        v29 = 0;
+        v19 = [MEMORY[0x277CBEAC0] dictionaryWithContentsOfURL:v17 error:&v29];
+        v17 = v29;
+        v20 = v17;
+        if (v19)
         {
-          v20 = [v18 objectForKeyedSubscript:@"configs"];
-          if (v20)
+          v17 = [v19 objectForKeyedSubscript:@"configs"];
+          if (v17)
           {
-            v21 = v20;
-            v29 = v19;
-            v22 = [v18 objectForKeyedSubscript:@"configs"];
+            v21 = v17;
+            v28 = v20;
+            v22 = [v19 objectForKeyedSubscript:@"configs"];
             objc_opt_class();
             isKindOfClass = objc_opt_isKindOfClass();
 
             if (isKindOfClass)
             {
-              v24 = logForCSLogCategoryDefault();
+              v24 = logForCSLogCategoryDefault(v17);
               if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
               {
                 *buf = 134218242;
                 clientCopy2 = client;
-                v34 = 2112;
-                v35 = pathCopy;
+                v33 = 2112;
+                v34 = pathCopy;
                 _os_log_impl(&dword_231A35000, v24, OS_LOG_TYPE_DEFAULT, "### RECEIVER: starting setup for client %ld from plist config %@ ", buf, 0x16u);
               }
 
-              v25 = [v18 objectForKeyedSubscript:@"configs"];
+              v25 = [v19 objectForKeyedSubscript:@"configs"];
               [(SpotlightReceiverConnection *)v10 startSetupForClient:client configurationValues:v25];
 
-              v19 = v29;
+              v20 = v28;
 LABEL_16:
 
               goto LABEL_17;
             }
 
-            v19 = v29;
+            v20 = v28;
           }
         }
       }
 
       else
       {
-        v18 = 0;
         v19 = 0;
+        v20 = 0;
       }
     }
 
     else
     {
-      v18 = 0;
       v19 = 0;
-      v17 = 0;
+      v20 = 0;
+      v18 = 0;
     }
 
-    v26 = logForCSLogCategoryDefault();
+    v26 = logForCSLogCategoryDefault(v17);
     if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134217984;
@@ -1011,30 +1005,23 @@ LABEL_16:
 
 LABEL_17:
 
-  v27 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
 - (void)disableReceiver
 {
-  v7 = *MEMORY[0x277D85DE8];
   serviceName = [self serviceName];
   OUTLINED_FUNCTION_4_0();
   OUTLINED_FUNCTION_3_0();
   _os_log_error_impl(v2, v3, OS_LOG_TYPE_ERROR, v4, v5, 0xCu);
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)enableReceiver
 {
-  v7 = *MEMORY[0x277D85DE8];
   serviceName = [self serviceName];
   OUTLINED_FUNCTION_4_0();
   OUTLINED_FUNCTION_3_0();
   _os_log_error_impl(v2, v3, OS_LOG_TYPE_ERROR, v4, v5, 0xCu);
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 _BYTE *__37__SpotlightReceiverConnection_canRun__block_invoke(uint64_t a1)
@@ -1147,11 +1134,11 @@ void __82__SpotlightReceiverConnection_indexFromBundle_protectionClass_items_ite
     goto LABEL_26;
   }
 
-  v4 = *(a1 + 48);
-  v5 = *(*(a1 + 40) + 96) == 0.0;
-  if (v4)
+  v5 = *(a1 + 48);
+  v6 = *(*(a1 + 40) + 96) == 0.0;
+  if (v5)
   {
-    [v4 obj];
+    objc_msgSend_obj(v5);
   }
 
   else
@@ -1163,8 +1150,7 @@ void __82__SpotlightReceiverConnection_indexFromBundle_protectionClass_items_ite
   Count = _MDPlistArrayGetCount();
   if (Count)
   {
-    v7 = Count;
-    v8 = *MEMORY[0x277CBECE8];
+    v8 = Count;
     v9 = 1;
     do
     {
@@ -1173,7 +1159,7 @@ void __82__SpotlightReceiverConnection_indexFromBundle_protectionClass_items_ite
       v10 = *(a1 + 48);
       if (v10)
       {
-        [v10 obj];
+        objc_msgSend_obj(v10);
       }
 
       else
@@ -1185,14 +1171,16 @@ void __82__SpotlightReceiverConnection_indexFromBundle_protectionClass_items_ite
       _MDPlistArrayGetPlistObjectAtIndex();
       v22 = v24;
       v23 = v25;
-      if (_MDPlistGetPlistObjectType() != 240)
+      PlistObjectType = _MDPlistGetPlistObjectType();
+      if (PlistObjectType != 240)
       {
         goto LABEL_19;
       }
 
       v22 = v24;
       v23 = v25;
-      if (_MDPlistArrayGetCount() < 3)
+      PlistObjectType = _MDPlistArrayGetCount();
+      if (PlistObjectType < 3)
       {
         goto LABEL_19;
       }
@@ -1202,7 +1190,8 @@ void __82__SpotlightReceiverConnection_indexFromBundle_protectionClass_items_ite
       _MDPlistArrayGetPlistObjectAtIndex();
       v20 = 0uLL;
       v21 = 0;
-      if (_MDPlistGetPlistObjectType() != 241)
+      PlistObjectType = _MDPlistGetPlistObjectType();
+      if (PlistObjectType != 241)
       {
         goto LABEL_19;
       }
@@ -1221,13 +1210,14 @@ void __82__SpotlightReceiverConnection_indexFromBundle_protectionClass_items_ite
 
       v18 = v22;
       v19 = v23;
-      if (_MDPlistDictionaryGetPlistObjectForKey())
+      PlistObjectType = _MDPlistDictionaryGetPlistObjectForKey();
+      if (PlistObjectType)
       {
         v18 = v20;
         v19 = v21;
         v11 = _MDPlistContainerCopyObject();
         v12 = [*(a1 + 32) wantsContentType:v11];
-        if (!v5 && (v12 & 1) != 0)
+        if (!v6 && (v12 & 1) != 0)
         {
           v18 = v22;
           v19 = v23;
@@ -1236,13 +1226,13 @@ void __82__SpotlightReceiverConnection_indexFromBundle_protectionClass_items_ite
             v18 = v20;
             v19 = v21;
             _MDPlistDateGetValue();
-            v5 = v13 >= *(*(a1 + 40) + 96);
-            v12 = v5;
+            v6 = v13 >= *(*(a1 + 40) + 96);
+            v12 = v6;
           }
 
           else
           {
-            v5 = 1;
+            v6 = 1;
             v12 = 1;
           }
         }
@@ -1254,7 +1244,7 @@ LABEL_19:
         v12 = 0;
       }
 
-      if (v9 >= v7)
+      if (v9 >= v8)
       {
         break;
       }
@@ -1263,10 +1253,10 @@ LABEL_19:
     }
 
     while (!v12);
-    if ((v12 & v5) == 1)
+    if ((v12 & v6) == 1)
     {
 LABEL_26:
-      v14 = logForCSLogCategoryDefault();
+      v14 = logForCSLogCategoryDefault(PlistObjectType);
       if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
       {
         __82__SpotlightReceiverConnection_indexFromBundle_protectionClass_items_itemsContent___block_invoke_cold_1(a1);
@@ -1332,19 +1322,19 @@ LABEL_26:
 
 void __163__SpotlightReceiverConnection_indexWithFd_offset_size_indexType_bundleID_protectionClass_serialNumber_journalCookie_config_additionalAttributes_completionHandler___block_invoke(uint64_t a1)
 {
-  v23 = *MEMORY[0x277D85DE8];
-  v2 = logForCSLogCategoryDefault();
+  v22 = *MEMORY[0x277D85DE8];
+  v2 = logForCSLogCategoryDefault(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     v3 = [*(a1 + 32) serviceName];
     v4 = [*(a1 + 40) name];
     v5 = [*(a1 + 40) priority];
     *buf = 138412802;
-    v18 = v3;
-    v19 = 2112;
-    v20 = v4;
-    v21 = 2112;
-    v22 = v5;
+    v17 = v3;
+    v18 = 2112;
+    v19 = v4;
+    v20 = 2112;
+    v21 = v5;
     _os_log_impl(&dword_231A35000, v2, OS_LOG_TYPE_INFO, "SpotlightScheduledSender: indexWithSerialNumber, client: %@, configName: %@, priority: %@", buf, 0x20u);
   }
 
@@ -1359,8 +1349,8 @@ void __163__SpotlightReceiverConnection_indexWithFd_offset_size_indexType_bundle
     xpc_dictionary_set_string(v7, "cnm", [v8 UTF8String]);
 
     v9 = MEMORY[0x277CC3510];
-    v16 = *(a1 + 56);
-    v10 = [MEMORY[0x277CBEA60] arrayWithObjects:&v16 count:1];
+    v15 = *(a1 + 56);
+    v10 = [MEMORY[0x277CBEA60] arrayWithObjects:&v15 count:1];
     [v9 dictionary:v7 setStringOrDictionaryArray:v10 forKey:"aatrs"];
 
     if ([*(a1 + 64) length])
@@ -1380,18 +1370,18 @@ void __163__SpotlightReceiverConnection_indexWithFd_offset_size_indexType_bundle
     xpc_dictionary_set_uint64(v7, "s-num", *(a1 + 112));
     [*(a1 + 32) receiverRequestStart];
     v11 = *(a1 + 32);
-    v14[0] = MEMORY[0x277D85DD0];
-    v14[1] = 3221225472;
-    v14[2] = __163__SpotlightReceiverConnection_indexWithFd_offset_size_indexType_bundleID_protectionClass_serialNumber_journalCookie_config_additionalAttributes_completionHandler___block_invoke_328;
-    v14[3] = &unk_278934220;
-    v14[4] = v11;
-    v15 = *(a1 + 80);
-    [v11 sendMessageAsync:v7 completion:v14];
+    v13[0] = MEMORY[0x277D85DD0];
+    v13[1] = 3221225472;
+    v13[2] = __163__SpotlightReceiverConnection_indexWithFd_offset_size_indexType_bundleID_protectionClass_serialNumber_journalCookie_config_additionalAttributes_completionHandler___block_invoke_328;
+    v13[3] = &unk_278934220;
+    v13[4] = v11;
+    v14 = *(a1 + 80);
+    [v11 sendMessageAsync:v7 completion:v13];
   }
 
   else
   {
-    v12 = logForCSLogCategoryDefault();
+    v12 = logForCSLogCategoryDefault(0);
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       __163__SpotlightReceiverConnection_indexWithFd_offset_size_indexType_bundleID_protectionClass_serialNumber_journalCookie_config_additionalAttributes_completionHandler___block_invoke_cold_1((a1 + 120), v12);
@@ -1399,8 +1389,6 @@ void __163__SpotlightReceiverConnection_indexWithFd_offset_size_indexType_bundle
 
     (*(*(a1 + 80) + 16))();
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __163__SpotlightReceiverConnection_indexWithFd_offset_size_indexType_bundleID_protectionClass_serialNumber_journalCookie_config_additionalAttributes_completionHandler___block_invoke_328(uint64_t a1, xpc_object_t xdict)
@@ -1411,7 +1399,7 @@ uint64_t __163__SpotlightReceiverConnection_indexWithFd_offset_size_indexType_bu
   if (int64 >= 1)
   {
     v5 = int64 << 32;
-    v6 = logForCSLogCategoryDefault();
+    v6 = logForCSLogCategoryDefault(int64);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       v10 = 134217984;
@@ -1421,11 +1409,11 @@ uint64_t __163__SpotlightReceiverConnection_indexWithFd_offset_size_indexType_bu
 
     if (v5 == 0x200000000)
     {
-      v7 = logForCSLogCategoryDefault();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+      v8 = logForCSLogCategoryDefault(v7);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
         LOWORD(v10) = 0;
-        _os_log_impl(&dword_231A35000, v7, OS_LOG_TYPE_DEFAULT, "SpotlightScheduledSender: spotlightReceiver disabling messages for adds", &v10, 2u);
+        _os_log_impl(&dword_231A35000, v8, OS_LOG_TYPE_DEFAULT, "SpotlightScheduledSender: spotlightReceiver disabling messages for adds", &v10, 2u);
       }
 
       *(*(a1 + 32) + 80) &= ~0x8000u;
@@ -1433,9 +1421,7 @@ uint64_t __163__SpotlightReceiverConnection_indexWithFd_offset_size_indexType_bu
   }
 
   [*(a1 + 32) receiverRequestComplete];
-  result = (*(*(a1 + 40) + 16))();
-  v9 = *MEMORY[0x277D85DE8];
-  return result;
+  return (*(*(a1 + 40) + 16))();
 }
 
 - (void)deleteWithFd:(int)fd offset:(unint64_t)offset size:(unint64_t)size indexType:(unint64_t)type protectionClass:(id)class serialNumber:(unint64_t)number journalCookie:(id)cookie completionHandler:(id)self0
@@ -1469,13 +1455,13 @@ uint64_t __163__SpotlightReceiverConnection_indexWithFd_offset_size_indexType_bu
 
 void __127__SpotlightReceiverConnection_deleteWithFd_offset_size_indexType_protectionClass_serialNumber_journalCookie_completionHandler___block_invoke(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
-  v2 = logForCSLogCategoryDefault();
+  v12 = *MEMORY[0x277D85DE8];
+  v2 = logForCSLogCategoryDefault(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     v3 = [*(a1 + 32) serviceName];
     *buf = 138412290;
-    v12 = v3;
+    v11 = v3;
     _os_log_impl(&dword_231A35000, v2, OS_LOG_TYPE_INFO, "SpotlightScheduledSender: deleteWithFd, client: %@", buf, 0xCu);
   }
 
@@ -1498,18 +1484,18 @@ void __127__SpotlightReceiverConnection_deleteWithFd_offset_size_indexType_prote
     xpc_dictionary_set_uint64(v5, "s-num", *(a1 + 88));
     [*(a1 + 32) receiverRequestStart];
     v6 = *(a1 + 32);
-    v9[0] = MEMORY[0x277D85DD0];
-    v9[1] = 3221225472;
-    v9[2] = __127__SpotlightReceiverConnection_deleteWithFd_offset_size_indexType_protectionClass_serialNumber_journalCookie_completionHandler___block_invoke_329;
-    v9[3] = &unk_278934220;
-    v9[4] = v6;
-    v10 = *(a1 + 56);
-    [v6 sendMessageAsync:v5 completion:v9];
+    v8[0] = MEMORY[0x277D85DD0];
+    v8[1] = 3221225472;
+    v8[2] = __127__SpotlightReceiverConnection_deleteWithFd_offset_size_indexType_protectionClass_serialNumber_journalCookie_completionHandler___block_invoke_329;
+    v8[3] = &unk_278934220;
+    v8[4] = v6;
+    v9 = *(a1 + 56);
+    [v6 sendMessageAsync:v5 completion:v8];
   }
 
   else
   {
-    v7 = logForCSLogCategoryDefault();
+    v7 = logForCSLogCategoryDefault(0);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       __163__SpotlightReceiverConnection_indexWithFd_offset_size_indexType_bundleID_protectionClass_serialNumber_journalCookie_config_additionalAttributes_completionHandler___block_invoke_cold_1((a1 + 96), v7);
@@ -1517,8 +1503,6 @@ void __127__SpotlightReceiverConnection_deleteWithFd_offset_size_indexType_prote
 
     (*(*(a1 + 56) + 16))();
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __127__SpotlightReceiverConnection_deleteWithFd_offset_size_indexType_protectionClass_serialNumber_journalCookie_completionHandler___block_invoke_329(uint64_t a1, xpc_object_t xdict)
@@ -1529,7 +1513,7 @@ uint64_t __127__SpotlightReceiverConnection_deleteWithFd_offset_size_indexType_p
   if (int64 >= 1)
   {
     v5 = int64 << 32;
-    v6 = logForCSLogCategoryDefault();
+    v6 = logForCSLogCategoryDefault(int64);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       v10 = 134217984;
@@ -1539,11 +1523,11 @@ uint64_t __127__SpotlightReceiverConnection_deleteWithFd_offset_size_indexType_p
 
     if (v5 == 0x200000000)
     {
-      v7 = logForCSLogCategoryDefault();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+      v8 = logForCSLogCategoryDefault(v7);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
         LOWORD(v10) = 0;
-        _os_log_impl(&dword_231A35000, v7, OS_LOG_TYPE_DEFAULT, "SpotlightScheduledSender: spotlightReceiver disabling messages for deletes", &v10, 2u);
+        _os_log_impl(&dword_231A35000, v8, OS_LOG_TYPE_DEFAULT, "SpotlightScheduledSender: spotlightReceiver disabling messages for deletes", &v10, 2u);
       }
 
       *(*(a1 + 32) + 80) &= ~0x10000u;
@@ -1551,9 +1535,7 @@ uint64_t __127__SpotlightReceiverConnection_deleteWithFd_offset_size_indexType_p
   }
 
   [*(a1 + 32) receiverRequestComplete];
-  result = (*(*(a1 + 40) + 16))();
-  v9 = *MEMORY[0x277D85DE8];
-  return result;
+  return (*(*(a1 + 40) + 16))();
 }
 
 - (void)suspend
@@ -1571,7 +1553,7 @@ uint64_t __127__SpotlightReceiverConnection_deleteWithFd_offset_size_indexType_p
 
 void __38__SpotlightReceiverConnection_suspend__block_invoke(uint64_t a1)
 {
-  v2 = logForCSLogCategoryDefault();
+  v2 = logForCSLogCategoryDefault(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
     __38__SpotlightReceiverConnection_suspend__block_invoke_cold_1(a1);
@@ -1598,7 +1580,7 @@ uint64_t __38__SpotlightReceiverConnection_suspend__block_invoke_330(uint64_t a1
   if (int64 >= 1)
   {
     v5 = int64 << 32;
-    v6 = logForCSLogCategoryDefault();
+    v6 = logForCSLogCategoryDefault(int64);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       v10 = 134217984;
@@ -1608,20 +1590,18 @@ uint64_t __38__SpotlightReceiverConnection_suspend__block_invoke_330(uint64_t a1
 
     if (v5 == 0x200000000)
     {
-      v7 = logForCSLogCategoryDefault();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+      v8 = logForCSLogCategoryDefault(v7);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
         LOWORD(v10) = 0;
-        _os_log_impl(&dword_231A35000, v7, OS_LOG_TYPE_DEFAULT, "SpotlightScheduledSender: spotlightReceiver disabling messages for suspend", &v10, 2u);
+        _os_log_impl(&dword_231A35000, v8, OS_LOG_TYPE_DEFAULT, "SpotlightScheduledSender: spotlightReceiver disabling messages for suspend", &v10, 2u);
       }
 
       *(*(a1 + 32) + 80) &= ~0x20000u;
     }
   }
 
-  result = [*(a1 + 32) receiverRequestComplete];
-  v9 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 32) receiverRequestComplete];
 }
 
 - (void)resume
@@ -1639,7 +1619,7 @@ uint64_t __38__SpotlightReceiverConnection_suspend__block_invoke_330(uint64_t a1
 
 void __37__SpotlightReceiverConnection_resume__block_invoke(uint64_t a1)
 {
-  v2 = logForCSLogCategoryDefault();
+  v2 = logForCSLogCategoryDefault(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
     __38__SpotlightReceiverConnection_suspend__block_invoke_cold_1(a1);
@@ -1666,7 +1646,7 @@ uint64_t __37__SpotlightReceiverConnection_resume__block_invoke_331(uint64_t a1,
   if (int64 >= 1)
   {
     v5 = int64 << 32;
-    v6 = logForCSLogCategoryDefault();
+    v6 = logForCSLogCategoryDefault(int64);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       v10 = 134217984;
@@ -1676,20 +1656,18 @@ uint64_t __37__SpotlightReceiverConnection_resume__block_invoke_331(uint64_t a1,
 
     if (v5 == 0x200000000)
     {
-      v7 = logForCSLogCategoryDefault();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+      v8 = logForCSLogCategoryDefault(v7);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
         LOWORD(v10) = 0;
-        _os_log_impl(&dword_231A35000, v7, OS_LOG_TYPE_DEFAULT, "SpotlightScheduledSender: spotlightReceiver disabling messages for resume", &v10, 2u);
+        _os_log_impl(&dword_231A35000, v8, OS_LOG_TYPE_DEFAULT, "SpotlightScheduledSender: spotlightReceiver disabling messages for resume", &v10, 2u);
       }
 
       *(*(a1 + 32) + 80) &= ~0x40000u;
     }
   }
 
-  result = [*(a1 + 32) receiverRequestComplete];
-  v9 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 32) receiverRequestComplete];
 }
 
 - (void)reset
@@ -1707,7 +1685,7 @@ uint64_t __37__SpotlightReceiverConnection_resume__block_invoke_331(uint64_t a1,
 
 void __36__SpotlightReceiverConnection_reset__block_invoke(uint64_t a1)
 {
-  v2 = logForCSLogCategoryDefault();
+  v2 = logForCSLogCategoryDefault(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
     __38__SpotlightReceiverConnection_suspend__block_invoke_cold_1(a1);
@@ -1734,7 +1712,7 @@ uint64_t __36__SpotlightReceiverConnection_reset__block_invoke_332(uint64_t a1, 
   if (int64 >= 1)
   {
     v5 = int64 << 32;
-    v6 = logForCSLogCategoryDefault();
+    v6 = logForCSLogCategoryDefault(int64);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       v10 = 134217984;
@@ -1744,20 +1722,18 @@ uint64_t __36__SpotlightReceiverConnection_reset__block_invoke_332(uint64_t a1, 
 
     if (v5 == 0x200000000)
     {
-      v7 = logForCSLogCategoryDefault();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+      v8 = logForCSLogCategoryDefault(v7);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
         LOWORD(v10) = 0;
-        _os_log_impl(&dword_231A35000, v7, OS_LOG_TYPE_DEFAULT, "SpotlightScheduledSender: spotlightReceiver disabling messages for reset", &v10, 2u);
+        _os_log_impl(&dword_231A35000, v8, OS_LOG_TYPE_DEFAULT, "SpotlightScheduledSender: spotlightReceiver disabling messages for reset", &v10, 2u);
       }
 
       *(*(a1 + 32) + 80) &= ~0x80000u;
     }
   }
 
-  result = [*(a1 + 32) receiverRequestComplete];
-  v9 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 32) receiverRequestComplete];
 }
 
 - (void)deleteFromBundle:(id)bundle encodedIdentifiers:(id)identifiers
@@ -1784,7 +1760,7 @@ uint64_t __36__SpotlightReceiverConnection_reset__block_invoke_332(uint64_t a1, 
 
 void __67__SpotlightReceiverConnection_deleteFromBundle_encodedIdentifiers___block_invoke(uint64_t a1)
 {
-  v2 = logForCSLogCategoryDefault();
+  v2 = logForCSLogCategoryDefault(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
     __67__SpotlightReceiverConnection_deleteFromBundle_encodedIdentifiers___block_invoke_cold_1(a1);
@@ -1831,7 +1807,7 @@ void __67__SpotlightReceiverConnection_deleteFromBundle_encodedIdentifiers___blo
 
 void __72__SpotlightReceiverConnection_deleteFromBundle_contentType_identifiers___block_invoke(uint64_t a1)
 {
-  v2 = logForCSLogCategoryDefault();
+  v2 = logForCSLogCategoryDefault(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
     __72__SpotlightReceiverConnection_deleteFromBundle_contentType_identifiers___block_invoke_cold_1();
@@ -1878,7 +1854,7 @@ void __72__SpotlightReceiverConnection_deleteFromBundle_contentType_identifiers_
 
 void __66__SpotlightReceiverConnection_deleteFromBundle_domainIdentifiers___block_invoke(uint64_t a1)
 {
-  v2 = logForCSLogCategoryDefault();
+  v2 = logForCSLogCategoryDefault(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
     __66__SpotlightReceiverConnection_deleteFromBundle_domainIdentifiers___block_invoke_cold_1();
@@ -1925,7 +1901,7 @@ void __66__SpotlightReceiverConnection_deleteFromBundle_domainIdentifiers___bloc
 
 void __59__SpotlightReceiverConnection_purgeFromBundle_identifiers___block_invoke(uint64_t a1)
 {
-  v2 = logForCSLogCategoryDefault();
+  v2 = logForCSLogCategoryDefault(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
     __59__SpotlightReceiverConnection_purgeFromBundle_identifiers___block_invoke_cold_1();
@@ -1974,8 +1950,8 @@ void __59__SpotlightReceiverConnection_purgeFromBundle_identifiers___block_invok
 
 void __71__SpotlightReceiverConnection_addUserActions_bundleID_protectionClass___block_invoke(id *a1)
 {
-  v22 = *MEMORY[0x277D85DE8];
-  v2 = logForCSLogCategoryDefault();
+  v21 = *MEMORY[0x277D85DE8];
+  v2 = logForCSLogCategoryDefault(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
     __71__SpotlightReceiverConnection_addUserActions_bundleID_protectionClass___block_invoke_cold_1();
@@ -1992,27 +1968,27 @@ void __71__SpotlightReceiverConnection_addUserActions_bundleID_protectionClass__
 
   v4 = objc_alloc_init(MEMORY[0x277CC33A0]);
   [v4 beginArray];
-  v19 = 0u;
-  v20 = 0u;
-  v17 = 0u;
   v18 = 0u;
+  v19 = 0u;
+  v16 = 0u;
+  v17 = 0u;
   v5 = a1[4];
-  v6 = [v5 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v18;
+    v8 = *v17;
     do
     {
       v9 = 0;
       do
       {
-        if (*v18 != v8)
+        if (*v17 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v17 + 1) + 8 * v9);
+        v10 = *(*(&v16 + 1) + 8 * v9);
         [v4 beginArray];
         v11 = [v10 action];
         [v4 encodeObject:v11];
@@ -2026,7 +2002,7 @@ void __71__SpotlightReceiverConnection_addUserActions_bundleID_protectionClass__
       }
 
       while (v7 != v9);
-      v7 = [v5 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v7);
@@ -2036,14 +2012,12 @@ void __71__SpotlightReceiverConnection_addUserActions_bundleID_protectionClass__
   [MEMORY[0x277CC3510] dictionary:v3 setPlistContainer:objc_msgSend(v4 forKey:"plistContainer") sizeKey:{"a", "a-size"}];
   [a1[7] receiverRequestStart];
   v14 = a1[7];
-  v16[0] = MEMORY[0x277D85DD0];
-  v16[1] = 3221225472;
-  v16[2] = __71__SpotlightReceiverConnection_addUserActions_bundleID_protectionClass___block_invoke_342;
-  v16[3] = &unk_2789341D0;
-  v16[4] = v14;
-  [v14 sendMessageAsync:v3 completion:v16];
-
-  v15 = *MEMORY[0x277D85DE8];
+  v15[0] = MEMORY[0x277D85DD0];
+  v15[1] = 3221225472;
+  v15[2] = __71__SpotlightReceiverConnection_addUserActions_bundleID_protectionClass___block_invoke_342;
+  v15[3] = &unk_2789341D0;
+  v15[4] = v14;
+  [v14 sendMessageAsync:v3 completion:v15];
 }
 
 - (void)deleteAllUserActivities:(id)activities
@@ -2068,16 +2042,16 @@ void __71__SpotlightReceiverConnection_addUserActions_bundleID_protectionClass__
 
 void __55__SpotlightReceiverConnection_deleteAllUserActivities___block_invoke(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
-  v2 = logForCSLogCategoryDefault();
+  v12 = *MEMORY[0x277D85DE8];
+  v2 = logForCSLogCategoryDefault(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     v3 = *(a1 + 32);
     v4 = [*(a1 + 40) serviceName];
     *buf = 138412546;
-    v10 = v3;
-    v11 = 2112;
-    v12 = v4;
+    v9 = v3;
+    v10 = 2112;
+    v11 = v4;
     _os_log_impl(&dword_231A35000, v2, OS_LOG_TYPE_INFO, "SpotlightSender: deleteAllUserActivities bundleID: %@, client: %@", buf, 0x16u);
   }
 
@@ -2087,14 +2061,12 @@ void __55__SpotlightReceiverConnection_deleteAllUserActivities___block_invoke(ui
   xpc_dictionary_set_string(v5, "b", [*(a1 + 32) UTF8String]);
   [*(a1 + 40) receiverRequestStart];
   v6 = *(a1 + 40);
-  v8[0] = MEMORY[0x277D85DD0];
-  v8[1] = 3221225472;
-  v8[2] = __55__SpotlightReceiverConnection_deleteAllUserActivities___block_invoke_343;
-  v8[3] = &unk_2789341D0;
-  v8[4] = v6;
-  [v6 sendMessageAsync:v5 completion:v8];
-
-  v7 = *MEMORY[0x277D85DE8];
+  v7[0] = MEMORY[0x277D85DD0];
+  v7[1] = 3221225472;
+  v7[2] = __55__SpotlightReceiverConnection_deleteAllUserActivities___block_invoke_343;
+  v7[3] = &unk_2789341D0;
+  v7[4] = v6;
+  [v6 sendMessageAsync:v5 completion:v7];
 }
 
 - (void)deleteUserActivitiesWithPersistentIdentifiers:(id)identifiers bundleID:(id)d retainedData:(id)data
@@ -2123,16 +2095,16 @@ void __55__SpotlightReceiverConnection_deleteAllUserActivities___block_invoke(ui
 
 void __99__SpotlightReceiverConnection_deleteUserActivitiesWithPersistentIdentifiers_bundleID_retainedData___block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
-  v2 = logForCSLogCategoryDefault();
+  v13 = *MEMORY[0x277D85DE8];
+  v2 = logForCSLogCategoryDefault(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     v3 = *(a1 + 32);
     v4 = [*(a1 + 40) serviceName];
     *buf = 138412546;
-    v11 = v3;
-    v12 = 2112;
-    v13 = v4;
+    v10 = v3;
+    v11 = 2112;
+    v12 = v4;
     _os_log_impl(&dword_231A35000, v2, OS_LOG_TYPE_INFO, "SpotlightSender: deleteUserActivities bundleID: %@, client: %@", buf, 0x16u);
   }
 
@@ -2143,22 +2115,13 @@ void __99__SpotlightReceiverConnection_deleteUserActivitiesWithPersistentIdentif
   [*(a1 + 40) dictionary:v5 setDecoderData:*(a1 + 48) forKey:"ids" sizeKey:"ids-size"];
   [*(a1 + 40) receiverRequestStart];
   v6 = *(a1 + 40);
-  v8[0] = MEMORY[0x277D85DD0];
-  v8[1] = 3221225472;
-  v8[2] = __99__SpotlightReceiverConnection_deleteUserActivitiesWithPersistentIdentifiers_bundleID_retainedData___block_invoke_344;
-  v8[3] = &unk_2789342E8;
-  v8[4] = v6;
-  v9 = *(a1 + 56);
-  [v6 sendMessageAsync:v5 completion:v8];
-
-  v7 = *MEMORY[0x277D85DE8];
-}
-
-id __99__SpotlightReceiverConnection_deleteUserActivitiesWithPersistentIdentifiers_bundleID_retainedData___block_invoke_344(uint64_t a1)
-{
-  [*(a1 + 32) receiverRequestComplete];
-  v2 = *(a1 + 40);
-  return objc_opt_self();
+  v7[0] = MEMORY[0x277D85DD0];
+  v7[1] = 3221225472;
+  v7[2] = __99__SpotlightReceiverConnection_deleteUserActivitiesWithPersistentIdentifiers_bundleID_retainedData___block_invoke_344;
+  v7[3] = &unk_2789342E8;
+  v7[4] = v6;
+  v8 = *(a1 + 56);
+  [v6 sendMessageAsync:v5 completion:v7];
 }
 
 - (void)deleteFromBundle:(id)bundle sinceDate:(id)date
@@ -2185,7 +2148,7 @@ id __99__SpotlightReceiverConnection_deleteUserActivitiesWithPersistentIdentifie
 
 void __58__SpotlightReceiverConnection_deleteFromBundle_sinceDate___block_invoke(id *a1)
 {
-  v2 = logForCSLogCategoryDefault();
+  v2 = logForCSLogCategoryDefault(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
     __58__SpotlightReceiverConnection_deleteFromBundle_sinceDate___block_invoke_cold_1(a1);
@@ -2229,7 +2192,7 @@ void __58__SpotlightReceiverConnection_deleteFromBundle_sinceDate___block_invoke
 
 void __48__SpotlightReceiverConnection_deleteFromBundle___block_invoke(uint64_t a1)
 {
-  v2 = logForCSLogCategoryDefault();
+  v2 = logForCSLogCategoryDefault(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
     __48__SpotlightReceiverConnection_deleteFromBundle___block_invoke_cold_1(a1);
@@ -2277,7 +2240,7 @@ void __48__SpotlightReceiverConnection_deleteFromBundle___block_invoke(uint64_t 
 
 void __87__SpotlightReceiverConnection_addInteraction_intentClassName_bundleID_protectionClass___block_invoke(id *a1)
 {
-  v2 = logForCSLogCategoryDefault();
+  v2 = logForCSLogCategoryDefault(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
     __87__SpotlightReceiverConnection_addInteraction_intentClassName_bundleID_protectionClass___block_invoke_cold_1(a1);
@@ -2331,7 +2294,7 @@ void __87__SpotlightReceiverConnection_addInteraction_intentClassName_bundleID_p
 void __90__SpotlightReceiverConnection_deleteInteractionsWithIdentifiers_bundleID_protectionClass___block_invoke(id *a1)
 {
   v20 = *MEMORY[0x277D85DE8];
-  v2 = logForCSLogCategoryDefault();
+  v2 = logForCSLogCategoryDefault(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = a1[4];
@@ -2349,32 +2312,30 @@ void __90__SpotlightReceiverConnection_deleteInteractionsWithIdentifiers_bundleI
     _os_log_impl(&dword_231A35000, v2, OS_LOG_TYPE_DEFAULT, "SpotlightSender: deleteInteractionsWithIdentifiers, bundleID: %@, protectionClass: %@, client: %@, identifiers number: %lu", buf, 0x2Au);
   }
 
-  v7 = logForCSLogCategoryDefault();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+  v8 = logForCSLogCategoryDefault(v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
-    __90__SpotlightReceiverConnection_deleteInteractionsWithIdentifiers_bundleID_protectionClass___block_invoke_cold_1(a1, v7);
+    __90__SpotlightReceiverConnection_deleteInteractionsWithIdentifiers_bundleID_protectionClass___block_invoke_cold_1(a1, v8);
   }
 
-  v8 = xpc_dictionary_create(0, 0, 0);
-  xpc_dictionary_set_string(v8, "command", "j");
-  xpc_dictionary_set_uint64(v8, "jt", 0x100uLL);
-  xpc_dictionary_set_string(v8, "b", [a1[4] UTF8String]);
+  v9 = xpc_dictionary_create(0, 0, 0);
+  xpc_dictionary_set_string(v9, "command", "j");
+  xpc_dictionary_set_uint64(v9, "jt", 0x100uLL);
+  xpc_dictionary_set_string(v9, "b", [a1[4] UTF8String]);
   if ([a1[5] length])
   {
-    xpc_dictionary_set_string(v8, "pc", [a1[5] UTF8String]);
+    xpc_dictionary_set_string(v9, "pc", [a1[5] UTF8String]);
   }
 
-  [MEMORY[0x277CC3510] dictionary:v8 setStringArray:a1[7] forKey:"ids"];
+  [MEMORY[0x277CC3510] dictionary:v9 setStringArray:a1[7] forKey:"ids"];
   [a1[6] receiverRequestStart];
-  v9 = a1[6];
+  v10 = a1[6];
   v11[0] = MEMORY[0x277D85DD0];
   v11[1] = 3221225472;
   v11[2] = __90__SpotlightReceiverConnection_deleteInteractionsWithIdentifiers_bundleID_protectionClass___block_invoke_351;
   v11[3] = &unk_2789341D0;
-  v11[4] = v9;
-  [v9 sendMessageAsync:v8 completion:v11];
-
-  v10 = *MEMORY[0x277D85DE8];
+  v11[4] = v10;
+  [v10 sendMessageAsync:v9 completion:v11];
 }
 
 - (void)deleteInteractionsWithGroupIdentifiers:(id)identifiers bundleID:(id)d protectionClass:(id)class
@@ -2404,7 +2365,7 @@ void __90__SpotlightReceiverConnection_deleteInteractionsWithIdentifiers_bundleI
 void __95__SpotlightReceiverConnection_deleteInteractionsWithGroupIdentifiers_bundleID_protectionClass___block_invoke(id *a1)
 {
   v20 = *MEMORY[0x277D85DE8];
-  v2 = logForCSLogCategoryDefault();
+  v2 = logForCSLogCategoryDefault(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = a1[4];
@@ -2422,32 +2383,30 @@ void __95__SpotlightReceiverConnection_deleteInteractionsWithGroupIdentifiers_bu
     _os_log_impl(&dword_231A35000, v2, OS_LOG_TYPE_DEFAULT, "SpotlightSender: deleteInteractionsWithGroupIdentifiers, bundleID: %@, protectionClass: %@, client: %@, identifiers number: %lu", buf, 0x2Au);
   }
 
-  v7 = logForCSLogCategoryDefault();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+  v8 = logForCSLogCategoryDefault(v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
-    __90__SpotlightReceiverConnection_deleteInteractionsWithIdentifiers_bundleID_protectionClass___block_invoke_cold_1(a1, v7);
+    __90__SpotlightReceiverConnection_deleteInteractionsWithIdentifiers_bundleID_protectionClass___block_invoke_cold_1(a1, v8);
   }
 
-  v8 = xpc_dictionary_create(0, 0, 0);
-  xpc_dictionary_set_string(v8, "command", "j");
-  xpc_dictionary_set_uint64(v8, "jt", 0x200uLL);
-  xpc_dictionary_set_string(v8, "b", [a1[4] UTF8String]);
+  v9 = xpc_dictionary_create(0, 0, 0);
+  xpc_dictionary_set_string(v9, "command", "j");
+  xpc_dictionary_set_uint64(v9, "jt", 0x200uLL);
+  xpc_dictionary_set_string(v9, "b", [a1[4] UTF8String]);
   if ([a1[5] length])
   {
-    xpc_dictionary_set_string(v8, "pc", [a1[5] UTF8String]);
+    xpc_dictionary_set_string(v9, "pc", [a1[5] UTF8String]);
   }
 
-  [MEMORY[0x277CC3510] dictionary:v8 setStringArray:a1[7] forKey:"ids"];
+  [MEMORY[0x277CC3510] dictionary:v9 setStringArray:a1[7] forKey:"ids"];
   [a1[6] receiverRequestStart];
-  v9 = a1[6];
+  v10 = a1[6];
   v11[0] = MEMORY[0x277D85DD0];
   v11[1] = 3221225472;
   v11[2] = __95__SpotlightReceiverConnection_deleteInteractionsWithGroupIdentifiers_bundleID_protectionClass___block_invoke_352;
   v11[3] = &unk_2789341D0;
-  v11[4] = v9;
-  [v9 sendMessageAsync:v8 completion:v11];
-
-  v10 = *MEMORY[0x277D85DE8];
+  v11[4] = v10;
+  [v10 sendMessageAsync:v9 completion:v11];
 }
 
 - (void)deleteAllInteractionsWithBundleID:(id)d protectionClass:(id)class
@@ -2474,19 +2433,19 @@ void __95__SpotlightReceiverConnection_deleteInteractionsWithGroupIdentifiers_bu
 
 void __81__SpotlightReceiverConnection_deleteAllInteractionsWithBundleID_protectionClass___block_invoke(id *a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
-  v2 = logForCSLogCategoryDefault();
+  v15 = *MEMORY[0x277D85DE8];
+  v2 = logForCSLogCategoryDefault(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = a1[4];
     v4 = a1[5];
     v5 = [a1[6] serviceName];
     *buf = 138412802;
-    v11 = v3;
-    v12 = 2112;
-    v13 = v4;
-    v14 = 2112;
-    v15 = v5;
+    v10 = v3;
+    v11 = 2112;
+    v12 = v4;
+    v13 = 2112;
+    v14 = v5;
     _os_log_impl(&dword_231A35000, v2, OS_LOG_TYPE_DEFAULT, "SpotlightSender: deleteAllInteractionsWithBundleID, bundleID: %@, protectionClass: %@, client: %@", buf, 0x20u);
   }
 
@@ -2501,14 +2460,12 @@ void __81__SpotlightReceiverConnection_deleteAllInteractionsWithBundleID_protect
 
   [a1[6] receiverRequestStart];
   v7 = a1[6];
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __81__SpotlightReceiverConnection_deleteAllInteractionsWithBundleID_protectionClass___block_invoke_353;
-  v9[3] = &unk_2789341D0;
-  v9[4] = v7;
-  [v7 sendMessageAsync:v6 completion:v9];
-
-  v8 = *MEMORY[0x277D85DE8];
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __81__SpotlightReceiverConnection_deleteAllInteractionsWithBundleID_protectionClass___block_invoke_353;
+  v8[3] = &unk_2789341D0;
+  v8[4] = v7;
+  [v7 sendMessageAsync:v6 completion:v8];
 }
 
 - (void)donateRelevantActions:(id)actions bundleID:(id)d
@@ -2554,7 +2511,7 @@ LABEL_10:
 
 void __62__SpotlightReceiverConnection_donateRelevantActions_bundleID___block_invoke(uint64_t a1)
 {
-  v2 = logForCSLogCategoryDefault();
+  v2 = logForCSLogCategoryDefault(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
     __62__SpotlightReceiverConnection_donateRelevantActions_bundleID___block_invoke_cold_1(a1);
@@ -2577,194 +2534,137 @@ void __62__SpotlightReceiverConnection_donateRelevantActions_bundleID___block_in
 
 - (void)handleError:(uint64_t)a1 .cold.1(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v7 = [a2 serviceName];
+  v6 = [a2 serviceName];
   OUTLINED_FUNCTION_3_0();
   _os_log_error_impl(v2, v3, OS_LOG_TYPE_ERROR, v4, v5, 0x16u);
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __41__SpotlightReceiverConnection_startSetup__block_invoke_289_cold_1(uint64_t *a1, uint64_t a2, os_log_t log)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = *a1;
-  v5 = 138412546;
-  v6 = v3;
-  v7 = 2112;
-  v8 = a2;
-  _os_log_error_impl(&dword_231A35000, log, OS_LOG_TYPE_ERROR, "### RECEIVER write to %@ error %@", &v5, 0x16u);
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 138412546;
+  v5 = v3;
+  v6 = 2112;
+  v7 = a2;
+  _os_log_error_impl(&dword_231A35000, log, OS_LOG_TYPE_ERROR, "### RECEIVER write to %@ error %@", &v4, 0x16u);
 }
 
 void __82__SpotlightReceiverConnection_indexFromBundle_protectionClass_items_itemsContent___block_invoke_cold_1(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 56);
-  v2 = *(a1 + 64);
-  v3 = [*(a1 + 40) serviceName];
+  v1 = [*(a1 + 40) serviceName];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_1();
-  _os_log_debug_impl(v4, v5, v6, v7, v8, 0x20u);
-
-  v9 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v2, v3, v4, v5, v6, 0x20u);
 }
 
 void __163__SpotlightReceiverConnection_indexWithFd_offset_size_indexType_bundleID_protectionClass_serialNumber_journalCookie_config_additionalAttributes_completionHandler___block_invoke_cold_1(int *a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
   v2 = *a1;
-  v4[0] = 67109120;
-  v4[1] = v2;
-  _os_log_error_impl(&dword_231A35000, a2, OS_LOG_TYPE_ERROR, "SpotlightScheduledSender: spotlightReceiver failed to create FD! fd: %d", v4, 8u);
-  v3 = *MEMORY[0x277D85DE8];
+  v3[0] = 67109120;
+  v3[1] = v2;
+  _os_log_error_impl(&dword_231A35000, a2, OS_LOG_TYPE_ERROR, "SpotlightScheduledSender: spotlightReceiver failed to create FD! fd: %d", v3, 8u);
 }
 
 void __38__SpotlightReceiverConnection_suspend__block_invoke_cold_1(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [*(a1 + 32) serviceName];
   OUTLINED_FUNCTION_4_0();
   OUTLINED_FUNCTION_1();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __67__SpotlightReceiverConnection_deleteFromBundle_encodedIdentifiers___block_invoke_cold_1(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
-  v2 = [*(a1 + 40) serviceName];
+  v1 = [*(a1 + 40) serviceName];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_1();
-  _os_log_debug_impl(v3, v4, v5, v6, v7, 0x16u);
-
-  v8 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v2, v3, v4, v5, v6, 0x16u);
 }
 
 void __72__SpotlightReceiverConnection_deleteFromBundle_contentType_identifiers___block_invoke_cold_1()
 {
   OUTLINED_FUNCTION_6();
-  v1 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_7(v2);
-  v3 = *(v0 + 40);
-  v4 = *(v0 + 48);
-  v5 = [*(v0 + 56) serviceName];
+  OUTLINED_FUNCTION_7(v1);
+  v2 = [*(v0 + 56) serviceName];
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1();
-  _os_log_debug_impl(v6, v7, v8, v9, v10, 0x26u);
-
-  v11 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v3, v4, v5, v6, v7, 0x26u);
 }
 
 void __66__SpotlightReceiverConnection_deleteFromBundle_domainIdentifiers___block_invoke_cold_1()
 {
   OUTLINED_FUNCTION_6();
-  v1 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_7(v2);
-  v3 = *(v0 + 40);
-  v4 = [*(v0 + 48) serviceName];
+  OUTLINED_FUNCTION_7(v1);
+  v2 = [*(v0 + 48) serviceName];
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1();
-  _os_log_debug_impl(v5, v6, v7, v8, v9, 0x1Cu);
-
-  v10 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v3, v4, v5, v6, v7, 0x1Cu);
 }
 
 void __59__SpotlightReceiverConnection_purgeFromBundle_identifiers___block_invoke_cold_1()
 {
   OUTLINED_FUNCTION_6();
-  v1 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_7(v2);
-  v3 = *(v0 + 40);
-  v4 = [*(v0 + 48) serviceName];
+  OUTLINED_FUNCTION_7(v1);
+  v2 = [*(v0 + 48) serviceName];
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1();
-  _os_log_debug_impl(v5, v6, v7, v8, v9, 0x1Cu);
-
-  v10 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v3, v4, v5, v6, v7, 0x1Cu);
 }
 
 void __71__SpotlightReceiverConnection_addUserActions_bundleID_protectionClass___block_invoke_cold_1()
 {
   OUTLINED_FUNCTION_6();
-  v1 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_7(v2);
-  v3 = *(v0 + 40);
-  v4 = *(v0 + 48);
-  v5 = [*(v0 + 56) serviceName];
+  OUTLINED_FUNCTION_7(v1);
+  v2 = [*(v0 + 56) serviceName];
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1();
-  _os_log_debug_impl(v6, v7, v8, v9, v10, 0x26u);
-
-  v11 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v3, v4, v5, v6, v7, 0x26u);
 }
 
 void __58__SpotlightReceiverConnection_deleteFromBundle_sinceDate___block_invoke_cold_1(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
-  v2 = *(a1 + 40);
-  v3 = [*(a1 + 48) serviceName];
+  v1 = [*(a1 + 48) serviceName];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_1();
-  _os_log_debug_impl(v4, v5, v6, v7, v8, 0x20u);
-
-  v9 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v2, v3, v4, v5, v6, 0x20u);
 }
 
 void __48__SpotlightReceiverConnection_deleteFromBundle___block_invoke_cold_1(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
-  v2 = [*(a1 + 40) serviceName];
+  v1 = [*(a1 + 40) serviceName];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_1();
-  _os_log_debug_impl(v3, v4, v5, v6, v7, 0x16u);
-
-  v8 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v2, v3, v4, v5, v6, 0x16u);
 }
 
 void __87__SpotlightReceiverConnection_addInteraction_intentClassName_bundleID_protectionClass___block_invoke_cold_1(uint64_t a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
-  v2 = *(a1 + 40);
-  v3 = *(a1 + 48);
-  v4 = *(a1 + 56);
-  v5 = [*(a1 + 64) serviceName];
+  v1 = [*(a1 + 64) serviceName];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_1();
-  _os_log_debug_impl(v6, v7, v8, v9, v10, 0x34u);
-
-  v11 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v2, v3, v4, v5, v6, 0x34u);
 }
 
 void __90__SpotlightReceiverConnection_deleteInteractionsWithIdentifiers_bundleID_protectionClass___block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 56);
-  v4 = 138412290;
-  v5 = v2;
-  _os_log_debug_impl(&dword_231A35000, a2, OS_LOG_TYPE_DEBUG, "SpotlightSender: identifiers: %@", &v4, 0xCu);
-  v3 = *MEMORY[0x277D85DE8];
+  v3 = 138412290;
+  v4 = v2;
+  _os_log_debug_impl(&dword_231A35000, a2, OS_LOG_TYPE_DEBUG, "SpotlightSender: identifiers: %@", &v3, 0xCu);
 }
 
 void __62__SpotlightReceiverConnection_donateRelevantActions_bundleID___block_invoke_cold_1(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
-  v2 = *(a1 + 40);
-  v3 = [*(a1 + 48) serviceName];
+  v1 = [*(a1 + 48) serviceName];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_1();
-  _os_log_debug_impl(v4, v5, v6, v7, v8, 0x20u);
-
-  v9 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v2, v3, v4, v5, v6, 0x20u);
 }
 
 @end

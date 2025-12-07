@@ -39,7 +39,6 @@
     transaction = self->_transaction;
     self->_transaction = v7;
 
-    v9 = self->_transaction;
     MRRegisterTransaction();
   }
 
@@ -47,11 +46,11 @@
   {
     if (v6)
     {
-      *v12 = 0;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "[MRDLockScreenController] Deactivating lockScreenAssertion", v12, 2u);
+      *v11 = 0;
+      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "[MRDLockScreenController] Deactivating lockScreenAssertion", v11, 2u);
     }
 
-    v10 = self->_transaction;
+    v9 = self->_transaction;
     self->_transaction = 0;
   }
 
@@ -62,53 +61,53 @@
 - (void)createAssertion
 {
   objc_initWeak(&location, self);
-  v18 = 0;
-  v19 = &v18;
-  v20 = 0x2050000000;
+  v19 = 0;
+  v20 = &v19;
+  v21 = 0x2050000000;
   v3 = qword_100529408;
-  v21 = qword_100529408;
+  v22 = qword_100529408;
   if (!qword_100529408)
   {
-    v13 = _NSConcreteStackBlock;
-    v14 = 3221225472;
-    v15 = sub_1000FABF0;
-    v16 = &unk_1004B8728;
-    v17 = &v18;
-    sub_1000FABF0(&v13);
-    v3 = v19[3];
+    v14 = _NSConcreteStackBlock;
+    v15 = 3221225472;
+    v16 = sub_1000FABF0;
+    v17 = &unk_1004B8728;
+    v18 = &v19;
+    sub_1000FABF0(&v14);
+    v3 = v20[3];
   }
 
   v4 = v3;
-  _Block_object_dispose(&v18, 8);
-  v18 = 0;
-  v19 = &v18;
-  v20 = 0x2020000000;
+  _Block_object_dispose(&v19, 8);
+  v19 = 0;
+  v20 = &v19;
+  v21 = 0x2020000000;
   v5 = qword_100529418;
-  v21 = qword_100529418;
+  v22 = qword_100529418;
   if (!qword_100529418)
   {
-    v13 = _NSConcreteStackBlock;
-    v14 = 3221225472;
-    v15 = sub_1000FADBC;
-    v16 = &unk_1004B8728;
-    v17 = &v18;
+    v14 = _NSConcreteStackBlock;
+    v15 = 3221225472;
+    v16 = sub_1000FADBC;
+    v17 = &unk_1004B8728;
+    v18 = &v19;
     v6 = sub_1000FAC48();
     v7 = dlsym(v6, "SBSLockScreenContentAssertionSlotPlatter");
-    *(v17[1] + 24) = v7;
-    qword_100529418 = *(v17[1] + 24);
-    v5 = v19[3];
+    *(v18[1] + 24) = v7;
+    qword_100529418 = *(v18[1] + 24);
+    v5 = v20[3];
   }
 
-  _Block_object_dispose(&v18, 8);
+  _Block_object_dispose(&v19, 8);
   if (v5)
   {
     v8 = *v5;
-    v10[0] = _NSConcreteStackBlock;
-    v10[1] = 3221225472;
-    v10[2] = sub_1000FA964;
-    v10[3] = &unk_1004B7D50;
-    objc_copyWeak(&v11, &location);
-    v9 = [v3 acquireContentProviderAssertionForType:1 slot:v8 identifier:@"SBDashBoardNowPlayingAssertionIdentifier" errorHandler:v10];
+    v11[0] = _NSConcreteStackBlock;
+    v11[1] = 3221225472;
+    v11[2] = sub_1000FA964;
+    v11[3] = &unk_1004B7D50;
+    objc_copyWeak(&v12, &location);
+    v9 = [v3 acquireContentProviderAssertionForType:1 slot:v8 identifier:@"SBDashBoardNowPlayingAssertionIdentifier" errorHandler:v11];
     [(MRDLockScreenAssertion *)self setAssertion:v9];
 
     if (!self->_assertion)
@@ -116,14 +115,14 @@
       [(MRDLockScreenAssertion *)self delayCreateAssertion];
     }
 
-    objc_destroyWeak(&v11);
+    objc_destroyWeak(&v12);
     objc_destroyWeak(&location);
   }
 
   else
   {
-    dlerror();
-    abort_report_np();
+    v10 = dlerror();
+    abort_report_np("%s", v10);
     __break(1u);
   }
 }

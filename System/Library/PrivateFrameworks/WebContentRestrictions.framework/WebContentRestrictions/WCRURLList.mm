@@ -127,7 +127,7 @@
 
 - (BOOL)containsURLString:(id)string
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   stringCopy = string;
   urlStringList = [(WCRURLList *)self urlStringList];
   v6 = [urlStringList count];
@@ -135,27 +135,27 @@
   if (v6)
   {
     v7 = [objc_opt_class() _formattedStringFromURLString:stringCopy fromBrowser:1 removePort:0];
+    v31 = 0u;
     v32 = 0u;
     v33 = 0u;
     v34 = 0u;
-    v35 = 0u;
     selfCopy = self;
     obj = [(WCRURLList *)self urlStringList];
-    v8 = [obj countByEnumeratingWithState:&v32 objects:v37 count:16];
+    v8 = [obj countByEnumeratingWithState:&v31 objects:v36 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v33;
+      v10 = *v32;
       while (2)
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v33 != v10)
+          if (*v32 != v10)
           {
             objc_enumerationMutation(obj);
           }
 
-          v12 = *(*(&v32 + 1) + 8 * i);
+          v12 = *(*(&v31 + 1) + 8 * i);
           if ([v7 containsString:v12])
           {
             if ([v12 hasPrefix:@"http"])
@@ -195,7 +195,7 @@
           }
         }
 
-        v9 = [obj countByEnumeratingWithState:&v32 objects:v37 count:16];
+        v9 = [obj countByEnumeratingWithState:&v31 objects:v36 count:16];
         if (v9)
         {
           continue;
@@ -213,32 +213,32 @@
 
     else
     {
-      v30 = 0u;
-      v31 = 0u;
-      v28 = 0u;
       v29 = 0u;
+      v30 = 0u;
+      v27 = 0u;
+      v28 = 0u;
       urlStringList2 = [(WCRURLList *)selfCopy urlStringList];
-      v21 = [urlStringList2 countByEnumeratingWithState:&v28 objects:v36 count:16];
+      v21 = [urlStringList2 countByEnumeratingWithState:&v27 objects:v35 count:16];
       if (v21)
       {
-        v24 = *v29;
+        v23 = *v28;
         while (2)
         {
           for (j = 0; j != v21; ++j)
           {
-            if (*v29 != v24)
+            if (*v28 != v23)
             {
               objc_enumerationMutation(urlStringList2);
             }
 
-            if ([obj containsString:*(*(&v28 + 1) + 8 * j)])
+            if ([obj containsString:*(*(&v27 + 1) + 8 * j)])
             {
               LOBYTE(v21) = 1;
               goto LABEL_23;
             }
           }
 
-          v21 = [urlStringList2 countByEnumeratingWithState:&v28 objects:v36 count:16];
+          v21 = [urlStringList2 countByEnumeratingWithState:&v27 objects:v35 count:16];
           if (v21)
           {
             continue;
@@ -257,7 +257,6 @@ LABEL_23:
     LOBYTE(v21) = 0;
   }
 
-  v22 = *MEMORY[0x277D85DE8];
   return v21;
 }
 

@@ -135,7 +135,7 @@
   v5 = episodeKind;
   if (episodeKind)
   {
-    [episodeKind predicateWithBaseProperty:0];
+    objc_msgSend_predicateWithBaseProperty_(episodeKind);
   }
 
   else

@@ -21,11 +21,11 @@
 
 - (id)suggestedActions
 {
-  v13[1] = *MEMORY[0x1E69E9840];
+  v12[1] = *MEMORY[0x1E69E9840];
   v2 = +[WFActionRegistry sharedRegistry];
-  v12 = @"ShowWhenRun";
-  v13[0] = MEMORY[0x1E695E110];
-  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:&v12 count:1];
+  v11 = @"ShowWhenRun";
+  v12[0] = MEMORY[0x1E695E110];
+  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:&v11 count:1];
   v4 = [v2 createActionWithIdentifier:@"is.workflow.actions.sendmessage" serializedParameters:v3];
 
   v5 = +[WFActionRegistry sharedRegistry];
@@ -33,14 +33,12 @@
 
   if (v4)
   {
-    v11 = v4;
-    v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v11 count:1];
+    v10 = v4;
+    v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v10 count:1];
     v8 = [v7 arrayByAddingObjectsFromArray:v6];
 
     v6 = v8;
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 
   return v6;
 }
@@ -199,11 +197,11 @@ LABEL_18:
 
 - (WFTimeOfDayTrigger)initWithCoder:(id)coder
 {
-  v24[2] = *MEMORY[0x1E69E9840];
+  v23[2] = *MEMORY[0x1E69E9840];
   coderCopy = coder;
-  v23.receiver = self;
-  v23.super_class = WFTimeOfDayTrigger;
-  v5 = [(WFTrigger *)&v23 initWithCoder:coderCopy];
+  v22.receiver = self;
+  v22.super_class = WFTimeOfDayTrigger;
+  v5 = [(WFTrigger *)&v22 initWithCoder:coderCopy];
   if (v5)
   {
     v6 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"timeOfDay"];
@@ -222,9 +220,9 @@ LABEL_18:
     v5->_time = v10;
 
     v12 = MEMORY[0x1E695DFD8];
-    v24[0] = objc_opt_class();
-    v24[1] = objc_opt_class();
-    v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v24 count:2];
+    v23[0] = objc_opt_class();
+    v23[1] = objc_opt_class();
+    v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v23 count:2];
     v14 = [v12 setWithArray:v13];
     v15 = [coderCopy decodeObjectOfClasses:v14 forKey:@"daysOfWeek"];
     daysOfWeek = v5->_daysOfWeek;
@@ -251,7 +249,6 @@ LABEL_18:
     v20 = v5;
   }
 
-  v21 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
@@ -418,7 +415,7 @@ LABEL_18:
 
 + (id)localizedRecurrenceDescriptionForDaysOfWeek:(id)week dayOfMonth:(id)month mode:(unint64_t)mode
 {
-  v43 = *MEMORY[0x1E69E9840];
+  v42 = *MEMORY[0x1E69E9840];
   weekCopy = week;
   monthCopy = month;
   v9 = monthCopy;
@@ -439,8 +436,8 @@ LABEL_18:
     if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v36 = "+[WFTimeOfDayTrigger localizedRecurrenceDescriptionForDaysOfWeek:dayOfMonth:mode:]";
-      v37 = 2112;
+      v35 = "+[WFTimeOfDayTrigger localizedRecurrenceDescriptionForDaysOfWeek:dayOfMonth:mode:]";
+      v36 = 2112;
       modeCopy = 0;
       _os_log_impl(&dword_1CA256000, v22, OS_LOG_TYPE_ERROR, "%s Invalid day of month: %@", buf, 0x16u);
     }
@@ -456,13 +453,13 @@ LABEL_17:
     if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315906;
-      v36 = "+[WFTimeOfDayTrigger localizedRecurrenceDescriptionForDaysOfWeek:dayOfMonth:mode:]";
-      v37 = 2048;
+      v35 = "+[WFTimeOfDayTrigger localizedRecurrenceDescriptionForDaysOfWeek:dayOfMonth:mode:]";
+      v36 = 2048;
       modeCopy = mode;
-      v39 = 2112;
-      v40 = weekCopy;
-      v41 = 2112;
-      v42 = v9;
+      v38 = 2112;
+      v39 = weekCopy;
+      v40 = 2112;
+      v41 = v9;
       _os_log_impl(&dword_1CA256000, v19, OS_LOG_TYPE_ERROR, "%s Invalid mode %lu with days of week %@ day of month %@", buf, 0x2Au);
     }
 
@@ -503,13 +500,13 @@ LABEL_20:
   if ([weekCopy count] != 1)
   {
     v16 = [weekCopy sortedArrayUsingSelector:sel_compare_];
-    v33[0] = MEMORY[0x1E69E9820];
-    v33[1] = 3221225472;
-    v33[2] = __82__WFTimeOfDayTrigger_localizedRecurrenceDescriptionForDaysOfWeek_dayOfMonth_mode___block_invoke;
-    v33[3] = &unk_1E837FCF8;
-    v34 = currentCalendar;
-    v30 = [v16 if_compactMap:v33];
-    v18 = [MEMORY[0x1E696AD08] localizedStringByJoiningStrings:v30];
+    v32[0] = MEMORY[0x1E69E9820];
+    v32[1] = 3221225472;
+    v32[2] = __82__WFTimeOfDayTrigger_localizedRecurrenceDescriptionForDaysOfWeek_dayOfMonth_mode___block_invoke;
+    v32[3] = &unk_1E837FCF8;
+    v33 = currentCalendar;
+    v29 = [v16 if_compactMap:v32];
+    v18 = [MEMORY[0x1E696AD08] localizedStringByJoiningStrings:v29];
 
     goto LABEL_8;
   }
@@ -521,15 +518,15 @@ LABEL_20:
   v16 = standaloneWeekdaySymbols;
   if (integerValue < 1 || integerValue - 1 >= [standaloneWeekdaySymbols count])
   {
-    v31 = getWFTriggersLogObject();
-    if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
+    v30 = getWFTriggersLogObject();
+    if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
     {
       firstObject2 = [weekCopy firstObject];
       *buf = 136315394;
-      v36 = "+[WFTimeOfDayTrigger localizedRecurrenceDescriptionForDaysOfWeek:dayOfMonth:mode:]";
-      v37 = 2112;
+      v35 = "+[WFTimeOfDayTrigger localizedRecurrenceDescriptionForDaysOfWeek:dayOfMonth:mode:]";
+      v36 = 2112;
       modeCopy = firstObject2;
-      _os_log_impl(&dword_1CA256000, v31, OS_LOG_TYPE_ERROR, "%s Invalid day index: %@", buf, 0x16u);
+      _os_log_impl(&dword_1CA256000, v30, OS_LOG_TYPE_ERROR, "%s Invalid day index: %@", buf, 0x16u);
     }
 
     v18 = &stru_1F4A1C408;
@@ -544,14 +541,12 @@ LABEL_8:
 LABEL_21:
 LABEL_22:
 
-  v25 = *MEMORY[0x1E69E9840];
-
   return v18;
 }
 
 id __82__WFTimeOfDayTrigger_localizedRecurrenceDescriptionForDaysOfWeek_dayOfMonth_mode___block_invoke(uint64_t a1, void *a2)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = [v3 integerValue];
   v5 = [*(a1 + 32) shortStandaloneWeekdaySymbols];
@@ -563,11 +558,11 @@ id __82__WFTimeOfDayTrigger_localizedRecurrenceDescriptionForDaysOfWeek_dayOfMon
     v10 = getWFTriggersLogObject();
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      v13 = 136315394;
-      v14 = "+[WFTimeOfDayTrigger localizedRecurrenceDescriptionForDaysOfWeek:dayOfMonth:mode:]_block_invoke";
-      v15 = 2112;
-      v16 = v3;
-      _os_log_impl(&dword_1CA256000, v10, OS_LOG_TYPE_ERROR, "%s Invalid day index: %@", &v13, 0x16u);
+      v12 = 136315394;
+      v13 = "+[WFTimeOfDayTrigger localizedRecurrenceDescriptionForDaysOfWeek:dayOfMonth:mode:]_block_invoke";
+      v14 = 2112;
+      v15 = v3;
+      _os_log_impl(&dword_1CA256000, v10, OS_LOG_TYPE_ERROR, "%s Invalid day index: %@", &v12, 0x16u);
     }
 
     v9 = 0;
@@ -577,8 +572,6 @@ id __82__WFTimeOfDayTrigger_localizedRecurrenceDescriptionForDaysOfWeek_dayOfMon
   {
     v9 = [v6 objectAtIndexedSubscript:v8];
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v9;
 }

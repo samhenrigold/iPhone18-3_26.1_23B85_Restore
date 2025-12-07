@@ -24,7 +24,7 @@
   return v3;
 }
 
-uint64_t __59__ICThumbnailGeneratorAvatar_initWithManagedObjectContext___block_invoke(uint64_t a1)
+void *__59__ICThumbnailGeneratorAvatar_initWithManagedObjectContext___block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x1E69DD250] ic_isRTL];
   *(*(a1 + 32) + 16) = result;

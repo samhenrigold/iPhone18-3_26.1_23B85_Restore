@@ -64,6 +64,7 @@
 - (NSString)processName;
 - (NSString)regionCode;
 - (id)CKPropertiesDescription;
+- (id)CKShortDescriptionRedact:(BOOL)redact;
 - (id)CKStatusReportArrayIncludingSharedOperations:(BOOL)operations;
 - (id)_initWithAppContainerTuple:(id)tuple processScopedClientProxy:(id)proxy logicalDeviceScopedClientProxy:(id)clientProxy containerEntitlements:(id)entitlements containerOptions:(id)options;
 - (id)_urlBySettingCustomBaseURL:(id)l onURL:(id)rL;
@@ -82,6 +83,7 @@
 - (int64_t)_accountStatus;
 - (int64_t)_applicationPermissionStatusFromUserPrivacySetting:(int64_t)setting;
 - (int64_t)_lockedHasTCCAuthorization:(BOOL)authorization;
+- (int64_t)hasTCCAuthorization:(BOOL)authorization;
 - (unint64_t)countAssetCacheItems;
 - (void)_broadcastUpdateIfNeededForRecord:(id)record recordXPCMetadata:(id)metadata recordID:(id)d isDeleted:(BOOL)deleted error:(id)error;
 - (void)_cancelSessionValidationTimer;
@@ -90,6 +92,7 @@
 - (void)_dumpStatusReportArrayToOsTrace:(id)trace;
 - (void)_enumerateEligibleConnectedContainersForOOPUIContainer:(id)container;
 - (void)_evictRecordCache;
+- (void)_fetchContainerServerInfoForOperation:(id)operation requireUserIDs:(BOOL)ds requireEnvironment:(BOOL)environment completionHandler:(id)handler;
 - (void)_globalStatusForApplicationPermission:(unint64_t)permission completionHandler:(id)handler;
 - (void)_handleCompletionForOperation:(id)operation initialMessageReplyBlock:(id)block;
 - (void)_handleCompletionForOperation:(id)operation initialMessageReplyBlock:(id)block customCompletionBlock:(id)completionBlock;
@@ -100,6 +103,7 @@
 - (void)_reallyPerformFetchRecordsOperation:(id)operation withBlock:(id)block;
 - (void)_registerForAuthTokenRenewalNotifications;
 - (void)_registerForTCCAuthorizationEvents;
+- (void)_reloadAccount:(BOOL)account;
 - (void)_restartSessionValidationTimer:(double)timer;
 - (void)_setApplicationPermission:(unint64_t)permission enabled:(BOOL)enabled completionHandler:(id)handler;
 - (void)_setupOperationQueues;
@@ -303,87 +307,86 @@
   objc_msgSend_setDirectoryContext_(self, v6, v5);
 
   v9 = objc_msgSend_applicationBundleID(self, v7, v8);
-  v42 = 0;
-  v11 = objc_msgSend_applicationDataContainerDirectoryForBundleID_outApplicationBinaryBundleURL_outAdopterProcessType_(CKDContainer, v10, v9, &v42, &self->_adopterProcessType);
-  v12 = v42;
+  v41 = 0;
+  v11 = objc_msgSend_applicationDataContainerDirectoryForBundleID_outApplicationBinaryBundleURL_outAdopterProcessType_(CKDContainer, v10, v9, &v41, &self->_adopterProcessType);
+  v12 = v41;
 
   if (!v12)
   {
-    v17 = 0;
+    v16 = 0;
     goto LABEL_11;
   }
 
-  v15 = *MEMORY[0x277CBECE8];
   Unique = _CFBundleCreateUnique();
-  v17 = Unique;
+  v16 = Unique;
   if (!Unique)
   {
 LABEL_11:
-    v36 = 1;
+    v35 = 1;
     goto LABEL_15;
   }
 
-  v18 = CFBundleGetValueForInfoDictionaryKey(Unique, *MEMORY[0x277CBEC40]);
-  v19 = CFBundleGetValueForInfoDictionaryKey(v17, *MEMORY[0x277CBED50]);
-  v20 = v19;
-  if (v18)
+  v17 = CFBundleGetValueForInfoDictionaryKey(Unique, *MEMORY[0x277CBEC40]);
+  v18 = CFBundleGetValueForInfoDictionaryKey(v16, *MEMORY[0x277CBED50]);
+  v19 = v18;
+  if (v17)
   {
-    v21 = v18;
+    v20 = v17;
   }
 
   else
   {
-    v21 = v19;
+    v20 = v18;
   }
 
-  objc_storeStrong(&self->_applicationDisplayName, v21);
-  v22 = CFBundleGetValueForInfoDictionaryKey(v17, *MEMORY[0x277CBED58]);
+  objc_storeStrong(&self->_applicationDisplayName, v20);
+  v21 = CFBundleGetValueForInfoDictionaryKey(v16, *MEMORY[0x277CBED58]);
   applicationVersion = self->_applicationVersion;
-  self->_applicationVersion = v22;
+  self->_applicationVersion = v21;
 
-  v24 = CFBundleGetValueForInfoDictionaryKey(v17, *MEMORY[0x277CBEC48]);
-  if (v24)
+  v23 = CFBundleGetValueForInfoDictionaryKey(v16, *MEMORY[0x277CBEC48]);
+  if (v23)
   {
-    v27 = v24;
-    v28 = objc_msgSend_pathExtension(v24, v25, v26);
-    v31 = v28;
-    if (v28 && objc_msgSend_length(v28, v29, v30))
+    v26 = v23;
+    v27 = objc_msgSend_pathExtension(v23, v24, v25);
+    v30 = v27;
+    if (v27 && objc_msgSend_length(v27, v28, v29))
     {
-      v34 = objc_msgSend_stringByDeletingPathExtension(v27, v32, v33);
-      v35 = v27;
-      v27 = v34;
+      v33 = objc_msgSend_stringByDeletingPathExtension(v26, v31, v32);
+      v34 = v26;
+      v26 = v33;
     }
 
     else
     {
-      v35 = v31;
-      v31 = @"icns";
+      v34 = v30;
+      v30 = @"icns";
     }
 
-    v37 = CFBundleCopyResourceURL(v17, v27, v31, 0);
+    v36 = CFBundleCopyResourceURL(v16, v26, v30, 0);
     applicationIcon = self->_applicationIcon;
-    self->_applicationIcon = v37;
+    self->_applicationIcon = v36;
   }
 
-  v36 = 0;
+  v35 = 0;
 LABEL_15:
   applicationDisplayName = self->_applicationDisplayName;
   if (applicationDisplayName)
   {
-    v40 = applicationDisplayName;
+    v39 = applicationDisplayName;
   }
 
   else
   {
-    v40 = objc_msgSend_applicationBundleID(self, v13, v14);
+    v39 = objc_msgSend_applicationBundleID(self, v13, v14);
   }
 
-  v41 = self->_applicationDisplayName;
-  self->_applicationDisplayName = v40;
+  v40 = self->_applicationDisplayName;
+  self->_applicationDisplayName = v39;
 
-  if ((v36 & 1) == 0)
+  if ((v35 & 1) == 0)
   {
-    CFRelease(v17);
+    CFRelease(v16);
   }
 }
 
@@ -425,7 +428,7 @@ LABEL_15:
 
 - (BOOL)hasValidatedEntitlements
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v4 = objc_msgSend_processScopedClientProxy(self, a2, v2);
   if (objc_msgSend_processIsAttached(v4, v5, v6) && self->_hasValidatedEntitlementsTernary == -1)
   {
@@ -439,20 +442,15 @@ LABEL_15:
 
     else
     {
-      memset(&v24, 0, sizeof(v24));
+      memset(&v21, 0, sizeof(v21));
     }
 
-    v16 = SecTaskCreateWithAuditToken(0, &v24);
+    v16 = SecTaskCreateWithAuditToken(0, &v21);
 
     if (v16)
     {
       self->_hasValidatedEntitlementsTernary = SecTaskEntitlementsValidated();
-      if (CKBoolFromCKTernary())
-      {
-        hasValidatedEntitlementsTernary = self->_hasValidatedEntitlementsTernary;
-      }
-
-      else
+      if (!CKBoolFromCKTernary())
       {
         self->_hasValidatedEntitlementsTernary = (~SecTaskGetCodeSignStatus(v16) & 0x24000001) == 0;
       }
@@ -464,12 +462,12 @@ LABEL_15:
           dispatch_once(MEMORY[0x277CBC880], *MEMORY[0x277CBC878]);
         }
 
-        v19 = *MEMORY[0x277CBC830];
+        v18 = *MEMORY[0x277CBC830];
         if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_INFO))
         {
-          v24.val[0] = 138412290;
-          *&v24.val[1] = self;
-          _os_log_impl(&dword_22506F000, v19, OS_LOG_TYPE_INFO, "Binary has invalid entitlements for %@", &v24, 0xCu);
+          v21.val[0] = 138412290;
+          *&v21.val[1] = self;
+          _os_log_impl(&dword_22506F000, v18, OS_LOG_TYPE_INFO, "Binary has invalid entitlements for %@", &v21, 0xCu);
         }
       }
 
@@ -483,20 +481,18 @@ LABEL_15:
         dispatch_once(MEMORY[0x277CBC880], *MEMORY[0x277CBC878]);
       }
 
-      v18 = *MEMORY[0x277CBC830];
+      v17 = *MEMORY[0x277CBC830];
       if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_ERROR))
       {
-        LOWORD(v24.val[0]) = 0;
-        _os_log_error_impl(&dword_22506F000, v18, OS_LOG_TYPE_ERROR, "Unable to get SecTask for connection to determine entitlement validity", &v24, 2u);
+        LOWORD(v21.val[0]) = 0;
+        _os_log_error_impl(&dword_22506F000, v17, OS_LOG_TYPE_ERROR, "Unable to get SecTask for connection to determine entitlement validity", &v21, 2u);
       }
     }
   }
 
-  v20 = self->_hasValidatedEntitlementsTernary;
-  v21 = CKBoolFromCKTernary();
+  v19 = CKBoolFromCKTernary();
 
-  v22 = *MEMORY[0x277D85DE8];
-  return v21;
+  return v19;
 }
 
 - (id)applicationBundleIdentifierForTCC
@@ -520,7 +516,7 @@ LABEL_15:
 
 - (void)_determineHardwareInfo
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v4 = MEMORY[0x277CCACA8];
   v5 = objc_msgSend_containerID(self, a2, v2);
   v8 = objc_msgSend_containerIdentifier(v5, v6, v7);
@@ -528,7 +524,7 @@ LABEL_15:
   v11 = objc_msgSend_stringWithFormat_(v4, v10, @"%@-%@", v8, v9);
 
   *md = 0u;
-  v25 = 0u;
+  v24 = 0u;
   v13 = objc_msgSend_dataWithBytesNoCopy_length_freeWhenDone_(MEMORY[0x277CBEA90], v12, md, 32, 0);
   v16 = objc_msgSend_UTF8String(v11, v14, v15);
   v18 = objc_msgSend_lengthOfBytesUsingEncoding_(v11, v17, 4);
@@ -536,8 +532,6 @@ LABEL_15:
   v21 = objc_msgSend_CKUppercaseHexStringWithoutSpaces(v13, v19, v20);
   hardwareID = self->_hardwareID;
   self->_hardwareID = v21;
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (id)pcsCacheIfExists
@@ -590,7 +584,7 @@ LABEL_15:
 
 - (int64_t)_accountStatus
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v4 = objc_msgSend_accountStatusWorkloop(self, a2, v2);
   dispatch_assert_queue_V2(v4);
 
@@ -631,14 +625,13 @@ LABEL_15:
   v18 = *MEMORY[0x277CBC830];
   if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_DEBUG))
   {
-    v21 = v18;
-    v22 = CKStringFromAccountStatus();
-    v23 = 138543362;
-    v24 = v22;
-    _os_log_debug_impl(&dword_22506F000, v21, OS_LOG_TYPE_DEBUG, "Account status is %{public}@", &v23, 0xCu);
+    v20 = v18;
+    v21 = CKStringFromAccountStatus();
+    v22 = 138543362;
+    v23 = v21;
+    _os_log_debug_impl(&dword_22506F000, v20, OS_LOG_TYPE_DEBUG, "Account status is %{public}@", &v22, 0xCu);
   }
 
-  v19 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
@@ -665,7 +658,7 @@ LABEL_15:
 
 - (CKDLogicalDeviceContext)deviceContext
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   objc_msgSend_lock(self->_deviceContextLock, a2, v2);
   deviceContext = self->_deviceContext;
   if (!deviceContext)
@@ -697,9 +690,9 @@ LABEL_15:
         v26 = *MEMORY[0x277CBC830];
         if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_ERROR))
         {
-          v36 = 138412290;
+          v35 = 138412290;
           selfCopy = self;
-          _os_log_error_impl(&dword_22506F000, v26, OS_LOG_TYPE_ERROR, "Container %@ is being used in partlycloudd, but has no associated CKTestDevice.", &v36, 0xCu);
+          _os_log_error_impl(&dword_22506F000, v26, OS_LOG_TYPE_ERROR, "Container %@ is being used in partlycloudd, but has no associated CKTestDevice.", &v35, 0xCu);
         }
       }
 
@@ -724,7 +717,6 @@ LABEL_15:
 
   v31 = deviceContext;
   objc_msgSend_unlock(self->_deviceContextLock, v32, v33);
-  v34 = *MEMORY[0x277D85DE8];
 
   return v31;
 }
@@ -783,13 +775,13 @@ LABEL_15:
 
 - (void)_registerForAuthTokenRenewalNotifications
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   v5 = objc_msgSend_authTokenRenewalObserverToken(self, a2, v2);
 
   if (v5)
   {
-    v24 = objc_msgSend_currentHandler(MEMORY[0x277CCA890], v6, v7);
-    objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v24, v25, a2, self, @"CKDContainer.m", 485, @"Already registered for auth token change notifications!");
+    v23 = objc_msgSend_currentHandler(MEMORY[0x277CCA890], v6, v7);
+    objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v23, v24, a2, self, @"CKDContainer.m", 485, @"Already registered for auth token change notifications!");
   }
 
   v8 = objc_msgSend_acquiredSessionAccountID(self, v6, v7);
@@ -803,15 +795,15 @@ LABEL_15:
 
     objc_initWeak(&location, selfCopy);
     v14 = objc_msgSend_sharedNotifier(CKDAccountNotifier, v12, v13);
-    v26[0] = MEMORY[0x277D85DD0];
-    v26[1] = 3221225472;
-    v26[2] = sub_22516C2A0;
-    v26[3] = &unk_278547070;
-    v29[1] = a2;
-    v27 = v8;
-    v28 = selfCopy;
-    objc_copyWeak(v29, &location);
-    objc_msgSend_registerObserver_forAccountID_authTokenRenewalInProgressNotifications_(v14, v15, v9, v27, v26);
+    v25[0] = MEMORY[0x277D85DD0];
+    v25[1] = 3221225472;
+    v25[2] = sub_22516C2A0;
+    v25[3] = &unk_278547070;
+    v28[1] = a2;
+    v26 = v8;
+    v27 = selfCopy;
+    objc_copyWeak(v28, &location);
+    objc_msgSend_registerObserver_forAccountID_authTokenRenewalInProgressNotifications_(v14, v15, v9, v26, v25);
 
     if (*MEMORY[0x277CBC880] != -1)
     {
@@ -824,17 +816,15 @@ LABEL_15:
       v19 = objc_msgSend_containerID(selfCopy, v17, v18);
       v22 = objc_msgSend_ckShortDescription(v19, v20, v21);
       *buf = 138412546;
-      v32 = v22;
-      v33 = 2112;
-      v34 = v9;
+      v31 = v22;
+      v32 = 2112;
+      v33 = v9;
       _os_log_impl(&dword_22506F000, v16, OS_LOG_TYPE_INFO, "Registered for auth token renewal changes for container: %@, token: %@", buf, 0x16u);
     }
 
-    objc_destroyWeak(v29);
+    objc_destroyWeak(v28);
     objc_destroyWeak(&location);
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 + (id)sharedInternalUseContainers
@@ -851,7 +841,7 @@ LABEL_15:
 
 - (id)sandboxExtensions
 {
-  v141[3] = *MEMORY[0x277D85DE8];
+  v140[3] = *MEMORY[0x277D85DE8];
   objc_msgSend_lock(self->_sandboxExtensionsLock, a2, v2);
   v6 = objc_msgSend_cachedSandboxExtensions(self, v4, v5);
 
@@ -861,11 +851,11 @@ LABEL_15:
   }
 
   v12 = objc_msgSend_processScopedClientProxy(self, v7, v8);
-  v128 = objc_opt_new();
+  v127 = objc_opt_new();
   v15 = objc_msgSend_directoryContext(self, v13, v14);
   v18 = objc_msgSend_containerDirectory(v15, v16, v17);
 
-  v129 = v12;
+  v128 = v12;
   if (v12)
   {
     v21 = v18 == 0;
@@ -879,16 +869,16 @@ LABEL_15:
   v22 = v21;
   v23 = objc_msgSend_directoryContext(self, v19, v20);
   v26 = objc_msgSend_temporaryDirectory(v23, v24, v25);
-  v141[0] = v26;
+  v140[0] = v26;
   v29 = objc_msgSend_directoryContext(self, v27, v28);
   v32 = objc_msgSend_fileDownloadDirectory(v29, v30, v31);
-  v141[1] = v32;
+  v140[1] = v32;
   v35 = objc_msgSend_directoryContext(self, v33, v34);
   v38 = objc_msgSend_frameworkCachesDirectory(v35, v36, v37);
-  v141[2] = v38;
-  v40 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v39, v141, 3);
+  v140[2] = v38;
+  v40 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v39, v140, 3);
 
-  v127 = v22;
+  v126 = v22;
   if (v22 == 1 && (objc_msgSend_containerID(self, v41, v42), v43 = objc_claimAutoreleasedReturnValue(), v46 = objc_msgSend_specialContainerType(v43, v44, v45), v43, v46 == 4))
   {
     v49 = MEMORY[0x277CBC208];
@@ -907,26 +897,26 @@ LABEL_15:
     v53 = 0;
   }
 
-  v132 = 0u;
-  v133 = 0u;
-  v130 = 0u;
   v131 = 0u;
+  v132 = 0u;
+  v129 = 0u;
+  v130 = 0u;
   v58 = v40;
-  v60 = objc_msgSend_countByEnumeratingWithState_objects_count_(v58, v59, &v130, v140, 16);
+  v60 = objc_msgSend_countByEnumeratingWithState_objects_count_(v58, v59, &v129, v139, 16);
   if (v60)
   {
     v63 = v60;
-    v64 = *v131;
+    v64 = *v130;
     while (2)
     {
       for (i = 0; i != v63; ++i)
       {
-        if (*v131 != v64)
+        if (*v130 != v64)
         {
           objc_enumerationMutation(v58);
         }
 
-        v66 = *(*(&v130 + 1) + 8 * i);
+        v66 = *(*(&v129 + 1) + 8 * i);
         v67 = objc_msgSend_path(v66, v61, v62);
         v68 = CKCreateDirectoryAtPath();
         v69 = 0;
@@ -941,16 +931,16 @@ LABEL_15:
           v88 = *MEMORY[0x277CBC830];
           if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_ERROR))
           {
-            v105 = v88;
-            v108 = objc_msgSend_applicationBundleID(self, v106, v107);
-            v111 = objc_msgSend_CKSanitizedPath(v66, v109, v110);
+            v104 = v88;
+            v107 = objc_msgSend_applicationBundleID(self, v105, v106);
+            v110 = objc_msgSend_CKSanitizedPath(v66, v108, v109);
             *buf = 138412802;
-            v135 = v108;
-            v136 = 2112;
-            v137 = v111;
-            v138 = 2112;
-            v139 = v70;
-            _os_log_error_impl(&dword_22506F000, v105, OS_LOG_TYPE_ERROR, "Failed to create directory for %@ at %@: %@", buf, 0x20u);
+            v134 = v107;
+            v135 = 2112;
+            v136 = v110;
+            v137 = 2112;
+            v138 = v70;
+            _os_log_error_impl(&dword_22506F000, v104, OS_LOG_TYPE_ERROR, "Failed to create directory for %@ at %@: %@", buf, 0x20u);
           }
 
           objc_msgSend_unlock(self->_sandboxExtensionsLock, v89, v90);
@@ -960,7 +950,7 @@ LABEL_15:
         }
       }
 
-      v63 = objc_msgSend_countByEnumeratingWithState_objects_count_(v58, v61, &v130, v140, 16);
+      v63 = objc_msgSend_countByEnumeratingWithState_objects_count_(v58, v61, &v129, v139, 16);
       if (v63)
       {
         continue;
@@ -972,10 +962,10 @@ LABEL_15:
 
   v71 = *MEMORY[0x277CBC878];
   v72 = *MEMORY[0x277CBC880];
-  v73 = v129;
-  if (v129)
+  v73 = v128;
+  if (v128)
   {
-    v74 = v128;
+    v74 = v127;
     if (v72 != -1)
     {
       dispatch_once(MEMORY[0x277CBC880], v71);
@@ -985,38 +975,38 @@ LABEL_15:
     v78 = v53;
     if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_DEBUG))
     {
-      v112 = v75;
-      v115 = objc_msgSend_ckShortDescription(self, v113, v114);
-      if (objc_msgSend_isSandboxed(v129, v116, v117))
+      v111 = v75;
+      v114 = objc_msgSend_ckShortDescription(self, v112, v113);
+      if (objc_msgSend_isSandboxed(v128, v115, v116))
       {
-        v120 = @"YES";
+        v119 = @"YES";
       }
 
       else
       {
-        v120 = @"NO";
+        v119 = @"NO";
       }
 
-      hasDataContainer = objc_msgSend_hasDataContainer(self, v118, v119);
+      hasDataContainer = objc_msgSend_hasDataContainer(self, v117, v118);
       *buf = 138412802;
       if (hasDataContainer)
       {
-        v122 = @"YES";
+        v121 = @"YES";
       }
 
       else
       {
-        v122 = @"NO";
+        v121 = @"NO";
       }
 
-      v73 = v129;
+      v73 = v128;
       v78 = v53;
-      v135 = v115;
-      v136 = 2112;
-      v137 = v120;
-      v138 = 2112;
-      v139 = v122;
-      _os_log_debug_impl(&dword_22506F000, v112, OS_LOG_TYPE_DEBUG, "Sandbox extensions needed for %@, proxy sandboxed: %@, hasDataContainer: %@", buf, 0x20u);
+      v134 = v114;
+      v135 = 2112;
+      v136 = v119;
+      v137 = 2112;
+      v138 = v121;
+      _os_log_debug_impl(&dword_22506F000, v111, OS_LOG_TYPE_DEBUG, "Sandbox extensions needed for %@, proxy sandboxed: %@, hasDataContainer: %@", buf, 0x20u);
     }
 
     v79 = objc_msgSend_directoryContext(self, v76, v77);
@@ -1025,10 +1015,10 @@ LABEL_15:
 
     if (v84)
     {
-      objc_msgSend_addObject_(v128, v85, v84);
+      objc_msgSend_addObject_(v127, v85, v84);
     }
 
-    if (!v127)
+    if (!v126)
     {
       goto LABEL_48;
     }
@@ -1036,48 +1026,48 @@ LABEL_15:
     goto LABEL_41;
   }
 
-  v74 = v128;
+  v74 = v127;
   if (v72 != -1)
   {
     dispatch_once(MEMORY[0x277CBC880], v71);
   }
 
   v78 = v53;
-  v93 = *MEMORY[0x277CBC830];
+  v92 = *MEMORY[0x277CBC830];
   if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_DEBUG))
   {
-    v123 = v93;
-    v126 = objc_msgSend_ckShortDescription(self, v124, v125);
+    v122 = v92;
+    v125 = objc_msgSend_ckShortDescription(self, v123, v124);
     *buf = 138412290;
-    v135 = v126;
-    _os_log_debug_impl(&dword_22506F000, v123, OS_LOG_TYPE_DEBUG, "Sandbox extensions not needed for %@", buf, 0xCu);
+    v134 = v125;
+    _os_log_debug_impl(&dword_22506F000, v122, OS_LOG_TYPE_DEBUG, "Sandbox extensions not needed for %@", buf, 0xCu);
 
-    if (v127)
+    if (v126)
     {
       goto LABEL_41;
     }
   }
 
-  else if (v127)
+  else if (v126)
   {
 LABEL_41:
-    v94 = objc_msgSend_directoryContext(self, v86, v87);
-    v97 = objc_msgSend_frameworkCachesDirectory(v94, v95, v96);
-    v99 = objc_msgSend_issueSandboxExtensionForItem_error_(v73, v98, v97, 0);
+    v93 = objc_msgSend_directoryContext(self, v86, v87);
+    v96 = objc_msgSend_frameworkCachesDirectory(v93, v94, v95);
+    v98 = objc_msgSend_issueSandboxExtensionForItem_error_(v73, v97, v96, 0);
 
-    if (v99)
+    if (v98)
     {
-      objc_msgSend_addObject_(v74, v100, v99);
+      objc_msgSend_addObject_(v74, v99, v98);
     }
 
     if (v78)
     {
-      v101 = objc_msgSend_fileURLWithPath_(MEMORY[0x277CBEBC0], v100, v78);
-      v103 = objc_msgSend_issueSandboxExtensionForItem_error_(v73, v102, v101, 0);
+      v100 = objc_msgSend_fileURLWithPath_(MEMORY[0x277CBEBC0], v99, v78);
+      v102 = objc_msgSend_issueSandboxExtensionForItem_error_(v73, v101, v100, 0);
 
-      if (v103)
+      if (v102)
       {
-        objc_msgSend_addObject_(v74, v104, v103);
+        objc_msgSend_addObject_(v74, v103, v102);
       }
     }
   }
@@ -1089,7 +1079,6 @@ LABEL_2:
   v9 = objc_msgSend_cachedSandboxExtensions(self, v7, v8);
   objc_msgSend_unlock(self->_sandboxExtensionsLock, v10, v11);
 LABEL_34:
-  v91 = *MEMORY[0x277D85DE8];
 
   return v9;
 }
@@ -1253,14 +1242,12 @@ LABEL_34:
 
 - (BOOL)_cloudKitEnabledForCurrentClient
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v4 = objc_msgSend_entitlements(self, a2, v2);
   if (objc_msgSend_hasCloudKitSystemServiceEntitlement(v4, v5, v6))
   {
 
-LABEL_4:
-    v15 = 1;
-    goto LABEL_5;
+    return 1;
   }
 
   v9 = objc_msgSend_deviceContext(self, v7, v8);
@@ -1268,25 +1255,25 @@ LABEL_4:
 
   if (v12)
   {
-    goto LABEL_4;
+    return 1;
   }
 
-  v18 = objc_msgSend_containerID(self, v13, v14);
-  v21 = objc_msgSend_representativeDataclass(v18, v19, v20);
+  v17 = objc_msgSend_containerID(self, v13, v14);
+  v20 = objc_msgSend_representativeDataclass(v17, v18, v19);
 
-  if (v21 && (objc_msgSend_account(self, v22, v23), v24 = objc_claimAutoreleasedReturnValue(), isDataclassEnabled = objc_msgSend_isDataclassEnabled_(v24, v25, v21), v24, (isDataclassEnabled & 1) == 0))
+  if (v20 && (objc_msgSend_account(self, v21, v22), v23 = objc_claimAutoreleasedReturnValue(), isDataclassEnabled = objc_msgSend_isDataclassEnabled_(v23, v24, v20), v23, (isDataclassEnabled & 1) == 0))
   {
     if (*MEMORY[0x277CBC880] != -1)
     {
       dispatch_once(MEMORY[0x277CBC880], *MEMORY[0x277CBC878]);
     }
 
-    v27 = *MEMORY[0x277CBC830];
+    v26 = *MEMORY[0x277CBC830];
     if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_INFO))
     {
-      v28 = 138412290;
-      v29 = v21;
-      _os_log_impl(&dword_22506F000, v27, OS_LOG_TYPE_INFO, "%@ dataclass disabled, denying access", &v28, 0xCu);
+      v27 = 138412290;
+      v28 = v20;
+      _os_log_impl(&dword_22506F000, v26, OS_LOG_TYPE_INFO, "%@ dataclass disabled, denying access", &v27, 0xCu);
     }
 
     v15 = 0;
@@ -1297,8 +1284,6 @@ LABEL_4:
     v15 = 1;
   }
 
-LABEL_5:
-  v16 = *MEMORY[0x277D85DE8];
   return v15;
 }
 
@@ -1315,7 +1300,7 @@ LABEL_5:
 
 - (NSString)applicationBundleIdentifierForPush
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   v4 = objc_msgSend_applicationID(self, a2, v2);
   v7 = objc_msgSend_applicationBundleIdentifierOverrideForPushTopicGeneration(v4, v5, v6);
 
@@ -1331,14 +1316,14 @@ LABEL_5:
     v13 = *MEMORY[0x277CBC830];
     if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_DEBUG))
     {
-      v29 = v13;
-      v32 = objc_msgSend_containingBundleID(self, v30, v31);
-      v35 = objc_msgSend_applicationBundleID(self, v33, v34);
-      v36 = 138543618;
-      v37 = v32;
-      v38 = 2114;
-      v39 = v35;
-      _os_log_debug_impl(&dword_22506F000, v29, OS_LOG_TYPE_DEBUG, "Using wrapping app bundle id %{public}@ for extension %{public}@ when registering push tokens", &v36, 0x16u);
+      v28 = v13;
+      v31 = objc_msgSend_containingBundleID(self, v29, v30);
+      v34 = objc_msgSend_applicationBundleID(self, v32, v33);
+      v35 = 138543618;
+      v36 = v31;
+      v37 = 2114;
+      v38 = v34;
+      _os_log_debug_impl(&dword_22506F000, v28, OS_LOG_TYPE_DEBUG, "Using wrapping app bundle id %{public}@ for extension %{public}@ when registering push tokens", &v35, 0x16u);
     }
   }
 
@@ -1349,8 +1334,6 @@ LABEL_5:
 
   v24 = objc_msgSend_deviceContext(self, v22, v23);
   v26 = objc_msgSend_deviceScopedPushTopic_(v24, v25, v21);
-
-  v27 = *MEMORY[0x277D85DE8];
 
   return v26;
 }
@@ -1477,50 +1460,51 @@ LABEL_5:
 
 - (BOOL)canAccessAccount
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   if (objc_msgSend_isForClouddInternalUse(self, a2, v2))
   {
     LOBYTE(v6) = 1;
-LABEL_3:
-    v7 = *MEMORY[0x277D85DE8];
-    return v6;
   }
 
-  v8 = objc_msgSend_applicationBundleID(self, v4, v5);
-  v9 = sub_22508B854(v8, self);
-
-  if ((v9 & 1) == 0)
+  else
   {
-    if (*MEMORY[0x277CBC880] != -1)
+    v7 = objc_msgSend_applicationBundleID(self, v4, v5);
+    v8 = sub_22508B854(v7, self);
+
+    if (v8)
     {
-      dispatch_once(MEMORY[0x277CBC880], *MEMORY[0x277CBC878]);
+
+      LOBYTE(v6) = MEMORY[0x2821F9670](self, sel__cloudKitEnabledForCurrentClient, v9);
     }
 
-    v12 = *MEMORY[0x277CBC830];
-    v6 = os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_INFO);
-    if (v6)
+    else
     {
-      v13 = v12;
-      v16 = objc_msgSend_applicationBundleID(self, v14, v15);
-      v18 = 138412290;
-      v19 = v16;
-      _os_log_impl(&dword_22506F000, v13, OS_LOG_TYPE_INFO, "Bundle %@ isn't authorized for CloudKit, denying access", &v18, 0xCu);
+      if (*MEMORY[0x277CBC880] != -1)
+      {
+        dispatch_once(MEMORY[0x277CBC880], *MEMORY[0x277CBC878]);
+      }
 
-      LOBYTE(v6) = 0;
+      v10 = *MEMORY[0x277CBC830];
+      v6 = os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_INFO);
+      if (v6)
+      {
+        v11 = v10;
+        v14 = objc_msgSend_applicationBundleID(self, v12, v13);
+        v16 = 138412290;
+        v17 = v14;
+        _os_log_impl(&dword_22506F000, v11, OS_LOG_TYPE_INFO, "Bundle %@ isn't authorized for CloudKit, denying access", &v16, 0xCu);
+
+        LOBYTE(v6) = 0;
+      }
     }
-
-    goto LABEL_3;
   }
 
-  v11 = *MEMORY[0x277D85DE8];
-
-  LOBYTE(v6) = MEMORY[0x2821F9670](self, sel__cloudKitEnabledForCurrentClient, v10);
   return v6;
 }
 
 - (void)dealloc
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   if (*MEMORY[0x277CBC880] != -1)
   {
     dispatch_once(MEMORY[0x277CBC880], *MEMORY[0x277CBC878]);
@@ -1541,10 +1525,9 @@ LABEL_3:
   objc_msgSend__unregisterForAuthTokenRenewalNotifications(self, v10, v11);
   objc_msgSend__unregisterForTCCAuthorizationEvents(self, v12, v13);
   pthread_rwlock_destroy(&self->rwAccountLock);
-  v15.receiver = self;
-  v15.super_class = CKDContainer;
-  [(CKDContainer *)&v15 dealloc];
-  v14 = *MEMORY[0x277D85DE8];
+  v14.receiver = self;
+  v14.super_class = CKDContainer;
+  [(CKDContainer *)&v14 dealloc];
 }
 
 - (void)dropMMCS
@@ -1556,7 +1539,7 @@ LABEL_3:
 
 - (void)_unregisterForAuthTokenRenewalNotifications
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   objc_msgSend__cancelSessionValidationTimer(self, a2, v2);
   v6 = objc_msgSend_acquiredSessionAccountID(self, v4, v5);
   if (v6)
@@ -1583,16 +1566,14 @@ LABEL_3:
         v17 = v16;
         v20 = objc_msgSend_containerID(selfCopy, v18, v19);
         v23 = objc_msgSend_ckShortDescription(v20, v21, v22);
-        v25 = 138412546;
-        v26 = v23;
-        v27 = 2112;
-        v28 = v10;
-        _os_log_impl(&dword_22506F000, v17, OS_LOG_TYPE_INFO, "Unregistered for auth token renewal changes for container: %@, token: %@", &v25, 0x16u);
+        v24 = 138412546;
+        v25 = v23;
+        v26 = 2112;
+        v27 = v10;
+        _os_log_impl(&dword_22506F000, v17, OS_LOG_TYPE_INFO, "Unregistered for auth token renewal changes for container: %@, token: %@", &v24, 0x16u);
       }
     }
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_cancelSessionValidationTimer
@@ -1700,7 +1681,7 @@ LABEL_3:
 
 - (void)discardContentIfPossible
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   selfCopy = self;
   objc_sync_enter(selfCopy);
   if (!objc_msgSend_accessCount(selfCopy, v3, v4))
@@ -1713,9 +1694,9 @@ LABEL_3:
     v5 = *MEMORY[0x277CBC830];
     if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_DEBUG))
     {
-      v19 = 134217984;
-      v20 = selfCopy;
-      _os_log_debug_impl(&dword_22506F000, v5, OS_LOG_TYPE_DEBUG, "Discarding container %p", &v19, 0xCu);
+      v18 = 134217984;
+      v19 = selfCopy;
+      _os_log_debug_impl(&dword_22506F000, v5, OS_LOG_TYPE_DEBUG, "Discarding container %p", &v18, 0xCu);
     }
 
     selfCopy->_contentDiscarded = 1;
@@ -1730,8 +1711,6 @@ LABEL_3:
   }
 
   objc_sync_exit(selfCopy);
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_evictRecordCache
@@ -1862,42 +1841,40 @@ LABEL_3:
 {
   v9 = type metadata accessor for Date();
   v10 = *(v9 - 8);
-  v11 = *(v10 + 64);
   MEMORY[0x28223BE20](v9);
-  v13 = &v26[-((v12 + 15) & 0xFFFFFFFFFFFFFFF0)];
-  v14 = sub_2250B0DFC(&unk_27D719260, &unk_225445B40);
-  v15 = *(*(v14 - 8) + 64);
-  MEMORY[0x28223BE20](v14 - 8);
-  v17 = &v26[-v16];
-  v18 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-  v20 = v19;
+  v12 = &v24[-((v11 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  v13 = sub_2250B0DFC(&unk_27D719260, &unk_225445B40);
+  MEMORY[0x28223BE20](v13 - 8);
+  v15 = &v24[-v14];
+  v16 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+  v18 = v17;
   if (date)
   {
     static Date._unconditionallyBridgeFromObjectiveC(_:)();
-    (*(v10 + 32))(v17, v13, v9);
-    v21 = 0;
+    (*(v10 + 32))(v15, v12, v9);
+    v19 = 0;
   }
 
   else
   {
-    v21 = 1;
+    v19 = 1;
   }
 
-  sub_22507C8C0(v17, v21, 1, v9);
+  sub_22507C8C0(v15, v19, 1, v9);
   if (d)
   {
     d = static String._unconditionallyBridgeFromObjectiveC(_:)();
-    v23 = v22;
+    v21 = v20;
   }
 
   else
   {
-    v23 = 0;
+    v21 = 0;
   }
 
   selfCopy = self;
-  CKDContainer.allowUserKeySync(serviceName:resourceLastModifiedDate:outdatedPublicKeyID:)(v18, v20, v17, d, v23);
-  sub_22507F168(v17, &unk_27D719260, &unk_225445B40);
+  CKDContainer.allowUserKeySync(serviceName:resourceLastModifiedDate:outdatedPublicKeyID:)(v16, v18, v15, d, v21);
+  sub_22507F168(v15, &unk_27D719260, &unk_225445B40);
 
   return 1;
 }
@@ -1912,7 +1889,7 @@ LABEL_3:
 {
   testingCopy = testing;
   selfCopy = self;
-  sub_2250F498C();
+  sub_2250F498C(testingCopy);
 }
 
 + (id)sharedDetachedContainers
@@ -1929,18 +1906,18 @@ LABEL_3:
 
 + (CKDContainer)containerWithAppContainerTuple:(id)tuple processScopedClientProxy:(id)proxy logicalDeviceScopedClientProxy:(id)clientProxy containerEntitlements:(id)entitlements containerOptions:(id)options sharedContainerTable:(id)table
 {
-  v67 = *MEMORY[0x277D85DE8];
+  v66 = *MEMORY[0x277D85DE8];
   tupleCopy = tuple;
   proxyCopy = proxy;
   clientProxyCopy = clientProxy;
   entitlementsCopy = entitlements;
   optionsCopy = options;
   tableCopy = table;
-  v58 = proxyCopy;
-  v59 = clientProxyCopy;
-  v60 = optionsCopy;
-  v61 = entitlementsCopy;
-  v57 = tableCopy;
+  v57 = proxyCopy;
+  v58 = clientProxyCopy;
+  v59 = optionsCopy;
+  v60 = entitlementsCopy;
+  v56 = tableCopy;
   if (!tableCopy)
   {
     v49 = [self alloc];
@@ -1956,24 +1933,24 @@ LABEL_20:
   objc_sync_enter(v21);
   obj = v21;
   objc_msgSend_allObjects(v21, v22, v23);
+  v63 = 0u;
   v64 = 0u;
-  v65 = 0u;
-  v62 = 0u;
-  v24 = v63 = 0u;
-  v28 = objc_msgSend_countByEnumeratingWithState_objects_count_(v24, v25, &v62, v66, 16);
+  v61 = 0u;
+  v24 = v62 = 0u;
+  v28 = objc_msgSend_countByEnumeratingWithState_objects_count_(v24, v25, &v61, v65, 16);
   if (v28)
   {
-    v29 = *v63;
+    v29 = *v62;
     do
     {
       for (i = 0; i != v28; ++i)
       {
-        if (*v63 != v29)
+        if (*v62 != v29)
         {
           objc_enumerationMutation(v24);
         }
 
-        v31 = *(*(&v62 + 1) + 8 * i);
+        v31 = *(*(&v61 + 1) + 8 * i);
         v32 = objc_msgSend_appContainerTuple(v31, v26, v27);
         if (!objc_msgSend_isEqual_(v32, v33, tupleCopy))
         {
@@ -1981,7 +1958,7 @@ LABEL_20:
         }
 
         v8 = objc_msgSend_entitlements(v31, v34, v35);
-        if ((objc_msgSend_isEqual_(v8, v36, v61) & 1) == 0)
+        if ((objc_msgSend_isEqual_(v8, v36, v60) & 1) == 0)
         {
 
 LABEL_12:
@@ -1989,7 +1966,7 @@ LABEL_12:
         }
 
         v39 = objc_msgSend_options(v31, v37, v38);
-        isEqual = objc_msgSend_isEqual_(v39, v40, v60);
+        isEqual = objc_msgSend_isEqual_(v39, v40, v59);
 
         if (isEqual)
         {
@@ -2001,14 +1978,14 @@ LABEL_12:
         }
       }
 
-      v28 = objc_msgSend_countByEnumeratingWithState_objects_count_(v24, v26, &v62, v66, 16);
+      v28 = objc_msgSend_countByEnumeratingWithState_objects_count_(v24, v26, &v61, v65, 16);
     }
 
     while (v28);
   }
 
   v42 = [selfCopy alloc];
-  v52 = objc_msgSend__initWithAppContainerTuple_processScopedClientProxy_logicalDeviceScopedClientProxy_containerEntitlements_containerOptions_(v42, v43, tupleCopy, v58, v59, v61, v60);
+  v52 = objc_msgSend__initWithAppContainerTuple_processScopedClientProxy_logicalDeviceScopedClientProxy_containerEntitlements_containerOptions_(v42, v43, tupleCopy, v57, v58, v60, v59);
   v46 = objc_msgSend_sharedInternalUseContainers(selfCopy, v44, v45);
   v47 = v46 == obj;
 
@@ -2028,8 +2005,6 @@ LABEL_19:
   }
 
 LABEL_21:
-
-  v53 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
@@ -2078,7 +2053,7 @@ LABEL_21:
 
 - (id)_initWithAppContainerTuple:(id)tuple processScopedClientProxy:(id)proxy logicalDeviceScopedClientProxy:(id)clientProxy containerEntitlements:(id)entitlements containerOptions:(id)options
 {
-  v221 = *MEMORY[0x277D85DE8];
+  v220 = *MEMORY[0x277D85DE8];
   tupleCopy = tuple;
   proxyCopy = proxy;
   obj = clientProxy;
@@ -2092,25 +2067,25 @@ LABEL_21:
   v15 = *MEMORY[0x277CBC830];
   if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_DEBUG))
   {
-    v168 = v15;
-    v171 = objc_msgSend_applicationID(tupleCopy, v169, v170);
-    v174 = objc_msgSend_containerID(tupleCopy, v172, v173);
+    v167 = v15;
+    v170 = objc_msgSend_applicationID(tupleCopy, v168, v169);
+    v173 = objc_msgSend_containerID(tupleCopy, v171, v172);
     *buf = 134219010;
     selfCopy = self;
-    v213 = 2112;
-    v214 = proxyCopy;
-    v215 = 2112;
-    v216 = obj;
-    v217 = 2114;
-    v218 = v171;
-    v219 = 2114;
-    v220 = v174;
-    _os_log_debug_impl(&dword_22506F000, v168, OS_LOG_TYPE_DEBUG, "Setting up container %p for proxies %@ / %@, applicationID:%{public}@, containerID:%{public}@", buf, 0x34u);
+    v212 = 2112;
+    v213 = proxyCopy;
+    v214 = 2112;
+    v215 = obj;
+    v216 = 2114;
+    v217 = v170;
+    v218 = 2114;
+    v219 = v173;
+    _os_log_debug_impl(&dword_22506F000, v167, OS_LOG_TYPE_DEBUG, "Setting up container %p for proxies %@ / %@, applicationID:%{public}@, containerID:%{public}@", buf, 0x34u);
   }
 
-  v208.receiver = self;
-  v208.super_class = CKDContainer;
-  v16 = [(CKDContainer *)&v208 init];
+  v207.receiver = self;
+  v207.super_class = CKDContainer;
+  v16 = [(CKDContainer *)&v207 init];
   v17 = v16;
   if (!v16)
   {
@@ -2271,16 +2246,16 @@ LABEL_21:
       v117 = *MEMORY[0x277CBC830];
       if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_DEBUG))
       {
-        v175 = v117;
-        v178 = objc_msgSend_containerID(tupleCopy, v176, v177);
-        v181 = objc_msgSend_procName(proxyCopy, v179, v180);
+        v174 = v117;
+        v177 = objc_msgSend_containerID(tupleCopy, v175, v176);
+        v180 = objc_msgSend_procName(proxyCopy, v178, v179);
         *buf = 134218498;
         selfCopy = v17;
-        v213 = 2112;
-        v214 = v178;
-        v215 = 2112;
-        v216 = v181;
-        _os_log_debug_impl(&dword_22506F000, v175, OS_LOG_TYPE_DEBUG, "CKDContainer (%p) for container %@ (%@) is forcing manatee to be enabled. Weird stuff might happen- you've been warned!", buf, 0x20u);
+        v212 = 2112;
+        v213 = v177;
+        v214 = 2112;
+        v215 = v180;
+        _os_log_debug_impl(&dword_22506F000, v174, OS_LOG_TYPE_DEBUG, "CKDContainer (%p) for container %@ (%@) is forcing manatee to be enabled. Weird stuff might happen- you've been warned!", buf, 0x20u);
       }
     }
 
@@ -2289,9 +2264,9 @@ LABEL_21:
     {
       v120 = objc_alloc(MEMORY[0x277CC1E50]);
       v123 = objc_msgSend_applicationBundleID(v17, v121, v122);
-      v207 = 0;
-      v125 = objc_msgSend_initWithBundleIdentifier_error_(v120, v124, v123, &v207);
-      v126 = v207;
+      v206 = 0;
+      v125 = objc_msgSend_initWithBundleIdentifier_error_(v120, v124, v123, &v206);
+      v126 = v206;
 
       if (v126)
       {
@@ -2307,8 +2282,8 @@ LABEL_21:
           v133 = objc_msgSend_applicationBundleID(v17, v131, v132);
           *buf = 138412546;
           selfCopy = v133;
-          v213 = 2112;
-          v214 = v126;
+          v212 = 2112;
+          v213 = v126;
           _os_log_impl(&dword_22506F000, v130, OS_LOG_TYPE_INFO, "Bundle ID %@ doesn't belong to an application: %@", buf, 0x16u);
         }
       }
@@ -2330,10 +2305,10 @@ LABEL_21:
     v147 = objc_msgSend_directoryContext(v17, v145, v146);
     v150 = objc_msgSend_temporaryDirectory(v147, v148, v149);
     v153 = objc_msgSend_path(v150, v151, v152);
-    v209 = *MEMORY[0x277CBBF30];
+    v208 = *MEMORY[0x277CBBF30];
     v154 = CKProcessStartDate();
-    v210 = v154;
-    v156 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v155, &v210, &v209, 1);
+    v209 = v154;
+    v156 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v155, &v209, &v208, 1);
     location[1] = 0;
     CKCreateDirectoryAtPathWithAttributes();
     v157 = 0;
@@ -2353,36 +2328,35 @@ LABEL_21:
     }
 
     v161 = objc_msgSend_sharedNotifier(CKDAccountNotifier, v159, v160);
-    v204[0] = MEMORY[0x277D85DD0];
-    v204[1] = 3221225472;
-    v204[2] = sub_22516C134;
-    v204[3] = &unk_278547048;
-    objc_copyWeak(&v205, location);
-    objc_msgSend_registerObserver_forAccountChangeNotification_(v161, v162, v17, v204);
+    v203[0] = MEMORY[0x277D85DD0];
+    v203[1] = 3221225472;
+    v203[2] = sub_22516C134;
+    v203[3] = &unk_278547048;
+    objc_copyWeak(&v204, location);
+    objc_msgSend_registerObserver_forAccountChangeNotification_(v161, v162, v17, v203);
 
     objc_msgSend__reloadAccount_(v17, v163, 0);
     objc_msgSend__registerForAuthTokenRenewalNotifications(v17, v164, v165);
-    objc_destroyWeak(&v205);
+    objc_destroyWeak(&v204);
     objc_destroyWeak(location);
 
 LABEL_40:
-    v166 = *MEMORY[0x277D85DE8];
     return v17;
   }
 
-  v182 = objc_msgSend_currentHandler(MEMORY[0x277CBC6B8], v20, v21);
-  v183 = objc_alloc(MEMORY[0x277CBC6B0]);
-  v184 = objc_alloc(MEMORY[0x277CBC6C8]);
-  v186 = objc_msgSend_initWithFilePath_lineNumber_(v184, v185, @"/Library/Caches/com.apple.xbs/Sources/CloudKitTools/Sources/CloudKitDaemon/IPCMessaging/CKDContainer.m", 352);
-  v189 = objc_msgSend_containerID(v17, v187, v188);
-  v191 = objc_msgSend_initWithSourceCodeLocation_format_(v183, v190, v186, @"Failed to initialize account lock in container: %@", v189);
-  objc_msgSend_handleSignificantIssue_actions_(v182, v192, v191, 0);
+  v181 = objc_msgSend_currentHandler(MEMORY[0x277CBC6B8], v20, v21);
+  v182 = objc_alloc(MEMORY[0x277CBC6B0]);
+  v183 = objc_alloc(MEMORY[0x277CBC6C8]);
+  v185 = objc_msgSend_initWithFilePath_lineNumber_(v183, v184, @"/Library/Caches/com.apple.xbs/Sources/CloudKitTools/Sources/CloudKitDaemon/IPCMessaging/CKDContainer.m", 352);
+  v188 = objc_msgSend_containerID(v17, v186, v187);
+  v190 = objc_msgSend_initWithSourceCodeLocation_format_(v182, v189, v185, @"Failed to initialize account lock in container: %@", v188);
+  objc_msgSend_handleSignificantIssue_actions_(v181, v191, v190, 0);
 
-  v193 = MEMORY[0x277CCACA8];
-  v196 = objc_msgSend_containerID(v17, v194, v195);
-  v198 = objc_msgSend_stringWithFormat_(v193, v197, @"Failed to initialize account lock in container: %@", v196);
+  v192 = MEMORY[0x277CCACA8];
+  v195 = objc_msgSend_containerID(v17, v193, v194);
+  v197 = objc_msgSend_stringWithFormat_(v192, v196, @"Failed to initialize account lock in container: %@", v195);
 
-  objc_msgSend_UTF8String(v198, v199, v200);
+  objc_msgSend_UTF8String(v197, v198, v199);
   result = _os_crash();
   __break(1u);
   return result;
@@ -2422,7 +2396,7 @@ LABEL_40:
 
 - (void)invalidate
 {
-  v130 = *MEMORY[0x277D85DE8];
+  v129 = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277CBC880];
   if (*MEMORY[0x277CBC880] != -1)
   {
@@ -2467,28 +2441,28 @@ LABEL_40:
     v22 = objc_msgSend_backgroundOperationThrottleQueue(self, v20, v21);
     objc_msgSend_cancelAllOperations(v22, v23, v24);
 
-    v119 = 0u;
-    v120 = 0u;
-    v117 = 0u;
     v118 = 0u;
+    v119 = 0u;
+    v116 = 0u;
+    v117 = 0u;
     v27 = objc_msgSend_sharedClientThrottlingOperationQueue(CKDContainer, v25, v26, 0);
     v30 = objc_msgSend_operations(v27, v28, v29);
 
-    v32 = objc_msgSend_countByEnumeratingWithState_objects_count_(v30, v31, &v117, v129, 16);
+    v32 = objc_msgSend_countByEnumeratingWithState_objects_count_(v30, v31, &v116, v128, 16);
     if (v32)
     {
       v35 = v32;
-      v36 = *v118;
+      v36 = *v117;
       do
       {
         for (i = 0; i != v35; ++i)
         {
-          if (*v118 != v36)
+          if (*v117 != v36)
           {
             objc_enumerationMutation(v30);
           }
 
-          v38 = *(*(&v117 + 1) + 8 * i);
+          v38 = *(*(&v116 + 1) + 8 * i);
           v39 = objc_msgSend_container(v38, v33, v34);
 
           if (v39 == self)
@@ -2497,7 +2471,7 @@ LABEL_40:
           }
         }
 
-        v35 = objc_msgSend_countByEnumeratingWithState_objects_count_(v30, v33, &v117, v129, 16);
+        v35 = objc_msgSend_countByEnumeratingWithState_objects_count_(v30, v33, &v116, v128, 16);
       }
 
       while (v35);
@@ -2515,14 +2489,14 @@ LABEL_40:
     v47 = *v4;
     if (os_log_type_enabled(*v4, OS_LOG_TYPE_DEBUG))
     {
-      v84 = v47;
-      v87 = objc_msgSend_cloudKitSupportOperationThrottleQueue(self, v85, v86);
-      v90 = objc_msgSend_operations(v87, v88, v89);
+      v83 = v47;
+      v86 = objc_msgSend_cloudKitSupportOperationThrottleQueue(self, v84, v85);
+      v89 = objc_msgSend_operations(v86, v87, v88);
       *buf = 138412546;
       selfCopy6 = self;
-      v123 = 2112;
-      v124 = v90;
-      _os_log_debug_impl(&dword_22506F000, v84, OS_LOG_TYPE_DEBUG, "Waiting for all operations on the cloudkit service queue to finish for %@: %@", buf, 0x16u);
+      v122 = 2112;
+      v123 = v89;
+      _os_log_debug_impl(&dword_22506F000, v83, OS_LOG_TYPE_DEBUG, "Waiting for all operations on the cloudkit service queue to finish for %@: %@", buf, 0x16u);
     }
 
     v50 = objc_msgSend_cloudKitSupportOperationThrottleQueue(self, v48, v49);
@@ -2536,14 +2510,14 @@ LABEL_40:
     v53 = *v4;
     if (os_log_type_enabled(*v4, OS_LOG_TYPE_DEBUG))
     {
-      v91 = v53;
-      v94 = objc_msgSend_backgroundOperationThrottleQueue(self, v92, v93);
-      v97 = objc_msgSend_operations(v94, v95, v96);
+      v90 = v53;
+      v93 = objc_msgSend_backgroundOperationThrottleQueue(self, v91, v92);
+      v96 = objc_msgSend_operations(v93, v94, v95);
       *buf = 138412546;
       selfCopy6 = self;
-      v123 = 2112;
-      v124 = v97;
-      _os_log_debug_impl(&dword_22506F000, v91, OS_LOG_TYPE_DEBUG, "Waiting for all operations on the background more operations queue to finish for %@: %@", buf, 0x16u);
+      v122 = 2112;
+      v123 = v96;
+      _os_log_debug_impl(&dword_22506F000, v90, OS_LOG_TYPE_DEBUG, "Waiting for all operations on the background more operations queue to finish for %@: %@", buf, 0x16u);
     }
 
     v56 = objc_msgSend_backgroundOperationThrottleQueue(self, v54, v55);
@@ -2560,22 +2534,22 @@ LABEL_40:
     v64 = *v4;
     if (os_log_type_enabled(*v4, OS_LOG_TYPE_DEBUG))
     {
-      v98 = v64;
-      v101 = objc_msgSend_operationQueue(self, v99, v100);
-      v104 = objc_msgSend_operations(v101, v102, v103);
-      v107 = objc_msgSend_cleanupOperationQueue(self, v105, v106);
-      v110 = objc_msgSend_operations(v107, v108, v109);
-      v113 = objc_msgSend_uncancellableOperationQueue(self, v111, v112);
-      v116 = objc_msgSend_operations(v113, v114, v115);
+      v97 = v64;
+      v100 = objc_msgSend_operationQueue(self, v98, v99);
+      v103 = objc_msgSend_operations(v100, v101, v102);
+      v106 = objc_msgSend_cleanupOperationQueue(self, v104, v105);
+      v109 = objc_msgSend_operations(v106, v107, v108);
+      v112 = objc_msgSend_uncancellableOperationQueue(self, v110, v111);
+      v115 = objc_msgSend_operations(v112, v113, v114);
       *buf = 138413058;
       selfCopy6 = self;
-      v123 = 2112;
-      v124 = v104;
-      v125 = 2112;
-      v126 = v110;
-      v127 = 2112;
-      v128 = v116;
-      _os_log_debug_impl(&dword_22506F000, v98, OS_LOG_TYPE_DEBUG, "Waiting for all operations to finish for %@. operationQueue=%@ cleanupOperationQueue=%@ uncancellableOperationQueue=%@", buf, 0x2Au);
+      v122 = 2112;
+      v123 = v103;
+      v124 = 2112;
+      v125 = v109;
+      v126 = 2112;
+      v127 = v115;
+      _os_log_debug_impl(&dword_22506F000, v97, OS_LOG_TYPE_DEBUG, "Waiting for all operations to finish for %@. operationQueue=%@ cleanupOperationQueue=%@ uncancellableOperationQueue=%@", buf, 0x2Au);
     }
 
     v67 = objc_msgSend_operationQueue(self, v65, v66);
@@ -2602,12 +2576,11 @@ LABEL_40:
   }
 
   objc_msgSend_tearDownAssetTransfers(self, v81, v82);
-  v83 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_clearCaches
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277CBC880];
   if (*MEMORY[0x277CBC880] != -1)
   {
@@ -2618,9 +2591,9 @@ LABEL_40:
   v5 = *MEMORY[0x277CBC830];
   if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_DEBUG))
   {
-    v29 = 134217984;
+    v28 = 134217984;
     selfCopy5 = self;
-    _os_log_debug_impl(&dword_22506F000, v5, OS_LOG_TYPE_DEBUG, "Clearing the asset cache for container %p", &v29, 0xCu);
+    _os_log_debug_impl(&dword_22506F000, v5, OS_LOG_TYPE_DEBUG, "Clearing the asset cache for container %p", &v28, 0xCu);
   }
 
   objc_msgSend_clearAssetCache(self, v6, v7);
@@ -2632,9 +2605,9 @@ LABEL_40:
   v8 = *v4;
   if (os_log_type_enabled(*v4, OS_LOG_TYPE_DEBUG))
   {
-    v29 = 134217984;
+    v28 = 134217984;
     selfCopy5 = self;
-    _os_log_debug_impl(&dword_22506F000, v8, OS_LOG_TYPE_DEBUG, "Clearing the record cache for container %p", &v29, 0xCu);
+    _os_log_debug_impl(&dword_22506F000, v8, OS_LOG_TYPE_DEBUG, "Clearing the record cache for container %p", &v28, 0xCu);
   }
 
   objc_msgSend_clearRecordCache(self, v9, v10);
@@ -2646,9 +2619,9 @@ LABEL_40:
   v11 = *v4;
   if (os_log_type_enabled(*v4, OS_LOG_TYPE_DEBUG))
   {
-    v29 = 134217984;
+    v28 = 134217984;
     selfCopy5 = self;
-    _os_log_debug_impl(&dword_22506F000, v11, OS_LOG_TYPE_DEBUG, "Clearing the persisted PCS cache for container %p", &v29, 0xCu);
+    _os_log_debug_impl(&dword_22506F000, v11, OS_LOG_TYPE_DEBUG, "Clearing the persisted PCS cache for container %p", &v28, 0xCu);
   }
 
   v14 = objc_msgSend_pcsCache(self, v12, v13);
@@ -2662,9 +2635,9 @@ LABEL_40:
   v17 = *v4;
   if (os_log_type_enabled(*v4, OS_LOG_TYPE_DEBUG))
   {
-    v29 = 134217984;
+    v28 = 134217984;
     selfCopy5 = self;
-    _os_log_debug_impl(&dword_22506F000, v17, OS_LOG_TYPE_DEBUG, "Clearing the in-memory PCS cache for container %p", &v29, 0xCu);
+    _os_log_debug_impl(&dword_22506F000, v17, OS_LOG_TYPE_DEBUG, "Clearing the in-memory PCS cache for container %p", &v28, 0xCu);
   }
 
   v20 = objc_msgSend_pcsCache(self, v18, v19);
@@ -2678,25 +2651,23 @@ LABEL_40:
   v23 = *v4;
   if (os_log_type_enabled(*v4, OS_LOG_TYPE_DEBUG))
   {
-    v29 = 134217984;
+    v28 = 134217984;
     selfCopy5 = self;
-    _os_log_debug_impl(&dword_22506F000, v23, OS_LOG_TYPE_DEBUG, "Clearing the container info cache for container %p", &v29, 0xCu);
+    _os_log_debug_impl(&dword_22506F000, v23, OS_LOG_TYPE_DEBUG, "Clearing the container info cache for container %p", &v28, 0xCu);
   }
 
   v26 = objc_msgSend_sharedManager(CKDServerConfigurationManager, v24, v25);
   objc_msgSend_expireConfigurationForContainer_(v26, v27, self);
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 + (id)applicationDataContainerDirectoryForBundleID:(id)d outApplicationBinaryBundleURL:(id *)l outAdopterProcessType:(int64_t *)type
 {
-  v84 = *MEMORY[0x277D85DE8];
+  v83 = *MEMORY[0x277D85DE8];
   dCopy = d;
   v8 = objc_alloc(MEMORY[0x277CC1E50]);
-  v73 = 0;
-  v10 = objc_msgSend_initWithBundleIdentifier_error_(v8, v9, dCopy, &v73);
-  v70 = v73;
+  v72 = 0;
+  v10 = objc_msgSend_initWithBundleIdentifier_error_(v8, v9, dCopy, &v72);
+  v69 = v72;
   v11 = MEMORY[0x277CBC830];
   typeCopy = type;
   lCopy = l;
@@ -2716,9 +2687,9 @@ LABEL_40:
       v20 = objc_msgSend_containingBundleRecord(v10, v18, v19);
       v23 = objc_msgSend_bundleIdentifier(v20, v21, v22);
       *buf = 138412546;
-      v75 = dCopy;
-      v76 = 2112;
-      v77 = v23;
+      v74 = dCopy;
+      v75 = 2112;
+      v76 = v23;
       _os_log_impl(&dword_22506F000, v17, OS_LOG_TYPE_INFO, "Launch Services reports that bundle ID %@ belongs to an application extension with containing bundle id: %@", buf, 0x16u);
     }
 
@@ -2735,9 +2706,9 @@ LABEL_40:
   }
 
   v28 = objc_alloc(MEMORY[0x277CC1E70]);
-  v72 = 0;
-  v30 = objc_msgSend_initWithBundleIdentifier_allowPlaceholder_error_(v28, v29, dCopy, 0, &v72);
-  v31 = v72;
+  v71 = 0;
+  v30 = objc_msgSend_initWithBundleIdentifier_allowPlaceholder_error_(v28, v29, dCopy, 0, &v71);
+  v31 = v71;
   if (v10)
   {
     v32 = v10;
@@ -2761,29 +2732,29 @@ LABEL_40:
   v43 = *v13;
   if (os_log_type_enabled(*v13, OS_LOG_TYPE_DEBUG))
   {
-    v51 = @"NO";
+    v50 = @"NO";
     if (isInstalled)
     {
-      v51 = @"YES";
+      v50 = @"YES";
     }
 
-    v66 = v51;
+    v65 = v50;
     log = v43;
-    v65 = objc_msgSend_CKSanitizedPath(v36, v52, v53);
-    v68 = objc_msgSend_URL(v33, v54, v55);
-    v58 = objc_msgSend_CKSanitizedPath(v68, v56, v57);
-    v61 = objc_msgSend_currentPersona(MEMORY[0x277CBC558], v59, v60);
-    v64 = objc_msgSend_ckShortDescription(v61, v62, v63);
+    v64 = objc_msgSend_CKSanitizedPath(v36, v51, v52);
+    v67 = objc_msgSend_URL(v33, v53, v54);
+    v57 = objc_msgSend_CKSanitizedPath(v67, v55, v56);
+    v60 = objc_msgSend_currentPersona(MEMORY[0x277CBC558], v58, v59);
+    v63 = objc_msgSend_ckShortDescription(v60, v61, v62);
     *buf = 138413314;
-    v75 = dCopy;
-    v76 = 2112;
-    v77 = v66;
-    v78 = 2112;
-    v79 = v65;
-    v80 = 2112;
-    v81 = v58;
-    v82 = 2112;
-    v83 = v64;
+    v74 = dCopy;
+    v75 = 2112;
+    v76 = v65;
+    v77 = 2112;
+    v78 = v64;
+    v79 = 2112;
+    v80 = v57;
+    v81 = 2112;
+    v82 = v63;
     _os_log_debug_impl(&dword_22506F000, log, OS_LOG_TYPE_DEBUG, "applicationBundleID:%@, installed:%@, containerPath:%@, callingBundlePath:%@, currentPersona:%@", buf, 0x34u);
   }
 
@@ -2815,14 +2786,296 @@ LABEL_40:
     *typeCopy = v48;
   }
 
-  v49 = *MEMORY[0x277D85DE8];
-
   return v36;
+}
+
+- (void)_reloadAccount:(BOOL)account
+{
+  accountCopy = account;
+  v188 = *MEMORY[0x277D85DE8];
+  v4 = objc_msgSend_options(self, a2, account);
+  isCloudCoreSession = objc_msgSend_isCloudCoreSession(v4, v5, v6);
+
+  if (isCloudCoreSession)
+  {
+    objc_initWeak(location, self);
+    v8 = CKGetGlobalQueue();
+    block[0] = MEMORY[0x277D85DD0];
+    block[1] = 3221225472;
+    block[2] = sub_22516DD14;
+    block[3] = &unk_278547098;
+    objc_copyWeak(&v180, location);
+    dispatch_async(v8, block);
+
+    objc_destroyWeak(&v180);
+    objc_destroyWeak(location);
+  }
+
+  pthread_rwlock_wrlock(&self->rwAccountLock);
+  objc_msgSend_setCachedEnvironment_(self, v9, -1);
+  if (accountCopy)
+  {
+    if (*MEMORY[0x277CBC880] != -1)
+    {
+      dispatch_once(MEMORY[0x277CBC880], *MEMORY[0x277CBC878]);
+    }
+
+    v12 = *MEMORY[0x277CBC830];
+    if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_INFO))
+    {
+      account = self->_account;
+      *location = 134218242;
+      *&location[4] = self;
+      v182 = 2112;
+      selfCopy = account;
+      _os_log_impl(&dword_22506F000, v12, OS_LOG_TYPE_INFO, "Reloading the account for container %p - the previous account was %@", location, 0x16u);
+    }
+  }
+
+  v14 = objc_msgSend_accountID(self->_account, v10, v11);
+  v175 = self->_pcsCache;
+  v17 = objc_msgSend_deviceContext(self, v15, v16);
+  v20 = objc_msgSend_testServer(v17, v18, v19);
+
+  if (v20)
+  {
+    v23 = objc_msgSend_useLiveServer(v20, v21, v22) ^ 1;
+  }
+
+  else
+  {
+    v23 = 0;
+  }
+
+  v24 = objc_msgSend_accountOverrideInfo(self, v21, v22);
+  v27 = objc_msgSend_email(v24, v25, v26);
+  isEqualToString = objc_msgSend_isEqualToString_(v27, v28, *MEMORY[0x277CBC8A0]);
+
+  if (isEqualToString)
+  {
+    v32 = [CKDAccount alloc];
+    inited = objc_msgSend_initAnonymousAccount(v32, v33, v34);
+LABEL_15:
+    v47 = inited;
+    goto LABEL_16;
+  }
+
+  v36 = objc_msgSend_accountOverrideInfo(self, v30, v31);
+  v39 = objc_msgSend_email(v36, v37, v38);
+  v41 = objc_msgSend_isEqualToString_(v39, v40, *MEMORY[0x277CBC920]);
+
+  if (v41)
+  {
+    v44 = [CKDAccount alloc];
+    inited = objc_msgSend_initPrimaryAccount(v44, v45, v46);
+    goto LABEL_15;
+  }
+
+  if (v23)
+  {
+    v72 = [CKDAccount alloc];
+    v75 = objc_msgSend_deviceContext(self, v73, v74);
+    v78 = objc_msgSend_testDevice(v75, v76, v77);
+    v81 = objc_msgSend_daemonAccount(v78, v79, v80);
+    v84 = objc_msgSend_deviceContext(self, v82, v83);
+    v87 = objc_msgSend_testDevice(v84, v85, v86);
+    v47 = objc_msgSend_initMockAccountWithTestAccount_testDevice_(v72, v88, v81, v87);
+
+    goto LABEL_16;
+  }
+
+  v126 = objc_msgSend_accountOverrideInfo(self, v42, v43);
+  v131 = objc_msgSend_email(v126, v127, v128);
+  if (v131)
+  {
+    v132 = objc_msgSend_accountOverrideInfo(self, v129, v130);
+    v135 = objc_msgSend_password(v132, v133, v134);
+    v136 = v135 == 0;
+
+    if (!v136)
+    {
+      v139 = [CKDAccount alloc];
+      v142 = objc_msgSend_accountOverrideInfo(self, v140, v141);
+      v47 = objc_msgSend_initExplicitCredentialsAccountWithAccountOverrideInfo_(v139, v143, v142);
+
+      goto LABEL_16;
+    }
+  }
+
+  else
+  {
+  }
+
+  v144 = objc_msgSend_accountOverrideInfo(self, v137, v138);
+  v147 = objc_msgSend_accountID(v144, v145, v146);
+
+  if (v147)
+  {
+    v150 = [CKDAccount alloc];
+    v153 = objc_msgSend_accountOverrideInfo(self, v151, v152);
+    v156 = objc_msgSend_accountID(v153, v154, v155);
+    v47 = objc_msgSend_initWithAccountID_(v150, v157, v156);
+  }
+
+  else
+  {
+    v162 = objc_msgSend_accountOverrideInfo(self, v148, v149);
+    v165 = objc_msgSend_altDSID(v162, v163, v164);
+
+    LOBYTE(v162) = v165 == 0;
+    v166 = [CKDAccount alloc];
+    v169 = v166;
+    if (v162)
+    {
+      inited = objc_msgSend_initPrimaryAccount(v166, v167, v168);
+      goto LABEL_15;
+    }
+
+    v170 = objc_msgSend_accountOverrideInfo(self, v167, v168);
+    v173 = objc_msgSend_altDSID(v170, v171, v172);
+    v47 = objc_msgSend_initWithAltDSID_(v169, v174, v173);
+  }
+
+LABEL_16:
+  if (!v47)
+  {
+    v48 = [CKDAccount alloc];
+    v47 = objc_msgSend_initAnonymousAccount(v48, v49, v50);
+  }
+
+  if (*MEMORY[0x277CBC880] != -1)
+  {
+    dispatch_once(MEMORY[0x277CBC880], *MEMORY[0x277CBC878]);
+  }
+
+  v51 = *MEMORY[0x277CBC830];
+  if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_INFO))
+  {
+    v52 = v51;
+    v55 = objc_msgSend_containerID(self, v53, v54);
+    v58 = objc_msgSend_accountOverrideInfo(self, v56, v57);
+    *location = 138413058;
+    *&location[4] = v47;
+    v182 = 2048;
+    selfCopy = self;
+    v184 = 2112;
+    v185 = v55;
+    v186 = 2112;
+    v187 = v58;
+    _os_log_impl(&dword_22506F000, v52, OS_LOG_TYPE_INFO, "Loaded account %@ for CKDContainer %p, containerID %@ with account override info:%@", location, 0x2Au);
+  }
+
+  objc_storeStrong(&self->_account, v47);
+  if (self->_pcsManager && objc_msgSend_shouldUsePCSEncryption(self, v59, v60))
+  {
+    pcsManager = self->_pcsManager;
+    v177[0] = MEMORY[0x277D85DD0];
+    v177[1] = 3221225472;
+    v177[2] = sub_22516DED0;
+    v177[3] = &unk_278545A00;
+    v178 = v175;
+    objc_msgSend_updateAccount_clearPCSCacheHandler_(pcsManager, v62, v47, v177);
+  }
+
+  v65 = objc_msgSend_accountID(v47, v59, v60);
+  if (v14 == v65)
+  {
+    v71 = 1;
+  }
+
+  else if (v14)
+  {
+    v68 = objc_msgSend_accountID(v47, v63, v64);
+    if (v68)
+    {
+      v69 = objc_msgSend_accountID(v47, v66, v67);
+      v71 = objc_msgSend_isEqualToString_(v14, v70, v69);
+    }
+
+    else
+    {
+      v71 = 0;
+    }
+  }
+
+  else
+  {
+    v71 = 0;
+  }
+
+  if (*MEMORY[0x277CBC810] == 1)
+  {
+    v91 = objc_msgSend_deviceContext(self, v89, v90);
+    v93 = objc_msgSend_BOOLOptionForKey_(v91, v92, *MEMORY[0x277CBC108]) != 1;
+
+    v71 &= v93;
+  }
+
+  if ((v71 & 1) == 0 && accountCopy)
+  {
+    if (*MEMORY[0x277CBC880] != -1)
+    {
+      dispatch_once(MEMORY[0x277CBC880], *MEMORY[0x277CBC878]);
+    }
+
+    v94 = *MEMORY[0x277CBC830];
+    if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_DEBUG))
+    {
+      v158 = v94;
+      v161 = objc_msgSend_accountID(v47, v159, v160);
+      *location = 138412546;
+      *&location[4] = v14;
+      v182 = 2112;
+      selfCopy = v161;
+      _os_log_debug_impl(&dword_22506F000, v158, OS_LOG_TYPE_DEBUG, "The account identifier changed from %@ to %@ cancelling all outstanding operations", location, 0x16u);
+    }
+
+    objc_msgSend_cancelAllOperations_(self, v95, 1);
+    pcsCache = self->_pcsCache;
+    self->_pcsCache = 0;
+
+    pcsCacheAssertion = self->_pcsCacheAssertion;
+    self->_pcsCacheAssertion = 0;
+  }
+
+  v98 = objc_msgSend_entitlements(self, v89, v90);
+  v101 = objc_msgSend_apsEnvironmentEntitlement(v98, v99, v100);
+
+  if (!v101 || !objc_msgSend_compare_options_(v101, v102, *MEMORY[0x277CBBFB8], 1) && (objc_msgSend_serverPreferredPushEnvironment(self->_account, v103, v104), v105 = objc_claimAutoreleasedReturnValue(), v101, (v101 = v105) == 0))
+  {
+    if (*MEMORY[0x277CBC880] != -1)
+    {
+      dispatch_once(MEMORY[0x277CBC880], *MEMORY[0x277CBC878]);
+    }
+
+    v106 = *MEMORY[0x277CBC830];
+    if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_DEBUG))
+    {
+      *location = 0;
+      _os_log_debug_impl(&dword_22506F000, v106, OS_LOG_TYPE_DEBUG, "No APS environment set. Falling back to production.", location, 2u);
+    }
+
+    v101 = *MEMORY[0x277CEE9F0];
+  }
+
+  objc_msgSend_setResolvedAPSEnvironmentString_(self, v103, v101);
+  v109 = objc_msgSend_containerID(self, v107, v108);
+  v112 = objc_msgSend_accountID(self->_account, v110, v111);
+  v114 = objc_msgSend_gatekeeperForContainerID_accountID_(CKDZoneGatekeeper, v113, v109, v112);
+  objc_msgSend_setGatekeeper_(self, v115, v114);
+
+  v116 = [CKDAppContainerAccountTuple alloc];
+  v119 = objc_msgSend_appContainerTuple(self, v117, v118);
+  v122 = objc_msgSend_accountID(self->_account, v120, v121);
+  v124 = objc_msgSend_initWithAppContainerTuple_accountID_(v116, v123, v119, v122);
+
+  objc_msgSend__writeAdopterMetadataToCache_(self, v125, v124);
+  pthread_rwlock_unlock(&self->rwAccountLock);
 }
 
 - (void)_writeAdopterMetadataToCache:(id)cache
 {
-  v70 = *MEMORY[0x277D85DE8];
+  v69 = *MEMORY[0x277D85DE8];
   cacheCopy = cache;
   v7 = objc_msgSend_processScopedClientProxy(self, v5, v6);
   if (objc_msgSend_processIsAttached(v7, v8, v9))
@@ -2834,13 +3087,13 @@ LABEL_40:
       dispatch_once(MEMORY[0x277CBC880], *MEMORY[0x277CBC878]);
     }
 
-    v65 = cacheCopy;
+    v64 = cacheCopy;
     v14 = *MEMORY[0x277CBC830];
     if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_DEBUG))
     {
       *buf = 138412546;
-      v67 = v7;
-      v68 = 2112;
+      v66 = v7;
+      v67 = 2112;
       selfCopy = self;
       _os_log_debug_impl(&dword_22506F000, v14, OS_LOG_TYPE_DEBUG, "Echoing proxy %@ info into metadata cache for container %@", buf, 0x16u);
     }
@@ -2867,16 +3120,14 @@ LABEL_40:
 
     v59 = objc_msgSend_deviceContext(self, v57, v58);
     v62 = objc_msgSend_metadataCache(v59, v60, v61);
-    cacheCopy = v65;
-    objc_msgSend_setAppContainerAccountMetadata_forAppContainerAccountTuple_(v62, v63, v52, v65);
+    cacheCopy = v64;
+    objc_msgSend_setAppContainerAccountMetadata_forAppContainerAccountTuple_(v62, v63, v52, v64);
   }
-
-  v64 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)setupMMCSWrapper:(id *)wrapper
 {
-  v68[1] = *MEMORY[0x277D85DE8];
+  v67[1] = *MEMORY[0x277D85DE8];
   objc_msgSend_lock(self->_mmcsLock, a2, wrapper);
   v8 = objc_msgSend_MMCS(self, v6, v7);
 
@@ -2886,9 +3137,9 @@ LABEL_40:
     v14 = objc_msgSend_directoryContext(self, v12, v13);
     v17 = objc_msgSend_deviceContext(self, v15, v16);
     v20 = objc_msgSend_deviceScopedDatabase(v17, v18, v19);
-    v67 = 0;
-    v22 = objc_msgSend_MMCSWrapperForApplicationBundleID_directoryContext_database_error_(CKDMMCS, v21, v11, v14, v20, &v67);
-    v23 = v67;
+    v66 = 0;
+    v22 = objc_msgSend_MMCSWrapperForApplicationBundleID_directoryContext_database_error_(CKDMMCS, v21, v11, v14, v20, &v66);
+    v23 = v66;
 
     if (v22)
     {
@@ -2923,14 +3174,14 @@ LABEL_40:
         v50 = objc_msgSend_URLByDeletingLastPathComponent(v47, v48, v49);
         v53 = objc_msgSend_defaultManager(MEMORY[0x277D65260], v51, v52);
         v55 = objc_msgSend_pathInfoWithURL_(MEMORY[0x277D65258], v54, v50);
-        v68[0] = v55;
-        v57 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v56, v68, 1);
-        v65[0] = MEMORY[0x277D85DD0];
-        v65[1] = 3221225472;
-        v65[2] = sub_22516E478;
-        v65[3] = &unk_2785470C0;
-        v66 = v11;
-        objc_msgSend_registerPaths_forBundleID_completionHandler_(v53, v58, v57, v66, v65);
+        v67[0] = v55;
+        v57 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v56, v67, 1);
+        v64[0] = MEMORY[0x277D85DD0];
+        v64[1] = 3221225472;
+        v64[2] = sub_22516E478;
+        v64[3] = &unk_2785470C0;
+        v65 = v11;
+        objc_msgSend_registerPaths_forBundleID_completionHandler_(v53, v58, v57, v65, v64);
       }
     }
   }
@@ -2939,7 +3190,6 @@ LABEL_40:
   v60 = v59 != 0;
 
   objc_msgSend_unlock(self->_mmcsLock, v61, v62);
-  v63 = *MEMORY[0x277D85DE8];
   return v60;
 }
 
@@ -2988,9 +3238,20 @@ LABEL_40:
   objc_sync_exit(obj);
 }
 
+- (id)CKShortDescriptionRedact:(BOOL)redact
+{
+  v4 = MEMORY[0x277CCACA8];
+  v5 = objc_msgSend_containerID(self, a2, redact);
+  v8 = objc_msgSend_ckShortDescription(v5, v6, v7);
+  v11 = objc_msgSend_applicationID(self, v9, v10);
+  v13 = objc_msgSend_stringWithFormat_(v4, v12, @"containerID=%@, applicationID=%@", v8, v11);
+
+  return v13;
+}
+
 - (id)_urlBySettingCustomBaseURL:(id)l onURL:(id)rL
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   lCopy = l;
   rLCopy = rL;
   v8 = rLCopy;
@@ -3014,9 +3275,9 @@ LABEL_40:
     v22 = *MEMORY[0x277CBC830];
     if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_DEBUG))
     {
-      v28 = 138412290;
-      v29 = lCopy;
-      _os_log_debug_impl(&dword_22506F000, v22, OS_LOG_TYPE_DEBUG, "Using custom url override of %@", &v28, 0xCu);
+      v27 = 138412290;
+      v28 = lCopy;
+      _os_log_debug_impl(&dword_22506F000, v22, OS_LOG_TYPE_DEBUG, "Using custom url override of %@", &v27, 0xCu);
     }
 
     v25 = objc_msgSend_URL(v9, v23, v24);
@@ -3027,14 +3288,12 @@ LABEL_40:
     v25 = rLCopy;
   }
 
-  v26 = *MEMORY[0x277D85DE8];
-
   return v25;
 }
 
 - (id)baseURLForServerType:(int64_t)type partitionType:(int64_t)partitionType
 {
-  v67 = *MEMORY[0x277D85DE8];
+  v66 = *MEMORY[0x277D85DE8];
   if (type > 2)
   {
     if (type == 3)
@@ -3155,17 +3414,15 @@ LABEL_26:
     v56 = *MEMORY[0x277CBC830];
     if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_ERROR))
     {
-      v59 = v56;
-      v62 = objc_msgSend_account(self, v60, v61);
-      v63 = 138412546;
-      v64 = v62;
-      v65 = 2112;
+      v58 = v56;
+      v61 = objc_msgSend_account(self, v59, v60);
+      v62 = 138412546;
+      v63 = v61;
+      v64 = 2112;
       selfCopy = self;
-      _os_log_error_impl(&dword_22506F000, v59, OS_LOG_TYPE_ERROR, "Couldn't pull url from backing account %@ or container %@", &v63, 0x16u);
+      _os_log_error_impl(&dword_22506F000, v58, OS_LOG_TYPE_ERROR, "Couldn't pull url from backing account %@ or container %@", &v62, 0x16u);
     }
   }
-
-  v57 = *MEMORY[0x277D85DE8];
 
   return v55;
 }
@@ -3187,6 +3444,23 @@ LABEL_26:
 
   objc_destroyWeak(&v15);
   objc_destroyWeak(&location);
+}
+
+- (void)_fetchContainerServerInfoForOperation:(id)operation requireUserIDs:(BOOL)ds requireEnvironment:(BOOL)environment completionHandler:(id)handler
+{
+  environmentCopy = environment;
+  dsCopy = ds;
+  handlerCopy = handler;
+  operationCopy = operation;
+  v14 = objc_msgSend_sharedManager(CKDServerConfigurationManager, v12, v13);
+  v17[0] = MEMORY[0x277D85DD0];
+  v17[1] = 3221225472;
+  v17[2] = sub_22516F6F0;
+  v17[3] = &unk_278547130;
+  v17[4] = self;
+  v18 = handlerCopy;
+  v15 = handlerCopy;
+  objc_msgSend_containerServerInfoForOperation_requireUserIDs_requireEnvironment_completionHandler_(v14, v16, operationCopy, dsCopy, environmentCopy, v17);
 }
 
 - (void)fetchPublicURLForServerType:(int64_t)type operation:(id)operation completionHandler:(id)handler
@@ -3377,12 +3651,12 @@ LABEL_26:
 
 - (BOOL)_isContainerAuthorizedForOperation:(id)operation error:(id *)error
 {
-  v79 = *MEMORY[0x277D85DE8];
+  v78 = *MEMORY[0x277D85DE8];
   operationCopy = operation;
   if (!operationCopy)
   {
-    v62 = objc_msgSend_currentHandler(MEMORY[0x277CCA890], v7, v8);
-    objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v62, v63, a2, self, @"CKDContainer.m", 1572, @"Expected non-nil operation for proxy %@", self);
+    v61 = objc_msgSend_currentHandler(MEMORY[0x277CCA890], v7, v8);
+    objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v61, v62, a2, self, @"CKDContainer.m", 1572, @"Expected non-nil operation for proxy %@", self);
   }
 
   v10 = objc_msgSend_operationInfo(operationCopy, v7, v8);
@@ -3414,12 +3688,12 @@ LABEL_26:
   }
 
   v36 = objc_msgSend_sourceApplicationSecondaryIdentifier(operationCopy, v34, v35);
-  v69 = 0;
-  v70 = &v69;
-  v71 = 0x3032000000;
-  v72 = sub_225073F60;
-  v73 = sub_22507353C;
-  v74 = 0;
+  v68 = 0;
+  v69 = &v68;
+  v70 = 0x3032000000;
+  v71 = sub_225073F60;
+  v72 = sub_22507353C;
+  v73 = 0;
   v39 = objc_msgSend_entitlements(self, v37, v38);
   hasMasqueradingEntitlement = objc_msgSend_hasMasqueradingEntitlement(v39, v40, v41);
 
@@ -3451,8 +3725,8 @@ LABEL_26:
     aBlock[3] = &unk_2785471D0;
     aBlock[4] = self;
     v51 = v50;
-    v67 = v51;
-    v68 = &v69;
+    v66 = v51;
+    v67 = &v68;
     v52 = _Block_copy(aBlock);
     v53 = v52;
     if (!v17 || ((*(v52 + 2))(v52, v17)) && (!v30 || (v53)[2](v53, v30)))
@@ -3474,33 +3748,32 @@ LABEL_26:
       {
         *buf = 138412546;
         selfCopy2 = self;
-        v77 = 2112;
-        v78 = v36;
+        v76 = 2112;
+        v77 = v36;
         _os_log_error_impl(&dword_22506F000, v54, OS_LOG_TYPE_ERROR, "Container %@ is not allowed to set an operation sourceApplicationSecondaryIdentifier to %@", buf, 0x16u);
       }
 
       v56 = objc_msgSend_errorWithDomain_code_format_(MEMORY[0x277CBC560], v55, *MEMORY[0x277CBBF50], 8, @"Container %@ is not allowed to set an operation sourceApplicationSecondaryIdentifier to %@ without an entitlement", self, v36);
-      v57 = v70[5];
-      v70[5] = v56;
+      v57 = v69[5];
+      v69[5] = v56;
     }
 
-    if (!v70[5])
+    if (!v69[5])
     {
-      v64 = objc_msgSend_currentHandler(MEMORY[0x277CCA890], v58, v59);
-      objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v64, v65, a2, self, @"CKDContainer.m", 1626, @"Expected non-nil error for operation %@", operationCopy);
+      v63 = objc_msgSend_currentHandler(MEMORY[0x277CCA890], v58, v59);
+      objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v63, v64, a2, self, @"CKDContainer.m", 1626, @"Expected non-nil error for operation %@", operationCopy);
     }
 
     v46 = 0;
     if (error)
     {
-      *error = v70[5];
+      *error = v69[5];
     }
   }
 
 LABEL_30:
-  _Block_object_dispose(&v69, 8);
+  _Block_object_dispose(&v68, 8);
 
-  v60 = *MEMORY[0x277D85DE8];
   return v46;
 }
 
@@ -3566,7 +3839,7 @@ LABEL_30:
 
 + (void)initialize
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = objc_msgSend_sharedOptions(MEMORY[0x277CBC1D8], a2, v2);
   isAppleInternalInstall = objc_msgSend_isAppleInternalInstall(v3, v4, v5);
 
@@ -3580,13 +3853,11 @@ LABEL_30:
     v7 = *MEMORY[0x277CBC830];
     if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_INFO))
     {
-      v9 = 136315138;
-      v10 = "Wed Dec 31 16:00:00 1969";
-      _os_log_impl(&dword_22506F000, v7, OS_LOG_TYPE_INFO, "CloudKitDaemon.framework was built at %s", &v9, 0xCu);
+      v8 = 136315138;
+      v9 = "Wed Dec 31 16:00:00 1969";
+      _os_log_impl(&dword_22506F000, v7, OS_LOG_TYPE_INFO, "CloudKitDaemon.framework was built at %s", &v8, 0xCu);
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (id)methodSignatureForSelector:(SEL)selector
@@ -3653,9 +3924,8 @@ LABEL_30:
 - (void)setContainerAvailable:(BOOL)available
 {
   availableCopy = available;
-  v41 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   v5 = *MEMORY[0x277CBC878];
-  v6 = *MEMORY[0x277CBC880];
   if (available)
   {
     if (*MEMORY[0x277CBC880] != -1)
@@ -3663,14 +3933,14 @@ LABEL_30:
       dispatch_once(MEMORY[0x277CBC880], v5);
     }
 
-    v7 = *MEMORY[0x277CBC830];
+    v6 = *MEMORY[0x277CBC830];
     if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_DEBUG))
     {
       *buf = 138412290;
       selfCopy2 = self;
-      v10 = "System is available. Starting work queue for %@";
+      v9 = "System is available. Starting work queue for %@";
 LABEL_18:
-      _os_log_debug_impl(&dword_22506F000, v7, OS_LOG_TYPE_DEBUG, v10, buf, 0xCu);
+      _os_log_debug_impl(&dword_22506F000, v6, OS_LOG_TYPE_DEBUG, v9, buf, 0xCu);
     }
   }
 
@@ -3681,61 +3951,59 @@ LABEL_18:
       dispatch_once(MEMORY[0x277CBC880], v5);
     }
 
-    v7 = *MEMORY[0x277CBC830];
+    v6 = *MEMORY[0x277CBC830];
     if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_DEBUG))
     {
       *buf = 138412290;
       selfCopy2 = self;
-      v10 = "System is unavailable. Stopping work queue for %@";
+      v9 = "System is unavailable. Stopping work queue for %@";
       goto LABEL_18;
     }
   }
 
-  v35 = 0u;
-  v36 = 0u;
   v33 = 0u;
   v34 = 0u;
-  v11 = objc_msgSend_operationQueue(self, v8, v9, 0);
-  v37[0] = v11;
-  v14 = objc_msgSend_cleanupOperationQueue(self, v12, v13);
-  v37[1] = v14;
-  v17 = objc_msgSend_uncancellableOperationQueue(self, v15, v16);
-  v37[2] = v17;
-  v20 = objc_msgSend_backgroundOperationThrottleQueue(self, v18, v19);
-  v37[3] = v20;
-  v23 = objc_msgSend_cloudKitSupportOperationThrottleQueue(self, v21, v22);
-  v37[4] = v23;
-  v25 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v24, v37, 5);
+  v31 = 0u;
+  v32 = 0u;
+  v10 = objc_msgSend_operationQueue(self, v7, v8, 0);
+  v35[0] = v10;
+  v13 = objc_msgSend_cleanupOperationQueue(self, v11, v12);
+  v35[1] = v13;
+  v16 = objc_msgSend_uncancellableOperationQueue(self, v14, v15);
+  v35[2] = v16;
+  v19 = objc_msgSend_backgroundOperationThrottleQueue(self, v17, v18);
+  v35[3] = v19;
+  v22 = objc_msgSend_cloudKitSupportOperationThrottleQueue(self, v20, v21);
+  v35[4] = v22;
+  v24 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v23, v35, 5);
 
-  v27 = objc_msgSend_countByEnumeratingWithState_objects_count_(v25, v26, &v33, v38, 16);
-  if (v27)
+  v26 = objc_msgSend_countByEnumeratingWithState_objects_count_(v24, v25, &v31, v36, 16);
+  if (v26)
   {
-    v29 = v27;
-    v30 = *v34;
+    v28 = v26;
+    v29 = *v32;
     do
     {
-      for (i = 0; i != v29; ++i)
+      for (i = 0; i != v28; ++i)
       {
-        if (*v34 != v30)
+        if (*v32 != v29)
         {
-          objc_enumerationMutation(v25);
+          objc_enumerationMutation(v24);
         }
 
-        objc_msgSend_setSuspended_(*(*(&v33 + 1) + 8 * i), v28, !availableCopy);
+        objc_msgSend_setSuspended_(*(*(&v31 + 1) + 8 * i), v27, !availableCopy);
       }
 
-      v29 = objc_msgSend_countByEnumeratingWithState_objects_count_(v25, v28, &v33, v38, 16);
+      v28 = objc_msgSend_countByEnumeratingWithState_objects_count_(v24, v27, &v31, v36, 16);
     }
 
-    while (v29);
+    while (v28);
   }
-
-  v32 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_lockedHandleTCCAuthorizationChangedEvent:(int64_t)event
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   dispatch_assert_queue_V2(self->_tccAuthQueue);
   v7 = objc_msgSend_applicationBundleIdentifierForTCC(self, v5, v6);
   hasTCCAuthorizationTernary = self->_hasTCCAuthorizationTernary;
@@ -3749,12 +4017,11 @@ LABEL_18:
     v9 = *MEMORY[0x277CBC830];
     if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_INFO))
     {
-      v18 = 138543362;
-      v19 = v7;
-      _os_log_impl(&dword_22506F000, v9, OS_LOG_TYPE_INFO, "Received TCC access reset, resetting TCC access for bundle identifier '%{public}@'", &v18, 0xCu);
+      v16 = 138543362;
+      v17 = v7;
+      _os_log_impl(&dword_22506F000, v9, OS_LOG_TYPE_INFO, "Received TCC access reset, resetting TCC access for bundle identifier '%{public}@'", &v16, 0xCu);
     }
 
-    v10 = *MEMORY[0x277D6C190];
     if (TCCAccessSetForBundleId())
     {
       event = 1;
@@ -3770,77 +4037,74 @@ LABEL_18:
 
   if (hasTCCAuthorizationTernary != event)
   {
-    v11 = *MEMORY[0x277CBC878];
-    v12 = *MEMORY[0x277CBC880];
+    v10 = *MEMORY[0x277CBC878];
+    v11 = *MEMORY[0x277CBC880];
     if (!event)
     {
-      if (v12 != -1)
+      if (v11 != -1)
       {
-        dispatch_once(MEMORY[0x277CBC880], v11);
+        dispatch_once(MEMORY[0x277CBC880], v10);
       }
 
-      v15 = *MEMORY[0x277CBC830];
+      v14 = *MEMORY[0x277CBC830];
       if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_DEFAULT))
       {
-        v18 = 138543362;
-        v19 = v7;
-        _os_log_impl(&dword_22506F000, v15, OS_LOG_TYPE_DEFAULT, "Updated authorization on TCC event to: DENY for bundle identifier '%{public}@'", &v18, 0xCu);
+        v16 = 138543362;
+        v17 = v7;
+        _os_log_impl(&dword_22506F000, v14, OS_LOG_TYPE_DEFAULT, "Updated authorization on TCC event to: DENY for bundle identifier '%{public}@'", &v16, 0xCu);
       }
 
-      objc_msgSend_checkSessionValidityCacheOnly_error_(self, v16, 0, 0);
+      objc_msgSend_checkSessionValidityCacheOnly_error_(self, v15, 0, 0);
       goto LABEL_28;
     }
 
     if (event == 1)
     {
-      if (v12 != -1)
+      if (v11 != -1)
       {
-        dispatch_once(MEMORY[0x277CBC880], v11);
+        dispatch_once(MEMORY[0x277CBC880], v10);
       }
 
-      v13 = *MEMORY[0x277CBC830];
+      v12 = *MEMORY[0x277CBC830];
       if (!os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_DEFAULT))
       {
         goto LABEL_28;
       }
 
-      v18 = 138543362;
-      v19 = v7;
-      v14 = "Updated authorization on TCC event to: ALLOWED for bundle identifier '%{public}@'";
+      v16 = 138543362;
+      v17 = v7;
+      v13 = "Updated authorization on TCC event to: ALLOWED for bundle identifier '%{public}@'";
     }
 
     else
     {
-      if (v12 != -1)
+      if (v11 != -1)
       {
-        dispatch_once(MEMORY[0x277CBC880], v11);
+        dispatch_once(MEMORY[0x277CBC880], v10);
       }
 
-      v13 = *MEMORY[0x277CBC830];
+      v12 = *MEMORY[0x277CBC830];
       if (!os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_DEFAULT))
       {
         goto LABEL_28;
       }
 
-      v18 = 138543362;
-      v19 = v7;
-      v14 = "Updated authorization on TCC event to: UNKNOWN for bundle identifier '%{public}@'";
+      v16 = 138543362;
+      v17 = v7;
+      v13 = "Updated authorization on TCC event to: UNKNOWN for bundle identifier '%{public}@'";
     }
 
-    _os_log_impl(&dword_22506F000, v13, OS_LOG_TYPE_DEFAULT, v14, &v18, 0xCu);
+    _os_log_impl(&dword_22506F000, v12, OS_LOG_TYPE_DEFAULT, v13, &v16, 0xCu);
 LABEL_28:
     self->_hasTCCAuthorizationTernary = event;
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)accountAccessAuthorizationWithCompletionHandler:(id)handler
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   v5 = *MEMORY[0x277CBC878];
-  v6 = *MEMORY[0x277CBC880];
   if (handlerCopy)
   {
     if (*MEMORY[0x277CBC880] != -1)
@@ -3848,17 +4112,17 @@ LABEL_28:
       dispatch_once(MEMORY[0x277CBC880], v5);
     }
 
-    v7 = *MEMORY[0x277CBC830];
+    v6 = *MEMORY[0x277CBC830];
     if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_DEFAULT))
     {
-      v9 = v7;
-      v12 = objc_msgSend_ckShortDescription(self, v10, v11);
-      v16 = 138412290;
-      v17 = v12;
-      _os_log_impl(&dword_22506F000, v9, OS_LOG_TYPE_DEFAULT, "Checking TCC authorization for container %@", &v16, 0xCu);
+      v8 = v6;
+      v11 = objc_msgSend_ckShortDescription(self, v9, v10);
+      v14 = 138412290;
+      v15 = v11;
+      _os_log_impl(&dword_22506F000, v8, OS_LOG_TYPE_DEFAULT, "Checking TCC authorization for container %@", &v14, 0xCu);
     }
 
-    hasTCCAuthorization = objc_msgSend_hasTCCAuthorization_(self, v8, 0);
+    hasTCCAuthorization = objc_msgSend_hasTCCAuthorization_(self, v7, 0);
     handlerCopy[2](handlerCopy, hasTCCAuthorization, 0);
   }
 
@@ -3869,26 +4133,23 @@ LABEL_28:
       dispatch_once(MEMORY[0x277CBC880], v5);
     }
 
-    v14 = *MEMORY[0x277CBC830];
+    v13 = *MEMORY[0x277CBC830];
     if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_DEBUG))
     {
-      LOWORD(v16) = 0;
-      _os_log_debug_impl(&dword_22506F000, v14, OS_LOG_TYPE_DEBUG, "No completion handler", &v16, 2u);
+      LOWORD(v14) = 0;
+      _os_log_debug_impl(&dword_22506F000, v13, OS_LOG_TYPE_DEBUG, "No completion handler", &v14, 2u);
     }
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (int64_t)_lockedHasTCCAuthorization:(BOOL)authorization
 {
   authorizationCopy = authorization;
-  v65 = *MEMORY[0x277D85DE8];
+  v63 = *MEMORY[0x277D85DE8];
   dispatch_assert_queue_V2(self->_tccAuthQueue);
   if (CKIsRunningInSyncBubble())
   {
-    hasTCCAuthorizationTernary = 1;
-    goto LABEL_52;
+    return 1;
   }
 
   hasTCCAuthorizationTernary = self->_hasTCCAuthorizationTernary;
@@ -3896,7 +4157,7 @@ LABEL_28:
   {
     if (hasTCCAuthorizationTernary != -1)
     {
-      goto LABEL_52;
+      return hasTCCAuthorizationTernary;
     }
 
     if (*MEMORY[0x277CBC880] != -1)
@@ -3910,33 +4171,33 @@ LABEL_28:
       v9 = v6;
       v12 = objc_msgSend_ckShortDescription(self, v10, v11);
       *buf = 138412290;
-      v64 = v12;
+      v62 = v12;
       _os_log_impl(&dword_22506F000, v9, OS_LOG_TYPE_DEFAULT, "Consulting TCC for access for container %@...", buf, 0xCu);
     }
 
-    v57 = objc_msgSend_applicationBundleIdentifierForTCC(self, v7, v8);
+    v55 = objc_msgSend_applicationBundleIdentifierForTCC(self, v7, v8);
+    v56 = 0u;
+    v57 = 0u;
     v58 = 0u;
     v59 = 0u;
-    v60 = 0u;
-    v61 = 0u;
     v13 = TCCAccessCopyInformationForBundleId();
-    v15 = objc_msgSend_countByEnumeratingWithState_objects_count_(v13, v14, &v58, v62, 16);
+    v15 = objc_msgSend_countByEnumeratingWithState_objects_count_(v13, v14, &v56, v60, 16);
     if (v15)
     {
       v17 = v15;
-      v18 = *v59;
+      v18 = *v57;
       v19 = MEMORY[0x277D6C0E8];
       v20 = MEMORY[0x277D6C190];
 LABEL_11:
       v21 = 0;
       while (1)
       {
-        if (*v59 != v18)
+        if (*v57 != v18)
         {
           objc_enumerationMutation(v13);
         }
 
-        v22 = *(*(&v58 + 1) + 8 * v21);
+        v22 = *(*(&v56 + 1) + 8 * v21);
         v23 = objc_msgSend_objectForKeyedSubscript_(v22, v16, *v19);
         if (objc_msgSend_isEqualToString_(v23, v24, *v20))
         {
@@ -3945,7 +4206,7 @@ LABEL_11:
 
         if (v17 == ++v21)
         {
-          v17 = objc_msgSend_countByEnumeratingWithState_objects_count_(v13, v16, &v58, v62, 16);
+          v17 = objc_msgSend_countByEnumeratingWithState_objects_count_(v13, v16, &v56, v60, 16);
           if (v17)
           {
             goto LABEL_11;
@@ -3968,12 +4229,12 @@ LABEL_11:
       v36 = MEMORY[0x277CBC880];
       if (v34 == -1)
       {
-        v37 = v57;
+        v37 = v55;
         goto LABEL_46;
       }
 
       hasTCCAuthorizationTernary = v34;
-      v37 = v57;
+      v37 = v55;
       if (v34)
       {
         if (v34 == 1)
@@ -3989,14 +4250,14 @@ LABEL_11:
           dispatch_once(MEMORY[0x277CBC880], *MEMORY[0x277CBC878]);
         }
 
-        v45 = *v35;
-        if (os_log_type_enabled(v45, OS_LOG_TYPE_DEFAULT))
+        v44 = *v35;
+        if (os_log_type_enabled(v44, OS_LOG_TYPE_DEFAULT))
         {
-          v46 = v45;
-          v49 = objc_msgSend_ckShortDescription(self, v47, v48);
+          v45 = v44;
+          v48 = objc_msgSend_ckShortDescription(self, v46, v47);
           *buf = 138543362;
-          v64 = v49;
-          _os_log_impl(&dword_22506F000, v46, OS_LOG_TYPE_DEFAULT, "TCC REJECTED access for container %{public}@", buf, 0xCu);
+          v62 = v48;
+          _os_log_impl(&dword_22506F000, v45, OS_LOG_TYPE_DEFAULT, "TCC REJECTED access for container %{public}@", buf, 0xCu);
         }
 
         hasTCCAuthorizationTernary = 0;
@@ -4016,17 +4277,16 @@ LABEL_28:
         dispatch_once(MEMORY[0x277CBC880], *MEMORY[0x277CBC878]);
       }
 
-      v37 = v57;
+      v37 = v55;
       v35 = MEMORY[0x277CBC830];
       v38 = *MEMORY[0x277CBC830];
       if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_INFO))
       {
         *buf = 138543362;
-        v64 = v57;
+        v62 = v55;
         _os_log_impl(&dword_22506F000, v38, OS_LOG_TYPE_INFO, "Setting un-initialized TCC access for bundle identifier override '%{public}@'", buf, 0xCu);
       }
 
-      v39 = *MEMORY[0x277D6C190];
       v31 = 0;
       if (TCCAccessSetForBundleId())
       {
@@ -4036,28 +4296,28 @@ LABEL_34:
           dispatch_once(MEMORY[0x277CBC880], *MEMORY[0x277CBC878]);
         }
 
-        v40 = *v35;
-        if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
+        v39 = *v35;
+        if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
         {
-          v41 = v40;
-          v44 = objc_msgSend_ckShortDescription(self, v42, v43);
+          v40 = v39;
+          v43 = objc_msgSend_ckShortDescription(self, v41, v42);
           *buf = 138543362;
-          v64 = v44;
-          _os_log_impl(&dword_22506F000, v41, OS_LOG_TYPE_DEFAULT, "TCC approved access for container %{public}@", buf, 0xCu);
+          v62 = v43;
+          _os_log_impl(&dword_22506F000, v40, OS_LOG_TYPE_DEFAULT, "TCC approved access for container %{public}@", buf, 0xCu);
         }
 
         hasTCCAuthorizationTernary = 1;
 LABEL_51:
         self->_hasTCCAuthorizationTernary = hasTCCAuthorizationTernary;
 
-        goto LABEL_52;
+        return hasTCCAuthorizationTernary;
       }
     }
 
     else
     {
       v31 = 0;
-      v37 = v57;
+      v37 = v55;
       v35 = MEMORY[0x277CBC830];
     }
 
@@ -4067,14 +4327,14 @@ LABEL_46:
       dispatch_once(MEMORY[0x277CBC880], *MEMORY[0x277CBC878]);
     }
 
-    v50 = *v35;
-    if (os_log_type_enabled(v50, OS_LOG_TYPE_DEFAULT))
+    v49 = *v35;
+    if (os_log_type_enabled(v49, OS_LOG_TYPE_DEFAULT))
     {
-      v51 = v50;
-      v54 = objc_msgSend_ckShortDescription(self, v52, v53);
+      v50 = v49;
+      v53 = objc_msgSend_ckShortDescription(self, v51, v52);
       *buf = 138543362;
-      v64 = v54;
-      _os_log_impl(&dword_22506F000, v51, OS_LOG_TYPE_DEFAULT, "TCC has no entry for container %{public}@", buf, 0xCu);
+      v62 = v53;
+      _os_log_impl(&dword_22506F000, v50, OS_LOG_TYPE_DEFAULT, "TCC has no entry for container %{public}@", buf, 0xCu);
     }
 
     hasTCCAuthorizationTernary = -1;
@@ -4092,14 +4352,43 @@ LABEL_46:
     v27 = v26;
     v30 = objc_msgSend_ckShortDescription(self, v28, v29);
     *buf = 138543362;
-    v64 = v30;
+    v62 = v30;
     _os_log_impl(&dword_22506F000, v27, OS_LOG_TYPE_DEFAULT, "Found cached TCC rejection for container %{public}@", buf, 0xCu);
   }
 
-  hasTCCAuthorizationTernary = 0;
-LABEL_52:
-  v55 = *MEMORY[0x277D85DE8];
-  return hasTCCAuthorizationTernary;
+  return 0;
+}
+
+- (int64_t)hasTCCAuthorization:(BOOL)authorization
+{
+  authorizationCopy = authorization;
+  v12 = 0;
+  v13 = &v12;
+  v14 = 0x2020000000;
+  v15 = 0;
+  if (dispatch_get_specific("com.apple.cloudkit.containerTCCQueue"))
+  {
+    HasTCCAuthorization = objc_msgSend__lockedHasTCCAuthorization_(self, v5, authorizationCopy);
+    v13[3] = HasTCCAuthorization;
+  }
+
+  else
+  {
+    v8 = objc_msgSend_tccAuthQueue(self, v5, v6);
+    block[0] = MEMORY[0x277D85DD0];
+    block[1] = 3221225472;
+    block[2] = sub_225171E64;
+    block[3] = &unk_2785461A8;
+    block[4] = self;
+    block[5] = &v12;
+    v11 = authorizationCopy;
+    dispatch_sync(v8, block);
+
+    HasTCCAuthorization = v13[3];
+  }
+
+  _Block_object_dispose(&v12, 8);
+  return HasTCCAuthorization;
 }
 
 - (id)containerForOperationInfo:(id)info
@@ -4279,7 +4568,7 @@ LABEL_52:
 
 - (void)reloadAccountWithCompletionHandler:(id)handler
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   if (*MEMORY[0x277CBC880] != -1)
   {
@@ -4295,16 +4584,14 @@ LABEL_52:
   }
 
   v8 = objc_msgSend_uncancellableOperationQueue(self, v6, v7);
-  v12[0] = MEMORY[0x277D85DD0];
-  v12[1] = 3221225472;
-  v12[2] = sub_225173F18;
-  v12[3] = &unk_278546550;
-  v12[4] = self;
-  v13 = handlerCopy;
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = sub_225173F18;
+  v11[3] = &unk_278546550;
+  v11[4] = self;
+  v12 = handlerCopy;
   v9 = handlerCopy;
-  objc_msgSend_addOperationWithBlock_(v8, v10, v12);
-
-  v11 = *MEMORY[0x277D85DE8];
+  objc_msgSend_addOperationWithBlock_(v8, v10, v11);
 }
 
 - (void)importantUserIDsWithCompletionHandler:(id)handler
@@ -4448,7 +4735,7 @@ LABEL_52:
 
 - (void)_handleCompletionForOperation:(id)operation initialMessageReplyBlock:(id)block customCompletionBlock:(id)completionBlock
 {
-  v64 = *MEMORY[0x277D85DE8];
+  v63 = *MEMORY[0x277D85DE8];
   operationCopy = operation;
   blockCopy = block;
   completionBlockCopy = completionBlock;
@@ -4462,20 +4749,20 @@ LABEL_52:
   v13 = *MEMORY[0x277CBC830];
   if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_DEBUG))
   {
-    v44 = v13;
-    v47 = objc_msgSend_operationID(operationCopy, v45, v46);
-    v50 = objc_msgSend_error(operationCopy, v48, v49);
-    v51 = @" with error";
-    if (!v50)
+    v43 = v13;
+    v46 = objc_msgSend_operationID(operationCopy, v44, v45);
+    v49 = objc_msgSend_error(operationCopy, v47, v48);
+    v50 = @" with error";
+    if (!v49)
     {
-      v51 = &stru_28385ED00;
+      v50 = &stru_28385ED00;
     }
 
     *buf = 138543618;
-    v61 = v47;
-    v62 = 2112;
-    v63 = v51;
-    _os_log_debug_impl(&dword_22506F000, v44, OS_LOG_TYPE_DEBUG, "Operation %{public}@ completed%@", buf, 0x16u);
+    v60 = v46;
+    v61 = 2112;
+    v62 = v50;
+    _os_log_debug_impl(&dword_22506F000, v43, OS_LOG_TYPE_DEBUG, "Operation %{public}@ completed%@", buf, 0x16u);
   }
 
   completionBlockCopy[2](completionBlockCopy);
@@ -4506,7 +4793,7 @@ LABEL_52:
       if (os_log_type_enabled(*v12, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138543362;
-        v61 = v21;
+        v60 = v21;
         _os_log_debug_impl(&dword_22506F000, v28, OS_LOG_TYPE_DEBUG, "Deleting all cached info for operation %{public}@", buf, 0xCu);
       }
 
@@ -4517,30 +4804,28 @@ LABEL_52:
   }
 
   v36 = objc_msgSend_clientOperationCallbackProxy(operationCopy, v16, v17);
-  v52 = MEMORY[0x277D85DD0];
-  v53 = 3221225472;
-  v54 = sub_225175B0C;
-  v55 = &unk_2785473F8;
-  v59 = blockCopy;
+  v51 = MEMORY[0x277D85DD0];
+  v52 = 3221225472;
+  v53 = sub_225175B0C;
+  v54 = &unk_2785473F8;
+  v58 = blockCopy;
   v37 = v36;
-  v56 = v37;
+  v55 = v37;
   selfCopy = self;
-  v58 = operationCopy;
+  v57 = operationCopy;
   v38 = operationCopy;
   v39 = blockCopy;
-  v40 = _Block_copy(&v52);
+  v40 = _Block_copy(&v51);
   v42 = v40;
   if (v37)
   {
-    objc_msgSend_addBarrierBlock_(v37, v41, v40, v52, v53, v54, v55, v56, selfCopy, v58, v59);
+    objc_msgSend_addBarrierBlock_(v37, v41, v40, v51, v52, v53, v54, v55, selfCopy, v57, v58);
   }
 
   else
   {
     (*(v40 + 2))(v40);
   }
-
-  v43 = *MEMORY[0x277D85DE8];
 }
 
 - (id)openFileWithOpenInfo:(id)info error:(id *)error
@@ -4857,43 +5142,42 @@ LABEL_52:
 
 - (void)enumerateClientContainers:(id)containers
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   containersCopy = containers;
   v7 = objc_msgSend_clientContainers(self, v5, v6);
   objc_sync_enter(v7);
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
   v10 = objc_msgSend_clientContainers(self, v8, v9, 0);
   v13 = objc_msgSend_allObjects(v10, v11, v12);
 
-  v15 = objc_msgSend_countByEnumeratingWithState_objects_count_(v13, v14, &v20, v24, 16);
+  v15 = objc_msgSend_countByEnumeratingWithState_objects_count_(v13, v14, &v19, v23, 16);
   if (v15)
   {
-    v16 = *v21;
+    v16 = *v20;
     do
     {
       v17 = 0;
       do
       {
-        if (*v21 != v16)
+        if (*v20 != v16)
         {
           objc_enumerationMutation(v13);
         }
 
-        containersCopy[2](containersCopy, *(*(&v20 + 1) + 8 * v17++));
+        containersCopy[2](containersCopy, *(*(&v19 + 1) + 8 * v17++));
       }
 
       while (v15 != v17);
-      v15 = objc_msgSend_countByEnumeratingWithState_objects_count_(v13, v18, &v20, v24, 16);
+      v15 = objc_msgSend_countByEnumeratingWithState_objects_count_(v13, v18, &v19, v23, 16);
     }
 
     while (v15);
   }
 
   objc_sync_exit(v7);
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)isEligibleForBroadcastingToContainer:(id)container
@@ -4954,12 +5238,12 @@ LABEL_52:
 
 - (void)_enumerateEligibleConnectedContainersForOOPUIContainer:(id)container
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   containerCopy = container;
   if (!containerCopy)
   {
-    v13 = objc_msgSend_currentHandler(MEMORY[0x277CCA890], v5, v6);
-    objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v13, v14, a2, self, @"CKDContainer.m", 2815, @"Invalid parameter not satisfying: %@", @"block");
+    v12 = objc_msgSend_currentHandler(MEMORY[0x277CCA890], v5, v6);
+    objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v12, v13, a2, self, @"CKDContainer.m", 2815, @"Invalid parameter not satisfying: %@", @"block");
   }
 
   v8 = objc_msgSend_sharedConnectionManager(CKDXPCConnectionManager, v5, v6);
@@ -4976,21 +5260,19 @@ LABEL_52:
     _os_log_debug_impl(&dword_22506F000, v9, OS_LOG_TYPE_DEBUG, "Checking eligible containers for OOP-UI container %@", buf, 0xCu);
   }
 
-  v15[0] = MEMORY[0x277D85DD0];
-  v15[1] = 3221225472;
-  v15[2] = sub_2251783A8;
-  v15[3] = &unk_2785475B0;
-  v15[4] = self;
-  v16 = containerCopy;
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = sub_2251783A8;
+  v14[3] = &unk_2785475B0;
+  v14[4] = self;
+  v15 = containerCopy;
   v10 = containerCopy;
-  objc_msgSend_enumerateConnections_(v8, v11, v15);
-
-  v12 = *MEMORY[0x277D85DE8];
+  objc_msgSend_enumerateConnections_(v8, v11, v14);
 }
 
 - (void)_broadcastUpdateIfNeededForRecord:(id)record recordXPCMetadata:(id)metadata recordID:(id)d isDeleted:(BOOL)deleted error:(id)error
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   recordCopy = record;
   metadataCopy = metadata;
   dCopy = d;
@@ -5011,7 +5293,7 @@ LABEL_52:
       if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v43 = recordCopy;
+        v42 = recordCopy;
         _os_log_debug_impl(&dword_22506F000, v31, OS_LOG_TYPE_DEBUG, "Not informing Sharing UI observers about unknown update for record in OOP UI container: %@", buf, 0xCu);
       }
     }
@@ -5033,20 +5315,18 @@ LABEL_52:
 
       shouldSerializeOwnerInfo = objc_msgSend_shouldSerializeOwnerInfo(self, v25, v26);
       objc_msgSend_setSerializeOwnerInfo_(v30, v33, shouldSerializeOwnerInfo);
-      v37[0] = MEMORY[0x277D85DD0];
-      v37[1] = 3221225472;
-      v37[2] = sub_225178794;
-      v37[3] = &unk_278547600;
-      v38 = v30;
-      v39 = dCopy;
+      v36[0] = MEMORY[0x277D85DD0];
+      v36[1] = 3221225472;
+      v36[2] = sub_225178794;
+      v36[3] = &unk_278547600;
+      v37 = v30;
+      v38 = dCopy;
       deletedCopy = deleted;
-      v40 = errorCopy;
+      v39 = errorCopy;
       v34 = v30;
-      objc_msgSend__enumerateEligibleConnectedContainersForOOPUIContainer_(self, v35, v37);
+      objc_msgSend__enumerateEligibleConnectedContainersForOOPUIContainer_(self, v35, v36);
     }
   }
-
-  v36 = *MEMORY[0x277D85DE8];
 }
 
 - (void)performModifyRecordsOperation:(id)operation withBlock:(id)block
@@ -5587,7 +5867,7 @@ LABEL_52:
 
 - (void)cancelAllOperations:(BOOL)operations
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   if (*MEMORY[0x277CBC880] != -1)
   {
     dispatch_once(MEMORY[0x277CBC880], *MEMORY[0x277CBC878]);
@@ -5602,15 +5882,13 @@ LABEL_52:
   }
 
   v8 = objc_msgSend_cancellationQueue(self, v6, v7);
-  v10[0] = MEMORY[0x277D85DD0];
-  v10[1] = 3221225472;
-  v10[2] = sub_22517E4F4;
-  v10[3] = &unk_278547970;
-  v10[4] = self;
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v9[2] = sub_22517E4F4;
+  v9[3] = &unk_278547970;
+  v9[4] = self;
   operationsCopy = operations;
-  dispatch_barrier_async(v8, v10);
-
-  v9 = *MEMORY[0x277D85DE8];
+  dispatch_barrier_async(v8, v9);
 }
 
 - (void)cancelOperationWithIdentifier:(id)identifier completionHandler:(id)handler
@@ -5666,7 +5944,7 @@ LABEL_52:
 
 - (void)resetThrottles
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v3 = objc_msgSend_logicalDeviceScopedClientProxy(self, a2, v2);
   if (v3)
   {
@@ -5679,15 +5957,13 @@ LABEL_52:
     if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_INFO))
     {
       v7 = v4;
-      v11[0] = 67109120;
-      v11[1] = objc_msgSend_pid(v3, v8, v9);
-      _os_log_impl(&dword_22506F000, v7, OS_LOG_TYPE_INFO, "Resetting throttles in pid %d", v11, 8u);
+      v10[0] = 67109120;
+      v10[1] = objc_msgSend_pid(v3, v8, v9);
+      _os_log_impl(&dword_22506F000, v7, OS_LOG_TYPE_INFO, "Resetting throttles in pid %d", v10, 8u);
     }
 
     objc_msgSend_resetThrottles(v3, v5, v6);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addThrottle:(id)throttle
@@ -5768,7 +6044,7 @@ LABEL_52:
 - (id)CKStatusReportArrayIncludingSharedOperations:(BOOL)operations
 {
   operationsCopy = operations;
-  v259 = *MEMORY[0x277D85DE8];
+  v258 = *MEMORY[0x277D85DE8];
   v4 = objc_opt_new();
   v5 = MEMORY[0x277CCACA8];
   v6 = objc_opt_class();
@@ -5778,8 +6054,8 @@ LABEL_52:
   v16 = v15;
   if (!v15)
   {
-    v252 = objc_msgSend_applicationID(self, v13, v14);
-    v16 = objc_msgSend_applicationBundleIdentifier(v252, v17, v18);
+    v251 = objc_msgSend_applicationID(self, v13, v14);
+    v16 = objc_msgSend_applicationBundleIdentifier(v251, v17, v18);
   }
 
   v19 = objc_msgSend_containerID(self, v13, v14);
@@ -5823,25 +6099,25 @@ LABEL_52:
 
   v65 = objc_alloc_init(MEMORY[0x277CBEB18]);
   v66 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v253 = 0u;
   v254 = 0u;
   v255 = 0u;
   v256 = 0u;
-  v257 = 0u;
   v67 = v64;
-  v71 = objc_msgSend_countByEnumeratingWithState_objects_count_(v67, v68, &v254, v258, 16);
+  v71 = objc_msgSend_countByEnumeratingWithState_objects_count_(v67, v68, &v253, v257, 16);
   if (v71)
   {
-    v72 = *v255;
+    v72 = *v254;
     do
     {
       for (i = 0; i != v71; ++i)
       {
-        if (*v255 != v72)
+        if (*v254 != v72)
         {
           objc_enumerationMutation(v67);
         }
 
-        v74 = *(*(&v254 + 1) + 8 * i);
+        v74 = *(*(&v253 + 1) + 8 * i);
         v75 = objc_msgSend_container(v74, v69, v70);
         v76 = v75 == self;
 
@@ -5856,7 +6132,7 @@ LABEL_52:
         }
       }
 
-      v71 = objc_msgSend_countByEnumeratingWithState_objects_count_(v67, v69, &v254, v258, 16);
+      v71 = objc_msgSend_countByEnumeratingWithState_objects_count_(v67, v69, &v253, v257, 16);
     }
 
     while (v71);
@@ -6025,8 +6301,6 @@ LABEL_52:
 
   objc_msgSend_addObject_(v4, v238, @"\n\n_____________________________\n\n");
 
-  v250 = *MEMORY[0x277D85DE8];
-
   return v4;
 }
 
@@ -6106,17 +6380,17 @@ LABEL_52:
 
 - (void)_dumpStatusReportArrayToOsTrace:(id)trace
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   traceCopy = trace;
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
-  v6 = objc_msgSend_countByEnumeratingWithState_objects_count_(traceCopy, v5, &v17, v23, 16);
+  v6 = objc_msgSend_countByEnumeratingWithState_objects_count_(traceCopy, v5, &v16, v22, 16);
   if (v6)
   {
     v7 = v6;
-    v8 = *v18;
+    v8 = *v17;
     v9 = MEMORY[0x277CBC880];
     v10 = MEMORY[0x277CBC870];
     do
@@ -6124,12 +6398,12 @@ LABEL_52:
       v11 = 0;
       do
       {
-        if (*v18 != v8)
+        if (*v17 != v8)
         {
           objc_enumerationMutation(traceCopy);
         }
 
-        v12 = *(*(&v17 + 1) + 8 * v11);
+        v12 = *(*(&v16 + 1) + 8 * v11);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
@@ -6147,7 +6421,7 @@ LABEL_52:
           if (os_log_type_enabled(*v10, OS_LOG_TYPE_INFO))
           {
             *buf = 138412290;
-            v22 = v12;
+            v21 = v12;
             _os_log_impl(&dword_22506F000, v15, OS_LOG_TYPE_INFO, "Proxy status report: %@", buf, 0xCu);
           }
         }
@@ -6156,13 +6430,11 @@ LABEL_52:
       }
 
       while (v7 != v11);
-      v7 = objc_msgSend_countByEnumeratingWithState_objects_count_(traceCopy, v14, &v17, v23, 16);
+      v7 = objc_msgSend_countByEnumeratingWithState_objects_count_(traceCopy, v14, &v16, v22, 16);
     }
 
     while (v7);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dumpDaemonStatusReportToFileHandle:(id)handle completionHandler:(id)handler
@@ -6185,7 +6457,7 @@ LABEL_52:
 - (void)submitClientEventMetric:(id)metric completeWhenQueued:(BOOL)queued completionHandler:(id)handler
 {
   queuedCopy = queued;
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   metricCopy = metric;
   handlerCopy = handler;
   v12 = objc_msgSend_currentProcess(CKDDaemonProcess, v10, v11);
@@ -6212,12 +6484,12 @@ LABEL_52:
     }
 
     v17 = _Block_copy(v16);
-    v31[0] = 0;
-    v31[1] = v31;
-    v31[2] = 0x3032000000;
-    v31[3] = sub_225073F60;
-    v31[4] = sub_22507353C;
-    v32 = os_transaction_create();
+    v30[0] = 0;
+    v30[1] = v30;
+    v30[2] = 0x3032000000;
+    v30[3] = sub_225073F60;
+    v30[4] = sub_22507353C;
+    v31 = os_transaction_create();
     v20 = objc_msgSend_metricUUID(metricCopy, v18, v19);
     if (*MEMORY[0x277CBC880] != -1)
     {
@@ -6228,30 +6500,28 @@ LABEL_52:
     if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v34 = v20;
+      v33 = v20;
       _os_log_impl(&dword_22506F000, v21, OS_LOG_TYPE_INFO, "Daemon submitting CKEventMetric %@.", buf, 0xCu);
     }
 
     v22 = MEMORY[0x277CF36D0];
-    v27[0] = MEMORY[0x277D85DD0];
-    v27[1] = 3221225472;
-    v27[2] = sub_225181560;
-    v27[3] = &unk_278547AF0;
+    v26[0] = MEMORY[0x277D85DD0];
+    v26[1] = 3221225472;
+    v26[2] = sub_225181560;
+    v26[3] = &unk_278547AF0;
     v23 = v20;
-    v28 = v23;
-    v30 = v31;
+    v27 = v23;
+    v29 = v30;
     v24 = v17;
-    v29 = v24;
-    objc_msgSend_reportCKEventMetric_container_completionHandler_(v22, v25, metricCopy, self, v27);
+    v28 = v24;
+    objc_msgSend_reportCKEventMetric_container_completionHandler_(v22, v25, metricCopy, self, v26);
     if (handlerCopy && !v24)
     {
       handlerCopy[2](handlerCopy);
     }
 
-    _Block_object_dispose(v31, 8);
+    _Block_object_dispose(v30, 8);
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 - (void)networkTransferEndpointWithCompletionHandler:(id)handler
@@ -6328,7 +6598,7 @@ LABEL_16:
 
 - (void)suggestedMergeableDeltaSizeWithCompletionHandler:(id)handler
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   v7 = objc_msgSend_sharedManager(CKDServerConfigurationManager, v5, v6);
   v10 = objc_msgSend_lastKnownServerConfiguration(v7, v8, v9);
@@ -6348,9 +6618,9 @@ LABEL_16:
       v16 = *MEMORY[0x277CBC840];
       if (os_log_type_enabled(*MEMORY[0x277CBC840], OS_LOG_TYPE_DEBUG))
       {
-        v22 = 134217984;
-        v23 = 0x7FFFFFFFFFFFFFFFLL;
-        _os_log_debug_impl(&dword_22506F000, v16, OS_LOG_TYPE_DEBUG, "Found suggested mergeable delta size: %ld", &v22, 0xCu);
+        v21 = 134217984;
+        v22 = 0x7FFFFFFFFFFFFFFFLL;
+        _os_log_debug_impl(&dword_22506F000, v16, OS_LOG_TYPE_DEBUG, "Found suggested mergeable delta size: %ld", &v21, 0xCu);
       }
 
       v19 = objc_msgSend_integerValue(v15, v17, v18);
@@ -6373,23 +6643,21 @@ LABEL_16:
     v19 = 0x7FFFFFFFFFFFFFFFLL;
     if (os_log_type_enabled(*MEMORY[0x277CBC840], OS_LOG_TYPE_DEBUG))
     {
-      v22 = 134217984;
-      v23 = 0x7FFFFFFFFFFFFFFFLL;
-      _os_log_debug_impl(&dword_22506F000, v20, OS_LOG_TYPE_DEBUG, "No cached configuration for suggested mergeable delta size, returning default: %ld", &v22, 0xCu);
+      v21 = 134217984;
+      v22 = 0x7FFFFFFFFFFFFFFFLL;
+      _os_log_debug_impl(&dword_22506F000, v20, OS_LOG_TYPE_DEBUG, "No cached configuration for suggested mergeable delta size, returning default: %ld", &v21, 0xCu);
     }
   }
 
   handlerCopy[2](handlerCopy, v19);
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (unint64_t)countAssetCacheItems
 {
-  v24 = *MEMORY[0x277D85DE8];
-  v21 = 0;
-  v3 = objc_msgSend_setupAssetTransfers_(self, a2, &v21);
-  v6 = v21;
+  v23 = *MEMORY[0x277D85DE8];
+  v20 = 0;
+  v3 = objc_msgSend_setupAssetTransfers_(self, a2, &v20);
+  v6 = v20;
   if ((v3 & 1) == 0)
   {
     if (*MEMORY[0x277CBC880] != -1)
@@ -6397,12 +6665,12 @@ LABEL_16:
       dispatch_once(MEMORY[0x277CBC880], *MEMORY[0x277CBC878]);
     }
 
-    v20 = *MEMORY[0x277CBC830];
+    v19 = *MEMORY[0x277CBC830];
     if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_DEBUG))
     {
       *buf = 138412290;
-      v23 = v6;
-      _os_log_debug_impl(&dword_22506F000, v20, OS_LOG_TYPE_DEBUG, "MMCS setup failed:%@", buf, 0xCu);
+      v22 = v6;
+      _os_log_debug_impl(&dword_22506F000, v19, OS_LOG_TYPE_DEBUG, "MMCS setup failed:%@", buf, 0xCu);
     }
 
     __assert_rtn("[CKDContainer countAssetCacheItems]", "CKDContainer.m", 3858, "0 && no MMCS");
@@ -6423,16 +6691,15 @@ LABEL_16:
   v14 = objc_msgSend_assetCache(v11, v12, v13);
 
   v17 = objc_msgSend_countAssetCacheItems(v14, v15, v16);
-  v18 = *MEMORY[0x277D85DE8];
   return v17;
 }
 
 - (void)clearAssetCache
 {
-  v31 = *MEMORY[0x277D85DE8];
-  v28 = 0;
-  v3 = objc_msgSend_setupAssetTransfers_(self, a2, &v28);
-  v6 = v28;
+  v30 = *MEMORY[0x277D85DE8];
+  v27 = 0;
+  v3 = objc_msgSend_setupAssetTransfers_(self, a2, &v27);
+  v6 = v27;
   if (v3)
   {
     v7 = objc_msgSend_MMCS(self, v4, v5);
@@ -6520,8 +6787,6 @@ LABEL_22:
   }
 
 LABEL_23:
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 - (void)showAssetCache
@@ -6552,7 +6817,7 @@ LABEL_23:
 
 - (void)clearRecordCache
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   if (*MEMORY[0x277CBC880] != -1)
   {
     dispatch_once(MEMORY[0x277CBC880], *MEMORY[0x277CBC878]);
@@ -6563,15 +6828,13 @@ LABEL_23:
   {
     v6 = v3;
     v9 = objc_msgSend_applicationBundleID(self, v7, v8);
-    v13 = 138412290;
-    v14 = v9;
-    _os_log_impl(&dword_22506F000, v6, OS_LOG_TYPE_INFO, "Clearing record cache for %@", &v13, 0xCu);
+    v12 = 138412290;
+    v13 = v9;
+    _os_log_impl(&dword_22506F000, v6, OS_LOG_TYPE_INFO, "Clearing record cache for %@", &v12, 0xCu);
   }
 
   v10 = objc_msgSend_recordCache(self, v4, v5);
   objc_msgSend_clearAllRecords_(v10, v11, self);
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)getPersona:(id)persona

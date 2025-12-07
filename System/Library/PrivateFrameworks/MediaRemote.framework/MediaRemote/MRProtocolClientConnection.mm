@@ -86,7 +86,7 @@ void __60__MRProtocolClientConnection_initWithConnection_replyQueue___block_invo
 
 - (void)dealloc
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v3 = _MRLogForCategory(4uLL);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
@@ -100,27 +100,27 @@ void __60__MRProtocolClientConnection_initWithConnection_replyQueue___block_invo
   v4 = [objc_alloc(MEMORY[0x1E696ABC0]) initWithMRError:104 description:@"MRProtocolClientConnection.dealloc"];
   [(MRExternalDeviceTransportConnection *)self->_connection closeWithError:v4];
   Error = MRMediaRemoteCreateError(25);
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   allValues = [(NSMutableDictionary *)self->_pendingReplyQueue allValues];
-  v7 = [allValues countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v7 = [allValues countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v17;
+    v9 = *v16;
     do
     {
       v10 = 0;
       do
       {
-        if (*v17 != v9)
+        if (*v16 != v9)
         {
           objc_enumerationMutation(allValues);
         }
 
-        v11 = *(*(&v16 + 1) + 8 * v10);
+        v11 = *(*(&v15 + 1) + 8 * v10);
         v12 = [[MRProtocolMessage alloc] initWithUnderlyingCodableMessage:0 error:Error];
         reply = [v11 reply];
         (reply)[2](reply, v12);
@@ -129,16 +129,15 @@ void __60__MRProtocolClientConnection_initWithConnection_replyQueue___block_invo
       }
 
       while (v8 != v10);
-      v8 = [allValues countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v8 = [allValues countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v8);
   }
 
-  v15.receiver = self;
-  v15.super_class = MRProtocolClientConnection;
-  [(MRProtocolClientConnection *)&v15 dealloc];
-  v14 = *MEMORY[0x1E69E9840];
+  v14.receiver = self;
+  v14.super_class = MRProtocolClientConnection;
+  [(MRProtocolClientConnection *)&v14 dealloc];
 }
 
 - (NSString)debugDescription
@@ -203,7 +202,7 @@ void __60__MRProtocolClientConnection_initWithConnection_replyQueue___block_invo
 
 - (void)_sendMessage:(void *)message timeout:(double)timeout reply:
 {
-  v50 = *MEMORY[0x1E69E9840];
+  v49 = *MEMORY[0x1E69E9840];
   v7 = a2;
   messageCopy = message;
   if (self)
@@ -213,13 +212,13 @@ void __60__MRProtocolClientConnection_initWithConnection_replyQueue___block_invo
 
     if (messageCopy)
     {
-      v47[0] = MEMORY[0x1E69E9820];
-      v47[1] = 3221225472;
-      v47[2] = __57__MRProtocolClientConnection__sendMessage_timeout_reply___block_invoke;
-      v47[3] = &unk_1E76A3AF8;
-      v47[4] = self;
-      v48 = messageCopy;
-      v10 = MEMORY[0x1A58E3570](v47);
+      v46[0] = MEMORY[0x1E69E9820];
+      v46[1] = 3221225472;
+      v46[2] = __57__MRProtocolClientConnection__sendMessage_timeout_reply___block_invoke;
+      v46[3] = &unk_1E76A3AF8;
+      v46[4] = self;
+      v47 = messageCopy;
+      v10 = MEMORY[0x1A58E3570](v46);
     }
 
     else
@@ -228,23 +227,23 @@ void __60__MRProtocolClientConnection_initWithConnection_replyQueue___block_invo
     }
 
     objc_initWeak(&location, self);
-    v42[0] = MEMORY[0x1E69E9820];
-    v42[1] = 3221225472;
-    v42[2] = __57__MRProtocolClientConnection__sendMessage_timeout_reply___block_invoke_3;
-    v42[3] = &unk_1E76A3B20;
-    v34 = v10;
-    v44 = v34;
+    v41[0] = MEMORY[0x1E69E9820];
+    v41[1] = 3221225472;
+    v41[2] = __57__MRProtocolClientConnection__sendMessage_timeout_reply___block_invoke_3;
+    v41[3] = &unk_1E76A3B20;
+    v33 = v10;
+    v43 = v33;
     v7 = v7;
-    v43 = v7;
-    objc_copyWeak(&v45, &location);
-    v11 = MEMORY[0x1A58E3570](v42);
+    v42 = v7;
+    objc_copyWeak(&v44, &location);
+    v11 = MEMORY[0x1A58E3570](v41);
     if (*(self + 64) == 1)
     {
       supportedMessages = [objc_alloc(MEMORY[0x1E696ABC0]) initWithMRError:100 description:@"connection disconnection when message was attempted to be sent"];
       (v11)[2](v11, supportedMessages);
 LABEL_38:
 
-      objc_destroyWeak(&v45);
+      objc_destroyWeak(&v44);
       objc_destroyWeak(&location);
 
       goto LABEL_39;
@@ -278,8 +277,8 @@ LABEL_37:
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v33 = v7;
-      messages = [(MRCompositeMessage *)v33 messages];
+      v32 = v7;
+      messages = [(MRCompositeMessage *)v32 messages];
       v14 = [messages count] == 0;
 
       if (v14)
@@ -289,63 +288,63 @@ LABEL_37:
         goto LABEL_18;
       }
 
-      if (v34)
+      if (v33)
       {
         v15 = [objc_alloc(MEMORY[0x1E696ABC0]) initWithMRError:2 description:@"attempting to send composite message that expects a reply"];
         (v11)[2](v11, v15);
 LABEL_18:
 
-        v16 = v33;
-        v7 = v33;
+        v16 = v32;
+        v7 = v32;
         goto LABEL_37;
       }
 
       v7 = objc_alloc_init(MRCompositeMessage);
-      transportOptions = [(MRCompositeMessage *)v33 transportOptions];
+      transportOptions = [(MRCompositeMessage *)v32 transportOptions];
 
       if (transportOptions)
       {
-        transportOptions2 = [(MRCompositeMessage *)v33 transportOptions];
+        transportOptions2 = [(MRCompositeMessage *)v32 transportOptions];
         [(MRCompositeMessage *)v7 setTransportOptions:transportOptions2];
       }
 
-      v40 = 0u;
-      v41 = 0u;
-      v38 = 0u;
       v39 = 0u;
-      messages2 = [(MRCompositeMessage *)v33 messages];
-      v20 = [messages2 countByEnumeratingWithState:&v38 objects:v49 count:16];
+      v40 = 0u;
+      v37 = 0u;
+      v38 = 0u;
+      messages2 = [(MRCompositeMessage *)v32 messages];
+      v20 = [messages2 countByEnumeratingWithState:&v37 objects:v48 count:16];
       if (v20)
       {
-        v21 = *v39;
+        v21 = *v38;
         do
         {
           for (i = 0; i != v20; ++i)
           {
-            if (*v39 != v21)
+            if (*v38 != v21)
             {
               objc_enumerationMutation(messages2);
             }
 
-            v23 = *(*(&v38 + 1) + 8 * i);
+            v23 = *(*(&v37 + 1) + 8 * i);
             if ([(MRProtocolClientConnection *)self _client:supportedMessages supportsMessage:v23])
             {
               [(MRCompositeMessage *)v7 addMessage:v23];
             }
           }
 
-          v20 = [messages2 countByEnumeratingWithState:&v38 objects:v49 count:16];
+          v20 = [messages2 countByEnumeratingWithState:&v37 objects:v48 count:16];
         }
 
         while (v20);
       }
 
-      replyIdentifier = [(MRProtocolMessage *)v33 replyIdentifier];
+      replyIdentifier = [(MRProtocolMessage *)v32 replyIdentifier];
 
       if (replyIdentifier)
       {
         v25 = [[MRProtocolMessage alloc] initWithUnderlyingCodableMessage:0 error:0];
-        replyIdentifier2 = [(MRProtocolMessage *)v33 replyIdentifier];
+        replyIdentifier2 = [(MRProtocolMessage *)v32 replyIdentifier];
         [(MRProtocolMessage *)v25 setReplyIdentifier:replyIdentifier2];
 
         [(MRCompositeMessage *)v7 addMessage:v25];
@@ -353,21 +352,21 @@ LABEL_18:
     }
 
     kdebug_trace();
-    v16 = MEMORY[0x1A58E3570](v34);
-    if (timeout > 0.0 && v34)
+    v16 = MEMORY[0x1A58E3570](v33);
+    if (timeout > 0.0 && v33)
     {
       v27 = [MRBlockGuard alloc];
       uniqueIdentifier = [(MRProtocolMessage *)v7 uniqueIdentifier];
       v29 = [(MRBlockGuard *)v27 initWithTimeout:uniqueIdentifier reason:v11 handler:timeout];
 
-      v35[0] = MEMORY[0x1E69E9820];
-      v35[1] = 3221225472;
-      v35[2] = __57__MRProtocolClientConnection__sendMessage_timeout_reply___block_invoke_4;
-      v35[3] = &unk_1E76A3AF8;
-      v36 = v29;
-      v37 = v34;
+      v34[0] = MEMORY[0x1E69E9820];
+      v34[1] = 3221225472;
+      v34[2] = __57__MRProtocolClientConnection__sendMessage_timeout_reply___block_invoke_4;
+      v34[3] = &unk_1E76A3AF8;
+      v35 = v29;
+      v36 = v33;
       v30 = v29;
-      v31 = MEMORY[0x1A58E3570](v35);
+      v31 = MEMORY[0x1A58E3570](v34);
 
       v16 = v31;
     }
@@ -377,8 +376,6 @@ LABEL_18:
   }
 
 LABEL_39:
-
-  v32 = *MEMORY[0x1E69E9840];
 }
 
 void __57__MRProtocolClientConnection__sendMessage_timeout_reply___block_invoke(uint64_t a1, void *a2)
@@ -474,10 +471,10 @@ void __57__MRProtocolClientConnection__sendMessage_timeout_reply___block_invoke_
 
 - (id)dataForMessage:(id)message
 {
-  v23[1] = *MEMORY[0x1E69E9840];
+  v22[1] = *MEMORY[0x1E69E9840];
   messageCopy = message;
-  v23[0] = messageCopy;
-  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v23 count:1];
+  v22[0] = messageCopy;
+  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v22 count:1];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
@@ -487,26 +484,26 @@ void __57__MRProtocolClientConnection__sendMessage_timeout_reply___block_invoke_
   }
 
   v7 = objc_alloc_init(MEMORY[0x1E695DF88]);
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   v8 = v5;
-  v9 = [v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v19;
+    v11 = *v18;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v19 != v11)
+        if (*v18 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = [(MRProtocolClientConnection *)self encryptDataForMessage:*(*(&v18 + 1) + 8 * i)];
+        v13 = [(MRProtocolClientConnection *)self encryptDataForMessage:*(*(&v17 + 1) + 8 * i)];
         if (v13)
         {
           v14 = objc_alloc_init(MEMORY[0x1E695DF88]);
@@ -517,20 +514,17 @@ void __57__MRProtocolClientConnection__sendMessage_timeout_reply___block_invoke_
         }
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v10);
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 
   return v7;
 }
 
 - (void)_parseMessageData:(uint64_t)data
 {
-  v5 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (data && (*(data + 64) & 1) == 0)
   {
@@ -538,20 +532,18 @@ void __57__MRProtocolClientConnection__sendMessage_timeout_reply___block_invoke_
     [*(data + 16) processData:v3];
     kdebug_trace();
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (void)parser:(id)parser didParseMessage:(id)message
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   parserCopy = parser;
   messageCopy = message;
   if (messageCopy && !self->_disconnected)
   {
-    v31 = 0;
-    v8 = [(MRProtocolClientConnection *)self decryptData:messageCopy error:&v31];
-    v9 = v31;
+    v30 = 0;
+    v8 = [(MRProtocolClientConnection *)self decryptData:messageCopy error:&v30];
+    v9 = v30;
     if (v9)
     {
       v10 = v9;
@@ -568,18 +560,18 @@ void __57__MRProtocolClientConnection__sendMessage_timeout_reply___block_invoke_
 
     else
     {
-      v13 = objc_autoreleasePoolPush();
-      v30 = 0;
-      v14 = [(MRProtocolClientConnection *)self _protocolMessageFromData:v8 error:&v30];
-      v10 = v30;
+      v12 = objc_autoreleasePoolPush();
+      v29 = 0;
+      v13 = [(MRProtocolClientConnection *)self _protocolMessageFromData:v8 error:&v29];
+      v10 = v29;
       if (v10)
       {
-        v15 = _MRLogForCategory(4uLL);
-        if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+        v14 = _MRLogForCategory(4uLL);
+        if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138543362;
           selfCopy2 = self;
-          _os_log_impl(&dword_1A2860000, v15, OS_LOG_TYPE_DEFAULT, "[ProtocolClientConnection] %{public}@ Parse Error. Disconnecting...", buf, 0xCu);
+          _os_log_impl(&dword_1A2860000, v14, OS_LOG_TYPE_DEFAULT, "[ProtocolClientConnection] %{public}@ Parse Error. Disconnecting...", buf, 0xCu);
         }
 
         [(MRProtocolClientConnection *)self disconnectWithError:v10];
@@ -587,53 +579,51 @@ void __57__MRProtocolClientConnection__sendMessage_timeout_reply___block_invoke_
 
       else
       {
-        v24 = v13;
-        v25 = v8;
-        v28 = 0u;
-        v29 = 0u;
-        v26 = 0u;
+        v23 = v12;
+        v24 = v8;
         v27 = 0u;
-        v23 = v14;
-        v16 = v14;
-        v17 = [v16 countByEnumeratingWithState:&v26 objects:v32 count:16];
-        if (v17)
+        v28 = 0u;
+        v25 = 0u;
+        v26 = 0u;
+        v22 = v13;
+        v15 = v13;
+        v16 = [v15 countByEnumeratingWithState:&v25 objects:v31 count:16];
+        if (v16)
         {
-          v18 = v17;
-          v19 = *v27;
+          v17 = v16;
+          v18 = *v26;
           do
           {
-            for (i = 0; i != v18; ++i)
+            for (i = 0; i != v17; ++i)
             {
-              if (*v27 != v19)
+              if (*v26 != v18)
               {
-                objc_enumerationMutation(v16);
+                objc_enumerationMutation(v15);
               }
 
-              v21 = *(*(&v26 + 1) + 8 * i);
-              v22 = +[MRProtocolMessageLogger sharedLogger];
-              [v22 logMessage:@"Message Received From" client:self protocolMessage:v21];
+              v20 = *(*(&v25 + 1) + 8 * i);
+              v21 = +[MRProtocolMessageLogger sharedLogger];
+              [v21 logMessage:@"Message Received From" client:self protocolMessage:v20];
 
-              [v21 setClientConnection:self];
-              [(MRProtocolClientConnection *)self _adjustTimestamp:v21];
-              [(MRProtocolClientConnection *)self _processMessage:v21];
+              [v20 setClientConnection:self];
+              [(MRProtocolClientConnection *)self _adjustTimestamp:v20];
+              [(MRProtocolClientConnection *)self _processMessage:v20];
             }
 
-            v18 = [v16 countByEnumeratingWithState:&v26 objects:v32 count:16];
+            v17 = [v15 countByEnumeratingWithState:&v25 objects:v31 count:16];
           }
 
-          while (v18);
+          while (v17);
         }
 
-        v13 = v24;
-        v8 = v25;
-        v14 = v23;
+        v12 = v23;
+        v8 = v24;
+        v13 = v22;
       }
 
-      objc_autoreleasePoolPop(v13);
+      objc_autoreleasePoolPop(v12);
     }
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_processMessage:(void *)message
@@ -681,15 +671,14 @@ void __57__MRProtocolClientConnection__sendMessage_timeout_reply___block_invoke_
 
 uint64_t __46__MRProtocolClientConnection__processMessage___block_invoke(void *a1)
 {
-  v2 = a1[4];
   result = objc_opt_respondsToSelector();
   if (result)
   {
-    v4 = a1[4];
-    v5 = a1[5];
-    v6 = a1[6];
+    v3 = a1[4];
+    v4 = a1[5];
+    v5 = a1[6];
 
-    return [v4 clientConnection:v5 didReceiveMessage:v6];
+    return [v3 clientConnection:v4 didReceiveMessage:v5];
   }
 
   return result;
@@ -697,28 +686,28 @@ uint64_t __46__MRProtocolClientConnection__processMessage___block_invoke(void *a
 
 uint64_t __74__MRProtocolClientConnection__notifyDelegateClientDidDisconnectWithError___block_invoke(uint64_t a1)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
+  v15 = 0u;
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
-  v20 = 0u;
   v2 = *(a1 + 32);
-  v3 = [v2 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v18;
+    v5 = *v16;
     do
     {
       v6 = 0;
       do
       {
-        if (*v18 != v5)
+        if (*v16 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v17 + 1) + 8 * v6);
+        v7 = *(*(&v15 + 1) + 8 * v6);
         v8 = *(a1 + 40);
         if (v8)
         {
@@ -728,7 +717,7 @@ uint64_t __74__MRProtocolClientConnection__notifyDelegateClientDidDisconnectWith
         else
         {
           v10 = objc_alloc(MEMORY[0x1E696ABC0]);
-          v9 = [v10 initWithMRError:{121, v17}];
+          v9 = [v10 initWithMRError:{121, v15}];
         }
 
         v11 = v9;
@@ -740,20 +729,18 @@ uint64_t __74__MRProtocolClientConnection__notifyDelegateClientDidDisconnectWith
       }
 
       while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v4);
   }
 
-  v14 = *(a1 + 48);
   result = objc_opt_respondsToSelector();
   if (result)
   {
-    result = [*(a1 + 48) clientDidDisconnect:*(a1 + 56) error:*(a1 + 40)];
+    return [*(a1 + 48) clientDidDisconnect:*(a1 + 56) error:*(a1 + 40)];
   }
 
-  v16 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -801,15 +788,15 @@ uint64_t __74__MRProtocolClientConnection__notifyDelegateClientDidDisconnectWith
 
 - (id)_protocolMessageFromData:(uint64_t)data error:
 {
-  v8[1] = *MEMORY[0x1E69E9840];
+  v7[1] = *MEMORY[0x1E69E9840];
   if (self)
   {
     v3 = [MRProtocolMessage protocolMessageWithProtobufData:a2 error:data];
     v4 = v3;
     if (v3)
     {
-      v8[0] = v3;
-      v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:1];
+      v7[0] = v3;
+      v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:1];
     }
 
     else
@@ -823,8 +810,6 @@ uint64_t __74__MRProtocolClientConnection__notifyDelegateClientDidDisconnectWith
     v5 = 0;
   }
 
-  v6 = *MEMORY[0x1E69E9840];
-
   return v5;
 }
 
@@ -834,27 +819,28 @@ uint64_t __74__MRProtocolClientConnection__notifyDelegateClientDidDisconnectWith
   v4 = v3;
   if (timestamp)
   {
-    v8 = v3;
+    v10 = v3;
     timestamp = [v3 timestamp];
-    v4 = v8;
+    v4 = v10;
     if (timestamp)
     {
       if (!*(timestamp + 32))
       {
         v6 = mach_absolute_time();
-        v4 = v8;
+        v4 = v10;
         *(timestamp + 32) = v6;
       }
 
       if (!*(timestamp + 24))
       {
         timestamp2 = [v4 timestamp];
-        v4 = v8;
+        v4 = v10;
         *(timestamp + 24) = timestamp2;
       }
 
-      [v8 setTimestamp:{*(timestamp + 32) + ((objc_msgSend(v4, "timestamp") - *(timestamp + 24)) / MRTimeUtilitiesGetProcessorTimeScale())}];
-      v4 = v8;
+      timestamp3 = [v4 timestamp];
+      [v10 setTimestamp:{*(timestamp + 32) + ((timestamp3 - *(timestamp + 24)) / MRTimeUtilitiesGetProcessorTimeScale(timestamp3, v9))}];
+      v4 = v10;
     }
   }
 }

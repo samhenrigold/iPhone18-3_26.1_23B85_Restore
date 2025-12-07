@@ -101,10 +101,7 @@
 
 uint64_t __35__ACCXPCConnection_disconnectBlock__block_invoke(uint64_t a1)
 {
-  v2 = objc_retainBlock(*(*(a1 + 32) + 24));
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = objc_retainBlock(*(*(a1 + 32) + 24));
 
   return _objc_release_x1();
 }
@@ -133,10 +130,7 @@ uint64_t __35__ACCXPCConnection_disconnectBlock__block_invoke(uint64_t a1)
 
 uint64_t __32__ACCXPCConnection_messageBlock__block_invoke(uint64_t a1)
 {
-  v2 = objc_retainBlock(*(*(a1 + 32) + 40));
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = objc_retainBlock(*(*(a1 + 32) + 40));
 
   return _objc_release_x1();
 }
@@ -355,21 +349,21 @@ uint64_t __39__ACCXPCConnection__reloadEventHandler__block_invoke_2(void *a1, vo
   else if (v3 != &_xpc_error_connection_interrupted)
   {
     v4 = a1[7];
-    if (v4)
+    if (!v4)
     {
-      v5 = a1[5];
-      (*(v4 + 16))();
+      goto LABEL_9;
     }
 
-    goto LABEL_9;
+    goto LABEL_8;
   }
 
   if (*(a1[4] + 49) == 1)
   {
-    v6 = a1[6];
-    if (v6)
+    v4 = a1[6];
+    if (v4)
     {
-      (*(v6 + 16))();
+LABEL_8:
+      (*(v4 + 16))();
     }
   }
 

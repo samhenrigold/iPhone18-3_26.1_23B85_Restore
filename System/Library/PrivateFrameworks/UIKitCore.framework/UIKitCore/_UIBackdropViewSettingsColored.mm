@@ -141,7 +141,7 @@ LABEL_28:
 
       else
       {
-        v23 = +[UIColor blackColor];
+        v23 = objc_msgSend_blackColor(UIColor);
         v24 = [v23 colorWithAlphaComponent:0.4];
         [(_UIBackdropViewSettings *)self setLegibleColor:v24];
       }

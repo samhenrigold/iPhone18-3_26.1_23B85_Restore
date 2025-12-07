@@ -11,8 +11,10 @@
 - (void)_updateNotificationStatus;
 - (void)dealloc;
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)path;
+- (void)viewDidAppear:(BOOL)appear;
 - (void)viewDidLoad;
 - (void)viewModel:(id)model didReceiveValueChange:(id)change forItem:(id)item;
+- (void)viewWillDisappear:(BOOL)disappear;
 - (void)viewWillLayoutSubviews;
 @end
 
@@ -51,10 +53,10 @@
 
 - (void)viewDidLoad
 {
-  v22 = *MEMORY[0x1E69E9840];
-  v17.receiver = self;
-  v17.super_class = AMSUINotificationSettingsViewController;
-  [(AMSUINotificationSettingsViewController *)&v17 viewDidLoad];
+  v21 = *MEMORY[0x1E69E9840];
+  v16.receiver = self;
+  v16.super_class = AMSUINotificationSettingsViewController;
+  [(AMSUINotificationSettingsViewController *)&v16 viewDidLoad];
   defaultCenter = [MEMORY[0x1E696AD88] defaultCenter];
   [defaultCenter addObserver:self selector:sel__appWillEnterForeground_ name:@"UIApplicationWillEnterForegroundNotification" object:0];
 
@@ -85,9 +87,9 @@
       v12 = objc_opt_class();
       v13 = AMSLogKey();
       *buf = 138543618;
-      v19 = v12;
-      v20 = 2114;
-      v21 = v13;
+      v18 = v12;
+      v19 = 2114;
+      v20 = v13;
       v14 = "%{public}@: [%{public}@] User authenticated, setting up table";
 LABEL_10:
       _os_log_impl(&dword_1BB036000, oSLogObject, OS_LOG_TYPE_DEBUG, v14, buf, 0x16u);
@@ -108,15 +110,53 @@ LABEL_10:
       v15 = objc_opt_class();
       v13 = AMSLogKey();
       *buf = 138543618;
-      v19 = v15;
-      v20 = 2114;
-      v21 = v13;
+      v18 = v15;
+      v19 = 2114;
+      v20 = v13;
       v14 = "%{public}@: [%{public}@] User not authenticated, delaying table setup";
       goto LABEL_10;
     }
   }
+}
 
+- (void)viewDidAppear:(BOOL)appear
+{
   v16 = *MEMORY[0x1E69E9840];
+  v11.receiver = self;
+  v11.super_class = AMSUINotificationSettingsViewController;
+  [(AMSUINotificationSettingsViewController *)&v11 viewDidAppear:appear];
+  if (![(AMSUINotificationSettingsViewController *)self _isAuthenticated])
+  {
+    mEMORY[0x1E698C968] = [MEMORY[0x1E698C968] sharedConfig];
+    if (!mEMORY[0x1E698C968])
+    {
+      mEMORY[0x1E698C968] = [MEMORY[0x1E698C968] sharedConfig];
+    }
+
+    oSLogObject = [mEMORY[0x1E698C968] OSLogObject];
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+    {
+      v6 = objc_opt_class();
+      v7 = AMSLogKey();
+      *buf = 138543618;
+      v13 = v6;
+      v14 = 2114;
+      v15 = v7;
+      _os_log_impl(&dword_1BB036000, oSLogObject, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] User not authenticated, prompting for authentication.", buf, 0x16u);
+    }
+
+    objc_initWeak(buf, self);
+    _promptForAuthentication = [(AMSUINotificationSettingsViewController *)self _promptForAuthentication];
+    v9[0] = MEMORY[0x1E69E9820];
+    v9[1] = 3221225472;
+    v9[2] = __57__AMSUINotificationSettingsViewController_viewDidAppear___block_invoke;
+    v9[3] = &unk_1E7F25340;
+    objc_copyWeak(&v10, buf);
+    [_promptForAuthentication addFinishBlock:v9];
+
+    objc_destroyWeak(&v10);
+    objc_destroyWeak(buf);
+  }
 }
 
 void __57__AMSUINotificationSettingsViewController_viewDidAppear___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -184,9 +224,17 @@ uint64_t __57__AMSUINotificationSettingsViewController_viewDidAppear___block_inv
   [errorView setFrame:{v25, v27, v29, v31}];
 }
 
+- (void)viewWillDisappear:(BOOL)disappear
+{
+  v4.receiver = self;
+  v4.super_class = AMSUINotificationSettingsViewController;
+  [(AMSUINotificationSettingsViewController *)&v4 viewWillDisappear:disappear];
+  [(AMSUINotificationSettingsViewController *)self _commitChangedItemsUpdates];
+}
+
 - (void)_commitChangedItemsUpdates
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   changedItems = [(AMSUINotificationSettingsViewController *)self changedItems];
   allValues = [changedItems allValues];
 
@@ -206,11 +254,11 @@ uint64_t __57__AMSUINotificationSettingsViewController_viewDidAppear___block_inv
       v9 = objc_opt_class();
       v10 = AMSLogKey();
       *buf = 138543874;
-      v21 = v9;
-      v22 = 2114;
-      v23 = v10;
-      v24 = 2048;
-      v25 = [allValues count];
+      v20 = v9;
+      v21 = 2114;
+      v22 = v10;
+      v23 = 2048;
+      v24 = [allValues count];
       _os_log_impl(&dword_1BB036000, oSLogObject, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Updating %lu notification settings", buf, 0x20u);
     }
 
@@ -221,12 +269,12 @@ uint64_t __57__AMSUINotificationSettingsViewController_viewDidAppear___block_inv
     mEMORY[0x1E698C968]2 = [v11 initWithIdentifier:identifier account:account bag:v14];
 
     oSLogObject2 = [mEMORY[0x1E698C968]2 updateSettings:allValues];
-    v19[0] = MEMORY[0x1E69E9820];
-    v19[1] = 3221225472;
-    v19[2] = __69__AMSUINotificationSettingsViewController__commitChangedItemsUpdates__block_invoke;
-    v19[3] = &unk_1E7F246E0;
-    v19[4] = self;
-    [oSLogObject2 addFinishBlock:v19];
+    v18[0] = MEMORY[0x1E69E9820];
+    v18[1] = 3221225472;
+    v18[2] = __69__AMSUINotificationSettingsViewController__commitChangedItemsUpdates__block_invoke;
+    v18[3] = &unk_1E7F246E0;
+    v18[4] = self;
+    [oSLogObject2 addFinishBlock:v18];
   }
 
   else
@@ -242,67 +290,61 @@ uint64_t __57__AMSUINotificationSettingsViewController_viewDidAppear___block_inv
       v16 = objc_opt_class();
       v17 = AMSLogKey();
       *buf = 138543618;
-      v21 = v16;
-      v22 = 2114;
-      v23 = v17;
+      v20 = v16;
+      v21 = 2114;
+      v22 = v17;
       _os_log_impl(&dword_1BB036000, oSLogObject2, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] No settings changed, not updating", buf, 0x16u);
     }
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 void __69__AMSUINotificationSettingsViewController__commitChangedItemsUpdates__block_invoke(uint64_t a1, int a2)
 {
-  v18 = *MEMORY[0x1E69E9840];
-  v4 = [MEMORY[0x1E698C968] sharedConfig];
-  v5 = v4;
+  v14 = *MEMORY[0x1E69E9840];
+  v3 = [MEMORY[0x1E698C968] sharedConfig];
+  v4 = v3;
   if (a2)
   {
-    if (!v4)
+    if (!v3)
     {
-      v5 = [MEMORY[0x1E698C968] sharedConfig];
+      v4 = [MEMORY[0x1E698C968] sharedConfig];
     }
 
-    v6 = [v5 OSLogObject];
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v5 = [v4 OSLogObject];
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = *(a1 + 32);
-      v8 = objc_opt_class();
-      v9 = AMSLogKey();
-      v14 = 138543618;
-      v15 = v8;
-      v16 = 2114;
-      v17 = v9;
-      v10 = "%{public}@: [%{public}@] Successfully updated notification settings";
+      v6 = objc_opt_class();
+      v7 = AMSLogKey();
+      v10 = 138543618;
+      v11 = v6;
+      v12 = 2114;
+      v13 = v7;
+      v8 = "%{public}@: [%{public}@] Successfully updated notification settings";
 LABEL_10:
-      _os_log_impl(&dword_1BB036000, v6, OS_LOG_TYPE_DEFAULT, v10, &v14, 0x16u);
+      _os_log_impl(&dword_1BB036000, v5, OS_LOG_TYPE_DEFAULT, v8, &v10, 0x16u);
     }
   }
 
   else
   {
-    if (!v4)
+    if (!v3)
     {
-      v5 = [MEMORY[0x1E698C968] sharedConfig];
+      v4 = [MEMORY[0x1E698C968] sharedConfig];
     }
 
-    v6 = [v5 OSLogObject];
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v5 = [v4 OSLogObject];
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = *(a1 + 32);
-      v12 = objc_opt_class();
-      v9 = AMSLogKey();
-      v14 = 138543618;
-      v15 = v12;
-      v16 = 2114;
-      v17 = v9;
-      v10 = "%{public}@: [%{public}@] Failed to update notification settings";
+      v9 = objc_opt_class();
+      v7 = AMSLogKey();
+      v10 = 138543618;
+      v11 = v9;
+      v12 = 2114;
+      v13 = v7;
+      v8 = "%{public}@: [%{public}@] Failed to update notification settings";
       goto LABEL_10;
     }
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_commonSetup
@@ -371,7 +413,7 @@ void __55__AMSUINotificationSettingsViewController__commonSetup__block_invoke(ui
 
 - (void)_handleAllowNotificationsButton
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   if ([(AMSUINotificationSettingsViewController *)self shouldDeepLink])
   {
     v3 = MEMORY[0x1E696AEC0];
@@ -401,9 +443,9 @@ void __55__AMSUINotificationSettingsViewController__commonSetup__block_invoke(ui
       v13 = objc_opt_class();
       v14 = AMSLogKey();
       *buf = 138543618;
-      v22 = v13;
-      v23 = 2114;
-      v24 = v14;
+      v21 = v13;
+      v22 = 2114;
+      v23 = v14;
       v15 = "%{public}@: [%{public}@] Successfully opened URL to notifications page.";
       v16 = oSLogObject;
       v17 = OS_LOG_TYPE_DEFAULT;
@@ -425,9 +467,9 @@ void __55__AMSUINotificationSettingsViewController__commonSetup__block_invoke(ui
       v18 = objc_opt_class();
       v14 = AMSLogKey();
       *buf = 138543618;
-      v22 = v18;
-      v23 = 2114;
-      v24 = v14;
+      v21 = v18;
+      v22 = 2114;
+      v23 = v14;
       v15 = "%{public}@: [%{public}@] Failed to open URL to notifications page.";
       v16 = oSLogObject;
       v17 = OS_LOG_TYPE_ERROR;
@@ -440,20 +482,18 @@ LABEL_13:
   }
 
   notificationCenter = [(AMSUINotificationSettingsViewController *)self notificationCenter];
-  v20[0] = MEMORY[0x1E69E9820];
-  v20[1] = 3221225472;
-  v20[2] = __74__AMSUINotificationSettingsViewController__handleAllowNotificationsButton__block_invoke;
-  v20[3] = &unk_1E7F246E0;
-  v20[4] = self;
-  [notificationCenter requestAuthorizationWithOptions:38 completionHandler:v20];
+  v19[0] = MEMORY[0x1E69E9820];
+  v19[1] = 3221225472;
+  v19[2] = __74__AMSUINotificationSettingsViewController__handleAllowNotificationsButton__block_invoke;
+  v19[3] = &unk_1E7F246E0;
+  v19[4] = self;
+  [notificationCenter requestAuthorizationWithOptions:38 completionHandler:v19];
 LABEL_14:
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 void __74__AMSUINotificationSettingsViewController__handleAllowNotificationsButton__block_invoke(uint64_t a1, int a2, void *a3)
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v5 = a3;
   v6 = [MEMORY[0x1E698C968] sharedConfig];
   v7 = v6;
@@ -467,14 +507,13 @@ void __74__AMSUINotificationSettingsViewController__handleAllowNotificationsButt
     v8 = [v7 OSLogObject];
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = *(a1 + 32);
-      v10 = objc_opt_class();
-      v11 = AMSLogKey();
-      v17 = 138543618;
-      v18 = v10;
-      v19 = 2114;
-      v20 = v11;
-      _os_log_impl(&dword_1BB036000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Authorization granted.", &v17, 0x16u);
+      v9 = objc_opt_class();
+      v10 = AMSLogKey();
+      v14 = 138543618;
+      v15 = v9;
+      v16 = 2114;
+      v17 = v10;
+      _os_log_impl(&dword_1BB036000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Authorization granted.", &v14, 0x16u);
     }
 
     [*(a1 + 32) _updateNotificationStatus];
@@ -487,23 +526,20 @@ void __74__AMSUINotificationSettingsViewController__handleAllowNotificationsButt
       v7 = [MEMORY[0x1E698C968] sharedConfig];
     }
 
-    v12 = [v7 OSLogObject];
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v11 = [v7 OSLogObject];
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      v13 = *(a1 + 32);
-      v14 = objc_opt_class();
-      v15 = AMSLogKey();
-      v17 = 138543874;
-      v18 = v14;
-      v19 = 2114;
-      v20 = v15;
-      v21 = 2114;
-      v22 = v5;
-      _os_log_impl(&dword_1BB036000, v12, OS_LOG_TYPE_ERROR, "%{public}@: [%{public}@] Failed to acquire authorization. Error: %{public}@", &v17, 0x20u);
+      v12 = objc_opt_class();
+      v13 = AMSLogKey();
+      v14 = 138543874;
+      v15 = v12;
+      v16 = 2114;
+      v17 = v13;
+      v18 = 2114;
+      v19 = v5;
+      _os_log_impl(&dword_1BB036000, v11, OS_LOG_TYPE_ERROR, "%{public}@: [%{public}@] Failed to acquire authorization. Error: %{public}@", &v14, 0x20u);
     }
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_loadData
@@ -641,7 +677,7 @@ void __68__AMSUINotificationSettingsViewController__updateNotificationStatus__bl
 
 - (void)_handleAuthenticationError:(id)error
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   errorCopy = error;
   mEMORY[0x1E698C968] = [MEMORY[0x1E698C968] sharedConfig];
   if (!mEMORY[0x1E698C968])
@@ -654,13 +690,13 @@ void __68__AMSUINotificationSettingsViewController__updateNotificationStatus__bl
   {
     v7 = objc_opt_class();
     v8 = AMSLogKey();
-    v13 = 138543874;
-    v14 = v7;
-    v15 = 2114;
-    v16 = v8;
-    v17 = 2114;
-    v18 = errorCopy;
-    _os_log_impl(&dword_1BB036000, oSLogObject, OS_LOG_TYPE_ERROR, "%{public}@: [%{public}@] Failed to authenticate an account. Error: %{public}@", &v13, 0x20u);
+    v12 = 138543874;
+    v13 = v7;
+    v14 = 2114;
+    v15 = v8;
+    v16 = 2114;
+    v17 = errorCopy;
+    _os_log_impl(&dword_1BB036000, oSLogObject, OS_LOG_TYPE_ERROR, "%{public}@: [%{public}@] Failed to authenticate an account. Error: %{public}@", &v12, 0x20u);
   }
 
   navigationController = [(AMSUINotificationSettingsViewController *)self navigationController];
@@ -675,8 +711,6 @@ void __68__AMSUINotificationSettingsViewController__updateNotificationStatus__bl
   {
     [(AMSUINotificationSettingsViewController *)self dismissViewControllerAnimated:1 completion:0];
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_promptForAuthentication
@@ -702,7 +736,7 @@ void __68__AMSUINotificationSettingsViewController__updateNotificationStatus__bl
 
 - (void)viewModel:(id)model didReceiveValueChange:(id)change forItem:(id)item
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   itemCopy = item;
   mEMORY[0x1E698C968] = [MEMORY[0x1E698C968] sharedConfig];
   if (!mEMORY[0x1E698C968])
@@ -716,20 +750,18 @@ void __68__AMSUINotificationSettingsViewController__updateNotificationStatus__bl
     v9 = objc_opt_class();
     v10 = AMSLogKey();
     identifier = [itemCopy identifier];
-    v15 = 138543874;
-    v16 = v9;
-    v17 = 2114;
-    v18 = v10;
-    v19 = 2112;
-    v20 = identifier;
-    _os_log_impl(&dword_1BB036000, oSLogObject, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] %@ setting changed", &v15, 0x20u);
+    v14 = 138543874;
+    v15 = v9;
+    v16 = 2114;
+    v17 = v10;
+    v18 = 2112;
+    v19 = identifier;
+    _os_log_impl(&dword_1BB036000, oSLogObject, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] %@ setting changed", &v14, 0x20u);
   }
 
   changedItems = [(AMSUINotificationSettingsViewController *)self changedItems];
   identifier2 = [itemCopy identifier];
   [changedItems setObject:itemCopy forKeyedSubscript:identifier2];
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)path

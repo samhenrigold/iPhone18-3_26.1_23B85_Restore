@@ -1,11 +1,11 @@
 @interface AVPlayerItem(MediaPlaybackCore)
+- (char)mpc_updatePrefersOfflinePlayableVariantForPlayerAudioFormat:()MediaPlaybackCore isDownloadedAsset:;
 - (id)mpc_loggingIdentifier;
 - (id)mpc_reportingIdentifier;
 - (id)mpc_setupDescription;
 - (id)mpc_subscribeToAVMetricWithSubscriber:()MediaPlaybackCore queue:;
 - (uint64_t)mpc_updateAVVariantPreferenceForPlayerAudioFormat:()MediaPlaybackCore spatialPreference:forceSpatial:maxResolution:;
 - (uint64_t)mpc_updatePreferredMaximumAudioSampleRateForPlayerAudioFormat:()MediaPlaybackCore maxResolution:;
-- (uint64_t)mpc_updatePrefersOfflinePlayableVariantForPlayerAudioFormat:()MediaPlaybackCore isDownloadedAsset:;
 - (void)mpc_setReportingValue:()MediaPlaybackCore forKey:;
 - (void)mpc_setupForHLSPlaybackWithPreferredFormat:()MediaPlaybackCore spatialPreference:forceSpatial:maxResolution:isDownloadedAsset:;
 - (void)mpc_updateAVAudioSpatializationFormatsForPlayerAudioFormat:()MediaPlaybackCore spatialPreference:;
@@ -162,7 +162,7 @@ LABEL_10:
   }
 }
 
-- (uint64_t)mpc_updatePrefersOfflinePlayableVariantForPlayerAudioFormat:()MediaPlaybackCore isDownloadedAsset:
+- (char)mpc_updatePrefersOfflinePlayableVariantForPlayerAudioFormat:()MediaPlaybackCore isDownloadedAsset:
 {
   result = [a3 tier];
   if ((result - 2) <= 2)

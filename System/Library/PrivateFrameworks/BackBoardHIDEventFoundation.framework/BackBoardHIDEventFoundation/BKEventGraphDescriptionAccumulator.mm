@@ -47,30 +47,28 @@
   selfCopy = self;
   sub_223CEAD90();
   swift_unknownObjectRelease();
-  sub_223CC3858(&v9, &v8);
+  sub_223CC3858(v8, &v7);
   type metadata accessor for _BKGraphSectionWrapper();
   swift_dynamicCast();
-  v5 = *&v7[OBJC_IVAR____TtC27BackBoardHIDEventFoundation22_BKGraphSectionWrapper_node];
+  v5 = *&v6[OBJC_IVAR____TtC27BackBoardHIDEventFoundation22_BKGraphSectionWrapper_node];
 
-  v6 = *(&selfCopy->super.isa + OBJC_IVAR___BKEventGraphDescriptionAccumulator_current);
   *(&selfCopy->super.isa + OBJC_IVAR___BKEventGraphDescriptionAccumulator_current) = v5;
 }
 
 - (id)build
 {
-  v7[0] = 0;
-  v7[1] = 0xE000000000000000;
-  v7[2] = MEMORY[0x277D84FA0];
-  v7[3] = 0;
-  v8 = 0;
-  v2 = *(&self->super.isa + OBJC_IVAR___BKEventGraphDescriptionAccumulator_topLevel);
+  v6[0] = 0;
+  v6[1] = 0xE000000000000000;
+  v6[2] = MEMORY[0x277D84FA0];
+  v6[3] = 0;
+  v7 = 0;
   selfCopy = self;
 
-  sub_223CC34CC(v4, v7, 0);
+  sub_223CC34CC(v3, v6, 0);
 
-  v5 = sub_223CEACE0();
+  v4 = sub_223CEACE0();
 
-  return v5;
+  return v4;
 }
 
 - (void)appendNode:()...

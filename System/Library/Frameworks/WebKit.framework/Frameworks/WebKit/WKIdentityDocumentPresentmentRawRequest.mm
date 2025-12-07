@@ -9,12 +9,10 @@
 
 - (NSString)requestProtocol
 {
-  v2 = *(self + OBJC_IVAR___WKIdentityDocumentPresentmentRawRequest_requestProtocol);
-  v3 = *(self + OBJC_IVAR___WKIdentityDocumentPresentmentRawRequest_requestProtocol + 8);
 
-  v4 = sub_23B59D810();
+  v2 = sub_23B59D810();
 
-  return v4;
+  return v2;
 }
 
 - (NSData)requestData

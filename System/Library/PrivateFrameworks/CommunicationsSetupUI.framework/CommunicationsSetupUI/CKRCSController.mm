@@ -36,7 +36,7 @@
 
 - (id)specifiers
 {
-  v75 = *MEMORY[0x277D85DE8];
+  v74 = *MEMORY[0x277D85DE8];
   v3 = *MEMORY[0x277D3FC48];
   v4 = *(&self->super.super.super.super.super.isa + v3);
   if (!v4)
@@ -62,9 +62,9 @@
       v19 = NSStringFromClass(v18);
       [v17 setProperty:v19 forKey:*MEMORY[0x277D3FF48]];
 
-      v77.location = v14;
-      v77.length = v16;
-      v20 = NSStringFromRange(v77);
+      v76.location = v14;
+      v76.length = v16;
+      v20 = NSStringFromRange(v76);
       [v17 setProperty:v20 forKey:*MEMORY[0x277D3FF58]];
 
       [v17 setProperty:v12 forKey:*MEMORY[0x277D3FF70]];
@@ -74,7 +74,7 @@
       v22 = NSStringFromSelector(sel__showRCSLearnMore);
       [v17 setProperty:v22 forKey:*MEMORY[0x277D3FF50]];
 
-      v69 = v17;
+      v68 = v17;
       [v5 addObject:v17];
       v23 = objc_alloc(MEMORY[0x277D3FAD8]);
       v24 = MessagesSettingsLocalizedString(@"RCS_MESSAGING");
@@ -93,11 +93,11 @@
 
     else
     {
-      v66 = v3;
+      v65 = v3;
       v28 = CommunicationsSetupUIBundle();
       v29 = [v28 localizedStringForKey:self->_multiSimHeaderKey value:self->_multiSimHeaderKey table:@"Messages"];
 
-      v65 = v29;
+      v64 = v29;
       v30 = [MEMORY[0x277D3FAD8] preferenceSpecifierNamed:v29 target:self set:0 get:0 detail:0 cell:0 edit:0];
       v31 = objc_opt_class();
       v32 = NSStringFromClass(v31);
@@ -105,30 +105,30 @@
 
       [v30 setProperty:0 forKey:@"RCSFooterMultiHyperlinkViewSIMLabelKey"];
       [v30 setProperty:0 forKey:@"RCSFooterMultiHyperlinkViewUncertifiedSubscription"];
-      v68 = v5;
-      v69 = v30;
+      v67 = v5;
+      v68 = v30;
       [v5 addObject:v30];
-      v72 = 0u;
-      v73 = 0u;
-      v70 = 0u;
       v71 = 0u;
+      v72 = 0u;
+      v69 = 0u;
+      v70 = 0u;
       obj = [(CKRCSController *)self ctSubscriptions];
-      v33 = [obj countByEnumeratingWithState:&v70 objects:v74 count:16];
+      v33 = [obj countByEnumeratingWithState:&v69 objects:v73 count:16];
       if (v33)
       {
         v34 = v33;
         v35 = 0;
-        v36 = *v71;
+        v36 = *v70;
         do
         {
           for (i = 0; i != v34; ++i)
           {
-            if (*v71 != v36)
+            if (*v70 != v36)
             {
               objc_enumerationMutation(obj);
             }
 
-            v38 = *(*(&v70 + 1) + 8 * i);
+            v38 = *(*(&v69 + 1) + 8 * i);
             v39 = MEMORY[0x277D1A8F8];
             phoneNumber2 = [v38 phoneNumber];
             labelID2 = [v38 labelID];
@@ -160,7 +160,7 @@
 
               [(CKRCSController *)self setToggleAvailability:v38 contextSpecifier:v45];
               [(CKRCSController *)self appendRCSSubtitleIfNecessaryFor:v38 contextSpecifier:v45];
-              [(CKRCSController *)self appendFooterLinkToCellularDataSettingsIfNecessaryFor:v38 contextSpecifier:v45 groupSpecifier:v69];
+              [(CKRCSController *)self appendFooterLinkToCellularDataSettingsIfNecessaryFor:v38 contextSpecifier:v45 groupSpecifier:v68];
               if (v35)
               {
                 v35 = 1;
@@ -172,11 +172,11 @@
                 v35 = [lazuliEnablementManager2 isRCSUncertifiedForSubscriptionContext:v38];
               }
 
-              [v68 addObject:v45];
+              [v67 addObject:v45];
             }
           }
 
-          v34 = [obj countByEnumeratingWithState:&v70 objects:v74 count:16];
+          v34 = [obj countByEnumeratingWithState:&v69 objects:v73 count:16];
         }
 
         while (v34);
@@ -187,9 +187,9 @@
         v35 = 0;
       }
 
-      [(CKRCSController *)self appendFooterUncertifiedSubscriptionWarningIfNecessary:v35 & 1 groupSpecifier:v69];
-      v3 = v66;
-      v5 = v68;
+      [(CKRCSController *)self appendFooterUncertifiedSubscriptionWarningIfNecessary:v35 & 1 groupSpecifier:v68];
+      v3 = v65;
+      v5 = v67;
     }
 
     lazuliEnablementManager3 = [(CKRCSController *)self lazuliEnablementManager];
@@ -223,8 +223,6 @@
 
     v4 = *(&self->super.super.super.super.super.isa + v3);
   }
-
-  v63 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
@@ -287,7 +285,7 @@
 
 - (BOOL)_shouldShowRCSActivationProblemForSpecifier:(id)specifier
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   specifierCopy = specifier;
   v5 = [(CKRCSController *)self _contextForSpecifier:specifierCopy];
   if (v5)
@@ -319,8 +317,8 @@
           v16 = @"No";
         }
 
-        v23 = 136316162;
-        v24 = "[CKRCSController _shouldShowRCSActivationProblemForSpecifier:]";
+        v22 = 136316162;
+        v23 = "[CKRCSController _shouldShowRCSActivationProblemForSpecifier:]";
         if (bOOLValue)
         {
           v17 = @"Yes";
@@ -331,8 +329,8 @@
           v17 = @"No";
         }
 
-        v25 = 2112;
-        v26 = v16;
+        v24 = 2112;
+        v25 = v16;
         if (v7)
         {
           v18 = @"No";
@@ -343,18 +341,18 @@
           v18 = @"Yes";
         }
 
-        v27 = 2112;
-        v28 = v17;
-        v29 = 2112;
+        v26 = 2112;
+        v27 = v17;
+        v28 = 2112;
         if (!v13)
         {
           v15 = @"Yes";
         }
 
-        v30 = v18;
-        v31 = 2112;
-        v32 = v15;
-        _os_log_impl(&dword_243BE5000, v14, OS_LOG_TYPE_INFO, "%s: enabled: %@ region: %@ state: %@, notCurrent: %@", &v23, 0x34u);
+        v29 = v18;
+        v30 = 2112;
+        v31 = v15;
+        _os_log_impl(&dword_243BE5000, v14, OS_LOG_TYPE_INFO, "%s: enabled: %@ region: %@ state: %@, notCurrent: %@", &v22, 0x34u);
       }
     }
 
@@ -376,7 +374,6 @@
     v20 = 0;
   }
 
-  v21 = *MEMORY[0x277D85DE8];
   return v20;
 }
 
@@ -423,30 +420,28 @@
 
 - (id)isRCSEnabled:(id)enabled
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   enabledCopy = enabled;
   if (IMOSLoggingEnabled())
   {
     v5 = OSLogHandleForIMFoundationCategory();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
-      v10 = 136315138;
-      v11 = "[CKRCSController isRCSEnabled:]";
-      _os_log_impl(&dword_243BE5000, v5, OS_LOG_TYPE_INFO, "%s", &v10, 0xCu);
+      v9 = 136315138;
+      v10 = "[CKRCSController isRCSEnabled:]";
+      _os_log_impl(&dword_243BE5000, v5, OS_LOG_TYPE_INFO, "%s", &v9, 0xCu);
     }
   }
 
   lazuliEnablementManager = [(CKRCSController *)self lazuliEnablementManager];
   v7 = [lazuliEnablementManager isRCSEnabled:enabledCopy];
 
-  v8 = *MEMORY[0x277D85DE8];
-
   return v7;
 }
 
 - (void)setRCSEnabled:(id)enabled specifier:(id)specifier
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   enabledCopy = enabled;
   specifierCopy = specifier;
   if (IMOSLoggingEnabled())
@@ -455,7 +450,7 @@
     if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
       *buf = 136315138;
-      v26 = "[CKRCSController setRCSEnabled:specifier:]";
+      v25 = "[CKRCSController setRCSEnabled:specifier:]";
       _os_log_impl(&dword_243BE5000, v8, OS_LOG_TYPE_INFO, "%s", buf, 0xCu);
     }
   }
@@ -468,19 +463,19 @@
     [(CKRCSController *)self reloadSpecifiers];
     if ([enabledCopy BOOLValue] && -[CKRCSController _shouldShowRCSActivationProblemForSpecifier:](self, "_shouldShowRCSActivationProblemForSpecifier:", specifierCopy))
     {
-      v24 = [(CKRCSController *)self _contextForSpecifier:specifierCopy];
-      label = [v24 label];
+      v23 = [(CKRCSController *)self _contextForSpecifier:specifierCopy];
+      label = [v23 label];
       v11 = MessagesSettingsLocalizedString(@"RCS_DUAL_SIM_ACTIVATION_ERROR_CELLULAR_DATA_SETTINGS");
       v12 = MEMORY[0x277CCACA8];
       v13 = MessagesSettingsLocalizedString(@"RCS_DUAL_SIM_ACTIVATION_ERROR_TITLE");
-      v23 = [v12 localizedStringWithFormat:v13, label];
+      v22 = [v12 localizedStringWithFormat:v13, label];
 
       v14 = MEMORY[0x277CCACA8];
       v15 = MessagesSettingsLocalizedString(@"RCS_DUAL_SIM_ACTIVATION_ERROR_TEXT");
       v16 = [v14 localizedStringWithFormat:v15, label, v11];
 
       v17 = MessagesSettingsLocalizedString(@"RCS_DUAL_SIM_ACTIVATION_ERROR_NOT_NOW");
-      v18 = [MEMORY[0x277D75110] alertControllerWithTitle:v23 message:v16 preferredStyle:1];
+      v18 = [MEMORY[0x277D75110] alertControllerWithTitle:v22 message:v16 preferredStyle:1];
       v19 = [MEMORY[0x277D750F8] actionWithTitle:v11 style:0 handler:&__block_literal_global_10];
       [v18 addAction:v19];
 
@@ -500,8 +495,6 @@
       _os_log_impl(&dword_243BE5000, v21, OS_LOG_TYPE_INFO, "Ignoring attempt to set RCS enablement to NULL", buf, 2u);
     }
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 void __43__CKRCSController_setRCSEnabled_specifier___block_invoke(uint64_t a1, void *a2)
@@ -524,7 +517,7 @@ void __43__CKRCSController_setRCSEnabled_specifier___block_invoke(uint64_t a1, v
 
 - (void)setRCSBusinessMessagesEnabled:(id)enabled specifier:(id)specifier
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   enabledCopy = enabled;
   specifierCopy = specifier;
   if (IMOSLoggingEnabled())
@@ -532,9 +525,9 @@ void __43__CKRCSController_setRCSEnabled_specifier___block_invoke(uint64_t a1, v
     v8 = OSLogHandleForIMFoundationCategory();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
-      v15 = 138412290;
-      v16 = enabledCopy;
-      _os_log_impl(&dword_243BE5000, v8, OS_LOG_TYPE_INFO, "Set RCS Business Messages Enabled: %@", &v15, 0xCu);
+      v14 = 138412290;
+      v15 = enabledCopy;
+      _os_log_impl(&dword_243BE5000, v8, OS_LOG_TYPE_INFO, "Set RCS Business Messages Enabled: %@", &v14, 0xCu);
     }
   }
 
@@ -556,13 +549,11 @@ void __43__CKRCSController_setRCSEnabled_specifier___block_invoke(uint64_t a1, v
 
   DarwinNotifyCenter = CFNotificationCenterGetDarwinNotifyCenter();
   CFNotificationCenterPostNotification(DarwinNotifyCenter, @"com.apple.MobileSMS.RCSForBusinessEnabled.changed", 0, 0, 1u);
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (id)rcsBusinessMessagesEnabled:(id)enabled
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   enabledCopy = enabled;
   lazuliEnablementManager = [(CKRCSController *)self lazuliEnablementManager];
   isRCSEnabledForAnyActiveSubscription = [lazuliEnablementManager isRCSEnabledForAnyActiveSubscription];
@@ -586,9 +577,9 @@ LABEL_9:
 
   lazuliEnablementManager3 = [(CKRCSController *)self lazuliEnablementManager];
   client = [lazuliEnablementManager3 client];
-  v28 = 0;
-  v11 = [client getSystemConfiguration:getSubscriptionWithRCSBusinessMessaging withError:&v28];
-  v12 = v28;
+  v27 = 0;
+  v11 = [client getSystemConfiguration:getSubscriptionWithRCSBusinessMessaging withError:&v27];
+  v12 = v27;
 
   if (v12)
   {
@@ -616,11 +607,11 @@ LABEL_9:
     {
       if (IMOSLoggingEnabled())
       {
-        v26 = OSLogHandleForIMFoundationCategory();
-        if (os_log_type_enabled(v26, OS_LOG_TYPE_INFO))
+        v25 = OSLogHandleForIMFoundationCategory();
+        if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
         {
           *buf = 0;
-          _os_log_impl(&dword_243BE5000, v26, OS_LOG_TYPE_INFO, "Setting RCS Business Messages from CoreTelephony SPI", buf, 2u);
+          _os_log_impl(&dword_243BE5000, v25, OS_LOG_TYPE_INFO, "Setting RCS Business Messages from CoreTelephony SPI", buf, 2u);
         }
       }
 
@@ -679,7 +670,7 @@ LABEL_18:
       }
 
       *buf = 138412290;
-      v30 = v21;
+      v29 = v21;
       _os_log_impl(&dword_243BE5000, v20, OS_LOG_TYPE_INFO, "RCS Business Messages Enabled: %@", buf, 0xCu);
     }
   }
@@ -687,7 +678,6 @@ LABEL_18:
   v14 = [MEMORY[0x277CCABB0] numberWithBool:isRCSBusinessMessagingEnabledByDefault];
 
 LABEL_25:
-  v22 = *MEMORY[0x277D85DE8];
 
   return v14;
 }

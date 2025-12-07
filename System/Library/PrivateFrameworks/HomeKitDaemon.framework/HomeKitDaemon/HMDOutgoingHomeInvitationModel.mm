@@ -10,7 +10,7 @@
 
 - (id)dependentUUIDs
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   v3 = [MEMORY[0x277CBEB58] setWithCapacity:2];
   parentUUID = [(HMDBackingStoreModelObject *)self parentUUID];
 
@@ -37,26 +37,26 @@
     [v3 addObjectsFromArray:uuidsOfAllowedAccessories2];
   }
 
-  v35 = 0u;
-  v36 = 0u;
-  v33 = 0u;
   v34 = 0u;
+  v35 = 0u;
+  v32 = 0u;
+  v33 = 0u;
   obj = [(HMDOutgoingHomeInvitationModel *)self operations];
-  v11 = [obj countByEnumeratingWithState:&v33 objects:v37 count:16];
+  v11 = [obj countByEnumeratingWithState:&v32 objects:v36 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v34;
+    v13 = *v33;
     do
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v34 != v13)
+        if (*v33 != v13)
         {
           objc_enumerationMutation(obj);
         }
 
-        v15 = *(*(&v33 + 1) + 8 * i);
+        v15 = *(*(&v32 + 1) + 8 * i);
         v16 = [v15 objectForKey:@"HM.user"];
 
         if (v16)
@@ -121,13 +121,11 @@ LABEL_18:
         }
       }
 
-      v12 = [obj countByEnumeratingWithState:&v33 objects:v37 count:16];
+      v12 = [obj countByEnumeratingWithState:&v32 objects:v36 count:16];
     }
 
     while (v12);
   }
-
-  v30 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
@@ -146,57 +144,55 @@ LABEL_18:
 
 void __44__HMDOutgoingHomeInvitationModel_properties__block_invoke()
 {
-  v19[15] = *MEMORY[0x277D85DE8];
-  v18[0] = @"user";
-  v17 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v19[0] = v17;
-  v18[1] = @"invitationState";
+  v18[15] = *MEMORY[0x277D85DE8];
+  v17[0] = @"user";
   v16 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v19[1] = v16;
-  v18[2] = @"idsInvitationUUID";
+  v18[0] = v16;
+  v17[1] = @"invitationState";
   v15 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v19[2] = v15;
-  v18[3] = @"dateSent";
+  v18[1] = v15;
+  v17[2] = @"idsInvitationUUID";
   v14 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v19[3] = v14;
-  v18[4] = @"accessCode";
+  v18[2] = v14;
+  v17[3] = @"dateSent";
   v13 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v19[4] = v13;
-  v18[5] = @"announceAccessLevel";
+  v18[3] = v13;
+  v17[4] = @"accessCode";
   v12 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v19[5] = v12;
-  v18[6] = @"shareToken";
+  v18[4] = v12;
+  v17[5] = @"announceAccessLevel";
+  v11 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
+  v18[5] = v11;
+  v17[6] = @"shareToken";
   v0 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v19[6] = v0;
-  v18[7] = @"pendingUserUUID";
+  v18[6] = v0;
+  v17[7] = @"pendingUserUUID";
   v1 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v19[7] = v1;
-  v18[8] = @"expiryDate";
+  v18[7] = v1;
+  v17[8] = @"expiryDate";
   v2 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v19[8] = v2;
-  v18[9] = @"messageIdentifier";
+  v18[8] = v2;
+  v17[9] = @"messageIdentifier";
   v3 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v19[9] = v3;
-  v18[10] = @"responseReceived";
+  v18[9] = v3;
+  v17[10] = @"responseReceived";
   v4 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v19[10] = v4;
-  v18[11] = @"inviteeDestinationAddress";
+  v18[10] = v4;
+  v17[11] = @"inviteeDestinationAddress";
   v5 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class() logging:0];
-  v19[11] = v5;
-  v18[12] = @"operations";
+  v18[11] = v5;
+  v17[12] = @"operations";
   v6 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v19[12] = v6;
-  v18[13] = @"operationIdentifiers";
+  v18[12] = v6;
+  v17[13] = @"operationIdentifiers";
   v7 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v19[13] = v7;
-  v18[14] = @"uuidsOfAllowedAccessories";
+  v18[13] = v7;
+  v17[14] = @"uuidsOfAllowedAccessories";
   v8 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v19[14] = v8;
-  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:v18 count:15];
+  v18[14] = v8;
+  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:15];
   v10 = properties__properties_12760;
   properties__properties_12760 = v9;
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (id)rgSettingsFromOutgoingInvitation:(id)invitation

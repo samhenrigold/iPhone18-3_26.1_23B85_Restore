@@ -135,7 +135,7 @@
       [(AVVideoComposition *)v5 setCustomVideoCompositorClass:[(AVVideoComposition *)self customVideoCompositorClass]];
       if (self)
       {
-        [(AVVideoComposition *)self frameDuration];
+        objc_msgSend_frameDuration(self);
       }
 
       else
@@ -176,7 +176,7 @@
     [(AVMutableVideoComposition *)v4 setCustomVideoCompositorClass:[(AVVideoComposition *)self customVideoCompositorClass]];
     if (self)
     {
-      [(AVVideoComposition *)self frameDuration];
+      objc_msgSend_frameDuration(self);
     }
 
     else
@@ -528,7 +528,7 @@ LABEL_18:
           memset(&v24, 0, sizeof(v24));
           if (v8)
           {
-            [v8 timeRange];
+            objc_msgSend_timeRange(v8);
           }
 
           v9 = MEMORY[0x1E695DF90];
@@ -632,7 +632,7 @@ LABEL_18:
   tracks = [(AVAsset *)asset tracks];
   if (asset)
   {
-    [(AVAsset *)asset duration];
+    objc_msgSend_duration(asset);
   }
 
   else
@@ -928,7 +928,7 @@ LABEL_3:
         memset(&time1, 0, sizeof(time1));
         if (v32)
         {
-          [v32 timeRange];
+          objc_msgSend_timeRange(v32);
           if ((time1.start.flags & 1) != 0 && (time1.duration.flags & 1) != 0 && !time1.duration.epoch && (time1.duration.value & 0x8000000000000000) == 0)
           {
             range = time1;
@@ -1000,7 +1000,7 @@ LABEL_77:
             }
 
             memset(&otherRange, 0, 24);
-            [v32 timeRange];
+            objc_msgSend_timeRange(v32);
             CMTimeRangeGetEnd(&otherRange.start, &range);
             *&range.start.value = *&otherRange.start.value;
             range.start.epoch = otherRange.start.epoch;
@@ -1514,7 +1514,7 @@ LABEL_3:
   v15 = [AVCoreImageFilterVideoCompositionInstruction alloc];
   if (asset)
   {
-    [asset duration];
+    objc_msgSend_duration(asset);
   }
 
   else
@@ -1526,7 +1526,7 @@ LABEL_3:
   CMTimeRangeMake(&v33, &start, &duration);
   v32 = [MEMORY[0x1E696AD98] numberWithInt:{objc_msgSend(v13, "trackID")}];
   v16 = -[AVCoreImageFilterVideoCompositionInstruction initWithTimeRange:sourceTrackIDs:handler:](v15, "initWithTimeRange:sourceTrackIDs:handler:", &v33, [MEMORY[0x1E695DEC8] arrayWithObjects:&v32 count:1], handler);
-  [v13 preferredTransform];
+  objc_msgSend_preferredTransform(v13);
   v33 = v28;
   [(AVCoreImageFilterVideoCompositionInstruction *)v16 setSourceTrackPreferredTransform:&v33];
   v14 = [AVMutableVideoComposition videoCompositionWithPropertiesOfAsset:asset];
@@ -1536,7 +1536,7 @@ LABEL_3:
   [v13 naturalSize];
   v18 = v17;
   v20 = v19;
-  [v13 preferredTransform];
+  objc_msgSend_preferredTransform(v13);
   v35.origin.x = 0.0;
   v35.origin.y = 0.0;
   v35.size.width = v18;

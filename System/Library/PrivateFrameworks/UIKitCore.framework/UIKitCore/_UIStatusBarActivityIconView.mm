@@ -141,7 +141,7 @@
 {
   layerCopy = layer;
   keyCopy = key;
-  if ([keyCopy isEqualToString:*MEMORY[0x1E6979EE0]])
+  if (objc_msgSend_isEqualToString_(keyCopy))
   {
     v8 = [UIViewBlockBasedCAAction alloc];
     v13[0] = MEMORY[0x1E69E9820];

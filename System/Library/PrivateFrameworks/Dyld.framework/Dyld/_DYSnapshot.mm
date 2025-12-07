@@ -3,6 +3,7 @@
 - (_DYSharedCache)sharedCache;
 - (_DYSnapshot)init;
 - (_DYSnapshot)initWithData:(id)data error:(id *)error;
+- (_DYSnapshot)initWithInternal:(BOOL)internal;
 - (int)pid;
 - (int64_t)pageSize;
 - (unint64_t)initialImageCount;
@@ -13,6 +14,17 @@
 @end
 
 @implementation _DYSnapshot
+
+- (_DYSnapshot)initWithInternal:(BOOL)internal
+{
+  *(&self->super.isa + OBJC_IVAR____DYSnapshot____lazy_storage___sharedCache) = 1;
+  v3 = (&self->super.isa + OBJC_IVAR____DYSnapshot_impl);
+  *v3 = 0;
+  v3[1] = 0;
+  v5.receiver = self;
+  v5.super_class = _DYSnapshot;
+  return [(_DYSnapshot *)&v5 init];
+}
 
 - (_DYSharedCache)sharedCache
 {

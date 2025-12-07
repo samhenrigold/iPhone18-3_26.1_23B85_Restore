@@ -134,7 +134,7 @@ LABEL_14:
 
 - (id)keyTable
 {
-  v2 = nullsub_7(self->_decoder, a2);
+  nullsub_7();
 
   return sub_100074F24(v2);
 }

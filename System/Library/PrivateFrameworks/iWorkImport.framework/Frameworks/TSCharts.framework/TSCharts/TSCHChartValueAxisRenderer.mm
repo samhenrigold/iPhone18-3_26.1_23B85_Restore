@@ -75,9 +75,9 @@
 
 - (void)drawIntoLayer:(int)layer inContext:(CGContext *)context visible:(CGRect)visible
 {
-  v97.receiver = self;
-  v97.super_class = TSCHChartValueAxisRenderer;
-  [(TSCHChartAxisRenderer *)&v97 drawIntoLayer:visible.origin.x inContext:visible.origin.y visible:visible.size.width, visible.size.height];
+  v96.receiver = self;
+  v96.super_class = TSCHChartValueAxisRenderer;
+  [(TSCHChartAxisRenderer *)&v96 drawIntoLayer:visible.origin.x inContext:visible.origin.y visible:visible.size.width, visible.size.height];
   if (layer == 0x7FFFFFFF)
   {
     v12 = objc_msgSend_valueAxisLayoutItem(self, v8, v9, v10, v11);
@@ -89,10 +89,10 @@
     v37 = objc_msgSend_numberOfLabelsForAxis_(v17, v33, v34, v35, v36, v32);
     if (objc_msgSend_intValueForProperty_defaultValue_(v32, v38, v39, v40, v41, 1052, 1) && v37)
     {
-      v88 = v12;
+      v87 = v12;
       v46 = objc_msgSend_intValueForProperty_defaultValue_(v32, v42, v43, v44, v45, 1034, 0);
       v51 = objc_msgSend_chartInfo(self, v47, v48, v49, v50);
-      v89 = objc_msgSend_paragraphStyleAtIndex_(v51, v52, v53, v54, v55, v46);
+      v88 = objc_msgSend_paragraphStyleAtIndex_(v51, v52, v53, v54, v55, v46);
 
       v60 = objc_msgSend_sharedText(TSCHText, v56, v57, v58, v59);
       LODWORD(v46) = objc_msgSend_intValueForProperty_defaultValue_(v32, v61, v62, v63, v64, 1056, 1);
@@ -112,41 +112,41 @@
         v71 = v69;
         v72 = *MEMORY[0x277CBF348];
         v73 = *(MEMORY[0x277CBF348] + 8);
-        v91 = *(MEMORY[0x277CBF398] + 16);
-        v92 = *MEMORY[0x277CBF398];
-        v90 = *MEMORY[0x277CBF3A8];
+        v90 = *(MEMORY[0x277CBF398] + 16);
+        v91 = *MEMORY[0x277CBF398];
+        v89 = *MEMORY[0x277CBF3A8];
         do
         {
-          v75 = objc_autoreleasePoolPush();
-          v96.origin = v92;
-          v96.size = v91;
-          v95 = v90;
-          memset(&v94, 0, sizeof(v94));
+          v74 = objc_autoreleasePoolPush();
+          v95.origin = v91;
+          v95.size = v90;
+          v94 = v89;
+          memset(&v93, 0, sizeof(v93));
           if (v17)
           {
-            objc_msgSend_transformForRenderingLabel_outElementSize_outClipRect_(v17, v74, 0.0, *&v90, v76, v70, &v95, &v96);
+            objc_msgSend_transformForRenderingLabel_outElementSize_outClipRect_(v17, 0.0, *&v89, v75);
           }
 
-          if (!CGRectIsNull(v96))
+          if (!CGRectIsNull(v95))
           {
-            v81 = objc_msgSend_labelStringForAxis_index_(v17, v77, v78, v79, v80, v32, v70);
+            v80 = objc_msgSend_labelStringForAxis_index_(v17, v76, v77, v78, v79, v32, v70);
             CGContextSaveGState(context);
-            transform = v94;
+            transform = v93;
             CGContextConcatCTM(context, &transform);
             CGContextClipToRectSafe();
-            objc_msgSend_viewScale(self, v82, v83, v84, v85);
-            objc_msgSend_drawText_paragraphStyle_intoContext_atPosition_viewScale_(v60, v86, v72, v73, v87, v81, v89, context);
+            objc_msgSend_viewScale(self, v81, v82, v83, v84);
+            objc_msgSend_drawText_paragraphStyle_intoContext_atPosition_viewScale_(v60, v85, v72, v73, v86, v80, v88, context);
             CGContextRestoreGState(context);
           }
 
-          objc_autoreleasePoolPop(v75);
+          objc_autoreleasePoolPop(v74);
           v70 += v71;
         }
 
         while (v70 < v37);
       }
 
-      v12 = v88;
+      v12 = v87;
     }
   }
 }

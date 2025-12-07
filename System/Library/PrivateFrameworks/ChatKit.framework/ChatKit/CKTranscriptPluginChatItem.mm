@@ -1400,12 +1400,13 @@ LABEL_30:
 
   if (v11)
   {
-    if ([v7 supportsControllerReuse])
+    supportsControllerReuse = [v7 supportsControllerReuse];
+    if (supportsControllerReuse)
     {
       [mEMORY[0x1E69A5AD0] pluginChatItem:iMChatItem didRelinquishReusableController:v11 contextIdentifier:contextCopy];
     }
 
-    else if (CKIsRunningInMessagesTranscriptExtension())
+    else if (CKIsRunningInMessagesTranscriptExtension(supportsControllerReuse))
     {
       [mEMORY[0x1E69A5AD0] pluginChatItem:iMChatItem didRelenquishNonResuableController:v11 contextIdentifier:contextCopy];
     }

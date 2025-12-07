@@ -11,6 +11,7 @@
 - (void)enumerateKeysAndInt32sUsingBlock:(id)block;
 - (void)removeInt32ForKey:(int64_t)key;
 - (void)setGPBGenericValue:(id *)value forGPBGenericValueKey:(id *)key;
+- (void)setInt32:(int)int32 forKey:(int64_t)key;
 - (void)writeToCodedOutputStream:(id)stream asField:(id)field;
 @end
 
@@ -223,6 +224,17 @@
 
       GPBAutocreatedDictionaryModified(autocreator, self);
     }
+  }
+}
+
+- (void)setInt32:(int)int32 forKey:(int64_t)key
+{
+  [(NSMutableDictionary *)self->_dictionary setObject:[NSNumber forKey:"numberWithInt:" numberWithInt:?], [NSNumber numberWithLongLong:key]];
+  autocreator = self->_autocreator;
+  if (autocreator)
+  {
+
+    GPBAutocreatedDictionaryModified(autocreator, self);
   }
 }
 

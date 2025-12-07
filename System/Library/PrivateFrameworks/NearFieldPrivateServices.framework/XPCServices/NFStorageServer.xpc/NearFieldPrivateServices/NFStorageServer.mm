@@ -74,45 +74,44 @@ LABEL_11:
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
+      v20 = 0u;
       v21 = 0u;
       v22 = 0u;
       v23 = 0u;
-      v24 = 0u;
       v11 = paramsCopy;
-      v12 = [v11 countByEnumeratingWithState:&v21 objects:v31 count:16];
+      v12 = [v11 countByEnumeratingWithState:&v20 objects:v30 count:16];
       if (v12)
       {
         v13 = v12;
-        v14 = *v22;
+        v14 = *v21;
         while (2)
         {
           v15 = 0;
           do
           {
-            if (*v22 != v14)
+            if (*v21 != v14)
             {
               objc_enumerationMutation(v11);
             }
 
-            v16 = *(*(&v21 + 1) + 8 * v15);
             objc_opt_class();
             if ((objc_opt_isKindOfClass() & 1) == 0)
             {
-              v29 = NSLocalizedDescriptionKey;
-              v30 = @"Unknown config";
-              v19 = [NSDictionary dictionaryWithObjects:&v30 forKeys:&v29 count:1, v21];
-              v20 = [NSError errorWithDomain:@"NFStorageServer" code:4 userInfo:v19];
-              completionCopy[2](completionCopy, 0, v20);
+              v28 = NSLocalizedDescriptionKey;
+              v29 = @"Unknown config";
+              v18 = [NSDictionary dictionaryWithObjects:&v29 forKeys:&v28 count:1, v20];
+              v19 = [NSError errorWithDomain:@"NFStorageServer" code:4 userInfo:v18];
+              completionCopy[2](completionCopy, 0, v19);
 
-              v18 = v11;
+              v17 = v11;
               goto LABEL_19;
             }
 
-            v15 = v15 + 1;
+            ++v15;
           }
 
           while (v13 != v15);
-          v13 = [v11 countByEnumeratingWithState:&v21 objects:v31 count:16];
+          v13 = [v11 countByEnumeratingWithState:&v20 objects:v30 count:16];
           if (v13)
           {
             continue;
@@ -122,20 +121,20 @@ LABEL_11:
         }
       }
 
-      [v10 updateESEExpressEntitiesWithConfig:{v11, v21}];
+      [v10 updateESEExpressEntitiesWithConfig:{v11, v20}];
       completionCopy[2](completionCopy, 0, 0);
     }
 
     else
     {
-      v32 = NSLocalizedDescriptionKey;
-      v33 = @"Unknown config";
-      v18 = [NSDictionary dictionaryWithObjects:&v33 forKeys:&v32 count:1];
-      v11 = [NSError errorWithDomain:@"NFStorageServer" code:4 userInfo:v18];
+      v31 = NSLocalizedDescriptionKey;
+      v32 = @"Unknown config";
+      v17 = [NSDictionary dictionaryWithObjects:&v32 forKeys:&v31 count:1];
+      v11 = [NSError errorWithDomain:@"NFStorageServer" code:4 userInfo:v17];
       completionCopy[2](completionCopy, 0, v11);
 LABEL_19:
 
-      v11 = v18;
+      v11 = v17;
     }
   }
 
@@ -145,26 +144,26 @@ LABEL_19:
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v17 = paramsCopy;
-      v11 = [v10 updateAppletEntitiesWithConfig:v17];
+      v16 = paramsCopy;
+      v11 = [v10 updateAppletEntitiesWithConfig:v16];
       completionCopy[2](completionCopy, 0, v11);
     }
 
     else
     {
-      v27 = NSLocalizedDescriptionKey;
-      v28 = @"Unknown config";
-      v11 = [NSDictionary dictionaryWithObjects:&v28 forKeys:&v27 count:1];
-      v17 = [NSError errorWithDomain:@"NFStorageServer" code:4 userInfo:v11];
-      completionCopy[2](completionCopy, 0, v17);
+      v26 = NSLocalizedDescriptionKey;
+      v27 = @"Unknown config";
+      v11 = [NSDictionary dictionaryWithObjects:&v27 forKeys:&v26 count:1];
+      v16 = [NSError errorWithDomain:@"NFStorageServer" code:4 userInfo:v11];
+      completionCopy[2](completionCopy, 0, v16);
     }
   }
 
   else
   {
-    v25 = NSLocalizedDescriptionKey;
-    v26 = @"Unknown model";
-    v10 = [NSDictionary dictionaryWithObjects:&v26 forKeys:&v25 count:1];
+    v24 = NSLocalizedDescriptionKey;
+    v25 = @"Unknown model";
+    v10 = [NSDictionary dictionaryWithObjects:&v25 forKeys:&v24 count:1];
     v11 = [NSError errorWithDomain:@"NFStorageServer" code:3 userInfo:v10];
     completionCopy[2](completionCopy, 0, v11);
   }

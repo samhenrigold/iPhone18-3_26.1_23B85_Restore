@@ -7,9 +7,9 @@ void __79___UITextInputSessionEfficacyAccumulator_computeSessionActionsStringOnS
 {
   v5 = a2;
   v6 = [MEMORY[0x1E695DFB0] null];
-  v7 = [v5 isEqual:v6];
+  isEqual = objc_msgSend_isEqual_(v5);
 
-  if ((v7 & 1) == 0)
+  if ((isEqual & 1) == 0)
   {
     v20 = 0;
     v21 = &v20;
@@ -61,9 +61,9 @@ void __79___UITextInputSessionEfficacyAccumulator_computeSessionActionsStringOnS
   v5 = MEMORY[0x1E695DFB0];
   v6 = a2;
   v7 = [v5 null];
-  v8 = [v6 isEqual:v7];
+  isEqual = objc_msgSend_isEqual_(v6);
 
-  if ((v8 & 1) == 0)
+  if ((isEqual & 1) == 0)
   {
     *(*(*(a1 + 56) + 8) + 24) = _UITextInputActionsSessionActionsEnumValueFromSourceAndType(*(a1 + 64), a3);
     if (*(*(*(a1 + 56) + 8) + 24) == 1)
@@ -138,9 +138,9 @@ void __77___UITextInputSessionEfficacyAccumulator_enumerateTextInputActionsAnaly
 {
   v5 = a2;
   v6 = [MEMORY[0x1E695DFB0] null];
-  v7 = [v5 isEqual:v6];
+  isEqual = objc_msgSend_isEqual_(v5);
 
-  if ((v7 & 1) == 0)
+  if ((isEqual & 1) == 0)
   {
     v13[0] = MEMORY[0x1E69E9820];
     v13[1] = 3221225472;
@@ -165,9 +165,9 @@ void __77___UITextInputSessionEfficacyAccumulator_enumerateTextInputActionsAnaly
 {
   v5 = a2;
   v6 = [MEMORY[0x1E695DFB0] null];
-  v7 = [v5 isEqual:v6];
+  isEqual = objc_msgSend_isEqual_(v5);
 
-  if ((v7 & 1) == 0)
+  if ((isEqual & 1) == 0)
   {
     v15[0] = MEMORY[0x1E69E9820];
     v15[1] = 3221225472;
@@ -195,9 +195,9 @@ void __77___UITextInputSessionEfficacyAccumulator_enumerateTextInputActionsAnaly
 {
   v5 = a2;
   v6 = [MEMORY[0x1E695DFB0] null];
-  v7 = [v5 isEqual:v6];
+  isEqual = objc_msgSend_isEqual_(v5);
 
-  if ((v7 & 1) == 0)
+  if ((isEqual & 1) == 0)
   {
     v13[0] = MEMORY[0x1E69E9820];
     v13[1] = 3221225472;

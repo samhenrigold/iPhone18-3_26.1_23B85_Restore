@@ -58,30 +58,29 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v6 = toCopy;
+  v5 = toCopy;
   if (*&self->_has)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_header)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_sCntrsCoex)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_sHistCoex)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v6;
+    toCopy = v5;
   }
 }
 
@@ -147,7 +146,6 @@
     goto LABEL_13;
   }
 
-  v5 = *(equalCopy + 40);
   if (*&self->_has)
   {
     if ((*(equalCopy + 40) & 1) == 0 || self->_timestamp != *(equalCopy + 1))
@@ -181,9 +179,9 @@ LABEL_13:
   sHistCoex = self->_sHistCoex;
   if (sHistCoex | *(equalCopy + 4))
   {
-    v10 = [(AWDHistogramsCoexS *)sHistCoex isEqual:?];
+    v9 = [(AWDHistogramsCoexS *)sHistCoex isEqual:?];
 
-    return v10;
+    return v9;
   }
 
   else

@@ -61,7 +61,7 @@ int main(int argc, const char **argv, const char **envp)
         _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Hosting ABM Helper server!", buf, 2u);
       }
 
-      abm::HelperServer::create(&v26, v7);
+      abm::HelperServer::create(v7);
       v9 = v26;
       v8 = v27;
       v26 = 0;

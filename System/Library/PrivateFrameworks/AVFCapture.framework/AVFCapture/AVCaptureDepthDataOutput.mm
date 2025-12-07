@@ -55,14 +55,14 @@
 
 - (void)setDelegate:(id)delegate callbackQueue:(dispatch_queue_t)callbackQueue
 {
-  if (AVCaptureIsRunningInMediaserverd())
+  if (AVCaptureIsRunningInMediaserverd(self, a2))
   {
     callbackQueue = 0;
   }
 
   [(AVCaptureDepthDataOutput *)self willChangeValueForKey:@"delegate"];
-  v8 = 0;
-  if ([(AVCaptureDataOutputDelegateCallbackHelper *)self->_internal->delegateCallbackHelper setClientDelegate:delegate clientCallbackQueue:callbackQueue exceptionReason:&v8])
+  v10 = 0;
+  if ([(AVCaptureDataOutputDelegateCallbackHelper *)self->_internal->delegateCallbackHelper setClientDelegate:delegate clientCallbackQueue:callbackQueue exceptionReason:&v10])
   {
     [(AVCaptureDepthDataOutput *)self didChangeValueForKey:@"delegate"];
   }
@@ -70,8 +70,8 @@
   else
   {
     v7 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-    [(AVCaptureDepthDataOutput *)self didChangeValueForKey:@"delegate"];
-    if (AVCaptureShouldThrowForAPIViolations())
+    v8 = [(AVCaptureDepthDataOutput *)self didChangeValueForKey:@"delegate"];
+    if (AVCaptureShouldThrowForAPIViolations(v8, v9))
     {
       objc_exception_throw(v7);
     }
@@ -175,14 +175,14 @@ LABEL_5:
     return;
   }
 
-  v9 = [objc_msgSend(change objectForKeyedSubscript:{*MEMORY[0x1E696A500]), "BOOLValue"}];
-  v10 = [objc_msgSend(change objectForKeyedSubscript:{*MEMORY[0x1E696A4F0]), "BOOLValue"}];
-  if (v9 == v10)
+  v9 = [objc_msgSend_objectForKeyedSubscript_(change a2];
+  bOOLValue = [objc_msgSend_objectForKeyedSubscript_(change) BOOLValue];
+  if (v9 == bOOLValue)
   {
     return;
   }
 
-  if (v10)
+  if (bOOLValue)
   {
 LABEL_6:
     v11 = [objc_msgSend(object "sourceDevice")];
@@ -200,18 +200,18 @@ LABEL_6:
 
 - (void)_handleNotification:(id)notification payload:(id)payload
 {
-  if ([objc_msgSend(payload objectForKeyedSubscript:{*MEMORY[0x1E698FCD8]), "isEqual:", -[AVCaptureOutput sinkID](self, "sinkID")}])
+  if ([objc_msgSend_objectForKeyedSubscript_(payload a2])
   {
     if ([notification isEqualToString:*MEMORY[0x1E698FE48]])
     {
-      v7 = [payload objectForKeyedSubscript:*MEMORY[0x1E698FE38]];
+      v7 = objc_msgSend_objectForKeyedSubscript_(payload);
 
       [(AVCaptureDepthDataOutput *)self _updateRemoteQueue:v7];
     }
 
     else if ([notification isEqualToString:*MEMORY[0x1E698FE40]])
     {
-      v8 = [payload objectForKeyedSubscript:*MEMORY[0x1E698FBB8]];
+      v8 = objc_msgSend_objectForKeyedSubscript_(payload);
 
       [(AVCaptureDepthDataOutput *)self _updateLocalQueue:v8];
     }
@@ -339,7 +339,7 @@ void __46__AVCaptureDepthDataOutput__updateLocalQueue___block_invoke(uint64_t a1
 
 - (void)setDelegateOverride:(id)override delegateOverrideCallbackQueue:(id)queue
 {
-  if (AVCaptureIsRunningInMediaserverd())
+  if (AVCaptureIsRunningInMediaserverd(self, a2))
   {
     queueCopy = 0;
   }
@@ -349,11 +349,11 @@ void __46__AVCaptureDepthDataOutput__updateLocalQueue___block_invoke(uint64_t a1
     queueCopy = queue;
   }
 
-  v9 = 0;
-  if (![(AVCaptureDataOutputDelegateCallbackHelper *)self->_internal->delegateCallbackHelper setDelegateOverride:override delegateOverrideCallbackQueue:queueCopy exceptionReason:&v9])
+  v10 = 0;
+  if (![(AVCaptureDataOutputDelegateCallbackHelper *)self->_internal->delegateCallbackHelper setDelegateOverride:override delegateOverrideCallbackQueue:queueCopy exceptionReason:&v10])
   {
     v8 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-    if (AVCaptureShouldThrowForAPIViolations())
+    if (AVCaptureShouldThrowForAPIViolations(v8, v9))
     {
       objc_exception_throw(v8);
     }

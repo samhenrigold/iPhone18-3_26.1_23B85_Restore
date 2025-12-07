@@ -21,6 +21,7 @@
 - (void)applicationsWillUninstall:(id)uninstall;
 - (void)deviceManagementPolicyDidChange:(id)change;
 - (void)encodeWithCoder:(id)coder;
+- (void)networkUsageChanged:(BOOL)changed;
 @end
 
 @implementation LSApplicationWorkspaceObserver
@@ -66,7 +67,7 @@
 - (void)applicationInstallsDidStart:(id)start
 {
   startCopy = start;
-  v4 = _LSInstallLog();
+  v4 = _LSInstallLog(startCopy);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     [LSApplicationWorkspaceObserver applicationInstallsDidStart:];
@@ -76,7 +77,7 @@
 - (void)applicationInstallsDidChange:(id)change
 {
   changeCopy = change;
-  v4 = _LSInstallLog();
+  v4 = _LSInstallLog(changeCopy);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     [LSApplicationWorkspaceObserver applicationInstallsDidChange:];
@@ -86,7 +87,7 @@
 - (void)applicationInstallsDidUpdateIcon:(id)icon
 {
   iconCopy = icon;
-  v4 = _LSInstallLog();
+  v4 = _LSInstallLog(iconCopy);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     [LSApplicationWorkspaceObserver applicationInstallsDidUpdateIcon:];
@@ -96,7 +97,7 @@
 - (void)applicationsDidInstall:(id)install
 {
   installCopy = install;
-  v4 = _LSInstallLog();
+  v4 = _LSInstallLog(installCopy);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     [LSApplicationWorkspaceObserver applicationsDidInstall:];
@@ -106,7 +107,7 @@
 - (void)applicationsWillInstall:(id)install
 {
   installCopy = install;
-  v4 = _LSInstallLog();
+  v4 = _LSInstallLog(installCopy);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     [LSApplicationWorkspaceObserver applicationsWillInstall:];
@@ -116,7 +117,7 @@
 - (void)applicationsWillUninstall:(id)uninstall
 {
   uninstallCopy = uninstall;
-  v4 = _LSInstallLog();
+  v4 = _LSInstallLog(uninstallCopy);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     [LSApplicationWorkspaceObserver applicationsWillUninstall:];
@@ -126,7 +127,7 @@
 - (void)applicationsDidFailToInstall:(id)install
 {
   installCopy = install;
-  v4 = _LSInstallLog();
+  v4 = _LSInstallLog(installCopy);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     [LSApplicationWorkspaceObserver applicationsDidFailToInstall:];
@@ -136,7 +137,7 @@
 - (void)applicationsDidFailToUninstall:(id)uninstall
 {
   uninstallCopy = uninstall;
-  v4 = _LSInstallLog();
+  v4 = _LSInstallLog(uninstallCopy);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     [LSApplicationWorkspaceObserver applicationsDidFailToUninstall:];
@@ -146,7 +147,7 @@
 - (void)applicationsDidUninstall:(id)uninstall
 {
   uninstallCopy = uninstall;
-  v4 = _LSInstallLog();
+  v4 = _LSInstallLog(uninstallCopy);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     [LSApplicationWorkspaceObserver applicationsDidUninstall:];
@@ -157,14 +158,14 @@
 {
   prioritizedCopy = prioritized;
   pausedCopy = paused;
-  v7 = _LSInstallLog();
+  v7 = _LSInstallLog(pausedCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
     [LSApplicationWorkspaceObserver applicationInstallsArePrioritized:prioritizedCopy arePaused:?];
   }
 
-  v8 = _LSInstallLog();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+  v9 = _LSInstallLog(v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
   {
     [LSApplicationWorkspaceObserver applicationInstallsArePrioritized:pausedCopy arePaused:?];
   }
@@ -173,7 +174,7 @@
 - (void)applicationInstallsDidPause:(id)pause
 {
   pauseCopy = pause;
-  v4 = _LSInstallLog();
+  v4 = _LSInstallLog(pauseCopy);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     [LSApplicationWorkspaceObserver applicationInstallsDidPause:];
@@ -183,7 +184,7 @@
 - (void)applicationInstallsDidResume:(id)resume
 {
   resumeCopy = resume;
-  v4 = _LSInstallLog();
+  v4 = _LSInstallLog(resumeCopy);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     [LSApplicationWorkspaceObserver applicationInstallsDidResume:];
@@ -193,7 +194,7 @@
 - (void)applicationInstallsDidCancel:(id)cancel
 {
   cancelCopy = cancel;
-  v4 = _LSInstallLog();
+  v4 = _LSInstallLog(cancelCopy);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     [LSApplicationWorkspaceObserver applicationInstallsDidCancel:];
@@ -203,7 +204,7 @@
 - (void)applicationInstallsDidPrioritize:(id)prioritize
 {
   prioritizeCopy = prioritize;
-  v4 = _LSInstallLog();
+  v4 = _LSInstallLog(prioritizeCopy);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     [LSApplicationWorkspaceObserver applicationInstallsDidPrioritize:];
@@ -213,7 +214,7 @@
 - (void)applicationStateDidChange:(id)change
 {
   changeCopy = change;
-  v4 = _LSInstallLog();
+  v4 = _LSInstallLog(changeCopy);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     [LSApplicationWorkspaceObserver applicationStateDidChange:];
@@ -223,17 +224,27 @@
 - (void)applicationIconDidChange:(id)change
 {
   changeCopy = change;
-  v4 = _LSInstallLog();
+  v4 = _LSInstallLog(changeCopy);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     [LSApplicationWorkspaceObserver applicationIconDidChange:];
   }
 }
 
+- (void)networkUsageChanged:(BOOL)changed
+{
+  changedCopy = changed;
+  v4 = _LSInstallLog(self);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
+  {
+    [(LSApplicationWorkspaceObserver *)changedCopy networkUsageChanged:v4, v5, v6, v7, v8, v9, v10];
+  }
+}
+
 - (void)deviceManagementPolicyDidChange:(id)change
 {
   changeCopy = change;
-  v4 = _LSInstallLog();
+  v4 = _LSInstallLog(changeCopy);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     [LSApplicationWorkspaceObserver deviceManagementPolicyDidChange:];
@@ -255,172 +266,38 @@
 - (void)applicationsDidChangePersonas:(id)personas
 {
   personasCopy = personas;
-  v4 = _LSInstallLog();
+  v4 = _LSInstallLog(personasCopy);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     [LSApplicationWorkspaceObserver applicationsDidChangePersonas:];
   }
 }
 
-- (void)applicationInstallsDidStart:.cold.1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_4_0();
-  OUTLINED_FUNCTION_1(&dword_18162D000, v0, v1, "LSApplicationWorkspaceObserver applicationInstallsDidStart %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-- (void)applicationInstallsDidChange:.cold.1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_4_0();
-  OUTLINED_FUNCTION_1(&dword_18162D000, v0, v1, "LSApplicationWorkspaceObserver applicationInstallsDidChange %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-- (void)applicationInstallsDidUpdateIcon:.cold.1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_4_0();
-  OUTLINED_FUNCTION_1(&dword_18162D000, v0, v1, "LSApplicationWorkspaceObserver applicationInstallsDidUpdateIcon %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-- (void)applicationsDidInstall:.cold.1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_4_0();
-  OUTLINED_FUNCTION_1(&dword_18162D000, v0, v1, "LSApplicationWorkspaceObserver applicationsDidInstall %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-- (void)applicationsWillInstall:.cold.1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_4_0();
-  OUTLINED_FUNCTION_1(&dword_18162D000, v0, v1, "LSApplicationWorkspaceObserver applicationsWillInstall %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-- (void)applicationsWillUninstall:.cold.1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_4_0();
-  OUTLINED_FUNCTION_1(&dword_18162D000, v0, v1, "LSApplicationWorkspaceObserver applicationsWillUninstall %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-- (void)applicationsDidFailToInstall:.cold.1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_4_0();
-  OUTLINED_FUNCTION_1(&dword_18162D000, v0, v1, "LSApplicationWorkspaceObserver applicationsDidFailToInstall %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-- (void)applicationsDidFailToUninstall:.cold.1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_4_0();
-  OUTLINED_FUNCTION_1(&dword_18162D000, v0, v1, "LSApplicationWorkspaceObserver applicationsDidFailToUninstall %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-- (void)applicationsDidUninstall:.cold.1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_4_0();
-  OUTLINED_FUNCTION_1(&dword_18162D000, v0, v1, "LSApplicationWorkspaceObserver applicationsDidUninstall %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
 - (void)applicationInstallsArePrioritized:(void *)a1 arePaused:.cold.1(void *a1)
 {
-  v9 = *MEMORY[0x1E69E9840];
   [a1 count];
   OUTLINED_FUNCTION_2_8();
-  OUTLINED_FUNCTION_3_2(&dword_18162D000, v1, v2, "Currently %d prioritized installs: %@", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_3_2(&dword_18162D000, v1, v2, "Currently %d prioritized installs: %@", v3, v4, v5, v6);
 }
 
 - (void)applicationInstallsArePrioritized:(void *)a1 arePaused:.cold.2(void *a1)
 {
-  v9 = *MEMORY[0x1E69E9840];
   [a1 count];
   OUTLINED_FUNCTION_2_8();
-  OUTLINED_FUNCTION_3_2(&dword_18162D000, v1, v2, "Currently %d paused installs: %@", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x1E69E9840];
-}
-
-- (void)applicationInstallsDidPause:.cold.1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_4_0();
-  OUTLINED_FUNCTION_1(&dword_18162D000, v0, v1, "LSApplicationWorkspaceObserver applicationInstallsDidPause %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-- (void)applicationInstallsDidResume:.cold.1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_4_0();
-  OUTLINED_FUNCTION_1(&dword_18162D000, v0, v1, "LSApplicationWorkspaceObserver applicationInstallsDidResume %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-- (void)applicationInstallsDidCancel:.cold.1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_4_0();
-  OUTLINED_FUNCTION_1(&dword_18162D000, v0, v1, "LSApplicationWorkspaceObserver applicationInstallsDidCancel %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-- (void)applicationInstallsDidPrioritize:.cold.1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_4_0();
-  OUTLINED_FUNCTION_1(&dword_18162D000, v0, v1, "LSApplicationWorkspaceObserver applicationInstallsDidPrioritize %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-- (void)applicationStateDidChange:.cold.1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_4_0();
-  OUTLINED_FUNCTION_1(&dword_18162D000, v0, v1, "LSApplicationWorkspaceObserver applicationStateDidChange %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-- (void)applicationIconDidChange:.cold.1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_4_0();
-  OUTLINED_FUNCTION_1(&dword_18162D000, v0, v1, "LSApplicationWorkspaceObserver applicationIconDidChange %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_3_2(&dword_18162D000, v1, v2, "Currently %d paused installs: %@", v3, v4, v5, v6);
 }
 
 - (void)networkUsageChanged:(uint64_t)a3 .cold.1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1(&dword_18162D000, a2, a3, "LSApplicationWorkspaceObserver networkUsageChanged to %s", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
-}
+  v8 = "NO";
+  if (a1)
+  {
+    v8 = "YES";
+  }
 
-- (void)deviceManagementPolicyDidChange:.cold.1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_4_0();
-  OUTLINED_FUNCTION_1(&dword_18162D000, v0, v1, "LSApplicationWorkspaceObserver deviceManagementPolicyDidChange %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-- (void)applicationsDidChangePersonas:.cold.1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_4_0();
-  OUTLINED_FUNCTION_1(&dword_18162D000, v0, v1, "LSApplicationWorkspaceObserver applicationsDidChangePersonas %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
+  LODWORD(v9) = 136315138;
+  HIDWORD(v9) = v8;
+  OUTLINED_FUNCTION_1(&dword_18162D000, a2, a3, "LSApplicationWorkspaceObserver networkUsageChanged to %s", a5, a6, a7, a8, v9, HIDWORD(v8));
 }
 
 @end

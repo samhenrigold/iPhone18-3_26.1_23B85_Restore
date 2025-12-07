@@ -33,7 +33,7 @@
     v10 = [self reportJunkCarrierAddressForMessageItem:v7 junkChatStyle:styleCopy];
     if (!v10)
     {
-      v11 = IMCarrierReportJunkLogHandle();
+      v11 = IMCarrierReportJunkLogHandle(0);
       v12 = os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT);
       if ((v9 & 1) == 0)
       {
@@ -72,7 +72,7 @@ LABEL_16:
     goto LABEL_17;
   }
 
-  v10 = IMCarrierReportJunkLogHandle();
+  v10 = IMCarrierReportJunkLogHandle(0);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;

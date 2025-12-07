@@ -78,7 +78,7 @@
 
 - (void)_loadImageDataAndSizeWithHelper:(id)helper accessSpecifier:(id)specifier completion:(id)completion
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   helperCopy = helper;
   specifierCopy = specifier;
   completionCopy = completion;
@@ -90,9 +90,9 @@
       if (os_log_type_enabled(INSiriLogContextIntents, OS_LOG_TYPE_INFO))
       {
         *buf = 136315394;
-        v20 = "[_INBundleImage(INPortableImageLoader) _loadImageDataAndSizeWithHelper:accessSpecifier:completion:]";
-        v21 = 2112;
-        v22 = helperCopy;
+        v19 = "[_INBundleImage(INPortableImageLoader) _loadImageDataAndSizeWithHelper:accessSpecifier:completion:]";
+        v20 = 2112;
+        v21 = helperCopy;
         _os_log_impl(&dword_18E991000, v11, OS_LOG_TYPE_INFO, "%s Attempting bundle image loading strategy with helper: %@", buf, 0x16u);
       }
 
@@ -104,16 +104,14 @@
     else
     {
       v14 = MEMORY[0x1E696ABC0];
-      v17 = *MEMORY[0x1E696A578];
+      v16 = *MEMORY[0x1E696A578];
       imageBundle = [MEMORY[0x1E696AEC0] stringWithFormat:@"No helper to use which can load image %@ from bundle", self];
-      v18 = imageBundle;
-      imageName = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v18 forKeys:&v17 count:1];
+      v17 = imageBundle;
+      imageName = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v17 forKeys:&v16 count:1];
       v15 = [v14 errorWithDomain:@"IntentsErrorDomain" code:6003 userInfo:imageName];
       (*(completionCopy + 2))(completionCopy, 0, 0, v15, 0.0, 0.0);
     }
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (_INBundleImage)initWithCoder:(id)coder
@@ -214,13 +212,13 @@
 
 - (id)_dictionaryRepresentation
 {
-  v12[1] = *MEMORY[0x1E69E9840];
-  v10.receiver = self;
-  v10.super_class = _INBundleImage;
-  _dictionaryRepresentation = [(INImage *)&v10 _dictionaryRepresentation];
+  v11[1] = *MEMORY[0x1E69E9840];
+  v9.receiver = self;
+  v9.super_class = _INBundleImage;
+  _dictionaryRepresentation = [(INImage *)&v9 _dictionaryRepresentation];
   v4 = [_dictionaryRepresentation mutableCopy];
 
-  v11 = @"imageName";
+  v10 = @"imageName";
   imageName = self->_imageName;
   null = imageName;
   if (!imageName)
@@ -228,15 +226,13 @@
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v12[0] = null;
-  v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:&v11 count:1];
+  v11[0] = null;
+  v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:&v10 count:1];
   [v4 addEntriesFromDictionary:v7];
 
   if (!imageName)
   {
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 
   return v4;
 }
@@ -260,13 +256,13 @@
 
 - (id)_initWithURLRepresentation:(id)representation
 {
-  v46 = *MEMORY[0x1E69E9840];
+  v45 = *MEMORY[0x1E69E9840];
   representationCopy = representation;
   if (representationCopy)
   {
-    v44.receiver = self;
-    v44.super_class = _INBundleImage;
-    self = [(INImage *)&v44 _initWithIdentifier:0];
+    v43.receiver = self;
+    v43.super_class = _INBundleImage;
+    self = [(INImage *)&v43 _initWithIdentifier:0];
     if (!self)
     {
 LABEL_31:
@@ -289,32 +285,32 @@ LABEL_31:
         [(INImageBundle *)v9 setBundlePath:stringByRemovingPercentEncoding];
       }
 
-      v36 = path;
-      v38 = representationCopy;
-      v37 = v5;
+      v35 = path;
+      v37 = representationCopy;
+      v36 = v5;
       queryItems = [v5 queryItems];
+      v39 = 0u;
       v40 = 0u;
       v41 = 0u;
       v42 = 0u;
-      v43 = 0u;
-      v12 = [queryItems countByEnumeratingWithState:&v40 objects:v45 count:16];
+      v12 = [queryItems countByEnumeratingWithState:&v39 objects:v44 count:16];
       if (v12)
       {
         v13 = v12;
         v14 = 0;
-        v39 = 0;
-        v15 = *v41;
+        v38 = 0;
+        v15 = *v40;
         v16 = 1;
         do
         {
           for (i = 0; i != v13; ++i)
           {
-            if (*v41 != v15)
+            if (*v40 != v15)
             {
               objc_enumerationMutation(queryItems);
             }
 
-            v18 = *(*(&v40 + 1) + 8 * i);
+            v18 = *(*(&v39 + 1) + 8 * i);
             name = [v18 name];
             v20 = [name isEqualToString:@"bundleType"];
 
@@ -370,13 +366,13 @@ LABEL_31:
                     value5 = 0;
                   }
 
-                  v39 = value5;
+                  v38 = value5;
                 }
               }
             }
           }
 
-          v13 = [queryItems countByEnumeratingWithState:&v40 objects:v45 count:16];
+          v13 = [queryItems countByEnumeratingWithState:&v39 objects:v44 count:16];
         }
 
         while (v13);
@@ -385,16 +381,16 @@ LABEL_31:
       else
       {
         v14 = 0;
-        v39 = 0;
+        v38 = 0;
         v16 = 1;
       }
 
-      [v35 setBundleType:v16];
-      [v35 setBundleIdentifier:v39];
-      [(_INBundleImage *)self setImageBundle:v35];
+      [v34 setBundleType:v16];
+      [v34 setBundleIdentifier:v38];
+      [(_INBundleImage *)self setImageBundle:v34];
       [(_INBundleImage *)self setImageName:v14];
 
-      representationCopy = v38;
+      representationCopy = v37;
       goto LABEL_31;
     }
   }
@@ -402,7 +398,6 @@ LABEL_31:
   selfCopy = 0;
 LABEL_32:
 
-  v33 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 

@@ -55,31 +55,31 @@
 
 - (id)description
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v3 = objc_opt_new();
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   bookmarks = [(DMFFetchSafariBookmarksResultObject *)self bookmarks];
-  v5 = [bookmarks countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v5 = [bookmarks countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v13;
+    v7 = *v12;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v13 != v7)
+        if (*v12 != v7)
         {
           objc_enumerationMutation(bookmarks);
         }
 
-        [(DMFFetchSafariBookmarksResultObject *)self _appendDescriptionOfBookmark:*(*(&v12 + 1) + 8 * i) toString:v3 level:1];
+        [(DMFFetchSafariBookmarksResultObject *)self _appendDescriptionOfBookmark:*(*(&v11 + 1) + 8 * i) toString:v3 level:1];
       }
 
-      v6 = [bookmarks countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v6 = [bookmarks countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v6);
@@ -87,14 +87,12 @@
 
   v9 = [MEMORY[0x1E696AEC0] stringWithFormat:@"<%@: %p {\n%@}>", objc_opt_class(), self, v3];
 
-  v10 = *MEMORY[0x1E69E9840];
-
   return v9;
 }
 
 - (void)_appendDescriptionOfBookmark:(id)bookmark toString:(id)string level:(unint64_t)level
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   bookmarkCopy = bookmark;
   stringCopy = string;
   v10 = [&stru_1F57A0020 stringByPaddingToLength:level withString:@"\t" startingAtIndex:0];
@@ -115,37 +113,35 @@
   name = [bookmarkCopy name];
   [stringCopy appendFormat:@"%@%@ (%@)\n", v10, name, v13];
 
-  v23 = 0u;
-  v24 = 0u;
-  v21 = 0u;
   v22 = 0u;
+  v23 = 0u;
+  v20 = 0u;
+  v21 = 0u;
   children2 = [bookmarkCopy children];
-  v16 = [children2 countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v16 = [children2 countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v16)
   {
     v17 = v16;
-    v18 = *v22;
+    v18 = *v21;
     do
     {
       v19 = 0;
       do
       {
-        if (*v22 != v18)
+        if (*v21 != v18)
         {
           objc_enumerationMutation(children2);
         }
 
-        [(DMFFetchSafariBookmarksResultObject *)self _appendDescriptionOfBookmark:*(*(&v21 + 1) + 8 * v19++) toString:stringCopy level:level + 1];
+        [(DMFFetchSafariBookmarksResultObject *)self _appendDescriptionOfBookmark:*(*(&v20 + 1) + 8 * v19++) toString:stringCopy level:level + 1];
       }
 
       while (v17 != v19);
-      v17 = [children2 countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v17 = [children2 countByEnumeratingWithState:&v20 objects:v24 count:16];
     }
 
     while (v17);
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 @end

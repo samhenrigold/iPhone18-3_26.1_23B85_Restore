@@ -140,28 +140,28 @@ void __85__CarDataClient_sendCommand_values_errors_error_transactionID_priority_
     [v2 setObject:v7 forKeyedSubscript:kCarDataProtocolKeyError];
   }
 
-  v72 = 0;
-  v8 = [NSData CAF_encodeCarDataFrom:v2 error:&v72];
-  v9 = v72;
+  v70 = 0;
+  v8 = [NSData CAF_encodeCarDataFrom:v2 error:&v70];
+  v9 = v70;
   if (v9)
   {
     v10 = CAFDClientLogging();
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      v46 = *(a1 + 32);
-      v47 = [*(a1 + 72) pluginID];
-      v48 = *(a1 + 40);
-      v49 = *(a1 + 80);
+      v44 = *(a1 + 32);
+      v45 = [*(a1 + 72) pluginID];
+      v46 = *(a1 + 40);
+      v47 = *(a1 + 80);
       *buf = 138544386;
-      v74 = v46;
+      v72 = v44;
+      v73 = 2114;
+      v74 = v45;
       v75 = 2114;
-      v76 = v47;
+      v76 = v46;
       v77 = 2114;
-      v78 = v48;
+      v78 = v47;
       v79 = 2114;
-      v80 = v49;
-      v81 = 2114;
-      v82 = v9;
+      v80 = v9;
       _os_log_error_impl(&_mh_execute_header, v10, OS_LOG_TYPE_ERROR, "Unable to serialize command %{public}@ for pluginID: %{public}@ transactionID: %{public}@ with priority: %{public}@ with error: %{public}@", buf, 0x34u);
     }
 
@@ -184,18 +184,18 @@ void __85__CarDataClient_sendCommand_values_errors_error_transactionID_priority_
       v14 = CAFDClientLogging();
       if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
-        v57 = *(a1 + 32);
-        v58 = [*(a1 + 72) pluginID];
-        v59 = *(a1 + 40);
-        v60 = *(a1 + 80);
+        v55 = *(a1 + 32);
+        v56 = [*(a1 + 72) pluginID];
+        v57 = *(a1 + 40);
+        v58 = *(a1 + 80);
         *buf = 138544130;
-        v74 = v57;
+        v72 = v55;
+        v73 = 2114;
+        v74 = v56;
         v75 = 2114;
-        v76 = v58;
+        v76 = v57;
         v77 = 2114;
-        v78 = v59;
-        v79 = 2114;
-        v80 = v60;
+        v78 = v58;
         _os_log_error_impl(&_mh_execute_header, v14, OS_LOG_TYPE_ERROR, "Client delegate for command: %{public}@ pluginID: %{public}@ transactionID: %{public}@ with priority: %{public}@ missing", buf, 0x2Au);
       }
 
@@ -220,97 +220,95 @@ void __85__CarDataClient_sendCommand_values_errors_error_transactionID_priority_
           v20 = [*(a1 + 72) pluginID];
           v21 = *(a1 + 32);
           v22 = *(a1 + 40);
-          v66 = *(a1 + 80);
+          v64 = *(a1 + 80);
           v23 = [*(a1 + 48) count];
           v24 = [*(a1 + 48) componentsJoinedByString:{@", "}];
           *buf = 138544642;
-          v74 = v20;
+          v72 = v20;
+          v73 = 2114;
+          v74 = v21;
           v75 = 2114;
-          v76 = v21;
+          v76 = v22;
           v77 = 2114;
-          v78 = v22;
-          v79 = 2114;
-          v80 = v66;
-          v81 = 2048;
-          v82 = v23;
-          v83 = 2114;
-          v84 = v24;
+          v78 = v64;
+          v79 = 2048;
+          v80 = v23;
+          v81 = 2114;
+          v82 = v24;
           _os_log_debug_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEBUG, "Send pluginID: %{public}@ command: %{public}@ transactionID: %{public}@ with priority: %{public}@ values array with %ld entries, [%{public}@]", buf, 0x3Eu);
         }
 
         goto LABEL_34;
       }
 
-      v37 = *(a1 + 48);
       objc_opt_class();
       isKindOfClass = objc_opt_isKindOfClass();
       v19 = CAFDClientLogging();
-      v39 = os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG);
+      v38 = os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG);
       if (isKindOfClass)
       {
-        if (v39)
+        if (v38)
         {
-          v40 = [*(a1 + 72) pluginID];
-          v42 = *(a1 + 32);
-          v41 = *(a1 + 40);
-          v65 = v41;
-          v67 = *(a1 + 80);
-          v43 = [*(a1 + 48) count];
-          v44 = [*(a1 + 48) allKeys];
-          v45 = [v44 componentsJoinedByString:{@", "}];
+          v39 = [*(a1 + 72) pluginID];
+          v40 = *(a1 + 32);
+          v63 = *(a1 + 40);
+          v65 = *(a1 + 80);
+          v41 = [*(a1 + 48) count];
+          v42 = [*(a1 + 48) allKeys];
+          v43 = [v42 componentsJoinedByString:{@", "}];
           *buf = 138544642;
+          v72 = v39;
+          v73 = 2114;
           v74 = v40;
           v75 = 2114;
-          v76 = v42;
+          v76 = v63;
           v77 = 2114;
           v78 = v65;
-          v79 = 2114;
-          v80 = v67;
-          v81 = 2048;
+          v79 = 2048;
+          v80 = v41;
+          v81 = 2114;
           v82 = v43;
-          v83 = 2114;
-          v84 = v45;
           _os_log_debug_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEBUG, "Send pluginID: %{public}@ command: %{public}@ transactionID: %{public}@ with priority: %{public}@ values dictionary with %ld entries, [%{public}@]", buf, 0x3Eu);
         }
 
         goto LABEL_34;
       }
 
-      if (!v39)
+      if (!v38)
       {
 LABEL_34:
 
-        v50 = [*(a1 + 72) clientDelegate];
-        v51 = [*(a1 + 72) pluginID];
-        v68[0] = _NSConcreteStackBlock;
-        v68[1] = 3221225472;
-        v68[2] = __85__CarDataClient_sendCommand_values_errors_error_transactionID_priority_withResponse___block_invoke_32;
-        v68[3] = &unk_100055660;
-        v52 = *(a1 + 80);
-        v68[4] = *(a1 + 72);
-        v69 = *(a1 + 40);
-        v70 = *(a1 + 80);
-        v71 = *(a1 + 88);
-        [v50 sendToPluginID:v51 payload:v8 priority:v52 completion:v68];
+        v48 = [*(a1 + 72) clientDelegate];
+        v49 = [*(a1 + 72) pluginID];
+        v66[0] = _NSConcreteStackBlock;
+        v66[1] = 3221225472;
+        v66[2] = __85__CarDataClient_sendCommand_values_errors_error_transactionID_priority_withResponse___block_invoke_32;
+        v66[3] = &unk_100055660;
+        v50 = *(a1 + 80);
+        v66[4] = *(a1 + 72);
+        v67 = *(a1 + 40);
+        v68 = *(a1 + 80);
+        v69 = *(a1 + 88);
+        [v48 sendToPluginID:v49 payload:v8 priority:v50 completion:v66];
 
         goto LABEL_35;
       }
 
       v30 = [*(a1 + 72) pluginID];
-      v61 = *(a1 + 32);
-      v62 = *(a1 + 40);
-      v63 = *(a1 + 80);
-      v64 = *(a1 + 48);
+      v59 = *(a1 + 32);
+      v60 = *(a1 + 40);
+      v61 = *(a1 + 80);
+      v62 = *(a1 + 48);
       *buf = 138544386;
-      v74 = v30;
+      v72 = v30;
+      v73 = 2114;
+      v74 = v59;
       v75 = 2114;
-      v76 = v61;
+      v76 = v60;
       v77 = 2114;
-      v78 = v62;
+      v78 = v61;
       v79 = 2114;
-      v80 = v63;
-      v81 = 2114;
-      v82 = v64;
+      v80 = v62;
       v34 = "Send pluginID: %{public}@ command: %{public}@ transactionID: %{public}@ with priority: %{public}@ values: %{public}@";
       v35 = v19;
       v36 = 52;
@@ -329,13 +327,13 @@ LABEL_34:
       v32 = *(a1 + 40);
       v33 = *(a1 + 80);
       *buf = 138544130;
-      v74 = v30;
+      v72 = v30;
+      v73 = 2114;
+      v74 = v31;
       v75 = 2114;
-      v76 = v31;
+      v76 = v32;
       v77 = 2114;
-      v78 = v32;
-      v79 = 2114;
-      v80 = v33;
+      v78 = v33;
       v34 = "Send pluginID: %{public}@ command: %{public}@ transactionID: %{public}@ with priority: %{public}@ without values";
       v35 = v19;
       v36 = 42;
@@ -349,18 +347,18 @@ LABEL_34:
   v25 = CAFDClientLogging();
   if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
   {
-    v53 = *(a1 + 32);
-    v54 = [*(a1 + 72) pluginID];
-    v55 = *(a1 + 40);
-    v56 = *(a1 + 80);
+    v51 = *(a1 + 32);
+    v52 = [*(a1 + 72) pluginID];
+    v53 = *(a1 + 40);
+    v54 = *(a1 + 80);
     *buf = 138544130;
-    v74 = v53;
+    v72 = v51;
+    v73 = 2114;
+    v74 = v52;
     v75 = 2114;
-    v76 = v54;
+    v76 = v53;
     v77 = 2114;
-    v78 = v55;
-    v79 = 2114;
-    v80 = v56;
+    v78 = v54;
     _os_log_error_impl(&_mh_execute_header, v25, OS_LOG_TYPE_ERROR, "Unable to package command %{public}@ for pluginID: %{public}@ transactionID: %{public}@ with priority: %{public}@", buf, 0x2Au);
   }
 
@@ -2496,12 +2494,10 @@ void __42__CarDataClient_cachedValueForInstanceID___block_invoke(uint64_t a1)
 
 void __85__CarDataClient_sendCommand_values_errors_error_transactionID_priority_withResponse___block_invoke_2_cold_1(uint64_t a1)
 {
-  v2 = [*(a1 + 40) pluginID];
-  v3 = *(a1 + 48);
-  v4 = *(a1 + 56);
+  v1 = [*(a1 + 40) pluginID];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1_1();
-  _os_log_error_impl(v5, v6, v7, v8, v9, 0x20u);
+  _os_log_error_impl(v2, v3, v4, v5, v6, 0x20u);
 }
 
 void __36__CarDataClient_parseValues_errors___block_invoke_cold_1()
@@ -2519,8 +2515,11 @@ void __67__CarDataClient_removeRegistrationFromCache_priority_withResponse___blo
 {
   OUTLINED_FUNCTION_4_0();
   v2 = [*v1 pluginID];
-  [*(v0 + 40) count];
-  OUTLINED_FUNCTION_3_0(&_mh_execute_header, v3, v4, "Remove registration from cache pluginID: %{public}@ instanceID count: %ld", v5, v6, v7, v8, 2u);
+  *v9 = 138543618;
+  *&v9[4] = v2;
+  *&v9[12] = 2048;
+  *&v9[14] = [*(v0 + 40) count];
+  OUTLINED_FUNCTION_3_0(&_mh_execute_header, v3, v4, "Remove registration from cache pluginID: %{public}@ instanceID count: %ld", v5, v6, v7, v8, *v9, *&v9[8], *&v9[16]);
 }
 
 - (void)handleCommand:transactionID:values:errors:priority:.cold.1()
@@ -2528,7 +2527,7 @@ void __67__CarDataClient_removeRegistrationFromCache_priority_withResponse___blo
   OUTLINED_FUNCTION_4_0();
   v1 = [v0 pluginID];
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_3_0(&_mh_execute_header, v2, v3, "Received pluginID: %{public}@ transactionID: %{public}@ config notify", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_3_0(&_mh_execute_header, v2, v3, "Received pluginID: %{public}@ transactionID: %{public}@ config notify", v4, v5, v6, v7);
 }
 
 - (void)handleCommand:transactionID:values:errors:priority:.cold.2()
@@ -2536,7 +2535,7 @@ void __67__CarDataClient_removeRegistrationFromCache_priority_withResponse___blo
   OUTLINED_FUNCTION_4_0();
   v1 = [v0 pluginID];
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_3_0(&_mh_execute_header, v2, v3, "Received pluginID: %{public}@ transactionID: %{public}@ config response", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_3_0(&_mh_execute_header, v2, v3, "Received pluginID: %{public}@ transactionID: %{public}@ config response", v4, v5, v6, v7);
 }
 
 - (void)handleCommand:(void *)a1 transactionID:values:errors:priority:.cold.3(void *a1)
@@ -2576,7 +2575,7 @@ void __67__CarDataClient_removeRegistrationFromCache_priority_withResponse___blo
   OUTLINED_FUNCTION_4_0();
   v1 = [v0 pluginID];
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_3_0(&_mh_execute_header, v2, v3, "Received pluginID: %{public}@ transactionID: %{public}@ unregister response result: OK", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_3_0(&_mh_execute_header, v2, v3, "Received pluginID: %{public}@ transactionID: %{public}@ unregister response result: OK", v4, v5, v6, v7);
 }
 
 void __68__CarDataClient_handleCommand_transactionID_values_errors_priority___block_invoke_cold_1()
@@ -2637,7 +2636,7 @@ void __38__CarDataClient_receiveData_priority___block_invoke_cold_1()
   OUTLINED_FUNCTION_4_0();
   v1 = [v0 pluginID];
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_3_0(&_mh_execute_header, v2, v3, "Request pluginID: %{public}@ config with priority: %{public}@", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_3_0(&_mh_execute_header, v2, v3, "Request pluginID: %{public}@ config with priority: %{public}@", v4, v5, v6, v7);
 }
 
 - (void)registerAllWithPriority:withResponse:.cold.1()
@@ -2645,7 +2644,7 @@ void __38__CarDataClient_receiveData_priority___block_invoke_cold_1()
   OUTLINED_FUNCTION_4_0();
   v1 = [v0 pluginID];
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_3_0(&_mh_execute_header, v2, v3, "Request pluginID: %{public}@ to register all with priority: %{public}@", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_3_0(&_mh_execute_header, v2, v3, "Request pluginID: %{public}@ to register all with priority: %{public}@", v4, v5, v6, v7);
 }
 
 - (void)unregisterAllWithPriority:withResponse:.cold.1()
@@ -2653,7 +2652,7 @@ void __38__CarDataClient_receiveData_priority___block_invoke_cold_1()
   OUTLINED_FUNCTION_4_0();
   v1 = [v0 pluginID];
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_3_0(&_mh_execute_header, v2, v3, "Request pluginID: %{public}@ to unregister all with priority: %{public}@", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_3_0(&_mh_execute_header, v2, v3, "Request pluginID: %{public}@ to unregister all with priority: %{public}@", v4, v5, v6, v7);
 }
 
 @end

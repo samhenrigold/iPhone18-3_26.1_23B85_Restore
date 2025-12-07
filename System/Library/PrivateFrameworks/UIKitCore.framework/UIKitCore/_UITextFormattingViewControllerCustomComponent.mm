@@ -82,7 +82,7 @@
   equalCopy = equal;
   if (self == equalCopy)
   {
-    v18 = 1;
+    isEqualToString = 1;
   }
 
   else
@@ -97,16 +97,16 @@
       {
         title = [(_UITextFormattingViewControllerCustomComponent *)self title];
         title2 = [(_UITextFormattingViewControllerCustomComponent *)v5 title];
-        if ([title isEqualToString:title2])
+        if (objc_msgSend_isEqualToString_(title))
         {
           accessibilityHint = [(_UITextFormattingViewControllerCustomComponent *)self accessibilityHint];
           accessibilityHint2 = [(_UITextFormattingViewControllerCustomComponent *)v5 accessibilityHint];
-          if ([accessibilityHint isEqualToString:accessibilityHint2])
+          if (objc_msgSend_isEqualToString_(accessibilityHint))
           {
             systemImageName = [(_UITextFormattingViewControllerCustomComponent *)self systemImageName];
             systemImageName2 = [(_UITextFormattingViewControllerCustomComponent *)v5 systemImageName];
             v24 = systemImageName;
-            if ([systemImageName isEqualToString:systemImageName2])
+            if (objc_msgSend_isEqualToString_(systemImageName))
             {
               _subcomponents = [(_UITextFormattingViewControllerCustomComponent *)self _subcomponents];
               _subcomponents2 = [(_UITextFormattingViewControllerCustomComponent *)v5 _subcomponents];
@@ -117,46 +117,46 @@
               {
                 _textAnimationName = [(_UITextFormattingViewControllerCustomComponent *)self _textAnimationName];
                 _textAnimationName2 = [(_UITextFormattingViewControllerCustomComponent *)v5 _textAnimationName];
-                v18 = [_textAnimationName isEqualToString:_textAnimationName2];
+                isEqualToString = objc_msgSend_isEqualToString_(_textAnimationName);
               }
 
               else
               {
-                v18 = 0;
+                isEqualToString = 0;
               }
             }
 
             else
             {
-              v18 = 0;
+              isEqualToString = 0;
             }
           }
 
           else
           {
-            v18 = 0;
+            isEqualToString = 0;
           }
         }
 
         else
         {
-          v18 = 0;
+          isEqualToString = 0;
         }
       }
 
       else
       {
-        v18 = 0;
+        isEqualToString = 0;
       }
     }
 
     else
     {
-      v18 = 0;
+      isEqualToString = 0;
     }
   }
 
-  return v18;
+  return isEqualToString;
 }
 
 - (unint64_t)hash

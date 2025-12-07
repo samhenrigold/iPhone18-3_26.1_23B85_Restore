@@ -114,7 +114,7 @@ LABEL_20:
 
 - (id)jsonDictionary
 {
-  v24[5] = *MEMORY[0x1E69E9840];
+  v23[5] = *MEMORY[0x1E69E9840];
   if ([(BMMessagesSearchEventUserInteractionDetected *)self hasMillisecondsSinceSessionStarted])
   {
     v3 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:{-[BMMessagesSearchEventUserInteractionDetected millisecondsSinceSessionStarted](self, "millisecondsSinceSessionStarted")}];
@@ -131,48 +131,48 @@ LABEL_20:
   jsonDictionary = [visualComponent jsonDictionary];
 
   v8 = [MEMORY[0x1E696AD98] numberWithInt:{-[BMMessagesSearchEventUserInteractionDetected interactionType](self, "interactionType")}];
-  v19 = @"millisecondsSinceSessionStarted";
+  v18 = @"millisecondsSinceSessionStarted";
   null = v3;
   if (!v3)
   {
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v17 = null;
-  v24[0] = null;
-  v20 = @"sessionId";
+  v16 = null;
+  v23[0] = null;
+  v19 = @"sessionId";
   null2 = sessionId;
   if (!sessionId)
   {
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v24[1] = null2;
-  v21 = @"queryId";
+  v23[1] = null2;
+  v20 = @"queryId";
   null3 = queryId;
   if (!queryId)
   {
     null3 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v24[2] = null3;
-  v22 = @"visualComponent";
+  v23[2] = null3;
+  v21 = @"visualComponent";
   null4 = jsonDictionary;
   if (!jsonDictionary)
   {
     null4 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v24[3] = null4;
-  v23 = @"interactionType";
+  v23[3] = null4;
+  v22 = @"interactionType";
   null5 = v8;
   if (!v8)
   {
     null5 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v24[4] = null5;
-  v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v24 forKeys:&v19 count:{5, v17}];
+  v23[4] = null5;
+  v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v23 forKeys:&v18 count:{5, v16}];
   if (v8)
   {
     if (jsonDictionary)
@@ -230,14 +230,13 @@ LABEL_18:
 LABEL_26:
 
 LABEL_19:
-  v15 = *MEMORY[0x1E69E9840];
 
   return v14;
 }
 
 - (BMMessagesSearchEventUserInteractionDetected)initWithJSONDictionary:(id)dictionary error:(id *)error
 {
-  v52[1] = *MEMORY[0x1E69E9840];
+  v51[1] = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   v7 = [dictionaryCopy objectForKeyedSubscript:@"millisecondsSinceSessionStarted"];
   if (!v7 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
@@ -252,7 +251,7 @@ LABEL_4:
       {
         if (!error)
         {
-          v41 = 0;
+          v40 = 0;
           v18 = 0;
           goto LABEL_45;
         }
@@ -260,26 +259,26 @@ LABEL_4:
         errorCopy = error;
         v23 = objc_alloc(MEMORY[0x1E696ABC0]);
         v24 = *MEMORY[0x1E698F240];
-        v49 = *MEMORY[0x1E696A578];
-        v39 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"sessionId"];
-        v50 = v39;
-        v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v50 forKeys:&v49 count:1];
-        v41 = 0;
+        v48 = *MEMORY[0x1E696A578];
+        v38 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"sessionId"];
+        v49 = v38;
+        v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v49 forKeys:&v48 count:1];
+        v40 = 0;
         v18 = 0;
         *errorCopy = [v23 initWithDomain:v24 code:2 userInfo:v10];
         goto LABEL_44;
       }
 
-      v41 = v9;
+      v40 = v9;
     }
 
     else
     {
-      v41 = 0;
+      v40 = 0;
     }
 
     v10 = [dictionaryCopy objectForKeyedSubscript:@"queryId"];
-    v38 = v8;
+    v37 = v8;
     selfCopy = self;
     if (v10 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
     {
@@ -288,7 +287,7 @@ LABEL_4:
       {
         if (!error)
         {
-          v39 = 0;
+          v38 = 0;
           v18 = 0;
           goto LABEL_44;
         }
@@ -296,22 +295,22 @@ LABEL_4:
         errorCopy2 = error;
         v26 = objc_alloc(MEMORY[0x1E696ABC0]);
         v27 = *MEMORY[0x1E698F240];
-        v47 = *MEMORY[0x1E696A578];
+        v46 = *MEMORY[0x1E696A578];
         v11 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"queryId"];
-        v48 = v11;
-        v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v48 forKeys:&v47 count:1];
-        v39 = 0;
+        v47 = v11;
+        v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v47 forKeys:&v46 count:1];
+        v38 = 0;
         v18 = 0;
         *errorCopy2 = [v26 initWithDomain:v27 code:2 userInfo:v13];
         goto LABEL_42;
       }
 
-      v39 = v10;
+      v38 = v10;
     }
 
     else
     {
-      v39 = 0;
+      v38 = 0;
     }
 
     v11 = [dictionaryCopy objectForKeyedSubscript:@"visualComponent"];
@@ -327,29 +326,29 @@ LABEL_4:
           goto LABEL_43;
         }
 
-        v36 = objc_alloc(MEMORY[0x1E696ABC0]);
+        v35 = objc_alloc(MEMORY[0x1E696ABC0]);
         v28 = *MEMORY[0x1E698F240];
-        v45 = *MEMORY[0x1E696A578];
+        v44 = *MEMORY[0x1E696A578];
         v13 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSDictionary", objc_opt_class(), @"visualComponent"];
-        v46 = v13;
-        v29 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v46 forKeys:&v45 count:1];
-        *error = [v36 initWithDomain:v28 code:2 userInfo:v29];
+        v45 = v13;
+        v29 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v45 forKeys:&v44 count:1];
+        *error = [v35 initWithDomain:v28 code:2 userInfo:v29];
 
         v18 = 0;
 LABEL_42:
 
 LABEL_43:
         self = selfCopy;
-        v8 = v38;
+        v8 = v37;
 LABEL_44:
 
         goto LABEL_45;
       }
 
       v16 = v11;
-      v42 = 0;
-      v13 = [[BMMessagesSearchEventVisualComponent alloc] initWithJSONDictionary:v16 error:&v42];
-      v17 = v42;
+      v41 = 0;
+      v13 = [[BMMessagesSearchEventVisualComponent alloc] initWithJSONDictionary:v16 error:&v41];
+      v17 = v41;
       if (v17)
       {
         if (errorCopy3)
@@ -385,13 +384,13 @@ LABEL_44:
         {
           if (errorCopy3)
           {
-            v37 = objc_alloc(MEMORY[0x1E696ABC0]);
-            v34 = *MEMORY[0x1E698F240];
-            v43 = *MEMORY[0x1E696A578];
-            v32 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber (corresponding to enum value), or NSString (string version of enum)", objc_opt_class(), @"interactionType"];
-            v44 = v32;
-            v33 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v44 forKeys:&v43 count:1];
-            *errorCopy3 = [v37 initWithDomain:v34 code:2 userInfo:v33];
+            v36 = objc_alloc(MEMORY[0x1E696ABC0]);
+            v33 = *MEMORY[0x1E698F240];
+            v42 = *MEMORY[0x1E696A578];
+            v31 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber (corresponding to enum value), or NSString (string version of enum)", objc_opt_class(), @"interactionType"];
+            v43 = v31;
+            v32 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v43 forKeys:&v42 count:1];
+            *errorCopy3 = [v36 initWithDomain:v33 code:2 userInfo:v32];
           }
 
           v15 = 0;
@@ -410,7 +409,7 @@ LABEL_44:
       v15 = 0;
     }
 
-    v18 = -[BMMessagesSearchEventUserInteractionDetected initWithMillisecondsSinceSessionStarted:sessionId:queryId:visualComponent:interactionType:](selfCopy, "initWithMillisecondsSinceSessionStarted:sessionId:queryId:visualComponent:interactionType:", v38, v41, v39, v13, [v15 intValue]);
+    v18 = -[BMMessagesSearchEventUserInteractionDetected initWithMillisecondsSinceSessionStarted:sessionId:queryId:visualComponent:interactionType:](selfCopy, "initWithMillisecondsSinceSessionStarted:sessionId:queryId:visualComponent:interactionType:", v37, v40, v38, v13, [v15 intValue]);
     selfCopy = v18;
 LABEL_41:
 
@@ -434,17 +433,16 @@ LABEL_41:
   errorCopy4 = error;
   v20 = objc_alloc(MEMORY[0x1E696ABC0]);
   v21 = *MEMORY[0x1E698F240];
-  v51 = *MEMORY[0x1E696A578];
-  v41 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"millisecondsSinceSessionStarted"];
-  v52[0] = v41;
-  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v52 forKeys:&v51 count:1];
+  v50 = *MEMORY[0x1E696A578];
+  v40 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"millisecondsSinceSessionStarted"];
+  v51[0] = v40;
+  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v51 forKeys:&v50 count:1];
   v8 = 0;
   v18 = 0;
   *errorCopy4 = [v20 initWithDomain:v21 code:2 userInfo:v9];
 LABEL_45:
 
 LABEL_46:
-  v30 = *MEMORY[0x1E69E9840];
   return v18;
 }
 
@@ -462,7 +460,6 @@ LABEL_46:
   toCopy = to;
   if (self->_hasMillisecondsSinceSessionStarted)
   {
-    millisecondsSinceSessionStarted = self->_millisecondsSinceSessionStarted;
     PBDataWriterWriteUint64Field();
   }
 
@@ -483,7 +480,6 @@ LABEL_46:
     PBDataWriterRecallMark();
   }
 
-  interactionType = self->_interactionType;
   PBDataWriterWriteUint32Field();
 }
 
@@ -773,51 +769,47 @@ LABEL_61:
 
 + (id)protoFields
 {
-  v10[5] = *MEMORY[0x1E69E9840];
+  v9[5] = *MEMORY[0x1E69E9840];
   v2 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"millisecondsSinceSessionStarted" number:1 type:5 subMessageClass:0];
   v3 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"sessionId" number:2 type:13 subMessageClass:{0, v2}];
-  v10[1] = v3;
+  v9[1] = v3;
   v4 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"queryId" number:3 type:13 subMessageClass:0];
-  v10[2] = v4;
+  v9[2] = v4;
   v5 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"visualComponent" number:4 type:14 subMessageClass:objc_opt_class()];
-  v10[3] = v5;
+  v9[3] = v5;
   v6 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"interactionType" number:5 type:4 subMessageClass:0];
-  v10[4] = v6;
-  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:5];
-
-  v8 = *MEMORY[0x1E69E9840];
+  v9[4] = v6;
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:5];
 
   return v7;
 }
 
 + (id)columns
 {
-  v10[5] = *MEMORY[0x1E69E9840];
+  v9[5] = *MEMORY[0x1E69E9840];
   v2 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"millisecondsSinceSessionStarted" dataType:0 requestOnly:0 fieldNumber:1 protoDataType:5 convertedType:0];
   v3 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"sessionId" dataType:2 requestOnly:0 fieldNumber:2 protoDataType:13 convertedType:0];
   v4 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"queryId" dataType:2 requestOnly:0 fieldNumber:3 protoDataType:13 convertedType:0];
   v5 = [objc_alloc(MEMORY[0x1E698F2D8]) initWithName:@"visualComponent_json" dataType:5 requestOnly:1 extractBlock:&__block_literal_global_454_104900];
   v6 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"interactionType" dataType:0 requestOnly:0 fieldNumber:5 protoDataType:4 convertedType:0];
-  v10[0] = v2;
-  v10[1] = v3;
-  v10[2] = v4;
-  v10[3] = v5;
-  v10[4] = v6;
-  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:5];
-
-  v8 = *MEMORY[0x1E69E9840];
+  v9[0] = v2;
+  v9[1] = v3;
+  v9[2] = v4;
+  v9[3] = v5;
+  v9[4] = v6;
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:5];
 
   return v7;
 }
 
-id __55__BMMessagesSearchEventUserInteractionDetected_columns__block_invoke(uint64_t a1, void *a2)
+id __55__BMMessagesSearchEventUserInteractionDetected_columns__block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
-  v2 = [a2 eventBodyKeepingBackingData:1];
-  v3 = [v2 visualComponent];
-  v4 = [v3 jsonDictionary];
-  v5 = BMConvertObjectToJSONString();
+  v3 = [a2 eventBodyKeepingBackingData:1];
+  v4 = [v3 visualComponent];
+  v5 = [v4 jsonDictionary];
+  v6 = BMConvertObjectToJSONString();
 
-  return v5;
+  return v6;
 }
 
 + (id)eventWithData:(id)data dataVersion:(unsigned int)version

@@ -147,18 +147,28 @@ LABEL_7:
   v8 = fromCopy[1];
   if (endDate)
   {
-    if (v8)
+    if (!v8)
     {
-      [(HDCodableMedicalDate *)endDate mergeFrom:?];
+      goto LABEL_13;
     }
+
+    endDate = [(HDCodableMedicalDate *)endDate mergeFrom:?];
   }
 
-  else if (v8)
+  else
   {
-    [(HDCodableMedicalDateInterval *)self setEndDate:?];
+    if (!v8)
+    {
+      goto LABEL_13;
+    }
+
+    endDate = [(HDCodableMedicalDateInterval *)self setEndDate:?];
   }
 
-  MEMORY[0x2821F96F8]();
+  fromCopy = v9;
+LABEL_13:
+
+  MEMORY[0x2821F96F8](endDate, fromCopy);
 }
 
 @end

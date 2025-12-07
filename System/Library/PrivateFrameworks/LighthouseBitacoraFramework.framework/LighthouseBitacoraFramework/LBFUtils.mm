@@ -58,77 +58,81 @@
 {
   v3 = MEMORY[0x277CBEBB0];
   dateCopy = date;
-  v9 = objc_msgSend_defaultTimeZone(v3, v5, v6, v7, v8);
-  objc_msgSend_secondsFromGMT(v9, v10, v11, v12, v13);
+  v8 = objc_msgSend_defaultTimeZone(v3, v5, v7, v6);
+  v12 = objc_msgSend_secondsFromGMT(v8, v9, v11, v10);
 
-  objc_msgSend_timeIntervalSinceReferenceDate(dateCopy, v14, v15, v16, v17);
-  v21 = MEMORY[0x277CBEAA8];
+  objc_msgSend_timeIntervalSinceReferenceDate(dateCopy, v13, v15, v14);
+  v17 = v16;
 
-  return MEMORY[0x2821F9670](v21, sel_dateWithTimeIntervalSinceReferenceDate_, v18, v19, v20);
+  v19 = MEMORY[0x277CBEAA8];
+
+  v18.n128_f64[0] = v17 - v12;
+  return MEMORY[0x2821F9670](v19, sel_dateWithTimeIntervalSinceReferenceDate_, v18);
 }
 
 + (id)dateToTimestampStringInMSec:(id)sec
 {
-  v5 = MEMORY[0x277CCACA8];
-  objc_msgSend_timeIntervalSince1970(sec, a2, sec, v3, v4);
-  return objc_msgSend_stringWithFormat_(v5, v7, @"%llu", v8, v9, (v6 * 1000.0));
+  v4 = MEMORY[0x277CCACA8];
+  objc_msgSend_timeIntervalSince1970(sec, a2, v3, sec);
+  v6.n128_f64[0] = v5 * 1000.0;
+  return objc_msgSend_stringWithFormat_(v4, v7, v6, @"%llu", v6.n128_f64[0]);
 }
 
 + (BOOL)IsEmptyTrialIdentifiers:(id)identifiers
 {
   identifiersCopy = identifiers;
-  v8 = objc_msgSend_bmltIdentifiers(identifiersCopy, v4, v5, v6, v7);
-  v17 = objc_msgSend_trialDeploymentID(v8, v9, v10, v11, v12);
-  if (v17)
+  v7 = objc_msgSend_bmltIdentifiers(identifiersCopy, v4, v6, v5);
+  v13 = objc_msgSend_trialDeploymentID(v7, v8, v10, v9);
+  if (v13)
   {
-    v18 = 0;
+    v15 = 0;
   }
 
   else
   {
-    v19 = objc_msgSend_bmltIdentifiers(identifiersCopy, v13, v14, v15, v16);
-    v28 = objc_msgSend_trialTaskID(v19, v20, v21, v22, v23);
-    if (v28)
+    v16 = objc_msgSend_bmltIdentifiers(identifiersCopy, v11, v14, v12);
+    v22 = objc_msgSend_trialTaskID(v16, v17, v19, v18);
+    if (v22)
     {
-      v18 = 0;
+      v15 = 0;
     }
 
     else
     {
-      v29 = objc_msgSend_experimentIdentifiers(identifiersCopy, v24, v25, v26, v27);
-      v38 = objc_msgSend_trialExperimentID(v29, v30, v31, v32, v33);
-      if (v38)
+      v24 = objc_msgSend_experimentIdentifiers(identifiersCopy, v20, v23, v21);
+      v30 = objc_msgSend_trialExperimentID(v24, v25, v27, v26);
+      if (v30)
       {
-        v18 = 0;
+        v15 = 0;
       }
 
       else
       {
-        v39 = objc_msgSend_experimentIdentifiers(identifiersCopy, v34, v35, v36, v37);
-        v48 = objc_msgSend_trialDeploymentID(v39, v40, v41, v42, v43);
-        if (v48)
+        v32 = objc_msgSend_experimentIdentifiers(identifiersCopy, v28, v31, v29);
+        v38 = objc_msgSend_trialDeploymentID(v32, v33, v35, v34);
+        if (v38)
         {
-          v18 = 0;
+          v15 = 0;
         }
 
         else
         {
-          v55 = objc_msgSend_experimentIdentifiers(identifiersCopy, v44, v45, v46, v47);
-          v53 = objc_msgSend_trialTreatmentID(v55, v49, v50, v51, v52);
-          v18 = v53 == 0;
+          v45 = objc_msgSend_experimentIdentifiers(identifiersCopy, v36, v39, v37);
+          v43 = objc_msgSend_trialTreatmentID(v45, v40, v42, v41);
+          v15 = v43 == 0;
         }
       }
     }
   }
 
-  return v18;
+  return v15;
 }
 
 + (BOOL)IsEqualStringOrNil:(id)nil s2:(id)s2
 {
   nilCopy = nil;
   s2Copy = s2;
-  v10 = s2Copy;
+  v9 = s2Copy;
   if (!nilCopy || !s2Copy)
   {
     if (nilCopy | s2Copy)
@@ -137,27 +141,27 @@
     }
 
 LABEL_6:
-    v11 = 1;
+    v10 = 1;
     goto LABEL_7;
   }
 
-  if (objc_msgSend_isEqualToString_(nilCopy, v7, s2Copy, v8, v9))
+  if (objc_msgSend_isEqualToString_(nilCopy, v7, v8, s2Copy))
   {
     goto LABEL_6;
   }
 
 LABEL_4:
-  v11 = 0;
+  v10 = 0;
 LABEL_7:
 
-  return v11;
+  return v10;
 }
 
 + (BOOL)IsEqualNumberOrNil:(id)nil n2:(id)n2
 {
   nilCopy = nil;
   n2Copy = n2;
-  v10 = n2Copy;
+  v9 = n2Copy;
   if (!nilCopy || !n2Copy)
   {
     if (nilCopy | n2Copy)
@@ -166,20 +170,20 @@ LABEL_7:
     }
 
 LABEL_6:
-    v11 = 1;
+    v10 = 1;
     goto LABEL_7;
   }
 
-  if (objc_msgSend_isEqualToNumber_(nilCopy, v7, n2Copy, v8, v9))
+  if (objc_msgSend_isEqualToNumber_(nilCopy, v7, v8, n2Copy))
   {
     goto LABEL_6;
   }
 
 LABEL_4:
-  v11 = 0;
+  v10 = 0;
 LABEL_7:
 
-  return v11;
+  return v10;
 }
 
 @end

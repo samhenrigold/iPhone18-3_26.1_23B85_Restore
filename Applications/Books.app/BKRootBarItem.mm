@@ -142,7 +142,7 @@ LABEL_10:
 
   v6 = RootBarItem.isEqual(_:)(v8);
 
-  sub_100007840(v8, &unk_100AD5B40);
+  sub_100007840(v8, &unk_100AD5B40, &unk_100811300);
   return v6 & 1;
 }
 
@@ -277,7 +277,7 @@ LABEL_10:
 {
   compactCopy = compact;
   selfCopy = self;
-  if (compactCopy && (RootBarItem.title.getter(v7), v9 = v7[2], sub_1000077D8(&v9, &v8, &qword_100AD4F30), sub_100007840(v7, &qword_100ADFAD0), *(&v9 + 1)))
+  if (compactCopy && (RootBarItem.title.getter(v7), v9 = v7[2], sub_1000077D8(&v9, &v8, &qword_100AD4F30, &unk_100816940), sub_100007840(v7, &qword_100ADFAD0, &unk_100818CE0), *(&v9 + 1)))
   {
   }
 
@@ -285,7 +285,7 @@ LABEL_10:
   {
     RootBarItem.title.getter(&v8);
 
-    sub_100007840(&v8, &qword_100ADFAD0);
+    sub_100007840(&v8, &qword_100ADFAD0, &unk_100818CE0);
   }
 
   v5 = sub_1007A2214();
@@ -362,7 +362,7 @@ LABEL_10:
   selfCopy = self;
   RootBarItem.title.getter(&v5);
 
-  sub_100007840(&v5, &qword_100ADFAD0);
+  sub_100007840(&v5, &qword_100ADFAD0, &unk_100818CE0);
   v3 = sub_1007A2214();
 
   return v3;
@@ -373,7 +373,7 @@ LABEL_10:
   selfCopy = self;
   RootBarItem.title.getter(v5);
 
-  sub_100007840(v5, &qword_100ADFAD0);
+  sub_100007840(v5, &qword_100ADFAD0, &unk_100818CE0);
   v3 = sub_1007A2214();
 
   return v3;

@@ -3,6 +3,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)highlightTypeAsString:(int)string;
 - (int)StringAsHighlightType:(id)type;
 - (int)highlightType;
 - (unint64_t)hash;
@@ -48,6 +49,21 @@
   }
 
   *&self->_has = *&self->_has & 0xEF | v3;
+}
+
+- (id)highlightTypeAsString:(int)string
+{
+  if (string >= 3)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E6E52A30[string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsHighlightType:(id)type
@@ -216,7 +232,7 @@
 
 - (id)dictionaryRepresentation
 {
-  v45 = *MEMORY[0x1E69E9840];
+  v44 = *MEMORY[0x1E69E9840];
   dictionary = [MEMORY[0x1E695DF90] dictionary];
   v4 = dictionary;
   highlightIdentifier = self->_highlightIdentifier;
@@ -290,30 +306,30 @@
   if ([(NSMutableArray *)self->_calculatedFeatures count])
   {
     v17 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{-[NSMutableArray count](self->_calculatedFeatures, "count")}];
+    v39 = 0u;
     v40 = 0u;
     v41 = 0u;
     v42 = 0u;
-    v43 = 0u;
     v18 = self->_calculatedFeatures;
-    v19 = [(NSMutableArray *)v18 countByEnumeratingWithState:&v40 objects:v44 count:16];
+    v19 = [(NSMutableArray *)v18 countByEnumeratingWithState:&v39 objects:v43 count:16];
     if (v19)
     {
       v20 = v19;
-      v21 = *v41;
+      v21 = *v40;
       do
       {
         for (i = 0; i != v20; ++i)
         {
-          if (*v41 != v21)
+          if (*v40 != v21)
           {
             objc_enumerationMutation(v18);
           }
 
-          dictionaryRepresentation2 = [*(*(&v40 + 1) + 8 * i) dictionaryRepresentation];
+          dictionaryRepresentation2 = [*(*(&v39 + 1) + 8 * i) dictionaryRepresentation];
           [v17 addObject:dictionaryRepresentation2];
         }
 
-        v20 = [(NSMutableArray *)v18 countByEnumeratingWithState:&v40 objects:v44 count:16];
+        v20 = [(NSMutableArray *)v18 countByEnumeratingWithState:&v39 objects:v43 count:16];
       }
 
       while (v20);
@@ -361,8 +377,8 @@
   v30 = self->_has;
   if ((v30 & 0x20) != 0)
   {
-    v38 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:self->_rank];
-    [v4 setObject:v38 forKey:@"rank"];
+    v37 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:self->_rank];
+    [v4 setObject:v37 forKey:@"rank"];
 
     v30 = self->_has;
     if ((v30 & 4) == 0)
@@ -382,8 +398,8 @@ LABEL_45:
     goto LABEL_45;
   }
 
-  v39 = [MEMORY[0x1E696AD98] numberWithDouble:self->_score];
-  [v4 setObject:v39 forKey:@"score"];
+  v38 = [MEMORY[0x1E696AD98] numberWithDouble:self->_score];
+  [v4 setObject:v38 forKey:@"score"];
 
   if ((*&self->_has & 0x40) != 0)
   {
@@ -417,14 +433,12 @@ LABEL_47:
     [v4 setObject:clientVariant forKey:@"clientVariant"];
   }
 
-  v36 = *MEMORY[0x1E69E9840];
-
   return v4;
 }
 
 - (void)writeTo:(id)to
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   toCopy = to;
   if (self->_highlightIdentifier)
   {
@@ -434,14 +448,12 @@ LABEL_47:
   has = self->_has;
   if ((has & 0x10) != 0)
   {
-    highlightType = self->_highlightType;
     PBDataWriterWriteInt32Field();
     has = self->_has;
   }
 
   if ((has & 8) != 0)
   {
-    syndicationSecondsSinceReferenceDate = self->_syndicationSecondsSinceReferenceDate;
     PBDataWriterWriteDoubleField();
   }
 
@@ -450,33 +462,32 @@ LABEL_47:
     PBDataWriterWriteStringField();
   }
 
-  v34 = 0u;
-  v35 = 0u;
-  v32 = 0u;
-  v33 = 0u;
-  v8 = self->_applicationIdentifiers;
-  v9 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v32 objects:v37 count:16];
-  if (v9)
+  v23 = 0u;
+  v24 = 0u;
+  v21 = 0u;
+  v22 = 0u;
+  v6 = self->_applicationIdentifiers;
+  v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v21 objects:v26 count:16];
+  if (v7)
   {
-    v10 = v9;
-    v11 = *v33;
+    v8 = v7;
+    v9 = *v22;
     do
     {
-      for (i = 0; i != v10; ++i)
+      for (i = 0; i != v8; ++i)
       {
-        if (*v33 != v11)
+        if (*v22 != v9)
         {
-          objc_enumerationMutation(v8);
+          objc_enumerationMutation(v6);
         }
 
-        v13 = *(*(&v32 + 1) + 8 * i);
         PBDataWriterWriteStringField();
       }
 
-      v10 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v32 objects:v37 count:16];
+      v8 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v21 objects:v26 count:16];
     }
 
-    while (v10);
+    while (v8);
   }
 
   if (self->_resourceUrl)
@@ -499,33 +510,32 @@ LABEL_47:
     PBDataWriterWriteStringField();
   }
 
-  v30 = 0u;
-  v31 = 0u;
-  v28 = 0u;
-  v29 = 0u;
-  v14 = self->_calculatedFeatures;
-  v15 = [(NSMutableArray *)v14 countByEnumeratingWithState:&v28 objects:v36 count:16];
-  if (v15)
+  v19 = 0u;
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
+  v11 = self->_calculatedFeatures;
+  v12 = [(NSMutableArray *)v11 countByEnumeratingWithState:&v17 objects:v25 count:16];
+  if (v12)
   {
-    v16 = v15;
-    v17 = *v29;
+    v13 = v12;
+    v14 = *v18;
     do
     {
-      for (j = 0; j != v16; ++j)
+      for (j = 0; j != v13; ++j)
       {
-        if (*v29 != v17)
+        if (*v18 != v14)
         {
-          objc_enumerationMutation(v14);
+          objc_enumerationMutation(v11);
         }
 
-        v19 = *(*(&v28 + 1) + 8 * j);
         PBDataWriterWriteSubmessage();
       }
 
-      v16 = [(NSMutableArray *)v14 countByEnumeratingWithState:&v28 objects:v36 count:16];
+      v13 = [(NSMutableArray *)v11 countByEnumeratingWithState:&v17 objects:v25 count:16];
     }
 
-    while (v16);
+    while (v13);
   }
 
   if (self->_clientIdentifier)
@@ -535,7 +545,6 @@ LABEL_47:
 
   if (*&self->_has)
   {
-    contentCreationSecondsSinceReferenceDate = self->_contentCreationSecondsSinceReferenceDate;
     PBDataWriterWriteDoubleField();
   }
 
@@ -551,7 +560,6 @@ LABEL_47:
 
   if ((*&self->_has & 0x80000000) != 0)
   {
-    isPrimary = self->_isPrimary;
     PBDataWriterWriteBOOLField();
   }
 
@@ -560,16 +568,15 @@ LABEL_47:
     PBDataWriterWriteStringField();
   }
 
-  v22 = self->_has;
-  if ((v22 & 0x20) != 0)
+  v16 = self->_has;
+  if ((v16 & 0x20) != 0)
   {
-    rank = self->_rank;
     PBDataWriterWriteUint32Field();
-    v22 = self->_has;
-    if ((v22 & 4) == 0)
+    v16 = self->_has;
+    if ((v16 & 4) == 0)
     {
 LABEL_45:
-      if ((v22 & 0x40) == 0)
+      if ((v16 & 0x40) == 0)
       {
         goto LABEL_47;
       }
@@ -583,12 +590,10 @@ LABEL_45:
     goto LABEL_45;
   }
 
-  score = self->_score;
   PBDataWriterWriteDoubleField();
   if ((*&self->_has & 0x40) != 0)
   {
 LABEL_46:
-    isConversationAutoDonating = self->_isConversationAutoDonating;
     PBDataWriterWriteBOOLField();
   }
 
@@ -600,7 +605,6 @@ LABEL_47:
 
   if ((*&self->_has & 2) != 0)
   {
-    rankingSecondsSinceReferenceDate = self->_rankingSecondsSinceReferenceDate;
     PBDataWriterWriteDoubleField();
   }
 
@@ -613,8 +617,6 @@ LABEL_47:
   {
     PBDataWriterWriteStringField();
   }
-
-  v25 = *MEMORY[0x1E69E9840];
 }
 
 - (void)copyTo:(id)to
@@ -792,7 +794,7 @@ LABEL_41:
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v58 = *MEMORY[0x1E69E9840];
+  v57 = *MEMORY[0x1E69E9840];
   v5 = [objc_msgSend(objc_opt_class() allocWithZone:{zone), "init"}];
   v6 = [(NSString *)self->_highlightIdentifier copyWithZone:zone];
   v7 = *(v5 + 112);
@@ -816,30 +818,30 @@ LABEL_41:
   v10 = *(v5 + 168);
   *(v5 + 168) = v9;
 
-  v54 = 0u;
-  v55 = 0u;
-  v52 = 0u;
   v53 = 0u;
+  v54 = 0u;
+  v51 = 0u;
+  v52 = 0u;
   v11 = self->_applicationIdentifiers;
-  v12 = [(NSMutableArray *)v11 countByEnumeratingWithState:&v52 objects:v57 count:16];
+  v12 = [(NSMutableArray *)v11 countByEnumeratingWithState:&v51 objects:v56 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v53;
+    v14 = *v52;
     do
     {
       for (i = 0; i != v13; ++i)
       {
-        if (*v53 != v14)
+        if (*v52 != v14)
         {
           objc_enumerationMutation(v11);
         }
 
-        v16 = [*(*(&v52 + 1) + 8 * i) copyWithZone:zone];
+        v16 = [*(*(&v51 + 1) + 8 * i) copyWithZone:zone];
         [v5 addApplicationIdentifiers:v16];
       }
 
-      v13 = [(NSMutableArray *)v11 countByEnumeratingWithState:&v52 objects:v57 count:16];
+      v13 = [(NSMutableArray *)v11 countByEnumeratingWithState:&v51 objects:v56 count:16];
     }
 
     while (v13);
@@ -861,30 +863,30 @@ LABEL_41:
   v24 = *(v5 + 56);
   *(v5 + 56) = v23;
 
-  v50 = 0u;
-  v51 = 0u;
-  v48 = 0u;
   v49 = 0u;
+  v50 = 0u;
+  v47 = 0u;
+  v48 = 0u;
   v25 = self->_calculatedFeatures;
-  v26 = [(NSMutableArray *)v25 countByEnumeratingWithState:&v48 objects:v56 count:16];
+  v26 = [(NSMutableArray *)v25 countByEnumeratingWithState:&v47 objects:v55 count:16];
   if (v26)
   {
     v27 = v26;
-    v28 = *v49;
+    v28 = *v48;
     do
     {
       for (j = 0; j != v27; ++j)
       {
-        if (*v49 != v28)
+        if (*v48 != v28)
         {
           objc_enumerationMutation(v25);
         }
 
-        v30 = [*(*(&v48 + 1) + 8 * j) copyWithZone:{zone, v48}];
+        v30 = [*(*(&v47 + 1) + 8 * j) copyWithZone:{zone, v47}];
         [v5 addCalculatedFeatures:v30];
       }
 
-      v27 = [(NSMutableArray *)v25 countByEnumeratingWithState:&v48 objects:v56 count:16];
+      v27 = [(NSMutableArray *)v25 countByEnumeratingWithState:&v47 objects:v55 count:16];
     }
 
     while (v27);
@@ -900,7 +902,7 @@ LABEL_41:
     *(v5 + 180) |= 1u;
   }
 
-  v33 = [(NSString *)self->_groupPhotoPathDigest copyWithZone:zone, v48];
+  v33 = [(NSString *)self->_groupPhotoPathDigest copyWithZone:zone, v47];
   v34 = *(v5 + 104);
   *(v5 + 104) = v33;
 
@@ -969,7 +971,6 @@ LABEL_27:
   v45 = *(v5 + 80);
   *(v5 + 80) = v44;
 
-  v46 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
@@ -990,7 +991,6 @@ LABEL_27:
     }
   }
 
-  v6 = equalCopy[180];
   if ((*&self->_has & 0x10) != 0)
   {
     if ((equalCopy[180] & 0x10) == 0 || self->_highlightType != *(equalCopy + 30))
@@ -1086,7 +1086,6 @@ LABEL_27:
     }
   }
 
-  v15 = equalCopy[180];
   if (*&self->_has)
   {
     if ((equalCopy[180] & 1) == 0 || self->_contentCreationSecondsSinceReferenceDate != *(equalCopy + 1))
@@ -1116,15 +1115,14 @@ LABEL_27:
   }
 
   has = self->_has;
-  v19 = equalCopy[180];
+  v17 = equalCopy[180];
   if ((*&has & 0x80000000) != 0)
   {
-    if ((v19 & 0x80000000) == 0)
+    if ((v17 & 0x80000000) == 0)
     {
       goto LABEL_80;
     }
 
-    v21 = equalCopy[177];
     if (self->_isPrimary)
     {
       if ((equalCopy[177] & 1) == 0)
@@ -1139,7 +1137,7 @@ LABEL_27:
     }
   }
 
-  else if (v19 < 0)
+  else if (v17 < 0)
   {
     goto LABEL_80;
   }
@@ -1155,7 +1153,6 @@ LABEL_27:
     *&has = self->_has;
   }
 
-  v22 = equalCopy[180];
   if ((*&has & 0x20) != 0)
   {
     if ((equalCopy[180] & 0x20) == 0 || self->_rank != *(equalCopy + 34))
@@ -1189,7 +1186,6 @@ LABEL_27:
       goto LABEL_80;
     }
 
-    v25 = equalCopy[176];
     if (self->_isConversationAutoDonating)
     {
       if ((equalCopy[176] & 1) == 0)
@@ -1218,13 +1214,12 @@ LABEL_27:
   if (![(NSString *)originatingDeviceId isEqual:?])
   {
 LABEL_80:
-    v28 = 0;
+    v22 = 0;
     goto LABEL_81;
   }
 
   *&has = self->_has;
 LABEL_66:
-  v24 = equalCopy[180];
   if ((*&has & 2) != 0)
   {
     if ((equalCopy[180] & 2) == 0 || self->_rankingSecondsSinceReferenceDate != *(equalCopy + 2))
@@ -1247,17 +1242,17 @@ LABEL_66:
   clientVariant = self->_clientVariant;
   if (clientVariant | *(equalCopy + 10))
   {
-    v28 = [(NSString *)clientVariant isEqual:?];
+    v22 = [(NSString *)clientVariant isEqual:?];
   }
 
   else
   {
-    v28 = 1;
+    v22 = 1;
   }
 
 LABEL_81:
 
-  return v28;
+  return v22;
 }
 
 - (unint64_t)hash
@@ -1461,7 +1456,7 @@ LABEL_31:
 
 - (void)mergeFrom:(id)from
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   fromCopy = from;
   if (*(fromCopy + 14))
   {
@@ -1487,29 +1482,29 @@ LABEL_31:
     [(BMPBRankableSocialHighlight *)self setSourceBundleId:?];
   }
 
-  v26 = 0u;
-  v27 = 0u;
-  v24 = 0u;
   v25 = 0u;
+  v26 = 0u;
+  v23 = 0u;
+  v24 = 0u;
   v6 = *(fromCopy + 5);
-  v7 = [v6 countByEnumeratingWithState:&v24 objects:v29 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v23 objects:v28 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v25;
+    v9 = *v24;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v25 != v9)
+        if (*v24 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        [(BMPBRankableSocialHighlight *)self addApplicationIdentifiers:*(*(&v24 + 1) + 8 * i)];
+        [(BMPBRankableSocialHighlight *)self addApplicationIdentifiers:*(*(&v23 + 1) + 8 * i)];
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v24 objects:v29 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v23 objects:v28 count:16];
     }
 
     while (v8);
@@ -1545,29 +1540,29 @@ LABEL_31:
     [(BMPBRankableSocialHighlight *)self setBatchIdentifier:?];
   }
 
-  v22 = 0u;
-  v23 = 0u;
-  v20 = 0u;
   v21 = 0u;
+  v22 = 0u;
+  v19 = 0u;
+  v20 = 0u;
   v13 = *(fromCopy + 8);
-  v14 = [v13 countByEnumeratingWithState:&v20 objects:v28 count:16];
+  v14 = [v13 countByEnumeratingWithState:&v19 objects:v27 count:16];
   if (v14)
   {
     v15 = v14;
-    v16 = *v21;
+    v16 = *v20;
     do
     {
       for (j = 0; j != v15; ++j)
       {
-        if (*v21 != v16)
+        if (*v20 != v16)
         {
           objc_enumerationMutation(v13);
         }
 
-        [(BMPBRankableSocialHighlight *)self addCalculatedFeatures:*(*(&v20 + 1) + 8 * j), v20];
+        [(BMPBRankableSocialHighlight *)self addCalculatedFeatures:*(*(&v19 + 1) + 8 * j), v19];
       }
 
-      v15 = [v13 countByEnumeratingWithState:&v20 objects:v28 count:16];
+      v15 = [v13 countByEnumeratingWithState:&v19 objects:v27 count:16];
     }
 
     while (v15);
@@ -1658,8 +1653,6 @@ LABEL_50:
   {
     [(BMPBRankableSocialHighlight *)self setClientVariant:?];
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 @end

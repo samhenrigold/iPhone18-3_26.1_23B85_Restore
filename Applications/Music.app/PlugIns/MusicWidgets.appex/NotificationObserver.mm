@@ -8,7 +8,7 @@
 {
   v3 = sub_10056C368();
   v4 = *(v3 - 8);
-  __chkstk_darwin(v3);
+  __chkstk_darwin();
   v6 = &v7 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_10056C338();
 

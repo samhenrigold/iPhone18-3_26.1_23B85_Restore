@@ -196,7 +196,7 @@ void __44__AVEditBehaviorContext__generateThumbnails__block_invoke_2(uint64_t a1
     v16 = currentItem3;
     if (currentItem3)
     {
-      [currentItem3 forwardPlaybackEndTime];
+      objc_msgSend_forwardPlaybackEndTime(currentItem3);
     }
 
     else
@@ -210,7 +210,7 @@ void __44__AVEditBehaviorContext__generateThumbnails__block_invoke_2(uint64_t a1
     v20 = currentItem4;
     if (currentItem4)
     {
-      [currentItem4 currentTime];
+      objc_msgSend_currentTime(currentItem4);
     }
 
     else
@@ -231,7 +231,7 @@ void __44__AVEditBehaviorContext__generateThumbnails__block_invoke_2(uint64_t a1
       v32 = currentItem6;
       if (currentItem6)
       {
-        [currentItem6 forwardPlaybackEndTime];
+        objc_msgSend_forwardPlaybackEndTime(currentItem6);
 LABEL_21:
         time2 = **&MEMORY[0x1E6960CC0];
         v42 = time2;
@@ -251,7 +251,7 @@ LABEL_20:
     v25 = currentItem7;
     if (currentItem7)
     {
-      [currentItem7 reversePlaybackEndTime];
+      objc_msgSend_reversePlaybackEndTime(currentItem7);
     }
 
     else
@@ -265,7 +265,7 @@ LABEL_20:
     v36 = currentItem8;
     if (currentItem8)
     {
-      [currentItem8 currentTime];
+      objc_msgSend_currentTime(currentItem8);
     }
 
     else
@@ -286,7 +286,7 @@ LABEL_20:
       v32 = currentItem9;
       if (currentItem9)
       {
-        [currentItem9 reversePlaybackEndTime];
+        objc_msgSend_reversePlaybackEndTime(currentItem9);
         goto LABEL_21;
       }
 
@@ -300,7 +300,7 @@ LABEL_22:
   [playerController9 endScrubbing:self];
 
   playerController10 = [(AVEditBehaviorContext *)self playerController];
-  [playerController10 currentTime];
+  objc_msgSend_currentTime(playerController10);
   [scrubbingCopy setCurrentTime:?];
 }
 
@@ -325,7 +325,7 @@ LABEL_22:
     goto LABEL_5;
   }
 
-  [currentItem forwardPlaybackEndTime];
+  objc_msgSend_forwardPlaybackEndTime(currentItem);
 
   if ((v15 & 0x100000000) != 0)
   {
@@ -357,7 +357,7 @@ LABEL_5:
     goto LABEL_5;
   }
 
-  [currentItem reversePlaybackEndTime];
+  objc_msgSend_reversePlaybackEndTime(currentItem);
 
   if ((v15 & 0x100000000) != 0)
   {
@@ -595,7 +595,7 @@ void __40__AVEditBehaviorContext_didAddBehavior___block_invoke(uint64_t a1, void
     v37 = 0;
     if (firstObject)
     {
-      [firstObject preferredTransform];
+      objc_msgSend_preferredTransform(firstObject);
     }
 
     else
@@ -657,7 +657,7 @@ void __40__AVEditBehaviorContext_didAddBehavior___block_invoke(uint64_t a1, void
     videoCompositionInstruction = [MEMORY[0x1E6988068] videoCompositionInstruction];
     if (assetCopy)
     {
-      [assetCopy duration];
+      objc_msgSend_duration(assetCopy);
     }
 
     else
@@ -805,7 +805,7 @@ void __37__AVEditBehaviorContext_startEditing__block_invoke(uint64_t a1)
     v5 = [v8 editView];
     v6 = objc_loadWeakRetained((a1 + 32));
     v7 = [v6 playerController];
-    [v7 currentTime];
+    objc_msgSend_currentTime(v7);
     [v5 setCurrentTime:?];
   }
 }
@@ -964,7 +964,7 @@ void __37__AVEditBehaviorContext_startEditing__block_invoke_2(uint64_t a1, void 
     goto LABEL_13;
   }
 
-  [(AVEditView *)v5 duration];
+  objc_msgSend_duration(v5);
   if ((v56 & 0x1D) != 1)
   {
     goto LABEL_13;
@@ -1020,7 +1020,7 @@ LABEL_13:
       [(AVEditView *)v6 setDataSource:v2];
       [(AVEditView *)v6 setDelegate:v2];
       v26 = [v2 playerController];
-      [v26 currentTime];
+      objc_msgSend_currentTime(v26);
       [(AVEditView *)v6 setCurrentTime:?];
 
       v27 = [v2 playerController];

@@ -32,11 +32,11 @@
 
 - (WFMessageTrigger)initWithCoder:(id)coder
 {
-  v30[2] = *MEMORY[0x1E69E9840];
+  v29[2] = *MEMORY[0x1E69E9840];
   coderCopy = coder;
-  v23.receiver = self;
-  v23.super_class = WFMessageTrigger;
-  v5 = [(WFTrigger *)&v23 initWithCoder:coderCopy];
+  v22.receiver = self;
+  v22.super_class = WFMessageTrigger;
+  v5 = [(WFTrigger *)&v22 initWithCoder:coderCopy];
   if (v5)
   {
     v6 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"selectedContents"];
@@ -44,36 +44,36 @@
     v5->_selectedContents = v6;
 
     v8 = MEMORY[0x1E695DFD8];
-    v25 = 0;
-    v26 = &v25;
-    v27 = 0x2050000000;
+    v24 = 0;
+    v25 = &v24;
+    v26 = 0x2050000000;
     v9 = getCNContactClass_softClass;
-    v28 = getCNContactClass_softClass;
+    v27 = getCNContactClass_softClass;
     if (!getCNContactClass_softClass)
     {
-      v24[0] = MEMORY[0x1E69E9820];
-      v24[1] = 3221225472;
-      v24[2] = __getCNContactClass_block_invoke;
-      v24[3] = &unk_1E837FAC0;
-      v24[4] = &v25;
-      __getCNContactClass_block_invoke(v24);
-      v9 = v26[3];
+      v23[0] = MEMORY[0x1E69E9820];
+      v23[1] = 3221225472;
+      v23[2] = __getCNContactClass_block_invoke;
+      v23[3] = &unk_1E837FAC0;
+      v23[4] = &v24;
+      __getCNContactClass_block_invoke(v23);
+      v9 = v25[3];
     }
 
     v10 = v9;
-    _Block_object_dispose(&v25, 8);
-    v30[0] = v9;
-    v30[1] = objc_opt_class();
-    v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v30 count:2];
+    _Block_object_dispose(&v24, 8);
+    v29[0] = v9;
+    v29[1] = objc_opt_class();
+    v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v29 count:2];
     v12 = [v8 setWithArray:v11];
     v13 = [coderCopy decodeObjectOfClasses:v12 forKey:@"selectedSenders"];
     selectedSenders = v5->_selectedSenders;
     v5->_selectedSenders = v13;
 
     v15 = MEMORY[0x1E695DFD8];
-    v29[0] = objc_opt_class();
-    v29[1] = objc_opt_class();
-    v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:v29 count:2];
+    v28[0] = objc_opt_class();
+    v28[1] = objc_opt_class();
+    v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:v28 count:2];
     v17 = [v15 setWithArray:v16];
     v18 = [coderCopy decodeObjectOfClasses:v17 forKey:@"selectedSendersStrings"];
     selectedSendersStrings = v5->_selectedSendersStrings;
@@ -82,7 +82,6 @@
     v20 = v5;
   }
 
-  v21 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
@@ -104,7 +103,7 @@
 
 - (id)localizedDescriptionWithConfigurationSummaryWithCount:(unint64_t)count
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   v5 = objc_opt_new();
   selectedContents = [(WFMessageTrigger *)self selectedContents];
   v7 = [selectedContents length];
@@ -124,31 +123,31 @@
   if (v13)
   {
     v14 = objc_opt_new();
+    v33 = 0u;
     v34 = 0u;
     v35 = 0u;
     v36 = 0u;
-    v37 = 0u;
     selectedSenders2 = [(WFMessageTrigger *)self selectedSenders];
-    v16 = [selectedSenders2 countByEnumeratingWithState:&v34 objects:v38 count:16];
+    v16 = [selectedSenders2 countByEnumeratingWithState:&v33 objects:v37 count:16];
     if (v16)
     {
       v17 = v16;
-      v18 = *v35;
+      v18 = *v34;
       do
       {
         for (i = 0; i != v17; ++i)
         {
-          if (*v35 != v18)
+          if (*v34 != v18)
           {
             objc_enumerationMutation(selectedSenders2);
           }
 
-          v20 = [MEMORY[0x1E6996CC8] contactWithCNContact:*(*(&v34 + 1) + 8 * i)];
+          v20 = [MEMORY[0x1E6996CC8] contactWithCNContact:*(*(&v33 + 1) + 8 * i)];
           triggerDisplayName = [v20 triggerDisplayName];
           [v14 addObject:triggerDisplayName];
         }
 
-        v17 = [selectedSenders2 countByEnumeratingWithState:&v34 objects:v38 count:16];
+        v17 = [selectedSenders2 countByEnumeratingWithState:&v33 objects:v37 count:16];
       }
 
       while (v17);
@@ -178,8 +177,6 @@
   }
 
   countCopy = [v26 stringWithFormat:v27, v28, countCopy];
-
-  v31 = *MEMORY[0x1E69E9840];
 
   return countCopy;
 }

@@ -55,7 +55,7 @@
   [v5 cleanup];
 
   v6.receiver = selfCopy;
-  v6.super_class = type metadata accessor for AXTwiceCompanionRootViewController();
+  v6.super_class = type metadata accessor for AXTwiceCompanionRootViewController(0);
   [(AXTwiceCompanionRootViewController *)&v6 dealloc];
 }
 

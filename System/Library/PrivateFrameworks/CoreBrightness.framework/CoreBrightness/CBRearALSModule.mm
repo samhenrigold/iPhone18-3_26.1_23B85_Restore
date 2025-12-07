@@ -190,7 +190,6 @@
     }
   }
 
-  *MEMORY[0x1E69E9840];
   return copyRearLux;
 }
 
@@ -206,9 +205,7 @@
   selfCopy = [(CBModule *)&v22 initWithQueue:queue];
   if (!selfCopy)
   {
-LABEL_20:
-    v27 = selfCopy;
-    goto LABEL_21;
+    return selfCopy;
   }
 
   *(selfCopy + 2) = os_log_create("com.apple.CoreBrightness.AABRear.CBRearALSModule", "default");
@@ -269,7 +266,7 @@ LABEL_20:
     *(selfCopy + 72) = 0;
     *(selfCopy + 19) = -1.0;
     *(selfCopy + 8) = 0;
-    goto LABEL_20;
+    return selfCopy;
   }
 
   if (_COREBRIGHTNESS_LOG_DEFAULT)
@@ -293,19 +290,16 @@ LABEL_20:
   }
 
   MEMORY[0x1E69E5920](selfCopy);
-  v27 = 0;
-LABEL_21:
-  *MEMORY[0x1E69E9840];
-  return v27;
+  return 0;
 }
 
-uint64_t __52__CBRearALSModule_initWithQueue_andGrimaldiFactory___block_invoke(uint64_t result, uint64_t a2, uint64_t a3)
+void *__52__CBRearALSModule_initWithQueue_andGrimaldiFactory___block_invoke(void *result, uint64_t a2, uint64_t a3)
 {
   if (a2)
   {
     if (a3)
     {
-      return [*(*(*(result + 32) + 8) + 40) sendNotificationForKey:a2 withValue:a3];
+      return [*(*(result[4] + 8) + 40) sendNotificationForKey:a2 withValue:a3];
     }
   }
 
@@ -367,8 +361,6 @@ uint64_t __52__CBRearALSModule_initWithQueue_andGrimaldiFactory___block_invoke(u
     [(CBGrimaldiModule *)self->_Grimaldi startWithFrequency:v3];
     self->_started = 1;
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)stopSampling
@@ -473,7 +465,6 @@ uint64_t __52__CBRearALSModule_initWithQueue_andGrimaldiFactory___block_invoke(u
     }
   }
 
-  *MEMORY[0x1E69E9840];
   return self->_strobeCoex;
 }
 
@@ -635,7 +626,6 @@ uint64_t __52__CBRearALSModule_initWithQueue_andGrimaldiFactory___block_invoke(u
     }
   }
 
-  *MEMORY[0x1E69E9840];
   return 1;
 }
 
@@ -688,8 +678,7 @@ uint64_t __52__CBRearALSModule_initWithQueue_andGrimaldiFactory___block_invoke(u
     MEMORY[0x1E69E5920](v6);
   }
 
-  *MEMORY[0x1E69E9840];
-  return v7 & 1;
+  return v7;
 }
 
 - (BOOL)handleHIDEvent:(__IOHIDEvent *)event from:(__IOHIDServiceClient *)from
@@ -728,7 +717,6 @@ uint64_t __52__CBRearALSModule_initWithQueue_andGrimaldiFactory___block_invoke(u
     MEMORY[0x1E69E5920](v7);
   }
 
-  *MEMORY[0x1E69E9840];
   return 0;
 }
 
@@ -776,7 +764,6 @@ uint64_t __52__CBRearALSModule_initWithQueue_andGrimaldiFactory___block_invoke(u
     [(CBGrimaldiModule *)self->_Grimaldi setProvideCoex:0];
   }
 
-  *MEMORY[0x1E69E9840];
   return 0;
 }
 

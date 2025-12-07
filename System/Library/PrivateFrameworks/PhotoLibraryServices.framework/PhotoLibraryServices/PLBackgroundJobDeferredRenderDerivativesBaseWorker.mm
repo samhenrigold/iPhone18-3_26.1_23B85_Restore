@@ -144,7 +144,7 @@ void __93__PLBackgroundJobDeferredRenderDerivativesBaseWorker_performWorkOnItem_
     _os_log_impl(&dword_19BF1F000, v8, OS_LOG_TYPE_INFO, "Deferred render derivatives ran on asset uuid: %{public}@, produced recipes: %{public}@", buf, 0x16u);
   }
 
-  if ([v5 count])
+  if (objc_msgSend_count(v5))
   {
     v11 = PLBackgroundJobServiceGetLog();
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))

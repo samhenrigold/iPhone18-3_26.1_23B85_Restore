@@ -1,12 +1,17 @@
 @interface AnalyticsReporter
 - (AnalyticsReporter)initWithDelegate:(id)delegate;
+- (void)reportActivateSuccess:(BOOL)success afterAttempts:(unint64_t)attempts failureReason:(id)reason;
 - (void)reportBootPerformanceStats:(id)stats mode:(id)mode;
+- (void)reportBootSuccess:(BOOL)success afterAttempts:(unint64_t)attempts mode:(id)mode failureReason:(id)reason;
+- (void)reportChipResetSuccess:(BOOL)success afterPowerCycle:(BOOL)cycle errorCode:(int)code;
 - (void)reportCrashlogProcessedFromSubsystem:(id)subsystem hostReason:(id)reason firmwareReason:(id)firmwareReason;
 - (void)reportEndToEndRecoveryTime:(unint64_t)time;
 - (void)reportFLROutcome:(id)outcome forSubsystem:(id)subsystem;
 - (void)reportFatalError:(id)error;
 - (void)reportOTAPowerTableEvaluationOutcome:(id)outcome reason:(id)reason attempts:(unint64_t)attempts assetVersionsUnderEvaluation:(id)evaluation previousKnownGoodAssetVersions:(id)versions;
 - (void)reportPMUError:(id)error;
+- (void)reportPreflightQuerySuccess:(BOOL)success mode:(id)mode failureReason:(id)reason;
+- (void)reportSoftwareUpdateSuccess:(BOOL)success failureReason:(id)reason;
 - (void)sendEvent:(id)event payload:(id)payload;
 @end
 
@@ -32,6 +37,83 @@
   payloadCopy = payload;
   v4 = payloadCopy;
   AnalyticsSendEventLazy();
+}
+
+- (void)reportActivateSuccess:(BOOL)success afterAttempts:(unint64_t)attempts failureReason:(id)reason
+{
+  successCopy = success;
+  reasonCopy = reason;
+  v13[0] = @"success";
+  v9 = [NSNumber numberWithBool:successCopy];
+  v14[0] = v9;
+  v13[1] = @"attempts";
+  v10 = [NSNumber numberWithUnsignedInteger:attempts];
+  v14[1] = v10;
+  v13[2] = @"failureReason";
+  v11 = reasonCopy;
+  if (!reasonCopy)
+  {
+    v11 = +[NSNull null];
+  }
+
+  v14[2] = v11;
+  v12 = [NSDictionary dictionaryWithObjects:v14 forKeys:v13 count:3];
+  [(AnalyticsReporter *)self sendEvent:@"com.apple.ConnectivityDaemon.ActivateOutcome" payload:v12];
+
+  if (!reasonCopy)
+  {
+  }
+}
+
+- (void)reportBootSuccess:(BOOL)success afterAttempts:(unint64_t)attempts mode:(id)mode failureReason:(id)reason
+{
+  successCopy = success;
+  modeCopy = mode;
+  reasonCopy = reason;
+  v17[0] = @"success";
+  v12 = [NSNumber numberWithBool:successCopy];
+  v18[0] = v12;
+  v17[1] = @"attempts";
+  v13 = [NSNumber numberWithUnsignedInteger:attempts];
+  v18[1] = v13;
+  v17[2] = @"mode";
+  v14 = modeCopy;
+  if (!modeCopy)
+  {
+    v14 = +[NSNull null];
+  }
+
+  v18[2] = v14;
+  v17[3] = @"failureReason";
+  v15 = reasonCopy;
+  if (!reasonCopy)
+  {
+    v15 = +[NSNull null];
+  }
+
+  v18[3] = v15;
+  v16 = [NSDictionary dictionaryWithObjects:v18 forKeys:v17 count:4];
+  [(AnalyticsReporter *)self sendEvent:@"com.apple.ConnectivityDaemon.BootOutcome" payload:v16];
+
+  if (!reasonCopy)
+  {
+
+    if (modeCopy)
+    {
+      goto LABEL_7;
+    }
+
+LABEL_9:
+
+    goto LABEL_7;
+  }
+
+  if (!modeCopy)
+  {
+    goto LABEL_9;
+  }
+
+LABEL_7:
 }
 
 - (void)reportBootPerformanceStats:(id)stats mode:(id)mode
@@ -108,6 +190,23 @@
   }
 
   [(AnalyticsReporter *)selfCopy sendEvent:@"com.apple.ConnectivityDaemon.BootPerformanceStats" payload:v8];
+}
+
+- (void)reportChipResetSuccess:(BOOL)success afterPowerCycle:(BOOL)cycle errorCode:(int)code
+{
+  v5 = *&code;
+  cycleCopy = cycle;
+  v12[0] = @"success";
+  v8 = [NSNumber numberWithBool:success];
+  v13[0] = v8;
+  v12[1] = @"afterPowerCycle";
+  v9 = [NSNumber numberWithBool:cycleCopy];
+  v13[1] = v9;
+  v12[2] = @"errorCode";
+  v10 = [NSNumber numberWithInt:v5];
+  v13[2] = v10;
+  v11 = [NSDictionary dictionaryWithObjects:v13 forKeys:v12 count:3];
+  [(AnalyticsReporter *)self sendEvent:@"com.apple.ConnectivityDaemon.ChipResetOutcome" payload:v11];
 }
 
 - (void)reportCrashlogProcessedFromSubsystem:(id)subsystem hostReason:(id)reason firmwareReason:(id)firmwareReason
@@ -369,6 +468,55 @@ LABEL_23:
   [(AnalyticsReporter *)self sendEvent:@"com.apple.ConnectivityDaemon.PMUError" payload:v6];
 
   if (!errorCopy)
+  {
+  }
+}
+
+- (void)reportPreflightQuerySuccess:(BOOL)success mode:(id)mode failureReason:(id)reason
+{
+  successCopy = success;
+  modeCopy = mode;
+  reasonCopy = reason;
+  v13[0] = @"success";
+  v10 = [NSNumber numberWithBool:successCopy];
+  v14[0] = v10;
+  v14[1] = modeCopy;
+  v13[1] = @"mode";
+  v13[2] = @"failureReason";
+  v11 = reasonCopy;
+  if (!reasonCopy)
+  {
+    v11 = +[NSNull null];
+  }
+
+  v14[2] = v11;
+  v12 = [NSDictionary dictionaryWithObjects:v14 forKeys:v13 count:3];
+  [(AnalyticsReporter *)self sendEvent:@"com.apple.ConnectivityDaemon.PreflightQueryOutcome" payload:v12];
+
+  if (!reasonCopy)
+  {
+  }
+}
+
+- (void)reportSoftwareUpdateSuccess:(BOOL)success failureReason:(id)reason
+{
+  successCopy = success;
+  reasonCopy = reason;
+  v10[0] = @"success";
+  v7 = [NSNumber numberWithBool:successCopy];
+  v10[1] = @"failureReason";
+  v11[0] = v7;
+  v8 = reasonCopy;
+  if (!reasonCopy)
+  {
+    v8 = +[NSNull null];
+  }
+
+  v11[1] = v8;
+  v9 = [NSDictionary dictionaryWithObjects:v11 forKeys:v10 count:2];
+  [(AnalyticsReporter *)self sendEvent:@"com.apple.ConnectivityDaemon.SoftwareUpdateOutcome" payload:v9];
+
+  if (!reasonCopy)
   {
   }
 }

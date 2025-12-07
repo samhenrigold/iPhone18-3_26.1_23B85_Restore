@@ -116,7 +116,7 @@
 
   else
   {
-    DataForKey = TUI::Util::PartialStruct::Storage::allocateDataForKey(&self->super._storage, 6u, 0x10uLL, 1);
+    DataForKey = TUI::Util::PartialStruct::Storage::allocateDataForKey(&self->super._storage, 6, 16, 1);
     if (!DataForKey)
     {
       return;
@@ -156,7 +156,7 @@
 
   else
   {
-    DataForKey = TUI::Util::PartialStruct::Storage::allocateDataForKey(&self->super._storage, 5u, 0x10uLL, 1);
+    DataForKey = TUI::Util::PartialStruct::Storage::allocateDataForKey(&self->super._storage, 5, 16, 1);
     if (!DataForKey)
     {
       return;
@@ -266,7 +266,7 @@
 
   else
   {
-    DataForKey = TUI::Util::PartialStruct::Storage::allocateDataForKey(&self->super._storage, 0x14u, 4uLL, 1);
+    DataForKey = TUI::Util::PartialStruct::Storage::allocateDataForKey(&self->super._storage, 20, 4, 1);
     if (!DataForKey)
     {
       return;
@@ -307,7 +307,7 @@
 
   else
   {
-    DataForKey = TUI::Util::PartialStruct::Storage::allocateDataForKey(&self->super._storage, 0x2Du, 4uLL, 1);
+    DataForKey = TUI::Util::PartialStruct::Storage::allocateDataForKey(&self->super._storage, 45, 4, 1);
     if (!DataForKey)
     {
       return;

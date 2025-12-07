@@ -18,8 +18,8 @@
   v9 = mlcore::PlaylistItemPropertyItemPersistentID(v8);
   v10 = mlcore::ItemPropertySubscriptionStoreItemID(v9);
   Property = MPMediaLibraryGetProperty(v9, v10);
-  v11 = 1;
-  std::allocate_shared[abi:ne200100]<mlcore::UnaryPredicate<long long>,std::allocator<mlcore::UnaryPredicate<long long>>,mlcore::ModelProperty<long long> *&,mlcore::UnaryOperator,0>();
+  v12 = 1;
+  std::allocate_shared[abi:ne200100]<mlcore::UnaryPredicate<long long>,std::allocator<mlcore::UnaryPredicate<long long>>,mlcore::ModelProperty<long long> *&,mlcore::UnaryOperator,0>(v11, &Property, &v12);
 }
 
 uint64_t __65__MPModelPlaylistEntriesShareEligibilityRequestOperation_execute__block_invoke(uint64_t a1, uint64_t a2, void *a3)

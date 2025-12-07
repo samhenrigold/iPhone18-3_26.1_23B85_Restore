@@ -27,27 +27,27 @@
 
 - (int64_t)_calculateWeightedMajorityVoteClassification
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   dictionary = [MEMORY[0x277CBEB38] dictionary];
-  v36 = 0u;
-  v37 = 0u;
-  v34 = 0u;
   v35 = 0u;
+  v36 = 0u;
+  v33 = 0u;
+  v34 = 0u;
   spatialSceneClassifications = [(ULSpatialSceneClassificationResultData *)self spatialSceneClassifications];
-  v5 = [spatialSceneClassifications countByEnumeratingWithState:&v34 objects:v39 count:16];
+  v5 = [spatialSceneClassifications countByEnumeratingWithState:&v33 objects:v38 count:16];
   if (v5)
   {
-    v6 = *v35;
+    v6 = *v34;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v35 != v6)
+        if (*v34 != v6)
         {
           objc_enumerationMutation(spatialSceneClassifications);
         }
 
-        v8 = *(*(&v34 + 1) + 8 * i);
+        v8 = *(*(&v33 + 1) + 8 * i);
         first = [v8 first];
         second = [v8 second];
         if ([first intValue])
@@ -63,34 +63,34 @@
         }
       }
 
-      v5 = [spatialSceneClassifications countByEnumeratingWithState:&v34 objects:v39 count:16];
+      v5 = [spatialSceneClassifications countByEnumeratingWithState:&v33 objects:v38 count:16];
     }
 
     while (v5);
   }
 
-  v32 = 0u;
-  v33 = 0u;
-  v30 = 0u;
   v31 = 0u;
+  v32 = 0u;
+  v29 = 0u;
+  v30 = 0u;
   v18 = dictionary;
   intValue = 0;
-  v20 = [v18 countByEnumeratingWithState:&v30 objects:v38 count:16];
+  v20 = [v18 countByEnumeratingWithState:&v29 objects:v37 count:16];
   if (v20)
   {
-    v21 = *v31;
+    v21 = *v30;
     v22 = 0.0;
     do
     {
       for (j = 0; j != v20; ++j)
       {
-        if (*v31 != v21)
+        if (*v30 != v21)
         {
           objc_enumerationMutation(v18);
         }
 
-        v24 = *(*(&v30 + 1) + 8 * j);
-        v25 = [v18 objectForKeyedSubscript:{v24, v30}];
+        v24 = *(*(&v29 + 1) + 8 * j);
+        v25 = [v18 objectForKeyedSubscript:{v24, v29}];
         [v25 floatValue];
         if (v26 > v22)
         {
@@ -100,13 +100,12 @@
         }
       }
 
-      v20 = [v18 countByEnumeratingWithState:&v30 objects:v38 count:16];
+      v20 = [v18 countByEnumeratingWithState:&v29 objects:v37 count:16];
     }
 
     while (v20);
   }
 
-  v28 = *MEMORY[0x277D85DE8];
   return intValue;
 }
 

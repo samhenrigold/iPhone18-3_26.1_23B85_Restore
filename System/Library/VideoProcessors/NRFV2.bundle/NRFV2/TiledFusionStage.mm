@@ -8,11 +8,12 @@
 - (int)computeAMBNRDenoiseBoostMap:(id)map longFusionMap:(id)fusionMap ev0FusionMap:(id)ev0FusionMap ev0Metadata:(frameMetadata *)metadata longMetadata:(frameMetadata *)longMetadata numEV0:(int)v0 deferredProcessingPlist:(id)plist espressoModel:(int)self0 isSyntheticLongWithRealLong:(BOOL)self1 totalGain:(float)self2;
 - (int)initializePyramids;
 - (int)loadEspressoNetworkFromPath:(const char *)path andStoreNetwork:(id *)network andPlan:(void *)plan;
+- (int)maybeLoadEspressoNetwork:(int)network;
 - (int)stage1GPUonTile:(TileBounds *)tile refLuma:(id)luma referenceChroma:(id)chroma longLuma:(id)longLuma longChroma:(id)longChroma lscGains:(id)gains slFusionMap:(id)map longFusionMap:(id)self0 eitRatio:(float)self1 hasSIFR:(BOOL)self2 noiseEstimationParams:(NoiseEstimationParameters *)self3 intermediateEncodingParams:(const IntermediateEncodingParameters *)self4;
 - (int)stage2ANEonTile:(TileBounds *)tile;
 - (int)stage3GPUonTile:(TileBounds *)tile preFusionMap:(id)map slFusionMap:(id)fusionMap longFusionMap:(id)longFusionMap skinMask:(id)mask skyMask:(id)skyMask lscGains:(id)gains outLuma:(id)self0 outChroma:(id)self1 espressoModelForTuning:(int)self2;
-- (uint64_t)runWithReferenceLuma:(float)luma referenceChroma:(float)chroma longLuma:(float)longLuma longChroma:(float)longChroma preFusionMap:(float32x4_t)map slFusionMap:(float32x4_t)fusionMap slQuantBounds:(float32x4_t)bounds longFusionMap:(uint64_t)self0 skinMask:(void *)self1 skyMask:(void *)self2 lscGains:(void *)self3 totalGain:(void *)self4 outLuma:(void *)self5 outChroma:(void *)self6 deferredProcessingPlist:(NoiseDivisorQuantizationBoundaries *)self7 lscGainGreenMax:(id)self8 EVM_EV0_motionScore:(id)self9 eitRatio:(id)ratio aeShutterTimeRatio:(id)timeRatio hasSIFR:(id)r isStationary:(id)stationary isSyntheticLongWithRealLong:(id)long colorCorrection:(BOOL)correction espressoModel:(BOOL)model noiseEstimationParams:(BOOL)params espressoModelForTuning:(unsigned int)tuning sideCar:(uint64_t)car intermediateEncodingParams:(unsigned __int32)luma0;
 - (unint64_t)computeTileSizeForPixelFormat:(unint64_t)format;
+- (unint64_t)runWithReferenceLuma:(float)luma referenceChroma:(float)chroma longLuma:(float)longLuma longChroma:(float)longChroma preFusionMap:(float32x4_t)map slFusionMap:(float32x4_t)fusionMap slQuantBounds:(float32x4_t)bounds longFusionMap:(uint64_t)self0 skinMask:(void *)self1 skyMask:(void *)self2 lscGains:(void *)self3 totalGain:(void *)self4 outLuma:(void *)self5 outChroma:(void *)self6 deferredProcessingPlist:(NoiseDivisorQuantizationBoundaries *)self7 lscGainGreenMax:(id)self8 EVM_EV0_motionScore:(id)self9 eitRatio:(id)ratio aeShutterTimeRatio:(id)timeRatio hasSIFR:(id)r isStationary:(id)stationary isSyntheticLongWithRealLong:(id)long colorCorrection:(BOOL)correction espressoModel:(BOOL)model noiseEstimationParams:(BOOL)params espressoModelForTuning:(unsigned int)tuning sideCar:(uint64_t)car intermediateEncodingParams:(unsigned __int32)luma0;
 - (void)dealloc;
 - (void)freeEspressoBuffers:(BOOL)buffers;
 - (void)unloadEspressoNetwork;
@@ -22,13 +23,12 @@
 
 - (int)loadEspressoNetworkFromPath:(const char *)path andStoreNetwork:(id *)network andPlan:(void *)plan
 {
-  espresso_ctx = self->_espresso_ctx;
   plan = espresso_create_plan();
   *plan = plan;
   if (plan)
   {
-    v8 = espresso_plan_add_network();
-    if (v8)
+    v7 = espresso_plan_add_network();
+    if (v7)
     {
       sub_2958A81F0(plan);
     }
@@ -36,11 +36,11 @@
 
   else
   {
-    sub_2958A826C(&v10);
-    return v10;
+    sub_2958A826C(&v9);
+    return v9;
   }
 
-  return v8;
+  return v7;
 }
 
 - (TiledFusionStage)initWithContext:(id)context preEspressoStage:(id)stage networkVersion:(int)version
@@ -94,28 +94,28 @@ LABEL_7:
 
 - (int)allocateEspressoBuffers
 {
-  v67 = 0;
-  v65 = 0u;
-  v66 = 0u;
-  v63 = 0u;
-  v64 = 0u;
-  v61 = 0u;
-  v62 = 0u;
+  v61 = 0;
   v59 = 0u;
   v60 = 0u;
-  *surface = 0u;
+  v57 = 0u;
   v58 = 0u;
-  v56 = 0;
-  v54 = 0u;
   v55 = 0u;
-  v52 = 0u;
+  v56 = 0u;
   v53 = 0u;
-  v50 = 0u;
-  v51 = 0u;
+  v54 = 0u;
+  *surface = 0u;
+  v52 = 0u;
+  v50 = 0;
   v48 = 0u;
   v49 = 0u;
-  *buffer = 0u;
+  v46 = 0u;
   v47 = 0u;
+  v44 = 0u;
+  v45 = 0u;
+  v42 = 0u;
+  v43 = 0u;
+  *buffer = 0u;
+  v41 = 0u;
   if (self->_loadedEspressoModel == 0x3FFFFFF)
   {
     return 0;
@@ -124,7 +124,7 @@ LABEL_7:
   v2 = 0;
   v4 = 0;
   v5 = *MEMORY[0x29EDB8ED8];
-  v41 = *MEMORY[0x29EDB96D0];
+  v35 = *MEMORY[0x29EDB96D0];
   v6 = 1;
   while (2)
   {
@@ -140,13 +140,10 @@ LABEL_7:
         v12 = &self->_inputSurfPb[0][v10];
         if (v8)
         {
-          v13 = *v11;
-          plan = self->_espresso_net.plan;
-          v15 = *&self->_espresso_net.network_index;
-          v16 = espresso_network_bind_buffer();
-          if (v16)
+          v13 = espresso_network_bind_buffer();
+          if (v13)
           {
-            v2 = v16;
+            v2 = v13;
             sub_2958A84AC(self);
             return v2;
           }
@@ -154,48 +151,48 @@ LABEL_7:
           v2 = CVPixelBufferCreateWithIOSurface(v5, surface[0], 0, v12);
           if (IOSurfaceGetWidth(surface[0]) != 568)
           {
-            sub_2958A8528(v68);
-            return v68[0];
+            sub_2958A8528(v62);
+            return v62[0];
           }
 
           if (IOSurfaceGetHeight(surface[0]) != 1488)
           {
-            sub_2958A85C4(v68);
-            return v68[0];
+            sub_2958A85C4(v62);
+            return v62[0];
           }
         }
 
         else
         {
           PixelFormatType = CVPixelBufferGetPixelFormatType(self->_inputSurfPb[0][v7]);
-          v44 = v41;
-          v45 = MEMORY[0x29EDB8EA0];
-          v19 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x29EDB8DC0], v18, &v45, &v44, 1);
-          v2 = CVPixelBufferCreate(v5, 0x238uLL, 0x5D0uLL, PixelFormatType, v19, v12);
+          v38 = v35;
+          v39 = MEMORY[0x29EDB8EA0];
+          v16 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x29EDB8DC0], v15, &v39, &v38, 1);
+          v2 = CVPixelBufferCreate(v5, 0x238uLL, 0x5D0uLL, PixelFormatType, v16, v12);
         }
 
         IOSurface = CVPixelBufferGetIOSurface(*v12);
         self->_inputSurf[0][v10] = IOSurface;
         if (!IOSurface)
         {
-          sub_2958A8B20(v68);
-          return v68[0];
+          sub_2958A8B20(v62);
+          return v62[0];
         }
 
         if (!*v12)
         {
-          sub_2958A8A84(v68);
-          return v68[0];
+          sub_2958A8A84(v62);
+          return v62[0];
         }
 
-        v22 = objc_msgSend_bindPixelBufferToMTL2DTexture_pixelFormat_usage_plane_(self->_metal, v21, *v12, 25, 7, 0);
-        v23 = self->_dfTexIn[0][v10];
-        self->_dfTexIn[0][v10] = v22;
+        v19 = objc_msgSend_bindPixelBufferToMTL2DTexture_pixelFormat_usage_plane_(self->_metal, v18, *v12, 25, 7, 0);
+        v20 = self->_dfTexIn[0][v10];
+        self->_dfTexIn[0][v10] = v19;
 
         if (!self->_dfTexIn[0][v10])
         {
-          sub_2958A89E8(v68);
-          return v68[0];
+          sub_2958A89E8(v62);
+          return v62[0];
         }
       }
 
@@ -205,82 +202,79 @@ LABEL_7:
     }
 
     while (v7 != 4);
-    v24 = 0;
-    v25 = &qword_2A18C21C8;
+    v21 = 0;
+    v22 = &qword_2A18C21C8;
     do
     {
       if (!self->_outputSurfPb[0][v9])
       {
-        v26 = &self->_outputSurfPb[0][v9];
+        v23 = &self->_outputSurfPb[0][v9];
         if (v8)
         {
-          v27 = *(v25 - 2);
-          v28 = self->_espresso_net.plan;
-          v29 = *&self->_espresso_net.network_index;
-          v30 = espresso_network_bind_buffer();
-          if (v30)
+          v24 = espresso_network_bind_buffer();
+          if (v24)
           {
-            v2 = v30;
+            v2 = v24;
             sub_2958A8660(self);
             return v2;
           }
 
-          v2 = CVPixelBufferCreateWithIOSurface(v5, buffer[0], 0, v26);
-          if (IOSurfaceGetWidth(buffer[0]) != *(v25 - 1))
+          v2 = CVPixelBufferCreateWithIOSurface(v5, buffer[0], 0, v23);
+          if (IOSurfaceGetWidth(buffer[0]) != *(v22 - 1))
           {
-            sub_2958A86DC(v68);
-            return v68[0];
+            sub_2958A86DC(v62);
+            return v62[0];
           }
 
-          if (IOSurfaceGetHeight(buffer[0]) != *v25)
+          if (IOSurfaceGetHeight(buffer[0]) != *v22)
           {
-            sub_2958A8778(v68);
-            return v68[0];
+            sub_2958A8778(v62);
+            return v62[0];
           }
         }
 
         else
         {
-          v31 = *(v25 - 1);
-          v32 = *v25;
-          v33 = CVPixelBufferGetPixelFormatType(self->_outputSurfPb[0][v24]);
-          v42 = v41;
-          v43 = MEMORY[0x29EDB8EA0];
-          v35 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x29EDB8DC0], v34, &v43, &v42, 1);
-          v2 = CVPixelBufferCreate(v5, v31, v32, v33, v35, v26);
+          v25 = *(v22 - 1);
+          v26 = *v22;
+          v27 = CVPixelBufferGetPixelFormatType(self->_outputSurfPb[0][v21]);
+          v36 = v35;
+          v37 = MEMORY[0x29EDB8EA0];
+          v29 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x29EDB8DC0], v28, &v37, &v36, 1);
+          v2 = CVPixelBufferCreate(v5, v25, v26, v27, v29, v23);
         }
 
-        v36 = CVPixelBufferGetIOSurface(*v26);
-        self->_outputSurf[0][v9] = v36;
-        if (!v36)
+        v30 = CVPixelBufferGetIOSurface(*v23);
+        self->_outputSurf[0][v9] = v30;
+        if (!v30)
         {
-          sub_2958A894C(v68);
-          return v68[0];
+          sub_2958A894C(v62);
+          return v62[0];
         }
 
-        if (!*v26)
+        if (!*v23)
         {
-          sub_2958A88B0(v68);
-          return v68[0];
+          sub_2958A88B0(v62);
+          return v62[0];
         }
 
-        v38 = objc_msgSend_bindPixelBufferToMTL2DTexture_pixelFormat_usage_plane_(self->_metal, v37, *v26, 25, 7, 0);
-        v39 = self->_dfTexOut[0][v9];
-        self->_dfTexOut[0][v9] = v38;
+        v32 = objc_msgSend_bindPixelBufferToMTL2DTexture_pixelFormat_usage_plane_(self->_metal, v31, *v23, 25, 7, 0);
+        v33 = self->_dfTexOut[0][v9];
+        self->_dfTexOut[0][v9] = v32;
 
         if (!self->_dfTexOut[0][v9])
         {
-          sub_2958A8814(v68);
-          return v68[0];
+          sub_2958A8814(v62);
+          return v62[0];
         }
       }
 
-      ++v24;
-      v25 += 3;
+      ++v21;
+      v22 += 3;
       ++v9;
     }
 
-    while (v24 != 4);
+    while (v21 != 4);
     v6 = 0;
     v4 = 1;
     if (v8)
@@ -394,6 +388,101 @@ LABEL_17:
   return v42;
 }
 
+- (int)maybeLoadEspressoNetwork:(int)network
+{
+  if (self->_loadedEspressoModel == network)
+  {
+    v5 = 0;
+    v6 = 0;
+  }
+
+  else
+  {
+    objc_msgSend_unloadEspressoNetwork(self, a2, *&network, v3);
+    if (network >= 3)
+    {
+      v6 = -1;
+      FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", -1, v4, v29, *(&v29 + 1), v30, *(&v30 + 1), v31, DWORD2(v31));
+      v5 = 0;
+    }
+
+    else
+    {
+      v5 = objc_msgSend_getFilePathForNetworkIdentifier_(self, v9, off_29EDDC180[network], v10);
+      if (v5)
+      {
+        v32 = 0u;
+        v33 = 0u;
+        v30 = 0u;
+        v31 = 0u;
+        v29 = 0u;
+        context = espresso_create_context();
+        self->_espresso_ctx = context;
+        if (context)
+        {
+          v12 = v5;
+          v16 = objc_msgSend_UTF8String(v12, v13, v14, v15);
+          EspressoNetworkFromPath_andStoreNetwork_andPlan = objc_msgSend_loadEspressoNetworkFromPath_andStoreNetwork_andPlan_(self, v17, v16, &self->_espresso_net, &self->_espresso_plan);
+          if (EspressoNetworkFromPath_andStoreNetwork_andPlan)
+          {
+            v6 = EspressoNetworkFromPath_andStoreNetwork_andPlan;
+            sub_2958A8CC4();
+          }
+
+          else
+          {
+            if (espresso_network_get_version())
+            {
+              v21 = @"NA";
+            }
+
+            else
+            {
+              HIBYTE(v33) = 0;
+              v21 = objc_msgSend_stringWithUTF8String_(MEMORY[0x29EDBA0F8], v19, &v29, v20);
+            }
+
+            espressoModelVersion = self->_espressoModelVersion;
+            self->_espressoModelVersion = &v21->isa;
+
+            v23 = espresso_plan_build();
+            if (v23)
+            {
+              v6 = v23;
+              sub_2958A8D24();
+            }
+
+            else
+            {
+              self->_loadedEspressoModel = network;
+              EspressoBuffers = objc_msgSend_allocateEspressoBuffers(self, v24, v25, v26);
+              v6 = EspressoBuffers;
+              if (EspressoBuffers)
+              {
+                sub_2958A8D84(EspressoBuffers);
+              }
+            }
+          }
+        }
+
+        else
+        {
+          sub_2958A8DE4(&v34);
+          v6 = v34;
+        }
+      }
+
+      else
+      {
+        sub_2958A8E80();
+        v6 = -1;
+      }
+    }
+  }
+
+  return v6;
+}
+
 - (void)freeEspressoBuffers:(BOOL)buffers
 {
   v4 = 0;
@@ -440,10 +529,8 @@ LABEL_17:
 - (void)unloadEspressoNetwork
 {
   objc_msgSend_freeEspressoBuffers_(self, a2, 1, v2);
-  espresso_plan = self->_espresso_plan;
   espresso_plan_destroy();
   self->_espresso_plan = 0;
-  espresso_ctx = self->_espresso_ctx;
   espresso_context_destroy();
   self->_espresso_ctx = 0;
   self->_loadedEspressoModel = 0x3FFFFFF;
@@ -649,7 +736,6 @@ LABEL_16:
   v13 = objc_msgSend_device(self->_metal, v10, v11, v12, 0, 0, 0);
   MTLPixelFormatGetInfoForDevice();
 
-  self->_tileWidth;
   v14 = 0 / v9 * v9;
   self->tileBufferStride = v14;
   return v14 * self->_tileHeight;
@@ -722,92 +808,70 @@ LABEL_16:
 {
   if (self->_loadedEspressoModel > 2u)
   {
-    FigDebugAssert3();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", 0, v3, v14, v15, v16, v17, v18, v19);
+    v12 = qword_2A18C2390;
 
-    return FigSignalErrorAtGM();
+    return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v12, 0xFFFFFFFFLL, "<<<< Deep Fusion Processor(NRF) >>>>", 577);
   }
 
   else
   {
-    v4 = 0;
-    if (tile->var0 >= 0)
-    {
-      v5 = tile->var0 & 1;
-    }
-
-    else
-    {
-      v5 = -(tile->var0 & 1);
-    }
-
-    v6 = self + 32 * v5;
-    v7 = &off_29EDDC100;
+    v5 = 0;
+    v6 = &off_29EDDC100;
     do
     {
-      v8 = *v7;
-      v9 = *&v6[v4 + 1552];
-      plan = self->_espresso_net.plan;
-      v11 = *&self->_espresso_net.network_index;
-      v12 = espresso_network_bind_direct_cvpixelbuffer();
-      if (v12)
+      v7 = espresso_network_bind_direct_cvpixelbuffer();
+      if (v7)
       {
-        v23 = v12;
+        v11 = v7;
         sub_2958A94DC();
-        return v23;
+        return v11;
       }
 
-      v7 += 3;
-      v4 += 8;
+      v6 += 3;
+      v5 += 8;
     }
 
-    while (v4 != 32);
-    v13 = 0;
-    v14 = v6 + 1616;
-    v15 = &off_2A18C21B8;
+    while (v5 != 32);
+    v8 = 0;
+    v9 = &off_2A18C21B8;
     do
     {
-      v16 = *v15;
-      v15 += 3;
-      v17 = *&v14[v13];
-      v18 = self->_espresso_net.plan;
-      v19 = *&self->_espresso_net.network_index;
+      v9 += 3;
       espresso_network_bind_direct_cvpixelbuffer();
-      v13 += 8;
+      v8 += 8;
     }
 
-    while (v13 != 32);
+    while (v8 != 32);
     if (self->_espressoCallbackQueue)
     {
-      v20 = 5;
+      v10 = 5;
       while (1)
       {
-        espresso_plan = self->_espresso_plan;
-        espressoCallbackQueue = self->_espressoCallbackQueue;
-        v23 = espresso_plan_submit();
-        if (!v23)
+        v11 = espresso_plan_submit();
+        if (!v11)
         {
           break;
         }
 
-        if (!--v20)
+        if (!--v10)
         {
-          goto LABEL_14;
+          goto LABEL_11;
         }
       }
     }
 
     else
     {
-      v25 = self->_espresso_plan;
-      v23 = espresso_plan_execute_sync();
-      if (v23)
+      v11 = espresso_plan_execute_sync();
+      if (v11)
       {
-LABEL_14:
+LABEL_11:
         sub_2958A9540(&self->_espresso_plan);
       }
     }
 
-    return v23;
+    return v11;
   }
 }
 
@@ -820,7 +884,7 @@ LABEL_14:
   gainsCopy = gains;
   mapCopy = map;
   fusionMapCopy = fusionMap;
-  v244 = 0;
+  v244[0] = 0;
   if (tile->var0 >= 0)
   {
     v25 = tile->var0 & 1;
@@ -893,7 +957,7 @@ LABEL_51:
   objc_msgSend_setLabel_(v50, v89, 0, v90);
   v94 = objc_msgSend_allocator(selfCopy->_metal, v91, v92, v93);
   v97 = objc_msgSend_newTextureWithDescriptor_(v94, v95, v50, v96);
-  v244 = v97;
+  v244[0] = v97;
 
   v214 = v50;
   if (!v97)
@@ -1337,7 +1401,7 @@ LABEL_39:
   return v138;
 }
 
-- (uint64_t)runWithReferenceLuma:(float)luma referenceChroma:(float)chroma longLuma:(float)longLuma longChroma:(float)longChroma preFusionMap:(float32x4_t)map slFusionMap:(float32x4_t)fusionMap slQuantBounds:(float32x4_t)bounds longFusionMap:(uint64_t)self0 skinMask:(void *)self1 skyMask:(void *)self2 lscGains:(void *)self3 totalGain:(void *)self4 outLuma:(void *)self5 outChroma:(void *)self6 deferredProcessingPlist:(NoiseDivisorQuantizationBoundaries *)self7 lscGainGreenMax:(id)self8 EVM_EV0_motionScore:(id)self9 eitRatio:(id)ratio aeShutterTimeRatio:(id)timeRatio hasSIFR:(id)r isStationary:(id)stationary isSyntheticLongWithRealLong:(id)long colorCorrection:(BOOL)correction espressoModel:(BOOL)model noiseEstimationParams:(BOOL)params espressoModelForTuning:(unsigned int)tuning sideCar:(uint64_t)car intermediateEncodingParams:(unsigned __int32)luma0
+- (unint64_t)runWithReferenceLuma:(float)luma referenceChroma:(float)chroma longLuma:(float)longLuma longChroma:(float)longChroma preFusionMap:(float32x4_t)map slFusionMap:(float32x4_t)fusionMap slQuantBounds:(float32x4_t)bounds longFusionMap:(uint64_t)self0 skinMask:(void *)self1 skyMask:(void *)self2 lscGains:(void *)self3 totalGain:(void *)self4 outLuma:(void *)self5 outChroma:(void *)self6 deferredProcessingPlist:(NoiseDivisorQuantizationBoundaries *)self7 lscGainGreenMax:(id)self8 EVM_EV0_motionScore:(id)self9 eitRatio:(id)ratio aeShutterTimeRatio:(id)timeRatio hasSIFR:(id)r isStationary:(id)stationary isSyntheticLongWithRealLong:(id)long colorCorrection:(BOOL)correction espressoModel:(BOOL)model noiseEstimationParams:(BOOL)params espressoModelForTuning:(unsigned int)tuning sideCar:(uint64_t)car intermediateEncodingParams:(unsigned __int32)luma0
 {
   maskCopy = mask;
   skyMaskCopy = skyMask;

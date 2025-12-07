@@ -37,60 +37,56 @@
 
 - (uint64_t)isMultipointRoute
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   legs = [self legs];
   v3 = [legs count];
 
-  if (v3 >= 2)
+  if (v3 < 2)
   {
-    waypoints = [self waypoints];
-    waypoints2 = [self waypoints];
-    v7 = [waypoints subarrayWithRange:{1, objc_msgSend(waypoints2, "count") - 2}];
+    return 0;
+  }
 
-    v15 = 0u;
-    v16 = 0u;
-    v13 = 0u;
-    v14 = 0u;
-    v8 = v7;
-    v4 = [v8 countByEnumeratingWithState:&v13 objects:v17 count:16];
-    if (v4)
+  waypoints = [self waypoints];
+  waypoints2 = [self waypoints];
+  v7 = [waypoints subarrayWithRange:{1, objc_msgSend(waypoints2, "count") - 2}];
+
+  v14 = 0u;
+  v15 = 0u;
+  v12 = 0u;
+  v13 = 0u;
+  v8 = v7;
+  v4 = [v8 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  if (v4)
+  {
+    v9 = *v13;
+    while (2)
     {
-      v9 = *v14;
-      while (2)
+      for (i = 0; i != v4; ++i)
       {
-        for (i = 0; i != v4; ++i)
+        if (*v13 != v9)
         {
-          if (*v14 != v9)
-          {
-            objc_enumerationMutation(v8);
-          }
-
-          if (([*(*(&v13 + 1) + 8 * i) isServerProvidedWaypoint] & 1) == 0)
-          {
-            v4 = 1;
-            goto LABEL_13;
-          }
+          objc_enumerationMutation(v8);
         }
 
-        v4 = [v8 countByEnumeratingWithState:&v13 objects:v17 count:16];
-        if (v4)
+        if (([*(*(&v12 + 1) + 8 * i) isServerProvidedWaypoint] & 1) == 0)
         {
-          continue;
+          v4 = 1;
+          goto LABEL_13;
         }
-
-        break;
       }
+
+      v4 = [v8 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      if (v4)
+      {
+        continue;
+      }
+
+      break;
     }
+  }
 
 LABEL_13:
-  }
 
-  else
-  {
-    v4 = 0;
-  }
-
-  v11 = *MEMORY[0x1E69E9840];
   return v4;
 }
 
@@ -339,7 +335,7 @@ LABEL_13:
   {
     v27 = 0xBF80000000000000;
     v28 = 0xBF80000000000000;
-    result = [result _pointsDiverge:a5 pointCount:a6 otherPoints:a7 pointCount:a8 tolerance:&v28 outCoordinateA:&v27 outCoordinateB:?];
+    result = [result _pointsDiverge:a5 pointCount:a6 otherPoints:a7 pointCount:a8 tolerance:&v28 outCoordinateA:&v27 outCoordinateB:a2];
     if (result)
     {
       if (a9)
@@ -392,50 +388,45 @@ LABEL_13:
     v11 = a7;
     if (a7 >= 2)
     {
-      v16 = a5;
-      v36 = [[_MNMapPointsArray alloc] initWithCapacity:a5];
-      v18 = [[_MNMapPointsArray alloc] initWithCapacity:v11];
-      v19 = 0;
+      v15 = a5;
+      v29 = [[_MNMapPointsArray alloc] initWithCapacity:a5];
+      v16 = [[_MNMapPointsArray alloc] initWithCapacity:v11];
+      v17 = 0;
       do
       {
-        v20 = a4[v19];
-        v21 = a4[v19 + 1];
         GEOMapPointForCoordinate();
-        v23 = v22;
-        v25 = v24;
-        v26 = [(_MNMapPointsArray *)v36 mapPoints]+ v19 * 8;
-        v26->var0 = v23;
-        v26->var1 = v25;
-        v19 += 2;
-        --v16;
+        v19 = v18;
+        v21 = v20;
+        v22 = [(_MNMapPointsArray *)v29 mapPoints]+ v17;
+        v22->var0 = v19;
+        v22->var1 = v21;
+        v17 += 16;
+        --v15;
       }
 
-      while (v16);
+      while (v15);
       do
       {
-        v27 = *(a6 + v16);
-        v28 = *(a6 + v16 + 8);
         GEOMapPointForCoordinate();
-        v30 = v29;
-        v32 = v31;
-        v33 = [(_MNMapPointsArray *)v18 mapPoints]+ v16;
-        v33->var0 = v30;
-        v33->var1 = v32;
-        v16 += 16;
+        v24 = v23;
+        v26 = v25;
+        v27 = [(_MNMapPointsArray *)v16 mapPoints]+ v15;
+        v27->var0 = v24;
+        v27->var1 = v26;
+        v15 += 16;
         --v11;
       }
 
       while (v11);
-      v34 = *a4;
       GEOMapPointsPerMeterAtLatitude();
-      [MEMORY[0x1E69A1C68] _findDivergenceAndConvergence:-[_MNMapPointsArray mapPoints](v36 pointCount:"mapPoints") otherPoints:-[_MNMapPointsArray count](v36 pointCount:"count") divergenceTolerance:-[_MNMapPointsArray mapPoints](v18 convergenceTolerance:"mapPoints") outDivergenceCoordinateA:-[_MNMapPointsArray count](v18 outDivergenceCoordinateB:"count") outConvergenceCoordinateA:a8 outConvergenceCoordinateB:{a9, v35 * self, v35 * self, a10, a11}];
+      [MEMORY[0x1E69A1C68] _findDivergenceAndConvergence:-[_MNMapPointsArray mapPoints](v29 pointCount:"mapPoints") otherPoints:-[_MNMapPointsArray count](v29 pointCount:"count") divergenceTolerance:-[_MNMapPointsArray mapPoints](v16 convergenceTolerance:"mapPoints") outDivergenceCoordinateA:-[_MNMapPointsArray count](v16 outDivergenceCoordinateB:"count") outConvergenceCoordinateA:a8 outConvergenceCoordinateB:{a9, v28 * self, v28 * self, a10, a11}];
     }
   }
 }
 
 + (void)findDivergenceAndConvergence:()MNExtras pointCount:otherPoints:pointCount:divergenceTolerance:convergenceTolerance:outCoordinatesA:outCoordinatesB:
 {
-  v57 = *MEMORY[0x1E69E9840];
+  v56 = *MEMORY[0x1E69E9840];
   if (a9)
   {
     *a9 = 0;
@@ -450,29 +441,29 @@ LABEL_13:
   {
     array = [MEMORY[0x1E695DF70] array];
     array2 = [MEMORY[0x1E695DF70] array];
+    v45 = 0;
     v46 = 0;
-    v47 = 0;
-    v12 = [self _pointsConverge:a5 pointCount:a6 otherPoints:a7 pointCount:a8 tolerance:&v47 outCoordinatesA:&v46 outCoordinatesB:a3];
-    v13 = v47;
-    v14 = v46;
+    v12 = [self _pointsConverge:a5 pointCount:a6 otherPoints:a7 pointCount:a8 tolerance:&v46 outCoordinatesA:&v45 outCoordinatesB:a3];
+    v13 = v46;
+    v14 = v45;
     v15 = [v13 count];
     if (v15 != [v14 count])
     {
-      v34 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Mismatched number of convergence points"];
-      v35 = GEOFindOrCreateLog();
-      if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
+      v33 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Mismatched number of convergence points"];
+      v34 = GEOFindOrCreateLog();
+      if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
       {
         *buf = 136316162;
         *&buf[4] = "+[GEOComposedRoute(MNExtras) findDivergenceAndConvergence:pointCount:otherPoints:pointCount:divergenceTolerance:convergenceTolerance:outCoordinatesA:outCoordinatesB:]";
-        v49 = 2080;
-        v50 = "/Library/Caches/com.apple.xbs/Sources/Navigation/Extras/GEOComposedRoute+MNExtras.mm";
-        v51 = 1024;
-        v52 = 663;
-        v53 = 2080;
-        v54 = "convergenceCoordinatesA.count == convergenceCoordinatesB.count";
-        v55 = 2112;
-        v56 = v34;
-        _os_log_impl(&dword_1D311E000, v35, OS_LOG_TYPE_ERROR, "*** Assertion failure in %s, %s:%d: (%s) %@", buf, 0x30u);
+        v48 = 2080;
+        v49 = "/Library/Caches/com.apple.xbs/Sources/Navigation/Extras/GEOComposedRoute+MNExtras.mm";
+        v50 = 1024;
+        v51 = 663;
+        v52 = 2080;
+        v53 = "convergenceCoordinatesA.count == convergenceCoordinatesB.count";
+        v54 = 2112;
+        v55 = v33;
+        _os_log_impl(&dword_1D311E000, v34, OS_LOG_TYPE_ERROR, "*** Assertion failure in %s, %s:%d: (%s) %@", buf, 0x30u);
       }
     }
 
@@ -524,17 +515,17 @@ LABEL_26:
           routeCoordinate2 = [v22 routeCoordinate];
           routeCoordinate3 = [v23 routeCoordinate];
           *buf = *v17;
-          v45 = *buf;
-          if (([self _pointsDiverge:a5 + 16 * routeCoordinate2 pointCount:a6 - routeCoordinate2 otherPoints:a7 + 16 * routeCoordinate3 pointCount:a8 - routeCoordinate3 tolerance:buf outCoordinateA:&v45 outCoordinateB:a2] & 1) == 0)
+          v44 = *buf;
+          if (([self _pointsDiverge:a5 + 16 * routeCoordinate2 pointCount:a6 - routeCoordinate2 otherPoints:a7 + 16 * routeCoordinate3 pointCount:a8 - routeCoordinate3 tolerance:buf outCoordinateA:&v44 outCoordinateB:a2] & 1) == 0)
           {
 
             goto LABEL_26;
           }
 
           *buf += routeCoordinate2;
-          LODWORD(v45) = v45 + routeCoordinate3;
+          LODWORD(v44) = v44 + routeCoordinate3;
           v29 = [MNRouteCoordinateWithType divergenceCoordinate:*buf];
-          v30 = [MNRouteCoordinateWithType divergenceCoordinate:v45];
+          v30 = [MNRouteCoordinateWithType divergenceCoordinate:v44];
           [array addObject:v29];
           [array2 addObject:v30];
           routeCoordinate4 = [v29 routeCoordinate];
@@ -550,14 +541,12 @@ LABEL_24:
       }
     }
   }
-
-  v33 = *MEMORY[0x1E69E9840];
 }
 
 + (uint64_t)_pointsConverge:()MNExtras pointCount:otherPoints:pointCount:tolerance:outCoordinatesA:outCoordinatesB:
 {
   v9 = 0;
-  v104 = *MEMORY[0x1E69E9840];
+  v103 = *MEMORY[0x1E69E9840];
   if (a5 >= 2 && a7 >= 2)
   {
     array = [MEMORY[0x1E695DF70] array];
@@ -566,30 +555,30 @@ LABEL_24:
     [array sortUsingComparator:&__block_literal_global_8798];
     if (a8)
     {
-      *(&v90 + 1) = [MEMORY[0x1E695DF70] array];
+      *(&v89 + 1) = [MEMORY[0x1E695DF70] array];
     }
 
     else
     {
-      *(&v90 + 1) = 0;
+      *(&v89 + 1) = 0;
     }
 
     if (a9)
     {
-      *&v90 = [MEMORY[0x1E695DF70] array];
+      *&v89 = [MEMORY[0x1E695DF70] array];
     }
 
     else
     {
-      *&v90 = 0;
+      *&v89 = 0;
     }
 
     dictionary = [MEMORY[0x1E695DF90] dictionary];
     dictionary2 = [MEMORY[0x1E695DF90] dictionary];
-    v87 = 0;
+    v86 = 0;
     v9 = 0;
     v16 = a2 * a2;
-    while (v87 < [array count])
+    while (v86 < [array count])
     {
       v17 = [array objectAtIndexedSubscript:?];
       if ([v17 isPolylineA])
@@ -602,7 +591,7 @@ LABEL_24:
         v18 = dictionary2;
       }
 
-      v88 = v18;
+      v87 = v18;
       if ([v17 isPolylineA])
       {
         v19 = dictionary2;
@@ -613,11 +602,11 @@ LABEL_24:
         v19 = dictionary;
       }
 
-      v86 = v19;
-      v89 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(v17, "index")}];
+      v85 = v19;
+      v88 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(v17, "index")}];
       if ([v17 isStartOfSegment])
       {
-        v20 = [v88 objectForKeyedSubscript:v89];
+        v20 = [v87 objectForKeyedSubscript:v88];
         v21 = v20 == 0;
 
         if (!v21)
@@ -626,37 +615,37 @@ LABEL_24:
           if (os_log_type_enabled(v74, OS_LOG_TYPE_ERROR))
           {
             *buf = 136315906;
-            v97 = "+[GEOComposedRoute(MNExtras) _pointsConverge:pointCount:otherPoints:pointCount:tolerance:outCoordinatesA:outCoordinatesB:]";
-            v98 = 2080;
-            v99 = "/Library/Caches/com.apple.xbs/Sources/Navigation/Extras/GEOComposedRoute+MNExtras.mm";
-            v100 = 1024;
-            v101 = 569;
-            v102 = 2080;
-            v103 = "currentPolylineSegments[key] == nil";
+            v96 = "+[GEOComposedRoute(MNExtras) _pointsConverge:pointCount:otherPoints:pointCount:tolerance:outCoordinatesA:outCoordinatesB:]";
+            v97 = 2080;
+            v98 = "/Library/Caches/com.apple.xbs/Sources/Navigation/Extras/GEOComposedRoute+MNExtras.mm";
+            v99 = 1024;
+            v100 = 569;
+            v101 = 2080;
+            v102 = "currentPolylineSegments[key] == nil";
             _os_log_impl(&dword_1D311E000, v74, OS_LOG_TYPE_ERROR, "*** Assertion failure in %s, %s:%d: (%s)", buf, 0x26u);
           }
         }
 
-        [v88 setObject:v17 forKey:v89];
-        v93 = 0u;
-        v94 = 0u;
-        v91 = 0u;
+        [v87 setObject:v17 forKey:v88];
         v92 = 0u;
-        allValues = [v86 allValues];
-        v23 = [allValues countByEnumeratingWithState:&v91 objects:v95 count:16];
+        v93 = 0u;
+        v90 = 0u;
+        v91 = 0u;
+        allValues = [v85 allValues];
+        v23 = [allValues countByEnumeratingWithState:&v90 objects:v94 count:16];
         if (v23)
         {
-          v24 = *v92;
+          v24 = *v91;
           while (2)
           {
             for (i = 0; i != v23; ++i)
             {
-              if (*v92 != v24)
+              if (*v91 != v24)
               {
                 objc_enumerationMutation(allValues);
               }
 
-              v26 = *(*(&v91 + 1) + 8 * i);
+              v26 = *(*(&v90 + 1) + 8 * i);
               if ([v17 isPolylineA])
               {
                 v27 = v17;
@@ -709,7 +698,7 @@ LABEL_24:
                   {
                     if ((v39 * v36 + v40 * v38) / sqrt(v53 * v45) >= 0.99)
                     {
-                      if (v90 == 0)
+                      if (v89 == 0)
                       {
 
                         v9 = 1;
@@ -750,10 +739,10 @@ LABEL_24:
                       }
 
                       v70 = [MNRouteCoordinateWithType convergenceCoordinate:v62 | (LODWORD(v63) << 32)];
-                      [*(&v90 + 1) addObject:v70];
+                      [*(&v89 + 1) addObject:v70];
 
                       v71 = [MNRouteCoordinateWithType convergenceCoordinate:v69 | (LODWORD(v68) << 32)];
-                      [v90 addObject:v71];
+                      [v89 addObject:v71];
 
                       v9 = 1;
                     }
@@ -762,7 +751,7 @@ LABEL_24:
               }
             }
 
-            v23 = [allValues countByEnumeratingWithState:&v91 objects:v95 count:16];
+            v23 = [allValues countByEnumeratingWithState:&v90 objects:v94 count:16];
             if (v23)
             {
               continue;
@@ -777,7 +766,7 @@ LABEL_58:
 
       else
       {
-        v72 = [v88 objectForKeyedSubscript:v89];
+        v72 = [v87 objectForKeyedSubscript:v88];
         v73 = v72 == 0;
 
         if (v73)
@@ -786,42 +775,41 @@ LABEL_58:
           if (os_log_type_enabled(v75, OS_LOG_TYPE_ERROR))
           {
             *buf = 136315906;
-            v97 = "+[GEOComposedRoute(MNExtras) _pointsConverge:pointCount:otherPoints:pointCount:tolerance:outCoordinatesA:outCoordinatesB:]";
-            v98 = 2080;
-            v99 = "/Library/Caches/com.apple.xbs/Sources/Navigation/Extras/GEOComposedRoute+MNExtras.mm";
-            v100 = 1024;
-            v101 = 608;
-            v102 = 2080;
-            v103 = "currentPolylineSegments[key] != nil";
+            v96 = "+[GEOComposedRoute(MNExtras) _pointsConverge:pointCount:otherPoints:pointCount:tolerance:outCoordinatesA:outCoordinatesB:]";
+            v97 = 2080;
+            v98 = "/Library/Caches/com.apple.xbs/Sources/Navigation/Extras/GEOComposedRoute+MNExtras.mm";
+            v99 = 1024;
+            v100 = 608;
+            v101 = 2080;
+            v102 = "currentPolylineSegments[key] != nil";
             _os_log_impl(&dword_1D311E000, v75, OS_LOG_TYPE_ERROR, "*** Assertion failure in %s, %s:%d: (%s)", buf, 0x26u);
           }
         }
 
-        [v88 removeObjectForKey:v89];
+        [v87 removeObjectForKey:v88];
       }
 
-      ++v87;
+      ++v86;
     }
 
     if (v9)
     {
       if (a8)
       {
-        [*(&v90 + 1) sortUsingComparator:&__block_literal_global_106_8803];
-        v76 = *(&v90 + 1);
-        *a8 = *(&v90 + 1);
+        [*(&v89 + 1) sortUsingComparator:&__block_literal_global_106_8803];
+        v76 = *(&v89 + 1);
+        *a8 = *(&v89 + 1);
       }
 
-      if (v81)
+      if (v80)
       {
-        [v90 sortUsingComparator:&__block_literal_global_106_8803];
-        v77 = v90;
-        *v81 = v90;
+        [v89 sortUsingComparator:&__block_literal_global_106_8803];
+        v77 = v89;
+        *v80 = v89;
       }
     }
   }
 
-  v78 = *MEMORY[0x1E69E9840];
   return v9 & 1;
 }
 

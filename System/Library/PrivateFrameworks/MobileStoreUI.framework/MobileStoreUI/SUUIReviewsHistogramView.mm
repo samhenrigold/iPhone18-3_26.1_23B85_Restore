@@ -212,10 +212,10 @@
     v7->_bottomSeparatorView = v70;
 
     v72 = v7->_bottomSeparatorView;
-    primaryTextColor = [(SUUIColorScheme *)v7->_colorScheme primaryTextColor];
-    if (primaryTextColor)
+    v73 = objc_msgSend_primaryTextColor(v7->_colorScheme);
+    if (v73)
     {
-      [(UIView *)v72 setBackgroundColor:primaryTextColor];
+      [(UIView *)v72 setBackgroundColor:v73];
     }
 
     else
@@ -423,7 +423,7 @@
 {
   titleCopy = title;
   text = [(UILabel *)self->_titleLabel text];
-  if (text != titleCopy && ([text isEqualToString:titleCopy] & 1) == 0)
+  if (text != titleCopy && (objc_msgSend_isEqualToString_(text) & 1) == 0)
   {
     titleLabel = self->_titleLabel;
     if (titleCopy)
@@ -760,24 +760,24 @@
   v17 = SUUIBundle();
   v18 = [v16 imageNamed:@"SmallStarFull" inBundle:v17];
 
-  primaryTextColor = [(SUUIColorScheme *)selfCopy->_colorScheme primaryTextColor];
-  if (primaryTextColor)
+  v19 = objc_msgSend_primaryTextColor(selfCopy->_colorScheme);
+  if (v19)
   {
-    primaryTextColor2 = [(SUUIColorScheme *)selfCopy->_colorScheme primaryTextColor];
-    v21 = SUUIColorWithAlpha(primaryTextColor2, 0.1);
+    v20 = objc_msgSend_primaryTextColor(selfCopy->_colorScheme);
+    v21 = SUUIColorWithAlpha(v20, 0.1);
     v22 = SUUITintedImage(v18, 0, v21);
   }
 
   else
   {
-    primaryTextColor2 = [MEMORY[0x277D75348] colorWithWhite:0.0 alpha:0.05];
-    v22 = SUUITintedImage(v18, 0, primaryTextColor2);
+    v20 = [MEMORY[0x277D75348] colorWithWhite:0.0 alpha:0.05];
+    v22 = SUUITintedImage(v18, 0, v20);
   }
 
-  primaryTextColor3 = [(SUUIColorScheme *)selfCopy->_colorScheme primaryTextColor];
-  if (primaryTextColor3)
+  v23 = objc_msgSend_primaryTextColor(selfCopy->_colorScheme);
+  if (v23)
   {
-    v24 = SUUITintedImage(v18, 0, primaryTextColor3);
+    v24 = SUUITintedImage(v18, 0, v23);
   }
 
   else
@@ -870,10 +870,10 @@
       v53 = v52;
 
       v65 = [MEMORY[0x277D75208] bezierPathWithRoundedRect:v48 cornerRadius:{(v47 * 14.0) + 6.0, v49, 2.0, 2.0}];
-      primaryTextColor4 = [*(&v41->super.super.super.isa + v43) primaryTextColor];
-      if (primaryTextColor4)
+      v54 = objc_msgSend_primaryTextColor(*(&v41->super.super.super.isa + v43));
+      if (v54)
       {
-        [*(&v41->super.super.super.isa + v43) primaryTextColor];
+        objc_msgSend_primaryTextColor(*(&v41->super.super.super.isa + v43));
         v56 = v55 = v43;
         v57 = SUUIColorWithAlpha(v56, 0.1);
         [v57 set];
@@ -895,12 +895,12 @@
       v68.origin.y = (v47 * 14.0) + 6.0;
       v68.size.width = v49 * v53;
       CGContextClipToRect(c, v68);
-      primaryTextColor5 = [*(&v41->super.super.super.isa + v55) primaryTextColor];
-      v59 = primaryTextColor5;
-      if (primaryTextColor5)
+      v58 = objc_msgSend_primaryTextColor(*(&v41->super.super.super.isa + v55));
+      v59 = v58;
+      if (v58)
       {
         v43 = v55;
-        [primaryTextColor5 set];
+        [v58 set];
       }
 
       else

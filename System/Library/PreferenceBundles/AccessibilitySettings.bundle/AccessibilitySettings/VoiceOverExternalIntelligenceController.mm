@@ -20,7 +20,7 @@
   (*(*(v4 - 8) + 56))(self + v3, 1, 1, v4);
   *(&self->super.isa + OBJC_IVAR___VoiceOverExternalIntelligenceController_hostingController) = 0;
   v6.receiver = self;
-  v6.super_class = type metadata accessor for VoiceOverExternalIntelligenceController();
+  v6.super_class = type metadata accessor for VoiceOverExternalIntelligenceController(0);
   return [(VoiceOverExternalIntelligenceController *)&v6 init];
 }
 

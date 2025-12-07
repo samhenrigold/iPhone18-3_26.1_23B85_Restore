@@ -61,14 +61,6 @@
   [v0 handleFailureInMethod:@"account" object:? file:? lineNumber:? description:?];
 }
 
-- (void)dismissFollowUpsStartingWithIdentifierPrefix:()Convenience account:completion:.cold.3()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_0(&dword_1B6F6A000, v0, v1, "Attempting to teardown followups starting with identifier %@ for account: %@");
-  v2 = *MEMORY[0x1E69E9840];
-}
-
 - (void)pendingFollowUpsForAccount:()Convenience completion:.cold.1()
 {
   OUTLINED_FUNCTION_0_4();
@@ -87,29 +79,23 @@
 
 - (void)pendingCFUTypes
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)isRenewCredentialsCFUPosted
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)creationDateOfOldestFollowUpWithIdentifiers:()Convenience .cold.1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_5();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)creationDateOfOldestFollowUpWithIdentifiers:()Convenience .cold.2()
@@ -121,11 +107,9 @@
 
 - (void)creationDateOfOldestFollowUpWithIdentifiers:()Convenience .cold.3()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)pendingFollowUpItemUserInfosWithIdentifier:()Convenience completion:.cold.1()
@@ -154,11 +138,9 @@
 
 - (void)pendingFollowUpItemUserInfosWithIdentifier:()Convenience .cold.2()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)reportPostCFUEvent:()Convenience .cold.1()

@@ -111,29 +111,29 @@
 - (void)updateWithKeyframes:(__n128)keyframes currentCameraPose:(__n128)pose
 {
   poseCopy = pose;
-  v27 = a5;
-  v24 = a2;
+  v26 = a5;
+  v23 = a2;
   keyframesCopy = keyframes;
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
+  v35 = 0u;
   v36 = 0u;
   v37 = 0u;
   v38 = 0u;
-  v39 = 0u;
   v8 = a7;
-  v9 = [v8 countByEnumeratingWithState:&v36 objects:v40 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v35 objects:v39 count:16];
   if (v9)
   {
-    v10 = *v37;
+    v10 = *v36;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v37 != v10)
+        if (*v36 != v10)
         {
           objc_enumerationMutation(v8);
         }
 
-        v12 = *(*(&v36 + 1) + 8 * i);
+        v12 = *(*(&v35 + 1) + 8 * i);
         v13 = *(self + 96);
         identifier = [v12 identifier];
         [v13 setObject:v12 forKeyedSubscript:identifier];
@@ -143,7 +143,7 @@
         [v15 setObject:v12 forKeyedSubscript:identifier2];
       }
 
-      v9 = [v8 countByEnumeratingWithState:&v36 objects:v40 count:16];
+      v9 = [v8 countByEnumeratingWithState:&v35 objects:v39 count:16];
     }
 
     while (v9);
@@ -170,26 +170,24 @@
       block[1] = 3221225472;
       block[2] = __51__OUSession_updateWithKeyframes_currentCameraPose___block_invoke;
       block[3] = &unk_2799C4210;
-      objc_copyWeak(v34, &location);
-      v33 = allValues;
-      v29 = v24;
-      v30 = keyframesCopy;
-      v31 = poseCopy;
-      v32 = v27;
+      objc_copyWeak(v33, &location);
+      v32 = allValues;
+      v28 = v23;
+      v29 = keyframesCopy;
+      v30 = poseCopy;
+      v31 = v26;
       v22 = allValues;
       dispatch_async(v21, block);
 
-      objc_destroyWeak(v34);
+      objc_destroyWeak(v33);
       objc_destroyWeak(&location);
     }
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 void __51__OUSession_updateWithKeyframes_currentCameraPose___block_invoke(uint64_t a1)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 104));
   if (WeakRetained)
   {
@@ -205,52 +203,50 @@ void __51__OUSession_updateWithKeyframes_currentCameraPose___block_invoke(uint64
     v8 = *(WeakRetained + 9);
     *(WeakRetained + 9) = v7;
 
-    v9 = _OULoggingGetOSLogForCategoryObjectUnderstanding();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+    v11 = _OULoggingGetOSLogForCategoryObjectUnderstanding(v9, v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
     {
-      v10 = [*(WeakRetained + 10) objects];
-      v15 = 134217984;
-      v16 = [v10 count];
-      _os_log_impl(&dword_25D1DB000, v9, OS_LOG_TYPE_INFO, "[OD] Detected objects number: %lu", &v15, 0xCu);
+      v12 = [*(WeakRetained + 10) objects];
+      v16 = 134217984;
+      v17 = [v12 count];
+      _os_log_impl(&dword_25D1DB000, v11, OS_LOG_TYPE_INFO, "[OD] Detected objects number: %lu", &v16, 0xCu);
     }
 
-    v11 = [WeakRetained delegate];
-    v12 = objc_opt_respondsToSelector();
+    v13 = [WeakRetained delegate];
+    v14 = objc_opt_respondsToSelector();
 
-    if (v12)
+    if (v14)
     {
-      v13 = [WeakRetained delegate];
-      [v13 session:WeakRetained didUpdateDetectedObjects:*(WeakRetained + 9)];
+      v15 = [WeakRetained delegate];
+      [v15 session:WeakRetained didUpdateDetectedObjects:*(WeakRetained + 9)];
     }
 
     dispatch_semaphore_signal(*(WeakRetained + 6));
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateWithKeyframes:(id)keyframes ouframe:(id)ouframe
 {
-  v53 = *MEMORY[0x277D85DE8];
-  v40 = 0u;
+  v54 = *MEMORY[0x277D85DE8];
   v41 = 0u;
   v42 = 0u;
   v43 = 0u;
+  v44 = 0u;
   keyframesCopy = keyframes;
-  v6 = [keyframesCopy countByEnumeratingWithState:&v40 objects:v52 count:16];
+  v6 = [keyframesCopy countByEnumeratingWithState:&v41 objects:v53 count:16];
   if (v6)
   {
-    v7 = *v41;
+    v7 = *v42;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v41 != v7)
+        if (*v42 != v7)
         {
           objc_enumerationMutation(keyframesCopy);
         }
 
-        v9 = *(*(&v40 + 1) + 8 * i);
+        v9 = *(*(&v41 + 1) + 8 * i);
         allKeyframes = self->allKeyframes_;
         identifier = [v9 identifier];
         [(NSMutableDictionary *)allKeyframes setObject:v9 forKeyedSubscript:identifier];
@@ -260,7 +256,7 @@ void __51__OUSession_updateWithKeyframes_currentCameraPose___block_invoke(uint64
         [(NSMutableDictionary *)skipedKeyframes setObject:v9 forKeyedSubscript:identifier2];
       }
 
-      v6 = [keyframesCopy countByEnumeratingWithState:&v40 objects:v52 count:16];
+      v6 = [keyframesCopy countByEnumeratingWithState:&v41 objects:v53 count:16];
     }
 
     while (v6);
@@ -280,61 +276,59 @@ void __51__OUSession_updateWithKeyframes_currentCameraPose___block_invoke(uint64
     else
     {
       objc_initWeak(&location, self);
-      v37[0] = 0;
-      v37[1] = v37;
-      v37[2] = 0x3032000000;
-      v37[3] = __Block_byref_object_copy__0;
-      v37[4] = __Block_byref_object_dispose__0;
-      v38 = 0;
+      v38[0] = 0;
+      v38[1] = v38;
+      v38[2] = 0x3032000000;
+      v38[3] = __Block_byref_object_copy__0;
+      v38[4] = __Block_byref_object_dispose__0;
+      v39 = 0;
       ouframeQueue = self->ouframeQueue_;
       block[0] = MEMORY[0x277D85DD0];
       block[1] = 3221225472;
       block[2] = __41__OUSession_updateWithKeyframes_ouframe___block_invoke;
       block[3] = &unk_2799C4238;
-      objc_copyWeak(&v36, &location);
+      objc_copyWeak(&v37, &location);
       block[4] = self;
-      block[5] = v37;
+      block[5] = v38;
       dispatch_sync(ouframeQueue, block);
       allValues = [(NSMutableDictionary *)self->skipedKeyframes_ allValues];
       [(NSMutableDictionary *)self->skipedKeyframes_ removeAllObjects];
       detQueue = self->detQueue_;
-      v27 = MEMORY[0x277D85DD0];
-      v28 = 3221225472;
-      v29 = __41__OUSession_updateWithKeyframes_ouframe___block_invoke_2;
-      v30 = &unk_2799C4260;
-      objc_copyWeak(&v34, &location);
+      v28 = MEMORY[0x277D85DD0];
+      v29 = 3221225472;
+      v30 = __41__OUSession_updateWithKeyframes_ouframe___block_invoke_2;
+      v31 = &unk_2799C4260;
+      objc_copyWeak(&v35, &location);
       v20 = allValues;
       selfCopy = self;
-      v33 = v37;
-      v31 = v20;
-      dispatch_async(detQueue, &v27);
-      v21 = _OULoggingGetOSLogForCategoryObjectUnderstanding();
-      if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
+      v34 = v38;
+      v32 = v20;
+      dispatch_async(detQueue, &v28);
+      v23 = _OULoggingGetOSLogForCategoryObjectUnderstanding(v21, v22);
+      if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
       {
-        v22 = [(NSArray *)self->objects_ count:v27];
-        v23 = [(NSMutableDictionary *)self->allKeyframes_ count];
-        v24 = [keyframesCopy count];
-        v25 = [v20 count];
+        v24 = [(NSArray *)self->objects_ count:v28];
+        v25 = [(NSMutableDictionary *)self->allKeyframes_ count];
+        v26 = [keyframesCopy count];
+        v27 = [v20 count];
         *buf = 134218752;
-        v45 = v22;
-        v46 = 2048;
-        v47 = v23;
-        v48 = 2048;
-        v49 = v24;
-        v50 = 2048;
-        v51 = v25;
-        _os_log_impl(&dword_25D1DB000, v21, OS_LOG_TYPE_INFO, "[OD] Detected objects number: %lu in %lu keyframes (%lu, %lu)", buf, 0x2Au);
+        v46 = v24;
+        v47 = 2048;
+        v48 = v25;
+        v49 = 2048;
+        v50 = v26;
+        v51 = 2048;
+        v52 = v27;
+        _os_log_impl(&dword_25D1DB000, v23, OS_LOG_TYPE_INFO, "[OD] Detected objects number: %lu in %lu keyframes (%lu, %lu)", buf, 0x2Au);
       }
 
-      objc_destroyWeak(&v34);
-      objc_destroyWeak(&v36);
-      _Block_object_dispose(v37, 8);
+      objc_destroyWeak(&v35);
+      objc_destroyWeak(&v37);
+      _Block_object_dispose(v38, 8);
 
       objc_destroyWeak(&location);
     }
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 void __41__OUSession_updateWithKeyframes_ouframe___block_invoke(uint64_t a1)
@@ -445,7 +439,7 @@ void __29__OUSession_updateWithFrame___block_invoke(uint64_t a1)
 
 void __50__OUSession_generateOfflineObjects_onlineObjects___block_invoke(uint64_t a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 56));
   v3 = WeakRetained;
   if (WeakRetained)
@@ -454,34 +448,32 @@ void __50__OUSession_generateOfflineObjects_onlineObjects___block_invoke(uint64_
     v5 = v3[11];
     v3[11] = v4;
 
-    v6 = _OULoggingGetOSLogForCategoryObjectUnderstanding();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v8 = _OULoggingGetOSLogForCategoryObjectUnderstanding(v6, v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      __50__OUSession_generateOfflineObjects_onlineObjects___block_invoke_cold_2(buf, [v3[11] count], v6);
+      __50__OUSession_generateOfflineObjects_onlineObjects___block_invoke_cold_2(buf, [v3[11] count], v8);
     }
 
-    v7 = [v3 delegate];
-    v8 = objc_opt_respondsToSelector();
+    v9 = [v3 delegate];
+    v10 = objc_opt_respondsToSelector();
 
-    if (v8)
+    if (v10)
     {
-      v9 = [v3 delegate];
-      [v9 session:v3 didGeneratedOfflineObjects:*(*(a1 + 48) + 88)];
+      v11 = [v3 delegate];
+      [v11 session:v3 didGeneratedOfflineObjects:*(*(a1 + 48) + 88)];
     }
 
-    v10 = [v3 delegate];
-    v11 = objc_opt_respondsToSelector();
+    v12 = [v3 delegate];
+    v13 = objc_opt_respondsToSelector();
 
-    if (v11)
+    if (v13)
     {
-      v12 = [v3 delegate];
-      [v12 session:v3 didGeneratedOfflineObjectAsset:v3[10]];
+      v14 = [v3 delegate];
+      [v14 session:v3 didGeneratedOfflineObjectAsset:v3[10]];
     }
 
     dispatch_semaphore_signal(v3[6]);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)generateOfflineObjects:(id)objects onlineObjects:(id)onlineObjects block:(id)block
@@ -506,34 +498,33 @@ void __50__OUSession_generateOfflineObjects_onlineObjects___block_invoke(uint64_
 
 uint64_t __56__OUSession_generateOfflineObjects_onlineObjects_block___block_invoke(uint64_t a1)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v2 = a1 + 32;
   v3 = [*(*(a1 + 32) + 16) generateOfflineObjects:*(a1 + 40) onlineObjects:*(a1 + 48)];
   v4 = *(*v2 + 88);
   *(*v2 + 88) = v3;
 
-  v5 = _OULoggingGetOSLogForCategoryObjectUnderstanding();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+  v7 = _OULoggingGetOSLogForCategoryObjectUnderstanding(v5, v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
-    v6 = [*(*(a1 + 32) + 88) count];
-    v7 = [*(a1 + 40) count];
-    v8 = [*(a1 + 48) count];
-    v11 = 134218496;
-    v12 = v6;
-    v13 = 2048;
-    v14 = v7;
-    v15 = 2048;
-    v16 = v8;
-    _os_log_impl(&dword_25D1DB000, v5, OS_LOG_TYPE_INFO, "[OD] Offline detected objects number: %lu, from %lu keyframes and %lu online objects", &v11, 0x20u);
+    v8 = [*(*(a1 + 32) + 88) count];
+    v9 = [*(a1 + 40) count];
+    v10 = [*(a1 + 48) count];
+    v12 = 134218496;
+    v13 = v8;
+    v14 = 2048;
+    v15 = v9;
+    v16 = 2048;
+    v17 = v10;
+    _os_log_impl(&dword_25D1DB000, v7, OS_LOG_TYPE_INFO, "[OD] Offline detected objects number: %lu, from %lu keyframes and %lu online objects", &v12, 0x20u);
   }
 
   result = *(a1 + 56);
   if (result)
   {
-    result = (*(result + 16))(result, *(*(a1 + 32) + 88));
+    return (*(result + 16))(result, *(*(a1 + 32) + 88));
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -559,7 +550,7 @@ uint64_t __56__OUSession_generateOfflineObjects_onlineObjects_block___block_invo
 
 uint64_t __60__OUSession_generateOfflineObjectAsset_onlineObjects_block___block_invoke(uint64_t a1)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v2 = a1 + 32;
   v3 = [*(*(a1 + 32) + 16) generateOfflineObjects:*(a1 + 40) onlineObjects:*(a1 + 48)];
   v4 = *(*v2 + 88);
@@ -569,28 +560,27 @@ uint64_t __60__OUSession_generateOfflineObjectAsset_onlineObjects_block___block_
   v6 = *(*v2 + 80);
   *(*v2 + 80) = v5;
 
-  v7 = _OULoggingGetOSLogForCategoryObjectUnderstanding();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+  v9 = _OULoggingGetOSLogForCategoryObjectUnderstanding(v7, v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
   {
-    v8 = [*(*(a1 + 32) + 88) count];
-    v9 = [*(a1 + 40) count];
-    v10 = [*(a1 + 48) count];
-    v13 = 134218496;
-    v14 = v8;
-    v15 = 2048;
-    v16 = v9;
-    v17 = 2048;
-    v18 = v10;
-    _os_log_impl(&dword_25D1DB000, v7, OS_LOG_TYPE_INFO, "[OD] Offline detected objects number: %lu, from %lu keyframes and %lu online objects", &v13, 0x20u);
+    v10 = [*(*(a1 + 32) + 88) count];
+    v11 = [*(a1 + 40) count];
+    v12 = [*(a1 + 48) count];
+    v14 = 134218496;
+    v15 = v10;
+    v16 = 2048;
+    v17 = v11;
+    v18 = 2048;
+    v19 = v12;
+    _os_log_impl(&dword_25D1DB000, v9, OS_LOG_TYPE_INFO, "[OD] Offline detected objects number: %lu, from %lu keyframes and %lu online objects", &v14, 0x20u);
   }
 
   result = *(a1 + 56);
   if (result)
   {
-    result = (*(result + 16))(result, *(*(a1 + 32) + 80));
+    return (*(result + 16))(result, *(*(a1 + 32) + 80));
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -614,12 +604,12 @@ void __17__OUSession_stop__block_invoke(uint64_t a1)
   v2 = WeakRetained;
   if (WeakRetained)
   {
-    [WeakRetained[2] clear];
-    v3 = _OULoggingGetOSLogForCategoryObjectUnderstanding();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
+    v3 = [WeakRetained[2] clear];
+    v5 = _OULoggingGetOSLogForCategoryObjectUnderstanding(v3, v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
-      v4[0] = 0;
-      _os_log_impl(&dword_25D1DB000, v3, OS_LOG_TYPE_INFO, "Detected objects session ends.", v4, 2u);
+      v6[0] = 0;
+      _os_log_impl(&dword_25D1DB000, v5, OS_LOG_TYPE_INFO, "Detected objects session ends.", v6, 2u);
     }
   }
 }
@@ -633,103 +623,84 @@ void __17__OUSession_stop__block_invoke(uint64_t a1)
 
 - (void)init:(void *)a1 .cold.1(void *a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
   v1 = __cxa_begin_catch(a1);
-  v2 = _OULoggingGetOSLogForCategoryObjectUnderstanding();
-  if (OUTLINED_FUNCTION_2_0(v2))
+  v3 = _OULoggingGetOSLogForCategoryObjectUnderstanding(v1, v2);
+  if (OUTLINED_FUNCTION_2_0(v3))
   {
     OUTLINED_FUNCTION_4();
     (*(v4 + 16))(v1);
     OUTLINED_FUNCTION_1_0();
-    OUTLINED_FUNCTION_0_2(&dword_25D1DB000, v5, v6, "OUOffline Error: (init) %s", v7, v8, v9, v10, v11);
+    OUTLINED_FUNCTION_0_2(&dword_25D1DB000, v5, v6, "OUOffline Error: (init) %s", v7, v8, v9, v10);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 - (void)init:(void *)a1 .cold.2(void *a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
   v1 = __cxa_begin_catch(a1);
-  v2 = _OULoggingGetOSLogForCategoryObjectUnderstanding();
-  if (OUTLINED_FUNCTION_2_0(v2))
+  v3 = _OULoggingGetOSLogForCategoryObjectUnderstanding(v1, v2);
+  if (OUTLINED_FUNCTION_2_0(v3))
   {
     OUTLINED_FUNCTION_4();
     (*(v4 + 16))(v1);
     OUTLINED_FUNCTION_1_0();
-    OUTLINED_FUNCTION_0_2(&dword_25D1DB000, v5, v6, "OUOnline Error: (init) %s", v7, v8, v9, v10, v11);
+    OUTLINED_FUNCTION_0_2(&dword_25D1DB000, v5, v6, "OUOnline Error: (init) %s", v7, v8, v9, v10);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 - (void)runWithConfiguration:(void *)a3 .cold.1(void *a1, uint64_t a2, void *a3)
 {
-  v15 = *MEMORY[0x277D85DE8];
   v4 = __cxa_begin_catch(a1);
   *a3 = v4;
-  v5 = _OULoggingGetOSLogForCategoryObjectUnderstanding();
-  if (OUTLINED_FUNCTION_2_0(v5))
+  v6 = _OULoggingGetOSLogForCategoryObjectUnderstanding(v4, v5);
+  if (OUTLINED_FUNCTION_2_0(v6))
   {
     OUTLINED_FUNCTION_4();
     (*(v7 + 16))(v4);
     OUTLINED_FUNCTION_1_0();
-    OUTLINED_FUNCTION_0_2(&dword_25D1DB000, v8, v9, "OUError: (run) %s", v10, v11, v12, v13, v14);
+    OUTLINED_FUNCTION_0_2(&dword_25D1DB000, v8, v9, "OUError: (run) %s", v10, v11, v12, v13);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
-- (void)runWithConfiguration:(uint64_t *)a1 .cold.2(uint64_t *a1)
+- (void)runWithConfiguration:.cold.2()
 {
-  v1 = *MEMORY[0x277D85DE8];
-  v2 = OUTLINED_FUNCTION_3_0(a1);
-  (*(v3 + 16))(v2);
+  OUTLINED_FUNCTION_3_0();
+  (*(v0 + 16))();
   OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_2(&dword_25D1DB000, v4, v5, "OUError: (init) %s", v6, v7, v8, v9, v11);
-  v10 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_2(&dword_25D1DB000, v1, v2, "OUError: (init) %s", v3, v4, v5, v6);
 }
 
-- (void)runWithConfiguration:(uint64_t *)a1 .cold.3(uint64_t *a1)
+- (void)runWithConfiguration:.cold.3()
 {
-  v1 = *MEMORY[0x277D85DE8];
-  v2 = OUTLINED_FUNCTION_3_0(a1);
-  (*(v3 + 16))(v2);
+  OUTLINED_FUNCTION_3_0();
+  (*(v0 + 16))();
   OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_2(&dword_25D1DB000, v4, v5, "OUError: (run) %s", v6, v7, v8, v9, v11);
-  v10 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_2(&dword_25D1DB000, v1, v2, "OUError: (run) %s", v3, v4, v5, v6);
 }
 
 void __41__OUSession_updateWithKeyframes_ouframe___block_invoke_2_cold_1(void *a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
   v1 = __cxa_begin_catch(a1);
-  v2 = _OULoggingGetOSLogForCategoryObjectUnderstanding();
-  if (OUTLINED_FUNCTION_2_0(v2))
+  v3 = _OULoggingGetOSLogForCategoryObjectUnderstanding(v1, v2);
+  if (OUTLINED_FUNCTION_2_0(v3))
   {
     OUTLINED_FUNCTION_4();
     (*(v4 + 16))(v1);
     OUTLINED_FUNCTION_1_0();
-    OUTLINED_FUNCTION_0_2(&dword_25D1DB000, v5, v6, "OUError: (online) %s", v7, v8, v9, v10, v11);
+    OUTLINED_FUNCTION_0_2(&dword_25D1DB000, v5, v6, "OUError: (online) %s", v7, v8, v9, v10);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 void __50__OUSession_generateOfflineObjects_onlineObjects___block_invoke_cold_1(void *a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
   v1 = __cxa_begin_catch(a1);
-  v2 = _OULoggingGetOSLogForCategoryObjectUnderstanding();
-  if (OUTLINED_FUNCTION_2_0(v2))
+  v3 = _OULoggingGetOSLogForCategoryObjectUnderstanding(v1, v2);
+  if (OUTLINED_FUNCTION_2_0(v3))
   {
     OUTLINED_FUNCTION_4();
     (*(v4 + 16))(v1);
     OUTLINED_FUNCTION_1_0();
-    OUTLINED_FUNCTION_0_2(&dword_25D1DB000, v5, v6, "OUError: (offline) %s", v7, v8, v9, v10, v11);
+    OUTLINED_FUNCTION_0_2(&dword_25D1DB000, v5, v6, "OUError: (offline) %s", v7, v8, v9, v10);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 void __50__OUSession_generateOfflineObjects_onlineObjects___block_invoke_cold_2(uint8_t *buf, uint64_t a2, os_log_t log)

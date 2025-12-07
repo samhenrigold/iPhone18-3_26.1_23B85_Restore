@@ -1,8 +1,10 @@
 @interface CLIndoorTilePrefetcher
++ (id)backgroundSessionConfigurationWithDiscretionary:(BOOL)discretionary isDaemon:(BOOL)daemon;
 + (id)createNewRequest:(int)request forURL:(id)l lastRelevant:(id)relevant;
 + (id)foregroundSessionConfigurationWithTimeout:(double)timeout;
 + (id)urlForAsset:(id)asset forFloor:(id)floor withTileServer:(id)server;
 + (id)urlForFloor:(id)floor withTileServer:(id)server;
+- (BOOL)scheduleDownloadForTile:(id)tile inVenue:(id)venue withContext:(int64_t)context lastRelevant:(id)relevant allowCellularDownload:(BOOL)download onSession:(int)session withResumeData:(id)data withRequestUUID:(id)self0;
 - (BOOL)shouldPrefetchFloorMetadataForFloorUuid:(const void *)uuid forSession:(int)session withLocationContext:(int64_t)context;
 - (CLIndoorTilePrefetcher)init;
 - (CLIndoorTilePrefetcher)initWithServerConfiguration:(const void *)configuration usingDelegate:(id)delegate queue:(id)queue forTest:(BOOL)test;
@@ -12,6 +14,7 @@
 - (CLQueuedNSURLSession)unavailableFloorForegroundSessionQueue;
 - (NSDate)now;
 - (OS_dispatch_queue)delegateQ;
+- (int)scheduleDownloadForFloorMetadata:(id)metadata inVenue:(id)venue withContext:(int64_t)context lastRelevant:(id)relevant allowCellularDownload:(BOOL)download onSession:(int)session withResumeData:(id)data withRequestUUID:(id)self0;
 - (void)URLSession:(id)session didBecomeInvalidWithError:(id)error;
 - (void)URLSession:(id)session downloadTask:(id)task didFinishDownloadingToURL:(id)l;
 - (void)allDownloadItemsCompleted;
@@ -400,9 +403,9 @@ LABEL_19:
   v11 = dispatch_time(0, 30000000000);
   if (dispatch_group_wait(v3, v11))
   {
-    sub_100387C4C();
+    sub_100387C4C(buf);
 
-    abort_report_np();
+    abort_report_np("%s:%d: assertion failure in %s", "/Library/Caches/com.apple.xbs/Sources/purpleslam/daemon/indoorservice/CLIndoorTilePrefetcher.mm", 279, "[CLIndoorTilePrefetcher resetSessions]");
     __break(1u);
 LABEL_27:
     sub_100387C10();
@@ -460,12 +463,9 @@ LABEL_4:
 
   if (sessionInvalidationGroup)
   {
-    sub_100387D80();
+    sub_100387D80(&v13);
 
-    v11 = 289;
-    v12 = "[CLIndoorTilePrefetcher invalidate]";
-    v10 = "/Library/Caches/com.apple.xbs/Sources/purpleslam/daemon/indoorservice/CLIndoorTilePrefetcher.mm";
-    abort_report_np();
+    abort_report_np("%s:%d: assertion failure in %s", "/Library/Caches/com.apple.xbs/Sources/purpleslam/daemon/indoorservice/CLIndoorTilePrefetcher.mm", 289, "[CLIndoorTilePrefetcher invalidate]");
     __break(1u);
   }
 
@@ -494,16 +494,16 @@ LABEL_4:
   if (os_log_type_enabled(qword_10045B078, OS_LOG_TYPE_INFO))
   {
 LABEL_11:
-    *v14 = 0;
-    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_INFO, "Cancelling all operations from the download queue", v14, 2u);
+    *v11 = 0;
+    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_INFO, "Cancelling all operations from the download queue", v11, 2u);
   }
 
 LABEL_12:
-  v7 = [(CLIndoorTilePrefetcher *)self downloadQ:v10];
-  [v7 cancelAllOperations];
-
   downloadQ = [(CLIndoorTilePrefetcher *)self downloadQ];
-  [downloadQ waitUntilAllOperationsAreFinished];
+  [downloadQ cancelAllOperations];
+
+  downloadQ2 = [(CLIndoorTilePrefetcher *)self downloadQ];
+  [downloadQ2 waitUntilAllOperationsAreFinished];
 
   [(CLIndoorTilePrefetcher *)self setDownloadQ:0];
   if (qword_10045B070 != -1)
@@ -522,11 +522,32 @@ LABEL_12:
   if (os_log_type_enabled(qword_10045B078, OS_LOG_TYPE_INFO))
   {
 LABEL_14:
-    *v13 = 0;
-    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_INFO, "All download queue operations cancelled", v13, 2u);
+    *v10 = 0;
+    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_INFO, "All download queue operations cancelled", v10, 2u);
   }
 
 LABEL_15:
+}
+
++ (id)backgroundSessionConfigurationWithDiscretionary:(BOOL)discretionary isDaemon:(BOOL)daemon
+{
+  daemonCopy = daemon;
+  discretionaryCopy = discretionary;
+  v6 = [NSURLSessionConfiguration backgroundSessionConfigurationWithIdentifier:@"com.apple.pipelined.TilePrefetch.v0"];
+  [v6 setDiscretionary:discretionaryCopy];
+  [v6 setNetworkServiceType:3];
+  if (daemonCopy)
+  {
+    [v6 set_sessionSendsLaunchOnDemandEvents:1];
+    [v6 set_requiresPowerPluggedIn:0];
+  }
+
+  [v6 setRequestCachePolicy:1];
+  [v6 setURLCache:0];
+  [v6 setAllowsCellularAccess:0];
+  [v6 set_allowsExpensiveAccess:0];
+
+  return v6;
 }
 
 - (CLQueuedNSURLSession)backgroundSessionQueue
@@ -1365,9 +1386,9 @@ LABEL_4:
 
   if (!backgroundSessionQueue)
   {
-    sub_100387EC4();
+    sub_100387EC4(buf);
 
-    abort_report_np();
+    abort_report_np("%s:%d: assertion failure in %s", "/Library/Caches/com.apple.xbs/Sources/purpleslam/daemon/indoorservice/CLIndoorTilePrefetcher.mm", 665, "[CLIndoorTilePrefetcher scheduleDownloadForRequest:withResumeData:withSession:andExpectedByteSize:]");
     __break(1u);
 LABEL_37:
     sub_100387C10();
@@ -1419,6 +1440,179 @@ LABEL_33:
 
     return 1;
   }
+}
+
+- (int)scheduleDownloadForFloorMetadata:(id)metadata inVenue:(id)venue withContext:(int64_t)context lastRelevant:(id)relevant allowCellularDownload:(BOOL)download onSession:(int)session withResumeData:(id)data withRequestUUID:(id)self0
+{
+  v10 = *&session;
+  metadataCopy = metadata;
+  venueCopy = venue;
+  relevantCopy = relevant;
+  dataCopy = data;
+  dCopy = d;
+  [(CLIndoorTilePrefetcher *)self delegate];
+  objc_claimAutoreleasedReturnValue();
+  if (metadataCopy)
+  {
+    objc_msgSend_ps_STLString(metadataCopy);
+  }
+
+  else
+  {
+    memset(v24, 0, 24);
+  }
+
+  LOBYTE(v22) = download;
+  [[IndoorRequestInfo alloc] initFloor:metadataCopy inVenue:venueCopy withContext:context requestFor:0 withinSession:v10 lastRelevant:relevantCopy allowCellularDownloadTile:v22 requestUUID:dCopy];
+  sub_1001181E4(&v23, v24);
+}
+
+- (BOOL)scheduleDownloadForTile:(id)tile inVenue:(id)venue withContext:(int64_t)context lastRelevant:(id)relevant allowCellularDownload:(BOOL)download onSession:(int)session withResumeData:(id)data withRequestUUID:(id)self0
+{
+  v10 = *&session;
+  tileCopy = tile;
+  venueCopy = venue;
+  relevantCopy = relevant;
+  dataCopy = data;
+  dCopy = d;
+  delegate = [(CLIndoorTilePrefetcher *)self delegate];
+  LOBYTE(v36) = download;
+  v19 = [[IndoorRequestInfo alloc] initFloor:tileCopy inVenue:venueCopy withContext:context requestFor:1 withinSession:v10 lastRelevant:relevantCopy allowCellularDownloadTile:v36 requestUUID:dCopy];
+  if (tileCopy)
+  {
+    objc_msgSend_ps_STLString(tileCopy);
+  }
+
+  else
+  {
+    __p = 0uLL;
+    v45 = 0;
+  }
+
+  v20 = [delegate tilePrefetchShouldPrefetchTileDataForFloor:&__p];
+  v21 = v20;
+  if (SHIBYTE(v45) < 0)
+  {
+    operator delete(__p);
+    if (v21)
+    {
+      goto LABEL_6;
+    }
+
+LABEL_8:
+    if (qword_10045B070 != -1)
+    {
+      sub_100387C10();
+    }
+
+    v25 = qword_10045B078;
+    if (os_log_type_enabled(qword_10045B078, OS_LOG_TYPE_INFO))
+    {
+      LODWORD(__p) = 138477827;
+      *(&__p + 4) = tileCopy;
+      _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_INFO, "Prefetch of tile data for %{private}@ is unnecessary.  Not scheduling", &__p, 0xCu);
+    }
+
+    if (v10)
+    {
+      [(CLIndoorTilePrefetcher *)self notifyDelegateForegroundTaskCompleted:v19];
+      goto LABEL_30;
+    }
+
+    v26 = tileCopy;
+    uTF8String = [tileCopy UTF8String];
+    v28 = strlen(uTF8String);
+    if (v28 > 0x7FFFFFFFFFFFFFF7)
+    {
+      sub_10000D39C();
+    }
+
+    v29 = v28;
+    if (v28 >= 0x17)
+    {
+      operator new();
+    }
+
+    v43 = v28;
+    if (v28)
+    {
+      memmove(&__dst, uTF8String, v28);
+    }
+
+    *(&__dst + v29) = 0;
+    v30 = venueCopy;
+    uTF8String2 = [venueCopy UTF8String];
+    v32 = strlen(uTF8String2);
+    if (v32 > 0x7FFFFFFFFFFFFFF7)
+    {
+      sub_10000D39C();
+    }
+
+    v33 = v32;
+    if (v32 >= 0x17)
+    {
+      operator new();
+    }
+
+    v41 = v32;
+    if (v32)
+    {
+      memmove(&v40, uTF8String2, v32);
+    }
+
+    v40.n128_u8[v33] = 0;
+    *&v34 = sub_100261BAC(&__p, &__dst, &v40, [CLLocationContextConversions fromCLPipelinedLocationContext:context]).n128_u64[0];
+    if (v41 < 0)
+    {
+      operator delete(v40.n128_u64[0]);
+      if ((v43 & 0x80000000) == 0)
+      {
+        goto LABEL_28;
+      }
+    }
+
+    else if ((v43 & 0x80000000) == 0)
+    {
+      goto LABEL_28;
+    }
+
+    operator delete(__dst);
+LABEL_28:
+    [delegate tilePrefetchForTileId:&__p updateRelevancy:{relevantCopy, v34}];
+    [(CLIndoorTilePrefetcher *)self notifyDelegateIfPrefetchComplete];
+    if (v47 < 0)
+    {
+      operator delete(v46);
+      if ((SHIBYTE(v45) & 0x80000000) == 0)
+      {
+        goto LABEL_30;
+      }
+    }
+
+    else if ((SHIBYTE(v45) & 0x80000000) == 0)
+    {
+      goto LABEL_30;
+    }
+
+    operator delete(__p);
+    goto LABEL_30;
+  }
+
+  if ((v20 & 1) == 0)
+  {
+    goto LABEL_8;
+  }
+
+LABEL_6:
+  tileServer = [(CLIndoorTilePrefetcher *)self tileServer];
+  v23 = [CLIndoorTilePrefetcher urlForAsset:@"tilep.xz" forFloor:tileCopy withTileServer:tileServer];
+
+  v24 = [CLIndoorTilePrefetcher createNewRequest:v10 forURL:v23 lastRelevant:relevantCopy];
+  [v19 setOnRequest:v24];
+  [(CLIndoorTilePrefetcher *)self scheduleDownloadForRequest:v24 withResumeData:dataCopy withSession:v10 andExpectedByteSize:0x200000];
+
+LABEL_30:
+  return v21;
 }
 
 - (void)runFromNetworkCallback:(id)callback
@@ -1721,7 +1915,7 @@ LABEL_6:
   v15 = venueUuid;
   if (venueUuid)
   {
-    [venueUuid ps_STLString];
+    objc_msgSend_ps_STLString(venueUuid);
   }
 
   else
@@ -1734,7 +1928,7 @@ LABEL_6:
   v17 = floorUuid;
   if (floorUuid)
   {
-    [floorUuid ps_STLString];
+    objc_msgSend_ps_STLString(floorUuid);
   }
 
   else
@@ -2445,7 +2639,7 @@ LABEL_27:
                 v30 = floorUuid;
                 if (floorUuid)
                 {
-                  [floorUuid ps_STLString];
+                  objc_msgSend_ps_STLString(floorUuid);
                 }
 
                 else

@@ -4,6 +4,7 @@
 - (CSSiriRestrictionOnLockScreenMonitor)init;
 - (void)_didReceiveRestrictionChanged:(BOOL)changed;
 - (void)_didReceiveRestrictionChangedInQueue:(BOOL)queue;
+- (void)_notifyObserver:(id)observer withRestricted:(BOOL)restricted;
 - (void)_startMonitoringWithQueue:(id)queue;
 - (void)_stopMonitoring;
 - (void)profileConnectionDidReceiveEffectiveSettingsChangedNotification:(id)notification userInfo:(id)info;
@@ -39,6 +40,17 @@
   [(CSSiriRestrictionOnLockScreenMonitor *)self _didReceiveRestrictionChanged:v5];
 }
 
+- (void)_notifyObserver:(id)observer withRestricted:(BOOL)restricted
+{
+  restrictedCopy = restricted;
+  observerCopy = observer;
+  [(CSEventMonitor *)self notifyObserver:observerCopy];
+  if (objc_opt_respondsToSelector())
+  {
+    [observerCopy CSSiriRestrictionOnLockScreenMonitor:self didReceiveRestrictionChanged:restrictedCopy];
+  }
+}
+
 - (void)_didReceiveRestrictionChanged:(BOOL)changed
 {
   v3[0] = MEMORY[0x1E69E9820];
@@ -63,7 +75,7 @@
 
 - (BOOL)_checkSiriRestrictedOnLockScreen
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   mEMORY[0x1E69ADFC0] = [MEMORY[0x1E69ADFC0] sharedConnection];
   v3 = [mEMORY[0x1E69ADFC0] effectiveBoolValueForSetting:*MEMORY[0x1E69ADDC0]];
 
@@ -76,51 +88,46 @@
       v5 = @"YES";
     }
 
-    v8 = 136315394;
-    v9 = "[CSSiriRestrictionOnLockScreenMonitor _checkSiriRestrictedOnLockScreen]";
-    v10 = 2114;
-    v11 = v5;
-    _os_log_impl(&dword_1DDA4B000, v4, OS_LOG_TYPE_DEFAULT, "%s Siri restricted on lock screen : %{public}@", &v8, 0x16u);
+    v7 = 136315394;
+    v8 = "[CSSiriRestrictionOnLockScreenMonitor _checkSiriRestrictedOnLockScreen]";
+    v9 = 2114;
+    v10 = v5;
+    _os_log_impl(&dword_1DDA4B000, v4, OS_LOG_TYPE_DEFAULT, "%s Siri restricted on lock screen : %{public}@", &v7, 0x16u);
   }
 
-  result = v3 == 2;
-  v7 = *MEMORY[0x1E69E9840];
-  return result;
+  return v3 == 2;
 }
 
 - (void)_stopMonitoring
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   mEMORY[0x1E69ADFC0] = [MEMORY[0x1E69ADFC0] sharedConnection];
   [mEMORY[0x1E69ADFC0] unregisterObserver:self];
 
   v4 = CSLogContextFacilityCoreSpeech;
   if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 136315138;
-    v7 = "[CSSiriRestrictionOnLockScreenMonitor _stopMonitoring]";
-    _os_log_impl(&dword_1DDA4B000, v4, OS_LOG_TYPE_DEFAULT, "%s Stop monitoring : Setting preference change", &v6, 0xCu);
+    v5 = 136315138;
+    v6 = "[CSSiriRestrictionOnLockScreenMonitor _stopMonitoring]";
+    _os_log_impl(&dword_1DDA4B000, v4, OS_LOG_TYPE_DEFAULT, "%s Stop monitoring : Setting preference change", &v5, 0xCu);
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_startMonitoringWithQueue:(id)queue
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   mEMORY[0x1E69ADFC0] = [MEMORY[0x1E69ADFC0] sharedConnection];
   [mEMORY[0x1E69ADFC0] registerObserver:self];
 
   v5 = CSLogContextFacilityCoreSpeech;
   if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 136315138;
-    v8 = "[CSSiriRestrictionOnLockScreenMonitor _startMonitoringWithQueue:]";
-    _os_log_impl(&dword_1DDA4B000, v5, OS_LOG_TYPE_DEFAULT, "%s Start monitoring : Setting preference change", &v7, 0xCu);
+    v6 = 136315138;
+    v7 = "[CSSiriRestrictionOnLockScreenMonitor _startMonitoringWithQueue:]";
+    _os_log_impl(&dword_1DDA4B000, v5, OS_LOG_TYPE_DEFAULT, "%s Start monitoring : Setting preference change", &v6, 0xCu);
   }
 
   self->_isRestricted = [(CSSiriRestrictionOnLockScreenMonitor *)self _checkSiriRestrictedOnLockScreen];
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (CSSiriRestrictionOnLockScreenMonitor)init
@@ -138,9 +145,11 @@
 
 uint64_t __54__CSSiriRestrictionOnLockScreenMonitor_sharedInstance__block_invoke()
 {
-  sharedInstance__sharedInstance_7027 = objc_alloc_init(CSSiriRestrictionOnLockScreenMonitor);
+  v0 = objc_alloc_init(CSSiriRestrictionOnLockScreenMonitor);
+  v1 = sharedInstance__sharedInstance_7027;
+  sharedInstance__sharedInstance_7027 = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 @end

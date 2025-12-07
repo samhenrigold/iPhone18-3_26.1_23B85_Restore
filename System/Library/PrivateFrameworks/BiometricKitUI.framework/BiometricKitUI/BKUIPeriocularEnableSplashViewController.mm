@@ -1,4 +1,5 @@
 @interface BKUIPeriocularEnableSplashViewController
++ (void)setPeriocularFaceIDMatchEnabledForUserConfigurationWithDevice:(id)device credentialSet:(id)set authContext:(id)context enabled:(BOOL)enabled completion:(id)completion;
 - (double)tableView:(id)view heightForFooterInSection:(int64_t)section;
 - (double)tableView:(id)view heightForRowAtIndexPath:(id)path;
 - (id)_createCellForIndexPath:(id)path;
@@ -12,6 +13,7 @@
 - (void)_showPrivacyLink;
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)path;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation BKUIPeriocularEnableSplashViewController
@@ -20,91 +22,91 @@
 {
   LODWORD(v9) = upsell;
   deviceCopy = device;
-  v59 = *MEMORY[0x277D85DE8];
+  v61 = *MEMORY[0x277D85DE8];
   deviceCopy2 = device;
   primaryCopy = primary;
   secondaryCopy = secondary;
   if (v9)
   {
-    v56 = 0;
-    v13 = [deviceCopy2 identitiesForUser:getuid() error:&v56];
-    v14 = v56;
+    v58 = 0;
+    v13 = [deviceCopy2 identitiesForUser:getuid() error:&v58];
+    v14 = v58;
     v15 = [MEMORY[0x277CCAC30] predicateWithBlock:&__block_literal_global_6];
     v16 = [v13 filteredArrayUsingPredicate:v15];
 
     if (![v16 count])
     {
-      v32 = _BKUILoggingFacility();
-      if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
+      v35 = _BKUILoggingFacility(0);
+      if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v58 = v14;
-        _os_log_impl(&dword_241B0A000, v32, OS_LOG_TYPE_DEFAULT, "BKUIPearl:BKUIPeriocularEnableSplashViewController no identities found returning nil to init ... error?:%@", buf, 0xCu);
+        v60 = v14;
+        _os_log_impl(&dword_241B0A000, v35, OS_LOG_TYPE_DEFAULT, "BKUIPearl:BKUIPeriocularEnableSplashViewController no identities found returning nil to init ... error?:%@", buf, 0xCu);
       }
 
       goto LABEL_19;
     }
 
-    v55 = v14;
-    v17 = [deviceCopy2 systemProtectedConfigurationWithError:&v55];
-    v18 = v55;
+    v57 = v14;
+    v17 = [deviceCopy2 systemProtectedConfigurationWithError:&v57];
+    v18 = v57;
 
     if (v18)
     {
-      v19 = _BKUILoggingFacility();
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+      v20 = _BKUILoggingFacility(v19);
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
       {
-        [BKUIPeriocularEnableSplashViewController initInBuddy:v18 bkDevice:v19 upsell:? withEndEnrollmentActionPrimary:? enrollmentActionSecondary:?];
+        [BKUIPeriocularEnableSplashViewController initInBuddy:v18 bkDevice:v20 upsell:? withEndEnrollmentActionPrimary:? enrollmentActionSecondary:?];
       }
     }
 
-    v54 = v18;
-    v20 = [deviceCopy2 protectedConfigurationForUser:getuid() error:&v54];
-    v21 = v54;
+    v56 = v18;
+    v21 = [deviceCopy2 protectedConfigurationForUser:getuid() error:&v56];
+    v22 = v56;
 
-    if (v21)
+    if (v22)
     {
-      v22 = _BKUILoggingFacility();
-      if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+      v24 = _BKUILoggingFacility(v23);
+      if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
       {
-        [BKUIPeriocularEnableSplashViewController initInBuddy:v21 bkDevice:v22 upsell:? withEndEnrollmentActionPrimary:? enrollmentActionSecondary:?];
+        [BKUIPeriocularEnableSplashViewController initInBuddy:v22 bkDevice:v24 upsell:? withEndEnrollmentActionPrimary:? enrollmentActionSecondary:?];
       }
     }
 
     periocularFaceIDMatchEnabled = [v17 periocularFaceIDMatchEnabled];
     if ([periocularFaceIDMatchEnabled BOOLValue])
     {
-      [v20 periocularFaceIDMatchEnabled];
-      v49 = v9;
+      [v21 periocularFaceIDMatchEnabled];
+      v51 = v9;
       v9 = deviceCopy;
-      v24 = v21;
-      v25 = deviceCopy2;
-      v26 = v20;
-      v27 = v16;
-      v29 = v28 = v17;
-      bOOLValue = [v29 BOOLValue];
+      v26 = v22;
+      v27 = deviceCopy2;
+      v28 = v21;
+      v29 = v16;
+      v31 = v30 = v17;
+      bOOLValue = [v31 BOOLValue];
 
-      v17 = v28;
-      v16 = v27;
-      v20 = v26;
-      deviceCopy2 = v25;
-      v21 = v24;
+      v17 = v30;
+      v16 = v29;
+      v21 = v28;
+      deviceCopy2 = v27;
+      v22 = v26;
       deviceCopy = v9;
-      LOBYTE(v9) = v49;
+      LOBYTE(v9) = v51;
 
       if (bOOLValue)
       {
-        v31 = _BKUILoggingFacility();
-        if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
+        v34 = _BKUILoggingFacility(v33);
+        if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
-          _os_log_impl(&dword_241B0A000, v31, OS_LOG_TYPE_DEFAULT, "BKUIPearl:User already has periocularFaceIDMatchEnabled for both system and user thus bailing out early returning nil to init ...", buf, 2u);
+          _os_log_impl(&dword_241B0A000, v34, OS_LOG_TYPE_DEFAULT, "BKUIPearl:User already has periocularFaceIDMatchEnabled for both system and user thus bailing out early returning nil to init ...", buf, 2u);
         }
 
 LABEL_19:
         selfCopy = 0;
-        v35 = secondaryCopy;
-        v34 = primaryCopy;
+        v38 = secondaryCopy;
+        v37 = primaryCopy;
         goto LABEL_25;
       }
     }
@@ -114,54 +116,53 @@ LABEL_19:
     }
   }
 
-  v36 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-  v37 = [v36 localizedStringForKey:@"FACE_MASK_ID" value:&stru_2853BB280 table:@"Pearl-periocular"];
-  v38 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-  v39 = [v38 localizedStringForKey:@"FACE_MASK_ID_SUBTEXT" value:&stru_2853BB280 table:@"Pearl-periocular"];
-  v53.receiver = self;
-  v53.super_class = BKUIPeriocularEnableSplashViewController;
-  v40 = [(OBTableWelcomeController *)&v53 initWithTitle:v37 detailText:v39 icon:0 adoptTableViewScrollView:1];
+  v39 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  v40 = [v39 localizedStringForKey:@"FACE_MASK_ID" value:&stru_2853BB280 table:@"Pearl-periocular"];
+  v41 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  v42 = [v41 localizedStringForKey:@"FACE_MASK_ID_SUBTEXT" value:&stru_2853BB280 table:@"Pearl-periocular"];
+  v55.receiver = self;
+  v55.super_class = BKUIPeriocularEnableSplashViewController;
+  v43 = [(OBTableWelcomeController *)&v55 initWithTitle:v40 detailText:v42 icon:0 adoptTableViewScrollView:1];
 
-  v35 = secondaryCopy;
-  v34 = primaryCopy;
-  if (v40)
+  v38 = secondaryCopy;
+  v37 = primaryCopy;
+  if (v43)
   {
-    v40->_upsell = v9;
-    v40->_inBuddy = buddy;
-    v41 = _Block_copy(primaryCopy);
-    endEnrollActionPrimary = v40->_endEnrollActionPrimary;
-    v40->_endEnrollActionPrimary = v41;
+    v43->_upsell = v9;
+    v43->_inBuddy = buddy;
+    v44 = _Block_copy(primaryCopy);
+    endEnrollActionPrimary = v43->_endEnrollActionPrimary;
+    v43->_endEnrollActionPrimary = v44;
 
-    v43 = _Block_copy(secondaryCopy);
-    endEnrollActionSecondary = v40->_endEnrollActionSecondary;
-    v40->_endEnrollActionSecondary = v43;
+    v46 = _Block_copy(secondaryCopy);
+    endEnrollActionSecondary = v43->_endEnrollActionSecondary;
+    v43->_endEnrollActionSecondary = v46;
 
-    objc_storeStrong(&v40->_device, deviceCopy);
-    v40->_maxCellHeight = -1.0;
-    headerView = [(BKUIPeriocularEnableSplashViewController *)v40 headerView];
+    objc_storeStrong(&v43->_device, deviceCopy);
+    v43->_maxCellHeight = -1.0;
+    headerView = [(BKUIPeriocularEnableSplashViewController *)v43 headerView];
     systemBlueColor = [MEMORY[0x277D75348] systemBlueColor];
     [headerView setTintColor:systemBlueColor];
   }
 
-  self = v40;
+  self = v43;
   selfCopy = self;
 LABEL_25:
 
-  v47 = *MEMORY[0x277D85DE8];
   return selfCopy;
 }
 
 - (void)viewDidLoad
 {
-  v73[2] = *MEMORY[0x277D85DE8];
-  v71.receiver = self;
-  v71.super_class = BKUIPeriocularEnableSplashViewController;
-  [(OBTableWelcomeController *)&v71 viewDidLoad];
+  v72[2] = *MEMORY[0x277D85DE8];
+  v70.receiver = self;
+  v70.super_class = BKUIPeriocularEnableSplashViewController;
+  [(OBTableWelcomeController *)&v70 viewDidLoad];
   v3 = [objc_alloc(MEMORY[0x277D37608]) initWithStateName:@"State 1" darkStateName:@"Dark 1" transitionDuration:0.01 transitionSpeed:1.0];
-  v73[0] = v3;
+  v72[0] = v3;
   v4 = [objc_alloc(MEMORY[0x277D37608]) initWithStateName:@"State 2" darkStateName:@"Dark 2" transitionDuration:1.5 transitionSpeed:0.8];
-  v73[1] = v4;
-  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v73 count:2];
+  v72[1] = v4;
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v72 count:2];
 
   v6 = objc_alloc(MEMORY[0x277D37600]);
   v7 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
@@ -299,21 +300,19 @@ LABEL_25:
 
   [(BKUIPeriocularEnableSplashViewController *)self setMaxCellHeight:v64];
   objc_initWeak(&location, self);
-  v72[0] = objc_opt_class();
-  v72[1] = objc_opt_class();
-  v65 = [MEMORY[0x277CBEA60] arrayWithObjects:v72 count:2];
-  v68[0] = MEMORY[0x277D85DD0];
-  v68[1] = 3221225472;
-  v68[2] = __55__BKUIPeriocularEnableSplashViewController_viewDidLoad__block_invoke;
-  v68[3] = &unk_278D09928;
-  objc_copyWeak(&v69, &location);
-  v66 = [(BKUIPeriocularEnableSplashViewController *)self registerForTraitChanges:v65 withHandler:v68];
+  v71[0] = objc_opt_class();
+  v71[1] = objc_opt_class();
+  v65 = [MEMORY[0x277CBEA60] arrayWithObjects:v71 count:2];
+  v67[0] = MEMORY[0x277D85DD0];
+  v67[1] = 3221225472;
+  v67[2] = __55__BKUIPeriocularEnableSplashViewController_viewDidLoad__block_invoke;
+  v67[3] = &unk_278D09928;
+  objc_copyWeak(&v68, &location);
+  v66 = [(BKUIPeriocularEnableSplashViewController *)self registerForTraitChanges:v65 withHandler:v67];
   [(BKUIPeriocularEnableSplashViewController *)self setTraitChangeRegistration:v66];
 
-  objc_destroyWeak(&v69);
+  objc_destroyWeak(&v68);
   objc_destroyWeak(&location);
-
-  v67 = *MEMORY[0x277D85DE8];
 }
 
 void __55__BKUIPeriocularEnableSplashViewController_viewDidLoad__block_invoke(uint64_t a1)
@@ -351,6 +350,18 @@ void __55__BKUIPeriocularEnableSplashViewController_viewDidLoad__block_invoke(ui
 
   v14 = [WeakRetained view];
   [v14 layoutIfNeeded];
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v6.receiver = self;
+  v6.super_class = BKUIPeriocularEnableSplashViewController;
+  [(OBTableWelcomeController *)&v6 viewWillAppear:appear];
+  animationController = [(BKUIPeriocularEnableSplashViewController *)self animationController];
+  [animationController startAnimation];
+
+  tableView = [(OBTableWelcomeController *)self tableView];
+  [tableView reloadData];
 }
 
 - (void)_showPrivacyLink
@@ -397,9 +408,39 @@ void __55__BKUIPeriocularEnableSplashViewController_viewDidLoad__block_invoke(ui
   (*(userSkippedAction + 16))();
 }
 
++ (void)setPeriocularFaceIDMatchEnabledForUserConfigurationWithDevice:(id)device credentialSet:(id)set authContext:(id)context enabled:(BOOL)enabled completion:(id)completion
+{
+  enabledCopy = enabled;
+  deviceCopy = device;
+  setCopy = set;
+  contextCopy = context;
+  completionCopy = completion;
+  v15 = objc_alloc_init(MEMORY[0x277CF1BE8]);
+  v16 = [MEMORY[0x277CCABB0] numberWithBool:enabledCopy];
+  [v15 setPeriocularFaceIDMatchEnabled:v16];
+
+  objc_initWeak(&location, deviceCopy);
+  v17 = getuid();
+  v20[0] = MEMORY[0x277D85DD0];
+  v20[1] = 3221225472;
+  v20[2] = __151__BKUIPeriocularEnableSplashViewController_setPeriocularFaceIDMatchEnabledForUserConfigurationWithDevice_credentialSet_authContext_enabled_completion___block_invoke;
+  v20[3] = &unk_278D0A4B8;
+  v24 = contextCopy != 0;
+  v18 = contextCopy;
+  v21 = v18;
+  v25 = enabledCopy;
+  objc_copyWeak(&v23, &location);
+  v19 = completionCopy;
+  v22 = v19;
+  [deviceCopy setProtectedConfiguration:v15 forUser:v17 credentialSet:setCopy reply:v20];
+
+  objc_destroyWeak(&v23);
+  objc_destroyWeak(&location);
+}
+
 void __151__BKUIPeriocularEnableSplashViewController_setPeriocularFaceIDMatchEnabledForUserConfigurationWithDevice_credentialSet_authContext_enabled_completion___block_invoke(uint64_t a1, char a2, void *a3)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = v5;
   if (*(a1 + 56) == 1 && !*(a1 + 32))
@@ -409,27 +450,27 @@ void __151__BKUIPeriocularEnableSplashViewController_setPeriocularFaceIDMatchEna
 
   if (v5 || (a2 & 1) == 0)
   {
-    v7 = _BKUILoggingFacility();
+    v7 = _BKUILoggingFacility(v5);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       v8 = *(a1 + 57);
       *buf = 67109378;
-      v18 = v8;
-      v19 = 2112;
-      v20 = v6;
+      v17 = v8;
+      v18 = 2112;
+      v19 = v6;
       _os_log_impl(&dword_241B0A000, v7, OS_LOG_TYPE_DEFAULT, "Failed to set userProtectedConfigurationWithError with value:%i error: %@", buf, 0x12u);
     }
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 48));
-  v10 = _BKUILoggingFacility();
+  v10 = _BKUILoggingFacility(WeakRetained);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     v11 = [WeakRetained protectedConfigurationForUser:getuid() error:0];
     v12 = [v11 periocularFaceIDMatchEnabled];
     v13 = [v12 BOOLValue];
     *buf = 67109120;
-    v18 = v13;
+    v17 = v13;
     _os_log_impl(&dword_241B0A000, v10, OS_LOG_TYPE_DEFAULT, "Final protectedConfigurationForUser faceIDMatchEnabled value %i", buf, 8u);
   }
 
@@ -439,16 +480,14 @@ void __151__BKUIPeriocularEnableSplashViewController_setPeriocularFaceIDMatchEna
     block[1] = 3221225472;
     block[2] = __151__BKUIPeriocularEnableSplashViewController_setPeriocularFaceIDMatchEnabledForUserConfigurationWithDevice_credentialSet_authContext_enabled_completion___block_invoke_67;
     block[3] = &unk_278D09E20;
-    v16 = *(a1 + 40);
+    v15 = *(a1 + 40);
     dispatch_async(MEMORY[0x277D85CD0], block);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __151__BKUIPeriocularEnableSplashViewController_setPeriocularFaceIDMatchEnabledForUserConfigurationWithDevice_credentialSet_authContext_enabled_completion___block_invoke_67(uint64_t a1)
 {
-  v2 = _BKUILoggingFacility();
+  v2 = _BKUILoggingFacility(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *v4 = 0;
@@ -632,20 +671,18 @@ LABEL_8:
 
 - (void)initInBuddy:(uint64_t)a1 bkDevice:(NSObject *)a2 upsell:withEndEnrollmentActionPrimary:enrollmentActionSecondary:.cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_241B0A000, a2, OS_LOG_TYPE_ERROR, "BKUIPearl:unable to fetch BKSystemProtectedConfiguration and determine if the user already enabled Periocular Splash ... error?:%@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_241B0A000, a2, OS_LOG_TYPE_ERROR, "BKUIPearl:unable to fetch BKSystemProtectedConfiguration and determine if the user already enabled Periocular Splash ... error?:%@", &v2, 0xCu);
 }
 
 - (void)initInBuddy:(uint64_t)a1 bkDevice:(NSObject *)a2 upsell:withEndEnrollmentActionPrimary:enrollmentActionSecondary:.cold.2(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_241B0A000, a2, OS_LOG_TYPE_ERROR, "BKUIPearl:unable to fetch BKUserProtectedConfiguration and determine if the user already enabled Periocular Splash ... error?:%@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_241B0A000, a2, OS_LOG_TYPE_ERROR, "BKUIPearl:unable to fetch BKUserProtectedConfiguration and determine if the user already enabled Periocular Splash ... error?:%@", &v2, 0xCu);
 }
 
 @end

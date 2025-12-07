@@ -16,15 +16,15 @@
 
 - (RETimeline)init
 {
-  v10[1] = *MEMORY[0x277D85DE8];
-  v9.receiver = self;
-  v9.super_class = RETimeline;
-  v2 = [(RETimeline *)&v9 init];
+  v9[1] = *MEMORY[0x277D85DE8];
+  v8.receiver = self;
+  v8.super_class = RETimeline;
+  v2 = [(RETimeline *)&v8 init];
   if (v2)
   {
     distantFuture = [MEMORY[0x277CBEAA8] distantFuture];
-    v10[0] = distantFuture;
-    v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:1];
+    v9[0] = distantFuture;
+    v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:1];
     transitionDates = v2->_transitionDates;
     v2->_transitionDates = v4;
 
@@ -32,7 +32,6 @@
     v2->_values = MEMORY[0x277CBEBF8];
   }
 
-  v7 = *MEMORY[0x277D85DE8];
   return v2;
 }
 
@@ -284,7 +283,7 @@ LABEL_18:
   return v5;
 }
 
-void __25__RETimeline_description__block_invoke(id *a1, void *a2, unint64_t a3)
+void __25__RETimeline_description__block_invoke(id *a1, void *a2, char *a3)
 {
   v7 = a2;
   if ([a1[4] count] - 1 > a3)
@@ -351,10 +350,10 @@ void __25__RETimeline_description__block_invoke(id *a1, void *a2, unint64_t a3)
   return v18;
 }
 
-void __51__RETimeline_REExtendedTimeline__initWithTimeline___block_invoke(uint64_t a1, void *a2, uint64_t a3)
+void __51__RETimeline_REExtendedTimeline__initWithTimeline___block_invoke(uint64_t a1, void *a2, _BYTE *a3)
 {
   v12 = a2;
-  if ([*(a1 + 32) count] - 1 != a3)
+  if (([*(a1 + 32) count] - 1) != a3)
   {
     v5 = [*(a1 + 32) objectAtIndexedSubscript:a3 + 1];
     [v5 timeIntervalSinceDate:v12];

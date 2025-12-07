@@ -14,34 +14,34 @@
 + (void)learnParticipantIdentitiesForShare:(id)share forceUpdate:(BOOL)update dbFacade:(id)facade
 {
   updateCopy = update;
-  v59 = *MEMORY[0x277D85DE8];
+  v58 = *MEMORY[0x277D85DE8];
   shareCopy = share;
   facadeCopy = facade;
   [facadeCopy assertOnQueue];
-  v48 = 0u;
-  v49 = 0u;
-  v46 = 0u;
   v47 = 0u;
-  v37 = shareCopy;
+  v48 = 0u;
+  v45 = 0u;
+  v46 = 0u;
+  v36 = shareCopy;
   participants = [shareCopy participants];
-  v9 = [participants countByEnumeratingWithState:&v46 objects:v58 count:16];
+  v9 = [participants countByEnumeratingWithState:&v45 objects:v57 count:16];
   if (v9)
   {
     v10 = v9;
-    v40 = !updateCopy;
-    v11 = *v47;
-    v45 = *MEMORY[0x277CBBF28];
-    v41 = participants;
+    v39 = !updateCopy;
+    v11 = *v46;
+    v44 = *MEMORY[0x277CBBF28];
+    v40 = participants;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v47 != v11)
+        if (*v46 != v11)
         {
           objc_enumerationMutation(participants);
         }
 
-        v13 = *(*(&v46 + 1) + 8 * i);
+        v13 = *(*(&v45 + 1) + 8 * i);
         if (([v13 isCurrentUser] & 1) == 0 && objc_msgSend(v13, "acceptanceStatus") == 2)
         {
           userIdentity = [v13 userIdentity];
@@ -56,18 +56,18 @@
               if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
               {
                 *buf = 138412802;
-                v53 = v13;
-                v54 = 2112;
-                v55 = v15;
-                v56 = 2112;
-                v57 = v17;
+                v52 = v13;
+                v53 = 2112;
+                v54 = v15;
+                v55 = 2112;
+                v56 = v17;
                 _os_log_debug_impl(&dword_223E7A000, v18, OS_LOG_TYPE_DEBUG, "[DEBUG] user %@ has identity %@%@", buf, 0x20u);
               }
 
               userRecordID2 = [v15 userRecordID];
               recordName = [userRecordID2 recordName];
 
-              if (([recordName isEqualToString:v45]& 1) == 0)
+              if (([recordName isEqualToString:v44]& 1) == 0)
               {
                 nameComponents = [v15 nameComponents];
 
@@ -77,7 +77,7 @@
                   v23 = [facadeCopy userIdentityForName:recordName];
                   if (v23)
                   {
-                    v24 = v40;
+                    v24 = v39;
                   }
 
                   else
@@ -85,32 +85,17 @@
                     v24 = 0;
                   }
 
-                  if (v24 != 1)
+                  if (v24 != 1 || (-[BRFieldUserIdentity nameComponents](v22, "nameComponents"), v25 = objc_claimAutoreleasedReturnValue(), -[NSObject nameComponents](v23, "nameComponents"), v42 = v23, v26 = v22, v27 = objc_claimAutoreleasedReturnValue(), v28 = [v25 isEqual:v27], v27, v22 = v26, v23 = v42, v25, (v28 & 1) == 0))
                   {
-                    goto LABEL_19;
-                  }
-
-                  nameComponents2 = [(BRFieldUserIdentity *)v22 nameComponents];
-                  [v23 nameComponents];
-                  v43 = v23;
-                  v27 = v26 = v22;
-                  v28 = [nameComponents2 isEqual:v27];
-
-                  v22 = v26;
-                  v23 = v43;
-
-                  if ((v28 & 1) == 0)
-                  {
-LABEL_19:
-                    v44 = v22;
-                    nameComponents3 = [(BRFieldUserIdentity *)v22 nameComponents];
-                    br_formattedName = [nameComponents3 br_formattedName];
+                    v43 = v22;
+                    nameComponents2 = [(BRFieldUserIdentity *)v22 nameComponents];
+                    br_formattedName = [nameComponents2 br_formattedName];
 
                     if ([br_formattedName length] || !v23)
                     {
                       if (!br_formattedName)
                       {
-                        [BRCSharingUtil learnParticipantIdentitiesForShare:v50 forceUpdate:&v51 dbFacade:?];
+                        [BRCSharingUtil learnParticipantIdentitiesForShare:v49 forceUpdate:&v50 dbFacade:?];
                       }
 
                       v34 = brc_bread_crumbs();
@@ -119,16 +104,16 @@ LABEL_19:
                       {
                         fp_obfuscatedFilename = [br_formattedName fp_obfuscatedFilename];
                         *buf = 138412802;
-                        v53 = fp_obfuscatedFilename;
-                        v54 = 2112;
-                        v55 = recordName;
-                        v56 = 2112;
-                        v57 = v34;
+                        v52 = fp_obfuscatedFilename;
+                        v53 = 2112;
+                        v54 = recordName;
+                        v55 = 2112;
+                        v56 = v34;
                         _os_log_debug_impl(&dword_223E7A000, v35, OS_LOG_TYPE_DEBUG, "[DEBUG] learning name '%@' for user %@%@", buf, 0x20u);
                       }
 
-                      v22 = v44;
-                      [facadeCopy setUserIdentityForUserName:recordName userIdentity:v44];
+                      v22 = v43;
+                      [facadeCopy setUserIdentityForUserName:recordName userIdentity:v43];
                     }
 
                     else
@@ -139,19 +124,19 @@ LABEL_19:
                       {
                         fp_obfuscatedFilename2 = [br_formattedName fp_obfuscatedFilename];
                         *buf = 138412802;
-                        v53 = fp_obfuscatedFilename2;
-                        v54 = 2112;
-                        v55 = recordName;
-                        v56 = 2112;
-                        v57 = v31;
+                        v52 = fp_obfuscatedFilename2;
+                        v53 = 2112;
+                        v54 = recordName;
+                        v55 = 2112;
+                        v56 = v31;
                         _os_log_impl(&dword_223E7A000, v32, OS_LOG_TYPE_DEFAULT, "[WARNING] Ignoring empty name '%@' for user %@%@", buf, 0x20u);
                       }
 
-                      v22 = v44;
+                      v22 = v43;
                     }
                   }
 
-                  participants = v41;
+                  participants = v40;
                 }
 
                 else
@@ -162,11 +147,11 @@ LABEL_19:
                   {
                     v33 = [v15 debugDescription];
                     *buf = 138412802;
-                    v53 = v33;
-                    v54 = 2112;
-                    v55 = recordName;
-                    v56 = 2112;
-                    v57 = v22;
+                    v52 = v33;
+                    v53 = 2112;
+                    v54 = recordName;
+                    v55 = 2112;
+                    v56 = v22;
                     _os_log_fault_impl(&dword_223E7A000, v23, OS_LOG_TYPE_FAULT, "[CRIT] UNREACHABLE: nameless identity: %@ (user %@)%@", buf, 0x20u);
                   }
                 }
@@ -185,9 +170,9 @@ LABEL_19:
               if (os_log_type_enabled(recordName, OS_LOG_TYPE_FAULT))
               {
                 *buf = 138412546;
-                v53 = v13;
-                v54 = 2112;
-                v55 = userRecordID;
+                v52 = v13;
+                v53 = 2112;
+                v54 = userRecordID;
                 _os_log_fault_impl(&dword_223E7A000, recordName, OS_LOG_TYPE_FAULT, "[CRIT] UNREACHABLE: owner %@ with no user identity%@", buf, 0x16u);
               }
             }
@@ -199,9 +184,9 @@ LABEL_19:
               if (os_log_type_enabled(recordName, OS_LOG_TYPE_DEBUG))
               {
                 *buf = 138412546;
-                v53 = v13;
-                v54 = 2112;
-                v55 = userRecordID;
+                v52 = v13;
+                v53 = 2112;
+                v54 = userRecordID;
                 _os_log_debug_impl(&dword_223E7A000, recordName, OS_LOG_TYPE_DEBUG, "[DEBUG] Participant %@ has no user identity%@", buf, 0x16u);
               }
             }
@@ -213,13 +198,11 @@ LABEL_39:
         }
       }
 
-      v10 = [participants countByEnumeratingWithState:&v46 objects:v58 count:16];
+      v10 = [participants countByEnumeratingWithState:&v45 objects:v57 count:16];
     }
 
     while (v10);
   }
-
-  v36 = *MEMORY[0x277D85DE8];
 }
 
 + (unint64_t)optionsWithParticipant:(id)participant isRequester:(BOOL)requester
@@ -319,7 +302,7 @@ LABEL_39:
 
 void __117__BRCSharingUtil__openSharedSideFaultFileWithAppID_url_recordName_scheduleOpenOperationBlock_options_delegate_error___block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
-  v36[1] = *MEMORY[0x277D85DE8];
+  v33[1] = *MEMORY[0x277D85DE8];
   v5 = a2;
   if (v5)
   {
@@ -327,23 +310,23 @@ void __117__BRCSharingUtil__openSharedSideFaultFileWithAppID_url_recordName_sche
     v7 = brc_default_log();
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
-      v26 = [*(a1 + 32) path];
+      v23 = [*(a1 + 32) path];
       *buf = 138412802;
-      v30 = v5;
-      v31 = 2112;
-      v32 = v26;
-      v33 = 2112;
-      v34 = v6;
+      v27 = v5;
+      v28 = 2112;
+      v29 = v23;
+      v30 = 2112;
+      v31 = v6;
       _os_log_debug_impl(&dword_223E7A000, v7, OS_LOG_TYPE_DEBUG, "[DEBUG] Got bookmark string %@ for URL %@%@", buf, 0x20u);
     }
 
     v8 = [MEMORY[0x277CC1E80] defaultWorkspace];
     v9 = *MEMORY[0x277CC1E28];
-    v27[0] = *MEMORY[0x277CC1DF8];
-    v27[1] = v9;
-    v28[0] = v5;
-    v28[1] = MEMORY[0x277CBEC38];
-    v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v28 forKeys:v27 count:2];
+    v24[0] = *MEMORY[0x277CC1DF8];
+    v24[1] = v9;
+    v25[0] = v5;
+    v25[1] = MEMORY[0x277CBEC38];
+    v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:v24 count:2];
     v11 = brc_bread_crumbs();
     v12 = brc_default_log();
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
@@ -351,35 +334,33 @@ void __117__BRCSharingUtil__openSharedSideFaultFileWithAppID_url_recordName_sche
       __117__BRCSharingUtil__openSharedSideFaultFileWithAppID_url_recordName_scheduleOpenOperationBlock_options_delegate_error___block_invoke_cold_1(a1, v11, v12);
     }
 
-    IsDataSeparated = BRCurrentPersonaIsDataSeparated();
-    v14 = *(a1 + 56);
-    v15 = [v8 operationToOpenResource:*(a1 + 32) usingApplication:*(a1 + 40) uniqueDocumentIdentifier:*(a1 + 48) isContentManaged:IsDataSeparated sourceAuditToken:0 userInfo:v10 options:v14 delegate:*(a1 + 64)];
+    v13 = [v8 operationToOpenResource:*(a1 + 32) usingApplication:*(a1 + 40) uniqueDocumentIdentifier:*(a1 + 48) isContentManaged:BRCurrentPersonaIsDataSeparated() sourceAuditToken:0 userInfo:v10 options:*(a1 + 56) delegate:*(a1 + 64)];
     (*(*(a1 + 72) + 16))();
   }
 
   else
   {
-    v16 = MEMORY[0x277CCA9B8];
-    v17 = *MEMORY[0x277CFABD0];
+    v14 = MEMORY[0x277CCA9B8];
+    v15 = *MEMORY[0x277CFABD0];
     if (a3)
     {
-      v35 = *MEMORY[0x277CCA7E8];
-      v36[0] = a3;
-      v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v36 forKeys:&v35 count:1];
+      v32 = *MEMORY[0x277CCA7E8];
+      v33[0] = a3;
+      v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v33 forKeys:&v32 count:1];
     }
 
     else
     {
-      v18 = MEMORY[0x277CBEC10];
+      v16 = MEMORY[0x277CBEC10];
     }
 
-    v20 = *(a1 + 32);
-    v19 = a1 + 32;
-    v21 = [v20 path];
-    v22 = [v16 br_errorWithDomain:v17 code:10 userInfo:v18 description:{@"Can't get bookmark string at %@", v21}];
-    v23 = *(*(v19 + 48) + 8);
-    v24 = *(v23 + 40);
-    *(v23 + 40) = v22;
+    v18 = *(a1 + 32);
+    v17 = a1 + 32;
+    v19 = [v18 path];
+    v20 = [v14 br_errorWithDomain:v15 code:10 userInfo:v16 description:{@"Can't get bookmark string at %@", v19}];
+    v21 = *(*(v17 + 48) + 8);
+    v22 = *(v21 + 40);
+    *(v21 + 40) = v20;
 
     if (a3)
     {
@@ -389,11 +370,9 @@ void __117__BRCSharingUtil__openSharedSideFaultFileWithAppID_url_recordName_sche
     v10 = brc_default_log();
     if (os_log_type_enabled(v10, 0x90u))
     {
-      __117__BRCSharingUtil__openSharedSideFaultFileWithAppID_url_recordName_scheduleOpenOperationBlock_options_delegate_error___block_invoke_cold_2(v19);
+      __117__BRCSharingUtil__openSharedSideFaultFileWithAppID_url_recordName_scheduleOpenOperationBlock_options_delegate_error___block_invoke_cold_2(v17);
     }
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 + (BOOL)openDocumentInDocumentsAppIfInstalled:(id)installed options:(id)options error:(id *)error
@@ -592,62 +571,51 @@ LABEL_11:
 
 void __117__BRCSharingUtil__openSharedSideFaultFileWithAppID_url_recordName_scheduleOpenOperationBlock_options_delegate_error___block_invoke_cold_1(uint64_t a1, uint64_t a2, NSObject *a3)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v6 = [*(a1 + 32) path];
   v7 = *(a1 + 40);
-  v9 = 138412802;
-  v10 = v6;
-  v11 = 2112;
-  v12 = v7;
-  v13 = 2112;
-  v14 = a2;
-  _os_log_debug_impl(&dword_223E7A000, a3, OS_LOG_TYPE_DEBUG, "[DEBUG] doing open operation on %@ with %@%@", &v9, 0x20u);
-
-  v8 = *MEMORY[0x277D85DE8];
+  v8 = 138412802;
+  v9 = v6;
+  v10 = 2112;
+  v11 = v7;
+  v12 = 2112;
+  v13 = a2;
+  _os_log_debug_impl(&dword_223E7A000, a3, OS_LOG_TYPE_DEBUG, "[DEBUG] doing open operation on %@ with %@%@", &v8, 0x20u);
 }
 
 void __117__BRCSharingUtil__openSharedSideFaultFileWithAppID_url_recordName_scheduleOpenOperationBlock_options_delegate_error___block_invoke_cold_2(id *a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
   v1 = [*a1 path];
   OUTLINED_FUNCTION_0_3();
-  OUTLINED_FUNCTION_4_3(&dword_223E7A000, v2, v3, "[ERROR] can't get bookmark string at %@%@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_4_3(&dword_223E7A000, v2, v3, "[ERROR] can't get bookmark string at %@%@", v4, v5, v6, v7);
 }
 
 + (void)openSharedSideFaultFileWithURL:recordName:scheduleOpenOperationBlock:options:skipOpenIfNeeded:delegate:error:.cold.1()
 {
-  v5 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
   v0 = brc_bread_crumbs();
   v1 = brc_default_log();
   if (os_log_type_enabled(v1, OS_LOG_TYPE_FAULT))
   {
-    v3 = 138412290;
-    v4 = v0;
-    _os_log_fault_impl(&dword_223E7A000, v1, OS_LOG_TYPE_FAULT, "[CRIT] Assertion failed: url%@", &v3, 0xCu);
+    v2 = 138412290;
+    v3 = v0;
+    _os_log_fault_impl(&dword_223E7A000, v1, OS_LOG_TYPE_FAULT, "[CRIT] Assertion failed: url%@", &v2, 0xCu);
   }
-
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 + (void)openSharedSideFaultFileWithURL:recordName:scheduleOpenOperationBlock:options:skipOpenIfNeeded:delegate:error:.cold.2()
 {
-  v9 = *MEMORY[0x277D85DE8];
   v0 = [0 path];
   OUTLINED_FUNCTION_0_3();
-  OUTLINED_FUNCTION_4_3(&dword_223E7A000, v1, v2, "[ERROR] don't know how to open shared item at %@%@", v3, v4, v5, v6, v8);
-
-  v7 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_4_3(&dword_223E7A000, v1, v2, "[ERROR] don't know how to open shared item at %@%@", v3, v4, v5, v6);
 }
 
 + (void)openSharedSideFaultFileWithURL:(uint64_t)a1 recordName:(NSObject *)a2 scheduleOpenOperationBlock:options:skipOpenIfNeeded:delegate:error:.cold.3(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_debug_impl(&dword_223E7A000, a2, OS_LOG_TYPE_DEBUG, "[DEBUG] Skipping open in app%@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_debug_impl(&dword_223E7A000, a2, OS_LOG_TYPE_DEBUG, "[DEBUG] Skipping open in app%@", &v2, 0xCu);
 }
 
 @end

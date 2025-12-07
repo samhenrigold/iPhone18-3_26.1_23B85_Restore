@@ -53,33 +53,33 @@ LABEL_10:
 
 - (void)_registerForObjectNotifications
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   if (!self->_registeredForObjectNotifications)
   {
     v3 = [AVRoutingCMNotificationDispatcher notificationDispatcherForCMNotificationCenter:CMNotificationCenterGetDefaultLocalCenter()];
+    v9 = 0u;
     v10 = 0u;
     v11 = 0u;
     v12 = 0u;
-    v13 = 0u;
     notificationNames = self->_notificationNames;
-    v5 = [(NSArray *)notificationNames countByEnumeratingWithState:&v10 objects:v14 count:16];
+    v5 = [(NSArray *)notificationNames countByEnumeratingWithState:&v9 objects:v13 count:16];
     if (v5)
     {
       v6 = v5;
-      v7 = *v11;
+      v7 = *v10;
       do
       {
         for (i = 0; i != v6; ++i)
         {
-          if (*v11 != v7)
+          if (*v10 != v7)
           {
             objc_enumerationMutation(notificationNames);
           }
 
-          [v3 addListenerWithWeakReference:self->_weakReferenceToSelf callback:AVRoutingWaitForNotificationOrDeallocationOperationNotificationHandler name:*(*(&v10 + 1) + 8 * i) object:0 flags:0];
+          [v3 addListenerWithWeakReference:self->_weakReferenceToSelf callback:AVRoutingWaitForNotificationOrDeallocationOperationNotificationHandler name:*(*(&v9 + 1) + 8 * i) object:0 flags:0];
         }
 
-        v6 = [(NSArray *)notificationNames countByEnumeratingWithState:&v10 objects:v14 count:16];
+        v6 = [(NSArray *)notificationNames countByEnumeratingWithState:&v9 objects:v13 count:16];
       }
 
       while (v6);
@@ -87,39 +87,37 @@ LABEL_10:
 
     self->_registeredForObjectNotifications = 1;
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_unregisterForObjectNotifications
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   if (self->_registeredForObjectNotifications)
   {
     v3 = [AVRoutingCMNotificationDispatcher notificationDispatcherForCMNotificationCenter:CMNotificationCenterGetDefaultLocalCenter()];
+    v9 = 0u;
     v10 = 0u;
     v11 = 0u;
     v12 = 0u;
-    v13 = 0u;
     notificationNames = self->_notificationNames;
-    v5 = [(NSArray *)notificationNames countByEnumeratingWithState:&v10 objects:v14 count:16];
+    v5 = [(NSArray *)notificationNames countByEnumeratingWithState:&v9 objects:v13 count:16];
     if (v5)
     {
       v6 = v5;
-      v7 = *v11;
+      v7 = *v10;
       do
       {
         for (i = 0; i != v6; ++i)
         {
-          if (*v11 != v7)
+          if (*v10 != v7)
           {
             objc_enumerationMutation(notificationNames);
           }
 
-          [v3 removeListenerWithWeakReference:self->_weakReferenceToSelf callback:AVRoutingWaitForNotificationOrDeallocationOperationNotificationHandler name:*(*(&v10 + 1) + 8 * i) object:0];
+          [v3 removeListenerWithWeakReference:self->_weakReferenceToSelf callback:AVRoutingWaitForNotificationOrDeallocationOperationNotificationHandler name:*(*(&v9 + 1) + 8 * i) object:0];
         }
 
-        v6 = [(NSArray *)notificationNames countByEnumeratingWithState:&v10 objects:v14 count:16];
+        v6 = [(NSArray *)notificationNames countByEnumeratingWithState:&v9 objects:v13 count:16];
       }
 
       while (v6);
@@ -127,8 +125,6 @@ LABEL_10:
 
     self->_registeredForObjectNotifications = 0;
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)dealloc

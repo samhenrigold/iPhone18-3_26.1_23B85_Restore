@@ -33,7 +33,7 @@
   v10 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(self, "permissions")}];
   [dictionary setObject:v10 forKeyedSubscript:@"HAP.permissions"];
 
-  v11 = [dictionary copy];
+  v11 = objc_msgSend_copy(dictionary);
 
   return v11;
 }
@@ -72,19 +72,19 @@
 
 + (id)hmd_currentPairingIdentityWithPrivilege:()HMDUser forceHH1Key:keyStore:
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   v7 = a5;
   v8 = v7;
   v9 = (a3 & 0xFFFFFFFFFFFFFFFDLL) == 1;
   if (a4)
   {
-    v27 = 0;
-    v28 = 0;
     v26 = 0;
-    v10 = [v7 getControllerPublicKey:&v28 secretKey:0 username:&v27 allowCreation:0 error:&v26];
-    v11 = v28;
-    v12 = v27;
-    v13 = v26;
+    v27 = 0;
+    v25 = 0;
+    v10 = [v7 getControllerPublicKey:&v27 secretKey:0 username:&v26 allowCreation:0 error:&v25];
+    v11 = v27;
+    v12 = v26;
+    v13 = v25;
     v14 = v13;
     if (v10)
     {
@@ -102,9 +102,9 @@ LABEL_5:
     {
       v20 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v32 = v20;
-      v33 = 2112;
-      v34 = v14;
+      v31 = v20;
+      v32 = 2112;
+      v33 = v14;
       _os_log_impl(&dword_229538000, v19, OS_LOG_TYPE_ERROR, "%{public}@[HMDUser] Failed to get current user from keychain with error: %@", buf, 0x16u);
     }
 
@@ -113,11 +113,11 @@ LABEL_5:
 
   else
   {
+    v28 = 0;
     v29 = 0;
-    v30 = 0;
-    v15 = [v7 getOrCreateHH2ControllerKey:&v30 secretKey:0 keyPair:0 username:&v29];
-    v11 = v30;
-    v12 = v29;
+    v15 = [v7 getOrCreateHH2ControllerKey:&v29 secretKey:0 keyPair:0 username:&v28];
+    v11 = v29;
+    v12 = v28;
     if (v15)
     {
       goto LABEL_5;
@@ -129,7 +129,7 @@ LABEL_5:
     {
       v23 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v32 = v23;
+      v31 = v23;
       _os_log_impl(&dword_229538000, v22, OS_LOG_TYPE_ERROR, "%{public}@[HMDUser] Failed to get/create HH2 controller key from keychain", buf, 0xCu);
     }
 
@@ -138,8 +138,6 @@ LABEL_5:
 
   v17 = 0;
 LABEL_13:
-
-  v24 = *MEMORY[0x277D85DE8];
 
   return v17;
 }

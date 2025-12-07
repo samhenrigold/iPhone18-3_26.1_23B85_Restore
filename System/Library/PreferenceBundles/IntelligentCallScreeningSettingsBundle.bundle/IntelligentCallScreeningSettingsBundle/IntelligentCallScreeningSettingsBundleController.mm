@@ -8,6 +8,7 @@
 - (id)specifiersWithSpecifier:(id)specifier;
 - (int64_t)getSelectedIntelligentCallScreeningMenuOptionForPhone;
 - (void)refreshView:(id)view;
+- (void)setCallScreeningEnabled:(BOOL)enabled;
 - (void)setSelectedIntelligentCallScreeningOption:(id)option;
 @end
 
@@ -49,83 +50,83 @@
 
 - (id)specifiersWithSpecifier:(id)specifier
 {
-  v25 = +[NSMutableArray array];
+  v26 = +[NSMutableArray array];
   configurationProvider = [(IntelligentCallScreeningSettingsBundleController *)self configurationProvider];
   isReceptionistAvailable = [configurationProvider isReceptionistAvailable];
 
-  v6 = PHDefaultLog();
-  v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
+  v7 = PHDefaultLog(v6);
+  v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
   if (isReceptionistAvailable)
   {
-    if (v7)
+    if (v8)
     {
       *buf = 0;
-      _os_log_impl(&dword_0, v6, OS_LOG_TYPE_DEFAULT, "INTELLIGENT CALL SCREENING SETTINGS: We are in Phone Settings with receptionist available, so we will show Intelligent Call Screening group", buf, 2u);
+      _os_log_impl(&dword_0, v7, OS_LOG_TYPE_DEFAULT, "INTELLIGENT CALL SCREENING SETTINGS: We are in Phone Settings with receptionist available, so we will show Intelligent Call Screening group", buf, 2u);
     }
 
-    v24 = [IntelligentCallScreeningMenuCellOption localizedStringForKey:@"INTELLIGENT_CALL_SCREENING_MENU_TITLE"];
-    v8 = [PSSpecifier groupSpecifierWithName:?];
-    [v8 setIdentifier:@"INTELLIGENT_CALL_SCREENING_MENU_TITLE"];
-    [(NSArray *)v25 addObject:v8];
-    v23 = v8;
-    [v8 setProperty:&__kCFBooleanTrue forKey:PSIsRadioGroupKey];
-    v9 = +[IntelligentCallScreeningMenuCellOption optionMenuItems];
-    v26 = 0u;
+    v25 = [IntelligentCallScreeningMenuCellOption localizedStringForKey:@"INTELLIGENT_CALL_SCREENING_MENU_TITLE"];
+    v9 = [PSSpecifier groupSpecifierWithName:?];
+    [v9 setIdentifier:@"INTELLIGENT_CALL_SCREENING_MENU_TITLE"];
+    [(NSArray *)v26 addObject:v9];
+    v24 = v9;
+    [v9 setProperty:&__kCFBooleanTrue forKey:PSIsRadioGroupKey];
+    v10 = +[IntelligentCallScreeningMenuCellOption optionMenuItems];
     v27 = 0u;
     v28 = 0u;
     v29 = 0u;
-    v10 = [v9 countByEnumeratingWithState:&v26 objects:v31 count:16];
-    if (v10)
+    v30 = 0u;
+    v11 = [v10 countByEnumeratingWithState:&v27 objects:v32 count:16];
+    if (v11)
     {
-      v11 = v10;
-      v12 = *v27;
+      v12 = v11;
+      v13 = *v28;
       do
       {
-        for (i = 0; i != v11; i = i + 1)
+        for (i = 0; i != v12; i = i + 1)
         {
-          if (*v27 != v12)
+          if (*v28 != v13)
           {
-            objc_enumerationMutation(v9);
+            objc_enumerationMutation(v10);
           }
 
-          v14 = *(*(&v26 + 1) + 8 * i);
-          v15 = [(IntelligentCallScreeningSettingsBundleController *)self createSpecifierForMenuOption:v14];
-          if (v15)
+          v15 = *(*(&v27 + 1) + 8 * i);
+          v16 = [(IntelligentCallScreeningSettingsBundleController *)self createSpecifierForMenuOption:v15];
+          if (v16)
           {
-            [(NSArray *)v25 addObject:v15];
-            [(NSMutableArray *)self->_intelligentCallScreeningMenuSpecifiers addObject:v15];
-            optionID = [v14 optionID];
+            [(NSArray *)v26 addObject:v16];
+            [(NSMutableArray *)self->_intelligentCallScreeningMenuSpecifiers addObject:v16];
+            optionID = [v15 optionID];
             integerValue = [optionID integerValue];
 
             intelligentCallScreeningOptionToSpecifierMap = self->_intelligentCallScreeningOptionToSpecifierMap;
-            v19 = [NSNumber numberWithInteger:integerValue];
-            [(NSMutableDictionary *)intelligentCallScreeningOptionToSpecifierMap setObject:v15 forKey:v19];
+            v20 = [NSNumber numberWithInteger:integerValue];
+            [(NSMutableDictionary *)intelligentCallScreeningOptionToSpecifierMap setObject:v16 forKey:v20];
           }
         }
 
-        v11 = [v9 countByEnumeratingWithState:&v26 objects:v31 count:16];
+        v12 = [v10 countByEnumeratingWithState:&v27 objects:v32 count:16];
       }
 
-      while (v11);
+      while (v12);
     }
 
     specifiers = self->_specifiers;
-    self->_specifiers = v25;
-    v21 = v25;
+    self->_specifiers = v26;
+    v22 = v26;
 
     [(IntelligentCallScreeningSettingsBundleController *)self refreshView:0];
-    v25 = [(NSArray *)self->_specifiers copy];
+    v26 = [(NSArray *)self->_specifiers copy];
 
-    v6 = v24;
+    v7 = v25;
   }
 
-  else if (v7)
+  else if (v8)
   {
     *buf = 0;
-    _os_log_impl(&dword_0, v6, OS_LOG_TYPE_DEFAULT, "INTELLIGENT CALL SCREENING SETTINGS: We are NOT in Phone Settings with receptionist available, so we will NOT show Intelligent Call Screening group, we must show Silence Unknown Callers toggle instead", buf, 2u);
+    _os_log_impl(&dword_0, v7, OS_LOG_TYPE_DEFAULT, "INTELLIGENT CALL SCREENING SETTINGS: We are NOT in Phone Settings with receptionist available, so we will NOT show Intelligent Call Screening group, we must show Silence Unknown Callers toggle instead", buf, 2u);
   }
 
-  return v25;
+  return v26;
 }
 
 - (id)createSpecifierForMenuOption:(id)option
@@ -261,23 +262,23 @@
       if (getCallScreeningEnabled)
       {
 LABEL_9:
-        v11 = dispatch_get_global_queue(33, 0);
-        v12[0] = _NSConcreteStackBlock;
-        v12[1] = 3221225472;
-        v12[2] = sub_173C;
-        v12[3] = &unk_8280;
-        v13 = optionCopy;
+        v12 = dispatch_get_global_queue(33, 0);
+        v13[0] = _NSConcreteStackBlock;
+        v13[1] = 3221225472;
+        v13[2] = sub_173C;
+        v13[3] = &unk_8280;
+        v14 = optionCopy;
         selfCopy = self;
-        dispatch_async(v11, v12);
+        dispatch_async(v12, v13);
 
         goto LABEL_10;
       }
 
-      v10 = PHDefaultLog();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+      v11 = PHDefaultLog(v10);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_0, v10, OS_LOG_TYPE_DEFAULT, "Turning on Live Voicemail due to Receptionist turning on", buf, 2u);
+        _os_log_impl(&dword_0, v11, OS_LOG_TYPE_DEFAULT, "Turning on Live Voicemail due to Receptionist turning on", buf, 2u);
       }
 
       [(IntelligentCallScreeningSettingsBundleController *)self setCallScreeningEnabled:1];
@@ -313,6 +314,13 @@ LABEL_10:
   }
 
   return isCallScreeningEnabled;
+}
+
+- (void)setCallScreeningEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  configurationProvider = [(IntelligentCallScreeningSettingsBundleController *)self configurationProvider];
+  [configurationProvider setCallScreeningEnabled:enabledCopy];
 }
 
 @end

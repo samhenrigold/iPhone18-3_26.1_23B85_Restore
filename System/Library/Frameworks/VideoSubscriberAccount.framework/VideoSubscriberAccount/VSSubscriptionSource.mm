@@ -74,123 +74,128 @@ void __37__VSSubscriptionSource_currentSource__block_invoke_2(uint64_t a1)
 
 + (id)subscriptionSourceForWebsiteWithURL:(id)l
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   lCopy = l;
+  v5 = lCopy;
   if (!lCopy)
   {
-    [MEMORY[0x277CBEAD8] raise:*MEMORY[0x277CBE660] format:@"The webURL parameter must not be nil."];
+    lCopy = [MEMORY[0x277CBEAD8] raise:*MEMORY[0x277CBE660] format:@"The webURL parameter must not be nil."];
   }
 
-  v5 = VSDefaultLogObject();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v6 = VSDefaultLogObject(lCopy);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = 136315394;
-    v12 = "+[VSSubscriptionSource subscriptionSourceForWebsiteWithURL:]";
-    v13 = 2112;
-    v14 = lCopy;
-    _os_log_impl(&dword_23AB8E000, v5, OS_LOG_TYPE_DEFAULT, "%s: Generated webURL: %@", &v11, 0x16u);
+    v12 = 136315394;
+    v13 = "+[VSSubscriptionSource subscriptionSourceForWebsiteWithURL:]";
+    v14 = 2112;
+    v15 = v5;
+    _os_log_impl(&dword_23AB8E000, v6, OS_LOG_TYPE_DEFAULT, "%s: Generated webURL: %@", &v12, 0x16u);
   }
 
-  host = [lCopy host];
-  v7 = [VSOptional optionalWithObject:host];
+  host = [v5 host];
+  v8 = [VSOptional optionalWithObject:host];
 
-  forceUnwrapObject = [v7 forceUnwrapObject];
-  v9 = [self subscriptionSourceForWebsiteWithDomainName:forceUnwrapObject];
+  forceUnwrapObject = [v8 forceUnwrapObject];
+  v10 = [self subscriptionSourceForWebsiteWithDomainName:forceUnwrapObject];
 
-  return v9;
+  return v10;
 }
 
 + (id)subscriptionSourceForWebsiteWithDomainName:(id)name
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   nameCopy = name;
+  v5 = nameCopy;
   if (!nameCopy)
   {
-    [MEMORY[0x277CBEAD8] raise:*MEMORY[0x277CBE660] format:@"The domainName parameter must not be nil."];
+    nameCopy = [MEMORY[0x277CBEAD8] raise:*MEMORY[0x277CBE660] format:@"The domainName parameter must not be nil."];
   }
 
-  v5 = VSDefaultLogObject();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v6 = VSDefaultLogObject(nameCopy);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 136315394;
-    v9 = "+[VSSubscriptionSource subscriptionSourceForWebsiteWithDomainName:]";
-    v10 = 2112;
-    v11 = nameCopy;
-    _os_log_impl(&dword_23AB8E000, v5, OS_LOG_TYPE_DEFAULT, "%s: %@", &v8, 0x16u);
+    v9 = 136315394;
+    v10 = "+[VSSubscriptionSource subscriptionSourceForWebsiteWithDomainName:]";
+    v11 = 2112;
+    v12 = v5;
+    _os_log_impl(&dword_23AB8E000, v6, OS_LOG_TYPE_DEFAULT, "%s: %@", &v9, 0x16u);
   }
 
-  v6 = objc_alloc_init(self);
-  [v6 setKind:1];
-  [v6 setIdentifier:nameCopy];
+  v7 = objc_alloc_init(self);
+  [v7 setKind:1];
+  [v7 setIdentifier:v5];
 
-  return v6;
+  return v7;
 }
 
 + (id)subscriptionSourceForAppWithBundleID:(id)d
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   dCopy = d;
+  v5 = dCopy;
   if (!dCopy)
   {
-    [MEMORY[0x277CBEAD8] raise:*MEMORY[0x277CBE660] format:@"The bundleID parameter must not be nil."];
+    dCopy = [MEMORY[0x277CBEAD8] raise:*MEMORY[0x277CBE660] format:@"The bundleID parameter must not be nil."];
   }
 
-  v5 = VSDefaultLogObject();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v6 = VSDefaultLogObject(dCopy);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 136315394;
-    v9 = "+[VSSubscriptionSource subscriptionSourceForAppWithBundleID:]";
-    v10 = 2112;
-    v11 = dCopy;
-    _os_log_impl(&dword_23AB8E000, v5, OS_LOG_TYPE_DEFAULT, "%s: %@", &v8, 0x16u);
+    v9 = 136315394;
+    v10 = "+[VSSubscriptionSource subscriptionSourceForAppWithBundleID:]";
+    v11 = 2112;
+    v12 = v5;
+    _os_log_impl(&dword_23AB8E000, v6, OS_LOG_TYPE_DEFAULT, "%s: %@", &v9, 0x16u);
   }
 
-  v6 = objc_alloc_init(self);
-  [v6 setKind:0];
-  [v6 setIdentifier:dCopy];
+  v7 = objc_alloc_init(self);
+  [v7 setKind:0];
+  [v7 setIdentifier:v5];
 
-  return v6;
+  return v7;
 }
 
 - (VSSubscriptionSource)init
 {
-  v5.receiver = self;
-  v5.super_class = VSSubscriptionSource;
-  v2 = [(VSSubscriptionSource *)&v5 init];
+  v6.receiver = self;
+  v6.super_class = VSSubscriptionSource;
+  v2 = [(VSSubscriptionSource *)&v6 init];
+  v3 = v2;
   if (v2)
   {
-    v3 = VSSubscriptionSourceValueType();
-    VSValueTypeInit(v3, v2);
+    v4 = VSSubscriptionSourceValueType(v2);
+    VSValueTypeInit(v4, v3);
   }
 
-  return v2;
+  return v3;
 }
 
 - (VSSubscriptionSource)initWithCoder:(id)coder
 {
   coderCopy = coder;
-  v8.receiver = self;
-  v8.super_class = VSSubscriptionSource;
-  v5 = [(VSSubscriptionSource *)&v8 init];
+  v9.receiver = self;
+  v9.super_class = VSSubscriptionSource;
+  v5 = [(VSSubscriptionSource *)&v9 init];
+  v6 = v5;
   if (v5)
   {
-    v6 = VSSubscriptionSourceValueType();
-    VSValueTypeInitWithCoder(v6, v5, coderCopy);
+    v7 = VSSubscriptionSourceValueType(v5);
+    VSValueTypeInitWithCoder(v7, v6, coderCopy);
   }
 
-  return v5;
+  return v6;
 }
 
 - (void)encodeWithCoder:(id)coder
 {
   coderCopy = coder;
-  v5 = VSSubscriptionSourceValueType();
+  v5 = VSSubscriptionSourceValueType(coderCopy);
   VSValueTypeEncodeWithCoder(v5, self, coderCopy);
 }
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v5 = VSSubscriptionSourceValueType();
+  v5 = VSSubscriptionSourceValueType(self);
   v6 = VSValueTypeCopyWithZone(v5, self, zone);
 
   return v6;
@@ -198,7 +203,7 @@ void __37__VSSubscriptionSource_currentSource__block_invoke_2(uint64_t a1)
 
 - (unint64_t)hash
 {
-  v3 = VSSubscriptionSourceValueType();
+  v3 = VSSubscriptionSourceValueType(self);
   v4 = VSValueTypeHash(v3, self);
 
   return v4;
@@ -207,7 +212,7 @@ void __37__VSSubscriptionSource_currentSource__block_invoke_2(uint64_t a1)
 - (BOOL)isEqual:(id)equal
 {
   equalCopy = equal;
-  v5 = VSSubscriptionSourceValueType();
+  v5 = VSSubscriptionSourceValueType(equalCopy);
   LOBYTE(self) = VSValueTypeIsEqual(v5, self, equalCopy);
 
   return self;
@@ -215,7 +220,7 @@ void __37__VSSubscriptionSource_currentSource__block_invoke_2(uint64_t a1)
 
 - (id)description
 {
-  v3 = VSSubscriptionSourceValueType();
+  v3 = VSSubscriptionSourceValueType(self);
   v4 = VSValueTypeDescription(v3, self);
 
   return v4;

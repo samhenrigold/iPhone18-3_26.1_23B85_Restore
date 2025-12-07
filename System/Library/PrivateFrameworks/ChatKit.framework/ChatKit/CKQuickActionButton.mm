@@ -545,29 +545,29 @@ void __73__CKQuickActionButton_configureForState_animated_identifier_wasDeferred
 
 - (id)createContextMenu
 {
-  v16[2] = *MEMORY[0x1E69E9840];
+  v17[2] = *MEMORY[0x1E69E9840];
   v3 = MEMORY[0x1E69DC628];
   v4 = [MEMORY[0x1E69DCAB8] systemImageNamed:@"rectangle.stack.badge.person.crop"];
   v5 = [v3 actionWithTitle:@"Add to Scotland Reunion album" image:v4 identifier:0 handler:&__block_literal_global_239_1];
 
   v6 = MEMORY[0x1E69DC628];
-  v7 = CKFrameworkBundle();
-  v8 = [v7 localizedStringForKey:@"SAVE_TO_PHOTOS" value:&stru_1F04268F8 table:@"ChatKit"];
-  v9 = [MEMORY[0x1E69DCAB8] systemImageNamed:@"photo.on.rectangle"];
-  v15[0] = MEMORY[0x1E69E9820];
-  v15[1] = 3221225472;
-  v15[2] = __40__CKQuickActionButton_createContextMenu__block_invoke_2;
-  v15[3] = &unk_1E72EC060;
-  v15[4] = self;
-  v10 = [v6 actionWithTitle:v8 image:v9 identifier:0 handler:v15];
+  v8 = CKFrameworkBundle(v7);
+  v9 = [v8 localizedStringForKey:@"SAVE_TO_PHOTOS" value:&stru_1F04268F8 table:@"ChatKit"];
+  v10 = [MEMORY[0x1E69DCAB8] systemImageNamed:@"photo.on.rectangle"];
+  v16[0] = MEMORY[0x1E69E9820];
+  v16[1] = 3221225472;
+  v16[2] = __40__CKQuickActionButton_createContextMenu__block_invoke_2;
+  v16[3] = &unk_1E72EC060;
+  v16[4] = self;
+  v11 = [v6 actionWithTitle:v9 image:v10 identifier:0 handler:v16];
 
-  v11 = MEMORY[0x1E69DCC60];
-  v16[0] = v5;
-  v16[1] = v10;
-  v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v16 count:2];
-  v13 = [v11 menuWithChildren:v12];
+  v12 = MEMORY[0x1E69DCC60];
+  v17[0] = v5;
+  v17[1] = v11;
+  v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v17 count:2];
+  v14 = [v12 menuWithChildren:v13];
 
-  return v13;
+  return v14;
 }
 
 void __40__CKQuickActionButton_createContextMenu__block_invoke_2(uint64_t a1)

@@ -55,28 +55,28 @@
 
 - (id)jsonDictionary
 {
-  v12[2] = *MEMORY[0x1E69E9840];
+  v11[2] = *MEMORY[0x1E69E9840];
   v3 = [MEMORY[0x1E696AD98] numberWithInt:{-[BMVisualIntelligenceCameraLookupEventVisualComponent componentType](self, "componentType")}];
   pillAttribute = [(BMVisualIntelligenceCameraLookupEventVisualComponent *)self pillAttribute];
   jsonDictionary = [pillAttribute jsonDictionary];
 
-  v11[0] = @"componentType";
+  v10[0] = @"componentType";
   null = v3;
   if (!v3)
   {
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v11[1] = @"pillAttribute";
-  v12[0] = null;
+  v10[1] = @"pillAttribute";
+  v11[0] = null;
   null2 = jsonDictionary;
   if (!jsonDictionary)
   {
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v12[1] = null2;
-  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:v11 count:2];
+  v11[1] = null2;
+  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:v10 count:2];
   if (jsonDictionary)
   {
     if (v3)
@@ -95,14 +95,13 @@
   }
 
 LABEL_7:
-  v9 = *MEMORY[0x1E69E9840];
 
   return v8;
 }
 
 - (BMVisualIntelligenceCameraLookupEventVisualComponent)initWithJSONDictionary:(id)dictionary error:(id *)error
 {
-  v27[1] = *MEMORY[0x1E69E9840];
+  v26[1] = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   v7 = [dictionaryCopy objectForKeyedSubscript:@"componentType"];
   if (v7 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
@@ -125,16 +124,16 @@ LABEL_7:
           goto LABEL_15;
         }
 
-        v19 = objc_alloc(MEMORY[0x1E696ABC0]);
-        v20 = *MEMORY[0x1E698F240];
-        v26 = *MEMORY[0x1E696A578];
+        v18 = objc_alloc(MEMORY[0x1E696ABC0]);
+        v19 = *MEMORY[0x1E698F240];
+        v25 = *MEMORY[0x1E696A578];
         v10 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber (corresponding to enum value), or NSString (string version of enum)", objc_opt_class(), @"componentType"];
-        v27[0] = v10;
-        v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v27 forKeys:&v26 count:1];
-        v21 = [v19 initWithDomain:v20 code:2 userInfo:v11];
+        v26[0] = v10;
+        v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v26 forKeys:&v25 count:1];
+        v20 = [v18 initWithDomain:v19 code:2 userInfo:v11];
         v8 = 0;
         selfCopy = 0;
-        *error = v21;
+        *error = v20;
         goto LABEL_13;
       }
 
@@ -162,20 +161,20 @@ LABEL_12:
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v15 = v10;
-    v23 = 0;
-    v11 = [[BMVisualIntelligenceCameraLookupEventPillAttribute alloc] initWithJSONDictionary:v15 error:&v23];
-    v16 = v23;
-    if (v16)
+    v14 = v10;
+    v22 = 0;
+    v11 = [[BMVisualIntelligenceCameraLookupEventPillAttribute alloc] initWithJSONDictionary:v14 error:&v22];
+    v15 = v22;
+    if (v15)
     {
       if (error)
       {
-        v16 = v16;
-        *error = v16;
+        v15 = v15;
+        *error = v15;
       }
 
       selfCopy = 0;
-      v10 = v15;
+      v10 = v14;
       goto LABEL_13;
     }
 
@@ -188,13 +187,13 @@ LABEL_12:
     goto LABEL_14;
   }
 
-  v22 = objc_alloc(MEMORY[0x1E696ABC0]);
-  v17 = *MEMORY[0x1E698F240];
-  v24 = *MEMORY[0x1E696A578];
+  v21 = objc_alloc(MEMORY[0x1E696ABC0]);
+  v16 = *MEMORY[0x1E698F240];
+  v23 = *MEMORY[0x1E696A578];
   v11 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSDictionary", objc_opt_class(), @"pillAttribute"];
-  v25 = v11;
-  v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v25 forKeys:&v24 count:1];
-  *error = [v22 initWithDomain:v17 code:2 userInfo:v18];
+  v24 = v11;
+  v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v24 forKeys:&v23 count:1];
+  *error = [v21 initWithDomain:v16 code:2 userInfo:v17];
 
   selfCopy = 0;
 LABEL_13:
@@ -202,7 +201,6 @@ LABEL_13:
 LABEL_14:
 LABEL_15:
 
-  v13 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 
@@ -218,7 +216,6 @@ LABEL_15:
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  componentType = self->_componentType;
   PBDataWriterWriteUint32Field();
   if (self->_pillAttribute)
   {
@@ -409,40 +406,36 @@ LABEL_41:
 
 + (id)protoFields
 {
-  v7[2] = *MEMORY[0x1E69E9840];
+  v6[2] = *MEMORY[0x1E69E9840];
   v2 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"componentType" number:1 type:4 subMessageClass:0];
-  v7[0] = v2;
+  v6[0] = v2;
   v3 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"pillAttribute" number:2 type:14 subMessageClass:objc_opt_class()];
-  v7[1] = v3;
-  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:2];
-
-  v5 = *MEMORY[0x1E69E9840];
+  v6[1] = v3;
+  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v6 count:2];
 
   return v4;
 }
 
 + (id)columns
 {
-  v7[2] = *MEMORY[0x1E69E9840];
+  v6[2] = *MEMORY[0x1E69E9840];
   v2 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"componentType" dataType:0 requestOnly:0 fieldNumber:1 protoDataType:4 convertedType:0];
   v3 = [objc_alloc(MEMORY[0x1E698F2D8]) initWithName:@"pillAttribute_json" dataType:5 requestOnly:1 extractBlock:&__block_literal_global_630_110302];
-  v7[0] = v2;
-  v7[1] = v3;
-  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:2];
-
-  v5 = *MEMORY[0x1E69E9840];
+  v6[0] = v2;
+  v6[1] = v3;
+  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v6 count:2];
 
   return v4;
 }
 
-id __63__BMVisualIntelligenceCameraLookupEventVisualComponent_columns__block_invoke(uint64_t a1, void *a2)
+id __63__BMVisualIntelligenceCameraLookupEventVisualComponent_columns__block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
-  v2 = [a2 eventBodyKeepingBackingData:1];
-  v3 = [v2 pillAttribute];
-  v4 = [v3 jsonDictionary];
-  v5 = BMConvertObjectToJSONString();
+  v3 = [a2 eventBodyKeepingBackingData:1];
+  v4 = [v3 pillAttribute];
+  v5 = [v4 jsonDictionary];
+  v6 = BMConvertObjectToJSONString();
 
-  return v5;
+  return v6;
 }
 
 + (id)eventWithData:(id)data dataVersion:(unsigned int)version

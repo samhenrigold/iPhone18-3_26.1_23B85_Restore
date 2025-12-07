@@ -4,6 +4,7 @@
 - (LNActionParameterMetadata)actionParameterMetadataWithDescriptiveMetadataFromParameter:(id)parameter usingLibraryKey:(id)key;
 - (LNActionParameterMetadata)initWithCoder:(id)coder;
 - (LNActionParameterMetadata)initWithName:(id)name valueType:(id)type optional:(BOOL)optional title:(id)title description:(id)description resolvableInputTypes:(id)types typeSpecificMetadata:(id)metadata dynamicOptionsSupport:(int64_t)self0 inputConnectionBehavior:(int64_t)self1 capabilities:(unint64_t)self2 queryIdentifier:(id)self3;
+- (LNActionParameterMetadata)initWithName:(id)name valueType:(id)type optional:(BOOL)optional title:(id)title description:(id)description resolvableInputTypes:(id)types typeSpecificMetadata:(id)metadata dynamicOptionsSupport:(int64_t)self0 isInput:(BOOL)self1;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (unint64_t)hash;
@@ -447,14 +448,14 @@ LABEL_13:
 
 - (LNActionParameterMetadata)initWithCoder:(id)coder
 {
-  v30[9] = *MEMORY[0x1E69E9840];
+  v29[9] = *MEMORY[0x1E69E9840];
   coderCopy = coder;
   v5 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"name"];
   v6 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"valueType"];
   if (v6)
   {
-    v29 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"title"];
-    v28 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"parameterDescription"];
+    v28 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"title"];
+    v27 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"parameterDescription"];
     v7 = [coderCopy decodeBoolForKey:@"optional"];
     v8 = MEMORY[0x1E695DFD8];
     v9 = objc_opt_class();
@@ -463,18 +464,18 @@ LABEL_13:
 
     if (v11)
     {
-      v27 = v7;
+      v26 = v7;
       v12 = LNValueTypeObjectClassesForCoding();
-      v30[0] = objc_opt_class();
-      v30[1] = objc_opt_class();
-      v30[2] = objc_opt_class();
-      v30[3] = objc_opt_class();
-      v30[4] = objc_opt_class();
-      v30[5] = objc_opt_class();
-      v30[6] = objc_opt_class();
-      v30[7] = objc_opt_class();
-      v30[8] = objc_opt_class();
-      v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v30 count:9];
+      v29[0] = objc_opt_class();
+      v29[1] = objc_opt_class();
+      v29[2] = objc_opt_class();
+      v29[3] = objc_opt_class();
+      v29[4] = objc_opt_class();
+      v29[5] = objc_opt_class();
+      v29[6] = objc_opt_class();
+      v29[7] = objc_opt_class();
+      v29[8] = objc_opt_class();
+      v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v29 count:9];
       v14 = [v12 setByAddingObjectsFromArray:v13];
       v15 = [coderCopy decodeObjectOfClasses:v14 forKey:@"typeSpecificMetadata"];
 
@@ -484,11 +485,11 @@ LABEL_13:
         v17 = [coderCopy decodeIntegerForKey:@"inputConnectionBehavior"];
         v18 = [coderCopy decodeIntegerForKey:@"capabilities"];
         v19 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"queryIdentifier"];
-        v26 = v18;
-        v25 = v16;
-        v21 = v28;
-        v20 = v29;
-        self = [(LNActionParameterMetadata *)self initWithName:v5 valueType:v6 optional:v27 title:v29 description:v28 resolvableInputTypes:v11 typeSpecificMetadata:v15 dynamicOptionsSupport:v25 inputConnectionBehavior:v17 capabilities:v26 queryIdentifier:v19];
+        v25 = v18;
+        v24 = v16;
+        v21 = v27;
+        v20 = v28;
+        self = [(LNActionParameterMetadata *)self initWithName:v5 valueType:v6 optional:v26 title:v28 description:v27 resolvableInputTypes:v11 typeSpecificMetadata:v15 dynamicOptionsSupport:v24 inputConnectionBehavior:v17 capabilities:v25 queryIdentifier:v19];
 
         selfCopy = self;
       }
@@ -496,16 +497,16 @@ LABEL_13:
       else
       {
         selfCopy = 0;
-        v21 = v28;
-        v20 = v29;
+        v21 = v27;
+        v20 = v28;
       }
     }
 
     else
     {
       selfCopy = 0;
-      v21 = v28;
-      v20 = v29;
+      v21 = v27;
+      v20 = v28;
     }
   }
 
@@ -514,7 +515,6 @@ LABEL_13:
     selfCopy = 0;
   }
 
-  v23 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 
@@ -657,6 +657,17 @@ LABEL_3:
   }
 
   return v24;
+}
+
+- (LNActionParameterMetadata)initWithName:(id)name valueType:(id)type optional:(BOOL)optional title:(id)title description:(id)description resolvableInputTypes:(id)types typeSpecificMetadata:(id)metadata dynamicOptionsSupport:(int64_t)self0 isInput:(BOOL)self1
+{
+  v11 = 2;
+  if (!input)
+  {
+    v11 = 0;
+  }
+
+  return [(LNActionParameterMetadata *)self initWithName:name valueType:type optional:optional title:title description:description resolvableInputTypes:types typeSpecificMetadata:metadata dynamicOptionsSupport:support inputConnectionBehavior:v11];
 }
 
 @end

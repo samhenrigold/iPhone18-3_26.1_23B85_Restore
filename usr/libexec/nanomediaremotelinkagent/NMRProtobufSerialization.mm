@@ -63,22 +63,20 @@
 
 - (id)protobufFromDictionary:(id)dictionary
 {
+  v8[0] = _NSConcreteStackBlock;
+  v8[1] = 3221225472;
+  v8[2] = sub_100027468;
+  v8[3] = &unk_100049498;
+  v8[4] = self;
   dictionaryCopy = dictionary;
-  protobufClass = self->_protobufClass;
-  v11[0] = _NSConcreteStackBlock;
-  v11[1] = 3221225472;
-  v11[2] = sub_100027468;
-  v11[3] = &unk_100049498;
-  v11[4] = self;
-  v12 = dictionaryCopy;
-  v6 = objc_opt_new();
-  v13 = v6;
-  v7 = dictionaryCopy;
-  [v7 enumerateKeysAndObjectsUsingBlock:v11];
-  v8 = v13;
-  v9 = v6;
+  v3 = objc_opt_new();
+  v10 = v3;
+  v4 = dictionaryCopy;
+  [v4 enumerateKeysAndObjectsUsingBlock:v8];
+  v5 = v10;
+  v6 = v3;
 
-  return v6;
+  return v3;
 }
 
 - (id)protobufDataFromDictionary:(id)dictionary

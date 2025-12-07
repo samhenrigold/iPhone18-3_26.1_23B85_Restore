@@ -51,7 +51,7 @@ void __43__NTKLocationManager_sharedLocationManager__block_invoke()
 
 - (id)startLocationUpdatesWithIdentifier:(id)identifier handler:(id)handler
 {
-  OUTLINED_FUNCTION_1_6();
+  OUTLINED_FUNCTION_1_6(self);
   OUTLINED_FUNCTION_0_7();
   NSRequestConcreteImplementation();
   return &stru_284110E98;
@@ -59,7 +59,7 @@ void __43__NTKLocationManager_sharedLocationManager__block_invoke()
 
 - (id)startLocationUpdatesWithIdentifier:(id)identifier wantsGroundElevation:(BOOL)elevation handler:(id)handler
 {
-  OUTLINED_FUNCTION_1_6();
+  OUTLINED_FUNCTION_1_6(self);
   OUTLINED_FUNCTION_0_7();
   NSRequestConcreteImplementation();
   return &stru_284110E98;
@@ -67,7 +67,7 @@ void __43__NTKLocationManager_sharedLocationManager__block_invoke()
 
 - (void)stopLocationUpdatesForToken:(id)token
 {
-  OUTLINED_FUNCTION_1_6();
+  OUTLINED_FUNCTION_1_6(self);
   OUTLINED_FUNCTION_0_7();
 
   NSRequestConcreteImplementation();
@@ -75,7 +75,7 @@ void __43__NTKLocationManager_sharedLocationManager__block_invoke()
 
 - (id)currentLocation
 {
-  OUTLINED_FUNCTION_1_6();
+  OUTLINED_FUNCTION_1_6(self);
   OUTLINED_FUNCTION_0_7();
   NSRequestConcreteImplementation();
   v2 = objc_opt_class();
@@ -85,7 +85,7 @@ void __43__NTKLocationManager_sharedLocationManager__block_invoke()
 
 - (id)previousLocation
 {
-  OUTLINED_FUNCTION_1_6();
+  OUTLINED_FUNCTION_1_6(self);
   OUTLINED_FUNCTION_0_7();
   NSRequestConcreteImplementation();
   v2 = objc_opt_class();

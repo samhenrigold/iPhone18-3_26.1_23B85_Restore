@@ -614,7 +614,7 @@ LABEL_21:
   }
 
   folderListSectionIdentifiersToVirtualSmartFolderIdentifiers = [(ICFolderCoreDataIndexer *)self folderListSectionIdentifiersToVirtualSmartFolderIdentifiers];
-  v10 = [folderListSectionIdentifiersToVirtualSmartFolderIdentifiers objectForKeyedSubscript:firstObject];
+  v10 = objc_msgSend_objectForKeyedSubscript_(folderListSectionIdentifiersToVirtualSmartFolderIdentifiers);
   firstObject2 = [v10 firstObject];
   v12 = firstObject2;
   if (firstObject2)
@@ -635,7 +635,7 @@ LABEL_21:
 {
   folderListSectionIdentifiersToVirtualSmartFolderIdentifiers = [(ICFolderCoreDataIndexer *)self folderListSectionIdentifiersToVirtualSmartFolderIdentifiers];
   v4 = +[ICFolderListSectionIdentifier systemSectionIdentifier];
-  v5 = [folderListSectionIdentifiersToVirtualSmartFolderIdentifiers objectForKeyedSubscript:v4];
+  v5 = objc_msgSend_objectForKeyedSubscript_(folderListSectionIdentifiersToVirtualSmartFolderIdentifiers);
   v6 = v5;
   if (v5)
   {
@@ -735,7 +735,7 @@ void __87__ICFolderCoreDataIndexer_indexObjectsInSection_sectionIndex_fetchedRes
         [v13 addObject:v12];
 
         v14 = [*(a1 + 32) folderListSectionIdentifiersToButtonIdentifiers];
-        v15 = [v14 objectForKeyedSubscript:v12];
+        v15 = objc_msgSend_objectForKeyedSubscript_(v14);
         v16 = v15;
         if (v15)
         {
@@ -784,7 +784,7 @@ void __87__ICFolderCoreDataIndexer_indexObjectsInSection_sectionIndex_fetchedRes
         if (v26)
         {
           v27 = [*(a1 + 32) folderListSectionIdentifiersToButtonIdentifiers];
-          v28 = [v27 objectForKeyedSubscript:v26];
+          v28 = objc_msgSend_objectForKeyedSubscript_(v27);
           v29 = v28;
           if (v28)
           {
@@ -799,7 +799,7 @@ void __87__ICFolderCoreDataIndexer_indexObjectsInSection_sectionIndex_fetchedRes
           v138 = v30;
 
           v32 = [*(a1 + 32) folderListSectionIdentifiersToVirtualSmartFolderIdentifiers];
-          v33 = [v32 objectForKeyedSubscript:v26];
+          v33 = objc_msgSend_objectForKeyedSubscript_(v32);
           v34 = v33;
           v137 = v25;
           if (v33)
@@ -815,7 +815,7 @@ void __87__ICFolderCoreDataIndexer_indexObjectsInSection_sectionIndex_fetchedRes
           v136 = v35;
 
           v36 = [*(a1 + 32) folderListSectionIdentifiersToFolderItemIdentifiers];
-          v37 = [v36 objectForKeyedSubscript:v26];
+          v37 = objc_msgSend_objectForKeyedSubscript_(v36);
           v38 = v37;
           if (v37)
           {
@@ -915,7 +915,7 @@ void __87__ICFolderCoreDataIndexer_indexObjectsInSection_sectionIndex_fetchedRes
                   v69 = [*(a1 + 32) folderItemIdentifiersToChildFolderItemIdentifiers];
                   v70 = [v41 parent];
                   v71 = [v70 objectID];
-                  v72 = [v69 objectForKeyedSubscript:v71];
+                  v72 = objc_msgSend_objectForKeyedSubscript_(v69);
                   v73 = v72;
                   if (v72)
                   {
@@ -1045,7 +1045,7 @@ LABEL_51:
                   v91 = [*(a1 + 32) folderItemIdentifiersToChildFolderItemIdentifiers];
                   v92 = [v41 parentFolder];
                   v128 = [v92 objectID];
-                  v93 = [v91 objectForKeyedSubscript:?];
+                  v93 = objc_msgSend_objectForKeyedSubscript_(v91);
                   v94 = v93;
                   v40 = v132;
                   if (v93)
@@ -1138,7 +1138,7 @@ LABEL_75:
   if ([(ICFolderCoreDataIndexer *)self shouldIncludeAccount]!= 2)
   {
     folderListSectionIdentifiersToFolderItemIdentifiers = [(ICFolderCoreDataIndexer *)self folderListSectionIdentifiersToFolderItemIdentifiers];
-    v5 = [folderListSectionIdentifiersToFolderItemIdentifiers objectForKeyedSubscript:identifierCopy];
+    v5 = objc_msgSend_objectForKeyedSubscript_(folderListSectionIdentifiersToFolderItemIdentifiers);
     v6 = v5;
     if (v5)
     {
@@ -1211,14 +1211,14 @@ void __105__ICFolderCoreDataIndexer_newSnapshotFromIndexWithLegacyManagedObjectC
           objc_enumerationMutation(obj);
         }
 
+        v5 = *(*(&v65 + 1) + 8 * i);
         v6 = *(a1 + 56);
-        v73 = *(*(&v65 + 1) + 8 * i);
-        v5 = v73;
+        v73 = v5;
         v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v73 count:1];
         [v6 appendSectionsWithIdentifiers:v7];
 
         v8 = [*(a1 + 32) folderListSectionIdentifiersToButtonIdentifiers];
-        v9 = [v8 objectForKeyedSubscript:v5];
+        v9 = objc_msgSend_objectForKeyedSubscript_(v8);
         v10 = v9;
         if (v9)
         {
@@ -1237,7 +1237,7 @@ void __105__ICFolderCoreDataIndexer_newSnapshotFromIndexWithLegacyManagedObjectC
         [v13 appendItemsWithIdentifiers:v14 intoSectionWithIdentifier:v5];
 
         v15 = [*(a1 + 32) folderListSectionIdentifiersToVirtualSmartFolderIdentifiers];
-        v16 = [v15 objectForKeyedSubscript:v5];
+        v16 = objc_msgSend_objectForKeyedSubscript_(v15);
         v17 = v16;
         if (v16)
         {
@@ -1256,7 +1256,7 @@ void __105__ICFolderCoreDataIndexer_newSnapshotFromIndexWithLegacyManagedObjectC
         [v20 appendItemsWithIdentifiers:v21 intoSectionWithIdentifier:v5];
 
         v22 = [*(a1 + 32) folderListSectionIdentifiersToFolderItemIdentifiers];
-        v23 = [v22 objectForKeyedSubscript:v5];
+        v23 = objc_msgSend_objectForKeyedSubscript_(v22);
         v24 = v23;
         if (v23)
         {
@@ -1449,7 +1449,7 @@ void __112__ICFolderCoreDataIndexer_sectionSnapshotsForSectionType_legacyManaged
         v5 = *(*(&v49 + 1) + 8 * i);
         v6 = objc_alloc_init(MEMORY[0x1E69DC5D0]);
         v7 = [*(a1 + 32) folderListSectionIdentifiersToButtonIdentifiers];
-        v8 = [v7 objectForKeyedSubscript:v5];
+        v8 = objc_msgSend_objectForKeyedSubscript_(v7);
         v9 = v8;
         if (v8)
         {
@@ -1464,7 +1464,7 @@ void __112__ICFolderCoreDataIndexer_sectionSnapshotsForSectionType_legacyManaged
         v11 = v10;
 
         v12 = [*(a1 + 32) folderListSectionIdentifiersToVirtualSmartFolderIdentifiers];
-        v13 = [v12 objectForKeyedSubscript:v5];
+        v13 = objc_msgSend_objectForKeyedSubscript_(v12);
         v14 = v13;
         if (v13)
         {
@@ -1671,7 +1671,7 @@ LABEL_7:
       v8 = v9;
 
       folderItemIdentifiersToParentFolderItemIdentifier = [(ICFolderCoreDataIndexer *)self folderItemIdentifiersToParentFolderItemIdentifier];
-      v9 = [folderItemIdentifiersToParentFolderItemIdentifier objectForKeyedSubscript:v8];
+      v9 = objc_msgSend_objectForKeyedSubscript_(folderItemIdentifiersToParentFolderItemIdentifier);
     }
 
     while (v9);
@@ -1750,7 +1750,7 @@ void __59__ICFolderCoreDataIndexer_nextRelevantItemIdentifierAfter___block_invok
     v20 = 0u;
     v21 = 0u;
     folderItemIdentifiersToChildFolderItemIdentifiers = [(ICFolderCoreDataIndexer *)self folderItemIdentifiersToChildFolderItemIdentifiers];
-    v10 = [folderItemIdentifiersToChildFolderItemIdentifiers objectForKeyedSubscript:indexCopy];
+    v10 = objc_msgSend_objectForKeyedSubscript_(folderItemIdentifiersToChildFolderItemIdentifiers);
 
     v11 = [v10 countByEnumeratingWithState:&v20 objects:v24 count:16];
     if (v11)
@@ -1805,7 +1805,7 @@ void __65__ICFolderCoreDataIndexer_deleteObjectWithIDFromIndex_inSection___block
   [v3 removeObjectForKey:*(a1 + 40)];
 
   v4 = [*(a1 + 32) folderListSectionIdentifiersToFolderItemIdentifiers];
-  v5 = [v4 objectForKeyedSubscript:*(a1 + 48)];
+  v5 = objc_msgSend_objectForKeyedSubscript_(v4);
   v6 = v5;
   if (v5)
   {
@@ -1900,7 +1900,7 @@ uint64_t __67__ICFolderCoreDataIndexer_deleteWithDecisionController_completion__
           }
 
           v8 = *(*(&v13 + 1) + 8 * i);
-          v9 = [*(a1 + 40) objectForKeyedSubscript:{v8, v13}];
+          v9 = objc_msgSend_objectForKeyedSubscript_(*(a1 + 40), v13);
           if ([v8 ic_isFolderType])
           {
             v10 = v9 == 0;
@@ -1959,7 +1959,7 @@ uint64_t __67__ICFolderCoreDataIndexer_deleteWithDecisionController_completion__
   folderCopy = folder;
   snapshotCopy = snapshot;
   folderItemIdentifiersToChildFolderItemIdentifiers = [(ICFolderCoreDataIndexer *)self folderItemIdentifiersToChildFolderItemIdentifiers];
-  v9 = [folderItemIdentifiersToChildFolderItemIdentifiers objectForKeyedSubscript:folderCopy];
+  v9 = objc_msgSend_objectForKeyedSubscript_(folderItemIdentifiersToChildFolderItemIdentifiers);
 
   array = [v9 array];
   [snapshotCopy appendItems:array intoParent:folderCopy];
@@ -2041,7 +2041,7 @@ uint64_t __67__ICFolderCoreDataIndexer_deleteWithDecisionController_completion__
         }
 
         folderListSectionIdentifiersToFolderItemIdentifiers2 = [(ICFolderCoreDataIndexer *)self folderListSectionIdentifiersToFolderItemIdentifiers];
-        v18 = [folderListSectionIdentifiersToFolderItemIdentifiers2 objectForKeyedSubscript:v15];
+        v18 = objc_msgSend_objectForKeyedSubscript_(folderListSectionIdentifiersToFolderItemIdentifiers2);
 
         v19 = [(ICFolderCoreDataIndexer *)self sortedFolderItemIdentifiersForItemIdentifiers:v18 legacyManagedObjectContext:contextCopy modernManagedObjectContext:objectContextCopy];
         v20 = [v19 mutableCopy];
@@ -2079,7 +2079,7 @@ uint64_t __67__ICFolderCoreDataIndexer_deleteWithDecisionController_completion__
 
         v28 = *(*(&v37 + 1) + 8 * j);
         folderItemIdentifiersToChildFolderItemIdentifiers2 = [(ICFolderCoreDataIndexer *)self folderItemIdentifiersToChildFolderItemIdentifiers];
-        v30 = [folderItemIdentifiersToChildFolderItemIdentifiers2 objectForKeyedSubscript:v28];
+        v30 = objc_msgSend_objectForKeyedSubscript_(folderItemIdentifiersToChildFolderItemIdentifiers2);
 
         v31 = [(ICFolderCoreDataIndexer *)self sortedFolderItemIdentifiersForItemIdentifiers:v30 legacyManagedObjectContext:contextCopy modernManagedObjectContext:objectContextCopy];
         v32 = [v31 mutableCopy];
@@ -2315,7 +2315,7 @@ void __127__ICFolderCoreDataIndexer_sortedFolderItemIdentifiersForItemIdentifier
 {
   sectionCopy = section;
   folderListSectionIdentifiersToFolderItemIdentifiers = [(ICFolderCoreDataIndexer *)self folderListSectionIdentifiersToFolderItemIdentifiers];
-  v6 = [folderListSectionIdentifiersToFolderItemIdentifiers objectForKeyedSubscript:sectionCopy];
+  v6 = objc_msgSend_objectForKeyedSubscript_(folderListSectionIdentifiersToFolderItemIdentifiers);
 
   if (v6)
   {
@@ -2347,7 +2347,7 @@ BOOL __70__ICFolderCoreDataIndexer_rootFolderListSectionIdentifiersForSection___
   v2 = *(a1 + 32);
   v3 = a2;
   v4 = [v2 folderItemIdentifiersToParentFolderItemIdentifier];
-  v5 = [v4 objectForKeyedSubscript:v3];
+  v5 = objc_msgSend_objectForKeyedSubscript_(v4);
 
   return v5 == 0;
 }

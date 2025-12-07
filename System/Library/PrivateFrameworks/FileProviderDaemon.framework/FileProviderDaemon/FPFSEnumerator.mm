@@ -17,7 +17,7 @@
   selfCopy = self;
   sub_1CF7AD590();
   v3.receiver = selfCopy;
-  v3.super_class = type metadata accessor for FPFSEnumerator();
+  v3.super_class = type metadata accessor for FPFSEnumerator(0);
   [(FPFSEnumerator *)&v3 dealloc];
 }
 
@@ -40,20 +40,19 @@
 - (void)enumerateItemsFromPage:(id)page suggestedPageSize:(int64_t)size reply:(id)reply
 {
   v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC4C1B40, &unk_1CF9FCB70);
-  v10 = *(*(v9 - 8) + 64);
   MEMORY[0x1EEE9AC00](v9 - 8);
-  v12 = &v17 - v11;
-  v13 = _Block_copy(reply);
-  v14 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EC4BE360, &qword_1CF9FE650);
-  (*(*(v14 - 8) + 56))(v12, 1, 1, v14);
-  _Block_copy(v13);
+  v11 = &v16 - v10;
+  v12 = _Block_copy(reply);
+  v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EC4BE360, &qword_1CF9FE650);
+  (*(*(v13 - 8) + 56))(v11, 1, 1, v13);
+  _Block_copy(v12);
   pageCopy = page;
   selfCopy = self;
-  sub_1CF7B8B00(pageCopy, v12, size, selfCopy, v13);
-  _Block_release(v13);
+  sub_1CF7B8B00(pageCopy, v11, size, selfCopy, v12);
+  _Block_release(v12);
 
-  _Block_release(v13);
-  sub_1CEFCCC44(v12, &qword_1EC4C1B40, &unk_1CF9FCB70);
+  _Block_release(v12);
+  sub_1CEFCCC44(v11, &qword_1EC4C1B40, &unk_1CF9FCB70);
 }
 
 - (void)enumerateItemsFromPage:(id)page suggestedPageSize:(int64_t)size upTo:(int64_t)to reply:(id)reply
@@ -92,17 +91,19 @@
   *v6 = sub_1CF744650;
   v6[1] = v5;
   selfCopy = self;
-  sub_1CF045404(v7);
+  sub_1CF045404(v7, v8);
 }
 
 - (NSString)description
 {
   selfCopy = self;
   sub_1CF7B7568();
+  v4 = v3;
 
-  v3 = sub_1CF9E6888();
+  v5 = sub_1CF9E6888();
+  v4, v6, v7, v8, v9, v10, v11, v12;
 
-  return v3;
+  return v5;
 }
 
 - (_TtC18FileProviderDaemon14FPFSEnumerator)init

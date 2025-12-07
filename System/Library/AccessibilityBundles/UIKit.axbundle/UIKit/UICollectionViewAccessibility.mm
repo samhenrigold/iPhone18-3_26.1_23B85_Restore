@@ -467,7 +467,7 @@
   selfCopy = self;
   v6 = a2;
   pathCopy = path;
-  [UICollectionViewAccessibility _axSetIsReorderingItems:?];
+  [(UICollectionViewAccessibility *)self _axSetIsReorderingItems:?];
   v4.receiver = selfCopy;
   v4.super_class = UICollectionViewAccessibility;
   return [(UICollectionViewAccessibility *)&v4 beginInteractiveMovementForItemAtIndexPath:pathCopy];
@@ -477,7 +477,7 @@
 {
   selfCopy = self;
   v3 = a2;
-  [UICollectionViewAccessibility _axSetIsReorderingItems:?];
+  [(UICollectionViewAccessibility *)self _axSetIsReorderingItems:?];
   v2.receiver = selfCopy;
   v2.super_class = UICollectionViewAccessibility;
   [(UICollectionViewAccessibility *)&v2 endInteractiveMovement];
@@ -487,7 +487,7 @@
 {
   selfCopy = self;
   v3 = a2;
-  [UICollectionViewAccessibility _axSetIsReorderingItems:?];
+  [(UICollectionViewAccessibility *)self _axSetIsReorderingItems:?];
   v2.receiver = selfCopy;
   v2.super_class = UICollectionViewAccessibility;
   [(UICollectionViewAccessibility *)&v2 cancelInteractiveMovement];
@@ -1047,7 +1047,7 @@ double __76__UICollectionViewAccessibility_accessibilityCreatePrepareCellForInde
   return v20;
 }
 
-uint64_t __58__UICollectionViewAccessibility__axGlobalRowForIndexPath___block_invoke(uint64_t a1)
+void *__58__UICollectionViewAccessibility__axGlobalRowForIndexPath___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _globalIndexPathForItemAtIndexPath:*(a1 + 40)];
   *(*(*(a1 + 48) + 8) + 24) = result;

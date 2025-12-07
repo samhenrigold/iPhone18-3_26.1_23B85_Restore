@@ -25,13 +25,13 @@
 {
   type metadata accessor for WFUserVisibleString();
   sub_1CA3434EC();
-  sub_1CA94C1C8();
+  v6 = sub_1CA94C1C8();
   swift_unknownObjectRetain();
   selfCopy = self;
-  v6 = WFDictionaryParameter.rewrite(_:withStrings:)();
+  v8 = WFDictionaryParameter.rewrite(_:withStrings:)(state, v6);
   swift_unknownObjectRelease();
 
-  return v6;
+  return v8;
 }
 
 - (id)defaultSupportedVariableTypes

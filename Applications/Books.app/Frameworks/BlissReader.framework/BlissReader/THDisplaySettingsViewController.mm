@@ -353,51 +353,51 @@
     [(UIButton *)self->_themeWhiteButton setImage:[(THDisplaySettingsViewController *)self _whiteThemeButtonImageSelected:0] forState:0];
     [(UIButton *)self->_themeWhiteButton setImage:[(THDisplaySettingsViewController *)self _whiteThemeButtonImageSelected:1] forState:4];
     [(UIButton *)self->_themeWhiteButton addTarget:self action:"setThemeNormal:" forControlEvents:64];
-    [(UIButton *)self->_themeWhiteButton setTitleColor:+[UIColor forState:"blackColor"], 0];
-    -[UIButton setAccessibilityLabel:](self->_themeWhiteButton, "setAccessibilityLabel:", [THBundle() localizedStringForKey:@"White" value:&stru_471858 table:0]);
+    v6 = [(UIButton *)self->_themeWhiteButton setTitleColor:+[UIColor forState:"blackColor"], 0];
+    -[UIButton setAccessibilityLabel:](self->_themeWhiteButton, "setAccessibilityLabel:", [THBundle(v6 v7)]);
     [(UIButton *)self->_themeWhiteButton setAccessibilityIdentifier:@"theme well white"];
     [(UIStackView *)self->_themeContainer addArrangedSubview:self->_themeWhiteButton];
-    v6 = [[UIButton alloc] initWithFrame:{0.0, 0.0, 46.0, 55.0}];
-    self->_themeSepiaButton = v6;
-    [(UIButton *)v6 setTranslatesAutoresizingMaskIntoConstraints:0];
+    v8 = [[UIButton alloc] initWithFrame:{0.0, 0.0, 46.0, 55.0}];
+    self->_themeSepiaButton = v8;
+    [(UIButton *)v8 setTranslatesAutoresizingMaskIntoConstraints:0];
     [(UIButton *)self->_themeSepiaButton setImage:[(THDisplaySettingsViewController *)self _sepiaThemeButtonImageSelected:0] forState:0];
     [(UIButton *)self->_themeSepiaButton setImage:[(THDisplaySettingsViewController *)self _sepiaThemeButtonImageSelected:1] forState:4];
     [(UIButton *)self->_themeSepiaButton addTarget:self action:"setThemeSepia:" forControlEvents:64];
-    [(UIButton *)self->_themeSepiaButton setTitleColor:+[UIColor forState:"blackColor"], 0];
-    -[UIButton setAccessibilityLabel:](self->_themeSepiaButton, "setAccessibilityLabel:", [THBundle() localizedStringForKey:@"Sepia" value:&stru_471858 table:0]);
+    v9 = [(UIButton *)self->_themeSepiaButton setTitleColor:+[UIColor forState:"blackColor"], 0];
+    -[UIButton setAccessibilityLabel:](self->_themeSepiaButton, "setAccessibilityLabel:", [THBundle(v9 v10)]);
     [(UIButton *)self->_themeSepiaButton setAccessibilityIdentifier:@"theme well sepia"];
     [(UIStackView *)self->_themeContainer addArrangedSubview:self->_themeSepiaButton];
-    v7 = [[UIButton alloc] initWithFrame:{0.0, 0.0, 46.0, 55.0}];
-    self->_themeGrayButton = v7;
-    [(UIButton *)v7 setTranslatesAutoresizingMaskIntoConstraints:0];
+    v11 = [[UIButton alloc] initWithFrame:{0.0, 0.0, 46.0, 55.0}];
+    self->_themeGrayButton = v11;
+    [(UIButton *)v11 setTranslatesAutoresizingMaskIntoConstraints:0];
     [(UIButton *)self->_themeGrayButton setImage:[(THDisplaySettingsViewController *)self _grayThemeButtonImageSelected:0] forState:0];
     [(UIButton *)self->_themeGrayButton setImage:[(THDisplaySettingsViewController *)self _grayThemeButtonImageSelected:1] forState:4];
     [(UIButton *)self->_themeGrayButton addTarget:self action:"setThemeGray:" forControlEvents:64];
-    [(UIButton *)self->_themeGrayButton setTitleColor:+[UIColor forState:"blackColor"], 0];
-    -[UIButton setAccessibilityLabel:](self->_themeGrayButton, "setAccessibilityLabel:", [THBundle() localizedStringForKey:@"Gray" value:&stru_471858 table:0]);
+    v12 = [(UIButton *)self->_themeGrayButton setTitleColor:+[UIColor forState:"blackColor"], 0];
+    -[UIButton setAccessibilityLabel:](self->_themeGrayButton, "setAccessibilityLabel:", [THBundle(v12 v13)]);
     [(UIButton *)self->_themeGrayButton setAccessibilityIdentifier:@"theme well gray"];
     [(UIStackView *)self->_themeContainer addArrangedSubview:self->_themeGrayButton];
-    v8 = [[UIButton alloc] initWithFrame:{0.0, 0.0, 46.0, 55.0}];
-    self->_themeNightButton = v8;
-    [(UIButton *)v8 setTranslatesAutoresizingMaskIntoConstraints:0];
+    v14 = [[UIButton alloc] initWithFrame:{0.0, 0.0, 46.0, 55.0}];
+    self->_themeNightButton = v14;
+    [(UIButton *)v14 setTranslatesAutoresizingMaskIntoConstraints:0];
     [(UIButton *)self->_themeNightButton setImage:[(THDisplaySettingsViewController *)self _nightThemeButtonImageSelected:0] forState:0];
     [(UIButton *)self->_themeNightButton setImage:[(THDisplaySettingsViewController *)self _nightThemeButtonImageSelected:1] forState:4];
     [(UIButton *)self->_themeNightButton addTarget:self action:"setThemeNight:" forControlEvents:64];
-    [(UIButton *)self->_themeNightButton setTitleColor:+[UIColor forState:"blackColor"], 0];
-    -[UIButton setAccessibilityLabel:](self->_themeNightButton, "setAccessibilityLabel:", [THBundle() localizedStringForKey:@"Night" value:&stru_471858 table:0]);
+    v15 = [(UIButton *)self->_themeNightButton setTitleColor:+[UIColor forState:"blackColor"], 0];
+    -[UIButton setAccessibilityLabel:](self->_themeNightButton, "setAccessibilityLabel:", [THBundle(v15 v16)]);
     [(UIButton *)self->_themeNightButton setAccessibilityIdentifier:@"theme well night"];
     [(UIStackView *)self->_themeContainer addArrangedSubview:self->_themeNightButton];
-    v9[0] = [-[UIStackView widthAnchor](self->_themeContainer "widthAnchor")];
-    v9[1] = [-[UIStackView heightAnchor](self->_themeContainer "heightAnchor")];
-    v9[2] = [-[UIButton widthAnchor](self->_themeWhiteButton "widthAnchor")];
-    v9[3] = [-[UIButton heightAnchor](self->_themeWhiteButton "heightAnchor")];
-    v9[4] = [-[UIButton widthAnchor](self->_themeSepiaButton "widthAnchor")];
-    v9[5] = [-[UIButton heightAnchor](self->_themeSepiaButton "heightAnchor")];
-    v9[6] = [-[UIButton widthAnchor](self->_themeGrayButton "widthAnchor")];
-    v9[7] = [-[UIButton heightAnchor](self->_themeGrayButton "heightAnchor")];
-    v9[8] = [-[UIButton widthAnchor](self->_themeNightButton "widthAnchor")];
-    v9[9] = [-[UIButton heightAnchor](self->_themeNightButton "heightAnchor")];
-    [NSLayoutConstraint activateConstraints:[NSArray arrayWithObjects:v9 count:10]];
+    v17[0] = [-[UIStackView widthAnchor](self->_themeContainer "widthAnchor")];
+    v17[1] = [-[UIStackView heightAnchor](self->_themeContainer "heightAnchor")];
+    v17[2] = [-[UIButton widthAnchor](self->_themeWhiteButton "widthAnchor")];
+    v17[3] = [-[UIButton heightAnchor](self->_themeWhiteButton "heightAnchor")];
+    v17[4] = [-[UIButton widthAnchor](self->_themeSepiaButton "widthAnchor")];
+    v17[5] = [-[UIButton heightAnchor](self->_themeSepiaButton "heightAnchor")];
+    v17[6] = [-[UIButton widthAnchor](self->_themeGrayButton "widthAnchor")];
+    v17[7] = [-[UIButton heightAnchor](self->_themeGrayButton "heightAnchor")];
+    v17[8] = [-[UIButton widthAnchor](self->_themeNightButton "widthAnchor")];
+    v17[9] = [-[UIButton heightAnchor](self->_themeNightButton "heightAnchor")];
+    [NSLayoutConstraint activateConstraints:[NSArray arrayWithObjects:v17 count:10]];
     [(THDisplaySettingsViewController *)self updateThemeButtons];
     return self->_themeContainer;
   }
@@ -791,11 +791,11 @@
 
       themeContainer = [(THDisplaySettingsViewController *)self themeContainer];
       [contentView addSubview:themeContainer];
-      v17[0] = [objc_msgSend(themeContainer "centerXAnchor")];
-      v17[1] = [objc_msgSend(themeContainer "centerYAnchor")];
-      v13 = [NSArray arrayWithObjects:v17 count:2];
+      v18[0] = [objc_msgSend(themeContainer "centerXAnchor")];
+      v18[1] = [objc_msgSend(themeContainer "centerYAnchor")];
+      v14 = [NSArray arrayWithObjects:v18 count:2];
 LABEL_13:
-      [NSLayoutConstraint activateConstraints:v13];
+      [NSLayoutConstraint activateConstraints:v14];
       return v6;
     }
 
@@ -805,15 +805,15 @@ LABEL_13:
       return v6;
     }
 
-    v12 = brightnessSlider;
+    v13 = brightnessSlider;
     [contentView addSubview:brightnessSlider];
-    v18[0] = [objc_msgSend(v12 "leadingAnchor")];
-    v18[1] = [objc_msgSend(v12 "trailingAnchor")];
-    v18[2] = [objc_msgSend(v12 "topAnchor")];
-    v18[3] = [objc_msgSend(v12 "bottomAnchor")];
-    v10 = v18;
+    v19[0] = [objc_msgSend(v13 "leadingAnchor")];
+    v19[1] = [objc_msgSend(v13 "trailingAnchor")];
+    v19[2] = [objc_msgSend(v13 "topAnchor")];
+    v19[3] = [objc_msgSend(v13 "bottomAnchor")];
+    v11 = v19;
 LABEL_12:
-    v13 = [NSArray arrayWithObjects:v10 count:4];
+    v14 = [NSArray arrayWithObjects:v11 count:4];
     goto LABEL_13;
   }
 
@@ -827,11 +827,11 @@ LABEL_12:
   {
     fontSizeButtons = [(THDisplaySettingsViewController *)self fontSizeButtons];
     [contentView addSubview:fontSizeButtons];
-    v16[0] = [objc_msgSend(fontSizeButtons "leadingAnchor")];
-    v16[1] = [objc_msgSend(fontSizeButtons "trailingAnchor")];
-    v16[2] = [objc_msgSend(fontSizeButtons "topAnchor")];
-    v16[3] = [objc_msgSend(fontSizeButtons "bottomAnchor")];
-    v10 = v16;
+    v17[0] = [objc_msgSend(fontSizeButtons "leadingAnchor")];
+    v17[1] = [objc_msgSend(fontSizeButtons "trailingAnchor")];
+    v17[2] = [objc_msgSend(fontSizeButtons "topAnchor")];
+    v17[3] = [objc_msgSend(fontSizeButtons "bottomAnchor")];
+    v11 = v17;
     goto LABEL_12;
   }
 

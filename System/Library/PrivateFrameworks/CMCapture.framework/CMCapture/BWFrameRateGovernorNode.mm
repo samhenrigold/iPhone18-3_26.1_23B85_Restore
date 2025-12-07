@@ -97,26 +97,26 @@
 {
   v6 = [CMGetAttachment(buffer @"StillImageCaptureType"];
   v7 = CMGetAttachment(buffer, *off_1E798A3C8, 0);
-  memset(&v37, 0, sizeof(v37));
+  memset(&v38, 0, sizeof(v38));
   v8 = CMGetAttachment(buffer, *off_1E798A420, 0);
-  CMTimeMakeFromDictionary(&v37, v8);
-  flags = v37.flags;
-  if ((v37.flags & 1) == 0)
+  PresentationTimeStamp = CMTimeMakeFromDictionary(&v38, v8);
+  flags = v38.flags;
+  if ((v38.flags & 1) == 0)
   {
-    CMSampleBufferGetPresentationTimeStamp(&time, buffer);
-    v37 = time;
+    PresentationTimeStamp = CMSampleBufferGetPresentationTimeStamp(&time, buffer);
+    v38 = time;
     flags = time.flags;
   }
 
   if ((flags & 1) == 0)
   {
-    [BWFrameRateGovernorNode renderSampleBuffer:forInput:];
+    [BWFrameRateGovernorNode renderSampleBuffer:? forInput:?];
     goto LABEL_61;
   }
 
   if (!v7)
   {
-    [BWFrameRateGovernorNode renderSampleBuffer:forInput:];
+    [BWFrameRateGovernorNode renderSampleBuffer:? forInput:?];
     goto LABEL_61;
   }
 
@@ -150,11 +150,11 @@ LABEL_20:
 
       else
       {
-        v18 = self->_motionDataPreserver;
-        v19 = self->_invalidFrameCount;
-        BYTE4(self->_frameCount) = v18 > v19;
+        v19 = self->_motionDataPreserver;
+        v20 = self->_invalidFrameCount;
+        BYTE4(self->_frameCount) = v19 > v20;
         self->_aeStableTimeoutFrameCount = 0;
-        if (v18 <= v19)
+        if (v19 <= v20)
         {
           goto LABEL_54;
         }
@@ -167,7 +167,7 @@ LABEL_20:
     }
 
     memset(&time, 0, sizeof(time));
-    lhs = v37;
+    lhs = v38;
     rhs = *(&self->_preservesMotionDataFromDroppedFrames + 4);
     CMTimeSubtract(&time, &lhs, &rhs);
     if ((v6 & 0xFFFFFFFE) != 4)
@@ -180,9 +180,9 @@ LABEL_20:
       goto LABEL_59;
     }
 
-    v20 = [objc_msgSend(v7 objectForKeyedSubscript:{*off_1E798B558), "BOOLValue"}];
+    v21 = [objc_msgSend(v7 objectForKeyedSubscript:{*off_1E798B558), "BOOLValue"}];
     epoch_high = HIDWORD(self->_lastEmittedStreamingFrameDuration.epoch);
-    if ((v20 & 1) != 0 || epoch_high)
+    if ((v21 & 1) != 0 || epoch_high)
     {
 LABEL_49:
       if ((epoch_high - 2) > 2)
@@ -190,41 +190,41 @@ LABEL_49:
         goto LABEL_58;
       }
 
-      v25 = [objc_msgSend(v7 objectForKeyedSubscript:{*off_1E798B1B8), "intValue"}];
-      v26 = HIDWORD(self->_lastEmittedStreamingFrameDuration.epoch);
-      if (v26 == 4)
+      v26 = [objc_msgSend(v7 objectForKeyedSubscript:{*off_1E798B1B8), "intValue"}];
+      v27 = HIDWORD(self->_lastEmittedStreamingFrameDuration.epoch);
+      if (v27 == 4)
       {
-        v27 = v25 & 0x80000003;
+        v28 = v26 & 0x80000003;
       }
 
       else
       {
-        if (v26 != 3)
+        if (v27 != 3)
         {
-          if (v26 == 2 && (v25 & 1) == 0)
+          if (v27 == 2 && (v26 & 1) == 0)
           {
             goto LABEL_54;
           }
 
 LABEL_58:
-          if (v20)
+          if (v21)
           {
 LABEL_59:
             *(&self->_lastEmittedPTS.epoch + 4) = time;
           }
 
 LABEL_60:
-          *(&self->_preservesMotionDataFromDroppedFrames + 4) = v37;
+          *(&self->_preservesMotionDataFromDroppedFrames + 4) = v38;
 LABEL_61:
           [*&self->_activeBracketSequenceRate prependPreservedMotionDataToSampleBuffer:buffer];
           [(BWNodeOutput *)self->super._output emitSampleBuffer:buffer];
           return;
         }
 
-        v27 = v25 % 5;
+        v28 = v26 % 5;
       }
 
-      if (v27 != 1)
+      if (v28 != 1)
       {
         goto LABEL_58;
       }
@@ -240,25 +240,25 @@ LABEL_54:
     }
 
     lhs = time;
-    v22 = (&self->_lastEmittedPTS.epoch + 4);
+    v23 = (&self->_lastEmittedPTS.epoch + 4);
     rhs = *(&self->_lastEmittedPTS.epoch + 4);
-    v23 = 1.0 / CMTimeGetSeconds(&rhs);
-    if (v23 <= 21.0)
+    v24 = 1.0 / CMTimeGetSeconds(&rhs);
+    if (v24 <= 21.0)
     {
       rhs = lhs;
-      v24 = 1.0 / CMTimeGetSeconds(&rhs);
-      if (v24 > 21.0)
+      v25 = 1.0 / CMTimeGetSeconds(&rhs);
+      if (v25 > 21.0)
       {
         epoch_high = 2;
         goto LABEL_48;
       }
 
-      if (v6 == 4 && v24 > 15.0)
+      if (v6 == 4 && v25 > 15.0)
       {
-        *&type.value = *v22;
+        *&type.value = *v23;
         type.epoch = *&self->_lastEmittedStreamingFrameDuration.flags;
-        v32 = lhs;
-        CMTimeSubtract(&rhs, &type, &v32);
+        v33 = lhs;
+        CMTimeSubtract(&rhs, &type, &v33);
         if (CMTimeGetSeconds(&rhs) > 0.002)
         {
           epoch_high = 4;
@@ -267,12 +267,12 @@ LABEL_54:
       }
     }
 
-    else if (v6 == 4 && v23 < 25.0)
+    else if (v6 == 4 && v24 < 25.0)
     {
-      *&type.value = *v22;
+      *&type.value = *v23;
       type.epoch = *&self->_lastEmittedStreamingFrameDuration.flags;
-      v32 = lhs;
-      CMTimeSubtract(&rhs, &type, &v32);
+      v33 = lhs;
+      CMTimeSubtract(&rhs, &type, &v33);
       if (CMTimeGetSeconds(&rhs) > 0.002)
       {
         epoch_high = 3;
@@ -288,19 +288,19 @@ LABEL_48:
 
   if (self->_aeStabilityTuning == 2)
   {
-    v10 = [v7 objectForKeyedSubscript:*off_1E798B540];
-    if ([v10 isEqual:*off_1E798A0D0])
+    v11 = [v7 objectForKeyedSubscript:*off_1E798B540];
+    if ([v11 isEqual:*off_1E798A0D0])
     {
-      v11 = 8;
+      v12 = 8;
 LABEL_11:
-      self->_invalidFrameCount = v11;
-      *&self->_aeStableAfterStartStreaming = v11;
+      self->_invalidFrameCount = v12;
+      *&self->_aeStableAfterStartStreaming = v12;
       goto LABEL_12;
     }
 
-    if ([v10 isEqual:*off_1E798A0E0])
+    if ([v11 isEqual:*off_1E798A0E0])
     {
-      v11 = 5;
+      v12 = 5;
       goto LABEL_11;
     }
   }
@@ -311,15 +311,15 @@ LABEL_12:
     goto LABEL_20;
   }
 
-  v12 = [v7 objectForKeyedSubscript:*off_1E798B640];
+  v13 = [v7 objectForKeyedSubscript:*off_1E798B640];
   if (self->_aeStabilityTuning == 2)
   {
-    v13 = "recording";
+    v14 = "recording";
   }
 
   else
   {
-    v13 = "preview";
+    v14 = "preview";
   }
 
   if (dword_1ED8442F0)
@@ -336,16 +336,16 @@ LABEL_12:
   if (!frameCount)
   {
     FrameworkRadarComponent = FigCaptureGetFrameworkRadarComponent();
-    v30 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-    os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT);
+    v31 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+    os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT);
     fig_log_call_emit_and_clean_up_after_send_and_compose();
     LODWORD(time.value) = 136315394;
-    *(&time.value + 4) = v13;
+    *(&time.value + 4) = v14;
     LOWORD(time.flags) = 2112;
-    *(&time.flags + 2) = v12;
-    v31 = _os_log_send_and_compose_impl();
-    FigCapturePleaseFileRadar(FrameworkRadarComponent, v31, 0, 0, "/Library/Caches/com.apple.xbs/Sources/CameraCapture/CMCapture/Sources/Graph/Nodes/BWFrameRateGovernorNode.m", 275, @"LastShownDate:BWFrameRateGovernorNode.m:275", @"LastShownBuild:BWFrameRateGovernorNode.m:275", 0);
-    free(v31);
+    *(&time.flags + 2) = v13;
+    v32 = _os_log_send_and_compose_impl();
+    FigCapturePleaseFileRadar(FrameworkRadarComponent, v32, 0, 0, "/Library/Caches/com.apple.xbs/Sources/CameraCapture/CMCapture/Sources/Graph/Nodes/BWFrameRateGovernorNode.m", 275, @"LastShownDate:BWFrameRateGovernorNode.m:275", @"LastShownBuild:BWFrameRateGovernorNode.m:275", 0);
+    free(v32);
   }
 }
 

@@ -437,10 +437,9 @@
   if (v39 != 1)
   {
     MEMORY[0x1E69E5920](selfCopy);
-    v46 = 0;
+    return 0;
   }
 
-  *MEMORY[0x1E69E9840];
   return v46;
 }
 
@@ -462,61 +461,51 @@
   v14 = a2;
   equalCopy = equal;
   objc_opt_class();
-  if (objc_opt_isKindOfClass())
+  if ((objc_opt_isKindOfClass() & 1) == 0)
   {
-    memset(__b, 0, sizeof(__b));
-    obj = [(NSDictionary *)[(CBGammaContrastPreservationParams *)selfCopy codingKeys] allValues];
-    v9 = [(NSArray *)obj countByEnumeratingWithState:__b objects:v17 count:16];
-    if (v9)
+    return 0;
+  }
+
+  memset(__b, 0, sizeof(__b));
+  obj = [(NSDictionary *)[(CBGammaContrastPreservationParams *)selfCopy codingKeys] allValues];
+  v9 = [(NSArray *)obj countByEnumeratingWithState:__b objects:v17 count:16];
+  if (!v9)
+  {
+    return 1;
+  }
+
+  v5 = *__b[2];
+  v6 = 0;
+  v7 = v9;
+  while (1)
+  {
+    v4 = v6;
+    if (*__b[2] != v5)
     {
-      v5 = *__b[2];
+      objc_enumerationMutation(obj);
+    }
+
+    v12 = 0;
+    v12 = *(__b[1] + 8 * v6);
+    v10 = [(CBGammaContrastPreservationParams *)selfCopy valueForKey:v12];
+    if (([v10 isEqual:{objc_msgSend(equalCopy, "valueForKey:", v12)}] & 1) == 0)
+    {
+      break;
+    }
+
+    ++v6;
+    if (v4 + 1 >= v7)
+    {
       v6 = 0;
-      v7 = v9;
-      while (1)
+      v7 = [(NSArray *)obj countByEnumeratingWithState:__b objects:v17 count:16];
+      if (!v7)
       {
-        v4 = v6;
-        if (*__b[2] != v5)
-        {
-          objc_enumerationMutation(obj);
-        }
-
-        v12 = 0;
-        v12 = *(__b[1] + 8 * v6);
-        v10 = [(CBGammaContrastPreservationParams *)selfCopy valueForKey:v12];
-        if (([v10 isEqual:{objc_msgSend(equalCopy, "valueForKey:", v12)}] & 1) == 0)
-        {
-          break;
-        }
-
-        ++v6;
-        if (v4 + 1 >= v7)
-        {
-          v6 = 0;
-          v7 = [(NSArray *)obj countByEnumeratingWithState:__b objects:v17 count:16];
-          if (!v7)
-          {
-            goto LABEL_11;
-          }
-        }
+        return 1;
       }
-
-      v16 = 0;
-    }
-
-    else
-    {
-LABEL_11:
-      v16 = 1;
     }
   }
 
-  else
-  {
-    v16 = 0;
-  }
-
-  *MEMORY[0x1E69E9840];
-  return v16 & 1;
+  return 0;
 }
 
 @end

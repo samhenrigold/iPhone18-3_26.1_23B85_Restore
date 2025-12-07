@@ -60,15 +60,15 @@
 
 + (uint64_t)vui_paddingForWindowWidth:()VideosUI
 {
-  v2 = [objc_opt_class() vui_currentSizeClassForWindowWidth:self];
-  [objc_opt_class() _safeAreaInsetsForDeviceWithWindowWidth:self];
-  v4 = v3;
-  v6 = v5;
-  v8 = v7;
-  v10 = v9;
-  v11 = objc_opt_class();
+  v3 = [objc_opt_class() vui_currentSizeClassForWindowWidth:a2];
+  [objc_opt_class() _safeAreaInsetsForDeviceWithWindowWidth:a2];
+  v5 = v4;
+  v7 = v6;
+  v9 = v8;
+  v11 = v10;
+  v12 = objc_opt_class();
 
-  return [v11 _paddingForSizeClass:v2 safeArea:{v4, v6, v8, v10}];
+  return [v12 _paddingForSizeClass:v3 safeArea:{v5, v7, v9, v11}];
 }
 
 + (uint64_t)vui_paddingForSizeClass:()VideosUI
@@ -109,7 +109,7 @@
 
 + (uint64_t)vui_itemWidthForGridStyle:()VideosUI gridType:numGridColumns:windowWidth:
 {
-  v10 = [objc_opt_class() vui_currentSizeClassForWindowWidth:self];
+  v10 = [objc_opt_class() vui_currentSizeClassForWindowWidth:a2];
   if (a4 == 22)
   {
     v11 = *MEMORY[0x1E69DDCE0];
@@ -120,7 +120,7 @@
 
   else
   {
-    [objc_opt_class() vui_paddingForWindowWidth:self];
+    [objc_opt_class() vui_paddingForWindowWidth:a2];
     v11 = v15;
     v12 = v16;
     v13 = v17;
@@ -129,7 +129,7 @@
 
   v19 = objc_opt_class();
 
-  return [v19 _vui_itemWidthForGridStyle:a4 gridType:a5 numGridColumns:a6 windowWidth:v10 sizeClass:self padding:{v11, v12, v13, v14}];
+  return [v19 _vui_itemWidthForGridStyle:a4 gridType:a5 numGridColumns:a6 windowWidth:v10 sizeClass:a2 padding:{v11, v12, v13, v14}];
 }
 
 + (double)_vui_itemWidthForGridStyle:()VideosUI gridType:numGridColumns:windowWidth:sizeClass:padding:
@@ -148,7 +148,7 @@
     v22 = v21;
   }
 
-  return floor(v19 * (a10 - 1) + (self - (a3 + a5) - (v22 - 1) * v19) / v20 * a10);
+  return floor(v19 * (a10 - 1) + (a2 - (a4 + a6) - (v22 - 1) * v19) / v20 * a10);
 }
 
 + (double)vui_collectionInteritemSpace:()VideosUI gridType:
@@ -164,7 +164,7 @@
 
 + (uint64_t)vui_collectionInteritemSpace:()VideosUI gridType:windowWidth:
 {
-  v6 = [objc_opt_class() vui_currentSizeClassForWindowWidth:self];
+  v6 = [objc_opt_class() vui_currentSizeClassForWindowWidth:a2];
   v7 = objc_opt_class();
 
   return [v7 _vui_interitemSpaceForSizeClass:v6 gridType:a5];
@@ -182,14 +182,14 @@
 
 + (uint64_t)vui_currentSizeClassForWindowWidth:()VideosUI
 {
-  [objc_opt_class() _safeAreaInsetsForDeviceWithWindowWidth:self];
-  v3 = v2;
-  v5 = v4;
-  v7 = v6;
-  v9 = v8;
-  v10 = objc_opt_class();
+  [objc_opt_class() _safeAreaInsetsForDeviceWithWindowWidth:a2];
+  v4 = v3;
+  v6 = v5;
+  v8 = v7;
+  v10 = v9;
+  v11 = objc_opt_class();
 
-  return [v10 _vui_currentSizeClassForWindowWidth:self safeArea:{v3, v5, v7, v9}];
+  return [v11 _vui_currentSizeClassForWindowWidth:a2 safeArea:{v4, v6, v8, v10}];
 }
 
 + (uint64_t)_vui_currentSizeClassForWindowWidth:()VideosUI safeArea:

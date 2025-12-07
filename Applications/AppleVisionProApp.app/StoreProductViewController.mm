@@ -1,9 +1,24 @@
 @interface StoreProductViewController
 - (_TtC17AppleVisionProApp26StoreProductViewController)initWithCoder:(id)coder;
 - (_TtC17AppleVisionProApp26StoreProductViewController)initWithNibName:(id)name bundle:(id)bundle;
+- (void)viewDidDisappear:(BOOL)disappear;
 @end
 
 @implementation StoreProductViewController
+
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  disappearCopy = disappear;
+  v5.receiver = self;
+  v5.super_class = type metadata accessor for StoreProductViewController();
+  v4 = v5.receiver;
+  [(StoreProductViewController *)&v5 viewDidDisappear:disappearCopy];
+  if (swift_unknownObjectWeakLoadStrong())
+  {
+    sub_10003AC64(0, 0);
+    swift_unknownObjectRelease();
+  }
+}
 
 - (_TtC17AppleVisionProApp26StoreProductViewController)initWithNibName:(id)name bundle:(id)bundle
 {

@@ -35,9 +35,9 @@
 
 - (id)anchorsForCameraWithTransform:(double)transform referenceOriginTransform:(double)originTransform existingAnchors:(double)anchors anchorsToRemove:(float32x4_t)remove
 {
-  v120 = *MEMORY[0x1E69E9840];
+  v121 = *MEMORY[0x1E69E9840];
   v14 = a11;
-  v80 = a12;
+  v81 = a12;
   updatedAnchors = [self updatedAnchors];
   [updatedAnchors count];
   addedAnchors = [self addedAnchors];
@@ -46,48 +46,48 @@
   [removedAnchors count];
   kdebug_trace();
 
-  v81 = v14;
-  v97 = ARDictionaryFromAnchors(v14);
-  v96 = objc_opt_new();
-  v106 = 0u;
+  v82 = v14;
+  v98 = ARDictionaryFromAnchors(v14);
+  v97 = objc_opt_new();
   v107 = 0u;
   v108 = 0u;
   v109 = 0u;
+  v110 = 0u;
   updatedAnchors2 = [self updatedAnchors];
-  v19 = [updatedAnchors2 countByEnumeratingWithState:&v106 objects:v116 count:16];
+  v19 = [updatedAnchors2 countByEnumeratingWithState:&v107 objects:v117 count:16];
   selfCopy = self;
   if (v19)
   {
     v20 = v19;
-    v21 = *v107;
+    v21 = *v108;
     do
     {
       for (i = 0; i != v20; ++i)
       {
-        if (*v107 != v21)
+        if (*v108 != v21)
         {
           objc_enumerationMutation(updatedAnchors2);
         }
 
-        v23 = *(*(&v106 + 1) + 8 * i);
+        v23 = *(*(&v107 + 1) + 8 * i);
         identifier = [v23 identifier];
-        v25 = [v97 objectForKey:identifier];
+        v25 = [v98 objectForKey:identifier];
 
         if (!v25)
         {
-          v35 = _ARLogGeneral_20();
-          if (os_log_type_enabled(v35, OS_LOG_TYPE_DEBUG))
+          v36 = _ARLogGeneral_20(v26);
+          if (os_log_type_enabled(v36, OS_LOG_TYPE_DEBUG))
           {
-            v43 = objc_opt_class();
-            v44 = NSStringFromClass(v43);
+            v44 = objc_opt_class();
+            v45 = NSStringFromClass(v44);
             identifier2 = [v23 identifier];
             *buf = 138543874;
-            *&buf[4] = v44;
+            *&buf[4] = v45;
             *&buf[12] = 2048;
             *&buf[14] = selfCopy;
             *&buf[22] = 2114;
             *&buf[24] = identifier2;
-            _os_log_impl(&dword_1C241C000, v35, OS_LOG_TYPE_DEBUG, "%{public}@ <%p>: VIO returned an updated anchor that is not surfaced by ARSession: %{public}@", buf, 0x20u);
+            _os_log_impl(&dword_1C241C000, v36, OS_LOG_TYPE_DEBUG, "%{public}@ <%p>: VIO returned an updated anchor that is not surfaced by ARSession: %{public}@", buf, 0x20u);
 
             self = selfCopy;
           }
@@ -95,206 +95,206 @@
           goto LABEL_16;
         }
 
-        [self timestamp];
-        v27 = v26;
+        objc_msgSend_timestamp(self);
+        v28 = v27;
         [v25 lastUpdateTimestamp];
-        if (v27 > v28)
+        if (v28 > v29)
         {
           objc_opt_class();
           if ((objc_opt_isKindOfClass() & 1) == 0)
           {
             [v25 referenceTransform];
-            ARInnerScaleFromMatrix(v29, v30);
+            ARInnerScaleFromMatrix(v30, v31);
             ARMatrixFromScale();
-            v92 = v32;
-            v94 = v31;
-            v88 = v34;
-            v90 = v33;
-            v35 = [v25 copy];
-            [v23 transform];
-            v40 = 0;
-            v110 = v94;
-            v111 = v92;
-            v112 = v90;
-            v113 = v88;
-            memset(buf, 0, sizeof(buf));
-            v118 = 0u;
-            *v119 = 0u;
-            do
-            {
-              *&buf[v40] = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v36, COERCE_FLOAT(*(&v110 + v40))), v37, *(&v110 + v40), 1), v38, *(&v110 + v40), 2), v39, *(&v110 + v40), 3);
-              v40 += 16;
-            }
-
-            while (v40 != 64);
+            v93 = v33;
+            v95 = v32;
+            v89 = v35;
+            v91 = v34;
+            v36 = [v25 copy];
+            objc_msgSend_transform(v23);
             v41 = 0;
-            v110 = *buf;
-            v111 = *&buf[16];
-            v112 = v118;
-            v113 = *v119;
+            v111 = v95;
+            v112 = v93;
+            v113 = v91;
+            v114 = v89;
             memset(buf, 0, sizeof(buf));
-            v118 = 0u;
-            *v119 = 0u;
+            v119 = 0u;
+            *v120 = 0u;
             do
             {
-              *&buf[v41] = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(remove, COERCE_FLOAT(*(&v110 + v41))), a7, *(&v110 + v41), 1), a8, *(&v110 + v41), 2), a9, *(&v110 + v41), 3);
+              *&buf[v41] = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v37, COERCE_FLOAT(*(&v111 + v41))), v38, *(&v111 + v41), 1), v39, *(&v111 + v41), 2), v40, *(&v111 + v41), 3);
               v41 += 16;
             }
 
             while (v41 != 64);
-            [v35 setTransform:*buf, *&buf[16], *&v118, v119[0]];
-            sessionIdentifier = [v23 sessionIdentifier];
-            [v35 setSessionIdentifier:sessionIdentifier];
+            v42 = 0;
+            v111 = *buf;
+            v112 = *&buf[16];
+            v113 = v119;
+            v114 = *v120;
+            memset(buf, 0, sizeof(buf));
+            v119 = 0u;
+            *v120 = 0u;
+            do
+            {
+              *&buf[v42] = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(remove, COERCE_FLOAT(*(&v111 + v42))), a7, *(&v111 + v42), 1), a8, *(&v111 + v42), 2), a9, *(&v111 + v42), 3);
+              v42 += 16;
+            }
 
-            [v96 addObject:v35];
+            while (v42 != 64);
+            [v36 setTransform:*buf, *&buf[16], *&v119, v120[0]];
+            sessionIdentifier = [v23 sessionIdentifier];
+            [v36 setSessionIdentifier:sessionIdentifier];
+
+            [v97 addObject:v36];
 LABEL_16:
           }
         }
       }
 
-      v20 = [updatedAnchors2 countByEnumeratingWithState:&v106 objects:v116 count:16];
+      v20 = [updatedAnchors2 countByEnumeratingWithState:&v107 objects:v117 count:16];
     }
 
     while (v20);
   }
 
-  v104 = 0u;
   v105 = 0u;
-  v102 = 0u;
+  v106 = 0u;
   v103 = 0u;
+  v104 = 0u;
   obj = [self addedAnchors];
-  v46 = [obj countByEnumeratingWithState:&v102 objects:v115 count:16];
-  if (v46)
+  v47 = [obj countByEnumeratingWithState:&v103 objects:v116 count:16];
+  if (v47)
   {
-    v47 = v46;
-    v48 = *v103;
+    v48 = v47;
+    v49 = *v104;
     do
     {
-      for (j = 0; j != v47; ++j)
+      for (j = 0; j != v48; ++j)
       {
-        if (*v103 != v48)
+        if (*v104 != v49)
         {
           objc_enumerationMutation(obj);
         }
 
-        v50 = *(*(&v102 + 1) + 8 * j);
-        v51 = [self[6] member:v50];
-        v52 = v51;
-        if (v51)
+        v51 = *(*(&v103 + 1) + 8 * j);
+        v52 = [self[6] member:v51];
+        v53 = v52;
+        if (v52)
         {
-          [v51 referenceTransform];
-          ARInnerScaleFromMatrix(v53, v54);
+          [v52 referenceTransform];
+          ARInnerScaleFromMatrix(v54, v55);
           ARMatrixFromScale();
-          v93 = v56;
-          v95 = v55;
-          v89 = v58;
-          v91 = v57;
-          v59 = [v52 copy];
-          [v50 transform];
-          v64 = 0;
-          v110 = v95;
-          v111 = v93;
-          v112 = v91;
-          v113 = v89;
-          memset(buf, 0, sizeof(buf));
-          v118 = 0u;
-          *v119 = 0u;
-          do
-          {
-            *&buf[v64] = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v60, COERCE_FLOAT(*(&v110 + v64))), v61, *(&v110 + v64), 1), v62, *(&v110 + v64), 2), v63, *(&v110 + v64), 3);
-            v64 += 16;
-          }
-
-          while (v64 != 64);
+          v94 = v57;
+          v96 = v56;
+          v90 = v59;
+          v92 = v58;
+          v60 = [v53 copy];
+          objc_msgSend_transform(v51);
           v65 = 0;
-          v110 = *buf;
-          v111 = *&buf[16];
-          v112 = v118;
-          v113 = *v119;
+          v111 = v96;
+          v112 = v94;
+          v113 = v92;
+          v114 = v90;
           memset(buf, 0, sizeof(buf));
-          v118 = 0u;
-          *v119 = 0u;
+          v119 = 0u;
+          *v120 = 0u;
           do
           {
-            *&buf[v65] = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(remove, COERCE_FLOAT(*(&v110 + v65))), a7, *(&v110 + v65), 1), a8, *(&v110 + v65), 2), a9, *(&v110 + v65), 3);
+            *&buf[v65] = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v61, COERCE_FLOAT(*(&v111 + v65))), v62, *(&v111 + v65), 1), v63, *(&v111 + v65), 2), v64, *(&v111 + v65), 3);
             v65 += 16;
           }
 
           while (v65 != 64);
-          [v59 setTransform:*buf, *&buf[16], *&v118, v119[0]];
-          sessionIdentifier2 = [v50 sessionIdentifier];
-          [v59 setSessionIdentifier:sessionIdentifier2];
+          v66 = 0;
+          v111 = *buf;
+          v112 = *&buf[16];
+          v113 = v119;
+          v114 = *v120;
+          memset(buf, 0, sizeof(buf));
+          v119 = 0u;
+          *v120 = 0u;
+          do
+          {
+            *&buf[v66] = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(remove, COERCE_FLOAT(*(&v111 + v66))), a7, *(&v111 + v66), 1), a8, *(&v111 + v66), 2), a9, *(&v111 + v66), 3);
+            v66 += 16;
+          }
 
-          [v96 addObject:v59];
+          while (v66 != 64);
+          [v60 setTransform:*buf, *&buf[16], *&v119, v120[0]];
+          sessionIdentifier2 = [v51 sessionIdentifier];
+          [v60 setSessionIdentifier:sessionIdentifier2];
+
+          [v97 addObject:v60];
         }
 
         else
         {
-          v59 = _ARLogGeneral_20();
-          if (os_log_type_enabled(v59, OS_LOG_TYPE_DEBUG))
+          v60 = _ARLogGeneral_20(0);
+          if (os_log_type_enabled(v60, OS_LOG_TYPE_DEBUG))
           {
-            v67 = objc_opt_class();
-            v68 = NSStringFromClass(v67);
-            identifier3 = [v50 identifier];
+            v68 = objc_opt_class();
+            v69 = NSStringFromClass(v68);
+            identifier3 = [v51 identifier];
             *buf = 138543874;
-            *&buf[4] = v68;
+            *&buf[4] = v69;
             *&buf[12] = 2048;
             *&buf[14] = selfCopy;
             *&buf[22] = 2114;
             *&buf[24] = identifier3;
-            _os_log_impl(&dword_1C241C000, v59, OS_LOG_TYPE_DEBUG, "%{public}@ <%p>: Ignoring locally added anchor: %{public}@", buf, 0x20u);
+            _os_log_impl(&dword_1C241C000, v60, OS_LOG_TYPE_DEBUG, "%{public}@ <%p>: Ignoring locally added anchor: %{public}@", buf, 0x20u);
 
             self = selfCopy;
           }
         }
       }
 
-      v47 = [obj countByEnumeratingWithState:&v102 objects:v115 count:16];
+      v48 = [obj countByEnumeratingWithState:&v103 objects:v116 count:16];
     }
 
-    while (v47);
+    while (v48);
   }
 
-  v100 = 0u;
   v101 = 0u;
-  v98 = 0u;
+  v102 = 0u;
   v99 = 0u;
+  v100 = 0u;
   removedAnchors2 = [self removedAnchors];
-  v71 = [removedAnchors2 countByEnumeratingWithState:&v98 objects:v114 count:16];
-  if (v71)
+  v72 = [removedAnchors2 countByEnumeratingWithState:&v99 objects:v115 count:16];
+  if (v72)
   {
-    v72 = v71;
-    v73 = *v99;
+    v73 = v72;
+    v74 = *v100;
     do
     {
-      for (k = 0; k != v72; ++k)
+      for (k = 0; k != v73; ++k)
       {
-        if (*v99 != v73)
+        if (*v100 != v74)
         {
           objc_enumerationMutation(removedAnchors2);
         }
 
-        v75 = *(*(&v98 + 1) + 8 * k);
-        identifier4 = [v75 identifier];
-        v77 = [v97 objectForKey:identifier4];
+        v76 = *(*(&v99 + 1) + 8 * k);
+        identifier4 = [v76 identifier];
+        v78 = [v98 objectForKey:identifier4];
 
-        if ([v77 isMemberOfClass:objc_opt_class()])
+        if ([v78 isMemberOfClass:objc_opt_class()])
         {
-          [v96 removeObject:v75];
-          [v80 addObject:v75];
+          [v97 removeObject:v76];
+          [v81 addObject:v76];
         }
       }
 
-      v72 = [removedAnchors2 countByEnumeratingWithState:&v98 objects:v114 count:16];
+      v73 = [removedAnchors2 countByEnumeratingWithState:&v99 objects:v115 count:16];
     }
 
-    while (v72);
+    while (v73);
   }
 
-  [v96 count];
-  [v80 count];
+  [v97 count];
+  [v81 count];
   kdebug_trace();
-  allObjects = [v96 allObjects];
+  allObjects = [v97 allObjects];
 
   return allObjects;
 }
@@ -348,7 +348,7 @@ LABEL_16:
           v46 = v25;
           v47 = v24;
           v26 = [v19 copy];
-          [v17 transform];
+          objc_msgSend_transform(v17);
           v31 = 0;
           v54 = v49;
           v55 = v48;
@@ -356,7 +356,7 @@ LABEL_16:
           v57 = v46;
           memset(buf, 0, sizeof(buf));
           v60 = 0u;
-          v61 = 0u;
+          *v61 = 0u;
           do
           {
             *&buf[v31] = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v27, COERCE_FLOAT(*(&v54 + v31))), v28, *(&v54 + v31), 1), v29, *(&v54 + v31), 2), v30, *(&v54 + v31), 3);
@@ -368,10 +368,10 @@ LABEL_16:
           v54 = *buf;
           v55 = *&buf[16];
           v56 = v60;
-          v57 = v61;
+          v57 = *v61;
           memset(buf, 0, sizeof(buf));
           v60 = 0u;
-          v61 = 0u;
+          *v61 = 0u;
           do
           {
             *&buf[v32] = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(a2, COERCE_FLOAT(*(&v54 + v32))), transform, *(&v54 + v32), 1), anchors, *(&v54 + v32), 2), a5, *(&v54 + v32), 3);
@@ -379,7 +379,7 @@ LABEL_16:
           }
 
           while (v32 != 64);
-          [v26 setTransform:{*buf, *&buf[16], *&v60, *&v61}];
+          [v26 setTransform:{*buf, *&buf[16], *&v60, v61[0]}];
           sessionIdentifier = [v17 sessionIdentifier];
           [v26 setSessionIdentifier:sessionIdentifier];
 
@@ -387,7 +387,7 @@ LABEL_16:
           goto LABEL_14;
         }
 
-        v19 = _ARLogGeneral_20();
+        v19 = _ARLogGeneral_20(0);
         if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
         {
           v34 = objc_opt_class();

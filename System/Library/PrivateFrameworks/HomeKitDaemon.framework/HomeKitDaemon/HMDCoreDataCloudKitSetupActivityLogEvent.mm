@@ -76,7 +76,7 @@
     [dictionary setObject:errorPhaseName forKeyedSubscript:@"errorPhaseName"];
   }
 
-  v18 = [dictionary copy];
+  v18 = objc_msgSend_copy(dictionary);
 
   return v18;
 }
@@ -88,10 +88,10 @@
   -[HMDCoreDataCloudKitSetupActivityLogEvent setPhaseErrorCode:](self, "setPhaseErrorCode:", [errorCopy code]);
   domain = [errorCopy domain];
 
-  v9 = [domain copy];
+  v9 = objc_msgSend_copy(domain);
   [(HMDCoreDataCloudKitSetupActivityLogEvent *)self setPhaseErrorDomain:v9];
 
-  v10 = [phaseCopy copy];
+  v10 = objc_msgSend_copy(phaseCopy);
   [(HMDCoreDataCloudKitSetupActivityLogEvent *)self setErrorPhaseName:v10];
 }
 

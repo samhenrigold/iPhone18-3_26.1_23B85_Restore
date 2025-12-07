@@ -4,8 +4,6 @@
 - (_M4FXTemporalDenoisingScalingEffect)initWithDevice:(id)device compiler:(id)compiler descriptor:(id)descriptor history:(id)history;
 - (__n128)setViewToClipMatrix:(__n128)matrix;
 - (__n128)setWorldToViewMatrix:(__n128)matrix;
-- (__n128)viewToClipMatrix;
-- (__n128)worldToViewMatrix;
 - (float)jitterOffsetX;
 - (float)motionVectorScaleX;
 - (id).cxx_construct;
@@ -93,9 +91,7 @@
   [(_MTL4FXEffect *)self _beginEncodeWithCommandBuffer:?];
   if (MTLReportFailureTypeEnabled())
   {
-    diffuseAlbedoTexture = self->_diffuseAlbedoTexture;
-    roughnessTexture = self->_roughnessTexture;
-    checkInputOutputTexturesForDenoiser(self->_colorTexture, self->_depthTexture, self->_motionTexture, self->_normalTexture, diffuseAlbedoTexture, self->_specularAlbedoTexture, roughnessTexture, self->_specularHitDistanceTexture, self->_denoiseStrengthMaskTexture, self->_preUpscaleComposeTexture, self->_reactiveMaskTexture, self->_outputTexture, self->_inputWidth, self->_inputHeight, self->_colorTextureFormat, self->_inputContentWidth, self->_inputContentHeight, self->_outputWidth, self->_outputHeight, self->_outputTextureFormat, self->_depthTextureFormat, self->_motionTextureFormat, self->_normalTextureFormat, self->_diffuseAlbedoTextureFormat, self->_specularAlbedoTextureFormat, self->_roughnessTextureFormat, self->_specularHitDistanceTextureFormat, self->_denoiseStrengthMaskTextureFormat, self->_preUpscaleComposeTextureFormat, self->_reactiveMaskTextureFormat);
+    checkInputOutputTexturesForDenoiser(self->_colorTexture, self->_depthTexture, self->_motionTexture, self->_normalTexture, self->_diffuseAlbedoTexture, self->_specularAlbedoTexture, self->_roughnessTexture, self->_specularHitDistanceTexture, self->_denoiseStrengthMaskTexture, self->_preUpscaleComposeTexture, self->_reactiveMaskTexture, self->_outputTexture, self->_inputWidth, self->_inputHeight, self->_colorTextureFormat, self->_inputContentWidth, self->_inputContentHeight, self->_outputWidth, self->_outputHeight, self->_outputTextureFormat, self->_depthTextureFormat, self->_motionTextureFormat, self->_normalTextureFormat, self->_diffuseAlbedoTextureFormat, self->_specularAlbedoTextureFormat, self->_roughnessTextureFormat, self->_specularHitDistanceTextureFormat, self->_denoiseStrengthMaskTextureFormat, self->_preUpscaleComposeTextureFormat, self->_reactiveMaskTextureFormat);
     inputContentWidth = self->_inputContentWidth;
     inputContentHeight = self->_inputContentHeight;
     inputContentMinScale = self->_inputContentMinScale;
@@ -105,40 +101,33 @@
     v10 = fminf(outputWidth / inputContentWidth, outputHeight / inputContentHeight);
     if (v10 < inputContentMinScale)
     {
-      v26 = v10;
-      v27 = inputContentMinScale;
+      v22 = v10;
+      v23 = inputContentMinScale;
       MTLReportFailure();
     }
 
     v11 = fmaxf(outputWidth / (inputContentWidth + 1), outputHeight / (inputContentHeight + 1));
     if (v11 > inputContentMaxScale)
     {
-      v26 = v11;
-      v27 = inputContentMaxScale;
+      v22 = v11;
+      v23 = inputContentMaxScale;
       MTLReportFailure();
     }
 
-    if ([(MTLTexture *)self->_outputTexture storageMode:*&v26]!= 2)
+    if ([(MTLTexture *)self->_outputTexture storageMode:*&v22]!= 2)
     {
       MTLReportFailure();
     }
   }
 
-  v12 = *&self->_jitterOffset[4];
-  reset = self->_reset;
-  reversedDepth = self->_reversedDepth;
-  preExposure = self->_preExposure;
-  v14 = *&self->_motionVectorScale[4];
-  v15 = self->_inputContentWidth;
-  v16 = self->_inputContentHeight;
   self->_colorTexture;
   self->_depthTexture;
   self->_motionTexture;
   self->_outputTexture;
   self->_exposureTexture;
   self->_reactiveMaskTexture;
-  v17 = self->_inputContentWidth;
-  v18 = self->_inputContentHeight;
+  v12 = self->_inputContentWidth;
+  v13 = self->_inputContentHeight;
   *(self->_filter + 136) = *(self->_filter + 136) == 0;
   *(self->_denoiseFilter + 299) = *(self->_denoiseFilter + 299) == 0;
   [bufferCopy useResidencySet:self->device4->var2];
@@ -147,13 +136,13 @@
   var4 = device4->var4;
   if (MTLTraceEnabled())
   {
-    [(_M4FXTemporalDenoisingScalingEffect *)self outputWidth];
-    [(_M4FXTemporalDenoisingScalingEffect *)self outputHeight];
-    [(_M4FXTemporalDenoisingScalingEffect *)self inputWidth];
-    [(_M4FXTemporalDenoisingScalingEffect *)self inputHeight];
-    v21 = self->device4;
-    v21->var6 = self;
-    MFXDevice4::emitSignPostForComputeEncoder(v21);
+    outputWidth = [(_M4FXTemporalDenoisingScalingEffect *)self outputWidth];
+    outputHeight = [(_M4FXTemporalDenoisingScalingEffect *)self outputHeight];
+    inputWidth = [(_M4FXTemporalDenoisingScalingEffect *)self inputWidth];
+    v19 = inputWidth & 0xFFFFFFFF0000FFFFLL | ([(_M4FXTemporalDenoisingScalingEffect *)self inputHeight]<< 16);
+    v20 = self->device4;
+    v20->var6 = self;
+    MFXDevice4::emitSignPostForComputeEncoder(v20, v12 | (v13 << 16) | (outputWidth << 32) | (outputHeight << 48), v19);
   }
 
   fence = self->_fence;
@@ -163,23 +152,10 @@
   }
 
   [*var4 waitForFence:self->_internalFence beforeEncoderStages:0x8000000];
-  filter = self->_filter;
   *var4;
-  *(var4 + 1);
-  v33 = *(var4 + 4);
-  *(var4 + 3);
-  colorTexture = self->_colorTexture;
-  autoExposureEnabled = self->_autoExposureEnabled;
+  var4[1];
+  var4[3];
   BRNet_v3_Filter<MFXDevice4>::encodeExposureCalcForDenoiser();
-}
-
-- (__n128)worldToViewMatrix
-{
-  result = *(self + 752);
-  v2 = *(self + 768);
-  v3 = *(self + 784);
-  v4 = *(self + 800);
-  return result;
 }
 
 - (__n128)setWorldToViewMatrix:(__n128)matrix
@@ -188,15 +164,6 @@
   result[48] = matrix;
   result[49] = a4;
   result[50] = a5;
-  return result;
-}
-
-- (__n128)viewToClipMatrix
-{
-  result = *(self + 816);
-  v2 = *(self + 832);
-  v3 = *(self + 848);
-  v4 = *(self + 864);
   return result;
 }
 

@@ -11,52 +11,49 @@
 {
   v3 = sub_23B59D2D0();
   v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
   MEMORY[0x28223BE20](v3);
-  v7 = v12 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  sub_23B5806A4(self + OBJC_IVAR___WKIdentityDocumentPresentmentRequest__unsafeOrigin, v13);
+  v6 = v11 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  sub_23B5806A4(self + OBJC_IVAR___WKIdentityDocumentPresentmentRequest__unsafeOrigin, v12);
   sub_23B582C30(0, &qword_27E15AB08, 0x277CBEBC0);
   selfCopy = self;
   swift_dynamicCast();
-  v9 = v12[1];
+  v8 = v11[1];
   sub_23B59D2C0();
 
-  v10 = sub_23B59D2B0();
-  (*(v4 + 8))(v7, v3);
+  v9 = sub_23B59D2B0();
+  (*(v4 + 8))(v6, v3);
 
-  return v10;
+  return v9;
 }
 
 - (NSArray)mobileDocumentRequests
 {
-  v2 = *(self + OBJC_IVAR___WKIdentityDocumentPresentmentRequest_mobileDocumentRequests);
   type metadata accessor for WKIdentityDocumentPresentmentMobileDocumentRequest(0);
 
-  v3 = sub_23B59D880();
+  v2 = sub_23B59D880();
 
-  return v3;
+  return v2;
 }
 
 - (WKIdentityDocumentPresentmentRequest)initWithOrigin:(id)origin mobileDocumentRequests:(id)requests
 {
   v5 = sub_23B59D2D0();
   v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
   MEMORY[0x28223BE20](v5);
-  v9 = &v15 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = &v14 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_23B59D2C0();
   type metadata accessor for WKIdentityDocumentPresentmentMobileDocumentRequest(0);
-  v10 = sub_23B59D890();
-  v11 = sub_23B59D2B0();
-  v12 = (self + OBJC_IVAR___WKIdentityDocumentPresentmentRequest__unsafeOrigin);
-  v12[3] = sub_23B582C30(0, &qword_27E15AB08, 0x277CBEBC0);
-  *v12 = v11;
-  *(self + OBJC_IVAR___WKIdentityDocumentPresentmentRequest_mobileDocumentRequests) = v10;
-  v15.receiver = self;
-  v15.super_class = WKIdentityDocumentPresentmentRequest;
-  v13 = [(WKIdentityDocumentPresentmentRequest *)&v15 init];
-  (*(v6 + 8))(v9, v5);
-  return v13;
+  v9 = sub_23B59D890();
+  v10 = sub_23B59D2B0();
+  v11 = (self + OBJC_IVAR___WKIdentityDocumentPresentmentRequest__unsafeOrigin);
+  v11[3] = sub_23B582C30(0, &qword_27E15AB08, 0x277CBEBC0);
+  *v11 = v10;
+  *(self + OBJC_IVAR___WKIdentityDocumentPresentmentRequest_mobileDocumentRequests) = v9;
+  v14.receiver = self;
+  v14.super_class = WKIdentityDocumentPresentmentRequest;
+  v12 = [(WKIdentityDocumentPresentmentRequest *)&v14 init];
+  (*(v6 + 8))(v8, v5);
+  return v12;
 }
 
 - (WKIdentityDocumentPresentmentRequest)init

@@ -34,10 +34,11 @@ void sub_243CBDB24(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void OUTLINED_FUNCTION_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
 void OUTLINED_FUNCTION_3(void *a1, uint64_t a2, os_log_t log, const char *a4, ...)
@@ -47,22 +48,23 @@ void OUTLINED_FUNCTION_3(void *a1, uint64_t a2, os_log_t log, const char *a4, ..
   _os_log_error_impl(a1, log, OS_LOG_TYPE_ERROR, a4, va, 0x16u);
 }
 
-void OUTLINED_FUNCTION_4(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_4(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, &a9, 0xCu);
+  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, va, 0xCu);
 }
 
-id nanocamera_log_app()
+id nanocamera_log_app(uint64_t a1)
 {
   if (nanocamera_log_app_onceToken != -1)
   {
     nanocamera_log_app_cold_1();
   }
 
-  v1 = nanocamera_log_app_log;
+  v2 = nanocamera_log_app_log;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __nanocamera_log_app_block_invoke()
@@ -72,16 +74,16 @@ uint64_t __nanocamera_log_app_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id nanocamera_log_preview()
+id nanocamera_log_preview(uint64_t a1)
 {
   if (nanocamera_log_preview_onceToken != -1)
   {
     nanocamera_log_preview_cold_1();
   }
 
-  v1 = nanocamera_log_preview_log;
+  v2 = nanocamera_log_preview_log;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __nanocamera_log_preview_block_invoke()
@@ -111,10 +113,11 @@ void sub_243CC594C(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void OUTLINED_FUNCTION_0_0(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0_0(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_fault_impl(a1, v9, OS_LOG_TYPE_FAULT, a4, &a9, 0xCu);
+  _os_log_fault_impl(a1, v8, OS_LOG_TYPE_FAULT, a4, va, 0xCu);
 }
 
 uint64_t _ncCaptureModeFromCCCaptureMode(uint64_t a1)

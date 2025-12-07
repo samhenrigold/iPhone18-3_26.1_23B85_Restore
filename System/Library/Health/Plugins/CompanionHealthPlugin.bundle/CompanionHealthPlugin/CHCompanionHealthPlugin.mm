@@ -24,10 +24,9 @@
 
 - (id)taskServerClasses
 {
-  v6[1] = *MEMORY[0x29EDCA608];
-  v6[0] = objc_opt_class();
-  v3 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x29EDB8D80], v2, v6, 1);
-  v4 = *MEMORY[0x29EDCA608];
+  v5[1] = *MEMORY[0x29EDCA608];
+  v5[0] = objc_opt_class();
+  v3 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x29EDB8D80], v2, v5, 1);
 
   return v3;
 }

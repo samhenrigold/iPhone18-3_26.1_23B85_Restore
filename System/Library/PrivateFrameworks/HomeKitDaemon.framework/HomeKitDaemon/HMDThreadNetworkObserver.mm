@@ -14,6 +14,7 @@
 - (void)_handleReadWriteLogEvent:(id)event;
 - (void)_incrementError:(id)error forHistogram:(id)histogram byValue:(unint64_t)value;
 - (void)_injectThreadNetworkStateForTestingWithNumAdvertisedBRs:(unint64_t)rs numAppleBRs:(unint64_t)bRs numThirdPartyBRs:(unint64_t)partyBRs numThreadNetworks:(unint64_t)networks maxSimuIPPrefixesDetected:(unint64_t)detected txTotal:(unint64_t)total txSuccess:(unint64_t)success txDelayAvg:(unint64_t)self0 rxTotal:(unint64_t)self1 rxSuccess:(unint64_t)self2 reportDuration:(unint64_t)self3 reportDate:(id)self4 reportDailySummary:(BOOL)self5;
+- (void)_runLoggingForDate:(id)date isDailySummary:(BOOL)summary;
 - (void)_setDailyScheduler:(id)scheduler;
 - (void)_updateDailyCountersAndResetCurrentReportStatsForHomeWithUUID:(id)d associatedWithDate:(id)date;
 - (void)deleteCountersAfterDate:(id)date;
@@ -256,7 +257,7 @@ void __58__HMDThreadNetworkObserver__keyOfLargestCountInHistogram___block_invoke
 
 - (void)_updateDailyCountersAndResetCurrentReportStatsForHomeWithUUID:(id)d associatedWithDate:(id)date
 {
-  v51 = *MEMORY[0x277D85DE8];
+  v50 = *MEMORY[0x277D85DE8];
   dCopy = d;
   dateCopy = date;
   countersManager = [(HMDThreadNetworkObserver *)self countersManager];
@@ -281,43 +282,43 @@ void __58__HMDThreadNetworkObserver__keyOfLargestCountInHistogram___block_invoke
   [v10 addValue:-[HMDThreadNetworkObserver curReport_txDelayAvg](self toStatisticsName:{"curReport_txDelayAvg"), @"ThreadNetwork_txDelayAvg"}];
   [v10 incrementEventCounterForEventName:@"ReadWriteCount_ThreadReporting" withValue:{-[HMDThreadNetworkObserver curReport_readWritesCount](self, "curReport_readWritesCount")}];
   [v10 incrementEventCounterForEventName:@"ReadErrorCount_ThreadReporting" withValue:{-[HMDThreadNetworkObserver curReport_readErrorCount](self, "curReport_readErrorCount")}];
-  v37 = v10;
+  v36 = v10;
   [v10 incrementEventCounterForEventName:@"WriteErrorCount_ThreadReporting" withValue:{-[HMDThreadNetworkObserver curReport_writeErrorCount](self, "curReport_writeErrorCount")}];
-  v39 = dateCopy;
-  v40 = [(HMDThreadNetworkObserver *)self counterGroupForName:@"ReadWriteErrorEventGroup_ThreadReporting" homeUUID:dCopy date:dateCopy];
+  v38 = dateCopy;
+  v39 = [(HMDThreadNetworkObserver *)self counterGroupForName:@"ReadWriteErrorEventGroup_ThreadReporting" homeUUID:dCopy date:dateCopy];
+  v44 = 0u;
   v45 = 0u;
   v46 = 0u;
   v47 = 0u;
-  v48 = 0u;
   curReport_topReadWriteErrors = [(HMDThreadNetworkObserver *)self curReport_topReadWriteErrors];
-  v15 = [curReport_topReadWriteErrors countByEnumeratingWithState:&v45 objects:v50 count:16];
+  v15 = [curReport_topReadWriteErrors countByEnumeratingWithState:&v44 objects:v49 count:16];
   if (v15)
   {
     v16 = v15;
     v17 = 0;
-    v18 = *v46;
+    v18 = *v45;
     do
     {
       v19 = 0;
       v20 = v17;
       do
       {
-        if (*v46 != v18)
+        if (*v45 != v18)
         {
           objc_enumerationMutation(curReport_topReadWriteErrors);
         }
 
-        v21 = *(*(&v45 + 1) + 8 * v19);
+        v21 = *(*(&v44 + 1) + 8 * v19);
         curReport_topReadWriteErrors2 = [(HMDThreadNetworkObserver *)self curReport_topReadWriteErrors];
         v17 = [curReport_topReadWriteErrors2 objectForKey:v21];
 
-        [v40 incrementEventCounterForEventName:v21 withValue:{objc_msgSend(v17, "unsignedIntValue")}];
+        [v39 incrementEventCounterForEventName:v21 withValue:{objc_msgSend(v17, "unsignedIntValue")}];
         ++v19;
         v20 = v17;
       }
 
       while (v16 != v19);
-      v16 = [curReport_topReadWriteErrors countByEnumeratingWithState:&v45 objects:v50 count:16];
+      v16 = [curReport_topReadWriteErrors countByEnumeratingWithState:&v44 objects:v49 count:16];
     }
 
     while (v16);
@@ -328,30 +329,30 @@ void __58__HMDThreadNetworkObserver__keyOfLargestCountInHistogram___block_invoke
     v17 = 0;
   }
 
-  v38 = v11;
-  v23 = [(HMDThreadNetworkObserver *)self counterGroupForName:@"AccessorySessionErrorGroup_ThreadReporting" homeUUID:v11 date:v39];
+  v37 = v11;
+  v23 = [(HMDThreadNetworkObserver *)self counterGroupForName:@"AccessorySessionErrorGroup_ThreadReporting" homeUUID:v11 date:v38];
+  v40 = 0u;
   v41 = 0u;
   v42 = 0u;
   v43 = 0u;
-  v44 = 0u;
   curReport_topSessionErrors = [(HMDThreadNetworkObserver *)self curReport_topSessionErrors];
-  v25 = [curReport_topSessionErrors countByEnumeratingWithState:&v41 objects:v49 count:16];
+  v25 = [curReport_topSessionErrors countByEnumeratingWithState:&v40 objects:v48 count:16];
   if (v25)
   {
     v26 = v25;
-    v27 = *v42;
+    v27 = *v41;
     do
     {
       v28 = 0;
       v29 = v17;
       do
       {
-        if (*v42 != v27)
+        if (*v41 != v27)
         {
           objc_enumerationMutation(curReport_topSessionErrors);
         }
 
-        v30 = *(*(&v41 + 1) + 8 * v28);
+        v30 = *(*(&v40 + 1) + 8 * v28);
         curReport_topSessionErrors2 = [(HMDThreadNetworkObserver *)self curReport_topSessionErrors];
         v17 = [curReport_topSessionErrors2 objectForKey:v30];
 
@@ -361,7 +362,7 @@ void __58__HMDThreadNetworkObserver__keyOfLargestCountInHistogram___block_invoke
       }
 
       while (v26 != v28);
-      v26 = [curReport_topSessionErrors countByEnumeratingWithState:&v41 objects:v49 count:16];
+      v26 = [curReport_topSessionErrors countByEnumeratingWithState:&v40 objects:v48 count:16];
     }
 
     while (v26);
@@ -392,8 +393,6 @@ void __58__HMDThreadNetworkObserver__keyOfLargestCountInHistogram___block_invoke
     v35 = [MEMORY[0x277CBEAA8] now];
     [(HMDThreadNetworkObserver *)self setCurReport_threadNetworkLastDownTime:v35];
   }
-
-  v36 = *MEMORY[0x277D85DE8];
 }
 
 - (id)logEventForHomeWithUUID:(id)d associatedWithDate:(id)date isDailySummary:(BOOL)summary
@@ -534,6 +533,37 @@ void __58__HMDThreadNetworkObserver__keyOfLargestCountInHistogram___block_invoke
   return v25;
 }
 
+- (void)_runLoggingForDate:(id)date isDailySummary:(BOOL)summary
+{
+  summaryCopy = summary;
+  v20 = *MEMORY[0x277D85DE8];
+  dateCopy = date;
+  currentHomeDataSource = [(HMDThreadNetworkObserver *)self currentHomeDataSource];
+  homeUUIDForCurrentResidentDevice = [currentHomeDataSource homeUUIDForCurrentResidentDevice];
+
+  v9 = [(HMDThreadNetworkObserver *)self logEventForHomeWithUUID:homeUUIDForCurrentResidentDevice associatedWithDate:dateCopy isDailySummary:summaryCopy];
+  if (v9)
+  {
+    v10 = objc_autoreleasePoolPush();
+    selfCopy = self;
+    v12 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+    {
+      v13 = HMFGetLogIdentifier();
+      serializedLogEvent = [v9 serializedLogEvent];
+      v16 = 138543618;
+      v17 = v13;
+      v18 = 2112;
+      v19 = serializedLogEvent;
+      _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_DEBUG, "%{public}@Submitting HMDThreadNetworkStabilityLogEvent: %@", &v16, 0x16u);
+    }
+
+    objc_autoreleasePoolPop(v10);
+    logEventDispatcher = [(HMDThreadNetworkObserver *)selfCopy logEventDispatcher];
+    [logEventDispatcher submitLogEvent:v9];
+  }
+}
+
 - (void)runDailyTask
 {
   dateProvider = [(HMDThreadNetworkObserver *)self dateProvider];
@@ -671,7 +701,7 @@ LABEL_12:
 
 - (void)stop
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   if (self->_started)
   {
     v3 = objc_autoreleasePoolPush();
@@ -680,30 +710,28 @@ LABEL_12:
     if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
       v6 = HMFGetLogIdentifier();
-      v8 = 138543362;
-      v9 = v6;
-      _os_log_impl(&dword_229538000, v5, OS_LOG_TYPE_INFO, "%{public}@Stopping", &v8, 0xCu);
+      v7 = 138543362;
+      v8 = v6;
+      _os_log_impl(&dword_229538000, v5, OS_LOG_TYPE_INFO, "%{public}@Stopping", &v7, 0xCu);
     }
 
     objc_autoreleasePoolPop(v3);
     self->_started = 0;
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)start
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = objc_autoreleasePoolPush();
   selfCopy = self;
   v5 = HMFGetOSLogHandle();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     v6 = HMFGetLogIdentifier();
-    v12 = 138543362;
-    v13 = v6;
-    _os_log_impl(&dword_229538000, v5, OS_LOG_TYPE_INFO, "%{public}@Starting", &v12, 0xCu);
+    v11 = 138543362;
+    v12 = v6;
+    _os_log_impl(&dword_229538000, v5, OS_LOG_TYPE_INFO, "%{public}@Starting", &v11, 0xCu);
   }
 
   objc_autoreleasePoolPop(v3);
@@ -713,14 +741,13 @@ LABEL_12:
   if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
   {
     v10 = HMFGetLogIdentifier();
-    v12 = 138543362;
-    v13 = v10;
-    _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_ERROR, "%{public}@This device does not support Thread network stability reporting", &v12, 0xCu);
+    v11 = 138543362;
+    v12 = v10;
+    _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_ERROR, "%{public}@This device does not support Thread network stability reporting", &v11, 0xCu);
   }
 
   objc_autoreleasePoolPop(v7);
   v8->_started = 1;
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_setDailyScheduler:(id)scheduler
@@ -809,14 +836,12 @@ LABEL_12:
 
 void __49__HMDThreadNetworkObserver_supportedEventClasses__block_invoke()
 {
-  v3[2] = *MEMORY[0x277D85DE8];
-  v3[0] = objc_opt_class();
-  v3[1] = objc_opt_class();
-  v0 = [MEMORY[0x277CBEA60] arrayWithObjects:v3 count:2];
+  v2[2] = *MEMORY[0x277D85DE8];
+  v2[0] = objc_opt_class();
+  v2[1] = objc_opt_class();
+  v0 = [MEMORY[0x277CBEA60] arrayWithObjects:v2 count:2];
   v1 = supportedEventClasses_supportedEventClasses_219380;
   supportedEventClasses_supportedEventClasses_219380 = v0;
-
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 @end

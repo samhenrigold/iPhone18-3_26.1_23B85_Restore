@@ -28,7 +28,7 @@
   v8 = queryCopy;
   if (!self)
   {
-    v18 = 0;
+    v17 = 0;
     goto LABEL_20;
   }
 
@@ -56,7 +56,6 @@
       v15 = [objects2 count];
 
       v16 = objc_alloc(MEMORY[0x1E696AEC0]);
-      tableName = self->_tableName;
       if (v15)
       {
         v11 = [v16 initWithFormat:@"SELECT DISTINCT subject FROM %@ WHERE object IN _pas_nsarray(:objects)", self->_tableName];
@@ -69,51 +68,51 @@
     }
   }
 
-  v18 = v11;
+  v17 = v11;
   predicates = [v8 predicates];
-  v20 = [predicates count];
+  v19 = [predicates count];
 
-  if (v20 == 1)
+  if (v19 == 1)
   {
-    v21 = @" AND predicate = :predicate";
+    v20 = @" AND predicate = :predicate";
   }
 
   else
   {
     predicates2 = [v8 predicates];
-    v23 = [predicates2 count];
+    v22 = [predicates2 count];
 
-    if (!v23)
+    if (!v22)
     {
       goto LABEL_14;
     }
 
-    v21 = @" AND predicate IN _pas_nsarray(:predicates)";
+    v20 = @" AND predicate IN _pas_nsarray(:predicates)";
   }
 
-  v24 = [v18 stringByAppendingString:v21];
+  v23 = [v17 stringByAppendingString:v20];
 
-  v18 = v24;
+  v17 = v23;
 LABEL_14:
   subjects = [v8 subjects];
-  v26 = [subjects count];
+  v25 = [subjects count];
 
-  if (v26 == 1)
+  if (v25 == 1)
   {
-    v27 = @" AND subject = :subject";
+    v26 = @" AND subject = :subject";
 LABEL_18:
-    v30 = [v18 stringByAppendingString:v27];
+    v29 = [v17 stringByAppendingString:v26];
 
-    v18 = v30;
+    v17 = v29;
     goto LABEL_19;
   }
 
   subjects2 = [v8 subjects];
-  v29 = [subjects2 count];
+  v28 = [subjects2 count];
 
-  if (v29)
+  if (v28)
   {
-    v27 = @" AND subject IN _pas_nsarray(:subjects)";
+    v26 = @" AND subject IN _pas_nsarray(:subjects)";
     goto LABEL_18;
   }
 
@@ -122,21 +121,21 @@ LABEL_19:
 LABEL_20:
 
   db = self->_db;
-  v36[0] = MEMORY[0x1E69E9820];
-  v36[1] = 3221225472;
-  v36[2] = sub_1ABF06AE0;
-  v36[3] = &unk_1E79622C8;
-  v36[4] = self;
-  v37 = v8;
-  v34[0] = MEMORY[0x1E69E9820];
-  v34[1] = 3221225472;
-  v34[2] = sub_1ABF06D9C;
-  v34[3] = &unk_1E79622F0;
-  v34[4] = self;
-  v35 = blockCopy;
-  v32 = blockCopy;
-  v33 = v8;
-  [(_PASSqliteDatabase *)db prepAndRunQuery:v18 onPrep:v36 onRow:v34 onError:0];
+  v35[0] = MEMORY[0x1E69E9820];
+  v35[1] = 3221225472;
+  v35[2] = sub_1ABF06AE0;
+  v35[3] = &unk_1E79622C8;
+  v35[4] = self;
+  v36 = v8;
+  v33[0] = MEMORY[0x1E69E9820];
+  v33[1] = 3221225472;
+  v33[2] = sub_1ABF06D9C;
+  v33[3] = &unk_1E79622F0;
+  v33[4] = self;
+  v34 = blockCopy;
+  v31 = blockCopy;
+  v32 = v8;
+  [(_PASSqliteDatabase *)db prepAndRunQuery:v17 onPrep:v35 onRow:v33 onError:0];
 }
 
 - (void)enumerateObjectsWithBlock:(id)block

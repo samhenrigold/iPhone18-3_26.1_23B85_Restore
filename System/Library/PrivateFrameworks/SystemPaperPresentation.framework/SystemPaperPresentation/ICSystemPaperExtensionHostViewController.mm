@@ -9,6 +9,7 @@
 - (void)hostViewControllerDidActivate:(id)activate;
 - (void)openURL:(id)l completion:(id)completion;
 - (void)teardown;
+- (void)viewDidDisappear:(BOOL)disappear;
 @end
 
 @implementation ICSystemPaperExtensionHostViewController
@@ -88,6 +89,20 @@
   }
 }
 
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  v5.receiver = self;
+  v5.super_class = ICSystemPaperExtensionHostViewController;
+  [(_EXHostViewController *)&v5 viewDidDisappear:disappear];
+  if (![(ICSystemPaperExtensionHostViewController *)self didFinish])
+  {
+    v4 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CCA050] code:3072 userInfo:0];
+    [(ICSystemPaperExtensionHostViewController *)self _finishAndNotifyDelegateWithError:v4];
+  }
+
+  [(ICSystemPaperExtensionHostViewController *)self teardown];
+}
+
 - (void)teardown
 {
   connection = [(ICSystemPaperExtensionHostViewController *)self connection];
@@ -102,9 +117,10 @@
 - (void)hostViewControllerDidActivate:(id)activate
 {
   activateCopy = activate;
-  v21 = 0;
-  v5 = [(_EXHostViewController *)self makeXPCConnectionWithError:&v21];
-  v6 = v21;
+  v22 = 0;
+  v5 = [(_EXHostViewController *)self makeXPCConnectionWithError:&v22];
+  v6 = v22;
+  v7 = v6;
   if (v5)
   {
     ic_hostInterface = [MEMORY[0x277CCAE90] ic_hostInterface];
@@ -116,59 +132,59 @@
 
     objc_initWeak(&location, self);
     [v5 setInterruptionHandler:&__block_literal_global_1];
-    v18[0] = MEMORY[0x277D85DD0];
-    v18[1] = 3221225472;
-    v18[2] = __74__ICSystemPaperExtensionHostViewController_hostViewControllerDidActivate___block_invoke_16;
-    v18[3] = &unk_279D33DD8;
-    objc_copyWeak(&v19, &location);
-    [v5 setInvalidationHandler:v18];
+    v19[0] = MEMORY[0x277D85DD0];
+    v19[1] = 3221225472;
+    v19[2] = __74__ICSystemPaperExtensionHostViewController_hostViewControllerDidActivate___block_invoke_16;
+    v19[3] = &unk_279D33DD8;
+    objc_copyWeak(&v20, &location);
+    [v5 setInvalidationHandler:v19];
     [v5 resume];
     userActivityData = [(ICSystemPaperExtensionHostViewController *)self userActivityData];
-    v10 = ICSystemPaperExtensionLog();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+    v11 = ICSystemPaperExtensionLog(userActivityData);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
     {
       [ICSystemPaperExtensionHostViewController hostViewControllerDidActivate:];
     }
 
     remoteObjectProxy = [v5 remoteObjectProxy];
-    v15[0] = MEMORY[0x277D85DD0];
-    v15[1] = 3221225472;
-    v15[2] = __74__ICSystemPaperExtensionHostViewController_hostViewControllerDidActivate___block_invoke_18;
-    v15[3] = &unk_279D33E00;
-    v12 = userActivityData;
-    v16 = v12;
-    v13 = v5;
+    v16[0] = MEMORY[0x277D85DD0];
+    v16[1] = 3221225472;
+    v16[2] = __74__ICSystemPaperExtensionHostViewController_hostViewControllerDidActivate___block_invoke_18;
+    v16[3] = &unk_279D33E00;
+    v13 = userActivityData;
     v17 = v13;
-    [remoteObjectProxy checkInWithReply:v15];
+    v14 = v5;
+    v18 = v14;
+    [remoteObjectProxy checkInWithReply:v16];
 
-    [(ICSystemPaperExtensionHostViewController *)self setConnection:v13];
-    objc_destroyWeak(&v19);
+    [(ICSystemPaperExtensionHostViewController *)self setConnection:v14];
+    objc_destroyWeak(&v20);
     objc_destroyWeak(&location);
   }
 
   else
   {
-    v14 = ICSystemPaperExtensionLog();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    v15 = ICSystemPaperExtensionLog(v6);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
-      [(ICSystemPaperExtensionHostViewController *)v6 hostViewControllerDidActivate:v14];
+      [(ICSystemPaperExtensionHostViewController *)v7 hostViewControllerDidActivate:v15];
     }
   }
 }
 
-void __74__ICSystemPaperExtensionHostViewController_hostViewControllerDidActivate___block_invoke()
+void __74__ICSystemPaperExtensionHostViewController_hostViewControllerDidActivate___block_invoke(uint64_t a1)
 {
-  v0 = ICSystemPaperExtensionLog();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
+  v1 = ICSystemPaperExtensionLog(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
   {
-    *v1 = 0;
-    _os_log_impl(&dword_26C4A3000, v0, OS_LOG_TYPE_DEFAULT, "Connection to extension interrupted", v1, 2u);
+    *v2 = 0;
+    _os_log_impl(&dword_26C4A3000, v1, OS_LOG_TYPE_DEFAULT, "Connection to extension interrupted", v2, 2u);
   }
 }
 
 void __74__ICSystemPaperExtensionHostViewController_hostViewControllerDidActivate___block_invoke_16(uint64_t a1)
 {
-  v2 = ICSystemPaperExtensionLog();
+  v2 = ICSystemPaperExtensionLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -192,7 +208,7 @@ void __74__ICSystemPaperExtensionHostViewController_hostViewControllerDidActivat
 
 void __74__ICSystemPaperExtensionHostViewController_hostViewControllerDidActivate___block_invoke_18(uint64_t a1)
 {
-  v2 = ICSystemPaperExtensionLog();
+  v2 = ICSystemPaperExtensionLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
     __74__ICSystemPaperExtensionHostViewController_hostViewControllerDidActivate___block_invoke_18_cold_1();
@@ -200,20 +216,20 @@ void __74__ICSystemPaperExtensionHostViewController_hostViewControllerDidActivat
 
   if (*(a1 + 32))
   {
-    v3 = ICSystemPaperExtensionLog();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
+    v4 = ICSystemPaperExtensionLog(v3);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
     {
       __74__ICSystemPaperExtensionHostViewController_hostViewControllerDidActivate___block_invoke_18_cold_2();
     }
 
-    v4 = [*(a1 + 40) remoteObjectProxy];
-    [v4 addUserActivityData:*(a1 + 32)];
+    v5 = [*(a1 + 40) remoteObjectProxy];
+    [v5 addUserActivityData:*(a1 + 32)];
   }
 }
 
 - (void)dismissViewControllerCancelled:(BOOL)cancelled
 {
-  v5 = ICSystemPaperExtensionLog();
+  v5 = ICSystemPaperExtensionLog(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     [ICSystemPaperExtensionHostViewController dismissViewControllerCancelled:];
@@ -248,7 +264,7 @@ void __75__ICSystemPaperExtensionHostViewController_dismissViewControllerCancell
 {
   lCopy = l;
   completionCopy = completion;
-  v8 = ICSystemPaperExtensionLog();
+  v8 = ICSystemPaperExtensionLog(completionCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     [ICSystemPaperExtensionHostViewController openURL:completion:];
@@ -277,7 +293,7 @@ void __75__ICSystemPaperExtensionHostViewController_dismissViewControllerCancell
 
 uint64_t __63__ICSystemPaperExtensionHostViewController_openURL_completion___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v4 = ICSystemPaperExtensionLog();
+  v4 = ICSystemPaperExtensionLog(a1);
   v5 = v4;
   if (a2)
   {
@@ -335,21 +351,19 @@ uint64_t __63__ICSystemPaperExtensionHostViewController_openURL_completion___blo
 
 - (void)hostViewControllerDidActivate:(uint64_t)a1 .cold.2(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138477827;
-  v4 = a1;
-  _os_log_error_impl(&dword_26C4A3000, a2, OS_LOG_TYPE_ERROR, "Error creating XPC connection to extension: %{private}@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138477827;
+  v3 = a1;
+  _os_log_error_impl(&dword_26C4A3000, a2, OS_LOG_TYPE_ERROR, "Error creating XPC connection to extension: %{private}@", &v2, 0xCu);
 }
 
 void __63__ICSystemPaperExtensionHostViewController_openURL_completion___block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 40);
-  v4 = 138477827;
-  v5 = v2;
-  _os_log_error_impl(&dword_26C4A3000, a2, OS_LOG_TYPE_ERROR, "Failed to open URL: %{private}@", &v4, 0xCu);
-  v3 = *MEMORY[0x277D85DE8];
+  v3 = 138477827;
+  v4 = v2;
+  _os_log_error_impl(&dword_26C4A3000, a2, OS_LOG_TYPE_ERROR, "Failed to open URL: %{private}@", &v3, 0xCu);
 }
 
 @end

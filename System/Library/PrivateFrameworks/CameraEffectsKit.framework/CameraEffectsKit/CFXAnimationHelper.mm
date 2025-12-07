@@ -130,7 +130,7 @@
   v24 = v23;
   if (v23)
   {
-    [v23 CATransform3DValue];
+    objc_msgSend_CATransform3DValue(v23);
   }
 
   else

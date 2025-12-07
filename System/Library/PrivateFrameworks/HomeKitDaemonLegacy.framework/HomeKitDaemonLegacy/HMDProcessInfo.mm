@@ -93,10 +93,10 @@
 
 - (id)attributeDescriptions
 {
-  v20[3] = *MEMORY[0x277D85DE8];
-  v19.receiver = self;
-  v19.super_class = HMDProcessInfo;
-  attributeDescriptions = [(HMFProcessInfo *)&v19 attributeDescriptions];
+  v19[3] = *MEMORY[0x277D85DE8];
+  v18.receiver = self;
+  v18.super_class = HMDProcessInfo;
+  attributeDescriptions = [(HMFProcessInfo *)&v18 attributeDescriptions];
   v4 = objc_alloc(MEMORY[0x277D0F778]);
   state = [(HMDProcessInfo *)self state];
   if (state > 4)
@@ -111,20 +111,18 @@
 
   v7 = v6;
   v8 = [v4 initWithName:@"State" value:v7];
-  v20[0] = v8;
+  v19[0] = v8;
   v9 = objc_alloc(MEMORY[0x277D0F778]);
   [(HMDProcessInfo *)self shouldMonitor];
   v10 = HMFBooleanToString();
   v11 = [v9 initWithName:@"Monitored" value:v10];
-  v20[1] = v11;
+  v19[1] = v11;
   v12 = objc_alloc(MEMORY[0x277D0F778]);
   applicationInfo = [(HMDProcessInfo *)self applicationInfo];
   v14 = [v12 initWithName:@"Application" value:applicationInfo options:1 formatter:0];
-  v20[2] = v14;
-  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:3];
+  v19[2] = v14;
+  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:3];
   v16 = [attributeDescriptions arrayByAddingObjectsFromArray:v15];
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return v16;
 }
@@ -182,25 +180,25 @@
 
 - (HMDProcessInfo)initWithAuditToken:(id *)token
 {
-  v36 = *MEMORY[0x277D85DE8];
-  v34.receiver = self;
-  v34.super_class = HMDProcessInfo;
+  v35 = *MEMORY[0x277D85DE8];
+  v33.receiver = self;
+  v33.super_class = HMDProcessInfo;
   v3 = *&token->var0[4];
   *buf = *token->var0;
   *&buf[16] = v3;
-  v4 = [(HMFProcessInfo *)&v34 initWithAuditToken:buf];
+  v4 = [(HMFProcessInfo *)&v33 initWithAuditToken:buf];
   v5 = v4;
   if (!v4)
   {
-    goto LABEL_17;
+    return v5;
   }
 
   v4->_state = -1;
   v6 = MEMORY[0x277D46F48];
   v7 = [MEMORY[0x277D46F50] identifierWithPid:{-[HMFProcessInfo identifier](v4, "identifier")}];
-  v33 = 0;
-  v8 = [v6 handleForIdentifier:v7 error:&v33];
-  v9 = v33;
+  v32 = 0;
+  v8 = [v6 handleForIdentifier:v7 error:&v32];
+  v9 = v32;
   processHandle = v5->_processHandle;
   v5->_processHandle = v8;
 
@@ -280,8 +278,6 @@ LABEL_13:
   locationAuthorization = v5->_locationAuthorization;
   v5->_locationAuthorization = v29;
 
-LABEL_17:
-  v31 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -312,12 +308,11 @@ LABEL_17:
 
 uint64_t __29__HMDProcessInfo_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v6_167171;
-  logCategory__hmf_once_v6_167171 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v6_167171;
+  logCategory__hmf_once_v6_167171 = v0;
 
-  return MEMORY[0x2821F96F8](v1, v2);
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 + (id)locationAuthorizationFromEffectiveBundleIdentifier:(id)identifier processInfo:(id)info

@@ -2,21 +2,10 @@
 - (BOOL)isEqual:(id)equal;
 - (_BKSHIDEventDeferringRuleIdentity)initWithCoder:(id)coder;
 - (_BKSHIDEventDeferringRuleIdentity)initWithSeed:(unsigned int)seed pid:(int)pid;
-- (void)appendDescriptionToFormatter:(id)formatter;
 - (void)encodeWithCoder:(id)coder;
 @end
 
 @implementation _BKSHIDEventDeferringRuleIdentity
-
-- (void)appendDescriptionToFormatter:(id)formatter
-{
-  v3[0] = MEMORY[0x1E69E9820];
-  v3[1] = 3221225472;
-  v3[2] = __66___BKSHIDEventDeferringRuleIdentity_appendDescriptionToFormatter___block_invoke;
-  v3[3] = &unk_1E6F477E8;
-  v3[4] = self;
-  [formatter appendCustomFormatWithName:0 block:v3];
-}
 
 - (_BKSHIDEventDeferringRuleIdentity)initWithCoder:(id)coder
 {
@@ -26,8 +15,8 @@
   v5 = [(_BKSHIDEventDeferringRuleIdentity *)&v7 init];
   if (v5)
   {
-    v5->_pid = [coderCopy decodeIntForKey:@"pid"];
-    v5->_seed = [coderCopy decodeInt32ForKey:@"seed"];
+    v5->_pid = [coderCopy decodeIntForKey:?];
+    v5->_seed = [coderCopy decodeInt32ForKey:?];
   }
 
   return v5;
@@ -35,10 +24,9 @@
 
 - (void)encodeWithCoder:(id)coder
 {
-  pid = self->_pid;
   coderCopy = coder;
-  [coderCopy encodeInt:pid forKey:@"pid"];
-  [coderCopy encodeInt32:self->_seed forKey:@"seed"];
+  [coderCopy encodeInt:? forKey:?];
+  [coderCopy encodeInt32:? forKey:?];
 }
 
 - (BOOL)isEqual:(id)equal

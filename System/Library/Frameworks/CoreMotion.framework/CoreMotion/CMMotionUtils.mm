@@ -9,6 +9,7 @@
 + (shared_ptr<CLConnectionMessage>)sendMessageSync:(shared_ptr<CLConnectionMessage>)sync;
 + (unint64_t)copyDataFrom:(id)from to:(id)to;
 + (void)sendMessage:(shared_ptr<CLConnectionMessage>)message withReplyClasses:(id)classes callback:(id)callback;
++ (void)tccServiceMotionAccessAllowingMac:(BOOL)mac block:(id)block;
 + (void)tccServiceMotionAccessWithLabel:(id)label;
 @end
 
@@ -36,17 +37,16 @@
   }
 
   v6 = *(var0 + 1);
-  v7 = *var0;
-  v8 = v6;
+  v7 = v6;
   if (v6)
   {
     atomic_fetch_add_explicit(&v6->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
   CLConnectionClient::sendMessage();
-  if (v8)
+  if (v7)
   {
-    sub_19B41FFEC(v8);
+    sub_19B41FFEC(v7);
   }
 }
 
@@ -91,7 +91,7 @@
 + (shared_ptr<CLConnectionMessage>)sendMessageSync:(shared_ptr<CLConnectionMessage>)sync
 {
   var0 = sync.var0;
-  v14 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   if (qword_1ED71D720 != -1)
   {
     dispatch_once(&qword_1ED71D720, &unk_1F0E27D60);
@@ -99,17 +99,17 @@
 
   Current = CFAbsoluteTimeGetCurrent();
   v5 = *(var0 + 1);
-  v11 = *var0;
-  v12 = v5;
+  v12 = *var0;
+  v13 = v5;
   if (v5)
   {
     atomic_fetch_add_explicit(&v5->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
   CLConnectionClient::sendMessageSync();
-  if (v12)
+  if (v13)
   {
-    sub_19B41FFEC(v12);
+    sub_19B41FFEC(v13);
   }
 
   if (vabdd_f64(CFAbsoluteTimeGetCurrent(), Current) > 5.0)
@@ -135,16 +135,17 @@
         dispatch_once(&qword_1ED71C830, &unk_1F0E3B558);
       }
 
-      v9 = _os_log_send_and_compose_impl();
+      v11[0] = 0;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, off_1ED71C838, 0, "Warning: sendMessageSync failed to finish after 5 seconds", v11, 2);
+      v10 = v9;
       v6 = sub_19B6BB7CC("Generic", 1, 0, 2, "+[CMMotionUtils sendMessageSync:]", "CoreLocation: %s\n", v9);
-      if (v9 != buf)
+      if (v10 != buf)
       {
-        free(v9);
+        free(v10);
       }
     }
   }
 
-  v10 = *MEMORY[0x1E69E9840];
   result.var1 = v7;
   result.var0 = v6;
   return result;
@@ -180,7 +181,7 @@
 
 + (void)tccServiceMotionAccessWithLabel:(id)label
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   if (sub_19B4215D8())
   {
     if (qword_1ED71C830 != -1)
@@ -204,11 +205,13 @@
         dispatch_once(&qword_1ED71C830, &unk_1F0E3B558);
       }
 
-      v8 = _os_log_send_and_compose_impl();
+      LOWORD(v14) = 0;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, off_1ED71C838, 16, "API not supported on current platform.", &v14, 2);
+      v9 = v8;
       sub_19B6BB7CC("Generic", 1, 0, 0, "+[CMMotionUtils tccServiceMotionAccessWithLabel:]", "CoreLocation: %s\n", v8);
-      if (v8 != buf)
+      if (v9 != buf)
       {
-        free(v8);
+        free(v9);
       }
     }
   }
@@ -222,16 +225,16 @@
         dispatch_once(&qword_1ED71C830, &unk_1F0E3B558);
       }
 
-      v9 = off_1ED71C838;
+      v10 = off_1ED71C838;
       if (os_log_type_enabled(off_1ED71C838, OS_LOG_TYPE_FAULT))
       {
         *buf = 138412290;
         labelCopy = label;
-        _os_log_impl(&dword_19B41C000, v9, OS_LOG_TYPE_FAULT, "Warning - invoking %@ on main may lead to deadlock.", buf, 0xCu);
+        _os_log_impl(&dword_19B41C000, v10, OS_LOG_TYPE_FAULT, "Warning - invoking %@ on main may lead to deadlock.", buf, 0xCu);
       }
 
-      v10 = sub_19B420058();
-      if ((*(v10 + 160) & 0x80000000) == 0 || (*(v10 + 164) & 0x80000000) == 0 || (*(v10 + 168) & 0x80000000) == 0 || *(v10 + 152))
+      v11 = sub_19B420058();
+      if ((*(v11 + 160) & 0x80000000) == 0 || (*(v11 + 164) & 0x80000000) == 0 || (*(v11 + 168) & 0x80000000) == 0 || *(v11 + 152))
       {
         bzero(buf, 0x65CuLL);
         if (qword_1ED71C830 != -1)
@@ -239,11 +242,14 @@
           dispatch_once(&qword_1ED71C830, &unk_1F0E3B558);
         }
 
-        v11 = _os_log_send_and_compose_impl();
-        sub_19B6BB7CC("Generic", 1, 0, 0, "+[CMMotionUtils tccServiceMotionAccessWithLabel:]", "CoreLocation: %s\n", v11);
-        if (v11 != buf)
+        v14 = 138412290;
+        labelCopy2 = label;
+        _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, off_1ED71C838, 17, "Warning - invoking %@ on main may lead to deadlock.", &v14, 12);
+        v13 = v12;
+        sub_19B6BB7CC("Generic", 1, 0, 0, "+[CMMotionUtils tccServiceMotionAccessWithLabel:]", "CoreLocation: %s\n", v12);
+        if (v13 != buf)
         {
-          free(v11);
+          free(v13);
         }
       }
     }
@@ -253,8 +259,67 @@
       dispatch_once(&qword_1EAFE3A00, &unk_1F0E286E0);
     }
   }
+}
 
-  v12 = *MEMORY[0x1E69E9840];
++ (void)tccServiceMotionAccessAllowingMac:(BOOL)mac block:(id)block
+{
+  v14 = *MEMORY[0x1E69E9840];
+  if ((atomic_load_explicit(&qword_1ED71D748, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1ED71D748))
+  {
+    qword_1ED71D740 = dispatch_queue_create("com.apple.CoreMotion.tcc", 0);
+    __cxa_guard_release(&qword_1ED71D748);
+  }
+
+  if (objc_msgSend_isMotionActivityEntitled(CMMotionUtils, a2, mac))
+  {
+    v6 = *(block + 2);
+
+    v6(block);
+  }
+
+  else if (!sub_19B4215D8() || mac)
+  {
+    block[0] = MEMORY[0x1E69E9820];
+    block[1] = 3221225472;
+    block[2] = sub_19B74F06C;
+    block[3] = &unk_1E7532B40;
+    block[4] = block;
+    dispatch_async(qword_1ED71D740, block);
+  }
+
+  else
+  {
+    if (qword_1ED71C830 != -1)
+    {
+      dispatch_once(&qword_1ED71C830, &unk_1F0E3B558);
+    }
+
+    v7 = off_1ED71C838;
+    if (os_log_type_enabled(off_1ED71C838, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 0;
+      _os_log_impl(&dword_19B41C000, v7, OS_LOG_TYPE_ERROR, "API not supported on current platform.", buf, 2u);
+    }
+
+    v8 = sub_19B420058();
+    if ((*(v8 + 160) & 0x80000000) == 0 || (*(v8 + 164) & 0x80000000) == 0 || (*(v8 + 168) & 0x80000000) == 0 || *(v8 + 152))
+    {
+      bzero(buf, 0x65CuLL);
+      if (qword_1ED71C830 != -1)
+      {
+        dispatch_once(&qword_1ED71C830, &unk_1F0E3B558);
+      }
+
+      v12[0] = 0;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, off_1ED71C838, 16, "API not supported on current platform.", v12, 2);
+      v10 = v9;
+      sub_19B6BB7CC("Generic", 1, 0, 0, "+[CMMotionUtils tccServiceMotionAccessAllowingMac:block:]", "CoreLocation: %s\n", v9);
+      if (v10 != buf)
+      {
+        free(v10);
+      }
+    }
+  }
 }
 
 + (BOOL)featureAvailability:(const char *)availability
@@ -274,18 +339,15 @@
     return 3;
   }
 
-  v4 = MEMORY[0x1E69D55A8];
-  v5 = *MEMORY[0x1E69D55A8];
   if (TCCAccessRestricted())
   {
     return 1;
   }
 
-  v6 = *v4;
-  v7 = TCCAccessPreflight();
-  if (v7)
+  v4 = TCCAccessPreflight();
+  if (v4)
   {
-    return 2 * (v7 == 1);
+    return 2 * (v4 == 1);
   }
 
   else
@@ -296,24 +358,21 @@
 
 + (id)getExecutablePathFromPid:(int)pid
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   if (proc_pidpath(pid, buffer, 0x1000u) < 1)
   {
-    result = 0;
+    return 0;
   }
 
   else
   {
-    result = objc_msgSend_stringWithUTF8String_(MEMORY[0x1E696AEC0], v3, buffer);
+    return objc_msgSend_stringWithUTF8String_(MEMORY[0x1E696AEC0], v3, buffer);
   }
-
-  v5 = *MEMORY[0x1E69E9840];
-  return result;
 }
 
 + (id)fileHandleForWritingToURL:(id)l
 {
-  v68 = *MEMORY[0x1E69E9840];
+  v70 = *MEMORY[0x1E69E9840];
   if ((objc_msgSend_isFileURL(l, a2, l) & 1) == 0)
   {
     if (qword_1ED71C830 != -1)
@@ -321,17 +380,17 @@
       dispatch_once(&qword_1ED71C830, &unk_1F0E3B558);
     }
 
-    v15 = off_1ED71C838;
+    v16 = off_1ED71C838;
     if (os_log_type_enabled(off_1ED71C838, OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
-      _os_log_impl(&dword_19B41C000, v15, OS_LOG_TYPE_ERROR, "#Notice URL must specify a file.", buf, 2u);
+      _os_log_impl(&dword_19B41C000, v16, OS_LOG_TYPE_ERROR, "#Notice URL must specify a file.", buf, 2u);
     }
 
-    v16 = sub_19B420058();
-    if ((*(v16 + 160) & 0x80000000) != 0 && (*(v16 + 164) & 0x80000000) != 0 && (*(v16 + 168) & 0x80000000) != 0 && !*(v16 + 152))
+    v17 = sub_19B420058();
+    if ((*(v17 + 160) & 0x80000000) != 0 && (*(v17 + 164) & 0x80000000) != 0 && (*(v17 + 168) & 0x80000000) != 0 && !*(v17 + 152))
     {
-      goto LABEL_25;
+      return 0;
     }
 
     bzero(buf, 0x65CuLL);
@@ -340,7 +399,8 @@
       dispatch_once(&qword_1ED71C830, &unk_1F0E3B558);
     }
 
-    LOWORD(v60) = 0;
+    LOWORD(v62) = 0;
+    _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, off_1ED71C838, 16, "#Notice URL must specify a file.", &v62, 2);
     goto LABEL_23;
   }
 
@@ -363,7 +423,7 @@
     v14 = sub_19B420058();
     if ((*(v14 + 160) & 0x80000000) != 0 && (*(v14 + 164) & 0x80000000) != 0 && (*(v14 + 168) & 0x80000000) != 0 && !*(v14 + 152))
     {
-      goto LABEL_25;
+      return 0;
     }
 
     bzero(buf, 0x65CuLL);
@@ -372,18 +432,17 @@
       dispatch_once(&qword_1ED71C830, &unk_1F0E3B558);
     }
 
-    LOWORD(v60) = 0;
+    LOWORD(v62) = 0;
+    _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, off_1ED71C838, 16, "#Notice File already exists at URL.", &v62, 2);
 LABEL_23:
-    v17 = _os_log_send_and_compose_impl();
-    sub_19B6BB7CC("Generic", 1, 0, 0, "+[CMMotionUtils fileHandleForWritingToURL:]", "CoreLocation: %s\n", v17);
-    if (v17 != buf)
+    v18 = v15;
+    sub_19B6BB7CC("Generic", 1, 0, 0, "+[CMMotionUtils fileHandleForWritingToURL:]", "CoreLocation: %s\n", v15);
+    if (v18 != buf)
     {
-      free(v17);
+      free(v18);
     }
 
-LABEL_25:
-    result = 0;
-    goto LABEL_26;
+    return 0;
   }
 
   v20 = objc_msgSend_defaultManager(MEMORY[0x1E696AC08], v11, v12);
@@ -395,17 +454,17 @@ LABEL_25:
       dispatch_once(&qword_1ED71C830, &unk_1F0E3B558);
     }
 
-    v57 = off_1ED71C838;
+    v59 = off_1ED71C838;
     if (os_log_type_enabled(off_1ED71C838, OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
-      _os_log_impl(&dword_19B41C000, v57, OS_LOG_TYPE_ERROR, "#Notice URL must point to a file path which you have access to write to.", buf, 2u);
+      _os_log_impl(&dword_19B41C000, v59, OS_LOG_TYPE_ERROR, "#Notice URL must point to a file path which you have access to write to.", buf, 2u);
     }
 
-    v58 = sub_19B420058();
-    if ((*(v58 + 160) & 0x80000000) != 0 && (*(v58 + 164) & 0x80000000) != 0 && (*(v58 + 168) & 0x80000000) != 0 && !*(v58 + 152))
+    v60 = sub_19B420058();
+    if ((*(v60 + 160) & 0x80000000) != 0 && (*(v60 + 164) & 0x80000000) != 0 && (*(v60 + 168) & 0x80000000) != 0 && !*(v60 + 152))
     {
-      goto LABEL_25;
+      return 0;
     }
 
     bzero(buf, 0x65CuLL);
@@ -414,13 +473,14 @@ LABEL_25:
       dispatch_once(&qword_1ED71C830, &unk_1F0E3B558);
     }
 
-    LOWORD(v60) = 0;
+    LOWORD(v62) = 0;
+    _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, off_1ED71C838, 16, "#Notice URL must point to a file path which you have access to write to.", &v62, 2);
     goto LABEL_23;
   }
 
-  v59 = 0;
-  result = objc_msgSend_fileHandleForWritingToURL_error_(MEMORY[0x1E696AC00], v25, l, &v59);
-  if (!result || v59)
+  v61 = 0;
+  result = objc_msgSend_fileHandleForWritingToURL_error_(MEMORY[0x1E696AC00], v25, l, &v61);
+  if (!result || v61)
   {
     if (qword_1EAFE29A8 != -1)
     {
@@ -432,12 +492,12 @@ LABEL_25:
     {
       v29 = objc_msgSend_absoluteString(l, v27, v28);
       v32 = objc_msgSend_UTF8String(v29, v30, v31);
-      v35 = objc_msgSend_description(v59, v33, v34);
+      v35 = objc_msgSend_description(v61, v33, v34);
       v38 = objc_msgSend_UTF8String(v35, v36, v37);
       *buf = 136446466;
-      v65 = v32;
-      v66 = 2082;
-      v67 = v38;
+      v67 = v32;
+      v68 = 2082;
+      v69 = v38;
       _os_log_impl(&dword_19B41C000, v26, OS_LOG_TYPE_ERROR, "#Notice Unable to get file handle for URL %{public}s: %{public}s", buf, 0x16u);
     }
 
@@ -450,29 +510,29 @@ LABEL_25:
         dispatch_once(&qword_1EAFE29A8, &unk_1F0E27C40);
       }
 
-      v44 = objc_msgSend_absoluteString(l, v42, v43);
-      v47 = objc_msgSend_UTF8String(v44, v45, v46);
-      v50 = objc_msgSend_description(v59, v48, v49);
-      v53 = objc_msgSend_UTF8String(v50, v51, v52);
-      v60 = 136446466;
-      v61 = v47;
-      v62 = 2082;
-      v63 = v53;
-      v54 = _os_log_send_and_compose_impl();
-      sub_19B6BB7CC("Generic", 1, 0, 0, "+[CMMotionUtils fileHandleForWritingToURL:]", "CoreLocation: %s\n", v54);
-      if (v54 != buf)
+      v44 = qword_1EAFE29B0;
+      v45 = objc_msgSend_absoluteString(l, v42, v43);
+      v48 = objc_msgSend_UTF8String(v45, v46, v47);
+      v51 = objc_msgSend_description(v61, v49, v50);
+      v54 = objc_msgSend_UTF8String(v51, v52, v53);
+      v62 = 136446466;
+      v63 = v48;
+      v64 = 2082;
+      v65 = v54;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, v44, 16, "#Notice Unable to get file handle for URL %{public}s: %{public}s", &v62, 22);
+      v56 = v55;
+      sub_19B6BB7CC("Generic", 1, 0, 0, "+[CMMotionUtils fileHandleForWritingToURL:]", "CoreLocation: %s\n", v55);
+      if (v56 != buf)
       {
-        free(v54);
+        free(v56);
       }
     }
 
-    v55 = objc_msgSend_defaultManager(MEMORY[0x1E696AC08], v40, v41);
-    objc_msgSend_removeItemAtURL_error_(v55, v56, l, 0);
-    goto LABEL_25;
+    v57 = objc_msgSend_defaultManager(MEMORY[0x1E696AC08], v40, v41);
+    objc_msgSend_removeItemAtURL_error_(v57, v58, l, 0);
+    return 0;
   }
 
-LABEL_26:
-  v19 = *MEMORY[0x1E69E9840];
   return result;
 }
 

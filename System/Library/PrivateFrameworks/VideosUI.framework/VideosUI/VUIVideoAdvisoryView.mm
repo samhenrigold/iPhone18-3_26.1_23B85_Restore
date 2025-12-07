@@ -1273,7 +1273,7 @@ void __103__VUIVideoAdvisoryView_Animator___showAdditionalViewAtIndex_animated_p
   [v12 hideAnimated:v9 platterView:v10 hidePlatterView:v7 completion:v11];
 }
 
-uint64_t __103__VUIVideoAdvisoryView_Animator___showAdditionalViewAtIndex_animated_platterView_superview_completion___block_invoke_4(uint64_t a1)
+void *__103__VUIVideoAdvisoryView_Animator___showAdditionalViewAtIndex_animated_platterView_superview_completion___block_invoke_4(uint64_t a1)
 {
   result = [*(a1 + 32) removeFromSuperview];
   if (*(a1 + 48) == 1)

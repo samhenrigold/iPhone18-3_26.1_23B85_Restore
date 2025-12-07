@@ -6,38 +6,36 @@
 
 - (id)subtitle
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   if ([(UIKeyboardInputMode *)[(KSInputModeTableCell *)self inputMode] isExtensionInputMode])
   {
-    v17.receiver = self;
-    v17.super_class = KSHardwareInputModeTableCell;
-    result = [(KSInputModeTableCell *)&v17 subtitle];
+    v15.receiver = self;
+    v15.super_class = KSHardwareInputModeTableCell;
+    return [(KSInputModeTableCell *)&v15 subtitle];
   }
 
   else
   {
     identifier = [(UIKeyboardInputMode *)[(KSInputModeTableCell *)self inputMode] identifier];
+    v12 = 0u;
     v13 = 0u;
     v14 = 0u;
-    v15 = 0u;
-    v16 = 0u;
-    v5 = +[KSKeyboardListController inputModes];
-    v6 = [v5 countByEnumeratingWithState:&v13 objects:v18 count:16];
+    v5 = [KSKeyboardListController inputModes:0];
+    v6 = [v5 countByEnumeratingWithState:&v11 objects:v16 count:16];
     if (v6)
     {
       v7 = v6;
       v8 = 0;
-      v9 = *v14;
+      v9 = *v12;
 LABEL_5:
       v10 = 0;
       while (1)
       {
-        if (*v14 != v9)
+        if (*v12 != v9)
         {
           objc_enumerationMutation(v5);
         }
 
-        v11 = *(*(&v13 + 1) + 8 * v10);
         if ([identifier isEqualToString:TIInputModeGetNormalizedIdentifier()])
         {
           v8 = [TIInputModeGetComponentsFromIdentifier() objectForKey:@"hw"];
@@ -49,13 +47,13 @@ LABEL_5:
 
         if (v7 == ++v10)
         {
-          v7 = [v5 countByEnumeratingWithState:&v13 objects:v18 count:16];
+          v7 = [v5 countByEnumeratingWithState:&v11 objects:v16 count:16];
           if (v7)
           {
             goto LABEL_5;
           }
 
-          break;
+          return [KSKeyboardListController displayNameForHardwareLayout:v8 inputMode:[(KSInputModeTableCell *)self inputMode]];
         }
       }
     }
@@ -65,11 +63,8 @@ LABEL_5:
       v8 = 0;
     }
 
-    result = [KSKeyboardListController displayNameForHardwareLayout:v8 inputMode:[(KSInputModeTableCell *)self inputMode]];
+    return [KSKeyboardListController displayNameForHardwareLayout:v8 inputMode:[(KSInputModeTableCell *)self inputMode]];
   }
-
-  v12 = *MEMORY[0x277D85DE8];
-  return result;
 }
 
 @end

@@ -2,9 +2,20 @@
 - (_TtC25CreateiCloudLinkExtension30CreateiCloudLinkViewController)initWithCoder:(id)coder;
 - (_TtC25CreateiCloudLinkExtension30CreateiCloudLinkViewController)initWithNibName:(id)name bundle:(id)bundle;
 - (void)beginRequestWithExtensionContext:(id)context;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation CreateiCloudLinkViewController
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  appearCopy = appear;
+  v5.receiver = self;
+  v5.super_class = type metadata accessor for CreateiCloudLinkViewController(0);
+  v4 = v5.receiver;
+  [(CreateiCloudLinkViewController *)&v5 viewWillAppear:appearCopy];
+  [v4 setPreferredContentSize:{480.0, 560.0, v5.receiver, v5.super_class}];
+}
 
 - (void)beginRequestWithExtensionContext:(id)context
 {
@@ -43,7 +54,7 @@
   }
 
   v14.receiver = self;
-  v14.super_class = type metadata accessor for CreateiCloudLinkViewController();
+  v14.super_class = type metadata accessor for CreateiCloudLinkViewController(0);
   v12 = [(CreateiCloudLinkViewController *)&v14 initWithNibName:v11 bundle:bundle];
 
   return v12;
@@ -57,7 +68,7 @@
   (*(*(v6 - 8) + 56))(self + v5, 1, 1, v6);
   *(&self->super.super.super.isa + OBJC_IVAR____TtC25CreateiCloudLinkExtension30CreateiCloudLinkViewController_createiCloudLinkViewModel) = 0;
   v10.receiver = self;
-  v10.super_class = type metadata accessor for CreateiCloudLinkViewController();
+  v10.super_class = type metadata accessor for CreateiCloudLinkViewController(0);
   coderCopy = coder;
   v8 = [(CreateiCloudLinkViewController *)&v10 initWithCoder:coderCopy];
 

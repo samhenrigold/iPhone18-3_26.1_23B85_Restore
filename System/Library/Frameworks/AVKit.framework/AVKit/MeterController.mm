@@ -10,7 +10,7 @@
   selfCopy = self;
   sub_18B530FC4();
   v3.receiver = selfCopy;
-  v3.super_class = type metadata accessor for MeterController();
+  v3.super_class = type metadata accessor for MeterController(0);
   [(MeterController *)&v3 dealloc];
 }
 

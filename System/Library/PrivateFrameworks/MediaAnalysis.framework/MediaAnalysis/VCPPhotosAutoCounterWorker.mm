@@ -62,23 +62,23 @@
 + (id)workerWithPhotoLibrary:(id)library
 {
   libraryCopy = library;
-  if (VCPMAIsAppleInternal())
+  if (VCPMAIsAppleInternal(libraryCopy, v4))
   {
-    v4 = [[VCPPhotosAutoCounterWorker alloc] initWithPhotoLibrary:libraryCopy];
+    v5 = [[VCPPhotosAutoCounterWorker alloc] initWithPhotoLibrary:libraryCopy];
   }
 
   else
   {
     if (MediaAnalysisLogLevel() >= 4 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
     {
-      *v6 = 0;
-      _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "[AutoCounter] feature not supported on this OS variant", v6, 2u);
+      *v7 = 0;
+      _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "[AutoCounter] feature not supported on this OS variant", v7, 2u);
     }
 
-    v4 = 0;
+    v5 = 0;
   }
 
-  return v4;
+  return v5;
 }
 
 - (id)_groundTruthURL

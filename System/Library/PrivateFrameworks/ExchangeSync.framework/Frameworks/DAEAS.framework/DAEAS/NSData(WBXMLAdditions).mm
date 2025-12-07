@@ -97,7 +97,7 @@
 
 - (id)initWithASParseContext:()WBXMLAdditions root:parent:callbackDict:streamCallbackDict:lengthUntilEndOfTerminator:
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v10 = a3;
   currentByte = [v10 currentByte];
   [v10 advanceOffsetByAmount:1];
@@ -135,10 +135,10 @@
   }
 
   while (currentByte2 < 0);
-  v26 = 0;
-  v14 = [v10 bufferForLength:v12 shouldFree:&v26];
+  v25 = 0;
+  v14 = [v10 bufferForLength:v12 shouldFree:&v25];
   self = [self initWithBytes:v14 length:v12];
-  if (v26 == 1)
+  if (v25 == 1)
   {
     free(v14);
   }
@@ -187,14 +187,13 @@ LABEL_18:
     selfCopy = self;
   }
 
-  v24 = *MEMORY[0x277D85DE8];
   return selfCopy;
 }
 
 - (uint64_t)initForLengthTokenOfLength:()WBXMLAdditions
 {
-  v18 = *MEMORY[0x277D85DE8];
-  v4 = &v13;
+  v17 = *MEMORY[0x277D85DE8];
+  v4 = &v12;
   if (a3)
   {
     v5 = 0;
@@ -217,13 +216,12 @@ LABEL_18:
   if (os_log_type_enabled(v9, v10))
   {
     *buf = 134218242;
-    v15 = a3;
-    v16 = 2112;
-    v17 = v8;
+    v14 = a3;
+    v15 = 2112;
+    v16 = v8;
     _os_log_impl(&dword_24A0AC000, v9, v10, "initting for length of %lu, I ended up with %@", buf, 0x16u);
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return v8;
 }
 

@@ -88,28 +88,26 @@
 
 - (id)_descriptionWithIndent:(unint64_t)indent
 {
-  v21[3] = *MEMORY[0x277D85DE8];
+  v20[3] = *MEMORY[0x277D85DE8];
   v4 = objc_alloc(MEMORY[0x277CCACA8]);
-  v20.receiver = self;
-  v20.super_class = CESRModelProperties;
-  v5 = [(CESRModelProperties *)&v20 description];
+  v19.receiver = self;
+  v19.super_class = CESRModelProperties;
+  v5 = [(CESRModelProperties *)&v19 description];
   v6 = objc_alloc(MEMORY[0x277CCACA8]);
   v7 = [(NSString *)self->_modelVersion description];
   v8 = [v6 initWithFormat:@"modelVersion = %@", v7];
-  v21[0] = v8;
+  v20[0] = v8;
   v9 = objc_alloc(MEMORY[0x277CCACA8]);
   v10 = [(NSString *)self->_modelType description];
   v11 = [v9 initWithFormat:@"modelType = %@", v10];
-  v21[1] = v11;
+  v20[1] = v11;
   v12 = objc_alloc(MEMORY[0x277CCACA8]);
   v13 = [(NSString *)self->_modelRoot description];
   v14 = [v12 initWithFormat:@"modelRoot = %@", v13];
-  v21[2] = v14;
-  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:3];
+  v20[2] = v14;
+  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:3];
   v16 = [v15 componentsJoinedByString:{@", "}];
   v17 = [v4 initWithFormat:@"%@ {%@}", v5, v16];
-
-  v18 = *MEMORY[0x277D85DE8];
 
   return v17;
 }

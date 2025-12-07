@@ -153,19 +153,20 @@
 - (void)remapDanglingItem:(id)item
 {
   itemCopy = item;
-  v5 = _TSLogDomain();
+  v5 = _TSLogDomain(itemCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     [(TSCellularPlanRemapViewController *)self remapDanglingItem:v5];
   }
 
   v6 = [(NSIndexPath *)self->_chosenTargetCellularPlanItem row];
-  if (v6 == [(NSArray *)self->_selectedPlanItems count])
+  v7 = [(NSArray *)self->_selectedPlanItems count];
+  if (v6 == v7)
   {
-    v7 = _TSLogDomain();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+    v8 = _TSLogDomain(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
-      [TSCellularPlanRemapViewController remapDanglingItem:v7];
+      [TSCellularPlanRemapViewController remapDanglingItem:v8];
     }
 
     if (itemCopy)
@@ -176,10 +177,10 @@
 
   else
   {
-    v8 = +[TSCellularPlanManagerCache sharedInstance];
+    v9 = +[TSCellularPlanManagerCache sharedInstance];
     danglingPlanItem = self->_danglingPlanItem;
-    v10 = [(NSArray *)self->_selectedPlanItems objectAtIndex:[(NSIndexPath *)self->_chosenTargetCellularPlanItem row]];
-    v11 = [v8 remapSimLabel:danglingPlanItem to:v10];
+    v11 = [(NSArray *)self->_selectedPlanItems objectAtIndex:[(NSIndexPath *)self->_chosenTargetCellularPlanItem row]];
+    v12 = [v9 remapSimLabel:danglingPlanItem to:v11];
 
     if (itemCopy)
     {
@@ -190,32 +191,32 @@
 
 - (void)prepare:(id)prepare
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   prepareCopy = prepare;
   v5 = +[TSCellularPlanManagerCache sharedInstance];
   planItems = [v5 planItems];
 
   array = [MEMORY[0x277CBEB18] array];
+  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
   v8 = planItems;
-  v9 = [v8 countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v22;
+    v11 = *v21;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v22 != v11)
+        if (*v21 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = *(*(&v21 + 1) + 8 * i);
+        v13 = *(*(&v20 + 1) + 8 * i);
         if ([v13 isSelected])
         {
           [array addObject:v13];
@@ -227,7 +228,7 @@
         }
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v20 objects:v24 count:16];
     }
 
     while (v10);
@@ -244,15 +245,13 @@
     block[1] = 3221225472;
     block[2] = __45__TSCellularPlanRemapViewController_prepare___block_invoke;
     block[3] = &unk_279B454B8;
-    v18 = prepareCopy;
-    objc_copyWeak(&v19, &location);
+    v17 = prepareCopy;
+    objc_copyWeak(&v18, &location);
     dispatch_async(MEMORY[0x277D85CD0], block);
-    objc_destroyWeak(&v19);
+    objc_destroyWeak(&v18);
 
     objc_destroyWeak(&location);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 void __45__TSCellularPlanRemapViewController_prepare___block_invoke(uint64_t a1)
@@ -404,23 +403,21 @@ void __54__TSCellularPlanRemapViewController__doneButtonTapped__block_invoke_3(u
 
 - (void)remapDanglingItem:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = [*(a1 + 1328) row];
-  v5 = 134218242;
-  v6 = v3;
-  v7 = 2080;
-  v8 = "[TSCellularPlanRemapViewController remapDanglingItem:]";
-  _os_log_debug_impl(&dword_262AA8000, a2, OS_LOG_TYPE_DEBUG, "[Db] remapping dangling item... selected row: %ld @%s", &v5, 0x16u);
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 134218242;
+  v5 = v3;
+  v6 = 2080;
+  v7 = "[TSCellularPlanRemapViewController remapDanglingItem:]";
+  _os_log_debug_impl(&dword_262AA8000, a2, OS_LOG_TYPE_DEBUG, "[Db] remapping dangling item... selected row: %ld @%s", &v4, 0x16u);
 }
 
 - (void)remapDanglingItem:(os_log_t)log .cold.2(os_log_t log)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v2 = 136315138;
-  v3 = "[TSCellularPlanRemapViewController remapDanglingItem:]";
-  _os_log_debug_impl(&dword_262AA8000, log, OS_LOG_TYPE_DEBUG, "[Db] update later selected, skipping remap @%s", &v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v1 = 136315138;
+  v2 = "[TSCellularPlanRemapViewController remapDanglingItem:]";
+  _os_log_debug_impl(&dword_262AA8000, log, OS_LOG_TYPE_DEBUG, "[Db] update later selected, skipping remap @%s", &v1, 0xCu);
 }
 
 @end

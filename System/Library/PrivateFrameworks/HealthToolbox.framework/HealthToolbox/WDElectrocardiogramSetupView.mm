@@ -9,7 +9,7 @@
 
 - (id)createHeroView
 {
-  v25[4] = *MEMORY[0x277D85DE8];
+  v24[4] = *MEMORY[0x277D85DE8];
   v2 = objc_alloc_init(MEMORY[0x277D75D18]);
   v3 = objc_alloc(MEMORY[0x277D755E8]);
   v4 = MEMORY[0x277D755B8];
@@ -17,7 +17,7 @@
   v6 = [v4 imageNamed:@"setup-watch-Cinnamon" inBundle:v5];
   v7 = [v3 initWithImage:v6];
 
-  v24 = v7;
+  v23 = v7;
   [v2 addSubview:v7];
   [v7 hk_alignConstraintsWithView:v2];
   v8 = [objc_alloc(MEMORY[0x277D130B0]) initWithFrame:0 isLargeDevice:{18.0, 45.0, 80.0, 98.0}];
@@ -27,25 +27,23 @@
   [v8 setTranslatesAutoresizingMaskIntoConstraints:0];
   [v8 setTimeRemaining:11.0];
   [v2 addSubview:v8];
-  v20 = MEMORY[0x277CCAAD0];
+  v19 = MEMORY[0x277CCAAD0];
   leftAnchor = [v8 leftAnchor];
   leftAnchor2 = [v2 leftAnchor];
-  v21 = [leftAnchor constraintEqualToAnchor:leftAnchor2 constant:18.0];
-  v25[0] = v21;
+  v20 = [leftAnchor constraintEqualToAnchor:leftAnchor2 constant:18.0];
+  v24[0] = v20;
   topAnchor = [v8 topAnchor];
   topAnchor2 = [v2 topAnchor];
   v12 = [topAnchor constraintEqualToAnchor:topAnchor2 constant:45.0];
-  v25[1] = v12;
+  v24[1] = v12;
   widthAnchor = [v8 widthAnchor];
   v14 = [widthAnchor constraintEqualToConstant:80.0];
-  v25[2] = v14;
+  v24[2] = v14;
   heightAnchor = [v8 heightAnchor];
   v16 = [heightAnchor constraintEqualToConstant:98.0];
-  v25[3] = v16;
-  v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v25 count:4];
-  [v20 activateConstraints:v17];
-
-  v18 = *MEMORY[0x277D85DE8];
+  v24[3] = v16;
+  v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:4];
+  [v19 activateConstraints:v17];
 
   return v2;
 }

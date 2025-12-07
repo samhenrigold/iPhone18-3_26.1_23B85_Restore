@@ -1,12 +1,12 @@
 @interface UUID:
-- (uint64_t)DBSuggestion;
+- (double)DBSuggestion;
 @end
 
 @implementation UUID:
 
-- (uint64_t)DBSuggestion
+- (double)DBSuggestion
 {
-  if (result != 1)
+  if (self != 1)
   {
   }
 

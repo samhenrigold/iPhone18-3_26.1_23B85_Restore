@@ -351,163 +351,148 @@
 {
   toCopy = to;
   has = self->_has;
-  v29 = toCopy;
+  v14 = toCopy;
   if (has)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
-    toCopy = v29;
+    toCopy = v14;
     has = self->_has;
   }
 
   if ((has & 2) != 0)
   {
-    durationSeconds = self->_durationSeconds;
     PBDataWriterWriteUint32Field();
-    toCopy = v29;
+    toCopy = v14;
   }
 
   if (self->_rrcConnSetupReqs.count)
   {
-    v8 = 0;
+    v6 = 0;
     do
     {
-      v9 = self->_rrcConnSetupReqs.list[v8];
       PBDataWriterWriteUint32Field();
-      toCopy = v29;
-      ++v8;
+      toCopy = v14;
+      ++v6;
     }
 
-    while (v8 < self->_rrcConnSetupReqs.count);
+    while (v6 < self->_rrcConnSetupReqs.count);
   }
 
   if ((*&self->_has & 0x40) != 0)
   {
-    rrcConnSetupComp = self->_rrcConnSetupComp;
     PBDataWriterWriteUint32Field();
-    toCopy = v29;
+    toCopy = v14;
   }
 
   if (self->_rrcConnRejects.count)
   {
-    v11 = 0;
+    v7 = 0;
     do
     {
-      v12 = self->_rrcConnRejects.list[v11];
       PBDataWriterWriteUint32Field();
-      toCopy = v29;
-      ++v11;
+      toCopy = v14;
+      ++v7;
     }
 
-    while (v11 < self->_rrcConnRejects.count);
+    while (v7 < self->_rrcConnRejects.count);
   }
 
   if (self->_rrcConnRlfs.count)
   {
-    v13 = 0;
+    v8 = 0;
     do
     {
-      v14 = self->_rrcConnRlfs.list[v13];
       PBDataWriterWriteUint32Field();
-      toCopy = v29;
-      ++v13;
+      toCopy = v14;
+      ++v8;
     }
 
-    while (v13 < self->_rrcConnRlfs.count);
+    while (v8 < self->_rrcConnRlfs.count);
   }
 
   if (self->_rrcConnReestReqs.count)
   {
-    v15 = 0;
+    v9 = 0;
     do
     {
-      v16 = self->_rrcConnReestReqs.list[v15];
       PBDataWriterWriteUint32Field();
-      toCopy = v29;
-      ++v15;
+      toCopy = v14;
+      ++v9;
     }
 
-    while (v15 < self->_rrcConnReestReqs.count);
+    while (v9 < self->_rrcConnReestReqs.count);
   }
 
   if ((*&self->_has & 0x10) != 0)
   {
-    rrcConnDrbEstComp = self->_rrcConnDrbEstComp;
     PBDataWriterWriteUint32Field();
-    toCopy = v29;
+    toCopy = v14;
   }
 
   if (self->_rrcConnRels.count)
   {
-    v18 = 0;
+    v10 = 0;
     do
     {
-      v19 = self->_rrcConnRels.list[v18];
       PBDataWriterWriteUint32Field();
-      toCopy = v29;
-      ++v18;
+      toCopy = v14;
+      ++v10;
     }
 
-    while (v18 < self->_rrcConnRels.count);
+    while (v10 < self->_rrcConnRels.count);
   }
 
   if ((*&self->_has & 4) != 0)
   {
-    numSubs = self->_numSubs;
     PBDataWriterWriteUint32Field();
-    toCopy = v29;
+    toCopy = v14;
   }
 
   if (self->_plmn)
   {
     PBDataWriterWriteDataField();
-    toCopy = v29;
+    toCopy = v14;
   }
 
-  v21 = self->_has;
-  if ((v21 & 0x100) != 0)
+  v11 = self->_has;
+  if ((v11 & 0x100) != 0)
   {
-    subsId = self->_subsId;
     PBDataWriterWriteUint32Field();
-    toCopy = v29;
-    v21 = self->_has;
+    toCopy = v14;
+    v11 = self->_has;
   }
 
-  if ((v21 & 8) != 0)
+  if ((v11 & 8) != 0)
   {
-    psPref = self->_psPref;
     PBDataWriterWriteUint32Field();
-    toCopy = v29;
+    toCopy = v14;
   }
 
   if (self->_rrcResumeReqs.count)
   {
-    v24 = 0;
+    v12 = 0;
     do
     {
-      v25 = self->_rrcResumeReqs.list[v24];
       PBDataWriterWriteUint32Field();
-      toCopy = v29;
-      ++v24;
+      toCopy = v14;
+      ++v12;
     }
 
-    while (v24 < self->_rrcResumeReqs.count);
+    while (v12 < self->_rrcResumeReqs.count);
   }
 
-  v26 = self->_has;
-  if ((v26 & 0x80) != 0)
+  v13 = self->_has;
+  if ((v13 & 0x80) != 0)
   {
-    rrcResumeComp = self->_rrcResumeComp;
     PBDataWriterWriteUint32Field();
-    toCopy = v29;
-    v26 = self->_has;
+    toCopy = v14;
+    v13 = self->_has;
   }
 
-  if ((v26 & 0x20) != 0)
+  if ((v13 & 0x20) != 0)
   {
-    rrcConnReestComp = self->_rrcConnReestComp;
     PBDataWriterWriteUint32Field();
-    toCopy = v29;
+    toCopy = v14;
   }
 }
 

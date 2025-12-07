@@ -55,25 +55,23 @@ id __94__AVTAttributeEditorSectionHeaderViewAccessibility__accessibilityLoadAcce
 
 - (id)_accessibilitySupplementaryHeaderViews
 {
-  v10[1] = *MEMORY[0x29EDCA608];
+  v9[1] = *MEMORY[0x29EDCA608];
   v3 = [(AVTAttributeEditorSectionHeaderViewAccessibility *)self safeValueForKey:@"accessoryButton"];
   v4 = v3;
   if (v3)
   {
-    v10[0] = v3;
-    _accessibilitySupplementaryHeaderViews = [MEMORY[0x29EDB8D80] arrayWithObjects:v10 count:1];
+    v9[0] = v3;
+    _accessibilitySupplementaryHeaderViews = [MEMORY[0x29EDB8D80] arrayWithObjects:v9 count:1];
   }
 
   else
   {
-    v9.receiver = self;
-    v9.super_class = AVTAttributeEditorSectionHeaderViewAccessibility;
-    _accessibilitySupplementaryHeaderViews = [(AVTAttributeEditorSectionHeaderViewAccessibility *)&v9 _accessibilitySupplementaryHeaderViews];
+    v8.receiver = self;
+    v8.super_class = AVTAttributeEditorSectionHeaderViewAccessibility;
+    _accessibilitySupplementaryHeaderViews = [(AVTAttributeEditorSectionHeaderViewAccessibility *)&v8 _accessibilitySupplementaryHeaderViews];
   }
 
   v6 = _accessibilitySupplementaryHeaderViews;
-
-  v7 = *MEMORY[0x29EDCA608];
 
   return v6;
 }

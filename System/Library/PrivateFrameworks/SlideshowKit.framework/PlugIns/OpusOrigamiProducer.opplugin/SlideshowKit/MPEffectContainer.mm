@@ -106,7 +106,7 @@
   }
 
   filters = [(NSString *)effects stringByAppendingFormat:@"\t               Filter Count: %d\n", filters];
-  [(MPEffectContainer *)self duration];
+  objc_msgSend_duration(self);
   v9 = [(NSString *)filters stringByAppendingFormat:@"\t                   Duration: %f\n", v8];
   if ([(MPEffectContainer *)self transition])
   {
@@ -344,7 +344,7 @@
     }
   }
 
-  if ([(NSMutableArray *)self->_effects count]&& ([(MPEffectContainer *)self duration], v26 == 0.0))
+  if ([(NSMutableArray *)self->_effects count]&& (objc_msgSend_duration(self), v26 == 0.0))
   {
     [(MPEffectContainer *)self calculateDurationToSmallest:0];
   }
@@ -554,7 +554,7 @@
     v5 = [-[MPEffectContainer parentLayer](self "parentLayer")];
     if ([objc_msgSend(v5 documentAttributeForKey:{kMPDocumentEnforceSafeTiming), "BOOLValue"}])
     {
-      [(MPEffectContainer *)self duration];
+      objc_msgSend_duration(self);
       v7 = v6;
       parentLayer = self->_parentLayer;
       if (parentLayer)
@@ -577,7 +577,7 @@
           if (v12)
           {
             v13 = v12;
-            [v12 duration];
+            objc_msgSend_duration(v12);
             if (v7 >= v14)
             {
               v7 = v14;
@@ -585,9 +585,9 @@
 
             if ([v13 transition])
             {
-              [v13 duration];
+              objc_msgSend_duration(v13);
               v16 = v15;
-              [objc_msgSend(v13 "transition")];
+              objc_msgSend_duration([v13 transition]);
               v18 = v16 - v17;
               if (v7 >= v18)
               {
@@ -601,9 +601,9 @@
         {
           if ([v10 transition])
           {
-            [(MPEffectContainer *)self duration];
+            objc_msgSend_duration(self);
             v20 = v19;
-            [objc_msgSend(v10 "transition")];
+            objc_msgSend_duration([v10 transition]);
             v22 = v20 - v21;
             if (v7 >= v22)
             {
@@ -613,7 +613,7 @@
         }
       }
 
-      [transition duration];
+      objc_msgSend_duration(transition);
       if (v23 > v7)
       {
         [transition setDuration:v7];
@@ -628,17 +628,17 @@
     v26 = 0.0;
     if (transition && [(MPTransition *)transition parentContainer])
     {
-      [(MPTransition *)self->_transition duration];
+      objc_msgSend_duration(self->_transition);
       v26 = v27;
     }
 
     if (transition)
     {
-      [transition duration];
+      objc_msgSend_duration(transition, a2);
       v25 = v28;
     }
 
-    [(MPLayer *)self->_parentLayer duration];
+    objc_msgSend_duration(self->_parentLayer, a2);
     v30 = v29 - (v25 - v26);
   }
 
@@ -668,7 +668,7 @@
     if (![(MPEffectContainer *)self isTransitionConnected])
     {
       v34 = self->_parentLayer;
-      [(MPTransition *)self->_transition duration];
+      objc_msgSend_duration(self->_transition);
       [(MPLayer *)v34 updateDurationPadding:v35 - v26];
     }
   }
@@ -1028,13 +1028,13 @@ LABEL_5:
       }
     }
 
-    [(MPEffectContainer *)self duration];
+    objc_msgSend_duration(self);
     v11 = durationCopy - v10;
     self->_duration = durationCopy;
     parentLayer = self->_parentLayer;
     if (!((parentLayer == 0) | v7 & 1))
     {
-      [(MPLayer *)parentLayer duration];
+      objc_msgSend_duration(parentLayer);
       [(MPLayer *)self->_parentLayer setDuration:v11 + v13];
     }
 
@@ -1102,7 +1102,7 @@ LABEL_5:
     return 0.0;
   }
 
-  [v4 duration];
+  objc_msgSend_duration(v4);
   return result;
 }
 
@@ -1114,7 +1114,7 @@ LABEL_5:
     return 0.0;
   }
 
-  [(MPTransition *)transition duration];
+  objc_msgSend_duration(transition, a2);
   return result;
 }
 
@@ -1151,7 +1151,7 @@ LABEL_5:
 
   if ([(MPEffectContainer *)self transition])
   {
-    [(MPTransition *)[(MPEffectContainer *)self transition] duration];
+    objc_msgSend_duration([(MPEffectContainer *)self transition]);
     v6 = v7 + 0.0;
     if (!v5)
     {
@@ -1170,7 +1170,7 @@ LABEL_5:
 
   if ([v5 transition])
   {
-    [objc_msgSend(v5 "transition")];
+    objc_msgSend_duration([v5 transition]);
     return v6 + v8;
   }
 
@@ -1190,7 +1190,7 @@ LABEL_5:
         [(MCPlug *)self->_containerPlug setTransitionID:0];
         [(MCPlug *)self->_containerPlug setTransitionDuration:0.0];
         parentLayer = self->_parentLayer;
-        [(MPTransition *)self->_transition duration];
+        objc_msgSend_duration(self->_transition);
 
         [(MPLayer *)parentLayer updateDurationPadding:?];
       }
@@ -1209,10 +1209,10 @@ LABEL_5:
       {
         self->_transitionDisconnected = 0;
         [(MCPlug *)self->_containerPlug setTransitionID:[(MPTransition *)[(MPEffectContainer *)self transition] transitionID]];
-        [(MPTransition *)[(MPEffectContainer *)self transition] duration];
+        objc_msgSend_duration([(MPEffectContainer *)self transition]);
         [(MCPlug *)self->_containerPlug setTransitionDuration:?];
         parentLayer = self->_parentLayer;
-        [(MPTransition *)self->_transition duration];
+        objc_msgSend_duration(self->_transition);
         v5 = -v4;
 
         [(MPLayer *)parentLayer updateDurationPadding:v5];
@@ -1511,7 +1511,7 @@ LABEL_12:
 
     else
     {
-      [(MPEffectContainer *)self duration];
+      objc_msgSend_duration(self);
     }
 
     [(MCPlug *)self->_containerPlug setLoopDuration:?];
@@ -1614,7 +1614,7 @@ LABEL_12:
       if (transition)
       {
         [(MCPlug *)self->_containerPlug setTransitionID:[(MPTransition *)transition transitionID]];
-        [(MPTransition *)self->_transition duration];
+        objc_msgSend_duration(self->_transition);
         [(MCPlug *)self->_containerPlug setTransitionDuration:?];
         [(MPTransition *)self->_transition applyFormattedAttributes];
       }
@@ -1887,7 +1887,7 @@ LABEL_8:
     [lastObject mainDuration];
     v13 = v12;
     v14 = v9 + v11 + v12;
-    [(MPEffectContainer *)self duration];
+    objc_msgSend_duration(self);
     if (v14 != v15)
     {
       v16 = v15;
@@ -1897,7 +1897,7 @@ LABEL_8:
       parentLayer = self->_parentLayer;
       if (parentLayer)
       {
-        [(MPLayer *)parentLayer duration];
+        objc_msgSend_duration(parentLayer);
         [(MPLayer *)self->_parentLayer setDuration:v14 - v16 + v18];
       }
 
@@ -2001,7 +2001,7 @@ LABEL_8:
       }
     }
 
-    [(MPEffectContainer *)self duration];
+    objc_msgSend_duration(self);
     v39 = v38;
     [(MPEffectContainer *)self willChangeValueForKey:@"duration"];
     self->_duration = v25;
@@ -2009,7 +2009,7 @@ LABEL_8:
     v40 = self->_parentLayer;
     if (v40)
     {
-      [(MPLayer *)v40 duration];
+      objc_msgSend_duration(v40);
       [(MPLayer *)self->_parentLayer setDuration:v25 - v39 + v41];
     }
 
@@ -2195,7 +2195,7 @@ LABEL_8:
     v4 = +[NSMutableDictionary dictionary];
     [v4 setObject:-[MPTransition transitionID](self->_transition forKey:{"transitionID"), @"transitionID"}];
     [v4 setObject:-[MPTransition presetID](self->_transition forKey:{"presetID"), @"presetID"}];
-    [(MPTransition *)self->_transition duration];
+    objc_msgSend_duration(self->_transition);
     [v4 setObject:+[NSNumber numberWithDouble:](NSNumber forKey:{"numberWithDouble:"), @"duration"}];
     return v4;
   }

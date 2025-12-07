@@ -515,7 +515,7 @@ uint64_t __43__VCConnectionManagerLegacy_addConnection___block_invoke(uint64_t a
       }
     }
 
-    [(VCConnectionManager *)self setSecondaryConnection:0, *v26, *&v26[16]];
+    [(VCConnectionManager *)self setSecondaryConnection:0, *v26, *&v26[8]];
     v8 = 0;
   }
 

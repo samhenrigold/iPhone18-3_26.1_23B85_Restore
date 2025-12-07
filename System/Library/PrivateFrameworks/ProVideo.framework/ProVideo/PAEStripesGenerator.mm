@@ -86,7 +86,7 @@
     [v7 getFloatValue:&v14 fromParm:313 atFxTime:info->var0.var1];
     [v7 getFloatValue:&v13 fromParm:314 atFxTime:info->var0.var1];
     v13 = v13 * (v14 * 0.5);
-    [(PAESharedDefaultBase *)self getInversePixelTransformForImage:output];
+    objc_msgSend_getInversePixelTransformForImage_(self);
     if ([(PAESharedDefaultBase *)self getRenderMode:info->var0.var1])
     {
       if ([output imageType] == 3)

@@ -203,14 +203,11 @@ uint64_t __73__SBKStoreURLBagContext_loadBagContextFromURLBag_domain_completionB
     v2 = *(*(a1 + 56) + 8);
     v3 = *(v2 + 40);
     *(v2 + 40) = 0;
-
-    v4 = *(*(*(a1 + 48) + 8) + 40);
   }
 
-  v5 = *(*(*(a1 + 56) + 8) + 40);
-  v6 = *(*(a1 + 40) + 16);
+  v4 = *(*(a1 + 40) + 16);
 
-  return v6();
+  return v4();
 }
 
 id __73__SBKStoreURLBagContext_loadBagContextFromURLBag_domain_completionBlock___block_invoke_7(uint64_t a1, void *a2)

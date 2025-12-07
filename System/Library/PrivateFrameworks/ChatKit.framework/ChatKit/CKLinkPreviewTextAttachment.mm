@@ -49,9 +49,10 @@
 {
   containerCopy = container;
   selfCopy = self;
-  v8 = sub_190B9B9E0();
+  sub_190B9B9E0();
+  v9 = v8;
 
-  return v8;
+  return v9;
 }
 
 - (id)makeThrowAnimationSnapshotView

@@ -355,7 +355,7 @@ LABEL_15:
   objc_sync_exit(selfCopy);
 }
 
-void __77__BNPenderQueue_presentableQueue_didDequeuePresentableWithPendingIdentifier___block_invoke(uint64_t *a1, void *a2, uint64_t a3, _BYTE *a4)
+void __77__BNPenderQueue_presentableQueue_didDequeuePresentableWithPendingIdentifier___block_invoke(void *a1, void *a2, uint64_t a3, _BYTE *a4)
 {
   v12 = a2;
   v7 = [v12 entryIdentifier];

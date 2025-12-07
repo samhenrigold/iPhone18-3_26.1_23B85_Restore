@@ -89,16 +89,22 @@
 
 - (void)_setDownloadID:(id)d
 {
-  *(self->_internal + 1) = [d copy];
+  v4 = [d copy];
+  internal = self->_internal;
+  v6 = internal[1];
+  internal[1] = v4;
 
-  _objc_release_x1();
+  _objc_release_x1(v4, v6);
 }
 
 - (void)_setContentIdentifier:(id)identifier
 {
-  *(self->_internal + 2) = [identifier copy];
+  v4 = [identifier copy];
+  internal = self->_internal;
+  v6 = internal[2];
+  internal[2] = v4;
 
-  _objc_release_x1();
+  _objc_release_x1(v4, v6);
 }
 
 - (void)_setContentLength:(id)length
@@ -109,16 +115,22 @@
 
 - (void)_setContentURL:(id)l
 {
-  *(self->_internal + 6) = [l copy];
+  v4 = [l copy];
+  internal = self->_internal;
+  v6 = internal[6];
+  internal[6] = v4;
 
-  _objc_release_x1();
+  _objc_release_x1(v4, v6);
 }
 
 - (void)_setError:(id)error
 {
-  *(self->_internal + 5) = [error copy];
+  v4 = [error copy];
+  internal = self->_internal;
+  v6 = internal[5];
+  internal[5] = v4;
 
-  _objc_release_x1();
+  _objc_release_x1(v4, v6);
 }
 
 - (void)_setTransaction:(id)transaction
@@ -134,9 +146,12 @@
 
 - (void)_setVersion:(id)version
 {
-  *(self->_internal + 9) = [version copy];
+  v4 = [version copy];
+  internal = self->_internal;
+  v6 = internal[9];
+  internal[9] = v4;
 
-  _objc_release_x1();
+  _objc_release_x1(v4, v6);
 }
 
 - (BOOL)isEqual:(id)equal
@@ -186,24 +201,24 @@
     v10 = internal[8];
     internal[8] = v8;
 
-    objc_opt_class();
-    v11 = sub_10018E3FC(v5, "2");
-    v12 = v6->_internal;
-    v13 = v12[1];
-    v12[1] = v11;
+    v11 = objc_opt_class();
+    v12 = sub_10018E3FC(v5, "2", v11);
+    v13 = v6->_internal;
+    v14 = v13[1];
+    v13[1] = v12;
 
     *(v6->_internal + 3) = xpc_dictionary_get_int64(v5, "3");
-    v14 = xpc_dictionary_get_double(v5, "5");
-    *(v6->_internal + 8) = v14;
-    objc_opt_class();
-    v15 = sub_10018E3FC(v5, "7");
-    v16 = v6->_internal;
-    v17 = v16[9];
-    v16[9] = v15;
+    v15 = xpc_dictionary_get_double(v5, "5");
+    *(v6->_internal + 8) = v15;
+    v16 = objc_opt_class();
+    v17 = sub_10018E3FC(v5, "7", v16);
+    v18 = v6->_internal;
+    v19 = v18[9];
+    v18[9] = v17;
 
-    v18 = xpc_dictionary_get_value(v5, "6");
-    self = v18;
-    if (v18 && xpc_get_type(v18) == &_xpc_type_double)
+    v20 = xpc_dictionary_get_value(v5, "6");
+    self = v20;
+    if (v20 && xpc_get_type(v20) == &_xpc_type_double)
     {
       value = xpc_double_get_value(self);
     }
@@ -214,34 +229,34 @@
     }
 
     *(v6->_internal + 7) = value;
-    objc_opt_class();
-    v20 = sub_10018E3FC(v5, "1");
+    v22 = objc_opt_class();
+    v23 = sub_10018E3FC(v5, "1", v22);
     objc_opt_class();
     isKindOfClass = objc_opt_isKindOfClass();
     if (isKindOfClass)
     {
-      v22 = [[NSURL alloc] initWithString:v20];
+      v25 = [[NSURL alloc] initWithString:v23];
     }
 
     else
     {
-      v22 = 0;
+      v25 = 0;
     }
 
-    objc_storeStrong(v6->_internal + 6, v22);
+    objc_storeStrong(v6->_internal + 6, v25);
     if (isKindOfClass)
     {
     }
 
-    objc_opt_class();
-    v23 = sub_10018E3FC(v5, "4");
+    v26 = objc_opt_class();
+    v27 = sub_10018E3FC(v5, "4", v26);
 
-    if (v23)
+    if (v27)
     {
-      v24 = sub_10018DAD8(v23);
-      v25 = v6->_internal;
-      v26 = v25[5];
-      v25[5] = v24;
+      v28 = sub_10018DAD8(v27);
+      v29 = v6->_internal;
+      v30 = v29[5];
+      v29[5] = v28;
     }
   }
 

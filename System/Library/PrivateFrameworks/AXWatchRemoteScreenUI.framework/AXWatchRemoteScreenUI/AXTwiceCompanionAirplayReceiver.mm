@@ -35,13 +35,13 @@ uint64_t __49__AXTwiceCompanionAirplayReceiver_sharedInstance__block_invoke()
 
 - (id)start
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v3 = AXLogTwiceRemoteScreen();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 136315138;
-    v9 = "[AXTwiceCompanionAirplayReceiver start]";
-    _os_log_impl(&dword_23D6CB000, v3, OS_LOG_TYPE_DEFAULT, "[TWICE] %s", &v8, 0xCu);
+    v7 = 136315138;
+    v8 = "[AXTwiceCompanionAirplayReceiver start]";
+    _os_log_impl(&dword_23D6CB000, v3, OS_LOG_TYPE_DEFAULT, "[TWICE] %s", &v7, 0xCu);
   }
 
   sharedInstance = [getAPRKStreamRenderingManagerClass() sharedInstance];
@@ -52,27 +52,23 @@ uint64_t __49__AXTwiceCompanionAirplayReceiver_sharedInstance__block_invoke()
   [sharedInstance startReceiverServer];
   assistedInfoForAWDL = [sharedInstance assistedInfoForAWDL];
 
-  v6 = *MEMORY[0x277D85DE8];
-
   return assistedInfoForAWDL;
 }
 
 - (void)cleanup
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v2 = AXLogTwiceRemoteScreen();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 136315138;
-    v6 = "[AXTwiceCompanionAirplayReceiver cleanup]";
-    _os_log_impl(&dword_23D6CB000, v2, OS_LOG_TYPE_DEFAULT, "[TWICE] %s", &v5, 0xCu);
+    v4 = 136315138;
+    v5 = "[AXTwiceCompanionAirplayReceiver cleanup]";
+    _os_log_impl(&dword_23D6CB000, v2, OS_LOG_TYPE_DEFAULT, "[TWICE] %s", &v4, 0xCu);
   }
 
   sharedInstance = [getAPRKStreamRenderingManagerClass() sharedInstance];
   [sharedInstance setAssistedModeEnabled:0];
   [sharedInstance stopReceiverServer];
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_init
@@ -92,28 +88,28 @@ uint64_t __49__AXTwiceCompanionAirplayReceiver_sharedInstance__block_invoke()
 
 - (void)didChangeStreamRendererModeTo:(unint64_t)to forRenderer:(id)renderer
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   rendererCopy = renderer;
   v6 = AXLogTwiceRemoteScreen();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     uniqueID = [rendererCopy uniqueID];
-    v14 = 136315394;
-    v15 = "[AXTwiceCompanionAirplayReceiver didChangeStreamRendererModeTo:forRenderer:]";
-    v16 = 2112;
-    v17 = uniqueID;
-    _os_log_impl(&dword_23D6CB000, v6, OS_LOG_TYPE_DEFAULT, "[TWICE] %s %@", &v14, 0x16u);
+    v13 = 136315394;
+    v14 = "[AXTwiceCompanionAirplayReceiver didChangeStreamRendererModeTo:forRenderer:]";
+    v15 = 2112;
+    v16 = uniqueID;
+    _os_log_impl(&dword_23D6CB000, v6, OS_LOG_TYPE_DEFAULT, "[TWICE] %s %@", &v13, 0x16u);
   }
 
   v8 = AXLogTwiceRemoteScreen();
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     streamRendererMode = [rendererCopy streamRendererMode];
-    v14 = 136315394;
-    v15 = "[AXTwiceCompanionAirplayReceiver didChangeStreamRendererModeTo:forRenderer:]";
-    v16 = 2048;
-    v17 = streamRendererMode;
-    _os_log_impl(&dword_23D6CB000, v8, OS_LOG_TYPE_DEFAULT, "[TWICE] %s %lu", &v14, 0x16u);
+    v13 = 136315394;
+    v14 = "[AXTwiceCompanionAirplayReceiver didChangeStreamRendererModeTo:forRenderer:]";
+    v15 = 2048;
+    v16 = streamRendererMode;
+    _os_log_impl(&dword_23D6CB000, v8, OS_LOG_TYPE_DEFAULT, "[TWICE] %s %lu", &v13, 0x16u);
   }
 
   streamRenderer = [(AXTwiceCompanionAirplayReceiver *)self streamRenderer];
@@ -124,34 +120,32 @@ uint64_t __49__AXTwiceCompanionAirplayReceiver_sharedInstance__block_invoke()
     delegate = [(AXTwiceCompanionAirplayReceiver *)self delegate];
     [delegate airplayDidStartStreamingWithMirroringLayer:mirroringLayer];
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)didStartStreamingWithRenderer:(id)renderer
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   rendererCopy = renderer;
   v5 = AXLogTwiceRemoteScreen();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     uniqueID = [rendererCopy uniqueID];
-    v18 = 136315394;
-    v19 = "[AXTwiceCompanionAirplayReceiver didStartStreamingWithRenderer:]";
-    v20 = 2112;
-    v21 = uniqueID;
-    _os_log_impl(&dword_23D6CB000, v5, OS_LOG_TYPE_DEFAULT, "[TWICE] %s %@", &v18, 0x16u);
+    v17 = 136315394;
+    v18 = "[AXTwiceCompanionAirplayReceiver didStartStreamingWithRenderer:]";
+    v19 = 2112;
+    v20 = uniqueID;
+    _os_log_impl(&dword_23D6CB000, v5, OS_LOG_TYPE_DEFAULT, "[TWICE] %s %@", &v17, 0x16u);
   }
 
   v7 = AXLogTwiceRemoteScreen();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     streamRendererMode = [rendererCopy streamRendererMode];
-    v18 = 136315394;
-    v19 = "[AXTwiceCompanionAirplayReceiver didStartStreamingWithRenderer:]";
-    v20 = 2048;
-    v21 = streamRendererMode;
-    _os_log_impl(&dword_23D6CB000, v7, OS_LOG_TYPE_DEFAULT, "[TWICE] %s %lu", &v18, 0x16u);
+    v17 = 136315394;
+    v18 = "[AXTwiceCompanionAirplayReceiver didStartStreamingWithRenderer:]";
+    v19 = 2048;
+    v20 = streamRendererMode;
+    _os_log_impl(&dword_23D6CB000, v7, OS_LOG_TYPE_DEFAULT, "[TWICE] %s %lu", &v17, 0x16u);
   }
 
   streamRenderer = [(AXTwiceCompanionAirplayReceiver *)self streamRenderer];
@@ -180,33 +174,31 @@ uint64_t __49__AXTwiceCompanionAirplayReceiver_sharedInstance__block_invoke()
     v15 = AXLogTwiceRemoteScreen();
     if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
-      v18 = 136315394;
-      v19 = "[AXTwiceCompanionAirplayReceiver didStartStreamingWithRenderer:]";
-      v20 = 2112;
-      v21 = mirroringLayer;
-      _os_log_impl(&dword_23D6CB000, v15, OS_LOG_TYPE_DEFAULT, "[TWICE] %s %@", &v18, 0x16u);
+      v17 = 136315394;
+      v18 = "[AXTwiceCompanionAirplayReceiver didStartStreamingWithRenderer:]";
+      v19 = 2112;
+      v20 = mirroringLayer;
+      _os_log_impl(&dword_23D6CB000, v15, OS_LOG_TYPE_DEFAULT, "[TWICE] %s %@", &v17, 0x16u);
     }
 
     delegate = [(AXTwiceCompanionAirplayReceiver *)self delegate];
     [delegate airplayDidStartStreamingWithMirroringLayer:mirroringLayer];
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)didStopStreamingWithRenderer:(id)renderer
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   rendererCopy = renderer;
   v5 = AXLogTwiceRemoteScreen();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     uniqueID = [rendererCopy uniqueID];
-    v11 = 136315394;
-    v12 = "[AXTwiceCompanionAirplayReceiver didStopStreamingWithRenderer:]";
-    v13 = 2112;
-    v14 = uniqueID;
-    _os_log_impl(&dword_23D6CB000, v5, OS_LOG_TYPE_DEFAULT, "[TWICE] %s %@", &v11, 0x16u);
+    v10 = 136315394;
+    v11 = "[AXTwiceCompanionAirplayReceiver didStopStreamingWithRenderer:]";
+    v12 = 2112;
+    v13 = uniqueID;
+    _os_log_impl(&dword_23D6CB000, v5, OS_LOG_TYPE_DEFAULT, "[TWICE] %s %@", &v10, 0x16u);
   }
 
   streamRenderer = [(AXTwiceCompanionAirplayReceiver *)self streamRenderer];
@@ -231,39 +223,33 @@ uint64_t __49__AXTwiceCompanionAirplayReceiver_sharedInstance__block_invoke()
       }
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)shouldShowGlobalPasscodeWithString:(id)string withClientName:(id)name
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   stringCopy = string;
   v5 = AXLogTwiceRemoteScreen();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 136315394;
-    v8 = "[AXTwiceCompanionAirplayReceiver shouldShowGlobalPasscodeWithString:withClientName:]";
-    v9 = 2112;
-    v10 = stringCopy;
-    _os_log_impl(&dword_23D6CB000, v5, OS_LOG_TYPE_DEFAULT, "[TWICE] %s %@", &v7, 0x16u);
+    v6 = 136315394;
+    v7 = "[AXTwiceCompanionAirplayReceiver shouldShowGlobalPasscodeWithString:withClientName:]";
+    v8 = 2112;
+    v9 = stringCopy;
+    _os_log_impl(&dword_23D6CB000, v5, OS_LOG_TYPE_DEFAULT, "[TWICE] %s %@", &v6, 0x16u);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)shouldHideGlobalPasscode
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v2 = AXLogTwiceRemoteScreen();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    v4 = 136315138;
-    v5 = "[AXTwiceCompanionAirplayReceiver shouldHideGlobalPasscode]";
-    _os_log_impl(&dword_23D6CB000, v2, OS_LOG_TYPE_DEFAULT, "[TWICE] %s", &v4, 0xCu);
+    v3 = 136315138;
+    v4 = "[AXTwiceCompanionAirplayReceiver shouldHideGlobalPasscode]";
+    _os_log_impl(&dword_23D6CB000, v2, OS_LOG_TYPE_DEFAULT, "[TWICE] %s", &v3, 0xCu);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 - (AXTwiceCompanionAirplayReceiverDelegate)delegate
@@ -275,26 +261,20 @@ uint64_t __49__AXTwiceCompanionAirplayReceiver_sharedInstance__block_invoke()
 
 - (void)didStartStreamingWithRenderer:(void *)a1 .cold.1(void *a1, void *a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
   v3 = [a1 streamRenderer];
   [v3 streamRendererMode];
   [a2 streamRendererMode];
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_23D6CB000, v4, v5, "[TWICE] Stop %lu before assigning %lu", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1(&dword_23D6CB000, v4, v5, "[TWICE] Stop %lu before assigning %lu", v6, v7, v8, v9);
 }
 
 - (void)didStopStreamingWithRenderer:(void *)a1 .cold.1(void *a1, void *a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
   v3 = [a1 streamRenderer];
   [v3 streamRendererMode];
   [a2 streamRendererMode];
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_23D6CB000, v4, v5, "[TWICE] mismatch renderer %lu - %lu", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1(&dword_23D6CB000, v4, v5, "[TWICE] mismatch renderer %lu - %lu", v6, v7, v8, v9);
 }
 
 @end

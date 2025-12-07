@@ -123,7 +123,7 @@ LABEL_56:
       memset(buf, 0, sizeof(buf));
       if (brushStroke2)
       {
-        [brushStroke2 extent];
+        objc_msgSend_extent(brushStroke2);
         v32 = *buf;
       }
 
@@ -173,7 +173,7 @@ LABEL_56:
     {
       indexCopy2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%02ld_brushStroke", indexCopy2];
       blackImage = [MEMORY[0x1E695F658] blackImage];
-      [v24 extent];
+      objc_msgSend_extent(v24);
       [blackImage imageByCroppingToRect:?];
       v30 = v29 = error;
 
@@ -222,7 +222,7 @@ LABEL_55:
         v27 = [PIInpaintRendering maskByFillingHolesInMask:v27];
       }
 
-      [v24 extent];
+      objc_msgSend_extent(v24);
       v39 = [PIInpaintRendering maskByDilatingMask:v27 fullExtent:?];
 
       error = errorCopy2;
@@ -230,7 +230,7 @@ LABEL_55:
 LABEL_21:
       v113 = 0u;
       v114 = 0u;
-      [v39 extent];
+      objc_msgSend_extent(v39);
       NUPixelRectFromCGRect();
       if (v20)
       {
@@ -297,7 +297,7 @@ LABEL_27:
           {
             v117 = 0u;
             memset(buf, 0, sizeof(buf));
-            [v24 extent];
+            objc_msgSend_extent(v24);
             NUPixelSizeFromCGSize();
             NUOrientationMakeTransformWithSize();
             v110 = *buf;
@@ -336,7 +336,7 @@ LABEL_36:
           {
             blackImage2 = [MEMORY[0x1E695F658] blackImage];
             v54 = [v39 imageByCompositingOverImage:blackImage2];
-            [v24 extent];
+            objc_msgSend_extent(v24);
             [v54 imageByCroppingToRect:?];
             v56 = v55 = v27;
 
@@ -360,7 +360,7 @@ LABEL_36:
           {
             if (self->_sourceIsHDR)
             {
-              [v39 extent];
+              objc_msgSend_extent(v39);
               v63 = v62;
               v65 = v64;
               v67 = v66;
@@ -392,7 +392,7 @@ LABEL_36:
 
           if (inpaintOverlaysMaskBounds)
           {
-            [v39 extent];
+            objc_msgSend_extent(v39);
             v83 = [PIInpaintRendering imageByOverlayingBoundsRect:v48 onImage:?];
 
             v48 = v83;
@@ -403,7 +403,7 @@ LABEL_36:
             v117 = 0u;
             memset(buf, 0, sizeof(buf));
             NUOrientationInverse();
-            [v24 extent];
+            objc_msgSend_extent(v24);
             NUPixelSizeFromCGSize();
             NUOrientationMakeTransformWithSize();
             v110 = *buf;
@@ -653,13 +653,13 @@ LABEL_36:
       }
 
       v21 = v20;
-      [v19 croppedExtent];
+      objc_msgSend_croppedExtent(v19);
       NUPixelRectToCGRect();
       v23 = v22;
       v25 = v24;
       v27 = v26;
       v29 = v28;
-      [v19 croppedExtent];
+      objc_msgSend_croppedExtent(v19);
       [v19 scale];
       NUPixelRectScaleRational();
       NUPixelRectToCGRect();
@@ -1221,7 +1221,7 @@ void __78__PIInpaintCacheNode__renderBackgroundImage_intoMutableBuffer_renderer_
   [v30 enumerateRects:v41];
 }
 
-uint64_t __74__PIInpaintCacheNode_provideImageData_bytesPerRow_origin::size::userInfo___block_invoke(uint64_t a1, __int128 *a2)
+uint64_t __74__PIInpaintCacheNode_provideImageData_bytesPerRow_origin::size::userInfo___block_invoke(void *a1, __int128 *a2)
 {
   v9 = 0u;
   v10 = 0u;
@@ -1229,8 +1229,8 @@ uint64_t __74__PIInpaintCacheNode_provideImageData_bytesPerRow_origin::size::use
   v7 = *a2;
   v8 = v3;
   NUPixelRectOffset();
-  v4 = *(a1 + 32);
-  v5 = *(a1 + 72);
+  v4 = a1[4];
+  v5 = a1[9];
   v7 = 0u;
   v8 = 0u;
   return [MEMORY[0x1E69B3B38] fillPixelsInBuffer:v4 rect:&v7 srcPixel:v5];
@@ -1391,7 +1391,7 @@ void __37__PIInpaintCacheNode__evaluateImage___block_invoke(uint64_t a1, uint64_
   v4 = objc_alloc(MEMORY[0x1E69B3B18]);
   if (geometryCopy)
   {
-    [geometryCopy extent];
+    objc_msgSend_extent(geometryCopy);
   }
 
   else
@@ -1436,7 +1436,7 @@ void __37__PIInpaintCacheNode__evaluateImage___block_invoke(uint64_t a1, uint64_
   v74 = 0u;
   if (geometryCopy)
   {
-    [geometryCopy extent];
+    objc_msgSend_extent(geometryCopy);
   }
 
   v17 = *(MEMORY[0x1E69B3900] + 16);
@@ -1454,7 +1454,7 @@ void __37__PIInpaintCacheNode__evaluateImage___block_invoke(uint64_t a1, uint64_
     memset(buf, 0, 32);
     if (brushStroke)
     {
-      [brushStroke extent];
+      objc_msgSend_extent(brushStroke);
     }
 
     else
@@ -1511,8 +1511,6 @@ LABEL_13:
     NUAlignPixelRectToPixelGrid();
     v65 = *buf;
     v66 = *&buf[16];
-    v63 = v73;
-    v64 = v74;
     NUPixelRectIntersection();
     [regionCopy addRect:v75];
     memset(v75, 0, sizeof(v75));
@@ -1558,7 +1556,7 @@ LABEL_13:
     v21 = brushStroke2;
     if (brushStroke2)
     {
-      [brushStroke2 extent];
+      objc_msgSend_extent(brushStroke2);
     }
 
     else
@@ -1600,7 +1598,7 @@ LABEL_22:
       *&buf[16] = v61;
       if ([operationCopy hasExclusionMask])
       {
-        [(PIInpaintCacheNode *)self _exclusionMaskExtentForOperation:operationCopy error:error];
+        objc_msgSend__exclusionMaskExtentForOperation_error_(self);
         *v75 = *buf;
         *&v75[16] = *&buf[16];
         if (NUPixelRectIsNull())
@@ -1650,7 +1648,7 @@ LABEL_22:
       v66 = *&buf[16];
       v63 = v73;
       v64 = v74;
-      [PIInpaintRendering sourceExtentForMaskExtent:v75 exclusionMaskExtent:&v65 imageExtent:&v63 operation:operationCopy];
+      objc_msgSend_sourceExtentForMaskExtent_exclusionMaskExtent_imageExtent_operation_(PIInpaintRendering);
       *v75 = v71;
       *&v75[16] = v72;
       if (!NUPixelRectIsNull())
@@ -1685,7 +1683,7 @@ LABEL_16:
 
   if ([operationCopy mode] == 3 || objc_msgSend(operationCopy, "mode") == 4)
   {
-    [(PIInpaintCacheNode *)self _maskExtentForOperation:operationCopy error:error];
+    objc_msgSend__maskExtentForOperation_error_(self);
     v28 = *&buf[16];
     v62 = *buf;
     goto LABEL_22;
@@ -1796,7 +1794,7 @@ LABEL_16:
         }
 
         v18 = v17;
-        [v17 extent];
+        objc_msgSend_extent(v17);
         v23 = v29;
         v24 = v30;
         NUPixelRectUnion();
@@ -2181,7 +2179,7 @@ void __31__PIInpaintCacheNode__tryLoad___block_invoke(uint64_t a1, void *a2, uin
   return v4;
 }
 
-uint64_t __30__PIInpaintCacheNode_tryLoad___block_invoke(uint64_t a1)
+void *__30__PIInpaintCacheNode_tryLoad___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _tryLoad:*(a1 + 48)];
   *(*(*(a1 + 40) + 8) + 24) = result;

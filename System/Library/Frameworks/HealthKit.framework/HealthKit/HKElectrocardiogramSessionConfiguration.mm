@@ -1,10 +1,25 @@
 @interface HKElectrocardiogramSessionConfiguration
++ (HKElectrocardiogramSessionConfiguration)sessionConfigurationWithUUID:(id)d mode:(int64_t)mode maximumDuration:(double)duration wornOnRightArm:(BOOL)arm;
 - (HKElectrocardiogramSessionConfiguration)initWithCoder:(id)coder;
 - (id)copyWithZone:(_NSZone *)zone;
 - (void)encodeWithCoder:(id)coder;
 @end
 
 @implementation HKElectrocardiogramSessionConfiguration
+
++ (HKElectrocardiogramSessionConfiguration)sessionConfigurationWithUUID:(id)d mode:(int64_t)mode maximumDuration:(double)duration wornOnRightArm:(BOOL)arm
+{
+  armCopy = arm;
+  dCopy = d;
+  v10 = objc_alloc_init(HKElectrocardiogramSessionConfiguration);
+  [(HKElectrocardiogramSessionConfiguration *)v10 setSessionUUID:dCopy];
+
+  [(HKElectrocardiogramSessionConfiguration *)v10 setMode:mode];
+  [(HKElectrocardiogramSessionConfiguration *)v10 setMaximumDuration:duration];
+  [(HKElectrocardiogramSessionConfiguration *)v10 setWornOnRightArm:armCopy];
+
+  return v10;
+}
 
 - (id)copyWithZone:(_NSZone *)zone
 {

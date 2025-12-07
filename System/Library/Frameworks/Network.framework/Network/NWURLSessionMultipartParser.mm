@@ -424,7 +424,7 @@ LABEL_9:
 LABEL_12:
 }
 
-void __89__NWURLSessionMultipartParser_task_handleMultipartData_complete_error_completionHandler___block_invoke_75(void *a1, void *a2, _BOOL4 a3)
+void __89__NWURLSessionMultipartParser_task_handleMultipartData_complete_error_completionHandler___block_invoke_75(void *a1, void *a2, int a3)
 {
   v44 = *MEMORY[0x1E69E9840];
   v5 = a2;
@@ -613,15 +613,15 @@ LABEL_30:
 
 uint64_t __89__NWURLSessionMultipartParser_task_handleMultipartData_complete_error_completionHandler___block_invoke_79(void *a1, void *a2, uint64_t a3, uint64_t a4, unint64_t a5)
 {
-  v158 = *MEMORY[0x1E69E9840];
-  v146 = a2;
+  v157 = *MEMORY[0x1E69E9840];
+  v145 = a2;
   if (a5)
   {
     v9 = 0;
-    v148 = a3 + 1;
+    v147 = a3 + 1;
     v10 = &nwlog_legacy_init(void)::init_once;
-    v145 = a5;
-    v147 = a4;
+    v144 = a5;
+    v146 = a4;
     while (1)
     {
       v12 = a1[4];
@@ -674,8 +674,8 @@ uint64_t __89__NWURLSessionMultipartParser_task_handleMultipartData_complete_err
                 v57 = 0;
               }
 
-              v58 = v148 + v9;
-              v59 = v148 + v9 + a1[8];
+              v58 = v147 + v9;
+              v59 = v147 + v9 + a1[8];
               v60 = v55 + v54;
               subrange = dispatch_data_create_subrange(v57, v55, v59 - v60);
               v62 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithData:subrange encoding:5];
@@ -729,9 +729,9 @@ uint64_t __89__NWURLSessionMultipartParser_task_handleMultipartData_complete_err
                 v77 = v73;
                 if (v76)
                 {
-                  *v151 = v76;
-                  *&v151[8] = NWURLSessionMultipartPart;
-                  v78 = objc_msgSendSuper2(v151, sel_init);
+                  *v150 = v76;
+                  *&v150[8] = NWURLSessionMultipartPart;
+                  v78 = objc_msgSendSuper2(v150, sel_init);
                   v76 = v78;
                   if (v78)
                   {
@@ -742,7 +742,7 @@ uint64_t __89__NWURLSessionMultipartParser_task_handleMultipartData_complete_err
                   }
                 }
 
-                v58 = v148 + v9;
+                v58 = v147 + v9;
 
                 v81 = a1[4];
                 if (v81)
@@ -767,8 +767,8 @@ uint64_t __89__NWURLSessionMultipartParser_task_handleMultipartData_complete_err
                   }
                 }
 
-                a5 = v145;
-                a4 = v147;
+                a5 = v144;
+                a4 = v146;
                 v10 = &nwlog_legacy_init(void)::init_once;
               }
 
@@ -814,10 +814,10 @@ uint64_t __89__NWURLSessionMultipartParser_task_handleMultipartData_complete_err
                     v107 = 0;
                   }
 
-                  a4 = v147;
+                  a4 = v146;
                   v10 = &nwlog_legacy_init(void)::init_once;
-                  v58 = v148 + v9;
-                  [v107 setObject:v105 forKeyedSubscript:{v102, v143, v144}];
+                  v58 = v147 + v9;
+                  [v107 setObject:v105 forKeyedSubscript:v102];
                 }
               }
 
@@ -1059,7 +1059,7 @@ LABEL_148:
         }
 
         v123 = *(*(a1[6] + 8) + 24);
-        v127 = dispatch_data_create_subrange(v126, v123, v148 + v9 + a1[8] - (v119 + v121) - v123);
+        v127 = dispatch_data_create_subrange(v126, v123, v147 + v9 + a1[8] - (v119 + v121) - v123);
         v128 = a1[4];
         if (v128 && *(v128 + 8) == 1)
         {
@@ -1094,7 +1094,7 @@ LABEL_129:
               }
 
 LABEL_131:
-              *(*(a1[6] + 8) + 24) = v148 + v9 + v129 - v132 + v128;
+              *(*(a1[6] + 8) + 24) = v147 + v9 + v129 - v132 + v128;
 
               v134 = a1[4];
               if (v134)
@@ -1189,21 +1189,20 @@ LABEL_5:
     networkd_settings_init();
     v39 = gLogObj;
     v40 = *(v32 + 32);
-    *v151 = 136446978;
-    *&v151[4] = "[NWURLSessionMultipartPartBoundarySuffixRecognizer consumeCharacter:]";
-    *&v151[12] = 2082;
-    *&v151[14] = "_count";
-    v152 = 2048;
-    v153 = 1;
-    v154 = 2048;
-    v155 = v40;
-    LODWORD(v144) = 42;
-    v143 = v151;
-    v41 = _os_log_send_and_compose_impl();
+    *v150 = 136446978;
+    *&v150[4] = "[NWURLSessionMultipartPartBoundarySuffixRecognizer consumeCharacter:]";
+    *&v150[12] = 2082;
+    *&v150[14] = "_count";
+    v151 = 2048;
+    v152 = 1;
+    v153 = 2048;
+    v154 = v40;
+    LODWORD(v143) = 42;
+    v41 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v39, 16, "%{public}s Overflow: %{public}s, increment %llu, result %llu", v150, v143);
 
     type = OS_LOG_TYPE_ERROR;
-    v149 = 0;
-    if (!__nwlog_fault(v41, &type, &v149))
+    v148 = 0;
+    if (!__nwlog_fault(v41, &type, &v148))
     {
 LABEL_96:
       if (v41)
@@ -1230,14 +1229,14 @@ LABEL_95:
       }
 
       v44 = *(v32 + 32);
-      *v151 = 136446978;
-      *&v151[4] = "[NWURLSessionMultipartPartBoundarySuffixRecognizer consumeCharacter:]";
-      *&v151[12] = 2082;
-      *&v151[14] = "_count";
-      v152 = 2048;
-      v153 = 1;
-      v154 = 2048;
-      v155 = v44;
+      *v150 = 136446978;
+      *&v150[4] = "[NWURLSessionMultipartPartBoundarySuffixRecognizer consumeCharacter:]";
+      *&v150[12] = 2082;
+      *&v150[14] = "_count";
+      v151 = 2048;
+      v152 = 1;
+      v153 = 2048;
+      v154 = v44;
       v45 = v42;
       v46 = v43;
       v47 = "%{public}s Overflow: %{public}s, increment %llu, result %llu";
@@ -1245,7 +1244,7 @@ LABEL_95:
 
     else
     {
-      if (v149 == 1)
+      if (v148 == 1)
       {
         backtrace_string = __nw_create_backtrace_string();
         pthread_once(v10, nwlog_legacy_init_once);
@@ -1258,21 +1257,21 @@ LABEL_95:
           if (v97)
           {
             v98 = *(v32 + 32);
-            *v151 = 136447234;
-            *&v151[4] = "[NWURLSessionMultipartPartBoundarySuffixRecognizer consumeCharacter:]";
-            *&v151[12] = 2082;
-            *&v151[14] = "_count";
-            v152 = 2048;
-            v153 = 1;
-            v154 = 2048;
-            v155 = v98;
-            v156 = 2082;
-            v157 = backtrace_string;
-            _os_log_impl(&dword_181A37000, v95, v96, "%{public}s Overflow: %{public}s, increment %llu, result %llu, dumping backtrace:%{public}s", v151, 0x34u);
+            *v150 = 136447234;
+            *&v150[4] = "[NWURLSessionMultipartPartBoundarySuffixRecognizer consumeCharacter:]";
+            *&v150[12] = 2082;
+            *&v150[14] = "_count";
+            v151 = 2048;
+            v152 = 1;
+            v153 = 2048;
+            v154 = v98;
+            v155 = 2082;
+            v156 = backtrace_string;
+            _os_log_impl(&dword_181A37000, v95, v96, "%{public}s Overflow: %{public}s, increment %llu, result %llu, dumping backtrace:%{public}s", v150, 0x34u);
           }
 
           free(backtrace_string);
-          a4 = v147;
+          a4 = v146;
         }
 
         else
@@ -1280,18 +1279,18 @@ LABEL_95:
           if (v97)
           {
             v141 = *(v32 + 32);
-            *v151 = 136446978;
-            *&v151[4] = "[NWURLSessionMultipartPartBoundarySuffixRecognizer consumeCharacter:]";
-            *&v151[12] = 2082;
-            *&v151[14] = "_count";
-            v152 = 2048;
-            v153 = 1;
-            v154 = 2048;
-            v155 = v141;
-            _os_log_impl(&dword_181A37000, v95, v96, "%{public}s Overflow: %{public}s, increment %llu, result %llu, no backtrace", v151, 0x2Au);
+            *v150 = 136446978;
+            *&v150[4] = "[NWURLSessionMultipartPartBoundarySuffixRecognizer consumeCharacter:]";
+            *&v150[12] = 2082;
+            *&v150[14] = "_count";
+            v151 = 2048;
+            v152 = 1;
+            v153 = 2048;
+            v154 = v141;
+            _os_log_impl(&dword_181A37000, v95, v96, "%{public}s Overflow: %{public}s, increment %llu, result %llu, no backtrace", v150, 0x2Au);
           }
 
-          a4 = v147;
+          a4 = v146;
         }
 
         goto LABEL_96;
@@ -1307,20 +1306,20 @@ LABEL_95:
       }
 
       v109 = *(v32 + 32);
-      *v151 = 136446978;
-      *&v151[4] = "[NWURLSessionMultipartPartBoundarySuffixRecognizer consumeCharacter:]";
-      *&v151[12] = 2082;
-      *&v151[14] = "_count";
-      v152 = 2048;
-      v153 = 1;
-      v154 = 2048;
-      v155 = v109;
+      *v150 = 136446978;
+      *&v150[4] = "[NWURLSessionMultipartPartBoundarySuffixRecognizer consumeCharacter:]";
+      *&v150[12] = 2082;
+      *&v150[14] = "_count";
+      v151 = 2048;
+      v152 = 1;
+      v153 = 2048;
+      v154 = v109;
       v45 = v42;
       v46 = v108;
       v47 = "%{public}s Overflow: %{public}s, increment %llu, result %llu, backtrace limit exceeded";
     }
 
-    _os_log_impl(&dword_181A37000, v45, v46, v47, v151, 0x2Au);
+    _os_log_impl(&dword_181A37000, v45, v46, v47, v150, 0x2Au);
     goto LABEL_95;
   }
 

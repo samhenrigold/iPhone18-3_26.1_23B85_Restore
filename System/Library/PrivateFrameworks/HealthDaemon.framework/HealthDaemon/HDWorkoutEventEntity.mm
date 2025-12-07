@@ -14,64 +14,58 @@
 
 + (id)foreignKeys
 {
-  v11[1] = *MEMORY[0x277D85DE8];
-  v10 = @"owner_id";
+  v10[1] = *MEMORY[0x277D85DE8];
+  v9 = @"owner_id";
   v3 = objc_alloc(MEMORY[0x277D10B38]);
   ownerEntityClass = [self ownerEntityClass];
   ownerEntityReferenceColumn = [self ownerEntityReferenceColumn];
   v6 = [v3 initWithEntityClass:ownerEntityClass property:ownerEntityReferenceColumn deletionAction:2];
-  v11[0] = v6;
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:&v10 count:1];
-
-  v8 = *MEMORY[0x277D85DE8];
+  v10[0] = v6;
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:&v9 count:1];
 
   return v7;
 }
 
 + (id)indices
 {
-  v13[1] = *MEMORY[0x277D85DE8];
+  v12[1] = *MEMORY[0x277D85DE8];
   v3 = objc_alloc(MEMORY[0x277D10B40]);
   v4 = MEMORY[0x277CCACA8];
   databaseTable = [self databaseTable];
   v6 = [v4 stringWithFormat:@"%@_owners", databaseTable];
-  v12 = @"owner_id";
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:&v12 count:1];
+  v11 = @"owner_id";
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:&v11 count:1];
   v8 = [v3 initWithEntity:self name:v6 columns:v7];
-  v13[0] = v8;
-  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:1];
-
-  v10 = *MEMORY[0x277D85DE8];
+  v12[0] = v8;
+  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
 
   return v9;
 }
 
 + (id)insertPersistableWorkoutEvent:(id)event ownerID:(id)d database:(id)database error:(id *)error
 {
-  v23[7] = *MEMORY[0x277D85DE8];
+  v22[7] = *MEMORY[0x277D85DE8];
   eventCopy = event;
   dCopy = d;
-  v23[0] = @"owner_id";
-  v23[1] = @"date";
-  v23[2] = @"type";
-  v23[3] = @"duration";
-  v23[4] = @"metadata";
-  v23[5] = @"session_uuid";
-  v23[6] = @"error";
+  v22[0] = @"owner_id";
+  v22[1] = @"date";
+  v22[2] = @"type";
+  v22[3] = @"duration";
+  v22[4] = @"metadata";
+  v22[5] = @"session_uuid";
+  v22[6] = @"error";
   v12 = MEMORY[0x277CBEA60];
   databaseCopy = database;
-  v14 = [v12 arrayWithObjects:v23 count:7];
-  v20[0] = MEMORY[0x277D85DD0];
-  v20[1] = 3221225472;
-  v20[2] = __77__HDWorkoutEventEntity_insertPersistableWorkoutEvent_ownerID_database_error___block_invoke;
-  v20[3] = &unk_278613DE8;
-  v21 = dCopy;
-  v22 = eventCopy;
+  v14 = [v12 arrayWithObjects:v22 count:7];
+  v19[0] = MEMORY[0x277D85DD0];
+  v19[1] = 3221225472;
+  v19[2] = __77__HDWorkoutEventEntity_insertPersistableWorkoutEvent_ownerID_database_error___block_invoke;
+  v19[3] = &unk_278613DE8;
+  v20 = dCopy;
+  v21 = eventCopy;
   v15 = eventCopy;
   v16 = dCopy;
-  v17 = [self insertOrReplaceEntity:1 database:databaseCopy properties:v14 error:error bindingHandler:v20];
-
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = [self insertOrReplaceEntity:1 database:databaseCopy properties:v14 error:error bindingHandler:v19];
 
   return v17;
 }
@@ -108,30 +102,30 @@ void __77__HDWorkoutEventEntity_insertPersistableWorkoutEvent_ownerID_database_e
 
 + (BOOL)insertWorkoutEventsFromWorkout:(id)workout ownerID:(id)d transaction:(id)transaction error:(id *)error
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   workoutCopy = workout;
   dCopy = d;
   v12 = [transaction databaseForEntityClass:self];
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
   workoutEvents = [workoutCopy workoutEvents];
-  v14 = [workoutEvents countByEnumeratingWithState:&v22 objects:v26 count:16];
+  v14 = [workoutEvents countByEnumeratingWithState:&v21 objects:v25 count:16];
   if (v14)
   {
     v15 = v14;
-    v16 = *v23;
+    v16 = *v22;
     while (2)
     {
       for (i = 0; i != v15; ++i)
       {
-        if (*v23 != v16)
+        if (*v22 != v16)
         {
           objc_enumerationMutation(workoutEvents);
         }
 
-        v18 = [self insertPersistableWorkoutEvent:*(*(&v22 + 1) + 8 * i) ownerID:dCopy database:v12 error:error];
+        v18 = [self insertPersistableWorkoutEvent:*(*(&v21 + 1) + 8 * i) ownerID:dCopy database:v12 error:error];
 
         if (!v18)
         {
@@ -140,7 +134,7 @@ void __77__HDWorkoutEventEntity_insertPersistableWorkoutEvent_ownerID_database_e
         }
       }
 
-      v15 = [workoutEvents countByEnumeratingWithState:&v22 objects:v26 count:16];
+      v15 = [workoutEvents countByEnumeratingWithState:&v21 objects:v25 count:16];
       if (v15)
       {
         continue;
@@ -153,23 +147,22 @@ void __77__HDWorkoutEventEntity_insertPersistableWorkoutEvent_ownerID_database_e
   v19 = 1;
 LABEL_11:
 
-  v20 = *MEMORY[0x277D85DE8];
   return v19;
 }
 
 + (id)workoutEventsWithOwnerID:(id)d database:(id)database error:(id *)error
 {
-  v26[6] = *MEMORY[0x277D85DE8];
-  v26[0] = @"date";
-  v26[1] = @"type";
-  v26[2] = @"duration";
-  v26[3] = @"metadata";
-  v26[4] = @"session_uuid";
-  v26[5] = @"error";
+  v25[6] = *MEMORY[0x277D85DE8];
+  v25[0] = @"date";
+  v25[1] = @"type";
+  v25[2] = @"duration";
+  v25[3] = @"metadata";
+  v25[4] = @"session_uuid";
+  v25[5] = @"error";
   v8 = MEMORY[0x277CBEA60];
   databaseCopy = database;
   dCopy = d;
-  v11 = [v8 arrayWithObjects:v26 count:6];
+  v11 = [v8 arrayWithObjects:v25 count:6];
   v12 = MEMORY[0x277D10B18];
   v13 = _HDSQLiteValueForNumber();
 
@@ -179,14 +172,14 @@ LABEL_11:
 
   workoutEventClass = [self workoutEventClass];
   array = [MEMORY[0x277CBEB18] array];
-  v23[0] = MEMORY[0x277D85DD0];
-  v23[1] = 3221225472;
-  v23[2] = __64__HDWorkoutEventEntity_workoutEventsWithOwnerID_database_error___block_invoke;
-  v23[3] = &unk_278621050;
-  v24 = array;
-  v25 = workoutEventClass;
+  v22[0] = MEMORY[0x277D85DD0];
+  v22[1] = 3221225472;
+  v22[2] = __64__HDWorkoutEventEntity_workoutEventsWithOwnerID_database_error___block_invoke;
+  v22[3] = &unk_278621050;
+  v23 = array;
+  v24 = workoutEventClass;
   v18 = array;
-  if ([v15 enumerateProperties:v11 error:error enumerationHandler:v23])
+  if ([v15 enumerateProperties:v11 error:error enumerationHandler:v22])
   {
     v19 = v18;
   }
@@ -198,24 +191,23 @@ LABEL_11:
 
   v20 = v19;
 
-  v21 = *MEMORY[0x277D85DE8];
   return v19;
 }
 
-uint64_t __64__HDWorkoutEventEntity_workoutEventsWithOwnerID_database_error___block_invoke(uint64_t a1)
+uint64_t __64__HDWorkoutEventEntity_workoutEventsWithOwnerID_database_error___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v2 = HDSQLiteColumnWithNameAsDate();
-  v3 = HDSQLiteColumnWithNameAsInt64();
+  v4 = HDSQLiteColumnWithNameAsDate();
+  v5 = HDSQLiteColumnWithNameAsInt64();
   HDSQLiteColumnWithNameAsDouble();
-  v5 = v4;
-  v6 = HDSQLiteColumnWithNameAsData();
-  v7 = [HDCodableMetadataDictionary decodeMetadataFromData:v6];
-  v8 = HDSQLiteColumnWithNameAsUUID();
+  v7 = v6;
+  v8 = HDSQLiteColumnWithNameAsData();
+  v9 = [HDCodableMetadataDictionary decodeMetadataFromData:v8];
+  v10 = HDSQLiteColumnWithNameAsUUID();
   objc_opt_class();
-  v9 = HDSQLiteColumnWithNameAsObject();
-  v10 = [objc_alloc(MEMORY[0x277CCA970]) initWithStartDate:v2 duration:v5];
-  v11 = [objc_alloc(*(a1 + 40)) initWithWorkoutEventType:v3 sessionUUID:v8 dateInterval:v10 metadata:v7 error:v9];
-  [*(a1 + 32) addObject:v11];
+  v11 = HDSQLiteColumnWithNameAsObject();
+  v12 = [objc_alloc(MEMORY[0x277CCA970]) initWithStartDate:v4 duration:v7];
+  v13 = [objc_alloc(*(a1 + 40)) initWithWorkoutEventType:v5 sessionUUID:v10 dateInterval:v12 metadata:v9 error:v11];
+  [*(a1 + 32) addObject:v13];
 
   return 1;
 }
@@ -258,19 +250,19 @@ uint64_t __64__HDWorkoutEventEntity_workoutEventsWithOwnerID_database_error___bl
   return error;
 }
 
-uint64_t __81__HDWorkoutEventEntity_enumerateEventsForOwner_withStatement_error_eventHandler___block_invoke_2(uint64_t a1)
+uint64_t __81__HDWorkoutEventEntity_enumerateEventsForOwner_withStatement_error_eventHandler___block_invoke_2(uint64_t a1, uint64_t a2)
 {
   HDSQLiteColumnWithNameAsDouble();
-  v3 = v2;
+  v4 = v3;
   HDSQLiteColumnWithNameAsDouble();
-  v5 = v4;
+  v6 = v5;
   HDSQLiteColumnWithNameAsInt64();
-  v6 = HDSQLiteColumnWithNameAsData();
-  v7 = [HDCodableMetadataDictionary decodeMetadataFromData:v6];
-  v8 = HDSQLiteColumnWithNameAsUUID();
+  v7 = HDSQLiteColumnWithNameAsData();
+  v8 = [HDCodableMetadataDictionary decodeMetadataFromData:v7];
+  v9 = HDSQLiteColumnWithNameAsUUID();
   objc_opt_class();
-  v9 = HDSQLiteColumnWithNameAsObject();
-  (*(*(a1 + 32) + 16))(v3, v5);
+  v10 = HDSQLiteColumnWithNameAsObject();
+  (*(*(a1 + 32) + 16))(v4, v6);
 
   return 1;
 }

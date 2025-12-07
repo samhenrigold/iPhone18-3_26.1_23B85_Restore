@@ -7,203 +7,203 @@
 
 + (id)evaluateForArgsWithContext:(id)context functionSpec:(id)spec arguments:(const void *)arguments
 {
-  sub_2210F0C3C(&v306);
+  sub_2210F0C3C(&v239);
   columns.range = vdupq_n_s64(0x7FFF7FFFFFFFuLL);
   columns._tableUID._lower = 0;
   columns._tableUID._upper = 0;
   if (*(arguments + 1) == *arguments)
   {
-    v21 = 1;
+    v18 = 1;
   }
 
   else
   {
-    v12 = **arguments;
-    if ((objc_msgSend_isTokenOrEmptyArg(v12, v13, v14, v15, v16) & 1) != 0 || objc_msgSend_deepType_(v12, v17, context, v18, v19) == 10)
+    v11 = **arguments;
+    if ((objc_msgSend_isTokenOrEmptyArg(v11, v12, v13, v14) & 1) != 0 || objc_msgSend_deepType_(v11, v15, context, v16) == 10)
     {
-      v21 = 1;
+      v18 = 1;
     }
 
     else
     {
-      v304 = 0;
-      v128 = objc_msgSend_asReference_functionSpec_argumentIndex_outError_(v12, v20, context, spec, 0, &v304);
-      v79 = v304;
-      if (v79)
+      v237 = 0;
+      v102 = objc_msgSend_asReference_functionSpec_argumentIndex_outError_(v11, v17, context, spec, 0, &v237);
+      v63 = v237;
+      if (v63)
       {
-        v133 = objc_msgSend_functionName(spec, v129, v130, v131, v132);
-        v137 = objc_msgSend_notAReferenceErrorForFunctionName_(TSCEError, v134, v133, v135, v136);
-        v78 = objc_msgSend_raiseErrorOrConvert_(context, v138, v137, v139, v140);
+        v106 = objc_msgSend_functionName(spec, v103, v104, v105);
+        v109 = objc_msgSend_notAReferenceErrorForFunctionName_(TSCEError, v107, v106, v108);
+        v62 = objc_msgSend_raiseErrorOrConvert_(context, v110, v109, v111);
 
         goto LABEL_103;
       }
 
-      if (v128)
+      if (v102)
       {
-        objc_msgSend_rangeRef(v128, v129, v130, v131, v132);
+        objc_msgSend_rangeRef(v102, v103, v104, v105);
       }
 
       else
       {
-        memset(&v301, 0, 32);
+        memset(&v234, 0, 32);
       }
 
-      columns = v301._columns;
-      v203 = objc_msgSend_tractRef(v128, v129, v130, v131, v132);
+      columns = v234._columns;
+      v161 = objc_msgSend_tractRef(v102, v103, v104, v105);
       TSUIndexSet::operator=();
       TSUIndexSet::operator=();
-      v204 = *(v203 + 64);
-      *&v308[13] = *(v203 + 77);
-      *v308 = v204;
-      if (objc_msgSend_isOutputOfAFunction(v128, v205, v206, v207, v208))
+      v162 = *(v161 + 64);
+      *&v241[13] = *(v161 + 77);
+      *v241 = v162;
+      if (objc_msgSend_isOutputOfAFunction(v102, v163, v164, v165))
       {
-        v302.range._topLeft = columns.range._topLeft;
-        *&v302.range._bottomRight.row = columns._tableUID;
-        *&v301._columns = 0;
-        TSCERangeRef::TSCERangeRef(&v309, &v302);
-        v301._columns._singleRange = v309.range;
-        *&v301._columns._multipleRanges = v309._tableUID;
-        LOBYTE(v301._rows._singleRange._begin) = 0;
-        v301._tableUID._upper = 0;
-        memset(&v301._rows._singleRange._end, 0, 18);
-        objc_msgSend_addCalculatedPrecedent_(context, v209, &v301, v210, v211);
+        v235.range._topLeft = columns.range._topLeft;
+        *&v235.range._bottomRight.row = columns._tableUID;
+        *&v234._columns = 0;
+        TSCERangeRef::TSCERangeRef(&v242, &v235);
+        v234._columns._singleRange = v242.range;
+        *&v234._columns._multipleRanges = v242._tableUID;
+        LOBYTE(v234._rows._singleRange._begin) = 0;
+        v234._tableUID._upper = 0;
+        memset(&v234._rows._singleRange._end, 0, 18);
+        objc_msgSend_addCalculatedPrecedent_(context, v166, &v234, v167);
 
-        v302.range._topLeft = columns.range._bottomRight;
-        *&v302.range._bottomRight.row = columns._tableUID;
-        *&v301._columns = 0;
-        TSCERangeRef::TSCERangeRef(&v309, &v302);
-        v301._columns._singleRange = v309.range;
-        *&v301._columns._multipleRanges = v309._tableUID;
-        LOBYTE(v301._rows._singleRange._begin) = 0;
-        v301._tableUID._upper = 0;
-        memset(&v301._rows._singleRange._end, 0, 18);
-        objc_msgSend_addCalculatedPrecedent_(context, v212, &v301, v213, v214);
+        v235.range._topLeft = columns.range._bottomRight;
+        *&v235.range._bottomRight.row = columns._tableUID;
+        *&v234._columns = 0;
+        TSCERangeRef::TSCERangeRef(&v242, &v235);
+        v234._columns._singleRange = v242.range;
+        *&v234._columns._multipleRanges = v242._tableUID;
+        LOBYTE(v234._rows._singleRange._begin) = 0;
+        v234._tableUID._upper = 0;
+        memset(&v234._rows._singleRange._end, 0, 18);
+        objc_msgSend_addCalculatedPrecedent_(context, v168, &v234, v169);
       }
 
-      v21 = 0;
+      v18 = 0;
     }
   }
 
-  v303.origin = 0;
-  v303.size = 0;
-  v303.origin = *objc_msgSend_containingCell(context, v8, v9, v10, v11);
-  v303.size = 0x100000001;
-  v26 = objc_msgSend_containingTable(context, v22, v23, v24, v25);
-  TSCERangeRef::TSCERangeRef(&v302, &v303, v26);
-  if (v21)
+  v236.origin = 0;
+  v236.size = 0;
+  v236.origin = *objc_msgSend_containingCell(context, v8, v9, v10);
+  v236.size = 0x100000001;
+  v22 = objc_msgSend_containingTable(context, v19, v20, v21);
+  TSCERangeRef::TSCERangeRef(&v235, &v236, v22);
+  if (v18)
   {
-    columns = v302;
-    v31 = objc_msgSend_containingCell(context, v27, v28, v29, v30);
-    v36 = objc_msgSend_containingCell(context, v32, v33, v34, v35);
-    v41 = objc_msgSend_containingTable(context, v37, v38, v39, v40);
-    TSCECellTractRefCore::TSCECellTractRefCore(&v301, v31, v36, v41);
+    columns = v235;
+    v26 = objc_msgSend_containingCell(context, v23, v24, v25);
+    v30 = objc_msgSend_containingCell(context, v27, v28, v29);
+    v34 = objc_msgSend_containingTable(context, v31, v32, v33);
+    TSCECellTractRefCore::TSCECellTractRefCore(&v234, v26, v30, v34);
     TSUIndexSet::operator=();
     TSUIndexSet::operator=();
-    *v308 = v301._tableUID;
-    *&v308[13] = *(&v301._tableUID._upper + 5);
-    TSUIndexSet::~TSUIndexSet(&v301._rows);
-    TSUIndexSet::~TSUIndexSet(&v301._columns);
+    *v241 = v234._tableUID;
+    *&v241[13] = *(&v234._tableUID._upper + 5);
+    TSUIndexSet::~TSUIndexSet(&v234._rows);
+    TSUIndexSet::~TSUIndexSet(&v234._columns);
   }
 
   topLeft = columns.range._topLeft;
   tableUID = columns._tableUID;
-  v42 = objc_msgSend_calcEngine(context, v27, v28, v29, v30);
-  IsValidIncludingSheet = objc_msgSend_referenceIsValidIncludingSheet_(v42, v43, &columns, v44, v45);
+  v35 = objc_msgSend_calcEngine(context, v23, v24, v25);
+  IsValidIncludingSheet = objc_msgSend_referenceIsValidIncludingSheet_(v35, v36, &columns, v37);
 
   if ((IsValidIncludingSheet & 1) == 0)
   {
-    v74 = objc_msgSend_invalidReferenceError(TSCEError, v47, v48, v49, v50);
-    v78 = objc_msgSend_raiseErrorOrConvert_(context, v75, v74, v76, v77);
+    v59 = objc_msgSend_invalidReferenceError(TSCEError, v39, v40, v41);
+    v62 = objc_msgSend_raiseErrorOrConvert_(context, v60, v59, v61);
 
-    v79 = 0;
+    v63 = 0;
     goto LABEL_103;
   }
 
-  if (*v308 != 0)
+  if (*v241 != 0)
   {
-    objc_msgSend_sheetTableNamePrecedentForTableUID_(TSCEHauntedOwner, v47, v308, v49, v50);
-    *&v301._columns = 0;
-    TSCERangeRef::TSCERangeRef(&v309, &v295);
-    v301._columns._singleRange = v309.range;
-    *&v301._columns._multipleRanges = v309._tableUID;
-    LOBYTE(v301._rows._singleRange._begin) = 0;
-    v301._tableUID._upper = 0;
-    memset(&v301._rows._singleRange._end, 0, 18);
-    objc_msgSend_addCalculatedPrecedent_(context, v51, &v301, v52, v53);
+    objc_msgSend_sheetTableNamePrecedentForTableUID_(TSCEHauntedOwner, v39, v241, v41);
+    *&v234._columns = 0;
+    TSCERangeRef::TSCERangeRef(&v242, &v228);
+    v234._columns._singleRange = v242.range;
+    *&v234._columns._multipleRanges = v242._tableUID;
+    LOBYTE(v234._rows._singleRange._begin) = 0;
+    v234._tableUID._upper = 0;
+    memset(&v234._rows._singleRange._end, 0, 18);
+    objc_msgSend_addCalculatedPrecedent_(context, v42, &v234, v43);
   }
 
-  v298 = *v308;
-  v292 = objc_msgSend_calcEngine(context, v47, v48, v49, v50);
-  v57 = objc_msgSend_tableResolverForTableUID_(v292, v54, &v298, v55, v56);
-  v294 = objc_msgSend_namer(v292, v58, v59, v60, v61);
-  v66 = objc_alloc_init(TSCERefNamingContext);
-  if (v57)
+  v231 = *v241;
+  v225 = objc_msgSend_calcEngine(context, v39, v40, v41);
+  v46 = objc_msgSend_tableResolverForTableUID_(v225, v44, &v231, v45);
+  v227 = objc_msgSend_namer(v225, v47, v48, v49);
+  v53 = objc_alloc_init(TSCERefNamingContext);
+  if (v46)
   {
-    v67 = objc_msgSend_sheetName(v57, v62, v63, v64, v65);
-    objc_msgSend_setContextSheetName_(v66, v68, v67, v69, v70);
+    v54 = objc_msgSend_sheetName(v46, v50, v51, v52);
+    objc_msgSend_setContextSheetName_(v53, v55, v54, v56);
   }
 
   else
   {
-    v67 = 0;
-    objc_msgSend_setContextSheetName_(v66, v62, 0, v64, v65);
+    v54 = 0;
+    objc_msgSend_setContextSheetName_(v53, v50, 0, v52);
   }
 
-  if (v57)
+  if (v46)
   {
   }
 
-  objc_msgSend_setAllowTableName_(v66, v71, 1, v72, v73);
-  objc_msgSend_setShowGeometricAsBase_(v66, v80, 1, v81, v82);
-  objc_msgSend_setQuoteComponents_(v66, v83, 1, v84, v85);
+  objc_msgSend_setAllowTableName_(v53, v57, 1, v58);
+  objc_msgSend_setShowGeometricAsBase_(v53, v64, 1, v65);
+  objc_msgSend_setQuoteComponents_(v53, v66, 1, v67);
   if (*(arguments + 1) - *arguments < 9uLL)
   {
-    v95 = 0;
+    v75 = 0;
     goto LABEL_28;
   }
 
-  v86 = *(*arguments + 8);
-  if ((objc_msgSend_isTokenOrEmptyArg(v86, v87, v88, v89, v90) & 1) != 0 || objc_msgSend_deepType_(v86, v91, context, v92, v93) == 10)
+  v68 = *(*arguments + 8);
+  if ((objc_msgSend_isTokenOrEmptyArg(v68, v69, v70, v71) & 1) != 0 || objc_msgSend_deepType_(v68, v72, context, v73) == 10)
   {
-    v95 = 0;
+    v75 = 0;
   }
 
   else
   {
-    v297 = 0;
-    v174 = objc_msgSend_asNumber_functionSpec_argumentIndex_outError_(v86, v94, context, spec, 1, &v297);
-    v79 = v297;
-    LODWORD(v95) = objc_msgSend_integer(v174, v175, v176, v177, v178);
+    v230 = 0;
+    v138 = objc_msgSend_asNumber_functionSpec_argumentIndex_outError_(v68, v74, context, spec, 1, &v230);
+    v63 = v230;
+    LODWORD(v75) = objc_msgSend_integer(v138, v139, v140, v141);
 
-    if (v79)
+    if (v63)
     {
       goto LABEL_60;
     }
 
-    if (v95 >= 3)
+    if (v75 >= 3)
     {
 LABEL_107:
-      v278 = objc_msgSend_invalidReferenceNameAttributeError(TSCEError, v179, v180, v181, v182);
-      v78 = objc_msgSend_raiseErrorOrConvert_(context, v289, v278, v290, v291);
+      v215 = objc_msgSend_invalidReferenceNameAttributeError(TSCEError, v142, v143, v144);
+      v62 = objc_msgSend_raiseErrorOrConvert_(context, v223, v215, v224);
 LABEL_101:
 
       goto LABEL_102;
     }
 
-    v95 = v95;
+    v75 = v75;
   }
 
   if (*(arguments + 1) - *arguments < 0x11uLL)
   {
 LABEL_28:
-    v105 = 1;
+    v83 = 1;
 LABEL_29:
-    v106 = v57;
-    v111 = v106;
-    if (v57 && (v112 = objc_msgSend_tableUID(v106, v107, v108, v109, v110), v114 = v113, v118 = objc_msgSend_containingTable(context, v113, v115, v116, v117), v112 == *v118) && (v86 = v111, v114 == v118[1]) || (v119 = objc_msgSend_containingTable(context, v107, v108, v109, v110), objc_msgSend_tableResolverForTableUID_(v292, v120, v119, v121, v122), v86 = objc_claimAutoreleasedReturnValue(), v111, v86))
+    v84 = v46;
+    v88 = v84;
+    if (v46 && (v89 = objc_msgSend_tableUID(v84, v85, v86, v87), v91 = v90, v94 = objc_msgSend_containingTable(context, v90, v92, v93), v89 == *v94) && (v68 = v88, v91 == v94[1]) || (v95 = objc_msgSend_containingTable(context, v85, v86, v87), objc_msgSend_tableResolverForTableUID_(v225, v96, v95, v97), v68 = objc_claimAutoreleasedReturnValue(), v88, v68))
     {
-      v123 = objc_msgSend_containingCell(context, v107, v108, v109, v110);
-      isHeaderCell = objc_msgSend_isHeaderCell_(v86, v124, v123, v125, v126);
+      v98 = objc_msgSend_containingCell(context, v85, v86, v87);
+      isHeaderCell = objc_msgSend_isHeaderCell_(v68, v99, v98, v100);
     }
 
     else
@@ -214,7 +214,7 @@ LABEL_29:
     if (TSCERangeRef::isSpanningAllColumns(&columns) || TSCERangeRef::isSpanningAllRows(&columns))
     {
       isSingleCell = 1;
-      if (v57)
+      if (v46)
       {
         goto LABEL_40;
       }
@@ -223,141 +223,141 @@ LABEL_29:
     else
     {
       isSingleCell = TSCERangeRef::isSingleCell(&columns);
-      if (v57)
+      if (v46)
       {
 LABEL_40:
-        *&v301._columns = topLeft;
-        v146 = objc_msgSend_isHeaderCell_(v111, v141, &v301, v143, v144);
-        if (v146)
+        *&v234._columns = topLeft;
+        v116 = objc_msgSend_isHeaderCell_(v88, v112, &v234, v114);
+        if (v116)
         {
-          LOBYTE(v146) = TSCERangeRef::isSingleCell(&columns);
+          LOBYTE(v116) = TSCERangeRef::isSingleCell(&columns);
         }
 
 LABEL_44:
-        v147 = (isHeaderCell ^ 1) & v105;
-        if (v147 & isSingleCell) != 1 || (v146)
+        v117 = (isHeaderCell ^ 1) & v83;
+        if (v117 & isSingleCell) != 1 || (v116)
         {
           goto LABEL_91;
         }
 
-        v309.range = vdupq_n_s64(0x7FFF7FFFFFFFuLL);
-        v309._tableUID._lower = 0;
-        v309._tableUID._upper = 0;
-        v295.range = v309.range;
-        v295._tableUID._lower = 0;
-        v295._tableUID._upper = 0;
+        v242.range = vdupq_n_s64(0x7FFF7FFFFFFFuLL);
+        v242._tableUID._lower = 0;
+        v242._tableUID._upper = 0;
+        v228.range = v242.range;
+        v228._tableUID._lower = 0;
+        v228._tableUID._upper = 0;
         if (TSCERangeRef::isSpanningAllRows(&columns))
         {
-          v152 = objc_msgSend_calcEngine(context, v148, v149, v150, v151);
-          v157 = objc_msgSend_headerNameMgr(v152, v153, v154, v155, v156);
-          v161 = v157;
-          if (v157)
+          v121 = objc_msgSend_calcEngine(context, v118, v119, v120);
+          v125 = objc_msgSend_headerNameMgr(v121, v122, v123, v124);
+          v128 = v125;
+          if (v125)
           {
 LABEL_48:
-            objc_msgSend_baseHeaderRowsForCell_(v157, v158, &topLeft, v159, v160);
+            objc_msgSend_baseHeaderRowsForCell_(v125, v126, &topLeft, v127);
 LABEL_73:
-            v309 = v301._columns;
+            v242 = v234._columns;
 LABEL_74:
 
 LABEL_75:
-            if (TSCERangeRef::isValid(&v309))
+            if (TSCERangeRef::isValid(&v242))
             {
               if (context)
               {
-                objc_msgSend_containingCellRef(context, v223, v224, v225, v226);
+                objc_msgSend_containingCellRef(context, v176, v177, v178);
               }
 
               else
               {
-                memset(&v301, 0, 24);
+                memset(&v234, 0, 24);
               }
 
-              if (!TSCERangeRef::containsCellRef(&v309, &v301))
+              if (!TSCERangeRef::containsCellRef(&v242, &v234))
               {
-                *&v301._columns = 1;
-                v301._columns._singleRange = v309.range;
-                *&v301._columns._multipleRanges = v309._tableUID;
-                LOBYTE(v301._rows._singleRange._begin) = 0;
-                v301._tableUID._upper = 0;
-                memset(&v301._rows._singleRange._end, 0, 18);
-                objc_msgSend_addCalculatedPrecedent_(context, v227, &v301, v228, v229);
+                *&v234._columns = 1;
+                v234._columns._singleRange = v242.range;
+                *&v234._columns._multipleRanges = v242._tableUID;
+                LOBYTE(v234._rows._singleRange._begin) = 0;
+                v234._tableUID._upper = 0;
+                memset(&v234._rows._singleRange._end, 0, 18);
+                objc_msgSend_addCalculatedPrecedent_(context, v179, &v234, v180);
               }
             }
 
-            if (TSCERangeRef::isValid(&v295))
+            if (TSCERangeRef::isValid(&v228))
             {
               if (context)
               {
-                objc_msgSend_containingCellRef(context, v230, v231, v232, v233);
+                objc_msgSend_containingCellRef(context, v181, v182, v183);
               }
 
               else
               {
-                memset(&v301, 0, 24);
+                memset(&v234, 0, 24);
               }
 
-              if (!TSCERangeRef::containsCellRef(&v295, &v301))
+              if (!TSCERangeRef::containsCellRef(&v228, &v234))
               {
-                *&v301._columns = 1;
-                v301._columns._singleRange = v295.range;
-                *&v301._columns._multipleRanges = v295._tableUID;
-                LOBYTE(v301._rows._singleRange._begin) = 0;
-                v301._tableUID._upper = 0;
-                memset(&v301._rows._singleRange._end, 0, 18);
-                objc_msgSend_addCalculatedPrecedent_(context, v234, &v301, v235, v236);
+                *&v234._columns = 1;
+                v234._columns._singleRange = v228.range;
+                *&v234._columns._multipleRanges = v228._tableUID;
+                LOBYTE(v234._rows._singleRange._begin) = 0;
+                v234._tableUID._upper = 0;
+                memset(&v234._rows._singleRange._end, 0, 18);
+                objc_msgSend_addCalculatedPrecedent_(context, v184, &v234, v185);
               }
             }
 
-            if (TSCERangeRef::isValid(&v309))
+            if (TSCERangeRef::isValid(&v242))
             {
-              objc_msgSend_addNameFragmentPrecedentsForHeaderRange_headerRangeRef_(self, v237, context, &v309, v238);
+              objc_msgSend_addNameFragmentPrecedentsForHeaderRange_headerRangeRef_(self, v186, context, &v242);
             }
 
-            if (TSCERangeRef::isValid(&v295))
+            if (TSCERangeRef::isValid(&v228))
             {
-              objc_msgSend_addNameFragmentPrecedentsForHeaderRange_headerRangeRef_(self, v141, context, &v295, v144);
+              objc_msgSend_addNameFragmentPrecedentsForHeaderRange_headerRangeRef_(self, v112, context, &v228);
             }
 
 LABEL_91:
-            if (v95 == 2)
+            if (v75 == 2)
             {
-              objc_msgSend_setForceSheetName_(v66, v141, 1, v143, v144);
+              objc_msgSend_setForceSheetName_(v53, v112, 1, v114);
             }
 
-            else if (v95 != 1)
+            else if (v75 != 1)
             {
-              v239 = objc_msgSend_containingTable(context, v141, v142, v143, v144);
-              objc_msgSend_setHostTableUID_(v66, v240, *v239, v239[1], v241);
-              objc_msgSend_setAllowTableName_(v66, v242, 0, v243, v244);
+              v187 = objc_msgSend_containingTable(context, v112, v113, v114);
+              objc_msgSend_setHostTableUID_(v53, v188, *v187, v187[1]);
+              objc_msgSend_setAllowTableName_(v53, v189, 0, v190);
               goto LABEL_96;
             }
 
-            objc_msgSend_setForceTableName_(v66, v141, 1, v143, v144);
-            v248 = TSKMakeUIDStructRandom();
-            objc_msgSend_setHostTableUID_(v66, v249, v248, v249, v250);
+            objc_msgSend_setForceTableName_(v53, v112, 1, v114);
+            v193 = TSKMakeUIDStructRandom();
+            objc_msgSend_setHostTableUID_(v53, v194, v193, v194);
 LABEL_96:
-            objc_msgSend_setSuppressIdenticalEndReference_(v66, v245, 1, v246, v247);
-            objc_msgSend_setAllowSpanningColumnReferenceBodyQualifier_(v66, v251, 1, v252, v253);
-            objc_msgSend_setUseSymbolicNames_(v66, v254, v147, v255, v256);
-            if (v57 && objc_msgSend_isPivotTable(v111, v257, v258, v259, v260))
+            objc_msgSend_setSuppressIdenticalEndReference_(v53, v191, 1, v192);
+            objc_msgSend_setAllowSpanningColumnReferenceBodyQualifier_(v53, v195, 1, v196);
+            objc_msgSend_setUseSymbolicNames_(v53, v197, v117, v198);
+            if (v46 && objc_msgSend_isPivotTable(v88, v199, v200, v201))
             {
-              v261 = [TSCECellTractRef alloc];
-              v265 = objc_msgSend_initWithCppCellTractRef_(v261, v262, &v306, v263, v264);
-              objc_msgSend_setUseSymbolicNames_(v66, v266, 0, v267, v268);
-              objc_msgSend_setShowGeometricAsBase_(v66, v269, 0, v270, v271);
-              v276 = objc_msgSend_coordMapper(v111, v272, v273, v274, v275);
-              v278 = objc_msgSend_nameForViewTractRef_namingContext_coordMapper_(v294, v277, v265, v66, v276);
+              v202 = [TSCECellTractRef alloc];
+              v205 = objc_msgSend_initWithCppCellTractRef_(v202, v203, &v239, v204);
+              objc_msgSend_setUseSymbolicNames_(v53, v206, 0, v207);
+              objc_msgSend_setShowGeometricAsBase_(v53, v208, 0, v209);
+              v213 = objc_msgSend_coordMapper(v88, v210, v211, v212);
+              v215 = objc_msgSend_nameForViewTractRef_namingContext_coordMapper_(v227, v214, v205, v53, v213);
             }
 
             else
             {
-              v279 = [TSCECellTractRef alloc];
-              v265 = objc_msgSend_initWithCppCellTractRef_(v279, v280, &v306, v281, v282);
-              v278 = objc_msgSend_nameForBaseTractRef_namingContext_(v294, v283, v265, v66, v284);
+              v216 = [TSCECellTractRef alloc];
+              v205 = objc_msgSend_initWithCppCellTractRef_(v216, v217, &v239, v218);
+              v215 = objc_msgSend_nameForBaseTractRef_namingContext_(v227, v219, v205, v53);
             }
 
-            v78 = objc_msgSend_stringValue_(TSCEStringValue, v285, v278, v286, v287);
-            v79 = 0;
+            v62 = objc_msgSend_stringValue_(TSCEStringValue, v220, v215, v221);
+            v63 = 0;
             goto LABEL_101;
           }
         }
@@ -366,20 +366,20 @@ LABEL_96:
         {
           if (TSCERangeRef::isSpanningAllColumns(&columns))
           {
-            v152 = objc_msgSend_calcEngine(context, v162, v163, v164, v165);
-            v170 = objc_msgSend_headerNameMgr(v152, v166, v167, v168, v169);
-            v161 = v170;
-            if (v170)
+            v121 = objc_msgSend_calcEngine(context, v129, v130, v131);
+            v135 = objc_msgSend_headerNameMgr(v121, v132, v133, v134);
+            v128 = v135;
+            if (v135)
             {
-              objc_msgSend_baseHeaderColumnsForCell_(v170, v171, &topLeft, v172, v173);
+              objc_msgSend_baseHeaderColumnsForCell_(v135, v136, &topLeft, v137);
             }
 
             else
             {
-              memset(&v301, 0, 32);
+              memset(&v234, 0, 32);
             }
 
-            v295 = v301._columns;
+            v228 = v234._columns;
             goto LABEL_74;
           }
 
@@ -388,59 +388,59 @@ LABEL_96:
             goto LABEL_75;
           }
 
-          v187 = objc_msgSend_calcEngine(context, v183, v184, v185, v186);
-          v192 = objc_msgSend_headerNameMgr(v187, v188, v189, v190, v191);
-          v196 = v192;
-          if (v192)
+          v148 = objc_msgSend_calcEngine(context, v145, v146, v147);
+          v152 = objc_msgSend_headerNameMgr(v148, v149, v150, v151);
+          v155 = v152;
+          if (v152)
           {
-            objc_msgSend_baseHeaderColumnsForCell_(v192, v193, &topLeft, v194, v195);
+            objc_msgSend_baseHeaderColumnsForCell_(v152, v153, &topLeft, v154);
           }
 
           else
           {
-            memset(&v301, 0, 32);
+            memset(&v234, 0, 32);
           }
 
-          v295 = v301._columns;
+          v228 = v234._columns;
 
-          v152 = objc_msgSend_calcEngine(context, v215, v216, v217, v218);
-          v157 = objc_msgSend_headerNameMgr(v152, v219, v220, v221, v222);
-          v161 = v157;
-          if (v157)
+          v121 = objc_msgSend_calcEngine(context, v170, v171, v172);
+          v125 = objc_msgSend_headerNameMgr(v121, v173, v174, v175);
+          v128 = v125;
+          if (v125)
           {
             goto LABEL_48;
           }
         }
 
-        memset(&v301, 0, 32);
+        memset(&v234, 0, 32);
         goto LABEL_73;
       }
     }
 
-    LOBYTE(v146) = 0;
+    LOBYTE(v116) = 0;
     goto LABEL_44;
   }
 
-  v86 = *(*arguments + 16);
-  if ((objc_msgSend_isTokenOrEmptyArg(v86, v96, v97, v98, v99) & 1) != 0 || objc_msgSend_deepType_(v86, v100, context, v101, v102) == 10)
+  v68 = *(*arguments + 16);
+  if ((objc_msgSend_isTokenOrEmptyArg(v68, v76, v77, v78) & 1) != 0 || objc_msgSend_deepType_(v68, v79, context, v80) == 10)
   {
-    v104 = 0;
+    v82 = 0;
 LABEL_26:
 
-    v105 = v104 == 0;
+    v83 = v82 == 0;
     goto LABEL_29;
   }
 
-  v296 = 0;
-  v197 = objc_msgSend_asNumber_functionSpec_argumentIndex_outError_(v86, v103, context, spec, 2, &v296);
-  v79 = v296;
-  v202 = objc_msgSend_integer(v197, v198, v199, v200, v201);
+  v229 = 0;
+  v156 = objc_msgSend_asNumber_functionSpec_argumentIndex_outError_(v68, v81, context, spec, 2, &v229);
+  v63 = v229;
+  v160 = objc_msgSend_integer(v156, v157, v158, v159);
 
-  if (!v79)
+  if (!v63)
   {
-    if (v202 < 2)
+    if (v160 < 2)
     {
-      v104 = v202;
+      v82 = v160;
       goto LABEL_26;
     }
 
@@ -448,34 +448,34 @@ LABEL_26:
   }
 
 LABEL_60:
-  v78 = objc_msgSend_raiseErrorOrConvert_(context, v179, v79, v181, v182);
+  v62 = objc_msgSend_raiseErrorOrConvert_(context, v142, v63, v144);
 LABEL_102:
 
 LABEL_103:
-  TSUIndexSet::~TSUIndexSet(&v307);
-  TSUIndexSet::~TSUIndexSet(&v306);
+  TSUIndexSet::~TSUIndexSet(&v240);
+  TSUIndexSet::~TSUIndexSet(&v239);
 
-  return v78;
+  return v62;
 }
 
 + (void)addNameFragmentPrecedentsForHeaderRange:(id)range headerRangeRef:(const TSCERangeRef *)ref
 {
   rangeCopy = range;
   tableUID = ref->_tableUID;
-  v10 = objc_msgSend_calcEngine(rangeCopy, v6, v7, v8, v9);
-  v18 = objc_msgSend_tableResolverForTableUID_(v10, v11, &tableUID, v12, v13);
-  if (v18)
+  v9 = objc_msgSend_calcEngine(rangeCopy, v6, v7, v8);
+  v15 = objc_msgSend_tableResolverForTableUID_(v9, v10, &tableUID, v11);
+  if (v15)
   {
-    v19 = objc_msgSend_headerNameMgr(v10, v14, v15, v16, v17);
-    v21[0] = MEMORY[0x277D85DD0];
-    v21[1] = 3221225472;
-    v21[2] = sub_221472920;
-    v21[3] = &unk_278465918;
-    v22 = v18;
-    v23 = rangeCopy;
-    v24 = v19;
-    v20 = v19;
-    TSCERangeRef::enumerateCoordinatesUsingBlock(ref, v21);
+    v16 = objc_msgSend_headerNameMgr(v9, v12, v13, v14);
+    v18[0] = MEMORY[0x277D85DD0];
+    v18[1] = 3221225472;
+    v18[2] = sub_221472920;
+    v18[3] = &unk_278465918;
+    v19 = v15;
+    v20 = rangeCopy;
+    v21 = v16;
+    v17 = v16;
+    TSCERangeRef::enumerateCoordinatesUsingBlock(ref, v18);
   }
 }
 

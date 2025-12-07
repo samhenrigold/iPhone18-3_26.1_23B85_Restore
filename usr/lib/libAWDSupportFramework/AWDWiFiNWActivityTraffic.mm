@@ -3,6 +3,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)trafficAsString:(int)string;
 - (int)StringAsTraffic:(id)traffic;
 - (int)traffic;
 - (unint64_t)hash;
@@ -40,6 +41,19 @@
   }
 
   *&self->_has = *&self->_has & 0xFD | v3;
+}
+
+- (id)trafficAsString:(int)string
+{
+  if (string >= 6)
+  {
+    return [MEMORY[0x29EDBA0F8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    return off_29EE33310[string];
+  }
 }
 
 - (int)StringAsTraffic:(id)traffic
@@ -118,14 +132,12 @@
   has = self->_has;
   if (has)
   {
-    value = self->_value;
     PBDataWriterWriteUint64Field();
     has = self->_has;
   }
 
   if ((has & 2) != 0)
   {
-    traffic = self->_traffic;
 
     PBDataWriterWriteInt32Field();
   }

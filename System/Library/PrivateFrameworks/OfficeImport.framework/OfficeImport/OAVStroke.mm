@@ -165,9 +165,9 @@ LABEL_9:
 + (id)targetFgColorWithManager:(id)manager
 {
   managerCopy = manager;
-  strokeFgColor = [managerCopy strokeFgColor];
+  v4 = objc_msgSend_strokeFgColor(managerCopy);
   [managerCopy strokeFgAlpha];
-  v5 = [OAVColor readColorFromAttribute:strokeFgColor alpha:managerCopy manager:?];
+  v5 = [OAVColor readColorFromAttribute:v4 alpha:managerCopy manager:?];
 
   return v5;
 }

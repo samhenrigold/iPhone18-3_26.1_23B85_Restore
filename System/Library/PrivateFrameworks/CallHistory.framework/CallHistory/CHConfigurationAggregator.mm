@@ -28,28 +28,28 @@
 
 - (void)registerConfigurationDelegate
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   configurations = [(CHConfigurationAggregator *)self configurations];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
-  v4 = [configurations countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v4 = [configurations countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v12;
+    v6 = *v11;
     do
     {
       v7 = 0;
       do
       {
-        if (*v12 != v6)
+        if (*v11 != v6)
         {
           objc_enumerationMutation(configurations);
         }
 
-        v8 = *(*(&v11 + 1) + 8 * v7);
+        v8 = *(*(&v10 + 1) + 8 * v7);
         queue = [(CHConfigurationAggregator *)self queue];
         [v8 addDelegate:self queue:queue];
 
@@ -57,42 +57,40 @@
       }
 
       while (v5 != v7);
-      v5 = [configurations countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v5 = [configurations countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v5);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)isCloudKitEnabled
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   configurations = [(CHConfigurationAggregator *)self configurations];
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
-  v3 = [configurations countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v3 = [configurations countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v11;
+    v5 = *v10;
     v6 = 1;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v11 != v5)
+        if (*v10 != v5)
         {
           objc_enumerationMutation(configurations);
         }
 
-        v6 &= [*(*(&v10 + 1) + 8 * i) isCloudKitEnabled];
+        v6 &= [*(*(&v9 + 1) + 8 * i) isCloudKitEnabled];
       }
 
-      v4 = [configurations countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v4 = [configurations countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v4);
@@ -103,7 +101,6 @@
     LOBYTE(v6) = 1;
   }
 
-  v8 = *MEMORY[0x1E69E9840];
   return v6;
 }
 

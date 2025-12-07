@@ -7,8 +7,10 @@
 + (id)extensionLaunchActivityWithName:(id)name priority:(unint64_t)priority forApplication:(id)application forExtensionIdentifier:(id)identifier withReason:(id)reason duration:(unint64_t)duration startingAfter:(id)after startingBefore:(id)self0;
 + (id)extensionLaunchActivityWithName:(id)name priority:(unint64_t)priority forApplication:(id)application withReason:(id)reason duration:(unint64_t)duration startingAfter:(id)after startingBefore:(id)before;
 + (id)extensionLaunchActivityWithName:(id)name priority:(unint64_t)priority forExtensionIdentifier:(id)identifier withReason:(id)reason duration:(unint64_t)duration startingAfter:(id)after startingBefore:(id)before;
++ (id)launchForRemoteNotificationWithTopic:(id)topic withPayload:(id)payload highPriority:(BOOL)priority;
 + (id)launchWithTopic:(id)topic forReason:(id)reason withPayload:(id)payload highPriority:(BOOL)priority;
 + (id)networkingActivityWithName:(id)name priority:(unint64_t)priority downloadSize:(unint64_t)size uploadSize:(unint64_t)uploadSize expensiveNetworkingAllowed:(BOOL)allowed startingAfter:(id)after startingBefore:(id)before;
++ (id)networkingActivityWithName:(id)name priority:(unint64_t)priority transferSize:(unint64_t)size isUpload:(BOOL)upload expensiveNetworkingAllowed:(BOOL)allowed startingAfter:(id)after startingBefore:(id)before;
 + (id)prettySchedulingPriorityDescription:(unint64_t)description;
 + (id)sharedDateFormatter;
 + (id)validClassesForUserInfoSerialization;
@@ -1471,6 +1473,23 @@ LABEL_64:
   return v18;
 }
 
++ (id)networkingActivityWithName:(id)name priority:(unint64_t)priority transferSize:(unint64_t)size isUpload:(BOOL)upload expensiveNetworkingAllowed:(BOOL)allowed startingAfter:(id)after startingBefore:(id)before
+{
+  allowedCopy = allowed;
+  uploadCopy = upload;
+  beforeCopy = before;
+  afterCopy = after;
+  nameCopy = name;
+  v18 = [objc_alloc(objc_opt_class()) initWithName:nameCopy priority:priority duration:_DASActivityDurationLong startingAfter:afterCopy startingBefore:beforeCopy userInfo:0];
+
+  [v18 setRequiresNetwork:1];
+  [v18 setDownloadSize:size];
+  [v18 setIsUpload:uploadCopy];
+  [v18 setRequiresInexpensiveNetworking:!allowedCopy];
+
+  return v18;
+}
+
 + (id)networkingActivityWithName:(id)name priority:(unint64_t)priority downloadSize:(unint64_t)size uploadSize:(unint64_t)uploadSize expensiveNetworkingAllowed:(BOOL)allowed startingAfter:(id)after startingBefore:(id)before
 {
   allowedCopy = allowed;
@@ -1519,7 +1538,7 @@ LABEL_64:
 
 + (id)applicationLaunchActivityWithName:(id)name priority:(unint64_t)priority forApplication:(id)application withReason:(id)reason duration:(unint64_t)duration startingAfter:(id)after startingBefore:(id)before
 {
-  v24[1] = *MEMORY[0x1E69E9840];
+  v23[1] = *MEMORY[0x1E69E9840];
   beforeCopy = before;
   afterCopy = after;
   reasonCopy = reason;
@@ -1530,19 +1549,18 @@ LABEL_64:
   [v20 setRequestsApplicationLaunch:1];
   [v20 setLaunchReason:reasonCopy];
 
-  v24[0] = applicationCopy;
-  v21 = [MEMORY[0x1E695DEC8] arrayWithObjects:v24 count:1];
+  v23[0] = applicationCopy;
+  v21 = [MEMORY[0x1E695DEC8] arrayWithObjects:v23 count:1];
   [v20 setRelatedApplications:v21];
 
   [v20 setBundleId:applicationCopy];
-  v22 = *MEMORY[0x1E69E9840];
 
   return v20;
 }
 
 + (id)extensionLaunchActivityWithName:(id)name priority:(unint64_t)priority forApplication:(id)application forExtensionIdentifier:(id)identifier withReason:(id)reason duration:(unint64_t)duration startingAfter:(id)after startingBefore:(id)self0
 {
-  v26[1] = *MEMORY[0x1E69E9840];
+  v25[1] = *MEMORY[0x1E69E9840];
   applicationCopy = application;
   identifierCopy = identifier;
   beforeCopy = before;
@@ -1557,16 +1575,14 @@ LABEL_64:
   v22 = identifierCopy;
   if (applicationCopy)
   {
-    v26[0] = applicationCopy;
-    v23 = [MEMORY[0x1E695DEC8] arrayWithObjects:v26 count:1];
+    v25[0] = applicationCopy;
+    v23 = [MEMORY[0x1E695DEC8] arrayWithObjects:v25 count:1];
     [v21 setRelatedApplications:v23];
 
     v22 = applicationCopy;
   }
 
   [v21 setExtensionIdentifier:v22];
-
-  v24 = *MEMORY[0x1E69E9840];
 
   return v21;
 }
@@ -1597,7 +1613,7 @@ LABEL_64:
 
 + (id)launchWithTopic:(id)topic forReason:(id)reason withPayload:(id)payload highPriority:(BOOL)priority
 {
-  v25[1] = *MEMORY[0x1E69E9840];
+  v24[1] = *MEMORY[0x1E69E9840];
   topicCopy = topic;
   payloadCopy = payload;
   reasonCopy = reason;
@@ -1619,9 +1635,9 @@ LABEL_64:
   v19 = +[_DASFileProtection completeUntilFirstUserAuthentication];
   [v18 setFileProtection:v19];
 
-  v24 = @"notificationpayload";
-  v25[0] = payloadCopy;
-  v20 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v25 forKeys:&v24 count:1];
+  v23 = @"notificationpayload";
+  v24[0] = payloadCopy;
+  v20 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v24 forKeys:&v23 count:1];
 
   [v18 setUserInfo:v20];
   if (!priority)
@@ -1629,9 +1645,17 @@ LABEL_64:
     [v18 setSchedulingPriority:_DASSchedulingPriorityMaintenance];
   }
 
-  v21 = *MEMORY[0x1E69E9840];
-
   return v18;
+}
+
++ (id)launchForRemoteNotificationWithTopic:(id)topic withPayload:(id)payload highPriority:(BOOL)priority
+{
+  priorityCopy = priority;
+  payloadCopy = payload;
+  topicCopy = topic;
+  v9 = [objc_opt_class() launchWithTopic:topicCopy forReason:@"com.apple.das.launchreason.push" withPayload:payloadCopy highPriority:priorityCopy];
+
+  return v9;
 }
 
 + (id)validateBGTaskRequestWithActivity:(id)activity
@@ -2313,7 +2337,7 @@ LABEL_6:
 
 - (double)compatibilityWith:(id)with
 {
-  v72 = *MEMORY[0x1E69E9840];
+  v71 = *MEMORY[0x1E69E9840];
   withCopy = with;
   v8 = 1.0;
   if ([(_DASActivity *)self isEqual:withCopy])
@@ -2383,21 +2407,21 @@ LABEL_16:
   fastPass2 = [withCopy fastPass];
   if (fastPass2)
   {
-    v65 = isIntensive2;
-    v66 = isIntensive;
+    v64 = isIntensive2;
+    v65 = isIntensive;
     fastPass3 = [withCopy fastPass];
     processingTaskIdentifiers2 = [fastPass3 processingTaskIdentifiers];
     name2 = [(_DASActivity *)self name];
-    v64 = [processingTaskIdentifiers2 containsObject:name2];
+    v63 = [processingTaskIdentifiers2 containsObject:name2];
 
     if (fastPass)
     {
     }
 
     v8 = -1.0;
-    isIntensive2 = v65;
-    isIntensive = v66;
-    if (v64)
+    isIntensive2 = v64;
+    isIntensive = v65;
+    if (v63)
     {
       goto LABEL_88;
     }
@@ -2566,32 +2590,32 @@ LABEL_60:
           if (relatedApplications3)
           {
             relatedApplications4 = [withCopy relatedApplications];
+            v66 = 0u;
             v67 = 0u;
             v68 = 0u;
             v69 = 0u;
-            v70 = 0u;
             v50 = self->_relatedApplications;
-            v51 = [(NSArray *)v50 countByEnumeratingWithState:&v67 objects:v71 count:16];
+            v51 = [(NSArray *)v50 countByEnumeratingWithState:&v66 objects:v70 count:16];
             if (v51)
             {
               v52 = v51;
-              v53 = *v68;
+              v53 = *v67;
               do
               {
                 for (i = 0; i != v52; ++i)
                 {
-                  if (*v68 != v53)
+                  if (*v67 != v53)
                   {
                     objc_enumerationMutation(v50);
                   }
 
-                  if ([relatedApplications4 containsObject:*(*(&v67 + 1) + 8 * i)])
+                  if ([relatedApplications4 containsObject:*(*(&v66 + 1) + 8 * i)])
                   {
                     v23 = v23 + 0.1;
                   }
                 }
 
-                v52 = [(NSArray *)v50 countByEnumeratingWithState:&v67 objects:v71 count:16];
+                v52 = [(NSArray *)v50 countByEnumeratingWithState:&v66 objects:v70 count:16];
               }
 
               while (v52);
@@ -2637,7 +2661,6 @@ LABEL_60:
 
 LABEL_88:
 
-  v62 = *MEMORY[0x1E69E9840];
   return v8;
 }
 
@@ -2818,27 +2841,27 @@ LABEL_88:
 
 - (id)dependencyForIdentifier:(id)identifier
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   dependencies = [(_DASActivity *)self dependencies];
-  v6 = [dependencies countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v6 = [dependencies countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v6)
   {
-    v7 = *v15;
+    v7 = *v14;
     while (2)
     {
       for (i = 0; i != v6; i = i + 1)
       {
-        if (*v15 != v7)
+        if (*v14 != v7)
         {
           objc_enumerationMutation(dependencies);
         }
 
-        v9 = *(*(&v14 + 1) + 8 * i);
+        v9 = *(*(&v13 + 1) + 8 * i);
         identifier = [v9 identifier];
         v11 = [identifier isEqualToString:identifierCopy];
 
@@ -2849,7 +2872,7 @@ LABEL_88:
         }
       }
 
-      v6 = [dependencies countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v6 = [dependencies countByEnumeratingWithState:&v13 objects:v17 count:16];
       if (v6)
       {
         continue;
@@ -2860,8 +2883,6 @@ LABEL_88:
   }
 
 LABEL_11:
-
-  v12 = *MEMORY[0x1E69E9840];
 
   return v6;
 }
@@ -3972,41 +3993,40 @@ LABEL_71:
 
 - (unint64_t)hashArrayOfString:(id)string
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v3 = [string sortedArrayUsingSelector:sel_compare_];
   string = [MEMORY[0x1E696AD60] string];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   v5 = v3;
-  v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v14;
+    v8 = *v13;
     do
     {
       v9 = 0;
       do
       {
-        if (*v14 != v8)
+        if (*v13 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        [string appendString:{*(*(&v13 + 1) + 8 * v9++), v13}];
+        [string appendString:{*(*(&v12 + 1) + 8 * v9++), v12}];
       }
 
       while (v7 != v9);
-      v7 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v7);
   }
 
   v10 = [string hash];
-  v11 = *MEMORY[0x1E69E9840];
   return v10;
 }
 

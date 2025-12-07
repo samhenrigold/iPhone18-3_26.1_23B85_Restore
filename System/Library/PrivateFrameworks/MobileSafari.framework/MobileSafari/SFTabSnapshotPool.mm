@@ -102,7 +102,7 @@
   v10 = objc_allocWithZone(SFTabSnapshotRegistration);
   v11 = &v10[OBJC_IVAR___SFTabSnapshotRegistration_contentObserver];
   *v11 = CGRectMake;
-  *(v11 + 1) = 0;
+  v11[1] = 0;
   *&v10[OBJC_IVAR___SFTabSnapshotRegistration_wrapped] = v9;
   v14.receiver = v10;
   v14.super_class = SFTabSnapshotRegistration;

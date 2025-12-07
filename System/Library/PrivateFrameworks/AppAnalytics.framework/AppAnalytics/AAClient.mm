@@ -44,8 +44,6 @@
 
 - (NSString)fullVersion
 {
-  v5 = *(self + OBJC_IVAR___AAClient_version);
-  v6 = *(self + OBJC_IVAR___AAClient_version + 8);
   selfCopy = self;
 
   MEMORY[0x1B8C97BE0](46, 0xE100000000000000);
@@ -58,10 +56,12 @@
 
 - (AAClient)initWithIdentifier:(id)identifier name:(id)name version:(id)version build:(int64_t)build
 {
-  sub_1B6AB92E0();
-  sub_1B6AB92E0();
-  sub_1B6AB92E0();
-  return Client.init(identifier:name:version:build:)();
+  v6 = sub_1B6AB92E0();
+  v8 = v7;
+  v9 = sub_1B6AB92E0();
+  v11 = v10;
+  v12 = sub_1B6AB92E0();
+  return Client.init(identifier:name:version:build:)(v6, v8, v9, v11, v12, v13);
 }
 
 - (AAClient)init

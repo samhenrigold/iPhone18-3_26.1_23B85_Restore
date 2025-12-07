@@ -1,7 +1,6 @@
 @interface MFRequestQueue
 - (MFRequestQueue)init;
 - (uint64_t)dealloc;
-- (void)_processRequests:(id)requests consumers:(id)consumers;
 - (void)addRequest:(id)request consumer:(id)consumer;
 - (void)addRequests:(id)requests consumers:(id)consumers;
 - (void)dealloc;
@@ -27,12 +26,11 @@
 
 - (void)addRequest:(id)request consumer:(id)consumer
 {
-  v9[1] = *MEMORY[0x277D85DE8];
-  v9[0] = request;
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:1];
+  v8[1] = *MEMORY[0x277D85DE8];
+  v8[0] = request;
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:1];
   consumerCopy = consumer;
   -[MFRequestQueue addRequests:consumers:](self, "addRequests:consumers:", v6, [MEMORY[0x277CBEA60] arrayWithObjects:&consumerCopy count:1]);
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addRequests:(id)requests consumers:(id)consumers
@@ -81,13 +79,6 @@ LABEL_6:
   condition = self->_condition;
 
   [(NSConditionLock *)condition unlockWithCondition:v12];
-}
-
-- (void)_processRequests:(id)requests consumers:(id)consumers
-{
-  v5 = *MEMORY[0x277D85DE8];
-  [(MFRequestQueue *)self processRequests:requests consumers:consumers];
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)processRequests:(id)requests consumers:(id)consumers

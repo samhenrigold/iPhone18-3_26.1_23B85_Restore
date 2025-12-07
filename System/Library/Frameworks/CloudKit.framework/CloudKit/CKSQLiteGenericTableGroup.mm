@@ -35,7 +35,7 @@
 
 + (id)copyOfTableGroup:(id)group options:(unint64_t)options error:(id *)error
 {
-  v59 = *MEMORY[0x1E69E9840];
+  v58 = *MEMORY[0x1E69E9840];
   groupCopy = group;
   v11 = groupCopy;
   if (groupCopy)
@@ -55,37 +55,37 @@
     if (v27)
     {
       errorCopy = error;
-      v51 = v22;
-      v52 = v15;
-      v56 = 0u;
-      v57 = 0u;
-      v54 = 0u;
+      v50 = v22;
+      v51 = v15;
       v55 = 0u;
+      v56 = 0u;
+      v53 = 0u;
+      v54 = 0u;
       v30 = objc_msgSend_allTables(v27, v28, v29);
-      v32 = objc_msgSend_countByEnumeratingWithState_objects_count_(v30, v31, &v54, v58, 16);
+      v32 = objc_msgSend_countByEnumeratingWithState_objects_count_(v30, v31, &v53, v57, 16);
       if (v32)
       {
         v35 = v32;
-        v36 = *v55;
+        v36 = *v54;
         while (2)
         {
           for (i = 0; i != v35; ++i)
           {
-            if (*v55 != v36)
+            if (*v54 != v36)
             {
               objc_enumerationMutation(v30);
             }
 
-            v38 = *(*(&v54 + 1) + 8 * i);
+            v38 = *(*(&v53 + 1) + 8 * i);
             v39 = objc_msgSend_logicalTableName(v38, v33, v34);
             v41 = objc_msgSend_tableWithName_(v11, v40, v39);
 
-            v53[0] = MEMORY[0x1E69E9820];
-            v53[1] = 3221225472;
-            v53[2] = sub_18867BB98;
-            v53[3] = &unk_1E70C0CF8;
-            v53[4] = v38;
-            v43 = objc_msgSend_enumerateEntriesWithBlock_(v41, v42, v53);
+            v52[0] = MEMORY[0x1E69E9820];
+            v52[1] = 3221225472;
+            v52[2] = sub_18867BB98;
+            v52[3] = &unk_1E70C0CF8;
+            v52[4] = v38;
+            v43 = objc_msgSend_enumerateEntriesWithBlock_(v41, v42, v52);
 
             if (v43)
             {
@@ -103,13 +103,13 @@
                 v44 = 0;
               }
 
-              v22 = v51;
-              v15 = v52;
+              v22 = v50;
+              v15 = v51;
               goto LABEL_18;
             }
           }
 
-          v35 = objc_msgSend_countByEnumeratingWithState_objects_count_(v30, v33, &v54, v58, 16);
+          v35 = objc_msgSend_countByEnumeratingWithState_objects_count_(v30, v33, &v53, v57, 16);
           if (v35)
           {
             continue;
@@ -120,8 +120,8 @@
       }
 
       v43 = 0;
-      v22 = v51;
-      v15 = v52;
+      v22 = v50;
+      v15 = v51;
       v44 = v27;
 LABEL_18:
     }
@@ -139,13 +139,12 @@ LABEL_18:
     v44 = 0;
   }
 
-  v48 = *MEMORY[0x1E69E9840];
   return v44;
 }
 
 - (void)createTables
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   v4 = objc_msgSend_tocTable(self, a2, v2);
   v6 = *off_1EE3DEA10();
   if (v6)
@@ -158,45 +157,43 @@ LABEL_18:
     objc_msgSend_groupID(self, v5, 0);
   }
   v7 = ;
-  v26 = 0;
-  v9 = objc_msgSend_validationTocEntriesWithGroupID_error_(v4, v8, v7, &v26);
-  v10 = v26;
+  v25 = 0;
+  v9 = objc_msgSend_validationTocEntriesWithGroupID_error_(v4, v8, v7, &v25);
+  v10 = v25;
   if (!v10)
   {
-    v21 = v4;
-    v24 = 0u;
-    v25 = 0u;
-    v22 = 0u;
+    v20 = v4;
     v23 = 0u;
+    v24 = 0u;
+    v21 = 0u;
+    v22 = 0u;
     v11 = v9;
-    v13 = objc_msgSend_countByEnumeratingWithState_objects_count_(v11, v12, &v22, v27, 16);
+    v13 = objc_msgSend_countByEnumeratingWithState_objects_count_(v11, v12, &v21, v26, 16);
     if (v13)
     {
       v15 = v13;
-      v16 = *v23;
+      v16 = *v22;
       do
       {
         for (i = 0; i != v15; ++i)
         {
-          if (*v23 != v16)
+          if (*v22 != v16)
           {
             objc_enumerationMutation(v11);
           }
 
-          v18 = objc_msgSend_genericTableForTOCEntry_(CKSQLiteGenericTable, v14, *(*(&v22 + 1) + 8 * i));
+          v18 = objc_msgSend_genericTableForTOCEntry_(CKSQLiteGenericTable, v14, *(*(&v21 + 1) + 8 * i));
           objc_msgSend_addTable_(self, v19, v18);
         }
 
-        v15 = objc_msgSend_countByEnumeratingWithState_objects_count_(v11, v14, &v22, v27, 16);
+        v15 = objc_msgSend_countByEnumeratingWithState_objects_count_(v11, v14, &v21, v26, 16);
       }
 
       while (v15);
     }
 
-    v4 = v21;
+    v4 = v20;
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 @end

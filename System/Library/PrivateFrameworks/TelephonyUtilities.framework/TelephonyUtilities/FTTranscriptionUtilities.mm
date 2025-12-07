@@ -6,7 +6,7 @@
 
 + (id)parseWebVTTSampleBuffer:(opaqueCMSampleBuffer *)buffer
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v4 = objc_alloc_init(FTWebVTTTranscriptionResult);
   [(FTWebVTTTranscriptionResult *)v4 setIsEmptyCueOut:0];
   DataBuffer = CMSampleBufferGetDataBuffer(buffer);
@@ -24,7 +24,7 @@ LABEL_3:
       goto LABEL_12;
     }
 
-    if (v21 == 1668576374 && DataLength >= 0x10)
+    if (v20 == 1668576374 && DataLength >= 0x10)
     {
       v10 = *MEMORY[0x1E695E480];
       v11 = 8;
@@ -38,21 +38,21 @@ LABEL_3:
         }
 
         v13 = bswap32(destination);
-        if (v21 == 1819894128)
+        if (v20 == 1819894128)
         {
-          v17 = v13 - 8;
-          v18 = malloc_type_malloc(v13 - 8, 0xE9644A2BuLL);
-          v8 = CMBlockBufferCopyDataBytes(v6, v12, v17, v18);
+          v16 = v13 - 8;
+          v17 = malloc_type_malloc(v13 - 8, 0xE9644A2BuLL);
+          v8 = CMBlockBufferCopyDataBytes(v6, v12, v16, v17);
           if (v8)
           {
             goto LABEL_3;
           }
 
-          v19 = CFStringCreateWithBytes(v10, v18, v17, 0x8000100u, 0);
-          [(FTWebVTTTranscriptionResult *)v4 setText:v19];
-          if (v19)
+          v18 = CFStringCreateWithBytes(v10, v17, v16, 0x8000100u, 0);
+          [(FTWebVTTTranscriptionResult *)v4 setText:v18];
+          if (v18)
           {
-            CFRelease(v19);
+            CFRelease(v18);
           }
 
           v14 = 0;
@@ -73,7 +73,6 @@ LABEL_11:
   }
 
 LABEL_12:
-  v15 = *MEMORY[0x1E69E9840];
 
   return v4;
 }

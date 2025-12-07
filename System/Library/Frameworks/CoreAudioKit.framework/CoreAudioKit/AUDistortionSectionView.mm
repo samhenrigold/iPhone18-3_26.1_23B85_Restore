@@ -30,7 +30,7 @@
   v8 = &v10 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_2371962FC();
   selfCopy = self;
-  sub_23718FCD4();
+  sub_23718FCD4(v8);
 
   (*(v5 + 8))(v8, v4);
 }

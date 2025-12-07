@@ -35,19 +35,17 @@
 - (BOOL)isManagedAppleID
 {
   v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27D013A90, &unk_222741DC0);
-  v4 = *(*(v3 - 8) + 64);
   MEMORY[0x28223BE20](v3 - 8);
-  v6 = &v13[-v5];
-  v7 = *&self->accounts[OBJC_IVAR____TtC27AppStoreComponentsDaemonKit12JSUserObject_accounts + 24];
+  v5 = &v11[-v4];
   __swift_project_boxed_opaque_existential_1((&self->super.isa + OBJC_IVAR____TtC27AppStoreComponentsDaemonKit12JSUserObject_accounts), *&self->accounts[OBJC_IVAR____TtC27AppStoreComponentsDaemonKit12JSUserObject_accounts + 16]);
   selfCopy = self;
   sub_2227384EC();
-  v9 = sub_222738CFC();
-  v10 = *(v9 - 8);
-  if ((*(v10 + 48))(v6, 1, v9) == 1)
+  v7 = sub_222738CFC();
+  v8 = *(v7 - 8);
+  if ((*(v8 + 48))(v5, 1, v7) == 1)
   {
 
-    sub_222660468(v6, &unk_27D013A90, &unk_222741DC0);
+    sub_222660468(v5, &unk_27D013A90, &unk_222741DC0);
     return 0;
   }
 
@@ -56,11 +54,11 @@
     swift_getKeyPath();
     sub_222738CBC();
 
-    v11 = v13[15];
-    (*(v10 + 8))(v6, v9);
+    v9 = v11[15];
+    (*(v8 + 8))(v5, v7);
   }
 
-  return v11;
+  return v9;
 }
 
 - (BOOL)isUnderThirteen
@@ -81,22 +79,23 @@
 
 - (id)cookiesForUrl:(id)url
 {
-  sub_22273919C();
+  v4 = sub_22273919C();
+  v6 = v5;
   selfCopy = self;
-  v5 = sub_2226C2FE0();
+  v8 = sub_2226C2FE0(v4, v6);
 
-  if (v5)
+  if (v8)
   {
     sub_22262E364(0, &qword_27D013BA8, 0x277CD4658);
-    v6 = sub_22273936C();
+    v9 = sub_22273936C();
   }
 
   else
   {
-    v6 = 0;
+    v9 = 0;
   }
 
-  return v6;
+  return v9;
 }
 
 - (id)cookieForUrlWithName:(id)name :(id)a4

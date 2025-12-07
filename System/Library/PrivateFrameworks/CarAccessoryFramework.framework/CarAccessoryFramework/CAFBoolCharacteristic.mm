@@ -2,6 +2,7 @@
 + (void)load;
 - (BOOL)BOOLValue;
 - (id)formattedValue;
+- (void)setBoolValue:(BOOL)value;
 @end
 
 @implementation CAFBoolCharacteristic
@@ -29,6 +30,12 @@
 
   bOOLValue = [v4 BOOLValue];
   return bOOLValue;
+}
+
+- (void)setBoolValue:(BOOL)value
+{
+  v4 = [MEMORY[0x277CCABB0] numberWithBool:value];
+  [(CAFCharacteristic *)self setValue:v4];
 }
 
 - (id)formattedValue

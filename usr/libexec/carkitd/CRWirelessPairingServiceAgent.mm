@@ -6,6 +6,9 @@
 - (CRHeadUnitPairingPresenting)presenter;
 - (CRHeadUnitPairingPromptServiceSession)currentPromptSession;
 - (CRWirelessPairingServiceAgent)initWithBluetoothManager:(id)manager preferences:(id)preferences vehicleStore:(id)store;
+- (void)_didCompletePairingFlow:(BOOL)flow error:(id)error;
+- (void)handleHeadUnitPairingPromptSession:(id)session receivedResponse:(BOOL)response;
+- (void)headUnitPairingPresenter:(id)presenter didReceiveUserConfirmation:(BOOL)confirmation forBluetoothAddress:(id)address;
 - (void)pairingServiceSession:(id)session didFailPairingAttemptWithError:(id)error;
 - (void)pairingServiceSessionDidFinishPairing:(id)pairing;
 - (void)presentHeadUnitPairingForPromptSession:(id)session;
@@ -319,6 +322,120 @@ LABEL_14:
   {
 
     [(CRWirelessPairingServiceAgent *)self _didCompletePairingFlow:0 error:0];
+  }
+}
+
+- (void)handleHeadUnitPairingPromptSession:(id)session receivedResponse:(BOOL)response
+{
+  responseCopy = response;
+  if ([(CRWirelessPairingServiceAgent *)self shouldPresentHeadUnitPairingPromptSession:session])
+  {
+    bluetoothAddress = CarPairingLogging();
+    v7 = os_log_type_enabled(bluetoothAddress, OS_LOG_TYPE_DEFAULT);
+    if (responseCopy)
+    {
+      if (v7)
+      {
+        LOWORD(v16) = 0;
+        _os_log_impl(&_mh_execute_header, bluetoothAddress, OS_LOG_TYPE_DEFAULT, "accepted head unit pairing", &v16, 2u);
+      }
+
+      currentPairingSession = [(CRWirelessPairingServiceAgent *)self currentPairingSession];
+      bluetoothAddress = [currentPairingSession bluetoothAddress];
+
+      v9 = [CRBluetoothManager addressStringForData:bluetoothAddress];
+      v10 = objc_alloc_init(CRVehicle);
+      [v10 setVehicleName:v9];
+      [v10 setBluetoothAddress:v9];
+      [v10 setPairingStatus:2];
+      vehicleStore = [(CRWirelessPairingServiceAgent *)self vehicleStore];
+      v12 = [vehicleStore saveVehicle:v10];
+
+      v13 = CarPairingLogging();
+      v14 = v13;
+      if (v12)
+      {
+        if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+        {
+          v16 = 138412290;
+          v17 = v12;
+          _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "saved vehicle for head unit pairing: %@", &v16, 0xCu);
+        }
+      }
+
+      else if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+      {
+        sub_100083B34(v14);
+      }
+    }
+
+    else if (v7)
+    {
+      LOWORD(v16) = 0;
+      _os_log_impl(&_mh_execute_header, bluetoothAddress, OS_LOG_TYPE_DEFAULT, "declined head unit pairing", &v16, 2u);
+    }
+
+    currentPairingSession2 = [(CRWirelessPairingServiceAgent *)self currentPairingSession];
+    [currentPairingSession2 handlePairingPromptResponse:responseCopy];
+  }
+}
+
+- (void)headUnitPairingPresenter:(id)presenter didReceiveUserConfirmation:(BOOL)confirmation forBluetoothAddress:(id)address
+{
+  confirmationCopy = confirmation;
+  addressCopy = address;
+  v8 = CarPairingLogging();
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  {
+    v9 = @"NO";
+    if (confirmationCopy)
+    {
+      v9 = @"YES";
+    }
+
+    v16 = 138412290;
+    v17 = v9;
+    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "current pairing session approval: %@", &v16, 0xCu);
+  }
+
+  currentPairingSession = [(CRWirelessPairingServiceAgent *)self currentPairingSession];
+  bluetoothAddress = [currentPairingSession bluetoothAddress];
+
+  v12 = [CRBluetoothManager addressStringForData:bluetoothAddress];
+  v13 = v12;
+  if (v12 && ([v12 isEqual:addressCopy] & 1) != 0)
+  {
+    currentPairingSession2 = [(CRWirelessPairingServiceAgent *)self currentPairingSession];
+    [currentPairingSession2 handlePairingPromptResponse:confirmationCopy];
+  }
+
+  else
+  {
+    v15 = CarPairingLogging();
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    {
+      sub_100083BB0();
+    }
+
+    [(CRWirelessPairingServiceAgent *)self _didCompletePairingFlow:0 error:0];
+  }
+}
+
+- (void)_didCompletePairingFlow:(BOOL)flow error:(id)error
+{
+  flowCopy = flow;
+  errorCopy = error;
+  currentPromptSession = [(CRWirelessPairingServiceAgent *)self currentPromptSession];
+  v7 = currentPromptSession;
+  if (currentPromptSession)
+  {
+    pairingPromptCompletion = [currentPromptSession pairingPromptCompletion];
+    v9 = pairingPromptCompletion;
+    if (pairingPromptCompletion)
+    {
+      (*(pairingPromptCompletion + 16))(pairingPromptCompletion, flowCopy, errorCopy);
+      [v7 setPairingPromptCompletion:0];
+    }
   }
 }
 

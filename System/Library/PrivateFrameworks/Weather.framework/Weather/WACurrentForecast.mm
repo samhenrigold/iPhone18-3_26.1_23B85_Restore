@@ -100,70 +100,7 @@
     temperature2 = [(WACurrentForecast *)v7 temperature];
     IsEqual = WAObjectIsEqual(temperature, temperature2);
 
-    if (!IsEqual)
-    {
-      goto LABEL_19;
-    }
-
-    feelsLike = [(WACurrentForecast *)self feelsLike];
-    feelsLike2 = [(WACurrentForecast *)v7 feelsLike];
-    v13 = WAObjectIsEqual(feelsLike, feelsLike2);
-
-    if (!v13)
-    {
-      goto LABEL_19;
-    }
-
-    [(WACurrentForecast *)self windSpeed];
-    v15 = v14;
-    [(WACurrentForecast *)v7 windSpeed];
-    if (!WAFloatIsEqual(v15, v16))
-    {
-      goto LABEL_19;
-    }
-
-    [(WACurrentForecast *)self windDirection];
-    v18 = v17;
-    [(WACurrentForecast *)v7 windDirection];
-    if (!WAFloatIsEqual(v18, v19))
-    {
-      goto LABEL_19;
-    }
-
-    [(WACurrentForecast *)self humidity];
-    v21 = v20;
-    [(WACurrentForecast *)v7 humidity];
-    if (!WAFloatIsEqual(v21, v22))
-    {
-      goto LABEL_19;
-    }
-
-    [(WACurrentForecast *)self dewPoint];
-    v24 = v23;
-    [(WACurrentForecast *)v7 dewPoint];
-    if (!WAFloatIsEqual(v24, v25))
-    {
-      goto LABEL_19;
-    }
-
-    [(WACurrentForecast *)self visibility];
-    v27 = v26;
-    [(WACurrentForecast *)v7 visibility];
-    if (!WAFloatIsEqual(v27, v28))
-    {
-      goto LABEL_19;
-    }
-
-    [(WACurrentForecast *)self pressure];
-    v30 = v29;
-    [(WACurrentForecast *)v7 pressure];
-    if (!WAFloatIsEqual(v30, v31))
-    {
-      goto LABEL_19;
-    }
-
-    pressureRising = [(WACurrentForecast *)self pressureRising];
-    if (pressureRising == [(WACurrentForecast *)v7 pressureRising]&& (v33 = [(WACurrentForecast *)self UVIndex], v33 == [(WACurrentForecast *)v7 UVIndex]) && ([(WACurrentForecast *)self precipitationPast24Hours], v35 = v34, [(WACurrentForecast *)v7 precipitationPast24Hours], WAFloatIsEqual(v35, v36)) && (v37 = [(WACurrentForecast *)self conditionCode], v37 == [(WACurrentForecast *)v7 conditionCode]) && (v38 = [(WACurrentForecast *)self observationTime], v38 == [(WACurrentForecast *)v7 observationTime]))
+    if (IsEqual && ([(WACurrentForecast *)self feelsLike], v11 = objc_claimAutoreleasedReturnValue(), [(WACurrentForecast *)v7 feelsLike], v12 = objc_claimAutoreleasedReturnValue(), v13 = WAObjectIsEqual(v11, v12), v12, v11, v13) && ([(WACurrentForecast *)self windSpeed], v15 = v14, [(WACurrentForecast *)v7 windSpeed], WAFloatIsEqual(v15, v16)) && ([(WACurrentForecast *)self windDirection], v18 = v17, [(WACurrentForecast *)v7 windDirection], WAFloatIsEqual(v18, v19)) && ([(WACurrentForecast *)self humidity], v21 = v20, [(WACurrentForecast *)v7 humidity], WAFloatIsEqual(v21, v22)) && ([(WACurrentForecast *)self dewPoint], v24 = v23, [(WACurrentForecast *)v7 dewPoint], WAFloatIsEqual(v24, v25)) && ([(WACurrentForecast *)self visibility], v27 = v26, [(WACurrentForecast *)v7 visibility], WAFloatIsEqual(v27, v28)) && ([(WACurrentForecast *)self pressure], v30 = v29, [(WACurrentForecast *)v7 pressure], WAFloatIsEqual(v30, v31)) && (v32 = [(WACurrentForecast *)self pressureRising], v32 == [(WACurrentForecast *)v7 pressureRising]) && (v33 = [(WACurrentForecast *)self UVIndex], v33 == [(WACurrentForecast *)v7 UVIndex]) && ([(WACurrentForecast *)self precipitationPast24Hours], v35 = v34, [(WACurrentForecast *)v7 precipitationPast24Hours], WAFloatIsEqual(v35, v36)) && (v37 = [(WACurrentForecast *)self conditionCode], v37 == [(WACurrentForecast *)v7 conditionCode]) && (v38 = [(WACurrentForecast *)self observationTime], v38 == [(WACurrentForecast *)v7 observationTime]))
     {
       providerName = [(WACurrentForecast *)self providerName];
       providerName2 = [(WACurrentForecast *)v7 providerName];
@@ -172,7 +109,6 @@
 
     else
     {
-LABEL_19:
       v41 = 0;
     }
   }

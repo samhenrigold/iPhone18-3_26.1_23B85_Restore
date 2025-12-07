@@ -164,7 +164,7 @@
         return 1;
       }
 
-      if ([v7 isEqualToString:*(v4 + 64)])
+      if (objc_msgSend_isEqualToString_(v7))
       {
         if (buffer)
         {
@@ -232,7 +232,7 @@ LABEL_45:
 LABEL_44:
     fig_log_get_emitter();
     OUTLINED_FUNCTION_0_5();
-    FigDebugAssert3();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)");
     goto LABEL_45;
   }
 

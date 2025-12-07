@@ -168,7 +168,7 @@ LABEL_10:
     goto LABEL_28;
   }
 
-  handCopy = _PTLogSystem();
+  handCopy = _PTLogSystem(rightHandCopy);
   if (os_log_type_enabled(handCopy, OS_LOG_TYPE_ERROR))
   {
     [PTPersonWithReactions updateWithLeftHand:handCopy rightHand:? timeStamp:?];
@@ -188,7 +188,7 @@ LABEL_28:
 
 - (void)_updateReactionSlot:(id)slot withOneHand:(id)hand optionalOtherHand:(id)otherHand timeStamp:(id *)stamp
 {
-  v71 = *MEMORY[0x277D85DE8];
+  v73 = *MEMORY[0x277D85DE8];
   slotCopy = slot;
   handCopy = hand;
   otherHandCopy = otherHand;
@@ -196,9 +196,9 @@ LABEL_28:
   latestGestureType = [(PTPersonReactionSlot *)slotCopy latestGestureType];
   activeGestureType = [(PTPersonReactionSlot *)slotCopy activeGestureType];
   [handCopy boundingBox];
-  MidX = CGRectGetMidX(v72);
+  MidX = CGRectGetMidX(v74);
   [handCopy boundingBox];
-  MidY = CGRectGetMidY(v73);
+  MidY = CGRectGetMidY(v75);
   v17.f64[0] = MidX;
   v17.f64[1] = MidY;
   v18 = vcvt_f32_f64(v17);
@@ -239,9 +239,9 @@ LABEL_28:
 
       confidence = [handCopy confidence];
       [confidence floatValue];
-      v38 = v37;
+      v39 = v38;
 
-      if (v38 >= v25)
+      if (v39 >= v25)
       {
         type = type;
       }
@@ -257,19 +257,19 @@ LABEL_28:
     {
       if (slotCopy)
       {
-        [(PTPersonReactionSlot *)slotCopy latestGestureFirstSeenTime];
-        if ((v68 & 0x100000000) != 0)
+        objc_msgSend_latestGestureFirstSeenTime(slotCopy);
+        if ((v70 & 0x100000000) != 0)
         {
-          [(PTPersonReactionSlot *)slotCopy latestGestureFirstSeenTime];
-          v66 = *stamp;
-          DurationMilliseconds = GetDurationMilliseconds(time, &v66);
+          objc_msgSend_latestGestureFirstSeenTime(slotCopy);
+          v68 = *stamp;
+          DurationMilliseconds = GetDurationMilliseconds(time, &v68);
           [(PTPersonReactionSlot *)slotCopy milliSecondsToStart];
-          v41 = v40;
+          v42 = v41;
           if (!otherHandCopy)
           {
             if (self->_bothHandsDetected && (latestGestureType - 1 < 4 || latestGestureType == 6))
             {
-              v41 = v40 + v40;
+              v42 = v41 + v41;
             }
 
             if (latestGestureType == self->_lastTwoHandReactionType)
@@ -278,60 +278,59 @@ LABEL_28:
               {
                 *time = *&self->_lastTwoHandReactionEndTime.value;
                 *&time[16] = self->_lastTwoHandReactionEndTime.epoch;
-                v66 = *stamp;
-                v42 = GetDurationMilliseconds(time, &v66);
+                v68 = *stamp;
+                v43 = GetDurationMilliseconds(time, &v68);
               }
 
               else
               {
-                v42 = 2000.0;
+                v43 = 2000.0;
               }
 
-              v41 = v41 + fmaxf(2000.0 - v42, 0.0);
+              v42 = v42 + fmaxf(2000.0 - v43, 0.0);
             }
           }
 
-          v43 = v41 + 400.0;
+          v44 = v42 + 400.0;
           if (latestGestureType != 1)
           {
-            v43 = v41;
+            v44 = v42;
           }
 
-          if (DurationMilliseconds <= v43)
+          if (DurationMilliseconds <= v44)
           {
             goto LABEL_49;
           }
 
           [(PTPersonReactionSlot *)slotCopy setActiveGestureType:[(PTPersonReactionSlot *)slotCopy latestGestureType]];
-          [(PTPersonReactionSlot *)slotCopy latestGestureFirstSeenTime];
-          *time = v64;
-          *&time[16] = v65;
+          objc_msgSend_latestGestureFirstSeenTime(slotCopy);
+          *time = v66;
+          *&time[16] = v67;
           [(PTPersonReactionSlot *)slotCopy setActiveGestureLastSeenTime:time];
-          v44 = [(PTPersonReactionSlot *)slotCopy activeGestureType]- 1;
+          v45 = [(PTPersonReactionSlot *)slotCopy activeGestureType]- 1;
           if (otherHandCopy)
           {
-            if (v44 > 5 || ((0x2Fu >> v44) & 1) == 0)
+            if (v45 > 5 || ((0x2Fu >> v45) & 1) == 0)
             {
               goto LABEL_49;
             }
 
-            v45 = [(PTPersonWithReactions *)self createReactionWithType:qword_2244A5590[v44]];
-            [(PTPersonReactionSlot *)slotCopy setReaction:v45];
+            v46 = [(PTPersonWithReactions *)self createReactionWithType:qword_2244A5590[v45]];
+            [(PTPersonReactionSlot *)slotCopy setReaction:v46];
 
             [otherHandCopy boundingBox];
-            v63 = CGRectGetMidX(v76);
+            v65 = CGRectGetMidX(v78);
             [otherHandCopy boundingBox];
-            v46 = CGRectGetMidY(v77);
-            v47.f64[0] = v63;
-            v47.f64[1] = v46;
-            v48 = COERCE_DOUBLE(vmul_f32(vadd_f32(v18, vcvt_f32_f64(v47)), 0x3F0000003F000000));
+            v47 = CGRectGetMidY(v79);
+            v48.f64[0] = v65;
+            v48.f64[1] = v47;
+            v49 = COERCE_DOUBLE(vmul_f32(vadd_f32(v18, vcvt_f32_f64(v48)), 0x3F0000003F000000));
             reaction = [(PTPersonReactionSlot *)slotCopy reaction];
-            [reaction setPosition:v48];
+            [reaction setPosition:v49];
 
             [(PTPersonReactionSlot *)self->_leftHandSlot setReaction:0];
-            [(PTPersonReactionSlot *)self->_rightHandSlot setReaction:0];
-            v50 = _PTLogSystem();
-            if (os_log_type_enabled(v50, OS_LOG_TYPE_DEFAULT))
+            v51 = _PTLogSystem([(PTPersonReactionSlot *)self->_rightHandSlot setReaction:0]);
+            if (os_log_type_enabled(v51, OS_LOG_TYPE_DEFAULT))
             {
 LABEL_63:
               reaction2 = [(PTPersonReactionSlot *)slotCopy reaction];
@@ -346,18 +345,18 @@ LABEL_63:
               *&time[14] = intValue;
               *&time[18] = 2048;
               *&time[20] = Seconds;
-              _os_log_impl(&dword_2243FB000, v50, OS_LOG_TYPE_DEFAULT, "ReactionProvider: Created Reaction with (type: %@) (personID: %i) (time: %.2f)", time, 0x1Cu);
+              _os_log_impl(&dword_2243FB000, v51, OS_LOG_TYPE_DEFAULT, "ReactionProvider: Created Reaction with (type: %@) (personID: %i) (time: %.2f)", time, 0x1Cu);
             }
           }
 
           else
           {
-            if (v44 > 2)
+            if (v45 > 2)
             {
               goto LABEL_49;
             }
 
-            v51 = qword_2244A55C0[v44];
+            v52 = qword_2244A55C0[v45];
             reaction3 = [(PTPersonReactionSlot *)self->_bothHandsSlot reaction];
 
             if (reaction3)
@@ -365,18 +364,18 @@ LABEL_63:
               goto LABEL_49;
             }
 
-            v53 = [(PTPersonWithReactions *)self createReactionWithType:v51];
-            [(PTPersonReactionSlot *)slotCopy setReaction:v53];
+            v54 = [(PTPersonWithReactions *)self createReactionWithType:v52];
+            [(PTPersonReactionSlot *)slotCopy setReaction:v54];
 
             reaction4 = [(PTPersonReactionSlot *)slotCopy reaction];
             [reaction4 setPosition:*&v18];
 
-            v55 = [handCopy handChirality] != 1;
+            v56 = [handCopy handChirality] != 1;
             reaction5 = [(PTPersonReactionSlot *)slotCopy reaction];
-            [reaction5 setOrientation:v55];
+            [reaction5 setOrientation:v56];
 
-            v50 = _PTLogSystem();
-            if (os_log_type_enabled(v50, OS_LOG_TYPE_DEFAULT))
+            v51 = _PTLogSystem(v58);
+            if (os_log_type_enabled(v51, OS_LOG_TYPE_DEFAULT))
             {
               goto LABEL_63;
             }
@@ -388,9 +387,9 @@ LABEL_63:
 
       else
       {
-        v67 = 0;
-        v68 = 0;
         v69 = 0;
+        v70 = 0;
+        v71 = 0;
       }
     }
 
@@ -416,10 +415,10 @@ LABEL_63:
     if (activeGestureType == v19)
     {
       [otherHandCopy boundingBox];
-      v62 = CGRectGetMidX(v74);
+      v64 = CGRectGetMidX(v76);
       [otherHandCopy boundingBox];
-      v20 = CGRectGetMidY(v75);
-      v21.f64[0] = v62;
+      v20 = CGRectGetMidY(v77);
+      v21.f64[0] = v64;
       v21.f64[1] = v20;
       v18 = vmul_f32(vadd_f32(v18, vcvt_f32_f64(v21)), 0x3F0000003F000000);
 LABEL_19:
@@ -456,7 +455,7 @@ LABEL_19:
 
   if (slotCopy)
   {
-    [(PTPersonReactionSlot *)slotCopy activeGestureLastSeenTime];
+    objc_msgSend_activeGestureLastSeenTime(slotCopy);
   }
 
   else
@@ -464,8 +463,8 @@ LABEL_19:
     memset(time, 0, 24);
   }
 
-  v66 = *stamp;
-  v27 = GetDurationMilliseconds(time, &v66);
+  v68 = *stamp;
+  v27 = GetDurationMilliseconds(time, &v68);
   [(PTPersonReactionSlot *)slotCopy milliSecondsToStop];
   if (v27 > v28)
   {
@@ -473,22 +472,22 @@ LABEL_19:
 
     if (reaction7)
     {
-      v30 = _PTLogSystem();
-      if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
+      v31 = _PTLogSystem(v30);
+      if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
       {
         reaction8 = [(PTPersonReactionSlot *)slotCopy reaction];
         emoji2 = [reaction8 emoji];
         intValue2 = [(NSNumber *)self->_identifier intValue];
         *time = *&stamp->var0;
         *&time[16] = stamp->var3;
-        v34 = CMTimeGetSeconds(time);
+        v35 = CMTimeGetSeconds(time);
         *time = 138412802;
         *&time[4] = emoji2;
         *&time[12] = 1024;
         *&time[14] = intValue2;
         *&time[18] = 2048;
-        *&time[20] = v34;
-        _os_log_impl(&dword_2243FB000, v30, OS_LOG_TYPE_DEFAULT, "ReactionProvider: Ended Reaction with (type: %@) (personID: %i) (time: %.2f)", time, 0x1Cu);
+        *&time[20] = v35;
+        _os_log_impl(&dword_2243FB000, v31, OS_LOG_TYPE_DEFAULT, "ReactionProvider: Ended Reaction with (type: %@) (personID: %i) (time: %.2f)", time, 0x1Cu);
       }
 
       [(PTPersonReactionSlot *)slotCopy setReaction:0];
@@ -497,9 +496,9 @@ LABEL_19:
     [(PTPersonWithReactions *)self _stopActiveGestureOnSlot:slotCopy];
     if (self->_bothHandsSlot == slotCopy)
     {
-      v35 = *&stamp->var0;
+      v36 = *&stamp->var0;
       self->_lastTwoHandReactionEndTime.epoch = stamp->var3;
-      *&self->_lastTwoHandReactionEndTime.value = v35;
+      *&self->_lastTwoHandReactionEndTime.value = v36;
       self->_lastTwoHandReactionType = [(PTPersonReactionSlot *)self->_leftHandSlot activeGestureType];
       [(PTPersonWithReactions *)self _stopActiveGestureOnSlot:self->_leftHandSlot];
       [(PTPersonWithReactions *)self _stopActiveGestureOnSlot:self->_rightHandSlot];

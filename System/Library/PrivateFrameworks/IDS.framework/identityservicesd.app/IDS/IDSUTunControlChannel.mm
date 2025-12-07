@@ -951,19 +951,19 @@ LABEL_21:
     objc_storeStrong(&self->_connection, connection);
     if (self->_shouldUseServiceConnector)
     {
-      v11 = sub_1004495E0();
-      options = nw_framer_create_options(v11);
+      v12 = sub_1004495E0(v11);
+      options = nw_framer_create_options(v12);
 
       *buf = 0;
-      v27 = buf;
-      v28 = 0x2020000000;
-      v29 = 0;
-      v20 = _NSConcreteStackBlock;
-      v21 = 3221225472;
-      v22 = sub_10044BDC8;
-      v23 = &unk_100BDC778;
-      v25 = buf;
-      v24 = options;
+      v28 = buf;
+      v29 = 0x2020000000;
+      v30 = 0;
+      v21 = _NSConcreteStackBlock;
+      v22 = 3221225472;
+      v23 = sub_10044BDC8;
+      v24 = &unk_100BDC778;
+      v26 = buf;
+      v25 = options;
       nw_connection_modify_connected_protocol_stack();
 
       _Block_object_dispose(buf, 8);
@@ -985,17 +985,17 @@ LABEL_21:
 
     Current = CFAbsoluteTimeGetCurrent();
     nw_connection_set_queue(connectionCopy, self->_connectionQueue);
-    v15[0] = _NSConcreteStackBlock;
-    v15[1] = 3221225472;
-    v15[2] = sub_10044BEF4;
-    v15[3] = &unk_100BDC7C8;
-    v14 = connectionCopy;
-    v16 = v14;
+    v16[0] = _NSConcreteStackBlock;
+    v16[1] = 3221225472;
+    v16[2] = sub_10044BEF4;
+    v16[3] = &unk_100BDC7C8;
+    v15 = connectionCopy;
+    v17 = v15;
     selfCopy = self;
-    v19 = Current;
-    v18 = messageCopy;
-    nw_connection_set_state_changed_handler(v14, v15);
-    nw_connection_start(v14);
+    v20 = Current;
+    v19 = messageCopy;
+    nw_connection_set_state_changed_handler(v15, v16);
+    nw_connection_start(v15);
   }
 
   else

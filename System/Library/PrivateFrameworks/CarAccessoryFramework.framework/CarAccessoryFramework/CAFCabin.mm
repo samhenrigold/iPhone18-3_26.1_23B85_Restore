@@ -26,7 +26,12 @@
 - (CAFBoolCharacteristic)hvacOnCharacteristic;
 - (CAFBoolCharacteristic)maxACOnCharacteristic;
 - (CAFBoolCharacteristic)maxDefrostOnCharacteristic;
+- (void)_characteristicDidUpdate:(id)update fromGroupUpdate:(BOOL)groupUpdate;
 - (void)registerObserver:(id)observer;
+- (void)setCompressorOn:(BOOL)on;
+- (void)setHvacOn:(BOOL)on;
+- (void)setMaxACOn:(BOOL)on;
+- (void)setMaxDefrostOn:(BOOL)on;
 - (void)unregisterObserver:(id)observer;
 @end
 
@@ -109,6 +114,13 @@
   return bOOLValue;
 }
 
+- (void)setMaxACOn:(BOOL)on
+{
+  onCopy = on;
+  maxACOnCharacteristic = [(CAFCabin *)self maxACOnCharacteristic];
+  [maxACOnCharacteristic setBoolValue:onCopy];
+}
+
 - (BOOL)hasMaxACOn
 {
   maxACOnCharacteristic = [(CAFCabin *)self maxACOnCharacteristic];
@@ -173,6 +185,13 @@
   bOOLValue = [maxDefrostOnCharacteristic BOOLValue];
 
   return bOOLValue;
+}
+
+- (void)setMaxDefrostOn:(BOOL)on
+{
+  onCopy = on;
+  maxDefrostOnCharacteristic = [(CAFCabin *)self maxDefrostOnCharacteristic];
+  [maxDefrostOnCharacteristic setBoolValue:onCopy];
 }
 
 - (BOOL)hasMaxDefrostOn
@@ -241,6 +260,13 @@
   return bOOLValue;
 }
 
+- (void)setHvacOn:(BOOL)on
+{
+  onCopy = on;
+  hvacOnCharacteristic = [(CAFCabin *)self hvacOnCharacteristic];
+  [hvacOnCharacteristic setBoolValue:onCopy];
+}
+
 - (BOOL)hasHvacOn
 {
   hvacOnCharacteristic = [(CAFCabin *)self hvacOnCharacteristic];
@@ -291,6 +317,13 @@
   return bOOLValue;
 }
 
+- (void)setCompressorOn:(BOOL)on
+{
+  onCopy = on;
+  compressorOnCharacteristic = [(CAFCabin *)self compressorOnCharacteristic];
+  [compressorOnCharacteristic setBoolValue:onCopy];
+}
+
 - (BOOL)hasCompressorOn
 {
   compressorOnCharacteristic = [(CAFCabin *)self compressorOnCharacteristic];
@@ -321,6 +354,96 @@
   isRestricted = [compressorOnCharacteristic isRestricted];
 
   return isRestricted;
+}
+
+- (void)_characteristicDidUpdate:(id)update fromGroupUpdate:(BOOL)groupUpdate
+{
+  groupUpdateCopy = groupUpdate;
+  updateCopy = update;
+  characteristicType = [updateCopy characteristicType];
+  if ([characteristicType isEqual:@"0x0000000031000022"])
+  {
+    uniqueIdentifier = [updateCopy uniqueIdentifier];
+    maxACOnCharacteristic = [(CAFCabin *)self maxACOnCharacteristic];
+    uniqueIdentifier2 = [maxACOnCharacteristic uniqueIdentifier];
+    v11 = [uniqueIdentifier isEqual:uniqueIdentifier2];
+
+    if (v11)
+    {
+      observers = [(CAFService *)self observers];
+      [observers cabinService:self didUpdateMaxACOn:{-[CAFCabin maxACOn](self, "maxACOn")}];
+LABEL_16:
+
+      goto LABEL_17;
+    }
+  }
+
+  else
+  {
+  }
+
+  characteristicType2 = [updateCopy characteristicType];
+  if ([characteristicType2 isEqual:@"0x0000000031000029"])
+  {
+    uniqueIdentifier3 = [updateCopy uniqueIdentifier];
+    maxDefrostOnCharacteristic = [(CAFCabin *)self maxDefrostOnCharacteristic];
+    uniqueIdentifier4 = [maxDefrostOnCharacteristic uniqueIdentifier];
+    v17 = [uniqueIdentifier3 isEqual:uniqueIdentifier4];
+
+    if (v17)
+    {
+      observers = [(CAFService *)self observers];
+      [observers cabinService:self didUpdateMaxDefrostOn:{-[CAFCabin maxDefrostOn](self, "maxDefrostOn")}];
+      goto LABEL_16;
+    }
+  }
+
+  else
+  {
+  }
+
+  characteristicType3 = [updateCopy characteristicType];
+  if ([characteristicType3 isEqual:@"0x0000000031000002"])
+  {
+    uniqueIdentifier5 = [updateCopy uniqueIdentifier];
+    hvacOnCharacteristic = [(CAFCabin *)self hvacOnCharacteristic];
+    uniqueIdentifier6 = [hvacOnCharacteristic uniqueIdentifier];
+    v22 = [uniqueIdentifier5 isEqual:uniqueIdentifier6];
+
+    if (v22)
+    {
+      observers = [(CAFService *)self observers];
+      [observers cabinService:self didUpdateHvacOn:{-[CAFCabin hvacOn](self, "hvacOn")}];
+      goto LABEL_16;
+    }
+  }
+
+  else
+  {
+  }
+
+  observers = [updateCopy characteristicType];
+  if (![observers isEqual:@"0x0000000031000003"])
+  {
+    goto LABEL_16;
+  }
+
+  uniqueIdentifier7 = [updateCopy uniqueIdentifier];
+  compressorOnCharacteristic = [(CAFCabin *)self compressorOnCharacteristic];
+  uniqueIdentifier8 = [compressorOnCharacteristic uniqueIdentifier];
+  v26 = [uniqueIdentifier7 isEqual:uniqueIdentifier8];
+
+  if (v26)
+  {
+    observers = [(CAFService *)self observers];
+    [observers cabinService:self didUpdateCompressorOn:{-[CAFCabin compressorOn](self, "compressorOn")}];
+    goto LABEL_16;
+  }
+
+LABEL_17:
+  v27.receiver = self;
+  v27.super_class = CAFCabin;
+  [(CAFService *)&v27 _characteristicDidUpdate:updateCopy fromGroupUpdate:groupUpdateCopy];
 }
 
 - (BOOL)registeredForMaxACOn

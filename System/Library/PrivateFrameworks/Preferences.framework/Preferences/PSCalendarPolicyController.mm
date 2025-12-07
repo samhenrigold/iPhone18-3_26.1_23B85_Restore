@@ -84,13 +84,13 @@ void __60__PSCalendarPolicyController_appSpecifierWithName_bundleID___block_invo
 - (id)calendarStatus:(id)status
 {
   v3 = [status propertyForKey:@"BUNDLE_ID"];
-  v11 = 0;
   v12 = 0;
-  v10 = 0;
-  PSCalendarAuthorizationStates(&v12, &v11, &v10);
-  v4 = v12;
-  v5 = v11;
-  v6 = v10;
+  v13 = 0;
+  v11 = 0;
+  PSCalendarAuthorizationStates(&v13, &v12, &v11);
+  v4 = v13;
+  v5 = v12;
+  v6 = v11;
   if ([v4 containsObject:v3])
   {
     v7 = &unk_1EFE659D0;
@@ -103,12 +103,13 @@ void __60__PSCalendarPolicyController_appSpecifierWithName_bundleID___block_invo
 
   else
   {
-    if (([v6 containsObject:v3] & 1) == 0)
+    v8 = [v6 containsObject:v3];
+    if ((v8 & 1) == 0)
     {
-      v8 = _PSLoggingFacility();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+      v9 = _PSLoggingFacility(v8);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
-        [(PSCalendarPolicyController *)v3 calendarStatus:v8];
+        [(PSCalendarPolicyController *)v3 calendarStatus:v9];
       }
     }
 
@@ -120,76 +121,79 @@ void __60__PSCalendarPolicyController_appSpecifierWithName_bundleID___block_invo
 
 - (void)setCalendarStatus:(id)status specifier:(id)specifier
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   statusCopy = status;
   v6 = [specifier propertyForKey:@"BUNDLE_ID"];
-  if ([statusCopy intValue] == 2)
+  intValue = [statusCopy intValue];
+  if (intValue == 2)
   {
-    v7 = _PSLoggingFacility();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = _PSLoggingFacility(intValue);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v15 = 138412290;
-      v16 = v6;
-      _os_log_impl(&dword_18B008000, v7, OS_LOG_TYPE_DEFAULT, "Requesting to set calendar auth for app %@ to full", &v15, 0xCu);
+      v18 = 138412290;
+      v19 = v6;
+      _os_log_impl(&dword_18B008000, v8, OS_LOG_TYPE_DEFAULT, "Requesting to set calendar auth for app %@ to full", &v18, 0xCu);
     }
 
-    v8 = v6;
-    v9 = 2;
-    v10 = 1;
+    v9 = v6;
+    v10 = 2;
+    v11 = 1;
   }
 
   else
   {
-    if ([statusCopy intValue] == 1)
+    intValue2 = [statusCopy intValue];
+    if (intValue2 == 1)
     {
-      v11 = _PSLoggingFacility();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+      v13 = _PSLoggingFacility(intValue2);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
       {
-        v15 = 138412290;
-        v16 = v6;
-        _os_log_impl(&dword_18B008000, v11, OS_LOG_TYPE_DEFAULT, "Setting calendar auth for app %@ to write-only", &v15, 0xCu);
+        v18 = 138412290;
+        v19 = v6;
+        _os_log_impl(&dword_18B008000, v13, OS_LOG_TYPE_DEFAULT, "Setting calendar auth for app %@ to write-only", &v18, 0xCu);
       }
 
-      v8 = v6;
-      v9 = 1;
+      v9 = v6;
+      v10 = 1;
     }
 
     else
     {
-      intValue = [statusCopy intValue];
-      v13 = _PSLoggingFacility();
-      v14 = os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT);
-      if (intValue)
+      intValue3 = [statusCopy intValue];
+      v15 = intValue3;
+      v16 = _PSLoggingFacility(intValue3);
+      v17 = os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT);
+      if (v15)
       {
-        if (v14)
+        if (v17)
         {
-          v15 = 138412290;
-          v16 = statusCopy;
-          _os_log_impl(&dword_18B008000, v13, OS_LOG_TYPE_DEFAULT, "Unexpected value set for calendar tcc access: %@", &v15, 0xCu);
+          v18 = 138412290;
+          v19 = statusCopy;
+          _os_log_impl(&dword_18B008000, v16, OS_LOG_TYPE_DEFAULT, "Unexpected value set for calendar tcc access: %@", &v18, 0xCu);
         }
 
-        v8 = v6;
-        v9 = 3;
+        v9 = v6;
+        v10 = 3;
       }
 
       else
       {
-        if (v14)
+        if (v17)
         {
-          v15 = 138412290;
-          v16 = v6;
-          _os_log_impl(&dword_18B008000, v13, OS_LOG_TYPE_DEFAULT, "Setting calendar auth for app %@ to denied", &v15, 0xCu);
+          v18 = 138412290;
+          v19 = v6;
+          _os_log_impl(&dword_18B008000, v16, OS_LOG_TYPE_DEFAULT, "Setting calendar auth for app %@ to denied", &v18, 0xCu);
         }
 
-        v8 = v6;
-        v9 = 0;
+        v9 = v6;
+        v10 = 0;
       }
     }
 
-    v10 = 0;
+    v11 = 0;
   }
 
-  [PSCalendarPolicyController setCalendarAccessForApp:v8 toValue:v9 shouldPrompt:v10];
+  [PSCalendarPolicyController setCalendarAccessForApp:v9 toValue:v10 shouldPrompt:v11];
 }
 
 + (unint64_t)authorizationRightforAccessLevel:(int)level
@@ -209,46 +213,47 @@ void __60__PSCalendarPolicyController_appSpecifierWithName_bundleID___block_invo
 {
   promptCopy = prompt;
   v6 = *&value;
-  v25 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   appCopy = app;
+  v9 = appCopy;
   if (setCalendarAccessForApp_toValue_shouldPrompt__onceToken != -1)
   {
     +[PSCalendarPolicyController setCalendarAccessForApp:toValue:shouldPrompt:];
   }
 
-  v9 = _PSLoggingFacility();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  v10 = _PSLoggingFacility(appCopy);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = *MEMORY[0x1E69D5518];
+    v11 = *MEMORY[0x1E69D5518];
     *buf = 138412802;
-    v20 = v10;
-    v21 = 2112;
-    v22 = appCopy;
-    v23 = 1024;
-    v24 = v6;
-    _os_log_impl(&dword_18B008000, v9, OS_LOG_TYPE_DEFAULT, "Setting TCC auth for service: %@ appIdentifier:%@, accessLevel:%d", buf, 0x1Cu);
+    v21 = v11;
+    v22 = 2112;
+    v23 = v9;
+    v24 = 1024;
+    v25 = v6;
+    _os_log_impl(&dword_18B008000, v10, OS_LOG_TYPE_DEFAULT, "Setting TCC auth for service: %@ appIdentifier:%@, accessLevel:%d", buf, 0x1Cu);
   }
 
-  [appCopy cStringUsingEncoding:4];
-  v11 = tcc_identity_create();
-  v12 = tcc_service_singleton_for_CF_name();
+  [v9 cStringUsingEncoding:4];
+  v12 = tcc_identity_create();
+  v13 = tcc_service_singleton_for_CF_name();
   [PSCalendarPolicyController authorizationRightforAccessLevel:v6];
   if (promptCopy)
   {
-    v16[0] = MEMORY[0x1E69E9820];
-    v16[1] = 3221225472;
-    v16[2] = __75__PSCalendarPolicyController_setCalendarAccessForApp_toValue_shouldPrompt___block_invoke_80;
-    v16[3] = &unk_1E71DBE48;
+    v17[0] = MEMORY[0x1E69E9820];
+    v17[1] = 3221225472;
+    v17[2] = __75__PSCalendarPolicyController_setCalendarAccessForApp_toValue_shouldPrompt___block_invoke_80;
+    v17[3] = &unk_1E71DBE48;
     selfCopy = self;
-    v13 = appCopy;
-    v17 = v13;
-    v14 = _Block_copy(v16);
-    v15 = _PSLoggingFacility();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    v14 = v9;
+    v18 = v14;
+    v15 = _Block_copy(v17);
+    v16 = _PSLoggingFacility(v15);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v20 = v13;
-      _os_log_impl(&dword_18B008000, v15, OS_LOG_TYPE_DEFAULT, "Setting calendar auth for app %@ to full, after prompt", buf, 0xCu);
+      v21 = v14;
+      _os_log_impl(&dword_18B008000, v16, OS_LOG_TYPE_DEFAULT, "Setting calendar auth for app %@ to full, after prompt", buf, 0xCu);
     }
 
     tcc_server_message_prompt_authorization_value();

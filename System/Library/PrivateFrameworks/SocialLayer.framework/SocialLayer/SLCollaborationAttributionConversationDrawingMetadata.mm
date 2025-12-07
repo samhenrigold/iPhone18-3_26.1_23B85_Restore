@@ -13,22 +13,21 @@
 
 - (SLCollaborationAttributionConversationDrawingMetadata)initWithRecipientDrawingMetadata:(id)metadata
 {
-  v12[1] = *MEMORY[0x277D85DE8];
+  v11[1] = *MEMORY[0x277D85DE8];
   metadataCopy = metadata;
-  v11.receiver = self;
-  v11.super_class = SLCollaborationAttributionConversationDrawingMetadata;
-  v5 = [(SLCollaborationAttributionConversationDrawingMetadata *)&v11 init];
+  v10.receiver = self;
+  v10.super_class = SLCollaborationAttributionConversationDrawingMetadata;
+  v5 = [(SLCollaborationAttributionConversationDrawingMetadata *)&v10 init];
   v6 = v5;
   if (v5)
   {
     v5->_isGroupConversation = 0;
-    v12[0] = metadataCopy;
-    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
+    v11[0] = metadataCopy;
+    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:1];
     recipientDrawingMetadata = v6->_recipientDrawingMetadata;
     v6->_recipientDrawingMetadata = v7;
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
@@ -77,18 +76,18 @@
 
 - (SLCollaborationAttributionConversationDrawingMetadata)initWithCoder:(id)coder
 {
-  v18[2] = *MEMORY[0x277D85DE8];
+  v17[2] = *MEMORY[0x277D85DE8];
   coderCopy = coder;
-  v17.receiver = self;
-  v17.super_class = SLCollaborationAttributionConversationDrawingMetadata;
-  v5 = [(SLCollaborationAttributionConversationDrawingMetadata *)&v17 init];
+  v16.receiver = self;
+  v16.super_class = SLCollaborationAttributionConversationDrawingMetadata;
+  v5 = [(SLCollaborationAttributionConversationDrawingMetadata *)&v16 init];
   if (v5)
   {
     v5->_isGroupConversation = [coderCopy decodeBoolForKey:@"isGroupConversation"];
     v6 = MEMORY[0x277CBEB98];
-    v18[0] = objc_opt_class();
-    v18[1] = objc_opt_class();
-    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:2];
+    v17[0] = objc_opt_class();
+    v17[1] = objc_opt_class();
+    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:2];
     v8 = [v6 setWithArray:v7];
     v9 = [coderCopy decodeObjectOfClasses:v8 forKey:@"recipientDrawingMetadata"];
     recipientDrawingMetadata = v5->_recipientDrawingMetadata;
@@ -103,7 +102,6 @@
     v5->_groupID = v13;
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   return v5;
 }
 

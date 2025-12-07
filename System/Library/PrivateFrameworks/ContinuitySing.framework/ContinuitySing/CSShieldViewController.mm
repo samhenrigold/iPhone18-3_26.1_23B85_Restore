@@ -17,6 +17,7 @@
 - (void)_endLoadingScreen;
 - (void)_handleInvalidMusicAccountError;
 - (void)_handleMusicProfileUpdateNeeded;
+- (void)_localizedAddSongString;
 - (void)_presentAccountError;
 - (void)_presentConfirmationCardType:(unint64_t)type completion:(id)completion;
 - (void)_presentContinuityCameraDisabledError;
@@ -38,6 +39,7 @@
 - (void)_updateControlVisibility;
 - (void)_updateMiniPlayerState:(id)state;
 - (void)_updateReverbButtonForLevel:(int64_t)level;
+- (void)_updateRightBarButtonsAnimated:(BOOL)animated;
 - (void)_updateVocalAttenuationButtonActiveState;
 - (void)_updateVocalAttenuationButtonForLevel:(double)level;
 - (void)_updateVocalAttenuationButtonLevel;
@@ -83,8 +85,10 @@
 - (void)shieldManagerDidReceiveDisconnectRequest:(id)request;
 - (void)textViewDidChange:(id)change;
 - (void)updateUI;
+- (void)viewDidAppear:(BOOL)appear;
 - (void)viewDidLayoutSubviews;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation CSShieldViewController
@@ -207,6 +211,43 @@ void __37__CSShieldViewController_viewDidLoad__block_invoke(uint64_t a1, void *a
   }
 }
 
+- (void)viewWillAppear:(BOOL)appear
+{
+  v13.receiver = self;
+  v13.super_class = CSShieldViewController;
+  [(CSShieldViewController *)&v13 viewWillAppear:appear];
+  v4 = +[CSShieldManager sharedManager];
+  isLoading = [v4 isLoading];
+
+  if ((isLoading & 1) == 0)
+  {
+    v7 = ContinuitySingLog(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 136315394;
+      v10 = "[CSShieldViewController viewWillAppear:]";
+      v11 = 2114;
+      selfCopy = self;
+      _os_log_impl(&dword_2441FB000, v7, OS_LOG_TYPE_DEFAULT, "%s: %{public}@ CSShieldManager is already loaded at view appearance; skipping loading screen", buf, 0x16u);
+    }
+
+    v8[0] = MEMORY[0x277D85DD0];
+    v8[1] = 3221225472;
+    v8[2] = __41__CSShieldViewController_viewWillAppear___block_invoke;
+    v8[3] = &unk_278E0ACD8;
+    v8[4] = self;
+    [MEMORY[0x277D75D18] performWithoutAnimation:v8];
+  }
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = CSShieldViewController;
+  [(CSShieldViewController *)&v4 viewDidAppear:appear];
+  [(CSShieldViewController *)self _presentErrorAlertIfNeeded];
+}
+
 - (void)viewDidLayoutSubviews
 {
   v8.receiver = self;
@@ -228,7 +269,7 @@ void __37__CSShieldViewController_viewDidLoad__block_invoke(uint64_t a1, void *a
 
 - (void)_applicationWillEnterForeground:(id)foreground
 {
-  v4 = ContinuitySingLog();
+  v4 = ContinuitySingLog(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     v5 = 136315650;
@@ -295,7 +336,7 @@ void __37__CSShieldViewController_viewDidLoad__block_invoke(uint64_t a1, void *a
 
 - (void)_updateReverbButtonForLevel:(int64_t)level
 {
-  v5 = ContinuitySingLog();
+  v5 = ContinuitySingLog(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = NSStringFromCSReverbLevel(level);
@@ -328,56 +369,56 @@ void __37__CSShieldViewController_viewDidLoad__block_invoke(uint64_t a1, void *a
 
   if (vocalAttenuationIsAvailable)
   {
-    v9 = ContinuitySingLog();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v10 = ContinuitySingLog(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      v21 = 136315394;
-      v22 = "[CSShieldViewController _updateVocalAttenuationButtonForLevel:]";
-      v23 = 2048;
+      v22 = 136315394;
+      v23 = "[CSShieldViewController _updateVocalAttenuationButtonForLevel:]";
+      v24 = 2048;
       levelCopy = level;
-      _os_log_impl(&dword_2441FB000, v9, OS_LOG_TYPE_DEFAULT, "%s: Update vocal attenuation button for level %f", &v21, 0x16u);
+      _os_log_impl(&dword_2441FB000, v10, OS_LOG_TYPE_DEFAULT, "%s: Update vocal attenuation button for level %f", &v22, 0x16u);
     }
 
-    v10 = 0.35;
-    v11 = 0.5;
-    v12 = (0.35 + 1.0) * 0.5;
-    v13 = vabdd_f64(level, v12);
-    v15 = v12 < level;
-    v14 = 2.22044605e-16;
-    v15 = v15 || v13 < 2.22044605e-16;
-    if (v15)
+    v11 = 0.35;
+    v12 = 0.5;
+    v13 = (0.35 + 1.0) * 0.5;
+    v14 = vabdd_f64(level, v13);
+    v16 = v13 < level;
+    v15 = 2.22044605e-16;
+    v16 = v16 || v14 < 2.22044605e-16;
+    if (v16)
     {
       vocalAttenuationButton = self->_vocalAttenuationButton;
-      v17 = 3;
+      v18 = 3;
     }
 
     else
     {
-      v14 = 0.05;
-      v19 = (0.35 + 0.05) * 0.5;
-      v11 = vabdd_f64(level, v19);
+      v15 = 0.05;
+      v20 = (0.35 + 0.05) * 0.5;
+      v12 = vabdd_f64(level, v20);
       vocalAttenuationButton = self->_vocalAttenuationButton;
-      v15 = v19 < level;
-      v10 = 2.22044605e-16;
-      if (v15 || v11 < 2.22044605e-16)
+      v16 = v20 < level;
+      v11 = 2.22044605e-16;
+      if (v16 || v12 < 2.22044605e-16)
       {
-        v17 = 2;
+        v18 = 2;
       }
 
       else
       {
-        v17 = 1;
+        v18 = 1;
       }
     }
 
-    [(CSToggleButton *)vocalAttenuationButton setToggleState:v17, v10, v11, v14, v13];
+    [(CSToggleButton *)vocalAttenuationButton setToggleState:v18, v11, v12, v15, v14];
   }
 
   else
   {
-    v18 = self->_vocalAttenuationButton;
+    v19 = self->_vocalAttenuationButton;
 
-    [(CSToggleButton *)v18 setToggleState:0];
+    [(CSToggleButton *)v19 setToggleState:0];
   }
 }
 
@@ -404,7 +445,7 @@ void __37__CSShieldViewController_viewDidLoad__block_invoke(uint64_t a1, void *a
 
 - (void)_endLoadingScreen
 {
-  v3 = ContinuitySingLog();
+  v3 = ContinuitySingLog(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315650;
@@ -483,7 +524,7 @@ void __43__CSShieldViewController__endLoadingScreen__block_invoke(uint64_t a1)
 {
   if (self->_disconnectHandler)
   {
-    v3 = ContinuitySingLog();
+    v3 = ContinuitySingLog(self);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       v4 = 136315650;
@@ -741,8 +782,8 @@ void __41__CSShieldViewController_setupTopButtons__block_invoke_5(uint64_t a1)
 
   if (v7 == 0x7FFFFFFFFFFFFFFFLL)
   {
-    v10 = ContinuitySingLog();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v11 = ContinuitySingLog(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       [CSShieldViewController _localizedAddSongString];
     }
@@ -750,10 +791,10 @@ void __41__CSShieldViewController_setupTopButtons__block_invoke_5(uint64_t a1)
 
   else
   {
-    v11 = [MEMORY[0x277D755B0] _systemImageNamed:@"music.badge.plus"];
-    v12 = [MEMORY[0x277D74270] textAttachmentWithImage:v11];
-    v13 = [MEMORY[0x277CCA898] attributedStringWithAttachment:v12];
-    [v5 replaceCharactersInRange:v7 withAttributedString:{v9, v13}];
+    v12 = [MEMORY[0x277D755B0] _systemImageNamed:@"music.badge.plus"];
+    v13 = [MEMORY[0x277D74270] textAttachmentWithImage:v12];
+    v14 = [MEMORY[0x277CCA898] attributedStringWithAttachment:v13];
+    [v5 replaceCharactersInRange:v7 withAttributedString:{v9, v14}];
   }
 
   return v5;
@@ -1137,32 +1178,48 @@ void __45__CSShieldViewController_setupControlButtons__block_invoke_3(uint64_t a
   if ((isLoading & 1) == 0)
   {
     micState = [(CSMicControl *)self->_micControl micState];
-    activeControlButtonContainer = self->_activeControlButtonContainer;
     if (micState == 1)
     {
-      v7 = 1.0;
+      v6 = 1.0;
     }
 
     else
+    {
+      v6 = 0.0;
+    }
+
+    if (micState == 1)
     {
       v7 = 0.0;
     }
 
-    if (micState == 1)
-    {
-      v8 = 0.0;
-    }
-
     else
     {
-      v8 = 1.0;
+      v7 = 1.0;
     }
 
-    [(UIStackView *)self->_activeControlButtonContainer setAlpha:v7];
+    [(UIStackView *)self->_activeControlButtonContainer setAlpha:v6];
     emojiPickerContainer = self->_emojiPickerContainer;
 
-    [(UIStackView *)emojiPickerContainer setAlpha:v8];
+    [(UIStackView *)emojiPickerContainer setAlpha:v7];
   }
+}
+
+- (void)_updateRightBarButtonsAnimated:(BOOL)animated
+{
+  animatedCopy = animated;
+  v5 = +[CSShieldManager sharedManager];
+  isLoading = [v5 isLoading];
+
+  v7 = &OBJC_IVAR___CSShieldViewController__rightBarButtonItemsFull;
+  if (isLoading)
+  {
+    v7 = &OBJC_IVAR___CSShieldViewController__rightBarButtonItemsPartial;
+  }
+
+  v8 = *(&self->super.super.super.isa + *v7);
+  navigationItem = [(CSShieldViewController *)self navigationItem];
+  [navigationItem setRightBarButtonItems:v8 animated:animatedCopy];
 }
 
 - (void)setupLoadingView
@@ -1438,54 +1495,54 @@ void __45__CSShieldViewController_handleOpenQueueTap___block_invoke(uint64_t a1)
 {
   if (state < 2)
   {
-    [(CSHapticsPlayer *)self->_hapticsPlayer playReverbButtonFeedbackWithIntensity:0];
+    v4 = [(CSHapticsPlayer *)self->_hapticsPlayer playReverbButtonFeedbackWithIntensity:0];
   }
 
   else
   {
     if (state == 2)
     {
-      [(CSHapticsPlayer *)self->_hapticsPlayer playReverbButtonFeedbackWithIntensity:1];
-      v4 = 2;
+      v4 = [(CSHapticsPlayer *)self->_hapticsPlayer playReverbButtonFeedbackWithIntensity:1];
+      v5 = 2;
       goto LABEL_11;
     }
 
     if (state == 3)
     {
-      [(CSHapticsPlayer *)self->_hapticsPlayer playReverbButtonFeedbackWithIntensity:2];
-      v4 = 3;
+      v4 = [(CSHapticsPlayer *)self->_hapticsPlayer playReverbButtonFeedbackWithIntensity:2];
+      v5 = 3;
       goto LABEL_11;
     }
 
-    v5 = ContinuitySingLog();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = ContinuitySingLog(self);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       [CSShieldViewController _reverbButtonStateChangedToState:];
     }
   }
 
-  v4 = 1;
+  v5 = 1;
 LABEL_11:
-  v6 = ContinuitySingLog();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v7 = ContinuitySingLog(v4);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:state];
-    v8 = [MEMORY[0x277CCABB0] numberWithInteger:v4];
-    v12 = 136315650;
-    v13 = "[CSShieldViewController _reverbButtonStateChangedToState:]";
-    v14 = 2112;
-    v15 = v7;
-    v16 = 2112;
-    v17 = v8;
-    _os_log_impl(&dword_2441FB000, v6, OS_LOG_TYPE_DEFAULT, "%s: revderb button pushed; moving to state %@ and setting reverb level to %@", &v12, 0x20u);
+    v8 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:state];
+    v9 = [MEMORY[0x277CCABB0] numberWithInteger:v5];
+    v13 = 136315650;
+    v14 = "[CSShieldViewController _reverbButtonStateChangedToState:]";
+    v15 = 2112;
+    v16 = v8;
+    v17 = 2112;
+    v18 = v9;
+    _os_log_impl(&dword_2441FB000, v7, OS_LOG_TYPE_DEFAULT, "%s: revderb button pushed; moving to state %@ and setting reverb level to %@", &v13, 0x20u);
   }
 
-  v9 = +[CSShieldManager sharedManager];
-  [v9 updateReverbLevel:v4];
-
   v10 = +[CSShieldManager sharedManager];
-  requestClient = [v10 requestClient];
-  [requestClient sendReverb:v4];
+  [v10 updateReverbLevel:v5];
+
+  v11 = +[CSShieldManager sharedManager];
+  requestClient = [v11 requestClient];
+  [requestClient sendReverb:v5];
 }
 
 - (void)_vocalAttenuationButtonStateChangedToState:(unint64_t)state
@@ -1507,37 +1564,37 @@ LABEL_11:
       hapticsPlayer = self->_hapticsPlayer;
       v6 = 0;
 LABEL_7:
-      [(CSHapticsPlayer *)hapticsPlayer playVocalButtonFeedbackWithIntensity:v6];
+      v7 = [(CSHapticsPlayer *)hapticsPlayer playVocalButtonFeedbackWithIntensity:v6];
       goto LABEL_11;
   }
 
-  v7 = ContinuitySingLog();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+  v8 = ContinuitySingLog(self);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
   {
     [CSShieldViewController _vocalAttenuationButtonStateChangedToState:];
   }
 
 LABEL_11:
-  v8 = ContinuitySingLog();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  v9 = ContinuitySingLog(v7);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:state];
-    v10 = [MEMORY[0x277CCABB0] numberWithDouble:v4];
-    v15 = 136315650;
-    v16 = "[CSShieldViewController _vocalAttenuationButtonStateChangedToState:]";
-    v17 = 2112;
-    v18 = v9;
-    v19 = 2112;
-    v20 = v10;
-    _os_log_impl(&dword_2441FB000, v8, OS_LOG_TYPE_DEFAULT, "%s: vocal level button pushed; moving to state %@ and setting vocal level to %@", &v15, 0x20u);
+    v10 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:state];
+    v11 = [MEMORY[0x277CCABB0] numberWithDouble:v4];
+    v16 = 136315650;
+    v17 = "[CSShieldViewController _vocalAttenuationButtonStateChangedToState:]";
+    v18 = 2112;
+    v19 = v10;
+    v20 = 2112;
+    v21 = v11;
+    _os_log_impl(&dword_2441FB000, v9, OS_LOG_TYPE_DEFAULT, "%s: vocal level button pushed; moving to state %@ and setting vocal level to %@", &v16, 0x20u);
   }
 
-  v11 = +[CSShieldManager sharedManager];
-  playbackManager = [v11 playbackManager];
+  v12 = +[CSShieldManager sharedManager];
+  playbackManager = [v12 playbackManager];
   [playbackManager setVocalAttenuationLevel:v4];
 
-  v13 = +[CSShieldManager sharedManager];
-  requestClient = [v13 requestClient];
+  v14 = +[CSShieldManager sharedManager];
+  requestClient = [v14 requestClient];
   [requestClient sendVocalLevel:v4];
 }
 
@@ -1549,28 +1606,28 @@ LABEL_11:
     [v3 setScheme:@"ContinuitySingPicker"];
     v4 = MEMORY[0x277D0AD60];
     v5 = *MEMORY[0x277D0AC58];
-    v15[0] = *MEMORY[0x277D0AC70];
-    v15[1] = v5;
-    v16[0] = MEMORY[0x277CBEC38];
-    v16[1] = MEMORY[0x277CBEC38];
-    v15[2] = *MEMORY[0x277D0AC40];
+    v16[0] = *MEMORY[0x277D0AC70];
+    v16[1] = v5;
+    v17[0] = MEMORY[0x277CBEC38];
+    v17[1] = MEMORY[0x277CBEC38];
+    v16[2] = *MEMORY[0x277D0AC40];
     v6 = [v3 URL];
-    v16[2] = v6;
-    v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:3];
+    v17[2] = v6;
+    v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:3];
     v8 = [v4 optionsWithDictionary:v7];
 
-    v9 = ContinuitySingLog();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v10 = ContinuitySingLog(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      v13 = 136315138;
-      v14 = "[CSShieldViewController presentMusicPicker]";
-      _os_log_impl(&dword_2441FB000, v9, OS_LOG_TYPE_DEFAULT, "%s: prompting to unlock device for music picker presentation", &v13, 0xCu);
+      v14 = 136315138;
+      v15 = "[CSShieldViewController presentMusicPicker]";
+      _os_log_impl(&dword_2441FB000, v10, OS_LOG_TYPE_DEFAULT, "%s: prompting to unlock device for music picker presentation", &v14, 0xCu);
     }
 
-    v10 = SBSCreateOpenApplicationService();
+    v11 = SBSCreateOpenApplicationService();
     mainBundle = [MEMORY[0x277CCA8D8] mainBundle];
     bundleIdentifier = [mainBundle bundleIdentifier];
-    [v10 openApplication:bundleIdentifier withOptions:v8 completion:&__block_literal_global_154];
+    [v11 openApplication:bundleIdentifier withOptions:v8 completion:&__block_literal_global_154];
   }
 
   else
@@ -1583,10 +1640,11 @@ LABEL_11:
 void __44__CSShieldViewController_presentMusicPicker__block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
   v3 = a3;
+  v4 = v3;
   if (v3)
   {
-    v4 = ContinuitySingLog();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = ContinuitySingLog(v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       __44__CSShieldViewController_presentMusicPicker__block_invoke_cold_1();
     }
@@ -1605,7 +1663,7 @@ void __44__CSShieldViewController_presentMusicPicker__block_invoke_155(uint64_t 
 {
   reactionCopy = reaction;
   fromCopy = from;
-  v8 = ContinuitySingLog();
+  v8 = ContinuitySingLog(fromCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     v9 = 136315650;
@@ -1801,13 +1859,12 @@ void __62__CSShieldViewController_consumeSinglePressDownForButtonKind___block_in
 
 void __62__CSShieldViewController_consumeSinglePressDownForButtonKind___block_invoke_2(uint64_t a1)
 {
-  v1 = (a1 + 32);
   if (*(a1 + 32))
   {
-    v2 = ContinuitySingLog();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+    v1 = ContinuitySingLog(a1);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
-      __62__CSShieldViewController_consumeSinglePressDownForButtonKind___block_invoke_2_cold_1(v1);
+      __62__CSShieldViewController_consumeSinglePressDownForButtonKind___block_invoke_2_cold_1();
     }
   }
 }
@@ -1826,13 +1883,12 @@ void __62__CSShieldViewController_consumeSinglePressDownForButtonKind___block_in
 
 void __62__CSShieldViewController_consumeSinglePressDownForButtonKind___block_invoke_2_165(uint64_t a1)
 {
-  v1 = (a1 + 32);
   if (*(a1 + 32))
   {
-    v2 = ContinuitySingLog();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+    v1 = ContinuitySingLog(a1);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
-      __62__CSShieldViewController_consumeSinglePressDownForButtonKind___block_invoke_2_cold_1(v1);
+      __62__CSShieldViewController_consumeSinglePressDownForButtonKind___block_invoke_2_cold_1();
     }
   }
 }
@@ -1840,7 +1896,7 @@ void __62__CSShieldViewController_consumeSinglePressDownForButtonKind___block_in
 - (void)micControl:(id)control didRequestToTurnOnFromState:(unint64_t)state
 {
   controlCopy = control;
-  v6 = ContinuitySingLog();
+  v6 = ContinuitySingLog(controlCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v7 = MEMORY[0x277CCABB0];
@@ -1933,28 +1989,28 @@ void __65__CSShieldViewController_micControl_didRequestToTurnOnFromState___block
   v6 = +[CSShieldManager sharedManager];
   hasConfirmedMicTakeover = [v6 hasConfirmedMicTakeover];
 
-  v8 = ContinuitySingLog();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  v9 = ContinuitySingLog(v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = @"NO";
-    v10 = @"YES";
+    v10 = @"NO";
+    v11 = @"YES";
     if (!hasConfirmedMicTakeover)
     {
-      v10 = @"NO";
+      v11 = @"NO";
     }
 
-    v12 = 136315650;
-    v13 = "[CSShieldViewController _needsMicConfirmation]";
-    v14 = 2112;
-    v15 = v10;
+    v13 = 136315650;
+    v14 = "[CSShieldViewController _needsMicConfirmation]";
+    v15 = 2112;
+    v16 = v11;
     if (v5)
     {
-      v9 = activeMicRemoteDisplayID;
+      v10 = activeMicRemoteDisplayID;
     }
 
-    v16 = 2112;
-    v17 = v9;
-    _os_log_impl(&dword_2441FB000, v8, OS_LOG_TYPE_DEFAULT, "%s: mic control previously confirmed: %@ - mic is in use: %@ ", &v12, 0x20u);
+    v17 = 2112;
+    v18 = v10;
+    _os_log_impl(&dword_2441FB000, v9, OS_LOG_TYPE_DEFAULT, "%s: mic control previously confirmed: %@ - mic is in use: %@ ", &v13, 0x20u);
   }
 
   return v5 & (hasConfirmedMicTakeover ^ 1);
@@ -1963,21 +2019,21 @@ void __65__CSShieldViewController_micControl_didRequestToTurnOnFromState___block
 - (void)micControl:(id)control didRequestToTurnOffFromState:(unint64_t)state
 {
   controlCopy = control;
-  v6 = ContinuitySingLog();
+  v6 = ContinuitySingLog(controlCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v7 = MEMORY[0x277CCABB0];
     mEMORY[0x277CF6C50] = [MEMORY[0x277CF6C50] sharedInstance];
     v9 = [v7 numberWithInteger:{objc_msgSend(mEMORY[0x277CF6C50], "uiState")}];
-    v13 = 136315906;
-    v14 = "[CSShieldViewController micControl:didRequestToTurnOffFromState:]";
-    v15 = 2112;
+    v14 = 136315906;
+    v15 = "[CSShieldViewController micControl:didRequestToTurnOffFromState:]";
+    v16 = 2112;
     selfCopy = self;
-    v17 = 2080;
-    v18 = "[CSShieldViewController micControl:didRequestToTurnOffFromState:]";
-    v19 = 2112;
-    v20 = v9;
-    _os_log_impl(&dword_2441FB000, v6, OS_LOG_TYPE_DEFAULT, "%s: %@ %s %@", &v13, 0x2Au);
+    v18 = 2080;
+    v19 = "[CSShieldViewController micControl:didRequestToTurnOffFromState:]";
+    v20 = 2112;
+    v21 = v9;
+    _os_log_impl(&dword_2441FB000, v6, OS_LOG_TYPE_DEFAULT, "%s: %@ %s %@", &v14, 0x2Au);
   }
 
   [(CSHapticsPlayer *)self->_hapticsPlayer playButtonFeedback];
@@ -1994,7 +2050,7 @@ void __65__CSShieldViewController_micControl_didRequestToTurnOnFromState___block
 
   else
   {
-    mEMORY[0x277CF6C58] = ContinuitySingLog();
+    mEMORY[0x277CF6C58] = ContinuitySingLog(v12);
     if (os_log_type_enabled(mEMORY[0x277CF6C58], OS_LOG_TYPE_ERROR))
     {
       [CSShieldViewController micControl:didRequestToTurnOffFromState:];
@@ -2004,7 +2060,7 @@ void __65__CSShieldViewController_micControl_didRequestToTurnOnFromState___block
 
 - (void)micControl:(id)control didChangetoState:(unint64_t)state
 {
-  v6 = ContinuitySingLog();
+  v6 = ContinuitySingLog(self);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v7 = MEMORY[0x277CCABB0];
@@ -2025,9 +2081,9 @@ void __65__CSShieldViewController_micControl_didRequestToTurnOnFromState___block
   if (state == 1)
   {
     [(CSShieldViewController *)self setupVolumeButtonConsumers];
-    volumeHintViewController = self->_volumeHintViewController;
-    v11 = objc_opt_respondsToSelector();
-    v12 = ContinuitySingLog();
+    v10 = objc_opt_respondsToSelector();
+    v11 = v10;
+    v12 = ContinuitySingLog(v10);
     v13 = os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT);
     if (v11)
     {
@@ -2066,13 +2122,14 @@ void __65__CSShieldViewController_micControl_didRequestToTurnOnFromState___block
   v0 = MEMORY[0x277CCABB0];
   mEMORY[0x277CF6C50] = [MEMORY[0x277CF6C50] sharedInstance];
   v2 = [v0 numberWithInteger:{objc_msgSend(mEMORY[0x277CF6C50], "uiState")}];
+  v9 = 136315906;
   OUTLINED_FUNCTION_2_2();
-  OUTLINED_FUNCTION_5_0(&dword_2441FB000, v3, v4, "%s: %@ %s unhandled current state %@", v5, v6, v7, v8, 2u);
+  OUTLINED_FUNCTION_5_0(&dword_2441FB000, v3, v4, "%s: %@ %s unhandled current state %@", v5, v6, v7, v8, v9);
 }
 
 - (void)_activateEnableMicTimer
 {
-  v3 = ContinuitySingLog();
+  v3 = ContinuitySingLog(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = MEMORY[0x277CCABB0];
@@ -2112,22 +2169,23 @@ void __65__CSShieldViewController_micControl_didRequestToTurnOnFromState___block
 void __49__CSShieldViewController__activateEnableMicTimer__block_invoke(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 32));
+  v2 = WeakRetained;
   if (WeakRetained)
   {
-    v2 = ContinuitySingLog();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+    v3 = ContinuitySingLog(WeakRetained);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       __49__CSShieldViewController__activateEnableMicTimer__block_invoke_cold_1();
     }
 
-    [WeakRetained _cancelEnableMicTimer];
-    [WeakRetained updateUI];
+    [v2 _cancelEnableMicTimer];
+    [v2 updateUI];
   }
 }
 
 - (void)_cancelEnableMicTimer
 {
-  v3 = ContinuitySingLog();
+  v3 = ContinuitySingLog(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = MEMORY[0x277CCABB0];
@@ -2171,13 +2229,13 @@ void __48__CSShieldViewController__sendConnectMicRequest__block_invoke(uint64_t 
   dispatch_async(MEMORY[0x277D85CD0], v2);
 }
 
-uint64_t __48__CSShieldViewController__sendConnectMicRequest__block_invoke_2(uint64_t result)
+id *__48__CSShieldViewController__sendConnectMicRequest__block_invoke_2(id *result)
 {
-  if ((*(result + 40) & 1) == 0)
+  if ((result[5] & 1) == 0)
   {
     v2 = result;
-    [*(result + 32) _cancelEnableMicTimer];
-    v3 = *(v2 + 32);
+    [result[4] _cancelEnableMicTimer];
+    v3 = v2[4];
 
     return [v3 updateUI];
   }
@@ -2187,7 +2245,7 @@ uint64_t __48__CSShieldViewController__sendConnectMicRequest__block_invoke_2(uin
 
 - (void)_sendEnableMicRequest
 {
-  v3 = ContinuitySingLog();
+  v3 = ContinuitySingLog(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315650;
@@ -2232,54 +2290,55 @@ void __47__CSShieldViewController__sendEnableMicRequest__block_invoke(uint64_t a
 void __47__CSShieldViewController__sendEnableMicRequest__block_invoke_2(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 40));
+  v3 = WeakRetained;
   if (WeakRetained)
   {
-    v3 = ContinuitySingLog();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    v4 = ContinuitySingLog(WeakRetained);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v4 = objc_loadWeakRetained((a1 + 40));
-      v5 = *(a1 + 48);
-      v6 = *(a1 + 32);
-      v12 = 136315906;
-      v13 = "[CSShieldViewController _sendEnableMicRequest]_block_invoke_2";
-      v14 = 2112;
-      v15 = v4;
-      v16 = 2048;
-      v17 = v5;
-      v18 = 2112;
-      v19 = v6;
-      _os_log_impl(&dword_2441FB000, v3, OS_LOG_TYPE_DEFAULT, "%s: %@ enable mic result:%zu error:%@", &v12, 0x2Au);
+      v5 = objc_loadWeakRetained((a1 + 40));
+      v6 = *(a1 + 48);
+      v7 = *(a1 + 32);
+      v13 = 136315906;
+      v14 = "[CSShieldViewController _sendEnableMicRequest]_block_invoke_2";
+      v15 = 2112;
+      v16 = v5;
+      v17 = 2048;
+      v18 = v6;
+      v19 = 2112;
+      v20 = v7;
+      _os_log_impl(&dword_2441FB000, v4, OS_LOG_TYPE_DEFAULT, "%s: %@ enable mic result:%zu error:%@", &v13, 0x2Au);
     }
 
-    v7 = *(a1 + 48);
-    if (v7 < 2)
+    v8 = *(a1 + 48);
+    if (v8 < 2)
     {
-      v10 = [MEMORY[0x277CF6C58] sharedInstance];
-      [v10 resumeStreamingForEvent:0];
+      v11 = [MEMORY[0x277CF6C58] sharedInstance];
+      [v11 resumeStreamingForEvent:0];
     }
 
     else
     {
-      if (v7 == 2)
+      if (v8 == 2)
       {
-        v11 = +[CSShieldConnectionManager sharedManager];
-        [v11 reportErrorWithCode:-113 subsystem:2 description:@"Enable microphone request failed" error:*(a1 + 32) exitSession:0];
+        v12 = +[CSShieldConnectionManager sharedManager];
+        [v12 reportErrorWithCode:-113 subsystem:2 description:@"Enable microphone request failed" error:*(a1 + 32) exitSession:0];
 
-        [WeakRetained _cancelEnableMicTimer];
+        [v3 _cancelEnableMicTimer];
         goto LABEL_10;
       }
 
-      if (v7 == 3)
+      if (v8 == 3)
       {
-        v8 = +[CSShieldConnectionManager sharedManager];
-        [v8 reportErrorWithCode:-114 subsystem:2 description:@"Invalid user - session state out of sync" error:*(a1 + 32) exitSession:0];
+        v9 = +[CSShieldConnectionManager sharedManager];
+        [v9 reportErrorWithCode:-114 subsystem:2 description:@"Invalid user - session state out of sync" error:*(a1 + 32) exitSession:0];
 
-        [WeakRetained _cancelEnableMicTimer];
-        v9 = +[CSShieldManager sharedManager];
-        [v9 exitRapportSession];
+        [v3 _cancelEnableMicTimer];
+        v10 = +[CSShieldManager sharedManager];
+        [v10 exitRapportSession];
 
 LABEL_10:
-        [WeakRetained updateUI];
+        [v3 updateUI];
       }
     }
   }
@@ -2314,55 +2373,55 @@ void __45__CSShieldViewController__confirmAndTeardown__block_invoke(uint64_t a1,
 
   if (sessionState)
   {
-    v5 = +[CSShieldManager sharedManager];
-    hasDisplayedOnboarding = [v5 hasDisplayedOnboarding];
+    v6 = +[CSShieldManager sharedManager];
+    hasDisplayedOnboarding = [v6 hasDisplayedOnboarding];
 
     if (hasDisplayedOnboarding)
     {
-      v7 = ContinuitySingLog();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+      v9 = ContinuitySingLog(v8);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315138;
-        v20 = "[CSShieldViewController _presentOnboardingCardIfNeeded]";
-        v8 = "%s: Onboarding was already presented.";
+        v23 = "[CSShieldViewController _presentOnboardingCardIfNeeded]";
+        v10 = "%s: Onboarding was already presented.";
 LABEL_10:
-        _os_log_impl(&dword_2441FB000, v7, OS_LOG_TYPE_DEFAULT, v8, buf, 0xCu);
+        _os_log_impl(&dword_2441FB000, v9, OS_LOG_TYPE_DEFAULT, v10, buf, 0xCu);
       }
     }
 
     else
     {
-      v9 = +[CSShieldManager sharedManager];
-      [v9 setDisplayedOnboarding:1];
+      v11 = +[CSShieldManager sharedManager];
+      [v11 setDisplayedOnboarding:1];
 
-      v10 = +[CSShieldManager sharedManager];
-      sessionState2 = [v10 sessionState];
+      v12 = +[CSShieldManager sharedManager];
+      sessionState2 = [v12 sessionState];
       participants = [sessionState2 participants];
-      v13 = [participants count];
+      v15 = [participants count];
 
-      if (v13 < 2)
+      if (v15 < 2)
       {
         objc_initWeak(buf, self);
-        v14 = [CSOnboardingCardViewController alloc];
-        v17[0] = MEMORY[0x277D85DD0];
-        v17[1] = 3221225472;
-        v17[2] = __56__CSShieldViewController__presentOnboardingCardIfNeeded__block_invoke;
-        v17[3] = &unk_278E0B840;
-        objc_copyWeak(&v18, buf);
-        v15 = [(CSOnboardingCardViewController *)v14 initWithCompletion:v17];
-        v16 = [(CSShieldViewController *)self presentProxCardFlowWithDelegate:self initialViewController:v15];
+        v17 = [CSOnboardingCardViewController alloc];
+        v20[0] = MEMORY[0x277D85DD0];
+        v20[1] = 3221225472;
+        v20[2] = __56__CSShieldViewController__presentOnboardingCardIfNeeded__block_invoke;
+        v20[3] = &unk_278E0B840;
+        objc_copyWeak(&v21, buf);
+        v18 = [(CSOnboardingCardViewController *)v17 initWithCompletion:v20];
+        v19 = [(CSShieldViewController *)self presentProxCardFlowWithDelegate:self initialViewController:v18];
 
-        objc_destroyWeak(&v18);
+        objc_destroyWeak(&v21);
         objc_destroyWeak(buf);
         goto LABEL_12;
       }
 
-      v7 = ContinuitySingLog();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+      v9 = ContinuitySingLog(v16);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315138;
-        v20 = "[CSShieldViewController _presentOnboardingCardIfNeeded]";
-        v8 = "%s: Device isn't the only mic. Ditching onboarding.";
+        v23 = "[CSShieldViewController _presentOnboardingCardIfNeeded]";
+        v10 = "%s: Device isn't the only mic. Ditching onboarding.";
         goto LABEL_10;
       }
     }
@@ -2370,12 +2429,12 @@ LABEL_10:
 
   else
   {
-    v7 = ContinuitySingLog();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v9 = ContinuitySingLog(v5);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v20 = "[CSShieldViewController _presentOnboardingCardIfNeeded]";
-      v8 = "%s: Cannot present onboarding without sessionState. Skipping onboarding for now.";
+      v23 = "[CSShieldViewController _presentOnboardingCardIfNeeded]";
+      v10 = "%s: Cannot present onboarding without sessionState. Skipping onboarding for now.";
       goto LABEL_10;
     }
   }
@@ -2385,7 +2444,7 @@ LABEL_12:
 
 void __56__CSShieldViewController__presentOnboardingCardIfNeeded__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v4 = ContinuitySingLog();
+  v4 = ContinuitySingLog(a1);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v7 = 136315394;
@@ -2438,7 +2497,7 @@ void __56__CSShieldViewController__presentOnboardingCardIfNeeded__block_invoke(u
 - (void)_presentConfirmationCardType:(unint64_t)type completion:(id)completion
 {
   completionCopy = completion;
-  v7 = ContinuitySingLog();
+  v7 = ContinuitySingLog(completionCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315650;
@@ -2464,7 +2523,7 @@ void __56__CSShieldViewController__presentOnboardingCardIfNeeded__block_invoke(u
 
 uint64_t __66__CSShieldViewController__presentConfirmationCardType_completion___block_invoke(uint64_t a1, int a2)
 {
-  v4 = ContinuitySingLog();
+  v4 = ContinuitySingLog(a1);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = *(a1 + 40);
@@ -2483,7 +2542,7 @@ uint64_t __66__CSShieldViewController__presentConfirmationCardType_completion___
 - (void)mediaPicker:(id)picker didPickMediaItems:(id)items
 {
   itemsCopy = items;
-  v6 = ContinuitySingLog();
+  v6 = ContinuitySingLog(itemsCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315906;
@@ -2614,7 +2673,7 @@ void __65__CSShieldViewController_identifierSetForPersistentID_mediaItem___block
 - (void)shieldManagerDidFinishLoading:(id)loading withPlaybackManager:(id)manager
 {
   loadingCopy = loading;
-  v6 = ContinuitySingLog();
+  v6 = ContinuitySingLog(loadingCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v8 = 136315650;
@@ -2634,7 +2693,7 @@ void __65__CSShieldViewController_identifierSetForPersistentID_mediaItem___block
 
 - (void)shieldManagerDidReceiveDisconnectRequest:(id)request
 {
-  v4 = ContinuitySingLog();
+  v4 = ContinuitySingLog(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = 136315650;
@@ -2652,7 +2711,7 @@ void __65__CSShieldViewController_identifierSetForPersistentID_mediaItem___block
 - (void)shieldManager:(id)manager didUpdateSessionState:(id)state
 {
   stateCopy = state;
-  v6 = ContinuitySingLog();
+  v6 = ContinuitySingLog(stateCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v7 = 136315650;
@@ -2670,7 +2729,7 @@ void __65__CSShieldViewController_identifierSetForPersistentID_mediaItem___block
 - (void)playbackManager:(id)manager didUpdateState:(id)state
 {
   stateCopy = state;
-  v6 = ContinuitySingLog();
+  v6 = ContinuitySingLog(stateCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v7 = 136315650;
@@ -2726,7 +2785,7 @@ void __65__CSShieldViewController_identifierSetForPersistentID_mediaItem___block
 
 - (void)connectionManager:(id)manager didRequestTeardownShieldWithError:(id)error
 {
-  v5 = ContinuitySingLog();
+  v5 = ContinuitySingLog(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = 136315650;
@@ -2773,30 +2832,30 @@ uint64_t __51__CSShieldViewController_clearAlertWithCompletion___block_invoke(ui
   v3 = +[CSShieldConnectionManager sharedManager];
   presentationErrorDetails = [v3 presentationErrorDetails];
 
-  v5 = ContinuitySingLog();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v6 = ContinuitySingLog(v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     errorCode = [presentationErrorDetails errorCode];
-    v7 = self->_alertController != 0;
-    v11 = 136316162;
-    v12 = "[CSShieldViewController _presentErrorAlertIfNeeded]";
-    v13 = 2112;
+    v8 = self->_alertController != 0;
+    v12 = 136316162;
+    v13 = "[CSShieldViewController _presentErrorAlertIfNeeded]";
+    v14 = 2112;
     selfCopy = self;
-    v15 = 2080;
-    v16 = "[CSShieldViewController _presentErrorAlertIfNeeded]";
-    v17 = 2048;
-    v18 = errorCode;
-    v19 = 1024;
-    v20 = v7;
-    _os_log_impl(&dword_2441FB000, v5, OS_LOG_TYPE_DEFAULT, "%s: %@ %s %zu isShowingAlert:%d", &v11, 0x30u);
+    v16 = 2080;
+    v17 = "[CSShieldViewController _presentErrorAlertIfNeeded]";
+    v18 = 2048;
+    v19 = errorCode;
+    v20 = 1024;
+    v21 = v8;
+    _os_log_impl(&dword_2441FB000, v6, OS_LOG_TYPE_DEFAULT, "%s: %@ %s %zu isShowingAlert:%d", &v12, 0x30u);
   }
 
   if (presentationErrorDetails && !self->_alertController)
   {
     if ([presentationErrorDetails exitSession])
     {
-      v8 = +[CSShieldManager sharedManager];
-      [v8 exitSingSession];
+      v9 = +[CSShieldManager sharedManager];
+      [v9 exitSingSession];
     }
 
     if ([presentationErrorDetails shouldShowInternalErrorDetails])
@@ -2830,13 +2889,13 @@ uint64_t __51__CSShieldViewController_clearAlertWithCompletion___block_invoke(ui
           break;
         case -108:
           selfCopy3 = self;
-          v10 = 0;
+          v11 = 0;
           goto LABEL_19;
         case -107:
           selfCopy3 = self;
-          v10 = 1;
+          v11 = 1;
 LABEL_19:
-          [(CSShieldViewController *)selfCopy3 _presentVersionMismatchError:v10];
+          [(CSShieldViewController *)selfCopy3 _presentVersionMismatchError:v11];
           break;
         case -105:
           [(CSShieldViewController *)self _handleInvalidMusicAccountError];
@@ -2856,7 +2915,7 @@ LABEL_19:
 
 - (void)_presentPairingError
 {
-  v3 = ContinuitySingLog();
+  v3 = ContinuitySingLog(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315650;
@@ -2928,7 +2987,7 @@ LABEL_19:
 
 uint64_t __46__CSShieldViewController__presentPairingError__block_invoke(uint64_t a1)
 {
-  v2 = ContinuitySingLog();
+  v2 = ContinuitySingLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
@@ -2952,7 +3011,7 @@ uint64_t __46__CSShieldViewController__presentPairingError__block_invoke(uint64_
 
 - (void)_presentErrorRequestingGroupSession
 {
-  v3 = ContinuitySingLog();
+  v3 = ContinuitySingLog(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315650;
@@ -2996,7 +3055,7 @@ uint64_t __46__CSShieldViewController__presentPairingError__block_invoke(uint64_
 
 uint64_t __61__CSShieldViewController__presentErrorRequestingGroupSession__block_invoke(uint64_t a1)
 {
-  v2 = ContinuitySingLog();
+  v2 = ContinuitySingLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
@@ -3058,7 +3117,7 @@ uint64_t __61__CSShieldViewController__presentErrorRequestingGroupSession__block
 
 uint64_t __55__CSShieldViewController__presentVersionMismatchError___block_invoke(uint64_t a1)
 {
-  v2 = ContinuitySingLog();
+  v2 = ContinuitySingLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
@@ -3082,7 +3141,7 @@ uint64_t __55__CSShieldViewController__presentVersionMismatchError___block_invok
 
 - (void)_showMusicUpsell
 {
-  v3 = ContinuitySingLog();
+  v3 = ContinuitySingLog(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
@@ -3150,10 +3209,10 @@ void __42__CSShieldViewController__showMusicUpsell__block_invoke_3()
 
 uint64_t __42__CSShieldViewController__showMusicUpsell__block_invoke_4(uint64_t a1)
 {
-  v2 = ContinuitySingLog();
+  v2 = ContinuitySingLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
-    __42__CSShieldViewController__showMusicUpsell__block_invoke_4_cold_1(a1);
+    __42__CSShieldViewController__showMusicUpsell__block_invoke_4_cold_1();
   }
 
   v3 = *(a1 + 32);
@@ -3167,7 +3226,7 @@ uint64_t __42__CSShieldViewController__showMusicUpsell__block_invoke_4(uint64_t 
 
 - (void)_handleInvalidMusicAccountError
 {
-  v3 = ContinuitySingLog();
+  v3 = ContinuitySingLog(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315650;
@@ -3236,7 +3295,7 @@ void __57__CSShieldViewController__handleInvalidMusicAccountError__block_invoke(
 
 void __57__CSShieldViewController__handleInvalidMusicAccountError__block_invoke_2(uint64_t a1)
 {
-  v2 = ContinuitySingLog();
+  v2 = ContinuitySingLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
@@ -3271,10 +3330,11 @@ void __57__CSShieldViewController__handleInvalidMusicAccountError__block_invoke_
 void __57__CSShieldViewController__handleInvalidMusicAccountError__block_invoke_278(uint64_t a1, uint64_t a2, void *a3)
 {
   v3 = a3;
+  v4 = v3;
   if (v3)
   {
-    v4 = ContinuitySingLog();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = ContinuitySingLog(v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       __57__CSShieldViewController__handleInvalidMusicAccountError__block_invoke_278_cold_1();
     }
@@ -3284,94 +3344,31 @@ void __57__CSShieldViewController__handleInvalidMusicAccountError__block_invoke_
 void __57__CSShieldViewController__handleInvalidMusicAccountError__block_invoke_284(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 32));
+  v2 = WeakRetained;
   if (WeakRetained)
   {
-    v2 = ContinuitySingLog();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+    v3 = ContinuitySingLog(WeakRetained);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       __57__CSShieldViewController__handleInvalidMusicAccountError__block_invoke_284_cold_1();
     }
 
-    v3[0] = MEMORY[0x277D85DD0];
-    v3[1] = 3221225472;
-    v3[2] = __57__CSShieldViewController__handleInvalidMusicAccountError__block_invoke_285;
-    v3[3] = &unk_278E0ACD8;
-    v3[4] = WeakRetained;
-    [WeakRetained clearAlertWithCompletion:v3];
+    v4[0] = MEMORY[0x277D85DD0];
+    v4[1] = 3221225472;
+    v4[2] = __57__CSShieldViewController__handleInvalidMusicAccountError__block_invoke_285;
+    v4[3] = &unk_278E0ACD8;
+    v4[4] = v2;
+    [v2 clearAlertWithCompletion:v4];
   }
 }
 
 - (void)_handleMusicProfileUpdateNeeded
 {
-  v3 = ContinuitySingLog();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
-  {
-    *buf = 136315650;
-    v35 = "[CSShieldViewController _handleMusicProfileUpdateNeeded]";
-    v36 = 2112;
-    selfCopy = self;
-    v38 = 2080;
-    v39 = "[CSShieldViewController _handleMusicProfileUpdateNeeded]";
-    _os_log_impl(&dword_2441FB000, v3, OS_LOG_TYPE_DEFAULT, "%s: %@ %s", buf, 0x20u);
-  }
-
-  v4 = +[CSShieldConnectionManager sharedManager];
-  musicTokenURL = [v4 musicTokenURL];
-
-  if (musicTokenURL)
-  {
-    objc_initWeak(buf, self);
-    v6 = [MEMORY[0x277CCA8D8] bundleWithIdentifier:@"com.apple.ContinuitySing"];
-    v7 = [v6 localizedStringForKey:@"MUSIC_ACCOUNT_ERROR_TITLE" value:&stru_285797E10 table:0];
-
-    v8 = [MEMORY[0x277CCA8D8] bundleWithIdentifier:@"com.apple.ContinuitySing"];
-    v9 = [v8 localizedStringForKey:@"MUSIC_ACCOUNT_ERROR_MESSAGE" value:&stru_285797E10 table:0];
-
-    v10 = [CSSecureAlertController alertControllerWithTitle:v7 message:v9 preferredStyle:1];
-    v11 = MEMORY[0x277D75100];
-    v12 = [MEMORY[0x277CCA8D8] bundleWithIdentifier:@"com.apple.ContinuitySing"];
-    v13 = [v12 localizedStringForKey:@"MUSIC_ACCOUNT_ERROR_ACTION_LAUNCH_MUSIC" value:&stru_285797E10 table:0];
-    v31[0] = MEMORY[0x277D85DD0];
-    v31[1] = 3221225472;
-    v31[2] = __57__CSShieldViewController__handleMusicProfileUpdateNeeded__block_invoke_2;
-    v31[3] = &unk_278E0BAA0;
-    objc_copyWeak(&v33, buf);
-    v32 = musicTokenURL;
-    v14 = [v11 actionWithTitle:v13 style:0 handler:v31];
-
-    v15 = MEMORY[0x277D75100];
-    v16 = [MEMORY[0x277CCA8D8] bundleWithIdentifier:@"com.apple.ContinuitySing"];
-    v17 = [v16 localizedStringForKey:@"MUSIC_ACCOUNT_ERROR_ACTION_CANCEL" value:&stru_285797E10 table:0];
-    v29[0] = MEMORY[0x277D85DD0];
-    v29[1] = 3221225472;
-    v29[2] = __57__CSShieldViewController__handleMusicProfileUpdateNeeded__block_invoke_294;
-    v29[3] = &unk_278E0BA78;
-    objc_copyWeak(&v30, buf);
-    v18 = [v15 actionWithTitle:v17 style:0 handler:v29];
-
-    [(UIAlertController *)v10 addAction:v14];
-    [(UIAlertController *)v10 addAction:v18];
-    [(CSShieldViewController *)self presentViewController:v10 animated:1 completion:0];
-    alertController = self->_alertController;
-    self->_alertController = v10;
-    v20 = v10;
-
-    objc_destroyWeak(&v30);
-    objc_destroyWeak(&v33);
-
-    objc_destroyWeak(buf);
-  }
-
-  else
-  {
-    v21 = ContinuitySingLog();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
-    {
-      [(CSShieldViewController *)v21 _handleMusicProfileUpdateNeeded:v22];
-    }
-
-    [(CSShieldViewController *)self clearAlertWithCompletion:&__block_literal_global_287];
-  }
+  *v8 = 136315394;
+  *&v8[4] = "[CSShieldViewController _handleMusicProfileUpdateNeeded]";
+  *&v8[12] = 2080;
+  *&v8[14] = "[CSShieldViewController _handleMusicProfileUpdateNeeded]";
+  OUTLINED_FUNCTION_1(&dword_2441FB000, self, a3, "%s: %s No URL provided for Music Account error", a5, a6, a7, a8, *v8, *&v8[8], *&v8[16]);
 }
 
 void __57__CSShieldViewController__handleMusicProfileUpdateNeeded__block_invoke()
@@ -3402,7 +3399,7 @@ void __57__CSShieldViewController__handleMusicProfileUpdateNeeded__block_invoke_
 
 void __57__CSShieldViewController__handleMusicProfileUpdateNeeded__block_invoke_3(uint64_t a1)
 {
-  v2 = ContinuitySingLog();
+  v2 = ContinuitySingLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
@@ -3426,26 +3423,27 @@ void __57__CSShieldViewController__handleMusicProfileUpdateNeeded__block_invoke_
 void __57__CSShieldViewController__handleMusicProfileUpdateNeeded__block_invoke_294(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 32));
+  v2 = WeakRetained;
   if (WeakRetained)
   {
-    v2 = ContinuitySingLog();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+    v3 = ContinuitySingLog(WeakRetained);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       __57__CSShieldViewController__handleMusicProfileUpdateNeeded__block_invoke_294_cold_1();
     }
 
-    v3[0] = MEMORY[0x277D85DD0];
-    v3[1] = 3221225472;
-    v3[2] = __57__CSShieldViewController__handleMusicProfileUpdateNeeded__block_invoke_295;
-    v3[3] = &unk_278E0ACD8;
-    v3[4] = WeakRetained;
-    [WeakRetained clearAlertWithCompletion:v3];
+    v4[0] = MEMORY[0x277D85DD0];
+    v4[1] = 3221225472;
+    v4[2] = __57__CSShieldViewController__handleMusicProfileUpdateNeeded__block_invoke_295;
+    v4[3] = &unk_278E0ACD8;
+    v4[4] = v2;
+    [v2 clearAlertWithCompletion:v4];
   }
 }
 
 - (void)_presentEndpointDisconnectedError
 {
-  v3 = ContinuitySingLog();
+  v3 = ContinuitySingLog(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315650;
@@ -3489,7 +3487,7 @@ void __57__CSShieldViewController__handleMusicProfileUpdateNeeded__block_invoke_
 
 uint64_t __59__CSShieldViewController__presentEndpointDisconnectedError__block_invoke(uint64_t a1)
 {
-  v2 = ContinuitySingLog();
+  v2 = ContinuitySingLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
@@ -3561,7 +3559,7 @@ uint64_t __59__CSShieldViewController__presentEndpointDisconnectedError__block_i
 
 void __50__CSShieldViewController__tryBootstrapAgainAction__block_invoke(uint64_t a1)
 {
-  v2 = ContinuitySingLog();
+  v2 = ContinuitySingLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
@@ -3592,7 +3590,7 @@ void __50__CSShieldViewController__tryBootstrapAgainAction__block_invoke_309(uin
 
 void __50__CSShieldViewController__tryBootstrapAgainAction__block_invoke_2(uint64_t a1)
 {
-  v2 = ContinuitySingLog();
+  v2 = ContinuitySingLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
@@ -3623,7 +3621,7 @@ void __50__CSShieldViewController__tryBootstrapAgainAction__block_invoke_310(uin
 
 - (void)_presentAccountError
 {
-  v3 = ContinuitySingLog();
+  v3 = ContinuitySingLog(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315650;
@@ -3662,7 +3660,7 @@ void __50__CSShieldViewController__tryBootstrapAgainAction__block_invoke_310(uin
 
 uint64_t __46__CSShieldViewController__presentAccountError__block_invoke(uint64_t a1)
 {
-  v2 = ContinuitySingLog();
+  v2 = ContinuitySingLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
@@ -3686,7 +3684,7 @@ uint64_t __46__CSShieldViewController__presentAccountError__block_invoke(uint64_
 
 - (void)_presentContinuityCameraDisabledError
 {
-  v3 = ContinuitySingLog();
+  v3 = ContinuitySingLog(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315650;
@@ -3735,7 +3733,7 @@ uint64_t __46__CSShieldViewController__presentAccountError__block_invoke(uint64_
 
 uint64_t __63__CSShieldViewController__presentContinuityCameraDisabledError__block_invoke(uint64_t a1)
 {
-  v2 = ContinuitySingLog();
+  v2 = ContinuitySingLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
@@ -3761,14 +3759,14 @@ void __63__CSShieldViewController__presentContinuityCameraDisabledError__block_i
 {
   v2 = [MEMORY[0x277CBEBC0] URLWithString:@"prefs:root=General&path=CONTINUITY_SPEC"];
   v3 = [MEMORY[0x277CC1E80] defaultWorkspace];
-  v7 = 0;
-  v4 = [v3 openSensitiveURL:v2 withOptions:0 error:&v7];
-  v5 = v7;
+  v8 = 0;
+  v4 = [v3 openSensitiveURL:v2 withOptions:0 error:&v8];
+  v5 = v8;
 
   if ((v4 & 1) == 0)
   {
-    v6 = ContinuitySingLog();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = ContinuitySingLog(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       __63__CSShieldViewController__presentContinuityCameraDisabledError__block_invoke_327_cold_1();
     }
@@ -3779,7 +3777,7 @@ void __63__CSShieldViewController__presentContinuityCameraDisabledError__block_i
 
 uint64_t __63__CSShieldViewController__presentContinuityCameraDisabledError__block_invoke_334(uint64_t a1)
 {
-  v2 = ContinuitySingLog();
+  v2 = ContinuitySingLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
@@ -3866,9 +3864,8 @@ uint64_t __50__CSShieldViewController__showInternalErrorAlert___block_invoke_3(u
 {
   v5 = sub_244257868();
   v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
   MEMORY[0x28223BE20](v5);
-  v9 = &v15 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = &v14 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_244257BB8();
   sub_244257BA8();
   sub_244257B68();
@@ -3877,10 +3874,10 @@ uint64_t __50__CSShieldViewController__showInternalErrorAlert___block_invoke_3(u
     swift_task_reportUnexpectedExecutor();
   }
 
-  v10 = _Block_copy(sender);
-  v11 = swift_allocObject();
-  *(v11 + 16) = v10;
-  (*(v6 + 104))(v9, *MEMORY[0x277D2AE28], v5);
+  v9 = _Block_copy(sender);
+  v10 = swift_allocObject();
+  *(v10 + 16) = v9;
+  (*(v6 + 104))(v8, *MEMORY[0x277D2AE28], v5);
   selfCopy = self;
   sub_244257878();
   presentedViewController = [(CSShieldViewController *)selfCopy presentedViewController];
@@ -3890,11 +3887,11 @@ uint64_t __50__CSShieldViewController__showInternalErrorAlert___block_invoke_3(u
   }
 
   type metadata accessor for MusicPickerSheetContainerView();
-  v14 = swift_allocObject();
-  *(v14 + 16) = sub_24424CF14;
-  *(v14 + 24) = v11;
+  v13 = swift_allocObject();
+  *(v13 + 16) = sub_24424CF14;
+  *(v13 + 24) = v10;
 
-  sub_244237C00(presentedViewController, MEMORY[0x277D84F90], sub_24424D2DC, v14);
+  sub_244237C00(presentedViewController, MEMORY[0x277D84F90], sub_24424D2DC, v13);
 }
 
 - (void)presentReactionPickerFrom:(id)from reactionSender:(id)sender
@@ -3915,11 +3912,39 @@ uint64_t __50__CSShieldViewController__showInternalErrorAlert___block_invoke_3(u
   sub_24424C88C(fromCopy, sub_24424CEBC, v8);
 }
 
-void __62__CSShieldViewController_consumeSinglePressDownForButtonKind___block_invoke_2_cold_1(uint64_t *a1)
+- (void)_localizedAddSongString
 {
-  v1 = *a1;
+  v6 = 136315394;
+  OUTLINED_FUNCTION_0();
+  OUTLINED_FUNCTION_1(&dword_2441FB000, v0, v1, "%s: Did not find the text replacement for add song glyph. Localized string: %@", v2, v3, v4, v5, v6);
+}
+
+- (void)_reverbButtonStateChangedToState:.cold.1()
+{
+  v6 = 136315394;
+  OUTLINED_FUNCTION_0_0();
+  OUTLINED_FUNCTION_1(&dword_2441FB000, v0, v1, "%s: reverb toggle received unexpected state: %lu", v2, v3, v4, v5, v6);
+}
+
+- (void)_vocalAttenuationButtonStateChangedToState:.cold.1()
+{
+  v6 = 136315394;
+  OUTLINED_FUNCTION_0_0();
+  OUTLINED_FUNCTION_1(&dword_2441FB000, v0, v1, "%s: vocal attenuation toggle received unexpected state: %lu", v2, v3, v4, v5, v6);
+}
+
+void __44__CSShieldViewController_presentMusicPicker__block_invoke_cold_1()
+{
+  v6 = 136315394;
+  OUTLINED_FUNCTION_0();
+  OUTLINED_FUNCTION_1(&dword_2441FB000, v0, v1, "%s: error opening shield app with unlock state: %@", v2, v3, v4, v5, v6);
+}
+
+void __62__CSShieldViewController_consumeSinglePressDownForButtonKind___block_invoke_2_cold_1()
+{
+  v6 = 136315394;
   OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_1(&dword_2441FB000, v2, v3, "%s: Cannot increaseMicrophoneVolume due to error %@", v4, v5, v6, v7, 2u);
+  OUTLINED_FUNCTION_1(&dword_2441FB000, v0, v1, "%s: Cannot increaseMicrophoneVolume due to error %@", v2, v3, v4, v5, v6);
 }
 
 - (void)micControl:didRequestToTurnOffFromState:.cold.1()
@@ -3927,8 +3952,9 @@ void __62__CSShieldViewController_consumeSinglePressDownForButtonKind___block_in
   v0 = MEMORY[0x277CCABB0];
   v1 = [MEMORY[0x277CF6C50] sharedInstance];
   v2 = [v0 numberWithInteger:{objc_msgSend(v1, "uiState")}];
+  v9 = 136315906;
   OUTLINED_FUNCTION_2_2();
-  OUTLINED_FUNCTION_5_0(&dword_2441FB000, v3, v4, "%s: %@ %s unhandled current state %@", v5, v6, v7, v8, 2u);
+  OUTLINED_FUNCTION_5_0(&dword_2441FB000, v3, v4, "%s: %@ %s unhandled current state %@", v5, v6, v7, v8, v9);
 }
 
 void __49__CSShieldViewController__activateEnableMicTimer__block_invoke_cold_1()
@@ -3940,11 +3966,39 @@ void __49__CSShieldViewController__activateEnableMicTimer__block_invoke_cold_1()
   _os_log_error_impl(&dword_2441FB000, v0, OS_LOG_TYPE_ERROR, "%s: %@ enable mic timer timed out after %ds", v1, 0x1Cu);
 }
 
-void __42__CSShieldViewController__showMusicUpsell__block_invoke_4_cold_1(uint64_t a1)
+void __42__CSShieldViewController__showMusicUpsell__block_invoke_4_cold_1()
 {
-  v1 = *(a1 + 32);
+  v6 = 136315394;
   OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_1(&dword_2441FB000, v2, v3, "%s: %@ Cancel pressed - tearing down", v4, v5, v6, v7, 2u);
+  OUTLINED_FUNCTION_1(&dword_2441FB000, v0, v1, "%s: %@ Cancel pressed - tearing down", v2, v3, v4, v5, v6);
+}
+
+void __57__CSShieldViewController__handleInvalidMusicAccountError__block_invoke_278_cold_1()
+{
+  v6 = 136315394;
+  OUTLINED_FUNCTION_0();
+  OUTLINED_FUNCTION_1(&dword_2441FB000, v0, v1, "%s: error opening music app: %@", v2, v3, v4, v5, v6);
+}
+
+void __57__CSShieldViewController__handleInvalidMusicAccountError__block_invoke_284_cold_1()
+{
+  v6 = 136315394;
+  OUTLINED_FUNCTION_0();
+  OUTLINED_FUNCTION_1(&dword_2441FB000, v0, v1, "%s: %@ Cancel pressed - tearing down", v2, v3, v4, v5, v6);
+}
+
+void __57__CSShieldViewController__handleMusicProfileUpdateNeeded__block_invoke_294_cold_1()
+{
+  v6 = 136315394;
+  OUTLINED_FUNCTION_0();
+  OUTLINED_FUNCTION_1(&dword_2441FB000, v0, v1, "%s: %@ Cancel pressed - tearing down", v2, v3, v4, v5, v6);
+}
+
+void __63__CSShieldViewController__presentContinuityCameraDisabledError__block_invoke_327_cold_1()
+{
+  v6 = 136315394;
+  OUTLINED_FUNCTION_0();
+  OUTLINED_FUNCTION_1(&dword_2441FB000, v0, v1, "%s: error launching preferences: %@", v2, v3, v4, v5, v6);
 }
 
 @end

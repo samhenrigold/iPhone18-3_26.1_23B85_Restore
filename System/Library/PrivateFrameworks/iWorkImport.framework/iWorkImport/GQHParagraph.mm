@@ -6,11 +6,63 @@
 + (int)handleBookmark:(id)bookmark state:(id)state;
 + (int)handleInlineList:(id)list state:(id)state;
 + (int)handleLink:(id)link state:(id)state;
++ (int)handleParagraph:(id)paragraph state:(id)state bulletStates:(__CFDictionary *)states isMultiColumn:(BOOL)column;
 + (int)mapParagraphStyle:(id)style paragraph:(id)paragraph state:(id)state bulletStates:(__CFDictionary *)states isMultiColumn:(BOOL)column;
 + (void)mapBullet:(__CFDictionary *)bullet state:(id)state;
 @end
 
 @implementation GQHParagraph
+
++ (int)handleParagraph:(id)paragraph state:(id)state bulletStates:(__CFDictionary *)states isMultiColumn:(BOOL)column
+{
+  columnCopy = column;
+  if (!CFArrayGetCount([paragraph children]))
+  {
+    return 1;
+  }
+
+  htmlDoc = [state htmlDoc];
+  [htmlDoc startElement:"p"];
+  [state enterGraphicObject];
+  paragraphStyle = [paragraph paragraphStyle];
+  if (paragraphStyle)
+  {
+    [state pushImplicitStyle:paragraphStyle];
+    implicitStyle = paragraphStyle;
+  }
+
+  else
+  {
+    implicitStyle = [state implicitStyle];
+  }
+
+  v15 = [self mapParagraphStyle:implicitStyle paragraph:paragraph state:state bulletStates:states isMultiColumn:columnCopy];
+  if (v15 == 1)
+  {
+    v14 = [self handleInlineList:paragraph state:state];
+    if (paragraphStyle)
+    {
+      [state popImplicitStyle];
+    }
+
+    [state leaveGraphicObject];
+    [htmlDoc endElement];
+    objc_opt_class();
+    if (objc_opt_isKindOfClass())
+    {
+      [state setCurrentParagraphStyle:0 baseStyle:0 cachedClass:0];
+    }
+  }
+
+  else
+  {
+    v14 = v15;
+    [state leaveGraphicObject];
+    [htmlDoc endElement];
+  }
+
+  return v14;
+}
 
 + (int)handleInlineList:(id)list state:(id)state
 {

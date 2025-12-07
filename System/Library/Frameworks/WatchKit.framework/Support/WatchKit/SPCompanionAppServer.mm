@@ -77,19 +77,19 @@
 
 - (SPCompanionAppServer)init
 {
-  v3 = wk_default_log();
+  v3 = wk_default_log(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446466;
-    v54 = "[SPCompanionAppServer init]";
-    v55 = 1024;
-    v56 = 402;
+    v57 = "[SPCompanionAppServer init]";
+    v58 = 1024;
+    v59 = 402;
     _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "%{public}s:%d: ******* SPCompanionAppServer, init started", buf, 0x12u);
   }
 
-  v50.receiver = self;
-  v50.super_class = SPCompanionAppServer;
-  v4 = [(SPCompanionAppServer *)&v50 init];
+  v53.receiver = self;
+  v53.super_class = SPCompanionAppServer;
+  v4 = [(SPCompanionAppServer *)&v53 init];
   [(SPCompanionAppServer *)v4 _setupSignalHandlers];
   v5 = objc_alloc_init(SPUsageTrack);
   [(SPCompanionAppServer *)v4 setUsageTrack:v5];
@@ -111,7 +111,7 @@
   handler[2] = sub_100009064;
   handler[3] = &unk_100045458;
   v10 = v4;
-  v49 = v10;
+  v52 = v10;
   xpc_set_event_stream_handler("com.apple.notifyd.matching", &_dispatch_main_q, handler);
   xpc_set_event_stream_handler("com.apple.distnoted.matching", &_dispatch_main_q, &stru_100045498);
 
@@ -182,30 +182,31 @@
   [v42 addObserver:v10 selector:"nanoRegistryChanged:" name:NRPairedDeviceRegistryDeviceDidUnpairNotification object:0];
 
   v10->_paired = [(SPCompanionAppServer *)v10 isPaired];
-  v51 = @"c";
-  v52 = @"ds";
-  v43 = [NSDictionary dictionaryWithObjects:&v52 forKeys:&v51 count:1];
+  v54 = @"c";
+  v55 = @"ds";
+  v43 = [NSDictionary dictionaryWithObjects:&v55 forKeys:&v54 count:1];
   [(SPCompanionAppServer *)v10 sendPlist:v43 timeOut:1 securityType:IDSMaxMessageTimeout];
 
   v44 = +[SPCompanionNotificationHandler sharedInstance];
-  [(SPCompanionAppServer *)v10 sendFirstUnlockStatusToGizmo];
-  if (spUtils_isRunningInF5DemoMode())
+  sendFirstUnlockStatusToGizmo = [(SPCompanionAppServer *)v10 sendFirstUnlockStatusToGizmo];
+  isRunningInF5DemoMode = spUtils_isRunningInF5DemoMode(sendFirstUnlockStatusToGizmo, v46);
+  if (isRunningInF5DemoMode)
   {
-    v45 = wk_default_log();
-    if (os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
+    v48 = wk_default_log(isRunningInF5DemoMode);
+    if (os_log_type_enabled(v48, OS_LOG_TYPE_ERROR))
     {
       sub_10002838C();
     }
   }
 
-  v46 = wk_default_log();
-  if (os_log_type_enabled(v46, OS_LOG_TYPE_DEFAULT))
+  v49 = wk_default_log(isRunningInF5DemoMode);
+  if (os_log_type_enabled(v49, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446466;
-    v54 = "[SPCompanionAppServer init]";
-    v55 = 1024;
-    v56 = 522;
-    _os_log_impl(&_mh_execute_header, v46, OS_LOG_TYPE_DEFAULT, "%{public}s:%d: ******* SPCompanionAppServer, init completed", buf, 0x12u);
+    v57 = "[SPCompanionAppServer init]";
+    v58 = 1024;
+    v59 = 522;
+    _os_log_impl(&_mh_execute_header, v49, OS_LOG_TYPE_DEFAULT, "%{public}s:%d: ******* SPCompanionAppServer, init completed", buf, 0x12u);
   }
 
   return v10;
@@ -242,7 +243,7 @@
 
   else
   {
-    v7 = wk_default_log();
+    v7 = wk_default_log(0);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       sub_100028410();
@@ -303,7 +304,7 @@
 - (void)sendFirstUnlockStatusToGizmo
 {
   _unlockedSinceBoot = [(SPCompanionAppServer *)self _unlockedSinceBoot];
-  v4 = wk_default_log();
+  v4 = wk_default_log(_unlockedSinceBoot);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446722;
@@ -331,7 +332,7 @@
   v8 = connectionCopy;
   if (connectionCopy)
   {
-    [connectionCopy auditToken];
+    objc_msgSend_auditToken(connectionCopy);
   }
 
   else
@@ -353,22 +354,22 @@
     _xpcConnection = [v8 _xpcConnection];
     v13 = sub_10000A0F0(_xpcConnection);
 
-    v14 = wk_default_log();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    v15 = wk_default_log(v14);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
-      v27 = error;
+      v29 = error;
       processIdentifier = [v8 processIdentifier];
       *token = 136447234;
       *&token[4] = "[SPCompanionAppServer listener:shouldAcceptNewConnection:]";
       *&token[12] = 1024;
       *&token[14] = 649;
       *&token[18] = 2114;
-      *&token[20] = v27;
+      *&token[20] = v29;
       *&token[28] = 2114;
       *&token[30] = v13;
-      v35 = 1024;
-      v36 = processIdentifier;
-      _os_log_error_impl(&_mh_execute_header, v14, OS_LOG_TYPE_ERROR, "%{public}s:%d: Got error %{public}@ while checking entitlement for process %{public}@ with pid %d", token, 0x2Cu);
+      v37 = 1024;
+      v38 = processIdentifier;
+      _os_log_error_impl(&_mh_execute_header, v15, OS_LOG_TYPE_ERROR, "%{public}s:%d: Got error %{public}@ while checking entitlement for process %{public}@ with pid %d", token, 0x2Cu);
     }
 
     CFRelease(error);
@@ -388,53 +389,53 @@ LABEL_13:
   {
 
 LABEL_12:
-    v16 = [NSXPCInterface interfaceWithProtocol:&OBJC_PROTOCOL___SPLocalApplicationProtocol];
-    [v8 setRemoteObjectInterface:v16];
+    v17 = [NSXPCInterface interfaceWithProtocol:&OBJC_PROTOCOL___SPLocalApplicationProtocol];
+    [v8 setRemoteObjectInterface:v17];
 
-    v17 = [NSXPCInterface interfaceWithProtocol:&OBJC_PROTOCOL___SPLocalServerProtocol];
-    [v8 setExportedInterface:v17];
+    v18 = [NSXPCInterface interfaceWithProtocol:&OBJC_PROTOCOL___SPLocalServerProtocol];
+    [v8 setExportedInterface:v18];
 
     [v8 setExportedObject:self];
     [v8 resume];
-    v18 = +[NSString stringWithFormat:](NSString, "stringWithFormat:", @"%d", [v8 processIdentifier]);
+    v19 = +[NSString stringWithFormat:](NSString, "stringWithFormat:", @"%d", [v8 processIdentifier]);
     localConnections = [(SPCompanionAppServer *)self localConnections];
-    [localConnections setObject:v8 forKey:v18];
+    [localConnections setObject:v8 forKey:v19];
 
+    v33[0] = _NSConcreteStackBlock;
+    v33[1] = 3221225472;
+    v33[2] = sub_10000A1EC;
+    v33[3] = &unk_1000447A0;
+    v33[4] = self;
+    v21 = v19;
+    v34 = v21;
+    [v8 setInterruptionHandler:v33];
     v31[0] = _NSConcreteStackBlock;
     v31[1] = 3221225472;
-    v31[2] = sub_10000A1EC;
+    v31[2] = sub_10000A240;
     v31[3] = &unk_1000447A0;
     v31[4] = self;
-    v20 = v18;
-    v32 = v20;
-    [v8 setInterruptionHandler:v31];
-    v29[0] = _NSConcreteStackBlock;
-    v29[1] = 3221225472;
-    v29[2] = sub_10000A240;
-    v29[3] = &unk_1000447A0;
-    v29[4] = self;
-    v30 = v20;
-    v21 = v20;
-    [v8 setInvalidationHandler:v29];
+    v32 = v21;
+    v22 = v21;
+    [v8 setInvalidationHandler:v31];
 
-    v22 = 1;
+    v23 = 1;
     goto LABEL_17;
   }
 
 LABEL_14:
   _xpcConnection2 = [v8 _xpcConnection];
-  v24 = sub_10000A0F0(_xpcConnection2);
+  v25 = sub_10000A0F0(_xpcConnection2);
 
-  v25 = wk_default_log();
-  if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+  v27 = wk_default_log(v26);
+  if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
   {
-    sub_10002849C(v24, v8);
+    sub_10002849C(v25, v8);
   }
 
-  v22 = 0;
+  v23 = 0;
 LABEL_17:
 
-  return v22;
+  return v23;
 }
 
 - (void)sendPlist:(id)plist timeOut:(double)out securityType:(int64_t)type
@@ -451,7 +452,7 @@ LABEL_17:
 
   else
   {
-    v12 = wk_default_log();
+    v12 = wk_default_log(0);
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       sub_100028570();
@@ -565,7 +566,7 @@ LABEL_17:
   applicationCopy = application;
   identifierCopy = identifier;
   v11 = [dataCopy length];
-  v12 = wk_default_log();
+  v12 = wk_default_log(v11);
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
     v13 = [(SPCompanionAppServer *)self decodeOutData:dataCopy];
@@ -601,7 +602,7 @@ LABEL_17:
   applicationCopy = application;
   identifierCopy = identifier;
   v11 = [dataCopy length];
-  v12 = wk_default_log();
+  v12 = wk_default_log(v11);
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
     v13 = [(SPCompanionAppServer *)self decodeProtoData:dataCopy];
@@ -636,7 +637,7 @@ LABEL_17:
   dataCopy = data;
   applicationCopy = application;
   v8 = [(__CFString *)dataCopy length];
-  v9 = wk_default_log();
+  v9 = wk_default_log(v8);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136447234;
@@ -742,7 +743,7 @@ LABEL_17:
   identifierCopy = identifier;
   optionsCopy = options;
   completionCopy = completion;
-  v11 = wk_default_log();
+  v11 = wk_default_log(completionCopy);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446978;
@@ -782,7 +783,7 @@ LABEL_17:
   identifierCopy = identifier;
   optionsCopy = options;
   completionCopy = completion;
-  v13 = wk_default_log();
+  v13 = wk_default_log(completionCopy);
   v14 = os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT);
   if (identifierCopy)
   {
@@ -827,7 +828,7 @@ LABEL_17:
 
 - (void)_cancelLaunchSockPuppetAppTimeout
 {
-  v3 = wk_default_log();
+  v3 = wk_default_log(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     launchSockPuppetAppCompanionAppIdentifer = self->_launchSockPuppetAppCompanionAppIdentifer;
@@ -865,7 +866,7 @@ LABEL_17:
 {
   identifierCopy = identifier;
   completionCopy = completion;
-  v8 = wk_default_log();
+  v8 = wk_default_log(completionCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446722;
@@ -911,7 +912,7 @@ LABEL_17:
 {
   identifierCopy = identifier;
   completionCopy = completion;
-  v8 = wk_default_log();
+  v8 = wk_default_log(completionCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446722;
@@ -940,7 +941,7 @@ LABEL_17:
 {
   identifierCopy = identifier;
   completionCopy = completion;
-  v7 = wk_default_log();
+  v7 = wk_default_log(completionCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446722;
@@ -1010,7 +1011,7 @@ LABEL_17:
 - (void)wakeExtensionForWatchApp:(id)app
 {
   appCopy = app;
-  v5 = wk_default_log();
+  v5 = wk_default_log(appCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = 136446978;
@@ -1048,7 +1049,7 @@ LABEL_17:
   identifierCopy = identifier;
   identifiersCopy = identifiers;
   v11 = [dataCopy length];
-  v12 = wk_default_log();
+  v12 = wk_default_log(v11);
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
     v13 = [(SPCompanionAppServer *)self logStringArray:identifiersCopy];
@@ -1093,16 +1094,17 @@ LABEL_17:
   dataCopy = data;
   identifierCopy = identifier;
   identifiersCopy = identifiers;
+  v14 = identifiersCopy;
   if (reply)
   {
-    v14 = wk_default_log();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    v15 = wk_default_log(identifiersCopy);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       sub_100028E18(a2);
     }
   }
 
-  [(SPCompanionAppServer *)self sendData:dataCopy identifier:identifierCopy clientIdentifiers:identifiersCopy];
+  [(SPCompanionAppServer *)self sendData:dataCopy identifier:identifierCopy clientIdentifiers:v14];
 }
 
 - (void)sendCacheRequest:(id)request identifier:(id)identifier
@@ -1137,7 +1139,7 @@ LABEL_17:
 - (void)fetchNotificationForNotificationID:(id)d completion:(id)completion
 {
   completionCopy = completion;
-  v5 = wk_default_log();
+  v5 = wk_default_log(completionCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
     sub_100028EB8();
@@ -1184,34 +1186,34 @@ LABEL_6:
 
   if (v7)
   {
-    v8 = [SPProtoSerializer dictionaryWithSPPlist:v7];
-    if (v8)
+    v9 = [SPProtoSerializer dictionaryWithSPPlist:v7];
+    if (v9)
     {
-      v9 = [(SPCompanionAppServer *)self appBundleIDFromPlist:v8];
+      v10 = [(SPCompanionAppServer *)self appBundleIDFromPlist:v9];
       usageTrack = [(SPCompanionAppServer *)self usageTrack];
       objectData2 = [plistCopy objectData];
-      [usageTrack dataReceiedFromGizmo:objc_msgSend(objectData2 application:{"length"), v9}];
+      [usageTrack dataReceiedFromGizmo:objc_msgSend(objectData2 application:{"length"), v10}];
 
-      v16[0] = @"action";
-      v16[1] = @"application";
-      v17[0] = @"incomingData";
-      v17[1] = v9;
-      v16[2] = @"length";
+      v17[0] = @"action";
+      v17[1] = @"application";
+      v18[0] = @"incomingData";
+      v18[1] = v10;
+      v17[2] = @"length";
       objectData3 = [plistCopy objectData];
-      v13 = +[NSNumber numberWithUnsignedInteger:](NSNumber, "numberWithUnsignedInteger:", [objectData3 length]);
-      v17[2] = v13;
-      v14 = [NSDictionary dictionaryWithObjects:v17 forKeys:v16 count:3];
+      v14 = +[NSNumber numberWithUnsignedInteger:](NSNumber, "numberWithUnsignedInteger:", [objectData3 length]);
+      v18[2] = v14;
+      v15 = [NSDictionary dictionaryWithObjects:v18 forKeys:v17 count:3];
 
-      v15 = +[SPPowerLog sharedInstance];
-      [v15 logEvent:v14 withName:@"SP-transport"];
+      v16 = +[SPPowerLog sharedInstance];
+      [v16 logEvent:v15 withName:@"SP-transport"];
 
-      [(SPCompanionAppServer *)self handleIncomingPlist:v8];
+      [(SPCompanionAppServer *)self handleIncomingPlist:v9];
     }
 
     else
     {
-      v9 = wk_default_log();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      v10 = wk_default_log(0);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
         sub_100028F3C();
       }
@@ -1220,8 +1222,8 @@ LABEL_6:
 
   else
   {
-    v8 = wk_default_log();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = wk_default_log(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       sub_100028FC0();
     }
@@ -1269,7 +1271,7 @@ LABEL_6:
   v14 = 0;
   v5 = [NSPropertyListSerialization propertyListWithData:dataCopy options:0 format:0 error:&v14];
   v6 = v14;
-  v7 = wk_default_log();
+  v7 = wk_default_log(v6);
   v8 = v7;
   if (v5)
   {
@@ -1356,16 +1358,16 @@ LABEL_6:
       [(SPCompanionAppServer *)self sendData:v13 toCompanionApplication:v6 fromIdentifier:v8];
     }
 
-    v32[0] = _NSConcreteStackBlock;
-    v32[1] = 3221225472;
-    v32[2] = sub_100010A3C;
-    v32[3] = &unk_100045538;
-    v32[4] = self;
-    v33 = plistCopy;
-    v34 = v6;
-    dispatch_async(&_dispatch_main_q, v32);
+    v36[0] = _NSConcreteStackBlock;
+    v36[1] = 3221225472;
+    v36[2] = sub_100010A3C;
+    v36[3] = &unk_100045538;
+    v36[4] = self;
+    v37 = plistCopy;
+    v38 = v6;
+    dispatch_async(&_dispatch_main_q, v36);
 
-    v11 = v33;
+    v11 = v37;
     goto LABEL_17;
   }
 
@@ -1378,34 +1380,35 @@ LABEL_6:
     block[3] = &unk_1000447A0;
     block[4] = self;
     v10 = v6;
-    v58 = v10;
+    v62 = v10;
     dispatch_async(processAssertionQueue, block);
 
-    v55[0] = _NSConcreteStackBlock;
-    v55[1] = 3221225472;
-    v55[2] = sub_1000101AC;
-    v55[3] = &unk_100045840;
-    v56 = v8;
-    [(SPCompanionAppServer *)self sendToRemoteInterface:v10 call:v55];
+    v59[0] = _NSConcreteStackBlock;
+    v59[1] = 3221225472;
+    v59[2] = sub_1000101AC;
+    v59[3] = &unk_100045840;
+    v60 = v8;
+    [(SPCompanionAppServer *)self sendToRemoteInterface:v10 call:v59];
 
-    v11 = v58;
+    v11 = v62;
 LABEL_17:
 
     goto LABEL_18;
   }
 
-  if ([v7 isEqualToString:@"ak"])
+  v14 = [v7 isEqualToString:@"ak"];
+  if (v14)
   {
-    v14 = wk_default_log();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    v15 = wk_default_log(v14);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136446722;
-      v60 = "[SPCompanionAppServer handleIncomingPlist:]";
-      v61 = 1024;
-      v62 = 1412;
-      v63 = 2114;
-      v64 = v6;
-      _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "%{public}s:%d: App %{public}@ was killed on the gizmo. Killing extension.", buf, 0x1Cu);
+      v64 = "[SPCompanionAppServer handleIncomingPlist:]";
+      v65 = 1024;
+      v66 = 1412;
+      v67 = 2114;
+      v68 = v6;
+      _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "%{public}s:%d: App %{public}@ was killed on the gizmo. Killing extension.", buf, 0x1Cu);
     }
 
     [(SPCompanionAppServer *)self killExtensionForAppIdentifier:v6];
@@ -1414,89 +1417,91 @@ LABEL_17:
 
   if ([v7 isEqualToString:@"r"])
   {
-    v53[0] = _NSConcreteStackBlock;
-    v53[1] = 3221225472;
-    v53[2] = sub_100010288;
-    v53[3] = &unk_100045840;
-    v54 = v8;
-    [(SPCompanionAppServer *)self sendToRemoteInterface:v6 call:v53];
-    v11 = v54;
+    v57[0] = _NSConcreteStackBlock;
+    v57[1] = 3221225472;
+    v57[2] = sub_100010288;
+    v57[3] = &unk_100045840;
+    v58 = v8;
+    [(SPCompanionAppServer *)self sendToRemoteInterface:v6 call:v57];
+    v11 = v58;
     goto LABEL_17;
   }
 
   if ([v7 isEqualToString:@"l"])
   {
-    v51[0] = _NSConcreteStackBlock;
-    v51[1] = 3221225472;
-    v51[2] = sub_100010364;
-    v51[3] = &unk_100045840;
-    v52 = v8;
-    [(SPCompanionAppServer *)self sendToRemoteInterface:v6 call:v51];
-    v11 = v52;
+    v55[0] = _NSConcreteStackBlock;
+    v55[1] = 3221225472;
+    v55[2] = sub_100010364;
+    v55[3] = &unk_100045840;
+    v56 = v8;
+    [(SPCompanionAppServer *)self sendToRemoteInterface:v6 call:v55];
+    v11 = v56;
     goto LABEL_17;
   }
 
   if ([v7 isEqualToString:@"a"])
   {
     [(SPCompanionAppServer *)self _applicationActivated:v6];
-    v49[0] = _NSConcreteStackBlock;
-    v49[1] = 3221225472;
-    v49[2] = sub_100010440;
-    v49[3] = &unk_100045840;
-    v50 = v8;
-    [(SPCompanionAppServer *)self sendToRemoteInterface:v6 call:v49];
+    v53[0] = _NSConcreteStackBlock;
+    v53[1] = 3221225472;
+    v53[2] = sub_100010440;
+    v53[3] = &unk_100045840;
+    v54 = v8;
+    [(SPCompanionAppServer *)self sendToRemoteInterface:v6 call:v53];
     [(SPCompanionAppServer *)self _sendTextSizeToApplication:v6 onlyIfChanged:0];
-    v11 = v50;
+    v11 = v54;
     goto LABEL_17;
   }
 
   if ([v7 isEqualToString:@"d"])
   {
-    v45[0] = _NSConcreteStackBlock;
-    v45[1] = 3221225472;
-    v45[2] = sub_10001051C;
-    v45[3] = &unk_1000458B8;
-    v46 = v8;
+    v49[0] = _NSConcreteStackBlock;
+    v49[1] = 3221225472;
+    v49[2] = sub_10001051C;
+    v49[3] = &unk_1000458B8;
+    v50 = v8;
     selfCopy = self;
-    v48 = v6;
-    [(SPCompanionAppServer *)self sendToRemoteInterface:v48 call:v45];
+    v52 = v6;
+    [(SPCompanionAppServer *)self sendToRemoteInterface:v52 call:v49];
 
-    v11 = v46;
+    v11 = v50;
     goto LABEL_17;
   }
 
-  if ([v7 isEqualToString:@"FS"])
+  v16 = [v7 isEqualToString:@"FS"];
+  if (v16)
   {
-    v15 = wk_default_log();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    v17 = wk_default_log(v16);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136446722;
-      v60 = "[SPCompanionAppServer handleIncomingPlist:]";
-      v61 = 1024;
-      v62 = 1438;
-      v63 = 2114;
-      v64 = v6;
-      v16 = "%{public}s:%d: Application %{public}@ did enter foreground suspended";
+      v64 = "[SPCompanionAppServer handleIncomingPlist:]";
+      v65 = 1024;
+      v66 = 1438;
+      v67 = 2114;
+      v68 = v6;
+      v18 = "%{public}s:%d: Application %{public}@ did enter foreground suspended";
 LABEL_31:
-      _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, v16, buf, 0x1Cu);
+      _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, v18, buf, 0x1Cu);
       goto LABEL_32;
     }
 
     goto LABEL_32;
   }
 
-  if ([v7 isEqualToString:@"fS"])
+  v19 = [v7 isEqualToString:@"fS"];
+  if (v19)
   {
-    v15 = wk_default_log();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    v17 = wk_default_log(v19);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136446722;
-      v60 = "[SPCompanionAppServer handleIncomingPlist:]";
-      v61 = 1024;
-      v62 = 1440;
-      v63 = 2114;
-      v64 = v6;
-      v16 = "%{public}s:%d: Application %{public}@ did fully suspend";
+      v64 = "[SPCompanionAppServer handleIncomingPlist:]";
+      v65 = 1024;
+      v66 = 1440;
+      v67 = 2114;
+      v68 = v6;
+      v18 = "%{public}s:%d: Application %{public}@ did fully suspend";
       goto LABEL_31;
     }
 
@@ -1507,56 +1512,56 @@ LABEL_32:
 
   if ([v7 isEqualToString:@"ac"])
   {
-    v43[0] = _NSConcreteStackBlock;
-    v43[1] = 3221225472;
-    v43[2] = sub_100010600;
-    v43[3] = &unk_100045840;
-    v44 = v8;
-    [(SPCompanionAppServer *)self sendToRemoteInterface:v6 call:v43];
-    v11 = v44;
+    v47[0] = _NSConcreteStackBlock;
+    v47[1] = 3221225472;
+    v47[2] = sub_100010600;
+    v47[3] = &unk_100045840;
+    v48 = v8;
+    [(SPCompanionAppServer *)self sendToRemoteInterface:v6 call:v47];
+    v11 = v48;
     goto LABEL_17;
   }
 
   if ([v7 isEqualToString:@"dc"])
   {
-    v41[0] = _NSConcreteStackBlock;
-    v41[1] = 3221225472;
-    v41[2] = sub_1000106DC;
-    v41[3] = &unk_100045840;
-    v42 = v8;
-    [(SPCompanionAppServer *)self sendToRemoteInterface:v6 call:v41];
-    v11 = v42;
+    v45[0] = _NSConcreteStackBlock;
+    v45[1] = 3221225472;
+    v45[2] = sub_1000106DC;
+    v45[3] = &unk_100045840;
+    v46 = v8;
+    [(SPCompanionAppServer *)self sendToRemoteInterface:v6 call:v45];
+    v11 = v46;
     goto LABEL_17;
   }
 
   if ([v7 isEqualToString:@"lg"])
   {
-    v17 = [plistCopy objectForKeyedSubscript:@"tid"];
-    v15 = [(SPCompanionAppServer *)self transactionDictForID:v17 removeFromOutstanding:1];
+    v20 = [plistCopy objectForKeyedSubscript:@"tid"];
+    v17 = [(SPCompanionAppServer *)self transactionDictForID:v20 removeFromOutstanding:1];
 
-    v18 = [v15 objectForKeyedSubscript:@"completion"];
-    if (!v18)
+    v21 = [v17 objectForKeyedSubscript:@"completion"];
+    if (!v21)
     {
 LABEL_44:
 
       goto LABEL_32;
     }
 
-    v19 = [plistCopy objectForKeyedSubscript:@"d"];
-    if ([v19 code])
+    v22 = [plistCopy objectForKeyedSubscript:@"d"];
+    if ([v22 code])
     {
-      domain = [v19 domain];
-      v21 = [domain isEqualToString:@"com.apple.watchkit.errors"];
+      domain = [v22 domain];
+      v24 = [domain isEqualToString:@"com.apple.watchkit.errors"];
 
-      if (v21)
+      if (v24)
       {
-        v22 = +[SPError errorWithCode:](SPError, "errorWithCode:", [v19 code]);
+        v25 = +[SPError errorWithCode:](SPError, "errorWithCode:", [v22 code]);
 
-        v19 = v22;
+        v22 = v25;
       }
     }
 
-    (*(v18 + 16))(v18, [v19 code] == 0, v19);
+    (*(v21 + 16))(v21, [v22 code] == 0, v22);
 LABEL_43:
 
     goto LABEL_44;
@@ -1564,41 +1569,41 @@ LABEL_43:
 
   if ([v7 isEqualToString:@"kg"])
   {
-    v23 = [plistCopy objectForKeyedSubscript:@"tid"];
-    v15 = [(SPCompanionAppServer *)self transactionDictForID:v23 removeFromOutstanding:1];
+    v26 = [plistCopy objectForKeyedSubscript:@"tid"];
+    v17 = [(SPCompanionAppServer *)self transactionDictForID:v26 removeFromOutstanding:1];
 
-    v18 = [v15 objectForKeyedSubscript:@"completion"];
-    if (!v18)
+    v21 = [v17 objectForKeyedSubscript:@"completion"];
+    if (!v21)
     {
       goto LABEL_44;
     }
 
-    v24 = [plistCopy objectForKeyedSubscript:@"d"];
-    bOOLValue = [v24 BOOLValue];
+    v27 = [plistCopy objectForKeyedSubscript:@"d"];
+    bOOLValue = [v27 BOOLValue];
 
     if (bOOLValue)
     {
-      (*(v18 + 16))(v18, 0);
+      (*(v21 + 16))(v21, 0);
       goto LABEL_44;
     }
 
-    v19 = [SPError errorWithCode:9];
-    (*(v18 + 16))(v18, v19);
+    v22 = [SPError errorWithCode:9];
+    (*(v21 + 16))(v21, v22);
     goto LABEL_43;
   }
 
   if ([v7 isEqualToString:@"gs"])
   {
-    v26 = [plistCopy objectForKeyedSubscript:@"tid"];
-    v15 = [(SPCompanionAppServer *)self transactionDictForID:v26 removeFromOutstanding:1];
+    v29 = [plistCopy objectForKeyedSubscript:@"tid"];
+    v17 = [(SPCompanionAppServer *)self transactionDictForID:v29 removeFromOutstanding:1];
 
-    v18 = [v15 objectForKeyedSubscript:@"completion"];
-    if (v18)
+    v21 = [v17 objectForKeyedSubscript:@"completion"];
+    if (v21)
     {
-      v27 = [plistCopy objectForKeyedSubscript:@"d"];
-      bOOLValue2 = [v27 BOOLValue];
+      v30 = [plistCopy objectForKeyedSubscript:@"d"];
+      bOOLValue2 = [v30 BOOLValue];
 
-      (*(v18 + 16))(v18, 0, bOOLValue2);
+      (*(v21 + 16))(v21, 0, bOOLValue2);
     }
 
     goto LABEL_44;
@@ -1606,8 +1611,8 @@ LABEL_43:
 
   if ([v7 isEqualToString:@"cds"])
   {
-    v15 = +[SPApplicationManager sharedInstance];
-    [v15 updateCoreDuetSession:plistCopy];
+    v17 = +[SPApplicationManager sharedInstance];
+    [v17 updateCoreDuetSession:plistCopy];
     goto LABEL_32;
   }
 
@@ -1619,9 +1624,9 @@ LABEL_43:
 
   if ([v7 isEqualToString:@"slk"])
   {
-    v15 = [plistCopy objectForKeyedSubscript:@"slm"];
-    v18 = wk_default_log();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+    v17 = [plistCopy objectForKeyedSubscript:@"slm"];
+    v21 = wk_default_log(v17);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
       sub_100029180();
     }
@@ -1635,44 +1640,45 @@ LABEL_43:
     goto LABEL_18;
   }
 
-  if ([v7 isEqualToString:@"sac"])
+  v32 = [v7 isEqualToString:@"sac"];
+  if (v32)
   {
-    v15 = wk_default_log();
-    if (!os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    v17 = wk_default_log(v32);
+    if (!os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
       goto LABEL_32;
     }
 
-    v18 = [plistCopy objectForKeyedSubscript:@"activeComplications"];
+    v21 = [plistCopy objectForKeyedSubscript:@"activeComplications"];
     *buf = 136446978;
-    v60 = "[SPCompanionAppServer handleIncomingPlist:]";
-    v61 = 1024;
-    v62 = 1492;
-    v63 = 2114;
-    v64 = @"NativeComplications";
-    v65 = 2114;
-    v66 = v18;
-    _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "%{public}s:%d: %{public}@ received sockpuppet message that active complications changed with bundleIDs%{public}@", buf, 0x26u);
+    v64 = "[SPCompanionAppServer handleIncomingPlist:]";
+    v65 = 1024;
+    v66 = 1492;
+    v67 = 2114;
+    v68 = @"NativeComplications";
+    v69 = 2114;
+    v70 = v21;
+    _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "%{public}s:%d: %{public}@ received sockpuppet message that active complications changed with bundleIDs%{public}@", buf, 0x26u);
     goto LABEL_44;
   }
 
   if ([v7 isEqualToString:@"Ht"])
   {
-    v29 = +[SPApplicationManager sharedInstance];
-    v30 = [v29 pluginIdentifierForProtocolIdentifier:v6];
+    v33 = +[SPApplicationManager sharedInstance];
+    v34 = [v33 pluginIdentifierForProtocolIdentifier:v6];
 
-    [(SPCompanionAppServer *)self extensionDidBeginSnapshot:v30];
-    v35[0] = _NSConcreteStackBlock;
-    v35[1] = 3221225472;
-    v35[2] = sub_100010884;
-    v35[3] = &unk_100045900;
-    v36 = plistCopy;
-    v37 = v6;
-    v38 = v8;
+    [(SPCompanionAppServer *)self extensionDidBeginSnapshot:v34];
+    v39[0] = _NSConcreteStackBlock;
+    v39[1] = 3221225472;
+    v39[2] = sub_100010884;
+    v39[3] = &unk_100045900;
+    v40 = plistCopy;
+    v41 = v6;
+    v42 = v8;
     selfCopy2 = self;
-    v40 = v30;
-    v31 = v30;
-    [(SPCompanionAppServer *)self sendToRemoteInterface:v37 call:v35];
+    v44 = v34;
+    v35 = v34;
+    [(SPCompanionAppServer *)self sendToRemoteInterface:v41 call:v39];
   }
 
 LABEL_18:
@@ -1722,7 +1728,7 @@ LABEL_18:
 - (void)releaseProcessAssertion:(id)assertion
 {
   assertionCopy = assertion;
-  v5 = wk_default_log();
+  v5 = wk_default_log(assertionCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     name = [(BKSProcessAssertion *)self->_processAssertion name];
@@ -1763,7 +1769,7 @@ LABEL_18:
 - (void)setApplicationIDForXcodeProcessAssertion:(id)assertion
 {
   assertionCopy = assertion;
-  v5 = wk_default_log();
+  v5 = wk_default_log(assertionCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446722;
@@ -1800,18 +1806,18 @@ LABEL_18:
 - (void)takeProcessAssertionForXcode:(id)xcode
 {
   xcodeCopy = xcode;
-  v5 = wk_default_log();
+  v5 = wk_default_log(xcodeCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     name = [(BKSProcessAssertion *)self->_processAssertionForXcode name];
     *buf = 136446978;
-    v17 = "[SPCompanionAppServer takeProcessAssertionForXcode:]";
-    v18 = 1024;
-    v19 = 1589;
-    v20 = 2114;
-    v21 = xcodeCopy;
-    v22 = 2114;
-    v23 = name;
+    v18 = "[SPCompanionAppServer takeProcessAssertionForXcode:]";
+    v19 = 1024;
+    v20 = 1589;
+    v21 = 2114;
+    v22 = xcodeCopy;
+    v23 = 2114;
+    v24 = name;
     _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "%{public}s:%d: pluginIdentifier %{public}@, current assertion:%{public}@", buf, 0x26u);
   }
 
@@ -1827,24 +1833,24 @@ LABEL_18:
     if (xcodeCopy)
     {
       objc_initWeak(buf, self);
-      v10 = +[SPApplicationManager sharedInstance];
-      v12[0] = _NSConcreteStackBlock;
-      v12[1] = 3221225472;
-      v12[2] = sub_100011514;
-      v12[3] = &unk_100045950;
-      v13 = xcodeCopy;
+      v11 = +[SPApplicationManager sharedInstance];
+      v13[0] = _NSConcreteStackBlock;
+      v13[1] = 3221225472;
+      v13[2] = sub_100011514;
+      v13[3] = &unk_100045950;
+      v14 = xcodeCopy;
       selfCopy = self;
-      objc_copyWeak(&v15, buf);
-      [v10 waitForPreviousPluginToFinishEnding:v13 toComplete:v12];
+      objc_copyWeak(&v16, buf);
+      [v11 waitForPreviousPluginToFinishEnding:v14 toComplete:v13];
 
-      objc_destroyWeak(&v15);
+      objc_destroyWeak(&v16);
       objc_destroyWeak(buf);
     }
 
     else
     {
-      v11 = wk_default_log();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      v12 = wk_default_log(v10);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
         sub_100029204();
       }
@@ -1854,7 +1860,7 @@ LABEL_18:
 
 - (void)releaseProcessAssertionForXcode
 {
-  v3 = wk_default_log();
+  v3 = wk_default_log(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     name = [(BKSProcessAssertion *)self->_processAssertionForXcode name];
@@ -1926,8 +1932,7 @@ LABEL_18:
 
 - (void)nanoRegistryChanged:(id)changed
 {
-  [(SPCompanionAppServer *)self setPaired:[(SPCompanionAppServer *)self isPaired]];
-  v4 = wk_default_log();
+  v4 = wk_default_log([(SPCompanionAppServer *)self setPaired:[(SPCompanionAppServer *)self isPaired]]);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = 136446722;
@@ -1995,42 +2000,43 @@ LABEL_18:
 - (id)decodeProtoData:(id)data
 {
   dataCopy = data;
-  v4 = wk_default_log();
+  v4 = wk_default_log(dataCopy);
   v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG);
 
   if (v5)
   {
     v6 = [SPProtoSerializer objectWithData:dataCopy];
     objc_opt_class();
-    if (objc_opt_isKindOfClass())
+    isKindOfClass = objc_opt_isKindOfClass();
+    if (isKindOfClass)
     {
-      v7 = +[NSString stringWithFormat:](NSString, "stringWithFormat:", @"image cache message, %ld ", [v6 messageType]);
+      v8 = +[NSString stringWithFormat:](NSString, "stringWithFormat:", @"image cache message, %ld ", [v6 messageType]);
     }
 
     else
     {
-      v8 = wk_default_log();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+      v9 = wk_default_log(isKindOfClass);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
         sub_1000294CC();
       }
 
-      v7 = @"can't decode data";
+      v8 = @"can't decode data";
     }
   }
 
   else
   {
-    v7 = &stru_1000498D8;
+    v8 = &stru_1000498D8;
   }
 
-  return v7;
+  return v8;
 }
 
 - (id)decodeOutData:(id)data
 {
   dataCopy = data;
-  v4 = wk_default_log();
+  v4 = wk_default_log(dataCopy);
   v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG);
 
   if (!v5)
@@ -2200,7 +2206,7 @@ LABEL_51:
       goto LABEL_39;
     }
 
-    v14 = wk_default_log();
+    v14 = wk_default_log(0);
     if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       sub_100029550();
@@ -2209,7 +2215,7 @@ LABEL_51:
 
   else
   {
-    v8 = wk_default_log();
+    v8 = wk_default_log(0);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       sub_1000295D4();
@@ -2227,7 +2233,7 @@ LABEL_41:
 - (id)decodeInData:(id)data
 {
   dataCopy = data;
-  v4 = wk_default_log();
+  v4 = wk_default_log(dataCopy);
   v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG);
 
   if (v5)
@@ -2293,7 +2299,7 @@ LABEL_41:
 - (id)logDictionary:(id)dictionary
 {
   dictionaryCopy = dictionary;
-  v4 = wk_default_log();
+  v4 = wk_default_log(dictionaryCopy);
   v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG);
 
   if (v5)
@@ -2384,7 +2390,7 @@ LABEL_21:
 - (id)logStringArray:(id)array
 {
   arrayCopy = array;
-  v4 = wk_default_log();
+  v4 = wk_default_log(arrayCopy);
   v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG);
 
   if (v5)
@@ -2531,8 +2537,8 @@ LABEL_21:
 
   if (!v4)
   {
-    v6 = wk_default_log();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = wk_default_log(v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       sub_100029814();
     }
@@ -2540,12 +2546,12 @@ LABEL_21:
     goto LABEL_12;
   }
 
-  v5 = [SPProtoSerializer dictionaryWithSPPlist:v4];
-  v6 = v5;
-  if (!v5)
+  v6 = [SPProtoSerializer dictionaryWithSPPlist:v4];
+  v7 = v6;
+  if (!v6)
   {
-    v7 = wk_default_log();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = wk_default_log(0);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       sub_100029790();
     }
@@ -2553,20 +2559,20 @@ LABEL_21:
 LABEL_11:
 
 LABEL_12:
-    LOBYTE(v7) = 0;
+    LOBYTE(v8) = 0;
     goto LABEL_13;
   }
 
-  v7 = [v5 objectForKeyedSubscript:@"V"];
+  v8 = [v6 objectForKeyedSubscript:@"V"];
 
-  if (v7)
+  if (v8)
   {
-    v8 = [v6 objectForKeyedSubscript:@"!"];
-    v7 = v8;
-    if (v8 && ([v8 isEqualToString:@"A"]& 1) != 0)
+    v9 = [v7 objectForKeyedSubscript:@"!"];
+    v8 = v9;
+    if (v9 && ([v9 isEqualToString:@"A"]& 1) != 0)
     {
 
-      LOBYTE(v7) = 1;
+      LOBYTE(v8) = 1;
       goto LABEL_13;
     }
 
@@ -2575,7 +2581,7 @@ LABEL_12:
 
 LABEL_13:
 
-  return v7;
+  return v8;
 }
 
 - (void)activeComplicationsWithCompletion:(id)completion
@@ -2588,20 +2594,20 @@ LABEL_13:
     v6 = [v4 arrayForKey:@"activeComplications"];
     v7 = [v6 copy];
 
-    v8 = wk_default_log();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = wk_default_log(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = 136447234;
-      v10 = "[SPCompanionAppServer activeComplicationsWithCompletion:]";
-      v11 = 1024;
-      v12 = 2097;
-      v13 = 2114;
-      v14 = @"NativeComplications";
-      v15 = 2114;
-      v16 = @"com.apple.sockpuppet.activeComplications";
-      v17 = 2114;
-      v18 = v7;
-      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "%{public}s:%d: %{public}@ fetching domain %{public}@ returned bundleIDs %{public}@", &v9, 0x30u);
+      v10 = 136447234;
+      v11 = "[SPCompanionAppServer activeComplicationsWithCompletion:]";
+      v12 = 1024;
+      v13 = 2097;
+      v14 = 2114;
+      v15 = @"NativeComplications";
+      v16 = 2114;
+      v17 = @"com.apple.sockpuppet.activeComplications";
+      v18 = 2114;
+      v19 = v7;
+      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "%{public}s:%d: %{public}@ fetching domain %{public}@ returned bundleIDs %{public}@", &v10, 0x30u);
     }
 
     completionCopy[2](completionCopy, v7);
@@ -2614,7 +2620,7 @@ LABEL_13:
   v4 = connectionCopy;
   if (connectionCopy)
   {
-    [connectionCopy auditToken];
+    objc_msgSend_auditToken(connectionCopy);
   }
 
   else
@@ -2650,7 +2656,7 @@ LABEL_13:
   entitlementCopy = entitlement;
   if (connectionCopy)
   {
-    [connectionCopy auditToken];
+    objc_msgSend_auditToken(connectionCopy);
   }
 
   else

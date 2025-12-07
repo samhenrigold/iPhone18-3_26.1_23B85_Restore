@@ -273,25 +273,16 @@
 
 void __67__WTWritingToolsController__isWritingToolsHandlingKeyboardTracking__block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) _isWritingToolsReadyToHandleKeyboardTracking];
   v3 = [*(a1 + 32) _isArbiterClientReadyForWritingToolsToHandleKeyboardTracking];
+  v4 = v3;
   _isWritingToolsHandlingKeyboardTracking_isWritingToolsHandlingKeyboardTracking = v2 & v3;
-  v4 = _WTVCLog();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  v5 = _WTVCLog(v3);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = "N";
+    v6 = "N";
     if (_isWritingToolsHandlingKeyboardTracking_isWritingToolsHandlingKeyboardTracking)
-    {
-      v6 = "Y";
-    }
-
-    else
-    {
-      v6 = "N";
-    }
-
-    if (v2)
     {
       v7 = "Y";
     }
@@ -301,18 +292,28 @@ void __67__WTWritingToolsController__isWritingToolsHandlingKeyboardTracking__blo
       v7 = "N";
     }
 
-    v8 = 136315650;
-    v9 = v6;
-    v10 = 2080;
-    v11 = v7;
-    if (v3)
+    if (v2)
     {
-      v5 = "Y";
+      v8 = "Y";
     }
 
-    v12 = 2080;
-    v13 = v5;
-    _os_log_impl(&dword_1D451D000, v4, OS_LOG_TYPE_DEFAULT, "isWritingToolsHandlingKeyboardTracking:%s (WT ready:%s, Arbiter ready:%s)", &v8, 0x20u);
+    else
+    {
+      v8 = "N";
+    }
+
+    v9 = 136315650;
+    v10 = v7;
+    v11 = 2080;
+    v12 = v8;
+    if (v4)
+    {
+      v6 = "Y";
+    }
+
+    v13 = 2080;
+    v14 = v6;
+    _os_log_impl(&dword_1D451D000, v5, OS_LOG_TYPE_DEFAULT, "isWritingToolsHandlingKeyboardTracking:%s (WT ready:%s, Arbiter ready:%s)", &v9, 0x20u);
   }
 }
 
@@ -368,7 +369,7 @@ void __63__WTWritingToolsController_setSourceResponder_sourceTextInput___block_i
 
 - (void)startWritingTools
 {
-  v3 = _WTVCLog();
+  v3 = _WTVCLog(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v12 = 0;
@@ -402,13 +403,13 @@ void __63__WTWritingToolsController_setSourceResponder_sourceTextInput___block_i
 
 - (void)endWritingToolsWithError:(id)error
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   errorCopy = error;
-  v5 = _WTVCLog();
+  v5 = _WTVCLog(errorCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v34 = errorCopy;
+    v37 = errorCopy;
     _os_log_impl(&dword_1D451D000, v5, OS_LOG_TYPE_DEFAULT, "endWritingToolsWithError %@", buf, 0xCu);
   }
 
@@ -436,25 +437,25 @@ LABEL_8:
 
   if (mainPopoverViewController)
   {
-    v9 = _WTVCLog();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v10 = _WTVCLog(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_1D451D000, v9, OS_LOG_TYPE_DEFAULT, "dismissViewController (Popover) for endWritingTools", buf, 2u);
+      _os_log_impl(&dword_1D451D000, v10, OS_LOG_TYPE_DEFAULT, "dismissViewController (Popover) for endWritingTools", buf, 2u);
     }
 
     mainPopoverViewController2 = [(WTWritingToolsController *)self mainPopoverViewController];
     presentingViewController = [mainPopoverViewController2 presentingViewController];
-    v30[0] = MEMORY[0x1E69E9820];
-    v30[1] = 3221225472;
-    v30[2] = __53__WTWritingToolsController_endWritingToolsWithError___block_invoke;
-    v30[3] = &unk_1E8480C70;
-    v31 = errorCopy;
+    v33[0] = MEMORY[0x1E69E9820];
+    v33[1] = 3221225472;
+    v33[2] = __53__WTWritingToolsController_endWritingToolsWithError___block_invoke;
+    v33[3] = &unk_1E8480C70;
+    v34 = errorCopy;
     selfCopy = self;
-    [presentingViewController dismissViewControllerAnimated:1 completion:v30];
+    [presentingViewController dismissViewControllerAnimated:1 completion:v33];
 
     [(WTWritingToolsController *)self setMainPopoverViewController:0];
-    v12 = v31;
+    v13 = v34;
 LABEL_21:
 
     goto LABEL_22;
@@ -464,21 +465,21 @@ LABEL_21:
 
   if (fullScreenContainerViewController)
   {
-    v14 = _WTVCLog();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    v16 = _WTVCLog(v15);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_1D451D000, v14, OS_LOG_TYPE_DEFAULT, "dismissViewController (Fullscreen) for endWritingTools", buf, 2u);
+      _os_log_impl(&dword_1D451D000, v16, OS_LOG_TYPE_DEFAULT, "dismissViewController (Fullscreen) for endWritingTools", buf, 2u);
     }
 
-    v27[0] = MEMORY[0x1E69E9820];
-    v27[1] = 3221225472;
-    v27[2] = __53__WTWritingToolsController_endWritingToolsWithError___block_invoke_475;
-    v27[3] = &unk_1E8480C98;
-    v28 = errorCopy;
+    v30[0] = MEMORY[0x1E69E9820];
+    v30[1] = 3221225472;
+    v30[2] = __53__WTWritingToolsController_endWritingToolsWithError___block_invoke_475;
+    v30[3] = &unk_1E8480C98;
+    v31 = errorCopy;
     selfCopy2 = self;
-    [(WTWritingToolsController *)self _dismissFullScreenViewControllerWithCompletion:v27];
-    v12 = v28;
+    [(WTWritingToolsController *)self _dismissFullScreenViewControllerWithCompletion:v30];
+    v13 = v31;
     goto LABEL_21;
   }
 
@@ -486,23 +487,23 @@ LABEL_21:
 
   if (formSheetViewController)
   {
-    v16 = _WTVCLog();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+    v19 = _WTVCLog(v18);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_1D451D000, v16, OS_LOG_TYPE_DEFAULT, "dismissViewController (Formsheet) for endWritingTools", buf, 2u);
+      _os_log_impl(&dword_1D451D000, v19, OS_LOG_TYPE_DEFAULT, "dismissViewController (Formsheet) for endWritingTools", buf, 2u);
     }
 
     formSheetViewController2 = [(WTWritingToolsController *)self formSheetViewController];
-    v21 = MEMORY[0x1E69E9820];
-    v22 = 3221225472;
-    v23 = __53__WTWritingToolsController_endWritingToolsWithError___block_invoke_477;
-    v24 = &unk_1E8480C70;
-    v25 = errorCopy;
+    v24 = MEMORY[0x1E69E9820];
+    v25 = 3221225472;
+    v26 = __53__WTWritingToolsController_endWritingToolsWithError___block_invoke_477;
+    v27 = &unk_1E8480C70;
+    v28 = errorCopy;
     selfCopy3 = self;
-    [formSheetViewController2 dismissViewControllerAnimated:1 completion:&v21];
+    [formSheetViewController2 dismissViewControllerAnimated:1 completion:&v24];
 
-    v12 = v25;
+    v13 = v28;
     goto LABEL_21;
   }
 
@@ -534,48 +535,48 @@ LABEL_22:
   [(WTWritingToolsController *)self setInterfaceAutorotationDisabledIfNecessary:0];
 }
 
-uint64_t __53__WTWritingToolsController_endWritingToolsWithError___block_invoke(uint64_t result)
+id *__53__WTWritingToolsController_endWritingToolsWithError___block_invoke(id *result)
 {
-  if (*(result + 32))
+  if (result[4])
   {
-    return [*(result + 40) presentError:?];
+    return [result[5] presentError:?];
   }
 
   return result;
 }
 
-uint64_t __53__WTWritingToolsController_endWritingToolsWithError___block_invoke_475(uint64_t result, int a2)
+void *__53__WTWritingToolsController_endWritingToolsWithError___block_invoke_475(void *result, int a2)
 {
-  if (*(result + 32))
+  if (result[4])
   {
     v2 = result;
     if (a2)
     {
-      v3 = *(result + 40);
+      v3 = result[5];
 
       return [v3 presentError:?];
     }
 
     else
     {
-      v4 = _WTVCLog();
+      v4 = _WTVCLog(result);
       if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
       {
         __53__WTWritingToolsController_endWritingToolsWithError___block_invoke_475_cold_1();
       }
 
-      return [*(v2 + 40) setPendingError:*(v2 + 32)];
+      return [v2[5] setPendingError:v2[4]];
     }
   }
 
   return result;
 }
 
-uint64_t __53__WTWritingToolsController_endWritingToolsWithError___block_invoke_477(uint64_t result)
+id *__53__WTWritingToolsController_endWritingToolsWithError___block_invoke_477(id *result)
 {
-  if (*(result + 32))
+  if (result[4])
   {
-    return [*(result + 40) presentError:?];
+    return [result[5] presentError:?];
   }
 
   return result;
@@ -583,28 +584,29 @@ uint64_t __53__WTWritingToolsController_endWritingToolsWithError___block_invoke_
 
 - (void)_refreshSourceResponderHorizontalSizeClassState
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   sourceResponderViewController = [(WTWritingToolsController *)self sourceResponderViewController];
   traitCollection = [sourceResponderViewController traitCollection];
   horizontalSizeClass = [traitCollection horizontalSizeClass];
 
-  if ([(WTWritingToolsController *)self sourceResponderHorizontalSizeClass]!= horizontalSizeClass)
+  sourceResponderHorizontalSizeClass = [(WTWritingToolsController *)self sourceResponderHorizontalSizeClass];
+  if (sourceResponderHorizontalSizeClass != horizontalSizeClass)
   {
-    v6 = _WTVCLog();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = _WTVCLog(sourceResponderHorizontalSizeClass);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = [MEMORY[0x1E696AD98] numberWithInteger:horizontalSizeClass];
-      v13 = 138412290;
-      v14 = v7;
-      _os_log_impl(&dword_1D451D000, v6, OS_LOG_TYPE_DEFAULT, "sourceResponderHorizontalSizeClass changed, new value: %@", &v13, 0xCu);
+      v8 = [MEMORY[0x1E696AD98] numberWithInteger:horizontalSizeClass];
+      v14 = 138412290;
+      v15 = v8;
+      _os_log_impl(&dword_1D451D000, v7, OS_LOG_TYPE_DEFAULT, "sourceResponderHorizontalSizeClass changed, new value: %@", &v14, 0xCu);
     }
 
     [(WTWritingToolsController *)self setSourceResponderHorizontalSizeClass:horizontalSizeClass];
     sourceResponderViewController2 = [(WTWritingToolsController *)self sourceResponderViewController];
     presentedViewController = [sourceResponderViewController2 presentedViewController];
-    v10 = objc_opt_respondsToSelector();
+    v11 = objc_opt_respondsToSelector();
 
-    if (v10)
+    if (v11)
     {
       sourceResponderViewController3 = [(WTWritingToolsController *)self sourceResponderViewController];
       presentedViewController2 = [sourceResponderViewController3 presentedViewController];
@@ -618,17 +620,18 @@ uint64_t __53__WTWritingToolsController_endWritingToolsWithError___block_invoke_
 
 - (void)_refreshWindowingModeEnabled
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   isWindowingModeEnabled = [(WTWritingToolsController *)self isWindowingModeEnabled];
-  if (isWindowingModeEnabled != [(WTWritingToolsController *)self windowingModeEnabled])
+  windowingModeEnabled = [(WTWritingToolsController *)self windowingModeEnabled];
+  if (isWindowingModeEnabled != windowingModeEnabled)
   {
-    v4 = _WTVCLog();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = _WTVCLog(windowingModeEnabled);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v5 = [MEMORY[0x1E696AD98] numberWithBool:isWindowingModeEnabled];
-      v7 = 138412290;
-      v8 = v5;
-      _os_log_impl(&dword_1D451D000, v4, OS_LOG_TYPE_DEFAULT, "isWindowingModeEnabled changed, new value: %@", &v7, 0xCu);
+      v6 = [MEMORY[0x1E696AD98] numberWithBool:isWindowingModeEnabled];
+      v8 = 138412290;
+      v9 = v6;
+      _os_log_impl(&dword_1D451D000, v5, OS_LOG_TYPE_DEFAULT, "isWindowingModeEnabled changed, new value: %@", &v8, 0xCu);
     }
 
     mainPopoverViewController = [(WTWritingToolsController *)self mainPopoverViewController];
@@ -638,33 +641,35 @@ uint64_t __53__WTWritingToolsController_endWritingToolsWithError___block_invoke_
 
 - (BOOL)isVisualModeWindowed
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   activeKeyboardSceneDelegate = [MEMORY[0x1E69DCC08] activeKeyboardSceneDelegate];
-  if (objc_opt_respondsToSelector())
+  useVisualModeWindowedUI = objc_opt_respondsToSelector();
+  if (useVisualModeWindowedUI)
   {
     useVisualModeWindowedUI = [activeKeyboardSceneDelegate useVisualModeWindowedUI];
+    v4 = useVisualModeWindowedUI;
   }
 
   else
   {
-    useVisualModeWindowedUI = 0;
+    v4 = 0;
   }
 
-  v4 = _WTVCLog();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  v5 = _WTVCLog(useVisualModeWindowedUI);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = "NO";
-    if (useVisualModeWindowedUI)
+    v6 = "NO";
+    if (v4)
     {
-      v5 = "YES";
+      v6 = "YES";
     }
 
-    v7 = 136315138;
-    v8 = v5;
-    _os_log_impl(&dword_1D451D000, v4, OS_LOG_TYPE_DEFAULT, "useVisualModeWindowedUI: %s", &v7, 0xCu);
+    v8 = 136315138;
+    v9 = v6;
+    _os_log_impl(&dword_1D451D000, v5, OS_LOG_TYPE_DEFAULT, "useVisualModeWindowedUI: %s", &v8, 0xCu);
   }
 
-  return useVisualModeWindowedUI;
+  return v4;
 }
 
 - (BOOL)isWindowingModeEnabled
@@ -741,23 +746,23 @@ uint64_t __53__WTWritingToolsController_endWritingToolsWithError___block_invoke_
     {
       v34 = MEMORY[0x1E69DC648];
       v35 = [v9 localizedStringForKey:@"Learn More" value:&stru_1F4FC5520 table:@"Localizable"];
-      v55[0] = MEMORY[0x1E69E9820];
-      v55[1] = 3221225472;
-      v55[2] = __41__WTWritingToolsController_presentError___block_invoke_2;
-      v55[3] = &unk_1E8480AB0;
-      v55[4] = self;
-      v36 = [v34 actionWithTitle:v35 style:1 handler:v55];
+      v56[0] = MEMORY[0x1E69E9820];
+      v56[1] = 3221225472;
+      v56[2] = __41__WTWritingToolsController_presentError___block_invoke_2;
+      v56[3] = &unk_1E8480AB0;
+      v56[4] = self;
+      v36 = [v34 actionWithTitle:v35 style:1 handler:v56];
       [v8 addAction:v36];
 
       v37 = MEMORY[0x1E69DC648];
       v38 = [v9 localizedStringForKey:@"OK" value:&stru_1F4FC5520 table:@"Localizable"];
-      v54[0] = MEMORY[0x1E69E9820];
-      v54[1] = 3221225472;
-      v54[2] = __41__WTWritingToolsController_presentError___block_invoke_3;
-      v54[3] = &unk_1E8480AB0;
+      v55[0] = MEMORY[0x1E69E9820];
+      v55[1] = 3221225472;
+      v55[2] = __41__WTWritingToolsController_presentError___block_invoke_3;
+      v55[3] = &unk_1E8480AB0;
       v22 = &qword_1D455A000;
-      v54[4] = self;
-      v39 = [v37 actionWithTitle:v38 style:0 handler:v54];
+      v55[4] = self;
+      v39 = [v37 actionWithTitle:v38 style:0 handler:v55];
 
       [v8 addAction:v39];
       [v8 setPreferredAction:v39];
@@ -766,43 +771,43 @@ uint64_t __53__WTWritingToolsController_endWritingToolsWithError___block_invoke_
     }
 
     userInfo4 = [errorCopy userInfo];
-    v41 = [userInfo4 objectForKeyedSubscript:@"WTUnsafeInputErrorKey"];
-    bOOLValue3 = [v41 BOOLValue];
+    v42 = [userInfo4 objectForKeyedSubscript:@"WTUnsafeInputErrorKey"];
+    bOOLValue3 = [v42 BOOLValue];
 
     if (bOOLValue3)
     {
-      v43 = [_TtC14WritingToolsUI27WTAlertHeaderViewController alloc];
-      v44 = [MEMORY[0x1E69DCAB8] _systemImageNamed:@"nosign.badge.shield.half.filled"];
-      v45 = [(WTAlertHeaderViewController *)v43 initWithImage:v44];
-      [v8 _setHeaderContentViewController:v45];
+      v44 = [_TtC14WritingToolsUI27WTAlertHeaderViewController alloc];
+      v45 = [MEMORY[0x1E69DCAB8] _systemImageNamed:@"nosign.badge.shield.half.filled"];
+      v46 = [(WTAlertHeaderViewController *)v44 initWithImage:v45];
+      [v8 _setHeaderContentViewController:v46];
     }
 
-    v46 = MEMORY[0x1E69DC648];
+    v47 = MEMORY[0x1E69DC648];
     v27 = [v9 localizedStringForKey:@"OK" value:&stru_1F4FC5520 table:@"Localizable"];
-    v29 = v46;
+    v29 = v47;
     v30 = v27;
     v28 = 0;
   }
 
-  v47 = [v29 actionWithTitle:v30 style:0 handler:v28];
-  [v8 addAction:v47];
+  v48 = [v29 actionWithTitle:v30 style:0 handler:v28];
+  [v8 addAction:v48];
 
 LABEL_13:
-  v48 = _WTVCLog();
-  if (os_log_type_enabled(v48, OS_LOG_TYPE_DEBUG))
+  v49 = _WTVCLog(v40);
+  if (os_log_type_enabled(v49, OS_LOG_TYPE_DEBUG))
   {
     [WTWritingToolsController presentError:];
   }
 
   sourceResponderViewController = [(WTWritingToolsController *)self sourceResponderViewController];
-  v51[0] = MEMORY[0x1E69E9820];
-  v51[1] = v22[75];
-  v51[2] = __41__WTWritingToolsController_presentError___block_invoke_542;
-  v51[3] = &unk_1E8480C70;
-  v52 = errorCopy;
+  v52[0] = MEMORY[0x1E69E9820];
+  v52[1] = v22[75];
+  v52[2] = __41__WTWritingToolsController_presentError___block_invoke_542;
+  v52[3] = &unk_1E8480C70;
+  v53 = errorCopy;
   selfCopy = self;
-  v50 = errorCopy;
-  [sourceResponderViewController presentViewController:v8 animated:1 completion:v51];
+  v51 = errorCopy;
+  [sourceResponderViewController presentViewController:v8 animated:1 completion:v52];
 }
 
 void __41__WTWritingToolsController_presentError___block_invoke()
@@ -822,7 +827,7 @@ void __41__WTWritingToolsController_presentError___block_invoke_2(uint64_t a1)
 
 void __41__WTWritingToolsController_presentError___block_invoke_542(uint64_t a1)
 {
-  v2 = _WTVCLog();
+  v2 = _WTVCLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
     __41__WTWritingToolsController_presentError___block_invoke_542_cold_1(a1, v2);
@@ -865,7 +870,7 @@ void __41__WTWritingToolsController_presentError___block_invoke_542(uint64_t a1)
 {
   v14 = *MEMORY[0x1E69E9840];
   promptCopy = prompt;
-  v7 = _WTVCLog();
+  v7 = _WTVCLog(promptCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v8 = [MEMORY[0x1E696AD98] numberWithInteger:tool];
@@ -894,37 +899,37 @@ void __41__WTWritingToolsController_presentError___block_invoke_542(uint64_t a1)
 
 - (void)didStartMontaraRefinementForSessionWithUUID:(id)d
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   dCopy = d;
-  v5 = _WTVCLog();
+  v5 = _WTVCLog(dCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = 138412290;
-    v11 = dCopy;
-    _os_log_impl(&dword_1D451D000, v5, OS_LOG_TYPE_DEFAULT, "Received didStartMontaraRefinement for %@", &v10, 0xCu);
+    v12 = 138412290;
+    v13 = dCopy;
+    _os_log_impl(&dword_1D451D000, v5, OS_LOG_TYPE_DEFAULT, "Received didStartMontaraRefinement for %@", &v12, 0xCu);
   }
 
-  if ([(WTWritingToolsController *)self supportsHostingInAppSizedContainerView])
+  supportsHostingInAppSizedContainerView = [(WTWritingToolsController *)self supportsHostingInAppSizedContainerView];
+  if (supportsHostingInAppSizedContainerView)
   {
     session = [(WTWritingToolsController *)self session];
 
     if (!session)
     {
-      [(WTWritingToolsController *)self setNoninlineSessionUUID:dCopy];
-      v7 = _WTVCLog();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+      v9 = _WTVCLog([(WTWritingToolsController *)self setNoninlineSessionUUID:dCopy]);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
-        v10 = 138412290;
-        v11 = dCopy;
-        _os_log_impl(&dword_1D451D000, v7, OS_LOG_TYPE_DEFAULT, "Handling noninlineSessionUUID: %@ for noninline session", &v10, 0xCu);
+        v12 = 138412290;
+        v13 = dCopy;
+        _os_log_impl(&dword_1D451D000, v9, OS_LOG_TYPE_DEFAULT, "Handling noninlineSessionUUID: %@ for noninline session", &v12, 0xCu);
       }
     }
 
-    v8 = _WTVCLog();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v10 = _WTVCLog(v8);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v10) = 0;
-      _os_log_impl(&dword_1D451D000, v8, OS_LOG_TYPE_DEFAULT, "Handling app sized container transition...", &v10, 2u);
+      LOWORD(v12) = 0;
+      _os_log_impl(&dword_1D451D000, v10, OS_LOG_TYPE_DEFAULT, "Handling app sized container transition...", &v12, 2u);
     }
 
     [(WTWritingToolsController *)self setWantsHostingInAppSizedContainerView:1];
@@ -933,11 +938,11 @@ void __41__WTWritingToolsController_presentError___block_invoke_542(uint64_t a1)
 
   else
   {
-    v9 = _WTVCLog();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v11 = _WTVCLog(supportsHostingInAppSizedContainerView);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v10) = 0;
-      _os_log_impl(&dword_1D451D000, v9, OS_LOG_TYPE_DEFAULT, "Skipping app sized container transition...", &v10, 2u);
+      LOWORD(v12) = 0;
+      _os_log_impl(&dword_1D451D000, v11, OS_LOG_TYPE_DEFAULT, "Skipping app sized container transition...", &v12, 2u);
     }
   }
 }
@@ -957,10 +962,11 @@ void __41__WTWritingToolsController_presentError___block_invoke_542(uint64_t a1)
 
 - (BOOL)shouldHostInAppSizedContainerView
 {
-  if (![(WTWritingToolsController *)self supportsHostingInAppSizedContainerView])
+  supportsHostingInAppSizedContainerView = [(WTWritingToolsController *)self supportsHostingInAppSizedContainerView];
+  if ((supportsHostingInAppSizedContainerView & 1) == 0)
   {
-    v3 = _WTVCLog();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
+    v5 = _WTVCLog(supportsHostingInAppSizedContainerView);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
     {
       [WTWritingToolsController shouldHostInAppSizedContainerView];
     }
@@ -968,12 +974,14 @@ void __41__WTWritingToolsController_presentError___block_invoke_542(uint64_t a1)
     goto LABEL_7;
   }
 
-  if (![(WTWritingToolsController *)self switchedFromUCBToPopover])
+  switchedFromUCBToPopover = [(WTWritingToolsController *)self switchedFromUCBToPopover];
+  if (!switchedFromUCBToPopover)
   {
-    if ([(WTWritingToolsController *)self wantsHostingInAppSizedContainerView])
+    wantsHostingInAppSizedContainerView = [(WTWritingToolsController *)self wantsHostingInAppSizedContainerView];
+    if (wantsHostingInAppSizedContainerView)
     {
-      v3 = _WTVCLog();
-      if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
+      v5 = _WTVCLog(wantsHostingInAppSizedContainerView);
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
       {
         [WTWritingToolsController shouldHostInAppSizedContainerView];
       }
@@ -983,8 +991,8 @@ void __41__WTWritingToolsController_presentError___block_invoke_542(uint64_t a1)
     {
       if ([(WTWritingToolsController *)self sourceResponderHorizontalSizeClass]== 1)
       {
-        v3 = _WTVCLog();
-        if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
+        v5 = _WTVCLog(1);
+        if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
         {
           [WTWritingToolsController shouldHostInAppSizedContainerView];
         }
@@ -992,19 +1000,11 @@ void __41__WTWritingToolsController_presentError___block_invoke_542(uint64_t a1)
         goto LABEL_7;
       }
 
-      if ([(WTWritingToolsController *)self _rewritingSessionActiveOrRequested])
+      _rewritingSessionActiveOrRequested = [(WTWritingToolsController *)self _rewritingSessionActiveOrRequested];
+      if (_rewritingSessionActiveOrRequested)
       {
-        v3 = _WTVCLog();
-        if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
-        {
-          [WTWritingToolsController shouldHostInAppSizedContainerView];
-        }
-      }
-
-      else if ([(WTWritingToolsController *)self _proofreadingSessionActiveOrRequested])
-      {
-        v3 = _WTVCLog();
-        if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
+        v5 = _WTVCLog(_rewritingSessionActiveOrRequested);
+        if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
         {
           [WTWritingToolsController shouldHostInAppSizedContainerView];
         }
@@ -1012,57 +1012,75 @@ void __41__WTWritingToolsController_presentError___block_invoke_542(uint64_t a1)
 
       else
       {
-        session = [(WTWritingToolsController *)self session];
-        if (session || ([(WTWritingToolsController *)self noninlineSessionUUID], (session = objc_claimAutoreleasedReturnValue()) != 0))
+        _proofreadingSessionActiveOrRequested = [(WTWritingToolsController *)self _proofreadingSessionActiveOrRequested];
+        if (_proofreadingSessionActiveOrRequested)
         {
-        }
-
-        else if (![(WTWritingToolsController *)self isFromHandoff])
-        {
-          v3 = _WTVCLog();
-          if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
+          v5 = _WTVCLog(_proofreadingSessionActiveOrRequested);
+          if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
           {
             [WTWritingToolsController shouldHostInAppSizedContainerView];
           }
-
-          goto LABEL_7;
         }
 
-        isFromHandoff = [(WTWritingToolsController *)self isFromHandoff];
-        v3 = _WTVCLog();
-        v8 = os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG);
-        if (!isFromHandoff)
+        else
         {
-          if (v8)
+          session = [(WTWritingToolsController *)self session];
+          if (session || ([(WTWritingToolsController *)self noninlineSessionUUID], (session = objc_claimAutoreleasedReturnValue()) != 0))
+          {
+          }
+
+          else
+          {
+            isFromHandoff = [(WTWritingToolsController *)self isFromHandoff];
+            if ((isFromHandoff & 1) == 0)
+            {
+              v5 = _WTVCLog(isFromHandoff);
+              if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+              {
+                [WTWritingToolsController shouldHostInAppSizedContainerView];
+              }
+
+              goto LABEL_7;
+            }
+          }
+
+          isFromHandoff2 = [(WTWritingToolsController *)self isFromHandoff];
+          v13 = isFromHandoff2;
+          v5 = _WTVCLog(isFromHandoff2);
+          v14 = os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG);
+          if (!v13)
+          {
+            if (v14)
+            {
+              [WTWritingToolsController shouldHostInAppSizedContainerView];
+            }
+
+            goto LABEL_7;
+          }
+
+          if (v14)
           {
             [WTWritingToolsController shouldHostInAppSizedContainerView];
           }
-
-          goto LABEL_7;
-        }
-
-        if (v8)
-        {
-          [WTWritingToolsController shouldHostInAppSizedContainerView];
         }
       }
     }
 
-    v4 = 1;
+    v6 = 1;
     goto LABEL_8;
   }
 
-  v3 = _WTVCLog();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
+  v5 = _WTVCLog(switchedFromUCBToPopover);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     [WTWritingToolsController shouldHostInAppSizedContainerView];
   }
 
 LABEL_7:
-  v4 = 0;
+  v6 = 0;
 LABEL_8:
 
-  return v4;
+  return v6;
 }
 
 - (id)trailingPredictiveCandidate
@@ -1194,7 +1212,7 @@ void __60__WTWritingToolsController_assistantBarButtonItemWithStyle___block_invo
   switch(state)
   {
     case 3:
-      v5 = _WTVCLog();
+      v5 = _WTVCLog(self);
       if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
       {
         v7 = 0;
@@ -1207,7 +1225,7 @@ LABEL_12:
       [(WTWritingToolsController *)self _dismissPromptEntryViewController];
       return;
     case 2:
-      v5 = _WTVCLog();
+      v5 = _WTVCLog(self);
       if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
       {
         v8 = 0;
@@ -1219,7 +1237,7 @@ LABEL_11:
 
       goto LABEL_12;
     case 1:
-      v4 = _WTVCLog();
+      v4 = _WTVCLog(self);
       if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
@@ -1236,7 +1254,7 @@ LABEL_11:
   v64 = *MEMORY[0x1E69E9840];
   sessionCopy = session;
   contextsCopy = contexts;
-  v8 = _WTVCLog();
+  v8 = _WTVCLog(contextsCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     uuid = [sessionCopy uuid];
@@ -1454,15 +1472,16 @@ void __73__WTWritingToolsController_willBeginWritingToolsSession_requestContexts
     v15 = *v36;
     do
     {
-      for (j = 0; j != v14; ++j)
+      v16 = 0;
+      do
       {
         if (*v36 != v15)
         {
           objc_enumerationMutation(obj);
         }
 
-        v17 = *(*(&v35 + 1) + 8 * j);
-        v18 = _WTVCLog();
+        v17 = *(*(&v35 + 1) + 8 * v16);
+        v18 = _WTVCLog(v13);
         if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
         {
           v19 = [v17 uuid];
@@ -1489,12 +1508,16 @@ void __73__WTWritingToolsController_willBeginWritingToolsSession_requestContexts
         v28 = [v27 attributedStringController];
         v29 = [v28 digestedAttributedStringForContext:v17];
         [v17 setAttributedText:v29];
+
+        ++v16;
       }
 
-      v14 = [obj countByEnumeratingWithState:&v35 objects:v49 count:16];
+      while (v14 != v16);
+      v13 = [obj countByEnumeratingWithState:&v35 objects:v49 count:16];
+      v14 = v13;
     }
 
-    while (v14);
+    while (v13);
   }
 
   v30 = *(a1 + 56);
@@ -1508,41 +1531,41 @@ void __73__WTWritingToolsController_willBeginWritingToolsSession_requestContexts
 
 - (void)didBeginWritingToolsSession:(id)session contexts:(id)contexts
 {
-  v50 = *MEMORY[0x1E69E9840];
+  v51 = *MEMORY[0x1E69E9840];
   contextsCopy = contexts;
-  v6 = _WTVCLog();
+  v6 = _WTVCLog(contextsCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     session = [(WTWritingToolsController *)self session];
     uuid = [session uuid];
     *buf = 138412290;
-    v44 = uuid;
+    v45 = uuid;
     _os_log_impl(&dword_1D451D000, v6, OS_LOG_TYPE_DEFAULT, "didBeginWritingToolsSession: %@", buf, 0xCu);
   }
 
-  v41 = 0u;
   v42 = 0u;
-  v39 = 0u;
+  v43 = 0u;
   v40 = 0u;
+  v41 = 0u;
   obj = contextsCopy;
-  v9 = [obj countByEnumeratingWithState:&v39 objects:v49 count:16];
+  v9 = [obj countByEnumeratingWithState:&v40 objects:v50 count:16];
   if (v9)
   {
     v11 = v9;
-    v12 = *v40;
+    v12 = *v41;
     *&v10 = 138412802;
-    v37 = v10;
+    v38 = v10;
     do
     {
       v13 = 0;
       do
       {
-        if (*v40 != v12)
+        if (*v41 != v12)
         {
           objc_enumerationMutation(obj);
         }
 
-        v14 = *(*(&v39 + 1) + 8 * v13);
+        v14 = *(*(&v40 + 1) + 8 * v13);
         uuidContextMapping = [(WTWritingToolsController *)self uuidContextMapping];
         uuid2 = [v14 uuid];
         v17 = [uuidContextMapping objectForKeyedSubscript:uuid2];
@@ -1556,28 +1579,28 @@ void __73__WTWritingToolsController_willBeginWritingToolsSession_requestContexts
         v24 = [uuidContextMapping2 objectForKeyedSubscript:uuid3];
         [v24 setRange:{range, v21}];
 
-        v25 = _WTVCLog();
-        if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+        v26 = _WTVCLog(v25);
+        if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
         {
           uuid4 = [v14 uuid];
           attributedText2 = [v14 attributedText];
-          v28 = [attributedText2 length];
-          v51.location = [v14 range];
-          v29 = NSStringFromRange(v51);
-          *buf = v37;
-          v44 = uuid4;
-          v45 = 2048;
-          v46 = v28;
-          v47 = 2112;
-          v48 = v29;
-          _os_log_impl(&dword_1D451D000, v25, OS_LOG_TYPE_DEFAULT, "didBegin, context: %@, length = %lu, range = %@", buf, 0x20u);
+          v29 = [attributedText2 length];
+          v52.location = [v14 range];
+          v30 = NSStringFromRange(v52);
+          *buf = v38;
+          v45 = uuid4;
+          v46 = 2048;
+          v47 = v29;
+          v48 = 2112;
+          v49 = v30;
+          _os_log_impl(&dword_1D451D000, v26, OS_LOG_TYPE_DEFAULT, "didBegin, context: %@, length = %lu, range = %@", buf, 0x20u);
         }
 
         ++v13;
       }
 
       while (v11 != v13);
-      v11 = [obj countByEnumeratingWithState:&v39 objects:v49 count:16];
+      v11 = [obj countByEnumeratingWithState:&v40 objects:v50 count:16];
     }
 
     while (v11);
@@ -1607,7 +1630,7 @@ void __73__WTWritingToolsController_willBeginWritingToolsSession_requestContexts
 - (void)writingToolsSession:(id)session didReceiveAction:(int64_t)action
 {
   v17 = *MEMORY[0x1E69E9840];
-  v6 = _WTVCLog();
+  v6 = _WTVCLog(self);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     session = [(WTWritingToolsController *)self session];
@@ -1632,7 +1655,7 @@ void __73__WTWritingToolsController_willBeginWritingToolsSession_requestContexts
 {
   acceptedCopy = accepted;
   v16 = *MEMORY[0x1E69E9840];
-  v6 = _WTVCLog();
+  v6 = _WTVCLog(self);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     session = [(WTWritingToolsController *)self session];
@@ -1691,7 +1714,7 @@ void __63__WTWritingToolsController_didEndWritingToolsSession_accepted___block_i
   v45 = *MEMORY[0x1E69E9840];
   suggestionsCopy = suggestions;
   contextCopy = context;
-  v12 = _WTVCLog();
+  v12 = _WTVCLog(contextCopy);
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
     session = [(WTWritingToolsController *)self session];
@@ -1767,7 +1790,7 @@ void __63__WTWritingToolsController_didEndWritingToolsSession_accepted___block_i
   v37 = *MEMORY[0x1E69E9840];
   dCopy = d;
   contextCopy = context;
-  v11 = _WTVCLog();
+  v11 = _WTVCLog(contextCopy);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     session = [(WTWritingToolsController *)self session];
@@ -1829,7 +1852,7 @@ void __63__WTWritingToolsController_didEndWritingToolsSession_accepted___block_i
   v35 = *MEMORY[0x1E69E9840];
   textCopy = text;
   contextCopy = context;
-  v14 = _WTVCLog();
+  v14 = _WTVCLog(contextCopy);
   if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
     [(WTWritingToolsController *)self session];
@@ -1887,7 +1910,7 @@ void __63__WTWritingToolsController_didEndWritingToolsSession_accepted___block_i
   x = rect.origin.x;
   v24 = *MEMORY[0x1E69E9840];
   _inputDashboardViewController = [(WTWritingToolsController *)self _inputDashboardViewController];
-  v9 = _WTVCLog();
+  v9 = _WTVCLog(_inputDashboardViewController);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     session = [(WTWritingToolsController *)self session];
@@ -1977,27 +2000,27 @@ void __63__WTWritingToolsController_didEndWritingToolsSession_accepted___block_i
 
 - (void)setSession:(id)session
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   sessionCopy = session;
-  v5 = _WTVCLog();
+  v5 = _WTVCLog(sessionCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     uuid = [sessionCopy uuid];
     v7 = [MEMORY[0x1E696AD98] numberWithInteger:{objc_msgSend(sessionCopy, "type")}];
     uuid2 = [(WTSession *)self->_session uuid];
-    v11 = 138412802;
-    v12 = uuid;
-    v13 = 2112;
-    v14 = v7;
-    v15 = 2112;
-    v16 = uuid2;
-    _os_log_impl(&dword_1D451D000, v5, OS_LOG_TYPE_DEFAULT, "setSession: %@, type: %@, oldSession: %@", &v11, 0x20u);
+    v12 = 138412802;
+    v13 = uuid;
+    v14 = 2112;
+    v15 = v7;
+    v16 = 2112;
+    v17 = uuid2;
+    _os_log_impl(&dword_1D451D000, v5, OS_LOG_TYPE_DEFAULT, "setSession: %@, type: %@, oldSession: %@", &v12, 0x20u);
   }
 
   session = self->_session;
   self->_session = sessionCopy;
 
-  [(WTWritingToolsController *)self updateKBSuppression];
+  updateKBSuppression = [(WTWritingToolsController *)self updateKBSuppression];
   if (sessionCopy)
   {
     [(WTWritingToolsController *)self setEndingWritingToolsSession:0];
@@ -2006,11 +2029,11 @@ void __63__WTWritingToolsController_didEndWritingToolsSession_accepted___block_i
 
   else
   {
-    v10 = _WTVCLog();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v11 = _WTVCLog(updateKBSuppression);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v11) = 0;
-      _os_log_impl(&dword_1D451D000, v10, OS_LOG_TYPE_DEFAULT, "Skipping updateSourceView due to setting of nil session", &v11, 2u);
+      LOWORD(v12) = 0;
+      _os_log_impl(&dword_1D451D000, v11, OS_LOG_TYPE_DEFAULT, "Skipping updateSourceView due to setting of nil session", &v12, 2u);
     }
   }
 }
@@ -2268,7 +2291,7 @@ uint64_t __75__WTWritingToolsController_endTextPlaceholderAndWillInsertText_comp
   v19 = *MEMORY[0x1E69E9840];
   dCopy = d;
   iDCopy = iD;
-  v10 = _WTVCLog();
+  v10 = _WTVCLog(iDCopy);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     v11 = [MEMORY[0x1E696AD98] numberWithInteger:state];
@@ -2294,7 +2317,7 @@ uint64_t __75__WTWritingToolsController_endTextPlaceholderAndWillInsertText_comp
   v35 = *MEMORY[0x1E69E9840];
   iDCopy = iD;
   viewCopy = view;
-  v14 = _WTVCLog();
+  v14 = _WTVCLog(viewCopy);
   if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
     session = [(WTWritingToolsController *)self session];
@@ -2352,7 +2375,7 @@ uint64_t __111__WTWritingToolsController_proofreadingSessionWithUUID_showDetails
 {
   v10 = *MEMORY[0x1E69E9840];
   dCopy = d;
-  v5 = _WTVCLog();
+  v5 = _WTVCLog(dCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v8 = 138412290;
@@ -2422,7 +2445,7 @@ uint64_t __111__WTWritingToolsController_proofreadingSessionWithUUID_showDetails
 
 - (void)updateKBSuppression
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   currentDevice = [MEMORY[0x1E69DC938] currentDevice];
   userInterfaceIdiom = [currentDevice userInterfaceIdiom];
 
@@ -2440,10 +2463,11 @@ uint64_t __111__WTWritingToolsController_proofreadingSessionWithUUID_showDetails
     v7 = pendingError != 0;
   }
 
-  v9 = [(WTWritingToolsController *)self _wantsUCBUI]& !v7;
-  if (v9)
+  _wantsUCBUI = [(WTWritingToolsController *)self _wantsUCBUI];
+  v10 = _wantsUCBUI & !v7;
+  if (_wantsUCBUI & !v7)
   {
-    v10 = 1;
+    v11 = 1;
   }
 
   else
@@ -2451,37 +2475,37 @@ uint64_t __111__WTWritingToolsController_proofreadingSessionWithUUID_showDetails
     mainPopoverViewController = [(WTWritingToolsController *)self mainPopoverViewController];
     if (mainPopoverViewController || [(WTWritingToolsController *)self isPopoverTemporarilyDismissed]&& userInterfaceIdiom == 1 && (_os_feature_enabled_impl() & 1) != 0)
     {
-      v10 = 1;
+      v11 = 1;
     }
 
     else
     {
-      v10 = [(WTWritingToolsController *)self shouldHostInAppSizedContainerView]|| v7;
+      v11 = [(WTWritingToolsController *)self shouldHostInAppSizedContainerView]|| v7;
     }
   }
 
-  v12 = _WTVCLog();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+  v13 = _WTVCLog(_wantsUCBUI);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
-    v13 = [MEMORY[0x1E696AD98] numberWithBool:v10 & 1];
-    v14 = [MEMORY[0x1E696AD98] numberWithBool:v9];
+    v14 = [MEMORY[0x1E696AD98] numberWithBool:v11 & 1];
+    v15 = [MEMORY[0x1E696AD98] numberWithBool:v10];
     mainPopoverViewController2 = [(WTWritingToolsController *)self mainPopoverViewController];
-    v16 = [MEMORY[0x1E696AD98] numberWithBool:{-[WTWritingToolsController shouldHostInAppSizedContainerView](self, "shouldHostInAppSizedContainerView")}];
-    v18 = 138413314;
-    v19 = v13;
-    v20 = 2112;
-    v21 = v14;
-    v22 = 2112;
-    v23 = mainPopoverViewController2;
-    v24 = 2112;
-    v25 = v16;
-    v26 = 1024;
-    v27 = v7;
-    _os_log_impl(&dword_1D451D000, v12, OS_LOG_TYPE_DEFAULT, "updateKBSuppression shouldSuppress: %@, shouldSuppressForUCBUI: %@, sheet/popover: %@, appSizedContainerView %@, error: %d", &v18, 0x30u);
+    v17 = [MEMORY[0x1E696AD98] numberWithBool:{-[WTWritingToolsController shouldHostInAppSizedContainerView](self, "shouldHostInAppSizedContainerView")}];
+    v19 = 138413314;
+    v20 = v14;
+    v21 = 2112;
+    v22 = v15;
+    v23 = 2112;
+    v24 = mainPopoverViewController2;
+    v25 = 2112;
+    v26 = v17;
+    v27 = 1024;
+    v28 = v7;
+    _os_log_impl(&dword_1D451D000, v13, OS_LOG_TYPE_DEFAULT, "updateKBSuppression shouldSuppress: %@, shouldSuppressForUCBUI: %@, sheet/popover: %@, appSizedContainerView %@, error: %d", &v19, 0x30u);
   }
 
   sourceResponder = [(WTWritingToolsController *)self sourceResponder];
-  [sourceResponder _setWritingToolsWantsKeyboardSuppression:v10 & 1 suppressAssistant:{-[WTWritingToolsController _wantsUCBUI](self, "_wantsUCBUI") ^ 1}];
+  [sourceResponder _setWritingToolsWantsKeyboardSuppression:v11 & 1 suppressAssistant:{-[WTWritingToolsController _wantsUCBUI](self, "_wantsUCBUI") ^ 1}];
 }
 
 - (void)updateSourceView
@@ -2490,8 +2514,7 @@ uint64_t __111__WTWritingToolsController_proofreadingSessionWithUUID_showDetails
   if ([(WTWritingToolsController *)self isWritingToolsActive])
   {
     [(WTWritingToolsController *)self _refreshWindowingModeEnabled];
-    [(WTWritingToolsController *)self setMinimizedIntoUCB:[(WTWritingToolsController *)self _wantsUCBUI]];
-    v3 = _WTVCLog();
+    v3 = _WTVCLog([(WTWritingToolsController *)self setMinimizedIntoUCB:[(WTWritingToolsController *)self _wantsUCBUI]]);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       LODWORD(buf) = 67109120;
@@ -2549,11 +2572,11 @@ uint64_t __111__WTWritingToolsController_proofreadingSessionWithUUID_showDetails
 
 void __44__WTWritingToolsController_updateSourceView__block_invoke(uint64_t a1)
 {
-  v2 = _WTVCLog();
+  v2 = _WTVCLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    *v10 = 0;
-    _os_log_impl(&dword_1D451D000, v2, OS_LOG_TYPE_DEFAULT, "updateSourceView completed popover supression...", v10, 2u);
+    *v11 = 0;
+    _os_log_impl(&dword_1D451D000, v2, OS_LOG_TYPE_DEFAULT, "updateSourceView completed popover supression...", v11, 2u);
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 40));
@@ -2571,13 +2594,14 @@ LABEL_7:
 
     v8 = *(a1 + 32);
     v7 = (a1 + 32);
-    if ([v8 isFromHandoff])
+    v9 = [v8 isFromHandoff];
+    if (v9)
     {
       goto LABEL_7;
     }
 
-    v9 = _WTVCLog();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v10 = _WTVCLog(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       __44__WTWritingToolsController_updateSourceView__block_invoke_cold_1(v4, v7);
     }
@@ -2585,7 +2609,7 @@ LABEL_7:
 
   else
   {
-    v6 = _WTVCLog();
+    v6 = _WTVCLog(0);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       __44__WTWritingToolsController_updateSourceView__block_invoke_cold_2();
@@ -2601,7 +2625,7 @@ LABEL_11:
   sourceResponder = [(WTWritingToolsController *)self sourceResponder];
   _wantsUCBUI = [(WTWritingToolsController *)self _wantsUCBUI];
   minimizedIntoAssistant = [(WTWritingToolsController *)self minimizedIntoAssistant];
-  v6 = _WTVCLog();
+  v6 = _WTVCLog(minimizedIntoAssistant);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     [MEMORY[0x1E696AD98] numberWithBool:_wantsUCBUI];
@@ -2710,25 +2734,25 @@ LABEL_21:
 
     if (mainPopoverViewController)
     {
-      v6 = _WTVCLog();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+      v7 = _WTVCLog(v6);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_1D451D000, v6, OS_LOG_TYPE_DEFAULT, "dismissViewControllerAnimated for _updateWritingToolsSheetSuppression", buf, 2u);
+        _os_log_impl(&dword_1D451D000, v7, OS_LOG_TYPE_DEFAULT, "dismissViewControllerAnimated for _updateWritingToolsSheetSuppression", buf, 2u);
       }
 
       mainPopoverViewController2 = [(WTWritingToolsController *)self mainPopoverViewController];
       presentingViewController = [mainPopoverViewController2 presentingViewController];
-      v13[0] = MEMORY[0x1E69E9820];
-      v13[1] = 3221225472;
-      v13[2] = __79__WTWritingToolsController_updateWritingToolsPopoverSuppressionWithCompletion___block_invoke;
-      v13[3] = &unk_1E8480DD0;
-      v13[4] = self;
-      v14 = completionCopy;
-      [presentingViewController dismissViewControllerAnimated:1 completion:v13];
+      v14[0] = MEMORY[0x1E69E9820];
+      v14[1] = 3221225472;
+      v14[2] = __79__WTWritingToolsController_updateWritingToolsPopoverSuppressionWithCompletion___block_invoke;
+      v14[3] = &unk_1E8480DD0;
+      v14[4] = self;
+      v15 = completionCopy;
+      [presentingViewController dismissViewControllerAnimated:1 completion:v14];
 
       [(WTWritingToolsController *)self setMainPopoverViewController:0];
-      v9 = v14;
+      v10 = v15;
       goto LABEL_6;
     }
   }
@@ -2742,14 +2766,14 @@ LABEL_21:
 
     else if (![(WTWritingToolsController *)self endingSharingSession])
     {
-      v11[0] = MEMORY[0x1E69E9820];
-      v11[1] = 3221225472;
-      v11[2] = __79__WTWritingToolsController_updateWritingToolsPopoverSuppressionWithCompletion___block_invoke_2;
-      v11[3] = &unk_1E8480DD0;
-      v11[4] = self;
-      v12 = completionCopy;
-      [(WTWritingToolsController *)self _presentMainPopoverViewControllerWithCompletion:v11];
-      v9 = v12;
+      v12[0] = MEMORY[0x1E69E9820];
+      v12[1] = 3221225472;
+      v12[2] = __79__WTWritingToolsController_updateWritingToolsPopoverSuppressionWithCompletion___block_invoke_2;
+      v12[3] = &unk_1E8480DD0;
+      v12[4] = self;
+      v13 = completionCopy;
+      [(WTWritingToolsController *)self _presentMainPopoverViewControllerWithCompletion:v12];
+      v10 = v13;
 LABEL_6:
 
       goto LABEL_13;
@@ -2797,7 +2821,7 @@ uint64_t __79__WTWritingToolsController_updateWritingToolsPopoverSuppressionWith
 - (void)setInterfaceAutorotationDisabledIfNecessary:(BOOL)necessary
 {
   necessaryCopy = necessary;
-  v53 = *MEMORY[0x1E69E9840];
+  v55 = *MEMORY[0x1E69E9840];
   currentDevice = [MEMORY[0x1E69DC938] currentDevice];
   userInterfaceIdiom = [currentDevice userInterfaceIdiom];
 
@@ -2833,57 +2857,57 @@ uint64_t __79__WTWritingToolsController_updateWritingToolsPopoverSuppressionWith
           v16 = @"(nil)";
         }
 
-        v23 = MEMORY[0x1E696AEC0];
+        v24 = MEMORY[0x1E696AEC0];
         window = window;
-        v24 = objc_opt_class();
-        v25 = NSStringFromClass(v24);
-        v26 = [v23 stringWithFormat:@"<%@: %p>", v25, window];
+        v25 = objc_opt_class();
+        v26 = NSStringFromClass(v25);
+        v27 = [v24 stringWithFormat:@"<%@: %p>", v26, window];
 
-        v27 = [v11 stringWithFormat:@"WT dismiss disabling autorotation for window on behalf of controller=%@ window=%@", v16, v26];;
+        v28 = [v11 stringWithFormat:@"WT dismiss disabling autorotation for window on behalf of controller=%@ window=%@", v16, v27];;
 
         objc_initWeak(&location, window);
-        v28 = objc_alloc(MEMORY[0x1E698E778]);
-        v43 = MEMORY[0x1E69E9820];
-        v44 = 3221225472;
-        v45 = __72__WTWritingToolsController_setInterfaceAutorotationDisabledIfNecessary___block_invoke;
-        v46 = &unk_1E8480E20;
-        objc_copyWeak(&v47, &location);
-        v29 = [v28 initWithIdentifier:@"WTWritingToolsController.windowDisableInterfaceAutorotation" forReason:v27 invalidationBlock:&v43];
-        v30 = self->_interfaceAutorotationDisabledAssertion;
-        self->_interfaceAutorotationDisabledAssertion = v29;
+        v29 = objc_alloc(MEMORY[0x1E698E778]);
+        v45 = MEMORY[0x1E69E9820];
+        v46 = 3221225472;
+        v47 = __72__WTWritingToolsController_setInterfaceAutorotationDisabledIfNecessary___block_invoke;
+        v48 = &unk_1E8480E20;
+        objc_copyWeak(&v49, &location);
+        v30 = [v29 initWithIdentifier:@"WTWritingToolsController.windowDisableInterfaceAutorotation" forReason:v28 invalidationBlock:&v45];
+        v31 = self->_interfaceAutorotationDisabledAssertion;
+        self->_interfaceAutorotationDisabledAssertion = v30;
 
-        v31 = _WTVCLog();
-        if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
+        v33 = _WTVCLog(v32);
+        if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
         {
           sourceResponderViewController3 = [(WTWritingToolsController *)self sourceResponderViewController];
           if (sourceResponderViewController3)
           {
-            v33 = MEMORY[0x1E696AEC0];
-            v34 = objc_opt_class();
-            v35 = NSStringFromClass(v34);
-            v36 = [v33 stringWithFormat:@"<%@: %p>", v35, sourceResponderViewController3, v43, v44, v45, v46];
+            v35 = MEMORY[0x1E696AEC0];
+            v36 = objc_opt_class();
+            v37 = NSStringFromClass(v36);
+            v38 = [v35 stringWithFormat:@"<%@: %p>", v37, sourceResponderViewController3, v45, v46, v47, v48];
           }
 
           else
           {
-            v36 = @"(nil)";
+            v38 = @"(nil)";
           }
 
-          v37 = v36;
-          v38 = window;
-          v39 = MEMORY[0x1E696AEC0];
-          v40 = objc_opt_class();
-          v41 = NSStringFromClass(v40);
-          v42 = [v39 stringWithFormat:@"<%@: %p>", v41, v38];
+          v39 = v38;
+          v40 = window;
+          v41 = MEMORY[0x1E696AEC0];
+          v42 = objc_opt_class();
+          v43 = NSStringFromClass(v42);
+          v44 = [v41 stringWithFormat:@"<%@: %p>", v43, v40];
 
           *buf = 138412546;
-          v50 = v37;
-          v51 = 2112;
-          v52 = v42;
-          _os_log_impl(&dword_1D451D000, v31, OS_LOG_TYPE_DEFAULT, "Set autorotation disable assertion for %@ on %@", buf, 0x16u);
+          v52 = v39;
+          v53 = 2112;
+          v54 = v44;
+          _os_log_impl(&dword_1D451D000, v33, OS_LOG_TYPE_DEFAULT, "Set autorotation disable assertion for %@ on %@", buf, 0x16u);
         }
 
-        objc_destroyWeak(&v47);
+        objc_destroyWeak(&v49);
         objc_destroyWeak(&location);
       }
 
@@ -2898,25 +2922,25 @@ LABEL_23:
       v17 = self->_interfaceAutorotationDisabledAssertion;
       self->_interfaceAutorotationDisabledAssertion = 0;
 
-      window = _WTVCLog();
+      window = _WTVCLog(v18);
       if (os_log_type_enabled(window, OS_LOG_TYPE_DEFAULT))
       {
         sourceResponderViewController4 = [(WTWritingToolsController *)self sourceResponderViewController];
         if (sourceResponderViewController4)
         {
-          v19 = MEMORY[0x1E696AEC0];
-          v20 = objc_opt_class();
-          v21 = NSStringFromClass(v20);
-          v22 = [v19 stringWithFormat:@"<%@: %p>", v21, sourceResponderViewController4];
+          v20 = MEMORY[0x1E696AEC0];
+          v21 = objc_opt_class();
+          v22 = NSStringFromClass(v21);
+          v23 = [v20 stringWithFormat:@"<%@: %p>", v22, sourceResponderViewController4];
         }
 
         else
         {
-          v22 = @"(nil)";
+          v23 = @"(nil)";
         }
 
         *buf = 138412290;
-        v50 = v22;
+        v52 = v23;
         _os_log_impl(&dword_1D451D000, window, OS_LOG_TYPE_DEFAULT, "Invalidated autorotation disable assertion for %@", buf, 0xCu);
       }
 
@@ -2951,7 +2975,7 @@ void __72__WTWritingToolsController_setInterfaceAutorotationDisabledIfNecessary_
 
 - (void)selectionDidUpdate
 {
-  v3 = _WTVCLog();
+  v3 = _WTVCLog(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     [WTWritingToolsController selectionDidUpdate];
@@ -2974,7 +2998,7 @@ void __72__WTWritingToolsController_setInterfaceAutorotationDisabledIfNecessary_
   }
 }
 
-uint64_t __46__WTWritingToolsController_selectionDidUpdate__block_invoke(uint64_t a1)
+void *__46__WTWritingToolsController_selectionDidUpdate__block_invoke(uint64_t a1)
 {
   [*(a1 + 32) _visibleApproximationOfTextSelectionRect];
   v3 = v2;
@@ -3042,24 +3066,25 @@ uint64_t __46__WTWritingToolsController_selectionDidUpdate__block_invoke(uint64_
 
 - (id)_createSmartReplyInputDashboardViewController
 {
-  if ([objc_opt_class() iPadOSAlternateQuestionnaireEnabled])
+  iPadOSAlternateQuestionnaireEnabled = [objc_opt_class() iPadOSAlternateQuestionnaireEnabled];
+  if (iPadOSAlternateQuestionnaireEnabled)
   {
-    v3 = [(WTWritingToolsController *)self _startupOptionsForSceneHostedViewControllerForRequestedTool:101 isForInputDashboard:1 isForAssistant:0];
-    v4 = [[WTSceneHostedInputDashboardViewController alloc] initWithWritingToolsDelegate:self startupOptions:v3];
+    v4 = [(WTWritingToolsController *)self _startupOptionsForSceneHostedViewControllerForRequestedTool:101 isForInputDashboard:1 isForAssistant:0];
+    v5 = [[WTSceneHostedInputDashboardViewController alloc] initWithWritingToolsDelegate:self startupOptions:v4];
   }
 
   else
   {
-    v5 = _WTVCLog();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = _WTVCLog(iPadOSAlternateQuestionnaireEnabled);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       [WTWritingToolsController _createSmartReplyInputDashboardViewController];
     }
 
-    v4 = 0;
+    v5 = 0;
   }
 
-  return v4;
+  return v5;
 }
 
 - (void)_revertAllSuggestions
@@ -3529,7 +3554,7 @@ LABEL_2:
 - (void)_updatePopoverAnchoring
 {
   v22[2] = *MEMORY[0x1E69E9840];
-  v3 = _WTVCLog();
+  v3 = _WTVCLog(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v20 = 0;
@@ -4001,7 +4026,7 @@ uint64_t __68__WTWritingToolsController___updateSuggestionPopoverWithCompletion_
 
 - (void)_checkForPendingSuggestion
 {
-  v3 = _WTVCLog();
+  v3 = _WTVCLog(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -4052,7 +4077,7 @@ void __54__WTWritingToolsController__checkForPendingSuggestion__block_invoke(uin
 
 - (void)_updatePromptEntryPopover
 {
-  v3 = _WTVCLog();
+  v3 = _WTVCLog(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v4 = 0;
@@ -4064,7 +4089,7 @@ void __54__WTWritingToolsController__checkForPendingSuggestion__block_invoke(uin
 
 - (void)_presentSuggestionViewControllerWithCompletion:(id)completion
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
   uuidSuggestionMapping = [(WTWritingToolsController *)self uuidSuggestionMapping];
   popoverSuggestionUUID = [(WTWritingToolsController *)self popoverSuggestionUUID];
@@ -4074,12 +4099,12 @@ void __54__WTWritingToolsController__checkForPendingSuggestion__block_invoke(uin
   uuid = [v7 uuid];
   v10 = [contextForSuggestions objectForKeyedSubscript:uuid];
 
-  v33[0] = 0;
-  v33[1] = v33;
-  v33[2] = 0x3032000000;
-  v33[3] = __Block_byref_object_copy_;
-  v33[4] = __Block_byref_object_dispose_;
-  v34 = 0;
+  v34[0] = 0;
+  v34[1] = v34;
+  v34[2] = 0x3032000000;
+  v34[3] = __Block_byref_object_copy_;
+  v34[4] = __Block_byref_object_dispose_;
+  v35 = 0;
   suggestionQueue = [(WTWritingToolsController *)self suggestionQueue];
   dispatch_assert_queue_not_V2(suggestionQueue);
 
@@ -4088,11 +4113,11 @@ void __54__WTWritingToolsController__checkForPendingSuggestion__block_invoke(uin
   block[1] = 3221225472;
   block[2] = __75__WTWritingToolsController__presentSuggestionViewControllerWithCompletion___block_invoke;
   block[3] = &unk_1E8480EE8;
-  v32 = v33;
+  v33 = v34;
   v13 = v7;
-  v29 = v13;
+  v30 = v13;
   v14 = v10;
-  v30 = v14;
+  v31 = v14;
   selfCopy = self;
   dispatch_sync(suggestionQueue2, block);
 
@@ -4106,34 +4131,34 @@ void __54__WTWritingToolsController__checkForPendingSuggestion__block_invoke(uin
     [(WTWritingToolsController *)self sourceResponderViewController];
   }
   v15 = ;
-  v24[0] = MEMORY[0x1E69E9820];
-  v24[1] = 3221225472;
-  v24[2] = __75__WTWritingToolsController__presentSuggestionViewControllerWithCompletion___block_invoke_2;
-  v24[3] = &unk_1E8480F38;
-  v24[4] = self;
-  v27 = v33;
+  v25[0] = MEMORY[0x1E69E9820];
+  v25[1] = 3221225472;
+  v25[2] = __75__WTWritingToolsController__presentSuggestionViewControllerWithCompletion___block_invoke_2;
+  v25[3] = &unk_1E8480F38;
+  v25[4] = self;
+  v28 = v34;
   v16 = v15;
-  v25 = v16;
+  v26 = v16;
   v17 = completionCopy;
-  v26 = v17;
-  v18 = MEMORY[0x1DA6D90E0](v24);
+  v27 = v17;
+  v18 = MEMORY[0x1DA6D90E0](v25);
   presentedViewController = [v16 presentedViewController];
 
   if (presentedViewController)
   {
-    v20 = _WTVCLog();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+    v21 = _WTVCLog(v20);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
       presentedViewController2 = [v16 presentedViewController];
-      [(WTWritingToolsController *)presentedViewController2 _presentSuggestionViewControllerWithCompletion:buf, v20];
+      [(WTWritingToolsController *)presentedViewController2 _presentSuggestionViewControllerWithCompletion:buf, v21];
     }
 
-    v22[0] = MEMORY[0x1E69E9820];
-    v22[1] = 3221225472;
-    v22[2] = __75__WTWritingToolsController__presentSuggestionViewControllerWithCompletion___block_invoke_664;
-    v22[3] = &unk_1E8480E98;
-    v23 = v18;
-    [(WTWritingToolsController *)self _dismissSuggestionViewControllerWithCompletion:v22];
+    v23[0] = MEMORY[0x1E69E9820];
+    v23[1] = 3221225472;
+    v23[2] = __75__WTWritingToolsController__presentSuggestionViewControllerWithCompletion___block_invoke_664;
+    v23[3] = &unk_1E8480E98;
+    v24 = v18;
+    [(WTWritingToolsController *)self _dismissSuggestionViewControllerWithCompletion:v23];
   }
 
   else
@@ -4141,7 +4166,7 @@ void __54__WTWritingToolsController__checkForPendingSuggestion__block_invoke(uin
     v18[2](v18);
   }
 
-  _Block_object_dispose(v33, 8);
+  _Block_object_dispose(v34, 8);
 }
 
 void __75__WTWritingToolsController__presentSuggestionViewControllerWithCompletion___block_invoke(uint64_t a1)
@@ -4213,7 +4238,7 @@ uint64_t __75__WTWritingToolsController__presentSuggestionViewControllerWithComp
 
 - (void)_presentPromptEntryViewController
 {
-  v3 = _WTVCLog();
+  v3 = _WTVCLog(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v26 = 0;
@@ -4264,13 +4289,13 @@ uint64_t __75__WTWritingToolsController__presentSuggestionViewControllerWithComp
 
 void __59__WTWritingToolsController_presentFullScreenViewController__block_invoke(uint64_t a1)
 {
-  v13 = *MEMORY[0x1E69E9840];
-  v2 = _WTVCLog();
+  v14 = *MEMORY[0x1E69E9840];
+  v2 = _WTVCLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 40);
     *buf = 134217984;
-    v12 = v3;
+    v13 = v3;
     _os_log_impl(&dword_1D451D000, v2, OS_LOG_TYPE_DEFAULT, "End presenting fullScreenViewController for %ld...", buf, 0xCu);
   }
 
@@ -4283,20 +4308,20 @@ void __59__WTWritingToolsController_presentFullScreenViewController__block_invok
 
   if (v7)
   {
-    v8 = _WTVCLog();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = _WTVCLog(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_1D451D000, v8, OS_LOG_TYPE_DEFAULT, "Handling pendingError after fullScreenViewController presentation", buf, 2u);
+      _os_log_impl(&dword_1D451D000, v9, OS_LOG_TYPE_DEFAULT, "Handling pendingError after fullScreenViewController presentation", buf, 2u);
     }
 
-    v9 = *(a1 + 32);
-    v10[0] = MEMORY[0x1E69E9820];
-    v10[1] = 3221225472;
-    v10[2] = __59__WTWritingToolsController_presentFullScreenViewController__block_invoke_667;
-    v10[3] = &unk_1E8480CE0;
-    v10[4] = v9;
-    [v9 _dismissFullScreenViewControllerWithCompletion:v10];
+    v10 = *(a1 + 32);
+    v11[0] = MEMORY[0x1E69E9820];
+    v11[1] = 3221225472;
+    v11[2] = __59__WTWritingToolsController_presentFullScreenViewController__block_invoke_667;
+    v11[3] = &unk_1E8480CE0;
+    v11[4] = v10;
+    [v10 _dismissFullScreenViewControllerWithCompletion:v11];
   }
 }
 
@@ -4309,22 +4334,22 @@ void __59__WTWritingToolsController_presentFullScreenViewController__block_invok
 
 - (void)_dismissFullScreenViewControllerWithCompletion:(id)completion
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
   fullScreenContainerViewController = [(WTWritingToolsController *)self fullScreenContainerViewController];
 
   if (fullScreenContainerViewController)
   {
-    v6 = _WTVCLog();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = _WTVCLog(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       fullScreenContainerViewController2 = [(WTWritingToolsController *)self fullScreenContainerViewController];
       sourceResponderViewController = [(WTWritingToolsController *)self sourceResponderViewController];
       *buf = 138412546;
-      v27 = fullScreenContainerViewController2;
-      v28 = 2112;
-      v29 = sourceResponderViewController;
-      _os_log_impl(&dword_1D451D000, v6, OS_LOG_TYPE_DEFAULT, "Requested dismissFullScreenViewController %@ (sourceResponderViewController: %@)", buf, 0x16u);
+      v29 = fullScreenContainerViewController2;
+      v30 = 2112;
+      v31 = sourceResponderViewController;
+      _os_log_impl(&dword_1D451D000, v7, OS_LOG_TYPE_DEFAULT, "Requested dismissFullScreenViewController %@ (sourceResponderViewController: %@)", buf, 0x16u);
     }
   }
 
@@ -4334,7 +4359,7 @@ void __59__WTWritingToolsController_presentFullScreenViewController__block_invok
     goto LABEL_10;
   }
 
-  v10 = fullScreenContainerViewController3;
+  v11 = fullScreenContainerViewController3;
   fullScreenContainerViewController4 = [(WTWritingToolsController *)self fullScreenContainerViewController];
   presentationController = [fullScreenContainerViewController4 presentationController];
   if ([presentationController dismissed])
@@ -4349,11 +4374,11 @@ void __59__WTWritingToolsController_presentFullScreenViewController__block_invok
 
 LABEL_9:
 LABEL_10:
-    v15 = _WTVCLog();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    v16 = _WTVCLog(fullScreenContainerViewController3);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_1D451D000, v15, OS_LOG_TYPE_DEFAULT, "Skipping dismissFullScreenViewController due to already dismissing/dismissed", buf, 2u);
+      _os_log_impl(&dword_1D451D000, v16, OS_LOG_TYPE_DEFAULT, "Skipping dismissFullScreenViewController due to already dismissing/dismissed", buf, 2u);
     }
 
     if (completionCopy)
@@ -4375,31 +4400,30 @@ LABEL_10:
   presentedViewController = [sourceResponderViewController2 presentedViewController];
 
   fullScreenContainerViewController6 = [(WTWritingToolsController *)self fullScreenContainerViewController];
-  v20 = [presentedViewController isEqual:fullScreenContainerViewController6];
+  v21 = [presentedViewController isEqual:fullScreenContainerViewController6];
 
-  if (v20)
+  if (v21)
   {
-    [(WTWritingToolsController *)self setDismissingFullscreenViewController:1];
-    v21 = _WTVCLog();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
+    v23 = _WTVCLog([(WTWritingToolsController *)self setDismissingFullscreenViewController:1]);
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
     {
       [WTWritingToolsController _dismissFullScreenViewControllerWithCompletion:];
     }
 
     sourceResponderViewController3 = [(WTWritingToolsController *)self sourceResponderViewController];
-    v24[0] = MEMORY[0x1E69E9820];
-    v24[1] = 3221225472;
-    v24[2] = __75__WTWritingToolsController__dismissFullScreenViewControllerWithCompletion___block_invoke;
-    v24[3] = &unk_1E8480DD0;
-    v24[4] = self;
-    v25 = completionCopy;
-    [sourceResponderViewController3 dismissViewControllerAnimated:0 completion:v24];
+    v26[0] = MEMORY[0x1E69E9820];
+    v26[1] = 3221225472;
+    v26[2] = __75__WTWritingToolsController__dismissFullScreenViewControllerWithCompletion___block_invoke;
+    v26[3] = &unk_1E8480DD0;
+    v26[4] = self;
+    v27 = completionCopy;
+    [sourceResponderViewController3 dismissViewControllerAnimated:0 completion:v26];
   }
 
   else
   {
-    v23 = _WTVCLog();
-    if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+    v25 = _WTVCLog(v22);
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
     {
       [WTWritingToolsController _dismissFullScreenViewControllerWithCompletion:];
     }
@@ -4415,7 +4439,7 @@ LABEL_14:
 
 uint64_t __75__WTWritingToolsController__dismissFullScreenViewControllerWithCompletion___block_invoke(uint64_t a1)
 {
-  v2 = _WTVCLog();
+  v2 = _WTVCLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
     __75__WTWritingToolsController__dismissFullScreenViewControllerWithCompletion___block_invoke_cold_1();
@@ -4435,14 +4459,14 @@ uint64_t __75__WTWritingToolsController__dismissFullScreenViewControllerWithComp
 
 - (void)_dismissSuggestionViewControllerWithCompletion:(id)completion
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
-  v5 = _WTVCLog();
+  v5 = _WTVCLog(completionCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     currentSuggestionViewController = [(WTWritingToolsController *)self currentSuggestionViewController];
     *buf = 138412290;
-    v21 = currentSuggestionViewController;
+    v22 = currentSuggestionViewController;
     _os_log_impl(&dword_1D451D000, v5, OS_LOG_TYPE_DEFAULT, "_dismissSuggestionViewController, %@", buf, 0xCu);
   }
 
@@ -4492,19 +4516,19 @@ LABEL_7:
 
   if (isKindOfClass)
   {
-    v18[0] = MEMORY[0x1E69E9820];
-    v18[1] = 3221225472;
-    v18[2] = __75__WTWritingToolsController__dismissSuggestionViewControllerWithCompletion___block_invoke;
-    v18[3] = &unk_1E8480DD0;
-    v18[4] = self;
-    v19 = completionCopy;
-    [v14 dismissViewControllerAnimated:1 completion:v18];
+    v19[0] = MEMORY[0x1E69E9820];
+    v19[1] = 3221225472;
+    v19[2] = __75__WTWritingToolsController__dismissSuggestionViewControllerWithCompletion___block_invoke;
+    v19[3] = &unk_1E8480DD0;
+    v19[4] = self;
+    v20 = completionCopy;
+    [v14 dismissViewControllerAnimated:1 completion:v19];
   }
 
   else
   {
-    v17 = _WTVCLog();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    v18 = _WTVCLog(v17);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
       [WTWritingToolsController _dismissSuggestionViewControllerWithCompletion:v14];
     }
@@ -4556,22 +4580,22 @@ uint64_t __75__WTWritingToolsController__dismissSuggestionViewControllerWithComp
 
 - (void)dismissFormsheetViewControllerWithCompletion:(id)completion
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
   formSheetViewController = [(WTWritingToolsController *)self formSheetViewController];
 
   if (formSheetViewController)
   {
-    v6 = _WTVCLog();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = _WTVCLog(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       formSheetViewController2 = [(WTWritingToolsController *)self formSheetViewController];
       formSheetViewController3 = [(WTWritingToolsController *)self formSheetViewController];
       *buf = 138412546;
-      v26 = formSheetViewController2;
-      v27 = 2112;
-      v28 = formSheetViewController3;
-      _os_log_impl(&dword_1D451D000, v6, OS_LOG_TYPE_DEFAULT, "Requested _dismissFormsheetViewControllerWithCompletion %@ (sourceResponderViewController: %@)", buf, 0x16u);
+      v28 = formSheetViewController2;
+      v29 = 2112;
+      v30 = formSheetViewController3;
+      _os_log_impl(&dword_1D451D000, v7, OS_LOG_TYPE_DEFAULT, "Requested _dismissFormsheetViewControllerWithCompletion %@ (sourceResponderViewController: %@)", buf, 0x16u);
     }
   }
 
@@ -4581,18 +4605,18 @@ uint64_t __75__WTWritingToolsController__dismissSuggestionViewControllerWithComp
     goto LABEL_9;
   }
 
-  v10 = formSheetViewController4;
+  v11 = formSheetViewController4;
   formSheetViewController5 = [(WTWritingToolsController *)self formSheetViewController];
   presentationController = [formSheetViewController5 presentationController];
   if ([presentationController dismissed])
   {
 
 LABEL_9:
-    v16 = _WTVCLog();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+    v17 = _WTVCLog(formSheetViewController4);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_1D451D000, v16, OS_LOG_TYPE_DEFAULT, "Skipping dismissFormsheetViewControllerWithCompletion due to already dismissing/dismissed", buf, 2u);
+      _os_log_impl(&dword_1D451D000, v17, OS_LOG_TYPE_DEFAULT, "Skipping dismissFormsheetViewControllerWithCompletion due to already dismissing/dismissed", buf, 2u);
     }
 
     if (completionCopy)
@@ -4616,23 +4640,23 @@ LABEL_9:
   presentedViewController = [sourceResponderViewController presentedViewController];
 
   formSheetViewController7 = [(WTWritingToolsController *)self formSheetViewController];
-  v20 = [presentedViewController isEqual:formSheetViewController7];
+  v21 = [presentedViewController isEqual:formSheetViewController7];
 
-  if (v20)
+  if (v21)
   {
     sourceResponderViewController2 = [(WTWritingToolsController *)self sourceResponderViewController];
-    v23[0] = MEMORY[0x1E69E9820];
-    v23[1] = 3221225472;
-    v23[2] = __73__WTWritingToolsController_dismissFormsheetViewControllerWithCompletion___block_invoke;
-    v23[3] = &unk_1E8480E98;
-    v24 = completionCopy;
-    [sourceResponderViewController2 dismissViewControllerAnimated:1 completion:v23];
+    v25[0] = MEMORY[0x1E69E9820];
+    v25[1] = 3221225472;
+    v25[2] = __73__WTWritingToolsController_dismissFormsheetViewControllerWithCompletion___block_invoke;
+    v25[3] = &unk_1E8480E98;
+    v26 = completionCopy;
+    [sourceResponderViewController2 dismissViewControllerAnimated:1 completion:v25];
   }
 
   else
   {
-    v22 = _WTVCLog();
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+    v24 = _WTVCLog(v22);
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
     {
       [WTWritingToolsController _dismissFullScreenViewControllerWithCompletion:];
     }
@@ -4659,7 +4683,7 @@ uint64_t __73__WTWritingToolsController_dismissFormsheetViewControllerWithComple
 
 - (void)enrollmentBegan
 {
-  v3 = _WTVCLog();
+  v3 = _WTVCLog(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -4703,7 +4727,7 @@ void __43__WTWritingToolsController_enrollmentBegan__block_invoke(uint64_t a1)
 
 uint64_t __62__WTWritingToolsController_enrollmentDismissedWithCompletion___block_invoke(uint64_t a1)
 {
-  v2 = _WTVCLog();
+  v2 = _WTVCLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -4717,11 +4741,11 @@ uint64_t __62__WTWritingToolsController_enrollmentDismissedWithCompletion___bloc
 
     if (v4)
     {
-      v5 = _WTVCLog();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+      v6 = _WTVCLog(v5);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_1D451D000, v5, OS_LOG_TYPE_DEFAULT, "Will proceed for ipad", buf, 2u);
+        _os_log_impl(&dword_1D451D000, v6, OS_LOG_TYPE_DEFAULT, "Will proceed for ipad", buf, 2u);
       }
 
       [*(a1 + 32) setIsResumingFromModelEnrollment:1];
@@ -4735,21 +4759,21 @@ uint64_t __62__WTWritingToolsController_enrollmentDismissedWithCompletion___bloc
   {
   }
 
-  v7 = _WTVCLog();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  v8 = _WTVCLog(v5);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_1D451D000, v7, OS_LOG_TYPE_DEFAULT, "Will proceed for phone/compact iPad", buf, 2u);
+    _os_log_impl(&dword_1D451D000, v8, OS_LOG_TYPE_DEFAULT, "Will proceed for phone/compact iPad", buf, 2u);
   }
 
   [*(a1 + 32) setPresentingFormSheet:0];
-  v8 = *(a1 + 32);
-  v9[0] = MEMORY[0x1E69E9820];
-  v9[1] = 3221225472;
-  v9[2] = __62__WTWritingToolsController_enrollmentDismissedWithCompletion___block_invoke_669;
-  v9[3] = &unk_1E8480BF8;
-  v9[4] = v8;
-  return [v8 dismissFormsheetViewControllerWithCompletion:v9];
+  v9 = *(a1 + 32);
+  v10[0] = MEMORY[0x1E69E9820];
+  v10[1] = 3221225472;
+  v10[2] = __62__WTWritingToolsController_enrollmentDismissedWithCompletion___block_invoke_669;
+  v10[3] = &unk_1E8480BF8;
+  v10[4] = v9;
+  return [v9 dismissFormsheetViewControllerWithCompletion:v10];
 }
 
 - (void)triggerShareSheetWithText:(id)text
@@ -4790,18 +4814,18 @@ uint64_t __45__WTWritingToolsController_dismissShareSheet__block_invoke(uint64_t
 
 - (void)_dismissPromptEntryViewController
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   currentPromptEntryViewController = [(WTWritingToolsController *)self currentPromptEntryViewController];
 
   if (currentPromptEntryViewController)
   {
-    v4 = _WTVCLog();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = _WTVCLog(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       currentPromptEntryViewController2 = [(WTWritingToolsController *)self currentPromptEntryViewController];
       *buf = 138412290;
-      v15 = currentPromptEntryViewController2;
-      _os_log_impl(&dword_1D451D000, v4, OS_LOG_TYPE_DEFAULT, "__dismissPromptEntryViewController, %@", buf, 0xCu);
+      v16 = currentPromptEntryViewController2;
+      _os_log_impl(&dword_1D451D000, v5, OS_LOG_TYPE_DEFAULT, "__dismissPromptEntryViewController, %@", buf, 0xCu);
     }
   }
 
@@ -4828,12 +4852,12 @@ uint64_t __45__WTWritingToolsController_dismissShareSheet__block_invoke(uint64_t
       }
 
       sourceResponderViewController = [(WTWritingToolsController *)self sourceResponderViewController];
-      v13[0] = MEMORY[0x1E69E9820];
-      v13[1] = 3221225472;
-      v13[2] = __61__WTWritingToolsController__dismissPromptEntryViewController__block_invoke;
-      v13[3] = &unk_1E8480BF8;
-      v13[4] = self;
-      [sourceResponderViewController dismissViewControllerAnimated:1 completion:v13];
+      v14[0] = MEMORY[0x1E69E9820];
+      v14[1] = 3221225472;
+      v14[2] = __61__WTWritingToolsController__dismissPromptEntryViewController__block_invoke;
+      v14[3] = &unk_1E8480BF8;
+      v14[4] = self;
+      [sourceResponderViewController dismissViewControllerAnimated:1 completion:v14];
     }
   }
 }
@@ -4936,7 +4960,7 @@ LABEL_9:
     [activeKeyboardSceneDelegate addVisibilityObserver:self];
 
     sourceResponderViewController = [(WTWritingToolsController *)self sourceResponderViewController];
-    v8 = _WTVCLog();
+    v8 = _WTVCLog(sourceResponderViewController);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;

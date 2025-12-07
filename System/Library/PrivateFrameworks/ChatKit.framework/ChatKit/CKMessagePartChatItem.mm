@@ -54,7 +54,8 @@
     return 0;
   }
 
-  if (CKIsRunningForDevelopmentOnSimulator() || CKIsRunningUITests() || CKIsRunningForDevelopmentOnSimulator() || ([(CKMessagePartChatItem *)self message], v8 = objc_claimAutoreleasedReturnValue(), v8, !v8))
+  v5 = CKIsRunningForDevelopmentOnSimulator();
+  if (v5 || CKIsRunningUITests(v5, v6) || CKIsRunningForDevelopmentOnSimulator() || ([(CKMessagePartChatItem *)self message], v10 = objc_claimAutoreleasedReturnValue(), v10, !v10))
   {
     iMChatItem = [(CKChatItem *)self IMChatItem];
   }
@@ -64,7 +65,7 @@
     iMChatItem = [(CKMessagePartChatItem *)self message];
   }
 
-  v6 = iMChatItem;
+  v8 = iMChatItem;
   isFromMe = [iMChatItem isFromMe];
 
   return isFromMe;
@@ -564,7 +565,8 @@ LABEL_4:
 
   else
   {
-    if (CKIsRunningForDevelopmentOnSimulator() || CKIsRunningUITests() || CKIsRunningForDevelopmentOnSimulator())
+    v6 = CKIsRunningForDevelopmentOnSimulator();
+    if (v6 || CKIsRunningUITests(v6, v7) || CKIsRunningForDevelopmentOnSimulator())
     {
       iMChatItem = [(CKChatItem *)self IMChatItem];
     }
@@ -578,14 +580,15 @@ LABEL_4:
     date = [iMChatItem time];
   }
 
-  v7 = date;
+  v9 = date;
 
-  return v7;
+  return v9;
 }
 
 - (id)sender
 {
-  if (CKIsRunningForDevelopmentOnSimulator() || CKIsRunningUITests())
+  v3 = CKIsRunningForDevelopmentOnSimulator();
+  if (v3 || CKIsRunningUITests(v3, v4))
   {
     iMChatItem = [(CKChatItem *)self IMChatItem];
   }
@@ -595,7 +598,7 @@ LABEL_4:
     iMChatItem = [(CKMessagePartChatItem *)self message];
   }
 
-  v4 = iMChatItem;
+  v6 = iMChatItem;
   sender = [iMChatItem sender];
 
   return sender;

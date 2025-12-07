@@ -11,7 +11,7 @@
   v3 = sub_1003403A0(self, @"external_id");
   if (v3)
   {
-    v4 = sub_100226F64();
+    v4 = sub_100226F64(VoucherStore);
     sub_100227180(v4, v3);
   }
 

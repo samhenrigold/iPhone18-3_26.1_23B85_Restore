@@ -16,6 +16,7 @@
 - (void)simStatusDidChange:(id)change status:(id)status;
 - (void)unlockDetailViewController:(id)controller didCompleteWithResult:(int64_t)result;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation TSSIMUnlockDetailViewController
@@ -26,7 +27,7 @@
   actionCopy = action;
   nameCopy = name;
   delegateCopy = delegate;
-  v14 = sub_10000C1BC();
+  v14 = sub_10000C1BC(delegateCopy);
   if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
   {
     sub_10000E858();
@@ -48,7 +49,7 @@
   contextCopy = context;
   actionCopy = action;
   delegateCopy = delegate;
-  v14 = sub_10000C1BC();
+  v14 = sub_10000C1BC(delegateCopy);
   if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
   {
     sub_10000E90C();
@@ -153,6 +154,51 @@
   [headerView2 setDetailText:descriptionLabel];
 }
 
+- (void)viewWillAppear:(BOOL)appear
+{
+  v15.receiver = self;
+  v15.super_class = TSSIMUnlockDetailViewController;
+  [(TSSIMUnlockDetailViewController *)&v15 viewWillAppear:appear];
+  v4 = +[UIColor systemBackgroundColor];
+  navigationController = [(TSSIMUnlockDetailViewController *)self navigationController];
+  view = [navigationController view];
+  [view setBackgroundColor:v4];
+
+  v7 = sub_10000C1BC([(TSSIMUnlockDetailViewController *)self becomeFirstResponder]);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+  {
+    sub_10000E9C0(self);
+  }
+
+  actionType = [(TSSubscriptionAction *)self->_subscriptionAction actionType];
+  if (actionType == 3)
+  {
+    if ([(TSSubscriptionAction *)self->_subscriptionAction actionSubtype]== 1)
+    {
+      telephonyClient = self->_telephonyClient;
+      subscriptionContext = self->_subscriptionContext;
+      v13[0] = _NSConcreteStackBlock;
+      v13[1] = 3221225472;
+      v13[2] = sub_100001D98;
+      v13[3] = &unk_10001C670;
+      v13[4] = self;
+      [(CoreTelephonyClient *)telephonyClient getRemainingPUKAttemptCount:subscriptionContext completion:v13];
+    }
+  }
+
+  else if (actionType == 2)
+  {
+    v9 = self->_telephonyClient;
+    v10 = self->_subscriptionContext;
+    v14[0] = _NSConcreteStackBlock;
+    v14[1] = 3221225472;
+    v14[2] = sub_100001D1C;
+    v14[3] = &unk_10001C670;
+    v14[4] = self;
+    [(CoreTelephonyClient *)v9 getRemainingPINAttemptCount:v10 completion:v14];
+  }
+}
+
 - (BOOL)becomeFirstResponder
 {
   _appearingOrAppeared = [(TSSIMUnlockDetailViewController *)self _appearingOrAppeared];
@@ -208,7 +254,7 @@
 - (void)entryView:(id)view didEnterText:(id)text
 {
   textCopy = text;
-  v6 = sub_10000C1BC();
+  v6 = sub_10000C1BC(textCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
     sub_10000EA68(self);
@@ -218,7 +264,7 @@
   if (actionType == 3)
   {
     subscriptionContext = self->_subscriptionAction;
-    v10 = sub_10000C1BC();
+    v10 = sub_10000C1BC(subscriptionContext);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
     {
       sub_10000EB10(subscriptionContext);
@@ -292,7 +338,7 @@ LABEL_19:
 
 - (void)unlockDetailViewController:(id)controller didCompleteWithResult:(int64_t)result
 {
-  v6 = sub_10000C1BC();
+  v6 = sub_10000C1BC(self);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v17 = 136315650;
@@ -372,68 +418,70 @@ LABEL_17:
 {
   changeCopy = change;
   statusCopy = status;
+  v8 = statusCopy;
   if (statusCopy)
   {
-    v8 = sub_10000C1BC();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = sub_10000C1BC(statusCopy);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       [changeCopy slotID];
-      v9 = CTSubscriptionSlotAsString();
-      v10 = sub_1000071C0([(TSSubscriptionAction *)self->_subscriptionAction actionType]);
-      v17 = 136316162;
-      v18 = "[TSSIMUnlockDetailViewController simStatusDidChange:status:]";
-      v19 = 2080;
-      v20 = v9;
-      v21 = 2112;
-      v22 = statusCopy;
+      v10 = CTSubscriptionSlotAsString();
+      v11 = sub_1000071C0([(TSSubscriptionAction *)self->_subscriptionAction actionType]);
+      v19 = 136316162;
+      v20 = "[TSSIMUnlockDetailViewController simStatusDidChange:status:]";
+      v21 = 2080;
+      v22 = v10;
       v23 = 2112;
-      v24 = v10;
-      v25 = 2080;
-      v26 = "[TSSIMUnlockDetailViewController simStatusDidChange:status:]";
-      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "%s: context %s, status %@, current action %@ @%s", &v17, 0x34u);
+      v24 = v8;
+      v25 = 2112;
+      v26 = v11;
+      v27 = 2080;
+      v28 = "[TSSIMUnlockDetailViewController simStatusDidChange:status:]";
+      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "%s: context %s, status %@, current action %@ @%s", &v19, 0x34u);
     }
 
     if ([(TSSubscriptionAction *)self->_subscriptionAction actionType]== 2 || [(TSSubscriptionAction *)self->_subscriptionAction actionType]== 3)
     {
       uuid = [changeCopy uuid];
       uuid2 = [(CTXPCServiceSubscriptionContext *)self->_subscriptionContext uuid];
-      v13 = [uuid isEqual:uuid2];
+      v14 = [uuid isEqual:uuid2];
 
-      if (v13)
+      if (v14)
       {
-        if ([statusCopy isEqualToString:kCTSIMSupportSIMStatusPUKLocked])
+        if ([v8 isEqualToString:kCTSIMSupportSIMStatusPUKLocked])
         {
-          v14 = 3;
+          v15 = 3;
 LABEL_17:
           delegate = [(TSSIMUnlockDetailViewController *)self delegate];
-          [delegate unlockDetailViewController:self didCompleteWithResult:v14];
+          [delegate unlockDetailViewController:self didCompleteWithResult:v15];
 
           goto LABEL_18;
         }
 
-        if ([statusCopy isEqualToString:kCTSIMSupportSIMStatusPermanentlyLocked])
+        if ([v8 isEqualToString:kCTSIMSupportSIMStatusPermanentlyLocked])
         {
-          v14 = 6;
+          v15 = 6;
           goto LABEL_17;
         }
 
-        if ([statusCopy isEqualToString:kCTSIMSupportSIMStatusReady])
+        if ([v8 isEqualToString:kCTSIMSupportSIMStatusReady])
         {
-          v14 = 0;
+          v15 = 0;
           goto LABEL_17;
         }
 
-        if ((sub_10000144C(statusCopy) & 1) == 0)
+        v16 = sub_10000144C(v8);
+        if ((v16 & 1) == 0)
         {
-          v15 = sub_10000C1BC();
-          if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+          v17 = sub_10000C1BC(v16);
+          if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
           {
-            v17 = 136315138;
-            v18 = "[TSSIMUnlockDetailViewController simStatusDidChange:status:]";
-            _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "sim not locked anymore, action complete @%s", &v17, 0xCu);
+            v19 = 136315138;
+            v20 = "[TSSIMUnlockDetailViewController simStatusDidChange:status:]";
+            _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "sim not locked anymore, action complete @%s", &v19, 0xCu);
           }
 
-          v14 = 1;
+          v15 = 1;
           goto LABEL_17;
         }
       }
@@ -447,7 +495,7 @@ LABEL_18:
 {
   occurCopy = occur;
   statusCopy = status;
-  v8 = sub_10000C1BC();
+  v8 = sub_10000C1BC(statusCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     sub_10000EBB8();
@@ -491,7 +539,7 @@ LABEL_18:
 {
   occurCopy = occur;
   statusCopy = status;
-  v8 = sub_10000C1BC();
+  v8 = sub_10000C1BC(statusCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     sub_10000EC48();

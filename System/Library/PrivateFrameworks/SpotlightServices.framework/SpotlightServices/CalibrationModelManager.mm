@@ -4,7 +4,6 @@
 - (id)batchPredict:(id)predict documentEmbeddings:(id)embeddings queryID:(int64_t)d;
 - (id)convertEmbeddingToMLMultiArray:(id)array atIndex:(unint64_t)index queryID:(int64_t)d;
 - (id)predict:(id)predict documentEmbedding:(id)embedding queryID:(int64_t)d;
-- (void)clear;
 - (void)performBatchInferenceWithInputs:(id)inputs documentIndices:(id)indices results:(id)results queryID:(int64_t)d;
 @end
 
@@ -26,13 +25,13 @@
 
 - (BOOL)loadModel
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   self->_loaded = 0;
   v3 = SSDefaultsGetAssetPath(@"searchtool_calibration.mlmodelc");
   v4 = [MEMORY[0x1E695DFF8] fileURLWithPath:v3];
-  v12 = 0;
-  v5 = [[calibration alloc] initWithContentsOfURL:v4 error:&v12];
-  v6 = v12;
+  v11 = 0;
+  v5 = [[calibration alloc] initWithContentsOfURL:v4 error:&v11];
+  v6 = v11;
   model = self->_model;
   self->_model = v5;
 
@@ -51,30 +50,29 @@
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v14 = @"searchtool_calibration.mlmodelc";
+      v13 = @"searchtool_calibration.mlmodelc";
       _os_log_impl(&dword_1D9F69000, v9, OS_LOG_TYPE_DEFAULT, "[SpotlightRanking][Calibration] Successfully loaded searchtool calibration model %@ ", buf, 0xCu);
     }
 
     self->_loaded = 1;
   }
 
-  v10 = *MEMORY[0x1E69E9840];
   return v6 == 0;
 }
 
 - (id)predict:(id)predict documentEmbedding:(id)embedding queryID:(int64_t)d
 {
-  v16[1] = *MEMORY[0x1E69E9840];
+  v15[1] = *MEMORY[0x1E69E9840];
   predictCopy = predict;
   embeddingCopy = embedding;
   v10 = embeddingCopy;
   if (predictCopy && embeddingCopy)
   {
-    v16[0] = embeddingCopy;
-    v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v16 count:1];
+    v15[0] = embeddingCopy;
+    v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v15 count:1];
     v12 = [(CalibrationModelManager *)self batchPredict:predictCopy documentEmbeddings:v11 queryID:d];
 
-    if (v12 && [v12 count])
+    if (v12 && objc_msgSend_count(v12))
     {
       firstObject = [v12 firstObject];
       goto LABEL_9;
@@ -93,14 +91,12 @@
   firstObject = 0;
 LABEL_9:
 
-  v14 = *MEMORY[0x1E69E9840];
-
   return firstObject;
 }
 
 - (id)batchPredict:(id)predict documentEmbeddings:(id)embeddings queryID:(int64_t)d
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   predictCopy = predict;
   embeddingsCopy = embeddings;
   if (![(CalibrationModelManager *)self loaded])
@@ -127,19 +123,19 @@ LABEL_24:
     goto LABEL_29;
   }
 
-  v29 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v28 = objc_alloc_init(MEMORY[0x1E695DF70]);
   v10 = objc_alloc_init(MEMORY[0x1E695DF70]);
-  v32 = objc_alloc_init(MEMORY[0x1E695DF70]);
-  if ([embeddingsCopy count])
+  v31 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  if (objc_msgSend_count(embeddingsCopy))
   {
     v11 = 0;
-    v28 = embeddingsCopy;
+    v27 = embeddingsCopy;
     while (1)
     {
-      v30 = v11;
-      v31 = [embeddingsCopy objectAtIndexedSubscript:v11];
-      vectors = [v31 vectors];
-      v13 = [vectors count];
+      v29 = v11;
+      v30 = [embeddingsCopy objectAtIndexedSubscript:v11];
+      vectors = [v30 vectors];
+      v13 = objc_msgSend_count(vectors);
 
       chunkSize = [(CalibrationModelManager *)self chunkSize];
       v15 = v13 >= chunkSize ? chunkSize : v13;
@@ -150,9 +146,9 @@ LABEL_24:
 
 LABEL_16:
 
-      v11 = v30 + 1;
-      embeddingsCopy = v28;
-      if (v30 + 1 >= [v28 count])
+      v11 = v29 + 1;
+      embeddingsCopy = v27;
+      if (v29 + 1 >= objc_msgSend_count(v27))
       {
         goto LABEL_17;
       }
@@ -162,7 +158,7 @@ LABEL_16:
     while (1)
     {
       v17 = [(CalibrationModelManager *)self convertEmbeddingToMLMultiArray:predictCopy atIndex:0 queryID:d];
-      v18 = [(CalibrationModelManager *)self convertEmbeddingToMLMultiArray:v31 atIndex:v16 queryID:d];
+      v18 = [(CalibrationModelManager *)self convertEmbeddingToMLMultiArray:v30 atIndex:v16 queryID:d];
       v19 = v18;
       if (!v17 || !v18)
       {
@@ -171,15 +167,15 @@ LABEL_16:
 
       v20 = [[calibrationInput alloc] initWithQuery_embedding:v17 document_embedding:v18];
       [v10 addObject:v20];
-      v21 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:v30];
-      [v32 addObject:v21];
+      v21 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:v29];
+      [v31 addObject:v21];
 
-      v22 = [v10 count];
+      v22 = objc_msgSend_count(v10);
       if (v22 == [(CalibrationModelManager *)self batchSize])
       {
-        [(CalibrationModelManager *)self performBatchInferenceWithInputs:v10 documentIndices:v32 results:v29 queryID:d];
+        [(CalibrationModelManager *)self performBatchInferenceWithInputs:v10 documentIndices:v31 results:v28 queryID:d];
         [v10 removeAllObjects];
-        [v32 removeAllObjects];
+        [v31 removeAllObjects];
       }
 
       if (v15 == ++v16)
@@ -193,32 +189,31 @@ LABEL_16:
     {
       *buf = 134218496;
       dCopy = d;
-      v35 = 2048;
-      v36 = v30;
-      v37 = 2048;
-      v38 = v16;
+      v34 = 2048;
+      v35 = v29;
+      v36 = 2048;
+      v37 = v16;
       _os_log_error_impl(&dword_1D9F69000, v25, OS_LOG_TYPE_ERROR, "[qid=%ld][SpotlightRanking][Calibration] Failed to convert embeddings to MLMultiArray at document index %lu, embedding index %lu", buf, 0x20u);
     }
 
     v24 = 0;
-    embeddingsCopy = v28;
-    v23 = v29;
+    embeddingsCopy = v27;
+    v23 = v28;
   }
 
   else
   {
 LABEL_17:
-    v23 = v29;
-    if ([v10 count])
+    v23 = v28;
+    if (objc_msgSend_count(v10))
     {
-      [(CalibrationModelManager *)self performBatchInferenceWithInputs:v10 documentIndices:v32 results:v29 queryID:d];
+      [(CalibrationModelManager *)self performBatchInferenceWithInputs:v10 documentIndices:v31 results:v28 queryID:d];
     }
 
-    v24 = v29;
+    v24 = v28;
   }
 
 LABEL_29:
-  v26 = *MEMORY[0x1E69E9840];
 
   return v24;
 }
@@ -243,7 +238,7 @@ LABEL_29:
     }
   }
 
-  else if ([v15 count])
+  else if (objc_msgSend_count(v15))
   {
     v17 = 0;
     do
@@ -256,7 +251,7 @@ LABEL_29:
       v23 = v22;
 
       unsignedIntegerValue = [v18 unsignedIntegerValue];
-      if (unsignedIntegerValue >= [resultsCopy count])
+      if (unsignedIntegerValue >= objc_msgSend_count(resultsCopy))
       {
         *&v25 = v23;
         v30 = [MEMORY[0x1E696AD98] numberWithFloat:v25];
@@ -286,13 +281,13 @@ LABEL_29:
       ++v17;
     }
 
-    while (v17 < [v15 count]);
+    while (v17 < objc_msgSend_count(v15));
   }
 }
 
 - (id)convertEmbeddingToMLMultiArray:(id)array atIndex:(unint64_t)index queryID:(int64_t)d
 {
-  v27[2] = *MEMORY[0x1E69E9840];
+  v26[2] = *MEMORY[0x1E69E9840];
   arrayCopy = array;
   v8 = arrayCopy;
   if (!arrayCopy)
@@ -307,7 +302,7 @@ LABEL_29:
   }
 
   vectors = [arrayCopy vectors];
-  v10 = [vectors count];
+  v10 = objc_msgSend_count(vectors);
 
   if (v10 <= index)
   {
@@ -356,13 +351,13 @@ LABEL_13:
     v15 = 65568;
 LABEL_20:
     v19 = objc_alloc(MEMORY[0x1E695FED0]);
-    v27[0] = &unk_1F55B4470;
+    v26[0] = &unk_1F55B4470;
     v20 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:(v14 << 8) + 256];
-    v27[1] = v20;
-    v21 = [MEMORY[0x1E695DEC8] arrayWithObjects:v27 count:2];
-    v26 = 0;
-    v22 = [v19 initWithShape:v21 dataType:v15 error:&v26];
-    v17 = v26;
+    v26[1] = v20;
+    v21 = [MEMORY[0x1E695DEC8] arrayWithObjects:v26 count:2];
+    v25 = 0;
+    v22 = [v19 initWithShape:v21 dataType:v15 error:&v25];
+    v17 = v25;
 
     if (v17 || !v22)
     {
@@ -400,16 +395,8 @@ LABEL_18:
 LABEL_27:
 
 LABEL_28:
-  v24 = *MEMORY[0x1E69E9840];
 
   return v18;
-}
-
-- (void)clear
-{
-  model = self->_model;
-  self->_model = 0;
-  MEMORY[0x1EEE66BB8]();
 }
 
 @end

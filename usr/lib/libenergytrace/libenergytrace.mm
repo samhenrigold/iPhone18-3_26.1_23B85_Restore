@@ -1,27 +1,25 @@
-uint64_t entr_act_begin(unsigned int a1, int a2, void *ptr, int a4, uint64_t a5)
+uint64_t entr_act_begin(unsigned int a1, int a2, void *ptr, unsigned int a4, unint64_t a5)
 {
-  v20 = *MEMORY[0x29EDCA608];
-  v13 = 0;
-  signpost_params = _get_signpost_params(a1, ptr, &v13);
-  v9 = v13;
-  if (v13 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
+  v19 = *MEMORY[0x29EDCA608];
+  v12 = 0;
+  signpost_params = _get_signpost_params(a1, ptr, &v12);
+  v9 = v12;
+  if (v12 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
   {
     v10 = signpost_params;
     if (os_signpost_enabled(signpost_params))
     {
       *buf = 67240704;
-      v15 = a2;
-      v16 = 1026;
-      v17 = a4;
-      v18 = 2050;
-      v19 = a5;
+      v14 = a2;
+      v15 = 1026;
+      v16 = a4;
+      v17 = 2050;
+      v18 = a5;
       _os_signpost_emit_with_name_impl(&dword_29875D000, v10, OS_SIGNPOST_INTERVAL_BEGIN, v9, "EnTr_Activation_Begin", "act_opcode = %{public, signpost.description:attribute}u act_quality = %{public}u act_value = %{public}lld ", buf, 0x18u);
     }
   }
 
-  result = kdebug_trace();
-  v12 = *MEMORY[0x29EDCA608];
-  return result;
+  return kdebug_trace();
 }
 
 uint64_t _get_signpost_params(unsigned int a1, void *ptr, os_signpost_id_t *a3)
@@ -75,31 +73,29 @@ LABEL_13:
   return _get_signpost_params_handle;
 }
 
-uint64_t entr_act_end(unsigned int a1, void *ptr, uint64_t a3, int a4, uint64_t a5)
+uint64_t entr_act_end(unsigned int a1, void *ptr, uint64_t a3, unsigned int a4, unint64_t a5)
 {
   v7 = ptr;
-  v20 = *MEMORY[0x29EDCA608];
-  v13 = 0;
-  signpost_params = _get_signpost_params(a1, ptr, &v13);
-  v9 = v13;
-  if (v13 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
+  v19 = *MEMORY[0x29EDCA608];
+  v12 = 0;
+  signpost_params = _get_signpost_params(a1, ptr, &v12);
+  v9 = v12;
+  if (v12 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
   {
     v10 = signpost_params;
     if (os_signpost_enabled(signpost_params))
     {
       *buf = 67240704;
-      v15 = v7;
-      v16 = 1026;
-      v17 = a4;
-      v18 = 2050;
-      v19 = a5;
+      v14 = v7;
+      v15 = 1026;
+      v16 = a4;
+      v17 = 2050;
+      v18 = a5;
       _os_signpost_emit_with_name_impl(&dword_29875D000, v10, OS_SIGNPOST_INTERVAL_END, v9, "EnTr_Activation_End", "act_opcode = %{public, signpost.description:attribute}u act_quality = %{public}u act_value = %{public}lld ", buf, 0x18u);
     }
   }
 
-  result = kdebug_trace();
-  v12 = *MEMORY[0x29EDCA608];
-  return result;
+  return kdebug_trace();
 }
 
 os_log_t ___get_signpost_params_block_invoke()
@@ -112,33 +108,31 @@ os_log_t ___get_signpost_params_block_invoke()
   return result;
 }
 
-uint64_t entr_act_modify(unsigned int a1, int a2, void *ptr, int a4, uint64_t a5)
+uint64_t entr_act_modify(unsigned int a1, int a2, void *ptr, unsigned int a4, unint64_t a5)
 {
-  v20 = *MEMORY[0x29EDCA608];
-  v13 = 0;
-  signpost_params = _get_signpost_params(a1, ptr, &v13);
-  v9 = v13;
-  if (v13 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
+  v19 = *MEMORY[0x29EDCA608];
+  v12 = 0;
+  signpost_params = _get_signpost_params(a1, ptr, &v12);
+  v9 = v12;
+  if (v12 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
   {
     v10 = signpost_params;
     if (os_signpost_enabled(signpost_params))
     {
       *buf = 67240704;
-      v15 = a2;
-      v16 = 1026;
-      v17 = a4;
-      v18 = 2050;
-      v19 = a5;
+      v14 = a2;
+      v15 = 1026;
+      v16 = a4;
+      v17 = 2050;
+      v18 = a5;
       _os_signpost_emit_with_name_impl(&dword_29875D000, v10, OS_SIGNPOST_EVENT, v9, "EnTr_Activation_Modify", "act_opcode = %{public, signpost.description:attribute}u act_quality = %{public}u act_value = %{public}lld ", buf, 0x18u);
     }
   }
 
-  result = kdebug_trace();
-  v12 = *MEMORY[0x29EDCA608];
-  return result;
+  return kdebug_trace();
 }
 
-uint64_t entr_shouldtrace()
+BOOL entr_shouldtrace()
 {
   if (MEMORY[0xFFFFFC100])
   {
@@ -164,32 +158,30 @@ uint64_t entr_shouldtrace()
   return v0;
 }
 
-uint64_t entr_act_associate(unsigned int a1, int a2, void *ptr, int a4, int a5, uint64_t a6)
+uint64_t entr_act_associate(unsigned int a1, int a2, void *ptr, unsigned int a4, unsigned int a5, uint64_t a6)
 {
-  v27 = *MEMORY[0x29EDCA608];
-  v16 = 0;
-  signpost_params = _get_signpost_params(a1, ptr, &v16);
-  v12 = v16;
-  if (v16 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
+  v26 = *MEMORY[0x29EDCA608];
+  v15 = 0;
+  signpost_params = _get_signpost_params(a1, ptr, &v15);
+  v12 = v15;
+  if (v15 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
   {
     v13 = signpost_params;
     if (os_signpost_enabled(signpost_params))
     {
       *buf = 67241216;
-      v18 = a1;
-      v19 = 1026;
-      v20 = a2;
-      v21 = 1026;
-      v22 = a4;
-      v23 = 1026;
-      v24 = a5;
-      v25 = 2050;
-      v26 = a6;
+      v17 = a1;
+      v18 = 1026;
+      v19 = a2;
+      v20 = 1026;
+      v21 = a4;
+      v22 = 1026;
+      v23 = a5;
+      v24 = 2050;
+      v25 = a6;
       _os_signpost_emit_with_name_impl(&dword_29875D000, v13, OS_SIGNPOST_EVENT, v12, "EnTr_Activation_Associate", "parent_component = %{public}u                                              parent_opcode = %{public, signpost.description:attribute}u sub_component = %{public}u sub_opcode = %{public}u sub_activation_id = %{public}lu", buf, 0x24u);
     }
   }
 
-  result = kdebug_trace();
-  v15 = *MEMORY[0x29EDCA608];
-  return result;
+  return kdebug_trace();
 }

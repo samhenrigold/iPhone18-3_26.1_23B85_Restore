@@ -95,18 +95,19 @@ LABEL_6:
 - (int)runMotionDetection:(float *)detection evm:(id)evm ev0:(id)ev0 evmProperties:(const frameProperties_t *)properties ev0Properties:(const frameProperties_t *)ev0Properties nrfPlist:(id)plist
 {
   started = objc_msgSend_startMotionDetection_evm_ev0_evmProperties_ev0Properties_(self, a2, plist, evm, ev0, properties, ev0Properties);
+  v14 = started;
   if (started)
   {
-    sub_295895020();
+    sub_295895020(started);
   }
 
   else
   {
-    objc_msgSend_getMotionDetectionResultSync(self, v10, v11, v12);
-    *detection = v14;
+    objc_msgSend_getMotionDetectionResultSync(self, v11, v12, v13);
+    *detection = v15;
   }
 
-  return started;
+  return v14;
 }
 
 - (int)startMotionDetection:(id)detection evm:(id)evm ev0:(id)ev0 evmProperties:(const frameProperties_t *)properties ev0Properties:(const frameProperties_t *)ev0Properties
@@ -115,7 +116,7 @@ LABEL_6:
   evmCopy = evm;
   ev0Copy = ev0;
   v473 = 0;
-  v474 = 0;
+  v474[0] = 0;
   v471 = 0;
   v472 = 0;
   v469 = 0;
@@ -264,11 +265,11 @@ LABEL_38:
   objc_msgSend_setLabel_(v456, v176, 0, v177);
   v181 = objc_msgSend_allocator(self->_metal, v178, v179, v180);
   v184 = objc_msgSend_newTextureWithDescriptor_(v181, v182, v456, v183);
-  v474 = v184;
+  v474[0] = v184;
 
   if (!v184)
   {
-    sub_295895ABC();
+    sub_295895ABC(v456, v102, &v464);
 LABEL_59:
     v449 = v464;
     goto LABEL_31;
@@ -284,7 +285,7 @@ LABEL_59:
 
   if (!v199)
   {
-    sub_295895A18();
+    sub_295895A18(v456, v102, &v464);
     goto LABEL_59;
   }
 
@@ -296,7 +297,7 @@ LABEL_59:
 
   if (!v208)
   {
-    sub_295895974();
+    sub_295895974(v456, v102, &v464);
 LABEL_55:
     v449 = v464;
     goto LABEL_56;
@@ -307,7 +308,7 @@ LABEL_55:
 
   if (!v216)
   {
-    sub_2958958D0();
+    sub_2958958D0(v456, v102, &v464);
     v95 = 0;
     goto LABEL_55;
   }
@@ -513,7 +514,7 @@ LABEL_55:
                         goto LABEL_31;
                       }
 
-                      sub_2958951D8();
+                      sub_2958951D8(v456, v378, &v464);
                       v95 = 0;
                     }
 
@@ -525,7 +526,7 @@ LABEL_55:
                     goto LABEL_59;
                   }
 
-                  sub_29589531C();
+                  sub_29589531C(v456, v334, &v464);
                 }
 
                 else
@@ -536,7 +537,7 @@ LABEL_55:
 
               else
               {
-                sub_295895460();
+                sub_295895460(v456, v299, &v464);
               }
             }
 
@@ -548,13 +549,13 @@ LABEL_55:
 
           else
           {
-            sub_2958955A4();
+            sub_2958955A4(v456, v253, &v464);
           }
 
           goto LABEL_55;
         }
 
-        sub_295895648();
+        sub_295895648(v456, v253, &v464);
       }
 
       else
@@ -565,7 +566,7 @@ LABEL_55:
 
     else
     {
-      sub_29589578C();
+      sub_29589578C(v456, v220, &v464);
     }
   }
 
@@ -607,7 +608,7 @@ LABEL_32:
   lCopy = l;
   imageCopy = image;
   v328 = 0;
-  v329 = 0;
+  v329[0] = 0;
   v327 = 0;
   v13 = objc_msgSend_allocator(self->_metal, v10, v11, v12);
   v17 = objc_msgSend_newTextureDescriptor(v13, v14, v15, v16);
@@ -679,7 +680,7 @@ LABEL_31:
     objc_msgSend_setLabel_(v17, v88, 0, v89);
     v93 = objc_msgSend_allocator(self->_metal, v90, v91, v92);
     v63 = objc_msgSend_newTextureWithDescriptor_(v93, v94, v17, v95);
-    v329 = v63;
+    v329[0] = v63;
 
     if (!v63)
     {

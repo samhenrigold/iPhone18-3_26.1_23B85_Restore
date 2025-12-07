@@ -16,9 +16,9 @@
 - (HDFitnessMachineDataCollector)initWithFitnessMachineType:(unint64_t)type profile:(id)profile
 {
   profileCopy = profile;
-  v33.receiver = self;
-  v33.super_class = HDFitnessMachineDataCollector;
-  v7 = [(HDFitnessMachineDataCollector *)&v33 init];
+  v34.receiver = self;
+  v34.super_class = HDFitnessMachineDataCollector;
+  v7 = [(HDFitnessMachineDataCollector *)&v34 init];
   v8 = v7;
   if (v7)
   {
@@ -50,28 +50,28 @@
     bufferedCharacteristics = v8->_bufferedCharacteristics;
     v8->_bufferedCharacteristics = v20;
 
-    sub_38D6C(v8);
-    v22 = objc_alloc_init(NSMutableDictionary);
+    sub_38D6C(v8, v22);
+    v23 = objc_alloc_init(NSMutableDictionary);
     bufferedMetrics = v8->_bufferedMetrics;
-    v8->_bufferedMetrics = v22;
+    v8->_bufferedMetrics = v23;
 
     if (+[CMFitnessMachine isAvailable])
     {
-      v24 = objc_alloc_init(CMFitnessMachine);
+      v25 = objc_alloc_init(CMFitnessMachine);
       cmFitnessMachine = v8->_cmFitnessMachine;
-      v8->_cmFitnessMachine = v24;
+      v8->_cmFitnessMachine = v25;
     }
 
-    v26 = [HKQuantityType quantityTypeForIdentifier:HKQuantityTypeIdentifierActiveEnergyBurned];
-    v27 = [HKQuantityType quantityTypeForIdentifier:HKQuantityTypeIdentifierAppleExerciseTime];
-    v28 = [NSSet setWithObjects:v26, v27, 0];
+    v27 = [HKQuantityType quantityTypeForIdentifier:HKQuantityTypeIdentifierActiveEnergyBurned];
+    v28 = [HKQuantityType quantityTypeForIdentifier:HKQuantityTypeIdentifierAppleExerciseTime];
+    v29 = [NSSet setWithObjects:v27, v28, 0];
     localDevicePreferredObjectTypes = v8->_localDevicePreferredObjectTypes;
-    v8->_localDevicePreferredObjectTypes = v28;
+    v8->_localDevicePreferredObjectTypes = v29;
 
-    v30 = [HKObserverSet alloc];
-    v31 = [v30 initWithName:@"fitness-machine-metrics-observer" loggingCategory:HKLogDataCollection];
+    v31 = [HKObserverSet alloc];
+    v32 = [v31 initWithName:@"fitness-machine-metrics-observer" loggingCategory:HKLogDataCollection];
     metricsCollectorObservers = v8->_metricsCollectorObservers;
-    v8->_metricsCollectorObservers = v31;
+    v8->_metricsCollectorObservers = v32;
   }
 
   return v8;
@@ -126,38 +126,37 @@
 
 - (void)tearDown
 {
-  fitnessMachineType = self->_fitnessMachineType;
-  v4 = HKSupportedMetricsForMachineType();
+  v3 = HKSupportedMetricsForMachineType();
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
-  v5 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
-  if (v5)
+  v4 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
+  if (v4)
   {
-    v6 = v5;
-    v7 = *v11;
+    v5 = v4;
+    v6 = *v10;
     do
     {
-      v8 = 0;
+      v7 = 0;
       do
       {
-        if (*v11 != v7)
+        if (*v10 != v6)
         {
-          objc_enumerationMutation(v4);
+          objc_enumerationMutation(v3);
         }
 
-        v9 = [(NSMapTable *)self->_aggregators objectForKey:*(*(&v10 + 1) + 8 * v8)];
-        [v9 unregisterDataCollector:self];
+        v8 = [(NSMapTable *)self->_aggregators objectForKey:*(*(&v9 + 1) + 8 * v7)];
+        [v8 unregisterDataCollector:self];
 
-        v8 = v8 + 1;
+        v7 = v7 + 1;
       }
 
-      while (v6 != v8);
-      v6 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      while (v5 != v7);
+      v5 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
-    while (v6);
+    while (v5);
   }
 }
 

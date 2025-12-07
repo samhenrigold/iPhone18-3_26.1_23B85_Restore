@@ -1,7 +1,5 @@
 @interface _GCDevicePhysicalInputSwitchElement
 + (unsigned)updateContextSize;
-- (BOOL)_canWrap;
-- (BOOL)_isSequential;
 - (BOOL)canWrap;
 - (BOOL)isEqualToElement:(id)element;
 - (BOOL)isSequential;
@@ -15,23 +13,25 @@
 - (double)_lastPositionTimestamp;
 - (double)lastPositionLatency;
 - (double)lastPositionTimestamp;
+- (id)_canWrap;
+- (id)_isSequential;
+- (id)_position;
+- (id)_positionDidChangeHandler;
+- (id)_positionField;
+- (id)_positionMax;
+- (id)_positionMin;
+- (id)_setCanWrap:(id *)result;
+- (id)_setLastPositionTimestamp:(id *)result;
+- (id)_setPosition:(id *)result;
+- (id)_setPositionDidChangeHandler:(id *)result;
+- (id)_setPositionField:(id *)result;
+- (id)_setPositionMax:(id *)result;
+- (id)_setPositionMin:(id *)result;
+- (id)_setSequential:(id *)result;
+- (id)_setSources:(id *)result;
+- (id)_sources;
 - (id)positionDidChangeHandler;
 - (int64_t)position;
-- (uint64_t)_position;
-- (uint64_t)_positionDidChangeHandler;
-- (uint64_t)_positionField;
-- (uint64_t)_positionMax;
-- (uint64_t)_positionMin;
-- (uint64_t)_setCanWrap:(uint64_t)result;
-- (uint64_t)_setLastPositionTimestamp:(uint64_t)result;
-- (uint64_t)_setPosition:(uint64_t)result;
-- (uint64_t)_setPositionDidChangeHandler:(uint64_t)result;
-- (uint64_t)_setPositionField:(uint64_t)result;
-- (uint64_t)_setPositionMax:(uint64_t)result;
-- (uint64_t)_setPositionMin:(uint64_t)result;
-- (uint64_t)_setSequential:(uint64_t)result;
-- (uint64_t)_setSources:(uint64_t)result;
-- (uint64_t)_sources;
 - (void)postCommit:(const void *)commit sender:(id)sender;
 - (void)preCommit:(const void *)commit sender:(id)sender;
 @end
@@ -95,7 +95,7 @@ LABEL_3:
   }
 
   _sources = [(_GCDevicePhysicalInputSwitchElement *)with _sources];
-  v40 = [(_GCDevicePhysicalInputSwitchElement *)self _setSources:_sources];
+  v40 = [(_GCDevicePhysicalInputSwitchElement *)&self->super.super.super.isa _setSources:_sources];
   *(update + v10) = *(update + v10) & 0xFFFE | v40;
 
   if (with)
@@ -119,7 +119,7 @@ LABEL_56:
   }
 
 LABEL_20:
-  v20 = [(_GCDevicePhysicalInputView *)self _testAndSetPrimitiveValue:v19 forSlot:&self->_canWrapSlot];
+  v20 = [(_GCDevicePhysicalInputView *)&self->super.super.super.isa _testAndSetPrimitiveValue:v19 forSlot:&self->_canWrapSlot];
   if (v20)
   {
     v21 = 2;
@@ -153,7 +153,7 @@ LABEL_58:
   }
 
 LABEL_25:
-  v23 = [(_GCDevicePhysicalInputView *)self _testAndSetPrimitiveValue:v22 forSlot:&self->_isSequentialSlot];
+  v23 = [(_GCDevicePhysicalInputView *)&self->super.super.super.isa _testAndSetPrimitiveValue:v22 forSlot:&self->_isSequentialSlot];
   if (v23)
   {
     v24 = 4;
@@ -181,7 +181,7 @@ LABEL_28:
     if (self)
     {
 LABEL_30:
-      v26 = [(_GCDevicePhysicalInputView *)self _testAndSetPrimitiveValue:v25 forSlot:&self->_positionMinSlot];
+      v26 = [(_GCDevicePhysicalInputView *)&self->super.super.super.isa _testAndSetPrimitiveValue:v25 forSlot:&self->_positionMinSlot];
       if (v26)
       {
         v27 = 8;
@@ -213,7 +213,7 @@ LABEL_33:
   v29 = v20 | v23;
   if (self)
   {
-    v30 = [(_GCDevicePhysicalInputView *)self _testAndSetPrimitiveValue:v28 forSlot:&self->_positionMaxSlot];
+    v30 = [(_GCDevicePhysicalInputView *)&self->super.super.super.isa _testAndSetPrimitiveValue:v28 forSlot:&self->_positionMaxSlot];
     if (v30)
     {
       v31 = 16;
@@ -246,7 +246,7 @@ LABEL_33:
   v34 = v32 | v30;
   if (self)
   {
-    v35 = [(_GCDevicePhysicalInputView *)self _testAndSetPrimitiveValue:v33 forSlot:&self->_positionFieldSlot];
+    v35 = [(_GCDevicePhysicalInputView *)&self->super.super.super.isa _testAndSetPrimitiveValue:v33 forSlot:&self->_positionFieldSlot];
     if (v35)
     {
       v36 = 32;
@@ -279,7 +279,7 @@ LABEL_4:
 
 LABEL_46:
   _positionDidChangeHandler = [(_GCDevicePhysicalInputSwitchElement *)with _positionDidChangeHandler];
-  v38 = [(_GCDevicePhysicalInputSwitchElement *)self _setPositionDidChangeHandler:_positionDidChangeHandler];
+  v38 = [(_GCDevicePhysicalInputSwitchElement *)&self->super.super.super.isa _setPositionDidChangeHandler:_positionDidChangeHandler];
   if (v38)
   {
     v39 = 64;
@@ -311,7 +311,7 @@ LABEL_5:
       if (self)
       {
 LABEL_7:
-        v12 = [(_GCDevicePhysicalInputView *)self _testAndSetPrimitiveValue:v11 forSlot:&self->_positionSlot];
+        v12 = [(_GCDevicePhysicalInputView *)&self->super.super.super.isa _testAndSetPrimitiveValue:v11 forSlot:&self->_positionSlot];
         if (v12)
         {
           v13 = 128;
@@ -339,7 +339,7 @@ LABEL_10:
           if (self)
           {
 LABEL_12:
-            v15 = [(_GCDevicePhysicalInputView *)self _testAndSetPrimitiveValue:v14 forSlot:&self->_timestampSlot];
+            v15 = [(_GCDevicePhysicalInputView *)&self->super.super.super.isa _testAndSetPrimitiveValue:v14 forSlot:&self->_timestampSlot];
             if (v15)
             {
               v16 = 256;
@@ -579,7 +579,7 @@ LABEL_18:
   v7.super_class = _GCDevicePhysicalInputSwitchElement;
   if ([(_GCDevicePhysicalInputElement *)&v7 isEqualToElement:elementCopy])
   {
-    [(_GCDevicePhysicalInputSwitchElement *)self isEqualToElement:elementCopy, &v8];
+    [(_GCDevicePhysicalInputSwitchElement *)&self->super.super.super.isa isEqualToElement:elementCopy, &v8];
     v5 = v8;
   }
 
@@ -627,14 +627,14 @@ LABEL_11:
   }
 
 LABEL_3:
-  v11 = [(_GCDevicePhysicalInputView *)self _primitiveValueForSlot:?];
+  v11 = [(_GCDevicePhysicalInputView *)&self->super.super.super.isa _primitiveValueForSlot:?];
   if (v11 == -1)
   {
     return v9;
   }
 
   v12 = v11;
-  v13 = [(_GCDevicePhysicalInputView *)self _primitiveValueForSlot:?];
+  v13 = [(_GCDevicePhysicalInputView *)&self->super.super.super.isa _primitiveValueForSlot:?];
 LABEL_5:
   [event floatValueForElement:v12];
   v15 = rintf(v14);
@@ -642,8 +642,8 @@ LABEL_5:
   {
     if (self)
     {
-      [(_GCDevicePhysicalInputView *)self _testAndSetPrimitiveValue:v15 forSlot:&self->_positionSlot];
-      [(_GCDevicePhysicalInputView *)self _testAndSetPrimitiveValue:&self->_timestampSlot forSlot:?];
+      [(_GCDevicePhysicalInputView *)&self->super.super.super.isa _testAndSetPrimitiveValue:v15 forSlot:&self->_positionSlot];
+      [(_GCDevicePhysicalInputView *)&self->super.super.super.isa _testAndSetPrimitiveValue:&self->_timestampSlot forSlot:?];
     }
 
     *(update + v10) |= 0x180u;
@@ -656,15 +656,14 @@ LABEL_5:
 - (_GCDevicePhysicalInputSwitchElement)initWithParameters:(id)parameters
 {
   parametersCopy = parameters;
-  v26.receiver = self;
-  v26.super_class = _GCDevicePhysicalInputSwitchElement;
-  v5 = [(_GCDevicePhysicalInputElement *)&v26 initWithParameters:parametersCopy];
+  v22.receiver = self;
+  v22.super_class = _GCDevicePhysicalInputSwitchElement;
+  v5 = [(_GCDevicePhysicalInputElement *)&v22 initWithParameters:parametersCopy];
   sources = [(_GCDevicePhysicalInputSwitchElementParameters *)parametersCopy sources];
-  [(_GCDevicePhysicalInputSwitchElement *)v5 _setSources:sources];
+  [(_GCDevicePhysicalInputSwitchElement *)&v5->super.super.super.isa _setSources:sources];
 
   if (parametersCopy)
   {
-    v7 = *(parametersCopy + 41);
     if (!v5)
     {
       goto LABEL_4;
@@ -676,14 +675,13 @@ LABEL_5:
   if (v5)
   {
 LABEL_3:
-    v8 = OUTLINED_FUNCTION_2_3();
-    [(_GCDevicePhysicalInputView *)v8 _testAndSetPrimitiveValue:v9 forSlot:v10];
+    v7 = OUTLINED_FUNCTION_2_3();
+    [(_GCDevicePhysicalInputView *)v7 _testAndSetPrimitiveValue:v8 forSlot:v9];
   }
 
 LABEL_4:
   if (parametersCopy)
   {
-    v11 = *(parametersCopy + 40);
     if (!v5)
     {
       goto LABEL_7;
@@ -695,14 +693,13 @@ LABEL_4:
   if (v5)
   {
 LABEL_6:
-    v12 = OUTLINED_FUNCTION_2_3();
-    [(_GCDevicePhysicalInputView *)v12 _testAndSetPrimitiveValue:v13 forSlot:v14];
+    v10 = OUTLINED_FUNCTION_2_3();
+    [(_GCDevicePhysicalInputView *)v10 _testAndSetPrimitiveValue:v11 forSlot:v12];
   }
 
 LABEL_7:
   if (parametersCopy)
   {
-    v15 = parametersCopy[8];
     if (!v5)
     {
       goto LABEL_10;
@@ -714,15 +711,15 @@ LABEL_7:
   if (v5)
   {
 LABEL_9:
-    v16 = OUTLINED_FUNCTION_2_3();
-    [(_GCDevicePhysicalInputView *)v16 _testAndSetPrimitiveValue:v17 forSlot:v18];
+    v13 = OUTLINED_FUNCTION_2_3();
+    [(_GCDevicePhysicalInputView *)v13 _testAndSetPrimitiveValue:v14 forSlot:v15];
   }
 
 LABEL_10:
   if (parametersCopy)
   {
-    v19 = parametersCopy[8];
-    v20 = parametersCopy[9];
+    v16 = parametersCopy[8];
+    v17 = parametersCopy[9];
     if (!v5)
     {
       goto LABEL_13;
@@ -731,12 +728,12 @@ LABEL_10:
     goto LABEL_12;
   }
 
-  v19 = 0;
-  v20 = 0;
+  v16 = 0;
+  v17 = 0;
   if (v5)
   {
 LABEL_12:
-    [(_GCDevicePhysicalInputView *)v5 _testAndSetPrimitiveValue:&v5->_positionMaxSlot forSlot:?];
+    [(_GCDevicePhysicalInputView *)&v5->super.super.super.isa _testAndSetPrimitiveValue:&v5->_positionMaxSlot forSlot:?];
   }
 
 LABEL_13:
@@ -750,12 +747,11 @@ LABEL_13:
     goto LABEL_15;
   }
 
-  v21 = parametersCopy[7];
   if (v5)
   {
 LABEL_15:
-    v22 = OUTLINED_FUNCTION_2_3();
-    [(_GCDevicePhysicalInputView *)v22 _testAndSetPrimitiveValue:v23 forSlot:v24];
+    v18 = OUTLINED_FUNCTION_2_3();
+    [(_GCDevicePhysicalInputView *)v18 _testAndSetPrimitiveValue:v19 forSlot:v20];
   }
 
 LABEL_16:
@@ -763,7 +759,7 @@ LABEL_16:
   return v5;
 }
 
-- (uint64_t)_setSources:(uint64_t)result
+- (id)_setSources:(id *)result
 {
   if (result)
   {
@@ -782,7 +778,7 @@ LABEL_16:
   return result;
 }
 
-- (uint64_t)_setCanWrap:(uint64_t)result
+- (id)_setCanWrap:(id *)result
 {
   if (result)
   {
@@ -792,7 +788,7 @@ LABEL_16:
   return result;
 }
 
-- (uint64_t)_setSequential:(uint64_t)result
+- (id)_setSequential:(id *)result
 {
   if (result)
   {
@@ -802,7 +798,7 @@ LABEL_16:
   return result;
 }
 
-- (uint64_t)_setPositionMin:(uint64_t)result
+- (id)_setPositionMin:(id *)result
 {
   if (result)
   {
@@ -812,7 +808,7 @@ LABEL_16:
   return result;
 }
 
-- (uint64_t)_setPositionMax:(uint64_t)result
+- (id)_setPositionMax:(id *)result
 {
   if (result)
   {
@@ -822,7 +818,7 @@ LABEL_16:
   return result;
 }
 
-- (uint64_t)_setPositionField:(uint64_t)result
+- (id)_setPositionField:(id *)result
 {
   if (result)
   {
@@ -832,7 +828,7 @@ LABEL_16:
   return result;
 }
 
-- (uint64_t)_sources
+- (id)_sources
 {
   if (result)
   {
@@ -843,7 +839,7 @@ LABEL_16:
   return result;
 }
 
-- (BOOL)_canWrap
+- (id)_canWrap
 {
   if (result)
   {
@@ -854,7 +850,7 @@ LABEL_16:
   return result;
 }
 
-- (BOOL)_isSequential
+- (id)_isSequential
 {
   if (result)
   {
@@ -865,7 +861,7 @@ LABEL_16:
   return result;
 }
 
-- (uint64_t)_positionMin
+- (id)_positionMin
 {
   if (result)
   {
@@ -875,7 +871,7 @@ LABEL_16:
   return result;
 }
 
-- (uint64_t)_positionMax
+- (id)_positionMax
 {
   if (result)
   {
@@ -885,7 +881,7 @@ LABEL_16:
   return result;
 }
 
-- (uint64_t)_positionField
+- (id)_positionField
 {
   if (result)
   {
@@ -895,7 +891,7 @@ LABEL_16:
   return result;
 }
 
-- (uint64_t)_positionDidChangeHandler
+- (id)_positionDidChangeHandler
 {
   if (result)
   {
@@ -906,13 +902,13 @@ LABEL_16:
   return result;
 }
 
-- (uint64_t)_setPositionDidChangeHandler:(uint64_t)result
+- (id)_setPositionDidChangeHandler:(id *)result
 {
   if (result)
   {
     v2 = result;
     v3 = _Block_copy(aBlock);
-    v4 = [(_GCDevicePhysicalInputView *)v2 _testAndSetObjectValue:v3 forSlot:v2 + 104 policy:771];
+    v4 = [(_GCDevicePhysicalInputView *)v2 _testAndSetObjectValue:v3 forSlot:(v2 + 13) policy:771];
 
     return v4;
   }
@@ -920,7 +916,7 @@ LABEL_16:
   return result;
 }
 
-- (uint64_t)_position
+- (id)_position
 {
   if (result)
   {
@@ -930,7 +926,7 @@ LABEL_16:
   return result;
 }
 
-- (uint64_t)_setPosition:(uint64_t)result
+- (id)_setPosition:(id *)result
 {
   if (result)
   {
@@ -953,7 +949,7 @@ LABEL_16:
   }
 }
 
-- (uint64_t)_setLastPositionTimestamp:(uint64_t)result
+- (id)_setLastPositionTimestamp:(id *)result
 {
   if (result)
   {
@@ -965,7 +961,7 @@ LABEL_16:
 
 - (id)positionDidChangeHandler
 {
-  _positionDidChangeHandler = [(_GCDevicePhysicalInputSwitchElement *)self _positionDidChangeHandler];
+  _positionDidChangeHandler = [(_GCDevicePhysicalInputSwitchElement *)&self->super.super.super.isa _positionDidChangeHandler];
 
   return _positionDidChangeHandler;
 }
@@ -985,8 +981,8 @@ LABEL_16:
   if (self)
   {
     selfCopy = self;
-    v3 = [(_GCDevicePhysicalInputView *)self _primitiveValueForSlot:?];
-    self = [(_GCDevicePhysicalInputView *)selfCopy _primitiveValueForSlot:?];
+    v3 = [(_GCDevicePhysicalInputView *)&self->super.super.super.isa _primitiveValueForSlot:?];
+    self = [(_GCDevicePhysicalInputView *)&selfCopy->super.super.super.isa _primitiveValueForSlot:?];
   }
 
   else
@@ -994,7 +990,7 @@ LABEL_16:
     v3 = 0;
   }
 
-  v4 = self - v3;
+  v4 = (self - v3);
   v5 = v3;
   result.length = v4;
   result.location = v5;
@@ -1005,7 +1001,7 @@ LABEL_16:
 {
   if (self)
   {
-    v2 = [(_GCDevicePhysicalInputView *)self _primitiveValueForSlot:?];
+    v2 = [(_GCDevicePhysicalInputView *)&self->super.super.super.isa _primitiveValueForSlot:?];
     LOBYTE(self) = OUTLINED_FUNCTION_5_5(v2);
   }
 
@@ -1016,7 +1012,7 @@ LABEL_16:
 {
   if (self)
   {
-    v2 = [(_GCDevicePhysicalInputView *)self _primitiveValueForSlot:?];
+    v2 = [(_GCDevicePhysicalInputView *)&self->super.super.super.isa _primitiveValueForSlot:?];
     LOBYTE(self) = OUTLINED_FUNCTION_5_5(v2);
   }
 
@@ -1027,7 +1023,7 @@ LABEL_16:
 {
   if (self)
   {
-    return COERCE_DOUBLE([(_GCDevicePhysicalInputView *)self _primitiveValueForSlot:?]);
+    return COERCE_DOUBLE([(_GCDevicePhysicalInputView *)&self->super.super.super.isa _primitiveValueForSlot:?]);
   }
 
   else
@@ -1045,7 +1041,7 @@ LABEL_16:
 
   if (self)
   {
-    v3 = COERCE_DOUBLE([(_GCDevicePhysicalInputView *)self _primitiveValueForSlot:?]);
+    v3 = COERCE_DOUBLE([(_GCDevicePhysicalInputView *)&self->super.super.super.isa _primitiveValueForSlot:?]);
   }
 
   else
@@ -1058,12 +1054,12 @@ LABEL_16:
 
 - (NSSet)sources
 {
-  _sources = [(_GCDevicePhysicalInputSwitchElement *)self _sources];
+  _sources = [(_GCDevicePhysicalInputSwitchElement *)&self->super.super.super.isa _sources];
 
   return _sources;
 }
 
-- (void)postCommit:(uint64_t)a1 sender:.cold.1(uint64_t a1)
+- (void)postCommit:(id *)a1 sender:.cold.1(id *a1)
 {
   v2 = [(_GCDevicePhysicalInputSwitchElement *)a1 _positionDidChangeHandler];
   if (v2)
@@ -1078,11 +1074,11 @@ LABEL_16:
       v3 = 0;
     }
 
-    v2[2](v2, a1, a1, v3);
+    (v2[2])(v2, a1, a1, v3);
   }
 }
 
-- (void)isEqualToElement:(BOOL *)a3 .cold.1(uint64_t a1, void *a2, BOOL *a3)
+- (void)isEqualToElement:(BOOL *)a3 .cold.1(id *a1, id *a2, BOOL *a3)
 {
   v8 = [(_GCDevicePhysicalInputSwitchElement *)a1 _sources];
   v9 = [(_GCDevicePhysicalInputSwitchElement *)a2 _sources];

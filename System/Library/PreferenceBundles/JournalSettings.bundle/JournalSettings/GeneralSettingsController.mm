@@ -71,7 +71,7 @@
   }
 
   v8 = OBJC_IVAR____TtC15JournalSettings25GeneralSettingsController_defaults;
-  sub_2561C(0, &qword_C8648);
+  sub_2561C(0, &qword_C8648, NSUserDefaults_ptr);
   bundleCopy = bundle;
   *&self->PSListController_opaque[v8] = sub_90A90();
   *&self->PSListController_opaque[OBJC_IVAR____TtC15JournalSettings25GeneralSettingsController____lazy_storage___appPolicy] = 1;
@@ -95,7 +95,7 @@
 - (_TtC15JournalSettings25GeneralSettingsController)initWithCoder:(id)coder
 {
   v5 = OBJC_IVAR____TtC15JournalSettings25GeneralSettingsController_defaults;
-  sub_2561C(0, &qword_C8648);
+  sub_2561C(0, &qword_C8648, NSUserDefaults_ptr);
   coderCopy = coder;
   *&self->PSListController_opaque[v5] = sub_90A90();
   *&self->PSListController_opaque[OBJC_IVAR____TtC15JournalSettings25GeneralSettingsController____lazy_storage___appPolicy] = 1;
@@ -130,7 +130,7 @@
 
   sub_8CCE8(v10, for);
 
-  sub_8EF0(v10, &qword_C5418);
+  sub_8EF0(v10, &qword_C5418, &unk_9CDA0);
 }
 
 - (id)specifierValueFor:(id)for

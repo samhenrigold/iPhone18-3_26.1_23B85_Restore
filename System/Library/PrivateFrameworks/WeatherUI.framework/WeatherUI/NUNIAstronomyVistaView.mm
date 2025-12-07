@@ -795,15 +795,15 @@ LABEL_71:
   }
 
   v140 = v10;
-  structure = [(NUNIScene *)v8 structure];
-  v153 = *(structure + 16);
-  v12 = *(structure + 32);
-  v148 = *structure;
+  v11 = objc_msgSend_structure(v8);
+  v153 = *(v11 + 16);
+  v12 = *(v11 + 32);
+  v148 = *v11;
   v149 = v12;
-  v12.i32[0] = *(structure + 52);
+  v12.i32[0] = *(v11 + 52);
   v137 = *v12.f32;
-  v145 = *(structure + 96);
-  v146 = *(structure + 104);
+  v145 = *(v11 + 96);
+  v146 = *(v11 + 104);
   v151 = v8;
   spheroids = [(NUNIScene *)v8 spheroids];
   v14 = [spheroids count];
@@ -839,19 +839,19 @@ LABEL_71:
     do
     {
       v21 = [spheroids objectAtIndex:v17];
-      structure2 = [v21 structure];
+      v22 = objc_msgSend_structure(v21);
       v23 = v19;
-      if (*structure2 != 3)
+      if (*v22 != 3)
       {
-        v23 = *(structure2 + 88);
-        if (*structure2 == 4)
+        v23 = *(v22 + 88);
+        if (*v22 == 4)
         {
           v23 = v18;
         }
       }
 
-      *&v181[4] = *(structure2 + 32);
-      v24 = *(structure2 + 48);
+      *&v181[4] = *(v22 + 32);
+      v24 = *(v22 + 48);
       *v20 = v23;
       *(v20 + 4) = v24;
       *(v20 + 28) = *&v181[16];
@@ -874,12 +874,12 @@ LABEL_71:
   }
 
   v138 = v26;
-  v147 = *structure;
-  v27 = *structure;
-  v27.i32[0] = *(structure + 52);
+  v147 = *v11;
+  v27 = *v11;
+  v27.i32[0] = *(v11 + 52);
   v136 = *v27.f32;
-  v143 = *(structure + 96);
-  v144 = *(structure + 104);
+  v143 = *(v11 + 96);
+  v144 = *(v11 + 104);
   isEarth2 = [sceneDescriptionCopy isEarth];
   isLuna2 = [sceneDescriptionCopy isLuna];
   if (v14)
@@ -913,13 +913,13 @@ LABEL_71:
     while (1)
     {
       v39 = [spheroids objectAtIndex:v30];
-      structure3 = [v39 structure];
+      v40 = objc_msgSend_structure(v39);
       *v41.i32 = v33;
       v177 = v41;
-      if (*structure3 != 3)
+      if (*v40 != 3)
       {
-        v41.i32[0] = *(structure3 + 88);
-        if (*structure3 == 4)
+        v41.i32[0] = *(v40 + 88);
+        if (*v40 == 4)
         {
           *v41.i32 = v32;
         }
@@ -935,11 +935,11 @@ LABEL_71:
       v159 = v41;
       v165 = *(v34 + 8);
       v42.i32[1] = v165.i32[1];
-      v42.i32[0] = *(structure3 + 48);
+      v42.i32[0] = *(v40 + 48);
       v157 = v42;
-      v42.i32[0] = *(structure3 + 52);
+      v42.i32[0] = *(v40 + 52);
       v158 = v42;
-      v161 = *(structure3 + 32);
+      v161 = *(v40 + 32);
       *&v154 = vdupq_lane_s32(v177, 0).u64[0];
       *&v155 = vdupq_lane_s32(v173, 0).u64[0];
       v43 = [[NUNIAnimation alloc] initWithAnimatable:v39 from:6 to:v155 key:?];
@@ -1411,15 +1411,15 @@ LABEL_7:
   }
 
   v141 = v10;
-  structure = [(NUNIScene *)v8 structure];
-  v12 = *(structure + 16);
-  v152 = *structure;
+  v11 = objc_msgSend_structure(v8);
+  v12 = *(v11 + 16);
+  v152 = *v11;
   v148 = v12;
-  v12.i32[0] = *(structure + 52);
-  v138 = *(structure + 32);
+  v12.i32[0] = *(v11 + 52);
+  v138 = *(v11 + 32);
   v139 = *v12.f32;
-  v145 = *(structure + 96);
-  v146 = *(structure + 104);
+  v145 = *(v11 + 96);
+  v146 = *(v11 + 104);
   spheroids = [(NUNIScene *)v8 spheroids];
   v14 = [spheroids count];
   v140 = [objc_alloc(MEMORY[0x1E695DF88]) initWithLength:32 * v14];
@@ -1432,10 +1432,10 @@ LABEL_7:
     do
     {
       v19 = [spheroids objectAtIndex:v17];
-      structure2 = [v19 structure];
-      v21 = *(structure2 + 48);
-      *&v167[4] = *(structure2 + 32);
-      *(v18 - 8) = *(structure2 + 88);
+      v20 = objc_msgSend_structure(v19);
+      v21 = *(v20 + 48);
+      *&v167[4] = *(v20 + 32);
+      *(v18 - 8) = *(v20 + 88);
       *(v18 - 4) = v21;
       *v18 = 0;
       *(v18 + 20) = *&v167[16];
@@ -1457,18 +1457,18 @@ LABEL_7:
     [(NUNIScene *)v8 updateCamera];
   }
 
-  v25 = *structure;
-  v147 = *(structure + 16);
+  v25 = *v11;
+  v147 = *(v11 + 16);
   v24.i32[1] = v147.i32[1];
-  v24.i32[0] = *(structure + 52);
-  v136 = *(structure + 32);
+  v24.i32[0] = *(v11 + 52);
+  v136 = *(v11 + 32);
   v137 = v24;
   __asm { FMOV            V0.4S, #1.0 }
 
   v134 = _Q0;
-  v143 = *(structure + 96);
-  v144 = *(structure + 104);
-  v151 = *structure;
+  v143 = *(v11 + 96);
+  v144 = *(v11 + 104);
+  v151 = *v11;
   if (v14)
   {
     v30 = 0;
@@ -1479,16 +1479,16 @@ LABEL_7:
     while (1)
     {
       v33 = [spheroids objectAtIndex:v30];
-      structure3 = [v33 structure];
+      v34 = objc_msgSend_structure(v33);
       v35 = v16;
       *&v36 = vld1q_dup_f32(v35++).u64[0];
       *v37.i32 = *v35;
       v157 = v37;
-      v38 = (structure3 + 88);
-      v37.i32[0] = *(structure3 + 48);
+      v38 = (v34 + 88);
+      v37.i32[0] = *(v34 + 48);
       v161 = v16[1];
       v164 = v37;
-      v159 = *(structure3 + 32);
+      v159 = *(v34 + 32);
       *&v39 = vld1q_dup_f32(v38).u64[0];
       v40 = [[NUNIAnimation alloc] initWithAnimatable:v33 from:6 to:v36 key:v39];
 
@@ -1987,9 +1987,9 @@ LABEL_60:
           }
 
           v40 = *(*(&v50 + 1) + 8 * i);
-          structure = [v40 structure];
-          v42 = structure;
-          v43 = (1 << *structure);
+          v41 = objc_msgSend_structure(v40, v47);
+          v42 = v41;
+          v43 = (1 << *v41);
           if ((v37 & v43) != 0)
           {
             v44 = 1.0;
@@ -2000,7 +2000,7 @@ LABEL_60:
             v44 = 0.000001;
           }
 
-          if (*(structure + 88) != v44)
+          if (*(v41 + 88) != v44)
           {
             [v40 setRadiusScale:?];
           }
@@ -2063,10 +2063,10 @@ LABEL_60:
         }
 
         v24 = *(*(&v54 + 1) + 8 * j);
-        structure2 = [v24 structure];
-        v27 = structure2;
-        v28 = *structure2;
-        if (*structure2 == 4)
+        v25 = objc_msgSend_structure(v24, v46.i64[0]);
+        v27 = v25;
+        v28 = *v25;
+        if (*v25 == 4)
         {
           v29 = 0.000001;
         }
@@ -2076,7 +2076,7 @@ LABEL_60:
           v29 = 1.0;
         }
 
-        if (*(structure2 + 88) != v29)
+        if (*(v25 + 88) != v29)
         {
           [v24 setRadiusScale:?];
         }

@@ -116,7 +116,7 @@ LABEL_8:
   [(UIRepeatedAction *)self setInvocation:v10];
   [(UIRepeatedAction *)self setInvocationArgument:objectCopy];
 
-  [(UIRepeatedAction *)self schedule];
+  objc_msgSend_schedule(self);
 }
 
 - (BOOL)invoke
@@ -235,7 +235,7 @@ LABEL_8:
     self->_didCompletePreInvocationDelay = 1;
   }
 
-  [(UIRepeatedAction *)self schedule];
+  objc_msgSend_schedule(self);
 }
 
 - (void)_invocationTimerFire
@@ -256,7 +256,7 @@ LABEL_8:
     self->_didCompleteInvocationDelay = 1;
   }
 
-  [(UIRepeatedAction *)self schedule];
+  objc_msgSend_schedule(self);
 }
 
 - (void)_repeatedTimerFire
@@ -264,7 +264,7 @@ LABEL_8:
   if (![(UIRepeatedAction *)self _shouldBeginCurrentRepetitionForPhase:3]|| ([(UIRepeatedAction *)self _adjustInvocationForPhase:3], [(UIRepeatedAction *)self invoke]))
   {
 
-    [(UIRepeatedAction *)self schedule];
+    objc_msgSend_schedule(self);
   }
 }
 
@@ -359,7 +359,7 @@ LABEL_23:
   if (isValid)
   {
 
-    [(UIRepeatedAction *)self schedule];
+    objc_msgSend_schedule(self);
   }
 }
 
@@ -372,7 +372,7 @@ LABEL_23:
   if (isValid)
   {
 
-    [(UIRepeatedAction *)self schedule];
+    objc_msgSend_schedule(self);
   }
 }
 

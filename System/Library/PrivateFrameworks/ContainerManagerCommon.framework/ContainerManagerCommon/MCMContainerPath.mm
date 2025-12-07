@@ -8,20 +8,13 @@
 + (id)containerPathIdentifierForCodeSignIdentifier:(id)identifier containerClass:(unint64_t)class;
 - (BOOL)_createURLIfNecessary:(id)necessary mode:(unsigned __int16)mode owner:(id)owner dataProtectionClass:(int)class quarantine:(BOOL)quarantine exists:(BOOL *)exists error:(id *)error;
 - (BOOL)_obj1:(id)_obj1 isEqualToObj2:(id)obj2;
-- (BOOL)exists;
+- (BOOL)createDataURLIfNecessaryWithDataProtectionClass:(int)class error:(id *)error;
+- (BOOL)createIfNecessaryWithDataProtectionClass:(int)class quarantine:(BOOL)quarantine error:(id *)error;
 - (BOOL)isEqual:(id)equal;
 - (BOOL)isEqualToContainerPath:(id)path;
 - (BOOL)isRandomized;
-- (BOOL)transient;
-- (MCMContainerClassPath)containerClassPath;
 - (MCMContainerPath)initWithContainerClassPath:(id)path containerPathIdentifier:(id)identifier containerRootComponent:(id)component containerDataComponent:(id)dataComponent;
-- (MCMPOSIXUser)dataPOSIXOwner;
-- (MCMPOSIXUser)rootPOSIXOwner;
-- (MCMPOSIXUser)schemaPOSIXOwner;
 - (MCMUserIdentity)userIdentity;
-- (NSString)containerDataComponent;
-- (NSString)containerPathIdentifier;
-- (NSString)containerRootComponent;
 - (NSString)description;
 - (NSURL)baseURL;
 - (NSURL)categoryURL;
@@ -34,66 +27,30 @@
 - (id)urlForPart:(unint64_t)part partDomain:(id)domain error:(id *)error;
 - (unint64_t)containerClass;
 - (unint64_t)hash;
-- (unsigned)dataPOSIXMode;
-- (unsigned)rootPOSIXMode;
-- (unsigned)schemaPOSIXMode;
-- (void)setExists:(BOOL)exists;
 @end
 
 @implementation MCMContainerPath
 
 - (NSURL)containerRootURL
 {
-  v9 = *MEMORY[0x1E69E9840];
   containerClassPath = [(MCMContainerPath *)self containerClassPath];
   classURL = [containerClassPath classURL];
   containerRootComponent = [(MCMContainerPath *)self containerRootComponent];
   v6 = [classURL URLByAppendingPathComponent:containerRootComponent isDirectory:1];
 
-  v7 = *MEMORY[0x1E69E9840];
-
   return v6;
-}
-
-- (NSString)containerRootComponent
-{
-  result = self->_containerRootComponent;
-  v3 = *MEMORY[0x1E69E9840];
-  *MEMORY[0x1E69E9840];
-  return result;
-}
-
-- (MCMContainerClassPath)containerClassPath
-{
-  result = self->_containerClassPath;
-  v3 = *MEMORY[0x1E69E9840];
-  *MEMORY[0x1E69E9840];
-  return result;
 }
 
 - (NSURL)metadataURL
 {
-  v6 = *MEMORY[0x1E69E9840];
   containerRootURL = [(MCMContainerPath *)self containerRootURL];
   v3 = [containerRootURL URLByAppendingPathComponent:@".com.apple.mobile_container_manager.metadata.plist" isDirectory:0];
-
-  v4 = *MEMORY[0x1E69E9840];
 
   return v3;
 }
 
-- (BOOL)transient
-{
-  v5 = *MEMORY[0x1E69E9840];
-  objc_opt_class();
-  isKindOfClass = objc_opt_isKindOfClass();
-  v3 = *MEMORY[0x1E69E9840];
-  return isKindOfClass & 1;
-}
-
 - (NSURL)containerDataURL
 {
-  v9 = *MEMORY[0x1E69E9840];
   containerRootURL = [(MCMContainerPath *)self containerRootURL];
   containerDataComponent = [(MCMContainerPath *)self containerDataComponent];
 
@@ -105,137 +62,51 @@
     containerRootURL = v6;
   }
 
-  v7 = *MEMORY[0x1E69E9840];
-
   return containerRootURL;
 }
 
 - (MCMUserIdentity)userIdentity
 {
-  v6 = *MEMORY[0x1E69E9840];
   containerClassPath = [(MCMContainerPath *)self containerClassPath];
   userIdentity = [containerClassPath userIdentity];
-
-  v4 = *MEMORY[0x1E69E9840];
 
   return userIdentity;
 }
 
-- (NSString)containerDataComponent
-{
-  result = self->_containerDataComponent;
-  v3 = *MEMORY[0x1E69E9840];
-  *MEMORY[0x1E69E9840];
-  return result;
-}
-
 - (unint64_t)containerClass
 {
-  v6 = *MEMORY[0x1E69E9840];
   containerClassPath = [(MCMContainerPath *)self containerClassPath];
   containerClass = [containerClassPath containerClass];
 
-  v4 = *MEMORY[0x1E69E9840];
   return containerClass;
-}
-
-- (NSString)containerPathIdentifier
-{
-  result = self->_containerPathIdentifier;
-  v3 = *MEMORY[0x1E69E9840];
-  *MEMORY[0x1E69E9840];
-  return result;
-}
-
-- (void)setExists:(BOOL)exists
-{
-  v4 = *MEMORY[0x1E69E9840];
-  self->_exists = exists;
-  v3 = *MEMORY[0x1E69E9840];
-}
-
-- (BOOL)exists
-{
-  result = self->_exists;
-  v3 = *MEMORY[0x1E69E9840];
-  *MEMORY[0x1E69E9840];
-  return result;
-}
-
-- (unsigned)schemaPOSIXMode
-{
-  result = self->_schemaPOSIXMode;
-  v3 = *MEMORY[0x1E69E9840];
-  *MEMORY[0x1E69E9840];
-  return result;
-}
-
-- (MCMPOSIXUser)schemaPOSIXOwner
-{
-  result = self->_schemaPOSIXOwner;
-  v3 = *MEMORY[0x1E69E9840];
-  *MEMORY[0x1E69E9840];
-  return result;
-}
-
-- (unsigned)dataPOSIXMode
-{
-  result = self->_dataPOSIXMode;
-  v3 = *MEMORY[0x1E69E9840];
-  *MEMORY[0x1E69E9840];
-  return result;
-}
-
-- (MCMPOSIXUser)dataPOSIXOwner
-{
-  result = self->_dataPOSIXOwner;
-  v3 = *MEMORY[0x1E69E9840];
-  *MEMORY[0x1E69E9840];
-  return result;
-}
-
-- (unsigned)rootPOSIXMode
-{
-  result = self->_rootPOSIXMode;
-  v3 = *MEMORY[0x1E69E9840];
-  *MEMORY[0x1E69E9840];
-  return result;
-}
-
-- (MCMPOSIXUser)rootPOSIXOwner
-{
-  result = self->_rootPOSIXOwner;
-  v3 = *MEMORY[0x1E69E9840];
-  *MEMORY[0x1E69E9840];
-  return result;
 }
 
 - (BOOL)_createURLIfNecessary:(id)necessary mode:(unsigned __int16)mode owner:(id)owner dataProtectionClass:(int)class quarantine:(BOOL)quarantine exists:(BOOL *)exists error:(id *)error
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   necessaryCopy = necessary;
   ownerCopy = owner;
-  v32 = 0;
-  v33 = &v32;
-  v34 = 0x2020000000;
-  v35 = 0;
+  v31 = 0;
+  v32 = &v31;
+  v33 = 0x2020000000;
+  v34 = 0;
   v16 = +[MCMUserIdentitySharedCache sharedInstance];
   containerClassPath = [(MCMContainerPath *)self containerClassPath];
   userIdentity = [containerClassPath userIdentity];
   v19 = [v16 libraryRepairForUserIdentity:userIdentity];
 
-  v26[0] = MEMORY[0x1E69E9820];
-  v26[1] = 3221225472;
-  v26[2] = __97__MCMContainerPath__createURLIfNecessary_mode_owner_dataProtectionClass_quarantine_exists_error___block_invoke;
-  v26[3] = &unk_1E86B0A48;
-  v26[4] = self;
+  v25[0] = MEMORY[0x1E69E9820];
+  v25[1] = 3221225472;
+  v25[2] = __97__MCMContainerPath__createURLIfNecessary_mode_owner_dataProtectionClass_quarantine_exists_error___block_invoke;
+  v25[3] = &unk_1E86B0A48;
+  v25[4] = self;
   modeCopy = mode;
   v20 = ownerCopy;
   classCopy = class;
   quarantineCopy = quarantine;
-  v27 = v20;
-  v28 = &v32;
-  v21 = [v19 fixAndRetryIfPermissionsErrorWithURL:necessaryCopy containerPath:self containerIdentifier:0 error:error duringBlock:v26];
+  v26 = v20;
+  v27 = &v31;
+  v21 = [v19 fixAndRetryIfPermissionsErrorWithURL:necessaryCopy containerPath:self containerIdentifier:0 error:error duringBlock:v25];
   v22 = v21 ^ 1;
   if (!exists)
   {
@@ -244,30 +115,26 @@
 
   if ((v22 & 1) == 0)
   {
-    *exists = *(v33 + 24);
+    *exists = *(v32 + 24);
   }
 
-  _Block_object_dispose(&v32, 8);
-  v23 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v31, 8);
   return v21;
 }
 
 uint64_t __97__MCMContainerPath__createURLIfNecessary_mode_owner_dataProtectionClass_quarantine_exists_error___block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
-  v11 = *MEMORY[0x1E69E9840];
   v5 = *(a1 + 32);
   v6 = a2;
   v7 = [v5 containerClassPath];
   v8 = [objc_opt_class() _inLibraryRepairBlock_createURLIfNecessary:v6 mode:*(a1 + 60) owner:*(a1 + 40) dataProtectionClass:*(a1 + 56) quarantine:*(a1 + 62) exists:*(*(a1 + 48) + 8) + 24 error:a3];
 
-  v9 = *MEMORY[0x1E69E9840];
   return v8;
 }
 
 - (BOOL)_obj1:(id)_obj1 isEqualToObj2:(id)obj2
 {
   result = 0;
-  v8 = *MEMORY[0x1E69E9840];
   if (_obj1 && obj2)
   {
     result = [_obj1 isEqual:obj2];
@@ -275,28 +142,24 @@ uint64_t __97__MCMContainerPath__createURLIfNecessary_mode_owner_dataProtectionC
 
   if (!(_obj1 | obj2))
   {
-    result = 1;
+    return 1;
   }
 
-  v7 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 - (BOOL)isRandomized
 {
-  v8 = *MEMORY[0x1E69E9840];
   v3 = objc_alloc(MEMORY[0x1E696AFB0]);
   containerPathIdentifier = [(MCMContainerPath *)self containerPathIdentifier];
   v5 = [v3 initWithUUIDString:containerPathIdentifier];
   LOBYTE(self) = v5 != 0;
 
-  v6 = *MEMORY[0x1E69E9840];
   return self;
 }
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v15 = *MEMORY[0x1E69E9840];
   v5 = [objc_msgSend(objc_opt_class() allocWithZone:{zone), "init"}];
   v6 = v5;
   if (v5)
@@ -322,13 +185,11 @@ uint64_t __97__MCMContainerPath__createURLIfNecessary_mode_owner_dataProtectionC
     objc_storeStrong((v6 + 48), self->_schemaPOSIXOwner);
   }
 
-  v13 = *MEMORY[0x1E69E9840];
   return v6;
 }
 
 - (BOOL)isEqual:(id)equal
 {
-  v8 = *MEMORY[0x1E69E9840];
   equalCopy = equal;
   v5 = self == equalCopy;
   if (equalCopy)
@@ -340,99 +201,89 @@ uint64_t __97__MCMContainerPath__createURLIfNecessary_mode_owner_dataProtectionC
     }
   }
 
-  v6 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
 - (BOOL)isEqualToContainerPath:(id)path
 {
-  v8 = *MEMORY[0x1E69E9840];
   pathCopy = path;
   v5 = [(MCMContainerPath *)self _obj1:self->_containerClassPath isEqualToObj2:pathCopy[3]]&& [(MCMContainerPath *)self _obj1:self->_containerRootComponent isEqualToObj2:pathCopy[7]]&& [(MCMContainerPath *)self _obj1:self->_containerDataComponent isEqualToObj2:pathCopy[8]];
 
-  v6 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
 - (unint64_t)hash
 {
-  v8 = *MEMORY[0x1E69E9840];
   v3 = [(MCMContainerClassPath *)self->_containerClassPath hash];
   v4 = [(NSString *)self->_containerRootComponent hash];
-  v5 = [(NSString *)self->_containerDataComponent hash];
-  v6 = *MEMORY[0x1E69E9840];
-  return v4 ^ v3 ^ v5;
+  return v4 ^ v3 ^ [(NSString *)self->_containerDataComponent hash];
 }
 
 - (NSString)description
 {
-  v7[5] = *MEMORY[0x1E69E9840];
+  v6[5] = *MEMORY[0x1E69E9840];
   v3 = [MCMLazyDescription alloc];
-  v7[0] = MEMORY[0x1E69E9820];
-  v7[1] = 3221225472;
-  v7[2] = __31__MCMContainerPath_description__block_invoke;
-  v7[3] = &unk_1E86B1128;
-  v7[4] = self;
-  v4 = [(MCMLazyDescription *)v3 initWithDescriber:v7];
-  v5 = *MEMORY[0x1E69E9840];
+  v6[0] = MEMORY[0x1E69E9820];
+  v6[1] = 3221225472;
+  v6[2] = __31__MCMContainerPath_description__block_invoke;
+  v6[3] = &unk_1E86B1128;
+  v6[4] = self;
+  v4 = [(MCMLazyDescription *)v3 initWithDescriber:v6];
 
   return v4;
 }
 
-id __31__MCMContainerPath_description__block_invoke(uint64_t a1, int a2)
+id __31__MCMContainerPath_description__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v3 = a2;
   v5 = MEMORY[0x1E696AEC0];
-  v6 = *(a1 + 32);
-  v7 = objc_opt_class();
-  v8 = NSStringFromClass(v7);
-  v9 = *(a1 + 32);
-  v10 = [v9 containerClassPath];
-  v11 = v10;
-  if (a2)
+  v6 = objc_opt_class();
+  v7 = NSStringFromClass(v6);
+  v8 = *(a1 + 32);
+  v9 = [v8 containerClassPath];
+  v10 = v9;
+  if (v3)
   {
-    v12 = [v10 redactedDescription];
+    v11 = [v9 redactedDescription];
     v2 = [*(a1 + 32) containerRootComponent];
-    v13 = [v2 redactedDescription];
+    v12 = [v2 redactedDescription];
   }
 
   else
   {
-    v13 = [*(a1 + 32) containerRootComponent];
+    v12 = [*(a1 + 32) containerRootComponent];
+    v11 = v10;
+  }
+
+  v13 = [*(a1 + 32) containerDataComponent];
+  v14 = [*(a1 + 32) exists];
+  v15 = "";
+  if (v14)
+  {
+    v15 = " exists";
+  }
+
+  v16 = [v5 stringWithFormat:@"<%@: %p [%@]/[%@]/[%@]%s>", v7, v8, v11, v12, v13, v15];;
+
+  if (v3)
+  {
+
     v12 = v11;
   }
 
-  v14 = [*(a1 + 32) containerDataComponent];
-  v15 = [*(a1 + 32) exists];
-  v16 = "";
-  if (v15)
-  {
-    v16 = " exists";
-  }
-
-  v17 = [v5 stringWithFormat:@"<%@: %p [%@]/[%@]/[%@]%s>", v8, v9, v12, v13, v14, v16];;
-
-  if (a2)
-  {
-
-    v13 = v12;
-  }
-
-  v18 = *MEMORY[0x1E69E9840];
-
-  return v17;
+  return v16;
 }
 
 - (MCMContainerPath)initWithContainerClassPath:(id)path containerPathIdentifier:(id)identifier containerRootComponent:(id)component containerDataComponent:(id)dataComponent
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   pathCopy = path;
   identifierCopy = identifier;
   componentCopy = component;
   dataComponentCopy = dataComponent;
-  v30.receiver = self;
-  v30.super_class = MCMContainerPath;
-  v15 = [(MCMContainerPath *)&v30 init];
+  v29.receiver = self;
+  v29.super_class = MCMContainerPath;
+  v15 = [(MCMContainerPath *)&v29 init];
   v16 = v15;
   if (v15)
   {
@@ -480,46 +331,36 @@ id __31__MCMContainerPath_description__block_invoke(uint64_t a1, int a2)
     }
   }
 
-  v28 = *MEMORY[0x1E69E9840];
   return v16;
 }
 
 - (NSURL)classURL
 {
-  v6 = *MEMORY[0x1E69E9840];
   containerClassPath = [(MCMContainerPath *)self containerClassPath];
   classURL = [containerClassPath classURL];
-
-  v4 = *MEMORY[0x1E69E9840];
 
   return classURL;
 }
 
 - (NSURL)categoryURL
 {
-  v6 = *MEMORY[0x1E69E9840];
   containerClassPath = [(MCMContainerPath *)self containerClassPath];
   categoryURL = [containerClassPath categoryURL];
-
-  v4 = *MEMORY[0x1E69E9840];
 
   return categoryURL;
 }
 
 - (NSURL)baseURL
 {
-  v6 = *MEMORY[0x1E69E9840];
   containerClassPath = [(MCMContainerPath *)self containerClassPath];
   baseURL = [containerClassPath baseURL];
-
-  v4 = *MEMORY[0x1E69E9840];
 
   return baseURL;
 }
 
 - (id)urlForPart:(unint64_t)part partDomain:(id)domain error:(id *)error
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   domainCopy = domain;
   if (part - 2 < 5)
   {
@@ -542,12 +383,12 @@ id __31__MCMContainerPath_description__block_invoke(uint64_t a1, int a2)
     v15 = container_log_handle_for_category();
     if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
-      v19 = gContainerPartNames[part];
-      v20 = gContainerClassNames[[(MCMContainerPath *)self containerClass]];
+      v18 = gContainerPartNames[part];
+      v19 = gContainerClassNames[[(MCMContainerPath *)self containerClass]];
       *buf = 138412546;
-      partCopy = v19;
-      v24 = 2112;
-      v25 = v20;
+      partCopy = v18;
+      v23 = 2112;
+      v24 = v19;
       _os_log_error_impl(&dword_1DF2C3000, v15, OS_LOG_TYPE_ERROR, "Container part [%@] not supported by containers of class [%@]", buf, 0x16u);
     }
 
@@ -597,14 +438,11 @@ LABEL_16:
 
 LABEL_18:
 
-  v17 = *MEMORY[0x1E69E9840];
-
   return containerDataURL2;
 }
 
 + (id)_posixOwnerForContainerSubdirectories:(unint64_t)subdirectories user:(id)user
 {
-  v15 = *MEMORY[0x1E69E9840];
   userCopy = user;
   v6 = userCopy;
   if (subdirectories <= 0xE && ((1 << subdirectories) & 0x412A) != 0)
@@ -619,8 +457,8 @@ LABEL_4:
 
   if ((subdirectories & 0xFFFFFFFFFFFFFFFELL) == 0xC)
   {
-    v12 = containermanager_copy_global_configuration();
-    systemContainerMode = [v12 systemContainerMode];
+    v11 = containermanager_copy_global_configuration();
+    systemContainerMode = [v11 systemContainerMode];
 
     if (systemContainerMode != 1)
     {
@@ -629,33 +467,28 @@ LABEL_4:
       goto LABEL_4;
     }
 
-    v14 = +[MCMPOSIXUser nobody];
+    v13 = +[MCMPOSIXUser nobody];
   }
 
   else
   {
-    v14 = userCopy;
+    v13 = userCopy;
   }
 
-  v9 = v14;
+  v9 = v13;
 LABEL_5:
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return v9;
 }
 
 + (Class)_containerClassPathClass
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v2 = *MEMORY[0x1E69E9840];
 
   return objc_opt_class();
 }
 
 + (id)containerPathFromURL:(id)l containerClassPath:(id)path relativePath:(id *)relativePath
 {
-  v26 = *MEMORY[0x1E69E9840];
   pathCopy = path;
   lCopy = l;
   classURL = [pathCopy classURL];
@@ -708,57 +541,47 @@ LABEL_5:
 
   v23 = v22;
 
-  v24 = *MEMORY[0x1E69E9840];
   return v22;
 }
 
 + (id)containerPathIdentifierForCodeSignIdentifier:(id)identifier containerClass:(unint64_t)class
 {
-  v10 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   v6 = +[MCMFileManager defaultManager];
   v7 = [v6 fsSanitizedStringFromString:identifierCopy allowSpaces:class == 7];
-
-  v8 = *MEMORY[0x1E69E9840];
 
   return v7;
 }
 
 + (id)containerPathForContainerClassPath:(id)path containerPathIdentifier:(id)identifier
 {
-  v15 = *MEMORY[0x1E69E9840];
   pathCopy = path;
   identifierCopy = identifier;
   [pathCopy containerClass];
   v7 = container_class_supports_data_subdirectory();
   v8 = objc_opt_class();
-  v9 = off_1E86AF4E8;
-  if (([pathCopy isMemberOfClass:{+[MCMContainerStagingPath _containerClassPathClass](MCMContainerStagingPath, "_containerClassPathClass")}] & 1) != 0 || (v9 = off_1E86AF4F0, objc_msgSend(pathCopy, "isMemberOfClass:", +[MCMContainerTransientPath _containerClassPathClass](MCMContainerTransientPath, "_containerClassPathClass"))))
+  if (([pathCopy isMemberOfClass:{+[MCMContainerStagingPath _containerClassPathClass](MCMContainerStagingPath, "_containerClassPathClass")}] & 1) != 0 || objc_msgSend(pathCopy, "isMemberOfClass:", +[MCMContainerTransientPath _containerClassPathClass](MCMContainerTransientPath, "_containerClassPathClass")))
   {
-    v10 = *v9;
     v8 = objc_opt_class();
   }
 
   if (v7)
   {
-    v11 = @"Data";
+    v9 = @"Data";
   }
 
   else
   {
-    v11 = 0;
+    v9 = 0;
   }
 
-  v12 = [objc_msgSend(v8 "alloc")];
+  v10 = [objc_msgSend(v8 "alloc")];
 
-  v13 = *MEMORY[0x1E69E9840];
-
-  return v12;
+  return v10;
 }
 
 + (id)containerPathForUserIdentity:(id)identity containerClass:(unint64_t)class containerPathIdentifier:(id)identifier
 {
-  v19 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   identityCopy = identity;
   v10 = containermanager_copy_global_configuration();
@@ -771,14 +594,11 @@ LABEL_5:
 
   v16 = [self containerPathForContainerClassPath:v15 containerPathIdentifier:identifierCopy];
 
-  v17 = *MEMORY[0x1E69E9840];
-
   return v16;
 }
 
 + (id)containerPathForContainerIdentity:(id)identity containerPathIdentifier:(id)identifier
 {
-  v13 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   identityCopy = identity;
   userIdentity = [identityCopy userIdentity];
@@ -786,19 +606,17 @@ LABEL_5:
 
   v10 = [self containerPathForUserIdentity:userIdentity containerClass:containerClass containerPathIdentifier:identifierCopy];
 
-  v11 = *MEMORY[0x1E69E9840];
-
   return v10;
 }
 
 - (id)containerPathForRealPath
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v3 = +[MCMFileManager defaultManager];
   containerRootURL = [(MCMContainerPath *)self containerRootURL];
-  v16 = 0;
-  v5 = [v3 realPathForURL:containerRootURL isDirectory:1 error:&v16];
-  v6 = v16;
+  v15 = 0;
+  v5 = [v3 realPathForURL:containerRootURL isDirectory:1 error:&v15];
+  v6 = v15;
 
   if (v5)
   {
@@ -817,18 +635,107 @@ LABEL_5:
     {
       containerRootURL2 = [0 containerRootURL];
       *buf = 138412546;
-      v18 = containerRootURL2;
-      v19 = 2112;
-      v20 = v6;
+      v17 = containerRootURL2;
+      v18 = 2112;
+      v19 = v6;
       _os_log_error_impl(&dword_1DF2C3000, containerClassPath, OS_LOG_TYPE_ERROR, "Could not get realpath for [%@]; error = %@", buf, 0x16u);
     }
 
     v12 = 0;
   }
 
-  v13 = *MEMORY[0x1E69E9840];
-
   return v12;
+}
+
+- (BOOL)createDataURLIfNecessaryWithDataProtectionClass:(int)class error:(id *)error
+{
+  v5 = *&class;
+  v17[1] = *MEMORY[0x1E69E9840];
+  containerRootURL = [(MCMContainerPath *)self containerRootURL];
+  containerDataURL = [(MCMContainerPath *)self containerDataURL];
+  v9 = [containerRootURL isEqual:containerDataURL];
+
+  if (v9)
+  {
+    v10 = 0;
+    v11 = 1;
+  }
+
+  else
+  {
+    containerDataURL2 = [(MCMContainerPath *)self containerDataURL];
+    dataPOSIXMode = [(MCMContainerPath *)self dataPOSIXMode];
+    dataPOSIXOwner = [(MCMContainerPath *)self dataPOSIXOwner];
+    v17[0] = 0;
+    v11 = [(MCMContainerPath *)self _createURLIfNecessary:containerDataURL2 mode:dataPOSIXMode owner:dataPOSIXOwner dataProtectionClass:v5 quarantine:0 exists:0 error:v17];
+    v10 = v17[0];
+
+    if (error && !v11)
+    {
+      v15 = v10;
+      v11 = 0;
+      *error = v10;
+    }
+  }
+
+  return v11;
+}
+
+- (BOOL)createIfNecessaryWithDataProtectionClass:(int)class quarantine:(BOOL)quarantine error:(id *)error
+{
+  quarantineCopy = quarantine;
+  v7 = *&class;
+  v24 = *MEMORY[0x1E69E9840];
+  v23 = 0;
+  containerClassPath = [(MCMContainerPath *)self containerClassPath];
+  v22 = 0;
+  v10 = [containerClassPath createIfNecessaryWithError:&v22];
+  v11 = v22;
+
+  if (v10)
+  {
+    containerRootURL = [(MCMContainerPath *)self containerRootURL];
+    rootPOSIXMode = [(MCMContainerPath *)self rootPOSIXMode];
+    rootPOSIXOwner = [(MCMContainerPath *)self rootPOSIXOwner];
+    v21 = v11;
+    LODWORD(rootPOSIXMode) = [(MCMContainerPath *)self _createURLIfNecessary:containerRootURL mode:rootPOSIXMode owner:rootPOSIXOwner dataProtectionClass:v7 quarantine:quarantineCopy exists:&v23 error:&v21];
+    v15 = v21;
+
+    if (rootPOSIXMode)
+    {
+      v20 = v15;
+      v16 = [(MCMContainerPath *)self createDataURLIfNecessaryWithDataProtectionClass:v7 error:&v20];
+      v11 = v20;
+
+      if (v16)
+      {
+        [(MCMContainerPath *)self setExists:v23];
+        v17 = 1;
+        goto LABEL_9;
+      }
+    }
+
+    else
+    {
+      v11 = v15;
+    }
+  }
+
+  if (error)
+  {
+    v18 = v11;
+    v17 = 0;
+    *error = v11;
+  }
+
+  else
+  {
+    v17 = 0;
+  }
+
+LABEL_9:
+
+  return v17;
 }
 
 @end

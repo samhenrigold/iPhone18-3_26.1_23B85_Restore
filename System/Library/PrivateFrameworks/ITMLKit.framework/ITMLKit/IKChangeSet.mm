@@ -44,8 +44,8 @@
 
 - (int64_t)newIndexForOldIndex:(int64_t)index
 {
-  removedIndexes = [(IKChangeSet *)self removedIndexes];
-  v6 = [removedIndexes containsIndex:index];
+  v5 = objc_msgSend_removedIndexes(self, a2);
+  v6 = [v5 containsIndex:index];
 
   v7 = 0x7FFFFFFFFFFFFFFFLL;
   if ((v6 & 1) == 0)
@@ -67,11 +67,11 @@
     if (v7 == 0x7FFFFFFFFFFFFFFFLL)
     {
       v30[3] = index;
-      removedIndexes2 = [(IKChangeSet *)self removedIndexes];
-      if (removedIndexes2)
+      v9 = objc_msgSend_removedIndexes(self);
+      if (v9)
       {
-        removedIndexes3 = [(IKChangeSet *)self removedIndexes];
-        indexSet = [removedIndexes3 mutableCopy];
+        v10 = objc_msgSend_removedIndexes(self);
+        indexSet = [v10 mutableCopy];
       }
 
       else
@@ -162,24 +162,13 @@ uint64_t __35__IKChangeSet_newIndexForOldIndex___block_invoke_2(uint64_t a1, voi
   v9 = [MEMORY[0x277CCABB0] numberWithInteger:index];
   v10 = [movedIndexesByNewIndex objectForKeyedSubscript:v9];
 
-  if (!v10)
+  if (!v10 || (-[IKChangeSet movedIndexesByNewIndex](self, "movedIndexesByNewIndex"), v11 = objc_claimAutoreleasedReturnValue(), [MEMORY[0x277CCABB0] numberWithInteger:index], v12 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v11, "objectForKeyedSubscript:", v12), v13 = objc_claimAutoreleasedReturnValue(), v7 = objc_msgSend(v13, "integerValue"), v13, v12, v11, v7 == 0x7FFFFFFFFFFFFFFFLL))
   {
-    goto LABEL_5;
-  }
-
-  movedIndexesByNewIndex2 = [(IKChangeSet *)self movedIndexesByNewIndex];
-  v12 = [MEMORY[0x277CCABB0] numberWithInteger:index];
-  v13 = [movedIndexesByNewIndex2 objectForKeyedSubscript:v12];
-  integerValue = [v13 integerValue];
-
-  if (integerValue == 0x7FFFFFFFFFFFFFFFLL)
-  {
-LABEL_5:
-    removedIndexes = [(IKChangeSet *)self removedIndexes];
-    if (removedIndexes)
+    v14 = objc_msgSend_removedIndexes(self);
+    if (v14)
     {
-      removedIndexes2 = [(IKChangeSet *)self removedIndexes];
-      indexSet = [removedIndexes2 mutableCopy];
+      v15 = objc_msgSend_removedIndexes(self);
+      indexSet = [v15 mutableCopy];
     }
 
     else
@@ -199,7 +188,7 @@ LABEL_5:
       indexSet2 = [MEMORY[0x277CCAB58] indexSet];
     }
 
-    movedIndexesByNewIndex3 = [(IKChangeSet *)self movedIndexesByNewIndex];
+    movedIndexesByNewIndex2 = [(IKChangeSet *)self movedIndexesByNewIndex];
     v29 = MEMORY[0x277D85DD0];
     v30 = 3221225472;
     v31 = __35__IKChangeSet_oldIndexForNewIndex___block_invoke;
@@ -208,7 +197,7 @@ LABEL_5:
     v33 = v21;
     v22 = indexSet2;
     v34 = v22;
-    [movedIndexesByNewIndex3 enumerateKeysAndObjectsUsingBlock:&v29];
+    [movedIndexesByNewIndex2 enumerateKeysAndObjectsUsingBlock:&v29];
 
     v23 = [v22 indexLessThanIndex:{index, v29, v30, v31, v32}];
     if (v23 != 0x7FFFFFFFFFFFFFFFLL)
@@ -244,7 +233,7 @@ LABEL_5:
     return index;
   }
 
-  return integerValue;
+  return v7;
 }
 
 uint64_t __35__IKChangeSet_oldIndexForNewIndex___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -264,11 +253,11 @@ uint64_t __35__IKChangeSet_oldIndexForNewIndex___block_invoke(uint64_t a1, void 
   if (index != 0x7FFFFFFFFFFFFFFFLL)
   {
     groupedCopy = grouped;
-    removedIndexes = [(IKChangeSet *)self removedIndexes];
-    if (removedIndexes)
+    v8 = objc_msgSend_removedIndexes(self, a2);
+    if (v8)
     {
-      removedIndexes2 = [(IKChangeSet *)self removedIndexes];
-      indexSet = [removedIndexes2 mutableCopy];
+      v9 = objc_msgSend_removedIndexes(self);
+      indexSet = [v9 mutableCopy];
     }
 
     else
@@ -350,7 +339,7 @@ uint64_t __50__IKChangeSet_newIndexByShiftingOldIndex_grouped___block_invoke(uin
 
 - (id)inverseChangeSet
 {
-  removedIndexes = [(IKChangeSet *)self removedIndexes];
+  v3 = objc_msgSend_removedIndexes(self, a2);
   addedIndexes = [(IKChangeSet *)self addedIndexes];
   v5 = MEMORY[0x277CBEB38];
   movedIndexesByNewIndex = [(IKChangeSet *)self movedIndexesByNewIndex];
@@ -393,7 +382,7 @@ uint64_t __50__IKChangeSet_newIndexByShiftingOldIndex_grouped___block_invoke(uin
   if ([v14 count])
   {
     v18 = [v14 copy];
-    v19 = [(IKChangeSet *)v15 initWithAddedIndexes:removedIndexes removedIndexes:addedIndexes movedIndexesByNewIndex:v17 updatedIndexesByNewIndex:v18];
+    v19 = [(IKChangeSet *)v15 initWithAddedIndexes:v3 removedIndexes:addedIndexes movedIndexesByNewIndex:v17 updatedIndexesByNewIndex:v18];
 
     if (!v16)
     {
@@ -403,7 +392,7 @@ uint64_t __50__IKChangeSet_newIndexByShiftingOldIndex_grouped___block_invoke(uin
     goto LABEL_6;
   }
 
-  v19 = [(IKChangeSet *)v15 initWithAddedIndexes:removedIndexes removedIndexes:addedIndexes movedIndexesByNewIndex:v17 updatedIndexesByNewIndex:0];
+  v19 = [(IKChangeSet *)v15 initWithAddedIndexes:v3 removedIndexes:addedIndexes movedIndexesByNewIndex:v17 updatedIndexesByNewIndex:0];
   if (v16)
   {
 LABEL_6:
@@ -453,11 +442,11 @@ LABEL_7:
   {
   }
 
-  removedIndexes = [(IKChangeSet *)self removedIndexes];
-  if (removedIndexes)
+  v13 = objc_msgSend_removedIndexes(self);
+  if (v13)
   {
-    removedIndexes2 = [(IKChangeSet *)self removedIndexes];
-    indexSet2 = [removedIndexes2 mutableCopy];
+    v14 = objc_msgSend_removedIndexes(self);
+    indexSet2 = [v14 mutableCopy];
   }
 
   else
@@ -465,11 +454,11 @@ LABEL_7:
     indexSet2 = [MEMORY[0x277CCAB58] indexSet];
   }
 
-  removedIndexes3 = [setCopy removedIndexes];
-  if (removedIndexes3)
+  v16 = objc_msgSend_removedIndexes(setCopy);
+  if (v16)
   {
-    removedIndexes4 = [setCopy removedIndexes];
-    firstIndex2 = [removedIndexes4 firstIndex];
+    v17 = objc_msgSend_removedIndexes(setCopy);
+    firstIndex2 = [v17 firstIndex];
 
     while (firstIndex2 != 0x7FFFFFFFFFFFFFFFLL)
     {
@@ -479,8 +468,8 @@ LABEL_7:
         [indexSet2 addIndex:v19];
       }
 
-      removedIndexes5 = [setCopy removedIndexes];
-      firstIndex2 = [removedIndexes5 indexGreaterThanIndex:firstIndex2];
+      v20 = objc_msgSend_removedIndexes(setCopy);
+      firstIndex2 = [v20 indexGreaterThanIndex:firstIndex2];
     }
   }
 
@@ -521,7 +510,7 @@ LABEL_7:
   {
     v66 = v27;
     addedIndexes6 = [v27 addedIndexes];
-    removedIndexes6 = [(IKChangeSet *)self removedIndexes];
+    v70 = objc_msgSend_removedIndexes(self);
     v81[0] = MEMORY[0x277D85DD0];
     v81[1] = 3221225472;
     v81[2] = __49__IKChangeSet_changeSetByConcatenatingChangeSet___block_invoke_3;
@@ -566,20 +555,8 @@ LABEL_7:
             }
           }
 
-          if ([removedIndexes6 containsIndex:i] && (objc_msgSend(addedIndexes6, "containsIndex:", v39) & 1) != 0)
+          if ([v70 containsIndex:i] && (objc_msgSend(addedIndexes6, "containsIndex:", v39) & 1) != 0 || (objc_msgSend(MEMORY[0x277CCABB0], "numberWithInteger:", v39), v40 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v32, "objectForKeyedSubscript:", v40), v41 = objc_claimAutoreleasedReturnValue(), objc_msgSend(MEMORY[0x277CCABB0], "numberWithInteger:", i), v42 = objc_claimAutoreleasedReturnValue(), v43 = objc_msgSend(v41, "isEqualToNumber:", v42), v42, v41, v32 = v71, v40, v43))
           {
-            goto LABEL_35;
-          }
-
-          v40 = [MEMORY[0x277CCABB0] numberWithInteger:v39];
-          v41 = [v32 objectForKeyedSubscript:v40];
-          v42 = [MEMORY[0x277CCABB0] numberWithInteger:i];
-          v43 = [v41 isEqualToNumber:v42];
-
-          v32 = v71;
-          if (v43)
-          {
-LABEL_35:
             [v30 removeIndex:i];
             [v31 removeIndex:v36];
             v44 = [MEMORY[0x277CCABB0] numberWithInteger:i];

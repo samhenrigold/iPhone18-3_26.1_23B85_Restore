@@ -506,10 +506,11 @@ LABEL_53:
   return v8;
 }
 
-void sub_100002B44(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_100002B44(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0x30u);
+  _os_log_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0x30u);
 }
 
 BOOL sub_100002B64@<W0>(NSObject *a1@<X8>)
@@ -527,10 +528,11 @@ BOOL sub_100002B64@<W0>(NSObject *a1@<X8>)
   return os_log_type_enabled(v3, OS_LOG_TYPE_ERROR);
 }
 
-void sub_100002B84(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_100002B84(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0x30u);
+  _os_log_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0x30u);
 }
 
 BOOL sub_100002BA4@<W0>(NSObject *a1@<X8>)
@@ -594,7 +596,7 @@ void sub_100002CA8()
   {
     sub_100002AAC();
     sub_100002AEC();
-    sub_100002B44(&_mh_execute_header, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v6);
+    sub_100002B44(&_mh_execute_header, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
 
   sub_100002C38();
@@ -630,7 +632,7 @@ void sub_100002E84()
   {
     sub_100002ACC();
     sub_100002AEC();
-    sub_100002B44(&_mh_execute_header, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v6);
+    sub_100002B44(&_mh_execute_header, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
 }
 
@@ -645,7 +647,7 @@ void sub_100002F60()
   {
     sub_100002ACC();
     sub_100002AEC();
-    sub_100002B44(&_mh_execute_header, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v6);
+    sub_100002B44(&_mh_execute_header, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
 }
 
@@ -660,7 +662,7 @@ void sub_10000303C(_DWORD *a1)
   {
     sub_100002AAC();
     sub_100002AEC();
-    sub_100002B44(&_mh_execute_header, v2, v3, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v4, v5, v6, v7, v8);
+    sub_100002B44(&_mh_execute_header, v2, v3, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v4, v5, v6, v7);
   }
 
   *a1 = 0;
@@ -678,7 +680,7 @@ void sub_10000311C()
   {
     sub_100002A8C();
     sub_100002AEC();
-    sub_100002B84(&_mh_execute_header, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v6);
+    sub_100002B84(&_mh_execute_header, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
 
   sub_100002BF0();
@@ -695,7 +697,7 @@ void sub_100003200()
   {
     sub_100002AAC();
     sub_100002AEC();
-    sub_100002B44(&_mh_execute_header, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v6);
+    sub_100002B44(&_mh_execute_header, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
 
   sub_100002B24(0x2BCu);
@@ -713,7 +715,7 @@ void sub_1000032E0()
   {
     sub_100002A8C();
     sub_100002AEC();
-    sub_100002B84(&_mh_execute_header, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v6);
+    sub_100002B84(&_mh_execute_header, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
 
   sub_100002BF0();
@@ -730,7 +732,7 @@ void sub_1000033C4()
   {
     sub_100002AAC();
     sub_100002AEC();
-    sub_100002B44(&_mh_execute_header, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v6);
+    sub_100002B44(&_mh_execute_header, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
 
   sub_100002B34();
@@ -747,7 +749,7 @@ void sub_1000034A0()
   {
     sub_100002AAC();
     sub_100002AEC();
-    sub_100002B44(&_mh_execute_header, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v6);
+    sub_100002B44(&_mh_execute_header, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
 
   sub_100002B34();
@@ -764,7 +766,7 @@ void sub_10000357C()
   {
     sub_100002AAC();
     sub_100002AEC();
-    sub_100002B44(&_mh_execute_header, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v6);
+    sub_100002B44(&_mh_execute_header, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
 
   sub_100002B34();
@@ -782,7 +784,7 @@ void sub_100003658()
   {
     sub_100002A8C();
     sub_100002AEC();
-    sub_100002B84(&_mh_execute_header, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v6);
+    sub_100002B84(&_mh_execute_header, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
 
   sub_100002BF0();
@@ -799,7 +801,7 @@ void sub_10000373C()
   {
     sub_100002AAC();
     sub_100002AEC();
-    sub_100002B44(&_mh_execute_header, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v6);
+    sub_100002B44(&_mh_execute_header, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
 
   sub_100002B34();
@@ -816,7 +818,7 @@ void sub_100003818()
   {
     sub_100002AAC();
     sub_100002AEC();
-    sub_100002B44(&_mh_execute_header, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v6);
+    sub_100002B44(&_mh_execute_header, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
 
   sub_100002B34();
@@ -833,7 +835,7 @@ void sub_1000038F4()
   {
     sub_100002AAC();
     sub_100002AEC();
-    sub_100002B44(&_mh_execute_header, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v6);
+    sub_100002B44(&_mh_execute_header, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
 
   sub_100002B34();
@@ -851,7 +853,7 @@ void sub_1000039E4()
   {
     sub_100002A8C();
     sub_100002AEC();
-    sub_100002B84(&_mh_execute_header, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v6);
+    sub_100002B84(&_mh_execute_header, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
 
   sub_100002BF0();
@@ -869,7 +871,7 @@ void sub_100003AC8()
   {
     sub_100002A8C();
     sub_100002AEC();
-    sub_100002B84(&_mh_execute_header, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v6);
+    sub_100002B84(&_mh_execute_header, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
 
   sub_100002BF0();
@@ -887,86 +889,82 @@ void sub_100003BD4()
   {
     sub_100002A8C();
     sub_100002AEC();
-    sub_100002B84(&_mh_execute_header, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v6);
+    sub_100002B84(&_mh_execute_header, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
 
   sub_100002BF0();
 }
 
-id sub_100003CB8(int a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+id sub_100003CB8(int a1, int a2, uint64_t a3)
 {
-  v8 = a3;
-  v9 = a2;
-  v51 = 0;
-  v52 = 0;
-  v11 = qword_1000D1FB8;
+  v23 = 0;
+  v24 = 0;
+  v6 = qword_1000D1FB8;
   if (qword_1000D1FB8)
   {
-    v51 = qword_1000D1FB8;
+    v23 = qword_1000D1FB8;
   }
 
   else
   {
-    if (!sub_100020694(&v51))
+    if (!sub_100020694(&v23))
     {
-      v13 = "gatherASPFTLData: Could not get nand_exporter_t";
+      sub_100020530("gatherASPFTLData: Could not get nand_exporter_t", v23, v24);
       goto LABEL_19;
     }
 
-    v11 = v51;
+    v6 = v23;
   }
 
-  if (!*(v11 + 4))
+  if (!*(v6 + 4))
   {
-    v13 = "gatherASPFTLData: No io_connection exist";
+    sub_100020530("gatherASPFTLData: No io_connection exist", v23, v24);
 LABEL_19:
-    sub_100020530(v13, a2, a3, a4, a5, a6, a7, a8, v51);
-    v18 = 0;
+    v12 = 0;
     goto LABEL_42;
   }
 
-  v52 = 0;
-  if (!v9)
+  v24 = 0;
+  if (!a2)
   {
-    v12 = v11[6];
-    if (v12)
+    v7 = v6[6];
+    if (v7)
     {
       goto LABEL_11;
     }
 
-    v36 = "gatherASPFTLData: No getReadStatsSelectors exist";
+    sub_100020530("gatherASPFTLData: No getReadStatsSelectors exist", v23);
 LABEL_25:
-    sub_100020530(v36, a2, a3, a4, a5, a6, a7, a8, v51);
-    v18 = 0;
+    v12 = 0;
     goto LABEL_45;
   }
 
-  v12 = v11[5];
-  if (!v12)
+  v7 = v6[5];
+  if (!v7)
   {
-    v36 = "gatherASPFTLData: No getStatsSelectors exist";
+    sub_100020530("gatherASPFTLData: No getStatsSelectors exist", v23);
     goto LABEL_25;
   }
 
-  v8 = 0;
+  a3 = 0;
 LABEL_11:
-  v14 = v12();
-  v15 = sub_100021C58(v51, *(v14 + 4), 0, v8, &v52, 0, 0);
-  v16 = v15;
-  if (v15)
+  v8 = v7();
+  v9 = sub_100021C58(v23, *(v8 + 4), 0, a3, &v24, 0, 0);
+  v10 = v9;
+  if (v9)
   {
-    v17 = v52 == 0;
+    v11 = v24 == 0;
   }
 
   else
   {
-    v17 = 1;
+    v11 = 1;
   }
 
-  if (v17)
+  if (v11)
   {
-    v18 = 0;
-    if (!v15)
+    v12 = 0;
+    if (!v9)
     {
       goto LABEL_42;
     }
@@ -974,309 +972,309 @@ LABEL_11:
 
   else
   {
-    v19 = malloc_type_calloc(1uLL, 0x20uLL, 0x20040DC1BFBCFuLL);
-    if (v19)
+    v13 = malloc_type_calloc(1uLL, 0x20uLL, 0x20040DC1BFBCFuLL);
+    if (v13)
     {
-      v27 = v19;
+      v14 = v13;
       if (a1)
       {
-        v28 = (v51[19])(v19, v16, v52);
+        v15 = (v23[19])(v13, v10, v24);
       }
 
       else
       {
-        v28 = (v51[18])(v19, v16, v52);
+        v15 = (v23[18])(v13, v10, v24);
       }
 
-      if (v28)
+      if (v15)
       {
-        v18 = sub_1000202BC(v27, 0);
-        v37 = [NSString stringWithUTF8String:*v51];
-        v38 = [v37 isEqualToString:@"ASPStorage"];
+        v12 = sub_1000202BC(v14, 0);
+        v16 = [NSString stringWithUTF8String:*v23];
+        v17 = [v16 isEqualToString:@"ASPStorage"];
 
-        if (v38)
+        if (v17)
         {
-          v39 = &off_1000C8798;
+          v18 = &off_1000C8798;
         }
 
         else
         {
-          v39 = &off_1000C8780;
+          v18 = &off_1000C8780;
         }
 
-        [v18 setObject:v39 forKeyedSubscript:{@"com.apple.NANDInfo.IsANS1Controller", v51}];
-        if (v18 && ([v18 objectForKey:@"magazineFWVersion_1"], v47 = objc_claimAutoreleasedReturnValue(), v47, v47))
+        [v12 setObject:v18 forKeyedSubscript:{@"com.apple.NANDInfo.IsANS1Controller", v23}];
+        if (v12 && ([v12 objectForKey:@"magazineFWVersion_1"], v19 = objc_claimAutoreleasedReturnValue(), v19, v19))
         {
-          v48 = &off_1000C8798;
+          v20 = &off_1000C8798;
         }
 
         else
         {
-          sub_100020530("Stat Magazine not supported", v40, v41, v42, v43, v44, v45, v46, v51);
-          v48 = &off_1000C8780;
+          sub_100020530("Stat Magazine not supported");
+          v20 = &off_1000C8780;
         }
 
-        [v18 setObject:v48 forKeyedSubscript:@"com.apple.NANDInfo.IsStatMagSupported"];
+        [v12 setObject:v20 forKeyedSubscript:@"com.apple.NANDInfo.IsStatMagSupported"];
       }
 
       else
       {
-        sub_100020530("gatherASPFTLData: parseFTL failed", v29, v30, v31, v32, v33, v34, v35, v51);
-        v18 = 0;
+        sub_100020530("gatherASPFTLData: parseFTL failed");
+        v12 = 0;
       }
 
-      v49 = v51[20];
-      if (v49)
+      v21 = v23[20];
+      if (v21)
       {
-        (v49)(v27);
+        (v21)(v14);
       }
 
-      free(v27);
+      free(v14);
     }
 
     else
     {
-      sub_100020530("gatherASPFTLData: Could not allocate memory for pcxt.ftlData", v20, v21, v22, v23, v24, v25, v26, v51);
-      v18 = 0;
+      sub_100020530("gatherASPFTLData: Could not allocate memory for pcxt.ftlData");
+      v12 = 0;
     }
   }
 
-  free(v16);
+  free(v10);
 LABEL_42:
-  if (!qword_1000D1FB8 && v51)
+  if (!qword_1000D1FB8 && v23)
   {
-    sub_1000207E0(v51);
+    sub_1000207E0(v23);
   }
 
 LABEL_45:
 
-  return v18;
+  return v12;
 }
 
 void *CopyAppleCareNANDInfo()
 {
-  v14[0] = @"com.apple.NANDInfo.Health.MaxPercentageNANDUsed";
-  v14[1] = @"com.apple.NANDInfo.Health.HostReadErrors";
-  v14[2] = @"com.apple.NANDInfo.Health.MaxE2EErrors";
-  v14[3] = @"com.apple.NANDInfo.Health.NumGrownBadBlocks";
-  v14[4] = @"com.apple.NANDInfo.Health.NumDieFailures";
-  v0 = [NSArray arrayWithObjects:v14 count:5];
+  v7[0] = @"com.apple.NANDInfo.Health.MaxPercentageNANDUsed";
+  v7[1] = @"com.apple.NANDInfo.Health.HostReadErrors";
+  v7[2] = @"com.apple.NANDInfo.Health.MaxE2EErrors";
+  v7[3] = @"com.apple.NANDInfo.Health.NumGrownBadBlocks";
+  v7[4] = @"com.apple.NANDInfo.Health.NumDieFailures";
+  v0 = [NSArray arrayWithObjects:v7 count:5];
   v1 = sub_10000407C();
-  v9 = v1;
+  v2 = v1;
   if (v1)
   {
-    v10 = sub_1000203C0(v1, v0);
+    v3 = sub_1000203C0(v1, v0);
   }
 
   else
   {
-    sub_100020530("CopyAppleCareNANDInfo: Unable to get health API fields", v2, v3, v4, v5, v6, v7, v8, v14[0]);
-    v10 = objc_alloc_init(NSMutableDictionary);
+    sub_100020530("CopyAppleCareNANDInfo: Unable to get health API fields");
+    v3 = objc_alloc_init(NSMutableDictionary);
   }
 
-  v11 = v10;
-  v12 = [NSString stringWithUTF8String:sub_100020600()];
-  [v11 setObject:v12 forKeyedSubscript:off_1000D1B10];
+  v4 = v3;
+  v5 = [NSString stringWithUTF8String:sub_100020600()];
+  [v4 setObject:v5 forKeyedSubscript:off_1000D1B10];
 
-  return v11;
+  return v4;
 }
 
 id sub_10000407C()
 {
   v0 = objc_alloc_init(NSMutableDictionary);
-  v71[0] = @"numGrownBad";
-  v71[1] = @"spareAvailablePercent";
-  v72[0] = @"com.apple.NANDInfo.Health.NumGrownBadBlocks";
-  v72[1] = @"com.apple.NANDInfo.Health.SpareAvailablePercent";
-  v71[2] = @"numDieFailures";
-  v72[2] = @"com.apple.NANDInfo.Health.NumDieFailures";
-  v1 = [NSDictionary dictionaryWithObjects:v72 forKeys:v71 count:3];
-  v14 = sub_100003CB8(0, 1, 0, v2, v3, v4, v5, v6);
-  if (!v14)
+  v59[0] = @"numGrownBad";
+  v59[1] = @"spareAvailablePercent";
+  v60[0] = @"com.apple.NANDInfo.Health.NumGrownBadBlocks";
+  v60[1] = @"com.apple.NANDInfo.Health.SpareAvailablePercent";
+  v59[2] = @"numDieFailures";
+  v60[2] = @"com.apple.NANDInfo.Health.NumDieFailures";
+  v1 = [NSDictionary dictionaryWithObjects:v60 forKeys:v59 count:3];
+  v2 = sub_100003CB8(0, 1, 0);
+  if (!v2)
   {
-    sub_100020530("gatherNANDHealthInfo: Unable to get FTL fields", v7, v8, v9, v10, v11, v12, v13, v56);
+    sub_100020530("gatherNANDHealthInfo: Unable to get FTL fields");
     goto LABEL_44;
   }
 
-  v66 = 0u;
-  v67 = 0u;
-  v64 = 0u;
-  v65 = 0u;
-  v15 = [&off_1000C8660 countByEnumeratingWithState:&v64 objects:v70 count:16];
-  if (v15)
+  v54 = 0u;
+  v55 = 0u;
+  v52 = 0u;
+  v53 = 0u;
+  v3 = [&off_1000C8660 countByEnumeratingWithState:&v52 objects:v58 count:16];
+  if (v3)
   {
-    v16 = v15;
-    v17 = 0;
-    v18 = *v65;
+    v4 = v3;
+    v5 = 0;
+    v6 = *v53;
     do
     {
-      for (i = 0; i != v16; i = i + 1)
+      for (i = 0; i != v4; i = i + 1)
       {
-        if (*v65 != v18)
+        if (*v53 != v6)
         {
           objc_enumerationMutation(&off_1000C8660);
         }
 
-        v20 = *(*(&v64 + 1) + 8 * i);
-        v21 = [v14 objectForKey:v20];
+        v8 = *(*(&v52 + 1) + 8 * i);
+        v9 = [v2 objectForKey:v8];
 
-        if (v21)
+        if (v9)
         {
-          v22 = [v14 objectForKey:v20];
-          v23 = [v22 intValue];
+          v10 = [v2 objectForKey:v8];
+          v11 = [v10 intValue];
 
-          if (v17 <= v23)
+          if (v5 <= v11)
           {
-            v17 = v23;
+            v5 = v11;
           }
         }
       }
 
-      v16 = [&off_1000C8660 countByEnumeratingWithState:&v64 objects:v70 count:16];
+      v4 = [&off_1000C8660 countByEnumeratingWithState:&v52 objects:v58 count:16];
     }
 
-    while (v16);
+    while (v4);
   }
 
   else
   {
-    v17 = 0;
+    v5 = 0;
   }
 
-  v24 = [NSNumber numberWithInteger:v17];
-  [v0 setObject:v24 forKeyedSubscript:@"com.apple.NANDInfo.Health.MaxPercentageNANDUsed"];
+  v12 = [NSNumber numberWithInteger:v5];
+  [v0 setObject:v12 forKeyedSubscript:@"com.apple.NANDInfo.Health.MaxPercentageNANDUsed"];
 
-  v62 = 0u;
-  v63 = 0u;
-  v60 = 0u;
-  v61 = 0u;
-  v25 = [&off_1000C8678 countByEnumeratingWithState:&v60 objects:v69 count:16];
-  if (v25)
+  v50 = 0u;
+  v51 = 0u;
+  v48 = 0u;
+  v49 = 0u;
+  v13 = [&off_1000C8678 countByEnumeratingWithState:&v48 objects:v57 count:16];
+  if (v13)
   {
-    v26 = v25;
-    v27 = 0;
-    v28 = *v61;
+    v14 = v13;
+    v15 = 0;
+    v16 = *v49;
     do
     {
-      for (j = 0; j != v26; j = j + 1)
+      for (j = 0; j != v14; j = j + 1)
       {
-        if (*v61 != v28)
+        if (*v49 != v16)
         {
           objc_enumerationMutation(&off_1000C8678);
         }
 
-        v30 = *(*(&v60 + 1) + 8 * j);
-        v31 = [v14 objectForKey:v30];
+        v18 = *(*(&v48 + 1) + 8 * j);
+        v19 = [v2 objectForKey:v18];
 
-        if (v31)
+        if (v19)
         {
-          v32 = [v14 objectForKey:v30];
-          v33 = [v32 intValue];
+          v20 = [v2 objectForKey:v18];
+          v21 = [v20 intValue];
 
-          if (v27 <= v33)
+          if (v15 <= v21)
           {
-            v27 = v33;
+            v15 = v21;
           }
         }
       }
 
-      v26 = [&off_1000C8678 countByEnumeratingWithState:&v60 objects:v69 count:16];
+      v14 = [&off_1000C8678 countByEnumeratingWithState:&v48 objects:v57 count:16];
     }
 
-    while (v26);
+    while (v14);
   }
 
   else
   {
-    v27 = 0;
+    v15 = 0;
   }
 
-  v34 = [NSNumber numberWithInteger:v27];
-  [v0 setObject:v34 forKeyedSubscript:@"com.apple.NANDInfo.Health.MaxE2EErrors"];
+  v22 = [NSNumber numberWithInteger:v15];
+  [v0 setObject:v22 forKeyedSubscript:@"com.apple.NANDInfo.Health.MaxE2EErrors"];
 
-  v35 = [v14 objectForKey:@"com.apple.NANDInfo.IsANS1Controller"];
+  v23 = [v2 objectForKey:@"com.apple.NANDInfo.IsANS1Controller"];
 
-  if (!v35)
+  if (!v23)
   {
     goto LABEL_32;
   }
 
-  v36 = [v14 objectForKey:@"com.apple.NANDInfo.IsANS1Controller"];
-  v37 = [v36 intValue];
+  v24 = [v2 objectForKey:@"com.apple.NANDInfo.IsANS1Controller"];
+  v25 = [v24 intValue];
 
-  if (!v37)
+  if (!v25)
   {
-    v38 = @"raidSmartErrors";
-    v44 = [v14 objectForKey:@"raidSmartErrors"];
+    v26 = @"raidSmartErrors";
+    v32 = [v2 objectForKey:@"raidSmartErrors"];
 
-    if (v44)
+    if (v32)
     {
       goto LABEL_30;
     }
 
 LABEL_32:
-    v43 = 0;
+    v31 = 0;
     goto LABEL_33;
   }
 
-  v38 = @"ueccReads";
-  v39 = [v14 objectForKey:@"ueccReads"];
-  v40 = [v39 intValue];
+  v26 = @"ueccReads";
+  v27 = [v2 objectForKey:@"ueccReads"];
+  v28 = [v27 intValue];
 
-  if (!v40)
+  if (!v28)
   {
     goto LABEL_32;
   }
 
 LABEL_30:
-  v41 = [v14 objectForKey:v38];
-  v42 = [v41 intValue];
+  v29 = [v2 objectForKey:v26];
+  v30 = [v29 intValue];
 
-  v43 = v42 & ~(v42 >> 31);
+  v31 = v30 & ~(v30 >> 31);
 LABEL_33:
-  v45 = [NSNumber numberWithInteger:v43];
-  [v0 setObject:v45 forKeyedSubscript:@"com.apple.NANDInfo.Health.HostReadErrors"];
+  v33 = [NSNumber numberWithInteger:v31];
+  [v0 setObject:v33 forKeyedSubscript:@"com.apple.NANDInfo.Health.HostReadErrors"];
 
-  v58 = 0u;
-  v59 = 0u;
-  v56 = 0u;
-  v57 = 0u;
-  v46 = v1;
-  v47 = [v46 countByEnumeratingWithState:&v56 objects:v68 count:16];
-  if (v47)
+  v46 = 0u;
+  v47 = 0u;
+  v44 = 0u;
+  v45 = 0u;
+  v34 = v1;
+  v35 = [v34 countByEnumeratingWithState:&v44 objects:v56 count:16];
+  if (v35)
   {
-    v48 = v47;
-    v49 = *v57;
+    v36 = v35;
+    v37 = *v45;
     do
     {
-      for (k = 0; k != v48; k = k + 1)
+      for (k = 0; k != v36; k = k + 1)
       {
-        if (*v57 != v49)
+        if (*v45 != v37)
         {
-          objc_enumerationMutation(v46);
+          objc_enumerationMutation(v34);
         }
 
-        v51 = *(*(&v56 + 1) + 8 * k);
-        v52 = [v14 objectForKey:{v51, v56}];
+        v39 = *(*(&v44 + 1) + 8 * k);
+        v40 = [v2 objectForKey:{v39, v44}];
 
-        if (v52)
+        if (v40)
         {
-          v53 = [v14 objectForKey:v51];
-          v54 = [v46 objectForKeyedSubscript:v51];
-          [v0 setObject:v53 forKeyedSubscript:v54];
+          v41 = [v2 objectForKey:v39];
+          v42 = [v34 objectForKeyedSubscript:v39];
+          [v0 setObject:v41 forKeyedSubscript:v42];
         }
 
         else
         {
-          v53 = [v46 objectForKeyedSubscript:v51];
-          [v0 setObject:&off_1000C89D8 forKeyedSubscript:v53];
+          v41 = [v34 objectForKeyedSubscript:v39];
+          [v0 setObject:&off_1000C89D8 forKeyedSubscript:v41];
         }
       }
 
-      v48 = [v46 countByEnumeratingWithState:&v56 objects:v68 count:16];
+      v36 = [v34 countByEnumeratingWithState:&v44 objects:v56 count:16];
     }
 
-    while (v48);
+    while (v36);
   }
 
 LABEL_44:
@@ -1284,7 +1282,7 @@ LABEL_44:
   return v0;
 }
 
-uint64_t sub_1000045B8(uint64_t a1, uint64_t *a2, unsigned int a3)
+uint64_t sub_1000045B8(uint64_t a1, unint64_t *a2, unsigned int a3)
 {
   *(a1 + 36) = -1;
   if (a3 < 8)
@@ -1296,7 +1294,7 @@ uint64_t sub_1000045B8(uint64_t a1, uint64_t *a2, unsigned int a3)
   while (2)
   {
     v9 = *a2;
-    v8 = a2 + 1;
+    v8 = (a2 + 1);
     v7 = v9;
     v10 = HIDWORD(v9);
     v11 = v6 - 1;
@@ -5891,7983 +5889,7427 @@ double sub_10000B0BC(uint64_t a1)
   return result;
 }
 
-uint64_t sub_10000B130(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t sub_10000B130(uint64_t a1, unint64_t *a2, unsigned int a3)
 {
-  v8 = a2;
-  v10 = 0;
-  v11 = a3 >> 3;
+  v5 = 0;
+  v6 = a3 >> 3;
   *__str = 0u;
-  v24 = 0u;
+  v17 = 0u;
   do
   {
 LABEL_2:
-    if (!v11)
+    if (!v6)
     {
-      return v10;
+      return v5;
     }
 
-    v13 = *v8++;
-    v12 = v13;
-    --v11;
-    v14 = HIDWORD(v13);
+    v8 = *a2++;
+    v7 = v8;
+    --v6;
+    v9 = HIDWORD(v8);
   }
 
-  while (!HIDWORD(v13));
-  if (v12 == 0xFFFF || v12 > 0x30000000 || v11 < v14)
+  while (!HIDWORD(v8));
+  if (v7 == 0xFFFF || v7 > 0x30000000 || v6 < v9)
   {
-    return v10;
+    return v5;
   }
 
-  switch(v12)
+  switch(v7)
   {
     case 1:
-      if (sub_100020050(a1, "", "version", *v8))
+      if ((sub_100020050(a1, "", "version", *a2) & 1) == 0)
       {
-        goto LABEL_162;
+        sub_100020530("ASPFTLParseBufferToCxt: version(1) cannot add 1 element to context");
       }
 
-      v17 = "ASPFTLParseBufferToCxt: version(1) cannot add 1 element to context";
       goto LABEL_161;
     case 2:
-      if (sub_100020050(a1, "", "hostWriteXacts", *v8))
+      if ((sub_100020050(a1, "", "hostWriteXacts", *a2) & 1) == 0)
       {
-        goto LABEL_162;
+        sub_100020530("ASPFTLParseBufferToCxt: hostWriteXacts(2) cannot add 1 element to context");
       }
 
-      v17 = "ASPFTLParseBufferToCxt: hostWriteXacts(2) cannot add 1 element to context";
       goto LABEL_161;
     case 3:
-      if (sub_100020050(a1, "", "hostReadXacts", *v8))
+      if ((sub_100020050(a1, "", "hostReadXacts", *a2) & 1) == 0)
       {
-        goto LABEL_162;
+        sub_100020530("ASPFTLParseBufferToCxt: hostReadXacts(3) cannot add 1 element to context");
       }
 
-      v17 = "ASPFTLParseBufferToCxt: hostReadXacts(3) cannot add 1 element to context";
       goto LABEL_161;
     case 4:
-      if (sub_100020050(a1, "", "hostWrites", *v8))
+      if ((sub_100020050(a1, "", "hostWrites", *a2) & 1) == 0)
       {
-        goto LABEL_162;
+        sub_100020530("ASPFTLParseBufferToCxt: hostWrites(4) cannot add 1 element to context");
       }
 
-      v17 = "ASPFTLParseBufferToCxt: hostWrites(4) cannot add 1 element to context";
       goto LABEL_161;
     case 5:
-      if (sub_100020050(a1, "", "hostWritesDyn", *v8))
+      if ((sub_100020050(a1, "", "hostWritesDyn", *a2) & 1) == 0)
       {
-        goto LABEL_162;
+        sub_100020530("ASPFTLParseBufferToCxt: hostWritesDyn(5) cannot add 1 element to context");
       }
 
-      v17 = "ASPFTLParseBufferToCxt: hostWritesDyn(5) cannot add 1 element to context";
       goto LABEL_161;
     case 6:
-      if (sub_100020050(a1, "", "hostWritesStatic", *v8))
+      if ((sub_100020050(a1, "", "hostWritesStatic", *a2) & 1) == 0)
       {
-        goto LABEL_162;
+        sub_100020530("ASPFTLParseBufferToCxt: hostWritesStatic(6) cannot add 1 element to context");
       }
 
-      v17 = "ASPFTLParseBufferToCxt: hostWritesStatic(6) cannot add 1 element to context";
       goto LABEL_161;
     case 7:
-      if (sub_100020050(a1, "", "hostReads", *v8))
+      if ((sub_100020050(a1, "", "hostReads", *a2) & 1) == 0)
       {
-        goto LABEL_162;
+        sub_100020530("ASPFTLParseBufferToCxt: hostReads(7) cannot add 1 element to context");
       }
 
-      v17 = "ASPFTLParseBufferToCxt: hostReads(7) cannot add 1 element to context";
       goto LABEL_161;
     case 8:
-      if (sub_100020050(a1, "", "validLbas", *v8))
+      if ((sub_100020050(a1, "", "validLbas", *a2) & 1) == 0)
       {
-        goto LABEL_162;
+        sub_100020530("ASPFTLParseBufferToCxt: validLbas(8) cannot add 1 element to context");
       }
 
-      v17 = "ASPFTLParseBufferToCxt: validLbas(8) cannot add 1 element to context";
       goto LABEL_161;
     case 9:
-      if (sub_100020050(a1, "", "shutdowns", *v8))
+      if ((sub_100020050(a1, "", "shutdowns", *a2) & 1) == 0)
       {
-        goto LABEL_162;
+        sub_100020530("ASPFTLParseBufferToCxt: shutdowns(9) cannot add 1 element to context");
       }
 
-      v17 = "ASPFTLParseBufferToCxt: shutdowns(9) cannot add 1 element to context";
       goto LABEL_161;
     case 10:
-      if (sub_100020050(a1, "", "boots", *v8))
+      if ((sub_100020050(a1, "", "boots", *a2) & 1) == 0)
       {
-        goto LABEL_162;
+        sub_100020530("ASPFTLParseBufferToCxt: boots(10) cannot add 1 element to context");
       }
 
-      v17 = "ASPFTLParseBufferToCxt: boots(10) cannot add 1 element to context";
       goto LABEL_161;
     case 11:
-      if (sub_100020050(a1, "", "uncleanBoots", *v8))
+      if ((sub_100020050(a1, "", "uncleanBoots", *a2) & 1) == 0)
       {
-        goto LABEL_162;
+        sub_100020530("ASPFTLParseBufferToCxt: uncleanBoots(11) cannot add 1 element to context");
       }
 
-      v17 = "ASPFTLParseBufferToCxt: uncleanBoots(11) cannot add 1 element to context";
       goto LABEL_161;
     case 12:
-      if (sub_100020050(a1, "", "IND_pool_free", *v8))
+      if ((sub_100020050(a1, "", "IND_pool_free", *a2) & 1) == 0)
       {
-        goto LABEL_162;
+        sub_100020530("ASPFTLParseBufferToCxt: IND_pool_free(12) cannot add 1 element to context");
       }
 
-      v17 = "ASPFTLParseBufferToCxt: IND_pool_free(12) cannot add 1 element to context";
       goto LABEL_161;
     case 13:
-      if (sub_100020050(a1, "", "IND_pool_count", *v8))
+      if ((sub_100020050(a1, "", "IND_pool_count", *a2) & 1) == 0)
       {
-        goto LABEL_162;
+        sub_100020530("ASPFTLParseBufferToCxt: IND_pool_count(13) cannot add 1 element to context");
       }
 
-      v17 = "ASPFTLParseBufferToCxt: IND_pool_count(13) cannot add 1 element to context";
       goto LABEL_161;
     case 14:
-      if (v14 != 10)
+      if (v9 != 10)
       {
-        sub_100020530("ASPFTLParseBufferToCxt: hostWriteLogHisto(14): (#10) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+        sub_100020530("ASPFTLParseBufferToCxt: hostWriteLogHisto(14): (#10) cfg elements != (%d) buffer elements", v9);
       }
 
-      if (v14 >= 0xB)
+      if (v9 >= 0xB)
       {
-        v18 = 10;
+        v12 = 10;
       }
 
       else
       {
-        v18 = v14;
+        v12 = v9;
       }
 
-      if (sub_1000189BC(a1, "hostWriteLogHisto_", v8, 8u, v18))
+      if (sub_1000189BC(a1, "hostWriteLogHisto_", a2, 8u, v12))
       {
         goto LABEL_110;
       }
 
-      v19 = "ASPFTLParseBufferToCxt: hostWriteLogHisto(14): Cannot add 10 elements to context";
-      goto LABEL_2993;
+      sub_100020530("ASPFTLParseBufferToCxt: hostWriteLogHisto(14): Cannot add 10 elements to context", v14);
+      return v5;
     case 15:
-      if (v14 != 10)
+      if (v9 != 10)
       {
-        sub_100020530("ASPFTLParseBufferToCxt: hostReadLogHisto(15): (#10) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+        sub_100020530("ASPFTLParseBufferToCxt: hostReadLogHisto(15): (#10) cfg elements != (%d) buffer elements", v9);
       }
 
-      if (v14 >= 0xB)
+      if (v9 >= 0xB)
       {
-        v18 = 10;
+        v12 = 10;
       }
 
       else
       {
-        v18 = v14;
+        v12 = v9;
       }
 
-      if (sub_1000189BC(a1, "hostReadLogHisto_", v8, 8u, v18))
+      if (sub_1000189BC(a1, "hostReadLogHisto_", a2, 8u, v12))
       {
         goto LABEL_110;
       }
 
-      v19 = "ASPFTLParseBufferToCxt: hostReadLogHisto(15): Cannot add 10 elements to context";
-      goto LABEL_2993;
+      sub_100020530("ASPFTLParseBufferToCxt: hostReadLogHisto(15): Cannot add 10 elements to context", v14);
+      return v5;
     case 16:
-      if (sub_100020050(a1, "", "gcWrites", *v8))
+      if ((sub_100020050(a1, "", "gcWrites", *a2) & 1) == 0)
       {
-        goto LABEL_162;
+        sub_100020530("ASPFTLParseBufferToCxt: gcWrites(16) cannot add 1 element to context");
       }
 
-      v17 = "ASPFTLParseBufferToCxt: gcWrites(16) cannot add 1 element to context";
       goto LABEL_161;
     case 17:
-      if (sub_100020050(a1, "", "wearLevMoves", *v8))
+      if ((sub_100020050(a1, "", "wearLevMoves", *a2) & 1) == 0)
       {
-        goto LABEL_162;
+        sub_100020530("ASPFTLParseBufferToCxt: wearLevMoves(17) cannot add 1 element to context");
       }
 
-      v17 = "ASPFTLParseBufferToCxt: wearLevMoves(17) cannot add 1 element to context";
       goto LABEL_161;
     case 18:
-      if (sub_100020050(a1, "", "nandWrites", *v8))
+      if ((sub_100020050(a1, "", "nandWrites", *a2) & 1) == 0)
       {
-        goto LABEL_162;
+        sub_100020530("ASPFTLParseBufferToCxt: nandWrites(18) cannot add 1 element to context");
       }
 
-      v17 = "ASPFTLParseBufferToCxt: nandWrites(18) cannot add 1 element to context";
       goto LABEL_161;
     case 19:
-      if (sub_100020050(a1, "", "nandReads", *v8))
+      if ((sub_100020050(a1, "", "nandReads", *a2) & 1) == 0)
       {
-        goto LABEL_162;
+        sub_100020530("ASPFTLParseBufferToCxt: nandReads(19) cannot add 1 element to context");
       }
 
-      v17 = "ASPFTLParseBufferToCxt: nandReads(19) cannot add 1 element to context";
       goto LABEL_161;
     case 20:
-      if (sub_100020050(a1, "", "bandErases", *v8))
+      if ((sub_100020050(a1, "", "bandErases", *a2) & 1) == 0)
       {
-        goto LABEL_162;
+        sub_100020530("ASPFTLParseBufferToCxt: bandErases(20) cannot add 1 element to context");
       }
 
-      v17 = "ASPFTLParseBufferToCxt: bandErases(20) cannot add 1 element to context";
       goto LABEL_161;
     case 22:
-      if (sub_100020050(a1, "", "numPfail", *v8))
+      if ((sub_100020050(a1, "", "numPfail", *a2) & 1) == 0)
       {
-        goto LABEL_162;
+        sub_100020530("ASPFTLParseBufferToCxt: numPfail(22) cannot add 1 element to context");
       }
 
-      v17 = "ASPFTLParseBufferToCxt: numPfail(22) cannot add 1 element to context";
       goto LABEL_161;
     case 23:
-      if (sub_100020050(a1, "", "numEfail", *v8))
+      if ((sub_100020050(a1, "", "numEfail", *a2) & 1) == 0)
       {
-        goto LABEL_162;
+        sub_100020530("ASPFTLParseBufferToCxt: numEfail(23) cannot add 1 element to context");
       }
 
-      v17 = "ASPFTLParseBufferToCxt: numEfail(23) cannot add 1 element to context";
       goto LABEL_161;
     case 24:
-      if (sub_100020050(a1, "", "numPerformanceRefreshes", *v8))
+      if ((sub_100020050(a1, "", "numPerformanceRefreshes", *a2) & 1) == 0)
       {
-        goto LABEL_162;
+        sub_100020530("ASPFTLParseBufferToCxt: numPerformanceRefreshes(24) cannot add 1 element to context");
       }
 
-      v17 = "ASPFTLParseBufferToCxt: numPerformanceRefreshes(24) cannot add 1 element to context";
       goto LABEL_161;
     case 27:
-      if (sub_100020050(a1, "", "hostWritesMeta", *v8))
+      if ((sub_100020050(a1, "", "hostWritesMeta", *a2) & 1) == 0)
       {
-        goto LABEL_162;
+        sub_100020530("ASPFTLParseBufferToCxt: hostWritesMeta(27) cannot add 1 element to context");
       }
 
-      v17 = "ASPFTLParseBufferToCxt: hostWritesMeta(27) cannot add 1 element to context";
       goto LABEL_161;
     case 28:
-      if (sub_100020050(a1, "", "numSleepOps", *v8))
+      if ((sub_100020050(a1, "", "numSleepOps", *a2) & 1) == 0)
       {
-        goto LABEL_162;
+        sub_100020530("ASPFTLParseBufferToCxt: numSleepOps(28) cannot add 1 element to context");
       }
 
-      v17 = "ASPFTLParseBufferToCxt: numSleepOps(28) cannot add 1 element to context";
       goto LABEL_161;
     case 30:
-      if (sub_100020050(a1, "", "cntTimeWentBackWardOnBoot", *v8))
+      if ((sub_100020050(a1, "", "cntTimeWentBackWardOnBoot", *a2) & 1) == 0)
       {
-        goto LABEL_162;
+        sub_100020530("ASPFTLParseBufferToCxt: cntTimeWentBackWardOnBoot(30) cannot add 1 element to context");
       }
 
-      v17 = "ASPFTLParseBufferToCxt: cntTimeWentBackWardOnBoot(30) cannot add 1 element to context";
       goto LABEL_161;
     case 31:
-      if (sub_100020050(a1, "", "cntTimeWentBackWard", *v8))
+      if ((sub_100020050(a1, "", "cntTimeWentBackWard", *a2) & 1) == 0)
       {
-        goto LABEL_162;
+        sub_100020530("ASPFTLParseBufferToCxt: cntTimeWentBackWard(31) cannot add 1 element to context");
       }
 
-      v17 = "ASPFTLParseBufferToCxt: cntTimeWentBackWard(31) cannot add 1 element to context";
       goto LABEL_161;
     case 34:
-      if (sub_100020050(a1, "", "powerOnHours", *v8))
+      if ((sub_100020050(a1, "", "powerOnHours", *a2) & 1) == 0)
       {
-        goto LABEL_162;
+        sub_100020530("ASPFTLParseBufferToCxt: powerOnHours(34) cannot add 1 element to context");
       }
 
-      v17 = "ASPFTLParseBufferToCxt: powerOnHours(34) cannot add 1 element to context";
       goto LABEL_161;
     case 36:
-      if (sub_100020050(a1, "", "smartCritWarnings", *v8))
+      if ((sub_100020050(a1, "", "smartCritWarnings", *a2) & 1) == 0)
       {
-        goto LABEL_162;
+        sub_100020530("ASPFTLParseBufferToCxt: smartCritWarnings(36) cannot add 1 element to context");
       }
 
-      v17 = "ASPFTLParseBufferToCxt: smartCritWarnings(36) cannot add 1 element to context";
       goto LABEL_161;
     case 37:
-      if (sub_100020050(a1, "", "numFlushes", *v8))
+      if ((sub_100020050(a1, "", "numFlushes", *a2) & 1) == 0)
       {
-        goto LABEL_162;
+        sub_100020530("ASPFTLParseBufferToCxt: numFlushes(37) cannot add 1 element to context");
       }
 
-      v17 = "ASPFTLParseBufferToCxt: numFlushes(37) cannot add 1 element to context";
       goto LABEL_161;
     case 38:
-      if (sub_100020050(a1, "", "numUnmap", *v8))
+      if ((sub_100020050(a1, "", "numUnmap", *a2) & 1) == 0)
       {
-        goto LABEL_162;
+        sub_100020530("ASPFTLParseBufferToCxt: numUnmap(38) cannot add 1 element to context");
       }
 
-      v17 = "ASPFTLParseBufferToCxt: numUnmap(38) cannot add 1 element to context";
       goto LABEL_161;
     case 39:
-      if (sub_100020050(a1, "", "numUnmapSec", *v8))
+      if ((sub_100020050(a1, "", "numUnmapSec", *a2) & 1) == 0)
       {
-        goto LABEL_162;
+        sub_100020530("ASPFTLParseBufferToCxt: numUnmapSec(39) cannot add 1 element to context");
       }
 
-      v17 = "ASPFTLParseBufferToCxt: numUnmapSec(39) cannot add 1 element to context";
       goto LABEL_161;
     case 41:
-      if (sub_100020050(a1, "", "clogProgram", *v8))
+      if ((sub_100020050(a1, "", "clogProgram", *a2) & 1) == 0)
       {
-        goto LABEL_162;
+        sub_100020530("ASPFTLParseBufferToCxt: clogProgram(41) cannot add 1 element to context");
       }
 
-      v17 = "ASPFTLParseBufferToCxt: clogProgram(41) cannot add 1 element to context";
       goto LABEL_161;
     case 42:
-      if (sub_100020050(a1, "", "clogPFail", *v8))
+      if ((sub_100020050(a1, "", "clogPFail", *a2) & 1) == 0)
       {
-        goto LABEL_162;
+        sub_100020530("ASPFTLParseBufferToCxt: clogPFail(42) cannot add 1 element to context");
       }
 
-      v17 = "ASPFTLParseBufferToCxt: clogPFail(42) cannot add 1 element to context";
       goto LABEL_161;
     case 43:
-      if (sub_100020050(a1, "", "clogRead", *v8))
+      if ((sub_100020050(a1, "", "clogRead", *a2) & 1) == 0)
       {
-        goto LABEL_162;
+        sub_100020530("ASPFTLParseBufferToCxt: clogRead(43) cannot add 1 element to context");
       }
 
-      v17 = "ASPFTLParseBufferToCxt: clogRead(43) cannot add 1 element to context";
       goto LABEL_161;
     case 44:
-      if (sub_100020050(a1, "", "clogRFail", *v8))
+      if ((sub_100020050(a1, "", "clogRFail", *a2) & 1) == 0)
       {
-        goto LABEL_162;
+        sub_100020530("ASPFTLParseBufferToCxt: clogRFail(44) cannot add 1 element to context");
       }
 
-      v17 = "ASPFTLParseBufferToCxt: clogRFail(44) cannot add 1 element to context";
       goto LABEL_161;
     case 45:
-      if (sub_100020050(a1, "", "maxHighEnduranceBlockErases", *v8))
+      if ((sub_100020050(a1, "", "maxHighEnduranceBlockErases", *a2) & 1) == 0)
       {
-        goto LABEL_162;
+        sub_100020530("ASPFTLParseBufferToCxt: maxHighEnduranceBlockErases(45) cannot add 1 element to context");
       }
 
-      v17 = "ASPFTLParseBufferToCxt: maxHighEnduranceBlockErases(45) cannot add 1 element to context";
       goto LABEL_161;
     case 46:
-      if (sub_100020050(a1, "", "numFactoryBad", *v8))
+      if ((sub_100020050(a1, "", "numFactoryBad", *a2) & 1) == 0)
       {
-        goto LABEL_162;
+        sub_100020530("ASPFTLParseBufferToCxt: numFactoryBad(46) cannot add 1 element to context");
       }
 
-      v17 = "ASPFTLParseBufferToCxt: numFactoryBad(46) cannot add 1 element to context";
       goto LABEL_161;
     case 47:
-      if (sub_100020050(a1, "", "numGrownBad", *v8))
+      if ((sub_100020050(a1, "", "numGrownBad", *a2) & 1) == 0)
       {
-        goto LABEL_162;
+        sub_100020530("ASPFTLParseBufferToCxt: numGrownBad(47) cannot add 1 element to context");
       }
 
-      v17 = "ASPFTLParseBufferToCxt: numGrownBad(47) cannot add 1 element to context";
       goto LABEL_161;
     case 48:
-      if (sub_100020050(a1, "", "numFreeVirtualBlocks", *v8))
+      if ((sub_100020050(a1, "", "numFreeVirtualBlocks", *a2) & 1) == 0)
       {
-        goto LABEL_162;
+        sub_100020530("ASPFTLParseBufferToCxt: numFreeVirtualBlocks(48) cannot add 1 element to context");
       }
 
-      v17 = "ASPFTLParseBufferToCxt: numFreeVirtualBlocks(48) cannot add 1 element to context";
       goto LABEL_161;
     case 49:
-      if (sub_100020050(a1, "", "bytesPerPage", *v8))
+      if ((sub_100020050(a1, "", "bytesPerPage", *a2) & 1) == 0)
       {
-        goto LABEL_162;
+        sub_100020530("ASPFTLParseBufferToCxt: bytesPerPage(49) cannot add 1 element to context");
       }
 
-      v17 = "ASPFTLParseBufferToCxt: bytesPerPage(49) cannot add 1 element to context";
       goto LABEL_161;
     case 50:
-      if (sub_100020050(a1, "", "pagesPerVirtualBlock", *v8))
+      if ((sub_100020050(a1, "", "pagesPerVirtualBlock", *a2) & 1) == 0)
       {
-        goto LABEL_162;
+        sub_100020530("ASPFTLParseBufferToCxt: pagesPerVirtualBlock(50) cannot add 1 element to context");
       }
 
-      v17 = "ASPFTLParseBufferToCxt: pagesPerVirtualBlock(50) cannot add 1 element to context";
       goto LABEL_161;
     case 51:
-      if (sub_100020050(a1, "", "blocksPerVirtualBlock", *v8))
+      if ((sub_100020050(a1, "", "blocksPerVirtualBlock", *a2) & 1) == 0)
       {
-        goto LABEL_162;
+        sub_100020530("ASPFTLParseBufferToCxt: blocksPerVirtualBlock(51) cannot add 1 element to context");
       }
 
-      v17 = "ASPFTLParseBufferToCxt: blocksPerVirtualBlock(51) cannot add 1 element to context";
       goto LABEL_161;
     case 52:
-      if (sub_100020050(a1, "", "numVirtualBlocks", *v8))
+      if ((sub_100020050(a1, "", "numVirtualBlocks", *a2) & 1) == 0)
       {
-        goto LABEL_162;
+        sub_100020530("ASPFTLParseBufferToCxt: numVirtualBlocks(52) cannot add 1 element to context");
       }
 
-      v17 = "ASPFTLParseBufferToCxt: numVirtualBlocks(52) cannot add 1 element to context";
       goto LABEL_161;
     case 53:
-      if (sub_100020050(a1, "", "exportVersion", *v8))
+      if ((sub_100020050(a1, "", "exportVersion", *a2) & 1) == 0)
       {
-        goto LABEL_162;
+        sub_100020530("ASPFTLParseBufferToCxt: exportVersion(53) cannot add 1 element to context");
       }
 
-      v17 = "ASPFTLParseBufferToCxt: exportVersion(53) cannot add 1 element to context";
       goto LABEL_161;
     case 54:
-      if (v14 != 100)
+      if (v9 != 100)
       {
-        sub_100020530("ASPFTLParseBufferToCxt: ECBins(54): (#100) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+        sub_100020530("ASPFTLParseBufferToCxt: ECBins(54): (#100) cfg elements != (%d) buffer elements", v9);
       }
 
-      if (v14 >= 0x65)
+      if (v9 >= 0x65)
       {
-        v18 = 100;
+        v12 = 100;
       }
 
       else
       {
-        v18 = v14;
+        v12 = v9;
       }
 
-      if (sub_1000189BC(a1, "ECBins_", v8, 8u, v18))
+      if (sub_1000189BC(a1, "ECBins_", a2, 8u, v12))
       {
         goto LABEL_110;
       }
 
-      v19 = "ASPFTLParseBufferToCxt: ECBins(54): Cannot add 100 elements to context";
-      goto LABEL_2993;
+      sub_100020530("ASPFTLParseBufferToCxt: ECBins(54): Cannot add 100 elements to context", v14);
+      return v5;
     case 55:
-      if (v14 != 100)
+      if (v9 != 100)
       {
-        sub_100020530("ASPFTLParseBufferToCxt: RCBins(55): (#100) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+        sub_100020530("ASPFTLParseBufferToCxt: RCBins(55): (#100) cfg elements != (%d) buffer elements", v9);
       }
 
-      if (v14 >= 0x65)
+      if (v9 >= 0x65)
       {
-        v18 = 100;
+        v12 = 100;
       }
 
       else
       {
-        v18 = v14;
+        v12 = v9;
       }
 
-      if (sub_1000189BC(a1, "RCBins_", v8, 8u, v18))
+      if (sub_1000189BC(a1, "RCBins_", a2, 8u, v12))
       {
         goto LABEL_110;
       }
 
-      v19 = "ASPFTLParseBufferToCxt: RCBins(55): Cannot add 100 elements to context";
-      goto LABEL_2993;
+      sub_100020530("ASPFTLParseBufferToCxt: RCBins(55): Cannot add 100 elements to context", v14);
+      return v5;
     case 56:
-      if (sub_100020050(a1, "", "utilFormatTime", *v8))
+      if ((sub_100020050(a1, "", "utilFormatTime", *a2) & 1) == 0)
       {
-        goto LABEL_162;
+        sub_100020530("ASPFTLParseBufferToCxt: utilFormatTime(56) cannot add 1 element to context");
       }
 
-      v17 = "ASPFTLParseBufferToCxt: utilFormatTime(56) cannot add 1 element to context";
       goto LABEL_161;
     case 57:
-      if (sub_100020050(a1, "", "calendarTime", *v8))
+      if ((sub_100020050(a1, "", "calendarTime", *a2) & 1) == 0)
       {
-        goto LABEL_162;
+        sub_100020530("ASPFTLParseBufferToCxt: calendarTime(57) cannot add 1 element to context");
       }
 
-      v17 = "ASPFTLParseBufferToCxt: calendarTime(57) cannot add 1 element to context";
       goto LABEL_161;
     case 58:
-      if (sub_100020050(a1, "", "wallTime", *v8))
+      if ((sub_100020050(a1, "", "wallTime", *a2) & 1) == 0)
       {
-        goto LABEL_162;
+        sub_100020530("ASPFTLParseBufferToCxt: wallTime(58) cannot add 1 element to context");
       }
 
-      v17 = "ASPFTLParseBufferToCxt: wallTime(58) cannot add 1 element to context";
       goto LABEL_161;
     case 59:
-      if (sub_100020050(a1, "", "cmdq_flush_us", *v8))
+      if ((sub_100020050(a1, "", "cmdq_flush_us", *a2) & 1) == 0)
       {
-        goto LABEL_162;
+        sub_100020530("ASPFTLParseBufferToCxt: cmdq_flush_us(59) cannot add 1 element to context");
       }
 
-      v17 = "ASPFTLParseBufferToCxt: cmdq_flush_us(59) cannot add 1 element to context";
       goto LABEL_161;
     case 60:
-      if (sub_100020050(a1, "", "cmdq_unmap_us", *v8))
+      if ((sub_100020050(a1, "", "cmdq_unmap_us", *a2) & 1) == 0)
       {
-        goto LABEL_162;
+        sub_100020530("ASPFTLParseBufferToCxt: cmdq_unmap_us(60) cannot add 1 element to context");
       }
 
-      v17 = "ASPFTLParseBufferToCxt: cmdq_unmap_us(60) cannot add 1 element to context";
       goto LABEL_161;
     case 61:
-      if (sub_100020050(a1, "", "cmdq_pri0_r_us", *v8))
+      if ((sub_100020050(a1, "", "cmdq_pri0_r_us", *a2) & 1) == 0)
       {
-        goto LABEL_162;
+        sub_100020530("ASPFTLParseBufferToCxt: cmdq_pri0_r_us(61) cannot add 1 element to context");
       }
 
-      v17 = "ASPFTLParseBufferToCxt: cmdq_pri0_r_us(61) cannot add 1 element to context";
       goto LABEL_161;
     case 62:
-      if (sub_100020050(a1, "", "cmdq_pri0_w_us", *v8))
+      if ((sub_100020050(a1, "", "cmdq_pri0_w_us", *a2) & 1) == 0)
       {
-        goto LABEL_162;
+        sub_100020530("ASPFTLParseBufferToCxt: cmdq_pri0_w_us(62) cannot add 1 element to context");
       }
 
-      v17 = "ASPFTLParseBufferToCxt: cmdq_pri0_w_us(62) cannot add 1 element to context";
       goto LABEL_161;
     case 63:
-      if (sub_100020050(a1, "", "cmdq_pri1_r_us", *v8))
+      if ((sub_100020050(a1, "", "cmdq_pri1_r_us", *a2) & 1) == 0)
       {
-        goto LABEL_162;
+        sub_100020530("ASPFTLParseBufferToCxt: cmdq_pri1_r_us(63) cannot add 1 element to context");
       }
 
-      v17 = "ASPFTLParseBufferToCxt: cmdq_pri1_r_us(63) cannot add 1 element to context";
       goto LABEL_161;
     case 64:
-      if (sub_100020050(a1, "", "cmdq_pri1_w_us", *v8))
+      if ((sub_100020050(a1, "", "cmdq_pri1_w_us", *a2) & 1) == 0)
       {
-        goto LABEL_162;
+        sub_100020530("ASPFTLParseBufferToCxt: cmdq_pri1_w_us(64) cannot add 1 element to context");
       }
 
-      v17 = "ASPFTLParseBufferToCxt: cmdq_pri1_w_us(64) cannot add 1 element to context";
       goto LABEL_161;
     case 65:
-      if (sub_100020050(a1, "", "cmdq_pri2_r_us", *v8))
+      if ((sub_100020050(a1, "", "cmdq_pri2_r_us", *a2) & 1) == 0)
       {
-        goto LABEL_162;
+        sub_100020530("ASPFTLParseBufferToCxt: cmdq_pri2_r_us(65) cannot add 1 element to context");
       }
 
-      v17 = "ASPFTLParseBufferToCxt: cmdq_pri2_r_us(65) cannot add 1 element to context";
       goto LABEL_161;
     case 66:
-      if (sub_100020050(a1, "", "cmdq_pri2_w_us", *v8))
+      if ((sub_100020050(a1, "", "cmdq_pri2_w_us", *a2) & 1) == 0)
       {
-        goto LABEL_162;
+        sub_100020530("ASPFTLParseBufferToCxt: cmdq_pri2_w_us(66) cannot add 1 element to context");
       }
 
-      v17 = "ASPFTLParseBufferToCxt: cmdq_pri2_w_us(66) cannot add 1 element to context";
       goto LABEL_161;
     case 67:
-      if (sub_100020050(a1, "", "cmdq_pri3_r_us", *v8))
+      if ((sub_100020050(a1, "", "cmdq_pri3_r_us", *a2) & 1) == 0)
       {
-        goto LABEL_162;
+        sub_100020530("ASPFTLParseBufferToCxt: cmdq_pri3_r_us(67) cannot add 1 element to context");
       }
 
-      v17 = "ASPFTLParseBufferToCxt: cmdq_pri3_r_us(67) cannot add 1 element to context";
       goto LABEL_161;
     case 68:
-      if (sub_100020050(a1, "", "cmdq_pri3_w_us", *v8))
+      if ((sub_100020050(a1, "", "cmdq_pri3_w_us", *a2) & 1) == 0)
       {
-        goto LABEL_162;
+        sub_100020530("ASPFTLParseBufferToCxt: cmdq_pri3_w_us(68) cannot add 1 element to context");
       }
 
-      v17 = "ASPFTLParseBufferToCxt: cmdq_pri3_w_us(68) cannot add 1 element to context";
       goto LABEL_161;
     case 69:
-      if (sub_100020050(a1, "", "host_idle_ms", *v8))
+      if ((sub_100020050(a1, "", "host_idle_ms", *a2) & 1) == 0)
       {
-        goto LABEL_162;
+        sub_100020530("ASPFTLParseBufferToCxt: host_idle_ms(69) cannot add 1 element to context");
       }
 
-      v17 = "ASPFTLParseBufferToCxt: host_idle_ms(69) cannot add 1 element to context";
       goto LABEL_161;
     case 70:
-      if (sub_100020050(a1, "", "cmd_hysteresis_window_us", *v8))
+      if ((sub_100020050(a1, "", "cmd_hysteresis_window_us", *a2) & 1) == 0)
       {
-        goto LABEL_162;
+        sub_100020530("ASPFTLParseBufferToCxt: cmd_hysteresis_window_us(70) cannot add 1 element to context");
       }
 
-      v17 = "ASPFTLParseBufferToCxt: cmd_hysteresis_window_us(70) cannot add 1 element to context";
       goto LABEL_161;
     case 71:
-      if (sub_100020050(a1, "", "cmd_lowPriHoldoffDelay_us", *v8))
+      if ((sub_100020050(a1, "", "cmd_lowPriHoldoffDelay_us", *a2) & 1) == 0)
       {
-        goto LABEL_162;
+        sub_100020530("ASPFTLParseBufferToCxt: cmd_lowPriHoldoffDelay_us(71) cannot add 1 element to context");
       }
 
-      v17 = "ASPFTLParseBufferToCxt: cmd_lowPriHoldoffDelay_us(71) cannot add 1 element to context";
       goto LABEL_161;
     case 72:
-      if (sub_100020050(a1, "", "cmd_lowPriHoldoffEnabled", *v8))
+      if ((sub_100020050(a1, "", "cmd_lowPriHoldoffEnabled", *a2) & 1) == 0)
       {
-        goto LABEL_162;
+        sub_100020530("ASPFTLParseBufferToCxt: cmd_lowPriHoldoffEnabled(72) cannot add 1 element to context");
       }
 
-      v17 = "ASPFTLParseBufferToCxt: cmd_lowPriHoldoffEnabled(72) cannot add 1 element to context";
       goto LABEL_161;
     default:
-      switch(v12)
+      switch(v7)
       {
         case 73:
-          if (sub_100020050(a1, "", "cmd_expedite_num_success", *v8))
+          if ((sub_100020050(a1, "", "cmd_expedite_num_success", *a2) & 1) == 0)
           {
-            goto LABEL_162;
+            sub_100020530("ASPFTLParseBufferToCxt: cmd_expedite_num_success(73) cannot add 1 element to context");
           }
 
-          v17 = "ASPFTLParseBufferToCxt: cmd_expedite_num_success(73) cannot add 1 element to context";
           goto LABEL_161;
         case 75:
-          if (sub_100020050(a1, "", "cmd_expedite_num_failures", *v8))
+          if ((sub_100020050(a1, "", "cmd_expedite_num_failures", *a2) & 1) == 0)
           {
-            goto LABEL_162;
+            sub_100020530("ASPFTLParseBufferToCxt: cmd_expedite_num_failures(75) cannot add 1 element to context");
           }
 
-          v17 = "ASPFTLParseBufferToCxt: cmd_expedite_num_failures(75) cannot add 1 element to context";
           goto LABEL_161;
         case 76:
-          if (sub_100020050(a1, "", "num_trimerase", *v8))
+          if ((sub_100020050(a1, "", "num_trimerase", *a2) & 1) == 0)
           {
-            goto LABEL_162;
+            sub_100020530("ASPFTLParseBufferToCxt: num_trimerase(76) cannot add 1 element to context");
           }
 
-          v17 = "ASPFTLParseBufferToCxt: num_trimerase(76) cannot add 1 element to context";
           goto LABEL_161;
         case 77:
-          if (sub_100020050(a1, "", "staticSizeInMB", *v8))
+          if ((sub_100020050(a1, "", "staticSizeInMB", *a2) & 1) == 0)
           {
-            goto LABEL_162;
+            sub_100020530("ASPFTLParseBufferToCxt: staticSizeInMB(77) cannot add 1 element to context");
           }
 
-          v17 = "ASPFTLParseBufferToCxt: staticSizeInMB(77) cannot add 1 element to context";
           goto LABEL_161;
         case 80:
-          if (sub_100020050(a1, "", "slcInvalidations", *v8))
+          if ((sub_100020050(a1, "", "slcInvalidations", *a2) & 1) == 0)
           {
-            goto LABEL_162;
+            sub_100020530("ASPFTLParseBufferToCxt: slcInvalidations(80) cannot add 1 element to context");
           }
 
-          v17 = "ASPFTLParseBufferToCxt: slcInvalidations(80) cannot add 1 element to context";
           goto LABEL_161;
         case 81:
-          if (sub_100020050(a1, "", "slcGCInvalidations", *v8))
+          if ((sub_100020050(a1, "", "slcGCInvalidations", *a2) & 1) == 0)
           {
-            goto LABEL_162;
+            sub_100020530("ASPFTLParseBufferToCxt: slcGCInvalidations(81) cannot add 1 element to context");
           }
 
-          v17 = "ASPFTLParseBufferToCxt: slcGCInvalidations(81) cannot add 1 element to context";
           goto LABEL_161;
         case 82:
-          if (sub_100020050(a1, "", "hostSectorsDuringGCon", *v8))
+          if ((sub_100020050(a1, "", "hostSectorsDuringGCon", *a2) & 1) == 0)
           {
-            goto LABEL_162;
+            sub_100020530("ASPFTLParseBufferToCxt: hostSectorsDuringGCon(82) cannot add 1 element to context");
           }
 
-          v17 = "ASPFTLParseBufferToCxt: hostSectorsDuringGCon(82) cannot add 1 element to context";
           goto LABEL_161;
         case 83:
-          if (sub_100020050(a1, "", "highWaterMarkSLCUsed", *v8))
+          if ((sub_100020050(a1, "", "highWaterMarkSLCUsed", *a2) & 1) == 0)
           {
-            goto LABEL_162;
+            sub_100020530("ASPFTLParseBufferToCxt: highWaterMarkSLCUsed(83) cannot add 1 element to context");
           }
 
-          v17 = "ASPFTLParseBufferToCxt: highWaterMarkSLCUsed(83) cannot add 1 element to context";
           goto LABEL_161;
         case 84:
-          if (sub_100020050(a1, "", "intermediateBandErases", *v8))
+          if ((sub_100020050(a1, "", "intermediateBandErases", *a2) & 1) == 0)
           {
-            goto LABEL_162;
+            sub_100020530("ASPFTLParseBufferToCxt: intermediateBandErases(84) cannot add 1 element to context");
           }
 
-          v17 = "ASPFTLParseBufferToCxt: intermediateBandErases(84) cannot add 1 element to context";
           goto LABEL_161;
         case 85:
-          if (sub_100020050(a1, "", "intermediatePartitionStart", *v8))
+          if ((sub_100020050(a1, "", "intermediatePartitionStart", *a2) & 1) == 0)
           {
-            goto LABEL_162;
+            sub_100020530("ASPFTLParseBufferToCxt: intermediatePartitionStart(85) cannot add 1 element to context");
           }
 
-          v17 = "ASPFTLParseBufferToCxt: intermediatePartitionStart(85) cannot add 1 element to context";
           goto LABEL_161;
         case 86:
-          if (sub_100020050(a1, "", "userPartitionStart", *v8))
+          if ((sub_100020050(a1, "", "userPartitionStart", *a2) & 1) == 0)
           {
-            goto LABEL_162;
+            sub_100020530("ASPFTLParseBufferToCxt: userPartitionStart(86) cannot add 1 element to context");
           }
 
-          v17 = "ASPFTLParseBufferToCxt: userPartitionStart(86) cannot add 1 element to context";
           goto LABEL_161;
         case 87:
-          if (sub_100020050(a1, "", "iolog_lbas", *v8))
+          if ((sub_100020050(a1, "", "iolog_lbas", *a2) & 1) == 0)
           {
-            goto LABEL_162;
+            sub_100020530("ASPFTLParseBufferToCxt: iolog_lbas(87) cannot add 1 element to context");
           }
 
-          v17 = "ASPFTLParseBufferToCxt: iolog_lbas(87) cannot add 1 element to context";
           goto LABEL_161;
         case 88:
-          if (v14 != 10)
+          if (v9 != 10)
           {
-            sub_100020530("ASPFTLParseBufferToCxt: bandsAgeBins(88): (#10) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+            sub_100020530("ASPFTLParseBufferToCxt: bandsAgeBins(88): (#10) cfg elements != (%d) buffer elements", v9);
           }
 
-          if (v14 >= 0xB)
+          if (v9 >= 0xB)
           {
-            v18 = 10;
+            v12 = 10;
           }
 
           else
           {
-            v18 = v14;
+            v12 = v9;
           }
 
-          if (sub_1000189BC(a1, "bandsAgeBins_", v8, 8u, v18))
+          if (sub_1000189BC(a1, "bandsAgeBins_", a2, 8u, v12))
           {
             goto LABEL_110;
           }
 
-          v19 = "ASPFTLParseBufferToCxt: bandsAgeBins(88): Cannot add 10 elements to context";
-          goto LABEL_2993;
+          sub_100020530("ASPFTLParseBufferToCxt: bandsAgeBins(88): Cannot add 10 elements to context", v14);
+          return v5;
         case 89:
-          if (v14 != 10)
+          if (v9 != 10)
           {
-            sub_100020530("ASPFTLParseBufferToCxt: intermediateBandsAgeBins(89): (#10) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+            sub_100020530("ASPFTLParseBufferToCxt: intermediateBandsAgeBins(89): (#10) cfg elements != (%d) buffer elements", v9);
           }
 
-          if (v14 >= 0xB)
+          if (v9 >= 0xB)
           {
-            v18 = 10;
+            v12 = 10;
           }
 
           else
           {
-            v18 = v14;
+            v12 = v9;
           }
 
-          if (sub_1000189BC(a1, "intermediateBandsAgeBins_", v8, 8u, v18))
+          if (sub_1000189BC(a1, "intermediateBandsAgeBins_", a2, 8u, v12))
           {
             goto LABEL_110;
           }
 
-          v19 = "ASPFTLParseBufferToCxt: intermediateBandsAgeBins(89): Cannot add 10 elements to context";
-          goto LABEL_2993;
+          sub_100020530("ASPFTLParseBufferToCxt: intermediateBandsAgeBins(89): Cannot add 10 elements to context", v14);
+          return v5;
         case 90:
-          if (v14 != 160)
+          if (v9 != 160)
           {
-            sub_100020530("ASPFTLParseBufferToCxt: qosPerCmdQ(90): (#160) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+            sub_100020530("ASPFTLParseBufferToCxt: qosPerCmdQ(90): (#160) cfg elements != (%d) buffer elements", v9);
           }
 
-          if (v14 >= 0xA1)
+          if (v9 >= 0xA1)
           {
-            v18 = 160;
+            v12 = 160;
           }
 
           else
           {
-            v18 = v14;
+            v12 = v9;
           }
 
-          if (sub_1000189BC(a1, "qosPerCmdQ_", v8, 8u, v18))
+          if (sub_1000189BC(a1, "qosPerCmdQ_", a2, 8u, v12))
           {
             goto LABEL_110;
           }
 
-          v19 = "ASPFTLParseBufferToCxt: qosPerCmdQ(90): Cannot add 160 elements to context";
-          goto LABEL_2993;
+          sub_100020530("ASPFTLParseBufferToCxt: qosPerCmdQ(90): Cannot add 160 elements to context", v14);
+          return v5;
         case 91:
-          if (v14 != 10)
+          if (v9 != 10)
           {
-            sub_100020530("ASPFTLParseBufferToCxt: maxQosPerCmdQ(91): (#10) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+            sub_100020530("ASPFTLParseBufferToCxt: maxQosPerCmdQ(91): (#10) cfg elements != (%d) buffer elements", v9);
           }
 
-          if (v14 >= 0xB)
+          if (v9 >= 0xB)
           {
-            v18 = 10;
+            v12 = 10;
           }
 
           else
           {
-            v18 = v14;
+            v12 = v9;
           }
 
-          if (sub_1000189BC(a1, "maxQosPerCmdQ_", v8, 8u, v18))
+          if (sub_1000189BC(a1, "maxQosPerCmdQ_", a2, 8u, v12))
           {
             goto LABEL_110;
           }
 
-          v19 = "ASPFTLParseBufferToCxt: maxQosPerCmdQ(91): Cannot add 10 elements to context";
-          goto LABEL_2993;
+          sub_100020530("ASPFTLParseBufferToCxt: maxQosPerCmdQ(91): Cannot add 10 elements to context", v14);
+          return v5;
         case 92:
-          if (sub_100020050(a1, "", "shutdownDuringGC", *v8))
+          if ((sub_100020050(a1, "", "shutdownDuringGC", *a2) & 1) == 0)
           {
-            goto LABEL_162;
+            sub_100020530("ASPFTLParseBufferToCxt: shutdownDuringGC(92) cannot add 1 element to context");
           }
 
-          v17 = "ASPFTLParseBufferToCxt: shutdownDuringGC(92) cannot add 1 element to context";
           goto LABEL_161;
         case 93:
-          if (v14 != 3)
+          if (v9 != 3)
           {
-            sub_100020530("ASPFTLParseBufferToCxt: numBandsRefreshedForAgePerTier(93): (#3) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+            sub_100020530("ASPFTLParseBufferToCxt: numBandsRefreshedForAgePerTier(93): (#3) cfg elements != (%d) buffer elements", v9);
           }
 
-          if (v12 >> 34)
+          if (v7 >> 34)
           {
-            v18 = 3;
+            v12 = 3;
           }
 
           else
           {
-            v18 = v14;
+            v12 = v9;
           }
 
-          if (sub_1000189BC(a1, "numBandsRefreshedForAgePerTier_", v8, 8u, v18))
+          if (sub_1000189BC(a1, "numBandsRefreshedForAgePerTier_", a2, 8u, v12))
           {
             goto LABEL_110;
           }
 
-          v19 = "ASPFTLParseBufferToCxt: numBandsRefreshedForAgePerTier(93): Cannot add 3 elements to context";
-          goto LABEL_2993;
+          sub_100020530("ASPFTLParseBufferToCxt: numBandsRefreshedForAgePerTier(93): Cannot add 3 elements to context", v14);
+          return v5;
         case 94:
-          if (v14 != 20)
+          if (v9 != 20)
           {
-            sub_100020530("ASPFTLParseBufferToCxt: bdrDeltaHot(94): (#20) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+            sub_100020530("ASPFTLParseBufferToCxt: bdrDeltaHot(94): (#20) cfg elements != (%d) buffer elements", v9);
           }
 
-          if (v14 >= 0x15)
+          if (v9 >= 0x15)
           {
-            v18 = 20;
+            v12 = 20;
           }
 
           else
           {
-            v18 = v14;
+            v12 = v9;
           }
 
-          if (sub_1000189BC(a1, "bdrDeltaHot_", v8, 8u, v18))
+          if (sub_1000189BC(a1, "bdrDeltaHot_", a2, 8u, v12))
           {
             goto LABEL_110;
           }
 
-          v19 = "ASPFTLParseBufferToCxt: bdrDeltaHot(94): Cannot add 20 elements to context";
-          goto LABEL_2993;
+          sub_100020530("ASPFTLParseBufferToCxt: bdrDeltaHot(94): Cannot add 20 elements to context", v14);
+          return v5;
         case 95:
-          if (sub_100020050(a1, "", "numRefreshOnClockLoss", *v8))
+          if ((sub_100020050(a1, "", "numRefreshOnClockLoss", *a2) & 1) == 0)
           {
-            goto LABEL_162;
+            sub_100020530("ASPFTLParseBufferToCxt: numRefreshOnClockLoss(95) cannot add 1 element to context");
           }
 
-          v17 = "ASPFTLParseBufferToCxt: numRefreshOnClockLoss(95) cannot add 1 element to context";
           goto LABEL_161;
         case 96:
-          if (sub_100020050(a1, "", "numRefreshOnErrNandRefreshRel", *v8))
+          if ((sub_100020050(a1, "", "numRefreshOnErrNandRefreshRel", *a2) & 1) == 0)
           {
-            goto LABEL_162;
+            sub_100020530("ASPFTLParseBufferToCxt: numRefreshOnErrNandRefreshRel(96) cannot add 1 element to context");
           }
 
-          v17 = "ASPFTLParseBufferToCxt: numRefreshOnErrNandRefreshRel(96) cannot add 1 element to context";
           goto LABEL_161;
         case 97:
-          if (sub_100020050(a1, "", "numBGRefreshMoves", *v8))
+          if ((sub_100020050(a1, "", "numBGRefreshMoves", *a2) & 1) == 0)
           {
-            goto LABEL_162;
+            sub_100020530("ASPFTLParseBufferToCxt: numBGRefreshMoves(97) cannot add 1 element to context");
           }
 
-          v17 = "ASPFTLParseBufferToCxt: numBGRefreshMoves(97) cannot add 1 element to context";
           goto LABEL_161;
         case 98:
-          if (sub_100020050(a1, "", "numBGPaddingMoves", *v8))
+          if ((sub_100020050(a1, "", "numBGPaddingMoves", *a2) & 1) == 0)
           {
-            goto LABEL_162;
+            sub_100020530("ASPFTLParseBufferToCxt: numBGPaddingMoves(98) cannot add 1 element to context");
           }
 
-          v17 = "ASPFTLParseBufferToCxt: numBGPaddingMoves(98) cannot add 1 element to context";
           goto LABEL_161;
         case 99:
-          if (sub_100020050(a1, "", "hostWritesPhoto", *v8))
+          if ((sub_100020050(a1, "", "hostWritesPhoto", *a2) & 1) == 0)
           {
-            goto LABEL_162;
+            sub_100020530("ASPFTLParseBufferToCxt: hostWritesPhoto(99) cannot add 1 element to context");
           }
 
-          v17 = "ASPFTLParseBufferToCxt: hostWritesPhoto(99) cannot add 1 element to context";
           goto LABEL_161;
         case 100:
-          if (sub_100020050(a1, "", "INDPooldFree", *v8))
+          if ((sub_100020050(a1, "", "INDPooldFree", *a2) & 1) == 0)
           {
-            goto LABEL_162;
+            sub_100020530("ASPFTLParseBufferToCxt: INDPooldFree(100) cannot add 1 element to context");
           }
 
-          v17 = "ASPFTLParseBufferToCxt: INDPooldFree(100) cannot add 1 element to context";
           goto LABEL_161;
         case 101:
-          if (sub_100020050(a1, "", "INDContigCount", *v8))
+          if ((sub_100020050(a1, "", "INDContigCount", *a2) & 1) == 0)
           {
-            goto LABEL_162;
+            sub_100020530("ASPFTLParseBufferToCxt: INDContigCount(101) cannot add 1 element to context");
           }
 
-          v17 = "ASPFTLParseBufferToCxt: INDContigCount(101) cannot add 1 element to context";
           goto LABEL_161;
         case 102:
-          if (sub_100020050(a1, "", "INDValidContigCount", *v8))
+          if ((sub_100020050(a1, "", "INDValidContigCount", *a2) & 1) == 0)
           {
-            goto LABEL_162;
+            sub_100020530("ASPFTLParseBufferToCxt: INDValidContigCount(102) cannot add 1 element to context");
           }
 
-          v17 = "ASPFTLParseBufferToCxt: INDValidContigCount(102) cannot add 1 element to context";
           goto LABEL_161;
         case 103:
-          if (sub_100020050(a1, "", "INDMinContigSize", *v8))
+          if ((sub_100020050(a1, "", "INDMinContigSize", *a2) & 1) == 0)
           {
-            goto LABEL_162;
+            sub_100020530("ASPFTLParseBufferToCxt: INDMinContigSize(103) cannot add 1 element to context");
           }
 
-          v17 = "ASPFTLParseBufferToCxt: INDMinContigSize(103) cannot add 1 element to context";
           goto LABEL_161;
         case 104:
-          if (sub_100020050(a1, "", "INDMaxContigSize", *v8))
+          if ((sub_100020050(a1, "", "INDMaxContigSize", *a2) & 1) == 0)
           {
-            goto LABEL_162;
+            sub_100020530("ASPFTLParseBufferToCxt: INDMaxContigSize(104) cannot add 1 element to context");
           }
 
-          v17 = "ASPFTLParseBufferToCxt: INDMaxContigSize(104) cannot add 1 element to context";
           goto LABEL_161;
         case 105:
-          if (sub_100020050(a1, "", "INDAveContigSize", *v8))
+          if ((sub_100020050(a1, "", "INDAveContigSize", *a2) & 1) == 0)
           {
-            goto LABEL_162;
+            sub_100020530("ASPFTLParseBufferToCxt: INDAveContigSize(105) cannot add 1 element to context");
           }
 
-          v17 = "ASPFTLParseBufferToCxt: INDAveContigSize(105) cannot add 1 element to context";
           goto LABEL_161;
         case 106:
-          if (sub_100020050(a1, "", "INDpoolSize", *v8))
+          if ((sub_100020050(a1, "", "INDpoolSize", *a2) & 1) == 0)
           {
-            goto LABEL_162;
+            sub_100020530("ASPFTLParseBufferToCxt: INDpoolSize(106) cannot add 1 element to context");
           }
 
-          v17 = "ASPFTLParseBufferToCxt: INDpoolSize(106) cannot add 1 element to context";
           goto LABEL_161;
         case 107:
-          if (sub_100020050(a1, "", "pushSyncWrites", *v8))
+          if ((sub_100020050(a1, "", "pushSyncWrites", *a2) & 1) == 0)
           {
-            goto LABEL_162;
+            sub_100020530("ASPFTLParseBufferToCxt: pushSyncWrites(107) cannot add 1 element to context");
           }
 
-          v17 = "ASPFTLParseBufferToCxt: pushSyncWrites(107) cannot add 1 element to context";
           goto LABEL_161;
         case 109:
-          if (sub_100020050(a1, "", "cmd_rw_hysteresis_us", *v8))
+          if ((sub_100020050(a1, "", "cmd_rw_hysteresis_us", *a2) & 1) == 0)
           {
-            goto LABEL_162;
+            sub_100020530("ASPFTLParseBufferToCxt: cmd_rw_hysteresis_us(109) cannot add 1 element to context");
           }
 
-          v17 = "ASPFTLParseBufferToCxt: cmd_rw_hysteresis_us(109) cannot add 1 element to context";
           goto LABEL_161;
         case 110:
-          if (sub_100020050(a1, "", "photoFlowMode", *v8))
+          if ((sub_100020050(a1, "", "photoFlowMode", *a2) & 1) == 0)
           {
-            goto LABEL_162;
+            sub_100020530("ASPFTLParseBufferToCxt: photoFlowMode(110) cannot add 1 element to context");
           }
 
-          v17 = "ASPFTLParseBufferToCxt: photoFlowMode(110) cannot add 1 element to context";
           goto LABEL_161;
         case 112:
-          if (sub_100020050(a1, "", "numBandsPaddedForAge", *v8))
+          if ((sub_100020050(a1, "", "numBandsPaddedForAge", *a2) & 1) == 0)
           {
-            goto LABEL_162;
+            sub_100020530("ASPFTLParseBufferToCxt: numBandsPaddedForAge(112) cannot add 1 element to context");
           }
 
-          v17 = "ASPFTLParseBufferToCxt: numBandsPaddedForAge(112) cannot add 1 element to context";
           goto LABEL_161;
         case 113:
-          if (v14 != 4)
+          if (v9 != 4)
           {
-            sub_100020530("ASPFTLParseBufferToCxt: bandsPerHostFlow(113): (#4) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+            sub_100020530("ASPFTLParseBufferToCxt: bandsPerHostFlow(113): (#4) cfg elements != (%d) buffer elements", v9);
           }
 
-          if (v14 >= 5)
+          if (v9 >= 5)
           {
-            v18 = 4;
+            v12 = 4;
           }
 
           else
           {
-            v18 = v14;
+            v12 = v9;
           }
 
-          if (sub_1000189BC(a1, "bandsPerHostFlow_", v8, 8u, v18))
+          if (sub_1000189BC(a1, "bandsPerHostFlow_", a2, 8u, v12))
           {
             goto LABEL_110;
           }
 
-          v19 = "ASPFTLParseBufferToCxt: bandsPerHostFlow(113): Cannot add 4 elements to context";
-          goto LABEL_2993;
+          sub_100020530("ASPFTLParseBufferToCxt: bandsPerHostFlow(113): Cannot add 4 elements to context", v14);
+          return v5;
         case 114:
-          if (v14 != 5)
+          if (v9 != 5)
           {
-            sub_100020530("ASPFTLParseBufferToCxt: bandsPerSpecialFlow(114): (#5) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+            sub_100020530("ASPFTLParseBufferToCxt: bandsPerSpecialFlow(114): (#5) cfg elements != (%d) buffer elements", v9);
           }
 
-          if (v12 >> 33 >= 3)
+          if (v7 >> 33 >= 3)
           {
-            v18 = 5;
+            v12 = 5;
           }
 
           else
           {
-            v18 = v14;
+            v12 = v9;
           }
 
-          if (sub_1000189BC(a1, "bandsPerSpecialFlow_", v8, 8u, v18))
+          if (sub_1000189BC(a1, "bandsPerSpecialFlow_", a2, 8u, v12))
           {
             goto LABEL_110;
           }
 
-          v19 = "ASPFTLParseBufferToCxt: bandsPerSpecialFlow(114): Cannot add 5 elements to context";
-          goto LABEL_2993;
+          sub_100020530("ASPFTLParseBufferToCxt: bandsPerSpecialFlow(114): Cannot add 5 elements to context", v14);
+          return v5;
         case 115:
-          if (v14 != 4)
+          if (v9 != 4)
           {
-            sub_100020530("ASPFTLParseBufferToCxt: secsPerHostFlow(115): (#4) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+            sub_100020530("ASPFTLParseBufferToCxt: secsPerHostFlow(115): (#4) cfg elements != (%d) buffer elements", v9);
           }
 
-          if (v14 >= 5)
+          if (v9 >= 5)
           {
-            v18 = 4;
+            v12 = 4;
           }
 
           else
           {
-            v18 = v14;
+            v12 = v9;
           }
 
-          if (sub_1000189BC(a1, "secsPerHostFlow_", v8, 8u, v18))
+          if (sub_1000189BC(a1, "secsPerHostFlow_", a2, 8u, v12))
           {
             goto LABEL_110;
           }
 
-          v19 = "ASPFTLParseBufferToCxt: secsPerHostFlow(115): Cannot add 4 elements to context";
-          goto LABEL_2993;
+          sub_100020530("ASPFTLParseBufferToCxt: secsPerHostFlow(115): Cannot add 4 elements to context", v14);
+          return v5;
         case 116:
-          if (v14 != 5)
+          if (v9 != 5)
           {
-            sub_100020530("ASPFTLParseBufferToCxt: secsPerSpecialFlow(116): (#5) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+            sub_100020530("ASPFTLParseBufferToCxt: secsPerSpecialFlow(116): (#5) cfg elements != (%d) buffer elements", v9);
           }
 
-          if (v12 >> 33 >= 3)
+          if (v7 >> 33 >= 3)
           {
-            v18 = 5;
+            v12 = 5;
           }
 
           else
           {
-            v18 = v14;
+            v12 = v9;
           }
 
-          if (sub_1000189BC(a1, "secsPerSpecialFlow_", v8, 8u, v18))
+          if (sub_1000189BC(a1, "secsPerSpecialFlow_", a2, 8u, v12))
           {
             goto LABEL_110;
           }
 
-          v19 = "ASPFTLParseBufferToCxt: secsPerSpecialFlow(116): Cannot add 5 elements to context";
-          goto LABEL_2993;
+          sub_100020530("ASPFTLParseBufferToCxt: secsPerSpecialFlow(116): Cannot add 5 elements to context", v14);
+          return v5;
         case 118:
-          if (v14 != 4)
+          if (v9 != 4)
           {
-            sub_100020530("ASPFTLParseBufferToCxt: overWritesPerHostFlow(118): (#4) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+            sub_100020530("ASPFTLParseBufferToCxt: overWritesPerHostFlow(118): (#4) cfg elements != (%d) buffer elements", v9);
           }
 
-          if (v14 >= 5)
+          if (v9 >= 5)
           {
-            v18 = 4;
+            v12 = 4;
           }
 
           else
           {
-            v18 = v14;
+            v12 = v9;
           }
 
-          if (sub_1000189BC(a1, "overWritesPerHostFlow_", v8, 8u, v18))
+          if (sub_1000189BC(a1, "overWritesPerHostFlow_", a2, 8u, v12))
           {
             goto LABEL_110;
           }
 
-          v19 = "ASPFTLParseBufferToCxt: overWritesPerHostFlow(118): Cannot add 4 elements to context";
-          goto LABEL_2993;
+          sub_100020530("ASPFTLParseBufferToCxt: overWritesPerHostFlow(118): Cannot add 4 elements to context", v14);
+          return v5;
         case 119:
-          if (v14 != 5)
+          if (v9 != 5)
           {
-            sub_100020530("ASPFTLParseBufferToCxt: overWritesPerSpecialFlow(119): (#5) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+            sub_100020530("ASPFTLParseBufferToCxt: overWritesPerSpecialFlow(119): (#5) cfg elements != (%d) buffer elements", v9);
           }
 
-          if (v12 >> 33 >= 3)
+          if (v7 >> 33 >= 3)
           {
-            v18 = 5;
+            v12 = 5;
           }
 
           else
           {
-            v18 = v14;
+            v12 = v9;
           }
 
-          if (sub_1000189BC(a1, "overWritesPerSpecialFlow_", v8, 8u, v18))
+          if (sub_1000189BC(a1, "overWritesPerSpecialFlow_", a2, 8u, v12))
           {
             goto LABEL_110;
           }
 
-          v19 = "ASPFTLParseBufferToCxt: overWritesPerSpecialFlow(119): Cannot add 5 elements to context";
-          goto LABEL_2993;
+          sub_100020530("ASPFTLParseBufferToCxt: overWritesPerSpecialFlow(119): Cannot add 5 elements to context", v14);
+          return v5;
         case 120:
-          if (v14 != 10)
+          if (v9 != 10)
           {
-            sub_100020530("ASPFTLParseBufferToCxt: padSectorsPerFlow(120): (#10) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+            sub_100020530("ASPFTLParseBufferToCxt: padSectorsPerFlow(120): (#10) cfg elements != (%d) buffer elements", v9);
           }
 
-          if (v14 >= 0xB)
+          if (v9 >= 0xB)
           {
-            v18 = 10;
+            v12 = 10;
           }
 
           else
           {
-            v18 = v14;
+            v12 = v9;
           }
 
-          if (sub_1000189BC(a1, "padSectorsPerFlow_", v8, 8u, v18))
+          if (sub_1000189BC(a1, "padSectorsPerFlow_", a2, 8u, v12))
           {
             goto LABEL_110;
           }
 
-          v19 = "ASPFTLParseBufferToCxt: padSectorsPerFlow(120): Cannot add 10 elements to context";
-          goto LABEL_2993;
+          sub_100020530("ASPFTLParseBufferToCxt: padSectorsPerFlow(120): Cannot add 10 elements to context", v14);
+          return v5;
         case 121:
-          if (v14 != 4)
+          if (v9 != 4)
           {
-            sub_100020530("ASPFTLParseBufferToCxt: padSizes(121): (#4) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+            sub_100020530("ASPFTLParseBufferToCxt: padSizes(121): (#4) cfg elements != (%d) buffer elements", v9);
           }
 
-          if (v14 >= 5)
+          if (v9 >= 5)
           {
-            v18 = 4;
+            v12 = 4;
           }
 
           else
           {
-            v18 = v14;
+            v12 = v9;
           }
 
-          if (sub_1000189BC(a1, "padSizes_", v8, 8u, v18))
+          if (sub_1000189BC(a1, "padSizes_", a2, 8u, v12))
           {
             goto LABEL_110;
           }
 
-          v19 = "ASPFTLParseBufferToCxt: padSizes(121): Cannot add 4 elements to context";
-          goto LABEL_2993;
+          sub_100020530("ASPFTLParseBufferToCxt: padSizes(121): Cannot add 4 elements to context", v14);
+          return v5;
         case 122:
-          if (v14 != 4)
+          if (v9 != 4)
           {
-            sub_100020530("ASPFTLParseBufferToCxt: unmapsPerHostFlow(122): (#4) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+            sub_100020530("ASPFTLParseBufferToCxt: unmapsPerHostFlow(122): (#4) cfg elements != (%d) buffer elements", v9);
           }
 
-          if (v14 >= 5)
+          if (v9 >= 5)
           {
-            v18 = 4;
+            v12 = 4;
           }
 
           else
           {
-            v18 = v14;
+            v12 = v9;
           }
 
-          if (sub_1000189BC(a1, "unmapsPerHostFlow_", v8, 8u, v18))
+          if (sub_1000189BC(a1, "unmapsPerHostFlow_", a2, 8u, v12))
           {
             goto LABEL_110;
           }
 
-          v19 = "ASPFTLParseBufferToCxt: unmapsPerHostFlow(122): Cannot add 4 elements to context";
-          goto LABEL_2993;
+          sub_100020530("ASPFTLParseBufferToCxt: unmapsPerHostFlow(122): Cannot add 4 elements to context", v14);
+          return v5;
         case 123:
-          if (v14 != 5)
+          if (v9 != 5)
           {
-            sub_100020530("ASPFTLParseBufferToCxt: unmapsPerSpecialFlow(123): (#5) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+            sub_100020530("ASPFTLParseBufferToCxt: unmapsPerSpecialFlow(123): (#5) cfg elements != (%d) buffer elements", v9);
           }
 
-          if (v12 >> 33 >= 3)
+          if (v7 >> 33 >= 3)
           {
-            v18 = 5;
+            v12 = 5;
           }
 
           else
           {
-            v18 = v14;
+            v12 = v9;
           }
 
-          if (sub_1000189BC(a1, "unmapsPerSpecialFlow_", v8, 8u, v18))
+          if (sub_1000189BC(a1, "unmapsPerSpecialFlow_", a2, 8u, v12))
           {
             goto LABEL_110;
           }
 
-          v19 = "ASPFTLParseBufferToCxt: unmapsPerSpecialFlow(123): Cannot add 5 elements to context";
-          goto LABEL_2993;
+          sub_100020530("ASPFTLParseBufferToCxt: unmapsPerSpecialFlow(123): Cannot add 5 elements to context", v14);
+          return v5;
         case 124:
-          if (v14 != 2)
+          if (v9 != 2)
           {
-            sub_100020530("ASPFTLParseBufferToCxt: coldestCycle(124): (#2) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+            sub_100020530("ASPFTLParseBufferToCxt: coldestCycle(124): (#2) cfg elements != (%d) buffer elements", v9);
           }
 
-          if (v14 >= 3)
+          if (v9 >= 3)
           {
-            v18 = 2;
+            v12 = 2;
           }
 
           else
           {
-            v18 = v14;
+            v12 = v9;
           }
 
-          if (sub_1000189BC(a1, "coldestCycle_", v8, 8u, v18))
+          if (sub_1000189BC(a1, "coldestCycle_", a2, 8u, v12))
           {
             goto LABEL_110;
           }
 
-          v19 = "ASPFTLParseBufferToCxt: coldestCycle(124): Cannot add 2 elements to context";
-          goto LABEL_2993;
+          sub_100020530("ASPFTLParseBufferToCxt: coldestCycle(124): Cannot add 2 elements to context", v14);
+          return v5;
         case 125:
-          if (v14 != 2)
+          if (v9 != 2)
           {
-            sub_100020530("ASPFTLParseBufferToCxt: hottestCycle(125): (#2) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+            sub_100020530("ASPFTLParseBufferToCxt: hottestCycle(125): (#2) cfg elements != (%d) buffer elements", v9);
           }
 
-          if (v14 >= 3)
+          if (v9 >= 3)
           {
-            v18 = 2;
+            v12 = 2;
           }
 
           else
           {
-            v18 = v14;
+            v12 = v9;
           }
 
-          if (sub_1000189BC(a1, "hottestCycle_", v8, 8u, v18))
+          if (sub_1000189BC(a1, "hottestCycle_", a2, 8u, v12))
           {
             goto LABEL_110;
           }
 
-          v19 = "ASPFTLParseBufferToCxt: hottestCycle(125): Cannot add 2 elements to context";
-          goto LABEL_2993;
+          sub_100020530("ASPFTLParseBufferToCxt: hottestCycle(125): Cannot add 2 elements to context", v14);
+          return v5;
         case 126:
-          if (sub_100020050(a1, "", "gcLonlyWrites", *v8))
+          if ((sub_100020050(a1, "", "gcLonlyWrites", *a2) & 1) == 0)
           {
-            goto LABEL_162;
+            sub_100020530("ASPFTLParseBufferToCxt: gcLonlyWrites(126) cannot add 1 element to context");
           }
 
-          v17 = "ASPFTLParseBufferToCxt: gcLonlyWrites(126) cannot add 1 element to context";
           goto LABEL_161;
         case 127:
-          if (sub_100020050(a1, "", "gcPLWrites", *v8))
+          if ((sub_100020050(a1, "", "gcPLWrites", *a2) & 1) == 0)
           {
-            goto LABEL_162;
+            sub_100020530("ASPFTLParseBufferToCxt: gcPLWrites(127) cannot add 1 element to context");
           }
 
-          v17 = "ASPFTLParseBufferToCxt: gcPLWrites(127) cannot add 1 element to context";
           goto LABEL_161;
         case 129:
-          if (sub_100020050(a1, "", "pagesPerVirtualBlockSlc", *v8))
+          if ((sub_100020050(a1, "", "pagesPerVirtualBlockSlc", *a2) & 1) == 0)
           {
-            goto LABEL_162;
+            sub_100020530("ASPFTLParseBufferToCxt: pagesPerVirtualBlockSlc(129) cannot add 1 element to context");
           }
 
-          v17 = "ASPFTLParseBufferToCxt: pagesPerVirtualBlockSlc(129) cannot add 1 element to context";
           goto LABEL_161;
         case 130:
-          if (sub_100020050(a1, "", "bdrPadding", *v8))
+          if ((sub_100020050(a1, "", "bdrPadding", *a2) & 1) == 0)
           {
-            goto LABEL_162;
+            sub_100020530("ASPFTLParseBufferToCxt: bdrPadding(130) cannot add 1 element to context");
           }
 
-          v17 = "ASPFTLParseBufferToCxt: bdrPadding(130) cannot add 1 element to context";
           goto LABEL_161;
         case 131:
-          if (v14 != 8)
+          if (v9 != 8)
           {
-            sub_100020530("ASPFTLParseBufferToCxt: errInjCounters(131): (#8) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+            sub_100020530("ASPFTLParseBufferToCxt: errInjCounters(131): (#8) cfg elements != (%d) buffer elements", v9);
           }
 
-          if (v14 >= 9)
+          if (v9 >= 9)
           {
-            v18 = 8;
+            v12 = 8;
           }
 
           else
           {
-            v18 = v14;
+            v12 = v9;
           }
 
-          if (sub_1000189BC(a1, "errInjCounters_", v8, 8u, v18))
+          if (sub_1000189BC(a1, "errInjCounters_", a2, 8u, v12))
           {
             goto LABEL_110;
           }
 
-          v19 = "ASPFTLParseBufferToCxt: errInjCounters(131): Cannot add 8 elements to context";
-          goto LABEL_2993;
+          sub_100020530("ASPFTLParseBufferToCxt: errInjCounters(131): Cannot add 8 elements to context", v14);
+          return v5;
         case 132:
-          if (sub_100020050(a1, "", "raidSuccessfulReconstructionInternal", *v8))
+          if ((sub_100020050(a1, "", "raidSuccessfulReconstructionInternal", *a2) & 1) == 0)
           {
-            goto LABEL_162;
+            sub_100020530("ASPFTLParseBufferToCxt: raidSuccessfulReconstructionInternal(132) cannot add 1 element to context");
           }
 
-          v17 = "ASPFTLParseBufferToCxt: raidSuccessfulReconstructionInternal(132) cannot add 1 element to context";
           goto LABEL_161;
         case 133:
-          if (sub_100020050(a1, "", "raidSuccessfulReconstructionHost", *v8))
+          if ((sub_100020050(a1, "", "raidSuccessfulReconstructionHost", *a2) & 1) == 0)
           {
-            goto LABEL_162;
+            sub_100020530("ASPFTLParseBufferToCxt: raidSuccessfulReconstructionHost(133) cannot add 1 element to context");
           }
 
-          v17 = "ASPFTLParseBufferToCxt: raidSuccessfulReconstructionHost(133) cannot add 1 element to context";
           goto LABEL_161;
         case 134:
-          if (sub_100020050(a1, "", "raidFailedReconstructionInternal", *v8))
+          if ((sub_100020050(a1, "", "raidFailedReconstructionInternal", *a2) & 1) == 0)
           {
-            goto LABEL_162;
+            sub_100020530("ASPFTLParseBufferToCxt: raidFailedReconstructionInternal(134) cannot add 1 element to context");
           }
 
-          v17 = "ASPFTLParseBufferToCxt: raidFailedReconstructionInternal(134) cannot add 1 element to context";
           goto LABEL_161;
         case 135:
-          if (sub_100020050(a1, "", "raidFailedReconstructionHost", *v8))
+          if ((sub_100020050(a1, "", "raidFailedReconstructionHost", *a2) & 1) == 0)
           {
-            goto LABEL_162;
+            sub_100020530("ASPFTLParseBufferToCxt: raidFailedReconstructionHost(135) cannot add 1 element to context");
           }
 
-          v17 = "ASPFTLParseBufferToCxt: raidFailedReconstructionHost(135) cannot add 1 element to context";
           goto LABEL_161;
         case 136:
-          if (sub_100020050(a1, "", "raidBandsPerHostFlow", *v8))
+          if ((sub_100020050(a1, "", "raidBandsPerHostFlow", *a2) & 1) == 0)
           {
-            goto LABEL_162;
+            sub_100020530("ASPFTLParseBufferToCxt: raidBandsPerHostFlow(136) cannot add 1 element to context");
           }
 
-          v17 = "ASPFTLParseBufferToCxt: raidBandsPerHostFlow(136) cannot add 1 element to context";
           goto LABEL_161;
         case 137:
-          if (sub_100020050(a1, "", "raidSecsPerHostFlow", *v8))
+          if ((sub_100020050(a1, "", "raidSecsPerHostFlow", *a2) & 1) == 0)
           {
-            goto LABEL_162;
+            sub_100020530("ASPFTLParseBufferToCxt: raidSecsPerHostFlow(137) cannot add 1 element to context");
           }
 
-          v17 = "ASPFTLParseBufferToCxt: raidSecsPerHostFlow(137) cannot add 1 element to context";
           goto LABEL_161;
         case 138:
-          if (sub_100020050(a1, "", "gcFreeL", *v8))
+          if ((sub_100020050(a1, "", "gcFreeL", *a2) & 1) == 0)
           {
-            goto LABEL_162;
+            sub_100020530("ASPFTLParseBufferToCxt: gcFreeL(138) cannot add 1 element to context");
           }
 
-          v17 = "ASPFTLParseBufferToCxt: gcFreeL(138) cannot add 1 element to context";
           goto LABEL_161;
         case 139:
-          if (sub_100020050(a1, "", "gcDestinations", *v8))
+          if ((sub_100020050(a1, "", "gcDestinations", *a2) & 1) == 0)
           {
-            goto LABEL_162;
+            sub_100020530("ASPFTLParseBufferToCxt: gcDestinations(139) cannot add 1 element to context");
           }
 
-          v17 = "ASPFTLParseBufferToCxt: gcDestinations(139) cannot add 1 element to context";
           goto LABEL_161;
         case 140:
-          if (sub_100020050(a1, "", "gcFragments", *v8))
+          if ((sub_100020050(a1, "", "gcFragments", *a2) & 1) == 0)
           {
-            goto LABEL_162;
+            sub_100020530("ASPFTLParseBufferToCxt: gcFragments(140) cannot add 1 element to context");
           }
 
-          v17 = "ASPFTLParseBufferToCxt: gcFragments(140) cannot add 1 element to context";
           goto LABEL_161;
         case 141:
-          if (sub_100020050(a1, "", "numMemChoke", *v8))
+          if ((sub_100020050(a1, "", "numMemChoke", *a2) & 1) == 0)
           {
-            goto LABEL_162;
+            sub_100020530("ASPFTLParseBufferToCxt: numMemChoke(141) cannot add 1 element to context");
           }
 
-          v17 = "ASPFTLParseBufferToCxt: numMemChoke(141) cannot add 1 element to context";
           goto LABEL_161;
         case 142:
-          if (sub_100020050(a1, "", "maxMemChokeDuration", *v8))
+          if ((sub_100020050(a1, "", "maxMemChokeDuration", *a2) & 1) == 0)
           {
-            goto LABEL_162;
+            sub_100020530("ASPFTLParseBufferToCxt: maxMemChokeDuration(142) cannot add 1 element to context");
           }
 
-          v17 = "ASPFTLParseBufferToCxt: maxMemChokeDuration(142) cannot add 1 element to context";
           goto LABEL_161;
         case 143:
-          if (sub_100020050(a1, "", "memChokeDuration", *v8))
+          if ((sub_100020050(a1, "", "memChokeDuration", *a2) & 1) == 0)
           {
-            goto LABEL_162;
+            sub_100020530("ASPFTLParseBufferToCxt: memChokeDuration(143) cannot add 1 element to context");
           }
 
-          v17 = "ASPFTLParseBufferToCxt: memChokeDuration(143) cannot add 1 element to context";
           goto LABEL_161;
         default:
-          switch(v12)
+          switch(v7)
           {
             case 144:
-              if (sub_100020050(a1, "", "numMemExtreme", *v8))
+              if ((sub_100020050(a1, "", "numMemExtreme", *a2) & 1) == 0)
               {
-                goto LABEL_162;
+                sub_100020530("ASPFTLParseBufferToCxt: numMemExtreme(144) cannot add 1 element to context");
               }
 
-              v17 = "ASPFTLParseBufferToCxt: numMemExtreme(144) cannot add 1 element to context";
               goto LABEL_161;
             case 145:
-              if (sub_100020050(a1, "", "maxMemExtremeDuration", *v8))
+              if ((sub_100020050(a1, "", "maxMemExtremeDuration", *a2) & 1) == 0)
               {
-                goto LABEL_162;
+                sub_100020530("ASPFTLParseBufferToCxt: maxMemExtremeDuration(145) cannot add 1 element to context");
               }
 
-              v17 = "ASPFTLParseBufferToCxt: maxMemExtremeDuration(145) cannot add 1 element to context";
               goto LABEL_161;
             case 146:
-              if (sub_100020050(a1, "", "memExtremeDuration", *v8))
+              if ((sub_100020050(a1, "", "memExtremeDuration", *a2) & 1) == 0)
               {
-                goto LABEL_162;
+                sub_100020530("ASPFTLParseBufferToCxt: memExtremeDuration(146) cannot add 1 element to context");
               }
 
-              v17 = "ASPFTLParseBufferToCxt: memExtremeDuration(146) cannot add 1 element to context";
               goto LABEL_161;
             case 147:
-              if (sub_100020050(a1, "", "bandGetsExtreme", *v8))
+              if ((sub_100020050(a1, "", "bandGetsExtreme", *a2) & 1) == 0)
               {
-                goto LABEL_162;
+                sub_100020530("ASPFTLParseBufferToCxt: bandGetsExtreme(147) cannot add 1 element to context");
               }
 
-              v17 = "ASPFTLParseBufferToCxt: bandGetsExtreme(147) cannot add 1 element to context";
               goto LABEL_161;
             case 148:
-              if (sub_100020050(a1, "", "bandGetsLow", *v8))
+              if ((sub_100020050(a1, "", "bandGetsLow", *a2) & 1) == 0)
               {
-                goto LABEL_162;
+                sub_100020530("ASPFTLParseBufferToCxt: bandGetsLow(148) cannot add 1 element to context");
               }
 
-              v17 = "ASPFTLParseBufferToCxt: bandGetsLow(148) cannot add 1 element to context";
               goto LABEL_161;
             case 149:
-              if (sub_100020050(a1, "", "numHostChoke", *v8))
+              if ((sub_100020050(a1, "", "numHostChoke", *a2) & 1) == 0)
               {
-                goto LABEL_162;
+                sub_100020530("ASPFTLParseBufferToCxt: numHostChoke(149) cannot add 1 element to context");
               }
 
-              v17 = "ASPFTLParseBufferToCxt: numHostChoke(149) cannot add 1 element to context";
               goto LABEL_161;
             case 152:
-              if (sub_100020050(a1, "", "AbortSkip_ProgramError", *v8))
+              if ((sub_100020050(a1, "", "AbortSkip_ProgramError", *a2) & 1) == 0)
               {
-                goto LABEL_162;
+                sub_100020530("ASPFTLParseBufferToCxt: AbortSkip_ProgramError(152) cannot add 1 element to context");
               }
 
-              v17 = "ASPFTLParseBufferToCxt: AbortSkip_ProgramError(152) cannot add 1 element to context";
               goto LABEL_161;
             case 153:
-              if (sub_100020050(a1, "", "AbortSkip_ReadErrorOpenBand", *v8))
+              if ((sub_100020050(a1, "", "AbortSkip_ReadErrorOpenBand", *a2) & 1) == 0)
               {
-                goto LABEL_162;
+                sub_100020530("ASPFTLParseBufferToCxt: AbortSkip_ReadErrorOpenBand(153) cannot add 1 element to context");
               }
 
-              v17 = "ASPFTLParseBufferToCxt: AbortSkip_ReadErrorOpenBand(153) cannot add 1 element to context";
               goto LABEL_161;
             case 154:
-              if (sub_100020050(a1, "", "AbortSkip_FailedRebuildingParity", *v8))
+              if ((sub_100020050(a1, "", "AbortSkip_FailedRebuildingParity", *a2) & 1) == 0)
               {
-                goto LABEL_162;
+                sub_100020530("ASPFTLParseBufferToCxt: AbortSkip_FailedRebuildingParity(154) cannot add 1 element to context");
               }
 
-              v17 = "ASPFTLParseBufferToCxt: AbortSkip_FailedRebuildingParity(154) cannot add 1 element to context";
               goto LABEL_161;
             case 155:
-              if (sub_100020050(a1, "", "AbortPad_OpenRefreshBand", *v8))
+              if ((sub_100020050(a1, "", "AbortPad_OpenRefreshBand", *a2) & 1) == 0)
               {
-                goto LABEL_162;
+                sub_100020530("ASPFTLParseBufferToCxt: AbortPad_OpenRefreshBand(155) cannot add 1 element to context");
               }
 
-              v17 = "ASPFTLParseBufferToCxt: AbortPad_OpenRefreshBand(155) cannot add 1 element to context";
               goto LABEL_161;
             case 156:
-              if (sub_100020050(a1, "", "AbortPad_CloseBands", *v8))
+              if ((sub_100020050(a1, "", "AbortPad_CloseBands", *a2) & 1) == 0)
               {
-                goto LABEL_162;
+                sub_100020530("ASPFTLParseBufferToCxt: AbortPad_CloseBands(156) cannot add 1 element to context");
               }
 
-              v17 = "ASPFTLParseBufferToCxt: AbortPad_CloseBands(156) cannot add 1 element to context";
               goto LABEL_161;
             case 157:
-              if (sub_100020050(a1, "", "AbortPad_SetPhoto", *v8))
+              if ((sub_100020050(a1, "", "AbortPad_SetPhoto", *a2) & 1) == 0)
               {
-                goto LABEL_162;
+                sub_100020530("ASPFTLParseBufferToCxt: AbortPad_SetPhoto(157) cannot add 1 element to context");
               }
 
-              v17 = "ASPFTLParseBufferToCxt: AbortPad_SetPhoto(157) cannot add 1 element to context";
               goto LABEL_161;
             case 158:
-              if (sub_100020050(a1, "", "AbortPad_GcNoSource", *v8))
+              if ((sub_100020050(a1, "", "AbortPad_GcNoSource", *a2) & 1) == 0)
               {
-                goto LABEL_162;
+                sub_100020530("ASPFTLParseBufferToCxt: AbortPad_GcNoSource(158) cannot add 1 element to context");
               }
 
-              v17 = "ASPFTLParseBufferToCxt: AbortPad_GcNoSource(158) cannot add 1 element to context";
               goto LABEL_161;
             case 159:
-              if (sub_100020050(a1, "", "AbortPad_Format", *v8))
+              if ((sub_100020050(a1, "", "AbortPad_Format", *a2) & 1) == 0)
               {
-                goto LABEL_162;
+                sub_100020530("ASPFTLParseBufferToCxt: AbortPad_Format(159) cannot add 1 element to context");
               }
 
-              v17 = "ASPFTLParseBufferToCxt: AbortPad_Format(159) cannot add 1 element to context";
               goto LABEL_161;
             case 160:
-              if (sub_100020050(a1, "", "nandDiscoveryDuration", *v8))
+              if ((sub_100020050(a1, "", "nandDiscoveryDuration", *a2) & 1) == 0)
               {
-                goto LABEL_162;
+                sub_100020530("ASPFTLParseBufferToCxt: nandDiscoveryDuration(160) cannot add 1 element to context");
               }
 
-              v17 = "ASPFTLParseBufferToCxt: nandDiscoveryDuration(160) cannot add 1 element to context";
               goto LABEL_161;
             case 161:
-              if (sub_100020050(a1, "", "coreCCEnableDuration", *v8))
+              if ((sub_100020050(a1, "", "coreCCEnableDuration", *a2) & 1) == 0)
               {
-                goto LABEL_162;
+                sub_100020530("ASPFTLParseBufferToCxt: coreCCEnableDuration(161) cannot add 1 element to context");
               }
 
-              v17 = "ASPFTLParseBufferToCxt: coreCCEnableDuration(161) cannot add 1 element to context";
               goto LABEL_161;
             case 163:
-              if (sub_100020050(a1, "", "coreOpenDuration", *v8))
+              if ((sub_100020050(a1, "", "coreOpenDuration", *a2) & 1) == 0)
               {
-                goto LABEL_162;
+                sub_100020530("ASPFTLParseBufferToCxt: coreOpenDuration(163) cannot add 1 element to context");
               }
 
-              v17 = "ASPFTLParseBufferToCxt: coreOpenDuration(163) cannot add 1 element to context";
               goto LABEL_161;
             case 164:
-              if (sub_100020050(a1, "", "coreWritableDuration", *v8))
+              if ((sub_100020050(a1, "", "coreWritableDuration", *a2) & 1) == 0)
               {
-                goto LABEL_162;
+                sub_100020530("ASPFTLParseBufferToCxt: coreWritableDuration(164) cannot add 1 element to context");
               }
 
-              v17 = "ASPFTLParseBufferToCxt: coreWritableDuration(164) cannot add 1 element to context";
               goto LABEL_161;
             case 165:
-              if (sub_100020050(a1, "", "coreClogLoadDuration", *v8))
+              if ((sub_100020050(a1, "", "coreClogLoadDuration", *a2) & 1) == 0)
               {
-                goto LABEL_162;
+                sub_100020530("ASPFTLParseBufferToCxt: coreClogLoadDuration(165) cannot add 1 element to context");
               }
 
-              v17 = "ASPFTLParseBufferToCxt: coreClogLoadDuration(165) cannot add 1 element to context";
               goto LABEL_161;
             case 167:
-              if (sub_100020050(a1, "", "bulkPFail", *v8))
+              if ((sub_100020050(a1, "", "bulkPFail", *a2) & 1) == 0)
               {
-                goto LABEL_162;
+                sub_100020530("ASPFTLParseBufferToCxt: bulkPFail(167) cannot add 1 element to context");
               }
 
-              v17 = "ASPFTLParseBufferToCxt: bulkPFail(167) cannot add 1 element to context";
               goto LABEL_161;
             case 169:
-              if (sub_100020050(a1, "", "bulkRFail", *v8))
+              if ((sub_100020050(a1, "", "bulkRFail", *a2) & 1) == 0)
               {
-                goto LABEL_162;
+                sub_100020530("ASPFTLParseBufferToCxt: bulkRFail(169) cannot add 1 element to context");
               }
 
-              v17 = "ASPFTLParseBufferToCxt: bulkRFail(169) cannot add 1 element to context";
               goto LABEL_161;
             case 172:
-              if (sub_100020050(a1, "", "raidSmartErrors", *v8))
+              if ((sub_100020050(a1, "", "raidSmartErrors", *a2) & 1) == 0)
               {
-                goto LABEL_162;
+                sub_100020530("ASPFTLParseBufferToCxt: raidSmartErrors(172) cannot add 1 element to context");
               }
 
-              v17 = "ASPFTLParseBufferToCxt: raidSmartErrors(172) cannot add 1 element to context";
               goto LABEL_161;
             case 182:
-              if (sub_100020050(a1, "", "internalUeccs", *v8))
+              if ((sub_100020050(a1, "", "internalUeccs", *a2) & 1) == 0)
               {
-                goto LABEL_162;
+                sub_100020530("ASPFTLParseBufferToCxt: internalUeccs(182) cannot add 1 element to context");
               }
 
-              v17 = "ASPFTLParseBufferToCxt: internalUeccs(182) cannot add 1 element to context";
               goto LABEL_161;
             case 183:
-              if (sub_100020050(a1, "", "e2eFail", *v8))
+              if ((sub_100020050(a1, "", "e2eFail", *a2) & 1) == 0)
               {
-                goto LABEL_162;
+                sub_100020530("ASPFTLParseBufferToCxt: e2eFail(183) cannot add 1 element to context");
               }
 
-              v17 = "ASPFTLParseBufferToCxt: e2eFail(183) cannot add 1 element to context";
               goto LABEL_161;
             case 184:
-              if (sub_100020050(a1, "", "TempSensorMax", *v8))
+              if ((sub_100020050(a1, "", "TempSensorMax", *a2) & 1) == 0)
               {
-                goto LABEL_162;
+                sub_100020530("ASPFTLParseBufferToCxt: TempSensorMax(184) cannot add 1 element to context");
               }
 
-              v17 = "ASPFTLParseBufferToCxt: TempSensorMax(184) cannot add 1 element to context";
               goto LABEL_161;
             case 185:
-              if (sub_100020050(a1, "", "TempSensorMin", *v8))
+              if ((sub_100020050(a1, "", "TempSensorMin", *a2) & 1) == 0)
               {
-                goto LABEL_162;
+                sub_100020530("ASPFTLParseBufferToCxt: TempSensorMin(185) cannot add 1 element to context");
               }
 
-              v17 = "ASPFTLParseBufferToCxt: TempSensorMin(185) cannot add 1 element to context";
               goto LABEL_161;
             case 186:
-              if (sub_100020050(a1, "", "powerUpFromDDR", *v8))
+              if ((sub_100020050(a1, "", "powerUpFromDDR", *a2) & 1) == 0)
               {
-                goto LABEL_162;
+                sub_100020530("ASPFTLParseBufferToCxt: powerUpFromDDR(186) cannot add 1 element to context");
               }
 
-              v17 = "ASPFTLParseBufferToCxt: powerUpFromDDR(186) cannot add 1 element to context";
               goto LABEL_161;
             case 187:
-              if (sub_100020050(a1, "", "numMemLow", *v8))
+              if ((sub_100020050(a1, "", "numMemLow", *a2) & 1) == 0)
               {
-                goto LABEL_162;
+                sub_100020530("ASPFTLParseBufferToCxt: numMemLow(187) cannot add 1 element to context");
               }
 
-              v17 = "ASPFTLParseBufferToCxt: numMemLow(187) cannot add 1 element to context";
               goto LABEL_161;
             case 188:
-              if (sub_100020050(a1, "", "maxMemLowDuration", *v8))
+              if ((sub_100020050(a1, "", "maxMemLowDuration", *a2) & 1) == 0)
               {
-                goto LABEL_162;
+                sub_100020530("ASPFTLParseBufferToCxt: maxMemLowDuration(188) cannot add 1 element to context");
               }
 
-              v17 = "ASPFTLParseBufferToCxt: maxMemLowDuration(188) cannot add 1 element to context";
               goto LABEL_161;
             case 189:
-              if (sub_100020050(a1, "", "memLowDuration", *v8))
+              if ((sub_100020050(a1, "", "memLowDuration", *a2) & 1) == 0)
               {
-                goto LABEL_162;
+                sub_100020530("ASPFTLParseBufferToCxt: memLowDuration(189) cannot add 1 element to context");
               }
 
-              v17 = "ASPFTLParseBufferToCxt: memLowDuration(189) cannot add 1 element to context";
               goto LABEL_161;
             case 190:
-              if (sub_100020050(a1, "", "numFences", *v8))
+              if ((sub_100020050(a1, "", "numFences", *a2) & 1) == 0)
               {
-                goto LABEL_162;
+                sub_100020530("ASPFTLParseBufferToCxt: numFences(190) cannot add 1 element to context");
               }
 
-              v17 = "ASPFTLParseBufferToCxt: numFences(190) cannot add 1 element to context";
               goto LABEL_161;
             case 191:
-              if (sub_100020050(a1, "", "hostPassiveIO", *v8))
+              if ((sub_100020050(a1, "", "hostPassiveIO", *a2) & 1) == 0)
               {
-                goto LABEL_162;
+                sub_100020530("ASPFTLParseBufferToCxt: hostPassiveIO(191) cannot add 1 element to context");
               }
 
-              v17 = "ASPFTLParseBufferToCxt: hostPassiveIO(191) cannot add 1 element to context";
               goto LABEL_161;
             case 192:
-              if (sub_100020050(a1, "", "odtsMax", *v8))
+              if ((sub_100020050(a1, "", "odtsMax", *a2) & 1) == 0)
               {
-                goto LABEL_162;
+                sub_100020530("ASPFTLParseBufferToCxt: odtsMax(192) cannot add 1 element to context");
               }
 
-              v17 = "ASPFTLParseBufferToCxt: odtsMax(192) cannot add 1 element to context";
               goto LABEL_161;
             case 193:
-              if (sub_100020050(a1, "", "defragMFromOrphans", *v8))
+              if ((sub_100020050(a1, "", "defragMFromOrphans", *a2) & 1) == 0)
               {
-                goto LABEL_162;
+                sub_100020530("ASPFTLParseBufferToCxt: defragMFromOrphans(193) cannot add 1 element to context");
               }
 
-              v17 = "ASPFTLParseBufferToCxt: defragMFromOrphans(193) cannot add 1 element to context";
               goto LABEL_161;
             case 194:
-              if (sub_100020050(a1, "", "defragMFromFragments", *v8))
+              if ((sub_100020050(a1, "", "defragMFromFragments", *a2) & 1) == 0)
               {
-                goto LABEL_162;
+                sub_100020530("ASPFTLParseBufferToCxt: defragMFromFragments(194) cannot add 1 element to context");
               }
 
-              v17 = "ASPFTLParseBufferToCxt: defragMFromFragments(194) cannot add 1 element to context";
               goto LABEL_161;
             case 195:
-              if (sub_100020050(a1, "", "defragMTime", *v8))
+              if ((sub_100020050(a1, "", "defragMTime", *a2) & 1) == 0)
               {
-                goto LABEL_162;
+                sub_100020530("ASPFTLParseBufferToCxt: defragMTime(195) cannot add 1 element to context");
               }
 
-              v17 = "ASPFTLParseBufferToCxt: defragMTime(195) cannot add 1 element to context";
               goto LABEL_161;
             case 196:
-              if (sub_100020050(a1, "", "defragMMaxTime", *v8))
+              if ((sub_100020050(a1, "", "defragMMaxTime", *a2) & 1) == 0)
               {
-                goto LABEL_162;
+                sub_100020530("ASPFTLParseBufferToCxt: defragMMaxTime(196) cannot add 1 element to context");
               }
 
-              v17 = "ASPFTLParseBufferToCxt: defragMMaxTime(196) cannot add 1 element to context";
               goto LABEL_161;
             case 197:
-              if (sub_100020050(a1, "", "raidFailedLbaMismatch", *v8))
+              if ((sub_100020050(a1, "", "raidFailedLbaMismatch", *a2) & 1) == 0)
               {
-                goto LABEL_162;
+                sub_100020530("ASPFTLParseBufferToCxt: raidFailedLbaMismatch(197) cannot add 1 element to context");
               }
 
-              v17 = "ASPFTLParseBufferToCxt: raidFailedLbaMismatch(197) cannot add 1 element to context";
               goto LABEL_161;
             case 198:
-              if (sub_100020050(a1, "", "numSyscfgWrites", *v8))
+              if ((sub_100020050(a1, "", "numSyscfgWrites", *a2) & 1) == 0)
               {
-                goto LABEL_162;
+                sub_100020530("ASPFTLParseBufferToCxt: numSyscfgWrites(198) cannot add 1 element to context");
               }
 
-              v17 = "ASPFTLParseBufferToCxt: numSyscfgWrites(198) cannot add 1 element to context";
               goto LABEL_161;
             case 199:
-              if (sub_100020050(a1, "", "indmbUnitsXfer", *v8))
+              if ((sub_100020050(a1, "", "indmbUnitsXfer", *a2) & 1) == 0)
               {
-                goto LABEL_162;
+                sub_100020530("ASPFTLParseBufferToCxt: indmbUnitsXfer(199) cannot add 1 element to context");
               }
 
-              v17 = "ASPFTLParseBufferToCxt: indmbUnitsXfer(199) cannot add 1 element to context";
               goto LABEL_161;
             case 200:
-              if (sub_100020050(a1, "", "indmbUnitsCache", *v8))
+              if ((sub_100020050(a1, "", "indmbUnitsCache", *a2) & 1) == 0)
               {
-                goto LABEL_162;
+                sub_100020530("ASPFTLParseBufferToCxt: indmbUnitsCache(200) cannot add 1 element to context");
               }
 
-              v17 = "ASPFTLParseBufferToCxt: indmbUnitsCache(200) cannot add 1 element to context";
               goto LABEL_161;
             case 201:
-              if (sub_100020050(a1, "", "indmbUnitsInd", *v8))
+              if ((sub_100020050(a1, "", "indmbUnitsInd", *a2) & 1) == 0)
               {
-                goto LABEL_162;
+                sub_100020530("ASPFTLParseBufferToCxt: indmbUnitsInd(201) cannot add 1 element to context");
               }
 
-              v17 = "ASPFTLParseBufferToCxt: indmbUnitsInd(201) cannot add 1 element to context";
               goto LABEL_161;
             case 202:
-              if (sub_100020050(a1, "", "wcacheFS_Mbytes", *v8))
+              if ((sub_100020050(a1, "", "wcacheFS_Mbytes", *a2) & 1) == 0)
               {
-                goto LABEL_162;
+                sub_100020530("ASPFTLParseBufferToCxt: wcacheFS_Mbytes(202) cannot add 1 element to context");
               }
 
-              v17 = "ASPFTLParseBufferToCxt: wcacheFS_Mbytes(202) cannot add 1 element to context";
               goto LABEL_161;
             case 203:
-              if (sub_100020050(a1, "", "wcacheDS_Mbytes", *v8))
+              if ((sub_100020050(a1, "", "wcacheDS_Mbytes", *a2) & 1) == 0)
               {
-                goto LABEL_162;
+                sub_100020530("ASPFTLParseBufferToCxt: wcacheDS_Mbytes(203) cannot add 1 element to context");
               }
 
-              v17 = "ASPFTLParseBufferToCxt: wcacheDS_Mbytes(203) cannot add 1 element to context";
               goto LABEL_161;
             case 204:
-              if (sub_100020050(a1, "", "powerOnSeconds", *v8))
+              if ((sub_100020050(a1, "", "powerOnSeconds", *a2) & 1) == 0)
               {
-                goto LABEL_162;
+                sub_100020530("ASPFTLParseBufferToCxt: powerOnSeconds(204) cannot add 1 element to context");
               }
 
-              v17 = "ASPFTLParseBufferToCxt: powerOnSeconds(204) cannot add 1 element to context";
               goto LABEL_161;
             case 205:
-              if (sub_100020050(a1, "", "numUnknownTokenHostRead", *v8))
+              if ((sub_100020050(a1, "", "numUnknownTokenHostRead", *a2) & 1) == 0)
               {
-                goto LABEL_162;
+                sub_100020530("ASPFTLParseBufferToCxt: numUnknownTokenHostRead(205) cannot add 1 element to context");
               }
 
-              v17 = "ASPFTLParseBufferToCxt: numUnknownTokenHostRead(205) cannot add 1 element to context";
               goto LABEL_161;
             case 206:
-              if (sub_100020050(a1, "", "numUnmmapedTokenHostRead", *v8))
+              if ((sub_100020050(a1, "", "numUnmmapedTokenHostRead", *a2) & 1) == 0)
               {
-                goto LABEL_162;
+                sub_100020530("ASPFTLParseBufferToCxt: numUnmmapedTokenHostRead(206) cannot add 1 element to context");
               }
 
-              v17 = "ASPFTLParseBufferToCxt: numUnmmapedTokenHostRead(206) cannot add 1 element to context";
               goto LABEL_161;
             case 207:
-              if (v14 != 25)
+              if (v9 != 25)
               {
-                sub_100020530("ASPFTLParseBufferToCxt: numOfThrottlingEntriesPerLevel(207): (#25) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                sub_100020530("ASPFTLParseBufferToCxt: numOfThrottlingEntriesPerLevel(207): (#25) cfg elements != (%d) buffer elements", v9);
               }
 
-              if (v12 >> 33 >= 0xD)
+              if (v7 >> 33 >= 0xD)
               {
-                v18 = 25;
+                v12 = 25;
               }
 
               else
               {
-                v18 = v14;
+                v12 = v9;
               }
 
-              if (sub_1000189BC(a1, "numOfThrottlingEntriesPerLevel_", v8, 8u, v18))
+              if (sub_1000189BC(a1, "numOfThrottlingEntriesPerLevel_", a2, 8u, v12))
               {
                 goto LABEL_110;
               }
 
-              v19 = "ASPFTLParseBufferToCxt: numOfThrottlingEntriesPerLevel(207): Cannot add 25 elements to context";
-              goto LABEL_2993;
+              sub_100020530("ASPFTLParseBufferToCxt: numOfThrottlingEntriesPerLevel(207): Cannot add 25 elements to context", v14);
+              return v5;
             case 208:
-              if (sub_100020050(a1, "", "wcacheFS_MbytesMin", *v8))
+              if ((sub_100020050(a1, "", "wcacheFS_MbytesMin", *a2) & 1) == 0)
               {
-                goto LABEL_162;
+                sub_100020530("ASPFTLParseBufferToCxt: wcacheFS_MbytesMin(208) cannot add 1 element to context");
               }
 
-              v17 = "ASPFTLParseBufferToCxt: wcacheFS_MbytesMin(208) cannot add 1 element to context";
               goto LABEL_161;
             case 209:
-              if (sub_100020050(a1, "", "wcacheFS_MbytesMax", *v8))
+              if ((sub_100020050(a1, "", "wcacheFS_MbytesMax", *a2) & 1) == 0)
               {
-                goto LABEL_162;
+                sub_100020530("ASPFTLParseBufferToCxt: wcacheFS_MbytesMax(209) cannot add 1 element to context");
               }
 
-              v17 = "ASPFTLParseBufferToCxt: wcacheFS_MbytesMax(209) cannot add 1 element to context";
               goto LABEL_161;
             case 210:
-              if (sub_100020050(a1, "", "prepareForShutdownFailCounter", *v8))
+              if ((sub_100020050(a1, "", "prepareForShutdownFailCounter", *a2) & 1) == 0)
               {
-                goto LABEL_162;
+                sub_100020530("ASPFTLParseBufferToCxt: prepareForShutdownFailCounter(210) cannot add 1 element to context");
               }
 
-              v17 = "ASPFTLParseBufferToCxt: prepareForShutdownFailCounter(210) cannot add 1 element to context";
               goto LABEL_161;
             case 211:
-              if (sub_100020050(a1, "", "lpsrEntry", *v8))
+              if ((sub_100020050(a1, "", "lpsrEntry", *a2) & 1) == 0)
               {
-                goto LABEL_162;
+                sub_100020530("ASPFTLParseBufferToCxt: lpsrEntry(211) cannot add 1 element to context");
               }
 
-              v17 = "ASPFTLParseBufferToCxt: lpsrEntry(211) cannot add 1 element to context";
               goto LABEL_161;
             case 212:
-              if (sub_100020050(a1, "", "lpsrExit", *v8))
+              if ((sub_100020050(a1, "", "lpsrExit", *a2) & 1) == 0)
               {
-                goto LABEL_162;
+                sub_100020530("ASPFTLParseBufferToCxt: lpsrExit(212) cannot add 1 element to context");
               }
 
-              v17 = "ASPFTLParseBufferToCxt: lpsrExit(212) cannot add 1 element to context";
               goto LABEL_161;
             case 213:
-              if (v14 != 8)
+              if (v9 != 8)
               {
-                sub_100020530("ASPFTLParseBufferToCxt: crcInternalReadFail(213): (#8) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                sub_100020530("ASPFTLParseBufferToCxt: crcInternalReadFail(213): (#8) cfg elements != (%d) buffer elements", v9);
               }
 
-              if (v14 >= 9)
+              if (v9 >= 9)
               {
-                v18 = 8;
+                v12 = 8;
               }
 
               else
               {
-                v18 = v14;
+                v12 = v9;
               }
 
-              if (sub_1000189BC(a1, "crcInternalReadFail_", v8, 8u, v18))
+              if (sub_1000189BC(a1, "crcInternalReadFail_", a2, 8u, v12))
               {
                 goto LABEL_110;
               }
 
-              v19 = "ASPFTLParseBufferToCxt: crcInternalReadFail(213): Cannot add 8 elements to context";
-              goto LABEL_2993;
+              sub_100020530("ASPFTLParseBufferToCxt: crcInternalReadFail(213): Cannot add 8 elements to context", v14);
+              return v5;
             case 214:
-              if (sub_100020050(a1, "", "wcacheFSEvictCnt", *v8))
+              if ((sub_100020050(a1, "", "wcacheFSEvictCnt", *a2) & 1) == 0)
               {
-                goto LABEL_162;
+                sub_100020530("ASPFTLParseBufferToCxt: wcacheFSEvictCnt(214) cannot add 1 element to context");
               }
 
-              v17 = "ASPFTLParseBufferToCxt: wcacheFSEvictCnt(214) cannot add 1 element to context";
               goto LABEL_161;
             case 215:
-              if (sub_100020050(a1, "", "wcacheFSEvictSize", *v8))
+              if ((sub_100020050(a1, "", "wcacheFSEvictSize", *a2) & 1) == 0)
               {
-                goto LABEL_162;
+                sub_100020530("ASPFTLParseBufferToCxt: wcacheFSEvictSize(215) cannot add 1 element to context");
               }
 
-              v17 = "ASPFTLParseBufferToCxt: wcacheFSEvictSize(215) cannot add 1 element to context";
               goto LABEL_161;
             case 216:
-              if (sub_100020050(a1, "", "wcacheFSWr", *v8))
+              if ((sub_100020050(a1, "", "wcacheFSWr", *a2) & 1) == 0)
               {
-                goto LABEL_162;
+                sub_100020530("ASPFTLParseBufferToCxt: wcacheFSWr(216) cannot add 1 element to context");
               }
 
-              v17 = "ASPFTLParseBufferToCxt: wcacheFSWr(216) cannot add 1 element to context";
               goto LABEL_161;
             case 217:
-              if (sub_100020050(a1, "", "wcacheDSWr", *v8))
+              if ((sub_100020050(a1, "", "wcacheDSWr", *a2) & 1) == 0)
               {
-                goto LABEL_162;
+                sub_100020530("ASPFTLParseBufferToCxt: wcacheDSWr(217) cannot add 1 element to context");
               }
 
-              v17 = "ASPFTLParseBufferToCxt: wcacheDSWr(217) cannot add 1 element to context";
               goto LABEL_161;
             case 218:
-              if (v14 != 10)
+              if (v9 != 10)
               {
-                sub_100020530("ASPFTLParseBufferToCxt: wcacheFSEvictSizeLogDist(218): (#10) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                sub_100020530("ASPFTLParseBufferToCxt: wcacheFSEvictSizeLogDist(218): (#10) cfg elements != (%d) buffer elements", v9);
               }
 
-              if (v14 >= 0xB)
+              if (v9 >= 0xB)
               {
-                v18 = 10;
+                v12 = 10;
               }
 
               else
               {
-                v18 = v14;
+                v12 = v9;
               }
 
-              if (sub_1000189BC(a1, "wcacheFSEvictSizeLogDist_", v8, 8u, v18))
+              if (sub_1000189BC(a1, "wcacheFSEvictSizeLogDist_", a2, 8u, v12))
               {
                 goto LABEL_110;
               }
 
-              v19 = "ASPFTLParseBufferToCxt: wcacheFSEvictSizeLogDist(218): Cannot add 10 elements to context";
-              goto LABEL_2993;
+              sub_100020530("ASPFTLParseBufferToCxt: wcacheFSEvictSizeLogDist(218): Cannot add 10 elements to context", v14);
+              return v5;
             case 219:
-              if (sub_100020050(a1, "", "prepareForShutdownTimeoutCounter", *v8))
+              if ((sub_100020050(a1, "", "prepareForShutdownTimeoutCounter", *a2) & 1) == 0)
               {
-                goto LABEL_162;
+                sub_100020530("ASPFTLParseBufferToCxt: prepareForShutdownTimeoutCounter(219) cannot add 1 element to context");
               }
 
-              v17 = "ASPFTLParseBufferToCxt: prepareForShutdownTimeoutCounter(219) cannot add 1 element to context";
               goto LABEL_161;
             case 220:
-              if (sub_100020050(a1, "", "prepareForShutdownCancelCounter", *v8))
+              if ((sub_100020050(a1, "", "prepareForShutdownCancelCounter", *a2) & 1) == 0)
               {
-                goto LABEL_162;
+                sub_100020530("ASPFTLParseBufferToCxt: prepareForShutdownCancelCounter(220) cannot add 1 element to context");
               }
 
-              v17 = "ASPFTLParseBufferToCxt: prepareForShutdownCancelCounter(220) cannot add 1 element to context";
               goto LABEL_161;
             case 221:
-              if (sub_100020050(a1, "", "RD_openBandCount", *v8))
+              if ((sub_100020050(a1, "", "RD_openBandCount", *a2) & 1) == 0)
               {
-                goto LABEL_162;
+                sub_100020530("ASPFTLParseBufferToCxt: RD_openBandCount(221) cannot add 1 element to context");
               }
 
-              v17 = "ASPFTLParseBufferToCxt: RD_openBandCount(221) cannot add 1 element to context";
               goto LABEL_161;
             case 222:
-              if (sub_100020050(a1, "", "RD_openBandNops", *v8))
+              if ((sub_100020050(a1, "", "RD_openBandNops", *a2) & 1) == 0)
               {
-                goto LABEL_162;
+                sub_100020530("ASPFTLParseBufferToCxt: RD_openBandNops(222) cannot add 1 element to context");
               }
 
-              v17 = "ASPFTLParseBufferToCxt: RD_openBandNops(222) cannot add 1 element to context";
               goto LABEL_161;
             case 223:
-              if (sub_100020050(a1, "", "RD_closedBandEvictCount", *v8))
+              if ((sub_100020050(a1, "", "RD_closedBandEvictCount", *a2) & 1) == 0)
               {
-                goto LABEL_162;
+                sub_100020530("ASPFTLParseBufferToCxt: RD_closedBandEvictCount(223) cannot add 1 element to context");
               }
 
-              v17 = "ASPFTLParseBufferToCxt: RD_closedBandEvictCount(223) cannot add 1 element to context";
               goto LABEL_161;
             default:
-              switch(v12)
+              switch(v7)
               {
                 case 224:
-                  if (sub_100020050(a1, "", "RD_closedBandEvictSectors", *v8))
+                  if ((sub_100020050(a1, "", "RD_closedBandEvictSectors", *a2) & 1) == 0)
                   {
-                    goto LABEL_162;
+                    sub_100020530("ASPFTLParseBufferToCxt: RD_closedBandEvictSectors(224) cannot add 1 element to context");
                   }
 
-                  v17 = "ASPFTLParseBufferToCxt: RD_closedBandEvictSectors(224) cannot add 1 element to context";
                   goto LABEL_161;
                 case 225:
-                  if (sub_100020050(a1, "", "RD_closedBandFragmentCount", *v8))
+                  if ((sub_100020050(a1, "", "RD_closedBandFragmentCount", *a2) & 1) == 0)
                   {
-                    goto LABEL_162;
+                    sub_100020530("ASPFTLParseBufferToCxt: RD_closedBandFragmentCount(225) cannot add 1 element to context");
                   }
 
-                  v17 = "ASPFTLParseBufferToCxt: RD_closedBandFragmentCount(225) cannot add 1 element to context";
                   goto LABEL_161;
                 case 226:
-                  if (sub_100020050(a1, "", "RD_closedBandFragmentSectors", *v8))
+                  if ((sub_100020050(a1, "", "RD_closedBandFragmentSectors", *a2) & 1) == 0)
                   {
-                    goto LABEL_162;
+                    sub_100020530("ASPFTLParseBufferToCxt: RD_closedBandFragmentSectors(226) cannot add 1 element to context");
                   }
 
-                  v17 = "ASPFTLParseBufferToCxt: RD_closedBandFragmentSectors(226) cannot add 1 element to context";
                   goto LABEL_161;
                 case 227:
-                  if (v14 != 10)
+                  if (v9 != 10)
                   {
-                    sub_100020530("ASPFTLParseBufferToCxt: wcacheFSOverWrLogSizeCnts(227): (#10) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                    sub_100020530("ASPFTLParseBufferToCxt: wcacheFSOverWrLogSizeCnts(227): (#10) cfg elements != (%d) buffer elements", v9);
                   }
 
-                  if (v14 >= 0xB)
+                  if (v9 >= 0xB)
                   {
-                    v18 = 10;
+                    v12 = 10;
                   }
 
                   else
                   {
-                    v18 = v14;
+                    v12 = v9;
                   }
 
-                  if (sub_1000189BC(a1, "wcacheFSOverWrLogSizeCnts_", v8, 8u, v18))
+                  if (sub_1000189BC(a1, "wcacheFSOverWrLogSizeCnts_", a2, 8u, v12))
                   {
                     goto LABEL_110;
                   }
 
-                  v19 = "ASPFTLParseBufferToCxt: wcacheFSOverWrLogSizeCnts(227): Cannot add 10 elements to context";
-                  goto LABEL_2993;
+                  sub_100020530("ASPFTLParseBufferToCxt: wcacheFSOverWrLogSizeCnts(227): Cannot add 10 elements to context", v14);
+                  return v5;
                 case 228:
-                  if (v14 != 4)
+                  if (v9 != 4)
                   {
-                    sub_100020530("ASPFTLParseBufferToCxt: wcacheFSOverWrSizeByFlow(228): (#4) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                    sub_100020530("ASPFTLParseBufferToCxt: wcacheFSOverWrSizeByFlow(228): (#4) cfg elements != (%d) buffer elements", v9);
                   }
 
-                  if (v14 >= 5)
+                  if (v9 >= 5)
                   {
-                    v18 = 4;
+                    v12 = 4;
                   }
 
                   else
                   {
-                    v18 = v14;
+                    v12 = v9;
                   }
 
-                  if (sub_1000189BC(a1, "wcacheFSOverWrSizeByFlow_", v8, 8u, v18))
+                  if (sub_1000189BC(a1, "wcacheFSOverWrSizeByFlow_", a2, 8u, v12))
                   {
                     goto LABEL_110;
                   }
 
-                  v19 = "ASPFTLParseBufferToCxt: wcacheFSOverWrSizeByFlow(228): Cannot add 4 elements to context";
-                  goto LABEL_2993;
+                  sub_100020530("ASPFTLParseBufferToCxt: wcacheFSOverWrSizeByFlow(228): Cannot add 4 elements to context", v14);
+                  return v5;
                 case 229:
-                  if (v14 != 2)
+                  if (v9 != 2)
                   {
-                    sub_100020530("ASPFTLParseBufferToCxt: indmbXferCountTo(229): (#2) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                    sub_100020530("ASPFTLParseBufferToCxt: indmbXferCountTo(229): (#2) cfg elements != (%d) buffer elements", v9);
                   }
 
-                  if (v14 >= 3)
+                  if (v9 >= 3)
                   {
-                    v18 = 2;
+                    v12 = 2;
                   }
 
                   else
                   {
-                    v18 = v14;
+                    v12 = v9;
                   }
 
-                  if (sub_1000189BC(a1, "indmbXferCountTo_", v8, 8u, v18))
+                  if (sub_1000189BC(a1, "indmbXferCountTo_", a2, 8u, v12))
                   {
                     goto LABEL_110;
                   }
 
-                  v19 = "ASPFTLParseBufferToCxt: indmbXferCountTo(229): Cannot add 2 elements to context";
-                  goto LABEL_2993;
+                  sub_100020530("ASPFTLParseBufferToCxt: indmbXferCountTo(229): Cannot add 2 elements to context", v14);
+                  return v5;
                 case 230:
-                  if (v14 != 2)
+                  if (v9 != 2)
                   {
-                    sub_100020530("ASPFTLParseBufferToCxt: indmbAccumulatedTimeBetweenXfers(230): (#2) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                    sub_100020530("ASPFTLParseBufferToCxt: indmbAccumulatedTimeBetweenXfers(230): (#2) cfg elements != (%d) buffer elements", v9);
                   }
 
-                  if (v14 >= 3)
+                  if (v9 >= 3)
                   {
-                    v18 = 2;
+                    v12 = 2;
                   }
 
                   else
                   {
-                    v18 = v14;
+                    v12 = v9;
                   }
 
-                  if (sub_1000189BC(a1, "indmbAccumulatedTimeBetweenXfers_", v8, 8u, v18))
+                  if (sub_1000189BC(a1, "indmbAccumulatedTimeBetweenXfers_", a2, 8u, v12))
                   {
                     goto LABEL_110;
                   }
 
-                  v19 = "ASPFTLParseBufferToCxt: indmbAccumulatedTimeBetweenXfers(230): Cannot add 2 elements to context";
-                  goto LABEL_2993;
+                  sub_100020530("ASPFTLParseBufferToCxt: indmbAccumulatedTimeBetweenXfers(230): Cannot add 2 elements to context", v14);
+                  return v5;
                 case 231:
-                  if (sub_100020050(a1, "", "maxGracefulBootTimeMs", *v8))
+                  if ((sub_100020050(a1, "", "maxGracefulBootTimeMs", *a2) & 1) == 0)
                   {
-                    goto LABEL_162;
+                    sub_100020530("ASPFTLParseBufferToCxt: maxGracefulBootTimeMs(231) cannot add 1 element to context");
                   }
 
-                  v17 = "ASPFTLParseBufferToCxt: maxGracefulBootTimeMs(231) cannot add 1 element to context";
                   goto LABEL_161;
                 case 232:
-                  if (sub_100020050(a1, "", "maxUngracefulBootTimeMs", *v8))
+                  if ((sub_100020050(a1, "", "maxUngracefulBootTimeMs", *a2) & 1) == 0)
                   {
-                    goto LABEL_162;
+                    sub_100020530("ASPFTLParseBufferToCxt: maxUngracefulBootTimeMs(232) cannot add 1 element to context");
                   }
 
-                  v17 = "ASPFTLParseBufferToCxt: maxUngracefulBootTimeMs(232) cannot add 1 element to context";
                   goto LABEL_161;
                 case 233:
-                  if (sub_100020050(a1, "", "averageGracefulBootTimeMs", *v8))
+                  if ((sub_100020050(a1, "", "averageGracefulBootTimeMs", *a2) & 1) == 0)
                   {
-                    goto LABEL_162;
+                    sub_100020530("ASPFTLParseBufferToCxt: averageGracefulBootTimeMs(233) cannot add 1 element to context");
                   }
 
-                  v17 = "ASPFTLParseBufferToCxt: averageGracefulBootTimeMs(233) cannot add 1 element to context";
                   goto LABEL_161;
                 case 234:
-                  if (sub_100020050(a1, "", "averageUngracefulBootTimeMs", *v8))
+                  if ((sub_100020050(a1, "", "averageUngracefulBootTimeMs", *a2) & 1) == 0)
                   {
-                    goto LABEL_162;
+                    sub_100020530("ASPFTLParseBufferToCxt: averageUngracefulBootTimeMs(234) cannot add 1 element to context");
                   }
 
-                  v17 = "ASPFTLParseBufferToCxt: averageUngracefulBootTimeMs(234) cannot add 1 element to context";
                   goto LABEL_161;
                 case 235:
-                  if (v14 != 8)
+                  if (v9 != 8)
                   {
-                    sub_100020530("ASPFTLParseBufferToCxt: gracefulBootTimeLogMs(235): (#8) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                    sub_100020530("ASPFTLParseBufferToCxt: gracefulBootTimeLogMs(235): (#8) cfg elements != (%d) buffer elements", v9);
                   }
 
-                  if (v14 >= 9)
+                  if (v9 >= 9)
                   {
-                    v18 = 8;
+                    v12 = 8;
                   }
 
                   else
                   {
-                    v18 = v14;
+                    v12 = v9;
                   }
 
-                  if (sub_1000189BC(a1, "gracefulBootTimeLogMs_", v8, 8u, v18))
+                  if (sub_1000189BC(a1, "gracefulBootTimeLogMs_", a2, 8u, v12))
                   {
                     goto LABEL_110;
                   }
 
-                  v19 = "ASPFTLParseBufferToCxt: gracefulBootTimeLogMs(235): Cannot add 8 elements to context";
-                  goto LABEL_2993;
+                  sub_100020530("ASPFTLParseBufferToCxt: gracefulBootTimeLogMs(235): Cannot add 8 elements to context", v14);
+                  return v5;
                 case 236:
-                  if (v14 != 8)
+                  if (v9 != 8)
                   {
-                    sub_100020530("ASPFTLParseBufferToCxt: ungracefulBootTimeLogMs(236): (#8) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                    sub_100020530("ASPFTLParseBufferToCxt: ungracefulBootTimeLogMs(236): (#8) cfg elements != (%d) buffer elements", v9);
                   }
 
-                  if (v14 >= 9)
+                  if (v9 >= 9)
                   {
-                    v18 = 8;
+                    v12 = 8;
                   }
 
                   else
                   {
-                    v18 = v14;
+                    v12 = v9;
                   }
 
-                  if (sub_1000189BC(a1, "ungracefulBootTimeLogMs_", v8, 8u, v18))
+                  if (sub_1000189BC(a1, "ungracefulBootTimeLogMs_", a2, 8u, v12))
                   {
                     goto LABEL_110;
                   }
 
-                  v19 = "ASPFTLParseBufferToCxt: ungracefulBootTimeLogMs(236): Cannot add 8 elements to context";
-                  goto LABEL_2993;
+                  sub_100020530("ASPFTLParseBufferToCxt: ungracefulBootTimeLogMs(236): Cannot add 8 elements to context", v14);
+                  return v5;
                 case 237:
-                  if (v14 != 4)
+                  if (v9 != 4)
                   {
-                    sub_100020530("ASPFTLParseBufferToCxt: CalibrationCount(237): (#4) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                    sub_100020530("ASPFTLParseBufferToCxt: CalibrationCount(237): (#4) cfg elements != (%d) buffer elements", v9);
                   }
 
-                  if (v14 >= 5)
+                  if (v9 >= 5)
                   {
-                    v18 = 4;
+                    v12 = 4;
                   }
 
                   else
                   {
-                    v18 = v14;
+                    v12 = v9;
                   }
 
-                  if (sub_1000189BC(a1, "CalibrationCount_", v8, 8u, v18))
+                  if (sub_1000189BC(a1, "CalibrationCount_", a2, 8u, v12))
                   {
                     goto LABEL_110;
                   }
 
-                  v19 = "ASPFTLParseBufferToCxt: CalibrationCount(237): Cannot add 4 elements to context";
-                  goto LABEL_2993;
+                  sub_100020530("ASPFTLParseBufferToCxt: CalibrationCount(237): Cannot add 4 elements to context", v14);
+                  return v5;
                 case 238:
-                  if (sub_100020050(a1, "", "CalibrationLastTmp", *v8))
+                  if ((sub_100020050(a1, "", "CalibrationLastTmp", *a2) & 1) == 0)
                   {
-                    goto LABEL_162;
+                    sub_100020530("ASPFTLParseBufferToCxt: CalibrationLastTmp(238) cannot add 1 element to context");
                   }
 
-                  v17 = "ASPFTLParseBufferToCxt: CalibrationLastTmp(238) cannot add 1 element to context";
                   goto LABEL_161;
                 case 239:
-                  if (sub_100020050(a1, "", "CalibrationMaxTmp", *v8))
+                  if ((sub_100020050(a1, "", "CalibrationMaxTmp", *a2) & 1) == 0)
                   {
-                    goto LABEL_162;
+                    sub_100020530("ASPFTLParseBufferToCxt: CalibrationMaxTmp(239) cannot add 1 element to context");
                   }
 
-                  v17 = "ASPFTLParseBufferToCxt: CalibrationMaxTmp(239) cannot add 1 element to context";
                   goto LABEL_161;
                 case 240:
-                  if (sub_100020050(a1, "", "CalibrationMinTmp", *v8))
+                  if ((sub_100020050(a1, "", "CalibrationMinTmp", *a2) & 1) == 0)
                   {
-                    goto LABEL_162;
+                    sub_100020530("ASPFTLParseBufferToCxt: CalibrationMinTmp(240) cannot add 1 element to context");
                   }
 
-                  v17 = "ASPFTLParseBufferToCxt: CalibrationMinTmp(240) cannot add 1 element to context";
                   goto LABEL_161;
                 case 241:
-                  if (sub_100020050(a1, "", "ungracefulBootWorstIndicator", *v8))
+                  if ((sub_100020050(a1, "", "ungracefulBootWorstIndicator", *a2) & 1) == 0)
                   {
-                    goto LABEL_162;
+                    sub_100020530("ASPFTLParseBufferToCxt: ungracefulBootWorstIndicator(241) cannot add 1 element to context");
                   }
 
-                  v17 = "ASPFTLParseBufferToCxt: ungracefulBootWorstIndicator(241) cannot add 1 element to context";
                   goto LABEL_161;
                 case 242:
-                  if (sub_100020050(a1, "", "metaMismatchReread", *v8))
+                  if ((sub_100020050(a1, "", "metaMismatchReread", *a2) & 1) == 0)
                   {
-                    goto LABEL_162;
+                    sub_100020530("ASPFTLParseBufferToCxt: metaMismatchReread(242) cannot add 1 element to context");
                   }
 
-                  v17 = "ASPFTLParseBufferToCxt: metaMismatchReread(242) cannot add 1 element to context";
                   goto LABEL_161;
                 case 243:
-                  if (sub_100020050(a1, "", "numS3SleepOps", *v8))
+                  if ((sub_100020050(a1, "", "numS3SleepOps", *a2) & 1) == 0)
                   {
-                    goto LABEL_162;
+                    sub_100020530("ASPFTLParseBufferToCxt: numS3SleepOps(243) cannot add 1 element to context");
                   }
 
-                  v17 = "ASPFTLParseBufferToCxt: numS3SleepOps(243) cannot add 1 element to context";
                   goto LABEL_161;
                 case 244:
-                  if (sub_100020050(a1, "", "odtsCurrent", *v8))
+                  if ((sub_100020050(a1, "", "odtsCurrent", *a2) & 1) == 0)
                   {
-                    goto LABEL_162;
+                    sub_100020530("ASPFTLParseBufferToCxt: odtsCurrent(244) cannot add 1 element to context");
                   }
 
-                  v17 = "ASPFTLParseBufferToCxt: odtsCurrent(244) cannot add 1 element to context";
                   goto LABEL_161;
                 case 245:
-                  if (sub_100020050(a1, "", "prefetchReads", *v8))
+                  if ((sub_100020050(a1, "", "prefetchReads", *a2) & 1) == 0)
                   {
-                    goto LABEL_162;
+                    sub_100020530("ASPFTLParseBufferToCxt: prefetchReads(245) cannot add 1 element to context");
                   }
 
-                  v17 = "ASPFTLParseBufferToCxt: prefetchReads(245) cannot add 1 element to context";
                   goto LABEL_161;
                 case 246:
-                  if (sub_100020050(a1, "", "prefetchHits", *v8))
+                  if ((sub_100020050(a1, "", "prefetchHits", *a2) & 1) == 0)
                   {
-                    goto LABEL_162;
+                    sub_100020530("ASPFTLParseBufferToCxt: prefetchHits(246) cannot add 1 element to context");
                   }
 
-                  v17 = "ASPFTLParseBufferToCxt: prefetchHits(246) cannot add 1 element to context";
                   goto LABEL_161;
                 case 247:
-                  if (sub_100020050(a1, "", "prefetchWritesInvalidation", *v8))
+                  if ((sub_100020050(a1, "", "prefetchWritesInvalidation", *a2) & 1) == 0)
                   {
-                    goto LABEL_162;
+                    sub_100020530("ASPFTLParseBufferToCxt: prefetchWritesInvalidation(247) cannot add 1 element to context");
                   }
 
-                  v17 = "ASPFTLParseBufferToCxt: prefetchWritesInvalidation(247) cannot add 1 element to context";
                   goto LABEL_161;
                 case 248:
-                  if (sub_100020050(a1, "", "indmbUnitsTotal", *v8))
+                  if ((sub_100020050(a1, "", "indmbUnitsTotal", *a2) & 1) == 0)
                   {
-                    goto LABEL_162;
+                    sub_100020530("ASPFTLParseBufferToCxt: indmbUnitsTotal(248) cannot add 1 element to context");
                   }
 
-                  v17 = "ASPFTLParseBufferToCxt: indmbUnitsTotal(248) cannot add 1 element to context";
                   goto LABEL_161;
                 case 249:
-                  if (sub_100020050(a1, "", "selfThrottlingEngage", *v8))
+                  if ((sub_100020050(a1, "", "selfThrottlingEngage", *a2) & 1) == 0)
                   {
-                    goto LABEL_162;
+                    sub_100020530("ASPFTLParseBufferToCxt: selfThrottlingEngage(249) cannot add 1 element to context");
                   }
 
-                  v17 = "ASPFTLParseBufferToCxt: selfThrottlingEngage(249) cannot add 1 element to context";
                   goto LABEL_161;
                 case 250:
-                  if (sub_100020050(a1, "", "selfThrottlingDisengage", *v8))
+                  if ((sub_100020050(a1, "", "selfThrottlingDisengage", *a2) & 1) == 0)
                   {
-                    goto LABEL_162;
+                    sub_100020530("ASPFTLParseBufferToCxt: selfThrottlingDisengage(250) cannot add 1 element to context");
                   }
 
-                  v17 = "ASPFTLParseBufferToCxt: selfThrottlingDisengage(250) cannot add 1 element to context";
                   goto LABEL_161;
                 case 252:
-                  if (sub_100020050(a1, "", "AbortSkip_WlpMode", *v8))
+                  if ((sub_100020050(a1, "", "AbortSkip_WlpMode", *a2) & 1) == 0)
                   {
-                    goto LABEL_162;
+                    sub_100020530("ASPFTLParseBufferToCxt: AbortSkip_WlpMode(252) cannot add 1 element to context");
                   }
 
-                  v17 = "ASPFTLParseBufferToCxt: AbortSkip_WlpMode(252) cannot add 1 element to context";
                   goto LABEL_161;
                 case 253:
-                  if (sub_100020050(a1, "", "hostWritesWlpMode", *v8))
+                  if ((sub_100020050(a1, "", "hostWritesWlpMode", *a2) & 1) == 0)
                   {
-                    goto LABEL_162;
+                    sub_100020530("ASPFTLParseBufferToCxt: hostWritesWlpMode(253) cannot add 1 element to context");
                   }
 
-                  v17 = "ASPFTLParseBufferToCxt: hostWritesWlpMode(253) cannot add 1 element to context";
                   goto LABEL_161;
                 case 254:
-                  if (sub_100020050(a1, "", "numClogDoubleUnc", *v8))
+                  if ((sub_100020050(a1, "", "numClogDoubleUnc", *a2) & 1) == 0)
                   {
-                    goto LABEL_162;
+                    sub_100020530("ASPFTLParseBufferToCxt: numClogDoubleUnc(254) cannot add 1 element to context");
                   }
 
-                  v17 = "ASPFTLParseBufferToCxt: numClogDoubleUnc(254) cannot add 1 element to context";
                   goto LABEL_161;
                 case 256:
-                  if (sub_100020050(a1, "", "AbortPad_WlpMode", *v8))
+                  if ((sub_100020050(a1, "", "AbortPad_WlpMode", *a2) & 1) == 0)
                   {
-                    goto LABEL_162;
+                    sub_100020530("ASPFTLParseBufferToCxt: AbortPad_WlpMode(256) cannot add 1 element to context");
                   }
 
-                  v17 = "ASPFTLParseBufferToCxt: AbortPad_WlpMode(256) cannot add 1 element to context";
                   goto LABEL_161;
                 case 257:
-                  if (sub_100020050(a1, "", "bonfireIntermediateBandErases", *v8))
+                  if ((sub_100020050(a1, "", "bonfireIntermediateBandErases", *a2) & 1) == 0)
                   {
-                    goto LABEL_162;
+                    sub_100020530("ASPFTLParseBufferToCxt: bonfireIntermediateBandErases(257) cannot add 1 element to context");
                   }
 
-                  v17 = "ASPFTLParseBufferToCxt: bonfireIntermediateBandErases(257) cannot add 1 element to context";
                   goto LABEL_161;
                 case 258:
-                  if (sub_100020050(a1, "", "bonfireUserBandErases", *v8))
+                  if ((sub_100020050(a1, "", "bonfireUserBandErases", *a2) & 1) == 0)
                   {
-                    goto LABEL_162;
+                    sub_100020530("ASPFTLParseBufferToCxt: bonfireUserBandErases(258) cannot add 1 element to context");
                   }
 
-                  v17 = "ASPFTLParseBufferToCxt: bonfireUserBandErases(258) cannot add 1 element to context";
                   goto LABEL_161;
                 case 259:
-                  if (sub_100020050(a1, "", "bonfireIntermediateBandProgs", *v8))
+                  if ((sub_100020050(a1, "", "bonfireIntermediateBandProgs", *a2) & 1) == 0)
                   {
-                    goto LABEL_162;
+                    sub_100020530("ASPFTLParseBufferToCxt: bonfireIntermediateBandProgs(259) cannot add 1 element to context");
                   }
 
-                  v17 = "ASPFTLParseBufferToCxt: bonfireIntermediateBandProgs(259) cannot add 1 element to context";
                   goto LABEL_161;
                 case 260:
-                  if (sub_100020050(a1, "", "bonfireUserBandProgs", *v8))
+                  if ((sub_100020050(a1, "", "bonfireUserBandProgs", *a2) & 1) == 0)
                   {
-                    goto LABEL_162;
+                    sub_100020530("ASPFTLParseBufferToCxt: bonfireUserBandProgs(260) cannot add 1 element to context");
                   }
 
-                  v17 = "ASPFTLParseBufferToCxt: bonfireUserBandProgs(260) cannot add 1 element to context";
                   goto LABEL_161;
                 case 261:
-                  if (sub_100020050(a1, "", "bonfireIntermediatePageReads", *v8))
+                  if ((sub_100020050(a1, "", "bonfireIntermediatePageReads", *a2) & 1) == 0)
                   {
-                    goto LABEL_162;
+                    sub_100020530("ASPFTLParseBufferToCxt: bonfireIntermediatePageReads(261) cannot add 1 element to context");
                   }
 
-                  v17 = "ASPFTLParseBufferToCxt: bonfireIntermediatePageReads(261) cannot add 1 element to context";
                   goto LABEL_161;
                 case 262:
-                  if (sub_100020050(a1, "", "bonfireUserPageReads", *v8))
+                  if ((sub_100020050(a1, "", "bonfireUserPageReads", *a2) & 1) == 0)
                   {
-                    goto LABEL_162;
+                    sub_100020530("ASPFTLParseBufferToCxt: bonfireUserPageReads(262) cannot add 1 element to context");
                   }
 
-                  v17 = "ASPFTLParseBufferToCxt: bonfireUserPageReads(262) cannot add 1 element to context";
                   goto LABEL_161;
                 case 263:
-                  if (sub_100020050(a1, "", "refreshUtil00", *v8))
+                  if ((sub_100020050(a1, "", "refreshUtil00", *a2) & 1) == 0)
                   {
-                    goto LABEL_162;
+                    sub_100020530("ASPFTLParseBufferToCxt: refreshUtil00(263) cannot add 1 element to context");
                   }
 
-                  v17 = "ASPFTLParseBufferToCxt: refreshUtil00(263) cannot add 1 element to context";
                   goto LABEL_161;
                 case 264:
-                  if (sub_100020050(a1, "", "failToReadUtil00", *v8))
+                  if ((sub_100020050(a1, "", "failToReadUtil00", *a2) & 1) == 0)
                   {
-                    goto LABEL_162;
+                    sub_100020530("ASPFTLParseBufferToCxt: failToReadUtil00(264) cannot add 1 element to context");
                   }
 
-                  v17 = "ASPFTLParseBufferToCxt: failToReadUtil00(264) cannot add 1 element to context";
                   goto LABEL_161;
                 case 265:
-                  if (v14 != 5)
+                  if (v9 != 5)
                   {
-                    sub_100020530("ASPFTLParseBufferToCxt: readCountHisto(265): (#5) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                    sub_100020530("ASPFTLParseBufferToCxt: readCountHisto(265): (#5) cfg elements != (%d) buffer elements", v9);
                   }
 
-                  if (v12 >> 33 >= 3)
+                  if (v7 >> 33 >= 3)
                   {
-                    v18 = 5;
+                    v12 = 5;
                   }
 
                   else
                   {
-                    v18 = v14;
+                    v12 = v9;
                   }
 
-                  if (sub_1000189BC(a1, "readCountHisto_", v8, 8u, v18))
+                  if (sub_1000189BC(a1, "readCountHisto_", a2, 8u, v12))
                   {
                     goto LABEL_110;
                   }
 
-                  v19 = "ASPFTLParseBufferToCxt: readCountHisto(265): Cannot add 5 elements to context";
-                  goto LABEL_2993;
+                  sub_100020530("ASPFTLParseBufferToCxt: readCountHisto(265): Cannot add 5 elements to context", v14);
+                  return v5;
                 case 266:
-                  if (v14 != 16)
+                  if (v9 != 16)
                   {
-                    sub_100020530("ASPFTLParseBufferToCxt: readAmpHisto(266): (#16) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                    sub_100020530("ASPFTLParseBufferToCxt: readAmpHisto(266): (#16) cfg elements != (%d) buffer elements", v9);
                   }
 
-                  if (v14 >= 0x11)
+                  if (v9 >= 0x11)
                   {
-                    v18 = 16;
+                    v12 = 16;
                   }
 
                   else
                   {
-                    v18 = v14;
+                    v12 = v9;
                   }
 
-                  if (sub_1000189BC(a1, "readAmpHisto_", v8, 8u, v18))
+                  if (sub_1000189BC(a1, "readAmpHisto_", a2, 8u, v12))
                   {
                     goto LABEL_110;
                   }
 
-                  v19 = "ASPFTLParseBufferToCxt: readAmpHisto(266): Cannot add 16 elements to context";
-                  goto LABEL_2993;
+                  sub_100020530("ASPFTLParseBufferToCxt: readAmpHisto(266): Cannot add 16 elements to context", v14);
+                  return v5;
                 case 267:
-                  if (sub_100020050(a1, "", "totalReadAmp", *v8))
+                  if ((sub_100020050(a1, "", "totalReadAmp", *a2) & 1) == 0)
                   {
-                    goto LABEL_162;
+                    sub_100020530("ASPFTLParseBufferToCxt: totalReadAmp(267) cannot add 1 element to context");
                   }
 
-                  v17 = "ASPFTLParseBufferToCxt: totalReadAmp(267) cannot add 1 element to context";
                   goto LABEL_161;
                 case 268:
-                  if (v14 != 4)
+                  if (v9 != 4)
                   {
-                    sub_100020530("ASPFTLParseBufferToCxt: nvmeModeSelect(268): (#4) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                    sub_100020530("ASPFTLParseBufferToCxt: nvmeModeSelect(268): (#4) cfg elements != (%d) buffer elements", v9);
                   }
 
-                  if (v14 >= 5)
+                  if (v9 >= 5)
                   {
-                    v18 = 4;
+                    v12 = 4;
                   }
 
                   else
                   {
-                    v18 = v14;
+                    v12 = v9;
                   }
 
-                  if (sub_1000189BC(a1, "nvmeModeSelect_", v8, 8u, v18))
+                  if (sub_1000189BC(a1, "nvmeModeSelect_", a2, 8u, v12))
                   {
                     goto LABEL_110;
                   }
 
-                  v19 = "ASPFTLParseBufferToCxt: nvmeModeSelect(268): Cannot add 4 elements to context";
-                  goto LABEL_2993;
+                  sub_100020530("ASPFTLParseBufferToCxt: nvmeModeSelect(268): Cannot add 4 elements to context", v14);
+                  return v5;
                 case 269:
-                  if (v14 != 8)
+                  if (v9 != 8)
                   {
-                    sub_100020530("ASPFTLParseBufferToCxt: numBootBlockRefreshSuccess(269): (#8) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                    sub_100020530("ASPFTLParseBufferToCxt: numBootBlockRefreshSuccess(269): (#8) cfg elements != (%d) buffer elements", v9);
                   }
 
-                  if (v14 >= 9)
+                  if (v9 >= 9)
                   {
-                    v18 = 8;
+                    v12 = 8;
                   }
 
                   else
                   {
-                    v18 = v14;
+                    v12 = v9;
                   }
 
-                  if (sub_1000189BC(a1, "numBootBlockRefreshSuccess_", v8, 8u, v18))
+                  if (sub_1000189BC(a1, "numBootBlockRefreshSuccess_", a2, 8u, v12))
                   {
                     goto LABEL_110;
                   }
 
-                  v19 = "ASPFTLParseBufferToCxt: numBootBlockRefreshSuccess(269): Cannot add 8 elements to context";
-                  goto LABEL_2993;
+                  sub_100020530("ASPFTLParseBufferToCxt: numBootBlockRefreshSuccess(269): Cannot add 8 elements to context", v14);
+                  return v5;
                 case 270:
-                  if (v14 != 8)
+                  if (v9 != 8)
                   {
-                    sub_100020530("ASPFTLParseBufferToCxt: numBootBlockRefreshFail(270): (#8) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                    sub_100020530("ASPFTLParseBufferToCxt: numBootBlockRefreshFail(270): (#8) cfg elements != (%d) buffer elements", v9);
                   }
 
-                  if (v14 >= 9)
+                  if (v9 >= 9)
                   {
-                    v18 = 8;
+                    v12 = 8;
                   }
 
                   else
                   {
-                    v18 = v14;
+                    v12 = v9;
                   }
 
-                  if (sub_1000189BC(a1, "numBootBlockRefreshFail_", v8, 8u, v18))
+                  if (sub_1000189BC(a1, "numBootBlockRefreshFail_", a2, 8u, v12))
                   {
                     goto LABEL_110;
                   }
 
-                  v19 = "ASPFTLParseBufferToCxt: numBootBlockRefreshFail(270): Cannot add 8 elements to context";
-                  goto LABEL_2993;
+                  sub_100020530("ASPFTLParseBufferToCxt: numBootBlockRefreshFail(270): Cannot add 8 elements to context", v14);
+                  return v5;
                 case 271:
-                  if (sub_100020050(a1, "", "numUnsupportedAsi", *v8))
+                  if ((sub_100020050(a1, "", "numUnsupportedAsi", *a2) & 1) == 0)
                   {
-                    goto LABEL_162;
+                    sub_100020530("ASPFTLParseBufferToCxt: numUnsupportedAsi(271) cannot add 1 element to context");
                   }
 
-                  v17 = "ASPFTLParseBufferToCxt: numUnsupportedAsi(271) cannot add 1 element to context";
                   goto LABEL_161;
                 case 272:
-                  if (sub_100020050(a1, "", "NumTerminatedProgramSegs", *v8))
+                  if ((sub_100020050(a1, "", "NumTerminatedProgramSegs", *a2) & 1) == 0)
                   {
-                    goto LABEL_162;
+                    sub_100020530("ASPFTLParseBufferToCxt: NumTerminatedProgramSegs(272) cannot add 1 element to context");
                   }
 
-                  v17 = "ASPFTLParseBufferToCxt: NumTerminatedProgramSegs(272) cannot add 1 element to context";
                   goto LABEL_161;
                 case 273:
-                  if (sub_100020050(a1, "", "indParityPagesDrops", *v8))
+                  if ((sub_100020050(a1, "", "indParityPagesDrops", *a2) & 1) == 0)
                   {
-                    goto LABEL_162;
+                    sub_100020530("ASPFTLParseBufferToCxt: indParityPagesDrops(273) cannot add 1 element to context");
                   }
 
-                  v17 = "ASPFTLParseBufferToCxt: indParityPagesDrops(273) cannot add 1 element to context";
                   goto LABEL_161;
                 case 274:
-                  if (sub_100020050(a1, "", "indFlowPrograms", *v8))
+                  if ((sub_100020050(a1, "", "indFlowPrograms", *a2) & 1) == 0)
                   {
-                    goto LABEL_162;
+                    sub_100020530("ASPFTLParseBufferToCxt: indFlowPrograms(274) cannot add 1 element to context");
                   }
 
-                  v17 = "ASPFTLParseBufferToCxt: indFlowPrograms(274) cannot add 1 element to context";
                   goto LABEL_161;
                 case 277:
-                  if (v14 != 4)
+                  if (v9 != 4)
                   {
-                    sub_100020530("ASPFTLParseBufferToCxt: powerBudgetSelect(277): (#4) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                    sub_100020530("ASPFTLParseBufferToCxt: powerBudgetSelect(277): (#4) cfg elements != (%d) buffer elements", v9);
                   }
 
-                  if (v14 >= 5)
+                  if (v9 >= 5)
                   {
-                    v18 = 4;
+                    v12 = 4;
                   }
 
                   else
                   {
-                    v18 = v14;
+                    v12 = v9;
                   }
 
-                  if (sub_1000189BC(a1, "powerBudgetSelect_", v8, 8u, v18))
+                  if (sub_1000189BC(a1, "powerBudgetSelect_", a2, 8u, v12))
                   {
                     goto LABEL_110;
                   }
 
-                  v19 = "ASPFTLParseBufferToCxt: powerBudgetSelect(277): Cannot add 4 elements to context";
-                  goto LABEL_2993;
+                  sub_100020530("ASPFTLParseBufferToCxt: powerBudgetSelect(277): Cannot add 4 elements to context", v14);
+                  return v5;
                 case 279:
-                  if (sub_100020050(a1, "", "RxBurnNandWrites", *v8))
+                  if ((sub_100020050(a1, "", "RxBurnNandWrites", *a2) & 1) == 0)
                   {
-                    goto LABEL_162;
+                    sub_100020530("ASPFTLParseBufferToCxt: RxBurnNandWrites(279) cannot add 1 element to context");
                   }
 
-                  v17 = "ASPFTLParseBufferToCxt: RxBurnNandWrites(279) cannot add 1 element to context";
                   goto LABEL_161;
                 case 280:
-                  if (v14 != 12)
+                  if (v9 != 12)
                   {
-                    sub_100020530("ASPFTLParseBufferToCxt: E2EDPErrorCounters(280): (#12) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                    sub_100020530("ASPFTLParseBufferToCxt: E2EDPErrorCounters(280): (#12) cfg elements != (%d) buffer elements", v9);
                   }
 
-                  if (v14 >= 0xD)
+                  if (v9 >= 0xD)
                   {
-                    v18 = 12;
+                    v12 = 12;
                   }
 
                   else
                   {
-                    v18 = v14;
+                    v12 = v9;
                   }
 
-                  if (sub_1000189BC(a1, "E2EDPErrorCounters_", v8, 8u, v18))
+                  if (sub_1000189BC(a1, "E2EDPErrorCounters_", a2, 8u, v12))
                   {
                     goto LABEL_110;
                   }
 
-                  v19 = "ASPFTLParseBufferToCxt: E2EDPErrorCounters(280): Cannot add 12 elements to context";
-                  goto LABEL_2993;
+                  sub_100020530("ASPFTLParseBufferToCxt: E2EDPErrorCounters(280): Cannot add 12 elements to context", v14);
+                  return v5;
                 case 281:
-                  if (sub_100020050(a1, "", "wcacheSectorsMax", *v8))
+                  if ((sub_100020050(a1, "", "wcacheSectorsMax", *a2) & 1) == 0)
                   {
-                    goto LABEL_162;
+                    sub_100020530("ASPFTLParseBufferToCxt: wcacheSectorsMax(281) cannot add 1 element to context");
                   }
 
-                  v17 = "ASPFTLParseBufferToCxt: wcacheSectorsMax(281) cannot add 1 element to context";
                   goto LABEL_161;
                 case 282:
-                  if (sub_100020050(a1, "", "wcacheSectorsMin", *v8))
+                  if ((sub_100020050(a1, "", "wcacheSectorsMin", *a2) & 1) == 0)
                   {
-                    goto LABEL_162;
+                    sub_100020530("ASPFTLParseBufferToCxt: wcacheSectorsMin(282) cannot add 1 element to context");
                   }
 
-                  v17 = "ASPFTLParseBufferToCxt: wcacheSectorsMin(282) cannot add 1 element to context";
                   goto LABEL_161;
                 case 283:
-                  if (sub_100020050(a1, "", "wcacheSectorsCur", *v8))
+                  if ((sub_100020050(a1, "", "wcacheSectorsCur", *a2) & 1) == 0)
                   {
-                    goto LABEL_162;
+                    sub_100020530("ASPFTLParseBufferToCxt: wcacheSectorsCur(283) cannot add 1 element to context");
                   }
 
-                  v17 = "ASPFTLParseBufferToCxt: wcacheSectorsCur(283) cannot add 1 element to context";
                   goto LABEL_161;
                 case 284:
-                  if (sub_100020050(a1, "", "wcacheDS_SectorsMax", *v8))
+                  if ((sub_100020050(a1, "", "wcacheDS_SectorsMax", *a2) & 1) == 0)
                   {
-                    goto LABEL_162;
+                    sub_100020530("ASPFTLParseBufferToCxt: wcacheDS_SectorsMax(284) cannot add 1 element to context");
                   }
 
-                  v17 = "ASPFTLParseBufferToCxt: wcacheDS_SectorsMax(284) cannot add 1 element to context";
                   goto LABEL_161;
                 case 285:
-                  if (sub_100020050(a1, "", "wcacheDS_SectorsMin", *v8))
+                  if ((sub_100020050(a1, "", "wcacheDS_SectorsMin", *a2) & 1) == 0)
                   {
-                    goto LABEL_162;
+                    sub_100020530("ASPFTLParseBufferToCxt: wcacheDS_SectorsMin(285) cannot add 1 element to context");
                   }
 
-                  v17 = "ASPFTLParseBufferToCxt: wcacheDS_SectorsMin(285) cannot add 1 element to context";
                   goto LABEL_161;
                 case 286:
-                  if (sub_100020050(a1, "", "wcacheDS_SectorsCur", *v8))
+                  if ((sub_100020050(a1, "", "wcacheDS_SectorsCur", *a2) & 1) == 0)
                   {
-                    goto LABEL_162;
+                    sub_100020530("ASPFTLParseBufferToCxt: wcacheDS_SectorsCur(286) cannot add 1 element to context");
                   }
 
-                  v17 = "ASPFTLParseBufferToCxt: wcacheDS_SectorsCur(286) cannot add 1 element to context";
                   goto LABEL_161;
                 case 287:
-                  if (sub_100020050(a1, "", "wcacheFS_Reads", *v8))
+                  if ((sub_100020050(a1, "", "wcacheFS_Reads", *a2) & 1) == 0)
                   {
-                    goto LABEL_162;
+                    sub_100020530("ASPFTLParseBufferToCxt: wcacheFS_Reads(287) cannot add 1 element to context");
                   }
 
-                  v17 = "ASPFTLParseBufferToCxt: wcacheFS_Reads(287) cannot add 1 element to context";
                   goto LABEL_161;
                 case 288:
-                  if (sub_100020050(a1, "", "wcacheDS_Reads", *v8))
+                  if ((sub_100020050(a1, "", "wcacheDS_Reads", *a2) & 1) == 0)
                   {
-                    goto LABEL_162;
+                    sub_100020530("ASPFTLParseBufferToCxt: wcacheDS_Reads(288) cannot add 1 element to context");
                   }
 
-                  v17 = "ASPFTLParseBufferToCxt: wcacheDS_Reads(288) cannot add 1 element to context";
                   goto LABEL_161;
                 case 289:
-                  if (v14 != 32)
+                  if (v9 != 32)
                   {
-                    sub_100020530("ASPFTLParseBufferToCxt: mspBootBlockReadFail(289): (#32) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                    sub_100020530("ASPFTLParseBufferToCxt: mspBootBlockReadFail(289): (#32) cfg elements != (%d) buffer elements", v9);
                   }
 
-                  if (v14 >= 0x21)
+                  if (v9 >= 0x21)
                   {
-                    v18 = 32;
+                    v12 = 32;
                   }
 
                   else
                   {
-                    v18 = v14;
+                    v12 = v9;
                   }
 
-                  if (sub_1000189BC(a1, "mspBootBlockReadFail_", v8, 8u, v18))
+                  if (sub_1000189BC(a1, "mspBootBlockReadFail_", a2, 8u, v12))
                   {
                     goto LABEL_110;
                   }
 
-                  v19 = "ASPFTLParseBufferToCxt: mspBootBlockReadFail(289): Cannot add 32 elements to context";
-                  goto LABEL_2993;
+                  sub_100020530("ASPFTLParseBufferToCxt: mspBootBlockReadFail(289): Cannot add 32 elements to context", v14);
+                  return v5;
                 case 290:
-                  if (v14 != 32)
+                  if (v9 != 32)
                   {
-                    sub_100020530("ASPFTLParseBufferToCxt: mspBootBlockProgFail(290): (#32) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                    sub_100020530("ASPFTLParseBufferToCxt: mspBootBlockProgFail(290): (#32) cfg elements != (%d) buffer elements", v9);
                   }
 
-                  if (v14 >= 0x21)
+                  if (v9 >= 0x21)
                   {
-                    v18 = 32;
+                    v12 = 32;
                   }
 
                   else
                   {
-                    v18 = v14;
+                    v12 = v9;
                   }
 
-                  if (sub_1000189BC(a1, "mspBootBlockProgFail_", v8, 8u, v18))
+                  if (sub_1000189BC(a1, "mspBootBlockProgFail_", a2, 8u, v12))
                   {
                     goto LABEL_110;
                   }
 
-                  v19 = "ASPFTLParseBufferToCxt: mspBootBlockProgFail(290): Cannot add 32 elements to context";
-                  goto LABEL_2993;
+                  sub_100020530("ASPFTLParseBufferToCxt: mspBootBlockProgFail(290): Cannot add 32 elements to context", v14);
+                  return v5;
                 case 291:
-                  if (v14 != 32)
+                  if (v9 != 32)
                   {
-                    sub_100020530("ASPFTLParseBufferToCxt: mspBootBlockEraseFail(291): (#32) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                    sub_100020530("ASPFTLParseBufferToCxt: mspBootBlockEraseFail(291): (#32) cfg elements != (%d) buffer elements", v9);
                   }
 
-                  if (v14 >= 0x21)
+                  if (v9 >= 0x21)
                   {
-                    v18 = 32;
+                    v12 = 32;
                   }
 
                   else
                   {
-                    v18 = v14;
+                    v12 = v9;
                   }
 
-                  if (sub_1000189BC(a1, "mspBootBlockEraseFail_", v8, 8u, v18))
+                  if (sub_1000189BC(a1, "mspBootBlockEraseFail_", a2, 8u, v12))
                   {
                     goto LABEL_110;
                   }
 
-                  v19 = "ASPFTLParseBufferToCxt: mspBootBlockEraseFail(291): Cannot add 32 elements to context";
-                  goto LABEL_2993;
+                  sub_100020530("ASPFTLParseBufferToCxt: mspBootBlockEraseFail(291): Cannot add 32 elements to context", v14);
+                  return v5;
                 case 292:
-                  if (sub_100020050(a1, "", "bandsRefreshedOnError", *v8))
+                  if ((sub_100020050(a1, "", "bandsRefreshedOnError", *a2) & 1) == 0)
                   {
-                    goto LABEL_162;
+                    sub_100020530("ASPFTLParseBufferToCxt: bandsRefreshedOnError(292) cannot add 1 element to context");
                   }
 
-                  v17 = "ASPFTLParseBufferToCxt: bandsRefreshedOnError(292) cannot add 1 element to context";
                   goto LABEL_161;
                 default:
-                  switch(v12)
+                  switch(v7)
                   {
                     case 298:
-                      if (v14 != 2)
+                      if (v9 != 2)
                       {
-                        sub_100020530("ASPFTLParseBufferToCxt: perHostReads(298): (#2) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                        sub_100020530("ASPFTLParseBufferToCxt: perHostReads(298): (#2) cfg elements != (%d) buffer elements", v9);
                       }
 
-                      if (v14 >= 3)
+                      if (v9 >= 3)
                       {
-                        v18 = 2;
+                        v12 = 2;
                       }
 
                       else
                       {
-                        v18 = v14;
+                        v12 = v9;
                       }
 
-                      if (sub_1000189BC(a1, "perHostReads_", v8, 8u, v18))
+                      if (sub_1000189BC(a1, "perHostReads_", a2, 8u, v12))
                       {
                         goto LABEL_110;
                       }
 
-                      v19 = "ASPFTLParseBufferToCxt: perHostReads(298): Cannot add 2 elements to context";
-                      goto LABEL_2993;
+                      sub_100020530("ASPFTLParseBufferToCxt: perHostReads(298): Cannot add 2 elements to context", v14);
+                      return v5;
                     case 299:
-                      if (v14 != 2)
+                      if (v9 != 2)
                       {
-                        sub_100020530("ASPFTLParseBufferToCxt: perHostReadXacts(299): (#2) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                        sub_100020530("ASPFTLParseBufferToCxt: perHostReadXacts(299): (#2) cfg elements != (%d) buffer elements", v9);
                       }
 
-                      if (v14 >= 3)
+                      if (v9 >= 3)
                       {
-                        v18 = 2;
+                        v12 = 2;
                       }
 
                       else
                       {
-                        v18 = v14;
+                        v12 = v9;
                       }
 
-                      if (sub_1000189BC(a1, "perHostReadXacts_", v8, 8u, v18))
+                      if (sub_1000189BC(a1, "perHostReadXacts_", a2, 8u, v12))
                       {
                         goto LABEL_110;
                       }
 
-                      v19 = "ASPFTLParseBufferToCxt: perHostReadXacts(299): Cannot add 2 elements to context";
-                      goto LABEL_2993;
+                      sub_100020530("ASPFTLParseBufferToCxt: perHostReadXacts(299): Cannot add 2 elements to context", v14);
+                      return v5;
                     case 300:
-                      if (v14 != 2)
+                      if (v9 != 2)
                       {
-                        sub_100020530("ASPFTLParseBufferToCxt: perHostWrites(300): (#2) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                        sub_100020530("ASPFTLParseBufferToCxt: perHostWrites(300): (#2) cfg elements != (%d) buffer elements", v9);
                       }
 
-                      if (v14 >= 3)
+                      if (v9 >= 3)
                       {
-                        v18 = 2;
+                        v12 = 2;
                       }
 
                       else
                       {
-                        v18 = v14;
+                        v12 = v9;
                       }
 
-                      if (sub_1000189BC(a1, "perHostWrites_", v8, 8u, v18))
+                      if (sub_1000189BC(a1, "perHostWrites_", a2, 8u, v12))
                       {
                         goto LABEL_110;
                       }
 
-                      v19 = "ASPFTLParseBufferToCxt: perHostWrites(300): Cannot add 2 elements to context";
-                      goto LABEL_2993;
+                      sub_100020530("ASPFTLParseBufferToCxt: perHostWrites(300): Cannot add 2 elements to context", v14);
+                      return v5;
                     case 301:
-                      if (v14 != 2)
+                      if (v9 != 2)
                       {
-                        sub_100020530("ASPFTLParseBufferToCxt: perHostWriteXacts(301): (#2) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                        sub_100020530("ASPFTLParseBufferToCxt: perHostWriteXacts(301): (#2) cfg elements != (%d) buffer elements", v9);
                       }
 
-                      if (v14 >= 3)
+                      if (v9 >= 3)
                       {
-                        v18 = 2;
+                        v12 = 2;
                       }
 
                       else
                       {
-                        v18 = v14;
+                        v12 = v9;
                       }
 
-                      if (sub_1000189BC(a1, "perHostWriteXacts_", v8, 8u, v18))
+                      if (sub_1000189BC(a1, "perHostWriteXacts_", a2, 8u, v12))
                       {
                         goto LABEL_110;
                       }
 
-                      v19 = "ASPFTLParseBufferToCxt: perHostWriteXacts(301): Cannot add 2 elements to context";
-                      goto LABEL_2993;
+                      sub_100020530("ASPFTLParseBufferToCxt: perHostWriteXacts(301): Cannot add 2 elements to context", v14);
+                      return v5;
                     case 302:
-                      if (v14 != 2)
+                      if (v9 != 2)
                       {
-                        sub_100020530("ASPFTLParseBufferToCxt: perHostNumFlushes(302): (#2) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                        sub_100020530("ASPFTLParseBufferToCxt: perHostNumFlushes(302): (#2) cfg elements != (%d) buffer elements", v9);
                       }
 
-                      if (v14 >= 3)
+                      if (v9 >= 3)
                       {
-                        v18 = 2;
+                        v12 = 2;
                       }
 
                       else
                       {
-                        v18 = v14;
+                        v12 = v9;
                       }
 
-                      if (sub_1000189BC(a1, "perHostNumFlushes_", v8, 8u, v18))
+                      if (sub_1000189BC(a1, "perHostNumFlushes_", a2, 8u, v12))
                       {
                         goto LABEL_110;
                       }
 
-                      v19 = "ASPFTLParseBufferToCxt: perHostNumFlushes(302): Cannot add 2 elements to context";
-                      goto LABEL_2993;
+                      sub_100020530("ASPFTLParseBufferToCxt: perHostNumFlushes(302): Cannot add 2 elements to context", v14);
+                      return v5;
                     case 303:
-                      if (v14 != 2)
+                      if (v9 != 2)
                       {
-                        sub_100020530("ASPFTLParseBufferToCxt: perHostNumFences(303): (#2) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                        sub_100020530("ASPFTLParseBufferToCxt: perHostNumFences(303): (#2) cfg elements != (%d) buffer elements", v9);
                       }
 
-                      if (v14 >= 3)
+                      if (v9 >= 3)
                       {
-                        v18 = 2;
+                        v12 = 2;
                       }
 
                       else
                       {
-                        v18 = v14;
+                        v12 = v9;
                       }
 
-                      if (sub_1000189BC(a1, "perHostNumFences_", v8, 8u, v18))
+                      if (sub_1000189BC(a1, "perHostNumFences_", a2, 8u, v12))
                       {
                         goto LABEL_110;
                       }
 
-                      v19 = "ASPFTLParseBufferToCxt: perHostNumFences(303): Cannot add 2 elements to context";
-                      goto LABEL_2993;
+                      sub_100020530("ASPFTLParseBufferToCxt: perHostNumFences(303): Cannot add 2 elements to context", v14);
+                      return v5;
                     case 304:
-                      if (v14 != 10)
+                      if (v9 != 10)
                       {
-                        sub_100020530("ASPFTLParseBufferToCxt: commitPadSectorsPerFlow(304): (#10) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                        sub_100020530("ASPFTLParseBufferToCxt: commitPadSectorsPerFlow(304): (#10) cfg elements != (%d) buffer elements", v9);
                       }
 
-                      if (v14 >= 0xB)
+                      if (v9 >= 0xB)
                       {
-                        v18 = 10;
+                        v12 = 10;
                       }
 
                       else
                       {
-                        v18 = v14;
+                        v12 = v9;
                       }
 
-                      if (sub_1000189BC(a1, "commitPadSectorsPerFlow_", v8, 8u, v18))
+                      if (sub_1000189BC(a1, "commitPadSectorsPerFlow_", a2, 8u, v12))
                       {
                         goto LABEL_110;
                       }
 
-                      v19 = "ASPFTLParseBufferToCxt: commitPadSectorsPerFlow(304): Cannot add 10 elements to context";
-                      goto LABEL_2993;
+                      sub_100020530("ASPFTLParseBufferToCxt: commitPadSectorsPerFlow(304): Cannot add 10 elements to context", v14);
+                      return v5;
                     case 305:
-                      if (v14 != 10)
+                      if (v9 != 10)
                       {
-                        sub_100020530("ASPFTLParseBufferToCxt: wcacheDSOverWrLogSizeCnts(305): (#10) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                        sub_100020530("ASPFTLParseBufferToCxt: wcacheDSOverWrLogSizeCnts(305): (#10) cfg elements != (%d) buffer elements", v9);
                       }
 
-                      if (v14 >= 0xB)
+                      if (v9 >= 0xB)
                       {
-                        v18 = 10;
+                        v12 = 10;
                       }
 
                       else
                       {
-                        v18 = v14;
+                        v12 = v9;
                       }
 
-                      if (sub_1000189BC(a1, "wcacheDSOverWrLogSizeCnts_", v8, 8u, v18))
+                      if (sub_1000189BC(a1, "wcacheDSOverWrLogSizeCnts_", a2, 8u, v12))
                       {
                         goto LABEL_110;
                       }
 
-                      v19 = "ASPFTLParseBufferToCxt: wcacheDSOverWrLogSizeCnts(305): Cannot add 10 elements to context";
-                      goto LABEL_2993;
+                      sub_100020530("ASPFTLParseBufferToCxt: wcacheDSOverWrLogSizeCnts(305): Cannot add 10 elements to context", v14);
+                      return v5;
                     case 306:
-                      if (v14 != 4)
+                      if (v9 != 4)
                       {
-                        sub_100020530("ASPFTLParseBufferToCxt: wcacheDSOverWrSizeByFlow(306): (#4) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                        sub_100020530("ASPFTLParseBufferToCxt: wcacheDSOverWrSizeByFlow(306): (#4) cfg elements != (%d) buffer elements", v9);
                       }
 
-                      if (v14 >= 5)
+                      if (v9 >= 5)
                       {
-                        v18 = 4;
+                        v12 = 4;
                       }
 
                       else
                       {
-                        v18 = v14;
+                        v12 = v9;
                       }
 
-                      if (sub_1000189BC(a1, "wcacheDSOverWrSizeByFlow_", v8, 8u, v18))
+                      if (sub_1000189BC(a1, "wcacheDSOverWrSizeByFlow_", a2, 8u, v12))
                       {
                         goto LABEL_110;
                       }
 
-                      v19 = "ASPFTLParseBufferToCxt: wcacheDSOverWrSizeByFlow(306): Cannot add 4 elements to context";
-                      goto LABEL_2993;
+                      sub_100020530("ASPFTLParseBufferToCxt: wcacheDSOverWrSizeByFlow(306): Cannot add 4 elements to context", v14);
+                      return v5;
                     case 307:
-                      if (v14 != 10)
+                      if (v9 != 10)
                       {
-                        sub_100020530("ASPFTLParseBufferToCxt: CmdRaisePrioiryEvents(307): (#10) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                        sub_100020530("ASPFTLParseBufferToCxt: CmdRaisePrioiryEvents(307): (#10) cfg elements != (%d) buffer elements", v9);
                       }
 
-                      if (v14 >= 0xB)
+                      if (v9 >= 0xB)
                       {
-                        v18 = 10;
+                        v12 = 10;
                       }
 
                       else
                       {
-                        v18 = v14;
+                        v12 = v9;
                       }
 
-                      if (sub_1000189BC(a1, "CmdRaisePrioiryEvents_", v8, 8u, v18))
+                      if (sub_1000189BC(a1, "CmdRaisePrioiryEvents_", a2, 8u, v12))
                       {
                         goto LABEL_110;
                       }
 
-                      v19 = "ASPFTLParseBufferToCxt: CmdRaisePrioiryEvents(307): Cannot add 10 elements to context";
-                      goto LABEL_2993;
+                      sub_100020530("ASPFTLParseBufferToCxt: CmdRaisePrioiryEvents(307): Cannot add 10 elements to context", v14);
+                      return v5;
                     case 308:
-                      if (sub_100020050(a1, "", "utilNumVerification", *v8))
+                      if ((sub_100020050(a1, "", "utilNumVerification", *a2) & 1) == 0)
                       {
-                        goto LABEL_162;
+                        sub_100020530("ASPFTLParseBufferToCxt: utilNumVerification(308) cannot add 1 element to context");
                       }
 
-                      v17 = "ASPFTLParseBufferToCxt: utilNumVerification(308) cannot add 1 element to context";
                       goto LABEL_161;
                     case 309:
-                      if (sub_100020050(a1, "", "utilRefreshes", *v8))
+                      if ((sub_100020050(a1, "", "utilRefreshes", *a2) & 1) == 0)
                       {
-                        goto LABEL_162;
+                        sub_100020530("ASPFTLParseBufferToCxt: utilRefreshes(309) cannot add 1 element to context");
                       }
 
-                      v17 = "ASPFTLParseBufferToCxt: utilRefreshes(309) cannot add 1 element to context";
                       goto LABEL_161;
                     case 310:
-                      if (sub_100020050(a1, "", "utilBDRErrors", *v8))
+                      if ((sub_100020050(a1, "", "utilBDRErrors", *a2) & 1) == 0)
                       {
-                        goto LABEL_162;
+                        sub_100020530("ASPFTLParseBufferToCxt: utilBDRErrors(310) cannot add 1 element to context");
                       }
 
-                      v17 = "ASPFTLParseBufferToCxt: utilBDRErrors(310) cannot add 1 element to context";
                       goto LABEL_161;
                     case 311:
-                      if (sub_100020050(a1, "", "indBandsPerFlow", *v8))
+                      if ((sub_100020050(a1, "", "indBandsPerFlow", *a2) & 1) == 0)
                       {
-                        goto LABEL_162;
+                        sub_100020530("ASPFTLParseBufferToCxt: indBandsPerFlow(311) cannot add 1 element to context");
                       }
 
-                      v17 = "ASPFTLParseBufferToCxt: indBandsPerFlow(311) cannot add 1 element to context";
                       goto LABEL_161;
                     case 312:
-                      if (sub_100020050(a1, "", "secsPerIndFlow", *v8))
+                      if ((sub_100020050(a1, "", "secsPerIndFlow", *a2) & 1) == 0)
                       {
-                        goto LABEL_162;
+                        sub_100020530("ASPFTLParseBufferToCxt: secsPerIndFlow(312) cannot add 1 element to context");
                       }
 
-                      v17 = "ASPFTLParseBufferToCxt: secsPerIndFlow(312) cannot add 1 element to context";
                       goto LABEL_161;
                     case 313:
-                      if (sub_100020050(a1, "", "indDecodedECC", *v8))
+                      if ((sub_100020050(a1, "", "indDecodedECC", *a2) & 1) == 0)
                       {
-                        goto LABEL_162;
+                        sub_100020530("ASPFTLParseBufferToCxt: indDecodedECC(313) cannot add 1 element to context");
                       }
 
-                      v17 = "ASPFTLParseBufferToCxt: indDecodedECC(313) cannot add 1 element to context";
                       goto LABEL_161;
                     case 314:
-                      if (v14 != 8)
+                      if (v9 != 8)
                       {
-                        sub_100020530("ASPFTLParseBufferToCxt: numBootBlockValidateSuccess(314): (#8) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                        sub_100020530("ASPFTLParseBufferToCxt: numBootBlockValidateSuccess(314): (#8) cfg elements != (%d) buffer elements", v9);
                       }
 
-                      if (v14 >= 9)
+                      if (v9 >= 9)
                       {
-                        v18 = 8;
+                        v12 = 8;
                       }
 
                       else
                       {
-                        v18 = v14;
+                        v12 = v9;
                       }
 
-                      if (sub_1000189BC(a1, "numBootBlockValidateSuccess_", v8, 8u, v18))
+                      if (sub_1000189BC(a1, "numBootBlockValidateSuccess_", a2, 8u, v12))
                       {
                         goto LABEL_110;
                       }
 
-                      v19 = "ASPFTLParseBufferToCxt: numBootBlockValidateSuccess(314): Cannot add 8 elements to context";
-                      goto LABEL_2993;
+                      sub_100020530("ASPFTLParseBufferToCxt: numBootBlockValidateSuccess(314): Cannot add 8 elements to context", v14);
+                      return v5;
                     case 315:
-                      if (v14 != 8)
+                      if (v9 != 8)
                       {
-                        sub_100020530("ASPFTLParseBufferToCxt: numBootBlockValidateFail(315): (#8) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                        sub_100020530("ASPFTLParseBufferToCxt: numBootBlockValidateFail(315): (#8) cfg elements != (%d) buffer elements", v9);
                       }
 
-                      if (v14 >= 9)
+                      if (v9 >= 9)
                       {
-                        v18 = 8;
+                        v12 = 8;
                       }
 
                       else
                       {
-                        v18 = v14;
+                        v12 = v9;
                       }
 
-                      if (sub_1000189BC(a1, "numBootBlockValidateFail_", v8, 8u, v18))
+                      if (sub_1000189BC(a1, "numBootBlockValidateFail_", a2, 8u, v12))
                       {
                         goto LABEL_110;
                       }
 
-                      v19 = "ASPFTLParseBufferToCxt: numBootBlockValidateFail(315): Cannot add 8 elements to context";
-                      goto LABEL_2993;
+                      sub_100020530("ASPFTLParseBufferToCxt: numBootBlockValidateFail(315): Cannot add 8 elements to context", v14);
+                      return v5;
                     case 316:
-                      if (v14 != 4)
+                      if (v9 != 4)
                       {
-                        sub_100020530("ASPFTLParseBufferToCxt: clogPagesFillingPercentage(316): (#4) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                        sub_100020530("ASPFTLParseBufferToCxt: clogPagesFillingPercentage(316): (#4) cfg elements != (%d) buffer elements", v9);
                       }
 
-                      if (v14 >= 5)
+                      if (v9 >= 5)
                       {
-                        v18 = 4;
+                        v12 = 4;
                       }
 
                       else
                       {
-                        v18 = v14;
+                        v12 = v9;
                       }
 
-                      if (sub_1000189BC(a1, "clogPagesFillingPercentage_", v8, 8u, v18))
+                      if (sub_1000189BC(a1, "clogPagesFillingPercentage_", a2, 8u, v12))
                       {
                         goto LABEL_110;
                       }
 
-                      v19 = "ASPFTLParseBufferToCxt: clogPagesFillingPercentage(316): Cannot add 4 elements to context";
-                      goto LABEL_2993;
+                      sub_100020530("ASPFTLParseBufferToCxt: clogPagesFillingPercentage(316): Cannot add 4 elements to context", v14);
+                      return v5;
                     case 317:
-                      if (sub_100020050(a1, "", "bdrCalTimeAccFactor", *v8))
+                      if ((sub_100020050(a1, "", "bdrCalTimeAccFactor", *a2) & 1) == 0)
                       {
-                        goto LABEL_162;
+                        sub_100020530("ASPFTLParseBufferToCxt: bdrCalTimeAccFactor(317) cannot add 1 element to context");
                       }
 
-                      v17 = "ASPFTLParseBufferToCxt: bdrCalTimeAccFactor(317) cannot add 1 element to context";
                       goto LABEL_161;
                     case 318:
-                      if (sub_100020050(a1, "", "bootChainRdError", *v8))
+                      if ((sub_100020050(a1, "", "bootChainRdError", *a2) & 1) == 0)
                       {
-                        goto LABEL_162;
+                        sub_100020530("ASPFTLParseBufferToCxt: bootChainRdError(318) cannot add 1 element to context");
                       }
 
-                      v17 = "ASPFTLParseBufferToCxt: bootChainRdError(318) cannot add 1 element to context";
                       goto LABEL_161;
                     case 319:
-                      if (sub_100020050(a1, "", "bootChainBlankError", *v8))
+                      if ((sub_100020050(a1, "", "bootChainBlankError", *a2) & 1) == 0)
                       {
-                        goto LABEL_162;
+                        sub_100020530("ASPFTLParseBufferToCxt: bootChainBlankError(319) cannot add 1 element to context");
                       }
 
-                      v17 = "ASPFTLParseBufferToCxt: bootChainBlankError(319) cannot add 1 element to context";
                       goto LABEL_161;
                     case 320:
-                      if (sub_100020050(a1, "", "bootChainRefreshError", *v8))
+                      if ((sub_100020050(a1, "", "bootChainRefreshError", *a2) & 1) == 0)
                       {
-                        goto LABEL_162;
+                        sub_100020530("ASPFTLParseBufferToCxt: bootChainRefreshError(320) cannot add 1 element to context");
                       }
 
-                      v17 = "ASPFTLParseBufferToCxt: bootChainRefreshError(320) cannot add 1 element to context";
                       goto LABEL_161;
                     case 321:
-                      if (sub_100020050(a1, "", "bootChainVersionError", *v8))
+                      if ((sub_100020050(a1, "", "bootChainVersionError", *a2) & 1) == 0)
                       {
-                        goto LABEL_162;
+                        sub_100020530("ASPFTLParseBufferToCxt: bootChainVersionError(321) cannot add 1 element to context");
                       }
 
-                      v17 = "ASPFTLParseBufferToCxt: bootChainVersionError(321) cannot add 1 element to context";
                       goto LABEL_161;
                     case 322:
-                      if (sub_100020050(a1, "", "mspBootBlockMismatch", *v8))
+                      if ((sub_100020050(a1, "", "mspBootBlockMismatch", *a2) & 1) == 0)
                       {
-                        goto LABEL_162;
+                        sub_100020530("ASPFTLParseBufferToCxt: mspBootBlockMismatch(322) cannot add 1 element to context");
                       }
 
-                      v17 = "ASPFTLParseBufferToCxt: mspBootBlockMismatch(322) cannot add 1 element to context";
                       goto LABEL_161;
                     case 323:
-                      if (sub_100020050(a1, "", "mspBootBlockMismatchErr", *v8))
+                      if ((sub_100020050(a1, "", "mspBootBlockMismatchErr", *a2) & 1) == 0)
                       {
-                        goto LABEL_162;
+                        sub_100020530("ASPFTLParseBufferToCxt: mspBootBlockMismatchErr(323) cannot add 1 element to context");
                       }
 
-                      v17 = "ASPFTLParseBufferToCxt: mspBootBlockMismatchErr(323) cannot add 1 element to context";
                       goto LABEL_161;
                     case 324:
-                      if (v14 != 5)
+                      if (v9 != 5)
                       {
-                        sub_100020530("ASPFTLParseBufferToCxt: bitflipAddr(324): (#5) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                        sub_100020530("ASPFTLParseBufferToCxt: bitflipAddr(324): (#5) cfg elements != (%d) buffer elements", v9);
                       }
 
-                      if (v12 >> 33 >= 3)
+                      if (v7 >> 33 >= 3)
                       {
-                        v18 = 5;
+                        v12 = 5;
                       }
 
                       else
                       {
-                        v18 = v14;
+                        v12 = v9;
                       }
 
-                      if (sub_1000189BC(a1, "bitflipAddr_", v8, 8u, v18))
+                      if (sub_1000189BC(a1, "bitflipAddr_", a2, 8u, v12))
                       {
                         goto LABEL_110;
                       }
 
-                      v19 = "ASPFTLParseBufferToCxt: bitflipAddr(324): Cannot add 5 elements to context";
-                      goto LABEL_2993;
+                      sub_100020530("ASPFTLParseBufferToCxt: bitflipAddr(324): Cannot add 5 elements to context", v14);
+                      return v5;
                     case 325:
-                      if (v14 != 5)
+                      if (v9 != 5)
                       {
-                        sub_100020530("ASPFTLParseBufferToCxt: bitflipCount(325): (#5) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                        sub_100020530("ASPFTLParseBufferToCxt: bitflipCount(325): (#5) cfg elements != (%d) buffer elements", v9);
                       }
 
-                      if (v12 >> 33 >= 3)
+                      if (v7 >> 33 >= 3)
                       {
-                        v18 = 5;
+                        v12 = 5;
                       }
 
                       else
                       {
-                        v18 = v14;
+                        v12 = v9;
                       }
 
-                      if (sub_1000189BC(a1, "bitflipCount_", v8, 8u, v18))
+                      if (sub_1000189BC(a1, "bitflipCount_", a2, 8u, v12))
                       {
                         goto LABEL_110;
                       }
 
-                      v19 = "ASPFTLParseBufferToCxt: bitflipCount(325): Cannot add 5 elements to context";
-                      goto LABEL_2993;
+                      sub_100020530("ASPFTLParseBufferToCxt: bitflipCount(325): Cannot add 5 elements to context", v14);
+                      return v5;
                     case 326:
-                      if (v14 != 5)
+                      if (v9 != 5)
                       {
-                        sub_100020530("ASPFTLParseBufferToCxt: bitflipDupes(326): (#5) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                        sub_100020530("ASPFTLParseBufferToCxt: bitflipDupes(326): (#5) cfg elements != (%d) buffer elements", v9);
                       }
 
-                      if (v12 >> 33 >= 3)
+                      if (v7 >> 33 >= 3)
                       {
-                        v18 = 5;
+                        v12 = 5;
                       }
 
                       else
                       {
-                        v18 = v14;
+                        v12 = v9;
                       }
 
-                      if (sub_1000189BC(a1, "bitflipDupes_", v8, 8u, v18))
+                      if (sub_1000189BC(a1, "bitflipDupes_", a2, 8u, v12))
                       {
                         goto LABEL_110;
                       }
 
-                      v19 = "ASPFTLParseBufferToCxt: bitflipDupes(326): Cannot add 5 elements to context";
-                      goto LABEL_2993;
+                      sub_100020530("ASPFTLParseBufferToCxt: bitflipDupes(326): Cannot add 5 elements to context", v14);
+                      return v5;
                     case 327:
-                      if (v14 != 30)
+                      if (v9 != 30)
                       {
-                        sub_100020530("ASPFTLParseBufferToCxt: bandsMaxTempHisto(327): (#30) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                        sub_100020530("ASPFTLParseBufferToCxt: bandsMaxTempHisto(327): (#30) cfg elements != (%d) buffer elements", v9);
                       }
 
-                      if (v14 >= 0x1F)
+                      if (v9 >= 0x1F)
                       {
-                        v18 = 30;
+                        v12 = 30;
                       }
 
                       else
                       {
-                        v18 = v14;
+                        v12 = v9;
                       }
 
-                      if (sub_1000189BC(a1, "bandsMaxTempHisto_", v8, 8u, v18))
+                      if (sub_1000189BC(a1, "bandsMaxTempHisto_", a2, 8u, v12))
                       {
                         goto LABEL_110;
                       }
 
-                      v19 = "ASPFTLParseBufferToCxt: bandsMaxTempHisto(327): Cannot add 30 elements to context";
-                      goto LABEL_2993;
+                      sub_100020530("ASPFTLParseBufferToCxt: bandsMaxTempHisto(327): Cannot add 30 elements to context", v14);
+                      return v5;
                     case 328:
-                      if (v14 != 30)
+                      if (v9 != 30)
                       {
-                        sub_100020530("ASPFTLParseBufferToCxt: bandsMinTempHisto(328): (#30) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                        sub_100020530("ASPFTLParseBufferToCxt: bandsMinTempHisto(328): (#30) cfg elements != (%d) buffer elements", v9);
                       }
 
-                      if (v14 >= 0x1F)
+                      if (v9 >= 0x1F)
                       {
-                        v18 = 30;
+                        v12 = 30;
                       }
 
                       else
                       {
-                        v18 = v14;
+                        v12 = v9;
                       }
 
-                      if (sub_1000189BC(a1, "bandsMinTempHisto_", v8, 8u, v18))
+                      if (sub_1000189BC(a1, "bandsMinTempHisto_", a2, 8u, v12))
                       {
                         goto LABEL_110;
                       }
 
-                      v19 = "ASPFTLParseBufferToCxt: bandsMinTempHisto(328): Cannot add 30 elements to context";
-                      goto LABEL_2993;
+                      sub_100020530("ASPFTLParseBufferToCxt: bandsMinTempHisto(328): Cannot add 30 elements to context", v14);
+                      return v5;
                     case 329:
-                      if (v14 != 30)
+                      if (v9 != 30)
                       {
-                        sub_100020530("ASPFTLParseBufferToCxt: bandsLifeTimeTempHisto(329): (#30) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                        sub_100020530("ASPFTLParseBufferToCxt: bandsLifeTimeTempHisto(329): (#30) cfg elements != (%d) buffer elements", v9);
                       }
 
-                      if (v14 >= 0x1F)
+                      if (v9 >= 0x1F)
                       {
-                        v18 = 30;
+                        v12 = 30;
                       }
 
                       else
                       {
-                        v18 = v14;
+                        v12 = v9;
                       }
 
-                      if (sub_1000189BC(a1, "bandsLifeTimeTempHisto_", v8, 8u, v18))
+                      if (sub_1000189BC(a1, "bandsLifeTimeTempHisto_", a2, 8u, v12))
                       {
                         goto LABEL_110;
                       }
 
-                      v19 = "ASPFTLParseBufferToCxt: bandsLifeTimeTempHisto(329): Cannot add 30 elements to context";
-                      goto LABEL_2993;
+                      sub_100020530("ASPFTLParseBufferToCxt: bandsLifeTimeTempHisto(329): Cannot add 30 elements to context", v14);
+                      return v5;
                     case 330:
-                      if (v14 != 22)
+                      if (v9 != 22)
                       {
-                        sub_100020530("ASPFTLParseBufferToCxt: bandsDeltaTempHisto(330): (#22) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                        sub_100020530("ASPFTLParseBufferToCxt: bandsDeltaTempHisto(330): (#22) cfg elements != (%d) buffer elements", v9);
                       }
 
-                      if (v14 >= 0x17)
+                      if (v9 >= 0x17)
                       {
-                        v18 = 22;
+                        v12 = 22;
                       }
 
                       else
                       {
-                        v18 = v14;
+                        v12 = v9;
                       }
 
-                      if (sub_1000189BC(a1, "bandsDeltaTempHisto_", v8, 8u, v18))
+                      if (sub_1000189BC(a1, "bandsDeltaTempHisto_", a2, 8u, v12))
                       {
                         goto LABEL_110;
                       }
 
-                      v19 = "ASPFTLParseBufferToCxt: bandsDeltaTempHisto(330): Cannot add 22 elements to context";
-                      goto LABEL_2993;
+                      sub_100020530("ASPFTLParseBufferToCxt: bandsDeltaTempHisto(330): Cannot add 22 elements to context", v14);
+                      return v5;
                     case 331:
-                      if (v14 != 45)
+                      if (v9 != 45)
                       {
-                        sub_100020530("ASPFTLParseBufferToCxt: bandsCrossTempHisto(331): (#45) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                        sub_100020530("ASPFTLParseBufferToCxt: bandsCrossTempHisto(331): (#45) cfg elements != (%d) buffer elements", v9);
                       }
 
-                      if (v12 >> 33 >= 0x17)
+                      if (v7 >> 33 >= 0x17)
                       {
-                        v18 = 45;
+                        v12 = 45;
                       }
 
                       else
                       {
-                        v18 = v14;
+                        v12 = v9;
                       }
 
-                      if (sub_1000189BC(a1, "bandsCrossTempHisto_", v8, 8u, v18))
+                      if (sub_1000189BC(a1, "bandsCrossTempHisto_", a2, 8u, v12))
                       {
                         goto LABEL_110;
                       }
 
-                      v19 = "ASPFTLParseBufferToCxt: bandsCrossTempHisto(331): Cannot add 45 elements to context";
-                      goto LABEL_2993;
+                      sub_100020530("ASPFTLParseBufferToCxt: bandsCrossTempHisto(331): Cannot add 45 elements to context", v14);
+                      return v5;
                     case 332:
-                      if (v14 != 10)
+                      if (v9 != 10)
                       {
-                        sub_100020530("ASPFTLParseBufferToCxt: wcacheWaitLogMs(332): (#10) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                        sub_100020530("ASPFTLParseBufferToCxt: wcacheWaitLogMs(332): (#10) cfg elements != (%d) buffer elements", v9);
                       }
 
-                      if (v14 >= 0xB)
+                      if (v9 >= 0xB)
                       {
-                        v18 = 10;
+                        v12 = 10;
                       }
 
                       else
                       {
-                        v18 = v14;
+                        v12 = v9;
                       }
 
-                      if (sub_1000189BC(a1, "wcacheWaitLogMs_", v8, 8u, v18))
+                      if (sub_1000189BC(a1, "wcacheWaitLogMs_", a2, 8u, v12))
                       {
                         goto LABEL_110;
                       }
 
-                      v19 = "ASPFTLParseBufferToCxt: wcacheWaitLogMs(332): Cannot add 10 elements to context";
-                      goto LABEL_2993;
+                      sub_100020530("ASPFTLParseBufferToCxt: wcacheWaitLogMs(332): Cannot add 10 elements to context", v14);
+                      return v5;
                     case 333:
-                      if (v14 != 10)
+                      if (v9 != 10)
                       {
-                        sub_100020530("ASPFTLParseBufferToCxt: wcacheDS_segsSortedLogSize(333): (#10) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                        sub_100020530("ASPFTLParseBufferToCxt: wcacheDS_segsSortedLogSize(333): (#10) cfg elements != (%d) buffer elements", v9);
                       }
 
-                      if (v14 >= 0xB)
+                      if (v9 >= 0xB)
                       {
-                        v18 = 10;
+                        v12 = 10;
                       }
 
                       else
                       {
-                        v18 = v14;
+                        v12 = v9;
                       }
 
-                      if (sub_1000189BC(a1, "wcacheDS_segsSortedLogSize_", v8, 8u, v18))
+                      if (sub_1000189BC(a1, "wcacheDS_segsSortedLogSize_", a2, 8u, v12))
                       {
                         goto LABEL_110;
                       }
 
-                      v19 = "ASPFTLParseBufferToCxt: wcacheDS_segsSortedLogSize(333): Cannot add 10 elements to context";
-                      goto LABEL_2993;
+                      sub_100020530("ASPFTLParseBufferToCxt: wcacheDS_segsSortedLogSize(333): Cannot add 10 elements to context", v14);
+                      return v5;
                     case 334:
-                      if (sub_100020050(a1, "", "numFirmwareWrites", *v8))
+                      if ((sub_100020050(a1, "", "numFirmwareWrites", *a2) & 1) == 0)
                       {
-                        goto LABEL_162;
+                        sub_100020530("ASPFTLParseBufferToCxt: numFirmwareWrites(334) cannot add 1 element to context");
                       }
 
-                      v17 = "ASPFTLParseBufferToCxt: numFirmwareWrites(334) cannot add 1 element to context";
                       goto LABEL_161;
                     case 335:
-                      if (sub_100020050(a1, "", "numBisWrites", *v8))
+                      if ((sub_100020050(a1, "", "numBisWrites", *a2) & 1) == 0)
                       {
-                        goto LABEL_162;
+                        sub_100020530("ASPFTLParseBufferToCxt: numBisWrites(335) cannot add 1 element to context");
                       }
 
-                      v17 = "ASPFTLParseBufferToCxt: numBisWrites(335) cannot add 1 element to context";
                       goto LABEL_161;
                     case 336:
-                      if (sub_100020050(a1, "", "numBootChainUpdates", *v8))
+                      if ((sub_100020050(a1, "", "numBootChainUpdates", *a2) & 1) == 0)
                       {
-                        goto LABEL_162;
+                        sub_100020530("ASPFTLParseBufferToCxt: numBootChainUpdates(336) cannot add 1 element to context");
                       }
 
-                      v17 = "ASPFTLParseBufferToCxt: numBootChainUpdates(336) cannot add 1 element to context";
                       goto LABEL_161;
                     case 337:
-                      if (sub_100020050(a1, "", "cntCalTimeWentBackWard", *v8))
+                      if ((sub_100020050(a1, "", "cntCalTimeWentBackWard", *a2) & 1) == 0)
                       {
-                        goto LABEL_162;
+                        sub_100020530("ASPFTLParseBufferToCxt: cntCalTimeWentBackWard(337) cannot add 1 element to context");
                       }
 
-                      v17 = "ASPFTLParseBufferToCxt: cntCalTimeWentBackWard(337) cannot add 1 element to context";
                       goto LABEL_161;
                     case 338:
-                      if (sub_100020050(a1, "", "indBoRecoveries", *v8))
+                      if ((sub_100020050(a1, "", "indBoRecoveries", *a2) & 1) == 0)
                       {
-                        goto LABEL_162;
+                        sub_100020530("ASPFTLParseBufferToCxt: indBoRecoveries(338) cannot add 1 element to context");
                       }
 
-                      v17 = "ASPFTLParseBufferToCxt: indBoRecoveries(338) cannot add 1 element to context";
                       goto LABEL_161;
                     case 340:
-                      if (sub_100020050(a1, "", "numCrossTempUecc", *v8))
+                      if ((sub_100020050(a1, "", "numCrossTempUecc", *a2) & 1) == 0)
                       {
-                        goto LABEL_162;
+                        sub_100020530("ASPFTLParseBufferToCxt: numCrossTempUecc(340) cannot add 1 element to context");
                       }
 
-                      v17 = "ASPFTLParseBufferToCxt: numCrossTempUecc(340) cannot add 1 element to context";
                       goto LABEL_161;
                     case 341:
-                      if (sub_100020050(a1, "", "latencyMonitorError", *v8))
+                      if ((sub_100020050(a1, "", "latencyMonitorError", *a2) & 1) == 0)
                       {
-                        goto LABEL_162;
+                        sub_100020530("ASPFTLParseBufferToCxt: latencyMonitorError(341) cannot add 1 element to context");
                       }
 
-                      v17 = "ASPFTLParseBufferToCxt: latencyMonitorError(341) cannot add 1 element to context";
                       goto LABEL_161;
                     case 343:
-                      if (sub_100020050(a1, "", "utilUeccReads", *v8))
+                      if ((sub_100020050(a1, "", "utilUeccReads", *a2) & 1) == 0)
                       {
-                        goto LABEL_162;
+                        sub_100020530("ASPFTLParseBufferToCxt: utilUeccReads(343) cannot add 1 element to context");
                       }
 
-                      v17 = "ASPFTLParseBufferToCxt: utilUeccReads(343) cannot add 1 element to context";
                       goto LABEL_161;
                     case 344:
-                      if (sub_100020050(a1, "", "numOfAvoidedGCDueToTemp", *v8))
+                      if ((sub_100020050(a1, "", "numOfAvoidedGCDueToTemp", *a2) & 1) == 0)
                       {
-                        goto LABEL_162;
+                        sub_100020530("ASPFTLParseBufferToCxt: numOfAvoidedGCDueToTemp(344) cannot add 1 element to context");
                       }
 
-                      v17 = "ASPFTLParseBufferToCxt: numOfAvoidedGCDueToTemp(344) cannot add 1 element to context";
                       goto LABEL_161;
                     case 345:
-                      if (sub_100020050(a1, "", "forceShutdowns", *v8))
+                      if ((sub_100020050(a1, "", "forceShutdowns", *a2) & 1) == 0)
                       {
-                        goto LABEL_162;
+                        sub_100020530("ASPFTLParseBufferToCxt: forceShutdowns(345) cannot add 1 element to context");
                       }
 
-                      v17 = "ASPFTLParseBufferToCxt: forceShutdowns(345) cannot add 1 element to context";
                       goto LABEL_161;
                     case 346:
-                      if (sub_100020050(a1, "", "gcSlcDestinations", *v8))
+                      if ((sub_100020050(a1, "", "gcSlcDestinations", *a2) & 1) == 0)
                       {
-                        goto LABEL_162;
+                        sub_100020530("ASPFTLParseBufferToCxt: gcSlcDestinations(346) cannot add 1 element to context");
                       }
 
-                      v17 = "ASPFTLParseBufferToCxt: gcSlcDestinations(346) cannot add 1 element to context";
                       goto LABEL_161;
                     case 347:
-                      if (sub_100020050(a1, "", "indReplayExtUsed", *v8))
+                      if ((sub_100020050(a1, "", "indReplayExtUsed", *a2) & 1) == 0)
                       {
-                        goto LABEL_162;
+                        sub_100020530("ASPFTLParseBufferToCxt: indReplayExtUsed(347) cannot add 1 element to context");
                       }
 
-                      v17 = "ASPFTLParseBufferToCxt: indReplayExtUsed(347) cannot add 1 element to context";
                       goto LABEL_161;
                     case 348:
-                      if (sub_100020050(a1, "", "defectsPerPackageOverflow", *v8))
+                      if ((sub_100020050(a1, "", "defectsPerPackageOverflow", *a2) & 1) == 0)
                       {
-                        goto LABEL_162;
+                        sub_100020530("ASPFTLParseBufferToCxt: defectsPerPackageOverflow(348) cannot add 1 element to context");
                       }
 
-                      v17 = "ASPFTLParseBufferToCxt: defectsPerPackageOverflow(348) cannot add 1 element to context";
                       goto LABEL_161;
                     case 349:
-                      if (sub_100020050(a1, "", "RxBurnIntBandsProgrammed", *v8))
+                      if ((sub_100020050(a1, "", "RxBurnIntBandsProgrammed", *a2) & 1) == 0)
                       {
-                        goto LABEL_162;
+                        sub_100020530("ASPFTLParseBufferToCxt: RxBurnIntBandsProgrammed(349) cannot add 1 element to context");
                       }
 
-                      v17 = "ASPFTLParseBufferToCxt: RxBurnIntBandsProgrammed(349) cannot add 1 element to context";
                       goto LABEL_161;
                     case 350:
-                      if (sub_100020050(a1, "", "RxBurnUsrBandsProgrammed", *v8))
+                      if ((sub_100020050(a1, "", "RxBurnUsrBandsProgrammed", *a2) & 1) == 0)
                       {
-                        goto LABEL_162;
+                        sub_100020530("ASPFTLParseBufferToCxt: RxBurnUsrBandsProgrammed(350) cannot add 1 element to context");
                       }
 
-                      v17 = "ASPFTLParseBufferToCxt: RxBurnUsrBandsProgrammed(350) cannot add 1 element to context";
                       goto LABEL_161;
                     case 351:
-                      if (sub_100020050(a1, "", "RxBurnIntNandWrites", *v8))
+                      if ((sub_100020050(a1, "", "RxBurnIntNandWrites", *a2) & 1) == 0)
                       {
-                        goto LABEL_162;
+                        sub_100020530("ASPFTLParseBufferToCxt: RxBurnIntNandWrites(351) cannot add 1 element to context");
                       }
 
-                      v17 = "ASPFTLParseBufferToCxt: RxBurnIntNandWrites(351) cannot add 1 element to context";
                       goto LABEL_161;
                     case 352:
-                      if (sub_100020050(a1, "", "RxBurnUsrNandWrites", *v8))
+                      if ((sub_100020050(a1, "", "RxBurnUsrNandWrites", *a2) & 1) == 0)
                       {
-                        goto LABEL_162;
+                        sub_100020530("ASPFTLParseBufferToCxt: RxBurnUsrNandWrites(352) cannot add 1 element to context");
                       }
 
-                      v17 = "ASPFTLParseBufferToCxt: RxBurnUsrNandWrites(352) cannot add 1 element to context";
                       goto LABEL_161;
                     case 353:
-                      if (sub_100020050(a1, "", "clogLastStripeUeccs", *v8))
+                      if ((sub_100020050(a1, "", "clogLastStripeUeccs", *a2) & 1) == 0)
                       {
-                        goto LABEL_162;
+                        sub_100020530("ASPFTLParseBufferToCxt: clogLastStripeUeccs(353) cannot add 1 element to context");
                       }
 
-                      v17 = "ASPFTLParseBufferToCxt: clogLastStripeUeccs(353) cannot add 1 element to context";
                       goto LABEL_161;
                     case 354:
-                      if (sub_100020050(a1, "", "GC_MidDestSrcSwitchSLC2TLC", *v8))
+                      if ((sub_100020050(a1, "", "GC_MidDestSrcSwitchSLC2TLC", *a2) & 1) == 0)
                       {
-                        goto LABEL_162;
+                        sub_100020530("ASPFTLParseBufferToCxt: GC_MidDestSrcSwitchSLC2TLC(354) cannot add 1 element to context");
                       }
 
-                      v17 = "ASPFTLParseBufferToCxt: GC_MidDestSrcSwitchSLC2TLC(354) cannot add 1 element to context";
                       goto LABEL_161;
                     case 355:
-                      if (sub_100020050(a1, "", "GC_MidDestSrcSwitchTLC2SLC", *v8))
+                      if ((sub_100020050(a1, "", "GC_MidDestSrcSwitchTLC2SLC", *a2) & 1) == 0)
                       {
-                        goto LABEL_162;
+                        sub_100020530("ASPFTLParseBufferToCxt: GC_MidDestSrcSwitchTLC2SLC(355) cannot add 1 element to context");
                       }
 
-                      v17 = "ASPFTLParseBufferToCxt: GC_MidDestSrcSwitchTLC2SLC(355) cannot add 1 element to context";
                       goto LABEL_161;
                     case 356:
-                      if (sub_100020050(a1, "", "nvme_stats_shutdown_count_host0_normal", *v8))
+                      if ((sub_100020050(a1, "", "nvme_stats_shutdown_count_host0_normal", *a2) & 1) == 0)
                       {
-                        goto LABEL_162;
+                        sub_100020530("ASPFTLParseBufferToCxt: nvme_stats_shutdown_count_host0_normal(356) cannot add 1 element to context");
                       }
 
-                      v17 = "ASPFTLParseBufferToCxt: nvme_stats_shutdown_count_host0_normal(356) cannot add 1 element to context";
                       goto LABEL_161;
                     case 357:
-                      if (sub_100020050(a1, "", "nvme_stats_shutdown_count_host1_normal", *v8))
+                      if ((sub_100020050(a1, "", "nvme_stats_shutdown_count_host1_normal", *a2) & 1) == 0)
                       {
-                        goto LABEL_162;
+                        sub_100020530("ASPFTLParseBufferToCxt: nvme_stats_shutdown_count_host1_normal(357) cannot add 1 element to context");
                       }
 
-                      v17 = "ASPFTLParseBufferToCxt: nvme_stats_shutdown_count_host1_normal(357) cannot add 1 element to context";
                       goto LABEL_161;
                     case 358:
-                      if (sub_100020050(a1, "", "nvme_stats_shutdown_count_host0_s2r", *v8))
+                      if ((sub_100020050(a1, "", "nvme_stats_shutdown_count_host0_s2r", *a2) & 1) == 0)
                       {
-                        goto LABEL_162;
+                        sub_100020530("ASPFTLParseBufferToCxt: nvme_stats_shutdown_count_host0_s2r(358) cannot add 1 element to context");
                       }
 
-                      v17 = "ASPFTLParseBufferToCxt: nvme_stats_shutdown_count_host0_s2r(358) cannot add 1 element to context";
                       goto LABEL_161;
                     case 359:
-                      if (sub_100020050(a1, "", "nvme_stats_shutdown_count_host1_s2r", *v8))
+                      if ((sub_100020050(a1, "", "nvme_stats_shutdown_count_host1_s2r", *a2) & 1) == 0)
                       {
-                        goto LABEL_162;
+                        sub_100020530("ASPFTLParseBufferToCxt: nvme_stats_shutdown_count_host1_s2r(359) cannot add 1 element to context");
                       }
 
-                      v17 = "ASPFTLParseBufferToCxt: nvme_stats_shutdown_count_host1_s2r(359) cannot add 1 element to context";
                       goto LABEL_161;
                     case 360:
-                      if (v14 != 16)
+                      if (v9 != 16)
                       {
-                        sub_100020530("ASPFTLParseBufferToCxt: gcPDusterIntrSrcValidityHisto(360): (#16) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                        sub_100020530("ASPFTLParseBufferToCxt: gcPDusterIntrSrcValidityHisto(360): (#16) cfg elements != (%d) buffer elements", v9);
                       }
 
-                      if (v14 >= 0x11)
+                      if (v9 >= 0x11)
                       {
-                        v18 = 16;
+                        v12 = 16;
                       }
 
                       else
                       {
-                        v18 = v14;
+                        v12 = v9;
                       }
 
-                      if (sub_1000189BC(a1, "gcPDusterIntrSrcValidityHisto_", v8, 8u, v18))
+                      if (sub_1000189BC(a1, "gcPDusterIntrSrcValidityHisto_", a2, 8u, v12))
                       {
                         goto LABEL_110;
                       }
 
-                      v19 = "ASPFTLParseBufferToCxt: gcPDusterIntrSrcValidityHisto(360): Cannot add 16 elements to context";
-                      goto LABEL_2993;
+                      sub_100020530("ASPFTLParseBufferToCxt: gcPDusterIntrSrcValidityHisto(360): Cannot add 16 elements to context", v14);
+                      return v5;
                     case 361:
-                      if (v14 != 16)
+                      if (v9 != 16)
                       {
-                        sub_100020530("ASPFTLParseBufferToCxt: gcPDusterUserSrcValidityHisto(361): (#16) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                        sub_100020530("ASPFTLParseBufferToCxt: gcPDusterUserSrcValidityHisto(361): (#16) cfg elements != (%d) buffer elements", v9);
                       }
 
-                      if (v14 >= 0x11)
+                      if (v9 >= 0x11)
                       {
-                        v18 = 16;
+                        v12 = 16;
                       }
 
                       else
                       {
-                        v18 = v14;
+                        v12 = v9;
                       }
 
-                      if (sub_1000189BC(a1, "gcPDusterUserSrcValidityHisto_", v8, 8u, v18))
+                      if (sub_1000189BC(a1, "gcPDusterUserSrcValidityHisto_", a2, 8u, v12))
                       {
                         goto LABEL_110;
                       }
 
-                      v19 = "ASPFTLParseBufferToCxt: gcPDusterUserSrcValidityHisto(361): Cannot add 16 elements to context";
-                      goto LABEL_2993;
+                      sub_100020530("ASPFTLParseBufferToCxt: gcPDusterUserSrcValidityHisto(361): Cannot add 16 elements to context", v14);
+                      return v5;
                     case 362:
-                      if (sub_100020050(a1, "", "raidFailedReadParity", *v8))
+                      if ((sub_100020050(a1, "", "raidFailedReadParity", *a2) & 1) == 0)
                       {
-                        goto LABEL_162;
+                        sub_100020530("ASPFTLParseBufferToCxt: raidFailedReadParity(362) cannot add 1 element to context");
                       }
 
-                      v17 = "ASPFTLParseBufferToCxt: raidFailedReadParity(362) cannot add 1 element to context";
                       goto LABEL_161;
                     case 364:
-                      if (sub_100020050(a1, "", "lhotNumSkipes", *v8))
+                      if ((sub_100020050(a1, "", "lhotNumSkipes", *a2) & 1) == 0)
                       {
-                        goto LABEL_162;
+                        sub_100020530("ASPFTLParseBufferToCxt: lhotNumSkipes(364) cannot add 1 element to context");
                       }
 
-                      v17 = "ASPFTLParseBufferToCxt: lhotNumSkipes(364) cannot add 1 element to context";
                       goto LABEL_161;
                     default:
-                      switch(v12)
+                      switch(v7)
                       {
                         case 365:
-                          if (sub_100020050(a1, "", "lhotNumIsHotCalls", *v8))
+                          if ((sub_100020050(a1, "", "lhotNumIsHotCalls", *a2) & 1) == 0)
                           {
-                            goto LABEL_162;
+                            sub_100020530("ASPFTLParseBufferToCxt: lhotNumIsHotCalls(365) cannot add 1 element to context");
                           }
 
-                          v17 = "ASPFTLParseBufferToCxt: lhotNumIsHotCalls(365) cannot add 1 element to context";
                           goto LABEL_161;
                         case 366:
-                          if (sub_100020050(a1, "", "lhotFullLap", *v8))
+                          if ((sub_100020050(a1, "", "lhotFullLap", *a2) & 1) == 0)
                           {
-                            goto LABEL_162;
+                            sub_100020530("ASPFTLParseBufferToCxt: lhotFullLap(366) cannot add 1 element to context");
                           }
 
-                          v17 = "ASPFTLParseBufferToCxt: lhotFullLap(366) cannot add 1 element to context";
                           goto LABEL_161;
                         case 367:
-                          if (sub_100020050(a1, "", "lhotSkipPrecent", *v8))
+                          if ((sub_100020050(a1, "", "lhotSkipPrecent", *a2) & 1) == 0)
                           {
-                            goto LABEL_162;
+                            sub_100020530("ASPFTLParseBufferToCxt: lhotSkipPrecent(367) cannot add 1 element to context");
                           }
 
-                          v17 = "ASPFTLParseBufferToCxt: lhotSkipPrecent(367) cannot add 1 element to context";
                           goto LABEL_161;
                         case 368:
-                          if (sub_100020050(a1, "", "eraseSuspendEvents", *v8))
+                          if ((sub_100020050(a1, "", "eraseSuspendEvents", *a2) & 1) == 0)
                           {
-                            goto LABEL_162;
+                            sub_100020530("ASPFTLParseBufferToCxt: eraseSuspendEvents(368) cannot add 1 element to context");
                           }
 
-                          v17 = "ASPFTLParseBufferToCxt: eraseSuspendEvents(368) cannot add 1 element to context";
                           goto LABEL_161;
                         case 369:
-                          if (sub_100020050(a1, "", "eraseSuspendedStatuses", *v8))
+                          if ((sub_100020050(a1, "", "eraseSuspendedStatuses", *a2) & 1) == 0)
                           {
-                            goto LABEL_162;
+                            sub_100020530("ASPFTLParseBufferToCxt: eraseSuspendedStatuses(369) cannot add 1 element to context");
                           }
 
-                          v17 = "ASPFTLParseBufferToCxt: eraseSuspendedStatuses(369) cannot add 1 element to context";
                           goto LABEL_161;
                         case 370:
-                          if (sub_100020050(a1, "", "eraseSuspendedBands", *v8))
+                          if ((sub_100020050(a1, "", "eraseSuspendedBands", *a2) & 1) == 0)
                           {
-                            goto LABEL_162;
+                            sub_100020530("ASPFTLParseBufferToCxt: eraseSuspendedBands(370) cannot add 1 element to context");
                           }
 
-                          v17 = "ASPFTLParseBufferToCxt: eraseSuspendedBands(370) cannot add 1 element to context";
                           goto LABEL_161;
                         case 371:
-                          if (sub_100020050(a1, "", "eraseSuspendSituationsBelowThreshold", *v8))
+                          if ((sub_100020050(a1, "", "eraseSuspendSituationsBelowThreshold", *a2) & 1) == 0)
                           {
-                            goto LABEL_162;
+                            sub_100020530("ASPFTLParseBufferToCxt: eraseSuspendSituationsBelowThreshold(371) cannot add 1 element to context");
                           }
 
-                          v17 = "ASPFTLParseBufferToCxt: eraseSuspendSituationsBelowThreshold(371) cannot add 1 element to context";
                           goto LABEL_161;
                         case 372:
-                          if (sub_100020050(a1, "", "eraseSuspendSituationsAboveThreshold", *v8))
+                          if ((sub_100020050(a1, "", "eraseSuspendSituationsAboveThreshold", *a2) & 1) == 0)
                           {
-                            goto LABEL_162;
+                            sub_100020530("ASPFTLParseBufferToCxt: eraseSuspendSituationsAboveThreshold(372) cannot add 1 element to context");
                           }
 
-                          v17 = "ASPFTLParseBufferToCxt: eraseSuspendSituationsAboveThreshold(372) cannot add 1 element to context";
                           goto LABEL_161;
                         case 373:
-                          if (sub_100020050(a1, "", "eraseSuspendReadChainsProcessed", *v8))
+                          if ((sub_100020050(a1, "", "eraseSuspendReadChainsProcessed", *a2) & 1) == 0)
                           {
-                            goto LABEL_162;
+                            sub_100020530("ASPFTLParseBufferToCxt: eraseSuspendReadChainsProcessed(373) cannot add 1 element to context");
                           }
 
-                          v17 = "ASPFTLParseBufferToCxt: eraseSuspendReadChainsProcessed(373) cannot add 1 element to context";
                           goto LABEL_161;
                         case 374:
-                          if (sub_100020050(a1, "", "bdrLastDoneHr", *v8))
+                          if ((sub_100020050(a1, "", "bdrLastDoneHr", *a2) & 1) == 0)
                           {
-                            goto LABEL_162;
+                            sub_100020530("ASPFTLParseBufferToCxt: bdrLastDoneHr(374) cannot add 1 element to context");
                           }
 
-                          v17 = "ASPFTLParseBufferToCxt: bdrLastDoneHr(374) cannot add 1 element to context";
                           goto LABEL_161;
                         case 375:
-                          if (sub_100020050(a1, "", "bdrBackupThreshHrs", *v8))
+                          if ((sub_100020050(a1, "", "bdrBackupThreshHrs", *a2) & 1) == 0)
                           {
-                            goto LABEL_162;
+                            sub_100020530("ASPFTLParseBufferToCxt: bdrBackupThreshHrs(375) cannot add 1 element to context");
                           }
 
-                          v17 = "ASPFTLParseBufferToCxt: bdrBackupThreshHrs(375) cannot add 1 element to context";
                           goto LABEL_161;
                         case 376:
-                          if (sub_100020050(a1, "", "clogPortableProgBufs", *v8))
+                          if ((sub_100020050(a1, "", "clogPortableProgBufs", *a2) & 1) == 0)
                           {
-                            goto LABEL_162;
+                            sub_100020530("ASPFTLParseBufferToCxt: clogPortableProgBufs(376) cannot add 1 element to context");
                           }
 
-                          v17 = "ASPFTLParseBufferToCxt: clogPortableProgBufs(376) cannot add 1 element to context";
                           goto LABEL_161;
                         case 377:
-                          if (sub_100020050(a1, "", "clogPortableDropBufs", *v8))
+                          if ((sub_100020050(a1, "", "clogPortableDropBufs", *a2) & 1) == 0)
                           {
-                            goto LABEL_162;
+                            sub_100020530("ASPFTLParseBufferToCxt: clogPortableDropBufs(377) cannot add 1 element to context");
                           }
 
-                          v17 = "ASPFTLParseBufferToCxt: clogPortableDropBufs(377) cannot add 1 element to context";
                           goto LABEL_161;
                         case 378:
-                          if (sub_100020050(a1, "", "clogPortablePadSectors", *v8))
+                          if ((sub_100020050(a1, "", "clogPortablePadSectors", *a2) & 1) == 0)
                           {
-                            goto LABEL_162;
+                            sub_100020530("ASPFTLParseBufferToCxt: clogPortablePadSectors(378) cannot add 1 element to context");
                           }
 
-                          v17 = "ASPFTLParseBufferToCxt: clogPortablePadSectors(378) cannot add 1 element to context";
                           goto LABEL_161;
                         case 379:
-                          if (sub_100020050(a1, "", "numRetiredBlocks", *v8))
+                          if ((sub_100020050(a1, "", "numRetiredBlocks", *a2) & 1) == 0)
                           {
-                            goto LABEL_162;
+                            sub_100020530("ASPFTLParseBufferToCxt: numRetiredBlocks(379) cannot add 1 element to context");
                           }
 
-                          v17 = "ASPFTLParseBufferToCxt: numRetiredBlocks(379) cannot add 1 element to context";
                           goto LABEL_161;
                         case 381:
-                          if (sub_100020050(a1, "", "numRefreshOnErrNandRefreshPerf", *v8))
+                          if ((sub_100020050(a1, "", "numRefreshOnErrNandRefreshPerf", *a2) & 1) == 0)
                           {
-                            goto LABEL_162;
+                            sub_100020530("ASPFTLParseBufferToCxt: numRefreshOnErrNandRefreshPerf(381) cannot add 1 element to context");
                           }
 
-                          v17 = "ASPFTLParseBufferToCxt: numRefreshOnErrNandRefreshPerf(381) cannot add 1 element to context";
                           goto LABEL_161;
                         case 382:
-                          if (sub_100020050(a1, "", "raidReconstructReads", *v8))
+                          if ((sub_100020050(a1, "", "raidReconstructReads", *a2) & 1) == 0)
                           {
-                            goto LABEL_162;
+                            sub_100020530("ASPFTLParseBufferToCxt: raidReconstructReads(382) cannot add 1 element to context");
                           }
 
-                          v17 = "ASPFTLParseBufferToCxt: raidReconstructReads(382) cannot add 1 element to context";
                           goto LABEL_161;
                         case 383:
-                          if (sub_100020050(a1, "", "gcReadsNoBlog", *v8))
+                          if ((sub_100020050(a1, "", "gcReadsNoBlog", *a2) & 1) == 0)
                           {
-                            goto LABEL_162;
+                            sub_100020530("ASPFTLParseBufferToCxt: gcReadsNoBlog(383) cannot add 1 element to context");
                           }
 
-                          v17 = "ASPFTLParseBufferToCxt: gcReadsNoBlog(383) cannot add 1 element to context";
                           goto LABEL_161;
                         case 384:
-                          if (sub_100020050(a1, "", "AbortSkip_MPBXReadVerifyClosedBand", *v8))
+                          if ((sub_100020050(a1, "", "AbortSkip_MPBXReadVerifyClosedBand", *a2) & 1) == 0)
                           {
-                            goto LABEL_162;
+                            sub_100020530("ASPFTLParseBufferToCxt: AbortSkip_MPBXReadVerifyClosedBand(384) cannot add 1 element to context");
                           }
 
-                          v17 = "ASPFTLParseBufferToCxt: AbortSkip_MPBXReadVerifyClosedBand(384) cannot add 1 element to context";
                           goto LABEL_161;
                         case 385:
-                          if (sub_100020050(a1, "", "openBandReadFail", *v8))
+                          if ((sub_100020050(a1, "", "openBandReadFail", *a2) & 1) == 0)
                           {
-                            goto LABEL_162;
+                            sub_100020530("ASPFTLParseBufferToCxt: openBandReadFail(385) cannot add 1 element to context");
                           }
 
-                          v17 = "ASPFTLParseBufferToCxt: openBandReadFail(385) cannot add 1 element to context";
                           goto LABEL_161;
                         case 386:
-                          if (sub_100020050(a1, "", "AbortSkip_MPBXReadVerifyOpenBand", *v8))
+                          if ((sub_100020050(a1, "", "AbortSkip_MPBXReadVerifyOpenBand", *a2) & 1) == 0)
                           {
-                            goto LABEL_162;
+                            sub_100020530("ASPFTLParseBufferToCxt: AbortSkip_MPBXReadVerifyOpenBand(386) cannot add 1 element to context");
                           }
 
-                          v17 = "ASPFTLParseBufferToCxt: AbortSkip_MPBXReadVerifyOpenBand(386) cannot add 1 element to context";
                           goto LABEL_161;
                         case 387:
-                          if (sub_100020050(a1, "", "AbortSkip_MBPXFailedRebuildingParity", *v8))
+                          if ((sub_100020050(a1, "", "AbortSkip_MBPXFailedRebuildingParity", *a2) & 1) == 0)
                           {
-                            goto LABEL_162;
+                            sub_100020530("ASPFTLParseBufferToCxt: AbortSkip_MBPXFailedRebuildingParity(387) cannot add 1 element to context");
                           }
 
-                          v17 = "ASPFTLParseBufferToCxt: AbortSkip_MBPXFailedRebuildingParity(387) cannot add 1 element to context";
                           goto LABEL_161;
                         case 388:
-                          if (sub_100020050(a1, "", "raidSuccessfulPMXReconstructionInternal", *v8))
+                          if ((sub_100020050(a1, "", "raidSuccessfulPMXReconstructionInternal", *a2) & 1) == 0)
                           {
-                            goto LABEL_162;
+                            sub_100020530("ASPFTLParseBufferToCxt: raidSuccessfulPMXReconstructionInternal(388) cannot add 1 element to context");
                           }
 
-                          v17 = "ASPFTLParseBufferToCxt: raidSuccessfulPMXReconstructionInternal(388) cannot add 1 element to context";
                           goto LABEL_161;
                         case 389:
-                          if (sub_100020050(a1, "", "raidSuccessfulPMXReconstructionHost", *v8))
+                          if ((sub_100020050(a1, "", "raidSuccessfulPMXReconstructionHost", *a2) & 1) == 0)
                           {
-                            goto LABEL_162;
+                            sub_100020530("ASPFTLParseBufferToCxt: raidSuccessfulPMXReconstructionHost(389) cannot add 1 element to context");
                           }
 
-                          v17 = "ASPFTLParseBufferToCxt: raidSuccessfulPMXReconstructionHost(389) cannot add 1 element to context";
                           goto LABEL_161;
                         case 390:
-                          if (sub_100020050(a1, "", "raidFailedPMXReconstructionInternal", *v8))
+                          if ((sub_100020050(a1, "", "raidFailedPMXReconstructionInternal", *a2) & 1) == 0)
                           {
-                            goto LABEL_162;
+                            sub_100020530("ASPFTLParseBufferToCxt: raidFailedPMXReconstructionInternal(390) cannot add 1 element to context");
                           }
 
-                          v17 = "ASPFTLParseBufferToCxt: raidFailedPMXReconstructionInternal(390) cannot add 1 element to context";
                           goto LABEL_161;
                         case 391:
-                          if (sub_100020050(a1, "", "raidFailedPMXReconstructionHost", *v8))
+                          if ((sub_100020050(a1, "", "raidFailedPMXReconstructionHost", *a2) & 1) == 0)
                           {
-                            goto LABEL_162;
+                            sub_100020530("ASPFTLParseBufferToCxt: raidFailedPMXReconstructionHost(391) cannot add 1 element to context");
                           }
 
-                          v17 = "ASPFTLParseBufferToCxt: raidFailedPMXReconstructionHost(391) cannot add 1 element to context";
                           goto LABEL_161;
                         case 392:
-                          if (sub_100020050(a1, "", "raidSuccessfulRMXReconstructionInternal", *v8))
+                          if ((sub_100020050(a1, "", "raidSuccessfulRMXReconstructionInternal", *a2) & 1) == 0)
                           {
-                            goto LABEL_162;
+                            sub_100020530("ASPFTLParseBufferToCxt: raidSuccessfulRMXReconstructionInternal(392) cannot add 1 element to context");
                           }
 
-                          v17 = "ASPFTLParseBufferToCxt: raidSuccessfulRMXReconstructionInternal(392) cannot add 1 element to context";
                           goto LABEL_161;
                         case 393:
-                          if (sub_100020050(a1, "", "raidSuccessfulRMXReconstructionHost", *v8))
+                          if ((sub_100020050(a1, "", "raidSuccessfulRMXReconstructionHost", *a2) & 1) == 0)
                           {
-                            goto LABEL_162;
+                            sub_100020530("ASPFTLParseBufferToCxt: raidSuccessfulRMXReconstructionHost(393) cannot add 1 element to context");
                           }
 
-                          v17 = "ASPFTLParseBufferToCxt: raidSuccessfulRMXReconstructionHost(393) cannot add 1 element to context";
                           goto LABEL_161;
                         case 394:
-                          if (sub_100020050(a1, "", "raidFailedRMXReconstructionInternal", *v8))
+                          if ((sub_100020050(a1, "", "raidFailedRMXReconstructionInternal", *a2) & 1) == 0)
                           {
-                            goto LABEL_162;
+                            sub_100020530("ASPFTLParseBufferToCxt: raidFailedRMXReconstructionInternal(394) cannot add 1 element to context");
                           }
 
-                          v17 = "ASPFTLParseBufferToCxt: raidFailedRMXReconstructionInternal(394) cannot add 1 element to context";
                           goto LABEL_161;
                         case 395:
-                          if (sub_100020050(a1, "", "raidFailedRMXReconstructionHost", *v8))
+                          if ((sub_100020050(a1, "", "raidFailedRMXReconstructionHost", *a2) & 1) == 0)
                           {
-                            goto LABEL_162;
+                            sub_100020530("ASPFTLParseBufferToCxt: raidFailedRMXReconstructionHost(395) cannot add 1 element to context");
                           }
 
-                          v17 = "ASPFTLParseBufferToCxt: raidFailedRMXReconstructionHost(395) cannot add 1 element to context";
                           goto LABEL_161;
                         case 396:
-                          if (sub_100020050(a1, "", "raidFailedReadParityInternal", *v8))
+                          if ((sub_100020050(a1, "", "raidFailedReadParityInternal", *a2) & 1) == 0)
                           {
-                            goto LABEL_162;
+                            sub_100020530("ASPFTLParseBufferToCxt: raidFailedReadParityInternal(396) cannot add 1 element to context");
                           }
 
-                          v17 = "ASPFTLParseBufferToCxt: raidFailedReadParityInternal(396) cannot add 1 element to context";
                           goto LABEL_161;
                         case 397:
-                          if (sub_100020050(a1, "", "raidFailedReadQParityInternal", *v8))
+                          if ((sub_100020050(a1, "", "raidFailedReadQParityInternal", *a2) & 1) == 0)
                           {
-                            goto LABEL_162;
+                            sub_100020530("ASPFTLParseBufferToCxt: raidFailedReadQParityInternal(397) cannot add 1 element to context");
                           }
 
-                          v17 = "ASPFTLParseBufferToCxt: raidFailedReadQParityInternal(397) cannot add 1 element to context";
                           goto LABEL_161;
                         case 398:
-                          if (sub_100020050(a1, "", "raidFailedReadQParity", *v8))
+                          if ((sub_100020050(a1, "", "raidFailedReadQParity", *a2) & 1) == 0)
                           {
-                            goto LABEL_162;
+                            sub_100020530("ASPFTLParseBufferToCxt: raidFailedReadQParity(398) cannot add 1 element to context");
                           }
 
-                          v17 = "ASPFTLParseBufferToCxt: raidFailedReadQParity(398) cannot add 1 element to context";
                           goto LABEL_161;
                         case 399:
-                          if (sub_100020050(a1, "", "raidFailedReadQCopy", *v8))
+                          if ((sub_100020050(a1, "", "raidFailedReadQCopy", *a2) & 1) == 0)
                           {
-                            goto LABEL_162;
+                            sub_100020530("ASPFTLParseBufferToCxt: raidFailedReadQCopy(399) cannot add 1 element to context");
                           }
 
-                          v17 = "ASPFTLParseBufferToCxt: raidFailedReadQCopy(399) cannot add 1 element to context";
                           goto LABEL_161;
                         case 400:
-                          if (sub_100020050(a1, "", "raidFailedReconstructionQParity", *v8))
+                          if ((sub_100020050(a1, "", "raidFailedReconstructionQParity", *a2) & 1) == 0)
                           {
-                            goto LABEL_162;
+                            sub_100020530("ASPFTLParseBufferToCxt: raidFailedReconstructionQParity(400) cannot add 1 element to context");
                           }
 
-                          v17 = "ASPFTLParseBufferToCxt: raidFailedReconstructionQParity(400) cannot add 1 element to context";
                           goto LABEL_161;
                         case 401:
-                          if (sub_100020050(a1, "", "offlineBlocksCnt", *v8))
+                          if ((sub_100020050(a1, "", "offlineBlocksCnt", *a2) & 1) == 0)
                           {
-                            goto LABEL_162;
+                            sub_100020530("ASPFTLParseBufferToCxt: offlineBlocksCnt(401) cannot add 1 element to context");
                           }
 
-                          v17 = "ASPFTLParseBufferToCxt: offlineBlocksCnt(401) cannot add 1 element to context";
                           goto LABEL_161;
                         case 402:
-                          if (sub_100020050(a1, "", "bork0Revectors", *v8))
+                          if ((sub_100020050(a1, "", "bork0Revectors", *a2) & 1) == 0)
                           {
-                            goto LABEL_162;
+                            sub_100020530("ASPFTLParseBufferToCxt: bork0Revectors(402) cannot add 1 element to context");
                           }
 
-                          v17 = "ASPFTLParseBufferToCxt: bork0Revectors(402) cannot add 1 element to context";
                           goto LABEL_161;
                         case 403:
-                          if (sub_100020050(a1, "", "raidFailedReadBlog", *v8))
+                          if ((sub_100020050(a1, "", "raidFailedReadBlog", *a2) & 1) == 0)
                           {
-                            goto LABEL_162;
+                            sub_100020530("ASPFTLParseBufferToCxt: raidFailedReadBlog(403) cannot add 1 element to context");
                           }
 
-                          v17 = "ASPFTLParseBufferToCxt: raidFailedReadBlog(403) cannot add 1 element to context";
                           goto LABEL_161;
                         case 404:
-                          if (sub_100020050(a1, "", "numReliabilityRefreshes", *v8))
+                          if ((sub_100020050(a1, "", "numReliabilityRefreshes", *a2) & 1) == 0)
                           {
-                            goto LABEL_162;
+                            sub_100020530("ASPFTLParseBufferToCxt: numReliabilityRefreshes(404) cannot add 1 element to context");
                           }
 
-                          v17 = "ASPFTLParseBufferToCxt: numReliabilityRefreshes(404) cannot add 1 element to context";
                           goto LABEL_161;
                         case 405:
-                          if (sub_100020050(a1, "", "raidFailedReadQCopyInternal", *v8))
+                          if ((sub_100020050(a1, "", "raidFailedReadQCopyInternal", *a2) & 1) == 0)
                           {
-                            goto LABEL_162;
+                            sub_100020530("ASPFTLParseBufferToCxt: raidFailedReadQCopyInternal(405) cannot add 1 element to context");
                           }
 
-                          v17 = "ASPFTLParseBufferToCxt: raidFailedReadQCopyInternal(405) cannot add 1 element to context";
                           goto LABEL_161;
                         case 406:
-                          if (v14 != 5)
+                          if (v9 != 5)
                           {
-                            sub_100020530("ASPFTLParseBufferToCxt: raidReconstructSuccessFlow(406): (#5) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                            sub_100020530("ASPFTLParseBufferToCxt: raidReconstructSuccessFlow(406): (#5) cfg elements != (%d) buffer elements", v9);
                           }
 
-                          if (v12 >> 33 >= 3)
+                          if (v7 >> 33 >= 3)
                           {
-                            v18 = 5;
+                            v12 = 5;
                           }
 
                           else
                           {
-                            v18 = v14;
+                            v12 = v9;
                           }
 
-                          if (sub_1000189BC(a1, "raidReconstructSuccessFlow_", v8, 8u, v18))
+                          if (sub_1000189BC(a1, "raidReconstructSuccessFlow_", a2, 8u, v12))
                           {
                             goto LABEL_110;
                           }
 
-                          v19 = "ASPFTLParseBufferToCxt: raidReconstructSuccessFlow(406): Cannot add 5 elements to context";
-                          goto LABEL_2993;
+                          sub_100020530("ASPFTLParseBufferToCxt: raidReconstructSuccessFlow(406): Cannot add 5 elements to context", v14);
+                          return v5;
                         case 407:
-                          if (v14 != 5)
+                          if (v9 != 5)
                           {
-                            sub_100020530("ASPFTLParseBufferToCxt: raidReconstructFailFlow(407): (#5) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                            sub_100020530("ASPFTLParseBufferToCxt: raidReconstructFailFlow(407): (#5) cfg elements != (%d) buffer elements", v9);
                           }
 
-                          if (v12 >> 33 >= 3)
+                          if (v7 >> 33 >= 3)
                           {
-                            v18 = 5;
+                            v12 = 5;
                           }
 
                           else
                           {
-                            v18 = v14;
+                            v12 = v9;
                           }
 
-                          if (sub_1000189BC(a1, "raidReconstructFailFlow_", v8, 8u, v18))
+                          if (sub_1000189BC(a1, "raidReconstructFailFlow_", a2, 8u, v12))
                           {
                             goto LABEL_110;
                           }
 
-                          v19 = "ASPFTLParseBufferToCxt: raidReconstructFailFlow(407): Cannot add 5 elements to context";
-                          goto LABEL_2993;
+                          sub_100020530("ASPFTLParseBufferToCxt: raidReconstructFailFlow(407): Cannot add 5 elements to context", v14);
+                          return v5;
                         case 408:
-                          if (sub_100020050(a1, "", "raidReconstructFailP", *v8))
+                          if ((sub_100020050(a1, "", "raidReconstructFailP", *a2) & 1) == 0)
                           {
-                            goto LABEL_162;
+                            sub_100020530("ASPFTLParseBufferToCxt: raidReconstructFailP(408) cannot add 1 element to context");
                           }
 
-                          v17 = "ASPFTLParseBufferToCxt: raidReconstructFailP(408) cannot add 1 element to context";
                           goto LABEL_161;
                         case 409:
-                          if (sub_100020050(a1, "", "raidReconstructFailQ", *v8))
+                          if ((sub_100020050(a1, "", "raidReconstructFailQ", *a2) & 1) == 0)
                           {
-                            goto LABEL_162;
+                            sub_100020530("ASPFTLParseBufferToCxt: raidReconstructFailQ(409) cannot add 1 element to context");
                           }
 
-                          v17 = "ASPFTLParseBufferToCxt: raidReconstructFailQ(409) cannot add 1 element to context";
                           goto LABEL_161;
                         case 410:
-                          if (sub_100020050(a1, "", "raidReconstructFailUECC", *v8))
+                          if ((sub_100020050(a1, "", "raidReconstructFailUECC", *a2) & 1) == 0)
                           {
-                            goto LABEL_162;
+                            sub_100020530("ASPFTLParseBufferToCxt: raidReconstructFailUECC(410) cannot add 1 element to context");
                           }
 
-                          v17 = "ASPFTLParseBufferToCxt: raidReconstructFailUECC(410) cannot add 1 element to context";
                           goto LABEL_161;
                         case 411:
-                          if (sub_100020050(a1, "", "raidReconstructFailUnsupp", *v8))
+                          if ((sub_100020050(a1, "", "raidReconstructFailUnsupp", *a2) & 1) == 0)
                           {
-                            goto LABEL_162;
+                            sub_100020530("ASPFTLParseBufferToCxt: raidReconstructFailUnsupp(411) cannot add 1 element to context");
                           }
 
-                          v17 = "ASPFTLParseBufferToCxt: raidReconstructFailUnsupp(411) cannot add 1 element to context";
                           goto LABEL_161;
                         case 412:
-                          if (sub_100020050(a1, "", "raidUECCOpenBand", *v8))
+                          if ((sub_100020050(a1, "", "raidUECCOpenBand", *a2) & 1) == 0)
                           {
-                            goto LABEL_162;
+                            sub_100020530("ASPFTLParseBufferToCxt: raidUECCOpenBand(412) cannot add 1 element to context");
                           }
 
-                          v17 = "ASPFTLParseBufferToCxt: raidUECCOpenBand(412) cannot add 1 element to context";
                           goto LABEL_161;
                         case 414:
-                          if (sub_100020050(a1, "", "ueccReads", *v8))
+                          if ((sub_100020050(a1, "", "ueccReads", *a2) & 1) == 0)
                           {
-                            goto LABEL_162;
+                            sub_100020530("ASPFTLParseBufferToCxt: ueccReads(414) cannot add 1 element to context");
                           }
 
-                          v17 = "ASPFTLParseBufferToCxt: ueccReads(414) cannot add 1 element to context";
                           goto LABEL_161;
                         case 416:
-                          if (sub_100020050(a1, "", "raidSuccessfulVerify", *v8))
+                          if ((sub_100020050(a1, "", "raidSuccessfulVerify", *a2) & 1) == 0)
                           {
-                            goto LABEL_162;
+                            sub_100020530("ASPFTLParseBufferToCxt: raidSuccessfulVerify(416) cannot add 1 element to context");
                           }
 
-                          v17 = "ASPFTLParseBufferToCxt: raidSuccessfulVerify(416) cannot add 1 element to context";
                           goto LABEL_161;
                         case 417:
-                          if (sub_100020050(a1, "", "raidFailedVerify", *v8))
+                          if ((sub_100020050(a1, "", "raidFailedVerify", *a2) & 1) == 0)
                           {
-                            goto LABEL_162;
+                            sub_100020530("ASPFTLParseBufferToCxt: raidFailedVerify(417) cannot add 1 element to context");
                           }
 
-                          v17 = "ASPFTLParseBufferToCxt: raidFailedVerify(417) cannot add 1 element to context";
                           goto LABEL_161;
                         case 418:
-                          if (sub_100020050(a1, "", "numBandsVerified", *v8))
+                          if ((sub_100020050(a1, "", "numBandsVerified", *a2) & 1) == 0)
                           {
-                            goto LABEL_162;
+                            sub_100020530("ASPFTLParseBufferToCxt: numBandsVerified(418) cannot add 1 element to context");
                           }
 
-                          v17 = "ASPFTLParseBufferToCxt: numBandsVerified(418) cannot add 1 element to context";
                           goto LABEL_161;
                         case 419:
-                          if (sub_100020050(a1, "", "cache_heads", *v8))
+                          if ((sub_100020050(a1, "", "cache_heads", *a2) & 1) == 0)
                           {
-                            goto LABEL_162;
+                            sub_100020530("ASPFTLParseBufferToCxt: cache_heads(419) cannot add 1 element to context");
                           }
 
-                          v17 = "ASPFTLParseBufferToCxt: cache_heads(419) cannot add 1 element to context";
                           goto LABEL_161;
                         case 420:
-                          if (sub_100020050(a1, "", "AbortSkip_RMXtoMPBX", *v8))
+                          if ((sub_100020050(a1, "", "AbortSkip_RMXtoMPBX", *a2) & 1) == 0)
                           {
-                            goto LABEL_162;
+                            sub_100020530("ASPFTLParseBufferToCxt: AbortSkip_RMXtoMPBX(420) cannot add 1 element to context");
                           }
 
-                          v17 = "ASPFTLParseBufferToCxt: AbortSkip_RMXtoMPBX(420) cannot add 1 element to context";
                           goto LABEL_161;
                         case 421:
-                          if (sub_100020050(a1, "", "s3eFwVer", *v8))
+                          if ((sub_100020050(a1, "", "s3eFwVer", *a2) & 1) == 0)
                           {
-                            goto LABEL_162;
+                            sub_100020530("ASPFTLParseBufferToCxt: s3eFwVer(421) cannot add 1 element to context");
                           }
 
-                          v17 = "ASPFTLParseBufferToCxt: s3eFwVer(421) cannot add 1 element to context";
                           goto LABEL_161;
                         case 422:
-                          if (sub_100020050(a1, "", "readVerifyNative", *v8))
+                          if ((sub_100020050(a1, "", "readVerifyNative", *a2) & 1) == 0)
                           {
-                            goto LABEL_162;
+                            sub_100020530("ASPFTLParseBufferToCxt: readVerifyNative(422) cannot add 1 element to context");
                           }
 
-                          v17 = "ASPFTLParseBufferToCxt: readVerifyNative(422) cannot add 1 element to context";
                           goto LABEL_161;
                         case 423:
-                          if (sub_100020050(a1, "", "reducedReadVerifyNative", *v8))
+                          if ((sub_100020050(a1, "", "reducedReadVerifyNative", *a2) & 1) == 0)
                           {
-                            goto LABEL_162;
+                            sub_100020530("ASPFTLParseBufferToCxt: reducedReadVerifyNative(423) cannot add 1 element to context");
                           }
 
-                          v17 = "ASPFTLParseBufferToCxt: reducedReadVerifyNative(423) cannot add 1 element to context";
                           goto LABEL_161;
                         case 424:
-                          if (sub_100020050(a1, "", "readVerifySlc", *v8))
+                          if ((sub_100020050(a1, "", "readVerifySlc", *a2) & 1) == 0)
                           {
-                            goto LABEL_162;
+                            sub_100020530("ASPFTLParseBufferToCxt: readVerifySlc(424) cannot add 1 element to context");
                           }
 
-                          v17 = "ASPFTLParseBufferToCxt: readVerifySlc(424) cannot add 1 element to context";
                           goto LABEL_161;
                         case 425:
-                          if (sub_100020050(a1, "", "reducedReadVerifySlc", *v8))
+                          if ((sub_100020050(a1, "", "reducedReadVerifySlc", *a2) & 1) == 0)
                           {
-                            goto LABEL_162;
+                            sub_100020530("ASPFTLParseBufferToCxt: reducedReadVerifySlc(425) cannot add 1 element to context");
                           }
 
-                          v17 = "ASPFTLParseBufferToCxt: reducedReadVerifySlc(425) cannot add 1 element to context";
                           goto LABEL_161;
                         case 426:
-                          if (sub_100020050(a1, "", "RxBurnEvictions", *v8))
+                          if ((sub_100020050(a1, "", "RxBurnEvictions", *a2) & 1) == 0)
                           {
-                            goto LABEL_162;
+                            sub_100020530("ASPFTLParseBufferToCxt: RxBurnEvictions(426) cannot add 1 element to context");
                           }
 
-                          v17 = "ASPFTLParseBufferToCxt: RxBurnEvictions(426) cannot add 1 element to context";
                           goto LABEL_161;
                         case 427:
-                          if (sub_100020050(a1, "", "directToTLCBands", *v8))
+                          if ((sub_100020050(a1, "", "directToTLCBands", *a2) & 1) == 0)
                           {
-                            goto LABEL_162;
+                            sub_100020530("ASPFTLParseBufferToCxt: directToTLCBands(427) cannot add 1 element to context");
                           }
 
-                          v17 = "ASPFTLParseBufferToCxt: directToTLCBands(427) cannot add 1 element to context";
                           goto LABEL_161;
                         case 428:
-                          if (sub_100020050(a1, "", "nandDesc", *v8))
+                          if ((sub_100020050(a1, "", "nandDesc", *a2) & 1) == 0)
                           {
-                            goto LABEL_162;
+                            sub_100020530("ASPFTLParseBufferToCxt: nandDesc(428) cannot add 1 element to context");
                           }
 
-                          v17 = "ASPFTLParseBufferToCxt: nandDesc(428) cannot add 1 element to context";
                           goto LABEL_161;
                         case 429:
-                          if (sub_100020050(a1, "", "fwUpdatesPercentUsed", *v8))
+                          if ((sub_100020050(a1, "", "fwUpdatesPercentUsed", *a2) & 1) == 0)
                           {
-                            goto LABEL_162;
+                            sub_100020530("ASPFTLParseBufferToCxt: fwUpdatesPercentUsed(429) cannot add 1 element to context");
                           }
 
-                          v17 = "ASPFTLParseBufferToCxt: fwUpdatesPercentUsed(429) cannot add 1 element to context";
                           goto LABEL_161;
                         case 430:
-                          if (sub_100020050(a1, "", "slcPercentUsed", *v8))
+                          if ((sub_100020050(a1, "", "slcPercentUsed", *a2) & 1) == 0)
                           {
-                            goto LABEL_162;
+                            sub_100020530("ASPFTLParseBufferToCxt: slcPercentUsed(430) cannot add 1 element to context");
                           }
 
-                          v17 = "ASPFTLParseBufferToCxt: slcPercentUsed(430) cannot add 1 element to context";
                           goto LABEL_161;
                         case 431:
-                          if (sub_100020050(a1, "", "percentUsed", *v8))
+                          if ((sub_100020050(a1, "", "percentUsed", *a2) & 1) == 0)
                           {
-                            goto LABEL_162;
+                            sub_100020530("ASPFTLParseBufferToCxt: percentUsed(431) cannot add 1 element to context");
                           }
 
-                          v17 = "ASPFTLParseBufferToCxt: percentUsed(431) cannot add 1 element to context";
                           goto LABEL_161;
                         default:
-                          switch(v12)
+                          switch(v7)
                           {
                             case 432:
-                              if (sub_100020050(a1, "", "hostAutoWrites", *v8))
+                              if ((sub_100020050(a1, "", "hostAutoWrites", *a2) & 1) == 0)
                               {
-                                goto LABEL_162;
+                                sub_100020530("ASPFTLParseBufferToCxt: hostAutoWrites(432) cannot add 1 element to context");
                               }
 
-                              v17 = "ASPFTLParseBufferToCxt: hostAutoWrites(432) cannot add 1 element to context";
                               goto LABEL_161;
                             case 433:
-                              if (sub_100020050(a1, "", "hostAutoWriteXacts", *v8))
+                              if ((sub_100020050(a1, "", "hostAutoWriteXacts", *a2) & 1) == 0)
                               {
-                                goto LABEL_162;
+                                sub_100020530("ASPFTLParseBufferToCxt: hostAutoWriteXacts(433) cannot add 1 element to context");
                               }
 
-                              v17 = "ASPFTLParseBufferToCxt: hostAutoWriteXacts(433) cannot add 1 element to context";
                               goto LABEL_161;
                             case 434:
-                              if (sub_100020050(a1, "", "gcDestDynamic", *v8))
+                              if ((sub_100020050(a1, "", "gcDestDynamic", *a2) & 1) == 0)
                               {
-                                goto LABEL_162;
+                                sub_100020530("ASPFTLParseBufferToCxt: gcDestDynamic(434) cannot add 1 element to context");
                               }
 
-                              v17 = "ASPFTLParseBufferToCxt: gcDestDynamic(434) cannot add 1 element to context";
                               goto LABEL_161;
                             case 435:
-                              if (sub_100020050(a1, "", "gcDestStatic", *v8))
+                              if ((sub_100020050(a1, "", "gcDestStatic", *a2) & 1) == 0)
                               {
-                                goto LABEL_162;
+                                sub_100020530("ASPFTLParseBufferToCxt: gcDestStatic(435) cannot add 1 element to context");
                               }
 
-                              v17 = "ASPFTLParseBufferToCxt: gcDestStatic(435) cannot add 1 element to context";
                               goto LABEL_161;
                             case 436:
-                              if (sub_100020050(a1, "", "gcDestWearlevel", *v8))
+                              if ((sub_100020050(a1, "", "gcDestWearlevel", *a2) & 1) == 0)
                               {
-                                goto LABEL_162;
+                                sub_100020530("ASPFTLParseBufferToCxt: gcDestWearlevel(436) cannot add 1 element to context");
                               }
 
-                              v17 = "ASPFTLParseBufferToCxt: gcDestWearlevel(436) cannot add 1 element to context";
                               goto LABEL_161;
                             case 437:
-                              if (sub_100020050(a1, "", "gcDestParity", *v8))
+                              if ((sub_100020050(a1, "", "gcDestParity", *a2) & 1) == 0)
                               {
-                                goto LABEL_162;
+                                sub_100020530("ASPFTLParseBufferToCxt: gcDestParity(437) cannot add 1 element to context");
                               }
 
-                              v17 = "ASPFTLParseBufferToCxt: gcDestParity(437) cannot add 1 element to context";
                               goto LABEL_161;
                             case 438:
-                              if (sub_100020050(a1, "", "AbortSkip_Format", *v8))
+                              if ((sub_100020050(a1, "", "AbortSkip_Format", *a2) & 1) == 0)
                               {
-                                goto LABEL_162;
+                                sub_100020530("ASPFTLParseBufferToCxt: AbortSkip_Format(438) cannot add 1 element to context");
                               }
 
-                              v17 = "ASPFTLParseBufferToCxt: AbortSkip_Format(438) cannot add 1 element to context";
                               goto LABEL_161;
                             case 440:
-                              if (sub_100020050(a1, "", "raidSLCPadding", *v8))
+                              if ((sub_100020050(a1, "", "raidSLCPadding", *a2) & 1) == 0)
                               {
-                                goto LABEL_162;
+                                sub_100020530("ASPFTLParseBufferToCxt: raidSLCPadding(440) cannot add 1 element to context");
                               }
 
-                              v17 = "ASPFTLParseBufferToCxt: raidSLCPadding(440) cannot add 1 element to context";
                               goto LABEL_161;
                             case 441:
-                              if (sub_100020050(a1, "", "raidGCBands", *v8))
+                              if ((sub_100020050(a1, "", "raidGCBands", *a2) & 1) == 0)
                               {
-                                goto LABEL_162;
+                                sub_100020530("ASPFTLParseBufferToCxt: raidGCBands(441) cannot add 1 element to context");
                               }
 
-                              v17 = "ASPFTLParseBufferToCxt: raidGCBands(441) cannot add 1 element to context";
                               goto LABEL_161;
                             case 442:
-                              if (sub_100020050(a1, "", "raidGCSectors", *v8))
+                              if ((sub_100020050(a1, "", "raidGCSectors", *a2) & 1) == 0)
                               {
-                                goto LABEL_162;
+                                sub_100020530("ASPFTLParseBufferToCxt: raidGCSectors(442) cannot add 1 element to context");
                               }
 
-                              v17 = "ASPFTLParseBufferToCxt: raidGCSectors(442) cannot add 1 element to context";
                               goto LABEL_161;
                             case 443:
-                              if (sub_100020050(a1, "", "raidGCPadding", *v8))
+                              if ((sub_100020050(a1, "", "raidGCPadding", *a2) & 1) == 0)
                               {
-                                goto LABEL_162;
+                                sub_100020530("ASPFTLParseBufferToCxt: raidGCPadding(443) cannot add 1 element to context");
                               }
 
-                              v17 = "ASPFTLParseBufferToCxt: raidGCPadding(443) cannot add 1 element to context";
                               goto LABEL_161;
                             case 444:
-                              if (sub_100020050(a1, "", "raidSLCBandsPerHostFlow", *v8))
+                              if ((sub_100020050(a1, "", "raidSLCBandsPerHostFlow", *a2) & 1) == 0)
                               {
-                                goto LABEL_162;
+                                sub_100020530("ASPFTLParseBufferToCxt: raidSLCBandsPerHostFlow(444) cannot add 1 element to context");
                               }
 
-                              v17 = "ASPFTLParseBufferToCxt: raidSLCBandsPerHostFlow(444) cannot add 1 element to context";
                               goto LABEL_161;
                             case 445:
-                              if (sub_100020050(a1, "", "raidSLCSecsPerHostFlow", *v8))
+                              if ((sub_100020050(a1, "", "raidSLCSecsPerHostFlow", *a2) & 1) == 0)
                               {
-                                goto LABEL_162;
+                                sub_100020530("ASPFTLParseBufferToCxt: raidSLCSecsPerHostFlow(445) cannot add 1 element to context");
                               }
 
-                              v17 = "ASPFTLParseBufferToCxt: raidSLCSecsPerHostFlow(445) cannot add 1 element to context";
                               goto LABEL_161;
                             case 446:
-                              if (sub_100020050(a1, "", "rxBurnMinCycleRuns", *v8))
+                              if ((sub_100020050(a1, "", "rxBurnMinCycleRuns", *a2) & 1) == 0)
                               {
-                                goto LABEL_162;
+                                sub_100020530("ASPFTLParseBufferToCxt: rxBurnMinCycleRuns(446) cannot add 1 element to context");
                               }
 
-                              v17 = "ASPFTLParseBufferToCxt: rxBurnMinCycleRuns(446) cannot add 1 element to context";
                               goto LABEL_161;
                             case 447:
-                              if (sub_100020050(a1, "", "clogNumFastCxt", *v8))
+                              if ((sub_100020050(a1, "", "clogNumFastCxt", *a2) & 1) == 0)
                               {
-                                goto LABEL_162;
+                                sub_100020530("ASPFTLParseBufferToCxt: clogNumFastCxt(447) cannot add 1 element to context");
                               }
 
-                              v17 = "ASPFTLParseBufferToCxt: clogNumFastCxt(447) cannot add 1 element to context";
                               goto LABEL_161;
                             case 448:
-                              if (sub_100020050(a1, "", "clogNumRapidReboots", *v8))
+                              if ((sub_100020050(a1, "", "clogNumRapidReboots", *a2) & 1) == 0)
                               {
-                                goto LABEL_162;
+                                sub_100020530("ASPFTLParseBufferToCxt: clogNumRapidReboots(448) cannot add 1 element to context");
                               }
 
-                              v17 = "ASPFTLParseBufferToCxt: clogNumRapidReboots(448) cannot add 1 element to context";
                               goto LABEL_161;
                             case 449:
-                              if (sub_100020050(a1, "", "clogFastCxtAbvThr", *v8))
+                              if ((sub_100020050(a1, "", "clogFastCxtAbvThr", *a2) & 1) == 0)
                               {
-                                goto LABEL_162;
+                                sub_100020530("ASPFTLParseBufferToCxt: clogFastCxtAbvThr(449) cannot add 1 element to context");
                               }
 
-                              v17 = "ASPFTLParseBufferToCxt: clogFastCxtAbvThr(449) cannot add 1 element to context";
                               goto LABEL_161;
                             case 450:
-                              if (sub_100020050(a1, "", "rxBurnDiffModeRuns", *v8))
+                              if ((sub_100020050(a1, "", "rxBurnDiffModeRuns", *a2) & 1) == 0)
                               {
-                                goto LABEL_162;
+                                sub_100020530("ASPFTLParseBufferToCxt: rxBurnDiffModeRuns(450) cannot add 1 element to context");
                               }
 
-                              v17 = "ASPFTLParseBufferToCxt: rxBurnDiffModeRuns(450) cannot add 1 element to context";
                               goto LABEL_161;
                             case 452:
-                              if (sub_100020050(a1, "", "indReadVerifyFail", *v8))
+                              if ((sub_100020050(a1, "", "indReadVerifyFail", *a2) & 1) == 0)
                               {
-                                goto LABEL_162;
+                                sub_100020530("ASPFTLParseBufferToCxt: indReadVerifyFail(452) cannot add 1 element to context");
                               }
 
-                              v17 = "ASPFTLParseBufferToCxt: indReadVerifyFail(452) cannot add 1 element to context";
                               goto LABEL_161;
                             case 453:
-                              if (v14 != 25)
+                              if (v9 != 25)
                               {
-                                sub_100020530("ASPFTLParseBufferToCxt: numOfThrottlingEntriesPerReadLevel(453): (#25) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                                sub_100020530("ASPFTLParseBufferToCxt: numOfThrottlingEntriesPerReadLevel(453): (#25) cfg elements != (%d) buffer elements", v9);
                               }
 
-                              if (v12 >> 33 >= 0xD)
+                              if (v7 >> 33 >= 0xD)
                               {
-                                v18 = 25;
+                                v12 = 25;
                               }
 
                               else
                               {
-                                v18 = v14;
+                                v12 = v9;
                               }
 
-                              if (sub_1000189BC(a1, "numOfThrottlingEntriesPerReadLevel_", v8, 8u, v18))
+                              if (sub_1000189BC(a1, "numOfThrottlingEntriesPerReadLevel_", a2, 8u, v12))
                               {
                                 goto LABEL_110;
                               }
 
-                              v19 = "ASPFTLParseBufferToCxt: numOfThrottlingEntriesPerReadLevel(453): Cannot add 25 elements to context";
-                              goto LABEL_2993;
+                              sub_100020530("ASPFTLParseBufferToCxt: numOfThrottlingEntriesPerReadLevel(453): Cannot add 25 elements to context", v14);
+                              return v5;
                             case 454:
-                              if (v14 != 25)
+                              if (v9 != 25)
                               {
-                                sub_100020530("ASPFTLParseBufferToCxt: numOfThrottlingEntriesPerWriteLevel(454): (#25) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                                sub_100020530("ASPFTLParseBufferToCxt: numOfThrottlingEntriesPerWriteLevel(454): (#25) cfg elements != (%d) buffer elements", v9);
                               }
 
-                              if (v12 >> 33 >= 0xD)
+                              if (v7 >> 33 >= 0xD)
                               {
-                                v18 = 25;
+                                v12 = 25;
                               }
 
                               else
                               {
-                                v18 = v14;
+                                v12 = v9;
                               }
 
-                              if (sub_1000189BC(a1, "numOfThrottlingEntriesPerWriteLevel_", v8, 8u, v18))
+                              if (sub_1000189BC(a1, "numOfThrottlingEntriesPerWriteLevel_", a2, 8u, v12))
                               {
                                 goto LABEL_110;
                               }
 
-                              v19 = "ASPFTLParseBufferToCxt: numOfThrottlingEntriesPerWriteLevel(454): Cannot add 25 elements to context";
-                              goto LABEL_2993;
+                              sub_100020530("ASPFTLParseBufferToCxt: numOfThrottlingEntriesPerWriteLevel(454): Cannot add 25 elements to context", v14);
+                              return v5;
                             case 456:
-                              if (v14 != 10)
+                              if (v9 != 10)
                               {
-                                sub_100020530("ASPFTLParseBufferToCxt: slcFifoDepth(456): (#10) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                                sub_100020530("ASPFTLParseBufferToCxt: slcFifoDepth(456): (#10) cfg elements != (%d) buffer elements", v9);
                               }
 
-                              if (v14 >= 0xB)
+                              if (v9 >= 0xB)
                               {
-                                v18 = 10;
+                                v12 = 10;
                               }
 
                               else
                               {
-                                v18 = v14;
+                                v12 = v9;
                               }
 
-                              if (sub_1000189BC(a1, "slcFifoDepth_", v8, 8u, v18))
+                              if (sub_1000189BC(a1, "slcFifoDepth_", a2, 8u, v12))
                               {
                                 goto LABEL_110;
                               }
 
-                              v19 = "ASPFTLParseBufferToCxt: slcFifoDepth(456): Cannot add 10 elements to context";
-                              goto LABEL_2993;
+                              sub_100020530("ASPFTLParseBufferToCxt: slcFifoDepth(456): Cannot add 10 elements to context", v14);
+                              return v5;
                             case 457:
-                              if (sub_100020050(a1, "", "wcacheSectorsDirtyIdle", *v8))
+                              if ((sub_100020050(a1, "", "wcacheSectorsDirtyIdle", *a2) & 1) == 0)
                               {
-                                goto LABEL_162;
+                                sub_100020530("ASPFTLParseBufferToCxt: wcacheSectorsDirtyIdle(457) cannot add 1 element to context");
                               }
 
-                              v17 = "ASPFTLParseBufferToCxt: wcacheSectorsDirtyIdle(457) cannot add 1 element to context";
                               goto LABEL_161;
                             case 458:
-                              if (sub_100020050(a1, "", "wcacheDS_SectorsDirtyIdle", *v8))
+                              if ((sub_100020050(a1, "", "wcacheDS_SectorsDirtyIdle", *a2) & 1) == 0)
                               {
-                                goto LABEL_162;
+                                sub_100020530("ASPFTLParseBufferToCxt: wcacheDS_SectorsDirtyIdle(458) cannot add 1 element to context");
                               }
 
-                              v17 = "ASPFTLParseBufferToCxt: wcacheDS_SectorsDirtyIdle(458) cannot add 1 element to context";
                               goto LABEL_161;
                             case 459:
-                              if (sub_100020050(a1, "", "wcacheFS_MbytesDirtyIdle", *v8))
+                              if ((sub_100020050(a1, "", "wcacheFS_MbytesDirtyIdle", *a2) & 1) == 0)
                               {
-                                goto LABEL_162;
+                                sub_100020530("ASPFTLParseBufferToCxt: wcacheFS_MbytesDirtyIdle(459) cannot add 1 element to context");
                               }
 
-                              v17 = "ASPFTLParseBufferToCxt: wcacheFS_MbytesDirtyIdle(459) cannot add 1 element to context";
                               goto LABEL_161;
                             case 460:
-                              if (v14 != 256)
+                              if (v9 != 256)
                               {
-                                sub_100020530("ASPFTLParseBufferToCxt: CacheDepthVsThroughput(460): (#256) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                                sub_100020530("ASPFTLParseBufferToCxt: CacheDepthVsThroughput(460): (#256) cfg elements != (%d) buffer elements", v9);
                               }
 
-                              if (v14 >= 0x101)
+                              if (v9 >= 0x101)
                               {
-                                v18 = 256;
+                                v12 = 256;
                               }
 
                               else
                               {
-                                v18 = v14;
+                                v12 = v9;
                               }
 
-                              if (sub_1000189BC(a1, "CacheDepthVsThroughput_", v8, 8u, v18))
+                              if (sub_1000189BC(a1, "CacheDepthVsThroughput_", a2, 8u, v12))
                               {
                                 goto LABEL_110;
                               }
 
-                              v19 = "ASPFTLParseBufferToCxt: CacheDepthVsThroughput(460): Cannot add 256 elements to context";
-                              goto LABEL_2993;
+                              sub_100020530("ASPFTLParseBufferToCxt: CacheDepthVsThroughput(460): Cannot add 256 elements to context", v14);
+                              return v5;
                             case 461:
-                              if (sub_100020050(a1, "", "directToTLCSectors", *v8))
+                              if ((sub_100020050(a1, "", "directToTLCSectors", *a2) & 1) == 0)
                               {
-                                goto LABEL_162;
+                                sub_100020530("ASPFTLParseBufferToCxt: directToTLCSectors(461) cannot add 1 element to context");
                               }
 
-                              v17 = "ASPFTLParseBufferToCxt: directToTLCSectors(461) cannot add 1 element to context";
                               goto LABEL_161;
                             case 462:
-                              if (sub_100020050(a1, "", "fallbackToWaterfall", *v8))
+                              if ((sub_100020050(a1, "", "fallbackToWaterfall", *a2) & 1) == 0)
                               {
-                                goto LABEL_162;
+                                sub_100020530("ASPFTLParseBufferToCxt: fallbackToWaterfall(462) cannot add 1 element to context");
                               }
 
-                              v17 = "ASPFTLParseBufferToCxt: fallbackToWaterfall(462) cannot add 1 element to context";
                               goto LABEL_161;
                             case 463:
-                              if (v14 != 11)
+                              if (v9 != 11)
                               {
-                                sub_100020530("ASPFTLParseBufferToCxt: balanceProportionBucketsHistogram(463): (#11) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                                sub_100020530("ASPFTLParseBufferToCxt: balanceProportionBucketsHistogram(463): (#11) cfg elements != (%d) buffer elements", v9);
                               }
 
-                              if (v12 >> 34 >= 3)
+                              if (v7 >> 34 >= 3)
                               {
-                                v18 = 11;
+                                v12 = 11;
                               }
 
                               else
                               {
-                                v18 = v14;
+                                v12 = v9;
                               }
 
-                              if (sub_1000189BC(a1, "balanceProportionBucketsHistogram_", v8, 8u, v18))
+                              if (sub_1000189BC(a1, "balanceProportionBucketsHistogram_", a2, 8u, v12))
                               {
                                 goto LABEL_110;
                               }
 
-                              v19 = "ASPFTLParseBufferToCxt: balanceProportionBucketsHistogram(463): Cannot add 11 elements to context";
-                              goto LABEL_2993;
+                              sub_100020530("ASPFTLParseBufferToCxt: balanceProportionBucketsHistogram(463): Cannot add 11 elements to context", v14);
+                              return v5;
                             case 464:
-                              if (sub_100020050(a1, "", "lockToTlc", *v8))
+                              if ((sub_100020050(a1, "", "lockToTlc", *a2) & 1) == 0)
                               {
-                                goto LABEL_162;
+                                sub_100020530("ASPFTLParseBufferToCxt: lockToTlc(464) cannot add 1 element to context");
                               }
 
-                              v17 = "ASPFTLParseBufferToCxt: lockToTlc(464) cannot add 1 element to context";
                               goto LABEL_161;
                             case 465:
-                              if (v14 != 10)
+                              if (v9 != 10)
                               {
-                                sub_100020530("ASPFTLParseBufferToCxt: burstSizeHistogram(465): (#10) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                                sub_100020530("ASPFTLParseBufferToCxt: burstSizeHistogram(465): (#10) cfg elements != (%d) buffer elements", v9);
                               }
 
-                              if (v14 >= 0xB)
+                              if (v9 >= 0xB)
                               {
-                                v18 = 10;
+                                v12 = 10;
                               }
 
                               else
                               {
-                                v18 = v14;
+                                v12 = v9;
                               }
 
-                              if (sub_1000189BC(a1, "burstSizeHistogram_", v8, 8u, v18))
+                              if (sub_1000189BC(a1, "burstSizeHistogram_", a2, 8u, v12))
                               {
                                 goto LABEL_110;
                               }
 
-                              v19 = "ASPFTLParseBufferToCxt: burstSizeHistogram(465): Cannot add 10 elements to context";
-                              goto LABEL_2993;
+                              sub_100020530("ASPFTLParseBufferToCxt: burstSizeHistogram(465): Cannot add 10 elements to context", v14);
+                              return v5;
                             case 466:
-                              if (v14 != 64)
+                              if (v9 != 64)
                               {
-                                sub_100020530("ASPFTLParseBufferToCxt: qosDirectToTLC(466): (#64) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                                sub_100020530("ASPFTLParseBufferToCxt: qosDirectToTLC(466): (#64) cfg elements != (%d) buffer elements", v9);
                               }
 
-                              if (v14 >= 0x41)
+                              if (v9 >= 0x41)
                               {
-                                v18 = 64;
+                                v12 = 64;
                               }
 
                               else
                               {
-                                v18 = v14;
+                                v12 = v9;
                               }
 
-                              if (sub_1000189BC(a1, "qosDirectToTLC_", v8, 8u, v18))
+                              if (sub_1000189BC(a1, "qosDirectToTLC_", a2, 8u, v12))
                               {
                                 goto LABEL_110;
                               }
 
-                              v19 = "ASPFTLParseBufferToCxt: qosDirectToTLC(466): Cannot add 64 elements to context";
-                              goto LABEL_2993;
+                              sub_100020530("ASPFTLParseBufferToCxt: qosDirectToTLC(466): Cannot add 64 elements to context", v14);
+                              return v5;
                             case 467:
-                              if (v14 != 4)
+                              if (v9 != 4)
                               {
-                                sub_100020530("ASPFTLParseBufferToCxt: maxQosDirectToTLC(467): (#4) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                                sub_100020530("ASPFTLParseBufferToCxt: maxQosDirectToTLC(467): (#4) cfg elements != (%d) buffer elements", v9);
                               }
 
-                              if (v14 >= 5)
+                              if (v9 >= 5)
                               {
-                                v18 = 4;
+                                v12 = 4;
                               }
 
                               else
                               {
-                                v18 = v14;
+                                v12 = v9;
                               }
 
-                              if (sub_1000189BC(a1, "maxQosDirectToTLC_", v8, 8u, v18))
+                              if (sub_1000189BC(a1, "maxQosDirectToTLC_", a2, 8u, v12))
                               {
                                 goto LABEL_110;
                               }
 
-                              v19 = "ASPFTLParseBufferToCxt: maxQosDirectToTLC(467): Cannot add 4 elements to context";
-                              goto LABEL_2993;
+                              sub_100020530("ASPFTLParseBufferToCxt: maxQosDirectToTLC(467): Cannot add 4 elements to context", v14);
+                              return v5;
                             case 468:
-                              if (v14 != 16)
+                              if (v9 != 16)
                               {
-                                sub_100020530("ASPFTLParseBufferToCxt: wcacheDirtyAtFlush(468): (#16) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                                sub_100020530("ASPFTLParseBufferToCxt: wcacheDirtyAtFlush(468): (#16) cfg elements != (%d) buffer elements", v9);
                               }
 
-                              if (v14 >= 0x11)
+                              if (v9 >= 0x11)
                               {
-                                v18 = 16;
+                                v12 = 16;
                               }
 
                               else
                               {
-                                v18 = v14;
+                                v12 = v9;
                               }
 
-                              if (sub_1000189BC(a1, "wcacheDirtyAtFlush_", v8, 8u, v18))
+                              if (sub_1000189BC(a1, "wcacheDirtyAtFlush_", a2, 8u, v12))
                               {
                                 goto LABEL_110;
                               }
 
-                              v19 = "ASPFTLParseBufferToCxt: wcacheDirtyAtFlush(468): Cannot add 16 elements to context";
-                              goto LABEL_2993;
+                              sub_100020530("ASPFTLParseBufferToCxt: wcacheDirtyAtFlush(468): Cannot add 16 elements to context", v14);
+                              return v5;
                             case 469:
-                              if (v14 != 2)
+                              if (v9 != 2)
                               {
-                                sub_100020530("ASPFTLParseBufferToCxt: raidReconstructSuccessPartition(469): (#2) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                                sub_100020530("ASPFTLParseBufferToCxt: raidReconstructSuccessPartition(469): (#2) cfg elements != (%d) buffer elements", v9);
                               }
 
-                              if (v14 >= 3)
+                              if (v9 >= 3)
                               {
-                                v18 = 2;
+                                v12 = 2;
                               }
 
                               else
                               {
-                                v18 = v14;
+                                v12 = v9;
                               }
 
-                              if (sub_1000189BC(a1, "raidReconstructSuccessPartition_", v8, 8u, v18))
+                              if (sub_1000189BC(a1, "raidReconstructSuccessPartition_", a2, 8u, v12))
                               {
                                 goto LABEL_110;
                               }
 
-                              v19 = "ASPFTLParseBufferToCxt: raidReconstructSuccessPartition(469): Cannot add 2 elements to context";
-                              goto LABEL_2993;
+                              sub_100020530("ASPFTLParseBufferToCxt: raidReconstructSuccessPartition(469): Cannot add 2 elements to context", v14);
+                              return v5;
                             case 470:
-                              if (v14 != 2)
+                              if (v9 != 2)
                               {
-                                sub_100020530("ASPFTLParseBufferToCxt: raidReconstructFailPartition(470): (#2) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                                sub_100020530("ASPFTLParseBufferToCxt: raidReconstructFailPartition(470): (#2) cfg elements != (%d) buffer elements", v9);
                               }
 
-                              if (v14 >= 3)
+                              if (v9 >= 3)
                               {
-                                v18 = 2;
+                                v12 = 2;
                               }
 
                               else
                               {
-                                v18 = v14;
+                                v12 = v9;
                               }
 
-                              if (sub_1000189BC(a1, "raidReconstructFailPartition_", v8, 8u, v18))
+                              if (sub_1000189BC(a1, "raidReconstructFailPartition_", a2, 8u, v12))
                               {
                                 goto LABEL_110;
                               }
 
-                              v19 = "ASPFTLParseBufferToCxt: raidReconstructFailPartition(470): Cannot add 2 elements to context";
-                              goto LABEL_2993;
+                              sub_100020530("ASPFTLParseBufferToCxt: raidReconstructFailPartition(470): Cannot add 2 elements to context", v14);
+                              return v5;
                             case 471:
-                              if (sub_100020050(a1, "", "raidUncleanBootBandFail", *v8))
+                              if ((sub_100020050(a1, "", "raidUncleanBootBandFail", *a2) & 1) == 0)
                               {
-                                goto LABEL_162;
+                                sub_100020530("ASPFTLParseBufferToCxt: raidUncleanBootBandFail(471) cannot add 1 element to context");
                               }
 
-                              v17 = "ASPFTLParseBufferToCxt: raidUncleanBootBandFail(471) cannot add 1 element to context";
                               goto LABEL_161;
                             case 472:
-                              if (sub_100020050(a1, "", "raidReconstructFailBandFlowHost", *v8))
+                              if ((sub_100020050(a1, "", "raidReconstructFailBandFlowHost", *a2) & 1) == 0)
                               {
-                                goto LABEL_162;
+                                sub_100020530("ASPFTLParseBufferToCxt: raidReconstructFailBandFlowHost(472) cannot add 1 element to context");
                               }
 
-                              v17 = "ASPFTLParseBufferToCxt: raidReconstructFailBandFlowHost(472) cannot add 1 element to context";
                               goto LABEL_161;
                             case 473:
-                              if (sub_100020050(a1, "", "raidReconstructFailBandFlowGC", *v8))
+                              if ((sub_100020050(a1, "", "raidReconstructFailBandFlowGC", *a2) & 1) == 0)
                               {
-                                goto LABEL_162;
+                                sub_100020530("ASPFTLParseBufferToCxt: raidReconstructFailBandFlowGC(473) cannot add 1 element to context");
                               }
 
-                              v17 = "ASPFTLParseBufferToCxt: raidReconstructFailBandFlowGC(473) cannot add 1 element to context";
                               goto LABEL_161;
                             case 476:
-                              if (v14 != 2)
+                              if (v9 != 2)
                               {
-                                sub_100020530("ASPFTLParseBufferToCxt: raidSuccessfulRecoLbaRange(476): (#2) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                                sub_100020530("ASPFTLParseBufferToCxt: raidSuccessfulRecoLbaRange(476): (#2) cfg elements != (%d) buffer elements", v9);
                               }
 
-                              if (v14 >= 3)
+                              if (v9 >= 3)
                               {
-                                v18 = 2;
+                                v12 = 2;
                               }
 
                               else
                               {
-                                v18 = v14;
+                                v12 = v9;
                               }
 
-                              if (sub_1000189BC(a1, "raidSuccessfulRecoLbaRange_", v8, 8u, v18))
+                              if (sub_1000189BC(a1, "raidSuccessfulRecoLbaRange_", a2, 8u, v12))
                               {
                                 goto LABEL_110;
                               }
 
-                              v19 = "ASPFTLParseBufferToCxt: raidSuccessfulRecoLbaRange(476): Cannot add 2 elements to context";
-                              goto LABEL_2993;
+                              sub_100020530("ASPFTLParseBufferToCxt: raidSuccessfulRecoLbaRange(476): Cannot add 2 elements to context", v14);
+                              return v5;
                             case 477:
-                              if (v14 != 2)
+                              if (v9 != 2)
                               {
-                                sub_100020530("ASPFTLParseBufferToCxt: raidFailedRecoLbaRange(477): (#2) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                                sub_100020530("ASPFTLParseBufferToCxt: raidFailedRecoLbaRange(477): (#2) cfg elements != (%d) buffer elements", v9);
                               }
 
-                              if (v14 >= 3)
+                              if (v9 >= 3)
                               {
-                                v18 = 2;
+                                v12 = 2;
                               }
 
                               else
                               {
-                                v18 = v14;
+                                v12 = v9;
                               }
 
-                              if (sub_1000189BC(a1, "raidFailedRecoLbaRange_", v8, 8u, v18))
+                              if (sub_1000189BC(a1, "raidFailedRecoLbaRange_", a2, 8u, v12))
                               {
                                 goto LABEL_110;
                               }
 
-                              v19 = "ASPFTLParseBufferToCxt: raidFailedRecoLbaRange(477): Cannot add 2 elements to context";
-                              goto LABEL_2993;
+                              sub_100020530("ASPFTLParseBufferToCxt: raidFailedRecoLbaRange(477): Cannot add 2 elements to context", v14);
+                              return v5;
                             case 481:
-                              if (v14 != 32)
+                              if (v9 != 32)
                               {
-                                sub_100020530("ASPFTLParseBufferToCxt: skinnyBandErases_481(481): (#32) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                                sub_100020530("ASPFTLParseBufferToCxt: skinnyBandErases_481(481): (#32) cfg elements != (%d) buffer elements", v9);
                               }
 
-                              if (v14 >= 0x21)
+                              if (v9 >= 0x21)
                               {
-                                v18 = 32;
+                                v12 = 32;
                               }
 
                               else
                               {
-                                v18 = v14;
+                                v12 = v9;
                               }
 
-                              if (sub_1000189BC(a1, "skinnyBandErases_481_", v8, 8u, v18))
+                              if (sub_1000189BC(a1, "skinnyBandErases_481_", a2, 8u, v12))
                               {
                                 goto LABEL_110;
                               }
 
-                              v19 = "ASPFTLParseBufferToCxt: skinnyBandErases_481(481): Cannot add 32 elements to context";
-                              goto LABEL_2993;
+                              sub_100020530("ASPFTLParseBufferToCxt: skinnyBandErases_481(481): Cannot add 32 elements to context", v14);
+                              return v5;
                             case 483:
-                              if (sub_100020050(a1, "", "tlcOverHeatWaterfall", *v8))
+                              if ((sub_100020050(a1, "", "tlcOverHeatWaterfall", *a2) & 1) == 0)
                               {
-                                goto LABEL_162;
+                                sub_100020530("ASPFTLParseBufferToCxt: tlcOverHeatWaterfall(483) cannot add 1 element to context");
                               }
 
-                              v17 = "ASPFTLParseBufferToCxt: tlcOverHeatWaterfall(483) cannot add 1 element to context";
                               goto LABEL_161;
                             case 484:
-                              if (sub_100020050(a1, "", "skinnyCyclesConvert", *v8))
+                              if ((sub_100020050(a1, "", "skinnyCyclesConvert", *a2) & 1) == 0)
                               {
-                                goto LABEL_162;
+                                sub_100020530("ASPFTLParseBufferToCxt: skinnyCyclesConvert(484) cannot add 1 element to context");
                               }
 
-                              v17 = "ASPFTLParseBufferToCxt: skinnyCyclesConvert(484) cannot add 1 element to context";
                               goto LABEL_161;
                             case 485:
-                              if (sub_100020050(a1, "", "non_proportional_directToTLCSectors", *v8))
+                              if ((sub_100020050(a1, "", "non_proportional_directToTLCSectors", *a2) & 1) == 0)
                               {
-                                goto LABEL_162;
+                                sub_100020530("ASPFTLParseBufferToCxt: non_proportional_directToTLCSectors(485) cannot add 1 element to context");
                               }
 
-                              v17 = "ASPFTLParseBufferToCxt: non_proportional_directToTLCSectors(485) cannot add 1 element to context";
                               goto LABEL_161;
                             case 486:
-                              if (sub_100020050(a1, "", "maxFailedFastCxtSync", *v8))
+                              if ((sub_100020050(a1, "", "maxFailedFastCxtSync", *a2) & 1) == 0)
                               {
-                                goto LABEL_162;
+                                sub_100020530("ASPFTLParseBufferToCxt: maxFailedFastCxtSync(486) cannot add 1 element to context");
                               }
 
-                              v17 = "ASPFTLParseBufferToCxt: maxFailedFastCxtSync(486) cannot add 1 element to context";
                               goto LABEL_161;
                             case 487:
-                              if (sub_100020050(a1, "", "numFormatUserArea", *v8))
+                              if ((sub_100020050(a1, "", "numFormatUserArea", *a2) & 1) == 0)
                               {
-                                goto LABEL_162;
+                                sub_100020530("ASPFTLParseBufferToCxt: numFormatUserArea(487) cannot add 1 element to context");
                               }
 
-                              v17 = "ASPFTLParseBufferToCxt: numFormatUserArea(487) cannot add 1 element to context";
                               goto LABEL_161;
                             case 488:
-                              if (sub_100020050(a1, "", "clogFastCxtSyncAborted", *v8))
+                              if ((sub_100020050(a1, "", "clogFastCxtSyncAborted", *a2) & 1) == 0)
                               {
-                                goto LABEL_162;
+                                sub_100020530("ASPFTLParseBufferToCxt: clogFastCxtSyncAborted(488) cannot add 1 element to context");
                               }
 
-                              v17 = "ASPFTLParseBufferToCxt: clogFastCxtSyncAborted(488) cannot add 1 element to context";
                               goto LABEL_161;
                             case 489:
-                              if (v14 != 5)
+                              if (v9 != 5)
                               {
-                                sub_100020530("ASPFTLParseBufferToCxt: clogOccupationSectors(489): (#5) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                                sub_100020530("ASPFTLParseBufferToCxt: clogOccupationSectors(489): (#5) cfg elements != (%d) buffer elements", v9);
                               }
 
-                              if (v12 >> 33 >= 3)
+                              if (v7 >> 33 >= 3)
                               {
-                                v18 = 5;
+                                v12 = 5;
                               }
 
                               else
                               {
-                                v18 = v14;
+                                v12 = v9;
                               }
 
-                              if (sub_1000189BC(a1, "clogOccupationSectors_", v8, 8u, v18))
+                              if (sub_1000189BC(a1, "clogOccupationSectors_", a2, 8u, v12))
                               {
                                 goto LABEL_110;
                               }
 
-                              v19 = "ASPFTLParseBufferToCxt: clogOccupationSectors(489): Cannot add 5 elements to context";
-                              goto LABEL_2993;
+                              sub_100020530("ASPFTLParseBufferToCxt: clogOccupationSectors(489): Cannot add 5 elements to context", v14);
+                              return v5;
                             case 490:
-                              if (v14 != 64)
+                              if (v9 != 64)
                               {
-                                sub_100020530("ASPFTLParseBufferToCxt: bdrTmpHist(490): (#64) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                                sub_100020530("ASPFTLParseBufferToCxt: bdrTmpHist(490): (#64) cfg elements != (%d) buffer elements", v9);
                               }
 
-                              if (v14 >= 0x41)
+                              if (v9 >= 0x41)
                               {
-                                v18 = 64;
+                                v12 = 64;
                               }
 
                               else
                               {
-                                v18 = v14;
+                                v12 = v9;
                               }
 
-                              if (sub_1000189BC(a1, "bdrTmpHist_", v8, 8u, v18))
+                              if (sub_1000189BC(a1, "bdrTmpHist_", a2, 8u, v12))
                               {
                                 goto LABEL_110;
                               }
 
-                              v19 = "ASPFTLParseBufferToCxt: bdrTmpHist(490): Cannot add 64 elements to context";
-                              goto LABEL_2993;
+                              sub_100020530("ASPFTLParseBufferToCxt: bdrTmpHist(490): Cannot add 64 elements to context", v14);
+                              return v5;
                             case 491:
-                              if (sub_100020050(a1, "", "numFWUpdates", *v8))
+                              if ((sub_100020050(a1, "", "numFWUpdates", *a2) & 1) == 0)
                               {
-                                goto LABEL_162;
+                                sub_100020530("ASPFTLParseBufferToCxt: numFWUpdates(491) cannot add 1 element to context");
                               }
 
-                              v17 = "ASPFTLParseBufferToCxt: numFWUpdates(491) cannot add 1 element to context";
                               goto LABEL_161;
                             case 492:
-                              if (sub_100020050(a1, "", "numClogLoadFails", *v8))
+                              if ((sub_100020050(a1, "", "numClogLoadFails", *a2) & 1) == 0)
                               {
-                                goto LABEL_162;
+                                sub_100020530("ASPFTLParseBufferToCxt: numClogLoadFails(492) cannot add 1 element to context");
                               }
 
-                              v17 = "ASPFTLParseBufferToCxt: numClogLoadFails(492) cannot add 1 element to context";
                               goto LABEL_161;
                             case 493:
-                              if (sub_100020050(a1, "", "rxBurnNumForcedDiffMode", *v8))
+                              if ((sub_100020050(a1, "", "rxBurnNumForcedDiffMode", *a2) & 1) == 0)
                               {
-                                goto LABEL_162;
+                                sub_100020530("ASPFTLParseBufferToCxt: rxBurnNumForcedDiffMode(493) cannot add 1 element to context");
                               }
 
-                              v17 = "ASPFTLParseBufferToCxt: rxBurnNumForcedDiffMode(493) cannot add 1 element to context";
                               goto LABEL_161;
                             case 494:
-                              if (sub_100020050(a1, "", "RD_numSaves", *v8))
+                              if ((sub_100020050(a1, "", "RD_numSaves", *a2) & 1) == 0)
                               {
-                                goto LABEL_162;
+                                sub_100020530("ASPFTLParseBufferToCxt: RD_numSaves(494) cannot add 1 element to context");
                               }
 
-                              v17 = "ASPFTLParseBufferToCxt: RD_numSaves(494) cannot add 1 element to context";
                               goto LABEL_161;
                             case 495:
-                              if (sub_100020050(a1, "", "eanCompressWrites", *v8))
+                              if ((sub_100020050(a1, "", "eanCompressWrites", *a2) & 1) == 0)
                               {
-                                goto LABEL_162;
+                                sub_100020530("ASPFTLParseBufferToCxt: eanCompressWrites(495) cannot add 1 element to context");
                               }
 
-                              v17 = "ASPFTLParseBufferToCxt: eanCompressWrites(495) cannot add 1 element to context";
                               goto LABEL_161;
                             case 496:
-                              if (sub_100020050(a1, "", "eanHostWrites", *v8))
+                              if ((sub_100020050(a1, "", "eanHostWrites", *a2) & 1) == 0)
                               {
-                                goto LABEL_162;
+                                sub_100020530("ASPFTLParseBufferToCxt: eanHostWrites(496) cannot add 1 element to context");
                               }
 
-                              v17 = "ASPFTLParseBufferToCxt: eanHostWrites(496) cannot add 1 element to context";
                               goto LABEL_161;
                             case 497:
-                              if (sub_100020050(a1, "", "bandPreErases", *v8))
+                              if ((sub_100020050(a1, "", "bandPreErases", *a2) & 1) == 0)
                               {
-                                goto LABEL_162;
+                                sub_100020530("ASPFTLParseBufferToCxt: bandPreErases(497) cannot add 1 element to context");
                               }
 
-                              v17 = "ASPFTLParseBufferToCxt: bandPreErases(497) cannot add 1 element to context";
                               goto LABEL_161;
                             case 498:
-                              if (sub_100020050(a1, "", "eanHostUnmaps", *v8))
+                              if ((sub_100020050(a1, "", "eanHostUnmaps", *a2) & 1) == 0)
                               {
-                                goto LABEL_162;
+                                sub_100020530("ASPFTLParseBufferToCxt: eanHostUnmaps(498) cannot add 1 element to context");
                               }
 
-                              v17 = "ASPFTLParseBufferToCxt: eanHostUnmaps(498) cannot add 1 element to context";
                               goto LABEL_161;
                             case 499:
-                              if (sub_100020050(a1, "", "eanHostFlushes", *v8))
+                              if ((sub_100020050(a1, "", "eanHostFlushes", *a2) & 1) == 0)
                               {
-                                goto LABEL_162;
+                                sub_100020530("ASPFTLParseBufferToCxt: eanHostFlushes(499) cannot add 1 element to context");
                               }
 
-                              v17 = "ASPFTLParseBufferToCxt: eanHostFlushes(499) cannot add 1 element to context";
                               goto LABEL_161;
                             case 500:
-                              if (sub_100020050(a1, "", "eanFastWrites", *v8))
+                              if ((sub_100020050(a1, "", "eanFastWrites", *a2) & 1) == 0)
                               {
-                                goto LABEL_162;
+                                sub_100020530("ASPFTLParseBufferToCxt: eanFastWrites(500) cannot add 1 element to context");
                               }
 
-                              v17 = "ASPFTLParseBufferToCxt: eanFastWrites(500) cannot add 1 element to context";
                               goto LABEL_161;
                             case 501:
-                              if (sub_100020050(a1, "", "autowriteDS2FSCollisions", *v8))
+                              if ((sub_100020050(a1, "", "autowriteDS2FSCollisions", *a2) & 1) == 0)
                               {
-                                goto LABEL_162;
+                                sub_100020530("ASPFTLParseBufferToCxt: autowriteDS2FSCollisions(501) cannot add 1 element to context");
                               }
 
-                              v17 = "ASPFTLParseBufferToCxt: autowriteDS2FSCollisions(501) cannot add 1 element to context";
                               goto LABEL_161;
                             case 502:
-                              if (sub_100020050(a1, "", "autowriteWaitTransferTaskBlocks", *v8))
+                              if ((sub_100020050(a1, "", "autowriteWaitTransferTaskBlocks", *a2) & 1) == 0)
                               {
-                                goto LABEL_162;
+                                sub_100020530("ASPFTLParseBufferToCxt: autowriteWaitTransferTaskBlocks(502) cannot add 1 element to context");
                               }
 
-                              v17 = "ASPFTLParseBufferToCxt: autowriteWaitTransferTaskBlocks(502) cannot add 1 element to context";
                               goto LABEL_161;
                             case 503:
-                              if (v14 != 2)
+                              if (v9 != 2)
                               {
-                                sub_100020530("ASPFTLParseBufferToCxt: avgCycle(503): (#2) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                                sub_100020530("ASPFTLParseBufferToCxt: avgCycle(503): (#2) cfg elements != (%d) buffer elements", v9);
                               }
 
-                              if (v14 >= 3)
+                              if (v9 >= 3)
                               {
-                                v18 = 2;
+                                v12 = 2;
                               }
 
                               else
                               {
-                                v18 = v14;
+                                v12 = v9;
                               }
 
-                              if (sub_1000189BC(a1, "avgCycle_", v8, 8u, v18))
+                              if (sub_1000189BC(a1, "avgCycle_", a2, 8u, v12))
                               {
                                 goto LABEL_110;
                               }
 
-                              v19 = "ASPFTLParseBufferToCxt: avgCycle(503): Cannot add 2 elements to context";
-                              goto LABEL_2993;
+                              sub_100020530("ASPFTLParseBufferToCxt: avgCycle(503): Cannot add 2 elements to context", v14);
+                              return v5;
                             case 504:
-                              if (sub_100020050(a1, "", "RD_DeferredClearsOverflowCnt", *v8))
+                              if ((sub_100020050(a1, "", "RD_DeferredClearsOverflowCnt", *a2) & 1) == 0)
                               {
-                                goto LABEL_162;
+                                sub_100020530("ASPFTLParseBufferToCxt: RD_DeferredClearsOverflowCnt(504) cannot add 1 element to context");
                               }
 
-                              v17 = "ASPFTLParseBufferToCxt: RD_DeferredClearsOverflowCnt(504) cannot add 1 element to context";
                               goto LABEL_161;
                             default:
-                              switch(v12)
+                              switch(v7)
                               {
                                 case 505:
-                                  if (sub_100020050(a1, "", "maxVerticsInBand", *v8))
+                                  if ((sub_100020050(a1, "", "maxVerticsInBand", *a2) & 1) == 0)
                                   {
-                                    goto LABEL_162;
+                                    sub_100020530("ASPFTLParseBufferToCxt: maxVerticsInBand(505) cannot add 1 element to context");
                                   }
 
-                                  v17 = "ASPFTLParseBufferToCxt: maxVerticsInBand(505) cannot add 1 element to context";
                                   goto LABEL_161;
                                 case 506:
-                                  if (sub_100020050(a1, "", "numVertics", *v8))
+                                  if ((sub_100020050(a1, "", "numVertics", *a2) & 1) == 0)
                                   {
-                                    goto LABEL_162;
+                                    sub_100020530("ASPFTLParseBufferToCxt: numVertics(506) cannot add 1 element to context");
                                   }
 
-                                  v17 = "ASPFTLParseBufferToCxt: numVertics(506) cannot add 1 element to context";
                                   goto LABEL_161;
                                 case 507:
-                                  if (sub_100020050(a1, "", "exceededCVertics", *v8))
+                                  if ((sub_100020050(a1, "", "exceededCVertics", *a2) & 1) == 0)
                                   {
-                                    goto LABEL_162;
+                                    sub_100020530("ASPFTLParseBufferToCxt: exceededCVertics(507) cannot add 1 element to context");
                                   }
 
-                                  v17 = "ASPFTLParseBufferToCxt: exceededCVertics(507) cannot add 1 element to context";
                                   goto LABEL_161;
                                 case 510:
-                                  if (sub_100020050(a1, "", "raidReconstructFailMismatch", *v8))
+                                  if ((sub_100020050(a1, "", "raidReconstructFailMismatch", *a2) & 1) == 0)
                                   {
-                                    goto LABEL_162;
+                                    sub_100020530("ASPFTLParseBufferToCxt: raidReconstructFailMismatch(510) cannot add 1 element to context");
                                   }
 
-                                  v17 = "ASPFTLParseBufferToCxt: raidReconstructFailMismatch(510) cannot add 1 element to context";
                                   goto LABEL_161;
                                 case 511:
-                                  if (v14 != 32)
+                                  if (v9 != 32)
                                   {
-                                    sub_100020530("ASPFTLParseBufferToCxt: mspbootBlockRefreshCnt(511): (#32) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                                    sub_100020530("ASPFTLParseBufferToCxt: mspbootBlockRefreshCnt(511): (#32) cfg elements != (%d) buffer elements", v9);
                                   }
 
-                                  if (v14 >= 0x21)
+                                  if (v9 >= 0x21)
                                   {
-                                    v18 = 32;
+                                    v12 = 32;
                                   }
 
                                   else
                                   {
-                                    v18 = v14;
+                                    v12 = v9;
                                   }
 
-                                  if (sub_1000189BC(a1, "mspbootBlockRefreshCnt_", v8, 8u, v18))
+                                  if (sub_1000189BC(a1, "mspbootBlockRefreshCnt_", a2, 8u, v12))
                                   {
                                     goto LABEL_110;
                                   }
 
-                                  v19 = "ASPFTLParseBufferToCxt: mspbootBlockRefreshCnt(511): Cannot add 32 elements to context";
-                                  goto LABEL_2993;
+                                  sub_100020530("ASPFTLParseBufferToCxt: mspbootBlockRefreshCnt(511): Cannot add 32 elements to context", v14);
+                                  return v5;
                                 case 516:
-                                  if (v14 != 32)
+                                  if (v9 != 32)
                                   {
-                                    sub_100020530("ASPFTLParseBufferToCxt: mspBootBlockRefreshTime(516): (#32) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                                    sub_100020530("ASPFTLParseBufferToCxt: mspBootBlockRefreshTime(516): (#32) cfg elements != (%d) buffer elements", v9);
                                   }
 
-                                  if (v14 >= 0x21)
+                                  if (v9 >= 0x21)
                                   {
-                                    v18 = 32;
+                                    v12 = 32;
                                   }
 
                                   else
                                   {
-                                    v18 = v14;
+                                    v12 = v9;
                                   }
 
-                                  if (sub_1000189BC(a1, "mspBootBlockRefreshTime_", v8, 8u, v18))
+                                  if (sub_1000189BC(a1, "mspBootBlockRefreshTime_", a2, 8u, v12))
                                   {
                                     goto LABEL_110;
                                   }
 
-                                  v19 = "ASPFTLParseBufferToCxt: mspBootBlockRefreshTime(516): Cannot add 32 elements to context";
-                                  goto LABEL_2993;
+                                  sub_100020530("ASPFTLParseBufferToCxt: mspBootBlockRefreshTime(516): Cannot add 32 elements to context", v14);
+                                  return v5;
                                 case 517:
-                                  if (sub_100020050(a1, "", "mspBootBlockCountPerMsp", *v8))
+                                  if ((sub_100020050(a1, "", "mspBootBlockCountPerMsp", *a2) & 1) == 0)
                                   {
-                                    goto LABEL_162;
+                                    sub_100020530("ASPFTLParseBufferToCxt: mspBootBlockCountPerMsp(517) cannot add 1 element to context");
                                   }
 
-                                  v17 = "ASPFTLParseBufferToCxt: mspBootBlockCountPerMsp(517) cannot add 1 element to context";
                                   goto LABEL_161;
                                 case 518:
-                                  if (sub_100020050(a1, "", "skinnyRevectorSLC", *v8))
+                                  if ((sub_100020050(a1, "", "skinnyRevectorSLC", *a2) & 1) == 0)
                                   {
-                                    goto LABEL_162;
+                                    sub_100020530("ASPFTLParseBufferToCxt: skinnyRevectorSLC(518) cannot add 1 element to context");
                                   }
 
-                                  v17 = "ASPFTLParseBufferToCxt: skinnyRevectorSLC(518) cannot add 1 element to context";
                                   goto LABEL_161;
                                 case 519:
-                                  if (sub_100020050(a1, "", "skinnyRevectorTLC", *v8))
+                                  if ((sub_100020050(a1, "", "skinnyRevectorTLC", *a2) & 1) == 0)
                                   {
-                                    goto LABEL_162;
+                                    sub_100020530("ASPFTLParseBufferToCxt: skinnyRevectorTLC(519) cannot add 1 element to context");
                                   }
 
-                                  v17 = "ASPFTLParseBufferToCxt: skinnyRevectorTLC(519) cannot add 1 element to context";
                                   goto LABEL_161;
                                 case 520:
-                                  if (sub_100020050(a1, "", "perfSetupAttempts", *v8))
+                                  if ((sub_100020050(a1, "", "perfSetupAttempts", *a2) & 1) == 0)
                                   {
-                                    goto LABEL_162;
+                                    sub_100020530("ASPFTLParseBufferToCxt: perfSetupAttempts(520) cannot add 1 element to context");
                                   }
 
-                                  v17 = "ASPFTLParseBufferToCxt: perfSetupAttempts(520) cannot add 1 element to context";
                                   goto LABEL_161;
                                 case 521:
-                                  if (sub_100020050(a1, "", "perfSetupSuccesses", *v8))
+                                  if ((sub_100020050(a1, "", "perfSetupSuccesses", *a2) & 1) == 0)
                                   {
-                                    goto LABEL_162;
+                                    sub_100020530("ASPFTLParseBufferToCxt: perfSetupSuccesses(521) cannot add 1 element to context");
                                   }
 
-                                  v17 = "ASPFTLParseBufferToCxt: perfSetupSuccesses(521) cannot add 1 element to context";
                                   goto LABEL_161;
                                 case 522:
-                                  if (sub_100020050(a1, "", "perfWriteAttempts", *v8))
+                                  if ((sub_100020050(a1, "", "perfWriteAttempts", *a2) & 1) == 0)
                                   {
-                                    goto LABEL_162;
+                                    sub_100020530("ASPFTLParseBufferToCxt: perfWriteAttempts(522) cannot add 1 element to context");
                                   }
 
-                                  v17 = "ASPFTLParseBufferToCxt: perfWriteAttempts(522) cannot add 1 element to context";
                                   goto LABEL_161;
                                 case 523:
-                                  if (sub_100020050(a1, "", "perfWriteSuccesses", *v8))
+                                  if ((sub_100020050(a1, "", "perfWriteSuccesses", *a2) & 1) == 0)
                                   {
-                                    goto LABEL_162;
+                                    sub_100020530("ASPFTLParseBufferToCxt: perfWriteSuccesses(523) cannot add 1 element to context");
                                   }
 
-                                  v17 = "ASPFTLParseBufferToCxt: perfWriteSuccesses(523) cannot add 1 element to context";
                                   goto LABEL_161;
                                 case 524:
-                                  if (sub_100020050(a1, "", "perfReadAttempts", *v8))
+                                  if ((sub_100020050(a1, "", "perfReadAttempts", *a2) & 1) == 0)
                                   {
-                                    goto LABEL_162;
+                                    sub_100020530("ASPFTLParseBufferToCxt: perfReadAttempts(524) cannot add 1 element to context");
                                   }
 
-                                  v17 = "ASPFTLParseBufferToCxt: perfReadAttempts(524) cannot add 1 element to context";
                                   goto LABEL_161;
                                 case 525:
-                                  if (sub_100020050(a1, "", "perfReadSuccesses", *v8))
+                                  if ((sub_100020050(a1, "", "perfReadSuccesses", *a2) & 1) == 0)
                                   {
-                                    goto LABEL_162;
+                                    sub_100020530("ASPFTLParseBufferToCxt: perfReadSuccesses(525) cannot add 1 element to context");
                                   }
 
-                                  v17 = "ASPFTLParseBufferToCxt: perfReadSuccesses(525) cannot add 1 element to context";
                                   goto LABEL_161;
                                 case 526:
-                                  if (sub_100020050(a1, "", "perfCleanupAttempts", *v8))
+                                  if ((sub_100020050(a1, "", "perfCleanupAttempts", *a2) & 1) == 0)
                                   {
-                                    goto LABEL_162;
+                                    sub_100020530("ASPFTLParseBufferToCxt: perfCleanupAttempts(526) cannot add 1 element to context");
                                   }
 
-                                  v17 = "ASPFTLParseBufferToCxt: perfCleanupAttempts(526) cannot add 1 element to context";
                                   goto LABEL_161;
                                 case 527:
-                                  if (sub_100020050(a1, "", "perfCleanupSuccesses", *v8))
+                                  if ((sub_100020050(a1, "", "perfCleanupSuccesses", *a2) & 1) == 0)
                                   {
-                                    goto LABEL_162;
+                                    sub_100020530("ASPFTLParseBufferToCxt: perfCleanupSuccesses(527) cannot add 1 element to context");
                                   }
 
-                                  v17 = "ASPFTLParseBufferToCxt: perfCleanupSuccesses(527) cannot add 1 element to context";
                                   goto LABEL_161;
                                 case 530:
-                                  if (sub_100020050(a1, "", "firstFailedDieId", *v8))
+                                  if ((sub_100020050(a1, "", "firstFailedDieId", *a2) & 1) == 0)
                                   {
-                                    goto LABEL_162;
+                                    sub_100020530("ASPFTLParseBufferToCxt: firstFailedDieId(530) cannot add 1 element to context");
                                   }
 
-                                  v17 = "ASPFTLParseBufferToCxt: firstFailedDieId(530) cannot add 1 element to context";
                                   goto LABEL_161;
                                 case 531:
-                                  if (sub_100020050(a1, "", "numDieFailures", *v8))
+                                  if ((sub_100020050(a1, "", "numDieFailures", *a2) & 1) == 0)
                                   {
-                                    goto LABEL_162;
+                                    sub_100020530("ASPFTLParseBufferToCxt: numDieFailures(531) cannot add 1 element to context");
                                   }
 
-                                  v17 = "ASPFTLParseBufferToCxt: numDieFailures(531) cannot add 1 element to context";
                                   goto LABEL_161;
                                 case 532:
-                                  if (sub_100020050(a1, "", "spareAvailablePercent", *v8))
+                                  if ((sub_100020050(a1, "", "spareAvailablePercent", *a2) & 1) == 0)
                                   {
-                                    goto LABEL_162;
+                                    sub_100020530("ASPFTLParseBufferToCxt: spareAvailablePercent(532) cannot add 1 element to context");
                                   }
 
-                                  v17 = "ASPFTLParseBufferToCxt: spareAvailablePercent(532) cannot add 1 element to context";
                                   goto LABEL_161;
                                 case 533:
-                                  if (sub_100020050(a1, "", "dataFabricErr", *v8))
+                                  if ((sub_100020050(a1, "", "dataFabricErr", *a2) & 1) == 0)
                                   {
-                                    goto LABEL_162;
+                                    sub_100020530("ASPFTLParseBufferToCxt: dataFabricErr(533) cannot add 1 element to context");
                                   }
 
-                                  v17 = "ASPFTLParseBufferToCxt: dataFabricErr(533) cannot add 1 element to context";
                                   goto LABEL_161;
                                 case 534:
-                                  if (sub_100020050(a1, "", "downlinkFabricErr", *v8))
+                                  if ((sub_100020050(a1, "", "downlinkFabricErr", *a2) & 1) == 0)
                                   {
-                                    goto LABEL_162;
+                                    sub_100020530("ASPFTLParseBufferToCxt: downlinkFabricErr(534) cannot add 1 element to context");
                                   }
 
-                                  v17 = "ASPFTLParseBufferToCxt: downlinkFabricErr(534) cannot add 1 element to context";
                                   goto LABEL_161;
                                 case 535:
-                                  if (sub_100020050(a1, "", "prpAccTimeoutErr", *v8))
+                                  if ((sub_100020050(a1, "", "prpAccTimeoutErr", *a2) & 1) == 0)
                                   {
-                                    goto LABEL_162;
+                                    sub_100020530("ASPFTLParseBufferToCxt: prpAccTimeoutErr(535) cannot add 1 element to context");
                                   }
 
-                                  v17 = "ASPFTLParseBufferToCxt: prpAccTimeoutErr(535) cannot add 1 element to context";
                                   goto LABEL_161;
                                 case 537:
-                                  if (sub_100020050(a1, "", "uplinkFabricErr", *v8))
+                                  if ((sub_100020050(a1, "", "uplinkFabricErr", *a2) & 1) == 0)
                                   {
-                                    goto LABEL_162;
+                                    sub_100020530("ASPFTLParseBufferToCxt: uplinkFabricErr(537) cannot add 1 element to context");
                                   }
 
-                                  v17 = "ASPFTLParseBufferToCxt: uplinkFabricErr(537) cannot add 1 element to context";
                                   goto LABEL_161;
                                 case 538:
-                                  if (sub_100020050(a1, "", "skinnyBandsGBB", *v8))
+                                  if ((sub_100020050(a1, "", "skinnyBandsGBB", *a2) & 1) == 0)
                                   {
-                                    goto LABEL_162;
+                                    sub_100020530("ASPFTLParseBufferToCxt: skinnyBandsGBB(538) cannot add 1 element to context");
                                   }
 
-                                  v17 = "ASPFTLParseBufferToCxt: skinnyBandsGBB(538) cannot add 1 element to context";
                                   goto LABEL_161;
                                 case 539:
-                                  if (sub_100020050(a1, "", "AbortPad_GcMustPadBand", *v8))
+                                  if ((sub_100020050(a1, "", "AbortPad_GcMustPadBand", *a2) & 1) == 0)
                                   {
-                                    goto LABEL_162;
+                                    sub_100020530("ASPFTLParseBufferToCxt: AbortPad_GcMustPadBand(539) cannot add 1 element to context");
                                   }
 
-                                  v17 = "ASPFTLParseBufferToCxt: AbortPad_GcMustPadBand(539) cannot add 1 element to context";
                                   goto LABEL_161;
                                 case 540:
-                                  if (sub_100020050(a1, "", "AbortPad_GcMustPadSkinny", *v8))
+                                  if ((sub_100020050(a1, "", "AbortPad_GcMustPadSkinny", *a2) & 1) == 0)
                                   {
-                                    goto LABEL_162;
+                                    sub_100020530("ASPFTLParseBufferToCxt: AbortPad_GcMustPadSkinny(540) cannot add 1 element to context");
                                   }
 
-                                  v17 = "ASPFTLParseBufferToCxt: AbortPad_GcMustPadSkinny(540) cannot add 1 element to context";
                                   goto LABEL_161;
                                 case 541:
-                                  if (sub_100020050(a1, "", "bdrHostPingInitial", *v8))
+                                  if ((sub_100020050(a1, "", "bdrHostPingInitial", *a2) & 1) == 0)
                                   {
-                                    goto LABEL_162;
+                                    sub_100020530("ASPFTLParseBufferToCxt: bdrHostPingInitial(541) cannot add 1 element to context");
                                   }
 
-                                  v17 = "ASPFTLParseBufferToCxt: bdrHostPingInitial(541) cannot add 1 element to context";
                                   goto LABEL_161;
                                 case 542:
-                                  if (sub_100020050(a1, "", "bdrHostPingMoreNeeded", *v8))
+                                  if ((sub_100020050(a1, "", "bdrHostPingMoreNeeded", *a2) & 1) == 0)
                                   {
-                                    goto LABEL_162;
+                                    sub_100020530("ASPFTLParseBufferToCxt: bdrHostPingMoreNeeded(542) cannot add 1 element to context");
                                   }
 
-                                  v17 = "ASPFTLParseBufferToCxt: bdrHostPingMoreNeeded(542) cannot add 1 element to context";
                                   goto LABEL_161;
                                 case 543:
-                                  if (sub_100020050(a1, "", "bandParityAllocationFailed", *v8))
+                                  if ((sub_100020050(a1, "", "bandParityAllocationFailed", *a2) & 1) == 0)
                                   {
-                                    goto LABEL_162;
+                                    sub_100020530("ASPFTLParseBufferToCxt: bandParityAllocationFailed(543) cannot add 1 element to context");
                                   }
 
-                                  v17 = "ASPFTLParseBufferToCxt: bandParityAllocationFailed(543) cannot add 1 element to context";
                                   goto LABEL_161;
                                 case 544:
-                                  if (sub_100020050(a1, "", "fastHwBurstToSlc", *v8))
+                                  if ((sub_100020050(a1, "", "fastHwBurstToSlc", *a2) & 1) == 0)
                                   {
-                                    goto LABEL_162;
+                                    sub_100020530("ASPFTLParseBufferToCxt: fastHwBurstToSlc(544) cannot add 1 element to context");
                                   }
 
-                                  v17 = "ASPFTLParseBufferToCxt: fastHwBurstToSlc(544) cannot add 1 element to context";
                                   goto LABEL_161;
                                 case 545:
-                                  if (sub_100020050(a1, "", "slowHwToTlc", *v8))
+                                  if ((sub_100020050(a1, "", "slowHwToTlc", *a2) & 1) == 0)
                                   {
-                                    goto LABEL_162;
+                                    sub_100020530("ASPFTLParseBufferToCxt: slowHwToTlc(545) cannot add 1 element to context");
                                   }
 
-                                  v17 = "ASPFTLParseBufferToCxt: slowHwToTlc(545) cannot add 1 element to context";
                                   goto LABEL_161;
                                 case 546:
-                                  if (v14 != 10)
+                                  if (v9 != 10)
                                   {
-                                    sub_100020530("ASPFTLParseBufferToCxt: slcDemandBurstSizeDetected(546): (#10) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                                    sub_100020530("ASPFTLParseBufferToCxt: slcDemandBurstSizeDetected(546): (#10) cfg elements != (%d) buffer elements", v9);
                                   }
 
-                                  if (v14 >= 0xB)
+                                  if (v9 >= 0xB)
                                   {
-                                    v18 = 10;
+                                    v12 = 10;
                                   }
 
                                   else
                                   {
-                                    v18 = v14;
+                                    v12 = v9;
                                   }
 
-                                  if (sub_1000189BC(a1, "slcDemandBurstSizeDetected_", v8, 8u, v18))
+                                  if (sub_1000189BC(a1, "slcDemandBurstSizeDetected_", a2, 8u, v12))
                                   {
                                     goto LABEL_110;
                                   }
 
-                                  v19 = "ASPFTLParseBufferToCxt: slcDemandBurstSizeDetected(546): Cannot add 10 elements to context";
-                                  goto LABEL_2993;
+                                  sub_100020530("ASPFTLParseBufferToCxt: slcDemandBurstSizeDetected(546): Cannot add 10 elements to context", v14);
+                                  return v5;
                                 case 547:
-                                  if (v14 != 10)
+                                  if (v9 != 10)
                                   {
-                                    sub_100020530("ASPFTLParseBufferToCxt: slcDemandBurstDur(547): (#10) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                                    sub_100020530("ASPFTLParseBufferToCxt: slcDemandBurstDur(547): (#10) cfg elements != (%d) buffer elements", v9);
                                   }
 
-                                  if (v14 >= 0xB)
+                                  if (v9 >= 0xB)
                                   {
-                                    v18 = 10;
+                                    v12 = 10;
                                   }
 
                                   else
                                   {
-                                    v18 = v14;
+                                    v12 = v9;
                                   }
 
-                                  if (sub_1000189BC(a1, "slcDemandBurstDur_", v8, 8u, v18))
+                                  if (sub_1000189BC(a1, "slcDemandBurstDur_", a2, 8u, v12))
                                   {
                                     goto LABEL_110;
                                   }
 
-                                  v19 = "ASPFTLParseBufferToCxt: slcDemandBurstDur(547): Cannot add 10 elements to context";
-                                  goto LABEL_2993;
+                                  sub_100020530("ASPFTLParseBufferToCxt: slcDemandBurstDur(547): Cannot add 10 elements to context", v14);
+                                  return v5;
                                 case 548:
-                                  if (sub_100020050(a1, "", "fastHwToTlcBurst", *v8))
+                                  if ((sub_100020050(a1, "", "fastHwToTlcBurst", *a2) & 1) == 0)
                                   {
-                                    goto LABEL_162;
+                                    sub_100020530("ASPFTLParseBufferToCxt: fastHwToTlcBurst(548) cannot add 1 element to context");
                                   }
 
-                                  v17 = "ASPFTLParseBufferToCxt: fastHwToTlcBurst(548) cannot add 1 element to context";
                                   goto LABEL_161;
                                 case 549:
-                                  if (v14 != 10)
+                                  if (v9 != 10)
                                   {
-                                    sub_100020530("ASPFTLParseBufferToCxt: slcDemandBurstSizeSlc(549): (#10) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                                    sub_100020530("ASPFTLParseBufferToCxt: slcDemandBurstSizeSlc(549): (#10) cfg elements != (%d) buffer elements", v9);
                                   }
 
-                                  if (v14 >= 0xB)
+                                  if (v9 >= 0xB)
                                   {
-                                    v18 = 10;
+                                    v12 = 10;
                                   }
 
                                   else
                                   {
-                                    v18 = v14;
+                                    v12 = v9;
                                   }
 
-                                  if (sub_1000189BC(a1, "slcDemandBurstSizeSlc_", v8, 8u, v18))
+                                  if (sub_1000189BC(a1, "slcDemandBurstSizeSlc_", a2, 8u, v12))
                                   {
                                     goto LABEL_110;
                                   }
 
-                                  v19 = "ASPFTLParseBufferToCxt: slcDemandBurstSizeSlc(549): Cannot add 10 elements to context";
-                                  goto LABEL_2993;
+                                  sub_100020530("ASPFTLParseBufferToCxt: slcDemandBurstSizeSlc(549): Cannot add 10 elements to context", v14);
+                                  return v5;
                                 case 551:
-                                  if (v14 != 11)
+                                  if (v9 != 11)
                                   {
-                                    sub_100020530("ASPFTLParseBufferToCxt: balanceProportionBucketsHistogramTlc(551): (#11) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                                    sub_100020530("ASPFTLParseBufferToCxt: balanceProportionBucketsHistogramTlc(551): (#11) cfg elements != (%d) buffer elements", v9);
                                   }
 
-                                  if (v12 >> 34 >= 3)
+                                  if (v7 >> 34 >= 3)
                                   {
-                                    v18 = 11;
+                                    v12 = 11;
                                   }
 
                                   else
                                   {
-                                    v18 = v14;
+                                    v12 = v9;
                                   }
 
-                                  if (sub_1000189BC(a1, "balanceProportionBucketsHistogramTlc_", v8, 8u, v18))
+                                  if (sub_1000189BC(a1, "balanceProportionBucketsHistogramTlc_", a2, 8u, v12))
                                   {
                                     goto LABEL_110;
                                   }
 
-                                  v19 = "ASPFTLParseBufferToCxt: balanceProportionBucketsHistogramTlc(551): Cannot add 11 elements to context";
-                                  goto LABEL_2993;
+                                  sub_100020530("ASPFTLParseBufferToCxt: balanceProportionBucketsHistogramTlc(551): Cannot add 11 elements to context", v14);
+                                  return v5;
                                 case 553:
-                                  if (sub_100020050(a1, "", "slowHwFlushToSlc", *v8))
+                                  if ((sub_100020050(a1, "", "slowHwFlushToSlc", *a2) & 1) == 0)
                                   {
-                                    goto LABEL_162;
+                                    sub_100020530("ASPFTLParseBufferToCxt: slowHwFlushToSlc(553) cannot add 1 element to context");
                                   }
 
-                                  v17 = "ASPFTLParseBufferToCxt: slowHwFlushToSlc(553) cannot add 1 element to context";
                                   goto LABEL_161;
                                 case 557:
-                                  if (sub_100020050(a1, "", "slowHwToSlc", *v8))
+                                  if ((sub_100020050(a1, "", "slowHwToSlc", *a2) & 1) == 0)
                                   {
-                                    goto LABEL_162;
+                                    sub_100020530("ASPFTLParseBufferToCxt: slowHwToSlc(557) cannot add 1 element to context");
                                   }
 
-                                  v17 = "ASPFTLParseBufferToCxt: slowHwToSlc(557) cannot add 1 element to context";
                                   goto LABEL_161;
                                 case 558:
-                                  if (sub_100020050(a1, "", "flushNwToSlc", *v8))
+                                  if ((sub_100020050(a1, "", "flushNwToSlc", *a2) & 1) == 0)
                                   {
-                                    goto LABEL_162;
+                                    sub_100020530("ASPFTLParseBufferToCxt: flushNwToSlc(558) cannot add 1 element to context");
                                   }
 
-                                  v17 = "ASPFTLParseBufferToCxt: flushNwToSlc(558) cannot add 1 element to context";
                                   goto LABEL_161;
                                 case 559:
-                                  if (sub_100020050(a1, "", "flushNwToTlc", *v8))
+                                  if ((sub_100020050(a1, "", "flushNwToTlc", *a2) & 1) == 0)
                                   {
-                                    goto LABEL_162;
+                                    sub_100020530("ASPFTLParseBufferToCxt: flushNwToTlc(559) cannot add 1 element to context");
                                   }
 
-                                  v17 = "ASPFTLParseBufferToCxt: flushNwToTlc(559) cannot add 1 element to context";
                                   goto LABEL_161;
                                 case 560:
-                                  if (sub_100020050(a1, "", "oslcHw", *v8))
+                                  if ((sub_100020050(a1, "", "oslcHw", *a2) & 1) == 0)
                                   {
-                                    goto LABEL_162;
+                                    sub_100020530("ASPFTLParseBufferToCxt: oslcHw(560) cannot add 1 element to context");
                                   }
 
-                                  v17 = "ASPFTLParseBufferToCxt: oslcHw(560) cannot add 1 element to context";
                                   goto LABEL_161;
                                 case 561:
-                                  if (sub_100020050(a1, "", "oslcTransitions", *v8))
+                                  if ((sub_100020050(a1, "", "oslcTransitions", *a2) & 1) == 0)
                                   {
-                                    goto LABEL_162;
+                                    sub_100020530("ASPFTLParseBufferToCxt: oslcTransitions(561) cannot add 1 element to context");
                                   }
 
-                                  v17 = "ASPFTLParseBufferToCxt: oslcTransitions(561) cannot add 1 element to context";
                                   goto LABEL_161;
                                 case 563:
-                                  if (sub_100020050(a1, "", "slcDemandFlushCount", *v8))
+                                  if ((sub_100020050(a1, "", "slcDemandFlushCount", *a2) & 1) == 0)
                                   {
-                                    goto LABEL_162;
+                                    sub_100020530("ASPFTLParseBufferToCxt: slcDemandFlushCount(563) cannot add 1 element to context");
                                   }
 
-                                  v17 = "ASPFTLParseBufferToCxt: slcDemandFlushCount(563) cannot add 1 element to context";
                                   goto LABEL_161;
                                 case 564:
-                                  if (sub_100020050(a1, "", "slcDemandBurstCount", *v8))
+                                  if ((sub_100020050(a1, "", "slcDemandBurstCount", *a2) & 1) == 0)
                                   {
-                                    goto LABEL_162;
+                                    sub_100020530("ASPFTLParseBufferToCxt: slcDemandBurstCount(564) cannot add 1 element to context");
                                   }
 
-                                  v17 = "ASPFTLParseBufferToCxt: slcDemandBurstCount(564) cannot add 1 element to context";
                                   goto LABEL_161;
                                 case 565:
-                                  if (sub_100020050(a1, "", "oslcBaseAvgPE", *v8))
+                                  if ((sub_100020050(a1, "", "oslcBaseAvgPE", *a2) & 1) == 0)
                                   {
-                                    goto LABEL_162;
+                                    sub_100020530("ASPFTLParseBufferToCxt: oslcBaseAvgPE(565) cannot add 1 element to context");
                                   }
 
-                                  v17 = "ASPFTLParseBufferToCxt: oslcBaseAvgPE(565) cannot add 1 element to context";
                                   goto LABEL_161;
                                 case 566:
-                                  if (sub_100020050(a1, "", "raidReconstructFailNoSPBX", *v8))
+                                  if ((sub_100020050(a1, "", "raidReconstructFailNoSPBX", *a2) & 1) == 0)
                                   {
-                                    goto LABEL_162;
+                                    sub_100020530("ASPFTLParseBufferToCxt: raidReconstructFailNoSPBX(566) cannot add 1 element to context");
                                   }
 
-                                  v17 = "ASPFTLParseBufferToCxt: raidReconstructFailNoSPBX(566) cannot add 1 element to context";
                                   goto LABEL_161;
                                 case 567:
-                                  if (sub_100020050(a1, "", "raidReconstructFailDouble", *v8))
+                                  if ((sub_100020050(a1, "", "raidReconstructFailDouble", *a2) & 1) == 0)
                                   {
-                                    goto LABEL_162;
+                                    sub_100020530("ASPFTLParseBufferToCxt: raidReconstructFailDouble(567) cannot add 1 element to context");
                                   }
 
-                                  v17 = "ASPFTLParseBufferToCxt: raidReconstructFailDouble(567) cannot add 1 element to context";
                                   goto LABEL_161;
                                 case 568:
-                                  if (sub_100020050(a1, "", "oslcFastWAmpUOnOff", *v8))
+                                  if ((sub_100020050(a1, "", "oslcFastWAmpUOnOff", *a2) & 1) == 0)
                                   {
-                                    goto LABEL_162;
+                                    sub_100020530("ASPFTLParseBufferToCxt: oslcFastWAmpUOnOff(568) cannot add 1 element to context");
                                   }
 
-                                  v17 = "ASPFTLParseBufferToCxt: oslcFastWAmpUOnOff(568) cannot add 1 element to context";
                                   goto LABEL_161;
                                 case 569:
-                                  if (sub_100020050(a1, "", "oslcSlowWAmpUOnOff", *v8))
+                                  if ((sub_100020050(a1, "", "oslcSlowWAmpUOnOff", *a2) & 1) == 0)
                                   {
-                                    goto LABEL_162;
+                                    sub_100020530("ASPFTLParseBufferToCxt: oslcSlowWAmpUOnOff(569) cannot add 1 element to context");
                                   }
 
-                                  v17 = "ASPFTLParseBufferToCxt: oslcSlowWAmpUOnOff(569) cannot add 1 element to context";
                                   goto LABEL_161;
                                 case 570:
-                                  if (sub_100020050(a1, "", "raidReconstructFailInvalid", *v8))
+                                  if ((sub_100020050(a1, "", "raidReconstructFailInvalid", *a2) & 1) == 0)
                                   {
-                                    goto LABEL_162;
+                                    sub_100020530("ASPFTLParseBufferToCxt: raidReconstructFailInvalid(570) cannot add 1 element to context");
                                   }
 
-                                  v17 = "ASPFTLParseBufferToCxt: raidReconstructFailInvalid(570) cannot add 1 element to context";
                                   goto LABEL_161;
                                 case 572:
-                                  if (sub_100020050(a1, "", "oslcLastWAmpUx10", *v8))
+                                  if ((sub_100020050(a1, "", "oslcLastWAmpUx10", *a2) & 1) == 0)
                                   {
-                                    goto LABEL_162;
+                                    sub_100020530("ASPFTLParseBufferToCxt: oslcLastWAmpUx10(572) cannot add 1 element to context");
                                   }
 
-                                  v17 = "ASPFTLParseBufferToCxt: oslcLastWAmpUx10(572) cannot add 1 element to context";
                                   goto LABEL_161;
                                 case 573:
-                                  if (sub_100020050(a1, "", "raidFailedReadNoBlog", *v8))
+                                  if ((sub_100020050(a1, "", "raidFailedReadNoBlog", *a2) & 1) == 0)
                                   {
-                                    goto LABEL_162;
+                                    sub_100020530("ASPFTLParseBufferToCxt: raidFailedReadNoBlog(573) cannot add 1 element to context");
                                   }
 
-                                  v17 = "ASPFTLParseBufferToCxt: raidFailedReadNoBlog(573) cannot add 1 element to context";
                                   goto LABEL_161;
                                 case 574:
-                                  if (sub_100020050(a1, "", "raidReconstructFailBlank", *v8))
+                                  if ((sub_100020050(a1, "", "raidReconstructFailBlank", *a2) & 1) == 0)
                                   {
-                                    goto LABEL_162;
+                                    sub_100020530("ASPFTLParseBufferToCxt: raidReconstructFailBlank(574) cannot add 1 element to context");
                                   }
 
-                                  v17 = "ASPFTLParseBufferToCxt: raidReconstructFailBlank(574) cannot add 1 element to context";
                                   goto LABEL_161;
                                 case 575:
-                                  if (sub_100020050(a1, "", "oslcHotTLCOnOff", *v8))
+                                  if ((sub_100020050(a1, "", "oslcHotTLCOnOff", *a2) & 1) == 0)
                                   {
-                                    goto LABEL_162;
+                                    sub_100020530("ASPFTLParseBufferToCxt: oslcHotTLCOnOff(575) cannot add 1 element to context");
                                   }
 
-                                  v17 = "ASPFTLParseBufferToCxt: oslcHotTLCOnOff(575) cannot add 1 element to context";
                                   goto LABEL_161;
                                 case 576:
-                                  if (sub_100020050(a1, "", "gcVPackDestinations", *v8))
+                                  if ((sub_100020050(a1, "", "gcVPackDestinations", *a2) & 1) == 0)
                                   {
-                                    goto LABEL_162;
+                                    sub_100020530("ASPFTLParseBufferToCxt: gcVPackDestinations(576) cannot add 1 element to context");
                                   }
 
-                                  v17 = "ASPFTLParseBufferToCxt: gcVPackDestinations(576) cannot add 1 element to context";
                                   goto LABEL_161;
                                 case 581:
-                                  if (sub_100020050(a1, "", "averageTLCPECycles", *v8))
+                                  if ((sub_100020050(a1, "", "averageTLCPECycles", *a2) & 1) == 0)
                                   {
-                                    goto LABEL_162;
+                                    sub_100020530("ASPFTLParseBufferToCxt: averageTLCPECycles(581) cannot add 1 element to context");
                                   }
 
-                                  v17 = "ASPFTLParseBufferToCxt: averageTLCPECycles(581) cannot add 1 element to context";
                                   goto LABEL_161;
                                 case 582:
-                                  if (sub_100020050(a1, "", "averageSLCPECycles", *v8))
+                                  if ((sub_100020050(a1, "", "averageSLCPECycles", *a2) & 1) == 0)
                                   {
-                                    goto LABEL_162;
+                                    sub_100020530("ASPFTLParseBufferToCxt: averageSLCPECycles(582) cannot add 1 element to context");
                                   }
 
-                                  v17 = "ASPFTLParseBufferToCxt: averageSLCPECycles(582) cannot add 1 element to context";
                                   goto LABEL_161;
                                 case 583:
-                                  if (sub_100020050(a1, "", "numAtomicBoots", *v8))
+                                  if ((sub_100020050(a1, "", "numAtomicBoots", *a2) & 1) == 0)
                                   {
-                                    goto LABEL_162;
+                                    sub_100020530("ASPFTLParseBufferToCxt: numAtomicBoots(583) cannot add 1 element to context");
                                   }
 
-                                  v17 = "ASPFTLParseBufferToCxt: numAtomicBoots(583) cannot add 1 element to context";
                                   goto LABEL_161;
                                 case 584:
-                                  if (sub_100020050(a1, "", "clogMinorMismatch", *v8))
+                                  if ((sub_100020050(a1, "", "clogMinorMismatch", *a2) & 1) == 0)
                                   {
-                                    goto LABEL_162;
+                                    sub_100020530("ASPFTLParseBufferToCxt: clogMinorMismatch(584) cannot add 1 element to context");
                                   }
 
-                                  v17 = "ASPFTLParseBufferToCxt: clogMinorMismatch(584) cannot add 1 element to context";
                                   goto LABEL_161;
                                 case 586:
-                                  if (sub_100020050(a1, "", "raidExpectedFailRMXReconstructionInternal", *v8))
+                                  if ((sub_100020050(a1, "", "raidExpectedFailRMXReconstructionInternal", *a2) & 1) == 0)
                                   {
-                                    goto LABEL_162;
+                                    sub_100020530("ASPFTLParseBufferToCxt: raidExpectedFailRMXReconstructionInternal(586) cannot add 1 element to context");
                                   }
 
-                                  v17 = "ASPFTLParseBufferToCxt: raidExpectedFailRMXReconstructionInternal(586) cannot add 1 element to context";
                                   goto LABEL_161;
                                 case 587:
-                                  if (sub_100020050(a1, "", "raidExpectedFailRMXReconstructionHost", *v8))
+                                  if ((sub_100020050(a1, "", "raidExpectedFailRMXReconstructionHost", *a2) & 1) == 0)
                                   {
-                                    goto LABEL_162;
+                                    sub_100020530("ASPFTLParseBufferToCxt: raidExpectedFailRMXReconstructionHost(587) cannot add 1 element to context");
                                   }
 
-                                  v17 = "ASPFTLParseBufferToCxt: raidExpectedFailRMXReconstructionHost(587) cannot add 1 element to context";
                                   goto LABEL_161;
                                 case 588:
-                                  if (sub_100020050(a1, "", "oslcGCinvalidations", *v8))
+                                  if ((sub_100020050(a1, "", "oslcGCinvalidations", *a2) & 1) == 0)
                                   {
-                                    goto LABEL_162;
+                                    sub_100020530("ASPFTLParseBufferToCxt: oslcGCinvalidations(588) cannot add 1 element to context");
                                   }
 
-                                  v17 = "ASPFTLParseBufferToCxt: oslcGCinvalidations(588) cannot add 1 element to context";
                                   goto LABEL_161;
                                 case 589:
-                                  if (sub_100020050(a1, "", "oslcGCActivateReason", *v8))
+                                  if ((sub_100020050(a1, "", "oslcGCActivateReason", *a2) & 1) == 0)
                                   {
-                                    goto LABEL_162;
+                                    sub_100020530("ASPFTLParseBufferToCxt: oslcGCActivateReason(589) cannot add 1 element to context");
                                   }
 
-                                  v17 = "ASPFTLParseBufferToCxt: oslcGCActivateReason(589) cannot add 1 element to context";
                                   goto LABEL_161;
                                 default:
-                                  switch(v12)
+                                  switch(v7)
                                   {
                                     case 590:
-                                      if (sub_100020050(a1, "", "oslcLowCleanBandsUOnOff", *v8))
+                                      if ((sub_100020050(a1, "", "oslcLowCleanBandsUOnOff", *a2) & 1) == 0)
                                       {
-                                        goto LABEL_162;
+                                        sub_100020530("ASPFTLParseBufferToCxt: oslcLowCleanBandsUOnOff(590) cannot add 1 element to context");
                                       }
 
-                                      v17 = "ASPFTLParseBufferToCxt: oslcLowCleanBandsUOnOff(590) cannot add 1 element to context";
                                       goto LABEL_161;
                                     case 591:
-                                      if (sub_100020050(a1, "", "oslcTooManyGCMustOnOff", *v8))
+                                      if ((sub_100020050(a1, "", "oslcTooManyGCMustOnOff", *a2) & 1) == 0)
                                       {
-                                        goto LABEL_162;
+                                        sub_100020530("ASPFTLParseBufferToCxt: oslcTooManyGCMustOnOff(591) cannot add 1 element to context");
                                       }
 
-                                      v17 = "ASPFTLParseBufferToCxt: oslcTooManyGCMustOnOff(591) cannot add 1 element to context";
                                       goto LABEL_161;
                                     case 592:
-                                      if (sub_100020050(a1, "", "oslcBaseHostWrites", *v8))
+                                      if ((sub_100020050(a1, "", "oslcBaseHostWrites", *a2) & 1) == 0)
                                       {
-                                        goto LABEL_162;
+                                        sub_100020530("ASPFTLParseBufferToCxt: oslcBaseHostWrites(592) cannot add 1 element to context");
                                       }
 
-                                      v17 = "ASPFTLParseBufferToCxt: oslcBaseHostWrites(592) cannot add 1 element to context";
                                       goto LABEL_161;
                                     case 593:
-                                      if (sub_100020050(a1, "", "oslcBaseBandErases", *v8))
+                                      if ((sub_100020050(a1, "", "oslcBaseBandErases", *a2) & 1) == 0)
                                       {
-                                        goto LABEL_162;
+                                        sub_100020530("ASPFTLParseBufferToCxt: oslcBaseBandErases(593) cannot add 1 element to context");
                                       }
 
-                                      v17 = "ASPFTLParseBufferToCxt: oslcBaseBandErases(593) cannot add 1 element to context";
                                       goto LABEL_161;
                                     case 594:
-                                      if (sub_100020050(a1, "", "oslcBdrBands", *v8))
+                                      if ((sub_100020050(a1, "", "oslcBdrBands", *a2) & 1) == 0)
                                       {
-                                        goto LABEL_162;
+                                        sub_100020530("ASPFTLParseBufferToCxt: oslcBdrBands(594) cannot add 1 element to context");
                                       }
 
-                                      v17 = "ASPFTLParseBufferToCxt: oslcBdrBands(594) cannot add 1 element to context";
                                       goto LABEL_161;
                                     case 595:
-                                      if (sub_100020050(a1, "", "oslcBdrValid", *v8))
+                                      if ((sub_100020050(a1, "", "oslcBdrValid", *a2) & 1) == 0)
                                       {
-                                        goto LABEL_162;
+                                        sub_100020530("ASPFTLParseBufferToCxt: oslcBdrValid(595) cannot add 1 element to context");
                                       }
 
-                                      v17 = "ASPFTLParseBufferToCxt: oslcBdrValid(595) cannot add 1 element to context";
                                       goto LABEL_161;
                                     case 596:
-                                      if (sub_100020050(a1, "", "unexpectedBlanksInternal", *v8))
+                                      if ((sub_100020050(a1, "", "unexpectedBlanksInternal", *a2) & 1) == 0)
                                       {
-                                        goto LABEL_162;
+                                        sub_100020530("ASPFTLParseBufferToCxt: unexpectedBlanksInternal(596) cannot add 1 element to context");
                                       }
 
-                                      v17 = "ASPFTLParseBufferToCxt: unexpectedBlanksInternal(596) cannot add 1 element to context";
                                       goto LABEL_161;
                                     case 597:
-                                      if (sub_100020050(a1, "", "unexpectedBlanksOnRV", *v8))
+                                      if ((sub_100020050(a1, "", "unexpectedBlanksOnRV", *a2) & 1) == 0)
                                       {
-                                        goto LABEL_162;
+                                        sub_100020530("ASPFTLParseBufferToCxt: unexpectedBlanksOnRV(597) cannot add 1 element to context");
                                       }
 
-                                      v17 = "ASPFTLParseBufferToCxt: unexpectedBlanksOnRV(597) cannot add 1 element to context";
                                       goto LABEL_161;
                                     case 601:
-                                      if (sub_100020050(a1, "", "waterfallLockSectors", *v8))
+                                      if ((sub_100020050(a1, "", "waterfallLockSectors", *a2) & 1) == 0)
                                       {
-                                        goto LABEL_162;
+                                        sub_100020530("ASPFTLParseBufferToCxt: waterfallLockSectors(601) cannot add 1 element to context");
                                       }
 
-                                      v17 = "ASPFTLParseBufferToCxt: waterfallLockSectors(601) cannot add 1 element to context";
                                       goto LABEL_161;
                                     case 602:
-                                      if (sub_100020050(a1, "", "oslcGCActiveWrites", *v8))
+                                      if ((sub_100020050(a1, "", "oslcGCActiveWrites", *a2) & 1) == 0)
                                       {
-                                        goto LABEL_162;
+                                        sub_100020530("ASPFTLParseBufferToCxt: oslcGCActiveWrites(602) cannot add 1 element to context");
                                       }
 
-                                      v17 = "ASPFTLParseBufferToCxt: oslcGCActiveWrites(602) cannot add 1 element to context";
                                       goto LABEL_161;
                                     case 603:
-                                      if (sub_100020050(a1, "", "chipIdTemperatureSample", *v8))
+                                      if ((sub_100020050(a1, "", "chipIdTemperatureSample", *a2) & 1) == 0)
                                       {
-                                        goto LABEL_162;
+                                        sub_100020530("ASPFTLParseBufferToCxt: chipIdTemperatureSample(603) cannot add 1 element to context");
                                       }
 
-                                      v17 = "ASPFTLParseBufferToCxt: chipIdTemperatureSample(603) cannot add 1 element to context";
                                       goto LABEL_161;
                                     case 604:
-                                      if (sub_100020050(a1, "", "gcVPackWrites", *v8))
+                                      if ((sub_100020050(a1, "", "gcVPackWrites", *a2) & 1) == 0)
                                       {
-                                        goto LABEL_162;
+                                        sub_100020530("ASPFTLParseBufferToCxt: gcVPackWrites(604) cannot add 1 element to context");
                                       }
 
-                                      v17 = "ASPFTLParseBufferToCxt: gcVPackWrites(604) cannot add 1 element to context";
                                       goto LABEL_161;
                                     case 605:
-                                      if (v14 != 10)
+                                      if (v9 != 10)
                                       {
-                                        sub_100020530("ASPFTLParseBufferToCxt: gcActiveReasons(605): (#10) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                                        sub_100020530("ASPFTLParseBufferToCxt: gcActiveReasons(605): (#10) cfg elements != (%d) buffer elements", v9);
                                       }
 
-                                      if (v14 >= 0xB)
+                                      if (v9 >= 0xB)
                                       {
-                                        v18 = 10;
+                                        v12 = 10;
                                       }
 
                                       else
                                       {
-                                        v18 = v14;
+                                        v12 = v9;
                                       }
 
-                                      if (sub_1000189BC(a1, "gcActiveReasons_", v8, 8u, v18))
+                                      if (sub_1000189BC(a1, "gcActiveReasons_", a2, 8u, v12))
                                       {
                                         goto LABEL_110;
                                       }
 
-                                      v19 = "ASPFTLParseBufferToCxt: gcActiveReasons(605): Cannot add 10 elements to context";
-                                      goto LABEL_2993;
+                                      sub_100020530("ASPFTLParseBufferToCxt: gcActiveReasons(605): Cannot add 10 elements to context", v14);
+                                      return v5;
                                     case 606:
-                                      if (sub_100020050(a1, "", "eanMaxInitTimeMs", *v8))
+                                      if ((sub_100020050(a1, "", "eanMaxInitTimeMs", *a2) & 1) == 0)
                                       {
-                                        goto LABEL_162;
+                                        sub_100020530("ASPFTLParseBufferToCxt: eanMaxInitTimeMs(606) cannot add 1 element to context");
                                       }
 
-                                      v17 = "ASPFTLParseBufferToCxt: eanMaxInitTimeMs(606) cannot add 1 element to context";
                                       goto LABEL_161;
                                     case 607:
-                                      if (sub_100020050(a1, "", "eanMinToFirstReadTimeMs", *v8))
+                                      if ((sub_100020050(a1, "", "eanMinToFirstReadTimeMs", *a2) & 1) == 0)
                                       {
-                                        goto LABEL_162;
+                                        sub_100020530("ASPFTLParseBufferToCxt: eanMinToFirstReadTimeMs(607) cannot add 1 element to context");
                                       }
 
-                                      v17 = "ASPFTLParseBufferToCxt: eanMinToFirstReadTimeMs(607) cannot add 1 element to context";
                                       goto LABEL_161;
                                     case 608:
-                                      if (sub_100020050(a1, "", "skinnyAPGMRetire", *v8))
+                                      if ((sub_100020050(a1, "", "skinnyAPGMRetire", *a2) & 1) == 0)
                                       {
-                                        goto LABEL_162;
+                                        sub_100020530("ASPFTLParseBufferToCxt: skinnyAPGMRetire(608) cannot add 1 element to context");
                                       }
 
-                                      v17 = "ASPFTLParseBufferToCxt: skinnyAPGMRetire(608) cannot add 1 element to context";
                                       goto LABEL_161;
                                     case 609:
-                                      if (sub_100020050(a1, "", "unexpectedBlanksHost", *v8))
+                                      if ((sub_100020050(a1, "", "unexpectedBlanksHost", *a2) & 1) == 0)
                                       {
-                                        goto LABEL_162;
+                                        sub_100020530("ASPFTLParseBufferToCxt: unexpectedBlanksHost(609) cannot add 1 element to context");
                                       }
 
-                                      v17 = "ASPFTLParseBufferToCxt: unexpectedBlanksHost(609) cannot add 1 element to context";
                                       goto LABEL_161;
                                     case 610:
-                                      if (v14 != 64)
+                                      if (v9 != 64)
                                       {
-                                        sub_100020530("ASPFTLParseBufferToCxt: pcieAerCounters(610): (#64) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                                        sub_100020530("ASPFTLParseBufferToCxt: pcieAerCounters(610): (#64) cfg elements != (%d) buffer elements", v9);
                                       }
 
-                                      if (v14 >= 0x41)
+                                      if (v9 >= 0x41)
                                       {
-                                        v18 = 64;
+                                        v12 = 64;
                                       }
 
                                       else
                                       {
-                                        v18 = v14;
+                                        v12 = v9;
                                       }
 
-                                      if (sub_1000189BC(a1, "pcieAerCounters_", v8, 8u, v18))
+                                      if (sub_1000189BC(a1, "pcieAerCounters_", a2, 8u, v12))
                                       {
                                         goto LABEL_110;
                                       }
 
-                                      v19 = "ASPFTLParseBufferToCxt: pcieAerCounters(610): Cannot add 64 elements to context";
-                                      goto LABEL_2993;
+                                      sub_100020530("ASPFTLParseBufferToCxt: pcieAerCounters(610): Cannot add 64 elements to context", v14);
+                                      return v5;
                                     case 611:
-                                      if (sub_100020050(a1, "", "fastHwToTlcBalance", *v8))
+                                      if ((sub_100020050(a1, "", "fastHwToTlcBalance", *a2) & 1) == 0)
                                       {
-                                        goto LABEL_162;
+                                        sub_100020530("ASPFTLParseBufferToCxt: fastHwToTlcBalance(611) cannot add 1 element to context");
                                       }
 
-                                      v17 = "ASPFTLParseBufferToCxt: fastHwToTlcBalance(611) cannot add 1 element to context";
                                       goto LABEL_161;
                                     case 612:
-                                      if (sub_100020050(a1, "", "perfOSLCRuns", *v8))
+                                      if ((sub_100020050(a1, "", "perfOSLCRuns", *a2) & 1) == 0)
                                       {
-                                        goto LABEL_162;
+                                        sub_100020530("ASPFTLParseBufferToCxt: perfOSLCRuns(612) cannot add 1 element to context");
                                       }
 
-                                      v17 = "ASPFTLParseBufferToCxt: perfOSLCRuns(612) cannot add 1 element to context";
                                       goto LABEL_161;
                                     case 613:
-                                      if (sub_100020050(a1, "", "slcDemandBurstWritesInGC", *v8))
+                                      if ((sub_100020050(a1, "", "slcDemandBurstWritesInGC", *a2) & 1) == 0)
                                       {
-                                        goto LABEL_162;
+                                        sub_100020530("ASPFTLParseBufferToCxt: slcDemandBurstWritesInGC(613) cannot add 1 element to context");
                                       }
 
-                                      v17 = "ASPFTLParseBufferToCxt: slcDemandBurstWritesInGC(613) cannot add 1 element to context";
                                       goto LABEL_161;
                                     case 614:
-                                      if (sub_100020050(a1, "", "slcDemandBurstWritesInTT", *v8))
+                                      if ((sub_100020050(a1, "", "slcDemandBurstWritesInTT", *a2) & 1) == 0)
                                       {
-                                        goto LABEL_162;
+                                        sub_100020530("ASPFTLParseBufferToCxt: slcDemandBurstWritesInTT(614) cannot add 1 element to context");
                                       }
 
-                                      v17 = "ASPFTLParseBufferToCxt: slcDemandBurstWritesInTT(614) cannot add 1 element to context";
                                       goto LABEL_161;
                                     case 615:
-                                      if (sub_100020050(a1, "", "slcDemandBurstWritesInNRP", *v8))
+                                      if ((sub_100020050(a1, "", "slcDemandBurstWritesInNRP", *a2) & 1) == 0)
                                       {
-                                        goto LABEL_162;
+                                        sub_100020530("ASPFTLParseBufferToCxt: slcDemandBurstWritesInNRP(615) cannot add 1 element to context");
                                       }
 
-                                      v17 = "ASPFTLParseBufferToCxt: slcDemandBurstWritesInNRP(615) cannot add 1 element to context";
                                       goto LABEL_161;
                                     case 616:
-                                      if (sub_100020050(a1, "", "perfTotalDmaMb", *v8))
+                                      if ((sub_100020050(a1, "", "perfTotalDmaMb", *a2) & 1) == 0)
                                       {
-                                        goto LABEL_162;
+                                        sub_100020530("ASPFTLParseBufferToCxt: perfTotalDmaMb(616) cannot add 1 element to context");
                                       }
 
-                                      v17 = "ASPFTLParseBufferToCxt: perfTotalDmaMb(616) cannot add 1 element to context";
                                       goto LABEL_161;
                                     case 617:
-                                      if (sub_100020050(a1, "", "eanAvgInitTimeMs", *v8))
+                                      if ((sub_100020050(a1, "", "eanAvgInitTimeMs", *a2) & 1) == 0)
                                       {
-                                        goto LABEL_162;
+                                        sub_100020530("ASPFTLParseBufferToCxt: eanAvgInitTimeMs(617) cannot add 1 element to context");
                                       }
 
-                                      v17 = "ASPFTLParseBufferToCxt: eanAvgInitTimeMs(617) cannot add 1 element to context";
                                       goto LABEL_161;
                                     case 618:
-                                      if (sub_100020050(a1, "", "eanAvgToFirstReadTimeMs", *v8))
+                                      if ((sub_100020050(a1, "", "eanAvgToFirstReadTimeMs", *a2) & 1) == 0)
                                       {
-                                        goto LABEL_162;
+                                        sub_100020530("ASPFTLParseBufferToCxt: eanAvgToFirstReadTimeMs(618) cannot add 1 element to context");
                                       }
 
-                                      v17 = "ASPFTLParseBufferToCxt: eanAvgToFirstReadTimeMs(618) cannot add 1 element to context";
                                       goto LABEL_161;
                                     case 619:
-                                      if (sub_100020050(a1, "", "eanMaxBootReadTimeMs", *v8))
+                                      if ((sub_100020050(a1, "", "eanMaxBootReadTimeMs", *a2) & 1) == 0)
                                       {
-                                        goto LABEL_162;
+                                        sub_100020530("ASPFTLParseBufferToCxt: eanMaxBootReadTimeMs(619) cannot add 1 element to context");
                                       }
 
-                                      v17 = "ASPFTLParseBufferToCxt: eanMaxBootReadTimeMs(619) cannot add 1 element to context";
                                       goto LABEL_161;
                                     case 620:
-                                      if (sub_100020050(a1, "", "eanAvgBootReadTimeMs", *v8))
+                                      if ((sub_100020050(a1, "", "eanAvgBootReadTimeMs", *a2) & 1) == 0)
                                       {
-                                        goto LABEL_162;
+                                        sub_100020530("ASPFTLParseBufferToCxt: eanAvgBootReadTimeMs(620) cannot add 1 element to context");
                                       }
 
-                                      v17 = "ASPFTLParseBufferToCxt: eanAvgBootReadTimeMs(620) cannot add 1 element to context";
                                       goto LABEL_161;
                                     case 621:
-                                      if (v14 != 10)
+                                      if (v9 != 10)
                                       {
-                                        sub_100020530("ASPFTLParseBufferToCxt: eanBootReadsHist(621): (#10) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                                        sub_100020530("ASPFTLParseBufferToCxt: eanBootReadsHist(621): (#10) cfg elements != (%d) buffer elements", v9);
                                       }
 
-                                      if (v14 >= 0xB)
+                                      if (v9 >= 0xB)
                                       {
-                                        v18 = 10;
+                                        v12 = 10;
                                       }
 
                                       else
                                       {
-                                        v18 = v14;
+                                        v12 = v9;
                                       }
 
-                                      if (sub_1000189BC(a1, "eanBootReadsHist_", v8, 8u, v18))
+                                      if (sub_1000189BC(a1, "eanBootReadsHist_", a2, 8u, v12))
                                       {
                                         goto LABEL_110;
                                       }
 
-                                      v19 = "ASPFTLParseBufferToCxt: eanBootReadsHist(621): Cannot add 10 elements to context";
-                                      goto LABEL_2993;
+                                      sub_100020530("ASPFTLParseBufferToCxt: eanBootReadsHist(621): Cannot add 10 elements to context", v14);
+                                      return v5;
                                     case 622:
-                                      if (sub_100020050(a1, "", "maxBgInitTimeMs", *v8))
+                                      if ((sub_100020050(a1, "", "maxBgInitTimeMs", *a2) & 1) == 0)
                                       {
-                                        goto LABEL_162;
+                                        sub_100020530("ASPFTLParseBufferToCxt: maxBgInitTimeMs(622) cannot add 1 element to context");
                                       }
 
-                                      v17 = "ASPFTLParseBufferToCxt: maxBgInitTimeMs(622) cannot add 1 element to context";
                                       goto LABEL_161;
                                     case 623:
-                                      if (sub_100020050(a1, "", "avgBgInitTimeMs", *v8))
+                                      if ((sub_100020050(a1, "", "avgBgInitTimeMs", *a2) & 1) == 0)
                                       {
-                                        goto LABEL_162;
+                                        sub_100020530("ASPFTLParseBufferToCxt: avgBgInitTimeMs(623) cannot add 1 element to context");
                                       }
 
-                                      v17 = "ASPFTLParseBufferToCxt: avgBgInitTimeMs(623) cannot add 1 element to context";
                                       goto LABEL_161;
                                     case 624:
-                                      if (v14 != 16)
+                                      if (v9 != 16)
                                       {
-                                        sub_100020530("ASPFTLParseBufferToCxt: clogFailReason(624): (#16) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                                        sub_100020530("ASPFTLParseBufferToCxt: clogFailReason(624): (#16) cfg elements != (%d) buffer elements", v9);
                                       }
 
-                                      if (v14 >= 0x11)
+                                      if (v9 >= 0x11)
                                       {
-                                        v18 = 16;
+                                        v12 = 16;
                                       }
 
                                       else
                                       {
-                                        v18 = v14;
+                                        v12 = v9;
                                       }
 
-                                      if (sub_1000189BC(a1, "clogFailReason_", v8, 8u, v18))
+                                      if (sub_1000189BC(a1, "clogFailReason_", a2, 8u, v12))
                                       {
                                         goto LABEL_110;
                                       }
 
-                                      v19 = "ASPFTLParseBufferToCxt: clogFailReason(624): Cannot add 16 elements to context";
-                                      goto LABEL_2993;
+                                      sub_100020530("ASPFTLParseBufferToCxt: clogFailReason(624): Cannot add 16 elements to context", v14);
+                                      return v5;
                                     case 625:
-                                      if (sub_100020050(a1, "", "eanMinBootReadMBPerSec", *v8))
+                                      if ((sub_100020050(a1, "", "eanMinBootReadMBPerSec", *a2) & 1) == 0)
                                       {
-                                        goto LABEL_162;
+                                        sub_100020530("ASPFTLParseBufferToCxt: eanMinBootReadMBPerSec(625) cannot add 1 element to context");
                                       }
 
-                                      v17 = "ASPFTLParseBufferToCxt: eanMinBootReadMBPerSec(625) cannot add 1 element to context";
                                       goto LABEL_161;
                                     case 626:
-                                      if (sub_100020050(a1, "", "eanAvgBootReadMBPerSec", *v8))
+                                      if ((sub_100020050(a1, "", "eanAvgBootReadMBPerSec", *a2) & 1) == 0)
                                       {
-                                        goto LABEL_162;
+                                        sub_100020530("ASPFTLParseBufferToCxt: eanAvgBootReadMBPerSec(626) cannot add 1 element to context");
                                       }
 
-                                      v17 = "ASPFTLParseBufferToCxt: eanAvgBootReadMBPerSec(626) cannot add 1 element to context";
                                       goto LABEL_161;
                                     case 627:
-                                      if (sub_100020050(a1, "", "minSkinnyPECycles", *v8))
+                                      if ((sub_100020050(a1, "", "minSkinnyPECycles", *a2) & 1) == 0)
                                       {
-                                        goto LABEL_162;
+                                        sub_100020530("ASPFTLParseBufferToCxt: minSkinnyPECycles(627) cannot add 1 element to context");
                                       }
 
-                                      v17 = "ASPFTLParseBufferToCxt: minSkinnyPECycles(627) cannot add 1 element to context";
                                       goto LABEL_161;
                                     case 628:
-                                      if (sub_100020050(a1, "", "maxSkinnyPECycles", *v8))
+                                      if ((sub_100020050(a1, "", "maxSkinnyPECycles", *a2) & 1) == 0)
                                       {
-                                        goto LABEL_162;
+                                        sub_100020530("ASPFTLParseBufferToCxt: maxSkinnyPECycles(628) cannot add 1 element to context");
                                       }
 
-                                      v17 = "ASPFTLParseBufferToCxt: maxSkinnyPECycles(628) cannot add 1 element to context";
                                       goto LABEL_161;
                                     case 629:
-                                      if (sub_100020050(a1, "", "averageSkinnyPECycles", *v8))
+                                      if ((sub_100020050(a1, "", "averageSkinnyPECycles", *a2) & 1) == 0)
                                       {
-                                        goto LABEL_162;
+                                        sub_100020530("ASPFTLParseBufferToCxt: averageSkinnyPECycles(629) cannot add 1 element to context");
                                       }
 
-                                      v17 = "ASPFTLParseBufferToCxt: averageSkinnyPECycles(629) cannot add 1 element to context";
                                       goto LABEL_161;
                                     case 630:
-                                      if (v14 != 6)
+                                      if (v9 != 6)
                                       {
-                                        sub_100020530("ASPFTLParseBufferToCxt: raidSuccessfulRecoEAN(630): (#6) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                                        sub_100020530("ASPFTLParseBufferToCxt: raidSuccessfulRecoEAN(630): (#6) cfg elements != (%d) buffer elements", v9);
                                       }
 
-                                      if (v14 >= 7)
+                                      if (v9 >= 7)
                                       {
-                                        v18 = 6;
+                                        v12 = 6;
                                       }
 
                                       else
                                       {
-                                        v18 = v14;
+                                        v12 = v9;
                                       }
 
-                                      if (sub_1000189BC(a1, "raidSuccessfulRecoEAN_", v8, 8u, v18))
+                                      if (sub_1000189BC(a1, "raidSuccessfulRecoEAN_", a2, 8u, v12))
                                       {
                                         goto LABEL_110;
                                       }
 
-                                      v19 = "ASPFTLParseBufferToCxt: raidSuccessfulRecoEAN(630): Cannot add 6 elements to context";
-                                      goto LABEL_2993;
+                                      sub_100020530("ASPFTLParseBufferToCxt: raidSuccessfulRecoEAN(630): Cannot add 6 elements to context", v14);
+                                      return v5;
                                     case 631:
-                                      if (v14 != 6)
+                                      if (v9 != 6)
                                       {
-                                        sub_100020530("ASPFTLParseBufferToCxt: raidFailedRecoEAN(631): (#6) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                                        sub_100020530("ASPFTLParseBufferToCxt: raidFailedRecoEAN(631): (#6) cfg elements != (%d) buffer elements", v9);
                                       }
 
-                                      if (v14 >= 7)
+                                      if (v9 >= 7)
                                       {
-                                        v18 = 6;
+                                        v12 = 6;
                                       }
 
                                       else
                                       {
-                                        v18 = v14;
+                                        v12 = v9;
                                       }
 
-                                      if (sub_1000189BC(a1, "raidFailedRecoEAN_", v8, 8u, v18))
+                                      if (sub_1000189BC(a1, "raidFailedRecoEAN_", a2, 8u, v12))
                                       {
                                         goto LABEL_110;
                                       }
 
-                                      v19 = "ASPFTLParseBufferToCxt: raidFailedRecoEAN(631): Cannot add 6 elements to context";
-                                      goto LABEL_2993;
+                                      sub_100020530("ASPFTLParseBufferToCxt: raidFailedRecoEAN(631): Cannot add 6 elements to context", v14);
+                                      return v5;
                                     case 632:
-                                      if (v14 != 6)
+                                      if (v9 != 6)
                                       {
-                                        sub_100020530("ASPFTLParseBufferToCxt: eanFirstReadMode(632): (#6) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                                        sub_100020530("ASPFTLParseBufferToCxt: eanFirstReadMode(632): (#6) cfg elements != (%d) buffer elements", v9);
                                       }
 
-                                      if (v14 >= 7)
+                                      if (v9 >= 7)
                                       {
-                                        v18 = 6;
+                                        v12 = 6;
                                       }
 
                                       else
                                       {
-                                        v18 = v14;
+                                        v12 = v9;
                                       }
 
-                                      if (sub_1000189BC(a1, "eanFirstReadMode_", v8, 8u, v18))
+                                      if (sub_1000189BC(a1, "eanFirstReadMode_", a2, 8u, v12))
                                       {
                                         goto LABEL_110;
                                       }
 
-                                      v19 = "ASPFTLParseBufferToCxt: eanFirstReadMode(632): Cannot add 6 elements to context";
-                                      goto LABEL_2993;
+                                      sub_100020530("ASPFTLParseBufferToCxt: eanFirstReadMode(632): Cannot add 6 elements to context", v14);
+                                      return v5;
                                     case 635:
-                                      if (sub_100020050(a1, "", "oslcHwGC", *v8))
+                                      if ((sub_100020050(a1, "", "oslcHwGC", *a2) & 1) == 0)
                                       {
-                                        goto LABEL_162;
+                                        sub_100020530("ASPFTLParseBufferToCxt: oslcHwGC(635) cannot add 1 element to context");
                                       }
 
-                                      v17 = "ASPFTLParseBufferToCxt: oslcHwGC(635) cannot add 1 element to context";
                                       goto LABEL_161;
                                     case 636:
-                                      if (sub_100020050(a1, "", "oslcHwTT", *v8))
+                                      if ((sub_100020050(a1, "", "oslcHwTT", *a2) & 1) == 0)
                                       {
-                                        goto LABEL_162;
+                                        sub_100020530("ASPFTLParseBufferToCxt: oslcHwTT(636) cannot add 1 element to context");
                                       }
 
-                                      v17 = "ASPFTLParseBufferToCxt: oslcHwTT(636) cannot add 1 element to context";
                                       goto LABEL_161;
                                     case 637:
-                                      if (sub_100020050(a1, "", "oslcHwNRP", *v8))
+                                      if ((sub_100020050(a1, "", "oslcHwNRP", *a2) & 1) == 0)
                                       {
-                                        goto LABEL_162;
+                                        sub_100020530("ASPFTLParseBufferToCxt: oslcHwNRP(637) cannot add 1 element to context");
                                       }
 
-                                      v17 = "ASPFTLParseBufferToCxt: oslcHwNRP(637) cannot add 1 element to context";
                                       goto LABEL_161;
                                     case 638:
-                                      if (v14 != 10)
+                                      if (v9 != 10)
                                       {
-                                        sub_100020530("ASPFTLParseBufferToCxt: oslcDemandBurstSize(638): (#10) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                                        sub_100020530("ASPFTLParseBufferToCxt: oslcDemandBurstSize(638): (#10) cfg elements != (%d) buffer elements", v9);
                                       }
 
-                                      if (v14 >= 0xB)
+                                      if (v9 >= 0xB)
                                       {
-                                        v18 = 10;
+                                        v12 = 10;
                                       }
 
                                       else
                                       {
-                                        v18 = v14;
+                                        v12 = v9;
                                       }
 
-                                      if (sub_1000189BC(a1, "oslcDemandBurstSize_", v8, 8u, v18))
+                                      if (sub_1000189BC(a1, "oslcDemandBurstSize_", a2, 8u, v12))
                                       {
                                         goto LABEL_110;
                                       }
 
-                                      v19 = "ASPFTLParseBufferToCxt: oslcDemandBurstSize(638): Cannot add 10 elements to context";
-                                      goto LABEL_2993;
+                                      sub_100020530("ASPFTLParseBufferToCxt: oslcDemandBurstSize(638): Cannot add 10 elements to context", v14);
+                                      return v5;
                                     case 639:
-                                      if (sub_100020050(a1, "", "raidReconstructSuccessBandFlowOslc", *v8))
+                                      if ((sub_100020050(a1, "", "raidReconstructSuccessBandFlowOslc", *a2) & 1) == 0)
                                       {
-                                        goto LABEL_162;
+                                        sub_100020530("ASPFTLParseBufferToCxt: raidReconstructSuccessBandFlowOslc(639) cannot add 1 element to context");
                                       }
 
-                                      v17 = "ASPFTLParseBufferToCxt: raidReconstructSuccessBandFlowOslc(639) cannot add 1 element to context";
                                       goto LABEL_161;
                                     case 640:
-                                      if (sub_100020050(a1, "", "raidReconstructFailBandFlowOslc", *v8))
+                                      if ((sub_100020050(a1, "", "raidReconstructFailBandFlowOslc", *a2) & 1) == 0)
                                       {
-                                        goto LABEL_162;
+                                        sub_100020530("ASPFTLParseBufferToCxt: raidReconstructFailBandFlowOslc(640) cannot add 1 element to context");
                                       }
 
-                                      v17 = "ASPFTLParseBufferToCxt: raidReconstructFailBandFlowOslc(640) cannot add 1 element to context";
                                       goto LABEL_161;
                                     case 641:
-                                      if (sub_100020050(a1, "", "raidFailSectors", *v8))
+                                      if ((sub_100020050(a1, "", "raidFailSectors", *a2) & 1) == 0)
                                       {
-                                        goto LABEL_162;
+                                        sub_100020530("ASPFTLParseBufferToCxt: raidFailSectors(641) cannot add 1 element to context");
                                       }
 
-                                      v17 = "ASPFTLParseBufferToCxt: raidFailSectors(641) cannot add 1 element to context";
                                       goto LABEL_161;
                                     case 642:
-                                      if (sub_100020050(a1, "", "eanFailSectors", *v8))
+                                      if ((sub_100020050(a1, "", "eanFailSectors", *a2) & 1) == 0)
                                       {
-                                        goto LABEL_162;
+                                        sub_100020530("ASPFTLParseBufferToCxt: eanFailSectors(642) cannot add 1 element to context");
                                       }
 
-                                      v17 = "ASPFTLParseBufferToCxt: eanFailSectors(642) cannot add 1 element to context";
                                       goto LABEL_161;
                                     case 643:
-                                      if (sub_100020050(a1, "", "bdrTimeMode", *v8))
+                                      if ((sub_100020050(a1, "", "bdrTimeMode", *a2) & 1) == 0)
                                       {
-                                        goto LABEL_162;
+                                        sub_100020530("ASPFTLParseBufferToCxt: bdrTimeMode(643) cannot add 1 element to context");
                                       }
 
-                                      v17 = "ASPFTLParseBufferToCxt: bdrTimeMode(643) cannot add 1 element to context";
                                       goto LABEL_161;
                                     case 644:
-                                      if (sub_100020050(a1, "", "raidParityNotSavedP", *v8))
+                                      if ((sub_100020050(a1, "", "raidParityNotSavedP", *a2) & 1) == 0)
                                       {
-                                        goto LABEL_162;
+                                        sub_100020530("ASPFTLParseBufferToCxt: raidParityNotSavedP(644) cannot add 1 element to context");
                                       }
 
-                                      v17 = "ASPFTLParseBufferToCxt: raidParityNotSavedP(644) cannot add 1 element to context";
                                       goto LABEL_161;
                                     case 645:
-                                      if (sub_100020050(a1, "", "raidParityNotSavedQ", *v8))
+                                      if ((sub_100020050(a1, "", "raidParityNotSavedQ", *a2) & 1) == 0)
                                       {
-                                        goto LABEL_162;
+                                        sub_100020530("ASPFTLParseBufferToCxt: raidParityNotSavedQ(645) cannot add 1 element to context");
                                       }
 
-                                      v17 = "ASPFTLParseBufferToCxt: raidParityNotSavedQ(645) cannot add 1 element to context";
                                       goto LABEL_161;
                                     case 646:
-                                      if (sub_100020050(a1, "", "raidParityInvalid", *v8))
+                                      if ((sub_100020050(a1, "", "raidParityInvalid", *a2) & 1) == 0)
                                       {
-                                        goto LABEL_162;
+                                        sub_100020530("ASPFTLParseBufferToCxt: raidParityInvalid(646) cannot add 1 element to context");
                                       }
 
-                                      v17 = "ASPFTLParseBufferToCxt: raidParityInvalid(646) cannot add 1 element to context";
                                       goto LABEL_161;
                                     case 647:
-                                      if (sub_100020050(a1, "", "raidParityUnknown", *v8))
+                                      if ((sub_100020050(a1, "", "raidParityUnknown", *a2) & 1) == 0)
                                       {
-                                        goto LABEL_162;
+                                        sub_100020530("ASPFTLParseBufferToCxt: raidParityUnknown(647) cannot add 1 element to context");
                                       }
 
-                                      v17 = "ASPFTLParseBufferToCxt: raidParityUnknown(647) cannot add 1 element to context";
                                       goto LABEL_161;
                                     case 648:
-                                      if (sub_100020050(a1, "", "raidParityUnmapped", *v8))
+                                      if ((sub_100020050(a1, "", "raidParityUnmapped", *a2) & 1) == 0)
                                       {
-                                        goto LABEL_162;
+                                        sub_100020530("ASPFTLParseBufferToCxt: raidParityUnmapped(648) cannot add 1 element to context");
                                       }
 
-                                      v17 = "ASPFTLParseBufferToCxt: raidParityUnmapped(648) cannot add 1 element to context";
                                       goto LABEL_161;
                                     case 649:
-                                      if (sub_100020050(a1, "", "raidParityGCUnc", *v8))
+                                      if ((sub_100020050(a1, "", "raidParityGCUnc", *a2) & 1) == 0)
                                       {
-                                        goto LABEL_162;
+                                        sub_100020530("ASPFTLParseBufferToCxt: raidParityGCUnc(649) cannot add 1 element to context");
                                       }
 
-                                      v17 = "ASPFTLParseBufferToCxt: raidParityGCUnc(649) cannot add 1 element to context";
                                       goto LABEL_161;
                                     case 657:
-                                      if (sub_100020050(a1, "", "AbortSkip_MPBXProbational", *v8))
+                                      if ((sub_100020050(a1, "", "AbortSkip_MPBXProbational", *a2) & 1) == 0)
                                       {
-                                        goto LABEL_162;
+                                        sub_100020530("ASPFTLParseBufferToCxt: AbortSkip_MPBXProbational(657) cannot add 1 element to context");
                                       }
 
-                                      v17 = "ASPFTLParseBufferToCxt: AbortSkip_MPBXProbational(657) cannot add 1 element to context";
                                       goto LABEL_161;
                                     case 659:
-                                      if (sub_100020050(a1, "", "raidVerificationReads", *v8))
+                                      if ((sub_100020050(a1, "", "raidVerificationReads", *a2) & 1) == 0)
                                       {
-                                        goto LABEL_162;
+                                        sub_100020530("ASPFTLParseBufferToCxt: raidVerificationReads(659) cannot add 1 element to context");
                                       }
 
-                                      v17 = "ASPFTLParseBufferToCxt: raidVerificationReads(659) cannot add 1 element to context";
                                       goto LABEL_161;
                                     case 666:
-                                      if (sub_100020050(a1, "", "nofDies", *v8))
+                                      if ((sub_100020050(a1, "", "nofDies", *a2) & 1) == 0)
                                       {
-                                        goto LABEL_162;
+                                        sub_100020530("ASPFTLParseBufferToCxt: nofDies(666) cannot add 1 element to context");
                                       }
 
-                                      v17 = "ASPFTLParseBufferToCxt: nofDies(666) cannot add 1 element to context";
                                       goto LABEL_161;
                                     case 671:
-                                      if (sub_100020050(a1, "", "skinnyBandsNum", *v8))
+                                      if ((sub_100020050(a1, "", "skinnyBandsNum", *a2) & 1) == 0)
                                       {
-                                        goto LABEL_162;
+                                        sub_100020530("ASPFTLParseBufferToCxt: skinnyBandsNum(671) cannot add 1 element to context");
                                       }
 
-                                      v17 = "ASPFTLParseBufferToCxt: skinnyBandsNum(671) cannot add 1 element to context";
                                       goto LABEL_161;
                                     case 672:
-                                      if (sub_100020050(a1, "", "skinnyBandsNumDips", *v8))
+                                      if ((sub_100020050(a1, "", "skinnyBandsNumDips", *a2) & 1) == 0)
                                       {
-                                        goto LABEL_162;
+                                        sub_100020530("ASPFTLParseBufferToCxt: skinnyBandsNumDips(672) cannot add 1 element to context");
                                       }
 
-                                      v17 = "ASPFTLParseBufferToCxt: skinnyBandsNumDips(672) cannot add 1 element to context";
                                       goto LABEL_161;
                                     case 674:
-                                      if (v14 != 8)
+                                      if (v9 != 8)
                                       {
-                                        sub_100020530("ASPFTLParseBufferToCxt: oslcNoVotesHw(674): (#8) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                                        sub_100020530("ASPFTLParseBufferToCxt: oslcNoVotesHw(674): (#8) cfg elements != (%d) buffer elements", v9);
                                       }
 
-                                      if (v14 >= 9)
+                                      if (v9 >= 9)
                                       {
-                                        v18 = 8;
+                                        v12 = 8;
                                       }
 
                                       else
                                       {
-                                        v18 = v14;
+                                        v12 = v9;
                                       }
 
-                                      if (sub_1000189BC(a1, "oslcNoVotesHw_", v8, 8u, v18))
+                                      if (sub_1000189BC(a1, "oslcNoVotesHw_", a2, 8u, v12))
                                       {
                                         goto LABEL_110;
                                       }
 
-                                      v19 = "ASPFTLParseBufferToCxt: oslcNoVotesHw(674): Cannot add 8 elements to context";
-                                      goto LABEL_2993;
+                                      sub_100020530("ASPFTLParseBufferToCxt: oslcNoVotesHw(674): Cannot add 8 elements to context", v14);
+                                      return v5;
                                     case 675:
-                                      if (sub_100020050(a1, "", "totalLbas", *v8))
+                                      if ((sub_100020050(a1, "", "totalLbas", *a2) & 1) == 0)
                                       {
-                                        goto LABEL_162;
+                                        sub_100020530("ASPFTLParseBufferToCxt: totalLbas(675) cannot add 1 element to context");
                                       }
 
-                                      v17 = "ASPFTLParseBufferToCxt: totalLbas(675) cannot add 1 element to context";
                                       goto LABEL_161;
                                     case 676:
-                                      if (sub_100020050(a1, "", "bdrHostPingExtra", *v8))
+                                      if ((sub_100020050(a1, "", "bdrHostPingExtra", *a2) & 1) == 0)
                                       {
-                                        goto LABEL_162;
+                                        sub_100020530("ASPFTLParseBufferToCxt: bdrHostPingExtra(676) cannot add 1 element to context");
                                       }
 
-                                      v17 = "ASPFTLParseBufferToCxt: bdrHostPingExtra(676) cannot add 1 element to context";
                                       goto LABEL_161;
                                     case 677:
-                                      if (sub_100020050(a1, "", "magazineInstanceMeta", *v8))
+                                      if ((sub_100020050(a1, "", "magazineInstanceMeta", *a2) & 1) == 0)
                                       {
-                                        goto LABEL_162;
+                                        sub_100020530("ASPFTLParseBufferToCxt: magazineInstanceMeta(677) cannot add 1 element to context");
                                       }
 
-                                      v17 = "ASPFTLParseBufferToCxt: magazineInstanceMeta(677) cannot add 1 element to context";
                                       goto LABEL_161;
                                     default:
-                                      switch(v12)
+                                      switch(v7)
                                       {
                                         case 680:
-                                          if (v14 != 3)
+                                          if (v9 != 3)
                                           {
-                                            sub_100020530("ASPFTLParseBufferToCxt: magazineFWVersion(680): (#3) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                                            sub_100020530("ASPFTLParseBufferToCxt: magazineFWVersion(680): (#3) cfg elements != (%d) buffer elements", v9);
                                           }
 
-                                          if (v12 >> 34)
+                                          if (v7 >> 34)
                                           {
-                                            v18 = 3;
+                                            v12 = 3;
                                           }
 
                                           else
                                           {
-                                            v18 = v14;
+                                            v12 = v9;
                                           }
 
-                                          if (sub_1000189BC(a1, "magazineFWVersion_", v8, 8u, v18))
+                                          if (sub_1000189BC(a1, "magazineFWVersion_", a2, 8u, v12))
                                           {
                                             goto LABEL_110;
                                           }
 
-                                          v19 = "ASPFTLParseBufferToCxt: magazineFWVersion(680): Cannot add 3 elements to context";
-                                          goto LABEL_2993;
+                                          sub_100020530("ASPFTLParseBufferToCxt: magazineFWVersion(680): Cannot add 3 elements to context", v14);
+                                          return v5;
                                         case 681:
-                                          if (sub_100020050(a1, "", "raidReconstructFailPMXUnsup", *v8))
+                                          if ((sub_100020050(a1, "", "raidReconstructFailPMXUnsup", *a2) & 1) == 0)
                                           {
-                                            goto LABEL_162;
+                                            sub_100020530("ASPFTLParseBufferToCxt: raidReconstructFailPMXUnsup(681) cannot add 1 element to context");
                                           }
 
-                                          v17 = "ASPFTLParseBufferToCxt: raidReconstructFailPMXUnsup(681) cannot add 1 element to context";
                                           goto LABEL_161;
                                         case 682:
-                                          if (sub_100020050(a1, "", "raidReconstructFailBMXUnsup", *v8))
+                                          if ((sub_100020050(a1, "", "raidReconstructFailBMXUnsup", *a2) & 1) == 0)
                                           {
-                                            goto LABEL_162;
+                                            sub_100020530("ASPFTLParseBufferToCxt: raidReconstructFailBMXUnsup(682) cannot add 1 element to context");
                                           }
 
-                                          v17 = "ASPFTLParseBufferToCxt: raidReconstructFailBMXUnsup(682) cannot add 1 element to context";
                                           goto LABEL_161;
                                         case 683:
-                                          if (sub_100020050(a1, "", "iBootNANDResets", *v8))
+                                          if ((sub_100020050(a1, "", "iBootNANDResets", *a2) & 1) == 0)
                                           {
-                                            goto LABEL_162;
+                                            sub_100020530("ASPFTLParseBufferToCxt: iBootNANDResets(683) cannot add 1 element to context");
                                           }
 
-                                          v17 = "ASPFTLParseBufferToCxt: iBootNANDResets(683) cannot add 1 element to context";
                                           goto LABEL_161;
                                         case 684:
-                                          if (sub_100020050(a1, "", "pcieClkreqHighTimeout", *v8))
+                                          if ((sub_100020050(a1, "", "pcieClkreqHighTimeout", *a2) & 1) == 0)
                                           {
-                                            goto LABEL_162;
+                                            sub_100020530("ASPFTLParseBufferToCxt: pcieClkreqHighTimeout(684) cannot add 1 element to context");
                                           }
 
-                                          v17 = "ASPFTLParseBufferToCxt: pcieClkreqHighTimeout(684) cannot add 1 element to context";
                                           goto LABEL_161;
                                         case 687:
-                                          if (v14 != 3)
+                                          if (v9 != 3)
                                           {
-                                            sub_100020530("ASPFTLParseBufferToCxt: cbdrInitSent(687): (#3) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                                            sub_100020530("ASPFTLParseBufferToCxt: cbdrInitSent(687): (#3) cfg elements != (%d) buffer elements", v9);
                                           }
 
-                                          if (v12 >> 34)
+                                          if (v7 >> 34)
                                           {
-                                            v18 = 3;
+                                            v12 = 3;
                                           }
 
                                           else
                                           {
-                                            v18 = v14;
+                                            v12 = v9;
                                           }
 
-                                          if (sub_1000189BC(a1, "cbdrInitSent_", v8, 8u, v18))
+                                          if (sub_1000189BC(a1, "cbdrInitSent_", a2, 8u, v12))
                                           {
                                             goto LABEL_110;
                                           }
 
-                                          v19 = "ASPFTLParseBufferToCxt: cbdrInitSent(687): Cannot add 3 elements to context";
-                                          goto LABEL_2993;
+                                          sub_100020530("ASPFTLParseBufferToCxt: cbdrInitSent(687): Cannot add 3 elements to context", v14);
+                                          return v5;
                                         case 688:
-                                          if (sub_100020050(a1, "", "cbdrPauseSent", *v8))
+                                          if ((sub_100020050(a1, "", "cbdrPauseSent", *a2) & 1) == 0)
                                           {
-                                            goto LABEL_162;
+                                            sub_100020530("ASPFTLParseBufferToCxt: cbdrPauseSent(688) cannot add 1 element to context");
                                           }
 
-                                          v17 = "ASPFTLParseBufferToCxt: cbdrPauseSent(688) cannot add 1 element to context";
                                           goto LABEL_161;
                                         case 689:
-                                          if (sub_100020050(a1, "", "cbdrResumeSent", *v8))
+                                          if ((sub_100020050(a1, "", "cbdrResumeSent", *a2) & 1) == 0)
                                           {
-                                            goto LABEL_162;
+                                            sub_100020530("ASPFTLParseBufferToCxt: cbdrResumeSent(689) cannot add 1 element to context");
                                           }
 
-                                          v17 = "ASPFTLParseBufferToCxt: cbdrResumeSent(689) cannot add 1 element to context";
                                           goto LABEL_161;
                                         case 690:
-                                          if (sub_100020050(a1, "", "cbdrGetResultSent", *v8))
+                                          if ((sub_100020050(a1, "", "cbdrGetResultSent", *a2) & 1) == 0)
                                           {
-                                            goto LABEL_162;
+                                            sub_100020530("ASPFTLParseBufferToCxt: cbdrGetResultSent(690) cannot add 1 element to context");
                                           }
 
-                                          v17 = "ASPFTLParseBufferToCxt: cbdrGetResultSent(690) cannot add 1 element to context";
                                           goto LABEL_161;
                                         case 691:
-                                          if (sub_100020050(a1, "", "cbdrEarlyExits", *v8))
+                                          if ((sub_100020050(a1, "", "cbdrEarlyExits", *a2) & 1) == 0)
                                           {
-                                            goto LABEL_162;
+                                            sub_100020530("ASPFTLParseBufferToCxt: cbdrEarlyExits(691) cannot add 1 element to context");
                                           }
 
-                                          v17 = "ASPFTLParseBufferToCxt: cbdrEarlyExits(691) cannot add 1 element to context";
                                           goto LABEL_161;
                                         case 694:
-                                          if (v14 != 10)
+                                          if (v9 != 10)
                                           {
-                                            sub_100020530("ASPFTLParseBufferToCxt: cbdrRefreshGrades(694): (#10) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                                            sub_100020530("ASPFTLParseBufferToCxt: cbdrRefreshGrades(694): (#10) cfg elements != (%d) buffer elements", v9);
                                           }
 
-                                          if (v14 >= 0xB)
+                                          if (v9 >= 0xB)
                                           {
-                                            v18 = 10;
+                                            v12 = 10;
                                           }
 
                                           else
                                           {
-                                            v18 = v14;
+                                            v12 = v9;
                                           }
 
-                                          if (sub_1000189BC(a1, "cbdrRefreshGrades_", v8, 8u, v18))
+                                          if (sub_1000189BC(a1, "cbdrRefreshGrades_", a2, 8u, v12))
                                           {
                                             goto LABEL_110;
                                           }
 
-                                          v19 = "ASPFTLParseBufferToCxt: cbdrRefreshGrades(694): Cannot add 10 elements to context";
-                                          goto LABEL_2993;
+                                          sub_100020530("ASPFTLParseBufferToCxt: cbdrRefreshGrades(694): Cannot add 10 elements to context", v14);
+                                          return v5;
                                         case 695:
-                                          if (sub_100020050(a1, "", "cbdrNotEnoughReads", *v8))
+                                          if ((sub_100020050(a1, "", "cbdrNotEnoughReads", *a2) & 1) == 0)
                                           {
-                                            goto LABEL_162;
+                                            sub_100020530("ASPFTLParseBufferToCxt: cbdrNotEnoughReads(695) cannot add 1 element to context");
                                           }
 
-                                          v17 = "ASPFTLParseBufferToCxt: cbdrNotEnoughReads(695) cannot add 1 element to context";
                                           goto LABEL_161;
                                         case 696:
-                                          if (sub_100020050(a1, "", "cbdrAborts", *v8))
+                                          if ((sub_100020050(a1, "", "cbdrAborts", *a2) & 1) == 0)
                                           {
-                                            goto LABEL_162;
+                                            sub_100020530("ASPFTLParseBufferToCxt: cbdrAborts(696) cannot add 1 element to context");
                                           }
 
-                                          v17 = "ASPFTLParseBufferToCxt: cbdrAborts(696) cannot add 1 element to context";
                                           goto LABEL_161;
                                         case 697:
-                                          if (sub_100020050(a1, "", "TurboRaidHostClassifications", *v8))
+                                          if ((sub_100020050(a1, "", "TurboRaidHostClassifications", *a2) & 1) == 0)
                                           {
-                                            goto LABEL_162;
+                                            sub_100020530("ASPFTLParseBufferToCxt: TurboRaidHostClassifications(697) cannot add 1 element to context");
                                           }
 
-                                          v17 = "ASPFTLParseBufferToCxt: TurboRaidHostClassifications(697) cannot add 1 element to context";
                                           goto LABEL_161;
                                         case 698:
-                                          if (sub_100020050(a1, "", "TurboRaidInternalClassifications", *v8))
+                                          if ((sub_100020050(a1, "", "TurboRaidInternalClassifications", *a2) & 1) == 0)
                                           {
-                                            goto LABEL_162;
+                                            sub_100020530("ASPFTLParseBufferToCxt: TurboRaidInternalClassifications(698) cannot add 1 element to context");
                                           }
 
-                                          v17 = "ASPFTLParseBufferToCxt: TurboRaidInternalClassifications(698) cannot add 1 element to context";
                                           goto LABEL_161;
                                         case 699:
-                                          if (sub_100020050(a1, "", "cbdrFullyDone", *v8))
+                                          if ((sub_100020050(a1, "", "cbdrFullyDone", *a2) & 1) == 0)
                                           {
-                                            goto LABEL_162;
+                                            sub_100020530("ASPFTLParseBufferToCxt: cbdrFullyDone(699) cannot add 1 element to context");
                                           }
 
-                                          v17 = "ASPFTLParseBufferToCxt: cbdrFullyDone(699) cannot add 1 element to context";
                                           goto LABEL_161;
                                         case 702:
-                                          if (v14 != 32)
+                                          if (v9 != 32)
                                           {
-                                            sub_100020530("ASPFTLParseBufferToCxt: vcurve(702): (#32) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                                            sub_100020530("ASPFTLParseBufferToCxt: vcurve(702): (#32) cfg elements != (%d) buffer elements", v9);
                                           }
 
-                                          if (v14 >= 0x21)
+                                          if (v9 >= 0x21)
                                           {
-                                            v18 = 32;
+                                            v12 = 32;
                                           }
 
                                           else
                                           {
-                                            v18 = v14;
+                                            v12 = v9;
                                           }
 
-                                          if (sub_1000189BC(a1, "vcurve_", v8, 8u, v18))
+                                          if (sub_1000189BC(a1, "vcurve_", a2, 8u, v12))
                                           {
                                             goto LABEL_110;
                                           }
 
-                                          v19 = "ASPFTLParseBufferToCxt: vcurve(702): Cannot add 32 elements to context";
-                                          goto LABEL_2993;
+                                          sub_100020530("ASPFTLParseBufferToCxt: vcurve(702): Cannot add 32 elements to context", v14);
+                                          return v5;
                                         case 703:
-                                          if (v14 != 12)
+                                          if (v9 != 12)
                                           {
-                                            sub_100020530("ASPFTLParseBufferToCxt: injDepth(703): (#12) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                                            sub_100020530("ASPFTLParseBufferToCxt: injDepth(703): (#12) cfg elements != (%d) buffer elements", v9);
                                           }
 
-                                          if (v14 >= 0xD)
+                                          if (v9 >= 0xD)
                                           {
-                                            v18 = 12;
+                                            v12 = 12;
                                           }
 
                                           else
                                           {
-                                            v18 = v14;
+                                            v12 = v9;
                                           }
 
-                                          if (sub_1000189BC(a1, "injDepth_", v8, 8u, v18))
+                                          if (sub_1000189BC(a1, "injDepth_", a2, 8u, v12))
                                           {
                                             goto LABEL_110;
                                           }
 
-                                          v19 = "ASPFTLParseBufferToCxt: injDepth(703): Cannot add 12 elements to context";
-                                          goto LABEL_2993;
+                                          sub_100020530("ASPFTLParseBufferToCxt: injDepth(703): Cannot add 12 elements to context", v14);
+                                          return v5;
                                         case 704:
-                                          if (sub_100020050(a1, "", "logical_disk_occupied_promiles", *v8))
+                                          if ((sub_100020050(a1, "", "logical_disk_occupied_promiles", *a2) & 1) == 0)
                                           {
-                                            goto LABEL_162;
+                                            sub_100020530("ASPFTLParseBufferToCxt: logical_disk_occupied_promiles(704) cannot add 1 element to context");
                                           }
 
-                                          v17 = "ASPFTLParseBufferToCxt: logical_disk_occupied_promiles(704) cannot add 1 element to context";
                                           goto LABEL_161;
                                         case 711:
-                                          if (sub_100020050(a1, "", "raidPrevFailedReconstructSkip", *v8))
+                                          if ((sub_100020050(a1, "", "raidPrevFailedReconstructSkip", *a2) & 1) == 0)
                                           {
-                                            goto LABEL_162;
+                                            sub_100020530("ASPFTLParseBufferToCxt: raidPrevFailedReconstructSkip(711) cannot add 1 element to context");
                                           }
 
-                                          v17 = "ASPFTLParseBufferToCxt: raidPrevFailedReconstructSkip(711) cannot add 1 element to context";
                                           goto LABEL_161;
                                         case 712:
-                                          if (sub_100020050(a1, "", "TurboRaidSuccessfulHostAuxReads", *v8))
+                                          if ((sub_100020050(a1, "", "TurboRaidSuccessfulHostAuxReads", *a2) & 1) == 0)
                                           {
-                                            goto LABEL_162;
+                                            sub_100020530("ASPFTLParseBufferToCxt: TurboRaidSuccessfulHostAuxReads(712) cannot add 1 element to context");
                                           }
 
-                                          v17 = "ASPFTLParseBufferToCxt: TurboRaidSuccessfulHostAuxReads(712) cannot add 1 element to context";
                                           goto LABEL_161;
                                         case 713:
-                                          if (sub_100020050(a1, "", "TurboRaidSuccessfulInternalAuxReads", *v8))
+                                          if ((sub_100020050(a1, "", "TurboRaidSuccessfulInternalAuxReads", *a2) & 1) == 0)
                                           {
-                                            goto LABEL_162;
+                                            sub_100020530("ASPFTLParseBufferToCxt: TurboRaidSuccessfulInternalAuxReads(713) cannot add 1 element to context");
                                           }
 
-                                          v17 = "ASPFTLParseBufferToCxt: TurboRaidSuccessfulInternalAuxReads(713) cannot add 1 element to context";
                                           goto LABEL_161;
                                         case 714:
-                                          if (sub_100020050(a1, "", "turboRaidClassificationReliabilityHost", *v8))
+                                          if ((sub_100020050(a1, "", "turboRaidClassificationReliabilityHost", *a2) & 1) == 0)
                                           {
-                                            goto LABEL_162;
+                                            sub_100020530("ASPFTLParseBufferToCxt: turboRaidClassificationReliabilityHost(714) cannot add 1 element to context");
                                           }
 
-                                          v17 = "ASPFTLParseBufferToCxt: turboRaidClassificationReliabilityHost(714) cannot add 1 element to context";
                                           goto LABEL_161;
                                         case 715:
-                                          if (sub_100020050(a1, "", "turboRaidClassificationReliabilityInternal", *v8))
+                                          if ((sub_100020050(a1, "", "turboRaidClassificationReliabilityInternal", *a2) & 1) == 0)
                                           {
-                                            goto LABEL_162;
+                                            sub_100020530("ASPFTLParseBufferToCxt: turboRaidClassificationReliabilityInternal(715) cannot add 1 element to context");
                                           }
 
-                                          v17 = "ASPFTLParseBufferToCxt: turboRaidClassificationReliabilityInternal(715) cannot add 1 element to context";
                                           goto LABEL_161;
                                         case 716:
-                                          if (sub_100020050(a1, "", "turboRaidClassificationQualityHost", *v8))
+                                          if ((sub_100020050(a1, "", "turboRaidClassificationQualityHost", *a2) & 1) == 0)
                                           {
-                                            goto LABEL_162;
+                                            sub_100020530("ASPFTLParseBufferToCxt: turboRaidClassificationQualityHost(716) cannot add 1 element to context");
                                           }
 
-                                          v17 = "ASPFTLParseBufferToCxt: turboRaidClassificationQualityHost(716) cannot add 1 element to context";
                                           goto LABEL_161;
                                         case 717:
-                                          if (sub_100020050(a1, "", "turboRaidClassificationQualityInternal", *v8))
+                                          if ((sub_100020050(a1, "", "turboRaidClassificationQualityInternal", *a2) & 1) == 0)
                                           {
-                                            goto LABEL_162;
+                                            sub_100020530("ASPFTLParseBufferToCxt: turboRaidClassificationQualityInternal(717) cannot add 1 element to context");
                                           }
 
-                                          v17 = "ASPFTLParseBufferToCxt: turboRaidClassificationQualityInternal(717) cannot add 1 element to context";
                                           goto LABEL_161;
                                         case 719:
-                                          if (sub_100020050(a1, "", "skinnyBandErases", *v8))
+                                          if ((sub_100020050(a1, "", "skinnyBandErases", *a2) & 1) == 0)
                                           {
-                                            goto LABEL_162;
+                                            sub_100020530("ASPFTLParseBufferToCxt: skinnyBandErases(719) cannot add 1 element to context");
                                           }
 
-                                          v17 = "ASPFTLParseBufferToCxt: skinnyBandErases(719) cannot add 1 element to context";
                                           goto LABEL_161;
                                         case 721:
-                                          if (sub_100020050(a1, "", "gcPDusterDestinations", *v8))
+                                          if ((sub_100020050(a1, "", "gcPDusterDestinations", *a2) & 1) == 0)
                                           {
-                                            goto LABEL_162;
+                                            sub_100020530("ASPFTLParseBufferToCxt: gcPDusterDestinations(721) cannot add 1 element to context");
                                           }
 
-                                          v17 = "ASPFTLParseBufferToCxt: gcPDusterDestinations(721) cannot add 1 element to context";
                                           goto LABEL_161;
                                         case 722:
-                                          if (sub_100020050(a1, "", "gcPDusterWrites", *v8))
+                                          if ((sub_100020050(a1, "", "gcPDusterWrites", *a2) & 1) == 0)
                                           {
-                                            goto LABEL_162;
+                                            sub_100020530("ASPFTLParseBufferToCxt: gcPDusterWrites(722) cannot add 1 element to context");
                                           }
 
-                                          v17 = "ASPFTLParseBufferToCxt: gcPDusterWrites(722) cannot add 1 element to context";
                                           goto LABEL_161;
                                         case 730:
-                                          if (sub_100020050(a1, "", "rvFails", *v8))
+                                          if ((sub_100020050(a1, "", "rvFails", *a2) & 1) == 0)
                                           {
-                                            goto LABEL_162;
+                                            sub_100020530("ASPFTLParseBufferToCxt: rvFails(730) cannot add 1 element to context");
                                           }
 
-                                          v17 = "ASPFTLParseBufferToCxt: rvFails(730) cannot add 1 element to context";
                                           goto LABEL_161;
                                         case 737:
-                                          if (sub_100020050(a1, "", "TurboRaidFailedHostAuxReads", *v8))
+                                          if ((sub_100020050(a1, "", "TurboRaidFailedHostAuxReads", *a2) & 1) == 0)
                                           {
-                                            goto LABEL_162;
+                                            sub_100020530("ASPFTLParseBufferToCxt: TurboRaidFailedHostAuxReads(737) cannot add 1 element to context");
                                           }
 
-                                          v17 = "ASPFTLParseBufferToCxt: TurboRaidFailedHostAuxReads(737) cannot add 1 element to context";
                                           goto LABEL_161;
                                         case 738:
-                                          if (sub_100020050(a1, "", "TurboRaidFailedInternalAuxReads", *v8))
+                                          if ((sub_100020050(a1, "", "TurboRaidFailedInternalAuxReads", *a2) & 1) == 0)
                                           {
-                                            goto LABEL_162;
+                                            sub_100020530("ASPFTLParseBufferToCxt: TurboRaidFailedInternalAuxReads(738) cannot add 1 element to context");
                                           }
 
-                                          v17 = "ASPFTLParseBufferToCxt: TurboRaidFailedInternalAuxReads(738) cannot add 1 element to context";
                                           goto LABEL_161;
                                         case 741:
-                                          if (sub_100020050(a1, "", "autoSkipTriggers", *v8))
+                                          if ((sub_100020050(a1, "", "autoSkipTriggers", *a2) & 1) == 0)
                                           {
-                                            goto LABEL_162;
+                                            sub_100020530("ASPFTLParseBufferToCxt: autoSkipTriggers(741) cannot add 1 element to context");
                                           }
 
-                                          v17 = "ASPFTLParseBufferToCxt: autoSkipTriggers(741) cannot add 1 element to context";
                                           goto LABEL_161;
                                         case 742:
-                                          if (sub_100020050(a1, "", "autoSkipPlanes", *v8))
+                                          if ((sub_100020050(a1, "", "autoSkipPlanes", *a2) & 1) == 0)
                                           {
-                                            goto LABEL_162;
+                                            sub_100020530("ASPFTLParseBufferToCxt: autoSkipPlanes(742) cannot add 1 element to context");
                                           }
 
-                                          v17 = "ASPFTLParseBufferToCxt: autoSkipPlanes(742) cannot add 1 element to context";
                                           goto LABEL_161;
                                         case 744:
-                                          if (v14 != 8)
+                                          if (v9 != 8)
                                           {
-                                            sub_100020530("ASPFTLParseBufferToCxt: raidReconstructDurationHisto(744): (#8) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                                            sub_100020530("ASPFTLParseBufferToCxt: raidReconstructDurationHisto(744): (#8) cfg elements != (%d) buffer elements", v9);
                                           }
 
-                                          if (v14 >= 9)
+                                          if (v9 >= 9)
                                           {
-                                            v18 = 8;
+                                            v12 = 8;
                                           }
 
                                           else
                                           {
-                                            v18 = v14;
+                                            v12 = v9;
                                           }
 
-                                          if (sub_1000189BC(a1, "raidReconstructDurationHisto_", v8, 8u, v18))
+                                          if (sub_1000189BC(a1, "raidReconstructDurationHisto_", a2, 8u, v12))
                                           {
                                             goto LABEL_110;
                                           }
 
-                                          v19 = "ASPFTLParseBufferToCxt: raidReconstructDurationHisto(744): Cannot add 8 elements to context";
-                                          goto LABEL_2993;
+                                          sub_100020530("ASPFTLParseBufferToCxt: raidReconstructDurationHisto(744): Cannot add 8 elements to context", v14);
+                                          return v5;
                                         case 745:
-                                          if (v14 != 8)
+                                          if (v9 != 8)
                                           {
-                                            sub_100020530("ASPFTLParseBufferToCxt: failsOnReconstructHisto(745): (#8) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                                            sub_100020530("ASPFTLParseBufferToCxt: failsOnReconstructHisto(745): (#8) cfg elements != (%d) buffer elements", v9);
                                           }
 
-                                          if (v14 >= 9)
+                                          if (v9 >= 9)
                                           {
-                                            v18 = 8;
+                                            v12 = 8;
                                           }
 
                                           else
                                           {
-                                            v18 = v14;
+                                            v12 = v9;
                                           }
 
-                                          if (sub_1000189BC(a1, "failsOnReconstructHisto_", v8, 8u, v18))
+                                          if (sub_1000189BC(a1, "failsOnReconstructHisto_", a2, 8u, v12))
                                           {
                                             goto LABEL_110;
                                           }
 
-                                          v19 = "ASPFTLParseBufferToCxt: failsOnReconstructHisto(745): Cannot add 8 elements to context";
-                                          goto LABEL_2993;
+                                          sub_100020530("ASPFTLParseBufferToCxt: failsOnReconstructHisto(745): Cannot add 8 elements to context", v14);
+                                          return v5;
                                         case 746:
-                                          if (sub_100020050(a1, "", "bandKill_userFlattenExcessive", *v8))
+                                          if ((sub_100020050(a1, "", "bandKill_userFlattenExcessive", *a2) & 1) == 0)
                                           {
-                                            goto LABEL_162;
+                                            sub_100020530("ASPFTLParseBufferToCxt: bandKill_userFlattenExcessive(746) cannot add 1 element to context");
                                           }
 
-                                          v17 = "ASPFTLParseBufferToCxt: bandKill_userFlattenExcessive(746) cannot add 1 element to context";
                                           goto LABEL_161;
                                         case 747:
-                                          if (sub_100020050(a1, "", "bandKill_IntFlattenExcessive", *v8))
+                                          if ((sub_100020050(a1, "", "bandKill_IntFlattenExcessive", *a2) & 1) == 0)
                                           {
-                                            goto LABEL_162;
+                                            sub_100020530("ASPFTLParseBufferToCxt: bandKill_IntFlattenExcessive(747) cannot add 1 element to context");
                                           }
 
-                                          v17 = "ASPFTLParseBufferToCxt: bandKill_IntFlattenExcessive(747) cannot add 1 element to context";
                                           goto LABEL_161;
                                         case 748:
-                                          if (sub_100020050(a1, "", "bandKill_userFlattenBalance", *v8))
+                                          if ((sub_100020050(a1, "", "bandKill_userFlattenBalance", *a2) & 1) == 0)
                                           {
-                                            goto LABEL_162;
+                                            sub_100020530("ASPFTLParseBufferToCxt: bandKill_userFlattenBalance(748) cannot add 1 element to context");
                                           }
 
-                                          v17 = "ASPFTLParseBufferToCxt: bandKill_userFlattenBalance(748) cannot add 1 element to context";
                                           goto LABEL_161;
                                         case 749:
-                                          if (sub_100020050(a1, "", "bandKill_intFlattenBalance", *v8))
+                                          if ((sub_100020050(a1, "", "bandKill_intFlattenBalance", *a2) & 1) == 0)
                                           {
-                                            goto LABEL_162;
+                                            sub_100020530("ASPFTLParseBufferToCxt: bandKill_intFlattenBalance(749) cannot add 1 element to context");
                                           }
 
-                                          v17 = "ASPFTLParseBufferToCxt: bandKill_intFlattenBalance(749) cannot add 1 element to context";
                                           goto LABEL_161;
                                         case 750:
-                                          if (sub_100020050(a1, "", "bandKill_formatVertExcessive", *v8))
+                                          if ((sub_100020050(a1, "", "bandKill_formatVertExcessive", *a2) & 1) == 0)
                                           {
-                                            goto LABEL_162;
+                                            sub_100020530("ASPFTLParseBufferToCxt: bandKill_formatVertExcessive(750) cannot add 1 element to context");
                                           }
 
-                                          v17 = "ASPFTLParseBufferToCxt: bandKill_formatVertExcessive(750) cannot add 1 element to context";
                                           goto LABEL_161;
                                         case 751:
-                                          if (sub_100020050(a1, "", "bandKill_formatVertBalance", *v8))
+                                          if ((sub_100020050(a1, "", "bandKill_formatVertBalance", *a2) & 1) == 0)
                                           {
-                                            goto LABEL_162;
+                                            sub_100020530("ASPFTLParseBufferToCxt: bandKill_formatVertBalance(751) cannot add 1 element to context");
                                           }
 
-                                          v17 = "ASPFTLParseBufferToCxt: bandKill_formatVertBalance(751) cannot add 1 element to context";
                                           goto LABEL_161;
                                         case 753:
-                                          if (sub_100020050(a1, "", "cbdrNumSlowRefreshes", *v8))
+                                          if ((sub_100020050(a1, "", "cbdrNumSlowRefreshes", *a2) & 1) == 0)
                                           {
-                                            goto LABEL_162;
+                                            sub_100020530("ASPFTLParseBufferToCxt: cbdrNumSlowRefreshes(753) cannot add 1 element to context");
                                           }
 
-                                          v17 = "ASPFTLParseBufferToCxt: cbdrNumSlowRefreshes(753) cannot add 1 element to context";
                                           goto LABEL_161;
                                         case 754:
-                                          if (sub_100020050(a1, "", "cbdrNumFastRefreshes", *v8))
+                                          if ((sub_100020050(a1, "", "cbdrNumFastRefreshes", *a2) & 1) == 0)
                                           {
-                                            goto LABEL_162;
+                                            sub_100020530("ASPFTLParseBufferToCxt: cbdrNumFastRefreshes(754) cannot add 1 element to context");
                                           }
 
-                                          v17 = "ASPFTLParseBufferToCxt: cbdrNumFastRefreshes(754) cannot add 1 element to context";
                                           goto LABEL_161;
                                         case 755:
-                                          if (sub_100020050(a1, "", "cbdrTotalRefreshValidity", *v8))
+                                          if ((sub_100020050(a1, "", "cbdrTotalRefreshValidity", *a2) & 1) == 0)
                                           {
-                                            goto LABEL_162;
+                                            sub_100020530("ASPFTLParseBufferToCxt: cbdrTotalRefreshValidity(755) cannot add 1 element to context");
                                           }
 
-                                          v17 = "ASPFTLParseBufferToCxt: cbdrTotalRefreshValidity(755) cannot add 1 element to context";
                                           goto LABEL_161;
                                         case 756:
-                                          if (v14 != 9)
+                                          if (v9 != 9)
                                           {
-                                            sub_100020530("ASPFTLParseBufferToCxt: cbdrRefreshedAges(756): (#9) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                                            sub_100020530("ASPFTLParseBufferToCxt: cbdrRefreshedAges(756): (#9) cfg elements != (%d) buffer elements", v9);
                                           }
 
-                                          if (v12 >> 33 >= 5)
+                                          if (v7 >> 33 >= 5)
                                           {
-                                            v18 = 9;
+                                            v12 = 9;
                                           }
 
                                           else
                                           {
-                                            v18 = v14;
+                                            v12 = v9;
                                           }
 
-                                          if (sub_1000189BC(a1, "cbdrRefreshedAges_", v8, 8u, v18))
+                                          if (sub_1000189BC(a1, "cbdrRefreshedAges_", a2, 8u, v12))
                                           {
                                             goto LABEL_110;
                                           }
 
-                                          v19 = "ASPFTLParseBufferToCxt: cbdrRefreshedAges(756): Cannot add 9 elements to context";
-                                          goto LABEL_2993;
+                                          sub_100020530("ASPFTLParseBufferToCxt: cbdrRefreshedAges(756): Cannot add 9 elements to context", v14);
+                                          return v5;
                                         case 758:
-                                          if (sub_100020050(a1, "", "cbdrSkippedBlocks", *v8))
+                                          if ((sub_100020050(a1, "", "cbdrSkippedBlocks", *a2) & 1) == 0)
                                           {
-                                            goto LABEL_162;
+                                            sub_100020530("ASPFTLParseBufferToCxt: cbdrSkippedBlocks(758) cannot add 1 element to context");
                                           }
 
-                                          v17 = "ASPFTLParseBufferToCxt: cbdrSkippedBlocks(758) cannot add 1 element to context";
                                           goto LABEL_161;
                                         case 759:
-                                          if (v14 != 5)
+                                          if (v9 != 5)
                                           {
-                                            sub_100020530("ASPFTLParseBufferToCxt: cbdrScanPct(759): (#5) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                                            sub_100020530("ASPFTLParseBufferToCxt: cbdrScanPct(759): (#5) cfg elements != (%d) buffer elements", v9);
                                           }
 
-                                          if (v12 >> 33 >= 3)
+                                          if (v7 >> 33 >= 3)
                                           {
-                                            v18 = 5;
+                                            v12 = 5;
                                           }
 
                                           else
                                           {
-                                            v18 = v14;
+                                            v12 = v9;
                                           }
 
-                                          if (sub_1000189BC(a1, "cbdrScanPct_", v8, 8u, v18))
+                                          if (sub_1000189BC(a1, "cbdrScanPct_", a2, 8u, v12))
                                           {
                                             goto LABEL_110;
                                           }
 
-                                          v19 = "ASPFTLParseBufferToCxt: cbdrScanPct(759): Cannot add 5 elements to context";
-                                          goto LABEL_2993;
+                                          sub_100020530("ASPFTLParseBufferToCxt: cbdrScanPct(759): Cannot add 5 elements to context", v14);
+                                          return v5;
                                         case 760:
-                                          if (sub_100020050(a1, "", "raidSuccessfulBMXReconstructionInternal", *v8))
+                                          if ((sub_100020050(a1, "", "raidSuccessfulBMXReconstructionInternal", *a2) & 1) == 0)
                                           {
-                                            goto LABEL_162;
+                                            sub_100020530("ASPFTLParseBufferToCxt: raidSuccessfulBMXReconstructionInternal(760) cannot add 1 element to context");
                                           }
 
-                                          v17 = "ASPFTLParseBufferToCxt: raidSuccessfulBMXReconstructionInternal(760) cannot add 1 element to context";
                                           goto LABEL_161;
                                         case 761:
-                                          if (sub_100020050(a1, "", "raidSuccessfulBMXReconstructionHost", *v8))
+                                          if ((sub_100020050(a1, "", "raidSuccessfulBMXReconstructionHost", *a2) & 1) == 0)
                                           {
-                                            goto LABEL_162;
+                                            sub_100020530("ASPFTLParseBufferToCxt: raidSuccessfulBMXReconstructionHost(761) cannot add 1 element to context");
                                           }
 
-                                          v17 = "ASPFTLParseBufferToCxt: raidSuccessfulBMXReconstructionHost(761) cannot add 1 element to context";
                                           goto LABEL_161;
                                         case 762:
-                                          if (sub_100020050(a1, "", "raidFailedBMXReconstructionInternal", *v8))
+                                          if ((sub_100020050(a1, "", "raidFailedBMXReconstructionInternal", *a2) & 1) == 0)
                                           {
-                                            goto LABEL_162;
+                                            sub_100020530("ASPFTLParseBufferToCxt: raidFailedBMXReconstructionInternal(762) cannot add 1 element to context");
                                           }
 
-                                          v17 = "ASPFTLParseBufferToCxt: raidFailedBMXReconstructionInternal(762) cannot add 1 element to context";
                                           goto LABEL_161;
                                         case 763:
-                                          if (sub_100020050(a1, "", "raidFailedBMXReconstructionHost", *v8))
+                                          if ((sub_100020050(a1, "", "raidFailedBMXReconstructionHost", *a2) & 1) == 0)
                                           {
-                                            goto LABEL_162;
+                                            sub_100020530("ASPFTLParseBufferToCxt: raidFailedBMXReconstructionHost(763) cannot add 1 element to context");
                                           }
 
-                                          v17 = "ASPFTLParseBufferToCxt: raidFailedBMXReconstructionHost(763) cannot add 1 element to context";
                                           goto LABEL_161;
                                         case 764:
-                                          if (sub_100020050(a1, "", "ricSPRVFail", *v8))
+                                          if ((sub_100020050(a1, "", "ricSPRVFail", *a2) & 1) == 0)
                                           {
-                                            goto LABEL_162;
+                                            sub_100020530("ASPFTLParseBufferToCxt: ricSPRVFail(764) cannot add 1 element to context");
                                           }
 
-                                          v17 = "ASPFTLParseBufferToCxt: ricSPRVFail(764) cannot add 1 element to context";
                                           goto LABEL_161;
                                         case 765:
-                                          if (sub_100020050(a1, "", "ricMPRVFail", *v8))
+                                          if ((sub_100020050(a1, "", "ricMPRVFail", *a2) & 1) == 0)
                                           {
-                                            goto LABEL_162;
+                                            sub_100020530("ASPFTLParseBufferToCxt: ricMPRVFail(765) cannot add 1 element to context");
                                           }
 
-                                          v17 = "ASPFTLParseBufferToCxt: ricMPRVFail(765) cannot add 1 element to context";
                                           goto LABEL_161;
                                         case 767:
-                                          if (v14 != 10)
+                                          if (v9 != 10)
                                           {
-                                            sub_100020530("ASPFTLParseBufferToCxt: cbdrRefreshGradesSLC(767): (#10) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                                            sub_100020530("ASPFTLParseBufferToCxt: cbdrRefreshGradesSLC(767): (#10) cfg elements != (%d) buffer elements", v9);
                                           }
 
-                                          if (v14 >= 0xB)
+                                          if (v9 >= 0xB)
                                           {
-                                            v18 = 10;
+                                            v12 = 10;
                                           }
 
                                           else
                                           {
-                                            v18 = v14;
+                                            v12 = v9;
                                           }
 
-                                          if (sub_1000189BC(a1, "cbdrRefreshGradesSLC_", v8, 8u, v18))
+                                          if (sub_1000189BC(a1, "cbdrRefreshGradesSLC_", a2, 8u, v12))
                                           {
                                             goto LABEL_110;
                                           }
 
-                                          v19 = "ASPFTLParseBufferToCxt: cbdrRefreshGradesSLC(767): Cannot add 10 elements to context";
-                                          goto LABEL_2993;
+                                          sub_100020530("ASPFTLParseBufferToCxt: cbdrRefreshGradesSLC(767): Cannot add 10 elements to context", v14);
+                                          return v5;
                                         case 768:
-                                          if (v14 != 9)
+                                          if (v9 != 9)
                                           {
-                                            sub_100020530("ASPFTLParseBufferToCxt: cbdrRefreshedAgesSLC(768): (#9) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                                            sub_100020530("ASPFTLParseBufferToCxt: cbdrRefreshedAgesSLC(768): (#9) cfg elements != (%d) buffer elements", v9);
                                           }
 
-                                          if (v12 >> 33 >= 5)
+                                          if (v7 >> 33 >= 5)
                                           {
-                                            v18 = 9;
+                                            v12 = 9;
                                           }
 
                                           else
                                           {
-                                            v18 = v14;
+                                            v12 = v9;
                                           }
 
-                                          if (sub_1000189BC(a1, "cbdrRefreshedAgesSLC_", v8, 8u, v18))
+                                          if (sub_1000189BC(a1, "cbdrRefreshedAgesSLC_", a2, 8u, v12))
                                           {
                                             goto LABEL_110;
                                           }
 
-                                          v19 = "ASPFTLParseBufferToCxt: cbdrRefreshedAgesSLC(768): Cannot add 9 elements to context";
-                                          goto LABEL_2993;
+                                          sub_100020530("ASPFTLParseBufferToCxt: cbdrRefreshedAgesSLC(768): Cannot add 9 elements to context", v14);
+                                          return v5;
                                         case 769:
-                                          if (v14 != 5)
+                                          if (v9 != 5)
                                           {
-                                            sub_100020530("ASPFTLParseBufferToCxt: cbdrScanPctSLC(769): (#5) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                                            sub_100020530("ASPFTLParseBufferToCxt: cbdrScanPctSLC(769): (#5) cfg elements != (%d) buffer elements", v9);
                                           }
 
-                                          if (v12 >> 33 >= 3)
+                                          if (v7 >> 33 >= 3)
                                           {
-                                            v18 = 5;
+                                            v12 = 5;
                                           }
 
                                           else
                                           {
-                                            v18 = v14;
+                                            v12 = v9;
                                           }
 
-                                          if (sub_1000189BC(a1, "cbdrScanPctSLC_", v8, 8u, v18))
+                                          if (sub_1000189BC(a1, "cbdrScanPctSLC_", a2, 8u, v12))
                                           {
                                             goto LABEL_110;
                                           }
 
-                                          v19 = "ASPFTLParseBufferToCxt: cbdrScanPctSLC(769): Cannot add 5 elements to context";
-                                          goto LABEL_2993;
+                                          sub_100020530("ASPFTLParseBufferToCxt: cbdrScanPctSLC(769): Cannot add 5 elements to context", v14);
+                                          return v5;
                                         case 770:
-                                          if (v14 != 8)
+                                          if (v9 != 8)
                                           {
-                                            sub_100020530("ASPFTLParseBufferToCxt: cpuBurstLength(770): (#8) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                                            sub_100020530("ASPFTLParseBufferToCxt: cpuBurstLength(770): (#8) cfg elements != (%d) buffer elements", v9);
                                           }
 
-                                          if (v14 >= 9)
+                                          if (v9 >= 9)
                                           {
-                                            v18 = 8;
+                                            v12 = 8;
                                           }
 
                                           else
                                           {
-                                            v18 = v14;
+                                            v12 = v9;
                                           }
 
-                                          if (sub_1000189BC(a1, "cpuBurstLength_", v8, 8u, v18))
+                                          if (sub_1000189BC(a1, "cpuBurstLength_", a2, 8u, v12))
                                           {
                                             goto LABEL_110;
                                           }
 
-                                          v19 = "ASPFTLParseBufferToCxt: cpuBurstLength(770): Cannot add 8 elements to context";
-                                          goto LABEL_2993;
+                                          sub_100020530("ASPFTLParseBufferToCxt: cpuBurstLength(770): Cannot add 8 elements to context", v14);
+                                          return v5;
                                         case 771:
-                                          if (sub_100020050(a1, "", "autoSkipRaidRecoFail", *v8))
+                                          if ((sub_100020050(a1, "", "autoSkipRaidRecoFail", *a2) & 1) == 0)
                                           {
-                                            goto LABEL_162;
+                                            sub_100020530("ASPFTLParseBufferToCxt: autoSkipRaidRecoFail(771) cannot add 1 element to context");
                                           }
 
-                                          v17 = "ASPFTLParseBufferToCxt: autoSkipRaidRecoFail(771) cannot add 1 element to context";
                                           goto LABEL_161;
                                         case 772:
-                                          if (v14 != 32)
+                                          if (v9 != 32)
                                           {
-                                            sub_100020530("ASPFTLParseBufferToCxt: dmReasonsSlc(772): (#32) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                                            sub_100020530("ASPFTLParseBufferToCxt: dmReasonsSlc(772): (#32) cfg elements != (%d) buffer elements", v9);
                                           }
 
-                                          if (v14 >= 0x21)
+                                          if (v9 >= 0x21)
                                           {
-                                            v18 = 32;
+                                            v12 = 32;
                                           }
 
                                           else
                                           {
-                                            v18 = v14;
+                                            v12 = v9;
                                           }
 
-                                          if (sub_1000189BC(a1, "dmReasonsSlc_", v8, 8u, v18))
+                                          if (sub_1000189BC(a1, "dmReasonsSlc_", a2, 8u, v12))
                                           {
                                             goto LABEL_110;
                                           }
 
-                                          v19 = "ASPFTLParseBufferToCxt: dmReasonsSlc(772): Cannot add 32 elements to context";
-                                          goto LABEL_2993;
+                                          sub_100020530("ASPFTLParseBufferToCxt: dmReasonsSlc(772): Cannot add 32 elements to context", v14);
+                                          return v5;
                                         case 773:
-                                          if (v14 != 32)
+                                          if (v9 != 32)
                                           {
-                                            sub_100020530("ASPFTLParseBufferToCxt: dmReasonsTlc(773): (#32) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                                            sub_100020530("ASPFTLParseBufferToCxt: dmReasonsTlc(773): (#32) cfg elements != (%d) buffer elements", v9);
                                           }
 
-                                          if (v14 >= 0x21)
+                                          if (v9 >= 0x21)
                                           {
-                                            v18 = 32;
+                                            v12 = 32;
                                           }
 
                                           else
                                           {
-                                            v18 = v14;
+                                            v12 = v9;
                                           }
 
-                                          if (sub_1000189BC(a1, "dmReasonsTlc_", v8, 8u, v18))
+                                          if (sub_1000189BC(a1, "dmReasonsTlc_", a2, 8u, v12))
                                           {
                                             goto LABEL_110;
                                           }
 
-                                          v19 = "ASPFTLParseBufferToCxt: dmReasonsTlc(773): Cannot add 32 elements to context";
-                                          goto LABEL_2993;
+                                          sub_100020530("ASPFTLParseBufferToCxt: dmReasonsTlc(773): Cannot add 32 elements to context", v14);
+                                          return v5;
                                         case 774:
-                                          if (sub_100020050(a1, "", "raidReconstructFailBMXAbort", *v8))
+                                          if ((sub_100020050(a1, "", "raidReconstructFailBMXAbort", *a2) & 1) == 0)
                                           {
-                                            goto LABEL_162;
+                                            sub_100020530("ASPFTLParseBufferToCxt: raidReconstructFailBMXAbort(774) cannot add 1 element to context");
                                           }
 
-                                          v17 = "ASPFTLParseBufferToCxt: raidReconstructFailBMXAbort(774) cannot add 1 element to context";
                                           goto LABEL_161;
                                         case 775:
-                                          if (sub_100020050(a1, "", "bandKill_fatBindingNoBlocks", *v8))
+                                          if ((sub_100020050(a1, "", "bandKill_fatBindingNoBlocks", *a2) & 1) == 0)
                                           {
-                                            goto LABEL_162;
+                                            sub_100020530("ASPFTLParseBufferToCxt: bandKill_fatBindingNoBlocks(775) cannot add 1 element to context");
                                           }
 
-                                          v17 = "ASPFTLParseBufferToCxt: bandKill_fatBindingNoBlocks(775) cannot add 1 element to context";
                                           goto LABEL_161;
                                         case 776:
-                                          if (sub_100020050(a1, "", "bandKill_fatBindingFewBlocks", *v8))
+                                          if ((sub_100020050(a1, "", "bandKill_fatBindingFewBlocks", *a2) & 1) == 0)
                                           {
-                                            goto LABEL_162;
+                                            sub_100020530("ASPFTLParseBufferToCxt: bandKill_fatBindingFewBlocks(776) cannot add 1 element to context");
                                           }
 
-                                          v17 = "ASPFTLParseBufferToCxt: bandKill_fatBindingFewBlocks(776) cannot add 1 element to context";
                                           goto LABEL_161;
                                         default:
-                                          switch(v12)
+                                          switch(v7)
                                           {
                                             case 777:
-                                              if (sub_100020050(a1, "", "numBadBootBlocks", *v8))
+                                              if ((sub_100020050(a1, "", "numBadBootBlocks", *a2) & 1) == 0)
                                               {
-                                                goto LABEL_162;
+                                                sub_100020530("ASPFTLParseBufferToCxt: numBadBootBlocks(777) cannot add 1 element to context");
                                               }
 
-                                              v17 = "ASPFTLParseBufferToCxt: numBadBootBlocks(777) cannot add 1 element to context";
                                               goto LABEL_161;
                                             case 778:
-                                              if (sub_100020050(a1, "", "snapshotCPUHigh", *v8))
+                                              if ((sub_100020050(a1, "", "snapshotCPUHigh", *a2) & 1) == 0)
                                               {
-                                                goto LABEL_162;
+                                                sub_100020530("ASPFTLParseBufferToCxt: snapshotCPUHigh(778) cannot add 1 element to context");
                                               }
 
-                                              v17 = "ASPFTLParseBufferToCxt: snapshotCPUHigh(778) cannot add 1 element to context";
                                               goto LABEL_161;
                                             case 779:
-                                              if (sub_100020050(a1, "", "snapshotCPULow", *v8))
+                                              if ((sub_100020050(a1, "", "snapshotCPULow", *a2) & 1) == 0)
                                               {
-                                                goto LABEL_162;
+                                                sub_100020530("ASPFTLParseBufferToCxt: snapshotCPULow(779) cannot add 1 element to context");
                                               }
 
-                                              v17 = "ASPFTLParseBufferToCxt: snapshotCPULow(779) cannot add 1 element to context";
                                               goto LABEL_161;
                                             case 780:
-                                              if (sub_100020050(a1, "", "gcWithoutBMs", *v8))
+                                              if ((sub_100020050(a1, "", "gcWithoutBMs", *a2) & 1) == 0)
                                               {
-                                                goto LABEL_162;
+                                                sub_100020530("ASPFTLParseBufferToCxt: gcWithoutBMs(780) cannot add 1 element to context");
                                               }
 
-                                              v17 = "ASPFTLParseBufferToCxt: gcWithoutBMs(780) cannot add 1 element to context";
                                               goto LABEL_161;
                                             case 781:
-                                              if (v14 != 10)
+                                              if (v9 != 10)
                                               {
-                                                sub_100020530("ASPFTLParseBufferToCxt: gcSearchTimeHistory(781): (#10) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                                                sub_100020530("ASPFTLParseBufferToCxt: gcSearchTimeHistory(781): (#10) cfg elements != (%d) buffer elements", v9);
                                               }
 
-                                              if (v14 >= 0xB)
+                                              if (v9 >= 0xB)
                                               {
-                                                v18 = 10;
+                                                v12 = 10;
                                               }
 
                                               else
                                               {
-                                                v18 = v14;
+                                                v12 = v9;
                                               }
 
-                                              if (sub_1000189BC(a1, "gcSearchTimeHistory_", v8, 8u, v18))
+                                              if (sub_1000189BC(a1, "gcSearchTimeHistory_", a2, 8u, v12))
                                               {
                                                 goto LABEL_110;
                                               }
 
-                                              v19 = "ASPFTLParseBufferToCxt: gcSearchTimeHistory(781): Cannot add 10 elements to context";
-                                              goto LABEL_2993;
+                                              sub_100020530("ASPFTLParseBufferToCxt: gcSearchTimeHistory(781): Cannot add 10 elements to context", v14);
+                                              return v5;
                                             case 785:
-                                              if (v14 != 16)
+                                              if (v9 != 16)
                                               {
-                                                sub_100020530("ASPFTLParseBufferToCxt: gcSearchPortion(785): (#16) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                                                sub_100020530("ASPFTLParseBufferToCxt: gcSearchPortion(785): (#16) cfg elements != (%d) buffer elements", v9);
                                               }
 
-                                              if (v14 >= 0x11)
+                                              if (v9 >= 0x11)
                                               {
-                                                v18 = 16;
+                                                v12 = 16;
                                               }
 
                                               else
                                               {
-                                                v18 = v14;
+                                                v12 = v9;
                                               }
 
-                                              if (sub_1000189BC(a1, "gcSearchPortion_", v8, 8u, v18))
+                                              if (sub_1000189BC(a1, "gcSearchPortion_", a2, 8u, v12))
                                               {
                                                 goto LABEL_110;
                                               }
 
-                                              v19 = "ASPFTLParseBufferToCxt: gcSearchPortion(785): Cannot add 16 elements to context";
-                                              goto LABEL_2993;
+                                              sub_100020530("ASPFTLParseBufferToCxt: gcSearchPortion(785): Cannot add 16 elements to context", v14);
+                                              return v5;
                                             case 786:
-                                              if (sub_100020050(a1, "", "raidReconstructFailBmxMp", *v8))
+                                              if ((sub_100020050(a1, "", "raidReconstructFailBmxMp", *a2) & 1) == 0)
                                               {
-                                                goto LABEL_162;
+                                                sub_100020530("ASPFTLParseBufferToCxt: raidReconstructFailBmxMp(786) cannot add 1 element to context");
                                               }
 
-                                              v17 = "ASPFTLParseBufferToCxt: raidReconstructFailBmxMp(786) cannot add 1 element to context";
                                               goto LABEL_161;
                                             case 787:
-                                              if (sub_100020050(a1, "", "raidReconstructFailBmx", *v8))
+                                              if ((sub_100020050(a1, "", "raidReconstructFailBmx", *a2) & 1) == 0)
                                               {
-                                                goto LABEL_162;
+                                                sub_100020530("ASPFTLParseBufferToCxt: raidReconstructFailBmx(787) cannot add 1 element to context");
                                               }
 
-                                              v17 = "ASPFTLParseBufferToCxt: raidReconstructFailBmx(787) cannot add 1 element to context";
                                               goto LABEL_161;
                                             case 788:
-                                              if (sub_100020050(a1, "", "raidReconstructFailBMXUECC", *v8))
+                                              if ((sub_100020050(a1, "", "raidReconstructFailBMXUECC", *a2) & 1) == 0)
                                               {
-                                                goto LABEL_162;
+                                                sub_100020530("ASPFTLParseBufferToCxt: raidReconstructFailBMXUECC(788) cannot add 1 element to context");
                                               }
 
-                                              v17 = "ASPFTLParseBufferToCxt: raidReconstructFailBMXUECC(788) cannot add 1 element to context";
                                               goto LABEL_161;
                                             case 789:
-                                              if (sub_100020050(a1, "", "raidReconstructFailBMXBlank", *v8))
+                                              if ((sub_100020050(a1, "", "raidReconstructFailBMXBlank", *a2) & 1) == 0)
                                               {
-                                                goto LABEL_162;
+                                                sub_100020530("ASPFTLParseBufferToCxt: raidReconstructFailBMXBlank(789) cannot add 1 element to context");
                                               }
 
-                                              v17 = "ASPFTLParseBufferToCxt: raidReconstructFailBMXBlank(789) cannot add 1 element to context";
                                               goto LABEL_161;
                                             case 790:
-                                              if (sub_100020050(a1, "", "raidPrevFailedReconstructBmxMpSkip", *v8))
+                                              if ((sub_100020050(a1, "", "raidPrevFailedReconstructBmxMpSkip", *a2) & 1) == 0)
                                               {
-                                                goto LABEL_162;
+                                                sub_100020530("ASPFTLParseBufferToCxt: raidPrevFailedReconstructBmxMpSkip(790) cannot add 1 element to context");
                                               }
 
-                                              v17 = "ASPFTLParseBufferToCxt: raidPrevFailedReconstructBmxMpSkip(790) cannot add 1 element to context";
                                               goto LABEL_161;
                                             case 792:
-                                              if (sub_100020050(a1, "", "numTLCFatBands", *v8))
+                                              if ((sub_100020050(a1, "", "numTLCFatBands", *a2) & 1) == 0)
                                               {
-                                                goto LABEL_162;
+                                                sub_100020530("ASPFTLParseBufferToCxt: numTLCFatBands(792) cannot add 1 element to context");
                                               }
 
-                                              v17 = "ASPFTLParseBufferToCxt: numTLCFatBands(792) cannot add 1 element to context";
                                               goto LABEL_161;
                                             case 793:
-                                              if (sub_100020050(a1, "", "fatValidity", *v8))
+                                              if ((sub_100020050(a1, "", "fatValidity", *a2) & 1) == 0)
                                               {
-                                                goto LABEL_162;
+                                                sub_100020530("ASPFTLParseBufferToCxt: fatValidity(793) cannot add 1 element to context");
                                               }
 
-                                              v17 = "ASPFTLParseBufferToCxt: fatValidity(793) cannot add 1 element to context";
                                               goto LABEL_161;
                                             case 794:
-                                              if (sub_100020050(a1, "", "fatTotal", *v8))
+                                              if ((sub_100020050(a1, "", "fatTotal", *a2) & 1) == 0)
                                               {
-                                                goto LABEL_162;
+                                                sub_100020530("ASPFTLParseBufferToCxt: fatTotal(794) cannot add 1 element to context");
                                               }
 
-                                              v17 = "ASPFTLParseBufferToCxt: fatTotal(794) cannot add 1 element to context";
                                               goto LABEL_161;
                                             case 798:
-                                              if (v14 != 4)
+                                              if (v9 != 4)
                                               {
-                                                sub_100020530("ASPFTLParseBufferToCxt: raidBMXFailP(798): (#4) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                                                sub_100020530("ASPFTLParseBufferToCxt: raidBMXFailP(798): (#4) cfg elements != (%d) buffer elements", v9);
                                               }
 
-                                              if (v14 >= 5)
+                                              if (v9 >= 5)
                                               {
-                                                v18 = 4;
+                                                v12 = 4;
                                               }
 
                                               else
                                               {
-                                                v18 = v14;
+                                                v12 = v9;
                                               }
 
-                                              if (sub_1000189BC(a1, "raidBMXFailP_", v8, 8u, v18))
+                                              if (sub_1000189BC(a1, "raidBMXFailP_", a2, 8u, v12))
                                               {
                                                 goto LABEL_110;
                                               }
 
-                                              v19 = "ASPFTLParseBufferToCxt: raidBMXFailP(798): Cannot add 4 elements to context";
-                                              goto LABEL_2993;
+                                              sub_100020530("ASPFTLParseBufferToCxt: raidBMXFailP(798): Cannot add 4 elements to context", v14);
+                                              return v5;
                                             case 799:
-                                              if (v14 != 4)
+                                              if (v9 != 4)
                                               {
-                                                sub_100020530("ASPFTLParseBufferToCxt: raidBMXFailUECC(799): (#4) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                                                sub_100020530("ASPFTLParseBufferToCxt: raidBMXFailUECC(799): (#4) cfg elements != (%d) buffer elements", v9);
                                               }
 
-                                              if (v14 >= 5)
+                                              if (v9 >= 5)
                                               {
-                                                v18 = 4;
+                                                v12 = 4;
                                               }
 
                                               else
                                               {
-                                                v18 = v14;
+                                                v12 = v9;
                                               }
 
-                                              if (sub_1000189BC(a1, "raidBMXFailUECC_", v8, 8u, v18))
+                                              if (sub_1000189BC(a1, "raidBMXFailUECC_", a2, 8u, v12))
                                               {
                                                 goto LABEL_110;
                                               }
 
-                                              v19 = "ASPFTLParseBufferToCxt: raidBMXFailUECC(799): Cannot add 4 elements to context";
-                                              goto LABEL_2993;
+                                              sub_100020530("ASPFTLParseBufferToCxt: raidBMXFailUECC(799): Cannot add 4 elements to context", v14);
+                                              return v5;
                                             case 804:
-                                              if (v14 != 4)
+                                              if (v9 != 4)
                                               {
-                                                sub_100020530("ASPFTLParseBufferToCxt: raidBMXFailNoSPBX(804): (#4) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                                                sub_100020530("ASPFTLParseBufferToCxt: raidBMXFailNoSPBX(804): (#4) cfg elements != (%d) buffer elements", v9);
                                               }
 
-                                              if (v14 >= 5)
+                                              if (v9 >= 5)
                                               {
-                                                v18 = 4;
+                                                v12 = 4;
                                               }
 
                                               else
                                               {
-                                                v18 = v14;
+                                                v12 = v9;
                                               }
 
-                                              if (sub_1000189BC(a1, "raidBMXFailNoSPBX_", v8, 8u, v18))
+                                              if (sub_1000189BC(a1, "raidBMXFailNoSPBX_", a2, 8u, v12))
                                               {
                                                 goto LABEL_110;
                                               }
 
-                                              v19 = "ASPFTLParseBufferToCxt: raidBMXFailNoSPBX(804): Cannot add 4 elements to context";
-                                              goto LABEL_2993;
+                                              sub_100020530("ASPFTLParseBufferToCxt: raidBMXFailNoSPBX(804): Cannot add 4 elements to context", v14);
+                                              return v5;
                                             case 806:
-                                              if (v14 != 4)
+                                              if (v9 != 4)
                                               {
-                                                sub_100020530("ASPFTLParseBufferToCxt: raidBMXFailBlank(806): (#4) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                                                sub_100020530("ASPFTLParseBufferToCxt: raidBMXFailBlank(806): (#4) cfg elements != (%d) buffer elements", v9);
                                               }
 
-                                              if (v14 >= 5)
+                                              if (v9 >= 5)
                                               {
-                                                v18 = 4;
+                                                v12 = 4;
                                               }
 
                                               else
                                               {
-                                                v18 = v14;
+                                                v12 = v9;
                                               }
 
-                                              if (sub_1000189BC(a1, "raidBMXFailBlank_", v8, 8u, v18))
+                                              if (sub_1000189BC(a1, "raidBMXFailBlank_", a2, 8u, v12))
                                               {
                                                 goto LABEL_110;
                                               }
 
-                                              v19 = "ASPFTLParseBufferToCxt: raidBMXFailBlank(806): Cannot add 4 elements to context";
-                                              goto LABEL_2993;
+                                              sub_100020530("ASPFTLParseBufferToCxt: raidBMXFailBlank(806): Cannot add 4 elements to context", v14);
+                                              return v5;
                                             case 809:
-                                              if (v14 != 4)
+                                              if (v9 != 4)
                                               {
-                                                sub_100020530("ASPFTLParseBufferToCxt: raidBMXFailUnsup(809): (#4) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                                                sub_100020530("ASPFTLParseBufferToCxt: raidBMXFailUnsup(809): (#4) cfg elements != (%d) buffer elements", v9);
                                               }
 
-                                              if (v14 >= 5)
+                                              if (v9 >= 5)
                                               {
-                                                v18 = 4;
+                                                v12 = 4;
                                               }
 
                                               else
                                               {
-                                                v18 = v14;
+                                                v12 = v9;
                                               }
 
-                                              if (sub_1000189BC(a1, "raidBMXFailUnsup_", v8, 8u, v18))
+                                              if (sub_1000189BC(a1, "raidBMXFailUnsup_", a2, 8u, v12))
                                               {
                                                 goto LABEL_110;
                                               }
 
-                                              v19 = "ASPFTLParseBufferToCxt: raidBMXFailUnsup(809): Cannot add 4 elements to context";
-                                              goto LABEL_2993;
+                                              sub_100020530("ASPFTLParseBufferToCxt: raidBMXFailUnsup(809): Cannot add 4 elements to context", v14);
+                                              return v5;
                                             case 811:
-                                              if (v14 != 4)
+                                              if (v9 != 4)
                                               {
-                                                sub_100020530("ASPFTLParseBufferToCxt: raidBMXFailMpSkip(811): (#4) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                                                sub_100020530("ASPFTLParseBufferToCxt: raidBMXFailMpSkip(811): (#4) cfg elements != (%d) buffer elements", v9);
                                               }
 
-                                              if (v14 >= 5)
+                                              if (v9 >= 5)
                                               {
-                                                v18 = 4;
+                                                v12 = 4;
                                               }
 
                                               else
                                               {
-                                                v18 = v14;
+                                                v12 = v9;
                                               }
 
-                                              if (sub_1000189BC(a1, "raidBMXFailMpSkip_", v8, 8u, v18))
+                                              if (sub_1000189BC(a1, "raidBMXFailMpSkip_", a2, 8u, v12))
                                               {
                                                 goto LABEL_110;
                                               }
 
-                                              v19 = "ASPFTLParseBufferToCxt: raidBMXFailMpSkip(811): Cannot add 4 elements to context";
-                                              goto LABEL_2993;
+                                              sub_100020530("ASPFTLParseBufferToCxt: raidBMXFailMpSkip(811): Cannot add 4 elements to context", v14);
+                                              return v5;
                                             case 812:
-                                              if (v14 != 4)
+                                              if (v9 != 4)
                                               {
-                                                sub_100020530("ASPFTLParseBufferToCxt: raidBMXFailAbort(812): (#4) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                                                sub_100020530("ASPFTLParseBufferToCxt: raidBMXFailAbort(812): (#4) cfg elements != (%d) buffer elements", v9);
                                               }
 
-                                              if (v14 >= 5)
+                                              if (v9 >= 5)
                                               {
-                                                v18 = 4;
+                                                v12 = 4;
                                               }
 
                                               else
                                               {
-                                                v18 = v14;
+                                                v12 = v9;
                                               }
 
-                                              if (sub_1000189BC(a1, "raidBMXFailAbort_", v8, 8u, v18))
+                                              if (sub_1000189BC(a1, "raidBMXFailAbort_", a2, 8u, v12))
                                               {
                                                 goto LABEL_110;
                                               }
 
-                                              v19 = "ASPFTLParseBufferToCxt: raidBMXFailAbort(812): Cannot add 4 elements to context";
-                                              goto LABEL_2993;
+                                              sub_100020530("ASPFTLParseBufferToCxt: raidBMXFailAbort(812): Cannot add 4 elements to context", v14);
+                                              return v5;
                                             case 813:
-                                              if (sub_100020050(a1, "", "TurboRaidIsEnabled", *v8))
+                                              if ((sub_100020050(a1, "", "TurboRaidIsEnabled", *a2) & 1) == 0)
                                               {
-                                                goto LABEL_162;
+                                                sub_100020530("ASPFTLParseBufferToCxt: TurboRaidIsEnabled(813) cannot add 1 element to context");
                                               }
 
-                                              v17 = "ASPFTLParseBufferToCxt: TurboRaidIsEnabled(813) cannot add 1 element to context";
                                               goto LABEL_161;
                                             case 814:
-                                              if (v14 != 4)
+                                              if (v9 != 4)
                                               {
-                                                sub_100020530("ASPFTLParseBufferToCxt: raidBMXFailOther(814): (#4) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                                                sub_100020530("ASPFTLParseBufferToCxt: raidBMXFailOther(814): (#4) cfg elements != (%d) buffer elements", v9);
                                               }
 
-                                              if (v14 >= 5)
+                                              if (v9 >= 5)
                                               {
-                                                v18 = 4;
+                                                v12 = 4;
                                               }
 
                                               else
                                               {
-                                                v18 = v14;
+                                                v12 = v9;
                                               }
 
-                                              if (sub_1000189BC(a1, "raidBMXFailOther_", v8, 8u, v18))
+                                              if (sub_1000189BC(a1, "raidBMXFailOther_", a2, 8u, v12))
                                               {
                                                 goto LABEL_110;
                                               }
 
-                                              v19 = "ASPFTLParseBufferToCxt: raidBMXFailOther(814): Cannot add 4 elements to context";
-                                              goto LABEL_2993;
+                                              sub_100020530("ASPFTLParseBufferToCxt: raidBMXFailOther(814): Cannot add 4 elements to context", v14);
+                                              return v5;
                                             case 815:
-                                              if (v14 != 4)
+                                              if (v9 != 4)
                                               {
-                                                sub_100020530("ASPFTLParseBufferToCxt: raidBMXSuccess(815): (#4) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                                                sub_100020530("ASPFTLParseBufferToCxt: raidBMXSuccess(815): (#4) cfg elements != (%d) buffer elements", v9);
                                               }
 
-                                              if (v14 >= 5)
+                                              if (v9 >= 5)
                                               {
-                                                v18 = 4;
+                                                v12 = 4;
                                               }
 
                                               else
                                               {
-                                                v18 = v14;
+                                                v12 = v9;
                                               }
 
-                                              if (sub_1000189BC(a1, "raidBMXSuccess_", v8, 8u, v18))
+                                              if (sub_1000189BC(a1, "raidBMXSuccess_", a2, 8u, v12))
                                               {
                                                 goto LABEL_110;
                                               }
 
-                                              v19 = "ASPFTLParseBufferToCxt: raidBMXSuccess(815): Cannot add 4 elements to context";
-                                              goto LABEL_2993;
+                                              sub_100020530("ASPFTLParseBufferToCxt: raidBMXSuccess(815): Cannot add 4 elements to context", v14);
+                                              return v5;
                                             case 816:
-                                              if (sub_100020050(a1, "", "skinnyBandsExtraDip", *v8))
+                                              if ((sub_100020050(a1, "", "skinnyBandsExtraDip", *a2) & 1) == 0)
                                               {
-                                                goto LABEL_162;
+                                                sub_100020530("ASPFTLParseBufferToCxt: skinnyBandsExtraDip(816) cannot add 1 element to context");
                                               }
 
-                                              v17 = "ASPFTLParseBufferToCxt: skinnyBandsExtraDip(816) cannot add 1 element to context";
                                               goto LABEL_161;
                                             case 821:
-                                              if (sub_100020050(a1, "", "writeAmp", *v8))
+                                              if ((sub_100020050(a1, "", "writeAmp", *a2) & 1) == 0)
                                               {
-                                                goto LABEL_162;
+                                                sub_100020530("ASPFTLParseBufferToCxt: writeAmp(821) cannot add 1 element to context");
                                               }
 
-                                              v17 = "ASPFTLParseBufferToCxt: writeAmp(821) cannot add 1 element to context";
                                               goto LABEL_161;
                                             case 822:
-                                              if (sub_100020050(a1, "", "ricMaxClogOnlyPages", *v8))
+                                              if ((sub_100020050(a1, "", "ricMaxClogOnlyPages", *a2) & 1) == 0)
                                               {
-                                                goto LABEL_162;
+                                                sub_100020530("ASPFTLParseBufferToCxt: ricMaxClogOnlyPages(822) cannot add 1 element to context");
                                               }
 
-                                              v17 = "ASPFTLParseBufferToCxt: ricMaxClogOnlyPages(822) cannot add 1 element to context";
                                               goto LABEL_161;
                                             case 823:
-                                              if (v14 != 3)
+                                              if (v9 != 3)
                                               {
-                                                sub_100020530("ASPFTLParseBufferToCxt: readClassifyStatusesHisto(823): (#3) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                                                sub_100020530("ASPFTLParseBufferToCxt: readClassifyStatusesHisto(823): (#3) cfg elements != (%d) buffer elements", v9);
                                               }
 
-                                              if (v12 >> 34)
+                                              if (v7 >> 34)
                                               {
-                                                v18 = 3;
+                                                v12 = 3;
                                               }
 
                                               else
                                               {
-                                                v18 = v14;
+                                                v12 = v9;
                                               }
 
-                                              if (sub_1000189BC(a1, "readClassifyStatusesHisto_", v8, 8u, v18))
+                                              if (sub_1000189BC(a1, "readClassifyStatusesHisto_", a2, 8u, v12))
                                               {
                                                 goto LABEL_110;
                                               }
 
-                                              v19 = "ASPFTLParseBufferToCxt: readClassifyStatusesHisto(823): Cannot add 3 elements to context";
-                                              goto LABEL_2993;
+                                              sub_100020530("ASPFTLParseBufferToCxt: readClassifyStatusesHisto(823): Cannot add 3 elements to context", v14);
+                                              return v5;
                                             case 824:
-                                              if (v14 != 10)
+                                              if (v9 != 10)
                                               {
-                                                sub_100020530("ASPFTLParseBufferToCxt: readWithAuxStatusesHisto(824): (#10) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                                                sub_100020530("ASPFTLParseBufferToCxt: readWithAuxStatusesHisto(824): (#10) cfg elements != (%d) buffer elements", v9);
                                               }
 
-                                              if (v14 >= 0xB)
+                                              if (v9 >= 0xB)
                                               {
-                                                v18 = 10;
+                                                v12 = 10;
                                               }
 
                                               else
                                               {
-                                                v18 = v14;
+                                                v12 = v9;
                                               }
 
-                                              if (sub_1000189BC(a1, "readWithAuxStatusesHisto_", v8, 8u, v18))
+                                              if (sub_1000189BC(a1, "readWithAuxStatusesHisto_", a2, 8u, v12))
                                               {
                                                 goto LABEL_110;
                                               }
 
-                                              v19 = "ASPFTLParseBufferToCxt: readWithAuxStatusesHisto(824): Cannot add 10 elements to context";
-                                              goto LABEL_2993;
+                                              sub_100020530("ASPFTLParseBufferToCxt: readWithAuxStatusesHisto(824): Cannot add 10 elements to context", v14);
+                                              return v5;
                                             case 825:
-                                              if (v14 != 10)
+                                              if (v9 != 10)
                                               {
-                                                sub_100020530("ASPFTLParseBufferToCxt: readReconstructStatusesHisto(825): (#10) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                                                sub_100020530("ASPFTLParseBufferToCxt: readReconstructStatusesHisto(825): (#10) cfg elements != (%d) buffer elements", v9);
                                               }
 
-                                              if (v14 >= 0xB)
+                                              if (v9 >= 0xB)
                                               {
-                                                v18 = 10;
+                                                v12 = 10;
                                               }
 
                                               else
                                               {
-                                                v18 = v14;
+                                                v12 = v9;
                                               }
 
-                                              if (sub_1000189BC(a1, "readReconstructStatusesHisto_", v8, 8u, v18))
+                                              if (sub_1000189BC(a1, "readReconstructStatusesHisto_", a2, 8u, v12))
                                               {
                                                 goto LABEL_110;
                                               }
 
-                                              v19 = "ASPFTLParseBufferToCxt: readReconstructStatusesHisto(825): Cannot add 10 elements to context";
-                                              goto LABEL_2993;
+                                              sub_100020530("ASPFTLParseBufferToCxt: readReconstructStatusesHisto(825): Cannot add 10 elements to context", v14);
+                                              return v5;
                                             case 826:
-                                              if (sub_100020050(a1, "", "bdrBackupChecks", *v8))
+                                              if ((sub_100020050(a1, "", "bdrBackupChecks", *a2) & 1) == 0)
                                               {
-                                                goto LABEL_162;
+                                                sub_100020530("ASPFTLParseBufferToCxt: bdrBackupChecks(826) cannot add 1 element to context");
                                               }
 
-                                              v17 = "ASPFTLParseBufferToCxt: bdrBackupChecks(826) cannot add 1 element to context";
                                               goto LABEL_161;
                                             case 827:
-                                              if (sub_100020050(a1, "", "ricExceedClogOnlyPagesTH", *v8))
+                                              if ((sub_100020050(a1, "", "ricExceedClogOnlyPagesTH", *a2) & 1) == 0)
                                               {
-                                                goto LABEL_162;
+                                                sub_100020530("ASPFTLParseBufferToCxt: ricExceedClogOnlyPagesTH(827) cannot add 1 element to context");
                                               }
 
-                                              v17 = "ASPFTLParseBufferToCxt: ricExceedClogOnlyPagesTH(827) cannot add 1 element to context";
                                               goto LABEL_161;
                                             case 828:
-                                              if (sub_100020050(a1, "", "numDipFailures", *v8))
+                                              if ((sub_100020050(a1, "", "numDipFailures", *a2) & 1) == 0)
                                               {
-                                                goto LABEL_162;
+                                                sub_100020530("ASPFTLParseBufferToCxt: numDipFailures(828) cannot add 1 element to context");
                                               }
 
-                                              v17 = "ASPFTLParseBufferToCxt: numDipFailures(828) cannot add 1 element to context";
                                               goto LABEL_161;
                                             case 831:
-                                              if (sub_100020050(a1, "", "prefetchNextRange", *v8))
+                                              if ((sub_100020050(a1, "", "prefetchNextRange", *a2) & 1) == 0)
                                               {
-                                                goto LABEL_162;
+                                                sub_100020530("ASPFTLParseBufferToCxt: prefetchNextRange(831) cannot add 1 element to context");
                                               }
 
-                                              v17 = "ASPFTLParseBufferToCxt: prefetchNextRange(831) cannot add 1 element to context";
                                               goto LABEL_161;
                                             case 862:
-                                              if (sub_100020050(a1, "", "raidSuccessfulSkip", *v8))
+                                              if ((sub_100020050(a1, "", "raidSuccessfulSkip", *a2) & 1) == 0)
                                               {
-                                                goto LABEL_162;
+                                                sub_100020530("ASPFTLParseBufferToCxt: raidSuccessfulSkip(862) cannot add 1 element to context");
                                               }
 
-                                              v17 = "ASPFTLParseBufferToCxt: raidSuccessfulSkip(862) cannot add 1 element to context";
                                               goto LABEL_161;
                                             case 863:
-                                              if (sub_100020050(a1, "", "raidFailedSkip", *v8))
+                                              if ((sub_100020050(a1, "", "raidFailedSkip", *a2) & 1) == 0)
                                               {
-                                                goto LABEL_162;
+                                                sub_100020530("ASPFTLParseBufferToCxt: raidFailedSkip(863) cannot add 1 element to context");
                                               }
 
-                                              v17 = "ASPFTLParseBufferToCxt: raidFailedSkip(863) cannot add 1 element to context";
                                               goto LABEL_161;
                                             case 864:
-                                              if (sub_100020050(a1, "", "raidSkipAttempts", *v8))
+                                              if ((sub_100020050(a1, "", "raidSkipAttempts", *a2) & 1) == 0)
                                               {
-                                                goto LABEL_162;
+                                                sub_100020530("ASPFTLParseBufferToCxt: raidSkipAttempts(864) cannot add 1 element to context");
                                               }
 
-                                              v17 = "ASPFTLParseBufferToCxt: raidSkipAttempts(864) cannot add 1 element to context";
                                               goto LABEL_161;
                                             case 865:
-                                              if (v14 != 25)
+                                              if (v9 != 25)
                                               {
-                                                sub_100020530("ASPFTLParseBufferToCxt: timeOfThrottlingPerLevel(865): (#25) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                                                sub_100020530("ASPFTLParseBufferToCxt: timeOfThrottlingPerLevel(865): (#25) cfg elements != (%d) buffer elements", v9);
                                               }
 
-                                              if (v12 >> 33 >= 0xD)
+                                              if (v7 >> 33 >= 0xD)
                                               {
-                                                v18 = 25;
+                                                v12 = 25;
                                               }
 
                                               else
                                               {
-                                                v18 = v14;
+                                                v12 = v9;
                                               }
 
-                                              if (sub_1000189BC(a1, "timeOfThrottlingPerLevel_", v8, 8u, v18))
+                                              if (sub_1000189BC(a1, "timeOfThrottlingPerLevel_", a2, 8u, v12))
                                               {
                                                 goto LABEL_110;
                                               }
 
-                                              v19 = "ASPFTLParseBufferToCxt: timeOfThrottlingPerLevel(865): Cannot add 25 elements to context";
-                                              goto LABEL_2993;
+                                              sub_100020530("ASPFTLParseBufferToCxt: timeOfThrottlingPerLevel(865): Cannot add 25 elements to context", v14);
+                                              return v5;
                                             case 866:
-                                              if (v14 != 25)
+                                              if (v9 != 25)
                                               {
-                                                sub_100020530("ASPFTLParseBufferToCxt: timeOfThrottlingPerReadLevel(866): (#25) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                                                sub_100020530("ASPFTLParseBufferToCxt: timeOfThrottlingPerReadLevel(866): (#25) cfg elements != (%d) buffer elements", v9);
                                               }
 
-                                              if (v12 >> 33 >= 0xD)
+                                              if (v7 >> 33 >= 0xD)
                                               {
-                                                v18 = 25;
+                                                v12 = 25;
                                               }
 
                                               else
                                               {
-                                                v18 = v14;
+                                                v12 = v9;
                                               }
 
-                                              if (sub_1000189BC(a1, "timeOfThrottlingPerReadLevel_", v8, 8u, v18))
+                                              if (sub_1000189BC(a1, "timeOfThrottlingPerReadLevel_", a2, 8u, v12))
                                               {
                                                 goto LABEL_110;
                                               }
 
-                                              v19 = "ASPFTLParseBufferToCxt: timeOfThrottlingPerReadLevel(866): Cannot add 25 elements to context";
-                                              goto LABEL_2993;
+                                              sub_100020530("ASPFTLParseBufferToCxt: timeOfThrottlingPerReadLevel(866): Cannot add 25 elements to context", v14);
+                                              return v5;
                                             case 867:
-                                              if (v14 != 25)
+                                              if (v9 != 25)
                                               {
-                                                sub_100020530("ASPFTLParseBufferToCxt: timeOfThrottlingPerWriteLevel(867): (#25) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                                                sub_100020530("ASPFTLParseBufferToCxt: timeOfThrottlingPerWriteLevel(867): (#25) cfg elements != (%d) buffer elements", v9);
                                               }
 
-                                              if (v12 >> 33 >= 0xD)
+                                              if (v7 >> 33 >= 0xD)
                                               {
-                                                v18 = 25;
+                                                v12 = 25;
                                               }
 
                                               else
                                               {
-                                                v18 = v14;
+                                                v12 = v9;
                                               }
 
-                                              if (sub_1000189BC(a1, "timeOfThrottlingPerWriteLevel_", v8, 8u, v18))
+                                              if (sub_1000189BC(a1, "timeOfThrottlingPerWriteLevel_", a2, 8u, v12))
                                               {
                                                 goto LABEL_110;
                                               }
 
-                                              v19 = "ASPFTLParseBufferToCxt: timeOfThrottlingPerWriteLevel(867): Cannot add 25 elements to context";
-                                              goto LABEL_2993;
+                                              sub_100020530("ASPFTLParseBufferToCxt: timeOfThrottlingPerWriteLevel(867): Cannot add 25 elements to context", v14);
+                                              return v5;
                                             case 868:
-                                              if (v14 != 32)
+                                              if (v9 != 32)
                                               {
-                                                sub_100020530("ASPFTLParseBufferToCxt: dmReasonsSlc_1bc(868): (#32) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                                                sub_100020530("ASPFTLParseBufferToCxt: dmReasonsSlc_1bc(868): (#32) cfg elements != (%d) buffer elements", v9);
                                               }
 
-                                              if (v14 >= 0x21)
+                                              if (v9 >= 0x21)
                                               {
-                                                v18 = 32;
+                                                v12 = 32;
                                               }
 
                                               else
                                               {
-                                                v18 = v14;
+                                                v12 = v9;
                                               }
 
-                                              if (sub_1000189BC(a1, "dmReasonsSlc_1bc_", v8, 8u, v18))
+                                              if (sub_1000189BC(a1, "dmReasonsSlc_1bc_", a2, 8u, v12))
                                               {
                                                 goto LABEL_110;
                                               }
 
-                                              v19 = "ASPFTLParseBufferToCxt: dmReasonsSlc_1bc(868): Cannot add 32 elements to context";
-                                              goto LABEL_2993;
+                                              sub_100020530("ASPFTLParseBufferToCxt: dmReasonsSlc_1bc(868): Cannot add 32 elements to context", v14);
+                                              return v5;
                                             case 869:
-                                              if (v14 != 32)
+                                              if (v9 != 32)
                                               {
-                                                sub_100020530("ASPFTLParseBufferToCxt: dmReasonsTlc_1bc(869): (#32) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                                                sub_100020530("ASPFTLParseBufferToCxt: dmReasonsTlc_1bc(869): (#32) cfg elements != (%d) buffer elements", v9);
                                               }
 
-                                              if (v14 >= 0x21)
+                                              if (v9 >= 0x21)
                                               {
-                                                v18 = 32;
+                                                v12 = 32;
                                               }
 
                                               else
                                               {
-                                                v18 = v14;
+                                                v12 = v9;
                                               }
 
-                                              if (sub_1000189BC(a1, "dmReasonsTlc_1bc_", v8, 8u, v18))
+                                              if (sub_1000189BC(a1, "dmReasonsTlc_1bc_", a2, 8u, v12))
                                               {
                                                 goto LABEL_110;
                                               }
 
-                                              v19 = "ASPFTLParseBufferToCxt: dmReasonsTlc_1bc(869): Cannot add 32 elements to context";
-                                              goto LABEL_2993;
+                                              sub_100020530("ASPFTLParseBufferToCxt: dmReasonsTlc_1bc(869): Cannot add 32 elements to context", v14);
+                                              return v5;
                                             case 870:
-                                              if (v14 != 32)
+                                              if (v9 != 32)
                                               {
-                                                sub_100020530("ASPFTLParseBufferToCxt: dmReasonsSlc_1bc_he(870): (#32) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                                                sub_100020530("ASPFTLParseBufferToCxt: dmReasonsSlc_1bc_he(870): (#32) cfg elements != (%d) buffer elements", v9);
                                               }
 
-                                              if (v14 >= 0x21)
+                                              if (v9 >= 0x21)
                                               {
-                                                v18 = 32;
+                                                v12 = 32;
                                               }
 
                                               else
                                               {
-                                                v18 = v14;
+                                                v12 = v9;
                                               }
 
-                                              if (sub_1000189BC(a1, "dmReasonsSlc_1bc_he_", v8, 8u, v18))
+                                              if (sub_1000189BC(a1, "dmReasonsSlc_1bc_he_", a2, 8u, v12))
                                               {
                                                 goto LABEL_110;
                                               }
 
-                                              v19 = "ASPFTLParseBufferToCxt: dmReasonsSlc_1bc_he(870): Cannot add 32 elements to context";
-                                              goto LABEL_2993;
+                                              sub_100020530("ASPFTLParseBufferToCxt: dmReasonsSlc_1bc_he(870): Cannot add 32 elements to context", v14);
+                                              return v5;
                                             case 871:
-                                              if (v14 != 32)
+                                              if (v9 != 32)
                                               {
-                                                sub_100020530("ASPFTLParseBufferToCxt: dmReasonsTlc_1bc_he(871): (#32) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                                                sub_100020530("ASPFTLParseBufferToCxt: dmReasonsTlc_1bc_he(871): (#32) cfg elements != (%d) buffer elements", v9);
                                               }
 
-                                              if (v14 >= 0x21)
+                                              if (v9 >= 0x21)
                                               {
-                                                v18 = 32;
+                                                v12 = 32;
                                               }
 
                                               else
                                               {
-                                                v18 = v14;
+                                                v12 = v9;
                                               }
 
-                                              if (sub_1000189BC(a1, "dmReasonsTlc_1bc_he_", v8, 8u, v18))
+                                              if (sub_1000189BC(a1, "dmReasonsTlc_1bc_he_", a2, 8u, v12))
                                               {
                                                 goto LABEL_110;
                                               }
 
-                                              v19 = "ASPFTLParseBufferToCxt: dmReasonsTlc_1bc_he(871): Cannot add 32 elements to context";
-                                              goto LABEL_2993;
+                                              sub_100020530("ASPFTLParseBufferToCxt: dmReasonsTlc_1bc_he(871): Cannot add 32 elements to context", v14);
+                                              return v5;
                                             case 876:
-                                              if (v14 != 32)
+                                              if (v9 != 32)
                                               {
-                                                sub_100020530("ASPFTLParseBufferToCxt: dmReasonsSlc_mbc(876): (#32) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                                                sub_100020530("ASPFTLParseBufferToCxt: dmReasonsSlc_mbc(876): (#32) cfg elements != (%d) buffer elements", v9);
                                               }
 
-                                              if (v14 >= 0x21)
+                                              if (v9 >= 0x21)
                                               {
-                                                v18 = 32;
+                                                v12 = 32;
                                               }
 
                                               else
                                               {
-                                                v18 = v14;
+                                                v12 = v9;
                                               }
 
-                                              if (sub_1000189BC(a1, "dmReasonsSlc_mbc_", v8, 8u, v18))
+                                              if (sub_1000189BC(a1, "dmReasonsSlc_mbc_", a2, 8u, v12))
                                               {
                                                 goto LABEL_110;
                                               }
 
-                                              v19 = "ASPFTLParseBufferToCxt: dmReasonsSlc_mbc(876): Cannot add 32 elements to context";
-                                              goto LABEL_2993;
+                                              sub_100020530("ASPFTLParseBufferToCxt: dmReasonsSlc_mbc(876): Cannot add 32 elements to context", v14);
+                                              return v5;
                                             case 877:
-                                              if (v14 != 32)
+                                              if (v9 != 32)
                                               {
-                                                sub_100020530("ASPFTLParseBufferToCxt: dmReasonsTlc_mbc(877): (#32) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                                                sub_100020530("ASPFTLParseBufferToCxt: dmReasonsTlc_mbc(877): (#32) cfg elements != (%d) buffer elements", v9);
                                               }
 
-                                              if (v14 >= 0x21)
+                                              if (v9 >= 0x21)
                                               {
-                                                v18 = 32;
+                                                v12 = 32;
                                               }
 
                                               else
                                               {
-                                                v18 = v14;
+                                                v12 = v9;
                                               }
 
-                                              if (sub_1000189BC(a1, "dmReasonsTlc_mbc_", v8, 8u, v18))
+                                              if (sub_1000189BC(a1, "dmReasonsTlc_mbc_", a2, 8u, v12))
                                               {
                                                 goto LABEL_110;
                                               }
 
-                                              v19 = "ASPFTLParseBufferToCxt: dmReasonsTlc_mbc(877): Cannot add 32 elements to context";
-                                              goto LABEL_2993;
+                                              sub_100020530("ASPFTLParseBufferToCxt: dmReasonsTlc_mbc(877): Cannot add 32 elements to context", v14);
+                                              return v5;
                                             case 883:
-                                              if (sub_100020050(a1, "", "clogEmptyProgramms", *v8))
+                                              if ((sub_100020050(a1, "", "clogEmptyProgramms", *a2) & 1) == 0)
                                               {
-                                                goto LABEL_162;
+                                                sub_100020530("ASPFTLParseBufferToCxt: clogEmptyProgramms(883) cannot add 1 element to context");
                                               }
 
-                                              v17 = "ASPFTLParseBufferToCxt: clogEmptyProgramms(883) cannot add 1 element to context";
                                               goto LABEL_161;
                                             case 884:
-                                              if (sub_100020050(a1, "", "oslcHwCloseBand", *v8))
+                                              if ((sub_100020050(a1, "", "oslcHwCloseBand", *a2) & 1) == 0)
                                               {
-                                                goto LABEL_162;
+                                                sub_100020530("ASPFTLParseBufferToCxt: oslcHwCloseBand(884) cannot add 1 element to context");
                                               }
 
-                                              v17 = "ASPFTLParseBufferToCxt: oslcHwCloseBand(884) cannot add 1 element to context";
                                               goto LABEL_161;
                                             case 891:
-                                              if (v14 != 2)
+                                              if (v9 != 2)
                                               {
-                                                sub_100020530("ASPFTLParseBufferToCxt: turboRaidSuccessAuxPartition(891): (#2) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                                                sub_100020530("ASPFTLParseBufferToCxt: turboRaidSuccessAuxPartition(891): (#2) cfg elements != (%d) buffer elements", v9);
                                               }
 
-                                              if (v14 >= 3)
+                                              if (v9 >= 3)
                                               {
-                                                v18 = 2;
+                                                v12 = 2;
                                               }
 
                                               else
                                               {
-                                                v18 = v14;
+                                                v12 = v9;
                                               }
 
-                                              if (sub_1000189BC(a1, "turboRaidSuccessAuxPartition_", v8, 8u, v18))
+                                              if (sub_1000189BC(a1, "turboRaidSuccessAuxPartition_", a2, 8u, v12))
                                               {
                                                 goto LABEL_110;
                                               }
 
-                                              v19 = "ASPFTLParseBufferToCxt: turboRaidSuccessAuxPartition(891): Cannot add 2 elements to context";
-                                              goto LABEL_2993;
+                                              sub_100020530("ASPFTLParseBufferToCxt: turboRaidSuccessAuxPartition(891): Cannot add 2 elements to context", v14);
+                                              return v5;
                                             case 892:
-                                              if (v14 != 2)
+                                              if (v9 != 2)
                                               {
-                                                sub_100020530("ASPFTLParseBufferToCxt: turboRaidFailAuxPartition(892): (#2) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                                                sub_100020530("ASPFTLParseBufferToCxt: turboRaidFailAuxPartition(892): (#2) cfg elements != (%d) buffer elements", v9);
                                               }
 
-                                              if (v14 >= 3)
+                                              if (v9 >= 3)
                                               {
-                                                v18 = 2;
+                                                v12 = 2;
                                               }
 
                                               else
                                               {
-                                                v18 = v14;
+                                                v12 = v9;
                                               }
 
-                                              if (sub_1000189BC(a1, "turboRaidFailAuxPartition_", v8, 8u, v18))
+                                              if (sub_1000189BC(a1, "turboRaidFailAuxPartition_", a2, 8u, v12))
                                               {
                                                 goto LABEL_110;
                                               }
 
-                                              v19 = "ASPFTLParseBufferToCxt: turboRaidFailAuxPartition(892): Cannot add 2 elements to context";
-                                              goto LABEL_2993;
+                                              sub_100020530("ASPFTLParseBufferToCxt: turboRaidFailAuxPartition(892): Cannot add 2 elements to context", v14);
+                                              return v5;
                                             case 893:
-                                              if (v14 != 2)
+                                              if (v9 != 2)
                                               {
-                                                sub_100020530("ASPFTLParseBufferToCxt: turboRaidClassifyQualPartition(893): (#2) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                                                sub_100020530("ASPFTLParseBufferToCxt: turboRaidClassifyQualPartition(893): (#2) cfg elements != (%d) buffer elements", v9);
                                               }
 
-                                              if (v14 >= 3)
+                                              if (v9 >= 3)
                                               {
-                                                v18 = 2;
+                                                v12 = 2;
                                               }
 
                                               else
                                               {
-                                                v18 = v14;
+                                                v12 = v9;
                                               }
 
-                                              if (sub_1000189BC(a1, "turboRaidClassifyQualPartition_", v8, 8u, v18))
+                                              if (sub_1000189BC(a1, "turboRaidClassifyQualPartition_", a2, 8u, v12))
                                               {
                                                 goto LABEL_110;
                                               }
 
-                                              v19 = "ASPFTLParseBufferToCxt: turboRaidClassifyQualPartition(893): Cannot add 2 elements to context";
-                                              goto LABEL_2993;
+                                              sub_100020530("ASPFTLParseBufferToCxt: turboRaidClassifyQualPartition(893): Cannot add 2 elements to context", v14);
+                                              return v5;
                                             case 894:
-                                              if (v14 != 2)
+                                              if (v9 != 2)
                                               {
-                                                sub_100020530("ASPFTLParseBufferToCxt: turboRaidClassifyRelPartition(894): (#2) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                                                sub_100020530("ASPFTLParseBufferToCxt: turboRaidClassifyRelPartition(894): (#2) cfg elements != (%d) buffer elements", v9);
                                               }
 
-                                              if (v14 >= 3)
+                                              if (v9 >= 3)
                                               {
-                                                v18 = 2;
+                                                v12 = 2;
                                               }
 
                                               else
                                               {
-                                                v18 = v14;
+                                                v12 = v9;
                                               }
 
-                                              if (sub_1000189BC(a1, "turboRaidClassifyRelPartition_", v8, 8u, v18))
+                                              if (sub_1000189BC(a1, "turboRaidClassifyRelPartition_", a2, 8u, v12))
                                               {
                                                 goto LABEL_110;
                                               }
 
-                                              v19 = "ASPFTLParseBufferToCxt: turboRaidClassifyRelPartition(894): Cannot add 2 elements to context";
-                                              goto LABEL_2993;
+                                              sub_100020530("ASPFTLParseBufferToCxt: turboRaidClassifyRelPartition(894): Cannot add 2 elements to context", v14);
+                                              return v5;
                                             case 895:
-                                              if (sub_100020050(a1, "", "IND_pool_freeMinSilo", *v8))
+                                              if ((sub_100020050(a1, "", "IND_pool_freeMinSilo", *a2) & 1) == 0)
                                               {
-                                                goto LABEL_162;
+                                                sub_100020530("ASPFTLParseBufferToCxt: IND_pool_freeMinSilo(895) cannot add 1 element to context");
                                               }
 
-                                              v17 = "ASPFTLParseBufferToCxt: IND_pool_freeMinSilo(895) cannot add 1 element to context";
                                               goto LABEL_161;
                                             case 896:
-                                              if (sub_100020050(a1, "", "autoSweepBlocks", *v8))
+                                              if ((sub_100020050(a1, "", "autoSweepBlocks", *a2) & 1) == 0)
                                               {
-                                                goto LABEL_162;
+                                                sub_100020530("ASPFTLParseBufferToCxt: autoSweepBlocks(896) cannot add 1 element to context");
                                               }
 
-                                              v17 = "ASPFTLParseBufferToCxt: autoSweepBlocks(896) cannot add 1 element to context";
                                               goto LABEL_161;
                                             case 897:
-                                              if (v14 != 16)
+                                              if (v9 != 16)
                                               {
-                                                sub_100020530("ASPFTLParseBufferToCxt: wcWrFragSizes(897): (#16) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                                                sub_100020530("ASPFTLParseBufferToCxt: wcWrFragSizes(897): (#16) cfg elements != (%d) buffer elements", v9);
                                               }
 
-                                              if (v14 >= 0x11)
+                                              if (v9 >= 0x11)
                                               {
-                                                v18 = 16;
+                                                v12 = 16;
                                               }
 
                                               else
                                               {
-                                                v18 = v14;
+                                                v12 = v9;
                                               }
 
-                                              if (sub_1000189BC(a1, "wcWrFragSizes_", v8, 8u, v18))
+                                              if (sub_1000189BC(a1, "wcWrFragSizes_", a2, 8u, v12))
                                               {
                                                 goto LABEL_110;
                                               }
 
-                                              v19 = "ASPFTLParseBufferToCxt: wcWrFragSizes(897): Cannot add 16 elements to context";
-                                              goto LABEL_2993;
+                                              sub_100020530("ASPFTLParseBufferToCxt: wcWrFragSizes(897): Cannot add 16 elements to context", v14);
+                                              return v5;
                                             case 898:
-                                              if (v14 != 16)
+                                              if (v9 != 16)
                                               {
-                                                sub_100020530("ASPFTLParseBufferToCxt: indStateAcrossGcDidNoL(898): (#16) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                                                sub_100020530("ASPFTLParseBufferToCxt: indStateAcrossGcDidNoL(898): (#16) cfg elements != (%d) buffer elements", v9);
                                               }
 
-                                              if (v14 >= 0x11)
+                                              if (v9 >= 0x11)
                                               {
-                                                v18 = 16;
+                                                v12 = 16;
                                               }
 
                                               else
                                               {
-                                                v18 = v14;
+                                                v12 = v9;
                                               }
 
-                                              if (sub_1000189BC(a1, "indStateAcrossGcDidNoL_", v8, 8u, v18))
+                                              if (sub_1000189BC(a1, "indStateAcrossGcDidNoL_", a2, 8u, v12))
                                               {
                                                 goto LABEL_110;
                                               }
 
-                                              v19 = "ASPFTLParseBufferToCxt: indStateAcrossGcDidNoL(898): Cannot add 16 elements to context";
-                                              goto LABEL_2993;
+                                              sub_100020530("ASPFTLParseBufferToCxt: indStateAcrossGcDidNoL(898): Cannot add 16 elements to context", v14);
+                                              return v5;
                                             case 899:
-                                              if (v14 != 16)
+                                              if (v9 != 16)
                                               {
-                                                sub_100020530("ASPFTLParseBufferToCxt: indStateAcrossGcDidL(899): (#16) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                                                sub_100020530("ASPFTLParseBufferToCxt: indStateAcrossGcDidL(899): (#16) cfg elements != (%d) buffer elements", v9);
                                               }
 
-                                              if (v14 >= 0x11)
+                                              if (v9 >= 0x11)
                                               {
-                                                v18 = 16;
+                                                v12 = 16;
                                               }
 
                                               else
                                               {
-                                                v18 = v14;
+                                                v12 = v9;
                                               }
 
-                                              if (sub_1000189BC(a1, "indStateAcrossGcDidL_", v8, 8u, v18))
+                                              if (sub_1000189BC(a1, "indStateAcrossGcDidL_", a2, 8u, v12))
                                               {
                                                 goto LABEL_110;
                                               }
 
-                                              v19 = "ASPFTLParseBufferToCxt: indStateAcrossGcDidL(899): Cannot add 16 elements to context";
-                                              goto LABEL_2993;
+                                              sub_100020530("ASPFTLParseBufferToCxt: indStateAcrossGcDidL(899): Cannot add 16 elements to context", v14);
+                                              return v5;
                                             case 900:
-                                              if (sub_100020050(a1, "", "turboRaidNoClassifyDueToWasRetire", *v8))
+                                              if ((sub_100020050(a1, "", "turboRaidNoClassifyDueToWasRetire", *a2) & 1) == 0)
                                               {
-                                                goto LABEL_162;
+                                                sub_100020530("ASPFTLParseBufferToCxt: turboRaidNoClassifyDueToWasRetire(900) cannot add 1 element to context");
                                               }
 
-                                              v17 = "ASPFTLParseBufferToCxt: turboRaidNoClassifyDueToWasRetire(900) cannot add 1 element to context";
                                               goto LABEL_161;
                                             case 901:
-                                              if (sub_100020050(a1, "", "turboRaidNoClassifyDueToOpenBand", *v8))
+                                              if ((sub_100020050(a1, "", "turboRaidNoClassifyDueToOpenBand", *a2) & 1) == 0)
                                               {
-                                                goto LABEL_162;
+                                                sub_100020530("ASPFTLParseBufferToCxt: turboRaidNoClassifyDueToOpenBand(901) cannot add 1 element to context");
                                               }
 
-                                              v17 = "ASPFTLParseBufferToCxt: turboRaidNoClassifyDueToOpenBand(901) cannot add 1 element to context";
                                               goto LABEL_161;
                                             case 902:
-                                              if (sub_100020050(a1, "", "turboRaidNoClassifyDueToQualityBlock", *v8))
+                                              if ((sub_100020050(a1, "", "turboRaidNoClassifyDueToQualityBlock", *a2) & 1) == 0)
                                               {
-                                                goto LABEL_162;
+                                                sub_100020530("ASPFTLParseBufferToCxt: turboRaidNoClassifyDueToQualityBlock(902) cannot add 1 element to context");
                                               }
 
-                                              v17 = "ASPFTLParseBufferToCxt: turboRaidNoClassifyDueToQualityBlock(902) cannot add 1 element to context";
                                               goto LABEL_161;
                                             case 903:
-                                              if (sub_100020050(a1, "", "turboRaidGbbOpenBand", *v8))
+                                              if ((sub_100020050(a1, "", "turboRaidGbbOpenBand", *a2) & 1) == 0)
                                               {
-                                                goto LABEL_162;
+                                                sub_100020530("ASPFTLParseBufferToCxt: turboRaidGbbOpenBand(903) cannot add 1 element to context");
                                               }
 
-                                              v17 = "ASPFTLParseBufferToCxt: turboRaidGbbOpenBand(903) cannot add 1 element to context";
                                               goto LABEL_161;
                                             case 904:
-                                              if (sub_100020050(a1, "", "turboRaidGbbShouldRetireOnRefresh", *v8))
+                                              if ((sub_100020050(a1, "", "turboRaidGbbShouldRetireOnRefresh", *a2) & 1) == 0)
                                               {
-                                                goto LABEL_162;
+                                                sub_100020530("ASPFTLParseBufferToCxt: turboRaidGbbShouldRetireOnRefresh(904) cannot add 1 element to context");
                                               }
 
-                                              v17 = "ASPFTLParseBufferToCxt: turboRaidGbbShouldRetireOnRefresh(904) cannot add 1 element to context";
                                               goto LABEL_161;
                                             case 905:
-                                              if (v14 != 16)
+                                              if (v9 != 16)
                                               {
-                                                sub_100020530("ASPFTLParseBufferToCxt: turboRaidRelPerBlock(905): (#16) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                                                sub_100020530("ASPFTLParseBufferToCxt: turboRaidRelPerBlock(905): (#16) cfg elements != (%d) buffer elements", v9);
                                               }
 
-                                              if (v14 >= 0x11)
+                                              if (v9 >= 0x11)
                                               {
-                                                v18 = 16;
+                                                v12 = 16;
                                               }
 
                                               else
                                               {
-                                                v18 = v14;
+                                                v12 = v9;
                                               }
 
-                                              if (sub_1000189BC(a1, "turboRaidRelPerBlock_", v8, 8u, v18))
+                                              if (sub_1000189BC(a1, "turboRaidRelPerBlock_", a2, 8u, v12))
                                               {
                                                 goto LABEL_110;
                                               }
 
-                                              v19 = "ASPFTLParseBufferToCxt: turboRaidRelPerBlock(905): Cannot add 16 elements to context";
-                                              goto LABEL_2993;
+                                              sub_100020530("ASPFTLParseBufferToCxt: turboRaidRelPerBlock(905): Cannot add 16 elements to context", v14);
+                                              return v5;
                                             case 906:
-                                              if (v14 != 16)
+                                              if (v9 != 16)
                                               {
-                                                sub_100020530("ASPFTLParseBufferToCxt: turboRaidRelBetweenRefreshesPerBlock(906): (#16) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                                                sub_100020530("ASPFTLParseBufferToCxt: turboRaidRelBetweenRefreshesPerBlock(906): (#16) cfg elements != (%d) buffer elements", v9);
                                               }
 
-                                              if (v14 >= 0x11)
+                                              if (v9 >= 0x11)
                                               {
-                                                v18 = 16;
+                                                v12 = 16;
                                               }
 
                                               else
                                               {
-                                                v18 = v14;
+                                                v12 = v9;
                                               }
 
-                                              if (sub_1000189BC(a1, "turboRaidRelBetweenRefreshesPerBlock_", v8, 8u, v18))
+                                              if (sub_1000189BC(a1, "turboRaidRelBetweenRefreshesPerBlock_", a2, 8u, v12))
                                               {
                                                 goto LABEL_110;
                                               }
 
-                                              v19 = "ASPFTLParseBufferToCxt: turboRaidRelBetweenRefreshesPerBlock(906): Cannot add 16 elements to context";
-                                              goto LABEL_2993;
+                                              sub_100020530("ASPFTLParseBufferToCxt: turboRaidRelBetweenRefreshesPerBlock(906): Cannot add 16 elements to context", v14);
+                                              return v5;
                                             default:
-                                              if (v12 <= 997)
+                                              if (v7 <= 997)
                                               {
-                                                switch(v12)
+                                                switch(v7)
                                                 {
                                                   case 907:
-                                                    if (v14 != 16)
+                                                    if (v9 != 16)
                                                     {
-                                                      sub_100020530("ASPFTLParseBufferToCxt: turboRaidMaxRelBetweenRefreshesPerBlock(907): (#16) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                                                      sub_100020530("ASPFTLParseBufferToCxt: turboRaidMaxRelBetweenRefreshesPerBlock(907): (#16) cfg elements != (%d) buffer elements", v9);
                                                     }
 
-                                                    if (v14 >= 0x11)
+                                                    if (v9 >= 0x11)
                                                     {
-                                                      v18 = 16;
+                                                      v12 = 16;
                                                     }
 
                                                     else
                                                     {
-                                                      v18 = v14;
+                                                      v12 = v9;
                                                     }
 
-                                                    if (sub_1000189BC(a1, "turboRaidMaxRelBetweenRefreshesPerBlock_", v8, 8u, v18))
+                                                    if (sub_1000189BC(a1, "turboRaidMaxRelBetweenRefreshesPerBlock_", a2, 8u, v12))
                                                     {
                                                       goto LABEL_110;
                                                     }
 
-                                                    v19 = "ASPFTLParseBufferToCxt: turboRaidMaxRelBetweenRefreshesPerBlock(907): Cannot add 16 elements to context";
-                                                    goto LABEL_2993;
+                                                    sub_100020530("ASPFTLParseBufferToCxt: turboRaidMaxRelBetweenRefreshesPerBlock(907): Cannot add 16 elements to context", v14);
+                                                    return v5;
                                                   case 908:
-                                                    if (v14 != 16)
+                                                    if (v9 != 16)
                                                     {
-                                                      sub_100020530("ASPFTLParseBufferToCxt: turboRaidMinRelBetweenRefreshesPerBlock(908): (#16) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                                                      sub_100020530("ASPFTLParseBufferToCxt: turboRaidMinRelBetweenRefreshesPerBlock(908): (#16) cfg elements != (%d) buffer elements", v9);
                                                     }
 
-                                                    if (v14 >= 0x11)
+                                                    if (v9 >= 0x11)
                                                     {
-                                                      v18 = 16;
+                                                      v12 = 16;
                                                     }
 
                                                     else
                                                     {
-                                                      v18 = v14;
+                                                      v12 = v9;
                                                     }
 
-                                                    if (sub_1000189BC(a1, "turboRaidMinRelBetweenRefreshesPerBlock_", v8, 8u, v18))
+                                                    if (sub_1000189BC(a1, "turboRaidMinRelBetweenRefreshesPerBlock_", a2, 8u, v12))
                                                     {
                                                       goto LABEL_110;
                                                     }
 
-                                                    v19 = "ASPFTLParseBufferToCxt: turboRaidMinRelBetweenRefreshesPerBlock(908): Cannot add 16 elements to context";
-                                                    goto LABEL_2993;
+                                                    sub_100020530("ASPFTLParseBufferToCxt: turboRaidMinRelBetweenRefreshesPerBlock(908): Cannot add 16 elements to context", v14);
+                                                    return v5;
                                                   case 909:
                                                   case 910:
                                                   case 911:
@@ -13903,2865 +13345,2765 @@ LABEL_2:
                                                   case 968:
                                                   case 969:
                                                   case 970:
-                                                    goto LABEL_2529;
+                                                    goto LABEL_2528;
                                                   case 918:
-                                                    if (v14 != 16)
+                                                    if (v9 != 16)
                                                     {
-                                                      sub_100020530("ASPFTLParseBufferToCxt: turboRaidMaxCyclesBetweenRel(918): (#16) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                                                      sub_100020530("ASPFTLParseBufferToCxt: turboRaidMaxCyclesBetweenRel(918): (#16) cfg elements != (%d) buffer elements", v9);
                                                     }
 
-                                                    if (v14 >= 0x11)
+                                                    if (v9 >= 0x11)
                                                     {
-                                                      v18 = 16;
+                                                      v12 = 16;
                                                     }
 
                                                     else
                                                     {
-                                                      v18 = v14;
+                                                      v12 = v9;
                                                     }
 
-                                                    if (sub_1000189BC(a1, "turboRaidMaxCyclesBetweenRel_", v8, 8u, v18))
+                                                    if (sub_1000189BC(a1, "turboRaidMaxCyclesBetweenRel_", a2, 8u, v12))
                                                     {
                                                       goto LABEL_110;
                                                     }
 
-                                                    v19 = "ASPFTLParseBufferToCxt: turboRaidMaxCyclesBetweenRel(918): Cannot add 16 elements to context";
-                                                    goto LABEL_2993;
+                                                    sub_100020530("ASPFTLParseBufferToCxt: turboRaidMaxCyclesBetweenRel(918): Cannot add 16 elements to context", v14);
+                                                    return v5;
                                                   case 919:
-                                                    if (v14 != 16)
+                                                    if (v9 != 16)
                                                     {
-                                                      sub_100020530("ASPFTLParseBufferToCxt: turboRaidMinCyclesBetweenRel(919): (#16) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                                                      sub_100020530("ASPFTLParseBufferToCxt: turboRaidMinCyclesBetweenRel(919): (#16) cfg elements != (%d) buffer elements", v9);
                                                     }
 
-                                                    if (v14 >= 0x11)
+                                                    if (v9 >= 0x11)
                                                     {
-                                                      v18 = 16;
+                                                      v12 = 16;
                                                     }
 
                                                     else
                                                     {
-                                                      v18 = v14;
+                                                      v12 = v9;
                                                     }
 
-                                                    if (sub_1000189BC(a1, "turboRaidMinCyclesBetweenRel_", v8, 8u, v18))
+                                                    if (sub_1000189BC(a1, "turboRaidMinCyclesBetweenRel_", a2, 8u, v12))
                                                     {
                                                       goto LABEL_110;
                                                     }
 
-                                                    v19 = "ASPFTLParseBufferToCxt: turboRaidMinCyclesBetweenRel(919): Cannot add 16 elements to context";
-                                                    goto LABEL_2993;
+                                                    sub_100020530("ASPFTLParseBufferToCxt: turboRaidMinCyclesBetweenRel(919): Cannot add 16 elements to context", v14);
+                                                    return v5;
                                                   case 920:
-                                                    if (v14 != 16)
+                                                    if (v9 != 16)
                                                     {
-                                                      sub_100020530("ASPFTLParseBufferToCxt: turboRaidAuxPerBlock(920): (#16) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                                                      sub_100020530("ASPFTLParseBufferToCxt: turboRaidAuxPerBlock(920): (#16) cfg elements != (%d) buffer elements", v9);
                                                     }
 
-                                                    if (v14 >= 0x11)
+                                                    if (v9 >= 0x11)
                                                     {
-                                                      v18 = 16;
+                                                      v12 = 16;
                                                     }
 
                                                     else
                                                     {
-                                                      v18 = v14;
+                                                      v12 = v9;
                                                     }
 
-                                                    if (sub_1000189BC(a1, "turboRaidAuxPerBlock_", v8, 8u, v18))
+                                                    if (sub_1000189BC(a1, "turboRaidAuxPerBlock_", a2, 8u, v12))
                                                     {
                                                       goto LABEL_110;
                                                     }
 
-                                                    v19 = "ASPFTLParseBufferToCxt: turboRaidAuxPerBlock(920): Cannot add 16 elements to context";
-                                                    goto LABEL_2993;
+                                                    sub_100020530("ASPFTLParseBufferToCxt: turboRaidAuxPerBlock(920): Cannot add 16 elements to context", v14);
+                                                    return v5;
                                                   case 921:
-                                                    if (v14 != 16)
+                                                    if (v9 != 16)
                                                     {
-                                                      sub_100020530("ASPFTLParseBufferToCxt: turboRaidAuxBetweenRefreshesPerBlock(921): (#16) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                                                      sub_100020530("ASPFTLParseBufferToCxt: turboRaidAuxBetweenRefreshesPerBlock(921): (#16) cfg elements != (%d) buffer elements", v9);
                                                     }
 
-                                                    if (v14 >= 0x11)
+                                                    if (v9 >= 0x11)
                                                     {
-                                                      v18 = 16;
+                                                      v12 = 16;
                                                     }
 
                                                     else
                                                     {
-                                                      v18 = v14;
+                                                      v12 = v9;
                                                     }
 
-                                                    if (sub_1000189BC(a1, "turboRaidAuxBetweenRefreshesPerBlock_", v8, 8u, v18))
+                                                    if (sub_1000189BC(a1, "turboRaidAuxBetweenRefreshesPerBlock_", a2, 8u, v12))
                                                     {
                                                       goto LABEL_110;
                                                     }
 
-                                                    v19 = "ASPFTLParseBufferToCxt: turboRaidAuxBetweenRefreshesPerBlock(921): Cannot add 16 elements to context";
-                                                    goto LABEL_2993;
+                                                    sub_100020530("ASPFTLParseBufferToCxt: turboRaidAuxBetweenRefreshesPerBlock(921): Cannot add 16 elements to context", v14);
+                                                    return v5;
                                                   case 922:
-                                                    if (sub_100020050(a1, "", "turboRaidRelLockMark", *v8))
+                                                    if ((sub_100020050(a1, "", "turboRaidRelLockMark", *a2) & 1) == 0)
                                                     {
-                                                      goto LABEL_162;
+                                                      sub_100020530("ASPFTLParseBufferToCxt: turboRaidRelLockMark(922) cannot add 1 element to context");
                                                     }
 
-                                                    v17 = "ASPFTLParseBufferToCxt: turboRaidRelLockMark(922) cannot add 1 element to context";
-                                                    goto LABEL_161;
+                                                    break;
                                                   case 923:
-                                                    if (sub_100020050(a1, "", "turboRaidAuxLockMark", *v8))
+                                                    if ((sub_100020050(a1, "", "turboRaidAuxLockMark", *a2) & 1) == 0)
                                                     {
-                                                      goto LABEL_162;
+                                                      sub_100020530("ASPFTLParseBufferToCxt: turboRaidAuxLockMark(923) cannot add 1 element to context");
                                                     }
 
-                                                    v17 = "ASPFTLParseBufferToCxt: turboRaidAuxLockMark(923) cannot add 1 element to context";
-                                                    goto LABEL_161;
+                                                    break;
                                                   case 930:
-                                                    if (v14 != 16)
+                                                    if (v9 != 16)
                                                     {
-                                                      sub_100020530("ASPFTLParseBufferToCxt: turboRaidMaxCyclesBetweenAux(930): (#16) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                                                      sub_100020530("ASPFTLParseBufferToCxt: turboRaidMaxCyclesBetweenAux(930): (#16) cfg elements != (%d) buffer elements", v9);
                                                     }
 
-                                                    if (v14 >= 0x11)
+                                                    if (v9 >= 0x11)
                                                     {
-                                                      v18 = 16;
+                                                      v12 = 16;
                                                     }
 
                                                     else
                                                     {
-                                                      v18 = v14;
+                                                      v12 = v9;
                                                     }
 
-                                                    if (sub_1000189BC(a1, "turboRaidMaxCyclesBetweenAux_", v8, 8u, v18))
+                                                    if (sub_1000189BC(a1, "turboRaidMaxCyclesBetweenAux_", a2, 8u, v12))
                                                     {
                                                       goto LABEL_110;
                                                     }
 
-                                                    v19 = "ASPFTLParseBufferToCxt: turboRaidMaxCyclesBetweenAux(930): Cannot add 16 elements to context";
-                                                    goto LABEL_2993;
+                                                    sub_100020530("ASPFTLParseBufferToCxt: turboRaidMaxCyclesBetweenAux(930): Cannot add 16 elements to context", v14);
+                                                    return v5;
                                                   case 931:
-                                                    if (v14 != 16)
+                                                    if (v9 != 16)
                                                     {
-                                                      sub_100020530("ASPFTLParseBufferToCxt: turboRaidMinCyclesBetweenAux(931): (#16) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                                                      sub_100020530("ASPFTLParseBufferToCxt: turboRaidMinCyclesBetweenAux(931): (#16) cfg elements != (%d) buffer elements", v9);
                                                     }
 
-                                                    if (v14 >= 0x11)
+                                                    if (v9 >= 0x11)
                                                     {
-                                                      v18 = 16;
+                                                      v12 = 16;
                                                     }
 
                                                     else
                                                     {
-                                                      v18 = v14;
+                                                      v12 = v9;
                                                     }
 
-                                                    if (sub_1000189BC(a1, "turboRaidMinCyclesBetweenAux_", v8, 8u, v18))
+                                                    if (sub_1000189BC(a1, "turboRaidMinCyclesBetweenAux_", a2, 8u, v12))
                                                     {
                                                       goto LABEL_110;
                                                     }
 
-                                                    v19 = "ASPFTLParseBufferToCxt: turboRaidMinCyclesBetweenAux(931): Cannot add 16 elements to context";
-                                                    goto LABEL_2993;
+                                                    sub_100020530("ASPFTLParseBufferToCxt: turboRaidMinCyclesBetweenAux(931): Cannot add 16 elements to context", v14);
+                                                    return v5;
                                                   case 932:
-                                                    if (v14 != 16)
+                                                    if (v9 != 16)
                                                     {
-                                                      sub_100020530("ASPFTLParseBufferToCxt: turboRaidLastRelPECycles(932): (#16) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                                                      sub_100020530("ASPFTLParseBufferToCxt: turboRaidLastRelPECycles(932): (#16) cfg elements != (%d) buffer elements", v9);
                                                     }
 
-                                                    if (v14 >= 0x11)
+                                                    if (v9 >= 0x11)
                                                     {
-                                                      v18 = 16;
+                                                      v12 = 16;
                                                     }
 
                                                     else
                                                     {
-                                                      v18 = v14;
+                                                      v12 = v9;
                                                     }
 
-                                                    if (sub_1000189BC(a1, "turboRaidLastRelPECycles_", v8, 8u, v18))
+                                                    if (sub_1000189BC(a1, "turboRaidLastRelPECycles_", a2, 8u, v12))
                                                     {
                                                       goto LABEL_110;
                                                     }
 
-                                                    v19 = "ASPFTLParseBufferToCxt: turboRaidLastRelPECycles(932): Cannot add 16 elements to context";
-                                                    goto LABEL_2993;
+                                                    sub_100020530("ASPFTLParseBufferToCxt: turboRaidLastRelPECycles(932): Cannot add 16 elements to context", v14);
+                                                    return v5;
                                                   case 933:
-                                                    if (v14 != 16)
+                                                    if (v9 != 16)
                                                     {
-                                                      sub_100020530("ASPFTLParseBufferToCxt: turboRaidRelQualPECycles(933): (#16) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                                                      sub_100020530("ASPFTLParseBufferToCxt: turboRaidRelQualPECycles(933): (#16) cfg elements != (%d) buffer elements", v9);
                                                     }
 
-                                                    if (v14 >= 0x11)
+                                                    if (v9 >= 0x11)
                                                     {
-                                                      v18 = 16;
+                                                      v12 = 16;
                                                     }
 
                                                     else
                                                     {
-                                                      v18 = v14;
+                                                      v12 = v9;
                                                     }
 
-                                                    if (sub_1000189BC(a1, "turboRaidRelQualPECycles_", v8, 8u, v18))
+                                                    if (sub_1000189BC(a1, "turboRaidRelQualPECycles_", a2, 8u, v12))
                                                     {
                                                       goto LABEL_110;
                                                     }
 
-                                                    v19 = "ASPFTLParseBufferToCxt: turboRaidRelQualPECycles(933): Cannot add 16 elements to context";
-                                                    goto LABEL_2993;
+                                                    sub_100020530("ASPFTLParseBufferToCxt: turboRaidRelQualPECycles(933): Cannot add 16 elements to context", v14);
+                                                    return v5;
                                                   case 934:
-                                                    if (v14 != 16)
+                                                    if (v9 != 16)
                                                     {
-                                                      sub_100020530("ASPFTLParseBufferToCxt: turboRaidLastAuxPECycles(934): (#16) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                                                      sub_100020530("ASPFTLParseBufferToCxt: turboRaidLastAuxPECycles(934): (#16) cfg elements != (%d) buffer elements", v9);
                                                     }
 
-                                                    if (v14 >= 0x11)
+                                                    if (v9 >= 0x11)
                                                     {
-                                                      v18 = 16;
+                                                      v12 = 16;
                                                     }
 
                                                     else
                                                     {
-                                                      v18 = v14;
+                                                      v12 = v9;
                                                     }
 
-                                                    if (sub_1000189BC(a1, "turboRaidLastAuxPECycles_", v8, 8u, v18))
+                                                    if (sub_1000189BC(a1, "turboRaidLastAuxPECycles_", a2, 8u, v12))
                                                     {
                                                       goto LABEL_110;
                                                     }
 
-                                                    v19 = "ASPFTLParseBufferToCxt: turboRaidLastAuxPECycles(934): Cannot add 16 elements to context";
-                                                    goto LABEL_2993;
+                                                    sub_100020530("ASPFTLParseBufferToCxt: turboRaidLastAuxPECycles(934): Cannot add 16 elements to context", v14);
+                                                    return v5;
                                                   case 935:
-                                                    if (v14 != 16)
+                                                    if (v9 != 16)
                                                     {
-                                                      sub_100020530("ASPFTLParseBufferToCxt: turboRaidAuxQualPECycles(935): (#16) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                                                      sub_100020530("ASPFTLParseBufferToCxt: turboRaidAuxQualPECycles(935): (#16) cfg elements != (%d) buffer elements", v9);
                                                     }
 
-                                                    if (v14 >= 0x11)
+                                                    if (v9 >= 0x11)
                                                     {
-                                                      v18 = 16;
+                                                      v12 = 16;
                                                     }
 
                                                     else
                                                     {
-                                                      v18 = v14;
+                                                      v12 = v9;
                                                     }
 
-                                                    if (sub_1000189BC(a1, "turboRaidAuxQualPECycles_", v8, 8u, v18))
+                                                    if (sub_1000189BC(a1, "turboRaidAuxQualPECycles_", a2, 8u, v12))
                                                     {
                                                       goto LABEL_110;
                                                     }
 
-                                                    v19 = "ASPFTLParseBufferToCxt: turboRaidAuxQualPECycles(935): Cannot add 16 elements to context";
-                                                    goto LABEL_2993;
+                                                    sub_100020530("ASPFTLParseBufferToCxt: turboRaidAuxQualPECycles(935): Cannot add 16 elements to context", v14);
+                                                    return v5;
                                                   case 937:
-                                                    if (sub_100020050(a1, "", "turboRaidPEFailAfterRel", *v8))
+                                                    if ((sub_100020050(a1, "", "turboRaidPEFailAfterRel", *a2) & 1) == 0)
                                                     {
-                                                      goto LABEL_162;
+                                                      sub_100020530("ASPFTLParseBufferToCxt: turboRaidPEFailAfterRel(937) cannot add 1 element to context");
                                                     }
 
-                                                    v17 = "ASPFTLParseBufferToCxt: turboRaidPEFailAfterRel(937) cannot add 1 element to context";
-                                                    goto LABEL_161;
+                                                    break;
                                                   case 938:
-                                                    if (sub_100020050(a1, "", "turboRaidPEFailAfterAux", *v8))
+                                                    if ((sub_100020050(a1, "", "turboRaidPEFailAfterAux", *a2) & 1) == 0)
                                                     {
-                                                      goto LABEL_162;
+                                                      sub_100020530("ASPFTLParseBufferToCxt: turboRaidPEFailAfterAux(938) cannot add 1 element to context");
                                                     }
 
-                                                    v17 = "ASPFTLParseBufferToCxt: turboRaidPEFailAfterAux(938) cannot add 1 element to context";
-                                                    goto LABEL_161;
+                                                    break;
                                                   case 939:
-                                                    if (sub_100020050(a1, "", "dvfmVotesCPU", *v8))
+                                                    if ((sub_100020050(a1, "", "dvfmVotesCPU", *a2) & 1) == 0)
                                                     {
-                                                      goto LABEL_162;
+                                                      sub_100020530("ASPFTLParseBufferToCxt: dvfmVotesCPU(939) cannot add 1 element to context");
                                                     }
 
-                                                    v17 = "ASPFTLParseBufferToCxt: dvfmVotesCPU(939) cannot add 1 element to context";
-                                                    goto LABEL_161;
+                                                    break;
                                                   case 940:
-                                                    if (sub_100020050(a1, "", "dvfmVotesBandwidth", *v8))
+                                                    if ((sub_100020050(a1, "", "dvfmVotesBandwidth", *a2) & 1) == 0)
                                                     {
-                                                      goto LABEL_162;
+                                                      sub_100020530("ASPFTLParseBufferToCxt: dvfmVotesBandwidth(940) cannot add 1 element to context");
                                                     }
 
-                                                    v17 = "ASPFTLParseBufferToCxt: dvfmVotesBandwidth(940) cannot add 1 element to context";
-                                                    goto LABEL_161;
+                                                    break;
                                                   case 942:
-                                                    if (sub_100020050(a1, "", "maxSLCEndurance", *v8))
+                                                    if ((sub_100020050(a1, "", "maxSLCEndurance", *a2) & 1) == 0)
                                                     {
-                                                      goto LABEL_162;
+                                                      sub_100020530("ASPFTLParseBufferToCxt: maxSLCEndurance(942) cannot add 1 element to context");
                                                     }
 
-                                                    v17 = "ASPFTLParseBufferToCxt: maxSLCEndurance(942) cannot add 1 element to context";
-                                                    goto LABEL_161;
+                                                    break;
                                                   case 943:
-                                                    if (sub_100020050(a1, "", "maxMixedEndurance", *v8))
+                                                    if ((sub_100020050(a1, "", "maxMixedEndurance", *a2) & 1) == 0)
                                                     {
-                                                      goto LABEL_162;
+                                                      sub_100020530("ASPFTLParseBufferToCxt: maxMixedEndurance(943) cannot add 1 element to context");
                                                     }
 
-                                                    v17 = "ASPFTLParseBufferToCxt: maxMixedEndurance(943) cannot add 1 element to context";
-                                                    goto LABEL_161;
+                                                    break;
                                                   case 944:
-                                                    if (sub_100020050(a1, "", "maxNativeEndurance", *v8))
+                                                    if ((sub_100020050(a1, "", "maxNativeEndurance", *a2) & 1) == 0)
                                                     {
-                                                      goto LABEL_162;
+                                                      sub_100020530("ASPFTLParseBufferToCxt: maxNativeEndurance(944) cannot add 1 element to context");
                                                     }
 
-                                                    v17 = "ASPFTLParseBufferToCxt: maxNativeEndurance(944) cannot add 1 element to context";
-                                                    goto LABEL_161;
+                                                    break;
                                                   case 948:
-                                                    if (v14 != 40)
+                                                    if (v9 != 40)
                                                     {
-                                                      sub_100020530("ASPFTLParseBufferToCxt: assertHistory(948): (#40) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                                                      sub_100020530("ASPFTLParseBufferToCxt: assertHistory(948): (#40) cfg elements != (%d) buffer elements", v9);
                                                     }
 
-                                                    if (v14 >= 0x29)
+                                                    if (v9 >= 0x29)
                                                     {
-                                                      v18 = 40;
+                                                      v12 = 40;
                                                     }
 
                                                     else
                                                     {
-                                                      v18 = v14;
+                                                      v12 = v9;
                                                     }
 
-                                                    if (sub_1000189BC(a1, "assertHistory_", v8, 8u, v18))
+                                                    if (sub_1000189BC(a1, "assertHistory_", a2, 8u, v12))
                                                     {
                                                       goto LABEL_110;
                                                     }
 
-                                                    v19 = "ASPFTLParseBufferToCxt: assertHistory(948): Cannot add 40 elements to context";
-                                                    goto LABEL_2993;
+                                                    sub_100020530("ASPFTLParseBufferToCxt: assertHistory(948): Cannot add 40 elements to context", v14);
+                                                    return v5;
                                                   case 951:
-                                                    if (sub_100020050(a1, "", "asp3Support", *v8))
+                                                    if ((sub_100020050(a1, "", "asp3Support", *a2) & 1) == 0)
                                                     {
-                                                      goto LABEL_162;
+                                                      sub_100020530("ASPFTLParseBufferToCxt: asp3Support(951) cannot add 1 element to context");
                                                     }
 
-                                                    v17 = "ASPFTLParseBufferToCxt: asp3Support(951) cannot add 1 element to context";
-                                                    goto LABEL_161;
+                                                    break;
                                                   case 953:
-                                                    if (sub_100020050(a1, "", "numCrossTempRaidUecc", *v8))
+                                                    if ((sub_100020050(a1, "", "numCrossTempRaidUecc", *a2) & 1) == 0)
                                                     {
-                                                      goto LABEL_162;
+                                                      sub_100020530("ASPFTLParseBufferToCxt: numCrossTempRaidUecc(953) cannot add 1 element to context");
                                                     }
 
-                                                    v17 = "ASPFTLParseBufferToCxt: numCrossTempRaidUecc(953) cannot add 1 element to context";
-                                                    goto LABEL_161;
+                                                    break;
                                                   case 961:
-                                                    if (sub_100020050(a1, "", "osBuildStr", *v8))
+                                                    if ((sub_100020050(a1, "", "osBuildStr", *a2) & 1) == 0)
                                                     {
-                                                      goto LABEL_162;
+                                                      sub_100020530("ASPFTLParseBufferToCxt: osBuildStr(961) cannot add 1 element to context");
                                                     }
 
-                                                    v17 = "ASPFTLParseBufferToCxt: osBuildStr(961) cannot add 1 element to context";
-                                                    goto LABEL_161;
+                                                    break;
                                                   case 962:
-                                                    if (sub_100020050(a1, "", "raidConfig", *v8))
+                                                    if ((sub_100020050(a1, "", "raidConfig", *a2) & 1) == 0)
                                                     {
-                                                      goto LABEL_162;
+                                                      sub_100020530("ASPFTLParseBufferToCxt: raidConfig(962) cannot add 1 element to context");
                                                     }
 
-                                                    v17 = "ASPFTLParseBufferToCxt: raidConfig(962) cannot add 1 element to context";
-                                                    goto LABEL_161;
+                                                    break;
                                                   case 964:
-                                                    if (sub_100020050(a1, "", "raidBlkParityBands", *v8))
+                                                    if ((sub_100020050(a1, "", "raidBlkParityBands", *a2) & 1) == 0)
                                                     {
-                                                      goto LABEL_162;
+                                                      sub_100020530("ASPFTLParseBufferToCxt: raidBlkParityBands(964) cannot add 1 element to context");
                                                     }
 
-                                                    v17 = "ASPFTLParseBufferToCxt: raidBlkParityBands(964) cannot add 1 element to context";
-                                                    goto LABEL_161;
+                                                    break;
                                                   case 965:
-                                                    if (sub_100020050(a1, "", "raidBlkParitySecs", *v8))
+                                                    if ((sub_100020050(a1, "", "raidBlkParitySecs", *a2) & 1) == 0)
                                                     {
-                                                      goto LABEL_162;
+                                                      sub_100020530("ASPFTLParseBufferToCxt: raidBlkParitySecs(965) cannot add 1 element to context");
                                                     }
 
-                                                    v17 = "ASPFTLParseBufferToCxt: raidBlkParitySecs(965) cannot add 1 element to context";
-                                                    goto LABEL_161;
+                                                    break;
                                                   case 967:
-                                                    if (v14 != 12)
+                                                    if (v9 != 12)
                                                     {
-                                                      sub_100020530("ASPFTLParseBufferToCxt: indTrimFrags(967): (#12) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                                                      sub_100020530("ASPFTLParseBufferToCxt: indTrimFrags(967): (#12) cfg elements != (%d) buffer elements", v9);
                                                     }
 
-                                                    if (v14 >= 0xD)
+                                                    if (v9 >= 0xD)
                                                     {
-                                                      v18 = 12;
+                                                      v12 = 12;
                                                     }
 
                                                     else
                                                     {
-                                                      v18 = v14;
+                                                      v12 = v9;
                                                     }
 
-                                                    if (sub_1000189BC(a1, "indTrimFrags_", v8, 8u, v18))
+                                                    if (sub_1000189BC(a1, "indTrimFrags_", a2, 8u, v12))
                                                     {
                                                       goto LABEL_110;
                                                     }
 
-                                                    v19 = "ASPFTLParseBufferToCxt: indTrimFrags(967): Cannot add 12 elements to context";
-                                                    goto LABEL_2993;
+                                                    sub_100020530("ASPFTLParseBufferToCxt: indTrimFrags(967): Cannot add 12 elements to context", v14);
+                                                    return v5;
                                                   case 971:
-                                                    if (v14 != 12)
+                                                    if (v9 != 12)
                                                     {
-                                                      sub_100020530("ASPFTLParseBufferToCxt: indUsedFrags(971): (#12) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                                                      sub_100020530("ASPFTLParseBufferToCxt: indUsedFrags(971): (#12) cfg elements != (%d) buffer elements", v9);
                                                     }
 
-                                                    if (v14 >= 0xD)
+                                                    if (v9 >= 0xD)
                                                     {
-                                                      v18 = 12;
+                                                      v12 = 12;
                                                     }
 
                                                     else
                                                     {
-                                                      v18 = v14;
+                                                      v12 = v9;
                                                     }
 
-                                                    if (sub_1000189BC(a1, "indUsedFrags_", v8, 8u, v18))
+                                                    if (sub_1000189BC(a1, "indUsedFrags_", a2, 8u, v12))
                                                     {
                                                       goto LABEL_110;
                                                     }
 
-                                                    v19 = "ASPFTLParseBufferToCxt: indUsedFrags(971): Cannot add 12 elements to context";
-                                                    goto LABEL_2993;
+                                                    sub_100020530("ASPFTLParseBufferToCxt: indUsedFrags(971): Cannot add 12 elements to context", v14);
+                                                    return v5;
                                                   default:
-                                                    if (v12 != 996)
+                                                    if (v7 == 996)
                                                     {
-                                                      if (v12 != 997)
+                                                      if ((sub_100020050(a1, "", "clogFindFail", *a2) & 1) == 0)
                                                       {
-                                                        goto LABEL_2529;
+                                                        sub_100020530("ASPFTLParseBufferToCxt: clogFindFail(996) cannot add 1 element to context");
                                                       }
 
-                                                      if ((sub_100020050(a1, "", "clogFindBlank", *v8) & 1) == 0)
-                                                      {
-                                                        v17 = "ASPFTLParseBufferToCxt: clogFindBlank(997) cannot add 1 element to context";
-                                                        goto LABEL_161;
-                                                      }
-
-                                                      goto LABEL_162;
+                                                      break;
                                                     }
 
-                                                    if (sub_100020050(a1, "", "clogFindFail", *v8))
+                                                    if (v7 != 997)
                                                     {
-                                                      goto LABEL_162;
+                                                      goto LABEL_2528;
                                                     }
 
-                                                    v17 = "ASPFTLParseBufferToCxt: clogFindFail(996) cannot add 1 element to context";
+                                                    if ((sub_100020050(a1, "", "clogFindBlank", *a2) & 1) == 0)
+                                                    {
+                                                      sub_100020530("ASPFTLParseBufferToCxt: clogFindBlank(997) cannot add 1 element to context");
+                                                    }
+
                                                     break;
                                                 }
 
-                                                goto LABEL_161;
-                                              }
-
-                                              if (v12 <= 1137)
-                                              {
-                                                if (v12 > 1039)
-                                                {
-                                                  if (v12 > 1104)
-                                                  {
-                                                    if (v12 > 1115)
-                                                    {
-                                                      if (v12 == 1116)
-                                                      {
-                                                        if (v14 != 32)
-                                                        {
-                                                          sub_100020530("ASPFTLParseBufferToCxt: gcwamp(1116): (#32) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
-                                                        }
-
-                                                        if (v14 >= 0x21)
-                                                        {
-                                                          v18 = 32;
-                                                        }
-
-                                                        else
-                                                        {
-                                                          v18 = v14;
-                                                        }
-
-                                                        if ((sub_1000189BC(a1, "gcwamp_", v8, 8u, v18) & 1) == 0)
-                                                        {
-                                                          v19 = "ASPFTLParseBufferToCxt: gcwamp(1116): Cannot add 32 elements to context";
-                                                          goto LABEL_2993;
-                                                        }
-
-                                                        goto LABEL_110;
-                                                      }
-
-                                                      if (v12 == 1137)
-                                                      {
-                                                        if (sub_100020050(a1, "", "numOfToUnhappySwitches", *v8))
-                                                        {
-                                                          goto LABEL_162;
-                                                        }
-
-                                                        v17 = "ASPFTLParseBufferToCxt: numOfToUnhappySwitches(1137) cannot add 1 element to context";
-                                                        goto LABEL_161;
-                                                      }
-                                                    }
-
-                                                    else
-                                                    {
-                                                      if (v12 == 1105)
-                                                      {
-                                                        if (v14 != 14)
-                                                        {
-                                                          sub_100020530("ASPFTLParseBufferToCxt: hostReadSequential(1105): (#14) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
-                                                        }
-
-                                                        if (v14 >= 0xF)
-                                                        {
-                                                          v18 = 14;
-                                                        }
-
-                                                        else
-                                                        {
-                                                          v18 = v14;
-                                                        }
-
-                                                        if ((sub_1000189BC(a1, "hostReadSequential_", v8, 8u, v18) & 1) == 0)
-                                                        {
-                                                          v19 = "ASPFTLParseBufferToCxt: hostReadSequential(1105): Cannot add 14 elements to context";
-                                                          goto LABEL_2993;
-                                                        }
-
-                                                        goto LABEL_110;
-                                                      }
-
-                                                      if (v12 == 1106)
-                                                      {
-                                                        if (v14 != 14)
-                                                        {
-                                                          sub_100020530("ASPFTLParseBufferToCxt: GCReadSequential(1106): (#14) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
-                                                        }
-
-                                                        if (v14 >= 0xF)
-                                                        {
-                                                          v18 = 14;
-                                                        }
-
-                                                        else
-                                                        {
-                                                          v18 = v14;
-                                                        }
-
-                                                        if ((sub_1000189BC(a1, "GCReadSequential_", v8, 8u, v18) & 1) == 0)
-                                                        {
-                                                          v19 = "ASPFTLParseBufferToCxt: GCReadSequential(1106): Cannot add 14 elements to context";
-                                                          goto LABEL_2993;
-                                                        }
-
-                                                        goto LABEL_110;
-                                                      }
-                                                    }
-                                                  }
-
-                                                  else
-                                                  {
-                                                    if (v12 <= 1041)
-                                                    {
-                                                      v22 = v12 >> 37;
-                                                      if (v12 == 1040)
-                                                      {
-                                                        if (v14 != 31)
-                                                        {
-                                                          sub_100020530("ASPFTLParseBufferToCxt: bandsAgeBinsV2(1040): (#31) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
-                                                        }
-
-                                                        if (v22)
-                                                        {
-                                                          v18 = 31;
-                                                        }
-
-                                                        else
-                                                        {
-                                                          v18 = v14;
-                                                        }
-
-                                                        if ((sub_1000189BC(a1, "bandsAgeBinsV2_", v8, 8u, v18) & 1) == 0)
-                                                        {
-                                                          v19 = "ASPFTLParseBufferToCxt: bandsAgeBinsV2(1040): Cannot add 31 elements to context";
-                                                          goto LABEL_2993;
-                                                        }
-                                                      }
-
-                                                      else
-                                                      {
-                                                        if (v14 != 31)
-                                                        {
-                                                          sub_100020530("ASPFTLParseBufferToCxt: bandsAgeBinsSnapshot(1041): (#31) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
-                                                        }
-
-                                                        if (v22)
-                                                        {
-                                                          v18 = 31;
-                                                        }
-
-                                                        else
-                                                        {
-                                                          v18 = v14;
-                                                        }
-
-                                                        if ((sub_1000189BC(a1, "bandsAgeBinsSnapshot_", v8, 8u, v18) & 1) == 0)
-                                                        {
-                                                          v19 = "ASPFTLParseBufferToCxt: bandsAgeBinsSnapshot(1041): Cannot add 31 elements to context";
-                                                          goto LABEL_2993;
-                                                        }
-                                                      }
-
-                                                      goto LABEL_110;
-                                                    }
-
-                                                    if (v12 == 1042)
-                                                    {
-                                                      if (v14 != 15)
-                                                      {
-                                                        sub_100020530("ASPFTLParseBufferToCxt: bandsAgeBinsReadSectors(1042): (#15) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
-                                                      }
-
-                                                      if (v12 >> 36)
-                                                      {
-                                                        v18 = 15;
-                                                      }
-
-                                                      else
-                                                      {
-                                                        v18 = v14;
-                                                      }
-
-                                                      if ((sub_1000189BC(a1, "bandsAgeBinsReadSectors_", v8, 8u, v18) & 1) == 0)
-                                                      {
-                                                        v19 = "ASPFTLParseBufferToCxt: bandsAgeBinsReadSectors(1042): Cannot add 15 elements to context";
-                                                        goto LABEL_2993;
-                                                      }
-
-                                                      goto LABEL_110;
-                                                    }
-
-                                                    if (v12 == 1080)
-                                                    {
-                                                      if (sub_100020050(a1, "", "raidForceClogLoad", *v8))
-                                                      {
-                                                        goto LABEL_162;
-                                                      }
-
-                                                      v17 = "ASPFTLParseBufferToCxt: raidForceClogLoad(1080) cannot add 1 element to context";
-                                                      goto LABEL_161;
-                                                    }
-                                                  }
-
-                                                  goto LABEL_2529;
-                                                }
-
-                                                if (v12 > 1002)
-                                                {
-                                                  if (v12 > 1015)
-                                                  {
-                                                    if (v12 == 1016)
-                                                    {
-                                                      if (sub_100020050(a1, "", "eanEarlyBootNumUeccPages", *v8))
-                                                      {
-                                                        goto LABEL_162;
-                                                      }
-
-                                                      v17 = "ASPFTLParseBufferToCxt: eanEarlyBootNumUeccPages(1016) cannot add 1 element to context";
-                                                      goto LABEL_161;
-                                                    }
-
-                                                    if (v12 == 1017)
-                                                    {
-                                                      if (sub_100020050(a1, "", "eanEarlyBootUeccMultiplane", *v8))
-                                                      {
-                                                        goto LABEL_162;
-                                                      }
-
-                                                      v17 = "ASPFTLParseBufferToCxt: eanEarlyBootUeccMultiplane(1017) cannot add 1 element to context";
-                                                      goto LABEL_161;
-                                                    }
-                                                  }
-
-                                                  else
-                                                  {
-                                                    if (v12 == 1003)
-                                                    {
-                                                      if (sub_100020050(a1, "", "clogReplaySpfError", *v8))
-                                                      {
-                                                        goto LABEL_162;
-                                                      }
-
-                                                      v17 = "ASPFTLParseBufferToCxt: clogReplaySpfError(1003) cannot add 1 element to context";
-                                                      goto LABEL_161;
-                                                    }
-
-                                                    if (v12 == 1015)
-                                                    {
-                                                      if (v14 != 4)
-                                                      {
-                                                        sub_100020530("ASPFTLParseBufferToCxt: eanEarlyBootUeccPage(1015): (#4) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
-                                                      }
-
-                                                      if (v14 >= 5)
-                                                      {
-                                                        v18 = 4;
-                                                      }
-
-                                                      else
-                                                      {
-                                                        v18 = v14;
-                                                      }
-
-                                                      if ((sub_1000189BC(a1, "eanEarlyBootUeccPage_", v8, 8u, v18) & 1) == 0)
-                                                      {
-                                                        v19 = "ASPFTLParseBufferToCxt: eanEarlyBootUeccPage(1015): Cannot add 4 elements to context";
-                                                        goto LABEL_2993;
-                                                      }
-
-                                                      goto LABEL_110;
-                                                    }
-                                                  }
-
-                                                  goto LABEL_2529;
-                                                }
-
-                                                if (v12 <= 1000)
-                                                {
-                                                  if (v12 == 998)
-                                                  {
-                                                    if (sub_100020050(a1, "", "clogFindUnc", *v8))
-                                                    {
-                                                      goto LABEL_162;
-                                                    }
-
-                                                    v17 = "ASPFTLParseBufferToCxt: clogFindUnc(998) cannot add 1 element to context";
-                                                    goto LABEL_161;
-                                                  }
-
-                                                  if (v12 == 999)
-                                                  {
-                                                    if (sub_100020050(a1, "", "clogFindUnexpected", *v8))
-                                                    {
-                                                      goto LABEL_162;
-                                                    }
-
-                                                    v17 = "ASPFTLParseBufferToCxt: clogFindUnexpected(999) cannot add 1 element to context";
-                                                    goto LABEL_161;
-                                                  }
-
-                                                  goto LABEL_2529;
-                                                }
-
-                                                if (v12 == 1001)
-                                                {
-                                                  if (v14 != 8)
-                                                  {
-                                                    sub_100020530("ASPFTLParseBufferToCxt: clogReplayFailReason(1001): (#8) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
-                                                  }
-
-                                                  if (v14 >= 9)
-                                                  {
-                                                    v18 = 8;
-                                                  }
-
-                                                  else
-                                                  {
-                                                    v18 = v14;
-                                                  }
-
-                                                  if ((sub_1000189BC(a1, "clogReplayFailReason_", v8, 8u, v18) & 1) == 0)
-                                                  {
-                                                    v19 = "ASPFTLParseBufferToCxt: clogReplayFailReason(1001): Cannot add 8 elements to context";
-                                                    goto LABEL_2993;
-                                                  }
-
-                                                  goto LABEL_110;
-                                                }
-
-                                                if ((sub_100020050(a1, "", "clogReplayTransientError", *v8) & 1) == 0)
-                                                {
-                                                  v17 = "ASPFTLParseBufferToCxt: clogReplayTransientError(1002) cannot add 1 element to context";
 LABEL_161:
-                                                  sub_100020530(v17, a2, a3, a4, a5, a6, a7, a8, v21);
-                                                }
-
-LABEL_162:
-                                                v10 = (v10 + 1);
-LABEL_163:
-                                                v8 += v14;
-                                                v11 -= v14;
-                                                goto LABEL_2;
+                                                v5 = (v5 + 1);
+                                                goto LABEL_162;
                                               }
 
-                                              if (v12 > 1170)
+                                              if (v7 > 1137)
                                               {
-                                                if (v12 > 1180)
+                                                if (v7 > 1170)
                                                 {
-                                                  if (v12 <= 1182)
+                                                  if (v7 > 1180)
                                                   {
-                                                    if (v12 == 1181)
+                                                    if (v7 <= 1182)
                                                     {
-                                                      if (v14 != 4)
+                                                      if (v7 == 1181)
                                                       {
-                                                        sub_100020530("ASPFTLParseBufferToCxt: gc_cur_dw_gc3(1181): (#4) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
-                                                      }
+                                                        if (v9 != 4)
+                                                        {
+                                                          sub_100020530("ASPFTLParseBufferToCxt: gc_cur_dw_gc3(1181): (#4) cfg elements != (%d) buffer elements", v9);
+                                                        }
 
-                                                      if (v14 >= 5)
-                                                      {
-                                                        v18 = 4;
+                                                        if (v9 >= 5)
+                                                        {
+                                                          v12 = 4;
+                                                        }
+
+                                                        else
+                                                        {
+                                                          v12 = v9;
+                                                        }
+
+                                                        if ((sub_1000189BC(a1, "gc_cur_dw_gc3_", a2, 8u, v12) & 1) == 0)
+                                                        {
+                                                          sub_100020530("ASPFTLParseBufferToCxt: gc_cur_dw_gc3(1181): Cannot add 4 elements to context", v14);
+                                                          return v5;
+                                                        }
                                                       }
 
                                                       else
                                                       {
-                                                        v18 = v14;
+                                                        if (v9 != 4)
+                                                        {
+                                                          sub_100020530("ASPFTLParseBufferToCxt: gc_tot_dw_gc1(1182): (#4) cfg elements != (%d) buffer elements", v9);
+                                                        }
+
+                                                        if (v9 >= 5)
+                                                        {
+                                                          v12 = 4;
+                                                        }
+
+                                                        else
+                                                        {
+                                                          v12 = v9;
+                                                        }
+
+                                                        if ((sub_1000189BC(a1, "gc_tot_dw_gc1_", a2, 8u, v12) & 1) == 0)
+                                                        {
+                                                          sub_100020530("ASPFTLParseBufferToCxt: gc_tot_dw_gc1(1182): Cannot add 4 elements to context", v14);
+                                                          return v5;
+                                                        }
                                                       }
 
-                                                      if ((sub_1000189BC(a1, "gc_cur_dw_gc3_", v8, 8u, v18) & 1) == 0)
-                                                      {
-                                                        v19 = "ASPFTLParseBufferToCxt: gc_cur_dw_gc3(1181): Cannot add 4 elements to context";
-                                                        goto LABEL_2993;
-                                                      }
+                                                      goto LABEL_110;
                                                     }
 
-                                                    else
+                                                    if (v7 == 1183)
                                                     {
-                                                      if (v14 != 4)
+                                                      if (v9 != 4)
                                                       {
-                                                        sub_100020530("ASPFTLParseBufferToCxt: gc_tot_dw_gc1(1182): (#4) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                                                        sub_100020530("ASPFTLParseBufferToCxt: gc_tot_dw_gc2(1183): (#4) cfg elements != (%d) buffer elements", v9);
                                                       }
 
-                                                      if (v14 >= 5)
+                                                      if (v9 >= 5)
                                                       {
-                                                        v18 = 4;
+                                                        v12 = 4;
                                                       }
 
                                                       else
                                                       {
-                                                        v18 = v14;
+                                                        v12 = v9;
                                                       }
 
-                                                      if ((sub_1000189BC(a1, "gc_tot_dw_gc1_", v8, 8u, v18) & 1) == 0)
+                                                      if ((sub_1000189BC(a1, "gc_tot_dw_gc2_", a2, 8u, v12) & 1) == 0)
                                                       {
-                                                        v19 = "ASPFTLParseBufferToCxt: gc_tot_dw_gc1(1182): Cannot add 4 elements to context";
-                                                        goto LABEL_2993;
-                                                      }
-                                                    }
-
-                                                    goto LABEL_110;
-                                                  }
-
-                                                  if (v12 == 1183)
-                                                  {
-                                                    if (v14 != 4)
-                                                    {
-                                                      sub_100020530("ASPFTLParseBufferToCxt: gc_tot_dw_gc2(1183): (#4) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
-                                                    }
-
-                                                    if (v14 >= 5)
-                                                    {
-                                                      v18 = 4;
-                                                    }
-
-                                                    else
-                                                    {
-                                                      v18 = v14;
-                                                    }
-
-                                                    if ((sub_1000189BC(a1, "gc_tot_dw_gc2_", v8, 8u, v18) & 1) == 0)
-                                                    {
-                                                      v19 = "ASPFTLParseBufferToCxt: gc_tot_dw_gc2(1183): Cannot add 4 elements to context";
-                                                      goto LABEL_2993;
-                                                    }
-
-                                                    goto LABEL_110;
-                                                  }
-
-                                                  if (v12 == 1184)
-                                                  {
-                                                    if (sub_100020050(a1, "", "unhappy_state", *v8))
-                                                    {
-                                                      goto LABEL_162;
-                                                    }
-
-                                                    v17 = "ASPFTLParseBufferToCxt: unhappy_state(1184) cannot add 1 element to context";
-                                                    goto LABEL_161;
-                                                  }
-                                                }
-
-                                                else
-                                                {
-                                                  if (v12 > 1178)
-                                                  {
-                                                    if (v12 == 1179)
-                                                    {
-                                                      if (v14 != 4)
-                                                      {
-                                                        sub_100020530("ASPFTLParseBufferToCxt: gc_cur_dw_gc1(1179): (#4) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                                                        sub_100020530("ASPFTLParseBufferToCxt: gc_tot_dw_gc2(1183): Cannot add 4 elements to context", v14);
+                                                        return v5;
                                                       }
 
-                                                      if (v14 >= 5)
+                                                      goto LABEL_110;
+                                                    }
+
+                                                    if (v7 == 1184)
+                                                    {
+                                                      if ((sub_100020050(a1, "", "unhappy_state", *a2) & 1) == 0)
                                                       {
-                                                        v18 = 4;
+                                                        sub_100020530("ASPFTLParseBufferToCxt: unhappy_state(1184) cannot add 1 element to context");
+                                                      }
+
+                                                      goto LABEL_161;
+                                                    }
+                                                  }
+
+                                                  else
+                                                  {
+                                                    if (v7 > 1178)
+                                                    {
+                                                      if (v7 == 1179)
+                                                      {
+                                                        if (v9 != 4)
+                                                        {
+                                                          sub_100020530("ASPFTLParseBufferToCxt: gc_cur_dw_gc1(1179): (#4) cfg elements != (%d) buffer elements", v9);
+                                                        }
+
+                                                        if (v9 >= 5)
+                                                        {
+                                                          v12 = 4;
+                                                        }
+
+                                                        else
+                                                        {
+                                                          v12 = v9;
+                                                        }
+
+                                                        if ((sub_1000189BC(a1, "gc_cur_dw_gc1_", a2, 8u, v12) & 1) == 0)
+                                                        {
+                                                          sub_100020530("ASPFTLParseBufferToCxt: gc_cur_dw_gc1(1179): Cannot add 4 elements to context", v14);
+                                                          return v5;
+                                                        }
                                                       }
 
                                                       else
                                                       {
-                                                        v18 = v14;
+                                                        if (v9 != 4)
+                                                        {
+                                                          sub_100020530("ASPFTLParseBufferToCxt: gc_cur_dw_gc2(1180): (#4) cfg elements != (%d) buffer elements", v9);
+                                                        }
+
+                                                        if (v9 >= 5)
+                                                        {
+                                                          v12 = 4;
+                                                        }
+
+                                                        else
+                                                        {
+                                                          v12 = v9;
+                                                        }
+
+                                                        if ((sub_1000189BC(a1, "gc_cur_dw_gc2_", a2, 8u, v12) & 1) == 0)
+                                                        {
+                                                          sub_100020530("ASPFTLParseBufferToCxt: gc_cur_dw_gc2(1180): Cannot add 4 elements to context", v14);
+                                                          return v5;
+                                                        }
                                                       }
 
-                                                      if ((sub_1000189BC(a1, "gc_cur_dw_gc1_", v8, 8u, v18) & 1) == 0)
-                                                      {
-                                                        v19 = "ASPFTLParseBufferToCxt: gc_cur_dw_gc1(1179): Cannot add 4 elements to context";
-                                                        goto LABEL_2993;
-                                                      }
+                                                      goto LABEL_110;
                                                     }
 
-                                                    else
+                                                    if (v7 == 1171)
                                                     {
-                                                      if (v14 != 4)
+                                                      if (v9 != 10)
                                                       {
-                                                        sub_100020530("ASPFTLParseBufferToCxt: gc_cur_dw_gc2(1180): (#4) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                                                        sub_100020530("ASPFTLParseBufferToCxt: poDetectEmptySpotRemovalAge(1171): (#10) cfg elements != (%d) buffer elements", v9);
                                                       }
 
-                                                      if (v14 >= 5)
+                                                      if (v9 >= 0xB)
                                                       {
-                                                        v18 = 4;
+                                                        v12 = 10;
                                                       }
 
                                                       else
                                                       {
-                                                        v18 = v14;
+                                                        v12 = v9;
                                                       }
 
-                                                      if ((sub_1000189BC(a1, "gc_cur_dw_gc2_", v8, 8u, v18) & 1) == 0)
+                                                      if ((sub_1000189BC(a1, "poDetectEmptySpotRemovalAge_", a2, 8u, v12) & 1) == 0)
                                                       {
-                                                        v19 = "ASPFTLParseBufferToCxt: gc_cur_dw_gc2(1180): Cannot add 4 elements to context";
-                                                        goto LABEL_2993;
+                                                        sub_100020530("ASPFTLParseBufferToCxt: poDetectEmptySpotRemovalAge(1171): Cannot add 10 elements to context", v14);
+                                                        return v5;
                                                       }
+
+                                                      goto LABEL_110;
                                                     }
 
-                                                    goto LABEL_110;
-                                                  }
-
-                                                  if (v12 == 1171)
-                                                  {
-                                                    if (v14 != 10)
+                                                    if (v7 == 1172)
                                                     {
-                                                      sub_100020530("ASPFTLParseBufferToCxt: poDetectEmptySpotRemovalAge(1171): (#10) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                                                      if (v9 != 3)
+                                                      {
+                                                        sub_100020530("ASPFTLParseBufferToCxt: poDetectGBBedMostSevereCost(1172): (#3) cfg elements != (%d) buffer elements", v9);
+                                                      }
+
+                                                      if (v7 >> 34)
+                                                      {
+                                                        v12 = 3;
+                                                      }
+
+                                                      else
+                                                      {
+                                                        v12 = v9;
+                                                      }
+
+                                                      if ((sub_1000189BC(a1, "poDetectGBBedMostSevereCost_", a2, 8u, v12) & 1) == 0)
+                                                      {
+                                                        sub_100020530("ASPFTLParseBufferToCxt: poDetectGBBedMostSevereCost(1172): Cannot add 3 elements to context", v14);
+                                                        return v5;
+                                                      }
+
+                                                      goto LABEL_110;
                                                     }
-
-                                                    if (v14 >= 0xB)
-                                                    {
-                                                      v18 = 10;
-                                                    }
-
-                                                    else
-                                                    {
-                                                      v18 = v14;
-                                                    }
-
-                                                    if ((sub_1000189BC(a1, "poDetectEmptySpotRemovalAge_", v8, 8u, v18) & 1) == 0)
-                                                    {
-                                                      v19 = "ASPFTLParseBufferToCxt: poDetectEmptySpotRemovalAge(1171): Cannot add 10 elements to context";
-                                                      goto LABEL_2993;
-                                                    }
-
-                                                    goto LABEL_110;
-                                                  }
-
-                                                  if (v12 == 1172)
-                                                  {
-                                                    if (v14 != 3)
-                                                    {
-                                                      sub_100020530("ASPFTLParseBufferToCxt: poDetectGBBedMostSevereCost(1172): (#3) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
-                                                    }
-
-                                                    if (v12 >> 34)
-                                                    {
-                                                      v18 = 3;
-                                                    }
-
-                                                    else
-                                                    {
-                                                      v18 = v14;
-                                                    }
-
-                                                    if ((sub_1000189BC(a1, "poDetectGBBedMostSevereCost_", v8, 8u, v18) & 1) == 0)
-                                                    {
-                                                      v19 = "ASPFTLParseBufferToCxt: poDetectGBBedMostSevereCost(1172): Cannot add 3 elements to context";
-                                                      goto LABEL_2993;
-                                                    }
-
-                                                    goto LABEL_110;
                                                   }
                                                 }
 
-                                                goto LABEL_2529;
-                                              }
-
-                                              if (v12 > 1156)
-                                              {
-                                                if (v12 > 1167)
+                                                else if (v7 > 1156)
                                                 {
-                                                  if (v12 == 1168)
+                                                  if (v7 > 1167)
                                                   {
-                                                    if (v14 != 2)
+                                                    if (v7 == 1168)
                                                     {
-                                                      sub_100020530("ASPFTLParseBufferToCxt: poDetectPERemovalTotalCost(1168): (#2) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                                                      if (v9 != 2)
+                                                      {
+                                                        sub_100020530("ASPFTLParseBufferToCxt: poDetectPERemovalTotalCost(1168): (#2) cfg elements != (%d) buffer elements", v9);
+                                                      }
+
+                                                      if (v9 >= 3)
+                                                      {
+                                                        v12 = 2;
+                                                      }
+
+                                                      else
+                                                      {
+                                                        v12 = v9;
+                                                      }
+
+                                                      if ((sub_1000189BC(a1, "poDetectPERemovalTotalCost_", a2, 8u, v12) & 1) == 0)
+                                                      {
+                                                        sub_100020530("ASPFTLParseBufferToCxt: poDetectPERemovalTotalCost(1168): Cannot add 2 elements to context", v14);
+                                                        return v5;
+                                                      }
+
+                                                      goto LABEL_110;
                                                     }
 
-                                                    if (v14 >= 3)
+                                                    if (v7 == 1169)
                                                     {
-                                                      v18 = 2;
+                                                      if (v9 != 2)
+                                                      {
+                                                        sub_100020530("ASPFTLParseBufferToCxt: poDetectEmptySpotRemovalTotalCost(1169): (#2) cfg elements != (%d) buffer elements", v9);
+                                                      }
+
+                                                      if (v9 >= 3)
+                                                      {
+                                                        v12 = 2;
+                                                      }
+
+                                                      else
+                                                      {
+                                                        v12 = v9;
+                                                      }
+
+                                                      if ((sub_1000189BC(a1, "poDetectEmptySpotRemovalTotalCost_", a2, 8u, v12) & 1) == 0)
+                                                      {
+                                                        sub_100020530("ASPFTLParseBufferToCxt: poDetectEmptySpotRemovalTotalCost(1169): Cannot add 2 elements to context", v14);
+                                                        return v5;
+                                                      }
+
+                                                      goto LABEL_110;
+                                                    }
+                                                  }
+
+                                                  else
+                                                  {
+                                                    if (v7 == 1157)
+                                                    {
+                                                      if ((sub_100020050(a1, "", "eanMaxForceROTimeMs", *a2) & 1) == 0)
+                                                      {
+                                                        sub_100020530("ASPFTLParseBufferToCxt: eanMaxForceROTimeMs(1157) cannot add 1 element to context");
+                                                      }
+
+                                                      goto LABEL_161;
+                                                    }
+
+                                                    if (v7 == 1158)
+                                                    {
+                                                      if ((sub_100020050(a1, "", "eanMaxForceRORecoTimeMs", *a2) & 1) == 0)
+                                                      {
+                                                        sub_100020530("ASPFTLParseBufferToCxt: eanMaxForceRORecoTimeMs(1158) cannot add 1 element to context");
+                                                      }
+
+                                                      goto LABEL_161;
+                                                    }
+                                                  }
+                                                }
+
+                                                else if (v7 > 1147)
+                                                {
+                                                  if (v7 == 1148)
+                                                  {
+                                                    if (v9 != 24)
+                                                    {
+                                                      sub_100020530("ASPFTLParseBufferToCxt: gc_concurrent_dw_gc1(1148): (#24) cfg elements != (%d) buffer elements", v9);
+                                                    }
+
+                                                    if (v9 >= 0x19)
+                                                    {
+                                                      v12 = 24;
                                                     }
 
                                                     else
                                                     {
-                                                      v18 = v14;
+                                                      v12 = v9;
                                                     }
 
-                                                    if ((sub_1000189BC(a1, "poDetectPERemovalTotalCost_", v8, 8u, v18) & 1) == 0)
+                                                    if ((sub_1000189BC(a1, "gc_concurrent_dw_gc1_", a2, 8u, v12) & 1) == 0)
                                                     {
-                                                      v19 = "ASPFTLParseBufferToCxt: poDetectPERemovalTotalCost(1168): Cannot add 2 elements to context";
-                                                      goto LABEL_2993;
+                                                      sub_100020530("ASPFTLParseBufferToCxt: gc_concurrent_dw_gc1(1148): Cannot add 24 elements to context", v14);
+                                                      return v5;
                                                     }
 
-                                                    goto LABEL_110;
-                                                  }
-
-                                                  if (v12 == 1169)
-                                                  {
-                                                    if (v14 != 2)
-                                                    {
-                                                      sub_100020530("ASPFTLParseBufferToCxt: poDetectEmptySpotRemovalTotalCost(1169): (#2) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
-                                                    }
-
-                                                    if (v14 >= 3)
-                                                    {
-                                                      v18 = 2;
-                                                    }
-
-                                                    else
-                                                    {
-                                                      v18 = v14;
-                                                    }
-
-                                                    if ((sub_1000189BC(a1, "poDetectEmptySpotRemovalTotalCost_", v8, 8u, v18) & 1) == 0)
-                                                    {
-                                                      v19 = "ASPFTLParseBufferToCxt: poDetectEmptySpotRemovalTotalCost(1169): Cannot add 2 elements to context";
-                                                      goto LABEL_2993;
-                                                    }
-
-                                                    goto LABEL_110;
-                                                  }
-                                                }
-
-                                                else
-                                                {
-                                                  if (v12 == 1157)
-                                                  {
-                                                    if (sub_100020050(a1, "", "eanMaxForceROTimeMs", *v8))
-                                                    {
-                                                      goto LABEL_162;
-                                                    }
-
-                                                    v17 = "ASPFTLParseBufferToCxt: eanMaxForceROTimeMs(1157) cannot add 1 element to context";
-                                                    goto LABEL_161;
-                                                  }
-
-                                                  if (v12 == 1158)
-                                                  {
-                                                    if (sub_100020050(a1, "", "eanMaxForceRORecoTimeMs", *v8))
-                                                    {
-                                                      goto LABEL_162;
-                                                    }
-
-                                                    v17 = "ASPFTLParseBufferToCxt: eanMaxForceRORecoTimeMs(1158) cannot add 1 element to context";
-                                                    goto LABEL_161;
-                                                  }
-                                                }
-
-                                                goto LABEL_2529;
-                                              }
-
-                                              if (v12 <= 1147)
-                                              {
-                                                if (v12 == 1138)
-                                                {
-                                                  if (sub_100020050(a1, "", "numOfToHappySwitches", *v8))
-                                                  {
+LABEL_110:
+                                                    v5 = v12 + v5;
                                                     goto LABEL_162;
                                                   }
 
-                                                  v17 = "ASPFTLParseBufferToCxt: numOfToHappySwitches(1138) cannot add 1 element to context";
-                                                  goto LABEL_161;
-                                                }
-
-                                                if (v12 == 1147)
-                                                {
-                                                  if (v14 != 24)
+                                                  if (v7 == 1149)
                                                   {
-                                                    sub_100020530("ASPFTLParseBufferToCxt: gc_concurrent_dw_gc12(1147): (#24) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
-                                                  }
-
-                                                  if (v14 >= 0x19)
-                                                  {
-                                                    v18 = 24;
-                                                  }
-
-                                                  else
-                                                  {
-                                                    v18 = v14;
-                                                  }
-
-                                                  if ((sub_1000189BC(a1, "gc_concurrent_dw_gc12_", v8, 8u, v18) & 1) == 0)
-                                                  {
-                                                    v19 = "ASPFTLParseBufferToCxt: gc_concurrent_dw_gc12(1147): Cannot add 24 elements to context";
-                                                    goto LABEL_2993;
-                                                  }
-
-                                                  goto LABEL_110;
-                                                }
-
-LABEL_2529:
-                                                switch(v12)
-                                                {
-                                                  case 1185:
-                                                    if (sub_100020050(a1, "", "unhappy_level", *v8))
+                                                    if (v9 != 24)
                                                     {
-                                                      goto LABEL_162;
+                                                      sub_100020530("ASPFTLParseBufferToCxt: gc_concurrent_dw_gc2(1149): (#24) cfg elements != (%d) buffer elements", v9);
                                                     }
 
-                                                    v17 = "ASPFTLParseBufferToCxt: unhappy_level(1185) cannot add 1 element to context";
+                                                    if (v9 >= 0x19)
+                                                    {
+                                                      v12 = 24;
+                                                    }
+
+                                                    else
+                                                    {
+                                                      v12 = v9;
+                                                    }
+
+                                                    if ((sub_1000189BC(a1, "gc_concurrent_dw_gc2_", a2, 8u, v12) & 1) == 0)
+                                                    {
+                                                      sub_100020530("ASPFTLParseBufferToCxt: gc_concurrent_dw_gc2(1149): Cannot add 24 elements to context", v14);
+                                                      return v5;
+                                                    }
+
+                                                    goto LABEL_110;
+                                                  }
+                                                }
+
+                                                else
+                                                {
+                                                  if (v7 == 1138)
+                                                  {
+                                                    if ((sub_100020050(a1, "", "numOfToHappySwitches", *a2) & 1) == 0)
+                                                    {
+                                                      sub_100020530("ASPFTLParseBufferToCxt: numOfToHappySwitches(1138) cannot add 1 element to context");
+                                                    }
+
                                                     goto LABEL_161;
-                                                  case 1186:
-                                                  case 1187:
-                                                  case 1188:
-                                                  case 1191:
-                                                  case 1192:
-                                                  case 1193:
-                                                  case 1194:
-                                                  case 1195:
-                                                  case 1200:
-                                                  case 1203:
-                                                  case 1204:
-                                                  case 1205:
-                                                  case 1206:
-                                                  case 1207:
-                                                  case 1208:
-                                                  case 1209:
-                                                  case 1210:
-                                                  case 1212:
-                                                  case 1213:
-                                                  case 1214:
-                                                  case 1219:
-                                                  case 1220:
-                                                  case 1235:
-                                                  case 1236:
-                                                  case 1237:
-                                                  case 1238:
-                                                  case 1239:
-                                                  case 1240:
-                                                  case 1242:
-                                                  case 1243:
-                                                  case 1245:
-                                                  case 1247:
-                                                  case 1248:
-                                                  case 1249:
-                                                  case 1250:
-                                                  case 1251:
-                                                  case 1252:
-                                                  case 1253:
-                                                  case 1254:
-                                                  case 1255:
-                                                  case 1256:
-                                                  case 1257:
-                                                  case 1258:
-                                                  case 1259:
-                                                  case 1260:
-                                                  case 1261:
-                                                  case 1262:
-                                                  case 1263:
-LABEL_2686:
-                                                    if (v12 <= 1447)
+                                                  }
+
+                                                  if (v7 == 1147)
+                                                  {
+                                                    if (v9 != 24)
                                                     {
-                                                      switch(v12)
-                                                      {
-                                                        case 1354:
-                                                          if (sub_100020050(a1, "", "numOfThrottlingLevels", *v8))
-                                                          {
-                                                            goto LABEL_162;
-                                                          }
-
-                                                          v17 = "ASPFTLParseBufferToCxt: numOfThrottlingLevels(1354) cannot add 1 element to context";
-                                                          goto LABEL_161;
-                                                        case 1355:
-                                                          if (sub_100020050(a1, "", "crossTempColdEvict", *v8))
-                                                          {
-                                                            goto LABEL_162;
-                                                          }
-
-                                                          v17 = "ASPFTLParseBufferToCxt: crossTempColdEvict(1355) cannot add 1 element to context";
-                                                          goto LABEL_161;
-                                                        case 1356:
-                                                          if (sub_100020050(a1, "", "crossTempHotEvict", *v8))
-                                                          {
-                                                            goto LABEL_162;
-                                                          }
-
-                                                          v17 = "ASPFTLParseBufferToCxt: crossTempHotEvict(1356) cannot add 1 element to context";
-                                                          goto LABEL_161;
-                                                        case 1357:
-                                                          if (sub_100020050(a1, "", "crossTempColdHotEvict", *v8))
-                                                          {
-                                                            goto LABEL_162;
-                                                          }
-
-                                                          v17 = "ASPFTLParseBufferToCxt: crossTempColdHotEvict(1357) cannot add 1 element to context";
-                                                          goto LABEL_161;
-                                                        case 1358:
-                                                          if (v14 != 13)
-                                                          {
-                                                            sub_100020530("ASPFTLParseBufferToCxt: tempChangedHisto(1358): (#13) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
-                                                          }
-
-                                                          if (v12 >> 33 >= 7)
-                                                          {
-                                                            v18 = 13;
-                                                          }
-
-                                                          else
-                                                          {
-                                                            v18 = v14;
-                                                          }
-
-                                                          if (sub_1000189BC(a1, "tempChangedHisto_", v8, 8u, v18))
-                                                          {
-                                                            goto LABEL_110;
-                                                          }
-
-                                                          v19 = "ASPFTLParseBufferToCxt: tempChangedHisto(1358): Cannot add 13 elements to context";
-                                                          goto LABEL_2993;
-                                                        case 1359:
-                                                          if (v14 != 13)
-                                                          {
-                                                            sub_100020530("ASPFTLParseBufferToCxt: tempChangedEnterETHisto(1359): (#13) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
-                                                          }
-
-                                                          if (v12 >> 33 >= 7)
-                                                          {
-                                                            v18 = 13;
-                                                          }
-
-                                                          else
-                                                          {
-                                                            v18 = v14;
-                                                          }
-
-                                                          if (sub_1000189BC(a1, "tempChangedEnterETHisto_", v8, 8u, v18))
-                                                          {
-                                                            goto LABEL_110;
-                                                          }
-
-                                                          v19 = "ASPFTLParseBufferToCxt: tempChangedEnterETHisto(1359): Cannot add 13 elements to context";
-                                                          goto LABEL_2993;
-                                                        case 1362:
-                                                          if (v14 != 20)
-                                                          {
-                                                            sub_100020530("ASPFTLParseBufferToCxt: gcMustReasons(1362): (#20) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
-                                                          }
-
-                                                          if (v14 >= 0x15)
-                                                          {
-                                                            v18 = 20;
-                                                          }
-
-                                                          else
-                                                          {
-                                                            v18 = v14;
-                                                          }
-
-                                                          if (sub_1000189BC(a1, "gcMustReasons_", v8, 8u, v18))
-                                                          {
-                                                            goto LABEL_110;
-                                                          }
-
-                                                          v19 = "ASPFTLParseBufferToCxt: gcMustReasons(1362): Cannot add 20 elements to context";
-                                                          goto LABEL_2993;
-                                                        case 1367:
-                                                          if (v14 != 32)
-                                                          {
-                                                            sub_100020530("ASPFTLParseBufferToCxt: asyncMessageHisto(1367): (#32) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
-                                                          }
-
-                                                          if (v14 >= 0x21)
-                                                          {
-                                                            v18 = 32;
-                                                          }
-
-                                                          else
-                                                          {
-                                                            v18 = v14;
-                                                          }
-
-                                                          if (sub_1000189BC(a1, "asyncMessageHisto_", v8, 8u, v18))
-                                                          {
-                                                            goto LABEL_110;
-                                                          }
-
-                                                          v19 = "ASPFTLParseBufferToCxt: asyncMessageHisto(1367): Cannot add 32 elements to context";
-                                                          goto LABEL_2993;
-                                                        case 1368:
-                                                          if (sub_100020050(a1, "", "massScanIgnoredTooFrequent", *v8))
-                                                          {
-                                                            goto LABEL_162;
-                                                          }
-
-                                                          v17 = "ASPFTLParseBufferToCxt: massScanIgnoredTooFrequent(1368) cannot add 1 element to context";
-                                                          goto LABEL_161;
-                                                        case 1369:
-                                                          if (v14 != 8)
-                                                          {
-                                                            sub_100020530("ASPFTLParseBufferToCxt: realGBBPerDipOfFailingDie(1369): (#8) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
-                                                          }
-
-                                                          if (v14 >= 9)
-                                                          {
-                                                            v18 = 8;
-                                                          }
-
-                                                          else
-                                                          {
-                                                            v18 = v14;
-                                                          }
-
-                                                          if (sub_1000189BC(a1, "realGBBPerDipOfFailingDie_", v8, 8u, v18))
-                                                          {
-                                                            goto LABEL_110;
-                                                          }
-
-                                                          v19 = "ASPFTLParseBufferToCxt: realGBBPerDipOfFailingDie(1369): Cannot add 8 elements to context";
-                                                          goto LABEL_2993;
-                                                        case 1379:
-                                                          if (sub_100020050(a1, "", "boffOrderedReadBlank", *v8))
-                                                          {
-                                                            goto LABEL_162;
-                                                          }
-
-                                                          v17 = "ASPFTLParseBufferToCxt: boffOrderedReadBlank(1379) cannot add 1 element to context";
-                                                          goto LABEL_161;
-                                                        case 1380:
-                                                          if (sub_100020050(a1, "", "boffOrderedRaidSuccessValidLba", *v8))
-                                                          {
-                                                            goto LABEL_162;
-                                                          }
-
-                                                          v17 = "ASPFTLParseBufferToCxt: boffOrderedRaidSuccessValidLba(1380) cannot add 1 element to context";
-                                                          goto LABEL_161;
-                                                        case 1381:
-                                                          if (sub_100020050(a1, "", "unexpectedRaidFailures", *v8))
-                                                          {
-                                                            goto LABEL_162;
-                                                          }
-
-                                                          v17 = "ASPFTLParseBufferToCxt: unexpectedRaidFailures(1381) cannot add 1 element to context";
-                                                          goto LABEL_161;
-                                                        case 1382:
-                                                          if (sub_100020050(a1, "", "boffOrderedUnexpectedBlankValid", *v8))
-                                                          {
-                                                            goto LABEL_162;
-                                                          }
-
-                                                          v17 = "ASPFTLParseBufferToCxt: boffOrderedUnexpectedBlankValid(1382) cannot add 1 element to context";
-                                                          goto LABEL_161;
-                                                        case 1383:
-                                                          if (sub_100020050(a1, "", "raidExpectedFailPMXReconstructionInternal", *v8))
-                                                          {
-                                                            goto LABEL_162;
-                                                          }
-
-                                                          v17 = "ASPFTLParseBufferToCxt: raidExpectedFailPMXReconstructionInternal(1383) cannot add 1 element to context";
-                                                          goto LABEL_161;
-                                                        case 1384:
-                                                          if (sub_100020050(a1, "", "raidExpectedFailPMXReconstructionHost", *v8))
-                                                          {
-                                                            goto LABEL_162;
-                                                          }
-
-                                                          v17 = "ASPFTLParseBufferToCxt: raidExpectedFailPMXReconstructionHost(1384) cannot add 1 element to context";
-                                                          goto LABEL_161;
-                                                        case 1385:
-                                                          if (sub_100020050(a1, "", "raidExpectedFailBMXReconstructionInternal", *v8))
-                                                          {
-                                                            goto LABEL_162;
-                                                          }
-
-                                                          v17 = "ASPFTLParseBufferToCxt: raidExpectedFailBMXReconstructionInternal(1385) cannot add 1 element to context";
-                                                          goto LABEL_161;
-                                                        case 1386:
-                                                          if (sub_100020050(a1, "", "raidExpectedFailBMXReconstructionHost", *v8))
-                                                          {
-                                                            goto LABEL_162;
-                                                          }
-
-                                                          v17 = "ASPFTLParseBufferToCxt: raidExpectedFailBMXReconstructionHost(1386) cannot add 1 element to context";
-                                                          goto LABEL_161;
-                                                        case 1392:
-                                                          if (sub_100020050(a1, "", "cbdrHPScanHP", *v8))
-                                                          {
-                                                            goto LABEL_162;
-                                                          }
-
-                                                          v17 = "ASPFTLParseBufferToCxt: cbdrHPScanHP(1392) cannot add 1 element to context";
-                                                          goto LABEL_161;
-                                                        case 1393:
-                                                          if (sub_100020050(a1, "", "cbdrMPScanMP", *v8))
-                                                          {
-                                                            goto LABEL_162;
-                                                          }
-
-                                                          v17 = "ASPFTLParseBufferToCxt: cbdrMPScanMP(1393) cannot add 1 element to context";
-                                                          goto LABEL_161;
-                                                        case 1394:
-                                                          if (sub_100020050(a1, "", "cbdrMPScanHP", *v8))
-                                                          {
-                                                            goto LABEL_162;
-                                                          }
-
-                                                          v17 = "ASPFTLParseBufferToCxt: cbdrMPScanHP(1394) cannot add 1 element to context";
-                                                          goto LABEL_161;
-                                                        case 1401:
-                                                          if (sub_100020050(a1, "", "ldefragFailedMemBalancer", *v8))
-                                                          {
-                                                            goto LABEL_162;
-                                                          }
-
-                                                          v17 = "ASPFTLParseBufferToCxt: ldefragFailedMemBalancer(1401) cannot add 1 element to context";
-                                                          goto LABEL_161;
-                                                        case 1409:
-                                                          if (sub_100020050(a1, "", "BP_readThrottleEngagedCnt", *v8))
-                                                          {
-                                                            goto LABEL_162;
-                                                          }
-
-                                                          v17 = "ASPFTLParseBufferToCxt: BP_readThrottleEngagedCnt(1409) cannot add 1 element to context";
-                                                          goto LABEL_161;
-                                                        case 1410:
-                                                          if (sub_100020050(a1, "", "BP_readThrottleActualSize", *v8))
-                                                          {
-                                                            goto LABEL_162;
-                                                          }
-
-                                                          v17 = "ASPFTLParseBufferToCxt: BP_readThrottleActualSize(1410) cannot add 1 element to context";
-                                                          goto LABEL_161;
-                                                        default:
-                                                          goto LABEL_2987;
-                                                      }
+                                                      sub_100020530("ASPFTLParseBufferToCxt: gc_concurrent_dw_gc12(1147): (#24) cfg elements != (%d) buffer elements", v9);
                                                     }
 
-                                                    if (v12 > 1535)
+                                                    if (v9 >= 0x19)
                                                     {
-                                                      if (v12 > 1542)
+                                                      v12 = 24;
+                                                    }
+
+                                                    else
+                                                    {
+                                                      v12 = v9;
+                                                    }
+
+                                                    if ((sub_1000189BC(a1, "gc_concurrent_dw_gc12_", a2, 8u, v12) & 1) == 0)
+                                                    {
+                                                      sub_100020530("ASPFTLParseBufferToCxt: gc_concurrent_dw_gc12(1147): Cannot add 24 elements to context", v14);
+                                                      return v5;
+                                                    }
+
+                                                    goto LABEL_110;
+                                                  }
+                                                }
+                                              }
+
+                                              else if (v7 > 1039)
+                                              {
+                                                if (v7 > 1104)
+                                                {
+                                                  if (v7 > 1115)
+                                                  {
+                                                    if (v7 == 1116)
+                                                    {
+                                                      if (v9 != 32)
                                                       {
-                                                        if (v12 <= 1544)
-                                                        {
-                                                          if (v12 == 1543)
-                                                          {
-                                                            if (v14 != 10)
-                                                            {
-                                                              sub_100020530("ASPFTLParseBufferToCxt: istkLowNoDIPingIntervals(1543): (#10) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
-                                                            }
-
-                                                            if (v14 >= 0xB)
-                                                            {
-                                                              v18 = 10;
-                                                            }
-
-                                                            else
-                                                            {
-                                                              v18 = v14;
-                                                            }
-
-                                                            if ((sub_1000189BC(a1, "istkLowNoDIPingIntervals_", v8, 8u, v18) & 1) == 0)
-                                                            {
-                                                              v19 = "ASPFTLParseBufferToCxt: istkLowNoDIPingIntervals(1543): Cannot add 10 elements to context";
-                                                              goto LABEL_2993;
-                                                            }
-                                                          }
-
-                                                          else
-                                                          {
-                                                            if (v14 != 10)
-                                                            {
-                                                              sub_100020530("ASPFTLParseBufferToCxt: istkLowNoSUIPingIntervals(1544): (#10) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
-                                                            }
-
-                                                            if (v14 >= 0xB)
-                                                            {
-                                                              v18 = 10;
-                                                            }
-
-                                                            else
-                                                            {
-                                                              v18 = v14;
-                                                            }
-
-                                                            if ((sub_1000189BC(a1, "istkLowNoSUIPingIntervals_", v8, 8u, v18) & 1) == 0)
-                                                            {
-                                                              v19 = "ASPFTLParseBufferToCxt: istkLowNoSUIPingIntervals(1544): Cannot add 10 elements to context";
-                                                              goto LABEL_2993;
-                                                            }
-                                                          }
-
-                                                          goto LABEL_110;
-                                                        }
-
-                                                        if (v12 == 1545)
-                                                        {
-                                                          if (v14 != 6)
-                                                          {
-                                                            sub_100020530("ASPFTLParseBufferToCxt: istkLowAfterMedIntervals(1545): (#6) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
-                                                          }
-
-                                                          if (v14 >= 7)
-                                                          {
-                                                            v18 = 6;
-                                                          }
-
-                                                          else
-                                                          {
-                                                            v18 = v14;
-                                                          }
-
-                                                          if ((sub_1000189BC(a1, "istkLowAfterMedIntervals_", v8, 8u, v18) & 1) == 0)
-                                                          {
-                                                            v19 = "ASPFTLParseBufferToCxt: istkLowAfterMedIntervals(1545): Cannot add 6 elements to context";
-                                                            goto LABEL_2993;
-                                                          }
-
-                                                          goto LABEL_110;
-                                                        }
-
-                                                        if (v12 == 1547)
-                                                        {
-                                                          if (v14 != 5)
-                                                          {
-                                                            sub_100020530("ASPFTLParseBufferToCxt: istkHWBetweenMed(1547): (#5) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
-                                                          }
-
-                                                          if (v12 >> 33 >= 3)
-                                                          {
-                                                            v18 = 5;
-                                                          }
-
-                                                          else
-                                                          {
-                                                            v18 = v14;
-                                                          }
-
-                                                          if ((sub_1000189BC(a1, "istkHWBetweenMed_", v8, 8u, v18) & 1) == 0)
-                                                          {
-                                                            v19 = "ASPFTLParseBufferToCxt: istkHWBetweenMed(1547): Cannot add 5 elements to context";
-                                                            goto LABEL_2993;
-                                                          }
-
-                                                          goto LABEL_110;
-                                                        }
-
-                                                        if (v12 != 1570)
-                                                        {
-                                                          goto LABEL_2987;
-                                                        }
-
-                                                        if (sub_100020050(a1, "", "uptimeSeconds", *v8))
-                                                        {
-                                                          goto LABEL_162;
-                                                        }
-
-                                                        v17 = "ASPFTLParseBufferToCxt: uptimeSeconds(1570) cannot add 1 element to context";
+                                                        sub_100020530("ASPFTLParseBufferToCxt: gcwamp(1116): (#32) cfg elements != (%d) buffer elements", v9);
                                                       }
 
-                                                      else if (v12 <= 1537)
+                                                      if (v9 >= 0x21)
                                                       {
-                                                        if (v12 == 1536)
-                                                        {
-                                                          if (sub_100020050(a1, "", "istkLowPings", *v8))
-                                                          {
-                                                            goto LABEL_162;
-                                                          }
-
-                                                          v17 = "ASPFTLParseBufferToCxt: istkLowPings(1536) cannot add 1 element to context";
-                                                        }
-
-                                                        else
-                                                        {
-                                                          if (sub_100020050(a1, "", "istkLowNoDIPings", *v8))
-                                                          {
-                                                            goto LABEL_162;
-                                                          }
-
-                                                          v17 = "ASPFTLParseBufferToCxt: istkLowNoDIPings(1537) cannot add 1 element to context";
-                                                        }
+                                                        v12 = 32;
                                                       }
 
                                                       else
                                                       {
-                                                        switch(v12)
-                                                        {
-                                                          case 0x602:
-                                                            if (sub_100020050(a1, "", "istkLowNoSUIPings", *v8))
-                                                            {
-                                                              goto LABEL_162;
-                                                            }
-
-                                                            v17 = "ASPFTLParseBufferToCxt: istkLowNoSUIPings(1538) cannot add 1 element to context";
-                                                            break;
-                                                          case 0x603:
-                                                            if (sub_100020050(a1, "", "istkMedPings", *v8))
-                                                            {
-                                                              goto LABEL_162;
-                                                            }
-
-                                                            v17 = "ASPFTLParseBufferToCxt: istkMedPings(1539) cannot add 1 element to context";
-                                                            break;
-                                                          case 0x604:
-                                                            if (sub_100020050(a1, "", "istkHighPings", *v8))
-                                                            {
-                                                              goto LABEL_162;
-                                                            }
-
-                                                            v17 = "ASPFTLParseBufferToCxt: istkHighPings(1540) cannot add 1 element to context";
-                                                            break;
-                                                          default:
-                                                            goto LABEL_2987;
-                                                        }
+                                                        v12 = v9;
                                                       }
-                                                    }
 
-                                                    else
-                                                    {
-                                                      if (v12 > 1462)
+                                                      if ((sub_1000189BC(a1, "gcwamp_", a2, 8u, v12) & 1) == 0)
                                                       {
-                                                        if (v12 > 1532)
-                                                        {
-                                                          if (v12 == 1533)
-                                                          {
-                                                            if (v14 != 12)
-                                                            {
-                                                              sub_100020530("ASPFTLParseBufferToCxt: istkLowPingIntervals(1533): (#12) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
-                                                            }
-
-                                                            if (v14 >= 0xD)
-                                                            {
-                                                              v18 = 12;
-                                                            }
-
-                                                            else
-                                                            {
-                                                              v18 = v14;
-                                                            }
-
-                                                            if ((sub_1000189BC(a1, "istkLowPingIntervals_", v8, 8u, v18) & 1) == 0)
-                                                            {
-                                                              v19 = "ASPFTLParseBufferToCxt: istkLowPingIntervals(1533): Cannot add 12 elements to context";
-                                                              goto LABEL_2993;
-                                                            }
-                                                          }
-
-                                                          else if (v12 == 1534)
-                                                          {
-                                                            if (v14 != 10)
-                                                            {
-                                                              sub_100020530("ASPFTLParseBufferToCxt: istkMedPingIntervals(1534): (#10) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
-                                                            }
-
-                                                            if (v14 >= 0xB)
-                                                            {
-                                                              v18 = 10;
-                                                            }
-
-                                                            else
-                                                            {
-                                                              v18 = v14;
-                                                            }
-
-                                                            if ((sub_1000189BC(a1, "istkMedPingIntervals_", v8, 8u, v18) & 1) == 0)
-                                                            {
-                                                              v19 = "ASPFTLParseBufferToCxt: istkMedPingIntervals(1534): Cannot add 10 elements to context";
-                                                              goto LABEL_2993;
-                                                            }
-                                                          }
-
-                                                          else
-                                                          {
-                                                            if (v14 != 10)
-                                                            {
-                                                              sub_100020530("ASPFTLParseBufferToCxt: istkHighPingIntervals(1535): (#10) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
-                                                            }
-
-                                                            if (v14 >= 0xB)
-                                                            {
-                                                              v18 = 10;
-                                                            }
-
-                                                            else
-                                                            {
-                                                              v18 = v14;
-                                                            }
-
-                                                            if ((sub_1000189BC(a1, "istkHighPingIntervals_", v8, 8u, v18) & 1) == 0)
-                                                            {
-                                                              v19 = "ASPFTLParseBufferToCxt: istkHighPingIntervals(1535): Cannot add 10 elements to context";
-                                                              goto LABEL_2993;
-                                                            }
-                                                          }
-
-                                                          goto LABEL_110;
-                                                        }
-
-                                                        if (v12 == 1463)
-                                                        {
-                                                          if (v14 != 6)
-                                                          {
-                                                            sub_100020530("ASPFTLParseBufferToCxt: nandReadsByMode(1463): (#6) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
-                                                          }
-
-                                                          if (v14 >= 7)
-                                                          {
-                                                            v18 = 6;
-                                                          }
-
-                                                          else
-                                                          {
-                                                            v18 = v14;
-                                                          }
-
-                                                          if ((sub_1000189BC(a1, "nandReadsByMode_", v8, 8u, v18) & 1) == 0)
-                                                          {
-                                                            v19 = "ASPFTLParseBufferToCxt: nandReadsByMode(1463): Cannot add 6 elements to context";
-                                                            goto LABEL_2993;
-                                                          }
-
-                                                          goto LABEL_110;
-                                                        }
-
-                                                        if (v12 == 1494)
-                                                        {
-                                                          if (v14 != 20)
-                                                          {
-                                                            sub_100020530("ASPFTLParseBufferToCxt: throttlingSecPerTTPerMW(1494): (#20) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
-                                                          }
-
-                                                          if (v14 >= 0x15)
-                                                          {
-                                                            v18 = 20;
-                                                          }
-
-                                                          else
-                                                          {
-                                                            v18 = v14;
-                                                          }
-
-                                                          if ((sub_1000189BC(a1, "throttlingSecPerTTPerMW_", v8, 8u, v18) & 1) == 0)
-                                                          {
-                                                            v19 = "ASPFTLParseBufferToCxt: throttlingSecPerTTPerMW(1494): Cannot add 20 elements to context";
-                                                            goto LABEL_2993;
-                                                          }
-
-                                                          goto LABEL_110;
-                                                        }
-
-                                                        goto LABEL_2987;
+                                                        sub_100020530("ASPFTLParseBufferToCxt: gcwamp(1116): Cannot add 32 elements to context", v14);
+                                                        return v5;
                                                       }
 
-                                                      if (v12 <= 1449)
+                                                      goto LABEL_110;
+                                                    }
+
+                                                    if (v7 == 1137)
+                                                    {
+                                                      if ((sub_100020050(a1, "", "numOfToUnhappySwitches", *a2) & 1) == 0)
                                                       {
-                                                        if (v12 == 1448)
-                                                        {
-                                                          if (sub_100020050(a1, "", "deviceTempMaxValue", *v8))
-                                                          {
-                                                            goto LABEL_162;
-                                                          }
-
-                                                          v17 = "ASPFTLParseBufferToCxt: deviceTempMaxValue(1448) cannot add 1 element to context";
-                                                        }
-
-                                                        else
-                                                        {
-                                                          if (sub_100020050(a1, "", "deviceTempHighValue", *v8))
-                                                          {
-                                                            goto LABEL_162;
-                                                          }
-
-                                                          v17 = "ASPFTLParseBufferToCxt: deviceTempHighValue(1449) cannot add 1 element to context";
-                                                        }
+                                                        sub_100020530("ASPFTLParseBufferToCxt: numOfToUnhappySwitches(1137) cannot add 1 element to context");
                                                       }
 
-                                                      else
-                                                      {
-                                                        switch(v12)
-                                                        {
-                                                          case 0x5AA:
-                                                            if (sub_100020050(a1, "", "deviceTempLowValue", *v8))
-                                                            {
-                                                              goto LABEL_162;
-                                                            }
-
-                                                            v17 = "ASPFTLParseBufferToCxt: deviceTempLowValue(1450) cannot add 1 element to context";
-                                                            break;
-                                                          case 0x5AC:
-                                                            if (sub_100020050(a1, "", "selfPanicEnabled", *v8))
-                                                            {
-                                                              goto LABEL_162;
-                                                            }
-
-                                                            v17 = "ASPFTLParseBufferToCxt: selfPanicEnabled(1452) cannot add 1 element to context";
-                                                            break;
-                                                          case 0x5B6:
-                                                            if (v14 != 6)
-                                                            {
-                                                              sub_100020530("ASPFTLParseBufferToCxt: nandWritesByMode(1462): (#6) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
-                                                            }
-
-                                                            if (v14 >= 7)
-                                                            {
-                                                              v18 = 6;
-                                                            }
-
-                                                            else
-                                                            {
-                                                              v18 = v14;
-                                                            }
-
-                                                            if ((sub_1000189BC(a1, "nandWritesByMode_", v8, 8u, v18) & 1) == 0)
-                                                            {
-                                                              v19 = "ASPFTLParseBufferToCxt: nandWritesByMode(1462): Cannot add 6 elements to context";
-                                                              goto LABEL_2993;
-                                                            }
-
-                                                            goto LABEL_110;
-                                                          default:
-LABEL_2987:
-                                                            if (v12 >> 33)
-                                                            {
-                                                              snprintf(__str, 0x20uLL, "Stat_%d_");
-                                                            }
-
-                                                            else
-                                                            {
-                                                              snprintf(__str, 0x20uLL, "Stat_%d");
-                                                            }
-
-                                                            if ((sub_1000189BC(a1, __str, v8, 8u, v14) & 1) == 0)
-                                                            {
-                                                              sub_100020530("ASPFTLParseBufferToCxt %d: Cannot add %d elements to context", a2, a3, a4, a5, a6, a7, a8, v12);
-                                                              return v10;
-                                                            }
-
-                                                            v10 = (v10 + v14);
-                                                            goto LABEL_163;
-                                                        }
-                                                      }
+                                                      goto LABEL_161;
                                                     }
-
-                                                    break;
-                                                  case 1189:
-                                                    if (sub_100020050(a1, "", "lastLbaFormatTime", *v8))
-                                                    {
-                                                      goto LABEL_162;
-                                                    }
-
-                                                    v17 = "ASPFTLParseBufferToCxt: lastLbaFormatTime(1189) cannot add 1 element to context";
-                                                    goto LABEL_161;
-                                                  case 1190:
-                                                    if (v14 != 11)
-                                                    {
-                                                      sub_100020530("ASPFTLParseBufferToCxt: powerDownTime(1190): (#11) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
-                                                    }
-
-                                                    if (v12 >> 34 >= 3)
-                                                    {
-                                                      v18 = 11;
-                                                    }
-
-                                                    else
-                                                    {
-                                                      v18 = v14;
-                                                    }
-
-                                                    if (sub_1000189BC(a1, "powerDownTime_", v8, 8u, v18))
-                                                    {
-                                                      goto LABEL_110;
-                                                    }
-
-                                                    v19 = "ASPFTLParseBufferToCxt: powerDownTime(1190): Cannot add 11 elements to context";
-                                                    goto LABEL_2993;
-                                                  case 1196:
-                                                    if (v14 != 5)
-                                                    {
-                                                      sub_100020530("ASPFTLParseBufferToCxt: poDetectGBBedTotalCost(1196): (#5) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
-                                                    }
-
-                                                    if (v12 >> 33 >= 3)
-                                                    {
-                                                      v18 = 5;
-                                                    }
-
-                                                    else
-                                                    {
-                                                      v18 = v14;
-                                                    }
-
-                                                    if (sub_1000189BC(a1, "poDetectGBBedTotalCost_", v8, 8u, v18))
-                                                    {
-                                                      goto LABEL_110;
-                                                    }
-
-                                                    v19 = "ASPFTLParseBufferToCxt: poDetectGBBedTotalCost(1196): Cannot add 5 elements to context";
-                                                    goto LABEL_2993;
-                                                  case 1197:
-                                                    if (v14 != 10)
-                                                    {
-                                                      sub_100020530("ASPFTLParseBufferToCxt: poDetectGBBedAge(1197): (#10) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
-                                                    }
-
-                                                    if (v14 >= 0xB)
-                                                    {
-                                                      v18 = 10;
-                                                    }
-
-                                                    else
-                                                    {
-                                                      v18 = v14;
-                                                    }
-
-                                                    if (sub_1000189BC(a1, "poDetectGBBedAge_", v8, 8u, v18))
-                                                    {
-                                                      goto LABEL_110;
-                                                    }
-
-                                                    v19 = "ASPFTLParseBufferToCxt: poDetectGBBedAge(1197): Cannot add 10 elements to context";
-                                                    goto LABEL_2993;
-                                                  case 1198:
-                                                    if (v14 != 3)
-                                                    {
-                                                      sub_100020530("ASPFTLParseBufferToCxt: poDetectPERemovalMostSevereCost(1198): (#3) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
-                                                    }
-
-                                                    if (v12 >> 34)
-                                                    {
-                                                      v18 = 3;
-                                                    }
-
-                                                    else
-                                                    {
-                                                      v18 = v14;
-                                                    }
-
-                                                    if (sub_1000189BC(a1, "poDetectPERemovalMostSevereCost_", v8, 8u, v18))
-                                                    {
-                                                      goto LABEL_110;
-                                                    }
-
-                                                    v19 = "ASPFTLParseBufferToCxt: poDetectPERemovalMostSevereCost(1198): Cannot add 3 elements to context";
-                                                    goto LABEL_2993;
-                                                  case 1199:
-                                                    if (sub_100020050(a1, "", "poDetectCurrentSize", *v8))
-                                                    {
-                                                      goto LABEL_162;
-                                                    }
-
-                                                    v17 = "ASPFTLParseBufferToCxt: poDetectCurrentSize(1199) cannot add 1 element to context";
-                                                    goto LABEL_161;
-                                                  case 1201:
-                                                    if (v14 != 4)
-                                                    {
-                                                      sub_100020530("ASPFTLParseBufferToCxt: gcVerticalSuccssfulAlignments(1201): (#4) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
-                                                    }
-
-                                                    if (v14 >= 5)
-                                                    {
-                                                      v18 = 4;
-                                                    }
-
-                                                    else
-                                                    {
-                                                      v18 = v14;
-                                                    }
-
-                                                    if (sub_1000189BC(a1, "gcVerticalSuccssfulAlignments_", v8, 8u, v18))
-                                                    {
-                                                      goto LABEL_110;
-                                                    }
-
-                                                    v19 = "ASPFTLParseBufferToCxt: gcVerticalSuccssfulAlignments(1201): Cannot add 4 elements to context";
-                                                    goto LABEL_2993;
-                                                  case 1202:
-                                                    if (v14 != 4)
-                                                    {
-                                                      sub_100020530("ASPFTLParseBufferToCxt: gcVerticalNoAlignmentDueToMissingSegs(1202): (#4) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
-                                                    }
-
-                                                    if (v14 >= 5)
-                                                    {
-                                                      v18 = 4;
-                                                    }
-
-                                                    else
-                                                    {
-                                                      v18 = v14;
-                                                    }
-
-                                                    if (sub_1000189BC(a1, "gcVerticalNoAlignmentDueToMissingSegs_", v8, 8u, v18))
-                                                    {
-                                                      goto LABEL_110;
-                                                    }
-
-                                                    v19 = "ASPFTLParseBufferToCxt: gcVerticalNoAlignmentDueToMissingSegs(1202): Cannot add 4 elements to context";
-                                                    goto LABEL_2993;
-                                                  case 1211:
-                                                    if (v14 != 24)
-                                                    {
-                                                      sub_100020530("ASPFTLParseBufferToCxt: forcedAllocationSmallEraseQ(1211): (#24) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
-                                                    }
-
-                                                    if (v14 >= 0x19)
-                                                    {
-                                                      v18 = 24;
-                                                    }
-
-                                                    else
-                                                    {
-                                                      v18 = v14;
-                                                    }
-
-                                                    if (sub_1000189BC(a1, "forcedAllocationSmallEraseQ_", v8, 8u, v18))
-                                                    {
-                                                      goto LABEL_110;
-                                                    }
-
-                                                    v19 = "ASPFTLParseBufferToCxt: forcedAllocationSmallEraseQ(1211): Cannot add 24 elements to context";
-                                                    goto LABEL_2993;
-                                                  case 1215:
-                                                    if (v14 != 5)
-                                                    {
-                                                      sub_100020530("ASPFTLParseBufferToCxt: hostWritesPerThrottleZone(1215): (#5) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
-                                                    }
-
-                                                    if (v12 >> 33 >= 3)
-                                                    {
-                                                      v18 = 5;
-                                                    }
-
-                                                    else
-                                                    {
-                                                      v18 = v14;
-                                                    }
-
-                                                    if (sub_1000189BC(a1, "hostWritesPerThrottleZone_", v8, 8u, v18))
-                                                    {
-                                                      goto LABEL_110;
-                                                    }
-
-                                                    v19 = "ASPFTLParseBufferToCxt: hostWritesPerThrottleZone(1215): Cannot add 5 elements to context";
-                                                    goto LABEL_2993;
-                                                  case 1216:
-                                                    if (v14 != 24)
-                                                    {
-                                                      sub_100020530("ASPFTLParseBufferToCxt: tlcWLPerDipAvgPEC(1216): (#24) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
-                                                    }
-
-                                                    if (v14 >= 0x19)
-                                                    {
-                                                      v18 = 24;
-                                                    }
-
-                                                    else
-                                                    {
-                                                      v18 = v14;
-                                                    }
-
-                                                    if (sub_1000189BC(a1, "tlcWLPerDipAvgPEC_", v8, 8u, v18))
-                                                    {
-                                                      goto LABEL_110;
-                                                    }
-
-                                                    v19 = "ASPFTLParseBufferToCxt: tlcWLPerDipAvgPEC(1216): Cannot add 24 elements to context";
-                                                    goto LABEL_2993;
-                                                  case 1217:
-                                                    if (v14 != 24)
-                                                    {
-                                                      sub_100020530("ASPFTLParseBufferToCxt: tlcWLPerDipMaxPEC(1217): (#24) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
-                                                    }
-
-                                                    if (v14 >= 0x19)
-                                                    {
-                                                      v18 = 24;
-                                                    }
-
-                                                    else
-                                                    {
-                                                      v18 = v14;
-                                                    }
-
-                                                    if (sub_1000189BC(a1, "tlcWLPerDipMaxPEC_", v8, 8u, v18))
-                                                    {
-                                                      goto LABEL_110;
-                                                    }
-
-                                                    v19 = "ASPFTLParseBufferToCxt: tlcWLPerDipMaxPEC(1217): Cannot add 24 elements to context";
-                                                    goto LABEL_2993;
-                                                  case 1218:
-                                                    if (v14 != 24)
-                                                    {
-                                                      sub_100020530("ASPFTLParseBufferToCxt: tlcWLPerDipMinPEC(1218): (#24) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
-                                                    }
-
-                                                    if (v14 >= 0x19)
-                                                    {
-                                                      v18 = 24;
-                                                    }
-
-                                                    else
-                                                    {
-                                                      v18 = v14;
-                                                    }
-
-                                                    if (sub_1000189BC(a1, "tlcWLPerDipMinPEC_", v8, 8u, v18))
-                                                    {
-                                                      goto LABEL_110;
-                                                    }
-
-                                                    v19 = "ASPFTLParseBufferToCxt: tlcWLPerDipMinPEC(1218): Cannot add 24 elements to context";
-                                                    goto LABEL_2993;
-                                                  case 1221:
-                                                    if (sub_100020050(a1, "", "RD_openBandEvictBlocks", *v8))
-                                                    {
-                                                      goto LABEL_162;
-                                                    }
-
-                                                    v17 = "ASPFTLParseBufferToCxt: RD_openBandEvictBlocks(1221) cannot add 1 element to context";
-                                                    goto LABEL_161;
-                                                  case 1222:
-                                                    if (sub_100020050(a1, "", "RD_closedBandEvictBlocks", *v8))
-                                                    {
-                                                      goto LABEL_162;
-                                                    }
-
-                                                    v17 = "ASPFTLParseBufferToCxt: RD_closedBandEvictBlocks(1222) cannot add 1 element to context";
-                                                    goto LABEL_161;
-                                                  case 1223:
-                                                    if (v14 != 10)
-                                                    {
-                                                      sub_100020530("ASPFTLParseBufferToCxt: RD_closedBlocksTHHist(1223): (#10) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
-                                                    }
-
-                                                    if (v14 >= 0xB)
-                                                    {
-                                                      v18 = 10;
-                                                    }
-
-                                                    else
-                                                    {
-                                                      v18 = v14;
-                                                    }
-
-                                                    if (sub_1000189BC(a1, "RD_closedBlocksTHHist_", v8, 8u, v18))
-                                                    {
-                                                      goto LABEL_110;
-                                                    }
-
-                                                    v19 = "ASPFTLParseBufferToCxt: RD_closedBlocksTHHist(1223): Cannot add 10 elements to context";
-                                                    goto LABEL_2993;
-                                                  case 1224:
-                                                    if (v14 != 20)
-                                                    {
-                                                      sub_100020530("ASPFTLParseBufferToCxt: apfsValidLbaOvershoot(1224): (#20) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
-                                                    }
-
-                                                    if (v14 >= 0x15)
-                                                    {
-                                                      v18 = 20;
-                                                    }
-
-                                                    else
-                                                    {
-                                                      v18 = v14;
-                                                    }
-
-                                                    if (sub_1000189BC(a1, "apfsValidLbaOvershoot_", v8, 8u, v18))
-                                                    {
-                                                      goto LABEL_110;
-                                                    }
-
-                                                    v19 = "ASPFTLParseBufferToCxt: apfsValidLbaOvershoot(1224): Cannot add 20 elements to context";
-                                                    goto LABEL_2993;
-                                                  case 1225:
-                                                    if (sub_100020050(a1, "", "HUPolicySwitchPeMinSlc", *v8))
-                                                    {
-                                                      goto LABEL_162;
-                                                    }
-
-                                                    v17 = "ASPFTLParseBufferToCxt: HUPolicySwitchPeMinSlc(1225) cannot add 1 element to context";
-                                                    goto LABEL_161;
-                                                  case 1226:
-                                                    if (sub_100020050(a1, "", "HUPolicySwitchPeInt", *v8))
-                                                    {
-                                                      goto LABEL_162;
-                                                    }
-
-                                                    v17 = "ASPFTLParseBufferToCxt: HUPolicySwitchPeInt(1226) cannot add 1 element to context";
-                                                    goto LABEL_161;
-                                                  case 1227:
-                                                    if (sub_100020050(a1, "", "HUPolicySwitchPeGap", *v8))
-                                                    {
-                                                      goto LABEL_162;
-                                                    }
-
-                                                    v17 = "ASPFTLParseBufferToCxt: HUPolicySwitchPeGap(1227) cannot add 1 element to context";
-                                                    goto LABEL_161;
-                                                  case 1228:
-                                                    if (v14 != 6)
-                                                    {
-                                                      sub_100020530("ASPFTLParseBufferToCxt: HUPolicyWidthDown(1228): (#6) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
-                                                    }
-
-                                                    if (v14 >= 7)
-                                                    {
-                                                      v18 = 6;
-                                                    }
-
-                                                    else
-                                                    {
-                                                      v18 = v14;
-                                                    }
-
-                                                    if (sub_1000189BC(a1, "HUPolicyWidthDown_", v8, 8u, v18))
-                                                    {
-                                                      goto LABEL_110;
-                                                    }
-
-                                                    v19 = "ASPFTLParseBufferToCxt: HUPolicyWidthDown(1228): Cannot add 6 elements to context";
-                                                    goto LABEL_2993;
-                                                  case 1229:
-                                                    if (v14 != 6)
-                                                    {
-                                                      sub_100020530("ASPFTLParseBufferToCxt: HUPolicyWidthUp(1229): (#6) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
-                                                    }
-
-                                                    if (v14 >= 7)
-                                                    {
-                                                      v18 = 6;
-                                                    }
-
-                                                    else
-                                                    {
-                                                      v18 = v14;
-                                                    }
-
-                                                    if (sub_1000189BC(a1, "HUPolicyWidthUp_", v8, 8u, v18))
-                                                    {
-                                                      goto LABEL_110;
-                                                    }
-
-                                                    v19 = "ASPFTLParseBufferToCxt: HUPolicyWidthUp(1229): Cannot add 6 elements to context";
-                                                    goto LABEL_2993;
-                                                  case 1230:
-                                                    if (sub_100020050(a1, "", "HUPolicyPrevPeSlc", *v8))
-                                                    {
-                                                      goto LABEL_162;
-                                                    }
-
-                                                    v17 = "ASPFTLParseBufferToCxt: HUPolicyPrevPeSlc(1230) cannot add 1 element to context";
-                                                    goto LABEL_161;
-                                                  case 1231:
-                                                    if (sub_100020050(a1, "", "HUPolicyPrevPeTlc", *v8))
-                                                    {
-                                                      goto LABEL_162;
-                                                    }
-
-                                                    v17 = "ASPFTLParseBufferToCxt: HUPolicyPrevPeTlc(1231) cannot add 1 element to context";
-                                                    goto LABEL_161;
-                                                  case 1232:
-                                                    if (sub_100020050(a1, "", "eanFastSize", *v8))
-                                                    {
-                                                      goto LABEL_162;
-                                                    }
-
-                                                    v17 = "ASPFTLParseBufferToCxt: eanFastSize(1232) cannot add 1 element to context";
-                                                    goto LABEL_161;
-                                                  case 1233:
-                                                    if (sub_100020050(a1, "", "eanNumSlcEvictions", *v8))
-                                                    {
-                                                      goto LABEL_162;
-                                                    }
-
-                                                    v17 = "ASPFTLParseBufferToCxt: eanNumSlcEvictions(1233) cannot add 1 element to context";
-                                                    goto LABEL_161;
-                                                  case 1234:
-                                                    if (sub_100020050(a1, "", "eanNumForcedCompress", *v8))
-                                                    {
-                                                      goto LABEL_162;
-                                                    }
-
-                                                    v17 = "ASPFTLParseBufferToCxt: eanNumForcedCompress(1234) cannot add 1 element to context";
-                                                    goto LABEL_161;
-                                                  case 1241:
-                                                    if (v14 != 10)
-                                                    {
-                                                      sub_100020530("ASPFTLParseBufferToCxt: s2rTimeHisto(1241): (#10) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
-                                                    }
-
-                                                    if (v14 >= 0xB)
-                                                    {
-                                                      v18 = 10;
-                                                    }
-
-                                                    else
-                                                    {
-                                                      v18 = v14;
-                                                    }
-
-                                                    if (sub_1000189BC(a1, "s2rTimeHisto_", v8, 8u, v18))
-                                                    {
-                                                      goto LABEL_110;
-                                                    }
-
-                                                    v19 = "ASPFTLParseBufferToCxt: s2rTimeHisto(1241): Cannot add 10 elements to context";
-                                                    goto LABEL_2993;
-                                                  case 1244:
-                                                    if (sub_100020050(a1, "", "calendarTimeWentBackward", *v8))
-                                                    {
-                                                      goto LABEL_162;
-                                                    }
-
-                                                    v17 = "ASPFTLParseBufferToCxt: calendarTimeWentBackward(1244) cannot add 1 element to context";
-                                                    goto LABEL_161;
-                                                  case 1246:
-                                                    if (v14 != 8)
-                                                    {
-                                                      sub_100020530("ASPFTLParseBufferToCxt: bandsUeccCrossTempHisto(1246): (#8) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
-                                                    }
-
-                                                    if (v14 >= 9)
-                                                    {
-                                                      v18 = 8;
-                                                    }
-
-                                                    else
-                                                    {
-                                                      v18 = v14;
-                                                    }
-
-                                                    if (sub_1000189BC(a1, "bandsUeccCrossTempHisto_", v8, 8u, v18))
-                                                    {
-                                                      goto LABEL_110;
-                                                    }
-
-                                                    v19 = "ASPFTLParseBufferToCxt: bandsUeccCrossTempHisto(1246): Cannot add 8 elements to context";
-                                                    goto LABEL_2993;
-                                                  case 1264:
-                                                    if (sub_100020050(a1, "", "numRefreshOnErrNandRefreshPerfOpt", *v8))
-                                                    {
-                                                      goto LABEL_162;
-                                                    }
-
-                                                    v17 = "ASPFTLParseBufferToCxt: numRefreshOnErrNandRefreshPerfOpt(1264) cannot add 1 element to context";
-                                                    goto LABEL_161;
-                                                  default:
-                                                    switch(v12)
-                                                    {
-                                                      case 1271:
-                                                        if (sub_100020050(a1, "", "deviceTempMax", *v8))
-                                                        {
-                                                          goto LABEL_162;
-                                                        }
-
-                                                        v17 = "ASPFTLParseBufferToCxt: deviceTempMax(1271) cannot add 1 element to context";
-                                                        goto LABEL_161;
-                                                      case 1272:
-                                                        if (sub_100020050(a1, "", "deviceTempHigh", *v8))
-                                                        {
-                                                          goto LABEL_162;
-                                                        }
-
-                                                        v17 = "ASPFTLParseBufferToCxt: deviceTempHigh(1272) cannot add 1 element to context";
-                                                        goto LABEL_161;
-                                                      case 1273:
-                                                        if (sub_100020050(a1, "", "deviceTempLow", *v8))
-                                                        {
-                                                          goto LABEL_162;
-                                                        }
-
-                                                        v17 = "ASPFTLParseBufferToCxt: deviceTempLow(1273) cannot add 1 element to context";
-                                                        goto LABEL_161;
-                                                      case 1282:
-                                                        if (sub_100020050(a1, "", "cbdrScanHP", *v8))
-                                                        {
-                                                          goto LABEL_162;
-                                                        }
-
-                                                        v17 = "ASPFTLParseBufferToCxt: cbdrScanHP(1282) cannot add 1 element to context";
-                                                        goto LABEL_161;
-                                                      case 1283:
-                                                        if (sub_100020050(a1, "", "cbdrScanMP", *v8))
-                                                        {
-                                                          goto LABEL_162;
-                                                        }
-
-                                                        v17 = "ASPFTLParseBufferToCxt: cbdrScanMP(1283) cannot add 1 element to context";
-                                                        goto LABEL_161;
-                                                      case 1285:
-                                                        if (sub_100020050(a1, "", "bitsPerCell", *v8))
-                                                        {
-                                                          goto LABEL_162;
-                                                        }
-
-                                                        v17 = "ASPFTLParseBufferToCxt: bitsPerCell(1285) cannot add 1 element to context";
-                                                        goto LABEL_161;
-                                                      case 1289:
-                                                        if (sub_100020050(a1, "", "numRefreshOnErrNandRefreshPerfOptOpen", *v8))
-                                                        {
-                                                          goto LABEL_162;
-                                                        }
-
-                                                        v17 = "ASPFTLParseBufferToCxt: numRefreshOnErrNandRefreshPerfOptOpen(1289) cannot add 1 element to context";
-                                                        goto LABEL_161;
-                                                      case 1293:
-                                                        if (v14 != 16)
-                                                        {
-                                                          sub_100020530("ASPFTLParseBufferToCxt: bpZone2EntryTime(1293): (#16) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
-                                                        }
-
-                                                        if (v14 >= 0x11)
-                                                        {
-                                                          v18 = 16;
-                                                        }
-
-                                                        else
-                                                        {
-                                                          v18 = v14;
-                                                        }
-
-                                                        if (sub_1000189BC(a1, "bpZone2EntryTime_", v8, 8u, v18))
-                                                        {
-                                                          goto LABEL_110;
-                                                        }
-
-                                                        v19 = "ASPFTLParseBufferToCxt: bpZone2EntryTime(1293): Cannot add 16 elements to context";
-                                                        goto LABEL_2993;
-                                                      case 1294:
-                                                        if (v14 != 16)
-                                                        {
-                                                          sub_100020530("ASPFTLParseBufferToCxt: bpZone2ExitTime(1294): (#16) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
-                                                        }
-
-                                                        if (v14 >= 0x11)
-                                                        {
-                                                          v18 = 16;
-                                                        }
-
-                                                        else
-                                                        {
-                                                          v18 = v14;
-                                                        }
-
-                                                        if (sub_1000189BC(a1, "bpZone2ExitTime_", v8, 8u, v18))
-                                                        {
-                                                          goto LABEL_110;
-                                                        }
-
-                                                        v19 = "ASPFTLParseBufferToCxt: bpZone2ExitTime(1294): Cannot add 16 elements to context";
-                                                        goto LABEL_2993;
-                                                      case 1295:
-                                                        if (v14 != 8)
-                                                        {
-                                                          sub_100020530("ASPFTLParseBufferToCxt: bpHostChokeTime(1295): (#8) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
-                                                        }
-
-                                                        if (v14 >= 9)
-                                                        {
-                                                          v18 = 8;
-                                                        }
-
-                                                        else
-                                                        {
-                                                          v18 = v14;
-                                                        }
-
-                                                        if (sub_1000189BC(a1, "bpHostChokeTime_", v8, 8u, v18))
-                                                        {
-                                                          goto LABEL_110;
-                                                        }
-
-                                                        v19 = "ASPFTLParseBufferToCxt: bpHostChokeTime(1295): Cannot add 8 elements to context";
-                                                        goto LABEL_2993;
-                                                      case 1296:
-                                                        if (v14 != 16)
-                                                        {
-                                                          sub_100020530("ASPFTLParseBufferToCxt: bpZone2EntryHW(1296): (#16) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
-                                                        }
-
-                                                        if (v14 >= 0x11)
-                                                        {
-                                                          v18 = 16;
-                                                        }
-
-                                                        else
-                                                        {
-                                                          v18 = v14;
-                                                        }
-
-                                                        if (sub_1000189BC(a1, "bpZone2EntryHW_", v8, 8u, v18))
-                                                        {
-                                                          goto LABEL_110;
-                                                        }
-
-                                                        v19 = "ASPFTLParseBufferToCxt: bpZone2EntryHW(1296): Cannot add 16 elements to context";
-                                                        goto LABEL_2993;
-                                                      case 1298:
-                                                        if (v14 != 16)
-                                                        {
-                                                          sub_100020530("ASPFTLParseBufferToCxt: bpZone2ExitHW(1298): (#16) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
-                                                        }
-
-                                                        if (v14 >= 0x11)
-                                                        {
-                                                          v18 = 16;
-                                                        }
-
-                                                        else
-                                                        {
-                                                          v18 = v14;
-                                                        }
-
-                                                        if (sub_1000189BC(a1, "bpZone2ExitHW_", v8, 8u, v18))
-                                                        {
-                                                          goto LABEL_110;
-                                                        }
-
-                                                        v19 = "ASPFTLParseBufferToCxt: bpZone2ExitHW(1298): Cannot add 16 elements to context";
-                                                        goto LABEL_2993;
-                                                      case 1302:
-                                                        if (v14 != 16)
-                                                        {
-                                                          sub_100020530("ASPFTLParseBufferToCxt: bpZone2EntryHostTP(1302): (#16) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
-                                                        }
-
-                                                        if (v14 >= 0x11)
-                                                        {
-                                                          v18 = 16;
-                                                        }
-
-                                                        else
-                                                        {
-                                                          v18 = v14;
-                                                        }
-
-                                                        if (sub_1000189BC(a1, "bpZone2EntryHostTP_", v8, 8u, v18))
-                                                        {
-                                                          goto LABEL_110;
-                                                        }
-
-                                                        v19 = "ASPFTLParseBufferToCxt: bpZone2EntryHostTP(1302): Cannot add 16 elements to context";
-                                                        goto LABEL_2993;
-                                                      case 1303:
-                                                        if (v14 != 16)
-                                                        {
-                                                          sub_100020530("ASPFTLParseBufferToCxt: bpZone2EntryGCTP(1303): (#16) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
-                                                        }
-
-                                                        if (v14 >= 0x11)
-                                                        {
-                                                          v18 = 16;
-                                                        }
-
-                                                        else
-                                                        {
-                                                          v18 = v14;
-                                                        }
-
-                                                        if (sub_1000189BC(a1, "bpZone2EntryGCTP_", v8, 8u, v18))
-                                                        {
-                                                          goto LABEL_110;
-                                                        }
-
-                                                        v19 = "ASPFTLParseBufferToCxt: bpZone2EntryGCTP(1303): Cannot add 16 elements to context";
-                                                        goto LABEL_2993;
-                                                      case 1304:
-                                                        if (v14 != 16)
-                                                        {
-                                                          sub_100020530("ASPFTLParseBufferToCxt: bpZone2ExitHostTP(1304): (#16) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
-                                                        }
-
-                                                        if (v14 >= 0x11)
-                                                        {
-                                                          v18 = 16;
-                                                        }
-
-                                                        else
-                                                        {
-                                                          v18 = v14;
-                                                        }
-
-                                                        if (sub_1000189BC(a1, "bpZone2ExitHostTP_", v8, 8u, v18))
-                                                        {
-                                                          goto LABEL_110;
-                                                        }
-
-                                                        v19 = "ASPFTLParseBufferToCxt: bpZone2ExitHostTP(1304): Cannot add 16 elements to context";
-                                                        goto LABEL_2993;
-                                                      case 1305:
-                                                        if (v14 != 16)
-                                                        {
-                                                          sub_100020530("ASPFTLParseBufferToCxt: bpZone2ExitGCTP(1305): (#16) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
-                                                        }
-
-                                                        if (v14 >= 0x11)
-                                                        {
-                                                          v18 = 16;
-                                                        }
-
-                                                        else
-                                                        {
-                                                          v18 = v14;
-                                                        }
-
-                                                        if (sub_1000189BC(a1, "bpZone2ExitGCTP_", v8, 8u, v18))
-                                                        {
-                                                          goto LABEL_110;
-                                                        }
-
-                                                        v19 = "ASPFTLParseBufferToCxt: bpZone2ExitGCTP(1305): Cannot add 16 elements to context";
-                                                        goto LABEL_2993;
-                                                      case 1323:
-                                                        if (sub_100020050(a1, "", "prefetchNofHits", *v8))
-                                                        {
-                                                          goto LABEL_162;
-                                                        }
-
-                                                        v17 = "ASPFTLParseBufferToCxt: prefetchNofHits(1323) cannot add 1 element to context";
-                                                        goto LABEL_161;
-                                                      case 1326:
-                                                        if (sub_100020050(a1, "", "massScanFullRounds", *v8))
-                                                        {
-                                                          goto LABEL_162;
-                                                        }
-
-                                                        v17 = "ASPFTLParseBufferToCxt: massScanFullRounds(1326) cannot add 1 element to context";
-                                                        goto LABEL_161;
-                                                      case 1327:
-                                                        if (sub_100020050(a1, "", "massScanEarlyExits", *v8))
-                                                        {
-                                                          goto LABEL_162;
-                                                        }
-
-                                                        v17 = "ASPFTLParseBufferToCxt: massScanEarlyExits(1327) cannot add 1 element to context";
-                                                        goto LABEL_161;
-                                                      case 1328:
-                                                        if (sub_100020050(a1, "", "massScanMspFullScanRequests", *v8))
-                                                        {
-                                                          goto LABEL_162;
-                                                        }
-
-                                                        v17 = "ASPFTLParseBufferToCxt: massScanMspFullScanRequests(1328) cannot add 1 element to context";
-                                                        goto LABEL_161;
-                                                      case 1329:
-                                                        if (sub_100020050(a1, "", "massScanMspEarlyExitRequests", *v8))
-                                                        {
-                                                          goto LABEL_162;
-                                                        }
-
-                                                        v17 = "ASPFTLParseBufferToCxt: massScanMspEarlyExitRequests(1329) cannot add 1 element to context";
-                                                        goto LABEL_161;
-                                                      case 1333:
-                                                        if (sub_100020050(a1, "", "gcBoffOrderedRecoverableErrorGbbs", *v8))
-                                                        {
-                                                          goto LABEL_162;
-                                                        }
-
-                                                        v17 = "ASPFTLParseBufferToCxt: gcBoffOrderedRecoverableErrorGbbs(1333) cannot add 1 element to context";
-                                                        goto LABEL_161;
-                                                      case 1334:
-                                                        if (sub_100020050(a1, "", "gcBoffOrderedUnrecoverableErrorGbbs", *v8))
-                                                        {
-                                                          goto LABEL_162;
-                                                        }
-
-                                                        v17 = "ASPFTLParseBufferToCxt: gcBoffOrderedUnrecoverableErrorGbbs(1334) cannot add 1 element to context";
-                                                        goto LABEL_161;
-                                                      case 1335:
-                                                        if (sub_100020050(a1, "", "gcBoffOrderedBandOrphansNumBands", *v8))
-                                                        {
-                                                          goto LABEL_162;
-                                                        }
-
-                                                        v17 = "ASPFTLParseBufferToCxt: gcBoffOrderedBandOrphansNumBands(1335) cannot add 1 element to context";
-                                                        goto LABEL_161;
-                                                      case 1336:
-                                                        if (sub_100020050(a1, "", "gcBoffOrderedBandOrphansNumSectors", *v8))
-                                                        {
-                                                          goto LABEL_162;
-                                                        }
-
-                                                        v17 = "ASPFTLParseBufferToCxt: gcBoffOrderedBandOrphansNumSectors(1336) cannot add 1 element to context";
-                                                        goto LABEL_161;
-                                                      case 1337:
-                                                        if (sub_100020050(a1, "", "gcBoffOrderedDefragEvents", *v8))
-                                                        {
-                                                          goto LABEL_162;
-                                                        }
-
-                                                        v17 = "ASPFTLParseBufferToCxt: gcBoffOrderedDefragEvents(1337) cannot add 1 element to context";
-                                                        goto LABEL_161;
-                                                      case 1338:
-                                                        if (sub_100020050(a1, "", "gcBoffOrderedDefragIterations", *v8))
-                                                        {
-                                                          goto LABEL_162;
-                                                        }
-
-                                                        v17 = "ASPFTLParseBufferToCxt: gcBoffOrderedDefragIterations(1338) cannot add 1 element to context";
-                                                        goto LABEL_161;
-                                                      case 1339:
-                                                        if (sub_100020050(a1, "", "gcBoffOrderedDefragSectors", *v8))
-                                                        {
-                                                          goto LABEL_162;
-                                                        }
-
-                                                        v17 = "ASPFTLParseBufferToCxt: gcBoffOrderedDefragSectors(1339) cannot add 1 element to context";
-                                                        goto LABEL_161;
-                                                      case 1344:
-                                                        if (v14 != 4)
-                                                        {
-                                                          sub_100020530("ASPFTLParseBufferToCxt: unhappyWideGC1(1344): (#4) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
-                                                        }
-
-                                                        if (v14 >= 5)
-                                                        {
-                                                          v18 = 4;
-                                                        }
-
-                                                        else
-                                                        {
-                                                          v18 = v14;
-                                                        }
-
-                                                        if (sub_1000189BC(a1, "unhappyWideGC1_", v8, 8u, v18))
-                                                        {
-                                                          goto LABEL_110;
-                                                        }
-
-                                                        v19 = "ASPFTLParseBufferToCxt: unhappyWideGC1(1344): Cannot add 4 elements to context";
-                                                        goto LABEL_2993;
-                                                      case 1345:
-                                                        if (v14 != 4)
-                                                        {
-                                                          sub_100020530("ASPFTLParseBufferToCxt: unhappyVertGC(1345): (#4) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
-                                                        }
-
-                                                        if (v14 >= 5)
-                                                        {
-                                                          v18 = 4;
-                                                        }
-
-                                                        else
-                                                        {
-                                                          v18 = v14;
-                                                        }
-
-                                                        if (sub_1000189BC(a1, "unhappyVertGC_", v8, 8u, v18))
-                                                        {
-                                                          goto LABEL_110;
-                                                        }
-
-                                                        v19 = "ASPFTLParseBufferToCxt: unhappyVertGC(1345): Cannot add 4 elements to context";
-                                                        goto LABEL_2993;
-                                                      case 1348:
-                                                        if (sub_100020050(a1, "", "thermalSelfThrottlingSupported", *v8))
-                                                        {
-                                                          goto LABEL_162;
-                                                        }
-
-                                                        v17 = "ASPFTLParseBufferToCxt: thermalSelfThrottlingSupported(1348) cannot add 1 element to context";
-                                                        goto LABEL_161;
-                                                      case 1349:
-                                                        if (sub_100020050(a1, "", "thermalSelfThrottlingEnabled", *v8))
-                                                        {
-                                                          goto LABEL_162;
-                                                        }
-
-                                                        v17 = "ASPFTLParseBufferToCxt: thermalSelfThrottlingEnabled(1349) cannot add 1 element to context";
-                                                        goto LABEL_161;
-                                                      default:
-                                                        goto LABEL_2686;
-                                                    }
-                                                }
-
-                                                goto LABEL_161;
-                                              }
-
-                                              if (v12 != 1148)
-                                              {
-                                                if (v12 == 1149)
-                                                {
-                                                  if (v14 != 24)
-                                                  {
-                                                    sub_100020530("ASPFTLParseBufferToCxt: gc_concurrent_dw_gc2(1149): (#24) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
-                                                  }
-
-                                                  if (v14 >= 0x19)
-                                                  {
-                                                    v18 = 24;
                                                   }
 
                                                   else
                                                   {
-                                                    v18 = v14;
-                                                  }
+                                                    if (v7 == 1105)
+                                                    {
+                                                      if (v9 != 14)
+                                                      {
+                                                        sub_100020530("ASPFTLParseBufferToCxt: hostReadSequential(1105): (#14) cfg elements != (%d) buffer elements", v9);
+                                                      }
 
-                                                  if ((sub_1000189BC(a1, "gc_concurrent_dw_gc2_", v8, 8u, v18) & 1) == 0)
-                                                  {
-                                                    v19 = "ASPFTLParseBufferToCxt: gc_concurrent_dw_gc2(1149): Cannot add 24 elements to context";
-                                                    goto LABEL_2993;
-                                                  }
+                                                      if (v9 >= 0xF)
+                                                      {
+                                                        v12 = 14;
+                                                      }
 
-                                                  goto LABEL_110;
+                                                      else
+                                                      {
+                                                        v12 = v9;
+                                                      }
+
+                                                      if ((sub_1000189BC(a1, "hostReadSequential_", a2, 8u, v12) & 1) == 0)
+                                                      {
+                                                        sub_100020530("ASPFTLParseBufferToCxt: hostReadSequential(1105): Cannot add 14 elements to context", v14);
+                                                        return v5;
+                                                      }
+
+                                                      goto LABEL_110;
+                                                    }
+
+                                                    if (v7 == 1106)
+                                                    {
+                                                      if (v9 != 14)
+                                                      {
+                                                        sub_100020530("ASPFTLParseBufferToCxt: GCReadSequential(1106): (#14) cfg elements != (%d) buffer elements", v9);
+                                                      }
+
+                                                      if (v9 >= 0xF)
+                                                      {
+                                                        v12 = 14;
+                                                      }
+
+                                                      else
+                                                      {
+                                                        v12 = v9;
+                                                      }
+
+                                                      if ((sub_1000189BC(a1, "GCReadSequential_", a2, 8u, v12) & 1) == 0)
+                                                      {
+                                                        sub_100020530("ASPFTLParseBufferToCxt: GCReadSequential(1106): Cannot add 14 elements to context", v14);
+                                                        return v5;
+                                                      }
+
+                                                      goto LABEL_110;
+                                                    }
+                                                  }
                                                 }
 
-                                                goto LABEL_2529;
+                                                else
+                                                {
+                                                  if (v7 <= 1041)
+                                                  {
+                                                    v15 = v7 >> 37;
+                                                    if (v7 == 1040)
+                                                    {
+                                                      if (v9 != 31)
+                                                      {
+                                                        sub_100020530("ASPFTLParseBufferToCxt: bandsAgeBinsV2(1040): (#31) cfg elements != (%d) buffer elements", v9);
+                                                      }
+
+                                                      if (v15)
+                                                      {
+                                                        v12 = 31;
+                                                      }
+
+                                                      else
+                                                      {
+                                                        v12 = v9;
+                                                      }
+
+                                                      if ((sub_1000189BC(a1, "bandsAgeBinsV2_", a2, 8u, v12) & 1) == 0)
+                                                      {
+                                                        sub_100020530("ASPFTLParseBufferToCxt: bandsAgeBinsV2(1040): Cannot add 31 elements to context", v14);
+                                                        return v5;
+                                                      }
+                                                    }
+
+                                                    else
+                                                    {
+                                                      if (v9 != 31)
+                                                      {
+                                                        sub_100020530("ASPFTLParseBufferToCxt: bandsAgeBinsSnapshot(1041): (#31) cfg elements != (%d) buffer elements", v9);
+                                                      }
+
+                                                      if (v15)
+                                                      {
+                                                        v12 = 31;
+                                                      }
+
+                                                      else
+                                                      {
+                                                        v12 = v9;
+                                                      }
+
+                                                      if ((sub_1000189BC(a1, "bandsAgeBinsSnapshot_", a2, 8u, v12) & 1) == 0)
+                                                      {
+                                                        sub_100020530("ASPFTLParseBufferToCxt: bandsAgeBinsSnapshot(1041): Cannot add 31 elements to context", v14);
+                                                        return v5;
+                                                      }
+                                                    }
+
+                                                    goto LABEL_110;
+                                                  }
+
+                                                  if (v7 == 1042)
+                                                  {
+                                                    if (v9 != 15)
+                                                    {
+                                                      sub_100020530("ASPFTLParseBufferToCxt: bandsAgeBinsReadSectors(1042): (#15) cfg elements != (%d) buffer elements", v9);
+                                                    }
+
+                                                    if (v7 >> 36)
+                                                    {
+                                                      v12 = 15;
+                                                    }
+
+                                                    else
+                                                    {
+                                                      v12 = v9;
+                                                    }
+
+                                                    if ((sub_1000189BC(a1, "bandsAgeBinsReadSectors_", a2, 8u, v12) & 1) == 0)
+                                                    {
+                                                      sub_100020530("ASPFTLParseBufferToCxt: bandsAgeBinsReadSectors(1042): Cannot add 15 elements to context", v14);
+                                                      return v5;
+                                                    }
+
+                                                    goto LABEL_110;
+                                                  }
+
+                                                  if (v7 == 1080)
+                                                  {
+                                                    if ((sub_100020050(a1, "", "raidForceClogLoad", *a2) & 1) == 0)
+                                                    {
+                                                      sub_100020530("ASPFTLParseBufferToCxt: raidForceClogLoad(1080) cannot add 1 element to context");
+                                                    }
+
+                                                    goto LABEL_161;
+                                                  }
+                                                }
                                               }
 
-                                              if (v14 != 24)
+                                              else if (v7 > 1002)
                                               {
-                                                sub_100020530("ASPFTLParseBufferToCxt: gc_concurrent_dw_gc1(1148): (#24) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
-                                              }
+                                                if (v7 > 1015)
+                                                {
+                                                  if (v7 == 1016)
+                                                  {
+                                                    if ((sub_100020050(a1, "", "eanEarlyBootNumUeccPages", *a2) & 1) == 0)
+                                                    {
+                                                      sub_100020530("ASPFTLParseBufferToCxt: eanEarlyBootNumUeccPages(1016) cannot add 1 element to context");
+                                                    }
 
-                                              if (v14 >= 0x19)
-                                              {
-                                                v18 = 24;
+                                                    goto LABEL_161;
+                                                  }
+
+                                                  if (v7 == 1017)
+                                                  {
+                                                    if ((sub_100020050(a1, "", "eanEarlyBootUeccMultiplane", *a2) & 1) == 0)
+                                                    {
+                                                      sub_100020530("ASPFTLParseBufferToCxt: eanEarlyBootUeccMultiplane(1017) cannot add 1 element to context");
+                                                    }
+
+                                                    goto LABEL_161;
+                                                  }
+                                                }
+
+                                                else
+                                                {
+                                                  if (v7 == 1003)
+                                                  {
+                                                    if ((sub_100020050(a1, "", "clogReplaySpfError", *a2) & 1) == 0)
+                                                    {
+                                                      sub_100020530("ASPFTLParseBufferToCxt: clogReplaySpfError(1003) cannot add 1 element to context");
+                                                    }
+
+                                                    goto LABEL_161;
+                                                  }
+
+                                                  if (v7 == 1015)
+                                                  {
+                                                    if (v9 != 4)
+                                                    {
+                                                      sub_100020530("ASPFTLParseBufferToCxt: eanEarlyBootUeccPage(1015): (#4) cfg elements != (%d) buffer elements", v9);
+                                                    }
+
+                                                    if (v9 >= 5)
+                                                    {
+                                                      v12 = 4;
+                                                    }
+
+                                                    else
+                                                    {
+                                                      v12 = v9;
+                                                    }
+
+                                                    if ((sub_1000189BC(a1, "eanEarlyBootUeccPage_", a2, 8u, v12) & 1) == 0)
+                                                    {
+                                                      sub_100020530("ASPFTLParseBufferToCxt: eanEarlyBootUeccPage(1015): Cannot add 4 elements to context", v14);
+                                                      return v5;
+                                                    }
+
+                                                    goto LABEL_110;
+                                                  }
+                                                }
                                               }
 
                                               else
                                               {
-                                                v18 = v14;
+                                                if (v7 > 1000)
+                                                {
+                                                  if (v7 == 1001)
+                                                  {
+                                                    if (v9 != 8)
+                                                    {
+                                                      sub_100020530("ASPFTLParseBufferToCxt: clogReplayFailReason(1001): (#8) cfg elements != (%d) buffer elements", v9);
+                                                    }
+
+                                                    if (v9 >= 9)
+                                                    {
+                                                      v12 = 8;
+                                                    }
+
+                                                    else
+                                                    {
+                                                      v12 = v9;
+                                                    }
+
+                                                    if ((sub_1000189BC(a1, "clogReplayFailReason_", a2, 8u, v12) & 1) == 0)
+                                                    {
+                                                      sub_100020530("ASPFTLParseBufferToCxt: clogReplayFailReason(1001): Cannot add 8 elements to context", v14);
+                                                      return v5;
+                                                    }
+
+                                                    goto LABEL_110;
+                                                  }
+
+                                                  if ((sub_100020050(a1, "", "clogReplayTransientError", *a2) & 1) == 0)
+                                                  {
+                                                    sub_100020530("ASPFTLParseBufferToCxt: clogReplayTransientError(1002) cannot add 1 element to context");
+                                                  }
+
+                                                  goto LABEL_161;
+                                                }
+
+                                                if (v7 == 998)
+                                                {
+                                                  if ((sub_100020050(a1, "", "clogFindUnc", *a2) & 1) == 0)
+                                                  {
+                                                    sub_100020530("ASPFTLParseBufferToCxt: clogFindUnc(998) cannot add 1 element to context");
+                                                  }
+
+                                                  goto LABEL_161;
+                                                }
+
+                                                if (v7 == 999)
+                                                {
+                                                  if ((sub_100020050(a1, "", "clogFindUnexpected", *a2) & 1) == 0)
+                                                  {
+                                                    sub_100020530("ASPFTLParseBufferToCxt: clogFindUnexpected(999) cannot add 1 element to context");
+                                                  }
+
+                                                  goto LABEL_161;
+                                                }
                                               }
 
-                                              if (sub_1000189BC(a1, "gc_concurrent_dw_gc1_", v8, 8u, v18))
-                                              {
-LABEL_110:
-                                                v10 = v18 + v10;
-                                                goto LABEL_163;
-                                              }
-
-                                              v19 = "ASPFTLParseBufferToCxt: gc_concurrent_dw_gc1(1148): Cannot add 24 elements to context";
-LABEL_2993:
-                                              sub_100020530(v19, a2, a3, a4, a5, a6, a7, a8, v21);
-                                              return v10;
+                                              break;
                                           }
+
+                                          break;
                                       }
+
+                                      break;
                                   }
+
+                                  break;
                               }
+
+                              break;
                           }
+
+                          break;
                       }
+
+                      break;
                   }
+
+                  break;
               }
+
+              break;
           }
+
+          break;
       }
+
+      break;
+  }
+
+LABEL_2528:
+  switch(v7)
+  {
+    case 1185:
+      if ((sub_100020050(a1, "", "unhappy_level", *a2) & 1) == 0)
+      {
+        sub_100020530("ASPFTLParseBufferToCxt: unhappy_level(1185) cannot add 1 element to context");
+      }
+
+      goto LABEL_161;
+    case 1186:
+    case 1187:
+    case 1188:
+    case 1191:
+    case 1192:
+    case 1193:
+    case 1194:
+    case 1195:
+    case 1200:
+    case 1203:
+    case 1204:
+    case 1205:
+    case 1206:
+    case 1207:
+    case 1208:
+    case 1209:
+    case 1210:
+    case 1212:
+    case 1213:
+    case 1214:
+    case 1219:
+    case 1220:
+    case 1235:
+    case 1236:
+    case 1237:
+    case 1238:
+    case 1239:
+    case 1240:
+    case 1242:
+    case 1243:
+    case 1245:
+    case 1247:
+    case 1248:
+    case 1249:
+    case 1250:
+    case 1251:
+    case 1252:
+    case 1253:
+    case 1254:
+    case 1255:
+    case 1256:
+    case 1257:
+    case 1258:
+    case 1259:
+    case 1260:
+    case 1261:
+    case 1262:
+    case 1263:
+LABEL_2685:
+      if (v7 > 1447)
+      {
+        if (v7 > 1535)
+        {
+          if (v7 > 1542)
+          {
+            if (v7 <= 1544)
+            {
+              if (v7 == 1543)
+              {
+                if (v9 != 10)
+                {
+                  sub_100020530("ASPFTLParseBufferToCxt: istkLowNoDIPingIntervals(1543): (#10) cfg elements != (%d) buffer elements", v9);
+                }
+
+                if (v9 >= 0xB)
+                {
+                  v12 = 10;
+                }
+
+                else
+                {
+                  v12 = v9;
+                }
+
+                if ((sub_1000189BC(a1, "istkLowNoDIPingIntervals_", a2, 8u, v12) & 1) == 0)
+                {
+                  sub_100020530("ASPFTLParseBufferToCxt: istkLowNoDIPingIntervals(1543): Cannot add 10 elements to context", v14);
+                  return v5;
+                }
+              }
+
+              else
+              {
+                if (v9 != 10)
+                {
+                  sub_100020530("ASPFTLParseBufferToCxt: istkLowNoSUIPingIntervals(1544): (#10) cfg elements != (%d) buffer elements", v9);
+                }
+
+                if (v9 >= 0xB)
+                {
+                  v12 = 10;
+                }
+
+                else
+                {
+                  v12 = v9;
+                }
+
+                if ((sub_1000189BC(a1, "istkLowNoSUIPingIntervals_", a2, 8u, v12) & 1) == 0)
+                {
+                  sub_100020530("ASPFTLParseBufferToCxt: istkLowNoSUIPingIntervals(1544): Cannot add 10 elements to context", v14);
+                  return v5;
+                }
+              }
+
+              goto LABEL_110;
+            }
+
+            switch(v7)
+            {
+              case 0x609:
+                if (v9 != 6)
+                {
+                  sub_100020530("ASPFTLParseBufferToCxt: istkLowAfterMedIntervals(1545): (#6) cfg elements != (%d) buffer elements", v9);
+                }
+
+                if (v9 >= 7)
+                {
+                  v12 = 6;
+                }
+
+                else
+                {
+                  v12 = v9;
+                }
+
+                if ((sub_1000189BC(a1, "istkLowAfterMedIntervals_", a2, 8u, v12) & 1) == 0)
+                {
+                  sub_100020530("ASPFTLParseBufferToCxt: istkLowAfterMedIntervals(1545): Cannot add 6 elements to context", v14);
+                  return v5;
+                }
+
+                goto LABEL_110;
+              case 0x60B:
+                if (v9 != 5)
+                {
+                  sub_100020530("ASPFTLParseBufferToCxt: istkHWBetweenMed(1547): (#5) cfg elements != (%d) buffer elements", v9);
+                }
+
+                if (v7 >> 33 >= 3)
+                {
+                  v12 = 5;
+                }
+
+                else
+                {
+                  v12 = v9;
+                }
+
+                if ((sub_1000189BC(a1, "istkHWBetweenMed_", a2, 8u, v12) & 1) == 0)
+                {
+                  sub_100020530("ASPFTLParseBufferToCxt: istkHWBetweenMed(1547): Cannot add 5 elements to context", v14);
+                  return v5;
+                }
+
+                goto LABEL_110;
+              case 0x622:
+                if ((sub_100020050(a1, "", "uptimeSeconds", *a2) & 1) == 0)
+                {
+                  sub_100020530("ASPFTLParseBufferToCxt: uptimeSeconds(1570) cannot add 1 element to context");
+                }
+
+                goto LABEL_161;
+            }
+          }
+
+          else
+          {
+            if (v7 <= 1537)
+            {
+              if (v7 == 1536)
+              {
+                if ((sub_100020050(a1, "", "istkLowPings", *a2) & 1) == 0)
+                {
+                  sub_100020530("ASPFTLParseBufferToCxt: istkLowPings(1536) cannot add 1 element to context");
+                }
+              }
+
+              else if ((sub_100020050(a1, "", "istkLowNoDIPings", *a2) & 1) == 0)
+              {
+                sub_100020530("ASPFTLParseBufferToCxt: istkLowNoDIPings(1537) cannot add 1 element to context");
+              }
+
+              goto LABEL_161;
+            }
+
+            switch(v7)
+            {
+              case 0x602:
+                if ((sub_100020050(a1, "", "istkLowNoSUIPings", *a2) & 1) == 0)
+                {
+                  sub_100020530("ASPFTLParseBufferToCxt: istkLowNoSUIPings(1538) cannot add 1 element to context");
+                }
+
+                goto LABEL_161;
+              case 0x603:
+                if ((sub_100020050(a1, "", "istkMedPings", *a2) & 1) == 0)
+                {
+                  sub_100020530("ASPFTLParseBufferToCxt: istkMedPings(1539) cannot add 1 element to context");
+                }
+
+                goto LABEL_161;
+              case 0x604:
+                if ((sub_100020050(a1, "", "istkHighPings", *a2) & 1) == 0)
+                {
+                  sub_100020530("ASPFTLParseBufferToCxt: istkHighPings(1540) cannot add 1 element to context");
+                }
+
+                goto LABEL_161;
+            }
+          }
+        }
+
+        else if (v7 > 1462)
+        {
+          if (v7 > 1532)
+          {
+            if (v7 == 1533)
+            {
+              if (v9 != 12)
+              {
+                sub_100020530("ASPFTLParseBufferToCxt: istkLowPingIntervals(1533): (#12) cfg elements != (%d) buffer elements", v9);
+              }
+
+              if (v9 >= 0xD)
+              {
+                v12 = 12;
+              }
+
+              else
+              {
+                v12 = v9;
+              }
+
+              if ((sub_1000189BC(a1, "istkLowPingIntervals_", a2, 8u, v12) & 1) == 0)
+              {
+                sub_100020530("ASPFTLParseBufferToCxt: istkLowPingIntervals(1533): Cannot add 12 elements to context", v14);
+                return v5;
+              }
+            }
+
+            else if (v7 == 1534)
+            {
+              if (v9 != 10)
+              {
+                sub_100020530("ASPFTLParseBufferToCxt: istkMedPingIntervals(1534): (#10) cfg elements != (%d) buffer elements", v9);
+              }
+
+              if (v9 >= 0xB)
+              {
+                v12 = 10;
+              }
+
+              else
+              {
+                v12 = v9;
+              }
+
+              if ((sub_1000189BC(a1, "istkMedPingIntervals_", a2, 8u, v12) & 1) == 0)
+              {
+                sub_100020530("ASPFTLParseBufferToCxt: istkMedPingIntervals(1534): Cannot add 10 elements to context", v14);
+                return v5;
+              }
+            }
+
+            else
+            {
+              if (v9 != 10)
+              {
+                sub_100020530("ASPFTLParseBufferToCxt: istkHighPingIntervals(1535): (#10) cfg elements != (%d) buffer elements", v9);
+              }
+
+              if (v9 >= 0xB)
+              {
+                v12 = 10;
+              }
+
+              else
+              {
+                v12 = v9;
+              }
+
+              if ((sub_1000189BC(a1, "istkHighPingIntervals_", a2, 8u, v12) & 1) == 0)
+              {
+                sub_100020530("ASPFTLParseBufferToCxt: istkHighPingIntervals(1535): Cannot add 10 elements to context", v14);
+                return v5;
+              }
+            }
+
+            goto LABEL_110;
+          }
+
+          if (v7 == 1463)
+          {
+            if (v9 != 6)
+            {
+              sub_100020530("ASPFTLParseBufferToCxt: nandReadsByMode(1463): (#6) cfg elements != (%d) buffer elements", v9);
+            }
+
+            if (v9 >= 7)
+            {
+              v12 = 6;
+            }
+
+            else
+            {
+              v12 = v9;
+            }
+
+            if ((sub_1000189BC(a1, "nandReadsByMode_", a2, 8u, v12) & 1) == 0)
+            {
+              sub_100020530("ASPFTLParseBufferToCxt: nandReadsByMode(1463): Cannot add 6 elements to context", v14);
+              return v5;
+            }
+
+            goto LABEL_110;
+          }
+
+          if (v7 == 1494)
+          {
+            if (v9 != 20)
+            {
+              sub_100020530("ASPFTLParseBufferToCxt: throttlingSecPerTTPerMW(1494): (#20) cfg elements != (%d) buffer elements", v9);
+            }
+
+            if (v9 >= 0x15)
+            {
+              v12 = 20;
+            }
+
+            else
+            {
+              v12 = v9;
+            }
+
+            if ((sub_1000189BC(a1, "throttlingSecPerTTPerMW_", a2, 8u, v12) & 1) == 0)
+            {
+              sub_100020530("ASPFTLParseBufferToCxt: throttlingSecPerTTPerMW(1494): Cannot add 20 elements to context", v14);
+              return v5;
+            }
+
+            goto LABEL_110;
+          }
+        }
+
+        else
+        {
+          if (v7 <= 1449)
+          {
+            if (v7 == 1448)
+            {
+              if ((sub_100020050(a1, "", "deviceTempMaxValue", *a2) & 1) == 0)
+              {
+                sub_100020530("ASPFTLParseBufferToCxt: deviceTempMaxValue(1448) cannot add 1 element to context");
+              }
+            }
+
+            else if ((sub_100020050(a1, "", "deviceTempHighValue", *a2) & 1) == 0)
+            {
+              sub_100020530("ASPFTLParseBufferToCxt: deviceTempHighValue(1449) cannot add 1 element to context");
+            }
+
+            goto LABEL_161;
+          }
+
+          switch(v7)
+          {
+            case 0x5AA:
+              if ((sub_100020050(a1, "", "deviceTempLowValue", *a2) & 1) == 0)
+              {
+                sub_100020530("ASPFTLParseBufferToCxt: deviceTempLowValue(1450) cannot add 1 element to context");
+              }
+
+              goto LABEL_161;
+            case 0x5AC:
+              if ((sub_100020050(a1, "", "selfPanicEnabled", *a2) & 1) == 0)
+              {
+                sub_100020530("ASPFTLParseBufferToCxt: selfPanicEnabled(1452) cannot add 1 element to context");
+              }
+
+              goto LABEL_161;
+            case 0x5B6:
+              if (v9 != 6)
+              {
+                sub_100020530("ASPFTLParseBufferToCxt: nandWritesByMode(1462): (#6) cfg elements != (%d) buffer elements", v9);
+              }
+
+              if (v9 >= 7)
+              {
+                v12 = 6;
+              }
+
+              else
+              {
+                v12 = v9;
+              }
+
+              if ((sub_1000189BC(a1, "nandWritesByMode_", a2, 8u, v12) & 1) == 0)
+              {
+                sub_100020530("ASPFTLParseBufferToCxt: nandWritesByMode(1462): Cannot add 6 elements to context", v14);
+                return v5;
+              }
+
+              goto LABEL_110;
+          }
+        }
+
+LABEL_2986:
+        if (v7 >> 33)
+        {
+          snprintf(__str, 0x20uLL, "Stat_%d_");
+        }
+
+        else
+        {
+          snprintf(__str, 0x20uLL, "Stat_%d");
+        }
+
+        if ((sub_1000189BC(a1, __str, a2, 8u, v9) & 1) == 0)
+        {
+          sub_100020530("ASPFTLParseBufferToCxt %d: Cannot add %d elements to context");
+          return v5;
+        }
+
+        v5 = (v5 + v9);
+LABEL_162:
+        a2 += v9;
+        v6 -= v9;
+        goto LABEL_2;
+      }
+
+      switch(v7)
+      {
+        case 1354:
+          if ((sub_100020050(a1, "", "numOfThrottlingLevels", *a2) & 1) == 0)
+          {
+            sub_100020530("ASPFTLParseBufferToCxt: numOfThrottlingLevels(1354) cannot add 1 element to context");
+          }
+
+          goto LABEL_161;
+        case 1355:
+          if ((sub_100020050(a1, "", "crossTempColdEvict", *a2) & 1) == 0)
+          {
+            sub_100020530("ASPFTLParseBufferToCxt: crossTempColdEvict(1355) cannot add 1 element to context");
+          }
+
+          goto LABEL_161;
+        case 1356:
+          if ((sub_100020050(a1, "", "crossTempHotEvict", *a2) & 1) == 0)
+          {
+            sub_100020530("ASPFTLParseBufferToCxt: crossTempHotEvict(1356) cannot add 1 element to context");
+          }
+
+          goto LABEL_161;
+        case 1357:
+          if ((sub_100020050(a1, "", "crossTempColdHotEvict", *a2) & 1) == 0)
+          {
+            sub_100020530("ASPFTLParseBufferToCxt: crossTempColdHotEvict(1357) cannot add 1 element to context");
+          }
+
+          goto LABEL_161;
+        case 1358:
+          if (v9 != 13)
+          {
+            sub_100020530("ASPFTLParseBufferToCxt: tempChangedHisto(1358): (#13) cfg elements != (%d) buffer elements", v9);
+          }
+
+          if (v7 >> 33 >= 7)
+          {
+            v12 = 13;
+          }
+
+          else
+          {
+            v12 = v9;
+          }
+
+          if (sub_1000189BC(a1, "tempChangedHisto_", a2, 8u, v12))
+          {
+            goto LABEL_110;
+          }
+
+          sub_100020530("ASPFTLParseBufferToCxt: tempChangedHisto(1358): Cannot add 13 elements to context", v14);
+          break;
+        case 1359:
+          if (v9 != 13)
+          {
+            sub_100020530("ASPFTLParseBufferToCxt: tempChangedEnterETHisto(1359): (#13) cfg elements != (%d) buffer elements", v9);
+          }
+
+          if (v7 >> 33 >= 7)
+          {
+            v12 = 13;
+          }
+
+          else
+          {
+            v12 = v9;
+          }
+
+          if (sub_1000189BC(a1, "tempChangedEnterETHisto_", a2, 8u, v12))
+          {
+            goto LABEL_110;
+          }
+
+          sub_100020530("ASPFTLParseBufferToCxt: tempChangedEnterETHisto(1359): Cannot add 13 elements to context", v14);
+          break;
+        case 1362:
+          if (v9 != 20)
+          {
+            sub_100020530("ASPFTLParseBufferToCxt: gcMustReasons(1362): (#20) cfg elements != (%d) buffer elements", v9);
+          }
+
+          if (v9 >= 0x15)
+          {
+            v12 = 20;
+          }
+
+          else
+          {
+            v12 = v9;
+          }
+
+          if (sub_1000189BC(a1, "gcMustReasons_", a2, 8u, v12))
+          {
+            goto LABEL_110;
+          }
+
+          sub_100020530("ASPFTLParseBufferToCxt: gcMustReasons(1362): Cannot add 20 elements to context", v14);
+          break;
+        case 1367:
+          if (v9 != 32)
+          {
+            sub_100020530("ASPFTLParseBufferToCxt: asyncMessageHisto(1367): (#32) cfg elements != (%d) buffer elements", v9);
+          }
+
+          if (v9 >= 0x21)
+          {
+            v12 = 32;
+          }
+
+          else
+          {
+            v12 = v9;
+          }
+
+          if (sub_1000189BC(a1, "asyncMessageHisto_", a2, 8u, v12))
+          {
+            goto LABEL_110;
+          }
+
+          sub_100020530("ASPFTLParseBufferToCxt: asyncMessageHisto(1367): Cannot add 32 elements to context", v14);
+          break;
+        case 1368:
+          if ((sub_100020050(a1, "", "massScanIgnoredTooFrequent", *a2) & 1) == 0)
+          {
+            sub_100020530("ASPFTLParseBufferToCxt: massScanIgnoredTooFrequent(1368) cannot add 1 element to context");
+          }
+
+          goto LABEL_161;
+        case 1369:
+          if (v9 != 8)
+          {
+            sub_100020530("ASPFTLParseBufferToCxt: realGBBPerDipOfFailingDie(1369): (#8) cfg elements != (%d) buffer elements", v9);
+          }
+
+          if (v9 >= 9)
+          {
+            v12 = 8;
+          }
+
+          else
+          {
+            v12 = v9;
+          }
+
+          if (sub_1000189BC(a1, "realGBBPerDipOfFailingDie_", a2, 8u, v12))
+          {
+            goto LABEL_110;
+          }
+
+          sub_100020530("ASPFTLParseBufferToCxt: realGBBPerDipOfFailingDie(1369): Cannot add 8 elements to context", v14);
+          break;
+        case 1379:
+          if ((sub_100020050(a1, "", "boffOrderedReadBlank", *a2) & 1) == 0)
+          {
+            sub_100020530("ASPFTLParseBufferToCxt: boffOrderedReadBlank(1379) cannot add 1 element to context");
+          }
+
+          goto LABEL_161;
+        case 1380:
+          if ((sub_100020050(a1, "", "boffOrderedRaidSuccessValidLba", *a2) & 1) == 0)
+          {
+            sub_100020530("ASPFTLParseBufferToCxt: boffOrderedRaidSuccessValidLba(1380) cannot add 1 element to context");
+          }
+
+          goto LABEL_161;
+        case 1381:
+          if ((sub_100020050(a1, "", "unexpectedRaidFailures", *a2) & 1) == 0)
+          {
+            sub_100020530("ASPFTLParseBufferToCxt: unexpectedRaidFailures(1381) cannot add 1 element to context");
+          }
+
+          goto LABEL_161;
+        case 1382:
+          if ((sub_100020050(a1, "", "boffOrderedUnexpectedBlankValid", *a2) & 1) == 0)
+          {
+            sub_100020530("ASPFTLParseBufferToCxt: boffOrderedUnexpectedBlankValid(1382) cannot add 1 element to context");
+          }
+
+          goto LABEL_161;
+        case 1383:
+          if ((sub_100020050(a1, "", "raidExpectedFailPMXReconstructionInternal", *a2) & 1) == 0)
+          {
+            sub_100020530("ASPFTLParseBufferToCxt: raidExpectedFailPMXReconstructionInternal(1383) cannot add 1 element to context");
+          }
+
+          goto LABEL_161;
+        case 1384:
+          if ((sub_100020050(a1, "", "raidExpectedFailPMXReconstructionHost", *a2) & 1) == 0)
+          {
+            sub_100020530("ASPFTLParseBufferToCxt: raidExpectedFailPMXReconstructionHost(1384) cannot add 1 element to context");
+          }
+
+          goto LABEL_161;
+        case 1385:
+          if ((sub_100020050(a1, "", "raidExpectedFailBMXReconstructionInternal", *a2) & 1) == 0)
+          {
+            sub_100020530("ASPFTLParseBufferToCxt: raidExpectedFailBMXReconstructionInternal(1385) cannot add 1 element to context");
+          }
+
+          goto LABEL_161;
+        case 1386:
+          if ((sub_100020050(a1, "", "raidExpectedFailBMXReconstructionHost", *a2) & 1) == 0)
+          {
+            sub_100020530("ASPFTLParseBufferToCxt: raidExpectedFailBMXReconstructionHost(1386) cannot add 1 element to context");
+          }
+
+          goto LABEL_161;
+        case 1392:
+          if ((sub_100020050(a1, "", "cbdrHPScanHP", *a2) & 1) == 0)
+          {
+            sub_100020530("ASPFTLParseBufferToCxt: cbdrHPScanHP(1392) cannot add 1 element to context");
+          }
+
+          goto LABEL_161;
+        case 1393:
+          if ((sub_100020050(a1, "", "cbdrMPScanMP", *a2) & 1) == 0)
+          {
+            sub_100020530("ASPFTLParseBufferToCxt: cbdrMPScanMP(1393) cannot add 1 element to context");
+          }
+
+          goto LABEL_161;
+        case 1394:
+          if ((sub_100020050(a1, "", "cbdrMPScanHP", *a2) & 1) == 0)
+          {
+            sub_100020530("ASPFTLParseBufferToCxt: cbdrMPScanHP(1394) cannot add 1 element to context");
+          }
+
+          goto LABEL_161;
+        case 1401:
+          if ((sub_100020050(a1, "", "ldefragFailedMemBalancer", *a2) & 1) == 0)
+          {
+            sub_100020530("ASPFTLParseBufferToCxt: ldefragFailedMemBalancer(1401) cannot add 1 element to context");
+          }
+
+          goto LABEL_161;
+        case 1409:
+          if ((sub_100020050(a1, "", "BP_readThrottleEngagedCnt", *a2) & 1) == 0)
+          {
+            sub_100020530("ASPFTLParseBufferToCxt: BP_readThrottleEngagedCnt(1409) cannot add 1 element to context");
+          }
+
+          goto LABEL_161;
+        case 1410:
+          if ((sub_100020050(a1, "", "BP_readThrottleActualSize", *a2) & 1) == 0)
+          {
+            sub_100020530("ASPFTLParseBufferToCxt: BP_readThrottleActualSize(1410) cannot add 1 element to context");
+          }
+
+          goto LABEL_161;
+        default:
+          goto LABEL_2986;
+      }
+
+      return v5;
+    case 1189:
+      if ((sub_100020050(a1, "", "lastLbaFormatTime", *a2) & 1) == 0)
+      {
+        sub_100020530("ASPFTLParseBufferToCxt: lastLbaFormatTime(1189) cannot add 1 element to context");
+      }
+
+      goto LABEL_161;
+    case 1190:
+      if (v9 != 11)
+      {
+        sub_100020530("ASPFTLParseBufferToCxt: powerDownTime(1190): (#11) cfg elements != (%d) buffer elements", v9);
+      }
+
+      if (v7 >> 34 >= 3)
+      {
+        v12 = 11;
+      }
+
+      else
+      {
+        v12 = v9;
+      }
+
+      if (sub_1000189BC(a1, "powerDownTime_", a2, 8u, v12))
+      {
+        goto LABEL_110;
+      }
+
+      sub_100020530("ASPFTLParseBufferToCxt: powerDownTime(1190): Cannot add 11 elements to context", v14);
+      return v5;
+    case 1196:
+      if (v9 != 5)
+      {
+        sub_100020530("ASPFTLParseBufferToCxt: poDetectGBBedTotalCost(1196): (#5) cfg elements != (%d) buffer elements", v9);
+      }
+
+      if (v7 >> 33 >= 3)
+      {
+        v12 = 5;
+      }
+
+      else
+      {
+        v12 = v9;
+      }
+
+      if (sub_1000189BC(a1, "poDetectGBBedTotalCost_", a2, 8u, v12))
+      {
+        goto LABEL_110;
+      }
+
+      sub_100020530("ASPFTLParseBufferToCxt: poDetectGBBedTotalCost(1196): Cannot add 5 elements to context", v14);
+      return v5;
+    case 1197:
+      if (v9 != 10)
+      {
+        sub_100020530("ASPFTLParseBufferToCxt: poDetectGBBedAge(1197): (#10) cfg elements != (%d) buffer elements", v9);
+      }
+
+      if (v9 >= 0xB)
+      {
+        v12 = 10;
+      }
+
+      else
+      {
+        v12 = v9;
+      }
+
+      if (sub_1000189BC(a1, "poDetectGBBedAge_", a2, 8u, v12))
+      {
+        goto LABEL_110;
+      }
+
+      sub_100020530("ASPFTLParseBufferToCxt: poDetectGBBedAge(1197): Cannot add 10 elements to context", v14);
+      return v5;
+    case 1198:
+      if (v9 != 3)
+      {
+        sub_100020530("ASPFTLParseBufferToCxt: poDetectPERemovalMostSevereCost(1198): (#3) cfg elements != (%d) buffer elements", v9);
+      }
+
+      if (v7 >> 34)
+      {
+        v12 = 3;
+      }
+
+      else
+      {
+        v12 = v9;
+      }
+
+      if (sub_1000189BC(a1, "poDetectPERemovalMostSevereCost_", a2, 8u, v12))
+      {
+        goto LABEL_110;
+      }
+
+      sub_100020530("ASPFTLParseBufferToCxt: poDetectPERemovalMostSevereCost(1198): Cannot add 3 elements to context", v14);
+      return v5;
+    case 1199:
+      if ((sub_100020050(a1, "", "poDetectCurrentSize", *a2) & 1) == 0)
+      {
+        sub_100020530("ASPFTLParseBufferToCxt: poDetectCurrentSize(1199) cannot add 1 element to context");
+      }
+
+      goto LABEL_161;
+    case 1201:
+      if (v9 != 4)
+      {
+        sub_100020530("ASPFTLParseBufferToCxt: gcVerticalSuccssfulAlignments(1201): (#4) cfg elements != (%d) buffer elements", v9);
+      }
+
+      if (v9 >= 5)
+      {
+        v12 = 4;
+      }
+
+      else
+      {
+        v12 = v9;
+      }
+
+      if (sub_1000189BC(a1, "gcVerticalSuccssfulAlignments_", a2, 8u, v12))
+      {
+        goto LABEL_110;
+      }
+
+      sub_100020530("ASPFTLParseBufferToCxt: gcVerticalSuccssfulAlignments(1201): Cannot add 4 elements to context", v14);
+      return v5;
+    case 1202:
+      if (v9 != 4)
+      {
+        sub_100020530("ASPFTLParseBufferToCxt: gcVerticalNoAlignmentDueToMissingSegs(1202): (#4) cfg elements != (%d) buffer elements", v9);
+      }
+
+      if (v9 >= 5)
+      {
+        v12 = 4;
+      }
+
+      else
+      {
+        v12 = v9;
+      }
+
+      if (sub_1000189BC(a1, "gcVerticalNoAlignmentDueToMissingSegs_", a2, 8u, v12))
+      {
+        goto LABEL_110;
+      }
+
+      sub_100020530("ASPFTLParseBufferToCxt: gcVerticalNoAlignmentDueToMissingSegs(1202): Cannot add 4 elements to context", v14);
+      return v5;
+    case 1211:
+      if (v9 != 24)
+      {
+        sub_100020530("ASPFTLParseBufferToCxt: forcedAllocationSmallEraseQ(1211): (#24) cfg elements != (%d) buffer elements", v9);
+      }
+
+      if (v9 >= 0x19)
+      {
+        v12 = 24;
+      }
+
+      else
+      {
+        v12 = v9;
+      }
+
+      if (sub_1000189BC(a1, "forcedAllocationSmallEraseQ_", a2, 8u, v12))
+      {
+        goto LABEL_110;
+      }
+
+      sub_100020530("ASPFTLParseBufferToCxt: forcedAllocationSmallEraseQ(1211): Cannot add 24 elements to context", v14);
+      return v5;
+    case 1215:
+      if (v9 != 5)
+      {
+        sub_100020530("ASPFTLParseBufferToCxt: hostWritesPerThrottleZone(1215): (#5) cfg elements != (%d) buffer elements", v9);
+      }
+
+      if (v7 >> 33 >= 3)
+      {
+        v12 = 5;
+      }
+
+      else
+      {
+        v12 = v9;
+      }
+
+      if (sub_1000189BC(a1, "hostWritesPerThrottleZone_", a2, 8u, v12))
+      {
+        goto LABEL_110;
+      }
+
+      sub_100020530("ASPFTLParseBufferToCxt: hostWritesPerThrottleZone(1215): Cannot add 5 elements to context", v14);
+      return v5;
+    case 1216:
+      if (v9 != 24)
+      {
+        sub_100020530("ASPFTLParseBufferToCxt: tlcWLPerDipAvgPEC(1216): (#24) cfg elements != (%d) buffer elements", v9);
+      }
+
+      if (v9 >= 0x19)
+      {
+        v12 = 24;
+      }
+
+      else
+      {
+        v12 = v9;
+      }
+
+      if (sub_1000189BC(a1, "tlcWLPerDipAvgPEC_", a2, 8u, v12))
+      {
+        goto LABEL_110;
+      }
+
+      sub_100020530("ASPFTLParseBufferToCxt: tlcWLPerDipAvgPEC(1216): Cannot add 24 elements to context", v14);
+      return v5;
+    case 1217:
+      if (v9 != 24)
+      {
+        sub_100020530("ASPFTLParseBufferToCxt: tlcWLPerDipMaxPEC(1217): (#24) cfg elements != (%d) buffer elements", v9);
+      }
+
+      if (v9 >= 0x19)
+      {
+        v12 = 24;
+      }
+
+      else
+      {
+        v12 = v9;
+      }
+
+      if (sub_1000189BC(a1, "tlcWLPerDipMaxPEC_", a2, 8u, v12))
+      {
+        goto LABEL_110;
+      }
+
+      sub_100020530("ASPFTLParseBufferToCxt: tlcWLPerDipMaxPEC(1217): Cannot add 24 elements to context", v14);
+      return v5;
+    case 1218:
+      if (v9 != 24)
+      {
+        sub_100020530("ASPFTLParseBufferToCxt: tlcWLPerDipMinPEC(1218): (#24) cfg elements != (%d) buffer elements", v9);
+      }
+
+      if (v9 >= 0x19)
+      {
+        v12 = 24;
+      }
+
+      else
+      {
+        v12 = v9;
+      }
+
+      if (sub_1000189BC(a1, "tlcWLPerDipMinPEC_", a2, 8u, v12))
+      {
+        goto LABEL_110;
+      }
+
+      sub_100020530("ASPFTLParseBufferToCxt: tlcWLPerDipMinPEC(1218): Cannot add 24 elements to context", v14);
+      return v5;
+    case 1221:
+      if ((sub_100020050(a1, "", "RD_openBandEvictBlocks", *a2) & 1) == 0)
+      {
+        sub_100020530("ASPFTLParseBufferToCxt: RD_openBandEvictBlocks(1221) cannot add 1 element to context");
+      }
+
+      goto LABEL_161;
+    case 1222:
+      if ((sub_100020050(a1, "", "RD_closedBandEvictBlocks", *a2) & 1) == 0)
+      {
+        sub_100020530("ASPFTLParseBufferToCxt: RD_closedBandEvictBlocks(1222) cannot add 1 element to context");
+      }
+
+      goto LABEL_161;
+    case 1223:
+      if (v9 != 10)
+      {
+        sub_100020530("ASPFTLParseBufferToCxt: RD_closedBlocksTHHist(1223): (#10) cfg elements != (%d) buffer elements", v9);
+      }
+
+      if (v9 >= 0xB)
+      {
+        v12 = 10;
+      }
+
+      else
+      {
+        v12 = v9;
+      }
+
+      if (sub_1000189BC(a1, "RD_closedBlocksTHHist_", a2, 8u, v12))
+      {
+        goto LABEL_110;
+      }
+
+      sub_100020530("ASPFTLParseBufferToCxt: RD_closedBlocksTHHist(1223): Cannot add 10 elements to context", v14);
+      return v5;
+    case 1224:
+      if (v9 != 20)
+      {
+        sub_100020530("ASPFTLParseBufferToCxt: apfsValidLbaOvershoot(1224): (#20) cfg elements != (%d) buffer elements", v9);
+      }
+
+      if (v9 >= 0x15)
+      {
+        v12 = 20;
+      }
+
+      else
+      {
+        v12 = v9;
+      }
+
+      if (sub_1000189BC(a1, "apfsValidLbaOvershoot_", a2, 8u, v12))
+      {
+        goto LABEL_110;
+      }
+
+      sub_100020530("ASPFTLParseBufferToCxt: apfsValidLbaOvershoot(1224): Cannot add 20 elements to context", v14);
+      return v5;
+    case 1225:
+      if ((sub_100020050(a1, "", "HUPolicySwitchPeMinSlc", *a2) & 1) == 0)
+      {
+        sub_100020530("ASPFTLParseBufferToCxt: HUPolicySwitchPeMinSlc(1225) cannot add 1 element to context");
+      }
+
+      goto LABEL_161;
+    case 1226:
+      if ((sub_100020050(a1, "", "HUPolicySwitchPeInt", *a2) & 1) == 0)
+      {
+        sub_100020530("ASPFTLParseBufferToCxt: HUPolicySwitchPeInt(1226) cannot add 1 element to context");
+      }
+
+      goto LABEL_161;
+    case 1227:
+      if ((sub_100020050(a1, "", "HUPolicySwitchPeGap", *a2) & 1) == 0)
+      {
+        sub_100020530("ASPFTLParseBufferToCxt: HUPolicySwitchPeGap(1227) cannot add 1 element to context");
+      }
+
+      goto LABEL_161;
+    case 1228:
+      if (v9 != 6)
+      {
+        sub_100020530("ASPFTLParseBufferToCxt: HUPolicyWidthDown(1228): (#6) cfg elements != (%d) buffer elements", v9);
+      }
+
+      if (v9 >= 7)
+      {
+        v12 = 6;
+      }
+
+      else
+      {
+        v12 = v9;
+      }
+
+      if (sub_1000189BC(a1, "HUPolicyWidthDown_", a2, 8u, v12))
+      {
+        goto LABEL_110;
+      }
+
+      sub_100020530("ASPFTLParseBufferToCxt: HUPolicyWidthDown(1228): Cannot add 6 elements to context", v14);
+      return v5;
+    case 1229:
+      if (v9 != 6)
+      {
+        sub_100020530("ASPFTLParseBufferToCxt: HUPolicyWidthUp(1229): (#6) cfg elements != (%d) buffer elements", v9);
+      }
+
+      if (v9 >= 7)
+      {
+        v12 = 6;
+      }
+
+      else
+      {
+        v12 = v9;
+      }
+
+      if (sub_1000189BC(a1, "HUPolicyWidthUp_", a2, 8u, v12))
+      {
+        goto LABEL_110;
+      }
+
+      sub_100020530("ASPFTLParseBufferToCxt: HUPolicyWidthUp(1229): Cannot add 6 elements to context", v14);
+      return v5;
+    case 1230:
+      if ((sub_100020050(a1, "", "HUPolicyPrevPeSlc", *a2) & 1) == 0)
+      {
+        sub_100020530("ASPFTLParseBufferToCxt: HUPolicyPrevPeSlc(1230) cannot add 1 element to context");
+      }
+
+      goto LABEL_161;
+    case 1231:
+      if ((sub_100020050(a1, "", "HUPolicyPrevPeTlc", *a2) & 1) == 0)
+      {
+        sub_100020530("ASPFTLParseBufferToCxt: HUPolicyPrevPeTlc(1231) cannot add 1 element to context");
+      }
+
+      goto LABEL_161;
+    case 1232:
+      if ((sub_100020050(a1, "", "eanFastSize", *a2) & 1) == 0)
+      {
+        sub_100020530("ASPFTLParseBufferToCxt: eanFastSize(1232) cannot add 1 element to context");
+      }
+
+      goto LABEL_161;
+    case 1233:
+      if ((sub_100020050(a1, "", "eanNumSlcEvictions", *a2) & 1) == 0)
+      {
+        sub_100020530("ASPFTLParseBufferToCxt: eanNumSlcEvictions(1233) cannot add 1 element to context");
+      }
+
+      goto LABEL_161;
+    case 1234:
+      if ((sub_100020050(a1, "", "eanNumForcedCompress", *a2) & 1) == 0)
+      {
+        sub_100020530("ASPFTLParseBufferToCxt: eanNumForcedCompress(1234) cannot add 1 element to context");
+      }
+
+      goto LABEL_161;
+    case 1241:
+      if (v9 != 10)
+      {
+        sub_100020530("ASPFTLParseBufferToCxt: s2rTimeHisto(1241): (#10) cfg elements != (%d) buffer elements", v9);
+      }
+
+      if (v9 >= 0xB)
+      {
+        v12 = 10;
+      }
+
+      else
+      {
+        v12 = v9;
+      }
+
+      if (sub_1000189BC(a1, "s2rTimeHisto_", a2, 8u, v12))
+      {
+        goto LABEL_110;
+      }
+
+      sub_100020530("ASPFTLParseBufferToCxt: s2rTimeHisto(1241): Cannot add 10 elements to context", v14);
+      return v5;
+    case 1244:
+      if ((sub_100020050(a1, "", "calendarTimeWentBackward", *a2) & 1) == 0)
+      {
+        sub_100020530("ASPFTLParseBufferToCxt: calendarTimeWentBackward(1244) cannot add 1 element to context");
+      }
+
+      goto LABEL_161;
+    case 1246:
+      if (v9 != 8)
+      {
+        sub_100020530("ASPFTLParseBufferToCxt: bandsUeccCrossTempHisto(1246): (#8) cfg elements != (%d) buffer elements", v9);
+      }
+
+      if (v9 >= 9)
+      {
+        v12 = 8;
+      }
+
+      else
+      {
+        v12 = v9;
+      }
+
+      if (sub_1000189BC(a1, "bandsUeccCrossTempHisto_", a2, 8u, v12))
+      {
+        goto LABEL_110;
+      }
+
+      sub_100020530("ASPFTLParseBufferToCxt: bandsUeccCrossTempHisto(1246): Cannot add 8 elements to context", v14);
+      return v5;
+    case 1264:
+      if ((sub_100020050(a1, "", "numRefreshOnErrNandRefreshPerfOpt", *a2) & 1) == 0)
+      {
+        sub_100020530("ASPFTLParseBufferToCxt: numRefreshOnErrNandRefreshPerfOpt(1264) cannot add 1 element to context");
+      }
+
+      goto LABEL_161;
+    default:
+      switch(v7)
+      {
+        case 1271:
+          if ((sub_100020050(a1, "", "deviceTempMax", *a2) & 1) == 0)
+          {
+            sub_100020530("ASPFTLParseBufferToCxt: deviceTempMax(1271) cannot add 1 element to context");
+          }
+
+          goto LABEL_161;
+        case 1272:
+          if ((sub_100020050(a1, "", "deviceTempHigh", *a2) & 1) == 0)
+          {
+            sub_100020530("ASPFTLParseBufferToCxt: deviceTempHigh(1272) cannot add 1 element to context");
+          }
+
+          goto LABEL_161;
+        case 1273:
+          if ((sub_100020050(a1, "", "deviceTempLow", *a2) & 1) == 0)
+          {
+            sub_100020530("ASPFTLParseBufferToCxt: deviceTempLow(1273) cannot add 1 element to context");
+          }
+
+          goto LABEL_161;
+        case 1282:
+          if ((sub_100020050(a1, "", "cbdrScanHP", *a2) & 1) == 0)
+          {
+            sub_100020530("ASPFTLParseBufferToCxt: cbdrScanHP(1282) cannot add 1 element to context");
+          }
+
+          goto LABEL_161;
+        case 1283:
+          if ((sub_100020050(a1, "", "cbdrScanMP", *a2) & 1) == 0)
+          {
+            sub_100020530("ASPFTLParseBufferToCxt: cbdrScanMP(1283) cannot add 1 element to context");
+          }
+
+          goto LABEL_161;
+        case 1285:
+          if ((sub_100020050(a1, "", "bitsPerCell", *a2) & 1) == 0)
+          {
+            sub_100020530("ASPFTLParseBufferToCxt: bitsPerCell(1285) cannot add 1 element to context");
+          }
+
+          goto LABEL_161;
+        case 1289:
+          if ((sub_100020050(a1, "", "numRefreshOnErrNandRefreshPerfOptOpen", *a2) & 1) == 0)
+          {
+            sub_100020530("ASPFTLParseBufferToCxt: numRefreshOnErrNandRefreshPerfOptOpen(1289) cannot add 1 element to context");
+          }
+
+          goto LABEL_161;
+        case 1293:
+          if (v9 != 16)
+          {
+            sub_100020530("ASPFTLParseBufferToCxt: bpZone2EntryTime(1293): (#16) cfg elements != (%d) buffer elements", v9);
+          }
+
+          if (v9 >= 0x11)
+          {
+            v12 = 16;
+          }
+
+          else
+          {
+            v12 = v9;
+          }
+
+          if (sub_1000189BC(a1, "bpZone2EntryTime_", a2, 8u, v12))
+          {
+            goto LABEL_110;
+          }
+
+          sub_100020530("ASPFTLParseBufferToCxt: bpZone2EntryTime(1293): Cannot add 16 elements to context", v14);
+          break;
+        case 1294:
+          if (v9 != 16)
+          {
+            sub_100020530("ASPFTLParseBufferToCxt: bpZone2ExitTime(1294): (#16) cfg elements != (%d) buffer elements", v9);
+          }
+
+          if (v9 >= 0x11)
+          {
+            v12 = 16;
+          }
+
+          else
+          {
+            v12 = v9;
+          }
+
+          if (sub_1000189BC(a1, "bpZone2ExitTime_", a2, 8u, v12))
+          {
+            goto LABEL_110;
+          }
+
+          sub_100020530("ASPFTLParseBufferToCxt: bpZone2ExitTime(1294): Cannot add 16 elements to context", v14);
+          break;
+        case 1295:
+          if (v9 != 8)
+          {
+            sub_100020530("ASPFTLParseBufferToCxt: bpHostChokeTime(1295): (#8) cfg elements != (%d) buffer elements", v9);
+          }
+
+          if (v9 >= 9)
+          {
+            v12 = 8;
+          }
+
+          else
+          {
+            v12 = v9;
+          }
+
+          if (sub_1000189BC(a1, "bpHostChokeTime_", a2, 8u, v12))
+          {
+            goto LABEL_110;
+          }
+
+          sub_100020530("ASPFTLParseBufferToCxt: bpHostChokeTime(1295): Cannot add 8 elements to context", v14);
+          break;
+        case 1296:
+          if (v9 != 16)
+          {
+            sub_100020530("ASPFTLParseBufferToCxt: bpZone2EntryHW(1296): (#16) cfg elements != (%d) buffer elements", v9);
+          }
+
+          if (v9 >= 0x11)
+          {
+            v12 = 16;
+          }
+
+          else
+          {
+            v12 = v9;
+          }
+
+          if (sub_1000189BC(a1, "bpZone2EntryHW_", a2, 8u, v12))
+          {
+            goto LABEL_110;
+          }
+
+          sub_100020530("ASPFTLParseBufferToCxt: bpZone2EntryHW(1296): Cannot add 16 elements to context", v14);
+          break;
+        case 1298:
+          if (v9 != 16)
+          {
+            sub_100020530("ASPFTLParseBufferToCxt: bpZone2ExitHW(1298): (#16) cfg elements != (%d) buffer elements", v9);
+          }
+
+          if (v9 >= 0x11)
+          {
+            v12 = 16;
+          }
+
+          else
+          {
+            v12 = v9;
+          }
+
+          if (sub_1000189BC(a1, "bpZone2ExitHW_", a2, 8u, v12))
+          {
+            goto LABEL_110;
+          }
+
+          sub_100020530("ASPFTLParseBufferToCxt: bpZone2ExitHW(1298): Cannot add 16 elements to context", v14);
+          break;
+        case 1302:
+          if (v9 != 16)
+          {
+            sub_100020530("ASPFTLParseBufferToCxt: bpZone2EntryHostTP(1302): (#16) cfg elements != (%d) buffer elements", v9);
+          }
+
+          if (v9 >= 0x11)
+          {
+            v12 = 16;
+          }
+
+          else
+          {
+            v12 = v9;
+          }
+
+          if (sub_1000189BC(a1, "bpZone2EntryHostTP_", a2, 8u, v12))
+          {
+            goto LABEL_110;
+          }
+
+          sub_100020530("ASPFTLParseBufferToCxt: bpZone2EntryHostTP(1302): Cannot add 16 elements to context", v14);
+          break;
+        case 1303:
+          if (v9 != 16)
+          {
+            sub_100020530("ASPFTLParseBufferToCxt: bpZone2EntryGCTP(1303): (#16) cfg elements != (%d) buffer elements", v9);
+          }
+
+          if (v9 >= 0x11)
+          {
+            v12 = 16;
+          }
+
+          else
+          {
+            v12 = v9;
+          }
+
+          if (sub_1000189BC(a1, "bpZone2EntryGCTP_", a2, 8u, v12))
+          {
+            goto LABEL_110;
+          }
+
+          sub_100020530("ASPFTLParseBufferToCxt: bpZone2EntryGCTP(1303): Cannot add 16 elements to context", v14);
+          break;
+        case 1304:
+          if (v9 != 16)
+          {
+            sub_100020530("ASPFTLParseBufferToCxt: bpZone2ExitHostTP(1304): (#16) cfg elements != (%d) buffer elements", v9);
+          }
+
+          if (v9 >= 0x11)
+          {
+            v12 = 16;
+          }
+
+          else
+          {
+            v12 = v9;
+          }
+
+          if (sub_1000189BC(a1, "bpZone2ExitHostTP_", a2, 8u, v12))
+          {
+            goto LABEL_110;
+          }
+
+          sub_100020530("ASPFTLParseBufferToCxt: bpZone2ExitHostTP(1304): Cannot add 16 elements to context", v14);
+          break;
+        case 1305:
+          if (v9 != 16)
+          {
+            sub_100020530("ASPFTLParseBufferToCxt: bpZone2ExitGCTP(1305): (#16) cfg elements != (%d) buffer elements", v9);
+          }
+
+          if (v9 >= 0x11)
+          {
+            v12 = 16;
+          }
+
+          else
+          {
+            v12 = v9;
+          }
+
+          if (sub_1000189BC(a1, "bpZone2ExitGCTP_", a2, 8u, v12))
+          {
+            goto LABEL_110;
+          }
+
+          sub_100020530("ASPFTLParseBufferToCxt: bpZone2ExitGCTP(1305): Cannot add 16 elements to context", v14);
+          break;
+        case 1323:
+          if ((sub_100020050(a1, "", "prefetchNofHits", *a2) & 1) == 0)
+          {
+            sub_100020530("ASPFTLParseBufferToCxt: prefetchNofHits(1323) cannot add 1 element to context");
+          }
+
+          goto LABEL_161;
+        case 1326:
+          if ((sub_100020050(a1, "", "massScanFullRounds", *a2) & 1) == 0)
+          {
+            sub_100020530("ASPFTLParseBufferToCxt: massScanFullRounds(1326) cannot add 1 element to context");
+          }
+
+          goto LABEL_161;
+        case 1327:
+          if ((sub_100020050(a1, "", "massScanEarlyExits", *a2) & 1) == 0)
+          {
+            sub_100020530("ASPFTLParseBufferToCxt: massScanEarlyExits(1327) cannot add 1 element to context");
+          }
+
+          goto LABEL_161;
+        case 1328:
+          if ((sub_100020050(a1, "", "massScanMspFullScanRequests", *a2) & 1) == 0)
+          {
+            sub_100020530("ASPFTLParseBufferToCxt: massScanMspFullScanRequests(1328) cannot add 1 element to context");
+          }
+
+          goto LABEL_161;
+        case 1329:
+          if ((sub_100020050(a1, "", "massScanMspEarlyExitRequests", *a2) & 1) == 0)
+          {
+            sub_100020530("ASPFTLParseBufferToCxt: massScanMspEarlyExitRequests(1329) cannot add 1 element to context");
+          }
+
+          goto LABEL_161;
+        case 1333:
+          if ((sub_100020050(a1, "", "gcBoffOrderedRecoverableErrorGbbs", *a2) & 1) == 0)
+          {
+            sub_100020530("ASPFTLParseBufferToCxt: gcBoffOrderedRecoverableErrorGbbs(1333) cannot add 1 element to context");
+          }
+
+          goto LABEL_161;
+        case 1334:
+          if ((sub_100020050(a1, "", "gcBoffOrderedUnrecoverableErrorGbbs", *a2) & 1) == 0)
+          {
+            sub_100020530("ASPFTLParseBufferToCxt: gcBoffOrderedUnrecoverableErrorGbbs(1334) cannot add 1 element to context");
+          }
+
+          goto LABEL_161;
+        case 1335:
+          if ((sub_100020050(a1, "", "gcBoffOrderedBandOrphansNumBands", *a2) & 1) == 0)
+          {
+            sub_100020530("ASPFTLParseBufferToCxt: gcBoffOrderedBandOrphansNumBands(1335) cannot add 1 element to context");
+          }
+
+          goto LABEL_161;
+        case 1336:
+          if ((sub_100020050(a1, "", "gcBoffOrderedBandOrphansNumSectors", *a2) & 1) == 0)
+          {
+            sub_100020530("ASPFTLParseBufferToCxt: gcBoffOrderedBandOrphansNumSectors(1336) cannot add 1 element to context");
+          }
+
+          goto LABEL_161;
+        case 1337:
+          if ((sub_100020050(a1, "", "gcBoffOrderedDefragEvents", *a2) & 1) == 0)
+          {
+            sub_100020530("ASPFTLParseBufferToCxt: gcBoffOrderedDefragEvents(1337) cannot add 1 element to context");
+          }
+
+          goto LABEL_161;
+        case 1338:
+          if ((sub_100020050(a1, "", "gcBoffOrderedDefragIterations", *a2) & 1) == 0)
+          {
+            sub_100020530("ASPFTLParseBufferToCxt: gcBoffOrderedDefragIterations(1338) cannot add 1 element to context");
+          }
+
+          goto LABEL_161;
+        case 1339:
+          if ((sub_100020050(a1, "", "gcBoffOrderedDefragSectors", *a2) & 1) == 0)
+          {
+            sub_100020530("ASPFTLParseBufferToCxt: gcBoffOrderedDefragSectors(1339) cannot add 1 element to context");
+          }
+
+          goto LABEL_161;
+        case 1344:
+          if (v9 != 4)
+          {
+            sub_100020530("ASPFTLParseBufferToCxt: unhappyWideGC1(1344): (#4) cfg elements != (%d) buffer elements", v9);
+          }
+
+          if (v9 >= 5)
+          {
+            v12 = 4;
+          }
+
+          else
+          {
+            v12 = v9;
+          }
+
+          if (sub_1000189BC(a1, "unhappyWideGC1_", a2, 8u, v12))
+          {
+            goto LABEL_110;
+          }
+
+          sub_100020530("ASPFTLParseBufferToCxt: unhappyWideGC1(1344): Cannot add 4 elements to context", v14);
+          break;
+        case 1345:
+          if (v9 != 4)
+          {
+            sub_100020530("ASPFTLParseBufferToCxt: unhappyVertGC(1345): (#4) cfg elements != (%d) buffer elements", v9);
+          }
+
+          if (v9 >= 5)
+          {
+            v12 = 4;
+          }
+
+          else
+          {
+            v12 = v9;
+          }
+
+          if (sub_1000189BC(a1, "unhappyVertGC_", a2, 8u, v12))
+          {
+            goto LABEL_110;
+          }
+
+          sub_100020530("ASPFTLParseBufferToCxt: unhappyVertGC(1345): Cannot add 4 elements to context", v14);
+          break;
+        case 1348:
+          if ((sub_100020050(a1, "", "thermalSelfThrottlingSupported", *a2) & 1) == 0)
+          {
+            sub_100020530("ASPFTLParseBufferToCxt: thermalSelfThrottlingSupported(1348) cannot add 1 element to context");
+          }
+
+          goto LABEL_161;
+        case 1349:
+          if ((sub_100020050(a1, "", "thermalSelfThrottlingEnabled", *a2) & 1) == 0)
+          {
+            sub_100020530("ASPFTLParseBufferToCxt: thermalSelfThrottlingEnabled(1349) cannot add 1 element to context");
+          }
+
+          goto LABEL_161;
+        default:
+          goto LABEL_2685;
+      }
+
+      return v5;
   }
 }

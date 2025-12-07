@@ -123,17 +123,17 @@ uint64_t __49__PowerUIRuntimeAwarenessNotifier_sharedInstance__block_invoke()
 
 - (void)checkBatteryLevelAndPostNotificationIfNeeded
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v3 = [PowerUISmartChargeUtilities currentBatteryLevelWithContext:self->_context];
   log = self->_log;
   if (os_log_type_enabled(log, OS_LOG_TYPE_DEFAULT))
   {
     lastSeenBatteryLevel = self->_lastSeenBatteryLevel;
-    v15 = 134218240;
-    v16 = v3;
-    v17 = 2048;
-    v18 = lastSeenBatteryLevel;
-    _os_log_impl(&dword_21B766000, log, OS_LOG_TYPE_DEFAULT, "Current battery level: %ld%%, last seen: %ld%%", &v15, 0x16u);
+    v14 = 134218240;
+    v15 = v3;
+    v16 = 2048;
+    v17 = lastSeenBatteryLevel;
+    _os_log_impl(&dword_21B766000, log, OS_LOG_TYPE_DEFAULT, "Current battery level: %ld%%, last seen: %ld%%", &v14, 0x16u);
   }
 
   if (v3 != self->_lastSeenBatteryLevel)
@@ -159,8 +159,8 @@ uint64_t __49__PowerUIRuntimeAwarenessNotifier_sharedInstance__block_invoke()
               v10 = self->_log;
               if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
               {
-                LOWORD(v15) = 0;
-                _os_log_impl(&dword_21B766000, v10, OS_LOG_TYPE_DEFAULT, "Posted internal charging advice notification, next eligible in 16 hours", &v15, 2u);
+                LOWORD(v14) = 0;
+                _os_log_impl(&dword_21B766000, v10, OS_LOG_TYPE_DEFAULT, "Posted internal charging advice notification, next eligible in 16 hours", &v14, 2u);
               }
             }
           }
@@ -173,9 +173,9 @@ uint64_t __49__PowerUIRuntimeAwarenessNotifier_sharedInstance__block_invoke()
       v11 = self->_log;
       if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
-        v15 = 67109120;
-        LODWORD(v16) = 3;
-        _os_log_impl(&dword_21B766000, v11, OS_LOG_TYPE_DEFAULT, "Battery level changed to exactly %d%%", &v15, 8u);
+        v14 = 67109120;
+        LODWORD(v15) = 3;
+        _os_log_impl(&dword_21B766000, v11, OS_LOG_TYPE_DEFAULT, "Battery level changed to exactly %d%%", &v14, 8u);
       }
 
       v12 = +[PowerUINotificationManager sharedInstance];
@@ -184,13 +184,11 @@ uint64_t __49__PowerUIRuntimeAwarenessNotifier_sharedInstance__block_invoke()
 
     self->_lastSeenBatteryLevel = v3;
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)shouldAdviseToCharge
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   [(PowerUILocationSignalMonitor *)self->_locationMonitor requiredFullChargeDate];
   v3 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
   distantFuture = [MEMORY[0x277CBEAA8] distantFuture];
@@ -209,9 +207,9 @@ uint64_t __49__PowerUIRuntimeAwarenessNotifier_sharedInstance__block_invoke()
       v12 = 0;
       if (os_log_type_enabled(log, OS_LOG_TYPE_DEFAULT))
       {
-        v29 = 134217984;
-        v30 = v10;
-        _os_log_impl(&dword_21B766000, log, OS_LOG_TYPE_DEFAULT, "Not showing internal charging advice during nighttime hours (current hour: %ld)", &v29, 0xCu);
+        v28 = 134217984;
+        v29 = v10;
+        _os_log_impl(&dword_21B766000, log, OS_LOG_TYPE_DEFAULT, "Not showing internal charging advice during nighttime hours (current hour: %ld)", &v28, 0xCu);
         v12 = 0;
       }
 
@@ -232,13 +230,13 @@ uint64_t __49__PowerUIRuntimeAwarenessNotifier_sharedInstance__block_invoke()
       v23 = self->_log;
       if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
       {
-        v29 = 134217984;
-        v30 = v19;
+        v28 = 134217984;
+        v29 = v19;
         v24 = "Invalid TTE prediction: %f";
         v25 = v23;
         v26 = 12;
 LABEL_16:
-        _os_log_impl(&dword_21B766000, v25, OS_LOG_TYPE_DEFAULT, v24, &v29, v26);
+        _os_log_impl(&dword_21B766000, v25, OS_LOG_TYPE_DEFAULT, v24, &v28, v26);
       }
     }
 
@@ -251,11 +249,11 @@ LABEL_16:
       {
         if (v22)
         {
-          v29 = 134218240;
-          v30 = v19 / 60.0;
-          v31 = 2048;
-          v32 = v21 / 60.0;
-          _os_log_impl(&dword_21B766000, v20, OS_LOG_TYPE_DEFAULT, "TTE %f hours, but %f hours until 9 PM - suggesting charge", &v29, 0x16u);
+          v28 = 134218240;
+          v29 = v19 / 60.0;
+          v30 = 2048;
+          v31 = v21 / 60.0;
+          _os_log_impl(&dword_21B766000, v20, OS_LOG_TYPE_DEFAULT, "TTE %f hours, but %f hours until 9 PM - suggesting charge", &v28, 0x16u);
         }
 
         v12 = 1;
@@ -264,10 +262,10 @@ LABEL_16:
 
       if (v22)
       {
-        v29 = 134218240;
-        v30 = v19 / 60.0;
-        v31 = 2048;
-        v32 = v21 / 60.0;
+        v28 = 134218240;
+        v29 = v19 / 60.0;
+        v30 = 2048;
+        v31 = v21 / 60.0;
         v24 = "TTE %f hours, %f hours until 9 PM - no charge needed";
         v25 = v20;
         v26 = 22;
@@ -286,38 +284,37 @@ LABEL_19:
   v12 = 0;
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
-    v29 = 138412290;
-    v30 = v3;
-    _os_log_impl(&dword_21B766000, v13, OS_LOG_TYPE_DEFAULT, "Unlikely in known charge location: %@", &v29, 0xCu);
+    v28 = 138412290;
+    v29 = v3;
+    _os_log_impl(&dword_21B766000, v13, OS_LOG_TYPE_DEFAULT, "Unlikely in known charge location: %@", &v28, 0xCu);
     v12 = 0;
   }
 
 LABEL_20:
 
-  v27 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
 - (BOOL)shouldThrottleChargingAdviceNotification
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   if (!self->_lastChargingAdviceNotificationDate)
   {
     log = self->_log;
     v7 = os_log_type_enabled(log, OS_LOG_TYPE_DEFAULT);
     if (!v7)
     {
-      goto LABEL_11;
+      return v7;
     }
 
-    LOWORD(v14) = 0;
+    LOWORD(v13) = 0;
     v9 = "No previous TTE notification recorded, allowing internal notification";
     v10 = log;
     v11 = 2;
 LABEL_10:
-    _os_log_impl(&dword_21B766000, v10, OS_LOG_TYPE_DEFAULT, v9, &v14, v11);
+    _os_log_impl(&dword_21B766000, v10, OS_LOG_TYPE_DEFAULT, v9, &v13, v11);
     LOBYTE(v7) = 0;
-    goto LABEL_11;
+    return v7;
   }
 
   date = [MEMORY[0x277CBEAA8] date];
@@ -330,11 +327,11 @@ LABEL_10:
   {
     if (!v7)
     {
-      goto LABEL_11;
+      return v7;
     }
 
-    v14 = 134217984;
-    v15 = v5 / 3600.0;
+    v13 = 134217984;
+    v14 = v5 / 3600.0;
     v9 = "Allowing internal charging advice notification - last sent %f hours ago";
     v10 = v6;
     v11 = 12;
@@ -343,16 +340,14 @@ LABEL_10:
 
   if (v7)
   {
-    v14 = 134218240;
-    v15 = v5 / 3600.0;
-    v16 = 2048;
-    v17 = 0x4030000000000000;
-    _os_log_impl(&dword_21B766000, v6, OS_LOG_TYPE_DEFAULT, "Throttling internal charging advice notification - last sent %f hours ago, threshold is %f hours", &v14, 0x16u);
+    v13 = 134218240;
+    v14 = v5 / 3600.0;
+    v15 = 2048;
+    v16 = 0x4030000000000000;
+    _os_log_impl(&dword_21B766000, v6, OS_LOG_TYPE_DEFAULT, "Throttling internal charging advice notification - last sent %f hours ago, threshold is %f hours", &v13, 0x16u);
   }
 
   LOBYTE(v7) = 1;
-LABEL_11:
-  v12 = *MEMORY[0x277D85DE8];
   return v7;
 }
 

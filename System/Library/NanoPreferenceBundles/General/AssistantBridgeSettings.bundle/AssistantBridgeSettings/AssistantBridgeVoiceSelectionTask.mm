@@ -2,6 +2,7 @@
 - (AssistantBridgeVoiceSelectionTask)init;
 - (NSString)_languageCode;
 - (void)_dismissLoadedViewController;
+- (void)_executePendingVoiceSelectionCompletionAndDismissViewControllerWithVoiceSelectionRequired:(BOOL)required selectedVoice:(id)voice;
 - (void)_loadStateWithCompletion:(id)completion;
 - (void)logWhetherSiriWasEnabledAfterCompleted:(BOOL)completed;
 - (void)presentVoiceSelectionIfNecessaryFromViewController:(id)controller completion:(id)completion;
@@ -92,6 +93,21 @@
   v6 = v5;
 
   return v6;
+}
+
+- (void)_executePendingVoiceSelectionCompletionAndDismissViewControllerWithVoiceSelectionRequired:(BOOL)required selectedVoice:(id)voice
+{
+  requiredCopy = required;
+  voiceCopy = voice;
+  _pendingVoiceSelectionCompletion = [(AssistantBridgeVoiceSelectionTask *)self _pendingVoiceSelectionCompletion];
+  v7 = _pendingVoiceSelectionCompletion;
+  if (_pendingVoiceSelectionCompletion)
+  {
+    (*(_pendingVoiceSelectionCompletion + 16))(_pendingVoiceSelectionCompletion, requiredCopy, voiceCopy);
+  }
+
+  [(AssistantBridgeVoiceSelectionTask *)self _setPendingVoiceSelectionCompletion:0];
+  [(AssistantBridgeVoiceSelectionTask *)self _dismissLoadedViewController];
 }
 
 - (void)logWhetherSiriWasEnabledAfterCompleted:(BOOL)completed

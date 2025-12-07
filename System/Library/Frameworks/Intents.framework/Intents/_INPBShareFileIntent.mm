@@ -3,6 +3,7 @@
 - (_INPBShareFileIntent)initWithCoder:(id)coder;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)dictionaryRepresentation;
+- (id)shareModeAsString:(int)string;
 - (int)StringAsShareMode:(id)mode;
 - (unint64_t)hash;
 - (void)addEntityName:(id)name;
@@ -18,35 +19,35 @@
 
 - (id)dictionaryRepresentation
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   dictionary = [MEMORY[0x1E695DF90] dictionary];
   if ([(NSArray *)self->_entityNames count])
   {
     array = [MEMORY[0x1E695DF70] array];
+    v27 = 0u;
     v28 = 0u;
     v29 = 0u;
     v30 = 0u;
-    v31 = 0u;
     v5 = self->_entityNames;
-    v6 = [(NSArray *)v5 countByEnumeratingWithState:&v28 objects:v33 count:16];
+    v6 = [(NSArray *)v5 countByEnumeratingWithState:&v27 objects:v32 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v29;
+      v8 = *v28;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v29 != v8)
+          if (*v28 != v8)
           {
             objc_enumerationMutation(v5);
           }
 
-          dictionaryRepresentation = [*(*(&v28 + 1) + 8 * i) dictionaryRepresentation];
+          dictionaryRepresentation = [*(*(&v27 + 1) + 8 * i) dictionaryRepresentation];
           [array addObject:dictionaryRepresentation];
         }
 
-        v7 = [(NSArray *)v5 countByEnumeratingWithState:&v28 objects:v33 count:16];
+        v7 = [(NSArray *)v5 countByEnumeratingWithState:&v27 objects:v32 count:16];
       }
 
       while (v7);
@@ -62,30 +63,30 @@
   if ([(NSArray *)self->_recipients count])
   {
     array2 = [MEMORY[0x1E695DF70] array];
+    v23 = 0u;
     v24 = 0u;
     v25 = 0u;
     v26 = 0u;
-    v27 = 0u;
     v14 = self->_recipients;
-    v15 = [(NSArray *)v14 countByEnumeratingWithState:&v24 objects:v32 count:16];
+    v15 = [(NSArray *)v14 countByEnumeratingWithState:&v23 objects:v31 count:16];
     if (v15)
     {
       v16 = v15;
-      v17 = *v25;
+      v17 = *v24;
       do
       {
         for (j = 0; j != v16; ++j)
         {
-          if (*v25 != v17)
+          if (*v24 != v17)
           {
             objc_enumerationMutation(v14);
           }
 
-          dictionaryRepresentation3 = [*(*(&v24 + 1) + 8 * j) dictionaryRepresentation];
+          dictionaryRepresentation3 = [*(*(&v23 + 1) + 8 * j) dictionaryRepresentation];
           [array2 addObject:dictionaryRepresentation3];
         }
 
-        v16 = [(NSArray *)v14 countByEnumeratingWithState:&v24 objects:v32 count:16];
+        v16 = [(NSArray *)v14 countByEnumeratingWithState:&v23 objects:v31 count:16];
       }
 
       while (v16);
@@ -109,8 +110,6 @@
 
     [dictionary setObject:v21 forKeyedSubscript:@"shareMode"];
   }
-
-  v22 = *MEMORY[0x1E69E9840];
 
   return dictionary;
 }
@@ -281,35 +280,34 @@ LABEL_18:
 
 - (void)writeTo:(id)to
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   toCopy = to;
-  v25 = 0u;
-  v26 = 0u;
-  v27 = 0u;
-  v28 = 0u;
+  v21 = 0u;
+  v22 = 0u;
+  v23 = 0u;
+  v24 = 0u;
   v5 = self->_entityNames;
-  v6 = [(NSArray *)v5 countByEnumeratingWithState:&v25 objects:v30 count:16];
+  v6 = [(NSArray *)v5 countByEnumeratingWithState:&v21 objects:v26 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v26;
+    v8 = *v22;
     do
     {
       v9 = 0;
       do
       {
-        if (*v26 != v8)
+        if (*v22 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v25 + 1) + 8 * v9);
         PBDataWriterWriteSubmessage();
         ++v9;
       }
 
       while (v7 != v9);
-      v7 = [(NSArray *)v5 countByEnumeratingWithState:&v25 objects:v30 count:16];
+      v7 = [(NSArray *)v5 countByEnumeratingWithState:&v21 objects:v26 count:16];
     }
 
     while (v7);
@@ -323,45 +321,41 @@ LABEL_18:
     PBDataWriterWriteSubmessage();
   }
 
-  v23 = 0u;
-  v24 = 0u;
-  v21 = 0u;
-  v22 = 0u;
-  v13 = self->_recipients;
-  v14 = [(NSArray *)v13 countByEnumeratingWithState:&v21 objects:v29 count:16];
-  if (v14)
+  v19 = 0u;
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
+  v12 = self->_recipients;
+  v13 = [(NSArray *)v12 countByEnumeratingWithState:&v17 objects:v25 count:16];
+  if (v13)
   {
-    v15 = v14;
-    v16 = *v22;
+    v14 = v13;
+    v15 = *v18;
     do
     {
-      v17 = 0;
+      v16 = 0;
       do
       {
-        if (*v22 != v16)
+        if (*v18 != v15)
         {
-          objc_enumerationMutation(v13);
+          objc_enumerationMutation(v12);
         }
 
-        v18 = *(*(&v21 + 1) + 8 * v17);
         PBDataWriterWriteSubmessage();
-        ++v17;
+        ++v16;
       }
 
-      while (v15 != v17);
-      v15 = [(NSArray *)v13 countByEnumeratingWithState:&v21 objects:v29 count:16];
+      while (v14 != v16);
+      v14 = [(NSArray *)v12 countByEnumeratingWithState:&v17 objects:v25 count:16];
     }
 
-    while (v15);
+    while (v14);
   }
 
   if ([(_INPBShareFileIntent *)self hasShareMode])
   {
-    shareMode = self->_shareMode;
     PBDataWriterWriteInt32Field();
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 - (int)StringAsShareMode:(id)mode
@@ -385,6 +379,21 @@ LABEL_18:
   else
   {
     v4 = 0;
+  }
+
+  return v4;
+}
+
+- (id)shareModeAsString:(int)string
+{
+  if (string >= 3)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = *(&off_1E727DD98 + string);
   }
 
   return v4;

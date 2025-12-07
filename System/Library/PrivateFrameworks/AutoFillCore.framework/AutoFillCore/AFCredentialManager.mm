@@ -108,7 +108,7 @@ uint64_t __37__AFCredentialManager_sharedInstance__block_invoke()
   v4 = connectionCopy;
   if (connectionCopy)
   {
-    [connectionCopy auditToken];
+    objc_msgSend_auditToken(connectionCopy);
   }
 
   else
@@ -122,10 +122,11 @@ uint64_t __37__AFCredentialManager_sharedInstance__block_invoke()
     v6 = v5;
     *cf.val = 0;
     v7 = SecTaskCopyValueForEntitlement(v5, @"application-identifier", &cf);
+    v8 = v7;
     if (*cf.val)
     {
-      v8 = AFCredentialManagerOSLogFacility();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+      v9 = AFCredentialManagerOSLogFacility(v7);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
         [AFCredentialManager obtainApplicationIdentifierFromConnection:?];
       }
@@ -138,10 +139,10 @@ uint64_t __37__AFCredentialManager_sharedInstance__block_invoke()
 
   else
   {
-    v7 = 0;
+    v8 = 0;
   }
 
-  return v7;
+  return v8;
 }
 
 - (id)obtainBundleIdentifierFromConnection:(id)connection
@@ -150,7 +151,7 @@ uint64_t __37__AFCredentialManager_sharedInstance__block_invoke()
   v4 = connectionCopy;
   if (connectionCopy)
   {
-    [connectionCopy auditToken];
+    objc_msgSend_auditToken(connectionCopy);
   }
 
   CPCopyBundleIdentifierAndTeamFromAuditToken();
@@ -164,7 +165,7 @@ uint64_t __37__AFCredentialManager_sharedInstance__block_invoke()
   v4 = connectionCopy;
   if (connectionCopy)
   {
-    [connectionCopy auditToken];
+    objc_msgSend_auditToken(connectionCopy);
   }
 
   else
@@ -182,8 +183,8 @@ uint64_t __37__AFCredentialManager_sharedInstance__block_invoke()
 
     if (*cf.val)
     {
-      v9 = AFCredentialManagerOSLogFacility();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      v10 = AFCredentialManagerOSLogFacility(v9);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
         [AFCredentialManager hasAutoFillContextEntitlementForConnection:?];
       }
@@ -276,9 +277,9 @@ uint64_t __37__AFCredentialManager_sharedInstance__block_invoke()
     creationDate = [credentialCopy creationDate];
     v15 = [v13 localizedStringFromDate:creationDate dateStyle:1 timeStyle:0];
 
-    v27 = 0;
-    v16 = [MEMORY[0x277CCACA8] stringWithValidatedFormat:v12 validFormatSpecifiers:@"%@" error:&v27, v15];
-    v17 = v27;
+    v28 = 0;
+    v16 = [MEMORY[0x277CCACA8] stringWithValidatedFormat:v12 validFormatSpecifiers:@"%@" error:&v28, v15];
+    v17 = v28;
     v18 = &stru_28537ABC8;
     if (v16)
     {
@@ -289,8 +290,8 @@ uint64_t __37__AFCredentialManager_sharedInstance__block_invoke()
 
     if (v17)
     {
-      v20 = AFCredentialManagerOSLogFacility();
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+      v21 = AFCredentialManagerOSLogFacility(v20);
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
       {
         [AFCredentialManager _suggestionForPasswordCredential:v17 autoFillPayload:? customInfoType:?];
       }
@@ -309,30 +310,28 @@ uint64_t __37__AFCredentialManager_sharedInstance__block_invoke()
     site = [credentialCopy site];
     if (![site length])
     {
-      v22 = +[AFSuggestionGenerationManager sharedInstance];
-      localizationManager2 = [v22 localizationManager];
-      v24 = [localizationManager2 localizedStringForKey:@"SAFARI_KEYCHAIN"];
+      v23 = +[AFSuggestionGenerationManager sharedInstance];
+      localizationManager2 = [v23 localizationManager];
+      v25 = [localizationManager2 localizedStringForKey:@"SAFARI_KEYCHAIN"];
 
-      site = v24;
+      site = v25;
     }
   }
 
-  v25 = [[AFSuggestion alloc] initWithTitle:user subTitle:site usernameAndPasswordPayload:payloadCopy leadingImage:0 trailingImage:0 customInfoType:type];
+  v26 = [[AFSuggestion alloc] initWithTitle:user subTitle:site usernameAndPasswordPayload:payloadCopy leadingImage:0 trailingImage:0 customInfoType:type];
 
-  return v25;
+  return v26;
 }
 
 - (id)_autoFillPayloadForPasskey:(id)passkey customInfoType:(unint64_t *)type
 {
-  v10[1] = *MEMORY[0x277D85DE8];
+  v9[1] = *MEMORY[0x277D85DE8];
   *type = 12;
-  v9 = @"Passkey";
-  v10[0] = passkey;
+  v8 = @"Passkey";
+  v9[0] = passkey;
   v4 = MEMORY[0x277CBEAC0];
   passkeyCopy = passkey;
-  v6 = [v4 dictionaryWithObjects:v10 forKeys:&v9 count:1];
-
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = [v4 dictionaryWithObjects:v9 forKeys:&v8 count:1];
 
   return v6;
 }
@@ -347,11 +346,11 @@ uint64_t __37__AFCredentialManager_sharedInstance__block_invoke()
   v12 = [localizationManager localizedStringForKey:@"SAFARI_PASSKEY_SITE_SHORT"];
 
   v13 = MEMORY[0x277CCACA8];
-  v22 = 0;
+  v23 = 0;
   relyingPartyIdentifier = [passkeyCopy relyingPartyIdentifier];
 
-  v15 = [v13 stringWithValidatedFormat:v12 validFormatSpecifiers:@"%@" error:&v22, relyingPartyIdentifier];
-  v16 = v22;
+  v15 = [v13 stringWithValidatedFormat:v12 validFormatSpecifiers:@"%@" error:&v23, relyingPartyIdentifier];
+  v16 = v23;
   v17 = &stru_28537ABC8;
   if (v15)
   {
@@ -362,21 +361,21 @@ uint64_t __37__AFCredentialManager_sharedInstance__block_invoke()
 
   if (v16)
   {
-    v19 = AFCredentialManagerOSLogFacility();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+    v20 = AFCredentialManagerOSLogFacility(v19);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
       [AFCredentialManager _suggestionForPasskey:v16 autoFillPayload:? customInfoType:?];
     }
   }
 
-  v20 = [[AFSuggestion alloc] initWithTitle:username subTitle:v18 usernameAndPasswordPayload:payloadCopy leadingImage:0 trailingImage:0 customInfoType:type];
+  v21 = [[AFSuggestion alloc] initWithTitle:username subTitle:v18 usernameAndPasswordPayload:payloadCopy leadingImage:0 trailingImage:0 customInfoType:type];
 
-  return v20;
+  return v21;
 }
 
 - (id)generateLoginAutoFillWithDocumentTraits:(id)traits
 {
-  v62[1] = *MEMORY[0x277D85DE8];
+  v61[1] = *MEMORY[0x277D85DE8];
   traitsCopy = traits;
   currentConnection = [MEMORY[0x277CCAE80] currentConnection];
   sharedFeatureManager = [getSFAutoFillFeatureManagerClass() sharedFeatureManager];
@@ -426,60 +425,60 @@ LABEL_13:
 LABEL_14:
   v11 = dispatch_group_create();
   v12 = v11;
-  v50 = 0;
-  v51 = &v50;
-  v52 = 0x3032000000;
-  v53 = __Block_byref_object_copy__0;
-  v54 = __Block_byref_object_dispose__0;
-  v55 = 0;
+  v49 = 0;
+  v50 = &v49;
+  v51 = 0x3032000000;
+  v52 = __Block_byref_object_copy__0;
+  v53 = __Block_byref_object_dispose__0;
+  v54 = 0;
   if (self->_passkeyProvider)
   {
     dispatch_group_enter(v11);
     passkeyProvider = self->_passkeyProvider;
-    v47[0] = MEMORY[0x277D85DD0];
-    v47[1] = 3221225472;
-    v47[2] = __63__AFCredentialManager_generateLoginAutoFillWithDocumentTraits___block_invoke;
-    v47[3] = &unk_278CF6AE0;
-    v49 = &v50;
-    v48 = v12;
-    [(SFAppAutoFillPasskeyProvider *)passkeyProvider getAvailablePasskeysForApplicationIdentifier:appId completionHandler:v47];
+    v46[0] = MEMORY[0x277D85DD0];
+    v46[1] = 3221225472;
+    v46[2] = __63__AFCredentialManager_generateLoginAutoFillWithDocumentTraits___block_invoke;
+    v46[3] = &unk_278CF6AE0;
+    v48 = &v49;
+    v47 = v12;
+    [(SFAppAutoFillPasskeyProvider *)passkeyProvider getAvailablePasskeysForApplicationIdentifier:appId completionHandler:v46];
   }
 
-  v41 = 0;
-  v42 = &v41;
-  v43 = 0x3032000000;
-  v44 = __Block_byref_object_copy__0;
-  v45 = __Block_byref_object_dispose__0;
-  v46 = 0;
+  v40 = 0;
+  v41 = &v40;
+  v42 = 0x3032000000;
+  v43 = __Block_byref_object_copy__0;
+  v44 = __Block_byref_object_dispose__0;
+  v45 = 0;
   dispatch_group_enter(v12);
-  v38[0] = MEMORY[0x277D85DD0];
-  v38[1] = 3221225472;
-  v38[2] = __63__AFCredentialManager_generateLoginAutoFillWithDocumentTraits___block_invoke_2;
-  v38[3] = &unk_278CF6AE0;
-  v40 = &v41;
+  v37[0] = MEMORY[0x277D85DD0];
+  v37[1] = 3221225472;
+  v37[2] = __63__AFCredentialManager_generateLoginAutoFillWithDocumentTraits___block_invoke_2;
+  v37[3] = &unk_278CF6AE0;
+  v39 = &v40;
   group = v12;
-  v39 = group;
-  [(AFCredentialManager *)self getCredentialsWithApplicationIdentifier:appId documentTraits:traitsCopy withCompletionHandler:v38];
+  v38 = group;
+  [(AFCredentialManager *)self getCredentialsWithApplicationIdentifier:appId documentTraits:traitsCopy withCompletionHandler:v37];
   v14 = dispatch_time(0, 3000000000);
   dispatch_group_wait(group, v14);
-  if ([v51[5] count])
+  if ([v50[5] count])
   {
-    firstObject = [v51[5] firstObject];
-    v62[0] = firstObject;
-    v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v62 count:1];
+    firstObject = [v50[5] firstObject];
+    v61[0] = firstObject;
+    v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v61 count:1];
   }
 
   else
   {
-    firstObject2 = [v42[5] firstObject];
+    firstObject2 = [v41[5] firstObject];
     isExternal = [firstObject2 isExternal];
 
-    v19 = v42[5];
+    v19 = v41[5];
     if (isExternal)
     {
       firstObject3 = [v19 firstObject];
-      v61 = firstObject3;
-      v16 = [MEMORY[0x277CBEA60] arrayWithObjects:&v61 count:1];
+      v60 = firstObject3;
+      v16 = [MEMORY[0x277CBEA60] arrayWithObjects:&v60 count:1];
     }
 
     else
@@ -512,29 +511,29 @@ LABEL_14:
     for (i = 0; v23 != i; ++i)
     {
       v25 = [v16 objectAtIndex:i];
-      v37 = 0;
-      v57 = 0;
-      v58 = &v57;
-      v59 = 0x2050000000;
+      v36 = 0;
+      v56 = 0;
+      v57 = &v56;
+      v58 = 0x2050000000;
       v26 = getSFSafariCredentialClass_softClass;
-      v60 = getSFSafariCredentialClass_softClass;
+      v59 = getSFSafariCredentialClass_softClass;
       if (!getSFSafariCredentialClass_softClass)
       {
-        v56[0] = MEMORY[0x277D85DD0];
-        v56[1] = 3221225472;
-        v56[2] = __getSFSafariCredentialClass_block_invoke;
-        v56[3] = &unk_278CF6A18;
-        v56[4] = &v57;
-        __getSFSafariCredentialClass_block_invoke(v56);
-        v26 = v58[3];
+        v55[0] = MEMORY[0x277D85DD0];
+        v55[1] = 3221225472;
+        v55[2] = __getSFSafariCredentialClass_block_invoke;
+        v55[3] = &unk_278CF6A18;
+        v55[4] = &v56;
+        __getSFSafariCredentialClass_block_invoke(v55);
+        v26 = v57[3];
       }
 
       v27 = v26;
-      _Block_object_dispose(&v57, 8);
+      _Block_object_dispose(&v56, 8);
       if (objc_opt_isKindOfClass())
       {
-        v28 = [(AFCredentialManager *)self _autoFillPayloadForPasswordCredential:v25 customInfoType:&v37];
-        v29 = [(AFCredentialManager *)self _suggestionForPasswordCredential:v25 autoFillPayload:v28 customInfoType:v37];
+        v28 = [(AFCredentialManager *)self _autoFillPayloadForPasswordCredential:v25 customInfoType:&v36];
+        v29 = [(AFCredentialManager *)self _suggestionForPasswordCredential:v25 autoFillPayload:v28 customInfoType:v36];
         [v10 addObject:v29];
       }
 
@@ -551,8 +550,8 @@ LABEL_14:
           goto LABEL_36;
         }
 
-        v28 = [(AFCredentialManager *)self _autoFillPayloadForPasskey:v25 customInfoType:&v37];
-        v29 = [(AFCredentialManager *)self _suggestionForPasskey:v25 autoFillPayload:v28 customInfoType:v37];
+        v28 = [(AFCredentialManager *)self _autoFillPayloadForPasskey:v25 customInfoType:&v36];
+        v29 = [(AFCredentialManager *)self _suggestionForPasskey:v25 autoFillPayload:v28 customInfoType:v36];
         [v10 addObject:v29];
       }
 
@@ -563,11 +562,10 @@ LABEL_36:
   v30 = [[AFSuggestion alloc] initWithTitle:&stru_28537ABC8 subTitle:&stru_28537ABC8 usernameAndPasswordPayload:0 leadingImage:0 trailingImage:0 customInfoType:6];
   [v10 addObject:v30];
 
-  _Block_object_dispose(&v41, 8);
-  _Block_object_dispose(&v50, 8);
+  _Block_object_dispose(&v40, 8);
+  _Block_object_dispose(&v49, 8);
 
 LABEL_38:
-  v31 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -690,7 +688,8 @@ void __63__AFCredentialManager_generateLoginAutoFillWithDocumentTraits___block_i
   }
 
 LABEL_16:
-  if ([traitsCopy autofillSubMode] == 3)
+  autofillSubMode = [traitsCopy autofillSubMode];
+  if (autofillSubMode == 3)
   {
     currentConnection = [MEMORY[0x277CCAE80] currentConnection];
     appId = [traitsCopy appId];
@@ -717,60 +716,56 @@ LABEL_16:
     }
   }
 
-  v30 = AFCredentialManagerOSLogFacility();
-  if (os_log_type_enabled(v30, OS_LOG_TYPE_DEBUG))
+  v31 = AFCredentialManagerOSLogFacility(autofillSubMode);
+  if (os_log_type_enabled(v31, OS_LOG_TYPE_DEBUG))
   {
-    v31 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s Hide My Email is not required.", "-[AFCredentialManager generateSignupAutoFillWithAutoFillMode:documentTraits:completionHandler:]"];
-    [AFSuggestionGenerationManager generateContactAutoFillSuggestionsWithTextPrefix:v31 documentTraits:buf completionHandler:v30];
+    v32 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s Hide My Email is not required.", "-[AFCredentialManager generateSignupAutoFillWithAutoFillMode:documentTraits:completionHandler:]"];
+    [AFSuggestionGenerationManager generateContactAutoFillSuggestionsWithTextPrefix:v32 documentTraits:buf completionHandler:v31];
   }
 
   (*(handlerCopy + 2))(handlerCopy, v36);
 LABEL_27:
   _Block_object_dispose(&v43, 8);
-
-  v32 = *MEMORY[0x277D85DE8];
 }
 
 void __95__AFCredentialManager_generateSignupAutoFillWithAutoFillMode_documentTraits_completionHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v3 = a2;
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
-  v4 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v12;
+    v6 = *v11;
     do
     {
       v7 = 0;
       do
       {
-        if (*v12 != v6)
+        if (*v11 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
         v8 = *(*(*(a1 + 40) + 8) + 40);
-        v9 = [*(*(&v11 + 1) + 8 * v7) value];
+        v9 = [*(*(&v10 + 1) + 8 * v7) value];
         [v8 addObject:v9];
 
         ++v7;
       }
 
       while (v5 != v7);
-      v5 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v5);
   }
 
   dispatch_semaphore_signal(*(a1 + 32));
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __95__AFCredentialManager_generateSignupAutoFillWithAutoFillMode_documentTraits_completionHandler___block_invoke_2(uint64_t a1, uint64_t a2)
@@ -780,49 +775,49 @@ uint64_t __95__AFCredentialManager_generateSignupAutoFillWithAutoFillMode_docume
     [*(a1 + 32) addObject:a2];
   }
 
-  v3 = *(a1 + 32);
-  v4 = *(*(a1 + 40) + 16);
+  v3 = *(*(a1 + 40) + 16);
 
-  return v4();
+  return v3();
 }
 
 - (void)generateHideMyEmailAutoFillWithRenderTraits:(id)traits completionHandler:(id)handler
 {
   traitsCopy = traits;
   handlerCopy = handler;
+  v8 = handlerCopy;
   if (!traitsCopy)
   {
-    v8 = AFCredentialManagerOSLogFacility();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = AFCredentialManagerOSLogFacility(handlerCopy);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       [AFCredentialManager generateHideMyEmailAutoFillWithRenderTraits:completionHandler:];
     }
 
-    handlerCopy[2](handlerCopy, 0);
+    v8[2](v8, 0);
   }
 
   bundleId = [traitsCopy bundleId];
-  if (bundleId && (v10 = bundleId, [traitsCopy appId], v11 = objc_claimAutoreleasedReturnValue(), v11, v10, v11))
+  if (bundleId && (v11 = bundleId, [traitsCopy appId], v12 = objc_claimAutoreleasedReturnValue(), v12, v11, v12))
   {
     bundleId2 = [traitsCopy bundleId];
     appId = [traitsCopy appId];
-    v15[0] = MEMORY[0x277D85DD0];
-    v15[1] = 3221225472;
-    v15[2] = __85__AFCredentialManager_generateHideMyEmailAutoFillWithRenderTraits_completionHandler___block_invoke;
-    v15[3] = &unk_278CF6B30;
-    v16 = handlerCopy;
-    [(AFCredentialManager *)self generateHideMyEmailSuggestionWithApplicationBundleId:bundleId2 applicationId:appId completionHandler:v15];
+    v16[0] = MEMORY[0x277D85DD0];
+    v16[1] = 3221225472;
+    v16[2] = __85__AFCredentialManager_generateHideMyEmailAutoFillWithRenderTraits_completionHandler___block_invoke;
+    v16[3] = &unk_278CF6B30;
+    v17 = v8;
+    [(AFCredentialManager *)self generateHideMyEmailSuggestionWithApplicationBundleId:bundleId2 applicationId:appId completionHandler:v16];
   }
 
   else
   {
-    v14 = AFCredentialManagerOSLogFacility();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    v15 = AFCredentialManagerOSLogFacility(bundleId);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       [AFCredentialManager generateHideMyEmailAutoFillWithRenderTraits:completionHandler:];
     }
 
-    handlerCopy[2](handlerCopy, 0);
+    v8[2](v8, 0);
   }
 }
 
@@ -849,13 +844,14 @@ uint64_t __95__AFCredentialManager_generateSignupAutoFillWithAutoFillMode_docume
   v88 = v11;
   [SFSafariCredentialStoreClass getApprovedSharedWebCredentialsEntriesForAppWithAppID:applicationIdCopy completionHandler:v87];
   v12 = dispatch_time(0, 200000000);
-  if (dispatch_semaphore_wait(v11, v12))
+  v13 = dispatch_semaphore_wait(v11, v12);
+  if (v13)
   {
-    v13 = AFCredentialManagerOSLogFacility();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v14 = AFCredentialManagerOSLogFacility(v13);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
-      v14 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s AFCTester: Timeout on getApprovedSharedWebCredentialsEntriesForAppWithAppID:completionHandler:", "-[AFCredentialManager generateHideMyEmailSuggestionWithApplicationBundleId:applicationId:completionHandler:]"];
-      [AFCredentialManager generateHideMyEmailSuggestionWithApplicationBundleId:v14 applicationId:v102 completionHandler:v13];
+      v15 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s AFCTester: Timeout on getApprovedSharedWebCredentialsEntriesForAppWithAppID:completionHandler:", "-[AFCredentialManager generateHideMyEmailSuggestionWithApplicationBundleId:applicationId:completionHandler:]"];
+      [AFCredentialManager generateHideMyEmailSuggestionWithApplicationBundleId:v15 applicationId:v102 completionHandler:v14];
     }
 
     handlerCopy[2](handlerCopy, 0);
@@ -869,30 +865,30 @@ uint64_t __95__AFCredentialManager_generateSignupAutoFillWithAutoFillMode_docume
     v105 = __Block_byref_object_copy__0;
     v106 = __Block_byref_object_dispose__0;
     v107 = 0;
-    v15 = +[AFSuggestionGenerationManager sharedInstance];
-    localizationManager = [v15 localizationManager];
-    v17 = [localizationManager localizedStringForKey:@"SAFARI_HIDE_MY_EMAIL_SUGGESTION"];
-    v18 = *(v103 + 5);
-    *(v103 + 5) = v17;
-
+    v16 = +[AFSuggestionGenerationManager sharedInstance];
+    localizationManager = [v16 localizationManager];
+    v18 = [localizationManager localizedStringForKey:@"SAFARI_HIDE_MY_EMAIL_SUGGESTION"];
     v19 = *(v103 + 5);
-    if (!v19 || ![v19 length])
+    *(v103 + 5) = v18;
+
+    v20 = *(v103 + 5);
+    if (!v20 || (v20 = [v20 length]) == 0)
     {
-      v20 = AFCredentialManagerOSLogFacility();
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
+      v21 = AFCredentialManagerOSLogFacility(v20);
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
       {
-        v21 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s Localized Hide My Email text is nil", "-[AFCredentialManager generateHideMyEmailSuggestionWithApplicationBundleId:applicationId:completionHandler:]"];
-        [AFSuggestionGenerationManager generateContactAutoFillSuggestionsWithTextPrefix:v21 documentTraits:buf completionHandler:v20];
+        v22 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s Localized Hide My Email text is nil", "-[AFCredentialManager generateHideMyEmailSuggestionWithApplicationBundleId:applicationId:completionHandler:]"];
+        [AFSuggestionGenerationManager generateContactAutoFillSuggestionsWithTextPrefix:v22 documentTraits:buf completionHandler:v21];
       }
 
-      v22 = *(v103 + 5);
+      v23 = *(v103 + 5);
       *(v103 + 5) = @"Hide My Email";
     }
 
     v75 = 0;
     v76 = &v75;
     v77 = 0x2050000000;
-    v23 = getAKAccountManagerClass_softClass;
+    v24 = getAKAccountManagerClass_softClass;
     v78 = getAKAccountManagerClass_softClass;
     if (!getAKAccountManagerClass_softClass)
     {
@@ -902,12 +898,12 @@ uint64_t __95__AFCredentialManager_generateSignupAutoFillWithAutoFillMode_docume
       v84 = &unk_278CF6A18;
       v85 = &v75;
       __getAKAccountManagerClass_block_invoke(&v81);
-      v23 = *(v76 + 24);
+      v24 = *(v76 + 24);
     }
 
-    v24 = v23;
+    v25 = v24;
     _Block_object_dispose(&v75, 8);
-    sharedInstance = [v23 sharedInstance];
+    sharedInstance = [v24 sharedInstance];
     v81 = 0;
     v82 = &v81;
     v83 = 0x3032000000;
@@ -916,7 +912,7 @@ uint64_t __95__AFCredentialManager_generateSignupAutoFillWithAutoFillMode_docume
     v92 = 0;
     v93 = &v92;
     v94 = 0x2050000000;
-    v26 = getAKPrivateEmailControllerClass_softClass;
+    v27 = getAKPrivateEmailControllerClass_softClass;
     v95 = getAKPrivateEmailControllerClass_softClass;
     if (!getAKPrivateEmailControllerClass_softClass)
     {
@@ -926,12 +922,12 @@ uint64_t __95__AFCredentialManager_generateSignupAutoFillWithAutoFillMode_docume
       v78 = &unk_278CF6A18;
       v79 = &v92;
       __getAKPrivateEmailControllerClass_block_invoke(&v75);
-      v26 = *(v93 + 24);
+      v27 = *(v93 + 24);
     }
 
-    v27 = v26;
+    v28 = v27;
     _Block_object_dispose(&v92, 8);
-    v86 = objc_alloc_init(v26);
+    v86 = objc_alloc_init(v27);
     primaryAuthKitAccount = [sharedInstance primaryAuthKitAccount];
     v75 = 0;
     v76 = &v75;
@@ -949,36 +945,36 @@ uint64_t __95__AFCredentialManager_generateSignupAutoFillWithAutoFillMode_docume
     v66[1] = 3221225472;
     v66[2] = __108__AFCredentialManager_generateHideMyEmailSuggestionWithApplicationBundleId_applicationId_completionHandler___block_invoke_94;
     v66[3] = &unk_278CF6B80;
-    v29 = idCopy;
-    v67 = v29;
-    v30 = applicationIdCopy;
-    v68 = v30;
+    v30 = idCopy;
+    v67 = v30;
+    v31 = applicationIdCopy;
+    v68 = v31;
     v70 = v102;
     v71 = &v75;
     v72 = v73;
-    v31 = handlerCopy;
-    v69 = v31;
-    v32 = MEMORY[0x245CF1A60](v66);
+    v32 = handlerCopy;
+    v69 = v32;
+    v33 = MEMORY[0x245CF1A60](v66);
     v57[0] = MEMORY[0x277D85DD0];
     v57[1] = 3221225472;
     v57[2] = __108__AFCredentialManager_generateHideMyEmailSuggestionWithApplicationBundleId_applicationId_completionHandler___block_invoke_99;
     v57[3] = &unk_278CF6BD0;
-    v58 = v30;
+    v58 = v31;
     v62 = &v75;
-    v33 = v29;
-    v59 = v33;
+    v34 = v30;
+    v59 = v34;
     v63 = &v81;
     v64 = v102;
     v65 = v73;
-    v34 = v31;
-    v60 = v34;
     v35 = v32;
-    v61 = v35;
-    v36 = MEMORY[0x245CF1A60](v57);
+    v60 = v35;
+    v36 = v33;
+    v61 = v36;
+    v37 = MEMORY[0x245CF1A60](v57);
     v97 = 0;
     v98 = &v97;
     v99 = 0x2050000000;
-    v37 = getCSFFeatureManagerClass_softClass;
+    v38 = getCSFFeatureManagerClass_softClass;
     v100 = getCSFFeatureManagerClass_softClass;
     if (!getCSFFeatureManagerClass_softClass)
     {
@@ -988,34 +984,34 @@ uint64_t __95__AFCredentialManager_generateSignupAutoFillWithAutoFillMode_docume
       v95 = &unk_278CF6A18;
       v96 = &v97;
       __getCSFFeatureManagerClass_block_invoke(&v92);
-      v37 = v98[3];
+      v38 = v98[3];
     }
 
-    v38 = v37;
+    v39 = v38;
     _Block_object_dispose(&v97, 8);
     v48[0] = MEMORY[0x277D85DD0];
     v48[1] = 3221225472;
     v48[2] = __108__AFCredentialManager_generateHideMyEmailSuggestionWithApplicationBundleId_applicationId_completionHandler___block_invoke_102;
     v48[3] = &unk_278CF6C48;
     v52 = v73;
-    v39 = v34;
-    v50 = v39;
+    v40 = v35;
+    v50 = v40;
     v53 = v90;
     v54 = &v75;
-    v49 = v33;
+    v49 = v34;
     v55 = &v81;
     v56 = v102;
-    v40 = v36;
-    v51 = v40;
-    [v37 requestFeatureWithId:@"mail.hide-my-email.create" completion:v48];
-    v41 = dispatch_time(0, 200000000);
+    v41 = v37;
+    v51 = v41;
+    [v38 requestFeatureWithId:@"mail.hide-my-email.create" completion:v48];
+    v42 = dispatch_time(0, 200000000);
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
     block[2] = __108__AFCredentialManager_generateHideMyEmailSuggestionWithApplicationBundleId_applicationId_completionHandler___block_invoke_116;
     block[3] = &unk_278CF6C70;
     v47 = v73;
-    v46 = v39;
-    dispatch_after(v41, MEMORY[0x277D85CD0], block);
+    v46 = v40;
+    dispatch_after(v42, MEMORY[0x277D85CD0], block);
 
     _Block_object_dispose(v73, 8);
     _Block_object_dispose(&v75, 8);
@@ -1025,7 +1021,6 @@ uint64_t __95__AFCredentialManager_generateSignupAutoFillWithAutoFillMode_docume
   }
 
   _Block_object_dispose(v90, 8);
-  v42 = *MEMORY[0x277D85DE8];
 }
 
 intptr_t __108__AFCredentialManager_generateHideMyEmailSuggestionWithApplicationBundleId_applicationId_completionHandler___block_invoke(uint64_t a1, void *a2)
@@ -1075,10 +1070,11 @@ void __108__AFCredentialManager_generateHideMyEmailSuggestionWithApplicationBund
 
   v5 = v4;
   v6 = [[AFSuggestion alloc] initWithTitle:*(*(a1[7] + 8) + 40) applicationKey:v5 applicationBundleId:a1[5] altDSID:*(*(a1[8] + 8) + 40) customInfoType:11];
+  v7 = v6;
   if (atomic_exchange((*(a1[9] + 8) + 32), 1u))
   {
-    v7 = AFCredentialManagerOSLogFacility();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = AFCredentialManagerOSLogFacility(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       __108__AFCredentialManager_generateHideMyEmailSuggestionWithApplicationBundleId_applicationId_completionHandler___block_invoke_2_cold_1();
     }
@@ -1122,10 +1118,11 @@ void __108__AFCredentialManager_generateHideMyEmailSuggestionWithApplicationBund
   if (v3)
   {
     v4 = [[AFSuggestion alloc] initWithTitle:*(*(a1[8] + 8) + 40) applicationKey:a1[4] applicationBundleId:a1[5] altDSID:*(*(a1[9] + 8) + 40) customInfoType:11];
+    v5 = v4;
     if (atomic_exchange((*(a1[10] + 8) + 32), 1u))
     {
-      v5 = AFCredentialManagerOSLogFacility();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+      v6 = AFCredentialManagerOSLogFacility(v4);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
       {
         __108__AFCredentialManager_generateHideMyEmailSuggestionWithApplicationBundleId_applicationId_completionHandler___block_invoke_2_cold_1();
       }
@@ -1139,9 +1136,9 @@ void __108__AFCredentialManager_generateHideMyEmailSuggestionWithApplicationBund
 
   else
   {
-    v6 = *(a1[7] + 16);
+    v7 = *(a1[7] + 16);
 
-    v6();
+    v7();
   }
 }
 
@@ -1149,12 +1146,13 @@ void __108__AFCredentialManager_generateHideMyEmailSuggestionWithApplicationBund
 {
   v5 = a2;
   v6 = a3;
+  v7 = v6;
   if (v6)
   {
-    v7 = AFCredentialManagerOSLogFacility();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = AFCredentialManagerOSLogFacility(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      __108__AFCredentialManager_generateHideMyEmailSuggestionWithApplicationBundleId_applicationId_completionHandler___block_invoke_102_cold_1(v6);
+      __108__AFCredentialManager_generateHideMyEmailSuggestionWithApplicationBundleId_applicationId_completionHandler___block_invoke_102_cold_1(v7);
     }
 
 LABEL_12:
@@ -1167,10 +1165,11 @@ LABEL_12:
     goto LABEL_14;
   }
 
-  if (([v5 canUse] & 1) == 0)
+  v9 = [v5 canUse];
+  if ((v9 & 1) == 0)
   {
-    v7 = AFCredentialManagerOSLogFacility();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = AFCredentialManagerOSLogFacility(v9);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       __108__AFCredentialManager_generateHideMyEmailSuggestionWithApplicationBundleId_applicationId_completionHandler___block_invoke_102_cold_2();
     }
@@ -1178,41 +1177,42 @@ LABEL_12:
     goto LABEL_12;
   }
 
-  if ([v5 canUse])
+  v10 = [v5 canUse];
+  if (v10)
   {
-    v8 = AFCredentialManagerOSLogFacility();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+    v11 = AFCredentialManagerOSLogFacility(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
     {
-      __108__AFCredentialManager_generateHideMyEmailSuggestionWithApplicationBundleId_applicationId_completionHandler___block_invoke_102_cold_3(v8);
+      __108__AFCredentialManager_generateHideMyEmailSuggestionWithApplicationBundleId_applicationId_completionHandler___block_invoke_102_cold_3(v11);
     }
 
-    v26[0] = 0;
-    v26[1] = v26;
-    v26[2] = 0x2020000000;
-    v27 = 0;
+    v29[0] = 0;
+    v29[1] = v29;
+    v29[2] = 0x2020000000;
+    v30 = 0;
     if ([*(*(*(a1 + 64) + 8) + 40) count])
     {
-      v9 = *(*(*(a1 + 64) + 8) + 40);
-      v16[0] = MEMORY[0x277D85DD0];
-      v16[1] = 3221225472;
-      v16[2] = __108__AFCredentialManager_generateHideMyEmailSuggestionWithApplicationBundleId_applicationId_completionHandler___block_invoke_112;
-      v16[3] = &unk_278CF6C20;
-      v20 = *(a1 + 72);
-      v10 = *(a1 + 32);
-      v12 = *(a1 + 80);
-      v11 = *(a1 + 88);
-      v17 = v10;
-      v21 = v12;
-      v22 = v26;
-      v13 = *(a1 + 56);
-      v23 = v11;
-      v24 = v13;
-      v14 = *(a1 + 40);
-      v15 = *(a1 + 64);
-      v18 = v14;
-      v25 = v15;
-      v19 = *(a1 + 48);
-      [v9 enumerateObjectsUsingBlock:v16];
+      v12 = *(*(*(a1 + 64) + 8) + 40);
+      v19[0] = MEMORY[0x277D85DD0];
+      v19[1] = 3221225472;
+      v19[2] = __108__AFCredentialManager_generateHideMyEmailSuggestionWithApplicationBundleId_applicationId_completionHandler___block_invoke_112;
+      v19[3] = &unk_278CF6C20;
+      v23 = *(a1 + 72);
+      v13 = *(a1 + 32);
+      v15 = *(a1 + 80);
+      v14 = *(a1 + 88);
+      v20 = v13;
+      v24 = v15;
+      v25 = v29;
+      v16 = *(a1 + 56);
+      v26 = v14;
+      v27 = v16;
+      v17 = *(a1 + 40);
+      v18 = *(a1 + 64);
+      v21 = v17;
+      v28 = v18;
+      v22 = *(a1 + 48);
+      [v12 enumerateObjectsUsingBlock:v19];
     }
 
     else
@@ -1220,7 +1220,7 @@ LABEL_12:
       (*(*(a1 + 48) + 16))();
     }
 
-    _Block_object_dispose(v26, 8);
+    _Block_object_dispose(v29, 8);
   }
 
 LABEL_14:
@@ -1272,8 +1272,8 @@ void __108__AFCredentialManager_generateHideMyEmailSuggestionWithApplicationBund
 
     if (atomic_exchange((*(*(a1 + 88) + 8) + 32), 1u))
     {
-      v8 = AFCredentialManagerOSLogFacility();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+      v9 = AFCredentialManagerOSLogFacility(v8);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
         __108__AFCredentialManager_generateHideMyEmailSuggestionWithApplicationBundleId_applicationId_completionHandler___block_invoke_2_cold_1();
       }
@@ -1287,12 +1287,12 @@ void __108__AFCredentialManager_generateHideMyEmailSuggestionWithApplicationBund
 
   else
   {
-    v9 = *(a1 + 112);
-    if (v9 == [*(*(*(a1 + 96) + 8) + 40) count] - 1 && (*(*(*(a1 + 64) + 8) + 24) & 1) == 0)
+    v10 = *(a1 + 112);
+    if (v10 == [*(*(*(a1 + 96) + 8) + 40) count] - 1 && (*(*(*(a1 + 64) + 8) + 24) & 1) == 0)
     {
-      v10 = *(*(a1 + 56) + 16);
+      v11 = *(*(a1 + 56) + 16);
 
-      v10();
+      v11();
     }
   }
 }
@@ -1302,7 +1302,7 @@ uint64_t __108__AFCredentialManager_generateHideMyEmailSuggestionWithApplication
   if ((atomic_exchange((*(*(result + 40) + 8) + 32), 1u) & 1) == 0)
   {
     v1 = result;
-    v2 = AFCredentialManagerOSLogFacility();
+    v2 = AFCredentialManagerOSLogFacility(result);
     if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
     {
       __108__AFCredentialManager_generateHideMyEmailSuggestionWithApplicationBundleId_applicationId_completionHandler___block_invoke_116_cold_1();
@@ -1316,7 +1316,7 @@ uint64_t __108__AFCredentialManager_generateHideMyEmailSuggestionWithApplication
 
 - (void)generateOneTimeCodeAutoFillSuggestionsWithDocumentTraits:(id)traits completionHandler:(id)handler
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   traitsCopy = traits;
   handlerCopy = handler;
   array = [MEMORY[0x277CBEB18] array];
@@ -1340,8 +1340,8 @@ uint64_t __108__AFCredentialManager_generateHideMyEmailSuggestionWithApplication
   v15 = [autofillContext objectForKeyedSubscript:@"_WebViewURL"];
   v16 = [oneTimeCodeProvider currentOneTimeCodesWithAppIdentifier:appId website:v15 usernameHint:0 fieldClassification:v11];
 
-  v29 = handlerCopy;
-  v30 = traitsCopy;
+  v28 = handlerCopy;
+  v29 = traitsCopy;
   if ([v16 count] >= 4)
   {
     v17 = [v16 subarrayWithRange:{0, 3}];
@@ -1349,31 +1349,31 @@ uint64_t __108__AFCredentialManager_generateHideMyEmailSuggestionWithApplication
     v16 = v17;
   }
 
-  v35 = 0u;
-  v36 = 0u;
-  v33 = 0u;
   v34 = 0u;
+  v35 = 0u;
+  v32 = 0u;
+  v33 = 0u;
   obj = v16;
-  v18 = [obj countByEnumeratingWithState:&v33 objects:v39 count:16];
+  v18 = [obj countByEnumeratingWithState:&v32 objects:v38 count:16];
   if (v18)
   {
     v19 = v18;
-    v20 = *v34;
+    v20 = *v33;
     do
     {
       for (i = 0; i != v19; ++i)
       {
-        if (*v34 != v20)
+        if (*v33 != v20)
         {
           objc_enumerationMutation(obj);
         }
 
-        v22 = *(*(&v33 + 1) + 8 * i);
-        v23 = [v22 localizedTitleForContext:{0, v29, v30}];
+        v22 = *(*(&v32 + 1) + 8 * i);
+        v23 = [v22 localizedTitleForContext:{0, v28, v29}];
         v24 = [v22 localizedSubtitleForContext:0];
-        v37 = @"OneTimeCode";
-        v38 = v22;
-        v25 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v38 forKeys:&v37 count:1];
+        v36 = @"OneTimeCode";
+        v37 = v22;
+        v25 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v37 forKeys:&v36 count:1];
         if ([v22 source] == 3)
         {
           v26 = 10;
@@ -1388,14 +1388,13 @@ uint64_t __108__AFCredentialManager_generateHideMyEmailSuggestionWithApplication
         [array addObject:v27];
       }
 
-      v19 = [obj countByEnumeratingWithState:&v33 objects:v39 count:16];
+      v19 = [obj countByEnumeratingWithState:&v32 objects:v38 count:16];
     }
 
     while (v19);
   }
 
-  (v29)[2](v29, array);
-  v28 = *MEMORY[0x277D85DE8];
+  (v28)[2](v28, array);
 }
 
 - (void)_consumeOneTimeCodeAutoFillSuggestionIfNeeded:(id)needed
@@ -1412,50 +1411,51 @@ uint64_t __108__AFCredentialManager_generateHideMyEmailSuggestionWithApplication
 
 - (BOOL)shouldAuthenticateToAcceptAutoFill
 {
-  v16 = 0;
-  v17 = &v16;
-  v18 = 0x2050000000;
+  v17 = 0;
+  v18 = &v17;
+  v19 = 0x2050000000;
   v2 = getMCProfileConnectionClass_softClass_0;
-  v19 = getMCProfileConnectionClass_softClass_0;
+  v20 = getMCProfileConnectionClass_softClass_0;
   if (!getMCProfileConnectionClass_softClass_0)
   {
-    v11 = MEMORY[0x277D85DD0];
-    v12 = 3221225472;
-    v13 = __getMCProfileConnectionClass_block_invoke_0;
-    v14 = &unk_278CF6A18;
-    v15 = &v16;
-    __getMCProfileConnectionClass_block_invoke_0(&v11);
-    v2 = v17[3];
+    v12 = MEMORY[0x277D85DD0];
+    v13 = 3221225472;
+    v14 = __getMCProfileConnectionClass_block_invoke_0;
+    v15 = &unk_278CF6A18;
+    v16 = &v17;
+    __getMCProfileConnectionClass_block_invoke_0(&v12);
+    v2 = v18[3];
   }
 
   v3 = v2;
-  _Block_object_dispose(&v16, 8);
+  _Block_object_dispose(&v17, 8);
   sharedConnection = [v2 sharedConnection];
-  v16 = 0;
-  v17 = &v16;
-  v18 = 0x2020000000;
+  v17 = 0;
+  v18 = &v17;
+  v19 = 0x2020000000;
   v5 = getMCFeatureAuthenticationBeforeAutoFillRequiredSymbolLoc_ptr_0;
-  v19 = getMCFeatureAuthenticationBeforeAutoFillRequiredSymbolLoc_ptr_0;
+  v20 = getMCFeatureAuthenticationBeforeAutoFillRequiredSymbolLoc_ptr_0;
   if (!getMCFeatureAuthenticationBeforeAutoFillRequiredSymbolLoc_ptr_0)
   {
-    v11 = MEMORY[0x277D85DD0];
-    v12 = 3221225472;
-    v13 = __getMCFeatureAuthenticationBeforeAutoFillRequiredSymbolLoc_block_invoke_0;
-    v14 = &unk_278CF6A18;
-    v15 = &v16;
+    v12 = MEMORY[0x277D85DD0];
+    v13 = 3221225472;
+    v14 = __getMCFeatureAuthenticationBeforeAutoFillRequiredSymbolLoc_block_invoke_0;
+    v15 = &unk_278CF6A18;
+    v16 = &v17;
     v6 = ManagedConfigurationLibrary_0();
     v7 = dlsym(v6, "MCFeatureAuthenticationBeforeAutoFillRequired");
-    *(v15[1] + 24) = v7;
-    getMCFeatureAuthenticationBeforeAutoFillRequiredSymbolLoc_ptr_0 = *(v15[1] + 24);
-    v5 = v17[3];
+    *(v16[1] + 24) = v7;
+    getMCFeatureAuthenticationBeforeAutoFillRequiredSymbolLoc_ptr_0 = *(v16[1] + 24);
+    v5 = v18[3];
   }
 
-  _Block_object_dispose(&v16, 8);
+  _Block_object_dispose(&v17, 8);
   if (!v5)
   {
-    shouldAuthenticateToAcceptAutoFill = [AFSuggestionGenerationManager shouldAuthenticateToAcceptAutoFill];
-    _Block_object_dispose(&v16, 8);
-    _Unwind_Resume(shouldAuthenticateToAcceptAutoFill);
+    [AFSuggestionGenerationManager shouldAuthenticateToAcceptAutoFill];
+    v11 = v10;
+    _Block_object_dispose(&v17, 8);
+    _Unwind_Resume(v11);
   }
 
   v8 = [sharedConnection effectiveBoolValueForSetting:*v5] == 1;
@@ -1465,7 +1465,7 @@ uint64_t __108__AFCredentialManager_generateHideMyEmailSuggestionWithApplication
 
 - (void)shouldAcceptAutoFill:(id)fill withPayload:(id)payload documentTraits:(id)traits completionHandler:(id)handler
 {
-  v80[4] = *MEMORY[0x277D85DE8];
+  v82[4] = *MEMORY[0x277D85DE8];
   fillCopy = fill;
   payloadCopy = payload;
   traitsCopy = traits;
@@ -1478,20 +1478,20 @@ uint64_t __108__AFCredentialManager_generateHideMyEmailSuggestionWithApplication
       customInfoType = [fillCopy customInfoType];
       customInfoType2 = [fillCopy customInfoType];
       customInfoType3 = [fillCopy customInfoType];
-      v67[0] = MEMORY[0x277D85DD0];
-      v67[1] = 3221225472;
-      v67[2] = __89__AFCredentialManager_shouldAcceptAutoFill_withPayload_documentTraits_completionHandler___block_invoke;
-      v67[3] = &unk_278CF6C98;
-      v71 = customInfoType2 == 12;
-      v67[4] = self;
-      v54 = payloadCopy;
-      v68 = v54;
-      v69 = fillCopy;
-      v70 = v13;
-      v58 = MEMORY[0x245CF1A60](v67);
+      v69[0] = MEMORY[0x277D85DD0];
+      v69[1] = 3221225472;
+      v69[2] = __89__AFCredentialManager_shouldAcceptAutoFill_withPayload_documentTraits_completionHandler___block_invoke;
+      v69[3] = &unk_278CF6C98;
+      v73 = customInfoType2 == 12;
+      v69[4] = self;
+      v56 = payloadCopy;
+      v70 = v56;
+      v71 = fillCopy;
+      v72 = v13;
+      v60 = MEMORY[0x245CF1A60](v69);
       if (![(AFCredentialManager *)self shouldAuthenticateToAcceptAutoFill]|| customInfoType != 5 && customInfoType2 != 12 && customInfoType3 != 10)
       {
-        v58[2](v58, 1, 0);
+        v60[2](v60, 1, 0);
 LABEL_49:
 
         goto LABEL_50;
@@ -1504,90 +1504,90 @@ LABEL_49:
         bundleId = [(AFCredentialManager *)self obtainBundleIdentifierFromConnection:currentConnection];
       }
 
-      v73 = 0;
-      v74 = &v73;
-      v75 = 0x2050000000;
+      v75 = 0;
+      v76 = &v75;
+      v77 = 0x2050000000;
       v18 = getLAContextClass_softClass_0;
-      v76 = getLAContextClass_softClass_0;
+      v78 = getLAContextClass_softClass_0;
       if (!getLAContextClass_softClass_0)
       {
-        v72[0] = MEMORY[0x277D85DD0];
-        v72[1] = 3221225472;
-        v72[2] = __getLAContextClass_block_invoke_0;
-        v72[3] = &unk_278CF6A18;
-        v72[4] = &v73;
-        __getLAContextClass_block_invoke_0(v72);
-        v18 = v74[3];
+        v74[0] = MEMORY[0x277D85DD0];
+        v74[1] = 3221225472;
+        v74[2] = __getLAContextClass_block_invoke_0;
+        v74[3] = &unk_278CF6A18;
+        v74[4] = &v75;
+        __getLAContextClass_block_invoke_0(v74);
+        v18 = v76[3];
       }
 
       v19 = v18;
-      _Block_object_dispose(&v73, 8);
+      _Block_object_dispose(&v75, 8);
       v20 = objc_alloc_init(v18);
       [(AFCredentialManager *)self setLaContext:v20];
 
-      v56 = MGCopyAnswer();
+      v58 = MGCopyAnswer();
       if (customInfoType == 5)
       {
         v21 = MEMORY[0x277CCACA8];
         v22 = +[AFSuggestionGenerationManager sharedInstance];
         localizationManager = [v22 localizationManager];
         v24 = [localizationManager localizedStringForKey:@"AUTOFILL_AUTH_PASSCODE_TITLE"];
-        v66 = 0;
-        v25 = [v21 stringWithValidatedFormat:v24 validFormatSpecifiers:@"%@" error:&v66, v56];
-        v26 = v66;
+        v68 = 0;
+        v25 = [v21 stringWithValidatedFormat:v24 validFormatSpecifiers:@"%@" error:&v68, v58];
+        v26 = v68;
         v27 = &stru_28537ABC8;
         if (v25)
         {
           v27 = v25;
         }
 
-        v55 = v27;
+        v57 = v27;
 
         if (!v26)
         {
-          v29 = @"AUTOFILL_AUTH_ALERT_TITLE";
+          v30 = @"AUTOFILL_AUTH_ALERT_TITLE";
           goto LABEL_35;
         }
 
-        v28 = AFCredentialManagerOSLogFacility();
-        if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+        v29 = AFCredentialManagerOSLogFacility(v28);
+        if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
         {
           [AFCredentialManager shouldAcceptAutoFill:v26 withPayload:? documentTraits:? completionHandler:?];
         }
 
-        v29 = @"AUTOFILL_AUTH_ALERT_TITLE";
+        v30 = @"AUTOFILL_AUTH_ALERT_TITLE";
       }
 
       else if (customInfoType3 == 10)
       {
-        v30 = MEMORY[0x277CCACA8];
-        v31 = +[AFSuggestionGenerationManager sharedInstance];
-        localizationManager2 = [v31 localizationManager];
-        v33 = [localizationManager2 localizedStringForKey:@"TOTP_AUTOFILL_AUTH_PASSCODE_TITLE"];
-        v65 = 0;
-        v34 = [v30 stringWithValidatedFormat:v33 validFormatSpecifiers:@"%@" error:&v65, v56];
-        v26 = v65;
-        v35 = &stru_28537ABC8;
-        if (v34)
+        v31 = MEMORY[0x277CCACA8];
+        v32 = +[AFSuggestionGenerationManager sharedInstance];
+        localizationManager2 = [v32 localizationManager];
+        v34 = [localizationManager2 localizedStringForKey:@"TOTP_AUTOFILL_AUTH_PASSCODE_TITLE"];
+        v67 = 0;
+        v35 = [v31 stringWithValidatedFormat:v34 validFormatSpecifiers:@"%@" error:&v67, v58];
+        v26 = v67;
+        v36 = &stru_28537ABC8;
+        if (v35)
         {
-          v35 = v34;
+          v36 = v35;
         }
 
-        v55 = v35;
+        v57 = v36;
 
         if (!v26)
         {
-          v29 = @"TOTP_AUTOFILL_AUTH_ALERT_TITLE";
+          v30 = @"TOTP_AUTOFILL_AUTH_ALERT_TITLE";
           goto LABEL_35;
         }
 
-        v28 = AFCredentialManagerOSLogFacility();
-        if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+        v29 = AFCredentialManagerOSLogFacility(v37);
+        if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
         {
           [AFCredentialManager shouldAcceptAutoFill:v26 withPayload:? documentTraits:? completionHandler:?];
         }
 
-        v29 = @"TOTP_AUTOFILL_AUTH_ALERT_TITLE";
+        v30 = @"TOTP_AUTOFILL_AUTH_ALERT_TITLE";
       }
 
       else
@@ -1597,111 +1597,111 @@ LABEL_49:
           [AFCredentialManager shouldAcceptAutoFill:withPayload:documentTraits:completionHandler:];
         }
 
-        v36 = MEMORY[0x277CCACA8];
-        v37 = +[AFSuggestionGenerationManager sharedInstance];
-        localizationManager3 = [v37 localizationManager];
-        v39 = [localizationManager3 localizedStringForKey:@"PASSKEY_AUTOFILL_AUTH_PASSCODE_TITLE"];
-        v64 = 0;
-        v40 = [v36 stringWithValidatedFormat:v39 validFormatSpecifiers:@"%@" error:&v64, v56];
-        v26 = v64;
-        v41 = &stru_28537ABC8;
-        if (v40)
+        v38 = MEMORY[0x277CCACA8];
+        v39 = +[AFSuggestionGenerationManager sharedInstance];
+        localizationManager3 = [v39 localizationManager];
+        v41 = [localizationManager3 localizedStringForKey:@"PASSKEY_AUTOFILL_AUTH_PASSCODE_TITLE"];
+        v66 = 0;
+        v42 = [v38 stringWithValidatedFormat:v41 validFormatSpecifiers:@"%@" error:&v66, v58];
+        v26 = v66;
+        v43 = &stru_28537ABC8;
+        if (v42)
         {
-          v41 = v40;
+          v43 = v42;
         }
 
-        v55 = v41;
+        v57 = v43;
 
         if (!v26)
         {
-          v29 = @"PASSKEY_AUTOFILL_AUTH_ALERT_TITLE";
+          v30 = @"PASSKEY_AUTOFILL_AUTH_ALERT_TITLE";
           goto LABEL_35;
         }
 
-        v28 = AFCredentialManagerOSLogFacility();
-        if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+        v29 = AFCredentialManagerOSLogFacility(v44);
+        if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
         {
           [AFCredentialManager shouldAcceptAutoFill:v26 withPayload:? documentTraits:? completionHandler:?];
         }
 
-        v29 = @"PASSKEY_AUTOFILL_AUTH_ALERT_TITLE";
+        v30 = @"PASSKEY_AUTOFILL_AUTH_ALERT_TITLE";
       }
 
 LABEL_35:
-      v42 = +[AFSuggestionGenerationManager sharedInstance];
-      localizationManager4 = [v42 localizationManager];
-      v44 = [localizationManager4 localizedStringForKey:v29];
+      v45 = +[AFSuggestionGenerationManager sharedInstance];
+      localizationManager4 = [v45 localizationManager];
+      v47 = [localizationManager4 localizedStringForKey:v30];
 
-      if (!v44)
+      if (!v47)
       {
         [AFCredentialManager shouldAcceptAutoFill:withPayload:documentTraits:completionHandler:];
       }
 
       if ([traitsCopy processId])
       {
-        v79[0] = &unk_28537C4B0;
-        v79[1] = &unk_28537C4C8;
-        v80[0] = v44;
-        v80[1] = v55;
-        v80[2] = MEMORY[0x277CBEC38];
-        v79[2] = &unk_28537C4E0;
-        v79[3] = &unk_28537C4F8;
-        v45 = [MEMORY[0x277CCABB0] numberWithInt:{objc_msgSend(traitsCopy, "processId")}];
-        v80[3] = v45;
-        v46 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v80 forKeys:v79 count:4];
+        v81[0] = &unk_28537C4B0;
+        v81[1] = &unk_28537C4C8;
+        v82[0] = v47;
+        v82[1] = v57;
+        v82[2] = MEMORY[0x277CBEC38];
+        v81[2] = &unk_28537C4E0;
+        v81[3] = &unk_28537C4F8;
+        v48 = [MEMORY[0x277CCABB0] numberWithInt:{objc_msgSend(traitsCopy, "processId")}];
+        v82[3] = v48;
+        v49 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v82 forKeys:v81 count:4];
       }
 
       else
       {
-        v77[0] = &unk_28537C4B0;
-        v77[1] = &unk_28537C4C8;
-        v78[0] = v44;
-        v78[1] = v55;
-        v77[2] = &unk_28537C4E0;
-        v78[2] = MEMORY[0x277CBEC38];
-        v46 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v78 forKeys:v77 count:3];
+        v79[0] = &unk_28537C4B0;
+        v79[1] = &unk_28537C4C8;
+        v80[0] = v47;
+        v80[1] = v57;
+        v79[2] = &unk_28537C4E0;
+        v80[2] = MEMORY[0x277CBEC38];
+        v49 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v80 forKeys:v79 count:3];
       }
 
       laContext = [(AFCredentialManager *)self laContext];
-      v63 = 0;
-      v48 = [laContext canEvaluatePolicy:2 error:&v63];
-      v49 = v63;
+      v65 = 0;
+      v51 = [laContext canEvaluatePolicy:2 error:&v65];
+      v52 = v65;
 
-      if (v48)
+      if (v51)
       {
         if ([bundleId isEqualToString:@"com.apple.springboard"] && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
         {
-          v58[2](v58, 0, 0);
-          v50 = 1;
-          v51 = 1;
+          v60[2](v60, 0, 0);
+          v53 = 1;
+          v54 = 1;
         }
 
         else
         {
-          v50 = 0;
-          v51 = 0;
+          v53 = 0;
+          v54 = 0;
         }
 
         laContext2 = [(AFCredentialManager *)self laContext];
-        v60[0] = MEMORY[0x277D85DD0];
-        v60[1] = 3221225472;
-        v60[2] = __89__AFCredentialManager_shouldAcceptAutoFill_withPayload_documentTraits_completionHandler___block_invoke_165;
-        v60[3] = &unk_278CF6CC0;
-        v60[4] = self;
-        v62 = v50;
-        v61 = v58;
-        [laContext2 evaluatePolicy:2 options:v46 reply:v60];
+        v62[0] = MEMORY[0x277D85DD0];
+        v62[1] = 3221225472;
+        v62[2] = __89__AFCredentialManager_shouldAcceptAutoFill_withPayload_documentTraits_completionHandler___block_invoke_165;
+        v62[3] = &unk_278CF6CC0;
+        v62[4] = self;
+        v64 = v53;
+        v63 = v60;
+        [laContext2 evaluatePolicy:2 options:v49 reply:v62];
 
-        if (v51)
+        if (v54)
         {
-          [(AFCredentialManager *)self setQueuedUnauthenticatedCustomInfo:v54];
+          [(AFCredentialManager *)self setQueuedUnauthenticatedCustomInfo:v56];
         }
       }
 
       else
       {
         [(AFCredentialManager *)self setLaContext:0];
-        v58[2](v58, 1, 0);
+        v60[2](v60, 1, 0);
       }
 
       goto LABEL_49;
@@ -1711,8 +1711,6 @@ LABEL_35:
   }
 
 LABEL_50:
-
-  v53 = *MEMORY[0x277D85DE8];
 }
 
 void __89__AFCredentialManager_shouldAcceptAutoFill_withPayload_documentTraits_completionHandler___block_invoke(uint64_t a1, int a2, void *a3)
@@ -1769,64 +1767,44 @@ void __89__AFCredentialManager_shouldAcceptAutoFill_withPayload_documentTraits_c
 
 - (void)obtainApplicationIdentifierFromConnection:(uint64_t *)a1 .cold.1(uint64_t *a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
-  v9 = *a1;
-  v1 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s Cannot obtain application identifier: %@"];
+  v1 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s Cannot obtain application identifier: %@", "-[AFCredentialManager obtainApplicationIdentifierFromConnection:]", *a1];
   OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_0(&dword_2418BE000, v2, v3, "%@", v4, v5, v6, v7, "[AFCredentialManager obtainApplicationIdentifierFromConnection:]", v9, v10);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_0(&dword_2418BE000, v2, v3, "%@", v4, v5, v6, v7, v8, v9);
 }
 
 - (void)hasAutoFillContextEntitlementForConnection:(uint64_t *)a1 .cold.1(uint64_t *a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
-  v9 = *a1;
-  v1 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s Cannot obtain AutoFill context: %@"];
+  v1 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s Cannot obtain AutoFill context: %@", "-[AFCredentialManager hasAutoFillContextEntitlementForConnection:]", *a1];
   OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_0(&dword_2418BE000, v2, v3, "%@", v4, v5, v6, v7, "[AFCredentialManager hasAutoFillContextEntitlementForConnection:]", v9, v10);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_0(&dword_2418BE000, v2, v3, "%@", v4, v5, v6, v7, v8, v9);
 }
 
 - (void)_suggestionForPasswordCredential:(uint64_t)a1 autoFillPayload:customInfoType:.cold.1(uint64_t a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
-  v1 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s invalid localized format for key SAFARI_CREDENTIAL_DATE: %@"];
+  v1 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s invalid localized format for key SAFARI_CREDENTIAL_DATE: %@", "-[AFCredentialManager _suggestionForPasswordCredential:autoFillPayload:customInfoType:]", a1];
   OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_0(&dword_2418BE000, v2, v3, "%@", v4, v5, v6, v7, "[AFCredentialManager _suggestionForPasswordCredential:autoFillPayload:customInfoType:]", a1, v10);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_0(&dword_2418BE000, v2, v3, "%@", v4, v5, v6, v7, v8, v9);
 }
 
 - (void)_suggestionForPasskey:(uint64_t)a1 autoFillPayload:customInfoType:.cold.1(uint64_t a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
-  v1 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s invalid localized format for key SAFARI_PASSKEY_SITE_SHORT: %@"];
+  v1 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s invalid localized format for key SAFARI_PASSKEY_SITE_SHORT: %@", "-[AFCredentialManager _suggestionForPasskey:autoFillPayload:customInfoType:]", a1];
   OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_0(&dword_2418BE000, v2, v3, "%@", v4, v5, v6, v7, "[AFCredentialManager _suggestionForPasskey:autoFillPayload:customInfoType:]", a1, v10);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_0(&dword_2418BE000, v2, v3, "%@", v4, v5, v6, v7, v8, v9);
 }
 
 - (void)generateHideMyEmailAutoFillWithRenderTraits:completionHandler:.cold.1()
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v0 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s documentTraits is nil"];
+  v0 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s documentTraits is nil", "-[AFCredentialManager generateHideMyEmailAutoFillWithRenderTraits:completionHandler:]"];
   OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_0(&dword_2418BE000, v1, v2, "%@", v3, v4, v5, v6, "[AFCredentialManager generateHideMyEmailAutoFillWithRenderTraits:completionHandler:]", v8, v9);
-
-  v7 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_0(&dword_2418BE000, v1, v2, "%@", v3, v4, v5, v6, v7, v8);
 }
 
 - (void)generateHideMyEmailAutoFillWithRenderTraits:completionHandler:.cold.2()
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v0 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s documentTraits one or both of bundleId and appId not set properly"];
+  v0 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s documentTraits one or both of bundleId and appId not set properly", "-[AFCredentialManager generateHideMyEmailAutoFillWithRenderTraits:completionHandler:]"];
   OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_0(&dword_2418BE000, v1, v2, "%@", v3, v4, v5, v6, "[AFCredentialManager generateHideMyEmailAutoFillWithRenderTraits:completionHandler:]", v8, v9);
-
-  v7 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_0(&dword_2418BE000, v1, v2, "%@", v3, v4, v5, v6, v7, v8);
 }
 
 - (void)generateHideMyEmailSuggestionWithApplicationBundleId:(void *)a1 applicationId:(uint8_t *)buf completionHandler:(os_log_t)log .cold.1(void *a1, uint8_t *buf, os_log_t log)
@@ -1838,82 +1816,59 @@ void __89__AFCredentialManager_shouldAcceptAutoFill_withPayload_documentTraits_c
 
 void __108__AFCredentialManager_generateHideMyEmailSuggestionWithApplicationBundleId_applicationId_completionHandler___block_invoke_2_cold_1()
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v0 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s Timeout before handler completed"];
+  v0 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s Timeout before handler completed", "-[AFCredentialManager generateHideMyEmailSuggestionWithApplicationBundleId:applicationId:completionHandler:]_block_invoke_2"];
   OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_0(&dword_2418BE000, v1, v2, "%@", v3, v4, v5, v6, "[AFCredentialManager generateHideMyEmailSuggestionWithApplicationBundleId:applicationId:completionHandler:]_block_invoke_2", v8, v9);
-
-  v7 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_0(&dword_2418BE000, v1, v2, "%@", v3, v4, v5, v6, v7, v8);
 }
 
 void __108__AFCredentialManager_generateHideMyEmailSuggestionWithApplicationBundleId_applicationId_completionHandler___block_invoke_102_cold_1(uint64_t a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
-  v1 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s HME: %@ on requestFeatureWithId:completion: HideMyEmail"];
+  v1 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s HME: %@ on requestFeatureWithId:completion: HideMyEmail", "-[AFCredentialManager generateHideMyEmailSuggestionWithApplicationBundleId:applicationId:completionHandler:]_block_invoke", a1];
   OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_0(&dword_2418BE000, v2, v3, "%@", v4, v5, v6, v7, "[AFCredentialManager generateHideMyEmailSuggestionWithApplicationBundleId:applicationId:completionHandler:]_block_invoke", a1, v10);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_0(&dword_2418BE000, v2, v3, "%@", v4, v5, v6, v7, v8, v9);
 }
 
 void __108__AFCredentialManager_generateHideMyEmailSuggestionWithApplicationBundleId_applicationId_completionHandler___block_invoke_102_cold_2()
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v0 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s HME: feature is unavailable for user"];
+  v0 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s HME: feature is unavailable for user", "-[AFCredentialManager generateHideMyEmailSuggestionWithApplicationBundleId:applicationId:completionHandler:]_block_invoke"];
   OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_0(&dword_2418BE000, v1, v2, "%@", v3, v4, v5, v6, "[AFCredentialManager generateHideMyEmailSuggestionWithApplicationBundleId:applicationId:completionHandler:]_block_invoke", v8, v9);
-
-  v7 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_0(&dword_2418BE000, v1, v2, "%@", v3, v4, v5, v6, v7, v8);
 }
 
 void __108__AFCredentialManager_generateHideMyEmailSuggestionWithApplicationBundleId_applicationId_completionHandler___block_invoke_102_cold_3(NSObject *a1)
 {
-  v5 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s HME: feature is available for user", "-[AFCredentialManager generateHideMyEmailSuggestionWithApplicationBundleId:applicationId:completionHandler:]_block_invoke"];
   OUTLINED_FUNCTION_1_0();
   _os_log_debug_impl(&dword_2418BE000, a1, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 void __108__AFCredentialManager_generateHideMyEmailSuggestionWithApplicationBundleId_applicationId_completionHandler___block_invoke_116_cold_1()
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v0 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s Timeout before Hide My Email completed"];
+  v0 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s Timeout before Hide My Email completed", "-[AFCredentialManager generateHideMyEmailSuggestionWithApplicationBundleId:applicationId:completionHandler:]_block_invoke"];
   OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_0(&dword_2418BE000, v1, v2, "%@", v3, v4, v5, v6, "[AFCredentialManager generateHideMyEmailSuggestionWithApplicationBundleId:applicationId:completionHandler:]_block_invoke", v8, v9);
-
-  v7 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_0(&dword_2418BE000, v1, v2, "%@", v3, v4, v5, v6, v7, v8);
 }
 
 - (void)shouldAcceptAutoFill:(uint64_t)a1 withPayload:documentTraits:completionHandler:.cold.2(uint64_t a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
-  v1 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s invalid localized format for key PASSKEY_AUTOFILL_AUTH_PASSCODE_TITLE: %@"];
+  v1 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s invalid localized format for key PASSKEY_AUTOFILL_AUTH_PASSCODE_TITLE: %@", "-[AFCredentialManager shouldAcceptAutoFill:withPayload:documentTraits:completionHandler:]", a1];
   OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_0(&dword_2418BE000, v2, v3, "%@", v4, v5, v6, v7, "[AFCredentialManager shouldAcceptAutoFill:withPayload:documentTraits:completionHandler:]", a1, v10);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_0(&dword_2418BE000, v2, v3, "%@", v4, v5, v6, v7, v8, v9);
 }
 
 - (void)shouldAcceptAutoFill:(uint64_t)a1 withPayload:documentTraits:completionHandler:.cold.3(uint64_t a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
-  v1 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s invalid localized format for key TOTP_AUTOFILL_AUTH_PASSCODE_TITLE: %@"];
+  v1 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s invalid localized format for key TOTP_AUTOFILL_AUTH_PASSCODE_TITLE: %@", "-[AFCredentialManager shouldAcceptAutoFill:withPayload:documentTraits:completionHandler:]", a1];
   OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_0(&dword_2418BE000, v2, v3, "%@", v4, v5, v6, v7, "[AFCredentialManager shouldAcceptAutoFill:withPayload:documentTraits:completionHandler:]", a1, v10);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_0(&dword_2418BE000, v2, v3, "%@", v4, v5, v6, v7, v8, v9);
 }
 
 - (void)shouldAcceptAutoFill:(uint64_t)a1 withPayload:documentTraits:completionHandler:.cold.4(uint64_t a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
-  v1 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s invalid localized format for key AUTOFILL_AUTH_PASSCODE_TITLE: %@"];
+  v1 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s invalid localized format for key AUTOFILL_AUTH_PASSCODE_TITLE: %@", "-[AFCredentialManager shouldAcceptAutoFill:withPayload:documentTraits:completionHandler:]", a1];
   OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_0(&dword_2418BE000, v2, v3, "%@", v4, v5, v6, v7, "[AFCredentialManager shouldAcceptAutoFill:withPayload:documentTraits:completionHandler:]", a1, v10);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_0(&dword_2418BE000, v2, v3, "%@", v4, v5, v6, v7, v8, v9);
 }
 
 @end

@@ -3,7 +3,7 @@
 
 @implementation AXSBackTapEnabled
 
-uint64_t ___AXSBackTapEnabled_block_invoke()
+void *___AXSBackTapEnabled_block_invoke()
 {
   if (!_processIsResponsibleForPreferenceObserving())
   {

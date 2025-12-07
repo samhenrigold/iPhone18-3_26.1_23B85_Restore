@@ -217,8 +217,8 @@
 
   if (!provider)
   {
-    v12 = PRUISLogRendering();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v15 = PRUISLogRendering(v10);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       [PRUISPosterAppearanceObservingAttachmentProvider _currentAppearance];
     }
@@ -226,14 +226,14 @@
     goto LABEL_11;
   }
 
-  v9 = [objc_alloc(MEMORY[0x1E69635D0]) initWithBundleIdentifier:provider error:0];
-  v10 = [v9 URL];
+  v11 = [objc_alloc(MEMORY[0x1E69635D0]) initWithBundleIdentifier:provider error:0];
+  v12 = [v11 URL];
 
-  if (!v10)
+  if (!v12)
   {
 LABEL_11:
-    v13 = PRUISLogRendering();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v16 = PRUISLogRendering(v13);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
       [PRUISPosterAppearanceObservingAttachmentProvider _currentAppearance];
     }
@@ -241,31 +241,31 @@ LABEL_11:
     goto LABEL_14;
   }
 
-  v11 = [(PRPosterTitleStyleConfiguration *)self->_titleStyleConfiguration effectiveTimeFontWithExtensionBundleURL:v10 forRole:role];
+  v14 = [(PRPosterTitleStyleConfiguration *)self->_titleStyleConfiguration effectiveTimeFontWithExtensionBundleURL:v12 forRole:role];
 
-  if (!v11)
+  if (!v14)
   {
 LABEL_14:
-    v14 = PRUISLogAttachments();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    v17 = PRUISLogAttachments(v7);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
       [PRUISPosterAppearanceObservingAttachmentProvider _currentAppearance];
     }
 
-    v11 = [MEMORY[0x1E69C5340] defaultTitleFontForRole:role];
+    v14 = [MEMORY[0x1E69C5340] defaultTitleFontForRole:role];
   }
 
-  v15 = [v11 fontWithSize:84.0];
+  v18 = [v14 fontWithSize:84.0];
 
-  v16 = objc_alloc(MEMORY[0x1E69C52D0]);
-  v17 = objc_alloc(MEMORY[0x1E69C52D8]);
+  v19 = objc_alloc(MEMORY[0x1E69C52D0]);
+  v20 = objc_alloc(MEMORY[0x1E69C52D8]);
   whiteColor = [MEMORY[0x1E69DC888] whiteColor];
-  v19 = [v17 initWithColor:whiteColor];
-  v20 = [v16 initWithFont:v15 labelColor:v19 preferredTitleAlignment:-[PRPosterTitleStyleConfiguration preferredTitleAlignment](self->_titleStyleConfiguration preferredTitleLayout:{"preferredTitleAlignment"), -[PRPosterTitleStyleConfiguration preferredTitleLayout](self->_titleStyleConfiguration, "preferredTitleLayout")}];
+  v22 = [v20 initWithColor:whiteColor];
+  v23 = [v19 initWithFont:v18 labelColor:v22 preferredTitleAlignment:-[PRPosterTitleStyleConfiguration preferredTitleAlignment](self->_titleStyleConfiguration preferredTitleLayout:{"preferredTitleAlignment"), -[PRPosterTitleStyleConfiguration preferredTitleLayout](self->_titleStyleConfiguration, "preferredTitleLayout")}];
 
-  v21 = self->_currentAppearance;
-  self->_currentAppearance = v20;
-  v22 = v20;
+  v24 = self->_currentAppearance;
+  self->_currentAppearance = v23;
+  v25 = v23;
 
   v3 = self->_currentAppearance;
 LABEL_18:
@@ -300,30 +300,30 @@ LABEL_18:
     else
     {
       path = self->_path;
-      v14 = 0;
-      v8 = [MEMORY[0x1E69C5328] loadTitleStyleConfigurationForPath:path error:&v14];
-      v6 = v14;
+      v16 = 0;
+      v8 = [MEMORY[0x1E69C5328] loadTitleStyleConfigurationForPath:path error:&v16];
+      v6 = v16;
       titleStyleConfiguration = self->_titleStyleConfiguration;
       self->_titleStyleConfiguration = v8;
     }
 
     if (!*p_titleStyleConfiguration)
     {
-      v10 = PRUISLogAttachments();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
-      {
-        [PRUISPosterAppearanceObservingAttachmentProvider _loadTitleStyleConfigurationIfNeeded];
-      }
-
-      v11 = PRUISLogAttachments();
+      v11 = PRUISLogAttachments(v10);
       if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
         [PRUISPosterAppearanceObservingAttachmentProvider _loadTitleStyleConfigurationIfNeeded];
       }
 
-      v12 = objc_alloc_init(MEMORY[0x1E69C5340]);
-      v13 = *p_titleStyleConfiguration;
-      *p_titleStyleConfiguration = v12;
+      v13 = PRUISLogAttachments(v12);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+      {
+        [PRUISPosterAppearanceObservingAttachmentProvider _loadTitleStyleConfigurationIfNeeded];
+      }
+
+      v14 = objc_alloc_init(MEMORY[0x1E69C5340]);
+      v15 = *p_titleStyleConfiguration;
+      *p_titleStyleConfiguration = v14;
     }
   }
 }

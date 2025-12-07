@@ -80,23 +80,22 @@
 - (void)messenger:(id)messenger incomingSummaryMessage:(id)message context:(id)context clientAcknowledgementBlock:(id)block
 {
   v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd, &_sScPSgMR);
-  v9 = *(*(v8 - 8) + 64);
   __chkstk_darwin(v8 - 8);
-  v11 = &v19 - v10;
-  v12 = type metadata accessor for TaskPriority();
-  (*(*(v12 - 8) + 56))(v11, 1, 1, v12);
+  v10 = &v18 - v9;
+  v11 = type metadata accessor for TaskPriority();
+  (*(*(v11 - 8) + 56))(v10, 1, 1, v11);
   type metadata accessor for MainActor();
   messageCopy = message;
   selfCopy = self;
-  v15 = messageCopy;
-  v16 = selfCopy;
-  v17 = static MainActor.shared.getter();
-  v18 = swift_allocObject();
-  v18[2] = v17;
-  v18[3] = &protocol witness table for MainActor;
-  v18[4] = v15;
-  v18[5] = v16;
-  _sScTss5NeverORs_rlE4name8priority9operationScTyxABGSSSg_ScPSgxyYaYAcntcfCyt_Tt2g5(0, 0, v11, &closure #1 in LiteMessageServiceSession.messenger(_:incomingSummaryMessage:context:clientAcknowledgementBlock:)partial apply, v18);
+  v14 = messageCopy;
+  v15 = selfCopy;
+  v16 = static MainActor.shared.getter();
+  v17 = swift_allocObject();
+  v17[2] = v16;
+  v17[3] = &protocol witness table for MainActor;
+  v17[4] = v14;
+  v17[5] = v15;
+  _sScTss5NeverORs_rlE4name8priority9operationScTyxABGSSSg_ScPSgxyYaYAcntcfCyt_Tt2g5(0, 0, v10, &closure #1 in LiteMessageServiceSession.messenger(_:incomingSummaryMessage:context:clientAcknowledgementBlock:)partial apply, v17);
 }
 
 - (void)messenger:(id)messenger receivedIncomingDeliveryReceiptForIdentifier:(id)identifier fromURI:(id)i context:(id)context
@@ -108,6 +107,8 @@
   contextCopy = context;
   selfCopy = self;
   specialized LiteMessageServiceSession.messenger(_:receivedIncomingDeliveryReceiptForIdentifier:from:context:)(v10, v12, iCopy, contextCopy);
+
+  v12, v17;
 }
 
 - (void)messenger:(id)messenger incomingServiceUpdateMessage:(id)message context:(id)context clientAcknowledgementBlock:(id)block
@@ -142,6 +143,10 @@
   v13._countAndFlagsBits = v8;
   v13._object = v10;
   LiteMessageServiceSession.sendRelayDeliveryReceipt(forMessageID:toChat:)(v12, v13);
+
+  v7, v14;
+
+  v10, v15;
 }
 
 - (void)sendMessage:(id)message toChat:(id)chat style:(unsigned __int8)style
@@ -152,6 +157,8 @@
   messageCopy = message;
   selfCopy = self;
   LiteMessageServiceSession.sendMessage(_:toChat:style:)(messageCopy, v8, v10, styleCopy);
+
+  v10, v13;
 }
 
 - (void)joinChat:(id)chat handleInfo:(id)info style:(unsigned __int8)style groupID:(id)d joinProperties:(id)properties
@@ -181,16 +188,22 @@ LABEL_3:
 LABEL_4:
   selfCopy = self;
   LiteMessageServiceSession.joinChat(_:handleInfo:style:groupID:joinProperties:)(v11, v13, v14, style, v15, d, properties);
+
+  v13, v18;
+  v14, v19;
+  properties, v20;
+
+  d, v21;
 }
 
 - (void)joinChat:(id)chat handleInfo:(id)info style:(unsigned __int8)style groupID:(id)d lastAddressedHandle:(id)handle lastAddressedSIMID:(id)iD joinProperties:(id)properties
 {
-  v25 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+  v32 = static String._unconditionallyBridgeFromObjectiveC(_:)();
   v14 = v13;
   v15 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
   if (d)
   {
-    v24 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+    v31 = static String._unconditionallyBridgeFromObjectiveC(_:)();
     d = v16;
     if (handle)
     {
@@ -208,7 +221,7 @@ LABEL_6:
     goto LABEL_7;
   }
 
-  v24 = 0;
+  v31 = 0;
   if (!handle)
   {
     goto LABEL_6;
@@ -232,10 +245,23 @@ LABEL_8:
   selfCopy = self;
   if (propertiesCopy)
   {
-    static Dictionary._unconditionallyBridgeFromObjectiveC(_:)();
+    v24 = static Dictionary._unconditionallyBridgeFromObjectiveC(_:)();
   }
 
-  specialized LiteMessageServiceSession.joinChat(_:handleInfo:style:groupID:lastAddressedHandle:lastAddressedSIMID:joinProperties:)(v25, v14, v15, style, v24, d, v17, v19, v20, iD);
+  else
+  {
+    v24 = 0;
+  }
+
+  specialized LiteMessageServiceSession.joinChat(_:handleInfo:style:groupID:lastAddressedHandle:lastAddressedSIMID:joinProperties:)(v32, v14, v15, style, v31, d, v17, v19, v20, iD);
+
+  v14, v25;
+  v15, v26;
+  v24, v27;
+  iD, v28;
+  v19, v29;
+
+  d, v30;
 }
 
 - (void)sessionDidBecomeActive
@@ -266,27 +292,26 @@ LABEL_8:
 - (void)deleteAllDataWithCompletionHandler:(id)handler
 {
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd, &_sScPSgMR);
-  v6 = *(*(v5 - 8) + 64);
   __chkstk_darwin(v5 - 8);
-  v8 = &v15 - v7;
-  v9 = _Block_copy(handler);
-  v10 = swift_allocObject();
-  *(v10 + 16) = v9;
-  *(v10 + 24) = self;
-  v11 = type metadata accessor for TaskPriority();
-  (*(*(v11 - 8) + 56))(v8, 1, 1, v11);
+  v7 = &v14 - v6;
+  v8 = _Block_copy(handler);
+  v9 = swift_allocObject();
+  *(v9 + 16) = v8;
+  *(v9 + 24) = self;
+  v10 = type metadata accessor for TaskPriority();
+  (*(*(v10 - 8) + 56))(v7, 1, 1, v10);
+  v11 = swift_allocObject();
+  v11[2] = 0;
+  v11[3] = 0;
+  v11[4] = &async function pointer to partial apply for @objc closure #1 in LiteMessageServiceSession.deleteAllData();
+  v11[5] = v9;
   v12 = swift_allocObject();
   v12[2] = 0;
   v12[3] = 0;
-  v12[4] = &async function pointer to partial apply for @objc closure #1 in LiteMessageServiceSession.deleteAllData();
-  v12[5] = v10;
-  v13 = swift_allocObject();
-  v13[2] = 0;
-  v13[3] = 0;
-  v13[4] = &_sIeghH_IeAgH_TRTATu;
-  v13[5] = v12;
+  v12[4] = &_sIeghH_IeAgH_TRTATu;
+  v12[5] = v11;
   selfCopy = self;
-  _sScTss5NeverORs_rlE4name8priority9operationScTyxABGSSSg_ScPSgxyYaYAcntcfCyt_Tt2gq5(0, 0, v8, &_sIeAgH_ytIeAgHr_TRTATu, v13);
+  _sScTss5NeverORs_rlE4name8priority9operationScTyxABGSSSg_ScPSgxyYaYAcntcfCyt_Tt2gq5(0, 0, v7, &_sIeAgH_ytIeAgHr_TRTATu, v12);
 }
 
 - (void)relayLegacySatelliteMessage:(id)message toChat:(id)chat localWatchOnly:(BOOL)only
@@ -296,30 +321,37 @@ LABEL_8:
   messageCopy = message;
   selfCopy = self;
   specialized LiteMessageServiceSession.relayLegacySatelliteMessage(_:toChat:localWatchOnly:)(messageCopy, v7, v9);
+
+  v9, v12;
 }
 
 - (void)handler:(id)handler outgoingPlainTextMessage:(id)message toIdentifier:(id)identifier fromIdentifier:(id)fromIdentifier fromToken:(id)token messageGUID:(id)d timeStamp:(id)stamp isBeingReplayed:(BOOL)self0 storageContext:(id)self1
 {
-  v32 = static Dictionary._unconditionallyBridgeFromObjectiveC(_:)();
+  v38 = static Dictionary._unconditionallyBridgeFromObjectiveC(_:)();
   if (identifier)
   {
     static String._unconditionallyBridgeFromObjectiveC(_:)();
+    v37 = v17;
     if (fromIdentifier)
     {
 LABEL_3:
-      v30 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-      v18 = v17;
+      v35 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+      v19 = v18;
       goto LABEL_6;
     }
   }
 
-  else if (fromIdentifier)
+  else
   {
-    goto LABEL_3;
+    v37 = 0;
+    if (fromIdentifier)
+    {
+      goto LABEL_3;
+    }
   }
 
-  v30 = 0;
-  v18 = 0;
+  v35 = 0;
+  v19 = 0;
 LABEL_6:
   handlerCopy = handler;
   dCopy = d;
@@ -329,36 +361,40 @@ LABEL_6:
   if (token)
   {
     tokenCopy = token;
-    v24 = static Data._unconditionallyBridgeFromObjectiveC(_:)();
-    v26 = v25;
+    v25 = static Data._unconditionallyBridgeFromObjectiveC(_:)();
+    v27 = v26;
   }
 
   else
   {
-    v24 = 0;
-    v26 = 0xF000000000000000;
+    v25 = 0;
+    v27 = 0xF000000000000000;
   }
 
-  v27 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-  v29 = v28;
+  v28 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+  v30 = v29;
 
-  specialized LiteMessageServiceSession.handler(_:outgoingPlainTextMessage:toIdentifier:fromIdentifier:fromToken:messageGUID:timeStamp:isBeingReplayed:storageContext:)(v32, v30, v18, v27, v29, contextCopy);
+  specialized LiteMessageServiceSession.handler(_:outgoingPlainTextMessage:toIdentifier:fromIdentifier:fromToken:messageGUID:timeStamp:isBeingReplayed:storageContext:)(v38, v35, v19, v28, v30, contextCopy);
+  v30, v31;
+  outlined consume of Data?(v25, v27);
 
-  outlined consume of Data?(v24, v26);
+  v38, v32;
+  v37, v33;
+
+  v19, v34;
 }
 
 - (void)handleDaemonFinishedLaunchingWithNotification:(id)notification
 {
   v4 = type metadata accessor for Notification();
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
   __chkstk_darwin(v4);
-  v8 = &v10 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = &v9 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   static Notification._unconditionallyBridgeFromObjectiveC(_:)();
   selfCopy = self;
   LiteMessageServiceSession.donateHandlesForKeyExchange()();
 
-  (*(v5 + 8))(v8, v4);
+  (*(v5 + 8))(v7, v4);
 }
 
 - (void)fetchIncomingPendingMessagesFromHandlesIDs:(id)ds
@@ -366,29 +402,30 @@ LABEL_6:
   v4 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
   selfCopy = self;
   LiteMessageServiceSession.fetchIncomingPendingMessages(fromHandlesIDs:)(v4);
+
+  v4, v6;
 }
 
 - (void)calculateReachabilityWithRequest:(id)request responseHandler:(id)handler
 {
   v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd, &_sScPSgMR);
-  v8 = *(*(v7 - 8) + 64);
   __chkstk_darwin(v7 - 8);
-  v10 = &v17 - v9;
-  v11 = type metadata accessor for TaskPriority();
-  (*(*(v11 - 8) + 56))(v10, 1, 1, v11);
+  v9 = &v16 - v8;
+  v10 = type metadata accessor for TaskPriority();
+  (*(*(v10 - 8) + 56))(v9, 1, 1, v10);
   type metadata accessor for MainActor();
   requestCopy = request;
   swift_unknownObjectRetain_n();
   selfCopy = self;
-  v14 = requestCopy;
-  v15 = static MainActor.shared.getter();
-  v16 = swift_allocObject();
-  v16[2] = v15;
-  v16[3] = &protocol witness table for MainActor;
-  v16[4] = selfCopy;
-  v16[5] = v14;
-  v16[6] = handler;
-  _sScTss5NeverORs_rlE4name8priority9operationScTyxABGSSSg_ScPSgxyYaYAcntcfCyt_Tt2g5(0, 0, v10, &closure #1 in LiteMessageServiceSession.calculateReachability(with:responseHandler:)partial apply, v16);
+  v13 = requestCopy;
+  v14 = static MainActor.shared.getter();
+  v15 = swift_allocObject();
+  v15[2] = v14;
+  v15[3] = &protocol witness table for MainActor;
+  v15[4] = selfCopy;
+  v15[5] = v13;
+  v15[6] = handler;
+  _sScTss5NeverORs_rlE4name8priority9operationScTyxABGSSSg_ScPSgxyYaYAcntcfCyt_Tt2g5(0, 0, v9, &closure #1 in LiteMessageServiceSession.calculateReachability(with:responseHandler:)partial apply, v15);
 
   swift_unknownObjectRelease();
 }
@@ -401,20 +438,23 @@ LABEL_6:
   v10 = v9;
   selfCopy = self;
   specialized LiteMessageServiceSession.sentDowngradeRequest(toHandleID:fromID:)(v5, v7, v8, v10);
+
+  v7, v12;
+
+  v10, v13;
 }
 
 - (void)handleSMSMessageSentWithNotification:(id)notification
 {
   v4 = type metadata accessor for Notification();
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
   __chkstk_darwin(v4);
-  v8 = &v10 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = &v10 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   static Notification._unconditionallyBridgeFromObjectiveC(_:)();
   selfCopy = self;
-  LiteMessageServiceSession.handleSMSMessageSent(notification:)(v8);
+  LiteMessageServiceSession.handleSMSMessageSent(notification:)(v7, v9);
 
-  (*(v5 + 8))(v8, v4);
+  (*(v5 + 8))(v7, v4);
 }
 
 - (void)systemDidLeaveFirstDataProtectionLock

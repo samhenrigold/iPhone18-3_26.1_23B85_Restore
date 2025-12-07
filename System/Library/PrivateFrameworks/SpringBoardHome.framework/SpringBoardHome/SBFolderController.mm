@@ -499,8 +499,8 @@
 
 - (id)iconLocation
 {
-  iconListViews = [(SBFolderController *)self iconListViews];
-  firstObject = [iconListViews firstObject];
+  v2 = objc_msgSend_iconListViews(self, a2);
+  firstObject = [v2 firstObject];
 
   if (firstObject)
   {
@@ -687,9 +687,9 @@
     folderIconImageCache = v5->_folderIconImageCache;
     v5->_folderIconImageCache = folderIconImageCache;
 
-    iconImageCache = [configurationCopy iconImageCache];
+    v23 = objc_msgSend_iconImageCache(configurationCopy);
     iconImageCache = v5->_iconImageCache;
-    v5->_iconImageCache = iconImageCache;
+    v5->_iconImageCache = v23;
 
     v5->_addsFocusGuidesForWrapping = [configurationCopy addsFocusGuidesForWrapping];
     v5->_contentVisibility = 0;
@@ -1120,9 +1120,9 @@
     }
   }
 
-  v30.receiver = self;
-  v30.super_class = SBFolderController;
-  v15 = [(SBNestingViewController *)&v30 nestingViewController:controllerCopy animationControllerForOperation:operation onViewController:viewControllerCopy animated:animatedCopy];
+  v31.receiver = self;
+  v31.super_class = SBFolderController;
+  v15 = [(SBNestingViewController *)&v31 nestingViewController:controllerCopy animationControllerForOperation:operation onViewController:viewControllerCopy animated:animatedCopy];
   delegate = [(SBNestingViewController *)self delegate];
   if (!v15 && (objc_opt_respondsToSelector() & 1) == 0 && animatedCopy)
   {
@@ -1133,10 +1133,10 @@
       goto LABEL_6;
     }
 
-    v27 = controllerCopy;
+    v28 = controllerCopy;
     v18 = viewControllerCopy;
     folderDelegate = [(SBFolderController *)self folderDelegate];
-    v29 = 0.0;
+    v30 = 0.0;
     objc_opt_class();
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
@@ -1145,12 +1145,12 @@
         goto LABEL_29;
       }
 
-      v22 = [folderDelegate folderController:self iconAnimatorForOperation:operation onViewController:v18 animated:1 initialDelay:&v29];
+      v23 = [folderDelegate folderController:self iconAnimatorForOperation:operation onViewController:v18 animated:1 initialDelay:&v30];
 LABEL_25:
-      if (v22)
+      if (v23)
       {
-        v15 = [[SBHomeScreenIconTransitionAnimator alloc] initWithIconAnimator:v22 childViewController:v18 operation:operation != 1];
-        [(SBHomeScreenIconTransitionAnimator *)v15 setInitialDelay:v29];
+        v15 = [[SBHomeScreenIconTransitionAnimator alloc] initWithIconAnimator:v23 childViewController:v18 operation:operation != 1];
+        [(SBHomeScreenIconTransitionAnimator *)v15 setInitialDelay:v30];
         if (objc_opt_respondsToSelector())
         {
           [folderDelegate folderController:self willUseIconTransitionAnimator:v15 forOperation:operation onViewController:v18 animated:1];
@@ -1170,11 +1170,11 @@ LABEL_30:
     folder = [v19 folder];
     icon = [folder icon];
 
-    if (icon && [(SBScaleIconZoomAnimator *)SBFolderIconZoomAnimator validateAnimationContainer:v27 targetIcon:icon])
+    if (icon && (v22 = [(SBScaleIconZoomAnimator *)SBFolderIconZoomAnimator validateAnimationContainer:v28 targetIcon:icon], (v22 & 1) != 0))
     {
       if (!UIAccessibilityIsReduceMotionEnabled())
       {
-        v22 = [[SBFolderIconZoomAnimator alloc] initWithAnimationContainer:v27 innerFolderController:v19 folderIcon:icon];
+        v23 = [[SBFolderIconZoomAnimator alloc] initWithAnimationContainer:v28 innerFolderController:v19 folderIcon:icon];
 LABEL_24:
 
         goto LABEL_25;
@@ -1183,8 +1183,8 @@ LABEL_24:
 
     else
     {
-      v23 = SBLogCommon();
-      if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+      v24 = SBLogCommon(v22);
+      if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
       {
         [SBFolderController nestingViewController:animationControllerForOperation:onViewController:animated:];
       }
@@ -1192,13 +1192,13 @@ LABEL_24:
       UIAccessibilityIsReduceMotionEnabled();
     }
 
-    v24 = [SBIconFadeAnimator alloc];
+    v25 = [SBIconFadeAnimator alloc];
     [v19 contentView];
-    v25 = v26 = v18;
-    v22 = [(SBIconFadeAnimator *)v24 initWithAnimationContainer:v27 crossfadeView:v25];
+    v26 = v27 = v18;
+    v23 = [(SBIconFadeAnimator *)v25 initWithAnimationContainer:v28 crossfadeView:v26];
 
-    v18 = v26;
-    [(SBFolderIconZoomAnimator *)v22 setFadesReferenceView:0];
+    v18 = v27;
+    [(SBFolderIconZoomAnimator *)v23 setFadesReferenceView:0];
     goto LABEL_24;
   }
 
@@ -1243,7 +1243,7 @@ LABEL_6:
 LABEL_11:
         v20 = [SBFolderControllerBackgroundView alloc];
         folderView = [(SBFolderController *)self folderView];
-        [folderView bounds];
+        objc_msgSend_bounds(folderView);
         v22 = [(SBFolderControllerBackgroundView *)v20 initWithFrame:?];
         v23 = self->_backgroundView;
         self->_backgroundView = v22;
@@ -1408,7 +1408,7 @@ void __108__SBFolderController_nestingViewController_willPerformOperation_onView
   }
 }
 
-uint64_t __108__SBFolderController_nestingViewController_willPerformOperation_onViewController_withTransitionCoordinator___block_invoke_3(uint64_t a1, void *a2)
+void *__108__SBFolderController_nestingViewController_willPerformOperation_onViewController_withTransitionCoordinator___block_invoke_3(uint64_t a1, void *a2)
 {
   v3 = [a2 isCancelled];
   if (v3)
@@ -2793,11 +2793,11 @@ LABEL_11:
   v28 = 0u;
   if (folderView)
   {
-    [folderView visibleColumnRangeExcludingAdditionalWidthKeptVisible];
+    objc_msgSend_visibleColumnRangeExcludingAdditionalWidthKeptVisible(folderView);
   }
 
-  iconListViews = [(SBFolderController *)self iconListViews];
-  if (![iconListViews count])
+  v12 = objc_msgSend_iconListViews(self);
+  if (![v12 count])
   {
 LABEL_14:
     v18 = 0;
@@ -2807,7 +2807,7 @@ LABEL_14:
   v13 = 0;
   while (1)
   {
-    v14 = [iconListViews objectAtIndex:v13];
+    v14 = objc_msgSend_objectAtIndex_(v12);
     iconLocation = [v14 iconLocation];
     v16 = [locationCopy isEqualToString:iconLocation];
 
@@ -2846,7 +2846,7 @@ LABEL_14:
     }
 
 LABEL_13:
-    if (++v13 >= [iconListViews count])
+    if (++v13 >= [v12 count])
     {
       goto LABEL_14;
     }
@@ -3732,7 +3732,7 @@ uint64_t __60__SBFolderController_revealIcon_animated_completionHandler___block_
 {
   if (self->_closeFolderTimer)
   {
-    v3 = SBLogIcon();
+    v3 = SBLogIcon(self);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
     {
       [(SBFolderController *)v3 _cancelCloseFolderTimer];
@@ -3790,7 +3790,7 @@ uint64_t __60__SBFolderController_revealIcon_animated_completionHandler___block_
   [dragCopy locationInView:viewCopy];
   v11 = v10;
   v13 = v12;
-  [viewCopy bounds];
+  objc_msgSend_bounds(viewCopy);
   v16.x = v11;
   v16.y = v13;
   if (CGRectContainsPoint(v17, v16))
@@ -3829,7 +3829,7 @@ uint64_t __60__SBFolderController_revealIcon_animated_completionHandler___block_
       [dragCopy locationInView:viewCopy];
       v10 = v9;
       v12 = v11;
-      [viewCopy bounds];
+      objc_msgSend_bounds(viewCopy);
       v15.x = v10;
       v15.y = v12;
       if (CGRectContainsPoint(v16, v15))
@@ -3982,29 +3982,34 @@ uint64_t __66__SBFolderController_unscatterAnimated_afterDelay_withCompletion___
   iconCopy = icon;
   locationCopy = location;
   completionCopy = completion;
-  if ([(SBFolderController *)self isOpen])
+  isOpen = [(SBFolderController *)self isOpen];
+  if (isOpen)
   {
-    if (iconCopy && [(SBFolderController *)self shouldOpenFolderIcon:iconCopy])
+    if (iconCopy)
     {
-      folder = [iconCopy folder];
-      v14 = [(SBFolderController *)self controllerClassForFolder:folder];
-      v15 = objc_alloc_init([(objc_class *)v14 configurationClass]);
-      [v15 setFolder:folder];
-      [v15 setOriginatingIconLocation:locationCopy];
-      [(SBFolderController *)self configureInnerFolderControllerConfiguration:v15];
-      v16 = [[v14 alloc] initWithConfiguration:v15];
-      v18[0] = MEMORY[0x1E69E9820];
-      v18[1] = 3221225472;
-      v18[2] = __66__SBFolderController_pushFolderIcon_location_animated_completion___block_invoke;
-      v18[3] = &unk_1E808A0B8;
-      v19 = completionCopy;
-      [(SBNestingViewController *)self pushNestedViewController:v16 animated:animatedCopy withCompletion:v18];
+      isOpen = [(SBFolderController *)self shouldOpenFolderIcon:iconCopy];
+      if (isOpen)
+      {
+        folder = [iconCopy folder];
+        v15 = [(SBFolderController *)self controllerClassForFolder:folder];
+        v16 = objc_alloc_init([(objc_class *)v15 configurationClass]);
+        [v16 setFolder:folder];
+        [v16 setOriginatingIconLocation:locationCopy];
+        [(SBFolderController *)self configureInnerFolderControllerConfiguration:v16];
+        v17 = [[v15 alloc] initWithConfiguration:v16];
+        v19[0] = MEMORY[0x1E69E9820];
+        v19[1] = 3221225472;
+        v19[2] = __66__SBFolderController_pushFolderIcon_location_animated_completion___block_invoke;
+        v19[3] = &unk_1E808A0B8;
+        v20 = completionCopy;
+        [(SBNestingViewController *)self pushNestedViewController:v17 animated:animatedCopy withCompletion:v19];
 
-      goto LABEL_11;
+        goto LABEL_11;
+      }
     }
 
-    v17 = SBLogIcon();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    v18 = SBLogIcon(isOpen);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
       [SBFolderController pushFolderIcon:location:animated:completion:];
     }
@@ -4012,8 +4017,8 @@ uint64_t __66__SBFolderController_unscatterAnimated_afterDelay_withCompletion___
 
   else
   {
-    v17 = SBLogIcon();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    v18 = SBLogIcon(isOpen);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
       [SBFolderController pushFolderIcon:location:animated:completion:];
     }
@@ -4052,8 +4057,8 @@ uint64_t __66__SBFolderController_pushFolderIcon_location_animated_completion___
   folderIconImageCache = [(SBFolderController *)self folderIconImageCache];
   [configurationCopy setFolderIconImageCache:folderIconImageCache];
 
-  iconImageCache = [(SBFolderController *)self iconImageCache];
-  [configurationCopy setIconImageCache:iconImageCache];
+  v7 = objc_msgSend_iconImageCache(self);
+  [configurationCopy setIconImageCache:v7];
 
   legibilitySettings = [(SBFolderController *)self legibilitySettings];
   [configurationCopy setLegibilitySettings:legibilitySettings];
@@ -4214,25 +4219,26 @@ uint64_t __66__SBFolderController_pushFolderIcon_location_animated_completion___
 
 - (void)prepareToLaunchTappedIcon:(id)icon completionHandler:(id)handler
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   iconCopy = icon;
   handlerCopy = handler;
-  if ([(SBFolderController *)self isDisplayingIcon:iconCopy])
+  v8 = [(SBFolderController *)self isDisplayingIcon:iconCopy];
+  if (v8)
   {
     handlerCopy[2](handlerCopy);
   }
 
   else
   {
-    v8 = SBLogIcon();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = SBLogIcon(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       uniqueIdentifier = [iconCopy uniqueIdentifier];
-      v10 = 138412546;
-      v11 = uniqueIdentifier;
-      v12 = 1024;
+      v11 = 138412546;
+      v12 = uniqueIdentifier;
+      v13 = 1024;
       isScrolling = [(SBFolderController *)self isScrolling];
-      _os_log_impl(&dword_1BEB18000, v8, OS_LOG_TYPE_DEFAULT, "Need to scroll to show tapped icon '%@' (already scrolling: %{BOOL}u)", &v10, 0x12u);
+      _os_log_impl(&dword_1BEB18000, v9, OS_LOG_TYPE_DEFAULT, "Need to scroll to show tapped icon '%@' (already scrolling: %{BOOL}u)", &v11, 0x12u);
     }
 
     [(SBFolderController *)self setCurrentPageIndexToListDirectlyContainingIcon:iconCopy animated:1 completion:handlerCopy];
@@ -4346,7 +4352,7 @@ uint64_t __66__SBFolderController_pushFolderIcon_location_animated_completion___
   v27 = 0u;
   if (folderView)
   {
-    [folderView visibleColumnRangeExcludingAdditionalWidthKeptVisible];
+    objc_msgSend_visibleColumnRangeExcludingAdditionalWidthKeptVisible(folderView);
   }
 
   v22 = 0;
@@ -4506,7 +4512,7 @@ LABEL_7:
   }
 
   viewIfLoaded = [containerCopy viewIfLoaded];
-  [viewIfLoaded bounds];
+  objc_msgSend_bounds(viewIfLoaded);
   v12 = v11;
   v14 = v13;
 
@@ -4522,11 +4528,11 @@ LABEL_8:
 {
   height = size.height;
   width = size.width;
-  v29 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   coordinatorCopy = coordinator;
-  v20.receiver = self;
-  v20.super_class = SBFolderController;
-  [(SBFolderController *)&v20 viewWillTransitionToSize:coordinatorCopy withTransitionCoordinator:width, height];
+  v21.receiver = self;
+  v21.super_class = SBFolderController;
+  [(SBFolderController *)&v21 viewWillTransitionToSize:coordinatorCopy withTransitionCoordinator:width, height];
   containerView = [coordinatorCopy containerView];
   _window = [containerView _window];
 
@@ -4534,43 +4540,44 @@ LABEL_8:
   _toWindowOrientation = [_window _toWindowOrientation];
   [(SBFolderController *)self allowedOrientations];
   orientation = [(SBFolderController *)self orientation];
-  if (SBFInterfaceOrientationMaskContainsInterfaceOrientation() && orientation != _toWindowOrientation)
+  v13 = SBFInterfaceOrientationMaskContainsInterfaceOrientation();
+  if (v13 && orientation != _toWindowOrientation)
   {
-    v13 = SBLogIcon();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+    v14 = SBLogIcon(v13);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
     {
-      v14 = objc_opt_class();
-      v15 = NSStringFromClass(v14);
-      v30.width = width;
-      v30.height = height;
-      v16 = NSStringFromCGSize(v30);
+      v15 = objc_opt_class();
+      v16 = NSStringFromClass(v15);
+      v31.width = width;
+      v31.height = height;
+      v17 = NSStringFromCGSize(v31);
       *buf = 138544130;
-      v22 = v15;
-      v23 = 2114;
-      v24 = v16;
-      v25 = 2048;
-      v26 = _fromWindowOrientation;
-      v27 = 2048;
-      v28 = _toWindowOrientation;
-      _os_log_impl(&dword_1BEB18000, v13, OS_LOG_TYPE_INFO, "%{public}@ will transition to size %{public}@, %li to %li orientation", buf, 0x2Au);
+      v23 = v16;
+      v24 = 2114;
+      v25 = v17;
+      v26 = 2048;
+      v27 = _fromWindowOrientation;
+      v28 = 2048;
+      v29 = _toWindowOrientation;
+      _os_log_impl(&dword_1BEB18000, v14, OS_LOG_TYPE_INFO, "%{public}@ will transition to size %{public}@, %li to %li orientation", buf, 0x2Au);
     }
 
     [(SBFolderController *)self setRotating:1];
     folderView = [(SBFolderController *)self folderView];
     [folderView transitionToSize:coordinatorCopy withTransitionCoordinator:{width, height}];
     [(SBFolderController *)self _resetFakeStatusBarFrameOnly];
+    v20[0] = MEMORY[0x1E69E9820];
+    v20[1] = 3221225472;
+    v20[2] = __73__SBFolderController_viewWillTransitionToSize_withTransitionCoordinator___block_invoke;
+    v20[3] = &unk_1E808B460;
+    v20[4] = self;
+    v20[5] = _toWindowOrientation;
     v19[0] = MEMORY[0x1E69E9820];
     v19[1] = 3221225472;
-    v19[2] = __73__SBFolderController_viewWillTransitionToSize_withTransitionCoordinator___block_invoke;
-    v19[3] = &unk_1E808B460;
+    v19[2] = __73__SBFolderController_viewWillTransitionToSize_withTransitionCoordinator___block_invoke_2;
+    v19[3] = &unk_1E8089418;
     v19[4] = self;
-    v19[5] = _toWindowOrientation;
-    v18[0] = MEMORY[0x1E69E9820];
-    v18[1] = 3221225472;
-    v18[2] = __73__SBFolderController_viewWillTransitionToSize_withTransitionCoordinator___block_invoke_2;
-    v18[3] = &unk_1E8089418;
-    v18[4] = self;
-    [coordinatorCopy animateAlongsideTransition:v19 completion:v18];
+    [coordinatorCopy animateAlongsideTransition:v20 completion:v19];
   }
 }
 
@@ -4578,7 +4585,7 @@ uint64_t __73__SBFolderController_viewWillTransitionToSize_withTransitionCoordin
 {
   [*(a1 + 32) setOrientation:*(a1 + 40)];
   v2 = [*(a1 + 32) view];
-  [v2 bounds];
+  objc_msgSend_bounds(v2);
   v4 = v3;
   v6 = v5;
   v8 = v7;
@@ -4605,7 +4612,7 @@ uint64_t __73__SBFolderController_viewWillTransitionToSize_withTransitionCoordin
   v2 = *(a1 + 32);
   v3 = v2[133];
   v4 = [v2 view];
-  [v4 bounds];
+  objc_msgSend_bounds(v4);
   [v3 setFrame:?];
 
   v5 = *(a1 + 32);

@@ -27,7 +27,7 @@
 {
   v2 = MEMORY[0x277CBEB98];
   allKeys = [(NSDictionary *)self->_variantToContextProvider allKeys];
-  v4 = [v2 setWithArray:allKeys];
+  v4 = [v2 setWithArray:?];
 
   return v4;
 }
@@ -37,10 +37,10 @@
   variantCopy = variant;
   settingsCopy = settings;
   v7 = objc_alloc_init(PLKLegibilityEnvironmentBuilder);
-  v8 = [MEMORY[0x277CBEB98] setWithObject:variantCopy];
+  v8 = [MEMORY[0x277CBEB98] setWithObject:?];
 
-  [(PLKLegibilityEnvironmentBuilder *)v7 updateWithLegibilitySettings:settingsCopy variants:v8];
-  v9 = [(PLKLegibilityEnvironmentBuilder *)v7 buildWithError:0];
+  [PLKLegibilityEnvironmentBuilder updateWithLegibilitySettings:v7 variants:"updateWithLegibilitySettings:variants:"];
+  v9 = [(PLKLegibilityEnvironmentBuilder *)v7 buildWithError:?];
 
   return v9;
 }
@@ -49,7 +49,7 @@
 {
   infoCopy = info;
   dictionaryCopy = dictionary;
-  v8 = [[self alloc] initWithDictionary:dictionaryCopy userInfo:infoCopy];
+  v8 = [[self alloc] initWithDictionary:? userInfo:?];
 
   return v8;
 }
@@ -58,7 +58,7 @@
 {
   dictionaryCopy = dictionary;
   infoCopy = info;
-  selfCopy = [dictionaryCopy objectForKeyedSubscript:@"PLKLegibilityEnvironmentVariantDefault"];
+  selfCopy = [dictionaryCopy objectForKeyedSubscript:?];
 
   if (selfCopy)
   {
@@ -67,7 +67,7 @@
     v9 = [(PLKLegibilityEnvironment *)&v16 init];
     if (v9)
     {
-      v10 = [objc_alloc(MEMORY[0x277CBEAC0]) initWithDictionary:dictionaryCopy copyItems:1];
+      v10 = [objc_alloc(MEMORY[0x277CBEAC0]) initWithDictionary:? copyItems:?];
       variantToContextProvider = v9->_variantToContextProvider;
       v9->_variantToContextProvider = v10;
 
@@ -95,7 +95,6 @@
 
 - (BOOL)isEqual:(id)equal
 {
-  v31 = *MEMORY[0x277D85DE8];
   equalCopy = equal;
   if (self == equalCopy)
   {
@@ -122,28 +121,23 @@
 
         if (v10)
         {
-          v28 = 0u;
-          v29 = 0u;
-          v26 = 0u;
-          v27 = 0u;
           obj = [(PLKLegibilityEnvironment *)self variants];
-          v13 = [obj countByEnumeratingWithState:&v26 objects:v30 count:16];
+          v13 = [obj countByEnumeratingWithState:? objects:? count:?];
           if (v13)
           {
             v14 = v13;
-            v25 = *v27;
+            v23 = MEMORY[0];
             while (2)
             {
-              for (i = 0; i != v14; ++i)
+              for (i = 0; i != v14; i = (i + 1))
               {
-                if (*v27 != v25)
+                if (MEMORY[0] != v23)
                 {
                   objc_enumerationMutation(obj);
                 }
 
-                v16 = *(*(&v26 + 1) + 8 * i);
-                v17 = [(PLKLegibilityEnvironment *)self legibilityEnvironmentContextForVariant:v16];
-                v18 = [(PLKLegibilityEnvironment *)v7 legibilityEnvironmentContextForVariant:v16];
+                v16 = [(PLKLegibilityEnvironment *)self legibilityEnvironmentContextForVariant:?];
+                v17 = [(PLKLegibilityEnvironment *)v7 legibilityEnvironmentContextForVariant:?];
                 if (!BSEqualObjects())
                 {
 
@@ -152,17 +146,17 @@ LABEL_19:
                   goto LABEL_20;
                 }
 
-                v19 = [(PLKLegibilityEnvironment *)self legibilityDescriptorForVariant:v16];
-                v20 = [(PLKLegibilityEnvironment *)v7 legibilityDescriptorForVariant:v16];
-                v21 = BSEqualObjects();
+                v18 = [(PLKLegibilityEnvironment *)self legibilityDescriptorForVariant:?];
+                v19 = [(PLKLegibilityEnvironment *)v7 legibilityDescriptorForVariant:?];
+                v20 = BSEqualObjects();
 
-                if (!v21)
+                if (!v20)
                 {
                   goto LABEL_19;
                 }
               }
 
-              v14 = [obj countByEnumeratingWithState:&v26 objects:v30 count:16];
+              v14 = [obj countByEnumeratingWithState:? objects:? count:?];
               LOBYTE(v10) = 1;
               if (v14)
               {
@@ -189,7 +183,6 @@ LABEL_20:
     }
   }
 
-  v22 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
@@ -197,16 +190,16 @@ LABEL_20:
 {
   builder = [MEMORY[0x277CF0C40] builder];
   contextForVariant = [(PLKLegibilityEnvironment *)self contextForVariant];
-  v10[0] = MEMORY[0x277D85DD0];
-  v10[1] = 3221225472;
-  v10[2] = __32__PLKLegibilityEnvironment_hash__block_invoke;
-  v10[3] = &unk_27835B250;
-  v11 = builder;
+  v10 = MEMORY[0x277D85DD0];
+  v11 = 3221225472;
+  v12 = __32__PLKLegibilityEnvironment_hash__block_invoke;
+  v13 = &unk_27835B250;
+  v14 = builder;
   v5 = builder;
-  [contextForVariant enumerateKeysAndObjectsUsingBlock:v10];
+  [contextForVariant enumerateKeysAndObjectsUsingBlock:?];
 
   userInfo = [(PLKLegibilityEnvironment *)self userInfo];
-  v7 = [v5 appendObject:userInfo];
+  v7 = [v5 appendObject:?];
 
   v8 = [v5 hash];
   return v8;
@@ -214,14 +207,14 @@ LABEL_20:
 
 void __32__PLKLegibilityEnvironment_hash__block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v7 = a3;
-  v5 = [*(a1 + 32) appendObject:a2];
-  v6 = [*(a1 + 32) appendObject:v7];
+  v6 = a3;
+  v4 = [*(a1 + 32) appendObject:?];
+  v5 = [*(a1 + 32) appendObject:?];
 }
 
 - (id)legibilityDescriptorForVariant:(id)variant
 {
-  v3 = [(NSDictionary *)self->_variantToContextProvider objectForKey:variant];
+  v3 = [(NSDictionary *)self->_variantToContextProvider objectForKey:?];
   legibilityDescriptor = [v3 legibilityDescriptor];
 
   return legibilityDescriptor;
@@ -230,7 +223,7 @@ void __32__PLKLegibilityEnvironment_hash__block_invoke(uint64_t a1, uint64_t a2,
 - (unint64_t)style
 {
   variant = [(PLKLegibilityEnvironment *)self variant];
-  v4 = [(PLKLegibilityEnvironment *)self legibilityEnvironmentContextForVariant:variant];
+  v4 = [(PLKLegibilityEnvironment *)self legibilityEnvironmentContextForVariant:?];
   style = [v4 style];
 
   return style;
@@ -239,7 +232,7 @@ void __32__PLKLegibilityEnvironment_hash__block_invoke(uint64_t a1, uint64_t a2,
 - (_UILegibilitySettings)legibilitySettings
 {
   variant = [(PLKLegibilityEnvironment *)self variant];
-  v4 = [(PLKLegibilityEnvironment *)self legibilityEnvironmentContextForVariant:variant];
+  v4 = [(PLKLegibilityEnvironment *)self legibilityEnvironmentContextForVariant:?];
   legibilitySettings = [v4 legibilitySettings];
 
   return legibilitySettings;
@@ -248,7 +241,7 @@ void __32__PLKLegibilityEnvironment_hash__block_invoke(uint64_t a1, uint64_t a2,
 - (UIColor)primaryColor
 {
   variant = [(PLKLegibilityEnvironment *)self variant];
-  v4 = [(PLKLegibilityEnvironment *)self legibilityEnvironmentContextForVariant:variant];
+  v4 = [(PLKLegibilityEnvironment *)self legibilityEnvironmentContextForVariant:?];
   primaryColor = [v4 primaryColor];
 
   return primaryColor;
@@ -257,7 +250,7 @@ void __32__PLKLegibilityEnvironment_hash__block_invoke(uint64_t a1, uint64_t a2,
 - (UIColor)secondaryColor
 {
   variant = [(PLKLegibilityEnvironment *)self variant];
-  v4 = [(PLKLegibilityEnvironment *)self legibilityEnvironmentContextForVariant:variant];
+  v4 = [(PLKLegibilityEnvironment *)self legibilityEnvironmentContextForVariant:?];
   secondaryColor = [v4 secondaryColor];
 
   return secondaryColor;
@@ -266,7 +259,7 @@ void __32__PLKLegibilityEnvironment_hash__block_invoke(uint64_t a1, uint64_t a2,
 - (UIColor)backgroundColor
 {
   variant = [(PLKLegibilityEnvironment *)self variant];
-  v4 = [(PLKLegibilityEnvironment *)self legibilityEnvironmentContextForVariant:variant];
+  v4 = [(PLKLegibilityEnvironment *)self legibilityEnvironmentContextForVariant:?];
   backgroundColor = [v4 backgroundColor];
 
   return backgroundColor;
@@ -275,7 +268,7 @@ void __32__PLKLegibilityEnvironment_hash__block_invoke(uint64_t a1, uint64_t a2,
 - (UIColor)averageColor
 {
   variant = [(PLKLegibilityEnvironment *)self variant];
-  v4 = [(PLKLegibilityEnvironment *)self legibilityEnvironmentContextForVariant:variant];
+  v4 = [(PLKLegibilityEnvironment *)self legibilityEnvironmentContextForVariant:?];
   averageColor = [v4 averageColor];
 
   return averageColor;
@@ -283,21 +276,17 @@ void __32__PLKLegibilityEnvironment_hash__block_invoke(uint64_t a1, uint64_t a2,
 
 - (id)averageColorInRect:(CGRect)rect
 {
-  height = rect.size.height;
-  width = rect.size.width;
-  y = rect.origin.y;
-  x = rect.origin.x;
   variant = [(PLKLegibilityEnvironment *)self variant];
-  v9 = [(PLKLegibilityEnvironment *)self legibilityEnvironmentContextForVariant:variant];
-  v10 = [v9 averageColorInRect:{x, y, width, height}];
+  v5 = [(PLKLegibilityEnvironment *)self legibilityEnvironmentContextForVariant:?];
+  v6 = [v5 averageColorInRect:?];
 
-  return v10;
+  return v6;
 }
 
 - (double)contrast
 {
   variant = [(PLKLegibilityEnvironment *)self variant];
-  v4 = [(PLKLegibilityEnvironment *)self legibilityEnvironmentContextForVariant:variant];
+  v4 = [(PLKLegibilityEnvironment *)self legibilityEnvironmentContextForVariant:?];
   [v4 contrast];
   v6 = v5;
 
@@ -306,22 +295,18 @@ void __32__PLKLegibilityEnvironment_hash__block_invoke(uint64_t a1, uint64_t a2,
 
 - (double)contrastInRect:(CGRect)rect
 {
-  height = rect.size.height;
-  width = rect.size.width;
-  y = rect.origin.y;
-  x = rect.origin.x;
   variant = [(PLKLegibilityEnvironment *)self variant];
-  v9 = [(PLKLegibilityEnvironment *)self legibilityEnvironmentContextForVariant:variant];
-  [v9 contrastInRect:{x, y, width, height}];
-  v11 = v10;
+  v5 = [(PLKLegibilityEnvironment *)self legibilityEnvironmentContextForVariant:?];
+  [v5 contrastInRect:?];
+  v7 = v6;
 
-  return v11;
+  return v7;
 }
 
 - (double)saturation
 {
   variant = [(PLKLegibilityEnvironment *)self variant];
-  v4 = [(PLKLegibilityEnvironment *)self legibilityEnvironmentContextForVariant:variant];
+  v4 = [(PLKLegibilityEnvironment *)self legibilityEnvironmentContextForVariant:?];
   [v4 saturation];
   v6 = v5;
 
@@ -330,22 +315,18 @@ void __32__PLKLegibilityEnvironment_hash__block_invoke(uint64_t a1, uint64_t a2,
 
 - (double)saturationInRect:(CGRect)rect
 {
-  height = rect.size.height;
-  width = rect.size.width;
-  y = rect.origin.y;
-  x = rect.origin.x;
   variant = [(PLKLegibilityEnvironment *)self variant];
-  v9 = [(PLKLegibilityEnvironment *)self legibilityEnvironmentContextForVariant:variant];
-  [v9 saturationInRect:{x, y, width, height}];
-  v11 = v10;
+  v5 = [(PLKLegibilityEnvironment *)self legibilityEnvironmentContextForVariant:?];
+  [v5 saturationInRect:?];
+  v7 = v6;
 
-  return v11;
+  return v7;
 }
 
 - (double)luma
 {
   variant = [(PLKLegibilityEnvironment *)self variant];
-  v4 = [(PLKLegibilityEnvironment *)self legibilityEnvironmentContextForVariant:variant];
+  v4 = [(PLKLegibilityEnvironment *)self legibilityEnvironmentContextForVariant:?];
   [v4 luma];
   v6 = v5;
 
@@ -354,16 +335,12 @@ void __32__PLKLegibilityEnvironment_hash__block_invoke(uint64_t a1, uint64_t a2,
 
 - (double)lumaInRect:(CGRect)rect
 {
-  height = rect.size.height;
-  width = rect.size.width;
-  y = rect.origin.y;
-  x = rect.origin.x;
   variant = [(PLKLegibilityEnvironment *)self variant];
-  v9 = [(PLKLegibilityEnvironment *)self legibilityEnvironmentContextForVariant:variant];
-  [v9 lumaInRect:{x, y, width, height}];
-  v11 = v10;
+  v5 = [(PLKLegibilityEnvironment *)self legibilityEnvironmentContextForVariant:?];
+  [v5 lumaInRect:?];
+  v7 = v6;
 
-  return v11;
+  return v7;
 }
 
 @end

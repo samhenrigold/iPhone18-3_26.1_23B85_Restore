@@ -772,7 +772,7 @@ void __43__PXUIFilterController__updateFooterStatus__block_invoke(void *a1, void
   countsController = self->_countsController;
   if (countsController)
   {
-    [(PXAssetsDataSourceCountsController *)countsController guestCounts];
+    objc_msgSend_guestCounts(countsController, a2);
   }
 
   v4 = +[PXLemonadeSettings sharedInstance];
@@ -794,7 +794,7 @@ void __43__PXUIFilterController__updateFooterStatus__block_invoke(void *a1, void
     {
       v9 = v11;
       v10 = v12;
-      v7 = PXLocalizedDetailedCountsDescription(&v9);
+      v7 = PXLocalizedDetailedCountsDescription(&v9, 1, 0);
     }
 
     else
@@ -813,7 +813,7 @@ void __43__PXUIFilterController__updateFooterStatus__block_invoke(void *a1, void
   countsController = self->_countsController;
   if (countsController)
   {
-    [(PXAssetsDataSourceCountsController *)countsController counts];
+    objc_msgSend_counts(countsController, a2);
   }
 
   v4 = +[PXLemonadeSettings sharedInstance];
@@ -838,7 +838,7 @@ void __43__PXUIFilterController__updateFooterStatus__block_invoke(void *a1, void
   {
     v9 = v11;
     v10 = v12;
-    v7 = PXLocalizedDetailedCountsDescription(&v9);
+    v7 = PXLocalizedDetailedCountsDescription(&v9, 1, 0);
   }
 
 LABEL_11:

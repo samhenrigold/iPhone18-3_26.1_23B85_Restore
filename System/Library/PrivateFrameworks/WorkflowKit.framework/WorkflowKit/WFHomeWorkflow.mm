@@ -97,10 +97,10 @@ LABEL_5:
 
 - (id)triggerActionSetsBuilders
 {
-  v14 = *MEMORY[0x1E69E9840];
-  v9 = 0;
-  v2 = [(WFHomeWorkflow *)self workflowWithEnvironment:1 error:&v9];
-  v3 = v9;
+  v13 = *MEMORY[0x1E69E9840];
+  v8 = 0;
+  v2 = [(WFHomeWorkflow *)self workflowWithEnvironment:1 error:&v8];
+  v3 = v8;
   if (v2)
   {
     actions = [v2 actions];
@@ -119,17 +119,15 @@ LABEL_5:
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v11 = "[WFHomeWorkflow triggerActionSetsBuilders]";
-      v12 = 2112;
-      v13 = v3;
+      v10 = "[WFHomeWorkflow triggerActionSetsBuilders]";
+      v11 = 2112;
+      v12 = v3;
       _os_log_impl(&dword_1CA256000, v5, OS_LOG_TYPE_ERROR, "%s Unable to get workflow from home workflow. %@", buf, 0x16u);
     }
   }
 
   v6 = 0;
 LABEL_7:
-
-  v7 = *MEMORY[0x1E69E9840];
 
   return v6;
 }
@@ -193,99 +191,96 @@ id __43__WFHomeWorkflow_triggerActionSetsBuilders__block_invoke(uint64_t a1, voi
 
 - (BOOL)requiresDeviceUnlockEnsuringHomesAreLoaded
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v3 = dispatch_semaphore_create(0);
-  v13 = 0;
-  v14 = &v13;
-  v15 = 0x2020000000;
-  v16 = 0;
+  v12 = 0;
+  v13 = &v12;
+  v14 = 0x2020000000;
+  v15 = 0;
   v4 = getWFHomeLogObject();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315138;
-    v18 = "[WFHomeWorkflow requiresDeviceUnlockEnsuringHomesAreLoaded]";
+    v17 = "[WFHomeWorkflow requiresDeviceUnlockEnsuringHomesAreLoaded]";
     _os_log_impl(&dword_1CA256000, v4, OS_LOG_TYPE_DEBUG, "%s Attempting to load homes", buf, 0xCu);
   }
 
   v5 = +[WFHomeManager sharedManager];
-  v10[0] = MEMORY[0x1E69E9820];
-  v10[1] = 3221225472;
-  v10[2] = __60__WFHomeWorkflow_requiresDeviceUnlockEnsuringHomesAreLoaded__block_invoke;
-  v10[3] = &unk_1E837C4B0;
-  v12 = &v13;
-  v10[4] = self;
+  v9[0] = MEMORY[0x1E69E9820];
+  v9[1] = 3221225472;
+  v9[2] = __60__WFHomeWorkflow_requiresDeviceUnlockEnsuringHomesAreLoaded__block_invoke;
+  v9[3] = &unk_1E837C4B0;
+  v11 = &v12;
+  v9[4] = self;
   v6 = v3;
-  v11 = v6;
-  [v5 ensureHomesAreLoadedWithCompletionHandler:v10];
+  v10 = v6;
+  [v5 ensureHomesAreLoadedWithCompletionHandler:v9];
 
   dispatch_semaphore_wait(v6, 0xFFFFFFFFFFFFFFFFLL);
-  v7 = *(v14 + 24);
+  v7 = *(v13 + 24);
 
-  _Block_object_dispose(&v13, 8);
-  v8 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v12, 8);
   return v7 & 1;
 }
 
 intptr_t __60__WFHomeWorkflow_requiresDeviceUnlockEnsuringHomesAreLoaded__block_invoke(uint64_t a1)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v2 = getWFHomeLogObject();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
-    v5 = 136315138;
-    v6 = "[WFHomeWorkflow requiresDeviceUnlockEnsuringHomesAreLoaded]_block_invoke";
-    _os_log_impl(&dword_1CA256000, v2, OS_LOG_TYPE_DEBUG, "%s Homes loaded", &v5, 0xCu);
+    v4 = 136315138;
+    v5 = "[WFHomeWorkflow requiresDeviceUnlockEnsuringHomesAreLoaded]_block_invoke";
+    _os_log_impl(&dword_1CA256000, v2, OS_LOG_TYPE_DEBUG, "%s Homes loaded", &v4, 0xCu);
   }
 
   *(*(*(a1 + 48) + 8) + 24) = [*(a1 + 32) requiresDeviceUnlock];
-  result = dispatch_semaphore_signal(*(a1 + 40));
-  v4 = *MEMORY[0x1E69E9840];
-  return result;
+  return dispatch_semaphore_signal(*(a1 + 40));
 }
 
 - (BOOL)requiresDeviceUnlock
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   triggerActionSetsBuilders = [(WFHomeWorkflow *)self triggerActionSetsBuilders];
   v4 = [(WFHomeWorkflow *)self actionSetsFromTriggerActionSetsBuilders:triggerActionSetsBuilders];
   v5 = getWFHomeLogObject();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315394;
-    v19 = "[WFHomeWorkflow requiresDeviceUnlock]";
-    v20 = 2112;
-    v21 = v4;
+    v18 = "[WFHomeWorkflow requiresDeviceUnlock]";
+    v19 = 2112;
+    v20 = v4;
     _os_log_impl(&dword_1CA256000, v5, OS_LOG_TYPE_DEBUG, "%s Retrieved action sets: %@", buf, 0x16u);
   }
 
-  v15 = 0u;
-  v16 = 0u;
-  v13 = 0u;
   v14 = 0u;
+  v15 = 0u;
+  v12 = 0u;
+  v13 = 0u;
   v6 = v4;
-  v7 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v7)
   {
-    v8 = *v14;
+    v8 = *v13;
     while (2)
     {
       for (i = 0; i != v7; i = (i + 1))
       {
-        if (*v14 != v8)
+        if (*v13 != v8)
         {
           objc_enumerationMutation(v6);
         }
 
-        v10 = *(*(&v13 + 1) + 8 * i);
+        v10 = *(*(&v12 + 1) + 8 * i);
         if ([v10 requiresDeviceUnlock])
         {
           v7 = getWFHomeLogObject();
           if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
           {
             *buf = 136315394;
-            v19 = "[WFHomeWorkflow requiresDeviceUnlock]";
-            v20 = 2112;
-            v21 = v10;
+            v18 = "[WFHomeWorkflow requiresDeviceUnlock]";
+            v19 = 2112;
+            v20 = v10;
             _os_log_impl(&dword_1CA256000, v7, OS_LOG_TYPE_DEBUG, "%s Action set: %@ requires device unlock", buf, 0x16u);
           }
 
@@ -294,7 +289,7 @@ intptr_t __60__WFHomeWorkflow_requiresDeviceUnlockEnsuringHomesAreLoaded__block_
         }
       }
 
-      v7 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v7 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
       if (v7)
       {
         continue;
@@ -306,13 +301,12 @@ intptr_t __60__WFHomeWorkflow_requiresDeviceUnlockEnsuringHomesAreLoaded__block_
 
 LABEL_15:
 
-  v11 = *MEMORY[0x1E69E9840];
   return v7;
 }
 
 - (NSArray)shortcutsDictionaryRepresentations
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   shortcutsDictionaryRepresentations = self->_shortcutsDictionaryRepresentations;
   if (shortcutsDictionaryRepresentations)
   {
@@ -320,9 +314,9 @@ LABEL_15:
     goto LABEL_15;
   }
 
-  v16 = 0;
-  v5 = [(WFHomeWorkflow *)self workflowWithEnvironment:1 error:&v16];
-  v6 = v16;
+  v15 = 0;
+  v5 = [(WFHomeWorkflow *)self workflowWithEnvironment:1 error:&v15];
+  v6 = v15;
   if (v5)
   {
     actions = [v5 actions];
@@ -339,10 +333,10 @@ LABEL_15:
       {
         v12 = self->_shortcutsDictionaryRepresentations;
         *buf = 136315650;
-        v18 = "[WFHomeWorkflow shortcutsDictionaryRepresentations]";
-        v19 = 2112;
-        v20 = v12;
-        v21 = 2112;
+        v17 = "[WFHomeWorkflow shortcutsDictionaryRepresentations]";
+        v18 = 2112;
+        v19 = v12;
+        v20 = 2112;
         selfCopy = self;
         _os_log_impl(&dword_1CA256000, v11, OS_LOG_TYPE_DEFAULT, "%s Got dictionary representations: %@ for workflow: %@", buf, 0x20u);
       }
@@ -355,7 +349,7 @@ LABEL_15:
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v18 = "[WFHomeWorkflow shortcutsDictionaryRepresentations]";
+      v17 = "[WFHomeWorkflow shortcutsDictionaryRepresentations]";
       _os_log_impl(&dword_1CA256000, v13, OS_LOG_TYPE_DEFAULT, "%s Found no home actions", buf, 0xCu);
     }
   }
@@ -366,9 +360,9 @@ LABEL_15:
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v18 = "[WFHomeWorkflow shortcutsDictionaryRepresentations]";
-      v19 = 2112;
-      v20 = v6;
+      v17 = "[WFHomeWorkflow shortcutsDictionaryRepresentations]";
+      v18 = 2112;
+      v19 = v6;
       _os_log_impl(&dword_1CA256000, v8, OS_LOG_TYPE_ERROR, "%s Unable to get workflow from home workflow. %@", buf, 0x16u);
     }
   }
@@ -377,7 +371,6 @@ LABEL_15:
 LABEL_14:
 
 LABEL_15:
-  v14 = *MEMORY[0x1E69E9840];
 
   return v3;
 }
@@ -401,7 +394,7 @@ id __52__WFHomeWorkflow_shortcutsDictionaryRepresentations__block_invoke(uint64_
 
 - (NSUUID)homeIdentifier
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   homeIdentifier = self->_homeIdentifier;
   if (homeIdentifier)
   {
@@ -409,9 +402,9 @@ id __52__WFHomeWorkflow_shortcutsDictionaryRepresentations__block_invoke(uint64_
     goto LABEL_12;
   }
 
-  v15 = 0;
-  v5 = [(WFHomeWorkflow *)self workflowWithEnvironment:1 error:&v15];
-  v6 = v15;
+  v14 = 0;
+  v5 = [(WFHomeWorkflow *)self workflowWithEnvironment:1 error:&v14];
+  v6 = v14;
   if (v5)
   {
     actions = [v5 actions];
@@ -427,10 +420,10 @@ id __52__WFHomeWorkflow_shortcutsDictionaryRepresentations__block_invoke(uint64_
       if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315650;
-        v17 = "[WFHomeWorkflow homeIdentifier]";
-        v18 = 2112;
-        v19 = v11;
-        v20 = 2112;
+        v16 = "[WFHomeWorkflow homeIdentifier]";
+        v17 = 2112;
+        v18 = v11;
+        v19 = 2112;
         selfCopy = self;
         _os_log_impl(&dword_1CA256000, v12, OS_LOG_TYPE_DEFAULT, "%s Got home identifier: %@ for workflow: %@", buf, 0x20u);
       }
@@ -446,9 +439,9 @@ id __52__WFHomeWorkflow_shortcutsDictionaryRepresentations__block_invoke(uint64_
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v17 = "[WFHomeWorkflow homeIdentifier]";
-      v18 = 2112;
-      v19 = v6;
+      v16 = "[WFHomeWorkflow homeIdentifier]";
+      v17 = 2112;
+      v18 = v6;
       _os_log_impl(&dword_1CA256000, v8, OS_LOG_TYPE_ERROR, "%s Unable to get workflow from home workflow. %@", buf, 0x16u);
     }
   }
@@ -457,7 +450,6 @@ id __52__WFHomeWorkflow_shortcutsDictionaryRepresentations__block_invoke(uint64_
 LABEL_11:
 
 LABEL_12:
-  v13 = *MEMORY[0x1E69E9840];
 
   return v3;
 }
@@ -505,11 +497,11 @@ id __32__WFHomeWorkflow_homeIdentifier__block_invoke(uint64_t a1, void *a2)
 
 - (WFHomeWorkflow)initWithData:(id)data
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   dataCopy = data;
-  v12.receiver = self;
-  v12.super_class = WFHomeWorkflow;
-  v5 = [(WFHomeWorkflow *)&v12 init];
+  v11.receiver = self;
+  v11.super_class = WFHomeWorkflow;
+  v5 = [(WFHomeWorkflow *)&v11 init];
   if (v5)
   {
     if (!dataCopy)
@@ -518,7 +510,7 @@ id __32__WFHomeWorkflow_homeIdentifier__block_invoke(uint64_t a1, void *a2)
       if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315138;
-        v14 = "[WFHomeWorkflow initWithData:]";
+        v13 = "[WFHomeWorkflow initWithData:]";
         _os_log_impl(&dword_1CA256000, v6, OS_LOG_TYPE_ERROR, "%s WFHomeWorkflow was initialized with nil data", buf, 0xCu);
       }
     }
@@ -530,7 +522,6 @@ id __32__WFHomeWorkflow_homeIdentifier__block_invoke(uint64_t a1, void *a2)
     v9 = v5;
   }
 
-  v10 = *MEMORY[0x1E69E9840];
   return v5;
 }
 

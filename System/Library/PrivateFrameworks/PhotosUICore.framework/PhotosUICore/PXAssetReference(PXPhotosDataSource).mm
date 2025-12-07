@@ -6,9 +6,9 @@
 
 - (uint64_t)simpleIndexPath
 {
-  *x8_0 = 0u;
-  x8_0[1] = 0u;
-  return [self indexPath];
+  *a3 = 0u;
+  a3[1] = 0u;
+  return objc_msgSend_indexPath(self, a2);
 }
 
 @end

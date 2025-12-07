@@ -471,9 +471,9 @@ LABEL_17:
     v10 = objc_msgSend_sourceType(unarchiverCopy, v8, v9);
     if (v10 >= 8)
     {
-      TSUSetCrashReporterInfo();
+      TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d Unarchiver source type is expected to be 3-bits in size.", "[TSPObject initBaseObjectFromUnarchiver:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPObject.mm", 401);
       v38 = MEMORY[0x277D81150];
-      v40 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v39, "[TSPObject initBaseObjectFromUnarchiver:]", "[TSPObject initBaseObjectFromUnarchiver:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPObject.mm", 401);
+      v40 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v39, "[TSPObject initBaseObjectFromUnarchiver:]");
       v42 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v41, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPObject.mm");
       objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v38, v43, v40, v42, 401, 1, "Unarchiver source type is expected to be 3-bits in size.");
 
@@ -1244,7 +1244,7 @@ LABEL_7:
 
 - (TSUUUIDPath)objectUUIDPath
 {
-  v28[1] = *MEMORY[0x277D85DE8];
+  v27[1] = *MEMORY[0x277D85DE8];
   v3 = objc_opt_class();
   if (objc_msgSend_needsObjectUUID(v3, v4, v5))
   {
@@ -1252,8 +1252,8 @@ LABEL_7:
     if (v8)
     {
       v9 = objc_alloc(MEMORY[0x277D81360]);
-      v28[0] = v8;
-      v11 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v10, v28, 1);
+      v27[0] = v8;
+      v11 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v10, v27, 1);
       v13 = objc_msgSend_initWithArray_(v9, v12, v11);
     }
 
@@ -1277,8 +1277,6 @@ LABEL_7:
     v13 = 0;
   }
 
-  v26 = *MEMORY[0x277D85DE8];
-
   return v13;
 }
 
@@ -1291,16 +1289,16 @@ LABEL_7:
   {
     v19 = objc_opt_class();
     v20 = NSStringFromClass(v19);
-    v34 = objc_msgSend_tsp_identifier(self, v21, v22);
-    TSUSetCrashReporterInfo();
+    v23 = objc_msgSend_tsp_identifier(self, v21, v22);
+    TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d Object [%{public}@-%llu] was added to an unexpected object context. Object Description: %@", "[TSPObject(Collaboration) wasAddedToDocumentWithContext:options:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPObject_Collaboration.mm", 36, v20, v23, self);
 
-    v23 = MEMORY[0x277D81150];
-    v25 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v24, "[TSPObject(Collaboration) wasAddedToDocumentWithContext:options:]", "[TSPObject(Collaboration) wasAddedToDocumentWithContext:options:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPObject_Collaboration.mm", 36, v20, v34, self);
-    v27 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v26, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPObject_Collaboration.mm");
-    v28 = objc_opt_class();
-    v29 = NSStringFromClass(v28);
-    v32 = objc_msgSend_tsp_identifier(self, v30, v31);
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v23, v33, v25, v27, 36, 1, "Object [%{public}@-%llu] was added to an unexpected object context. Object Description: %@", v29, v32, self);
+    v24 = MEMORY[0x277D81150];
+    v26 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v25, "[TSPObject(Collaboration) wasAddedToDocumentWithContext:options:]");
+    v28 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v27, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPObject_Collaboration.mm");
+    v29 = objc_opt_class();
+    v30 = NSStringFromClass(v29);
+    v33 = objc_msgSend_tsp_identifier(self, v31, v32);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v24, v34, v26, v28, 36, 1, "Object [%{public}@-%llu] was added to an unexpected object context. Object Description: %@", v30, v33, self);
 
     TSUCrashBreakpoint();
     abort();

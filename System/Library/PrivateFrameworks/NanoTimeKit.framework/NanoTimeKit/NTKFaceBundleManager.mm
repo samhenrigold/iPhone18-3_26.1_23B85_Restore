@@ -40,9 +40,9 @@ void __37__NTKFaceBundleManager_sharedManager__block_invoke(uint64_t a1)
 
 - (id)_init
 {
-  v43.receiver = self;
-  v43.super_class = NTKFaceBundleManager;
-  v2 = [(NTKFaceBundleManager *)&v43 init];
+  v45.receiver = self;
+  v45.super_class = NTKFaceBundleManager;
+  v2 = [(NTKFaceBundleManager *)&v45 init];
   v3 = v2;
   if (v2)
   {
@@ -67,14 +67,14 @@ void __37__NTKFaceBundleManager_sharedManager__block_invoke(uint64_t a1)
       v15 = [v9 addObject:v14];
       if (NTKInternalBuild(v15, v16))
       {
-        v41[0] = MEMORY[0x277D85DD0];
-        v41[1] = 3221225472;
-        v41[2] = __29__NTKFaceBundleManager__init__block_invoke;
-        v41[3] = &unk_27877DB10;
-        v42 = v14;
+        v43[0] = MEMORY[0x277D85DD0];
+        v43[1] = 3221225472;
+        v43[2] = __29__NTKFaceBundleManager__init__block_invoke;
+        v43[3] = &unk_27877DB10;
+        v44 = v14;
         if (_init_onceToken_1 != -1)
         {
-          dispatch_once(&_init_onceToken_1, v41);
+          dispatch_once(&_init_onceToken_1, v43);
         }
       }
     }
@@ -88,14 +88,14 @@ void __37__NTKFaceBundleManager_sharedManager__block_invoke(uint64_t a1)
       v20 = [v9 addObject:v19];
       if (NTKInternalBuild(v20, v21))
       {
-        v39[0] = MEMORY[0x277D85DD0];
-        v39[1] = 3221225472;
-        v39[2] = __29__NTKFaceBundleManager__init__block_invoke_3;
-        v39[3] = &unk_27877DB10;
-        v40 = v19;
+        v41[0] = MEMORY[0x277D85DD0];
+        v41[1] = 3221225472;
+        v41[2] = __29__NTKFaceBundleManager__init__block_invoke_3;
+        v41[3] = &unk_27877DB10;
+        v42 = v19;
         if (_init_onceToken_23 != -1)
         {
-          dispatch_once(&_init_onceToken_23, v39);
+          dispatch_once(&_init_onceToken_23, v41);
         }
       }
 
@@ -112,13 +112,14 @@ void __37__NTKFaceBundleManager_sharedManager__block_invoke(uint64_t a1)
     v25 = [v23 fileURLWithPath:v24];
 
     v26 = [v9 addObject:v25];
-    if (NTKInternalBuild(v26, v27))
+    v28 = NTKInternalBuild(v26, v27);
+    if (v28)
     {
       block[0] = MEMORY[0x277D85DD0];
       block[1] = 3221225472;
       block[2] = __29__NTKFaceBundleManager__init__block_invoke_5;
       block[3] = &unk_27877DB10;
-      v38 = v25;
+      v40 = v25;
       if (_init_onceToken_30 != -1)
       {
         dispatch_once(&_init_onceToken_30, block);
@@ -127,23 +128,23 @@ void __37__NTKFaceBundleManager_sharedManager__block_invoke(uint64_t a1)
 
     if ((v22 & 1) == 0)
     {
-      v28 = NTKArgonExtractorBasePath();
-      v29 = NTKArgonExtractorBuildVersion();
-      v30 = [v28 stringByAppendingPathComponent:v29];
-      v31 = [MEMORY[0x277CBEBC0] fileURLWithPath:v30];
-      [v9 addObject:v31];
+      v30 = NTKArgonExtractorBasePath(v28, v29);
+      v31 = NTKArgonExtractorBuildVersion();
+      v32 = [v30 stringByAppendingPathComponent:v31];
+      v33 = [MEMORY[0x277CBEBC0] fileURLWithPath:v32];
+      [v9 addObject:v33];
     }
 
-    v32 = [NTKFaceBundleLoader faceBundleLoaderWithDirectories:v9];
-    objc_storeStrong(&v3->_loader, v32);
-    v33 = CLKRunningInProcess();
-    v34 = 0x277CCAB98;
-    if (!v33)
+    v34 = [NTKFaceBundleLoader faceBundleLoaderWithDirectories:v9];
+    objc_storeStrong(&v3->_loader, v34);
+    v35 = CLKRunningInProcess();
+    v36 = 0x277CCAB98;
+    if (!v35)
     {
-      v34 = 0x277CCA9A0;
+      v36 = 0x277CCA9A0;
     }
 
-    defaultCenter = [*v34 defaultCenter];
+    defaultCenter = [*v36 defaultCenter];
     [defaultCenter addObserver:v3 selector:sel_argonUpdated_ name:@"NTKArgonManagerDidUpdateNotificationName" object:0];
   }
 
@@ -482,54 +483,54 @@ void __51__NTKFaceBundleManager__generateLookupsIfNecessary__block_invoke(uint64
   }
 }
 
-void __62__NTKFaceBundleManager_enumerateArgonKeyDescriptorsWithBlock___block_invoke(uint64_t a1)
+void __62__NTKFaceBundleManager_enumerateArgonKeyDescriptorsWithBlock___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v17[1] = *MEMORY[0x277D85DE8];
-  v2 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-  v3 = [NTKArgonKeyDescriptor keyDescriptorFromBundle:v2];
+  v18[1] = *MEMORY[0x277D85DE8];
+  v3 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  v4 = [NTKArgonKeyDescriptor keyDescriptorFromBundle:v3];
   aBlock[0] = MEMORY[0x277D85DD0];
   aBlock[1] = 3221225472;
   aBlock[2] = __62__NTKFaceBundleManager_enumerateArgonKeyDescriptorsWithBlock___block_invoke_2;
   aBlock[3] = &unk_278783A98;
-  v16 = *(a1 + 32);
-  v4 = _Block_copy(aBlock);
-  if (v3)
+  v17 = *(a1 + 32);
+  v5 = _Block_copy(aBlock);
+  if (v4)
   {
-    v5 = [v2 bundleURL];
-    v17[0] = *MEMORY[0x277CBEA30];
-    v6 = v17[0];
-    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:1];
-    v14 = 0;
-    v8 = [v5 resourceValuesForKeys:v7 error:&v14];
-    v9 = v14;
+    v6 = [v3 bundleURL];
+    v18[0] = *MEMORY[0x277CBEA30];
+    v7 = v18[0];
+    v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:1];
+    v15 = 0;
+    v9 = [v6 resourceValuesForKeys:v8 error:&v15];
+    v10 = v15;
 
-    v10 = [v8 objectForKey:v6];
-    v11 = v10;
-    if (v10)
+    v11 = [v9 objectForKey:v7];
+    v12 = v11;
+    if (v11)
     {
-      if ([v10 BOOLValue])
+      if ([v11 BOOLValue])
       {
-        v12 = 1;
+        v13 = 1;
       }
 
       else
       {
-        v12 = 2;
+        v13 = 2;
       }
     }
 
     else
     {
-      v13 = _NTKLoggingObjectForDomain(0, "NTKLoggingDomainDefault");
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+      v14 = _NTKLoggingObjectForDomain(0, "NTKLoggingDomainDefault");
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
-        __62__NTKFaceBundleManager_enumerateArgonKeyDescriptorsWithBlock___block_invoke_cold_1(v5, v9, v13);
+        __62__NTKFaceBundleManager_enumerateArgonKeyDescriptorsWithBlock___block_invoke_cold_1(v6, v10, v14);
       }
 
-      v12 = 0;
+      v13 = 0;
     }
 
-    v4[2](v4, v12, v3);
+    v5[2](v5, v13, v4);
   }
 }
 

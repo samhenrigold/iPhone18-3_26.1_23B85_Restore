@@ -59,7 +59,7 @@
   v4 = itemCountsController;
   if (itemCountsController)
   {
-    [itemCountsController counts];
+    objc_msgSend_counts(itemCountsController);
   }
 
   eventTracker = [(PXCuratedLibraryViewProvider *)self eventTracker];
@@ -95,11 +95,11 @@
   fetchSelectedObjects = [selectionSnapshot fetchSelectedObjects];
   [fetchSelectedObjects mutableCopy];
 
-  layout = [(PXCuratedLibraryViewProvider *)self layout];
+  v9 = objc_msgSend_layout(self);
   [(PXCuratedLibraryViewProvider *)self gridView];
   objc_claimAutoreleasedReturnValue();
-  [layout visibleRect];
-  [layout safeAreaInsets];
+  [v9 visibleRect];
+  [v9 safeAreaInsets];
   PXEdgeInsetsInsetRect();
 }
 
@@ -258,14 +258,11 @@ LABEL_12:
   viewModel = [(PXCuratedLibraryViewProvider *)self viewModel];
   zoomLevel = [viewModel zoomLevel];
   assetsDataSourceManager = [viewModel assetsDataSourceManager];
-  v13 = [assetsDataSourceManager dataSourceForZoomLevel:zoomLevel];
+  v12 = [assetsDataSourceManager dataSourceForZoomLevel:zoomLevel];
 
   *&retstr->dataSourceIdentifier = 0u;
   *&retstr->item = 0u;
-  v14 = *&direction->item;
-  v16[0] = *&direction->dataSourceIdentifier;
-  v16[1] = v14;
-  [(PXCuratedLibraryViewProvider *)self selectableIndexPathClosestToIndexPath:v16 fromDataSource:v13 inDirection:a6];
+  objc_msgSend_selectableIndexPathClosestToIndexPath_fromDataSource_inDirection_(self, direction->dataSourceIdentifier, direction->section, direction->item, direction->subitem);
 
   return result;
 }
@@ -277,10 +274,8 @@ LABEL_12:
   assetsDataSourceManager = [viewModel assetsDataSourceManager];
   v13 = [assetsDataSourceManager dataSourceForZoomLevel:zoomLevel];
 
-  if (direction == 2)
+  if (direction)
   {
-    direction = 5;
-LABEL_7:
     v22 = *&path->dataSourceIdentifier;
     v23 = *&path->item;
     v17 = objc_alloc_init(off_1E77217C8);
@@ -292,7 +287,7 @@ LABEL_7:
     {
       v25 = v19;
       v26 = v18;
-      [(PXCuratedLibraryViewProvider *)self selectableIndexPathClosestToIndexPath:&v25 fromDataSource:v13 inDirection:direction, v22.i64[0]];
+      objc_msgSend_selectableIndexPathClosestToIndexPath_fromDataSource_inDirection_(self, v22.i64[0]);
       v22 = v27;
       v24 = v28;
       [v16 addIndexPath:&v27];
@@ -301,28 +296,18 @@ LABEL_7:
     }
 
     while ((vminv_u16(vmovn_s32(vuzp1q_s32(vceqq_s64(v22, *&indexPath->dataSourceIdentifier), vceqq_s64(v24, *&indexPath->item)))) & 1) == 0 && v22.i64[0] != v20);
-    goto LABEL_10;
   }
 
-  if (direction == 1)
+  else
   {
-    direction = 6;
-    goto LABEL_7;
+    v14 = *&path->item;
+    v27 = *&path->dataSourceIdentifier;
+    v28 = v14;
+    v15 = *&indexPath->item;
+    v25 = *&indexPath->dataSourceIdentifier;
+    v26 = v15;
+    v16 = [(PXCuratedLibraryViewProvider *)self indexPathsFromIndexPath:&v27 toIndexPath:&v25 inDataSource:v13];
   }
-
-  if (direction)
-  {
-    goto LABEL_7;
-  }
-
-  v14 = *&path->item;
-  v27 = *&path->dataSourceIdentifier;
-  v28 = v14;
-  v15 = *&indexPath->item;
-  v25 = *&indexPath->dataSourceIdentifier;
-  v26 = v15;
-  v16 = [(PXCuratedLibraryViewProvider *)self indexPathsFromIndexPath:&v27 toIndexPath:&v25 inDataSource:v13];
-LABEL_10:
 
   return v16;
 }
@@ -362,8 +347,8 @@ LABEL_10:
   assetsDataSourceManager = [(PXCuratedLibraryViewProvider *)self assetsDataSourceManager];
   [assetsDataSourceManager forceAllPhotosAccurateIfNeeded];
 
-  layout = [(PXCuratedLibraryViewProvider *)self layout];
-  [layout clearLastVisibleAreaAnchoringInformation];
+  v5 = objc_msgSend_layout(self);
+  [v5 clearLastVisibleAreaAnchoringInformation];
 }
 
 - (BOOL)zoomablePhotosInteractionShouldBegin:(id)begin
@@ -571,7 +556,7 @@ uint64_t __75__PXCuratedLibraryViewProvider__handleChangeToModifySelectionWithUs
       v33 = v32;
       v60 = item;
       v61 = subitem;
-      [(PXCuratedLibraryViewProvider *)selfCopy selectableIndexPathClosestToIndexPath:&v58 fromDataSource:v56 inDirection:5];
+      objc_msgSend_selectableIndexPathClosestToIndexPath_fromDataSource_inDirection_(selfCopy);
       dataSourceIdentifier = v67;
       v34 = v68;
       item = v69;
@@ -632,7 +617,7 @@ LABEL_34:
       v37 = v40 && subitem == v52;
       v60 = item;
       v61 = subitem;
-      [(PXCuratedLibraryViewProvider *)selfCopy selectableIndexPathClosestToIndexPath:&v58 fromDataSource:v56 inDirection:5];
+      objc_msgSend_selectableIndexPathClosestToIndexPath_fromDataSource_inDirection_(selfCopy);
       dataSourceIdentifier = v67;
       v34 = v68;
       item = v69;
@@ -692,52 +677,50 @@ LABEL_29:
 - (void)extendSelectionInDirection:(unint64_t)direction
 {
   viewModel = [(PXCuratedLibraryViewProvider *)self viewModel];
+  v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   selectionManager = [viewModel selectionManager];
   v7 = selectionManager;
   if (selectionManager)
   {
-    [selectionManager startingIndexPathForMoveInDirection:direction];
+    objc_msgSend_startingIndexPathForMoveInDirection_(selectionManager);
   }
 
   else
   {
+    v16 = 0u;
     v17 = 0u;
-    v18 = 0u;
   }
 
   v8 = *off_1E7721F68;
-  if (v17 == *off_1E7721F68)
+  if (v16 == *off_1E7721F68)
   {
     [(PXCuratedLibraryViewProvider *)self moveSelectionInDirection:direction];
   }
 
   else
   {
+    v14 = 0u;
     v15 = 0u;
-    v16 = 0u;
     selectionManager2 = [viewModel selectionManager];
     v10 = selectionManager2;
     if (selectionManager2)
     {
-      v13 = v17;
-      v14 = v18;
-      [selectionManager2 extendSelectionFromIndexPath:&v13 inDirection:direction withDelegate:self];
+      objc_msgSend_extendSelectionFromIndexPath_inDirection_withDelegate_(selectionManager2, v16, v17);
     }
 
     else
     {
+      v14 = 0u;
       v15 = 0u;
-      v16 = 0u;
     }
 
-    if (v15 != v8)
+    if (v14 != v8)
     {
       currentDataSource = [viewModel currentDataSource];
-      v13 = v15;
-      v14 = v16;
-      v12 = [currentDataSource objectReferenceAtIndexPath:&v13];
+      v13[0] = v14;
+      v13[1] = v15;
+      v12 = [currentDataSource objectReferenceAtIndexPath:v13];
 
       if (v12)
       {
@@ -751,36 +734,36 @@ LABEL_29:
 - (void)moveSelectionInDirection:(unint64_t)direction
 {
   viewModel = [(PXCuratedLibraryViewProvider *)self viewModel];
+  v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   selectionManager = [viewModel selectionManager];
-  v7 = selectionManager;
+  v6 = selectionManager;
   if (selectionManager)
   {
-    [selectionManager moveSelectionInDirection:direction withDelegate:self];
+    objc_msgSend_moveSelectionInDirection_withDelegate_(selectionManager);
   }
 
   else
   {
+    v18 = 0u;
     v19 = 0u;
-    v20 = 0u;
   }
 
-  if (v19 != *off_1E7721F68)
+  if (v18 != *off_1E7721F68)
   {
     [(PXCuratedLibraryViewProvider *)self anchorPaddingForCurrentZoomLevel];
-    v9 = v8;
-    v11 = v10;
-    v13 = v12;
-    v15 = v14;
+    v8 = v7;
+    v10 = v9;
+    v12 = v11;
+    v14 = v13;
     currentDataSource = [viewModel currentDataSource];
-    v18[0] = v19;
-    v18[1] = v20;
-    v17 = [currentDataSource objectReferenceAtIndexPath:v18];
+    v17[0] = v18;
+    v17[1] = v19;
+    v16 = [currentDataSource objectReferenceAtIndexPath:v17];
 
-    if (v17)
+    if (v16)
     {
-      [(PXCuratedLibraryViewProvider *)self scrollLibraryViewToObjectReference:v17 scrollPosition:0 padding:0 completionHandler:v9, v11, v13, v15];
+      [(PXCuratedLibraryViewProvider *)self scrollLibraryViewToObjectReference:v16 scrollPosition:0 padding:0 completionHandler:v8, v10, v12, v14];
     }
   }
 }
@@ -851,8 +834,8 @@ LABEL_7:
           v38 = *&source->dataSourceIdentifier;
           v39 = v18;
           v19 = [directionCopy assetCollectionReferenceAtSectionIndexPath:&v38];
-          layout = [(PXCuratedLibraryViewProvider *)self layout];
-          v21 = [layout spriteReferenceForObjectReference:v19];
+          v20 = objc_msgSend_layout(self);
+          v21 = [v20 spriteReferenceForObjectReference:v19];
 
           gridView = [(PXCuratedLibraryViewProvider *)self gridView];
           v23 = v32;
@@ -878,8 +861,8 @@ LABEL_11:
         v38 = *&source->dataSourceIdentifier;
         v39 = v26;
         v19 = [directionCopy assetReferenceAtItemIndexPath:&v38];
-        layout2 = [(PXCuratedLibraryViewProvider *)self layout];
-        v21 = [layout2 spriteReferenceForObjectReference:v19];
+        v27 = objc_msgSend_layout(self);
+        v21 = [v27 spriteReferenceForObjectReference:v19];
 
         gridView = [(PXCuratedLibraryViewProvider *)self gridView];
         v23 = v35;
@@ -931,7 +914,7 @@ void __88__PXCuratedLibraryViewProvider__indexPathClosestToIndexPath_fromDataSou
     v8 = *(a1 + 40);
     if (v8)
     {
-      [v8 indexPathForAssetReference:v6];
+      objc_msgSend_indexPathForAssetReference_(v8);
       v7 = 0u;
       v9 = 0u;
     }
@@ -961,7 +944,7 @@ void __88__PXCuratedLibraryViewProvider__indexPathClosestToIndexPath_fromDataSou
     v8 = *(a1 + 40);
     if (v8)
     {
-      [v8 indexPathForAssetCollectionReference:v6];
+      objc_msgSend_indexPathForAssetCollectionReference_(v8);
       v7 = 0u;
       v9 = 0u;
     }
@@ -984,8 +967,8 @@ void __88__PXCuratedLibraryViewProvider__indexPathClosestToIndexPath_fromDataSou
 - (id)_itemsGeometryForDataSource:(id)source
 {
   sourceCopy = source;
-  layout = [(PXCuratedLibraryViewProvider *)self layout];
-  v6 = [layout presentedItemsGeometryForDataSource:sourceCopy];
+  v5 = objc_msgSend_layout(self);
+  v6 = [v5 presentedItemsGeometryForDataSource:sourceCopy];
 
   return v6;
 }
@@ -1042,7 +1025,7 @@ LABEL_10:
   v15 = handlerCopy;
   if (referenceCopy)
   {
-    layout = [(PXCuratedLibraryViewProvider *)self layout];
+    v16 = objc_msgSend_layout(self);
     gridView = [(PXCuratedLibraryViewProvider *)self gridView];
     viewModel = [(PXCuratedLibraryViewProvider *)self viewModel];
     assetsDataSourceManager = [viewModel assetsDataSourceManager];
@@ -1050,7 +1033,7 @@ LABEL_10:
     v21 = [dataSource objectReferenceNearestToObjectReference:referenceCopy];
     if (dataSource)
     {
-      [dataSource indexPathForObjectReference:v21];
+      objc_msgSend_indexPathForObjectReference_(dataSource);
       v22 = *(&v32 + 1);
       if (*(&v32 + 1) == 0x7FFFFFFFFFFFFFFFLL)
       {
@@ -1060,19 +1043,19 @@ LABEL_9:
 
         if (position != 2)
         {
-          [layout estimatedHeaderHeight];
+          [v16 estimatedHeaderHeight];
           if (top < v24)
           {
             top = v24;
           }
         }
 
-        v25 = [layout createAnchorForScrollingSpriteForObjectReference:v21 toScrollPosition:position padding:{top, left, bottom, right}];
+        v25 = [v16 createAnchorForScrollingSpriteForObjectReference:v21 toScrollPosition:position padding:{top, left, bottom, right}];
         autoInvalidate = [v25 autoInvalidate];
 
         if ([viewModel zoomLevel] == 4)
         {
-          allPhotosLayout = [layout allPhotosLayout];
+          allPhotosLayout = [v16 allPhotosLayout];
           [allPhotosLayout invalidateItemsLayout];
         }
 
@@ -1109,8 +1092,8 @@ LABEL_9:
 
   if (handlerCopy)
   {
-    layout = [MEMORY[0x1E696ABC0] px_genericErrorWithDebugDescription:{@"can't scroll library view to objectReference %@", 0}];
-    (v15)[2](v15, 0, layout);
+    v16 = [MEMORY[0x1E696ABC0] px_genericErrorWithDebugDescription:{@"can't scroll library view to objectReference %@", 0}];
+    (v15)[2](v15, 0, v16);
 LABEL_17:
   }
 }
@@ -1343,7 +1326,7 @@ void __48__PXCuratedLibraryViewProvider_zoomOutAllPhotos__block_invoke(uint64_t 
   v4 = v3;
   if (v3)
   {
-    [v3 zoomState];
+    objc_msgSend_zoomState(v3);
     v5 = *(&v9 + 1) + 1;
   }
 
@@ -1381,7 +1364,7 @@ void __47__PXCuratedLibraryViewProvider_zoomInAllPhotos__block_invoke(uint64_t a
   v4 = v3;
   if (v3)
   {
-    [v3 zoomState];
+    objc_msgSend_zoomState(v3);
     v5 = *(&v9 + 1) - 1;
   }
 
@@ -1481,10 +1464,10 @@ void __70__PXCuratedLibraryViewProvider_prepareForNavigationToObjectReference___
     v10 = 0u;
     if (selectionSnapshot)
     {
-      [selectionSnapshot cursorIndexPath];
+      objc_msgSend_cursorIndexPath(selectionSnapshot);
     }
 
-    [(PXCuratedLibraryViewProvider *)self layout];
+    objc_msgSend_layout(self);
     v8[0] = 0;
     v8[1] = v8;
     v8[2] = 0x2020000000;
@@ -1516,7 +1499,7 @@ void __61__PXCuratedLibraryViewProvider_preferredAnchorAssetReference__block_inv
   v7 = a1[2].i64[0];
   if (v7)
   {
-    [v7 indexPathForObjectReference:v6];
+    objc_msgSend_indexPathForObjectReference_(v7);
   }
 
   v8 = a1[2].i64[1];

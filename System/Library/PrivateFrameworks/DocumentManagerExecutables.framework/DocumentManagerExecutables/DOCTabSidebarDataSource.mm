@@ -32,7 +32,7 @@
   configurationCopy = configuration;
   observerCopy = observer;
   swift_unknownObjectRetain();
-  return DOCTabSidebarDataSource.init(configuration:sourceObserver:delegate:)(configurationCopy, observerCopy);
+  return DOCTabSidebarDataSource.init(configuration:sourceObserver:delegate:)(configurationCopy, observerCopy, delegate);
 }
 
 - (void)dealloc
@@ -59,26 +59,30 @@
   {
     v8 = static String._unconditionallyBridgeFromObjectiveC(_:)();
     with = v9;
-    if (!v7)
+    if (v7)
     {
-      goto LABEL_5;
-    }
-
-    goto LABEL_3;
-  }
-
-  v8 = 0;
-  if (v6)
-  {
 LABEL_3:
-    *(swift_allocObject() + 16) = v7;
-    v7 = partial apply for thunk for @escaping @callee_unowned @convention(block) (@unowned DOCSourceByType) -> ();
+      v10 = swift_allocObject();
+      *(v10 + 16) = v7;
+      v7 = partial apply for thunk for @escaping @callee_unowned @convention(block) (@unowned DOCSourceByType) -> ();
+      goto LABEL_6;
+    }
   }
 
-LABEL_5:
+  else
+  {
+    v8 = 0;
+    if (v6)
+    {
+      goto LABEL_3;
+    }
+  }
+
+  v10 = 0;
+LABEL_6:
   selfCopy = self;
   DOCTabSidebarDataSource.fistNewlyAddedSource(with:completion:)(v8, with, v7);
-  outlined consume of (@escaping @callee_guaranteed () -> (@owned DOCCopyableBarButtonItem))?(v7);
+  outlined consume of (@escaping @callee_guaranteed () -> (@owned DOCCopyableBarButtonItem))?(v7, v10);
 }
 
 - (void)updateSelectionToMatchBrowsedLocation:(id)location animated:(BOOL)animated
@@ -97,7 +101,7 @@ LABEL_5:
     v6 = v5;
     ObjectType = swift_getObjectType();
     children = [forCopy children];
-    type metadata accessor for NSMutableAttributedString(0, &lazy cache variable for type metadata for UITab);
+    type metadata accessor for NSMutableAttributedString(0, &lazy cache variable for type metadata for UITab, 0x277D75B08);
     v9 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
 
     (*(v6 + 72))(v9, ObjectType, v6);

@@ -101,7 +101,7 @@ void __40__ULMagnetometerProvider_sharedInstance__block_invoke(uint64_t a1)
 
 - (optional<ULMagnetometerDO>)fetchMagnetometerData
 {
-  v47 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   if (isUpdatesEnabled != 1)
   {
     goto LABEL_9;
@@ -131,31 +131,31 @@ void __40__ULMagnetometerProvider_sharedInstance__block_invoke(uint64_t a1)
     v9 = clock_gettime_nsec_np(_CLOCK_MONOTONIC_RAW);
     [deviceMotion timestamp];
     v11 = v10;
-    [deviceMotion magneticField];
-    v37 = *buf;
-    v38 = v33;
-    v36 = 0;
-    v34 = 0u;
-    v35 = 0u;
-    *buf = 0u;
+    objc_msgSend_magneticField(deviceMotion);
+    v36 = *buf;
+    v37 = v32;
+    v35 = 0;
     v33 = 0u;
+    v34 = 0u;
+    *buf = 0u;
+    v32 = 0u;
     attitude = [deviceMotion attitude];
     v13 = attitude;
     if (attitude)
     {
-      [attitude rotationMatrix];
+      objc_msgSend_rotationMatrix(attitude);
     }
 
     else
     {
-      v36 = 0;
-      v34 = 0u;
-      v35 = 0u;
-      *buf = 0u;
+      v35 = 0;
       v33 = 0u;
+      v34 = 0u;
+      *buf = 0u;
+      v32 = 0u;
     }
 
-    unk_286A891B8(selfCopy, "rotateMagField:withMatrix:", &v37, buf);
+    unk_286A89418(selfCopy, "rotateMagField:withMatrix:", &v36, buf);
     v15 = v14;
     v17 = v16;
     v19 = v18;
@@ -175,29 +175,29 @@ void __40__ULMagnetometerProvider_sharedInstance__block_invoke(uint64_t a1)
     if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
     {
       magneticFieldCalibrationLevel = [deviceMotion magneticFieldCalibrationLevel];
-      [deviceMotion magneticField];
-      *v39 = 134219520;
-      *&v39[4] = v26;
-      *&v39[12] = 2048;
-      *&v39[14] = v19;
-      *&v39[22] = 2048;
-      *&v39[24] = v21;
-      *v40 = 2048;
-      *&v40[2] = v23;
-      v41 = 2048;
-      v42 = v25;
-      v43 = 1024;
-      v44 = magneticFieldCalibrationLevel;
-      v45 = 1024;
-      v46 = v31;
-      _os_log_impl(&dword_258FE9000, v27, OS_LOG_TYPE_DEFAULT, "#magnetometer handlerCB: horizontal field %f, verticalField %f BiasEstimateVariance (%f, %f, %f),  calibLevel: %d accuracy: %d", v39, 0x40u);
+      objc_msgSend_magneticField(deviceMotion);
+      *v38 = 134219520;
+      *&v38[4] = v26;
+      *&v38[12] = 2048;
+      *&v38[14] = v19;
+      *&v38[22] = 2048;
+      *&v38[24] = v21;
+      *v39 = 2048;
+      *&v39[2] = v23;
+      v40 = 2048;
+      v41 = v25;
+      v42 = 1024;
+      v43 = magneticFieldCalibrationLevel;
+      v44 = 1024;
+      v45 = v30;
+      _os_log_impl(&dword_258FE9000, v27, OS_LOG_TYPE_DEFAULT, "#magnetometer handlerCB: horizontal field %f, verticalField %f BiasEstimateVariance (%f, %f, %f),  calibLevel: %d accuracy: %d", v38, 0x40u);
     }
 
-    ULMagnetometerDO::ULMagnetometerDO(v39, v26, v19, v21, v23, v25, v8 + v9 / -1000000000.0 + v11);
-    v29 = *&v39[16];
-    *&retstr->var0.var0 = *v39;
+    ULMagnetometerDO::ULMagnetometerDO(v38, v26, v19, v21, v23, v25, v8 + v9 / -1000000000.0 + v11);
+    v29 = *&v38[16];
+    *&retstr->var0.var0 = *v38;
     *&retstr->var0.var1.var2.var0 = v29;
-    retstr[1].var0.var1.var0 = *v40;
+    retstr[1].var0.var1.var0 = *v39;
     LOBYTE(retstr[1].var0.var1.var1) = 1;
   }
 
@@ -208,7 +208,6 @@ LABEL_9:
     LOBYTE(retstr[1].var0.var1.var1) = 0;
   }
 
-  v30 = *MEMORY[0x277D85DE8];
   return self;
 }
 
@@ -234,7 +233,6 @@ LABEL_9:
   v9 = __C[0];
   v10 = __C[1];
   v11 = __C[2];
-  v12 = *MEMORY[0x277D85DE8];
   result.var2 = v11;
   result.var1 = v10;
   result.var0 = v9;

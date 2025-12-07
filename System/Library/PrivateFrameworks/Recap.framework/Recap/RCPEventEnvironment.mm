@@ -35,10 +35,10 @@
     v2->_machTimeDenominator = info.denom;
     v2->_machTimeNumerator = numer;
     v2->_timeScale = numer / denom;
-    v5 = copyMobileGestaltAnswer();
+    v5 = copyMobileGestaltAnswer(@"HWModelDescriptionForAutomatedTesting");
     [(RCPEventEnvironment *)v2 setProductType:v5];
 
-    v6 = copyMobileGestaltAnswer();
+    v6 = copyMobileGestaltAnswer(@"j9Th5smJpdztHwc+i39zIg");
     [(RCPEventEnvironment *)v2 setProductName:v6];
 
     processInfo = [MEMORY[0x277CCAC38] processInfo];

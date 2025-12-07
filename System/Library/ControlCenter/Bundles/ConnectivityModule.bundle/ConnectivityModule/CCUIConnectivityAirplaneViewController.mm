@@ -6,12 +6,16 @@
 - (id)_debugDescriptionForState:(BOOL)state;
 - (id)displayName;
 - (id)subtitleText;
+- (void)_setAirplaneModeEnabled:(BOOL)enabled;
 - (void)_updateState;
+- (void)_updateStateWithEnabled:(BOOL)enabled;
 - (void)airplaneModeChanged;
 - (void)buttonTapped:(id)tapped;
 - (void)dealloc;
 - (void)startObservingStateChanges;
 - (void)stopObservingStateChanges;
+- (void)viewWillAppear:(BOOL)appear;
+- (void)viewWillDisappear:(BOOL)disappear;
 @end
 
 @implementation CCUIConnectivityAirplaneViewController
@@ -99,6 +103,23 @@
   return v10;
 }
 
+- (void)viewWillAppear:(BOOL)appear
+{
+  v8.receiver = self;
+  v8.super_class = CCUIConnectivityAirplaneViewController;
+  [(CCUIConnectivityAirplaneViewController *)&v8 viewWillAppear:appear];
+  objc_msgSend_startObservingStateChangesIfNecessary(self, v4, v5);
+  objc_msgSend__updateState(self, v6, v7);
+}
+
+- (void)viewWillDisappear:(BOOL)disappear
+{
+  v6.receiver = self;
+  v6.super_class = CCUIConnectivityAirplaneViewController;
+  [(CCUIConnectivityAirplaneViewController *)&v6 viewWillDisappear:disappear];
+  objc_msgSend_stopObservingStateChangesIfNecessary(self, v4, v5);
+}
+
 - (void)startObservingStateChanges
 {
   v5.receiver = self;
@@ -147,6 +168,14 @@
   dispatch_async(MEMORY[0x29EDCA578], v7);
 }
 
+- (void)_setAirplaneModeEnabled:(BOOL)enabled
+{
+  self->_airplaneModeEnabled = enabled;
+  v5 = objc_msgSend__stateWithEffectiveOverrides(self, a2, enabled);
+
+  objc_msgSend_setEnabled_(self, v4, v5);
+}
+
 - (void)_updateState
 {
   v6 = 0;
@@ -165,9 +194,29 @@
   _Block_object_dispose(&v6, 8);
 }
 
+- (void)_updateStateWithEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  v16 = *MEMORY[0x29EDCA608];
+  dispatch_assert_queue_V2(MEMORY[0x29EDCA578]);
+  objc_msgSend__setAirplaneModeEnabled_(self, v5, enabledCopy);
+  v8 = objc_msgSend_subtitleText(self, v6, v7);
+  objc_msgSend_setSubtitle_(self, v9, v8);
+
+  v10 = *MEMORY[0x29EDC0C90];
+  if (os_log_type_enabled(*MEMORY[0x29EDC0C90], OS_LOG_TYPE_DEFAULT))
+  {
+    v11 = v10;
+    v13 = objc_msgSend__debugDescriptionForState_(self, v12, enabledCopy);
+    v14 = 138543362;
+    v15 = v13;
+    _os_log_impl(&dword_29C961000, v11, OS_LOG_TYPE_DEFAULT, "Airplane Mode state updated to %{public}@", &v14, 0xCu);
+  }
+}
+
 - (BOOL)_toggleState
 {
-  v16 = *MEMORY[0x29EDCA608];
+  v15 = *MEMORY[0x29EDCA608];
   v4 = objc_msgSend__isAirplaneModeEnabled(self, a2, v2) ^ 1;
   v5 = *MEMORY[0x29EDC0C90];
   if (os_log_type_enabled(*MEMORY[0x29EDC0C90], OS_LOG_TYPE_DEFAULT))
@@ -175,19 +224,18 @@
     v6 = v5;
     v8 = objc_msgSend__debugDescriptionForState_(self, v7, v4);
     *buf = 138543362;
-    v15 = v8;
+    v14 = v8;
     _os_log_impl(&dword_29C961000, v6, OS_LOG_TYPE_DEFAULT, "Toggle AirPlane Mode state to %{public}@", buf, 0xCu);
   }
 
   queue = self->_queue;
-  v12[0] = MEMORY[0x29EDCA5F8];
-  v12[1] = 3221225472;
-  v12[2] = sub_29C96319C;
-  v12[3] = &unk_29F337358;
-  v12[4] = self;
-  v13 = v4;
-  dispatch_sync(queue, v12);
-  v10 = *MEMORY[0x29EDCA608];
+  v11[0] = MEMORY[0x29EDCA5F8];
+  v11[1] = 3221225472;
+  v11[2] = sub_29C96319C;
+  v11[3] = &unk_29F337358;
+  v11[4] = self;
+  v12 = v4;
+  dispatch_sync(queue, v11);
   return 1;
 }
 

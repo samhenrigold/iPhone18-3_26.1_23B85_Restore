@@ -9,7 +9,7 @@
 
 - (void)_performNextStep
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   accessLock = [(FCMultiStepFetchOperation *)self accessLock];
   [accessLock lock];
 
@@ -27,14 +27,14 @@
       [steps3 removeObjectAtIndex:0];
 
       v9 = -[FCMultiStepFetchOperation methodForSelector:](self, "methodForSelector:", [firstObject fetchSelector]);
-      v19 = MEMORY[0x1E69E9820];
-      v20 = 3221225472;
-      v21 = __45__FCMultiStepFetchOperation__performNextStep__block_invoke_2;
-      v22 = &unk_1E7C36CD0;
+      v18 = MEMORY[0x1E69E9820];
+      v19 = 3221225472;
+      v20 = __45__FCMultiStepFetchOperation__performNextStep__block_invoke_2;
+      v21 = &unk_1E7C36CD0;
       selfCopy = self;
       completeFetchOperation = firstObject;
-      v24 = completeFetchOperation;
-      v11 = _Block_copy(&v19);
+      v23 = completeFetchOperation;
+      v11 = _Block_copy(&v18);
       v12 = v9(self, [completeFetchOperation fetchSelector], v11);
       if (v12)
       {
@@ -51,15 +51,15 @@
         {
           if ([v12 isExecuting] && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
           {
-            v18 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"child operation shouldn't be executing yet"];
+            v17 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"child operation shouldn't be executing yet"];
             *buf = 136315906;
-            v26 = "[FCMultiStepFetchOperation _performNextStep]";
-            v27 = 2080;
-            v28 = "FCMultiStepFetchOperation.m";
-            v29 = 1024;
-            v30 = 149;
-            v31 = 2114;
-            v32 = v18;
+            v25 = "[FCMultiStepFetchOperation _performNextStep]";
+            v26 = 2080;
+            v27 = "FCMultiStepFetchOperation.m";
+            v28 = 1024;
+            v29 = 149;
+            v30 = 2114;
+            v31 = v17;
             _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
           }
 
@@ -82,8 +82,6 @@
 
   accessLock2 = [(FCMultiStepFetchOperation *)self accessLock];
   [accessLock2 unlock];
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (FCMultiStepFetchOperation)init

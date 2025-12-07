@@ -98,7 +98,7 @@ uint64_t WordIdPronCollArray::mergeLargeSortedArray(uint64_t a1, uint64_t *a2)
     v10 = v28;
     do
     {
-      v10[(v8 + v29)] = *(v9 + 4 * v8);
+      *(v10 + 4 * (v8 + v29)) = *(v9 + 4 * v8);
       ++v8;
       v11 = *(a2 + 2);
     }
@@ -294,7 +294,7 @@ uint64_t WordIdPronCollArray::removeSortedArray(uint64_t a1, int **a2)
     {
       if (*v10 == v12[v8])
       {
-        if ((v8 + 1) < *(a2 + 2))
+        if (v8 + 1 < *(a2 + 2))
         {
           ++v8;
         }
@@ -338,7 +338,7 @@ uint64_t WordIdPronCollArray::addArray(uint64_t result, uint64_t a2)
     v9 = 0;
     v10 = 0;
     DgnPrimArray<int>::copyArraySlice(&v9, a2, 0, v2);
-    mrec_qsort_r<WordIdPronCollArray>(v9, v10, 4uLL, *(v4 + 16));
+    mrec_qsort_r<WordIdPronCollArray>(v9, v10, 4, *(v4 + 16));
     v7 = *(v4 + 8);
     if (v7 && (v8 = *(a2 + 8), onePlusHighestSet32(v7) * v8 <= *(v4 + 8)))
     {
@@ -365,7 +365,7 @@ uint64_t WordIdPronCollArray::removeArray(uint64_t result, uint64_t a2)
     v4 = 0;
     v5 = 0;
     DgnPrimArray<int>::copyArraySlice(&v4, a2, 0, v2);
-    mrec_qsort_r<WordIdPronCollArray>(v4, v5, 4uLL, *(v3 + 16));
+    mrec_qsort_r<WordIdPronCollArray>(v4, v5, 4, *(v3 + 16));
     WordIdPronCollArray::removeSortedArray(v3, &v4);
     return DgnPrimArray<unsigned int>::~DgnPrimArray(&v4);
   }
@@ -537,14 +537,14 @@ LABEL_34:
   return DgnPrimArray<unsigned int>::~DgnPrimArray(&v36);
 }
 
-void sub_262848ABC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_262848ABC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   DgnPrimArray<unsigned int>::~DgnPrimArray(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t StartupSausageParamSpecMgr(void)
+unint64_t StartupSausageParamSpecMgr(void)
 {
   v0 = MemChunkAlloc(0x28uLL, 0);
   DoubleParamSpec::DoubleParamSpec(v0, "SausageGenerationPruneGlobalThresh", &byte_262899963, &byte_262899963, &sSausageGenerationPruneGlobalThreshDoubleHistory);
@@ -572,7 +572,7 @@ _DWORD *SausageParamSet::SausageParamSet(_DWORD *a1, const char *a2, int a3, int
   a1[8] = a5;
   a1[9] = 0;
   *a1 = &unk_287527860;
-  SausageParamSet::setDefaults(a1, v9, v10, v11, v12, v13, v14, v15);
+  SausageParamSet::setDefaults(a1);
   return a1;
 }
 
@@ -598,19 +598,19 @@ uint64_t SausageParamSet::SausageParamSet(uint64_t a1, uint64_t a2, char *a3, in
   return a1;
 }
 
-uint64_t SausageParamSet::setDefaults(SausageParamSet *this, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t SausageParamSet::setDefaults(SausageParamSet *this)
 {
-  *(this + 10) = ParamSpecMgr::ParamGetDefault_int(qword_281051FB0, 1, 0, 0, a5, a6, a7, a8);
-  *(this + 6) = ParamSpecMgr::ParamGetDefault_double(qword_281051FB0, 2, 0, 0, v9, v10, v11, v12);
-  *(this + 7) = ParamSpecMgr::ParamGetDefault_double(qword_281051FB0, 3, 0, 0, v13, v14, v15, v16);
-  result = ParamSpecMgr::ParamGetDefault_BOOL(qword_281051FB0, 4, 0, 0, v17, v18, v19, v20);
+  *(this + 10) = ParamSpecMgr::ParamGetDefault_int(qword_281051FB0, 1, 0, 0);
+  *(this + 6) = ParamSpecMgr::ParamGetDefault_double(qword_281051FB0, 2, 0, 0);
+  *(this + 7) = ParamSpecMgr::ParamGetDefault_double(qword_281051FB0, 3, 0, 0);
+  result = ParamSpecMgr::ParamGetDefault_BOOL(qword_281051FB0, 4, 0, 0);
   *(this + 64) = result;
   return result;
 }
 
 uint64_t SausageParamSet::sizeObject(uint64_t a1, int a2)
 {
-  v3 = sizeObject(a1 + 8) + 16 * (a2 != 3);
+  v3 = sizeObject(a1 + 8, a2) + 16 * (a2 != 3);
   if (a2 == 3)
   {
     v4 = 0;
@@ -634,37 +634,37 @@ uint64_t SausageParamSet::sizeObject(uint64_t a1, int a2)
   return v3 + v5;
 }
 
-uint64_t SausageParamSet::getBoolParameter(uint64_t a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t SausageParamSet::getBoolParameter(uint64_t a1, int a2, int a3)
 {
   if (a2 <= 2)
   {
     if (a2 == 1)
     {
-      v8 = "int";
-      v9 = 1;
+      v3 = "int";
+      v4 = 1;
       goto LABEL_13;
     }
 
     if (a2 == 2)
     {
-      v8 = "double";
-      v9 = 2;
+      v3 = "double";
+      v4 = 2;
 LABEL_13:
-      throwWrongTypeForParamId(v9, v8, "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(v4, v3, "BOOL");
       goto LABEL_14;
     }
 
 LABEL_10:
-    throwWrongParamIdValue(a2, "BOOL", a3, a4, a5, a6, a7, a8);
+    throwWrongParamIdValue(a2, "BOOL");
 LABEL_14:
-    v10 = 0;
-    return v10 & 1;
+    v5 = 0;
+    return v5 & 1;
   }
 
   if (a2 == 3)
   {
-    v8 = "double";
-    v9 = 3;
+    v3 = "double";
+    v4 = 3;
     goto LABEL_13;
   }
 
@@ -675,36 +675,35 @@ LABEL_14:
 
   if (a3 == 1)
   {
-    ParamByParamId = ParamSpecMgr::getParamByParamId(qword_281051FB0, 4, a3, a4, a5, a6, a7, a8);
-    v13 = **ParamByParamId;
-    return v10 & 1;
+    ParamByParamId = ParamSpecMgr::getParamByParamId(qword_281051FB0, 4);
+    return v5 & 1;
   }
 
   if (a3)
   {
-    throwWrongQueryMode(a3, "BOOL", a3, a4, a5, a6, a7, a8);
+    throwWrongQueryMode(a3, "BOOL");
     goto LABEL_14;
   }
 
-  v10 = *(a1 + 64);
-  return v10 & 1;
+  v5 = *(a1 + 64);
+  return v5 & 1;
 }
 
-uint64_t SausageParamSet::getIntParameter(uint64_t a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t SausageParamSet::getIntParameter(uint64_t a1, int a2, int a3)
 {
   if (a2 > 2)
   {
     if (a2 == 3)
     {
-      v8 = "double";
-      v9 = 3;
+      v3 = "double";
+      v4 = 3;
       goto LABEL_14;
     }
 
     if (a2 == 4)
     {
-      v8 = "BOOL";
-      v9 = 4;
+      v3 = "BOOL";
+      v4 = 4;
       goto LABEL_14;
     }
 
@@ -715,15 +714,15 @@ uint64_t SausageParamSet::getIntParameter(uint64_t a1, int a2, uint64_t a3, uint
   {
     if (a2 == 2)
     {
-      v8 = "double";
-      v9 = 2;
+      v3 = "double";
+      v4 = 2;
 LABEL_14:
-      throwWrongTypeForParamId(v9, v8, "int", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(v4, v3, "int");
       return 0;
     }
 
 LABEL_8:
-    throwWrongParamIdValue(a2, "int", a3, a4, a5, a6, a7, a8);
+    throwWrongParamIdValue(a2, "int");
     return 0;
   }
 
@@ -731,14 +730,12 @@ LABEL_8:
   {
     if (a3 == 2)
     {
-      ParamByParamId = ParamSpecMgr::getParamByParamId(qword_281051FB0, 1, a3, a4, a5, a6, a7, a8);
-      v16 = **ParamByParamId;
+      ParamByParamId = ParamSpecMgr::getParamByParamId(qword_281051FB0, 1);
     }
 
     if (a3 == 3)
     {
-      v13 = ParamSpecMgr::getParamByParamId(qword_281051FB0, 1, a3, a4, a5, a6, a7, a8);
-      v14 = **v13;
+      v7 = ParamSpecMgr::getParamByParamId(qword_281051FB0, 1);
     }
   }
 
@@ -751,16 +748,15 @@ LABEL_8:
 
     if (a3 == 1)
     {
-      v10 = ParamSpecMgr::getParamByParamId(qword_281051FB0, 1, a3, a4, a5, a6, a7, a8);
-      v11 = **v10;
+      v5 = ParamSpecMgr::getParamByParamId(qword_281051FB0, 1);
     }
   }
 
-  throwWrongQueryMode(a3, "int", a3, a4, a5, a6, a7, a8);
+  throwWrongQueryMode(a3, "int");
   return 0;
 }
 
-double SausageParamSet::getDoubleParameter(uint64_t a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+double SausageParamSet::getDoubleParameter(uint64_t a1, int a2, int a3)
 {
   if (a2 > 2)
   {
@@ -775,8 +771,8 @@ double SausageParamSet::getDoubleParameter(uint64_t a1, int a2, uint64_t a3, uin
 
         if (a3 == 1)
         {
-          v8 = qword_281051FB0;
-          v9 = 3;
+          v3 = qword_281051FB0;
+          v4 = 3;
           goto LABEL_20;
         }
 
@@ -787,21 +783,20 @@ double SausageParamSet::getDoubleParameter(uint64_t a1, int a2, uint64_t a3, uin
       {
         if (a3 == 3)
         {
-          v15 = qword_281051FB0;
-          v16 = 3;
+          v9 = qword_281051FB0;
+          v10 = 3;
           goto LABEL_27;
         }
 
 LABEL_28:
-        throwWrongQueryMode(a3, "double", a3, a4, a5, a6, a7, a8);
+        throwWrongQueryMode(a3, "double");
         return 0.0;
       }
 
-      v19 = qword_281051FB0;
-      v20 = 3;
+      v12 = qword_281051FB0;
+      v13 = 3;
 LABEL_33:
-      ParamByParamId = ParamSpecMgr::getParamByParamId(v19, v20, a3, a4, a5, a6, a7, a8);
-      v22 = **ParamByParamId;
+      ParamByParamId = ParamSpecMgr::getParamByParamId(v12, v13);
     }
 
     if (a2 != 4)
@@ -809,17 +804,17 @@ LABEL_33:
       goto LABEL_11;
     }
 
-    v10 = "BOOL";
-    v11 = 4;
+    v5 = "BOOL";
+    v6 = 4;
 LABEL_13:
-    throwWrongTypeForParamId(v11, v10, "double", a4, a5, a6, a7, a8);
+    throwWrongTypeForParamId(v6, v5, "double");
     return 0.0;
   }
 
   if (a2 == 1)
   {
-    v10 = "int";
-    v11 = 1;
+    v5 = "int";
+    v6 = 1;
     goto LABEL_13;
   }
 
@@ -834,11 +829,10 @@ LABEL_13:
 
       if (a3 == 1)
       {
-        v8 = qword_281051FB0;
-        v9 = 2;
+        v3 = qword_281051FB0;
+        v4 = 2;
 LABEL_20:
-        v13 = ParamSpecMgr::getParamByParamId(v8, v9, a3, a4, a5, a6, a7, a8);
-        v14 = **v13;
+        v8 = ParamSpecMgr::getParamByParamId(v3, v4);
       }
 
       goto LABEL_28;
@@ -848,41 +842,40 @@ LABEL_20:
     {
       if (a3 == 3)
       {
-        v15 = qword_281051FB0;
-        v16 = 2;
+        v9 = qword_281051FB0;
+        v10 = 2;
 LABEL_27:
-        v17 = ParamSpecMgr::getParamByParamId(v15, v16, a3, a4, a5, a6, a7, a8);
-        v18 = **v17;
+        v11 = ParamSpecMgr::getParamByParamId(v9, v10);
       }
 
       goto LABEL_28;
     }
 
-    v19 = qword_281051FB0;
-    v20 = 2;
+    v12 = qword_281051FB0;
+    v13 = 2;
     goto LABEL_33;
   }
 
 LABEL_11:
-  throwWrongParamIdValue(a2, "double", a3, a4, a5, a6, a7, a8);
+  throwWrongParamIdValue(a2, "double");
   return 0.0;
 }
 
-uint64_t SausageParamSet::getStringParameter(int a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t SausageParamSet::getStringParameter(int a1, int a2)
 {
   if (a2 > 2)
   {
     if (a2 == 3)
     {
-      v8 = "double";
-      v9 = 3;
+      v2 = "double";
+      v3 = 3;
       goto LABEL_11;
     }
 
     if (a2 == 4)
     {
-      v8 = "BOOL";
-      v9 = 4;
+      v2 = "BOOL";
+      v3 = 4;
       goto LABEL_11;
     }
   }
@@ -891,40 +884,40 @@ uint64_t SausageParamSet::getStringParameter(int a1, int a2, uint64_t a3, uint64
   {
     if (a2 == 1)
     {
-      v8 = "int";
-      v9 = 1;
+      v2 = "int";
+      v3 = 1;
       goto LABEL_11;
     }
 
     if (a2 == 2)
     {
-      v8 = "double";
-      v9 = 2;
+      v2 = "double";
+      v3 = 2;
 LABEL_11:
-      throwWrongTypeForParamId(v9, v8, "string", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(v3, v2, "string");
       return 0;
     }
   }
 
-  throwWrongParamIdValue(a2, "string", a3, a4, a5, a6, a7, a8);
+  throwWrongParamIdValue(a2, "string");
   return 0;
 }
 
-uint64_t SausageParamSet::getEnumParameter(int a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t SausageParamSet::getEnumParameter(int a1, int a2)
 {
   if (a2 > 2)
   {
     if (a2 == 3)
     {
-      v8 = "double";
-      v9 = 3;
+      v2 = "double";
+      v3 = 3;
       goto LABEL_11;
     }
 
     if (a2 == 4)
     {
-      v8 = "BOOL";
-      v9 = 4;
+      v2 = "BOOL";
+      v3 = 4;
       goto LABEL_11;
     }
   }
@@ -933,34 +926,32 @@ uint64_t SausageParamSet::getEnumParameter(int a1, int a2, uint64_t a3, uint64_t
   {
     if (a2 == 1)
     {
-      v8 = "int";
-      v9 = 1;
+      v2 = "int";
+      v3 = 1;
       goto LABEL_11;
     }
 
     if (a2 == 2)
     {
-      v8 = "double";
-      v9 = 2;
+      v2 = "double";
+      v3 = 2;
 LABEL_11:
-      throwWrongTypeForParamId(v9, v8, "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(v3, v2, "BOOL");
       return 0;
     }
   }
 
-  throwWrongParamIdValue(a2, "enum", a3, a4, a5, a6, a7, a8);
+  throwWrongParamIdValue(a2, "enum");
   return 0;
 }
 
-void SausageParamSet::setBoolParameter(SausageParamSet *this, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void SausageParamSet::setBoolParameter(uint64_t this, int a2, char a3)
 {
-  v8 = a3;
-  v9 = a2;
   if (a2 <= 2)
   {
     if (a2 == 1)
     {
-      throwWrongTypeForParamId(1, "int", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(1, "int", "BOOL");
     }
 
     else if (a2 != 2)
@@ -968,14 +959,14 @@ void SausageParamSet::setBoolParameter(SausageParamSet *this, int a2, uint64_t a
       goto LABEL_7;
     }
 
-    throwWrongTypeForParamId(v9, "double", "BOOL", a4, a5, a6, a7, a8);
+    throwWrongTypeForParamId(a2, "double", "BOOL");
     goto LABEL_12;
   }
 
   if (a2 == 3)
   {
 LABEL_12:
-    throwWrongTypeForParamId(v9, "double", "BOOL", a4, a5, a6, a7, a8);
+    throwWrongTypeForParamId(a2, "double", "BOOL");
     goto LABEL_13;
   }
 
@@ -983,26 +974,25 @@ LABEL_12:
   {
 LABEL_7:
 
-    throwWrongParamIdValue(a2, "BOOL", a3, a4, a5, a6, a7, a8);
+    throwWrongParamIdValue(a2, "BOOL");
     return;
   }
 
 LABEL_13:
-  if (*(this + 9))
+  if (*(this + 36))
   {
 
-    throwParamSetSetFailed("SausageGenerationNewAlgorithm", "BOOL", a3, a4, a5, a6, a7, a8);
+    throwParamSetSetFailed("SausageGenerationNewAlgorithm", "BOOL");
   }
 
   else
   {
-    *(this + 64) = v8;
+    *(this + 64) = a3;
   }
 }
 
-void SausageParamSet::setIntParameter(SausageParamSet *this, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void SausageParamSet::setIntParameter(SausageParamSet *this, int a2, int a3)
 {
-  v8 = a2;
   if (a2 > 2)
   {
     if (a2 != 3)
@@ -1016,9 +1006,9 @@ void SausageParamSet::setIntParameter(SausageParamSet *this, int a2, uint64_t a3
     }
 
 LABEL_8:
-    throwWrongTypeForParamId(v8, "double", "int", a4, a5, a6, a7, a8);
+    throwWrongTypeForParamId(a2, "double", "int");
 LABEL_9:
-    throwWrongTypeForParamId(v8, "BOOL", "int", a4, a5, a6, a7, a8);
+    throwWrongTypeForParamId(a2, "BOOL", "int");
     goto LABEL_10;
   }
 
@@ -1028,107 +1018,101 @@ LABEL_9:
     {
 LABEL_10:
 
-      throwWrongParamIdValue(v8, "int", a3, a4, a5, a6, a7, a8);
+      throwWrongParamIdValue(a2, "int");
       return;
     }
 
-    throwWrongTypeForParamId(2, "double", "int", a4, a5, a6, a7, a8);
+    throwWrongTypeForParamId(2, "double", "int");
     goto LABEL_8;
   }
 
-  v9 = a3;
-  ParamByParamId = ParamSpecMgr::getParamByParamId(qword_281051FB0, 1, a3, a4, a5, a6, a7, a8);
+  ParamByParamId = ParamSpecMgr::getParamByParamId(qword_281051FB0, 1);
   if (ParamByParamId)
   {
-    v16 = **ParamByParamId;
   }
 
-  IntParamSpec::validateValue(ParamByParamId, v9, 0, 0, v12, v13, v14, v15);
+  IntParamSpec::validateValue(ParamByParamId, a3, 0, 0);
   if (*(this + 9))
   {
 
-    throwParamSetSetFailed("SausageGenerationAbortOnNumLatticeLinks", "int", v17, v18, v19, v20, v21, v22);
+    throwParamSetSetFailed("SausageGenerationAbortOnNumLatticeLinks", "int");
   }
 
   else
   {
-    *(this + 10) = v9;
+    *(this + 10) = a3;
   }
 }
 
-void SausageParamSet::setDoubleParameter(SausageParamSet *this, int a2, double a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
+void SausageParamSet::setDoubleParameter(SausageParamSet *this, int a2, double a3)
 {
-  v10 = a2;
   if (a2 > 2)
   {
     if (a2 != 3)
     {
       if (a2 == 4)
       {
-        throwWrongTypeForParamId(4, "BOOL", "double", a5, a6, a7, a8, a9);
+        throwWrongTypeForParamId(4, "BOOL", "double");
       }
 
       goto LABEL_8;
     }
 
-    ParamByParamId = ParamSpecMgr::getParamByParamId(qword_281051FB0, 3, a4, a5, a6, a7, a8, a9);
+    ParamByParamId = ParamSpecMgr::getParamByParamId(qword_281051FB0, 3);
     if (ParamByParamId)
     {
-      v32 = **ParamByParamId;
     }
 
-    DoubleParamSpec::validateValue(ParamByParamId, a3, 0, 0, v27, v28, v29, v30, v31);
+    DoubleParamSpec::validateValue(ParamByParamId, a3, 0, 0);
     if (!*(this + 9))
     {
       *(this + 7) = a3;
       return;
     }
 
-    v25 = "SausageGenerationPruneGlobalThresh";
+    v7 = "SausageGenerationPruneGlobalThresh";
   }
 
   else
   {
     if (a2 == 1)
     {
-      throwWrongTypeForParamId(1, "int", "double", a5, a6, a7, a8, a9);
+      throwWrongTypeForParamId(1, "int", "double");
     }
 
     else if (a2 != 2)
     {
 LABEL_8:
 
-      throwWrongParamIdValue(v10, "double", a4, a5, a6, a7, a8, a9);
+      throwWrongParamIdValue(a2, "double");
       return;
     }
 
-    v12 = ParamSpecMgr::getParamByParamId(qword_281051FB0, 2, a4, a5, a6, a7, a8, a9);
-    if (v12)
+    v6 = ParamSpecMgr::getParamByParamId(qword_281051FB0, 2);
+    if (v6)
     {
-      v18 = **v12;
     }
 
-    DoubleParamSpec::validateValue(v12, a3, 0, 0, v13, v14, v15, v16, v17);
+    DoubleParamSpec::validateValue(v6, a3, 0, 0);
     if (!*(this + 9))
     {
       *(this + 6) = a3;
       return;
     }
 
-    v25 = "SausageGenerationMinEpsilonPostProb";
+    v7 = "SausageGenerationMinEpsilonPostProb";
   }
 
-  throwParamSetSetFailed(v25, "double", v19, v20, v21, v22, v23, v24);
+  throwParamSetSetFailed(v7, "double");
 }
 
-void SausageParamSet::setStringParameter(SausageParamSet *this, int a2, const char *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+double SausageParamSet::setStringParameter(SausageParamSet *this, int a2, const char *a3)
 {
-  v8 = a2;
   if (a2 <= 2)
   {
     if (a2 == 1)
     {
-      throwWrongTypeForParamId(1, "int", "string", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(1, "int", "string");
     }
 
     else if (a2 != 2)
@@ -1136,36 +1120,35 @@ void SausageParamSet::setStringParameter(SausageParamSet *this, int a2, const ch
       goto LABEL_12;
     }
 
-    throwWrongTypeForParamId(v8, "double", "string", a4, a5, a6, a7, a8);
+    throwWrongTypeForParamId(a2, "double", "string");
     goto LABEL_10;
   }
 
   if (a2 == 3)
   {
 LABEL_10:
-    throwWrongTypeForParamId(v8, "double", "string", a4, a5, a6, a7, a8);
+    throwWrongTypeForParamId(a2, "double", "string");
     goto LABEL_11;
   }
 
   if (a2 == 4)
   {
 LABEL_11:
-    throwWrongTypeForParamId(v8, "BOOL", "string", a4, a5, a6, a7, a8);
+    throwWrongTypeForParamId(a2, "BOOL", "string");
   }
 
 LABEL_12:
 
-  throwWrongParamIdValue(v8, "string", a3, a4, a5, a6, a7, a8);
+  return throwWrongParamIdValue(a2, "string");
 }
 
-void SausageParamSet::setEnumParameter(SausageParamSet *this, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+double SausageParamSet::setEnumParameter(SausageParamSet *this, int a2)
 {
-  v8 = a2;
   if (a2 <= 2)
   {
     if (a2 == 1)
     {
-      throwWrongTypeForParamId(1, "int", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(1, "int", "BOOL");
     }
 
     else if (a2 != 2)
@@ -1173,37 +1156,37 @@ void SausageParamSet::setEnumParameter(SausageParamSet *this, int a2, uint64_t a
       goto LABEL_12;
     }
 
-    throwWrongTypeForParamId(v8, "double", "BOOL", a4, a5, a6, a7, a8);
+    throwWrongTypeForParamId(a2, "double", "BOOL");
     goto LABEL_10;
   }
 
   if (a2 == 3)
   {
 LABEL_10:
-    throwWrongTypeForParamId(v8, "double", "BOOL", a4, a5, a6, a7, a8);
+    throwWrongTypeForParamId(a2, "double", "BOOL");
     goto LABEL_11;
   }
 
   if (a2 == 4)
   {
 LABEL_11:
-    throwWrongTypeForParamId(v8, "BOOL", "BOOL", a4, a5, a6, a7, a8);
+    throwWrongTypeForParamId(a2, "BOOL", "BOOL");
   }
 
 LABEL_12:
 
-  throwWrongParamIdValue(v8, "enum", a3, a4, a5, a6, a7, a8);
+  return throwWrongParamIdValue(a2, "enum");
 }
 
 void SausageParamSet::~SausageParamSet(SausageParamSet *this)
 {
   *this = &unk_287528C00;
-  DgnString::~DgnString((this + 8));
+  DgnString::~DgnString(this + 8);
 }
 
 {
   *this = &unk_287528C00;
-  DgnString::~DgnString((this + 8));
+  DgnString::~DgnString(this + 8);
 
   JUMPOUT(0x26672B1B0);
 }
@@ -1450,20 +1433,20 @@ uint64_t DgnFileStream::DgnFileStream(uint64_t a1, int a2, int a3, uint64_t a4)
   {
     if (*(a1 + 24))
     {
-      v12 = *(a1 + 16);
+      v10 = *(a1 + 16);
     }
 
     else
     {
-      v12 = &unk_262891880;
+      v10 = &unk_262891880;
     }
 
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/dfutil/dfstream.cpp", 72, "dfutil/dfstream", 2, "%.500s", v10, v11, v12);
+    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/dfutil/dfstream.cpp", 72, "dfutil/dfstream", 2, "%.500s", v10);
   }
 
   *(a1 + 48) = a3;
-  v13 = *(a1 + 8);
-  if (v13 == 1)
+  v11 = *(a1 + 8);
+  if (v11 == 1)
   {
     *(a1 + 52) = 1;
     *(a1 + 56) = 0;
@@ -1479,117 +1462,147 @@ uint64_t DgnFileStream::DgnFileStream(uint64_t a1, int a2, int a3, uint64_t a4)
     {
       *(a1 + 64) = MemChunkAlloc(0x1000uLL, 0);
       *(a1 + 72) = 4096;
-      v13 = *(a1 + 8);
+      v11 = *(a1 + 8);
     }
 
     *(a1 + 80) = 0;
     *(a1 + 88) = 0;
-    if (v13 == 2 && !OsFile::fileExists(a4, v9))
+    if (v11 == 2 && !OsFile::fileExists(a4, v9))
     {
       if (*(a1 + 24))
       {
-        v14 = *(a1 + 16);
+        v12 = *(a1 + 16);
       }
 
       else
       {
-        v14 = &unk_262891880;
+        v12 = &unk_262891880;
       }
 
-      v15 = fopen(v14, "wb");
-      if (!v15)
+      v13 = fopen(v12, "wb");
+      if (!v13)
       {
         if (*(a1 + 24))
         {
-          v16 = *(a1 + 16);
-        }
-
-        v17 = *__error();
-        v18 = __error();
-        v19 = strerror(*v18);
-        DgnString::DgnString(&v40, v19);
-        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/dfutil/dfstream.cpp", 107, "dfutil/dfstream", 10, "%.500s %.500s %d %.500s", v20, v21, "fopen");
-        DgnString::~DgnString(&v40);
-      }
-
-      if (fclose(v15))
-      {
-        if (*(a1 + 24))
-        {
-          v24 = *(a1 + 16);
+          v14 = *(a1 + 16);
         }
 
         else
         {
-          v24 = &unk_262891880;
+          v14 = &unk_262891880;
         }
 
-        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/dfutil/dfstream.cpp", 109, "dfutil/dfstream", 1, "%.500s", v22, v23, v24);
+        v15 = *__error();
+        v16 = __error();
+        v17 = strerror(*v16);
+        DgnString::DgnString(&v34, v17);
+        if (v35)
+        {
+          v18 = v34;
+        }
+
+        else
+        {
+          v18 = &unk_262891880;
+        }
+
+        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/dfutil/dfstream.cpp", 107, "dfutil/dfstream", 10, "%.500s %.500s %d %.500s", "fopen", v14, v15, v18);
+        DgnString::~DgnString(&v34);
+      }
+
+      if (fclose(v13))
+      {
+        if (*(a1 + 24))
+        {
+          v19 = *(a1 + 16);
+        }
+
+        else
+        {
+          v19 = &unk_262891880;
+        }
+
+        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/dfutil/dfstream.cpp", 109, "dfutil/dfstream", 1, "%.500s", v19);
       }
     }
   }
 
-  v25 = "wb";
-  v26 = *(a1 + 8);
-  if (v26 != 1)
+  v20 = "wb";
+  v21 = *(a1 + 8);
+  if (v21 != 1)
   {
-    v25 = "r+b";
+    v20 = "r+b";
   }
 
-  v27 = "r+";
-  if (v26 == 1)
+  v22 = "r+";
+  if (v21 == 1)
   {
-    v27 = "w";
+    v22 = "w";
   }
 
-  v28 = v26 == 0;
-  v29 = "r";
-  if (v28)
+  v23 = v21 == 0;
+  v24 = "r";
+  if (v23)
   {
-    v25 = "rb";
+    v20 = "rb";
   }
 
   else
   {
-    v29 = v27;
+    v24 = v22;
   }
 
   if (*(a1 + 48))
   {
-    v30 = v29;
+    v25 = v24;
   }
 
   else
   {
-    v30 = v25;
+    v25 = v20;
   }
 
   *(a1 + 40) = 0;
   if (*(a1 + 24))
   {
-    v31 = *(a1 + 16);
+    v26 = *(a1 + 16);
   }
 
   else
   {
-    v31 = &unk_262891880;
+    v26 = &unk_262891880;
   }
 
-  v32 = fopen(v31, v30);
-  *(a1 + 40) = v32;
-  if (!v32)
+  v27 = fopen(v26, v25);
+  *(a1 + 40) = v27;
+  if (!v27)
   {
     if (*(a1 + 24))
     {
-      v33 = *(a1 + 16);
+      v28 = *(a1 + 16);
     }
 
-    v34 = *__error();
-    v35 = __error();
-    v36 = strerror(*v35);
-    DgnString::DgnString(&v40, v36);
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/dfutil/dfstream.cpp", 151, "dfutil/dfstream", 10, "%.500s %.500s %d %.500s", v37, v38, "fopen");
-    DgnString::~DgnString(&v40);
+    else
+    {
+      v28 = &unk_262891880;
+    }
+
+    v29 = *__error();
+    v30 = __error();
+    v31 = strerror(*v30);
+    DgnString::DgnString(&v34, v31);
+    if (v35)
+    {
+      v32 = v34;
+    }
+
+    else
+    {
+      v32 = &unk_262891880;
+    }
+
+    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/dfutil/dfstream.cpp", 151, "dfutil/dfstream", 10, "%.500s %.500s %d %.500s", "fopen", v28, v29, v32);
+    DgnString::~DgnString(&v34);
   }
 
   if (*(a1 + 8) == 2)
@@ -1600,12 +1613,12 @@ uint64_t DgnFileStream::DgnFileStream(uint64_t a1, int a2, int a3, uint64_t a4)
   return a1;
 }
 
-void sub_26284A368(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_26284A368(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   DgnString::~DgnString(va);
-  DgnPrimFixArray<double>::~DgnPrimFixArray(v6);
-  DgnStream::~DgnStream(v5);
+  DgnPrimFixArray<double>::~DgnPrimFixArray(v10);
+  DgnStream::~DgnStream(v9);
   _Unwind_Resume(a1);
 }
 
@@ -1617,15 +1630,15 @@ void DgnFileStream::~DgnFileStream(DgnFileStream *this)
   {
     if (*(this + 6))
     {
-      v5 = *(this + 2);
+      v3 = *(this + 2);
     }
 
     else
     {
-      v5 = &unk_262891880;
+      v3 = &unk_262891880;
     }
 
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/dfutil/dfstream.cpp", 164, "dfutil/dfstream", 1, "%.500s", v3, v4, v5);
+    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/dfutil/dfstream.cpp", 164, "dfutil/dfstream", 1, "%.500s", v3);
   }
 
   DgnPrimFixArray<double>::~DgnPrimFixArray(this + 64);
@@ -1644,76 +1657,183 @@ void DgnFileStream::printSize(DgnFileStream *this, uint64_t a2, uint64_t a3, uni
   *a4 = 0;
   *a5 = 0;
   *a6 = 0;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/dfutil/dfstream.cpp", 176, &v73);
-  if (v74)
+  getShipObjectSizeDescription(&v39, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/dfutil/dfstream.cpp", 176);
+  if (v40)
   {
-    v16 = v73;
+    v13 = v39;
   }
 
   else
   {
-    v16 = &unk_262891880;
+    v13 = &unk_262891880;
   }
 
-  xlprintf("ObSize: %*s*************************************************************\nObSize: %*sBegin %s ", v12, v13, v14, v15, a3, &unk_262891880, a3, &unk_262891880, v16);
-  DgnString::~DgnString(&v73);
+  xlprintf("ObSize: %*s*************************************************************\nObSize: %*sBegin %s ", v12, a3, &unk_262891880, a3, &unk_262891880, v13);
+  DgnString::~DgnString(&v39);
   if (a2 != -1)
   {
-    xlprintf("%d ", v17, v18, v19, v20, a2);
+    xlprintf("%d ", v14, a2);
   }
 
-  xlprintf("(alloc, used, shared)\nObSize: %*s*************************************************************\n", v17, v18, v19, v20, a3, &unk_262891880);
-  v72 = 0;
-  v73 = 0;
-  v71 = 0;
-  DgnStream::printSize(this, 0xFFFFFFFFLL, (a3 + 1), &v73, &v72, &v71);
-  *a4 += v73;
-  *a5 += v72;
-  *a6 += v71;
+  xlprintf("(alloc, used, shared)\nObSize: %*s*************************************************************\n", v14, a3, &unk_262891880);
+  v38 = 0;
+  v39 = 0;
+  v37 = 0;
+  DgnStream::printSize(this, 0xFFFFFFFFLL, (a3 + 1), &v39, &v38, &v37);
+  *a4 += v39;
+  *a5 += v38;
+  *a6 += v37;
   if (gShadowDiagnosticShowIdealizedObjectSizes)
   {
-    v21 = 4;
+    v15 = 4;
   }
 
   else
   {
-    v21 = 8;
+    v15 = 8;
   }
 
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/dfutil/dfstream.cpp", 180, &v73);
-  if (v74)
+  getShipObjectSizeDescription(&v39, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/dfutil/dfstream.cpp", 180);
+  if (v40)
   {
-    v26 = v73;
+    v17 = v39;
   }
 
   else
   {
-    v26 = &unk_262891880;
+    v17 = &unk_262891880;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v22, v23, v24, v25, (a3 + 1), &unk_262891880, (34 - a3), (34 - a3), v26, v21, v21, 0);
-  DgnString::~DgnString(&v73);
-  *a4 += v21;
-  *a5 += v21;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/dfutil/dfstream.cpp", 182, &v73);
-  if (v74)
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v16, (a3 + 1), &unk_262891880, (34 - a3), (34 - a3), v17, v15, v15, 0);
+  DgnString::~DgnString(&v39);
+  *a4 += v15;
+  *a5 += v15;
+  getShipObjectSizeDescription(&v39, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/dfutil/dfstream.cpp", 182);
+  if (v40)
   {
-    v31 = v73;
+    v19 = v39;
   }
 
   else
   {
-    v31 = &unk_262891880;
+    v19 = &unk_262891880;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v27, v28, v29, v30, (a3 + 1), &unk_262891880, (34 - a3), (34 - a3), v31, 4, 4, 0);
-  DgnString::~DgnString(&v73);
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v18, (a3 + 1), &unk_262891880, (34 - a3), (34 - a3), v19, 4, 4, 0);
+  DgnString::~DgnString(&v39);
   *a4 += 4;
   *a5 += 4;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/dfutil/dfstream.cpp", 184, &v73);
-  if (v74)
+  getShipObjectSizeDescription(&v39, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/dfutil/dfstream.cpp", 184);
+  if (v40)
   {
-    v36 = v73;
+    v21 = v39;
+  }
+
+  else
+  {
+    v21 = &unk_262891880;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v20, (a3 + 1), &unk_262891880, (34 - a3), (34 - a3), v21, 4, 4, 0);
+  DgnString::~DgnString(&v39);
+  *a4 += 4;
+  *a5 += 4;
+  getShipObjectSizeDescription(&v39, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/dfutil/dfstream.cpp", 186);
+  if (v40)
+  {
+    v23 = v39;
+  }
+
+  else
+  {
+    v23 = &unk_262891880;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v22, (a3 + 1), &unk_262891880, (34 - a3), (34 - a3), v23, 1, 1, 0);
+  DgnString::~DgnString(&v39);
+  ++*a4;
+  ++*a5;
+  v24 = 12;
+  if (gShadowDiagnosticShowIdealizedObjectSizes)
+  {
+    v24 = 8;
+  }
+
+  v25 = *(this + 18);
+  if (v25 > 0)
+  {
+    v26 = (v25 - 1) + v24 + 1;
+  }
+
+  else
+  {
+    v26 = v24;
+  }
+
+  getShipObjectSizeDescription(&v39, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/dfutil/dfstream.cpp", 188);
+  if (v40)
+  {
+    v28 = v39;
+  }
+
+  else
+  {
+    v28 = &unk_262891880;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v27, (a3 + 1), &unk_262891880, (34 - a3), (34 - a3), v28, v26, v26, 0);
+  DgnString::~DgnString(&v39);
+  *a4 += v26;
+  *a5 += v26;
+  getShipObjectSizeDescription(&v39, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/dfutil/dfstream.cpp", 190);
+  if (v40)
+  {
+    v30 = v39;
+  }
+
+  else
+  {
+    v30 = &unk_262891880;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v29, (a3 + 1), &unk_262891880, (34 - a3), (34 - a3), v30, 4, 4, 0);
+  DgnString::~DgnString(&v39);
+  *a4 += 4;
+  *a5 += 4;
+  getShipObjectSizeDescription(&v39, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/dfutil/dfstream.cpp", 192);
+  if (v40)
+  {
+    v32 = v39;
+  }
+
+  else
+  {
+    v32 = &unk_262891880;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v31, (a3 + 1), &unk_262891880, (34 - a3), (34 - a3), v32, 8, 8, 0);
+  DgnString::~DgnString(&v39);
+  *a4 += 8;
+  *a5 += 8;
+  getShipObjectSizeDescription(&v39, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/dfutil/dfstream.cpp", 194);
+  if (v40)
+  {
+    v34 = v39;
+  }
+
+  else
+  {
+    v34 = &unk_262891880;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v33, (a3 + 1), &unk_262891880, (34 - a3), (34 - a3), v34, 8, 8, 0);
+  DgnString::~DgnString(&v39);
+  *a4 += 8;
+  *a5 += 8;
+  getShipObjectSizeDescription(&v39, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/dfutil/dfstream.cpp", 196);
+  if (v40)
+  {
+    v36 = v39;
   }
 
   else
@@ -1721,121 +1841,13 @@ void DgnFileStream::printSize(DgnFileStream *this, uint64_t a2, uint64_t a3, uni
     v36 = &unk_262891880;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v32, v33, v34, v35, (a3 + 1), &unk_262891880, (34 - a3), (34 - a3), v36, 4, 4, 0);
-  DgnString::~DgnString(&v73);
-  *a4 += 4;
-  *a5 += 4;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/dfutil/dfstream.cpp", 186, &v73);
-  if (v74)
-  {
-    v41 = v73;
-  }
-
-  else
-  {
-    v41 = &unk_262891880;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v37, v38, v39, v40, (a3 + 1), &unk_262891880, (34 - a3), (34 - a3), v41, 1, 1, 0);
-  DgnString::~DgnString(&v73);
-  ++*a4;
-  ++*a5;
-  v42 = 12;
-  if (gShadowDiagnosticShowIdealizedObjectSizes)
-  {
-    v42 = 8;
-  }
-
-  v43 = *(this + 18);
-  if (v43 > 0)
-  {
-    v44 = (v43 - 1) + v42 + 1;
-  }
-
-  else
-  {
-    v44 = v42;
-  }
-
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/dfutil/dfstream.cpp", 188, &v73);
-  if (v74)
-  {
-    v49 = v73;
-  }
-
-  else
-  {
-    v49 = &unk_262891880;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v45, v46, v47, v48, (a3 + 1), &unk_262891880, (34 - a3), (34 - a3), v49, v44, v44, 0);
-  DgnString::~DgnString(&v73);
-  *a4 += v44;
-  *a5 += v44;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/dfutil/dfstream.cpp", 190, &v73);
-  if (v74)
-  {
-    v54 = v73;
-  }
-
-  else
-  {
-    v54 = &unk_262891880;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v50, v51, v52, v53, (a3 + 1), &unk_262891880, (34 - a3), (34 - a3), v54, 4, 4, 0);
-  DgnString::~DgnString(&v73);
-  *a4 += 4;
-  *a5 += 4;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/dfutil/dfstream.cpp", 192, &v73);
-  if (v74)
-  {
-    v59 = v73;
-  }
-
-  else
-  {
-    v59 = &unk_262891880;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v55, v56, v57, v58, (a3 + 1), &unk_262891880, (34 - a3), (34 - a3), v59, 8, 8, 0);
-  DgnString::~DgnString(&v73);
-  *a4 += 8;
-  *a5 += 8;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/dfutil/dfstream.cpp", 194, &v73);
-  if (v74)
-  {
-    v64 = v73;
-  }
-
-  else
-  {
-    v64 = &unk_262891880;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v60, v61, v62, v63, (a3 + 1), &unk_262891880, (34 - a3), (34 - a3), v64, 8, 8, 0);
-  DgnString::~DgnString(&v73);
-  *a4 += 8;
-  *a5 += 8;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/dfutil/dfstream.cpp", 196, &v73);
-  if (v74)
-  {
-    v69 = v73;
-  }
-
-  else
-  {
-    v69 = &unk_262891880;
-  }
-
-  v70 = *a5;
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v65, v66, v67, v68, a3, &unk_262891880, (35 - a3), (35 - a3), v69, *a4, *a5, *a6);
-  DgnString::~DgnString(&v73);
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v35, a3, &unk_262891880, (35 - a3), (35 - a3), v36, *a4, *a5, *a6);
+  DgnString::~DgnString(&v39);
 }
 
-void sub_26284A998(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_26284A998(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   DgnString::~DgnString(va);
   _Unwind_Resume(a1);
 }
@@ -1855,20 +1867,35 @@ void DgnFileStream::seekFromBeg(DgnFileStream *this, off_t a2)
       v3 = *(this + 2);
     }
 
+    else
+    {
+      v3 = &unk_262891880;
+    }
+
     v4 = *__error();
     v5 = __error();
     v6 = strerror(*v5);
-    DgnString::DgnString(&v9, v6);
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/dfutil/dfstream.cpp", 216, "dfutil/dfstream", 10, "%.500s %.500s %d %.500s", v7, v8, "fseek");
-    DgnString::~DgnString(&v9);
+    DgnString::DgnString(&v8, v6);
+    if (v9)
+    {
+      v7 = v8;
+    }
+
+    else
+    {
+      v7 = &unk_262891880;
+    }
+
+    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/dfutil/dfstream.cpp", 216, "dfutil/dfstream", 10, "%.500s %.500s %d %.500s", "fseek", v3, v4, v7);
+    DgnString::~DgnString(&v8);
   }
 
   *(this + 56) = 0;
 }
 
-void sub_26284AAB4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_26284AAB4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   DgnString::~DgnString(va);
   _Unwind_Resume(a1);
 }
@@ -1888,29 +1915,44 @@ void DgnFileStream::seekToEnd(DgnFileStream *this)
       v2 = *(this + 2);
     }
 
+    else
+    {
+      v2 = &unk_262891880;
+    }
+
     v3 = *__error();
     v4 = __error();
     v5 = strerror(*v4);
-    DgnString::DgnString(&v8, v5);
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/dfutil/dfstream.cpp", 232, "dfutil/dfstream", 10, "%.500s %.500s %d %.500s", v6, v7, "fseek");
-    DgnString::~DgnString(&v8);
+    DgnString::DgnString(&v7, v5);
+    if (v8)
+    {
+      v6 = v7;
+    }
+
+    else
+    {
+      v6 = &unk_262891880;
+    }
+
+    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/dfutil/dfstream.cpp", 232, "dfutil/dfstream", 10, "%.500s %.500s %d %.500s", "fseek", v2, v3, v6);
+    DgnString::~DgnString(&v7);
   }
 
   *(this + 56) = 0;
 }
 
-void sub_26284ABB0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_26284ABB0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   DgnString::~DgnString(va);
   _Unwind_Resume(a1);
 }
 
-off_t DgnFileStream::tell(DgnFileStream *this, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+off_t DgnFileStream::tell(DgnFileStream *this)
 {
   if (*(this + 12) == 1)
   {
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/dfutil/dfstream.cpp", 241, "dfutil/dfstream", 12, "%s", a7, a8, &unk_262891880);
+    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/dfutil/dfstream.cpp", 241, "dfutil/dfstream", 12, "%s", &unk_262891880);
   }
 
   if (*(this + 2) != 1 && *(this + 11))
@@ -1918,338 +1960,30 @@ off_t DgnFileStream::tell(DgnFileStream *this, uint64_t a2, uint64_t a3, uint64_
     return *(this + 12) + *(this + 20);
   }
 
-  return DgnFileStream::basicTell(this, a2, a3, a4, a5, a6, a7, a8);
+  return DgnFileStream::basicTell(this);
 }
 
-off_t DgnFileStream::basicTell(DgnFileStream *this, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
-{
-  v9 = *(this + 5);
-  if (!v9)
-  {
-    if (*(this + 6))
-    {
-      v10 = *(this + 2);
-    }
-
-    else
-    {
-      v10 = &unk_262891880;
-    }
-
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/dfutil/dfstream.cpp", 429, "dfutil/dfstream", 6, "%.500s", a7, a8, v10);
-    v9 = *(this + 5);
-  }
-
-  v13 = ftello(v9);
-  if (v13 == -1)
-  {
-    if (*(this + 6))
-    {
-      v14 = *(this + 2);
-    }
-
-    else
-    {
-      v14 = &unk_262891880;
-    }
-
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/dfutil/dfstream.cpp", 432, "dfutil/dfstream", 7, "%.500s", v11, v12, v14);
-  }
-
-  return v13;
-}
-
-unint64_t DgnFileStream::tell32(DgnFileStream *this)
-{
-  v3 = (*(*this + 40))(this);
-  if (HIDWORD(v3))
-  {
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/dfutil/dfstream.cpp", 254, "dfutil/dfstream", 11, "%s", v1, v2, &errStr_dfutil_dfstream_E_STREAM_OVERFLOW);
-  }
-
-  return v3;
-}
-
-uint64_t DgnFileStream::peekForChar(DgnFileStream *this, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
-{
-  if (*(this + 2) == 1)
-  {
-    if (*(this + 6))
-    {
-      v9 = *(this + 2);
-    }
-
-    else
-    {
-      v9 = &unk_262891880;
-    }
-
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/dfutil/dfstream.cpp", 272, "dfutil/dfstream", 15, "%.500s", a7, a8, v9);
-  }
-
-  if (*(this + 11))
-  {
-    return *(*(this + 8) + *(this + 20));
-  }
-
-  v11 = *(this + 56);
-  DgnFileStream::fillInputBuffer(this, a2, a3, a4, a5, a6, a7, a8);
-  if (*(this + 56))
-  {
-    result = 0xFFFFFFFFLL;
-  }
-
-  else
-  {
-    result = *(*(this + 8) + *(this + 20));
-  }
-
-  *(this + 56) = v11;
-  return result;
-}
-
-size_t DgnFileStream::fillInputBuffer(DgnFileStream *this, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
-{
-  if (*(this + 2) == 1)
-  {
-    if (*(this + 6))
-    {
-      v9 = *(this + 2);
-    }
-
-    else
-    {
-      v9 = &unk_262891880;
-    }
-
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/dfutil/dfstream.cpp", 463, "dfutil/dfstream", 15, "%.500s", a7, a8, v9);
-  }
-
-  if (*(this + 13) == 1)
-  {
-    (*(*this + 88))(this);
-    *(this + 13) = 0;
-  }
-
-  *(this + 12) = DgnFileStream::basicTell(this, a2, a3, a4, a5, a6, a7, a8);
-  result = DgnFileStream::basicRead(this, *(this + 8), *(this + 18), v10, v11, v12, v13, v14);
-  *(this + 20) = 0;
-  *(this + 11) = result;
-  if (result)
-  {
-    v16 = result >= *(this + 18);
-  }
-
-  else
-  {
-    v16 = 1;
-  }
-
-  if (!v16)
-  {
-    *(this + 56) = 0;
-  }
-
-  return result;
-}
-
-size_t DgnFileStream::readWithMode(DgnFileStream *this, uint64_t __dst, size_t __n, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
-{
-  v8 = a4;
-  v10 = __dst;
-  if (*(this + 2) == 1 && (!*(this + 6) ? (v12 = &unk_262891880) : (v12 = *(this + 2)), errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/dfutil/dfstream.cpp", 307, "dfutil/dfstream", 15, "%.500s", a7, a8, v12), *(this + 2) == 1) || (*(this + 56) & 1) != 0)
-  {
-    if (*(this + 13) == 1)
-    {
-      (*(*this + 88))(this);
-      *(this + 13) = 0;
-    }
-
-    v13 = DgnFileStream::basicRead(this, v10, __n, a4, a5, a6, a7, a8);
-  }
-
-  else if (__n == 1)
-  {
-    if (*(this + 11) || (DgnFileStream::fillInputBuffer(this, __dst, __n, a4, a5, a6, a7, a8), (*(this + 56) & 1) == 0))
-    {
-      *v10 = *(*(this + 8) + (*(this + 20))++);
-      --*(this + 11);
-      v13 = 1;
-    }
-
-    else
-    {
-      v13 = 0;
-    }
-  }
-
-  else
-  {
-    v15 = *(this + 11);
-    v16 = __n;
-    if (v15)
-    {
-      goto LABEL_21;
-    }
-
-    while (1)
-    {
-      DgnFileStream::fillInputBuffer(this, __dst, v15, a4, a5, a6, a7, a8);
-      if (*(this + 56))
-      {
-        break;
-      }
-
-      v15 = *(this + 11);
-LABEL_21:
-      v17 = *(this + 20);
-      v18 = *(this + 8);
-      if (v15 >= v16)
-      {
-        memcpy(v10, (v18 + v17), v16);
-        *(this + 20) += v16;
-        *(this + 11) -= v16;
-        return __n;
-      }
-
-      memcpy(v10, (v18 + v17), v15);
-      v15 = 0;
-      v19 = *(this + 11);
-      v10 += v19;
-      v16 -= v19;
-      *(this + 11) = 0;
-    }
-
-    v13 = __n - v16;
-  }
-
-  if (v8 == 1 && v13 < __n)
-  {
-    if (*(this + 6))
-    {
-      v14 = *(this + 2);
-    }
-
-    else
-    {
-      v14 = &unk_262891880;
-    }
-
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/dfutil/dfstream.cpp", 390, "dfutil/dfstream", 13, "%.500s %llu %llu", a7, a8, v14);
-  }
-
-  return v13;
-}
-
-size_t DgnFileStream::basicRead(DgnFileStream *this, char *__ptr, size_t __nitems, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
-{
-  v8 = __nitems;
-  v11 = *(this + 5);
-  if (!v11)
-  {
-    if (*(this + 6))
-    {
-      v12 = *(this + 2);
-    }
-
-    else
-    {
-      v12 = &unk_262891880;
-    }
-
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/dfutil/dfstream.cpp", 440, "dfutil/dfstream", 4, "%.500s", a7, a8, v12);
-    v11 = *(this + 5);
-  }
-
-  v13 = fread(__ptr, 1uLL, v8, v11);
-  if (v13 < v8)
-  {
-    if (!feof(*(this + 5)) && ferror(*(this + 5)))
-    {
-      if (*(this + 6))
-      {
-        v16 = *(this + 2);
-      }
-
-      else
-      {
-        v16 = &unk_262891880;
-      }
-
-      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/dfutil/dfstream.cpp", 449, "dfutil/dfstream", 9, "%.500s %llu", v14, v15, v16);
-    }
-
-    *(this + 56) = 1;
-  }
-
-  return v13;
-}
-
-void DgnFileStream::writeBytes(DgnFileStream *this, const char *__ptr, size_t __nitems, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
-{
-  v8 = __nitems;
-  if (!*(this + 2))
-  {
-    if (*(this + 6))
-    {
-      v11 = *(this + 2);
-    }
-
-    else
-    {
-      v11 = &unk_262891880;
-    }
-
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/dfutil/dfstream.cpp", 400, "dfutil/dfstream", 14, "%.500s", a7, a8, v11);
-  }
-
-  if (v8)
-  {
-    if (!*(this + 13))
-    {
-      v12 = (*(*this + 40))(this);
-      (*(*this + 24))(this, v12);
-      *(this + 13) = 1;
-    }
-
-    v13 = *(this + 5);
-    if (!v13)
-    {
-      if (*(this + 6))
-      {
-        v14 = *(this + 2);
-      }
-
-      else
-      {
-        v14 = &unk_262891880;
-      }
-
-      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/dfutil/dfstream.cpp", 409, "dfutil/dfstream", 5, "%.500s", a7, a8, v14);
-      v13 = *(this + 5);
-    }
-
-    if (fwrite(__ptr, 1uLL, v8, v13) != v8)
-    {
-      if (*(this + 6))
-      {
-        v17 = *(this + 2);
-      }
-
-      else
-      {
-        v17 = &unk_262891880;
-      }
-
-      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/dfutil/dfstream.cpp", 411, "dfutil/dfstream", 8, "%.500s", v15, v16, v17);
-    }
-  }
-}
-
-void DgnFileStream::flush(DgnFileStream *this)
+off_t DgnFileStream::basicTell(DgnFileStream *this)
 {
   v2 = *(this + 5);
-  if (v2 && fflush(v2))
+  if (!v2)
+  {
+    if (*(this + 6))
+    {
+      v3 = *(this + 2);
+    }
+
+    else
+    {
+      v3 = &unk_262891880;
+    }
+
+    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/dfutil/dfstream.cpp", 429, "dfutil/dfstream", 6, "%.500s", v3);
+    v2 = *(this + 5);
+  }
+
+  v4 = ftello(v2);
+  if (v4 == -1)
   {
     if (*(this + 6))
     {
@@ -2261,8 +1995,317 @@ void DgnFileStream::flush(DgnFileStream *this)
       v5 = &unk_262891880;
     }
 
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/dfutil/dfstream.cpp", 421, "dfutil/dfstream", 3, "%.500s", v3, v4, v5);
+    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/dfutil/dfstream.cpp", 432, "dfutil/dfstream", 7, "%.500s", v5);
   }
+
+  return v4;
+}
+
+unint64_t DgnFileStream::tell32(DgnFileStream *this)
+{
+  v1 = (*(*this + 40))(this);
+  if (HIDWORD(v1))
+  {
+    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/dfutil/dfstream.cpp", 254, "dfutil/dfstream", 11, "%s", &errStr_dfutil_dfstream_E_STREAM_OVERFLOW);
+  }
+
+  return v1;
+}
+
+uint64_t DgnFileStream::peekForChar(DgnFileStream *this, __n128 a2)
+{
+  if (*(this + 2) == 1)
+  {
+    if (*(this + 6))
+    {
+      v3 = *(this + 2);
+    }
+
+    else
+    {
+      v3 = &unk_262891880;
+    }
+
+    a2.n128_f64[0] = errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/dfutil/dfstream.cpp", 272, "dfutil/dfstream", 15, "%.500s", v3);
+  }
+
+  if (*(this + 11))
+  {
+    return *(*(this + 8) + *(this + 20));
+  }
+
+  v5 = *(this + 56);
+  DgnFileStream::fillInputBuffer(this, a2);
+  if (*(this + 56))
+  {
+    result = 0xFFFFFFFFLL;
+  }
+
+  else
+  {
+    result = *(*(this + 8) + *(this + 20));
+  }
+
+  *(this + 56) = v5;
+  return result;
+}
+
+size_t DgnFileStream::fillInputBuffer(DgnFileStream *this, __n128 a2)
+{
+  if (*(this + 2) == 1)
+  {
+    if (*(this + 6))
+    {
+      v3 = *(this + 2);
+    }
+
+    else
+    {
+      v3 = &unk_262891880;
+    }
+
+    a2.n128_f64[0] = errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/dfutil/dfstream.cpp", 463, "dfutil/dfstream", 15, "%.500s", v3);
+  }
+
+  if (*(this + 13) == 1)
+  {
+    (*(*this + 88))(this, a2);
+    *(this + 13) = 0;
+  }
+
+  *(this + 12) = DgnFileStream::basicTell(this);
+  result = DgnFileStream::basicRead(this, *(this + 8), *(this + 18));
+  *(this + 20) = 0;
+  *(this + 11) = result;
+  if (result)
+  {
+    v5 = result >= *(this + 18);
+  }
+
+  else
+  {
+    v5 = 1;
+  }
+
+  if (!v5)
+  {
+    *(this + 56) = 0;
+  }
+
+  return result;
+}
+
+size_t DgnFileStream::readWithMode(DgnFileStream *this, char *__dst, size_t __n, int a4, __n128 a5)
+{
+  if (*(this + 2) == 1 && (!*(this + 6) ? (v9 = &unk_262891880) : (v9 = *(this + 2)), a5.n128_f64[0] = errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/dfutil/dfstream.cpp", 307, "dfutil/dfstream", 15, "%.500s", v9), *(this + 2) == 1) || (*(this + 56) & 1) != 0)
+  {
+    if (*(this + 13) == 1)
+    {
+      (*(*this + 88))(this, a5);
+      *(this + 13) = 0;
+    }
+
+    v10 = DgnFileStream::basicRead(this, __dst, __n);
+  }
+
+  else if (__n == 1)
+  {
+    if (*(this + 11) || (DgnFileStream::fillInputBuffer(this, a5), (*(this + 56) & 1) == 0))
+    {
+      *__dst = *(*(this + 8) + (*(this + 20))++);
+      --*(this + 11);
+      v10 = 1;
+    }
+
+    else
+    {
+      v10 = 0;
+    }
+  }
+
+  else
+  {
+    v12 = *(this + 11);
+    v13 = __n;
+    if (v12)
+    {
+      goto LABEL_21;
+    }
+
+    while (1)
+    {
+      DgnFileStream::fillInputBuffer(this, a5);
+      if (*(this + 56))
+      {
+        break;
+      }
+
+      v12 = *(this + 11);
+LABEL_21:
+      v14 = *(this + 20);
+      v15 = *(this + 8);
+      if (v12 >= v13)
+      {
+        memcpy(__dst, (v15 + v14), v13);
+        *(this + 20) += v13;
+        *(this + 11) -= v13;
+        return __n;
+      }
+
+      memcpy(__dst, (v15 + v14), v12);
+      v16 = *(this + 11);
+      __dst += v16;
+      v13 -= v16;
+      *(this + 11) = 0;
+    }
+
+    v10 = __n - v13;
+  }
+
+  if (a4 == 1 && v10 < __n)
+  {
+    if (*(this + 6))
+    {
+      v11 = *(this + 2);
+    }
+
+    else
+    {
+      v11 = &unk_262891880;
+    }
+
+    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/dfutil/dfstream.cpp", 390, "dfutil/dfstream", 13, "%.500s %llu %llu", v11, __n, v10);
+  }
+
+  return v10;
+}
+
+size_t DgnFileStream::basicRead(DgnFileStream *this, char *__ptr, size_t __nitems)
+{
+  v3 = __nitems;
+  v6 = *(this + 5);
+  if (!v6)
+  {
+    if (*(this + 6))
+    {
+      v7 = *(this + 2);
+    }
+
+    else
+    {
+      v7 = &unk_262891880;
+    }
+
+    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/dfutil/dfstream.cpp", 440, "dfutil/dfstream", 4, "%.500s", v7);
+    v6 = *(this + 5);
+  }
+
+  v8 = fread(__ptr, 1uLL, v3, v6);
+  if (v8 < v3)
+  {
+    if (!feof(*(this + 5)) && ferror(*(this + 5)))
+    {
+      if (*(this + 6))
+      {
+        v9 = *(this + 2);
+      }
+
+      else
+      {
+        v9 = &unk_262891880;
+      }
+
+      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/dfutil/dfstream.cpp", 449, "dfutil/dfstream", 9, "%.500s %llu", v9, v3);
+    }
+
+    *(this + 56) = 1;
+  }
+
+  return v8;
+}
+
+double DgnFileStream::writeBytes(DgnFileStream *this, const char *__ptr, size_t __nitems)
+{
+  v3 = __nitems;
+  if (!*(this + 2))
+  {
+    if (*(this + 6))
+    {
+      v6 = *(this + 2);
+    }
+
+    else
+    {
+      v6 = &unk_262891880;
+    }
+
+    result = errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/dfutil/dfstream.cpp", 400, "dfutil/dfstream", 14, "%.500s", v6);
+  }
+
+  if (v3)
+  {
+    if (!*(this + 13))
+    {
+      v8 = (*(*this + 40))(this);
+      (*(*this + 24))(this, v8);
+      *(this + 13) = 1;
+    }
+
+    v9 = *(this + 5);
+    if (!v9)
+    {
+      if (*(this + 6))
+      {
+        v10 = *(this + 2);
+      }
+
+      else
+      {
+        v10 = &unk_262891880;
+      }
+
+      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/dfutil/dfstream.cpp", 409, "dfutil/dfstream", 5, "%.500s", v10);
+      v9 = *(this + 5);
+    }
+
+    if (fwrite(__ptr, 1uLL, v3, v9) != v3)
+    {
+      if (*(this + 6))
+      {
+        v11 = *(this + 2);
+      }
+
+      else
+      {
+        v11 = &unk_262891880;
+      }
+
+      return errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/dfutil/dfstream.cpp", 411, "dfutil/dfstream", 8, "%.500s", v11);
+    }
+  }
+
+  return result;
+}
+
+double DgnFileStream::flush(DgnFileStream *this)
+{
+  v2 = *(this + 5);
+  if (v2 && fflush(v2))
+  {
+    if (*(this + 6))
+    {
+      v4 = *(this + 2);
+    }
+
+    else
+    {
+      v4 = &unk_262891880;
+    }
+
+    return errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/dfutil/dfstream.cpp", 421, "dfutil/dfstream", 3, "%.500s", v4);
+  }
+
+  return result;
 }
 
 void MrecInitModule_channel_channel(void)
@@ -2297,14 +2340,14 @@ uint64_t FeatureGeneratorSpec::writeObject(FeatureGeneratorSpec *this, DgnStream
   writeObject(a2, this + 1, a3);
   writeObject(a2, this + 2, a3);
   writeObject(a2, this + 3, a3);
-  writeObject(a2, this + 3, a3, v6, v7, v8, v9, v10);
+  writeObject(a2, this + 3, a3);
   writeObject(a2, this + 8, a3);
   writeObject(a2, this + 9, a3);
   writeObject(a2, this + 10, a3);
   writeObject(a2, this + 11, a3);
-  writeObject(a2, this + 6, a3, v11, v12, v13, v14, v15);
+  writeObject(a2, this + 6, a3);
   writeObject(a2, this + 28, a3);
-  writeObject(a2, this + 8, a3, v16, v17, v18, v19, v20);
+  writeObject(a2, this + 8, a3);
 
   return writeObject(a2, this + 18, a3);
 }
@@ -2453,15 +2496,16 @@ uint64_t writeObject<WarpChoice>(uint64_t a1, uint64_t a2, _DWORD *a3)
   return result;
 }
 
-uint64_t ChanStatsSpec::sizeObject(uint64_t a1, int a2)
+uint64_t ChanStatsSpec::sizeObject(uint64_t a1, uint64_t a2)
 {
+  v2 = a2;
   v4 = a2 != 3;
   v5 = sizeObject<unsigned char>(a1 + 8, a2);
-  v6 = sizeObject<unsigned char>(a1 + 32, a2);
-  v7 = sizeObject<unsigned char>(a1 + 48, a2);
-  v8 = sizeObject<unsigned char>(a1 + 64, a2);
-  v9 = sizeObject<unsigned int>(a1 + 88, a2);
-  return v5 + 4 * v4 + v6 + v7 + v8 + v9 + sizeObject<WarpChoice>(a1 + 128, a2) + (16 * v4 || 8 * v4);
+  v6 = sizeObject<unsigned char>(a1 + 32, v2);
+  v7 = sizeObject<unsigned char>(a1 + 48, v2);
+  v8 = sizeObject<unsigned char>(a1 + 64, v2);
+  v9 = sizeObject<unsigned int>(a1 + 88, v2);
+  return v5 + 4 * v4 + v6 + v7 + v8 + v9 + sizeObject<WarpChoice>(a1 + 128, v2) + (16 * v4 || 8 * v4);
 }
 
 uint64_t sizeObject<WarpChoice>(uint64_t a1, int a2)
@@ -2550,7 +2594,7 @@ void *DgnArray<WarpChoice>::releaseAll(uint64_t a1)
   return result;
 }
 
-uint64_t MrecInitLibrary_net(void)
+void MrecInitLibrary_net(void)
 {
   MrecInitModule_sdpres_sdapi();
   MrecInitModule_sdpres_sdapi();
@@ -2565,15 +2609,15 @@ uint64_t MrecInitLibrary_net(void)
   MrecInitModule_sdpres_sdapi();
   MrecInitModule_sdpres_sdapi();
 
-  return MrecInitModule_sdpres_sdapi();
+  MrecInitModule_sdpres_sdapi();
 }
 
-uint64_t MrecInitLibrarySet_throughNet(void)
+void MrecInitLibrarySet_throughNet(void)
 {
   MrecInitLibrarySet_throughUser();
   MrecInitLibrarySet_throughVoc();
 
-  return MrecInitLibrary_net();
+  MrecInitLibrary_net();
 }
 
 void TItnParamManager::TItnParamManager(TItnParamManager *this, TLocaleInfo *a2)
@@ -2581,7 +2625,7 @@ void TItnParamManager::TItnParamManager(TItnParamManager *this, TLocaleInfo *a2)
   TParamManager::TParamManager(this, 1, a2);
   *v3 = &unk_287527380;
   v4 = (v3 + 18);
-  TStringParam::TStringParam(v3 + 18, &unk_2628918F0, &unk_262891928, 0, &dword_262891CBC, &unk_262891CC0, &dword_262891CBC);
+  TStringParam::TStringParam((v3 + 18), &unk_2628918F0, &unk_262891928, 0, &dword_262891CBC, &unk_262891CC0, &dword_262891CBC);
   TIntParam::TIntParam((this + 1520), &unk_262891CF4, &unk_262891D94, 0, 0, 100, 10, &unk_262891CC0, &dword_262891CBC);
   TIntParam::TIntParam((this + 1872), &unk_262891F78, &unk_262891FC8, 0, 0, 100, 20, &unk_262891CC0, &dword_262891CBC);
   TBoolParam::TBoolParam(this + 2224, &unk_2628920E0, &unk_262892144, 0, 1, &unk_2628927F0, &dword_262891CBC);
@@ -2590,7 +2634,7 @@ void TItnParamManager::TItnParamManager(TItnParamManager *this, TLocaleInfo *a2)
   TFloatParam::TFloatParam(this + 3256, &unk_262892AB4, &unk_262892AF0, 0, &unk_262892A80, &dword_262891CBC, 300.0);
   TBoolParam::TBoolParam(this + 3792, &unk_262892B34, &unk_262892B5C, 0, 0, &unk_262892C5C, &dword_262891CBC);
   TIntParam::TIntParam((this + 4040), &unk_262892C94, &unk_262892D40, 0, 1, 100, 10, &unk_262892E90, &dword_262891CBC);
-  TStringParam::TStringParam(this + 4392, &unk_262892ED0, &unk_262892F30, 0, &unk_262893A88, &unk_262893A98, &dword_262891CBC);
+  TStringParam::TStringParam(this + 4392, &unk_262892ED0, &unk_262892F30, 0, dword_262893A88, &unk_262893A98, &dword_262891CBC);
   TBoolParam::TBoolParam(this + 5768, &unk_262893AD0, &unk_262893B20, 256, 0, &unk_262893CE8, &dword_262891CBC);
   TBoolParam::TBoolParam(this + 6016, &unk_262893D28, &unk_262893D74, 0, 0, &unk_262893ED8, &dword_262891CBC);
   TStringParam::TStringParam(this + 6264, &unk_262893F0C, &unk_262893F4C, 256, &dword_262891CBC, &unk_262893ED8, &dword_262891CBC);
@@ -2632,8 +2676,8 @@ void TItnParamManager::TItnParamManager(TItnParamManager *this, TLocaleInfo *a2)
   TStringParam::TStringParam(this + 21368, &unk_262898E9C, &unk_262898D44, 288, &dword_262891CBC, &unk_262898E20, &dword_262891CBC);
   TIntParam::TIntParam((this + 22744), &unk_262898F00, &unk_262898C00, 32, -1, 10, 5, &unk_262898CB4, &dword_262891CBC);
   TIntParam::TIntParam((this + 23096), &unk_262898F38, &unk_262898D44, 288, -1, 10, 5, &unk_262898E20, &dword_262891CBC);
-  TStringParam::TStringParam(this + 23448, &unk_262898F90);
-  TStringParam::TStringParam(this + 24824, &unk_262898FCC);
+  TStringParam::TStringParam(this + 2931, &unk_262898F90);
+  TStringParam::TStringParam(this + 3103, &unk_262898FCC);
   TFloatParam::TFloatParam(this + 26200, &unk_262899028, &unk_262898C00, 32, &unk_262898CB4, &dword_262891CBC, 0.0);
   TFloatParam::TFloatParam(this + 26736, &unk_262899068, &unk_262898D44, 288, &unk_262898E20, &dword_262891CBC, 0.0);
   TParamManager::add(this, v4);
@@ -3455,10 +3499,29 @@ void HistoryMgr::printSize(HistoryMgr *this, uint64_t a2, uint64_t a3, unint64_t
   *a4 = 0;
   *a5 = 0;
   *a6 = 0;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/net/history.cpp", 225, &v53);
-  if (v54)
+  getShipObjectSizeDescription(&v34, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/net/history.cpp", 225);
+  if (v35)
   {
-    v16 = v53;
+    v13 = v34;
+  }
+
+  else
+  {
+    v13 = &byte_262899963;
+  }
+
+  xlprintf("ObSize: %*s*************************************************************\nObSize: %*sBegin %s ", v12, a3, &byte_262899963, a3, &byte_262899963, v13);
+  DgnString::~DgnString(&v34);
+  if (a2 != -1)
+  {
+    xlprintf("%d ", v14, a2);
+  }
+
+  xlprintf("(alloc, used, shared)\nObSize: %*s*************************************************************\n", v14, a3, &byte_262899963);
+  getShipObjectSizeDescription(&v34, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/net/history.cpp", 227);
+  if (v35)
+  {
+    v16 = v34;
   }
 
   else
@@ -3466,115 +3529,95 @@ void HistoryMgr::printSize(HistoryMgr *this, uint64_t a2, uint64_t a3, unint64_t
     v16 = &byte_262899963;
   }
 
-  xlprintf("ObSize: %*s*************************************************************\nObSize: %*sBegin %s ", v12, v13, v14, v15, a3, &byte_262899963, a3, &byte_262899963, v16);
-  DgnString::~DgnString(&v53);
-  if (a2 != -1)
-  {
-    xlprintf("%d ", v17, v18, v19, v20, a2);
-  }
-
-  xlprintf("(alloc, used, shared)\nObSize: %*s*************************************************************\n", v17, v18, v19, v20, a3, &byte_262899963);
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/net/history.cpp", 227, &v53);
-  if (v54)
-  {
-    v25 = v53;
-  }
-
-  else
-  {
-    v25 = &byte_262899963;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v21, v22, v23, v24, (a3 + 1), &byte_262899963, (34 - a3), (34 - a3), v25, 4, 4, 0);
-  DgnString::~DgnString(&v53);
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v15, (a3 + 1), &byte_262899963, (34 - a3), (34 - a3), v16, 4, 4, 0);
+  DgnString::~DgnString(&v34);
   *a4 += 4;
   *a5 += 4;
-  v26 = sizeObject<History>(this + 8, 0);
-  v27 = sizeObject<History>(this + 8, 1);
-  v53 = 0x3FFFFAFFFFFFLL;
-  v54 = xmmword_26286CC40;
-  v55 = 0x1F0000001FLL;
-  sizeObject(&v53, 2);
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/net/history.cpp", 229, &v53);
-  if (v54)
+  v17 = sizeObject<History>(this + 8, 0);
+  v18 = sizeObject<History>(this + 8, 1);
+  v34 = 0x3FFFFAFFFFFFLL;
+  v35 = xmmword_26286CC40;
+  v36 = 0x1F0000001FLL;
+  sizeObject(&v34, 2);
+  getShipObjectSizeDescription(&v34, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/net/history.cpp", 229);
+  if (v35)
   {
-    v32 = v53;
+    v20 = v34;
   }
 
   else
   {
-    v32 = &byte_262899963;
+    v20 = &byte_262899963;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v28, v29, v30, v31, (a3 + 1), &byte_262899963, (34 - a3), (34 - a3), v32, v26, v27, 0);
-  DgnString::~DgnString(&v53);
-  *a4 += v26;
-  *a5 += v27;
-  v33 = sizeObject(this + 48);
-  v34 = sizeObject<DgnIFixArray<BucketLinkKEVTLT<unsigned int> *>>(this + 104, 0);
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v19, (a3 + 1), &byte_262899963, (34 - a3), (34 - a3), v20, v17, v18, 0);
+  DgnString::~DgnString(&v34);
+  *a4 += v17;
+  *a5 += v18;
+  v21 = sizeObject(this + 48, 0);
+  v22 = sizeObject<DgnIFixArray<BucketLinkKEVTLT<unsigned int> *>>(this + 104, 0);
   if (gShadowDiagnosticShowIdealizedObjectSizes)
   {
-    v35 = 8;
+    v23 = 8;
   }
 
   else
   {
-    v35 = 16;
+    v23 = 16;
   }
 
-  v36 = v33 + v34 + v35 + 13;
-  v37 = sizeObject(this + 48);
-  v38 = sizeObject<DgnIFixArray<BucketLinkKEVTLT<unsigned int> *>>(this + 104, 1);
+  v24 = v21 + v22 + v23 + 13;
+  v25 = sizeObject(this + 48, 1);
+  v26 = sizeObject<DgnIFixArray<BucketLinkKEVTLT<unsigned int> *>>(this + 104, 1);
   if (gShadowDiagnosticShowIdealizedObjectSizes)
   {
-    v39 = 8;
+    v27 = 8;
   }
 
   else
   {
-    v39 = 16;
+    v27 = 16;
   }
 
-  v40 = v37 + v38 + v39 + 13;
-  v41 = sizeObject(this + 48);
-  v53 = 0;
-  LODWORD(v54) = 0;
-  DgnPrimFixArray<double>::~DgnPrimFixArray(&v53);
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/net/history.cpp", 231, &v53);
-  if (v54)
+  v28 = v25 + v26 + v27 + 13;
+  v29 = sizeObject(this + 48, 3);
+  v34 = 0;
+  LODWORD(v35) = 0;
+  DgnPrimFixArray<double>::~DgnPrimFixArray(&v34);
+  getShipObjectSizeDescription(&v34, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/net/history.cpp", 231);
+  if (v35)
   {
-    v46 = v53;
+    v31 = v34;
   }
 
   else
   {
-    v46 = &byte_262899963;
+    v31 = &byte_262899963;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v42, v43, v44, v45, (a3 + 1), &byte_262899963, (34 - a3), (34 - a3), v46, v36, v40, v41);
-  DgnString::~DgnString(&v53);
-  *a4 += v36;
-  *a5 += v40;
-  *a6 += v41;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/net/history.cpp", 232, &v53);
-  if (v54)
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v30, (a3 + 1), &byte_262899963, (34 - a3), (34 - a3), v31, v24, v28, v29);
+  DgnString::~DgnString(&v34);
+  *a4 += v24;
+  *a5 += v28;
+  *a6 += v29;
+  getShipObjectSizeDescription(&v34, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/net/history.cpp", 232);
+  if (v35)
   {
-    v51 = v53;
+    v33 = v34;
   }
 
   else
   {
-    v51 = &byte_262899963;
+    v33 = &byte_262899963;
   }
 
-  v52 = *a5;
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v47, v48, v49, v50, a3, &byte_262899963, (35 - a3), (35 - a3), v51, *a4, *a5, *a6);
-  DgnString::~DgnString(&v53);
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v32, a3, &byte_262899963, (35 - a3), (35 - a3), v33, *a4, *a5, *a6);
+  DgnString::~DgnString(&v34);
 }
 
-void sub_26284E7C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
+void sub_26284E7C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, ...)
 {
-  va_start(va, a12);
+  va_start(va, a19);
   DgnString::~DgnString(va);
   _Unwind_Resume(a1);
 }
@@ -3716,7 +3759,7 @@ uint64_t HistoryMgr::copyAndOverrideToBigramHistories(HistoryMgr *this)
   return v1;
 }
 
-uint64_t HashKEVTLT<unsigned int,History const*,HistoryMgr>::add(uint64_t a1, unsigned int *a2)
+unint64_t HashKEVTLT<unsigned int,History const*,HistoryMgr>::add(uint64_t a1, unsigned int *a2)
 {
   v4 = *(a1 + 12);
   if (*(a1 + 8) >= v4 >> 1)
@@ -3788,7 +3831,7 @@ uint64_t HashKEVTLT<unsigned int,History const*,HistoryMgr>::add(uint64_t a1, un
   return result;
 }
 
-uint64_t HistoryMgr::extendHistory(uint64_t a1, int a2, int *a3, int a4, int a5, int a6, _BYTE *a7)
+uint64_t HistoryMgr::extendHistory(uint64_t a1, int a2, int *a3, int a4, unsigned int a5, unsigned int a6, _BYTE *a7)
 {
   if (a6 == -32 || a5 == -32)
   {
@@ -3811,8 +3854,8 @@ uint64_t HistoryMgr::extendHistory(uint64_t a1, int a2, int *a3, int a4, int a5,
 
   v21 = __PAIR64__(a6, v10);
   v22 = a2;
-  v17 = &v18;
-  v12 = *HashKEVTLT<unsigned int,History const*,HistoryMgr>::findBucket(a1 + 24, &v17);
+  *v17 = &v18;
+  v12 = *HashKEVTLT<unsigned int,History const*,HistoryMgr>::findBucket(a1 + 24, v17);
   if (v12)
   {
     *a7 = 0;
@@ -3823,7 +3866,7 @@ uint64_t HistoryMgr::extendHistory(uint64_t a1, int a2, int *a3, int a4, int a5,
   {
     v14 = *(a1 + 16);
     v15 = *(a1 + 20);
-    LODWORD(v17) = v14;
+    v17[0] = v14;
     if (v14 == v15)
     {
       DgnArray<FstSearchLateLatticeHashBackoffTrace>::reallocElts(a1 + 8, 1, 1);
@@ -3837,17 +3880,17 @@ uint64_t HistoryMgr::extendHistory(uint64_t a1, int a2, int *a3, int a4, int a5,
     *(v16 + 24) = v21;
     *(v16 + 32) = v22;
     *(a1 + 16) = v14 + 1;
-    HashKEVTLT<unsigned int,History const*,HistoryMgr>::add(a1 + 24, &v17);
+    HashKEVTLT<unsigned int,History const*,HistoryMgr>::add(a1 + 24, v17);
     *a7 = 1;
-    return v17;
+    return v17[0];
   }
 }
 
-double HistoryMgr::getForwardContents(uint64_t a1, unsigned int a2, uint64_t a3)
+double HistoryMgr::getForwardContents(uint64_t a1, unsigned int a2, uint64_t *a3)
 {
   if (a2 == -2)
   {
-    *(a3 + 8) = 0;
+    *(a3 + 2) = 0;
   }
 
   else
@@ -3862,13 +3905,13 @@ double HistoryMgr::getForwardContents(uint64_t a1, unsigned int a2, uint64_t a3)
     }
 
     while (v7 != -2);
-    v8 = *(a3 + 12);
+    v8 = *(a3 + 3);
     if (v8 < v5)
     {
       DgnArray<PrefilterResultFrame>::reallocElts(a3, v5 - v8, 0);
     }
 
-    v10 = *(a3 + 8);
+    v10 = *(a3 + 2);
     if (v10 < v5)
     {
       v11 = v5 - v10;
@@ -3886,7 +3929,7 @@ double HistoryMgr::getForwardContents(uint64_t a1, unsigned int a2, uint64_t a3)
       while (v11);
     }
 
-    *(a3 + 8) = v5;
+    *(a3 + 2) = v5;
     if (v5)
     {
       v13 = v5 - 1;
@@ -3958,6 +4001,19 @@ void HashKEVTLT<unsigned int,History const*,HistoryMgr>::~HashKEVTLT(uint64_t a1
   HashKEVTLT<unsigned int,History const*,HistoryMgr>::~HashKEVTLT(a1);
 
   JUMPOUT(0x26672B1B0);
+}
+
+{
+  *a1 = &unk_287529600;
+  if (*(a1 + 8))
+  {
+    HashKEVTLT<unsigned int,History const*,HistoryMgr>::removeAll(a1);
+  }
+
+  DgnFixArray<DgnIFixArray<BucketLinkKEVTLT<unsigned int> *>>::releaseAll(a1 + 80);
+  DgnPool::~DgnPool((a1 + 24));
+
+  MrecInitModule_sdpres_sdapi();
 }
 
 uint64_t HashKEVTLT<unsigned int,History const*,HistoryMgr>::computeDepth(uint64_t a1)
@@ -4116,7 +4172,7 @@ uint64_t *DgnFixArray<DgnIFixArray<BucketLinkKEVTLT<unsigned int> *>>::allocElts
     {
       *(v6 - 1) = 0;
       *v6 = 0;
-      v6 += 4;
+      v6 += 2;
       --v5;
     }
 
@@ -4151,20 +4207,6 @@ void *DgnFixArray<DgnIFixArray<BucketLinkKEVTLT<unsigned int> *>>::releaseAll(ui
 
   *(a1 + 8) = 0;
   return result;
-}
-
-uint64_t HashKEVTLT<unsigned int,History const*,HistoryMgr>::~HashKEVTLT(uint64_t a1)
-{
-  *a1 = &unk_287529600;
-  if (*(a1 + 8))
-  {
-    HashKEVTLT<unsigned int,History const*,HistoryMgr>::removeAll(a1);
-  }
-
-  DgnFixArray<DgnIFixArray<BucketLinkKEVTLT<unsigned int> *>>::releaseAll(a1 + 80);
-  DgnPool::~DgnPool((a1 + 24));
-
-  return MrecInitModule_sdpres_sdapi();
 }
 
 uint64_t HashKEVTLT<unsigned int,History const*,HistoryMgr>::removeAll(uint64_t result)
@@ -4335,9 +4377,9 @@ void *HashKEVTLT<unsigned int,History const*,HistoryMgr>::upSize(uint64_t a1, in
   return DgnFixArray<DgnIFixArray<BucketLinkKEVTLT<unsigned int> *>>::releaseAll(&v19);
 }
 
-void sub_26284F434(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_26284F434(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   DgnFixArray<DgnIFixArray<BucketLinkKEVTLT<unsigned int> *>>::releaseAll(va);
   _Unwind_Resume(a1);
 }
@@ -4570,16 +4612,16 @@ uint64_t CWIDCrumbWACS::CWIDCrumbWACS(uint64_t a1, uint64_t a2, __int16 a3, _DWO
   return a1;
 }
 
-void sub_26284F930(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_26284F930(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va1, a2);
-  va_start(va, a2);
-  v5 = va_arg(va1, void);
-  v7 = va_arg(va1, void);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v6 = va_arg(va1, void);
+  v8 = va_arg(va1, void);
   DgnPrimArray<unsigned int>::~DgnPrimArray(va);
   DgnIArray<Utterance *>::~DgnIArray(va1);
-  DgnPrimArray<unsigned int>::~DgnPrimArray(v3);
-  DgnIArray<Utterance *>::~DgnIArray(v2);
+  DgnPrimArray<unsigned int>::~DgnPrimArray(v4);
+  DgnIArray<Utterance *>::~DgnIArray(v3);
   _Unwind_Resume(a1);
 }
 
@@ -4603,23 +4645,23 @@ uint64_t DgnArray<HistoryAndBigScore>::find(unsigned int *a1, _DWORD *a2)
   return result;
 }
 
-uint64_t CWIDCrumbWACS::mergeCrumb(uint64_t a1, uint64_t *a2)
+uint64_t CWIDCrumbWACS::mergeCrumb(uint64_t *a1, uint64_t *a2)
 {
   v4 = *(a2 + 28);
-  if (*(a1 + 56) > v4)
+  if (*(a1 + 28) > v4)
   {
-    *(a1 + 56) = v4;
+    *(a1 + 28) = v4;
   }
 
   v5 = *(a2 + 17);
-  if (*(a1 + 68) > v5)
+  if (*(a1 + 17) > v5)
   {
-    *(a1 + 60) = *(a2 + 15);
-    *(a1 + 68) = v5;
-    *(a1 + 64) = *(a2 + 16);
+    *(a1 + 15) = *(a2 + 15);
+    *(a1 + 17) = v5;
+    *(a1 + 16) = *(a2 + 16);
   }
 
-  v6 = *(a1 + 24);
+  v6 = *(a1 + 6);
   v7 = *(a2 + 6);
   if (v6 <= v7)
   {
@@ -4628,7 +4670,7 @@ uint64_t CWIDCrumbWACS::mergeCrumb(uint64_t a1, uint64_t *a2)
 
   else
   {
-    v8 = *(a1 + 24);
+    v8 = *(a1 + 6);
   }
 
   if (v6 >= v7)
@@ -4649,7 +4691,7 @@ uint64_t CWIDCrumbWACS::mergeCrumb(uint64_t a1, uint64_t *a2)
     for (i = 0; v9 != i; ++i)
     {
       v11 = *(a2[2] + i);
-      if (*(*(a1 + 16) + i) == 255)
+      if (*(a1[2] + i) == 255)
       {
         if (v11 == 255)
         {
@@ -4675,14 +4717,14 @@ uint64_t CWIDCrumbWACS::mergeCrumb(uint64_t a1, uint64_t *a2)
 
       else
       {
-        v12 = (*a1 + 12 * *(*(a1 + 16) + i));
+        v12 = (*a1 + 12 * *(a1[2] + i));
         if (v11 == 255)
         {
           v14 = DgnArray<HistoryAndBigScore>::find(&v44, v12);
           if (v14 < 0)
           {
             *(v42 + i) = v45;
-            v15 = *(*(a1 + 16) + i);
+            v15 = *(a1[2] + i);
             v16 = *a1;
             v17 = v45;
             if (v45 != HIDWORD(v45))
@@ -4703,7 +4745,7 @@ uint64_t CWIDCrumbWACS::mergeCrumb(uint64_t a1, uint64_t *a2)
             if (v14 < 0)
             {
               *(v42 + i) = v45;
-              v15 = *(*(a1 + 16) + i);
+              v15 = *(a1[2] + i);
               v16 = *a1;
               v17 = v45;
               if (v45 == HIDWORD(v45))
@@ -4765,18 +4807,18 @@ LABEL_30:
     {
       if (v7 <= v6)
       {
-        if (*(*(a1 + 16) + v9) == 255)
+        if (*(a1[2] + v9) == 255)
         {
 LABEL_46:
           *(v42 + v9) = -1;
           goto LABEL_50;
         }
 
-        v22 = DgnArray<HistoryAndBigScore>::find(&v44, (*a1 + 12 * *(*(a1 + 16) + v9)));
+        v22 = DgnArray<HistoryAndBigScore>::find(&v44, (*a1 + 12 * *(a1[2] + v9)));
         if (v22 < 0)
         {
           *(v42 + v9) = v45;
-          v23 = *(*(a1 + 16) + v9);
+          v23 = *(a1[2] + v9);
           v24 = *a1;
           v25 = v45;
           if (v45 == HIDWORD(v45))
@@ -4827,20 +4869,20 @@ LABEL_50:
   }
 
   v28 = v43;
-  if (*(a1 + 28) < v43)
+  if (*(a1 + 7) < v43)
   {
     v46 = 0;
-    *(a1 + 28) = realloc_array(*(a1 + 16), &v46, v43, *(a1 + 24), *(a1 + 24), 1);
-    *(a1 + 16) = v46;
+    *(a1 + 7) = realloc_array(a1[2], &v46, v43, *(a1 + 6), *(a1 + 6), 1);
+    a1[2] = v46;
   }
 
-  *(a1 + 24) = v28;
+  *(a1 + 6) = v28;
   if (v28 >= 1)
   {
     v29 = v28 - 1;
     do
     {
-      *(*(a1 + 16) + v29) = *(v42 + v29);
+      *(a1[2] + v29) = *(v42 + v29);
       v30 = v29-- + 1;
     }
 
@@ -4848,13 +4890,13 @@ LABEL_50:
   }
 
   v31 = v45;
-  v32 = *(a1 + 12);
+  v32 = *(a1 + 3);
   if (v45 > v32)
   {
     DgnArray<RuleDesc>::reallocElts(a1, v45 - v32, 0);
   }
 
-  v33 = *(a1 + 8);
+  v33 = *(a1 + 2);
   if (v33 < v31)
   {
     v34 = v31 - v33;
@@ -4871,7 +4913,7 @@ LABEL_50:
     while (v34);
   }
 
-  *(a1 + 8) = v31;
+  *(a1 + 2) = v31;
   if (v31 >= 1)
   {
     v37 = v31 + 1;
@@ -4894,12 +4936,12 @@ LABEL_50:
   return DgnIArray<Utterance *>::~DgnIArray(&v44);
 }
 
-void sub_26284FE8C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_26284FE8C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va1, a2);
-  va_start(va, a2);
-  v3 = va_arg(va1, void);
-  v5 = va_arg(va1, void);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v4 = va_arg(va1, void);
+  v6 = va_arg(va1, void);
   DgnPrimArray<unsigned int>::~DgnPrimArray(va);
   DgnIArray<Utterance *>::~DgnIArray(va1);
   _Unwind_Resume(a1);
@@ -4907,7 +4949,7 @@ void sub_26284FE8C(_Unwind_Exception *a1, uint64_t a2, ...)
 
 __n128 CWIDCrumbWACSFrame::copy(CWIDCrumbWACSFrame *this, __n128 *a2)
 {
-  DgnArray<CWIDCrumbWACS>::copyArraySlice(this, a2, 0, a2->n128_u32[2]);
+  DgnArray<CWIDCrumbWACS>::copyArraySlice(this, a2, 0, a2->n128_i32[2]);
   DgnDelete<Hash<CWIDAtFrame,CWIDAtFrame,CWIDAtFrame,unsigned int>>(*(this + 4));
   *(this + 4) = 0;
   result = a2[1];
@@ -4956,23 +4998,23 @@ void (***CWIDCrumbWACSFrame::mergeCrumbs(void (***this)(void), const HistoryMgr 
 
     while (v4);
     v11 = MemChunkAlloc(0x70uLL, 0);
-    Hash<CWIDAC,CWIDAC,CWIDAC,unsigned int>::Hash(v11, 0, 2 * *(v3 + 8));
-    v12 = *(v3 + 8);
+    Hash<CWIDAC,CWIDAC,CWIDAC,unsigned int>::Hash(v11, 0, 2 * *(v3 + 2));
+    v12 = *(v3 + 2);
     if (v12 >= 1)
     {
       v25 = v11;
       do
       {
         v13 = v12 - 1;
-        v14 = (*v3 + 72 * (v12 - 1));
-        if (*Hash<CWIDAC,CWIDAC,CWIDAC,ActiveWord *>::findBucket(v11, (v14 + 4)))
+        v14 = &(*v3)[9 * v12 - 9];
+        if (*Hash<CWIDAC,CWIDAC,CWIDAC,ActiveWord *>::findBucket(v11, v14 + 32))
         {
-          Bucket = Hash<CWIDAC,CWIDAC,CWIDAC,ActiveWord *>::findBucket(v11, (v14 + 4));
-          CWIDCrumbWACS::mergeCrumb(*v3 + 72 * *(*Bucket + 36), v14);
-          *(*Hash<CWIDAC,CWIDAC,CWIDAC,ActiveWord *>::findBucket(v11, *v3 + 72 * (*(v3 + 8) - 1) + 32) + 36) = v13;
-          v16 = (*(v3 + 8) - 1);
-          CWIDCrumbWACS::operator=(*v3 + 72 * v13, *v3 + 72 * v16);
-          v17 = *(v3 + 8);
+          Bucket = Hash<CWIDAC,CWIDAC,CWIDAC,ActiveWord *>::findBucket(v11, v14 + 32);
+          CWIDCrumbWACS::mergeCrumb(&(*v3)[9 * *(*Bucket + 36)], v14);
+          *(*Hash<CWIDAC,CWIDAC,CWIDAC,ActiveWord *>::findBucket(v11, &(*v3)[9 * (*(v3 + 2) - 1) + 4]) + 36) = v13;
+          v16 = (*(v3 + 2) - 1);
+          CWIDCrumbWACS::operator=(&(*v3)[9 * v13], &(*v3)[9 * v16]);
+          v17 = *(v3 + 2);
           if (v17 <= v16)
           {
             if (v17 < v16)
@@ -5013,31 +5055,31 @@ void (***CWIDCrumbWACSFrame::mergeCrumbs(void (***this)(void), const HistoryMgr 
             while (v18 > v16);
           }
 
-          *(v3 + 8) = v16;
+          *(v3 + 2) = v16;
           v11 = v25;
         }
 
         else
         {
           v26 = v12 - 1;
-          Hash<CWIDAC,CWIDAC,CWIDAC,unsigned int>::add(v11, (v14 + 4), &v26);
+          Hash<CWIDAC,CWIDAC,CWIDAC,unsigned int>::add(v11, (v14 + 32), &v26);
         }
       }
 
       while (v12-- > 1);
-      LODWORD(v12) = *(v3 + 8);
+      LODWORD(v12) = *(v3 + 2);
     }
 
-    mrec_qsort_r<CWIDCrumbWACS>(*v3, v12, 0x48uLL, 0);
+    mrec_qsort_r<CWIDCrumbWACS>(*v3, v12, 72, 0);
     DgnDelete<Hash<CWIDAtFrame,CWIDAtFrame,CWIDAtFrame,unsigned int>>(v11);
-    this = DgnDelete<Hash<CWIDAtFrame,CWIDAtFrame,CWIDAtFrame,unsigned int>>(*(v3 + 32));
-    *(v3 + 32) = 0;
+    this = DgnDelete<Hash<CWIDAtFrame,CWIDAtFrame,CWIDAtFrame,unsigned int>>(v3[4]);
+    v3[4] = 0;
   }
 
   return this;
 }
 
-uint64_t Hash<CWIDAC,CWIDAC,CWIDAC,unsigned int>::add(uint64_t a1, uint64_t a2, _DWORD *a3)
+uint64_t Hash<CWIDAC,CWIDAC,CWIDAC,unsigned int>::add(uint64_t a1, int *a2, _DWORD *a3)
 {
   v6 = *(a1 + 12);
   if (*(a1 + 8) >= v6 >> 1)
@@ -5071,8 +5113,8 @@ uint64_t Hash<CWIDAC,CWIDAC,CWIDAC,unsigned int>::add(uint64_t a1, uint64_t a2, 
   v14 = *a2;
   *(v12 + 8) = 0;
   *(v12 + 12) = v14;
-  *(v12 + 16) = *(a2 + 4);
-  *(v12 + 20) = *(a2 + 8);
+  *(v12 + 16) = a2[1];
+  *(v12 + 20) = *(a2 + 2);
   *(v12 + 36) = *a3;
   *(v12 + 8) = v8;
   ++*(a1 + 8);
@@ -5101,7 +5143,7 @@ uint64_t Hash<CWIDAC,CWIDAC,CWIDAC,unsigned int>::add(uint64_t a1, uint64_t a2, 
   return result;
 }
 
-uint64_t mrec_qsort_r<CWIDCrumbWACS>(uint64_t result, unint64_t a2, unint64_t a3, uint64_t a4)
+unint64_t mrec_qsort_r<CWIDCrumbWACS>(unint64_t result, unint64_t a2, int64_t a3, uint64_t a4)
 {
   v5 = a2;
   v6 = result;
@@ -5137,10 +5179,10 @@ LABEL_185:
             v119 = v118;
             v118 += v7;
             v120 = *(v118 + 56);
-            v121 = *(v119 + 28);
+            v121 = *(v119 + 56);
             if (v120 == v121)
             {
-              result = CWIDAC::cmp(v118 + 32, (v119 + 4));
+              result = CWIDAC::cmp(v118 + 32, v119 + 32);
             }
 
             else
@@ -5161,8 +5203,8 @@ LABEL_185:
                 v123 = v118;
                 do
                 {
-                  v124 = v119[v122];
-                  v119[v122] = *v123;
+                  v124 = *(v119 + 8 * v122);
+                  *(v119 + 8 * v122) = *v123;
                   *v123++ = v124;
                   ++v122;
                 }
@@ -5522,7 +5564,7 @@ LABEL_82:
       v62 = *(v13 + 56);
       v63 = *(v15 + 56);
       result = v62 == v63 ? CWIDAC::cmp(v13 + 32, v15 + 32) : (v62 - v63);
-      v10 = (result >= 0 ? v13 : v15);
+      v10 = ((result & 0x80000000) == 0 ? v13 : v15);
     }
 
     else
@@ -5551,7 +5593,7 @@ LABEL_82:
           result = (v60 - v61);
         }
 
-        if (result >= 0)
+        if ((result & 0x80000000) == 0)
         {
           v10 = v15;
         }
@@ -5910,10 +5952,10 @@ LABEL_147:
           v133 = v132;
           v132 += v7;
           v134 = *(v132 + 56);
-          v135 = *(v133 + 28);
+          v135 = *(v133 + 56);
           if (v134 == v135)
           {
-            result = CWIDAC::cmp(v132 + 32, (v133 + 4));
+            result = CWIDAC::cmp(v132 + 32, v133 + 32);
           }
 
           else
@@ -5934,8 +5976,8 @@ LABEL_147:
               v137 = v132;
               do
               {
-                v138 = v133[v136];
-                v133[v136] = *v137;
+                v138 = *(v133 + 8 * v136);
+                *(v133 + 8 * v136) = *v137;
                 *v137++ = v138;
                 ++v136;
               }
@@ -6049,18 +6091,18 @@ uint64_t CWIDCrumbWACSFrame::addCrumbWACSRecord(uint64_t a1, uint64_t a2, __int1
   return DgnIArray<Utterance *>::~DgnIArray(v8);
 }
 
-void sub_262850EB8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_262850EB8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va1, a2);
-  va_start(va, a2);
-  v3 = va_arg(va1, void);
-  v5 = va_arg(va1, void);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v4 = va_arg(va1, void);
+  v6 = va_arg(va1, void);
   DgnPrimArray<unsigned int>::~DgnPrimArray(va1);
   DgnIArray<Utterance *>::~DgnIArray(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t CWIDCrumbWACSFrame::addCrumbWACSRecordEFst(uint64_t a1, uint64_t a2, __int16 a3, _DWORD *a4, uint64_t *a5, unsigned int a6)
+uint64_t CWIDCrumbWACSFrame::addCrumbWACSRecordEFst(uint64_t a1, int *a2, __int16 a3, _DWORD *a4, uint64_t *a5, unsigned int a6)
 {
   v12 = *(a1 + 32);
   if (v12)
@@ -6202,12 +6244,12 @@ LABEL_17:
   return result;
 }
 
-void sub_2628511A0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2628511A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va1, a2);
-  va_start(va, a2);
-  v3 = va_arg(va1, void);
-  v5 = va_arg(va1, void);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v4 = va_arg(va1, void);
+  v6 = va_arg(va1, void);
   DgnPrimArray<unsigned int>::~DgnPrimArray(va1);
   DgnIArray<Utterance *>::~DgnIArray(va);
   _Unwind_Resume(a1);
@@ -6264,18 +6306,18 @@ LABEL_8:
 
   v14 = v5;
   v8 = MemChunkAlloc(0x70uLL, 0);
-  *(v3 + 32) = Hash<CWIDAC,CWIDAC,CWIDAC,unsigned int>::Hash(v8, 0, 2 * *(v3 + 8));
-  v9 = *(v3 + 8);
+  v3[4] = Hash<CWIDAC,CWIDAC,CWIDAC,unsigned int>::Hash(v8, 0, 2 * *(v3 + 2));
+  v9 = *(v3 + 2);
   if (v9 >= 1)
   {
     v10 = 72 * v9 - 40;
     do
     {
       --v9;
-      v11 = *(v3 + 32);
+      v11 = v3[4];
       v12 = *v3;
       v13 = v9;
-      Hash<CWIDAC,CWIDAC,CWIDAC,unsigned int>::add(v11, v12 + v10, &v13);
+      Hash<CWIDAC,CWIDAC,CWIDAC,unsigned int>::add(v11, (v12 + v10), &v13);
       v10 -= 72;
     }
 
@@ -6285,9 +6327,9 @@ LABEL_8:
   return Latch<MemChunkRegion,LatchAdapter>::~Latch(&v14);
 }
 
-void sub_2628512F8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2628512F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   Latch<MemChunkRegion,LatchAdapter>::~Latch(va);
   _Unwind_Resume(a1);
 }
@@ -6352,45 +6394,45 @@ uint64_t CWIDCrumbWACSFrame::getHistScore(void *a1, uint64_t a2, unsigned int a3
   return *v10;
 }
 
-unint64_t CWIDCrumbWACSFrame::getFrameInfo(unint64_t result, int a2, uint64_t a3, uint64_t a4, uint64_t a5)
+uint64_t *CWIDCrumbWACSFrame::getFrameInfo(uint64_t *result, int a2, _DWORD *a3, uint64_t a4, _DWORD *a5)
 {
   v8 = result;
   if (a2)
   {
-    if (*(result + 40) == -1)
+    if (*(result + 10) == -1)
     {
-      *(a3 + 8) = 0;
+      a3[2] = 0;
       *(a4 + 8) = 0;
-      *(a5 + 8) = 0;
+      a5[2] = 0;
     }
 
     else
     {
-      if (!*(a3 + 12))
+      if (!a3[3])
       {
         result = DgnArray<CWIDAC>::reallocElts(a3, 1, 0);
       }
 
-      if (!*(a3 + 8))
+      if (!a3[2])
       {
         v9 = *a3;
         *(v9 + 4) = 0x3FFF;
         *(v9 + 8) = xmmword_26286CC40;
       }
 
-      *(a3 + 8) = 1;
+      a3[2] = 1;
       if (!*(a4 + 12))
       {
         result = DgnPrimArray<unsigned int>::reallocElts(a4, 1, 0);
       }
 
       *(a4 + 8) = 1;
-      if (!*(a5 + 12))
+      if (!a5[3])
       {
         result = DgnArray<CWIDAC>::reallocElts(a5, 1, 0);
       }
 
-      if (!*(a5 + 8))
+      if (!a5[2])
       {
         v10 = *a5;
         *v10 = 0;
@@ -6398,7 +6440,7 @@ unint64_t CWIDCrumbWACSFrame::getFrameInfo(unint64_t result, int a2, uint64_t a3
         v10[2] = 0;
       }
 
-      *(a5 + 8) = 1;
+      a5[2] = 1;
       v11 = *v8 + 72 * *(v8 + 40);
       v12 = *a3;
       *v12 = *(v11 + 32);
@@ -6435,14 +6477,14 @@ unint64_t CWIDCrumbWACSFrame::getFrameInfo(unint64_t result, int a2, uint64_t a3
 
   else
   {
-    v15 = *(result + 8);
-    v16 = *(a3 + 12);
+    v15 = *(result + 2);
+    v16 = a3[3];
     if (v15 > v16)
     {
       result = DgnArray<CWIDAC>::reallocElts(a3, v15 - v16, 0);
     }
 
-    v17 = *(a3 + 8);
+    v17 = a3[2];
     if (v17 < v15)
     {
       v18 = v15 - v17;
@@ -6458,7 +6500,7 @@ unint64_t CWIDCrumbWACSFrame::getFrameInfo(unint64_t result, int a2, uint64_t a3
       while (v18);
     }
 
-    *(a3 + 8) = v15;
+    a3[2] = v15;
     v20 = *(a4 + 12);
     if (v15 > v20)
     {
@@ -6466,13 +6508,13 @@ unint64_t CWIDCrumbWACSFrame::getFrameInfo(unint64_t result, int a2, uint64_t a3
     }
 
     *(a4 + 8) = v15;
-    v21 = *(a5 + 12);
+    v21 = a5[3];
     if (v15 > v21)
     {
       result = DgnArray<CWIDAC>::reallocElts(a5, v15 - v21, 0);
     }
 
-    v22 = *(a5 + 8);
+    v22 = a5[2];
     if (v22 < v15)
     {
       v23 = v15 - v22;
@@ -6490,7 +6532,7 @@ unint64_t CWIDCrumbWACSFrame::getFrameInfo(unint64_t result, int a2, uint64_t a3
       while (v23);
     }
 
-    *(a5 + 8) = v15;
+    a5[2] = v15;
     if (v15)
     {
       v26 = 0;
@@ -6736,13 +6778,13 @@ double CWIDCrumbBank::copy(CWIDCrumbBank *this, const CWIDCrumbBank *a2)
   return result;
 }
 
-_DWORD *CWIDCrumbBank::ensureCrumbFrame(_DWORD *this, int a2)
+uint64_t *CWIDCrumbBank::ensureCrumbFrame(uint64_t *this, int a2)
 {
   v2 = this;
-  v3 = this[5];
+  v3 = *(this + 5);
   v4 = a2 - v3;
   v5 = v3 - a2;
-  if (this[6] == 1)
+  if (*(this + 6) == 1)
   {
     v6 = v4;
   }
@@ -6752,24 +6794,24 @@ _DWORD *CWIDCrumbBank::ensureCrumbFrame(_DWORD *this, int a2)
     v6 = v5;
   }
 
-  for (i = this[2]; i <= v6; *(v2 + 8) = i)
+  for (i = *(this + 2); i <= v6; *(v2 + 2) = i)
   {
-    if (i == *(v2 + 12))
+    if (i == *(v2 + 3))
     {
       this = DgnPrimArray<unsigned long long>::reallocElts(v2, 1, 1);
-      i = *(v2 + 8);
+      i = *(v2 + 2);
     }
 
     *(*v2 + 8 * i++) = 0;
   }
 
-  v8 = *(v2 + 16);
+  v8 = *(v2 + 4);
   if (v8 <= v6)
   {
     v8 = v6;
   }
 
-  *(v2 + 16) = v8;
+  *(v2 + 4) = v8;
   return this;
 }
 
@@ -6859,14 +6901,14 @@ uint64_t CWIDCrumbBank::setBestAccumScore(CWIDCrumbBank *this, int a2, int a3)
   return result;
 }
 
-uint64_t CWIDCrumbBank::endCrumbFrame(CWIDCrumbBank *this, int a2, int a3)
+unint64_t CWIDCrumbBank::endCrumbFrame(CWIDCrumbBank *this, int a2, int a3)
 {
   result = CWIDCrumbBank::getCrumbFrame(this, a2);
   v5 = result;
   v6 = *(result + 8);
   if (v6)
   {
-    result = mrec_qsort_r<CWIDCrumbWACS>(*result, v6, 0x48uLL, 0);
+    result = mrec_qsort_r<CWIDCrumbWACS>(*result, v6, 72, 0);
   }
 
   *(v5 + 28) = a3;
@@ -6880,7 +6922,7 @@ uint64_t CWIDCrumbBank::addCrumbWACSRecord(CWIDCrumbBank *a1, int a2, uint64_t a
   return CWIDCrumbWACSFrame::addCrumbWACSRecord(CrumbFrame, a3, a4, a5, a6);
 }
 
-uint64_t CWIDCrumbBank::addCrumbWACSRecordEFst(CWIDCrumbBank *a1, int a2, uint64_t a3, __int16 a4, _DWORD *a5, uint64_t *a6, unsigned int a7)
+uint64_t CWIDCrumbBank::addCrumbWACSRecordEFst(CWIDCrumbBank *a1, int a2, int *a3, __int16 a4, _DWORD *a5, uint64_t *a6, unsigned int a7)
 {
   CrumbFrame = CWIDCrumbBank::getCrumbFrame(a1, a2);
 
@@ -6896,7 +6938,7 @@ uint64_t CWIDCrumbBank::addFinalSilHABS(CWIDCrumbBank *a1, int a2, uint64_t a3, 
   return result;
 }
 
-uint64_t CWIDCrumbBank::addZeroFrameFinalSilHABS(uint64_t a1, int a2, uint64_t a3, int a4, int a5)
+unint64_t CWIDCrumbBank::addZeroFrameFinalSilHABS(uint64_t a1, int a2, uint64_t a3, int a4, int a5)
 {
   CWIDCrumbBank::ensureCrumbFrame(a1, a2);
   CrumbFrame = CWIDCrumbBank::getCrumbFrame(a1, a2);
@@ -6917,19 +6959,19 @@ uint64_t *CWIDCrumbBank::setTopChoiceHistory(uint64_t *this, unsigned int a2)
     do
     {
       v4 = 9 * v2;
-      v5 = *(*(v3 + 32) + 8) + 36 * v2;
+      v5 = *(v3[4] + 8) + 36 * v2;
       v6 = *(v5 + 28) - 1;
-      v7 = *(v3 + 20);
+      v7 = *(v3 + 5);
       v8 = v6 - v7;
       v9 = v7 - v6;
-      if (*(v3 + 24) != 1)
+      if (*(v3 + 6) != 1)
       {
         v8 = v9;
       }
 
-      CWIDCrumbWACSFrame::maybeBuildHashTable(*(*v3 + 8 * v8), *(v3 + 40));
+      CWIDCrumbWACSFrame::maybeBuildHashTable(*(*v3 + 8 * v8), v3[5]);
       CrumbFrame = CWIDCrumbBank::getCrumbFrame(v3, v6);
-      v11 = *(*(v3 + 32) + 8) + 4 * v4;
+      v11 = *(v3[4] + 8) + 4 * v4;
       *(CrumbFrame + 44) = *(v11 + 24) != *(v11 + 28);
       this = Hash<CWIDAC,CWIDAC,CWIDAC,ActiveWord *>::findBucket(*(CrumbFrame + 32), v11);
       *(CrumbFrame + 40) = *(*this + 36);
@@ -7070,11 +7112,11 @@ uint64_t CWIDCrumbBank::getRightSilenceInfo(uint64_t this, int a2, unsigned int 
   return this;
 }
 
-unint64_t CWIDCrumbBank::getFrameInfo(unint64_t result, int a2, int a3, uint64_t a4, uint64_t a5, uint64_t a6)
+uint64_t *CWIDCrumbBank::getFrameInfo(uint64_t *result, int a2, int a3, _DWORD *a4, uint64_t a5, _DWORD *a6)
 {
-  v7 = *(result + 20);
-  v6 = *(result + 24);
-  v8 = *(result + 16);
+  v7 = *(result + 5);
+  v6 = *(result + 6);
+  v8 = *(result + 4);
   if (v6 != 1)
   {
     v8 = -v8;
@@ -7089,17 +7131,17 @@ unint64_t CWIDCrumbBank::getFrameInfo(unint64_t result, int a2, int a3, uint64_t
 
   else
   {
-    v11 = *(result + 20);
+    v11 = *(result + 5);
   }
 
   if (!v10)
   {
-    v9 = *(result + 20);
+    v9 = *(result + 5);
   }
 
   if (a3 == -1 || (v9 <= a3 ? (v13 = __OFSUB__(v11, a3), v12 = v11 - a3 < 0) : (v13 = 0, v12 = 1), v12 ^ v13))
   {
-    *(a4 + 8) = 0;
+    a4[2] = 0;
   }
 
   else
@@ -7149,10 +7191,10 @@ uint64_t CWIDCrumbBank::getScore(uint64_t a1, uint64_t a2, int a3)
   }
 }
 
-void CWIDCrumbBank::getFrameInfoForBTLat(_DWORD *a1, int a2, int a3, uint64_t a4, uint64_t a5, uint64_t a6, void **a7, int a8)
+void CWIDCrumbBank::getFrameInfoForBTLat(uint64_t *a1, int a2, int a3, _DWORD *a4, uint64_t a5, _DWORD *a6, void **a7, int a8)
 {
   CWIDCrumbBank::getFrameInfo(a1, a2, a3, a4, a5, a6);
-  v12 = *(a4 + 8);
+  v12 = a4[2];
   if (*(a7 + 3) < v12)
   {
     v25 = 0;
@@ -7177,7 +7219,7 @@ void CWIDCrumbBank::getFrameInfoForBTLat(_DWORD *a1, int a2, int a3, uint64_t a4
     }
 
     v23 = a7;
-    if (a8 && *(a4 + 8))
+    if (a8 && a4[2])
     {
       v13 = 0;
       do
@@ -7200,7 +7242,7 @@ void CWIDCrumbBank::getFrameInfoForBTLat(_DWORD *a1, int a2, int a3, uint64_t a4
             v20 = v17;
           }
 
-          v21 = a1[5];
+          v21 = *(a1 + 5);
           if (v20 >= v21)
           {
             if (CWIDCrumbBank::getScore(a1, v14, v20) <= Score)
@@ -7208,10 +7250,10 @@ void CWIDCrumbBank::getFrameInfoForBTLat(_DWORD *a1, int a2, int a3, uint64_t a4
               break;
             }
 
-            v21 = a1[5];
+            v21 = *(a1 + 5);
           }
 
-          v22 = a1[6] == 1 ? a1[4] : -a1[4];
+          v22 = *(a1 + 6) == 1 ? *(a1 + 4) : -*(a1 + 4);
           if (v18 <= v22 + v21 && CWIDCrumbBank::getScore(a1, v14, v18) < Score)
           {
             break;
@@ -7231,7 +7273,7 @@ LABEL_24:
         ++v13;
       }
 
-      while (v13 < *(a4 + 8));
+      while (v13 < a4[2]);
     }
   }
 }
@@ -7391,10 +7433,10 @@ void (***CWIDCrumbBank::mergeCrumbs(void (***this)(void), const HistoryMgr *a2))
     v3 = 0;
     do
     {
-      this = CWIDCrumbWACSFrame::mergeCrumbs(*(*v2 + 8 * v3++), a2);
+      this = CWIDCrumbWACSFrame::mergeCrumbs((*v2)[v3++], a2);
     }
 
-    while (v3 < *(v2 + 8));
+    while (v3 < *(v2 + 2));
   }
 
   return this;
@@ -7411,7 +7453,7 @@ uint64_t *CWIDCrumbBank::updateCrumbHistory(uint64_t *this, int a2)
       this = CWIDCrumbWACSFrame::updateCrumbHistory(*(*v3 + 8 * v4++), a2);
     }
 
-    while (v4 < *(v3 + 8));
+    while (v4 < *(v3 + 2));
   }
 
   return this;
@@ -7422,31 +7464,79 @@ void CWIDCrumbBank::printSize(CWIDCrumbBank *this, uint64_t a2, uint64_t a3, uni
   *a4 = 0;
   *a5 = 0;
   *a6 = 0;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/kernel/crumb.cpp", 1584, &v52);
-  if (v53)
+  getShipObjectSizeDescription(&v30, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/kernel/crumb.cpp", 1584);
+  if (v31)
   {
-    v16 = v52;
+    v13 = v30;
   }
 
   else
   {
-    v16 = &byte_262899963;
+    v13 = &byte_262899963;
   }
 
-  xlprintf("ObSize: %*s*************************************************************\nObSize: %*sBegin %s ", v12, v13, v14, v15, a3, &byte_262899963, a3, &byte_262899963, v16);
-  DgnString::~DgnString(&v52);
+  xlprintf("ObSize: %*s*************************************************************\nObSize: %*sBegin %s ", v12, a3, &byte_262899963, a3, &byte_262899963, v13);
+  DgnString::~DgnString(&v30);
   if (a2 != -1)
   {
-    xlprintf("%d ", v17, v18, v19, v20, a2);
+    xlprintf("%d ", v14, a2);
   }
 
-  xlprintf("(alloc, used, shared)\nObSize: %*s*************************************************************\n", v17, v18, v19, v20, a3, &byte_262899963);
-  v21 = sizeObject<CWIDCrumbWACSFrame *>(this, 0);
-  v22 = sizeObject<CWIDCrumbWACSFrame *>(this, 1);
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/kernel/crumb.cpp", 1586, &v52);
-  if (v53)
+  xlprintf("(alloc, used, shared)\nObSize: %*s*************************************************************\n", v14, a3, &byte_262899963);
+  v15 = sizeObject<CWIDCrumbWACSFrame *>(this, 0);
+  v16 = sizeObject<CWIDCrumbWACSFrame *>(this, 1);
+  getShipObjectSizeDescription(&v30, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/kernel/crumb.cpp", 1586);
+  if (v31)
   {
-    v27 = v52;
+    v18 = v30;
+  }
+
+  else
+  {
+    v18 = &byte_262899963;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v17, (a3 + 1), &byte_262899963, (34 - a3), (34 - a3), v18, v15, v16, 0);
+  DgnString::~DgnString(&v30);
+  *a4 += v15;
+  *a5 += v16;
+  getShipObjectSizeDescription(&v30, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/kernel/crumb.cpp", 1588);
+  if (v31)
+  {
+    v20 = v30;
+  }
+
+  else
+  {
+    v20 = &byte_262899963;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v19, (a3 + 1), &byte_262899963, (34 - a3), (34 - a3), v20, 4, 4, 0);
+  DgnString::~DgnString(&v30);
+  *a4 += 4;
+  *a5 += 4;
+  getShipObjectSizeDescription(&v30, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/kernel/crumb.cpp", 1589);
+  if (v31)
+  {
+    v22 = v30;
+  }
+
+  else
+  {
+    v22 = &byte_262899963;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v21, (a3 + 1), &byte_262899963, (34 - a3), (34 - a3), v22, 4, 4, 0);
+  DgnString::~DgnString(&v30);
+  *a4 += 4;
+  *a5 += 4;
+  v23 = sizeObject(this + 24, 0);
+  v24 = sizeObject(this + 24, 1);
+  v25 = sizeObject(this + 24, 3);
+  getShipObjectSizeDescription(&v30, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/kernel/crumb.cpp", 1590);
+  if (v31)
+  {
+    v27 = v30;
   }
 
   else
@@ -7454,83 +7544,34 @@ void CWIDCrumbBank::printSize(CWIDCrumbBank *this, uint64_t a2, uint64_t a3, uni
     v27 = &byte_262899963;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v23, v24, v25, v26, (a3 + 1), &byte_262899963, (34 - a3), (34 - a3), v27, v21, v22, 0);
-  DgnString::~DgnString(&v52);
-  *a4 += v21;
-  *a5 += v22;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/kernel/crumb.cpp", 1588, &v52);
-  if (v53)
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v26, (a3 + 1), &byte_262899963, (34 - a3), (34 - a3), v27, v23, v24, v25);
+  DgnString::~DgnString(&v30);
+  *a4 += v23;
+  *a5 += v24;
+  *a6 += v25;
+  getShipObjectSizeDescription(&v30, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/kernel/crumb.cpp", 1591);
+  if (v31)
   {
-    v32 = v52;
+    v29 = v30;
   }
 
   else
   {
-    v32 = &byte_262899963;
+    v29 = &byte_262899963;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v28, v29, v30, v31, (a3 + 1), &byte_262899963, (34 - a3), (34 - a3), v32, 4, 4, 0);
-  DgnString::~DgnString(&v52);
-  *a4 += 4;
-  *a5 += 4;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/kernel/crumb.cpp", 1589, &v52);
-  if (v53)
-  {
-    v37 = v52;
-  }
-
-  else
-  {
-    v37 = &byte_262899963;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v33, v34, v35, v36, (a3 + 1), &byte_262899963, (34 - a3), (34 - a3), v37, 4, 4, 0);
-  DgnString::~DgnString(&v52);
-  *a4 += 4;
-  *a5 += 4;
-  v38 = sizeObject(this + 24, 0);
-  v39 = sizeObject(this + 24, 1);
-  v40 = sizeObject(this + 24, 3);
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/kernel/crumb.cpp", 1590, &v52);
-  if (v53)
-  {
-    v45 = v52;
-  }
-
-  else
-  {
-    v45 = &byte_262899963;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v41, v42, v43, v44, (a3 + 1), &byte_262899963, (34 - a3), (34 - a3), v45, v38, v39, v40);
-  DgnString::~DgnString(&v52);
-  *a4 += v38;
-  *a5 += v39;
-  *a6 += v40;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/kernel/crumb.cpp", 1591, &v52);
-  if (v53)
-  {
-    v50 = v52;
-  }
-
-  else
-  {
-    v50 = &byte_262899963;
-  }
-
-  v51 = *a5;
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v46, v47, v48, v49, a3, &byte_262899963, (35 - a3), (35 - a3), v50, *a4, *a5, *a6);
-  DgnString::~DgnString(&v52);
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v28, a3, &byte_262899963, (35 - a3), (35 - a3), v29, *a4, *a5, *a6);
+  DgnString::~DgnString(&v30);
 }
 
-void sub_262852A94(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_262852A94(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   DgnString::~DgnString(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t sizeObject<CWIDCrumbWACSFrame *>(uint64_t a1, int a2)
+uint64_t sizeObject<CWIDCrumbWACSFrame *>(uint64_t a1, uint64_t a2)
 {
   if (a2 == 3)
   {
@@ -7647,7 +7688,7 @@ void *DgnArray<CWIDCrumbWACS>::releaseAll(uint64_t a1)
   return result;
 }
 
-uint64_t DgnArray<CWIDCrumbWACS>::copyArraySlice(uint64_t result, void *a2, unsigned int a3, unsigned int a4)
+uint64_t DgnArray<CWIDCrumbWACS>::copyArraySlice(uint64_t result, void *a2, unsigned int a3, int a4)
 {
   v7 = result;
   v8 = *(result + 8);
@@ -7743,14 +7784,14 @@ LABEL_17:
   return result;
 }
 
-unint64_t CWIDCrumbWACS::CWIDCrumbWACS(unint64_t a1, uint64_t a2)
+uint64_t CWIDCrumbWACS::CWIDCrumbWACS(uint64_t a1, uint64_t a2)
 {
   *a1 = 0;
   *(a1 + 8) = 0;
   DgnArray<HistoryAndBigScore>::copyArraySlice(a1, a2, 0, *(a2 + 8));
   *(a1 + 16) = 0;
   *(a1 + 24) = 0;
-  DgnPrimArray<unsigned char>::copyArraySlice(a1 + 16, (a2 + 16), 0, *(a2 + 24));
+  DgnPrimArray<unsigned char>::copyArraySlice((a1 + 16), (a2 + 16), 0, *(a2 + 24));
   *(a1 + 32) = *(a2 + 32);
   *(a1 + 36) = *(a2 + 36);
   *(a1 + 40) = *(a2 + 40);
@@ -7761,11 +7802,11 @@ unint64_t CWIDCrumbWACS::CWIDCrumbWACS(unint64_t a1, uint64_t a2)
   return a1;
 }
 
-unint64_t DgnArray<HistoryAndBigScore>::copyArraySlice(unint64_t result, void *a2, unsigned int a3, unsigned int a4)
+uint64_t *DgnArray<HistoryAndBigScore>::copyArraySlice(uint64_t *result, void *a2, unsigned int a3, unsigned int a4)
 {
   v7 = result;
-  *(result + 8) = 0;
-  v8 = *(result + 12);
+  *(result + 2) = 0;
+  v8 = *(result + 3);
   if (a4 <= v8)
   {
     v9 = 0;
@@ -7779,7 +7820,7 @@ unint64_t DgnArray<HistoryAndBigScore>::copyArraySlice(unint64_t result, void *a
   else
   {
     result = DgnArray<RuleDesc>::reallocElts(result, a4 - v8, 0);
-    v9 = *(v7 + 8);
+    v9 = *(v7 + 2);
   }
 
   v11 = a4;
@@ -7791,8 +7832,8 @@ unint64_t DgnArray<HistoryAndBigScore>::copyArraySlice(unint64_t result, void *a
     *v13 = *v12;
     v13[1] = v12[1];
     v13[2] = v12[2];
-    v10 = *(v7 + 8) + 1;
-    *(v7 + 8) = v10;
+    v10 = *(v7 + 2) + 1;
+    *(v7 + 2) = v10;
     ++a3;
     --v11;
   }
@@ -7815,7 +7856,7 @@ LABEL_6:
     while (v14);
   }
 
-  *(v7 + 8) = a4;
+  *(v7 + 2) = a4;
   return result;
 }
 
@@ -7871,7 +7912,6 @@ void Hash<CWIDAC,CWIDAC,CWIDAC,unsigned int>::~Hash(uint64_t a1)
   JUMPOUT(0x26672B1B0);
 }
 
-uint64_t Hash<CWIDAC,CWIDAC,CWIDAC,unsigned int>::~Hash(uint64_t a1)
 {
   *a1 = &unk_287524068;
   if (*(a1 + 8))
@@ -7882,7 +7922,7 @@ uint64_t Hash<CWIDAC,CWIDAC,CWIDAC,unsigned int>::~Hash(uint64_t a1)
   DgnPrimFixArray<double>::~DgnPrimFixArray(a1 + 80);
   DgnPool::~DgnPool((a1 + 24));
 
-  return MrecInitModule_sdpres_sdapi();
+  MrecInitModule_sdpres_sdapi();
 }
 
 uint64_t Hash<CWIDAC,CWIDAC,CWIDAC,unsigned int>::removeAll(uint64_t result)
@@ -7933,7 +7973,7 @@ uint64_t Hash<CWIDAC,CWIDAC,CWIDAC,unsigned int>::removeAll(uint64_t result)
 unint64_t CWIDCrumbWACS::operator=(unint64_t a1, uint64_t a2)
 {
   DgnArray<HistoryAndBigScore>::copyArraySlice(a1, a2, 0, *(a2 + 8));
-  DgnPrimArray<unsigned char>::copyArraySlice(a1 + 16, (a2 + 16), 0, *(a2 + 24));
+  DgnPrimArray<unsigned char>::copyArraySlice((a1 + 16), (a2 + 16), 0, *(a2 + 24));
   *(a1 + 32) = *(a2 + 32);
   *(a1 + 36) = *(a2 + 36);
   *(a1 + 40) = *(a2 + 40);
@@ -8171,113 +8211,114 @@ uint64_t CollMgr::flushPendingCollation(CollMgr *a1, uint64_t a2, uint64_t a3, u
   return result;
 }
 
-uint64_t CollMgr::newUns8Collation(CollMgr *a1, char *a2, uint64_t a3, uint64_t a4, uint64_t a5, unsigned __int8 **a6)
+uint64_t CollMgr::newUns8Collation(CollMgr *a1, char *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
-  v91 = *MEMORY[0x277D85DE8];
+  v83 = *MEMORY[0x277D85DE8];
   if ((checkValidCollName(a2) & 1) == 0)
   {
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/collmgr.cpp", 1036, "word/collmgr", 24, "%.500s", v16, v17, a2);
+    v12 = errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/collmgr.cpp", 1036, "word/collmgr", 24, "%.500s", a2);
   }
 
-  if (CollMgr::lookupCollation(a1, a2, v12, v13, v14, v15, v16, v17))
+  if (CollMgr::lookupCollation(a1, a2, v12))
   {
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/collmgr.cpp", 1038, "word/collmgr", 11, "%.500s", v18, v19, a2);
+    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/collmgr.cpp", 1038, "word/collmgr", 11, "%.500s", a2);
   }
 
   if (**a1)
   {
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/collmgr.cpp", 1040, "word/collmgr", 4, "%s", v18, v19, &errStr_word_collmgr_E_COLLATION_BAD_TYPE);
+    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/collmgr.cpp", 1040, "word/collmgr", 4, "%s", &errStr_word_collmgr_E_COLLATION_BAD_TYPE);
   }
 
   __s = a2;
-  v86 = a1;
-  memset(v90, 0, sizeof(v90));
-  memset(v89, 0, sizeof(v89));
-  v84 = a6;
-  if (*(a6 + 2) != 256)
+  v78 = a1;
+  v13 = 0.0;
+  memset(v82, 0, sizeof(v82));
+  memset(v81, 0, sizeof(v81));
+  v76 = a6;
+  if (*(a6 + 8) != 256)
   {
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/collmgr.cpp", 1051, "word/collmgr", 19, "%d", v18, v19, 0);
+    v13 = errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/collmgr.cpp", 1051, "word/collmgr", 19, "%d", 256);
   }
 
-  v20 = *(a3 + 8);
-  if (v20)
+  v14 = *(a3 + 8);
+  if (v14)
   {
-    v21 = a3;
-    v22 = 0;
-    v23 = 4;
-    v24 = 1;
+    v15 = a3;
+    v16 = 0;
+    v17 = 4;
+    v18 = 1;
     do
     {
-      v25 = (*v21 + 4 * v22);
-      *(v90 + *v25) = 1;
-      *(v89 + v25[2]) = 1;
-      *(v89 + v25[3]) = 1;
-      v87 = v23;
-      v88 = v22 + 1;
-      v26 = v24;
-      if (v22 + 1 < v20)
+      v19 = (*v15 + 4 * v16);
+      *(v82 + *v19) = 1;
+      *(v81 + v19[2]) = 1;
+      *(v81 + v19[3]) = 1;
+      v79 = v17;
+      v80 = v16 + 1;
+      v20 = v18;
+      if (v16 + 1 < v14)
       {
         do
         {
-          if (*(*a3 + v23) == *v25)
+          if (*(*a3 + v17) == *v19)
           {
-            errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/collmgr.cpp", 1061, "word/collmgr", 12, "%.500s", v18, v19, "more than one oneToTwo.");
-            v20 = *(a3 + 8);
+            v13 = errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/collmgr.cpp", 1061, "word/collmgr", 12, "%.500s", "more than one oneToTwo.");
+            v14 = *(a3 + 8);
           }
 
-          ++v26;
-          v23 += 4;
+          ++v20;
+          v17 += 4;
         }
 
-        while (v26 < v20);
+        while (v20 < v14);
       }
 
-      v27 = *(a4 + 8);
-      if (v27)
+      v21 = *(a4 + 8);
+      if (v21)
       {
-        v28 = 0;
-        for (i = 0; i < v27; ++i)
+        v22 = 0;
+        for (i = 0; i < v21; ++i)
         {
-          if (*(*a4 + v28) == *v25)
+          if (*(*a4 + v22) == *v19)
           {
-            errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/collmgr.cpp", 1066, "word/collmgr", 12, "%.500s", v18, v19, "both a oneToTwo and a twoToOne.");
-            v27 = *(a4 + 8);
+            v13 = errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/collmgr.cpp", 1066, "word/collmgr", 12, "%.500s", "both a oneToTwo and a twoToOne.");
+            v21 = *(a4 + 8);
           }
 
-          v28 += 4;
+          v22 += 4;
         }
       }
 
-      v30 = *(a5 + 8);
-      if (v30)
+      v24 = *(a5 + 8);
+      if (v24)
       {
-        v31 = 0;
-        for (j = 0; j < v30; ++j)
+        v25 = 0;
+        for (j = 0; j < v24; ++j)
         {
-          if (*(*a5 + v31) == *v25)
+          if (*(*a5 + v25) == *v19)
           {
-            errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/collmgr.cpp", 1071, "word/collmgr", 12, "%.500s", v18, v19, "both a oneToTwo and a twoToTwo.");
-            v30 = *(a5 + 8);
+            v13 = errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/collmgr.cpp", 1071, "word/collmgr", 12, "%.500s", "both a oneToTwo and a twoToTwo.");
+            v24 = *(a5 + 8);
           }
 
-          v31 += 4;
+          v25 += 4;
         }
       }
 
-      v21 = a3;
-      v20 = *(a3 + 8);
-      ++v24;
-      v22 = v88;
-      v23 = v87 + 4;
+      v15 = a3;
+      v14 = *(a3 + 8);
+      ++v18;
+      v16 = v80;
+      v17 = v79 + 4;
     }
 
-    while (v88 < v20);
+    while (v80 < v14);
   }
 
-  v33 = *(a4 + 8);
-  if (!v33)
+  v27 = *(a4 + 8);
+  if (!v27)
   {
-    v41 = *(a5 + 8);
+    v35 = *(a5 + 8);
     if (!*(a5 + 8))
     {
       goto LABEL_53;
@@ -8286,423 +8327,509 @@ uint64_t CollMgr::newUns8Collation(CollMgr *a1, char *a2, uint64_t a3, uint64_t 
     goto LABEL_45;
   }
 
-  v34 = 0;
-  v35 = 0;
-  v36 = 1;
+  v28 = 0;
+  v29 = 0;
+  v30 = 1;
   do
   {
-    v37 = (*a4 + 4 * v35);
-    *(v90 + *v37) = 1;
-    *(v90 + v37[1]) = 1;
-    *(v89 + v37[2]) = 1;
-    ++v35;
-    v38 = v34;
-    v39 = v36;
-    if (v35 < v33)
+    v31 = (*a4 + 4 * v29);
+    *(v82 + *v31) = 1;
+    *(v82 + v31[1]) = 1;
+    *(v81 + v31[2]) = 1;
+    ++v29;
+    v32 = v28;
+    v33 = v30;
+    if (v29 < v27)
     {
       do
       {
-        v40 = *a4 + v38;
-        if (*(v40 + 4) == *v37 && *(v40 + 5) == v37[1])
+        v34 = *a4 + v32;
+        if (*(v34 + 4) == *v31 && *(v34 + 5) == v31[1])
         {
-          errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/collmgr.cpp", 1084, "word/collmgr", 13, "%.500s", v18, v19, "more than one twoToOne.");
-          v33 = *(a4 + 8);
+          v13 = errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/collmgr.cpp", 1084, "word/collmgr", 13, "%.500s", "more than one twoToOne.");
+          v27 = *(a4 + 8);
         }
 
-        ++v39;
-        v38 += 4;
+        ++v33;
+        v32 += 4;
       }
 
-      while (v39 < v33);
+      while (v33 < v27);
     }
 
-    v41 = *(a5 + 8);
-    if (v41)
+    v35 = *(a5 + 8);
+    if (v35)
     {
-      v42 = 0;
-      for (k = 0; k < v41; ++k)
+      v36 = 0;
+      for (k = 0; k < v35; ++k)
       {
-        if (*(*a5 + v42) == *v37 && *(*a5 + v42 + 1) == v37[1])
+        if (*(*a5 + v36) == *v31 && *(*a5 + v36 + 1) == v31[1])
         {
-          errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/collmgr.cpp", 1090, "word/collmgr", 13, "%.500s", v18, v19, "both a twoToOne and a twoToTwo.");
-          v41 = *(a5 + 8);
+          v13 = errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/collmgr.cpp", 1090, "word/collmgr", 13, "%.500s", "both a twoToOne and a twoToTwo.");
+          v35 = *(a5 + 8);
         }
 
-        v42 += 4;
+        v36 += 4;
       }
 
-      v33 = *(a4 + 8);
+      v27 = *(a4 + 8);
     }
 
     else
     {
-      v41 = 0;
+      v35 = 0;
     }
 
-    ++v36;
-    v34 += 4;
+    ++v30;
+    v28 += 4;
   }
 
-  while (v35 < v33);
-  if (v41)
+  while (v29 < v27);
+  if (v35)
   {
 LABEL_45:
-    v44 = 0;
-    v45 = 0;
-    v46 = 1;
+    v38 = 0;
+    v39 = 0;
+    v40 = 1;
     do
     {
-      v47 = (*a5 + 4 * v45);
-      *(v90 + *v47) = 1;
-      *(v90 + v47[1]) = 1;
-      *(v89 + v47[2]) = 1;
-      *(v89 + v47[3]) = 1;
-      if (++v45 < v41)
+      v41 = (*a5 + 4 * v39);
+      *(v82 + *v41) = 1;
+      *(v82 + v41[1]) = 1;
+      *(v81 + v41[2]) = 1;
+      *(v81 + v41[3]) = 1;
+      if (++v39 < v35)
       {
-        v48 = v44;
-        v49 = v46;
+        v42 = v38;
+        v43 = v40;
         do
         {
-          v50 = *a5 + v48;
-          if (*(v50 + 4) == *v47 && *(v50 + 5) == v47[1])
+          v44 = *a5 + v42;
+          if (*(v44 + 4) == *v41 && *(v44 + 5) == v41[1])
           {
-            errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/collmgr.cpp", 1104, "word/collmgr", 13, "%.500s", v18, v19, "more than one twoToTwo.");
-            v41 = *(a5 + 8);
+            v13 = errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/collmgr.cpp", 1104, "word/collmgr", 13, "%.500s", "more than one twoToTwo.");
+            v35 = *(a5 + 8);
           }
 
-          ++v49;
-          v48 += 4;
+          ++v43;
+          v42 += 4;
         }
 
-        while (v49 < v41);
+        while (v43 < v35);
       }
 
-      ++v46;
-      v44 += 4;
+      ++v40;
+      v38 += 4;
     }
 
-    while (v45 < v41);
+    while (v39 < v35);
   }
 
 LABEL_53:
-  if ((v90[0] & 1) != 0 || LOBYTE(v89[0]) == 1)
+  if ((v82[0] & 1) != 0 || LOBYTE(v81[0]) == 1)
   {
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/collmgr.cpp", 1108, "word/collmgr", 16, "%s", v18, v19, &errStr_word_collmgr_E_FROM_OR_TO_IS_ZERO);
+    v13 = errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/collmgr.cpp", 1108, "word/collmgr", 16, "%s", &errStr_word_collmgr_E_FROM_OR_TO_IS_ZERO);
   }
 
   for (m = 0; m != 256; ++m)
   {
-    if (*(v90 + m) == 1 && *(v89 + m) == 1)
+    if (*(v82 + m) == 1 && *(v81 + m) == 1)
     {
-      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/collmgr.cpp", 1111, "word/collmgr", 17, "%u", v18, v19, m);
+      v13 = errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/collmgr.cpp", 1111, "word/collmgr", 17, "%u", m);
     }
   }
 
   for (n = 0; n != 256; ++n)
   {
-    v53 = *v84;
+    v47 = *v76;
     if (n)
     {
-      if (!v53[n])
+      if (!v47[n])
       {
-        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/collmgr.cpp", 1122, "word/collmgr", 15, "%u", v18, v19, n);
+        v13 = errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/collmgr.cpp", 1122, "word/collmgr", 15, "%u", v13);
       }
     }
 
-    else
+    else if (*v47)
     {
-      v54 = *v53;
-      if (v54)
-      {
-        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/collmgr.cpp", 1118, "word/collmgr", 14, "%u", v18, v19, v54);
-      }
+      v13 = errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/collmgr.cpp", 1118, "word/collmgr", 14, "%u", v13);
     }
   }
 
-  v55 = *(v86 + 28);
-  if (v55)
+  v48 = *(v78 + 28);
+  if (v48)
   {
-    v56 = v55 - 1;
-    v57 = *(*(v86 + 13) + 2 * v56);
-    *(v86 + 28) = v56;
+    v49 = v48 - 1;
+    v50 = *(*(v78 + 13) + 2 * v49);
+    *(v78 + 28) = v49;
   }
 
   else
   {
-    if (*(v86 + 60) >= 0x4000u)
+    if (*(v78 + 60) >= 0x4000u)
     {
-      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/collmgr.cpp", 1136, "word/collmgr", 2, "%s", v18, v19, &errStr_word_collmgr_E_TOO_MANY);
+      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/collmgr.cpp", 1136, "word/collmgr", 2, "%s", &errStr_word_collmgr_E_TOO_MANY);
     }
 
-    v58 = *(v86 + 4);
-    if (v58 == *(v86 + 5))
+    v51 = *(v78 + 4);
+    if (v51 == *(v78 + 5))
     {
-      DgnPrimArray<unsigned int>::reallocElts(v86 + 8, 1, 1);
-      v58 = *(v86 + 4);
+      DgnPrimArray<unsigned int>::reallocElts(v78 + 8, 1, 1);
+      v51 = *(v78 + 4);
     }
 
-    *(v86 + 4) = v58 + 1;
-    v59 = *(v86 + 8);
-    if (v59 == *(v86 + 9))
+    *(v78 + 4) = v51 + 1;
+    v52 = *(v78 + 8);
+    if (v52 == *(v78 + 9))
     {
-      DgnArray<DgnPrimArray<double>>::reallocElts(v86 + 24, 1, 1);
-      v59 = *(v86 + 8);
+      DgnArray<DgnPrimArray<double>>::reallocElts(v78 + 24, 1, 1);
+      v52 = *(v78 + 8);
     }
 
-    v60 = (*(v86 + 3) + 16 * v59);
-    *v60 = 0;
-    v60[1] = 0;
-    ++*(v86 + 8);
-    v61 = *(v86 + 12);
-    if (v61 == *(v86 + 13))
+    v53 = (*(v78 + 3) + 16 * v52);
+    *v53 = 0;
+    v53[1] = 0;
+    ++*(v78 + 8);
+    v54 = *(v78 + 12);
+    if (v54 == *(v78 + 13))
     {
-      DgnArray<DgnPrimArray<double>>::reallocElts(v86 + 40, 1, 1);
-      v61 = *(v86 + 12);
+      DgnArray<DgnPrimArray<double>>::reallocElts(v78 + 40, 1, 1);
+      v54 = *(v78 + 12);
     }
 
-    v62 = (*(v86 + 5) + 16 * v61);
-    *v62 = 0;
-    v62[1] = 0;
-    ++*(v86 + 12);
-    v63 = *(v86 + 24);
-    if (v63 == *(v86 + 25))
+    v55 = (*(v78 + 5) + 16 * v54);
+    *v55 = 0;
+    v55[1] = 0;
+    ++*(v78 + 12);
+    v56 = *(v78 + 24);
+    if (v56 == *(v78 + 25))
     {
-      DgnArray<DgnPrimArray<double>>::reallocElts(v86 + 88, 1, 1);
-      v63 = *(v86 + 24);
+      DgnArray<DgnPrimArray<double>>::reallocElts(v78 + 88, 1, 1);
+      v56 = *(v78 + 24);
     }
 
-    DgnString::DgnString((*(v86 + 11) + 16 * v63));
-    ++*(v86 + 24);
-    v57 = *(v86 + 60);
-    *(v86 + 60) = v57 + 1;
+    DgnString::DgnString((*(v78 + 11) + 16 * v56));
+    ++*(v78 + 24);
+    v50 = *(v78 + 60);
+    *(v78 + 60) = v50 + 1;
   }
 
-  *(*(v86 + 1) + 4 * v57) = 1;
-  DgnPrimArray<unsigned char>::copyArraySlice(*(v86 + 3) + 16 * v57, v84, 0, *(v84 + 2));
-  v64 = *(v86 + 5) + 16 * v57;
-  *(v64 + 8) = 0;
-  v65 = *(a3 + 8);
-  v66 = *(v64 + 12);
-  if (v65 > v66)
+  *(*(v78 + 1) + 4 * v50) = 1;
+  DgnPrimArray<unsigned char>::copyArraySlice((*(v78 + 3) + 16 * v50), v76, 0, *(v76 + 8));
+  v57 = *(v78 + 5) + 16 * v50;
+  *(v57 + 8) = 0;
+  v58 = *(a3 + 8);
+  v59 = *(v57 + 12);
+  if (v58 > v59)
   {
-    DgnPrimArray<unsigned int>::reallocElts(v64, v65 - v66, 1);
-    v65 = *(a3 + 8);
+    DgnPrimArray<unsigned int>::reallocElts(v57, v58 - v59, 1);
+    v58 = *(a3 + 8);
   }
 
-  if (v65)
+  if (v58)
   {
-    v67 = 0;
+    v60 = 0;
     do
     {
-      *(*v64 + 4 * (v67 + *(v64 + 8))) = *(*a3 + 4 * v67);
-      ++v67;
-      v68 = *(a3 + 8);
+      *(*v57 + 4 * (v60 + *(v57 + 8))) = *(*a3 + 4 * v60);
+      ++v60;
+      v61 = *(a3 + 8);
     }
 
-    while (v67 < v68);
+    while (v60 < v61);
   }
 
   else
   {
-    LODWORD(v68) = 0;
+    LODWORD(v61) = 0;
   }
 
-  *(v64 + 8) += v68;
-  v69 = *(v86 + 5) + 16 * v57;
-  v70 = *(a4 + 8);
-  v71 = *(v69 + 12);
-  v72 = *(v69 + 8) + v70;
-  if (v72 > v71)
+  *(v57 + 8) += v61;
+  v62 = *(v78 + 5) + 16 * v50;
+  v63 = *(a4 + 8);
+  v64 = *(v62 + 12);
+  v65 = *(v62 + 8) + v63;
+  if (v65 > v64)
   {
-    DgnPrimArray<unsigned int>::reallocElts(*(v86 + 5) + 16 * v57, v72 - v71, 1);
-    v70 = *(a4 + 8);
+    DgnPrimArray<unsigned int>::reallocElts(*(v78 + 5) + 16 * v50, v65 - v64, 1);
+    v63 = *(a4 + 8);
   }
 
-  if (v70)
+  if (v63)
   {
-    v73 = 0;
+    v66 = 0;
     do
     {
-      *(*v69 + 4 * (v73 + *(v69 + 8))) = *(*a4 + 4 * v73);
-      ++v73;
-      v74 = *(a4 + 8);
+      *(*v62 + 4 * (v66 + *(v62 + 8))) = *(*a4 + 4 * v66);
+      ++v66;
+      v67 = *(a4 + 8);
     }
 
-    while (v73 < v74);
+    while (v66 < v67);
   }
 
   else
   {
-    LODWORD(v74) = 0;
+    LODWORD(v67) = 0;
   }
 
-  *(v69 + 8) += v74;
-  v75 = *(v86 + 5) + 16 * v57;
-  v76 = *(a5 + 8);
-  v77 = *(v75 + 12);
-  v78 = *(v75 + 8) + v76;
-  if (v78 > v77)
+  *(v62 + 8) += v67;
+  v68 = *(v78 + 5) + 16 * v50;
+  v69 = *(a5 + 8);
+  v70 = *(v68 + 12);
+  v71 = *(v68 + 8) + v69;
+  if (v71 > v70)
   {
-    DgnPrimArray<unsigned int>::reallocElts(*(v86 + 5) + 16 * v57, v78 - v77, 1);
-    v76 = *(a5 + 8);
+    DgnPrimArray<unsigned int>::reallocElts(*(v78 + 5) + 16 * v50, v71 - v70, 1);
+    v69 = *(a5 + 8);
   }
 
-  if (v76)
+  if (v69)
   {
-    v79 = 0;
+    v72 = 0;
     do
     {
-      *(*v75 + 4 * (v79 + *(v75 + 8))) = *(*a5 + 4 * v79);
-      ++v79;
-      v80 = *(a5 + 8);
+      *(*v68 + 4 * (v72 + *(v68 + 8))) = *(*a5 + 4 * v72);
+      ++v72;
+      v73 = *(a5 + 8);
     }
 
-    while (v79 < v80);
+    while (v72 < v73);
   }
 
   else
   {
-    LODWORD(v80) = 0;
+    LODWORD(v73) = 0;
   }
 
-  *(v75 + 8) += v80;
-  DgnString::operator=((*(v86 + 11) + 16 * v57), __s);
-  v81 = *(v86 + 56);
-  if (v81 == *(v86 + 57))
+  *(v68 + 8) += v73;
+  DgnString::operator=((*(v78 + 11) + 16 * v50), __s);
+  v74 = *(v78 + 56);
+  if (v74 == *(v78 + 57))
   {
-    DgnPrimArray<short>::reallocElts(v86 + 216, 1, 1);
-    v81 = *(v86 + 56);
+    DgnPrimArray<short>::reallocElts(v78 + 216, 1, 1);
+    v74 = *(v78 + 56);
   }
 
-  *(*(v86 + 27) + 2 * v81) = v57;
-  *(v86 + 56) = v81 + 1;
-  v82 = *MEMORY[0x277D85DE8];
-  return v57;
+  *(*(v78 + 27) + 2 * v74) = v50;
+  *(v78 + 56) = v74 + 1;
+  return v50;
 }
 
 uint64_t CollMgr::newUns32Collation(CollMgr *a1, char *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
   if ((checkValidCollName(a2) & 1) == 0)
   {
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/collmgr.cpp", 1166, "word/collmgr", 24, "%.500s", v16, v17, a2);
+    v12 = errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/collmgr.cpp", 1166, "word/collmgr", 24, "%.500s", a2);
   }
 
-  if (CollMgr::lookupCollation(a1, a2, v12, v13, v14, v15, v16, v17))
+  if (CollMgr::lookupCollation(a1, a2, v12))
   {
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/collmgr.cpp", 1168, "word/collmgr", 11, "%.500s", v18, v19, a2);
+    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/collmgr.cpp", 1168, "word/collmgr", 11, "%.500s", a2);
   }
 
   if (!**a1)
   {
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/collmgr.cpp", 1170, "word/collmgr", 4, "%s", v18, v19, &errStr_word_collmgr_E_COLLATION_BAD_TYPE);
+    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/collmgr.cpp", 1170, "word/collmgr", 4, "%s", &errStr_word_collmgr_E_COLLATION_BAD_TYPE);
   }
 
-  v113 = a2;
-  v114 = a1;
-  HashKEV<unsigned int,unsigned int,Uns32Scope>::HashKEV(v122, 0, 16);
-  HashKEV<unsigned int,unsigned int,Uns32Scope>::HashKEV(v120, 0, 16);
-  v118 = 0;
-  v119 = 0;
-  v22 = a3;
+  v100 = a2;
+  v101 = a1;
+  HashKEV<unsigned int,unsigned int,Uns32Scope>::HashKEV(v109, 0, 16);
+  HashKEV<unsigned int,unsigned int,Uns32Scope>::HashKEV(v107, 0, 16);
+  v105 = 0;
+  v106 = 0;
+  v14 = a3;
   if (*(a3 + 8))
   {
-    v23 = 0;
-    v117 = 1;
-    v116 = 16;
+    v15 = 0;
+    v104 = 1;
+    v103 = 16;
     do
     {
-      v24 = (*a3 + 16 * v23);
-      if (!*HashKEV<unsigned int,unsigned int,StateIdScope>::findBucket(v122, v24))
+      v16 = (*a3 + 16 * v15);
+      if (!*HashKEV<unsigned int,unsigned int,StateIdScope>::findBucket(v109, v16))
       {
-        HashKEV<unsigned int,unsigned int,CWIDScope>::add(v122, v24);
-        v25 = *v24;
-        v26 = v119;
-        if (v119 == HIDWORD(v119))
+        HashKEV<unsigned int,unsigned int,CWIDScope>::add(v109, v16);
+        v17 = *v16;
+        v18 = v106;
+        if (v106 == HIDWORD(v106))
         {
-          DgnPrimArray<unsigned int>::reallocElts(&v118, 1, 1);
-          v26 = v119;
+          DgnPrimArray<unsigned int>::reallocElts(&v105, 1, 1);
+          v18 = v106;
         }
 
-        *(v118 + 4 * v26) = v25;
-        LODWORD(v119) = v119 + 1;
+        *(v105 + 4 * v18) = v17;
+        LODWORD(v106) = v106 + 1;
       }
 
-      if (!*HashKEV<unsigned int,unsigned int,StateIdScope>::findBucket(v120, v24 + 2))
+      if (!*HashKEV<unsigned int,unsigned int,StateIdScope>::findBucket(v107, v16 + 2))
       {
-        HashKEV<unsigned int,unsigned int,CWIDScope>::add(v120, v24 + 2);
+        HashKEV<unsigned int,unsigned int,CWIDScope>::add(v107, v16 + 2);
       }
 
-      if (!*HashKEV<unsigned int,unsigned int,StateIdScope>::findBucket(v120, v24 + 3))
+      if (!*HashKEV<unsigned int,unsigned int,StateIdScope>::findBucket(v107, v16 + 3))
       {
-        HashKEV<unsigned int,unsigned int,CWIDScope>::add(v120, v24 + 3);
+        HashKEV<unsigned int,unsigned int,CWIDScope>::add(v107, v16 + 3);
       }
 
-      v27 = v23 + 1;
-      v28 = *(v22 + 8);
-      v29 = v116;
-      v30 = v117;
-      v115 = v27;
-      if (v27 < v28)
+      v19 = v15 + 1;
+      v20 = *(v14 + 8);
+      v21 = v103;
+      v22 = v104;
+      v102 = v19;
+      if (v19 < v20)
       {
         do
         {
-          if (*(*v22 + v29) == *v24)
+          if (*(*v14 + v21) == *v16)
           {
-            errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/collmgr.cpp", 1194, "word/collmgr", 12, "%.500s", v20, v21, "more than one oneToTwo.");
-            v28 = *(v22 + 8);
+            v13 = errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/collmgr.cpp", 1194, "word/collmgr", 12, "%.500s", "more than one oneToTwo.");
+            v20 = *(v14 + 8);
           }
 
-          ++v30;
-          v29 += 16;
+          ++v22;
+          v21 += 16;
         }
 
-        while (v30 < v28);
+        while (v22 < v20);
       }
 
-      v31 = *(a4 + 8);
-      if (v31)
+      v23 = *(a4 + 8);
+      if (v23)
       {
-        v32 = 0;
-        for (i = 0; i < v31; ++i)
+        v24 = 0;
+        for (i = 0; i < v23; ++i)
         {
-          if (*(*a4 + v32) == *v24)
+          if (*(*a4 + v24) == *v16)
           {
-            errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/collmgr.cpp", 1199, "word/collmgr", 12, "%.500s", v20, v21, "both a oneToTwo and a twoToOne.");
-            v31 = *(a4 + 8);
+            v13 = errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/collmgr.cpp", 1199, "word/collmgr", 12, "%.500s", "both a oneToTwo and a twoToOne.");
+            v23 = *(a4 + 8);
           }
 
-          v32 += 16;
+          v24 += 16;
         }
       }
 
-      v34 = *(a5 + 8);
-      if (v34)
+      v26 = *(a5 + 8);
+      if (v26)
       {
-        v35 = 0;
-        for (j = 0; j < v34; ++j)
+        v27 = 0;
+        for (j = 0; j < v26; ++j)
         {
-          if (*(*a5 + v35) == *v24)
+          if (*(*a5 + v27) == *v16)
           {
-            errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/collmgr.cpp", 1204, "word/collmgr", 12, "%.500s", v20, v21, "both a oneToTwo and a twoToTwo.");
-            v34 = *(a5 + 8);
+            v13 = errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/collmgr.cpp", 1204, "word/collmgr", 12, "%.500s", "both a oneToTwo and a twoToTwo.");
+            v26 = *(a5 + 8);
           }
 
-          v35 += 16;
+          v27 += 16;
         }
       }
 
-      a3 = v22;
-      v23 = v115;
-      v116 += 16;
-      ++v117;
+      a3 = v14;
+      v15 = v102;
+      v103 += 16;
+      ++v104;
     }
 
-    while (v115 < *(v22 + 8));
+    while (v102 < *(v14 + 8));
   }
 
-  if (!*(a4 + 8))
+  if (*(a4 + 8))
   {
-    if (!*(a5 + 8))
+    v29 = 0;
+    v30 = 0;
+    v31 = 1;
+    do
+    {
+      v32 = (*a4 + 16 * v30);
+      if (!*HashKEV<unsigned int,unsigned int,StateIdScope>::findBucket(v109, v32))
+      {
+        HashKEV<unsigned int,unsigned int,CWIDScope>::add(v109, v32);
+        v33 = *v32;
+        v34 = v106;
+        if (v106 == HIDWORD(v106))
+        {
+          DgnPrimArray<unsigned int>::reallocElts(&v105, 1, 1);
+          v34 = v106;
+        }
+
+        *(v105 + 4 * v34) = v33;
+        LODWORD(v106) = v106 + 1;
+      }
+
+      if (!*HashKEV<unsigned int,unsigned int,StateIdScope>::findBucket(v109, v32 + 1))
+      {
+        HashKEV<unsigned int,unsigned int,CWIDScope>::add(v109, v32 + 1);
+        v35 = *v32;
+        v36 = v106;
+        if (v106 == HIDWORD(v106))
+        {
+          DgnPrimArray<unsigned int>::reallocElts(&v105, 1, 1);
+          v36 = v106;
+        }
+
+        *(v105 + 4 * v36) = v35;
+        LODWORD(v106) = v106 + 1;
+      }
+
+      if (!*HashKEV<unsigned int,unsigned int,StateIdScope>::findBucket(v107, v32 + 2))
+      {
+        HashKEV<unsigned int,unsigned int,CWIDScope>::add(v107, v32 + 2);
+      }
+
+      ++v30;
+      v37 = *(a4 + 8);
+      v38 = v29;
+      v39 = v31;
+      if (v30 < v37)
+      {
+        do
+        {
+          v40 = *a4 + v38;
+          if (*(v40 + 16) == *v32 && *(v40 + 20) == v32[1])
+          {
+            v13 = errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/collmgr.cpp", 1228, "word/collmgr", 13, "%.500s", "more than one twoToOne.");
+            v37 = *(a4 + 8);
+          }
+
+          ++v39;
+          v38 += 16;
+        }
+
+        while (v39 < v37);
+      }
+
+      v41 = *(a5 + 8);
+      if (v41)
+      {
+        v42 = 0;
+        for (k = 0; k < v41; ++k)
+        {
+          if (*(*a5 + v42) == *v32 && *(*a5 + v42 + 4) == v32[1])
+          {
+            v13 = errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/collmgr.cpp", 1234, "word/collmgr", 13, "%.500s", "both a twoToOne and a twoToTwo.");
+            v41 = *(a5 + 8);
+          }
+
+          v42 += 16;
+        }
+
+        v37 = *(a4 + 8);
+      }
+
+      else
+      {
+        v41 = 0;
+      }
+
+      ++v31;
+      v29 += 16;
+    }
+
+    while (v30 < v37);
+    if (!v41)
     {
       goto LABEL_80;
     }
@@ -8710,537 +8837,740 @@ uint64_t CollMgr::newUns32Collation(CollMgr *a1, char *a2, uint64_t a3, uint64_t
     goto LABEL_61;
   }
 
-  v37 = 0;
-  v38 = 0;
-  v39 = 1;
-  do
-  {
-    v40 = (*a4 + 16 * v38);
-    if (!*HashKEV<unsigned int,unsigned int,StateIdScope>::findBucket(v122, v40))
-    {
-      HashKEV<unsigned int,unsigned int,CWIDScope>::add(v122, v40);
-      v41 = *v40;
-      v42 = v119;
-      if (v119 == HIDWORD(v119))
-      {
-        DgnPrimArray<unsigned int>::reallocElts(&v118, 1, 1);
-        v42 = v119;
-      }
-
-      *(v118 + 4 * v42) = v41;
-      LODWORD(v119) = v119 + 1;
-    }
-
-    if (!*HashKEV<unsigned int,unsigned int,StateIdScope>::findBucket(v122, v40 + 1))
-    {
-      HashKEV<unsigned int,unsigned int,CWIDScope>::add(v122, v40 + 1);
-      v43 = *v40;
-      v44 = v119;
-      if (v119 == HIDWORD(v119))
-      {
-        DgnPrimArray<unsigned int>::reallocElts(&v118, 1, 1);
-        v44 = v119;
-      }
-
-      *(v118 + 4 * v44) = v43;
-      LODWORD(v119) = v119 + 1;
-    }
-
-    if (!*HashKEV<unsigned int,unsigned int,StateIdScope>::findBucket(v120, v40 + 2))
-    {
-      HashKEV<unsigned int,unsigned int,CWIDScope>::add(v120, v40 + 2);
-    }
-
-    ++v38;
-    v45 = *(a4 + 8);
-    v46 = v37;
-    v47 = v39;
-    if (v38 < v45)
-    {
-      do
-      {
-        v48 = *a4 + v46;
-        if (*(v48 + 16) == *v40 && *(v48 + 20) == v40[1])
-        {
-          errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/collmgr.cpp", 1228, "word/collmgr", 13, "%.500s", v20, v21, "more than one twoToOne.");
-          v45 = *(a4 + 8);
-        }
-
-        ++v47;
-        v46 += 16;
-      }
-
-      while (v47 < v45);
-    }
-
-    v49 = *(a5 + 8);
-    if (v49)
-    {
-      v50 = 0;
-      for (k = 0; k < v49; ++k)
-      {
-        if (*(*a5 + v50) == *v40 && *(*a5 + v50 + 4) == v40[1])
-        {
-          errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/collmgr.cpp", 1234, "word/collmgr", 13, "%.500s", v20, v21, "both a twoToOne and a twoToTwo.");
-          v49 = *(a5 + 8);
-        }
-
-        v50 += 16;
-      }
-
-      v45 = *(a4 + 8);
-    }
-
-    else
-    {
-      v49 = 0;
-    }
-
-    ++v39;
-    v37 += 16;
-  }
-
-  while (v38 < v45);
-  if (v49)
+  if (*(a5 + 8))
   {
 LABEL_61:
-    v52 = 0;
-    v53 = 0;
-    v54 = 1;
+    v44 = 0;
+    v45 = 0;
+    v46 = 1;
     do
     {
-      v55 = (*a5 + 16 * v53);
-      if (!*HashKEV<unsigned int,unsigned int,StateIdScope>::findBucket(v122, v55))
+      v47 = (*a5 + 16 * v45);
+      if (!*HashKEV<unsigned int,unsigned int,StateIdScope>::findBucket(v109, v47))
       {
-        HashKEV<unsigned int,unsigned int,CWIDScope>::add(v122, v55);
-        v56 = *v55;
-        v57 = v119;
-        if (v119 == HIDWORD(v119))
+        HashKEV<unsigned int,unsigned int,CWIDScope>::add(v109, v47);
+        v48 = *v47;
+        v49 = v106;
+        if (v106 == HIDWORD(v106))
         {
-          DgnPrimArray<unsigned int>::reallocElts(&v118, 1, 1);
-          v57 = v119;
+          DgnPrimArray<unsigned int>::reallocElts(&v105, 1, 1);
+          v49 = v106;
         }
 
-        *(v118 + 4 * v57) = v56;
-        LODWORD(v119) = v119 + 1;
+        *(v105 + 4 * v49) = v48;
+        LODWORD(v106) = v106 + 1;
       }
 
-      if (!*HashKEV<unsigned int,unsigned int,StateIdScope>::findBucket(v122, v55 + 1))
+      if (!*HashKEV<unsigned int,unsigned int,StateIdScope>::findBucket(v109, v47 + 1))
       {
-        HashKEV<unsigned int,unsigned int,CWIDScope>::add(v122, v55 + 1);
-        v58 = *v55;
-        v59 = v119;
-        if (v119 == HIDWORD(v119))
+        HashKEV<unsigned int,unsigned int,CWIDScope>::add(v109, v47 + 1);
+        v50 = *v47;
+        v51 = v106;
+        if (v106 == HIDWORD(v106))
         {
-          DgnPrimArray<unsigned int>::reallocElts(&v118, 1, 1);
-          v59 = v119;
+          DgnPrimArray<unsigned int>::reallocElts(&v105, 1, 1);
+          v51 = v106;
         }
 
-        *(v118 + 4 * v59) = v58;
-        LODWORD(v119) = v119 + 1;
+        *(v105 + 4 * v51) = v50;
+        LODWORD(v106) = v106 + 1;
       }
 
-      if (!*HashKEV<unsigned int,unsigned int,StateIdScope>::findBucket(v120, v55 + 2))
+      if (!*HashKEV<unsigned int,unsigned int,StateIdScope>::findBucket(v107, v47 + 2))
       {
-        HashKEV<unsigned int,unsigned int,CWIDScope>::add(v120, v55 + 2);
+        HashKEV<unsigned int,unsigned int,CWIDScope>::add(v107, v47 + 2);
       }
 
-      if (!*HashKEV<unsigned int,unsigned int,StateIdScope>::findBucket(v120, v55 + 3))
+      if (!*HashKEV<unsigned int,unsigned int,StateIdScope>::findBucket(v107, v47 + 3))
       {
-        HashKEV<unsigned int,unsigned int,CWIDScope>::add(v120, v55 + 3);
+        HashKEV<unsigned int,unsigned int,CWIDScope>::add(v107, v47 + 3);
       }
 
-      ++v53;
-      v60 = *(a5 + 8);
-      v61 = v52;
-      v62 = v54;
-      if (v53 < v60)
+      ++v45;
+      v52 = *(a5 + 8);
+      v53 = v44;
+      v54 = v46;
+      if (v45 < v52)
       {
         do
         {
-          v63 = *a5 + v61;
-          if (*(v63 + 16) == *v55 && *(v63 + 20) == v55[1])
+          v55 = *a5 + v53;
+          if (*(v55 + 16) == *v47 && *(v55 + 20) == v47[1])
           {
-            errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/collmgr.cpp", 1262, "word/collmgr", 13, "%.500s", v20, v21, "more than one twoToTwo.");
-            v60 = *(a5 + 8);
+            v13 = errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/collmgr.cpp", 1262, "word/collmgr", 13, "%.500s", "more than one twoToTwo.");
+            v52 = *(a5 + 8);
           }
 
-          ++v62;
-          v61 += 16;
+          ++v54;
+          v53 += 16;
         }
 
-        while (v62 < v60);
+        while (v54 < v52);
       }
 
-      ++v54;
-      v52 += 16;
+      ++v46;
+      v44 += 16;
     }
 
-    while (v53 < v60);
+    while (v45 < v52);
   }
 
 LABEL_80:
-  v64 = v123;
+  v56 = v110;
   while (1)
   {
-    v64 = *v64;
-    if (!v64)
+    v56 = *v56;
+    if (!v56)
     {
       break;
     }
 
-    if (!*(v64 + 2) && !*(v64 + 3))
+    if (!*(v56 + 2) && !*(v56 + 3))
     {
 LABEL_89:
-      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/collmgr.cpp", 1267, "word/collmgr", 16, "%s", v20, v21, &errStr_word_collmgr_E_FROM_OR_TO_IS_ZERO);
+      v13 = errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/collmgr.cpp", 1267, "word/collmgr", 16, "%s", &errStr_word_collmgr_E_FROM_OR_TO_IS_ZERO);
       goto LABEL_90;
     }
   }
 
-  v65 = v121;
+  v57 = v108;
   while (1)
   {
-    v65 = *v65;
-    if (!v65)
+    v57 = *v57;
+    if (!v57)
     {
       break;
     }
 
-    if (!*(v65 + 2) && !*(v65 + 3))
+    if (!*(v57 + 2) && !*(v57 + 3))
     {
       goto LABEL_89;
     }
   }
 
 LABEL_90:
-  v66 = v22;
-  if (v119)
+  v58 = v14;
+  if (v106)
   {
-    v67 = 0;
-    v68 = 0;
+    v59 = 0;
+    v60 = 0;
     do
     {
-      if (*HashKEV<unsigned int,unsigned int,StateIdScope>::findBucket(v120, (v118 + v67)))
+      if (*HashKEV<unsigned int,unsigned int,StateIdScope>::findBucket(v107, (v105 + v59)))
       {
-        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/collmgr.cpp", 1271, "word/collmgr", 17, "%u", v20, v21, *(v118 + v67));
+        v13 = errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/collmgr.cpp", 1271, "word/collmgr", 17, "%u", *(v105 + v59));
       }
 
-      ++v68;
-      v67 += 4;
+      ++v60;
+      v59 += 4;
     }
 
-    while (v68 < v119);
+    while (v60 < v106);
   }
 
-  v69 = *(a6 + 8);
-  if (!v69)
+  v61 = *(a6 + 8);
+  if (v61)
   {
-    goto LABEL_108;
-  }
-
-  v70 = 0;
-  v71 = *(a6 + 16);
-  do
-  {
-    v72 = v71 + 16 * v70;
-    if (!*(v72 + 8))
-    {
-      goto LABEL_107;
-    }
-
-    v73 = 0;
+    v62 = 0;
+    v63 = *(a6 + 16);
     do
     {
-      v74 = *(*v72 + 4 * v73);
-      if (v73 + *(*a6 + 4 * v70))
+      v64 = v63 + 16 * v62;
+      if (*(v64 + 8))
       {
-        if (v74)
+        v65 = 0;
+        do
         {
-          goto LABEL_105;
+          v66 = *(*v64 + 4 * v65);
+          if (v65 + *(*a6 + 4 * v62))
+          {
+            if (!v66)
+            {
+              v13 = errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/collmgr.cpp", 1286, "word/collmgr", 15, "%u", v13);
+            }
+          }
+
+          else if (v66)
+          {
+            v13 = errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/collmgr.cpp", 1281, "word/collmgr", 14, "%u", v13);
+          }
+
+          ++v65;
+          v63 = *(a6 + 16);
+          v64 = v63 + 16 * v62;
         }
 
-        v75 = 15;
-        v76 = 1286;
-        v77 = "%u";
-        v74 = v73 + *(*a6 + 4 * v70);
+        while (v65 < *(v64 + 8));
+        v61 = *(a6 + 8);
+        v58 = v14;
       }
 
-      else
-      {
-        if (!v74)
-        {
-          goto LABEL_105;
-        }
-
-        v75 = 14;
-        v76 = 1281;
-        v77 = "%u";
-      }
-
-      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/collmgr.cpp", v76, "word/collmgr", v75, v77, v20, v21, v74);
-LABEL_105:
-      ++v73;
-      v71 = *(a6 + 16);
-      v72 = v71 + 16 * v70;
+      ++v62;
     }
 
-    while (v73 < *(v72 + 8));
-    v69 = *(a6 + 8);
-    v66 = v22;
-LABEL_107:
-    ++v70;
+    while (v62 < v61);
   }
 
-  while (v70 < v69);
-LABEL_108:
-  DgnPrimArray<unsigned int>::~DgnPrimArray(&v118);
-  HashKEV<unsigned int,unsigned int,Uns32Scope>::~HashKEV(v120);
-  HashKEV<unsigned int,unsigned int,Uns32Scope>::~HashKEV(v122);
-  v80 = *(v114 + 28);
-  if (v80)
+  DgnPrimArray<unsigned int>::~DgnPrimArray(&v105);
+  HashKEV<unsigned int,unsigned int,Uns32Scope>::~HashKEV(v107);
+  HashKEV<unsigned int,unsigned int,Uns32Scope>::~HashKEV(v109);
+  v67 = *(v101 + 28);
+  if (v67)
   {
-    v81 = v80 - 1;
-    v82 = *(*(v114 + 13) + 2 * v81);
-    *(v114 + 28) = v81;
-    v83 = v113;
+    v68 = v67 - 1;
+    v69 = *(*(v101 + 13) + 2 * v68);
+    *(v101 + 28) = v68;
+    v70 = v100;
   }
 
   else
   {
-    v83 = v113;
-    if (*(v114 + 60) >= 0x4000u)
+    v70 = v100;
+    if (*(v101 + 60) >= 0x4000u)
     {
-      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/collmgr.cpp", 1301, "word/collmgr", 2, "%s", v78, v79, &errStr_word_collmgr_E_TOO_MANY);
+      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/collmgr.cpp", 1301, "word/collmgr", 2, "%s", &errStr_word_collmgr_E_TOO_MANY);
     }
 
-    v84 = *(v114 + 4);
-    if (v84 == *(v114 + 5))
+    v71 = *(v101 + 4);
+    if (v71 == *(v101 + 5))
     {
-      DgnPrimArray<unsigned int>::reallocElts(v114 + 8, 1, 1);
-      v84 = *(v114 + 4);
+      DgnPrimArray<unsigned int>::reallocElts(v101 + 8, 1, 1);
+      v71 = *(v101 + 4);
     }
 
-    *(v114 + 4) = v84 + 1;
-    v85 = *(v114 + 16);
-    if (v85 == *(v114 + 17))
+    *(v101 + 4) = v71 + 1;
+    v72 = *(v101 + 16);
+    if (v72 == *(v101 + 17))
     {
-      DgnArray<PrefilterResultFrame>::reallocElts(v114 + 56, 1, 1);
-      v85 = *(v114 + 16);
+      DgnArray<PrefilterResultFrame>::reallocElts(v101 + 56, 1, 1);
+      v72 = *(v101 + 16);
     }
 
-    v86 = (*(v114 + 7) + 32 * v85);
-    *v86 = 0u;
-    v86[1] = 0u;
-    ++*(v114 + 16);
-    v87 = *(v114 + 20);
-    if (v87 == *(v114 + 21))
+    v73 = (*(v101 + 7) + 32 * v72);
+    *v73 = 0u;
+    v73[1] = 0u;
+    ++*(v101 + 16);
+    v74 = *(v101 + 20);
+    if (v74 == *(v101 + 21))
     {
-      DgnArray<DgnPrimArray<double>>::reallocElts(v114 + 72, 1, 1);
-      v87 = *(v114 + 20);
+      DgnArray<DgnPrimArray<double>>::reallocElts(v101 + 72, 1, 1);
+      v74 = *(v101 + 20);
     }
 
-    v88 = (*(v114 + 9) + 16 * v87);
-    *v88 = 0;
-    v88[1] = 0;
-    ++*(v114 + 20);
-    v89 = *(v114 + 24);
-    if (v89 == *(v114 + 25))
+    v75 = (*(v101 + 9) + 16 * v74);
+    *v75 = 0;
+    v75[1] = 0;
+    ++*(v101 + 20);
+    v76 = *(v101 + 24);
+    if (v76 == *(v101 + 25))
     {
-      DgnArray<DgnPrimArray<double>>::reallocElts(v114 + 88, 1, 1);
-      v89 = *(v114 + 24);
+      DgnArray<DgnPrimArray<double>>::reallocElts(v101 + 88, 1, 1);
+      v76 = *(v101 + 24);
     }
 
-    DgnString::DgnString((*(v114 + 11) + 16 * v89));
-    ++*(v114 + 24);
-    v82 = *(v114 + 60);
-    *(v114 + 60) = v82 + 1;
+    DgnString::DgnString((*(v101 + 11) + 16 * v76));
+    ++*(v101 + 24);
+    v69 = *(v101 + 60);
+    *(v101 + 60) = v69 + 1;
   }
 
-  *(*(v114 + 1) + 4 * v82) = 1;
-  v90 = *(v114 + 7) + 32 * v82;
-  DgnPrimArray<int>::copyArraySlice(v90, a6, 0, *(a6 + 8));
-  DgnArray<DgnPrimArray<unsigned int>>::copyArraySlice(v90 + 16, (a6 + 16), 0, *(a6 + 24));
-  v91 = *(v114 + 9) + 16 * v82;
-  *(v91 + 8) = 0;
-  v92 = *(v66 + 8);
-  v93 = *(v91 + 12);
-  if (v92 > v93)
+  *(*(v101 + 1) + 4 * v69) = 1;
+  v77 = (*(v101 + 7) + 32 * v69);
+  DgnPrimArray<int>::copyArraySlice(v77, a6, 0, *(a6 + 8));
+  DgnArray<DgnPrimArray<unsigned int>>::copyArraySlice((v77 + 2), (a6 + 16), 0, *(a6 + 24));
+  v78 = *(v101 + 9) + 16 * v69;
+  *(v78 + 8) = 0;
+  v79 = *(v58 + 8);
+  v80 = *(v78 + 12);
+  if (v79 > v80)
   {
-    DgnArray<DgnPrimArray<double>>::reallocElts(v91, v92 - v93, 1);
-    v92 = *(v66 + 8);
+    DgnArray<DgnPrimArray<double>>::reallocElts(v78, v79 - v80, 1);
+    v79 = *(v58 + 8);
+  }
+
+  if (v79)
+  {
+    v81 = 0;
+    v82 = 0;
+    do
+    {
+      *(*v78 + 16 * (v82++ + *(v78 + 8))) = *(*v58 + v81);
+      v83 = *(v58 + 8);
+      v81 += 16;
+    }
+
+    while (v82 < v83);
+  }
+
+  else
+  {
+    LODWORD(v83) = 0;
+  }
+
+  *(v78 + 8) += v83;
+  v84 = *(v101 + 9) + 16 * v69;
+  v85 = *(a4 + 8);
+  v86 = *(v84 + 12);
+  v87 = *(v84 + 8) + v85;
+  if (v87 > v86)
+  {
+    DgnArray<DgnPrimArray<double>>::reallocElts(*(v101 + 9) + 16 * v69, v87 - v86, 1);
+    v85 = *(a4 + 8);
+  }
+
+  if (v85)
+  {
+    v88 = 0;
+    v89 = 0;
+    do
+    {
+      *(*v84 + 16 * (v89++ + *(v84 + 8))) = *(*a4 + v88);
+      v90 = *(a4 + 8);
+      v88 += 16;
+    }
+
+    while (v89 < v90);
+  }
+
+  else
+  {
+    LODWORD(v90) = 0;
+  }
+
+  *(v84 + 8) += v90;
+  v91 = *(v101 + 9) + 16 * v69;
+  v92 = *(a5 + 8);
+  v93 = *(v91 + 12);
+  v94 = *(v91 + 8) + v92;
+  if (v94 > v93)
+  {
+    DgnArray<DgnPrimArray<double>>::reallocElts(*(v101 + 9) + 16 * v69, v94 - v93, 1);
+    v92 = *(a5 + 8);
   }
 
   if (v92)
   {
-    v94 = 0;
     v95 = 0;
+    v96 = 0;
     do
     {
-      *(*v91 + 16 * (v95++ + *(v91 + 8))) = *(*v66 + v94);
-      v96 = *(v66 + 8);
-      v94 += 16;
+      *(*v91 + 16 * (v96++ + *(v91 + 8))) = *(*a5 + v95);
+      v97 = *(a5 + 8);
+      v95 += 16;
     }
 
-    while (v95 < v96);
+    while (v96 < v97);
   }
 
   else
   {
-    LODWORD(v96) = 0;
+    LODWORD(v97) = 0;
   }
 
-  *(v91 + 8) += v96;
-  v97 = *(v114 + 9) + 16 * v82;
-  v98 = *(a4 + 8);
-  v99 = *(v97 + 12);
-  v100 = *(v97 + 8) + v98;
-  if (v100 > v99)
+  *(v91 + 8) += v97;
+  DgnString::operator=((*(v101 + 11) + 16 * v69), v70);
+  v98 = *(v101 + 56);
+  if (v98 == *(v101 + 57))
   {
-    DgnArray<DgnPrimArray<double>>::reallocElts(*(v114 + 9) + 16 * v82, v100 - v99, 1);
-    v98 = *(a4 + 8);
+    DgnPrimArray<short>::reallocElts(v101 + 216, 1, 1);
+    v98 = *(v101 + 56);
   }
 
-  if (v98)
-  {
-    v101 = 0;
-    v102 = 0;
-    do
-    {
-      *(*v97 + 16 * (v102++ + *(v97 + 8))) = *(*a4 + v101);
-      v103 = *(a4 + 8);
-      v101 += 16;
-    }
-
-    while (v102 < v103);
-  }
-
-  else
-  {
-    LODWORD(v103) = 0;
-  }
-
-  *(v97 + 8) += v103;
-  v104 = *(v114 + 9) + 16 * v82;
-  v105 = *(a5 + 8);
-  v106 = *(v104 + 12);
-  v107 = *(v104 + 8) + v105;
-  if (v107 > v106)
-  {
-    DgnArray<DgnPrimArray<double>>::reallocElts(*(v114 + 9) + 16 * v82, v107 - v106, 1);
-    v105 = *(a5 + 8);
-  }
-
-  if (v105)
-  {
-    v108 = 0;
-    v109 = 0;
-    do
-    {
-      *(*v104 + 16 * (v109++ + *(v104 + 8))) = *(*a5 + v108);
-      v110 = *(a5 + 8);
-      v108 += 16;
-    }
-
-    while (v109 < v110);
-  }
-
-  else
-  {
-    LODWORD(v110) = 0;
-  }
-
-  *(v104 + 8) += v110;
-  DgnString::operator=((*(v114 + 11) + 16 * v82), v83);
-  v111 = *(v114 + 56);
-  if (v111 == *(v114 + 57))
-  {
-    DgnPrimArray<short>::reallocElts(v114 + 216, 1, 1);
-    v111 = *(v114 + 56);
-  }
-
-  *(*(v114 + 27) + 2 * v111) = v82;
-  *(v114 + 56) = v111 + 1;
-  return v82;
+  *(*(v101 + 27) + 2 * v98) = v69;
+  *(v101 + 56) = v98 + 1;
+  return v69;
 }
 
-void sub_262855030(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, char a16, uint64_t a17, char a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, char a31)
+void sub_262855030(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, ...)
 {
+  va_start(va, a30);
   DgnPrimArray<unsigned int>::~DgnPrimArray(&a16);
   HashKEV<unsigned int,unsigned int,Uns32Scope>::~HashKEV(&a18);
-  HashKEV<unsigned int,unsigned int,Uns32Scope>::~HashKEV(&a31);
+  HashKEV<unsigned int,unsigned int,Uns32Scope>::~HashKEV(va);
   _Unwind_Resume(a1);
 }
 
-void CollMgr::loadCollMgrFromText(CollMgr *this, DFile *a2)
+void CollMgr::loadCollMgrFromText(CollMgr *this, FileSpec **a2)
 {
-  DgnTextFileParser::DgnTextFileParser(v272);
-  DgnTextFileParser::openDgnTextFileParser(v272, a2, 0x5Bu, 1);
-  DgnTextFileParser::verifyMatchingFileType(v272, "Collation");
-  v271[0] = 0;
-  v271[1] = 0;
-  DgnTextFile::legalDgnTextFileVersions(v272, sTCO_Versions, v271, v4, v5, v6, v7, v8);
-  DgnTextFileParser::verifyFileVersionInRange(v272, v271, v9, v10, v11, v12, v13, v14);
-  DgnTextFileParser::verifyNoUnknownHeaderFields(v272, v15, v16, v17, v18, v19, v20, v21);
-  v250 = 0uLL;
-  DgnTextFile::getLineFieldNames(v272, &v250);
-  v269 = 0;
-  v270 = 0;
-  DgnTextFile::getLineFieldFormats(v272, &v269);
-  DgnTextFileParser::verifyMatchingNumFieldSpecs(v272, 9, v22, v23, v24, v25, v26, v27);
-  v28 = v250;
-  if (*(v250 + 8))
+  DgnTextFileParser::DgnTextFileParser(v154);
+  DgnTextFileParser::openDgnTextFileParser(v154, a2, 91, 1);
+  DgnTextFileParser::verifyMatchingFileType(v154, "Collation");
+  v153[0] = 0;
+  v153[1] = 0;
+  DgnTextFile::legalDgnTextFileVersions(v154, sTCO_Versions, v153);
+  DgnTextFileParser::verifyFileVersionInRange(v154, v153);
+  DgnTextFileParser::verifyNoUnknownHeaderFields(v154);
+  v132 = 0uLL;
+  DgnTextFile::getLineFieldNames(v154, &v132);
+  v151 = 0;
+  v152 = 0;
+  DgnTextFile::getLineFieldFormats(v154, &v151);
+  DgnTextFileParser::verifyMatchingNumFieldSpecs(v154, 9);
+  v4 = v132;
+  if (*(v132 + 8))
   {
-    v29 = *v250;
+    v5 = *v132;
   }
 
   else
   {
-    v29 = &unk_2628991E4;
+    v5 = &unk_2628991E4;
   }
 
-  if (strcmp(v29, "CollName"))
+  if (strcmp(v5, "CollName"))
   {
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/collmgr.cpp", 412, "word/collmgr", 8, "%.500s %.500s", v30, v31, "CollName");
-    v28 = v250;
+    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/collmgr.cpp", 412, "word/collmgr", 8, "%.500s %.500s", "CollName", v5);
+    v4 = v132;
   }
 
-  if (*v269)
+  if (*v151)
   {
-    if (*(v28 + 8))
+    if (*(v4 + 8))
     {
-      v32 = *v28;
+      v6 = *v4;
     }
 
     else
     {
-      v32 = &unk_2628991E4;
+      v6 = &unk_2628991E4;
     }
 
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/collmgr.cpp", 415, "word/collmgr", 9, "%.500s %.500s", v30, v31, v32);
-    v28 = v250;
+    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/collmgr.cpp", 415, "word/collmgr", 9, "%.500s %.500s", v6, "String");
+    v4 = v132;
   }
 
-  if (*(v28 + 24))
+  if (*(v4 + 24))
   {
-    v33 = *(v28 + 16);
+    v7 = *(v4 + 16);
   }
 
   else
   {
-    v33 = &unk_2628991E4;
+    v7 = &unk_2628991E4;
   }
 
-  if (strcmp(v33, "CollType"))
+  if (strcmp(v7, "CollType"))
   {
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/collmgr.cpp", 419, "word/collmgr", 8, "%.500s %.500s", v34, v35, "CollType");
-    v28 = v250;
+    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/collmgr.cpp", 419, "word/collmgr", 8, "%.500s %.500s", "CollType", v7);
+    v4 = v132;
   }
 
-  if (*(v269 + 1))
+  if (*(v151 + 1))
   {
-    if (*(v28 + 24))
+    if (*(v4 + 24))
     {
-      v36 = *(v28 + 16);
+      v8 = *(v4 + 16);
+    }
+
+    else
+    {
+      v8 = &unk_2628991E4;
+    }
+
+    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/collmgr.cpp", 422, "word/collmgr", 9, "%.500s %.500s", v8, "String");
+    v4 = v132;
+  }
+
+  if (*(v4 + 40))
+  {
+    v9 = *(v4 + 32);
+  }
+
+  else
+  {
+    v9 = &unk_2628991E4;
+  }
+
+  if (strcmp(v9, "ComponentCollName1"))
+  {
+    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/collmgr.cpp", 426, "word/collmgr", 8, "%.500s %.500s", "ComponentCollName1", v9);
+    v4 = v132;
+  }
+
+  if (*(v151 + 2))
+  {
+    if (*(v4 + 40))
+    {
+      v10 = *(v4 + 32);
+    }
+
+    else
+    {
+      v10 = &unk_2628991E4;
+    }
+
+    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/collmgr.cpp", 429, "word/collmgr", 9, "%.500s %.500s", v10, "String");
+    v4 = v132;
+  }
+
+  if (*(v4 + 56))
+  {
+    v11 = *(v4 + 48);
+  }
+
+  else
+  {
+    v11 = &unk_2628991E4;
+  }
+
+  if (strcmp(v11, "ComponentCollName2"))
+  {
+    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/collmgr.cpp", 433, "word/collmgr", 8, "%.500s %.500s", "ComponentCollName2", v11);
+    v4 = v132;
+  }
+
+  if (*(v151 + 3))
+  {
+    if (*(v4 + 56))
+    {
+      v12 = *(v4 + 48);
+    }
+
+    else
+    {
+      v12 = &unk_2628991E4;
+    }
+
+    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/collmgr.cpp", 436, "word/collmgr", 9, "%.500s %.500s", v12, "String");
+    v4 = v132;
+  }
+
+  if (*(v4 + 72))
+  {
+    v13 = *(v4 + 64);
+  }
+
+  else
+  {
+    v13 = &unk_2628991E4;
+  }
+
+  if (strcmp(v13, "MapType"))
+  {
+    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/collmgr.cpp", 440, "word/collmgr", 8, "%.500s %.500s", "MapType", v13);
+    v4 = v132;
+  }
+
+  if (*(v151 + 4))
+  {
+    if (*(v4 + 72))
+    {
+      v14 = *(v4 + 64);
+    }
+
+    else
+    {
+      v14 = &unk_2628991E4;
+    }
+
+    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/collmgr.cpp", 443, "word/collmgr", 9, "%.500s %.500s", v14, "String");
+    v4 = v132;
+  }
+
+  if (*(v4 + 88))
+  {
+    v15 = *(v4 + 80);
+  }
+
+  else
+  {
+    v15 = &unk_2628991E4;
+  }
+
+  if (strcmp(v15, "MapFrom1"))
+  {
+    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/collmgr.cpp", 447, "word/collmgr", 8, "%.500s %.500s", "MapFrom1", v15);
+    v4 = v132;
+  }
+
+  if (*(v151 + 5) != 3)
+  {
+    if (*(v4 + 88))
+    {
+      v16 = *(v4 + 80);
+    }
+
+    else
+    {
+      v16 = &unk_2628991E4;
+    }
+
+    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/collmgr.cpp", 450, "word/collmgr", 9, "%.500s %.500s", v16, "Unsigned");
+    v4 = v132;
+  }
+
+  if (*(v4 + 104))
+  {
+    v17 = *(v4 + 96);
+  }
+
+  else
+  {
+    v17 = &unk_2628991E4;
+  }
+
+  if (strcmp(v17, "MapFrom2"))
+  {
+    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/collmgr.cpp", 454, "word/collmgr", 8, "%.500s %.500s", "MapFrom2", v17);
+    v4 = v132;
+  }
+
+  if (*(v151 + 6) != 3)
+  {
+    if (*(v4 + 104))
+    {
+      v18 = *(v4 + 96);
+    }
+
+    else
+    {
+      v18 = &unk_2628991E4;
+    }
+
+    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/collmgr.cpp", 457, "word/collmgr", 9, "%.500s %.500s", v18, "Unsigned");
+    v4 = v132;
+  }
+
+  if (*(v4 + 120))
+  {
+    v19 = *(v4 + 112);
+  }
+
+  else
+  {
+    v19 = &unk_2628991E4;
+  }
+
+  if (strcmp(v19, "MapTo1"))
+  {
+    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/collmgr.cpp", 461, "word/collmgr", 8, "%.500s %.500s", "MapTo1", v19);
+    v4 = v132;
+  }
+
+  if (*(v151 + 7) != 3)
+  {
+    if (*(v4 + 120))
+    {
+      v20 = *(v4 + 112);
+    }
+
+    else
+    {
+      v20 = &unk_2628991E4;
+    }
+
+    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/collmgr.cpp", 464, "word/collmgr", 9, "%.500s %.500s", v20, "Unsigned");
+    v4 = v132;
+  }
+
+  if (*(v4 + 136))
+  {
+    v21 = *(v4 + 128);
+  }
+
+  else
+  {
+    v21 = &unk_2628991E4;
+  }
+
+  if (strcmp(v21, "MapTo2"))
+  {
+    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/collmgr.cpp", 468, "word/collmgr", 8, "%.500s %.500s", "MapTo2", v21);
+  }
+
+  if (*(v151 + 8) != 3)
+  {
+    if (*(v132 + 136))
+    {
+      v22 = *(v132 + 128);
+    }
+
+    else
+    {
+      v22 = &unk_2628991E4;
+    }
+
+    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/collmgr.cpp", 471, "word/collmgr", 9, "%.500s %.500s", v22, "Unsigned");
+  }
+
+  DgnPrimArray<unsigned int>::~DgnPrimArray(&v151);
+  DgnArray<DgnString>::releaseAll(&v132);
+  DgnString::DgnString(&v151);
+  DgnString::DgnString(&v149);
+  DgnString::DgnString(v148);
+  v118 = 0;
+  v119 = 0;
+  v146 = 0;
+  v147 = 0;
+  v144 = 0;
+  v145 = 0;
+  v142 = 0;
+  v143 = 0;
+  v23 = 1;
+  v140 = 0;
+  v141 = 0;
+  v138 = 0;
+  v139 = 0;
+  v136 = 0;
+  v137 = 0;
+  v134 = 0;
+  v135 = 0;
+  v132 = 0u;
+  v133 = 0u;
+  v130 = 0;
+  v131 = 0;
+  while (DgnTextFileParser::parseNextLine(v154))
+  {
+    LineFieldString = DgnTextFileParser::getLineFieldString(v154, 0);
+    DgnString::DgnString(&v128, LineFieldString);
+    v25 = DgnTextFileParser::getLineFieldString(v154, 1u);
+    DgnString::DgnString(&v126, v25);
+    v26 = DgnTextFileParser::getLineFieldString(v154, 2u);
+    DgnString::DgnString(&v124, v26);
+    v27 = DgnTextFileParser::getLineFieldString(v154, 3u);
+    DgnString::DgnString(&v122, v27);
+    v28 = DgnTextFileParser::getLineFieldString(v154, 4u);
+    DgnString::DgnString(&__s1, v28);
+    LineFieldUnsigned = DgnTextFileParser::getLineFieldUnsigned(v154, 5u);
+    v30 = DgnTextFileParser::getLineFieldUnsigned(v154, 6u);
+    v31 = DgnTextFileParser::getLineFieldUnsigned(v154, 7u);
+    v32 = DgnTextFileParser::getLineFieldUnsigned(v154, 8u);
+    if (v23)
+    {
+      DgnString::operator=(&v151, &v128);
+      DgnString::operator=(&v149, &v126);
+      DgnString::operator=(v148, &__s1);
+    }
+
+    if (v129)
+    {
+      v33 = v128;
+    }
+
+    else
+    {
+      v33 = &unk_2628991E4;
+    }
+
+    if ((checkValidCollName(v33) & 1) == 0)
+    {
+      CurrentLine = DgnTextFile::getCurrentLine(v154);
+      if (*(CurrentLine + 8))
+      {
+        v35 = *CurrentLine;
+      }
+
+      else
+      {
+        v35 = &unk_2628991E4;
+      }
+
+      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/collmgr.cpp", 515, "word/collmgr", 10, "%.500s", v35);
+    }
+
+    if (v127)
+    {
+      v36 = v126;
     }
 
     else
@@ -9248,63 +9578,39 @@ void CollMgr::loadCollMgrFromText(CollMgr *this, DFile *a2)
       v36 = &unk_2628991E4;
     }
 
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/collmgr.cpp", 422, "word/collmgr", 9, "%.500s %.500s", v34, v35, v36);
-    v28 = v250;
-  }
-
-  if (*(v28 + 40))
-  {
-    v37 = *(v28 + 32);
-  }
-
-  else
-  {
-    v37 = &unk_2628991E4;
-  }
-
-  if (strcmp(v37, "ComponentCollName1"))
-  {
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/collmgr.cpp", 426, "word/collmgr", 8, "%.500s %.500s", v38, v39, "ComponentCollName1");
-    v28 = v250;
-  }
-
-  if (*(v269 + 2))
-  {
-    if (*(v28 + 40))
+    if (strcmp(v36, "TwoLevel") && strcmp(v36, "Char") && strcmp(v36, "WideChar"))
     {
-      v40 = *(v28 + 32);
+      v37 = DgnTextFile::getCurrentLine(v154);
+      if (*(v37 + 8))
+      {
+        v38 = *v37;
+      }
+
+      else
+      {
+        v38 = &unk_2628991E4;
+      }
+
+      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/collmgr.cpp", 520, "word/collmgr", 10, "%.500s", v38);
+    }
+
+    v39 = v129;
+    v40 = v128;
+    if (v129)
+    {
+      v41 = v128;
     }
 
     else
     {
-      v40 = &unk_2628991E4;
+      v41 = &unk_2628991E4;
     }
 
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/collmgr.cpp", 429, "word/collmgr", 9, "%.500s %.500s", v38, v39, v40);
-    v28 = v250;
-  }
-
-  if (*(v28 + 56))
-  {
-    v41 = *(v28 + 48);
-  }
-
-  else
-  {
-    v41 = &unk_2628991E4;
-  }
-
-  if (strcmp(v41, "ComponentCollName2"))
-  {
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/collmgr.cpp", 433, "word/collmgr", 8, "%.500s %.500s", v42, v43, "ComponentCollName2");
-    v28 = v250;
-  }
-
-  if (*(v269 + 3))
-  {
-    if (*(v28 + 56))
+    v42 = v152;
+    v43 = v151;
+    if (v152)
     {
-      v44 = *(v28 + 48);
+      v44 = v151;
     }
 
     else
@@ -9312,857 +9618,570 @@ void CollMgr::loadCollMgrFromText(CollMgr *this, DFile *a2)
       v44 = &unk_2628991E4;
     }
 
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/collmgr.cpp", 436, "word/collmgr", 9, "%.500s %.500s", v42, v43, v44);
-    v28 = v250;
-  }
-
-  if (*(v28 + 72))
-  {
-    v45 = *(v28 + 64);
-  }
-
-  else
-  {
-    v45 = &unk_2628991E4;
-  }
-
-  if (strcmp(v45, "MapType"))
-  {
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/collmgr.cpp", 440, "word/collmgr", 8, "%.500s %.500s", v46, v47, "MapType");
-    v28 = v250;
-  }
-
-  if (*(v269 + 4))
-  {
-    if (*(v28 + 72))
+    if (!strcmp(v41, v44))
     {
-      v48 = *(v28 + 64);
-    }
-
-    else
-    {
-      v48 = &unk_2628991E4;
-    }
-
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/collmgr.cpp", 443, "word/collmgr", 9, "%.500s %.500s", v46, v47, v48);
-    v28 = v250;
-  }
-
-  if (*(v28 + 88))
-  {
-    v49 = *(v28 + 80);
-  }
-
-  else
-  {
-    v49 = &unk_2628991E4;
-  }
-
-  if (strcmp(v49, "MapFrom1"))
-  {
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/collmgr.cpp", 447, "word/collmgr", 8, "%.500s %.500s", v50, v51, "MapFrom1");
-    v28 = v250;
-  }
-
-  if (*(v269 + 5) != 3)
-  {
-    if (*(v28 + 88))
-    {
-      v52 = *(v28 + 80);
-    }
-
-    else
-    {
-      v52 = &unk_2628991E4;
-    }
-
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/collmgr.cpp", 450, "word/collmgr", 9, "%.500s %.500s", v50, v51, v52);
-    v28 = v250;
-  }
-
-  if (*(v28 + 104))
-  {
-    v53 = *(v28 + 96);
-  }
-
-  else
-  {
-    v53 = &unk_2628991E4;
-  }
-
-  if (strcmp(v53, "MapFrom2"))
-  {
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/collmgr.cpp", 454, "word/collmgr", 8, "%.500s %.500s", v54, v55, "MapFrom2");
-    v28 = v250;
-  }
-
-  if (*(v269 + 6) != 3)
-  {
-    if (*(v28 + 104))
-    {
-      v56 = *(v28 + 96);
-    }
-
-    else
-    {
-      v56 = &unk_2628991E4;
-    }
-
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/collmgr.cpp", 457, "word/collmgr", 9, "%.500s %.500s", v54, v55, v56);
-    v28 = v250;
-  }
-
-  if (*(v28 + 120))
-  {
-    v57 = *(v28 + 112);
-  }
-
-  else
-  {
-    v57 = &unk_2628991E4;
-  }
-
-  if (strcmp(v57, "MapTo1"))
-  {
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/collmgr.cpp", 461, "word/collmgr", 8, "%.500s %.500s", v58, v59, "MapTo1");
-    v28 = v250;
-  }
-
-  if (*(v269 + 7) != 3)
-  {
-    if (*(v28 + 120))
-    {
-      v60 = *(v28 + 112);
-    }
-
-    else
-    {
-      v60 = &unk_2628991E4;
-    }
-
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/collmgr.cpp", 464, "word/collmgr", 9, "%.500s %.500s", v58, v59, v60);
-    v28 = v250;
-  }
-
-  if (*(v28 + 136))
-  {
-    v61 = *(v28 + 128);
-  }
-
-  else
-  {
-    v61 = &unk_2628991E4;
-  }
-
-  if (strcmp(v61, "MapTo2"))
-  {
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/collmgr.cpp", 468, "word/collmgr", 8, "%.500s %.500s", v62, v63, "MapTo2");
-  }
-
-  if (*(v269 + 8) != 3)
-  {
-    if (*(v250 + 136))
-    {
-      v64 = *(v250 + 128);
-    }
-
-    else
-    {
-      v64 = &unk_2628991E4;
-    }
-
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/collmgr.cpp", 471, "word/collmgr", 9, "%.500s %.500s", v62, v63, v64);
-  }
-
-  DgnPrimArray<unsigned int>::~DgnPrimArray(&v269);
-  DgnArray<DgnString>::releaseAll(&v250);
-  DgnString::DgnString(&v269);
-  DgnString::DgnString(&v267);
-  DgnString::DgnString(v266);
-  v236 = 0;
-  v237 = 0;
-  v264 = 0;
-  v265 = 0;
-  v262 = 0;
-  v263 = 0;
-  v260 = 0;
-  v261 = 0;
-  v65 = 1;
-  v258 = 0;
-  v259 = 0;
-  v256 = 0;
-  v257 = 0;
-  v254 = 0;
-  v255 = 0;
-  v252 = 0;
-  v253 = 0;
-  v250 = 0u;
-  v251 = 0u;
-  v248 = 0;
-  v249 = 0;
-  while (DgnTextFileParser::parseNextLine(v272))
-  {
-    LineFieldString = DgnTextFileParser::getLineFieldString(v272, 0);
-    DgnString::DgnString(&v246, LineFieldString);
-    v67 = DgnTextFileParser::getLineFieldString(v272, 1u);
-    DgnString::DgnString(&v244, v67);
-    v68 = DgnTextFileParser::getLineFieldString(v272, 2u);
-    DgnString::DgnString(&v242, v68);
-    v69 = DgnTextFileParser::getLineFieldString(v272, 3u);
-    DgnString::DgnString(&v240, v69);
-    v70 = DgnTextFileParser::getLineFieldString(v272, 4u);
-    DgnString::DgnString(&__s1, v70);
-    LineFieldUnsigned = DgnTextFileParser::getLineFieldUnsigned(v272, 5u, v71, v72, v73, v74, v75, v76);
-    v84 = DgnTextFileParser::getLineFieldUnsigned(v272, 6u, v78, v79, v80, v81, v82, v83);
-    v91 = DgnTextFileParser::getLineFieldUnsigned(v272, 7u, v85, v86, v87, v88, v89, v90);
-    v98 = DgnTextFileParser::getLineFieldUnsigned(v272, 8u, v92, v93, v94, v95, v96, v97);
-    if (v65)
-    {
-      DgnString::operator=(&v269, &v246);
-      DgnString::operator=(&v267, &v244);
-      DgnString::operator=(v266, &__s1);
-    }
-
-    if (v247)
-    {
-      v99 = v246;
-    }
-
-    else
-    {
-      v99 = &unk_2628991E4;
-    }
-
-    if ((checkValidCollName(v99) & 1) == 0)
-    {
-      CurrentLine = DgnTextFile::getCurrentLine(v272);
-      if (*(CurrentLine + 8))
+      v45 = v127 ? v126 : &unk_2628991E4;
+      v46 = (v150 ? v149 : &unk_2628991E4);
+      if (strcmp(v45, v46))
       {
-        v103 = *CurrentLine;
-      }
-
-      else
-      {
-        v103 = &unk_2628991E4;
-      }
-
-      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/collmgr.cpp", 515, "word/collmgr", 10, "%.500s", v101, v102, v103);
-    }
-
-    if (v245)
-    {
-      v104 = v244;
-    }
-
-    else
-    {
-      v104 = &unk_2628991E4;
-    }
-
-    if (strcmp(v104, "TwoLevel") && strcmp(v104, "Char") && strcmp(v104, "WideChar"))
-    {
-      v105 = DgnTextFile::getCurrentLine(v272);
-      if (*(v105 + 8))
-      {
-        v108 = *v105;
-      }
-
-      else
-      {
-        v108 = &unk_2628991E4;
-      }
-
-      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/collmgr.cpp", 520, "word/collmgr", 10, "%.500s", v106, v107, v108);
-    }
-
-    v109 = v247;
-    v110 = v246;
-    if (v247)
-    {
-      v111 = v246;
-    }
-
-    else
-    {
-      v111 = &unk_2628991E4;
-    }
-
-    v112 = v270;
-    v113 = v269;
-    if (v270)
-    {
-      v114 = v269;
-    }
-
-    else
-    {
-      v114 = &unk_2628991E4;
-    }
-
-    if (!strcmp(v111, v114))
-    {
-      v115 = v245 ? v244 : &unk_2628991E4;
-      v116 = (v268 ? v267 : &unk_2628991E4);
-      if (strcmp(v115, v116))
-      {
-        v117 = DgnTextFile::getCurrentLine(v272);
-        if (*(v117 + 8))
+        v47 = DgnTextFile::getCurrentLine(v154);
+        if (*(v47 + 8))
         {
-          v120 = *v117;
+          v48 = *v47;
         }
 
         else
         {
-          v120 = &unk_2628991E4;
+          v48 = &unk_2628991E4;
         }
 
-        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/collmgr.cpp", 524, "word/collmgr", 10, "%.500s", v118, v119, v120);
-        v109 = v247;
-        v110 = v246;
-        v112 = v270;
-        v113 = v269;
+        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/collmgr.cpp", 524, "word/collmgr", 10, "%.500s", v48);
+        v39 = v129;
+        v40 = v128;
+        v42 = v152;
+        v43 = v151;
       }
     }
 
-    if (v109)
+    if (v39)
     {
-      v121 = v110;
+      v49 = v40;
     }
 
     else
     {
-      v121 = &unk_2628991E4;
+      v49 = &unk_2628991E4;
     }
 
-    if (v112)
+    if (v42)
     {
-      v122 = v113;
+      v50 = v43;
     }
 
     else
     {
-      v122 = &unk_2628991E4;
+      v50 = &unk_2628991E4;
     }
 
-    if (strcmp(v121, v122))
+    if (strcmp(v49, v50))
     {
-      if (v249)
+      if (v131)
       {
-        v123 = DWORD2(v250);
-        if (DWORD2(v250) == HIDWORD(v250))
+        v51 = DWORD2(v132);
+        if (DWORD2(v132) == HIDWORD(v132))
         {
-          DgnPrimArray<unsigned int>::reallocElts(&v250, 1, 1);
-          v123 = DWORD2(v250);
+          DgnPrimArray<unsigned int>::reallocElts(&v132, 1, 1);
+          v51 = DWORD2(v132);
         }
 
-        *(v250 + 4 * v123) = HIDWORD(v237);
-        ++DWORD2(v250);
-        v124 = DWORD2(v251);
-        if (DWORD2(v251) == HIDWORD(v251))
+        *(v132 + 4 * v51) = HIDWORD(v119);
+        ++DWORD2(v132);
+        v52 = DWORD2(v133);
+        if (DWORD2(v133) == HIDWORD(v133))
         {
-          DgnArray<DgnPrimArray<double>>::reallocElts(&v251, 1, 1);
-          v124 = DWORD2(v251);
+          DgnArray<DgnPrimArray<double>>::reallocElts(&v133, 1, 1);
+          v52 = DWORD2(v133);
         }
 
-        v125 = (v251 + 16 * v124);
-        *v125 = 0;
-        v125[1] = 0;
-        DgnPrimArray<int>::copyArraySlice(v125, &v248, 0, v249);
-        HIDWORD(v237) = 0;
-        ++DWORD2(v251);
-        LODWORD(v249) = 0;
+        v53 = (v133 + 16 * v52);
+        *v53 = 0;
+        v53[1] = 0;
+        DgnPrimArray<int>::copyArraySlice(v53, &v130, 0, v131);
+        HIDWORD(v119) = 0;
+        ++DWORD2(v133);
+        LODWORD(v131) = 0;
       }
 
-      CollMgr::flushPendingCollation(this, &v269, &v267, &v264, &v262, &v260, &v258, &v256, &v254, &v252, &v250);
-      v236 = 0;
-      LOBYTE(v237) = 0;
+      CollMgr::flushPendingCollation(this, &v151, &v149, &v146, &v144, &v142, &v140, &v138, &v136, &v134, &v132);
+      v118 = 0;
+      LOBYTE(v119) = 0;
     }
 
-    if (v245)
+    if (v127)
     {
-      v126 = v244;
+      v54 = v126;
     }
 
     else
     {
-      v126 = &unk_2628991E4;
+      v54 = &unk_2628991E4;
     }
 
-    if (!strcmp(v126, "TwoLevel"))
+    if (!strcmp(v54, "TwoLevel"))
     {
-      if (v243 < 2 || v241 < 2)
+      if (v125 < 2 || v123 < 2)
       {
-        v158 = DgnTextFile::getCurrentLine(v272);
-        if (*(v158 + 8))
+        v69 = DgnTextFile::getCurrentLine(v154);
+        if (*(v69 + 8))
         {
-          v161 = *v158;
+          v70 = *v69;
         }
 
         else
         {
-          v161 = &unk_2628991E4;
+          v70 = &unk_2628991E4;
         }
 
-        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/collmgr.cpp", 555, "word/collmgr", 10, "%.500s", v159, v160, v161);
-        if (v243)
+        v55 = errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/collmgr.cpp", 555, "word/collmgr", 10, "%.500s", v70);
+        if (v125)
         {
-          v145 = v242;
+          v62 = v124;
         }
 
         else
         {
-          v145 = &unk_2628991E4;
+          v62 = &unk_2628991E4;
         }
       }
 
       else
       {
-        v145 = v242;
+        v62 = v124;
       }
 
-      v162 = CollMgr::lookupCollation(this, v145, v127, v128, v129, v130, v131, v132);
-      if (v241)
+      v71 = CollMgr::lookupCollation(this, v62, v55);
+      if (v123)
       {
-        v163 = v240;
-      }
-
-      else
-      {
-        v163 = &unk_2628991E4;
-      }
-
-      if (!strcmp(v163, "_IDENTITY"))
-      {
-        v170 = 65534;
+        v72 = v122;
       }
 
       else
       {
-        v170 = CollMgr::lookupCollation(this, v163, v164, v165, v166, v167, v168, v169);
+        v72 = &unk_2628991E4;
       }
 
-      if (v239 > 1 || LineFieldUnsigned || v84 || v91 || v98)
+      if (!strcmp(v72, "_IDENTITY"))
       {
-        v171 = DgnTextFile::getCurrentLine(v272);
-        if (*(v171 + 8))
+        v74 = 65534;
+      }
+
+      else
+      {
+        v74 = CollMgr::lookupCollation(this, v72, v73);
+      }
+
+      if (v121 > 1 || LineFieldUnsigned || v30 || v31 || v32)
+      {
+        v75 = DgnTextFile::getCurrentLine(v154);
+        if (*(v75 + 8))
         {
-          v174 = *v171;
+          v76 = *v75;
         }
 
         else
         {
-          v174 = &unk_2628991E4;
+          v76 = &unk_2628991E4;
         }
 
-        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/collmgr.cpp", 568, "word/collmgr", 10, "%.500s", v172, v173, v174);
+        v73 = errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/collmgr.cpp", 568, "word/collmgr", 10, "%.500s", v76);
       }
 
-      if (v247)
+      if (v129)
       {
-        v175 = v246;
+        v77 = v128;
       }
 
       else
       {
-        v175 = &unk_2628991E4;
+        v77 = &unk_2628991E4;
       }
 
-      CollMgr::newTwoLevelCollation(this, v175, v162, v170, v166, v167, v168, v169);
+      CollMgr::newTwoLevelCollation(this, v77, v71, v74, v73);
     }
 
-    else if (!strcmp(v126, "Char"))
+    else if (!strcmp(v54, "Char"))
     {
       if (**this)
       {
-        v146 = DgnTextFile::getCurrentLine(v272);
-        if (*(v146 + 8))
+        v63 = DgnTextFile::getCurrentLine(v154);
+        if (*(v63 + 8))
         {
-          v149 = *v146;
+          v64 = *v63;
         }
 
         else
         {
-          v149 = &unk_2628991E4;
+          v64 = &unk_2628991E4;
         }
 
-        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/collmgr.cpp", 575, "word/collmgr", 10, "%.500s", v147, v148, v149);
+        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/collmgr.cpp", 575, "word/collmgr", 10, "%.500s", v64);
       }
 
-      if (v243 > 1 || v241 >= 2)
+      if (v125 > 1 || v123 >= 2)
       {
-        v150 = DgnTextFile::getCurrentLine(v272);
-        if (*(v150 + 8))
+        v65 = DgnTextFile::getCurrentLine(v154);
+        if (*(v65 + 8))
         {
-          v153 = *v150;
+          v66 = *v65;
         }
 
         else
         {
-          v153 = &unk_2628991E4;
+          v66 = &unk_2628991E4;
         }
 
-        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/collmgr.cpp", 579, "word/collmgr", 10, "%.500s", v151, v152, v153);
+        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/collmgr.cpp", 579, "word/collmgr", 10, "%.500s", v66);
       }
 
-      if (v239 < 2 || (v176 = __s1, strcmp(__s1, "OneToTwo")) && strcmp(v176, "TwoToOne") && strcmp(v176, "TwoToTwo") && strcmp(v176, "OneToOne"))
+      if (v121 < 2 || (v78 = __s1, strcmp(__s1, "OneToTwo")) && strcmp(v78, "TwoToOne") && strcmp(v78, "TwoToTwo") && strcmp(v78, "OneToOne"))
       {
-        v154 = DgnTextFile::getCurrentLine(v272);
-        if (*(v154 + 8))
+        v67 = DgnTextFile::getCurrentLine(v154);
+        if (*(v67 + 8))
         {
-          v157 = *v154;
+          v68 = *v67;
         }
 
         else
         {
-          v157 = &unk_2628991E4;
+          v68 = &unk_2628991E4;
         }
 
-        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/collmgr.cpp", 586, "word/collmgr", 10, "%.500s", v155, v156, v157);
+        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/collmgr.cpp", 586, "word/collmgr", 10, "%.500s", v68);
       }
 
-      if (LineFieldUnsigned > 0xFF || v84 > 0xFF || v91 > 0xFF || v98 >= 0x100)
+      if (LineFieldUnsigned > 0xFF || v30 > 0xFF || v31 > 0xFF || v32 >= 0x100)
       {
-        v177 = DgnTextFile::getCurrentLine(v272);
-        if (*(v177 + 8))
+        v79 = DgnTextFile::getCurrentLine(v154);
+        if (*(v79 + 8))
         {
-          v180 = *v177;
+          v80 = *v79;
         }
 
         else
         {
-          v180 = &unk_2628991E4;
+          v80 = &unk_2628991E4;
         }
 
-        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/collmgr.cpp", 592, "word/collmgr", 10, "%.500s", v178, v179, v180);
+        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/collmgr.cpp", 592, "word/collmgr", 10, "%.500s", v80);
       }
 
-      if (v239)
+      if (v121)
       {
-        v181 = __s1;
+        v81 = __s1;
       }
 
       else
       {
-        v181 = &unk_2628991E4;
+        v81 = &unk_2628991E4;
       }
 
-      if (!strcmp(v181, "OneToTwo"))
+      if (!strcmp(v81, "OneToTwo"))
       {
-        if (v263 || v261 || v259)
+        if (v145 || v143 || v141)
         {
-          v186 = DgnTextFile::getCurrentLine(v272);
-          if (*(v186 + 8))
+          v84 = DgnTextFile::getCurrentLine(v154);
+          if (*(v84 + 8))
           {
-            v189 = *v186;
+            v85 = *v84;
           }
 
           else
           {
-            v189 = &unk_2628991E4;
+            v85 = &unk_2628991E4;
           }
 
-          errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/collmgr.cpp", 599, "word/collmgr", 10, "%.500s", v187, v188, v189);
+          errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/collmgr.cpp", 599, "word/collmgr", 10, "%.500s", v85);
         }
 
-        v190 = v265;
-        if (v265 == HIDWORD(v265))
+        v86 = v147;
+        if (v147 == HIDWORD(v147))
         {
-          DgnPrimArray<unsigned int>::reallocElts(&v264, 1, 1);
-          v190 = v265;
+          DgnPrimArray<unsigned int>::reallocElts(&v146, 1, 1);
+          v86 = v147;
         }
 
-        *(v264 + 4 * v190) = (v91 << 16) | (v98 << 24) | (v84 << 8) | LineFieldUnsigned;
-        LODWORD(v265) = v265 + 1;
+        *(v146 + 4 * v86) = (v31 << 16) | (v32 << 24) | (v30 << 8) | LineFieldUnsigned;
+        LODWORD(v147) = v147 + 1;
       }
 
-      else if (!strcmp(v181, "TwoToOne"))
+      else if (!strcmp(v81, "TwoToOne"))
       {
-        if (v261 | v259)
+        if (v143 | v141)
         {
-          v207 = DgnTextFile::getCurrentLine(v272);
-          if (*(v207 + 8))
+          v97 = DgnTextFile::getCurrentLine(v154);
+          if (*(v97 + 8))
           {
-            v210 = *v207;
+            v98 = *v97;
           }
 
           else
           {
-            v210 = &unk_2628991E4;
+            v98 = &unk_2628991E4;
           }
 
-          errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/collmgr.cpp", 612, "word/collmgr", 10, "%.500s", v208, v209, v210);
+          errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/collmgr.cpp", 612, "word/collmgr", 10, "%.500s", v98);
         }
 
-        v211 = v263;
-        if (v263 == HIDWORD(v263))
+        v99 = v145;
+        if (v145 == HIDWORD(v145))
         {
-          DgnPrimArray<unsigned int>::reallocElts(&v262, 1, 1);
-          v211 = v263;
+          DgnPrimArray<unsigned int>::reallocElts(&v144, 1, 1);
+          v99 = v145;
         }
 
-        *(v262 + 4 * v211) = (v91 << 16) | (v98 << 24) | (v84 << 8) | LineFieldUnsigned;
-        LODWORD(v263) = v263 + 1;
+        *(v144 + 4 * v99) = (v31 << 16) | (v32 << 24) | (v30 << 8) | LineFieldUnsigned;
+        LODWORD(v145) = v145 + 1;
       }
 
-      else if (!strcmp(v181, "TwoToTwo"))
+      else if (!strcmp(v81, "TwoToTwo"))
       {
-        if (v259)
+        if (v141)
         {
-          v218 = DgnTextFile::getCurrentLine(v272);
-          if (*(v218 + 8))
+          v104 = DgnTextFile::getCurrentLine(v154);
+          if (*(v104 + 8))
           {
-            v221 = *v218;
+            v105 = *v104;
           }
 
           else
           {
-            v221 = &unk_2628991E4;
+            v105 = &unk_2628991E4;
           }
 
-          errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/collmgr.cpp", 624, "word/collmgr", 10, "%.500s", v219, v220, v221);
+          errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/collmgr.cpp", 624, "word/collmgr", 10, "%.500s", v105);
         }
 
-        v222 = v261;
-        if (v261 == HIDWORD(v261))
+        v106 = v143;
+        if (v143 == HIDWORD(v143))
         {
-          DgnPrimArray<unsigned int>::reallocElts(&v260, 1, 1);
-          v222 = v261;
+          DgnPrimArray<unsigned int>::reallocElts(&v142, 1, 1);
+          v106 = v143;
         }
 
-        *(v260 + 4 * v222) = (v91 << 16) | (v98 << 24) | (v84 << 8) | LineFieldUnsigned;
-        LODWORD(v261) = v261 + 1;
+        *(v142 + 4 * v106) = (v31 << 16) | (v32 << 24) | (v30 << 8) | LineFieldUnsigned;
+        LODWORD(v143) = v143 + 1;
       }
 
-      else if (!strcmp(v181, "OneToOne"))
+      else if (!strcmp(v81, "OneToOne"))
       {
-        if (LineFieldUnsigned != v259 || v84 || v98)
+        if (LineFieldUnsigned != v141 || v30 || v32)
         {
-          v182 = DgnTextFile::getCurrentLine(v272);
-          if (*(v182 + 8))
+          v82 = DgnTextFile::getCurrentLine(v154);
+          if (*(v82 + 8))
           {
-            v185 = *v182;
+            v83 = *v82;
           }
 
           else
           {
-            v185 = &unk_2628991E4;
+            v83 = &unk_2628991E4;
           }
 
-          errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/collmgr.cpp", 638, "word/collmgr", 10, "%.500s", v183, v184, v185);
-          LineFieldUnsigned = v259;
+          errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/collmgr.cpp", 638, "word/collmgr", 10, "%.500s", v83);
+          LineFieldUnsigned = v141;
         }
 
-        if (LineFieldUnsigned == HIDWORD(v259))
+        if (LineFieldUnsigned == HIDWORD(v141))
         {
-          DgnPrimArray<char>::reallocElts(&v258, 1, 1);
-          LineFieldUnsigned = v259;
+          DgnPrimArray<char>::reallocElts(&v140, 1, 1);
+          LineFieldUnsigned = v141;
         }
 
-        *(v258 + LineFieldUnsigned) = v91;
-        LODWORD(v259) = v259 + 1;
+        *(v140 + LineFieldUnsigned) = v31;
+        LODWORD(v141) = v141 + 1;
       }
     }
 
     else
     {
-      if (strcmp(v126, "WideChar"))
+      if (strcmp(v54, "WideChar"))
       {
         goto LABEL_211;
       }
 
       if (!**this)
       {
-        v133 = DgnTextFile::getCurrentLine(v272);
-        if (*(v133 + 8))
+        v56 = DgnTextFile::getCurrentLine(v154);
+        if (*(v56 + 8))
         {
-          v136 = *v133;
+          v57 = *v56;
         }
 
         else
         {
-          v136 = &unk_2628991E4;
+          v57 = &unk_2628991E4;
         }
 
-        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/collmgr.cpp", 646, "word/collmgr", 10, "%.500s", v134, v135, v136);
+        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/collmgr.cpp", 646, "word/collmgr", 10, "%.500s", v57);
       }
 
-      if (v243 > 1 || v241 >= 2)
+      if (v125 > 1 || v123 >= 2)
       {
-        v137 = DgnTextFile::getCurrentLine(v272);
-        if (*(v137 + 8))
+        v58 = DgnTextFile::getCurrentLine(v154);
+        if (*(v58 + 8))
         {
-          v140 = *v137;
+          v59 = *v58;
         }
 
         else
         {
-          v140 = &unk_2628991E4;
+          v59 = &unk_2628991E4;
         }
 
-        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/collmgr.cpp", 650, "word/collmgr", 10, "%.500s", v138, v139, v140);
+        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/collmgr.cpp", 650, "word/collmgr", 10, "%.500s", v59);
       }
 
-      if (v239 < 2 || (v191 = __s1, strcmp(__s1, "OneToTwo")) && strcmp(v191, "TwoToOne") && strcmp(v191, "TwoToTwo") && strcmp(v191, "OneToOne"))
+      if (v121 < 2 || (v87 = __s1, strcmp(__s1, "OneToTwo")) && strcmp(v87, "TwoToOne") && strcmp(v87, "TwoToTwo") && strcmp(v87, "OneToOne"))
       {
-        v141 = DgnTextFile::getCurrentLine(v272);
-        if (*(v141 + 8))
+        v60 = DgnTextFile::getCurrentLine(v154);
+        if (*(v60 + 8))
         {
-          v144 = *v141;
+          v61 = *v60;
         }
 
         else
         {
-          v144 = &unk_2628991E4;
+          v61 = &unk_2628991E4;
         }
 
-        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/collmgr.cpp", 657, "word/collmgr", 10, "%.500s", v142, v143, v144);
+        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/collmgr.cpp", 657, "word/collmgr", 10, "%.500s", v61);
       }
 
-      if (HIWORD(LineFieldUnsigned) || HIWORD(v84) || HIWORD(v91) || v98 >= 0x10000)
+      if (HIWORD(LineFieldUnsigned) || HIWORD(v30) || HIWORD(v31) || v32 >= 0x10000)
       {
-        v192 = DgnTextFile::getCurrentLine(v272);
-        if (*(v192 + 8))
+        v88 = DgnTextFile::getCurrentLine(v154);
+        if (*(v88 + 8))
         {
-          v195 = *v192;
+          v89 = *v88;
         }
 
         else
         {
-          v195 = &unk_2628991E4;
+          v89 = &unk_2628991E4;
         }
 
-        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/collmgr.cpp", 663, "word/collmgr", 10, "%.500s", v193, v194, v195);
+        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/collmgr.cpp", 663, "word/collmgr", 10, "%.500s", v89);
       }
 
-      if (v239)
+      if (v121)
       {
-        v196 = __s1;
+        v90 = __s1;
       }
 
       else
       {
-        v196 = &unk_2628991E4;
+        v90 = &unk_2628991E4;
       }
 
-      if (!strcmp(v196, "OneToTwo"))
+      if (!strcmp(v90, "OneToTwo"))
       {
-        if (v255 || (v253 != 0) | v237 & 1)
+        if (v137 || (v135 != 0) | v119 & 1)
         {
-          v201 = DgnTextFile::getCurrentLine(v272);
-          if (*(v201 + 8))
+          v93 = DgnTextFile::getCurrentLine(v154);
+          if (*(v93 + 8))
           {
-            v204 = *v201;
+            v94 = *v93;
           }
 
           else
           {
-            v204 = &unk_2628991E4;
+            v94 = &unk_2628991E4;
           }
 
-          errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/collmgr.cpp", 670, "word/collmgr", 10, "%.500s", v202, v203, v204);
+          errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/collmgr.cpp", 670, "word/collmgr", 10, "%.500s", v94);
         }
 
-        v205 = v257;
-        if (v257 == HIDWORD(v257))
+        v95 = v139;
+        if (v139 == HIDWORD(v139))
         {
-          DgnArray<DgnPrimArray<double>>::reallocElts(&v256, 1, 1);
-          v205 = v257;
+          DgnArray<DgnPrimArray<double>>::reallocElts(&v138, 1, 1);
+          v95 = v139;
         }
 
-        v206 = (v256 + 16 * v205);
-        *v206 = LineFieldUnsigned;
-        v206[1] = v84;
-        v206[2] = v91;
-        v206[3] = v98;
-        LODWORD(v257) = v257 + 1;
+        v96 = (v138 + 16 * v95);
+        *v96 = LineFieldUnsigned;
+        v96[1] = v30;
+        v96[2] = v31;
+        v96[3] = v32;
+        LODWORD(v139) = v139 + 1;
       }
 
-      else if (!strcmp(v196, "TwoToOne"))
+      else if (!strcmp(v90, "TwoToOne"))
       {
-        if ((v253 != 0) | v237 & 1)
+        if ((v135 != 0) | v119 & 1)
         {
-          v212 = DgnTextFile::getCurrentLine(v272);
-          if (*(v212 + 8))
+          v100 = DgnTextFile::getCurrentLine(v154);
+          if (*(v100 + 8))
           {
-            v215 = *v212;
+            v101 = *v100;
           }
 
           else
           {
-            v215 = &unk_2628991E4;
+            v101 = &unk_2628991E4;
           }
 
-          errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/collmgr.cpp", 680, "word/collmgr", 10, "%.500s", v213, v214, v215);
+          errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/collmgr.cpp", 680, "word/collmgr", 10, "%.500s", v101);
         }
 
-        v216 = v255;
-        if (v255 == HIDWORD(v255))
+        v102 = v137;
+        if (v137 == HIDWORD(v137))
         {
-          DgnArray<DgnPrimArray<double>>::reallocElts(&v254, 1, 1);
-          v216 = v255;
+          DgnArray<DgnPrimArray<double>>::reallocElts(&v136, 1, 1);
+          v102 = v137;
         }
 
-        v217 = (v254 + 16 * v216);
-        *v217 = LineFieldUnsigned;
-        v217[1] = v84;
-        v217[2] = v91;
-        v217[3] = v98;
-        LODWORD(v255) = v255 + 1;
+        v103 = (v136 + 16 * v102);
+        *v103 = LineFieldUnsigned;
+        v103[1] = v30;
+        v103[2] = v31;
+        v103[3] = v32;
+        LODWORD(v137) = v137 + 1;
       }
 
       else
       {
-        if (strcmp(v196, "TwoToTwo"))
+        if (strcmp(v90, "TwoToTwo"))
         {
-          if (strcmp(v196, "OneToOne"))
+          if (strcmp(v90, "OneToOne"))
           {
             goto LABEL_211;
           }
 
-          if ((v237 & (v236 == 0)) != 0 || LineFieldUnsigned < v236 || v84 || v98)
+          if ((v119 & (v118 == 0)) != 0 || LineFieldUnsigned < v118 || v30 || v32)
           {
-            v197 = DgnTextFile::getCurrentLine(v272);
-            if (*(v197 + 8))
+            v91 = DgnTextFile::getCurrentLine(v154);
+            if (*(v91 + 8))
             {
-              v200 = *v197;
+              v92 = *v91;
             }
 
             else
             {
-              v200 = &unk_2628991E4;
+              v92 = &unk_2628991E4;
             }
 
-            errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/collmgr.cpp", 702, "word/collmgr", 10, "%.500s", v198, v199, v200);
+            errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/collmgr.cpp", 702, "word/collmgr", 10, "%.500s", v92);
           }
 
-          v229 = v249;
-          if (v249)
+          v111 = v131;
+          if (v131)
           {
-            if (LineFieldUnsigned != v249 + HIDWORD(v237))
+            if (LineFieldUnsigned != v131 + HIDWORD(v119))
             {
-              v230 = DWORD2(v250);
-              if (DWORD2(v250) == HIDWORD(v250))
+              v112 = DWORD2(v132);
+              if (DWORD2(v132) == HIDWORD(v132))
               {
-                DgnPrimArray<unsigned int>::reallocElts(&v250, 1, 1);
-                v230 = DWORD2(v250);
+                DgnPrimArray<unsigned int>::reallocElts(&v132, 1, 1);
+                v112 = DWORD2(v132);
               }
 
-              *(v250 + 4 * v230) = HIDWORD(v237);
-              ++DWORD2(v250);
-              v231 = DWORD2(v251);
-              if (DWORD2(v251) == HIDWORD(v251))
+              *(v132 + 4 * v112) = HIDWORD(v119);
+              ++DWORD2(v132);
+              v113 = DWORD2(v133);
+              if (DWORD2(v133) == HIDWORD(v133))
               {
-                DgnArray<DgnPrimArray<double>>::reallocElts(&v251, 1, 1);
-                v231 = DWORD2(v251);
+                DgnArray<DgnPrimArray<double>>::reallocElts(&v133, 1, 1);
+                v113 = DWORD2(v133);
               }
 
-              v232 = (v251 + 16 * v231);
-              *v232 = 0;
-              v232[1] = 0;
-              DgnPrimArray<int>::copyArraySlice(v232, &v248, 0, v249);
-              v229 = 0;
-              ++DWORD2(v251);
-              LODWORD(v249) = 0;
+              v114 = (v133 + 16 * v113);
+              *v114 = 0;
+              v114[1] = 0;
+              DgnPrimArray<int>::copyArraySlice(v114, &v130, 0, v131);
+              v111 = 0;
+              ++DWORD2(v133);
+              LODWORD(v131) = 0;
               goto LABEL_326;
             }
           }
@@ -10170,115 +10189,116 @@ void CollMgr::loadCollMgrFromText(CollMgr *this, DFile *a2)
           else
           {
 LABEL_326:
-            HIDWORD(v237) = LineFieldUnsigned;
+            HIDWORD(v119) = LineFieldUnsigned;
           }
 
-          if (v229 == HIDWORD(v249))
+          if (v111 == HIDWORD(v131))
           {
-            DgnPrimArray<unsigned int>::reallocElts(&v248, 1, 1);
-            v229 = v249;
+            DgnPrimArray<unsigned int>::reallocElts(&v130, 1, 1);
+            v111 = v131;
           }
 
-          *(v248 + 4 * v229) = v91;
-          LODWORD(v249) = v249 + 1;
-          v236 = LineFieldUnsigned + 1;
-          LOBYTE(v237) = 1;
+          *(v130 + 4 * v111) = v31;
+          LODWORD(v131) = v131 + 1;
+          v118 = LineFieldUnsigned + 1;
+          LOBYTE(v119) = 1;
           goto LABEL_211;
         }
 
-        if (v237)
+        if (v119)
         {
-          v223 = DgnTextFile::getCurrentLine(v272);
-          if (*(v223 + 8))
+          v107 = DgnTextFile::getCurrentLine(v154);
+          if (*(v107 + 8))
           {
-            v226 = *v223;
+            v108 = *v107;
           }
 
           else
           {
-            v226 = &unk_2628991E4;
+            v108 = &unk_2628991E4;
           }
 
-          errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/collmgr.cpp", 689, "word/collmgr", 10, "%.500s", v224, v225, v226);
+          errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/collmgr.cpp", 689, "word/collmgr", 10, "%.500s", v108);
         }
 
-        v227 = v253;
-        if (v253 == HIDWORD(v253))
+        v109 = v135;
+        if (v135 == HIDWORD(v135))
         {
-          DgnArray<DgnPrimArray<double>>::reallocElts(&v252, 1, 1);
-          v227 = v253;
+          DgnArray<DgnPrimArray<double>>::reallocElts(&v134, 1, 1);
+          v109 = v135;
         }
 
-        v228 = (v252 + 16 * v227);
-        *v228 = LineFieldUnsigned;
-        v228[1] = v84;
-        v228[2] = v91;
-        v228[3] = v98;
-        LODWORD(v253) = v253 + 1;
+        v110 = (v134 + 16 * v109);
+        *v110 = LineFieldUnsigned;
+        v110[1] = v30;
+        v110[2] = v31;
+        v110[3] = v32;
+        LODWORD(v135) = v135 + 1;
       }
     }
 
 LABEL_211:
-    DgnString::operator=(&v269, &v246);
-    DgnString::operator=(&v267, &v244);
-    DgnString::operator=(v266, &__s1);
+    DgnString::operator=(&v151, &v128);
+    DgnString::operator=(&v149, &v126);
+    DgnString::operator=(v148, &__s1);
     DgnString::~DgnString(&__s1);
-    DgnString::~DgnString(&v240);
-    DgnString::~DgnString(&v242);
-    DgnString::~DgnString(&v244);
-    DgnString::~DgnString(&v246);
-    v65 = 0;
+    DgnString::~DgnString(&v122);
+    DgnString::~DgnString(&v124);
+    DgnString::~DgnString(&v126);
+    DgnString::~DgnString(&v128);
+    v23 = 0;
   }
 
-  if ((v65 & 1) == 0)
+  if ((v23 & 1) == 0)
   {
-    if (v249)
+    if (v131)
     {
-      v233 = DWORD2(v250);
-      if (DWORD2(v250) == HIDWORD(v250))
+      v115 = DWORD2(v132);
+      if (DWORD2(v132) == HIDWORD(v132))
       {
-        DgnPrimArray<unsigned int>::reallocElts(&v250, 1, 1);
-        v233 = DWORD2(v250);
+        DgnPrimArray<unsigned int>::reallocElts(&v132, 1, 1);
+        v115 = DWORD2(v132);
       }
 
-      *(v250 + 4 * v233) = HIDWORD(v237);
-      ++DWORD2(v250);
-      v234 = DWORD2(v251);
-      if (DWORD2(v251) == HIDWORD(v251))
+      *(v132 + 4 * v115) = HIDWORD(v119);
+      ++DWORD2(v132);
+      v116 = DWORD2(v133);
+      if (DWORD2(v133) == HIDWORD(v133))
       {
-        DgnArray<DgnPrimArray<double>>::reallocElts(&v251, 1, 1);
-        v234 = DWORD2(v251);
+        DgnArray<DgnPrimArray<double>>::reallocElts(&v133, 1, 1);
+        v116 = DWORD2(v133);
       }
 
-      v235 = (v251 + 16 * v234);
-      *v235 = 0;
-      v235[1] = 0;
-      DgnPrimArray<int>::copyArraySlice(v235, &v248, 0, v249);
-      ++DWORD2(v251);
-      LODWORD(v249) = 0;
+      v117 = (v133 + 16 * v116);
+      *v117 = 0;
+      v117[1] = 0;
+      DgnPrimArray<int>::copyArraySlice(v117, &v130, 0, v131);
+      ++DWORD2(v133);
+      LODWORD(v131) = 0;
     }
 
-    CollMgr::flushPendingCollation(this, &v269, &v267, &v264, &v262, &v260, &v258, &v256, &v254, &v252, &v250);
+    CollMgr::flushPendingCollation(this, &v151, &v149, &v146, &v144, &v142, &v140, &v138, &v136, &v134, &v132);
   }
 
-  DgnPrimArray<unsigned int>::~DgnPrimArray(&v248);
-  Uns32OneToOneMap::~Uns32OneToOneMap(&v250);
-  DgnIArray<Utterance *>::~DgnIArray(&v252);
-  DgnIArray<Utterance *>::~DgnIArray(&v254);
-  DgnIArray<Utterance *>::~DgnIArray(&v256);
-  DgnPrimArray<unsigned int>::~DgnPrimArray(&v258);
-  DgnIArray<Utterance *>::~DgnIArray(&v260);
-  DgnIArray<Utterance *>::~DgnIArray(&v262);
-  DgnIArray<Utterance *>::~DgnIArray(&v264);
-  DgnString::~DgnString(v266);
-  DgnString::~DgnString(&v267);
-  DgnString::~DgnString(&v269);
-  DgnIArray<Utterance *>::~DgnIArray(v271);
-  DgnTextFileParser::~DgnTextFileParser(v272);
+  DgnPrimArray<unsigned int>::~DgnPrimArray(&v130);
+  Uns32OneToOneMap::~Uns32OneToOneMap(&v132);
+  DgnIArray<Utterance *>::~DgnIArray(&v134);
+  DgnIArray<Utterance *>::~DgnIArray(&v136);
+  DgnIArray<Utterance *>::~DgnIArray(&v138);
+  DgnPrimArray<unsigned int>::~DgnPrimArray(&v140);
+  DgnIArray<Utterance *>::~DgnIArray(&v142);
+  DgnIArray<Utterance *>::~DgnIArray(&v144);
+  DgnIArray<Utterance *>::~DgnIArray(&v146);
+  DgnString::~DgnString(v148);
+  DgnString::~DgnString(&v149);
+  DgnString::~DgnString(&v151);
+  DgnIArray<Utterance *>::~DgnIArray(v153);
+  DgnTextFileParser::~DgnTextFileParser(v154);
 }
 
-void sub_262856848(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15, uint64_t a16, char a17, uint64_t a18, char a19, uint64_t a20, char a21, uint64_t a22, char a23, uint64_t a24, char a25, uint64_t a26, char a27, uint64_t a28, uint64_t a29, uint64_t a30, char a31, uint64_t a32, char a33, uint64_t a34, char a35, uint64_t a36, char a37, uint64_t a38, char a39, uint64_t a40, char a41, uint64_t a42, char a43, uint64_t a44, char a45, uint64_t a46, char a47, uint64_t a48, char a49, uint64_t a50, char a51, uint64_t a52, char a53)
+void sub_262856848(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, ...)
 {
+  va_start(va, a52);
   DgnString::~DgnString(&a15);
   DgnString::~DgnString(&a17);
   DgnString::~DgnString(&a19);
@@ -10297,7 +10317,7 @@ void sub_262856848(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   DgnString::~DgnString(&a47);
   DgnString::~DgnString(&a49);
   DgnIArray<Utterance *>::~DgnIArray(&a51);
-  DgnTextFileParser::~DgnTextFileParser(&a53);
+  DgnTextFileParser::~DgnTextFileParser(va);
   _Unwind_Resume(a1);
 }
 
@@ -10324,128 +10344,129 @@ uint64_t checkValidCollName(const char *a1)
   return result;
 }
 
-uint64_t CollMgr::lookupCollation(CollMgr *this, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t CollMgr::lookupCollation(CollMgr *this, const char *a2, double a3)
 {
   if (!*(this + 56))
   {
     return 0;
   }
 
-  v10 = 0;
+  v5 = 0;
   while (1)
   {
-    CollationName = CollMgr::getCollationName(this, *(*(this + 27) + 2 * v10), a3, a4, a5, a6, a7, a8);
+    CollationName = CollMgr::getCollationName(this, *(*(this + 27) + 2 * v5), a3);
     if (!strcmp(CollationName, a2))
     {
       break;
     }
 
-    if (++v10 >= *(this + 56))
+    if (++v5 >= *(this + 56))
     {
       return 0;
     }
   }
 
-  return *(*(this + 27) + 2 * v10);
+  return *(*(this + 27) + 2 * v5);
 }
 
-uint64_t CollMgr::newTwoLevelCollation(CollMgr *this, char *a2, unsigned int a3, unsigned int a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t CollMgr::newTwoLevelCollation(CollMgr *this, char *a2, uint64_t a3, uint64_t a4, double a5)
 {
-  v9 = a3;
-  CollMgr::verifyCollId(this, a3, 0, 2u, a5, a6, a7, a8);
-  CollMgr::verifyCollId(this, a4, 2, 2u, v12, v13, v14, v15);
+  v5 = a4;
+  v6 = a3;
+  v9 = CollMgr::verifyCollId(this, a3, 0, 2u, a5);
+  CollMgr::verifyCollId(this, v5, 2, 2u, v9);
   if ((checkValidCollName(a2) & 1) == 0)
   {
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/collmgr.cpp", 1329, "word/collmgr", 24, "%.500s", v20, v21, a2);
+    v10 = errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/collmgr.cpp", 1329, "word/collmgr", 24, "%.500s", a2);
   }
 
-  if (CollMgr::lookupCollation(this, a2, v16, v17, v18, v19, v20, v21))
+  if (CollMgr::lookupCollation(this, a2, v10))
   {
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/collmgr.cpp", 1331, "word/collmgr", 11, "%.500s", v22, v23, a2);
+    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/collmgr.cpp", 1331, "word/collmgr", 11, "%.500s", a2);
   }
 
-  if (a4 == 0xFFFF)
+  if (v5 == 0xFFFF)
   {
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/collmgr.cpp", 1333, "word/collmgr", 23, "%s", v22, v23, &errStr_word_collmgr_E_CANT_USE_NOCOLLATION_AS_TWO_LEVEL_COMPONENT);
+    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/collmgr.cpp", 1333, "word/collmgr", 23, "%s", &errStr_word_collmgr_E_CANT_USE_NOCOLLATION_AS_TWO_LEVEL_COMPONENT);
   }
 
-  v24 = *(this + 50);
-  if (v24)
+  v11 = *(this + 50);
+  if (v11)
   {
-    v25 = v24 - 1;
-    v26 = *(*(this + 24) + 2 * v25);
-    *(this + 50) = v25;
+    v12 = v11 - 1;
+    v13 = *(*(this + 24) + 2 * v12);
+    *(this + 50) = v12;
   }
 
   else
   {
-    v27 = *(this + 104);
-    if (v27 >> 14 || (v27 & 0xFFFFBFFF) == 0xBFFF)
+    v14 = *(this + 104);
+    if (v14 >> 14 || (v14 & 0xFFFFBFFF) == 0xBFFF)
     {
-      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/collmgr.cpp", 1342, "word/collmgr", 2, "%s", v22, v23, &errStr_word_collmgr_E_TOO_MANY);
+      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/collmgr.cpp", 1342, "word/collmgr", 2, "%s", &errStr_word_collmgr_E_TOO_MANY);
     }
 
-    v28 = *(this + 34);
-    if (v28 == *(this + 35))
+    v15 = *(this + 34);
+    if (v15 == *(this + 35))
     {
       DgnPrimArray<unsigned int>::reallocElts(this + 128, 1, 1);
-      v28 = *(this + 34);
+      v15 = *(this + 34);
     }
 
-    *(this + 34) = v28 + 1;
-    v29 = *(this + 38);
-    if (v29 == *(this + 39))
+    *(this + 34) = v15 + 1;
+    v16 = *(this + 38);
+    if (v16 == *(this + 39))
     {
       DgnPrimArray<short>::reallocElts(this + 144, 1, 1);
-      v29 = *(this + 38);
+      v16 = *(this + 38);
     }
 
-    *(this + 38) = v29 + 1;
-    v30 = *(this + 42);
-    if (v30 == *(this + 43))
+    *(this + 38) = v16 + 1;
+    v17 = *(this + 42);
+    if (v17 == *(this + 43))
     {
       DgnPrimArray<short>::reallocElts(this + 160, 1, 1);
-      v30 = *(this + 42);
+      v17 = *(this + 42);
     }
 
-    *(this + 42) = v30 + 1;
-    v31 = *(this + 46);
-    if (v31 == *(this + 47))
+    *(this + 42) = v17 + 1;
+    v18 = *(this + 46);
+    if (v18 == *(this + 47))
     {
       DgnArray<DgnPrimArray<double>>::reallocElts(this + 176, 1, 1);
-      v31 = *(this + 46);
+      v18 = *(this + 46);
     }
 
-    DgnString::DgnString((*(this + 22) + 16 * v31));
+    DgnString::DgnString((*(this + 22) + 16 * v18));
     ++*(this + 46);
-    v26 = *(this + 104);
-    *(this + 104) = v26 + 1;
+    v13 = *(this + 104);
+    *(this + 104) = v13 + 1;
   }
 
-  *(*(this + 16) + 4 * v26) = 1;
-  *(*(this + 18) + 2 * v26) = v9;
-  *(*(this + 20) + 2 * v26) = a4;
-  DgnString::operator=((*(this + 22) + 16 * v26), a2);
-  v32 = *(this + 56);
-  if (v32 == *(this + 57))
+  *(*(this + 16) + 4 * v13) = 1;
+  *(*(this + 18) + 2 * v13) = v6;
+  *(*(this + 20) + 2 * v13) = v5;
+  DgnString::operator=((*(this + 22) + 16 * v13), a2);
+  v19 = *(this + 56);
+  if (v19 == *(this + 57))
   {
     DgnPrimArray<short>::reallocElts(this + 216, 1, 1);
-    v32 = *(this + 56);
+    v19 = *(this + 56);
   }
 
-  result = v26 | 0x4000;
-  *(*(this + 27) + 2 * v32) = v26 | 0x4000;
-  *(this + 56) = v32 + 1;
+  result = v13 | 0x4000;
+  *(*(this + 27) + 2 * v19) = v13 | 0x4000;
+  *(this + 56) = v19 + 1;
   return result;
 }
 
-void CollMgr::loadCollMgr(CollMgr *this, char **a2, DFileChecksums *a3, int a4)
+void CollMgr::loadCollMgr(CollMgr *this, FileSpec **a2, DFileChecksums *a3, int a4)
 {
   if (DFile::subFileExists(a2, 0x5Bu))
   {
     if ((a4 & 1) == 0)
     {
-      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/collmgr.cpp", 764, "word/collmgr", 20, "%s", v8, v9, &unk_2628991E4);
+      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/collmgr.cpp", 764, "word/collmgr", 20, "%s", &unk_2628991E4);
     }
 
     CollMgr::loadCollMgrFromText(this, a2);
@@ -10455,47 +10476,47 @@ void CollMgr::loadCollMgr(CollMgr *this, char **a2, DFileChecksums *a3, int a4)
   {
     if (a4)
     {
-      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/collmgr.cpp", 770, "word/collmgr", 22, "%s", v10, v11, &errStr_word_collmgr_E_LOADING_MIXED_TEXT_AND_BINARY_SUBFILES);
+      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/collmgr.cpp", 770, "word/collmgr", 22, "%s", &errStr_word_collmgr_E_LOADING_MIXED_TEXT_AND_BINARY_SUBFILES);
     }
 
-    v18 = 0;
-    v12 = OpenAndReadMrecHeader(a2, 0xEu, 1, "MRCOLL!?", &v18 + 1, &v18);
+    v12 = 0;
+    v8 = OpenAndReadMrecHeader(a2, 0xEu, 1, "MRCOLL!?", &v12 + 1, &v12);
     if (*(a2 + 6))
     {
-      v13 = a2[2];
+      v9 = a2[2];
     }
 
     else
     {
-      v13 = &unk_2628991E4;
+      v9 = &unk_2628991E4;
     }
 
-    MrecHeaderCheckVersions(v13, "MRCOLL!?", HIDWORD(v18), v18, 0x12u, 9u);
-    MrecHeaderCheckLatestVersionIfShared(a2, "MRCOLL!?", SHIDWORD(v18), v18, 18, 9, v14, v15);
-    v17 = 0;
-    readObject<unsigned int>(v12, this + 8, &v17);
-    readObject<DgnPrimArray<unsigned char>>(v12, this + 24, &v17);
-    readObject<DgnArray<Uns8SpecialMapItem>>(v12, this + 40, &v17);
-    readObject<Uns32OneToOneMap>(v12, this + 56, &v17);
-    readObject<DgnArray<Uns32SpecialMapItem>>(v12, this + 72, &v17);
-    readObject<DgnString>(v12, this + 88, &v17);
-    readObject<unsigned short>(v12, this + 104, &v17);
-    readObject(v12, this + 60, &v17);
-    readObject<unsigned int>(v12, this + 128, &v17);
-    readObject<unsigned short>(v12, this + 144, &v17);
-    readObject<unsigned short>(v12, this + 160, &v17);
-    readObject<DgnString>(v12, this + 176, &v17);
-    readObject<unsigned short>(v12, this + 192, &v17);
-    readObject(v12, this + 104, &v17);
-    readObject<unsigned short>(v12, this + 216, &v17);
-    readObjectChecksumAndVerify(v12, v17);
+    MrecHeaderCheckVersions(v9, "MRCOLL!?", HIDWORD(v12), v12, 0x12u, 9u);
+    MrecHeaderCheckLatestVersionIfShared(a2, "MRCOLL!?", SHIDWORD(v12), v12, 18, 9);
+    v11 = 0;
+    readObject<unsigned int>(v8, this + 8, &v11);
+    readObject<DgnPrimArray<unsigned char>>(v8, this + 24, &v11);
+    readObject<DgnArray<Uns8SpecialMapItem>>(v8, this + 40, &v11);
+    readObject<Uns32OneToOneMap>(v8, this + 56, &v11);
+    readObject<DgnArray<Uns32SpecialMapItem>>(v8, this + 72, &v11);
+    readObject<DgnString>(v8, this + 88, &v11);
+    readObject<unsigned short>(v8, this + 104, &v11);
+    readObject(v8, this + 60, &v11);
+    readObject<unsigned int>(v8, this + 128, &v11);
+    readObject<unsigned short>(v8, this + 144, &v11);
+    readObject<unsigned short>(v8, this + 160, &v11);
+    readObject<DgnString>(v8, this + 176, &v11);
+    readObject<unsigned short>(v8, this + 192, &v11);
+    readObject(v8, this + 104, &v11);
+    readObject<unsigned short>(v8, this + 216, &v11);
+    readObjectChecksumAndVerify(v8, v11);
     CurrentSubDirComponents = DFile::getCurrentSubDirComponents(a2);
-    DFileChecksums::addChecksum(a3, CurrentSubDirComponents, 0xEu, v17);
-    DgnDelete<DgnStream>(v12);
+    DFileChecksums::addChecksum(a3, CurrentSubDirComponents, 14, v11);
+    DgnDelete<DgnStream>(v8);
   }
 }
 
-unint64_t readObject<DgnArray<Uns8SpecialMapItem>>(uint64_t a1, uint64_t a2, _DWORD *a3)
+uint64_t readObject<DgnArray<Uns8SpecialMapItem>>(uint64_t a1, uint64_t a2, _DWORD *a3)
 {
   v17 = 0;
   result = readObject(a1, &v17, a3);
@@ -10621,7 +10642,7 @@ void readObject<Uns32OneToOneMap>(DgnStream *a1, uint64_t a2, unsigned int *a3)
   }
 }
 
-unint64_t readObject<DgnArray<Uns32SpecialMapItem>>(uint64_t a1, uint64_t a2, _DWORD *a3)
+uint64_t readObject<DgnArray<Uns32SpecialMapItem>>(uint64_t a1, uint64_t a2, _DWORD *a3)
 {
   v17 = 0;
   result = readObject(a1, &v17, a3);
@@ -10686,461 +10707,461 @@ unint64_t readObject<DgnArray<Uns32SpecialMapItem>>(uint64_t a1, uint64_t a2, _D
 
 void CollMgr::saveCollMgrToText(CollMgr *this, DFile *a2, int a3)
 {
-  DgnTextFileWriter::DgnTextFileWriter(v93);
-  DgnTextFileWriter::openDgnTextFileWriter(v93, a2, 0x5Bu, a3);
-  v91 = 0;
-  v92 = 0;
-  DgnTextFile::legalDgnTextFileVersions(v93, sTCO_Versions, &v91, v6, v7, v8, v9, v10);
-  DgnTextFileWriter::setFileType(v93, "Collation", (v91 + 8 * (v92 - 1)));
-  v89 = 0;
-  v90 = 0;
-  v87 = 0;
-  v88 = 0;
-  DgnString::DgnString(v86, "CollName");
-  v11 = v88;
-  if (v88 == HIDWORD(v88))
+  DgnTextFileWriter::DgnTextFileWriter(v69);
+  DgnTextFileWriter::openDgnTextFileWriter(v69, a2, 91, a3);
+  v67 = 0;
+  v68 = 0;
+  DgnTextFile::legalDgnTextFileVersions(v69, sTCO_Versions, &v67);
+  DgnTextFileWriter::setFileType(v69, "Collation", (v67 + 8 * (v68 - 1)));
+  v65 = 0;
+  v66 = 0;
+  v63 = 0;
+  v64 = 0;
+  DgnString::DgnString(v62, "CollName");
+  v6 = v64;
+  if (v64 == HIDWORD(v64))
   {
-    DgnArray<DgnPrimArray<double>>::reallocElts(&v87, 1, 1);
-    v11 = v88;
+    DgnArray<DgnPrimArray<double>>::reallocElts(&v63, 1, 1);
+    v6 = v64;
   }
 
-  DgnString::DgnString((v87 + 16 * v11), v86);
-  LODWORD(v88) = v88 + 1;
-  DgnString::~DgnString(v86);
-  v12 = v90;
-  if (v90 == HIDWORD(v90))
+  DgnString::DgnString((v63 + 16 * v6), v62);
+  LODWORD(v64) = v64 + 1;
+  DgnString::~DgnString(v62);
+  v7 = v66;
+  if (v66 == HIDWORD(v66))
   {
-    DgnPrimArray<unsigned int>::reallocElts(&v89, 1, 1);
-    v12 = v90;
+    DgnPrimArray<unsigned int>::reallocElts(&v65, 1, 1);
+    v7 = v66;
   }
 
-  *(v89 + 4 * v12) = 0;
-  LODWORD(v90) = v12 + 1;
-  DgnString::DgnString(v86, "CollType");
-  v13 = v88;
-  if (v88 == HIDWORD(v88))
+  *(v65 + 4 * v7) = 0;
+  LODWORD(v66) = v7 + 1;
+  DgnString::DgnString(v62, "CollType");
+  v8 = v64;
+  if (v64 == HIDWORD(v64))
   {
-    DgnArray<DgnPrimArray<double>>::reallocElts(&v87, 1, 1);
-    v13 = v88;
+    DgnArray<DgnPrimArray<double>>::reallocElts(&v63, 1, 1);
+    v8 = v64;
   }
 
-  DgnString::DgnString((v87 + 16 * v13), v86);
-  LODWORD(v88) = v88 + 1;
-  DgnString::~DgnString(v86);
-  v14 = v90;
-  if (v90 == HIDWORD(v90))
+  DgnString::DgnString((v63 + 16 * v8), v62);
+  LODWORD(v64) = v64 + 1;
+  DgnString::~DgnString(v62);
+  v9 = v66;
+  if (v66 == HIDWORD(v66))
   {
-    DgnPrimArray<unsigned int>::reallocElts(&v89, 1, 1);
-    v14 = v90;
+    DgnPrimArray<unsigned int>::reallocElts(&v65, 1, 1);
+    v9 = v66;
   }
 
-  *(v89 + 4 * v14) = 0;
-  LODWORD(v90) = v14 + 1;
-  DgnString::DgnString(v86, "ComponentCollName1");
-  v15 = v88;
-  if (v88 == HIDWORD(v88))
+  *(v65 + 4 * v9) = 0;
+  LODWORD(v66) = v9 + 1;
+  DgnString::DgnString(v62, "ComponentCollName1");
+  v10 = v64;
+  if (v64 == HIDWORD(v64))
   {
-    DgnArray<DgnPrimArray<double>>::reallocElts(&v87, 1, 1);
-    v15 = v88;
+    DgnArray<DgnPrimArray<double>>::reallocElts(&v63, 1, 1);
+    v10 = v64;
   }
 
-  DgnString::DgnString((v87 + 16 * v15), v86);
-  LODWORD(v88) = v88 + 1;
-  DgnString::~DgnString(v86);
-  v16 = v90;
-  if (v90 == HIDWORD(v90))
+  DgnString::DgnString((v63 + 16 * v10), v62);
+  LODWORD(v64) = v64 + 1;
+  DgnString::~DgnString(v62);
+  v11 = v66;
+  if (v66 == HIDWORD(v66))
   {
-    DgnPrimArray<unsigned int>::reallocElts(&v89, 1, 1);
-    v16 = v90;
+    DgnPrimArray<unsigned int>::reallocElts(&v65, 1, 1);
+    v11 = v66;
   }
 
-  *(v89 + 4 * v16) = 0;
-  LODWORD(v90) = v16 + 1;
-  DgnString::DgnString(v86, "ComponentCollName2");
-  v17 = v88;
-  if (v88 == HIDWORD(v88))
+  *(v65 + 4 * v11) = 0;
+  LODWORD(v66) = v11 + 1;
+  DgnString::DgnString(v62, "ComponentCollName2");
+  v12 = v64;
+  if (v64 == HIDWORD(v64))
   {
-    DgnArray<DgnPrimArray<double>>::reallocElts(&v87, 1, 1);
-    v17 = v88;
+    DgnArray<DgnPrimArray<double>>::reallocElts(&v63, 1, 1);
+    v12 = v64;
   }
 
-  DgnString::DgnString((v87 + 16 * v17), v86);
-  LODWORD(v88) = v88 + 1;
-  DgnString::~DgnString(v86);
-  v18 = v90;
-  if (v90 == HIDWORD(v90))
+  DgnString::DgnString((v63 + 16 * v12), v62);
+  LODWORD(v64) = v64 + 1;
+  DgnString::~DgnString(v62);
+  v13 = v66;
+  if (v66 == HIDWORD(v66))
   {
-    DgnPrimArray<unsigned int>::reallocElts(&v89, 1, 1);
-    v18 = v90;
+    DgnPrimArray<unsigned int>::reallocElts(&v65, 1, 1);
+    v13 = v66;
   }
 
-  *(v89 + 4 * v18) = 0;
-  LODWORD(v90) = v18 + 1;
-  DgnString::DgnString(v86, "MapType");
-  v19 = v88;
-  if (v88 == HIDWORD(v88))
+  *(v65 + 4 * v13) = 0;
+  LODWORD(v66) = v13 + 1;
+  DgnString::DgnString(v62, "MapType");
+  v14 = v64;
+  if (v64 == HIDWORD(v64))
   {
-    DgnArray<DgnPrimArray<double>>::reallocElts(&v87, 1, 1);
-    v19 = v88;
+    DgnArray<DgnPrimArray<double>>::reallocElts(&v63, 1, 1);
+    v14 = v64;
   }
 
-  DgnString::DgnString((v87 + 16 * v19), v86);
-  LODWORD(v88) = v88 + 1;
-  DgnString::~DgnString(v86);
-  v20 = v90;
-  if (v90 == HIDWORD(v90))
+  DgnString::DgnString((v63 + 16 * v14), v62);
+  LODWORD(v64) = v64 + 1;
+  DgnString::~DgnString(v62);
+  v15 = v66;
+  if (v66 == HIDWORD(v66))
   {
-    DgnPrimArray<unsigned int>::reallocElts(&v89, 1, 1);
-    v20 = v90;
+    DgnPrimArray<unsigned int>::reallocElts(&v65, 1, 1);
+    v15 = v66;
   }
 
-  *(v89 + 4 * v20) = 0;
-  LODWORD(v90) = v20 + 1;
-  DgnString::DgnString(v86, "MapFrom1");
-  v21 = v88;
-  if (v88 == HIDWORD(v88))
+  *(v65 + 4 * v15) = 0;
+  LODWORD(v66) = v15 + 1;
+  DgnString::DgnString(v62, "MapFrom1");
+  v16 = v64;
+  if (v64 == HIDWORD(v64))
   {
-    DgnArray<DgnPrimArray<double>>::reallocElts(&v87, 1, 1);
-    v21 = v88;
+    DgnArray<DgnPrimArray<double>>::reallocElts(&v63, 1, 1);
+    v16 = v64;
   }
 
-  DgnString::DgnString((v87 + 16 * v21), v86);
-  LODWORD(v88) = v88 + 1;
-  DgnString::~DgnString(v86);
-  v22 = v90;
-  if (v90 == HIDWORD(v90))
+  DgnString::DgnString((v63 + 16 * v16), v62);
+  LODWORD(v64) = v64 + 1;
+  DgnString::~DgnString(v62);
+  v17 = v66;
+  if (v66 == HIDWORD(v66))
   {
-    DgnPrimArray<unsigned int>::reallocElts(&v89, 1, 1);
-    v22 = v90;
+    DgnPrimArray<unsigned int>::reallocElts(&v65, 1, 1);
+    v17 = v66;
   }
 
-  *(v89 + 4 * v22) = 3;
-  LODWORD(v90) = v22 + 1;
-  DgnString::DgnString(v86, "MapFrom2");
-  v23 = v88;
-  if (v88 == HIDWORD(v88))
+  *(v65 + 4 * v17) = 3;
+  LODWORD(v66) = v17 + 1;
+  DgnString::DgnString(v62, "MapFrom2");
+  v18 = v64;
+  if (v64 == HIDWORD(v64))
   {
-    DgnArray<DgnPrimArray<double>>::reallocElts(&v87, 1, 1);
-    v23 = v88;
+    DgnArray<DgnPrimArray<double>>::reallocElts(&v63, 1, 1);
+    v18 = v64;
   }
 
-  DgnString::DgnString((v87 + 16 * v23), v86);
-  LODWORD(v88) = v88 + 1;
-  DgnString::~DgnString(v86);
-  v24 = v90;
-  if (v90 == HIDWORD(v90))
+  DgnString::DgnString((v63 + 16 * v18), v62);
+  LODWORD(v64) = v64 + 1;
+  DgnString::~DgnString(v62);
+  v19 = v66;
+  if (v66 == HIDWORD(v66))
   {
-    DgnPrimArray<unsigned int>::reallocElts(&v89, 1, 1);
-    v24 = v90;
+    DgnPrimArray<unsigned int>::reallocElts(&v65, 1, 1);
+    v19 = v66;
   }
 
-  *(v89 + 4 * v24) = 3;
-  LODWORD(v90) = v24 + 1;
-  DgnString::DgnString(v86, "MapTo1");
-  v25 = v88;
-  if (v88 == HIDWORD(v88))
+  *(v65 + 4 * v19) = 3;
+  LODWORD(v66) = v19 + 1;
+  DgnString::DgnString(v62, "MapTo1");
+  v20 = v64;
+  if (v64 == HIDWORD(v64))
   {
-    DgnArray<DgnPrimArray<double>>::reallocElts(&v87, 1, 1);
-    v25 = v88;
+    DgnArray<DgnPrimArray<double>>::reallocElts(&v63, 1, 1);
+    v20 = v64;
   }
 
-  DgnString::DgnString((v87 + 16 * v25), v86);
-  LODWORD(v88) = v88 + 1;
-  DgnString::~DgnString(v86);
-  v26 = v90;
-  if (v90 == HIDWORD(v90))
+  DgnString::DgnString((v63 + 16 * v20), v62);
+  LODWORD(v64) = v64 + 1;
+  DgnString::~DgnString(v62);
+  v21 = v66;
+  if (v66 == HIDWORD(v66))
   {
-    DgnPrimArray<unsigned int>::reallocElts(&v89, 1, 1);
-    v26 = v90;
+    DgnPrimArray<unsigned int>::reallocElts(&v65, 1, 1);
+    v21 = v66;
   }
 
-  *(v89 + 4 * v26) = 3;
-  LODWORD(v90) = v26 + 1;
-  DgnString::DgnString(v86, "MapTo2");
-  v27 = v88;
-  if (v88 == HIDWORD(v88))
+  *(v65 + 4 * v21) = 3;
+  LODWORD(v66) = v21 + 1;
+  DgnString::DgnString(v62, "MapTo2");
+  v22 = v64;
+  if (v64 == HIDWORD(v64))
   {
-    DgnArray<DgnPrimArray<double>>::reallocElts(&v87, 1, 1);
-    v27 = v88;
+    DgnArray<DgnPrimArray<double>>::reallocElts(&v63, 1, 1);
+    v22 = v64;
   }
 
-  DgnString::DgnString((v87 + 16 * v27), v86);
-  LODWORD(v88) = v88 + 1;
-  DgnString::~DgnString(v86);
-  v28 = v90;
-  if (v90 == HIDWORD(v90))
+  DgnString::DgnString((v63 + 16 * v22), v62);
+  LODWORD(v64) = v64 + 1;
+  DgnString::~DgnString(v62);
+  v23 = v66;
+  if (v66 == HIDWORD(v66))
   {
-    DgnPrimArray<unsigned int>::reallocElts(&v89, 1, 1);
-    v28 = v90;
+    DgnPrimArray<unsigned int>::reallocElts(&v65, 1, 1);
+    v23 = v66;
   }
 
-  *(v89 + 4 * v28) = 3;
-  LODWORD(v90) = v28 + 1;
-  DgnTextFileWriter::setLineFieldFormat(v93, &v89, &v87);
-  v35 = *(this + 56);
+  *(v65 + 4 * v23) = 3;
+  LODWORD(v66) = v23 + 1;
+  DgnTextFileWriter::setLineFieldFormat(v69, &v65, &v63);
+  v25 = *(this + 56);
   if (**this)
   {
-    if (!v35)
+    if (!v25)
     {
       goto LABEL_81;
     }
 
-    v36 = 0;
+    v26 = 0;
     while (1)
     {
-      v37 = *(*(this + 27) + 2 * v36);
-      if ((v37 & 0x4000) == 0)
+      v27 = *(*(this + 27) + 2 * v26);
+      if ((v27 & 0x4000) == 0)
       {
-        if (*(*(this + 9) + 16 * v37 + 8))
+        if (*(*(this + 9) + 16 * v27 + 8))
         {
-          v38 = 0;
-          v39 = 0;
+          v28 = 0;
+          v29 = 0;
           while (1)
           {
-            CollationName = CollMgr::getCollationName(this, v37, v29, v30, v31, v32, v33, v34);
-            DgnTextFileWriter::setLineFieldValue(v93, 0, CollationName);
-            DgnTextFileWriter::setLineFieldValue(v93, 1u, "WideChar");
-            DgnTextFileWriter::setLineFieldValue(v93, 2u, &unk_2628991E4);
-            DgnTextFileWriter::setLineFieldValue(v93, 3u, &unk_2628991E4);
-            v41 = *(*(this + 9) + 16 * v37) + v38;
-            v42 = *(v41 + 4);
-            v43 = *(v41 + 12);
-            if (v42)
+            CollationName = CollMgr::getCollationName(this, v27, v24);
+            DgnTextFileWriter::setLineFieldValue(v69, 0, CollationName);
+            DgnTextFileWriter::setLineFieldValue(v69, 1u, "WideChar");
+            DgnTextFileWriter::setLineFieldValue(v69, 2u, &unk_2628991E4);
+            DgnTextFileWriter::setLineFieldValue(v69, 3u, &unk_2628991E4);
+            v31 = *(*(this + 9) + 16 * v27) + v28;
+            v32 = *(v31 + 4);
+            v33 = *(v31 + 12);
+            if (v32)
             {
               break;
             }
 
-            v44 = "OneToTwo";
-            if (v43)
+            v34 = "OneToTwo";
+            if (v33)
             {
               goto LABEL_48;
             }
 
 LABEL_49:
-            DgnTextFileWriter::setLineFieldUnsignedValue(v93, 5u, *(*(*(this + 9) + 16 * v37) + v38));
-            DgnTextFileWriter::setLineFieldUnsignedValue(v93, 6u, *(*(*(this + 9) + 16 * v37) + v38 + 4));
-            DgnTextFileWriter::setLineFieldUnsignedValue(v93, 7u, *(*(*(this + 9) + 16 * v37) + v38 + 8));
-            DgnTextFileWriter::setLineFieldUnsignedValue(v93, 8u, *(*(*(this + 9) + 16 * v37) + v38 + 12));
-            DgnTextFileWriter::writeNextLine(v93);
-            ++v39;
-            v38 += 16;
-            if (v39 >= *(*(this + 9) + 16 * v37 + 8))
+            DgnTextFileWriter::setLineFieldUnsignedValue(v69, 5u, *(*(*(this + 9) + 16 * v27) + v28));
+            DgnTextFileWriter::setLineFieldUnsignedValue(v69, 6u, *(*(*(this + 9) + 16 * v27) + v28 + 4));
+            DgnTextFileWriter::setLineFieldUnsignedValue(v69, 7u, *(*(*(this + 9) + 16 * v27) + v28 + 8));
+            DgnTextFileWriter::setLineFieldUnsignedValue(v69, 8u, *(*(*(this + 9) + 16 * v27) + v28 + 12));
+            DgnTextFileWriter::writeNextLine(v69);
+            ++v29;
+            v28 += 16;
+            if (v29 >= *(*(this + 9) + 16 * v27 + 8))
             {
               goto LABEL_50;
             }
           }
 
-          if (v43)
+          if (v33)
           {
-            v44 = "TwoToTwo";
+            v34 = "TwoToTwo";
           }
 
           else
           {
-            v44 = "TwoToOne";
+            v34 = "TwoToOne";
           }
 
 LABEL_48:
-          DgnTextFileWriter::setLineFieldValue(v93, 4u, v44);
+          DgnTextFileWriter::setLineFieldValue(v69, 4u, v34);
           goto LABEL_49;
         }
 
 LABEL_50:
-        v45 = *(this + 7);
-        if (*(v45 + 32 * v37 + 8))
+        v35 = *(this + 7);
+        if (*(v35 + 32 * v27 + 8))
         {
-          v46 = 0;
+          v36 = 0;
           do
           {
-            if (*(*(v45 + 32 * v37 + 16) + 16 * v46 + 8))
+            if (*(*(v35 + 32 * v27 + 16) + 16 * v36 + 8))
             {
-              v47 = 0;
+              v37 = 0;
               do
               {
-                v48 = CollMgr::getCollationName(this, v37, v29, v30, v31, v32, v33, v34);
-                DgnTextFileWriter::setLineFieldValue(v93, 0, v48);
-                DgnTextFileWriter::setLineFieldValue(v93, 1u, "WideChar");
-                DgnTextFileWriter::setLineFieldValue(v93, 2u, &unk_2628991E4);
-                DgnTextFileWriter::setLineFieldValue(v93, 3u, &unk_2628991E4);
-                DgnTextFileWriter::setLineFieldValue(v93, 4u, "OneToOne");
-                DgnTextFileWriter::setLineFieldUnsignedValue(v93, 5u, v47 + *(*(*(this + 7) + 32 * v37) + 4 * v46));
-                DgnTextFileWriter::setLineFieldUnsignedValue(v93, 6u, 0);
-                DgnTextFileWriter::setLineFieldUnsignedValue(v93, 7u, *(*(*(*(this + 7) + 32 * v37 + 16) + 16 * v46) + 4 * v47));
-                DgnTextFileWriter::setLineFieldUnsignedValue(v93, 8u, 0);
-                DgnTextFileWriter::writeNextLine(v93);
-                ++v47;
-                v45 = *(this + 7);
+                v38 = CollMgr::getCollationName(this, v27, v24);
+                DgnTextFileWriter::setLineFieldValue(v69, 0, v38);
+                DgnTextFileWriter::setLineFieldValue(v69, 1u, "WideChar");
+                DgnTextFileWriter::setLineFieldValue(v69, 2u, &unk_2628991E4);
+                DgnTextFileWriter::setLineFieldValue(v69, 3u, &unk_2628991E4);
+                DgnTextFileWriter::setLineFieldValue(v69, 4u, "OneToOne");
+                DgnTextFileWriter::setLineFieldUnsignedValue(v69, 5u, v37 + *(*(*(this + 7) + 32 * v27) + 4 * v36));
+                DgnTextFileWriter::setLineFieldUnsignedValue(v69, 6u, 0);
+                DgnTextFileWriter::setLineFieldUnsignedValue(v69, 7u, *(*(*(*(this + 7) + 32 * v27 + 16) + 16 * v36) + 4 * v37));
+                DgnTextFileWriter::setLineFieldUnsignedValue(v69, 8u, 0);
+                DgnTextFileWriter::writeNextLine(v69);
+                ++v37;
+                v35 = *(this + 7);
               }
 
-              while (v47 < *(*(v45 + 32 * v37 + 16) + 16 * v46 + 8));
+              while (v37 < *(*(v35 + 32 * v27 + 16) + 16 * v36 + 8));
             }
 
-            ++v46;
+            ++v36;
           }
 
-          while (v46 < *(v45 + 32 * v37 + 8));
+          while (v36 < *(v35 + 32 * v27 + 8));
         }
       }
 
-      ++v36;
-      v49 = *(this + 56);
-      if (v36 >= v49)
+      ++v26;
+      v39 = *(this + 56);
+      if (v26 >= v39)
       {
         goto LABEL_74;
       }
     }
   }
 
-  if (!v35)
+  if (!v25)
   {
     goto LABEL_81;
   }
 
-  v50 = 0;
+  v40 = 0;
   do
   {
-    v51 = *(*(this + 27) + 2 * v50);
-    if ((v51 & 0x4000) == 0)
+    v41 = *(*(this + 27) + 2 * v40);
+    if ((v41 & 0x4000) == 0)
     {
-      if (*(*(this + 5) + 16 * v51 + 8))
+      if (*(*(this + 5) + 16 * v41 + 8))
       {
-        v52 = 0;
-        v53 = 0;
+        v42 = 0;
+        v43 = 0;
         while (1)
         {
-          v54 = CollMgr::getCollationName(this, v51, v29, v30, v31, v32, v33, v34);
-          DgnTextFileWriter::setLineFieldValue(v93, 0, v54);
-          DgnTextFileWriter::setLineFieldValue(v93, 1u, "Char");
-          DgnTextFileWriter::setLineFieldValue(v93, 2u, &unk_2628991E4);
-          DgnTextFileWriter::setLineFieldValue(v93, 3u, &unk_2628991E4);
-          v55 = *(*(this + 5) + 16 * v51) + v52;
-          v56 = *(v55 + 1);
-          v57 = *(v55 + 3);
-          if (v56)
+          v44 = CollMgr::getCollationName(this, v41, v24);
+          DgnTextFileWriter::setLineFieldValue(v69, 0, v44);
+          DgnTextFileWriter::setLineFieldValue(v69, 1u, "Char");
+          DgnTextFileWriter::setLineFieldValue(v69, 2u, &unk_2628991E4);
+          DgnTextFileWriter::setLineFieldValue(v69, 3u, &unk_2628991E4);
+          v45 = *(*(this + 5) + 16 * v41) + v42;
+          v46 = *(v45 + 1);
+          v47 = *(v45 + 3);
+          if (v46)
           {
             break;
           }
 
-          v58 = "OneToTwo";
-          if (v57)
+          v48 = "OneToTwo";
+          if (v47)
           {
             goto LABEL_68;
           }
 
 LABEL_69:
-          DgnTextFileWriter::setLineFieldUnsignedValue(v93, 5u, *(*(*(this + 5) + 16 * v51) + v52));
-          DgnTextFileWriter::setLineFieldUnsignedValue(v93, 6u, *(*(*(this + 5) + 16 * v51) + v52 + 1));
-          DgnTextFileWriter::setLineFieldUnsignedValue(v93, 7u, *(*(*(this + 5) + 16 * v51) + v52 + 2));
-          DgnTextFileWriter::setLineFieldUnsignedValue(v93, 8u, *(*(*(this + 5) + 16 * v51) + v52 + 3));
-          DgnTextFileWriter::writeNextLine(v93);
-          ++v53;
-          v52 += 4;
-          if (v53 >= *(*(this + 5) + 16 * v51 + 8))
+          DgnTextFileWriter::setLineFieldUnsignedValue(v69, 5u, *(*(*(this + 5) + 16 * v41) + v42));
+          DgnTextFileWriter::setLineFieldUnsignedValue(v69, 6u, *(*(*(this + 5) + 16 * v41) + v42 + 1));
+          DgnTextFileWriter::setLineFieldUnsignedValue(v69, 7u, *(*(*(this + 5) + 16 * v41) + v42 + 2));
+          DgnTextFileWriter::setLineFieldUnsignedValue(v69, 8u, *(*(*(this + 5) + 16 * v41) + v42 + 3));
+          DgnTextFileWriter::writeNextLine(v69);
+          ++v43;
+          v42 += 4;
+          if (v43 >= *(*(this + 5) + 16 * v41 + 8))
           {
             goto LABEL_70;
           }
         }
 
-        if (v57)
+        if (v47)
         {
-          v58 = "TwoToTwo";
+          v48 = "TwoToTwo";
         }
 
         else
         {
-          v58 = "TwoToOne";
+          v48 = "TwoToOne";
         }
 
 LABEL_68:
-        DgnTextFileWriter::setLineFieldValue(v93, 4u, v58);
+        DgnTextFileWriter::setLineFieldValue(v69, 4u, v48);
         goto LABEL_69;
       }
 
 LABEL_70:
-      if (*(*(this + 3) + 16 * v51 + 8))
+      if (*(*(this + 3) + 16 * v41 + 8))
       {
-        v59 = 0;
+        v49 = 0;
         do
         {
-          v60 = CollMgr::getCollationName(this, v51, v29, v30, v31, v32, v33, v34);
-          DgnTextFileWriter::setLineFieldValue(v93, 0, v60);
-          DgnTextFileWriter::setLineFieldValue(v93, 1u, "Char");
-          DgnTextFileWriter::setLineFieldValue(v93, 2u, &unk_2628991E4);
-          DgnTextFileWriter::setLineFieldValue(v93, 3u, &unk_2628991E4);
-          DgnTextFileWriter::setLineFieldValue(v93, 4u, "OneToOne");
-          DgnTextFileWriter::setLineFieldUnsignedValue(v93, 5u, v59);
-          DgnTextFileWriter::setLineFieldUnsignedValue(v93, 6u, 0);
-          DgnTextFileWriter::setLineFieldUnsignedValue(v93, 7u, *(*(*(this + 3) + 16 * v51) + v59));
-          DgnTextFileWriter::setLineFieldUnsignedValue(v93, 8u, 0);
-          DgnTextFileWriter::writeNextLine(v93);
-          ++v59;
+          v50 = CollMgr::getCollationName(this, v41, v24);
+          DgnTextFileWriter::setLineFieldValue(v69, 0, v50);
+          DgnTextFileWriter::setLineFieldValue(v69, 1u, "Char");
+          DgnTextFileWriter::setLineFieldValue(v69, 2u, &unk_2628991E4);
+          DgnTextFileWriter::setLineFieldValue(v69, 3u, &unk_2628991E4);
+          DgnTextFileWriter::setLineFieldValue(v69, 4u, "OneToOne");
+          DgnTextFileWriter::setLineFieldUnsignedValue(v69, 5u, v49);
+          DgnTextFileWriter::setLineFieldUnsignedValue(v69, 6u, 0);
+          DgnTextFileWriter::setLineFieldUnsignedValue(v69, 7u, *(*(*(this + 3) + 16 * v41) + v49));
+          DgnTextFileWriter::setLineFieldUnsignedValue(v69, 8u, 0);
+          DgnTextFileWriter::writeNextLine(v69);
+          ++v49;
         }
 
-        while (v59 < *(*(this + 3) + 16 * v51 + 8));
+        while (v49 < *(*(this + 3) + 16 * v41 + 8));
       }
     }
 
-    ++v50;
-    v49 = *(this + 56);
+    ++v40;
+    v39 = *(this + 56);
   }
 
-  while (v50 < v49);
+  while (v40 < v39);
 LABEL_74:
-  if (v49)
+  if (v39)
   {
-    for (i = 0; i < v49; ++i)
+    for (i = 0; i < v39; ++i)
     {
-      v62 = *(this + 27);
-      v63 = *(v62 + 2 * i);
-      if ((v63 & 0x4000) != 0)
+      v52 = *(this + 27);
+      v53 = *(v52 + 2 * i);
+      if ((v53 & 0x4000) != 0)
       {
-        CollMgr::verifyCollId(this, *(v62 + 2 * i), 0, 3u, v31, v32, v33, v34);
-        v64 = *(*(this + 18) + 2 * (v63 & 0xBFFF));
-        v65 = *(*(this + 20) + 2 * (v63 & 0xBFFF));
-        v72 = CollMgr::getCollationName(this, v63, v66, v67, v68, v69, v70, v71);
-        DgnTextFileWriter::setLineFieldValue(v93, 0, v72);
-        DgnTextFileWriter::setLineFieldValue(v93, 1u, "TwoLevel");
-        v79 = CollMgr::getCollationName(this, v64, v73, v74, v75, v76, v77, v78);
-        DgnTextFileWriter::setLineFieldValue(v93, 2u, v79);
-        v85 = "_IDENTITY";
-        if (v65 != 65534)
+        v54 = CollMgr::verifyCollId(this, *(v52 + 2 * i), 0, 3u, v24);
+        v55 = *(*(this + 18) + 2 * (v53 & 0xBFFF));
+        v56 = *(*(this + 20) + 2 * (v53 & 0xBFFF));
+        v57 = CollMgr::getCollationName(this, v53, v54);
+        DgnTextFileWriter::setLineFieldValue(v69, 0, v57);
+        DgnTextFileWriter::setLineFieldValue(v69, 1u, "TwoLevel");
+        v59 = CollMgr::getCollationName(this, v55, v58);
+        DgnTextFileWriter::setLineFieldValue(v69, 2u, v59);
+        v61 = "_IDENTITY";
+        if (v56 != 65534)
         {
-          v85 = CollMgr::getCollationName(this, v65, "_IDENTITY", v80, v81, v82, v83, v84);
+          v61 = CollMgr::getCollationName(this, v56, v60);
         }
 
-        DgnTextFileWriter::setLineFieldValue(v93, 3u, v85);
-        DgnTextFileWriter::setLineFieldValue(v93, 4u, &unk_2628991E4);
-        DgnTextFileWriter::setLineFieldUnsignedValue(v93, 5u, 0);
-        DgnTextFileWriter::setLineFieldUnsignedValue(v93, 6u, 0);
-        DgnTextFileWriter::setLineFieldUnsignedValue(v93, 7u, 0);
-        DgnTextFileWriter::setLineFieldUnsignedValue(v93, 8u, 0);
-        DgnTextFileWriter::writeNextLine(v93);
-        v49 = *(this + 56);
+        DgnTextFileWriter::setLineFieldValue(v69, 3u, v61);
+        DgnTextFileWriter::setLineFieldValue(v69, 4u, &unk_2628991E4);
+        DgnTextFileWriter::setLineFieldUnsignedValue(v69, 5u, 0);
+        DgnTextFileWriter::setLineFieldUnsignedValue(v69, 6u, 0);
+        DgnTextFileWriter::setLineFieldUnsignedValue(v69, 7u, 0);
+        DgnTextFileWriter::setLineFieldUnsignedValue(v69, 8u, 0);
+        DgnTextFileWriter::writeNextLine(v69);
+        v39 = *(this + 56);
       }
     }
   }
 
 LABEL_81:
-  DgnArray<DgnString>::releaseAll(&v87);
-  DgnPrimArray<unsigned int>::~DgnPrimArray(&v89);
-  DgnIArray<Utterance *>::~DgnIArray(&v91);
-  DgnTextFileWriter::~DgnTextFileWriter(v93);
+  DgnArray<DgnString>::releaseAll(&v63);
+  DgnPrimArray<unsigned int>::~DgnPrimArray(&v65);
+  DgnIArray<Utterance *>::~DgnIArray(&v67);
+  DgnTextFileWriter::~DgnTextFileWriter(v69);
 }
 
-void sub_262857EE4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_262857EE4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va3, a3);
-  va_start(va2, a3);
-  va_start(va1, a3);
-  va_start(va, a3);
-  v4 = va_arg(va1, void);
+  va_start(va3, a5);
+  va_start(va2, a5);
+  va_start(va1, a5);
+  va_start(va, a5);
   v6 = va_arg(va1, void);
+  v8 = va_arg(va1, void);
   va_copy(va2, va1);
-  v7 = va_arg(va2, void);
   v9 = va_arg(va2, void);
+  v11 = va_arg(va2, void);
   va_copy(va3, va2);
-  v10 = va_arg(va3, void);
   v12 = va_arg(va3, void);
+  v14 = va_arg(va3, void);
   DgnArray<DgnString>::releaseAll(va);
   DgnPrimArray<unsigned int>::~DgnPrimArray(va1);
   DgnIArray<Utterance *>::~DgnIArray(va2);
@@ -11148,22 +11169,23 @@ void sub_262857EE4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
   _Unwind_Resume(a1);
 }
 
-void *CollMgr::getCollationName(CollMgr *this, unsigned int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void *CollMgr::getCollationName(CollMgr *this, uint64_t a2, double a3)
 {
-  CollMgr::verifyCollId(this, a2, 0, 4u, a5, a6, a7, a8);
-  if ((a2 & 0x4000) != 0)
+  v3 = a2;
+  CollMgr::verifyCollId(this, a2, 0, 4u, a3);
+  if ((v3 & 0x4000) != 0)
   {
-    v10 = (*(this + 22) + 16 * (a2 & 0xBFFF));
+    v5 = (*(this + 22) + 16 * (v3 & 0xBFFF));
   }
 
   else
   {
-    v10 = (*(this + 11) + 16 * a2);
+    v5 = (*(this + 11) + 16 * v3);
   }
 
-  if (v10[2])
+  if (v5[2])
   {
-    return *v10;
+    return *v5;
   }
 
   else
@@ -11201,7 +11223,7 @@ void CollMgr::saveCollMgr(CollMgr *this, DFile *a2, DFileChecksums *a3, int a4, 
     writeObject<unsigned short>(v8, this + 216, &v10);
     writeObjectChecksum(v8, &v10);
     CurrentSubDirComponents = DFile::getCurrentSubDirComponents(a2);
-    DFileChecksums::addChecksum(a3, CurrentSubDirComponents, 0xEu, v10);
+    DFileChecksums::addChecksum(a3, CurrentSubDirComponents, 14, v10);
     DgnDelete<DgnStream>(v8);
   }
 }
@@ -11227,7 +11249,7 @@ uint64_t writeObject<DgnArray<Uns8SpecialMapItem>>(uint64_t a1, uint64_t a2, _DW
   return result;
 }
 
-uint64_t writeObject<Uns32OneToOneMap>(uint64_t a1, uint64_t a2, _DWORD *a3)
+uint64_t writeObject<Uns32OneToOneMap>(DgnStream *a1, uint64_t a2, unsigned int *a3)
 {
   v10 = *(a2 + 8);
   result = writeObject(a1, &v10, a3);
@@ -11276,86 +11298,147 @@ void CollMgr::printSize(CollMgr *this, uint64_t a2, uint64_t a3, unint64_t *a4, 
   *a4 = 0;
   *a5 = 0;
   *a6 = 0;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/collmgr.cpp", 1010, v223);
-  if (DWORD2(v223[0]))
+  getShipObjectSizeDescription(v147, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/collmgr.cpp", 1010);
+  if (DWORD2(v147[0]))
   {
-    v16 = *&v223[0];
+    v13 = *&v147[0];
   }
 
   else
   {
-    v16 = &unk_2628991E4;
+    v13 = &unk_2628991E4;
   }
 
-  xlprintf("ObSize: %*s*************************************************************\nObSize: %*sBegin %s ", v12, v13, v14, v15, a3, &unk_2628991E4, a3, &unk_2628991E4, v16);
-  DgnString::~DgnString(v223);
+  xlprintf("ObSize: %*s*************************************************************\nObSize: %*sBegin %s ", v12, a3, &unk_2628991E4, a3, &unk_2628991E4, v13);
+  DgnString::~DgnString(v147);
   if (a2 != -1)
   {
-    xlprintf("%d ", v17, v18, v19, v20, a2);
+    xlprintf("%d ", v14, a2);
   }
 
-  xlprintf("(alloc, used, shared)\nObSize: %*s*************************************************************\n", v17, v18, v19, v20, a3, &unk_2628991E4);
+  xlprintf("(alloc, used, shared)\nObSize: %*s*************************************************************\n", v14, a3, &unk_2628991E4);
   if (gShadowDiagnosticShowIdealizedObjectSizes)
   {
-    v21 = 4;
+    v15 = 4;
   }
 
   else
   {
-    v21 = 8;
+    v15 = 8;
   }
 
-  v22 = (a3 + 1);
-  v23 = (34 - a3);
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/collmgr.cpp", 1011, v223);
-  if (DWORD2(v223[0]))
+  v16 = (a3 + 1);
+  v17 = (34 - a3);
+  getShipObjectSizeDescription(v147, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/collmgr.cpp", 1011);
+  if (DWORD2(v147[0]))
   {
-    v28 = *&v223[0];
+    v19 = *&v147[0];
   }
 
   else
   {
-    v28 = &unk_2628991E4;
+    v19 = &unk_2628991E4;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v24, v25, v26, v27, (a3 + 1), &unk_2628991E4, (34 - a3), (34 - a3), v28, v21, v21, 0);
-  v222 = a3;
-  DgnString::~DgnString(v223);
-  *a4 += v21;
-  *a5 += v21;
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v18, (a3 + 1), &unk_2628991E4, (34 - a3), (34 - a3), v19, v15, v15, 0);
+  v146 = a3;
+  DgnString::~DgnString(v147);
+  *a4 += v15;
+  *a5 += v15;
   if (gShadowDiagnosticShowIdealizedObjectSizes)
   {
-    v29 = 12;
+    v20 = 12;
   }
 
   else
   {
-    v29 = 16;
+    v20 = 16;
   }
 
-  v30 = *(this + 4);
-  v31 = *(this + 5);
-  if (v31 >= v30)
+  v21 = *(this + 4);
+  v22 = *(this + 5);
+  if (v22 >= v21)
   {
-    v32 = 0;
-    if (v30 > 0)
+    v23 = 0;
+    if (v21 > 0)
     {
-      v29 += 4 * (v30 - 1) + 4;
+      v20 += 4 * (v21 - 1) + 4;
     }
 
-    v33 = v29 + 4 * (v31 - v30);
+    v24 = v20 + 4 * (v22 - v21);
   }
 
   else
   {
-    v32 = 4 * v30;
-    v33 = v29;
+    v23 = 4 * v21;
+    v24 = v20;
   }
 
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/collmgr.cpp", 1013, v223);
-  if (DWORD2(v223[0]))
+  getShipObjectSizeDescription(v147, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/collmgr.cpp", 1013);
+  if (DWORD2(v147[0]))
   {
-    v38 = *&v223[0];
+    v26 = *&v147[0];
+  }
+
+  else
+  {
+    v26 = &unk_2628991E4;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v25, v16, &unk_2628991E4, v17, v17, v26, v24, v20, v23);
+  DgnString::~DgnString(v147);
+  *a4 += v24;
+  *a5 += v20;
+  *a6 += v23;
+  v27 = sizeObject<DgnPrimArray<unsigned char>>(this + 24, 0);
+  v28 = sizeObject<DgnPrimArray<unsigned char>>(this + 24, 1);
+  v147[0] = 0uLL;
+  DgnPrimArray<unsigned int>::~DgnPrimArray(v147);
+  getShipObjectSizeDescription(v147, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/collmgr.cpp", 1013);
+  if (DWORD2(v147[0]))
+  {
+    v30 = *&v147[0];
+  }
+
+  else
+  {
+    v30 = &unk_2628991E4;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v29, v16, &unk_2628991E4, v17, v17, v30, v27, v28, 0);
+  DgnString::~DgnString(v147);
+  *a4 += v27;
+  *a5 += v28;
+  v31 = sizeObject<DgnArray<PicNode>>(this + 40, 0);
+  v32 = sizeObject<DgnArray<PicNode>>(this + 40, 1);
+  v147[0] = 0uLL;
+  DgnIArray<Utterance *>::~DgnIArray(v147);
+  getShipObjectSizeDescription(v147, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/collmgr.cpp", 1013);
+  if (DWORD2(v147[0]))
+  {
+    v34 = *&v147[0];
+  }
+
+  else
+  {
+    v34 = &unk_2628991E4;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v33, v16, &unk_2628991E4, v17, v17, v34, v31, v32, 0);
+  DgnString::~DgnString(v147);
+  *a4 += v31;
+  *a5 += v32;
+  v35 = sizeObject<Uns32OneToOneMap>(this + 56, 0);
+  v36 = sizeObject<Uns32OneToOneMap>(this + 56, 1);
+  memset(v147, 0, sizeof(v147));
+  v148[0] = 0;
+  v148[1] = 0;
+  DgnPrimArray<unsigned int>::~DgnPrimArray(v148);
+  Uns32OneToOneMap::~Uns32OneToOneMap(v147);
+  getShipObjectSizeDescription(v147, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/collmgr.cpp", 1013);
+  if (DWORD2(v147[0]))
+  {
+    v38 = *&v147[0];
   }
 
   else
@@ -11363,158 +11446,295 @@ void CollMgr::printSize(CollMgr *this, uint64_t a2, uint64_t a3, unint64_t *a4, 
     v38 = &unk_2628991E4;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v34, v35, v36, v37, v22, &unk_2628991E4, v23, v23, v38, v33, v29, v32);
-  DgnString::~DgnString(v223);
-  *a4 += v33;
-  *a5 += v29;
-  *a6 += v32;
-  v39 = sizeObject<DgnPrimArray<unsigned char>>(this + 24, 0);
-  v40 = sizeObject<DgnPrimArray<unsigned char>>(this + 24, 1);
-  v223[0] = 0uLL;
-  DgnPrimArray<unsigned int>::~DgnPrimArray(v223);
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/collmgr.cpp", 1013, v223);
-  if (DWORD2(v223[0]))
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v37, v16, &unk_2628991E4, v17, v17, v38, v35, v36, 0);
+  DgnString::~DgnString(v147);
+  *a4 += v35;
+  *a5 += v36;
+  v39 = sizeObject<DgnArray<Uns32SpecialMapItem>>(this + 72, 0);
+  v40 = sizeObject<DgnArray<Uns32SpecialMapItem>>(this + 72, 1);
+  v147[0] = 0uLL;
+  DgnIArray<Utterance *>::~DgnIArray(v147);
+  getShipObjectSizeDescription(v147, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/collmgr.cpp", 1013);
+  if (DWORD2(v147[0]))
   {
-    v45 = *&v223[0];
+    v42 = *&v147[0];
   }
 
   else
   {
-    v45 = &unk_2628991E4;
+    v42 = &unk_2628991E4;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v41, v42, v43, v44, v22, &unk_2628991E4, v23, v23, v45, v39, v40, 0);
-  DgnString::~DgnString(v223);
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v41, v16, &unk_2628991E4, v17, v17, v42, v39, v40, 0);
+  DgnString::~DgnString(v147);
   *a4 += v39;
   *a5 += v40;
-  v46 = sizeObject<DgnArray<PicNode>>(this + 40, 0);
-  v47 = sizeObject<DgnArray<PicNode>>(this + 40, 1);
-  v223[0] = 0uLL;
-  DgnIArray<Utterance *>::~DgnIArray(v223);
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/collmgr.cpp", 1013, v223);
-  if (DWORD2(v223[0]))
+  v43 = sizeObject<DgnString>(this + 88, 0);
+  v44 = sizeObject<DgnString>(this + 88, 1);
+  v45 = sizeObject<DgnString>(this + 88, 3);
+  getShipObjectSizeDescription(v147, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/collmgr.cpp", 1013);
+  if (DWORD2(v147[0]))
   {
-    v52 = *&v223[0];
+    v47 = *&v147[0];
   }
 
   else
   {
-    v52 = &unk_2628991E4;
+    v47 = &unk_2628991E4;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v48, v49, v50, v51, v22, &unk_2628991E4, v23, v23, v52, v46, v47, 0);
-  DgnString::~DgnString(v223);
-  *a4 += v46;
-  *a5 += v47;
-  v53 = sizeObject<Uns32OneToOneMap>(this + 56, 0);
-  v54 = sizeObject<Uns32OneToOneMap>(this + 56, 1);
-  memset(v223, 0, sizeof(v223));
-  v224[0] = 0;
-  v224[1] = 0;
-  DgnPrimArray<unsigned int>::~DgnPrimArray(v224);
-  Uns32OneToOneMap::~Uns32OneToOneMap(v223);
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/collmgr.cpp", 1013, v223);
-  if (DWORD2(v223[0]))
-  {
-    v59 = *&v223[0];
-  }
-
-  else
-  {
-    v59 = &unk_2628991E4;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v55, v56, v57, v58, v22, &unk_2628991E4, v23, v23, v59, v53, v54, 0);
-  DgnString::~DgnString(v223);
-  *a4 += v53;
-  *a5 += v54;
-  v60 = sizeObject<DgnArray<Uns32SpecialMapItem>>(this + 72, 0);
-  v61 = sizeObject<DgnArray<Uns32SpecialMapItem>>(this + 72, 1);
-  v223[0] = 0uLL;
-  DgnIArray<Utterance *>::~DgnIArray(v223);
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/collmgr.cpp", 1013, v223);
-  if (DWORD2(v223[0]))
-  {
-    v66 = *&v223[0];
-  }
-
-  else
-  {
-    v66 = &unk_2628991E4;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v62, v63, v64, v65, v22, &unk_2628991E4, v23, v23, v66, v60, v61, 0);
-  DgnString::~DgnString(v223);
-  *a4 += v60;
-  *a5 += v61;
-  v67 = sizeObject<DgnString>(this + 88, 0);
-  v68 = sizeObject<DgnString>(this + 88, 1);
-  v69 = sizeObject<DgnString>(this + 88, 3);
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/collmgr.cpp", 1013, v223);
-  if (DWORD2(v223[0]))
-  {
-    v74 = *&v223[0];
-  }
-
-  else
-  {
-    v74 = &unk_2628991E4;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v70, v71, v72, v73, v22, &unk_2628991E4, v23, v23, v74, v67, v68, v69);
-  DgnString::~DgnString(v223);
-  *a4 += v67;
-  *a5 += v68;
-  *a6 += v69;
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v46, v16, &unk_2628991E4, v17, v17, v47, v43, v44, v45);
+  DgnString::~DgnString(v147);
+  *a4 += v43;
+  *a5 += v44;
+  *a6 += v45;
   if (gShadowDiagnosticShowIdealizedObjectSizes)
   {
-    v75 = 12;
+    v48 = 12;
   }
 
   else
   {
-    v75 = 16;
+    v48 = 16;
   }
 
-  v76 = *(this + 28);
-  v77 = *(this + 29);
-  if (v77 >= v76)
+  v49 = *(this + 28);
+  v50 = *(this + 29);
+  if (v50 >= v49)
   {
-    v78 = 0;
-    if (v76 > 0)
+    v51 = 0;
+    if (v49 > 0)
     {
-      v75 += 2 * (v76 - 1) + 2;
+      v48 += 2 * (v49 - 1) + 2;
     }
 
-    v79 = v75 + 2 * (v77 - v76);
+    v52 = v48 + 2 * (v50 - v49);
   }
 
   else
   {
-    v78 = 2 * v76;
-    v79 = v75;
+    v51 = 2 * v49;
+    v52 = v48;
   }
 
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/collmgr.cpp", 1013, v223);
-  if (DWORD2(v223[0]))
+  getShipObjectSizeDescription(v147, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/collmgr.cpp", 1013);
+  if (DWORD2(v147[0]))
   {
-    v84 = *&v223[0];
+    v54 = *&v147[0];
   }
 
   else
   {
-    v84 = &unk_2628991E4;
+    v54 = &unk_2628991E4;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v80, v81, v82, v83, v22, &unk_2628991E4, v23, v23, v84, v79, v75, v78);
-  DgnString::~DgnString(v223);
-  *a4 += v79;
-  *a5 += v75;
-  *a6 += v78;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/collmgr.cpp", 1013, v223);
-  if (DWORD2(v223[0]))
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v53, v16, &unk_2628991E4, v17, v17, v54, v52, v48, v51);
+  DgnString::~DgnString(v147);
+  *a4 += v52;
+  *a5 += v48;
+  *a6 += v51;
+  getShipObjectSizeDescription(v147, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/collmgr.cpp", 1013);
+  if (DWORD2(v147[0]))
   {
-    v89 = *&v223[0];
+    v56 = *&v147[0];
+  }
+
+  else
+  {
+    v56 = &unk_2628991E4;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v55, v16, &unk_2628991E4, v17, v17, v56, 2, 2, 0);
+  DgnString::~DgnString(v147);
+  *a4 += 2;
+  *a5 += 2;
+  if (gShadowDiagnosticShowIdealizedObjectSizes)
+  {
+    v57 = 12;
+  }
+
+  else
+  {
+    v57 = 16;
+  }
+
+  v58 = *(this + 34);
+  v59 = *(this + 35);
+  if (v59 >= v58)
+  {
+    v60 = 0;
+    if (v58 > 0)
+    {
+      v57 += 4 * (v58 - 1) + 4;
+    }
+
+    v61 = v57 + 4 * (v59 - v58);
+  }
+
+  else
+  {
+    v60 = 4 * v58;
+    v61 = v57;
+  }
+
+  getShipObjectSizeDescription(v147, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/collmgr.cpp", 1013);
+  if (DWORD2(v147[0]))
+  {
+    v63 = *&v147[0];
+  }
+
+  else
+  {
+    v63 = &unk_2628991E4;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v62, v16, &unk_2628991E4, v17, v17, v63, v61, v57, v60);
+  DgnString::~DgnString(v147);
+  *a4 += v61;
+  *a5 += v57;
+  *a6 += v60;
+  if (gShadowDiagnosticShowIdealizedObjectSizes)
+  {
+    v64 = 12;
+  }
+
+  else
+  {
+    v64 = 16;
+  }
+
+  v65 = *(this + 38);
+  v66 = *(this + 39);
+  if (v66 >= v65)
+  {
+    v67 = 0;
+    if (v65 > 0)
+    {
+      v64 += 2 * (v65 - 1) + 2;
+    }
+
+    v68 = v64 + 2 * (v66 - v65);
+  }
+
+  else
+  {
+    v67 = 2 * v65;
+    v68 = v64;
+  }
+
+  getShipObjectSizeDescription(v147, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/collmgr.cpp", 1013);
+  if (DWORD2(v147[0]))
+  {
+    v70 = *&v147[0];
+  }
+
+  else
+  {
+    v70 = &unk_2628991E4;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v69, v16, &unk_2628991E4, v17, v17, v70, v68, v64, v67);
+  DgnString::~DgnString(v147);
+  *a4 += v68;
+  *a5 += v64;
+  *a6 += v67;
+  if (gShadowDiagnosticShowIdealizedObjectSizes)
+  {
+    v71 = 12;
+  }
+
+  else
+  {
+    v71 = 16;
+  }
+
+  v72 = *(this + 42);
+  v73 = *(this + 43);
+  if (v73 >= v72)
+  {
+    v74 = 0;
+    if (v72 > 0)
+    {
+      v71 += 2 * (v72 - 1) + 2;
+    }
+
+    v75 = v71 + 2 * (v73 - v72);
+  }
+
+  else
+  {
+    v74 = 2 * v72;
+    v75 = v71;
+  }
+
+  getShipObjectSizeDescription(v147, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/collmgr.cpp", 1013);
+  if (DWORD2(v147[0]))
+  {
+    v77 = *&v147[0];
+  }
+
+  else
+  {
+    v77 = &unk_2628991E4;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v76, v16, &unk_2628991E4, v17, v17, v77, v75, v71, v74);
+  DgnString::~DgnString(v147);
+  *a4 += v75;
+  *a5 += v71;
+  *a6 += v74;
+  v78 = sizeObject<DgnString>(this + 176, 0);
+  v79 = sizeObject<DgnString>(this + 176, 1);
+  v80 = sizeObject<DgnString>(this + 176, 3);
+  getShipObjectSizeDescription(v147, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/collmgr.cpp", 1013);
+  if (DWORD2(v147[0]))
+  {
+    v82 = *&v147[0];
+  }
+
+  else
+  {
+    v82 = &unk_2628991E4;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v81, v16, &unk_2628991E4, v17, v17, v82, v78, v79, v80);
+  DgnString::~DgnString(v147);
+  *a4 += v78;
+  *a5 += v79;
+  *a6 += v80;
+  if (gShadowDiagnosticShowIdealizedObjectSizes)
+  {
+    v83 = 12;
+  }
+
+  else
+  {
+    v83 = 16;
+  }
+
+  v84 = *(this + 50);
+  v85 = *(this + 51);
+  if (v85 >= v84)
+  {
+    v86 = 0;
+    if (v84 > 0)
+    {
+      v83 += 2 * (v84 - 1) + 2;
+    }
+
+    v87 = v83 + 2 * (v85 - v84);
+  }
+
+  else
+  {
+    v86 = 2 * v84;
+    v87 = v83;
+  }
+
+  getShipObjectSizeDescription(v147, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/collmgr.cpp", 1013);
+  if (DWORD2(v147[0]))
+  {
+    v89 = *&v147[0];
   }
 
   else
@@ -11522,572 +11742,373 @@ void CollMgr::printSize(CollMgr *this, uint64_t a2, uint64_t a3, unint64_t *a4, 
     v89 = &unk_2628991E4;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v85, v86, v87, v88, v22, &unk_2628991E4, v23, v23, v89, 2, 2, 0);
-  DgnString::~DgnString(v223);
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v88, v16, &unk_2628991E4, v17, v17, v89, v87, v83, v86);
+  DgnString::~DgnString(v147);
+  *a4 += v87;
+  *a5 += v83;
+  *a6 += v86;
+  getShipObjectSizeDescription(v147, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/collmgr.cpp", 1013);
+  if (DWORD2(v147[0]))
+  {
+    v91 = *&v147[0];
+  }
+
+  else
+  {
+    v91 = &unk_2628991E4;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v90, v16, &unk_2628991E4, v17, v17, v91, 2, 2, 0);
+  DgnString::~DgnString(v147);
   *a4 += 2;
   *a5 += 2;
   if (gShadowDiagnosticShowIdealizedObjectSizes)
   {
-    v90 = 12;
+    v92 = 12;
   }
 
   else
   {
-    v90 = 16;
+    v92 = 16;
   }
 
-  v91 = *(this + 34);
-  v92 = *(this + 35);
-  if (v92 >= v91)
+  v93 = *(this + 56);
+  v94 = *(this + 57);
+  if (v94 >= v93)
   {
-    v93 = 0;
-    if (v91 > 0)
+    v95 = 0;
+    if (v93 > 0)
     {
-      v90 += 4 * (v91 - 1) + 4;
+      v92 += 2 * (v93 - 1) + 2;
     }
 
-    v94 = v90 + 4 * (v92 - v91);
+    v96 = v92 + 2 * (v94 - v93);
   }
 
   else
   {
-    v93 = 4 * v91;
-    v94 = v90;
+    v95 = 2 * v93;
+    v96 = v92;
   }
 
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/collmgr.cpp", 1013, v223);
-  if (DWORD2(v223[0]))
+  getShipObjectSizeDescription(v147, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/collmgr.cpp", 1013);
+  if (DWORD2(v147[0]))
   {
-    v99 = *&v223[0];
+    v98 = *&v147[0];
   }
 
   else
   {
-    v99 = &unk_2628991E4;
+    v98 = &unk_2628991E4;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v95, v96, v97, v98, v22, &unk_2628991E4, v23, v23, v99, v94, v90, v93);
-  DgnString::~DgnString(v223);
-  *a4 += v94;
-  *a5 += v90;
-  *a6 += v93;
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v97, v16, &unk_2628991E4, v17, v17, v98, v96, v92, v95);
+  DgnString::~DgnString(v147);
+  *a4 += v96;
+  *a5 += v92;
+  *a6 += v95;
   if (gShadowDiagnosticShowIdealizedObjectSizes)
   {
-    v100 = 12;
+    v99 = 12;
   }
 
   else
   {
-    v100 = 16;
+    v99 = 16;
   }
 
-  v101 = *(this + 38);
-  v102 = *(this + 39);
-  if (v102 >= v101)
+  v100 = *(this + 60);
+  v101 = *(this + 61);
+  v102 = v101 >= v100;
+  v103 = v101 - v100;
+  if (v102)
   {
-    v103 = 0;
-    if (v101 > 0)
+    if (v100 > 0)
     {
-      v100 += 2 * (v101 - 1) + 2;
+      v104 = (v100 - 1) + v99 + 1;
     }
 
-    v104 = v100 + 2 * (v102 - v101);
+    else
+    {
+      v104 = v99;
+    }
+
+    v99 = v104 + v103;
+    v100 = 0;
   }
 
   else
   {
-    v103 = 2 * v101;
-    v104 = v100;
+    v104 = v99;
   }
 
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/collmgr.cpp", 1013, v223);
-  if (DWORD2(v223[0]))
+  v105 = v100;
+  getShipObjectSizeDescription(v147, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/collmgr.cpp", 1014);
+  if (DWORD2(v147[0]))
   {
-    v109 = *&v223[0];
+    v107 = *&v147[0];
   }
 
   else
   {
-    v109 = &unk_2628991E4;
+    v107 = &unk_2628991E4;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v105, v106, v107, v108, v22, &unk_2628991E4, v23, v23, v109, v104, v100, v103);
-  DgnString::~DgnString(v223);
-  *a4 += v104;
-  *a5 += v100;
-  *a6 += v103;
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v106, v16, &unk_2628991E4, v17, v17, v107, v99, v104, v105);
+  DgnString::~DgnString(v147);
+  *a4 += v99;
+  *a5 += v104;
+  *a6 += v105;
   if (gShadowDiagnosticShowIdealizedObjectSizes)
   {
-    v110 = 12;
+    v108 = 12;
   }
 
   else
   {
-    v110 = 16;
+    v108 = 16;
   }
 
-  v111 = *(this + 42);
-  v112 = *(this + 43);
-  if (v112 >= v111)
+  v109 = *(this + 64);
+  v110 = *(this + 65);
+  v102 = v110 >= v109;
+  v111 = v110 - v109;
+  if (v102)
   {
-    v113 = 0;
-    if (v111 > 0)
+    if (v109 > 0)
     {
-      v110 += 2 * (v111 - 1) + 2;
+      v112 = (v109 - 1) + v108 + 1;
     }
 
-    v114 = v110 + 2 * (v112 - v111);
+    else
+    {
+      v112 = v108;
+    }
+
+    v108 = v112 + v111;
+    v109 = 0;
   }
 
   else
   {
-    v113 = 2 * v111;
-    v114 = v110;
+    v112 = v108;
   }
 
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/collmgr.cpp", 1013, v223);
-  if (DWORD2(v223[0]))
+  v113 = v109;
+  getShipObjectSizeDescription(v147, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/collmgr.cpp", 1015);
+  if (DWORD2(v147[0]))
   {
-    v119 = *&v223[0];
+    v115 = *&v147[0];
   }
 
   else
   {
-    v119 = &unk_2628991E4;
+    v115 = &unk_2628991E4;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v115, v116, v117, v118, v22, &unk_2628991E4, v23, v23, v119, v114, v110, v113);
-  DgnString::~DgnString(v223);
-  *a4 += v114;
-  *a5 += v110;
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v114, v16, &unk_2628991E4, v17, v17, v115, v108, v112, v113);
+  DgnString::~DgnString(v147);
+  *a4 += v108;
+  *a5 += v112;
   *a6 += v113;
-  v120 = sizeObject<DgnString>(this + 176, 0);
-  v121 = sizeObject<DgnString>(this + 176, 1);
-  v122 = sizeObject<DgnString>(this + 176, 3);
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/collmgr.cpp", 1013, v223);
-  if (DWORD2(v223[0]))
+  if (gShadowDiagnosticShowIdealizedObjectSizes)
   {
-    v127 = *&v223[0];
+    v116 = 12;
   }
 
   else
   {
-    v127 = &unk_2628991E4;
+    v116 = 16;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v123, v124, v125, v126, v22, &unk_2628991E4, v23, v23, v127, v120, v121, v122);
-  DgnString::~DgnString(v223);
+  v117 = *(this + 68);
+  v118 = *(this + 69);
+  if (v118 >= v117)
+  {
+    v119 = 0;
+    if (v117 > 0)
+    {
+      v116 += 4 * (v117 - 1) + 4;
+    }
+
+    v120 = v116 + 4 * (v118 - v117);
+  }
+
+  else
+  {
+    v119 = 4 * v117;
+    v120 = v116;
+  }
+
+  getShipObjectSizeDescription(v147, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/collmgr.cpp", 1016);
+  if (DWORD2(v147[0]))
+  {
+    v122 = *&v147[0];
+  }
+
+  else
+  {
+    v122 = &unk_2628991E4;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v121, v16, &unk_2628991E4, v17, v17, v122, v120, v116, v119);
+  DgnString::~DgnString(v147);
   *a4 += v120;
-  *a5 += v121;
-  *a6 += v122;
+  *a5 += v116;
+  *a6 += v119;
   if (gShadowDiagnosticShowIdealizedObjectSizes)
   {
-    v128 = 12;
+    v123 = 12;
   }
 
   else
   {
-    v128 = 16;
+    v123 = 16;
   }
 
-  v129 = *(this + 50);
-  v130 = *(this + 51);
-  if (v130 >= v129)
+  v124 = *(this + 72);
+  v125 = *(this + 73);
+  if (v125 >= v124)
   {
-    v131 = 0;
-    if (v129 > 0)
+    v126 = 0;
+    if (v124 > 0)
     {
-      v128 += 2 * (v129 - 1) + 2;
+      v123 += 4 * (v124 - 1) + 4;
     }
 
-    v132 = v128 + 2 * (v130 - v129);
+    v127 = v123 + 4 * (v125 - v124);
   }
 
   else
   {
-    v131 = 2 * v129;
-    v132 = v128;
+    v126 = 4 * v124;
+    v127 = v123;
   }
 
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/collmgr.cpp", 1013, v223);
-  if (DWORD2(v223[0]))
+  getShipObjectSizeDescription(v147, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/collmgr.cpp", 1017);
+  if (DWORD2(v147[0]))
   {
-    v137 = *&v223[0];
+    v129 = *&v147[0];
   }
 
   else
   {
-    v137 = &unk_2628991E4;
+    v129 = &unk_2628991E4;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v133, v134, v135, v136, v22, &unk_2628991E4, v23, v23, v137, v132, v128, v131);
-  DgnString::~DgnString(v223);
-  *a4 += v132;
-  *a5 += v128;
-  *a6 += v131;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/collmgr.cpp", 1013, v223);
-  if (DWORD2(v223[0]))
-  {
-    v142 = *&v223[0];
-  }
-
-  else
-  {
-    v142 = &unk_2628991E4;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v138, v139, v140, v141, v22, &unk_2628991E4, v23, v23, v142, 2, 2, 0);
-  DgnString::~DgnString(v223);
-  *a4 += 2;
-  *a5 += 2;
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v128, v16, &unk_2628991E4, v17, v17, v129, v127, v123, v126);
+  DgnString::~DgnString(v147);
+  *a4 += v127;
+  *a5 += v123;
+  *a6 += v126;
   if (gShadowDiagnosticShowIdealizedObjectSizes)
   {
-    v143 = 12;
+    v130 = 12;
   }
 
   else
   {
-    v143 = 16;
+    v130 = 16;
   }
 
-  v144 = *(this + 56);
-  v145 = *(this + 57);
-  if (v145 >= v144)
+  v131 = *(this + 76);
+  v132 = *(this + 77);
+  if (v132 >= v131)
   {
-    v146 = 0;
-    if (v144 > 0)
+    v133 = 0;
+    if (v131 > 0)
     {
-      v143 += 2 * (v144 - 1) + 2;
+      v130 += 4 * (v131 - 1) + 4;
     }
 
-    v147 = v143 + 2 * (v145 - v144);
+    v134 = v130 + 4 * (v132 - v131);
   }
 
   else
   {
-    v146 = 2 * v144;
-    v147 = v143;
+    v133 = 4 * v131;
+    v134 = v130;
   }
 
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/collmgr.cpp", 1013, v223);
-  if (DWORD2(v223[0]))
+  getShipObjectSizeDescription(v147, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/collmgr.cpp", 1018);
+  if (DWORD2(v147[0]))
   {
-    v152 = *&v223[0];
+    v136 = *&v147[0];
   }
 
   else
   {
-    v152 = &unk_2628991E4;
+    v136 = &unk_2628991E4;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v148, v149, v150, v151, v22, &unk_2628991E4, v23, v23, v152, v147, v143, v146);
-  DgnString::~DgnString(v223);
-  *a4 += v147;
-  *a5 += v143;
-  *a6 += v146;
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v135, v16, &unk_2628991E4, v17, v17, v136, v134, v130, v133);
+  DgnString::~DgnString(v147);
+  *a4 += v134;
+  *a5 += v130;
+  *a6 += v133;
   if (gShadowDiagnosticShowIdealizedObjectSizes)
   {
-    v153 = 12;
+    v137 = 12;
   }
 
   else
   {
-    v153 = 16;
+    v137 = 16;
   }
 
-  v154 = *(this + 60);
-  v155 = *(this + 61);
-  v156 = v155 >= v154;
-  v157 = v155 - v154;
-  if (v156)
+  v138 = *(this + 80);
+  v139 = *(this + 81);
+  if (v139 >= v138)
   {
-    if (v154 > 0)
+    v140 = 0;
+    if (v138 > 0)
     {
-      v158 = (v154 - 1) + v153 + 1;
+      v137 += 4 * (v138 - 1) + 4;
     }
 
-    else
-    {
-      v158 = v153;
-    }
-
-    v153 = v158 + v157;
-    v154 = 0;
+    v141 = v137 + 4 * (v139 - v138);
   }
 
   else
   {
-    v158 = v153;
+    v140 = 4 * v138;
+    v141 = v137;
   }
 
-  v159 = v154;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/collmgr.cpp", 1014, v223);
-  if (DWORD2(v223[0]))
+  getShipObjectSizeDescription(v147, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/collmgr.cpp", 1019);
+  if (DWORD2(v147[0]))
   {
-    v164 = *&v223[0];
+    v143 = *&v147[0];
   }
 
   else
   {
-    v164 = &unk_2628991E4;
+    v143 = &unk_2628991E4;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v160, v161, v162, v163, v22, &unk_2628991E4, v23, v23, v164, v153, v158, v159);
-  DgnString::~DgnString(v223);
-  *a4 += v153;
-  *a5 += v158;
-  *a6 += v159;
-  if (gShadowDiagnosticShowIdealizedObjectSizes)
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v142, v16, &unk_2628991E4, v17, v17, v143, v141, v137, v140);
+  DgnString::~DgnString(v147);
+  *a4 += v141;
+  *a5 += v137;
+  *a6 += v140;
+  getShipObjectSizeDescription(v147, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/collmgr.cpp", 1020);
+  if (DWORD2(v147[0]))
   {
-    v165 = 12;
+    v145 = *&v147[0];
   }
 
   else
   {
-    v165 = 16;
+    v145 = &unk_2628991E4;
   }
 
-  v166 = *(this + 64);
-  v167 = *(this + 65);
-  v156 = v167 >= v166;
-  v168 = v167 - v166;
-  if (v156)
-  {
-    if (v166 > 0)
-    {
-      v169 = (v166 - 1) + v165 + 1;
-    }
-
-    else
-    {
-      v169 = v165;
-    }
-
-    v165 = v169 + v168;
-    v166 = 0;
-  }
-
-  else
-  {
-    v169 = v165;
-  }
-
-  v170 = v166;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/collmgr.cpp", 1015, v223);
-  if (DWORD2(v223[0]))
-  {
-    v175 = *&v223[0];
-  }
-
-  else
-  {
-    v175 = &unk_2628991E4;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v171, v172, v173, v174, v22, &unk_2628991E4, v23, v23, v175, v165, v169, v170);
-  DgnString::~DgnString(v223);
-  *a4 += v165;
-  *a5 += v169;
-  *a6 += v170;
-  if (gShadowDiagnosticShowIdealizedObjectSizes)
-  {
-    v176 = 12;
-  }
-
-  else
-  {
-    v176 = 16;
-  }
-
-  v177 = *(this + 68);
-  v178 = *(this + 69);
-  if (v178 >= v177)
-  {
-    v179 = 0;
-    if (v177 > 0)
-    {
-      v176 += 4 * (v177 - 1) + 4;
-    }
-
-    v180 = v176 + 4 * (v178 - v177);
-  }
-
-  else
-  {
-    v179 = 4 * v177;
-    v180 = v176;
-  }
-
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/collmgr.cpp", 1016, v223);
-  if (DWORD2(v223[0]))
-  {
-    v185 = *&v223[0];
-  }
-
-  else
-  {
-    v185 = &unk_2628991E4;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v181, v182, v183, v184, v22, &unk_2628991E4, v23, v23, v185, v180, v176, v179);
-  DgnString::~DgnString(v223);
-  *a4 += v180;
-  *a5 += v176;
-  *a6 += v179;
-  if (gShadowDiagnosticShowIdealizedObjectSizes)
-  {
-    v186 = 12;
-  }
-
-  else
-  {
-    v186 = 16;
-  }
-
-  v187 = *(this + 72);
-  v188 = *(this + 73);
-  if (v188 >= v187)
-  {
-    v189 = 0;
-    if (v187 > 0)
-    {
-      v186 += 4 * (v187 - 1) + 4;
-    }
-
-    v190 = v186 + 4 * (v188 - v187);
-  }
-
-  else
-  {
-    v189 = 4 * v187;
-    v190 = v186;
-  }
-
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/collmgr.cpp", 1017, v223);
-  if (DWORD2(v223[0]))
-  {
-    v195 = *&v223[0];
-  }
-
-  else
-  {
-    v195 = &unk_2628991E4;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v191, v192, v193, v194, v22, &unk_2628991E4, v23, v23, v195, v190, v186, v189);
-  DgnString::~DgnString(v223);
-  *a4 += v190;
-  *a5 += v186;
-  *a6 += v189;
-  if (gShadowDiagnosticShowIdealizedObjectSizes)
-  {
-    v196 = 12;
-  }
-
-  else
-  {
-    v196 = 16;
-  }
-
-  v197 = *(this + 76);
-  v198 = *(this + 77);
-  if (v198 >= v197)
-  {
-    v199 = 0;
-    if (v197 > 0)
-    {
-      v196 += 4 * (v197 - 1) + 4;
-    }
-
-    v200 = v196 + 4 * (v198 - v197);
-  }
-
-  else
-  {
-    v199 = 4 * v197;
-    v200 = v196;
-  }
-
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/collmgr.cpp", 1018, v223);
-  if (DWORD2(v223[0]))
-  {
-    v205 = *&v223[0];
-  }
-
-  else
-  {
-    v205 = &unk_2628991E4;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v201, v202, v203, v204, v22, &unk_2628991E4, v23, v23, v205, v200, v196, v199);
-  DgnString::~DgnString(v223);
-  *a4 += v200;
-  *a5 += v196;
-  *a6 += v199;
-  if (gShadowDiagnosticShowIdealizedObjectSizes)
-  {
-    v206 = 12;
-  }
-
-  else
-  {
-    v206 = 16;
-  }
-
-  v207 = *(this + 80);
-  v208 = *(this + 81);
-  if (v208 >= v207)
-  {
-    v209 = 0;
-    if (v207 > 0)
-    {
-      v206 += 4 * (v207 - 1) + 4;
-    }
-
-    v210 = v206 + 4 * (v208 - v207);
-  }
-
-  else
-  {
-    v209 = 4 * v207;
-    v210 = v206;
-  }
-
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/collmgr.cpp", 1019, v223);
-  if (DWORD2(v223[0]))
-  {
-    v215 = *&v223[0];
-  }
-
-  else
-  {
-    v215 = &unk_2628991E4;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v211, v212, v213, v214, v22, &unk_2628991E4, v23, v23, v215, v210, v206, v209);
-  DgnString::~DgnString(v223);
-  *a4 += v210;
-  *a5 += v206;
-  *a6 += v209;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/collmgr.cpp", 1020, v223);
-  if (DWORD2(v223[0]))
-  {
-    v220 = *&v223[0];
-  }
-
-  else
-  {
-    v220 = &unk_2628991E4;
-  }
-
-  v221 = *a5;
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v216, v217, v218, v219, v222, &unk_2628991E4, (35 - v222), (35 - v222), v220, *a4, *a5, *a6);
-  DgnString::~DgnString(v223);
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v144, v146, &unk_2628991E4, (35 - v146), (35 - v146), v145, *a4, *a5, *a6);
+  DgnString::~DgnString(v147);
 }
 
-void sub_26285933C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_26285933C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   DgnString::~DgnString(va);
   _Unwind_Resume(a1);
 }
@@ -12143,7 +12164,7 @@ uint64_t sizeObject<Uns32OneToOneMap>(uint64_t a1, int a2)
   return v5;
 }
 
-uint64_t sizeObject<DgnArray<Uns32SpecialMapItem>>(uint64_t a1, int a2)
+uint64_t sizeObject<DgnArray<Uns32SpecialMapItem>>(uint64_t a1, uint64_t a2)
 {
   v2 = 0;
   v10[0] = 0;
@@ -12160,6 +12181,7 @@ uint64_t sizeObject<DgnArray<Uns32SpecialMapItem>>(uint64_t a1, int a2)
 
   if (a2 != 3)
   {
+    v4 = a2;
     if ((a2 & 0xFFFFFFFE) == 2)
     {
       v2 = v3;
@@ -12176,7 +12198,7 @@ uint64_t sizeObject<DgnArray<Uns32SpecialMapItem>>(uint64_t a1, int a2)
         v2 = v3;
         do
         {
-          v2 += sizeObject<Uns32SpecialMapItem>(*a1 + v8, a2);
+          v2 += sizeObject<Uns32SpecialMapItem>(*a1 + v8, v4);
           --v7;
           v8 -= 16;
         }
@@ -12184,7 +12206,7 @@ uint64_t sizeObject<DgnArray<Uns32SpecialMapItem>>(uint64_t a1, int a2)
         while (v7 > 1);
       }
 
-      if (!a2)
+      if (!v4)
       {
         v2 += v3 * (*(a1 + 12) - *(a1 + 8));
       }
@@ -12195,17 +12217,17 @@ uint64_t sizeObject<DgnArray<Uns32SpecialMapItem>>(uint64_t a1, int a2)
   return v2;
 }
 
-void CollMgr::verifyCollId(uint64_t a1, unsigned int a2, int a3, unsigned int a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+double CollMgr::verifyCollId(uint64_t a1, unsigned int a2, int a3, unsigned int a4, double result)
 {
   if (a2 >= 0xFFFE && a3 == 0)
   {
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/collmgr.cpp", 1764, "word/collmgr", 6, "%s", a7, a8, &errStr_word_collmgr_E_COLLATION_BAD_USER_DEFINEDNESS);
+    result = errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/collmgr.cpp", 1764, "word/collmgr", 6, "%s", &errStr_word_collmgr_E_COLLATION_BAD_USER_DEFINEDNESS);
     goto LABEL_9;
   }
 
   if (a2 <= 0xFFFD && a3 == 1)
   {
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/collmgr.cpp", 1766, "word/collmgr", 6, "%s", a7, a8, &errStr_word_collmgr_E_COLLATION_BAD_USER_DEFINEDNESS);
+    result = errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/collmgr.cpp", 1766, "word/collmgr", 6, "%s", &errStr_word_collmgr_E_COLLATION_BAD_USER_DEFINEDNESS);
     goto LABEL_13;
   }
 
@@ -12214,11 +12236,11 @@ void CollMgr::verifyCollId(uint64_t a1, unsigned int a2, int a3, unsigned int a4
 LABEL_9:
     if (a4 != 3)
     {
-      return;
+      return result;
     }
 
-    v14 = &errStr_word_collmgr_E_COLLATION_BAD_TYPE;
-    v12 = 1802;
+    v11 = &errStr_word_collmgr_E_COLLATION_BAD_TYPE;
+    v9 = 1802;
     goto LABEL_11;
   }
 
@@ -12227,15 +12249,15 @@ LABEL_13:
   {
     if (a4 <= 2)
     {
-      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/collmgr.cpp", 1774, "word/collmgr", 4, "%s", a7, a8, &errStr_word_collmgr_E_COLLATION_BAD_TYPE);
+      result = errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/collmgr.cpp", 1774, "word/collmgr", 4, "%s", &errStr_word_collmgr_E_COLLATION_BAD_TYPE);
     }
 
     if ((a2 & 0xFFFFBFFF) >= *(a1 + 208) || !*(*(a1 + 128) + 4 * (a2 & 0xFFFFBFFF)))
     {
-      v14 = &errStr_word_collmgr_E_NO_SUCH_COLLATION;
-      v12 = 1778;
-      v13 = 5;
-      goto LABEL_28;
+      v11 = &errStr_word_collmgr_E_NO_SUCH_COLLATION;
+      v9 = 1778;
+      v10 = 5;
+      return errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/collmgr.cpp", v9, "word/collmgr", v10, "%s", result, v11);
     }
   }
 
@@ -12243,41 +12265,42 @@ LABEL_13:
   {
     if (a4 == 3)
     {
-      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/collmgr.cpp", 1783, "word/collmgr", 4, "%s", a7, a8, &errStr_word_collmgr_E_COLLATION_BAD_TYPE);
+      result = errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/collmgr.cpp", 1783, "word/collmgr", 4, "%s", &errStr_word_collmgr_E_COLLATION_BAD_TYPE);
     }
 
     if (*(a1 + 120) <= a2 || !*(*(a1 + 8) + 4 * a2))
     {
-      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/collmgr.cpp", 1786, "word/collmgr", 5, "%s", a7, a8, &errStr_word_collmgr_E_NO_SUCH_COLLATION);
+      result = errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/collmgr.cpp", 1786, "word/collmgr", 5, "%s", &errStr_word_collmgr_E_NO_SUCH_COLLATION);
     }
 
     if (a4 == 1)
     {
       if (!**a1)
       {
-        v14 = &errStr_word_collmgr_E_COLLATION_BAD_TYPE;
-        v12 = 1792;
+        v11 = &errStr_word_collmgr_E_COLLATION_BAD_TYPE;
+        v9 = 1792;
         goto LABEL_11;
       }
     }
 
     else if (!a4 && **a1)
     {
-      v14 = &errStr_word_collmgr_E_COLLATION_BAD_TYPE;
-      v12 = 1789;
+      v11 = &errStr_word_collmgr_E_COLLATION_BAD_TYPE;
+      v9 = 1789;
 LABEL_11:
-      v13 = 4;
-LABEL_28:
-      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/collmgr.cpp", v12, "word/collmgr", v13, "%s", a7, a8, v14);
+      v10 = 4;
+      return errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/collmgr.cpp", v9, "word/collmgr", v10, "%s", result, v11);
     }
   }
+
+  return result;
 }
 
-uint64_t CollMgr::collationCanGetWordsWithPrefix(CollMgr *this, unsigned __int16 a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t CollMgr::collationCanGetWordsWithPrefix(CollMgr *this, unsigned __int16 a2, double a3)
 {
   while (1)
   {
-    CollMgr::verifyCollId(this, a2, 2, 4u, a5, a6, a7, a8);
+    v5 = CollMgr::verifyCollId(this, a2, 2, 4u, a3);
     if (a2 == 65534)
     {
       return 1;
@@ -12293,18 +12316,18 @@ uint64_t CollMgr::collationCanGetWordsWithPrefix(CollMgr *this, unsigned __int16
       return 1;
     }
 
-    CollMgr::verifyCollId(this, a2, 0, 3u, v10, v11, v12, v13);
+    a3 = CollMgr::verifyCollId(this, a2, 0, 3u, v5);
     a2 = *(*(this + 18) + 2 * (a2 & 0xBFFF));
   }
 
   return 0;
 }
 
-uint64_t CollMgr::collStrcmpUns8(unsigned int **this, unsigned __int16 a2, CharInfo *a3, CharInfo *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t CollMgr::collStrcmpUns8(CollMgr *this, unsigned __int16 a2, CharInfo *a3, CharInfo *a4, double a5)
 {
   while (1)
   {
-    CollMgr::verifyCollId(this, a2, 2, 4u, a5, a6, a7, a8);
+    v11 = CollMgr::verifyCollId(this, a2, 2, 4u, a5);
     if (a2 == 0xFFFF)
     {
       return 0;
@@ -12314,50 +12337,50 @@ uint64_t CollMgr::collStrcmpUns8(unsigned int **this, unsigned __int16 a2, CharI
     {
       if (**this)
       {
-        v20 = 0;
-        v21 = 0;
-        v93 = 0;
-        LODWORD(v94) = 0;
+        v14 = 0;
+        v15 = 0;
+        v75 = 0;
+        LODWORD(v76) = 0;
         do
         {
-          v22 = CharInfo::decodeOneChar(a3, v21, &v94, v13, v14, v15, v16, v17);
-          v28 = CharInfo::decodeOneChar(a4, v20, &v93, v23, v24, v25, v26, v27);
-          v29 = (v22 - v28);
-          if (!v28)
+          v16 = CharInfo::decodeOneChar(a3, v15, &v76, v10);
+          v18 = CharInfo::decodeOneChar(a4, v14, &v75, v17);
+          v19 = (v16 - v18);
+          if (!v18)
           {
             break;
           }
 
-          v21 = (v94 + v21);
-          v20 = (v93 + v20);
+          v15 = (v76 + v15);
+          v14 = (v75 + v14);
         }
 
-        while (!v29);
+        while (!v19);
       }
 
       else
       {
-        v51 = 0;
+        v37 = 0;
         do
         {
-          v52 = *(a3 + v51);
-          v53 = *(a4 + v51++);
-          v29 = (v52 - v53);
-          if (v53)
+          v38 = *(a3 + v37);
+          v39 = *(a4 + v37++);
+          v19 = (v38 - v39);
+          if (v39)
           {
-            v54 = v29 == 0;
+            v40 = v19 == 0;
           }
 
           else
           {
-            v54 = 0;
+            v40 = 0;
           }
         }
 
-        while (v54);
+        while (v40);
       }
 
-      return v29;
+      return v19;
     }
 
     if ((a2 & 0x4000) == 0)
@@ -12365,65 +12388,65 @@ uint64_t CollMgr::collStrcmpUns8(unsigned int **this, unsigned __int16 a2, CharI
       break;
     }
 
-    v18 = a2 & 0xBFFF;
-    v19 = CollMgr::collStrcmpUns8(this, *(this[18] + v18), a3, a4);
-    if (v19)
+    v12 = a2 & 0xBFFF;
+    v13 = CollMgr::collStrcmpUns8(this, *(*(this + 18) + 2 * v12), a3, a4, v11);
+    if (v13)
     {
-      return v19;
+      return v13;
     }
 
-    a2 = *(this[20] + v18);
+    a2 = *(*(this + 20) + 2 * v12);
   }
 
-  v30 = a2;
+  v20 = a2;
   if (**this)
   {
-    if (this[9][4 * a2 + 2])
+    if (*(*(this + 9) + 16 * a2 + 8))
     {
-      CharInfo::decodeCharString(a3, (this + 33), v12, v13, v14, v15, v16, v17);
-      CharInfo::decodeCharString(a4, (this + 35), v31, v32, v33, v34, v35, v36);
-      v37 = this[33];
-      v38 = this[35];
-      v39 = Uns32StringLength(v37);
-      v40 = (2 * v39) | 1;
-      v41 = *(this + 77);
-      if (v41 <= 2 * v39)
+      CharInfo::decodeCharString(a3, this + 264, v9, v10);
+      CharInfo::decodeCharString(a4, this + 280, v21, v22);
+      v23 = *(this + 33);
+      v24 = *(this + 35);
+      v25 = Uns32StringLength(v23);
+      v26 = (2 * v25) | 1;
+      v27 = *(this + 77);
+      if (v27 <= 2 * v25)
       {
-        DgnPrimArray<unsigned int>::reallocElts((this + 37), v40 - v41, 0);
+        DgnPrimArray<unsigned int>::reallocElts(this + 296, v26 - v27, 0);
       }
 
-      *(this + 76) = v40;
-      v42 = Uns32StringLength(v38);
-      v43 = (2 * v42) | 1;
-      v44 = *(this + 81);
-      if (v44 <= 2 * v42)
+      *(this + 76) = v26;
+      v28 = Uns32StringLength(v24);
+      v29 = (2 * v28) | 1;
+      v30 = *(this + 81);
+      if (v30 <= 2 * v28)
       {
-        DgnPrimArray<unsigned int>::reallocElts((this + 39), v43 - v44, 0);
+        DgnPrimArray<unsigned int>::reallocElts(this + 312, v29 - v30, 0);
       }
 
-      *(this + 80) = v43;
-      v45 = this[37];
-      v46 = this[39];
-      CollMgr::collTransformUns32(this, a2, v37, v45);
-      CollMgr::collTransformUns32(this, a2, v38, v46);
-      v47 = 0;
+      *(this + 80) = v29;
+      v31 = *(this + 37);
+      v32 = *(this + 39);
+      CollMgr::collTransformUns32(this, a2, v23, v31);
+      CollMgr::collTransformUns32(this, a2, v24, v32);
+      v33 = 0;
       do
       {
-        v48 = v45[v47];
-        v49 = v46[v47++];
-        v29 = v48 - v49;
-        if (v49)
+        v34 = v31[v33];
+        v35 = v32[v33++];
+        v19 = v34 - v35;
+        if (v35)
         {
-          v50 = v29 == 0;
+          v36 = v19 == 0;
         }
 
         else
         {
-          v50 = 0;
+          v36 = 0;
         }
       }
 
-      while (v50);
+      while (v36);
       *(this + 68) = 0;
       *(this + 72) = 0;
       *(this + 76) = 0;
@@ -12432,154 +12455,154 @@ uint64_t CollMgr::collStrcmpUns8(unsigned int **this, unsigned __int16 a2, CharI
 
     else
     {
-      v65 = 0;
-      v66 = 0;
-      v93 = 0;
-      LODWORD(v94) = 0;
+      v51 = 0;
+      v52 = 0;
+      v75 = 0;
+      LODWORD(v76) = 0;
       do
       {
-        v67 = CharInfo::decodeOneChar(a3, v66, &v94, v13, v14, v15, v16, v17);
-        v73 = CharInfo::decodeOneChar(a4, v65, &v93, v68, v69, v70, v71, v72);
-        v74 = &this[7][8 * v30];
-        v75 = *(v74 + 8);
-        if (v75)
+        v53 = CharInfo::decodeOneChar(a3, v52, &v76, v10);
+        v55 = CharInfo::decodeOneChar(a4, v51, &v75, v54);
+        v56 = *(this + 7) + 32 * v20;
+        v57 = *(v56 + 8);
+        if (v57)
         {
-          v76 = 0;
-          v77 = *v74;
-          v78 = *v74;
+          v58 = 0;
+          v59 = *v56;
+          v60 = *v56;
           do
           {
-            v79 = *v78++;
-            v80 = v67 - v79;
-            if (v67 < v79)
+            v61 = *v60++;
+            v62 = v53 - v61;
+            if (v53 < v61)
             {
               break;
             }
 
-            v81 = *(v74 + 16);
-            if (v80 < *(v81 + v76 + 8))
+            v63 = *(v56 + 16);
+            if (v62 < *(v63 + v58 + 8))
             {
-              v67 = *(*(v81 + v76) + 4 * v80);
+              v53 = *(*(v63 + v58) + 4 * v62);
               break;
             }
 
-            v76 += 16;
+            v58 += 16;
           }
 
-          while (16 * v75 != v76);
-          v82 = 0;
+          while (16 * v57 != v58);
+          v64 = 0;
           do
           {
-            v83 = *v77++;
-            v84 = v73 - v83;
-            if (v73 < v83)
+            v65 = *v59++;
+            v66 = v55 - v65;
+            if (v55 < v65)
             {
               break;
             }
 
-            v85 = *(v74 + 16);
-            if (v84 < *(v85 + v82 + 8))
+            v67 = *(v56 + 16);
+            if (v66 < *(v67 + v64 + 8))
             {
-              v86 = *(*(v85 + v82) + 4 * v84);
+              v68 = *(*(v67 + v64) + 4 * v66);
               goto LABEL_56;
             }
 
-            v82 += 16;
-            --v75;
+            v64 += 16;
+            --v57;
           }
 
-          while (v75);
+          while (v57);
         }
 
-        v86 = v73;
+        v68 = v55;
 LABEL_56:
-        v29 = v67 - v86;
-        if (v29)
+        v19 = v53 - v68;
+        if (v19)
         {
           break;
         }
 
-        v66 = (v94 + v66);
-        v65 = (v93 + v65);
+        v52 = (v76 + v52);
+        v51 = (v75 + v51);
       }
 
-      while (v73);
+      while (v55);
     }
   }
 
-  else if (this[5][4 * a2 + 2])
+  else if (*(*(this + 5) + 16 * a2 + 8))
   {
-    v55 = Uns8StringLength(a3);
-    v56 = (2 * v55) | 1u;
-    if (*(this + 61) <= (2 * v55))
+    v41 = Uns8StringLength(a3);
+    v42 = (2 * v41) | 1u;
+    if (*(this + 61) <= (2 * v41))
     {
-      v94 = 0;
-      *(this + 61) = realloc_array(this[29], &v94, v56, *(this + 60), *(this + 60), 1);
-      this[29] = v94;
+      v76 = 0;
+      *(this + 61) = realloc_array(*(this + 29), &v76, v42, *(this + 60), *(this + 60), 1);
+      *(this + 29) = v76;
     }
 
-    *(this + 60) = v56;
-    v57 = Uns8StringLength(a4);
-    v58 = (2 * v57) | 1u;
-    v59 = this[31];
-    if (*(this + 65) <= (2 * v57))
+    *(this + 60) = v42;
+    v43 = Uns8StringLength(a4);
+    v44 = (2 * v43) | 1u;
+    v45 = *(this + 31);
+    if (*(this + 65) <= (2 * v43))
     {
-      v94 = 0;
-      *(this + 65) = realloc_array(v59, &v94, v58, *(this + 64), *(this + 64), 1);
-      v59 = v94;
-      this[31] = v94;
+      v76 = 0;
+      *(this + 65) = realloc_array(v45, &v76, v44, *(this + 64), *(this + 64), 1);
+      v45 = v76;
+      *(this + 31) = v76;
     }
 
-    *(this + 64) = v58;
-    v60 = this[29];
-    CollMgr::collTransformUns8(this, a2, a3, v60);
-    CollMgr::collTransformUns8(this, a2, a4, v59);
-    v61 = 0;
+    *(this + 64) = v44;
+    v46 = *(this + 29);
+    CollMgr::collTransformUns8(this, a2, a3, v46);
+    CollMgr::collTransformUns8(this, a2, a4, v45);
+    v47 = 0;
     do
     {
-      v62 = v60[v61];
-      v63 = v59[v61++];
-      v29 = (v62 - v63);
-      if (v63)
+      v48 = v46[v47];
+      v49 = v45[v47++];
+      v19 = (v48 - v49);
+      if (v49)
       {
-        v64 = v29 == 0;
+        v50 = v19 == 0;
       }
 
       else
       {
-        v64 = 0;
+        v50 = 0;
       }
     }
 
-    while (v64);
+    while (v50);
     *(this + 60) = 0;
     *(this + 64) = 0;
   }
 
   else
   {
-    v87 = 0;
-    v88 = *&this[3][4 * a2];
+    v69 = 0;
+    v70 = *(*(this + 3) + 16 * a2);
     do
     {
-      v89 = *(a4 + v87);
-      v90 = *(v88 + *(a3 + v87++));
-      v29 = v90 - *(v88 + v89);
-      if (v89)
+      v71 = *(a4 + v69);
+      v72 = *(v70 + *(a3 + v69++));
+      v19 = v72 - *(v70 + v71);
+      if (v71)
       {
-        v91 = v29 == 0;
+        v73 = v19 == 0;
       }
 
       else
       {
-        v91 = 0;
+        v73 = 0;
       }
     }
 
-    while (v91);
+    while (v73);
   }
 
-  return v29;
+  return v19;
 }
 
 uint64_t CollMgr::collTransformUns32(uint64_t this, unsigned int a2, unsigned int *a3, unsigned int *a4)
@@ -12921,32 +12944,32 @@ LABEL_24:
   return this;
 }
 
-uint64_t CollMgr::collPrefixcmpUns8(CollMgr *this, unsigned int a2, CharInfo *a3, CharInfo *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t CollMgr::collPrefixcmpUns8(CollMgr *this, unsigned int a2, CharInfo *a3, CharInfo *a4, double a5)
 {
-  v10 = a2;
-  CollMgr::verifyCollId(this, a2, 2, 4u, a5, a6, a7, a8);
-  while (v10 != 0xFFFF)
+  v7 = a2;
+  v11 = CollMgr::verifyCollId(this, a2, 2, 4u, a5);
+  while (v7 != 0xFFFF)
   {
-    v18 = *a4;
+    v12 = *a4;
     if (!*a4)
     {
       break;
     }
 
-    if (v10 == 65534)
+    if (v7 == 65534)
     {
       if (**this)
       {
-        v20 = 0;
-        v21 = 0;
-        v85 = 0;
-        LODWORD(v86) = 0;
+        v14 = 0;
+        v15 = 0;
+        v67 = 0;
+        LODWORD(v68) = 0;
         do
         {
-          v22 = CharInfo::decodeOneChar(a3, v21, &v86, v13, v14, v15, v16, v17);
-          v28 = CharInfo::decodeOneChar(a4, v20, &v85, v23, v24, v25, v26, v27);
-          result = (v22 - v28);
-          if (!v28)
+          v16 = CharInfo::decodeOneChar(a3, v15, &v68, v10);
+          v18 = CharInfo::decodeOneChar(a4, v14, &v67, v17);
+          result = (v16 - v18);
+          if (!v18)
           {
             break;
           }
@@ -12956,73 +12979,73 @@ uint64_t CollMgr::collPrefixcmpUns8(CollMgr *this, unsigned int a2, CharInfo *a3
             break;
           }
 
-          v20 = (v85 + v20);
-          v21 = (v86 + v21);
+          v14 = (v67 + v14);
+          v15 = (v68 + v15);
         }
 
-        while (*(a4 + v20));
+        while (*(a4 + v14));
       }
 
       else
       {
-        v48 = 1;
+        v34 = 1;
         do
         {
-          v49 = *(a3 + (v48 - 1));
-          result = v49 - v18;
-          if (v49 != v18)
+          v35 = *(a3 + v34 - 1);
+          result = v35 - v12;
+          if (v35 != v12)
           {
             break;
           }
 
-          v18 = *(a4 + v48++);
+          v12 = *(a4 + v34++);
         }
 
-        while (v18);
+        while (v12);
       }
 
       return result;
     }
 
-    if ((v10 & 0x4000) == 0)
+    if ((v7 & 0x4000) == 0)
     {
-      v29 = v10;
+      v19 = v7;
       if (**this)
       {
-        if (*(*(this + 9) + 16 * v10 + 8))
+        if (*(*(this + 9) + 16 * v7 + 8))
         {
-          CharInfo::decodeCharString(a3, this + 264, v12, v13, v14, v15, v16, v17);
-          CharInfo::decodeCharString(a4, this + 280, v30, v31, v32, v33, v34, v35);
-          v36 = *(this + 33);
-          v37 = *(this + 35);
-          v38 = Uns32StringLength(v36);
-          v39 = (2 * v38) | 1;
-          v40 = *(this + 77);
-          if (v40 <= 2 * v38)
+          CharInfo::decodeCharString(a3, this + 264, v9, v10);
+          CharInfo::decodeCharString(a4, this + 280, v20, v21);
+          v22 = *(this + 33);
+          v23 = *(this + 35);
+          v24 = Uns32StringLength(v22);
+          v25 = (2 * v24) | 1;
+          v26 = *(this + 77);
+          if (v26 <= 2 * v24)
           {
-            DgnPrimArray<unsigned int>::reallocElts(this + 296, v39 - v40, 0);
+            DgnPrimArray<unsigned int>::reallocElts(this + 296, v25 - v26, 0);
           }
 
-          *(this + 76) = v39;
-          v41 = Uns32StringLength(v37);
-          v42 = (2 * v41) | 1;
-          v43 = *(this + 81);
-          if (v43 <= 2 * v41)
+          *(this + 76) = v25;
+          v27 = Uns32StringLength(v23);
+          v28 = (2 * v27) | 1;
+          v29 = *(this + 81);
+          if (v29 <= 2 * v27)
           {
-            DgnPrimArray<unsigned int>::reallocElts(this + 312, v42 - v43, 0);
+            DgnPrimArray<unsigned int>::reallocElts(this + 312, v28 - v29, 0);
           }
 
-          *(this + 80) = v42;
-          v44 = *(this + 37);
-          v45 = *(this + 39);
-          CollMgr::collTransformUns32(this, v10, v36, v44);
-          CollMgr::collTransformUns32(this, v10, v37, v45);
-          v46 = *v45;
-          v47 = 1;
+          *(this + 80) = v28;
+          v30 = *(this + 37);
+          v31 = *(this + 39);
+          CollMgr::collTransformUns32(this, v7, v22, v30);
+          CollMgr::collTransformUns32(this, v7, v23, v31);
+          v32 = *v31;
+          v33 = 1;
           do
           {
-            result = v44[v47 - 1] - v46;
-            if (!v46)
+            result = v30[v33 - 1] - v32;
+            if (!v32)
             {
               break;
             }
@@ -13032,10 +13055,10 @@ uint64_t CollMgr::collPrefixcmpUns8(CollMgr *this, unsigned int a2, CharInfo *a3
               break;
             }
 
-            v46 = v45[v47++];
+            v32 = v31[v33++];
           }
 
-          while (v46);
+          while (v32);
           *(this + 68) = 0;
           *(this + 72) = 0;
           *(this + 76) = 0;
@@ -13044,120 +13067,120 @@ uint64_t CollMgr::collPrefixcmpUns8(CollMgr *this, unsigned int a2, CharInfo *a3
 
         else
         {
-          v58 = 0;
-          v59 = 0;
-          v85 = 0;
-          LODWORD(v86) = 0;
+          v44 = 0;
+          v45 = 0;
+          v67 = 0;
+          LODWORD(v68) = 0;
           do
           {
-            v60 = CharInfo::decodeOneChar(a3, v59, &v86, v13, v14, v15, v16, v17);
-            v66 = CharInfo::decodeOneChar(a4, v58, &v85, v61, v62, v63, v64, v65);
-            v67 = v66;
-            v68 = *(this + 7) + 32 * v29;
-            v69 = *(v68 + 8);
-            if (v69)
+            v46 = CharInfo::decodeOneChar(a3, v45, &v68, v10);
+            v48 = CharInfo::decodeOneChar(a4, v44, &v67, v47);
+            v49 = v48;
+            v50 = *(this + 7) + 32 * v19;
+            v51 = *(v50 + 8);
+            if (v51)
             {
-              v70 = 0;
-              v71 = *v68;
-              v72 = *v68;
+              v52 = 0;
+              v53 = *v50;
+              v54 = *v50;
               do
               {
-                v73 = *v72++;
-                v74 = v60 - v73;
-                if (v60 < v73)
+                v55 = *v54++;
+                v56 = v46 - v55;
+                if (v46 < v55)
                 {
                   break;
                 }
 
-                v75 = *(v68 + 16);
-                if (v74 < *(v75 + v70 + 8))
+                v57 = *(v50 + 16);
+                if (v56 < *(v57 + v52 + 8))
                 {
-                  v60 = *(*(v75 + v70) + 4 * v74);
+                  v46 = *(*(v57 + v52) + 4 * v56);
                   break;
                 }
 
-                v70 += 16;
+                v52 += 16;
               }
 
-              while (16 * v69 != v70);
-              v76 = 0;
+              while (16 * v51 != v52);
+              v58 = 0;
               do
               {
-                v77 = *v71++;
-                v78 = v66 - v77;
-                if (v66 < v77)
+                v59 = *v53++;
+                v60 = v48 - v59;
+                if (v48 < v59)
                 {
                   break;
                 }
 
-                v79 = *(v68 + 16);
-                if (v78 < *(v79 + v76 + 8))
+                v61 = *(v50 + 16);
+                if (v60 < *(v61 + v58 + 8))
                 {
-                  v80 = *(*(v79 + v76) + 4 * v78);
+                  v62 = *(*(v61 + v58) + 4 * v60);
                   goto LABEL_53;
                 }
 
-                v76 += 16;
-                --v69;
+                v58 += 16;
+                --v51;
               }
 
-              while (v69);
+              while (v51);
             }
 
-            v80 = v66;
+            v62 = v48;
 LABEL_53:
-            result = v60 - v80;
-            if (v60 != v80)
+            result = v46 - v62;
+            if (v46 != v62)
             {
               break;
             }
 
-            if (!v67)
+            if (!v49)
             {
               break;
             }
 
-            v59 = (v86 + v59);
-            v58 = (v85 + v58);
+            v45 = (v68 + v45);
+            v44 = (v67 + v44);
           }
 
-          while (*(a4 + v58));
+          while (*(a4 + v44));
         }
       }
 
-      else if (*(*(this + 5) + 16 * v10 + 8))
+      else if (*(*(this + 5) + 16 * v7 + 8))
       {
-        v50 = Uns8StringLength(a3);
-        v51 = (2 * v50) | 1u;
-        if (*(this + 61) <= (2 * v50))
+        v36 = Uns8StringLength(a3);
+        v37 = (2 * v36) | 1u;
+        if (*(this + 61) <= (2 * v36))
         {
-          v86 = 0;
-          *(this + 61) = realloc_array(*(this + 29), &v86, v51, *(this + 60), *(this + 60), 1);
-          *(this + 29) = v86;
+          v68 = 0;
+          *(this + 61) = realloc_array(*(this + 29), &v68, v37, *(this + 60), *(this + 60), 1);
+          *(this + 29) = v68;
         }
 
-        *(this + 60) = v51;
-        v52 = Uns8StringLength(a4);
-        v53 = (2 * v52) | 1u;
-        v54 = *(this + 31);
-        if (*(this + 65) <= (2 * v52))
+        *(this + 60) = v37;
+        v38 = Uns8StringLength(a4);
+        v39 = (2 * v38) | 1u;
+        v40 = *(this + 31);
+        if (*(this + 65) <= (2 * v38))
         {
-          v86 = 0;
-          *(this + 65) = realloc_array(v54, &v86, v53, *(this + 64), *(this + 64), 1);
-          v54 = v86;
-          *(this + 31) = v86;
+          v68 = 0;
+          *(this + 65) = realloc_array(v40, &v68, v39, *(this + 64), *(this + 64), 1);
+          v40 = v68;
+          *(this + 31) = v68;
         }
 
-        *(this + 64) = v53;
-        v55 = *(this + 29);
-        CollMgr::collTransformUns8(this, v10, a3, v55);
-        CollMgr::collTransformUns8(this, v10, a4, v54);
-        v56 = *v54;
-        v57 = 1;
+        *(this + 64) = v39;
+        v41 = *(this + 29);
+        CollMgr::collTransformUns8(this, v7, a3, v41);
+        CollMgr::collTransformUns8(this, v7, a4, v40);
+        v42 = *v40;
+        v43 = 1;
         do
         {
-          result = v55[v57 - 1] - v56;
-          if (!v56)
+          result = v41[v43 - 1] - v42;
+          if (!v42)
           {
             break;
           }
@@ -13167,39 +13190,39 @@ LABEL_53:
             break;
           }
 
-          v56 = v54[v57++];
+          v42 = v40[v43++];
         }
 
-        while (v56);
+        while (v42);
         *(this + 60) = 0;
         *(this + 64) = 0;
       }
 
       else
       {
-        v81 = *(*(this + 3) + 16 * v10);
-        v82 = 1;
+        v63 = *(*(this + 3) + 16 * v7);
+        v64 = 1;
         do
         {
-          v83 = *(v81 + *(a3 + (v82 - 1)));
-          v84 = *(v81 + v18);
-          result = (v83 - v84);
-          if (v83 != v84)
+          v65 = *(v63 + *(a3 + v64 - 1));
+          v66 = *(v63 + v12);
+          result = (v65 - v66);
+          if (v65 != v66)
           {
             break;
           }
 
-          v18 = *(a4 + v82++);
+          v12 = *(a4 + v64++);
         }
 
-        while (v18);
+        while (v12);
       }
 
       return result;
     }
 
-    v10 = *(*(this + 18) + 2 * (v10 & 0xBFFF));
-    CollMgr::verifyCollId(this, v10, 2, 4u, v14, v15, v16, v17);
+    v7 = *(*(this + 18) + 2 * (v7 & 0xBFFF));
+    v11 = CollMgr::verifyCollId(this, v7, 2, 4u, v11);
   }
 
   return 0;
@@ -13465,49 +13488,134 @@ void TreePrefilterer::printSize(TreePrefilterer *this, uint64_t a2, uint64_t a3,
   *a4 = 0;
   *a5 = 0;
   *a6 = 0;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/prefilt/treepref.cpp", 281, &v106);
-  if (v107)
+  getShipObjectSizeDescription(&v60, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/prefilt/treepref.cpp", 281);
+  if (v61)
   {
-    v16 = v106;
+    v13 = v60;
   }
 
   else
   {
-    v16 = &byte_262899963;
+    v13 = &byte_262899963;
   }
 
-  xlprintf("ObSize: %*s*************************************************************\nObSize: %*sBegin %s ", v12, v13, v14, v15, a3, &byte_262899963, a3, &byte_262899963, v16);
-  DgnString::~DgnString(&v106);
+  xlprintf("ObSize: %*s*************************************************************\nObSize: %*sBegin %s ", v12, a3, &byte_262899963, a3, &byte_262899963, v13);
+  DgnString::~DgnString(&v60);
   if (a2 != -1)
   {
-    xlprintf("%d ", v17, v18, v19, v20, a2);
+    xlprintf("%d ", v14, a2);
   }
 
-  xlprintf("(alloc, used, shared)\nObSize: %*s*************************************************************\n", v17, v18, v19, v20, a3, &byte_262899963);
-  v105 = 0;
-  v106 = 0;
-  v21 = (a3 + 1);
-  v104 = 0;
-  Prefilterer::printSize(this, 0xFFFFFFFFLL, v21, &v106, &v105, &v104);
-  *a4 += v106;
-  *a5 += v105;
-  *a6 += v104;
+  xlprintf("(alloc, used, shared)\nObSize: %*s*************************************************************\n", v14, a3, &byte_262899963);
+  v59 = 0;
+  v60 = 0;
+  v15 = (a3 + 1);
+  v58 = 0;
+  Prefilterer::printSize(this, 0xFFFFFFFFLL, v15, &v60, &v59, &v58);
+  *a4 += v60;
+  *a5 += v59;
+  *a6 += v58;
   if (gShadowDiagnosticShowIdealizedObjectSizes)
   {
-    v22 = 4;
+    v16 = 4;
   }
 
   else
   {
-    v22 = 8;
+    v16 = 8;
   }
 
-  v102 = a3;
-  v23 = (34 - a3);
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/prefilt/treepref.cpp", 284, &v106);
-  if (v107)
+  v56 = a3;
+  v17 = (34 - a3);
+  getShipObjectSizeDescription(&v60, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/prefilt/treepref.cpp", 284);
+  if (v61)
   {
-    v28 = v106;
+    v19 = v60;
+  }
+
+  else
+  {
+    v19 = &byte_262899963;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v18, v15, &byte_262899963, v17, v17, v19, v16, v16, 0);
+  DgnString::~DgnString(&v60);
+  *a4 += v16;
+  *a5 += v16;
+  v57 = this + 151552;
+  v20 = *(this + 19029);
+  if (v20)
+  {
+    v59 = 0;
+    v60 = 0;
+    v58 = 0;
+    (*(*v20 + 32))(v20, 0xFFFFFFFFLL, v15, &v60, &v59, &v58);
+    *a4 += v60;
+    *a5 += v59;
+    *a6 += v58;
+  }
+
+  if (gShadowDiagnosticShowIdealizedObjectSizes)
+  {
+    v21 = 4;
+  }
+
+  else
+  {
+    v21 = 8;
+  }
+
+  getShipObjectSizeDescription(&v60, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/prefilt/treepref.cpp", 286);
+  if (v61)
+  {
+    v23 = v60;
+  }
+
+  else
+  {
+    v23 = &byte_262899963;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v22, v15, &byte_262899963, v17, v17, v23, v21, v21, 0);
+  DgnString::~DgnString(&v60);
+  *a4 += v21;
+  *a5 += v21;
+  v59 = 0;
+  v60 = 0;
+  v58 = 0;
+  LexTreeNetScorer::printSize((this + 32), 0xFFFFFFFFLL, v15, &v60, &v59, &v58);
+  *a4 += v60;
+  *a5 += v59;
+  *a6 += v58;
+  getShipObjectSizeDescription(&v60, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/prefilt/treepref.cpp", 296);
+  if (v61)
+  {
+    v25 = v60;
+  }
+
+  else
+  {
+    v25 = &byte_262899963;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v24, v15, &byte_262899963, v17, v17, v25, 1, 1, 0);
+  DgnString::~DgnString(&v60);
+  ++*a4;
+  ++*a5;
+  if (gShadowDiagnosticShowIdealizedObjectSizes)
+  {
+    v26 = 4;
+  }
+
+  else
+  {
+    v26 = 8;
+  }
+
+  getShipObjectSizeDescription(&v60, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/prefilt/treepref.cpp", 297);
+  if (v61)
+  {
+    v28 = v60;
   }
 
   else
@@ -13515,37 +13623,54 @@ void TreePrefilterer::printSize(TreePrefilterer *this, uint64_t a2, uint64_t a3,
     v28 = &byte_262899963;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v24, v25, v26, v27, v21, &byte_262899963, v23, v23, v28, v22, v22, 0);
-  DgnString::~DgnString(&v106);
-  *a4 += v22;
-  *a5 += v22;
-  v103 = this + 151552;
-  v29 = *(this + 19029);
-  if (v29)
-  {
-    v105 = 0;
-    v106 = 0;
-    v104 = 0;
-    (*(*v29 + 32))(v29, 0xFFFFFFFFLL, v21, &v106, &v105, &v104);
-    *a4 += v106;
-    *a5 += v105;
-    *a6 += v104;
-  }
-
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v27, v15, &byte_262899963, v17, v17, v28, v26, v26, 0);
+  DgnString::~DgnString(&v60);
+  *a4 += v26;
+  *a5 += v26;
   if (gShadowDiagnosticShowIdealizedObjectSizes)
   {
-    v30 = 4;
+    v29 = 4;
   }
 
   else
   {
-    v30 = 8;
+    v29 = 8;
   }
 
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/prefilt/treepref.cpp", 286, &v106);
-  if (v107)
+  getShipObjectSizeDescription(&v60, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/prefilt/treepref.cpp", 298);
+  if (v61)
   {
-    v35 = v106;
+    v31 = v60;
+  }
+
+  else
+  {
+    v31 = &byte_262899963;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v30, v15, &byte_262899963, v17, v17, v31, v29, v29, 0);
+  DgnString::~DgnString(&v60);
+  *a4 += v29;
+  *a5 += v29;
+  getShipObjectSizeDescription(&v60, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/prefilt/treepref.cpp", 300);
+  if (v61)
+  {
+    v33 = v60;
+  }
+
+  else
+  {
+    v33 = &byte_262899963;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v32, v15, &byte_262899963, v17, v17, v33, 4, 4, 0);
+  DgnString::~DgnString(&v60);
+  *a4 += 4;
+  *a5 += 4;
+  getShipObjectSizeDescription(&v60, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/prefilt/treepref.cpp", 301);
+  if (v61)
+  {
+    v35 = v60;
   }
 
   else
@@ -13553,253 +13678,150 @@ void TreePrefilterer::printSize(TreePrefilterer *this, uint64_t a2, uint64_t a3,
     v35 = &byte_262899963;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v31, v32, v33, v34, v21, &byte_262899963, v23, v23, v35, v30, v30, 0);
-  DgnString::~DgnString(&v106);
-  *a4 += v30;
-  *a5 += v30;
-  v105 = 0;
-  v106 = 0;
-  v104 = 0;
-  LexTreeNetScorer::printSize((this + 32), 0xFFFFFFFFLL, v21, &v106, &v105, &v104);
-  *a4 += v106;
-  *a5 += v105;
-  *a6 += v104;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/prefilt/treepref.cpp", 296, &v106);
-  if (v107)
-  {
-    v40 = v106;
-  }
-
-  else
-  {
-    v40 = &byte_262899963;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v36, v37, v38, v39, v21, &byte_262899963, v23, v23, v40, 1, 1, 0);
-  DgnString::~DgnString(&v106);
-  ++*a4;
-  ++*a5;
-  if (gShadowDiagnosticShowIdealizedObjectSizes)
-  {
-    v41 = 4;
-  }
-
-  else
-  {
-    v41 = 8;
-  }
-
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/prefilt/treepref.cpp", 297, &v106);
-  if (v107)
-  {
-    v46 = v106;
-  }
-
-  else
-  {
-    v46 = &byte_262899963;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v42, v43, v44, v45, v21, &byte_262899963, v23, v23, v46, v41, v41, 0);
-  DgnString::~DgnString(&v106);
-  *a4 += v41;
-  *a5 += v41;
-  if (gShadowDiagnosticShowIdealizedObjectSizes)
-  {
-    v47 = 4;
-  }
-
-  else
-  {
-    v47 = 8;
-  }
-
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/prefilt/treepref.cpp", 298, &v106);
-  if (v107)
-  {
-    v52 = v106;
-  }
-
-  else
-  {
-    v52 = &byte_262899963;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v48, v49, v50, v51, v21, &byte_262899963, v23, v23, v52, v47, v47, 0);
-  DgnString::~DgnString(&v106);
-  *a4 += v47;
-  *a5 += v47;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/prefilt/treepref.cpp", 300, &v106);
-  if (v107)
-  {
-    v57 = v106;
-  }
-
-  else
-  {
-    v57 = &byte_262899963;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v53, v54, v55, v56, v21, &byte_262899963, v23, v23, v57, 4, 4, 0);
-  DgnString::~DgnString(&v106);
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v34, v15, &byte_262899963, v17, v17, v35, 4, 4, 0);
+  DgnString::~DgnString(&v60);
   *a4 += 4;
   *a5 += 4;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/prefilt/treepref.cpp", 301, &v106);
-  if (v107)
+  getShipObjectSizeDescription(&v60, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/prefilt/treepref.cpp", 303);
+  if (v61)
   {
-    v62 = v106;
+    v37 = v60;
   }
 
   else
   {
-    v62 = &byte_262899963;
+    v37 = &byte_262899963;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v58, v59, v60, v61, v21, &byte_262899963, v23, v23, v62, 4, 4, 0);
-  DgnString::~DgnString(&v106);
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v36, v15, &byte_262899963, v17, v17, v37, 4, 4, 0);
+  DgnString::~DgnString(&v60);
   *a4 += 4;
   *a5 += 4;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/prefilt/treepref.cpp", 303, &v106);
-  if (v107)
+  v38 = sizeObject<TreePhoneRec>(this + 152264, 0);
+  v39 = sizeObject<TreePhoneRec>(this + 152264, 1);
+  v60 = 0;
+  v61 = -1;
+  v62 = 0xFFFF;
+  v63 = 0x1FFF;
+  TreePhoneRec::sizeObject(&v60, 2);
+  getShipObjectSizeDescription(&v60, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/prefilt/treepref.cpp", 305);
+  if (v61)
   {
-    v67 = v106;
+    v41 = v60;
   }
 
   else
   {
-    v67 = &byte_262899963;
+    v41 = &byte_262899963;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v63, v64, v65, v66, v21, &byte_262899963, v23, v23, v67, 4, 4, 0);
-  DgnString::~DgnString(&v106);
-  *a4 += 4;
-  *a5 += 4;
-  v68 = sizeObject<TreePhoneRec>(this + 152264, 0);
-  v69 = sizeObject<TreePhoneRec>(this + 152264, 1);
-  v106 = 0;
-  v107 = -1;
-  v108 = 0xFFFF;
-  v109 = 0x1FFF;
-  TreePhoneRec::sizeObject(&v106, 2);
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/prefilt/treepref.cpp", 305, &v106);
-  if (v107)
-  {
-    v74 = v106;
-  }
-
-  else
-  {
-    v74 = &byte_262899963;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v70, v71, v72, v73, v21, &byte_262899963, v23, v23, v74, v68, v69, 0);
-  DgnString::~DgnString(&v106);
-  *a4 += v68;
-  *a5 += v69;
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v40, v15, &byte_262899963, v17, v17, v41, v38, v39, 0);
+  DgnString::~DgnString(&v60);
+  *a4 += v38;
+  *a5 += v39;
   if (gShadowDiagnosticShowIdealizedObjectSizes)
   {
-    v75 = 12;
+    v42 = 12;
   }
 
   else
   {
-    v75 = 16;
+    v42 = 16;
   }
 
-  v76 = *(v103 + 184);
-  v77 = *(v103 + 185);
-  if (v77 >= v76)
+  v43 = *(v57 + 184);
+  v44 = *(v57 + 185);
+  if (v44 >= v43)
   {
-    v78 = 0;
-    if (v76 > 0)
+    v45 = 0;
+    if (v43 > 0)
     {
-      v75 += 4 * (v76 - 1) + 4;
+      v42 += 4 * (v43 - 1) + 4;
     }
 
-    v79 = v75 + 4 * (v77 - v76);
+    v46 = v42 + 4 * (v44 - v43);
   }
 
   else
   {
-    v78 = 4 * v76;
-    v79 = v75;
+    v45 = 4 * v43;
+    v46 = v42;
   }
 
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/prefilt/treepref.cpp", 307, &v106);
-  if (v107)
+  getShipObjectSizeDescription(&v60, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/prefilt/treepref.cpp", 307);
+  if (v61)
   {
-    v84 = v106;
+    v48 = v60;
   }
 
   else
   {
-    v84 = &byte_262899963;
+    v48 = &byte_262899963;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v80, v81, v82, v83, v21, &byte_262899963, v23, v23, v84, v79, v75, v78);
-  DgnString::~DgnString(&v106);
-  *a4 += v79;
-  *a5 += v75;
-  *a6 += v78;
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v47, v15, &byte_262899963, v17, v17, v48, v46, v42, v45);
+  DgnString::~DgnString(&v60);
+  *a4 += v46;
+  *a5 += v42;
+  *a6 += v45;
   if (gShadowDiagnosticShowIdealizedObjectSizes)
   {
-    v85 = 4;
+    v49 = 4;
   }
 
   else
   {
-    v85 = 8;
+    v49 = 8;
   }
 
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/prefilt/treepref.cpp", 309, &v106);
-  if (v107)
+  getShipObjectSizeDescription(&v60, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/prefilt/treepref.cpp", 309);
+  if (v61)
   {
-    v90 = v106;
+    v51 = v60;
   }
 
   else
   {
-    v90 = &byte_262899963;
+    v51 = &byte_262899963;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v86, v87, v88, v89, v21, &byte_262899963, v23, v23, v90, v85, v85, 0);
-  DgnString::~DgnString(&v106);
-  *a4 += v85;
-  *a5 += v85;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/prefilt/treepref.cpp", 311, &v106);
-  if (v107)
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v50, v15, &byte_262899963, v17, v17, v51, v49, v49, 0);
+  DgnString::~DgnString(&v60);
+  *a4 += v49;
+  *a5 += v49;
+  getShipObjectSizeDescription(&v60, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/prefilt/treepref.cpp", 311);
+  if (v61)
   {
-    v95 = v106;
+    v53 = v60;
   }
 
   else
   {
-    v95 = &byte_262899963;
+    v53 = &byte_262899963;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v91, v92, v93, v94, v21, &byte_262899963, v23, v23, v95, 1, 1, 0);
-  DgnString::~DgnString(&v106);
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v52, v15, &byte_262899963, v17, v17, v53, 1, 1, 0);
+  DgnString::~DgnString(&v60);
   ++*a4;
   ++*a5;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/prefilt/treepref.cpp", 312, &v106);
-  if (v107)
+  getShipObjectSizeDescription(&v60, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/prefilt/treepref.cpp", 312);
+  if (v61)
   {
-    v100 = v106;
+    v55 = v60;
   }
 
   else
   {
-    v100 = &byte_262899963;
+    v55 = &byte_262899963;
   }
 
-  v101 = *a5;
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v96, v97, v98, v99, v102, &byte_262899963, (35 - v102), (35 - v102), v100, *a4, *a5, *a6);
-  DgnString::~DgnString(&v106);
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v54, v56, &byte_262899963, (35 - v56), (35 - v56), v55, *a4, *a5, *a6);
+  DgnString::~DgnString(&v60);
 }
 
-void sub_26285B4E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, ...)
+void sub_26285B4E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, ...)
 {
-  va_start(va, a14);
+  va_start(va, a21);
   DgnString::~DgnString(va);
   _Unwind_Resume(a1);
 }
@@ -14060,15 +14082,16 @@ uint64_t TreePrefilterer::scoreFramesUntil(int32x4_t *a1, int a2, uint64_t a3, u
   return v19;
 }
 
-void sub_26285BC00(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, char a11, uint64_t a12, char a13)
+void sub_26285BC00(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
 {
+  va_start(va, a12);
   DgnPrimFixArray<double>::~DgnPrimFixArray(&a9);
   DgnPrimFixArray<double>::~DgnPrimFixArray(&a11);
-  DgnPrimArray<unsigned int>::~DgnPrimArray(&a13);
+  DgnPrimArray<unsigned int>::~DgnPrimArray(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t TreePrefilterer::initPrefilterer(TreePrefilterer *this, int ***a2, unsigned int a3, int a4, char a5, int a6)
+uint64_t TreePrefilterer::initPrefilterer(TreePrefilterer *this, int ***a2, unsigned int a3, int a4, char a5, uint64_t a6)
 {
   v10 = this + 151552;
   *(this + 3) = a4;
@@ -14076,10 +14099,19 @@ uint64_t TreePrefilterer::initPrefilterer(TreePrefilterer *this, int ***a2, unsi
   *(this + 2) = *(**VocMgr::smpVocMgr + 8 * a3);
   *(this + 19028) = a2;
   v11 = *(this + 19037);
-  v12 = *(v11 + 141);
   if (*(v11 + 112))
   {
-    v13 = *(v11 + 104);
+    v12 = *(v11 + 104);
+  }
+
+  else
+  {
+    v12 = &byte_262899963;
+  }
+
+  if (*(v11 + 128))
+  {
+    v13 = *(v11 + 120);
   }
 
   else
@@ -14087,965 +14119,956 @@ uint64_t TreePrefilterer::initPrefilterer(TreePrefilterer *this, int ***a2, unsi
     v13 = &byte_262899963;
   }
 
-  if (*(v11 + 128))
-  {
-    v14 = *(v11 + 120);
-  }
-
-  else
-  {
-    v14 = &byte_262899963;
-  }
-
-  *(this + 19029) = User::newPelScorer(a2, 0, *(v11 + 56), *(v11 + 80), *(v11 + 64), v13, v14, *(v11 + 136), (*(v11 + 140) & 1) == 0);
-  v15 = a2[6];
-  *(v10 + 86) = v15;
-  v16 = **v15;
+  *(this + 19029) = User::newPelScorer(a2, 0, *(v11 + 56), *(v11 + 80), *(v11 + 64), v12, v13, *(v11 + 136), (*(v11 + 140) & 1) == 0);
+  v14 = a2[6];
+  *(v10 + 86) = v14;
+  v15 = **v14;
+  v32 = 0;
   v33 = 0;
-  v34 = 0;
-  v17 = v16 - 2;
-  *(v10 + 174) = v16 - 2;
-  if (v16 == 2)
+  v16 = v15 - 2;
+  *(v10 + 174) = v15 - 2;
+  if (v15 == 2)
   {
-    v21 = 0;
-    LODWORD(v34) = 0;
+    v20 = 0;
+    LODWORD(v33) = 0;
   }
 
   else
   {
-    v35 = 0;
-    v18 = realloc_array(0, &v35, 4 * (v16 - 2), 0, 0, 1);
-    v19 = v35;
-    v33 = v35;
-    v20 = *(v10 + 174);
-    LODWORD(v34) = v17;
-    HIDWORD(v34) = v18 >> 2;
-    v21 = 0;
-    if (v20)
+    v34 = 0;
+    v17 = realloc_array(0, &v34, 4 * (v15 - 2), 0, 0, 1);
+    v18 = v34;
+    v32 = v34;
+    v19 = *(v10 + 174);
+    LODWORD(v33) = v16;
+    HIDWORD(v33) = v17 >> 2;
+    v20 = 0;
+    if (v19)
     {
-      v22 = 0;
-      v23 = *(*(v10 + 86) + 16);
+      v21 = 0;
+      v22 = *(*(v10 + 86) + 16);
       do
       {
-        v24 = *(v23 + v22);
-        v19[v22] = v24;
-        if (v21 <= v24)
+        v23 = *(v22 + v21);
+        v18[v21] = v23;
+        if (v20 <= v23)
         {
-          v21 = v24;
+          v20 = v23;
         }
 
-        ++v22;
+        ++v21;
       }
 
-      while (*(v10 + 174) > v22);
+      while (*(v10 + 174) > v21);
     }
   }
 
-  *(v10 + 175) = 0xFE / v21;
+  *(v10 + 175) = 0xFE / v20;
   TreePrefilterer::populateUsingCwidList(this, a6);
-  v25 = *(v10 + 93);
-  v26 = *(v25 + 44);
-  v27 = *(v25 + 76);
-  if (v27 == -1)
+  v24 = *(v10 + 93);
+  v25 = *(v24 + 44);
+  v26 = *(v24 + 76);
+  if (v26 == -1)
   {
-    v27 = 20000;
+    v26 = 20000;
   }
 
-  v28 = *(v25 + 48);
-  if (*(v25 + 144))
+  v27 = *(v24 + 48);
+  if (*(v24 + 144))
   {
-    v29 = 1;
+    v28 = 1;
   }
 
   else
   {
-    v30 = *(v25 + 148);
-    v29 = v30 != 0;
-    if (!v30)
+    v29 = *(v24 + 148);
+    v28 = v29 != 0;
+    if (!v29)
     {
-      v31 = 0;
+      v30 = 0;
       goto LABEL_21;
     }
   }
 
-  v31 = *(this + 2) + 352;
+  v30 = *(this + 2) + 352;
 LABEL_21:
-  LexTreeNetScorer::initScorer(this + 32, *(this + 4), a5, *(v10 + 85), *(v10 + 86), *(v10 + 176), this + 152264, this + 152280, v28, &v33, __SPAIR64__(v21, *(v10 + 174)), v26, v27, v29, v31);
+  LexTreeNetScorer::initScorer(this + 32, *(this + 4), a5, *(v10 + 85), *(v10 + 86), *(v10 + 176), this + 152264, this + 152280, v27, &v32, __SPAIR64__(v20, *(v10 + 174)), v25, v26, v28, v30);
   v10[664] = 1;
-  return DgnPrimArray<unsigned int>::~DgnPrimArray(&v33);
+  return DgnPrimArray<unsigned int>::~DgnPrimArray(&v32);
 }
 
-void sub_26285BE50(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_26285BE50(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   DgnPrimArray<unsigned int>::~DgnPrimArray(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t TreePrefilterer::populateUsingCwidList(TreePrefilterer *this, int a2)
+uint64_t TreePrefilterer::populateUsingCwidList(TreePrefilterer *this, uint64_t a2)
 {
-  Latch<MemChunkRegion,LatchAdapter>::Latch(&v199, 0, a2);
+  v2 = a2;
+  Latch<MemChunkRegion,LatchAdapter>::Latch(&v167, 0, a2);
   v4 = *(this + 2);
-  if (*(v4 + 260) != 1 || *(v4 + 264) != *(this + 3))
+  if (__PAIR64__(*(v4 + 264), *(v4 + 260)) != __PAIR64__(*(this + 3), 1))
   {
     Voc::notifyPrefLmScoresBad(v4);
-    v12 = *(this + 2);
-    *(v12 + 264) = *(this + 3);
-    if ((*(v12 + 260) & 1) == 0)
+    v5 = *(this + 2);
+    *(v5 + 264) = *(this + 3);
+    if ((*(v5 + 260) & 1) == 0)
     {
-      Voc::computePrefLmScores(v12, v5, v6, v7, v8, v9, v10, v11);
+      Voc::computePrefLmScores(v5);
     }
   }
 
-  v13 = this + 151552;
-  Latch<MemChunkRegion,LatchAdapter>::~Latch(&v199);
-  Latch<MemChunkRegion,LatchAdapter>::Latch(&v199, 0, a2);
-  v14 = *(this + 19037);
-  v15 = v14[18];
-  v16 = *(this + 2);
-  if (*(v16 + 288) != 1 || *(v16 + 300) != v15 || *(v16 + 304) != *(this + 3) || (v17 = *(v16 + 292), v17 != v14[36]) || (v18 = *(v16 + 296), v18 != v14[37]) || v18 | v17 && *(v16 + 308) != *(*(this + 19028) + 216))
+  v6 = this + 151552;
+  Latch<MemChunkRegion,LatchAdapter>::~Latch(&v167);
+  Latch<MemChunkRegion,LatchAdapter>::Latch(&v167, 0, v2);
+  v7 = *(this + 19037);
+  v8 = v7[18];
+  v9 = *(this + 2);
+  if (*(v9 + 288) != 1 || *(v9 + 300) != v8 || *(v9 + 304) != *(this + 3) || (v10 = *(v9 + 292), v10 != v7[36]) || (v11 = *(v9 + 296), v11 != v7[37]) || v11 | v10 && *(v9 + 308) != *(*(this + 19028) + 216))
   {
-    Voc::notifyPrefWordIdsSortedByPronBad(v16);
-    v24 = *(this + 2);
-    *(v24 + 300) = v15;
-    v25 = *(this + 3);
-    *(v24 + 304) = v25;
-    v26 = *(this + 19037);
-    v27 = *(v26 + 144);
-    *(v24 + 292) = v27;
-    v28 = *(v26 + 148);
-    *(v24 + 296) = v28;
-    v29 = v27 | v28;
-    if (v27 | v28)
+    Voc::notifyPrefWordIdsSortedByPronBad(v9);
+    v12 = *(this + 2);
+    *(v12 + 300) = v8;
+    v13 = *(this + 3);
+    *(v12 + 304) = v13;
+    v14 = *(this + 19037);
+    v15 = *(v14 + 144);
+    *(v12 + 292) = v15;
+    v16 = *(v14 + 148);
+    *(v12 + 296) = v16;
+    v17 = v15 | v16;
+    if (v15 | v16)
     {
-      v29 = *(*(this + 19028) + 216);
+      v17 = *(*(this + 19028) + 216);
     }
 
-    *(v24 + 308) = v29;
-    if ((*(v24 + 288) & 1) == 0)
+    *(v12 + 308) = v17;
+    if ((*(v12 + 288) & 1) == 0)
     {
-      if (v27 | v28)
+      if (v15 | v16)
       {
-        TreePrefilterer::computePicModelIds(this, v24, v25);
-        v24 = *(this + 2);
+        TreePrefilterer::computePicModelIds(this, v12, v13);
+        v12 = *(this + 2);
       }
 
-      Voc::computePrefWordIdsSortedByPron(v24, v24, v25, v19, v20, v21, v22, v23);
+      Voc::computePrefWordIdsSortedByPron(v12);
     }
   }
 
-  Latch<MemChunkRegion,LatchAdapter>::~Latch(&v199);
-  v215 = 0;
-  v216 = 0;
-  v30 = *(this + 2);
-  v31 = *(v30 + 424);
-  if (v31)
+  Latch<MemChunkRegion,LatchAdapter>::~Latch(&v167);
+  v183 = 0;
+  v184 = 0;
+  v18 = *(this + 2);
+  v19 = *(v18 + 424);
+  if (v19)
   {
-    v199 = 0;
-    v32 = realloc_array(0, &v199, 4 * v31, 0, 0, 1);
-    v33 = v199;
-    v215 = v199;
-    v34 = *(v30 + 424);
-    LODWORD(v216) = v31;
-    HIDWORD(v216) = v32 >> 2;
-    if (v34)
+    v167 = 0;
+    v20 = realloc_array(0, &v167, 4 * v19, 0, 0, 1);
+    v21 = v167;
+    v183 = v167;
+    v22 = *(v18 + 424);
+    LODWORD(v184) = v19;
+    HIDWORD(v184) = v20 >> 2;
+    if (v22)
     {
-      v35 = 0;
-      v36 = *(this + 4) << 25;
-      v37 = *(v30 + 416);
+      v23 = 0;
+      v24 = *(this + 4) << 25;
+      v25 = *(v18 + 416);
       do
       {
-        v33[v35] = *(v37 + 4 * v35) & 0xFFFFFF | v36;
-        ++v35;
+        v21[v23] = *(v25 + 4 * v23) & 0xFFFFFF | v24;
+        ++v23;
       }
 
-      while (v35 < *(v30 + 424));
+      while (v23 < *(v18 + 424));
     }
   }
 
   else
   {
-    LODWORD(v216) = 0;
+    LODWORD(v184) = 0;
   }
 
-  v213 = 0;
-  v214 = 0;
-  v211 = 0;
-  v212 = 0;
-  v209 = 0;
-  v210 = 0;
-  v38 = *(this + 19037);
-  if (*(v38 + 144) || *(v38 + 148))
+  v181 = 0;
+  v182 = 0;
+  v179 = 0;
+  v180 = 0;
+  v177 = 0;
+  v178 = 0;
+  v26 = *(this + 19037);
+  if (*(v26 + 144) || *(v26 + 148))
   {
-    v39 = *(this + 2);
-    if (*(v39 + 424))
+    v27 = *(this + 2);
+    if (*(v27 + 424))
     {
-      v40 = 0;
-      v41 = 0;
-      v42 = 0;
+      v28 = 0;
+      v29 = 0;
+      v30 = 0;
       do
       {
-        v43 = *(*(v39 + 416) + 4 * v40);
-        v199 = 0;
-        v205[0] = 0;
-        Voc::getPrefPicModelIdPron(*(this + 2), v43, &v199, v205);
-        v44 = v205[0];
-        if (v42 >= v205[0])
+        v31 = *(*(v27 + 416) + 4 * v28);
+        v167 = 0;
+        v173[0] = 0;
+        Voc::getPrefPicModelIdPron(*(this + 2), v31, &v167, v173);
+        v32 = v173[0];
+        if (v30 >= v173[0])
         {
-          v45 = v205[0];
+          v33 = v173[0];
         }
 
         else
         {
-          v45 = v42;
+          v33 = v30;
         }
 
-        if (v45)
+        if (v33)
         {
-          v46 = 0;
-          while (v199[v46] == v41[v46])
+          v34 = 0;
+          while (v167[v34] == v29[v34])
           {
-            if (v45 == ++v46)
+            if (v33 == ++v34)
             {
-              goto LABEL_37;
+              goto LABEL_36;
             }
           }
 
-          LODWORD(v45) = v46;
+          LODWORD(v33) = v34;
         }
 
-LABEL_37:
-        if (v45 < v205[0])
+LABEL_36:
+        if (v33 < v173[0])
         {
-          v47 = v45;
+          v35 = v33;
           do
           {
-            v48 = v214;
-            if (v47 >= v214)
+            v36 = v182;
+            if (v35 >= v182)
             {
               do
               {
-                if (v48 == HIDWORD(v214))
+                if (v36 == HIDWORD(v182))
                 {
-                  DgnPrimArray<unsigned int>::reallocElts(&v213, 1, 1);
-                  v48 = v214;
+                  DgnPrimArray<unsigned int>::reallocElts(&v181, 1, 1);
+                  v36 = v182;
                 }
 
-                v49 = v213;
-                v213[v48] = 0;
-                LODWORD(v214) = v214 + 1;
-                v48 = v214;
+                v37 = v181;
+                v181[v36] = 0;
+                LODWORD(v182) = v182 + 1;
+                v36 = v182;
               }
 
-              while (v47 >= v214);
+              while (v35 >= v182);
             }
 
             else
             {
-              v49 = v213;
+              v37 = v181;
             }
 
-            ++v49[v47++];
-            v44 = v205[0];
+            ++v37[v35++];
+            v32 = v173[0];
           }
 
-          while (v47 < v205[0]);
+          while (v35 < v173[0]);
         }
 
-        v41 = v199;
-        ++v40;
-        v42 = v44;
+        v29 = v167;
+        ++v28;
+        v30 = v32;
       }
 
-      while (v40 < *(v39 + 424));
-      v50 = v214;
-      v51 = v214;
-      if (HIDWORD(v212) < v214)
+      while (v28 < *(v27 + 424));
+      v38 = v182;
+      v39 = v182;
+      if (HIDWORD(v180) < v182)
       {
-        v199 = 0;
-        HIDWORD(v212) = realloc_array(v211, &v199, 4 * v214, 4 * v212, 4 * v212, 1) >> 2;
-        v211 = v199;
-        v51 = v214;
+        v167 = 0;
+        HIDWORD(v180) = realloc_array(v179, &v167, 4 * v182, 4 * v180, 4 * v180, 1) >> 2;
+        v179 = v167;
+        v39 = v182;
       }
 
-      LODWORD(v212) = v50;
-      v52 = v51;
-      if (HIDWORD(v210) < v51)
+      LODWORD(v180) = v38;
+      v40 = v39;
+      if (HIDWORD(v178) < v39)
       {
-        v199 = 0;
-        HIDWORD(v210) = realloc_array(v209, &v199, 4 * v51, 4 * v210, 4 * v210, 1) >> 2;
-        v209 = v199;
-        v52 = v214;
+        v167 = 0;
+        HIDWORD(v178) = realloc_array(v177, &v167, 4 * v39, 4 * v178, 4 * v178, 1) >> 2;
+        v177 = v167;
+        v40 = v182;
       }
 
-      LODWORD(v210) = v51;
-      if (v52)
+      LODWORD(v178) = v39;
+      if (v40)
       {
-        v53 = 0;
-        v54 = v211;
-        v55 = v213;
-        v56 = 1;
-        v57 = v209;
+        v41 = 0;
+        v42 = v179;
+        v43 = v181;
+        v44 = 1;
+        v45 = v177;
         do
         {
-          v54[v53] = v56;
-          v56 += v55[v53];
-          v57[v53++] = 0;
+          v42[v41] = v44;
+          v44 += v43[v41];
+          v45[v41++] = 0;
         }
 
-        while (v53 < v214);
-        goto LABEL_90;
+        while (v41 < v182);
+        goto LABEL_89;
       }
 
-LABEL_89:
-      v56 = 1;
-      goto LABEL_90;
+LABEL_88:
+      v44 = 1;
+      goto LABEL_89;
     }
 
-LABEL_88:
-    LODWORD(v212) = 0;
-    goto LABEL_89;
+LABEL_87:
+    LODWORD(v180) = 0;
+    goto LABEL_88;
   }
 
-  v58 = v216;
-  if (!v216)
+  v46 = v184;
+  if (!v184)
+  {
+    goto LABEL_87;
+  }
+
+  v47 = 0;
+  v48 = 0;
+  v49 = 0;
+  v50 = 0;
+  LODWORD(v51) = 0;
+  do
+  {
+    v52 = *(*(this + 2) + 48);
+    v54 = v183[v49] & 0xFFFFFF;
+    v53 = v52[9] + 2 * *(v52[6] + 4 * v54);
+    LOWORD(v54) = *(v52[4] + 2 * v54);
+    v55 = v54;
+    v56 = *(this + 38076);
+    if (v56 >= v54)
+    {
+      LODWORD(v54) = v54;
+    }
+
+    else
+    {
+      LODWORD(v54) = *(this + 38076);
+    }
+
+    if (v56)
+    {
+      v57 = v54;
+    }
+
+    else
+    {
+      v57 = v55;
+    }
+
+    if (v51 >= v57)
+    {
+      v51 = v57;
+    }
+
+    else
+    {
+      v51 = v51;
+    }
+
+    if (v51)
+    {
+      v58 = 0;
+      while (*(v53 + 2 * v58) == *(v50 + 2 * v58))
+      {
+        if (v51 == ++v58)
+        {
+          goto LABEL_70;
+        }
+      }
+
+      LODWORD(v51) = v58;
+    }
+
+LABEL_70:
+    if (v51 < v57)
+    {
+      v59 = v51;
+      do
+      {
+        for (i = v182; v59 >= v182; i = v182)
+        {
+          if (i == HIDWORD(v182))
+          {
+            DgnPrimArray<unsigned int>::reallocElts(&v181, 1, 1);
+            i = v182;
+            v47 = v181;
+            v48 = v181;
+          }
+
+          v48[i] = 0;
+          LODWORD(v182) = v182 + 1;
+        }
+
+        ++v47[v59++];
+        v48 = v47;
+      }
+
+      while (v57 != v59);
+      v46 = v184;
+      v48 = v47;
+    }
+
+    ++v49;
+    v50 = v53;
+    LODWORD(v51) = v57;
+  }
+
+  while (v49 < v46);
+  v61 = v182;
+  v62 = v182;
+  if (HIDWORD(v180) < v182)
+  {
+    v167 = 0;
+    HIDWORD(v180) = realloc_array(v179, &v167, 4 * v182, 4 * v180, 4 * v180, 1) >> 2;
+    v179 = v167;
+    v62 = v182;
+  }
+
+  LODWORD(v180) = v61;
+  v63 = v62;
+  if (HIDWORD(v178) < v62)
+  {
+    v167 = 0;
+    HIDWORD(v178) = realloc_array(v177, &v167, 4 * v62, 4 * v178, 4 * v178, 1) >> 2;
+    v177 = v167;
+    v63 = v182;
+  }
+
+  LODWORD(v178) = v62;
+  if (!v63)
   {
     goto LABEL_88;
   }
 
-  v59 = 0;
-  v60 = 0;
-  v61 = 0;
-  v62 = 0;
-  LODWORD(v63) = 0;
+  v64 = 0;
+  v65 = v179;
+  v66 = v181;
+  v44 = 1;
+  v67 = v177;
   do
   {
-    v64 = *(*(this + 2) + 48);
-    v66 = v215[v61] & 0xFFFFFF;
-    v65 = v64[9] + 2 * *(v64[6] + 4 * v66);
-    LOWORD(v66) = *(v64[4] + 2 * v66);
-    v67 = v66;
-    v68 = *(this + 38076);
-    if (v68 >= v66)
+    v65[v64] = v44;
+    v44 += v66[v64];
+    v67[v64++] = 0;
+  }
+
+  while (v64 < v182);
+LABEL_89:
+  v68 = *(this + 19037);
+  if (*(v68 + 144) || *(v68 + 148))
+  {
+    v69 = *(this + 2);
+    v70 = (this + 152264);
+    v71 = *(this + 38068);
+    *(this + 38064) = v71;
+    v72 = *(this + 38069);
+    if (v44 > v72)
     {
-      LODWORD(v66) = v66;
+      DgnArray<CWIDAC>::reallocElts(this + 152264, v44 - v72, 0);
+      v71 = *(this + 38068);
     }
 
-    else
+    if (v71 < v44)
     {
-      LODWORD(v66) = *(this + 38076);
-    }
-
-    if (v68)
-    {
-      v69 = v66;
-    }
-
-    else
-    {
-      v69 = v67;
-    }
-
-    if (v63 >= v69)
-    {
-      v63 = v69;
-    }
-
-    else
-    {
-      v63 = v63;
-    }
-
-    if (v63)
-    {
-      v70 = 0;
-      while (*(v65 + 2 * v70) == *(v62 + 2 * v70))
-      {
-        if (v63 == ++v70)
-        {
-          goto LABEL_71;
-        }
-      }
-
-      LODWORD(v63) = v70;
-    }
-
-LABEL_71:
-    if (v63 < v69)
-    {
-      v71 = v63;
+      v73 = v44 - v71;
+      v74 = 24 * v71;
       do
       {
-        for (i = v214; v71 >= v214; i = v214)
-        {
-          if (i == HIDWORD(v214))
-          {
-            DgnPrimArray<unsigned int>::reallocElts(&v213, 1, 1);
-            i = v214;
-            v59 = v213;
-            v60 = v213;
-          }
-
-          v60[i] = 0;
-          LODWORD(v214) = v214 + 1;
-        }
-
-        ++v59[v71++];
-        v60 = v59;
+        v75 = *v70 + v74;
+        *v75 = 0;
+        *(v75 + 8) = -1;
+        *(v75 + 16) = 0xFFFF;
+        *(v75 + 20) = 0x1FFF;
+        v74 += 24;
+        --v73;
       }
 
-      while (v69 != v71);
-      v58 = v216;
-      v60 = v59;
+      while (v73);
     }
 
-    ++v61;
-    v62 = v65;
-    LODWORD(v63) = v69;
-  }
-
-  while (v61 < v58);
-  v73 = v214;
-  v74 = v214;
-  if (HIDWORD(v212) < v214)
-  {
-    v199 = 0;
-    HIDWORD(v212) = realloc_array(v211, &v199, 4 * v214, 4 * v212, 4 * v212, 1) >> 2;
-    v211 = v199;
-    v74 = v214;
-  }
-
-  LODWORD(v212) = v73;
-  v75 = v74;
-  if (HIDWORD(v210) < v74)
-  {
-    v199 = 0;
-    HIDWORD(v210) = realloc_array(v209, &v199, 4 * v74, 4 * v210, 4 * v210, 1) >> 2;
-    v209 = v199;
-    v75 = v214;
-  }
-
-  LODWORD(v210) = v74;
-  if (!v75)
-  {
-    goto LABEL_89;
-  }
-
-  v76 = 0;
-  v77 = v211;
-  v78 = v213;
-  v56 = 1;
-  v79 = v209;
-  do
-  {
-    v77[v76] = v56;
-    v56 += v78[v76];
-    v79[v76++] = 0;
-  }
-
-  while (v76 < v214);
-LABEL_90:
-  v80 = *(this + 19037);
-  if (*(v80 + 144) || *(v80 + 148))
-  {
-    v81 = *(this + 2);
-    v82 = (this + 152264);
-    v83 = *(this + 38068);
-    *(this + 38064) = v83;
-    v84 = *(this + 38069);
-    if (v56 > v84)
+    *(this + 38068) = v44;
+    v76 = *(this + 19033) + 24 * *(this + 38064);
+    *(v76 + 20) |= 0x8000u;
+    v77 = v181;
+    v78 = *v181;
+    if (*v181)
     {
-      DgnArray<CWIDAC>::reallocElts(this + 152264, v56 - v84, 0);
-      v83 = *(this + 38068);
-    }
-
-    if (v83 < v56)
-    {
-      v85 = v56 - v83;
-      v86 = 24 * v83;
+      v79 = *(v76 + 18);
+      v80 = 1;
       do
       {
-        v87 = *v82 + v86;
-        *v87 = 0;
-        *(v87 + 8) = -1;
-        *(v87 + 16) = 0xFFFF;
-        *(v87 + 20) = 0x1FFF;
-        v86 += 24;
-        --v85;
-      }
-
-      while (v85);
-    }
-
-    *(this + 38068) = v56;
-    v88 = *(this + 19033) + 24 * *(this + 38064);
-    *(v88 + 20) |= 0x8000u;
-    v89 = v213;
-    v90 = *v213;
-    if (*v213)
-    {
-      v91 = *(v88 + 18);
-      v92 = 1;
-      do
-      {
-        if (v91)
+        if (v79)
         {
-          ++v91;
+          ++v79;
         }
 
         else
         {
-          *(v88 + 8) = v92;
-          v90 = *v89;
-          v91 = 1;
+          *(v76 + 8) = v80;
+          v78 = *v77;
+          v79 = 1;
         }
 
-        ++v92;
+        ++v80;
       }
 
-      while (v92 <= v90);
-      *(v88 + 18) = v91;
+      while (v80 <= v78);
+      *(v76 + 18) = v79;
     }
 
-    v199 = 0;
-    v200 = 0;
-    if (!*(v81 + 424))
+    v167 = 0;
+    v168 = 0;
+    if (!*(v69 + 424))
     {
-      goto LABEL_207;
+      goto LABEL_206;
     }
 
-    v198 = v81;
-    v93 = 0;
-    v94 = 0;
-    v95 = 0;
-    v96 = -1;
+    v166 = v69;
+    v81 = 0;
+    v82 = 0;
+    v83 = 0;
+    v84 = -1;
     while (1)
     {
-      v97 = *(*(v81 + 416) + 4 * v93);
-      v208 = 0;
-      v207 = 0;
-      Voc::getPrefPicModelIdPron(*(this + 2), v97, &v208, &v207);
-      v98 = v207;
-      if (v94 >= v207)
+      v85 = *(*(v69 + 416) + 4 * v81);
+      v176 = 0;
+      v175 = 0;
+      Voc::getPrefPicModelIdPron(*(this + 2), v85, &v176, &v175);
+      v86 = v175;
+      if (v82 >= v175)
       {
-        v99 = v207;
+        v87 = v175;
       }
 
       else
       {
-        v99 = v94;
+        v87 = v82;
       }
 
-      if (v99)
+      if (v87)
       {
-        if (*v208 == *v95)
+        if (*v176 == *v83)
         {
-          v100 = 0;
-          v101 = v211;
-          v102 = v209;
-          while (v99 - 1 != v100)
+          v88 = 0;
+          v89 = v179;
+          v90 = v177;
+          while (v87 - 1 != v88)
           {
-            v103 = v208[v100 + 1];
-            v104 = v95[v100 + 1];
-            ++v102;
-            ++v101;
-            ++v100;
-            if (v103 != v104)
+            v91 = v176[v88 + 1];
+            v92 = v83[v88 + 1];
+            ++v90;
+            ++v89;
+            ++v88;
+            if (v91 != v92)
             {
-              v105 = *(v101 - 1) + *(v102 - 1) - 1;
-              LODWORD(v99) = v100;
-              goto LABEL_117;
+              v93 = *(v89 - 1) + *(v90 - 1) - 1;
+              LODWORD(v87) = v88;
+              goto LABEL_116;
             }
           }
 
-          v105 = *v101 + *v102 - 1;
-          goto LABEL_117;
+          v93 = *v89 + *v90 - 1;
+          goto LABEL_116;
         }
 
-        LODWORD(v99) = 0;
+        LODWORD(v87) = 0;
       }
 
-      v105 = -1;
-LABEL_117:
-      v106 = v99 != v94;
-      if (v99 != v207)
+      v93 = -1;
+LABEL_116:
+      v94 = v87 != v82;
+      if (v87 != v175)
       {
-        v106 = 1;
+        v94 = 1;
       }
 
-      if (v99 >= v207)
+      if (v87 >= v175)
       {
-        v112 = v105;
+        v100 = v93;
       }
 
       else
       {
-        v107 = *(*(*(this + 2) + 48) + 72) + 2 * *(*(*(*(this + 2) + 48) + 48) + 4 * (*&v97 & 0xFFFFFFLL));
-        v108 = v211;
-        v110 = v208;
-        v109 = v209;
-        v111 = *v82;
-        v99 = v99;
+        v95 = *(*(*(this + 2) + 48) + 72) + 2 * *(*(*(*(this + 2) + 48) + 48) + 4 * (*&v85 & 0xFFFFFFLL));
+        v96 = v179;
+        v98 = v176;
+        v97 = v177;
+        v99 = *v70;
+        v87 = v87;
         do
         {
-          v112 = v109[v99] + v108[v99];
-          v113 = v111 + 24 * v112;
-          *(v113 + 16) = *(v107 + 2 * v99);
-          *(v113 + 12) = v110[v99];
-          if (v99)
+          v100 = v97[v87] + v96[v87];
+          v101 = v99 + 24 * v100;
+          *(v101 + 16) = *(v95 + 2 * v87);
+          *(v101 + 12) = v98[v87];
+          if (v87)
           {
-            v114 = v111 + 24 * v105;
-            if (*(v114 + 18))
+            v102 = v99 + 24 * v93;
+            if (*(v102 + 18))
             {
-              v115 = *(v114 + 18) + 1;
+              v103 = *(v102 + 18) + 1;
             }
 
             else
             {
-              *(v114 + 8) = v112;
-              v115 = 1;
+              *(v102 + 8) = v100;
+              v103 = 1;
             }
 
-            *(v114 + 18) = v115;
+            *(v102 + 18) = v103;
           }
 
-          ++v109[v99++];
-          v98 = v207;
-          v105 = v112;
+          ++v97[v87++];
+          v86 = v175;
+          v93 = v100;
         }
 
-        while (v99 < v207);
+        while (v87 < v175);
       }
 
-      v116 = v96 != -1 && v106;
-      v94 = v98;
-      if (v116)
+      v104 = v84 != -1 && v94;
+      v82 = v86;
+      if (v104)
       {
-        *v205 = 0;
-        v206 = 0;
-        if (v200)
+        *v173 = 0;
+        v174 = 0;
+        if (v168)
         {
-          v117 = v82;
-          v118 = 0;
-          LODWORD(v119) = 0;
-          v120 = 0;
+          v105 = v70;
+          v106 = 0;
+          LODWORD(v107) = 0;
+          v108 = 0;
           do
           {
-            v121 = *(this + 4);
-            v122 = v199[v120];
-            if (v119 == HIDWORD(v206))
+            v109 = *(this + 4);
+            v110 = v167[v108];
+            if (v107 == HIDWORD(v174))
             {
-              DgnPrimArray<unsigned int>::reallocElts(v205, 1, 1);
-              LODWORD(v119) = v206;
-              v118 = *v205;
+              DgnPrimArray<unsigned int>::reallocElts(v173, 1, 1);
+              LODWORD(v107) = v174;
+              v106 = *v173;
             }
 
-            *&v118[4 * v119] = v122 & 0xFFFFFF | (v121 << 25);
-            v119 = (v206 + 1);
-            LODWORD(v206) = v206 + 1;
-            ++v120;
+            *&v106[4 * v107] = v110 & 0xFFFFFF | (v109 << 25);
+            v107 = (v174 + 1);
+            LODWORD(v174) = v174 + 1;
+            ++v108;
           }
 
-          while (v120 < v200);
-          v82 = v117;
-          v81 = v198;
+          while (v108 < v168);
+          v70 = v105;
+          v69 = v166;
         }
 
         else
         {
-          v119 = 0;
-          v118 = 0;
+          v107 = 0;
+          v106 = 0;
         }
 
-        mrec_qsort_r<SortCwidsByWordEndScope>(v118, v119, 4, this);
-        TreePrefilterer::checkAndAddEndingWords(this, v96, v205, v123, v124, v125, v126, v127);
-        LODWORD(v200) = 0;
-        DgnPrimArray<unsigned int>::~DgnPrimArray(v205);
-        v94 = v207;
+        mrec_qsort_r<SortCwidsByWordEndScope>(v106, v107, 4, this);
+        TreePrefilterer::checkAndAddEndingWords(this, v84, v173);
+        LODWORD(v168) = 0;
+        DgnPrimArray<unsigned int>::~DgnPrimArray(v173);
+        v82 = v175;
       }
 
-      v95 = v208;
-      v128 = v200;
-      if (v200 == HIDWORD(v200))
+      v83 = v176;
+      v111 = v168;
+      if (v168 == HIDWORD(v168))
       {
-        DgnPrimArray<unsigned int>::reallocElts(&v199, 1, 1);
-        v128 = v200;
+        DgnPrimArray<unsigned int>::reallocElts(&v167, 1, 1);
+        v111 = v168;
       }
 
-      v199[v128] = v97;
-      v129 = v200 + 1;
-      LODWORD(v200) = v200 + 1;
-      ++v93;
-      v96 = v112;
-      if (v93 >= *(v81 + 424))
+      v167[v111] = v85;
+      v112 = v168 + 1;
+      LODWORD(v168) = v168 + 1;
+      ++v81;
+      v84 = v100;
+      if (v81 >= *(v69 + 424))
       {
-        v13 = this + 151552;
-        if (v112 != -1)
+        v6 = this + 151552;
+        if (v100 != -1)
         {
-          *v205 = 0;
-          v206 = 0;
-          if (v129)
+          *v173 = 0;
+          v174 = 0;
+          if (v112)
           {
-            v130 = 0;
-            LODWORD(v131) = 0;
-            v132 = 0;
+            v113 = 0;
+            LODWORD(v114) = 0;
+            v115 = 0;
             do
             {
-              v133 = *(this + 4);
-              v134 = v199[v132];
-              if (v131 == HIDWORD(v206))
+              v116 = *(this + 4);
+              v117 = v167[v115];
+              if (v114 == HIDWORD(v174))
               {
-                DgnPrimArray<unsigned int>::reallocElts(v205, 1, 1);
-                LODWORD(v131) = v206;
-                v130 = *v205;
+                DgnPrimArray<unsigned int>::reallocElts(v173, 1, 1);
+                LODWORD(v114) = v174;
+                v113 = *v173;
               }
 
-              *&v130[4 * v131] = v134 & 0xFFFFFF | (v133 << 25);
-              v131 = (v206 + 1);
-              LODWORD(v206) = v206 + 1;
-              ++v132;
+              *&v113[4 * v114] = v117 & 0xFFFFFF | (v116 << 25);
+              v114 = (v174 + 1);
+              LODWORD(v174) = v174 + 1;
+              ++v115;
             }
 
-            while (v132 < v200);
+            while (v115 < v168);
           }
 
           else
           {
-            v131 = 0;
-            v130 = 0;
+            v114 = 0;
+            v113 = 0;
           }
 
-          mrec_qsort_r<SortCwidsByWordEndScope>(v130, v131, 4, this);
-          TreePrefilterer::checkAndAddEndingWords(this, v112, v205, v179, v180, v181, v182, v183);
-          LODWORD(v200) = 0;
-          DgnPrimArray<unsigned int>::~DgnPrimArray(v205);
+          mrec_qsort_r<SortCwidsByWordEndScope>(v113, v114, 4, this);
+          TreePrefilterer::checkAndAddEndingWords(this, v100, v173);
+          LODWORD(v168) = 0;
+          DgnPrimArray<unsigned int>::~DgnPrimArray(v173);
         }
 
-        goto LABEL_207;
+        goto LABEL_206;
       }
     }
   }
 
-  v135 = (this + 152264);
-  v136 = *(this + 38068);
-  *(this + 38064) = v136;
-  v137 = *(this + 38069);
-  if (v56 > v137)
+  v118 = (this + 152264);
+  v119 = *(this + 38068);
+  *(this + 38064) = v119;
+  v120 = *(this + 38069);
+  if (v44 > v120)
   {
-    DgnArray<CWIDAC>::reallocElts(this + 152264, v56 - v137, 0);
-    v136 = *(this + 38068);
+    DgnArray<CWIDAC>::reallocElts(this + 152264, v44 - v120, 0);
+    v119 = *(this + 38068);
   }
 
-  if (v136 < v56)
+  if (v119 < v44)
   {
-    v138 = v56 - v136;
-    v139 = 24 * v136;
+    v121 = v44 - v119;
+    v122 = 24 * v119;
     do
     {
-      v140 = *v135 + v139;
-      *v140 = 0;
-      *(v140 + 8) = -1;
-      *(v140 + 16) = 0xFFFF;
-      *(v140 + 20) = 0x1FFF;
-      v139 += 24;
-      --v138;
+      v123 = *v118 + v122;
+      *v123 = 0;
+      *(v123 + 8) = -1;
+      *(v123 + 16) = 0xFFFF;
+      *(v123 + 20) = 0x1FFF;
+      v122 += 24;
+      --v121;
     }
 
-    while (v138);
+    while (v121);
   }
 
-  *(this + 38068) = v56;
-  v141 = *(this + 19033) + 24 * *(this + 38064);
-  *(v141 + 20) |= 0x8000u;
-  v142 = v213;
-  v143 = *v213;
-  if (*v213)
+  *(this + 38068) = v44;
+  v124 = *(this + 19033) + 24 * *(this + 38064);
+  *(v124 + 20) |= 0x8000u;
+  v125 = v181;
+  v126 = *v181;
+  if (*v181)
   {
-    v144 = *(v141 + 18);
-    v145 = 1;
+    v127 = *(v124 + 18);
+    v128 = 1;
     do
     {
-      if (v144)
+      if (v127)
       {
-        ++v144;
+        ++v127;
       }
 
       else
       {
-        *(v141 + 8) = v145;
-        v143 = *v142;
-        v144 = 1;
+        *(v124 + 8) = v128;
+        v126 = *v125;
+        v127 = 1;
       }
 
-      ++v145;
+      ++v128;
     }
 
-    while (v145 <= v143);
-    *(v141 + 18) = v144;
+    while (v128 <= v126);
+    *(v124 + 18) = v127;
   }
 
-  v199 = 0;
-  v200 = 0;
-  if (v216)
+  v167 = 0;
+  v168 = 0;
+  if (v184)
   {
-    LODWORD(v146) = 0;
-    v147 = 0;
-    v148 = 0;
-    v149 = 0;
-    v150 = 0;
-    v151 = -1;
+    LODWORD(v129) = 0;
+    v130 = 0;
+    v131 = 0;
+    v132 = 0;
+    v133 = 0;
+    v134 = -1;
     while (1)
     {
-      v152 = v215[v148];
-      v154 = *(*(this + 2) + 48);
-      v153 = (v154[9] + 2 * *(v154[6] + 4 * (*&v152 & 0xFFFFFFLL)));
-      LOWORD(v154) = *(v154[4] + 2 * (*&v152 & 0xFFFFFFLL));
-      v155 = v154;
-      v156 = *(this + 38076);
-      if (v156 >= v154)
+      v135 = v183[v131];
+      v137 = *(*(this + 2) + 48);
+      v136 = (v137[9] + 2 * *(v137[6] + 4 * (*&v135 & 0xFFFFFFLL)));
+      LOWORD(v137) = *(v137[4] + 2 * (*&v135 & 0xFFFFFFLL));
+      v138 = v137;
+      v139 = *(this + 38076);
+      if (v139 >= v137)
       {
-        LODWORD(v154) = v154;
+        LODWORD(v137) = v137;
       }
 
       else
       {
-        LODWORD(v154) = *(this + 38076);
+        LODWORD(v137) = *(this + 38076);
       }
 
-      if (v156)
+      if (v139)
       {
-        v157 = v154;
-      }
-
-      else
-      {
-        v157 = v155;
-      }
-
-      if (v149 >= v157)
-      {
-        v158 = v157;
+        v140 = v137;
       }
 
       else
       {
-        v158 = v149;
+        v140 = v138;
       }
 
-      if (v158)
+      if (v132 >= v140)
       {
-        if (*v153 == *v150)
+        v141 = v140;
+      }
+
+      else
+      {
+        v141 = v132;
+      }
+
+      if (v141)
+      {
+        if (*v136 == *v133)
         {
-          v159 = 0;
-          v160 = v211;
-          v161 = v209;
-          v162 = v150 + 1;
-          while (v158 - 1 != v159)
+          v142 = 0;
+          v143 = v179;
+          v144 = v177;
+          v145 = v133 + 1;
+          while (v141 - 1 != v142)
           {
-            v163 = v153[v159 + 1];
-            v164 = v162[v159];
-            ++v161;
-            ++v160;
-            ++v159;
-            if (v163 != v164)
+            v146 = v136[v142 + 1];
+            v147 = v145[v142];
+            ++v144;
+            ++v143;
+            ++v142;
+            if (v146 != v147)
             {
-              v165 = *(v160 - 1) + *(v161 - 1) - 1;
-              LODWORD(v158) = v159;
-              goto LABEL_184;
+              v148 = *(v143 - 1) + *(v144 - 1) - 1;
+              LODWORD(v141) = v142;
+              goto LABEL_183;
             }
           }
 
-          v165 = *v160 + *v161 - 1;
-          goto LABEL_184;
+          v148 = *v143 + *v144 - 1;
+          goto LABEL_183;
         }
 
-        LODWORD(v158) = 0;
+        LODWORD(v141) = 0;
       }
 
-      v165 = -1;
-LABEL_184:
-      v166 = v158 != v149;
-      if (v158 != v157)
+      v148 = -1;
+LABEL_183:
+      v149 = v141 != v132;
+      if (v141 != v140)
       {
-        v166 = 1;
+        v149 = 1;
       }
 
-      if (v158 >= v157)
+      if (v141 >= v140)
       {
-        v171 = v165;
+        v154 = v148;
       }
 
       else
       {
-        v167 = v211;
-        v168 = v209;
-        v158 = v158;
-        v169 = *v135;
+        v150 = v179;
+        v151 = v177;
+        v141 = v141;
+        v152 = *v118;
         do
         {
-          v170 = v168[v158];
-          v171 = v170 + v167[v158];
-          *(v169 + 24 * v171 + 16) = v153[v158];
-          if (v158)
+          v153 = v151[v141];
+          v154 = v153 + v150[v141];
+          *(v152 + 24 * v154 + 16) = v136[v141];
+          if (v141)
           {
-            v172 = v169 + 24 * v165;
-            if (*(v172 + 18))
+            v155 = v152 + 24 * v148;
+            if (*(v155 + 18))
             {
-              v173 = *(v172 + 18) + 1;
+              v156 = *(v155 + 18) + 1;
             }
 
             else
             {
-              *(v172 + 8) = v171;
-              v170 = v168[v158];
-              v173 = 1;
+              *(v155 + 8) = v154;
+              v153 = v151[v141];
+              v156 = 1;
             }
 
-            *(v172 + 18) = v173;
+            *(v155 + 18) = v156;
           }
 
-          v168[v158++] = v170 + 1;
-          v165 = v171;
+          v151[v141++] = v153 + 1;
+          v148 = v154;
         }
 
-        while (v157 != v158);
-        LODWORD(v146) = v200;
+        while (v140 != v141);
+        LODWORD(v129) = v168;
       }
 
-      if (v151 == -1)
+      if (v134 == -1)
       {
-        v166 = 0;
+        v149 = 0;
       }
 
-      if (v166)
+      if (v149)
       {
-        mrec_qsort_r<SortCwidsByWordEndScope>(v147, v146, 4, this);
-        TreePrefilterer::checkAndAddEndingWords(this, v151, &v199, v174, v175, v176, v177, v178);
-        LODWORD(v146) = 0;
-        LODWORD(v200) = 0;
+        mrec_qsort_r<SortCwidsByWordEndScope>(v130, v129, 4, this);
+        TreePrefilterer::checkAndAddEndingWords(this, v134, &v167);
+        LODWORD(v129) = 0;
+        LODWORD(v168) = 0;
       }
 
-      if (v146 == HIDWORD(v200))
+      if (v129 == HIDWORD(v168))
       {
-        DgnPrimArray<unsigned int>::reallocElts(&v199, 1, 1);
-        LODWORD(v146) = v200;
+        DgnPrimArray<unsigned int>::reallocElts(&v167, 1, 1);
+        LODWORD(v129) = v168;
       }
 
-      v147 = v199;
-      v199[v146] = v152;
-      v146 = (v200 + 1);
-      LODWORD(v200) = v200 + 1;
-      ++v148;
-      v151 = v171;
-      v149 = v157;
-      v150 = v153;
-      if (v148 >= v216)
+      v130 = v167;
+      v167[v129] = v135;
+      v129 = (v168 + 1);
+      LODWORD(v168) = v168 + 1;
+      ++v131;
+      v134 = v154;
+      v132 = v140;
+      v133 = v136;
+      if (v131 >= v184)
       {
-        if (v171 != -1)
+        if (v154 != -1)
         {
-          mrec_qsort_r<SortCwidsByWordEndScope>(v147, v146, 4, this);
-          TreePrefilterer::checkAndAddEndingWords(this, v171, &v199, v193, v194, v195, v196, v197);
-          LODWORD(v200) = 0;
+          mrec_qsort_r<SortCwidsByWordEndScope>(v130, v129, 4, this);
+          TreePrefilterer::checkAndAddEndingWords(this, v154, &v167);
+          LODWORD(v168) = 0;
         }
 
         break;
@@ -15053,60 +15076,60 @@ LABEL_184:
     }
   }
 
-LABEL_207:
-  DgnPrimArray<unsigned int>::~DgnPrimArray(&v199);
-  v184 = *(v13 + 93);
-  if (*(v184 + 40) == 1)
+LABEL_206:
+  DgnPrimArray<unsigned int>::~DgnPrimArray(&v167);
+  v157 = *(v6 + 93);
+  if (*(v157 + 40) == 1)
   {
-    v185 = *(v13 + 175) - 1;
+    v158 = *(v6 + 175) - 1;
   }
 
   else
   {
-    v185 = 0;
+    v158 = 0;
   }
 
-  v186 = *(v184 + 44);
-  v187 = v13 + 712;
-  LexTreePathIter::LexTreePathIter(&v199, (v13 + 712), *(v13 + 176));
-  v188 = -1;
-  while (v204)
+  v159 = *(v157 + 44);
+  v160 = v6 + 712;
+  LexTreePathIter::LexTreePathIter(&v167, (v6 + 712), *(v6 + 176));
+  v161 = -1;
+  while (v172)
   {
-    if (*(*v187 + 24 * (*(v203 + 4 * (v204 - 2)) + *(v200 + 4 * (v201 - 2))) + 20) < 0)
+    if (*(*v160 + 24 * (*(v171 + 4 * (v172 - 2)) + *(v168 + 4 * (v169 - 2))) + 20) < 0)
     {
-      v188 = v204;
+      v161 = v172;
     }
 
-    v189 = *v187 + 24 * (*(v203 + 4 * (v204 - 1)) + *(v200 + 4 * (v201 - 1)));
-    if ((*(v189 + 20) & 0x2000) != 0 || (*(v189 + 18) == 1 ? (v190 = v204 - 1 == v186) : (v190 = 1), !v190 ? (v191 = v204 - v188 == v185) : (v191 = 1), v191))
+    v162 = *v160 + 24 * (*(v171 + 4 * (v172 - 1)) + *(v168 + 4 * (v169 - 1)));
+    if ((*(v162 + 20) & 0x2000) != 0 || (*(v162 + 18) == 1 ? (v163 = v172 - 1 == v159) : (v163 = 1), !v163 ? (v164 = v172 - v161 == v158) : (v164 = 1), v164))
     {
-      *(v189 + 20) |= 0x8000u;
+      *(v162 + 20) |= 0x8000u;
     }
 
-    LexTreePathIter::nextStandard(&v199);
+    LexTreePathIter::nextStandard(&v167);
   }
 
-  DgnPrimArray<unsigned int>::~DgnPrimArray(&v203);
-  DgnPrimArray<unsigned int>::~DgnPrimArray(&v202);
-  DgnPrimArray<unsigned int>::~DgnPrimArray(&v200);
+  DgnPrimArray<unsigned int>::~DgnPrimArray(&v171);
+  DgnPrimArray<unsigned int>::~DgnPrimArray(&v170);
+  DgnPrimArray<unsigned int>::~DgnPrimArray(&v168);
   TreePrefilterer::setAllPhoneRecBestLms(this);
   TreePrefilterer::setupAllEffectiveLms(this);
-  DgnPrimArray<unsigned int>::~DgnPrimArray(&v209);
-  DgnPrimArray<unsigned int>::~DgnPrimArray(&v211);
-  DgnPrimArray<unsigned int>::~DgnPrimArray(&v213);
-  return DgnPrimArray<unsigned int>::~DgnPrimArray(&v215);
+  DgnPrimArray<unsigned int>::~DgnPrimArray(&v177);
+  DgnPrimArray<unsigned int>::~DgnPrimArray(&v179);
+  DgnPrimArray<unsigned int>::~DgnPrimArray(&v181);
+  return DgnPrimArray<unsigned int>::~DgnPrimArray(&v183);
 }
 
-void sub_26285CCDC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, ...)
+void sub_26285CCDC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, ...)
 {
-  va_start(va1, a14);
-  va_start(va, a14);
-  v16 = va_arg(va1, void);
-  v18 = va_arg(va1, void);
+  va_start(va1, a21);
+  va_start(va, a21);
+  v23 = va_arg(va1, void);
+  v25 = va_arg(va1, void);
   DgnPrimArray<unsigned int>::~DgnPrimArray(va);
   DgnPrimArray<unsigned int>::~DgnPrimArray(va1);
-  DgnPrimArray<unsigned int>::~DgnPrimArray(v14 - 120);
-  DgnPrimArray<unsigned int>::~DgnPrimArray(v14 - 104);
+  DgnPrimArray<unsigned int>::~DgnPrimArray(v21 - 120);
+  DgnPrimArray<unsigned int>::~DgnPrimArray(v21 - 104);
   _Unwind_Resume(a1);
 }
 
@@ -15186,87 +15209,91 @@ uint64_t TreePrefilterer::getPhoneStringFromCWID(TreePrefilterer *this, int a2, 
   return DgnPrimArray<unsigned int>::~DgnPrimArray(&v13);
 }
 
-void TreePrefilterer::checkAndAddEndingWords(uint64_t a1, unsigned int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void TreePrefilterer::checkAndAddEndingWords(uint64_t a1, unsigned int a2, uint64_t a3)
 {
-  v11 = *(a3 + 8);
-  if (v11 >= 0x400)
+  v6 = *(a3 + 8);
+  if (v6 >= 0x400)
   {
-    v12 = *(*a3 + 4 * (v11 - 1));
-    DgnString::DgnString(&v34);
-    TreePrefilterer::getPhoneStringFromCWID(a1, v12, &v34);
-    v13 = *(*(a1 + 16) + 48);
-    v31 = v13[28] + *(v13[25] + 4 * (*&v12 & 0xFFFFFFLL));
-    v33 = *(v13[13] + (*&v12 & 0xFFFFFFLL));
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/prefilt/treepref.cpp", 918, "prefilt/treepref", 3, "%u %.500s 0x%08x %.500s %u", v14, v15, *(a3 + 8));
-    DgnString::~DgnString(&v34);
-    v11 = *(a3 + 8);
+    v7 = *(*a3 + 4 * (v6 - 1));
+    DgnString::DgnString(&v22);
+    TreePrefilterer::getPhoneStringFromCWID(a1, v7, &v22);
+    if (v23)
+    {
+      v8 = v22;
+    }
+
+    else
+    {
+      v8 = &byte_262899963;
+    }
+
+    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/prefilt/treepref.cpp", 918, "prefilt/treepref", 3, "%u %.500s 0x%08x %.500s %u", *(a3 + 8), v8, v7, (*(*(*(a1 + 16) + 48) + 224) + *(*(*(*(a1 + 16) + 48) + 200) + 4 * (*&v7 & 0xFFFFFFLL))), *(*(*(*(a1 + 16) + 48) + 104) + (*&v7 & 0xFFFFFFLL)));
+    DgnString::~DgnString(&v22);
+    v6 = *(a3 + 8);
   }
 
-  v16 = *(a1 + 152288);
-  if (v16 >= 0x400000)
+  v9 = *(a1 + 152288);
+  if (v9 >= 0x400000)
   {
-    v17 = *(*(a1 + 16) + 48);
-    v18 = *(*a3 + 4 * (v11 - 1));
-    v30 = v17[28] + *(v17[25] + 4 * (*&v18 & 0xFFFFFFLL));
-    v32 = *(v17[13] + (*&v18 & 0xFFFFFFLL));
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/prefilt/treepref.cpp", 929, "prefilt/treepref", 4, "%u 0x%08x %.500s %u", a7, a8, v16);
-    v11 = *(a3 + 8);
+    v10 = *(*a3 + 4 * (v6 - 1));
+    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/prefilt/treepref.cpp", 929, "prefilt/treepref", 4, "%u 0x%08x %.500s %u", v9, v10, (*(*(*(a1 + 16) + 48) + 224) + *(*(*(*(a1 + 16) + 48) + 200) + 4 * (*&v10 & 0xFFFFFFLL))), *(*(*(*(a1 + 16) + 48) + 104) + (*&v10 & 0xFFFFFFLL)));
+    v6 = *(a3 + 8);
   }
 
-  if (v11 == 1)
+  if (v6 == 1)
   {
-    v19 = **a3;
-    v20 = *(*(*(a1 + 16) + 272) + 2 * (*&v19 & 0xFFFFFFLL));
-    v21 = *(a1 + 152264) + 24 * a2;
-    IndexForCwid = getIndexForCwid(*(a1 + 8), v19);
-    TreePhoneRec::setSingleEndingWord(v21, IndexForCwid, v20);
+    v11 = **a3;
+    v12 = *(*(*(a1 + 16) + 272) + 2 * (*&v11 & 0xFFFFFFLL));
+    v13 = *(a1 + 152264) + 24 * a2;
+    IndexForCwid = getIndexForCwid(*(a1 + 8), v11);
+    TreePhoneRec::setSingleEndingWord(v13, IndexForCwid, v12);
   }
 
   else
   {
-    v23 = *(a1 + 152288);
-    if (v11)
+    v15 = *(a1 + 152288);
+    if (v6)
     {
-      v24 = 0;
+      v16 = 0;
       do
       {
-        v25 = *(*a3 + 4 * v24);
-        v26 = *(*(*(a1 + 16) + 272) + 2 * (*&v25 & 0xFFFFFFLL));
-        v27 = getIndexForCwid(*(a1 + 8), v25);
-        v28 = *(a1 + 152288);
-        if (v28 == *(a1 + 152292))
+        v17 = *(*a3 + 4 * v16);
+        v18 = *(*(*(a1 + 16) + 272) + 2 * (*&v17 & 0xFFFFFFLL));
+        v19 = getIndexForCwid(*(a1 + 8), v17);
+        v20 = *(a1 + 152288);
+        if (v20 == *(a1 + 152292))
         {
           DgnPrimArray<unsigned int>::reallocElts(a1 + 152280, 1, 1);
-          v28 = *(a1 + 152288);
+          v20 = *(a1 + 152288);
         }
 
-        *(*(a1 + 152280) + 4 * v28) = v27 & 0x3FFFFF | (v26 << 22);
+        *(*(a1 + 152280) + 4 * v20) = v19 & 0x3FFFFF | (v18 << 22);
         ++*(a1 + 152288);
-        ++v24;
+        ++v16;
       }
 
-      while (v24 < *(a3 + 8));
+      while (v16 < *(a3 + 8));
     }
 
-    TreePhoneRec::setMultipleEndingWords(*(a1 + 152264) + 24 * a2, v23, v11);
+    TreePhoneRec::setMultipleEndingWords(*(a1 + 152264) + 24 * a2, v15, v6);
   }
 
   if (*(a3 + 8))
   {
-    v29 = 0;
+    v21 = 0;
     do
     {
-      ReturnListMgr::setEffectiveLmForCwid((a1 + 151552), *(*a3 + 4 * v29), *(*(*(a1 + 16) + 272) + 2 * (*(*a3 + 4 * v29) & 0xFFFFFF)));
-      ++v29;
+      ReturnListMgr::setEffectiveLmForCwid((a1 + 151552), *(*a3 + 4 * v21), *(*(*(a1 + 16) + 272) + 2 * (*(*a3 + 4 * v21) & 0xFFFFFF)));
+      ++v21;
     }
 
-    while (v29 < *(a3 + 8));
+    while (v21 < *(a3 + 8));
   }
 }
 
-void sub_26285D248(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_26285D248(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   DgnString::~DgnString(va);
   _Unwind_Resume(a1);
 }
@@ -15346,69 +15373,69 @@ uint64_t TreePrefilterer::computePicModelIds(TreePrefilterer *this, StateMgr **a
   v6 = *(v5 + 93);
   v7 = *(v6 + 144);
   v8 = *(v6 + 148);
-  CollWords = StateMgr::getCollWords(a2[7], a3, 0xFFFFu, 1, v9, v10, v11, v12);
-  v30[0] = 0;
-  v30[1] = 0;
-  v28 = 0;
-  v29 = 0;
-  v14 = *(CollWords + 8);
-  if (v14)
+  CollWords = StateMgr::getCollWords(a2[7], a3, 0xFFFFu, 1);
+  v26[0] = 0;
+  v26[1] = 0;
+  v24 = 0;
+  v25 = 0;
+  v10 = *(CollWords + 8);
+  if (v10)
   {
-    v15 = 0;
-    v16 = a2[6];
-    v24 = CollWords;
+    v11 = 0;
+    v12 = a2[6];
+    v20 = CollWords;
     do
     {
-      v17 = *(*CollWords + 4 * v15);
-      if (*(*(v16 + 4) + 2 * v17))
+      v13 = *(*CollWords + 4 * v11);
+      if (*(*(v12 + 4) + 2 * v13))
       {
-        v27 = 0;
-        v26 = 0;
-        Voc::getPrefPron(a2, v17, &v27, &v26);
-        v25 = v17;
-        v18 = *(*(v16 + 6) + 4 * v17);
-        LODWORD(v29) = 0;
-        v19 = v26;
-        if (v26)
+        v23 = 0;
+        v22 = 0;
+        Voc::getPrefPron(a2, v13, &v23, &v22);
+        v21 = v13;
+        v14 = *(*(v12 + 6) + 4 * v13);
+        LODWORD(v25) = 0;
+        v15 = v22;
+        if (v22)
         {
-          for (i = 0; i < v26; ++i)
+          for (i = 0; i < v22; ++i)
           {
-            PicMgr::getPrefContextPelIdAndDurIds(*(v5 + 86), v7, v8, v16 + 11, v18, v27, v19, i, v30);
-            v21 = Voc::findOrAddPrefPicModel(a2, v30);
-            v22 = v29;
-            if (v29 == HIDWORD(v29))
+            PicMgr::getPrefContextPelIdAndDurIds(*(v5 + 86), v7, v8, v12 + 11, v14, v23, v15, i, v26);
+            v17 = Voc::findOrAddPrefPicModel(a2, v26);
+            v18 = v25;
+            if (v25 == HIDWORD(v25))
             {
-              DgnPrimArray<unsigned int>::reallocElts(&v28, 1, 1);
-              v22 = v29;
+              DgnPrimArray<unsigned int>::reallocElts(&v24, 1, 1);
+              v18 = v25;
             }
 
-            *(v28 + 4 * v22) = v21;
-            LODWORD(v29) = v29 + 1;
-            v19 = v26;
+            *(v24 + 4 * v18) = v17;
+            LODWORD(v25) = v25 + 1;
+            v15 = v22;
           }
         }
 
-        Voc::addPrefPicModelIdPron(a2, v25, &v28);
-        CollWords = v24;
-        v14 = *(v24 + 8);
+        Voc::addPrefPicModelIdPron(a2, v21, &v24);
+        CollWords = v20;
+        v10 = *(v20 + 8);
       }
 
-      ++v15;
+      ++v11;
     }
 
-    while (v15 < v14);
+    while (v11 < v10);
   }
 
-  DgnPrimArray<unsigned int>::~DgnPrimArray(&v28);
-  return DgnIArray<Utterance *>::~DgnIArray(v30);
+  DgnPrimArray<unsigned int>::~DgnPrimArray(&v24);
+  return DgnIArray<Utterance *>::~DgnIArray(v26);
 }
 
-void sub_26285D4C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_26285D4C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va1, a7);
-  va_start(va, a7);
-  v8 = va_arg(va1, void);
-  v10 = va_arg(va1, void);
+  va_start(va1, a13);
+  va_start(va, a13);
+  v14 = va_arg(va1, void);
+  v16 = va_arg(va1, void);
   DgnPrimArray<unsigned int>::~DgnPrimArray(va);
   DgnIArray<Utterance *>::~DgnIArray(va1);
   _Unwind_Resume(a1);
@@ -15500,7 +15527,7 @@ LABEL_5:
           do
           {
             v15 = v14;
-            v14 = (v14 + v6);
+            v14 += v6;
             v16 = *(*(a4 + 16) + 272);
             v17 = *(v16 + 2 * (*v14 & 0xFFFFFF));
             v18 = *(v16 + 2 * (*v15 & 0xFFFFFF));
@@ -15522,9 +15549,10 @@ LABEL_5:
                 v21 = v14;
                 do
                 {
-                  v22 = *&v15[2 * v20];
-                  *&v15[2 * v20] = *v21;
-                  *v21++ = v22;
+                  v22 = *&v15[8 * v20];
+                  *&v15[8 * v20] = *v21;
+                  *v21 = v22;
+                  v21 += 8;
                   ++v20;
                 }
 
@@ -15536,9 +15564,9 @@ LABEL_5:
                 v24 = a3;
                 do
                 {
-                  v25 = *(v15 + v20);
-                  *(v15 + v20) = *(v13 + v20);
-                  *(v13 + v20++) = v25;
+                  v25 = v15[v20];
+                  v15[v20] = v13[v20];
+                  v13[v20++] = v25;
                   --v24;
                 }
 
@@ -15553,14 +15581,14 @@ LABEL_5:
               *v14 = v23;
             }
 
-            v13 = (v13 + v6);
+            v13 += v6;
           }
 
           while (v14 > result);
         }
 
         v11 += a3;
-        v12 = (v12 + a3);
+        v12 += a3;
       }
 
       while (v11 < v10);
@@ -16133,7 +16161,7 @@ LABEL_176:
 
       if (v120 > a3)
       {
-        result = mrec_qsort_r<SortCwidsByWordEndScope>();
+        result = mrec_qsort_r<SortCwidsByWordEndScope>(result, v120 / a3, a3, a4);
       }
 
       if (v129 > a3)
@@ -16172,7 +16200,7 @@ LABEL_176:
           do
           {
             v140 = v139;
-            v139 = (v139 + v6);
+            v139 += v6;
             v141 = *(*(a4 + 16) + 272);
             v142 = *(v141 + 2 * (*v139 & 0xFFFFFF));
             v143 = *(v141 + 2 * (*v140 & 0xFFFFFF));
@@ -16194,9 +16222,10 @@ LABEL_176:
                 v146 = v139;
                 do
                 {
-                  v147 = *&v140[2 * v145];
-                  *&v140[2 * v145] = *v146;
-                  *v146++ = v147;
+                  v147 = *&v140[8 * v145];
+                  *&v140[8 * v145] = *v146;
+                  *v146 = v147;
+                  v146 += 8;
                   ++v145;
                 }
 
@@ -16208,9 +16237,9 @@ LABEL_176:
                 v149 = a3;
                 do
                 {
-                  v150 = *(v140 + v145);
-                  *(v140 + v145) = *(v138 + v145);
-                  *(v138 + v145++) = v150;
+                  v150 = v140[v145];
+                  v140[v145] = v138[v145];
+                  v138[v145++] = v150;
                   --v149;
                 }
 
@@ -16225,14 +16254,14 @@ LABEL_176:
               *v139 = v148;
             }
 
-            v138 = (v138 + v6);
+            v138 += v6;
           }
 
           while (v139 > result);
         }
 
         v92 += a3;
-        v137 = (v137 + a3);
+        v137 += a3;
       }
 
       while (v92 < v119);
@@ -16242,7 +16271,7 @@ LABEL_176:
   }
 }
 
-unint64_t LexTreePathIter::nextStandard(uint64_t **this)
+uint64_t LexTreePathIter::nextStandard(uint64_t **this)
 {
   v4 = this[1];
   result = (this + 1);
@@ -16371,9 +16400,9 @@ uint64_t TreePrefilterer::setupAllEffectiveLms(TreePrefilterer *this)
   return DgnPrimArray<unsigned int>::~DgnPrimArray(&v16);
 }
 
-void sub_26285E138(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_26285E138(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   DgnPrimArray<unsigned int>::~DgnPrimArray(va);
   _Unwind_Resume(a1);
 }
@@ -16559,7 +16588,7 @@ uint64_t DgnPool::sizeObject(uint64_t a1, int a2)
   return result;
 }
 
-uint64_t StartupPronGuessParamSpecMgr(void)
+unint64_t StartupPronGuessParamSpecMgr(void)
 {
   v0 = MemChunkAlloc(0x28uLL, 0);
   IntParamSpec::IntParamSpec(v0, "PronGuessLMPerBackoffWordPenalty", &byte_262899963, &byte_262899963, &sPronGuessLMPerBackoffWordPenaltyIntHistory);
@@ -16620,32 +16649,32 @@ void sub_26285E840(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-uint64_t PronGuessParamSet::setDefaults(PronGuessParamSet *this, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t PronGuessParamSet::setDefaults(PronGuessParamSet *this)
 {
-  Default_string = ParamSpecMgr::ParamGetDefault_string(qword_281051FA8, 1, 0, 0, a5, a6, a7, a8);
+  Default_string = ParamSpecMgr::ParamGetDefault_string(qword_281051FA8, 1, 0, 0);
   DgnString::operator=((this + 40), Default_string);
-  *(this + 14) = ParamSpecMgr::ParamGetDefault_int(qword_281051FA8, 2, 0, 0, v10, v11, v12, v13);
-  result = ParamSpecMgr::ParamGetDefault_int(qword_281051FA8, 3, 0, 0, v14, v15, v16, v17);
+  *(this + 14) = ParamSpecMgr::ParamGetDefault_int(qword_281051FA8, 2, 0, 0);
+  result = ParamSpecMgr::ParamGetDefault_int(qword_281051FA8, 3, 0, 0);
   *(this + 15) = result;
   return result;
 }
 
 uint64_t PronGuessParamSet::sizeObject(uint64_t a1, int a2)
 {
-  v4 = sizeObject(a1 + 8) + 16 * (a2 != 3);
+  v4 = sizeObject(a1 + 8, a2) + 16 * (a2 != 3);
   if ((gShadowDiagnosticShowIdealizedObjectSizes & 1) == 0)
   {
-    v4 += 8 * (a2 != 3) + sizeObject(a1 + 40);
+    v4 += 8 * (a2 != 3) + sizeObject(a1 + 40, a2);
   }
 
   return v4;
 }
 
-void PronGuessParamSet::setParamSetPronGuessFragmentSuffixTag(PronGuessParamSet *this, char *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void PronGuessParamSet::setParamSetPronGuessFragmentSuffixTag(PronGuessParamSet *this, char *a2)
 {
   if (*(this + 9))
   {
-    throwParamSetSetFailed("PronGuessFragmentSuffixTag", "string", a3, a4, a5, a6, a7, a8);
+    throwParamSetSetFailed("PronGuessFragmentSuffixTag", "string");
   }
 
   else
@@ -16654,32 +16683,32 @@ void PronGuessParamSet::setParamSetPronGuessFragmentSuffixTag(PronGuessParamSet 
   }
 }
 
-uint64_t PronGuessParamSet::getBoolParameter(int a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t PronGuessParamSet::getBoolParameter(int a1, int a2)
 {
   switch(a2)
   {
     case 3:
-      v8 = "int";
-      v9 = 3;
+      v2 = "int";
+      v3 = 3;
       break;
     case 2:
-      v8 = "int";
-      v9 = 2;
+      v2 = "int";
+      v3 = 2;
       break;
     case 1:
-      v8 = "string";
-      v9 = 1;
+      v2 = "string";
+      v3 = 1;
       break;
     default:
-      throwWrongParamIdValue(a2, "BOOL", a3, a4, a5, a6, a7, a8);
+      throwWrongParamIdValue(a2, "BOOL");
       return 0;
   }
 
-  throwWrongTypeForParamId(v9, v8, "BOOL", a4, a5, a6, a7, a8);
+  throwWrongTypeForParamId(v3, v2, "BOOL");
   return 0;
 }
 
-uint64_t PronGuessParamSet::getIntParameter(uint64_t a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t PronGuessParamSet::getIntParameter(uint64_t a1, int a2, int a3)
 {
   if (a2 != 3)
   {
@@ -16687,12 +16716,12 @@ uint64_t PronGuessParamSet::getIntParameter(uint64_t a1, int a2, uint64_t a3, ui
     {
       if (a2 == 1)
       {
-        throwWrongTypeForParamId(1, "string", "int", a4, a5, a6, a7, a8);
+        throwWrongTypeForParamId(1, "string", "int");
       }
 
       else
       {
-        throwWrongParamIdValue(a2, "int", a3, a4, a5, a6, a7, a8);
+        throwWrongParamIdValue(a2, "int");
       }
 
       return 0;
@@ -16707,11 +16736,10 @@ uint64_t PronGuessParamSet::getIntParameter(uint64_t a1, int a2, uint64_t a3, ui
 
       if (a3 == 1)
       {
-        v8 = qword_281051FA8;
-        v9 = 2;
+        v3 = qword_281051FA8;
+        v4 = 2;
 LABEL_13:
-        ParamByParamId = ParamSpecMgr::getParamByParamId(v8, v9, a3, a4, a5, a6, a7, a8);
-        v11 = **ParamByParamId;
+        ParamByParamId = ParamSpecMgr::getParamByParamId(v3, v4);
       }
 
       goto LABEL_22;
@@ -16724,15 +16752,14 @@ LABEL_13:
         goto LABEL_22;
       }
 
-      v13 = qword_281051FA8;
-      v14 = 2;
+      v7 = qword_281051FA8;
+      v8 = 2;
 LABEL_21:
-      v15 = ParamSpecMgr::getParamByParamId(v13, v14, a3, a4, a5, a6, a7, a8);
-      v16 = **v15;
+      v9 = ParamSpecMgr::getParamByParamId(v7, v8);
     }
 
-    v17 = qword_281051FA8;
-    v18 = 2;
+    v10 = qword_281051FA8;
+    v11 = 2;
     goto LABEL_29;
   }
 
@@ -16745,16 +16772,15 @@ LABEL_21:
         goto LABEL_22;
       }
 
-      v13 = qword_281051FA8;
-      v14 = 3;
+      v7 = qword_281051FA8;
+      v8 = 3;
       goto LABEL_21;
     }
 
-    v17 = qword_281051FA8;
-    v18 = 3;
+    v10 = qword_281051FA8;
+    v11 = 3;
 LABEL_29:
-    v19 = ParamSpecMgr::getParamByParamId(v17, v18, a3, a4, a5, a6, a7, a8);
-    v20 = **v19;
+    v12 = ParamSpecMgr::getParamByParamId(v10, v11);
   }
 
   if (!a3)
@@ -16764,72 +16790,71 @@ LABEL_29:
 
   if (a3 == 1)
   {
-    v8 = qword_281051FA8;
-    v9 = 3;
+    v3 = qword_281051FA8;
+    v4 = 3;
     goto LABEL_13;
   }
 
 LABEL_22:
-  throwWrongQueryMode(a3, "int", a3, a4, a5, a6, a7, a8);
+  throwWrongQueryMode(a3, "int");
   return 0;
 }
 
-double PronGuessParamSet::getDoubleParameter(int a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+double PronGuessParamSet::getDoubleParameter(int a1, int a2)
 {
   switch(a2)
   {
     case 3:
-      v8 = "int";
-      v9 = 3;
+      v2 = "int";
+      v3 = 3;
       break;
     case 2:
-      v8 = "int";
-      v9 = 2;
+      v2 = "int";
+      v3 = 2;
       break;
     case 1:
-      v8 = "string";
-      v9 = 1;
+      v2 = "string";
+      v3 = 1;
       break;
     default:
-      throwWrongParamIdValue(a2, "double", a3, a4, a5, a6, a7, a8);
+      throwWrongParamIdValue(a2, "double");
       return 0.0;
   }
 
-  throwWrongTypeForParamId(v9, v8, "double", a4, a5, a6, a7, a8);
+  throwWrongTypeForParamId(v3, v2, "double");
   return 0.0;
 }
 
-char *PronGuessParamSet::getStringParameter(uint64_t a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+char *PronGuessParamSet::getStringParameter(uint64_t a1, int a2, int a3)
 {
   if (a2 == 3)
   {
-    v9 = 3;
+    v4 = 3;
     goto LABEL_11;
   }
 
   if (a2 == 2)
   {
-    v9 = 2;
+    v4 = 2;
 LABEL_11:
-    throwWrongTypeForParamId(v9, "int", "string", a4, a5, a6, a7, a8);
+    throwWrongTypeForParamId(v4, "int", "string");
     return 0;
   }
 
   if (a2 != 1)
   {
-    throwWrongParamIdValue(a2, "string", a3, a4, a5, a6, a7, a8);
+    throwWrongParamIdValue(a2, "string");
     return 0;
   }
 
   if (a3 == 1)
   {
-    ParamByParamId = ParamSpecMgr::getParamByParamId(qword_281051FA8, 1, a3, a4, a5, a6, a7, a8);
-    v11 = **ParamByParamId;
+    ParamByParamId = ParamSpecMgr::getParamByParamId(qword_281051FA8, 1);
   }
 
   if (a3)
   {
-    throwWrongQueryMode(a3, "string", a3, a4, a5, a6, a7, a8);
+    throwWrongQueryMode(a3, "string");
     return 0;
   }
 
@@ -16844,34 +16869,33 @@ LABEL_11:
   }
 }
 
-uint64_t PronGuessParamSet::getEnumParameter(int a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t PronGuessParamSet::getEnumParameter(int a1, int a2)
 {
   switch(a2)
   {
     case 3:
-      v8 = "int";
-      v9 = 3;
+      v2 = "int";
+      v3 = 3;
       break;
     case 2:
-      v8 = "int";
-      v9 = 2;
+      v2 = "int";
+      v3 = 2;
       break;
     case 1:
-      v8 = "string";
-      v9 = 1;
+      v2 = "string";
+      v3 = 1;
       break;
     default:
-      throwWrongParamIdValue(a2, "enum", a3, a4, a5, a6, a7, a8);
+      throwWrongParamIdValue(a2, "enum");
       return 0;
   }
 
-  throwWrongTypeForParamId(v9, v8, "BOOL", a4, a5, a6, a7, a8);
+  throwWrongTypeForParamId(v3, v2, "BOOL");
   return 0;
 }
 
-void PronGuessParamSet::setBoolParameter(PronGuessParamSet *this, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+double PronGuessParamSet::setBoolParameter(PronGuessParamSet *this, int a2)
 {
-  v8 = a2;
   if (a2 != 3)
   {
     if (a2 != 2)
@@ -16881,70 +16905,66 @@ void PronGuessParamSet::setBoolParameter(PronGuessParamSet *this, int a2, uint64
         goto LABEL_7;
       }
 
-      throwWrongTypeForParamId(1, "string", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(1, "string", "BOOL");
     }
 
-    throwWrongTypeForParamId(v8, "int", "BOOL", a4, a5, a6, a7, a8);
+    throwWrongTypeForParamId(a2, "int", "BOOL");
   }
 
-  throwWrongTypeForParamId(v8, "int", "BOOL", a4, a5, a6, a7, a8);
+  throwWrongTypeForParamId(a2, "int", "BOOL");
 LABEL_7:
 
-  throwWrongParamIdValue(v8, "BOOL", a3, a4, a5, a6, a7, a8);
+  return throwWrongParamIdValue(a2, "BOOL");
 }
 
-void PronGuessParamSet::setIntParameter(PronGuessParamSet *this, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void PronGuessParamSet::setIntParameter(PronGuessParamSet *this, int a2, int a3)
 {
-  v8 = a3;
   switch(a2)
   {
     case 3:
-      ParamByParamId = ParamSpecMgr::getParamByParamId(qword_281051FA8, 3, a3, a4, a5, a6, a7, a8);
+      ParamByParamId = ParamSpecMgr::getParamByParamId(qword_281051FA8, 3);
       if (ParamByParamId)
       {
-        v28 = **ParamByParamId;
       }
 
-      IntParamSpec::validateValue(ParamByParamId, v8, 0, 0, v24, v25, v26, v27);
+      IntParamSpec::validateValue(ParamByParamId, a3, 0, 0);
       if (!*(this + 9))
       {
-        *(this + 15) = v8;
+        *(this + 15) = a3;
         return;
       }
 
-      v22 = "PronGuessMinNewPronLength";
+      v6 = "PronGuessMinNewPronLength";
       goto LABEL_13;
     case 2:
 LABEL_5:
-      v10 = ParamSpecMgr::getParamByParamId(qword_281051FA8, 2, a3, a4, a5, a6, a7, a8);
-      if (v10)
+      v5 = ParamSpecMgr::getParamByParamId(qword_281051FA8, 2);
+      if (v5)
       {
-        v15 = **v10;
       }
 
-      IntParamSpec::validateValue(v10, v8, 0, 0, v11, v12, v13, v14);
+      IntParamSpec::validateValue(v5, a3, 0, 0);
       if (!*(this + 9))
       {
-        *(this + 14) = v8;
+        *(this + 14) = a3;
         return;
       }
 
-      v22 = "PronGuessLMPerBackoffWordPenalty";
+      v6 = "PronGuessLMPerBackoffWordPenalty";
 LABEL_13:
 
-      throwParamSetSetFailed(v22, "int", v16, v17, v18, v19, v20, v21);
+      throwParamSetSetFailed(v6, "int");
       return;
     case 1:
-      throwWrongTypeForParamId(1, "string", "int", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(1, "string", "int");
       goto LABEL_5;
   }
 
-  throwWrongParamIdValue(a2, "int", a3, a4, a5, a6, a7, a8);
+  throwWrongParamIdValue(a2, "int");
 }
 
-void PronGuessParamSet::setDoubleParameter(PronGuessParamSet *this, int a2, double a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
+double PronGuessParamSet::setDoubleParameter(PronGuessParamSet *this, int a2, double a3)
 {
-  v9 = a2;
   if (a2 != 3)
   {
     if (a2 != 2)
@@ -16954,42 +16974,40 @@ void PronGuessParamSet::setDoubleParameter(PronGuessParamSet *this, int a2, doub
         goto LABEL_7;
       }
 
-      throwWrongTypeForParamId(1, "string", "double", a5, a6, a7, a8, a9);
+      throwWrongTypeForParamId(1, "string", "double");
     }
 
-    throwWrongTypeForParamId(v9, "int", "double", a5, a6, a7, a8, a9);
+    throwWrongTypeForParamId(a2, "int", "double");
   }
 
-  throwWrongTypeForParamId(v9, "int", "double", a5, a6, a7, a8, a9);
+  throwWrongTypeForParamId(a2, "int", "double");
 LABEL_7:
 
-  throwWrongParamIdValue(v9, "double", a4, a5, a6, a7, a8, a9);
+  return throwWrongParamIdValue(a2, "double");
 }
 
-void PronGuessParamSet::setStringParameter(PronGuessParamSet *this, int a2, char *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+double PronGuessParamSet::setStringParameter(PronGuessParamSet *this, int a2, char *a3)
 {
-  v8 = a2;
   switch(a2)
   {
     case 3:
       goto LABEL_8;
     case 2:
-      throwWrongTypeForParamId(2, "int", "string", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(2, "int", "string");
 LABEL_8:
-      throwWrongTypeForParamId(v8, "int", "string", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "int", "string");
       break;
     case 1:
 
-      PronGuessParamSet::setParamSetPronGuessFragmentSuffixTag(this, a3, a3, a4, a5, a6, a7, a8);
-      return;
+      PronGuessParamSet::setParamSetPronGuessFragmentSuffixTag(this, a3);
+      return result;
   }
 
-  throwWrongParamIdValue(v8, "string", a3, a4, a5, a6, a7, a8);
+  return throwWrongParamIdValue(a2, "string");
 }
 
-void PronGuessParamSet::setEnumParameter(PronGuessParamSet *this, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+double PronGuessParamSet::setEnumParameter(PronGuessParamSet *this, int a2)
 {
-  v8 = a2;
   if (a2 != 3)
   {
     if (a2 != 2)
@@ -16999,31 +17017,31 @@ void PronGuessParamSet::setEnumParameter(PronGuessParamSet *this, int a2, uint64
         goto LABEL_7;
       }
 
-      throwWrongTypeForParamId(1, "string", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(1, "string", "BOOL");
     }
 
-    throwWrongTypeForParamId(v8, "int", "BOOL", a4, a5, a6, a7, a8);
+    throwWrongTypeForParamId(a2, "int", "BOOL");
   }
 
-  throwWrongTypeForParamId(v8, "int", "BOOL", a4, a5, a6, a7, a8);
+  throwWrongTypeForParamId(a2, "int", "BOOL");
 LABEL_7:
 
-  throwWrongParamIdValue(v8, "enum", a3, a4, a5, a6, a7, a8);
+  return throwWrongParamIdValue(a2, "enum");
 }
 
 void PronGuessParamSet::~PronGuessParamSet(PronGuessParamSet *this)
 {
   *this = &unk_287526E78;
-  DgnString::~DgnString((this + 40));
+  DgnString::~DgnString(this + 40);
   *this = &unk_287528C00;
-  DgnString::~DgnString((this + 8));
+  DgnString::~DgnString(this + 8);
 }
 
 {
   *this = &unk_287526E78;
-  DgnString::~DgnString((this + 40));
+  DgnString::~DgnString(this + 40);
   *this = &unk_287528C00;
-  DgnString::~DgnString((this + 8));
+  DgnString::~DgnString(this + 8);
 
   JUMPOUT(0x26672B1B0);
 }
@@ -17033,61 +17051,152 @@ void OnlineConstrainedTransAccMgr::printSize(OnlineConstrainedTransAccMgr *this,
   *a4 = 0;
   *a5 = 0;
   *a6 = 0;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/user/ocntrnac.cpp", 149, &v66);
-  if (v67)
+  getShipObjectSizeDescription(&v41, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/user/ocntrnac.cpp", 149);
+  if (v42)
   {
-    v15 = v66;
+    v12 = v41;
   }
 
   else
   {
-    v15 = &unk_2628992D4;
+    v12 = &unk_2628992D4;
   }
 
-  xlprintf("ObSize: %*s*************************************************************\nObSize: %*sBegin %s ", v11, v12, v13, v14, a3, &unk_2628992D4, a3, &unk_2628992D4, v15);
-  DgnString::~DgnString(&v66);
+  xlprintf("ObSize: %*s*************************************************************\nObSize: %*sBegin %s ", v11, a3, &unk_2628992D4, a3, &unk_2628992D4, v12);
+  DgnString::~DgnString(&v41);
   if (a2 != -1)
   {
-    xlprintf("%d ", v16, v17, v18, v19, a2);
+    xlprintf("%d ", v13, a2);
   }
 
-  xlprintf("(alloc, used, shared)\nObSize: %*s*************************************************************\n", v16, v17, v18, v19, a3, &unk_2628992D4);
-  v20 = (a3 + 1);
-  v21 = (34 - a3);
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/user/ocntrnac.cpp", 151, &v66);
-  if (v67)
+  xlprintf("(alloc, used, shared)\nObSize: %*s*************************************************************\n", v13, a3, &unk_2628992D4);
+  v14 = (a3 + 1);
+  v15 = (34 - a3);
+  getShipObjectSizeDescription(&v41, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/user/ocntrnac.cpp", 151);
+  if (v42)
   {
-    v26 = v66;
-  }
-
-  else
-  {
-    v26 = &unk_2628992D4;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v22, v23, v24, v25, (a3 + 1), &unk_2628992D4, (34 - a3), (34 - a3), v26, 4, 4, 0);
-  DgnString::~DgnString(&v66);
-  *a4 += 4;
-  *a5 += 4;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/user/ocntrnac.cpp", 151, &v66);
-  if (v67)
-  {
-    v31 = v66;
+    v17 = v41;
   }
 
   else
   {
-    v31 = &unk_2628992D4;
+    v17 = &unk_2628992D4;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v27, v28, v29, v30, (a3 + 1), &unk_2628992D4, (34 - a3), (34 - a3), v31, 4, 4, 0);
-  DgnString::~DgnString(&v66);
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v16, (a3 + 1), &unk_2628992D4, (34 - a3), (34 - a3), v17, 4, 4, 0);
+  DgnString::~DgnString(&v41);
   *a4 += 4;
   *a5 += 4;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/user/ocntrnac.cpp", 151, &v66);
-  if (v67)
+  getShipObjectSizeDescription(&v41, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/user/ocntrnac.cpp", 151);
+  if (v42)
   {
-    v36 = v66;
+    v19 = v41;
+  }
+
+  else
+  {
+    v19 = &unk_2628992D4;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v18, (a3 + 1), &unk_2628992D4, (34 - a3), (34 - a3), v19, 4, 4, 0);
+  DgnString::~DgnString(&v41);
+  *a4 += 4;
+  *a5 += 4;
+  getShipObjectSizeDescription(&v41, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/user/ocntrnac.cpp", 151);
+  if (v42)
+  {
+    v21 = v41;
+  }
+
+  else
+  {
+    v21 = &unk_2628992D4;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v20, (a3 + 1), &unk_2628992D4, (34 - a3), (34 - a3), v21, 4, 4, 0);
+  v39 = a3;
+  DgnString::~DgnString(&v41);
+  *a4 += 4;
+  *a5 += 4;
+  if (gShadowDiagnosticShowIdealizedObjectSizes)
+  {
+    v22 = 12;
+  }
+
+  else
+  {
+    v22 = 16;
+  }
+
+  v23 = *(this + 6);
+  v24 = *(this + 7);
+  v25 = this;
+  if (v24 >= v23)
+  {
+    v26 = 0;
+    if (v23 > 0)
+    {
+      v22 += 4 * (v23 - 1) + 4;
+    }
+
+    v27 = v22 + 4 * (v24 - v23);
+  }
+
+  else
+  {
+    v26 = 4 * v23;
+    v27 = v22;
+  }
+
+  getShipObjectSizeDescription(&v41, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/user/ocntrnac.cpp", 151);
+  if (v42)
+  {
+    v29 = v41;
+  }
+
+  else
+  {
+    v29 = &unk_2628992D4;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v28, v14, &unk_2628992D4, v15, v15, v29, v27, v22, v26);
+  DgnString::~DgnString(&v41);
+  *a4 += v27;
+  *a5 += v22;
+  *a6 += v26;
+  if (gShadowDiagnosticShowIdealizedObjectSizes)
+  {
+    v30 = 12;
+  }
+
+  else
+  {
+    v30 = 16;
+  }
+
+  v31 = *(v25 + 10);
+  v32 = *(v25 + 11);
+  if (v32 >= v31)
+  {
+    v33 = 0;
+    if (v31 > 0)
+    {
+      v30 += 4 * (v31 - 1) + 4;
+    }
+
+    v34 = v30 + 4 * (v32 - v31);
+  }
+
+  else
+  {
+    v33 = 4 * v31;
+    v34 = v30;
+  }
+
+  getShipObjectSizeDescription(&v41, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/user/ocntrnac.cpp", 151);
+  if (v42)
+  {
+    v36 = v41;
   }
 
   else
@@ -17095,126 +17204,34 @@ void OnlineConstrainedTransAccMgr::printSize(OnlineConstrainedTransAccMgr *this,
     v36 = &unk_2628992D4;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v32, v33, v34, v35, (a3 + 1), &unk_2628992D4, (34 - a3), (34 - a3), v36, 4, 4, 0);
-  v64 = a3;
-  DgnString::~DgnString(&v66);
-  *a4 += 4;
-  *a5 += 4;
-  if (gShadowDiagnosticShowIdealizedObjectSizes)
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v35, v14, &unk_2628992D4, v15, v15, v36, v34, v30, v33);
+  DgnString::~DgnString(&v41);
+  *a4 += v34;
+  *a5 += v30;
+  *a6 += v33;
+  getShipObjectSizeDescription(&v41, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/user/ocntrnac.cpp", 153);
+  if (v42)
   {
-    v37 = 12;
+    v38 = v41;
   }
 
   else
   {
-    v37 = 16;
+    v38 = &unk_2628992D4;
   }
 
-  v38 = *(this + 6);
-  v39 = *(this + 7);
-  v40 = this;
-  if (v39 >= v38)
-  {
-    v41 = 0;
-    if (v38 > 0)
-    {
-      v37 += 4 * (v38 - 1) + 4;
-    }
-
-    v42 = v37 + 4 * (v39 - v38);
-  }
-
-  else
-  {
-    v41 = 4 * v38;
-    v42 = v37;
-  }
-
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/user/ocntrnac.cpp", 151, &v66);
-  if (v67)
-  {
-    v47 = v66;
-  }
-
-  else
-  {
-    v47 = &unk_2628992D4;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v43, v44, v45, v46, v20, &unk_2628992D4, v21, v21, v47, v42, v37, v41);
-  DgnString::~DgnString(&v66);
-  *a4 += v42;
-  *a5 += v37;
-  *a6 += v41;
-  if (gShadowDiagnosticShowIdealizedObjectSizes)
-  {
-    v48 = 12;
-  }
-
-  else
-  {
-    v48 = 16;
-  }
-
-  v49 = *(v40 + 10);
-  v50 = *(v40 + 11);
-  if (v50 >= v49)
-  {
-    v51 = 0;
-    if (v49 > 0)
-    {
-      v48 += 4 * (v49 - 1) + 4;
-    }
-
-    v52 = v48 + 4 * (v50 - v49);
-  }
-
-  else
-  {
-    v51 = 4 * v49;
-    v52 = v48;
-  }
-
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/user/ocntrnac.cpp", 151, &v66);
-  if (v67)
-  {
-    v57 = v66;
-  }
-
-  else
-  {
-    v57 = &unk_2628992D4;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v53, v54, v55, v56, v20, &unk_2628992D4, v21, v21, v57, v52, v48, v51);
-  DgnString::~DgnString(&v66);
-  *a4 += v52;
-  *a5 += v48;
-  *a6 += v51;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/user/ocntrnac.cpp", 153, &v66);
-  if (v67)
-  {
-    v62 = v66;
-  }
-
-  else
-  {
-    v62 = &unk_2628992D4;
-  }
-
-  v63 = *a5;
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v58, v59, v60, v61, v64, &unk_2628992D4, (35 - v64), (35 - v64), v62, *a4, *a5, *a6);
-  DgnString::~DgnString(&v66);
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v37, v39, &unk_2628992D4, (35 - v39), (35 - v39), v38, *a4, *a5, *a6);
+  DgnString::~DgnString(&v41);
 }
 
-void sub_26285F76C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_26285F76C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   DgnString::~DgnString(va);
   _Unwind_Resume(a1);
 }
 
-void OnlineConstrainedTransAccMgr::saveOnlineConstrainedTransAcc(OnlineConstrainedTransAccMgr *this, DFile *a2, DFileChecksums *a3, int a4, int a5)
+void OnlineConstrainedTransAccMgr::saveOnlineConstrainedTransAcc(OnlineConstrainedTransAccMgr *this, DFile *a2, DFileChecksums *a3, int a4, char a5)
 {
   if (a4)
   {
@@ -17233,122 +17250,121 @@ void OnlineConstrainedTransAccMgr::saveOnlineConstrainedTransAcc(OnlineConstrain
     writeObject<unsigned int>(v8, this + 32, &v10);
     writeObjectChecksum(v8, &v10);
     CurrentSubDirComponents = DFile::getCurrentSubDirComponents(a2);
-    DFileChecksums::addChecksum(a3, CurrentSubDirComponents, 0x33u, v10);
+    DFileChecksums::addChecksum(a3, CurrentSubDirComponents, 51, v10);
     DgnDelete<DgnStream>(v8);
   }
 }
 
 void OnlineConstrainedTransAccMgr::saveOCT(OnlineConstrainedTransAccMgr *this, DFile *a2, int a3)
 {
-  v41[6] = *MEMORY[0x277D85DE8];
-  DgnTextFileWriter::DgnTextFileWriter(v39);
-  DgnTextFileWriter::openDgnTextFileWriter(v39, a2, 0x34u, a3);
-  v37 = 0;
-  v38 = 0;
-  DgnTextFile::legalDgnTextFileVersions(v39, sOCT_Versions, &v37, v6, v7, v8, v9, v10);
-  DgnTextFileWriter::setFileType(v39, "OnlineConstrainedTransAcc", (v37 + 8 * (v38 - 1)));
-  v41[0] = 0;
-  v11 = realloc_array(0, v41, 0x14uLL, 0, 0, 1);
-  v34 = v41[0];
-  v35 = 5;
-  v36 = v11 >> 2;
-  v41[0] = 0;
-  v33 = realloc_array(0, v41, 0x50uLL, 0, 0, 1) >> 4;
-  *v31 = v41[0];
-  v12 = 1;
-  v13 = 0;
+  v35[6] = *MEMORY[0x277D85DE8];
+  DgnTextFileWriter::DgnTextFileWriter(v33);
+  DgnTextFileWriter::openDgnTextFileWriter(v33, a2, 52, a3);
+  v31 = 0;
+  v32 = 0;
+  DgnTextFile::legalDgnTextFileVersions(v33, sOCT_Versions, &v31);
+  DgnTextFileWriter::setFileType(v33, "OnlineConstrainedTransAcc", (v31 + 8 * (v32 - 1)));
+  v35[0] = 0;
+  v6 = realloc_array(0, v35, 0x14uLL, 0, 0, 1);
+  v28 = v35[0];
+  v29 = 5;
+  v30 = v6 >> 2;
+  v35[0] = 0;
+  v27 = realloc_array(0, v35, 0x50uLL, 0, 0, 1) >> 4;
+  *v25 = v35[0];
+  v7 = 1;
+  v8 = 0;
   do
   {
-    DgnString::DgnString((*v31 + v13));
-    v13 += 16;
+    DgnString::DgnString((*v25 + v8));
+    v8 += 16;
   }
 
-  while (v12++ != 5);
-  v32 = 5;
-  *v34 = 0;
-  DgnString::operator=(*v31, "TableName");
-  v34[1] = 3;
-  DgnString::operator=((*v31 + 16), "CurrentState");
-  v34[2] = 0;
-  DgnString::operator=((*v31 + 32), "StrValue1");
-  v34[3] = 0;
-  DgnString::operator=((*v31 + 48), "StrValue2");
-  v34[4] = 1;
-  DgnString::operator=((*v31 + 64), "IntValue1");
-  DgnTextFileWriter::setLineFieldFormat(v39, &v34, v31);
-  DgnTextFileWriter::setHeaderFieldUnsigned(v39, "NumberOfStates", *this);
-  DgnTextFileWriter::setHeaderFieldUnsigned(v39, "StartState", *(this + 1));
-  DgnTextFileWriter::setHeaderFieldUnsigned(v39, "NumberOfAccumulateFactors", *(this + 2));
-  v29 = "FrameSelection";
-  v30 = "AutomatonTransition";
-  v41[0] = "SilenceInitial";
-  v41[1] = "SilenceAfterSilence";
-  v41[2] = "SilenceAfterSpeech";
-  v41[3] = "SpeechInitial";
-  v41[4] = "SpeechAfterSilence";
-  v41[5] = "SpeechAfterSpeech";
-  v40[0] = "SilPel";
-  v40[1] = "NonSilInitialPel";
-  v40[2] = "NonSilNonInitialPel";
-  v15 = &v30;
-  v16 = *this;
-  v17 = 1;
-  v18 = 16;
+  while (v7++ != 5);
+  v26 = 5;
+  *v28 = 0;
+  DgnString::operator=(*v25, "TableName");
+  v28[1] = 3;
+  DgnString::operator=((*v25 + 16), "CurrentState");
+  v28[2] = 0;
+  DgnString::operator=((*v25 + 32), "StrValue1");
+  v28[3] = 0;
+  DgnString::operator=((*v25 + 48), "StrValue2");
+  v28[4] = 1;
+  DgnString::operator=((*v25 + 64), "IntValue1");
+  DgnTextFileWriter::setLineFieldFormat(v33, &v28, v25);
+  DgnTextFileWriter::setHeaderFieldUnsigned(v33, "NumberOfStates", *this);
+  DgnTextFileWriter::setHeaderFieldUnsigned(v33, "StartState", *(this + 1));
+  DgnTextFileWriter::setHeaderFieldUnsigned(v33, "NumberOfAccumulateFactors", *(this + 2));
+  v23 = "FrameSelection";
+  v24 = "AutomatonTransition";
+  v35[0] = "SilenceInitial";
+  v35[1] = "SilenceAfterSilence";
+  v35[2] = "SilenceAfterSpeech";
+  v35[3] = "SpeechInitial";
+  v35[4] = "SpeechAfterSilence";
+  v35[5] = "SpeechAfterSpeech";
+  v34[0] = "SilPel";
+  v34[1] = "NonSilInitialPel";
+  v34[2] = "NonSilNonInitialPel";
+  v10 = &v24;
+  v11 = *this;
+  v12 = 1;
+  v13 = 16;
   do
   {
-    v19 = v17;
-    if (v16)
+    v14 = v12;
+    if (v11)
     {
-      v27 = v17;
-      v20 = 0;
-      v21 = 0;
-      v22 = *v15;
+      v21 = v12;
+      v15 = 0;
+      v16 = 0;
+      v17 = *v10;
       do
       {
-        v23 = 0;
-        v28 = v20;
+        v18 = 0;
+        v22 = v15;
         do
         {
-          v24 = 0;
-          v25 = v20;
+          v19 = 0;
+          v20 = v15;
           do
           {
-            DgnTextFileWriter::setLineFieldValue(v39, 0, v22);
-            DgnTextFileWriter::setLineFieldUnsignedValue(v39, 1u, v21);
-            DgnTextFileWriter::setLineFieldValue(v39, 2u, v41[v23]);
-            DgnTextFileWriter::setLineFieldValue(v39, 3u, v40[v24]);
-            DgnTextFileWriter::setLineFieldIntegerValue(v39, 4u, *(*(this + v18) + 4 * v25));
-            DgnTextFileWriter::writeNextLine(v39);
-            ++v25;
-            ++v24;
+            DgnTextFileWriter::setLineFieldValue(v33, 0, v17);
+            DgnTextFileWriter::setLineFieldUnsignedValue(v33, 1u, v16);
+            DgnTextFileWriter::setLineFieldValue(v33, 2u, v35[v18]);
+            DgnTextFileWriter::setLineFieldValue(v33, 3u, v34[v19]);
+            DgnTextFileWriter::setLineFieldIntegerValue(v33, 4u, *(*(this + v13) + 4 * v20));
+            DgnTextFileWriter::writeNextLine(v33);
+            ++v20;
+            ++v19;
           }
 
-          while (v24 != 3);
-          ++v23;
-          v20 += 3;
+          while (v19 != 3);
+          ++v18;
+          v15 += 3;
         }
 
-        while (v23 != 6);
-        ++v21;
-        v16 = *this;
-        v20 = v28 + 18;
+        while (v18 != 6);
+        ++v16;
+        v11 = *this;
+        v15 = v22 + 18;
       }
 
-      while (v21 < *this);
-      v19 = v27;
+      while (v16 < *this);
+      v14 = v21;
     }
 
-    v17 = 0;
-    v15 = &v29;
-    v18 = 32;
+    v12 = 0;
+    v10 = &v23;
+    v13 = 32;
   }
 
-  while ((v19 & 1) != 0);
-  DgnArray<DgnString>::releaseAll(v31);
-  DgnPrimArray<unsigned int>::~DgnPrimArray(&v34);
-  DgnIArray<Utterance *>::~DgnIArray(&v37);
-  DgnTextFileWriter::~DgnTextFileWriter(v39);
-  v26 = *MEMORY[0x277D85DE8];
+  while ((v14 & 1) != 0);
+  DgnArray<DgnString>::releaseAll(v25);
+  DgnPrimArray<unsigned int>::~DgnPrimArray(&v28);
+  DgnIArray<Utterance *>::~DgnIArray(&v31);
+  DgnTextFileWriter::~DgnTextFileWriter(v33);
 }
 
 void sub_26285FCA8(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, char a13, uint64_t a14, char a15, uint64_t a16, char a17, uint64_t a18, char a19)
@@ -17500,7 +17516,7 @@ uint64_t ProgressCallbackHandler::addProgress(uint64_t this, ProgressCallbackHan
   return this;
 }
 
-uint64_t ProgressCallbackHandler::addDFileProgressInfoPtr(uint64_t this, DFileProgressInfo *a2, DFileProgressInfo *a3)
+ProgressCallbackHandler *ProgressCallbackHandler::addDFileProgressInfoPtr(ProgressCallbackHandler *this, DFileProgressInfo *a2, DFileProgressInfo *a3)
 {
   if (this)
   {
@@ -17510,13 +17526,13 @@ uint64_t ProgressCallbackHandler::addDFileProgressInfoPtr(uint64_t this, DFilePr
   return this;
 }
 
-unint64_t ProgressCallbackHandler::addDFileProgressInfoPtr(unint64_t this, DFileProgressInfo *a2)
+uint64_t *ProgressCallbackHandler::addDFileProgressInfoPtr(uint64_t *this, DFileProgressInfo *a2)
 {
   v3 = this;
-  v4 = *(this + 64);
-  if (v4 == *(this + 68))
+  v4 = *(this + 16);
+  if (v4 == *(this + 17))
   {
-    this = DgnPrimArray<unsigned long long>::reallocElts(this + 56, 1, 1);
+    this = DgnPrimArray<unsigned long long>::reallocElts((this + 7), 1, 1);
     v4 = *(v3 + 64);
   }
 
@@ -17600,7 +17616,7 @@ void GlobalParam::getDescription(GlobalParam *this, DgnString *a2)
   }
 }
 
-unint64_t GlobalParamMgr::startupGlobalParamMgr(GlobalParamMgr *this)
+uint64_t *GlobalParamMgr::startupGlobalParamMgr(GlobalParamMgr *this)
 {
   v1 = MemChunkAlloc(8uLL, 0);
   v2 = MemChunkAlloc(0x10uLL, 0);
@@ -17663,67 +17679,66 @@ void GlobalParamMgr::printSize(GlobalParamMgr *this, uint64_t a2, uint64_t a3, u
   *a4 = 0;
   *a5 = 0;
   *a6 = 0;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/mrecutil/param.cpp", 358, &v35);
-  if (v36)
+  getShipObjectSizeDescription(&v22, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/mrecutil/param.cpp", 358);
+  if (v23)
   {
-    v16 = v35;
+    v13 = v22;
   }
 
   else
   {
-    v16 = &byte_262899963;
+    v13 = &byte_262899963;
   }
 
-  xlprintf("ObSize: %*s*************************************************************\nObSize: %*sBegin %s ", v12, v13, v14, v15, a3, &byte_262899963, a3, &byte_262899963, v16);
-  DgnString::~DgnString(&v35);
+  xlprintf("ObSize: %*s*************************************************************\nObSize: %*sBegin %s ", v12, a3, &byte_262899963, a3, &byte_262899963, v13);
+  DgnString::~DgnString(&v22);
   if (a2 != -1)
   {
-    xlprintf("%d ", v17, v18, v19, v20, a2);
+    xlprintf("%d ", v14, a2);
   }
 
-  xlprintf("(alloc, used, shared)\nObSize: %*s*************************************************************\n", v17, v18, v19, v20, a3, &byte_262899963);
+  xlprintf("(alloc, used, shared)\nObSize: %*s*************************************************************\n", v14, a3, &byte_262899963);
   if ((gShadowDiagnosticShowIdealizedObjectSizes & 1) == 0)
   {
-    v21 = sizeObjectSpecial(*this, 0);
-    v22 = sizeObjectSpecial(*this, 1);
-    v23 = sizeObjectSpecial(*this, 3);
-    getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/mrecutil/param.cpp", 367, &v35);
-    if (v36)
+    v15 = sizeObjectSpecial(*this, 0);
+    v16 = sizeObjectSpecial(*this, 1);
+    v17 = sizeObjectSpecial(*this, 3);
+    getShipObjectSizeDescription(&v22, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/mrecutil/param.cpp", 367);
+    if (v23)
     {
-      v28 = v35;
+      v19 = v22;
     }
 
     else
     {
-      v28 = &byte_262899963;
+      v19 = &byte_262899963;
     }
 
-    xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v24, v25, v26, v27, (a3 + 1), &byte_262899963, (34 - a3), (34 - a3), v28, v21, v22, v23);
-    DgnString::~DgnString(&v35);
-    *a4 += v21;
-    *a5 += v22;
-    *a6 += v23;
+    xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v18, (a3 + 1), &byte_262899963, (34 - a3), (34 - a3), v19, v15, v16, v17);
+    DgnString::~DgnString(&v22);
+    *a4 += v15;
+    *a5 += v16;
+    *a6 += v17;
   }
 
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/mrecutil/param.cpp", 369, &v35);
-  if (v36)
+  getShipObjectSizeDescription(&v22, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/mrecutil/param.cpp", 369);
+  if (v23)
   {
-    v33 = v35;
+    v21 = v22;
   }
 
   else
   {
-    v33 = &byte_262899963;
+    v21 = &byte_262899963;
   }
 
-  v34 = *a5;
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v29, v30, v31, v32, a3, &byte_262899963, (35 - a3), (35 - a3), v33, *a4, *a5, *a6);
-  DgnString::~DgnString(&v35);
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v20, a3, &byte_262899963, (35 - a3), (35 - a3), v21, *a4, *a5, *a6);
+  DgnString::~DgnString(&v22);
 }
 
-void sub_262860650(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_262860650(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   DgnString::~DgnString(va);
   _Unwind_Resume(a1);
 }
@@ -17743,7 +17758,7 @@ uint64_t *GlobalParamMgr::addParam(uint64_t *this, GlobalParam **a2)
   return this;
 }
 
-uint64_t GlobalParamMgr::resetAll(uint64_t **this)
+unint64_t GlobalParamMgr::resetAll(unint64_t **this)
 {
   result = mrec_qsort_r<GlobalParamMgr>(**this, *(*this + 2), 8, 0);
   v3 = *this;
@@ -17764,7 +17779,7 @@ uint64_t GlobalParamMgr::resetAll(uint64_t **this)
   return result;
 }
 
-uint64_t mrec_qsort_r<GlobalParamMgr>(uint64_t result, unint64_t a2, const char *a3, uint64_t a4)
+unint64_t mrec_qsort_r<GlobalParamMgr>(unint64_t result, unint64_t a2, const char *a3, uint64_t a4)
 {
   v5 = a2;
   v6 = result;
@@ -17870,7 +17885,7 @@ LABEL_119:
       if (v5 != 7)
       {
         v11 = v5;
-        v12 = (v6 + (v5 - 1) * a3);
+        v12 = v6 + (v5 - 1) * a3;
         if (v11 < 0x29)
         {
           v20 = v6;
@@ -17949,17 +17964,17 @@ LABEL_119:
             }
           }
 
-          v28 = &v12[-2 * v13];
-          v21 = &v12[-v13];
-          v29 = DgnString::compareNoCase(*(**v28 + 16), *(**&v12[-v13] + 16), v27);
-          v31 = DgnString::compareNoCase(*(**&v12[-v13] + 16), *(**v12 + 16), v30);
+          v28 = v12 - 2 * v13;
+          v21 = (v12 - v13);
+          v29 = DgnString::compareNoCase(*(**v28 + 16), *(**(v12 - v13) + 16), v27);
+          v31 = DgnString::compareNoCase(*(**(v12 - v13) + 16), *(**v12 + 16), v30);
           if (v29 < 0)
           {
             if ((v31 & 0x80000000) == 0)
             {
               if (DgnString::compareNoCase(*(**v28 + 16), *(**v12 + 16), a3) >= 0)
               {
-                v21 = &v12[-2 * v13];
+                v21 = (v12 - 2 * v13);
               }
 
               else
@@ -17978,7 +17993,7 @@ LABEL_119:
 
             else
             {
-              v21 = &v12[-2 * v13];
+              v21 = (v12 - 2 * v13);
             }
           }
 
@@ -17993,7 +18008,7 @@ LABEL_119:
           if ((result & 0x80000000) == 0)
           {
             result = DgnString::compareNoCase(*(**v20 + 16), *(**v21 + 16), a3);
-            if (result >= 0)
+            if ((result & 0x80000000) == 0)
             {
               v10 = v20;
             }
@@ -18008,7 +18023,7 @@ LABEL_119:
         else if (result <= 0)
         {
           result = DgnString::compareNoCase(*(**v20 + 16), *(**v21 + 16), a3);
-          if (result >= 0)
+          if ((result & 0x80000000) == 0)
           {
             v10 = v21;
           }
@@ -18133,8 +18148,8 @@ LABEL_55:
               do
               {
                 v54 = *&v45[8 * v53];
-                *&v45[8 * v53] = *&v44[8 * v53];
-                *&v44[8 * v53++] = v54;
+                *&v45[8 * v53] = *(v44 + 8 * v53);
+                *(v44 + 8 * v53++) = v54;
               }
 
               while (v9 != v53);
@@ -18176,8 +18191,8 @@ LABEL_55:
               v48 = 0;
               do
               {
-                v49 = *&v44[8 * v48];
-                *&v44[8 * v48] = *(v43 + 8 * v48);
+                v49 = *(v44 + 8 * v48);
+                *(v44 + 8 * v48) = *(v43 + 8 * v48);
                 *(v43 + 8 * v48++) = v49;
               }
 
@@ -18222,7 +18237,7 @@ LABEL_55:
       v63 = v45 - v42;
       if (&v42[-v6] >= v45 - v42)
       {
-        v64 = (v45 - v42);
+        v64 = v45 - v42;
       }
 
       else
@@ -18234,7 +18249,7 @@ LABEL_55:
       {
         if (v110)
         {
-          v65 = (v45 - v64);
+          v65 = &v45[-v64];
           v66 = v64 >> 3;
           v67 = v6;
           do
@@ -18413,40 +18428,45 @@ LABEL_55:
   return result;
 }
 
-void IntGlobalParamBase::setVal(IntGlobalParamBase *this, int a2, int a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void IntGlobalParamBase::setVal(const char **this, int a2, int a3, __n128 a4)
 {
   if (*(this + 10) != a2 && (*(this + 12) > a2 || *(this + 13) < a2))
   {
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/mrecutil/param.cpp", 792, "mrecutil/param", 2, "%.500s", a7, a8, *(this + 2));
+    a4.n128_f64[0] = errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/mrecutil/param.cpp", 792, "mrecutil/param", 2, "%.500s", this[2]);
   }
 
   *(this + 11) = a2;
   if (a3)
   {
-    v11 = *(this + 1);
-    if (v11)
+    v7 = this[1];
+    if (v7)
     {
 
-      v11();
+      v7(a4);
     }
   }
 }
 
-void DoubleGlobalParamBase::setVal(DoubleGlobalParamBase *this, double a2, int a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
+void DoubleGlobalParamBase::setVal(DoubleGlobalParamBase *this, __n128 a2, int a3)
 {
-  if (*(this + 5) != a2 && (*(this + 7) > a2 || *(this + 8) < a2))
+  v4 = a2.n128_f64[0];
+  a2.n128_u64[0] = *(this + 5);
+  if (a2.n128_f64[0] != v4)
   {
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/mrecutil/param.cpp", 1074, "mrecutil/param", 2, "%.500s", a8, a9, *(this + 2));
+    if (*(this + 7) > v4 || (a2.n128_u64[0] = *(this + 8), a2.n128_f64[0] < v4))
+    {
+      a2.n128_f64[0] = errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/mrecutil/param.cpp", 1074, "mrecutil/param", 2, "%.500s", *(this + 2));
+    }
   }
 
-  *(this + 6) = a2;
+  *(this + 6) = v4;
   if (a3)
   {
-    v12 = *(this + 1);
-    if (v12)
+    v6 = *(this + 1);
+    if (v6)
     {
 
-      v12();
+      v6(a2);
     }
   }
 }
@@ -18459,7 +18479,7 @@ void GlobalParamMgr::ParamGetAllParamNames(uint64_t a1, uint64_t a2)
     v5 = 16 * v4 - 16;
     do
     {
-      DgnString::~DgnString((*a2 + v5));
+      DgnString::~DgnString(*a2 + v5);
       v5 -= 16;
     }
 
@@ -18518,31 +18538,26 @@ uint64_t GlobalParamMgr::ParamGetParId(GlobalParamMgr *this, const char *__s2)
   return v3;
 }
 
-uint64_t GlobalParamMgr::ParamGetType(GlobalParamMgr *this, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t GlobalParamMgr::ParamGetType(GlobalParamMgr *this, uint64_t a2)
 {
-  if ((a2 - 1) >= *(*this + 8) || (v8 = **(**this + 8 * (a2 - 1))) == 0)
+  if ((a2 - 1) >= *(*this + 8) || (v2 = **(**this + 8 * (a2 - 1))) == 0)
   {
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/mrecutil/param.cpp", 577, "mrecutil/param", 4, &errStr_mrecutil_param_E_INVALID_HANDLE, a7, a8, a2);
+    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/mrecutil/param.cpp", 577, "mrecutil/param", 4, "%d", a2);
     return 1;
   }
 
-  v9 = *v8;
-  v10 = **v8;
   {
     return 2;
   }
 
-  v12 = *v9;
   {
     return 4;
   }
 
-  v13 = *v9;
   {
     return 5;
   }
 
-  v14 = *v9;
   {
     return 1;
   }
@@ -18550,38 +18565,31 @@ uint64_t GlobalParamMgr::ParamGetType(GlobalParamMgr *this, int a2, uint64_t a3,
   return 3;
 }
 
-uint64_t GlobalParamMgr::ParamGetBoolValue(GlobalParamMgr *this, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t GlobalParamMgr::ParamGetBoolValue(GlobalParamMgr *this, uint64_t a2, int a3)
 {
-  v8 = a2;
-  if ((a2 - 1) >= *(*this + 8) || (v9 = **(**this + 8 * (a2 - 1))) == 0)
+  v3 = a2;
+  if ((a2 - 1) >= *(*this + 8) || (v4 = **(**this + 8 * (a2 - 1))) == 0)
   {
-    GlobalParamMgr::ParamGetBoolValue(a2, a2, a3, a4, a5, a6, a7, a8);
+    GlobalParamMgr::ParamGetBoolValue(a2);
   }
 
-  v10 = a3;
-  v11 = *v9;
-  v12 = **v9;
   {
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/mrecutil/param.cpp", 612, "mrecutil/param", 5, "%d", v13, v14, v8);
-    v11 = *v9;
+    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/mrecutil/param.cpp", 612, "mrecutil/param", 5, "%d", v3);
   }
 
-  v15 = *v11;
-  v17 = 40;
-  if (!v10)
+  v7 = 40;
+  if (!a3)
   {
-    v17 = 41;
+    v7 = 41;
   }
 
-  return v16[v17];
+  return v6[v7];
 }
 
-uint64_t GlobalParamMgr::ParamGetIntValue(uint64_t a1, int a2, int a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t GlobalParamMgr::ParamGetIntValue(uint64_t a1, int a2, int a3)
 {
-  v9 = a2;
-  if ((a2 - 1) < *(*a1 + 8) && (v10 = **(**a1 + 8 * (a2 - 1))) != 0)
+  if ((a2 - 1) < *(*a1 + 8) && (v5 = **(**a1 + 8 * (a2 - 1))) != 0)
   {
-    v11 = **v10;
     {
       goto LABEL_7;
     }
@@ -18589,23 +18597,21 @@ uint64_t GlobalParamMgr::ParamGetIntValue(uint64_t a1, int a2, int a3, uint64_t 
 
   else
   {
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/mrecutil/param.cpp", 619, "mrecutil/param", 4, &errStr_mrecutil_param_E_INVALID_HANDLE, a7, a8, a2);
-    v10 = 0;
+    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/mrecutil/param.cpp", 619, "mrecutil/param", 4, "%d", a2);
+    v5 = 0;
   }
 
-  errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/mrecutil/param.cpp", 620, "mrecutil/param", 5, "%d", v12, v13, v9);
+  errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/mrecutil/param.cpp", 620, "mrecutil/param", 5, "%d", a2);
 LABEL_7:
   result = 0;
   if (a3 > 1)
   {
     if (a3 == 2)
     {
-      v18 = **v10;
     }
 
     else if (a3 == 3)
     {
-      v16 = **v10;
     }
   }
 
@@ -18613,55 +18619,42 @@ LABEL_7:
   {
     if (a3 == 1)
     {
-      v15 = **v10;
     }
   }
 
   else
   {
-    v17 = **v10;
   }
 
   return result;
 }
 
-char *GlobalParamMgr::ParamGetStringValue(GlobalParamMgr *this, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+char *GlobalParamMgr::ParamGetStringValue(GlobalParamMgr *this, uint64_t a2, int a3)
 {
-  v8 = a2;
-  if ((a2 - 1) >= *(*this + 8) || (v9 = **(**this + 8 * (a2 - 1))) == 0)
+  v3 = a2;
+  if ((a2 - 1) >= *(*this + 8) || (v4 = **(**this + 8 * (a2 - 1))) == 0)
   {
-    GlobalParamMgr::ParamGetStringValue(a2, a2, a3, a4, a5, a6, a7, a8);
+    GlobalParamMgr::ParamGetStringValue(a2);
   }
 
-  v10 = a3;
-  v11 = *v9;
-  v12 = *v9;
-  v13 = **v9;
   {
-    v14 = *v12;
-    {
-      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/mrecutil/param.cpp", 643, "mrecutil/param", 5, "%d", v15, v16, v8);
-      v11 = *v9;
-    }
+    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/mrecutil/param.cpp", 643, "mrecutil/param", 5, "%d", v3);
   }
 
-  v17 = *v11;
-  v19 = *v11;
-  if (v18)
   {
-    if (v10)
+    if (a3)
     {
-      if (v20[12])
+      if (v6[12])
       {
-        v21 = 10;
-        return *&v20[v21];
+        v7 = 10;
+        return *&v6[v7];
       }
     }
 
-    else if (v20[16])
+    else if (v6[16])
     {
-      v21 = 14;
-      return *&v20[v21];
+      v7 = 14;
+      return *&v6[v7];
     }
 
     return &byte_262899963;
@@ -18669,15 +18662,15 @@ char *GlobalParamMgr::ParamGetStringValue(GlobalParamMgr *this, uint64_t a2, uin
 
   else
   {
-    v23 = 44;
-    if (v10)
+    v9 = 44;
+    if (a3)
     {
-      v23 = 40;
+      v9 = 40;
     }
 
-    v24 = *(v22 + v23);
+    v10 = *(v8 + v9);
 
-    return EnumGlobalParamBase::getNameForEnumItem(v22, v24);
+    return EnumGlobalParamBase::getNameForEnumItem(v8, v10);
   }
 }
 
@@ -18713,12 +18706,10 @@ _BYTE *EnumGlobalParamBase::getNameForEnumItem(EnumGlobalParamBase *this, int a2
   return result;
 }
 
-double GlobalParamMgr::ParamGetDoubleValue(uint64_t a1, int a2, unsigned int a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+double GlobalParamMgr::ParamGetDoubleValue(uint64_t a1, int a2, unsigned int a3)
 {
-  v9 = a2;
-  if ((a2 - 1) < *(*a1 + 8) && (v10 = **(**a1 + 8 * (a2 - 1))) != 0)
+  if ((a2 - 1) < *(*a1 + 8) && (v5 = **(**a1 + 8 * (a2 - 1))) != 0)
   {
-    v11 = **v10;
     {
       goto LABEL_7;
     }
@@ -18726,17 +18717,16 @@ double GlobalParamMgr::ParamGetDoubleValue(uint64_t a1, int a2, unsigned int a3,
 
   else
   {
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/mrecutil/param.cpp", 688, "mrecutil/param", 4, &errStr_mrecutil_param_E_INVALID_HANDLE, a7, a8, a2);
-    v10 = 0;
+    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/mrecutil/param.cpp", 688, "mrecutil/param", 4, "%d", a2);
+    v5 = 0;
   }
 
-  errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/mrecutil/param.cpp", 689, "mrecutil/param", 5, "%d", v12, v13, v9);
+  errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/mrecutil/param.cpp", 689, "mrecutil/param", 5, "%d", a2);
 LABEL_7:
   result = 0.0;
   if (a3 <= 3)
   {
-    v15 = *&a0_283[8 * a3];
-    v16 = **v10;
+    v7 = *&a0_283[8 * a3];
   }
 
   return result;
@@ -18838,21 +18828,21 @@ uint64_t EnumGlobalParamBase::sizeObject(uint64_t a1, int a2)
   }
 }
 
-void EnumGlobalParamBase::setVal(EnumGlobalParamBase *this, int a2, int a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void EnumGlobalParamBase::setVal(const char **this, int a2, int a3, __n128 a4)
 {
   if (*(this + 10) != a2 && (*(this + 14) > a2 || *(this + 15) < a2))
   {
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/mrecutil/param.cpp", 906, "mrecutil/param", 2, "%.500s", a7, a8, *(this + 2));
+    a4.n128_f64[0] = errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/mrecutil/param.cpp", 906, "mrecutil/param", 2, "%.500s", this[2]);
   }
 
   *(this + 11) = a2;
   if (a3)
   {
-    v11 = *(this + 1);
-    if (v11)
+    v7 = this[1];
+    if (v7)
     {
 
-      v11();
+      v7(a4);
     }
   }
 }
@@ -18986,7 +18976,7 @@ void StringGlobalParamBase::StringGlobalParamBase(StringGlobalParamBase *this, c
   *this = &unk_2875256A0;
   DgnString::DgnString((this + 40));
   DgnString::DgnString((this + 56));
-  DgnString::preAllocate(this + 56, 512);
+  DgnString::preAllocate(this + 7, 512);
   DgnString::operator=((this + 56), a5);
   DgnString::operator=((this + 40), a5);
 }
@@ -18994,22 +18984,22 @@ void StringGlobalParamBase::StringGlobalParamBase(StringGlobalParamBase *this, c
 void StringGlobalParamBase::~StringGlobalParamBase(StringGlobalParamBase *this)
 {
   *this = &unk_2875256A0;
-  v1 = (this + 40);
-  DgnString::~DgnString((this + 56));
+  v1 = this + 40;
+  DgnString::~DgnString(this + 56);
   DgnString::~DgnString(v1);
 }
 
 {
   *this = &unk_2875256A0;
-  v1 = (this + 40);
-  DgnString::~DgnString((this + 56));
+  v1 = this + 40;
+  DgnString::~DgnString(this + 56);
   DgnString::~DgnString(v1);
 }
 
 {
   *this = &unk_2875256A0;
-  v1 = (this + 40);
-  DgnString::~DgnString((this + 56));
+  v1 = this + 40;
+  DgnString::~DgnString(this + 56);
   DgnString::~DgnString(v1);
 
   JUMPOUT(0x26672B1B0);
@@ -19027,7 +19017,7 @@ uint64_t StringGlobalParamBase::sizeObject(uint64_t a1, int a2)
     v4 = 32;
   }
 
-  v5 = sizeObject(a1 + 40);
+  v5 = sizeObject(a1 + 40, a2);
   v6 = a2 == 3;
   if (a2 == 3)
   {
@@ -19042,7 +19032,7 @@ uint64_t StringGlobalParamBase::sizeObject(uint64_t a1, int a2)
   v8 = v7 + v5;
   if (!v6)
   {
-    v8 += sizeObject(a1 + 56);
+    v8 += sizeObject(a1 + 56, 0);
   }
 
   return v8;
@@ -19071,7 +19061,7 @@ uint64_t (*StringGlobalParamBase::reset(StringGlobalParamBase *this))(void)
   return result;
 }
 
-uint64_t StartupPrefiltererSearchParamSpecMgr(void)
+unint64_t StartupPrefiltererSearchParamSpecMgr(void)
 {
   v25 = MemChunkAlloc(0x28uLL, 0);
   DoubleParamSpec::DoubleParamSpec(v25, "PrefiltererPelScoreScale", &byte_262899963, &byte_262899963, &sPrefiltererPelScoreScaleDoubleHistory);
@@ -19159,7 +19149,7 @@ _DWORD *PrefiltererSearchParamSet::PrefiltererSearchParamSet(_DWORD *a1, const c
   a1[8] = a5;
   a1[9] = 0;
   *a1 = &unk_287524AF0;
-  PrefiltererSearchParamSet::setDefaults(a1, v9, v10, v11, v12, v13, v14, v15);
+  PrefiltererSearchParamSet::setDefaults(a1);
   return a1;
 }
 
@@ -19198,37 +19188,37 @@ uint64_t PrefiltererSearchParamSet::PrefiltererSearchParamSet(uint64_t a1, uint6
   return a1;
 }
 
-uint64_t PrefiltererSearchParamSet::setDefaults(PrefiltererSearchParamSet *this, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t PrefiltererSearchParamSet::setDefaults(PrefiltererSearchParamSet *this)
 {
-  *(this + 10) = ParamSpecMgr::ParamGetDefault_int(qword_281051FA0, 1, 0, 0, a5, a6, a7, a8);
-  *(this + 11) = ParamSpecMgr::ParamGetDefault_int(qword_281051FA0, 2, 0, 0, v9, v10, v11, v12);
-  *(this + 12) = ParamSpecMgr::ParamGetDefault_enum(qword_281051FA0, 3, v13, v14, v15, v16, v17, v18);
-  *(this + 7) = ParamSpecMgr::ParamGetDefault_double(qword_281051FA0, 4, 0, 0, v19, v20, v21, v22);
-  *(this + 16) = ParamSpecMgr::ParamGetDefault_int(qword_281051FA0, 5, 0, 0, v23, v24, v25, v26);
-  *(this + 68) = ParamSpecMgr::ParamGetDefault_BOOL(qword_281051FA0, 6, 0, 0, v27, v28, v29, v30);
-  *(this + 18) = ParamSpecMgr::ParamGetDefault_int(qword_281051FA0, 7, 0, 0, v31, v32, v33, v34);
-  *(this + 19) = ParamSpecMgr::ParamGetDefault_int(qword_281051FA0, 8, 0, 0, v35, v36, v37, v38);
-  *(this + 20) = ParamSpecMgr::ParamGetDefault_enum(qword_281051FA0, 9, v39, v40, v41, v42, v43, v44);
-  *(this + 84) = ParamSpecMgr::ParamGetDefault_BOOL(qword_281051FA0, 10, 0, 0, v45, v46, v47, v48);
-  *(this + 11) = ParamSpecMgr::ParamGetDefault_double(qword_281051FA0, 11, 0, 0, v49, v50, v51, v52);
-  *(this + 96) = ParamSpecMgr::ParamGetDefault_BOOL(qword_281051FA0, 12, 0, 0, v53, v54, v55, v56);
-  *(this + 25) = ParamSpecMgr::ParamGetDefault_int(qword_281051FA0, 13, 0, 0, v57, v58, v59, v60);
-  *(this + 26) = ParamSpecMgr::ParamGetDefault_int(qword_281051FA0, 14, 0, 0, v61, v62, v63, v64);
-  *(this + 14) = ParamSpecMgr::ParamGetDefault_double(qword_281051FA0, 15, 0, 0, v65, v66, v67, v68);
-  *(this + 120) = ParamSpecMgr::ParamGetDefault_BOOL(qword_281051FA0, 16, 0, 0, v69, v70, v71, v72);
-  *(this + 31) = ParamSpecMgr::ParamGetDefault_int(qword_281051FA0, 17, 0, 0, v73, v74, v75, v76);
-  *(this + 128) = ParamSpecMgr::ParamGetDefault_BOOL(qword_281051FA0, 18, 0, 0, v77, v78, v79, v80);
-  *(this + 33) = ParamSpecMgr::ParamGetDefault_int(qword_281051FA0, 19, 0, 0, v81, v82, v83, v84);
-  *(this + 34) = ParamSpecMgr::ParamGetDefault_int(qword_281051FA0, 20, 0, 0, v85, v86, v87, v88);
-  *(this + 35) = ParamSpecMgr::ParamGetDefault_int(qword_281051FA0, 21, 0, 0, v89, v90, v91, v92);
-  result = ParamSpecMgr::ParamGetDefault_int(qword_281051FA0, 22, 0, 0, v93, v94, v95, v96);
+  *(this + 10) = ParamSpecMgr::ParamGetDefault_int(qword_281051FA0, 1, 0, 0);
+  *(this + 11) = ParamSpecMgr::ParamGetDefault_int(qword_281051FA0, 2, 0, 0);
+  *(this + 12) = ParamSpecMgr::ParamGetDefault_enum(qword_281051FA0, 3);
+  *(this + 7) = ParamSpecMgr::ParamGetDefault_double(qword_281051FA0, 4, 0, 0);
+  *(this + 16) = ParamSpecMgr::ParamGetDefault_int(qword_281051FA0, 5, 0, 0);
+  *(this + 68) = ParamSpecMgr::ParamGetDefault_BOOL(qword_281051FA0, 6, 0, 0);
+  *(this + 18) = ParamSpecMgr::ParamGetDefault_int(qword_281051FA0, 7, 0, 0);
+  *(this + 19) = ParamSpecMgr::ParamGetDefault_int(qword_281051FA0, 8, 0, 0);
+  *(this + 20) = ParamSpecMgr::ParamGetDefault_enum(qword_281051FA0, 9);
+  *(this + 84) = ParamSpecMgr::ParamGetDefault_BOOL(qword_281051FA0, 10, 0, 0);
+  *(this + 11) = ParamSpecMgr::ParamGetDefault_double(qword_281051FA0, 11, 0, 0);
+  *(this + 96) = ParamSpecMgr::ParamGetDefault_BOOL(qword_281051FA0, 12, 0, 0);
+  *(this + 25) = ParamSpecMgr::ParamGetDefault_int(qword_281051FA0, 13, 0, 0);
+  *(this + 26) = ParamSpecMgr::ParamGetDefault_int(qword_281051FA0, 14, 0, 0);
+  *(this + 14) = ParamSpecMgr::ParamGetDefault_double(qword_281051FA0, 15, 0, 0);
+  *(this + 120) = ParamSpecMgr::ParamGetDefault_BOOL(qword_281051FA0, 16, 0, 0);
+  *(this + 31) = ParamSpecMgr::ParamGetDefault_int(qword_281051FA0, 17, 0, 0);
+  *(this + 128) = ParamSpecMgr::ParamGetDefault_BOOL(qword_281051FA0, 18, 0, 0);
+  *(this + 33) = ParamSpecMgr::ParamGetDefault_int(qword_281051FA0, 19, 0, 0);
+  *(this + 34) = ParamSpecMgr::ParamGetDefault_int(qword_281051FA0, 20, 0, 0);
+  *(this + 35) = ParamSpecMgr::ParamGetDefault_int(qword_281051FA0, 21, 0, 0);
+  result = ParamSpecMgr::ParamGetDefault_int(qword_281051FA0, 22, 0, 0);
   *(this + 36) = result;
   return result;
 }
 
 uint64_t PrefiltererSearchParamSet::sizeObject(uint64_t a1, int a2)
 {
-  result = sizeObject(a1 + 8) + 16 * (a2 != 3);
+  result = sizeObject(a1 + 8, a2) + 16 * (a2 != 3);
   if ((gShadowDiagnosticShowIdealizedObjectSizes & 1) == 0)
   {
     v4 = 5;
@@ -19249,35 +19239,35 @@ uint64_t PrefiltererSearchParamSet::sizeObject(uint64_t a1, int a2)
   return result;
 }
 
-uint64_t PrefiltererSearchParamSet::getBoolParameter(_BYTE *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t PrefiltererSearchParamSet::getBoolParameter(_BYTE *a1, int a2, int a3)
 {
   switch(a2)
   {
     case 1:
-      v8 = "int";
-      v9 = 1;
+      v3 = "int";
+      v4 = 1;
       goto LABEL_36;
     case 2:
-      v8 = "int";
-      v9 = 2;
+      v3 = "int";
+      v4 = 2;
       goto LABEL_36;
     case 3:
-      v8 = "enum";
-      v9 = 3;
+      v3 = "enum";
+      v4 = 3;
       goto LABEL_36;
     case 4:
-      v8 = "double";
-      v9 = 4;
+      v3 = "double";
+      v4 = 4;
       goto LABEL_36;
     case 5:
-      v8 = "int";
-      v9 = 5;
+      v3 = "int";
+      v4 = 5;
       goto LABEL_36;
     case 6:
       if (a3 == 1)
       {
-        v12 = qword_281051FA0;
-        v13 = 6;
+        v7 = qword_281051FA0;
+        v8 = 6;
         goto LABEL_44;
       }
 
@@ -19286,25 +19276,25 @@ uint64_t PrefiltererSearchParamSet::getBoolParameter(_BYTE *a1, int a2, uint64_t
         goto LABEL_27;
       }
 
-      v10 = a1[68];
-      return v10 & 1;
+      v5 = a1[68];
+      return v5 & 1;
     case 7:
-      v8 = "int";
-      v9 = 7;
+      v3 = "int";
+      v4 = 7;
       goto LABEL_36;
     case 8:
-      v8 = "int";
-      v9 = 8;
+      v3 = "int";
+      v4 = 8;
       goto LABEL_36;
     case 9:
-      v8 = "enum";
-      v9 = 9;
+      v3 = "enum";
+      v4 = 9;
       goto LABEL_36;
     case 10:
       if (a3 == 1)
       {
-        v12 = qword_281051FA0;
-        v13 = 10;
+        v7 = qword_281051FA0;
+        v8 = 10;
         goto LABEL_44;
       }
 
@@ -19313,17 +19303,17 @@ uint64_t PrefiltererSearchParamSet::getBoolParameter(_BYTE *a1, int a2, uint64_t
         goto LABEL_27;
       }
 
-      v10 = a1[84];
-      return v10 & 1;
+      v5 = a1[84];
+      return v5 & 1;
     case 11:
-      v8 = "double";
-      v9 = 11;
+      v3 = "double";
+      v4 = 11;
       goto LABEL_36;
     case 12:
       if (a3 == 1)
       {
-        v12 = qword_281051FA0;
-        v13 = 12;
+        v7 = qword_281051FA0;
+        v8 = 12;
         goto LABEL_44;
       }
 
@@ -19332,25 +19322,25 @@ uint64_t PrefiltererSearchParamSet::getBoolParameter(_BYTE *a1, int a2, uint64_t
         goto LABEL_27;
       }
 
-      v10 = a1[96];
-      return v10 & 1;
+      v5 = a1[96];
+      return v5 & 1;
     case 13:
-      v8 = "int";
-      v9 = 13;
+      v3 = "int";
+      v4 = 13;
       goto LABEL_36;
     case 14:
-      v8 = "int";
-      v9 = 14;
+      v3 = "int";
+      v4 = 14;
       goto LABEL_36;
     case 15:
-      v8 = "double";
-      v9 = 15;
+      v3 = "double";
+      v4 = 15;
       goto LABEL_36;
     case 16:
       if (a3 == 1)
       {
-        v12 = qword_281051FA0;
-        v13 = 16;
+        v7 = qword_281051FA0;
+        v8 = 16;
         goto LABEL_44;
       }
 
@@ -19359,63 +19349,62 @@ uint64_t PrefiltererSearchParamSet::getBoolParameter(_BYTE *a1, int a2, uint64_t
         goto LABEL_27;
       }
 
-      v10 = a1[120];
+      v5 = a1[120];
       break;
     case 17:
-      v8 = "int";
-      v9 = 17;
+      v3 = "int";
+      v4 = 17;
       goto LABEL_36;
     case 18:
       if (a3 == 1)
       {
-        v12 = qword_281051FA0;
-        v13 = 18;
+        v7 = qword_281051FA0;
+        v8 = 18;
 LABEL_44:
-        ParamByParamId = ParamSpecMgr::getParamByParamId(v12, v13, a3, a4, a5, a6, a7, a8);
-        v15 = **ParamByParamId;
+        ParamByParamId = ParamSpecMgr::getParamByParamId(v7, v8);
       }
 
       else if (a3)
       {
 LABEL_27:
-        throwWrongQueryMode(a3, "BOOL", a3, a4, a5, a6, a7, a8);
+        throwWrongQueryMode(a3, "BOOL");
 LABEL_37:
-        v10 = 0;
+        v5 = 0;
       }
 
       else
       {
-        v10 = a1[128];
+        v5 = a1[128];
       }
 
       break;
     case 19:
-      v8 = "int";
-      v9 = 19;
+      v3 = "int";
+      v4 = 19;
       goto LABEL_36;
     case 20:
-      v8 = "int";
-      v9 = 20;
+      v3 = "int";
+      v4 = 20;
       goto LABEL_36;
     case 21:
-      v8 = "int";
-      v9 = 21;
+      v3 = "int";
+      v4 = 21;
       goto LABEL_36;
     case 22:
-      v8 = "int";
-      v9 = 22;
+      v3 = "int";
+      v4 = 22;
 LABEL_36:
-      throwWrongTypeForParamId(v9, v8, "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(v4, v3, "BOOL");
       goto LABEL_37;
     default:
-      throwWrongParamIdValue(a2, "BOOL", a3, a4, a5, a6, a7, a8);
+      throwWrongParamIdValue(a2, "BOOL");
       goto LABEL_37;
   }
 
-  return v10 & 1;
+  return v5 & 1;
 }
 
-uint64_t PrefiltererSearchParamSet::getIntParameter(unsigned int *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t PrefiltererSearchParamSet::getIntParameter(unsigned int *a1, int a2, int a3)
 {
   switch(a2)
   {
@@ -19424,8 +19413,8 @@ uint64_t PrefiltererSearchParamSet::getIntParameter(unsigned int *a1, int a2, ui
       {
         if (a3 == 2)
         {
-          v19 = qword_281051FA0;
-          v20 = 1;
+          v12 = qword_281051FA0;
+          v13 = 1;
           goto LABEL_127;
         }
 
@@ -19434,8 +19423,8 @@ uint64_t PrefiltererSearchParamSet::getIntParameter(unsigned int *a1, int a2, ui
           goto LABEL_102;
         }
 
-        v15 = qword_281051FA0;
-        v16 = 1;
+        v9 = qword_281051FA0;
+        v10 = 1;
         goto LABEL_101;
       }
 
@@ -19446,8 +19435,8 @@ uint64_t PrefiltererSearchParamSet::getIntParameter(unsigned int *a1, int a2, ui
           goto LABEL_102;
         }
 
-        v8 = qword_281051FA0;
-        v9 = 1;
+        v3 = qword_281051FA0;
+        v4 = 1;
         goto LABEL_64;
       }
 
@@ -19457,8 +19446,8 @@ uint64_t PrefiltererSearchParamSet::getIntParameter(unsigned int *a1, int a2, ui
       {
         if (a3 == 2)
         {
-          v19 = qword_281051FA0;
-          v20 = 2;
+          v12 = qword_281051FA0;
+          v13 = 2;
           goto LABEL_127;
         }
 
@@ -19467,8 +19456,8 @@ uint64_t PrefiltererSearchParamSet::getIntParameter(unsigned int *a1, int a2, ui
           goto LABEL_102;
         }
 
-        v15 = qword_281051FA0;
-        v16 = 2;
+        v9 = qword_281051FA0;
+        v10 = 2;
         goto LABEL_101;
       }
 
@@ -19479,19 +19468,19 @@ uint64_t PrefiltererSearchParamSet::getIntParameter(unsigned int *a1, int a2, ui
           goto LABEL_102;
         }
 
-        v8 = qword_281051FA0;
-        v9 = 2;
+        v3 = qword_281051FA0;
+        v4 = 2;
         goto LABEL_64;
       }
 
       return a1[11];
     case 3:
-      v10 = "enum";
-      v11 = 3;
+      v5 = "enum";
+      v6 = 3;
       goto LABEL_56;
     case 4:
-      v10 = "double";
-      v11 = 4;
+      v5 = "double";
+      v6 = 4;
       goto LABEL_56;
     case 5:
       if (a3 <= 1)
@@ -19506,15 +19495,15 @@ uint64_t PrefiltererSearchParamSet::getIntParameter(unsigned int *a1, int a2, ui
           goto LABEL_102;
         }
 
-        v8 = qword_281051FA0;
-        v9 = 5;
+        v3 = qword_281051FA0;
+        v4 = 5;
         goto LABEL_64;
       }
 
       if (a3 == 2)
       {
-        v19 = qword_281051FA0;
-        v20 = 5;
+        v12 = qword_281051FA0;
+        v13 = 5;
         goto LABEL_127;
       }
 
@@ -19523,12 +19512,12 @@ uint64_t PrefiltererSearchParamSet::getIntParameter(unsigned int *a1, int a2, ui
         goto LABEL_102;
       }
 
-      v15 = qword_281051FA0;
-      v16 = 5;
+      v9 = qword_281051FA0;
+      v10 = 5;
       goto LABEL_101;
     case 6:
-      v10 = "BOOL";
-      v11 = 6;
+      v5 = "BOOL";
+      v6 = 6;
       goto LABEL_56;
     case 7:
       if (a3 <= 1)
@@ -19543,15 +19532,15 @@ uint64_t PrefiltererSearchParamSet::getIntParameter(unsigned int *a1, int a2, ui
           goto LABEL_102;
         }
 
-        v8 = qword_281051FA0;
-        v9 = 7;
+        v3 = qword_281051FA0;
+        v4 = 7;
         goto LABEL_64;
       }
 
       if (a3 == 2)
       {
-        v19 = qword_281051FA0;
-        v20 = 7;
+        v12 = qword_281051FA0;
+        v13 = 7;
         goto LABEL_127;
       }
 
@@ -19560,8 +19549,8 @@ uint64_t PrefiltererSearchParamSet::getIntParameter(unsigned int *a1, int a2, ui
         goto LABEL_102;
       }
 
-      v15 = qword_281051FA0;
-      v16 = 7;
+      v9 = qword_281051FA0;
+      v10 = 7;
       goto LABEL_101;
     case 8:
       if (a3 <= 1)
@@ -19576,15 +19565,15 @@ uint64_t PrefiltererSearchParamSet::getIntParameter(unsigned int *a1, int a2, ui
           goto LABEL_102;
         }
 
-        v8 = qword_281051FA0;
-        v9 = 8;
+        v3 = qword_281051FA0;
+        v4 = 8;
         goto LABEL_64;
       }
 
       if (a3 == 2)
       {
-        v19 = qword_281051FA0;
-        v20 = 8;
+        v12 = qword_281051FA0;
+        v13 = 8;
         goto LABEL_127;
       }
 
@@ -19593,24 +19582,24 @@ uint64_t PrefiltererSearchParamSet::getIntParameter(unsigned int *a1, int a2, ui
         goto LABEL_102;
       }
 
-      v15 = qword_281051FA0;
-      v16 = 8;
+      v9 = qword_281051FA0;
+      v10 = 8;
       goto LABEL_101;
     case 9:
-      v10 = "enum";
-      v11 = 9;
+      v5 = "enum";
+      v6 = 9;
       goto LABEL_56;
     case 10:
-      v10 = "BOOL";
-      v11 = 10;
+      v5 = "BOOL";
+      v6 = 10;
       goto LABEL_56;
     case 11:
-      v10 = "double";
-      v11 = 11;
+      v5 = "double";
+      v6 = 11;
       goto LABEL_56;
     case 12:
-      v10 = "BOOL";
-      v11 = 12;
+      v5 = "BOOL";
+      v6 = 12;
       goto LABEL_56;
     case 13:
       if (a3 <= 1)
@@ -19625,15 +19614,15 @@ uint64_t PrefiltererSearchParamSet::getIntParameter(unsigned int *a1, int a2, ui
           goto LABEL_102;
         }
 
-        v8 = qword_281051FA0;
-        v9 = 13;
+        v3 = qword_281051FA0;
+        v4 = 13;
         goto LABEL_64;
       }
 
       if (a3 == 2)
       {
-        v19 = qword_281051FA0;
-        v20 = 13;
+        v12 = qword_281051FA0;
+        v13 = 13;
         goto LABEL_127;
       }
 
@@ -19642,8 +19631,8 @@ uint64_t PrefiltererSearchParamSet::getIntParameter(unsigned int *a1, int a2, ui
         goto LABEL_102;
       }
 
-      v15 = qword_281051FA0;
-      v16 = 13;
+      v9 = qword_281051FA0;
+      v10 = 13;
       goto LABEL_101;
     case 14:
       if (a3 <= 1)
@@ -19658,15 +19647,15 @@ uint64_t PrefiltererSearchParamSet::getIntParameter(unsigned int *a1, int a2, ui
           goto LABEL_102;
         }
 
-        v8 = qword_281051FA0;
-        v9 = 14;
+        v3 = qword_281051FA0;
+        v4 = 14;
         goto LABEL_64;
       }
 
       if (a3 == 2)
       {
-        v19 = qword_281051FA0;
-        v20 = 14;
+        v12 = qword_281051FA0;
+        v13 = 14;
         goto LABEL_127;
       }
 
@@ -19675,16 +19664,16 @@ uint64_t PrefiltererSearchParamSet::getIntParameter(unsigned int *a1, int a2, ui
         goto LABEL_102;
       }
 
-      v15 = qword_281051FA0;
-      v16 = 14;
+      v9 = qword_281051FA0;
+      v10 = 14;
       goto LABEL_101;
     case 15:
-      v10 = "double";
-      v11 = 15;
+      v5 = "double";
+      v6 = 15;
       goto LABEL_56;
     case 16:
-      v10 = "BOOL";
-      v11 = 16;
+      v5 = "BOOL";
+      v6 = 16;
       goto LABEL_56;
     case 17:
       if (a3 <= 1)
@@ -19699,15 +19688,15 @@ uint64_t PrefiltererSearchParamSet::getIntParameter(unsigned int *a1, int a2, ui
           goto LABEL_102;
         }
 
-        v8 = qword_281051FA0;
-        v9 = 17;
+        v3 = qword_281051FA0;
+        v4 = 17;
         goto LABEL_64;
       }
 
       if (a3 == 2)
       {
-        v19 = qword_281051FA0;
-        v20 = 17;
+        v12 = qword_281051FA0;
+        v13 = 17;
         goto LABEL_127;
       }
 
@@ -19716,14 +19705,14 @@ uint64_t PrefiltererSearchParamSet::getIntParameter(unsigned int *a1, int a2, ui
         goto LABEL_102;
       }
 
-      v15 = qword_281051FA0;
-      v16 = 17;
+      v9 = qword_281051FA0;
+      v10 = 17;
       goto LABEL_101;
     case 18:
-      v10 = "BOOL";
-      v11 = 18;
+      v5 = "BOOL";
+      v6 = 18;
 LABEL_56:
-      throwWrongTypeForParamId(v11, v10, "int", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(v6, v5, "int");
       return 0;
     case 19:
       if (a3 <= 1)
@@ -19738,15 +19727,15 @@ LABEL_56:
           goto LABEL_102;
         }
 
-        v8 = qword_281051FA0;
-        v9 = 19;
+        v3 = qword_281051FA0;
+        v4 = 19;
         goto LABEL_64;
       }
 
       if (a3 == 2)
       {
-        v19 = qword_281051FA0;
-        v20 = 19;
+        v12 = qword_281051FA0;
+        v13 = 19;
         goto LABEL_127;
       }
 
@@ -19755,8 +19744,8 @@ LABEL_56:
         goto LABEL_102;
       }
 
-      v15 = qword_281051FA0;
-      v16 = 19;
+      v9 = qword_281051FA0;
+      v10 = 19;
       goto LABEL_101;
     case 20:
       if (a3 <= 1)
@@ -19771,15 +19760,15 @@ LABEL_56:
           goto LABEL_102;
         }
 
-        v8 = qword_281051FA0;
-        v9 = 20;
+        v3 = qword_281051FA0;
+        v4 = 20;
         goto LABEL_64;
       }
 
       if (a3 == 2)
       {
-        v19 = qword_281051FA0;
-        v20 = 20;
+        v12 = qword_281051FA0;
+        v13 = 20;
         goto LABEL_127;
       }
 
@@ -19788,8 +19777,8 @@ LABEL_56:
         goto LABEL_102;
       }
 
-      v15 = qword_281051FA0;
-      v16 = 20;
+      v9 = qword_281051FA0;
+      v10 = 20;
       goto LABEL_101;
     case 21:
       if (a3 <= 1)
@@ -19804,15 +19793,15 @@ LABEL_56:
           goto LABEL_102;
         }
 
-        v8 = qword_281051FA0;
-        v9 = 21;
+        v3 = qword_281051FA0;
+        v4 = 21;
         goto LABEL_64;
       }
 
       if (a3 == 2)
       {
-        v19 = qword_281051FA0;
-        v20 = 21;
+        v12 = qword_281051FA0;
+        v13 = 21;
         goto LABEL_127;
       }
 
@@ -19821,8 +19810,8 @@ LABEL_56:
         goto LABEL_102;
       }
 
-      v15 = qword_281051FA0;
-      v16 = 21;
+      v9 = qword_281051FA0;
+      v10 = 21;
       goto LABEL_101;
     case 22:
       if (a3 <= 1)
@@ -19834,25 +19823,23 @@ LABEL_56:
 
         if (a3 == 1)
         {
-          v8 = qword_281051FA0;
-          v9 = 22;
+          v3 = qword_281051FA0;
+          v4 = 22;
 LABEL_64:
-          ParamByParamId = ParamSpecMgr::getParamByParamId(v8, v9, a3, a4, a5, a6, a7, a8);
-          v14 = **ParamByParamId;
+          ParamByParamId = ParamSpecMgr::getParamByParamId(v3, v4);
         }
 
 LABEL_102:
-        throwWrongQueryMode(a3, "int", a3, a4, a5, a6, a7, a8);
+        throwWrongQueryMode(a3, "int");
         return 0;
       }
 
       if (a3 == 2)
       {
-        v19 = qword_281051FA0;
-        v20 = 22;
+        v12 = qword_281051FA0;
+        v13 = 22;
 LABEL_127:
-        v21 = ParamSpecMgr::getParamByParamId(v19, v20, a3, a4, a5, a6, a7, a8);
-        v22 = **v21;
+        v14 = ParamSpecMgr::getParamByParamId(v12, v13);
       }
 
       if (a3 != 3)
@@ -19860,32 +19847,31 @@ LABEL_127:
         goto LABEL_102;
       }
 
-      v15 = qword_281051FA0;
-      v16 = 22;
+      v9 = qword_281051FA0;
+      v10 = 22;
 LABEL_101:
-      v17 = ParamSpecMgr::getParamByParamId(v15, v16, a3, a4, a5, a6, a7, a8);
-      v18 = **v17;
+      v11 = ParamSpecMgr::getParamByParamId(v9, v10);
     default:
-      throwWrongParamIdValue(a2, "int", a3, a4, a5, a6, a7, a8);
+      throwWrongParamIdValue(a2, "int");
       return 0;
   }
 }
 
-double PrefiltererSearchParamSet::getDoubleParameter(double *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+double PrefiltererSearchParamSet::getDoubleParameter(double *a1, int a2, int a3)
 {
   switch(a2)
   {
     case 1:
-      v8 = "int";
-      v9 = 1;
+      v3 = "int";
+      v4 = 1;
       goto LABEL_35;
     case 2:
-      v8 = "int";
-      v9 = 2;
+      v3 = "int";
+      v4 = 2;
       goto LABEL_35;
     case 3:
-      v8 = "enum";
-      v9 = 3;
+      v3 = "enum";
+      v4 = 3;
       goto LABEL_35;
     case 4:
       if (a3 <= 1)
@@ -19900,15 +19886,15 @@ double PrefiltererSearchParamSet::getDoubleParameter(double *a1, int a2, uint64_
           goto LABEL_48;
         }
 
-        v10 = qword_281051FA0;
-        v11 = 4;
+        v5 = qword_281051FA0;
+        v6 = 4;
         goto LABEL_31;
       }
 
       if (a3 == 2)
       {
-        v19 = qword_281051FA0;
-        v20 = 4;
+        v12 = qword_281051FA0;
+        v13 = 4;
         goto LABEL_55;
       }
 
@@ -19917,32 +19903,32 @@ double PrefiltererSearchParamSet::getDoubleParameter(double *a1, int a2, uint64_
         goto LABEL_48;
       }
 
-      v15 = qword_281051FA0;
-      v16 = 4;
+      v9 = qword_281051FA0;
+      v10 = 4;
       goto LABEL_47;
     case 5:
-      v8 = "int";
-      v9 = 5;
+      v3 = "int";
+      v4 = 5;
       goto LABEL_35;
     case 6:
-      v8 = "BOOL";
-      v9 = 6;
+      v3 = "BOOL";
+      v4 = 6;
       goto LABEL_35;
     case 7:
-      v8 = "int";
-      v9 = 7;
+      v3 = "int";
+      v4 = 7;
       goto LABEL_35;
     case 8:
-      v8 = "int";
-      v9 = 8;
+      v3 = "int";
+      v4 = 8;
       goto LABEL_35;
     case 9:
-      v8 = "enum";
-      v9 = 9;
+      v3 = "enum";
+      v4 = 9;
       goto LABEL_35;
     case 10:
-      v8 = "BOOL";
-      v9 = 10;
+      v3 = "BOOL";
+      v4 = 10;
       goto LABEL_35;
     case 11:
       if (a3 <= 1)
@@ -19957,15 +19943,15 @@ double PrefiltererSearchParamSet::getDoubleParameter(double *a1, int a2, uint64_
           goto LABEL_48;
         }
 
-        v10 = qword_281051FA0;
-        v11 = 11;
+        v5 = qword_281051FA0;
+        v6 = 11;
         goto LABEL_31;
       }
 
       if (a3 == 2)
       {
-        v19 = qword_281051FA0;
-        v20 = 11;
+        v12 = qword_281051FA0;
+        v13 = 11;
         goto LABEL_55;
       }
 
@@ -19974,20 +19960,20 @@ double PrefiltererSearchParamSet::getDoubleParameter(double *a1, int a2, uint64_
         goto LABEL_48;
       }
 
-      v15 = qword_281051FA0;
-      v16 = 11;
+      v9 = qword_281051FA0;
+      v10 = 11;
       goto LABEL_47;
     case 12:
-      v8 = "BOOL";
-      v9 = 12;
+      v3 = "BOOL";
+      v4 = 12;
       goto LABEL_35;
     case 13:
-      v8 = "int";
-      v9 = 13;
+      v3 = "int";
+      v4 = 13;
       goto LABEL_35;
     case 14:
-      v8 = "int";
-      v9 = 14;
+      v3 = "int";
+      v4 = 14;
       goto LABEL_35;
     case 15:
       if (a3 <= 1)
@@ -19999,25 +19985,23 @@ double PrefiltererSearchParamSet::getDoubleParameter(double *a1, int a2, uint64_
 
         if (a3 == 1)
         {
-          v10 = qword_281051FA0;
-          v11 = 15;
+          v5 = qword_281051FA0;
+          v6 = 15;
 LABEL_31:
-          ParamByParamId = ParamSpecMgr::getParamByParamId(v10, v11, a3, a4, a5, a6, a7, a8);
-          v13 = **ParamByParamId;
+          ParamByParamId = ParamSpecMgr::getParamByParamId(v5, v6);
         }
 
 LABEL_48:
-        throwWrongQueryMode(a3, "double", a3, a4, a5, a6, a7, a8);
+        throwWrongQueryMode(a3, "double");
         return 0.0;
       }
 
       if (a3 == 2)
       {
-        v19 = qword_281051FA0;
-        v20 = 15;
+        v12 = qword_281051FA0;
+        v13 = 15;
 LABEL_55:
-        v21 = ParamSpecMgr::getParamByParamId(v19, v20, a3, a4, a5, a6, a7, a8);
-        v22 = **v21;
+        v14 = ParamSpecMgr::getParamByParamId(v12, v13);
       }
 
       if (a3 != 3)
@@ -20025,168 +20009,167 @@ LABEL_55:
         goto LABEL_48;
       }
 
-      v15 = qword_281051FA0;
-      v16 = 15;
+      v9 = qword_281051FA0;
+      v10 = 15;
 LABEL_47:
-      v17 = ParamSpecMgr::getParamByParamId(v15, v16, a3, a4, a5, a6, a7, a8);
-      v18 = **v17;
+      v11 = ParamSpecMgr::getParamByParamId(v9, v10);
     case 16:
-      v8 = "BOOL";
-      v9 = 16;
+      v3 = "BOOL";
+      v4 = 16;
       goto LABEL_35;
     case 17:
-      v8 = "int";
-      v9 = 17;
+      v3 = "int";
+      v4 = 17;
       goto LABEL_35;
     case 18:
-      v8 = "BOOL";
-      v9 = 18;
+      v3 = "BOOL";
+      v4 = 18;
       goto LABEL_35;
     case 19:
-      v8 = "int";
-      v9 = 19;
+      v3 = "int";
+      v4 = 19;
       goto LABEL_35;
     case 20:
-      v8 = "int";
-      v9 = 20;
+      v3 = "int";
+      v4 = 20;
       goto LABEL_35;
     case 21:
-      v8 = "int";
-      v9 = 21;
+      v3 = "int";
+      v4 = 21;
       goto LABEL_35;
     case 22:
-      v8 = "int";
-      v9 = 22;
+      v3 = "int";
+      v4 = 22;
 LABEL_35:
-      throwWrongTypeForParamId(v9, v8, "double", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(v4, v3, "double");
       return 0.0;
     default:
-      throwWrongParamIdValue(a2, "double", a3, a4, a5, a6, a7, a8);
+      throwWrongParamIdValue(a2, "double");
       return 0.0;
   }
 }
 
-uint64_t PrefiltererSearchParamSet::getStringParameter(int a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t PrefiltererSearchParamSet::getStringParameter(int a1, int a2)
 {
   switch(a2)
   {
     case 1:
-      v8 = "int";
-      v9 = 1;
+      v2 = "int";
+      v3 = 1;
       goto LABEL_25;
     case 2:
-      v8 = "int";
-      v9 = 2;
+      v2 = "int";
+      v3 = 2;
       goto LABEL_25;
     case 3:
-      v8 = "enum";
-      v9 = 3;
+      v2 = "enum";
+      v3 = 3;
       goto LABEL_25;
     case 4:
-      v8 = "double";
-      v9 = 4;
+      v2 = "double";
+      v3 = 4;
       goto LABEL_25;
     case 5:
-      v8 = "int";
-      v9 = 5;
+      v2 = "int";
+      v3 = 5;
       goto LABEL_25;
     case 6:
-      v8 = "BOOL";
-      v9 = 6;
+      v2 = "BOOL";
+      v3 = 6;
       goto LABEL_25;
     case 7:
-      v8 = "int";
-      v9 = 7;
+      v2 = "int";
+      v3 = 7;
       goto LABEL_25;
     case 8:
-      v8 = "int";
-      v9 = 8;
+      v2 = "int";
+      v3 = 8;
       goto LABEL_25;
     case 9:
-      v8 = "enum";
-      v9 = 9;
+      v2 = "enum";
+      v3 = 9;
       goto LABEL_25;
     case 10:
-      v8 = "BOOL";
-      v9 = 10;
+      v2 = "BOOL";
+      v3 = 10;
       goto LABEL_25;
     case 11:
-      v8 = "double";
-      v9 = 11;
+      v2 = "double";
+      v3 = 11;
       goto LABEL_25;
     case 12:
-      v8 = "BOOL";
-      v9 = 12;
+      v2 = "BOOL";
+      v3 = 12;
       goto LABEL_25;
     case 13:
-      v8 = "int";
-      v9 = 13;
+      v2 = "int";
+      v3 = 13;
       goto LABEL_25;
     case 14:
-      v8 = "int";
-      v9 = 14;
+      v2 = "int";
+      v3 = 14;
       goto LABEL_25;
     case 15:
-      v8 = "double";
-      v9 = 15;
+      v2 = "double";
+      v3 = 15;
       goto LABEL_25;
     case 16:
-      v8 = "BOOL";
-      v9 = 16;
+      v2 = "BOOL";
+      v3 = 16;
       goto LABEL_25;
     case 17:
-      v8 = "int";
-      v9 = 17;
+      v2 = "int";
+      v3 = 17;
       goto LABEL_25;
     case 18:
-      v8 = "BOOL";
-      v9 = 18;
+      v2 = "BOOL";
+      v3 = 18;
       goto LABEL_25;
     case 19:
-      v8 = "int";
-      v9 = 19;
+      v2 = "int";
+      v3 = 19;
       goto LABEL_25;
     case 20:
-      v8 = "int";
-      v9 = 20;
+      v2 = "int";
+      v3 = 20;
       goto LABEL_25;
     case 21:
-      v8 = "int";
-      v9 = 21;
+      v2 = "int";
+      v3 = 21;
       goto LABEL_25;
     case 22:
-      v8 = "int";
-      v9 = 22;
+      v2 = "int";
+      v3 = 22;
 LABEL_25:
-      throwWrongTypeForParamId(v9, v8, "string", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(v3, v2, "string");
       break;
     default:
-      throwWrongParamIdValue(a2, "string", a3, a4, a5, a6, a7, a8);
+      throwWrongParamIdValue(a2, "string");
       break;
   }
 
   return 0;
 }
 
-uint64_t PrefiltererSearchParamSet::getEnumParameter(uint64_t a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t PrefiltererSearchParamSet::getEnumParameter(uint64_t a1, int a2, int a3)
 {
   switch(a2)
   {
     case 1:
-      v8 = "int";
-      v9 = 1;
+      v3 = "int";
+      v4 = 1;
       goto LABEL_24;
     case 2:
-      v8 = "int";
-      v9 = 2;
+      v3 = "int";
+      v4 = 2;
       goto LABEL_24;
     case 3:
       if (a3 > 1)
       {
         if (a3 == 2)
         {
-          v26 = qword_281051FA0;
-          v27 = 3;
+          v18 = qword_281051FA0;
+          v19 = 3;
           goto LABEL_57;
         }
 
@@ -20195,8 +20178,8 @@ uint64_t PrefiltererSearchParamSet::getEnumParameter(uint64_t a1, int a2, uint64
           goto LABEL_52;
         }
 
-        v22 = qword_281051FA0;
-        v23 = 3;
+        v15 = qword_281051FA0;
+        v16 = 3;
         goto LABEL_47;
       }
 
@@ -20210,78 +20193,75 @@ uint64_t PrefiltererSearchParamSet::getEnumParameter(uint64_t a1, int a2, uint64
         goto LABEL_52;
       }
 
-      ParamByParamId = ParamSpecMgr::getParamByParamId(qword_281051FA0, 3, a3, a4, a5, a6, a7, a8);
-      v11 = **ParamByParamId;
-      if (**(v12 + 24))
+      ParamByParamId = ParamSpecMgr::getParamByParamId(qword_281051FA0, 3);
+      if (**(v6 + 24))
       {
-        v13 = v12 + 16;
-        v14 = 1;
-        v15 = v13;
+        v7 = v6 + 16;
+        v8 = 1;
+        v9 = v7;
         do
         {
-          if (*v15 == 1)
+          if (*v9 == 1)
           {
-            return *(v15 + 16);
+            return *(v9 + 16);
           }
 
           result = 0;
-          v15 = v13 + 32 * v14++;
+          v9 = v7 + 32 * v8++;
         }
 
-        while (**(v15 + 8));
+        while (**(v9 + 8));
         return result;
       }
 
       return 0;
     case 4:
-      v8 = "double";
-      v9 = 4;
+      v3 = "double";
+      v4 = 4;
       goto LABEL_24;
     case 5:
-      v8 = "int";
-      v9 = 5;
+      v3 = "int";
+      v4 = 5;
       goto LABEL_24;
     case 6:
-      v8 = "BOOL";
-      v9 = 6;
+      v3 = "BOOL";
+      v4 = 6;
       goto LABEL_24;
     case 7:
-      v8 = "int";
-      v9 = 7;
+      v3 = "int";
+      v4 = 7;
       goto LABEL_24;
     case 8:
-      v8 = "int";
-      v9 = 8;
+      v3 = "int";
+      v4 = 8;
       goto LABEL_24;
     case 9:
       if (a3 > 1)
       {
         if (a3 == 2)
         {
-          v26 = qword_281051FA0;
-          v27 = 9;
+          v18 = qword_281051FA0;
+          v19 = 9;
 LABEL_57:
-          v28 = ParamSpecMgr::getParamByParamId(v26, v27, a3, a4, a5, a6, a7, a8);
-          if (v28)
+          v20 = ParamSpecMgr::getParamByParamId(v18, v19);
+          if (v20)
           {
-            v29 = **v28;
           }
 
-          return EnumParamSpec::getMinVal(v28);
+          return EnumParamSpec::getMinVal(v20);
         }
 
         if (a3 == 3)
         {
-          v22 = qword_281051FA0;
-          v23 = 9;
+          v15 = qword_281051FA0;
+          v16 = 9;
 LABEL_47:
-          v24 = ParamSpecMgr::getParamByParamId(v22, v23, a3, a4, a5, a6, a7, a8);
-          if (v24)
+          v17 = ParamSpecMgr::getParamByParamId(v15, v16);
+          if (v17)
           {
-            v25 = **v24;
           }
 
-          return EnumParamSpec::getMaxVal(v24);
+          return EnumParamSpec::getMaxVal(v17);
         }
 
         goto LABEL_52;
@@ -20295,573 +20275,552 @@ LABEL_47:
       if (a3 != 1)
       {
 LABEL_52:
-        throwWrongQueryMode(a3, "enum", a3, a4, a5, a6, a7, a8);
+        throwWrongQueryMode(a3, "enum");
         return 0;
       }
 
-      v17 = ParamSpecMgr::getParamByParamId(qword_281051FA0, 9, a3, a4, a5, a6, a7, a8);
-      v18 = **v17;
-      if (!**(v19 + 24))
+      v11 = ParamSpecMgr::getParamByParamId(qword_281051FA0, 9);
+      if (!**(v12 + 24))
       {
         return 0;
       }
 
-      v20 = v19 + 16;
-      v21 = 1;
-      v15 = v20;
-      while (*v15 != 1)
+      v13 = v12 + 16;
+      v14 = 1;
+      v9 = v13;
+      while (*v9 != 1)
       {
         result = 0;
-        v15 = v20 + 32 * v21++;
-        if (!**(v15 + 8))
+        v9 = v13 + 32 * v14++;
+        if (!**(v9 + 8))
         {
           return result;
         }
       }
 
-      return *(v15 + 16);
+      return *(v9 + 16);
     case 10:
-      v8 = "BOOL";
-      v9 = 10;
+      v3 = "BOOL";
+      v4 = 10;
       goto LABEL_24;
     case 11:
-      v8 = "double";
-      v9 = 11;
+      v3 = "double";
+      v4 = 11;
       goto LABEL_24;
     case 12:
-      v8 = "BOOL";
-      v9 = 12;
+      v3 = "BOOL";
+      v4 = 12;
       goto LABEL_24;
     case 13:
-      v8 = "int";
-      v9 = 13;
+      v3 = "int";
+      v4 = 13;
       goto LABEL_24;
     case 14:
-      v8 = "int";
-      v9 = 14;
+      v3 = "int";
+      v4 = 14;
       goto LABEL_24;
     case 15:
-      v8 = "double";
-      v9 = 15;
+      v3 = "double";
+      v4 = 15;
       goto LABEL_24;
     case 16:
-      v8 = "BOOL";
-      v9 = 16;
+      v3 = "BOOL";
+      v4 = 16;
       goto LABEL_24;
     case 17:
-      v8 = "int";
-      v9 = 17;
+      v3 = "int";
+      v4 = 17;
       goto LABEL_24;
     case 18:
-      v8 = "BOOL";
-      v9 = 18;
+      v3 = "BOOL";
+      v4 = 18;
       goto LABEL_24;
     case 19:
-      v8 = "int";
-      v9 = 19;
+      v3 = "int";
+      v4 = 19;
       goto LABEL_24;
     case 20:
-      v8 = "int";
-      v9 = 20;
+      v3 = "int";
+      v4 = 20;
       goto LABEL_24;
     case 21:
-      v8 = "int";
-      v9 = 21;
+      v3 = "int";
+      v4 = 21;
       goto LABEL_24;
     case 22:
-      v8 = "int";
-      v9 = 22;
+      v3 = "int";
+      v4 = 22;
 LABEL_24:
-      throwWrongTypeForParamId(v9, v8, "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(v4, v3, "BOOL");
       return 0;
     default:
-      throwWrongParamIdValue(a2, "enum", a3, a4, a5, a6, a7, a8);
+      throwWrongParamIdValue(a2, "enum");
       return 0;
   }
 }
 
-void PrefiltererSearchParamSet::setBoolParameter(PrefiltererSearchParamSet *this, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void PrefiltererSearchParamSet::setBoolParameter(uint64_t this, int a2, char a3)
 {
-  v8 = a2;
-  v9 = a3;
   switch(a2)
   {
     case 1:
-      throwWrongTypeForParamId(1, "int", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(1, "int", "BOOL");
       goto LABEL_3;
     case 2:
 LABEL_3:
-      throwWrongTypeForParamId(v8, "int", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "int", "BOOL");
       goto LABEL_4;
     case 3:
 LABEL_4:
-      throwWrongTypeForParamId(v8, "enum", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "enum", "BOOL");
       goto LABEL_5;
     case 4:
 LABEL_5:
-      throwWrongTypeForParamId(v8, "double", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "BOOL");
       goto LABEL_6;
     case 5:
 LABEL_6:
-      throwWrongTypeForParamId(v8, "int", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "int", "BOOL");
       goto LABEL_7;
     case 6:
 LABEL_7:
-      if (*(this + 9))
+      if (*(this + 36))
       {
-        v11 = "PrefiltererLookaheadApplyOnReseed";
+        v6 = "PrefiltererLookaheadApplyOnReseed";
         goto LABEL_28;
       }
 
-      *(this + 68) = v9;
+      *(this + 68) = a3;
       return;
     case 7:
-      throwWrongTypeForParamId(7, "int", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(7, "int", "BOOL");
       goto LABEL_14;
     case 8:
 LABEL_14:
-      throwWrongTypeForParamId(v8, "int", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "int", "BOOL");
       goto LABEL_15;
     case 9:
 LABEL_15:
-      throwWrongTypeForParamId(v8, "enum", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "enum", "BOOL");
       goto LABEL_16;
     case 10:
 LABEL_16:
-      if (*(this + 9))
+      if (*(this + 36))
       {
-        v11 = "PrefiltererAllowFirstNodeSkipping";
+        v6 = "PrefiltererAllowFirstNodeSkipping";
         goto LABEL_28;
       }
 
-      *(this + 84) = v9;
+      *(this + 84) = a3;
       return;
     case 11:
-      throwWrongTypeForParamId(11, "double", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(11, "double", "BOOL");
       goto LABEL_11;
     case 12:
 LABEL_11:
-      if (*(this + 9))
+      if (*(this + 36))
       {
-        v11 = "PrefiltererPelScoreUseBestCompScore";
+        v6 = "PrefiltererPelScoreUseBestCompScore";
         goto LABEL_28;
       }
 
-      *(this + 96) = v9;
+      *(this + 96) = a3;
       return;
     case 13:
-      throwWrongTypeForParamId(13, "int", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(13, "int", "BOOL");
       goto LABEL_20;
     case 14:
 LABEL_20:
-      throwWrongTypeForParamId(v8, "int", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "int", "BOOL");
       goto LABEL_21;
     case 15:
 LABEL_21:
-      throwWrongTypeForParamId(v8, "double", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "BOOL");
       goto LABEL_22;
     case 16:
 LABEL_22:
-      if (*(this + 9))
+      if (*(this + 36))
       {
-        v11 = "PrefiltererReturnDistanceAdjustDuration";
+        v6 = "PrefiltererReturnDistanceAdjustDuration";
         goto LABEL_28;
       }
 
-      *(this + 120) = v9;
+      *(this + 120) = a3;
       break;
     case 17:
-      throwWrongTypeForParamId(17, "int", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(17, "int", "BOOL");
       goto LABEL_26;
     case 18:
 LABEL_26:
-      if (*(this + 9))
+      if (*(this + 36))
       {
-        v11 = "PrefiltererSeedScoreIncludeWordEndScore";
+        v6 = "PrefiltererSeedScoreIncludeWordEndScore";
 LABEL_28:
 
-        throwParamSetSetFailed(v11, "BOOL", a3, a4, a5, a6, a7, a8);
+        throwParamSetSetFailed(v6, "BOOL");
       }
 
       else
       {
-        *(this + 128) = v9;
+        *(this + 128) = a3;
       }
 
       break;
     case 19:
-      throwWrongTypeForParamId(19, "int", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(19, "int", "BOOL");
       goto LABEL_32;
     case 20:
 LABEL_32:
-      throwWrongTypeForParamId(v8, "int", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "int", "BOOL");
       goto LABEL_33;
     case 21:
 LABEL_33:
-      throwWrongTypeForParamId(v8, "int", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "int", "BOOL");
       goto LABEL_34;
     case 22:
 LABEL_34:
-      throwWrongTypeForParamId(v8, "int", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "int", "BOOL");
       goto LABEL_35;
     default:
 LABEL_35:
 
-      throwWrongParamIdValue(v8, "BOOL", a3, a4, a5, a6, a7, a8);
+      throwWrongParamIdValue(a2, "BOOL");
       return;
   }
 }
 
-void PrefiltererSearchParamSet::setIntParameter(PrefiltererSearchParamSet *this, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void PrefiltererSearchParamSet::setIntParameter(PrefiltererSearchParamSet *this, int a2, int a3)
 {
-  v8 = a2;
-  v9 = a3;
   switch(a2)
   {
     case 1:
-      ParamByParamId = ParamSpecMgr::getParamByParamId(qword_281051FA0, 1, a3, a4, a5, a6, a7, a8);
+      ParamByParamId = ParamSpecMgr::getParamByParamId(qword_281051FA0, 1);
       if (ParamByParamId)
       {
-        v16 = **ParamByParamId;
       }
 
-      IntParamSpec::validateValue(ParamByParamId, v9, 0, 0, v12, v13, v14, v15);
+      IntParamSpec::validateValue(ParamByParamId, a3, 0, 0);
       if (*(this + 9))
       {
-        v23 = "PrefiltererActiveNodeCountLimit";
+        v7 = "PrefiltererActiveNodeCountLimit";
         goto LABEL_66;
       }
 
-      *(this + 10) = v9;
+      *(this + 10) = a3;
       return;
     case 2:
-      v48 = ParamSpecMgr::getParamByParamId(qword_281051FA0, 2, a3, a4, a5, a6, a7, a8);
-      if (v48)
+      v12 = ParamSpecMgr::getParamByParamId(qword_281051FA0, 2);
+      if (v12)
       {
-        v53 = **v48;
       }
 
-      IntParamSpec::validateValue(v48, v9, 0, 0, v49, v50, v51, v52);
+      IntParamSpec::validateValue(v12, a3, 0, 0);
       if (*(this + 9))
       {
-        v23 = "PrefiltererBestScorePerAdditionalPhonemeScore";
+        v7 = "PrefiltererBestScorePerAdditionalPhonemeScore";
         goto LABEL_66;
       }
 
-      *(this + 11) = v9;
+      *(this + 11) = a3;
       return;
     case 3:
-      throwWrongTypeForParamId(3, "enum", "int", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(3, "enum", "int");
       goto LABEL_14;
     case 4:
 LABEL_14:
-      throwWrongTypeForParamId(v8, "double", "int", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "int");
       goto LABEL_15;
     case 5:
 LABEL_15:
-      v30 = ParamSpecMgr::getParamByParamId(qword_281051FA0, 5, a3, a4, a5, a6, a7, a8);
-      if (v30)
+      v9 = ParamSpecMgr::getParamByParamId(qword_281051FA0, 5);
+      if (v9)
       {
-        v35 = **v30;
       }
 
-      IntParamSpec::validateValue(v30, v9, 0, 0, v31, v32, v33, v34);
+      IntParamSpec::validateValue(v9, a3, 0, 0);
       if (*(this + 9))
       {
-        v23 = "PrefiltererLookaheadThreshScore";
+        v7 = "PrefiltererLookaheadThreshScore";
         goto LABEL_66;
       }
 
-      *(this + 16) = v9;
+      *(this + 16) = a3;
       return;
     case 6:
-      throwWrongTypeForParamId(6, "BOOL", "int", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(6, "BOOL", "int");
       goto LABEL_50;
     case 7:
 LABEL_50:
-      v72 = ParamSpecMgr::getParamByParamId(qword_281051FA0, 7, a3, a4, a5, a6, a7, a8);
-      if (v72)
+      v16 = ParamSpecMgr::getParamByParamId(qword_281051FA0, 7);
+      if (v16)
       {
-        v77 = **v72;
       }
 
-      IntParamSpec::validateValue(v72, v9, 0, 0, v73, v74, v75, v76);
+      IntParamSpec::validateValue(v16, a3, 0, 0);
       if (*(this + 9))
       {
-        v23 = "PrefiltererMaxSeedScore";
+        v7 = "PrefiltererMaxSeedScore";
         goto LABEL_66;
       }
 
-      *(this + 18) = v9;
+      *(this + 18) = a3;
       return;
     case 8:
-      v42 = ParamSpecMgr::getParamByParamId(qword_281051FA0, 8, a3, a4, a5, a6, a7, a8);
-      if (v42)
+      v11 = ParamSpecMgr::getParamByParamId(qword_281051FA0, 8);
+      if (v11)
       {
-        v47 = **v42;
       }
 
-      IntParamSpec::validateValue(v42, v9, 0, 0, v43, v44, v45, v46);
+      IntParamSpec::validateValue(v11, a3, 0, 0);
       if (*(this + 9))
       {
-        v23 = "PrefiltererMinNodeScore";
+        v7 = "PrefiltererMinNodeScore";
         goto LABEL_66;
       }
 
-      *(this + 19) = v9;
+      *(this + 19) = a3;
       return;
     case 9:
-      throwWrongTypeForParamId(9, "enum", "int", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(9, "enum", "int");
       goto LABEL_21;
     case 10:
 LABEL_21:
-      throwWrongTypeForParamId(v8, "BOOL", "int", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "BOOL", "int");
       goto LABEL_22;
     case 11:
 LABEL_22:
-      throwWrongTypeForParamId(v8, "double", "int", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "int");
       goto LABEL_23;
     case 12:
 LABEL_23:
-      throwWrongTypeForParamId(v8, "BOOL", "int", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "BOOL", "int");
       goto LABEL_24;
     case 13:
 LABEL_24:
-      v36 = ParamSpecMgr::getParamByParamId(qword_281051FA0, 13, a3, a4, a5, a6, a7, a8);
-      if (v36)
+      v10 = ParamSpecMgr::getParamByParamId(qword_281051FA0, 13);
+      if (v10)
       {
-        v41 = **v36;
       }
 
-      IntParamSpec::validateValue(v36, v9, 0, 0, v37, v38, v39, v40);
+      IntParamSpec::validateValue(v10, a3, 0, 0);
       if (*(this + 9))
       {
-        v23 = "PrefiltererReturnDistanceMaxFrames";
+        v7 = "PrefiltererReturnDistanceMaxFrames";
         goto LABEL_66;
       }
 
-      *(this + 25) = v9;
+      *(this + 25) = a3;
       return;
     case 14:
-      v66 = ParamSpecMgr::getParamByParamId(qword_281051FA0, 14, a3, a4, a5, a6, a7, a8);
-      if (v66)
+      v15 = ParamSpecMgr::getParamByParamId(qword_281051FA0, 14);
+      if (v15)
       {
-        v71 = **v66;
       }
 
-      IntParamSpec::validateValue(v66, v9, 0, 0, v67, v68, v69, v70);
+      IntParamSpec::validateValue(v15, a3, 0, 0);
       if (*(this + 9))
       {
-        v23 = "PrefiltererReturnDistancePerFramePenalty";
+        v7 = "PrefiltererReturnDistancePerFramePenalty";
         goto LABEL_66;
       }
 
-      *(this + 26) = v9;
+      *(this + 26) = a3;
       return;
     case 15:
-      throwWrongTypeForParamId(15, "double", "int", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(15, "double", "int");
       goto LABEL_7;
     case 16:
 LABEL_7:
-      throwWrongTypeForParamId(v8, "BOOL", "int", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "BOOL", "int");
       goto LABEL_8;
     case 17:
 LABEL_8:
-      v24 = ParamSpecMgr::getParamByParamId(qword_281051FA0, 17, a3, a4, a5, a6, a7, a8);
-      if (v24)
+      v8 = ParamSpecMgr::getParamByParamId(qword_281051FA0, 17);
+      if (v8)
       {
-        v29 = **v24;
       }
 
-      IntParamSpec::validateValue(v24, v9, 0, 0, v25, v26, v27, v28);
+      IntParamSpec::validateValue(v8, a3, 0, 0);
       if (*(this + 9))
       {
-        v23 = "PrefiltererReturnListMaxLength";
+        v7 = "PrefiltererReturnListMaxLength";
         goto LABEL_66;
       }
 
-      *(this + 31) = v9;
+      *(this + 31) = a3;
       return;
     case 18:
-      throwWrongTypeForParamId(18, "BOOL", "int", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(18, "BOOL", "int");
       goto LABEL_55;
     case 19:
 LABEL_55:
-      v78 = ParamSpecMgr::getParamByParamId(qword_281051FA0, 19, a3, a4, a5, a6, a7, a8);
-      if (v78)
+      v17 = ParamSpecMgr::getParamByParamId(qword_281051FA0, 19);
+      if (v17)
       {
-        v83 = **v78;
       }
 
-      IntParamSpec::validateValue(v78, v9, 0, 0, v79, v80, v81, v82);
+      IntParamSpec::validateValue(v17, a3, 0, 0);
       if (*(this + 9))
       {
-        v23 = "PrefiltererThreshScoreWhenSilenceBest";
+        v7 = "PrefiltererThreshScoreWhenSilenceBest";
         goto LABEL_66;
       }
 
-      *(this + 33) = v9;
+      *(this + 33) = a3;
       return;
     case 20:
-      v84 = ParamSpecMgr::getParamByParamId(qword_281051FA0, 20, a3, a4, a5, a6, a7, a8);
-      if (v84)
+      v18 = ParamSpecMgr::getParamByParamId(qword_281051FA0, 20);
+      if (v18)
       {
-        v89 = **v84;
       }
 
-      IntParamSpec::validateValue(v84, v9, 0, 0, v85, v86, v87, v88);
+      IntParamSpec::validateValue(v18, a3, 0, 0);
       if (*(this + 9))
       {
-        v23 = "PrefiltererThreshScoreIncrementWhenNonSilenceBest";
+        v7 = "PrefiltererThreshScoreIncrementWhenNonSilenceBest";
         goto LABEL_66;
       }
 
-      *(this + 34) = v9;
+      *(this + 34) = a3;
       return;
     case 21:
-      v54 = ParamSpecMgr::getParamByParamId(qword_281051FA0, 21, a3, a4, a5, a6, a7, a8);
-      if (v54)
+      v13 = ParamSpecMgr::getParamByParamId(qword_281051FA0, 21);
+      if (v13)
       {
-        v59 = **v54;
       }
 
-      IntParamSpec::validateValue(v54, v9, 0, 0, v55, v56, v57, v58);
+      IntParamSpec::validateValue(v13, a3, 0, 0);
       if (*(this + 9))
       {
-        v23 = "PrefiltererReturnListThreshScoreDecrement";
+        v7 = "PrefiltererReturnListThreshScoreDecrement";
         goto LABEL_66;
       }
 
-      *(this + 35) = v9;
+      *(this + 35) = a3;
       break;
     case 22:
-      v60 = ParamSpecMgr::getParamByParamId(qword_281051FA0, 22, a3, a4, a5, a6, a7, a8);
-      if (v60)
+      v14 = ParamSpecMgr::getParamByParamId(qword_281051FA0, 22);
+      if (v14)
       {
-        v65 = **v60;
       }
 
-      IntParamSpec::validateValue(v60, v9, 0, 0, v61, v62, v63, v64);
+      IntParamSpec::validateValue(v14, a3, 0, 0);
       if (*(this + 9))
       {
-        v23 = "PrefiltererPelBackoffThreshScoreDecrement";
+        v7 = "PrefiltererPelBackoffThreshScoreDecrement";
 LABEL_66:
 
-        throwParamSetSetFailed(v23, "int", v17, v18, v19, v20, v21, v22);
+        throwParamSetSetFailed(v7, "int");
       }
 
       else
       {
-        *(this + 36) = v9;
+        *(this + 36) = a3;
       }
 
       break;
     default:
 
-      throwWrongParamIdValue(a2, "int", a3, a4, a5, a6, a7, a8);
+      throwWrongParamIdValue(a2, "int");
       return;
   }
 }
 
-void PrefiltererSearchParamSet::setDoubleParameter(PrefiltererSearchParamSet *this, int a2, double a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
+void PrefiltererSearchParamSet::setDoubleParameter(PrefiltererSearchParamSet *this, int a2, double a3)
 {
-  v9 = a2;
   switch(a2)
   {
     case 1:
-      throwWrongTypeForParamId(1, "int", "double", a5, a6, a7, a8, a9);
+      throwWrongTypeForParamId(1, "int", "double");
       goto LABEL_3;
     case 2:
 LABEL_3:
-      throwWrongTypeForParamId(v9, "int", "double", a5, a6, a7, a8, a9);
+      throwWrongTypeForParamId(a2, "int", "double");
       goto LABEL_4;
     case 3:
 LABEL_4:
-      throwWrongTypeForParamId(v9, "enum", "double", a5, a6, a7, a8, a9);
+      throwWrongTypeForParamId(a2, "enum", "double");
       goto LABEL_5;
     case 4:
 LABEL_5:
-      ParamByParamId = ParamSpecMgr::getParamByParamId(qword_281051FA0, 4, a4, a5, a6, a7, a8, a9);
+      ParamByParamId = ParamSpecMgr::getParamByParamId(qword_281051FA0, 4);
       if (ParamByParamId)
       {
-        v18 = **ParamByParamId;
       }
 
-      DoubleParamSpec::validateValue(ParamByParamId, a3, 0, 0, v13, v14, v15, v16, v17);
+      DoubleParamSpec::validateValue(ParamByParamId, a3, 0, 0);
       if (*(this + 9))
       {
-        v25 = "PrefiltererLookaheadSequenceFirstPhonemeLMScale";
+        v7 = "PrefiltererLookaheadSequenceFirstPhonemeLMScale";
         goto LABEL_38;
       }
 
       *(this + 7) = a3;
       return;
     case 5:
-      throwWrongTypeForParamId(5, "int", "double", a5, a6, a7, a8, a9);
+      throwWrongTypeForParamId(5, "int", "double");
       goto LABEL_29;
     case 6:
 LABEL_29:
-      throwWrongTypeForParamId(v9, "BOOL", "double", a5, a6, a7, a8, a9);
+      throwWrongTypeForParamId(a2, "BOOL", "double");
       goto LABEL_30;
     case 7:
 LABEL_30:
-      throwWrongTypeForParamId(v9, "int", "double", a5, a6, a7, a8, a9);
+      throwWrongTypeForParamId(a2, "int", "double");
       goto LABEL_31;
     case 8:
 LABEL_31:
-      throwWrongTypeForParamId(v9, "int", "double", a5, a6, a7, a8, a9);
+      throwWrongTypeForParamId(a2, "int", "double");
       goto LABEL_32;
     case 9:
 LABEL_32:
-      throwWrongTypeForParamId(v9, "enum", "double", a5, a6, a7, a8, a9);
+      throwWrongTypeForParamId(a2, "enum", "double");
       goto LABEL_33;
     case 10:
 LABEL_33:
-      throwWrongTypeForParamId(v9, "BOOL", "double", a5, a6, a7, a8, a9);
+      throwWrongTypeForParamId(a2, "BOOL", "double");
       goto LABEL_34;
     case 11:
 LABEL_34:
-      v33 = ParamSpecMgr::getParamByParamId(qword_281051FA0, 11, a4, a5, a6, a7, a8, a9);
-      if (v33)
+      v9 = ParamSpecMgr::getParamByParamId(qword_281051FA0, 11);
+      if (v9)
       {
-        v39 = **v33;
       }
 
-      DoubleParamSpec::validateValue(v33, a3, 0, 0, v34, v35, v36, v37, v38);
+      DoubleParamSpec::validateValue(v9, a3, 0, 0);
       if (*(this + 9))
       {
-        v25 = "PrefiltererPelScoreScale";
+        v7 = "PrefiltererPelScoreScale";
         goto LABEL_38;
       }
 
       *(this + 11) = a3;
       break;
     case 12:
-      throwWrongTypeForParamId(12, "BOOL", "double", a5, a6, a7, a8, a9);
+      throwWrongTypeForParamId(12, "BOOL", "double");
       goto LABEL_11;
     case 13:
 LABEL_11:
-      throwWrongTypeForParamId(v9, "int", "double", a5, a6, a7, a8, a9);
+      throwWrongTypeForParamId(a2, "int", "double");
       goto LABEL_12;
     case 14:
 LABEL_12:
-      throwWrongTypeForParamId(v9, "int", "double", a5, a6, a7, a8, a9);
+      throwWrongTypeForParamId(a2, "int", "double");
       goto LABEL_13;
     case 15:
 LABEL_13:
-      v26 = ParamSpecMgr::getParamByParamId(qword_281051FA0, 15, a4, a5, a6, a7, a8, a9);
-      if (v26)
+      v8 = ParamSpecMgr::getParamByParamId(qword_281051FA0, 15);
+      if (v8)
       {
-        v32 = **v26;
       }
 
-      DoubleParamSpec::validateValue(v26, a3, 0, 0, v27, v28, v29, v30, v31);
+      DoubleParamSpec::validateValue(v8, a3, 0, 0);
       if (*(this + 9))
       {
-        v25 = "PrefiltererReturnDistanceWordDurationFactor";
+        v7 = "PrefiltererReturnDistanceWordDurationFactor";
 LABEL_38:
 
-        throwParamSetSetFailed(v25, "double", v19, v20, v21, v22, v23, v24);
+        throwParamSetSetFailed(v7, "double");
       }
 
       else
@@ -20871,266 +20830,261 @@ LABEL_38:
 
       break;
     case 16:
-      throwWrongTypeForParamId(16, "BOOL", "double", a5, a6, a7, a8, a9);
+      throwWrongTypeForParamId(16, "BOOL", "double");
       goto LABEL_19;
     case 17:
 LABEL_19:
-      throwWrongTypeForParamId(v9, "int", "double", a5, a6, a7, a8, a9);
+      throwWrongTypeForParamId(a2, "int", "double");
       goto LABEL_20;
     case 18:
 LABEL_20:
-      throwWrongTypeForParamId(v9, "BOOL", "double", a5, a6, a7, a8, a9);
+      throwWrongTypeForParamId(a2, "BOOL", "double");
       goto LABEL_21;
     case 19:
 LABEL_21:
-      throwWrongTypeForParamId(v9, "int", "double", a5, a6, a7, a8, a9);
+      throwWrongTypeForParamId(a2, "int", "double");
       goto LABEL_22;
     case 20:
 LABEL_22:
-      throwWrongTypeForParamId(v9, "int", "double", a5, a6, a7, a8, a9);
+      throwWrongTypeForParamId(a2, "int", "double");
       goto LABEL_23;
     case 21:
 LABEL_23:
-      throwWrongTypeForParamId(v9, "int", "double", a5, a6, a7, a8, a9);
+      throwWrongTypeForParamId(a2, "int", "double");
       goto LABEL_24;
     case 22:
 LABEL_24:
-      throwWrongTypeForParamId(v9, "int", "double", a5, a6, a7, a8, a9);
+      throwWrongTypeForParamId(a2, "int", "double");
       goto LABEL_25;
     default:
 LABEL_25:
 
-      throwWrongParamIdValue(v9, "double", a4, a5, a6, a7, a8, a9);
+      throwWrongParamIdValue(a2, "double");
       return;
   }
 }
 
-void PrefiltererSearchParamSet::setStringParameter(PrefiltererSearchParamSet *this, int a2, const char *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+double PrefiltererSearchParamSet::setStringParameter(PrefiltererSearchParamSet *this, int a2, const char *a3)
 {
-  v8 = a2;
   switch(a2)
   {
     case 1:
-      throwWrongTypeForParamId(1, "int", "string", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(1, "int", "string");
       goto LABEL_3;
     case 2:
 LABEL_3:
-      throwWrongTypeForParamId(v8, "int", "string", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "int", "string");
       goto LABEL_4;
     case 3:
 LABEL_4:
-      throwWrongTypeForParamId(v8, "enum", "string", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "enum", "string");
       goto LABEL_5;
     case 4:
 LABEL_5:
-      throwWrongTypeForParamId(v8, "double", "string", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "string");
       goto LABEL_6;
     case 5:
 LABEL_6:
-      throwWrongTypeForParamId(v8, "int", "string", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "int", "string");
       goto LABEL_7;
     case 6:
 LABEL_7:
-      throwWrongTypeForParamId(v8, "BOOL", "string", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "BOOL", "string");
       goto LABEL_8;
     case 7:
 LABEL_8:
-      throwWrongTypeForParamId(v8, "int", "string", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "int", "string");
       goto LABEL_9;
     case 8:
 LABEL_9:
-      throwWrongTypeForParamId(v8, "int", "string", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "int", "string");
       goto LABEL_10;
     case 9:
 LABEL_10:
-      throwWrongTypeForParamId(v8, "enum", "string", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "enum", "string");
       goto LABEL_11;
     case 10:
 LABEL_11:
-      throwWrongTypeForParamId(v8, "BOOL", "string", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "BOOL", "string");
       goto LABEL_12;
     case 11:
 LABEL_12:
-      throwWrongTypeForParamId(v8, "double", "string", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "string");
       goto LABEL_13;
     case 12:
 LABEL_13:
-      throwWrongTypeForParamId(v8, "BOOL", "string", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "BOOL", "string");
       goto LABEL_14;
     case 13:
 LABEL_14:
-      throwWrongTypeForParamId(v8, "int", "string", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "int", "string");
       goto LABEL_15;
     case 14:
 LABEL_15:
-      throwWrongTypeForParamId(v8, "int", "string", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "int", "string");
       goto LABEL_16;
     case 15:
 LABEL_16:
-      throwWrongTypeForParamId(v8, "double", "string", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "string");
       goto LABEL_17;
     case 16:
 LABEL_17:
-      throwWrongTypeForParamId(v8, "BOOL", "string", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "BOOL", "string");
       goto LABEL_18;
     case 17:
 LABEL_18:
-      throwWrongTypeForParamId(v8, "int", "string", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "int", "string");
       goto LABEL_19;
     case 18:
 LABEL_19:
-      throwWrongTypeForParamId(v8, "BOOL", "string", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "BOOL", "string");
       goto LABEL_20;
     case 19:
 LABEL_20:
-      throwWrongTypeForParamId(v8, "int", "string", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "int", "string");
       goto LABEL_21;
     case 20:
 LABEL_21:
-      throwWrongTypeForParamId(v8, "int", "string", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "int", "string");
       goto LABEL_22;
     case 21:
 LABEL_22:
-      throwWrongTypeForParamId(v8, "int", "string", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "int", "string");
       goto LABEL_23;
     case 22:
 LABEL_23:
-      throwWrongTypeForParamId(v8, "int", "string", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "int", "string");
       break;
     default:
       break;
   }
 
-  throwWrongParamIdValue(v8, "string", a3, a4, a5, a6, a7, a8);
+  return throwWrongParamIdValue(a2, "string");
 }
 
-void PrefiltererSearchParamSet::setEnumParameter(PrefiltererSearchParamSet *this, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void PrefiltererSearchParamSet::setEnumParameter(PrefiltererSearchParamSet *this, int a2, int a3)
 {
-  v8 = a2;
-  v9 = a3;
   switch(a2)
   {
     case 1:
-      throwWrongTypeForParamId(1, "int", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(1, "int", "BOOL");
       goto LABEL_3;
     case 2:
 LABEL_3:
-      throwWrongTypeForParamId(v8, "int", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "int", "BOOL");
       goto LABEL_4;
     case 3:
 LABEL_4:
-      ParamByParamId = ParamSpecMgr::getParamByParamId(qword_281051FA0, 3, a3, a4, a5, a6, a7, a8);
+      ParamByParamId = ParamSpecMgr::getParamByParamId(qword_281051FA0, 3);
       if (ParamByParamId)
       {
-        v18 = **ParamByParamId;
       }
 
-      EnumParamSpec::validateValue(ParamByParamId, v9, v12, v13, v14, v15, v16, v17);
+      EnumParamSpec::validateValue(ParamByParamId, a3);
       if (*(this + 9))
       {
-        v25 = "PrefiltererDecimationType";
+        v7 = "PrefiltererDecimationType";
         goto LABEL_34;
       }
 
-      *(this + 12) = v9;
+      *(this + 12) = a3;
       break;
     case 4:
-      throwWrongTypeForParamId(4, "double", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(4, "double", "BOOL");
       goto LABEL_26;
     case 5:
 LABEL_26:
-      throwWrongTypeForParamId(v8, "int", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "int", "BOOL");
       goto LABEL_27;
     case 6:
 LABEL_27:
-      throwWrongTypeForParamId(v8, "BOOL", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "BOOL", "BOOL");
       goto LABEL_28;
     case 7:
 LABEL_28:
-      throwWrongTypeForParamId(v8, "int", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "int", "BOOL");
       goto LABEL_29;
     case 8:
 LABEL_29:
-      throwWrongTypeForParamId(v8, "int", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "int", "BOOL");
       goto LABEL_30;
     case 9:
 LABEL_30:
-      v26 = ParamSpecMgr::getParamByParamId(qword_281051FA0, 9, a3, a4, a5, a6, a7, a8);
-      if (v26)
+      v8 = ParamSpecMgr::getParamByParamId(qword_281051FA0, 9);
+      if (v8)
       {
-        v33 = **v26;
       }
 
-      EnumParamSpec::validateValue(v26, v9, v27, v28, v29, v30, v31, v32);
+      EnumParamSpec::validateValue(v8, a3);
       if (*(this + 9))
       {
-        v25 = "PrefiltererNodeSkippingType";
+        v7 = "PrefiltererNodeSkippingType";
 LABEL_34:
 
-        throwParamSetSetFailed(v25, "enum", v19, v20, v21, v22, v23, v24);
+        throwParamSetSetFailed(v7, "enum");
       }
 
       else
       {
-        *(this + 20) = v9;
+        *(this + 20) = a3;
       }
 
       break;
     case 10:
-      throwWrongTypeForParamId(10, "BOOL", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(10, "BOOL", "BOOL");
       goto LABEL_10;
     case 11:
 LABEL_10:
-      throwWrongTypeForParamId(v8, "double", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "BOOL");
       goto LABEL_11;
     case 12:
 LABEL_11:
-      throwWrongTypeForParamId(v8, "BOOL", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "BOOL", "BOOL");
       goto LABEL_12;
     case 13:
 LABEL_12:
-      throwWrongTypeForParamId(v8, "int", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "int", "BOOL");
       goto LABEL_13;
     case 14:
 LABEL_13:
-      throwWrongTypeForParamId(v8, "int", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "int", "BOOL");
       goto LABEL_14;
     case 15:
 LABEL_14:
-      throwWrongTypeForParamId(v8, "double", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "BOOL");
       goto LABEL_15;
     case 16:
 LABEL_15:
-      throwWrongTypeForParamId(v8, "BOOL", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "BOOL", "BOOL");
       goto LABEL_16;
     case 17:
 LABEL_16:
-      throwWrongTypeForParamId(v8, "int", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "int", "BOOL");
       goto LABEL_17;
     case 18:
 LABEL_17:
-      throwWrongTypeForParamId(v8, "BOOL", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "BOOL", "BOOL");
       goto LABEL_18;
     case 19:
 LABEL_18:
-      throwWrongTypeForParamId(v8, "int", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "int", "BOOL");
       goto LABEL_19;
     case 20:
 LABEL_19:
-      throwWrongTypeForParamId(v8, "int", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "int", "BOOL");
       goto LABEL_20;
     case 21:
 LABEL_20:
-      throwWrongTypeForParamId(v8, "int", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "int", "BOOL");
       goto LABEL_21;
     case 22:
 LABEL_21:
-      throwWrongTypeForParamId(v8, "int", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "int", "BOOL");
       goto LABEL_22;
     default:
 LABEL_22:
 
-      throwWrongParamIdValue(v8, "enum", a3, a4, a5, a6, a7, a8);
+      throwWrongParamIdValue(a2, "enum");
       return;
   }
 }
@@ -21138,12 +21092,12 @@ LABEL_22:
 void PrefiltererSearchParamSet::~PrefiltererSearchParamSet(PrefiltererSearchParamSet *this)
 {
   *this = &unk_287528C00;
-  DgnString::~DgnString((this + 8));
+  DgnString::~DgnString(this + 8);
 }
 
 {
   *this = &unk_287528C00;
-  DgnString::~DgnString((this + 8));
+  DgnString::~DgnString(this + 8);
 
   JUMPOUT(0x26672B1B0);
 }
@@ -21178,102 +21132,102 @@ void TCollation::TCollation(TCollation *this)
   TCollation::setCollation(this);
 }
 
-void TCollation::setCollation(TCollation *this, TInputStream *a2)
+void TCollation::setCollation(TCollation *this, const TLocaleInfo **a2)
 {
   TCollation::setCollation(this);
   if (TInputStream::verifyHeader(a2, "Collation", &pCollationVersion, 1))
   {
-    std::string::basic_string[abi:ne200100]<0>(v31, &byte_262899963);
-    *v33 = byte_287529580;
-    if ((v31[23] & 0x80000000) != 0)
+    std::string::basic_string[abi:ne200100]<0>(v25, &byte_262899963);
+    *v27 = byte_287529580;
+    if ((v25[23] & 0x80000000) != 0)
     {
-      std::string::__init_copy_ctor_external(&v33[8], *v31, *&v31[8]);
+      std::string::__init_copy_ctor_external(&v27[8], *v25, *&v25[8]);
     }
 
     else
     {
-      *&v33[8] = *v31;
-      v34 = *&v31[16];
+      *&v27[8] = *v25;
+      v28 = *&v25[16];
     }
 
-    *v33 = &unk_287528000;
-    if (v34 >= 0)
+    *v27 = &unk_287528000;
+    if (v28 >= 0)
     {
-      v13 = &v33[8];
+      v7 = &v27[8];
     }
 
     else
     {
-      v13 = *&v33[8];
+      v7 = *&v27[8];
     }
 
-    conditionalAssert(v13, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/shared/collation.cpp", 172, v7, v8);
-    *v33 = byte_287529580;
-    if (SHIBYTE(v34) < 0)
+    conditionalAssert(v7, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/shared/collation.cpp", 172);
+    *v27 = byte_287529580;
+    if (SHIBYTE(v28) < 0)
     {
-      operator delete(*&v33[8]);
+      operator delete(*&v27[8]);
     }
 
-    if ((v31[23] & 0x80000000) != 0)
+    if ((v25[23] & 0x80000000) != 0)
     {
-      operator delete(*v31);
+      operator delete(*v25);
     }
 
     exception = __cxa_allocate_exception(0x20uLL);
-    std::string::basic_string[abi:ne200100]<0>(v33, &byte_262899963);
+    std::string::basic_string[abi:ne200100]<0>(v27, &byte_262899963);
     *exception = byte_287529580;
-    v15 = (exception + 1);
-    if ((v33[23] & 0x80000000) != 0)
+    v9 = (exception + 1);
+    if ((v27[23] & 0x80000000) != 0)
     {
-      std::string::__init_copy_ctor_external(v15, *v33, *&v33[8]);
+      std::string::__init_copy_ctor_external(v9, *v27, *&v27[8]);
     }
 
     else
     {
-      v22 = *v33;
-      exception[3] = *&v33[16];
-      *&v15->__r_.__value_.__l.__data_ = v22;
+      v16 = *v27;
+      exception[3] = *&v27[16];
+      *&v9->__r_.__value_.__l.__data_ = v16;
     }
 
     *exception = &unk_287528000;
   }
 
-  TFileObjectParser::TFileObjectParser(v33, a2);
-  v4 = *v33;
-  *v31 = dword_2628997A8;
-  *&v31[8] = xmmword_26286B6A0;
-  v32 = -1;
-  if (TFileObject::verify(*v33, v31, 1, 1))
+  TFileObjectParser::TFileObjectParser(v27, a2);
+  v4 = *v27;
+  *v25 = dword_2628997A8;
+  *&v25[8] = xmmword_26286B6A0;
+  v26 = -1;
+  if (TFileObject::verify(*v27, v25, 1, 1))
   {
     std::string::basic_string[abi:ne200100]<0>(__p, &byte_262899963);
-    *v29 = byte_287529580;
+    *v23 = byte_287529580;
     if ((__p[23] & 0x80000000) != 0)
     {
-      std::string::__init_copy_ctor_external(&v29[8], *__p, *&__p[8]);
+      std::string::__init_copy_ctor_external(&v23[8], *__p, *&__p[8]);
     }
 
     else
     {
-      *&v29[8] = *__p;
-      v30 = *&__p[16];
+      *&v23[8] = *__p;
+      v24 = *&__p[16];
     }
 
-    *v29 = &unk_287526298;
-    if (v30 >= 0)
+    *v23 = &unk_287526298;
+    if (v24 >= 0)
     {
-      v16 = &v29[8];
+      v10 = &v23[8];
     }
 
     else
     {
-      v16 = *&v29[8];
+      v10 = *&v23[8];
     }
 
-    conditionalAssert(v16, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/shared/collation.cpp", 182, v9, v10);
-    *v29 = byte_287529580;
-    if (SHIBYTE(v30) < 0)
+    conditionalAssert(v10, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/shared/collation.cpp", 182);
+    *v23 = byte_287529580;
+    if (SHIBYTE(v24) < 0)
     {
-      operator delete(*&v29[8]);
+      operator delete(*&v23[8]);
     }
 
     if ((__p[23] & 0x80000000) != 0)
@@ -21281,93 +21235,93 @@ void TCollation::setCollation(TCollation *this, TInputStream *a2)
       operator delete(*__p);
     }
 
-    v17 = __cxa_allocate_exception(0x20uLL);
-    std::string::basic_string[abi:ne200100]<0>(v29, &byte_262899963);
-    *v17 = byte_287529580;
-    v18 = (v17 + 1);
-    if ((v29[23] & 0x80000000) != 0)
+    v11 = __cxa_allocate_exception(0x20uLL);
+    std::string::basic_string[abi:ne200100]<0>(v23, &byte_262899963);
+    *v11 = byte_287529580;
+    v12 = (v11 + 1);
+    if ((v23[23] & 0x80000000) != 0)
     {
-      std::string::__init_copy_ctor_external(v18, *v29, *&v29[8]);
+      std::string::__init_copy_ctor_external(v12, *v23, *&v23[8]);
     }
 
     else
     {
-      v23 = *v29;
-      v17[3] = *&v29[16];
-      *&v18->__r_.__value_.__l.__data_ = v23;
+      v17 = *v23;
+      v11[3] = *&v23[16];
+      *&v12->__r_.__value_.__l.__data_ = v17;
     }
 
-    *v17 = &unk_287526298;
+    *v11 = &unk_287526298;
   }
 
   Attribute = TFileObject::getAttribute(v4, dword_2628997A8);
   v6 = Attribute;
   if (Attribute)
   {
-    *v29 = &unk_2628997A0;
-    *&v29[8] = xmmword_26286B6D0;
-    v30 = -1;
-    if (!TFileObject::verify(Attribute, v29, 1, 1))
+    *v23 = &unk_2628997A0;
+    *&v23[8] = xmmword_26286B6D0;
+    v24 = -1;
+    if (!TFileObject::verify(Attribute, v23, 1, 1))
     {
       TCollation::initSerializedTable(this, v6);
     }
 
-    std::string::basic_string[abi:ne200100]<0>(v25, &byte_262899963);
+    std::string::basic_string[abi:ne200100]<0>(v19, &byte_262899963);
     *__p = byte_287529580;
-    if (SHIBYTE(v26) < 0)
+    if (SHIBYTE(v20) < 0)
     {
-      std::string::__init_copy_ctor_external(&__p[8], v25[0], v25[1]);
+      std::string::__init_copy_ctor_external(&__p[8], v19[0], v19[1]);
     }
 
     else
     {
-      *&__p[8] = *v25;
-      v28 = v26;
+      *&__p[8] = *v19;
+      v22 = v20;
     }
 
     *__p = &unk_287526298;
-    if (v28 >= 0)
+    if (v22 >= 0)
     {
-      v19 = &__p[8];
+      v13 = &__p[8];
     }
 
     else
     {
-      v19 = *&__p[8];
+      v13 = *&__p[8];
     }
 
-    conditionalAssert(v19, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/shared/collation.cpp", 190, v11, v12);
+    conditionalAssert(v13, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/shared/collation.cpp", 190);
     *__p = byte_287529580;
-    if (SHIBYTE(v28) < 0)
+    if (SHIBYTE(v22) < 0)
     {
       operator delete(*&__p[8]);
     }
 
-    if (SHIBYTE(v26) < 0)
+    if (SHIBYTE(v20) < 0)
     {
-      operator delete(v25[0]);
+      operator delete(v19[0]);
     }
 
-    v20 = __cxa_allocate_exception(0x20uLL);
+    v14 = __cxa_allocate_exception(0x20uLL);
     std::string::basic_string[abi:ne200100]<0>(__p, &byte_262899963);
-    *v20 = byte_287529580;
-    v21 = (v20 + 1);
+    *v14 = byte_287529580;
+    v15 = (v14 + 1);
     if ((__p[23] & 0x80000000) != 0)
     {
-      std::string::__init_copy_ctor_external(v21, *__p, *&__p[8]);
+      std::string::__init_copy_ctor_external(v15, *__p, *&__p[8]);
     }
 
     else
     {
-      v24 = *__p;
-      v20[3] = *&__p[16];
-      *&v21->__r_.__value_.__l.__data_ = v24;
+      v18 = *__p;
+      v14[3] = *&__p[16];
+      *&v15->__r_.__value_.__l.__data_ = v18;
     }
 
-    *v20 = &unk_287526298;
+    *v14 = &unk_287526298;
   }
 
-  TFileObjectParser::~TFileObjectParser(v33);
+  TFileObjectParser::~TFileObjectParser(v27);
 }
 
 void sub_262865F98(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, uint64_t a11, int a12, __int16 a13, char a14, char a15, void *__p, void *a17, int a18, __int16 a19, char a20, char a21, int a22, __int16 a23, char a24, char a25, uint64_t a26, void *a27, int a28, __int16 a29, char a30, char a31, int a32, __int16 a33, char a34, char a35, void *a36, uint64_t a37, int a38, __int16 a39, char a40, char a41)
@@ -21405,66 +21359,66 @@ void TCollation::~TCollation(TCollation *this)
 
 void TCollation::initSerializedTable(TCollation *this, const TFileObject *a2)
 {
-  v37 = v39;
-  v38 = xmmword_26286B6F0;
-  v39[1024] = 1;
+  v28 = v30;
+  v29 = xmmword_26286B6F0;
+  v30[1024] = 1;
   for (i = *(a2 + 3); i; i = *(i + 16))
   {
-    v34 = &unk_2628997A0;
-    v35 = vdupq_n_s64(1uLL);
-    v36 = -1;
-    if (TFileObject::verify(i, &v34, 1, 1))
+    v25 = &unk_2628997A0;
+    v26 = vdupq_n_s64(1uLL);
+    v27 = -1;
+    if (TFileObject::verify(i, &v25, 1, 1))
     {
-      std::string::basic_string[abi:ne200100]<0>(v30, &byte_262899963);
+      std::string::basic_string[abi:ne200100]<0>(v21, &byte_262899963);
       *__p = byte_287529580;
-      if (SHIBYTE(v31) < 0)
+      if (SHIBYTE(v22) < 0)
       {
-        std::string::__init_copy_ctor_external(&__p[8], v30[0], v30[1]);
+        std::string::__init_copy_ctor_external(&__p[8], v21[0], v21[1]);
       }
 
       else
       {
-        *&__p[8] = *v30;
-        v33 = v31;
+        *&__p[8] = *v21;
+        v24 = v22;
       }
 
       *__p = &unk_287526298;
-      if (v33 >= 0)
+      if (v24 >= 0)
       {
-        v22 = &__p[8];
+        v13 = &__p[8];
       }
 
       else
       {
-        v22 = *&__p[8];
+        v13 = *&__p[8];
       }
 
-      conditionalAssert(v22, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/shared/collation.cpp", 104, v17, v18);
+      conditionalAssert(v13, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/shared/collation.cpp", 104);
       *__p = byte_287529580;
-      if (SHIBYTE(v33) < 0)
+      if (SHIBYTE(v24) < 0)
       {
         operator delete(*&__p[8]);
       }
 
-      if (SHIBYTE(v31) < 0)
+      if (SHIBYTE(v22) < 0)
       {
-        operator delete(v30[0]);
+        operator delete(v21[0]);
       }
 
       exception = __cxa_allocate_exception(0x20uLL);
       std::string::basic_string[abi:ne200100]<0>(__p, &byte_262899963);
       *exception = byte_287529580;
-      v24 = (exception + 1);
+      v15 = (exception + 1);
       if ((__p[23] & 0x80000000) != 0)
       {
-        std::string::__init_copy_ctor_external(v24, *__p, *&__p[8]);
+        std::string::__init_copy_ctor_external(v15, *__p, *&__p[8]);
       }
 
       else
       {
-        v28 = *__p;
+        v19 = *__p;
         exception[3] = *&__p[16];
-        *&v24->__r_.__value_.__l.__data_ = v28;
+        *&v15->__r_.__value_.__l.__data_ = v19;
       }
 
       *exception = &unk_287526298;
@@ -21472,133 +21426,133 @@ void TCollation::initSerializedTable(TCollation *this, const TFileObject *a2)
 
     if (*this >= 0xFFFFuLL)
     {
-      tknPrintf("Error: Invalid collation table. Should have %llu classes of characters/strings max.\n", v4, v5, v6, v7, 0xFFFFLL);
-      std::string::basic_string[abi:ne200100]<0>(v30, &byte_262899963);
+      tknPrintf("Error: Invalid collation table. Should have %llu classes of characters/strings max.\n", v4, 0xFFFFLL);
+      std::string::basic_string[abi:ne200100]<0>(v21, &byte_262899963);
       *__p = byte_287529580;
-      if (SHIBYTE(v31) < 0)
+      if (SHIBYTE(v22) < 0)
       {
-        std::string::__init_copy_ctor_external(&__p[8], v30[0], v30[1]);
+        std::string::__init_copy_ctor_external(&__p[8], v21[0], v21[1]);
       }
 
       else
       {
-        *&__p[8] = *v30;
-        v33 = v31;
+        *&__p[8] = *v21;
+        v24 = v22;
       }
 
       *__p = &unk_287526298;
-      if (v33 >= 0)
+      if (v24 >= 0)
       {
-        v25 = &__p[8];
+        v16 = &__p[8];
       }
 
       else
       {
-        v25 = *&__p[8];
+        v16 = *&__p[8];
       }
 
-      conditionalAssert(v25, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/shared/collation.cpp", 110, v19, v20);
+      conditionalAssert(v16, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/shared/collation.cpp", 110);
       *__p = byte_287529580;
-      if (SHIBYTE(v33) < 0)
+      if (SHIBYTE(v24) < 0)
       {
         operator delete(*&__p[8]);
       }
 
-      if (SHIBYTE(v31) < 0)
+      if (SHIBYTE(v22) < 0)
       {
-        operator delete(v30[0]);
+        operator delete(v21[0]);
       }
 
-      v26 = __cxa_allocate_exception(0x20uLL);
+      v17 = __cxa_allocate_exception(0x20uLL);
       std::string::basic_string[abi:ne200100]<0>(__p, &byte_262899963);
-      *v26 = byte_287529580;
-      v27 = (v26 + 1);
+      *v17 = byte_287529580;
+      v18 = (v17 + 1);
       if ((__p[23] & 0x80000000) != 0)
       {
-        std::string::__init_copy_ctor_external(v27, *__p, *&__p[8]);
+        std::string::__init_copy_ctor_external(v18, *__p, *&__p[8]);
       }
 
       else
       {
-        v29 = *__p;
-        v26[3] = *&__p[16];
-        *&v27->__r_.__value_.__l.__data_ = v29;
+        v20 = *__p;
+        v17[3] = *&__p[16];
+        *&v18->__r_.__value_.__l.__data_ = v20;
       }
 
-      *v26 = &unk_287526298;
+      *v17 = &unk_287526298;
     }
 
     for (j = *(i + 24); j; j = *(j + 2))
     {
       if (TFileObject::verify(j, 0, 0))
       {
-        std::string::basic_string[abi:ne200100]<0>(v30, &byte_262899963);
+        std::string::basic_string[abi:ne200100]<0>(v21, &byte_262899963);
         *__p = byte_287529580;
-        if (SHIBYTE(v31) < 0)
+        if (SHIBYTE(v22) < 0)
         {
-          std::string::__init_copy_ctor_external(&__p[8], v30[0], v30[1]);
+          std::string::__init_copy_ctor_external(&__p[8], v21[0], v21[1]);
         }
 
         else
         {
-          *&__p[8] = *v30;
-          v33 = v31;
+          *&__p[8] = *v21;
+          v24 = v22;
         }
 
         *__p = &unk_287526298;
-        if (v33 >= 0)
+        if (v24 >= 0)
         {
-          v14 = &__p[8];
+          v9 = &__p[8];
         }
 
         else
         {
-          v14 = *&__p[8];
+          v9 = *&__p[8];
         }
 
-        conditionalAssert(v14, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/shared/collation.cpp", 117, v12, v13);
+        conditionalAssert(v9, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/shared/collation.cpp", 117);
         *__p = byte_287529580;
-        if (SHIBYTE(v33) < 0)
+        if (SHIBYTE(v24) < 0)
         {
           operator delete(*&__p[8]);
         }
 
-        if (SHIBYTE(v31) < 0)
+        if (SHIBYTE(v22) < 0)
         {
-          operator delete(v30[0]);
+          operator delete(v21[0]);
         }
 
-        v15 = __cxa_allocate_exception(0x20uLL);
+        v10 = __cxa_allocate_exception(0x20uLL);
         std::string::basic_string[abi:ne200100]<0>(__p, &byte_262899963);
-        *v15 = byte_287529580;
-        v16 = (v15 + 1);
+        *v10 = byte_287529580;
+        v11 = (v10 + 1);
         if ((__p[23] & 0x80000000) != 0)
         {
-          std::string::__init_copy_ctor_external(v16, *__p, *&__p[8]);
+          std::string::__init_copy_ctor_external(v11, *__p, *&__p[8]);
         }
 
         else
         {
-          v21 = *__p;
-          v15[3] = *&__p[16];
-          *&v16->__r_.__value_.__l.__data_ = v21;
+          v12 = *__p;
+          v10[3] = *&__p[16];
+          *&v11->__r_.__value_.__l.__data_ = v12;
         }
 
-        *v15 = &unk_287526298;
+        *v10 = &unk_287526298;
       }
 
-      v9 = 0;
-      v10 = *(j + 3);
+      v6 = 0;
+      v7 = *(j + 3);
         ;
       }
 
-      TBuffer<wchar_t>::insert(&v37, *(&v38 + 1), v10, v9 - 1);
+      TBuffer<wchar_t>::insert(&v28, *(&v29 + 1), v7, v6 - 1);
       *__p = 0;
-      TBuffer<wchar_t>::insert(&v37, *(&v38 + 1), __p, 1uLL);
+      TBuffer<wchar_t>::insert(&v28, *(&v29 + 1), __p, 1uLL);
     }
 
     *__p = 0;
-    TBuffer<wchar_t>::insert(&v37, *(&v38 + 1), __p, 1uLL);
+    TBuffer<wchar_t>::insert(&v28, *(&v29 + 1), __p, 1uLL);
     ++*this;
   }
 
@@ -21667,7 +21621,7 @@ uint64_t TCollation::collateCharSlow(uint64_t a1, unsigned int *a2, unint64_t *a
     v13 = 1;
     do
     {
-      v14 = (v7 + 16 * v11);
+      v14 = v7 + 16 * v11;
       v15 = **v14;
       if (v15)
       {
@@ -21704,11 +21658,11 @@ uint64_t TCollation::collateCharSlow(uint64_t a1, unsigned int *a2, unint64_t *a
         v17 = a2;
       }
 
-      v20 = (v17 - a2) >> 2;
+      v20 = v17 - a2;
       if (v20 > v13)
       {
         *a3 = v20;
-        result = v14[2];
+        result = *(v14 + 8);
         v13 = v20;
       }
 
@@ -22350,20 +22304,20 @@ uint64_t std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(std::pair<w
   v11 = (*a5)(a3, a2);
   if (v10)
   {
-    v13 = (a1 + 1);
+    v13 = a1 + 1;
     v12 = *a1;
     if (v11)
     {
       *a1 = *a3;
 LABEL_9:
       *a3 = v12;
-      v15 = (a3 + 1);
+      v15 = a3 + 1;
       goto LABEL_10;
     }
 
     *a1 = *a2;
     *a2 = v12;
-    v13 = (a2 + 1);
+    v13 = a2 + 1;
     v17 = *(a1 + 2);
     *(a1 + 2) = *(a2 + 2);
     *(a2 + 2) = v17;
@@ -22380,7 +22334,7 @@ LABEL_9:
     v14 = *a2;
     *a2 = *a3;
     *a3 = v14;
-    v15 = (a2 + 1);
+    v15 = a2 + 1;
     LODWORD(v14) = *(a2 + 2);
     *(a2 + 2) = *(a3 + 2);
     *(a3 + 2) = v14;
@@ -22388,7 +22342,7 @@ LABEL_9:
     {
       v16 = *a1;
       *a1 = *a2;
-      v13 = (a1 + 1);
+      v13 = a1 + 1;
       *a2 = v16;
 LABEL_10:
       v18 = *v13;
@@ -22488,7 +22442,7 @@ LABEL_10:
   return result;
 }
 
-uint64_t std::__insertion_sort_unguarded[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(std::pair<wchar_t const*,wchar_t> const&,std::pair<wchar_t const*,wchar_t> const&),std::pair<wchar_t const*,wchar_t>*>(uint64_t result, _OWORD *a2, uint64_t (**a3)(_OWORD *, void))
+uint64_t std::__insertion_sort_unguarded[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(std::pair<wchar_t const*,wchar_t> const&,std::pair<wchar_t const*,wchar_t> const&),std::pair<wchar_t const*,wchar_t>*>(uint64_t result, _OWORD *a2, uint64_t (**a3)(__int128 *, _OWORD *))
 {
   if (result != a2)
   {
@@ -22498,7 +22452,7 @@ uint64_t std::__insertion_sort_unguarded[abi:ne200100]<std::_ClassicAlgPolicy,BO
     v7 = (result + 16);
     if ((result + 16) != a2)
     {
-      v9 = result - 16;
+      v9 = (result - 16);
       do
       {
         v10 = v6;
@@ -22510,19 +22464,18 @@ uint64_t std::__insertion_sort_unguarded[abi:ne200100]<std::_ClassicAlgPolicy,BO
           v11 = v9;
           do
           {
-            *(v11 + 32) = *(v11 + 16);
-            *(v11 + 40) = *(v11 + 24);
-            result = (*a3)(&v12, v11);
-            v11 -= 16;
+            *(v11 + 4) = *(v11 + 2);
+            *(v11 + 10) = *(v11 + 6);
+            result = (*a3)(&v12, v11--);
           }
 
           while ((result & 1) != 0);
-          *(v11 + 32) = v12;
-          *(v11 + 40) = DWORD2(v12);
+          *(v11 + 4) = v12;
+          *(v11 + 10) = DWORD2(v12);
         }
 
         v7 = v6 + 1;
-        v9 += 16;
+        ++v9;
       }
 
       while (v6 + 1 != a2);
@@ -22608,7 +22561,7 @@ uint64_t *std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPol
   return v6;
 }
 
-uint64_t *std::__partition_with_equals_on_right[abi:ne200100]<std::_ClassicAlgPolicy,std::pair<wchar_t const*,wchar_t> *,BOOL (*&)(std::pair<wchar_t const*,wchar_t> const&,std::pair<wchar_t const*,wchar_t> const&)>(uint64_t *a1, unint64_t a2, uint64_t (**a3)(uint64_t *, __int128 *))
+uint64_t *std::__partition_with_equals_on_right[abi:ne200100]<std::_ClassicAlgPolicy,std::pair<wchar_t const*,wchar_t> *,BOOL (*&)(std::pair<wchar_t const*,wchar_t> const&,std::pair<wchar_t const*,wchar_t> const&)>(uint64_t *a1, uint64_t *a2, uint64_t (**a3)(uint64_t *, __int128 *))
 {
   v6 = 0;
   v12 = *a1;
@@ -22628,7 +22581,7 @@ uint64_t *std::__partition_with_equals_on_right[abi:ne200100]<std::_ClassicAlgPo
         break;
       }
 
-      a2 -= 16;
+      a2 -= 2;
     }
 
     while (((*a3)(a2, &v12) & 1) == 0);
@@ -22638,7 +22591,7 @@ uint64_t *std::__partition_with_equals_on_right[abi:ne200100]<std::_ClassicAlgPo
   {
     do
     {
-      a2 -= 16;
+      a2 -= 2;
     }
 
     while (!(*a3)(a2, &v12));
@@ -22654,17 +22607,17 @@ uint64_t *std::__partition_with_equals_on_right[abi:ne200100]<std::_ClassicAlgPo
       *v8 = *v9;
       *v9 = v10;
       LODWORD(v10) = *(v8 + 2);
-      *(v8 + 2) = *(v9 + 8);
-      *(v9 + 8) = v10;
+      *(v8 + 2) = *(v9 + 2);
+      *(v9 + 2) = v10;
       do
       {
-        ++v8;
+        v8 += 2;
       }
 
       while (((*a3)(v8, &v12) & 1) != 0);
       do
       {
-        v9 -= 16;
+        v9 -= 2;
       }
 
       while (!(*a3)(v9, &v12));
@@ -22673,8 +22626,8 @@ uint64_t *std::__partition_with_equals_on_right[abi:ne200100]<std::_ClassicAlgPo
     while (v8 < v9);
   }
 
-  result = (v8 - 1);
-  if (v8 - 1 != a1)
+  result = v8 - 2;
+  if (v8 - 2 != a1)
   {
     *a1 = *(v8 - 2);
     *(a1 + 2) = *(v8 - 2);
@@ -22937,7 +22890,7 @@ LABEL_43:
   }
 }
 
-uint64_t std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(std::pair<wchar_t const*,wchar_t> const&,std::pair<wchar_t const*,wchar_t> const&),std::pair<wchar_t const*,wchar_t>*,std::pair<wchar_t const*,wchar_t>*>(uint64_t a1, uint64_t a2, uint64_t a3, unsigned int (**a4)(uint64_t, uint64_t))
+char *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(std::pair<wchar_t const*,wchar_t> const&,std::pair<wchar_t const*,wchar_t> const&),std::pair<wchar_t const*,wchar_t>*,std::pair<wchar_t const*,wchar_t>*>(char *a1, char *a2, char *a3, uint64_t (**a4)(uint64_t, __int128 *))
 {
   if (a1 != a2)
   {
@@ -22946,7 +22899,7 @@ uint64_t std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)
     {
       v9 = (v8 - 2) >> 1;
       v10 = v9 + 1;
-      v11 = (a1 + 16 * v9);
+      v11 = &a1[16 * v9];
       do
       {
         std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(std::pair<wchar_t const*,wchar_t> const&,std::pair<wchar_t const*,wchar_t> const&),std::pair<wchar_t const*,wchar_t>*>(a1, a4, v8, v11--);
@@ -22967,9 +22920,9 @@ uint64_t std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)
           v13 = *v12;
           *v12 = *a1;
           *a1 = v13;
-          LODWORD(v13) = *(v12 + 8);
-          *(v12 + 8) = *(a1 + 8);
-          *(a1 + 8) = v13;
+          LODWORD(v13) = *(v12 + 2);
+          *(v12 + 2) = *(a1 + 2);
+          *(a1 + 2) = v13;
           std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(std::pair<wchar_t const*,wchar_t> const&,std::pair<wchar_t const*,wchar_t> const&),std::pair<wchar_t const*,wchar_t>*>(a1, a4, v8, a1);
         }
 
@@ -22985,7 +22938,7 @@ uint64_t std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)
       do
       {
         v15 = *a1;
-        v16 = *(a1 + 8);
+        v16 = *(a1 + 2);
         v17 = std::__floyd_sift_down[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(std::pair<wchar_t const*,wchar_t> const&,std::pair<wchar_t const*,wchar_t> const&),std::pair<wchar_t const*,wchar_t>*>(a1, a4, v8);
         if (v14 == v17)
         {
@@ -22996,9 +22949,9 @@ uint64_t std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)
         else
         {
           *v17 = *v14;
-          *(v17 + 8) = *(v14 + 8);
+          *(v17 + 8) = *(v14 + 2);
           *v14 = v15;
-          *(v14 + 8) = v16;
+          *(v14 + 2) = v16;
           std::__sift_up[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(std::pair<wchar_t const*,wchar_t> const&,std::pair<wchar_t const*,wchar_t> const&),std::pair<wchar_t const*,wchar_t>*>(a1, v17 + 16, a4, (v17 + 16 - a1) >> 4);
         }
 
@@ -23014,7 +22967,7 @@ uint64_t std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)
   return a3;
 }
 
-uint64_t std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(std::pair<wchar_t const*,wchar_t> const&,std::pair<wchar_t const*,wchar_t> const&),std::pair<wchar_t const*,wchar_t>*>(uint64_t result, unsigned int (**a2)(uint64_t, uint64_t), uint64_t a3, __int128 *a4)
+uint64_t std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(std::pair<wchar_t const*,wchar_t> const&,std::pair<wchar_t const*,wchar_t> const&),std::pair<wchar_t const*,wchar_t>*>(uint64_t result, uint64_t (**a2)(uint64_t, __int128 *), uint64_t a3, __int128 *a4)
 {
   v6 = a3 - 2;
   if (a3 >= 2)
@@ -23030,7 +22983,7 @@ uint64_t std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(std::pa
       v13 = v12 + 1;
       v14 = result + 16 * (v12 + 1);
       v15 = v12 + 2;
-      if (v12 + 2 < a3 && (*a2)(v14, v14 + 16))
+      if (v12 + 2 < a3 && (*a2)(v14, (v14 + 16)))
       {
         v14 += 16;
         v13 = v15;
@@ -23055,7 +23008,7 @@ uint64_t std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(std::pa
           v18 = 2 * v13 + 2;
           if (v18 < a3)
           {
-            if ((*a2)(v8 + 16 * v17, v14 + 16))
+            if ((*a2)(v8 + 16 * v17, (v14 + 16)))
             {
               v14 += 16;
               v17 = v18;
@@ -23117,7 +23070,7 @@ uint64_t std::__sift_up[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(std::pair
     v8 = result;
     v9 = v6 >> 1;
     v10 = result + 16 * (v6 >> 1);
-    v11 = (a2 - 16);
+    v11 = a2 - 16;
     result = (*a3)(v10, a2 - 16);
     if (result)
     {
@@ -23126,7 +23079,7 @@ uint64_t std::__sift_up[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(std::pair
       {
         v12 = v10;
         *v11 = *v10;
-        *(v11 + 2) = *(v10 + 8);
+        *(v11 + 8) = *(v10 + 8);
         if (!v9)
         {
           break;
@@ -23147,11 +23100,12 @@ uint64_t std::__sift_up[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(std::pair
   return result;
 }
 
-uint64_t ThreadedRecogController::ThreadedRecogController(uint64_t a1, int a2, uint64_t a3, char a4, uint64_t a5, uint64_t a6)
+uint64_t ThreadedRecogController::ThreadedRecogController(uint64_t a1, uint64_t a2, uint64_t a3, char a4, uint64_t a5, uint64_t a6)
 {
+  v10 = a2;
   *a1 = &unk_287525040;
   v12 = MemChunkAlloc(0x628uLL, 0);
-  v13 = DgnThread<RecogCtlThreadWorker>::DgnThread(v12, a2, 0, "RecogController");
+  v13 = DgnThread<RecogCtlThreadWorker>::DgnThread(v12, v10, 0, "RecogController");
   *v13 = &unk_2875280A0;
   v14 = v13[2];
   *(a1 + 8) = v13;
@@ -23182,7 +23136,7 @@ void ThreadedRecogController::~ThreadedRecogController(ThreadedRecogController *
 
   if (DgnThreadClient::isLive(*(this + 1)) && (DgnThreadClient::hasErrored(*(this + 1)) & 1) == 0)
   {
-    DgnThreadClient::shutdown(*(this + 1), v3, v4, v5, v6, v7, v8, v9);
+    DgnThreadClient::shutdown(*(this + 1));
   }
 
   *(this + 2) = 0;
@@ -23204,43 +23158,93 @@ void ThreadedRecogController::printSize(ThreadedRecogController *this, uint64_t 
   *a4 = 0;
   *a5 = 0;
   *a6 = 0;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/recogctl/trecogctl.cpp", 290, &v61);
-  if (v62)
+  getShipObjectSizeDescription(&v36, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/recogctl/trecogctl.cpp", 290);
+  if (v37)
   {
-    v16 = v61;
+    v13 = v36;
   }
 
   else
   {
-    v16 = &byte_262899963;
+    v13 = &byte_262899963;
   }
 
-  xlprintf("ObSize: %*s*************************************************************\nObSize: %*sBegin %s ", v12, v13, v14, v15, a3, &byte_262899963, a3, &byte_262899963, v16);
-  DgnString::~DgnString(&v61);
+  xlprintf("ObSize: %*s*************************************************************\nObSize: %*sBegin %s ", v12, a3, &byte_262899963, a3, &byte_262899963, v13);
+  DgnString::~DgnString(&v36);
   if (a2 != -1)
   {
-    xlprintf("%d ", v17, v18, v19, v20, a2);
+    xlprintf("%d ", v14, a2);
   }
 
-  xlprintf("(alloc, used, shared)\nObSize: %*s*************************************************************\n", v17, v18, v19, v20, a3, &byte_262899963);
-  v21 = *(this + 5);
-  if (v21)
+  xlprintf("(alloc, used, shared)\nObSize: %*s*************************************************************\n", v14, a3, &byte_262899963);
+  v15 = *(this + 5);
+  if (v15)
   {
-    v60 = 0;
-    v61 = 0;
-    v22 = (a3 + 1);
-    v59 = 0;
-    ReproMgr::printSize(v21, 0xFFFFFFFFLL, v22, &v61, &v60, &v59);
-    *a4 += v61;
-    *a5 += v60;
-    *a6 += v59;
+    v35 = 0;
+    v36 = 0;
+    v16 = (a3 + 1);
+    v34 = 0;
+    ReproMgr::printSize(v15, 0xFFFFFFFFLL, v16, &v36, &v35, &v34);
+    *a4 += v36;
+    *a5 += v35;
+    *a6 += v34;
   }
 
   else
   {
-    v22 = (a3 + 1);
+    v16 = (a3 + 1);
   }
 
+  if (gShadowDiagnosticShowIdealizedObjectSizes)
+  {
+    v17 = 4;
+  }
+
+  else
+  {
+    v17 = 8;
+  }
+
+  getShipObjectSizeDescription(&v36, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/recogctl/trecogctl.cpp", 293);
+  if (v37)
+  {
+    v19 = v36;
+  }
+
+  else
+  {
+    v19 = &byte_262899963;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v18, v16, &byte_262899963, (34 - a3), (34 - a3), v19, v17, v17, 0);
+  DgnString::~DgnString(&v36);
+  *a4 += v17;
+  *a5 += v17;
+  if (gShadowDiagnosticShowIdealizedObjectSizes)
+  {
+    v20 = 4;
+  }
+
+  else
+  {
+    v20 = 8;
+  }
+
+  getShipObjectSizeDescription(&v36, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/recogctl/trecogctl.cpp", 294);
+  if (v37)
+  {
+    v22 = v36;
+  }
+
+  else
+  {
+    v22 = &byte_262899963;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v21, v16, &byte_262899963, (34 - a3), (34 - a3), v22, v20, v20, 0);
+  DgnString::~DgnString(&v36);
+  *a4 += v20;
+  *a5 += v20;
   if (gShadowDiagnosticShowIdealizedObjectSizes)
   {
     v23 = 4;
@@ -23251,10 +23255,35 @@ void ThreadedRecogController::printSize(ThreadedRecogController *this, uint64_t 
     v23 = 8;
   }
 
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/recogctl/trecogctl.cpp", 293, &v61);
-  if (v62)
+  getShipObjectSizeDescription(&v36, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/recogctl/trecogctl.cpp", 295);
+  if (v37)
   {
-    v28 = v61;
+    v25 = v36;
+  }
+
+  else
+  {
+    v25 = &byte_262899963;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v24, v16, &byte_262899963, (34 - a3), (34 - a3), v25, v23, v23, 0);
+  DgnString::~DgnString(&v36);
+  *a4 += v23;
+  *a5 += v23;
+  if (gShadowDiagnosticShowIdealizedObjectSizes)
+  {
+    v26 = 4;
+  }
+
+  else
+  {
+    v26 = 8;
+  }
+
+  getShipObjectSizeDescription(&v36, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/recogctl/trecogctl.cpp", 296);
+  if (v37)
+  {
+    v28 = v36;
   }
 
   else
@@ -23262,10 +23291,10 @@ void ThreadedRecogController::printSize(ThreadedRecogController *this, uint64_t 
     v28 = &byte_262899963;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v24, v25, v26, v27, v22, &byte_262899963, (34 - a3), (34 - a3), v28, v23, v23, 0);
-  DgnString::~DgnString(&v61);
-  *a4 += v23;
-  *a5 += v23;
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v27, v16, &byte_262899963, (34 - a3), (34 - a3), v28, v26, v26, 0);
+  DgnString::~DgnString(&v36);
+  *a4 += v26;
+  *a5 += v26;
   if (gShadowDiagnosticShowIdealizedObjectSizes)
   {
     v29 = 4;
@@ -23276,115 +23305,39 @@ void ThreadedRecogController::printSize(ThreadedRecogController *this, uint64_t 
     v29 = 8;
   }
 
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/recogctl/trecogctl.cpp", 294, &v61);
-  if (v62)
+  getShipObjectSizeDescription(&v36, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/recogctl/trecogctl.cpp", 297);
+  if (v37)
   {
-    v34 = v61;
+    v31 = v36;
   }
 
   else
   {
-    v34 = &byte_262899963;
+    v31 = &byte_262899963;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v30, v31, v32, v33, v22, &byte_262899963, (34 - a3), (34 - a3), v34, v29, v29, 0);
-  DgnString::~DgnString(&v61);
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v30, v16, &byte_262899963, (34 - a3), (34 - a3), v31, v29, v29, 0);
+  DgnString::~DgnString(&v36);
   *a4 += v29;
   *a5 += v29;
-  if (gShadowDiagnosticShowIdealizedObjectSizes)
+  getShipObjectSizeDescription(&v36, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/recogctl/trecogctl.cpp", 300);
+  if (v37)
   {
-    v35 = 4;
+    v33 = v36;
   }
 
   else
   {
-    v35 = 8;
+    v33 = &byte_262899963;
   }
 
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/recogctl/trecogctl.cpp", 295, &v61);
-  if (v62)
-  {
-    v40 = v61;
-  }
-
-  else
-  {
-    v40 = &byte_262899963;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v36, v37, v38, v39, v22, &byte_262899963, (34 - a3), (34 - a3), v40, v35, v35, 0);
-  DgnString::~DgnString(&v61);
-  *a4 += v35;
-  *a5 += v35;
-  if (gShadowDiagnosticShowIdealizedObjectSizes)
-  {
-    v41 = 4;
-  }
-
-  else
-  {
-    v41 = 8;
-  }
-
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/recogctl/trecogctl.cpp", 296, &v61);
-  if (v62)
-  {
-    v46 = v61;
-  }
-
-  else
-  {
-    v46 = &byte_262899963;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v42, v43, v44, v45, v22, &byte_262899963, (34 - a3), (34 - a3), v46, v41, v41, 0);
-  DgnString::~DgnString(&v61);
-  *a4 += v41;
-  *a5 += v41;
-  if (gShadowDiagnosticShowIdealizedObjectSizes)
-  {
-    v47 = 4;
-  }
-
-  else
-  {
-    v47 = 8;
-  }
-
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/recogctl/trecogctl.cpp", 297, &v61);
-  if (v62)
-  {
-    v52 = v61;
-  }
-
-  else
-  {
-    v52 = &byte_262899963;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v48, v49, v50, v51, v22, &byte_262899963, (34 - a3), (34 - a3), v52, v47, v47, 0);
-  DgnString::~DgnString(&v61);
-  *a4 += v47;
-  *a5 += v47;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/recogctl/trecogctl.cpp", 300, &v61);
-  if (v62)
-  {
-    v57 = v61;
-  }
-
-  else
-  {
-    v57 = &byte_262899963;
-  }
-
-  v58 = *a5;
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v53, v54, v55, v56, a3, &byte_262899963, (35 - a3), (35 - a3), v57, *a4, *a5, *a6);
-  DgnString::~DgnString(&v61);
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v32, a3, &byte_262899963, (35 - a3), (35 - a3), v33, *a4, *a5, *a6);
+  DgnString::~DgnString(&v36);
 }
 
-void sub_262868A4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_262868A4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   DgnString::~DgnString(va);
   _Unwind_Resume(a1);
 }
@@ -23396,18 +23349,18 @@ uint64_t *ThreadedRecogController::setupRecognizers(uint64_t a1, uint64_t a2, ui
   return Latch<MemChunkRegion,LatchAdapter>::~Latch(&v18);
 }
 
-void sub_262868B3C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_262868B3C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   Latch<MemChunkRegion,LatchAdapter>::~Latch(va);
   _Unwind_Resume(a1);
 }
 
 uint64_t ThreadedRecogController::recognizeOneSingleLayer(uint64_t a1, unsigned int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, unsigned int a7, uint64_t a8, uint64_t a9, uint64_t a10, __int16 a11, uint64_t a12, uint64_t a13, __int16 a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18)
 {
-  Latch<MemChunkRegion,LatchAdapter>::Latch(v28, *(a1 + 16));
+  Latch<MemChunkRegion,LatchAdapter>::Latch(v30, *(a1 + 16));
   v19 = (*(**(a1 + 24) + 24))(*(a1 + 24), a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15, a16, a17, a18);
-  Latch<MemChunkRegion,LatchAdapter>::~Latch(v28);
+  Latch<MemChunkRegion,LatchAdapter>::~Latch(v30);
   return v19;
 }
 
@@ -23423,78 +23376,78 @@ uint64_t *ThreadedRecogController::extractPrefilterResult(ThreadedRecogControlle
   return v3;
 }
 
-void sub_262868D38(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_262868D38(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   Latch<MemChunkRegion,LatchAdapter>::~Latch(va);
   _Unwind_Resume(a1);
 }
 
 uint64_t *ThreadedRecogController::startRecognizeOne(uint64_t a1, uint64_t a2, Utterance *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, __int16 a13, uint64_t a14, uint64_t a15, char a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24)
 {
-  VocOrThrow = ModelMgr::getVocOrThrow(ModelMgr::smpModelMgr, a2, a3, a4, a5, a6, a7, a8);
+  VocOrThrow = ModelMgr::getVocOrThrow(ModelMgr::smpModelMgr, a2);
   if (!Voc::isThreadedRecogAllowed(VocOrThrow))
   {
     if (*(VocOrThrow + 112))
     {
-      v35 = *(VocOrThrow + 104);
+      v33 = *(VocOrThrow + 104);
     }
 
     else
     {
-      v35 = &byte_262899963;
+      v33 = &byte_262899963;
     }
 
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/recogctl/trecogctl.cpp", 451, "recogctl/trecogctl", 1, "%.500s", v33, v34, v35);
+    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/recogctl/trecogctl.cpp", 451, "recogctl/trecogctl", 1, "%.500s", v33);
   }
 
   StateMgr::cacheAllWordInStateInfo(*(VocOrThrow + 56));
-  Latch<MemChunkRegion,LatchAdapter>::Latch(v44, *(a1 + 16));
+  Latch<MemChunkRegion,LatchAdapter>::Latch(v36, *(a1 + 16));
   *(a1 + 32) = 0;
   if (a3)
   {
-    v36 = MemChunkAlloc(0x1B8uLL, 0);
-    Utterance::Utterance(v36, a3);
-    *(a1 + 32) = v36;
-    if (*(v36[53] + 416) == 1)
+    v34 = MemChunkAlloc(0x1B8uLL, 0);
+    Utterance::Utterance(v34, a3);
+    *(a1 + 32) = v34;
+    if (*(v34[53] + 416) == 1)
     {
-      ChannelMgr::setRecogCtlUtterance(ChannelMgr::smpChannelMgr, v36, v37, v38, v39, v40, v41, v42);
-      v36 = *(a1 + 32);
+      ChannelMgr::setRecogCtlUtterance(ChannelMgr::smpChannelMgr, v34);
+      v34 = *(a1 + 32);
     }
 
-    *(*(*(a1 + 8) + 56) + 312) = v36;
+    *(*(*(a1 + 8) + 56) + 312) = v34;
   }
 
   else
   {
-    v36 = 0;
+    v34 = 0;
   }
 
   *(a1 + 40) = a22;
-  (*(**(a1 + 24) + 32))(*(a1 + 24), a2, v36, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15, a16, a17, a18, a19, a20, a21, 0, a23, a24);
-  return Latch<MemChunkRegion,LatchAdapter>::~Latch(v44);
+  (*(**(a1 + 24) + 32))(*(a1 + 24), a2, v34, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15, a16, a17, a18, a19, a20, a21, 0, a23, a24);
+  return Latch<MemChunkRegion,LatchAdapter>::~Latch(v36);
 }
 
-uint64_t ThreadedRecogController::maybeStartRecogController(ThreadedRecogController *this, DgnEvent *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t ThreadedRecogController::maybeStartRecogController(ThreadedRecogController *this, DgnEvent *a2)
 {
   *(*(*(this + 1) + 56) + 320) = a2;
-  v8 = *(this + 4);
-  if (v8)
+  v2 = *(this + 4);
+  if (v2)
   {
-    if (*(*(v8 + 424) + 416) == 1)
+    if (*(*(v2 + 424) + 416) == 1)
     {
-      ThreadId = ChannelMgr::getThreadId(ChannelMgr::smpChannelMgr, *v8, a3, a4, a5, a6, a7, a8);
+      ThreadId = ChannelMgr::getThreadId(ChannelMgr::smpChannelMgr, *v2);
       if (ThreadId != -1)
       {
-        v17 = DgnThreadMgr::smpThreadMgr;
-        if (*(DgnThreadMgr::smpThreadMgr + 16) <= ThreadId || (v18 = *(*(DgnThreadMgr::smpThreadMgr + 8) + 8 * ThreadId)) == 0)
+        v5 = DgnThreadMgr::smpThreadMgr;
+        if (*(DgnThreadMgr::smpThreadMgr + 16) <= ThreadId || (v6 = *(*(DgnThreadMgr::smpThreadMgr + 8) + 8 * ThreadId)) == 0)
         {
-          v19 = ThreadId;
-          DgnThreadMgr::throwBadDgnThreadId(DgnThreadMgr::smpThreadMgr, ThreadId, v11, v12, v13, v14, v15, v16);
-          v18 = *(*(v17 + 8) + 8 * v19);
+          v7 = ThreadId;
+          DgnThreadMgr::throwBadDgnThreadId(DgnThreadMgr::smpThreadMgr, ThreadId);
+          v6 = *(*(v5 + 8) + 8 * v7);
         }
 
-        *(v18 + 64) = *(*(this + 3) + 928);
+        *(v6 + 64) = *(*(this + 3) + 928);
       }
     }
   }
@@ -23502,55 +23455,55 @@ uint64_t ThreadedRecogController::maybeStartRecogController(ThreadedRecogControl
   return 1;
 }
 
-void ThreadedRecogController::recognizeOneDoFrames(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void ThreadedRecogController::recognizeOneDoFrames(uint64_t a1, char a2, int a3, uint64_t a4)
 {
-  v8 = *(a1 + 8);
-  v9 = *(v8 + 7);
-  *(v9 + 308) = a2;
-  *(v9 + 304) = a3;
-  *(v9 + 296) = a4;
-  *(v9 + 309) = 1;
-  DgnThreadClient::play(v8, a2, a3, a4, a5, a6, a7, a8);
+  v4 = *(a1 + 8);
+  v5 = *(v4 + 7);
+  *(v5 + 308) = a2;
+  *(v5 + 304) = a3;
+  *(v5 + 296) = a4;
+  *(v5 + 309) = 1;
+  DgnThreadClient::play(v4);
 }
 
 void ThreadedRecogController::maybeStopRecogController(ThreadedRecogController *this)
 {
   if (!DgnThreadClient::isPaused(*(this + 1)))
   {
-    DgnThreadClient::pause(*(this + 1), v2, v3, v4, v5, v6, v7, v8);
+    DgnThreadClient::pause(*(this + 1));
   }
 
   if (*(this + 4))
   {
     if ((*(**(this + 3) + 40))(*(this + 3)))
     {
-      Latch<MemChunkRegion,LatchAdapter>::Latch(&v40, *(this + 2));
-      RecogController::doAtEndOfRecognition(*(this + 3), v15, v16, v17, v18, v19, v20, v21);
-      Latch<MemChunkRegion,LatchAdapter>::~Latch(&v40);
+      Latch<MemChunkRegion,LatchAdapter>::Latch(&v10, *(this + 2));
+      RecogController::doAtEndOfRecognition(*(this + 3), v2, v3);
+      Latch<MemChunkRegion,LatchAdapter>::~Latch(&v10);
     }
 
-    v22 = *(this + 4);
-    if (*(*(v22 + 53) + 416) == 1)
+    v4 = *(this + 4);
+    if (*(*(v4 + 53) + 416) == 1)
     {
-      v23 = ChannelMgr::smpChannelMgr;
-      ChannelMgr::maybeSyncRecogCtlUtterance(ChannelMgr::smpChannelMgr, v22, v9, v10, v11, v12, v13, v14);
-      ThreadId = ChannelMgr::getThreadId(v23, **(this + 4), v24, v25, v26, v27, v28, v29);
+      v5 = ChannelMgr::smpChannelMgr;
+      ChannelMgr::maybeSyncRecogCtlUtterance(ChannelMgr::smpChannelMgr, v4);
+      ThreadId = ChannelMgr::getThreadId(v5, **(this + 4));
       if (ThreadId != -1)
       {
-        v22 = ThreadId;
-        v37 = DgnThreadMgr::smpThreadMgr;
-        if (*(DgnThreadMgr::smpThreadMgr + 16) <= ThreadId || (v38 = *(*(DgnThreadMgr::smpThreadMgr + 8) + 8 * ThreadId)) == 0)
+        v4 = ThreadId;
+        v7 = DgnThreadMgr::smpThreadMgr;
+        if (*(DgnThreadMgr::smpThreadMgr + 16) <= ThreadId || (v8 = *(*(DgnThreadMgr::smpThreadMgr + 8) + 8 * ThreadId)) == 0)
         {
-          v39 = ThreadId;
-          DgnThreadMgr::throwBadDgnThreadId(DgnThreadMgr::smpThreadMgr, ThreadId, v31, v32, v33, v34, v35, v36);
-          v38 = *(*(v37 + 8) + 8 * v39);
+          v9 = ThreadId;
+          DgnThreadMgr::throwBadDgnThreadId(DgnThreadMgr::smpThreadMgr, ThreadId);
+          v8 = *(*(v7 + 8) + 8 * v9);
         }
 
-        *(v38 + 64) = -1;
+        *(v8 + 64) = -1;
       }
     }
 
-    if ((*(**(this + 3) + 40))(*(this + 3), v22))
+    if ((*(**(this + 3) + 40))(*(this + 3), v4))
     {
       Utterance::syncAfterRecognitionDone(*(this + 4));
       *(this + 4) = 0;
@@ -23560,9 +23513,9 @@ void ThreadedRecogController::maybeStopRecogController(ThreadedRecogController *
   *(*(*(this + 1) + 56) + 320) = 0;
 }
 
-void sub_262869224(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_262869224(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   Latch<MemChunkRegion,LatchAdapter>::~Latch(va);
   _Unwind_Resume(a1);
 }
@@ -23574,9 +23527,9 @@ uint64_t *ThreadedRecogController::finishRecognizeOne(uint64_t a1, uint64_t a2)
   return Latch<MemChunkRegion,LatchAdapter>::~Latch(&v5);
 }
 
-void sub_2628692A4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2628692A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   Latch<MemChunkRegion,LatchAdapter>::~Latch(va);
   _Unwind_Resume(a1);
 }
@@ -23588,9 +23541,9 @@ uint64_t *ThreadedRecogController::abortRecognizeOne(ThreadedRecogController *th
   return Latch<MemChunkRegion,LatchAdapter>::~Latch(&v3);
 }
 
-void sub_2628693C4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2628693C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   Latch<MemChunkRegion,LatchAdapter>::~Latch(va);
   _Unwind_Resume(a1);
 }
@@ -23602,18 +23555,18 @@ uint64_t *ThreadedRecogController::makePartialResult(ThreadedRecogController *th
   return Latch<MemChunkRegion,LatchAdapter>::~Latch(&v3);
 }
 
-void sub_26286943C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_26286943C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   Latch<MemChunkRegion,LatchAdapter>::~Latch(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t RecogCtlThreadWorker::onStartup(RecogCtlThreadWorker *this)
+uint64_t RecogCtlThreadWorker::onStartup(const RecogSpec **this)
 {
   v2 = MemChunkAlloc(0x420uLL, 0);
-  v3 = RecogController::RecogController(v2, *(this + 33), *(this + 272), *(this + 35), *(this + 36));
-  *(this + 32) = v3;
+  RecogController::RecogController(v2, this[33], *(this + 272), this[35], this[36]);
+  this[32] = v3;
   result = DgnThreadMgr::getCurrentThreadId(v3);
   *(v2 + 232) = result;
   return result;
@@ -23663,95 +23616,182 @@ void RecogCtlThreadWorker::printSize(Utterance **this, uint64_t a2, uint64_t a3,
   *a4 = 0;
   *a5 = 0;
   *a6 = 0;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/recogctl/trecogctl.cpp", 798, &v62);
-  if (v63)
+  getShipObjectSizeDescription(&v37, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/recogctl/trecogctl.cpp", 798);
+  if (v38)
   {
-    v16 = v62;
+    v13 = v37;
   }
 
   else
   {
-    v16 = &byte_262899963;
+    v13 = &byte_262899963;
   }
 
-  xlprintf("ObSize: %*s*************************************************************\nObSize: %*sBegin %s ", v12, v13, v14, v15, a3, &byte_262899963, a3, &byte_262899963, v16);
-  DgnString::~DgnString(&v62);
+  xlprintf("ObSize: %*s*************************************************************\nObSize: %*sBegin %s ", v12, a3, &byte_262899963, a3, &byte_262899963, v13);
+  DgnString::~DgnString(&v37);
   if (a2 != -1)
   {
-    xlprintf("%d ", v17, v18, v19, v20, a2);
+    xlprintf("%d ", v14, a2);
   }
 
-  xlprintf("(alloc, used, shared)\nObSize: %*s*************************************************************\n", v17, v18, v19, v20, a3, &byte_262899963);
-  v61 = 0;
-  v62 = 0;
-  v60 = 0;
-  DgnThreadWorker::printSize(this, 0xFFFFFFFFLL, (a3 + 1), &v62, &v61, &v60);
-  *a4 += v62;
-  *a5 += v61;
-  *a6 += v60;
-  v21 = this[32];
-  if (v21)
+  xlprintf("(alloc, used, shared)\nObSize: %*s*************************************************************\n", v14, a3, &byte_262899963);
+  v36 = 0;
+  v37 = 0;
+  v35 = 0;
+  DgnThreadWorker::printSize(this, 0xFFFFFFFFLL, (a3 + 1), &v37, &v36, &v35);
+  *a4 += v37;
+  *a5 += v36;
+  *a6 += v35;
+  v15 = this[32];
+  if (v15)
   {
-    v61 = 0;
-    v62 = 0;
-    v60 = 0;
-    (*(*v21 + 280))(v21, 0xFFFFFFFFLL, (a3 + 1), &v62, &v61, &v60);
-    *a4 += v62;
-    *a5 += v61;
-    *a6 += v60;
-  }
-
-  if (gShadowDiagnosticShowIdealizedObjectSizes)
-  {
-    v22 = 4;
-  }
-
-  else
-  {
-    v22 = 8;
-  }
-
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/recogctl/trecogctl.cpp", 802, &v62);
-  if (v63)
-  {
-    v27 = v62;
-  }
-
-  else
-  {
-    v27 = &byte_262899963;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v23, v24, v25, v26, (a3 + 1), &byte_262899963, (34 - a3), (34 - a3), v27, v22, v22, 0);
-  DgnString::~DgnString(&v62);
-  *a4 += v22;
-  *a5 += v22;
-  v28 = this[39];
-  if (v28)
-  {
-    v61 = 0;
-    v62 = 0;
-    v60 = 0;
-    Utterance::printSize(v28, 0xFFFFFFFFLL, (a3 + 1), &v62, &v61, &v60);
-    *a4 += v62;
-    *a5 += v61;
-    *a6 += v60;
+    v36 = 0;
+    v37 = 0;
+    v35 = 0;
+    (*(*v15 + 280))(v15, 0xFFFFFFFFLL, (a3 + 1), &v37, &v36, &v35);
+    *a4 += v37;
+    *a5 += v36;
+    *a6 += v35;
   }
 
   if (gShadowDiagnosticShowIdealizedObjectSizes)
   {
-    v29 = 4;
+    v16 = 4;
   }
 
   else
   {
-    v29 = 8;
+    v16 = 8;
   }
 
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/recogctl/trecogctl.cpp", 804, &v62);
-  if (v63)
+  getShipObjectSizeDescription(&v37, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/recogctl/trecogctl.cpp", 802);
+  if (v38)
   {
-    v34 = v62;
+    v18 = v37;
+  }
+
+  else
+  {
+    v18 = &byte_262899963;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v17, (a3 + 1), &byte_262899963, (34 - a3), (34 - a3), v18, v16, v16, 0);
+  DgnString::~DgnString(&v37);
+  *a4 += v16;
+  *a5 += v16;
+  v19 = this[39];
+  if (v19)
+  {
+    v36 = 0;
+    v37 = 0;
+    v35 = 0;
+    Utterance::printSize(v19, 0xFFFFFFFFLL, (a3 + 1), &v37, &v36, &v35);
+    *a4 += v37;
+    *a5 += v36;
+    *a6 += v35;
+  }
+
+  if (gShadowDiagnosticShowIdealizedObjectSizes)
+  {
+    v20 = 4;
+  }
+
+  else
+  {
+    v20 = 8;
+  }
+
+  getShipObjectSizeDescription(&v37, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/recogctl/trecogctl.cpp", 804);
+  if (v38)
+  {
+    v22 = v37;
+  }
+
+  else
+  {
+    v22 = &byte_262899963;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v21, (a3 + 1), &byte_262899963, (34 - a3), (34 - a3), v22, v20, v20, 0);
+  DgnString::~DgnString(&v37);
+  *a4 += v20;
+  *a5 += v20;
+  v23 = 8;
+  if (gShadowDiagnosticShowIdealizedObjectSizes)
+  {
+    v23 = 4;
+  }
+
+  v24 = (3 * v23) | 1;
+  getShipObjectSizeDescription(&v37, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/recogctl/trecogctl.cpp", 806);
+  if (v38)
+  {
+    v26 = v37;
+  }
+
+  else
+  {
+    v26 = &byte_262899963;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v25, (a3 + 1), &byte_262899963, (34 - a3), (34 - a3), v26, v24, v24, 0);
+  DgnString::~DgnString(&v37);
+  *a4 += v24;
+  *a5 += v24;
+  if (gShadowDiagnosticShowIdealizedObjectSizes)
+  {
+    v27 = 10;
+  }
+
+  else
+  {
+    v27 = 14;
+  }
+
+  getShipObjectSizeDescription(&v37, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/recogctl/trecogctl.cpp", 808);
+  if (v38)
+  {
+    v29 = v37;
+  }
+
+  else
+  {
+    v29 = &byte_262899963;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v28, (a3 + 1), &byte_262899963, (34 - a3), (34 - a3), v29, v27, v27, 0);
+  DgnString::~DgnString(&v37);
+  *a4 += v27;
+  *a5 += v27;
+  if (gShadowDiagnosticShowIdealizedObjectSizes)
+  {
+    v30 = 4;
+  }
+
+  else
+  {
+    v30 = 8;
+  }
+
+  getShipObjectSizeDescription(&v37, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/recogctl/trecogctl.cpp", 810);
+  if (v38)
+  {
+    v32 = v37;
+  }
+
+  else
+  {
+    v32 = &byte_262899963;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v31, (a3 + 1), &byte_262899963, (34 - a3), (34 - a3), v32, v30, v30, 0);
+  DgnString::~DgnString(&v37);
+  *a4 += v30;
+  *a5 += v30;
+  getShipObjectSizeDescription(&v37, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/recogctl/trecogctl.cpp", 812);
+  if (v38)
+  {
+    v34 = v37;
   }
 
   else
@@ -23759,101 +23799,13 @@ void RecogCtlThreadWorker::printSize(Utterance **this, uint64_t a2, uint64_t a3,
     v34 = &byte_262899963;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v30, v31, v32, v33, (a3 + 1), &byte_262899963, (34 - a3), (34 - a3), v34, v29, v29, 0);
-  DgnString::~DgnString(&v62);
-  *a4 += v29;
-  *a5 += v29;
-  v35 = 8;
-  if (gShadowDiagnosticShowIdealizedObjectSizes)
-  {
-    v35 = 4;
-  }
-
-  v36 = (3 * v35) | 1;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/recogctl/trecogctl.cpp", 806, &v62);
-  if (v63)
-  {
-    v41 = v62;
-  }
-
-  else
-  {
-    v41 = &byte_262899963;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v37, v38, v39, v40, (a3 + 1), &byte_262899963, (34 - a3), (34 - a3), v41, v36, v36, 0);
-  DgnString::~DgnString(&v62);
-  *a4 += v36;
-  *a5 += v36;
-  if (gShadowDiagnosticShowIdealizedObjectSizes)
-  {
-    v42 = 10;
-  }
-
-  else
-  {
-    v42 = 14;
-  }
-
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/recogctl/trecogctl.cpp", 808, &v62);
-  if (v63)
-  {
-    v47 = v62;
-  }
-
-  else
-  {
-    v47 = &byte_262899963;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v43, v44, v45, v46, (a3 + 1), &byte_262899963, (34 - a3), (34 - a3), v47, v42, v42, 0);
-  DgnString::~DgnString(&v62);
-  *a4 += v42;
-  *a5 += v42;
-  if (gShadowDiagnosticShowIdealizedObjectSizes)
-  {
-    v48 = 4;
-  }
-
-  else
-  {
-    v48 = 8;
-  }
-
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/recogctl/trecogctl.cpp", 810, &v62);
-  if (v63)
-  {
-    v53 = v62;
-  }
-
-  else
-  {
-    v53 = &byte_262899963;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v49, v50, v51, v52, (a3 + 1), &byte_262899963, (34 - a3), (34 - a3), v53, v48, v48, 0);
-  DgnString::~DgnString(&v62);
-  *a4 += v48;
-  *a5 += v48;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/recogctl/trecogctl.cpp", 812, &v62);
-  if (v63)
-  {
-    v58 = v62;
-  }
-
-  else
-  {
-    v58 = &byte_262899963;
-  }
-
-  v59 = *a5;
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v54, v55, v56, v57, a3, &byte_262899963, (35 - a3), (35 - a3), v58, *a4, *a5, *a6);
-  DgnString::~DgnString(&v62);
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v33, a3, &byte_262899963, (35 - a3), (35 - a3), v34, *a4, *a5, *a6);
+  DgnString::~DgnString(&v37);
 }
 
-void sub_262869CFC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_262869CFC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   DgnString::~DgnString(va);
   _Unwind_Resume(a1);
 }
@@ -23863,10 +23815,36 @@ void RecogCtlThread::printSize(RecogCtlThread *this, uint64_t a2, uint64_t a3, u
   *a4 = 0;
   *a5 = 0;
   *a6 = 0;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/recogctl/trecogctl.cpp", 827, &v30);
-  if (v31)
+  getShipObjectSizeDescription(&v20, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/recogctl/trecogctl.cpp", 827);
+  if (v21)
   {
-    v16 = v30;
+    v13 = v20;
+  }
+
+  else
+  {
+    v13 = &byte_262899963;
+  }
+
+  xlprintf("ObSize: %*s*************************************************************\nObSize: %*sBegin %s ", v12, a3, &byte_262899963, a3, &byte_262899963, v13);
+  DgnString::~DgnString(&v20);
+  if (a2 != -1)
+  {
+    xlprintf("%d ", v14, a2);
+  }
+
+  xlprintf("(alloc, used, shared)\nObSize: %*s*************************************************************\n", v14, a3, &byte_262899963);
+  v18 = 0;
+  v19 = 0;
+  v17 = 0;
+  DgnThreadClient::printSize(this, a2, (a3 + 1), &v19, &v17, &v18);
+  *a4 += v19;
+  *a5 += v17;
+  *a6 += v18;
+  getShipObjectSizeDescription(&v20, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/recogctl/trecogctl.cpp", 835);
+  if (v21)
+  {
+    v16 = v20;
   }
 
   else
@@ -23874,35 +23852,8 @@ void RecogCtlThread::printSize(RecogCtlThread *this, uint64_t a2, uint64_t a3, u
     v16 = &byte_262899963;
   }
 
-  xlprintf("ObSize: %*s*************************************************************\nObSize: %*sBegin %s ", v12, v13, v14, v15, a3, &byte_262899963, a3, &byte_262899963, v16);
-  DgnString::~DgnString(&v30);
-  if (a2 != -1)
-  {
-    xlprintf("%d ", v17, v18, v19, v20, a2);
-  }
-
-  xlprintf("(alloc, used, shared)\nObSize: %*s*************************************************************\n", v17, v18, v19, v20, a3, &byte_262899963);
-  v28 = 0;
-  v29 = 0;
-  v27 = 0;
-  DgnThreadClient::printSize(this, a2, (a3 + 1), &v29, &v27, &v28);
-  *a4 += v29;
-  *a5 += v27;
-  *a6 += v28;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/recogctl/trecogctl.cpp", 835, &v30);
-  if (v31)
-  {
-    v25 = v30;
-  }
-
-  else
-  {
-    v25 = &byte_262899963;
-  }
-
-  v26 = *a5;
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v21, v22, v23, v24, a3, &byte_262899963, (35 - a3), (35 - a3), v25, *a4, *a5, *a6);
-  DgnString::~DgnString(&v30);
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v15, a3, &byte_262899963, (35 - a3), (35 - a3), v16, *a4, *a5, *a6);
+  DgnString::~DgnString(&v20);
 }
 
 void RecogCtlThreadWorker::~RecogCtlThreadWorker(RecogCtlThreadWorker *this)
@@ -23944,9 +23895,9 @@ uint64_t *DgnThread<RecogCtlThreadWorker>::newWorker(uint64_t a1)
   return v2;
 }
 
-void sub_262869FD8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_262869FD8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   Latch<MemChunkRegion,LatchAdapter>::~Latch(va);
   _Unwind_Resume(a1);
 }
@@ -23979,10 +23930,29 @@ void Prefilterer::printSize(Prefilterer *this, uint64_t a2, uint64_t a3, unint64
   *a4 = 0;
   *a5 = 0;
   *a6 = 0;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/prefilt/prefilt.cpp", 68, &v36);
-  if (v37)
+  getShipObjectSizeDescription(&v20, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/prefilt/prefilt.cpp", 68);
+  if (v21)
   {
-    v15 = v36;
+    v12 = v20;
+  }
+
+  else
+  {
+    v12 = &unk_26289983C;
+  }
+
+  xlprintf("ObSize: %*s*************************************************************\nObSize: %*sBegin %s ", v11, a3, &unk_26289983C, a3, &unk_26289983C, v12);
+  DgnString::~DgnString(&v20);
+  if (a2 != -1)
+  {
+    xlprintf("%d ", v13, a2);
+  }
+
+  xlprintf("(alloc, used, shared)\nObSize: %*s*************************************************************\n", v13, a3, &unk_26289983C);
+  getShipObjectSizeDescription(&v20, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/prefilt/prefilt.cpp", 69);
+  if (v21)
+  {
+    v15 = v20;
   }
 
   else
@@ -23990,96 +23960,76 @@ void Prefilterer::printSize(Prefilterer *this, uint64_t a2, uint64_t a3, unint64
     v15 = &unk_26289983C;
   }
 
-  xlprintf("ObSize: %*s*************************************************************\nObSize: %*sBegin %s ", v11, v12, v13, v14, a3, &unk_26289983C, a3, &unk_26289983C, v15);
-  DgnString::~DgnString(&v36);
-  if (a2 != -1)
-  {
-    xlprintf("%d ", v16, v17, v18, v19, a2);
-  }
-
-  xlprintf("(alloc, used, shared)\nObSize: %*s*************************************************************\n", v16, v17, v18, v19, a3, &unk_26289983C);
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/prefilt/prefilt.cpp", 69, &v36);
-  if (v37)
-  {
-    v24 = v36;
-  }
-
-  else
-  {
-    v24 = &unk_26289983C;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v20, v21, v22, v23, (a3 + 1), &unk_26289983C, (34 - a3), (34 - a3), v24, 2, 2, 0);
-  DgnString::~DgnString(&v36);
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v14, (a3 + 1), &unk_26289983C, (34 - a3), (34 - a3), v15, 2, 2, 0);
+  DgnString::~DgnString(&v20);
   *a4 += 2;
   *a5 += 2;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/prefilt/prefilt.cpp", 70, &v36);
-  if (v37)
+  getShipObjectSizeDescription(&v20, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/prefilt/prefilt.cpp", 70);
+  if (v21)
   {
-    v29 = v36;
+    v17 = v20;
   }
 
   else
   {
-    v29 = &unk_26289983C;
+    v17 = &unk_26289983C;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v25, v26, v27, v28, (a3 + 1), &unk_26289983C, (34 - a3), (34 - a3), v29, 4, 4, 0);
-  DgnString::~DgnString(&v36);
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v16, (a3 + 1), &unk_26289983C, (34 - a3), (34 - a3), v17, 4, 4, 0);
+  DgnString::~DgnString(&v20);
   *a4 += 4;
   *a5 += 4;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/prefilt/prefilt.cpp", 71, &v36);
-  if (v37)
+  getShipObjectSizeDescription(&v20, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/prefilt/prefilt.cpp", 71);
+  if (v21)
   {
-    v34 = v36;
+    v19 = v20;
   }
 
   else
   {
-    v34 = &unk_26289983C;
+    v19 = &unk_26289983C;
   }
 
-  v35 = *a5;
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v30, v31, v32, v33, a3, &unk_26289983C, (35 - a3), (35 - a3), v34, *a4, *a5, *a6);
-  DgnString::~DgnString(&v36);
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v18, a3, &unk_26289983C, (35 - a3), (35 - a3), v19, *a4, *a5, *a6);
+  DgnString::~DgnString(&v20);
 }
 
-void sub_26286A350(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_26286A350(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   DgnString::~DgnString(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t *Prefilterer::makePrefilterer(Prefilterer *this, const PrefiltererBuildParamSet *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t *Prefilterer::makePrefilterer(Prefilterer *this, const PrefiltererBuildParamSet *a2)
 {
   if (*(this + 96) == 1)
   {
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/prefilt/prefilt.cpp", 84, "prefilt/prefilt", 1, "%s", a7, a8, &unk_26289983C);
-    v9 = 0;
+    v3.n128_f64[0] = errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/prefilt/prefilt.cpp", 84, "prefilt/prefilt", 1, "%s", &unk_26289983C);
+    v4 = 0;
   }
 
   else
   {
-    v10 = *(this + 23);
-    if (v10)
+    v5 = *(this + 23);
+    if (v5)
     {
-      v9 = MemChunkAlloc(0x40uLL, 0);
-      ThreadedTreePrefilterer::ThreadedTreePrefilterer(v9, v10);
+      v4 = MemChunkAlloc(0x40uLL, 0);
+      ThreadedTreePrefilterer::ThreadedTreePrefilterer(v4, v5);
     }
 
     else
     {
-      v9 = MemChunkAlloc(0x25308uLL, 0);
-      TreePrefilterer::TreePrefilterer(v9);
+      v4 = MemChunkAlloc(0x25308uLL, 0);
+      TreePrefilterer::TreePrefilterer(v4);
     }
   }
 
-  (*(*v9 + 24))(v9, this);
-  return v9;
+  (*(*v4 + 24))(v4, this, v3);
+  return v4;
 }
 
-uint64_t Prefilterer::maybeMakeLookaheadScorer(Prefilterer *this, const User *a2, const PrefiltererBuildParamSet *a3)
+void *Prefilterer::maybeMakeLookaheadScorer(Prefilterer *this, const User *a2, const PrefiltererBuildParamSet *a3)
 {
   v3 = *(this + 18);
   if (!v3)
@@ -24103,24 +24053,24 @@ uint64_t Prefilterer::maybeMakeLookaheadScorer(Prefilterer *this, const User *a2
   }
 }
 
-void TParam::TParam(uint64_t a1)
+void TParam::TParam()
 {
-  OUTLINED_FUNCTION_0(a1);
-  if (v5 < 0)
-  {
-    operator delete(*v4);
-  }
-
-  if (*(v2 + 63) < 0)
+  OUTLINED_FUNCTION_0();
+  if (v4 < 0)
   {
     operator delete(*v3);
   }
 
-  if (*(v2 + 39) < 0)
+  if (*(v1 + 63) < 0)
   {
-    v6 = *v1;
+    operator delete(*v2);
+  }
 
-    operator delete(v6);
+  if (*(v1 + 39) < 0)
+  {
+    v5 = *v0;
+
+    operator delete(v5);
   }
 }
 
@@ -24277,19 +24227,19 @@ void TPItn_GetResultAlignment_cold_1(uint64_t *a1, uint64_t a2)
   }
 }
 
-void GlobalParamMgr::ParamGetBoolValue(char a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void GlobalParamMgr::ParamGetBoolValue(int a1)
 {
-  errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/mrecutil/param.cpp", 611, "mrecutil/param", 4, &errStr_mrecutil_param_E_INVALID_HANDLE, a7, a8, a1);
-  errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/mrecutil/param.cpp", 612, "mrecutil/param", 5, "%d", v9, v10, a1);
+  errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/mrecutil/param.cpp", 611, "mrecutil/param", 4, "%d", a1);
+  errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/mrecutil/param.cpp", 612, "mrecutil/param", 5, "%d", a1);
   __break(1u);
 }
 
-void GlobalParamMgr::ParamGetStringValue(char a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void GlobalParamMgr::ParamGetStringValue(int a1)
 {
-  errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/mrecutil/param.cpp", 640, "mrecutil/param", 4, &errStr_mrecutil_param_E_INVALID_HANDLE, a7, a8, a1);
-  errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/mrecutil/param.cpp", 643, "mrecutil/param", 5, "%d", v9, v10, a1);
+  errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/mrecutil/param.cpp", 640, "mrecutil/param", 4, "%d", a1);
+  errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/mrecutil/param.cpp", 643, "mrecutil/param", 5, "%d", a1);
   __break(1u);
-  _Unwind_Resume(v11);
+  _Unwind_Resume(v2);
 }
 
 uint64_t std::ostream::operator<<()

@@ -82,7 +82,7 @@
 
 + (id)initializeCalendarWithExternalId:(id)id inSource:(id)source needsSave:(BOOL *)save error:(id *)error
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   idCopy = id;
   sourceCopy = source;
   v12 = [sourceCopy calendarWithExternalIdentifier:idCopy];
@@ -95,19 +95,19 @@
   if ([sourceCopy sourceType] == 2)
   {
     v13 = [self _existingCalendarInCalDAVSourceWithExternalID:idCopy inSource:sourceCopy];
-    v17 = DALoggingwithCategory();
-    v18 = v17;
+    v16 = DALoggingwithCategory();
+    v17 = v16;
     if (v13)
     {
-      v19 = *(MEMORY[0x277D03988] + 4);
-      if (os_log_type_enabled(v17, v19))
+      v18 = *(MEMORY[0x277D03988] + 4);
+      if (os_log_type_enabled(v16, v18))
       {
         externalID = [v13 externalID];
-        v24 = 138412546;
-        v25 = idCopy;
-        v26 = 2112;
-        v27 = externalID;
-        _os_log_impl(&dword_248587000, v18, v19, "Looked up CalDAV subscribed calendar using relative path. Searched for ID: %@; found ID: %@", &v24, 0x16u);
+        v23 = 138412546;
+        v24 = idCopy;
+        v25 = 2112;
+        v26 = externalID;
+        _os_log_impl(&dword_248587000, v17, v18, "Looked up CalDAV subscribed calendar using relative path. Searched for ID: %@; found ID: %@", &v23, 0x16u);
       }
 
 LABEL_3:
@@ -120,18 +120,18 @@ LABEL_3:
       goto LABEL_4;
     }
 
-    v21 = *(MEMORY[0x277D03988] + 3);
-    if (os_log_type_enabled(v17, *(MEMORY[0x277D03988] + 3)))
+    v20 = *(MEMORY[0x277D03988] + 3);
+    if (os_log_type_enabled(v16, *(MEMORY[0x277D03988] + 3)))
     {
-      v24 = 138412290;
-      v25 = idCopy;
-      _os_log_impl(&dword_248587000, v18, v21, "Unable to find existing calendar for a CalDAV subscribed calendar. (externalID = %@)", &v24, 0xCu);
+      v23 = 138412290;
+      v24 = idCopy;
+      _os_log_impl(&dword_248587000, v17, v20, "Unable to find existing calendar for a CalDAV subscribed calendar. (externalID = %@)", &v23, 0xCu);
     }
   }
 
-  v22 = objc_opt_class();
+  v21 = objc_opt_class();
   eventStore = [sourceCopy eventStore];
-  v13 = [v22 _makeCalendarWithExternalId:idCopy inStore:eventStore error:error];
+  v13 = [v21 _makeCalendarWithExternalId:idCopy inStore:eventStore error:error];
 
   [v13 setSource:sourceCopy];
   v14 = 1;
@@ -143,14 +143,12 @@ LABEL_4:
 
 LABEL_5:
 
-  v15 = *MEMORY[0x277D85DE8];
-
   return v13;
 }
 
 + (id)_existingCalendarInCalDAVSourceWithExternalID:(id)d inSource:(id)source
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   dCopy = d;
   v7 = [source calendarsForEntityType:0];
   v8 = [self _relativePathFromCalDAVExternalID:dCopy];
@@ -161,19 +159,19 @@ LABEL_5:
     if (os_log_type_enabled(v9, v18))
     {
       *buf = 138412290;
-      v28 = dCopy;
+      v27 = dCopy;
       _os_log_impl(&dword_248587000, v9, v18, "Can't turn %@ into a relative path", buf, 0xCu);
     }
 
     goto LABEL_15;
   }
 
-  v24 = 0u;
-  v25 = 0u;
-  v22 = 0u;
   v23 = 0u;
+  v24 = 0u;
+  v21 = 0u;
+  v22 = 0u;
   v9 = v7;
-  v10 = [v9 countByEnumeratingWithState:&v22 objects:v26 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v21 objects:v25 count:16];
   if (!v10)
   {
 LABEL_15:
@@ -182,18 +180,18 @@ LABEL_15:
   }
 
   v11 = v10;
-  v21 = v7;
-  v12 = *v23;
+  v20 = v7;
+  v12 = *v22;
   while (2)
   {
     for (i = 0; i != v11; ++i)
     {
-      if (*v23 != v12)
+      if (*v22 != v12)
       {
         objc_enumerationMutation(v9);
       }
 
-      v14 = *(*(&v22 + 1) + 8 * i);
+      v14 = *(*(&v21 + 1) + 8 * i);
       externalID = [v14 externalID];
       v16 = [self _relativePathFromCalDAVExternalID:externalID];
 
@@ -205,7 +203,7 @@ LABEL_15:
       }
     }
 
-    v11 = [v9 countByEnumeratingWithState:&v22 objects:v26 count:16];
+    v11 = [v9 countByEnumeratingWithState:&v21 objects:v25 count:16];
     if (v11)
     {
       continue;
@@ -216,10 +214,8 @@ LABEL_15:
 
   v17 = 0;
 LABEL_12:
-  v7 = v21;
+  v7 = v20;
 LABEL_16:
-
-  v19 = *MEMORY[0x277D85DE8];
 
   return v17;
 }

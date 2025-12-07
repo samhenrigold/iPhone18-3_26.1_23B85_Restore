@@ -125,7 +125,7 @@
   return v5;
 }
 
-uint64_t __58__SBMixedGridHomeGestureRootSwitcherModifier_handleEvent___block_invoke(void *a1)
+void *__58__SBMixedGridHomeGestureRootSwitcherModifier_handleEvent___block_invoke(void *a1)
 {
   v2 = [*(a1[4] + 176) handleEvent:a1[5]];
   result = [*(a1[4] + 176) state];

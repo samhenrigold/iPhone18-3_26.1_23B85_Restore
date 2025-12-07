@@ -109,11 +109,11 @@
   {
     payload = MCErrorArray();
     v18 = [NSError MCErrorWithDomain:MCMDMErrorDomain code:12001 descriptionArray:payload errorType:MCErrorTypeFatal, 0];
-    mCCopyAsPrimaryError = [v18 MCCopyAsPrimaryError];
+    v19 = objc_msgSend_MCCopyAsPrimaryError(v18);
 LABEL_7:
     v22 = 0;
     v23 = v81[5];
-    v81[5] = mCCopyAsPrimaryError;
+    v81[5] = v19;
 LABEL_8:
 
     goto LABEL_9;
@@ -126,7 +126,7 @@ LABEL_8:
   {
     payload = MCErrorArray();
     v18 = [NSError MCErrorWithDomain:MCMDMErrorDomain code:12088 descriptionArray:payload errorType:MCErrorTypeFatal, 0];
-    mCCopyAsPrimaryError = [v18 MCCopyAsPrimaryError];
+    v19 = objc_msgSend_MCCopyAsPrimaryError(v18);
     goto LABEL_7;
   }
 
@@ -268,7 +268,7 @@ LABEL_41:
 
         friendlyName2 = [payload friendlyName];
         friendlyName = MCErrorArray();
-        mCCopyAsPrimaryError2 = [NSError MCErrorWithDomain:MCMDMErrorDomain code:12098 descriptionArray:friendlyName errorType:MCErrorTypeFatal, friendlyName2, 0];
+        v48 = [NSError MCErrorWithDomain:MCMDMErrorDomain code:12098 descriptionArray:friendlyName errorType:MCErrorTypeFatal, friendlyName2, 0];
       }
 
       else
@@ -280,11 +280,11 @@ LABEL_41:
 
         friendlyName2 = MCErrorArray();
         friendlyName = [NSError MCErrorWithDomain:MCMDMErrorDomain code:12099 descriptionArray:friendlyName2 errorType:MCErrorTypeFatal, 0];
-        mCCopyAsPrimaryError2 = [friendlyName MCCopyAsPrimaryError];
+        v48 = objc_msgSend_MCCopyAsPrimaryError(friendlyName);
       }
 
       v51 = v81[5];
-      v81[5] = mCCopyAsPrimaryError2;
+      v81[5] = v48;
     }
 
     goto LABEL_38;
@@ -1048,7 +1048,7 @@ LABEL_24:
   }
 
   CFDictionaryAddValue(Mutable, @"InactivityRebootEnabled", *v7);
-  v8 = sub_1000C0D4C(-3, 0, 0);
+  v8 = sub_1000C0D4C(4294967293, 0, 0, v6);
   v9 = _MCLogObjects[0];
   if (v8)
   {

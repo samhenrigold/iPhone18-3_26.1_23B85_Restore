@@ -52,11 +52,11 @@
   }
 }
 
-uint64_t __83__INDefaultCardTemplate_INImageProxyInjecting___injectProxiesForImages_completion___block_invoke_2(uint64_t result, uint64_t a2)
+id *__83__INDefaultCardTemplate_INImageProxyInjecting___injectProxiesForImages_completion___block_invoke_2(id *result, uint64_t a2)
 {
   if (a2)
   {
-    return [*(result + 32) setImage:a2];
+    return [result[4] setImage:a2];
   }
 
   return result;

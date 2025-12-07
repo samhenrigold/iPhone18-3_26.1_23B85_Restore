@@ -30,7 +30,7 @@
 + (void)setApplicationProxy:(id)proxy
 {
   swift_unknownObjectRetain();
-  _sSo21SFSiriLinkCoordinatorC12MobileSafariE19setApplicationProxyyySo09SFBrowsergH0_pFZ_0();
+  _sSo21SFSiriLinkCoordinatorC12MobileSafariE19setApplicationProxyyySo09SFBrowsergH0_pFZ_0(proxy);
 
   swift_unknownObjectRelease();
 }

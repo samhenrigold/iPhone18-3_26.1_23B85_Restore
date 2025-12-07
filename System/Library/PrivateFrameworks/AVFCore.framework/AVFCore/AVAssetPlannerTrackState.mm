@@ -318,7 +318,7 @@ LABEL_13:
 {
   fig_log_get_emitter();
   OUTLINED_FUNCTION_0_8();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v3, v4, vars0);
   *a1 = result;
   return result;
 }
@@ -327,7 +327,7 @@ LABEL_13:
 {
   fig_log_get_emitter();
   OUTLINED_FUNCTION_0_8();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v3, v4, vars0);
   *a1 = result;
   return result;
 }
@@ -336,7 +336,7 @@ LABEL_13:
 {
   fig_log_get_emitter();
   OUTLINED_FUNCTION_0_8();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v3, v4, vars0);
   *a1 = result;
   return result;
 }
@@ -345,7 +345,7 @@ LABEL_13:
 {
   fig_log_get_emitter();
   OUTLINED_FUNCTION_0_8();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v3, v4, vars0);
   *a1 = result;
   return result;
 }
@@ -354,7 +354,7 @@ LABEL_13:
 {
   fig_log_get_emitter();
   OUTLINED_FUNCTION_0_8();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v3, v4, vars0);
   *a1 = result;
   return result;
 }
@@ -363,7 +363,7 @@ LABEL_13:
 {
   fig_log_get_emitter();
   OUTLINED_FUNCTION_0_8();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v3, v4, vars0);
   *a1 = result;
   return result;
 }
@@ -372,7 +372,7 @@ LABEL_13:
 {
   fig_log_get_emitter();
   OUTLINED_FUNCTION_0_8();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v3, v4, vars0);
   *a1 = result;
   return result;
 }
@@ -381,7 +381,7 @@ LABEL_13:
 {
   fig_log_get_emitter();
   OUTLINED_FUNCTION_0_8();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v3, v4, vars0);
   *a1 = result;
   return result;
 }
@@ -390,7 +390,7 @@ LABEL_13:
 {
   fig_log_get_emitter();
   OUTLINED_FUNCTION_0_8();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v3, v4, vars0);
   *a1 = result;
   return result;
 }
@@ -399,7 +399,7 @@ LABEL_13:
 {
   fig_log_get_emitter();
   OUTLINED_FUNCTION_0_8();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v3, v4, vars0);
   *a1 = result;
   return result;
 }
@@ -408,7 +408,7 @@ LABEL_13:
 {
   fig_log_get_emitter();
   OUTLINED_FUNCTION_0_8();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v3, v4, vars0);
   *a1 = result;
   return result;
 }
@@ -417,7 +417,7 @@ LABEL_13:
 {
   fig_log_get_emitter();
   OUTLINED_FUNCTION_0_8();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v3, v4, vars0);
   *a1 = result;
   return result;
 }
@@ -426,7 +426,7 @@ LABEL_13:
 {
   fig_log_get_emitter();
   OUTLINED_FUNCTION_0_8();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v3, v4, vars0);
   *a1 = result;
   return result;
 }

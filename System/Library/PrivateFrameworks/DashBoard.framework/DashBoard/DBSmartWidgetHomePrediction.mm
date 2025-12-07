@@ -466,11 +466,14 @@ LABEL_11:
   [(DBSmartWidgetPrediction *)self predictionDidUpdate];
 }
 
-void __49__DBSmartWidgetHomePrediction_primaryActionBlock__block_invoke_cold_1(uint64_t a1, uint64_t a2)
+void __49__DBSmartWidgetHomePrediction_primaryActionBlock__block_invoke_cold_1(uint64_t *a1, uint64_t a2)
 {
-  v2 = NSStringFromDoorState(a2);
+  v2 = *a1;
+  v3 = NSStringFromDoorState(a2);
+  LODWORD(v10) = 138543618;
+  *(&v10 + 4) = v2;
   OUTLINED_FUNCTION_1_3();
-  OUTLINED_FUNCTION_0_4(&dword_248146000, v3, v4, "%{public}@ currentTargetDoorState=%{public}@", v5, v6, v7, v8, 2u);
+  OUTLINED_FUNCTION_0_4(&dword_248146000, v4, v5, "%{public}@ currentTargetDoorState=%{public}@", v6, v7, v8, v9, v10, DWORD2(v10));
 }
 
 - (void)serviceDidUpdate:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
@@ -483,16 +486,20 @@ void __49__DBSmartWidgetHomePrediction_primaryActionBlock__block_invoke_cold_1(u
 
 - (void)garageDoor:(uint64_t)a1 didUpdateDoorState:(uint64_t)a2 .cold.1(uint64_t a1, uint64_t a2)
 {
-  v2 = NSStringFromDoorState(a2);
+  v3 = NSStringFromDoorState(a2);
+  LODWORD(v10) = 138543618;
+  *(&v10 + 4) = a1;
   OUTLINED_FUNCTION_1_3();
-  OUTLINED_FUNCTION_0_4(&dword_248146000, v3, v4, "%{public}@ doorState=%{public}@", v5, v6, v7, v8, 2u);
+  OUTLINED_FUNCTION_0_4(&dword_248146000, v4, v5, "%{public}@ doorState=%{public}@", v6, v7, v8, v9, v10, DWORD2(v10));
 }
 
 - (void)garageDoor:(uint64_t)a1 didUpdateTargetDoorState:(uint64_t)a2 .cold.1(uint64_t a1, uint64_t a2)
 {
-  v2 = NSStringFromDoorState(a2);
+  v3 = NSStringFromDoorState(a2);
+  LODWORD(v10) = 138543618;
+  *(&v10 + 4) = a1;
   OUTLINED_FUNCTION_1_3();
-  OUTLINED_FUNCTION_0_4(&dword_248146000, v3, v4, "%{public}@ targetDoorState=%{public}@", v5, v6, v7, v8, 2u);
+  OUTLINED_FUNCTION_0_4(&dword_248146000, v4, v5, "%{public}@ targetDoorState=%{public}@", v6, v7, v8, v9, v10, DWORD2(v10));
 }
 
 - (void)garageDoor:(os_log_t)log didUpdateObstructionDetected:.cold.1(uint64_t a1, char a2, os_log_t log)

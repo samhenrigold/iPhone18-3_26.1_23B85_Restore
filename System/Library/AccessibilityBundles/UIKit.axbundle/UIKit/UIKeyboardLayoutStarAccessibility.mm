@@ -712,7 +712,7 @@ uint64_t __71__UIKeyboardLayoutStarAccessibility__accessibilityCreateElementForK
       MEMORY[0x29EDC9740](firstObject);
     }
 
-    [UIKeyboardLayoutStarAccessibility _axSetIsWaitingForEmojiPopupAnnouncement:selfCopy];
+    [(UIKeyboardLayoutStarAccessibility *)selfCopy _axSetIsWaitingForEmojiPopupAnnouncement:?];
     defaultCenter = [MEMORY[0x29EDBA068] defaultCenter];
     [defaultCenter removeObserver:selfCopy name:*MEMORY[0x29EDC7E98] object:?];
     MEMORY[0x29EDC9740](defaultCenter);
@@ -766,7 +766,7 @@ uint64_t __71__UIKeyboardLayoutStarAccessibility__accessibilityCreateElementForK
       v13 = accessibilityLocalizedString(@"emoji.variants.alert");
       UIAccessibilityPostNotification(notification, v13);
       MEMORY[0x29EDC9740](v13);
-      [UIKeyboardLayoutStarAccessibility _axSetIsWaitingForEmojiPopupAnnouncement:selfCopy];
+      [(UIKeyboardLayoutStarAccessibility *)selfCopy _axSetIsWaitingForEmojiPopupAnnouncement:?];
       defaultCenter = [MEMORY[0x29EDBA068] defaultCenter];
       [defaultCenter addObserver:selfCopy selector:sel__axHandleEmojiPopupLayoutChangeAfterAnnouncement name:*MEMORY[0x29EDC7E98] object:?];
       MEMORY[0x29EDC9740](defaultCenter);
@@ -2429,7 +2429,7 @@ void __61__UIKeyboardLayoutStarAccessibility_showPopupVariantsForKey___block_inv
   return v16;
 }
 
-BOOL __69__UIKeyboardLayoutStarAccessibility__accessibilityHitTest_withEvent___block_invoke(void *a1, void *a2)
+BOOL __69__UIKeyboardLayoutStarAccessibility__accessibilityHitTest_withEvent___block_invoke(double *a1, void *a2)
 {
   location[1] = a1;
   location[0] = 0;

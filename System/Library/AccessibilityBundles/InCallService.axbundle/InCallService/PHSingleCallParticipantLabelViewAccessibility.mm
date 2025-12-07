@@ -46,7 +46,7 @@
 
 id __91__PHSingleCallParticipantLabelViewAccessibility__accessibilityLoadAccessibilityInformation__block_invoke(uint64_t a1)
 {
-  v21[1] = *MEMORY[0x29EDCA608];
+  v20[1] = *MEMORY[0x29EDCA608];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v2 = [WeakRetained text];
 
@@ -61,20 +61,20 @@ id __91__PHSingleCallParticipantLabelViewAccessibility__accessibilityLoadAccessi
 
     if (v8 > 5)
     {
-      v18 = *MEMORY[0x29EDBD8B8];
-      v19 = MEMORY[0x29EDB8EB0];
+      v17 = *MEMORY[0x29EDBD8B8];
+      v18 = MEMORY[0x29EDB8EB0];
       v9 = MEMORY[0x29EDB8DC0];
-      v10 = &v19;
-      v11 = &v18;
+      v10 = &v18;
+      v11 = &v17;
     }
 
     else
     {
-      v20 = *MEMORY[0x29EDBD8C0];
-      v21[0] = MEMORY[0x29EDB8EB0];
+      v19 = *MEMORY[0x29EDBD8C0];
+      v20[0] = MEMORY[0x29EDB8EB0];
       v9 = MEMORY[0x29EDB8DC0];
-      v10 = v21;
-      v11 = &v20;
+      v10 = v20;
+      v11 = &v19;
     }
 
     v12 = [v9 dictionaryWithObjects:v10 forKeys:v11 count:1];
@@ -87,8 +87,6 @@ id __91__PHSingleCallParticipantLabelViewAccessibility__accessibilityLoadAccessi
   {
     v5 = v2;
   }
-
-  v16 = *MEMORY[0x29EDCA608];
 
   return v5;
 }

@@ -877,7 +877,7 @@ LABEL_76:
         while (v18 < v3);
       }
 
-      std::vector<std::shared_ptr<TSUStringChunk>>::erase(&self->_chunks, self->_chunks.__begin_ + 16 * location + 16 * v34, self->_chunks.__begin_ + v35);
+      std::vector<std::shared_ptr<TSUStringChunk>>::erase(&self->_chunks, self->_chunks.__begin_ + location + v34, self->_chunks.__begin_ + v35);
       if (v41)
       {
         std::__shared_weak_count::__release_shared[abi:ne200100](v41);

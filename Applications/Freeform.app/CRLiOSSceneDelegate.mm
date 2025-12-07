@@ -11,7 +11,7 @@
   v3 = OBJC_IVAR____TtC8Freeform19CRLiOSSceneDelegate_boardViewControllerTransitioningDelegate;
   *(&self->super.super.super.isa + v3) = [objc_allocWithZone(type metadata accessor for CRLiOSBoardViewControllerTransitioningDelegate()) init];
   v5.receiver = self;
-  v5.super_class = type metadata accessor for CRLiOSSceneDelegate();
+  v5.super_class = type metadata accessor for CRLiOSSceneDelegate(0);
   return [(CRLSceneDelegate *)&v5 init];
 }
 
@@ -26,7 +26,7 @@
 
 - (void)qa_importFileFor:(id)for
 {
-  v5 = sub_1005B981C(&qword_1019FB750);
+  v5 = sub_1005B981C(&qword_1019FB750, &qword_10146F1B0);
   __chkstk_darwin(v5 - 8);
   v7 = &v15 - v6;
   v8 = type metadata accessor for TaskPriority();

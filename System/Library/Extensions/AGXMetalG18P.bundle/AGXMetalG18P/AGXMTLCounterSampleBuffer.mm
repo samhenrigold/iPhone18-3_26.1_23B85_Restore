@@ -196,7 +196,7 @@ LABEL_13:
     goto LABEL_14;
   }
 
-  v13 = 8 * [descriptor sampleCount];
+  v13 = 8 * objc_msgSend_sampleCount(descriptor);
   v14 = 16 * ([descriptor storageMode] & 0xF);
   label = [descriptor label];
 

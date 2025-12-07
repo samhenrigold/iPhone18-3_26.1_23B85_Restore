@@ -29,7 +29,7 @@
 
 - (void)dismissViewController
 {
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0CB030);
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0CB030, &qword_1A34EB1F0);
   MEMORY[0x1EEE9AC00](v3 - 8);
   v5 = &v8 - v4;
   v6 = type metadata accessor for ContactCardActionsViewModel.ViewController(0);

@@ -14,57 +14,34 @@
   fieldCopy = field;
   dataCopy = data;
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) == 0)
+  if (objc_opt_isKindOfClass())
   {
-    v11 = 0;
-    goto LABEL_13;
-  }
-
-  v7 = dataCopy;
-  v8 = [v7 objectForKeyedSubscript:@"treatmentType"];
-  v9 = objc_opt_class();
-  if ([v8 isEqualToString:@"numberDeres"])
-  {
-    v10 = off_2798CCC50;
-LABEL_11:
-    v12 = *v10;
+    v7 = dataCopy;
+    v8 = [v7 objectForKeyedSubscript:@"treatmentType"];
     v9 = objc_opt_class();
-    goto LABEL_12;
+    if (([v8 isEqualToString:@"numberDeres"] & 1) != 0 || (objc_msgSend(v8, "isEqualToString:", @"urlDeres") & 1) != 0 || (objc_msgSend(v8, "isEqualToString:", @"hash") & 1) != 0 || objc_msgSend(v8, "isEqualToString:", @"versionDeres"))
+    {
+      v9 = objc_opt_class();
+    }
+
+    v10 = [[v9 alloc] initWithField:fieldCopy configDictionary:v7];
   }
 
-  if ([v8 isEqualToString:@"urlDeres"])
+  else
   {
-    v10 = off_2798CCD50;
-    goto LABEL_11;
+    v10 = 0;
   }
 
-  if ([v8 isEqualToString:@"hash"])
-  {
-    v10 = off_2798CCB78;
-    goto LABEL_11;
-  }
-
-  if ([v8 isEqualToString:@"versionDeres"])
-  {
-    v10 = &off_2798CCD68;
-    goto LABEL_11;
-  }
-
-LABEL_12:
-  v11 = [[v9 alloc] initWithField:fieldCopy configDictionary:v7];
-
-LABEL_13:
-
-  return v11;
+  return v10;
 }
 
 - (MTTreatmentAction)initWithField:(id)field configDictionary:(id)dictionary
 {
   fieldCopy = field;
   dictionaryCopy = dictionary;
-  v46.receiver = self;
-  v46.super_class = MTTreatmentAction;
-  v8 = [(MTTreatmentAction *)&v46 init];
+  v44.receiver = self;
+  v44.super_class = MTTreatmentAction;
+  v8 = [(MTTreatmentAction *)&v44 init];
   v9 = v8;
   if (v8)
   {
@@ -87,104 +64,101 @@ LABEL_13:
     }
 
     v13 = [dictionaryCopy objectForKeyedSubscript:@"allowlistedFields"];
-    v14 = 0x277CBE000uLL;
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
       [(MTTreatmentAction *)v9 setAllowlistedFields:v13];
     }
 
-    v15 = [dictionaryCopy objectForKeyedSubscript:@"denylistedFields"];
+    v14 = [dictionaryCopy objectForKeyedSubscript:@"denylistedFields"];
     objc_opt_class();
-    v45 = v15;
+    v43 = v14;
     if (objc_opt_isKindOfClass())
     {
-      [(MTTreatmentAction *)v9 setDenylistedFields:v15];
+      [(MTTreatmentAction *)v9 setDenylistedFields:v14];
     }
 
-    v16 = [dictionaryCopy objectForKeyedSubscript:@"blacklisted"];
+    v15 = [dictionaryCopy objectForKeyedSubscript:@"blacklisted"];
     objc_opt_class();
-    if ((objc_opt_isKindOfClass() & 1) != 0 && !-[MTTreatmentAction denylisted](v9, "denylisted") && [v16 BOOLValue])
+    if ((objc_opt_isKindOfClass() & 1) != 0 && !-[MTTreatmentAction denylisted](v9, "denylisted") && [v15 BOOLValue])
     {
-      -[MTTreatmentAction setDenylisted:](v9, "setDenylisted:", [v16 BOOLValue]);
+      -[MTTreatmentAction setDenylisted:](v9, "setDenylisted:", [v15 BOOLValue]);
     }
 
-    v44 = v16;
-    v17 = [dictionaryCopy objectForKeyedSubscript:@"whitelistedFields"];
+    v42 = v15;
+    v16 = [dictionaryCopy objectForKeyedSubscript:@"whitelistedFields"];
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
       allowlistedFields = [(MTTreatmentAction *)v9 allowlistedFields];
       if (allowlistedFields)
       {
-        v19 = MEMORY[0x277CBEB70];
+        v18 = MEMORY[0x277CBEB70];
         [(MTTreatmentAction *)v9 allowlistedFields];
-        v21 = v20 = v17;
-        [v21 arrayByAddingObjectsFromArray:v20];
-        v40 = v12;
-        v22 = v42 = fieldCopy;
-        v23 = [v19 orderedSetWithArray:v22];
-        [v23 array];
-        v24 = v13;
-        v26 = v25 = v10;
-        [(MTTreatmentAction *)v9 setAllowlistedFields:v26];
+        v20 = v19 = v16;
+        [v20 arrayByAddingObjectsFromArray:v19];
+        v38 = v12;
+        v21 = v40 = fieldCopy;
+        v22 = [v18 orderedSetWithArray:v21];
+        [v22 array];
+        v23 = v13;
+        v25 = v24 = v10;
+        [(MTTreatmentAction *)v9 setAllowlistedFields:v25];
 
-        v10 = v25;
-        v13 = v24;
+        v10 = v24;
+        v13 = v23;
 
-        v12 = v40;
-        fieldCopy = v42;
+        v12 = v38;
+        fieldCopy = v40;
 
-        v17 = v20;
-        v14 = 0x277CBE000;
+        v16 = v19;
       }
 
       else
       {
-        [(MTTreatmentAction *)v9 setAllowlistedFields:v17];
+        [(MTTreatmentAction *)v9 setAllowlistedFields:v16];
       }
     }
 
-    v27 = [dictionaryCopy objectForKeyedSubscript:@"blacklistedFields"];
-    v28 = *(v14 + 2656);
+    v26 = [dictionaryCopy objectForKeyedSubscript:@"blacklistedFields"];
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
       denylistedFields = [(MTTreatmentAction *)v9 denylistedFields];
       if (denylistedFields)
       {
-        v39 = v17;
-        v30 = MEMORY[0x277CBEB70];
+        v37 = v16;
+        v28 = MEMORY[0x277CBEB70];
         [(MTTreatmentAction *)v9 denylistedFields];
-        v31 = v43 = fieldCopy;
-        [v31 arrayByAddingObjectsFromArray:v27];
-        v32 = v41 = v10;
-        v33 = [v30 orderedSetWithArray:v32];
-        [v33 array];
-        v34 = v13;
-        v36 = v35 = v12;
-        [(MTTreatmentAction *)v9 setDenylistedFields:v36];
+        v29 = v41 = fieldCopy;
+        [v29 arrayByAddingObjectsFromArray:v26];
+        v30 = v39 = v10;
+        v31 = [v28 orderedSetWithArray:v30];
+        [v31 array];
+        v32 = v13;
+        v34 = v33 = v12;
+        [(MTTreatmentAction *)v9 setDenylistedFields:v34];
 
-        v12 = v35;
-        v13 = v34;
+        v12 = v33;
+        v13 = v32;
 
-        v17 = v39;
-        v10 = v41;
+        v16 = v37;
+        v10 = v39;
 
-        fieldCopy = v43;
+        fieldCopy = v41;
       }
 
       else
       {
-        [(MTTreatmentAction *)v9 setDenylistedFields:v27];
+        [(MTTreatmentAction *)v9 setDenylistedFields:v26];
       }
     }
 
-    v37 = [dictionaryCopy objectForKeyedSubscript:@"fieldsMap"];
+    v35 = [dictionaryCopy objectForKeyedSubscript:@"fieldsMap"];
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      [(MTTreatmentAction *)v9 setFieldsMap:v37];
+      [(MTTreatmentAction *)v9 setFieldsMap:v35];
     }
 
     [(MTTreatmentAction *)v9 computeKeyPaths];
@@ -206,21 +180,19 @@ LABEL_13:
   v8 = self->_dstKeyPath;
   if (v7)
   {
-    v14 = [(NSArray *)v8 mutableCopy];
-    [v14 removeLastObject];
+    v12 = [(NSArray *)v8 mutableCopy];
+    [v12 removeLastObject];
     sourceField2 = [(MTTreatmentAction *)self sourceField];
-    [v14 addObject:sourceField2];
+    [v12 addObject:sourceField2];
 
-    v10 = [v14 copy];
+    v10 = [v12 copy];
     srcKeyPath = self->_srcKeyPath;
     self->_srcKeyPath = v10;
   }
 
   else
   {
-    v12 = v8;
-    v13 = self->_srcKeyPath;
-    self->_srcKeyPath = v12;
+    self->_srcKeyPath = v8;
   }
 
   MEMORY[0x2821F96F8]();
@@ -236,7 +208,7 @@ LABEL_13:
 
 - (id)performAction:(id)action context:(id)context
 {
-  v68 = *MEMORY[0x277D85DE8];
+  v64 = *MEMORY[0x277D85DE8];
   actionCopy = action;
   if ([(MTTreatmentAction *)self denylisted])
   {
@@ -261,45 +233,43 @@ LABEL_13:
 
     if (v10)
     {
-      v51 = [actionCopy mutableCopy];
-      v60 = 0u;
-      v61 = 0u;
-      v62 = 0u;
-      v63 = 0u;
+      v47 = [actionCopy mutableCopy];
+      v56 = 0u;
+      v57 = 0u;
+      v58 = 0u;
+      v59 = 0u;
       obj = [(MTTreatmentAction *)self fieldsMap];
-      v11 = [obj countByEnumeratingWithState:&v60 objects:v67 count:16];
+      v11 = [obj countByEnumeratingWithState:&v56 objects:v63 count:16];
       if (!v11)
       {
         goto LABEL_30;
       }
 
       v12 = v11;
-      v13 = *v61;
-      v14 = 0x277CCA000uLL;
-      v15 = 0x277CBE000uLL;
-      v48 = *v61;
+      v13 = *v57;
+      v14 = 0x277CBE000uLL;
+      v44 = *v57;
       while (1)
       {
-        v16 = 0;
-        v49 = v12;
+        v15 = 0;
+        v45 = v12;
         do
         {
-          if (*v61 != v13)
+          if (*v57 != v13)
           {
             objc_enumerationMutation(obj);
           }
 
-          v17 = *(*(&v60 + 1) + 8 * v16);
+          v16 = *(*(&v56 + 1) + 8 * v15);
           fieldsMap2 = [(MTTreatmentAction *)self fieldsMap];
-          v19 = [fieldsMap2 objectForKeyedSubscript:v17];
+          v18 = [fieldsMap2 objectForKeyedSubscript:v16];
 
-          v20 = *(v14 + 3240);
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            v66 = v19;
-            v21 = [*(v15 + 2656) arrayWithObjects:&v66 count:1];
-            if (!v21)
+            v62 = v18;
+            v19 = [*(v14 + 2656) arrayWithObjects:&v62 count:1];
+            if (!v19)
             {
               goto LABEL_28;
             }
@@ -307,52 +277,51 @@ LABEL_13:
 
           else
           {
-            v22 = *(v15 + 2656);
             objc_opt_class();
             if ((objc_opt_isKindOfClass() & 1) == 0)
             {
               goto LABEL_28;
             }
 
-            v21 = v19;
-            if (!v21)
+            v19 = v18;
+            if (!v19)
             {
               goto LABEL_28;
             }
           }
 
           selfCopy = self;
-          v58 = 0u;
-          v59 = 0u;
-          v56 = 0u;
-          v57 = 0u;
-          v24 = v21;
-          v25 = [v24 countByEnumeratingWithState:&v56 objects:v65 count:16];
-          if (v25)
+          v54 = 0u;
+          v55 = 0u;
+          v52 = 0u;
+          v53 = 0u;
+          v21 = v19;
+          v22 = [v21 countByEnumeratingWithState:&v52 objects:v61 count:16];
+          if (v22)
           {
-            v26 = v25;
-            v27 = *v57;
+            v23 = v22;
+            v24 = *v53;
             while (2)
             {
-              for (i = 0; i != v26; ++i)
+              for (i = 0; i != v23; ++i)
               {
-                if (*v57 != v27)
+                if (*v53 != v24)
                 {
-                  objc_enumerationMutation(v24);
+                  objc_enumerationMutation(v21);
                 }
 
-                v29 = [actionCopy mt_nullableValueForKeyPathExt:*(*(&v56 + 1) + 8 * i)];
-                if (v29)
+                v26 = [actionCopy mt_nullableValueForKeyPathExt:*(*(&v52 + 1) + 8 * i)];
+                if (v26)
                 {
-                  v30 = v29;
-                  [v51 setObject:v29 forKeyedSubscript:v17];
+                  v27 = v26;
+                  [v47 setObject:v26 forKeyedSubscript:v16];
 
                   goto LABEL_27;
                 }
               }
 
-              v26 = [v24 countByEnumeratingWithState:&v56 objects:v65 count:16];
-              if (v26)
+              v23 = [v21 countByEnumeratingWithState:&v52 objects:v61 count:16];
+              if (v23)
               {
                 continue;
               }
@@ -364,17 +333,16 @@ LABEL_13:
 LABEL_27:
 
           self = selfCopy;
-          v13 = v48;
-          v12 = v49;
-          v14 = 0x277CCA000;
-          v15 = 0x277CBE000;
+          v13 = v44;
+          v12 = v45;
+          v14 = 0x277CBE000;
 LABEL_28:
 
-          ++v16;
+          ++v15;
         }
 
-        while (v16 != v12);
-        v12 = [obj countByEnumeratingWithState:&v60 objects:v67 count:16];
+        while (v15 != v12);
+        v12 = [obj countByEnumeratingWithState:&v56 objects:v63 count:16];
         if (!v12)
         {
 LABEL_30:
@@ -384,63 +352,63 @@ LABEL_30:
       }
     }
 
-    v51 = actionCopy;
+    v47 = actionCopy;
 LABEL_32:
     allowlistedFields = [(MTTreatmentAction *)self allowlistedFields];
-    v32 = [allowlistedFields count];
+    v29 = [allowlistedFields count];
 
-    if (v32)
+    if (v29)
     {
-      v33 = MEMORY[0x277CBEB38];
+      v30 = MEMORY[0x277CBEB38];
       allowlistedFields2 = [(MTTreatmentAction *)self allowlistedFields];
-      actionCopy = [v33 dictionaryWithCapacity:{objc_msgSend(allowlistedFields2, "count")}];
+      actionCopy = [v30 dictionaryWithCapacity:{objc_msgSend(allowlistedFields2, "count")}];
 
-      v54 = 0u;
-      v55 = 0u;
-      v52 = 0u;
-      v53 = 0u;
+      v50 = 0u;
+      v51 = 0u;
+      v48 = 0u;
+      v49 = 0u;
       allowlistedFields3 = [(MTTreatmentAction *)self allowlistedFields];
-      v36 = [allowlistedFields3 countByEnumeratingWithState:&v52 objects:v64 count:16];
-      if (v36)
+      v33 = [allowlistedFields3 countByEnumeratingWithState:&v48 objects:v60 count:16];
+      if (v33)
       {
-        v37 = v36;
-        v38 = *v53;
+        v34 = v33;
+        v35 = *v49;
         do
         {
-          for (j = 0; j != v37; ++j)
+          for (j = 0; j != v34; ++j)
           {
-            if (*v53 != v38)
+            if (*v49 != v35)
             {
               objc_enumerationMutation(allowlistedFields3);
             }
 
-            v40 = *(*(&v52 + 1) + 8 * j);
-            v41 = [v51 objectForKeyedSubscript:v40];
-            [actionCopy setObject:v41 forKeyedSubscript:v40];
+            v37 = *(*(&v48 + 1) + 8 * j);
+            v38 = [v47 objectForKeyedSubscript:v37];
+            [actionCopy setObject:v38 forKeyedSubscript:v37];
           }
 
-          v37 = [allowlistedFields3 countByEnumeratingWithState:&v52 objects:v64 count:16];
+          v34 = [allowlistedFields3 countByEnumeratingWithState:&v48 objects:v60 count:16];
         }
 
-        while (v37);
+        while (v34);
       }
     }
 
     else
     {
-      actionCopy = v51;
+      actionCopy = v47;
     }
 
     denylistedFields = [(MTTreatmentAction *)self denylistedFields];
-    v43 = [denylistedFields count];
+    v40 = [denylistedFields count];
 
-    if (v43)
+    if (v40)
     {
-      v44 = [actionCopy mutableCopy];
+      v41 = [actionCopy mutableCopy];
       denylistedFields2 = [(MTTreatmentAction *)self denylistedFields];
-      [v44 removeObjectsForKeys:denylistedFields2];
+      [v41 removeObjectsForKeys:denylistedFields2];
 
-      actionCopy = v44;
+      actionCopy = v41;
     }
   }
 
@@ -448,14 +416,12 @@ LABEL_32:
   v6 = actionCopy;
 LABEL_45:
 
-  v46 = *MEMORY[0x277D85DE8];
-
   return v6;
 }
 
 - (id)performAction:(id)action atKeyIndex:(int64_t)index context:(id)context
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   actionCopy = action;
   contextCopy = context;
   srcKeyPath = [(MTTreatmentAction *)self srcKeyPath];
@@ -500,57 +466,57 @@ LABEL_21:
   v21 = isKindOfClass;
   if (isKindOfClass)
   {
-    v35 = isKindOfClass;
-    v36 = v18;
-    v37 = v17;
-    v38 = v13;
+    v34 = isKindOfClass;
+    v35 = v18;
+    v36 = v17;
+    v37 = v13;
     v22 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(v19, "count")}];
+    v38 = 0u;
     v39 = 0u;
     v40 = 0u;
     v41 = 0u;
-    v42 = 0u;
-    v34 = v19;
+    v33 = v19;
     v23 = v19;
-    v24 = [v23 countByEnumeratingWithState:&v39 objects:v43 count:16];
+    v24 = [v23 countByEnumeratingWithState:&v38 objects:v42 count:16];
     if (v24)
     {
       v25 = v24;
-      v26 = *v40;
+      v26 = *v39;
       do
       {
         for (i = 0; i != v25; ++i)
         {
-          if (*v40 != v26)
+          if (*v39 != v26)
           {
             objc_enumerationMutation(v23);
           }
 
-          v28 = [(MTTreatmentAction *)self performAction:*(*(&v39 + 1) + 8 * i) atKeyIndex:index + 1 context:contextCopy];
+          v28 = [(MTTreatmentAction *)self performAction:*(*(&v38 + 1) + 8 * i) atKeyIndex:index + 1 context:contextCopy];
           if (v28)
           {
             [v22 addObject:v28];
           }
         }
 
-        v25 = [v23 countByEnumeratingWithState:&v39 objects:v43 count:16];
+        v25 = [v23 countByEnumeratingWithState:&v38 objects:v42 count:16];
       }
 
       while (v25);
     }
 
-    v17 = v37;
-    if ([v37 hasSuffix:@"[]"])
+    v17 = v36;
+    if ([v36 hasSuffix:@"[]"])
     {
-      v29 = [v37 substringToIndex:{objc_msgSend(v37, "length") - 2}];
+      v29 = [v36 substringToIndex:{objc_msgSend(v36, "length") - 2}];
 
       v17 = v29;
     }
 
-    v13 = v38;
-    v18 = v36;
-    v21 = v35;
-    v19 = v34;
-    self = [v38 mt_dictionarybyReplacingKey:v17 value:v22];
+    v13 = v37;
+    v18 = v35;
+    v21 = v34;
+    v19 = v33;
+    self = [v37 mt_dictionarybyReplacingKey:v17 value:v22];
   }
 
   if ((v21 & 1) == 0)
@@ -561,8 +527,6 @@ LABEL_20:
   }
 
 LABEL_22:
-
-  v32 = *MEMORY[0x277D85DE8];
 
   return self;
 }

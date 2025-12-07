@@ -76,7 +76,7 @@ void __57__DNDAppConfigurationService_serviceForClientIdentifier___block_invoke_
 
 - (void)getCurrentAppConfigurationForActionIdentifier:(id)identifier withCompletionHandler:(id)handler
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   handlerCopy = handler;
   state.opaque[0] = 0;
@@ -88,32 +88,31 @@ void __57__DNDAppConfigurationService_serviceForClientIdentifier___block_invoke_
   if (os_log_type_enabled(DNDLogAppConfiguration, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543618;
-    v22 = v9;
-    v23 = 2112;
-    v24 = identifierCopy;
+    v21 = v9;
+    v22 = 2112;
+    v23 = identifierCopy;
     _os_log_impl(&dword_22002F000, v10, OS_LOG_TYPE_DEFAULT, "[%{public}@] Getting current app configuration for action identifier %@", buf, 0x16u);
   }
 
   v11 = +[DNDRemoteAppConfigurationServiceConnection sharedInstance];
-  v16[0] = MEMORY[0x277D85DD0];
-  v16[1] = 3221225472;
-  v16[2] = __98__DNDAppConfigurationService_getCurrentAppConfigurationForActionIdentifier_withCompletionHandler___block_invoke;
-  v16[3] = &unk_27843A4F8;
-  v17 = v9;
-  v18 = identifierCopy;
-  v19 = handlerCopy;
+  v15[0] = MEMORY[0x277D85DD0];
+  v15[1] = 3221225472;
+  v15[2] = __98__DNDAppConfigurationService_getCurrentAppConfigurationForActionIdentifier_withCompletionHandler___block_invoke;
+  v15[3] = &unk_27843A4F8;
+  v16 = v9;
+  v17 = identifierCopy;
+  v18 = handlerCopy;
   v12 = handlerCopy;
   v13 = identifierCopy;
   v14 = v9;
-  [v11 getCurrentAppConfigurationForActionIdentifier:v13 withRequestDetails:v14 completionHandler:v16];
+  [v11 getCurrentAppConfigurationForActionIdentifier:v13 withRequestDetails:v14 completionHandler:v15];
 
   os_activity_scope_leave(&state);
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void __98__DNDAppConfigurationService_getCurrentAppConfigurationForActionIdentifier_withCompletionHandler___block_invoke(void *a1, void *a2, void *a3)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = v6;
@@ -127,15 +126,15 @@ void __98__DNDAppConfigurationService_getCurrentAppConfigurationForActionIdentif
 
     v12 = a1[4];
     v13 = a1[5];
-    v21 = 138543618;
-    v22 = v12;
-    v23 = 2112;
-    v24 = v13;
+    v20 = 138543618;
+    v21 = v12;
+    v22 = 2112;
+    v23 = v13;
     v14 = "[%{public}@] Got current app configuration for action identifier %@";
     v15 = v10;
     v16 = 22;
 LABEL_9:
-    _os_log_impl(&dword_22002F000, v15, OS_LOG_TYPE_DEFAULT, v14, &v21, v16);
+    _os_log_impl(&dword_22002F000, v15, OS_LOG_TYPE_DEFAULT, v14, &v20, v16);
     goto LABEL_12;
   }
 
@@ -158,8 +157,8 @@ LABEL_9:
     }
 
     v19 = a1[4];
-    v21 = 138543362;
-    v22 = v19;
+    v20 = 138543362;
+    v21 = v19;
     v14 = "[%{public}@] No current app configuration action.";
     v15 = v18;
     v16 = 12;
@@ -169,18 +168,16 @@ LABEL_9:
 LABEL_10:
   if (os_log_type_enabled(DNDLogAppConfiguration, OS_LOG_TYPE_ERROR))
   {
-    __98__DNDAppConfigurationService_getCurrentAppConfigurationForActionIdentifier_withCompletionHandler___block_invoke_cold_1(a1);
+    __98__DNDAppConfigurationService_getCurrentAppConfigurationForActionIdentifier_withCompletionHandler___block_invoke_cold_1();
   }
 
 LABEL_12:
   (*(a1[6] + 16))(a1[6], v5, v7, v11);
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)invalidateAppContextForActionIdentifier:(id)identifier
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   state.opaque[0] = 0;
   state.opaque[1] = 0;
@@ -191,30 +188,29 @@ LABEL_12:
   if (os_log_type_enabled(DNDLogAppConfiguration, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543618;
-    v17 = v6;
-    v18 = 2112;
-    v19 = identifierCopy;
+    v16 = v6;
+    v17 = 2112;
+    v18 = identifierCopy;
     _os_log_impl(&dword_22002F000, v7, OS_LOG_TYPE_DEFAULT, "[%{public}@] Invalidating app context for action identifier %@", buf, 0x16u);
   }
 
   v8 = +[DNDRemoteAppConfigurationServiceConnection sharedInstance];
-  v12[0] = MEMORY[0x277D85DD0];
-  v12[1] = 3221225472;
-  v12[2] = __70__DNDAppConfigurationService_invalidateAppContextForActionIdentifier___block_invoke;
-  v12[3] = &unk_27843A520;
-  v13 = v6;
-  v14 = identifierCopy;
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = __70__DNDAppConfigurationService_invalidateAppContextForActionIdentifier___block_invoke;
+  v11[3] = &unk_27843A520;
+  v12 = v6;
+  v13 = identifierCopy;
   v9 = identifierCopy;
   v10 = v6;
-  [v8 invalidateAppContextForActionIdentifier:v9 withRequestDetails:v10 completionHandler:v12];
+  [v8 invalidateAppContextForActionIdentifier:v9 withRequestDetails:v10 completionHandler:v11];
 
   os_activity_scope_leave(&state);
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __70__DNDAppConfigurationService_invalidateAppContextForActionIdentifier___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = [a2 BOOLValue];
   v7 = DNDLogAppConfiguration;
@@ -224,20 +220,18 @@ void __70__DNDAppConfigurationService_invalidateAppContextForActionIdentifier___
     {
       v8 = *(a1 + 32);
       v9 = *(a1 + 40);
-      v11 = 138543618;
-      v12 = v8;
-      v13 = 2112;
-      v14 = v9;
-      _os_log_impl(&dword_22002F000, v7, OS_LOG_TYPE_DEFAULT, "[%{public}@] Invalidated app context for actionIdentifier %@", &v11, 0x16u);
+      v10 = 138543618;
+      v11 = v8;
+      v12 = 2112;
+      v13 = v9;
+      _os_log_impl(&dword_22002F000, v7, OS_LOG_TYPE_DEFAULT, "[%{public}@] Invalidated app context for actionIdentifier %@", &v10, 0x16u);
     }
   }
 
   else if (os_log_type_enabled(DNDLogAppConfiguration, OS_LOG_TYPE_ERROR))
   {
-    __70__DNDAppConfigurationService_invalidateAppContextForActionIdentifier___block_invoke_cold_1(a1);
+    __70__DNDAppConfigurationService_invalidateAppContextForActionIdentifier___block_invoke_cold_1();
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_initWithClientIdentifier:(id)identifier
@@ -254,26 +248,6 @@ void __70__DNDAppConfigurationService_invalidateAppContextForActionIdentifier___
   }
 
   return v5;
-}
-
-void __98__DNDAppConfigurationService_getCurrentAppConfigurationForActionIdentifier_withCompletionHandler___block_invoke_cold_1(uint64_t a1)
-{
-  v6 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
-  v2 = *(a1 + 40);
-  OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_1_0(&dword_22002F000, v3, v4, "[%{public}@] Error when getting current app configuration for action identifier %@, error='%{public}@'");
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void __70__DNDAppConfigurationService_invalidateAppContextForActionIdentifier___block_invoke_cold_1(uint64_t a1)
-{
-  v6 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
-  v2 = *(a1 + 40);
-  OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_1_0(&dword_22002F000, v3, v4, "[%{public}@] Error when getting invalidating app context for actionIdentifier %@, error='%{public}@'");
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

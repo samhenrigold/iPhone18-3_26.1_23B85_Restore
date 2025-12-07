@@ -59,7 +59,7 @@
 
 + (BOOL)isValidDonation:(id)donation
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   donationCopy = donation;
   metadata = [donationCopy metadata];
   if (_DPDediscoVersionWithMetadata(metadata) <= 1)
@@ -94,28 +94,28 @@ LABEL_17:
   }
 
   v5 = [metadata objectForKeyedSubscript:@"DediscoTaskConfig"];
+  v25 = 0u;
   v26 = 0u;
   v27 = 0u;
   v28 = 0u;
-  v29 = 0u;
-  v30[0] = @"MinBatchSize";
-  v30[1] = @"TaskExpiration";
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v30 count:2];
-  v9 = [v8 countByEnumeratingWithState:&v26 objects:v31 count:16];
+  v29[0] = @"MinBatchSize";
+  v29[1] = @"TaskExpiration";
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v29 count:2];
+  v9 = [v8 countByEnumeratingWithState:&v25 objects:v30 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v27;
+    v11 = *v26;
     while (2)
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v27 != v11)
+        if (*v26 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = *(*(&v26 + 1) + 8 * i);
+        v13 = *(*(&v25 + 1) + 8 * i);
         v14 = [v5 objectForKeyedSubscript:v13];
         objc_opt_class();
         v15 = objc_opt_isKindOfClass();
@@ -138,7 +138,7 @@ LABEL_17:
         }
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v26 objects:v31 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v25 objects:v30 count:16];
       if (v10)
       {
         continue;
@@ -158,19 +158,16 @@ LABEL_17:
 LABEL_22:
 
 LABEL_23:
-  v24 = *MEMORY[0x277D85DE8];
   return v16;
 }
 
 + (void)isValidDonation:(void *)a1 .cold.3(void *a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v3 = [a1 key];
-  v5 = 138412290;
-  v6 = v3;
-  _os_log_error_impl(&dword_22622D000, a2, OS_LOG_TYPE_ERROR, "Unsupported version for collectionID=%@", &v5, 0xCu);
-
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 138412290;
+  v5 = v3;
+  _os_log_error_impl(&dword_22622D000, a2, OS_LOG_TYPE_ERROR, "Unsupported version for collectionID=%@", &v4, 0xCu);
 }
 
 @end

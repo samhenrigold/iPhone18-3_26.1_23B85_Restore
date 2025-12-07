@@ -15,7 +15,7 @@
     v4 = v3;
     if (v3)
     {
-      [v3 currentWatchConnectivitySnapshot];
+      objc_msgSend_currentWatchConnectivitySnapshot(v3);
     }
 
     v2->_reportComplete = 0;

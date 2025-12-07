@@ -1,84 +1,198 @@
+uint64_t sub_10002B884(const void ***a1, int a2, int a3)
+{
+  v6 = a1[10];
+  v8 = *(v6 + 8);
+  v7 = *(v6 + 16);
+  if (v8 >= v7)
+  {
+    v10 = *v6;
+    v11 = v8 - *v6;
+    v12 = v11 >> 2;
+    v13 = (v11 >> 2) + 1;
+    if (v13 >> 62)
+    {
+      sub_100017658();
+    }
+
+    v14 = v7 - v10;
+    if (v14 >> 1 > v13)
+    {
+      v13 = v14 >> 1;
+    }
+
+    v15 = v14 >= 0x7FFFFFFFFFFFFFFCLL;
+    v16 = 0x3FFFFFFFFFFFFFFFLL;
+    if (!v15)
+    {
+      v16 = v13;
+    }
+
+    if (v16)
+    {
+      sub_10002C924(a1[10], v16);
+    }
+
+    *(4 * v12) = a2;
+    v9 = 4 * v12 + 4;
+    memcpy(0, v10, v11);
+    v17 = *v6;
+    *v6 = 0;
+    *(v6 + 8) = v9;
+    *(v6 + 16) = 0;
+    if (v17)
+    {
+      operator delete(v17);
+    }
+  }
+
+  else
+  {
+    *v8 = a2;
+    v9 = (v8 + 1);
+  }
+
+  *(v6 + 8) = v9;
+  for (i = *a1[7]; a2 >= ((a1[7][1] - i) >> 2); i = *a1[7])
+  {
+    v19 = *a1;
+    if (*a1)
+    {
+      v36 = -1;
+      sub_10002C79C(v19, &v36);
+    }
+
+    v20 = a1[1];
+    if (v20)
+    {
+      v35 = 0;
+      sub_10002C87C(v20, &v35);
+    }
+
+    v21 = a1[2];
+    v34 = 0;
+    sub_10002C87C(v21, &v34);
+    v22 = a1[7];
+    v33 = -1;
+    sub_10002C79C(v22, &v33);
+    v23 = a1[8];
+    v32 = -1;
+    sub_10002C79C(v23, &v32);
+    v24 = a1[9];
+    v31 = 0;
+    sub_10002C87C(v24, &v31);
+  }
+
+  v25 = *(a1 + 11);
+  *(i + 4 * a2) = v25;
+  v26 = a1[9];
+  *(*a1[8] + a2) = v25;
+  v27 = a2 >> 6;
+  v28 = 1 << a2;
+  *(*v26 + v27) |= 1 << a2;
+  v29 = a1[1];
+  if (*(a1 + 10) == a3)
+  {
+    if (v29)
+    {
+      *(*v29 + v27) |= v28;
+    }
+  }
+
+  else
+  {
+    if (v29)
+    {
+      *(*v29 + v27) &= ~v28;
+    }
+
+    *a1[3] = (*a1[3] & 0xFFFFFCFFFFFFFFFFLL | 0x20000000000);
+  }
+
+  ++*(a1 + 11);
+  return 1;
+}
+
 unint64_t sub_10002BAA4(uint64_t a1, int a2, int a3)
 {
-  (*(**(a1 + 32) + 24))(&v20);
-  result = sub_10002B59C();
-  v21 = v20;
-  HIDWORD(v20) = *result;
-  if (*&v20 != *(&v20 + 1))
+  v6 = (*(**(a1 + 32) + 24))(&v22);
+  result = sub_10002B59C(v6, v7);
+  v23 = v22;
+  HIDWORD(v22) = *result;
+  if (*&v22 != *(&v22 + 1))
   {
     *(**(a1 + 16) + ((a2 >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << a2;
   }
 
-  v7 = **(a1 + 64);
-  if (*(**(a1 + 56) + 4 * a2) != *(v7 + 4 * a2))
+  v9 = **(a1 + 64);
+  if (*(**(a1 + 56) + 4 * a2) != *(v9 + 4 * a2))
   {
     goto LABEL_16;
   }
 
-  v8 = 0;
-  v9 = *(a1 + 80);
-  v10 = **(a1 + 16);
-  v11 = (*(v9 + 8) - 4);
-  v12 = v11;
+  v10 = 0;
+  v11 = *(a1 + 80);
+  v12 = **(a1 + 16);
+  v13 = (*(v11 + 8) - 4);
+  v14 = v13;
   do
   {
-    v13 = *v12--;
-    v8 |= *(v10 + ((v13 >> 3) & 0x1FFFFFFFFFFFFFF8)) >> v13;
+    v15 = *v14--;
+    v10 |= *(v12 + ((v15 >> 3) & 0x1FFFFFFFFFFFFFF8)) >> v15;
   }
 
-  while (v13 != a2);
-  v14 = *a1;
-  v15 = **(a1 + 72);
+  while (v15 != a2);
+  v16 = *a1;
+  v17 = **(a1 + 72);
   while (1)
   {
-    v16 = *v11;
-    if (v14)
+    v18 = *v13;
+    if (v16)
     {
-      *(*v14 + 4 * v16) = *(a1 + 48);
+      *(*v16 + 4 * v18) = *(a1 + 48);
     }
 
-    result = v16 >> 6;
-    v17 = 1 << v16;
-    if ((v8 & 1) == 0)
+    result = v18 >> 6;
+    v19 = 1 << v18;
+    if ((v10 & 1) == 0)
     {
       break;
     }
 
-    *(v10 + 8 * result) |= v17;
-    *(v15 + 8 * result) &= ~v17;
-    if (v16 == a2)
+    *(v12 + 8 * result) |= v19;
+    *(v17 + 8 * result) &= ~v19;
+    if (v18 == a2)
     {
-      *(v9 + 8) = v11;
+      *(v11 + 8) = v13;
       goto LABEL_15;
     }
 
 LABEL_13:
-    --v11;
+    --v13;
   }
 
-  *(v15 + 8 * result) &= ~v17;
-  if (v16 != a2)
+  *(v17 + 8 * result) &= ~v19;
+  if (v18 != a2)
   {
     goto LABEL_13;
   }
 
-  *(v9 + 8) = v11;
+  *(v11 + 8) = v13;
   **(a1 + 24) = **(a1 + 24) & 0xFFFFF3FFFFFFFFFFLL | 0x80000000000;
 LABEL_15:
   ++*(a1 + 48);
 LABEL_16:
   if (a3 != -1)
   {
-    v18 = **(a1 + 16);
-    if ((*(v18 + ((a2 >> 3) & 0x1FFFFFFFFFFFFFF8)) >> a2))
+    v20 = **(a1 + 16);
+    if ((*(v20 + ((a2 >> 3) & 0x1FFFFFFFFFFFFFF8)) >> a2))
     {
-      *(v18 + ((a3 >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << a3;
+      *(v20 + ((a3 >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << a3;
     }
 
-    v19 = *(v7 + 4 * a2);
-    if (v19 < *(v7 + 4 * a3))
+    v21 = *(v9 + 4 * a2);
+    if (v21 < *(v9 + 4 * a3))
     {
-      *(v7 + 4 * a3) = v19;
+      *(v9 + 4 * a3) = v21;
     }
   }
 
@@ -234,20 +348,20 @@ void sub_10002C178(void *a1)
   operator delete();
 }
 
-void sub_10002C1E4(uint64_t *a1)
+void sub_10002C1E4(uint64_t *result)
 {
-  if (a1[2])
+  if (result[2])
   {
-    v2 = a1[1];
-    v3 = *(*a1 + 8);
+    v2 = result[1];
+    v3 = *(*result + 8);
     v4 = *v2;
     *(v4 + 8) = v3;
     *v3 = v4;
-    a1[2] = 0;
-    while (v2 != a1)
+    result[2] = 0;
+    while (v2 != result)
     {
       v5 = v2[1];
-      sub_10002C244(a1, v2);
+      sub_10002C244(result, v2);
       v2 = v5;
     }
   }
@@ -325,50 +439,47 @@ void sub_10002C298(char **a1, size_t __len, unsigned __int8 *a3)
   }
 }
 
-void *sub_10002C3DC(void *result, void *a2)
+void sub_10002C3DC(unint64_t *result, void *a2)
 {
-  v3 = result;
-  v4 = *(result + 1);
-  v5 = result[2];
-  v6 = result[1];
-  if (v5 == v6)
+  v4 = result[2];
+  v5 = result[1];
+  if (v4 == v5)
   {
-    v7 = 0;
+    v6 = 0;
   }
 
   else
   {
-    v7 = ((v5 - v6) << 6) - 1;
+    v6 = ((v4 - v5) << 6) - 1;
   }
 
-  v8 = result[5];
-  v9 = v8 + result[4];
-  if (v7 == v9)
+  v7 = result[5];
+  v8 = v7 + result[4];
+  if (v6 == v8)
   {
-    result = sub_10002C464(result);
-    v6 = v3[1];
-    v8 = v3[5];
-    v9 = v3[4] + v8;
+    sub_10002C464(result);
+    v5 = result[1];
+    v7 = result[5];
+    v8 = result[4] + v7;
   }
 
-  *(*(v6 + ((v9 >> 6) & 0x3FFFFFFFFFFFFF8)) + 8 * (v9 & 0x1FF)) = *a2;
-  v3[5] = v8 + 1;
-  return result;
+  *(*(v5 + ((v8 >> 6) & 0x3FFFFFFFFFFFFF8)) + 8 * (v8 & 0x1FF)) = *a2;
+  result[5] = v7 + 1;
 }
 
-void *sub_10002C464(void *a1)
+void sub_10002C464(unint64_t *a1)
 {
   v1 = a1[4];
   v2 = v1 >= 0x200;
   v3 = v1 - 512;
   if (!v2)
   {
-    v6 = a1[2];
-    v7 = a1[3];
-    v8 = v7 - *a1;
-    if (v6 - a1[1] < v8)
+    v5 = a1[2];
+    v6 = a1[3];
+    v7 = v6 - *a1;
+    if (v5 - a1[1] < v7)
     {
-      if (v7 != v6)
+      if (v6 != v5)
       {
         operator new();
       }
@@ -376,25 +487,25 @@ void *sub_10002C464(void *a1)
       operator new();
     }
 
-    if (v7 == *a1)
+    if (v6 == *a1)
     {
-      v9 = 1;
+      v8 = 1;
     }
 
     else
     {
-      v9 = v8 >> 2;
+      v8 = v7 >> 2;
     }
 
-    v11 = a1;
-    sub_10002C638(a1, v9);
+    v10 = a1;
+    sub_10002C638(a1, v8);
   }
 
   a1[4] = v3;
   v4 = a1[1];
-  *&v10 = *v4;
-  a1[1] = v4 + 1;
-  return sub_10007257C(a1, &v10);
+  *&v9 = *v4;
+  a1[1] = (v4 + 1);
+  sub_10007257C(a1, &v9);
 }
 
 void sub_10002C5EC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, uint64_t a13)
@@ -439,7 +550,7 @@ uint64_t sub_10002C680(void *a1, uint64_t a2)
   return v7;
 }
 
-void sub_10002C79C(const void **a1, _DWORD *a2)
+void sub_10002C79C(const void **a1, int *a2)
 {
   v5 = a1[1];
   v4 = a1[2];
@@ -494,9 +605,8 @@ void sub_10002C79C(const void **a1, _DWORD *a2)
   a1[1] = v6;
 }
 
-uint64_t sub_10002C87C(uint64_t result, _BYTE *a2)
+void sub_10002C87C(uint64_t result, _BYTE *a2)
 {
-  v3 = result;
   v4 = *(result + 8);
   v5 = *(result + 16);
   if (v4 == v5 << 6)
@@ -522,26 +632,25 @@ uint64_t sub_10002C87C(uint64_t result, _BYTE *a2)
       v7 = 0x7FFFFFFFFFFFFFFFLL;
     }
 
-    result = sub_10002C96C(result, v7);
-    v4 = v3[1];
+    sub_10002C96C(result, v7);
+    v4 = *(result + 8);
   }
 
-  v3[1] = v4 + 1;
-  v8 = *v3;
+  *(result + 8) = v4 + 1;
+  v8 = *result;
   v9 = v4 >> 6;
   v10 = 1 << v4;
   if (*a2 == 1)
   {
-    v11 = *(v8 + 8 * v9) | v10;
+    v11 = *&v8[8 * v9] | v10;
   }
 
   else
   {
-    v11 = *(v8 + 8 * v9) & ~v10;
+    v11 = *&v8[8 * v9] & ~v10;
   }
 
-  *(v8 + 8 * v9) = v11;
-  return result;
+  *&v8[8 * v9] = v11;
 }
 
 void sub_10002C924(uint64_t a1, unint64_t a2)
@@ -554,9 +663,9 @@ void sub_10002C924(uint64_t a1, unint64_t a2)
   sub_100016D60();
 }
 
-uint64_t sub_10002C96C(uint64_t result, unint64_t a2)
+void sub_10002C96C(char **a1, unint64_t a2)
 {
-  if (a2 > *(result + 16) << 6)
+  if (a2 > a1[2] << 6)
   {
     if ((a2 & 0x8000000000000000) == 0)
     {
@@ -567,8 +676,6 @@ uint64_t sub_10002C96C(uint64_t result, unint64_t a2)
 
     sub_100017658();
   }
-
-  return result;
 }
 
 void sub_10002CA10(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *__p)
@@ -581,7 +688,7 @@ void sub_10002CA10(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_10002CA28(uint64_t a1, uint64_t a2)
+void sub_10002CA28(uint64_t *a1, uint64_t a2)
 {
   if ((a2 & 0x8000000000000000) == 0)
   {
@@ -844,7 +951,7 @@ uint64_t sub_10002CD58(uint64_t a1, uint64_t a2, _BYTE *a3, int a4, std::string 
     }
 
     *(a7 + 60) = v16;
-    sub_1000C8644(a7);
+    sub_1000C8644(a7, a2);
   }
 
   if ((*(*a1 + 96))(a1) && a3[25] == 1)
@@ -864,7 +971,7 @@ uint64_t sub_10002CD58(uint64_t a1, uint64_t a2, _BYTE *a3, int a4, std::string 
   return result;
 }
 
-uint64_t sub_10002CF84(uint64_t a1, void *a2, uint64_t a3, int a4, std::string *a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t sub_10002CF84(uint64_t a1, void *a2, uint64_t **a3, int a4, std::string *a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   std::ostream::sentry::sentry();
   v16 = a2 + *(*a2 - 24);
@@ -911,7 +1018,7 @@ uint64_t sub_10002CF84(uint64_t a1, void *a2, uint64_t a3, int a4, std::string *
 
     else
     {
-      v21 = *(a3 + 8);
+      v21 = a3[1];
     }
   }
 
@@ -941,7 +1048,7 @@ uint64_t sub_10002CF84(uint64_t a1, void *a2, uint64_t a3, int a4, std::string *
 
       else
       {
-        v21 = *(a3 + 8);
+        v21 = a3[1];
       }
     }
 
@@ -985,7 +1092,7 @@ uint64_t sub_10002CF84(uint64_t a1, void *a2, uint64_t a3, int a4, std::string *
 
       else
       {
-        v21 = *(a3 + 8);
+        v21 = a3[1];
       }
     }
   }
@@ -1020,7 +1127,7 @@ uint64_t sub_10002D484()
   return qword_10010D730;
 }
 
-void sub_10002D548(int a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
+void sub_10002D548(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
 {
   if (a15 < 0)
   {
@@ -1040,7 +1147,7 @@ uint64_t sub_10002D598(uint64_t a1, uint64_t a2)
 
   if (v3)
   {
-    sub_10002D9AC(__p, a2);
+    sub_10002D9AC(__p, a2, 20);
     if ((v29[*(__p[0] - 3)] & 5) != 0)
     {
       sub_1000113AC(v16, "ERROR");
@@ -1175,13 +1282,13 @@ LABEL_31:
   return v11;
 }
 
-void sub_10002D910(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, uint64_t a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, void *a21, uint64_t a22, int a23, __int16 a24, char a25, char a26)
+void sub_10002D910(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, uint64_t a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, void *a21, uint64_t a22, int a23, __int16 a24, char a25, char a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
 {
   std::ios::~ios();
   _Unwind_Resume(a1);
 }
 
-void (__cdecl ***sub_10002D9AC(void (__cdecl ***a1)(std::ofstream *__hidden this), uint64_t *a2))(std::ofstream *__hidden this)
+void (__cdecl ***sub_10002D9AC(void (__cdecl ***a1)(std::ofstream *__hidden this), uint64_t *a2, int a3))(std::ofstream *__hidden this)
 {
   a1[58] = 0;
   *a1 = v5;
@@ -1191,11 +1298,6 @@ void (__cdecl ***sub_10002D9AC(void (__cdecl ***a1)(std::ofstream *__hidden this
   v6[1].__vftable = 0;
   v6[1].__fmtflags_ = -1;
   std::filebuf::basic_filebuf();
-  if (*(a2 + 23) < 0)
-  {
-    v7 = *a2;
-  }
-
   if (!std::filebuf::open())
   {
     std::ios_base::clear((*(*a1 - 3) + a1), *(*(*a1 - 3) + a1 + 32) | 4);
@@ -1335,7 +1437,7 @@ void sub_10002E110(uint64_t a1)
 
 uint64_t sub_10002E148(uint64_t a1)
 {
-  *a1 = off_1001014A0;
+  *a1 = &off_1001014A0;
   v2 = *(a1 + 48);
   *(a1 + 48) = 0;
   if (v2)
@@ -1358,37 +1460,30 @@ uint64_t sub_10002E148(uint64_t a1)
   return a1;
 }
 
-void *sub_10002E1F8(void *result, unint64_t a2)
+void sub_10002E1F8(void *a1, unint64_t a2)
 {
-  if (a2 > (result[2] - *result) >> 3)
+  if (a2 > (a1[2] - *a1) >> 3)
   {
     if (!(a2 >> 61))
     {
-      v2 = result[1] - *result;
-      sub_100017670(result, a2);
+      sub_100017670(a1, a2);
     }
 
     sub_100017658();
   }
-
-  return result;
 }
 
-void *sub_10002E298(void *result, unint64_t a2)
+void sub_10002E298(void *a1, unint64_t a2)
 {
-  if (a2 > (result[2] - *result) >> 4)
+  if (a2 > (a1[2] - *a1) >> 4)
   {
     if (!(a2 >> 60))
     {
-      v2 = result[1] - *result;
-      v3 = result;
-      sub_10002E3F0(result, a2);
+      sub_10002E3F0(a1, a2);
     }
 
     sub_100017658();
   }
-
-  return result;
 }
 
 void sub_10002E338(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, uint64_t a12)
@@ -1560,15 +1655,13 @@ void sub_10002E5F4(void *__p)
   }
 }
 
-uint64_t sub_10002E640(uint64_t result)
+void sub_10002E640(uint64_t a1)
 {
-  v1 = *(result + 16);
+  v1 = *(a1 + 16);
   if (!v1 || *(v1 + 8))
   {
     sub_10002E6B8();
   }
-
-  return result;
 }
 
 void *sub_10002E724(void *a1, uint64_t a2)
@@ -1591,7 +1684,7 @@ float sub_10002E780(void *a1, int a2, float *a3)
   return result;
 }
 
-uint64_t sub_10002E818(void *a1, int a2, float *a3)
+uint64_t sub_10002E818(void *a1, uint64_t a2, float *a3)
 {
   v6 = *(*(a1[7] + 8 * a2) + 32);
   if (v6 == *(*(a1[7] + 8 * a2) + 24))
@@ -1614,155 +1707,156 @@ uint64_t sub_10002E818(void *a1, int a2, float *a3)
 void sub_10002E8C0(uint64_t a1, char **a2)
 {
   v4 = (a1 + 56);
-  sub_10002EB78(__p, (*(a1 + 64) - *(a1 + 56)) >> 3);
-  v5 = *a2;
-  v6 = a2[1] - *a2;
-  if (v6)
+  v5 = (*(a1 + 64) - *(a1 + 56)) >> 3;
+  v39 = 0;
+  sub_10002EB78(__p, v5, &v39);
+  v6 = *a2;
+  v7 = a2[1] - *a2;
+  if (v7)
   {
-    v7 = v6 >> 2;
-    v8 = __p[0];
-    if (v7 <= 1)
+    v8 = v7 >> 2;
+    v9 = __p[0];
+    if (v8 <= 1)
     {
-      v7 = 1;
+      v8 = 1;
     }
 
     do
     {
-      v9 = *v5;
-      v5 += 4;
-      v8[v9] = -1;
-      --v7;
+      v10 = *v6++;
+      v9[v10] = -1;
+      --v8;
     }
 
-    while (v7);
+    while (v8);
   }
 
-  v10 = *(a1 + 56);
-  if (*(a1 + 64) == v10)
+  v11 = *(a1 + 56);
+  if (*(a1 + 64) == v11)
   {
-    v13 = 0;
+    v14 = 0;
   }
 
   else
   {
-    v11 = 0;
     v12 = 0;
+    v13 = 0;
     do
     {
-      if (*(__p[0] + v11) == -1)
+      if (*(__p[0] + v12) == -1)
       {
-        sub_10002E5F4(*(v10 + 8 * v11));
+        sub_10002E5F4(*(v11 + 8 * v12));
       }
 
       else
       {
-        *(__p[0] + v11) = v12;
-        if (v11 != v12)
+        *(__p[0] + v12) = v13;
+        if (v12 != v13)
         {
-          *(v10 + 8 * v12) = *(v10 + 8 * v11);
+          *(v11 + 8 * v13) = *(v11 + 8 * v12);
         }
 
-        ++v12;
+        ++v13;
       }
 
-      ++v11;
-      v10 = *(a1 + 56);
+      ++v12;
+      v11 = *(a1 + 56);
     }
 
-    while (v11 < (*(a1 + 64) - v10) >> 3);
-    v13 = v12;
+    while (v12 < (*(a1 + 64) - v11) >> 3);
+    v14 = v13;
   }
 
-  sub_10002EAF4(v4, v13);
-  v14 = *(a1 + 56);
-  if (*(a1 + 64) != v14)
+  sub_10002EAF4(v4, v14);
+  v15 = *(a1 + 56);
+  if (*(a1 + 64) != v15)
   {
-    v15 = 0;
+    v16 = 0;
     do
     {
-      v16 = *(v14 + 8 * v15);
-      v17 = *(v16 + 24);
-      v18 = *(v16 + 32);
-      v19 = *(v16 + 8);
-      v21 = v18 - v17;
-      v20 = v18 == v17;
-      if (v18 == v17)
-      {
-        v22 = 0;
-      }
-
-      else
-      {
-        v22 = *(v16 + 24);
-      }
-
-      if (v20)
-      {
-        v24 = 0;
-        v31 = v21 >> 4;
-        v32 = *(v16 + 16);
-        v33 = *(v16 + 8);
-      }
-
-      else
+      v17 = *(v15 + 8 * v16);
+      v18 = *(v17 + 24);
+      v19 = *(v17 + 32);
+      v20 = *(v17 + 8);
+      v22 = v19 - v18;
+      v21 = v19 == v18;
+      if (v19 == v18)
       {
         v23 = 0;
+      }
+
+      else
+      {
+        v23 = *(v17 + 24);
+      }
+
+      if (v21)
+      {
+        v25 = 0;
+        v32 = v22 >> 4;
+        v33 = *(v17 + 16);
+        v34 = *(v17 + 8);
+      }
+
+      else
+      {
         v24 = 0;
-        v25 = (v22 + 12);
+        v25 = 0;
+        v26 = (v23 + 12);
         do
         {
-          v26 = *(__p[0] + *v25);
-          if (v26 == -1)
+          v27 = *(__p[0] + *v26);
+          if (v27 == -1)
           {
-            v28 = *(v25 - 3);
-            v29.i64[0] = v28;
-            v29.i64[1] = HIDWORD(v28);
-            v19 = vaddq_s64(v19, vceqzq_s64(v29));
+            v29 = *(v26 - 3);
+            v30.i64[0] = v29;
+            v30.i64[1] = HIDWORD(v29);
+            v20 = vaddq_s64(v20, vceqzq_s64(v30));
           }
 
           else
           {
-            *v25 = v26;
-            if (v23 != v24)
+            *v26 = v27;
+            if (v24 != v25)
             {
-              v27 = v22 + 16 * v24;
-              *v27 = *(v25 - 3);
-              *(v27 + 8) = *(v25 - 1);
-              *(v27 + 12) = v26;
-              v14 = *v4;
+              v28 = v23 + 16 * v25;
+              *v28 = *(v26 - 3);
+              *(v28 + 8) = *(v26 - 1);
+              *(v28 + 12) = v27;
+              v15 = *v4;
             }
 
-            ++v24;
+            ++v25;
           }
 
-          v16 = *(v14 + 8 * v15);
-          ++v23;
-          v30 = *(v16 + 32) - *(v16 + 24);
-          v25 += 4;
+          v17 = *(v15 + 8 * v16);
+          ++v24;
+          v31 = *(v17 + 32) - *(v17 + 24);
+          v26 += 4;
         }
 
-        while (v23 < v30 >> 4);
-        v31 = v30 >> 4;
-        v32 = v19.i64[1];
-        v33 = v19.i64[0];
+        while (v24 < v31 >> 4);
+        v32 = v31 >> 4;
+        v33 = v20.i64[1];
+        v34 = v20.i64[0];
       }
 
-      sub_10002EB24(v16, v31 - v24);
-      v14 = *(a1 + 56);
-      v34 = *(a1 + 64);
-      v35 = *(v14 + 8 * v15);
-      *(v35 + 8) = v33;
-      *(v35 + 16) = v32;
-      ++v15;
+      sub_10002EB24(v17, v32 - v25);
+      v15 = *(a1 + 56);
+      v35 = *(a1 + 64);
+      v36 = *(v15 + 8 * v16);
+      *(v36 + 8) = v34;
+      *(v36 + 16) = v33;
+      ++v16;
     }
 
-    while (v15 < (v34 - v14) >> 3);
+    while (v16 < (v35 - v15) >> 3);
   }
 
-  v36 = *(a1 + 80);
-  if (v36 == -1)
+  v37 = *(a1 + 80);
+  if (v37 == -1)
   {
-    v37 = __p[0];
+    v38 = __p[0];
     if (!__p[0])
     {
       return;
@@ -1771,12 +1865,12 @@ void sub_10002E8C0(uint64_t a1, char **a2)
 
   else
   {
-    v37 = __p[0];
-    *(a1 + 80) = *(__p[0] + v36);
+    v38 = __p[0];
+    *(a1 + 80) = *(__p[0] + v37);
   }
 
-  __p[1] = v37;
-  operator delete(v37);
+  __p[1] = v38;
+  operator delete(v38);
 }
 
 void sub_10002EAD4(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11)
@@ -1789,20 +1883,20 @@ void sub_10002EAD4(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_10002EAF4(void *a1, unint64_t a2)
+void sub_10002EAF4(void *result, unint64_t a2)
 {
-  v2 = (a1[1] - *a1) >> 3;
+  v2 = (result[1] - *result) >> 3;
   if (a2 <= v2)
   {
     if (a2 < v2)
     {
-      a1[1] = *a1 + 8 * a2;
+      result[1] = *result + 8 * a2;
     }
   }
 
   else
   {
-    sub_10002ECC8(a1, a2 - v2);
+    sub_10002ECC8(result, a2 - v2);
   }
 }
 
@@ -1839,17 +1933,17 @@ void *sub_10002EB24(void *result, uint64_t a2)
   return result;
 }
 
-void *sub_10002EB78(void *result, unint64_t a2)
+uint64_t *sub_10002EB78(uint64_t *a1, unint64_t a2, int *a3)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    sub_10002EC8C(result, a2);
+    sub_10002EC8C(a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
 void sub_10002EC70(_Unwind_Exception *exception_object)
@@ -1864,7 +1958,7 @@ void sub_10002EC70(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void sub_10002EC8C(uint64_t a1, unint64_t a2)
+void sub_10002EC8C(uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 62))
   {
@@ -1948,7 +2042,7 @@ void *sub_10002EE38(void *a1)
 
 uint64_t sub_10002EE94(uint64_t a1)
 {
-  *a1 = off_1001014A0;
+  *a1 = &off_1001014A0;
   *(a1 + 8) = 0;
   sub_1000113AC((a1 + 16), "null");
   *(a1 + 40) = 0;
@@ -1957,7 +2051,7 @@ uint64_t sub_10002EE94(uint64_t a1)
   *(a1 + 72) = 0;
   *(a1 + 56) = 0;
   *(a1 + 80) = -1;
-  *a1 = off_100101440;
+  *a1 = &off_100101440;
   sub_1000113AC(&__str, "vector");
   std::string::operator=((a1 + 16), &__str);
   if (SHIBYTE(__str.__r_.__value_.__r.__words[2]) < 0)
@@ -1999,7 +2093,7 @@ void sub_10002EF8C(uint64_t a1)
   *(a1 + 80) = -1;
 }
 
-int *sub_10002F064(uint64_t a1, uint64_t a2)
+int *sub_10002F064(uint64_t a1, float *a2)
 {
   v4 = *(*(a1 + 8) + 24) + 16 * *(a1 + 24);
   v5 = *v4;
@@ -2033,48 +2127,46 @@ LABEL_8:
     }
   }
 
-  if (*(v4 + 8) != *sub_10002B59C() && *(v4 + 8) != *sub_10002B564())
+  v10 = sub_10002B59C(a1, a2);
+  if (*(v4 + 8) != *v10 && *(v4 + 8) != *sub_10002B564(v10, v11))
   {
     **(a1 + 16) &= ~0x100000000uLL;
   }
 
   sub_10002F248(*(a1 + 8), a2, *(a1 + 24));
-  v10 = *a2;
-  v11 = *(a2 + 4);
-  if (*a2 != v11)
+  v14 = *a2;
+  v15 = *(a2 + 1);
+  if (*a2 != v15)
   {
     **(a1 + 16) = **(a1 + 16) & 0xFFFFFFFFFFFCFFFFLL | 0x20000;
   }
 
-  if (v10)
+  if (v14 == 0.0)
   {
-    if (!v11)
+    v16 = *(a1 + 16);
+    v18 = *v16 & 0xFFFFFFFFFCFFFFFFLL | 0x1000000;
+    *v16 = v18;
+    if (!v15)
     {
-      v12 = *(a1 + 16);
-      v13 = *v12;
-LABEL_19:
-      *v12 = v13 & 0xFFFFFFFFF3FFFFFFLL | 0x4000000;
-    }
-  }
-
-  else
-  {
-    v12 = *(a1 + 16);
-    v14 = *v12 & 0xFFFFFFFFFCFFFFFFLL | 0x1000000;
-    *v12 = v14;
-    if (!v11)
-    {
-      v13 = v14 & 0xFFFFFFFFFD3FFFFFLL | 0x400000;
-      *v12 = v13;
+      v17 = v18 & 0xFFFFFFFFFD3FFFFFLL | 0x400000;
+      *v16 = v17;
       goto LABEL_19;
     }
   }
 
-  result = sub_10002B59C();
-  if (*(a2 + 8) != *result)
+  else if (!v15)
   {
-    result = sub_10002B564();
-    if (*(a2 + 8) != *result)
+    v16 = *(a1 + 16);
+    v17 = *v16;
+LABEL_19:
+    *v16 = v17 & 0xFFFFFFFFF3FFFFFFLL | 0x4000000;
+  }
+
+  result = sub_10002B59C(v12, v13);
+  if (a2[2] != *result)
+  {
+    result = sub_10002B564(result, v20);
+    if (a2[2] != *result)
     {
       **(a1 + 16) = **(a1 + 16) & 0xFFFFFFFCFFFFFFFFLL | &_mh_execute_header;
     }
@@ -2141,7 +2233,7 @@ void sub_10002F2BC(void ***a1)
   }
 }
 
-uint64_t sub_10002F338(uint64_t *a1, void *a2, uint64_t *a3, uint64_t a4)
+uint64_t sub_10002F338(void *a1, void *a2, uint64_t *a3, uint64_t a4)
 {
   v4 = 0xCCCCCCCCCCCCCCCDLL * ((a1[1] - *a1) >> 3);
   v5 = v4 + 1;
@@ -2203,9 +2295,9 @@ uint64_t sub_10002F338(uint64_t *a1, void *a2, uint64_t *a3, uint64_t a4)
   return v16;
 }
 
-void sub_10002F480(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_10002F480(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   sub_10002F640(va);
   _Unwind_Resume(a1);
 }
@@ -2317,7 +2409,7 @@ void sub_10002F674(uint64_t a1)
 
 void speechrecognitiond_peer_is_alive(int a1, RDPeer *a2)
 {
-  v11 = a2;
+  v12 = a2;
   v3 = qword_10010E4A8;
   if (!qword_10010E4A8)
   {
@@ -2342,7 +2434,7 @@ void speechrecognitiond_peer_is_alive(int a1, RDPeer *a2)
   if (v4 == &qword_10010E4A8 || v4[4] > a2)
   {
 LABEL_9:
-    sub_10002FC40(&qword_10010E4A0, &v11);
+    sub_10002FC40(&qword_10010E4A0, &v12, &v12);
   }
 
   if ((byte_10010E4C0 & 1) == 0)
@@ -2352,29 +2444,29 @@ LABEL_9:
     v9 = qword_10010E4B8;
     qword_10010E4B8 = v8;
 
-    v10 = RXOSLog();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v11 = RXOSLog(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109120;
-      v13 = a1;
-      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "PeerConnection: peer(%d) is first peer alive", buf, 8u);
+      v14 = a1;
+      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "PeerConnection: peer(%d) is first peer alive", buf, 8u);
     }
   }
 }
 
 void speechrecognitiond_peer_is_dead(int a1, RDPeer *a2)
 {
-  v4 = a2;
-  sub_10002FD0C(&qword_10010E4A0, &v4);
+  v5 = a2;
+  v3 = sub_10002FD0C(&qword_10010E4A0, &v5);
   if (!qword_10010E4B0 && byte_10010E4C0 == 1)
   {
     byte_10010E4C0 = 0;
-    v3 = RXOSLog();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    v4 = RXOSLog(v3);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109120;
-      v6 = a1;
-      _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "PeerConnection: peer(%d) was last peer alive", buf, 8u);
+      v7 = a1;
+      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "PeerConnection: peer(%d) was last peer alive", buf, 8u);
     }
   }
 }
@@ -2409,7 +2501,7 @@ id speechrecognitiond_peer_legacy_msg_handler(NSDictionary *a1, int a2, RDPeer *
   v4 = a1;
   if (!v4)
   {
-    v6 = RXOSLog();
+    v6 = RXOSLog(0);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
@@ -2424,14 +2516,14 @@ id speechrecognitiond_peer_legacy_msg_handler(NSDictionary *a1, int a2, RDPeer *
 
   if (!v6)
   {
-    v9 = RXOSLog();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v10 = RXOSLog(v7);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      v14 = 0;
-      v10 = "PeerConnection: null event in speechrecognitiond_peer_legacy_msg_handler";
-      v11 = &v14;
+      v15 = 0;
+      v11 = "PeerConnection: null event in speechrecognitiond_peer_legacy_msg_handler";
+      v12 = &v15;
 LABEL_12:
-      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_ERROR, v10, v11, 2u);
+      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_ERROR, v11, v12, 2u);
     }
 
 LABEL_13:
@@ -2441,12 +2533,12 @@ LABEL_13:
 
   if (!a3)
   {
-    v9 = RXOSLog();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v10 = RXOSLog(v7);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      v13 = 0;
-      v10 = "PeerConnection: null peerContext in speechrecognitiond_peer_legacy_msg_handler";
-      v11 = &v13;
+      v14 = 0;
+      v11 = "PeerConnection: null peerContext in speechrecognitiond_peer_legacy_msg_handler";
+      v12 = &v14;
       goto LABEL_12;
     }
 
@@ -2457,53 +2549,53 @@ LABEL_13:
   {
     empty = xpc_dictionary_create_empty();
     (*(*a3 + 40))(a3, v6, empty);
-    v8 = _CFXPCCreateCFObjectFromXPCObject();
+    v9 = _CFXPCCreateCFObjectFromXPCObject();
 
     goto LABEL_15;
   }
 
 LABEL_14:
-  v8 = 0;
+  v9 = 0;
 LABEL_15:
 
-  return v8;
+  return v9;
 }
 
-void *sub_10002FC40(uint64_t a1, unint64_t *a2)
+void *sub_10002FC40(uint64_t a1, unint64_t *a2, void *a3)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v3 = *(a1 + 8);
+  if (!v3)
   {
 LABEL_8:
     operator new();
   }
 
-  v3 = *a2;
+  v4 = *a2;
   while (1)
   {
     while (1)
     {
-      v4 = v2;
-      v5 = v2[4];
-      if (v3 >= v5)
+      v5 = v3;
+      v6 = v3[4];
+      if (v4 >= v6)
       {
         break;
       }
 
-      v2 = *v4;
-      if (!*v4)
+      v3 = *v5;
+      if (!*v5)
       {
         goto LABEL_8;
       }
     }
 
-    if (v5 >= v3)
+    if (v6 >= v4)
     {
-      return v4;
+      return v5;
     }
 
-    v2 = v4[1];
-    if (!v2)
+    v3 = v5[1];
+    if (!v3)
     {
       goto LABEL_8;
     }
@@ -2674,31 +2766,30 @@ LABEL_8:
 
   while (1)
   {
-    v12 = v7[2];
+    v12 = *(v7 + 16);
     v13 = *v12;
-    v14 = *(v7 + 24);
     if (*v12 == v7)
     {
       break;
     }
 
-    if ((v7[3] & 1) == 0)
+    if ((*(v7 + 24) & 1) == 0)
     {
       *(v7 + 24) = 1;
       *(v12 + 24) = 0;
-      v15 = v12[1];
-      v16 = *v15;
-      v12[1] = *v15;
-      if (v16)
+      v14 = v12[1];
+      v15 = *v14;
+      v12[1] = *v14;
+      if (v15)
       {
-        *(v16 + 16) = v12;
+        *(v15 + 16) = v12;
       }
 
-      v17 = v12[2];
-      v15[2] = v17;
-      v17[*v17 != v12] = v15;
-      *v15 = v12;
-      v12[2] = v15;
+      v16 = v12[2];
+      v14[2] = v16;
+      v16[*v16 != v12] = v14;
+      *v14 = v12;
+      v12[2] = v14;
       if (result == *v7)
       {
         result = v7;
@@ -2707,173 +2798,173 @@ LABEL_8:
       v7 = *(*v7 + 8);
     }
 
-    v18 = *v7;
-    if (*v7 && *(v18 + 24) != 1)
+    v17 = *v7;
+    if (*v7 && *(v17 + 24) != 1)
     {
-      v19 = v7[1];
-      if (!v19)
+      v18 = *(v7 + 8);
+      if (!v18)
       {
         goto LABEL_55;
       }
 
 LABEL_54:
-      if (*(v19 + 24) == 1)
+      if (*(v18 + 24) == 1)
       {
 LABEL_55:
-        *(v18 + 24) = 1;
+        *(v17 + 24) = 1;
         *(v7 + 24) = 0;
-        v27 = v18[1];
-        *v7 = v27;
-        if (v27)
+        v26 = *(v17 + 8);
+        *v7 = v26;
+        if (v26)
         {
-          *(v27 + 16) = v7;
+          *(v26 + 16) = v7;
         }
 
-        v28 = v7[2];
-        v18[2] = v28;
-        v28[*v28 != v7] = v18;
-        v18[1] = v7;
-        v7[2] = v18;
-        v19 = v7;
+        v27 = *(v7 + 16);
+        *(v17 + 16) = v27;
+        v27[*v27 != v7] = v17;
+        *(v17 + 8) = v7;
+        *(v7 + 16) = v17;
+        v18 = v7;
       }
 
       else
       {
-        v18 = v7;
+        v17 = v7;
       }
 
-      v29 = v18[2];
-      *(v18 + 24) = *(v29 + 24);
-      *(v29 + 24) = 1;
-      *(v19 + 24) = 1;
-      v30 = *(v29 + 8);
-      v31 = *v30;
-      *(v29 + 8) = *v30;
-      if (v31)
+      v28 = *(v17 + 16);
+      *(v17 + 24) = *(v28 + 24);
+      *(v28 + 24) = 1;
+      *(v18 + 24) = 1;
+      v29 = *(v28 + 8);
+      v30 = *v29;
+      *(v28 + 8) = *v29;
+      if (v30)
       {
-        *(v31 + 16) = v29;
+        *(v30 + 16) = v28;
       }
 
-      v32 = *(v29 + 16);
-      v30[2] = v32;
-      v32[*v32 != v29] = v30;
-      *v30 = v29;
+      v31 = *(v28 + 16);
+      v29[2] = v31;
+      v31[*v31 != v28] = v29;
+      *v29 = v28;
       goto LABEL_72;
     }
 
-    v19 = v7[1];
-    if (v19 && *(v19 + 24) != 1)
+    v18 = *(v7 + 8);
+    if (v18 && *(v18 + 24) != 1)
     {
       goto LABEL_54;
     }
 
     *(v7 + 24) = 0;
-    v20 = v7[2];
-    if (v20 == result || (v20[3] & 1) == 0)
+    v19 = *(v7 + 16);
+    if (v19 == result || (v19[3] & 1) == 0)
     {
       goto LABEL_52;
     }
 
 LABEL_49:
-    v7 = *(v20[2] + 8 * (*v20[2] == v20));
+    v7 = *(v19[2] + 8 * (*v19[2] == v19));
   }
 
-  if ((v7[3] & 1) == 0)
+  if ((*(v7 + 24) & 1) == 0)
   {
     *(v7 + 24) = 1;
     *(v12 + 24) = 0;
-    v21 = v13[1];
-    *v12 = v21;
-    if (v21)
+    v20 = *(v13 + 8);
+    *v12 = v20;
+    if (v20)
     {
-      *(v21 + 16) = v12;
+      *(v20 + 16) = v12;
     }
 
-    v22 = v12[2];
-    v13[2] = v22;
-    v22[*v22 != v12] = v13;
-    v13[1] = v12;
+    v21 = v12[2];
+    *(v13 + 16) = v21;
+    v21[*v21 != v12] = v13;
+    *(v13 + 8) = v12;
     v12[2] = v13;
-    v23 = v7[1];
-    if (result == v23)
+    v22 = *(v7 + 8);
+    if (result == v22)
     {
       result = v7;
     }
 
-    v7 = *v23;
+    v7 = *v22;
   }
 
-  v24 = *v7;
-  if (*v7 && *(v24 + 24) != 1)
+  v23 = *v7;
+  if (*v7 && *(v23 + 24) != 1)
   {
     goto LABEL_68;
   }
 
-  v25 = v7[1];
-  if (!v25 || *(v25 + 24) == 1)
+  v24 = *(v7 + 8);
+  if (!v24 || *(v24 + 24) == 1)
   {
     *(v7 + 24) = 0;
-    v20 = v7[2];
-    if (*(v20 + 24) != 1 || v20 == result)
+    v19 = *(v7 + 16);
+    if (*(v19 + 24) != 1 || v19 == result)
     {
 LABEL_52:
-      *(v20 + 24) = 1;
+      *(v19 + 24) = 1;
       return result;
     }
 
     goto LABEL_49;
   }
 
-  if (!v24)
+  if (!v23)
   {
     goto LABEL_65;
   }
 
-  if (v24[3])
+  if (*(v23 + 24))
   {
-    v25 = v7[1];
+    v24 = *(v7 + 8);
 LABEL_65:
-    *(v25 + 24) = 1;
+    *(v24 + 24) = 1;
     *(v7 + 24) = 0;
-    v33 = *v25;
-    v7[1] = *v25;
-    if (v33)
+    v32 = *v24;
+    *(v7 + 8) = *v24;
+    if (v32)
     {
-      *(v33 + 16) = v7;
+      *(v32 + 16) = v7;
     }
 
-    v34 = v7[2];
-    v25[2] = v34;
-    v34[*v34 != v7] = v25;
-    *v25 = v7;
-    v7[2] = v25;
-    v24 = v7;
+    v33 = *(v7 + 16);
+    *(v24 + 16) = v33;
+    v33[*v33 != v7] = v24;
+    *v24 = v7;
+    *(v7 + 16) = v24;
+    v23 = v7;
   }
 
   else
   {
 LABEL_68:
-    v25 = v7;
+    v24 = v7;
   }
 
-  v29 = v25[2];
-  *(v25 + 24) = *(v29 + 24);
-  *(v29 + 24) = 1;
-  *(v24 + 24) = 1;
-  v30 = *v29;
-  v35 = *(*v29 + 8);
-  *v29 = v35;
-  if (v35)
+  v28 = *(v24 + 16);
+  *(v24 + 24) = *(v28 + 24);
+  *(v28 + 24) = 1;
+  *(v23 + 24) = 1;
+  v29 = *v28;
+  v34 = *(*v28 + 8);
+  *v28 = v34;
+  if (v34)
   {
-    *(v35 + 16) = v29;
+    *(v34 + 16) = v28;
   }
 
-  v36 = *(v29 + 16);
-  v30[2] = v36;
-  v36[*v36 != v29] = v30;
-  v30[1] = v29;
+  v35 = *(v28 + 16);
+  v29[2] = v35;
+  v35[*v35 != v28] = v29;
+  v29[1] = v28;
 LABEL_72:
-  *(v29 + 16) = v30;
+  *(v28 + 16) = v29;
   return result;
 }
 
@@ -2964,16 +3055,16 @@ void __RXAbort(int a1, uint64_t a2, uint64_t a3, uint64_t a4, CFStringRef format
   }
 }
 
-id RXSignpostLog()
+id RXSignpostLog(uint64_t a1)
 {
   if (qword_10010E4D8 != -1)
   {
     sub_1000C91E4();
   }
 
-  v1 = qword_10010E4D0;
+  v2 = qword_10010E4D0;
 
-  return v1;
+  return v2;
 }
 
 void sub_1000304F4(id a1)
@@ -2983,16 +3074,16 @@ void sub_1000304F4(id a1)
   _objc_release_x1();
 }
 
-id RXOSLog()
+id RXOSLog(uint64_t a1)
 {
   if (qword_10010E4E8 != -1)
   {
     sub_1000C91F8();
   }
 
-  v1 = qword_10010E4E0;
+  v2 = qword_10010E4E0;
 
-  return v1;
+  return v2;
 }
 
 void sub_10003057C(id a1)
@@ -3092,7 +3183,7 @@ uint64_t sub_1000308EC(uint64_t result, uint64_t a2)
   return result;
 }
 
-uint64_t sub_100030904(uint64_t a1, const char *a2, uint64_t a3)
+uint64_t sub_100030904(uint64_t a1, const char *a2, void *a3)
 {
   v4 = *(*(*(a1 + 32) + 8) + 40);
   v5 = xpc_wrap_uint64s_in_object(a3);
@@ -3101,7 +3192,7 @@ uint64_t sub_100030904(uint64_t a1, const char *a2, uint64_t a3)
   return 1;
 }
 
-uint64_t sub_100030970(uint64_t a1, size_t a2, uint64_t a3)
+uint64_t sub_100030970(uint64_t a1, size_t a2, void *a3)
 {
   v4 = *(*(*(a1 + 32) + 8) + 40);
   v5 = xpc_wrap_uint64s_in_object(a3);
@@ -3175,7 +3266,7 @@ void sub_100030BF4(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-uint64_t sub_100030C2C(uint64_t a1, const char *a2, uint64_t a3)
+uint64_t sub_100030C2C(uint64_t a1, const char *a2, void *a3)
 {
   v5 = xpc_unwrap_uint64s_in_object(a3);
   xpc_dictionary_set_value(*(*(*(a1 + 32) + 8) + 40), a2, v5);
@@ -3183,7 +3274,7 @@ uint64_t sub_100030C2C(uint64_t a1, const char *a2, uint64_t a3)
   return 1;
 }
 
-uint64_t sub_100030C98(uint64_t a1, size_t a2, uint64_t a3)
+uint64_t sub_100030C98(uint64_t a1, size_t a2, void *a3)
 {
   v5 = xpc_unwrap_uint64s_in_object(a3);
   xpc_array_set_value(*(*(*(a1 + 32) + 8) + 40), a2, v5);
@@ -3191,7 +3282,7 @@ uint64_t sub_100030C98(uint64_t a1, size_t a2, uint64_t a3)
   return 1;
 }
 
-uint64_t RDQSREngine::Instantiate(RDQSREngine *this, const __CFString *a2)
+uint64_t RDQSREngine::Instantiate(const __CFString *this, const __CFString *a2)
 {
   if (!RDQSREngine::sInstance)
   {
@@ -3211,31 +3302,32 @@ uint64_t RDQSREngine::StartASREngine(uint64_t this)
     v4 = CFStringCreateMutableCopy(kCFAllocatorSystemDefault, 0, *(v2 + 192));
     CFStringAppend(MutableCopy, @"mini.json");
     CFStringAppend(v4, @"etiquette.json");
-    if (sub_100031A10(MutableCopy))
+    v5 = sub_100031A10(MutableCopy);
+    if (v5)
     {
-      v5 = CFLocaleCreate(0, *(v2 + 152));
-      v6 = RDASRWSpeechRecognizerCreate(MutableCopy, 1, v5);
-      *(v2 + 16) = v6;
-      RDASRWSpeechRecognizerSetDetectUtterances(v6, 1);
+      v6 = CFLocaleCreate(0, *(v2 + 152));
+      v7 = RDASRWSpeechRecognizerCreate(MutableCopy, 1, v6);
+      *(v2 + 16) = v7;
+      RDASRWSpeechRecognizerSetDetectUtterances(v7, 1);
       RDASRWSpeechRecognizerSetHighPriority(*(v2 + 16), 1);
-      v7 = RXLocalesSupportingSpellingMode();
-      if (v7)
+      v8 = RXLocalesSupportingSpellingMode();
+      if (v8)
       {
-        v9 = v7;
-        v14.length = CFArrayGetCount(v7);
-        v14.location = 0;
-        *(v2 + 440) = CFArrayContainsValue(v9, v14, *(v2 + 152)) != 0;
-        CFRelease(v9);
+        v10 = v8;
+        v15.length = CFArrayGetCount(v8);
+        v15.location = 0;
+        *(v2 + 440) = CFArrayContainsValue(v10, v15, *(v2 + 152)) != 0;
+        CFRelease(v10);
       }
 
-      v10 = RDLanguageAssets::CopyInstalledAssetSupportedTasksForLanguage(*(v2 + 152), v8);
-      if (v10)
+      v11 = RDLanguageAssets::CopyInstalledAssetSupportedTasksForLanguage(*(v2 + 152), v9);
+      if (v11)
       {
-        v11 = v10;
-        v15.length = CFArrayGetCount(v10);
-        v15.location = 0;
-        *(v2 + 441) = CFArrayContainsValue(v11, v15, @"SpellCC") != 0;
-        CFRelease(v11);
+        v12 = v11;
+        v16.length = CFArrayGetCount(v11);
+        v16.location = 0;
+        *(v2 + 441) = CFArrayContainsValue(v12, v16, @"SpellCC") != 0;
+        CFRelease(v12);
       }
 
       operator new();
@@ -3255,10 +3347,10 @@ uint64_t RDQSREngine::StartASREngine(uint64_t this)
     {
       *(v2 + 10) = RXIsAudioDonationSupported();
       *(v2 + 8) = 10;
-      v12 = CFPreferencesCopyAppValue(@"SpeechDonationConfig", @"com.apple.SpeechRecognitionCore.speechrecognitiond");
-      if (v12)
+      v13 = CFPreferencesCopyAppValue(@"SpeechDonationConfig", @"com.apple.SpeechRecognitionCore.speechrecognitiond");
+      if (v13)
       {
-        Value = CFDictionaryGetValue(v12, @"SpeechDonationSamplingPercent");
+        Value = CFDictionaryGetValue(v13, @"SpeechDonationSamplingPercent");
         if (Value)
         {
           *(v2 + 8) = CFStringGetIntValue(Value);
@@ -3268,7 +3360,7 @@ uint64_t RDQSREngine::StartASREngine(uint64_t this)
       operator new();
     }
 
-    sub_1000C920C();
+    sub_1000C920C(v5);
   }
 
   return this;
@@ -3329,7 +3421,7 @@ void sub_100031910(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 BOOL sub_100031A10(__CFString *a1)
 {
   RDString::RDString(__p, a1, 0);
-  if (v7 >= 0)
+  if (v8 >= 0)
   {
     v1 = __p;
   }
@@ -3340,29 +3432,30 @@ BOOL sub_100031A10(__CFString *a1)
   }
 
   v2 = access(v1, 4);
+  v3 = v2;
   if (v2)
   {
-    v3 = RXOSLog();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v4 = RXOSLog(v2);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      v4 = __p;
-      if (v7 < 0)
+      v5 = __p;
+      if (v8 < 0)
       {
-        v4 = __p[0];
+        v5 = __p[0];
       }
 
       *buf = 136315138;
-      v9 = v4;
-      _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_ERROR, "Unable to acess %s!!!", buf, 0xCu);
+      v10 = v5;
+      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_ERROR, "Unable to acess %s!!!", buf, 0xCu);
     }
   }
 
-  if (v7 < 0)
+  if (v8 < 0)
   {
     operator delete(__p[0]);
   }
 
-  return v2 == 0;
+  return v3 == 0;
 }
 
 void sub_100031B10(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
@@ -3398,9 +3491,9 @@ uint64_t sub_100031BBC(uint64_t a1)
   return sub_1000377A4(v4);
 }
 
-void sub_100031C4C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_100031C4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_1000377A4(va);
   _Unwind_Resume(a1);
 }
@@ -3724,12 +3817,12 @@ std::chrono::duration<long long, std::ratio<1, 1000000000>>::rep RDQSREngine::Re
   CFRelease(this[2]);
   this[2] = 0;
   *(this + 82) = 0;
-  v4 = RXOSLog();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  v5 = RXOSLog(v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 138543362;
-    v7 = a2;
-    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Restarting ASR Engine(%{public}@)", &v6, 0xCu);
+    v7 = 138543362;
+    v8 = a2;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Restarting ASR Engine(%{public}@)", &v7, 0xCu);
   }
 
   RDQSREngine::StartASREngine(this);
@@ -3738,39 +3831,39 @@ std::chrono::duration<long long, std::ratio<1, 1000000000>>::rep RDQSREngine::Re
 
 std::chrono::duration<long long, std::ratio<1, 1000000000>>::rep RDQSREngine::ResetRecognition(RDQSREngine *this)
 {
-  pthread_mutex_lock((this + 272));
-  v2 = *(this + 33);
-  v3 = RXOSLog();
-  v4 = os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT);
-  if (v2)
+  v2 = pthread_mutex_lock((this + 272));
+  v3 = *(this + 33);
+  v4 = RXOSLog(v2);
+  v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
+  if (v3)
   {
-    if (v4)
-    {
-      *buf = 0;
-      _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "Resetting recognition system....", buf, 2u);
-    }
-
-    v5 = *(this + 28);
     if (v5)
     {
-      CFRelease(v5);
-      *(this + 28) = 0;
+      *buf = 0;
+      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Resetting recognition system....", buf, 2u);
     }
 
-    v6 = *(this + 31);
+    v6 = *(this + 28);
     if (v6)
     {
       CFRelease(v6);
+      *(this + 28) = 0;
+    }
+
+    v7 = *(this + 31);
+    if (v7)
+    {
+      CFRelease(v7);
       *(this + 31) = 0;
     }
 
     RDASRWSpeechRecognitionAudioBufferCancelRecognition(*(this + 33));
     CFRelease(*(this + 33));
-    v7 = RXOSLog();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v9 = RXOSLog(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      *v10 = 0;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "AudioBuffer released after recognition cancellation", v10, 2u);
+      *v14 = 0;
+      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "AudioBuffer released after recognition cancellation", v14, 2u);
     }
 
     *(this + 33) = 0;
@@ -3778,15 +3871,15 @@ std::chrono::duration<long long, std::ratio<1, 1000000000>>::rep RDQSREngine::Re
 
   else
   {
-    if (v4)
+    if (v5)
     {
-      *v9 = 0;
-      _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "AudioBuffer was Nil", v9, 2u);
+      *v13 = 0;
+      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "AudioBuffer was Nil", v13, 2u);
     }
   }
 
   pthread_mutex_unlock((this + 272));
-  RDQSREngine::SetupRecognition(this);
+  RDQSREngine::SetupRecognition(this, v10, v11);
   result = rd_time_util::now().__d_.__rep_;
   *(this + 51) = result;
   return result;
@@ -3812,11 +3905,11 @@ void RDQSREngine::UseAudioSource(RDQSREngine *this, RDQSRSoundSource *a2)
     if (a2 && *(this + 83) == 1)
     {
       RDQSREngine::EAREngine_SetMicState(this, 0);
-      v5 = RXOSLog();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+      v6 = RXOSLog(v5);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
       {
-        *v6 = 0;
-        _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Mic is finally ON", v6, 2u);
+        *v7 = 0;
+        _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Mic is finally ON", v7, 2u);
       }
     }
   }
@@ -3826,13 +3919,13 @@ void RDQSREngine::EAREngine_SetMicState(uint64_t a1, int a2)
 {
   if (!*(a1 + 40))
   {
-    v4 = RXOSLog();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v7 = RXOSLog(a1);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
-      v5 = "Set the sound source first before setting EAREngine_MicState";
+      v8 = "Set the sound source first before setting EAREngine_MicState";
 LABEL_25:
-      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_ERROR, v5, buf, 2u);
+      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_ERROR, v8, buf, 2u);
     }
 
 LABEL_26:
@@ -3844,17 +3937,17 @@ LABEL_26:
   {
     if (!a2)
     {
-      pthread_mutex_lock((a1 + 272));
+      v3 = pthread_mutex_lock((a1 + 272));
       if (!*(a1 + 264))
       {
-        v3 = RXOSLog();
-        if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+        v4 = RXOSLog(v3);
+        if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
-          _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "Creating Audio buffer", buf, 2u);
+          _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Creating Audio buffer", buf, 2u);
         }
 
-        RDQSREngine::SetupRecognition(a1);
+        RDQSREngine::SetupRecognition(a1, v5, v6);
         *(a1 + 408) = rd_time_util::now();
       }
 
@@ -3863,48 +3956,48 @@ LABEL_26:
       return;
     }
 
-    v4 = RXOSLog();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v7 = RXOSLog(a1);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
-      v5 = "Unknown EAR Mic state";
+      v8 = "Unknown EAR Mic state";
       goto LABEL_25;
     }
 
     goto LABEL_26;
   }
 
-  pthread_mutex_lock((a1 + 272));
+  v9 = pthread_mutex_lock((a1 + 272));
   if (*(a1 + 264))
   {
-    v6 = RXOSLog();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v10 = RXOSLog(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Ending Audio buffer", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Ending Audio buffer", buf, 2u);
     }
 
-    v7 = *(a1 + 224);
-    if (v7)
+    v11 = *(a1 + 224);
+    if (v11)
     {
-      CFRelease(v7);
+      CFRelease(v11);
       *(a1 + 224) = 0;
     }
 
-    v8 = *(a1 + 248);
-    if (v8)
+    v12 = *(a1 + 248);
+    if (v12)
     {
-      CFRelease(v8);
+      CFRelease(v12);
       *(a1 + 248) = 0;
     }
 
     RDASRWSpeechRecognitionAudioBufferEndAudio(*(a1 + 264));
     CFRelease(*(a1 + 264));
-    v9 = RXOSLog();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v14 = RXOSLog(v13);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "AudioBuffer released after mic went off", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "AudioBuffer released after mic went off", buf, 2u);
     }
 
     *(a1 + 264) = 0;
@@ -3942,7 +4035,7 @@ void RDQSREngine::SetMicState(RDQSREngine *this, int a2, const char *a3)
     *(this + 83) = a2;
   }
 
-  v7 = RXOSLog();
+  v7 = RXOSLog(this);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     if (v6 == a2)
@@ -3976,29 +4069,25 @@ void RDQSREngine::SetMicState(RDQSREngine *this, int a2, const char *a3)
   }
 }
 
-uint64_t RDQSREngine::UseLiveAudio(uint64_t this, RDAudioObject *a2, void (*a3)(RDQSRSoundSource *, const __int16 *, uint64_t))
+void RDQSREngine::UseLiveAudio(RDQSREngine *this, RDAudioObject *a2, void (*a3)(RDQSRSoundSource *, const __int16 *, uint64_t), uint64_t a4)
 {
-  if (!*(this + 40))
+  if (!*(this + 5))
   {
     *(this + 48) = 1;
-    RDQSRSoundSource::CreateLiveSource(a2, RDQSREngine::RequestSamplesCallback, a3);
+    RDQSRSoundSource::CreateLiveSource(a2, RDQSREngine::RequestSamplesCallback, a3, a4);
   }
-
-  return this;
 }
 
-uint64_t RDQSREngine::UseMixedAudio(uint64_t this, void (*a2)(RDQSRSoundSource *))
+void RDQSREngine::UseMixedAudio(RDQSREngine *this, void (*a2)(RDQSRSoundSource *), uint64_t a3, uint64_t a4)
 {
-  if (!*(this + 40))
+  if (!*(this + 5))
   {
     *(this + 48) = 1;
-    RDQSRSoundSource::CreateMixedSource(RDQSREngine::RequestSamplesCallback, RDQSREngine::EndOfAudioCallback, a2);
+    RDQSRSoundSource::CreateMixedSource(RDQSREngine::RequestSamplesCallback, RDQSREngine::EndOfAudioCallback, a2, a4);
   }
-
-  return this;
 }
 
-void RDQSREngine::UseCannedAudio(uint64_t a1, void *a2)
+void RDQSREngine::UseCannedAudio(RDQSREngine *a1, void *a2)
 {
   v3 = a2;
   *(a1 + 48) = 0;
@@ -4010,13 +4099,14 @@ uint64_t RDQSREngine::EndOfAudio(RDQSREngine *this, RDQSRSoundSource *a2)
   result = pthread_mutex_lock((this + 272));
   if (*(this + 33))
   {
-    if (RXAutomationModeResult() || RXAutomationModeSynthesis() || RXAutomationModeFileName())
+    v4 = RXAutomationModeResult();
+    if (v4 || (v4 = RXAutomationModeSynthesis()) || (v4 = RXAutomationModeFileName()))
     {
-      v4 = RXOSLog();
-      if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+      v5 = RXOSLog(v4);
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Ending audio", buf, 2u);
+        _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Ending audio", buf, 2u);
       }
 
       RDASRWSpeechRecognitionAudioBufferEndAudio(*(this + 33));
@@ -4024,27 +4114,27 @@ uint64_t RDQSREngine::EndOfAudio(RDQSREngine *this, RDQSRSoundSource *a2)
       {
         if (RXAutomationModeSynthesis() || RXAutomationModeFileName())
         {
-          v5 = RXAutomationSimulateOpenMic();
-          if ((v5 & 1) == 0)
+          v6 = RXAutomationSimulateOpenMic();
+          if ((v6 & 1) == 0)
           {
-            v6 = RDQSRAudioFileLogger::audioFileLoggerQueue(v5);
+            v7 = RDQSRAudioFileLogger::audioFileLoggerQueue(v6);
             block[0] = _NSConcreteStackBlock;
             block[1] = 3221225472;
             block[2] = sub_1000331AC;
             block[3] = &unk_1000FDCD8;
             block[4] = this;
-            dispatch_async(v6, block);
+            dispatch_async(v7, block);
           }
         }
 
         RDQSREngine::logAudioSamples(this, 0, 0);
-        v8 = RDQSRAudioFileLogger::audioFileLoggerQueue(v7);
-        v9[0] = _NSConcreteStackBlock;
-        v9[1] = 3221225472;
-        v9[2] = sub_1000332D8;
-        v9[3] = &unk_1000FDCD8;
-        v9[4] = this;
-        dispatch_async(v8, v9);
+        v9 = RDQSRAudioFileLogger::audioFileLoggerQueue(v8);
+        v10[0] = _NSConcreteStackBlock;
+        v10[1] = 3221225472;
+        v10[2] = sub_1000332D8;
+        v10[3] = &unk_1000FDCD8;
+        v10[4] = this;
+        dispatch_async(v9, v10);
       }
     }
 
@@ -4102,7 +4192,7 @@ void sub_1000332B0(_Unwind_Exception *a1)
 
 uint64_t RDQSREngine::RequestSamples(RDQSREngine *this, RDQSRSoundSource *a2, char *a3, uint64_t a4)
 {
-  pthread_mutex_lock((this + 272));
+  v7 = pthread_mutex_lock((this + 272));
   if (*(this + 33))
   {
     pthread_mutex_lock((this + 336));
@@ -4127,15 +4217,15 @@ uint64_t RDQSREngine::RequestSamples(RDQSREngine *this, RDQSRSoundSource *a2, ch
       RDKeywordSpotterAddAudioSamples(*(this + 28), a3, a4);
     }
 
-    else if (*(this + 256) == 1 && (v7 = *(this + 31)) != 0)
+    else if (*(this + 256) == 1 && (v8 = *(this + 31)) != 0)
     {
       if (*(this + 257) == 1)
       {
         RDASRWSpeechRecognitionAudioBufferAddAudioSamples(*(this + 33), a3, a4);
-        v7 = *(this + 31);
+        v8 = *(this + 31);
       }
 
-      RDOSDAddAudioSamples(v7, a3, a4);
+      RDOSDAddAudioSamples(v8, a3, a4);
       RDQSRCircularBuffer<short>::write(*(this + 25), a3, a4);
     }
 
@@ -4157,38 +4247,38 @@ uint64_t RDQSREngine::RequestSamples(RDQSREngine *this, RDQSRSoundSource *a2, ch
 
   else
   {
-    v8 = RXOSLog();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = RXOSLog(v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      *v10 = 0;
-      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "AudioBuffer is nil.", v10, 2u);
+      *v11 = 0;
+      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "AudioBuffer is nil.", v11, 2u);
     }
   }
 
   return pthread_mutex_unlock((this + 272));
 }
 
-void *sub_10003355C(uint64_t a1)
+void *sub_10003355C(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v2 = __chkstk_darwin(a1);
-  v3 = *(v2 + 32);
-  if ((atomic_load_explicit(&qword_10010E510, memory_order_acquire) & 1) == 0)
+  v4 = __chkstk_darwin(a1, a2, a3);
+  v5 = *(v4 + 32);
+  if ((atomic_load_explicit(byte_10010E510, memory_order_acquire) & 1) == 0)
   {
     sub_1000C92AC();
   }
 
-  if (*(v3 + 85) == 1)
+  if (*(v5 + 85) == 1)
   {
     if (!qword_10010E508)
     {
-      RDQSRAudioFileLogger::createCacheURLWithFilename(@"srcLogAudioFile.wav", v1);
-      *(v3 + 217) = 1;
+      RDQSRAudioFileLogger::createCacheURLWithFilename(@"srcLogAudioFile.wav", v3);
+      *(v5 + 217) = 1;
       operator new();
     }
 
     if (!word_10010E4F0)
     {
-      RDQSRAudioFileLogger::addSamples(qword_10010E508, *(v2 + 40), *(v2 + 64));
+      RDQSRAudioFileLogger::addSamples(qword_10010E508, *(v4 + 40), *(v4 + 64));
     }
   }
 
@@ -4196,29 +4286,29 @@ void *sub_10003355C(uint64_t a1)
   {
     if (qword_10010E508)
     {
-      v4 = word_10010E4F0 == 0;
+      v6 = word_10010E4F0 == 0;
     }
 
     else
     {
-      v4 = 0;
+      v6 = 0;
     }
 
-    if (v4)
+    if (v6)
     {
       sub_100037940(&qword_10010E508, 0);
     }
   }
 
-  return RDQSRCircularBuffer<short>::write(*(v3 + 200), *(v2 + 40), *(v2 + 64));
+  return RDQSRCircularBuffer<short>::write(*(v5 + 200), *(v4 + 40), *(v4 + 64));
 }
 
-uint64_t sub_100033744(uint64_t a1, uint64_t a2)
+uint64_t *sub_100033744(uint64_t a1, uint64_t a2)
 {
   *(a1 + 40) = 0;
   *(a1 + 48) = 0;
-  v2 = a1 + 40;
-  *(v2 + 16) = 0;
+  v2 = (a1 + 40);
+  v2[2] = 0;
   return sub_10003798C(v2, *(a2 + 40), *(a2 + 48), (*(a2 + 48) - *(a2 + 40)) >> 1);
 }
 
@@ -4346,13 +4436,13 @@ BOOL RDQSREngine::PeerExists(uint64_t a1, uint64_t a2)
 uint64_t RDQSREngine::AddGrammar(void *a1, uint64_t a2)
 {
   v6 = a1[14];
-  v4 = (a1 + 14);
+  v4 = a1 + 14;
   v5 = v6;
-  v7 = *(v4 - 32);
-  *(v4 - 32) = v7 + 1;
-  v8 = *(v4 + 8);
+  v7 = *(v4 - 16);
+  *(v4 - 16) = v7 + 1;
+  v8 = v4[1];
   v9 = v8 - v6;
-  if (*(v4 - 48) >= ((v8 - v6) >> 4))
+  if (*(v4 - 6) >= ((v8 - v6) >> 4))
   {
     v11 = v9 >> 4;
     v13 = a1[16];
@@ -4451,88 +4541,80 @@ void RDQSREngine::RecognizeText(RDQSREngine *this, CFTypeRef cf)
   dispatch_async(gRDServerQueue, v4);
 }
 
-void RDQSREngine::DidRecognizeFinalResultString(RDQSREngine *this, const __CFString *a2)
-{
-  v3 = *(this + 23);
-  v4 = *(this + 19);
-  v5 = *(this + 20);
-  RDQSRResultMatcher::Create();
-}
-
-void sub_100033C80(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10)
+void sub_100033C80(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
 {
   if (a10)
   {
-    (*(*a10 + 32))(a10);
+    (*(*a10 + 32))(a10, a2, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
 }
 
-id RDQSREngine::SetupRecognition(RDQSREngine *this)
+id RDQSREngine::SetupRecognition(RDQSREngine *this, uint64_t a2, uint64_t a3)
 {
-  v11[0] = this;
-  v11[1] = RDQSREngine::DisposeContextCallback;
-  v11[2] = RDQSREngine::DidRecognizePartialResultsCallback;
-  v11[3] = RDQSREngine::DidFinishRecognitionWithErrorCallback;
-  v11[5] = RDQSREngine::DidRecognizeFinalResultsCallback;
-  v11[4] = RDQSREngine::DidGetUtteranceBoundaryCallback;
-  v11[6] = RDQSREngine::DidProcessAudioDurationCallback;
-  if (*(this + 440) == 1 && *(this + 441) == 1 && (v2 = *(this + 18)) != 0)
+  v13[0] = this;
+  v13[1] = RDQSREngine::DisposeContextCallback;
+  v13[2] = RDQSREngine::DidRecognizePartialResultsCallback;
+  v13[3] = RDQSREngine::DidFinishRecognitionWithErrorCallback;
+  v13[5] = RDQSREngine::DidRecognizeFinalResultsCallback;
+  v13[4] = RDQSREngine::DidGetUtteranceBoundaryCallback;
+  v13[6] = RDQSREngine::DidProcessAudioDurationCallback;
+  if (*(this + 440) == 1 && *(this + 441) == 1 && (v4 = *(this + 18)) != 0)
   {
-    v3 = @"DictationCC";
-    while (*(v2 + 206) != 1)
+    v5 = @"DictationCC";
+    while (*(v4 + 206) != 1)
     {
-      v2 = *(v2 + 168);
-      if (!v2)
+      v4 = *(v4 + 168);
+      if (!v4)
       {
         goto LABEL_9;
       }
     }
 
-    v3 = @"SpellCC";
+    v5 = @"SpellCC";
   }
 
   else
   {
-    v3 = @"DictationCC";
+    v5 = @"DictationCC";
   }
 
 LABEL_9:
-  *(this + 54) = v3;
+  *(this + 54) = v5;
   if (*(this + 232) == 1)
   {
     *(this + 233) = 0;
     *buf = this;
-    v9 = RDQSREngine::KeywordSpottedCallback;
-    v10 = RDQSREngine::KeywordSpotterDidStopCallback;
-    __chkstk_darwin(this);
-    v7[0] = @"wake_up w EY k <w> uh p <w>";
-    v7[1] = @"show_siri sh OH <w> s EE r ee <w>";
-    v7[2] = @"open_siri OH p un <w> s EE r ee <w>";
-    v7[3] = @"start_listening s t AH r t <w> l IH s un ih ng <w>";
-    v4 = CFArrayCreate(kCFAllocatorDefault, v7, 4, &kCFTypeArrayCallBacks);
-    *(this + 28) = RDKeywordSpotterInit(v4, buf);
+    v11 = RDQSREngine::KeywordSpottedCallback;
+    v12 = RDQSREngine::KeywordSpotterDidStopCallback;
+    __chkstk_darwin(this, a2, a3);
+    v9[0] = @"wake_up w EY k <w> uh p <w>";
+    v9[1] = @"show_siri sh OH <w> s EE r ee <w>";
+    v9[2] = @"open_siri OH p un <w> s EE r ee <w>";
+    v9[3] = @"start_listening s t AH r t <w> l IH s un ih ng <w>";
+    v6 = CFArrayCreate(kCFAllocatorDefault, v9, 4, &kCFTypeArrayCallBacks);
+    *(this + 28) = RDKeywordSpotterInit(v6, buf);
   }
 
   else if (*(this + 256) == 1)
   {
     *buf = this;
-    v9 = RDQSREngine::SpeechStartedCallback;
-    v10 = RDQSREngine::SpeechEndedCallback;
+    v11 = RDQSREngine::SpeechStartedCallback;
+    v12 = RDQSREngine::SpeechEndedCallback;
     *(this + 31) = RDOSDInit(buf);
   }
 
-  result = RDASRWSpeechRecognizerCreateRecognitionBuffer(*(this + 2), *(this + 19), *(this + 54), 16000, v11);
+  result = RDASRWSpeechRecognizerCreateRecognitionBuffer(*(this + 2), *(this + 19), *(this + 54), 16000, v13);
   *(this + 33) = result;
   *(this + 87) = 1;
   if (!result)
   {
-    v6 = RXOSLog();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v8 = RXOSLog(0);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Could not initialize audio buffer", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Could not initialize audio buffer", buf, 2u);
     }
 
     sub_1000352B0(@"Could not initialize audio buffer");
@@ -4556,7 +4638,7 @@ void RDQSREngine::RemoveGrammar(RDQSREngine *this, unsigned __int16 a2)
   }
 }
 
-RDQSREngine *RDQSREngine::GrammarIsLive(RDQSREngine *this, unsigned __int16 a2, int a3)
+void RDQSREngine::GrammarIsLive(RDQSREngine *this, unsigned __int16 a2, int a3)
 {
   v3 = *(this + 14) + 16 * a2;
   if (*(v3 + 8) != a3)
@@ -4572,7 +4654,8 @@ RDQSREngine *RDQSREngine::GrammarIsLive(RDQSREngine *this, unsigned __int16 a2, 
         {
           v5 = "First grammar went live";
           v6 = 1;
-          return RDQSREngine::SetMicState(this, v6, v5);
+LABEL_6:
+          RDQSREngine::SetMicState(this, v6, v5);
         }
       }
 
@@ -4584,13 +4667,11 @@ RDQSREngine *RDQSREngine::GrammarIsLive(RDQSREngine *this, unsigned __int16 a2, 
         {
           v5 = "Last grammar went dead";
           v6 = 0;
-          return RDQSREngine::SetMicState(this, v6, v5);
+          goto LABEL_6;
         }
       }
     }
   }
-
-  return this;
 }
 
 void RDQSREngine::CanListen(RDQSREngine *this, RDQSRPeer *a2, char a3)
@@ -4716,30 +4797,30 @@ void RDQSREngine::FilterProfanity(RDQSREngine *this, int a2)
     v3 = *(this + 53);
     if (!v3)
     {
-      v4 = RXOSLog();
-      if (!os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+      v5 = RXOSLog(this);
+      if (!os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
       {
         goto LABEL_11;
       }
 
-      *v9 = 0;
-      v5 = "Error in filtering profanity";
-      v7 = v4;
-      v8 = OS_LOG_TYPE_ERROR;
+      *v11 = 0;
+      v6 = "Error in filtering profanity";
+      v9 = v5;
+      v10 = OS_LOG_TYPE_ERROR;
       goto LABEL_10;
     }
 
-    RDASRWSpeechRecognizerSetRecognitionReplacements(*(this + 2), v3);
-    v4 = RXOSLog();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v4 = RDASRWSpeechRecognizerSetRecognitionReplacements(*(this + 2), v3);
+    v5 = RXOSLog(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      *v9 = 0;
-      v5 = "Successfully filtering profanity";
+      *v11 = 0;
+      v6 = "Successfully filtering profanity";
 LABEL_9:
-      v7 = v4;
-      v8 = OS_LOG_TYPE_DEFAULT;
+      v9 = v5;
+      v10 = OS_LOG_TYPE_DEFAULT;
 LABEL_10:
-      _os_log_impl(&_mh_execute_header, v7, v8, v5, v9, 2u);
+      _os_log_impl(&_mh_execute_header, v9, v10, v6, v11, 2u);
     }
   }
 
@@ -4748,11 +4829,11 @@ LABEL_10:
     Mutable = CFDictionaryCreateMutable(0, 0, 0, 0);
     RDASRWSpeechRecognizerSetRecognitionReplacements(*(this + 2), Mutable);
     CFRelease(Mutable);
-    v4 = RXOSLog();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = RXOSLog(v8);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      *v9 = 0;
-      v5 = "No profanity filter set";
+      *v11 = 0;
+      v6 = "No profanity filter set";
       goto LABEL_9;
     }
   }
@@ -4771,7 +4852,7 @@ void sub_100034318(uint64_t a1)
 
   else
   {
-    v3 = RXOSLog();
+    v3 = RXOSLog(0);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       *v4 = 0;
@@ -4787,88 +4868,86 @@ void sub_100034398(uint64_t a1)
   {
     *(v1 + 86) = 0;
     *(v1 + 176) = 1;
-    sub_1000113AC(&v27, "");
-    v3 = *(v1 + 112);
-    if (*(v1 + 120) != v3)
+    v3 = sub_1000113AC(&v23, "");
+    v4 = *(v1 + 112);
+    if (*(v1 + 120) != v4)
     {
-      v4 = 0;
       v5 = 0;
+      v6 = 0;
       do
       {
-        v6 = *(v3 + v4);
-        if (v6 && *(v6 + 32) && *(v3 + v4 + 8) == 1 && *(v3 + v4 + 9) == 1)
+        v7 = *(v4 + v5);
+        if (v7 && *(v7 + 32) && *(v4 + v5 + 8) == 1 && *(v4 + v5 + 9) == 1)
         {
-          v7 = *(v1 + 176);
-          if (v7 <= *(v6 + 56))
+          v8 = *(v1 + 176);
+          if (v8 <= *(v7 + 56))
           {
-            v7 = *(v6 + 56);
+            v8 = *(v7 + 56);
           }
 
-          *(v1 + 176) = v7;
-          if ((*(a1 + 40) & 1) != 0 || *(v6 + 48) == 1)
+          *(v1 + 176) = v8;
+          if ((*(a1 + 40) & 1) != 0 || *(v7 + 48) == 1)
           {
-            v8 = RXSignpostLog();
-            if (os_signpost_enabled(v8))
+            v9 = RXSignpostLog(v3);
+            if (os_signpost_enabled(v9))
             {
               LOWORD(buf.__r_.__value_.__l.__data_) = 0;
-              _os_signpost_emit_with_name_impl(&_mh_execute_header, v8, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "Grammar", "Building Grammar", &buf, 2u);
+              _os_signpost_emit_with_name_impl(&_mh_execute_header, v9, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "Grammar", "Building Grammar", &buf, 2u);
             }
 
-            v9 = RXOSLog();
-            if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+            v11 = RXOSLog(v10);
+            if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
             {
-              v10 = *(*(v3 + v4) + 16);
+              v12 = *(*(v4 + v5) + 16);
               LODWORD(buf.__r_.__value_.__l.__data_) = 134217984;
-              *(buf.__r_.__value_.__r.__words + 4) = v10;
-              _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Building Grammar %zu", &buf, 0xCu);
+              *(buf.__r_.__value_.__r.__words + 4) = v12;
+              _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Building Grammar %zu", &buf, 0xCu);
             }
 
-            v11 = *(v3 + v4);
-            v12 = *(v1 + 160);
             operator new();
           }
 
-          v13 = *(v6 + 64);
-          if (v13)
+          v3 = *(v7 + 64);
+          if (v3)
           {
-            string = xpc_dictionary_get_string(v13, kRDKeyCategoryID);
-            v15 = RXOSLog();
-            if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+            string = xpc_dictionary_get_string(v3, kRDKeyCategoryID);
+            v14 = RXOSLog(string);
+            if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
             {
               LODWORD(buf.__r_.__value_.__l.__data_) = 136315138;
               *(buf.__r_.__value_.__r.__words + 4) = string;
-              _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "Building Grammar for category %s", &buf, 0xCu);
+              _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "Building Grammar for category %s", &buf, 0xCu);
             }
 
             sub_1000113AC(&buf, string);
-            if ((v27.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+            if ((v23.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
             {
-              size = HIBYTE(v27.__r_.__value_.__r.__words[2]);
+              size = HIBYTE(v23.__r_.__value_.__r.__words[2]);
             }
 
             else
             {
-              size = v27.__r_.__value_.__l.__size_;
+              size = v23.__r_.__value_.__l.__size_;
             }
 
-            if ((v27.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+            if ((v23.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
             {
-              v17 = &v27;
+              v16 = &v23;
             }
 
             else
             {
-              v17 = v27.__r_.__value_.__r.__words[0];
+              v16 = v23.__r_.__value_.__r.__words[0];
             }
 
             if ((buf.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
             {
-              v18 = HIBYTE(buf.__r_.__value_.__r.__words[2]);
+              v17 = HIBYTE(buf.__r_.__value_.__r.__words[2]);
             }
 
             else
             {
-              v18 = buf.__r_.__value_.__l.__size_;
+              v17 = buf.__r_.__value_.__l.__size_;
             }
 
             if ((buf.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
@@ -4881,29 +4960,26 @@ void sub_100034398(uint64_t a1)
               p_buf = buf.__r_.__value_.__r.__words[0];
             }
 
-            if (v18 >= size)
+            if (v17 >= size)
             {
-              v20 = size;
+              v19 = size;
             }
 
             else
             {
-              v20 = v18;
+              v19 = v17;
             }
 
-            v21 = memcmp(v17, p_buf, v20);
-            if (v18 != size || v21)
+            v20 = memcmp(v16, p_buf, v19);
+            if (v17 != size || v20)
             {
-              std::string::operator=(&v27, &buf);
-              v22 = *(v3 + v4);
-              v23 = *(v22 + 24);
-              v24 = *(v1 + 160);
-              RDQSRGrammarBuilder::buildCategoryFst(*(v22 + 64));
+              std::string::operator=(&v23, &buf);
+              RDQSRGrammarBuilder::buildCategoryFst(*(*(v4 + v5) + 64));
             }
 
-            v25 = *(v3 + v4);
-            v26 = *(v25 + 64);
-            *(v25 + 64) = 0;
+            v21 = *(v4 + v5);
+            v22 = *(v21 + 64);
+            *(v21 + 64) = 0;
 
             if (SHIBYTE(buf.__r_.__value_.__r.__words[2]) < 0)
             {
@@ -4912,17 +4988,17 @@ void sub_100034398(uint64_t a1)
           }
         }
 
-        ++v5;
-        v3 = *(v1 + 112);
-        v4 += 16;
+        ++v6;
+        v4 = *(v1 + 112);
+        v5 += 16;
       }
 
-      while (v5 < (*(v1 + 120) - v3) >> 4);
+      while (v6 < (*(v1 + 120) - v4) >> 4);
     }
 
-    if (SHIBYTE(v27.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v23.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v27.__r_.__value_.__l.__data_);
+      operator delete(v23.__r_.__value_.__l.__data_);
     }
   }
 }
@@ -5018,7 +5094,7 @@ void RDQSREngine::AddTemplatesToUserProfile(uint64_t a1, uint64_t *a2)
         if (v13)
         {
           v14 = v13;
-          v15 = RXOSLog();
+          v15 = RXOSLog(v13);
           if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 0;
@@ -5036,7 +5112,7 @@ void RDQSREngine::AddTemplatesToUserProfile(uint64_t a1, uint64_t *a2)
         if (v16)
         {
           v17 = v16;
-          v18 = RXOSLog();
+          v18 = RXOSLog(v16);
           if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
           {
             *v22 = 0;
@@ -5065,7 +5141,7 @@ void RDQSREngine::DidRecognizePartialResultsCallback(uint64_t a1, void *a2)
   dispatch_async(v4, v6);
 }
 
-void RDQSREngine::DidRecognizePartialResults(uint64_t a1, void *a2)
+void RDQSREngine::DidRecognizePartialResults(RDQSREngine *a1, void *a2)
 {
   v3 = a2;
   if (_os_feature_enabled_impl())
@@ -5076,17 +5152,12 @@ void RDQSREngine::DidRecognizePartialResults(uint64_t a1, void *a2)
       *(a1 + 87) = 0;
     }
 
-    v4 = *(a1 + 152);
     [v3 tokenSausage];
     objc_claimAutoreleasedReturnValue();
     [v3 nBestResults];
     objc_claimAutoreleasedReturnValue();
     [v3 firstBestResult];
     objc_claimAutoreleasedReturnValue();
-    v5 = *(a1 + 176);
-    v6 = *(a1 + 184);
-    v7 = *(a1 + 160);
-    v8 = *(a1 + 432);
     RDQSRResultMatcher::Create();
   }
 }
@@ -5111,7 +5182,7 @@ void RDQSREngine::DidFinishRecognitionWithErrorCallback(RDQSREngine *this, CFErr
       v6 = Domain;
       if (CFStringCompare(Domain, @"EARErrorDomain", 0) == kCFCompareEqualTo && !CFErrorGetCode(err))
       {
-        v7 = RXOSLog();
+        v7 = RXOSLog(0);
         if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
         {
           *buf = 0;
@@ -5146,7 +5217,7 @@ void RDQSREngine::DidFinishRecognitionWithErrorCallback(RDQSREngine *this, CFErr
 
 void sub_1000352B0(uint64_t a1)
 {
-  v2 = RXOSLog();
+  v2 = RXOSLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     v3 = 138543362;
@@ -5165,18 +5236,18 @@ void RDQSREngine::DidFinishRecognitionWithError(RDQSREngine *this, CFStringRef c
   }
 
   RDString::RDString(__p, cf, 1);
-  v3 = RXOSLog();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+  v4 = RXOSLog(v3);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v4 = __p;
-    if (v7 < 0)
+    v5 = __p;
+    if (v8 < 0)
     {
-      v4 = __p[0];
+      v5 = __p[0];
     }
 
     *buf = 136315138;
-    v9 = v4;
-    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "DidFinishRecognitionWithError: %s\n", buf, 0xCu);
+    v10 = v5;
+    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "DidFinishRecognitionWithError: %s\n", buf, 0xCu);
   }
 
   *(this + 87) = 1;
@@ -5189,7 +5260,7 @@ void RDQSREngine::DidFinishRecognitionWithError(RDQSREngine *this, CFStringRef c
   }
 
   RDQSREngine::EndUtt(this);
-  if (v7 < 0)
+  if (v8 < 0)
   {
     operator delete(__p[0]);
   }
@@ -5231,32 +5302,32 @@ __n128 sub_10003550C(uint64_t a1)
 void RDQSREngine::DidRecognizeFinalResultsCallback(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = RXOSLog();
+  v4 = RXOSLog(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
     _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Got the result", buf, 2u);
   }
 
-  v5 = RXSignpostLog();
-  if (os_signpost_enabled(v5))
+  v6 = RXSignpostLog(v5);
+  if (os_signpost_enabled(v6))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&_mh_execute_header, v5, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "Got the result", "", buf, 2u);
+    _os_signpost_emit_with_name_impl(&_mh_execute_header, v6, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "Got the result", "", buf, 2u);
   }
 
-  v6 = gRDServerQueue;
-  v8[0] = _NSConcreteStackBlock;
-  v8[1] = 3221225472;
-  v8[2] = sub_10003567C;
-  v8[3] = &unk_1000FEFC8;
-  v9 = v3;
-  v10 = a1;
-  v7 = v3;
-  dispatch_async(v6, v8);
+  v7 = gRDServerQueue;
+  v9[0] = _NSConcreteStackBlock;
+  v9[1] = 3221225472;
+  v9[2] = sub_10003567C;
+  v9[3] = &unk_1000FEFC8;
+  v10 = v3;
+  v11 = a1;
+  v8 = v3;
+  dispatch_async(v7, v9);
 }
 
-void RDQSREngine::DidRecognizeFinalResults(uint64_t a1, void *a2)
+void RDQSREngine::DidRecognizeFinalResults(RDQSREngine *a1, void *a2)
 {
   v3 = a2;
   if (*(a1 + 232) == 1)
@@ -5269,17 +5340,12 @@ void RDQSREngine::DidRecognizeFinalResults(uint64_t a1, void *a2)
     RDQSREngine::ResetRecognition(a1);
   }
 
-  v4 = *(a1 + 152);
   [v3 tokenSausage];
   objc_claimAutoreleasedReturnValue();
   [v3 nBestResults];
   objc_claimAutoreleasedReturnValue();
   [v3 firstBestResult];
   objc_claimAutoreleasedReturnValue();
-  v5 = *(a1 + 176);
-  v6 = *(a1 + 184);
-  v7 = *(a1 + 160);
-  v8 = *(a1 + 432);
   RDQSRResultMatcher::Create();
 }
 
@@ -5326,7 +5392,7 @@ void RDQSREngine::DidProcessAudioDuration(RDQSREngine *this, double a2)
 
 void RDQSREngine::BeginUtt(RDQSREngine *this)
 {
-  v2 = RXOSLog();
+  v2 = RXOSLog(this);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *v4 = 0;
@@ -5343,7 +5409,7 @@ void RDQSREngine::BeginUtt(RDQSREngine *this)
 
 uint64_t RDQSREngine::PartialResultMightMatch(uint64_t a1, uint64_t a2)
 {
-  v4 = RXSignpostLog();
+  v4 = RXSignpostLog(a1);
   if (os_signpost_enabled(v4))
   {
     *buf = 0;
@@ -5405,7 +5471,7 @@ void sub_100035BAC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 void RDQSREngine::MatchResult(uint64_t a1, uint64_t a2, void *a3)
 {
   v5 = a3;
-  v6 = RXSignpostLog();
+  v6 = RXSignpostLog(v5);
   if (os_signpost_enabled(v6))
   {
     *buf = 0;
@@ -5413,9 +5479,9 @@ void RDQSREngine::MatchResult(uint64_t a1, uint64_t a2, void *a3)
   }
 
   __p = 0;
-  v47 = 0;
-  v48 = 0;
-  memset(v45, 0, sizeof(v45));
+  v52 = 0;
+  v53 = 0;
+  memset(v50, 0, sizeof(v50));
   v7 = *(a1 + 112);
   for (i = *(a1 + 120); v7 != i; v7 += 2)
   {
@@ -5429,7 +5495,7 @@ void RDQSREngine::MatchResult(uint64_t a1, uint64_t a2, void *a3)
       }
 
       v11 = RDQSRPeer::CopyCommandsInGrammar(v10, v9[2].i64[0]);
-      v12 = RXOSLog();
+      v12 = RXOSLog(v11);
       if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
       {
         v13 = *(v7 + 8);
@@ -5442,11 +5508,11 @@ void RDQSREngine::MatchResult(uint64_t a1, uint64_t a2, void *a3)
         buf[9] = 4;
         *&buf[10] = v14;
         *&buf[14] = 2048;
-        v51 = v15;
-        v52 = 2048;
-        v53 = v16;
-        v54 = 2112;
-        v55 = v11;
+        v56 = v15;
+        v57 = 2048;
+        v58 = v16;
+        v59 = 2112;
+        v60 = v11;
         _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEBUG, "Match Result:: isLive = %d isActive = %d lmid = %llu grammarID = %zu Commands = %@", buf, 0x2Cu);
       }
 
@@ -5461,19 +5527,19 @@ LABEL_12:
           v17 = (*v7)[1].i64[1] + 88;
           v18 = (*v7)[3].i16[1];
           v19 = (*v7)[3].i8[4];
-          v44 = (*v7)[2];
-          v20 = v44.i64[0];
-          *buf = vextq_s8(v44, v44, 8uLL);
-          v51 = v17;
-          v52 = v18;
-          LOBYTE(v53) = v19;
-          sub_100036E18(v45, buf);
+          v49 = (*v7)[2];
+          v20 = v49.i64[0];
+          *buf = vextq_s8(v49, v49, 8uLL);
+          v56 = v17;
+          v57 = v18;
+          LOBYTE(v58) = v19;
+          sub_100036E18(v50, buf);
         }
       }
     }
   }
 
-  (**a2)(buf, a2, v45);
+  (**a2)(buf, a2, v50);
   v21 = 126 - 2 * __clz((*&buf[8] - *buf) >> 4);
   if (*&buf[8] == *buf)
   {
@@ -5504,23 +5570,23 @@ LABEL_12:
           v31 = *(__p + GrammarIndex);
 LABEL_30:
           RDQSRPeer::ServerResponse(*(v31 + 24), 0, v31, v5);
-          v34 = RXOSLog();
-          if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
+          v36 = RXOSLog(v35);
+          if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
           {
-            *v49 = 0;
-            _os_log_impl(&_mh_execute_header, v34, OS_LOG_TYPE_DEFAULT, "Even with the winner, we have no response - sending null to client\n", v49, 2u);
+            *v54 = 0;
+            _os_log_impl(&_mh_execute_header, v36, OS_LOG_TYPE_DEFAULT, "Even with the winner, we have no response - sending null to client\n", v54, 2u);
           }
 
           v29 = 0;
 LABEL_33:
-          v35 = __p + 8 * v30;
-          v36 = v47 - (v35 + 8);
-          if (v47 != v35 + 8)
+          v37 = __p + 8 * v30;
+          v38 = v52 - (v37 + 8);
+          if (v52 != v37 + 8)
           {
-            memmove(__p + 8 * v30, v35 + 8, v47 - (v35 + 8));
+            memmove(__p + 8 * v30, v37 + 8, v52 - (v37 + 8));
           }
 
-          v47 = &v35[v36];
+          v52 = &v37[v38];
           goto LABEL_36;
         }
 
@@ -5542,13 +5608,13 @@ LABEL_33:
 
           [v5 setUtteranceID:*(a1 + 168)];
           RDQSRPeer::EndPhrase(*(v31 + 24), 0, v31, v29, v5);
-          v32 = RXOSLog();
-          if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
+          v33 = RXOSLog(v32);
+          if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
           {
-            v33 = *(v31 + 16);
-            *v49 = 134217984;
-            *&v49[4] = v33;
-            _os_log_impl(&_mh_execute_header, v32, OS_LOG_TYPE_DEFAULT, "Sending message to client %zu", v49, 0xCu);
+            v34 = *(v31 + 16);
+            *v54 = 134217984;
+            *&v54[4] = v34;
+            _os_log_impl(&_mh_execute_header, v33, OS_LOG_TYPE_DEFAULT, "Sending message to client %zu", v54, 0xCu);
           }
 
           if (([v5 isPartialResult] & 1) == 0)
@@ -5573,36 +5639,37 @@ LABEL_36:
 
   v24 = 0;
 LABEL_40:
-  if (([v5 isPartialResult] & 1) == 0)
+  v39 = [v5 isPartialResult];
+  if ((v39 & 1) == 0)
   {
-    v37 = __p;
-    v38 = v47;
-    if (__p != v47)
+    v40 = __p;
+    v41 = v52;
+    if (__p != v52)
     {
       do
       {
-        v39 = *v37;
-        RDQSRPeer::ServerResponse(*(*v37 + 24), 0, *v37, v5);
-        v40 = RXOSLog();
-        if (os_log_type_enabled(v40, OS_LOG_TYPE_INFO))
+        v42 = *v40;
+        RDQSRPeer::ServerResponse(*(*v40 + 24), 0, *v40, v5);
+        v44 = RXOSLog(v43);
+        if (os_log_type_enabled(v44, OS_LOG_TYPE_INFO))
         {
-          v41 = *(v39 + 16);
-          *v49 = 134217984;
-          *&v49[4] = v41;
-          _os_log_impl(&_mh_execute_header, v40, OS_LOG_TYPE_INFO, "Sending null to client %zu", v49, 0xCu);
+          v45 = *(v42 + 16);
+          *v54 = 134217984;
+          *&v54[4] = v45;
+          _os_log_impl(&_mh_execute_header, v44, OS_LOG_TYPE_INFO, "Sending null to client %zu", v54, 0xCu);
         }
 
-        ++v37;
+        ++v40;
       }
 
-      while (v37 != v38);
+      while (v40 != v41);
     }
 
-    v42 = RXSignpostLog();
-    if (os_signpost_enabled(v42))
+    v46 = RXSignpostLog(v39);
+    if (os_signpost_enabled(v46))
     {
-      *v49 = 0;
-      _os_signpost_emit_with_name_impl(&_mh_execute_header, v42, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "Result", "Done Result processing", v49, 2u);
+      *v54 = 0;
+      _os_signpost_emit_with_name_impl(&_mh_execute_header, v46, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "Result", "Done Result processing", v54, 2u);
     }
 
     if (v24)
@@ -5615,11 +5682,11 @@ LABEL_40:
 
     else
     {
-      v43 = RXOSLog();
-      if (os_log_type_enabled(v43, OS_LOG_TYPE_DEFAULT))
+      v48 = RXOSLog(v47);
+      if (os_log_type_enabled(v48, OS_LOG_TYPE_DEFAULT))
       {
-        *v49 = 0;
-        _os_log_impl(&_mh_execute_header, v43, OS_LOG_TYPE_DEFAULT, "EndPhrase did not match any grammars\n", v49, 2u);
+        *v54 = 0;
+        _os_log_impl(&_mh_execute_header, v48, OS_LOG_TYPE_DEFAULT, "EndPhrase did not match any grammars\n", v54, 2u);
       }
     }
 
@@ -5627,13 +5694,13 @@ LABEL_40:
     RDQSREngine::EndUtt(a1);
   }
 
-  *v49 = buf;
-  sub_1000186EC(v49);
-  *buf = v45;
+  *v54 = buf;
+  sub_1000186EC(v54);
+  *buf = v50;
   sub_100037ACC(buf);
   if (__p)
   {
-    v47 = __p;
+    v52 = __p;
     operator delete(__p);
   }
 }
@@ -5655,7 +5722,7 @@ void sub_100036210(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 void RDQSREngine::EndUtt(RDQSREngine *this)
 {
-  v2 = RXOSLog();
+  v2 = RXOSLog(this);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(this + 9);
@@ -5694,31 +5761,31 @@ void RDQSREngine::SpeechStartedCallback(RDQSREngine *this, void *a2)
   dispatch_async(gRDServerQueue, block);
 }
 
-uint64_t RDQSREngine::SpeechStarted(RDQSREngine *this)
+uint64_t RDQSREngine::SpeechStarted(RDQSREngine *this, uint64_t a2, uint64_t a3)
 {
-  v1 = __chkstk_darwin(this);
-  v2 = RXOSLog();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = __chkstk_darwin(this, a2, a3);
+  v4 = RXOSLog(v3);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    *v6 = 0;
-    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "speech started", v6, 2u);
+    *v8 = 0;
+    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "speech started", v8, 2u);
   }
 
-  *(v1 + 408) = rd_time_util::now();
-  pthread_mutex_lock((v1 + 272));
+  *(v3 + 408) = rd_time_util::now();
+  pthread_mutex_lock((v3 + 272));
   do
   {
-    v3 = RDQSRCircularBuffer<short>::read(*(v1 + 200), 0x800uLL, v6);
-    v4 = *(v1 + 264);
-    if (v4)
+    v5 = RDQSRCircularBuffer<short>::read(*(v3 + 200), 0x800uLL, v8);
+    v6 = *(v3 + 264);
+    if (v6)
     {
-      RDASRWSpeechRecognitionAudioBufferAddAudioSamples(v4, v6, v3);
+      RDASRWSpeechRecognitionAudioBufferAddAudioSamples(v6, v8, v5);
     }
   }
 
-  while (v3 > 0x7FF);
-  result = pthread_mutex_unlock((v1 + 272));
-  *(v1 + 257) = 1;
+  while (v5 > 0x7FF);
+  result = pthread_mutex_unlock((v3 + 272));
+  *(v3 + 257) = 1;
   return result;
 }
 
@@ -5734,7 +5801,7 @@ void RDQSREngine::SpeechEndedCallback(RDQSREngine *this, void *a2)
 
 void RDQSREngine::SpeechEnded(RDQSREngine *this)
 {
-  v2 = RXOSLog();
+  v2 = RXOSLog(this);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *v3 = 0;
@@ -5756,38 +5823,38 @@ void RDQSREngine::KeywordSpottedCallback(RDQSREngine *this, void *a2, const __CF
   dispatch_async(gRDServerQueue, block);
 }
 
-uint64_t RDQSREngine::KeywordSpotted(RDQSREngine *this, const __CFString *a2, double a3)
+uint64_t RDQSREngine::KeywordSpotted(RDQSREngine *this, const __CFString *a2, double a3, uint64_t a4)
 {
-  v3 = __chkstk_darwin(this);
-  v5 = v4;
-  v7 = v6;
-  v8 = v3;
-  v9 = RXOSLog();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  v4 = __chkstk_darwin(this, a2, a4);
+  v6 = v5;
+  v8 = v7;
+  v9 = v4;
+  v10 = RXOSLog(v4);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
-    v13 = 138412546;
-    v14 = v7;
-    v15 = 2048;
-    v16 = v5;
-    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "keyword spotted == %@, cost=%f", &v13, 0x16u);
+    v14 = 138412546;
+    v15 = v8;
+    v16 = 2048;
+    v17 = v6;
+    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "keyword spotted == %@, cost=%f", &v14, 0x16u);
   }
 
-  CFRelease(v7);
-  *(v8 + 240) = rd_time_util::now();
-  pthread_mutex_lock((v8 + 272));
+  CFRelease(v8);
+  *(v9 + 240) = rd_time_util::now();
+  pthread_mutex_lock((v9 + 272));
   do
   {
-    v10 = RDQSRCircularBuffer<short>::read(*(v8 + 200), 0x800uLL, &v13);
-    v11 = *(v8 + 264);
-    if (v11)
+    v11 = RDQSRCircularBuffer<short>::read(*(v9 + 200), 0x800uLL, &v14);
+    v12 = *(v9 + 264);
+    if (v12)
     {
-      RDASRWSpeechRecognitionAudioBufferAddAudioSamples(v11, &v13, v10);
+      RDASRWSpeechRecognitionAudioBufferAddAudioSamples(v12, &v14, v11);
     }
   }
 
-  while (v10 > 0x7FF);
-  result = pthread_mutex_unlock((v8 + 272));
-  *(v8 + 233) = 1;
+  while (v11 > 0x7FF);
+  result = pthread_mutex_unlock((v9 + 272));
+  *(v9 + 233) = 1;
   return result;
 }
 
@@ -5803,7 +5870,7 @@ void RDQSREngine::KeywordSpotterDidStopCallback(RDQSREngine *this, void *a2)
 
 void RDQSREngine::KeywordSpotterDidStop(RDQSREngine *this)
 {
-  v1 = RXOSLog();
+  v1 = RXOSLog(this);
   if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
   {
     *v2 = 0;
@@ -5817,7 +5884,7 @@ void RDQSREngine::SetResetRecognitionMode(RDQSREngine *this, unsigned __int8 a2)
   *(this + 256) = 0;
   *(this + 232) = 0;
   *(this + 136) = a2;
-  v5 = RXOSLog();
+  v5 = RXOSLog(this);
   v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
   if (a2 <= 1u)
   {
@@ -5825,7 +5892,7 @@ void RDQSREngine::SetResetRecognitionMode(RDQSREngine *this, unsigned __int8 a2)
     {
       if (v6)
       {
-        LOWORD(v13[0]) = 0;
+        LOWORD(v9[0]) = 0;
         v7 = "Setting recognition reset mode to default...";
         goto LABEL_20;
       }
@@ -5839,10 +5906,10 @@ LABEL_21:
     {
       if (v6)
       {
-        LOWORD(v13[0]) = 0;
+        LOWORD(v9[0]) = 0;
         v7 = "Setting recognition reset mode to dictation...";
 LABEL_20:
-        _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, v7, v13, 2u);
+        _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, v7, v9, 2u);
         goto LABEL_21;
       }
 
@@ -5856,7 +5923,7 @@ LABEL_20:
   {
     if (v6)
     {
-      LOWORD(v13[0]) = 0;
+      LOWORD(v9[0]) = 0;
       v7 = "Setting recognition reset mode to commands...";
       goto LABEL_20;
     }
@@ -5869,8 +5936,8 @@ LABEL_20:
 LABEL_13:
     if (v6)
     {
-      LOWORD(v13[0]) = 0;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Incorrect reset mode..Switching to default", v13, 2u);
+      LOWORD(v9[0]) = 0;
+      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Incorrect reset mode..Switching to default", v9, 2u);
     }
 
     *(this + 136) = 0;
@@ -5879,42 +5946,38 @@ LABEL_13:
 
   if (v6)
   {
-    LOWORD(v13[0]) = 0;
-    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Setting recognition reset mode to sleep...", v13, 2u);
+    LOWORD(v9[0]) = 0;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Setting recognition reset mode to sleep...", v9, 2u);
   }
 
-  if (RXIsKeywordSpotterEnabled() && (v8 = *(this + 19), RXIsLocaleSupportingKeywordSpotter()))
+  if (RXIsKeywordSpotterEnabled() && RXIsLocaleSupportingKeywordSpotter())
   {
     *(this + 232) = 1;
   }
 
-  else if (RXIsSpeechDetectorEnabled())
+  else if (RXIsSpeechDetectorEnabled() && RXIsLocaleSupportingOndeviceSpeechDetection())
   {
-    v12 = *(this + 19);
-    if (RXIsLocaleSupportingOndeviceSpeechDetection())
-    {
-      *(this + 256) = 1;
-    }
+    *(this + 256) = 1;
   }
 
 LABEL_22:
-  if (RXIsKeywordSpotterEnabled() && (v9 = *(this + 19), RXIsLocaleSupportingKeywordSpotter()) || RXIsSpeechDetectorEnabled() && (v10 = *(this + 19), RXIsLocaleSupportingOndeviceSpeechDetection()))
+  if (RXIsKeywordSpotterEnabled() && RXIsLocaleSupportingKeywordSpotter() || RXIsSpeechDetectorEnabled() && RXIsLocaleSupportingOndeviceSpeechDetection())
   {
-    v11 = *(this + 136);
-    if (v4 != v11 && (v4 == 3 || v11 == 3))
+    v8 = *(this + 136);
+    if (v4 != v8 && (v4 == 3 || v8 == 3))
     {
       RDQSREngine::ResetRecognition(this);
     }
   }
 
   *(this + 86) = 1;
-  v13[0] = _NSConcreteStackBlock;
-  v13[1] = 3221225472;
-  v13[2] = sub_100034398;
-  v13[3] = &unk_1000FEFA0;
-  v13[4] = this;
-  v14 = 0;
-  dispatch_async(gRDServerQueue, v13);
+  v9[0] = _NSConcreteStackBlock;
+  v9[1] = 3221225472;
+  v9[2] = sub_100034398;
+  v9[3] = &unk_1000FEFA0;
+  v9[4] = this;
+  v10 = 0;
+  dispatch_async(gRDServerQueue, v9);
 }
 
 void RDQSREngine::SaveUserProfileToFile(void **this, const char *__s)
@@ -5922,36 +5985,36 @@ void RDQSREngine::SaveUserProfileToFile(void **this, const char *__s)
   if (*__s)
   {
     v4 = strlen(__s);
-    v5 = &v18 - ((__chkstk_darwin(v4) + 115) & 0xFFFFFFFFFFFFFFF0);
-    bzero(v5, v4 + 100);
-    v6 = strncpy(v5, __s, v4);
-    strcpy(&v5[strlen(v6)], "EngineUserProfile");
-    v7 = RDASRWSpeechRecognizerCopyUserProfileData(this[2]);
-    if (v7)
+    v7 = &v22 - ((__chkstk_darwin(v4, v5, v6) + 115) & 0xFFFFFFFFFFFFFFF0);
+    bzero(v7, v4 + 100);
+    v8 = strncpy(v7, __s, v4);
+    strcpy(&v7[strlen(v8)], "EngineUserProfile");
+    v9 = RDASRWSpeechRecognizerCopyUserProfileData(this[2]);
+    if (v9)
     {
-      v8 = v7;
-      v9 = fopen(v5, "w");
-      BytePtr = CFDataGetBytePtr(v8);
-      Length = CFDataGetLength(v8);
-      fwrite(BytePtr, 1uLL, Length, v9);
-      fclose(v9);
-      CFRelease(v8);
+      v12 = v9;
+      v13 = fopen(v7, "w");
+      BytePtr = CFDataGetBytePtr(v12);
+      Length = CFDataGetLength(v12);
+      fwrite(BytePtr, 1uLL, Length, v13);
+      fclose(v13);
+      CFRelease(v12);
     }
 
-    __chkstk_darwin(v7);
-    bzero(&v18 - ((v4 + 115) & 0xFFFFFFFFFFFFFFF0), v4 + 100);
-    v12 = strncpy(&v18 - ((v4 + 115) & 0xFFFFFFFFFFFFFFF0), __s, v4);
-    strcpy(&v18 + strlen(v12) - ((v4 + 115) & 0xFFFFFFFFFFFFFFF0), "EngineJitProfile");
-    v13 = RDASRWSpeechRecognizerCopyJitProfileData(this[2]);
-    if (v13)
+    __chkstk_darwin(v9, v10, v11);
+    bzero(&v22 - ((v4 + 115) & 0xFFFFFFFFFFFFFFF0), v4 + 100);
+    v16 = strncpy(&v22 - ((v4 + 115) & 0xFFFFFFFFFFFFFFF0), __s, v4);
+    strcpy(&v22 + strlen(v16) - ((v4 + 115) & 0xFFFFFFFFFFFFFFF0), "EngineJitProfile");
+    v17 = RDASRWSpeechRecognizerCopyJitProfileData(this[2]);
+    if (v17)
     {
-      v14 = v13;
-      v15 = fopen(&v18 - ((v4 + 115) & 0xFFFFFFFFFFFFFFF0), "w");
-      v16 = CFDataGetBytePtr(v14);
-      v17 = CFDataGetLength(v14);
-      fwrite(v16, 1uLL, v17, v15);
-      fclose(v15);
-      CFRelease(v14);
+      v18 = v17;
+      v19 = fopen(&v22 - ((v4 + 115) & 0xFFFFFFFFFFFFFFF0), "w");
+      v20 = CFDataGetBytePtr(v18);
+      v21 = CFDataGetLength(v18);
+      fwrite(v20, 1uLL, v21, v19);
+      fclose(v19);
+      CFRelease(v18);
     }
   }
 }
@@ -6015,10 +6078,10 @@ void sub_100036D44(uint64_t a1, void *a2)
   *(a1 + 8) = v6;
 }
 
-uint64_t sub_100036E18(uint64_t a1, uint64_t a2)
+uint64_t sub_100036E18(uint64_t *a1, __int128 *a2)
 {
-  v3 = *(a1 + 8);
-  if (v3 >= *(a1 + 16))
+  v3 = a1[1];
+  if (v3 >= a1[2])
   {
     result = sub_100037B54(a1, a2);
   }
@@ -6026,15 +6089,15 @@ uint64_t sub_100036E18(uint64_t a1, uint64_t a2)
   else
   {
     v4 = *a2;
-    *(a2 + 8) = 0;
+    *(a2 + 1) = 0;
     *v3 = v4;
-    v5 = *(a2 + 16);
+    v5 = *(a2 + 2);
     *(v3 + 23) = *(a2 + 23);
     *(v3 + 16) = v5;
     result = v3 + 32;
   }
 
-  *(a1 + 8) = result;
+  a1[1] = result;
   return result;
 }
 
@@ -6049,74 +6112,74 @@ void RDQSREngine::DonateSpeech(RDQSREngine *this)
   v2 = *(this + 12) - *(this + 11);
   v3 = RDQSRCircularBuffer<short>::totalFramesWritten(*(this + 26));
   v4 = v3 - *(this + 13);
-  v5 = RXOSLog();
+  v5 = RXOSLog(v3);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     v6 = *(this + 11);
     v7 = *(this + 12);
     v8 = *(this + 13);
     *buf = 134219264;
-    v19 = v6;
-    v20 = 2048;
-    v21 = v7;
-    v22 = 2048;
-    v23 = v2;
-    v24 = 2048;
-    v25 = v8;
-    v26 = 2048;
-    v27 = v3;
-    v28 = 2048;
-    v29 = v4;
+    v22 = v6;
+    v23 = 2048;
+    v24 = v7;
+    v25 = 2048;
+    v26 = v2;
+    v27 = 2048;
+    v28 = v8;
+    v29 = 2048;
+    v30 = v3;
+    v31 = 2048;
+    v32 = v4;
     _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_INFO, "SpeechDonation: Start Sample Number = %lld, end Sample number = %lld, samples in the utterance = %lld, totalSamplesSentToASR = %lld,  totalSamplesWritten = %zu, sample overwritten by next utterance = %zu", buf, 0x3Eu);
   }
 
   if (v4 >> 7 < 0x271)
   {
-    v10 = 80000;
+    v11 = 80000;
     if (v2 < 80000)
     {
-      v10 = v2;
+      v11 = v2;
     }
 
-    if (v10 >= 80000 - v4)
+    if (v11 >= 80000 - v4)
     {
-      v11 = 80000 - v4;
+      v12 = 80000 - v4;
     }
 
     else
     {
-      v11 = v10;
+      v12 = v11;
     }
 
-    v12 = RDQSRCircularBuffer<short>::seekBack(*(this + 26), v11 + v4 + *(this + 13) - *(this + 12));
-    __chkstk_darwin(v12);
-    v14 = &buf[-v13];
-    v15 = RDQSRCircularBuffer<short>::read(*(this + 26), v11, &buf[-v13]);
-    v16 = RXOSLog();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+    v13 = RDQSRCircularBuffer<short>::seekBack(*(this + 26), v12 + v4 + *(this + 13) - *(this + 12));
+    __chkstk_darwin(v13, v14, v15);
+    v17 = &buf[-v16];
+    v18 = RDQSRCircularBuffer<short>::read(*(this + 26), v12, &buf[-v16]);
+    v19 = RXOSLog(v18);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134217984;
-      v19 = v15;
-      _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "SpeechDonation: Samples donated = %zu", buf, 0xCu);
+      v22 = v18;
+      _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "SpeechDonation: Samples donated = %zu", buf, 0xCu);
     }
 
-    v17 = *this;
+    v20 = *this;
     if (*this)
     {
-      RDspeechDonationAddAudioSamples(v17, v14, v11);
-      v17 = *this;
+      RDspeechDonationAddAudioSamples(v20, v17, v12);
+      v20 = *this;
     }
 
-    RDspeechDonationDonateAudioForTranscription(v17, *(this + 56), *(this + 216));
+    RDspeechDonationDonateAudioForTranscription(v20, *(this + 56), *(this + 216));
   }
 
   else
   {
-    v9 = RXOSLog();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v10 = RXOSLog(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "SpeechDonation: donation utterance has been overwritten in the circular buffer, don't donate", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "SpeechDonation: donation utterance has been overwritten in the circular buffer, don't donate", buf, 2u);
     }
   }
 
@@ -6145,9 +6208,9 @@ uint64_t sub_1000371A4(uint64_t a1)
   return sub_1000377A4(v5);
 }
 
-void sub_100037244(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_100037244(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_1000377A4(va);
   _Unwind_Resume(a1);
 }
@@ -6155,7 +6218,7 @@ void sub_100037244(_Unwind_Exception *a1, uint64_t a2, ...)
 void RDQSREngine::AddOtherContextData(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = RXOSLog();
+  v4 = RXOSLog(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     *buf = 0;
@@ -6341,17 +6404,17 @@ void sub_100037824(uint64_t a1, void *a2)
   }
 }
 
-void *sub_100037890(void *result, uint64_t a2)
+uint64_t *sub_100037890(uint64_t *a1, uint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    sub_100037908(result, a2);
+    sub_100037908(a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
 void sub_1000378EC(_Unwind_Exception *exception_object)
@@ -6366,7 +6429,7 @@ void sub_1000378EC(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void sub_100037908(uint64_t a1, uint64_t a2)
+void sub_100037908(uint64_t *a1, uint64_t a2)
 {
   if ((a2 & 0x8000000000000000) == 0)
   {
@@ -6376,7 +6439,7 @@ void sub_100037908(uint64_t a1, uint64_t a2)
   sub_100017658();
 }
 
-RDQSRAudioFileLogger *sub_100037940(RDQSRAudioFileLogger **a1, RDQSRAudioFileLogger *a2)
+OpaqueExtAudioFile **sub_100037940(OpaqueExtAudioFile ***a1, OpaqueExtAudioFile **a2)
 {
   result = *a1;
   *a1 = a2;
@@ -6390,7 +6453,7 @@ RDQSRAudioFileLogger *sub_100037940(RDQSRAudioFileLogger **a1, RDQSRAudioFileLog
   return result;
 }
 
-uint64_t sub_10003798C(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t *sub_10003798C(uint64_t *result, const void *a2, uint64_t a3, uint64_t a4)
 {
   if (a4)
   {
@@ -6422,7 +6485,7 @@ void sub_100037A08(uint64_t a1, unint64_t a2)
   sub_100016D60();
 }
 
-void sub_100037A50(void **a1)
+void sub_100037A50(char **a1)
 {
   v1 = *a1;
   if (*a1)
@@ -6478,16 +6541,16 @@ void sub_100037ACC(void ***a1)
   }
 }
 
-uint64_t sub_100037B54(uint64_t a1, __int128 *a2)
+uint64_t sub_100037B54(uint64_t *a1, __int128 *a2)
 {
-  v2 = (*(a1 + 8) - *a1) >> 5;
+  v2 = (a1[1] - *a1) >> 5;
   v3 = v2 + 1;
   if ((v2 + 1) >> 59)
   {
     sub_100017658();
   }
 
-  v6 = *(a1 + 16) - *a1;
+  v6 = a1[2] - *a1;
   if (v6 >> 4 > v3)
   {
     v3 = v6 >> 4;
@@ -6520,14 +6583,14 @@ uint64_t sub_100037B54(uint64_t a1, __int128 *a2)
   *(v8 + 23) = *(a2 + 23);
   *(v8 + 16) = v10;
   *&v19 = 32 * v2 + 32;
-  v11 = *(a1 + 8);
+  v11 = a1[1];
   v12 = 32 * v2 + *a1 - v11;
   sub_100037CB8(a1, *a1, v11, v12);
   v13 = *a1;
   *a1 = v12;
-  v14 = *(a1 + 16);
+  v14 = a1[2];
   v16 = v19;
-  *(a1 + 8) = v19;
+  *(a1 + 1) = v19;
   *&v19 = v13;
   *(&v19 + 1) = v14;
   v17 = v13;
@@ -6536,9 +6599,9 @@ uint64_t sub_100037B54(uint64_t a1, __int128 *a2)
   return v16;
 }
 
-void sub_100037C5C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_100037C5C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   sub_100037D30(va);
   _Unwind_Resume(a1);
 }
@@ -6575,7 +6638,7 @@ void sub_100037CB8(uint64_t a1, __int128 *a2, __int128 *a3, uint64_t a4)
     while (v5 != a3)
     {
 
-      v5 += 4;
+      v5 += 2;
     }
   }
 }
@@ -6596,7 +6659,7 @@ uint64_t sub_100037D30(uint64_t a1)
   return a1;
 }
 
-void sub_100037D84(RDQSRResultObject *a1, RDQSRResultObject *a2, uint64_t a3, char a4)
+void sub_100037D84(id *a1, RDQSRResultObject *a2, uint64_t a3, char a4)
 {
   v6 = a2;
   v7 = a1;
@@ -6616,11 +6679,11 @@ void sub_100037D84(RDQSRResultObject *a1, RDQSRResultObject *a2, uint64_t a3, ch
           return;
         case 4:
           v86 = (v6 - 16);
-          sub_100038844(v7, (v7 + 2), (v7 + 4), v6 - 16);
+          sub_100038844(v7, (v7 + 2), (v7 + 4), (v6 - 16));
           return;
         case 5:
           v86 = (v6 - 16);
-          sub_100038904(v7, (v7 + 2), (v7 + 4), (v7 + 6), v6 - 16);
+          sub_100038904(v7, (v7 + 2), (v7 + 4), (v7 + 6), (v6 - 16));
           return;
       }
     }
@@ -7024,7 +7087,7 @@ void sub_100037D84(RDQSRResultObject *a1, RDQSRResultObject *a2, uint64_t a3, ch
       }
 
 LABEL_34:
-      sub_100037D84(v87, v7 - 2, a3, a4 & 1);
+      sub_100037D84(v87, (v7 - 2), a3, a4 & 1);
 LABEL_58:
       a4 = 0;
 LABEL_59:
@@ -7121,13 +7184,13 @@ LABEL_81:
   }
 }
 
-void sub_100038658(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_100038658(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va1, a4);
-  va_start(va, a4);
-  v5 = va_arg(va1, id);
-  v7 = va_arg(va1, void);
-  v8 = va_arg(va1, void);
+  va_start(va1, a7);
+  va_start(va, a7);
+  v8 = va_arg(va1, id);
+  v10 = va_arg(va1, void);
+  v11 = va_arg(va1, void);
   RDQSRResultObject::~RDQSRResultObject(va1);
   RDQSRResultObject::~RDQSRResultObject(va);
   _Unwind_Resume(a1);
@@ -7192,7 +7255,7 @@ LABEL_10:
   }
 }
 
-void sub_100038844(id *a1, RDQSRResultObject *a2, RDQSRResultObject *a3, uint64_t a4)
+void sub_100038844(id *a1, RDQSRResultObject *a2, RDQSRResultObject *a3, RDQSRResultObject *a4)
 {
   v4 = a4;
   v12 = a2;
@@ -7217,7 +7280,7 @@ void sub_100038844(id *a1, RDQSRResultObject *a2, RDQSRResultObject *a3, uint64_
   }
 }
 
-void sub_100038904(id *a1, RDQSRResultObject *a2, RDQSRResultObject *a3, RDQSRResultObject *a4, uint64_t a5)
+void sub_100038904(id *a1, RDQSRResultObject *a2, RDQSRResultObject *a3, RDQSRResultObject *a4, RDQSRResultObject *a5)
 {
   v5 = a5;
   v16 = a2;
@@ -7248,7 +7311,7 @@ void sub_100038904(id *a1, RDQSRResultObject *a2, RDQSRResultObject *a3, RDQSRRe
   }
 }
 
-BOOL sub_1000389FC(id *a1, uint64_t a2)
+uint64_t sub_1000389FC(id *a1, RDQSRResultObject *a2)
 {
   v15 = a2;
   v16 = a1;
@@ -7261,10 +7324,10 @@ BOOL sub_1000389FC(id *a1, uint64_t a2)
         sub_100038750(a1, a1 + 2, (a2 - 16));
         return 1;
       case 4:
-        sub_100038844(a1, (a1 + 2), (a1 + 4), a2 - 16);
+        sub_100038844(a1, (a1 + 2), (a1 + 4), (a2 - 16));
         return 1;
       case 5:
-        sub_100038904(a1, (a1 + 2), (a1 + 4), (a1 + 6), a2 - 16);
+        sub_100038904(a1, (a1 + 2), (a1 + 4), (a1 + 6), (a2 - 16));
         return 1;
     }
   }
@@ -7408,14 +7471,18 @@ const __CFURL *RDCopyCacheURL(void)
       closedir(v5);
     }
 
-    else if (mkdir(buffer, 0x1EDu))
+    else
     {
-      v6 = RXOSLog();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+      v6 = mkdir(buffer, 0x1EDu);
+      if (v6)
       {
-        v8 = 138412290;
-        v9 = v2;
-        _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_ERROR, "Error creating %@", &v8, 0xCu);
+        v7 = RXOSLog(v6);
+        if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+        {
+          v9 = 138412290;
+          v10 = v2;
+          _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_ERROR, "Error creating %@", &v9, 0xCu);
+        }
       }
     }
 
@@ -8400,7 +8467,7 @@ void sub_100039E68(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t sub_100039E84@<X0>(const void **a1@<X0>, const void **a2@<X1>, uint64_t a3@<X8>)
+char *sub_100039E84@<X0>(const void **a1@<X0>, const void **a2@<X1>, uint64_t a3@<X8>)
 {
   if (*(a1 + 23) >= 0)
   {
@@ -8423,7 +8490,7 @@ uint64_t sub_100039E84@<X0>(const void **a1@<X0>, const void **a2@<X1>, uint64_t
   }
 
   result = sub_10003A020(a3, v6 + v5);
-  if (*(result + 23) >= 0)
+  if (result[23] >= 0)
   {
     v8 = result;
   }
@@ -8468,7 +8535,7 @@ uint64_t sub_100039E84@<X0>(const void **a1@<X0>, const void **a2@<X1>, uint64_t
   return result;
 }
 
-uint64_t sub_100039F50(uint64_t *a1, char *a2, unint64_t a3)
+unint64_t sub_100039F50(uint64_t *a1, char *a2, unint64_t a3)
 {
   v3 = a1;
   v4 = *(a1 + 23);
@@ -8507,10 +8574,10 @@ uint64_t sub_100039F50(uint64_t *a1, char *a2, unint64_t a3)
 
   if (v7)
   {
-    v9 = (v3 + v4);
+    v9 = v3 + v4;
     if (v8 >= v7)
     {
-      v12 = (v3 + a3);
+      v12 = v3 + a3;
       v13 = *v6;
       do
       {
@@ -8547,14 +8614,14 @@ LABEL_14:
 
     else
     {
-      return &v10[-v3];
+      return v10 - v3;
     }
   }
 
   return a3;
 }
 
-uint64_t sub_10003A020(uint64_t result, unint64_t a2)
+uint64_t sub_10003A020(uint64_t a1, unint64_t a2)
 {
   if (a2 >= 0x7FFFFFFFFFFFFFF8)
   {
@@ -8566,43 +8633,45 @@ uint64_t sub_10003A020(uint64_t result, unint64_t a2)
     operator new();
   }
 
-  *(result + 8) = 0;
-  *(result + 16) = 0;
-  *result = 0;
-  *(result + 23) = a2;
-  return result;
+  *(a1 + 8) = 0;
+  *(a1 + 16) = 0;
+  *a1 = 0;
+  *(a1 + 23) = a2;
+  return a1;
 }
 
-void sub_10003A534(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, char a18, uint64_t a19, uint64_t a20, uint64_t a21, char a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, char a35)
+void sub_10003A534(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, ...)
 {
+  va_start(va, a34);
   _Block_object_dispose(&a18, 8);
   _Block_object_dispose(&a22, 8);
-  _Block_object_dispose(&a35, 8);
-  _Block_object_dispose((v35 - 208), 8);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v34 - 208), 8);
   _Unwind_Resume(a1);
 }
 
 void sub_10003A59C(id a1, BOOL a2, NSError *a3)
 {
   v4 = a3;
+  v5 = v4;
   if (!a2)
   {
-    v5 = RXOSLog();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = RXOSLog(v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      LOWORD(v7) = 0;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_ERROR, "Access to Contacts db not granted.", &v7, 2u);
+      LOWORD(v8) = 0;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_ERROR, "Access to Contacts db not granted.", &v8, 2u);
     }
   }
 
-  if (v4)
+  if (v5)
   {
-    v6 = RXOSLog();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = RXOSLog(v4);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      v7 = 138412290;
-      v8 = v4;
-      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_ERROR, "%@", &v7, 0xCu);
+      v8 = 138412290;
+      v9 = v5;
+      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_ERROR, "%@", &v8, 0xCu);
     }
   }
 }
@@ -8836,9 +8905,9 @@ uint64_t sub_10003B258(void *a1)
   return v4(v2, v3);
 }
 
-void sub_10003B72C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_10003B72C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -8886,7 +8955,7 @@ void sub_10003B8E4(uint64_t a1)
 
 id sub_10003B974(uint64_t a1)
 {
-  v2 = RXOSLog();
+  v2 = RXOSLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     v3 = *(a1 + 32);
@@ -8908,14 +8977,14 @@ void sub_10003BA3C(uint64_t a1)
 {
   if ((*(*(*(a1 + 56) + 8) + 24) & 1) == 0)
   {
-    (*(*(a1 + 48) + 16))();
-    v2 = RXOSLog();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
+    v2 = (*(*(a1 + 48) + 16))();
+    v3 = RXOSLog(v2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
     {
-      v3 = *(a1 + 32);
-      v4 = 138412290;
-      v5 = v3;
-      _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_INFO, "Timed out waiting on %@", &v4, 0xCu);
+      v4 = *(a1 + 32);
+      v5 = 138412290;
+      v6 = v4;
+      _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_INFO, "Timed out waiting on %@", &v5, 0xCu);
     }
 
     dispatch_group_leave(*(a1 + 40));
@@ -8963,31 +9032,31 @@ void sub_10003BCC4(uint64_t a1)
   v4 = v3 - *(a1 + 56);
 
   v5 = *(*(*(a1 + 48) + 8) + 24);
-  v6 = RXOSLog();
-  v7 = os_log_type_enabled(v6, OS_LOG_TYPE_INFO);
+  v7 = RXOSLog(v6);
+  v8 = os_log_type_enabled(v7, OS_LOG_TYPE_INFO);
   if (v5)
   {
-    if (v7)
+    if (v8)
     {
-      v8 = *(a1 + 32);
-      v10 = 134218242;
-      v11 = v4 * 1000.0;
-      v12 = 2112;
-      v13 = v8;
-      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_INFO, "Fetch completed too late (%.2fsms) for %@", &v10, 0x16u);
+      v9 = *(a1 + 32);
+      v11 = 134218242;
+      v12 = v4 * 1000.0;
+      v13 = 2112;
+      v14 = v9;
+      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_INFO, "Fetch completed too late (%.2fsms) for %@", &v11, 0x16u);
     }
   }
 
   else
   {
-    if (v7)
+    if (v8)
     {
-      v9 = *(a1 + 32);
-      v10 = 138412546;
-      v11 = v9;
-      v12 = 2048;
-      v13 = v4 * 1000.0;
-      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_INFO, "Fetch completed for %@ in %.2fms", &v10, 0x16u);
+      v10 = *(a1 + 32);
+      v11 = 138412546;
+      v12 = v10;
+      v13 = 2048;
+      v14 = v4 * 1000.0;
+      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_INFO, "Fetch completed for %@ in %.2fms", &v11, 0x16u);
     }
 
     dispatch_group_leave(*(a1 + 40));
@@ -9012,33 +9081,33 @@ void sub_10003BE3C(uint64_t a1, void *a2, void *a3, _BYTE *a4)
 uint64_t RDSoundInputiOS::RDSoundInputiOS(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
 {
   v7 = a4;
-  RDSoundInput::RDSoundInput(a1, a2, 0, 0);
+  v8 = RDSoundInput::RDSoundInput(a1, a2, 0, 0);
   *a1 = off_1000FF380;
   *(a1 + 32) = 0;
-  v8 = (a1 + 32);
+  v9 = (a1 + 32);
   *(a1 + 40) = 0;
-  v9 = RXOSLog();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  v10 = RXOSLog(v8);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
-    *v15 = 0;
-    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "RDSoundInputiOS::Init", v15, 2u);
+    *v16 = 0;
+    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "RDSoundInputiOS::Init", v16, 2u);
   }
 
   *(a1 + 48) = 0;
   if (+[VCFeatureFlags inputAudioCoexistenceSupportEnabled])
   {
     *(a1 + 48) = 1;
-    v10 = [[AVAudioFormat alloc] initWithStreamDescription:a3];
-    v11 = [[_TtC50com_apple_SpeechRecognitionCore_speechrecognitiond31RDSoundInputImpl_iOS_AV_Coexist alloc] initWithExpectedFormat:v10 deliverSamples:v7];
-    v12 = *(a1 + 40);
-    *(a1 + 40) = v11;
+    v11 = [[AVAudioFormat alloc] initWithStreamDescription:a3];
+    v12 = [[_TtC50com_apple_SpeechRecognitionCore_speechrecognitiond31RDSoundInputImpl_iOS_AV_Coexist alloc] initWithExpectedFormat:v11 deliverSamples:v7];
+    v13 = *(a1 + 40);
+    *(a1 + 40) = v12;
   }
 
   else
   {
-    v13 = [[RDSoundInputImpl alloc] initWithExpectedFormat:a3 deliverSamples:v7];
-    v10 = *v8;
-    *v8 = v13;
+    v14 = [[RDSoundInputImpl alloc] initWithExpectedFormat:a3 deliverSamples:v7];
+    v11 = *v9;
+    *v9 = v14;
   }
 
   return a1;
@@ -9056,7 +9125,7 @@ void sub_10003C044(_Unwind_Exception *a1)
 
 id RDSoundInputiOS::StartRecording(RDSoundInputiOS *this)
 {
-  v2 = RXOSLog();
+  v2 = RXOSLog(this);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *v5 = 0;
@@ -9074,7 +9143,7 @@ id RDSoundInputiOS::StartRecording(RDSoundInputiOS *this)
 
 id RDSoundInputiOS::StopRecording(RDSoundInputiOS *this)
 {
-  v2 = RXOSLog();
+  v2 = RXOSLog(this);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *v5 = 0;
@@ -9101,10 +9170,10 @@ id RDSoundInputiOS::IsRecording(RDSoundInputiOS *this)
   return [*(this + v1) isRecording];
 }
 
-void RDSoundInputiOS::~RDSoundInputiOS(id *this)
+void RDSoundInputiOS::~RDSoundInputiOS(RDSoundInputiOS *this)
 {
   *this = off_1000FF380;
-  v2 = RXOSLog();
+  v2 = RXOSLog(this);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *v5 = 0;
@@ -9113,21 +9182,21 @@ void RDSoundInputiOS::~RDSoundInputiOS(id *this)
 
   if (*(this + 48) == 1)
   {
-    v3 = this + 5;
-    [this[5] stopRecording];
+    v3 = (this + 40);
+    [*(this + 5) stopRecording];
   }
 
   else
   {
-    v3 = this + 4;
-    [this[4] stopRecording];
+    v3 = (this + 32);
+    [*(this + 4) stopRecording];
   }
 
   v4 = *v3;
   *v3 = 0;
 
   *this = off_1000FE020;
-  RDAudioObject::~RDAudioObject((this + 1));
+  RDAudioObject::~RDAudioObject(this + 1);
 }
 
 {
@@ -9136,24 +9205,24 @@ void RDSoundInputiOS::~RDSoundInputiOS(id *this)
   operator delete();
 }
 
-id **sub_10003C89C(id **result)
+id **sub_10003C89C(id **a1)
 {
-  v1 = *result;
-  *result = 0;
+  v1 = *a1;
+  *a1 = 0;
   if (v1)
   {
 
     operator delete();
   }
 
-  return result;
+  return a1;
 }
 
 void RDUserProfile::updateUserProfileWithPersonalData(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (*a1 == 1)
   {
-    v3 = RXOSLog();
+    v3 = RXOSLog(a1);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       *v6 = 0;
@@ -9192,7 +9261,7 @@ void RDUserProfile::writeUserProfileToCache(RDUserProfile *this)
   {
     v6 = v1;
     v7 = v2;
-    v3 = RXOSLog();
+    v3 = RXOSLog(this);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       *v5 = 0;
@@ -9210,25 +9279,30 @@ void RDUserProfile::writeUserProfileToCache(RDUserProfile *this)
 
 void RDUserProfile::addPhraseToUserProfile(RDUserProfile *this, const __CFArray *a2, const __CFString *a3, const __CFString *a4)
 {
-  if (!a2 && CFArrayGetCount(0) <= 0)
+  v7 = this;
+  if (!a2)
   {
-    v9 = RXOSLog();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    this = CFArrayGetCount(0);
+    if (this <= 0)
     {
-      *buf = 0;
-      v10 = "addPhraseToUserProfile: Null phrase being added to profile. Ignoring..";
-      v11 = buf;
-      goto LABEL_12;
-    }
+      v9 = RXOSLog(this);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      {
+        *buf = 0;
+        v10 = "addPhraseToUserProfile: Null phrase being added to profile. Ignoring..";
+        v11 = buf;
+        goto LABEL_12;
+      }
 
 LABEL_13:
 
-    return;
+      return;
+    }
   }
 
   if (!a3 || !a4)
   {
-    v9 = RXOSLog();
+    v9 = RXOSLog(this);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       v12 = 0;
@@ -9242,7 +9316,7 @@ LABEL_12:
     goto LABEL_13;
   }
 
-  v8 = **(this + 1);
+  v8 = **(v7 + 1);
 
   [v8 addPhraseToUserProfileWithTemplateName:a3 wordTag:a4 phrase:a2];
 }
@@ -9251,7 +9325,7 @@ void RDUserProfile::addPhraseAndPronsToUserProfile(RDUserProfile *this, const __
 {
   if (!a2)
   {
-    v6 = RXOSLog();
+    v6 = RXOSLog(this);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       v10 = 0;
@@ -9268,7 +9342,7 @@ LABEL_12:
 
   if (!a4 || !a5)
   {
-    v6 = RXOSLog();
+    v6 = RXOSLog(this);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       v9 = 0;
@@ -9285,27 +9359,32 @@ LABEL_12:
   [v5 addPhraseToUserProfileWithIPAprons:a4 wordTag:a5 phrase:a2 pronsArray:a3];
 }
 
-void RDUserProfile::addWordCombinations(id **this, const __CFArray *a2, const __CFString *a3, const __CFString *a4)
+void RDUserProfile::addWordCombinations(RDUserProfile *this, const __CFArray *a2, const __CFString *a3, const __CFString *a4)
 {
-  if (!a2 && CFArrayGetCount(0) <= 0)
+  v7 = this;
+  if (!a2)
   {
-    v11 = RXOSLog();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    this = CFArrayGetCount(0);
+    if (this <= 0)
     {
-      *buf = 0;
-      v12 = "addWordCombinations: Null phrase being added to profile. Ignoring..";
-      v13 = buf;
-      goto LABEL_17;
-    }
+      v11 = RXOSLog(this);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      {
+        *buf = 0;
+        v12 = "addWordCombinations: Null phrase being added to profile. Ignoring..";
+        v13 = buf;
+        goto LABEL_17;
+      }
 
 LABEL_18:
 
-    return;
+      return;
+    }
   }
 
   if (!a3 || !a4)
   {
-    v11 = RXOSLog();
+    v11 = RXOSLog(this);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       v15 = 0;
@@ -9325,7 +9404,7 @@ LABEL_17:
     for (j = 0; j < ([(__CFArray *)v14 count]- i + 1); ++j)
     {
       v10 = [(__CFArray *)v14 subarrayWithRange:j, i];
-      [*this[1] addPhraseToUserProfileWithTemplateName:a3 wordTag:a4 phrase:v10];
+      [**(v7 + 1) addPhraseToUserProfileWithTemplateName:a3 wordTag:a4 phrase:v10];
     }
   }
 }
@@ -9380,8 +9459,7 @@ RDASRWrapper *RDASRWSpeechRecognizerCreate(uint64_t a1, int a2, uint64_t a3)
     v7 = RDEARCSpeechRecognizerCreate(a1, a2);
   }
 
-  [(RDASRWrapper *)v6 setRecognizer:v7];
-  v8 = RXOSLog();
+  v8 = RXOSLog([(RDASRWrapper *)v6 setRecognizer:v7]);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     *v10 = 0;
@@ -9408,8 +9486,7 @@ id RDASRWSpeechRecognizerCreateRecognitionBuffer(void *a1, uint64_t a2, uint64_t
     RecognitionBuffer = RDEARCSpeechRecognizerCreateRecognitionBuffer(v11, a2, a3, a4, v12);
   }
 
-  [v9 setRecognitionBuffer:RecognitionBuffer];
-  v14 = RXOSLog();
+  v14 = RXOSLog([v9 setRecognitionBuffer:RecognitionBuffer]);
   if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
   {
     *v17 = 0;
@@ -9420,7 +9497,7 @@ id RDASRWSpeechRecognizerCreateRecognitionBuffer(void *a1, uint64_t a2, uint64_t
   return v15;
 }
 
-uint64_t RDASRWSpeechRecognitionAudioBufferNewUtteranceBegins(uint64_t a1)
+void *RDASRWSpeechRecognitionAudioBufferNewUtteranceBegins(void *a1)
 {
   result = RXIsSpeechSPIEnabled();
   if (result)
@@ -9447,77 +9524,77 @@ id RDASRWSpeechRecognitionAudioBufferAddAudioSamples(void *a1, uint64_t a2, uint
   }
 }
 
-void RDASRWSpeechRecognitionAudioBufferEndAudio(uint64_t a1)
+void RDASRWSpeechRecognitionAudioBufferEndAudio(void *a1)
 {
   if (RXIsSpeechSPIEnabled())
   {
-    RDSAPICSpeechAnalyzerEndAudio(a1);
+    v2 = RDSAPICSpeechAnalyzerEndAudio(a1);
   }
 
   else
   {
-    RDEARCSpeechRecognitionAudioBufferEndAudio(a1);
+    v2 = RDEARCSpeechRecognitionAudioBufferEndAudio(a1);
   }
 
-  v2 = RXOSLog();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
+  v3 = RXOSLog(v2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
-    *v3 = 0;
-    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEBUG, "ASRWrapper end audio", v3, 2u);
+    *v4 = 0;
+    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEBUG, "ASRWrapper end audio", v4, 2u);
   }
 }
 
-void RDASRWSpeechRecognitionAudioBufferCancelRecognition(uint64_t a1)
+void RDASRWSpeechRecognitionAudioBufferCancelRecognition(void *a1)
 {
   if (RXIsSpeechSPIEnabled())
   {
-    RDSAPICSpeechAnalyzerCancelRecognition(a1);
+    v2 = RDSAPICSpeechAnalyzerCancelRecognition(a1);
   }
 
   else
   {
-    RDEARCSpeechRecognitionAudioBufferCancelRecognition(a1);
+    v2 = RDEARCSpeechRecognitionAudioBufferCancelRecognition(a1);
   }
 
-  v2 = RXOSLog();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
+  v3 = RXOSLog(v2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
-    *v3 = 0;
-    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEBUG, "ASRWrapper cancel audio", v3, 2u);
+    *v4 = 0;
+    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEBUG, "ASRWrapper cancel audio", v4, 2u);
   }
 }
 
-id RDASRWSpeechRecognizerSetDetectUtterances(void *a1, uint64_t a2)
+void RDASRWSpeechRecognizerSetDetectUtterances(void *a1, int a2)
 {
   v4 = RXIsSpeechSPIEnabled();
   v5 = [a1 recognizer];
   if (v4)
   {
 
-    return RDSAPICSpeechAnalyzerSetDetectUtterances(v5, a2);
+    RDSAPICSpeechAnalyzerSetDetectUtterances();
   }
 
   else
   {
 
-    return RDEARCSpeechRecognizerSetDetectUtterances(v5, a2);
+    RDEARCSpeechRecognizerSetDetectUtterances(v5, a2);
   }
 }
 
-id RDASRWSpeechRecognizerSetHighPriority(void *a1, uint64_t a2)
+void RDASRWSpeechRecognizerSetHighPriority(void *a1, int a2)
 {
   v4 = RXIsSpeechSPIEnabled();
   v5 = [a1 recognizer];
   if (v4)
   {
 
-    return RDSAPICSpeechAnalyzerSetHighPriority(v5, a2);
+    RDSAPICSpeechAnalyzerSetHighPriority();
   }
 
   else
   {
 
-    return RDEARCSpeechRecognizerSetHighPriority(v5, a2);
+    RDEARCSpeechRecognizerSetHighPriority(v5, a2);
   }
 }
 
@@ -9552,83 +9629,5 @@ CFTypeRef RDASRWSpeechRecognizerCopyUserProfileData(void *a1)
   {
 
     return RDEARCSpeechRecognizerCopyUserProfileData(v3);
-  }
-}
-
-id RDASRWSpeechRecognizerSetUserProfileData(void *a1, uint64_t a2)
-{
-  v4 = RXIsSpeechSPIEnabled();
-  v5 = [a1 recognizer];
-  if (v4)
-  {
-
-    return RDSAPICSpeechAnalyzerSetUserProfileData(v5, a2);
-  }
-
-  else
-  {
-
-    return RDEARCSpeechRecognizerSetUserProfileData(v5, a2);
-  }
-}
-
-CFTypeRef RDASRWSpeechRecognizerCopyJitProfileData(void *a1)
-{
-  v2 = RXIsSpeechSPIEnabled();
-  v3 = [a1 recognizer];
-  if (v2)
-  {
-
-    return RDSAPICSpeechAnalyzerCopyJitProfileData(v3);
-  }
-
-  else
-  {
-
-    return RDEARCSpeechRecognizerCopyJitProfileData(v3);
-  }
-}
-
-id RDASRWSpeechRecognizerUpdateJitProfileData(void *a1, uint64_t a2)
-{
-  v4 = RXIsSpeechSPIEnabled();
-  v5 = [a1 recognizer];
-  if (v4)
-  {
-
-    return RDSAPICSpeechAnalyzerUpdateJitProfileData(v5, a2);
-  }
-
-  else
-  {
-
-    return RDEARCSpeechRecognizerUpdateJitProfileData(v5, a2);
-  }
-}
-
-id RDASRWSpeechRecognizerSetRecognitionReplacements(void *a1, const __CFDictionary *a2)
-{
-  if (RXIsSpeechSPIEnabled())
-  {
-    if (a2 && CFDictionaryGetCount(a2) >= 1)
-    {
-      v4 = [a1 recognizer];
-      v5 = 1;
-    }
-
-    else
-    {
-      v4 = [a1 recognizer];
-      v5 = 0;
-    }
-
-    return RDSAPICSpeechAnalyzerSetRecognitionReplacements(v4, v5);
-  }
-
-  else
-  {
-    v6 = [a1 recognizer];
-
-    return RDEARCSpeechRecognizerSetRecognitionReplacements(v6, a2);
   }
 }

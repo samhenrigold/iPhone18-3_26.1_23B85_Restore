@@ -2981,16 +2981,15 @@ LABEL_4:
   {
     collectionView = [(ConversationViewControllerBase *)self collectionView];
     [collectionView _contentScrollInset];
-    v5 = v4;
-    v7 = v6;
-    v9 = v8;
+    v6 = v5;
+    v8 = v7;
+    v10 = v9;
 
     collectionView2 = [(ConversationViewControllerBase *)self collectionView];
-    UIRoundToViewScale();
-    v11 = v10;
+    v11 = UIRoundToViewScale(padding);
 
     collectionView3 = [(ConversationViewControllerBase *)self collectionView];
-    [collectionView3 _setContentScrollInset:{v5, v7, fmax(v11, 0.0), v9}];
+    [collectionView3 _setContentScrollInset:{v6, v8, fmax(v11, 0.0), v10}];
   }
 }
 

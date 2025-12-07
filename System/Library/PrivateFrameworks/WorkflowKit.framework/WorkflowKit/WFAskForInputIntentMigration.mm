@@ -32,11 +32,11 @@ void __47__WFAskForInputIntentMigration_migrateWorkflow__block_invoke(uint64_t a
 {
   v10 = a3;
   v3 = [v10 objectForKeyedSubscript:@"WFInputType"];
-  if ([v3 isEqualToString:@"Date"])
+  if (objc_msgSend_isEqualToString_(v3))
   {
     v4 = [v10 objectForKeyedSubscript:@"WFAskActionDateGranularity"];
     v5 = @"Time";
-    if (([v4 isEqualToString:@"Time"] & 1) != 0 || (v5 = @"Date and Time", objc_msgSend(v4, "isEqualToString:", @"Date and Time")))
+    if ((objc_msgSend_isEqualToString_(v4) & 1) != 0 || (v5 = @"Date and Time", objc_msgSend_isEqualToString_(v4)))
     {
       [v10 setObject:v5 forKeyedSubscript:@"WFInputType"];
     }
@@ -47,26 +47,26 @@ void __47__WFAskForInputIntentMigration_migrateWorkflow__block_invoke(uint64_t a
   if (v6)
   {
     v7 = [v10 objectForKeyedSubscript:@"WFInputType"];
-    if ([v7 isEqualToString:@"Number"])
+    if (objc_msgSend_isEqualToString_(v7))
     {
       v8 = @"WFAskActionDefaultAnswerNumber";
     }
 
-    else if ([v7 isEqualToString:@"URL"])
+    else if (objc_msgSend_isEqualToString_(v7))
     {
       v8 = @"WFAskActionDefaultAnswerURL";
     }
 
-    else if (![v7 isEqualToString:@"Date"] || (v8 = @"WFAskActionDefaultAnswerDate", objc_msgSend(v10, "objectForKeyedSubscript:", @"WFAskActionDefaultAnswerDate"), v9 = objc_claimAutoreleasedReturnValue(), v9, v9))
+    else if (!objc_msgSend_isEqualToString_(v7) || (v8 = @"WFAskActionDefaultAnswerDate", [v10 objectForKeyedSubscript:@"WFAskActionDefaultAnswerDate"], v9 = objc_claimAutoreleasedReturnValue(), v9, v9))
     {
-      if ([v7 isEqualToString:@"Time"])
+      if (objc_msgSend_isEqualToString_(v7))
       {
         v8 = @"WFAskActionDefaultAnswerTime";
       }
 
       else
       {
-        if (![v7 isEqualToString:@"Date and Time"])
+        if (!objc_msgSend_isEqualToString_(v7))
         {
 LABEL_18:
 

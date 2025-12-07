@@ -10,70 +10,68 @@
 
 - (id)identifyLanguagesForMessages:(id)messages
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   messagesCopy = messages;
-  v27 = 0;
-  v28 = &v27;
-  v29 = 0x3032000000;
-  v30 = __Block_byref_object_copy__23529;
-  v31 = __Block_byref_object_dispose__23530;
-  v32 = 0;
-  v22 = MEMORY[0x277D85DD0];
-  v23 = 3221225472;
-  v24 = __86__TILanguageModelOfflineLearningStrategyMecabraFavonius_identifyLanguagesForMessages___block_invoke;
-  v25 = &unk_278733760;
-  v26 = &v27;
+  v25[0] = 0;
+  v25[1] = v25;
+  v25[2] = 0x3032000000;
+  v25[3] = __Block_byref_object_copy__23529;
+  v25[4] = __Block_byref_object_dispose__23530;
+  v26 = 0;
+  v20 = MEMORY[0x277D85DD0];
+  v21 = 3221225472;
+  v22 = __86__TILanguageModelOfflineLearningStrategyMecabraFavonius_identifyLanguagesForMessages___block_invoke;
+  v23 = &unk_278733760;
+  v24 = v25;
   TIDispatchSync();
   v4 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v16 = 0u;
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
-  v21 = 0u;
   v5 = messagesCopy;
-  v6 = [v5 countByEnumeratingWithState:&v18 objects:v33 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v16 objects:v27 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v19;
+    v8 = *v17;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v19 != v8)
+        if (*v17 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v18 + 1) + 8 * i);
+        v10 = *(*(&v16 + 1) + 8 * i);
         body = [v10 body];
-        v36.length = [(__CFString *)body length];
-        v12 = v28[5];
-        v36.location = 0;
-        v13 = CFStringTokenizerCopyBestStringLanguage(body, v36);
-        if (v13)
+        v30.length = [(__CFString *)body length];
+        v30.location = 0;
+        v12 = CFStringTokenizerCopyBestStringLanguage(body, v30);
+        if (v12)
         {
-          v14 = v13;
-          v15 = [v4 objectForKey:v13];
-          if (!v15)
+          v13 = v12;
+          v14 = [v4 objectForKey:v12];
+          if (!v14)
           {
-            v15 = objc_alloc_init(MEMORY[0x277CBEB18]);
-            [v4 setObject:v15 forKey:v14];
+            v14 = objc_alloc_init(MEMORY[0x277CBEB18]);
+            [v4 setObject:v14 forKey:v13];
           }
 
-          [v15 addObject:v10];
+          [v14 addObject:v10];
 
-          CFRelease(v14);
+          CFRelease(v13);
         }
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v18 objects:v33 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v16 objects:v27 count:16];
     }
 
     while (v7);
   }
 
-  _Block_object_dispose(&v27, 8);
-  v16 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(v25, 8);
 
   return v4;
 }
@@ -91,35 +89,35 @@ void __86__TILanguageModelOfflineLearningStrategyMecabraFavonius_identifyLanguag
 - (BOOL)learnMessages:(id)messages withRecipientRecords:(id)records
 {
   selfCopy = self;
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   messagesCopy = messages;
   recordsCopy = records;
-  v34 = 0;
-  v35 = &v34;
-  v36 = 0x2020000000;
-  v37 = 1;
+  v33 = 0;
+  v34 = &v33;
+  v35 = 0x2020000000;
+  v36 = 1;
   v7 = [objc_alloc(MEMORY[0x277CBEB38]) initWithCapacity:{objc_msgSend(recordsCopy, "count") + 1}];
-  v26 = [objc_alloc(MEMORY[0x277CBEB38]) initWithCapacity:{objc_msgSend(recordsCopy, "count") + 1}];
+  v25 = [objc_alloc(MEMORY[0x277CBEB38]) initWithCapacity:{objc_msgSend(recordsCopy, "count") + 1}];
+  v29 = 0u;
   v30 = 0u;
   v31 = 0u;
   v32 = 0u;
-  v33 = 0u;
   obj = messagesCopy;
-  v8 = [obj countByEnumeratingWithState:&v30 objects:v38 count:16];
+  v8 = [obj countByEnumeratingWithState:&v29 objects:v37 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v31;
+    v10 = *v30;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v31 != v10)
+        if (*v30 != v10)
         {
           objc_enumerationMutation(obj);
         }
 
-        v12 = *(*(&v30 + 1) + 8 * i);
+        v12 = *(*(&v29 + 1) + 8 * i);
         recipient = [v12 recipient];
         v14 = [recordsCopy objectForKey:recipient];
 
@@ -135,7 +133,7 @@ void __86__TILanguageModelOfflineLearningStrategyMecabraFavonius_identifyLanguag
 
         if (v14)
         {
-          [v26 setObject:v14 forKey:v18];
+          [v25 setObject:v14 forKey:v18];
         }
 
         v19 = [v7 objectForKey:v18];
@@ -148,25 +146,24 @@ void __86__TILanguageModelOfflineLearningStrategyMecabraFavonius_identifyLanguag
         [v19 addObject:v12];
       }
 
-      v9 = [obj countByEnumeratingWithState:&v30 objects:v38 count:16];
+      v9 = [obj countByEnumeratingWithState:&v29 objects:v37 count:16];
     }
 
     while (v9);
   }
 
-  v27[0] = MEMORY[0x277D85DD0];
-  v27[1] = 3221225472;
-  v27[2] = __92__TILanguageModelOfflineLearningStrategyMecabraFavonius_learnMessages_withRecipientRecords___block_invoke;
-  v27[3] = &unk_278733698;
-  v27[4] = selfCopy;
-  v28 = v26;
-  v29 = &v34;
-  v20 = v26;
-  [v7 enumerateKeysAndObjectsUsingBlock:v27];
-  v21 = *(v35 + 24);
+  v26[0] = MEMORY[0x277D85DD0];
+  v26[1] = 3221225472;
+  v26[2] = __92__TILanguageModelOfflineLearningStrategyMecabraFavonius_learnMessages_withRecipientRecords___block_invoke;
+  v26[3] = &unk_278733698;
+  v26[4] = selfCopy;
+  v27 = v25;
+  v28 = &v33;
+  v20 = v25;
+  [v7 enumerateKeysAndObjectsUsingBlock:v26];
+  v21 = *(v34 + 24);
 
-  _Block_object_dispose(&v34, 8);
-  v22 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v33, 8);
   return v21;
 }
 

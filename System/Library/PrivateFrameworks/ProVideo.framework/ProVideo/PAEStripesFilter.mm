@@ -90,7 +90,7 @@
     v30 = 0u;
     if (output)
     {
-      [output imageInfo];
+      objc_msgSend_imageInfo(output);
       v13 = v33;
       if (*(&v31 + 1))
       {
@@ -111,7 +111,7 @@
       {
         if (input)
         {
-          [input heliumRef];
+          objc_msgSend_heliumRef(input);
         }
 
         else
@@ -134,7 +134,7 @@
         (*(*v16 + 120))(v16, 0, v14);
         v17 = HGObject::operator new(0x1A0uLL);
         HGCrop::HGCrop(v17);
-        v18 = HGRectMake4i(-width, 0, width, 1u);
+        v18 = HGRectMake4i(-width, 0, width, 1);
         v20 = v19;
         (*(*v17 + 120))(v17, 0, v16);
         (*(*v17 + 96))(v17, 0, v18, SHIDWORD(v18), v20, SHIDWORD(v20));

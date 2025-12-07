@@ -40,30 +40,13 @@
   v16.super_class = WBSJSONExporter;
   v8 = [(WBSJSONExporter *)&v16 init];
   v9 = v8;
-  if (!v8)
-  {
-    goto LABEL_5;
-  }
-
-  objc_storeStrong(&v8->_jsonWriter, writer);
-  if (![writerCopy beginObjectWithError:error])
-  {
-    goto LABEL_5;
-  }
-
-  dataType = [objc_opt_class() dataType];
-  schemaVersion = [objc_opt_class() schemaVersion];
-  v12 = WBSCreateExportMetadataDictionary(dataType, schemaVersion);
-  v13 = [writerCopy addEntry:v12 forKey:@"metadata" error:error];
-
-  if (v13)
+  if (v8 && (objc_storeStrong(&v8->_jsonWriter, writer), [writerCopy beginObjectWithError:error]) && (objc_msgSend(objc_opt_class(), "dataType"), v10 = objc_claimAutoreleasedReturnValue(), v11 = objc_msgSend(objc_opt_class(), "schemaVersion"), WBSCreateExportMetadataDictionary(v10, v11), v12 = objc_claimAutoreleasedReturnValue(), v13 = objc_msgSend(writerCopy, "addEntry:forKey:error:", v12, @"metadata", error), v12, v10, v13))
   {
     v14 = v9;
   }
 
   else
   {
-LABEL_5:
     v14 = 0;
   }
 

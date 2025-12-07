@@ -11,21 +11,21 @@ int main(int argc, const char **argv, const char **envp)
 
 void sub_100002F8C(id a1)
 {
-  v3 = sub_100002FE0();
+  v3 = sub_100002FE0(a1);
   v1 = [v3 eventSources];
   v2 = CUIKNowDate();
 }
 
-id sub_100002FE0()
+id sub_100002FE0(uint64_t a1)
 {
   if (qword_100251D88 != -1)
   {
     sub_100003024();
   }
 
-  v1 = qword_100251D90;
+  v2 = qword_100251D90;
 
-  return v1;
+  return v2;
 }
 
 void sub_100003038(id a1)
@@ -40,7 +40,7 @@ void sub_100003038(id a1)
   qword_100251D90 = v3;
 }
 
-void CalUILogInitialize()
+void CalUILogInitialize(uint64_t result, uint64_t a2)
 {
   if (qword_100251A00 != -1)
   {
@@ -62,23 +62,29 @@ void sub_100003120(id a1)
   v6 = kCalUILogTestHandle;
   kCalUILogTestHandle = v5;
 
-  kCalUILogCarplayHandle = os_log_create(CalendarLogSubsystem, "Carplay");
+  v7 = os_log_create(CalendarLogSubsystem, "Carplay");
+  v8 = kCalUILogCarplayHandle;
+  kCalUILogCarplayHandle = v7;
 
-  _objc_release_x1();
+  _objc_release_x1(v7, v8);
 }
 
 void sub_100003224(id a1)
 {
-  qword_100251CC0 = os_log_create("com.apple.mobilecal.signposts", "TelemetrySignposts");
+  v1 = os_log_create("com.apple.mobilecal.signposts", "TelemetrySignposts");
+  v2 = qword_100251CC0;
+  qword_100251CC0 = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 void sub_1000032D0(id a1)
 {
-  qword_100251D00 = objc_alloc_init(CalendarSceneManagerSharedState);
+  v1 = objc_alloc_init(CalendarSceneManagerSharedState);
+  v2 = qword_100251D00;
+  qword_100251D00 = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 void sub_100003448(_Unwind_Exception *a1)
@@ -97,7 +103,7 @@ Swift::Void __swiftcall Application.registerAppIntentsDependencies()()
   v4 = 0u;
   *(swift_allocObject() + 16) = v0;
   v1 = v0;
-  sub_10015E0CC(&qword_100251340);
+  sub_10015E0CC(&qword_100251340, &qword_1001F8D58);
   AppDependencyManager.add<A>(key:dependency:)();
 
   sub_100003704(&v3);
@@ -107,12 +113,12 @@ Swift::Void __swiftcall Application.registerAppIntentsDependencies()()
   v4 = 0u;
   *(swift_allocObject() + 16) = v1;
   v2 = v1;
-  sub_10015E0CC(&qword_100251350);
+  sub_10015E0CC(&qword_100251350, &unk_1001F8D70);
   AppDependencyManager.add<A>(key:dependency:)();
 
   sub_100003704(&v3);
   static AppDependencyManager.shared.getter();
-  sub_10000376C(0, &qword_100251358);
+  sub_10000376C(0, &qword_100251358, CalLinkREMStoreWrapper_ptr);
   v3 = 0u;
   v4 = 0u;
   v5 = 0;
@@ -120,7 +126,7 @@ Swift::Void __swiftcall Application.registerAppIntentsDependencies()()
 
   sub_100003704(&v3);
   static AppDependencyManager.shared.getter();
-  sub_10000376C(0, &qword_100251360);
+  sub_10000376C(0, &qword_100251360, CNContactStore_ptr);
   v3 = 0u;
   v4 = 0u;
   v5 = 0;
@@ -137,12 +143,12 @@ uint64_t sub_1000036C8()
 
 uint64_t sub_100003704(uint64_t a1)
 {
-  v2 = sub_10015E0CC(&qword_100251348);
+  v2 = sub_10015E0CC(&qword_100251348, &unk_1001F8D60);
   (*(*(v2 - 8) + 8))(a1, v2);
   return a1;
 }
 
-uint64_t sub_10000376C(uint64_t a1, unint64_t *a2)
+uint64_t sub_10000376C(uint64_t a1, unint64_t *a2, void *a3)
 {
   result = *a2;
   if (!*a2)
@@ -162,7 +168,7 @@ void sub_100003FC0(uint64_t a1)
   [v1 __buildCalendarSyncHashesForCalendars:v2];
 }
 
-uint64_t type metadata accessor for RootNavigationErrorDisplayManager()
+uint64_t type metadata accessor for RootNavigationErrorDisplayManager(uint64_t a1)
 {
   result = qword_100251310;
   if (!qword_100251310)
@@ -176,58 +182,58 @@ uint64_t type metadata accessor for RootNavigationErrorDisplayManager()
 id sub_100004178(uint64_t a1)
 {
   v2 = v1;
-  v20 = a1;
-  v18 = type metadata accessor for OS_dispatch_queue.AutoreleaseFrequency();
-  v3 = *(v18 - 8);
-  __chkstk_darwin();
-  v5 = v16 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  type metadata accessor for OS_dispatch_queue.Attributes();
-  __chkstk_darwin();
-  type metadata accessor for DispatchQoS();
-  __chkstk_darwin();
-  v19 = OBJC_IVAR____TtC9MobileCal33RootNavigationErrorDisplayManager_delegate;
+  v22 = a1;
+  v20 = type metadata accessor for OS_dispatch_queue.AutoreleaseFrequency();
+  v3 = *(v20 - 8);
+  __chkstk_darwin(v20);
+  v5 = v18 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v6 = type metadata accessor for OS_dispatch_queue.Attributes();
+  __chkstk_darwin(v6);
+  v7 = type metadata accessor for DispatchQoS();
+  __chkstk_darwin(v7 - 8);
+  v21 = OBJC_IVAR____TtC9MobileCal33RootNavigationErrorDisplayManager_delegate;
   swift_unknownObjectWeakInit();
   *&v1[OBJC_IVAR____TtC9MobileCal33RootNavigationErrorDisplayManager_displayDuration] = 0x402E000000000000;
   *&v1[OBJC_IVAR____TtC9MobileCal33RootNavigationErrorDisplayManager_displayTimer] = 0;
-  v17 = OBJC_IVAR____TtC9MobileCal33RootNavigationErrorDisplayManager_timerQueue;
-  v6 = sub_10000376C(0, &qword_100250DC0);
-  v16[1] = "cle.fill";
-  v16[2] = v6;
+  v19 = OBJC_IVAR____TtC9MobileCal33RootNavigationErrorDisplayManager_timerQueue;
+  v8 = sub_10000376C(0, &qword_100250DC0, OS_dispatch_queue_ptr);
+  v18[1] = "cle.fill";
+  v18[2] = v8;
   static DispatchQoS.unspecified.getter();
-  v22 = &_swiftEmptyArrayStorage;
-  sub_100004530(&qword_100250DC8, &type metadata accessor for OS_dispatch_queue.Attributes);
-  sub_10015E0CC(&qword_100250DD0);
-  sub_100005EF8(&qword_100250DD8, &qword_100250DD0);
+  v24 = &_swiftEmptyArrayStorage;
+  sub_100004530(&qword_100250DC8, &type metadata accessor for OS_dispatch_queue.Attributes, &protocol conformance descriptor for OS_dispatch_queue.Attributes);
+  sub_10015E0CC(&qword_100250DD0, &qword_1001F8820);
+  sub_100005EF8(&qword_100250DD8, &qword_100250DD0, &qword_1001F8820);
   dispatch thunk of SetAlgebra.init<A>(_:)();
-  (*(v3 + 104))(v5, enum case for OS_dispatch_queue.AutoreleaseFrequency.inherit(_:), v18);
-  *&v1[v17] = OS_dispatch_queue.init(label:qos:attributes:autoreleaseFrequency:target:)();
-  v7 = OBJC_IVAR____TtC9MobileCal33RootNavigationErrorDisplayManager_timerStartTime;
-  v8 = type metadata accessor for Date();
-  (*(*(v8 - 8) + 56))(&v2[v7], 1, 1, v8);
-  v9 = &v2[OBJC_IVAR____TtC9MobileCal33RootNavigationErrorDisplayManager_currentlyDisplayedAccount];
-  *v9 = 0;
-  v9[1] = 0;
-  v10 = &v2[OBJC_IVAR____TtC9MobileCal33RootNavigationErrorDisplayManager_currentlyDisplayedError];
-  *v10 = 0;
-  v10[8] = 1;
-  v11 = OBJC_IVAR____TtC9MobileCal33RootNavigationErrorDisplayManager_pastContentDict;
-  *&v2[v11] = sub_100005F4C(&_swiftEmptyArrayStorage);
-  v12 = OBJC_IVAR____TtC9MobileCal33RootNavigationErrorDisplayManager_moreContentDict;
-  *&v2[v12] = sub_100005F4C(&_swiftEmptyArrayStorage);
-  v13 = &v2[OBJC_IVAR____TtC9MobileCal33RootNavigationErrorDisplayManager_noErrorText];
-  *v13 = 0;
-  v13[1] = 0xE000000000000000;
+  (*(v3 + 104))(v5, enum case for OS_dispatch_queue.AutoreleaseFrequency.inherit(_:), v20);
+  *&v1[v19] = OS_dispatch_queue.init(label:qos:attributes:autoreleaseFrequency:target:)();
+  v9 = OBJC_IVAR____TtC9MobileCal33RootNavigationErrorDisplayManager_timerStartTime;
+  v10 = type metadata accessor for Date();
+  (*(*(v10 - 8) + 56))(&v2[v9], 1, 1, v10);
+  v11 = &v2[OBJC_IVAR____TtC9MobileCal33RootNavigationErrorDisplayManager_currentlyDisplayedAccount];
+  *v11 = 0;
+  v11[1] = 0;
+  v12 = &v2[OBJC_IVAR____TtC9MobileCal33RootNavigationErrorDisplayManager_currentlyDisplayedError];
+  *v12 = 0;
+  v12[8] = 1;
+  v13 = OBJC_IVAR____TtC9MobileCal33RootNavigationErrorDisplayManager_pastContentDict;
+  *&v2[v13] = sub_100005F4C(&_swiftEmptyArrayStorage);
+  v14 = OBJC_IVAR____TtC9MobileCal33RootNavigationErrorDisplayManager_moreContentDict;
+  *&v2[v14] = sub_100005F4C(&_swiftEmptyArrayStorage);
+  v15 = &v2[OBJC_IVAR____TtC9MobileCal33RootNavigationErrorDisplayManager_noErrorText];
+  *v15 = 0;
+  v15[1] = 0xE000000000000000;
   v2[OBJC_IVAR____TtC9MobileCal33RootNavigationErrorDisplayManager_isObserving] = 0;
   swift_beginAccess();
   swift_unknownObjectWeakAssign();
   *&v2[OBJC_IVAR____TtC9MobileCal33RootNavigationErrorDisplayManager_secondsRemaining] = 0x402E000000000000;
-  v14 = type metadata accessor for RootNavigationErrorDisplayManager();
-  v21.receiver = v2;
-  v21.super_class = v14;
-  return objc_msgSendSuper2(&v21, "init");
+  v16 = type metadata accessor for RootNavigationErrorDisplayManager(0);
+  v23.receiver = v2;
+  v23.super_class = v16;
+  return objc_msgSendSuper2(&v23, "init");
 }
 
-uint64_t sub_100004530(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t sub_100004530(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -240,34 +246,34 @@ uint64_t sub_100004530(unint64_t *a1, void (*a2)(uint64_t))
   return result;
 }
 
-void sub_100005DA8()
+void sub_100005DA8(uint64_t a1)
 {
-  sub_100005EA0();
-  if (v0 <= 0x3F)
+  sub_100005EA0(319);
+  if (v1 <= 0x3F)
   {
     swift_updateClassMetadata2();
   }
 }
 
-void sub_100005EA0()
+void sub_100005EA0(uint64_t a1)
 {
   if (!qword_100251320)
   {
     type metadata accessor for Date();
-    v0 = type metadata accessor for Optional();
-    if (!v1)
+    v1 = type metadata accessor for Optional();
+    if (!v2)
     {
-      atomic_store(v0, &qword_100251320);
+      atomic_store(v1, &qword_100251320);
     }
   }
 }
 
-uint64_t sub_100005EF8(unint64_t *a1, uint64_t *a2)
+uint64_t sub_100005EF8(unint64_t *a1, uint64_t *a2, uint64_t *a3)
 {
   result = *a1;
   if (!result)
   {
-    sub_10015E178(a2);
+    sub_10015E178(a2, a3);
     result = swift_getWitnessTable();
     atomic_store(result, a1);
   }
@@ -280,7 +286,7 @@ unint64_t sub_100005F4C(uint64_t a1)
   v1 = *(a1 + 16);
   if (v1)
   {
-    sub_10015E0CC(&unk_100250F80);
+    sub_10015E0CC(&unk_100250F80, &unk_1001F89E0);
     v3 = static _DictionaryStorage.allocate(capacity:)();
 
     for (i = (a1 + 48); ; i += 3)
@@ -356,11 +362,11 @@ Swift::Void __swiftcall RootNavigationErrorDisplayManager.updateNoErrorText(to:)
   countAndFlagsBits = to._countAndFlagsBits;
   v4 = type metadata accessor for DispatchWorkItemFlags();
   v5 = *(v4 - 8);
-  __chkstk_darwin();
+  __chkstk_darwin(v4);
   v7 = v14 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   v15 = type metadata accessor for DispatchQoS();
   v8 = *(v15 - 8);
-  __chkstk_darwin();
+  __chkstk_darwin(v15);
   v10 = v14 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
   v14[1] = *&v1[OBJC_IVAR____TtC9MobileCal33RootNavigationErrorDisplayManager_timerQueue];
   v11 = swift_allocObject();
@@ -378,9 +384,9 @@ Swift::Void __swiftcall RootNavigationErrorDisplayManager.updateNoErrorText(to:)
 
   static DispatchQoS.unspecified.getter();
   v16 = &_swiftEmptyArrayStorage;
-  sub_100004530(&qword_100251288, &type metadata accessor for DispatchWorkItemFlags);
-  sub_10015E0CC(&qword_100251290);
-  sub_100005EF8(&qword_100251298, &qword_100251290);
+  sub_100004530(&qword_100251288, &type metadata accessor for DispatchWorkItemFlags, &protocol conformance descriptor for DispatchWorkItemFlags);
+  sub_10015E0CC(&qword_100251290, &qword_1001F8C80);
+  sub_100005EF8(&qword_100251298, &qword_100251290, &qword_1001F8C80);
   dispatch thunk of SetAlgebra.init<A>(_:)();
   OS_dispatch_queue.async(group:qos:flags:execute:)();
   _Block_release(v12);
@@ -420,11 +426,11 @@ uint64_t sub_10000A088(char *a1, uint64_t a2, uint64_t a3)
 {
   v6 = type metadata accessor for DispatchWorkItemFlags();
   v7 = *(v6 - 8);
-  __chkstk_darwin();
+  __chkstk_darwin(v6);
   v9 = &v20 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   v10 = type metadata accessor for DispatchQoS();
   v11 = *(v10 - 8);
-  __chkstk_darwin();
+  __chkstk_darwin(v10);
   v13 = &v20 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
   v14 = &a1[OBJC_IVAR____TtC9MobileCal33RootNavigationErrorDisplayManager_noErrorText];
   *v14 = a2;
@@ -432,7 +438,7 @@ uint64_t sub_10000A088(char *a1, uint64_t a2, uint64_t a3)
 
   if (!*&a1[OBJC_IVAR____TtC9MobileCal33RootNavigationErrorDisplayManager_currentlyDisplayedAccount + 8])
   {
-    sub_10000376C(0, &qword_100250DC0);
+    sub_10000376C(0, &qword_100250DC0, OS_dispatch_queue_ptr);
     v21 = static OS_dispatch_queue.main.getter();
     v16 = swift_allocObject();
     *(v16 + 16) = a1;
@@ -447,10 +453,10 @@ uint64_t sub_10000A088(char *a1, uint64_t a2, uint64_t a3)
 
     static DispatchQoS.unspecified.getter();
     aBlock[0] = &_swiftEmptyArrayStorage;
-    sub_100004530(&qword_100251288, &type metadata accessor for DispatchWorkItemFlags);
-    sub_10015E0CC(&qword_100251290);
+    sub_100004530(&qword_100251288, &type metadata accessor for DispatchWorkItemFlags, &protocol conformance descriptor for DispatchWorkItemFlags);
+    sub_10015E0CC(&qword_100251290, &qword_1001F8C80);
     v20 = v10;
-    sub_100005EF8(&qword_100251298, &qword_100251290);
+    sub_100005EF8(&qword_100251298, &qword_100251290, &qword_1001F8C80);
     dispatch thunk of SetAlgebra.init<A>(_:)();
     v19 = v21;
     OS_dispatch_queue.async(group:qos:flags:execute:)();
@@ -482,9 +488,9 @@ uint64_t sub_10000A464(uint64_t a1)
   return _swift_deallocObject(v1, a1, 7);
 }
 
-void sub_10000BCA4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10000BCA4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -507,9 +513,9 @@ void sub_10000BCBC(uint64_t a1, void *a2)
   }
 }
 
-void sub_10000C0A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_10000C0A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -610,15 +616,15 @@ uint64_t _s9MobileCal11TipsManagerC09configureC6CenteryyF_0()
 {
   v0 = type metadata accessor for Tips.ConfigurationOption.AnalyticsEngine();
   v1 = *(v0 - 8);
-  __chkstk_darwin();
+  __chkstk_darwin(v0);
   v3 = &v13 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
   v4 = type metadata accessor for Tips.ConfigurationOption.DatastoreLocation();
   v5 = *(v4 - 8);
-  __chkstk_darwin();
+  __chkstk_darwin(v4);
   v7 = &v13 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   v8 = type metadata accessor for Tips.ConfigurationOption.DisplayFrequency();
   v9 = *(v8 - 8);
-  result = __chkstk_darwin();
+  result = __chkstk_darwin(v8);
   v12 = &v13 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
   if ((byte_100251380 & 1) == 0)
   {
@@ -627,7 +633,7 @@ uint64_t _s9MobileCal11TipsManagerC09configureC6CenteryyF_0()
     v16 = v1;
     v17 = v0;
     byte_100251380 = 1;
-    sub_10015E0CC(&qword_100251440);
+    sub_10015E0CC(&qword_100251440, &unk_1001F8E20);
     type metadata accessor for Tips.ConfigurationOption();
     *(swift_allocObject() + 16) = xmmword_1001F8D90;
     static Tips.ConfigurationOption.DisplayFrequency.system.getter();
@@ -645,15 +651,15 @@ uint64_t _s9MobileCal11TipsManagerC09configureC6CenteryyF_0()
   return result;
 }
 
-uint64_t sub_10000F840(uint64_t a1, uint64_t a2, uint64_t a3, void *a4, uint64_t a5)
+uint64_t sub_10000F840(uint64_t a1, uint64_t a2, char a3, void *a4, uint64_t a5, uint64_t a6)
 {
   if (*a4 != -1)
   {
     swift_once();
   }
 
-  v6 = sub_10015E0CC(&qword_1002513A8);
-  sub_10000F8DC(v6, a5);
+  v7 = sub_10015E0CC(&qword_1002513A8, &qword_1001F8DB0);
+  sub_10000F8DC(v7, a5);
   swift_beginAccess();
   Tips.Parameter.wrappedValue.setter();
   return swift_endAccess();
@@ -671,17 +677,17 @@ uint64_t sub_10000F8DC(uint64_t a1, uint64_t a2)
 
 uint64_t sub_10000F9A4()
 {
-  v0 = sub_10015E0CC(&qword_1002515A8);
+  v0 = sub_10015E0CC(&qword_1002515A8, &qword_1001F90A8);
   v1 = *(v0 - 8);
-  __chkstk_darwin();
+  __chkstk_darwin(v0);
   v3 = &v15 - v2;
   v4 = type metadata accessor for Tips.UsesConstellation();
   v5 = *(v4 - 8);
-  __chkstk_darwin();
+  __chkstk_darwin(v4);
   v7 = &v15 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v8 = sub_10015E0CC(&qword_1002515B0);
+  v8 = sub_10015E0CC(&qword_1002515B0, &qword_1001F90B0);
   v9 = *(v8 - 8);
-  __chkstk_darwin();
+  __chkstk_darwin(v8);
   v11 = &v15 - v10;
   Tips.UsesConstellation.init(_:)();
   static Tips.OptionsBuilder.buildExpression<A>(_:)();
@@ -701,13 +707,13 @@ uint64_t sub_10000F9A4()
 
 uint64_t sub_10000FC48()
 {
-  v0 = sub_10015E0CC(&qword_1002513A8);
+  v0 = sub_10015E0CC(&qword_1002513A8, &qword_1001F8DB0);
   v1 = *(v0 - 8);
-  __chkstk_darwin();
+  __chkstk_darwin(v0);
   v3 = &v15 - v2;
   v4 = type metadata accessor for Tips.Rule();
   v5 = *(v4 - 8);
-  __chkstk_darwin();
+  __chkstk_darwin(v4);
   v7 = &v15 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   if (qword_100250DB0 != -1)
   {
@@ -753,35 +759,35 @@ uint64_t sub_10000FC48()
   return v13;
 }
 
-uint64_t sub_100010044@<X0>(uint64_t *a1@<X8>)
+uint64_t sub_100010044@<X0>(uint64_t *a2@<X8>)
 {
-  v2 = sub_10015E0CC(&qword_1002515B8);
-  v3 = *(v2 - 8);
-  __chkstk_darwin();
-  v5 = &v11[-v4];
-  v6 = sub_10015E0CC(&qword_1002515C0);
-  v7 = *(v6 - 8);
-  __chkstk_darwin();
-  v9 = &v11[-v8];
-  sub_1000102B0(&qword_1002515C8, &qword_1002515C0);
+  v3 = sub_10015E0CC(&qword_1002515B8, &qword_1001F90B8);
+  v4 = *(v3 - 8);
+  __chkstk_darwin(v3);
+  v6 = &v12[-v5];
+  v7 = sub_10015E0CC(&qword_1002515C0, &qword_1001F90C0);
+  v8 = *(v7 - 8);
+  __chkstk_darwin(v7);
+  v10 = &v12[-v9];
+  sub_1000102B0(&qword_1002515C8, &qword_1002515C0, &qword_1001F90C0, &protocol conformance descriptor for PredicateExpressions.Variable<A>);
   static PredicateExpressions.build_Arg<A>(_:)();
-  v11[15] = 1;
+  v12[15] = 1;
   static PredicateExpressions.build_Arg<A>(_:)();
-  a1[3] = sub_10015E0CC(&qword_1002515D0);
-  a1[4] = sub_1000102F8();
-  sub_100010434(a1);
-  sub_1000102B0(&qword_1002515F0, &qword_1002515B8);
+  a2[3] = sub_10015E0CC(&qword_1002515D0, &qword_1001F90C8);
+  a2[4] = sub_1000102F8();
+  sub_100010434(a2);
+  sub_1000102B0(&qword_1002515F0, &qword_1002515B8, &qword_1001F90B8, &protocol conformance descriptor for PredicateExpressions.Value<A>);
   static PredicateExpressions.build_Equal<A, B>(lhs:rhs:)();
-  (*(v3 + 8))(v5, v2);
-  return (*(v7 + 8))(v9, v6);
+  (*(v4 + 8))(v6, v3);
+  return (*(v8 + 8))(v10, v7);
 }
 
-uint64_t sub_1000102B0(unint64_t *a1, uint64_t *a2)
+uint64_t sub_1000102B0(unint64_t *a1, uint64_t *a2, uint64_t *a3, uint64_t a4)
 {
   result = *a1;
   if (!result)
   {
-    sub_10015E178(a2);
+    sub_10015E178(a2, a3);
     result = swift_getWitnessTable();
     atomic_store(result, a1);
   }
@@ -794,8 +800,8 @@ unint64_t sub_1000102F8()
   result = qword_1002515D8;
   if (!qword_1002515D8)
   {
-    sub_10015E178(&qword_1002515D0);
-    sub_1000102B0(&qword_1002515E0, &qword_1002515C0);
+    sub_10015E178(&qword_1002515D0, &qword_1001F90C8);
+    sub_1000102B0(&qword_1002515E0, &qword_1002515C0, &qword_1001F90C0, &protocol conformance descriptor for PredicateExpressions.Variable<A>);
     sub_1000103B0();
     result = swift_getWitnessTable();
     atomic_store(result, &qword_1002515D8);
@@ -809,7 +815,7 @@ unint64_t sub_1000103B0()
   result = qword_1002515E8;
   if (!qword_1002515E8)
   {
-    sub_10015E178(&qword_1002515B8);
+    sub_10015E178(&qword_1002515B8, &qword_1001F90B8);
     result = swift_getWitnessTable();
     atomic_store(result, &qword_1002515E8);
   }
@@ -872,11 +878,11 @@ Swift::Void __swiftcall RootNavigationErrorDisplayManager.updateContent(with:)(S
 {
   v3 = type metadata accessor for DispatchWorkItemFlags();
   v4 = *(v3 - 8);
-  __chkstk_darwin();
+  __chkstk_darwin(v3);
   v6 = v13 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
   v14 = type metadata accessor for DispatchQoS();
   v7 = *(v14 - 8);
-  __chkstk_darwin();
+  __chkstk_darwin(v14);
   v9 = v13 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   v13[1] = *&v1[OBJC_IVAR____TtC9MobileCal33RootNavigationErrorDisplayManager_timerQueue];
   v10 = swift_allocObject();
@@ -893,9 +899,9 @@ Swift::Void __swiftcall RootNavigationErrorDisplayManager.updateContent(with:)(S
 
   static DispatchQoS.unspecified.getter();
   v15 = &_swiftEmptyArrayStorage;
-  sub_100004530(&qword_100251288, &type metadata accessor for DispatchWorkItemFlags);
-  sub_10015E0CC(&qword_100251290);
-  sub_100005EF8(&qword_100251298, &qword_100251290);
+  sub_100004530(&qword_100251288, &type metadata accessor for DispatchWorkItemFlags, &protocol conformance descriptor for DispatchWorkItemFlags);
+  sub_10015E0CC(&qword_100251290, &qword_1001F8C80);
+  sub_100005EF8(&qword_100251298, &qword_100251290, &qword_1001F8C80);
   dispatch thunk of SetAlgebra.init<A>(_:)();
   OS_dispatch_queue.async(group:qos:flags:execute:)();
   _Block_release(v11);
@@ -915,7 +921,7 @@ uint64_t sub_100011210(uint64_t a1, uint64_t a2)
   sub_100011498(v2);
 }
 
-uint64_t sub_100011268(uint64_t a1)
+Swift::Int sub_100011268(uint64_t a1)
 {
   v1 = a1 + 64;
   v2 = 1 << *(a1 + 32);
@@ -1025,11 +1031,11 @@ uint64_t sub_100011498(uint64_t a1)
   v2 = v1;
   v92 = type metadata accessor for DispatchWorkItemFlags();
   v91 = *(v92 - 8);
-  __chkstk_darwin();
+  __chkstk_darwin(v92);
   v90 = &v84[-((v4 + 15) & 0xFFFFFFFFFFFFFFF0)];
   v89 = type metadata accessor for DispatchQoS();
   v88 = *(v89 - 8);
-  __chkstk_darwin();
+  __chkstk_darwin(v89);
   v87 = &v84[-((v5 + 15) & 0xFFFFFFFFFFFFFFF0)];
   v6 = 1 << *(a1 + 32);
   v7 = -1;
@@ -1377,7 +1383,7 @@ LABEL_7:
   else
   {
     sub_100011DC8(0);
-    sub_10000376C(0, &qword_100250DC0);
+    sub_10000376C(0, &qword_100250DC0, OS_dispatch_queue_ptr);
     v77 = static OS_dispatch_queue.main.getter();
     v78 = swift_allocObject();
     *(v78 + 16) = v2;
@@ -1393,9 +1399,9 @@ LABEL_7:
     v81 = v87;
     static DispatchQoS.unspecified.getter();
     aBlock[0] = &_swiftEmptyArrayStorage;
-    sub_100004530(&qword_100251288, &type metadata accessor for DispatchWorkItemFlags);
-    sub_10015E0CC(&qword_100251290);
-    sub_100005EF8(&qword_100251298, &qword_100251290);
+    sub_100004530(&qword_100251288, &type metadata accessor for DispatchWorkItemFlags, &protocol conformance descriptor for DispatchWorkItemFlags);
+    sub_10015E0CC(&qword_100251290, &qword_1001F8C80);
+    sub_100005EF8(&qword_100251298, &qword_100251290, &qword_1001F8C80);
     v82 = v90;
     v83 = v92;
     dispatch thunk of SetAlgebra.init<A>(_:)();
@@ -1450,9 +1456,9 @@ void sub_10001208C(uint64_t a1)
   }
 }
 
-void sub_100012708(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_100012708(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1476,17 +1482,17 @@ void sub_100013558(uint64_t a1)
   *(v7 + 8) = v6;
 }
 
-uint64_t sub_10001375C()
+void *sub_10001375C(uint64_t a1)
 {
   swift_beginAccess();
   result = swift_unknownObjectWeakLoadStrong();
   if (result)
   {
-    v1 = result;
+    v2 = result;
 
-    v2 = String._bridgeToObjectiveC()();
+    v3 = String._bridgeToObjectiveC()();
 
-    [v1 updateLabelNoErrorWithText:v2];
+    [v2 updateLabelNoErrorWithText:v3];
 
     return swift_unknownObjectRelease();
   }
@@ -1960,9 +1966,9 @@ void sub_100017998(uint64_t a1)
   [WeakRetained largeMonthWeekView:*(a1 + 40) didDoubleTapOnDay:*(a1 + 48)];
 }
 
-void sub_1000181A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_1000181A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2222,9 +2228,11 @@ LABEL_43:
 
 void sub_1000191A4(id a1)
 {
-  qword_100251798 = [UIColor colorWithWhite:0.0 alpha:0.05];
+  v1 = [UIColor colorWithWhite:0.0 alpha:0.05];
+  v2 = qword_100251798;
+  qword_100251798 = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 id sub_10001DC28(uint64_t a1)
@@ -2394,9 +2402,9 @@ void *sub_100023388(void *result)
   return result;
 }
 
-void sub_1000235A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1000235A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2451,27 +2459,30 @@ void sub_1000240EC(id a1, InfiniteScrollViewSubview *a2, BOOL *a3)
 
 uint64_t sub_1000241B0(uint64_t a1, void *a2)
 {
-  v13 = a2;
-  if ([v13 conformsToProtocol:&OBJC_PROTOCOL___MonthInfiniteScrollSubview])
+  v15 = a2;
+  v3 = [v15 conformsToProtocol:&OBJC_PROTOCOL___MonthInfiniteScrollSubview];
+  v4 = v15;
+  if (v3)
   {
-    v3 = v13;
-    v4 = [v3 calendarDate];
-    if ([v4 compare:*(*(a1 + 32) + 184)] == -1)
+    v5 = v15;
+    v6 = [v5 calendarDate];
+    if ([v6 compare:*(*(a1 + 32) + 184)] == -1)
     {
-      v5 = [v3 endCalendarDate];
-      v6 = [v5 compare:*(*(a1 + 32) + 176)];
+      v7 = [v5 endCalendarDate];
+      v8 = [v7 compare:*(*(a1 + 32) + 176)];
 
-      if (v6 == 1)
+      if (v8 == 1)
       {
-        v7 = *(*(a1 + 32) + 176);
-        v8 = [v3 calendarDate];
-        v9 = [v7 differenceInDays:v8];
+        v9 = *(*(a1 + 32) + 176);
+        v10 = [v5 calendarDate];
+        v11 = [v9 differenceInDays:v10];
 
-        v10 = [*(*(a1 + 32) + 184) differenceInDays:*(*(a1 + 32) + 176)] + (v9 & (v9 >> 63)) + 1;
-        v11 = v9 & ~(v9 >> 63);
+        v12 = [*(*(a1 + 32) + 184) differenceInDays:*(*(a1 + 32) + 176)] + (v11 & (v11 >> 63)) + 1;
+        v13 = v11 & ~(v11 >> 63);
 LABEL_7:
-        [v3 setHighlightedDayRange:{v11, v10}];
+        [v5 setHighlightedDayRange:{v13, v12}];
 
+        v4 = v15;
         goto LABEL_8;
       }
     }
@@ -2480,14 +2491,14 @@ LABEL_7:
     {
     }
 
-    v10 = 0;
-    v11 = 0x7FFFFFFFFFFFFFFFLL;
+    v12 = 0;
+    v13 = 0x7FFFFFFFFFFFFFFFLL;
     goto LABEL_7;
   }
 
 LABEL_8:
 
-  return _objc_release_x1();
+  return _objc_release_x1(v3, v4);
 }
 
 id sub_100024528(uint64_t a1)
@@ -2686,13 +2697,13 @@ void sub_100026C74(uint64_t a1)
   [UIView animateWithDuration:v4 animations:v2 completion:0.2];
 }
 
-uint64_t sub_100026F2C()
+uint64_t sub_100026F2C(uint64_t a1)
 {
 
   return NSRequestConcreteImplementation();
 }
 
-uint64_t sub_100026F48()
+uint64_t sub_100026F48(uint64_t a1)
 {
 
   return objc_opt_class();
@@ -2895,9 +2906,9 @@ LABEL_7:
   [v3 setShouldAnnotateAppEntities:v8];
 }
 
-void sub_100029B20(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100029B20(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2950,9 +2961,9 @@ void sub_100029E40(uint64_t a1, void *a2)
   }
 }
 
-void sub_100029F90(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100029F90(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2964,9 +2975,9 @@ uint64_t sub_100029FA8(uint64_t result, uint64_t a2, _BYTE *a3)
   return result;
 }
 
-void sub_10002A128(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10002A128(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2991,9 +3002,9 @@ void sub_10002A30C(uint64_t a1, void *a2)
   [v2 addObject:v3];
 }
 
-void sub_10002A474(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10002A474(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3060,9 +3071,9 @@ LABEL_8:
 LABEL_11:
 }
 
-void sub_10002A9AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_10002A9AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3117,15 +3128,17 @@ void sub_10002A9C4(void *a1, uint64_t a2, void *a3, uint64_t a4, _BYTE *a5)
 uint64_t sub_10002ADC0(uint64_t a1, void *a2)
 {
   v3 = [a2 occurrenceView];
+  v4 = v3;
   if (v3)
   {
-    v5 = v3;
+    v6 = v3;
     [*(*(a1 + 32) + 56) addObject:v3];
-    [v5 setHidden:1];
-    [v5 setOccurrence:0];
+    [v6 setHidden:1];
+    v3 = [v6 setOccurrence:0];
+    v4 = v6;
   }
 
-  return _objc_release_x1();
+  return _objc_release_x1(v3, v4);
 }
 
 void sub_10002AEB0(uint64_t a1, void *a2)
@@ -3232,9 +3245,9 @@ void sub_10002E668(id a1, EKAllDayOccurrenceBlock *a2, BOOL *a3)
   [v3 stopRendering];
 }
 
-void sub_10002EA70(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_10002EA70(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3254,14 +3267,14 @@ id sub_10002EA8C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
   return result;
 }
 
-void sub_10002F56C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_10002F56C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va1, a9);
-  va_start(va, a9);
-  v10 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
+  va_start(va1, a16);
+  va_start(va, a16);
+  v17 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -3371,9 +3384,9 @@ void sub_10002F5AC(uint64_t a1, uint64_t a2, void *a3, uint64_t a4)
   }
 }
 
-void sub_10002FA64(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10002FA64(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5039,9 +5052,11 @@ id sub_100053370(uint64_t a1)
 
 uint64_t sub_100054474(uint64_t a1)
 {
-  qword_1002518D0 = objc_alloc_init(*(a1 + 32));
+  v1 = objc_alloc_init(*(a1 + 32));
+  v2 = qword_1002518D0;
+  qword_1002518D0 = v1;
 
-  return _objc_release_x1();
+  return _objc_release_x1(v1, v2);
 }
 
 uint64_t sub_100054684(uint64_t a1)
@@ -5365,21 +5380,25 @@ void sub_1000574C8(uint64_t a1)
 
 void sub_1000580D4(id a1)
 {
-  qword_1002518E8 = objc_alloc_init(NSCache);
+  v1 = objc_alloc_init(NSCache);
+  v2 = qword_1002518E8;
+  qword_1002518E8 = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 void sub_100058110(id a1)
 {
-  qword_1002518F8 = objc_alloc_init(NSCache);
+  v1 = objc_alloc_init(NSCache);
+  v2 = qword_1002518F8;
+  qword_1002518F8 = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
-void sub_100059D78(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+void sub_100059D78(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, ...)
 {
-  va_start(va, a16);
+  va_start(va, a23);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5430,9 +5449,9 @@ void sub_100059DBC(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
   }
 }
 
-void sub_10005A064(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10005A064(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5489,7 +5508,7 @@ id sub_10005CBC8(uint64_t a1)
   return [v2 setAlpha:0.0];
 }
 
-uint64_t sub_10005DC54(uint64_t a1, unint64_t a2, unint64_t a3, uint64_t a4)
+BOOL sub_10005DC54(uint64_t a1, unint64_t a2, unint64_t a3, uint64_t a4)
 {
   if (a2 > a3 || a2 > 0x13)
   {
@@ -5593,9 +5612,9 @@ void sub_10005EB10(uint64_t a1, uint64_t a2)
   }
 }
 
-void sub_10005F14C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_10005F14C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5670,9 +5689,11 @@ void sub_10005F444(uint64_t a1)
 
 void sub_10005F548(id a1)
 {
-  qword_100251938 = objc_alloc_init(_BackgroundViewRenderManager);
+  v1 = objc_alloc_init(_BackgroundViewRenderManager);
+  v2 = qword_100251938;
+  qword_100251938 = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 void sub_10005F79C(uint64_t a1)
@@ -5785,11 +5806,11 @@ void sub_1000601A4(uint64_t a1)
   }
 }
 
-void sub_100060C1C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_100060C1C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
+  va_start(va, a22);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v15 - 112), 8);
+  _Block_object_dispose((v22 - 112), 8);
   _Unwind_Resume(a1);
 }
 
@@ -5993,9 +6014,9 @@ void sub_100063378(id a1)
   [v3 addAnchoredValue:0x4000 forWindowSizeWidth:169.0];
 }
 
-void sub_100064938(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100064938(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6146,7 +6167,7 @@ void sub_10006608C(uint64_t a1)
       _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEBUG, "%@ found the source occurrence view for the selected event yet.", v17, 0xCu);
     }
 
-    [v4 setSelectedOccurrence:{*(a1 + 32), *v17}];
+    [v4 setSelectedOccurrence:{*(a1 + 32), *v17, *&v17[8]}];
     v8 = [WeakRetained shownEventViewController];
     if (v8)
     {
@@ -6540,9 +6561,9 @@ void sub_10006F4C0(id a1)
   _objc_release_x1(v1, v2);
 }
 
-void sub_10006F850(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_10006F850(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -7511,9 +7532,9 @@ LABEL_36:
   }
 }
 
-void sub_10007DE60(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_10007DE60(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -7578,29 +7599,29 @@ void sub_10007E9AC(id a1)
   _objc_release_x1(v1, v2);
 }
 
-void sub_10007F2A8(uint64_t a1)
+void sub_10007F2A8(uint64_t a1, uint64_t a2)
 {
-  v2 = CUIKGetOverlayCalendar();
-  v3 = [*(*(a1 + 32) + 72) date];
-  v4 = [v2 components:24 fromDate:v3];
-  if ([v4 day] != 1 || objc_msgSend(v4, "month") != 1 || objc_msgSend(v4, "isLeapMonth"))
+  v3 = CUIKGetOverlayCalendar();
+  v4 = [*(*(a1 + 32) + 72) date];
+  v5 = [v3 components:24 fromDate:v4];
+  if ([v5 day] != 1 || objc_msgSend(v5, "month") != 1 || objc_msgSend(v5, "isLeapMonth"))
   {
-    v5 = [v2 dateByAddingUnit:4 value:1 toDate:v3 options:1024];
+    v6 = [v3 dateByAddingUnit:4 value:1 toDate:v4 options:1024];
 
-    v3 = v5;
+    v4 = v6;
   }
 
-  v6 = [CUIKDateStrings overlayYearStringForDate:v3 inCalendar:v2];
-  v7 = [CUIKDateStrings overlayFirstDayOfLunarMonthLocalizedStringInCalendar:v2];
+  v7 = [CUIKDateStrings overlayYearStringForDate:v4 inCalendar:v3];
+  v8 = [CUIKDateStrings overlayFirstDayOfLunarMonthLocalizedStringInCalendar:v3];
   block[0] = _NSConcreteStackBlock;
   block[1] = 3221225472;
   block[2] = sub_10007F430;
   block[3] = &unk_10020F2E0;
   block[4] = *(a1 + 32);
-  v11 = v6;
   v12 = v7;
-  v8 = v7;
-  v9 = v6;
+  v13 = v8;
+  v9 = v8;
+  v10 = v7;
   dispatch_async(&_dispatch_main_q, block);
 }
 
@@ -7864,14 +7885,14 @@ uint64_t sub_100089A34(uint64_t a1)
   return result;
 }
 
-void sub_10008A35C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_10008A35C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va1, a9);
-  va_start(va, a9);
-  v10 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
+  va_start(va1, a16);
+  va_start(va, a16);
+  v17 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -7927,9 +7948,9 @@ void sub_10008A398(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
   }
 }
 
-void sub_10008B94C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_10008B94C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -8019,9 +8040,9 @@ id sub_10008DC4C(uint64_t a1)
   return [v3 setHidden:v2 & 1];
 }
 
-void sub_10008DEE8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10008DEE8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -8041,9 +8062,9 @@ void sub_10008DF00(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
   }
 }
 
-void sub_10008E0E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10008E0E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -8309,9 +8330,9 @@ void sub_100091994(uint64_t a1)
   }
 }
 
-void sub_10009333C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_10009333C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -8340,6 +8361,13 @@ void sub_10009335C(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4)
 
     v7 = v18;
   }
+}
+
+void sub_100093AD0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, ...)
+{
+  va_start(va, a58);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
 }
 
 void sub_100093B08(uint64_t a1)
@@ -8493,9 +8521,9 @@ void sub_100097788(uint64_t a1, void *a2)
   [v3 resetTodayBits];
 }
 
-void sub_100097BA8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100097BA8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -8527,9 +8555,9 @@ void sub_100097BD8(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
   }
 }
 
-void sub_100097E4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100097E4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -8557,9 +8585,9 @@ void sub_100097E64(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
   }
 }
 
-void sub_100098124(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_100098124(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -8804,14 +8832,14 @@ id sub_10009B450(uint64_t a1)
   return [*(*(a1 + 32) + 329) setAlpha:v1];
 }
 
-void sub_10009BDE8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_10009BDE8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va1, a9);
-  va_start(va, a9);
-  v10 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
+  va_start(va1, a16);
+  va_start(va, a16);
+  v17 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -8884,9 +8912,9 @@ uint64_t sub_10009C294(uint64_t a1)
   return result;
 }
 
-void sub_10009C4E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_10009C4E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -8945,25 +8973,4 @@ void sub_10009D190(id *a1)
   [a1[9] completeTransition:1];
   v5 = +[NSNotificationCenter defaultCenter];
   [v5 postNotificationName:@"YearMonthAnimator_YearToMonthAnimationCompleteNotification" object:0];
-}
-
-void sub_10009E5F4(id a1)
-{
-  v1 = objc_alloc_init(NSCache);
-  v2 = qword_100251A08;
-  qword_100251A08 = v1;
-
-  _objc_release_x1(v1, v2);
-}
-
-void sub_10009F288(uint64_t a1, void *a2, uint64_t a3)
-{
-  v5 = a2;
-  v6 = a3 + 1;
-  v7 = *(a1 + 32);
-  v8 = v5;
-  if ([v5 isSelected] != (v6 == v7))
-  {
-    [v8 setSelected:v6 == v7];
-  }
 }

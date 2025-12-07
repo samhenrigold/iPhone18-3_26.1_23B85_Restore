@@ -64,7 +64,7 @@ LABEL_3:
     v15->_disambiguationType = type;
     v15->_maxNumberOfResults = results;
     v15->_matchOptions = options;
-    if ([categoriesCopy count])
+    if (objc_msgSend_count(categoriesCopy))
     {
       v18 = categoriesCopy;
       indexingCategories = v15->_indexingCategories;

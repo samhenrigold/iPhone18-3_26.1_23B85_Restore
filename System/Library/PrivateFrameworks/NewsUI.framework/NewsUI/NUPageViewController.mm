@@ -12,6 +12,7 @@
 - (NUPageViewControllerDataSource)dataSource;
 - (NUPageViewControllerDelegate)delegate;
 - (void)_keyboardSwitchGoingRight:(BOOL)right;
+- (void)addViewController:(id)controller fromScroll:(BOOL)scroll;
 - (void)callLastViewAppearanceMethods;
 - (void)commonInit;
 - (void)handleScrollEnd;
@@ -24,6 +25,7 @@
 - (void)scrollViewDidEndDragging:(id)dragging willDecelerate:(BOOL)decelerate;
 - (void)scrollViewDidScroll:(id)scroll;
 - (void)scrollViewWillBeginDragging:(id)dragging;
+- (void)setPagingEnabled:(BOOL)enabled;
 - (void)setPossibleNextViewController:(id)controller;
 - (void)setVisibleViewController:(id)controller;
 - (void)switchToNextViewController;
@@ -33,7 +35,11 @@
 - (void)updateContentSize;
 - (void)updatePositionForViewController:(id)controller;
 - (void)updateScrollView;
+- (void)viewDidAppear:(BOOL)appear;
+- (void)viewDidDisappear:(BOOL)disappear;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
+- (void)viewWillDisappear:(BOOL)disappear;
 - (void)viewWillLayoutSubviews;
 - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id)coordinator;
 @end
@@ -91,9 +97,7 @@
   idleDispatchGroup = self->_idleDispatchGroup;
   self->_idleDispatchGroup = v5;
 
-  v7 = objc_alloc_init(MEMORY[0x277CBEB18]);
-  replayViewTransitions = self->_replayViewTransitions;
-  self->_replayViewTransitions = v7;
+  self->_replayViewTransitions = objc_alloc_init(MEMORY[0x277CBEB18]);
 
   MEMORY[0x2821F96F8]();
 }
@@ -153,11 +157,88 @@
   [(NUPageViewController *)self updateContentOffset];
 }
 
+- (void)viewWillAppear:(BOOL)appear
+{
+  appearCopy = appear;
+  v29.receiver = self;
+  v29.super_class = NUPageViewController;
+  [(NUPageViewController *)&v29 viewWillAppear:?];
+  scrollView = [(NUPageViewController *)self scrollView];
+  [scrollView bounds];
+  v7 = v6;
+  v9 = v8;
+  view = [(NUPageViewController *)self view];
+  [view bounds];
+  v12 = v11;
+  v14 = v13;
+
+  if (v7 != v12 || v9 != v14)
+  {
+    view2 = [(NUPageViewController *)self view];
+    [view2 bounds];
+    [(NUPageViewController *)self transitionToSize:v17, v18];
+  }
+
+  visibleViewController = [(NUPageViewController *)self visibleViewController];
+
+  if (visibleViewController)
+  {
+    visibleViewController2 = [(NUPageViewController *)self visibleViewController];
+    [visibleViewController2 beginAppearanceTransition:1 animated:appearCopy];
+  }
+
+  else
+  {
+    objc_initWeak(&location, self);
+    replayViewTransitions = [(NUPageViewController *)self replayViewTransitions];
+    v23 = MEMORY[0x277D85DD0];
+    v24 = 3221225472;
+    v25 = __39__NUPageViewController_viewWillAppear___block_invoke;
+    v26 = &unk_2799A3CD0;
+    objc_copyWeak(&v27, &location);
+    v22 = MEMORY[0x25F883F30](&v23);
+    [replayViewTransitions addObject:{v22, v23, v24, v25, v26}];
+
+    objc_destroyWeak(&v27);
+    objc_destroyWeak(&location);
+  }
+}
+
 void __39__NUPageViewController_viewWillAppear___block_invoke(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v1 = [WeakRetained visibleViewController];
   [v1 beginAppearanceTransition:1 animated:0];
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v14.receiver = self;
+  v14.super_class = NUPageViewController;
+  [(NUPageViewController *)&v14 viewDidAppear:appear];
+  visibleViewController = [(NUPageViewController *)self visibleViewController];
+
+  if (visibleViewController)
+  {
+    visibleViewController2 = [(NUPageViewController *)self visibleViewController];
+    [visibleViewController2 endAppearanceTransition];
+  }
+
+  else
+  {
+    objc_initWeak(&location, self);
+    replayViewTransitions = [(NUPageViewController *)self replayViewTransitions];
+    v8 = MEMORY[0x277D85DD0];
+    v9 = 3221225472;
+    v10 = __38__NUPageViewController_viewDidAppear___block_invoke;
+    v11 = &unk_2799A3CD0;
+    objc_copyWeak(&v12, &location);
+    v7 = MEMORY[0x25F883F30](&v8);
+    [replayViewTransitions addObject:{v7, v8, v9, v10, v11}];
+
+    objc_destroyWeak(&v12);
+    objc_destroyWeak(&location);
+  }
 }
 
 void __38__NUPageViewController_viewDidAppear___block_invoke(uint64_t a1)
@@ -167,11 +248,72 @@ void __38__NUPageViewController_viewDidAppear___block_invoke(uint64_t a1)
   [v1 endAppearanceTransition];
 }
 
+- (void)viewWillDisappear:(BOOL)disappear
+{
+  disappearCopy = disappear;
+  v15.receiver = self;
+  v15.super_class = NUPageViewController;
+  [(NUPageViewController *)&v15 viewWillDisappear:?];
+  visibleViewController = [(NUPageViewController *)self visibleViewController];
+
+  if (visibleViewController)
+  {
+    visibleViewController2 = [(NUPageViewController *)self visibleViewController];
+    [visibleViewController2 beginAppearanceTransition:0 animated:disappearCopy];
+  }
+
+  else
+  {
+    objc_initWeak(&location, self);
+    replayViewTransitions = [(NUPageViewController *)self replayViewTransitions];
+    v9 = MEMORY[0x277D85DD0];
+    v10 = 3221225472;
+    v11 = __42__NUPageViewController_viewWillDisappear___block_invoke;
+    v12 = &unk_2799A3CD0;
+    objc_copyWeak(&v13, &location);
+    v8 = MEMORY[0x25F883F30](&v9);
+    [replayViewTransitions addObject:{v8, v9, v10, v11, v12}];
+
+    objc_destroyWeak(&v13);
+    objc_destroyWeak(&location);
+  }
+}
+
 void __42__NUPageViewController_viewWillDisappear___block_invoke(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v1 = [WeakRetained visibleViewController];
   [v1 beginAppearanceTransition:0 animated:0];
+}
+
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  v14.receiver = self;
+  v14.super_class = NUPageViewController;
+  [(NUPageViewController *)&v14 viewDidDisappear:disappear];
+  visibleViewController = [(NUPageViewController *)self visibleViewController];
+
+  if (visibleViewController)
+  {
+    visibleViewController2 = [(NUPageViewController *)self visibleViewController];
+    [visibleViewController2 endAppearanceTransition];
+  }
+
+  else
+  {
+    objc_initWeak(&location, self);
+    replayViewTransitions = [(NUPageViewController *)self replayViewTransitions];
+    v8 = MEMORY[0x277D85DD0];
+    v9 = 3221225472;
+    v10 = __41__NUPageViewController_viewDidDisappear___block_invoke;
+    v11 = &unk_2799A3CD0;
+    objc_copyWeak(&v12, &location);
+    v7 = MEMORY[0x25F883F30](&v8);
+    [replayViewTransitions addObject:{v7, v8, v9, v10, v11}];
+
+    objc_destroyWeak(&v12);
+    objc_destroyWeak(&location);
+  }
 }
 
 void __41__NUPageViewController_viewDidDisappear___block_invoke(uint64_t a1)
@@ -190,7 +332,7 @@ void __41__NUPageViewController_viewDidDisappear___block_invoke(uint64_t a1)
 
 - (void)setVisibleViewController:(id)controller
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   controllerCopy = controller;
   visibleViewController = [(NUPageViewController *)self visibleViewController];
 
@@ -212,31 +354,31 @@ void __41__NUPageViewController_viewDidDisappear___block_invoke(uint64_t a1)
 
     if (replayViewTransitions)
     {
-      v22 = 0u;
-      v23 = 0u;
-      v20 = 0u;
       v21 = 0u;
+      v22 = 0u;
+      v19 = 0u;
+      v20 = 0u;
       replayViewTransitions2 = [(NUPageViewController *)self replayViewTransitions];
-      v12 = [replayViewTransitions2 countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v12 = [replayViewTransitions2 countByEnumeratingWithState:&v19 objects:v23 count:16];
       if (v12)
       {
         v13 = v12;
-        v14 = *v21;
+        v14 = *v20;
         do
         {
           v15 = 0;
           do
           {
-            if (*v21 != v14)
+            if (*v20 != v14)
             {
               objc_enumerationMutation(replayViewTransitions2);
             }
 
-            (*(*(*(&v20 + 1) + 8 * v15++) + 16))();
+            (*(*(*(&v19 + 1) + 8 * v15++) + 16))();
           }
 
           while (v13 != v15);
-          v13 = [replayViewTransitions2 countByEnumeratingWithState:&v20 objects:v24 count:16];
+          v13 = [replayViewTransitions2 countByEnumeratingWithState:&v19 objects:v23 count:16];
         }
 
         while (v13);
@@ -255,8 +397,6 @@ void __41__NUPageViewController_viewDidDisappear___block_invoke(uint64_t a1)
       [delegate2 pageViewController:self didChangeVisibleViewControllerFromViewController:visibleViewController2 direction:0];
     }
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (CGSize)pageSize
@@ -281,6 +421,13 @@ void __41__NUPageViewController_viewDidDisappear___block_invoke(uint64_t a1)
   result.height = v9;
   result.width = v8;
   return result;
+}
+
+- (void)setPagingEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  scrollView = [(NUPageViewController *)self scrollView];
+  [scrollView setScrollEnabled:enabledCopy];
 }
 
 - (BOOL)pagingEnabled
@@ -532,6 +679,43 @@ LABEL_10:
     delegate2 = [(NUPageViewController *)self delegate];
     [delegate2 pageViewController:self didHideViewController:controllerCopy];
   }
+}
+
+- (void)addViewController:(id)controller fromScroll:(BOOL)scroll
+{
+  scrollCopy = scroll;
+  controllerCopy = controller;
+  delegate = [(NUPageViewController *)self delegate];
+  v7 = objc_opt_respondsToSelector();
+
+  if (v7)
+  {
+    delegate2 = [(NUPageViewController *)self delegate];
+    [delegate2 pageViewController:self willShowViewController:controllerCopy fromScroll:scrollCopy];
+  }
+
+  [(NUPageViewController *)self addChildViewController:controllerCopy];
+  [(NUPageViewController *)self setAppearingViewController:controllerCopy];
+  visibleViewController = [(NUPageViewController *)self visibleViewController];
+  [visibleViewController beginAppearanceTransition:0 animated:0];
+
+  visibleViewController2 = [(NUPageViewController *)self visibleViewController];
+  [(NUPageViewController *)self setDisappearingViewController:visibleViewController2];
+
+  view = [(NUPageViewController *)self view];
+  [view bounds];
+  Width = CGRectGetWidth(v20);
+  view2 = [(NUPageViewController *)self view];
+  [view2 bounds];
+  Height = CGRectGetHeight(v21);
+  view3 = [controllerCopy view];
+  [view3 setBounds:{0.0, 0.0, Width, Height}];
+
+  scrollView = [(NUPageViewController *)self scrollView];
+  view4 = [controllerCopy view];
+  [scrollView addSubview:view4];
+
+  [controllerCopy didMoveToParentViewController:self];
 }
 
 - (void)reindexViewControllers
@@ -1089,7 +1273,7 @@ LABEL_11:
 {
   height = size.height;
   width = size.width;
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   scrollView = [(NUPageViewController *)self scrollView];
   [scrollView bounds];
   v8 = v7;
@@ -1103,26 +1287,26 @@ LABEL_11:
 
   if (v13)
   {
-    v29 = 0u;
-    v30 = 0u;
-    v27 = 0u;
     v28 = 0u;
+    v29 = 0u;
+    v26 = 0u;
+    v27 = 0u;
     childViewControllers2 = [(NUPageViewController *)self childViewControllers];
-    v15 = [childViewControllers2 countByEnumeratingWithState:&v27 objects:v31 count:16];
+    v15 = [childViewControllers2 countByEnumeratingWithState:&v26 objects:v30 count:16];
     if (v15)
     {
       v16 = v15;
-      v17 = *v28;
+      v17 = *v27;
       do
       {
         for (i = 0; i != v16; ++i)
         {
-          if (*v28 != v17)
+          if (*v27 != v17)
           {
             objc_enumerationMutation(childViewControllers2);
           }
 
-          v19 = *(*(&v27 + 1) + 8 * i);
+          v19 = *(*(&v26 + 1) + 8 * i);
           view = [v19 view];
           [view bounds];
           v22 = v21;
@@ -1132,7 +1316,7 @@ LABEL_11:
           [view2 setBounds:{v22, v24, width, height}];
         }
 
-        v16 = [childViewControllers2 countByEnumeratingWithState:&v27 objects:v31 count:16];
+        v16 = [childViewControllers2 countByEnumeratingWithState:&v26 objects:v30 count:16];
       }
 
       while (v16);
@@ -1142,8 +1326,6 @@ LABEL_11:
     [(NUPageViewController *)self updateContentSize];
     [(NUPageViewController *)self updateContentOffset];
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id)coordinator
@@ -1197,7 +1379,7 @@ LABEL_5:
   [coordinatorCopy animateAlongsideTransition:v19 completion:0];
 }
 
-uint64_t __75__NUPageViewController_viewWillTransitionToSize_withTransitionCoordinator___block_invoke(uint64_t a1)
+void *__75__NUPageViewController_viewWillTransitionToSize_withTransitionCoordinator___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) transitionToSize:{*(a1 + 40), *(a1 + 48)}];
   *(*(a1 + 32) + 993) = 0;

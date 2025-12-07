@@ -9,10 +9,10 @@
   dictionaryCopy = dictionary;
   if ([(applesauce::CF::DataRef *)dictionaryCopy length])
   {
-    applesauce::CF::DataRef::from_ns_noexcept(dictionaryCopy, &v23);
+    applesauce::CF::DataRef::from_ns_noexcept(&v22, dictionaryCopy);
     v4 = CFURLCreateWithBytes(0, "temp", 4, 0, 0);
     v5 = v4;
-    v22 = v4;
+    v21 = v4;
     if (!v4)
     {
       exception = __cxa_allocate_exception(0x10uLL);
@@ -21,42 +21,37 @@
 
     CFRetain(v4);
     cf = v5;
-    IR::IRDataAttributes::IRDataAttributes(v17, &cf, 0, 0, 2, 0, 0.0);
+    IR::IRDataAttributes::IRDataAttributes(v16, &cf, 0, 0, 2, 0, 0.0);
     if (cf)
     {
       CFRelease(cf);
     }
 
-    v18 = 2;
-    v6 = v23;
-    if (v23)
+    v17 = 2;
+    v6 = v22;
+    if (v22)
     {
-      CFRetain(v23);
+      CFRetain(v22);
     }
 
-    v13 = 0;
-    v14 = v6;
-    __p = 0;
     v12 = 0;
-    IR::IRData::IRData(&v15, v17, &v14, &__p);
+    v13 = v6;
+    __p = 0;
+    v11 = 0;
+    IR::IRData::IRData(&v14, v16, &v13, &__p);
     if (__p)
     {
-      v12 = __p;
+      v11 = __p;
       operator delete(__p);
     }
 
-    if (v14)
+    if (v13)
     {
-      CFRelease(v14);
+      CFRelease(v13);
     }
 
-    DictionaryIRData = IR::IRData::createDictionaryIRData(&v15, 1, v7);
-    IR::IRData::~IRData(&v15);
-    if (v21)
-    {
-      CFRelease(v21);
-    }
-
+    v7 = IR::IRData::createDictionaryIRData(&v14, 1);
+    IR::IRData::~IRData(&v14);
     if (v20)
     {
       CFRelease(v20);
@@ -67,28 +62,33 @@
       CFRelease(v19);
     }
 
-    if (v17[0])
+    if (v18)
     {
-      CFRelease(v17[0]);
+      CFRelease(v18);
+    }
+
+    if (v16[0])
+    {
+      CFRelease(v16[0]);
+    }
+
+    if (v21)
+    {
+      CFRelease(v21);
     }
 
     if (v22)
     {
       CFRelease(v22);
     }
-
-    if (v23)
-    {
-      CFRelease(v23);
-    }
   }
 
   else
   {
-    DictionaryIRData = 0;
+    v7 = 0;
   }
 
-  return DictionaryIRData;
+  return v7;
 }
 
 @end

@@ -13,11 +13,11 @@
 
 - (RFTableRowCardSection)initWithProtobuf:(id)protobuf
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   protobufCopy = protobuf;
-  v33.receiver = self;
-  v33.super_class = RFTableRowCardSection;
-  v5 = [(SFCardSection *)&v33 init];
+  v32.receiver = self;
+  v32.super_class = RFTableRowCardSection;
+  v5 = [(SFCardSection *)&v32 init];
   if (v5)
   {
     cells = [protobufCopy cells];
@@ -31,33 +31,33 @@
       v7 = 0;
     }
 
-    v31 = 0u;
-    v32 = 0u;
-    v29 = 0u;
     v30 = 0u;
+    v31 = 0u;
+    v28 = 0u;
+    v29 = 0u;
     cells2 = [protobufCopy cells];
-    v9 = [cells2 countByEnumeratingWithState:&v29 objects:v35 count:16];
+    v9 = [cells2 countByEnumeratingWithState:&v28 objects:v34 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v30;
+      v11 = *v29;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v30 != v11)
+          if (*v29 != v11)
           {
             objc_enumerationMutation(cells2);
           }
 
-          v13 = [[RFTableCell alloc] initWithProtobuf:*(*(&v29 + 1) + 8 * i)];
+          v13 = [[RFTableCell alloc] initWithProtobuf:*(*(&v28 + 1) + 8 * i)];
           if (v13)
           {
             [v7 addObject:v13];
           }
         }
 
-        v10 = [cells2 countByEnumeratingWithState:&v29 objects:v35 count:16];
+        v10 = [cells2 countByEnumeratingWithState:&v28 objects:v34 count:16];
       }
 
       while (v10);
@@ -85,33 +85,33 @@
       v15 = 0;
     }
 
-    v27 = 0u;
-    v28 = 0u;
-    v25 = 0u;
     v26 = 0u;
+    v27 = 0u;
+    v24 = 0u;
+    v25 = 0u;
     compact_cells2 = [protobufCopy compact_cells];
-    v17 = [compact_cells2 countByEnumeratingWithState:&v25 objects:v34 count:16];
+    v17 = [compact_cells2 countByEnumeratingWithState:&v24 objects:v33 count:16];
     if (v17)
     {
       v18 = v17;
-      v19 = *v26;
+      v19 = *v25;
       do
       {
         for (j = 0; j != v18; ++j)
         {
-          if (*v26 != v19)
+          if (*v25 != v19)
           {
             objc_enumerationMutation(compact_cells2);
           }
 
-          v21 = [[RFTableCell alloc] initWithProtobuf:*(*(&v25 + 1) + 8 * j)];
+          v21 = [[RFTableCell alloc] initWithProtobuf:*(*(&v24 + 1) + 8 * j)];
           if (v21)
           {
             [v15 addObject:v21];
           }
         }
 
-        v18 = [compact_cells2 countByEnumeratingWithState:&v25 objects:v34 count:16];
+        v18 = [compact_cells2 countByEnumeratingWithState:&v24 objects:v33 count:16];
       }
 
       while (v18);
@@ -121,7 +121,6 @@
     v22 = v5;
   }
 
-  v23 = *MEMORY[0x1E69E9840];
   return v5;
 }
 

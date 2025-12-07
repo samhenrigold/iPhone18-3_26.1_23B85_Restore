@@ -234,8 +234,7 @@ LABEL_39:
   [database resetColumnAccessLog];
 
   v43 = queryCopy;
-  v8 = v7 = [queryCopy copy];
-  v10 = v9 = objc_claimAutoreleasedReturnValue();
+  v10 = v9 = v8 = v7 = [queryCopy copy];
 
   selfCopy = self;
   database2 = [(_DPMLRuntimeSQL *)self database];

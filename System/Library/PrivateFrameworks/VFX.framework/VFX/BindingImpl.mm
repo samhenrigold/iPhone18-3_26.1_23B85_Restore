@@ -140,22 +140,22 @@
 - (NSData)rawValue
 {
 
-  v2 = sub_1AFC4B954();
-  v4 = v3;
+  v3 = sub_1AFC4B954(v2);
+  v5 = v4;
 
-  if (v4 >> 60 == 15)
+  if (v5 >> 60 == 15)
   {
-    v5 = 0;
+    v6 = 0;
   }
 
   else
   {
-    v6 = sub_1AFDFC1A8();
-    sub_1AF587E7C(v2, v4);
-    v5 = v6;
+    v7 = sub_1AFDFC1A8();
+    sub_1AF587E7C(v3, v5);
+    v6 = v7;
   }
 
-  return v5;
+  return v6;
 }
 
 - (void)setRawValue:(id)value

@@ -2,7 +2,9 @@
 + (id)defaultDebugOverrides;
 - (BOOL)isEqual:(id)equal;
 - (NSString)description;
+- (RCDebugOverrides)initWithDisableAbTesting:(BOOL)testing overrideSegmentSetIDs:(id)ds additionalSegmentSetIDs:(id)iDs configurationSource:(unint64_t)source debugEnvironment:(unint64_t)environment ignoreCache:(BOOL)cache;
 - (RCDebugOverrides)initWithDisableAbTesting:(BOOL)testing overrideSegmentSetIDs:(id)ds additionalSegmentSetIDs:(id)iDs configurationSource:(unint64_t)source debugEnvironment:(unint64_t)environment ignoreCache:(BOOL)cache enableExtraLogs:(BOOL)logs;
+- (RCDebugOverrides)initWithDisableAbTesting:(BOOL)testing overrideSegmentSetIDs:(id)ds additionalSegmentSetIDs:(id)iDs onlyUseFallbackURL:(BOOL)l debugEnvironment:(unint64_t)environment;
 - (id)dictionaryRepresentation;
 - (unint64_t)hash;
 @end
@@ -15,6 +17,39 @@
   v2 = [[RCDebugOverrides alloc] initWithDisableAbTesting:0 overrideSegmentSetIDs:0 additionalSegmentSetIDs:0 configurationSource:0 debugEnvironment:0 ignoreCache:0 enableExtraLogs:v4];
 
   return v2;
+}
+
+- (RCDebugOverrides)initWithDisableAbTesting:(BOOL)testing overrideSegmentSetIDs:(id)ds additionalSegmentSetIDs:(id)iDs onlyUseFallbackURL:(BOOL)l debugEnvironment:(unint64_t)environment
+{
+  testingCopy = testing;
+  if (l)
+  {
+    v11 = 2;
+  }
+
+  else
+  {
+    v11 = 0;
+  }
+
+  iDsCopy = iDs;
+  dsCopy = ds;
+  LOBYTE(v16) = 0;
+  v14 = [[RCDebugOverrides alloc] initWithDisableAbTesting:testingCopy overrideSegmentSetIDs:dsCopy additionalSegmentSetIDs:iDsCopy configurationSource:v11 debugEnvironment:environment ignoreCache:0 enableExtraLogs:v16];
+
+  return v14;
+}
+
+- (RCDebugOverrides)initWithDisableAbTesting:(BOOL)testing overrideSegmentSetIDs:(id)ds additionalSegmentSetIDs:(id)iDs configurationSource:(unint64_t)source debugEnvironment:(unint64_t)environment ignoreCache:(BOOL)cache
+{
+  cacheCopy = cache;
+  testingCopy = testing;
+  iDsCopy = iDs;
+  dsCopy = ds;
+  LOBYTE(v18) = 0;
+  v16 = [[RCDebugOverrides alloc] initWithDisableAbTesting:testingCopy overrideSegmentSetIDs:dsCopy additionalSegmentSetIDs:iDsCopy configurationSource:source debugEnvironment:environment ignoreCache:cacheCopy enableExtraLogs:v18];
+
+  return v16;
 }
 
 - (RCDebugOverrides)initWithDisableAbTesting:(BOOL)testing overrideSegmentSetIDs:(id)ds additionalSegmentSetIDs:(id)iDs configurationSource:(unint64_t)source debugEnvironment:(unint64_t)environment ignoreCache:(BOOL)cache enableExtraLogs:(BOOL)logs

@@ -84,7 +84,7 @@ LABEL_18:
 
 + (id)createWithCodable:()HDSyncSupport
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   v3 = a3;
   if (![v3 isMemberOfClass:objc_opt_class()])
   {
@@ -137,14 +137,14 @@ LABEL_24:
         {
           v20 = objc_opt_class();
           v21 = HKStringFromUserDomainConceptPropertyValueType();
-          v25 = 138543874;
-          v26 = v20;
-          v27 = 2114;
-          v28 = v21;
-          v29 = 2114;
-          v30 = objc_opt_class();
-          v22 = v30;
-          _os_log_impl(&dword_228986000, v19, OS_LOG_TYPE_INFO, "Decoded invalid %{public}@ with valueType = %{public}@, value of class %{public}@", &v25, 0x20u);
+          v24 = 138543874;
+          v25 = v20;
+          v26 = 2114;
+          v27 = v21;
+          v28 = 2114;
+          v29 = objc_opt_class();
+          v22 = v29;
+          _os_log_impl(&dword_228986000, v19, OS_LOG_TYPE_INFO, "Decoded invalid %{public}@ with valueType = %{public}@, value of class %{public}@", &v24, 0x20u);
         }
       }
 
@@ -215,7 +215,6 @@ LABEL_21:
 LABEL_29:
 
 LABEL_30:
-  v23 = *MEMORY[0x277D85DE8];
 
   return v12;
 }

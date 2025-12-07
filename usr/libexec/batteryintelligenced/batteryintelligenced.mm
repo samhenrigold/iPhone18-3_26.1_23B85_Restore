@@ -34,30 +34,8 @@ uint64_t sub_1000012C4(int a1, void *a2, _BYTE *a3, int a4)
       if (!result)
       {
         v9 = BYTE8(v16);
-        if (BYTE8(v16))
+        if (BYTE8(v16) || (BYTE6(v28) = 5, v25 = a1, DWORD2(v27) = HIDWORD(v15), v14 = 0u, v15 = 0u, v16 = 0u, v17 = 0u, v18 = 0u, v19 = 0u, v20 = 0u, v21 = 0u, v22 = 0u, v23 = 0u, v24 = 0, result = sub_100001604(&v25, &v14), v9 = BYTE8(v16), BYTE8(v16)))
         {
-          goto LABEL_6;
-        }
-
-        BYTE6(v28) = 5;
-        v25 = a1;
-        DWORD2(v27) = HIDWORD(v15);
-        v14 = 0u;
-        v15 = 0u;
-        v16 = 0u;
-        v17 = 0u;
-        v18 = 0u;
-        v19 = 0u;
-        v20 = 0u;
-        v21 = 0u;
-        v22 = 0u;
-        v23 = 0u;
-        v24 = 0;
-        result = sub_100001604(&v25, &v14);
-        v9 = BYTE8(v16);
-        if (BYTE8(v16))
-        {
-LABEL_6:
           if (v9 == 132)
           {
             return 3758097136;
@@ -162,7 +140,7 @@ uint64_t sub_100001484(int a1, const void *a2, unsigned int a3)
           v7 = a3;
         }
 
-        memcpy(&v22[12], a2, (v7 - 1) + 1);
+        memcpy(&v22[12], a2, v7 - 1 + 1);
       }
 
       v18 = 0;
@@ -614,10 +592,11 @@ id sub_100002C7C(void *a1)
   return v4;
 }
 
-void sub_100002CD8(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_100002CD8(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 2u);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 2u);
 }
 
 uint64_t sub_100002DA0(uint64_t a1)
@@ -627,16 +606,18 @@ uint64_t sub_100002DA0(uint64_t a1)
   return _objc_release_x1();
 }
 
-void sub_10000488C(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_10000488C(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
-void sub_1000048B8(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_1000048B8(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, &a9, 0xCu);
+  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, va, 0xCu);
 }
 
 uint64_t sub_100004980(uint64_t a1)
@@ -847,88 +828,88 @@ void sub_10000AE0C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_10000AE30(uint64_t a1)
+void sub_10000AE30(uint64_t a1, uint64_t a2)
 {
-  v4 = os_transaction_create();
+  v5 = os_transaction_create();
   WeakRetained = objc_loadWeakRetained((a1 + 32));
-  v3 = WeakRetained;
+  v4 = WeakRetained;
   if (WeakRetained)
   {
     [WeakRetained submitEstimatorJobWithName:@"batteryAnalysisRunAtPlugin"];
   }
 }
 
-void sub_10000BDE8(uint64_t a1)
+void sub_10000BDE8(uint64_t a1, uint64_t a2)
 {
-  v2 = os_transaction_create();
+  v3 = os_transaction_create();
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   if (WeakRetained)
   {
-    v4 = qword_1000578F0;
+    v5 = qword_1000578F0;
     if (os_log_type_enabled(qword_1000578F0, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v16) = 0;
-      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Running checkChargingStatusChangeAndSetUp.", &v16, 2u);
+      LOWORD(v17) = 0;
+      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Running checkChargingStatusChangeAndSetUp.", &v17, 2u);
     }
 
-    v5 = sub_10001FCC4();
-    v6 = qword_1000578F0;
-    if (v5)
+    v6 = sub_10001FCC4();
+    v7 = qword_1000578F0;
+    if (v6)
     {
       if (os_log_type_enabled(qword_1000578F0, OS_LOG_TYPE_DEFAULT))
       {
-        v7 = v6;
-        v8 = [WeakRetained chargingStatus];
-        v16 = 138412546;
-        v17 = v8;
-        v18 = 2112;
-        v19 = v5;
-        _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Previous charging status: %@, Current charging status: %@", &v16, 0x16u);
+        v8 = v7;
+        v9 = [WeakRetained chargingStatus];
+        v17 = 138412546;
+        v18 = v9;
+        v19 = 2112;
+        v20 = v6;
+        _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Previous charging status: %@, Current charging status: %@", &v17, 0x16u);
       }
 
-      v9 = [WeakRetained chargingStatus];
+      v10 = [WeakRetained chargingStatus];
 
-      if (v9)
+      if (v10)
       {
-        v10 = [WeakRetained chargingStatus];
-        v11 = [v10 isEqualToString:v5];
+        v11 = [WeakRetained chargingStatus];
+        v12 = [v11 isEqualToString:v6];
 
-        if (v11)
+        if (v12)
         {
-          v12 = qword_1000578F0;
+          v13 = qword_1000578F0;
           if (os_log_type_enabled(qword_1000578F0, OS_LOG_TYPE_DEFAULT))
           {
-            LOWORD(v16) = 0;
-            _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Charging status has not changed.", &v16, 2u);
+            LOWORD(v17) = 0;
+            _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "Charging status has not changed.", &v17, 2u);
           }
         }
 
         else
         {
-          [WeakRetained setUpWithNewChargingStatus:v5];
+          [WeakRetained setUpWithNewChargingStatus:v6];
         }
       }
 
       else
       {
-        v13 = qword_1000578F0;
+        v14 = qword_1000578F0;
         if (os_log_type_enabled(qword_1000578F0, OS_LOG_TYPE_DEFAULT))
         {
-          LOWORD(v16) = 0;
-          _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "No previous charging status is set. Setting current charging status.", &v16, 2u);
+          LOWORD(v17) = 0;
+          _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "No previous charging status is set. Setting current charging status.", &v17, 2u);
         }
 
-        [WeakRetained setChargingStatus:v5];
-        v14 = qword_1000578F8;
-        v15 = [WeakRetained chargingStatus];
-        [v14 setObject:v15 forKey:@"chargingStatus"];
+        [WeakRetained setChargingStatus:v6];
+        v15 = qword_1000578F8;
+        v16 = [WeakRetained chargingStatus];
+        [v15 setObject:v16 forKey:@"chargingStatus"];
 
-        if ([v5 isEqualToString:@"Charging"])
+        if ([v6 isEqualToString:@"Charging"])
         {
           [WeakRetained deviceConnectedSetUp];
         }
 
-        else if ([v5 isEqualToString:@"Disconnected"])
+        else if ([v6 isEqualToString:@"Disconnected"])
         {
           [WeakRetained deviceDisconnectedSetUp];
         }
@@ -954,37 +935,37 @@ void sub_10000C1E4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_10000C20C(uint64_t a1)
+void sub_10000C20C(uint64_t a1, uint64_t a2)
 {
-  v2 = os_transaction_create();
+  v3 = os_transaction_create();
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   if (WeakRetained)
   {
-    v4 = qword_1000578F0;
+    v5 = qword_1000578F0;
     if (os_log_type_enabled(qword_1000578F0, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = 136315138;
-      v11 = "com.apple.system.powersources.chargingiconography";
-      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Received notification for %s.", &v10, 0xCu);
+      v11 = 136315138;
+      v12 = "com.apple.system.powersources.chargingiconography";
+      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Received notification for %s.", &v11, 0xCu);
     }
 
-    v5 = sub_10001FCC4();
-    v6 = qword_1000578F0;
-    if (v5)
+    v6 = sub_10001FCC4();
+    v7 = qword_1000578F0;
+    if (v6)
     {
       if (os_log_type_enabled(qword_1000578F0, OS_LOG_TYPE_DEFAULT))
       {
-        v7 = *(a1 + 32);
-        v8 = v6;
-        v9 = [v7 chargingStatus];
-        v10 = 138412546;
-        v11 = v9;
-        v12 = 2112;
-        v13 = v5;
-        _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Previous charging status: %@, Current charging status: %@", &v10, 0x16u);
+        v8 = *(a1 + 32);
+        v9 = v7;
+        v10 = [v8 chargingStatus];
+        v11 = 138412546;
+        v12 = v10;
+        v13 = 2112;
+        v14 = v6;
+        _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Previous charging status: %@, Current charging status: %@", &v11, 0x16u);
       }
 
-      [WeakRetained setUpWithNewChargingStatus:v5];
+      [WeakRetained setUpWithNewChargingStatus:v6];
     }
 
     else if (os_log_type_enabled(qword_1000578F0, OS_LOG_TYPE_ERROR))
@@ -994,21 +975,21 @@ void sub_10000C20C(uint64_t a1)
   }
 }
 
-void sub_10000C450(uint64_t a1)
+void sub_10000C450(uint64_t a1, uint64_t a2)
 {
-  v2 = os_transaction_create();
+  v3 = os_transaction_create();
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   if (WeakRetained)
   {
-    v4 = qword_1000578F0;
+    v5 = qword_1000578F0;
     if (os_log_type_enabled(qword_1000578F0, OS_LOG_TYPE_DEFAULT))
     {
-      *v6 = 0;
-      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Running checkChargeLimitChangeAndSetUp.", v6, 2u);
+      *v7 = 0;
+      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Running checkChargeLimitChangeAndSetUp.", v7, 2u);
     }
 
-    v5 = sub_10001FA0C();
-    [WeakRetained setUpWithNewChargeLimit:{objc_msgSend(v5, "integerValue")}];
+    v6 = sub_10001FA0C();
+    [WeakRetained setUpWithNewChargeLimit:{objc_msgSend(v6, "integerValue")}];
   }
 }
 
@@ -1019,36 +1000,36 @@ void sub_10000C650(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_10000C678(uint64_t a1)
+void sub_10000C678(uint64_t a1, uint64_t a2)
 {
-  v2 = os_transaction_create();
+  v3 = os_transaction_create();
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   if (WeakRetained)
   {
-    v4 = qword_1000578F0;
+    v5 = qword_1000578F0;
     if (os_log_type_enabled(qword_1000578F0, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = 138412290;
-      v7 = @"com.apple.powerui.mclstatuschanged";
-      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Received notification for %@.", &v6, 0xCu);
+      v7 = 138412290;
+      v8 = @"com.apple.powerui.mclstatuschanged";
+      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Received notification for %@.", &v7, 0xCu);
     }
 
-    v5 = sub_10001FA0C();
-    [WeakRetained setUpWithNewChargeLimit:{objc_msgSend(v5, "integerValue")}];
+    v6 = sub_10001FA0C();
+    [WeakRetained setUpWithNewChargeLimit:{objc_msgSend(v6, "integerValue")}];
   }
 }
 
-void sub_10000C81C(uint64_t a1)
+void sub_10000C81C(uint64_t a1, uint64_t a2)
 {
-  v2 = os_transaction_create();
+  v3 = os_transaction_create();
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   if (WeakRetained)
   {
-    v4 = qword_1000578F0;
+    v5 = qword_1000578F0;
     if (os_log_type_enabled(qword_1000578F0, OS_LOG_TYPE_DEFAULT))
     {
-      *v5 = 0;
-      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Running checkExternalConnectedChangeAndSetUp.", v5, 2u);
+      *v6 = 0;
+      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Running checkExternalConnectedChangeAndSetUp.", v6, 2u);
     }
 
     [WeakRetained setUpForChangeInExternalConnected];
@@ -1062,18 +1043,18 @@ void sub_10000C9F8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_10000CA20(uint64_t a1)
+void sub_10000CA20(uint64_t a1, uint64_t a2)
 {
-  v2 = os_transaction_create();
+  v3 = os_transaction_create();
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   if (WeakRetained)
   {
-    v4 = qword_1000578F0;
+    v5 = qword_1000578F0;
     if (os_log_type_enabled(qword_1000578F0, OS_LOG_TYPE_DEFAULT))
     {
-      v5 = 136315138;
-      v6 = "com.apple.system.powersources.source";
-      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Received notification for %s.", &v5, 0xCu);
+      v6 = 136315138;
+      v7 = "com.apple.system.powersources.source";
+      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Received notification for %s.", &v6, 0xCu);
     }
 
     [WeakRetained setUpForChangeInExternalConnected];
@@ -1195,73 +1176,73 @@ void sub_10000D238(id a1)
   qword_1000578D8 = v1;
 }
 
-void sub_10000E42C(uint64_t a1)
+void sub_10000E42C(uint64_t a1, uint64_t a2)
 {
-  v2 = os_transaction_create();
+  v3 = os_transaction_create();
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   if (!WeakRetained)
   {
-    v7 = *(a1 + 32);
-    v8 = BIBatteryAnalysisErrorDomain;
-    v9 = 7;
+    v8 = *(a1 + 32);
+    v9 = BIBatteryAnalysisErrorDomain;
+    v10 = 7;
 LABEL_9:
-    v10 = [NSError errorWithDomain:v8 code:v9 userInfo:0];
-    (*(v7 + 16))(v7, 0, v10);
+    v11 = [NSError errorWithDomain:v9 code:v10 userInfo:0];
+    (*(v8 + 16))(v8, 0, v11);
 
     goto LABEL_17;
   }
 
   if ((IOPSDrawingUnlimitedPower() & 1) == 0)
   {
-    v7 = *(a1 + 32);
-    v8 = BIBatteryAnalysisErrorDomain;
-    v9 = 5;
+    v8 = *(a1 + 32);
+    v9 = BIBatteryAnalysisErrorDomain;
+    v10 = 5;
     goto LABEL_9;
   }
 
   [WeakRetained deleteAllAlarms];
-  v4 = qword_1000578F0;
+  v5 = qword_1000578F0;
   if (os_log_type_enabled(qword_1000578F0, OS_LOG_TYPE_DEFAULT))
   {
-    LOWORD(v17) = 0;
-    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Deleted all the existing xpc alarms as estimate is manually updated.", &v17, 2u);
+    LOWORD(v18) = 0;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Deleted all the existing xpc alarms as estimate is manually updated.", &v18, 2u);
   }
 
   if (*(a1 + 48) == 1)
   {
-    v5 = sub_10001FA0C();
-    v6 = [v5 integerValue];
+    v6 = sub_10001FA0C();
+    v7 = [v6 integerValue];
   }
 
   else
   {
-    v6 = 80;
+    v7 = 80;
   }
 
-  v11 = sub_10001E8F4();
+  v12 = sub_10001E8F4();
   if ([WeakRetained slowAdapterDetected])
   {
-    v12 = 4;
+    v13 = 4;
   }
 
   else
   {
-    v12 = 3;
+    v13 = 3;
   }
 
-  v13 = +[BatteryAnalysisService sharedInstance];
-  [v13 updateEstimate:*(a1 + 48) forTarget:v11 atStartSOC:v6 withEndSOC:0 confidenceScore:1 isFirstEstimate:v12 isEstimateOverridden:*(a1 + 56) andAdditionalInformation:1.0];
+  v14 = +[BatteryAnalysisService sharedInstance];
+  [v14 updateEstimate:*(a1 + 48) forTarget:v12 atStartSOC:v7 withEndSOC:0 confidenceScore:1 isFirstEstimate:v13 isEstimateOverridden:*(a1 + 56) andAdditionalInformation:1.0];
 
-  v14 = qword_1000578F0;
+  v15 = qword_1000578F0;
   if (os_log_type_enabled(qword_1000578F0, OS_LOG_TYPE_DEFAULT))
   {
-    v15 = *(a1 + 48);
-    v16 = *(a1 + 56);
-    v17 = 134218240;
-    v18 = v15;
-    v19 = 2048;
-    v20 = v16;
-    _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "Successfully updated target: %ld with estimate: %.02f.", &v17, 0x16u);
+    v16 = *(a1 + 48);
+    v17 = *(a1 + 56);
+    v18 = 134218240;
+    v19 = v16;
+    v20 = 2048;
+    v21 = v17;
+    _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "Successfully updated target: %ld with estimate: %.02f.", &v18, 0x16u);
   }
 
   [WeakRetained postNotificationForBatteryAnalysisTarget:*(a1 + 48)];
@@ -1271,47 +1252,47 @@ LABEL_9:
 LABEL_17:
 }
 
-void sub_10000E780(uint64_t a1)
+void sub_10000E780(uint64_t a1, uint64_t a2)
 {
-  v2 = os_transaction_create();
+  v3 = os_transaction_create();
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   if (!WeakRetained)
   {
-    v4 = *(a1 + 32);
-    v5 = BIBatteryAnalysisErrorDomain;
-    v6 = 7;
+    v5 = *(a1 + 32);
+    v6 = BIBatteryAnalysisErrorDomain;
+    v7 = 7;
     goto LABEL_7;
   }
 
   if ((IOPSDrawingUnlimitedPower() & 1) == 0)
   {
-    v4 = *(a1 + 32);
-    v5 = BIBatteryAnalysisErrorDomain;
-    v6 = 5;
+    v5 = *(a1 + 32);
+    v6 = BIBatteryAnalysisErrorDomain;
+    v7 = 5;
     goto LABEL_7;
   }
 
   if ([WeakRetained isEstimateOveridden])
   {
-    v4 = *(a1 + 32);
-    v5 = BIBatteryAnalysisErrorDomain;
-    v6 = 6;
+    v5 = *(a1 + 32);
+    v6 = BIBatteryAnalysisErrorDomain;
+    v7 = 6;
 LABEL_7:
-    v7 = [NSError errorWithDomain:v5 code:v6 userInfo:0];
-    (*(v4 + 16))(v4, 0, v7);
+    v8 = [NSError errorWithDomain:v6 code:v7 userInfo:0];
+    (*(v5 + 16))(v5, 0, v8);
 
     goto LABEL_8;
   }
 
-  v11 = 0;
-  v8 = [WeakRetained tryEstimatorRunWithName:@"batteryAnalysisAdhocRun" withError:&v11];
-  v9 = v11;
-  v10 = qword_1000578F0;
+  v12 = 0;
+  v9 = [WeakRetained tryEstimatorRunWithName:@"batteryAnalysisAdhocRun" withError:&v12];
+  v10 = v12;
+  v11 = qword_1000578F0;
   if (os_log_type_enabled(qword_1000578F0, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109120;
-    v13 = v8;
-    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Adhoc run successful: %i", buf, 8u);
+    v14 = v9;
+    _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Adhoc run successful: %i", buf, 8u);
   }
 
   (*(*(a1 + 32) + 16))();
@@ -1319,20 +1300,20 @@ LABEL_7:
 LABEL_8:
 }
 
-void sub_10000ECD0(uint64_t a1)
+void sub_10000ECD0(uint64_t a1, uint64_t a2)
 {
-  v2 = os_transaction_create();
+  v3 = os_transaction_create();
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   if (WeakRetained)
   {
     if ([*(a1 + 32) isEqualToString:@"batteryAnalysisRunAtPlugin"] && objc_msgSend(WeakRetained, "isFirstEstimateComputed"))
     {
-      v4 = qword_1000578F0;
+      v5 = qword_1000578F0;
       if (os_log_type_enabled(qword_1000578F0, OS_LOG_TYPE_DEFAULT))
       {
-        v5 = 138412290;
-        v6 = @"batteryAnalysisRunAtPlugin";
-        _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "%@ job is already run. Skipping this job.", &v5, 0xCu);
+        v6 = 138412290;
+        v7 = @"batteryAnalysisRunAtPlugin";
+        _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "%@ job is already run. Skipping this job.", &v6, 0xCu);
       }
     }
 
@@ -1343,15 +1324,15 @@ void sub_10000ECD0(uint64_t a1)
   }
 }
 
-void sub_100010304(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_100010304(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_fault_impl(a1, a2, OS_LOG_TYPE_FAULT, a4, &a9, 2u);
+  _os_log_fault_impl(a1, a2, OS_LOG_TYPE_FAULT, a4, va, 2u);
 }
 
 uint64_t sub_1000104B0(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   qword_100057918 = objc_alloc_init(objc_opt_class());
 
   return _objc_release_x1();
@@ -1890,10 +1871,7 @@ uint64_t sub_100015BF4(uint64_t result, uint64_t a2)
 
 uint64_t sub_100015C0C(uint64_t a1)
 {
-  v2 = [*(a1 + 32) _copyHistogramsOfTypes:*(a1 + 40) withBinners:*(a1 + 48) withParams:*(a1 + 56)];
-  v3 = *(*(a1 + 64) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 64) + 8) + 40) = [*(a1 + 32) _copyHistogramsOfTypes:*(a1 + 40) withBinners:*(a1 + 48) withParams:*(a1 + 56)];
 
   return _objc_release_x1();
 }
@@ -2239,10 +2217,11 @@ void sub_10001918C(void *a1, uint64_t a2, os_log_t log, const char *a4, ...)
   _os_log_fault_impl(a1, log, OS_LOG_TYPE_FAULT, a4, va, 0x16u);
 }
 
-void sub_1000191BC(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_1000191BC(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
 void sub_100019738()
@@ -2661,7 +2640,7 @@ LABEL_123:
             v130 = p_vtable[302];
             if (os_log_type_enabled(v130, OS_LOG_TYPE_ERROR))
             {
-              sub_1000315B8(&v257, v130, v223, &v258);
+              sub_1000315B8(v257, v130, v223, &v258);
             }
 
             v87 = 0;
@@ -2690,7 +2669,7 @@ LABEL_126:
               v86 = qword_100057970;
               if (os_log_type_enabled(qword_100057970, OS_LOG_TYPE_ERROR))
               {
-                sub_100031544(&v259, v86, v223, &v260);
+                sub_100031544(v259, v86, v223, &v260);
               }
 
               LODWORD(v76) = 0;
@@ -3982,16 +3961,16 @@ uint64_t sub_10001C8A4(uint64_t a1)
   return _objc_release_x1();
 }
 
-id sub_10001D668()
+id sub_10001D668(uint64_t a1)
 {
   if (qword_100057998 != -1)
   {
     sub_10003193C();
   }
 
-  v1 = qword_100057990;
+  v2 = qword_100057990;
 
-  return v1;
+  return v2;
 }
 
 void sub_10001D7E4(id a1)
@@ -4207,7 +4186,7 @@ id sub_10001E3BC(void *a1, unint64_t a2)
   return v5;
 }
 
-uint64_t sub_10001E444()
+uint64_t sub_10001E444(uint64_t a1, uint64_t a2)
 {
   if (qword_1000579B8 != -1)
   {
@@ -4340,7 +4319,7 @@ id sub_10001E710()
   return result;
 }
 
-const void *sub_10001E788(void *a1, uint64_t a2)
+const void *sub_10001E788(void *a1, const void *a2)
 {
   v3 = a1;
   v4 = IOServiceMatching("AppleSmartBattery");
@@ -4361,11 +4340,12 @@ const void *sub_10001E788(void *a1, uint64_t a2)
     goto LABEL_6;
   }
 
-  v9 = CFGetTypeID(CFProperty);
-  if (v9 != a2)
+  CFProperty = CFGetTypeID(CFProperty);
+  v9 = CFProperty;
+  if (CFProperty != a2)
   {
 LABEL_6:
-    v10 = sub_10001EFF4();
+    v10 = sub_10001EFF4(CFProperty);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       *v12 = 138412802;
@@ -4435,7 +4415,7 @@ id sub_10001E974()
     {
       if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
       {
-        sub_100031DDC();
+        sub_100031DDC(v3);
       }
 
       v4 = 0;
@@ -4445,7 +4425,7 @@ id sub_10001E974()
   return v4;
 }
 
-uint64_t sub_10001EA68()
+uint64_t sub_10001EA68(uint64_t a1, uint64_t a2)
 {
   if (qword_1000579D0 != -1)
   {
@@ -4618,37 +4598,38 @@ id sub_10001EF30()
 
   v2 = v1;
   v3 = [v1 objectForKeyedSubscript:@"IsWireless"];
-  if ([v3 integerValue] < 2)
+  v4 = [v3 integerValue];
+  if (v4 < 2)
   {
 
 LABEL_5:
     v3 = v3;
-    v4 = v3;
+    v5 = v3;
     goto LABEL_9;
   }
 
-  v5 = sub_10001EFF4();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
+  v6 = sub_10001EFF4(v4);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
   {
-    sub_100031FD0(v5);
+    sub_100031FD0(v6);
   }
 
-  v4 = 0;
+  v5 = 0;
 LABEL_9:
 
-  return v4;
+  return v5;
 }
 
-id sub_10001EFF4()
+id sub_10001EFF4(uint64_t a1)
 {
   if (qword_100057A10 != -1)
   {
     sub_100032014();
   }
 
-  v1 = qword_1000579C0;
+  v2 = qword_1000579C0;
 
-  return v1;
+  return v2;
 }
 
 id sub_10001F038(void *a1)
@@ -4937,16 +4918,16 @@ uint64_t sub_10001F914(void *a1)
   return isKindOfClass & 1;
 }
 
-id sub_10001F960()
+id sub_10001F960(uint64_t a1)
 {
   if (qword_1000579F0 != -1)
   {
     sub_100032280();
   }
 
-  v1 = qword_1000579E8;
+  v2 = qword_1000579E8;
 
-  return v1;
+  return v2;
 }
 
 void sub_10001F9A4(id a1)
@@ -4965,44 +4946,46 @@ void sub_10001F9A4(id a1)
 NSObject *sub_10001FA0C()
 {
   v0 = IOPSCopyBatteryLevelLimits();
-  if (sub_10001F78C(v0))
+  v1 = sub_10001F78C(v0);
+  if (v1)
   {
-    v1 = sub_10001EFF4();
-    if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
+    v2 = sub_10001EFF4(v1);
+    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v1, OS_LOG_TYPE_DEFAULT, "getCurrentSystemChargeLimit: There is no charge limit set.", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "getCurrentSystemChargeLimit: There is no charge limit set.", buf, 2u);
     }
 
-    v2 = &off_10004D5D0;
+    v3 = &off_10004D5D0;
     goto LABEL_29;
   }
 
-  v18 = 0u;
-  v19 = 0u;
-  v16 = 0u;
-  v17 = 0u;
-  v11 = v0;
-  v1 = v0;
-  v3 = [v1 countByEnumeratingWithState:&v16 objects:v21 count:16];
-  if (v3)
+  v23 = 0u;
+  v24 = 0u;
+  v21 = 0u;
+  v22 = 0u;
+  v16 = v0;
+  v2 = v0;
+  v4 = [v2 countByEnumeratingWithState:&v21 objects:v26 count:16];
+  if (v4)
   {
-    v4 = v3;
-    v5 = *v17;
+    v5 = v4;
+    v6 = *v22;
 LABEL_7:
-    v6 = 0;
+    v7 = 0;
     while (1)
     {
-      if (*v17 != v5)
+      if (*v22 != v6)
       {
-        objc_enumerationMutation(v1);
+        objc_enumerationMutation(v2);
       }
 
-      v7 = *(*(&v16 + 1) + 8 * v6);
-      if ((sub_10001F914(v7) & 1) == 0)
+      v8 = *(*(&v21 + 1) + 8 * v7);
+      v9 = sub_10001F914(v8);
+      if ((v9 & 1) == 0)
       {
-        v8 = sub_10001EFF4();
-        if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
+        v10 = sub_10001EFF4(v9);
+        if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
         {
           sub_100032294(buf, &buf[1]);
         }
@@ -5010,25 +4993,27 @@ LABEL_7:
         goto LABEL_22;
       }
 
-      v8 = [v7 objectForKeyedSubscript:@"chargeSocLimitOwner"];
-      if ((sub_10001F87C(v8) & 1) == 0)
+      v10 = [v8 objectForKeyedSubscript:@"chargeSocLimitOwner"];
+      v11 = sub_10001F87C(v10);
+      if ((v11 & 1) == 0)
       {
         break;
       }
 
-      if ([v8 isEqualToNumber:&off_10004D528])
+      if ([v10 isEqualToNumber:&off_10004D528])
       {
-        v2 = [v7 objectForKeyedSubscript:@"chargeSocLimitSoc"];
-        if (sub_10001F87C(v2))
+        v3 = [v8 objectForKeyedSubscript:@"chargeSocLimitSoc"];
+        v12 = sub_10001F87C(v3);
+        if (v12)
         {
 
           goto LABEL_28;
         }
 
-        v9 = sub_10001EFF4();
-        if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
+        v13 = sub_10001EFF4(v12);
+        if (os_log_type_enabled(v13, OS_LOG_TYPE_FAULT))
         {
-          sub_1000322EC(&v12, v13);
+          sub_1000322EC(&v17, v18);
         }
 
         goto LABEL_21;
@@ -5036,10 +5021,10 @@ LABEL_7:
 
 LABEL_22:
 
-      if (v4 == ++v6)
+      if (v5 == ++v7)
       {
-        v4 = [v1 countByEnumeratingWithState:&v16 objects:v21 count:16];
-        if (v4)
+        v5 = [v2 countByEnumeratingWithState:&v21 objects:v26 count:16];
+        if (v5)
         {
           goto LABEL_7;
         }
@@ -5048,10 +5033,10 @@ LABEL_22:
       }
     }
 
-    v2 = sub_10001EFF4();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
+    v3 = sub_10001EFF4(v11);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
     {
-      sub_1000322C0(&v14, v15);
+      sub_1000322C0(&v19, v20);
     }
 
 LABEL_21:
@@ -5061,26 +5046,27 @@ LABEL_21:
 
 LABEL_24:
 
-  v1 = sub_10001EFF4();
-  if (os_log_type_enabled(v1, OS_LOG_TYPE_FAULT))
+  v2 = sub_10001EFF4(v14);
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
   {
-    sub_100032318(v1);
+    sub_100032318(v2);
   }
 
-  v2 = &off_10004D5D0;
+  v3 = &off_10004D5D0;
 LABEL_28:
-  v0 = v11;
+  v0 = v16;
 LABEL_29:
 
-  return v2;
+  return v3;
 }
 
 id sub_10001FCC4()
 {
-  if (IOPSCopyChargeStatus())
+  v0 = IOPSCopyChargeStatus();
+  if (v0)
   {
-    v0 = sub_10001EFF4();
-    if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+    v1 = sub_10001EFF4(v0);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       sub_10003235C();
     }
@@ -5088,29 +5074,29 @@ id sub_10001FCC4()
 
   else
   {
-    v0 = 0;
+    v1 = 0;
     if (!sub_10001F830(0))
     {
-      v1 = [0 objectForKeyedSubscript:@"chargeStatus"];
+      v2 = [0 objectForKeyedSubscript:@"chargeStatus"];
 
-      if (v1)
+      if (v2)
       {
-        v2 = [0 objectForKeyedSubscript:@"chargeStatus"];
+        v4 = [0 objectForKeyedSubscript:@"chargeStatus"];
         goto LABEL_11;
       }
 
-      v3 = sub_10001EFF4();
-      if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
+      v5 = sub_10001EFF4(v3);
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
       {
-        sub_1000323D0(v3);
+        sub_1000323D0(v5);
       }
     }
   }
 
-  v2 = 0;
+  v4 = 0;
 LABEL_11:
 
-  return v2;
+  return v4;
 }
 
 id sub_10001FDB4()
@@ -5185,69 +5171,69 @@ void sub_100023320(id a1)
   }
 }
 
-void sub_100023CBC(uint64_t a1)
+void sub_100023CBC(uint64_t a1, uint64_t a2)
 {
-  v2 = os_transaction_create();
+  v3 = os_transaction_create();
   if (*(a1 + 40))
   {
-    v3 = objc_alloc_init(BIBatteryAnalysisOutput);
+    v4 = objc_alloc_init(BIBatteryAnalysisOutput);
     if (([BIBatteryAnalysisSharedResources isTargetValid:*(a1 + 48)]& 1) != 0)
     {
-      v4 = +[BIBatteryAnalysisSharedResources sharedTargetDetails];
-      v5 = [NSNumber numberWithInteger:*(a1 + 48)];
-      v6 = [v4 objectForKey:v5];
+      v5 = +[BIBatteryAnalysisSharedResources sharedTargetDetails];
+      v6 = [NSNumber numberWithInteger:*(a1 + 48)];
+      v7 = [v5 objectForKey:v6];
 
-      v7 = [*(a1 + 32) targetOutputs];
-      v8 = [v6 friendlyName];
-      v9 = [v7 objectForKey:v8];
+      v8 = [*(a1 + 32) targetOutputs];
+      v9 = [v7 friendlyName];
+      v10 = [v8 objectForKey:v9];
 
-      if (v9)
+      if (v10)
       {
-        v10 = sub_10001F784();
-        v11 = (v10 - [v9 lastUpdatedMonotonicTime]) / 1000000000.0;
-        v12 = [v9 estimateObj];
-        [v12 estimate];
-        v14 = v13;
+        v11 = sub_10001F784();
+        v12 = (v11 - [v10 lastUpdatedMonotonicTime]) / 1000000000.0;
+        v13 = [v10 estimateObj];
+        [v13 estimate];
+        v15 = v14;
 
-        if (v11 <= 0.0)
+        if (v12 <= 0.0)
         {
-          [v3 setAdditionalInformation:2];
+          [v4 setAdditionalInformation:2];
         }
 
         else
         {
-          [v3 setSocAtEstimateTime:sub_10001E8F4()];
-          [v3 setEstimate:v14 - v11];
-          v15 = [v9 estimateObj];
-          [v3 setEndSOC:{objc_msgSend(v15, "endSOC")}];
+          [v4 setSocAtEstimateTime:sub_10001E8F4()];
+          [v4 setEstimate:v15 - v12];
+          v16 = [v10 estimateObj];
+          [v4 setEndSOC:{objc_msgSend(v16, "endSOC")}];
 
-          v16 = [v9 estimateObj];
-          [v16 confidenceScore];
-          [v3 setConfidenceScore:?];
+          v17 = [v10 estimateObj];
+          [v17 confidenceScore];
+          [v4 setConfidenceScore:?];
 
-          v17 = [v9 estimateObj];
-          [v3 setAdditionalInformation:{objc_msgSend(v17, "additionalInformation")}];
+          v18 = [v10 estimateObj];
+          [v4 setAdditionalInformation:{objc_msgSend(v18, "additionalInformation")}];
 
-          v18 = [v9 estimateObj];
-          [v3 setIsFirstEstimate:{objc_msgSend(v18, "isFirstEstimate")}];
+          v19 = [v10 estimateObj];
+          [v4 setIsFirstEstimate:{objc_msgSend(v19, "isFirstEstimate")}];
 
-          v19 = [v9 estimateObj];
-          [v3 setIsEstimateOverridden:{objc_msgSend(v19, "isEstimateOverridden")}];
+          v20 = [v10 estimateObj];
+          [v4 setIsEstimateOverridden:{objc_msgSend(v20, "isEstimateOverridden")}];
         }
 
-        v26 = qword_100057A38;
+        v27 = qword_100057A38;
         if (os_log_type_enabled(qword_100057A38, OS_LOG_TYPE_DEFAULT))
         {
-          v27 = v26;
-          v28 = [v6 friendlyName];
-          v29 = +[NSNumber numberWithInteger:](NSNumber, "numberWithInteger:", [v3 additionalInformation]);
-          v30 = 138412802;
-          v31 = v28;
-          v32 = 2112;
-          v33 = v3;
-          v34 = 2112;
-          v35 = v29;
-          _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_DEFAULT, "Sent BIBatteryAnalysisOutput for %@ target - output: %@, additional information: %@.", &v30, 0x20u);
+          v28 = v27;
+          v29 = [v7 friendlyName];
+          v30 = +[NSNumber numberWithInteger:](NSNumber, "numberWithInteger:", [v4 additionalInformation]);
+          v31 = 138412802;
+          v32 = v29;
+          v33 = 2112;
+          v34 = v4;
+          v35 = 2112;
+          v36 = v30;
+          _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_DEFAULT, "Sent BIBatteryAnalysisOutput for %@ target - output: %@, additional information: %@.", &v31, 0x20u);
         }
 
         (*(*(a1 + 40) + 16))();
@@ -5255,215 +5241,215 @@ void sub_100023CBC(uint64_t a1)
 
       else
       {
-        [v3 setAdditionalInformation:2];
-        v23 = qword_100057A38;
+        [v4 setAdditionalInformation:2];
+        v24 = qword_100057A38;
         if (os_log_type_enabled(qword_100057A38, OS_LOG_TYPE_DEBUG))
         {
-          sub_100032EAC(v23, v6);
+          sub_100032EAC(v24, v7);
         }
 
-        v24 = *(a1 + 40);
-        v25 = [NSError errorWithDomain:BIBatteryAnalysisErrorDomain code:3 userInfo:0];
-        (*(v24 + 16))(v24, v3, v25);
+        v25 = *(a1 + 40);
+        v26 = [NSError errorWithDomain:BIBatteryAnalysisErrorDomain code:3 userInfo:0];
+        (*(v25 + 16))(v25, v4, v26);
       }
     }
 
     else
     {
-      [v3 setAdditionalInformation:2];
-      v21 = qword_100057A38;
+      [v4 setAdditionalInformation:2];
+      v22 = qword_100057A38;
       if (os_log_type_enabled(qword_100057A38, OS_LOG_TYPE_DEBUG))
       {
-        sub_100032DF4((a1 + 48), v21);
+        sub_100032DF4((a1 + 48), v22);
       }
 
-      v22 = *(a1 + 40);
-      v6 = [NSError errorWithDomain:BIBatteryAnalysisErrorDomain code:1 userInfo:0];
-      (*(v22 + 16))(v22, v3, v6);
+      v23 = *(a1 + 40);
+      v7 = [NSError errorWithDomain:BIBatteryAnalysisErrorDomain code:1 userInfo:0];
+      (*(v23 + 16))(v23, v4, v7);
     }
   }
 
   else
   {
-    v20 = qword_100057A38;
+    v21 = qword_100057A38;
     if (os_log_type_enabled(qword_100057A38, OS_LOG_TYPE_ERROR))
     {
-      sub_100032F50(a1, v20);
+      sub_100032F50(a1, v21);
     }
   }
 }
 
-void sub_1000241A0(uint64_t a1)
+void sub_1000241A0(uint64_t a1, uint64_t a2)
 {
-  v2 = os_transaction_create();
-  v3 = (a1 + 40);
+  v3 = os_transaction_create();
+  v4 = (a1 + 40);
   if (([BIBatteryAnalysisSharedResources isTargetValid:*(a1 + 40)]& 1) != 0)
   {
-    v4 = objc_alloc_init(BIBatteryAnalysisContainer);
-    v5 = objc_alloc_init(BIBatteryAnalysisOutput);
-    [v5 setEstimate:*(a1 + 48)];
-    [v5 setSocAtEstimateTime:*(a1 + 56)];
-    [v5 setEndSOC:*(a1 + 64)];
-    [v5 setConfidenceScore:*(a1 + 72)];
-    [v5 setIsFirstEstimate:*(a1 + 88)];
-    [v5 setIsEstimateOverridden:*(a1 + 89)];
-    [v5 setAdditionalInformation:*(a1 + 80)];
-    [v4 setEstimateObj:v5];
-    [v4 setLastUpdatedMonotonicTime:sub_10001F784()];
-    v6 = +[BIBatteryAnalysisSharedResources sharedTargetDetails];
-    v7 = [NSNumber numberWithInteger:*(a1 + 40)];
-    v8 = [v6 objectForKey:v7];
+    v5 = objc_alloc_init(BIBatteryAnalysisContainer);
+    v6 = objc_alloc_init(BIBatteryAnalysisOutput);
+    [v6 setEstimate:*(a1 + 48)];
+    [v6 setSocAtEstimateTime:*(a1 + 56)];
+    [v6 setEndSOC:*(a1 + 64)];
+    [v6 setConfidenceScore:*(a1 + 72)];
+    [v6 setIsFirstEstimate:*(a1 + 88)];
+    [v6 setIsEstimateOverridden:*(a1 + 89)];
+    [v6 setAdditionalInformation:*(a1 + 80)];
+    [v5 setEstimateObj:v6];
+    [v5 setLastUpdatedMonotonicTime:sub_10001F784()];
+    v7 = +[BIBatteryAnalysisSharedResources sharedTargetDetails];
+    v8 = [NSNumber numberWithInteger:*(a1 + 40)];
+    v9 = [v7 objectForKey:v8];
 
-    v9 = *(*(a1 + 32) + 16);
-    v10 = [v8 friendlyName];
-    [v9 setObject:v4 forKey:v10];
+    v10 = *(*(a1 + 32) + 16);
+    v11 = [v9 friendlyName];
+    [v10 setObject:v5 forKey:v11];
 
-    v23 = 0;
-    v11 = [NSKeyedArchiver archivedDataWithRootObject:v4 requiringSecureCoding:1 error:&v23];
-    v12 = v23;
-    if (v12)
+    v24 = 0;
+    v12 = [NSKeyedArchiver archivedDataWithRootObject:v5 requiringSecureCoding:1 error:&v24];
+    v13 = v24;
+    if (v13)
     {
-      v13 = qword_100057A38;
+      v14 = qword_100057A38;
       if (os_log_type_enabled(qword_100057A38, OS_LOG_TYPE_ERROR))
       {
-        sub_1000330F8(v13, v8, v12);
+        sub_1000330F8(v14, v9, v13);
       }
     }
 
     else
     {
-      v15 = qword_100057A40;
-      v16 = [v8 friendlyName];
-      [v15 setObject:v11 forKey:v16];
+      v16 = qword_100057A40;
+      v17 = [v9 friendlyName];
+      [v16 setObject:v12 forKey:v17];
 
-      v17 = qword_100057A38;
+      v18 = qword_100057A38;
       if (os_log_type_enabled(qword_100057A38, OS_LOG_TYPE_DEFAULT))
       {
-        v18 = *v3;
-        v19 = v17;
-        v20 = [NSNumber numberWithInteger:v18];
-        v21 = [v4 estimateObj];
-        v22 = +[NSNumber numberWithInteger:](NSNumber, "numberWithInteger:", [v21 additionalInformation]);
+        v19 = *v4;
+        v20 = v18;
+        v21 = [NSNumber numberWithInteger:v19];
+        v22 = [v5 estimateObj];
+        v23 = +[NSNumber numberWithInteger:](NSNumber, "numberWithInteger:", [v22 additionalInformation]);
         *buf = 138412802;
-        v25 = v20;
-        v26 = 2112;
-        v27 = v4;
-        v28 = 2112;
-        v29 = v22;
-        _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "Estimate for %@ target updated - output: %@, additional information: %@", buf, 0x20u);
+        v26 = v21;
+        v27 = 2112;
+        v28 = v5;
+        v29 = 2112;
+        v30 = v23;
+        _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "Estimate for %@ target updated - output: %@, additional information: %@", buf, 0x20u);
       }
     }
   }
 
   else
   {
-    v14 = qword_100057A38;
+    v15 = qword_100057A38;
     if (os_log_type_enabled(qword_100057A38, OS_LOG_TYPE_ERROR))
     {
-      sub_100033008((a1 + 40), v14);
+      sub_100033008((a1 + 40), v15);
     }
   }
 }
 
-void sub_10002454C(uint64_t a1)
+void sub_10002454C(uint64_t a1, uint64_t a2)
 {
-  v26 = os_transaction_create();
-  v31 = 0u;
+  v27 = os_transaction_create();
   v32 = 0u;
   v33 = 0u;
   v34 = 0u;
-  v2 = &IOConnectCallMethod_ptr;
+  v35 = 0u;
+  v3 = &IOConnectCallMethod_ptr;
   obj = +[BIBatteryAnalysisSharedResources sharedTargetDetails];
-  v29 = [obj countByEnumeratingWithState:&v31 objects:v39 count:16];
-  if (v29)
+  v30 = [obj countByEnumeratingWithState:&v32 objects:v40 count:16];
+  if (v30)
   {
-    v3 = *v32;
-    v28 = a1;
+    v4 = *v33;
+    v29 = a1;
     do
     {
-      for (i = 0; i != v29; i = i + 1)
+      for (i = 0; i != v30; i = i + 1)
       {
-        if (*v32 != v3)
+        if (*v33 != v4)
         {
           objc_enumerationMutation(obj);
         }
 
-        v5 = *(*(&v31 + 1) + 8 * i);
-        v6 = [v2[144] sharedTargetDetails];
-        v7 = [v6 objectForKey:v5];
+        v6 = *(*(&v32 + 1) + 8 * i);
+        v7 = [v3[144] sharedTargetDetails];
+        v8 = [v7 objectForKey:v6];
 
-        v8 = *(*(a1 + 32) + 16);
-        v9 = [v7 friendlyName];
-        v10 = [v8 objectForKey:v9];
+        v9 = *(*(a1 + 32) + 16);
+        v10 = [v8 friendlyName];
+        v11 = [v9 objectForKey:v10];
 
-        if (v10)
+        if (v11)
         {
-          v11 = *(a1 + 40);
-          v12 = [v10 estimateObj];
-          [v12 setAdditionalInformation:v11];
+          v12 = *(a1 + 40);
+          v13 = [v11 estimateObj];
+          [v13 setAdditionalInformation:v12];
 
-          v30 = 0;
-          v13 = [NSKeyedArchiver archivedDataWithRootObject:v10 requiringSecureCoding:1 error:&v30];
-          v14 = v30;
-          if (v14)
+          v31 = 0;
+          v14 = [NSKeyedArchiver archivedDataWithRootObject:v11 requiringSecureCoding:1 error:&v31];
+          v15 = v31;
+          if (v15)
           {
-            v15 = qword_100057A38;
+            v16 = qword_100057A38;
             if (os_log_type_enabled(qword_100057A38, OS_LOG_TYPE_ERROR))
             {
-              v16 = v15;
-              v17 = [v7 friendlyName];
+              v17 = v16;
+              v18 = [v8 friendlyName];
               *buf = 138412546;
-              v36 = v17;
-              v37 = 2112;
-              v38 = v14;
-              _os_log_error_impl(&_mh_execute_header, v16, OS_LOG_TYPE_ERROR, "updateAdditionalInformationForAllTarget error: Could not encode the object and update defaults for %@ target with error: %@", buf, 0x16u);
+              v37 = v18;
+              v38 = 2112;
+              v39 = v15;
+              _os_log_error_impl(&_mh_execute_header, v17, OS_LOG_TYPE_ERROR, "updateAdditionalInformationForAllTarget error: Could not encode the object and update defaults for %@ target with error: %@", buf, 0x16u);
             }
           }
 
           else
           {
-            v19 = qword_100057A40;
-            [v7 friendlyName];
-            v21 = v20 = v3;
-            [v19 setObject:v13 forKey:v21];
+            v20 = qword_100057A40;
+            [v8 friendlyName];
+            v22 = v21 = v4;
+            [v20 setObject:v14 forKey:v22];
 
-            v3 = v20;
-            v22 = qword_100057A38;
+            v4 = v21;
+            v23 = qword_100057A38;
             if (os_log_type_enabled(qword_100057A38, OS_LOG_TYPE_DEFAULT))
             {
-              v23 = *(v28 + 40);
-              v24 = v22;
-              v3 = v20;
-              v25 = [NSNumber numberWithInteger:v23];
+              v24 = *(v29 + 40);
+              v25 = v23;
+              v4 = v21;
+              v26 = [NSNumber numberWithInteger:v24];
               *buf = 138412546;
-              v36 = v5;
-              v37 = 2112;
-              v38 = v25;
-              _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEFAULT, "Target %@ updated with additional information: %@", buf, 0x16u);
+              v37 = v6;
+              v38 = 2112;
+              v39 = v26;
+              _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_DEFAULT, "Target %@ updated with additional information: %@", buf, 0x16u);
 
-              v2 = &IOConnectCallMethod_ptr;
+              v3 = &IOConnectCallMethod_ptr;
             }
           }
 
-          a1 = v28;
+          a1 = v29;
         }
 
         else
         {
-          v18 = qword_100057A38;
+          v19 = qword_100057A38;
           if (os_log_type_enabled(qword_100057A38, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412290;
-            v36 = v5;
-            _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "Estimates do not exist within the defaults for target %@", buf, 0xCu);
+            v37 = v6;
+            _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "Estimates do not exist within the defaults for target %@", buf, 0xCu);
           }
         }
       }
 
-      v29 = [obj countByEnumeratingWithState:&v31 objects:v39 count:16];
+      v30 = [obj countByEnumeratingWithState:&v32 objects:v40 count:16];
     }
 
-    while (v29);
+    while (v30);
   }
 }
 
@@ -6100,7 +6086,7 @@ void sub_10002E06C(void *a1)
   v2 = a1;
   v3 = [sub_1000048D4() name];
   sub_1000048AC();
-  sub_10000488C(&_mh_execute_header, v4, v5, "Failed at reading metadata for %@", v6, v7, v8, v9, v10);
+  sub_10000488C(&_mh_execute_header, v4, v5, "Failed at reading metadata for %@", v6, v7, v8, v9);
 }
 
 void sub_10002E0FC(void *a1)
@@ -6108,7 +6094,7 @@ void sub_10002E0FC(void *a1)
   v2 = a1;
   v3 = [sub_1000048D4() name];
   sub_1000048AC();
-  sub_10000488C(&_mh_execute_header, v4, v5, "Failed at reading predicted feature name for %@", v6, v7, v8, v9, v10);
+  sub_10000488C(&_mh_execute_header, v4, v5, "Failed at reading predicted feature name for %@", v6, v7, v8, v9);
 }
 
 void sub_10002E18C(void *a1)
@@ -6116,7 +6102,7 @@ void sub_10002E18C(void *a1)
   v2 = a1;
   v3 = [sub_1000048D4() name];
   sub_1000048AC();
-  sub_10000488C(&_mh_execute_header, v4, v5, "ML model file for %@ not found", v6, v7, v8, v9, v10);
+  sub_10000488C(&_mh_execute_header, v4, v5, "ML model file for %@ not found", v6, v7, v8, v9);
 }
 
 void sub_10002E21C(void *a1)
@@ -6124,7 +6110,7 @@ void sub_10002E21C(void *a1)
   v2 = a1;
   v3 = [sub_1000048D4() name];
   sub_1000048AC();
-  sub_10000488C(&_mh_execute_header, v4, v5, "Asset path for %@ not found", v6, v7, v8, v9, v10);
+  sub_10000488C(&_mh_execute_header, v4, v5, "Asset path for %@ not found", v6, v7, v8, v9);
 }
 
 void sub_10002E3C4(void *a1, void *a2, uint64_t a3)
@@ -6142,7 +6128,7 @@ void sub_10002E480(void *a1, void *a2)
   v3 = a1;
   v4 = [a2 objectForKey:@"health_metric"];
   sub_1000048AC();
-  sub_10000488C(&_mh_execute_header, v5, v6, "Unable to get current value for metric: %@", v7, v8, v9, v10, v11);
+  sub_10000488C(&_mh_execute_header, v5, v6, "Unable to get current value for metric: %@", v7, v8, v9, v10);
 }
 
 void sub_10002E5C8()
@@ -6335,7 +6321,7 @@ void sub_10002F23C(void *a1)
 {
   [a1 count];
   sub_1000048AC();
-  sub_1000048B8(&_mh_execute_header, &_os_log_default, v1, "Length of response %lu", v2, v3, v4, v5, v6);
+  sub_1000048B8(&_mh_execute_header, &_os_log_default, v1, "Length of response %lu", v2, v3, v4, v5);
 }
 
 void sub_10002F2B0(uint64_t a1, void *a2)
@@ -6510,7 +6496,7 @@ void sub_100030674(void *a1, void *a2)
   v3 = a1;
   object_getClassName(a2);
   sub_1000048AC();
-  sub_10000488C(&_mh_execute_header, v4, v5, "Unsupported class type for entry %s", v6, v7, v8, v9, v10);
+  sub_10000488C(&_mh_execute_header, v4, v5, "Unsupported class type for entry %s", v6, v7, v8, v9);
 }
 
 void sub_100030830(uint8_t *buf, uint64_t a2, os_log_t log)
@@ -6563,7 +6549,7 @@ void sub_100031138(void *a1, void *a2)
   v3 = a1;
   [a2 count];
   sub_1000048AC();
-  sub_10000488C(&_mh_execute_header, v4, v5, "At least one of NCCpValues/WRaValues/QMaxpValues/cycleCountValues/ageValues had zero values added after iterating through allData (allData size= %lu)", v6, v7, v8, v9, v10);
+  sub_10000488C(&_mh_execute_header, v4, v5, "At least one of NCCpValues/WRaValues/QMaxpValues/cycleCountValues/ageValues had zero values added after iterating through allData (allData size= %lu)", v6, v7, v8, v9);
 }
 
 void sub_100031228(void *a1, void *a2, uint64_t a3)
@@ -6716,13 +6702,13 @@ void sub_100031D70(void *a1)
   *a1 = 0;
 }
 
-void sub_100031DDC()
+void sub_100031DDC(uint64_t a1)
 {
   objc_opt_class();
   sub_1000048AC();
-  v1 = v0;
+  v2 = v1;
   sub_100005C54();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
+  _os_log_error_impl(v3, v4, v5, v6, v7, 0xCu);
 }
 
 void sub_100031F40(unsigned __int8 a1, int a2)

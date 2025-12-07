@@ -7,11 +7,11 @@
 - (RBSTerminationAssertion)initWithPredicate:(id)predicate context:(id)context allowLaunch:(id)launch;
 - (RBSTerminationAssertion)initWithPredicate:(id)predicate context:(id)context allowLaunch:(id)launch service:(id)service;
 - (RBSTerminationAssertion)initWithTarget:(id)target context:(id)context;
-- (uint64_t)setupMonitor;
 - (void)_notifyObserversOfProcessExit;
 - (void)addObserver:(id)observer;
 - (void)invalidate;
 - (void)removeObserver:(id)observer;
+- (void)setupMonitor;
 @end
 
 @implementation RBSTerminationAssertion
@@ -47,29 +47,27 @@
 
 void __39__RBSTerminationAssertion_setupMonitor__block_invoke(uint64_t a1, void *a2)
 {
-  v11[1] = *MEMORY[0x1E69E9840];
+  v10[1] = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = +[RBSProcessStateDescriptor descriptor];
   [v4 setValues:5];
   [v3 setStateDescriptor:v4];
   v5 = *(a1 + 32);
   a1 += 32;
-  v11[0] = *(v5 + 40);
-  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:1];
+  v10[0] = *(v5 + 40);
+  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:1];
   [v3 setPredicates:v6];
 
   objc_initWeak(&location, *a1);
-  v8[0] = MEMORY[0x1E69E9820];
-  v8[1] = 3221225472;
-  v8[2] = __39__RBSTerminationAssertion_setupMonitor__block_invoke_2;
-  v8[3] = &unk_1E7276A78;
-  objc_copyWeak(&v9, &location);
-  v8[4] = *a1;
-  [v3 setUpdateHandler:v8];
-  objc_destroyWeak(&v9);
+  v7[0] = MEMORY[0x1E69E9820];
+  v7[1] = 3221225472;
+  v7[2] = __39__RBSTerminationAssertion_setupMonitor__block_invoke_2;
+  v7[3] = &unk_1E7276A78;
+  objc_copyWeak(&v8, &location);
+  v7[4] = *a1;
+  [v3 setUpdateHandler:v7];
+  objc_destroyWeak(&v8);
   objc_destroyWeak(&location);
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void __39__RBSTerminationAssertion_setupMonitor__block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
@@ -180,7 +178,7 @@ void __39__RBSTerminationAssertion_setupMonitor__block_invoke_2(uint64_t a1, uin
   if (!self->_state)
   {
     v28 = [[RBSTerminateRequest alloc] initWithPredicate:self->_terminateContext context:self->_allow allowLaunch:self->_service service:?];
-    [(RBSTerminationAssertion *)self setupMonitor];
+    [(RBSTerminationAssertion *)&self->super.isa setupMonitor];
     v49 = 0;
     v50 = 0;
     v29 = [v28 execute:&v50 error:&v49];
@@ -324,10 +322,10 @@ LABEL_27:
     v21 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v52 forKeys:&v51 count:1];
     v7 = [v20 errorWithDomain:@"RBSAssertionErrorDomain" code:2 userInfo:v21];
 
-    v22 = rbs_assertion_log();
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+    v23 = rbs_assertion_log(v22);
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
     {
-      [(RBSTerminationAssertion *)self acquireWithError:v22];
+      [(RBSTerminationAssertion *)self acquireWithError:v23];
     }
   }
 
@@ -336,9 +334,9 @@ LABEL_27:
     v7 = 0;
   }
 
-  v23 = objc_alloc_init(MEMORY[0x1E695DFA8]);
+  v24 = objc_alloc_init(MEMORY[0x1E695DFA8]);
   runningHandles = self->_runningHandles;
-  self->_runningHandles = v23;
+  self->_runningHandles = v24;
 
   self->_deathMonitorsSetUp = 0;
   objc_initWeak(&location, self);
@@ -373,58 +371,53 @@ LABEL_24:
 LABEL_28:
   if (error)
   {
-    v25 = v7;
+    v26 = v7;
     *error = v7;
   }
 
-  v26 = *MEMORY[0x1E69E9840];
   return v9;
 }
 
 void __44__RBSTerminationAssertion_acquireWithError___block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if ([v3 isRunning])
   {
     v4 = [v3 process];
-    [*(*(a1 + 32) + 80) addObject:v4];
-    v5 = rbs_assertion_log();
+    v5 = rbs_assertion_log([*(*(a1 + 32) + 80) addObject:v4]);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v10 = v4;
+      v9 = v4;
       _os_log_impl(&dword_18E8AD000, v5, OS_LOG_TYPE_DEFAULT, "Setting up death monitor for %@", buf, 0xCu);
     }
 
-    v7[0] = MEMORY[0x1E69E9820];
-    v7[1] = 3221225472;
-    v7[2] = __44__RBSTerminationAssertion_acquireWithError___block_invoke_16;
-    v7[3] = &unk_1E7276AC8;
-    objc_copyWeak(&v8, (a1 + 40));
-    [v4 monitorForDeath:v7];
-    objc_destroyWeak(&v8);
+    v6[0] = MEMORY[0x1E69E9820];
+    v6[1] = 3221225472;
+    v6[2] = __44__RBSTerminationAssertion_acquireWithError___block_invoke_16;
+    v6[3] = &unk_1E7276AC8;
+    objc_copyWeak(&v7, (a1 + 40));
+    [v4 monitorForDeath:v6];
+    objc_destroyWeak(&v7);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void __44__RBSTerminationAssertion_acquireWithError___block_invoke_16(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v5 = WeakRetained;
   if (WeakRetained)
   {
     os_unfair_lock_lock(WeakRetained + 2);
-    [*(v5 + 80) removeObject:v3];
-    v6 = rbs_assertion_log();
+    v6 = rbs_assertion_log([*(v5 + 80) removeObject:v3]);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = 138412290;
-      v10 = v3;
-      _os_log_impl(&dword_18E8AD000, v6, OS_LOG_TYPE_DEFAULT, "Death monitor triggered for %@", &v9, 0xCu);
+      v8 = 138412290;
+      v9 = v3;
+      _os_log_impl(&dword_18E8AD000, v6, OS_LOG_TYPE_DEFAULT, "Death monitor triggered for %@", &v8, 0xCu);
     }
 
     if (*(v5 + 88) == 1)
@@ -443,8 +436,6 @@ void __44__RBSTerminationAssertion_acquireWithError___block_invoke_16(uint64_t a
       os_unfair_lock_unlock((v5 + 8));
     }
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)invalidateWithError:(id *)error
@@ -453,27 +444,27 @@ void __44__RBSTerminationAssertion_acquireWithError___block_invoke_16(uint64_t a
   os_unfair_lock_lock(&self->_lock);
   if (self->_state == 1)
   {
-    v5 = [(RBSAssertion *)self->_assertion invalidateWithError:error];
+    v6 = [(RBSAssertion *)self->_assertion invalidateWithError:error];
   }
 
   else
   {
     if (error)
     {
-      v6 = MEMORY[0x1E696ABC0];
+      v7 = MEMORY[0x1E696ABC0];
       v12 = *MEMORY[0x1E696A588];
       v13[0] = @"Assertion is in wrong state to be invalidated";
-      v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:&v12 count:1];
-      *error = [v6 errorWithDomain:@"RBSAssertionErrorDomain" code:2 userInfo:v7];
+      v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:&v12 count:1];
+      *error = [v7 errorWithDomain:@"RBSAssertionErrorDomain" code:2 userInfo:v8];
     }
 
-    v8 = rbs_assertion_log();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = rbs_assertion_log(v5);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      [RBSTerminationAssertion invalidateWithError:v8];
+      [RBSTerminationAssertion invalidateWithError:v9];
     }
 
-    v5 = 0;
+    v6 = 0;
   }
 
   [(RBSProcessMonitor *)self->_monitor invalidate];
@@ -481,8 +472,7 @@ void __44__RBSTerminationAssertion_acquireWithError___block_invoke_16(uint64_t a
   self->_monitor = 0;
 
   os_unfair_lock_unlock(&self->_lock);
-  v10 = *MEMORY[0x1E69E9840];
-  return v5;
+  return v6;
 }
 
 - (void)invalidate
@@ -522,50 +512,48 @@ void __44__RBSTerminationAssertion_acquireWithError___block_invoke_16(uint64_t a
 
 void __56__RBSTerminationAssertion__notifyObserversOfProcessExit__block_invoke(uint64_t a1)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
+  v7 = 0u;
   v8 = 0u;
   v9 = 0u;
   v10 = 0u;
-  v11 = 0u;
   v2 = *(a1 + 32);
-  v3 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v9;
+    v5 = *v8;
     do
     {
       v6 = 0;
       do
       {
-        if (*v9 != v5)
+        if (*v8 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        [*(*(&v8 + 1) + 8 * v6++) assertionTargetProcessDidExit:{*(a1 + 40), v8}];
+        [*(*(&v7 + 1) + 8 * v6++) assertionTargetProcessDidExit:{*(a1 + 40), v7}];
       }
 
       while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
     }
 
     while (v4);
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
-- (uint64_t)setupMonitor
+- (void)setupMonitor
 {
   if (result)
   {
     v1 = result;
     v2 = [[RBSProcessMonitor alloc] _initWithService:?];
-    v3 = *(v1 + 24);
-    *(v1 + 24) = v2;
+    v3 = v1[3];
+    v1[3] = v2;
 
-    v4 = *(v1 + 24);
+    v4 = v1[3];
     v5[0] = MEMORY[0x1E69E9820];
     v5[1] = 3221225472;
     v5[2] = __39__RBSTerminationAssertion_setupMonitor__block_invoke;
@@ -588,31 +576,30 @@ void __56__RBSTerminationAssertion__notifyObserversOfProcessExit__block_invoke(u
     os_unfair_lock_unlock((self + 8));
     if ((v3 & 1) == 0)
     {
-      v4 = rbs_assertion_log();
-      if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+      v5 = rbs_assertion_log(v4);
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_18E8AD000, v4, OS_LOG_TYPE_DEFAULT, "Notify termination observers of process exit", buf, 2u);
+        _os_log_impl(&dword_18E8AD000, v5, OS_LOG_TYPE_DEFAULT, "Notify termination observers of process exit", buf, 2u);
       }
 
-      v5[0] = MEMORY[0x1E69E9820];
-      v5[1] = 3221225472;
-      v5[2] = __56__RBSTerminationAssertion__notifyObserversOfProcessExit__block_invoke;
-      v5[3] = &unk_1E7276418;
-      v6 = v2;
+      v6[0] = MEMORY[0x1E69E9820];
+      v6[1] = 3221225472;
+      v6[2] = __56__RBSTerminationAssertion__notifyObserversOfProcessExit__block_invoke;
+      v6[3] = &unk_1E7276418;
+      v7 = v2;
       selfCopy = self;
-      [RBSWorkloop performCallout:v5];
+      [RBSWorkloop performCallout:v6];
     }
   }
 }
 
 - (void)acquireWithError:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_18E8AD000, a2, OS_LOG_TYPE_ERROR, "Could not get list of running states for %@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_18E8AD000, a2, OS_LOG_TYPE_ERROR, "Could not get list of running states for %@", &v2, 0xCu);
 }
 
 @end

@@ -101,7 +101,7 @@
 
 - (void)fetchMetadataRecursivelyForMergeableValueIDs:(id)ds continuationTokens:(id)tokens completionHandler:(id)handler
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   dsCopy = ds;
   tokensCopy = tokens;
   handlerCopy = handler;
@@ -115,8 +115,8 @@
   {
     *location = 138412546;
     *&location[4] = dsCopy;
-    v39 = 2112;
-    v40 = tokensCopy;
+    v38 = 2112;
+    v39 = tokensCopy;
     _os_log_debug_impl(&dword_22506F000, v11, OS_LOG_TYPE_DEBUG, "Will fetch delta metadata recursively for value IDs %@ with continuation tokens %@", location, 0x16u);
   }
 
@@ -125,42 +125,40 @@
   v17 = objc_msgSend_dictionary(MEMORY[0x277CBEB38], v15, v16);
   objc_initWeak(location, v14);
   objc_initWeak(&from, self);
-  v34[0] = MEMORY[0x277D85DD0];
-  v34[1] = 3221225472;
-  v34[2] = sub_2251CB1D0;
-  v34[3] = &unk_278549278;
-  objc_copyWeak(&v36, &from);
+  v33[0] = MEMORY[0x277D85DD0];
+  v33[1] = 3221225472;
+  v33[2] = sub_2251CB1D0;
+  v33[3] = &unk_278549278;
+  objc_copyWeak(&v35, &from);
   v18 = v17;
-  v35 = v18;
-  objc_msgSend_setMetadataFetchedBlock_(v14, v19, v34);
-  v29[0] = MEMORY[0x277D85DD0];
-  v29[1] = 3221225472;
-  v29[2] = sub_2251CB3B0;
-  v29[3] = &unk_2785492A0;
-  objc_copyWeak(&v32, &from);
+  v34 = v18;
+  objc_msgSend_setMetadataFetchedBlock_(v14, v19, v33);
+  v28[0] = MEMORY[0x277D85DD0];
+  v28[1] = 3221225472;
+  v28[2] = sub_2251CB3B0;
+  v28[3] = &unk_2785492A0;
+  objc_copyWeak(&v31, &from);
   v20 = v18;
-  v30 = v20;
+  v29 = v20;
   v21 = handlerCopy;
-  v31 = v21;
-  objc_copyWeak(&v33, location);
-  objc_msgSend_setCompletionBlock_(v14, v22, v29);
+  v30 = v21;
+  objc_copyWeak(&v32, location);
+  objc_msgSend_setCompletionBlock_(v14, v22, v28);
   objc_msgSend_setRequest_(self, v23, v14);
   v26 = objc_msgSend_container(self, v24, v25);
   objc_msgSend_performRequest_(v26, v27, v14);
 
-  objc_destroyWeak(&v33);
   objc_destroyWeak(&v32);
+  objc_destroyWeak(&v31);
 
-  objc_destroyWeak(&v36);
+  objc_destroyWeak(&v35);
   objc_destroyWeak(&from);
   objc_destroyWeak(location);
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleFetchedMetadatasForMergeableValueID:(id)d metadatas:(id)metadatas result:(id)result
 {
-  v102 = *MEMORY[0x277D85DE8];
+  v101 = *MEMORY[0x277D85DE8];
   dCopy = d;
   metadatasCopy = metadatas;
   resultCopy = result;
@@ -179,46 +177,46 @@
       v15 = *MEMORY[0x277CBC840];
       if (os_log_type_enabled(*MEMORY[0x277CBC840], OS_LOG_TYPE_DEBUG))
       {
-        v73 = v15;
-        *v98 = 134218242;
-        *&v98[4] = objc_msgSend_count(metadatasCopy, v74, v75);
-        *&v98[12] = 2112;
-        *&v98[14] = dCopy;
-        _os_log_debug_impl(&dword_22506F000, v73, OS_LOG_TYPE_DEBUG, "Successfully fetched %ld delta metadatas for value %@", v98, 0x16u);
+        v72 = v15;
+        *v97 = 134218242;
+        *&v97[4] = objc_msgSend_count(metadatasCopy, v73, v74);
+        *&v97[12] = 2112;
+        *&v97[14] = dCopy;
+        _os_log_debug_impl(&dword_22506F000, v72, OS_LOG_TYPE_DEBUG, "Successfully fetched %ld delta metadatas for value %@", v97, 0x16u);
       }
 
-      v78 = objc_msgSend_recordID(dCopy, v16, v17);
-      v76 = objc_msgSend_key(dCopy, v18, v19);
-      if (v78 && v76)
+      v77 = objc_msgSend_recordID(dCopy, v16, v17);
+      v75 = objc_msgSend_key(dCopy, v18, v19);
+      if (v77 && v75)
       {
-        *v98 = 0;
-        *&v98[8] = v98;
-        *&v98[16] = 0x3032000000;
-        v99 = sub_225074010;
-        v100 = sub_225073594;
-        v101 = 0;
+        *v97 = 0;
+        *&v97[8] = v97;
+        *&v97[16] = 0x3032000000;
+        v98 = sub_225074010;
+        v99 = sub_225073594;
+        v100 = 0;
         v20 = dispatch_group_create();
         objc_initWeak(&location, self);
-        v92 = 0u;
-        v93 = 0u;
-        v90 = 0u;
         v91 = 0u;
+        v92 = 0u;
+        v89 = 0u;
+        v90 = 0u;
         v21 = metadatasCopy;
-        v25 = objc_msgSend_countByEnumeratingWithState_objects_count_(v21, v22, &v90, v97, 16);
+        v25 = objc_msgSend_countByEnumeratingWithState_objects_count_(v21, v22, &v89, v96, 16);
         if (v25)
         {
-          v26 = *v91;
+          v26 = *v90;
           do
           {
             v27 = 0;
             do
             {
-              if (*v91 != v26)
+              if (*v90 != v26)
               {
                 objc_enumerationMutation(v21);
               }
 
-              v28 = *(*(&v90 + 1) + 8 * v27);
+              v28 = *(*(&v89 + 1) + 8 * v27);
               if (objc_msgSend_isEncrypted(dCopy, v23, v24) && objc_msgSend_needsDecryption(v28, v23, v24))
               {
                 dispatch_group_enter(v20);
@@ -234,37 +232,37 @@
                 if (os_log_type_enabled(*MEMORY[0x277CBC840], OS_LOG_TYPE_DEBUG))
                 {
                   *buf = 138412290;
-                  v96 = v28;
+                  v95 = v28;
                   _os_log_debug_impl(&dword_22506F000, v32, OS_LOG_TYPE_DEBUG, "Need to decrypt timestamps for metadata %@", buf, 0xCu);
                 }
 
                 v35 = objc_msgSend_container(val, v33, v34);
                 v38 = objc_msgSend_pcsCache(v35, v36, v37);
-                v84[0] = MEMORY[0x277D85DD0];
-                v84[1] = 3221225472;
-                v84[2] = sub_2251CBE7C;
-                v84[3] = &unk_2785492C8;
-                objc_copyWeak(&v89, &location);
-                v88 = v98;
-                v85 = dCopy;
-                v86 = v28;
-                v87 = v20;
-                objc_msgSend_fetchPCSForRecordWithID_forOperation_options_withCompletionHandler_(v38, v39, v78, val, 0, v84);
+                v83[0] = MEMORY[0x277D85DD0];
+                v83[1] = 3221225472;
+                v83[2] = sub_2251CBE7C;
+                v83[3] = &unk_2785492C8;
+                objc_copyWeak(&v88, &location);
+                v87 = v97;
+                v84 = dCopy;
+                v85 = v28;
+                v86 = v20;
+                objc_msgSend_fetchPCSForRecordWithID_forOperation_options_withCompletionHandler_(v38, v39, v77, val, 0, v83);
 
-                objc_destroyWeak(&v89);
+                objc_destroyWeak(&v88);
               }
 
               ++v27;
             }
 
             while (v25 != v27);
-            v25 = objc_msgSend_countByEnumeratingWithState_objects_count_(v21, v23, &v90, v97, 16);
+            v25 = objc_msgSend_countByEnumeratingWithState_objects_count_(v21, v23, &v89, v96, 16);
           }
 
           while (v25);
         }
 
-        if (*(*&v98[8] + 40))
+        if (*(*&v97[8] + 40))
         {
 
           v21 = 0;
@@ -276,14 +274,14 @@
         block[2] = sub_2251CC1E4;
         block[3] = &unk_2785492F0;
         block[4] = val;
-        v81 = dCopy;
+        v80 = dCopy;
         metadatasCopy = v21;
-        v82 = metadatasCopy;
-        v83 = v98;
+        v81 = metadatasCopy;
+        v82 = v97;
         dispatch_group_notify(v20, v42, block);
 
         objc_destroyWeak(&location);
-        _Block_object_dispose(v98, 8);
+        _Block_object_dispose(v97, 8);
       }
 
       else
@@ -296,9 +294,9 @@
         v66 = *MEMORY[0x277CBC840];
         if (os_log_type_enabled(*MEMORY[0x277CBC840], OS_LOG_TYPE_ERROR))
         {
-          *v98 = 138412290;
-          *&v98[4] = dCopy;
-          _os_log_error_impl(&dword_22506F000, v66, OS_LOG_TYPE_ERROR, "No record ID for delta metadata on value ID %@", v98, 0xCu);
+          *v97 = 138412290;
+          *&v97[4] = dCopy;
+          _os_log_error_impl(&dword_22506F000, v66, OS_LOG_TYPE_ERROR, "No record ID for delta metadata on value ID %@", v97, 0xCu);
         }
 
         v68 = objc_msgSend_errorWithDomain_code_userInfo_format_(MEMORY[0x277CBC560], v67, *MEMORY[0x277CBC120], 1017, 0, @"Must specify a record ID and field name for value %@", dCopy);
@@ -326,11 +324,11 @@
       v62 = *MEMORY[0x277CBC840];
       if (os_log_type_enabled(*MEMORY[0x277CBC840], OS_LOG_TYPE_ERROR))
       {
-        *v98 = 138412546;
-        *&v98[4] = dCopy;
-        *&v98[12] = 2112;
-        *&v98[14] = v61;
-        _os_log_error_impl(&dword_22506F000, v62, OS_LOG_TYPE_ERROR, "Failed to fetch metadatas for value %@: %@", v98, 0x16u);
+        *v97 = 138412546;
+        *&v97[4] = dCopy;
+        *&v97[12] = 2112;
+        *&v97[14] = v61;
+        _os_log_error_impl(&dword_22506F000, v62, OS_LOG_TYPE_ERROR, "Failed to fetch metadatas for value %@: %@", v97, 0x16u);
       }
 
       v65 = objc_msgSend_metadataFetchedBlock(self, v63, v64);
@@ -350,13 +348,11 @@
     {
       v44 = v43;
       v47 = objc_msgSend_operationID(self, v45, v46);
-      *v98 = 138412290;
-      *&v98[4] = v47;
-      _os_log_impl(&dword_22506F000, v44, OS_LOG_TYPE_INFO, "No per-valueID fetch block for operation %@", v98, 0xCu);
+      *v97 = 138412290;
+      *&v97[4] = v47;
+      _os_log_impl(&dword_22506F000, v44, OS_LOG_TYPE_INFO, "No per-valueID fetch block for operation %@", v97, 0xCu);
     }
   }
-
-  v72 = *MEMORY[0x277D85DE8];
 }
 
 @end

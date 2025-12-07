@@ -86,8 +86,8 @@
   dCopy = d;
   if ((type - 1) > 0x1A || !feedbackCopy)
   {
-    v16 = SPLogForSPLogCategoryFeedback();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    v15 = SPLogForSPLogCategoryFeedback();
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       sub_100063810();
     }
@@ -95,11 +95,10 @@
     goto LABEL_11;
   }
 
-  v12 = qword_1000A8708[type];
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
-    v16 = SPLogForSPLogCategoryFeedback();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    v15 = SPLogForSPLogCategoryFeedback();
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       sub_100063880(type, feedbackCopy);
     }
@@ -109,14 +108,14 @@ LABEL_11:
     goto LABEL_12;
   }
 
-  v13 = SPLogForSPLogCategoryDefault();
-  v14 = gSPLogInfoAsDefault;
-  if (os_log_type_enabled(v13, ((gSPLogInfoAsDefault & 1) == 0)))
+  v12 = SPLogForSPLogCategoryDefault();
+  v13 = gSPLogInfoAsDefault;
+  if (os_log_type_enabled(v12, ((gSPLogInfoAsDefault & 1) == 0)))
   {
-    v15 = qword_1000A87F0[type];
-    v17 = 136315138;
-    v18 = v15;
-    _os_log_impl(&_mh_execute_header, v13, ((v14 & 1) == 0), "send feedback (%s)", &v17, 0xCu);
+    v14 = qword_1000A87F0[type];
+    v16 = 136315138;
+    v17 = v14;
+    _os_log_impl(&_mh_execute_header, v12, ((v13 & 1) == 0), "send feedback (%s)", &v16, 0xCu);
   }
 
   [(SPFeedbackProxy *)self _sendFeedbackType:type feedback:feedbackCopy feedbackData:0 queryId:id clientID:dCopy];

@@ -24,120 +24,127 @@
     _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "Dumping state", buf, 2u);
   }
 
-  NSAppendPrintF();
-  v4 = 0;
+  v14 = 0;
+  NSAppendPrintF(&v14, "\n");
+  v4 = v14;
   state = [(SDDeviceAssetMonitor *)self state];
+  v6 = state;
   if (state)
   {
-    NSAppendPrintF();
-    v6 = v4;
+    v13 = v4;
+    NSAppendPrintF(&v13, "%@\n", state);
+    v7 = v13;
 
-    v4 = v6;
+    v4 = v7;
   }
 
   if (v4)
   {
-    v7 = [NSPropertyListSerialization dataWithPropertyList:v4 format:200 options:0 error:0];
-    v8 = [v7 length];
-    v9 = malloc_type_calloc(1uLL, v8 + 200, 0x1000040BEF03554uLL);
-    v10 = v9;
-    if (v9)
+    v8 = [NSPropertyListSerialization dataWithPropertyList:v4 format:200 options:0 error:0];
+    v9 = [v8 length];
+    v10 = malloc_type_calloc(1uLL, v9 + 200, 0x1000040BEF03554uLL);
+    v11 = v10;
+    if (v10)
     {
-      v9->var0 = 1;
-      v9->var1.var1 = v8;
+      v10->var0 = 1;
+      v10->var1.var1 = v9;
       __strlcpy_chk();
-      memcpy(v10->var4, [v7 bytes], v8);
+      memcpy(v11->var4, [v8 bytes], v9);
     }
   }
 
   else
   {
-    v10 = 0;
-    v7 = 0;
+    v11 = 0;
+    v8 = 0;
   }
 
-  return v10;
+  return v11;
 }
 
 - (NSString)state
 {
-  v28 = 0;
+  v32 = 0;
   v3 = objc_opt_class();
   v4 = NSStringFromClass(v3);
-  NSAppendPrintF();
-  v5 = 0;
+  NSAppendPrintF(&v32, "-- %@ --\n", v4);
+  v5 = v32;
 
-  v27 = v5;
-  v18 = objc_opt_new();
-  NSAppendPrintF();
-  v6 = v5;
+  v31 = v5;
+  v6 = objc_opt_new();
+  NSAppendPrintF(&v31, "Current Date: %@\n", v6);
+  v7 = v31;
 
   networkStatus = [(SFDeviceAssetManager *)self->_deviceAssetManager networkStatus];
 
   if (networkStatus)
   {
-    v26 = v6;
+    v30 = v7;
     networkStatus2 = [(SFDeviceAssetManager *)self->_deviceAssetManager networkStatus];
-    NSAppendPrintF();
-    v8 = v6;
+    NSAppendPrintF(&v30, "%@\n", networkStatus2);
+    v10 = v30;
 
-    v6 = v8;
+    v7 = v10;
   }
 
-  v25 = v6;
-  NSAppendPrintF();
-  v9 = v6;
+  v29 = v7;
+  NSAppendPrintF(&v29, "## Tasks:\n");
+  v11 = v29;
 
   if ([(NSMutableSet *)self->_tasks count])
   {
-    v23 = 0u;
-    v24 = 0u;
-    v21 = 0u;
-    v22 = 0u;
-    v10 = self->_tasks;
-    v11 = [(NSMutableSet *)v10 countByEnumeratingWithState:&v21 objects:v29 count:16];
-    if (v11)
+    v27 = 0u;
+    v28 = 0u;
+    v25 = 0u;
+    v26 = 0u;
+    v12 = self->_tasks;
+    v13 = [(NSMutableSet *)v12 countByEnumeratingWithState:&v25 objects:v33 count:16];
+    if (v13)
     {
-      v12 = v11;
-      v13 = *v22;
+      v14 = v13;
+      v15 = *v26;
       do
       {
-        v14 = 0;
-        v15 = v9;
+        v16 = 0;
+        v17 = v11;
         do
         {
-          if (*v22 != v13)
+          if (*v26 != v15)
           {
-            objc_enumerationMutation(v10);
+            objc_enumerationMutation(v12);
           }
 
-          v20 = *(*(&v21 + 1) + 8 * v14);
-          NSAppendPrintF();
-          v9 = v15;
+          v18 = *(*(&v25 + 1) + 8 * v16);
+          v24 = v17;
+          NSAppendPrintF(&v24, "    %@\n", v18);
+          v11 = v24;
 
-          v14 = v14 + 1;
-          v15 = v9;
+          v16 = v16 + 1;
+          v17 = v11;
         }
 
-        while (v12 != v14);
-        v12 = [(NSMutableSet *)v10 countByEnumeratingWithState:&v21 objects:v29 count:16, v20];
+        while (v14 != v16);
+        v14 = [(NSMutableSet *)v12 countByEnumeratingWithState:&v25 objects:v33 count:16];
       }
 
-      while (v12);
+      while (v14);
     }
   }
 
   else
   {
-    NSAppendPrintF();
-    v10 = v9;
-    v9 = v9;
+    v23 = v11;
+    NSAppendPrintF(&v23, "    None\n");
+    v12 = v11;
+    v11 = v23;
   }
 
-  NSAppendPrintF();
-  v16 = v9;
+  v22 = v11;
+  NSAppendPrintF(&v22, "Device Asset Monitor State End\n");
+  v19 = v22;
+  v20 = v22;
 
-  return &v9->super.super.isa;
+  return v19;
 }
 
 + (SDDeviceAssetMonitor)sharedAssetMonitor

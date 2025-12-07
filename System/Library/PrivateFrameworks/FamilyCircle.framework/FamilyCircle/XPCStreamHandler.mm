@@ -33,7 +33,7 @@
 - (_TtC13familycircled16XPCStreamHandler)init
 {
   v3.receiver = self;
-  v3.super_class = type metadata accessor for XPCStreamHandler();
+  v3.super_class = type metadata accessor for XPCStreamHandler(self, a2);
   return [(XPCStreamHandler *)&v3 init];
 }
 

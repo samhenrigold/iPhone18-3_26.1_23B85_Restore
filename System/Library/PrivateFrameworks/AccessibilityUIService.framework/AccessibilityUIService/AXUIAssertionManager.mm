@@ -34,7 +34,6 @@
 
 uint64_t __38__AXUIAssertionManager_sharedInstance__block_invoke(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   _AXUIAssertionManager = objc_opt_new();
 
   return MEMORY[0x2821F96F8]();
@@ -79,7 +78,7 @@ uint64_t __38__AXUIAssertionManager_sharedInstance__block_invoke(uint64_t a1)
 
 - (void)acquireAssertionIfNeeded
 {
-  v17[1] = *MEMORY[0x277D85DE8];
+  v16[1] = *MEMORY[0x277D85DE8];
   timerBackground = [(AXUIAssertionManager *)self timerBackground];
   [timerBackground cancel];
 
@@ -106,8 +105,8 @@ uint64_t __38__AXUIAssertionManager_sharedInstance__block_invoke(uint64_t a1)
     currentProcess = [MEMORY[0x277D47008] currentProcess];
     v7 = [MEMORY[0x277D46E38] attributeWithDomain:@"com.apple.AccessibilityUIServer" name:@"AXUIServerBackground"];
     v8 = objc_alloc(MEMORY[0x277D46DB8]);
-    v17[0] = v7;
-    v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:1];
+    v16[0] = v7;
+    v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:1];
     v10 = [v8 initWithExplanation:@"AXUIServer Running Background Tasks" target:currentProcess attributes:v9];
     v11 = self->_assertionBackground;
     self->_assertionBackground = v10;
@@ -120,20 +119,18 @@ uint64_t __38__AXUIAssertionManager_sharedInstance__block_invoke(uint64_t a1)
     }
 
     v13 = self->_assertionBackground;
-    v15[0] = MEMORY[0x277D85DD0];
-    v15[1] = 3221225472;
-    v15[2] = __48__AXUIAssertionManager_acquireAssertionIfNeeded__block_invoke;
-    v15[3] = &unk_278BF3700;
-    v15[4] = self;
-    [(RBSAssertion *)v13 acquireWithInvalidationHandler:v15];
+    v14[0] = MEMORY[0x277D85DD0];
+    v14[1] = 3221225472;
+    v14[2] = __48__AXUIAssertionManager_acquireAssertionIfNeeded__block_invoke;
+    v14[3] = &unk_278BF3700;
+    v14[4] = self;
+    [(RBSAssertion *)v13 acquireWithInvalidationHandler:v14];
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __48__AXUIAssertionManager_acquireAssertionIfNeeded__block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = [v6 code];
@@ -149,10 +146,10 @@ void __48__AXUIAssertionManager_acquireAssertionIfNeeded__block_invoke(uint64_t 
         }
 
         v9 = [v6 userInfo];
-        v15 = 138412546;
-        v16 = v5;
-        v17 = 2112;
-        v18 = v9;
+        v14 = 138412546;
+        v15 = v5;
+        v16 = 2112;
+        v17 = v9;
         v11 = "RB assertion invalidated - Permission Denied: %@. %@";
         break;
       case 4:
@@ -160,10 +157,10 @@ void __48__AXUIAssertionManager_acquireAssertionIfNeeded__block_invoke(uint64_t 
         if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
         {
           v9 = [v6 userInfo];
-          v15 = 138412546;
-          v16 = v5;
-          v17 = 2112;
-          v18 = v9;
+          v14 = 138412546;
+          v15 = v5;
+          v16 = 2112;
+          v17 = v9;
           v11 = "RB assertion invalidated - Constraint Unmet: %@. %@";
           break;
         }
@@ -177,10 +174,10 @@ void __48__AXUIAssertionManager_acquireAssertionIfNeeded__block_invoke(uint64_t 
         }
 
         v9 = [v6 userInfo];
-        v15 = 138412546;
-        v16 = v5;
-        v17 = 2112;
-        v18 = v9;
+        v14 = 138412546;
+        v15 = v5;
+        v16 = 2112;
+        v17 = v9;
         v11 = "RB assertion invalidated - Conditions Denied: %@. %@";
         break;
       default:
@@ -188,7 +185,7 @@ void __48__AXUIAssertionManager_acquireAssertionIfNeeded__block_invoke(uint64_t 
     }
 
 LABEL_20:
-    _os_log_impl(&dword_23DBD1000, v8, OS_LOG_TYPE_DEFAULT, v11, &v15, 0x16u);
+    _os_log_impl(&dword_23DBD1000, v8, OS_LOG_TYPE_DEFAULT, v11, &v14, 0x16u);
 LABEL_21:
 
     goto LABEL_22;
@@ -203,10 +200,10 @@ LABEL_21:
     }
 
     v9 = [v6 userInfo];
-    v15 = 138412546;
-    v16 = v5;
-    v17 = 2112;
-    v18 = v9;
+    v14 = 138412546;
+    v15 = v5;
+    v16 = 2112;
+    v17 = v9;
     v11 = "RB assertion invalidated - Unknown Error: %@. %@";
     goto LABEL_20;
   }
@@ -226,13 +223,13 @@ LABEL_21:
 
     v9 = [v6 userInfo];
     v10 = [v5 attributes];
-    v15 = 138412802;
-    v16 = v9;
-    v17 = 2112;
-    v18 = v5;
-    v19 = 2112;
-    v20 = v10;
-    _os_log_impl(&dword_23DBD1000, v8, OS_LOG_TYPE_DEFAULT, "RB assertion invalidated - Invalid Parameters: %@. %@. %@", &v15, 0x20u);
+    v14 = 138412802;
+    v15 = v9;
+    v16 = 2112;
+    v17 = v5;
+    v18 = 2112;
+    v19 = v10;
+    _os_log_impl(&dword_23DBD1000, v8, OS_LOG_TYPE_DEFAULT, "RB assertion invalidated - Invalid Parameters: %@. %@. %@", &v14, 0x20u);
 
     goto LABEL_21;
   }
@@ -241,10 +238,10 @@ LABEL_21:
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     v9 = [v6 userInfo];
-    v15 = 138412546;
-    v16 = v5;
-    v17 = 2112;
-    v18 = v9;
+    v14 = 138412546;
+    v15 = v5;
+    v16 = 2112;
+    v17 = v9;
     v11 = "RB assertion invalidated: %@. %@";
     goto LABEL_20;
   }
@@ -258,8 +255,6 @@ LABEL_23:
   {
     *(v12 + 16) = 0;
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)invalidateAssertionIfNeeded
@@ -308,7 +303,7 @@ void __51__AXUIAssertionManager_invalidateAssertionIfNeeded__block_invoke(uint64
 
 - (void)acquireAssertionUIIfNeeded
 {
-  v17[2] = *MEMORY[0x277D85DE8];
+  v16[2] = *MEMORY[0x277D85DE8];
   timerUI = [(AXUIAssertionManager *)self timerUI];
   [timerUI cancel];
 
@@ -336,28 +331,26 @@ void __51__AXUIAssertionManager_invalidateAssertionIfNeeded__block_invoke(uint64
     v7 = [MEMORY[0x277D46E38] attributeWithDomain:@"com.apple.AccessibilityUIServer" name:@"LegacyUIOverlay"];
     v8 = [MEMORY[0x277D46E50] grantWithNamespace:@"com.apple.frontboard.visibility" endowment:MEMORY[0x277CBEC38]];
     v9 = objc_alloc(MEMORY[0x277D46DB8]);
-    v17[0] = v7;
-    v17[1] = v8;
-    v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:2];
+    v16[0] = v7;
+    v16[1] = v8;
+    v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:2];
     v11 = [v9 initWithExplanation:@"AXUIServer Showing UI" target:currentProcess attributes:v10];
     v12 = self->_assertionUI;
     self->_assertionUI = v11;
 
     v13 = self->_assertionUI;
-    v15[0] = MEMORY[0x277D85DD0];
-    v15[1] = 3221225472;
-    v15[2] = __50__AXUIAssertionManager_acquireAssertionUIIfNeeded__block_invoke;
-    v15[3] = &unk_278BF3700;
-    v15[4] = self;
-    [(RBSAssertion *)v13 acquireWithInvalidationHandler:v15];
+    v14[0] = MEMORY[0x277D85DD0];
+    v14[1] = 3221225472;
+    v14[2] = __50__AXUIAssertionManager_acquireAssertionUIIfNeeded__block_invoke;
+    v14[3] = &unk_278BF3700;
+    v14[4] = self;
+    [(RBSAssertion *)v13 acquireWithInvalidationHandler:v14];
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __50__AXUIAssertionManager_acquireAssertionUIIfNeeded__block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = [v6 code];
@@ -373,10 +366,10 @@ void __50__AXUIAssertionManager_acquireAssertionUIIfNeeded__block_invoke(uint64_
         }
 
         v9 = [v6 userInfo];
-        v15 = 138412546;
-        v16 = v5;
-        v17 = 2112;
-        v18 = v9;
+        v14 = 138412546;
+        v15 = v5;
+        v16 = 2112;
+        v17 = v9;
         v11 = "RB assertion invalidated - Permission Denied: %@. %@";
         break;
       case 4:
@@ -384,10 +377,10 @@ void __50__AXUIAssertionManager_acquireAssertionUIIfNeeded__block_invoke(uint64_
         if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
         {
           v9 = [v6 userInfo];
-          v15 = 138412546;
-          v16 = v5;
-          v17 = 2112;
-          v18 = v9;
+          v14 = 138412546;
+          v15 = v5;
+          v16 = 2112;
+          v17 = v9;
           v11 = "RB assertion invalidated - Constraint Unmet: %@. %@";
           break;
         }
@@ -401,10 +394,10 @@ void __50__AXUIAssertionManager_acquireAssertionUIIfNeeded__block_invoke(uint64_
         }
 
         v9 = [v6 userInfo];
-        v15 = 138412546;
-        v16 = v5;
-        v17 = 2112;
-        v18 = v9;
+        v14 = 138412546;
+        v15 = v5;
+        v16 = 2112;
+        v17 = v9;
         v11 = "RB assertion invalidated - Conditions Denied: %@. %@";
         break;
       default:
@@ -412,7 +405,7 @@ void __50__AXUIAssertionManager_acquireAssertionUIIfNeeded__block_invoke(uint64_
     }
 
 LABEL_20:
-    _os_log_impl(&dword_23DBD1000, v8, OS_LOG_TYPE_DEFAULT, v11, &v15, 0x16u);
+    _os_log_impl(&dword_23DBD1000, v8, OS_LOG_TYPE_DEFAULT, v11, &v14, 0x16u);
 LABEL_21:
 
     goto LABEL_22;
@@ -427,10 +420,10 @@ LABEL_21:
     }
 
     v9 = [v6 userInfo];
-    v15 = 138412546;
-    v16 = v5;
-    v17 = 2112;
-    v18 = v9;
+    v14 = 138412546;
+    v15 = v5;
+    v16 = 2112;
+    v17 = v9;
     v11 = "RB assertion invalidated - Unknown Error: %@. %@";
     goto LABEL_20;
   }
@@ -450,13 +443,13 @@ LABEL_21:
 
     v9 = [v6 userInfo];
     v10 = [v5 attributes];
-    v15 = 138412802;
-    v16 = v9;
-    v17 = 2112;
-    v18 = v5;
-    v19 = 2112;
-    v20 = v10;
-    _os_log_impl(&dword_23DBD1000, v8, OS_LOG_TYPE_DEFAULT, "RB assertion invalidated - Invalid Parameters: %@. %@. %@", &v15, 0x20u);
+    v14 = 138412802;
+    v15 = v9;
+    v16 = 2112;
+    v17 = v5;
+    v18 = 2112;
+    v19 = v10;
+    _os_log_impl(&dword_23DBD1000, v8, OS_LOG_TYPE_DEFAULT, "RB assertion invalidated - Invalid Parameters: %@. %@. %@", &v14, 0x20u);
 
     goto LABEL_21;
   }
@@ -465,10 +458,10 @@ LABEL_21:
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     v9 = [v6 userInfo];
-    v15 = 138412546;
-    v16 = v5;
-    v17 = 2112;
-    v18 = v9;
+    v14 = 138412546;
+    v15 = v5;
+    v16 = 2112;
+    v17 = v9;
     v11 = "RB assertion invalidated: %@. %@";
     goto LABEL_20;
   }
@@ -482,8 +475,6 @@ LABEL_23:
   {
     *(v12 + 8) = 0;
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)invalidateAssertionUIIfNeeded
@@ -499,12 +490,12 @@ LABEL_23:
 
 void __53__AXUIAssertionManager_invalidateAssertionUIIfNeeded__block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v2 = AXLogAssertions();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    LOWORD(v12) = 0;
-    _os_log_impl(&dword_23DBD1000, v2, OS_LOG_TYPE_DEFAULT, "invalidateAssertionUIIfNeeded timer", &v12, 2u);
+    LOWORD(v11) = 0;
+    _os_log_impl(&dword_23DBD1000, v2, OS_LOG_TYPE_DEFAULT, "invalidateAssertionUIIfNeeded timer", &v11, 2u);
   }
 
   v3 = [*(a1 + 32) assertionUI];
@@ -520,9 +511,9 @@ void __53__AXUIAssertionManager_invalidateAssertionUIIfNeeded__block_invoke(uint
       if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
       {
         v7 = [*(a1 + 32) clientsWithUIAssertion];
-        v12 = 138412290;
-        v13 = v7;
-        _os_log_impl(&dword_23DBD1000, v6, OS_LOG_TYPE_DEFAULT, "Can't invalidate UI Assertion, still clients with UI assertion %@", &v12, 0xCu);
+        v11 = 138412290;
+        v12 = v7;
+        _os_log_impl(&dword_23DBD1000, v6, OS_LOG_TYPE_DEFAULT, "Can't invalidate UI Assertion, still clients with UI assertion %@", &v11, 0xCu);
       }
     }
 
@@ -541,19 +532,17 @@ void __53__AXUIAssertionManager_invalidateAssertionUIIfNeeded__block_invoke(uint
         v10 = AXLogAssertions();
         if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
         {
-          LOWORD(v12) = 0;
-          _os_log_impl(&dword_23DBD1000, v10, OS_LOG_TYPE_DEFAULT, "Can't invalidate UI Assertion, still UI is presented", &v12, 2u);
+          LOWORD(v11) = 0;
+          _os_log_impl(&dword_23DBD1000, v10, OS_LOG_TYPE_DEFAULT, "Can't invalidate UI Assertion, still UI is presented", &v11, 2u);
         }
       }
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)acquireAssertionUIIfNeededForService:(id)service clientIdentifier:(id)identifier
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   serviceCopy = service;
   identifierCopy = identifier;
   if (objc_opt_respondsToSelector())
@@ -569,13 +558,13 @@ void __53__AXUIAssertionManager_invalidateAssertionUIIfNeeded__block_invoke(uint
   v9 = AXLogAssertions();
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
-    v12[0] = 67109634;
-    v12[1] = v8;
-    v13 = 2112;
-    v14 = identifierCopy;
-    v15 = 2112;
-    v16 = serviceCopy;
-    _os_log_impl(&dword_23DBD1000, v9, OS_LOG_TYPE_DEFAULT, "serviceType: %d, client: %@, service: %@", v12, 0x1Cu);
+    v11[0] = 67109634;
+    v11[1] = v8;
+    v12 = 2112;
+    v13 = identifierCopy;
+    v14 = 2112;
+    v15 = serviceCopy;
+    _os_log_impl(&dword_23DBD1000, v9, OS_LOG_TYPE_DEFAULT, "serviceType: %d, client: %@, service: %@", v11, 0x1Cu);
   }
 
   if (v8)
@@ -588,8 +577,6 @@ void __53__AXUIAssertionManager_invalidateAssertionUIIfNeeded__block_invoke(uint
 
     [(AXUIAssertionManager *)self acquireAssertionUIIfNeeded];
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)invalidateAssertionUIIfNeededForService:(id)service clientIdentifier:(id)identifier
@@ -604,13 +591,9 @@ void __53__AXUIAssertionManager_invalidateAssertionUIIfNeeded__block_invoke(uint
 
 - (void)_invalidateAssertion
 {
-  v12 = *MEMORY[0x277D85DE8];
-  v2 = *self;
   userInfo = [a2 userInfo];
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_23DBD1000, v4, v5, "RB assertion invalidation error: %@. %@", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1(&dword_23DBD1000, v3, v4, "RB assertion invalidation error: %@. %@", v5, v6, v7, v8);
 }
 
 - (void)_invalidateAssertionUI

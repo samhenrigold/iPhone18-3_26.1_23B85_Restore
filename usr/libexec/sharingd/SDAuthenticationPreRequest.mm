@@ -75,32 +75,30 @@
 {
   toCopy = to;
   has = self->_has;
-  v8 = toCopy;
+  v6 = toCopy;
   if ((has & 2) != 0)
   {
-    version = self->_version;
     PBDataWriterWriteUint32Field();
-    toCopy = v8;
+    toCopy = v6;
     has = self->_has;
   }
 
   if (has)
   {
-    type = self->_type;
     PBDataWriterWriteUint32Field();
-    toCopy = v8;
+    toCopy = v6;
   }
 
   if (self->_sessionID)
   {
     PBDataWriterWriteStringField();
-    toCopy = v8;
+    toCopy = v6;
   }
 
   if (self->_awdlInfo)
   {
     PBDataWriterWriteDataField();
-    toCopy = v8;
+    toCopy = v6;
   }
 }
 
@@ -172,7 +170,6 @@
     goto LABEL_16;
   }
 
-  v5 = *(equalCopy + 32);
   if ((*&self->_has & 2) != 0)
   {
     if ((*(equalCopy + 32) & 2) == 0 || self->_version != *(equalCopy + 7))
@@ -184,7 +181,7 @@
   else if ((*(equalCopy + 32) & 2) != 0)
   {
 LABEL_16:
-    v8 = 0;
+    v7 = 0;
     goto LABEL_17;
   }
 
@@ -210,17 +207,17 @@ LABEL_16:
   awdlInfo = self->_awdlInfo;
   if (awdlInfo | *(equalCopy + 1))
   {
-    v8 = [(NSData *)awdlInfo isEqual:?];
+    v7 = [(NSData *)awdlInfo isEqual:?];
   }
 
   else
   {
-    v8 = 1;
+    v7 = 1;
   }
 
 LABEL_17:
 
-  return v8;
+  return v7;
 }
 
 - (unint64_t)hash

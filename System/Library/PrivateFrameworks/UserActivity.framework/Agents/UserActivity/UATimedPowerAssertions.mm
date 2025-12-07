@@ -17,9 +17,9 @@
   dCopy = d;
   queueCopy = queue;
   completionCopy = completion;
-  v31.receiver = self;
-  v31.super_class = UATimedPowerAssertions;
-  v16 = [(UATimedPowerAssertions *)&v31 init];
+  v32.receiver = self;
+  v32.super_class = UATimedPowerAssertions;
+  v16 = [(UATimedPowerAssertions *)&v32 init];
   if (v16)
   {
     v17 = +[NSUUID UUID];
@@ -56,19 +56,19 @@
     timerExpiration = v16->_timerExpiration;
     v16->_timerExpiration = 0;
 
-    objc_initWeak(&location, v16);
-    v24 = sub_10003502C();
+    inited = objc_initWeak(&location, v16);
+    v25 = sub_10003502C(inited);
     block[0] = _NSConcreteStackBlock;
     block[1] = 3221225472;
     block[2] = sub_100035070;
     block[3] = &unk_1000C5698;
-    objc_copyWeak(&v29, &location);
-    v25 = v16;
-    v28 = v25;
-    dispatch_sync(v24, block);
+    objc_copyWeak(&v30, &location);
+    v26 = v16;
+    v29 = v26;
+    dispatch_sync(v25, block);
 
-    [(UATimedPowerAssertions *)v25 updateTimeUntilAssertionRelease:delta];
-    objc_destroyWeak(&v29);
+    [(UATimedPowerAssertions *)v26 updateTimeUntilAssertionRelease:delta];
+    objc_destroyWeak(&v30);
     objc_destroyWeak(&location);
   }
 
@@ -84,19 +84,19 @@
     uuid = [(UATimedPowerAssertions *)self uuid];
     uUIDString = [uuid UUIDString];
     *buf = 138543618;
-    v24 = name;
-    v25 = 2114;
-    v26 = uUIDString;
+    v25 = name;
+    v26 = 2114;
+    v27 = uUIDString;
     _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEBUG, "-dealloc for power assertion %{public}@/%{public}@", buf, 0x16u);
   }
 
-  v7 = sub_10003502C();
+  v8 = sub_10003502C(v7);
   block[0] = _NSConcreteStackBlock;
   block[1] = 3221225472;
   block[2] = sub_1000354A8;
   block[3] = &unk_1000C4CC0;
   block[4] = self;
-  dispatch_sync(v7, block);
+  dispatch_sync(v8, block);
 
   timerSource = [(UATimedPowerAssertions *)self timerSource];
 
@@ -112,49 +112,49 @@
 
     if (block)
     {
-      v11 = sub_100001A30(0);
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+      v12 = sub_100001A30(0);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
       {
         name2 = [(UATimedPowerAssertions *)self name];
         *buf = 138543362;
-        v24 = name2;
-        _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEBUG, "ASSERTION: %{public}@ Calling block with NO, in -dealloc", buf, 0xCu);
+        v25 = name2;
+        _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEBUG, "ASSERTION: %{public}@ Calling block with NO, in -dealloc", buf, 0xCu);
       }
 
       block2 = [(UATimedPowerAssertions *)self block];
       [(UATimedPowerAssertions *)self setBlock:0];
       mainDispatchQ = [(UATimedPowerAssertions *)self mainDispatchQ];
-      v20[0] = _NSConcreteStackBlock;
-      v20[1] = 3221225472;
-      v20[2] = sub_100035510;
-      v20[3] = &unk_1000C4E48;
-      v21 = block2;
-      v15 = block2;
-      dispatch_async(mainDispatchQ, v20);
+      v21[0] = _NSConcreteStackBlock;
+      v21[1] = 3221225472;
+      v21[2] = sub_100035510;
+      v21[3] = &unk_1000C4E48;
+      v22 = block2;
+      v16 = block2;
+      dispatch_async(mainDispatchQ, v21);
     }
   }
 
   if ([(UATimedPowerAssertions *)self assertion])
   {
-    v16 = sub_100001A30(0);
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
+    v17 = sub_100001A30(0);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
     {
       name3 = [(UATimedPowerAssertions *)self name];
       assertion = [(UATimedPowerAssertions *)self assertion];
       *buf = 138543618;
-      v24 = name3;
-      v25 = 2048;
-      v26 = assertion;
-      _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEBUG, "ASSERTION: %{public}@ Releasing assertion %ld, in -dealloc", buf, 0x16u);
+      v25 = name3;
+      v26 = 2048;
+      v27 = assertion;
+      _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEBUG, "ASSERTION: %{public}@ Releasing assertion %ld, in -dealloc", buf, 0x16u);
     }
 
     IOPMAssertionRelease([(UATimedPowerAssertions *)self assertion]);
     self->_assertion = 0;
   }
 
-  v19.receiver = self;
-  v19.super_class = UATimedPowerAssertions;
-  [(UATimedPowerAssertions *)&v19 dealloc];
+  v20.receiver = self;
+  v20.super_class = UATimedPowerAssertions;
+  [(UATimedPowerAssertions *)&v20 dealloc];
 }
 
 - (BOOL)active
@@ -208,11 +208,11 @@
         {
           name = [(UATimedPowerAssertions *)selfCopy name];
           *buf = 138543874;
-          v38 = name;
-          v39 = 2048;
+          v39 = name;
+          v40 = 2048;
           releaseCopy3 = release;
-          v41 = 2048;
-          v42 = (v5 - [(UATimedPowerAssertions *)selfCopy nextTimer]) / 1000000000.0;
+          v42 = 2048;
+          v43 = (v5 - [(UATimedPowerAssertions *)selfCopy nextTimer]) / 1000000000.0;
           _os_log_impl(&_mh_execute_header, timerSource2, OS_LOG_TYPE_DEBUG, "ASSERTION: %{public}@ No need to update assertion; request for %g seconds is less than current expiration, in %.2g seconds.", buf, 0x20u);
         }
       }
@@ -224,11 +224,11 @@
         {
           name2 = [(UATimedPowerAssertions *)selfCopy name];
           *buf = 138543874;
-          v38 = name2;
-          v39 = 2048;
+          v39 = name2;
+          v40 = 2048;
           releaseCopy3 = release;
-          v41 = 2048;
-          v42 = (v5 - [(UATimedPowerAssertions *)selfCopy nextTimer]) / 1000000000.0;
+          v42 = 2048;
+          v43 = (v5 - [(UATimedPowerAssertions *)selfCopy nextTimer]) / 1000000000.0;
           _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEBUG, "ASSERTION: %{public}@ Rescheduling assertion for %g seconds (was %.2g seconds from now).", buf, 0x20u);
         }
 
@@ -250,16 +250,16 @@
       {
         name3 = [(UATimedPowerAssertions *)selfCopy name];
         *buf = 138543618;
-        v38 = name3;
-        v39 = 2048;
+        v39 = name3;
+        v40 = 2048;
         releaseCopy3 = release;
         _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEBUG, "ASSERTION: %{public}@ Scheduling assertion for %g seconds.", buf, 0x16u);
       }
 
-      v16 = sub_100035C58();
-      v17 = dispatch_source_create(&_dispatch_source_type_timer, 0, 0, v16);
+      v17 = sub_100035C58(v16);
+      v18 = dispatch_source_create(&_dispatch_source_type_timer, 0, 0, v17);
       timerSource = selfCopy->_timerSource;
-      selfCopy->_timerSource = v17;
+      selfCopy->_timerSource = v18;
 
       objc_initWeak(buf, selfCopy);
       timerSource3 = [(UATimedPowerAssertions *)selfCopy timerSource];
@@ -267,11 +267,11 @@
       handler[1] = 3221225472;
       handler[2] = sub_100035C9C;
       handler[3] = &unk_1000C4EB8;
-      objc_copyWeak(&v34, buf);
+      objc_copyWeak(&v35, buf);
       dispatch_source_set_event_handler(timerSource3, handler);
 
-      v20 = [NSDate dateWithTimeIntervalSinceNow:release];
-      [(UATimedPowerAssertions *)selfCopy setTimerExpiration:v20];
+      v21 = [NSDate dateWithTimeIntervalSinceNow:release];
+      [(UATimedPowerAssertions *)selfCopy setTimerExpiration:v21];
 
       timerSource4 = [(UATimedPowerAssertions *)selfCopy timerSource];
       dispatch_source_set_timer(timerSource4, v5, 0xFFFFFFFFFFFFFFFFLL, 0xEE6B280uLL);
@@ -279,54 +279,54 @@
       timerSource5 = [(UATimedPowerAssertions *)selfCopy timerSource];
       dispatch_resume(timerSource5);
 
-      objc_destroyWeak(&v34);
+      objc_destroyWeak(&v35);
       objc_destroyWeak(buf);
     }
 
     if (!selfCopy->_assertion)
     {
       AssertionID = 0;
-      v35[0] = @"FrameworkBundleID";
-      v35[1] = @"AssertType";
-      v36[0] = @"com.apple.useractivityd";
-      v36[1] = @"PreventUserIdleSystemSleep";
-      v35[2] = @"AssertName";
+      v36[0] = @"FrameworkBundleID";
+      v36[1] = @"AssertType";
+      v37[0] = @"com.apple.useractivityd";
+      v37[1] = @"PreventUserIdleSystemSleep";
+      v36[2] = @"AssertName";
       name4 = [(UATimedPowerAssertions *)selfCopy name];
-      v36[2] = name4;
-      v35[3] = @"TimeoutSeconds";
-      v24 = [NSNumber numberWithDouble:60.0];
-      v35[4] = @"TimeoutAction";
-      v36[3] = v24;
-      v36[4] = @"TimeoutActionTurnOff";
-      v25 = [NSDictionary dictionaryWithObjects:v36 forKeys:v35 count:5];
+      v37[2] = name4;
+      v36[3] = @"TimeoutSeconds";
+      v25 = [NSNumber numberWithDouble:60.0];
+      v36[4] = @"TimeoutAction";
+      v37[3] = v25;
+      v37[4] = @"TimeoutActionTurnOff";
+      v26 = [NSDictionary dictionaryWithObjects:v37 forKeys:v36 count:5];
 
-      v26 = IOPMAssertionCreateWithProperties(v25, &AssertionID);
-      if (v26)
+      v27 = IOPMAssertionCreateWithProperties(v26, &AssertionID);
+      if (v27)
       {
-        v27 = sub_100001A30(0);
-        if (os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
+        v28 = sub_100001A30(0);
+        if (os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
         {
           *buf = 136315394;
-          v38 = "[UATimedPowerAssertions updateTimeUntilAssertionRelease:]";
-          v39 = 1024;
-          LODWORD(releaseCopy3) = v26;
-          _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_DEBUG, "%s, IOPMAssertionCreateWithProperties returned %x", buf, 0x12u);
+          v39 = "[UATimedPowerAssertions updateTimeUntilAssertionRelease:]";
+          v40 = 1024;
+          LODWORD(releaseCopy3) = v27;
+          _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_DEBUG, "%s, IOPMAssertionCreateWithProperties returned %x", buf, 0x12u);
         }
       }
 
       else
       {
         selfCopy->_assertion = AssertionID;
-        v27 = sub_100001A30(0);
-        if (os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
+        v28 = sub_100001A30(0);
+        if (os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
         {
           name5 = [(UATimedPowerAssertions *)selfCopy name];
           assertion = [(UATimedPowerAssertions *)selfCopy assertion];
           *buf = 138543618;
-          v38 = name5;
-          v39 = 2048;
+          v39 = name5;
+          v40 = 2048;
           *&releaseCopy3 = assertion;
-          _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_DEBUG, "ASSERTION: %{public}@ Power assertion /%ld created.", buf, 0x16u);
+          _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_DEBUG, "ASSERTION: %{public}@ Power assertion /%ld created.", buf, 0x16u);
         }
       }
     }
@@ -337,7 +337,7 @@
 
 - (void)_releaseAssertion:(BOOL)assertion
 {
-  v4 = sub_100035C58();
+  v4 = sub_100035C58(self);
   dispatch_assert_queue_V2(v4);
 
   selfCopy = self;
@@ -392,7 +392,7 @@
 
 - (void)releaseAssertion:(BOOL)assertion
 {
-  v5 = sub_100035C58();
+  v5 = sub_100035C58(self);
   v6[0] = _NSConcreteStackBlock;
   v6[1] = 3221225472;
   v6[2] = sub_100036144;
@@ -404,7 +404,7 @@
 
 - (void)releaseAssertion
 {
-  v3 = sub_100035C58();
+  v3 = sub_100035C58(self);
   block[0] = _NSConcreteStackBlock;
   block[1] = 3221225472;
   block[2] = sub_1000361DC;
@@ -421,7 +421,7 @@
   v9 = sub_100001F24;
   v10 = sub_1000362E0;
   v11 = 0;
-  v2 = sub_10003502C();
+  v2 = sub_10003502C(self);
   block[0] = _NSConcreteStackBlock;
   block[1] = 3221225472;
   block[2] = sub_1000362E8;

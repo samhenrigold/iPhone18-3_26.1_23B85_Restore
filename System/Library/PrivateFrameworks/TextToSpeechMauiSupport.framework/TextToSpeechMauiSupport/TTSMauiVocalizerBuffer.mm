@@ -110,7 +110,7 @@ LABEL_12:
   v7 = format;
   if (format)
   {
-    [format streamDescription];
+    objc_msgSend_streamDescription(format);
     v8 = (v9 << 8);
   }
 

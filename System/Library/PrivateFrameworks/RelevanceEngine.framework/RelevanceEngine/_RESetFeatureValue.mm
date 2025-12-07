@@ -9,27 +9,26 @@
 
 + (id)featureValueWithSet:(id)set
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
+  v13 = 0u;
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
-  v18 = 0u;
   setCopy = set;
-  v4 = [setCopy countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v4 = [setCopy countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v16;
+    v6 = *v14;
     while (2)
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v16 != v6)
+        if (*v14 != v6)
         {
           objc_enumerationMutation(setCopy);
         }
 
-        v8 = *(*(&v15 + 1) + 8 * i);
         objc_opt_class();
         if ((objc_opt_isKindOfClass() & 1) == 0)
         {
@@ -38,7 +37,7 @@
         }
       }
 
-      v5 = [setCopy countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v5 = [setCopy countByEnumeratingWithState:&v13 objects:v17 count:16];
       if (v5)
       {
         continue;
@@ -51,23 +50,21 @@
   if (!setCopy)
   {
 LABEL_12:
-    v9 = [MEMORY[0x277CBEB98] set];
+    v8 = [MEMORY[0x277CBEB98] set];
 
-    setCopy = v9;
+    setCopy = v8;
   }
 
-  v10 = [setCopy count];
-  v11 = off_2785F9270;
-  if (v10 >= 3)
+  v9 = [setCopy count];
+  v10 = off_2785F9270;
+  if (v9 >= 3)
   {
-    v11 = off_2785F91B0;
+    v10 = off_2785F91B0;
   }
 
-  v12 = [objc_alloc(*v11) initWithSet:setCopy];
+  v11 = [objc_alloc(*v10) initWithSet:setCopy];
 
-  v13 = *MEMORY[0x277D85DE8];
-
-  return v12;
+  return v11;
 }
 
 - (BOOL)isEqual:(id)equal
@@ -108,31 +105,31 @@ LABEL_12:
 
 - (unint64_t)hash
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   setValue = [(REFeatureValue *)self setValue];
-  v3 = [setValue countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v3 = [setValue countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v3)
   {
     v4 = v3;
     v5 = 0;
-    v6 = *v11;
+    v6 = *v10;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v11 != v6)
+        if (*v10 != v6)
         {
           objc_enumerationMutation(setValue);
         }
 
-        v5 ^= [*(*(&v10 + 1) + 8 * i) hash];
+        v5 ^= [*(*(&v9 + 1) + 8 * i) hash];
       }
 
-      v4 = [setValue countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v4 = [setValue countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v4);
@@ -143,37 +140,36 @@ LABEL_12:
     v5 = 0;
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
 - (unint64_t)_integralFeatureValue
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   setValue = [(REFeatureValue *)self setValue];
-  v3 = [setValue countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v3 = [setValue countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v3)
   {
     v4 = v3;
     v5 = 0;
-    v6 = *v11;
+    v6 = *v10;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v11 != v6)
+        if (*v10 != v6)
         {
           objc_enumerationMutation(setValue);
         }
 
-        v5 ^= [*(*(&v10 + 1) + 8 * i) _integralFeatureValue];
+        v5 ^= [*(*(&v9 + 1) + 8 * i) _integralFeatureValue];
       }
 
-      v4 = [setValue countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v4 = [setValue countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v4);
@@ -184,7 +180,6 @@ LABEL_12:
     v5 = 0;
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return v5;
 }
 

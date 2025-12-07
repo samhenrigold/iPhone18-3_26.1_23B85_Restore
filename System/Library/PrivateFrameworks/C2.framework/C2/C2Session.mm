@@ -109,9 +109,9 @@
 
 - (BOOL)shouldInvalidateAndCancel
 {
-  v54 = *MEMORY[0x277D85DE8];
+  v51 = *MEMORY[0x277D85DE8];
   mach_absolute_time();
-  v42 = objc_opt_new();
+  v39 = objc_opt_new();
   selfCopy = self;
   objc_sync_enter(selfCopy);
   v5 = [(NSMutableDictionary *)selfCopy->_wrappedTaskByTaskIdentifier count];
@@ -170,8 +170,6 @@ LABEL_13:
   if (emptyTimestamp == -1)
   {
     currentHandler2 = [MEMORY[0x277CCA890] currentHandler];
-
-    v41 = selfCopy->_emptyTimestamp;
   }
 
   TMConvertTicksToSeconds();
@@ -200,53 +198,52 @@ LABEL_13:
     v19 = v18;
     [(C2RequestOptions *)selfCopy->_options emptySessionExpiryInSeconds];
     v21 = v20;
-    v22 = selfCopy->_emptyTimestamp;
     TMConvertTicksToSeconds();
     *buf = 138413058;
     *&buf[4] = selfCopy;
     *&buf[12] = 2048;
     *&buf[14] = v17;
-    v50 = 2048;
-    v51 = v19;
-    v52 = 2048;
-    v53 = v21 - v23;
+    v47 = 2048;
+    v48 = v19;
+    v49 = 2048;
+    v50 = v21 - v22;
     _os_log_impl(&dword_242158000, v16, OS_LOG_TYPE_DEBUG, "[%@ shouldInvalidateAndCancel] - emptyTimestamp:%llu expirySeconds:%.0f secondsRemaining:%.0f", buf, 0x2Au);
   }
 
 LABEL_23:
   allValues = [(NSMutableDictionary *)selfCopy->_wrappedTaskByTaskIdentifier allValues];
-  [v42 addObjectsFromArray:allValues];
+  [v39 addObjectsFromArray:allValues];
 
   allObjects = [(NSMutableSet *)selfCopy->_didCompleteWithErrorRunningTasks allObjects];
-  [v42 addObjectsFromArray:allObjects];
+  [v39 addObjectsFromArray:allObjects];
 
   objc_sync_exit(selfCopy);
-  v46 = 0u;
-  v47 = 0u;
+  v43 = 0u;
   v44 = 0u;
-  v45 = 0u;
-  v26 = v42;
-  v27 = [v26 countByEnumeratingWithState:&v44 objects:v48 count:16];
-  if (v27)
+  v41 = 0u;
+  v42 = 0u;
+  v25 = v39;
+  v26 = [v25 countByEnumeratingWithState:&v41 objects:v45 count:16];
+  if (v26)
   {
-    v28 = *v45;
+    v27 = *v42;
     do
     {
-      v29 = 0;
+      v28 = 0;
       do
       {
-        if (*v45 != v28)
+        if (*v42 != v27)
         {
-          objc_enumerationMutation(v26);
+          objc_enumerationMutation(v25);
         }
 
-        v30 = *(*(&v44 + 1) + 8 * v29);
-        callbackHung = [v30 callbackHung];
+        v29 = *(*(&v41 + 1) + 8 * v28);
+        callbackHung = [v29 callbackHung];
         if (callbackHung)
         {
           *buf = 0;
           *&buf[8] = 0;
-          activity = [v30 activity];
+          activity = [v29 activity];
           os_activity_scope_enter(activity, buf);
 
           if (C2_DEFAULT_LOG_BLOCK_6 != -1)
@@ -254,11 +251,11 @@ LABEL_23:
             [C2Session shouldInvalidateAndCancel];
           }
 
-          v33 = C2_DEFAULT_LOG_INTERNAL_6;
+          v32 = C2_DEFAULT_LOG_INTERNAL_6;
           if (os_log_type_enabled(C2_DEFAULT_LOG_INTERNAL_6, OS_LOG_TYPE_FAULT))
           {
-            *v43 = 0;
-            _os_log_impl(&dword_242158000, v33, OS_LOG_TYPE_FAULT, "C2 callback hung.", v43, 2u);
+            *v40 = 0;
+            _os_log_impl(&dword_242158000, v32, OS_LOG_TYPE_FAULT, "C2 callback hung.", v40, 2u);
           }
 
           os_activity_scope_leave(buf);
@@ -270,14 +267,14 @@ LABEL_23:
           testBehavior_callbackHung[2](testBehavior_callbackHung, callbackHung);
         }
 
-        ++v29;
+        ++v28;
       }
 
-      while (v27 != v29);
-      v27 = [v26 countByEnumeratingWithState:&v44 objects:v48 count:16];
+      while (v26 != v28);
+      v26 = [v25 countByEnumeratingWithState:&v41 objects:v45 count:16];
     }
 
-    while (v27);
+    while (v26);
   }
 
   v15 = 0;
@@ -287,36 +284,35 @@ LABEL_39:
     [C2Session shouldInvalidateAndCancel];
   }
 
-  v35 = C2_DEFAULT_LOG_INTERNAL_6;
+  v34 = C2_DEFAULT_LOG_INTERNAL_6;
   if (os_log_type_enabled(C2_DEFAULT_LOG_INTERNAL_6, OS_LOG_TYPE_DEBUG))
   {
-    v36 = @"false";
+    v35 = @"false";
     if (v15)
     {
-      v36 = @"true";
+      v35 = @"true";
     }
 
     *buf = 138412546;
     *&buf[4] = selfCopy;
     *&buf[12] = 2114;
-    *&buf[14] = v36;
-    _os_log_impl(&dword_242158000, v35, OS_LOG_TYPE_DEBUG, "[%@ shouldInvalidateAndCancel] --> %{public}@", buf, 0x16u);
+    *&buf[14] = v35;
+    _os_log_impl(&dword_242158000, v34, OS_LOG_TYPE_DEBUG, "[%@ shouldInvalidateAndCancel] --> %{public}@", buf, 0x16u);
   }
 
-  v37 = *MEMORY[0x277D85DE8];
   return v15;
 }
 
 - (C2Session)initWithSessionConfigurationName:(id)name routeHost:(id)host options:(id)options sessionDelegate:(id)delegate
 {
-  v77 = *MEMORY[0x277D85DE8];
+  v76 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   hostCopy = host;
   optionsCopy = options;
   delegateCopy = delegate;
-  v68.receiver = self;
-  v68.super_class = C2Session;
-  v15 = [(C2Session *)&v68 init];
+  v67.receiver = self;
+  v67.super_class = C2Session;
+  v15 = [(C2Session *)&v67 init];
   v16 = C2MPInternalTestConfig;
   v17 = C2MPInternalTestConfig;
   if (!v15)
@@ -338,11 +334,11 @@ LABEL_39:
     if (v27)
     {
       *buf = 138412802;
-      v70 = nameCopy;
-      v71 = 2112;
-      v72 = optionsCopy;
-      v73 = 2112;
-      v74 = delegateCopy;
+      v69 = nameCopy;
+      v70 = 2112;
+      v71 = optionsCopy;
+      v72 = 2112;
+      v73 = delegateCopy;
       _os_log_impl(&dword_242158000, v26, OS_LOG_TYPE_ERROR, "missing required arguments - [C2Session initWithSessionConfigurationName:%@ options:%@ sessionDelegate:%@]", buf, 0x20u);
       v16 = C2MPInternalTestConfig;
       v17 = C2MPInternalTestConfig;
@@ -368,7 +364,7 @@ LABEL_39:
     if (v30)
     {
       *buf = 138412290;
-      v70 = optionsCopy;
+      v69 = optionsCopy;
       _os_log_impl(&dword_242158000, vtable, OS_LOG_TYPE_ERROR, "failed to create NSURLSessionConfiguration for C2Session from Options %@", buf, 0xCu);
       v16 = C2MPInternalTestConfig;
       v17 = C2MPInternalTestConfig;
@@ -381,15 +377,15 @@ LABEL_39:
   v20 = objc_alloc_init(MEMORY[0x277CBEB38]);
   if (v20)
   {
-    v67 = v20;
+    v66 = v20;
     v21 = objc_alloc_init(MEMORY[0x277CBEB58]);
     if (v21)
     {
-      v65 = v21;
+      v64 = v21;
       v22 = objc_alloc_init(MEMORY[0x277CCABD8]);
       if (v22)
       {
-        v62 = hostCopy;
+        v61 = hostCopy;
         v23 = v22;
         [(NSOperationQueue *)v22 setMaxConcurrentOperationCount:1];
         underlyingDelegateQueue = [(C2Session *)delegateCopy underlyingDelegateQueue];
@@ -399,8 +395,8 @@ LABEL_39:
           [(NSOperationQueue *)v23 setUnderlyingQueue:underlyingDelegateQueue2];
         }
 
-        v64 = v23;
-        v59 = objc_opt_class();
+        v63 = v23;
+        v58 = objc_opt_class();
         networkingDelegate = [optionsCopy networkingDelegate];
 
         if (networkingDelegate)
@@ -410,53 +406,53 @@ LABEL_39:
 
         else
         {
-          v25 = v59;
+          v25 = v58;
         }
 
-        v37 = [v25 sessionWithConfiguration:v19 delegate:v15 delegateQueue:v64];
-        if (v37)
+        v36 = [v25 sessionWithConfiguration:v19 delegate:v15 delegateQueue:v63];
+        if (v36)
         {
-          v60 = v37;
+          v59 = v36;
           networkingDelegate2 = [optionsCopy networkingDelegate];
 
           if (networkingDelegate2)
           {
             networkingDelegate3 = [optionsCopy networkingDelegate];
-            [(NSURLSession *)v60 setNetworkingDelegate:networkingDelegate3];
+            [(NSURLSession *)v59 setNetworkingDelegate:networkingDelegate3];
           }
 
           identifier = [v19 identifier];
-          v58 = identifier;
+          v57 = identifier;
           if (identifier)
           {
-            v41 = identifier;
+            v40 = identifier;
           }
 
           else
           {
-            v41 = nameCopy;
+            v40 = nameCopy;
           }
 
-          [(NSURLSession *)v60 setSessionDescription:v41];
+          [(NSURLSession *)v59 setSessionDescription:v40];
           objc_storeStrong(&v15->_sessionConfigurationName, name);
           objc_storeStrong(&v15->_routeHost, host);
           didCompleteWithErrorRunningTasks = v15->_didCompleteWithErrorRunningTasks;
           v15->_routeLastUpdated = 0.0;
-          v15->_didCompleteWithErrorRunningTasks = v65;
-          v66 = v65;
+          v15->_didCompleteWithErrorRunningTasks = v64;
+          v65 = v64;
 
           objc_storeStrong(&v15->_options, options);
           session = v15->_session;
-          v15->_session = v60;
-          v44 = v60;
+          v15->_session = v59;
+          v43 = v59;
 
           wrappedTaskByTaskIdentifier = v15->_wrappedTaskByTaskIdentifier;
-          v15->_wrappedTaskByTaskIdentifier = v67;
-          v46 = v67;
+          v15->_wrappedTaskByTaskIdentifier = v66;
+          v45 = v66;
 
           queue = v15->_queue;
-          v15->_queue = v64;
-          v48 = v64;
+          v15->_queue = v63;
+          v47 = v63;
 
           v15->_isComplete = 0;
           objc_storeStrong(&v15->_sessionDelegate, delegate);
@@ -470,7 +466,7 @@ LABEL_39:
           testBehavior_cleanupRetainCycle = v15->_testBehavior_cleanupRetainCycle;
           v15->_testBehavior_cleanupRetainCycle = 0;
 
-          hostCopy = v62;
+          hostCopy = v61;
           goto LABEL_42;
         }
 
@@ -479,25 +475,25 @@ LABEL_39:
           [C2Session initWithSessionConfigurationName:routeHost:options:sessionDelegate:];
         }
 
-        v52 = C2_DEFAULT_LOG_INTERNAL_6;
+        v51 = C2_DEFAULT_LOG_INTERNAL_6;
         if (os_log_type_enabled(C2_DEFAULT_LOG_INTERNAL_6, OS_LOG_TYPE_ERROR))
         {
-          v53 = v52;
-          v54 = v25;
-          v55 = v53;
-          v56 = NSStringFromClass(v54);
+          v52 = v51;
+          v53 = v25;
+          v54 = v52;
+          v55 = NSStringFromClass(v53);
           *buf = 138413058;
-          v70 = v56;
-          v71 = 2112;
-          v72 = v19;
-          v73 = 2112;
-          v74 = v15;
-          v75 = 2112;
-          v76 = v64;
-          _os_log_impl(&dword_242158000, v55, OS_LOG_TYPE_ERROR, "failed to create NSURLSession for C2Session - [%@ sessionWithConfiguration:%@ delegate:%@ delegateQueue:%@]", buf, 0x2Au);
+          v69 = v55;
+          v70 = 2112;
+          v71 = v19;
+          v72 = 2112;
+          v73 = v15;
+          v74 = 2112;
+          v75 = v63;
+          _os_log_impl(&dword_242158000, v54, OS_LOG_TYPE_ERROR, "failed to create NSURLSession for C2Session - [%@ sessionWithConfiguration:%@ delegate:%@ delegateQueue:%@]", buf, 0x2Au);
         }
 
-        hostCopy = v62;
+        hostCopy = v61;
         goto LABEL_36;
       }
 
@@ -551,9 +547,9 @@ LABEL_36:
 LABEL_37:
   if (v16[72].vtable != -1)
   {
-    v57 = v17;
+    v56 = v17;
     [C2Session initWithSessionConfigurationName:routeHost:options:sessionDelegate:];
-    v17 = v57;
+    v17 = v56;
   }
 
   v34 = v17[70].vtable;
@@ -568,7 +564,6 @@ LABEL_37:
   v15 = 0;
 LABEL_42:
 
-  v35 = *MEMORY[0x277D85DE8];
   return v15;
 }
 
@@ -623,7 +618,7 @@ uint64_t __80__C2Session_initWithSessionConfigurationName_routeHost_options_sess
 
 - (id)createTaskWithOptions:(id)options delegate:(id)delegate
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   optionsCopy = options;
   delegateCopy = delegate;
   if (C2_DEFAULT_LOG_BLOCK_6 != -1)
@@ -634,13 +629,13 @@ uint64_t __80__C2Session_initWithSessionConfigurationName_routeHost_options_sess
   v8 = C2_DEFAULT_LOG_INTERNAL_6;
   if (os_log_type_enabled(C2_DEFAULT_LOG_INTERNAL_6, OS_LOG_TYPE_DEBUG))
   {
-    v17 = 138543874;
+    v16 = 138543874;
     selfCopy3 = self;
-    v19 = 2114;
-    v20 = optionsCopy;
-    v21 = 2114;
-    v22 = delegateCopy;
-    _os_log_impl(&dword_242158000, v8, OS_LOG_TYPE_DEBUG, "[%{public}@ createDataTaskWithOptions:%{public}@ delegate:%{public}@]", &v17, 0x20u);
+    v18 = 2114;
+    v19 = optionsCopy;
+    v20 = 2114;
+    v21 = delegateCopy;
+    _os_log_impl(&dword_242158000, v8, OS_LOG_TYPE_DEBUG, "[%{public}@ createDataTaskWithOptions:%{public}@ delegate:%{public}@]", &v16, 0x20u);
   }
 
   if (optionsCopy && delegateCopy)
@@ -663,11 +658,11 @@ uint64_t __80__C2Session_initWithSessionConfigurationName_routeHost_options_sess
       if (os_log_type_enabled(C2_DEFAULT_LOG_INTERNAL_6, OS_LOG_TYPE_ERROR))
       {
         session = self->_session;
-        v17 = 138543618;
+        v16 = 138543618;
         selfCopy3 = self;
-        v19 = 2114;
-        v20 = session;
-        _os_log_impl(&dword_242158000, v13, OS_LOG_TYPE_ERROR, "%{public}@ can't create a new wrapped data task in session %{public}@", &v17, 0x16u);
+        v18 = 2114;
+        v19 = session;
+        _os_log_impl(&dword_242158000, v13, OS_LOG_TYPE_ERROR, "%{public}@ can't create a new wrapped data task in session %{public}@", &v16, 0x16u);
       }
     }
   }
@@ -682,19 +677,17 @@ uint64_t __80__C2Session_initWithSessionConfigurationName_routeHost_options_sess
     v12 = C2_DEFAULT_LOG_INTERNAL_6;
     if (os_log_type_enabled(C2_DEFAULT_LOG_INTERNAL_6, OS_LOG_TYPE_ERROR))
     {
-      v17 = 138543874;
+      v16 = 138543874;
       selfCopy3 = self;
-      v19 = 2114;
-      v20 = optionsCopy;
-      v21 = 2114;
-      v22 = delegateCopy;
-      _os_log_impl(&dword_242158000, v12, OS_LOG_TYPE_ERROR, "missing required arguments - [%{public}@ createTaskWithOptions:%{public}@ delegate:%{public}@]", &v17, 0x20u);
+      v18 = 2114;
+      v19 = optionsCopy;
+      v20 = 2114;
+      v21 = delegateCopy;
+      _os_log_impl(&dword_242158000, v12, OS_LOG_TYPE_ERROR, "missing required arguments - [%{public}@ createTaskWithOptions:%{public}@ delegate:%{public}@]", &v16, 0x20u);
     }
 
     v10 = 0;
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -762,7 +755,7 @@ uint64_t __44__C2Session_createTaskWithOptions_delegate___block_invoke_41()
 
 - (id)addTask:(id)task withDescription:(id)description request:(id)request
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   taskCopy = task;
   descriptionCopy = description;
   requestCopy = request;
@@ -794,12 +787,12 @@ uint64_t __44__C2Session_createTaskWithOptions_delegate___block_invoke_41()
     {
       *buf = 138544130;
       selfCopy3 = self;
-      v36 = 2114;
-      v37 = taskCopy;
-      v38 = 2114;
-      v39 = descriptionCopy;
-      v40 = 2114;
-      v41 = requestCopy;
+      v35 = 2114;
+      v36 = taskCopy;
+      v37 = 2114;
+      v38 = descriptionCopy;
+      v39 = 2114;
+      v40 = requestCopy;
       _os_log_impl(&dword_242158000, v13, OS_LOG_TYPE_DEFAULT, "[%{public}@ addTask:%{public}@ withDescription:%{public}@ request:%{public}@]", buf, 0x2Au);
     }
 
@@ -834,8 +827,8 @@ uint64_t __44__C2Session_createTaskWithOptions_delegate___block_invoke_41()
     {
       currentHandler2 = [MEMORY[0x277CCA890] currentHandler];
       wrappedTaskByTaskIdentifier3 = [(C2Session *)selfCopy2 wrappedTaskByTaskIdentifier];
-      v32 = [wrappedTaskByTaskIdentifier3 objectForKeyedSubscript:v14];
-      [currentHandler2 handleFailureInMethod:a2 object:selfCopy2 file:@"C2Session.m" lineNumber:176 description:{@"A delegate for task %@ has already been set: %@", v14, v32}];
+      v31 = [wrappedTaskByTaskIdentifier3 objectForKeyedSubscript:v14];
+      [currentHandler2 handleFailureInMethod:a2 object:selfCopy2 file:@"C2Session.m" lineNumber:176 description:{@"A delegate for task %@ has already been set: %@", v14, v31}];
     }
 
     wrappedTaskByTaskIdentifier4 = [(C2Session *)selfCopy2 wrappedTaskByTaskIdentifier];
@@ -868,15 +861,13 @@ uint64_t __44__C2Session_createTaskWithOptions_delegate___block_invoke_41()
       session = self->_session;
       *buf = 138543874;
       selfCopy3 = self;
-      v36 = 2114;
-      v37 = requestCopy;
-      v38 = 2114;
-      v39 = session;
+      v35 = 2114;
+      v36 = requestCopy;
+      v37 = 2114;
+      v38 = session;
       _os_log_impl(&dword_242158000, v25, OS_LOG_TYPE_ERROR, "%{public}@ can't create a new data task with request %{public}@ in session %{public}@", buf, 0x20u);
     }
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 
   return v12;
 }
@@ -904,7 +895,7 @@ uint64_t __45__C2Session_addTask_withDescription_request___block_invoke_71()
 
 - (void)removeTask:(id)task
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   taskCopy = task;
   if (!taskCopy)
   {
@@ -927,10 +918,10 @@ uint64_t __45__C2Session_addTask_withDescription_request___block_invoke_71()
   {
     *buf = 138543874;
     selfCopy = self;
-    v19 = 2114;
-    v20 = taskCopy;
-    v21 = 2114;
-    v22 = taskIdentifier;
+    v18 = 2114;
+    v19 = taskCopy;
+    v20 = 2114;
+    v21 = taskIdentifier;
     _os_log_impl(&dword_242158000, v7, OS_LOG_TYPE_DEFAULT, "[%{public}@ removeTask:%{public}@] - withIdentifier:%{public}@", buf, 0x20u);
   }
 
@@ -942,8 +933,8 @@ uint64_t __45__C2Session_addTask_withDescription_request___block_invoke_71()
   if (!v10)
   {
     currentHandler = [MEMORY[0x277CCA890] currentHandler];
-    v15 = [(NSMutableDictionary *)selfCopy2->_wrappedTaskByTaskIdentifier objectForKeyedSubscript:taskIdentifier];
-    [currentHandler handleFailureInMethod:a2 object:selfCopy2 file:@"C2Session.m" lineNumber:192 description:{@"taskIdentifier(%@) should be map to task (%@) but mapped to (%@) ", taskIdentifier, taskCopy, v15}];
+    v14 = [(NSMutableDictionary *)selfCopy2->_wrappedTaskByTaskIdentifier objectForKeyedSubscript:taskIdentifier];
+    [currentHandler handleFailureInMethod:a2 object:selfCopy2 file:@"C2Session.m" lineNumber:192 description:{@"taskIdentifier(%@) should be map to task (%@) but mapped to (%@) ", taskIdentifier, taskCopy, v14}];
   }
 
   [(NSMutableDictionary *)selfCopy2->_wrappedTaskByTaskIdentifier setObject:0 forKeyedSubscript:taskIdentifier];
@@ -964,7 +955,6 @@ uint64_t __45__C2Session_addTask_withDescription_request___block_invoke_71()
   objc_sync_exit(selfCopy2);
 
   [(C2Session *)selfCopy2 cleanupRetainCycle];
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __24__C2Session_removeTask___block_invoke()
@@ -1035,69 +1025,68 @@ uint64_t __38__C2Session_shouldInvalidateAndCancel__block_invoke_112()
 
 - (void)testBehavior_triggerCallbackHang
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   selfCopy = self;
   objc_sync_enter(selfCopy);
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   allValues = [(NSMutableDictionary *)selfCopy->_wrappedTaskByTaskIdentifier allValues];
-  v4 = [allValues countByEnumeratingWithState:&v16 objects:v21 count:16];
+  v4 = [allValues countByEnumeratingWithState:&v15 objects:v20 count:16];
   if (v4)
   {
-    v5 = *v17;
+    v5 = *v16;
     do
     {
       v6 = 0;
       do
       {
-        if (*v17 != v5)
+        if (*v16 != v5)
         {
           objc_enumerationMutation(allValues);
         }
 
-        [*(*(&v16 + 1) + 8 * v6++) testBehavior_triggerCallbackHang];
+        [*(*(&v15 + 1) + 8 * v6++) testBehavior_triggerCallbackHang];
       }
 
       while (v4 != v6);
-      v4 = [allValues countByEnumeratingWithState:&v16 objects:v21 count:16];
+      v4 = [allValues countByEnumeratingWithState:&v15 objects:v20 count:16];
     }
 
     while (v4);
   }
 
-  v14 = 0u;
-  v15 = 0u;
-  v12 = 0u;
   v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
   v7 = selfCopy->_didCompleteWithErrorRunningTasks;
-  v8 = [(NSMutableSet *)v7 countByEnumeratingWithState:&v12 objects:v20 count:16];
+  v8 = [(NSMutableSet *)v7 countByEnumeratingWithState:&v11 objects:v19 count:16];
   if (v8)
   {
-    v9 = *v13;
+    v9 = *v12;
     do
     {
       v10 = 0;
       do
       {
-        if (*v13 != v9)
+        if (*v12 != v9)
         {
           objc_enumerationMutation(v7);
         }
 
-        [*(*(&v12 + 1) + 8 * v10++) testBehavior_triggerCallbackHang];
+        [*(*(&v11 + 1) + 8 * v10++) testBehavior_triggerCallbackHang];
       }
 
       while (v8 != v10);
-      v8 = [(NSMutableSet *)v7 countByEnumeratingWithState:&v12 objects:v20 count:16];
+      v8 = [(NSMutableSet *)v7 countByEnumeratingWithState:&v11 objects:v19 count:16];
     }
 
     while (v8);
   }
 
   objc_sync_exit(selfCopy);
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)C2Session:(id)session sessionTask:(id)task updatedRoute:(id)route
@@ -1187,7 +1176,7 @@ uint64_t __38__C2Session_shouldInvalidateAndCancel__block_invoke_112()
 
 - (void)C2Session:(id)session task:(id)task didCompleteWithError:(id)error
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   sessionCopy = session;
   taskCopy = task;
   errorCopy = error;
@@ -1199,15 +1188,15 @@ uint64_t __38__C2Session_shouldInvalidateAndCancel__block_invoke_112()
   v11 = C2_DEFAULT_LOG_INTERNAL_6;
   if (os_log_type_enabled(C2_DEFAULT_LOG_INTERNAL_6, OS_LOG_TYPE_DEBUG))
   {
-    v13 = 138544130;
+    v12 = 138544130;
     selfCopy = self;
-    v15 = 2114;
-    v16 = sessionCopy;
-    v17 = 2114;
-    v18 = taskCopy;
-    v19 = 2114;
-    v20 = errorCopy;
-    _os_log_impl(&dword_242158000, v11, OS_LOG_TYPE_DEBUG, "[%{public}@ C2Session:%{public}@ task:%{public}@ didCompleteWithError:%{public}@]", &v13, 0x2Au);
+    v14 = 2114;
+    v15 = sessionCopy;
+    v16 = 2114;
+    v17 = taskCopy;
+    v18 = 2114;
+    v19 = errorCopy;
+    _os_log_impl(&dword_242158000, v11, OS_LOG_TYPE_DEBUG, "[%{public}@ C2Session:%{public}@ task:%{public}@ didCompleteWithError:%{public}@]", &v12, 0x2Au);
   }
 
   if (sessionCopy != self)
@@ -1216,8 +1205,6 @@ uint64_t __38__C2Session_shouldInvalidateAndCancel__block_invoke_112()
   }
 
   [(C2Session *)self removeTask:taskCopy];
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __49__C2Session_C2Session_task_didCompleteWithError___block_invoke()
@@ -1229,7 +1216,7 @@ uint64_t __49__C2Session_C2Session_task_didCompleteWithError___block_invoke()
 
 - (void)URLSession:(id)session didBecomeInvalidWithError:(id)error
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   sessionCopy = session;
   errorCopy = error;
   if (C2_DEFAULT_LOG_BLOCK_6 != -1)
@@ -1242,10 +1229,10 @@ uint64_t __49__C2Session_C2Session_task_didCompleteWithError___block_invoke()
   {
     *buf = 138543874;
     selfCopy = self;
-    v31 = 2114;
-    v32 = sessionCopy;
-    v33 = 2114;
-    v34 = errorCopy;
+    v30 = 2114;
+    v31 = sessionCopy;
+    v32 = 2114;
+    v33 = errorCopy;
     _os_log_impl(&dword_242158000, v9, OS_LOG_TYPE_DEFAULT, "[%{public}@ URLSession:%{public}@ didBecomeInvalidWithError:%{public}@]", buf, 0x20u);
   }
 
@@ -1324,8 +1311,6 @@ LABEL_18:
 
   objc_sync_exit(selfCopy2);
   [(C2Session *)selfCopy2 C2Session:selfCopy2 didBecomeInvalidWithError:errorCopy];
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __50__C2Session_URLSession_didBecomeInvalidWithError___block_invoke()
@@ -1337,7 +1322,7 @@ uint64_t __50__C2Session_URLSession_didBecomeInvalidWithError___block_invoke()
 
 - (void)sessionTaskDelegateCallbackHelper:(id)helper task:(id)task block:(id)block
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   helperCopy = helper;
   taskCopy = task;
   blockCopy = block;
@@ -1487,7 +1472,7 @@ LABEL_13:
       if (os_log_type_enabled(C2_DEFAULT_LOG_INTERNAL_6, OS_LOG_TYPE_ERROR))
       {
         *buf = 138543362;
-        v41 = v12;
+        v40 = v12;
         _os_log_impl(&dword_242158000, v28, OS_LOG_TYPE_ERROR, "task %{public}@ lost its task description", buf, 0xCu);
       }
     }
@@ -1507,7 +1492,7 @@ LABEL_13:
     if (os_log_type_enabled(C2_DEFAULT_LOG_INTERNAL_6, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v41 = v12;
+      v40 = v12;
       _os_log_impl(&dword_242158000, v27, OS_LOG_TYPE_ERROR, "ignoring callback for unknown task %{public}@", buf, 0xCu);
     }
 
@@ -1515,7 +1500,6 @@ LABEL_13:
   }
 
   objc_autoreleasePoolPop(context);
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __58__C2Session_sessionTaskDelegateCallbackHelper_task_block___block_invoke()
@@ -1559,7 +1543,7 @@ uint64_t __58__C2Session_sessionTaskDelegateCallbackHelper_task_block___block_in
 
 void __85__C2Session_URLSession_task_willPerformHTTPRedirection_newRequest_completionHandler___block_invoke(void *a1, void *a2, void *a3)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (C2_DEFAULT_LOG_BLOCK_6 != -1)
@@ -1578,19 +1562,19 @@ void __85__C2Session_URLSession_task_willPerformHTTPRedirection_newRequest_compl
     v12 = a1[9];
     v14 = v7;
     v15 = _Block_copy(v12);
-    v17 = 138544642;
-    v18 = v8;
-    v19 = 2114;
-    v20 = v9;
-    v21 = 2114;
-    v22 = v10;
-    v23 = 2114;
-    v24 = v11;
-    v25 = 2114;
-    v26 = v13;
-    v27 = 2114;
-    v28 = v15;
-    _os_log_impl(&dword_242158000, v14, OS_LOG_TYPE_DEBUG, "[%{public}@ URLSession:%{public}@ task:%{public}@ willPerformHTTPRedirection:%{public}@ newRequest:%{public}@ completionHandler:%{public}@]", &v17, 0x3Eu);
+    v16 = 138544642;
+    v17 = v8;
+    v18 = 2114;
+    v19 = v9;
+    v20 = 2114;
+    v21 = v10;
+    v22 = 2114;
+    v23 = v11;
+    v24 = 2114;
+    v25 = v13;
+    v26 = 2114;
+    v27 = v15;
+    _os_log_impl(&dword_242158000, v14, OS_LOG_TYPE_DEBUG, "[%{public}@ URLSession:%{public}@ task:%{public}@ willPerformHTTPRedirection:%{public}@ newRequest:%{public}@ completionHandler:%{public}@]", &v16, 0x3Eu);
   }
 
   if (v6)
@@ -1602,8 +1586,6 @@ void __85__C2Session_URLSession_task_willPerformHTTPRedirection_newRequest_compl
   {
     (*(a1[9] + 16))();
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __85__C2Session_URLSession_task_willPerformHTTPRedirection_newRequest_completionHandler___block_invoke_2()
@@ -1634,7 +1616,7 @@ uint64_t __85__C2Session_URLSession_task_willPerformHTTPRedirection_newRequest_c
 
 void __47__C2Session_URLSession_task_needNewBodyStream___block_invoke(void *a1, void *a2, void *a3)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (C2_DEFAULT_LOG_BLOCK_6 != -1)
@@ -1651,15 +1633,15 @@ void __47__C2Session_URLSession_task_needNewBodyStream___block_invoke(void *a1, 
     v10 = a1[7];
     v12 = v7;
     v13 = _Block_copy(v10);
-    v15 = 138544130;
-    v16 = v8;
-    v17 = 2114;
-    v18 = v9;
-    v19 = 2114;
-    v20 = v11;
-    v21 = 2114;
-    v22 = v13;
-    _os_log_impl(&dword_242158000, v12, OS_LOG_TYPE_DEBUG, "[%{public}@ URLSession:%{public}@ task:%{public}@ needNewBodyStream:%{public}@]", &v15, 0x2Au);
+    v14 = 138544130;
+    v15 = v8;
+    v16 = 2114;
+    v17 = v9;
+    v18 = 2114;
+    v19 = v11;
+    v20 = 2114;
+    v21 = v13;
+    _os_log_impl(&dword_242158000, v12, OS_LOG_TYPE_DEBUG, "[%{public}@ URLSession:%{public}@ task:%{public}@ needNewBodyStream:%{public}@]", &v14, 0x2Au);
   }
 
   if (v6)
@@ -1671,8 +1653,6 @@ void __47__C2Session_URLSession_task_needNewBodyStream___block_invoke(void *a1, 
   {
     (*(a1[7] + 16))();
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __47__C2Session_URLSession_task_needNewBodyStream___block_invoke_2()
@@ -1703,7 +1683,7 @@ uint64_t __47__C2Session_URLSession_task_needNewBodyStream___block_invoke_2()
 
 void __85__C2Session_URLSession_task_didSendBodyData_totalBytesSent_totalBytesExpectedToSend___block_invoke(void *a1, void *a2, void *a3)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (C2_DEFAULT_LOG_BLOCK_6 != -1)
@@ -1720,24 +1700,22 @@ void __85__C2Session_URLSession_task_didSendBodyData_totalBytesSent_totalBytesEx
     v11 = a1[7];
     v12 = a1[8];
     v13 = a1[9];
-    v15 = 138544642;
-    v16 = v8;
-    v17 = 2114;
-    v18 = v9;
-    v19 = 2114;
-    v20 = v10;
-    v21 = 2048;
-    v22 = v11;
-    v23 = 2048;
-    v24 = v12;
-    v25 = 2048;
-    v26 = v13;
-    _os_log_impl(&dword_242158000, v7, OS_LOG_TYPE_DEBUG, "[%{public}@ URLSession:%{public}@ task:%{public}@ didSendBodyData:%lld totalBytesSent:%lld totalBytesExpectedToSend:%lld]", &v15, 0x3Eu);
+    v14 = 138544642;
+    v15 = v8;
+    v16 = 2114;
+    v17 = v9;
+    v18 = 2114;
+    v19 = v10;
+    v20 = 2048;
+    v21 = v11;
+    v22 = 2048;
+    v23 = v12;
+    v24 = 2048;
+    v25 = v13;
+    _os_log_impl(&dword_242158000, v7, OS_LOG_TYPE_DEBUG, "[%{public}@ URLSession:%{public}@ task:%{public}@ didSendBodyData:%lld totalBytesSent:%lld totalBytesExpectedToSend:%lld]", &v14, 0x3Eu);
   }
 
   [v6 URLSession:a1[5] task:a1[6] didSendBodyData:a1[7] totalBytesSent:a1[8] totalBytesExpectedToSend:a1[9]];
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __85__C2Session_URLSession_task_didSendBodyData_totalBytesSent_totalBytesExpectedToSend___block_invoke_2()
@@ -1768,7 +1746,7 @@ uint64_t __85__C2Session_URLSession_task_didSendBodyData_totalBytesSent_totalByt
 
 void __56__C2Session_URLSession_task_didFinishCollectingMetrics___block_invoke(void *a1, void *a2, void *a3)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (C2_DEFAULT_LOG_BLOCK_6 != -1)
@@ -1783,20 +1761,18 @@ void __56__C2Session_URLSession_task_didFinishCollectingMetrics___block_invoke(v
     v9 = a1[5];
     v10 = a1[6];
     v11 = a1[7];
-    v13 = 138544131;
-    v14 = v8;
-    v15 = 2114;
-    v16 = v9;
-    v17 = 2114;
-    v18 = v10;
-    v19 = 2113;
-    v20 = v11;
-    _os_log_impl(&dword_242158000, v7, OS_LOG_TYPE_DEBUG, "[%{public}@ URLSession:%{public}@ task:%{public}@ didFinishCollectingMetrics:%{private}@]", &v13, 0x2Au);
+    v12 = 138544131;
+    v13 = v8;
+    v14 = 2114;
+    v15 = v9;
+    v16 = 2114;
+    v17 = v10;
+    v18 = 2113;
+    v19 = v11;
+    _os_log_impl(&dword_242158000, v7, OS_LOG_TYPE_DEBUG, "[%{public}@ URLSession:%{public}@ task:%{public}@ didFinishCollectingMetrics:%{private}@]", &v12, 0x2Au);
   }
 
   [v5 didFinishCollectingMetrics:a1[7]];
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __56__C2Session_URLSession_task_didFinishCollectingMetrics___block_invoke_2()
@@ -1827,7 +1803,7 @@ uint64_t __56__C2Session_URLSession_task_didFinishCollectingMetrics___block_invo
 
 void __50__C2Session_URLSession_task_didCompleteWithError___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (C2_DEFAULT_LOG_BLOCK_6 != -1)
@@ -1842,15 +1818,15 @@ void __50__C2Session_URLSession_task_didCompleteWithError___block_invoke(uint64_
     v9 = *(a1 + 40);
     v10 = *(a1 + 48);
     v11 = *(a1 + 56);
-    v20 = 138544130;
-    v21 = v8;
-    v22 = 2114;
-    v23 = v9;
-    v24 = 2114;
-    v25 = v10;
-    v26 = 2114;
-    v27 = v11;
-    _os_log_impl(&dword_242158000, v7, OS_LOG_TYPE_DEBUG, "[%{public}@ URLSession:%{public}@ task:%{public}@ didCompleteWithError:%{public}@]", &v20, 0x2Au);
+    v19 = 138544130;
+    v20 = v8;
+    v21 = 2114;
+    v22 = v9;
+    v23 = 2114;
+    v24 = v10;
+    v25 = 2114;
+    v26 = v11;
+    _os_log_impl(&dword_242158000, v7, OS_LOG_TYPE_DEBUG, "[%{public}@ URLSession:%{public}@ task:%{public}@ didCompleteWithError:%{public}@]", &v19, 0x2Au);
   }
 
   if (!*(a1 + 56))
@@ -1890,8 +1866,6 @@ void __50__C2Session_URLSession_task_didCompleteWithError___block_invoke(uint64_
     [*(*(a1 + 32) + 72) removeObject:v5];
     objc_sync_exit(v18);
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __50__C2Session_URLSession_task_didCompleteWithError___block_invoke_2()
@@ -1925,7 +1899,7 @@ uint64_t __50__C2Session_URLSession_task_didCompleteWithError___block_invoke_2()
 
 void __88__C2Session_URLSession_task__willSendRequestForEstablishedConnection_completionHandler___block_invoke(void *a1, void *a2, void *a3)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (C2_DEFAULT_LOG_BLOCK_6 != -1)
@@ -1943,17 +1917,17 @@ void __88__C2Session_URLSession_task__willSendRequestForEstablishedConnection_co
     v12 = a1[8];
     v13 = v7;
     v14 = _Block_copy(v12);
-    v16 = 138544386;
-    v17 = v8;
-    v18 = 2114;
-    v19 = v9;
-    v20 = 2114;
-    v21 = v10;
-    v22 = 2114;
-    v23 = v11;
-    v24 = 2114;
-    v25 = v14;
-    _os_log_impl(&dword_242158000, v13, OS_LOG_TYPE_DEBUG, "[%{public}@ URLSession:%{public}@ task:%{public}@ _willSendRequestForEstablishedConnection:%{public}@ completionHandler:%{public}@]", &v16, 0x34u);
+    v15 = 138544386;
+    v16 = v8;
+    v17 = 2114;
+    v18 = v9;
+    v19 = 2114;
+    v20 = v10;
+    v21 = 2114;
+    v22 = v11;
+    v23 = 2114;
+    v24 = v14;
+    _os_log_impl(&dword_242158000, v13, OS_LOG_TYPE_DEBUG, "[%{public}@ URLSession:%{public}@ task:%{public}@ _willSendRequestForEstablishedConnection:%{public}@ completionHandler:%{public}@]", &v15, 0x34u);
   }
 
   if (v6)
@@ -1965,8 +1939,6 @@ void __88__C2Session_URLSession_task__willSendRequestForEstablishedConnection_co
   {
     (*(a1[8] + 16))();
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __88__C2Session_URLSession_task__willSendRequestForEstablishedConnection_completionHandler___block_invoke_2()
@@ -1994,7 +1966,7 @@ uint64_t __88__C2Session_URLSession_task__willSendRequestForEstablishedConnectio
 
 void __52__C2Session_URLSession__taskIsWaitingForConnection___block_invoke(void *a1, void *a2, void *a3)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (C2_DEFAULT_LOG_BLOCK_6 != -1)
@@ -2008,18 +1980,16 @@ void __52__C2Session_URLSession__taskIsWaitingForConnection___block_invoke(void 
     v8 = a1[4];
     v9 = a1[5];
     v10 = a1[6];
-    v12 = 138543874;
-    v13 = v8;
-    v14 = 2114;
-    v15 = v9;
-    v16 = 2114;
-    v17 = v10;
-    _os_log_impl(&dword_242158000, v7, OS_LOG_TYPE_DEBUG, "[%{public}@ URLSession:%{public}@ _taskIsWaitingForConnection:%{public}@]", &v12, 0x20u);
+    v11 = 138543874;
+    v12 = v8;
+    v13 = 2114;
+    v14 = v9;
+    v15 = 2114;
+    v16 = v10;
+    _os_log_impl(&dword_242158000, v7, OS_LOG_TYPE_DEBUG, "[%{public}@ URLSession:%{public}@ _taskIsWaitingForConnection:%{public}@]", &v11, 0x20u);
   }
 
   [v6 URLSession:a1[5] _taskIsWaitingForConnection:a1[6]];
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __52__C2Session_URLSession__taskIsWaitingForConnection___block_invoke_2()
@@ -2048,7 +2018,7 @@ uint64_t __52__C2Session_URLSession__taskIsWaitingForConnection___block_invoke_2
 
 void __61__C2Session_URLSession_task__conditionalRequirementsChanged___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (C2_DEFAULT_LOG_BLOCK_6 != -1)
@@ -2072,20 +2042,18 @@ void __61__C2Session_URLSession_task__conditionalRequirementsChanged___block_inv
       v11 = "false";
     }
 
-    v13 = 138544130;
-    v14 = v8;
-    v15 = 2114;
-    v16 = v9;
-    v17 = 2114;
-    v18 = v10;
-    v19 = 2082;
-    v20 = v11;
-    _os_log_impl(&dword_242158000, v7, OS_LOG_TYPE_DEBUG, "[%{public}@ URLSession:%{public}@ task:%{public}@ _conditionalRequirementsChanged:%{public}s]", &v13, 0x2Au);
+    v12 = 138544130;
+    v13 = v8;
+    v14 = 2114;
+    v15 = v9;
+    v16 = 2114;
+    v17 = v10;
+    v18 = 2082;
+    v19 = v11;
+    _os_log_impl(&dword_242158000, v7, OS_LOG_TYPE_DEBUG, "[%{public}@ URLSession:%{public}@ task:%{public}@ _conditionalRequirementsChanged:%{public}s]", &v12, 0x2Au);
   }
 
   [v6 URLSession:*(a1 + 40) task:*(a1 + 48) _conditionalRequirementsChanged:*(a1 + 56)];
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __61__C2Session_URLSession_task__conditionalRequirementsChanged___block_invoke_2()
@@ -2119,7 +2087,7 @@ uint64_t __61__C2Session_URLSession_task__conditionalRequirementsChanged___block
 
 void __70__C2Session_URLSession_dataTask_didReceiveResponse_completionHandler___block_invoke(void *a1, void *a2, void *a3)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (C2_DEFAULT_LOG_BLOCK_6 != -1)
@@ -2137,17 +2105,17 @@ void __70__C2Session_URLSession_dataTask_didReceiveResponse_completionHandler___
     v12 = a1[8];
     v13 = v7;
     v14 = _Block_copy(v12);
-    v16 = 138544386;
-    v17 = v8;
-    v18 = 2114;
-    v19 = v9;
-    v20 = 2114;
-    v21 = v10;
-    v22 = 2114;
-    v23 = v11;
-    v24 = 2114;
-    v25 = v14;
-    _os_log_impl(&dword_242158000, v13, OS_LOG_TYPE_DEBUG, "[%{public}@ URLSession:%{public}@ dataTask:%{public}@ didReceiveResponse:%{public}@ completionHandler:%{public}@]", &v16, 0x34u);
+    v15 = 138544386;
+    v16 = v8;
+    v17 = 2114;
+    v18 = v9;
+    v19 = 2114;
+    v20 = v10;
+    v21 = 2114;
+    v22 = v11;
+    v23 = 2114;
+    v24 = v14;
+    _os_log_impl(&dword_242158000, v13, OS_LOG_TYPE_DEBUG, "[%{public}@ URLSession:%{public}@ dataTask:%{public}@ didReceiveResponse:%{public}@ completionHandler:%{public}@]", &v15, 0x34u);
   }
 
   if (v6)
@@ -2159,8 +2127,6 @@ void __70__C2Session_URLSession_dataTask_didReceiveResponse_completionHandler___
   {
     (*(a1[8] + 16))();
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __70__C2Session_URLSession_dataTask_didReceiveResponse_completionHandler___block_invoke_2()
@@ -2191,7 +2157,7 @@ uint64_t __70__C2Session_URLSession_dataTask_didReceiveResponse_completionHandle
 
 void __48__C2Session_URLSession_dataTask_didReceiveData___block_invoke(void *a1, void *a2, void *a3)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (C2_DEFAULT_LOG_BLOCK_6 != -1)
@@ -2207,20 +2173,18 @@ void __48__C2Session_URLSession_dataTask_didReceiveData___block_invoke(void *a1,
     v11 = a1[6];
     v10 = a1[7];
     v12 = v7;
-    v14 = 138544130;
-    v15 = v8;
-    v16 = 2114;
-    v17 = v9;
-    v18 = 2114;
-    v19 = v11;
-    v20 = 2048;
-    v21 = [v10 length];
-    _os_log_impl(&dword_242158000, v12, OS_LOG_TYPE_DEBUG, "[%{public}@ URLSession:%{public}@ dataTask:%{public}@ didReceiveData:(binary data of length %lld)]", &v14, 0x2Au);
+    v13 = 138544130;
+    v14 = v8;
+    v15 = 2114;
+    v16 = v9;
+    v17 = 2114;
+    v18 = v11;
+    v19 = 2048;
+    v20 = [v10 length];
+    _os_log_impl(&dword_242158000, v12, OS_LOG_TYPE_DEBUG, "[%{public}@ URLSession:%{public}@ dataTask:%{public}@ didReceiveData:(binary data of length %lld)]", &v13, 0x2Au);
   }
 
   [v6 URLSession:a1[5] dataTask:a1[6] didReceiveData:a1[7]];
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __48__C2Session_URLSession_dataTask_didReceiveData___block_invoke_2()
@@ -2254,7 +2218,7 @@ uint64_t __48__C2Session_URLSession_dataTask_didReceiveData___block_invoke_2()
 
 void __67__C2Session_URLSession_dataTask__didReceiveData_completionHandler___block_invoke(void *a1, void *a2, void *a3)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (C2_DEFAULT_LOG_BLOCK_6 != -1)
@@ -2270,15 +2234,15 @@ void __67__C2Session_URLSession_dataTask__didReceiveData_completionHandler___blo
     v11 = a1[6];
     v10 = a1[7];
     v12 = v7;
-    v18 = 138544130;
-    v19 = v8;
-    v20 = 2114;
-    v21 = v9;
-    v22 = 2114;
-    v23 = v11;
-    v24 = 2048;
-    v25 = [v10 length];
-    _os_log_impl(&dword_242158000, v12, OS_LOG_TYPE_DEBUG, "[%{public}@ URLSession:%{public}@ dataTask:%{public}@ _didReceiveData:(binary data of length %lld)]", &v18, 0x2Au);
+    v17 = 138544130;
+    v18 = v8;
+    v19 = 2114;
+    v20 = v9;
+    v21 = 2114;
+    v22 = v11;
+    v23 = 2048;
+    v24 = [v10 length];
+    _os_log_impl(&dword_242158000, v12, OS_LOG_TYPE_DEBUG, "[%{public}@ URLSession:%{public}@ dataTask:%{public}@ _didReceiveData:(binary data of length %lld)]", &v17, 0x2Au);
   }
 
   v13 = objc_opt_respondsToSelector();
@@ -2295,8 +2259,6 @@ void __67__C2Session_URLSession_dataTask__didReceiveData_completionHandler___blo
     [v6 URLSession:v14 dataTask:v15 didReceiveData:v16];
     (*(a1[8] + 16))();
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __67__C2Session_URLSession_dataTask__didReceiveData_completionHandler___block_invoke_2()
@@ -2327,7 +2289,7 @@ uint64_t __67__C2Session_URLSession_dataTask__didReceiveData_completionHandler__
 
 void __63__C2Session_URLSession__willRetryBackgroundDataTask_withError___block_invoke(void *a1, void *a2, void *a3)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (C2_DEFAULT_LOG_BLOCK_6 != -1)
@@ -2342,21 +2304,19 @@ void __63__C2Session_URLSession__willRetryBackgroundDataTask_withError___block_i
     v9 = a1[5];
     v10 = a1[6];
     v11 = a1[7];
-    v13 = 138544130;
-    v14 = v8;
-    v15 = 2114;
-    v16 = v9;
-    v17 = 2114;
-    v18 = v10;
-    v19 = 2114;
-    v20 = v11;
-    _os_log_impl(&dword_242158000, v7, OS_LOG_TYPE_DEBUG, "[%{public}@ URLSession:%{public}@ _willRetryBackgroundDataTask:%{public}@ withError:%{public}@]", &v13, 0x2Au);
+    v12 = 138544130;
+    v13 = v8;
+    v14 = 2114;
+    v15 = v9;
+    v16 = 2114;
+    v17 = v10;
+    v18 = 2114;
+    v19 = v11;
+    _os_log_impl(&dword_242158000, v7, OS_LOG_TYPE_DEBUG, "[%{public}@ URLSession:%{public}@ _willRetryBackgroundDataTask:%{public}@ withError:%{public}@]", &v12, 0x2Au);
   }
 
   [v5 captureMetricsWithError:a1[7] eventType:2];
   [v6 URLSession:a1[5] _willRetryBackgroundDataTask:a1[6] withError:a1[7]];
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __63__C2Session_URLSession__willRetryBackgroundDataTask_withError___block_invoke_2()

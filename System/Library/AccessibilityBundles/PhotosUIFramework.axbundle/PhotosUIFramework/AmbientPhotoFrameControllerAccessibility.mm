@@ -27,11 +27,4 @@
   [v4 setAccessibilityActivateBlock:v5];
 }
 
-uint64_t __87__AmbientPhotoFrameControllerAccessibility_accessibilityPresentExtendedMetadataOverlay__block_invoke(uint64_t a1)
-{
-  v2 = *(a1 + 32);
-  AXPerformSafeBlock();
-  return 1;
-}
-
 @end

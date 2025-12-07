@@ -102,13 +102,13 @@
 
   if (verboseLoggingEnabled)
   {
-    v5 = BDSCloudKitDevelopmentLog();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = BDSCloudKitDevelopmentLog(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       transactionName = [(BCCloudKitTransaction *)self transactionName];
       *buf = 138412290;
       v12 = transactionName;
-      _os_log_impl(&dword_1E45E0000, v5, OS_LOG_TYPE_DEFAULT, "\\Transaction signaling for %@\\"", buf, 0xCu);
+      _os_log_impl(&dword_1E45E0000, v6, OS_LOG_TYPE_DEFAULT, "\\Transaction signaling for %@\", buf, 0xCu);
     }
   }
 
@@ -124,7 +124,6 @@
 
   objc_destroyWeak(&v10);
   objc_destroyWeak(buf);
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)laq_scheduleTransactionLifetime
@@ -139,39 +138,37 @@
 
     if (verboseLoggingEnabled)
     {
-      v6 = BDSCloudKitDevelopmentLog();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+      v7 = BDSCloudKitDevelopmentLog(v6);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
         transactionName = [(BCCloudKitTransaction *)self transactionName];
         *buf = 138412290;
         v16 = transactionName;
-        _os_log_impl(&dword_1E45E0000, v6, OS_LOG_TYPE_DEFAULT, "\\Transaction scheduletransactionLifetime for %@\\"", buf, 0xCu);
+        _os_log_impl(&dword_1E45E0000, v7, OS_LOG_TYPE_DEFAULT, "\\Transaction scheduletransactionLifetime for %@\", buf, 0xCu);
       }
     }
 
     lifecycleAccessQueue = [(BCCloudKitTransaction *)self lifecycleAccessQueue];
-    v9 = dispatch_source_create(MEMORY[0x1E69E9710], 0, 0, lifecycleAccessQueue);
+    v10 = dispatch_source_create(MEMORY[0x1E69E9710], 0, 0, lifecycleAccessQueue);
 
-    v10 = dispatch_time(0, 5000000000);
-    dispatch_source_set_timer(v9, v10, 0xFFFFFFFFFFFFFFFFLL, 0xBEBC200uLL);
+    v11 = dispatch_time(0, 5000000000);
+    dispatch_source_set_timer(v10, v11, 0xFFFFFFFFFFFFFFFFLL, 0xBEBC200uLL);
     handler[0] = MEMORY[0x1E69E9820];
     handler[1] = 3221225472;
     handler[2] = sub_1E461A228;
     handler[3] = &unk_1E875A008;
     handler[4] = self;
-    dispatch_source_set_event_handler(v9, handler);
+    dispatch_source_set_event_handler(v10, handler);
     v13[0] = MEMORY[0x1E69E9820];
     v13[1] = 3221225472;
     v13[2] = sub_1E461A340;
     v13[3] = &unk_1E875A008;
     v13[4] = self;
-    dispatch_source_set_cancel_handler(v9, v13);
-    [(BCCloudKitTransaction *)self setTransactionLifetime:v9];
+    dispatch_source_set_cancel_handler(v10, v13);
+    [(BCCloudKitTransaction *)self setTransactionLifetime:v10];
     transactionLifetime2 = [(BCCloudKitTransaction *)self transactionLifetime];
     dispatch_resume(transactionLifetime2);
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (BCCloudKitTransactionDelegate)delegate

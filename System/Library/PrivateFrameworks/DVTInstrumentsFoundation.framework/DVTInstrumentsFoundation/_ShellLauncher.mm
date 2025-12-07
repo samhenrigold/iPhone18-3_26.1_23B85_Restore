@@ -54,7 +54,7 @@
   }
 
   launching = self->_launching;
-  v9 = DTUVPreviewServiceLog();
+  v9 = DTUVPreviewServiceLog(completionCopy);
   v10 = os_log_type_enabled(v9, OS_LOG_TYPE_INFO);
   if (launching)
   {
@@ -80,7 +80,7 @@
 
 - (void)_queue_launchWithRetries:(int)retries
 {
-  v20[1] = *MEMORY[0x277D85DE8];
+  v19[1] = *MEMORY[0x277D85DE8];
   aBlock[0] = MEMORY[0x277D85DD0];
   aBlock[1] = 3221225472;
   aBlock[2] = sub_2480031A8;
@@ -89,60 +89,58 @@
   aBlock[4] = self;
   v4 = _Block_copy(aBlock);
   serviceWithDefaultShellEndpoint = [MEMORY[0x277D0AD78] serviceWithDefaultShellEndpoint];
-  v19 = *MEMORY[0x277D0AB58];
-  v20[0] = &unk_285A37088;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:&v19 count:1];
+  v18 = *MEMORY[0x277D0AB58];
+  v19[0] = &unk_285A37088;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:&v18 count:1];
   v7 = MEMORY[0x277D0AD60];
   v8 = *MEMORY[0x277D0AC58];
-  v17[0] = *MEMORY[0x277D0AC08];
-  v17[1] = v8;
-  v18[0] = v6;
-  v18[1] = MEMORY[0x277CBEC38];
-  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:2];
+  v16[0] = *MEMORY[0x277D0AC08];
+  v16[1] = v8;
+  v17[0] = v6;
+  v17[1] = MEMORY[0x277CBEC38];
+  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:2];
   v10 = [v7 optionsWithDictionary:v9];
 
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = 3221225472;
-  v13[2] = sub_2480032D4;
-  v13[3] = &unk_278EF4558;
-  v13[4] = self;
-  v14 = v4;
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = sub_2480032D4;
+  v12[3] = &unk_278EF4558;
+  v12[4] = self;
+  v13 = v4;
   v11 = v4;
-  [serviceWithDefaultShellEndpoint openApplication:@"com.apple.PreviewShell" withOptions:v10 completion:v13];
-
-  v12 = *MEMORY[0x277D85DE8];
+  [serviceWithDefaultShellEndpoint openApplication:@"com.apple.PreviewShell" withOptions:v10 completion:v12];
 }
 
 - (void)_queue_completeWithPid:(int)pid error:(id)error
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   errorCopy = error;
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   v6 = self->_launchCompletions;
-  v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v13;
+    v9 = *v12;
     do
     {
       v10 = 0;
       do
       {
-        if (*v13 != v9)
+        if (*v12 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        (*(*(*(&v12 + 1) + 8 * v10) + 16))(*(*(&v12 + 1) + 8 * v10));
+        (*(*(*(&v11 + 1) + 8 * v10) + 16))(*(*(&v11 + 1) + 8 * v10));
         ++v10;
       }
 
       while (v8 != v10);
-      v8 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v8 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v8);
@@ -150,8 +148,6 @@
 
   [(NSMutableArray *)self->_launchCompletions removeAllObjects];
   self->_launching = 0;
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -33,11 +33,11 @@
 
 - (ASDiscoveredAccessory)initWithCoder:(id)coder
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   coderCopy = coder;
-  v10.receiver = self;
-  v10.super_class = ASDiscoveredAccessory;
-  v5 = [(ASAccessory *)&v10 initWithCoder:coderCopy];
+  v9.receiver = self;
+  v9.super_class = ASDiscoveredAccessory;
+  v5 = [(ASAccessory *)&v9 initWithCoder:coderCopy];
   if (v5)
   {
     v6 = coderCopy;
@@ -54,7 +54,6 @@
     [ASDiscoveredAccessory initWithCoder:coderCopy];
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -94,54 +93,53 @@
 
 - (ASDiscoveredAccessory)initWithXPCObject:(id)object error:(id *)error
 {
-  v23[6] = *MEMORY[0x277D85DE8];
+  v15[6] = *MEMORY[0x277D85DE8];
   objectCopy = object;
-  v22.receiver = self;
-  v22.super_class = ASDiscoveredAccessory;
-  v7 = [(ASAccessory *)&v22 initWithXPCObject:objectCopy error:error];
+  v14.receiver = self;
+  v14.super_class = ASDiscoveredAccessory;
+  v7 = [(ASAccessory *)&v14 initWithXPCObject:objectCopy error:error];
   if (v7)
   {
     if (MEMORY[0x2383B4C90](objectCopy) == MEMORY[0x277D86468])
     {
       CUXPCDecodeNSData();
-      v23[0] = 0;
+      v15[0] = 0;
       if (CUXPCDecodeSInt64RangedEx() == 6)
       {
-        v14 = LODWORD(v23[0]);
+        v8 = LODWORD(v15[0]);
       }
 
       else
       {
-        v14 = 0;
+        v8 = 0;
       }
 
-      v15 = [MEMORY[0x277CCABB0] numberWithInt:{v14, 0}];
+      v9 = [MEMORY[0x277CCABB0] numberWithInt:{v8, 0}];
       bluetoothRSSI = v7->_bluetoothRSSI;
-      v7->_bluetoothRSSI = v15;
+      v7->_bluetoothRSSI = v9;
 
-      v17 = v7;
+      v11 = v7;
     }
 
     else if (error)
     {
-      ASErrorF(-6756, "XPC non-dict", v8, v9, v10, v11, v12, v13, v20);
-      *error = v17 = 0;
+      ASErrorF(-6756, "XPC non-dict");
+      *error = v11 = 0;
     }
 
     else
     {
-      v17 = 0;
+      v11 = 0;
     }
   }
 
   else
   {
-    [ASAccessory initWithXPCObject:error error:v23];
-    v17 = v23[0];
+    [ASAccessory initWithXPCObject:error error:v15];
+    v11 = v15[0];
   }
 
-  v18 = *MEMORY[0x277D85DE8];
-  return v17;
+  return v11;
 }
 
 - (id)copyWithZone:(_NSZone *)zone
@@ -271,54 +269,70 @@ LABEL_28:
 {
   if ((level & 0x8000000) != 0)
   {
-    v4 = 0;
+    v4 = 8;
   }
 
   else
   {
-    v14 = objc_opt_class();
-    CUAppendF();
-    v4 = 0;
+    v4 = 12;
+  }
+
+  v23 = v4;
+  if ((level & 0x8000000) != 0)
+  {
+    v6 = 0;
+  }
+
+  else
+  {
+    v22 = 0;
+    v5 = objc_opt_class();
+    CUAppendF(&v22, &v23, "%@", v5);
+    v6 = v22;
   }
 
   identifier = [(ASAccessory *)self identifier];
+  v8 = identifier;
   if (identifier)
   {
-    CUAppendF();
-    v6 = v4;
+    v21 = v6;
+    CUAppendF(&v21, &v23, "ID %@", identifier);
+    v9 = v21;
 
-    v4 = v6;
+    v6 = v9;
   }
 
   bluetoothAdvertisementData = self->_bluetoothAdvertisementData;
   if (bluetoothAdvertisementData)
   {
-    v15 = bluetoothAdvertisementData;
-    CUAppendF();
-    v8 = v4;
+    v20 = v6;
+    v11 = bluetoothAdvertisementData;
+    CUAppendF(&v20, &v23, "btAdvData %@", v11);
+    v12 = v20;
 
-    v4 = v8;
+    v6 = v12;
   }
 
   bluetoothRSSI = self->_bluetoothRSSI;
   if (bluetoothRSSI)
   {
-    v16 = bluetoothRSSI;
-    CUAppendF();
-    v10 = v4;
+    v19 = v6;
+    v14 = bluetoothRSSI;
+    CUAppendF(&v19, &v23, "btRSSI %@", v14);
+    v15 = v19;
 
-    v4 = v10;
+    v6 = v15;
   }
 
-  v11 = &stru_28499D698;
-  if (v4)
+  v16 = &stru_28499D698;
+  if (v6)
   {
-    v11 = v4;
+    v16 = v6;
   }
 
-  v12 = v11;
+  v17 = v16;
 
-  return v12;
+  return v17;
 }
 
 - (ASDiscoveredAccessory)initWithDADevice:(id)device bundleID:(id)d
@@ -391,8 +405,8 @@ LABEL_28:
 - (void)initWithCoder:(void *)a1 .cold.1(void *a1)
 {
   v2 = objc_opt_class();
-  v9 = ASErrorF(1, "%@ init failed", v3, v4, v5, v6, v7, v8, v2);
-  [a1 failWithError:v9];
+  v3 = ASErrorF(1, "%@ init failed", v2);
+  [a1 failWithError:v3];
 }
 
 @end

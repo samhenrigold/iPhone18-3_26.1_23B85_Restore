@@ -1,2156 +1,3 @@
-void (*CLP_LogEntry_PrivateData_PrivateDataCapture.gpsdLogEntry.modify(uint64_t *a1))(uint64_t *a1, char a2)
-{
-  v3 = MEMORY[0x277D84FD8];
-  if (MEMORY[0x277D84FD8])
-  {
-    v4 = swift_coroFrameAlloc();
-  }
-
-  else
-  {
-    v4 = malloc(0x88uLL);
-  }
-
-  v5 = v4;
-  *a1 = v4;
-  *(v4 + 72) = v1;
-  v6 = *(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf19Proto_Gpsd_LogEntryVSgMd, &_s10ALProtobuf19Proto_Gpsd_LogEntryVSgMR) - 8) + 64);
-  if (v3)
-  {
-    *(v5 + 80) = swift_coroFrameAlloc();
-    v7 = swift_coroFrameAlloc();
-  }
-
-  else
-  {
-    *(v5 + 80) = malloc(v6);
-    v7 = malloc(v6);
-  }
-
-  v8 = v7;
-  *(v5 + 88) = v7;
-  v9 = type metadata accessor for Proto_Gpsd_LogEntry(0);
-  *(v5 + 96) = v9;
-  v10 = *(v9 - 8);
-  v11 = v10;
-  *(v5 + 104) = v10;
-  v12 = *(v10 + 64);
-  if (v3)
-  {
-    *(v5 + 112) = swift_coroFrameAlloc();
-    v13 = swift_coroFrameAlloc();
-  }
-
-  else
-  {
-    *(v5 + 112) = malloc(*(v10 + 64));
-    v13 = malloc(v12);
-  }
-
-  v14 = v13;
-  *(v5 + 120) = v13;
-  v15 = *(type metadata accessor for CLP_LogEntry_PrivateData_PrivateDataCapture(0) + 20);
-  *(v5 + 128) = v15;
-  v16 = *(v1 + v15);
-  v17 = OBJC_IVAR____TtCV10ALProtobuf43CLP_LogEntry_PrivateData_PrivateDataCaptureP33_EAF2BEFD088097B94979D70F24702EAF13_StorageClass__gpsdLogEntry;
-  swift_beginAccess();
-  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v16 + v17, v8, &_s10ALProtobuf19Proto_Gpsd_LogEntryVSgMd, &_s10ALProtobuf19Proto_Gpsd_LogEntryVSgMR);
-  v18 = *(v11 + 48);
-  if (v18(v8, 1, v9) == 1)
-  {
-    Proto_Gpsd_LogEntry.init()(v14);
-    if (v18(v8, 1, v9) != 1)
-    {
-      outlined destroy of Any?(v8, &_s10ALProtobuf19Proto_Gpsd_LogEntryVSgMd, &_s10ALProtobuf19Proto_Gpsd_LogEntryVSgMR);
-    }
-  }
-
-  else
-  {
-    outlined init with take of Proto_Gpsd_LogEntry(v8, v14, type metadata accessor for Proto_Gpsd_LogEntry);
-  }
-
-  return CLP_LogEntry_PrivateData_PrivateDataCapture.gpsdLogEntry.modify;
-}
-
-uint64_t CLP_LogEntry_PrivateData_PrivateDataCapture.aonlocLogEntry.getter@<X0>(uint64_t a1@<X8>)
-{
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf020CLP_LogEntry_AONLoc_cD0VSgMd, &_s10ALProtobuf020CLP_LogEntry_AONLoc_cD0VSgMR);
-  v4 = *(*(v3 - 8) + 64);
-  MEMORY[0x28223BE20](v3 - 8);
-  v6 = &v12 - v5;
-  v7 = *(v1 + *(type metadata accessor for CLP_LogEntry_PrivateData_PrivateDataCapture(0) + 20));
-  v8 = OBJC_IVAR____TtCV10ALProtobuf43CLP_LogEntry_PrivateData_PrivateDataCaptureP33_EAF2BEFD088097B94979D70F24702EAF13_StorageClass__aonlocLogEntry;
-  swift_beginAccess();
-  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v7 + v8, v6, &_s10ALProtobuf020CLP_LogEntry_AONLoc_cD0VSgMd, &_s10ALProtobuf020CLP_LogEntry_AONLoc_cD0VSgMR);
-  v9 = type metadata accessor for CLP_LogEntry_AONLoc_LogEntry(0);
-  v10 = *(*(v9 - 8) + 48);
-  if (v10(v6, 1, v9) != 1)
-  {
-    return outlined init with take of Proto_Gpsd_LogEntry(v6, a1, type metadata accessor for CLP_LogEntry_AONLoc_LogEntry);
-  }
-
-  CLP_LogEntry_AONLoc_LogEntry.init()(a1);
-  result = (v10)(v6, 1, v9);
-  if (result != 1)
-  {
-    return outlined destroy of Any?(v6, &_s10ALProtobuf020CLP_LogEntry_AONLoc_cD0VSgMd, &_s10ALProtobuf020CLP_LogEntry_AONLoc_cD0VSgMR);
-  }
-
-  return result;
-}
-
-uint64_t CLP_LogEntry_PrivateData_PrivateDataCapture.aonlocLogEntry.setter(uint64_t a1)
-{
-  v2 = v1;
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf020CLP_LogEntry_AONLoc_cD0VSgMd, &_s10ALProtobuf020CLP_LogEntry_AONLoc_cD0VSgMR);
-  v5 = *(*(v4 - 8) + 64);
-  MEMORY[0x28223BE20](v4 - 8);
-  v7 = &v20 - v6;
-  v8 = *(type metadata accessor for CLP_LogEntry_PrivateData_PrivateDataCapture(0) + 20);
-  v9 = *(v1 + v8);
-  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v11 = *(v1 + v8);
-  if ((isUniquelyReferenced_nonNull_native & 1) == 0)
-  {
-    v12 = type metadata accessor for CLP_LogEntry_PrivateData_PrivateDataCapture._StorageClass(0);
-    v13 = *(v12 + 48);
-    v14 = *(v12 + 52);
-    v15 = swift_allocObject();
-    v16 = v11;
-    v11 = v15;
-    CLP_LogEntry_PrivateData_PrivateDataCapture._StorageClass.init(copying:)(v16);
-    *(v2 + v8) = v15;
-  }
-
-  outlined init with take of Proto_Gpsd_LogEntry(a1, v7, type metadata accessor for CLP_LogEntry_AONLoc_LogEntry);
-  v17 = type metadata accessor for CLP_LogEntry_AONLoc_LogEntry(0);
-  (*(*(v17 - 8) + 56))(v7, 0, 1, v17);
-  v18 = OBJC_IVAR____TtCV10ALProtobuf43CLP_LogEntry_PrivateData_PrivateDataCaptureP33_EAF2BEFD088097B94979D70F24702EAF13_StorageClass__aonlocLogEntry;
-  swift_beginAccess();
-  outlined assign with take of Proto_Gpsd_Response?(v7, v11 + v18, &_s10ALProtobuf020CLP_LogEntry_AONLoc_cD0VSgMd, &_s10ALProtobuf020CLP_LogEntry_AONLoc_cD0VSgMR);
-  return swift_endAccess();
-}
-
-void (*CLP_LogEntry_PrivateData_PrivateDataCapture.aonlocLogEntry.modify(uint64_t *a1))(uint64_t *a1, char a2)
-{
-  v3 = MEMORY[0x277D84FD8];
-  if (MEMORY[0x277D84FD8])
-  {
-    v4 = swift_coroFrameAlloc();
-  }
-
-  else
-  {
-    v4 = malloc(0x88uLL);
-  }
-
-  v5 = v4;
-  *a1 = v4;
-  *(v4 + 72) = v1;
-  v6 = *(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf020CLP_LogEntry_AONLoc_cD0VSgMd, &_s10ALProtobuf020CLP_LogEntry_AONLoc_cD0VSgMR) - 8) + 64);
-  if (v3)
-  {
-    *(v5 + 80) = swift_coroFrameAlloc();
-    v7 = swift_coroFrameAlloc();
-  }
-
-  else
-  {
-    *(v5 + 80) = malloc(v6);
-    v7 = malloc(v6);
-  }
-
-  v8 = v7;
-  *(v5 + 88) = v7;
-  v9 = type metadata accessor for CLP_LogEntry_AONLoc_LogEntry(0);
-  *(v5 + 96) = v9;
-  v10 = *(v9 - 8);
-  v11 = v10;
-  *(v5 + 104) = v10;
-  v12 = *(v10 + 64);
-  if (v3)
-  {
-    *(v5 + 112) = swift_coroFrameAlloc();
-    v13 = swift_coroFrameAlloc();
-  }
-
-  else
-  {
-    *(v5 + 112) = malloc(*(v10 + 64));
-    v13 = malloc(v12);
-  }
-
-  v14 = v13;
-  *(v5 + 120) = v13;
-  v15 = *(type metadata accessor for CLP_LogEntry_PrivateData_PrivateDataCapture(0) + 20);
-  *(v5 + 128) = v15;
-  v16 = *(v1 + v15);
-  v17 = OBJC_IVAR____TtCV10ALProtobuf43CLP_LogEntry_PrivateData_PrivateDataCaptureP33_EAF2BEFD088097B94979D70F24702EAF13_StorageClass__aonlocLogEntry;
-  swift_beginAccess();
-  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v16 + v17, v8, &_s10ALProtobuf020CLP_LogEntry_AONLoc_cD0VSgMd, &_s10ALProtobuf020CLP_LogEntry_AONLoc_cD0VSgMR);
-  v18 = *(v11 + 48);
-  if (v18(v8, 1, v9) == 1)
-  {
-    CLP_LogEntry_AONLoc_LogEntry.init()(v14);
-    if (v18(v8, 1, v9) != 1)
-    {
-      outlined destroy of Any?(v8, &_s10ALProtobuf020CLP_LogEntry_AONLoc_cD0VSgMd, &_s10ALProtobuf020CLP_LogEntry_AONLoc_cD0VSgMR);
-    }
-  }
-
-  else
-  {
-    outlined init with take of Proto_Gpsd_LogEntry(v8, v14, type metadata accessor for CLP_LogEntry_AONLoc_LogEntry);
-  }
-
-  return CLP_LogEntry_PrivateData_PrivateDataCapture.aonlocLogEntry.modify;
-}
-
-void CLP_LogEntry_PrivateData_PrivateDataCapture.gpsdLogEntry.modify(uint64_t *a1, char a2, uint64_t (*a3)(void), uint64_t *a4, uint64_t *a5, uint64_t *a6)
-{
-  v8 = *a1;
-  v9 = *(*a1 + 128);
-  if (a2)
-  {
-    v10 = *(v8 + 72);
-    outlined init with copy of Proto_Gpsd_LogEntry(*(v8 + 120), *(v8 + 112), a3);
-    v11 = *(v10 + v9);
-    isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-    v13 = *(v10 + v9);
-    if ((isUniquelyReferenced_nonNull_native & 1) == 0)
-    {
-      v14 = *(v8 + 128);
-      v15 = *(v8 + 72);
-      v16 = type metadata accessor for CLP_LogEntry_PrivateData_PrivateDataCapture._StorageClass(0);
-      v17 = *(v16 + 48);
-      v18 = *(v16 + 52);
-      v19 = swift_allocObject();
-      CLP_LogEntry_PrivateData_PrivateDataCapture._StorageClass.init(copying:)(v13);
-      *(v15 + v14) = v19;
-      v13 = v19;
-    }
-
-    v21 = *(v8 + 112);
-    v20 = *(v8 + 120);
-    v22 = *(v8 + 96);
-    v23 = *(v8 + 104);
-    v25 = *(v8 + 80);
-    v24 = *(v8 + 88);
-    outlined init with take of Proto_Gpsd_LogEntry(v21, v25, a3);
-    (*(v23 + 56))(v25, 0, 1, v22);
-    v26 = *a4;
-    swift_beginAccess();
-    outlined assign with take of Proto_Gpsd_Response?(v25, v13 + v26, a5, a6);
-    swift_endAccess();
-    outlined destroy of Proto_Gpsd_LogEntry(v20, a3);
-  }
-
-  else
-  {
-    v27 = *(v8 + 72);
-    v28 = *(v27 + v9);
-    v29 = swift_isUniquelyReferenced_nonNull_native();
-    v30 = *(v27 + v9);
-    if ((v29 & 1) == 0)
-    {
-      v31 = *(v8 + 128);
-      v32 = *(v8 + 72);
-      v33 = type metadata accessor for CLP_LogEntry_PrivateData_PrivateDataCapture._StorageClass(0);
-      v34 = *(v33 + 48);
-      v35 = *(v33 + 52);
-      v36 = swift_allocObject();
-      CLP_LogEntry_PrivateData_PrivateDataCapture._StorageClass.init(copying:)(v30);
-      *(v32 + v31) = v36;
-      v30 = v36;
-    }
-
-    v21 = *(v8 + 112);
-    v20 = *(v8 + 120);
-    v37 = *(v8 + 96);
-    v38 = *(v8 + 104);
-    v25 = *(v8 + 80);
-    v24 = *(v8 + 88);
-    outlined init with take of Proto_Gpsd_LogEntry(v20, v25, a3);
-    (*(v38 + 56))(v25, 0, 1, v37);
-    v39 = *a4;
-    swift_beginAccess();
-    outlined assign with take of Proto_Gpsd_Response?(v25, v30 + v39, a5, a6);
-    swift_endAccess();
-  }
-
-  free(v20);
-  free(v21);
-  free(v24);
-  free(v25);
-
-  free(v8);
-}
-
-BOOL CLP_LogEntry_PrivateData_PrivateDataCapture.hasGpsdLogEntry.getter(uint64_t *a1, uint64_t *a2, uint64_t *a3, uint64_t (*a4)(void))
-{
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(a1, a2);
-  v10 = *(*(v9 - 8) + 64);
-  MEMORY[0x28223BE20](v9 - 8);
-  v12 = &v18 - v11;
-  v13 = *(v4 + *(type metadata accessor for CLP_LogEntry_PrivateData_PrivateDataCapture(0) + 20));
-  v14 = *a3;
-  swift_beginAccess();
-  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v13 + v14, v12, a1, a2);
-  v15 = a4(0);
-  v16 = (*(*(v15 - 8) + 48))(v12, 1, v15) != 1;
-  outlined destroy of Any?(v12, a1, a2);
-  return v16;
-}
-
-uint64_t CLP_LogEntry_PrivateData_PrivateDataCapture.clearGpsdLogEntry()(uint64_t *a1, uint64_t *a2, uint64_t (*a3)(void), uint64_t *a4)
-{
-  v9 = v4;
-  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(a1, a2);
-  v11 = *(*(v10 - 8) + 64);
-  MEMORY[0x28223BE20](v10 - 8);
-  v13 = &v26 - v12;
-  v14 = *(type metadata accessor for CLP_LogEntry_PrivateData_PrivateDataCapture(0) + 20);
-  v15 = *(v4 + v14);
-  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v17 = *(v4 + v14);
-  if ((isUniquelyReferenced_nonNull_native & 1) == 0)
-  {
-    v18 = type metadata accessor for CLP_LogEntry_PrivateData_PrivateDataCapture._StorageClass(0);
-    v19 = *(v18 + 48);
-    v20 = *(v18 + 52);
-    v21 = swift_allocObject();
-    v22 = v17;
-    v17 = v21;
-    CLP_LogEntry_PrivateData_PrivateDataCapture._StorageClass.init(copying:)(v22);
-    *(v9 + v14) = v21;
-  }
-
-  v23 = a3(0);
-  (*(*(v23 - 8) + 56))(v13, 1, 1, v23);
-  v24 = *a4;
-  swift_beginAccess();
-  outlined assign with take of Proto_Gpsd_Response?(v13, v17 + v24, a1, a2);
-  return swift_endAccess();
-}
-
-uint64_t CLP_LogEntry_PrivateData_PrivateDataCapture.init()@<X0>(uint64_t a1@<X8>)
-{
-  UnknownStorage.init()();
-  v2 = *(type metadata accessor for CLP_LogEntry_PrivateData_PrivateDataCapture(0) + 20);
-  if (one-time initialization token for defaultInstance != -1)
-  {
-    swift_once();
-  }
-
-  *(a1 + v2) = static CLP_LogEntry_PrivateData_PrivateDataCapture._StorageClass.defaultInstance;
-}
-
-uint64_t variable initialization expression of CLP_LogEntry_PrivateData_PrivateDataCapture._storage()
-{
-  if (one-time initialization token for defaultInstance != -1)
-  {
-    swift_once();
-  }
-}
-
-uint64_t CLP_LogEntry_PrivateData_PrivateDataCapture._protobuf_nameMap.unsafeMutableAddressor()
-{
-  if (one-time initialization token for _protobuf_nameMap != -1)
-  {
-    swift_once();
-  }
-
-  v0 = type metadata accessor for _NameMap();
-
-  return __swift_project_value_buffer(v0, static CLP_LogEntry_PrivateData_PrivateDataCapture._protobuf_nameMap);
-}
-
-uint64_t static CLP_LogEntry_PrivateData_PrivateDataCapture._protobuf_nameMap.getter@<X0>(uint64_t a1@<X8>)
-{
-  if (one-time initialization token for _protobuf_nameMap != -1)
-  {
-    swift_once();
-  }
-
-  v2 = type metadata accessor for _NameMap();
-  v3 = __swift_project_value_buffer(v2, static CLP_LogEntry_PrivateData_PrivateDataCapture._protobuf_nameMap);
-  v4 = *(*(v2 - 8) + 16);
-
-  return v4(a1, v3, v2);
-}
-
-uint64_t CLP_LogEntry_PrivateData_PrivateDataCapture._StorageClass.init(copying:)(uint64_t a1)
-{
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf020CLP_LogEntry_AONLoc_cD0VSgMd, &_s10ALProtobuf020CLP_LogEntry_AONLoc_cD0VSgMR);
-  v4 = *(*(v3 - 8) + 64);
-  MEMORY[0x28223BE20](v3 - 8);
-  v6 = &v18 - v5;
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf19Proto_Gpsd_LogEntryVSgMd, &_s10ALProtobuf19Proto_Gpsd_LogEntryVSgMR);
-  v8 = *(*(v7 - 8) + 64);
-  MEMORY[0x28223BE20](v7 - 8);
-  v10 = &v18 - v9;
-  v11 = OBJC_IVAR____TtCV10ALProtobuf43CLP_LogEntry_PrivateData_PrivateDataCaptureP33_EAF2BEFD088097B94979D70F24702EAF13_StorageClass__gpsdLogEntry;
-  v12 = type metadata accessor for Proto_Gpsd_LogEntry(0);
-  (*(*(v12 - 8) + 56))(v1 + v11, 1, 1, v12);
-  v13 = OBJC_IVAR____TtCV10ALProtobuf43CLP_LogEntry_PrivateData_PrivateDataCaptureP33_EAF2BEFD088097B94979D70F24702EAF13_StorageClass__aonlocLogEntry;
-  v14 = type metadata accessor for CLP_LogEntry_AONLoc_LogEntry(0);
-  (*(*(v14 - 8) + 56))(v1 + v13, 1, 1, v14);
-  v15 = OBJC_IVAR____TtCV10ALProtobuf43CLP_LogEntry_PrivateData_PrivateDataCaptureP33_EAF2BEFD088097B94979D70F24702EAF13_StorageClass__gpsdLogEntry;
-  swift_beginAccess();
-  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(a1 + v15, v10, &_s10ALProtobuf19Proto_Gpsd_LogEntryVSgMd, &_s10ALProtobuf19Proto_Gpsd_LogEntryVSgMR);
-  swift_beginAccess();
-  outlined assign with take of Proto_Gpsd_Response?(v10, v1 + v11, &_s10ALProtobuf19Proto_Gpsd_LogEntryVSgMd, &_s10ALProtobuf19Proto_Gpsd_LogEntryVSgMR);
-  swift_endAccess();
-  v16 = OBJC_IVAR____TtCV10ALProtobuf43CLP_LogEntry_PrivateData_PrivateDataCaptureP33_EAF2BEFD088097B94979D70F24702EAF13_StorageClass__aonlocLogEntry;
-  swift_beginAccess();
-  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(a1 + v16, v6, &_s10ALProtobuf020CLP_LogEntry_AONLoc_cD0VSgMd, &_s10ALProtobuf020CLP_LogEntry_AONLoc_cD0VSgMR);
-
-  swift_beginAccess();
-  outlined assign with take of Proto_Gpsd_Response?(v6, v1 + v13, &_s10ALProtobuf020CLP_LogEntry_AONLoc_cD0VSgMd, &_s10ALProtobuf020CLP_LogEntry_AONLoc_cD0VSgMR);
-  swift_endAccess();
-  return v1;
-}
-
-uint64_t outlined init with take of Proto_Gpsd_LogEntry(uint64_t a1, uint64_t a2, uint64_t (*a3)(void))
-{
-  v5 = a3(0);
-  (*(*(v5 - 8) + 32))(a2, a1, v5);
-  return a2;
-}
-
-uint64_t outlined init with copy of Proto_Gpsd_LogEntry(uint64_t a1, uint64_t a2, uint64_t (*a3)(void))
-{
-  v5 = a3(0);
-  (*(*(v5 - 8) + 16))(a2, a1, v5);
-  return a2;
-}
-
-uint64_t outlined destroy of Proto_Gpsd_LogEntry(uint64_t a1, uint64_t (*a2)(void))
-{
-  v3 = a2(0);
-  (*(*(v3 - 8) + 8))(a1, v3);
-  return a1;
-}
-
-uint64_t CLP_LogEntry_PrivateData_PrivateDataCapture._StorageClass.__deallocating_deinit()
-{
-  outlined destroy of Any?(v0 + OBJC_IVAR____TtCV10ALProtobuf43CLP_LogEntry_PrivateData_PrivateDataCaptureP33_EAF2BEFD088097B94979D70F24702EAF13_StorageClass__gpsdLogEntry, &_s10ALProtobuf19Proto_Gpsd_LogEntryVSgMd, &_s10ALProtobuf19Proto_Gpsd_LogEntryVSgMR);
-  outlined destroy of Any?(v0 + OBJC_IVAR____TtCV10ALProtobuf43CLP_LogEntry_PrivateData_PrivateDataCaptureP33_EAF2BEFD088097B94979D70F24702EAF13_StorageClass__aonlocLogEntry, &_s10ALProtobuf020CLP_LogEntry_AONLoc_cD0VSgMd, &_s10ALProtobuf020CLP_LogEntry_AONLoc_cD0VSgMR);
-  v1 = *(*v0 + 48);
-  v2 = *(*v0 + 52);
-
-  return MEMORY[0x2821FE8D8](v0, v1, v2);
-}
-
-uint64_t CLP_LogEntry_PrivateData_PrivateDataCapture.decodeMessage<A>(decoder:)()
-{
-  v2 = v0;
-  v3 = *(type metadata accessor for CLP_LogEntry_PrivateData_PrivateDataCapture(0) + 20);
-  v4 = *(v0 + v3);
-  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v6 = *(v0 + v3);
-  if ((isUniquelyReferenced_nonNull_native & 1) == 0)
-  {
-    v7 = type metadata accessor for CLP_LogEntry_PrivateData_PrivateDataCapture._StorageClass(0);
-    v8 = *(v7 + 48);
-    v9 = *(v7 + 52);
-    v10 = swift_allocObject();
-    CLP_LogEntry_PrivateData_PrivateDataCapture._StorageClass.init(copying:)(v6);
-    *(v2 + v3) = v10;
-  }
-
-  result = dispatch thunk of Decoder.nextFieldNumber()();
-  if (!v1)
-  {
-    while (1)
-    {
-      if (v12)
-      {
-        return result;
-      }
-
-      if (result == 1004)
-      {
-        break;
-      }
-
-      if (result == 1018)
-      {
-        v13 = v1;
-        swift_beginAccess();
-        type metadata accessor for CLP_LogEntry_AONLoc_LogEntry(0);
-        v14 = type metadata accessor for CLP_LogEntry_AONLoc_LogEntry;
-        v15 = &lazy protocol witness table cache variable for type CLP_LogEntry_AONLoc_LogEntry and conformance CLP_LogEntry_AONLoc_LogEntry;
-        goto LABEL_7;
-      }
-
-LABEL_8:
-      result = dispatch thunk of Decoder.nextFieldNumber()();
-    }
-
-    v13 = v1;
-    swift_beginAccess();
-    type metadata accessor for Proto_Gpsd_LogEntry(0);
-    v14 = type metadata accessor for Proto_Gpsd_LogEntry;
-    v15 = &lazy protocol witness table cache variable for type Proto_Gpsd_LogEntry and conformance Proto_Gpsd_LogEntry;
-LABEL_7:
-    lazy protocol witness table accessor for type CLP_LogEntry_PrivateData_PrivateDataCapture and conformance CLP_LogEntry_PrivateData_PrivateDataCapture(v15, v14);
-    v1 = v13;
-    dispatch thunk of Decoder.decodeSingularMessageField<A>(value:)();
-    swift_endAccess();
-    goto LABEL_8;
-  }
-
-  return result;
-}
-
-uint64_t CLP_LogEntry_PrivateData_PrivateDataCapture.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  v8 = *(v3 + *(type metadata accessor for CLP_LogEntry_PrivateData_PrivateDataCapture(0) + 20));
-  result = closure #1 in closure #1 in CLP_LogEntry_PrivateData_PrivateDataCapture.traverse<A>(visitor:)(v8, a1, a2, a3);
-  if (!v4)
-  {
-    closure #2 in closure #1 in CLP_LogEntry_PrivateData_PrivateDataCapture.traverse<A>(visitor:)(v8, a1, a2, a3);
-    return UnknownStorage.traverse<A>(visitor:)();
-  }
-
-  return result;
-}
-
-uint64_t closure #1 in closure #1 in CLP_LogEntry_PrivateData_PrivateDataCapture.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
-{
-  v16[7] = a4;
-  v16[1] = a2;
-  v16[2] = a3;
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf19Proto_Gpsd_LogEntryVSgMd, &_s10ALProtobuf19Proto_Gpsd_LogEntryVSgMR);
-  v6 = *(*(v5 - 8) + 64);
-  MEMORY[0x28223BE20](v5 - 8);
-  v8 = v16 - v7;
-  v9 = type metadata accessor for Proto_Gpsd_LogEntry(0);
-  v10 = *(v9 - 8);
-  v11 = *(v10 + 64);
-  MEMORY[0x28223BE20](v9);
-  v13 = v16 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v14 = OBJC_IVAR____TtCV10ALProtobuf43CLP_LogEntry_PrivateData_PrivateDataCaptureP33_EAF2BEFD088097B94979D70F24702EAF13_StorageClass__gpsdLogEntry;
-  swift_beginAccess();
-  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(a1 + v14, v8, &_s10ALProtobuf19Proto_Gpsd_LogEntryVSgMd, &_s10ALProtobuf19Proto_Gpsd_LogEntryVSgMR);
-  if ((*(v10 + 48))(v8, 1, v9) == 1)
-  {
-    return outlined destroy of Any?(v8, &_s10ALProtobuf19Proto_Gpsd_LogEntryVSgMd, &_s10ALProtobuf19Proto_Gpsd_LogEntryVSgMR);
-  }
-
-  outlined init with take of Proto_Gpsd_LogEntry(v8, v13, type metadata accessor for Proto_Gpsd_LogEntry);
-  lazy protocol witness table accessor for type CLP_LogEntry_PrivateData_PrivateDataCapture and conformance CLP_LogEntry_PrivateData_PrivateDataCapture(&lazy protocol witness table cache variable for type Proto_Gpsd_LogEntry and conformance Proto_Gpsd_LogEntry, type metadata accessor for Proto_Gpsd_LogEntry);
-  dispatch thunk of Visitor.visitSingularMessageField<A>(value:fieldNumber:)();
-  return outlined destroy of Proto_Gpsd_LogEntry(v13, type metadata accessor for Proto_Gpsd_LogEntry);
-}
-
-uint64_t closure #2 in closure #1 in CLP_LogEntry_PrivateData_PrivateDataCapture.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
-{
-  v16[7] = a4;
-  v16[1] = a2;
-  v16[2] = a3;
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf020CLP_LogEntry_AONLoc_cD0VSgMd, &_s10ALProtobuf020CLP_LogEntry_AONLoc_cD0VSgMR);
-  v6 = *(*(v5 - 8) + 64);
-  MEMORY[0x28223BE20](v5 - 8);
-  v8 = v16 - v7;
-  v9 = type metadata accessor for CLP_LogEntry_AONLoc_LogEntry(0);
-  v10 = *(v9 - 8);
-  v11 = *(v10 + 64);
-  MEMORY[0x28223BE20](v9);
-  v13 = v16 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v14 = OBJC_IVAR____TtCV10ALProtobuf43CLP_LogEntry_PrivateData_PrivateDataCaptureP33_EAF2BEFD088097B94979D70F24702EAF13_StorageClass__aonlocLogEntry;
-  swift_beginAccess();
-  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(a1 + v14, v8, &_s10ALProtobuf020CLP_LogEntry_AONLoc_cD0VSgMd, &_s10ALProtobuf020CLP_LogEntry_AONLoc_cD0VSgMR);
-  if ((*(v10 + 48))(v8, 1, v9) == 1)
-  {
-    return outlined destroy of Any?(v8, &_s10ALProtobuf020CLP_LogEntry_AONLoc_cD0VSgMd, &_s10ALProtobuf020CLP_LogEntry_AONLoc_cD0VSgMR);
-  }
-
-  outlined init with take of Proto_Gpsd_LogEntry(v8, v13, type metadata accessor for CLP_LogEntry_AONLoc_LogEntry);
-  lazy protocol witness table accessor for type CLP_LogEntry_PrivateData_PrivateDataCapture and conformance CLP_LogEntry_PrivateData_PrivateDataCapture(&lazy protocol witness table cache variable for type CLP_LogEntry_AONLoc_LogEntry and conformance CLP_LogEntry_AONLoc_LogEntry, type metadata accessor for CLP_LogEntry_AONLoc_LogEntry);
-  dispatch thunk of Visitor.visitSingularMessageField<A>(value:fieldNumber:)();
-  return outlined destroy of Proto_Gpsd_LogEntry(v13, type metadata accessor for CLP_LogEntry_AONLoc_LogEntry);
-}
-
-BOOL closure #1 in static CLP_LogEntry_PrivateData_PrivateDataCapture.== infix(_:_:)(uint64_t a1, uint64_t a2)
-{
-  v58 = a2;
-  v55 = type metadata accessor for CLP_LogEntry_AONLoc_LogEntry(0);
-  v53 = *(v55 - 8);
-  v3 = *(v53 + 64);
-  MEMORY[0x28223BE20](v55);
-  v49 = &v48 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v52 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf020CLP_LogEntry_AONLoc_cD0VSg_ADtMd, &_s10ALProtobuf020CLP_LogEntry_AONLoc_cD0VSg_ADtMR);
-  v5 = *(*(v52 - 8) + 64);
-  MEMORY[0x28223BE20](v52);
-  v56 = &v48 - v6;
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf020CLP_LogEntry_AONLoc_cD0VSgMd, &_s10ALProtobuf020CLP_LogEntry_AONLoc_cD0VSgMR);
-  v8 = *(*(v7 - 8) + 64);
-  v9 = MEMORY[0x28223BE20](v7 - 8);
-  v50 = &v48 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v9);
-  v54 = &v48 - v11;
-  v12 = type metadata accessor for Proto_Gpsd_LogEntry(0);
-  v13 = *(v12 - 8);
-  v14 = *(v13 + 64);
-  MEMORY[0x28223BE20](v12);
-  v51 = &v48 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v16 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf19Proto_Gpsd_LogEntryVSg_ADtMd, &_s10ALProtobuf19Proto_Gpsd_LogEntryVSg_ADtMR);
-  v17 = v16 - 8;
-  v18 = *(*(v16 - 8) + 64);
-  MEMORY[0x28223BE20](v16);
-  v20 = &v48 - v19;
-  v21 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf19Proto_Gpsd_LogEntryVSgMd, &_s10ALProtobuf19Proto_Gpsd_LogEntryVSgMR);
-  v22 = *(*(v21 - 8) + 64);
-  v23 = MEMORY[0x28223BE20](v21 - 8);
-  v57 = &v48 - ((v24 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v23);
-  v26 = &v48 - v25;
-  v27 = OBJC_IVAR____TtCV10ALProtobuf43CLP_LogEntry_PrivateData_PrivateDataCaptureP33_EAF2BEFD088097B94979D70F24702EAF13_StorageClass__gpsdLogEntry;
-  swift_beginAccess();
-  v28 = a1 + v27;
-  v29 = v58;
-  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v28, v26, &_s10ALProtobuf19Proto_Gpsd_LogEntryVSgMd, &_s10ALProtobuf19Proto_Gpsd_LogEntryVSgMR);
-  v30 = OBJC_IVAR____TtCV10ALProtobuf43CLP_LogEntry_PrivateData_PrivateDataCaptureP33_EAF2BEFD088097B94979D70F24702EAF13_StorageClass__gpsdLogEntry;
-  swift_beginAccess();
-  v31 = *(v17 + 56);
-  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v26, v20, &_s10ALProtobuf19Proto_Gpsd_LogEntryVSgMd, &_s10ALProtobuf19Proto_Gpsd_LogEntryVSgMR);
-  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v29 + v30, &v20[v31], &_s10ALProtobuf19Proto_Gpsd_LogEntryVSgMd, &_s10ALProtobuf19Proto_Gpsd_LogEntryVSgMR);
-  v32 = *(v13 + 48);
-  if (v32(v20, 1, v12) != 1)
-  {
-    v33 = v57;
-    outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v20, v57, &_s10ALProtobuf19Proto_Gpsd_LogEntryVSgMd, &_s10ALProtobuf19Proto_Gpsd_LogEntryVSgMR);
-    if (v32(&v20[v31], 1, v12) != 1)
-    {
-      v34 = v51;
-      outlined init with take of Proto_Gpsd_LogEntry(&v20[v31], v51, type metadata accessor for Proto_Gpsd_LogEntry);
-      lazy protocol witness table accessor for type CLP_LogEntry_PrivateData_PrivateDataCapture and conformance CLP_LogEntry_PrivateData_PrivateDataCapture(&lazy protocol witness table cache variable for type Proto_Gpsd_LogEntry and conformance Proto_Gpsd_LogEntry, type metadata accessor for Proto_Gpsd_LogEntry);
-
-      v35 = dispatch thunk of static Equatable.== infix(_:_:)();
-      outlined destroy of Proto_Gpsd_LogEntry(v34, type metadata accessor for Proto_Gpsd_LogEntry);
-      outlined destroy of Any?(v26, &_s10ALProtobuf19Proto_Gpsd_LogEntryVSgMd, &_s10ALProtobuf19Proto_Gpsd_LogEntryVSgMR);
-      outlined destroy of Proto_Gpsd_LogEntry(v33, type metadata accessor for Proto_Gpsd_LogEntry);
-      outlined destroy of Any?(v20, &_s10ALProtobuf19Proto_Gpsd_LogEntryVSgMd, &_s10ALProtobuf19Proto_Gpsd_LogEntryVSgMR);
-      if (v35)
-      {
-        goto LABEL_9;
-      }
-
-LABEL_7:
-
-      return 0;
-    }
-
-    outlined destroy of Any?(v26, &_s10ALProtobuf19Proto_Gpsd_LogEntryVSgMd, &_s10ALProtobuf19Proto_Gpsd_LogEntryVSgMR);
-    outlined destroy of Proto_Gpsd_LogEntry(v33, type metadata accessor for Proto_Gpsd_LogEntry);
-LABEL_6:
-    outlined destroy of Any?(v20, &_s10ALProtobuf19Proto_Gpsd_LogEntryVSg_ADtMd, &_s10ALProtobuf19Proto_Gpsd_LogEntryVSg_ADtMR);
-    goto LABEL_7;
-  }
-
-  outlined destroy of Any?(v26, &_s10ALProtobuf19Proto_Gpsd_LogEntryVSgMd, &_s10ALProtobuf19Proto_Gpsd_LogEntryVSgMR);
-  if (v32(&v20[v31], 1, v12) != 1)
-  {
-    goto LABEL_6;
-  }
-
-  outlined destroy of Any?(v20, &_s10ALProtobuf19Proto_Gpsd_LogEntryVSgMd, &_s10ALProtobuf19Proto_Gpsd_LogEntryVSgMR);
-LABEL_9:
-  v36 = OBJC_IVAR____TtCV10ALProtobuf43CLP_LogEntry_PrivateData_PrivateDataCaptureP33_EAF2BEFD088097B94979D70F24702EAF13_StorageClass__aonlocLogEntry;
-  swift_beginAccess();
-  v37 = v54;
-  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(a1 + v36, v54, &_s10ALProtobuf020CLP_LogEntry_AONLoc_cD0VSgMd, &_s10ALProtobuf020CLP_LogEntry_AONLoc_cD0VSgMR);
-  v38 = OBJC_IVAR____TtCV10ALProtobuf43CLP_LogEntry_PrivateData_PrivateDataCaptureP33_EAF2BEFD088097B94979D70F24702EAF13_StorageClass__aonlocLogEntry;
-  swift_beginAccess();
-  v39 = *(v52 + 48);
-  v40 = v56;
-  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v37, v56, &_s10ALProtobuf020CLP_LogEntry_AONLoc_cD0VSgMd, &_s10ALProtobuf020CLP_LogEntry_AONLoc_cD0VSgMR);
-  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v29 + v38, v40 + v39, &_s10ALProtobuf020CLP_LogEntry_AONLoc_cD0VSgMd, &_s10ALProtobuf020CLP_LogEntry_AONLoc_cD0VSgMR);
-  v41 = *(v53 + 48);
-  v42 = v55;
-  if (v41(v40, 1, v55) == 1)
-  {
-
-    outlined destroy of Any?(v37, &_s10ALProtobuf020CLP_LogEntry_AONLoc_cD0VSgMd, &_s10ALProtobuf020CLP_LogEntry_AONLoc_cD0VSgMR);
-    if (v41(v40 + v39, 1, v42) == 1)
-    {
-      outlined destroy of Any?(v40, &_s10ALProtobuf020CLP_LogEntry_AONLoc_cD0VSgMd, &_s10ALProtobuf020CLP_LogEntry_AONLoc_cD0VSgMR);
-      return 1;
-    }
-
-    goto LABEL_14;
-  }
-
-  v43 = v50;
-  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v40, v50, &_s10ALProtobuf020CLP_LogEntry_AONLoc_cD0VSgMd, &_s10ALProtobuf020CLP_LogEntry_AONLoc_cD0VSgMR);
-  if (v41(v40 + v39, 1, v42) == 1)
-  {
-
-    outlined destroy of Any?(v37, &_s10ALProtobuf020CLP_LogEntry_AONLoc_cD0VSgMd, &_s10ALProtobuf020CLP_LogEntry_AONLoc_cD0VSgMR);
-    outlined destroy of Proto_Gpsd_LogEntry(v43, type metadata accessor for CLP_LogEntry_AONLoc_LogEntry);
-LABEL_14:
-    outlined destroy of Any?(v40, &_s10ALProtobuf020CLP_LogEntry_AONLoc_cD0VSg_ADtMd, &_s10ALProtobuf020CLP_LogEntry_AONLoc_cD0VSg_ADtMR);
-    return 0;
-  }
-
-  v45 = v40 + v39;
-  v46 = v49;
-  outlined init with take of Proto_Gpsd_LogEntry(v45, v49, type metadata accessor for CLP_LogEntry_AONLoc_LogEntry);
-  lazy protocol witness table accessor for type CLP_LogEntry_PrivateData_PrivateDataCapture and conformance CLP_LogEntry_PrivateData_PrivateDataCapture(&lazy protocol witness table cache variable for type CLP_LogEntry_AONLoc_LogEntry and conformance CLP_LogEntry_AONLoc_LogEntry, type metadata accessor for CLP_LogEntry_AONLoc_LogEntry);
-  v47 = dispatch thunk of static Equatable.== infix(_:_:)();
-
-  outlined destroy of Proto_Gpsd_LogEntry(v46, type metadata accessor for CLP_LogEntry_AONLoc_LogEntry);
-  outlined destroy of Any?(v37, &_s10ALProtobuf020CLP_LogEntry_AONLoc_cD0VSgMd, &_s10ALProtobuf020CLP_LogEntry_AONLoc_cD0VSgMR);
-  outlined destroy of Proto_Gpsd_LogEntry(v43, type metadata accessor for CLP_LogEntry_AONLoc_LogEntry);
-  outlined destroy of Any?(v40, &_s10ALProtobuf020CLP_LogEntry_AONLoc_cD0VSgMd, &_s10ALProtobuf020CLP_LogEntry_AONLoc_cD0VSgMR);
-  return (v47 & 1) != 0;
-}
-
-Swift::Int CLP_LogEntry_PrivateData_PrivateDataCapture.hashValue.getter()
-{
-  Hasher.init(_seed:)();
-  type metadata accessor for CLP_LogEntry_PrivateData_PrivateDataCapture(0);
-  lazy protocol witness table accessor for type CLP_LogEntry_PrivateData_PrivateDataCapture and conformance CLP_LogEntry_PrivateData_PrivateDataCapture(&lazy protocol witness table cache variable for type CLP_LogEntry_PrivateData_PrivateDataCapture and conformance CLP_LogEntry_PrivateData_PrivateDataCapture, type metadata accessor for CLP_LogEntry_PrivateData_PrivateDataCapture);
-  dispatch thunk of Hashable.hash(into:)();
-  return Hasher._finalize()();
-}
-
-uint64_t protocol witness for Message.init() in conformance CLP_LogEntry_PrivateData_PrivateDataCapture@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
-{
-  UnknownStorage.init()();
-  v4 = *(a1 + 20);
-  if (one-time initialization token for defaultInstance != -1)
-  {
-    swift_once();
-  }
-
-  *(a2 + v4) = static CLP_LogEntry_PrivateData_PrivateDataCapture._StorageClass.defaultInstance;
-}
-
-uint64_t protocol witness for Message.isEqualTo(message:) in conformance CLP_LogEntry_PrivateData_PrivateDataCapture(uint64_t a1, uint64_t a2)
-{
-  v4 = lazy protocol witness table accessor for type CLP_LogEntry_PrivateData_PrivateDataCapture and conformance CLP_LogEntry_PrivateData_PrivateDataCapture(&lazy protocol witness table cache variable for type CLP_LogEntry_PrivateData_PrivateDataCapture and conformance CLP_LogEntry_PrivateData_PrivateDataCapture, type metadata accessor for CLP_LogEntry_PrivateData_PrivateDataCapture);
-
-  return MEMORY[0x28217E230](a1, a2, v4);
-}
-
-uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance CLP_LogEntry_PrivateData_PrivateDataCapture(uint64_t a1)
-{
-  v2 = lazy protocol witness table accessor for type CLP_LogEntry_PrivateData_PrivateDataCapture and conformance CLP_LogEntry_PrivateData_PrivateDataCapture(&lazy protocol witness table cache variable for type CLP_LogEntry_PrivateData_PrivateDataCapture and conformance CLP_LogEntry_PrivateData_PrivateDataCapture, type metadata accessor for CLP_LogEntry_PrivateData_PrivateDataCapture);
-
-  return MEMORY[0x28217E428](a1, v2);
-}
-
-uint64_t protocol witness for Hashable.hash(into:) in conformance CLP_LogEntry_PrivateData_PrivateDataCapture(uint64_t a1, uint64_t a2)
-{
-  v4 = lazy protocol witness table accessor for type CLP_LogEntry_PrivateData_PrivateDataCapture and conformance CLP_LogEntry_PrivateData_PrivateDataCapture(&lazy protocol witness table cache variable for type CLP_LogEntry_PrivateData_PrivateDataCapture and conformance CLP_LogEntry_PrivateData_PrivateDataCapture, type metadata accessor for CLP_LogEntry_PrivateData_PrivateDataCapture);
-
-  return MEMORY[0x28217E440](a1, a2, v4);
-}
-
-uint64_t specialized static CLP_LogEntry_PrivateData_PrivateDataCapture.== infix(_:_:)(uint64_t a1, uint64_t a2)
-{
-  v4 = *(type metadata accessor for CLP_LogEntry_PrivateData_PrivateDataCapture(0) + 20);
-  v5 = *(a1 + v4);
-  v6 = *(a2 + v4);
-  if (v5 != v6)
-  {
-    v7 = *(a1 + v4);
-
-    v8 = closure #1 in static CLP_LogEntry_PrivateData_PrivateDataCapture.== infix(_:_:)(v5, v6);
-
-    if (!v8)
-    {
-      return 0;
-    }
-  }
-
-  type metadata accessor for UnknownStorage();
-  lazy protocol witness table accessor for type CLP_LogEntry_PrivateData_PrivateDataCapture and conformance CLP_LogEntry_PrivateData_PrivateDataCapture(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8]);
-  return dispatch thunk of static Equatable.== infix(_:_:)() & 1;
-}
-
-uint64_t lazy protocol witness table accessor for type CLP_LogEntry_PrivateData_PrivateDataCapture and conformance CLP_LogEntry_PrivateData_PrivateDataCapture(unint64_t *a1, void (*a2)(uint64_t))
-{
-  result = *a1;
-  if (!result)
-  {
-    a2(255);
-    result = swift_getWitnessTable();
-    atomic_store(result, a1);
-  }
-
-  return result;
-}
-
-uint64_t type metadata completion function for CLP_LogEntry_PrivateData_PrivateDataCapture()
-{
-  result = type metadata accessor for UnknownStorage();
-  if (v1 <= 0x3F)
-  {
-    result = type metadata accessor for CLP_LogEntry_PrivateData_PrivateDataCapture._StorageClass(319);
-    if (v2 <= 0x3F)
-    {
-      swift_cvw_initStructMetadataWithLayoutString();
-      return 0;
-    }
-  }
-
-  return result;
-}
-
-void type metadata completion function for CLP_LogEntry_PrivateData_PrivateDataCapture._StorageClass()
-{
-  type metadata accessor for Proto_Gpsd_LogEntry?(319, &lazy cache variable for type metadata for Proto_Gpsd_LogEntry?, type metadata accessor for Proto_Gpsd_LogEntry);
-  if (v1 <= 0x3F)
-  {
-    v4 = *(v0 - 8) + 64;
-    type metadata accessor for Proto_Gpsd_LogEntry?(319, &lazy cache variable for type metadata for CLP_LogEntry_AONLoc_LogEntry?, type metadata accessor for CLP_LogEntry_AONLoc_LogEntry);
-    if (v3 <= 0x3F)
-    {
-      v5 = *(v2 - 8) + 64;
-      swift_updateClassMetadata2();
-    }
-  }
-}
-
-void type metadata accessor for Proto_Gpsd_LogEntry?(uint64_t a1, unint64_t *a2, void (*a3)(uint64_t))
-{
-  if (!*a2)
-  {
-    a3(255);
-    v4 = type metadata accessor for Optional();
-    if (!v5)
-    {
-      atomic_store(v4, a2);
-    }
-  }
-}
-
-uint64_t protocol witness for Hashable.hash(into:) in conformance CLP_LogEntry_PrivateData_ClientLocationReferenceFrameType(uint64_t a1, uint64_t a2)
-{
-  v4 = lazy protocol witness table accessor for type CLP_LogEntry_PrivateData_ClientLocationReferenceFrameType and conformance CLP_LogEntry_PrivateData_ClientLocationReferenceFrameType();
-
-  return MEMORY[0x28217E238](a1, a2, v4);
-}
-
-uint64_t protocol witness for Hashable.hash(into:) in conformance CLP_LogEntry_PrivateData_LocationType(uint64_t a1, uint64_t a2)
-{
-  v4 = lazy protocol witness table accessor for type CLP_LogEntry_PrivateData_LocationType and conformance CLP_LogEntry_PrivateData_LocationType();
-
-  return MEMORY[0x28217E238](a1, a2, v4);
-}
-
-unint64_t protocol witness for Enum.init(rawValue:) in conformance CLP_LogEntry_PrivateData_LocationType@<X0>(unint64_t a1@<X0>, _BYTE *a2@<X8>)
-{
-  result = specialized CLP_LogEntry_PrivateData_LocationType.init(rawValue:)(a1);
-  *a2 = result;
-  return result;
-}
-
-unint64_t protocol witness for RawRepresentable.init(rawValue:) in conformance CLP_LogEntry_PrivateData_LocationType@<X0>(unint64_t *a1@<X0>, _BYTE *a2@<X8>)
-{
-  result = specialized CLP_LogEntry_PrivateData_LocationType.init(rawValue:)(*a1);
-  *a2 = result;
-  return result;
-}
-
-uint64_t protocol witness for Hashable.hash(into:) in conformance CLP_LogEntry_PrivateData_ClientSatelliteConstellation(uint64_t a1, uint64_t a2)
-{
-  v4 = lazy protocol witness table accessor for type CLP_LogEntry_PrivateData_ClientSatelliteConstellation and conformance CLP_LogEntry_PrivateData_ClientSatelliteConstellation();
-
-  return MEMORY[0x28217E238](a1, a2, v4);
-}
-
-uint64_t protocol witness for Hashable.hash(into:) in conformance CLP_LogEntry_PrivateData_BatchedLocationFixType(uint64_t a1, uint64_t a2)
-{
-  fixed = lazy protocol witness table accessor for type CLP_LogEntry_PrivateData_BatchedLocationFixType and conformance CLP_LogEntry_PrivateData_BatchedLocationFixType();
-
-  return MEMORY[0x28217E238](a1, a2, fixed);
-}
-
-uint64_t protocol witness for Hashable.hash(into:) in conformance CLP_LogEntry_PrivateData_GnssModeOfOperation(uint64_t a1, uint64_t a2)
-{
-  v4 = lazy protocol witness table accessor for type CLP_LogEntry_PrivateData_GnssModeOfOperation and conformance CLP_LogEntry_PrivateData_GnssModeOfOperation();
-
-  return MEMORY[0x28217E238](a1, a2, v4);
-}
-
-uint64_t protocol witness for Hashable.hash(into:) in conformance CLP_LogEntry_PrivateData_RhythmicGnssWakeMode(uint64_t a1, uint64_t a2)
-{
-  v4 = lazy protocol witness table accessor for type CLP_LogEntry_PrivateData_RhythmicGnssWakeMode and conformance CLP_LogEntry_PrivateData_RhythmicGnssWakeMode();
-
-  return MEMORY[0x28217E238](a1, a2, v4);
-}
-
-uint64_t protocol witness for Hashable.hash(into:) in conformance CLP_LogEntry_PrivateData_BatchMode(uint64_t a1, uint64_t a2)
-{
-  v4 = lazy protocol witness table accessor for type CLP_LogEntry_PrivateData_BatchMode and conformance CLP_LogEntry_PrivateData_BatchMode();
-
-  return MEMORY[0x28217E238](a1, a2, v4);
-}
-
-uint64_t protocol witness for Hashable.hash(into:) in conformance CLP_LogEntry_PrivateData_OperatingMode(uint64_t a1, uint64_t a2)
-{
-  v4 = lazy protocol witness table accessor for type CLP_LogEntry_PrivateData_OperatingMode and conformance CLP_LogEntry_PrivateData_OperatingMode();
-
-  return MEMORY[0x28217E238](a1, a2, v4);
-}
-
-uint64_t protocol witness for Hashable.hash(into:) in conformance CLP_LogEntry_PrivateData_PipelineOperatingMode(uint64_t a1, uint64_t a2)
-{
-  v4 = lazy protocol witness table accessor for type CLP_LogEntry_PrivateData_PipelineOperatingMode and conformance CLP_LogEntry_PrivateData_PipelineOperatingMode();
-
-  return MEMORY[0x28217E238](a1, a2, v4);
-}
-
-uint64_t protocol witness for Hashable.hash(into:) in conformance CLP_LogEntry_PrivateData_DominantMotionModeType(uint64_t a1, uint64_t a2)
-{
-  v4 = lazy protocol witness table accessor for type CLP_LogEntry_PrivateData_DominantMotionModeType and conformance CLP_LogEntry_PrivateData_DominantMotionModeType();
-
-  return MEMORY[0x28217E238](a1, a2, v4);
-}
-
-uint64_t protocol witness for Enum.init(rawValue:) in conformance CLP_LogEntry_PrivateData_DominantMotionModeType@<X0>(uint64_t a1@<X0>, _BYTE *a2@<X8>)
-{
-  result = specialized CLP_LogEntry_PrivateData_DominantMotionModeType.init(rawValue:)(a1);
-  *a2 = result;
-  return result;
-}
-
-uint64_t protocol witness for RawRepresentable.init(rawValue:) in conformance CLP_LogEntry_PrivateData_DominantMotionModeType@<X0>(uint64_t *a1@<X0>, _BYTE *a2@<X8>)
-{
-  result = specialized CLP_LogEntry_PrivateData_DominantMotionModeType.init(rawValue:)(*a1);
-  *a2 = result;
-  return result;
-}
-
-uint64_t protocol witness for Hashable.hash(into:) in conformance CLP_LogEntry_PrivateData_ReachabilityType(uint64_t a1, uint64_t a2)
-{
-  v4 = lazy protocol witness table accessor for type CLP_LogEntry_PrivateData_ReachabilityType and conformance CLP_LogEntry_PrivateData_ReachabilityType();
-
-  return MEMORY[0x28217E238](a1, a2, v4);
-}
-
-uint64_t protocol witness for Enum.init(rawValue:) in conformance CLP_LogEntry_PrivateData_ReachabilityType@<X0>(uint64_t a1@<X0>, _BYTE *a2@<X8>)
-{
-  result = specialized CLP_LogEntry_PrivateData_ReachabilityType.init(rawValue:)(a1);
-  *a2 = result;
-  return result;
-}
-
-uint64_t protocol witness for RawRepresentable.init(rawValue:) in conformance CLP_LogEntry_PrivateData_ReachabilityType@<X0>(uint64_t *a1@<X0>, _BYTE *a2@<X8>)
-{
-  result = specialized CLP_LogEntry_PrivateData_ReachabilityType.init(rawValue:)(*a1);
-  *a2 = result;
-  return result;
-}
-
-uint64_t protocol witness for Hashable.hash(into:) in conformance CLP_LogEntry_PrivateData_BatteryChargerType(uint64_t a1, uint64_t a2)
-{
-  v4 = lazy protocol witness table accessor for type CLP_LogEntry_PrivateData_BatteryChargerType and conformance CLP_LogEntry_PrivateData_BatteryChargerType();
-
-  return MEMORY[0x28217E238](a1, a2, v4);
-}
-
-uint64_t protocol witness for Hashable.hash(into:) in conformance CLP_LogEntry_PrivateData_SignalEnvironmentFidelityLevel(uint64_t a1, uint64_t a2)
-{
-  v4 = lazy protocol witness table accessor for type CLP_LogEntry_PrivateData_SignalEnvironmentFidelityLevel and conformance CLP_LogEntry_PrivateData_SignalEnvironmentFidelityLevel();
-
-  return MEMORY[0x28217E238](a1, a2, v4);
-}
-
-uint64_t protocol witness for Hashable.hash(into:) in conformance CLP_LogEntry_PrivateData_MotionTypeCompassCalibrationLevel(uint64_t a1, uint64_t a2)
-{
-  v4 = lazy protocol witness table accessor for type CLP_LogEntry_PrivateData_MotionTypeCompassCalibrationLevel and conformance CLP_LogEntry_PrivateData_MotionTypeCompassCalibrationLevel();
-
-  return MEMORY[0x28217E238](a1, a2, v4);
-}
-
-uint64_t protocol witness for Hashable.hash(into:) in conformance CLP_LogEntry_PrivateData_SensorFusionMode(uint64_t a1, uint64_t a2)
-{
-  v4 = lazy protocol witness table accessor for type CLP_LogEntry_PrivateData_SensorFusionMode and conformance CLP_LogEntry_PrivateData_SensorFusionMode();
-
-  return MEMORY[0x28217E238](a1, a2, v4);
-}
-
-uint64_t protocol witness for Hashable.hash(into:) in conformance CLP_LogEntry_PrivateData_WifiAccessPointMode(uint64_t a1, uint64_t a2)
-{
-  v4 = lazy protocol witness table accessor for type CLP_LogEntry_PrivateData_WifiAccessPointMode and conformance CLP_LogEntry_PrivateData_WifiAccessPointMode();
-
-  return MEMORY[0x28217E238](a1, a2, v4);
-}
-
-uint64_t protocol witness for Hashable.hash(into:) in conformance CLP_LogEntry_PrivateData_WifiRfBand(uint64_t a1, uint64_t a2)
-{
-  v4 = lazy protocol witness table accessor for type CLP_LogEntry_PrivateData_WifiRfBand and conformance CLP_LogEntry_PrivateData_WifiRfBand();
-
-  return MEMORY[0x28217E238](a1, a2, v4);
-}
-
-uint64_t protocol witness for Hashable.hash(into:) in conformance CLP_LogEntry_PrivateData_WifiScanType(uint64_t a1, uint64_t a2)
-{
-  v4 = lazy protocol witness table accessor for type CLP_LogEntry_PrivateData_WifiScanType and conformance CLP_LogEntry_PrivateData_WifiScanType();
-
-  return MEMORY[0x28217E238](a1, a2, v4);
-}
-
-unint64_t protocol witness for RawRepresentable.init(rawValue:) in conformance CLP_LogEntry_PrivateData_WifiScanType@<X0>(unint64_t *a1@<X0>, _BYTE *a2@<X8>)
-{
-  result = _s10ALProtobuf37CLP_LogEntry_PrivateData_WifiScanTypeO8rawValueACSgSi_tcfC_0(*a1);
-  *a2 = result;
-  return result;
-}
-
-uint64_t protocol witness for Hashable.hash(into:) in conformance CLP_LogEntry_PrivateData_WifiNotificationType(uint64_t a1, uint64_t a2)
-{
-  v4 = lazy protocol witness table accessor for type CLP_LogEntry_PrivateData_WifiNotificationType and conformance CLP_LogEntry_PrivateData_WifiNotificationType();
-
-  return MEMORY[0x28217E238](a1, a2, v4);
-}
-
-uint64_t protocol witness for Hashable.hash(into:) in conformance CLP_LogEntry_PrivateData_LocationServicesEnabled(uint64_t a1, uint64_t a2)
-{
-  v4 = lazy protocol witness table accessor for type CLP_LogEntry_PrivateData_LocationServicesEnabled and conformance CLP_LogEntry_PrivateData_LocationServicesEnabled();
-
-  return MEMORY[0x28217E238](a1, a2, v4);
-}
-
-uint64_t protocol witness for Hashable.hash(into:) in conformance CLP_LogEntry_PrivateData_DataAvailability(uint64_t a1, uint64_t a2)
-{
-  v4 = lazy protocol witness table accessor for type CLP_LogEntry_PrivateData_DataAvailability and conformance CLP_LogEntry_PrivateData_DataAvailability();
-
-  return MEMORY[0x28217E238](a1, a2, v4);
-}
-
-uint64_t protocol witness for Hashable.hash(into:) in conformance CLP_LogEntry_PrivateData_IndoorOutdoorType(uint64_t a1, uint64_t a2)
-{
-  v4 = lazy protocol witness table accessor for type CLP_LogEntry_PrivateData_IndoorOutdoorType and conformance CLP_LogEntry_PrivateData_IndoorOutdoorType();
-
-  return MEMORY[0x28217E238](a1, a2, v4);
-}
-
-uint64_t protocol witness for Hashable.hash(into:) in conformance CLP_LogEntry_PrivateData_IndoorOutdoorConfidence(uint64_t a1, uint64_t a2)
-{
-  v4 = lazy protocol witness table accessor for type CLP_LogEntry_PrivateData_IndoorOutdoorConfidence and conformance CLP_LogEntry_PrivateData_IndoorOutdoorConfidence();
-
-  return MEMORY[0x28217E238](a1, a2, v4);
-}
-
-uint64_t CLP_LogEntry_PrivateData_TimeStamp.cfAbsoluteTimeS.setter(double a1)
-{
-  result = type metadata accessor for CLP_LogEntry_PrivateData_TimeStamp(0);
-  v4 = v1 + *(result + 20);
-  *v4 = a1;
-  *(v4 + 8) = 0;
-  return result;
-}
-
-uint64_t (*CLP_LogEntry_PrivateData_TimeStamp.cfAbsoluteTimeS.modify(uint64_t a1))()
-{
-  *(a1 + 8) = v1;
-  v3 = *(type metadata accessor for CLP_LogEntry_PrivateData_TimeStamp(0) + 20);
-  *(a1 + 16) = v3;
-  v4 = v1 + v3;
-  v5 = *v4;
-  if (*(v4 + 8))
-  {
-    v5 = 0.0;
-  }
-
-  *a1 = v5;
-  return CLP_LogEntry_AONLoc_Request.machContinuousTimeNs.modify;
-}
-
-Swift::Void __swiftcall CLP_LogEntry_PrivateData_TimeStamp.clearCfAbsoluteTimeS()()
-{
-  v1 = v0 + *(type metadata accessor for CLP_LogEntry_PrivateData_TimeStamp(0) + 20);
-  *v1 = 0;
-  *(v1 + 8) = 1;
-}
-
-uint64_t CLP_LogEntry_PrivateData_TimeStamp.machAbsoluteTimeS.setter(double a1)
-{
-  result = type metadata accessor for CLP_LogEntry_PrivateData_TimeStamp(0);
-  v4 = v1 + *(result + 24);
-  *v4 = a1;
-  *(v4 + 8) = 0;
-  return result;
-}
-
-uint64_t (*CLP_LogEntry_PrivateData_TimeStamp.machAbsoluteTimeS.modify(uint64_t a1))()
-{
-  *(a1 + 8) = v1;
-  v3 = *(type metadata accessor for CLP_LogEntry_PrivateData_TimeStamp(0) + 24);
-  *(a1 + 16) = v3;
-  v4 = v1 + v3;
-  v5 = *v4;
-  if (*(v4 + 8))
-  {
-    v5 = 0.0;
-  }
-
-  *a1 = v5;
-  return CLP_LogEntry_AONLoc_Request.machContinuousTimeNs.modify;
-}
-
-Swift::Void __swiftcall CLP_LogEntry_PrivateData_TimeStamp.clearMachAbsoluteTimeS()()
-{
-  v1 = v0 + *(type metadata accessor for CLP_LogEntry_PrivateData_TimeStamp(0) + 24);
-  *v1 = 0;
-  *(v1 + 8) = 1;
-}
-
-uint64_t CLP_LogEntry_PrivateData_TimeStamp.machContinuousTimeS.setter(double a1)
-{
-  result = type metadata accessor for CLP_LogEntry_PrivateData_TimeStamp(0);
-  v4 = v1 + *(result + 28);
-  *v4 = a1;
-  *(v4 + 8) = 0;
-  return result;
-}
-
-uint64_t (*CLP_LogEntry_PrivateData_TimeStamp.machContinuousTimeS.modify(uint64_t a1))()
-{
-  *(a1 + 8) = v1;
-  v3 = *(type metadata accessor for CLP_LogEntry_PrivateData_TimeStamp(0) + 28);
-  *(a1 + 16) = v3;
-  v4 = v1 + v3;
-  v5 = *v4;
-  if (*(v4 + 8))
-  {
-    v5 = 0.0;
-  }
-
-  *a1 = v5;
-  return CLP_LogEntry_AONLoc_Request.machContinuousTimeNs.modify;
-}
-
-Swift::Void __swiftcall CLP_LogEntry_PrivateData_TimeStamp.clearMachContinuousTimeS()()
-{
-  v1 = v0 + *(type metadata accessor for CLP_LogEntry_PrivateData_TimeStamp(0) + 28);
-  *v1 = 0;
-  *(v1 + 8) = 1;
-}
-
-uint64_t (*CLP_LogEntry_PrivateData_AccelSample.applicableTime.modify(void *a1))()
-{
-  v3 = MEMORY[0x277D84FD8];
-  if (MEMORY[0x277D84FD8])
-  {
-    v4 = swift_coroFrameAlloc();
-  }
-
-  else
-  {
-    v4 = malloc(0x38uLL);
-  }
-
-  v5 = v4;
-  *a1 = v4;
-  *v4 = v1;
-  v6 = *(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf34CLP_LogEntry_PrivateData_TimeStampVSgMd, &_s10ALProtobuf34CLP_LogEntry_PrivateData_TimeStampVSgMR) - 8) + 64);
-  if (v3)
-  {
-    v7 = swift_coroFrameAlloc();
-  }
-
-  else
-  {
-    v7 = malloc(v6);
-  }
-
-  v8 = v7;
-  v5[1] = v7;
-  v9 = type metadata accessor for CLP_LogEntry_PrivateData_TimeStamp(0);
-  v5[2] = v9;
-  v10 = *(v9 - 1);
-  v11 = v10;
-  v5[3] = v10;
-  v12 = *(v10 + 64);
-  if (v3)
-  {
-    v5[4] = swift_coroFrameAlloc();
-    v13 = swift_coroFrameAlloc();
-  }
-
-  else
-  {
-    v5[4] = malloc(*(v10 + 64));
-    v13 = malloc(v12);
-  }
-
-  v14 = v13;
-  v5[5] = v13;
-  v15 = *(type metadata accessor for CLP_LogEntry_PrivateData_AccelSample(0) + 20);
-  *(v5 + 12) = v15;
-  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v1 + v15, v8, &_s10ALProtobuf34CLP_LogEntry_PrivateData_TimeStampVSgMd, &_s10ALProtobuf34CLP_LogEntry_PrivateData_TimeStampVSgMR);
-  v16 = *(v11 + 48);
-  if (v16(v8, 1, v9) == 1)
-  {
-    UnknownStorage.init()();
-    v17 = v14 + v9[5];
-    *v17 = 0;
-    *(v17 + 8) = 1;
-    v18 = v14 + v9[6];
-    *v18 = 0;
-    *(v18 + 8) = 1;
-    v19 = v14 + v9[7];
-    *v19 = 0;
-    *(v19 + 8) = 1;
-    if (v16(v8, 1, v9) != 1)
-    {
-      outlined destroy of Any?(v8, &_s10ALProtobuf34CLP_LogEntry_PrivateData_TimeStampVSgMd, &_s10ALProtobuf34CLP_LogEntry_PrivateData_TimeStampVSgMR);
-    }
-  }
-
-  else
-  {
-    outlined init with take of CLP_LogEntry_PrivateData_TimeStamp(v8, v14, type metadata accessor for CLP_LogEntry_PrivateData_TimeStamp);
-  }
-
-  return CLP_LogEntry_PrivateData_AccelSample.applicableTime.modify;
-}
-
-uint64_t CLP_LogEntry_PrivateData_AccelSample.xMps2.setter(float a1)
-{
-  result = type metadata accessor for CLP_LogEntry_PrivateData_AccelSample(0);
-  v4 = v1 + *(result + 24);
-  *v4 = a1;
-  *(v4 + 4) = 0;
-  return result;
-}
-
-uint64_t (*CLP_LogEntry_PrivateData_AccelSample.xMps2.modify(uint64_t a1))()
-{
-  *a1 = v1;
-  v3 = *(type metadata accessor for CLP_LogEntry_PrivateData_AccelSample(0) + 24);
-  *(a1 + 12) = v3;
-  v4 = v1 + v3;
-  v5 = *v4;
-  if (*(v4 + 4))
-  {
-    v5 = 0.0;
-  }
-
-  *(a1 + 8) = v5;
-  return CLP_LogEntry_AONLoc_Request.processID.modify;
-}
-
-Swift::Void __swiftcall CLP_LogEntry_PrivateData_AccelSample.clearXMps2()()
-{
-  v1 = v0 + *(type metadata accessor for CLP_LogEntry_PrivateData_AccelSample(0) + 24);
-  *v1 = 0;
-  *(v1 + 4) = 1;
-}
-
-uint64_t CLP_LogEntry_PrivateData_AccelSample.yMps2.setter(float a1)
-{
-  result = type metadata accessor for CLP_LogEntry_PrivateData_AccelSample(0);
-  v4 = v1 + *(result + 28);
-  *v4 = a1;
-  *(v4 + 4) = 0;
-  return result;
-}
-
-uint64_t (*CLP_LogEntry_PrivateData_AccelSample.yMps2.modify(uint64_t a1))()
-{
-  *a1 = v1;
-  v3 = *(type metadata accessor for CLP_LogEntry_PrivateData_AccelSample(0) + 28);
-  *(a1 + 12) = v3;
-  v4 = v1 + v3;
-  v5 = *v4;
-  if (*(v4 + 4))
-  {
-    v5 = 0.0;
-  }
-
-  *(a1 + 8) = v5;
-  return CLP_LogEntry_AONLoc_Request.processID.modify;
-}
-
-Swift::Void __swiftcall CLP_LogEntry_PrivateData_AccelSample.clearYMps2()()
-{
-  v1 = v0 + *(type metadata accessor for CLP_LogEntry_PrivateData_AccelSample(0) + 28);
-  *v1 = 0;
-  *(v1 + 4) = 1;
-}
-
-uint64_t CLP_LogEntry_PrivateData_AccelSample.zMps2.setter(float a1)
-{
-  result = type metadata accessor for CLP_LogEntry_PrivateData_AccelSample(0);
-  v4 = v1 + *(result + 32);
-  *v4 = a1;
-  *(v4 + 4) = 0;
-  return result;
-}
-
-uint64_t (*CLP_LogEntry_PrivateData_AccelSample.zMps2.modify(uint64_t a1))()
-{
-  *a1 = v1;
-  v3 = *(type metadata accessor for CLP_LogEntry_PrivateData_AccelSample(0) + 32);
-  *(a1 + 12) = v3;
-  v4 = v1 + v3;
-  v5 = *v4;
-  if (*(v4 + 4))
-  {
-    v5 = 0.0;
-  }
-
-  *(a1 + 8) = v5;
-  return CLP_LogEntry_AONLoc_Request.processID.modify;
-}
-
-Swift::Void __swiftcall CLP_LogEntry_PrivateData_AccelSample.clearZMps2()()
-{
-  v1 = v0 + *(type metadata accessor for CLP_LogEntry_PrivateData_AccelSample(0) + 32);
-  *v1 = 0;
-  *(v1 + 4) = 1;
-}
-
-uint64_t CLP_LogEntry_PrivateData_Accel.eventReceiptTime.setter(uint64_t a1)
-{
-  v3 = *(type metadata accessor for CLP_LogEntry_PrivateData_Accel(0) + 24);
-  outlined destroy of Any?(v1 + v3, &_s10ALProtobuf34CLP_LogEntry_PrivateData_TimeStampVSgMd, &_s10ALProtobuf34CLP_LogEntry_PrivateData_TimeStampVSgMR);
-  outlined init with take of CLP_LogEntry_PrivateData_TimeStamp(a1, v1 + v3, type metadata accessor for CLP_LogEntry_PrivateData_TimeStamp);
-  v4 = type metadata accessor for CLP_LogEntry_PrivateData_TimeStamp(0);
-  v5 = *(*(v4 - 8) + 56);
-
-  return v5(v1 + v3, 0, 1, v4);
-}
-
-uint64_t (*CLP_LogEntry_PrivateData_Accel.eventReceiptTime.modify(void *a1))()
-{
-  v3 = MEMORY[0x277D84FD8];
-  if (MEMORY[0x277D84FD8])
-  {
-    v4 = swift_coroFrameAlloc();
-  }
-
-  else
-  {
-    v4 = malloc(0x38uLL);
-  }
-
-  v5 = v4;
-  *a1 = v4;
-  *v4 = v1;
-  v6 = *(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf34CLP_LogEntry_PrivateData_TimeStampVSgMd, &_s10ALProtobuf34CLP_LogEntry_PrivateData_TimeStampVSgMR) - 8) + 64);
-  if (v3)
-  {
-    v7 = swift_coroFrameAlloc();
-  }
-
-  else
-  {
-    v7 = malloc(v6);
-  }
-
-  v8 = v7;
-  v5[1] = v7;
-  v9 = type metadata accessor for CLP_LogEntry_PrivateData_TimeStamp(0);
-  v5[2] = v9;
-  v10 = *(v9 - 1);
-  v11 = v10;
-  v5[3] = v10;
-  v12 = *(v10 + 64);
-  if (v3)
-  {
-    v5[4] = swift_coroFrameAlloc();
-    v13 = swift_coroFrameAlloc();
-  }
-
-  else
-  {
-    v5[4] = malloc(*(v10 + 64));
-    v13 = malloc(v12);
-  }
-
-  v14 = v13;
-  v5[5] = v13;
-  v15 = *(type metadata accessor for CLP_LogEntry_PrivateData_Accel(0) + 24);
-  *(v5 + 12) = v15;
-  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v1 + v15, v8, &_s10ALProtobuf34CLP_LogEntry_PrivateData_TimeStampVSgMd, &_s10ALProtobuf34CLP_LogEntry_PrivateData_TimeStampVSgMR);
-  v16 = *(v11 + 48);
-  if (v16(v8, 1, v9) == 1)
-  {
-    UnknownStorage.init()();
-    v17 = v14 + v9[5];
-    *v17 = 0;
-    *(v17 + 8) = 1;
-    v18 = v14 + v9[6];
-    *v18 = 0;
-    *(v18 + 8) = 1;
-    v19 = v14 + v9[7];
-    *v19 = 0;
-    *(v19 + 8) = 1;
-    if (v16(v8, 1, v9) != 1)
-    {
-      outlined destroy of Any?(v8, &_s10ALProtobuf34CLP_LogEntry_PrivateData_TimeStampVSgMd, &_s10ALProtobuf34CLP_LogEntry_PrivateData_TimeStampVSgMR);
-    }
-  }
-
-  else
-  {
-    outlined init with take of CLP_LogEntry_PrivateData_TimeStamp(v8, v14, type metadata accessor for CLP_LogEntry_PrivateData_TimeStamp);
-  }
-
-  return CLP_LogEntry_PrivateData_AccelSample.applicableTime.modify;
-}
-
-uint64_t variable initialization expression of CLP_LogEntry_PrivateData_AccelSample._applicableTime@<X0>(uint64_t (*a1)(void)@<X0>, uint64_t a2@<X8>)
-{
-  v3 = a1(0);
-  v4 = *(*(v3 - 8) + 56);
-
-  return v4(a2, 1, 1, v3);
-}
-
-uint64_t (*CLP_LogEntry_PrivateData_GyroSample.applicableTime.modify(void *a1))()
-{
-  v3 = MEMORY[0x277D84FD8];
-  if (MEMORY[0x277D84FD8])
-  {
-    v4 = swift_coroFrameAlloc();
-  }
-
-  else
-  {
-    v4 = malloc(0x38uLL);
-  }
-
-  v5 = v4;
-  *a1 = v4;
-  *v4 = v1;
-  v6 = *(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf34CLP_LogEntry_PrivateData_TimeStampVSgMd, &_s10ALProtobuf34CLP_LogEntry_PrivateData_TimeStampVSgMR) - 8) + 64);
-  if (v3)
-  {
-    v7 = swift_coroFrameAlloc();
-  }
-
-  else
-  {
-    v7 = malloc(v6);
-  }
-
-  v8 = v7;
-  v5[1] = v7;
-  v9 = type metadata accessor for CLP_LogEntry_PrivateData_TimeStamp(0);
-  v5[2] = v9;
-  v10 = *(v9 - 1);
-  v11 = v10;
-  v5[3] = v10;
-  v12 = *(v10 + 64);
-  if (v3)
-  {
-    v5[4] = swift_coroFrameAlloc();
-    v13 = swift_coroFrameAlloc();
-  }
-
-  else
-  {
-    v5[4] = malloc(*(v10 + 64));
-    v13 = malloc(v12);
-  }
-
-  v14 = v13;
-  v5[5] = v13;
-  v15 = *(type metadata accessor for CLP_LogEntry_PrivateData_GyroSample(0) + 20);
-  *(v5 + 12) = v15;
-  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v1 + v15, v8, &_s10ALProtobuf34CLP_LogEntry_PrivateData_TimeStampVSgMd, &_s10ALProtobuf34CLP_LogEntry_PrivateData_TimeStampVSgMR);
-  v16 = *(v11 + 48);
-  if (v16(v8, 1, v9) == 1)
-  {
-    UnknownStorage.init()();
-    v17 = v14 + v9[5];
-    *v17 = 0;
-    *(v17 + 8) = 1;
-    v18 = v14 + v9[6];
-    *v18 = 0;
-    *(v18 + 8) = 1;
-    v19 = v14 + v9[7];
-    *v19 = 0;
-    *(v19 + 8) = 1;
-    if (v16(v8, 1, v9) != 1)
-    {
-      outlined destroy of Any?(v8, &_s10ALProtobuf34CLP_LogEntry_PrivateData_TimeStampVSgMd, &_s10ALProtobuf34CLP_LogEntry_PrivateData_TimeStampVSgMR);
-    }
-  }
-
-  else
-  {
-    outlined init with take of CLP_LogEntry_PrivateData_TimeStamp(v8, v14, type metadata accessor for CLP_LogEntry_PrivateData_TimeStamp);
-  }
-
-  return CLP_LogEntry_PrivateData_AccelSample.applicableTime.modify;
-}
-
-BOOL CLP_LogEntry_PrivateData_AccelSample.hasApplicableTime.getter(uint64_t *a1, uint64_t *a2, uint64_t (*a3)(void), uint64_t (*a4)(void))
-{
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(a1, a2);
-  v10 = *(*(v9 - 8) + 64);
-  MEMORY[0x28223BE20](v9 - 8);
-  v12 = &v17 - v11;
-  v13 = a3(0);
-  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v4 + *(v13 + 20), v12, a1, a2);
-  v14 = a4(0);
-  v15 = (*(*(v14 - 8) + 48))(v12, 1, v14) != 1;
-  outlined destroy of Any?(v12, a1, a2);
-  return v15;
-}
-
-uint64_t CLP_LogEntry_PrivateData_AccelSample.clearApplicableTime()(uint64_t (*a1)(void), uint64_t *a2, uint64_t *a3, uint64_t (*a4)(void))
-{
-  v8 = *(a1(0) + 20);
-  outlined destroy of Any?(v4 + v8, a2, a3);
-  v9 = a4(0);
-  v10 = *(*(v9 - 8) + 56);
-
-  return v10(v4 + v8, 1, 1, v9);
-}
-
-float CLP_LogEntry_PrivateData_AccelSample.xMps2.getter(uint64_t (*a1)(void))
-{
-  v2 = v1 + *(a1(0) + 24);
-  result = *v2;
-  if (*(v2 + 4))
-  {
-    return 0.0;
-  }
-
-  return result;
-}
-
-uint64_t CLP_LogEntry_PrivateData_GyroSample.xRadps.setter(float a1)
-{
-  result = type metadata accessor for CLP_LogEntry_PrivateData_GyroSample(0);
-  v4 = v1 + *(result + 24);
-  *v4 = a1;
-  *(v4 + 4) = 0;
-  return result;
-}
-
-uint64_t (*CLP_LogEntry_PrivateData_GyroSample.xRadps.modify(uint64_t a1))()
-{
-  *a1 = v1;
-  v3 = *(type metadata accessor for CLP_LogEntry_PrivateData_GyroSample(0) + 24);
-  *(a1 + 12) = v3;
-  v4 = v1 + v3;
-  v5 = *v4;
-  if (*(v4 + 4))
-  {
-    v5 = 0.0;
-  }
-
-  *(a1 + 8) = v5;
-  return CLP_LogEntry_AONLoc_Request.processID.modify;
-}
-
-Swift::Void __swiftcall CLP_LogEntry_PrivateData_GyroSample.clearXRadps()()
-{
-  v1 = v0 + *(type metadata accessor for CLP_LogEntry_PrivateData_GyroSample(0) + 24);
-  *v1 = 0;
-  *(v1 + 4) = 1;
-}
-
-float CLP_LogEntry_PrivateData_AccelSample.yMps2.getter(uint64_t (*a1)(void))
-{
-  v2 = v1 + *(a1(0) + 28);
-  result = *v2;
-  if (*(v2 + 4))
-  {
-    return 0.0;
-  }
-
-  return result;
-}
-
-uint64_t CLP_LogEntry_PrivateData_GyroSample.yRadps.setter(float a1)
-{
-  result = type metadata accessor for CLP_LogEntry_PrivateData_GyroSample(0);
-  v4 = v1 + *(result + 28);
-  *v4 = a1;
-  *(v4 + 4) = 0;
-  return result;
-}
-
-uint64_t (*CLP_LogEntry_PrivateData_GyroSample.yRadps.modify(uint64_t a1))()
-{
-  *a1 = v1;
-  v3 = *(type metadata accessor for CLP_LogEntry_PrivateData_GyroSample(0) + 28);
-  *(a1 + 12) = v3;
-  v4 = v1 + v3;
-  v5 = *v4;
-  if (*(v4 + 4))
-  {
-    v5 = 0.0;
-  }
-
-  *(a1 + 8) = v5;
-  return CLP_LogEntry_AONLoc_Request.processID.modify;
-}
-
-Swift::Void __swiftcall CLP_LogEntry_PrivateData_GyroSample.clearYRadps()()
-{
-  v1 = v0 + *(type metadata accessor for CLP_LogEntry_PrivateData_GyroSample(0) + 28);
-  *v1 = 0;
-  *(v1 + 4) = 1;
-}
-
-float CLP_LogEntry_PrivateData_AccelSample.zMps2.getter(uint64_t (*a1)(void))
-{
-  v2 = v1 + *(a1(0) + 32);
-  result = *v2;
-  if (*(v2 + 4))
-  {
-    return 0.0;
-  }
-
-  return result;
-}
-
-uint64_t CLP_LogEntry_PrivateData_GyroSample.zRadps.setter(float a1)
-{
-  result = type metadata accessor for CLP_LogEntry_PrivateData_GyroSample(0);
-  v4 = v1 + *(result + 32);
-  *v4 = a1;
-  *(v4 + 4) = 0;
-  return result;
-}
-
-uint64_t (*CLP_LogEntry_PrivateData_GyroSample.zRadps.modify(uint64_t a1))()
-{
-  *a1 = v1;
-  v3 = *(type metadata accessor for CLP_LogEntry_PrivateData_GyroSample(0) + 32);
-  *(a1 + 12) = v3;
-  v4 = v1 + v3;
-  v5 = *v4;
-  if (*(v4 + 4))
-  {
-    v5 = 0.0;
-  }
-
-  *(a1 + 8) = v5;
-  return CLP_LogEntry_AONLoc_Request.processID.modify;
-}
-
-Swift::Void __swiftcall CLP_LogEntry_PrivateData_GyroSample.clearZRadps()()
-{
-  v1 = v0 + *(type metadata accessor for CLP_LogEntry_PrivateData_GyroSample(0) + 32);
-  *v1 = 0;
-  *(v1 + 4) = 1;
-}
-
-uint64_t CLP_LogEntry_PrivateData_AccelSample.init()@<X0>(uint64_t (*a1)(void)@<X0>, uint64_t a2@<X8>)
-{
-  UnknownStorage.init()();
-  v4 = a1(0);
-  v5 = v4[5];
-  v6 = type metadata accessor for CLP_LogEntry_PrivateData_TimeStamp(0);
-  result = (*(*(v6 - 8) + 56))(a2 + v5, 1, 1, v6);
-  v8 = a2 + v4[6];
-  *v8 = 0;
-  *(v8 + 4) = 1;
-  v9 = a2 + v4[7];
-  *v9 = 0;
-  *(v9 + 4) = 1;
-  v10 = a2 + v4[8];
-  *v10 = 0;
-  *(v10 + 4) = 1;
-  return result;
-}
-
-uint64_t CLP_LogEntry_PrivateData_Gyro.eventReceiptTime.setter(uint64_t a1)
-{
-  v3 = *(type metadata accessor for CLP_LogEntry_PrivateData_Gyro(0) + 24);
-  outlined destroy of Any?(v1 + v3, &_s10ALProtobuf34CLP_LogEntry_PrivateData_TimeStampVSgMd, &_s10ALProtobuf34CLP_LogEntry_PrivateData_TimeStampVSgMR);
-  outlined init with take of CLP_LogEntry_PrivateData_TimeStamp(a1, v1 + v3, type metadata accessor for CLP_LogEntry_PrivateData_TimeStamp);
-  v4 = type metadata accessor for CLP_LogEntry_PrivateData_TimeStamp(0);
-  v5 = *(*(v4 - 8) + 56);
-
-  return v5(v1 + v3, 0, 1, v4);
-}
-
-uint64_t (*CLP_LogEntry_PrivateData_Gyro.eventReceiptTime.modify(void *a1))()
-{
-  v3 = MEMORY[0x277D84FD8];
-  if (MEMORY[0x277D84FD8])
-  {
-    v4 = swift_coroFrameAlloc();
-  }
-
-  else
-  {
-    v4 = malloc(0x38uLL);
-  }
-
-  v5 = v4;
-  *a1 = v4;
-  *v4 = v1;
-  v6 = *(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf34CLP_LogEntry_PrivateData_TimeStampVSgMd, &_s10ALProtobuf34CLP_LogEntry_PrivateData_TimeStampVSgMR) - 8) + 64);
-  if (v3)
-  {
-    v7 = swift_coroFrameAlloc();
-  }
-
-  else
-  {
-    v7 = malloc(v6);
-  }
-
-  v8 = v7;
-  v5[1] = v7;
-  v9 = type metadata accessor for CLP_LogEntry_PrivateData_TimeStamp(0);
-  v5[2] = v9;
-  v10 = *(v9 - 1);
-  v11 = v10;
-  v5[3] = v10;
-  v12 = *(v10 + 64);
-  if (v3)
-  {
-    v5[4] = swift_coroFrameAlloc();
-    v13 = swift_coroFrameAlloc();
-  }
-
-  else
-  {
-    v5[4] = malloc(*(v10 + 64));
-    v13 = malloc(v12);
-  }
-
-  v14 = v13;
-  v5[5] = v13;
-  v15 = *(type metadata accessor for CLP_LogEntry_PrivateData_Gyro(0) + 24);
-  *(v5 + 12) = v15;
-  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v1 + v15, v8, &_s10ALProtobuf34CLP_LogEntry_PrivateData_TimeStampVSgMd, &_s10ALProtobuf34CLP_LogEntry_PrivateData_TimeStampVSgMR);
-  v16 = *(v11 + 48);
-  if (v16(v8, 1, v9) == 1)
-  {
-    UnknownStorage.init()();
-    v17 = v14 + v9[5];
-    *v17 = 0;
-    *(v17 + 8) = 1;
-    v18 = v14 + v9[6];
-    *v18 = 0;
-    *(v18 + 8) = 1;
-    v19 = v14 + v9[7];
-    *v19 = 0;
-    *(v19 + 8) = 1;
-    if (v16(v8, 1, v9) != 1)
-    {
-      outlined destroy of Any?(v8, &_s10ALProtobuf34CLP_LogEntry_PrivateData_TimeStampVSgMd, &_s10ALProtobuf34CLP_LogEntry_PrivateData_TimeStampVSgMR);
-    }
-  }
-
-  else
-  {
-    outlined init with take of CLP_LogEntry_PrivateData_TimeStamp(v8, v14, type metadata accessor for CLP_LogEntry_PrivateData_TimeStamp);
-  }
-
-  return CLP_LogEntry_PrivateData_AccelSample.applicableTime.modify;
-}
-
-uint64_t CLP_LogEntry_PrivateData_Accel.clearEventReceiptTime()(uint64_t (*a1)(void), uint64_t *a2, uint64_t *a3, uint64_t (*a4)(void))
-{
-  v8 = *(a1(0) + 24);
-  outlined destroy of Any?(v4 + v8, a2, a3);
-  v9 = a4(0);
-  v10 = *(*(v9 - 8) + 56);
-
-  return v10(v4 + v8, 1, 1, v9);
-}
-
-uint64_t CLP_LogEntry_PrivateData_Accel.unknownFields.getter@<X0>(uint64_t (*a1)(void)@<X0>, uint64_t a2@<X8>)
-{
-  v4 = *(a1(0) + 20);
-  v5 = type metadata accessor for UnknownStorage();
-  v6 = *(*(v5 - 8) + 16);
-
-  return v6(a2, v2 + v4, v5);
-}
-
-uint64_t CLP_LogEntry_PrivateData_Accel.unknownFields.setter(uint64_t a1, uint64_t (*a2)(void))
-{
-  v4 = *(a2(0) + 20);
-  v5 = type metadata accessor for UnknownStorage();
-  v6 = *(*(v5 - 8) + 40);
-
-  return v6(v2 + v4, a1, v5);
-}
-
-uint64_t CLP_LogEntry_PrivateData_Accel.init()@<X0>(uint64_t (*a1)(void)@<X0>, char *a2@<X8>)
-{
-  *a2 = MEMORY[0x277D84F90];
-  v3 = a1(0);
-  v4 = &a2[*(v3 + 20)];
-  UnknownStorage.init()();
-  v5 = *(v3 + 24);
-  v6 = type metadata accessor for CLP_LogEntry_PrivateData_TimeStamp(0);
-  v7 = *(*(v6 - 8) + 56);
-
-  return v7(&a2[v5], 1, 1, v6);
-}
-
-uint64_t (*CLP_LogEntry_PrivateData_BaroSample.applicableTime.modify(void *a1))()
-{
-  v3 = MEMORY[0x277D84FD8];
-  if (MEMORY[0x277D84FD8])
-  {
-    v4 = swift_coroFrameAlloc();
-  }
-
-  else
-  {
-    v4 = malloc(0x38uLL);
-  }
-
-  v5 = v4;
-  *a1 = v4;
-  *v4 = v1;
-  v6 = *(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf34CLP_LogEntry_PrivateData_TimeStampVSgMd, &_s10ALProtobuf34CLP_LogEntry_PrivateData_TimeStampVSgMR) - 8) + 64);
-  if (v3)
-  {
-    v7 = swift_coroFrameAlloc();
-  }
-
-  else
-  {
-    v7 = malloc(v6);
-  }
-
-  v8 = v7;
-  v5[1] = v7;
-  v9 = type metadata accessor for CLP_LogEntry_PrivateData_TimeStamp(0);
-  v5[2] = v9;
-  v10 = *(v9 - 1);
-  v11 = v10;
-  v5[3] = v10;
-  v12 = *(v10 + 64);
-  if (v3)
-  {
-    v5[4] = swift_coroFrameAlloc();
-    v13 = swift_coroFrameAlloc();
-  }
-
-  else
-  {
-    v5[4] = malloc(*(v10 + 64));
-    v13 = malloc(v12);
-  }
-
-  v14 = v13;
-  v5[5] = v13;
-  v15 = *(type metadata accessor for CLP_LogEntry_PrivateData_BaroSample(0) + 20);
-  *(v5 + 12) = v15;
-  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v1 + v15, v8, &_s10ALProtobuf34CLP_LogEntry_PrivateData_TimeStampVSgMd, &_s10ALProtobuf34CLP_LogEntry_PrivateData_TimeStampVSgMR);
-  v16 = *(v11 + 48);
-  if (v16(v8, 1, v9) == 1)
-  {
-    UnknownStorage.init()();
-    v17 = v14 + v9[5];
-    *v17 = 0;
-    *(v17 + 8) = 1;
-    v18 = v14 + v9[6];
-    *v18 = 0;
-    *(v18 + 8) = 1;
-    v19 = v14 + v9[7];
-    *v19 = 0;
-    *(v19 + 8) = 1;
-    if (v16(v8, 1, v9) != 1)
-    {
-      outlined destroy of Any?(v8, &_s10ALProtobuf34CLP_LogEntry_PrivateData_TimeStampVSgMd, &_s10ALProtobuf34CLP_LogEntry_PrivateData_TimeStampVSgMR);
-    }
-  }
-
-  else
-  {
-    outlined init with take of CLP_LogEntry_PrivateData_TimeStamp(v8, v14, type metadata accessor for CLP_LogEntry_PrivateData_TimeStamp);
-  }
-
-  return CLP_LogEntry_PrivateData_AccelSample.applicableTime.modify;
-}
-
-uint64_t CLP_LogEntry_PrivateData_BaroSample.pressure.setter(float a1)
-{
-  result = type metadata accessor for CLP_LogEntry_PrivateData_BaroSample(0);
-  v4 = v1 + *(result + 24);
-  *v4 = a1;
-  *(v4 + 4) = 0;
-  return result;
-}
-
-uint64_t (*CLP_LogEntry_PrivateData_BaroSample.pressure.modify(uint64_t a1))()
-{
-  *a1 = v1;
-  v3 = *(type metadata accessor for CLP_LogEntry_PrivateData_BaroSample(0) + 24);
-  *(a1 + 12) = v3;
-  v4 = v1 + v3;
-  v5 = *v4;
-  if (*(v4 + 4))
-  {
-    v5 = 0.0;
-  }
-
-  *(a1 + 8) = v5;
-  return CLP_LogEntry_AONLoc_Request.processID.modify;
-}
-
-Swift::Void __swiftcall CLP_LogEntry_PrivateData_BaroSample.clearPressure()()
-{
-  v1 = v0 + *(type metadata accessor for CLP_LogEntry_PrivateData_BaroSample(0) + 24);
-  *v1 = 0;
-  *(v1 + 4) = 1;
-}
-
-uint64_t CLP_LogEntry_PrivateData_BaroSample.temperature.setter(float a1)
-{
-  result = type metadata accessor for CLP_LogEntry_PrivateData_BaroSample(0);
-  v4 = v1 + *(result + 28);
-  *v4 = a1;
-  *(v4 + 4) = 0;
-  return result;
-}
-
-uint64_t (*CLP_LogEntry_PrivateData_BaroSample.temperature.modify(uint64_t a1))()
-{
-  *a1 = v1;
-  v3 = *(type metadata accessor for CLP_LogEntry_PrivateData_BaroSample(0) + 28);
-  *(a1 + 12) = v3;
-  v4 = v1 + v3;
-  v5 = *v4;
-  if (*(v4 + 4))
-  {
-    v5 = 0.0;
-  }
-
-  *(a1 + 8) = v5;
-  return CLP_LogEntry_AONLoc_Request.processID.modify;
-}
-
-Swift::Void __swiftcall CLP_LogEntry_PrivateData_BaroSample.clearTemperature()()
-{
-  v1 = v0 + *(type metadata accessor for CLP_LogEntry_PrivateData_BaroSample(0) + 28);
-  *v1 = 0;
-  *(v1 + 4) = 1;
-}
-
-uint64_t CLP_LogEntry_PrivateData_BaroSample.init()@<X0>(uint64_t a1@<X8>)
-{
-  UnknownStorage.init()();
-  v2 = type metadata accessor for CLP_LogEntry_PrivateData_BaroSample(0);
-  v3 = v2[5];
-  v4 = type metadata accessor for CLP_LogEntry_PrivateData_TimeStamp(0);
-  result = (*(*(v4 - 8) + 56))(a1 + v3, 1, 1, v4);
-  v6 = a1 + v2[6];
-  *v6 = 0;
-  *(v6 + 4) = 1;
-  v7 = a1 + v2[7];
-  *v7 = 0;
-  *(v7 + 4) = 1;
-  return result;
-}
-
-uint64_t CLP_LogEntry_PrivateData_Baro.eventReceiptTime.setter(uint64_t a1)
-{
-  v3 = *(type metadata accessor for CLP_LogEntry_PrivateData_Baro(0) + 24);
-  outlined destroy of Any?(v1 + v3, &_s10ALProtobuf34CLP_LogEntry_PrivateData_TimeStampVSgMd, &_s10ALProtobuf34CLP_LogEntry_PrivateData_TimeStampVSgMR);
-  outlined init with take of CLP_LogEntry_PrivateData_TimeStamp(a1, v1 + v3, type metadata accessor for CLP_LogEntry_PrivateData_TimeStamp);
-  v4 = type metadata accessor for CLP_LogEntry_PrivateData_TimeStamp(0);
-  v5 = *(*(v4 - 8) + 56);
-
-  return v5(v1 + v3, 0, 1, v4);
-}
-
-uint64_t (*CLP_LogEntry_PrivateData_Baro.eventReceiptTime.modify(void *a1))()
-{
-  v3 = MEMORY[0x277D84FD8];
-  if (MEMORY[0x277D84FD8])
-  {
-    v4 = swift_coroFrameAlloc();
-  }
-
-  else
-  {
-    v4 = malloc(0x38uLL);
-  }
-
-  v5 = v4;
-  *a1 = v4;
-  *v4 = v1;
-  v6 = *(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf34CLP_LogEntry_PrivateData_TimeStampVSgMd, &_s10ALProtobuf34CLP_LogEntry_PrivateData_TimeStampVSgMR) - 8) + 64);
-  if (v3)
-  {
-    v7 = swift_coroFrameAlloc();
-  }
-
-  else
-  {
-    v7 = malloc(v6);
-  }
-
-  v8 = v7;
-  v5[1] = v7;
-  v9 = type metadata accessor for CLP_LogEntry_PrivateData_TimeStamp(0);
-  v5[2] = v9;
-  v10 = *(v9 - 1);
-  v11 = v10;
-  v5[3] = v10;
-  v12 = *(v10 + 64);
-  if (v3)
-  {
-    v5[4] = swift_coroFrameAlloc();
-    v13 = swift_coroFrameAlloc();
-  }
-
-  else
-  {
-    v5[4] = malloc(*(v10 + 64));
-    v13 = malloc(v12);
-  }
-
-  v14 = v13;
-  v5[5] = v13;
-  v15 = *(type metadata accessor for CLP_LogEntry_PrivateData_Baro(0) + 24);
-  *(v5 + 12) = v15;
-  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v1 + v15, v8, &_s10ALProtobuf34CLP_LogEntry_PrivateData_TimeStampVSgMd, &_s10ALProtobuf34CLP_LogEntry_PrivateData_TimeStampVSgMR);
-  v16 = *(v11 + 48);
-  if (v16(v8, 1, v9) == 1)
-  {
-    UnknownStorage.init()();
-    v17 = v14 + v9[5];
-    *v17 = 0;
-    *(v17 + 8) = 1;
-    v18 = v14 + v9[6];
-    *v18 = 0;
-    *(v18 + 8) = 1;
-    v19 = v14 + v9[7];
-    *v19 = 0;
-    *(v19 + 8) = 1;
-    if (v16(v8, 1, v9) != 1)
-    {
-      outlined destroy of Any?(v8, &_s10ALProtobuf34CLP_LogEntry_PrivateData_TimeStampVSgMd, &_s10ALProtobuf34CLP_LogEntry_PrivateData_TimeStampVSgMR);
-    }
-  }
-
-  else
-  {
-    outlined init with take of CLP_LogEntry_PrivateData_TimeStamp(v8, v14, type metadata accessor for CLP_LogEntry_PrivateData_TimeStamp);
-  }
-
-  return CLP_LogEntry_PrivateData_AccelSample.applicableTime.modify;
-}
-
-uint64_t CLP_LogEntry_PrivateData_ClientLocationCoordinate.latitude.setter(double a1)
-{
-  result = type metadata accessor for CLP_LogEntry_PrivateData_ClientLocationCoordinate(0);
-  v4 = v1 + *(result + 20);
-  *v4 = a1;
-  *(v4 + 8) = 0;
-  return result;
-}
-
-uint64_t (*CLP_LogEntry_PrivateData_ClientLocationCoordinate.latitude.modify(uint64_t a1))()
-{
-  *(a1 + 8) = v1;
-  v3 = *(type metadata accessor for CLP_LogEntry_PrivateData_ClientLocationCoordinate(0) + 20);
-  *(a1 + 16) = v3;
-  v4 = v1 + v3;
-  v5 = *v4;
-  if (*(v4 + 8))
-  {
-    v5 = 0.0;
-  }
-
-  *a1 = v5;
-  return CLP_LogEntry_AONLoc_Request.machContinuousTimeNs.modify;
-}
-
-Swift::Void __swiftcall CLP_LogEntry_PrivateData_ClientLocationCoordinate.clearLatitude()()
-{
-  v1 = v0 + *(type metadata accessor for CLP_LogEntry_PrivateData_ClientLocationCoordinate(0) + 20);
-  *v1 = 0;
-  *(v1 + 8) = 1;
-}
-
-uint64_t CLP_LogEntry_PrivateData_ClientLocationCoordinate.longitude.setter(double a1)
-{
-  result = type metadata accessor for CLP_LogEntry_PrivateData_ClientLocationCoordinate(0);
-  v4 = v1 + *(result + 24);
-  *v4 = a1;
-  *(v4 + 8) = 0;
-  return result;
-}
-
-uint64_t (*CLP_LogEntry_PrivateData_ClientLocationCoordinate.longitude.modify(uint64_t a1))()
-{
-  *(a1 + 8) = v1;
-  v3 = *(type metadata accessor for CLP_LogEntry_PrivateData_ClientLocationCoordinate(0) + 24);
-  *(a1 + 16) = v3;
-  v4 = v1 + v3;
-  v5 = *v4;
-  if (*(v4 + 8))
-  {
-    v5 = 0.0;
-  }
-
-  *a1 = v5;
-  return CLP_LogEntry_AONLoc_Request.machContinuousTimeNs.modify;
-}
-
-Swift::Void __swiftcall CLP_LogEntry_PrivateData_ClientLocationCoordinate.clearLongitude()()
-{
-  v1 = v0 + *(type metadata accessor for CLP_LogEntry_PrivateData_ClientLocationCoordinate(0) + 24);
-  *v1 = 0;
-  *(v1 + 8) = 1;
-}
-
-uint64_t CLP_LogEntry_PrivateData_DaemonLocation.suitability.getter()
-{
-  v1 = *(v0 + *(type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocation(0) + 20));
-  swift_beginAccess();
-  if (*(v1 + 16) == 4)
-  {
-    return 0;
-  }
-
-  else
-  {
-    return *(v1 + 16);
-  }
-}
-
-void (*CLP_LogEntry_PrivateData_DaemonLocation.suitability.modify(uint64_t *a1))(uint64_t *a1, uint64_t a2)
-{
-  if (MEMORY[0x277D84FD8])
-  {
-    v3 = swift_coroFrameAlloc();
-  }
-
-  else
-  {
-    v3 = malloc(0x58uLL);
-  }
-
-  v4 = v3;
-  *a1 = v3;
-  *(v3 + 72) = v1;
-  v5 = *(type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocation(0) + 20);
-  *(v4 + 80) = v5;
-  v6 = *(v1 + v5);
-  swift_beginAccess();
-  v7 = *(v6 + 16);
-  if (v7 == 4)
-  {
-    LOBYTE(v7) = 0;
-  }
-
-  *(v4 + 84) = v7;
-  return CLP_LogEntry_PrivateData_DaemonLocation.suitability.modify;
-}
-
 BOOL CLP_LogEntry_PrivateData_DaemonLocation.hasSuitability.getter()
 {
   v1 = *(v0 + *(type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocation(0) + 20));
@@ -2162,31 +9,27 @@ uint64_t CLP_LogEntry_PrivateData_DaemonLocation.coordinate.setter(uint64_t a1)
 {
   v2 = v1;
   v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf49CLP_LogEntry_PrivateData_ClientLocationCoordinateVSgMd, &_s10ALProtobuf49CLP_LogEntry_PrivateData_ClientLocationCoordinateVSgMR);
-  v5 = *(*(v4 - 8) + 64);
   MEMORY[0x28223BE20](v4 - 8);
-  v7 = &v19 - v6;
-  v8 = *(type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocation(0) + 20);
-  v9 = *(v1 + v8);
+  v6 = &v14 - v5;
+  v7 = *(type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocation(0) + 20);
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v11 = *(v1 + v8);
+  v9 = *(v1 + v7);
   if ((isUniquelyReferenced_nonNull_native & 1) == 0)
   {
-    v12 = type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocation._StorageClass(0);
-    v13 = *(v12 + 48);
-    v14 = *(v12 + 52);
-    v15 = swift_allocObject();
-    specialized CLP_LogEntry_PrivateData_DaemonLocation._StorageClass.init(copying:)(v11);
+    type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocation._StorageClass(0);
+    v10 = swift_allocObject();
+    specialized CLP_LogEntry_PrivateData_DaemonLocation._StorageClass.init(copying:)(v9);
 
-    *(v2 + v8) = v15;
-    v11 = v15;
+    *(v2 + v7) = v10;
+    v9 = v10;
   }
 
-  outlined init with take of CLP_LogEntry_PrivateData_TimeStamp(a1, v7, type metadata accessor for CLP_LogEntry_PrivateData_ClientLocationCoordinate);
-  v16 = type metadata accessor for CLP_LogEntry_PrivateData_ClientLocationCoordinate(0);
-  (*(*(v16 - 8) + 56))(v7, 0, 1, v16);
-  v17 = OBJC_IVAR____TtCV10ALProtobuf39CLP_LogEntry_PrivateData_DaemonLocationP33_993346AF53650622B255AB1E3C41340D13_StorageClass__coordinate;
+  outlined init with take of CLP_LogEntry_PrivateData_TimeStamp(a1, v6, type metadata accessor for CLP_LogEntry_PrivateData_ClientLocationCoordinate);
+  v11 = type metadata accessor for CLP_LogEntry_PrivateData_ClientLocationCoordinate(0);
+  (*(*(v11 - 8) + 56))(v6, 0, 1, v11);
+  v12 = OBJC_IVAR____TtCV10ALProtobuf39CLP_LogEntry_PrivateData_DaemonLocationP33_993346AF53650622B255AB1E3C41340D13_StorageClass__coordinate;
   swift_beginAccess();
-  outlined assign with take of Proto_Gpsd_Response?(v7, v11 + v17, &_s10ALProtobuf49CLP_LogEntry_PrivateData_ClientLocationCoordinateVSgMd, &_s10ALProtobuf49CLP_LogEntry_PrivateData_ClientLocationCoordinateVSgMR);
+  outlined assign with take of Proto_Gpsd_Response?(v6, v9 + v12, &_s10ALProtobuf49CLP_LogEntry_PrivateData_ClientLocationCoordinateVSgMd, &_s10ALProtobuf49CLP_LogEntry_PrivateData_ClientLocationCoordinateVSgMR);
   return swift_endAccess();
 }
 
@@ -2279,76 +122,70 @@ void CLP_LogEntry_PrivateData_DaemonLocation.coordinate.modify(uint64_t *a1, cha
   {
     v4 = *(v2 + 72);
     outlined init with copy of CLP_LogEntry_PrivateData_TimeStamp(*(v2 + 120), *(v2 + 112), type metadata accessor for CLP_LogEntry_PrivateData_ClientLocationCoordinate);
-    v5 = *(v4 + v3);
     isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-    v7 = *(v4 + v3);
+    v6 = *(v4 + v3);
     if ((isUniquelyReferenced_nonNull_native & 1) == 0)
     {
-      v8 = *(v2 + 128);
-      v9 = *(v2 + 72);
-      v10 = type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocation._StorageClass(0);
-      v11 = *(v10 + 48);
-      v12 = *(v10 + 52);
-      v13 = swift_allocObject();
-      specialized CLP_LogEntry_PrivateData_DaemonLocation._StorageClass.init(copying:)(v7);
+      v7 = *(v2 + 128);
+      v8 = *(v2 + 72);
+      type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocation._StorageClass(0);
+      v9 = swift_allocObject();
+      specialized CLP_LogEntry_PrivateData_DaemonLocation._StorageClass.init(copying:)(v6);
 
-      *(v9 + v8) = v13;
-      v7 = v13;
+      *(v8 + v7) = v9;
+      v6 = v9;
     }
 
-    v15 = *(v2 + 112);
-    v14 = *(v2 + 120);
-    v16 = *(v2 + 96);
-    v17 = *(v2 + 104);
-    v19 = *(v2 + 80);
-    v18 = *(v2 + 88);
-    outlined init with take of CLP_LogEntry_PrivateData_TimeStamp(v15, v19, type metadata accessor for CLP_LogEntry_PrivateData_ClientLocationCoordinate);
-    (*(v17 + 56))(v19, 0, 1, v16);
-    v20 = OBJC_IVAR____TtCV10ALProtobuf39CLP_LogEntry_PrivateData_DaemonLocationP33_993346AF53650622B255AB1E3C41340D13_StorageClass__coordinate;
+    v11 = *(v2 + 112);
+    v10 = *(v2 + 120);
+    v12 = *(v2 + 96);
+    v13 = *(v2 + 104);
+    v15 = *(v2 + 80);
+    v14 = *(v2 + 88);
+    outlined init with take of CLP_LogEntry_PrivateData_TimeStamp(v11, v15, type metadata accessor for CLP_LogEntry_PrivateData_ClientLocationCoordinate);
+    (*(v13 + 56))(v15, 0, 1, v12);
+    v16 = OBJC_IVAR____TtCV10ALProtobuf39CLP_LogEntry_PrivateData_DaemonLocationP33_993346AF53650622B255AB1E3C41340D13_StorageClass__coordinate;
     swift_beginAccess();
-    outlined assign with take of Proto_Gpsd_Response?(v19, v7 + v20, &_s10ALProtobuf49CLP_LogEntry_PrivateData_ClientLocationCoordinateVSgMd, &_s10ALProtobuf49CLP_LogEntry_PrivateData_ClientLocationCoordinateVSgMR);
+    outlined assign with take of Proto_Gpsd_Response?(v15, v6 + v16, &_s10ALProtobuf49CLP_LogEntry_PrivateData_ClientLocationCoordinateVSgMd, &_s10ALProtobuf49CLP_LogEntry_PrivateData_ClientLocationCoordinateVSgMR);
     swift_endAccess();
-    outlined destroy of CLP_LogEntry_PrivateData_TimeStamp(v14, type metadata accessor for CLP_LogEntry_PrivateData_ClientLocationCoordinate);
+    outlined destroy of CLP_LogEntry_PrivateData_TimeStamp(v10, type metadata accessor for CLP_LogEntry_PrivateData_ClientLocationCoordinate);
   }
 
   else
   {
-    v21 = *(v2 + 72);
-    v22 = *(v21 + v3);
-    v23 = swift_isUniquelyReferenced_nonNull_native();
-    v24 = *(v21 + v3);
-    if ((v23 & 1) == 0)
+    v17 = *(v2 + 72);
+    v18 = swift_isUniquelyReferenced_nonNull_native();
+    v19 = *(v17 + v3);
+    if ((v18 & 1) == 0)
     {
-      v25 = *(v2 + 128);
-      v26 = *(v2 + 72);
-      v27 = type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocation._StorageClass(0);
-      v28 = *(v27 + 48);
-      v29 = *(v27 + 52);
-      v30 = swift_allocObject();
-      specialized CLP_LogEntry_PrivateData_DaemonLocation._StorageClass.init(copying:)(v24);
+      v20 = *(v2 + 128);
+      v21 = *(v2 + 72);
+      type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocation._StorageClass(0);
+      v22 = swift_allocObject();
+      specialized CLP_LogEntry_PrivateData_DaemonLocation._StorageClass.init(copying:)(v19);
 
-      *(v26 + v25) = v30;
-      v24 = v30;
+      *(v21 + v20) = v22;
+      v19 = v22;
     }
 
-    v15 = *(v2 + 112);
-    v14 = *(v2 + 120);
-    v31 = *(v2 + 96);
-    v32 = *(v2 + 104);
-    v19 = *(v2 + 80);
-    v18 = *(v2 + 88);
-    outlined init with take of CLP_LogEntry_PrivateData_TimeStamp(v14, v19, type metadata accessor for CLP_LogEntry_PrivateData_ClientLocationCoordinate);
-    (*(v32 + 56))(v19, 0, 1, v31);
-    v33 = OBJC_IVAR____TtCV10ALProtobuf39CLP_LogEntry_PrivateData_DaemonLocationP33_993346AF53650622B255AB1E3C41340D13_StorageClass__coordinate;
+    v11 = *(v2 + 112);
+    v10 = *(v2 + 120);
+    v23 = *(v2 + 96);
+    v24 = *(v2 + 104);
+    v15 = *(v2 + 80);
+    v14 = *(v2 + 88);
+    outlined init with take of CLP_LogEntry_PrivateData_TimeStamp(v10, v15, type metadata accessor for CLP_LogEntry_PrivateData_ClientLocationCoordinate);
+    (*(v24 + 56))(v15, 0, 1, v23);
+    v25 = OBJC_IVAR____TtCV10ALProtobuf39CLP_LogEntry_PrivateData_DaemonLocationP33_993346AF53650622B255AB1E3C41340D13_StorageClass__coordinate;
     swift_beginAccess();
-    outlined assign with take of Proto_Gpsd_Response?(v19, v24 + v33, &_s10ALProtobuf49CLP_LogEntry_PrivateData_ClientLocationCoordinateVSgMd, &_s10ALProtobuf49CLP_LogEntry_PrivateData_ClientLocationCoordinateVSgMR);
+    outlined assign with take of Proto_Gpsd_Response?(v15, v19 + v25, &_s10ALProtobuf49CLP_LogEntry_PrivateData_ClientLocationCoordinateVSgMd, &_s10ALProtobuf49CLP_LogEntry_PrivateData_ClientLocationCoordinateVSgMR);
     swift_endAccess();
   }
 
+  free(v10);
+  free(v11);
   free(v14);
   free(v15);
-  free(v18);
-  free(v19);
 
   free(v2);
 }
@@ -2356,47 +193,42 @@ void CLP_LogEntry_PrivateData_DaemonLocation.coordinate.modify(uint64_t *a1, cha
 BOOL CLP_LogEntry_PrivateData_DaemonLocation.hasCoordinate.getter()
 {
   v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf49CLP_LogEntry_PrivateData_ClientLocationCoordinateVSgMd, &_s10ALProtobuf49CLP_LogEntry_PrivateData_ClientLocationCoordinateVSgMR);
-  v2 = *(*(v1 - 8) + 64);
   MEMORY[0x28223BE20](v1 - 8);
-  v4 = &v10 - v3;
-  v5 = *(v0 + *(type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocation(0) + 20));
-  v6 = OBJC_IVAR____TtCV10ALProtobuf39CLP_LogEntry_PrivateData_DaemonLocationP33_993346AF53650622B255AB1E3C41340D13_StorageClass__coordinate;
+  v3 = &v9 - v2;
+  v4 = *(v0 + *(type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocation(0) + 20));
+  v5 = OBJC_IVAR____TtCV10ALProtobuf39CLP_LogEntry_PrivateData_DaemonLocationP33_993346AF53650622B255AB1E3C41340D13_StorageClass__coordinate;
   swift_beginAccess();
-  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v5 + v6, v4, &_s10ALProtobuf49CLP_LogEntry_PrivateData_ClientLocationCoordinateVSgMd, &_s10ALProtobuf49CLP_LogEntry_PrivateData_ClientLocationCoordinateVSgMR);
-  v7 = type metadata accessor for CLP_LogEntry_PrivateData_ClientLocationCoordinate(0);
-  v8 = (*(*(v7 - 8) + 48))(v4, 1, v7) != 1;
-  outlined destroy of Any?(v4, &_s10ALProtobuf49CLP_LogEntry_PrivateData_ClientLocationCoordinateVSgMd, &_s10ALProtobuf49CLP_LogEntry_PrivateData_ClientLocationCoordinateVSgMR);
-  return v8;
+  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v4 + v5, v3, &_s10ALProtobuf49CLP_LogEntry_PrivateData_ClientLocationCoordinateVSgMd, &_s10ALProtobuf49CLP_LogEntry_PrivateData_ClientLocationCoordinateVSgMR);
+  v6 = type metadata accessor for CLP_LogEntry_PrivateData_ClientLocationCoordinate(0);
+  v7 = (*(*(v6 - 8) + 48))(v3, 1, v6) != 1;
+  outlined destroy of Any?(v3, &_s10ALProtobuf49CLP_LogEntry_PrivateData_ClientLocationCoordinateVSgMd, &_s10ALProtobuf49CLP_LogEntry_PrivateData_ClientLocationCoordinateVSgMR);
+  return v7;
 }
 
 Swift::Void __swiftcall CLP_LogEntry_PrivateData_DaemonLocation.clearCoordinate()()
 {
   v1 = v0;
   v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf49CLP_LogEntry_PrivateData_ClientLocationCoordinateVSgMd, &_s10ALProtobuf49CLP_LogEntry_PrivateData_ClientLocationCoordinateVSgMR);
-  v3 = *(*(v2 - 8) + 64);
   MEMORY[0x28223BE20](v2 - 8);
-  v5 = &v16 - v4;
-  v6 = *(type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocation(0) + 20);
-  v7 = *(v0 + v6);
+  v4 = &v11 - v3;
+  v5 = *(type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocation(0) + 20);
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v9 = *(v0 + v6);
+  v7 = *(v0 + v5);
   if ((isUniquelyReferenced_nonNull_native & 1) == 0)
   {
-    v10 = type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocation._StorageClass(0);
-    v11 = *(v10 + 48);
-    v12 = *(v10 + 52);
-    v13 = swift_allocObject();
-    specialized CLP_LogEntry_PrivateData_DaemonLocation._StorageClass.init(copying:)(v9);
+    type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocation._StorageClass(0);
+    v8 = swift_allocObject();
+    specialized CLP_LogEntry_PrivateData_DaemonLocation._StorageClass.init(copying:)(v7);
 
-    *(v1 + v6) = v13;
-    v9 = v13;
+    *(v1 + v5) = v8;
+    v7 = v8;
   }
 
-  v14 = type metadata accessor for CLP_LogEntry_PrivateData_ClientLocationCoordinate(0);
-  (*(*(v14 - 8) + 56))(v5, 1, 1, v14);
-  v15 = OBJC_IVAR____TtCV10ALProtobuf39CLP_LogEntry_PrivateData_DaemonLocationP33_993346AF53650622B255AB1E3C41340D13_StorageClass__coordinate;
+  v9 = type metadata accessor for CLP_LogEntry_PrivateData_ClientLocationCoordinate(0);
+  (*(*(v9 - 8) + 56))(v4, 1, 1, v9);
+  v10 = OBJC_IVAR____TtCV10ALProtobuf39CLP_LogEntry_PrivateData_DaemonLocationP33_993346AF53650622B255AB1E3C41340D13_StorageClass__coordinate;
   swift_beginAccess();
-  outlined assign with take of Proto_Gpsd_Response?(v5, v9 + v15, &_s10ALProtobuf49CLP_LogEntry_PrivateData_ClientLocationCoordinateVSgMd, &_s10ALProtobuf49CLP_LogEntry_PrivateData_ClientLocationCoordinateVSgMR);
+  outlined assign with take of Proto_Gpsd_Response?(v4, v7 + v10, &_s10ALProtobuf49CLP_LogEntry_PrivateData_ClientLocationCoordinateVSgMd, &_s10ALProtobuf49CLP_LogEntry_PrivateData_ClientLocationCoordinateVSgMR);
   swift_endAccess();
 }
 
@@ -2446,25 +278,22 @@ uint64_t CLP_LogEntry_PrivateData_DaemonLocation.horizontalAccuracy.setter(uint6
 {
   v9 = v5;
   v11 = *(a1(0) + 20);
-  v12 = *(v5 + v11);
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v14 = *(v5 + v11);
+  v13 = *(v5 + v11);
   if ((isUniquelyReferenced_nonNull_native & 1) == 0)
   {
-    v15 = a2(0);
-    v16 = *(v15 + 48);
-    v17 = *(v15 + 52);
-    v18 = swift_allocObject();
-    a3(v14);
+    a2(0);
+    v14 = swift_allocObject();
+    a3(v13);
 
-    *(v9 + v11) = v18;
-    v14 = v18;
+    *(v9 + v11) = v14;
+    v13 = v14;
   }
 
-  v19 = v14 + *a4;
+  v15 = v13 + *a4;
   result = swift_beginAccess();
-  *v19 = a5;
-  *(v19 + 8) = 0;
+  *v15 = a5;
+  *(v15 + 8) = 0;
   return result;
 }
 
@@ -2497,33 +326,30 @@ void (*CLP_LogEntry_PrivateData_DaemonLocation.altitude.modify(uint64_t *a1))(ui
   return CLP_LogEntry_PrivateData_DaemonLocation.altitude.modify;
 }
 
-void CLP_LogEntry_PrivateData_DaemonLocation.horizontalAccuracy.modify(uint64_t *a1, uint64_t a2, uint64_t (*a3)(void), void (*a4)(uint64_t), void *a5)
+void CLP_LogEntry_PrivateData_DaemonLocation.horizontalAccuracy.modify(uint64_t *a1, char a2, uint64_t (*a3)(void), void (*a4)(uint64_t), void *a5)
 {
   v8 = *a1;
   v9 = *(*a1 + 72);
   v10 = *(*a1 + 88);
   v11 = *(*a1 + 80);
-  v12 = *(v11 + v10);
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v14 = *(v11 + v10);
+  v13 = *(v11 + v10);
   if ((isUniquelyReferenced_nonNull_native & 1) == 0)
   {
-    v15 = *(v8 + 88);
-    v16 = *(v8 + 80);
-    v17 = a3(0);
-    v18 = *(v17 + 48);
-    v19 = *(v17 + 52);
-    v20 = swift_allocObject();
-    a4(v14);
+    v14 = *(v8 + 88);
+    v15 = *(v8 + 80);
+    a3(0);
+    v16 = swift_allocObject();
+    a4(v13);
 
-    *(v16 + v15) = v20;
-    v14 = v20;
+    *(v15 + v14) = v16;
+    v13 = v16;
   }
 
-  v21 = v14 + *a5;
+  v17 = v13 + *a5;
   swift_beginAccess();
-  *v21 = v9;
-  *(v21 + 8) = 0;
+  *v17 = v9;
+  *(v17 + 8) = 0;
 
   free(v8);
 }
@@ -2539,29 +365,26 @@ uint64_t CLP_LogEntry_PrivateData_DaemonLocation.clearHorizontalAccuracy()(uint6
 {
   v8 = v4;
   v9 = *(a1(0) + 20);
-  v10 = *(v4 + v9);
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v12 = *(v4 + v9);
+  v11 = *(v4 + v9);
   if ((isUniquelyReferenced_nonNull_native & 1) == 0)
   {
-    v13 = a2(0);
-    v14 = *(v13 + 48);
-    v15 = *(v13 + 52);
-    v16 = swift_allocObject();
-    a3(v12);
+    a2(0);
+    v12 = swift_allocObject();
+    a3(v11);
 
-    *(v8 + v9) = v16;
-    v12 = v16;
+    *(v8 + v9) = v12;
+    v11 = v12;
   }
 
-  v17 = v12 + *a4;
+  v13 = v11 + *a4;
   result = swift_beginAccess();
-  *v17 = 0;
-  *(v17 + 8) = 1;
+  *v13 = 0;
+  *(v13 + 8) = 1;
   return result;
 }
 
-void (*CLP_LogEntry_PrivateData_DaemonLocation.verticalAccuracy.modify(uint64_t *a1))(uint64_t *a1, uint64_t a2)
+void (*CLP_LogEntry_PrivateData_DaemonLocation.verticalAccuracy.modify(uint64_t *a1))(uint64_t *a1, char a2)
 {
   if (MEMORY[0x277D84FD8])
   {
@@ -2590,7 +413,7 @@ void (*CLP_LogEntry_PrivateData_DaemonLocation.verticalAccuracy.modify(uint64_t 
   return CLP_LogEntry_PrivateData_DaemonLocation.verticalAccuracy.modify;
 }
 
-void (*CLP_LogEntry_PrivateData_DaemonLocation.speed.modify(uint64_t *a1))(uint64_t *a1, uint64_t a2)
+void (*CLP_LogEntry_PrivateData_DaemonLocation.speed.modify(uint64_t *a1))(uint64_t *a1, char a2)
 {
   if (MEMORY[0x277D84FD8])
   {
@@ -2619,7 +442,7 @@ void (*CLP_LogEntry_PrivateData_DaemonLocation.speed.modify(uint64_t *a1))(uint6
   return CLP_LogEntry_PrivateData_DaemonLocation.speed.modify;
 }
 
-void (*CLP_LogEntry_PrivateData_DaemonLocation.speedAccuracy.modify(uint64_t *a1))(uint64_t *a1, uint64_t a2)
+void (*CLP_LogEntry_PrivateData_DaemonLocation.speedAccuracy.modify(uint64_t *a1))(uint64_t *a1, char a2)
 {
   if (MEMORY[0x277D84FD8])
   {
@@ -2648,7 +471,7 @@ void (*CLP_LogEntry_PrivateData_DaemonLocation.speedAccuracy.modify(uint64_t *a1
   return CLP_LogEntry_PrivateData_DaemonLocation.speedAccuracy.modify;
 }
 
-void (*CLP_LogEntry_PrivateData_DaemonLocation.course.modify(uint64_t *a1))(uint64_t *a1, uint64_t a2)
+void (*CLP_LogEntry_PrivateData_DaemonLocation.course.modify(uint64_t *a1))(uint64_t *a1, char a2)
 {
   if (MEMORY[0x277D84FD8])
   {
@@ -2677,7 +500,7 @@ void (*CLP_LogEntry_PrivateData_DaemonLocation.course.modify(uint64_t *a1))(uint
   return CLP_LogEntry_PrivateData_DaemonLocation.course.modify;
 }
 
-void (*CLP_LogEntry_PrivateData_DaemonLocation.courseAccuracy.modify(uint64_t *a1))(uint64_t *a1, uint64_t a2)
+void (*CLP_LogEntry_PrivateData_DaemonLocation.courseAccuracy.modify(uint64_t *a1))(uint64_t *a1, char a2)
 {
   if (MEMORY[0x277D84FD8])
   {
@@ -2706,7 +529,7 @@ void (*CLP_LogEntry_PrivateData_DaemonLocation.courseAccuracy.modify(uint64_t *a
   return CLP_LogEntry_PrivateData_DaemonLocation.courseAccuracy.modify;
 }
 
-void (*CLP_LogEntry_PrivateData_DaemonLocation.timestamp.modify(uint64_t *a1))(uint64_t *a1, uint64_t a2)
+void (*CLP_LogEntry_PrivateData_DaemonLocation.timestamp.modify(uint64_t *a1))(uint64_t *a1, char a2)
 {
   if (MEMORY[0x277D84FD8])
   {
@@ -2764,7 +587,7 @@ void (*CLP_LogEntry_PrivateData_DaemonLocation.confidence.modify(uint64_t *a1))(
   return CLP_LogEntry_PrivateData_DaemonLocation.confidence.modify;
 }
 
-void (*CLP_LogEntry_PrivateData_DaemonLocation.lifespan.modify(uint64_t *a1))(uint64_t *a1, uint64_t a2)
+void (*CLP_LogEntry_PrivateData_DaemonLocation.lifespan.modify(uint64_t *a1))(uint64_t *a1, char a2)
 {
   if (MEMORY[0x277D84FD8])
   {
@@ -2851,55 +674,48 @@ Swift::Void __swiftcall CLP_LogEntry_PrivateData_DaemonLocation.clearType()()
 {
   v1 = v0;
   v2 = *(type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocation(0) + 20);
-  v3 = *(v0 + v2);
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v5 = *(v0 + v2);
+  v4 = *(v0 + v2);
   if ((isUniquelyReferenced_nonNull_native & 1) == 0)
   {
-    v6 = type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocation._StorageClass(0);
-    v7 = *(v6 + 48);
-    v8 = *(v6 + 52);
-    v9 = swift_allocObject();
-    specialized CLP_LogEntry_PrivateData_DaemonLocation._StorageClass.init(copying:)(v5);
+    type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocation._StorageClass(0);
+    v5 = swift_allocObject();
+    specialized CLP_LogEntry_PrivateData_DaemonLocation._StorageClass.init(copying:)(v4);
 
-    *(v1 + v2) = v9;
-    v5 = v9;
+    *(v1 + v2) = v5;
+    v4 = v5;
   }
 
-  v10 = OBJC_IVAR____TtCV10ALProtobuf39CLP_LogEntry_PrivateData_DaemonLocationP33_993346AF53650622B255AB1E3C41340D13_StorageClass__type;
+  v6 = OBJC_IVAR____TtCV10ALProtobuf39CLP_LogEntry_PrivateData_DaemonLocationP33_993346AF53650622B255AB1E3C41340D13_StorageClass__type;
   swift_beginAccess();
-  *(v5 + v10) = 14;
+  *(v4 + v6) = 14;
 }
 
 uint64_t CLP_LogEntry_PrivateData_DaemonLocation.rawCoordinate.setter(uint64_t a1)
 {
   v2 = v1;
   v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf49CLP_LogEntry_PrivateData_ClientLocationCoordinateVSgMd, &_s10ALProtobuf49CLP_LogEntry_PrivateData_ClientLocationCoordinateVSgMR);
-  v5 = *(*(v4 - 8) + 64);
   MEMORY[0x28223BE20](v4 - 8);
-  v7 = &v19 - v6;
-  v8 = *(type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocation(0) + 20);
-  v9 = *(v1 + v8);
+  v6 = &v14 - v5;
+  v7 = *(type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocation(0) + 20);
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v11 = *(v1 + v8);
+  v9 = *(v1 + v7);
   if ((isUniquelyReferenced_nonNull_native & 1) == 0)
   {
-    v12 = type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocation._StorageClass(0);
-    v13 = *(v12 + 48);
-    v14 = *(v12 + 52);
-    v15 = swift_allocObject();
-    specialized CLP_LogEntry_PrivateData_DaemonLocation._StorageClass.init(copying:)(v11);
+    type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocation._StorageClass(0);
+    v10 = swift_allocObject();
+    specialized CLP_LogEntry_PrivateData_DaemonLocation._StorageClass.init(copying:)(v9);
 
-    *(v2 + v8) = v15;
-    v11 = v15;
+    *(v2 + v7) = v10;
+    v9 = v10;
   }
 
-  outlined init with take of CLP_LogEntry_PrivateData_TimeStamp(a1, v7, type metadata accessor for CLP_LogEntry_PrivateData_ClientLocationCoordinate);
-  v16 = type metadata accessor for CLP_LogEntry_PrivateData_ClientLocationCoordinate(0);
-  (*(*(v16 - 8) + 56))(v7, 0, 1, v16);
-  v17 = OBJC_IVAR____TtCV10ALProtobuf39CLP_LogEntry_PrivateData_DaemonLocationP33_993346AF53650622B255AB1E3C41340D13_StorageClass__rawCoordinate;
+  outlined init with take of CLP_LogEntry_PrivateData_TimeStamp(a1, v6, type metadata accessor for CLP_LogEntry_PrivateData_ClientLocationCoordinate);
+  v11 = type metadata accessor for CLP_LogEntry_PrivateData_ClientLocationCoordinate(0);
+  (*(*(v11 - 8) + 56))(v6, 0, 1, v11);
+  v12 = OBJC_IVAR____TtCV10ALProtobuf39CLP_LogEntry_PrivateData_DaemonLocationP33_993346AF53650622B255AB1E3C41340D13_StorageClass__rawCoordinate;
   swift_beginAccess();
-  outlined assign with take of Proto_Gpsd_Response?(v7, v11 + v17, &_s10ALProtobuf49CLP_LogEntry_PrivateData_ClientLocationCoordinateVSgMd, &_s10ALProtobuf49CLP_LogEntry_PrivateData_ClientLocationCoordinateVSgMR);
+  outlined assign with take of Proto_Gpsd_Response?(v6, v9 + v12, &_s10ALProtobuf49CLP_LogEntry_PrivateData_ClientLocationCoordinateVSgMd, &_s10ALProtobuf49CLP_LogEntry_PrivateData_ClientLocationCoordinateVSgMR);
   return swift_endAccess();
 }
 
@@ -2992,76 +808,70 @@ void CLP_LogEntry_PrivateData_DaemonLocation.rawCoordinate.modify(uint64_t *a1, 
   {
     v4 = *(v2 + 72);
     outlined init with copy of CLP_LogEntry_PrivateData_TimeStamp(*(v2 + 120), *(v2 + 112), type metadata accessor for CLP_LogEntry_PrivateData_ClientLocationCoordinate);
-    v5 = *(v4 + v3);
     isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-    v7 = *(v4 + v3);
+    v6 = *(v4 + v3);
     if ((isUniquelyReferenced_nonNull_native & 1) == 0)
     {
-      v8 = *(v2 + 128);
-      v9 = *(v2 + 72);
-      v10 = type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocation._StorageClass(0);
-      v11 = *(v10 + 48);
-      v12 = *(v10 + 52);
-      v13 = swift_allocObject();
-      specialized CLP_LogEntry_PrivateData_DaemonLocation._StorageClass.init(copying:)(v7);
+      v7 = *(v2 + 128);
+      v8 = *(v2 + 72);
+      type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocation._StorageClass(0);
+      v9 = swift_allocObject();
+      specialized CLP_LogEntry_PrivateData_DaemonLocation._StorageClass.init(copying:)(v6);
 
-      *(v9 + v8) = v13;
-      v7 = v13;
+      *(v8 + v7) = v9;
+      v6 = v9;
     }
 
-    v15 = *(v2 + 112);
-    v14 = *(v2 + 120);
-    v16 = *(v2 + 96);
-    v17 = *(v2 + 104);
-    v19 = *(v2 + 80);
-    v18 = *(v2 + 88);
-    outlined init with take of CLP_LogEntry_PrivateData_TimeStamp(v15, v19, type metadata accessor for CLP_LogEntry_PrivateData_ClientLocationCoordinate);
-    (*(v17 + 56))(v19, 0, 1, v16);
-    v20 = OBJC_IVAR____TtCV10ALProtobuf39CLP_LogEntry_PrivateData_DaemonLocationP33_993346AF53650622B255AB1E3C41340D13_StorageClass__rawCoordinate;
+    v11 = *(v2 + 112);
+    v10 = *(v2 + 120);
+    v12 = *(v2 + 96);
+    v13 = *(v2 + 104);
+    v15 = *(v2 + 80);
+    v14 = *(v2 + 88);
+    outlined init with take of CLP_LogEntry_PrivateData_TimeStamp(v11, v15, type metadata accessor for CLP_LogEntry_PrivateData_ClientLocationCoordinate);
+    (*(v13 + 56))(v15, 0, 1, v12);
+    v16 = OBJC_IVAR____TtCV10ALProtobuf39CLP_LogEntry_PrivateData_DaemonLocationP33_993346AF53650622B255AB1E3C41340D13_StorageClass__rawCoordinate;
     swift_beginAccess();
-    outlined assign with take of Proto_Gpsd_Response?(v19, v7 + v20, &_s10ALProtobuf49CLP_LogEntry_PrivateData_ClientLocationCoordinateVSgMd, &_s10ALProtobuf49CLP_LogEntry_PrivateData_ClientLocationCoordinateVSgMR);
+    outlined assign with take of Proto_Gpsd_Response?(v15, v6 + v16, &_s10ALProtobuf49CLP_LogEntry_PrivateData_ClientLocationCoordinateVSgMd, &_s10ALProtobuf49CLP_LogEntry_PrivateData_ClientLocationCoordinateVSgMR);
     swift_endAccess();
-    outlined destroy of CLP_LogEntry_PrivateData_TimeStamp(v14, type metadata accessor for CLP_LogEntry_PrivateData_ClientLocationCoordinate);
+    outlined destroy of CLP_LogEntry_PrivateData_TimeStamp(v10, type metadata accessor for CLP_LogEntry_PrivateData_ClientLocationCoordinate);
   }
 
   else
   {
-    v21 = *(v2 + 72);
-    v22 = *(v21 + v3);
-    v23 = swift_isUniquelyReferenced_nonNull_native();
-    v24 = *(v21 + v3);
-    if ((v23 & 1) == 0)
+    v17 = *(v2 + 72);
+    v18 = swift_isUniquelyReferenced_nonNull_native();
+    v19 = *(v17 + v3);
+    if ((v18 & 1) == 0)
     {
-      v25 = *(v2 + 128);
-      v26 = *(v2 + 72);
-      v27 = type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocation._StorageClass(0);
-      v28 = *(v27 + 48);
-      v29 = *(v27 + 52);
-      v30 = swift_allocObject();
-      specialized CLP_LogEntry_PrivateData_DaemonLocation._StorageClass.init(copying:)(v24);
+      v20 = *(v2 + 128);
+      v21 = *(v2 + 72);
+      type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocation._StorageClass(0);
+      v22 = swift_allocObject();
+      specialized CLP_LogEntry_PrivateData_DaemonLocation._StorageClass.init(copying:)(v19);
 
-      *(v26 + v25) = v30;
-      v24 = v30;
+      *(v21 + v20) = v22;
+      v19 = v22;
     }
 
-    v15 = *(v2 + 112);
-    v14 = *(v2 + 120);
-    v31 = *(v2 + 96);
-    v32 = *(v2 + 104);
-    v19 = *(v2 + 80);
-    v18 = *(v2 + 88);
-    outlined init with take of CLP_LogEntry_PrivateData_TimeStamp(v14, v19, type metadata accessor for CLP_LogEntry_PrivateData_ClientLocationCoordinate);
-    (*(v32 + 56))(v19, 0, 1, v31);
-    v33 = OBJC_IVAR____TtCV10ALProtobuf39CLP_LogEntry_PrivateData_DaemonLocationP33_993346AF53650622B255AB1E3C41340D13_StorageClass__rawCoordinate;
+    v11 = *(v2 + 112);
+    v10 = *(v2 + 120);
+    v23 = *(v2 + 96);
+    v24 = *(v2 + 104);
+    v15 = *(v2 + 80);
+    v14 = *(v2 + 88);
+    outlined init with take of CLP_LogEntry_PrivateData_TimeStamp(v10, v15, type metadata accessor for CLP_LogEntry_PrivateData_ClientLocationCoordinate);
+    (*(v24 + 56))(v15, 0, 1, v23);
+    v25 = OBJC_IVAR____TtCV10ALProtobuf39CLP_LogEntry_PrivateData_DaemonLocationP33_993346AF53650622B255AB1E3C41340D13_StorageClass__rawCoordinate;
     swift_beginAccess();
-    outlined assign with take of Proto_Gpsd_Response?(v19, v24 + v33, &_s10ALProtobuf49CLP_LogEntry_PrivateData_ClientLocationCoordinateVSgMd, &_s10ALProtobuf49CLP_LogEntry_PrivateData_ClientLocationCoordinateVSgMR);
+    outlined assign with take of Proto_Gpsd_Response?(v15, v19 + v25, &_s10ALProtobuf49CLP_LogEntry_PrivateData_ClientLocationCoordinateVSgMd, &_s10ALProtobuf49CLP_LogEntry_PrivateData_ClientLocationCoordinateVSgMR);
     swift_endAccess();
   }
 
+  free(v10);
+  free(v11);
   free(v14);
   free(v15);
-  free(v18);
-  free(v19);
 
   free(v2);
 }
@@ -3069,51 +879,46 @@ void CLP_LogEntry_PrivateData_DaemonLocation.rawCoordinate.modify(uint64_t *a1, 
 BOOL CLP_LogEntry_PrivateData_DaemonLocation.hasRawCoordinate.getter()
 {
   v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf49CLP_LogEntry_PrivateData_ClientLocationCoordinateVSgMd, &_s10ALProtobuf49CLP_LogEntry_PrivateData_ClientLocationCoordinateVSgMR);
-  v2 = *(*(v1 - 8) + 64);
   MEMORY[0x28223BE20](v1 - 8);
-  v4 = &v10 - v3;
-  v5 = *(v0 + *(type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocation(0) + 20));
-  v6 = OBJC_IVAR____TtCV10ALProtobuf39CLP_LogEntry_PrivateData_DaemonLocationP33_993346AF53650622B255AB1E3C41340D13_StorageClass__rawCoordinate;
+  v3 = &v9 - v2;
+  v4 = *(v0 + *(type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocation(0) + 20));
+  v5 = OBJC_IVAR____TtCV10ALProtobuf39CLP_LogEntry_PrivateData_DaemonLocationP33_993346AF53650622B255AB1E3C41340D13_StorageClass__rawCoordinate;
   swift_beginAccess();
-  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v5 + v6, v4, &_s10ALProtobuf49CLP_LogEntry_PrivateData_ClientLocationCoordinateVSgMd, &_s10ALProtobuf49CLP_LogEntry_PrivateData_ClientLocationCoordinateVSgMR);
-  v7 = type metadata accessor for CLP_LogEntry_PrivateData_ClientLocationCoordinate(0);
-  v8 = (*(*(v7 - 8) + 48))(v4, 1, v7) != 1;
-  outlined destroy of Any?(v4, &_s10ALProtobuf49CLP_LogEntry_PrivateData_ClientLocationCoordinateVSgMd, &_s10ALProtobuf49CLP_LogEntry_PrivateData_ClientLocationCoordinateVSgMR);
-  return v8;
+  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v4 + v5, v3, &_s10ALProtobuf49CLP_LogEntry_PrivateData_ClientLocationCoordinateVSgMd, &_s10ALProtobuf49CLP_LogEntry_PrivateData_ClientLocationCoordinateVSgMR);
+  v6 = type metadata accessor for CLP_LogEntry_PrivateData_ClientLocationCoordinate(0);
+  v7 = (*(*(v6 - 8) + 48))(v3, 1, v6) != 1;
+  outlined destroy of Any?(v3, &_s10ALProtobuf49CLP_LogEntry_PrivateData_ClientLocationCoordinateVSgMd, &_s10ALProtobuf49CLP_LogEntry_PrivateData_ClientLocationCoordinateVSgMR);
+  return v7;
 }
 
 Swift::Void __swiftcall CLP_LogEntry_PrivateData_DaemonLocation.clearRawCoordinate()()
 {
   v1 = v0;
   v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf49CLP_LogEntry_PrivateData_ClientLocationCoordinateVSgMd, &_s10ALProtobuf49CLP_LogEntry_PrivateData_ClientLocationCoordinateVSgMR);
-  v3 = *(*(v2 - 8) + 64);
   MEMORY[0x28223BE20](v2 - 8);
-  v5 = &v16 - v4;
-  v6 = *(type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocation(0) + 20);
-  v7 = *(v0 + v6);
+  v4 = &v11 - v3;
+  v5 = *(type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocation(0) + 20);
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v9 = *(v0 + v6);
+  v7 = *(v0 + v5);
   if ((isUniquelyReferenced_nonNull_native & 1) == 0)
   {
-    v10 = type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocation._StorageClass(0);
-    v11 = *(v10 + 48);
-    v12 = *(v10 + 52);
-    v13 = swift_allocObject();
-    specialized CLP_LogEntry_PrivateData_DaemonLocation._StorageClass.init(copying:)(v9);
+    type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocation._StorageClass(0);
+    v8 = swift_allocObject();
+    specialized CLP_LogEntry_PrivateData_DaemonLocation._StorageClass.init(copying:)(v7);
 
-    *(v1 + v6) = v13;
-    v9 = v13;
+    *(v1 + v5) = v8;
+    v7 = v8;
   }
 
-  v14 = type metadata accessor for CLP_LogEntry_PrivateData_ClientLocationCoordinate(0);
-  (*(*(v14 - 8) + 56))(v5, 1, 1, v14);
-  v15 = OBJC_IVAR____TtCV10ALProtobuf39CLP_LogEntry_PrivateData_DaemonLocationP33_993346AF53650622B255AB1E3C41340D13_StorageClass__rawCoordinate;
+  v9 = type metadata accessor for CLP_LogEntry_PrivateData_ClientLocationCoordinate(0);
+  (*(*(v9 - 8) + 56))(v4, 1, 1, v9);
+  v10 = OBJC_IVAR____TtCV10ALProtobuf39CLP_LogEntry_PrivateData_DaemonLocationP33_993346AF53650622B255AB1E3C41340D13_StorageClass__rawCoordinate;
   swift_beginAccess();
-  outlined assign with take of Proto_Gpsd_Response?(v5, v9 + v15, &_s10ALProtobuf49CLP_LogEntry_PrivateData_ClientLocationCoordinateVSgMd, &_s10ALProtobuf49CLP_LogEntry_PrivateData_ClientLocationCoordinateVSgMR);
+  outlined assign with take of Proto_Gpsd_Response?(v4, v7 + v10, &_s10ALProtobuf49CLP_LogEntry_PrivateData_ClientLocationCoordinateVSgMd, &_s10ALProtobuf49CLP_LogEntry_PrivateData_ClientLocationCoordinateVSgMR);
   swift_endAccess();
 }
 
-void (*CLP_LogEntry_PrivateData_DaemonLocation.rawCourse.modify(uint64_t *a1))(uint64_t *a1, uint64_t a2)
+void (*CLP_LogEntry_PrivateData_DaemonLocation.rawCourse.modify(uint64_t *a1))(uint64_t *a1, char a2)
 {
   if (MEMORY[0x277D84FD8])
   {
@@ -3161,25 +966,22 @@ uint64_t CLP_LogEntry_PrivateData_DaemonLocation.confidence.setter(int a1, uint6
 {
   v9 = v5;
   v11 = *(a2(0) + 20);
-  v12 = *(v5 + v11);
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v14 = *(v5 + v11);
+  v13 = *(v5 + v11);
   if ((isUniquelyReferenced_nonNull_native & 1) == 0)
   {
-    v15 = a3(0);
-    v16 = *(v15 + 48);
-    v17 = *(v15 + 52);
-    v18 = swift_allocObject();
-    a4(v14);
+    a3(0);
+    v14 = swift_allocObject();
+    a4(v13);
 
-    *(v9 + v11) = v18;
-    v14 = v18;
+    *(v9 + v11) = v14;
+    v13 = v14;
   }
 
-  v19 = v14 + *a5;
+  v15 = v13 + *a5;
   result = swift_beginAccess();
-  *v19 = a1;
-  *(v19 + 4) = 0;
+  *v15 = a1;
+  *(v15 + 4) = 0;
   return result;
 }
 
@@ -3212,33 +1014,30 @@ void (*CLP_LogEntry_PrivateData_DaemonLocation.floor.modify(uint64_t *a1))(uint6
   return CLP_LogEntry_PrivateData_DaemonLocation.floor.modify;
 }
 
-void CLP_LogEntry_PrivateData_DaemonLocation.confidence.modify(uint64_t *a1, uint64_t a2, uint64_t (*a3)(void), void (*a4)(uint64_t), void *a5)
+void CLP_LogEntry_PrivateData_DaemonLocation.confidence.modify(uint64_t *a1, char a2, uint64_t (*a3)(void), void (*a4)(uint64_t), void *a5)
 {
   v8 = *a1;
   v9 = *(*a1 + 80);
   v10 = *(*a1 + 84);
   v11 = *(*a1 + 72);
-  v12 = *(v11 + v10);
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v14 = *(v11 + v10);
+  v13 = *(v11 + v10);
   if ((isUniquelyReferenced_nonNull_native & 1) == 0)
   {
-    v15 = *(v8 + 84);
-    v16 = *(v8 + 72);
-    v17 = a3(0);
-    v18 = *(v17 + 48);
-    v19 = *(v17 + 52);
-    v20 = swift_allocObject();
-    a4(v14);
+    v14 = *(v8 + 84);
+    v15 = *(v8 + 72);
+    a3(0);
+    v16 = swift_allocObject();
+    a4(v13);
 
-    *(v16 + v15) = v20;
-    v14 = v20;
+    *(v15 + v14) = v16;
+    v13 = v16;
   }
 
-  v21 = v14 + *a5;
+  v17 = v13 + *a5;
   swift_beginAccess();
-  *v21 = v9;
-  *(v21 + 4) = 0;
+  *v17 = v9;
+  *(v17 + 4) = 0;
 
   free(v8);
 }
@@ -3254,25 +1053,22 @@ uint64_t CLP_LogEntry_PrivateData_DaemonLocation.clearConfidence()(uint64_t (*a1
 {
   v8 = v4;
   v9 = *(a1(0) + 20);
-  v10 = *(v4 + v9);
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v12 = *(v4 + v9);
+  v11 = *(v4 + v9);
   if ((isUniquelyReferenced_nonNull_native & 1) == 0)
   {
-    v13 = a2(0);
-    v14 = *(v13 + 48);
-    v15 = *(v13 + 52);
-    v16 = swift_allocObject();
-    a3(v12);
+    a2(0);
+    v12 = swift_allocObject();
+    a3(v11);
 
-    *(v8 + v9) = v16;
-    v12 = v16;
+    *(v8 + v9) = v12;
+    v11 = v12;
   }
 
-  v17 = v12 + *a4;
+  v13 = v11 + *a4;
   result = swift_beginAccess();
-  *v17 = 0;
-  *(v17 + 4) = 1;
+  *v13 = 0;
+  *(v13 + 4) = 1;
   return result;
 }
 
@@ -3280,24 +1076,21 @@ uint64_t CLP_LogEntry_PrivateData_DaemonLocation.type.setter(char a1, uint64_t (
 {
   v9 = v5;
   v11 = *(a2(0) + 20);
-  v12 = *(v5 + v11);
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v14 = *(v5 + v11);
+  v13 = *(v5 + v11);
   if ((isUniquelyReferenced_nonNull_native & 1) == 0)
   {
-    v15 = a3(0);
-    v16 = *(v15 + 48);
-    v17 = *(v15 + 52);
-    v18 = swift_allocObject();
-    a4(v14);
+    a3(0);
+    v14 = swift_allocObject();
+    a4(v13);
 
-    *(v9 + v11) = v18;
-    v14 = v18;
+    *(v9 + v11) = v14;
+    v13 = v14;
   }
 
-  v19 = *a5;
+  v15 = *a5;
   result = swift_beginAccess();
-  *(v14 + v19) = a1;
+  *(v13 + v15) = a1;
   return result;
 }
 
@@ -3331,32 +1124,29 @@ void (*CLP_LogEntry_PrivateData_DaemonLocation.integrity.modify(uint64_t *a1))(u
   return CLP_LogEntry_PrivateData_DaemonLocation.integrity.modify;
 }
 
-void CLP_LogEntry_PrivateData_DaemonLocation.type.modify(uint64_t *a1, uint64_t a2, uint64_t (*a3)(void), void (*a4)(uint64_t), uint64_t *a5)
+void CLP_LogEntry_PrivateData_DaemonLocation.type.modify(uint64_t *a1, char a2, uint64_t (*a3)(void), void (*a4)(uint64_t), uint64_t *a5)
 {
   v8 = *a1;
   v9 = *(*a1 + 84);
   v10 = *(*a1 + 80);
   v11 = *(*a1 + 72);
-  v12 = *(v11 + v10);
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v14 = *(v11 + v10);
+  v13 = *(v11 + v10);
   if ((isUniquelyReferenced_nonNull_native & 1) == 0)
   {
-    v15 = *(v8 + 80);
-    v16 = *(v8 + 72);
-    v17 = a3(0);
-    v18 = *(v17 + 48);
-    v19 = *(v17 + 52);
-    v20 = swift_allocObject();
-    a4(v14);
+    v14 = *(v8 + 80);
+    v15 = *(v8 + 72);
+    a3(0);
+    v16 = swift_allocObject();
+    a4(v13);
 
-    *(v16 + v15) = v20;
-    v14 = v20;
+    *(v15 + v14) = v16;
+    v13 = v16;
   }
 
-  v21 = *a5;
+  v17 = *a5;
   swift_beginAccess();
-  *(v14 + v21) = v9;
+  *(v13 + v17) = v9;
 
   free(v8);
 }
@@ -3365,27 +1155,24 @@ Swift::Void __swiftcall CLP_LogEntry_PrivateData_DaemonLocation.clearIntegrity()
 {
   v1 = v0;
   v2 = *(type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocation(0) + 20);
-  v3 = *(v0 + v2);
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v5 = *(v0 + v2);
+  v4 = *(v0 + v2);
   if ((isUniquelyReferenced_nonNull_native & 1) == 0)
   {
-    v6 = type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocation._StorageClass(0);
-    v7 = *(v6 + 48);
-    v8 = *(v6 + 52);
-    v9 = swift_allocObject();
-    specialized CLP_LogEntry_PrivateData_DaemonLocation._StorageClass.init(copying:)(v5);
+    type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocation._StorageClass(0);
+    v5 = swift_allocObject();
+    specialized CLP_LogEntry_PrivateData_DaemonLocation._StorageClass.init(copying:)(v4);
 
-    *(v1 + v2) = v9;
-    v5 = v9;
+    *(v1 + v2) = v5;
+    v4 = v5;
   }
 
-  v10 = OBJC_IVAR____TtCV10ALProtobuf39CLP_LogEntry_PrivateData_DaemonLocationP33_993346AF53650622B255AB1E3C41340D13_StorageClass__integrity;
+  v6 = OBJC_IVAR____TtCV10ALProtobuf39CLP_LogEntry_PrivateData_DaemonLocationP33_993346AF53650622B255AB1E3C41340D13_StorageClass__integrity;
   swift_beginAccess();
-  *(v5 + v10) = 5;
+  *(v4 + v6) = 5;
 }
 
-void (*CLP_LogEntry_PrivateData_DaemonLocation.referenceFrame.modify(uint64_t *a1))(uint64_t *a1, uint64_t a2)
+void (*CLP_LogEntry_PrivateData_DaemonLocation.referenceFrame.modify(uint64_t *a1))(uint64_t *a1, char a2)
 {
   if (MEMORY[0x277D84FD8])
   {
@@ -3419,24 +1206,21 @@ Swift::Void __swiftcall CLP_LogEntry_PrivateData_DaemonLocation.clearReferenceFr
 {
   v1 = v0;
   v2 = *(type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocation(0) + 20);
-  v3 = *(v0 + v2);
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v5 = *(v0 + v2);
+  v4 = *(v0 + v2);
   if ((isUniquelyReferenced_nonNull_native & 1) == 0)
   {
-    v6 = type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocation._StorageClass(0);
-    v7 = *(v6 + 48);
-    v8 = *(v6 + 52);
-    v9 = swift_allocObject();
-    specialized CLP_LogEntry_PrivateData_DaemonLocation._StorageClass.init(copying:)(v5);
+    type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocation._StorageClass(0);
+    v5 = swift_allocObject();
+    specialized CLP_LogEntry_PrivateData_DaemonLocation._StorageClass.init(copying:)(v4);
 
-    *(v1 + v2) = v9;
-    v5 = v9;
+    *(v1 + v2) = v5;
+    v4 = v5;
   }
 
-  v10 = OBJC_IVAR____TtCV10ALProtobuf39CLP_LogEntry_PrivateData_DaemonLocationP33_993346AF53650622B255AB1E3C41340D13_StorageClass__referenceFrame;
+  v6 = OBJC_IVAR____TtCV10ALProtobuf39CLP_LogEntry_PrivateData_DaemonLocationP33_993346AF53650622B255AB1E3C41340D13_StorageClass__referenceFrame;
   swift_beginAccess();
-  *(v5 + v10) = 3;
+  *(v4 + v6) = 3;
 }
 
 uint64_t CLP_LogEntry_PrivateData_DaemonLocation.referenceFrame.getter(uint64_t (*a1)(void), uint64_t *a2)
@@ -3455,7 +1239,7 @@ uint64_t CLP_LogEntry_PrivateData_DaemonLocation.referenceFrame.getter(uint64_t 
   }
 }
 
-void (*CLP_LogEntry_PrivateData_DaemonLocation.rawReferenceFrame.modify(uint64_t *a1))(uint64_t *a1, uint64_t a2)
+void (*CLP_LogEntry_PrivateData_DaemonLocation.rawReferenceFrame.modify(uint64_t *a1))(uint64_t *a1, char a2)
 {
   if (MEMORY[0x277D84FD8])
   {
@@ -3497,27 +1281,24 @@ Swift::Void __swiftcall CLP_LogEntry_PrivateData_DaemonLocation.clearRawReferenc
 {
   v1 = v0;
   v2 = *(type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocation(0) + 20);
-  v3 = *(v0 + v2);
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v5 = *(v0 + v2);
+  v4 = *(v0 + v2);
   if ((isUniquelyReferenced_nonNull_native & 1) == 0)
   {
-    v6 = type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocation._StorageClass(0);
-    v7 = *(v6 + 48);
-    v8 = *(v6 + 52);
-    v9 = swift_allocObject();
-    specialized CLP_LogEntry_PrivateData_DaemonLocation._StorageClass.init(copying:)(v5);
+    type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocation._StorageClass(0);
+    v5 = swift_allocObject();
+    specialized CLP_LogEntry_PrivateData_DaemonLocation._StorageClass.init(copying:)(v4);
 
-    *(v1 + v2) = v9;
-    v5 = v9;
+    *(v1 + v2) = v5;
+    v4 = v5;
   }
 
-  v10 = OBJC_IVAR____TtCV10ALProtobuf39CLP_LogEntry_PrivateData_DaemonLocationP33_993346AF53650622B255AB1E3C41340D13_StorageClass__rawReferenceFrame;
+  v6 = OBJC_IVAR____TtCV10ALProtobuf39CLP_LogEntry_PrivateData_DaemonLocationP33_993346AF53650622B255AB1E3C41340D13_StorageClass__rawReferenceFrame;
   swift_beginAccess();
-  *(v5 + v10) = 3;
+  *(v4 + v6) = 3;
 }
 
-void (*CLP_LogEntry_PrivateData_DaemonLocation.signalEnvironmentType.modify(uint64_t *a1))(uint64_t *a1, uint64_t a2)
+void (*CLP_LogEntry_PrivateData_DaemonLocation.signalEnvironmentType.modify(uint64_t *a1))(uint64_t *a1, char a2)
 {
   if (MEMORY[0x277D84FD8])
   {
@@ -3551,27 +1332,24 @@ Swift::Void __swiftcall CLP_LogEntry_PrivateData_DaemonLocation.clearSignalEnvir
 {
   v1 = v0;
   v2 = *(type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocation(0) + 20);
-  v3 = *(v0 + v2);
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v5 = *(v0 + v2);
+  v4 = *(v0 + v2);
   if ((isUniquelyReferenced_nonNull_native & 1) == 0)
   {
-    v6 = type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocation._StorageClass(0);
-    v7 = *(v6 + 48);
-    v8 = *(v6 + 52);
-    v9 = swift_allocObject();
-    specialized CLP_LogEntry_PrivateData_DaemonLocation._StorageClass.init(copying:)(v5);
+    type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocation._StorageClass(0);
+    v5 = swift_allocObject();
+    specialized CLP_LogEntry_PrivateData_DaemonLocation._StorageClass.init(copying:)(v4);
 
-    *(v1 + v2) = v9;
-    v5 = v9;
+    *(v1 + v2) = v5;
+    v4 = v5;
   }
 
-  v10 = OBJC_IVAR____TtCV10ALProtobuf39CLP_LogEntry_PrivateData_DaemonLocationP33_993346AF53650622B255AB1E3C41340D13_StorageClass__signalEnvironmentType;
+  v6 = OBJC_IVAR____TtCV10ALProtobuf39CLP_LogEntry_PrivateData_DaemonLocationP33_993346AF53650622B255AB1E3C41340D13_StorageClass__signalEnvironmentType;
   swift_beginAccess();
-  *(v5 + v10) = 8;
+  *(v4 + v6) = 8;
 }
 
-void (*CLP_LogEntry_PrivateData_DaemonLocation.ellipsoidalAltitude.modify(uint64_t *a1))(uint64_t *a1, uint64_t a2)
+void (*CLP_LogEntry_PrivateData_DaemonLocation.ellipsoidalAltitude.modify(uint64_t *a1))(uint64_t *a1, char a2)
 {
   if (MEMORY[0x277D84FD8])
   {
@@ -3628,24 +1406,21 @@ Swift::Void __swiftcall CLP_LogEntry_PrivateData_DaemonLocation.clearFromSimulat
 {
   v1 = v0;
   v2 = *(type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocation(0) + 20);
-  v3 = *(v0 + v2);
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v5 = *(v0 + v2);
+  v4 = *(v0 + v2);
   if ((isUniquelyReferenced_nonNull_native & 1) == 0)
   {
-    v6 = type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocation._StorageClass(0);
-    v7 = *(v6 + 48);
-    v8 = *(v6 + 52);
-    v9 = swift_allocObject();
-    specialized CLP_LogEntry_PrivateData_DaemonLocation._StorageClass.init(copying:)(v5);
+    type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocation._StorageClass(0);
+    v5 = swift_allocObject();
+    specialized CLP_LogEntry_PrivateData_DaemonLocation._StorageClass.init(copying:)(v4);
 
-    *(v1 + v2) = v9;
-    v5 = v9;
+    *(v1 + v2) = v5;
+    v4 = v5;
   }
 
-  v10 = OBJC_IVAR____TtCV10ALProtobuf39CLP_LogEntry_PrivateData_DaemonLocationP33_993346AF53650622B255AB1E3C41340D13_StorageClass__fromSimulationController;
+  v6 = OBJC_IVAR____TtCV10ALProtobuf39CLP_LogEntry_PrivateData_DaemonLocationP33_993346AF53650622B255AB1E3C41340D13_StorageClass__fromSimulationController;
   swift_beginAccess();
-  *(v5 + v10) = 2;
+  *(v4 + v6) = 2;
 }
 
 uint64_t protocol witness for Hashable.hash(into:) in conformance CLP_LogEntry_PrivateData_DaemonLocation.ClientLocationSuitabilityType(uint64_t a1, uint64_t a2)
@@ -3655,17 +1430,17 @@ uint64_t protocol witness for Hashable.hash(into:) in conformance CLP_LogEntry_P
   return MEMORY[0x28217E238](a1, a2, v4);
 }
 
-uint64_t protocol witness for Enum.init(rawValue:) in conformance CLP_LogEntry_PrivateData_DaemonLocation.ClientLocationSuitabilityType@<X0>(uint64_t a1@<X0>, _BYTE *a2@<X8>)
+unint64_t protocol witness for Enum.init(rawValue:) in conformance CLP_LogEntry_PrivateData_DaemonLocation.ClientLocationSuitabilityType@<X0>(unint64_t a1@<X0>, ALProtobuf::CLP_LogEntry_PrivateData_DaemonLocation::ClientLocationSuitabilityType_optional *a2@<X8>)
 {
   result = specialized CLP_LogEntry_PrivateData_DaemonLocation.ClientLocationSuitabilityType.init(rawValue:)(a1);
-  *a2 = result;
+  a2->value = result;
   return result;
 }
 
-uint64_t protocol witness for RawRepresentable.init(rawValue:) in conformance CLP_LogEntry_PrivateData_DaemonLocation.ClientLocationSuitabilityType@<X0>(uint64_t *a1@<X0>, _BYTE *a2@<X8>)
+unint64_t protocol witness for RawRepresentable.init(rawValue:) in conformance CLP_LogEntry_PrivateData_DaemonLocation.ClientLocationSuitabilityType@<X0>(Swift::Int *a1@<X0>, ALProtobuf::CLP_LogEntry_PrivateData_DaemonLocation::ClientLocationSuitabilityType_optional *a2@<X8>)
 {
   result = specialized CLP_LogEntry_PrivateData_DaemonLocation.ClientLocationSuitabilityType.init(rawValue:)(*a1);
-  *a2 = result;
+  a2->value = result;
   return result;
 }
 
@@ -3676,17 +1451,17 @@ uint64_t protocol witness for Hashable.hash(into:) in conformance CLP_LogEntry_P
   return MEMORY[0x28217E238](a1, a2, v4);
 }
 
-uint64_t protocol witness for Enum.init(rawValue:) in conformance CLP_LogEntry_PrivateData_DaemonLocation.LocationIntegrityType@<X0>(uint64_t a1@<X0>, _BYTE *a2@<X8>)
+uint64_t protocol witness for Enum.init(rawValue:) in conformance CLP_LogEntry_PrivateData_DaemonLocation.LocationIntegrityType@<X0>(Swift::Int a1@<X0>, ALProtobuf::CLP_LogEntry_PrivateData_DaemonLocation::LocationIntegrityType_optional *a2@<X8>)
 {
   result = specialized CLP_LogEntry_PrivateData_DaemonLocation.LocationIntegrityType.init(rawValue:)(a1);
-  *a2 = result;
+  a2->value = result;
   return result;
 }
 
-uint64_t protocol witness for RawRepresentable.init(rawValue:) in conformance CLP_LogEntry_PrivateData_DaemonLocation.LocationIntegrityType@<X0>(uint64_t *a1@<X0>, _BYTE *a2@<X8>)
+uint64_t protocol witness for RawRepresentable.init(rawValue:) in conformance CLP_LogEntry_PrivateData_DaemonLocation.LocationIntegrityType@<X0>(Swift::Int *a1@<X0>, ALProtobuf::CLP_LogEntry_PrivateData_DaemonLocation::LocationIntegrityType_optional *a2@<X8>)
 {
   result = specialized CLP_LogEntry_PrivateData_DaemonLocation.LocationIntegrityType.init(rawValue:)(*a1);
-  *a2 = result;
+  a2->value = result;
   return result;
 }
 
@@ -3731,7 +1506,7 @@ uint64_t CLP_LogEntry_PrivateData_MapMatcherData.rawUnmodifiedCourseUnc.setter(d
   return result;
 }
 
-uint64_t (*CLP_LogEntry_PrivateData_MapMatcherData.rawUnmodifiedCourseUnc.modify(uint64_t a1))()
+uint64_t (*CLP_LogEntry_PrivateData_MapMatcherData.rawUnmodifiedCourseUnc.modify(uint64_t a1))(uint64_t result)
 {
   *(a1 + 8) = v1;
   v3 = *(type metadata accessor for CLP_LogEntry_PrivateData_MapMatcherData(0) + 24);
@@ -3777,7 +1552,7 @@ uint64_t CLP_LogEntry_PrivateData_MapMatcherData.isMounted.setter(char a1)
   return result;
 }
 
-uint64_t (*CLP_LogEntry_PrivateData_MapMatcherData.isMounted.modify(uint64_t a1))()
+uint64_t (*CLP_LogEntry_PrivateData_MapMatcherData.isMounted.modify(uint64_t a1))(uint64_t result)
 {
   *a1 = v1;
   v3 = *(type metadata accessor for CLP_LogEntry_PrivateData_MapMatcherData(0) + 32);
@@ -3810,7 +1585,7 @@ uint64_t CLP_LogEntry_PrivateData_PressureSample.value.setter(double a1)
   return result;
 }
 
-uint64_t (*CLP_LogEntry_PrivateData_PressureSample.value.modify(uint64_t a1))()
+uint64_t (*CLP_LogEntry_PrivateData_PressureSample.value.modify(uint64_t a1))(uint64_t result)
 {
   *(a1 + 8) = v1;
   v3 = *(type metadata accessor for CLP_LogEntry_PrivateData_PressureSample(0) + 20);
@@ -3842,7 +1617,7 @@ uint64_t CLP_LogEntry_PrivateData_PressureSample.std.setter(double a1)
   return result;
 }
 
-uint64_t (*CLP_LogEntry_PrivateData_PressureSample.std.modify(uint64_t a1))()
+uint64_t (*CLP_LogEntry_PrivateData_PressureSample.std.modify(uint64_t a1))(uint64_t result)
 {
   *(a1 + 8) = v1;
   v3 = *(type metadata accessor for CLP_LogEntry_PrivateData_PressureSample(0) + 24);
@@ -3899,7 +1674,7 @@ uint64_t CLP_LogEntry_PrivateData_ClientSatelliteInfo.constellation.setter(char 
   return result;
 }
 
-uint64_t (*CLP_LogEntry_PrivateData_ClientSatelliteInfo.constellation.modify(uint64_t a1))()
+uint64_t (*CLP_LogEntry_PrivateData_ClientSatelliteInfo.constellation.modify(uint64_t a1))(uint64_t result)
 {
   *a1 = v1;
   v3 = *(type metadata accessor for CLP_LogEntry_PrivateData_ClientSatelliteInfo(0) + 20);
@@ -3923,7 +1698,7 @@ uint64_t CLP_LogEntry_PrivateData_ClientSatelliteInfo.satID.setter(int a1)
   return result;
 }
 
-uint64_t (*CLP_LogEntry_PrivateData_ClientSatelliteInfo.satID.modify(uint64_t a1))()
+uint64_t (*CLP_LogEntry_PrivateData_ClientSatelliteInfo.satID.modify(uint64_t a1))(uint64_t result)
 {
   *a1 = v1;
   v3 = *(type metadata accessor for CLP_LogEntry_PrivateData_ClientSatelliteInfo(0) + 24);
@@ -3959,7 +1734,7 @@ uint64_t CLP_LogEntry_PrivateData_ClientSatelliteInfo.elevationDeg.setter(float 
   return result;
 }
 
-uint64_t (*CLP_LogEntry_PrivateData_ClientSatelliteInfo.elevationDeg.modify(uint64_t a1))()
+uint64_t (*CLP_LogEntry_PrivateData_ClientSatelliteInfo.elevationDeg.modify(uint64_t a1))(uint64_t result)
 {
   *a1 = v1;
   v3 = *(type metadata accessor for CLP_LogEntry_PrivateData_ClientSatelliteInfo(0) + 28);
@@ -3991,7 +1766,7 @@ uint64_t CLP_LogEntry_PrivateData_ClientSatelliteInfo.azimuthDeg.setter(float a1
   return result;
 }
 
-uint64_t (*CLP_LogEntry_PrivateData_ClientSatelliteInfo.azimuthDeg.modify(uint64_t a1))()
+uint64_t (*CLP_LogEntry_PrivateData_ClientSatelliteInfo.azimuthDeg.modify(uint64_t a1))(uint64_t result)
 {
   *a1 = v1;
   v3 = *(type metadata accessor for CLP_LogEntry_PrivateData_ClientSatelliteInfo(0) + 32);
@@ -4023,7 +1798,7 @@ uint64_t CLP_LogEntry_PrivateData_ClientSatelliteInfo.l1Cn0.setter(float a1)
   return result;
 }
 
-uint64_t (*CLP_LogEntry_PrivateData_ClientSatelliteInfo.l1Cn0.modify(uint64_t a1))()
+uint64_t (*CLP_LogEntry_PrivateData_ClientSatelliteInfo.l1Cn0.modify(uint64_t a1))(uint64_t result)
 {
   *a1 = v1;
   v3 = *(type metadata accessor for CLP_LogEntry_PrivateData_ClientSatelliteInfo(0) + 36);
@@ -4055,7 +1830,7 @@ uint64_t CLP_LogEntry_PrivateData_ClientSatelliteInfo.l5Cn0.setter(float a1)
   return result;
 }
 
-uint64_t (*CLP_LogEntry_PrivateData_ClientSatelliteInfo.l5Cn0.modify(uint64_t a1))()
+uint64_t (*CLP_LogEntry_PrivateData_ClientSatelliteInfo.l5Cn0.modify(uint64_t a1))(uint64_t result)
 {
   *a1 = v1;
   v3 = *(type metadata accessor for CLP_LogEntry_PrivateData_ClientSatelliteInfo(0) + 40);
@@ -4085,7 +1860,7 @@ uint64_t CLP_LogEntry_PrivateData_ClientSatelliteInfo.isTracked.setter(char a1)
   return result;
 }
 
-uint64_t (*CLP_LogEntry_PrivateData_ClientSatelliteInfo.isTracked.modify(uint64_t a1))()
+uint64_t (*CLP_LogEntry_PrivateData_ClientSatelliteInfo.isTracked.modify(uint64_t a1))(uint64_t result)
 {
   *a1 = v1;
   v3 = *(type metadata accessor for CLP_LogEntry_PrivateData_ClientSatelliteInfo(0) + 44);
@@ -4101,7 +1876,7 @@ uint64_t CLP_LogEntry_PrivateData_ClientSatelliteInfo.isPhaseTracked.setter(char
   return result;
 }
 
-uint64_t (*CLP_LogEntry_PrivateData_ClientSatelliteInfo.isPhaseTracked.modify(uint64_t a1))()
+uint64_t (*CLP_LogEntry_PrivateData_ClientSatelliteInfo.isPhaseTracked.modify(uint64_t a1))(uint64_t result)
 {
   *a1 = v1;
   v3 = *(type metadata accessor for CLP_LogEntry_PrivateData_ClientSatelliteInfo(0) + 48);
@@ -4139,28 +1914,25 @@ uint64_t CLP_LogEntry_PrivateData_DaemonLocationPrivate.odometer.setter(double a
 {
   v2 = v1;
   v4 = *(type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate(0) + 20);
-  v5 = *(v1 + v4);
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v7 = *(v1 + v4);
+  v6 = *(v1 + v4);
   if ((isUniquelyReferenced_nonNull_native & 1) == 0)
   {
-    v8 = type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass(0);
-    v9 = *(v8 + 48);
-    v10 = *(v8 + 52);
-    v11 = swift_allocObject();
-    specialized CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass.init(copying:)(v7);
+    type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass(0);
+    v7 = swift_allocObject();
+    specialized CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass.init(copying:)(v6);
 
-    *(v2 + v4) = v11;
-    v7 = v11;
+    *(v2 + v4) = v7;
+    v6 = v7;
   }
 
   result = swift_beginAccess();
-  *(v7 + 16) = a1;
-  *(v7 + 24) = 0;
+  *(v6 + 16) = a1;
+  *(v6 + 24) = 0;
   return result;
 }
 
-void (*CLP_LogEntry_PrivateData_DaemonLocationPrivate.odometer.modify(uint64_t *a1))(uint64_t *a1)
+void (*CLP_LogEntry_PrivateData_DaemonLocationPrivate.odometer.modify(uint64_t *a1))(uint64_t *a1, char a2)
 {
   if (MEMORY[0x277D84FD8])
   {
@@ -4189,58 +1961,52 @@ void (*CLP_LogEntry_PrivateData_DaemonLocationPrivate.odometer.modify(uint64_t *
   return CLP_LogEntry_PrivateData_DaemonLocationPrivate.odometer.modify;
 }
 
-void CLP_LogEntry_PrivateData_DaemonLocationPrivate.odometer.modify(uint64_t *a1)
+void CLP_LogEntry_PrivateData_DaemonLocationPrivate.odometer.modify(uint64_t *a1, char a2)
 {
-  v1 = *a1;
-  v2 = *(*a1 + 72);
-  v3 = *(*a1 + 88);
-  v4 = *(*a1 + 80);
-  v5 = *(v4 + v3);
+  v2 = *a1;
+  v3 = *(*a1 + 72);
+  v4 = *(*a1 + 88);
+  v5 = *(*a1 + 80);
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v7 = *(v4 + v3);
+  v7 = *(v5 + v4);
   if ((isUniquelyReferenced_nonNull_native & 1) == 0)
   {
-    v8 = *(v1 + 88);
-    v9 = *(v1 + 80);
-    v10 = type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass(0);
-    v11 = *(v10 + 48);
-    v12 = *(v10 + 52);
-    v13 = swift_allocObject();
+    v8 = *(v2 + 88);
+    v9 = *(v2 + 80);
+    type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass(0);
+    v10 = swift_allocObject();
     specialized CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass.init(copying:)(v7);
 
-    *(v9 + v8) = v13;
-    v7 = v13;
+    *(v9 + v8) = v10;
+    v7 = v10;
   }
 
   swift_beginAccess();
-  *(v7 + 16) = v2;
+  *(v7 + 16) = v3;
   *(v7 + 24) = 0;
 
-  free(v1);
+  free(v2);
 }
 
 Swift::Void __swiftcall CLP_LogEntry_PrivateData_DaemonLocationPrivate.clearOdometer()()
 {
   v1 = v0;
   v2 = *(type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate(0) + 20);
-  v3 = *(v0 + v2);
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v5 = *(v0 + v2);
+  v4 = *(v0 + v2);
   if ((isUniquelyReferenced_nonNull_native & 1) == 0)
   {
-    v6 = type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass(0);
-    v7 = *(v6 + 48);
-    v8 = *(v6 + 52);
-    v9 = swift_allocObject();
-    specialized CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass.init(copying:)(v5);
+    type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass(0);
+    v5 = swift_allocObject();
+    specialized CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass.init(copying:)(v4);
 
-    *(v1 + v2) = v9;
-    v5 = v9;
+    *(v1 + v2) = v5;
+    v4 = v5;
   }
 
   swift_beginAccess();
-  *(v5 + 16) = 0;
-  *(v5 + 24) = 1;
+  *(v4 + 16) = 0;
+  *(v4 + 24) = 1;
 }
 
 void (*CLP_LogEntry_PrivateData_DaemonLocationPrivate.deltaDistance.modify(uint64_t *a1))(uint64_t *a1, uint64_t a2)
@@ -4347,28 +2113,25 @@ uint64_t CLP_LogEntry_PrivateData_DaemonLocationPrivate.machTime.setter(double a
 {
   v2 = v1;
   v4 = *(type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate(0) + 20);
-  v5 = *(v1 + v4);
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v7 = *(v1 + v4);
+  v6 = *(v1 + v4);
   if ((isUniquelyReferenced_nonNull_native & 1) == 0)
   {
-    v8 = type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass(0);
-    v9 = *(v8 + 48);
-    v10 = *(v8 + 52);
-    v11 = swift_allocObject();
-    specialized CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass.init(copying:)(v7);
+    type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass(0);
+    v7 = swift_allocObject();
+    specialized CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass.init(copying:)(v6);
 
-    *(v2 + v4) = v11;
-    v7 = v11;
+    *(v2 + v4) = v7;
+    v6 = v7;
   }
 
   result = swift_beginAccess();
-  *(v7 + 80) = a1;
-  *(v7 + 88) = 0;
+  *(v6 + 80) = a1;
+  *(v6 + 88) = 0;
   return result;
 }
 
-void (*CLP_LogEntry_PrivateData_DaemonLocationPrivate.machTime.modify(uint64_t *a1))(uint64_t *a1)
+void (*CLP_LogEntry_PrivateData_DaemonLocationPrivate.machTime.modify(uint64_t *a1))(uint64_t *a1, char a2)
 {
   if (MEMORY[0x277D84FD8])
   {
@@ -4397,34 +2160,31 @@ void (*CLP_LogEntry_PrivateData_DaemonLocationPrivate.machTime.modify(uint64_t *
   return CLP_LogEntry_PrivateData_DaemonLocationPrivate.machTime.modify;
 }
 
-void CLP_LogEntry_PrivateData_DaemonLocationPrivate.machTime.modify(uint64_t *a1)
+void CLP_LogEntry_PrivateData_DaemonLocationPrivate.machTime.modify(uint64_t *a1, char a2)
 {
-  v1 = *a1;
-  v2 = *(*a1 + 72);
-  v3 = *(*a1 + 88);
-  v4 = *(*a1 + 80);
-  v5 = *(v4 + v3);
+  v2 = *a1;
+  v3 = *(*a1 + 72);
+  v4 = *(*a1 + 88);
+  v5 = *(*a1 + 80);
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v7 = *(v4 + v3);
+  v7 = *(v5 + v4);
   if ((isUniquelyReferenced_nonNull_native & 1) == 0)
   {
-    v8 = *(v1 + 88);
-    v9 = *(v1 + 80);
-    v10 = type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass(0);
-    v11 = *(v10 + 48);
-    v12 = *(v10 + 52);
-    v13 = swift_allocObject();
+    v8 = *(v2 + 88);
+    v9 = *(v2 + 80);
+    type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass(0);
+    v10 = swift_allocObject();
     specialized CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass.init(copying:)(v7);
 
-    *(v9 + v8) = v13;
-    v7 = v13;
+    *(v9 + v8) = v10;
+    v7 = v10;
   }
 
   swift_beginAccess();
-  *(v7 + 80) = v2;
+  *(v7 + 80) = v3;
   *(v7 + 88) = 0;
 
-  free(v1);
+  free(v2);
 }
 
 BOOL CLP_LogEntry_PrivateData_DaemonLocationPrivate.hasMachTime.getter()
@@ -4438,52 +2198,46 @@ Swift::Void __swiftcall CLP_LogEntry_PrivateData_DaemonLocationPrivate.clearMach
 {
   v1 = v0;
   v2 = *(type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate(0) + 20);
-  v3 = *(v0 + v2);
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v5 = *(v0 + v2);
+  v4 = *(v0 + v2);
   if ((isUniquelyReferenced_nonNull_native & 1) == 0)
   {
-    v6 = type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass(0);
-    v7 = *(v6 + 48);
-    v8 = *(v6 + 52);
-    v9 = swift_allocObject();
-    specialized CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass.init(copying:)(v5);
+    type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass(0);
+    v5 = swift_allocObject();
+    specialized CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass.init(copying:)(v4);
 
-    *(v1 + v2) = v9;
-    v5 = v9;
+    *(v1 + v2) = v5;
+    v4 = v5;
   }
 
   swift_beginAccess();
-  *(v5 + 80) = 0;
-  *(v5 + 88) = 1;
+  *(v4 + 80) = 0;
+  *(v4 + 88) = 1;
 }
 
 uint64_t CLP_LogEntry_PrivateData_DaemonLocationPrivate.horzUncSemiMaj.setter(float a1)
 {
   v2 = v1;
   v4 = *(type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate(0) + 20);
-  v5 = *(v1 + v4);
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v7 = *(v1 + v4);
+  v6 = *(v1 + v4);
   if ((isUniquelyReferenced_nonNull_native & 1) == 0)
   {
-    v8 = type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass(0);
-    v9 = *(v8 + 48);
-    v10 = *(v8 + 52);
-    v11 = swift_allocObject();
-    specialized CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass.init(copying:)(v7);
+    type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass(0);
+    v7 = swift_allocObject();
+    specialized CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass.init(copying:)(v6);
 
-    *(v2 + v4) = v11;
-    v7 = v11;
+    *(v2 + v4) = v7;
+    v6 = v7;
   }
 
   result = swift_beginAccess();
-  *(v7 + 92) = a1;
-  *(v7 + 96) = 0;
+  *(v6 + 92) = a1;
+  *(v6 + 96) = 0;
   return result;
 }
 
-void (*CLP_LogEntry_PrivateData_DaemonLocationPrivate.horzUncSemiMaj.modify(uint64_t *a1))(uint64_t *a1)
+void (*CLP_LogEntry_PrivateData_DaemonLocationPrivate.horzUncSemiMaj.modify(uint64_t *a1))(uint64_t *a1, char a2)
 {
   if (MEMORY[0x277D84FD8])
   {
@@ -4512,86 +2266,77 @@ void (*CLP_LogEntry_PrivateData_DaemonLocationPrivate.horzUncSemiMaj.modify(uint
   return CLP_LogEntry_PrivateData_DaemonLocationPrivate.horzUncSemiMaj.modify;
 }
 
-void CLP_LogEntry_PrivateData_DaemonLocationPrivate.horzUncSemiMaj.modify(uint64_t *a1)
+void CLP_LogEntry_PrivateData_DaemonLocationPrivate.horzUncSemiMaj.modify(uint64_t *a1, char a2)
 {
-  v1 = *a1;
-  v2 = *(*a1 + 80);
-  v3 = *(*a1 + 84);
-  v4 = *(*a1 + 72);
-  v5 = *(v4 + v3);
+  v2 = *a1;
+  v3 = *(*a1 + 80);
+  v4 = *(*a1 + 84);
+  v5 = *(*a1 + 72);
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v7 = *(v4 + v3);
+  v7 = *(v5 + v4);
   if ((isUniquelyReferenced_nonNull_native & 1) == 0)
   {
-    v8 = *(v1 + 84);
-    v9 = *(v1 + 72);
-    v10 = type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass(0);
-    v11 = *(v10 + 48);
-    v12 = *(v10 + 52);
-    v13 = swift_allocObject();
+    v8 = *(v2 + 84);
+    v9 = *(v2 + 72);
+    type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass(0);
+    v10 = swift_allocObject();
     specialized CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass.init(copying:)(v7);
 
-    *(v9 + v8) = v13;
-    v7 = v13;
+    *(v9 + v8) = v10;
+    v7 = v10;
   }
 
   swift_beginAccess();
-  *(v7 + 92) = v2;
+  *(v7 + 92) = v3;
   *(v7 + 96) = 0;
 
-  free(v1);
+  free(v2);
 }
 
 Swift::Void __swiftcall CLP_LogEntry_PrivateData_DaemonLocationPrivate.clearHorzUncSemiMaj()()
 {
   v1 = v0;
   v2 = *(type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate(0) + 20);
-  v3 = *(v0 + v2);
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v5 = *(v0 + v2);
+  v4 = *(v0 + v2);
   if ((isUniquelyReferenced_nonNull_native & 1) == 0)
   {
-    v6 = type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass(0);
-    v7 = *(v6 + 48);
-    v8 = *(v6 + 52);
-    v9 = swift_allocObject();
-    specialized CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass.init(copying:)(v5);
+    type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass(0);
+    v5 = swift_allocObject();
+    specialized CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass.init(copying:)(v4);
 
-    *(v1 + v2) = v9;
-    v5 = v9;
+    *(v1 + v2) = v5;
+    v4 = v5;
   }
 
   swift_beginAccess();
-  *(v5 + 92) = 0;
-  *(v5 + 96) = 1;
+  *(v4 + 92) = 0;
+  *(v4 + 96) = 1;
 }
 
 uint64_t CLP_LogEntry_PrivateData_DaemonLocationPrivate.horzUncSemiMin.setter(float a1)
 {
   v2 = v1;
   v4 = *(type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate(0) + 20);
-  v5 = *(v1 + v4);
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v7 = *(v1 + v4);
+  v6 = *(v1 + v4);
   if ((isUniquelyReferenced_nonNull_native & 1) == 0)
   {
-    v8 = type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass(0);
-    v9 = *(v8 + 48);
-    v10 = *(v8 + 52);
-    v11 = swift_allocObject();
-    specialized CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass.init(copying:)(v7);
+    type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass(0);
+    v7 = swift_allocObject();
+    specialized CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass.init(copying:)(v6);
 
-    *(v2 + v4) = v11;
-    v7 = v11;
+    *(v2 + v4) = v7;
+    v6 = v7;
   }
 
   result = swift_beginAccess();
-  *(v7 + 100) = a1;
-  *(v7 + 104) = 0;
+  *(v6 + 100) = a1;
+  *(v6 + 104) = 0;
   return result;
 }
 
-void (*CLP_LogEntry_PrivateData_DaemonLocationPrivate.horzUncSemiMin.modify(uint64_t *a1))(uint64_t *a1)
+void (*CLP_LogEntry_PrivateData_DaemonLocationPrivate.horzUncSemiMin.modify(uint64_t *a1))(uint64_t *a1, char a2)
 {
   if (MEMORY[0x277D84FD8])
   {
@@ -4620,86 +2365,77 @@ void (*CLP_LogEntry_PrivateData_DaemonLocationPrivate.horzUncSemiMin.modify(uint
   return CLP_LogEntry_PrivateData_DaemonLocationPrivate.horzUncSemiMin.modify;
 }
 
-void CLP_LogEntry_PrivateData_DaemonLocationPrivate.horzUncSemiMin.modify(uint64_t *a1)
+void CLP_LogEntry_PrivateData_DaemonLocationPrivate.horzUncSemiMin.modify(uint64_t *a1, char a2)
 {
-  v1 = *a1;
-  v2 = *(*a1 + 80);
-  v3 = *(*a1 + 84);
-  v4 = *(*a1 + 72);
-  v5 = *(v4 + v3);
+  v2 = *a1;
+  v3 = *(*a1 + 80);
+  v4 = *(*a1 + 84);
+  v5 = *(*a1 + 72);
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v7 = *(v4 + v3);
+  v7 = *(v5 + v4);
   if ((isUniquelyReferenced_nonNull_native & 1) == 0)
   {
-    v8 = *(v1 + 84);
-    v9 = *(v1 + 72);
-    v10 = type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass(0);
-    v11 = *(v10 + 48);
-    v12 = *(v10 + 52);
-    v13 = swift_allocObject();
+    v8 = *(v2 + 84);
+    v9 = *(v2 + 72);
+    type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass(0);
+    v10 = swift_allocObject();
     specialized CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass.init(copying:)(v7);
 
-    *(v9 + v8) = v13;
-    v7 = v13;
+    *(v9 + v8) = v10;
+    v7 = v10;
   }
 
   swift_beginAccess();
-  *(v7 + 100) = v2;
+  *(v7 + 100) = v3;
   *(v7 + 104) = 0;
 
-  free(v1);
+  free(v2);
 }
 
 Swift::Void __swiftcall CLP_LogEntry_PrivateData_DaemonLocationPrivate.clearHorzUncSemiMin()()
 {
   v1 = v0;
   v2 = *(type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate(0) + 20);
-  v3 = *(v0 + v2);
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v5 = *(v0 + v2);
+  v4 = *(v0 + v2);
   if ((isUniquelyReferenced_nonNull_native & 1) == 0)
   {
-    v6 = type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass(0);
-    v7 = *(v6 + 48);
-    v8 = *(v6 + 52);
-    v9 = swift_allocObject();
-    specialized CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass.init(copying:)(v5);
+    type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass(0);
+    v5 = swift_allocObject();
+    specialized CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass.init(copying:)(v4);
 
-    *(v1 + v2) = v9;
-    v5 = v9;
+    *(v1 + v2) = v5;
+    v4 = v5;
   }
 
   swift_beginAccess();
-  *(v5 + 100) = 0;
-  *(v5 + 104) = 1;
+  *(v4 + 100) = 0;
+  *(v4 + 104) = 1;
 }
 
 uint64_t CLP_LogEntry_PrivateData_DaemonLocationPrivate.horzUncSemiMajAz.setter(float a1)
 {
   v2 = v1;
   v4 = *(type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate(0) + 20);
-  v5 = *(v1 + v4);
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v7 = *(v1 + v4);
+  v6 = *(v1 + v4);
   if ((isUniquelyReferenced_nonNull_native & 1) == 0)
   {
-    v8 = type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass(0);
-    v9 = *(v8 + 48);
-    v10 = *(v8 + 52);
-    v11 = swift_allocObject();
-    specialized CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass.init(copying:)(v7);
+    type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass(0);
+    v7 = swift_allocObject();
+    specialized CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass.init(copying:)(v6);
 
-    *(v2 + v4) = v11;
-    v7 = v11;
+    *(v2 + v4) = v7;
+    v6 = v7;
   }
 
   result = swift_beginAccess();
-  *(v7 + 108) = a1;
-  *(v7 + 112) = 0;
+  *(v6 + 108) = a1;
+  *(v6 + 112) = 0;
   return result;
 }
 
-void (*CLP_LogEntry_PrivateData_DaemonLocationPrivate.horzUncSemiMajAz.modify(uint64_t *a1))(uint64_t *a1)
+void (*CLP_LogEntry_PrivateData_DaemonLocationPrivate.horzUncSemiMajAz.modify(uint64_t *a1))(uint64_t *a1, char a2)
 {
   if (MEMORY[0x277D84FD8])
   {
@@ -4728,58 +2464,52 @@ void (*CLP_LogEntry_PrivateData_DaemonLocationPrivate.horzUncSemiMajAz.modify(ui
   return CLP_LogEntry_PrivateData_DaemonLocationPrivate.horzUncSemiMajAz.modify;
 }
 
-void CLP_LogEntry_PrivateData_DaemonLocationPrivate.horzUncSemiMajAz.modify(uint64_t *a1)
+void CLP_LogEntry_PrivateData_DaemonLocationPrivate.horzUncSemiMajAz.modify(uint64_t *a1, char a2)
 {
-  v1 = *a1;
-  v2 = *(*a1 + 80);
-  v3 = *(*a1 + 84);
-  v4 = *(*a1 + 72);
-  v5 = *(v4 + v3);
+  v2 = *a1;
+  v3 = *(*a1 + 80);
+  v4 = *(*a1 + 84);
+  v5 = *(*a1 + 72);
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v7 = *(v4 + v3);
+  v7 = *(v5 + v4);
   if ((isUniquelyReferenced_nonNull_native & 1) == 0)
   {
-    v8 = *(v1 + 84);
-    v9 = *(v1 + 72);
-    v10 = type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass(0);
-    v11 = *(v10 + 48);
-    v12 = *(v10 + 52);
-    v13 = swift_allocObject();
+    v8 = *(v2 + 84);
+    v9 = *(v2 + 72);
+    type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass(0);
+    v10 = swift_allocObject();
     specialized CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass.init(copying:)(v7);
 
-    *(v9 + v8) = v13;
-    v7 = v13;
+    *(v9 + v8) = v10;
+    v7 = v10;
   }
 
   swift_beginAccess();
-  *(v7 + 108) = v2;
+  *(v7 + 108) = v3;
   *(v7 + 112) = 0;
 
-  free(v1);
+  free(v2);
 }
 
 Swift::Void __swiftcall CLP_LogEntry_PrivateData_DaemonLocationPrivate.clearHorzUncSemiMajAz()()
 {
   v1 = v0;
   v2 = *(type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate(0) + 20);
-  v3 = *(v0 + v2);
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v5 = *(v0 + v2);
+  v4 = *(v0 + v2);
   if ((isUniquelyReferenced_nonNull_native & 1) == 0)
   {
-    v6 = type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass(0);
-    v7 = *(v6 + 48);
-    v8 = *(v6 + 52);
-    v9 = swift_allocObject();
-    specialized CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass.init(copying:)(v5);
+    type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass(0);
+    v5 = swift_allocObject();
+    specialized CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass.init(copying:)(v4);
 
-    *(v1 + v2) = v9;
-    v5 = v9;
+    *(v1 + v2) = v5;
+    v4 = v5;
   }
 
   swift_beginAccess();
-  *(v5 + 108) = 0;
-  *(v5 + 112) = 1;
+  *(v4 + 108) = 0;
+  *(v4 + 112) = 1;
 }
 
 uint64_t CLP_LogEntry_PrivateData_DaemonLocationPrivate.isFitnessMatch.getter()
@@ -4793,27 +2523,24 @@ uint64_t CLP_LogEntry_PrivateData_DaemonLocationPrivate.isFitnessMatch.setter(ch
 {
   v2 = v1;
   v4 = *(type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate(0) + 20);
-  v5 = *(v1 + v4);
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v7 = *(v1 + v4);
+  v6 = *(v1 + v4);
   if ((isUniquelyReferenced_nonNull_native & 1) == 0)
   {
-    v8 = type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass(0);
-    v9 = *(v8 + 48);
-    v10 = *(v8 + 52);
-    v11 = swift_allocObject();
-    specialized CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass.init(copying:)(v7);
+    type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass(0);
+    v7 = swift_allocObject();
+    specialized CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass.init(copying:)(v6);
 
-    *(v2 + v4) = v11;
-    v7 = v11;
+    *(v2 + v4) = v7;
+    v6 = v7;
   }
 
   result = swift_beginAccess();
-  *(v7 + 113) = a1 & 1;
+  *(v6 + 113) = a1 & 1;
   return result;
 }
 
-void (*CLP_LogEntry_PrivateData_DaemonLocationPrivate.isFitnessMatch.modify(uint64_t *a1))(uint64_t *a1)
+void (*CLP_LogEntry_PrivateData_DaemonLocationPrivate.isFitnessMatch.modify(uint64_t *a1))(uint64_t *a1, char a2)
 {
   if (MEMORY[0x277D84FD8])
   {
@@ -4836,33 +2563,30 @@ void (*CLP_LogEntry_PrivateData_DaemonLocationPrivate.isFitnessMatch.modify(uint
   return CLP_LogEntry_PrivateData_DaemonLocationPrivate.isFitnessMatch.modify;
 }
 
-void CLP_LogEntry_PrivateData_DaemonLocationPrivate.isFitnessMatch.modify(uint64_t *a1)
+void CLP_LogEntry_PrivateData_DaemonLocationPrivate.isFitnessMatch.modify(uint64_t *a1, char a2)
 {
-  v1 = *a1;
-  v2 = *(*a1 + 80);
-  v3 = *(*a1 + 72);
-  v4 = *(*a1 + 84);
-  v5 = *(v3 + v2);
+  v2 = *a1;
+  v3 = *(*a1 + 80);
+  v4 = *(*a1 + 72);
+  v5 = *(*a1 + 84);
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v7 = *(v3 + v2);
+  v7 = *(v4 + v3);
   if ((isUniquelyReferenced_nonNull_native & 1) == 0)
   {
-    v8 = *(v1 + 80);
-    v9 = *(v1 + 72);
-    v10 = type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass(0);
-    v11 = *(v10 + 48);
-    v12 = *(v10 + 52);
-    v13 = swift_allocObject();
+    v8 = *(v2 + 80);
+    v9 = *(v2 + 72);
+    type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass(0);
+    v10 = swift_allocObject();
     specialized CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass.init(copying:)(v7);
 
-    *(v9 + v8) = v13;
-    v7 = v13;
+    *(v9 + v8) = v10;
+    v7 = v10;
   }
 
   swift_beginAccess();
-  *(v7 + 113) = v4;
+  *(v7 + 113) = v5;
 
-  free(v1);
+  free(v2);
 }
 
 BOOL CLP_LogEntry_PrivateData_DaemonLocationPrivate.hasIsFitnessMatch.getter()
@@ -4876,23 +2600,20 @@ Swift::Void __swiftcall CLP_LogEntry_PrivateData_DaemonLocationPrivate.clearIsFi
 {
   v1 = v0;
   v2 = *(type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate(0) + 20);
-  v3 = *(v0 + v2);
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v5 = *(v0 + v2);
+  v4 = *(v0 + v2);
   if ((isUniquelyReferenced_nonNull_native & 1) == 0)
   {
-    v6 = type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass(0);
-    v7 = *(v6 + 48);
-    v8 = *(v6 + 52);
-    v9 = swift_allocObject();
-    specialized CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass.init(copying:)(v5);
+    type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass(0);
+    v5 = swift_allocObject();
+    specialized CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass.init(copying:)(v4);
 
-    *(v1 + v2) = v9;
-    v5 = v9;
+    *(v1 + v2) = v5;
+    v4 = v5;
   }
 
   swift_beginAccess();
-  *(v5 + 113) = 2;
+  *(v4 + 113) = 2;
 }
 
 uint64_t CLP_LogEntry_PrivateData_DaemonLocationPrivate.matchQuality.getter()
@@ -4914,27 +2635,24 @@ uint64_t CLP_LogEntry_PrivateData_DaemonLocationPrivate.matchQuality.setter(char
 {
   v2 = v1;
   v4 = *(type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate(0) + 20);
-  v5 = *(v1 + v4);
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v7 = *(v1 + v4);
+  v6 = *(v1 + v4);
   if ((isUniquelyReferenced_nonNull_native & 1) == 0)
   {
-    v8 = type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass(0);
-    v9 = *(v8 + 48);
-    v10 = *(v8 + 52);
-    v11 = swift_allocObject();
-    specialized CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass.init(copying:)(v7);
+    type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass(0);
+    v7 = swift_allocObject();
+    specialized CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass.init(copying:)(v6);
 
-    *(v2 + v4) = v11;
-    v7 = v11;
+    *(v2 + v4) = v7;
+    v6 = v7;
   }
 
   result = swift_beginAccess();
-  *(v7 + 114) = a1;
+  *(v6 + 114) = a1;
   return result;
 }
 
-void (*CLP_LogEntry_PrivateData_DaemonLocationPrivate.matchQuality.modify(uint64_t *a1))(uint64_t *a1)
+void (*CLP_LogEntry_PrivateData_DaemonLocationPrivate.matchQuality.modify(uint64_t *a1))(uint64_t *a1, char a2)
 {
   if (MEMORY[0x277D84FD8])
   {
@@ -4963,33 +2681,30 @@ void (*CLP_LogEntry_PrivateData_DaemonLocationPrivate.matchQuality.modify(uint64
   return CLP_LogEntry_PrivateData_DaemonLocationPrivate.matchQuality.modify;
 }
 
-void CLP_LogEntry_PrivateData_DaemonLocationPrivate.matchQuality.modify(uint64_t *a1)
+void CLP_LogEntry_PrivateData_DaemonLocationPrivate.matchQuality.modify(uint64_t *a1, char a2)
 {
-  v1 = *a1;
-  v2 = *(*a1 + 84);
-  v3 = *(*a1 + 80);
-  v4 = *(*a1 + 72);
-  v5 = *(v4 + v3);
+  v2 = *a1;
+  v3 = *(*a1 + 84);
+  v4 = *(*a1 + 80);
+  v5 = *(*a1 + 72);
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v7 = *(v4 + v3);
+  v7 = *(v5 + v4);
   if ((isUniquelyReferenced_nonNull_native & 1) == 0)
   {
-    v8 = *(v1 + 80);
-    v9 = *(v1 + 72);
-    v10 = type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass(0);
-    v11 = *(v10 + 48);
-    v12 = *(v10 + 52);
-    v13 = swift_allocObject();
+    v8 = *(v2 + 80);
+    v9 = *(v2 + 72);
+    type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass(0);
+    v10 = swift_allocObject();
     specialized CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass.init(copying:)(v7);
 
-    *(v9 + v8) = v13;
-    v7 = v13;
+    *(v9 + v8) = v10;
+    v7 = v10;
   }
 
   swift_beginAccess();
-  *(v7 + 114) = v2;
+  *(v7 + 114) = v3;
 
-  free(v1);
+  free(v2);
 }
 
 BOOL CLP_LogEntry_PrivateData_DaemonLocationPrivate.hasMatchQuality.getter()
@@ -5003,54 +2718,47 @@ Swift::Void __swiftcall CLP_LogEntry_PrivateData_DaemonLocationPrivate.clearMatc
 {
   v1 = v0;
   v2 = *(type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate(0) + 20);
-  v3 = *(v0 + v2);
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v5 = *(v0 + v2);
+  v4 = *(v0 + v2);
   if ((isUniquelyReferenced_nonNull_native & 1) == 0)
   {
-    v6 = type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass(0);
-    v7 = *(v6 + 48);
-    v8 = *(v6 + 52);
-    v9 = swift_allocObject();
-    specialized CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass.init(copying:)(v5);
+    type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass(0);
+    v5 = swift_allocObject();
+    specialized CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass.init(copying:)(v4);
 
-    *(v1 + v2) = v9;
-    v5 = v9;
+    *(v1 + v2) = v5;
+    v4 = v5;
   }
 
   swift_beginAccess();
-  *(v5 + 114) = 4;
+  *(v4 + 114) = 4;
 }
 
 uint64_t CLP_LogEntry_PrivateData_DaemonLocationPrivate.matchCoordinate.setter(uint64_t a1)
 {
   v2 = v1;
   v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf49CLP_LogEntry_PrivateData_ClientLocationCoordinateVSgMd, &_s10ALProtobuf49CLP_LogEntry_PrivateData_ClientLocationCoordinateVSgMR);
-  v5 = *(*(v4 - 8) + 64);
   MEMORY[0x28223BE20](v4 - 8);
-  v7 = &v19 - v6;
-  v8 = *(type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate(0) + 20);
-  v9 = *(v1 + v8);
+  v6 = &v14 - v5;
+  v7 = *(type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate(0) + 20);
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v11 = *(v1 + v8);
+  v9 = *(v1 + v7);
   if ((isUniquelyReferenced_nonNull_native & 1) == 0)
   {
-    v12 = type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass(0);
-    v13 = *(v12 + 48);
-    v14 = *(v12 + 52);
-    v15 = swift_allocObject();
-    specialized CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass.init(copying:)(v11);
+    type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass(0);
+    v10 = swift_allocObject();
+    specialized CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass.init(copying:)(v9);
 
-    *(v2 + v8) = v15;
-    v11 = v15;
+    *(v2 + v7) = v10;
+    v9 = v10;
   }
 
-  outlined init with take of CLP_LogEntry_PrivateData_TimeStamp(a1, v7, type metadata accessor for CLP_LogEntry_PrivateData_ClientLocationCoordinate);
-  v16 = type metadata accessor for CLP_LogEntry_PrivateData_ClientLocationCoordinate(0);
-  (*(*(v16 - 8) + 56))(v7, 0, 1, v16);
-  v17 = OBJC_IVAR____TtCV10ALProtobuf46CLP_LogEntry_PrivateData_DaemonLocationPrivateP33_993346AF53650622B255AB1E3C41340D13_StorageClass__matchCoordinate;
+  outlined init with take of CLP_LogEntry_PrivateData_TimeStamp(a1, v6, type metadata accessor for CLP_LogEntry_PrivateData_ClientLocationCoordinate);
+  v11 = type metadata accessor for CLP_LogEntry_PrivateData_ClientLocationCoordinate(0);
+  (*(*(v11 - 8) + 56))(v6, 0, 1, v11);
+  v12 = OBJC_IVAR____TtCV10ALProtobuf46CLP_LogEntry_PrivateData_DaemonLocationPrivateP33_993346AF53650622B255AB1E3C41340D13_StorageClass__matchCoordinate;
   swift_beginAccess();
-  outlined assign with take of Proto_Gpsd_Response?(v7, v11 + v17, &_s10ALProtobuf49CLP_LogEntry_PrivateData_ClientLocationCoordinateVSgMd, &_s10ALProtobuf49CLP_LogEntry_PrivateData_ClientLocationCoordinateVSgMR);
+  outlined assign with take of Proto_Gpsd_Response?(v6, v9 + v12, &_s10ALProtobuf49CLP_LogEntry_PrivateData_ClientLocationCoordinateVSgMd, &_s10ALProtobuf49CLP_LogEntry_PrivateData_ClientLocationCoordinateVSgMR);
   return swift_endAccess();
 }
 
@@ -5143,76 +2851,70 @@ void CLP_LogEntry_PrivateData_DaemonLocationPrivate.matchCoordinate.modify(uint6
   {
     v4 = *(v2 + 72);
     outlined init with copy of CLP_LogEntry_PrivateData_TimeStamp(*(v2 + 120), *(v2 + 112), type metadata accessor for CLP_LogEntry_PrivateData_ClientLocationCoordinate);
-    v5 = *(v4 + v3);
     isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-    v7 = *(v4 + v3);
+    v6 = *(v4 + v3);
     if ((isUniquelyReferenced_nonNull_native & 1) == 0)
     {
-      v8 = *(v2 + 128);
-      v9 = *(v2 + 72);
-      v10 = type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass(0);
-      v11 = *(v10 + 48);
-      v12 = *(v10 + 52);
-      v13 = swift_allocObject();
-      specialized CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass.init(copying:)(v7);
+      v7 = *(v2 + 128);
+      v8 = *(v2 + 72);
+      type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass(0);
+      v9 = swift_allocObject();
+      specialized CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass.init(copying:)(v6);
 
-      *(v9 + v8) = v13;
-      v7 = v13;
+      *(v8 + v7) = v9;
+      v6 = v9;
     }
 
-    v15 = *(v2 + 112);
-    v14 = *(v2 + 120);
-    v16 = *(v2 + 96);
-    v17 = *(v2 + 104);
-    v19 = *(v2 + 80);
-    v18 = *(v2 + 88);
-    outlined init with take of CLP_LogEntry_PrivateData_TimeStamp(v15, v19, type metadata accessor for CLP_LogEntry_PrivateData_ClientLocationCoordinate);
-    (*(v17 + 56))(v19, 0, 1, v16);
-    v20 = OBJC_IVAR____TtCV10ALProtobuf46CLP_LogEntry_PrivateData_DaemonLocationPrivateP33_993346AF53650622B255AB1E3C41340D13_StorageClass__matchCoordinate;
+    v11 = *(v2 + 112);
+    v10 = *(v2 + 120);
+    v12 = *(v2 + 96);
+    v13 = *(v2 + 104);
+    v15 = *(v2 + 80);
+    v14 = *(v2 + 88);
+    outlined init with take of CLP_LogEntry_PrivateData_TimeStamp(v11, v15, type metadata accessor for CLP_LogEntry_PrivateData_ClientLocationCoordinate);
+    (*(v13 + 56))(v15, 0, 1, v12);
+    v16 = OBJC_IVAR____TtCV10ALProtobuf46CLP_LogEntry_PrivateData_DaemonLocationPrivateP33_993346AF53650622B255AB1E3C41340D13_StorageClass__matchCoordinate;
     swift_beginAccess();
-    outlined assign with take of Proto_Gpsd_Response?(v19, v7 + v20, &_s10ALProtobuf49CLP_LogEntry_PrivateData_ClientLocationCoordinateVSgMd, &_s10ALProtobuf49CLP_LogEntry_PrivateData_ClientLocationCoordinateVSgMR);
+    outlined assign with take of Proto_Gpsd_Response?(v15, v6 + v16, &_s10ALProtobuf49CLP_LogEntry_PrivateData_ClientLocationCoordinateVSgMd, &_s10ALProtobuf49CLP_LogEntry_PrivateData_ClientLocationCoordinateVSgMR);
     swift_endAccess();
-    outlined destroy of CLP_LogEntry_PrivateData_TimeStamp(v14, type metadata accessor for CLP_LogEntry_PrivateData_ClientLocationCoordinate);
+    outlined destroy of CLP_LogEntry_PrivateData_TimeStamp(v10, type metadata accessor for CLP_LogEntry_PrivateData_ClientLocationCoordinate);
   }
 
   else
   {
-    v21 = *(v2 + 72);
-    v22 = *(v21 + v3);
-    v23 = swift_isUniquelyReferenced_nonNull_native();
-    v24 = *(v21 + v3);
-    if ((v23 & 1) == 0)
+    v17 = *(v2 + 72);
+    v18 = swift_isUniquelyReferenced_nonNull_native();
+    v19 = *(v17 + v3);
+    if ((v18 & 1) == 0)
     {
-      v25 = *(v2 + 128);
-      v26 = *(v2 + 72);
-      v27 = type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass(0);
-      v28 = *(v27 + 48);
-      v29 = *(v27 + 52);
-      v30 = swift_allocObject();
-      specialized CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass.init(copying:)(v24);
+      v20 = *(v2 + 128);
+      v21 = *(v2 + 72);
+      type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass(0);
+      v22 = swift_allocObject();
+      specialized CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass.init(copying:)(v19);
 
-      *(v26 + v25) = v30;
-      v24 = v30;
+      *(v21 + v20) = v22;
+      v19 = v22;
     }
 
-    v15 = *(v2 + 112);
-    v14 = *(v2 + 120);
-    v31 = *(v2 + 96);
-    v32 = *(v2 + 104);
-    v19 = *(v2 + 80);
-    v18 = *(v2 + 88);
-    outlined init with take of CLP_LogEntry_PrivateData_TimeStamp(v14, v19, type metadata accessor for CLP_LogEntry_PrivateData_ClientLocationCoordinate);
-    (*(v32 + 56))(v19, 0, 1, v31);
-    v33 = OBJC_IVAR____TtCV10ALProtobuf46CLP_LogEntry_PrivateData_DaemonLocationPrivateP33_993346AF53650622B255AB1E3C41340D13_StorageClass__matchCoordinate;
+    v11 = *(v2 + 112);
+    v10 = *(v2 + 120);
+    v23 = *(v2 + 96);
+    v24 = *(v2 + 104);
+    v15 = *(v2 + 80);
+    v14 = *(v2 + 88);
+    outlined init with take of CLP_LogEntry_PrivateData_TimeStamp(v10, v15, type metadata accessor for CLP_LogEntry_PrivateData_ClientLocationCoordinate);
+    (*(v24 + 56))(v15, 0, 1, v23);
+    v25 = OBJC_IVAR____TtCV10ALProtobuf46CLP_LogEntry_PrivateData_DaemonLocationPrivateP33_993346AF53650622B255AB1E3C41340D13_StorageClass__matchCoordinate;
     swift_beginAccess();
-    outlined assign with take of Proto_Gpsd_Response?(v19, v24 + v33, &_s10ALProtobuf49CLP_LogEntry_PrivateData_ClientLocationCoordinateVSgMd, &_s10ALProtobuf49CLP_LogEntry_PrivateData_ClientLocationCoordinateVSgMR);
+    outlined assign with take of Proto_Gpsd_Response?(v15, v19 + v25, &_s10ALProtobuf49CLP_LogEntry_PrivateData_ClientLocationCoordinateVSgMd, &_s10ALProtobuf49CLP_LogEntry_PrivateData_ClientLocationCoordinateVSgMR);
     swift_endAccess();
   }
 
+  free(v10);
+  free(v11);
   free(v14);
   free(v15);
-  free(v18);
-  free(v19);
 
   free(v2);
 }
@@ -5220,51 +2922,46 @@ void CLP_LogEntry_PrivateData_DaemonLocationPrivate.matchCoordinate.modify(uint6
 BOOL CLP_LogEntry_PrivateData_DaemonLocationPrivate.hasMatchCoordinate.getter()
 {
   v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf49CLP_LogEntry_PrivateData_ClientLocationCoordinateVSgMd, &_s10ALProtobuf49CLP_LogEntry_PrivateData_ClientLocationCoordinateVSgMR);
-  v2 = *(*(v1 - 8) + 64);
   MEMORY[0x28223BE20](v1 - 8);
-  v4 = &v10 - v3;
-  v5 = *(v0 + *(type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate(0) + 20));
-  v6 = OBJC_IVAR____TtCV10ALProtobuf46CLP_LogEntry_PrivateData_DaemonLocationPrivateP33_993346AF53650622B255AB1E3C41340D13_StorageClass__matchCoordinate;
+  v3 = &v9 - v2;
+  v4 = *(v0 + *(type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate(0) + 20));
+  v5 = OBJC_IVAR____TtCV10ALProtobuf46CLP_LogEntry_PrivateData_DaemonLocationPrivateP33_993346AF53650622B255AB1E3C41340D13_StorageClass__matchCoordinate;
   swift_beginAccess();
-  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v5 + v6, v4, &_s10ALProtobuf49CLP_LogEntry_PrivateData_ClientLocationCoordinateVSgMd, &_s10ALProtobuf49CLP_LogEntry_PrivateData_ClientLocationCoordinateVSgMR);
-  v7 = type metadata accessor for CLP_LogEntry_PrivateData_ClientLocationCoordinate(0);
-  v8 = (*(*(v7 - 8) + 48))(v4, 1, v7) != 1;
-  outlined destroy of Any?(v4, &_s10ALProtobuf49CLP_LogEntry_PrivateData_ClientLocationCoordinateVSgMd, &_s10ALProtobuf49CLP_LogEntry_PrivateData_ClientLocationCoordinateVSgMR);
-  return v8;
+  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v4 + v5, v3, &_s10ALProtobuf49CLP_LogEntry_PrivateData_ClientLocationCoordinateVSgMd, &_s10ALProtobuf49CLP_LogEntry_PrivateData_ClientLocationCoordinateVSgMR);
+  v6 = type metadata accessor for CLP_LogEntry_PrivateData_ClientLocationCoordinate(0);
+  v7 = (*(*(v6 - 8) + 48))(v3, 1, v6) != 1;
+  outlined destroy of Any?(v3, &_s10ALProtobuf49CLP_LogEntry_PrivateData_ClientLocationCoordinateVSgMd, &_s10ALProtobuf49CLP_LogEntry_PrivateData_ClientLocationCoordinateVSgMR);
+  return v7;
 }
 
 Swift::Void __swiftcall CLP_LogEntry_PrivateData_DaemonLocationPrivate.clearMatchCoordinate()()
 {
   v1 = v0;
   v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf49CLP_LogEntry_PrivateData_ClientLocationCoordinateVSgMd, &_s10ALProtobuf49CLP_LogEntry_PrivateData_ClientLocationCoordinateVSgMR);
-  v3 = *(*(v2 - 8) + 64);
   MEMORY[0x28223BE20](v2 - 8);
-  v5 = &v16 - v4;
-  v6 = *(type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate(0) + 20);
-  v7 = *(v0 + v6);
+  v4 = &v11 - v3;
+  v5 = *(type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate(0) + 20);
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v9 = *(v0 + v6);
+  v7 = *(v0 + v5);
   if ((isUniquelyReferenced_nonNull_native & 1) == 0)
   {
-    v10 = type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass(0);
-    v11 = *(v10 + 48);
-    v12 = *(v10 + 52);
-    v13 = swift_allocObject();
-    specialized CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass.init(copying:)(v9);
+    type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass(0);
+    v8 = swift_allocObject();
+    specialized CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass.init(copying:)(v7);
 
-    *(v1 + v6) = v13;
-    v9 = v13;
+    *(v1 + v5) = v8;
+    v7 = v8;
   }
 
-  v14 = type metadata accessor for CLP_LogEntry_PrivateData_ClientLocationCoordinate(0);
-  (*(*(v14 - 8) + 56))(v5, 1, 1, v14);
-  v15 = OBJC_IVAR____TtCV10ALProtobuf46CLP_LogEntry_PrivateData_DaemonLocationPrivateP33_993346AF53650622B255AB1E3C41340D13_StorageClass__matchCoordinate;
+  v9 = type metadata accessor for CLP_LogEntry_PrivateData_ClientLocationCoordinate(0);
+  (*(*(v9 - 8) + 56))(v4, 1, 1, v9);
+  v10 = OBJC_IVAR____TtCV10ALProtobuf46CLP_LogEntry_PrivateData_DaemonLocationPrivateP33_993346AF53650622B255AB1E3C41340D13_StorageClass__matchCoordinate;
   swift_beginAccess();
-  outlined assign with take of Proto_Gpsd_Response?(v5, v9 + v15, &_s10ALProtobuf49CLP_LogEntry_PrivateData_ClientLocationCoordinateVSgMd, &_s10ALProtobuf49CLP_LogEntry_PrivateData_ClientLocationCoordinateVSgMR);
+  outlined assign with take of Proto_Gpsd_Response?(v4, v7 + v10, &_s10ALProtobuf49CLP_LogEntry_PrivateData_ClientLocationCoordinateVSgMd, &_s10ALProtobuf49CLP_LogEntry_PrivateData_ClientLocationCoordinateVSgMR);
   swift_endAccess();
 }
 
-void (*CLP_LogEntry_PrivateData_DaemonLocationPrivate.matchCourse.modify(uint64_t *a1))(uint64_t *a1, uint64_t a2)
+void (*CLP_LogEntry_PrivateData_DaemonLocationPrivate.matchCourse.modify(uint64_t *a1))(uint64_t *a1, char a2)
 {
   if (MEMORY[0x277D84FD8])
   {
@@ -5293,7 +2990,7 @@ void (*CLP_LogEntry_PrivateData_DaemonLocationPrivate.matchCourse.modify(uint64_
   return CLP_LogEntry_PrivateData_DaemonLocationPrivate.matchCourse.modify;
 }
 
-void (*CLP_LogEntry_PrivateData_DaemonLocationPrivate.matchFormOfWay.modify(uint64_t *a1))(uint64_t *a1, uint64_t a2)
+void (*CLP_LogEntry_PrivateData_DaemonLocationPrivate.matchFormOfWay.modify(uint64_t *a1))(uint64_t *a1, char a2)
 {
   if (MEMORY[0x277D84FD8])
   {
@@ -5322,7 +3019,7 @@ void (*CLP_LogEntry_PrivateData_DaemonLocationPrivate.matchFormOfWay.modify(uint
   return CLP_LogEntry_PrivateData_DaemonLocationPrivate.matchFormOfWay.modify;
 }
 
-void (*CLP_LogEntry_PrivateData_DaemonLocationPrivate.matchRoadClass.modify(uint64_t *a1))(uint64_t *a1, uint64_t a2)
+void (*CLP_LogEntry_PrivateData_DaemonLocationPrivate.matchRoadClass.modify(uint64_t *a1))(uint64_t *a1, char a2)
 {
   if (MEMORY[0x277D84FD8])
   {
@@ -5355,24 +3052,21 @@ uint64_t CLP_LogEntry_PrivateData_DaemonLocation.fromSimulationController.setter
 {
   v9 = v5;
   v11 = *(a2(0) + 20);
-  v12 = *(v5 + v11);
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v14 = *(v5 + v11);
+  v13 = *(v5 + v11);
   if ((isUniquelyReferenced_nonNull_native & 1) == 0)
   {
-    v15 = a3(0);
-    v16 = *(v15 + 48);
-    v17 = *(v15 + 52);
-    v18 = swift_allocObject();
-    a4(v14);
+    a3(0);
+    v14 = swift_allocObject();
+    a4(v13);
 
-    *(v9 + v11) = v18;
-    v14 = v18;
+    *(v9 + v11) = v14;
+    v13 = v14;
   }
 
-  v19 = *a5;
+  v15 = *a5;
   result = swift_beginAccess();
-  *(v14 + v19) = a1 & 1;
+  *(v13 + v15) = a1 & 1;
   return result;
 }
 
@@ -5400,32 +3094,29 @@ void (*CLP_LogEntry_PrivateData_DaemonLocationPrivate.matchShifted.modify(uint64
   return CLP_LogEntry_PrivateData_DaemonLocationPrivate.matchShifted.modify;
 }
 
-void CLP_LogEntry_PrivateData_DaemonLocation.fromSimulationController.modify(uint64_t *a1, uint64_t a2, uint64_t (*a3)(void), void (*a4)(uint64_t), uint64_t *a5)
+void CLP_LogEntry_PrivateData_DaemonLocation.fromSimulationController.modify(uint64_t *a1, char a2, uint64_t (*a3)(void), void (*a4)(uint64_t), uint64_t *a5)
 {
   v8 = *a1;
   v9 = *(*a1 + 80);
   v10 = *(*a1 + 72);
   v11 = *(*a1 + 84);
-  v12 = *(v10 + v9);
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v14 = *(v10 + v9);
+  v13 = *(v10 + v9);
   if ((isUniquelyReferenced_nonNull_native & 1) == 0)
   {
-    v15 = *(v8 + 80);
-    v16 = *(v8 + 72);
-    v17 = a3(0);
-    v18 = *(v17 + 48);
-    v19 = *(v17 + 52);
-    v20 = swift_allocObject();
-    a4(v14);
+    v14 = *(v8 + 80);
+    v15 = *(v8 + 72);
+    a3(0);
+    v16 = swift_allocObject();
+    a4(v13);
 
-    *(v16 + v15) = v20;
-    v14 = v20;
+    *(v15 + v14) = v16;
+    v13 = v16;
   }
 
-  v21 = *a5;
+  v17 = *a5;
   swift_beginAccess();
-  *(v14 + v21) = v11;
+  *(v13 + v17) = v11;
 
   free(v8);
 }
@@ -5434,54 +3125,50 @@ Swift::Void __swiftcall CLP_LogEntry_PrivateData_DaemonLocationPrivate.clearMatc
 {
   v1 = v0;
   v2 = *(type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate(0) + 20);
-  v3 = *(v0 + v2);
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v5 = *(v0 + v2);
+  v4 = *(v0 + v2);
   if ((isUniquelyReferenced_nonNull_native & 1) == 0)
   {
-    v6 = type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass(0);
-    v7 = *(v6 + 48);
-    v8 = *(v6 + 52);
-    v9 = swift_allocObject();
-    specialized CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass.init(copying:)(v5);
+    type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass(0);
+    v5 = swift_allocObject();
+    specialized CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass.init(copying:)(v4);
 
-    *(v1 + v2) = v9;
-    v5 = v9;
+    *(v1 + v2) = v5;
+    v4 = v5;
   }
 
-  v10 = OBJC_IVAR____TtCV10ALProtobuf46CLP_LogEntry_PrivateData_DaemonLocationPrivateP33_993346AF53650622B255AB1E3C41340D13_StorageClass__matchShifted;
+  v6 = OBJC_IVAR____TtCV10ALProtobuf46CLP_LogEntry_PrivateData_DaemonLocationPrivateP33_993346AF53650622B255AB1E3C41340D13_StorageClass__matchShifted;
   swift_beginAccess();
-  *(v5 + v10) = 2;
+  *(v4 + v6) = 2;
 }
 
 uint64_t CLP_LogEntry_PrivateData_DaemonLocationPrivate.pressure.getter@<X0>(uint64_t a1@<X8>)
 {
   v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf39CLP_LogEntry_PrivateData_PressureSampleVSgMd, &_s10ALProtobuf39CLP_LogEntry_PrivateData_PressureSampleVSgMR);
-  v4 = *(*(v3 - 8) + 64);
   MEMORY[0x28223BE20](v3 - 8);
-  v6 = &v14 - v5;
-  v7 = *(v1 + *(type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate(0) + 20));
-  v8 = OBJC_IVAR____TtCV10ALProtobuf46CLP_LogEntry_PrivateData_DaemonLocationPrivateP33_993346AF53650622B255AB1E3C41340D13_StorageClass__pressure;
+  v5 = &v13 - v4;
+  v6 = *(v1 + *(type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate(0) + 20));
+  v7 = OBJC_IVAR____TtCV10ALProtobuf46CLP_LogEntry_PrivateData_DaemonLocationPrivateP33_993346AF53650622B255AB1E3C41340D13_StorageClass__pressure;
   swift_beginAccess();
-  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v7 + v8, v6, &_s10ALProtobuf39CLP_LogEntry_PrivateData_PressureSampleVSgMd, &_s10ALProtobuf39CLP_LogEntry_PrivateData_PressureSampleVSgMR);
-  v9 = type metadata accessor for CLP_LogEntry_PrivateData_PressureSample(0);
-  v10 = *(*(v9 - 8) + 48);
-  if (v10(v6, 1, v9) != 1)
+  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v6 + v7, v5, &_s10ALProtobuf39CLP_LogEntry_PrivateData_PressureSampleVSgMd, &_s10ALProtobuf39CLP_LogEntry_PrivateData_PressureSampleVSgMR);
+  v8 = type metadata accessor for CLP_LogEntry_PrivateData_PressureSample(0);
+  v9 = *(*(v8 - 8) + 48);
+  if (v9(v5, 1, v8) != 1)
   {
-    return outlined init with take of CLP_LogEntry_PrivateData_TimeStamp(v6, a1, type metadata accessor for CLP_LogEntry_PrivateData_PressureSample);
+    return outlined init with take of CLP_LogEntry_PrivateData_TimeStamp(v5, a1, type metadata accessor for CLP_LogEntry_PrivateData_PressureSample);
   }
 
   UnknownStorage.init()();
-  v11 = a1 + *(v9 + 20);
+  v10 = a1 + *(v8 + 20);
+  *v10 = 0;
+  *(v10 + 8) = 1;
+  v11 = a1 + *(v8 + 24);
   *v11 = 0;
   *(v11 + 8) = 1;
-  v12 = a1 + *(v9 + 24);
-  *v12 = 0;
-  *(v12 + 8) = 1;
-  result = (v10)(v6, 1, v9);
+  result = (v9)(v5, 1, v8);
   if (result != 1)
   {
-    return outlined destroy of Any?(v6, &_s10ALProtobuf39CLP_LogEntry_PrivateData_PressureSampleVSgMd, &_s10ALProtobuf39CLP_LogEntry_PrivateData_PressureSampleVSgMR);
+    return outlined destroy of Any?(v5, &_s10ALProtobuf39CLP_LogEntry_PrivateData_PressureSampleVSgMd, &_s10ALProtobuf39CLP_LogEntry_PrivateData_PressureSampleVSgMR);
   }
 
   return result;
@@ -5491,31 +3178,27 @@ uint64_t CLP_LogEntry_PrivateData_DaemonLocationPrivate.pressure.setter(uint64_t
 {
   v2 = v1;
   v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf39CLP_LogEntry_PrivateData_PressureSampleVSgMd, &_s10ALProtobuf39CLP_LogEntry_PrivateData_PressureSampleVSgMR);
-  v5 = *(*(v4 - 8) + 64);
   MEMORY[0x28223BE20](v4 - 8);
-  v7 = &v19 - v6;
-  v8 = *(type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate(0) + 20);
-  v9 = *(v1 + v8);
+  v6 = &v14 - v5;
+  v7 = *(type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate(0) + 20);
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v11 = *(v1 + v8);
+  v9 = *(v1 + v7);
   if ((isUniquelyReferenced_nonNull_native & 1) == 0)
   {
-    v12 = type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass(0);
-    v13 = *(v12 + 48);
-    v14 = *(v12 + 52);
-    v15 = swift_allocObject();
-    specialized CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass.init(copying:)(v11);
+    type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass(0);
+    v10 = swift_allocObject();
+    specialized CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass.init(copying:)(v9);
 
-    *(v2 + v8) = v15;
-    v11 = v15;
+    *(v2 + v7) = v10;
+    v9 = v10;
   }
 
-  outlined init with take of CLP_LogEntry_PrivateData_TimeStamp(a1, v7, type metadata accessor for CLP_LogEntry_PrivateData_PressureSample);
-  v16 = type metadata accessor for CLP_LogEntry_PrivateData_PressureSample(0);
-  (*(*(v16 - 8) + 56))(v7, 0, 1, v16);
-  v17 = OBJC_IVAR____TtCV10ALProtobuf46CLP_LogEntry_PrivateData_DaemonLocationPrivateP33_993346AF53650622B255AB1E3C41340D13_StorageClass__pressure;
+  outlined init with take of CLP_LogEntry_PrivateData_TimeStamp(a1, v6, type metadata accessor for CLP_LogEntry_PrivateData_PressureSample);
+  v11 = type metadata accessor for CLP_LogEntry_PrivateData_PressureSample(0);
+  (*(*(v11 - 8) + 56))(v6, 0, 1, v11);
+  v12 = OBJC_IVAR____TtCV10ALProtobuf46CLP_LogEntry_PrivateData_DaemonLocationPrivateP33_993346AF53650622B255AB1E3C41340D13_StorageClass__pressure;
   swift_beginAccess();
-  outlined assign with take of Proto_Gpsd_Response?(v7, v11 + v17, &_s10ALProtobuf39CLP_LogEntry_PrivateData_PressureSampleVSgMd, &_s10ALProtobuf39CLP_LogEntry_PrivateData_PressureSampleVSgMR);
+  outlined assign with take of Proto_Gpsd_Response?(v6, v9 + v12, &_s10ALProtobuf39CLP_LogEntry_PrivateData_PressureSampleVSgMd, &_s10ALProtobuf39CLP_LogEntry_PrivateData_PressureSampleVSgMR);
   return swift_endAccess();
 }
 
@@ -5608,76 +3291,70 @@ void CLP_LogEntry_PrivateData_DaemonLocationPrivate.pressure.modify(uint64_t *a1
   {
     v4 = *(v2 + 72);
     outlined init with copy of CLP_LogEntry_PrivateData_TimeStamp(*(v2 + 120), *(v2 + 112), type metadata accessor for CLP_LogEntry_PrivateData_PressureSample);
-    v5 = *(v4 + v3);
     isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-    v7 = *(v4 + v3);
+    v6 = *(v4 + v3);
     if ((isUniquelyReferenced_nonNull_native & 1) == 0)
     {
-      v8 = *(v2 + 128);
-      v9 = *(v2 + 72);
-      v10 = type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass(0);
-      v11 = *(v10 + 48);
-      v12 = *(v10 + 52);
-      v13 = swift_allocObject();
-      specialized CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass.init(copying:)(v7);
+      v7 = *(v2 + 128);
+      v8 = *(v2 + 72);
+      type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass(0);
+      v9 = swift_allocObject();
+      specialized CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass.init(copying:)(v6);
 
-      *(v9 + v8) = v13;
-      v7 = v13;
+      *(v8 + v7) = v9;
+      v6 = v9;
     }
 
-    v15 = *(v2 + 112);
-    v14 = *(v2 + 120);
-    v16 = *(v2 + 96);
-    v17 = *(v2 + 104);
-    v19 = *(v2 + 80);
-    v18 = *(v2 + 88);
-    outlined init with take of CLP_LogEntry_PrivateData_TimeStamp(v15, v19, type metadata accessor for CLP_LogEntry_PrivateData_PressureSample);
-    (*(v17 + 56))(v19, 0, 1, v16);
-    v20 = OBJC_IVAR____TtCV10ALProtobuf46CLP_LogEntry_PrivateData_DaemonLocationPrivateP33_993346AF53650622B255AB1E3C41340D13_StorageClass__pressure;
+    v11 = *(v2 + 112);
+    v10 = *(v2 + 120);
+    v12 = *(v2 + 96);
+    v13 = *(v2 + 104);
+    v15 = *(v2 + 80);
+    v14 = *(v2 + 88);
+    outlined init with take of CLP_LogEntry_PrivateData_TimeStamp(v11, v15, type metadata accessor for CLP_LogEntry_PrivateData_PressureSample);
+    (*(v13 + 56))(v15, 0, 1, v12);
+    v16 = OBJC_IVAR____TtCV10ALProtobuf46CLP_LogEntry_PrivateData_DaemonLocationPrivateP33_993346AF53650622B255AB1E3C41340D13_StorageClass__pressure;
     swift_beginAccess();
-    outlined assign with take of Proto_Gpsd_Response?(v19, v7 + v20, &_s10ALProtobuf39CLP_LogEntry_PrivateData_PressureSampleVSgMd, &_s10ALProtobuf39CLP_LogEntry_PrivateData_PressureSampleVSgMR);
+    outlined assign with take of Proto_Gpsd_Response?(v15, v6 + v16, &_s10ALProtobuf39CLP_LogEntry_PrivateData_PressureSampleVSgMd, &_s10ALProtobuf39CLP_LogEntry_PrivateData_PressureSampleVSgMR);
     swift_endAccess();
-    outlined destroy of CLP_LogEntry_PrivateData_TimeStamp(v14, type metadata accessor for CLP_LogEntry_PrivateData_PressureSample);
+    outlined destroy of CLP_LogEntry_PrivateData_TimeStamp(v10, type metadata accessor for CLP_LogEntry_PrivateData_PressureSample);
   }
 
   else
   {
-    v21 = *(v2 + 72);
-    v22 = *(v21 + v3);
-    v23 = swift_isUniquelyReferenced_nonNull_native();
-    v24 = *(v21 + v3);
-    if ((v23 & 1) == 0)
+    v17 = *(v2 + 72);
+    v18 = swift_isUniquelyReferenced_nonNull_native();
+    v19 = *(v17 + v3);
+    if ((v18 & 1) == 0)
     {
-      v25 = *(v2 + 128);
-      v26 = *(v2 + 72);
-      v27 = type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass(0);
-      v28 = *(v27 + 48);
-      v29 = *(v27 + 52);
-      v30 = swift_allocObject();
-      specialized CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass.init(copying:)(v24);
+      v20 = *(v2 + 128);
+      v21 = *(v2 + 72);
+      type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass(0);
+      v22 = swift_allocObject();
+      specialized CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass.init(copying:)(v19);
 
-      *(v26 + v25) = v30;
-      v24 = v30;
+      *(v21 + v20) = v22;
+      v19 = v22;
     }
 
-    v15 = *(v2 + 112);
-    v14 = *(v2 + 120);
-    v31 = *(v2 + 96);
-    v32 = *(v2 + 104);
-    v19 = *(v2 + 80);
-    v18 = *(v2 + 88);
-    outlined init with take of CLP_LogEntry_PrivateData_TimeStamp(v14, v19, type metadata accessor for CLP_LogEntry_PrivateData_PressureSample);
-    (*(v32 + 56))(v19, 0, 1, v31);
-    v33 = OBJC_IVAR____TtCV10ALProtobuf46CLP_LogEntry_PrivateData_DaemonLocationPrivateP33_993346AF53650622B255AB1E3C41340D13_StorageClass__pressure;
+    v11 = *(v2 + 112);
+    v10 = *(v2 + 120);
+    v23 = *(v2 + 96);
+    v24 = *(v2 + 104);
+    v15 = *(v2 + 80);
+    v14 = *(v2 + 88);
+    outlined init with take of CLP_LogEntry_PrivateData_TimeStamp(v10, v15, type metadata accessor for CLP_LogEntry_PrivateData_PressureSample);
+    (*(v24 + 56))(v15, 0, 1, v23);
+    v25 = OBJC_IVAR____TtCV10ALProtobuf46CLP_LogEntry_PrivateData_DaemonLocationPrivateP33_993346AF53650622B255AB1E3C41340D13_StorageClass__pressure;
     swift_beginAccess();
-    outlined assign with take of Proto_Gpsd_Response?(v19, v24 + v33, &_s10ALProtobuf39CLP_LogEntry_PrivateData_PressureSampleVSgMd, &_s10ALProtobuf39CLP_LogEntry_PrivateData_PressureSampleVSgMR);
+    outlined assign with take of Proto_Gpsd_Response?(v15, v19 + v25, &_s10ALProtobuf39CLP_LogEntry_PrivateData_PressureSampleVSgMd, &_s10ALProtobuf39CLP_LogEntry_PrivateData_PressureSampleVSgMR);
     swift_endAccess();
   }
 
+  free(v10);
+  free(v11);
   free(v14);
   free(v15);
-  free(v18);
-  free(v19);
 
   free(v2);
 }
@@ -5685,51 +3362,46 @@ void CLP_LogEntry_PrivateData_DaemonLocationPrivate.pressure.modify(uint64_t *a1
 BOOL CLP_LogEntry_PrivateData_DaemonLocationPrivate.hasPressure.getter()
 {
   v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf39CLP_LogEntry_PrivateData_PressureSampleVSgMd, &_s10ALProtobuf39CLP_LogEntry_PrivateData_PressureSampleVSgMR);
-  v2 = *(*(v1 - 8) + 64);
   MEMORY[0x28223BE20](v1 - 8);
-  v4 = &v10 - v3;
-  v5 = *(v0 + *(type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate(0) + 20));
-  v6 = OBJC_IVAR____TtCV10ALProtobuf46CLP_LogEntry_PrivateData_DaemonLocationPrivateP33_993346AF53650622B255AB1E3C41340D13_StorageClass__pressure;
+  v3 = &v9 - v2;
+  v4 = *(v0 + *(type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate(0) + 20));
+  v5 = OBJC_IVAR____TtCV10ALProtobuf46CLP_LogEntry_PrivateData_DaemonLocationPrivateP33_993346AF53650622B255AB1E3C41340D13_StorageClass__pressure;
   swift_beginAccess();
-  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v5 + v6, v4, &_s10ALProtobuf39CLP_LogEntry_PrivateData_PressureSampleVSgMd, &_s10ALProtobuf39CLP_LogEntry_PrivateData_PressureSampleVSgMR);
-  v7 = type metadata accessor for CLP_LogEntry_PrivateData_PressureSample(0);
-  v8 = (*(*(v7 - 8) + 48))(v4, 1, v7) != 1;
-  outlined destroy of Any?(v4, &_s10ALProtobuf39CLP_LogEntry_PrivateData_PressureSampleVSgMd, &_s10ALProtobuf39CLP_LogEntry_PrivateData_PressureSampleVSgMR);
-  return v8;
+  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v4 + v5, v3, &_s10ALProtobuf39CLP_LogEntry_PrivateData_PressureSampleVSgMd, &_s10ALProtobuf39CLP_LogEntry_PrivateData_PressureSampleVSgMR);
+  v6 = type metadata accessor for CLP_LogEntry_PrivateData_PressureSample(0);
+  v7 = (*(*(v6 - 8) + 48))(v3, 1, v6) != 1;
+  outlined destroy of Any?(v3, &_s10ALProtobuf39CLP_LogEntry_PrivateData_PressureSampleVSgMd, &_s10ALProtobuf39CLP_LogEntry_PrivateData_PressureSampleVSgMR);
+  return v7;
 }
 
 Swift::Void __swiftcall CLP_LogEntry_PrivateData_DaemonLocationPrivate.clearPressure()()
 {
   v1 = v0;
   v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf39CLP_LogEntry_PrivateData_PressureSampleVSgMd, &_s10ALProtobuf39CLP_LogEntry_PrivateData_PressureSampleVSgMR);
-  v3 = *(*(v2 - 8) + 64);
   MEMORY[0x28223BE20](v2 - 8);
-  v5 = &v16 - v4;
-  v6 = *(type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate(0) + 20);
-  v7 = *(v0 + v6);
+  v4 = &v11 - v3;
+  v5 = *(type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate(0) + 20);
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v9 = *(v0 + v6);
+  v7 = *(v0 + v5);
   if ((isUniquelyReferenced_nonNull_native & 1) == 0)
   {
-    v10 = type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass(0);
-    v11 = *(v10 + 48);
-    v12 = *(v10 + 52);
-    v13 = swift_allocObject();
-    specialized CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass.init(copying:)(v9);
+    type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass(0);
+    v8 = swift_allocObject();
+    specialized CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass.init(copying:)(v7);
 
-    *(v1 + v6) = v13;
-    v9 = v13;
+    *(v1 + v5) = v8;
+    v7 = v8;
   }
 
-  v14 = type metadata accessor for CLP_LogEntry_PrivateData_PressureSample(0);
-  (*(*(v14 - 8) + 56))(v5, 1, 1, v14);
-  v15 = OBJC_IVAR____TtCV10ALProtobuf46CLP_LogEntry_PrivateData_DaemonLocationPrivateP33_993346AF53650622B255AB1E3C41340D13_StorageClass__pressure;
+  v9 = type metadata accessor for CLP_LogEntry_PrivateData_PressureSample(0);
+  (*(*(v9 - 8) + 56))(v4, 1, 1, v9);
+  v10 = OBJC_IVAR____TtCV10ALProtobuf46CLP_LogEntry_PrivateData_DaemonLocationPrivateP33_993346AF53650622B255AB1E3C41340D13_StorageClass__pressure;
   swift_beginAccess();
-  outlined assign with take of Proto_Gpsd_Response?(v5, v9 + v15, &_s10ALProtobuf39CLP_LogEntry_PrivateData_PressureSampleVSgMd, &_s10ALProtobuf39CLP_LogEntry_PrivateData_PressureSampleVSgMR);
+  outlined assign with take of Proto_Gpsd_Response?(v4, v7 + v10, &_s10ALProtobuf39CLP_LogEntry_PrivateData_PressureSampleVSgMd, &_s10ALProtobuf39CLP_LogEntry_PrivateData_PressureSampleVSgMR);
   swift_endAccess();
 }
 
-void (*CLP_LogEntry_PrivateData_DaemonLocationPrivate.undulationModel.modify(uint64_t *a1))(uint64_t *a1, uint64_t a2)
+void (*CLP_LogEntry_PrivateData_DaemonLocationPrivate.undulationModel.modify(uint64_t *a1))(uint64_t *a1, char a2)
 {
   if (MEMORY[0x277D84FD8])
   {
@@ -5763,27 +3435,24 @@ Swift::Void __swiftcall CLP_LogEntry_PrivateData_DaemonLocationPrivate.clearUndu
 {
   v1 = v0;
   v2 = *(type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate(0) + 20);
-  v3 = *(v0 + v2);
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v5 = *(v0 + v2);
+  v4 = *(v0 + v2);
   if ((isUniquelyReferenced_nonNull_native & 1) == 0)
   {
-    v6 = type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass(0);
-    v7 = *(v6 + 48);
-    v8 = *(v6 + 52);
-    v9 = swift_allocObject();
-    specialized CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass.init(copying:)(v5);
+    type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass(0);
+    v5 = swift_allocObject();
+    specialized CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass.init(copying:)(v4);
 
-    *(v1 + v2) = v9;
-    v5 = v9;
+    *(v1 + v2) = v5;
+    v4 = v5;
   }
 
-  v10 = OBJC_IVAR____TtCV10ALProtobuf46CLP_LogEntry_PrivateData_DaemonLocationPrivateP33_993346AF53650622B255AB1E3C41340D13_StorageClass__undulationModel;
+  v6 = OBJC_IVAR____TtCV10ALProtobuf46CLP_LogEntry_PrivateData_DaemonLocationPrivateP33_993346AF53650622B255AB1E3C41340D13_StorageClass__undulationModel;
   swift_beginAccess();
-  *(v5 + v10) = 4;
+  *(v4 + v6) = 4;
 }
 
-void (*CLP_LogEntry_PrivateData_DaemonLocationPrivate.undulation.modify(uint64_t *a1))(uint64_t *a1, uint64_t a2)
+void (*CLP_LogEntry_PrivateData_DaemonLocationPrivate.undulation.modify(uint64_t *a1))(uint64_t *a1, char a2)
 {
   if (MEMORY[0x277D84FD8])
   {
@@ -5816,31 +3485,27 @@ uint64_t CLP_LogEntry_PrivateData_DaemonLocationPrivate.specialCoordinate.setter
 {
   v2 = v1;
   v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf49CLP_LogEntry_PrivateData_ClientLocationCoordinateVSgMd, &_s10ALProtobuf49CLP_LogEntry_PrivateData_ClientLocationCoordinateVSgMR);
-  v5 = *(*(v4 - 8) + 64);
   MEMORY[0x28223BE20](v4 - 8);
-  v7 = &v19 - v6;
-  v8 = *(type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate(0) + 20);
-  v9 = *(v1 + v8);
+  v6 = &v14 - v5;
+  v7 = *(type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate(0) + 20);
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v11 = *(v1 + v8);
+  v9 = *(v1 + v7);
   if ((isUniquelyReferenced_nonNull_native & 1) == 0)
   {
-    v12 = type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass(0);
-    v13 = *(v12 + 48);
-    v14 = *(v12 + 52);
-    v15 = swift_allocObject();
-    specialized CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass.init(copying:)(v11);
+    type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass(0);
+    v10 = swift_allocObject();
+    specialized CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass.init(copying:)(v9);
 
-    *(v2 + v8) = v15;
-    v11 = v15;
+    *(v2 + v7) = v10;
+    v9 = v10;
   }
 
-  outlined init with take of CLP_LogEntry_PrivateData_TimeStamp(a1, v7, type metadata accessor for CLP_LogEntry_PrivateData_ClientLocationCoordinate);
-  v16 = type metadata accessor for CLP_LogEntry_PrivateData_ClientLocationCoordinate(0);
-  (*(*(v16 - 8) + 56))(v7, 0, 1, v16);
-  v17 = OBJC_IVAR____TtCV10ALProtobuf46CLP_LogEntry_PrivateData_DaemonLocationPrivateP33_993346AF53650622B255AB1E3C41340D13_StorageClass__specialCoordinate;
+  outlined init with take of CLP_LogEntry_PrivateData_TimeStamp(a1, v6, type metadata accessor for CLP_LogEntry_PrivateData_ClientLocationCoordinate);
+  v11 = type metadata accessor for CLP_LogEntry_PrivateData_ClientLocationCoordinate(0);
+  (*(*(v11 - 8) + 56))(v6, 0, 1, v11);
+  v12 = OBJC_IVAR____TtCV10ALProtobuf46CLP_LogEntry_PrivateData_DaemonLocationPrivateP33_993346AF53650622B255AB1E3C41340D13_StorageClass__specialCoordinate;
   swift_beginAccess();
-  outlined assign with take of Proto_Gpsd_Response?(v7, v11 + v17, &_s10ALProtobuf49CLP_LogEntry_PrivateData_ClientLocationCoordinateVSgMd, &_s10ALProtobuf49CLP_LogEntry_PrivateData_ClientLocationCoordinateVSgMR);
+  outlined assign with take of Proto_Gpsd_Response?(v6, v9 + v12, &_s10ALProtobuf49CLP_LogEntry_PrivateData_ClientLocationCoordinateVSgMd, &_s10ALProtobuf49CLP_LogEntry_PrivateData_ClientLocationCoordinateVSgMR);
   return swift_endAccess();
 }
 
@@ -5933,76 +3598,70 @@ void CLP_LogEntry_PrivateData_DaemonLocationPrivate.specialCoordinate.modify(uin
   {
     v4 = *(v2 + 72);
     outlined init with copy of CLP_LogEntry_PrivateData_TimeStamp(*(v2 + 120), *(v2 + 112), type metadata accessor for CLP_LogEntry_PrivateData_ClientLocationCoordinate);
-    v5 = *(v4 + v3);
     isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-    v7 = *(v4 + v3);
+    v6 = *(v4 + v3);
     if ((isUniquelyReferenced_nonNull_native & 1) == 0)
     {
-      v8 = *(v2 + 128);
-      v9 = *(v2 + 72);
-      v10 = type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass(0);
-      v11 = *(v10 + 48);
-      v12 = *(v10 + 52);
-      v13 = swift_allocObject();
-      specialized CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass.init(copying:)(v7);
+      v7 = *(v2 + 128);
+      v8 = *(v2 + 72);
+      type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass(0);
+      v9 = swift_allocObject();
+      specialized CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass.init(copying:)(v6);
 
-      *(v9 + v8) = v13;
-      v7 = v13;
+      *(v8 + v7) = v9;
+      v6 = v9;
     }
 
-    v15 = *(v2 + 112);
-    v14 = *(v2 + 120);
-    v16 = *(v2 + 96);
-    v17 = *(v2 + 104);
-    v19 = *(v2 + 80);
-    v18 = *(v2 + 88);
-    outlined init with take of CLP_LogEntry_PrivateData_TimeStamp(v15, v19, type metadata accessor for CLP_LogEntry_PrivateData_ClientLocationCoordinate);
-    (*(v17 + 56))(v19, 0, 1, v16);
-    v20 = OBJC_IVAR____TtCV10ALProtobuf46CLP_LogEntry_PrivateData_DaemonLocationPrivateP33_993346AF53650622B255AB1E3C41340D13_StorageClass__specialCoordinate;
+    v11 = *(v2 + 112);
+    v10 = *(v2 + 120);
+    v12 = *(v2 + 96);
+    v13 = *(v2 + 104);
+    v15 = *(v2 + 80);
+    v14 = *(v2 + 88);
+    outlined init with take of CLP_LogEntry_PrivateData_TimeStamp(v11, v15, type metadata accessor for CLP_LogEntry_PrivateData_ClientLocationCoordinate);
+    (*(v13 + 56))(v15, 0, 1, v12);
+    v16 = OBJC_IVAR____TtCV10ALProtobuf46CLP_LogEntry_PrivateData_DaemonLocationPrivateP33_993346AF53650622B255AB1E3C41340D13_StorageClass__specialCoordinate;
     swift_beginAccess();
-    outlined assign with take of Proto_Gpsd_Response?(v19, v7 + v20, &_s10ALProtobuf49CLP_LogEntry_PrivateData_ClientLocationCoordinateVSgMd, &_s10ALProtobuf49CLP_LogEntry_PrivateData_ClientLocationCoordinateVSgMR);
+    outlined assign with take of Proto_Gpsd_Response?(v15, v6 + v16, &_s10ALProtobuf49CLP_LogEntry_PrivateData_ClientLocationCoordinateVSgMd, &_s10ALProtobuf49CLP_LogEntry_PrivateData_ClientLocationCoordinateVSgMR);
     swift_endAccess();
-    outlined destroy of CLP_LogEntry_PrivateData_TimeStamp(v14, type metadata accessor for CLP_LogEntry_PrivateData_ClientLocationCoordinate);
+    outlined destroy of CLP_LogEntry_PrivateData_TimeStamp(v10, type metadata accessor for CLP_LogEntry_PrivateData_ClientLocationCoordinate);
   }
 
   else
   {
-    v21 = *(v2 + 72);
-    v22 = *(v21 + v3);
-    v23 = swift_isUniquelyReferenced_nonNull_native();
-    v24 = *(v21 + v3);
-    if ((v23 & 1) == 0)
+    v17 = *(v2 + 72);
+    v18 = swift_isUniquelyReferenced_nonNull_native();
+    v19 = *(v17 + v3);
+    if ((v18 & 1) == 0)
     {
-      v25 = *(v2 + 128);
-      v26 = *(v2 + 72);
-      v27 = type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass(0);
-      v28 = *(v27 + 48);
-      v29 = *(v27 + 52);
-      v30 = swift_allocObject();
-      specialized CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass.init(copying:)(v24);
+      v20 = *(v2 + 128);
+      v21 = *(v2 + 72);
+      type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass(0);
+      v22 = swift_allocObject();
+      specialized CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass.init(copying:)(v19);
 
-      *(v26 + v25) = v30;
-      v24 = v30;
+      *(v21 + v20) = v22;
+      v19 = v22;
     }
 
-    v15 = *(v2 + 112);
-    v14 = *(v2 + 120);
-    v31 = *(v2 + 96);
-    v32 = *(v2 + 104);
-    v19 = *(v2 + 80);
-    v18 = *(v2 + 88);
-    outlined init with take of CLP_LogEntry_PrivateData_TimeStamp(v14, v19, type metadata accessor for CLP_LogEntry_PrivateData_ClientLocationCoordinate);
-    (*(v32 + 56))(v19, 0, 1, v31);
-    v33 = OBJC_IVAR____TtCV10ALProtobuf46CLP_LogEntry_PrivateData_DaemonLocationPrivateP33_993346AF53650622B255AB1E3C41340D13_StorageClass__specialCoordinate;
+    v11 = *(v2 + 112);
+    v10 = *(v2 + 120);
+    v23 = *(v2 + 96);
+    v24 = *(v2 + 104);
+    v15 = *(v2 + 80);
+    v14 = *(v2 + 88);
+    outlined init with take of CLP_LogEntry_PrivateData_TimeStamp(v10, v15, type metadata accessor for CLP_LogEntry_PrivateData_ClientLocationCoordinate);
+    (*(v24 + 56))(v15, 0, 1, v23);
+    v25 = OBJC_IVAR____TtCV10ALProtobuf46CLP_LogEntry_PrivateData_DaemonLocationPrivateP33_993346AF53650622B255AB1E3C41340D13_StorageClass__specialCoordinate;
     swift_beginAccess();
-    outlined assign with take of Proto_Gpsd_Response?(v19, v24 + v33, &_s10ALProtobuf49CLP_LogEntry_PrivateData_ClientLocationCoordinateVSgMd, &_s10ALProtobuf49CLP_LogEntry_PrivateData_ClientLocationCoordinateVSgMR);
+    outlined assign with take of Proto_Gpsd_Response?(v15, v19 + v25, &_s10ALProtobuf49CLP_LogEntry_PrivateData_ClientLocationCoordinateVSgMd, &_s10ALProtobuf49CLP_LogEntry_PrivateData_ClientLocationCoordinateVSgMR);
     swift_endAccess();
   }
 
+  free(v10);
+  free(v11);
   free(v14);
   free(v15);
-  free(v18);
-  free(v19);
 
   free(v2);
 }
@@ -6010,51 +3669,46 @@ void CLP_LogEntry_PrivateData_DaemonLocationPrivate.specialCoordinate.modify(uin
 BOOL CLP_LogEntry_PrivateData_DaemonLocationPrivate.hasSpecialCoordinate.getter()
 {
   v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf49CLP_LogEntry_PrivateData_ClientLocationCoordinateVSgMd, &_s10ALProtobuf49CLP_LogEntry_PrivateData_ClientLocationCoordinateVSgMR);
-  v2 = *(*(v1 - 8) + 64);
   MEMORY[0x28223BE20](v1 - 8);
-  v4 = &v10 - v3;
-  v5 = *(v0 + *(type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate(0) + 20));
-  v6 = OBJC_IVAR____TtCV10ALProtobuf46CLP_LogEntry_PrivateData_DaemonLocationPrivateP33_993346AF53650622B255AB1E3C41340D13_StorageClass__specialCoordinate;
+  v3 = &v9 - v2;
+  v4 = *(v0 + *(type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate(0) + 20));
+  v5 = OBJC_IVAR____TtCV10ALProtobuf46CLP_LogEntry_PrivateData_DaemonLocationPrivateP33_993346AF53650622B255AB1E3C41340D13_StorageClass__specialCoordinate;
   swift_beginAccess();
-  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v5 + v6, v4, &_s10ALProtobuf49CLP_LogEntry_PrivateData_ClientLocationCoordinateVSgMd, &_s10ALProtobuf49CLP_LogEntry_PrivateData_ClientLocationCoordinateVSgMR);
-  v7 = type metadata accessor for CLP_LogEntry_PrivateData_ClientLocationCoordinate(0);
-  v8 = (*(*(v7 - 8) + 48))(v4, 1, v7) != 1;
-  outlined destroy of Any?(v4, &_s10ALProtobuf49CLP_LogEntry_PrivateData_ClientLocationCoordinateVSgMd, &_s10ALProtobuf49CLP_LogEntry_PrivateData_ClientLocationCoordinateVSgMR);
-  return v8;
+  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v4 + v5, v3, &_s10ALProtobuf49CLP_LogEntry_PrivateData_ClientLocationCoordinateVSgMd, &_s10ALProtobuf49CLP_LogEntry_PrivateData_ClientLocationCoordinateVSgMR);
+  v6 = type metadata accessor for CLP_LogEntry_PrivateData_ClientLocationCoordinate(0);
+  v7 = (*(*(v6 - 8) + 48))(v3, 1, v6) != 1;
+  outlined destroy of Any?(v3, &_s10ALProtobuf49CLP_LogEntry_PrivateData_ClientLocationCoordinateVSgMd, &_s10ALProtobuf49CLP_LogEntry_PrivateData_ClientLocationCoordinateVSgMR);
+  return v7;
 }
 
 Swift::Void __swiftcall CLP_LogEntry_PrivateData_DaemonLocationPrivate.clearSpecialCoordinate()()
 {
   v1 = v0;
   v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf49CLP_LogEntry_PrivateData_ClientLocationCoordinateVSgMd, &_s10ALProtobuf49CLP_LogEntry_PrivateData_ClientLocationCoordinateVSgMR);
-  v3 = *(*(v2 - 8) + 64);
   MEMORY[0x28223BE20](v2 - 8);
-  v5 = &v16 - v4;
-  v6 = *(type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate(0) + 20);
-  v7 = *(v0 + v6);
+  v4 = &v11 - v3;
+  v5 = *(type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate(0) + 20);
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v9 = *(v0 + v6);
+  v7 = *(v0 + v5);
   if ((isUniquelyReferenced_nonNull_native & 1) == 0)
   {
-    v10 = type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass(0);
-    v11 = *(v10 + 48);
-    v12 = *(v10 + 52);
-    v13 = swift_allocObject();
-    specialized CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass.init(copying:)(v9);
+    type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass(0);
+    v8 = swift_allocObject();
+    specialized CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass.init(copying:)(v7);
 
-    *(v1 + v6) = v13;
-    v9 = v13;
+    *(v1 + v5) = v8;
+    v7 = v8;
   }
 
-  v14 = type metadata accessor for CLP_LogEntry_PrivateData_ClientLocationCoordinate(0);
-  (*(*(v14 - 8) + 56))(v5, 1, 1, v14);
-  v15 = OBJC_IVAR____TtCV10ALProtobuf46CLP_LogEntry_PrivateData_DaemonLocationPrivateP33_993346AF53650622B255AB1E3C41340D13_StorageClass__specialCoordinate;
+  v9 = type metadata accessor for CLP_LogEntry_PrivateData_ClientLocationCoordinate(0);
+  (*(*(v9 - 8) + 56))(v4, 1, 1, v9);
+  v10 = OBJC_IVAR____TtCV10ALProtobuf46CLP_LogEntry_PrivateData_DaemonLocationPrivateP33_993346AF53650622B255AB1E3C41340D13_StorageClass__specialCoordinate;
   swift_beginAccess();
-  outlined assign with take of Proto_Gpsd_Response?(v5, v9 + v15, &_s10ALProtobuf49CLP_LogEntry_PrivateData_ClientLocationCoordinateVSgMd, &_s10ALProtobuf49CLP_LogEntry_PrivateData_ClientLocationCoordinateVSgMR);
+  outlined assign with take of Proto_Gpsd_Response?(v4, v7 + v10, &_s10ALProtobuf49CLP_LogEntry_PrivateData_ClientLocationCoordinateVSgMd, &_s10ALProtobuf49CLP_LogEntry_PrivateData_ClientLocationCoordinateVSgMR);
   swift_endAccess();
 }
 
-void (*CLP_LogEntry_PrivateData_DaemonLocationPrivate.specialHorizontalAccuracy.modify(uint64_t *a1))(uint64_t *a1, uint64_t a2)
+void (*CLP_LogEntry_PrivateData_DaemonLocationPrivate.specialHorizontalAccuracy.modify(uint64_t *a1))(uint64_t *a1, char a2)
 {
   if (MEMORY[0x277D84FD8])
   {
@@ -6083,7 +3737,7 @@ void (*CLP_LogEntry_PrivateData_DaemonLocationPrivate.specialHorizontalAccuracy.
   return CLP_LogEntry_PrivateData_DaemonLocationPrivate.specialHorizontalAccuracy.modify;
 }
 
-void (*CLP_LogEntry_PrivateData_DaemonLocationPrivate.machContinuousTime.modify(uint64_t *a1))(uint64_t *a1, uint64_t a2)
+void (*CLP_LogEntry_PrivateData_DaemonLocationPrivate.machContinuousTime.modify(uint64_t *a1))(uint64_t *a1, char a2)
 {
   if (MEMORY[0x277D84FD8])
   {
@@ -6112,7 +3766,7 @@ void (*CLP_LogEntry_PrivateData_DaemonLocationPrivate.machContinuousTime.modify(
   return CLP_LogEntry_PrivateData_DaemonLocationPrivate.machContinuousTime.modify;
 }
 
-void (*CLP_LogEntry_PrivateData_DaemonLocationPrivate.originDevice.modify(uint64_t *a1))(uint64_t *a1, uint64_t a2)
+void (*CLP_LogEntry_PrivateData_DaemonLocationPrivate.originDevice.modify(uint64_t *a1))(uint64_t *a1, char a2)
 {
   if (MEMORY[0x277D84FD8])
   {
@@ -6146,27 +3800,24 @@ Swift::Void __swiftcall CLP_LogEntry_PrivateData_DaemonLocationPrivate.clearOrig
 {
   v1 = v0;
   v2 = *(type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate(0) + 20);
-  v3 = *(v0 + v2);
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v5 = *(v0 + v2);
+  v4 = *(v0 + v2);
   if ((isUniquelyReferenced_nonNull_native & 1) == 0)
   {
-    v6 = type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass(0);
-    v7 = *(v6 + 48);
-    v8 = *(v6 + 52);
-    v9 = swift_allocObject();
-    specialized CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass.init(copying:)(v5);
+    type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass(0);
+    v5 = swift_allocObject();
+    specialized CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass.init(copying:)(v4);
 
-    *(v1 + v2) = v9;
-    v5 = v9;
+    *(v1 + v2) = v5;
+    v4 = v5;
   }
 
-  v10 = OBJC_IVAR____TtCV10ALProtobuf46CLP_LogEntry_PrivateData_DaemonLocationPrivateP33_993346AF53650622B255AB1E3C41340D13_StorageClass__originDevice;
+  v6 = OBJC_IVAR____TtCV10ALProtobuf46CLP_LogEntry_PrivateData_DaemonLocationPrivateP33_993346AF53650622B255AB1E3C41340D13_StorageClass__originDevice;
   swift_beginAccess();
-  *(v5 + v10) = 3;
+  *(v4 + v6) = 3;
 }
 
-void (*CLP_LogEntry_PrivateData_DaemonLocationPrivate.isMatcherPropagatedCoordinates.modify(uint64_t *a1))(uint64_t *a1, uint64_t a2)
+void (*CLP_LogEntry_PrivateData_DaemonLocationPrivate.isMatcherPropagatedCoordinates.modify(uint64_t *a1))(uint64_t *a1, char a2)
 {
   if (MEMORY[0x277D84FD8])
   {
@@ -6194,56 +3845,52 @@ Swift::Void __swiftcall CLP_LogEntry_PrivateData_DaemonLocationPrivate.clearIsMa
 {
   v1 = v0;
   v2 = *(type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate(0) + 20);
-  v3 = *(v0 + v2);
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v5 = *(v0 + v2);
+  v4 = *(v0 + v2);
   if ((isUniquelyReferenced_nonNull_native & 1) == 0)
   {
-    v6 = type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass(0);
-    v7 = *(v6 + 48);
-    v8 = *(v6 + 52);
-    v9 = swift_allocObject();
-    specialized CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass.init(copying:)(v5);
+    type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass(0);
+    v5 = swift_allocObject();
+    specialized CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass.init(copying:)(v4);
 
-    *(v1 + v2) = v9;
-    v5 = v9;
+    *(v1 + v2) = v5;
+    v4 = v5;
   }
 
-  v10 = OBJC_IVAR____TtCV10ALProtobuf46CLP_LogEntry_PrivateData_DaemonLocationPrivateP33_993346AF53650622B255AB1E3C41340D13_StorageClass__isMatcherPropagatedCoordinates;
+  v6 = OBJC_IVAR____TtCV10ALProtobuf46CLP_LogEntry_PrivateData_DaemonLocationPrivateP33_993346AF53650622B255AB1E3C41340D13_StorageClass__isMatcherPropagatedCoordinates;
   swift_beginAccess();
-  *(v5 + v10) = 2;
+  *(v4 + v6) = 2;
 }
 
 uint64_t CLP_LogEntry_PrivateData_DaemonLocationPrivate.mapMatcherData.getter@<X0>(uint64_t a1@<X8>)
 {
   v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf035CLP_LogEntry_PrivateData_MapMatcherF0VSgMd, &_s10ALProtobuf035CLP_LogEntry_PrivateData_MapMatcherF0VSgMR);
-  v4 = *(*(v3 - 8) + 64);
   MEMORY[0x28223BE20](v3 - 8);
-  v6 = &v14 - v5;
-  v7 = *(v1 + *(type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate(0) + 20));
-  v8 = OBJC_IVAR____TtCV10ALProtobuf46CLP_LogEntry_PrivateData_DaemonLocationPrivateP33_993346AF53650622B255AB1E3C41340D13_StorageClass__mapMatcherData;
+  v5 = &v13 - v4;
+  v6 = *(v1 + *(type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate(0) + 20));
+  v7 = OBJC_IVAR____TtCV10ALProtobuf46CLP_LogEntry_PrivateData_DaemonLocationPrivateP33_993346AF53650622B255AB1E3C41340D13_StorageClass__mapMatcherData;
   swift_beginAccess();
-  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v7 + v8, v6, &_s10ALProtobuf035CLP_LogEntry_PrivateData_MapMatcherF0VSgMd, &_s10ALProtobuf035CLP_LogEntry_PrivateData_MapMatcherF0VSgMR);
-  v9 = type metadata accessor for CLP_LogEntry_PrivateData_MapMatcherData(0);
-  v10 = *(*(v9 - 1) + 48);
-  if (v10(v6, 1, v9) != 1)
+  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v6 + v7, v5, &_s10ALProtobuf035CLP_LogEntry_PrivateData_MapMatcherF0VSgMd, &_s10ALProtobuf035CLP_LogEntry_PrivateData_MapMatcherF0VSgMR);
+  v8 = type metadata accessor for CLP_LogEntry_PrivateData_MapMatcherData(0);
+  v9 = *(*(v8 - 1) + 48);
+  if (v9(v5, 1, v8) != 1)
   {
-    return outlined init with take of CLP_LogEntry_PrivateData_TimeStamp(v6, a1, type metadata accessor for CLP_LogEntry_PrivateData_MapMatcherData);
+    return outlined init with take of CLP_LogEntry_PrivateData_TimeStamp(v5, a1, type metadata accessor for CLP_LogEntry_PrivateData_MapMatcherData);
   }
 
   UnknownStorage.init()();
-  v11 = a1 + v9[5];
+  v10 = a1 + v8[5];
+  *v10 = 0;
+  *(v10 + 8) = 1;
+  v11 = a1 + v8[6];
   *v11 = 0;
   *(v11 + 8) = 1;
-  v12 = a1 + v9[6];
-  *v12 = 0;
-  *(v12 + 8) = 1;
-  *(a1 + v9[7]) = 2;
-  *(a1 + v9[8]) = 2;
-  result = (v10)(v6, 1, v9);
+  *(a1 + v8[7]) = 2;
+  *(a1 + v8[8]) = 2;
+  result = (v9)(v5, 1, v8);
   if (result != 1)
   {
-    return outlined destroy of Any?(v6, &_s10ALProtobuf035CLP_LogEntry_PrivateData_MapMatcherF0VSgMd, &_s10ALProtobuf035CLP_LogEntry_PrivateData_MapMatcherF0VSgMR);
+    return outlined destroy of Any?(v5, &_s10ALProtobuf035CLP_LogEntry_PrivateData_MapMatcherF0VSgMd, &_s10ALProtobuf035CLP_LogEntry_PrivateData_MapMatcherF0VSgMR);
   }
 
   return result;
@@ -6253,31 +3900,27 @@ uint64_t CLP_LogEntry_PrivateData_DaemonLocationPrivate.mapMatcherData.setter(ui
 {
   v2 = v1;
   v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf035CLP_LogEntry_PrivateData_MapMatcherF0VSgMd, &_s10ALProtobuf035CLP_LogEntry_PrivateData_MapMatcherF0VSgMR);
-  v5 = *(*(v4 - 8) + 64);
   MEMORY[0x28223BE20](v4 - 8);
-  v7 = &v19 - v6;
-  v8 = *(type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate(0) + 20);
-  v9 = *(v1 + v8);
+  v6 = &v14 - v5;
+  v7 = *(type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate(0) + 20);
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v11 = *(v1 + v8);
+  v9 = *(v1 + v7);
   if ((isUniquelyReferenced_nonNull_native & 1) == 0)
   {
-    v12 = type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass(0);
-    v13 = *(v12 + 48);
-    v14 = *(v12 + 52);
-    v15 = swift_allocObject();
-    specialized CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass.init(copying:)(v11);
+    type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass(0);
+    v10 = swift_allocObject();
+    specialized CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass.init(copying:)(v9);
 
-    *(v2 + v8) = v15;
-    v11 = v15;
+    *(v2 + v7) = v10;
+    v9 = v10;
   }
 
-  outlined init with take of CLP_LogEntry_PrivateData_TimeStamp(a1, v7, type metadata accessor for CLP_LogEntry_PrivateData_MapMatcherData);
-  v16 = type metadata accessor for CLP_LogEntry_PrivateData_MapMatcherData(0);
-  (*(*(v16 - 8) + 56))(v7, 0, 1, v16);
-  v17 = OBJC_IVAR____TtCV10ALProtobuf46CLP_LogEntry_PrivateData_DaemonLocationPrivateP33_993346AF53650622B255AB1E3C41340D13_StorageClass__mapMatcherData;
+  outlined init with take of CLP_LogEntry_PrivateData_TimeStamp(a1, v6, type metadata accessor for CLP_LogEntry_PrivateData_MapMatcherData);
+  v11 = type metadata accessor for CLP_LogEntry_PrivateData_MapMatcherData(0);
+  (*(*(v11 - 8) + 56))(v6, 0, 1, v11);
+  v12 = OBJC_IVAR____TtCV10ALProtobuf46CLP_LogEntry_PrivateData_DaemonLocationPrivateP33_993346AF53650622B255AB1E3C41340D13_StorageClass__mapMatcherData;
   swift_beginAccess();
-  outlined assign with take of Proto_Gpsd_Response?(v7, v11 + v17, &_s10ALProtobuf035CLP_LogEntry_PrivateData_MapMatcherF0VSgMd, &_s10ALProtobuf035CLP_LogEntry_PrivateData_MapMatcherF0VSgMR);
+  outlined assign with take of Proto_Gpsd_Response?(v6, v9 + v12, &_s10ALProtobuf035CLP_LogEntry_PrivateData_MapMatcherF0VSgMd, &_s10ALProtobuf035CLP_LogEntry_PrivateData_MapMatcherF0VSgMR);
   return swift_endAccess();
 }
 
@@ -6372,76 +4015,70 @@ void CLP_LogEntry_PrivateData_DaemonLocationPrivate.mapMatcherData.modify(uint64
   {
     v4 = *(v2 + 72);
     outlined init with copy of CLP_LogEntry_PrivateData_TimeStamp(*(v2 + 120), *(v2 + 112), type metadata accessor for CLP_LogEntry_PrivateData_MapMatcherData);
-    v5 = *(v4 + v3);
     isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-    v7 = *(v4 + v3);
+    v6 = *(v4 + v3);
     if ((isUniquelyReferenced_nonNull_native & 1) == 0)
     {
-      v8 = *(v2 + 128);
-      v9 = *(v2 + 72);
-      v10 = type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass(0);
-      v11 = *(v10 + 48);
-      v12 = *(v10 + 52);
-      v13 = swift_allocObject();
-      specialized CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass.init(copying:)(v7);
+      v7 = *(v2 + 128);
+      v8 = *(v2 + 72);
+      type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass(0);
+      v9 = swift_allocObject();
+      specialized CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass.init(copying:)(v6);
 
-      *(v9 + v8) = v13;
-      v7 = v13;
+      *(v8 + v7) = v9;
+      v6 = v9;
     }
 
-    v15 = *(v2 + 112);
-    v14 = *(v2 + 120);
-    v16 = *(v2 + 96);
-    v17 = *(v2 + 104);
-    v19 = *(v2 + 80);
-    v18 = *(v2 + 88);
-    outlined init with take of CLP_LogEntry_PrivateData_TimeStamp(v15, v19, type metadata accessor for CLP_LogEntry_PrivateData_MapMatcherData);
-    (*(v17 + 56))(v19, 0, 1, v16);
-    v20 = OBJC_IVAR____TtCV10ALProtobuf46CLP_LogEntry_PrivateData_DaemonLocationPrivateP33_993346AF53650622B255AB1E3C41340D13_StorageClass__mapMatcherData;
+    v11 = *(v2 + 112);
+    v10 = *(v2 + 120);
+    v12 = *(v2 + 96);
+    v13 = *(v2 + 104);
+    v15 = *(v2 + 80);
+    v14 = *(v2 + 88);
+    outlined init with take of CLP_LogEntry_PrivateData_TimeStamp(v11, v15, type metadata accessor for CLP_LogEntry_PrivateData_MapMatcherData);
+    (*(v13 + 56))(v15, 0, 1, v12);
+    v16 = OBJC_IVAR____TtCV10ALProtobuf46CLP_LogEntry_PrivateData_DaemonLocationPrivateP33_993346AF53650622B255AB1E3C41340D13_StorageClass__mapMatcherData;
     swift_beginAccess();
-    outlined assign with take of Proto_Gpsd_Response?(v19, v7 + v20, &_s10ALProtobuf035CLP_LogEntry_PrivateData_MapMatcherF0VSgMd, &_s10ALProtobuf035CLP_LogEntry_PrivateData_MapMatcherF0VSgMR);
+    outlined assign with take of Proto_Gpsd_Response?(v15, v6 + v16, &_s10ALProtobuf035CLP_LogEntry_PrivateData_MapMatcherF0VSgMd, &_s10ALProtobuf035CLP_LogEntry_PrivateData_MapMatcherF0VSgMR);
     swift_endAccess();
-    outlined destroy of CLP_LogEntry_PrivateData_TimeStamp(v14, type metadata accessor for CLP_LogEntry_PrivateData_MapMatcherData);
+    outlined destroy of CLP_LogEntry_PrivateData_TimeStamp(v10, type metadata accessor for CLP_LogEntry_PrivateData_MapMatcherData);
   }
 
   else
   {
-    v21 = *(v2 + 72);
-    v22 = *(v21 + v3);
-    v23 = swift_isUniquelyReferenced_nonNull_native();
-    v24 = *(v21 + v3);
-    if ((v23 & 1) == 0)
+    v17 = *(v2 + 72);
+    v18 = swift_isUniquelyReferenced_nonNull_native();
+    v19 = *(v17 + v3);
+    if ((v18 & 1) == 0)
     {
-      v25 = *(v2 + 128);
-      v26 = *(v2 + 72);
-      v27 = type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass(0);
-      v28 = *(v27 + 48);
-      v29 = *(v27 + 52);
-      v30 = swift_allocObject();
-      specialized CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass.init(copying:)(v24);
+      v20 = *(v2 + 128);
+      v21 = *(v2 + 72);
+      type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass(0);
+      v22 = swift_allocObject();
+      specialized CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass.init(copying:)(v19);
 
-      *(v26 + v25) = v30;
-      v24 = v30;
+      *(v21 + v20) = v22;
+      v19 = v22;
     }
 
-    v15 = *(v2 + 112);
-    v14 = *(v2 + 120);
-    v31 = *(v2 + 96);
-    v32 = *(v2 + 104);
-    v19 = *(v2 + 80);
-    v18 = *(v2 + 88);
-    outlined init with take of CLP_LogEntry_PrivateData_TimeStamp(v14, v19, type metadata accessor for CLP_LogEntry_PrivateData_MapMatcherData);
-    (*(v32 + 56))(v19, 0, 1, v31);
-    v33 = OBJC_IVAR____TtCV10ALProtobuf46CLP_LogEntry_PrivateData_DaemonLocationPrivateP33_993346AF53650622B255AB1E3C41340D13_StorageClass__mapMatcherData;
+    v11 = *(v2 + 112);
+    v10 = *(v2 + 120);
+    v23 = *(v2 + 96);
+    v24 = *(v2 + 104);
+    v15 = *(v2 + 80);
+    v14 = *(v2 + 88);
+    outlined init with take of CLP_LogEntry_PrivateData_TimeStamp(v10, v15, type metadata accessor for CLP_LogEntry_PrivateData_MapMatcherData);
+    (*(v24 + 56))(v15, 0, 1, v23);
+    v25 = OBJC_IVAR____TtCV10ALProtobuf46CLP_LogEntry_PrivateData_DaemonLocationPrivateP33_993346AF53650622B255AB1E3C41340D13_StorageClass__mapMatcherData;
     swift_beginAccess();
-    outlined assign with take of Proto_Gpsd_Response?(v19, v24 + v33, &_s10ALProtobuf035CLP_LogEntry_PrivateData_MapMatcherF0VSgMd, &_s10ALProtobuf035CLP_LogEntry_PrivateData_MapMatcherF0VSgMR);
+    outlined assign with take of Proto_Gpsd_Response?(v15, v19 + v25, &_s10ALProtobuf035CLP_LogEntry_PrivateData_MapMatcherF0VSgMd, &_s10ALProtobuf035CLP_LogEntry_PrivateData_MapMatcherF0VSgMR);
     swift_endAccess();
   }
 
+  free(v10);
+  free(v11);
   free(v14);
   free(v15);
-  free(v18);
-  free(v19);
 
   free(v2);
 }
@@ -6449,51 +4086,46 @@ void CLP_LogEntry_PrivateData_DaemonLocationPrivate.mapMatcherData.modify(uint64
 BOOL CLP_LogEntry_PrivateData_DaemonLocationPrivate.hasMapMatcherData.getter()
 {
   v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf035CLP_LogEntry_PrivateData_MapMatcherF0VSgMd, &_s10ALProtobuf035CLP_LogEntry_PrivateData_MapMatcherF0VSgMR);
-  v2 = *(*(v1 - 8) + 64);
   MEMORY[0x28223BE20](v1 - 8);
-  v4 = &v10 - v3;
-  v5 = *(v0 + *(type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate(0) + 20));
-  v6 = OBJC_IVAR____TtCV10ALProtobuf46CLP_LogEntry_PrivateData_DaemonLocationPrivateP33_993346AF53650622B255AB1E3C41340D13_StorageClass__mapMatcherData;
+  v3 = &v9 - v2;
+  v4 = *(v0 + *(type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate(0) + 20));
+  v5 = OBJC_IVAR____TtCV10ALProtobuf46CLP_LogEntry_PrivateData_DaemonLocationPrivateP33_993346AF53650622B255AB1E3C41340D13_StorageClass__mapMatcherData;
   swift_beginAccess();
-  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v5 + v6, v4, &_s10ALProtobuf035CLP_LogEntry_PrivateData_MapMatcherF0VSgMd, &_s10ALProtobuf035CLP_LogEntry_PrivateData_MapMatcherF0VSgMR);
-  v7 = type metadata accessor for CLP_LogEntry_PrivateData_MapMatcherData(0);
-  v8 = (*(*(v7 - 8) + 48))(v4, 1, v7) != 1;
-  outlined destroy of Any?(v4, &_s10ALProtobuf035CLP_LogEntry_PrivateData_MapMatcherF0VSgMd, &_s10ALProtobuf035CLP_LogEntry_PrivateData_MapMatcherF0VSgMR);
-  return v8;
+  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v4 + v5, v3, &_s10ALProtobuf035CLP_LogEntry_PrivateData_MapMatcherF0VSgMd, &_s10ALProtobuf035CLP_LogEntry_PrivateData_MapMatcherF0VSgMR);
+  v6 = type metadata accessor for CLP_LogEntry_PrivateData_MapMatcherData(0);
+  v7 = (*(*(v6 - 8) + 48))(v3, 1, v6) != 1;
+  outlined destroy of Any?(v3, &_s10ALProtobuf035CLP_LogEntry_PrivateData_MapMatcherF0VSgMd, &_s10ALProtobuf035CLP_LogEntry_PrivateData_MapMatcherF0VSgMR);
+  return v7;
 }
 
 Swift::Void __swiftcall CLP_LogEntry_PrivateData_DaemonLocationPrivate.clearMapMatcherData()()
 {
   v1 = v0;
   v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf035CLP_LogEntry_PrivateData_MapMatcherF0VSgMd, &_s10ALProtobuf035CLP_LogEntry_PrivateData_MapMatcherF0VSgMR);
-  v3 = *(*(v2 - 8) + 64);
   MEMORY[0x28223BE20](v2 - 8);
-  v5 = &v16 - v4;
-  v6 = *(type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate(0) + 20);
-  v7 = *(v0 + v6);
+  v4 = &v11 - v3;
+  v5 = *(type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate(0) + 20);
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v9 = *(v0 + v6);
+  v7 = *(v0 + v5);
   if ((isUniquelyReferenced_nonNull_native & 1) == 0)
   {
-    v10 = type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass(0);
-    v11 = *(v10 + 48);
-    v12 = *(v10 + 52);
-    v13 = swift_allocObject();
-    specialized CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass.init(copying:)(v9);
+    type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass(0);
+    v8 = swift_allocObject();
+    specialized CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass.init(copying:)(v7);
 
-    *(v1 + v6) = v13;
-    v9 = v13;
+    *(v1 + v5) = v8;
+    v7 = v8;
   }
 
-  v14 = type metadata accessor for CLP_LogEntry_PrivateData_MapMatcherData(0);
-  (*(*(v14 - 8) + 56))(v5, 1, 1, v14);
-  v15 = OBJC_IVAR____TtCV10ALProtobuf46CLP_LogEntry_PrivateData_DaemonLocationPrivateP33_993346AF53650622B255AB1E3C41340D13_StorageClass__mapMatcherData;
+  v9 = type metadata accessor for CLP_LogEntry_PrivateData_MapMatcherData(0);
+  (*(*(v9 - 8) + 56))(v4, 1, 1, v9);
+  v10 = OBJC_IVAR____TtCV10ALProtobuf46CLP_LogEntry_PrivateData_DaemonLocationPrivateP33_993346AF53650622B255AB1E3C41340D13_StorageClass__mapMatcherData;
   swift_beginAccess();
-  outlined assign with take of Proto_Gpsd_Response?(v5, v9 + v15, &_s10ALProtobuf035CLP_LogEntry_PrivateData_MapMatcherF0VSgMd, &_s10ALProtobuf035CLP_LogEntry_PrivateData_MapMatcherF0VSgMR);
+  outlined assign with take of Proto_Gpsd_Response?(v4, v7 + v10, &_s10ALProtobuf035CLP_LogEntry_PrivateData_MapMatcherF0VSgMd, &_s10ALProtobuf035CLP_LogEntry_PrivateData_MapMatcherF0VSgMR);
   swift_endAccess();
 }
 
-void (*CLP_LogEntry_PrivateData_DaemonLocationPrivate.slope.modify(uint64_t *a1))(uint64_t *a1, uint64_t a2)
+void (*CLP_LogEntry_PrivateData_DaemonLocationPrivate.slope.modify(uint64_t *a1))(uint64_t *a1, char a2)
 {
   if (MEMORY[0x277D84FD8])
   {
@@ -6522,7 +4154,7 @@ void (*CLP_LogEntry_PrivateData_DaemonLocationPrivate.slope.modify(uint64_t *a1)
   return CLP_LogEntry_PrivateData_DaemonLocationPrivate.slope.modify;
 }
 
-void (*CLP_LogEntry_PrivateData_DaemonLocationPrivate.maxAbsSlope.modify(uint64_t *a1))(uint64_t *a1, uint64_t a2)
+void (*CLP_LogEntry_PrivateData_DaemonLocationPrivate.maxAbsSlope.modify(uint64_t *a1))(uint64_t *a1, char a2)
 {
   if (MEMORY[0x277D84FD8])
   {
@@ -6551,7 +4183,7 @@ void (*CLP_LogEntry_PrivateData_DaemonLocationPrivate.maxAbsSlope.modify(uint64_
   return CLP_LogEntry_PrivateData_DaemonLocationPrivate.maxAbsSlope.modify;
 }
 
-void (*CLP_LogEntry_PrivateData_DaemonLocationPrivate.groundAltitude.modify(uint64_t *a1))(uint64_t *a1, uint64_t a2)
+void (*CLP_LogEntry_PrivateData_DaemonLocationPrivate.groundAltitude.modify(uint64_t *a1))(uint64_t *a1, char a2)
 {
   if (MEMORY[0x277D84FD8])
   {
@@ -6580,7 +4212,7 @@ void (*CLP_LogEntry_PrivateData_DaemonLocationPrivate.groundAltitude.modify(uint
   return CLP_LogEntry_PrivateData_DaemonLocationPrivate.groundAltitude.modify;
 }
 
-void (*CLP_LogEntry_PrivateData_DaemonLocationPrivate.groundAltitudeUncertainty.modify(uint64_t *a1))(uint64_t *a1, uint64_t a2)
+void (*CLP_LogEntry_PrivateData_DaemonLocationPrivate.groundAltitudeUncertainty.modify(uint64_t *a1))(uint64_t *a1, char a2)
 {
   if (MEMORY[0x277D84FD8])
   {
@@ -6609,7 +4241,7 @@ void (*CLP_LogEntry_PrivateData_DaemonLocationPrivate.groundAltitudeUncertainty.
   return CLP_LogEntry_PrivateData_DaemonLocationPrivate.groundAltitudeUncertainty.modify;
 }
 
-void (*CLP_LogEntry_PrivateData_DaemonLocationPrivate.smoothedGpsAltitude.modify(uint64_t *a1))(uint64_t *a1, uint64_t a2)
+void (*CLP_LogEntry_PrivateData_DaemonLocationPrivate.smoothedGpsAltitude.modify(uint64_t *a1))(uint64_t *a1, char a2)
 {
   if (MEMORY[0x277D84FD8])
   {
@@ -6638,7 +4270,7 @@ void (*CLP_LogEntry_PrivateData_DaemonLocationPrivate.smoothedGpsAltitude.modify
   return CLP_LogEntry_PrivateData_DaemonLocationPrivate.smoothedGpsAltitude.modify;
 }
 
-void (*CLP_LogEntry_PrivateData_DaemonLocationPrivate.smoothedGpsAltitudeUncertainty.modify(uint64_t *a1))(uint64_t *a1, uint64_t a2)
+void (*CLP_LogEntry_PrivateData_DaemonLocationPrivate.smoothedGpsAltitudeUncertainty.modify(uint64_t *a1))(uint64_t *a1, char a2)
 {
   if (MEMORY[0x277D84FD8])
   {
@@ -6667,7 +4299,7 @@ void (*CLP_LogEntry_PrivateData_DaemonLocationPrivate.smoothedGpsAltitudeUncerta
   return CLP_LogEntry_PrivateData_DaemonLocationPrivate.smoothedGpsAltitudeUncertainty.modify;
 }
 
-void (*CLP_LogEntry_PrivateData_DaemonLocationPrivate.isSimulatedOrSpoofed.modify(uint64_t *a1))(uint64_t *a1, uint64_t a2)
+void (*CLP_LogEntry_PrivateData_DaemonLocationPrivate.isSimulatedOrSpoofed.modify(uint64_t *a1))(uint64_t *a1, char a2)
 {
   if (MEMORY[0x277D84FD8])
   {
@@ -6695,27 +4327,24 @@ Swift::Void __swiftcall CLP_LogEntry_PrivateData_DaemonLocationPrivate.clearIsSi
 {
   v1 = v0;
   v2 = *(type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate(0) + 20);
-  v3 = *(v0 + v2);
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v5 = *(v0 + v2);
+  v4 = *(v0 + v2);
   if ((isUniquelyReferenced_nonNull_native & 1) == 0)
   {
-    v6 = type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass(0);
-    v7 = *(v6 + 48);
-    v8 = *(v6 + 52);
-    v9 = swift_allocObject();
-    specialized CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass.init(copying:)(v5);
+    type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass(0);
+    v5 = swift_allocObject();
+    specialized CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass.init(copying:)(v4);
 
-    *(v1 + v2) = v9;
-    v5 = v9;
+    *(v1 + v2) = v5;
+    v4 = v5;
   }
 
-  v10 = OBJC_IVAR____TtCV10ALProtobuf46CLP_LogEntry_PrivateData_DaemonLocationPrivateP33_993346AF53650622B255AB1E3C41340D13_StorageClass__isSimulatedOrSpoofed;
+  v6 = OBJC_IVAR____TtCV10ALProtobuf46CLP_LogEntry_PrivateData_DaemonLocationPrivateP33_993346AF53650622B255AB1E3C41340D13_StorageClass__isSimulatedOrSpoofed;
   swift_beginAccess();
-  *(v5 + v10) = 2;
+  *(v4 + v6) = 2;
 }
 
-void (*CLP_LogEntry_PrivateData_DaemonLocationPrivate.rawHorizontalAccuracy.modify(uint64_t *a1))(uint64_t *a1, uint64_t a2)
+void (*CLP_LogEntry_PrivateData_DaemonLocationPrivate.rawHorizontalAccuracy.modify(uint64_t *a1))(uint64_t *a1, char a2)
 {
   if (MEMORY[0x277D84FD8])
   {
@@ -6744,7 +4373,7 @@ void (*CLP_LogEntry_PrivateData_DaemonLocationPrivate.rawHorizontalAccuracy.modi
   return CLP_LogEntry_PrivateData_DaemonLocationPrivate.rawHorizontalAccuracy.modify;
 }
 
-void (*CLP_LogEntry_PrivateData_DaemonLocationPrivate.rawCourseAccuracy.modify(uint64_t *a1))(uint64_t *a1, uint64_t a2)
+void (*CLP_LogEntry_PrivateData_DaemonLocationPrivate.rawCourseAccuracy.modify(uint64_t *a1))(uint64_t *a1, char a2)
 {
   if (MEMORY[0x277D84FD8])
   {
@@ -6773,7 +4402,7 @@ void (*CLP_LogEntry_PrivateData_DaemonLocationPrivate.rawCourseAccuracy.modify(u
   return CLP_LogEntry_PrivateData_DaemonLocationPrivate.rawCourseAccuracy.modify;
 }
 
-void (*CLP_LogEntry_PrivateData_DaemonLocationPrivate.isCoordinateFused.modify(uint64_t *a1))(uint64_t *a1, uint64_t a2)
+void (*CLP_LogEntry_PrivateData_DaemonLocationPrivate.isCoordinateFused.modify(uint64_t *a1))(uint64_t *a1, char a2)
 {
   if (MEMORY[0x277D84FD8])
   {
@@ -6801,55 +4430,48 @@ Swift::Void __swiftcall CLP_LogEntry_PrivateData_DaemonLocationPrivate.clearIsCo
 {
   v1 = v0;
   v2 = *(type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate(0) + 20);
-  v3 = *(v0 + v2);
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v5 = *(v0 + v2);
+  v4 = *(v0 + v2);
   if ((isUniquelyReferenced_nonNull_native & 1) == 0)
   {
-    v6 = type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass(0);
-    v7 = *(v6 + 48);
-    v8 = *(v6 + 52);
-    v9 = swift_allocObject();
-    specialized CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass.init(copying:)(v5);
+    type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass(0);
+    v5 = swift_allocObject();
+    specialized CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass.init(copying:)(v4);
 
-    *(v1 + v2) = v9;
-    v5 = v9;
+    *(v1 + v2) = v5;
+    v4 = v5;
   }
 
-  v10 = OBJC_IVAR____TtCV10ALProtobuf46CLP_LogEntry_PrivateData_DaemonLocationPrivateP33_993346AF53650622B255AB1E3C41340D13_StorageClass__isCoordinateFused;
+  v6 = OBJC_IVAR____TtCV10ALProtobuf46CLP_LogEntry_PrivateData_DaemonLocationPrivateP33_993346AF53650622B255AB1E3C41340D13_StorageClass__isCoordinateFused;
   swift_beginAccess();
-  *(v5 + v10) = 2;
+  *(v4 + v6) = 2;
 }
 
 uint64_t CLP_LogEntry_PrivateData_DaemonLocationPrivate.fusedCoordinate.setter(uint64_t a1)
 {
   v2 = v1;
   v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf49CLP_LogEntry_PrivateData_ClientLocationCoordinateVSgMd, &_s10ALProtobuf49CLP_LogEntry_PrivateData_ClientLocationCoordinateVSgMR);
-  v5 = *(*(v4 - 8) + 64);
   MEMORY[0x28223BE20](v4 - 8);
-  v7 = &v19 - v6;
-  v8 = *(type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate(0) + 20);
-  v9 = *(v1 + v8);
+  v6 = &v14 - v5;
+  v7 = *(type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate(0) + 20);
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v11 = *(v1 + v8);
+  v9 = *(v1 + v7);
   if ((isUniquelyReferenced_nonNull_native & 1) == 0)
   {
-    v12 = type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass(0);
-    v13 = *(v12 + 48);
-    v14 = *(v12 + 52);
-    v15 = swift_allocObject();
-    specialized CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass.init(copying:)(v11);
+    type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass(0);
+    v10 = swift_allocObject();
+    specialized CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass.init(copying:)(v9);
 
-    *(v2 + v8) = v15;
-    v11 = v15;
+    *(v2 + v7) = v10;
+    v9 = v10;
   }
 
-  outlined init with take of CLP_LogEntry_PrivateData_TimeStamp(a1, v7, type metadata accessor for CLP_LogEntry_PrivateData_ClientLocationCoordinate);
-  v16 = type metadata accessor for CLP_LogEntry_PrivateData_ClientLocationCoordinate(0);
-  (*(*(v16 - 8) + 56))(v7, 0, 1, v16);
-  v17 = OBJC_IVAR____TtCV10ALProtobuf46CLP_LogEntry_PrivateData_DaemonLocationPrivateP33_993346AF53650622B255AB1E3C41340D13_StorageClass__fusedCoordinate;
+  outlined init with take of CLP_LogEntry_PrivateData_TimeStamp(a1, v6, type metadata accessor for CLP_LogEntry_PrivateData_ClientLocationCoordinate);
+  v11 = type metadata accessor for CLP_LogEntry_PrivateData_ClientLocationCoordinate(0);
+  (*(*(v11 - 8) + 56))(v6, 0, 1, v11);
+  v12 = OBJC_IVAR____TtCV10ALProtobuf46CLP_LogEntry_PrivateData_DaemonLocationPrivateP33_993346AF53650622B255AB1E3C41340D13_StorageClass__fusedCoordinate;
   swift_beginAccess();
-  outlined assign with take of Proto_Gpsd_Response?(v7, v11 + v17, &_s10ALProtobuf49CLP_LogEntry_PrivateData_ClientLocationCoordinateVSgMd, &_s10ALProtobuf49CLP_LogEntry_PrivateData_ClientLocationCoordinateVSgMR);
+  outlined assign with take of Proto_Gpsd_Response?(v6, v9 + v12, &_s10ALProtobuf49CLP_LogEntry_PrivateData_ClientLocationCoordinateVSgMd, &_s10ALProtobuf49CLP_LogEntry_PrivateData_ClientLocationCoordinateVSgMR);
   return swift_endAccess();
 }
 
@@ -6942,76 +4564,70 @@ void CLP_LogEntry_PrivateData_DaemonLocationPrivate.fusedCoordinate.modify(uint6
   {
     v4 = *(v2 + 72);
     outlined init with copy of CLP_LogEntry_PrivateData_TimeStamp(*(v2 + 120), *(v2 + 112), type metadata accessor for CLP_LogEntry_PrivateData_ClientLocationCoordinate);
-    v5 = *(v4 + v3);
     isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-    v7 = *(v4 + v3);
+    v6 = *(v4 + v3);
     if ((isUniquelyReferenced_nonNull_native & 1) == 0)
     {
-      v8 = *(v2 + 128);
-      v9 = *(v2 + 72);
-      v10 = type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass(0);
-      v11 = *(v10 + 48);
-      v12 = *(v10 + 52);
-      v13 = swift_allocObject();
-      specialized CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass.init(copying:)(v7);
+      v7 = *(v2 + 128);
+      v8 = *(v2 + 72);
+      type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass(0);
+      v9 = swift_allocObject();
+      specialized CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass.init(copying:)(v6);
 
-      *(v9 + v8) = v13;
-      v7 = v13;
+      *(v8 + v7) = v9;
+      v6 = v9;
     }
 
-    v15 = *(v2 + 112);
-    v14 = *(v2 + 120);
-    v16 = *(v2 + 96);
-    v17 = *(v2 + 104);
-    v19 = *(v2 + 80);
-    v18 = *(v2 + 88);
-    outlined init with take of CLP_LogEntry_PrivateData_TimeStamp(v15, v19, type metadata accessor for CLP_LogEntry_PrivateData_ClientLocationCoordinate);
-    (*(v17 + 56))(v19, 0, 1, v16);
-    v20 = OBJC_IVAR____TtCV10ALProtobuf46CLP_LogEntry_PrivateData_DaemonLocationPrivateP33_993346AF53650622B255AB1E3C41340D13_StorageClass__fusedCoordinate;
+    v11 = *(v2 + 112);
+    v10 = *(v2 + 120);
+    v12 = *(v2 + 96);
+    v13 = *(v2 + 104);
+    v15 = *(v2 + 80);
+    v14 = *(v2 + 88);
+    outlined init with take of CLP_LogEntry_PrivateData_TimeStamp(v11, v15, type metadata accessor for CLP_LogEntry_PrivateData_ClientLocationCoordinate);
+    (*(v13 + 56))(v15, 0, 1, v12);
+    v16 = OBJC_IVAR____TtCV10ALProtobuf46CLP_LogEntry_PrivateData_DaemonLocationPrivateP33_993346AF53650622B255AB1E3C41340D13_StorageClass__fusedCoordinate;
     swift_beginAccess();
-    outlined assign with take of Proto_Gpsd_Response?(v19, v7 + v20, &_s10ALProtobuf49CLP_LogEntry_PrivateData_ClientLocationCoordinateVSgMd, &_s10ALProtobuf49CLP_LogEntry_PrivateData_ClientLocationCoordinateVSgMR);
+    outlined assign with take of Proto_Gpsd_Response?(v15, v6 + v16, &_s10ALProtobuf49CLP_LogEntry_PrivateData_ClientLocationCoordinateVSgMd, &_s10ALProtobuf49CLP_LogEntry_PrivateData_ClientLocationCoordinateVSgMR);
     swift_endAccess();
-    outlined destroy of CLP_LogEntry_PrivateData_TimeStamp(v14, type metadata accessor for CLP_LogEntry_PrivateData_ClientLocationCoordinate);
+    outlined destroy of CLP_LogEntry_PrivateData_TimeStamp(v10, type metadata accessor for CLP_LogEntry_PrivateData_ClientLocationCoordinate);
   }
 
   else
   {
-    v21 = *(v2 + 72);
-    v22 = *(v21 + v3);
-    v23 = swift_isUniquelyReferenced_nonNull_native();
-    v24 = *(v21 + v3);
-    if ((v23 & 1) == 0)
+    v17 = *(v2 + 72);
+    v18 = swift_isUniquelyReferenced_nonNull_native();
+    v19 = *(v17 + v3);
+    if ((v18 & 1) == 0)
     {
-      v25 = *(v2 + 128);
-      v26 = *(v2 + 72);
-      v27 = type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass(0);
-      v28 = *(v27 + 48);
-      v29 = *(v27 + 52);
-      v30 = swift_allocObject();
-      specialized CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass.init(copying:)(v24);
+      v20 = *(v2 + 128);
+      v21 = *(v2 + 72);
+      type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass(0);
+      v22 = swift_allocObject();
+      specialized CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass.init(copying:)(v19);
 
-      *(v26 + v25) = v30;
-      v24 = v30;
+      *(v21 + v20) = v22;
+      v19 = v22;
     }
 
-    v15 = *(v2 + 112);
-    v14 = *(v2 + 120);
-    v31 = *(v2 + 96);
-    v32 = *(v2 + 104);
-    v19 = *(v2 + 80);
-    v18 = *(v2 + 88);
-    outlined init with take of CLP_LogEntry_PrivateData_TimeStamp(v14, v19, type metadata accessor for CLP_LogEntry_PrivateData_ClientLocationCoordinate);
-    (*(v32 + 56))(v19, 0, 1, v31);
-    v33 = OBJC_IVAR____TtCV10ALProtobuf46CLP_LogEntry_PrivateData_DaemonLocationPrivateP33_993346AF53650622B255AB1E3C41340D13_StorageClass__fusedCoordinate;
+    v11 = *(v2 + 112);
+    v10 = *(v2 + 120);
+    v23 = *(v2 + 96);
+    v24 = *(v2 + 104);
+    v15 = *(v2 + 80);
+    v14 = *(v2 + 88);
+    outlined init with take of CLP_LogEntry_PrivateData_TimeStamp(v10, v15, type metadata accessor for CLP_LogEntry_PrivateData_ClientLocationCoordinate);
+    (*(v24 + 56))(v15, 0, 1, v23);
+    v25 = OBJC_IVAR____TtCV10ALProtobuf46CLP_LogEntry_PrivateData_DaemonLocationPrivateP33_993346AF53650622B255AB1E3C41340D13_StorageClass__fusedCoordinate;
     swift_beginAccess();
-    outlined assign with take of Proto_Gpsd_Response?(v19, v24 + v33, &_s10ALProtobuf49CLP_LogEntry_PrivateData_ClientLocationCoordinateVSgMd, &_s10ALProtobuf49CLP_LogEntry_PrivateData_ClientLocationCoordinateVSgMR);
+    outlined assign with take of Proto_Gpsd_Response?(v15, v19 + v25, &_s10ALProtobuf49CLP_LogEntry_PrivateData_ClientLocationCoordinateVSgMd, &_s10ALProtobuf49CLP_LogEntry_PrivateData_ClientLocationCoordinateVSgMR);
     swift_endAccess();
   }
 
+  free(v10);
+  free(v11);
   free(v14);
   free(v15);
-  free(v18);
-  free(v19);
 
   free(v2);
 }
@@ -7019,51 +4635,46 @@ void CLP_LogEntry_PrivateData_DaemonLocationPrivate.fusedCoordinate.modify(uint6
 BOOL CLP_LogEntry_PrivateData_DaemonLocationPrivate.hasFusedCoordinate.getter()
 {
   v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf49CLP_LogEntry_PrivateData_ClientLocationCoordinateVSgMd, &_s10ALProtobuf49CLP_LogEntry_PrivateData_ClientLocationCoordinateVSgMR);
-  v2 = *(*(v1 - 8) + 64);
   MEMORY[0x28223BE20](v1 - 8);
-  v4 = &v10 - v3;
-  v5 = *(v0 + *(type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate(0) + 20));
-  v6 = OBJC_IVAR____TtCV10ALProtobuf46CLP_LogEntry_PrivateData_DaemonLocationPrivateP33_993346AF53650622B255AB1E3C41340D13_StorageClass__fusedCoordinate;
+  v3 = &v9 - v2;
+  v4 = *(v0 + *(type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate(0) + 20));
+  v5 = OBJC_IVAR____TtCV10ALProtobuf46CLP_LogEntry_PrivateData_DaemonLocationPrivateP33_993346AF53650622B255AB1E3C41340D13_StorageClass__fusedCoordinate;
   swift_beginAccess();
-  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v5 + v6, v4, &_s10ALProtobuf49CLP_LogEntry_PrivateData_ClientLocationCoordinateVSgMd, &_s10ALProtobuf49CLP_LogEntry_PrivateData_ClientLocationCoordinateVSgMR);
-  v7 = type metadata accessor for CLP_LogEntry_PrivateData_ClientLocationCoordinate(0);
-  v8 = (*(*(v7 - 8) + 48))(v4, 1, v7) != 1;
-  outlined destroy of Any?(v4, &_s10ALProtobuf49CLP_LogEntry_PrivateData_ClientLocationCoordinateVSgMd, &_s10ALProtobuf49CLP_LogEntry_PrivateData_ClientLocationCoordinateVSgMR);
-  return v8;
+  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v4 + v5, v3, &_s10ALProtobuf49CLP_LogEntry_PrivateData_ClientLocationCoordinateVSgMd, &_s10ALProtobuf49CLP_LogEntry_PrivateData_ClientLocationCoordinateVSgMR);
+  v6 = type metadata accessor for CLP_LogEntry_PrivateData_ClientLocationCoordinate(0);
+  v7 = (*(*(v6 - 8) + 48))(v3, 1, v6) != 1;
+  outlined destroy of Any?(v3, &_s10ALProtobuf49CLP_LogEntry_PrivateData_ClientLocationCoordinateVSgMd, &_s10ALProtobuf49CLP_LogEntry_PrivateData_ClientLocationCoordinateVSgMR);
+  return v7;
 }
 
 Swift::Void __swiftcall CLP_LogEntry_PrivateData_DaemonLocationPrivate.clearFusedCoordinate()()
 {
   v1 = v0;
   v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf49CLP_LogEntry_PrivateData_ClientLocationCoordinateVSgMd, &_s10ALProtobuf49CLP_LogEntry_PrivateData_ClientLocationCoordinateVSgMR);
-  v3 = *(*(v2 - 8) + 64);
   MEMORY[0x28223BE20](v2 - 8);
-  v5 = &v16 - v4;
-  v6 = *(type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate(0) + 20);
-  v7 = *(v0 + v6);
+  v4 = &v11 - v3;
+  v5 = *(type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate(0) + 20);
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v9 = *(v0 + v6);
+  v7 = *(v0 + v5);
   if ((isUniquelyReferenced_nonNull_native & 1) == 0)
   {
-    v10 = type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass(0);
-    v11 = *(v10 + 48);
-    v12 = *(v10 + 52);
-    v13 = swift_allocObject();
-    specialized CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass.init(copying:)(v9);
+    type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass(0);
+    v8 = swift_allocObject();
+    specialized CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass.init(copying:)(v7);
 
-    *(v1 + v6) = v13;
-    v9 = v13;
+    *(v1 + v5) = v8;
+    v7 = v8;
   }
 
-  v14 = type metadata accessor for CLP_LogEntry_PrivateData_ClientLocationCoordinate(0);
-  (*(*(v14 - 8) + 56))(v5, 1, 1, v14);
-  v15 = OBJC_IVAR____TtCV10ALProtobuf46CLP_LogEntry_PrivateData_DaemonLocationPrivateP33_993346AF53650622B255AB1E3C41340D13_StorageClass__fusedCoordinate;
+  v9 = type metadata accessor for CLP_LogEntry_PrivateData_ClientLocationCoordinate(0);
+  (*(*(v9 - 8) + 56))(v4, 1, 1, v9);
+  v10 = OBJC_IVAR____TtCV10ALProtobuf46CLP_LogEntry_PrivateData_DaemonLocationPrivateP33_993346AF53650622B255AB1E3C41340D13_StorageClass__fusedCoordinate;
   swift_beginAccess();
-  outlined assign with take of Proto_Gpsd_Response?(v5, v9 + v15, &_s10ALProtobuf49CLP_LogEntry_PrivateData_ClientLocationCoordinateVSgMd, &_s10ALProtobuf49CLP_LogEntry_PrivateData_ClientLocationCoordinateVSgMR);
+  outlined assign with take of Proto_Gpsd_Response?(v4, v7 + v10, &_s10ALProtobuf49CLP_LogEntry_PrivateData_ClientLocationCoordinateVSgMd, &_s10ALProtobuf49CLP_LogEntry_PrivateData_ClientLocationCoordinateVSgMR);
   swift_endAccess();
 }
 
-void (*CLP_LogEntry_PrivateData_DaemonLocationPrivate.fusedHorizontalAccuracy.modify(uint64_t *a1))(uint64_t *a1, uint64_t a2)
+void (*CLP_LogEntry_PrivateData_DaemonLocationPrivate.fusedHorizontalAccuracy.modify(uint64_t *a1))(uint64_t *a1, char a2)
 {
   if (MEMORY[0x277D84FD8])
   {
@@ -7092,7 +4703,7 @@ void (*CLP_LogEntry_PrivateData_DaemonLocationPrivate.fusedHorizontalAccuracy.mo
   return CLP_LogEntry_PrivateData_DaemonLocationPrivate.fusedHorizontalAccuracy.modify;
 }
 
-void (*CLP_LogEntry_PrivateData_DaemonLocationPrivate.fusedReferenceFrame.modify(uint64_t *a1))(uint64_t *a1, uint64_t a2)
+void (*CLP_LogEntry_PrivateData_DaemonLocationPrivate.fusedReferenceFrame.modify(uint64_t *a1))(uint64_t *a1, char a2)
 {
   if (MEMORY[0x277D84FD8])
   {
@@ -7126,27 +4737,24 @@ Swift::Void __swiftcall CLP_LogEntry_PrivateData_DaemonLocationPrivate.clearFuse
 {
   v1 = v0;
   v2 = *(type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate(0) + 20);
-  v3 = *(v0 + v2);
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v5 = *(v0 + v2);
+  v4 = *(v0 + v2);
   if ((isUniquelyReferenced_nonNull_native & 1) == 0)
   {
-    v6 = type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass(0);
-    v7 = *(v6 + 48);
-    v8 = *(v6 + 52);
-    v9 = swift_allocObject();
-    specialized CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass.init(copying:)(v5);
+    type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass(0);
+    v5 = swift_allocObject();
+    specialized CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass.init(copying:)(v4);
 
-    *(v1 + v2) = v9;
-    v5 = v9;
+    *(v1 + v2) = v5;
+    v4 = v5;
   }
 
-  v10 = OBJC_IVAR____TtCV10ALProtobuf46CLP_LogEntry_PrivateData_DaemonLocationPrivateP33_993346AF53650622B255AB1E3C41340D13_StorageClass__fusedReferenceFrame;
+  v6 = OBJC_IVAR____TtCV10ALProtobuf46CLP_LogEntry_PrivateData_DaemonLocationPrivateP33_993346AF53650622B255AB1E3C41340D13_StorageClass__fusedReferenceFrame;
   swift_beginAccess();
-  *(v5 + v10) = 3;
+  *(v4 + v6) = 3;
 }
 
-void (*CLP_LogEntry_PrivateData_DaemonLocationPrivate.fusedCourse.modify(uint64_t *a1))(uint64_t *a1, uint64_t a2)
+void (*CLP_LogEntry_PrivateData_DaemonLocationPrivate.fusedCourse.modify(uint64_t *a1))(uint64_t *a1, char a2)
 {
   if (MEMORY[0x277D84FD8])
   {
@@ -7175,7 +4783,7 @@ void (*CLP_LogEntry_PrivateData_DaemonLocationPrivate.fusedCourse.modify(uint64_
   return CLP_LogEntry_PrivateData_DaemonLocationPrivate.fusedCourse.modify;
 }
 
-void (*CLP_LogEntry_PrivateData_DaemonLocationPrivate.fusedCourseAccuracy.modify(uint64_t *a1))(uint64_t *a1, uint64_t a2)
+void (*CLP_LogEntry_PrivateData_DaemonLocationPrivate.fusedCourseAccuracy.modify(uint64_t *a1))(uint64_t *a1, char a2)
 {
   if (MEMORY[0x277D84FD8])
   {
@@ -7204,7 +4812,7 @@ void (*CLP_LogEntry_PrivateData_DaemonLocationPrivate.fusedCourseAccuracy.modify
   return CLP_LogEntry_PrivateData_DaemonLocationPrivate.fusedCourseAccuracy.modify;
 }
 
-void (*CLP_LogEntry_PrivateData_DaemonLocationPrivate.estimatedWorstCaseError.modify(uint64_t *a1))(uint64_t *a1, uint64_t a2)
+void (*CLP_LogEntry_PrivateData_DaemonLocationPrivate.estimatedWorstCaseError.modify(uint64_t *a1))(uint64_t *a1, char a2)
 {
   if (MEMORY[0x277D84FD8])
   {
@@ -7233,7 +4841,7 @@ void (*CLP_LogEntry_PrivateData_DaemonLocationPrivate.estimatedWorstCaseError.mo
   return CLP_LogEntry_PrivateData_DaemonLocationPrivate.estimatedWorstCaseError.modify;
 }
 
-void (*CLP_LogEntry_PrivateData_DaemonLocationPrivate.preFusingAltitude.modify(uint64_t *a1))(uint64_t *a1, uint64_t a2)
+void (*CLP_LogEntry_PrivateData_DaemonLocationPrivate.preFusingAltitude.modify(uint64_t *a1))(uint64_t *a1, char a2)
 {
   if (MEMORY[0x277D84FD8])
   {
@@ -7262,7 +4870,7 @@ void (*CLP_LogEntry_PrivateData_DaemonLocationPrivate.preFusingAltitude.modify(u
   return CLP_LogEntry_PrivateData_DaemonLocationPrivate.preFusingAltitude.modify;
 }
 
-void (*CLP_LogEntry_PrivateData_DaemonLocationPrivate.preFusingVerticalAccuracy.modify(uint64_t *a1))(uint64_t *a1, uint64_t a2)
+void (*CLP_LogEntry_PrivateData_DaemonLocationPrivate.preFusingVerticalAccuracy.modify(uint64_t *a1))(uint64_t *a1, char a2)
 {
   if (MEMORY[0x277D84FD8])
   {
@@ -7291,7 +4899,7 @@ void (*CLP_LogEntry_PrivateData_DaemonLocationPrivate.preFusingVerticalAccuracy.
   return CLP_LogEntry_PrivateData_DaemonLocationPrivate.preFusingVerticalAccuracy.modify;
 }
 
-void (*CLP_LogEntry_PrivateData_DaemonLocationPrivate.isCoordinateFusedWithVl.modify(uint64_t *a1))(uint64_t *a1, uint64_t a2)
+void (*CLP_LogEntry_PrivateData_DaemonLocationPrivate.isCoordinateFusedWithVl.modify(uint64_t *a1))(uint64_t *a1, char a2)
 {
   if (MEMORY[0x277D84FD8])
   {
@@ -7319,27 +4927,24 @@ Swift::Void __swiftcall CLP_LogEntry_PrivateData_DaemonLocationPrivate.clearIsCo
 {
   v1 = v0;
   v2 = *(type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate(0) + 20);
-  v3 = *(v0 + v2);
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v5 = *(v0 + v2);
+  v4 = *(v0 + v2);
   if ((isUniquelyReferenced_nonNull_native & 1) == 0)
   {
-    v6 = type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass(0);
-    v7 = *(v6 + 48);
-    v8 = *(v6 + 52);
-    v9 = swift_allocObject();
-    specialized CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass.init(copying:)(v5);
+    type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass(0);
+    v5 = swift_allocObject();
+    specialized CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass.init(copying:)(v4);
 
-    *(v1 + v2) = v9;
-    v5 = v9;
+    *(v1 + v2) = v5;
+    v4 = v5;
   }
 
-  v10 = OBJC_IVAR____TtCV10ALProtobuf46CLP_LogEntry_PrivateData_DaemonLocationPrivateP33_993346AF53650622B255AB1E3C41340D13_StorageClass__isCoordinateFusedWithVl;
+  v6 = OBJC_IVAR____TtCV10ALProtobuf46CLP_LogEntry_PrivateData_DaemonLocationPrivateP33_993346AF53650622B255AB1E3C41340D13_StorageClass__isCoordinateFusedWithVl;
   swift_beginAccess();
-  *(v5 + v10) = 2;
+  *(v4 + v6) = 2;
 }
 
-void (*CLP_LogEntry_PrivateData_DaemonLocationPrivate.fusedAltitude.modify(uint64_t *a1))(uint64_t *a1, uint64_t a2)
+void (*CLP_LogEntry_PrivateData_DaemonLocationPrivate.fusedAltitude.modify(uint64_t *a1))(uint64_t *a1, char a2)
 {
   if (MEMORY[0x277D84FD8])
   {
@@ -7368,7 +4973,7 @@ void (*CLP_LogEntry_PrivateData_DaemonLocationPrivate.fusedAltitude.modify(uint6
   return CLP_LogEntry_PrivateData_DaemonLocationPrivate.fusedAltitude.modify;
 }
 
-void (*CLP_LogEntry_PrivateData_DaemonLocationPrivate.fusedVerticalAccuracy.modify(uint64_t *a1))(uint64_t *a1, uint64_t a2)
+void (*CLP_LogEntry_PrivateData_DaemonLocationPrivate.fusedVerticalAccuracy.modify(uint64_t *a1))(uint64_t *a1, char a2)
 {
   if (MEMORY[0x277D84FD8])
   {
@@ -7399,35 +5004,29 @@ void (*CLP_LogEntry_PrivateData_DaemonLocationPrivate.fusedVerticalAccuracy.modi
 
 uint64_t CLP_LogEntry_PrivateData_DaemonLocationPrivate.satelliteVisibilityReport.getter()
 {
-  v1 = *(v0 + *(type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate(0) + 20));
-  v2 = OBJC_IVAR____TtCV10ALProtobuf46CLP_LogEntry_PrivateData_DaemonLocationPrivateP33_993346AF53650622B255AB1E3C41340D13_StorageClass__satelliteVisibilityReport;
+  type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate(0);
   swift_beginAccess();
-  v3 = *(v1 + v2);
 }
 
 uint64_t CLP_LogEntry_PrivateData_DaemonLocationPrivate.satelliteVisibilityReport.setter(uint64_t a1)
 {
   v2 = v1;
   v4 = *(type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate(0) + 20);
-  v5 = *(v1 + v4);
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v7 = *(v1 + v4);
+  v6 = *(v1 + v4);
   if ((isUniquelyReferenced_nonNull_native & 1) == 0)
   {
-    v8 = type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass(0);
-    v9 = *(v8 + 48);
-    v10 = *(v8 + 52);
-    v11 = swift_allocObject();
-    specialized CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass.init(copying:)(v7);
+    type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass(0);
+    v7 = swift_allocObject();
+    specialized CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass.init(copying:)(v6);
 
-    *(v2 + v4) = v11;
-    v7 = v11;
+    *(v2 + v4) = v7;
+    v6 = v7;
   }
 
-  v12 = OBJC_IVAR____TtCV10ALProtobuf46CLP_LogEntry_PrivateData_DaemonLocationPrivateP33_993346AF53650622B255AB1E3C41340D13_StorageClass__satelliteVisibilityReport;
+  v8 = OBJC_IVAR____TtCV10ALProtobuf46CLP_LogEntry_PrivateData_DaemonLocationPrivateP33_993346AF53650622B255AB1E3C41340D13_StorageClass__satelliteVisibilityReport;
   swift_beginAccess();
-  v13 = *(v7 + v12);
-  *(v7 + v12) = a1;
+  *(v6 + v8) = a1;
 }
 
 void (*CLP_LogEntry_PrivateData_DaemonLocationPrivate.satelliteVisibilityReport.modify(uint64_t *a1))(uint64_t *a1, char a2)
@@ -7458,68 +5057,56 @@ void (*CLP_LogEntry_PrivateData_DaemonLocationPrivate.satelliteVisibilityReport.
 void CLP_LogEntry_PrivateData_DaemonLocationPrivate.satelliteVisibilityReport.modify(uint64_t *a1, char a2)
 {
   v2 = *a1;
-  v4 = (*a1 + 72);
-  v3 = *v4;
-  v5 = *(*a1 + 88);
-  v6 = *(*a1 + 80);
+  v3 = *(*a1 + 72);
+  v4 = *(*a1 + 88);
+  v5 = *(*a1 + 80);
   if (a2)
   {
-    v7 = *(*a1 + 72);
 
-    v8 = *(v6 + v5);
     isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-    v10 = *(v6 + v5);
+    v7 = *(v5 + v4);
     if ((isUniquelyReferenced_nonNull_native & 1) == 0)
     {
-      v11 = *(v2 + 88);
-      v12 = *(v2 + 80);
-      v13 = type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass(0);
-      v14 = *(v13 + 48);
-      v15 = *(v13 + 52);
-      v16 = swift_allocObject();
-      specialized CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass.init(copying:)(v10);
+      v8 = *(v2 + 88);
+      v9 = *(v2 + 80);
+      type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass(0);
+      v10 = swift_allocObject();
+      specialized CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass.init(copying:)(v7);
 
-      *(v12 + v11) = v16;
-      v10 = v16;
+      *(v9 + v8) = v10;
+      v7 = v10;
     }
 
-    v17 = OBJC_IVAR____TtCV10ALProtobuf46CLP_LogEntry_PrivateData_DaemonLocationPrivateP33_993346AF53650622B255AB1E3C41340D13_StorageClass__satelliteVisibilityReport;
+    v11 = OBJC_IVAR____TtCV10ALProtobuf46CLP_LogEntry_PrivateData_DaemonLocationPrivateP33_993346AF53650622B255AB1E3C41340D13_StorageClass__satelliteVisibilityReport;
     swift_beginAccess();
-    v18 = *(v10 + v17);
-    *(v10 + v17) = v3;
-
-    v19 = *v4;
+    *(v7 + v11) = v3;
   }
 
   else
   {
-    v20 = *(v6 + v5);
-    v21 = swift_isUniquelyReferenced_nonNull_native();
-    v22 = *(v6 + v5);
-    if ((v21 & 1) == 0)
+    v12 = swift_isUniquelyReferenced_nonNull_native();
+    v13 = *(v5 + v4);
+    if ((v12 & 1) == 0)
     {
-      v23 = *(v2 + 88);
-      v24 = *(v2 + 80);
-      v25 = type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass(0);
-      v26 = *(v25 + 48);
-      v27 = *(v25 + 52);
-      v28 = swift_allocObject();
-      specialized CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass.init(copying:)(v22);
+      v14 = *(v2 + 88);
+      v15 = *(v2 + 80);
+      type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass(0);
+      v16 = swift_allocObject();
+      specialized CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass.init(copying:)(v13);
 
-      *(v24 + v23) = v28;
-      v22 = v28;
+      *(v15 + v14) = v16;
+      v13 = v16;
     }
 
-    v29 = OBJC_IVAR____TtCV10ALProtobuf46CLP_LogEntry_PrivateData_DaemonLocationPrivateP33_993346AF53650622B255AB1E3C41340D13_StorageClass__satelliteVisibilityReport;
+    v17 = OBJC_IVAR____TtCV10ALProtobuf46CLP_LogEntry_PrivateData_DaemonLocationPrivateP33_993346AF53650622B255AB1E3C41340D13_StorageClass__satelliteVisibilityReport;
     swift_beginAccess();
-    v30 = *(v22 + v29);
-    *(v22 + v29) = v3;
+    *(v13 + v17) = v3;
   }
 
   free(v2);
 }
 
-void (*CLP_LogEntry_PrivateData_DaemonLocationPrivate.gnssContent.modify(uint64_t *a1))(uint64_t *a1, uint64_t a2)
+void (*CLP_LogEntry_PrivateData_DaemonLocationPrivate.gnssContent.modify(uint64_t *a1))(uint64_t *a1, char a2)
 {
   if (MEMORY[0x277D84FD8])
   {
@@ -7553,58 +5140,54 @@ Swift::Void __swiftcall CLP_LogEntry_PrivateData_DaemonLocationPrivate.clearGnss
 {
   v1 = v0;
   v2 = *(type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate(0) + 20);
-  v3 = *(v0 + v2);
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v5 = *(v0 + v2);
+  v4 = *(v0 + v2);
   if ((isUniquelyReferenced_nonNull_native & 1) == 0)
   {
-    v6 = type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass(0);
-    v7 = *(v6 + 48);
-    v8 = *(v6 + 52);
-    v9 = swift_allocObject();
-    specialized CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass.init(copying:)(v5);
+    type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass(0);
+    v5 = swift_allocObject();
+    specialized CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass.init(copying:)(v4);
 
-    *(v1 + v2) = v9;
-    v5 = v9;
+    *(v1 + v2) = v5;
+    v4 = v5;
   }
 
-  v10 = OBJC_IVAR____TtCV10ALProtobuf46CLP_LogEntry_PrivateData_DaemonLocationPrivateP33_993346AF53650622B255AB1E3C41340D13_StorageClass__gnssContent;
+  v6 = OBJC_IVAR____TtCV10ALProtobuf46CLP_LogEntry_PrivateData_DaemonLocationPrivateP33_993346AF53650622B255AB1E3C41340D13_StorageClass__gnssContent;
   swift_beginAccess();
-  *(v5 + v10) = 3;
+  *(v4 + v6) = 3;
 }
 
 uint64_t CLP_LogEntry_PrivateData_DaemonLocationPrivate.rawAltitude.getter@<X0>(uint64_t a1@<X8>)
 {
   v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf039CLP_LogEntry_PrivateData_DaemonLocationE0V12AltitudeInfoVSgMd, &_s10ALProtobuf039CLP_LogEntry_PrivateData_DaemonLocationE0V12AltitudeInfoVSgMR);
-  v4 = *(*(v3 - 8) + 64);
   MEMORY[0x28223BE20](v3 - 8);
-  v6 = &v15 - v5;
-  v7 = *(v1 + *(type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate(0) + 20));
-  v8 = OBJC_IVAR____TtCV10ALProtobuf46CLP_LogEntry_PrivateData_DaemonLocationPrivateP33_993346AF53650622B255AB1E3C41340D13_StorageClass__rawAltitude;
+  v5 = &v14 - v4;
+  v6 = *(v1 + *(type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate(0) + 20));
+  v7 = OBJC_IVAR____TtCV10ALProtobuf46CLP_LogEntry_PrivateData_DaemonLocationPrivateP33_993346AF53650622B255AB1E3C41340D13_StorageClass__rawAltitude;
   swift_beginAccess();
-  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v7 + v8, v6, &_s10ALProtobuf039CLP_LogEntry_PrivateData_DaemonLocationE0V12AltitudeInfoVSgMd, &_s10ALProtobuf039CLP_LogEntry_PrivateData_DaemonLocationE0V12AltitudeInfoVSgMR);
-  v9 = type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate.AltitudeInfo(0);
-  v10 = *(*(v9 - 1) + 48);
-  if (v10(v6, 1, v9) != 1)
+  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v6 + v7, v5, &_s10ALProtobuf039CLP_LogEntry_PrivateData_DaemonLocationE0V12AltitudeInfoVSgMd, &_s10ALProtobuf039CLP_LogEntry_PrivateData_DaemonLocationE0V12AltitudeInfoVSgMR);
+  v8 = type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate.AltitudeInfo(0);
+  v9 = *(*(v8 - 1) + 48);
+  if (v9(v5, 1, v8) != 1)
   {
-    return outlined init with take of CLP_LogEntry_PrivateData_TimeStamp(v6, a1, type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate.AltitudeInfo);
+    return outlined init with take of CLP_LogEntry_PrivateData_TimeStamp(v5, a1, type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate.AltitudeInfo);
   }
 
   UnknownStorage.init()();
-  v11 = a1 + v9[5];
+  v10 = a1 + v8[5];
+  *v10 = 0;
+  *(v10 + 8) = 1;
+  v11 = a1 + v8[6];
   *v11 = 0;
   *(v11 + 8) = 1;
-  v12 = a1 + v9[6];
+  v12 = a1 + v8[7];
   *v12 = 0;
   *(v12 + 8) = 1;
-  v13 = a1 + v9[7];
-  *v13 = 0;
-  *(v13 + 8) = 1;
-  *(a1 + v9[8]) = 4;
-  result = (v10)(v6, 1, v9);
+  *(a1 + v8[8]) = 4;
+  result = (v9)(v5, 1, v8);
   if (result != 1)
   {
-    return outlined destroy of Any?(v6, &_s10ALProtobuf039CLP_LogEntry_PrivateData_DaemonLocationE0V12AltitudeInfoVSgMd, &_s10ALProtobuf039CLP_LogEntry_PrivateData_DaemonLocationE0V12AltitudeInfoVSgMR);
+    return outlined destroy of Any?(v5, &_s10ALProtobuf039CLP_LogEntry_PrivateData_DaemonLocationE0V12AltitudeInfoVSgMd, &_s10ALProtobuf039CLP_LogEntry_PrivateData_DaemonLocationE0V12AltitudeInfoVSgMR);
   }
 
   return result;
@@ -7631,31 +5214,27 @@ uint64_t CLP_LogEntry_PrivateData_DaemonLocationPrivate.rawAltitude.setter(uint6
 {
   v2 = v1;
   v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf039CLP_LogEntry_PrivateData_DaemonLocationE0V12AltitudeInfoVSgMd, &_s10ALProtobuf039CLP_LogEntry_PrivateData_DaemonLocationE0V12AltitudeInfoVSgMR);
-  v5 = *(*(v4 - 8) + 64);
   MEMORY[0x28223BE20](v4 - 8);
-  v7 = &v19 - v6;
-  v8 = *(type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate(0) + 20);
-  v9 = *(v1 + v8);
+  v6 = &v14 - v5;
+  v7 = *(type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate(0) + 20);
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v11 = *(v1 + v8);
+  v9 = *(v1 + v7);
   if ((isUniquelyReferenced_nonNull_native & 1) == 0)
   {
-    v12 = type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass(0);
-    v13 = *(v12 + 48);
-    v14 = *(v12 + 52);
-    v15 = swift_allocObject();
-    specialized CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass.init(copying:)(v11);
+    type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass(0);
+    v10 = swift_allocObject();
+    specialized CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass.init(copying:)(v9);
 
-    *(v2 + v8) = v15;
-    v11 = v15;
+    *(v2 + v7) = v10;
+    v9 = v10;
   }
 
-  outlined init with take of CLP_LogEntry_PrivateData_TimeStamp(a1, v7, type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate.AltitudeInfo);
-  v16 = type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate.AltitudeInfo(0);
-  (*(*(v16 - 8) + 56))(v7, 0, 1, v16);
-  v17 = OBJC_IVAR____TtCV10ALProtobuf46CLP_LogEntry_PrivateData_DaemonLocationPrivateP33_993346AF53650622B255AB1E3C41340D13_StorageClass__rawAltitude;
+  outlined init with take of CLP_LogEntry_PrivateData_TimeStamp(a1, v6, type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate.AltitudeInfo);
+  v11 = type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate.AltitudeInfo(0);
+  (*(*(v11 - 8) + 56))(v6, 0, 1, v11);
+  v12 = OBJC_IVAR____TtCV10ALProtobuf46CLP_LogEntry_PrivateData_DaemonLocationPrivateP33_993346AF53650622B255AB1E3C41340D13_StorageClass__rawAltitude;
   swift_beginAccess();
-  outlined assign with take of Proto_Gpsd_Response?(v7, v11 + v17, &_s10ALProtobuf039CLP_LogEntry_PrivateData_DaemonLocationE0V12AltitudeInfoVSgMd, &_s10ALProtobuf039CLP_LogEntry_PrivateData_DaemonLocationE0V12AltitudeInfoVSgMR);
+  outlined assign with take of Proto_Gpsd_Response?(v6, v9 + v12, &_s10ALProtobuf039CLP_LogEntry_PrivateData_DaemonLocationE0V12AltitudeInfoVSgMd, &_s10ALProtobuf039CLP_LogEntry_PrivateData_DaemonLocationE0V12AltitudeInfoVSgMR);
   return swift_endAccess();
 }
 
@@ -7752,76 +5331,70 @@ void CLP_LogEntry_PrivateData_DaemonLocationPrivate.rawAltitude.modify(uint64_t 
   {
     v4 = *(v2 + 72);
     outlined init with copy of CLP_LogEntry_PrivateData_TimeStamp(*(v2 + 120), *(v2 + 112), type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate.AltitudeInfo);
-    v5 = *(v4 + v3);
     isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-    v7 = *(v4 + v3);
+    v6 = *(v4 + v3);
     if ((isUniquelyReferenced_nonNull_native & 1) == 0)
     {
-      v8 = *(v2 + 128);
-      v9 = *(v2 + 72);
-      v10 = type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass(0);
-      v11 = *(v10 + 48);
-      v12 = *(v10 + 52);
-      v13 = swift_allocObject();
-      specialized CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass.init(copying:)(v7);
+      v7 = *(v2 + 128);
+      v8 = *(v2 + 72);
+      type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass(0);
+      v9 = swift_allocObject();
+      specialized CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass.init(copying:)(v6);
 
-      *(v9 + v8) = v13;
-      v7 = v13;
+      *(v8 + v7) = v9;
+      v6 = v9;
     }
 
-    v15 = *(v2 + 112);
-    v14 = *(v2 + 120);
-    v16 = *(v2 + 96);
-    v17 = *(v2 + 104);
-    v19 = *(v2 + 80);
-    v18 = *(v2 + 88);
-    outlined init with take of CLP_LogEntry_PrivateData_TimeStamp(v15, v19, type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate.AltitudeInfo);
-    (*(v17 + 56))(v19, 0, 1, v16);
-    v20 = OBJC_IVAR____TtCV10ALProtobuf46CLP_LogEntry_PrivateData_DaemonLocationPrivateP33_993346AF53650622B255AB1E3C41340D13_StorageClass__rawAltitude;
+    v11 = *(v2 + 112);
+    v10 = *(v2 + 120);
+    v12 = *(v2 + 96);
+    v13 = *(v2 + 104);
+    v15 = *(v2 + 80);
+    v14 = *(v2 + 88);
+    outlined init with take of CLP_LogEntry_PrivateData_TimeStamp(v11, v15, type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate.AltitudeInfo);
+    (*(v13 + 56))(v15, 0, 1, v12);
+    v16 = OBJC_IVAR____TtCV10ALProtobuf46CLP_LogEntry_PrivateData_DaemonLocationPrivateP33_993346AF53650622B255AB1E3C41340D13_StorageClass__rawAltitude;
     swift_beginAccess();
-    outlined assign with take of Proto_Gpsd_Response?(v19, v7 + v20, &_s10ALProtobuf039CLP_LogEntry_PrivateData_DaemonLocationE0V12AltitudeInfoVSgMd, &_s10ALProtobuf039CLP_LogEntry_PrivateData_DaemonLocationE0V12AltitudeInfoVSgMR);
+    outlined assign with take of Proto_Gpsd_Response?(v15, v6 + v16, &_s10ALProtobuf039CLP_LogEntry_PrivateData_DaemonLocationE0V12AltitudeInfoVSgMd, &_s10ALProtobuf039CLP_LogEntry_PrivateData_DaemonLocationE0V12AltitudeInfoVSgMR);
     swift_endAccess();
-    outlined destroy of CLP_LogEntry_PrivateData_TimeStamp(v14, type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate.AltitudeInfo);
+    outlined destroy of CLP_LogEntry_PrivateData_TimeStamp(v10, type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate.AltitudeInfo);
   }
 
   else
   {
-    v21 = *(v2 + 72);
-    v22 = *(v21 + v3);
-    v23 = swift_isUniquelyReferenced_nonNull_native();
-    v24 = *(v21 + v3);
-    if ((v23 & 1) == 0)
+    v17 = *(v2 + 72);
+    v18 = swift_isUniquelyReferenced_nonNull_native();
+    v19 = *(v17 + v3);
+    if ((v18 & 1) == 0)
     {
-      v25 = *(v2 + 128);
-      v26 = *(v2 + 72);
-      v27 = type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass(0);
-      v28 = *(v27 + 48);
-      v29 = *(v27 + 52);
-      v30 = swift_allocObject();
-      specialized CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass.init(copying:)(v24);
+      v20 = *(v2 + 128);
+      v21 = *(v2 + 72);
+      type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass(0);
+      v22 = swift_allocObject();
+      specialized CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass.init(copying:)(v19);
 
-      *(v26 + v25) = v30;
-      v24 = v30;
+      *(v21 + v20) = v22;
+      v19 = v22;
     }
 
-    v15 = *(v2 + 112);
-    v14 = *(v2 + 120);
-    v31 = *(v2 + 96);
-    v32 = *(v2 + 104);
-    v19 = *(v2 + 80);
-    v18 = *(v2 + 88);
-    outlined init with take of CLP_LogEntry_PrivateData_TimeStamp(v14, v19, type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate.AltitudeInfo);
-    (*(v32 + 56))(v19, 0, 1, v31);
-    v33 = OBJC_IVAR____TtCV10ALProtobuf46CLP_LogEntry_PrivateData_DaemonLocationPrivateP33_993346AF53650622B255AB1E3C41340D13_StorageClass__rawAltitude;
+    v11 = *(v2 + 112);
+    v10 = *(v2 + 120);
+    v23 = *(v2 + 96);
+    v24 = *(v2 + 104);
+    v15 = *(v2 + 80);
+    v14 = *(v2 + 88);
+    outlined init with take of CLP_LogEntry_PrivateData_TimeStamp(v10, v15, type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate.AltitudeInfo);
+    (*(v24 + 56))(v15, 0, 1, v23);
+    v25 = OBJC_IVAR____TtCV10ALProtobuf46CLP_LogEntry_PrivateData_DaemonLocationPrivateP33_993346AF53650622B255AB1E3C41340D13_StorageClass__rawAltitude;
     swift_beginAccess();
-    outlined assign with take of Proto_Gpsd_Response?(v19, v24 + v33, &_s10ALProtobuf039CLP_LogEntry_PrivateData_DaemonLocationE0V12AltitudeInfoVSgMd, &_s10ALProtobuf039CLP_LogEntry_PrivateData_DaemonLocationE0V12AltitudeInfoVSgMR);
+    outlined assign with take of Proto_Gpsd_Response?(v15, v19 + v25, &_s10ALProtobuf039CLP_LogEntry_PrivateData_DaemonLocationE0V12AltitudeInfoVSgMd, &_s10ALProtobuf039CLP_LogEntry_PrivateData_DaemonLocationE0V12AltitudeInfoVSgMR);
     swift_endAccess();
   }
 
+  free(v10);
+  free(v11);
   free(v14);
   free(v15);
-  free(v18);
-  free(v19);
 
   free(v2);
 }
@@ -7829,51 +5402,46 @@ void CLP_LogEntry_PrivateData_DaemonLocationPrivate.rawAltitude.modify(uint64_t 
 BOOL CLP_LogEntry_PrivateData_DaemonLocationPrivate.hasRawAltitude.getter()
 {
   v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf039CLP_LogEntry_PrivateData_DaemonLocationE0V12AltitudeInfoVSgMd, &_s10ALProtobuf039CLP_LogEntry_PrivateData_DaemonLocationE0V12AltitudeInfoVSgMR);
-  v2 = *(*(v1 - 8) + 64);
   MEMORY[0x28223BE20](v1 - 8);
-  v4 = &v10 - v3;
-  v5 = *(v0 + *(type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate(0) + 20));
-  v6 = OBJC_IVAR____TtCV10ALProtobuf46CLP_LogEntry_PrivateData_DaemonLocationPrivateP33_993346AF53650622B255AB1E3C41340D13_StorageClass__rawAltitude;
+  v3 = &v9 - v2;
+  v4 = *(v0 + *(type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate(0) + 20));
+  v5 = OBJC_IVAR____TtCV10ALProtobuf46CLP_LogEntry_PrivateData_DaemonLocationPrivateP33_993346AF53650622B255AB1E3C41340D13_StorageClass__rawAltitude;
   swift_beginAccess();
-  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v5 + v6, v4, &_s10ALProtobuf039CLP_LogEntry_PrivateData_DaemonLocationE0V12AltitudeInfoVSgMd, &_s10ALProtobuf039CLP_LogEntry_PrivateData_DaemonLocationE0V12AltitudeInfoVSgMR);
-  v7 = type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate.AltitudeInfo(0);
-  v8 = (*(*(v7 - 8) + 48))(v4, 1, v7) != 1;
-  outlined destroy of Any?(v4, &_s10ALProtobuf039CLP_LogEntry_PrivateData_DaemonLocationE0V12AltitudeInfoVSgMd, &_s10ALProtobuf039CLP_LogEntry_PrivateData_DaemonLocationE0V12AltitudeInfoVSgMR);
-  return v8;
+  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v4 + v5, v3, &_s10ALProtobuf039CLP_LogEntry_PrivateData_DaemonLocationE0V12AltitudeInfoVSgMd, &_s10ALProtobuf039CLP_LogEntry_PrivateData_DaemonLocationE0V12AltitudeInfoVSgMR);
+  v6 = type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate.AltitudeInfo(0);
+  v7 = (*(*(v6 - 8) + 48))(v3, 1, v6) != 1;
+  outlined destroy of Any?(v3, &_s10ALProtobuf039CLP_LogEntry_PrivateData_DaemonLocationE0V12AltitudeInfoVSgMd, &_s10ALProtobuf039CLP_LogEntry_PrivateData_DaemonLocationE0V12AltitudeInfoVSgMR);
+  return v7;
 }
 
 Swift::Void __swiftcall CLP_LogEntry_PrivateData_DaemonLocationPrivate.clearRawAltitude()()
 {
   v1 = v0;
   v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf039CLP_LogEntry_PrivateData_DaemonLocationE0V12AltitudeInfoVSgMd, &_s10ALProtobuf039CLP_LogEntry_PrivateData_DaemonLocationE0V12AltitudeInfoVSgMR);
-  v3 = *(*(v2 - 8) + 64);
   MEMORY[0x28223BE20](v2 - 8);
-  v5 = &v16 - v4;
-  v6 = *(type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate(0) + 20);
-  v7 = *(v0 + v6);
+  v4 = &v11 - v3;
+  v5 = *(type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate(0) + 20);
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v9 = *(v0 + v6);
+  v7 = *(v0 + v5);
   if ((isUniquelyReferenced_nonNull_native & 1) == 0)
   {
-    v10 = type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass(0);
-    v11 = *(v10 + 48);
-    v12 = *(v10 + 52);
-    v13 = swift_allocObject();
-    specialized CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass.init(copying:)(v9);
+    type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass(0);
+    v8 = swift_allocObject();
+    specialized CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass.init(copying:)(v7);
 
-    *(v1 + v6) = v13;
-    v9 = v13;
+    *(v1 + v5) = v8;
+    v7 = v8;
   }
 
-  v14 = type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate.AltitudeInfo(0);
-  (*(*(v14 - 8) + 56))(v5, 1, 1, v14);
-  v15 = OBJC_IVAR____TtCV10ALProtobuf46CLP_LogEntry_PrivateData_DaemonLocationPrivateP33_993346AF53650622B255AB1E3C41340D13_StorageClass__rawAltitude;
+  v9 = type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate.AltitudeInfo(0);
+  (*(*(v9 - 8) + 56))(v4, 1, 1, v9);
+  v10 = OBJC_IVAR____TtCV10ALProtobuf46CLP_LogEntry_PrivateData_DaemonLocationPrivateP33_993346AF53650622B255AB1E3C41340D13_StorageClass__rawAltitude;
   swift_beginAccess();
-  outlined assign with take of Proto_Gpsd_Response?(v5, v9 + v15, &_s10ALProtobuf039CLP_LogEntry_PrivateData_DaemonLocationE0V12AltitudeInfoVSgMd, &_s10ALProtobuf039CLP_LogEntry_PrivateData_DaemonLocationE0V12AltitudeInfoVSgMR);
+  outlined assign with take of Proto_Gpsd_Response?(v4, v7 + v10, &_s10ALProtobuf039CLP_LogEntry_PrivateData_DaemonLocationE0V12AltitudeInfoVSgMd, &_s10ALProtobuf039CLP_LogEntry_PrivateData_DaemonLocationE0V12AltitudeInfoVSgMR);
   swift_endAccess();
 }
 
-void (*CLP_LogEntry_PrivateData_DaemonLocationPrivate.estimatedPositionContextState.modify(uint64_t *a1))(uint64_t *a1, uint64_t a2)
+void (*CLP_LogEntry_PrivateData_DaemonLocationPrivate.estimatedPositionContextState.modify(uint64_t *a1))(uint64_t *a1, char a2)
 {
   if (MEMORY[0x277D84FD8])
   {
@@ -7907,27 +5475,24 @@ Swift::Void __swiftcall CLP_LogEntry_PrivateData_DaemonLocationPrivate.clearEsti
 {
   v1 = v0;
   v2 = *(type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate(0) + 20);
-  v3 = *(v0 + v2);
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v5 = *(v0 + v2);
+  v4 = *(v0 + v2);
   if ((isUniquelyReferenced_nonNull_native & 1) == 0)
   {
-    v6 = type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass(0);
-    v7 = *(v6 + 48);
-    v8 = *(v6 + 52);
-    v9 = swift_allocObject();
-    specialized CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass.init(copying:)(v5);
+    type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass(0);
+    v5 = swift_allocObject();
+    specialized CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass.init(copying:)(v4);
 
-    *(v1 + v2) = v9;
-    v5 = v9;
+    *(v1 + v2) = v5;
+    v4 = v5;
   }
 
-  v10 = OBJC_IVAR____TtCV10ALProtobuf46CLP_LogEntry_PrivateData_DaemonLocationPrivateP33_993346AF53650622B255AB1E3C41340D13_StorageClass__estimatedPositionContextState;
+  v6 = OBJC_IVAR____TtCV10ALProtobuf46CLP_LogEntry_PrivateData_DaemonLocationPrivateP33_993346AF53650622B255AB1E3C41340D13_StorageClass__estimatedPositionContextState;
   swift_beginAccess();
-  *(v5 + v10) = 3;
+  *(v4 + v6) = 3;
 }
 
-void (*CLP_LogEntry_PrivateData_DaemonLocationPrivate.estimatedPositionContextStateProbabilityIndoor.modify(uint64_t *a1))(uint64_t *a1, uint64_t a2)
+void (*CLP_LogEntry_PrivateData_DaemonLocationPrivate.estimatedPositionContextStateProbabilityIndoor.modify(uint64_t *a1))(uint64_t *a1, char a2)
 {
   if (MEMORY[0x277D84FD8])
   {
@@ -7956,7 +5521,7 @@ void (*CLP_LogEntry_PrivateData_DaemonLocationPrivate.estimatedPositionContextSt
   return CLP_LogEntry_PrivateData_DaemonLocationPrivate.estimatedPositionContextStateProbabilityIndoor.modify;
 }
 
-void (*CLP_LogEntry_PrivateData_DaemonLocationPrivate.estimatedPositionContextStateProbabilityOutdoor.modify(uint64_t *a1))(uint64_t *a1, uint64_t a2)
+void (*CLP_LogEntry_PrivateData_DaemonLocationPrivate.estimatedPositionContextStateProbabilityOutdoor.modify(uint64_t *a1))(uint64_t *a1, char a2)
 {
   if (MEMORY[0x277D84FD8])
   {
@@ -8001,7 +5566,7 @@ uint64_t CLP_LogEntry_PrivateData_DaemonLocationPrivate.undulationModel.getter(u
   }
 }
 
-void (*CLP_LogEntry_PrivateData_DaemonLocationPrivate.mapMatcherType.modify(uint64_t *a1))(uint64_t *a1, uint64_t a2)
+void (*CLP_LogEntry_PrivateData_DaemonLocationPrivate.mapMatcherType.modify(uint64_t *a1))(uint64_t *a1, char a2)
 {
   if (MEMORY[0x277D84FD8])
   {
@@ -8043,27 +5608,24 @@ Swift::Void __swiftcall CLP_LogEntry_PrivateData_DaemonLocationPrivate.clearMapM
 {
   v1 = v0;
   v2 = *(type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate(0) + 20);
-  v3 = *(v0 + v2);
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v5 = *(v0 + v2);
+  v4 = *(v0 + v2);
   if ((isUniquelyReferenced_nonNull_native & 1) == 0)
   {
-    v6 = type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass(0);
-    v7 = *(v6 + 48);
-    v8 = *(v6 + 52);
-    v9 = swift_allocObject();
-    specialized CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass.init(copying:)(v5);
+    type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass(0);
+    v5 = swift_allocObject();
+    specialized CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass.init(copying:)(v4);
 
-    *(v1 + v2) = v9;
-    v5 = v9;
+    *(v1 + v2) = v5;
+    v4 = v5;
   }
 
-  v10 = OBJC_IVAR____TtCV10ALProtobuf46CLP_LogEntry_PrivateData_DaemonLocationPrivateP33_993346AF53650622B255AB1E3C41340D13_StorageClass__mapMatcherType;
+  v6 = OBJC_IVAR____TtCV10ALProtobuf46CLP_LogEntry_PrivateData_DaemonLocationPrivateP33_993346AF53650622B255AB1E3C41340D13_StorageClass__mapMatcherType;
   swift_beginAccess();
-  *(v5 + v10) = 4;
+  *(v4 + v6) = 4;
 }
 
-void (*CLP_LogEntry_PrivateData_DaemonLocationPrivate.isRouteHintsTriggeredMapMatching.modify(uint64_t *a1))(uint64_t *a1, uint64_t a2)
+void (*CLP_LogEntry_PrivateData_DaemonLocationPrivate.isRouteHintsTriggeredMapMatching.modify(uint64_t *a1))(uint64_t *a1, char a2)
 {
   if (MEMORY[0x277D84FD8])
   {
@@ -8091,27 +5653,24 @@ Swift::Void __swiftcall CLP_LogEntry_PrivateData_DaemonLocationPrivate.clearIsRo
 {
   v1 = v0;
   v2 = *(type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate(0) + 20);
-  v3 = *(v0 + v2);
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v5 = *(v0 + v2);
+  v4 = *(v0 + v2);
   if ((isUniquelyReferenced_nonNull_native & 1) == 0)
   {
-    v6 = type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass(0);
-    v7 = *(v6 + 48);
-    v8 = *(v6 + 52);
-    v9 = swift_allocObject();
-    specialized CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass.init(copying:)(v5);
+    type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass(0);
+    v5 = swift_allocObject();
+    specialized CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass.init(copying:)(v4);
 
-    *(v1 + v2) = v9;
-    v5 = v9;
+    *(v1 + v2) = v5;
+    v4 = v5;
   }
 
-  v10 = OBJC_IVAR____TtCV10ALProtobuf46CLP_LogEntry_PrivateData_DaemonLocationPrivateP33_993346AF53650622B255AB1E3C41340D13_StorageClass__isRouteHintsTriggeredMapMatching;
+  v6 = OBJC_IVAR____TtCV10ALProtobuf46CLP_LogEntry_PrivateData_DaemonLocationPrivateP33_993346AF53650622B255AB1E3C41340D13_StorageClass__isRouteHintsTriggeredMapMatching;
   swift_beginAccess();
-  *(v5 + v10) = 2;
+  *(v4 + v6) = 2;
 }
 
-void (*CLP_LogEntry_PrivateData_DaemonLocationPrivate.loiLocationSourceAccuracy.modify(uint64_t *a1))(uint64_t *a1, uint64_t a2)
+void (*CLP_LogEntry_PrivateData_DaemonLocationPrivate.loiLocationSourceAccuracy.modify(uint64_t *a1))(uint64_t *a1, char a2)
 {
   if (MEMORY[0x277D84FD8])
   {
@@ -8145,24 +5704,21 @@ Swift::Void __swiftcall CLP_LogEntry_PrivateData_DaemonLocationPrivate.clearLoiL
 {
   v1 = v0;
   v2 = *(type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate(0) + 20);
-  v3 = *(v0 + v2);
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v5 = *(v0 + v2);
+  v4 = *(v0 + v2);
   if ((isUniquelyReferenced_nonNull_native & 1) == 0)
   {
-    v6 = type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass(0);
-    v7 = *(v6 + 48);
-    v8 = *(v6 + 52);
-    v9 = swift_allocObject();
-    specialized CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass.init(copying:)(v5);
+    type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass(0);
+    v5 = swift_allocObject();
+    specialized CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass.init(copying:)(v4);
 
-    *(v1 + v2) = v9;
-    v5 = v9;
+    *(v1 + v2) = v5;
+    v4 = v5;
   }
 
-  v10 = OBJC_IVAR____TtCV10ALProtobuf46CLP_LogEntry_PrivateData_DaemonLocationPrivateP33_993346AF53650622B255AB1E3C41340D13_StorageClass__loiLocationSourceAccuracy;
+  v6 = OBJC_IVAR____TtCV10ALProtobuf46CLP_LogEntry_PrivateData_DaemonLocationPrivateP33_993346AF53650622B255AB1E3C41340D13_StorageClass__loiLocationSourceAccuracy;
   swift_beginAccess();
-  *(v5 + v10) = 3;
+  *(v4 + v6) = 3;
 }
 
 uint64_t CLP_LogEntry_PrivateData_DaemonLocation.integrity.getter(uint64_t (*a1)(void), uint64_t *a2)
@@ -8181,7 +5737,7 @@ uint64_t CLP_LogEntry_PrivateData_DaemonLocation.integrity.getter(uint64_t (*a1)
   }
 }
 
-void (*CLP_LogEntry_PrivateData_DaemonLocationPrivate.batchedLocationFixType.modify(uint64_t *a1))(uint64_t *a1, uint64_t a2)
+void (*CLP_LogEntry_PrivateData_DaemonLocationPrivate.batchedLocationFixType.modify(uint64_t *a1))(uint64_t *a1, char a2)
 {
   if (MEMORY[0x277D84FD8])
   {
@@ -8223,27 +5779,24 @@ Swift::Void __swiftcall CLP_LogEntry_PrivateData_DaemonLocationPrivate.clearBatc
 {
   v1 = v0;
   v2 = *(type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate(0) + 20);
-  v3 = *(v0 + v2);
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v5 = *(v0 + v2);
+  v4 = *(v0 + v2);
   if ((isUniquelyReferenced_nonNull_native & 1) == 0)
   {
-    v6 = type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass(0);
-    v7 = *(v6 + 48);
-    v8 = *(v6 + 52);
-    v9 = swift_allocObject();
-    specialized CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass.init(copying:)(v5);
+    type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass(0);
+    v5 = swift_allocObject();
+    specialized CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass.init(copying:)(v4);
 
-    *(v1 + v2) = v9;
-    v5 = v9;
+    *(v1 + v2) = v5;
+    v4 = v5;
   }
 
-  v10 = OBJC_IVAR____TtCV10ALProtobuf46CLP_LogEntry_PrivateData_DaemonLocationPrivateP33_993346AF53650622B255AB1E3C41340D13_StorageClass__batchedLocationFixType;
+  v6 = OBJC_IVAR____TtCV10ALProtobuf46CLP_LogEntry_PrivateData_DaemonLocationPrivateP33_993346AF53650622B255AB1E3C41340D13_StorageClass__batchedLocationFixType;
   swift_beginAccess();
-  *(v5 + v10) = 5;
+  *(v4 + v6) = 5;
 }
 
-void (*CLP_LogEntry_PrivateData_DaemonLocationPrivate.isWifiFixWithAssociatedAp.modify(uint64_t *a1))(uint64_t *a1, uint64_t a2)
+void (*CLP_LogEntry_PrivateData_DaemonLocationPrivate.isWifiFixWithAssociatedAp.modify(uint64_t *a1))(uint64_t *a1, char a2)
 {
   if (MEMORY[0x277D84FD8])
   {
@@ -8271,27 +5824,24 @@ Swift::Void __swiftcall CLP_LogEntry_PrivateData_DaemonLocationPrivate.clearIsWi
 {
   v1 = v0;
   v2 = *(type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate(0) + 20);
-  v3 = *(v0 + v2);
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v5 = *(v0 + v2);
+  v4 = *(v0 + v2);
   if ((isUniquelyReferenced_nonNull_native & 1) == 0)
   {
-    v6 = type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass(0);
-    v7 = *(v6 + 48);
-    v8 = *(v6 + 52);
-    v9 = swift_allocObject();
-    specialized CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass.init(copying:)(v5);
+    type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass(0);
+    v5 = swift_allocObject();
+    specialized CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass.init(copying:)(v4);
 
-    *(v1 + v2) = v9;
-    v5 = v9;
+    *(v1 + v2) = v5;
+    v4 = v5;
   }
 
-  v10 = OBJC_IVAR____TtCV10ALProtobuf46CLP_LogEntry_PrivateData_DaemonLocationPrivateP33_993346AF53650622B255AB1E3C41340D13_StorageClass__isWifiFixWithAssociatedAp;
+  v6 = OBJC_IVAR____TtCV10ALProtobuf46CLP_LogEntry_PrivateData_DaemonLocationPrivateP33_993346AF53650622B255AB1E3C41340D13_StorageClass__isWifiFixWithAssociatedAp;
   swift_beginAccess();
-  *(v5 + v10) = 2;
+  *(v4 + v6) = 2;
 }
 
-void (*CLP_LogEntry_PrivateData_DaemonLocationPrivate.isGnssFromRavenEstimators.modify(uint64_t *a1))(uint64_t *a1, uint64_t a2)
+void (*CLP_LogEntry_PrivateData_DaemonLocationPrivate.isGnssFromRavenEstimators.modify(uint64_t *a1))(uint64_t *a1, char a2)
 {
   if (MEMORY[0x277D84FD8])
   {
@@ -8319,24 +5869,21 @@ Swift::Void __swiftcall CLP_LogEntry_PrivateData_DaemonLocationPrivate.clearIsGn
 {
   v1 = v0;
   v2 = *(type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate(0) + 20);
-  v3 = *(v0 + v2);
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v5 = *(v0 + v2);
+  v4 = *(v0 + v2);
   if ((isUniquelyReferenced_nonNull_native & 1) == 0)
   {
-    v6 = type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass(0);
-    v7 = *(v6 + 48);
-    v8 = *(v6 + 52);
-    v9 = swift_allocObject();
-    specialized CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass.init(copying:)(v5);
+    type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass(0);
+    v5 = swift_allocObject();
+    specialized CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass.init(copying:)(v4);
 
-    *(v1 + v2) = v9;
-    v5 = v9;
+    *(v1 + v2) = v5;
+    v4 = v5;
   }
 
-  v10 = OBJC_IVAR____TtCV10ALProtobuf46CLP_LogEntry_PrivateData_DaemonLocationPrivateP33_993346AF53650622B255AB1E3C41340D13_StorageClass__isGnssFromRavenEstimators;
+  v6 = OBJC_IVAR____TtCV10ALProtobuf46CLP_LogEntry_PrivateData_DaemonLocationPrivateP33_993346AF53650622B255AB1E3C41340D13_StorageClass__isGnssFromRavenEstimators;
   swift_beginAccess();
-  *(v5 + v10) = 2;
+  *(v4 + v6) = 2;
 }
 
 uint64_t protocol witness for Hashable.hash(into:) in conformance CLP_LogEntry_PrivateData_DaemonLocationPrivate.MatchQualityType(uint64_t a1, uint64_t a2)
@@ -8353,17 +5900,17 @@ uint64_t protocol witness for Hashable.hash(into:) in conformance CLP_LogEntry_P
   return MEMORY[0x28217E238](a1, a2, v4);
 }
 
-uint64_t protocol witness for Enum.init(rawValue:) in conformance CLP_LogEntry_PrivateData_DaemonLocationPrivate.UndulationModelType@<X0>(uint64_t a1@<X0>, _BYTE *a2@<X8>)
+uint64_t protocol witness for Enum.init(rawValue:) in conformance CLP_LogEntry_PrivateData_DaemonLocationPrivate.UndulationModelType@<X0>(Swift::Int a1@<X0>, ALProtobuf::CLP_LogEntry_PrivateData_DaemonLocationPrivate::UndulationModelType_optional *a2@<X8>)
 {
   result = specialized CLP_LogEntry_PrivateData_DaemonLocationPrivate.UndulationModelType.init(rawValue:)(a1);
-  *a2 = result;
+  a2->value = result;
   return result;
 }
 
-uint64_t protocol witness for RawRepresentable.init(rawValue:) in conformance CLP_LogEntry_PrivateData_DaemonLocationPrivate.UndulationModelType@<X0>(uint64_t *a1@<X0>, _BYTE *a2@<X8>)
+uint64_t protocol witness for RawRepresentable.init(rawValue:) in conformance CLP_LogEntry_PrivateData_DaemonLocationPrivate.UndulationModelType@<X0>(Swift::Int *a1@<X0>, ALProtobuf::CLP_LogEntry_PrivateData_DaemonLocationPrivate::UndulationModelType_optional *a2@<X8>)
 {
   result = specialized CLP_LogEntry_PrivateData_DaemonLocationPrivate.UndulationModelType.init(rawValue:)(*a1);
-  *a2 = result;
+  a2->value = result;
   return result;
 }
 
@@ -8411,7 +5958,7 @@ uint64_t CLP_LogEntry_PrivateData_DaemonLocationPrivate.AltitudeInfo.altitude.se
   return result;
 }
 
-uint64_t (*CLP_LogEntry_PrivateData_DaemonLocationPrivate.AltitudeInfo.altitude.modify(uint64_t a1))()
+uint64_t (*CLP_LogEntry_PrivateData_DaemonLocationPrivate.AltitudeInfo.altitude.modify(uint64_t a1))(uint64_t result)
 {
   *(a1 + 8) = v1;
   v3 = *(type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate.AltitudeInfo(0) + 20);
@@ -8443,7 +5990,7 @@ uint64_t CLP_LogEntry_PrivateData_DaemonLocationPrivate.AltitudeInfo.verticalAcc
   return result;
 }
 
-uint64_t (*CLP_LogEntry_PrivateData_DaemonLocationPrivate.AltitudeInfo.verticalAccuracy.modify(uint64_t a1))()
+uint64_t (*CLP_LogEntry_PrivateData_DaemonLocationPrivate.AltitudeInfo.verticalAccuracy.modify(uint64_t a1))(uint64_t result)
 {
   *(a1 + 8) = v1;
   v3 = *(type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate.AltitudeInfo(0) + 24);
@@ -8475,7 +6022,7 @@ uint64_t CLP_LogEntry_PrivateData_DaemonLocationPrivate.AltitudeInfo.undulation.
   return result;
 }
 
-uint64_t (*CLP_LogEntry_PrivateData_DaemonLocationPrivate.AltitudeInfo.undulation.modify(uint64_t a1))()
+uint64_t (*CLP_LogEntry_PrivateData_DaemonLocationPrivate.AltitudeInfo.undulation.modify(uint64_t a1))(uint64_t result)
 {
   *(a1 + 8) = v1;
   v3 = *(type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate.AltitudeInfo(0) + 28);
@@ -8534,16 +6081,16 @@ uint64_t (*CLP_LogEntry_PrivateData_DaemonLocationPrivate.AltitudeInfo.undulatio
   return CLP_LogEntry_AONLoc_Request.type.modify;
 }
 
-uint64_t CLP_LogEntry_PrivateData_DaemonLocation.init()@<X0>(uint64_t (*a1)(void)@<X0>, void *a2@<X1>, void *a3@<X2>, uint64_t a4@<X8>)
+uint64_t CLP_LogEntry_PrivateData_DaemonLocation.init()@<X0>(uint64_t (*a1)(void)@<X0>, void *a2@<X1>, uint64_t *a3@<X2>, uint64_t a5@<X8>)
 {
   UnknownStorage.init()();
-  v8 = *(a1(0) + 20);
+  v9 = *(a1(0) + 20);
   if (*a2 != -1)
   {
     swift_once();
   }
 
-  *(a4 + v8) = *a3;
+  *(a5 + v9) = *a3;
 }
 
 uint64_t CLP_LogEntry_PrivateData_TechnologyStatus.locationType.getter()
@@ -8567,7 +6114,7 @@ uint64_t CLP_LogEntry_PrivateData_TechnologyStatus.locationType.setter(char a1)
   return result;
 }
 
-uint64_t (*CLP_LogEntry_PrivateData_TechnologyStatus.locationType.modify(uint64_t a1))()
+uint64_t (*CLP_LogEntry_PrivateData_TechnologyStatus.locationType.modify(uint64_t a1))(uint64_t result)
 {
   *a1 = v1;
   v3 = *(type metadata accessor for CLP_LogEntry_PrivateData_TechnologyStatus(0) + 20);
@@ -8589,7 +6136,7 @@ uint64_t CLP_LogEntry_PrivateData_TechnologyStatus.active.setter(char a1)
   return result;
 }
 
-uint64_t (*CLP_LogEntry_PrivateData_TechnologyStatus.active.modify(uint64_t a1))()
+uint64_t (*CLP_LogEntry_PrivateData_TechnologyStatus.active.modify(uint64_t a1))(uint64_t result)
 {
   *a1 = v1;
   v3 = *(type metadata accessor for CLP_LogEntry_PrivateData_TechnologyStatus(0) + 24);
@@ -8607,7 +6154,7 @@ uint64_t CLP_LogEntry_PrivateData_VehicleSpeed.timestamp.setter(double a1)
   return result;
 }
 
-uint64_t (*CLP_LogEntry_PrivateData_VehicleSpeed.timestamp.modify(uint64_t a1))()
+uint64_t (*CLP_LogEntry_PrivateData_VehicleSpeed.timestamp.modify(uint64_t a1))(uint64_t result)
 {
   *(a1 + 8) = v1;
   v3 = *(type metadata accessor for CLP_LogEntry_PrivateData_VehicleSpeed(0) + 20);
@@ -8639,7 +6186,7 @@ uint64_t CLP_LogEntry_PrivateData_VehicleSpeed.speed.setter(double a1)
   return result;
 }
 
-uint64_t (*CLP_LogEntry_PrivateData_VehicleSpeed.speed.modify(uint64_t a1))()
+uint64_t (*CLP_LogEntry_PrivateData_VehicleSpeed.speed.modify(uint64_t a1))(uint64_t result)
 {
   *(a1 + 8) = v1;
   v3 = *(type metadata accessor for CLP_LogEntry_PrivateData_VehicleSpeed(0) + 24);
@@ -8671,7 +6218,7 @@ uint64_t CLP_LogEntry_PrivateData_VehicleSpeed.machContinuousTime.setter(double 
   return result;
 }
 
-uint64_t (*CLP_LogEntry_PrivateData_VehicleSpeed.machContinuousTime.modify(uint64_t a1))()
+uint64_t (*CLP_LogEntry_PrivateData_VehicleSpeed.machContinuousTime.modify(uint64_t a1))(uint64_t result)
 {
   *(a1 + 8) = v1;
   v3 = *(type metadata accessor for CLP_LogEntry_PrivateData_VehicleSpeed(0) + 28);
@@ -8703,7 +6250,7 @@ uint64_t CLP_LogEntry_PrivateData_VehicleSpeed.machAbsoluteTime.setter(double a1
   return result;
 }
 
-uint64_t (*CLP_LogEntry_PrivateData_VehicleSpeed.machAbsoluteTime.modify(uint64_t a1))()
+uint64_t (*CLP_LogEntry_PrivateData_VehicleSpeed.machAbsoluteTime.modify(uint64_t a1))(uint64_t result)
 {
   *(a1 + 8) = v1;
   v3 = *(type metadata accessor for CLP_LogEntry_PrivateData_VehicleSpeed(0) + 32);
@@ -8735,7 +6282,7 @@ uint64_t CLP_LogEntry_PrivateData_VehicleHeading.timestamp.setter(double a1)
   return result;
 }
 
-uint64_t (*CLP_LogEntry_PrivateData_VehicleHeading.timestamp.modify(uint64_t a1))()
+uint64_t (*CLP_LogEntry_PrivateData_VehicleHeading.timestamp.modify(uint64_t a1))(uint64_t result)
 {
   *(a1 + 8) = v1;
   v3 = *(type metadata accessor for CLP_LogEntry_PrivateData_VehicleHeading(0) + 20);
@@ -8767,7 +6314,7 @@ uint64_t CLP_LogEntry_PrivateData_VehicleHeading.trueHeading.setter(double a1)
   return result;
 }
 
-uint64_t (*CLP_LogEntry_PrivateData_VehicleHeading.trueHeading.modify(uint64_t a1))()
+uint64_t (*CLP_LogEntry_PrivateData_VehicleHeading.trueHeading.modify(uint64_t a1))(uint64_t result)
 {
   *(a1 + 8) = v1;
   v3 = *(type metadata accessor for CLP_LogEntry_PrivateData_VehicleHeading(0) + 24);
@@ -8799,7 +6346,7 @@ uint64_t CLP_LogEntry_PrivateData_XtraFileAvailable.when.setter(double a1)
   return result;
 }
 
-uint64_t (*CLP_LogEntry_PrivateData_XtraFileAvailable.when.modify(uint64_t a1))()
+uint64_t (*CLP_LogEntry_PrivateData_XtraFileAvailable.when.modify(uint64_t a1))(uint64_t result)
 {
   *(a1 + 8) = v1;
   v3 = *(type metadata accessor for CLP_LogEntry_PrivateData_XtraFileAvailable(0) + 20);
@@ -8882,7 +6429,7 @@ uint64_t CLP_LogEntry_PrivateData_LocationDerivedSpeed.timestamp.setter(double a
   return result;
 }
 
-uint64_t (*CLP_LogEntry_PrivateData_LocationDerivedSpeed.timestamp.modify(uint64_t a1))()
+uint64_t (*CLP_LogEntry_PrivateData_LocationDerivedSpeed.timestamp.modify(uint64_t a1))(uint64_t result)
 {
   *(a1 + 8) = v1;
   v3 = *(type metadata accessor for CLP_LogEntry_PrivateData_LocationDerivedSpeed(0) + 20);
@@ -8914,7 +6461,7 @@ uint64_t CLP_LogEntry_PrivateData_LocationDerivedSpeed.speed.setter(double a1)
   return result;
 }
 
-uint64_t (*CLP_LogEntry_PrivateData_LocationDerivedSpeed.speed.modify(uint64_t a1))()
+uint64_t (*CLP_LogEntry_PrivateData_LocationDerivedSpeed.speed.modify(uint64_t a1))(uint64_t result)
 {
   *(a1 + 8) = v1;
   v3 = *(type metadata accessor for CLP_LogEntry_PrivateData_LocationDerivedSpeed(0) + 24);
@@ -8946,7 +6493,7 @@ uint64_t CLP_LogEntry_PrivateData_LocationDerivedSpeed.uncertainty.setter(double
   return result;
 }
 
-uint64_t (*CLP_LogEntry_PrivateData_LocationDerivedSpeed.uncertainty.modify(uint64_t a1))()
+uint64_t (*CLP_LogEntry_PrivateData_LocationDerivedSpeed.uncertainty.modify(uint64_t a1))(uint64_t result)
 {
   *(a1 + 8) = v1;
   v3 = *(type metadata accessor for CLP_LogEntry_PrivateData_LocationDerivedSpeed(0) + 28);
@@ -8989,31 +6536,27 @@ uint64_t CLP_LogEntry_PrivateData_Location.eventReceiptTime.setter(uint64_t a1)
 {
   v2 = v1;
   v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf34CLP_LogEntry_PrivateData_TimeStampVSgMd, &_s10ALProtobuf34CLP_LogEntry_PrivateData_TimeStampVSgMR);
-  v5 = *(*(v4 - 8) + 64);
   MEMORY[0x28223BE20](v4 - 8);
-  v7 = &v20 - v6;
-  v8 = *(type metadata accessor for CLP_LogEntry_PrivateData_Location(0) + 20);
-  v9 = *(v1 + v8);
+  v6 = &v15 - v5;
+  v7 = *(type metadata accessor for CLP_LogEntry_PrivateData_Location(0) + 20);
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v11 = *(v1 + v8);
+  v9 = *(v1 + v7);
   if ((isUniquelyReferenced_nonNull_native & 1) == 0)
   {
-    v12 = type metadata accessor for CLP_LogEntry_PrivateData_Location._StorageClass(0);
-    v13 = *(v12 + 48);
-    v14 = *(v12 + 52);
-    v15 = swift_allocObject();
-    v16 = v11;
-    v11 = v15;
-    CLP_LogEntry_PrivateData_Location._StorageClass.init(copying:)(v16);
-    *(v2 + v8) = v15;
+    type metadata accessor for CLP_LogEntry_PrivateData_Location._StorageClass(0);
+    v10 = swift_allocObject();
+    v11 = v9;
+    v9 = v10;
+    CLP_LogEntry_PrivateData_Location._StorageClass.init(copying:)(v11);
+    *(v2 + v7) = v10;
   }
 
-  outlined init with take of CLP_LogEntry_PrivateData_TimeStamp(a1, v7, type metadata accessor for CLP_LogEntry_PrivateData_TimeStamp);
-  v17 = type metadata accessor for CLP_LogEntry_PrivateData_TimeStamp(0);
-  (*(*(v17 - 8) + 56))(v7, 0, 1, v17);
-  v18 = OBJC_IVAR____TtCV10ALProtobuf33CLP_LogEntry_PrivateData_LocationP33_993346AF53650622B255AB1E3C41340D13_StorageClass__eventReceiptTime;
+  outlined init with take of CLP_LogEntry_PrivateData_TimeStamp(a1, v6, type metadata accessor for CLP_LogEntry_PrivateData_TimeStamp);
+  v12 = type metadata accessor for CLP_LogEntry_PrivateData_TimeStamp(0);
+  (*(*(v12 - 8) + 56))(v6, 0, 1, v12);
+  v13 = OBJC_IVAR____TtCV10ALProtobuf33CLP_LogEntry_PrivateData_LocationP33_993346AF53650622B255AB1E3C41340D13_StorageClass__eventReceiptTime;
   swift_beginAccess();
-  outlined assign with take of Proto_Gpsd_Response?(v7, v11 + v18, &_s10ALProtobuf34CLP_LogEntry_PrivateData_TimeStampVSgMd, &_s10ALProtobuf34CLP_LogEntry_PrivateData_TimeStampVSgMR);
+  outlined assign with take of Proto_Gpsd_Response?(v6, v9 + v13, &_s10ALProtobuf34CLP_LogEntry_PrivateData_TimeStampVSgMd, &_s10ALProtobuf34CLP_LogEntry_PrivateData_TimeStampVSgMR);
   return swift_endAccess();
 }
 
@@ -9109,74 +6652,68 @@ void CLP_LogEntry_PrivateData_Location.eventReceiptTime.modify(uint64_t *a1, cha
   {
     v4 = *(v2 + 72);
     outlined init with copy of CLP_LogEntry_PrivateData_TimeStamp(*(v2 + 120), *(v2 + 112), type metadata accessor for CLP_LogEntry_PrivateData_TimeStamp);
-    v5 = *(v4 + v3);
     isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-    v7 = *(v4 + v3);
+    v6 = *(v4 + v3);
     if ((isUniquelyReferenced_nonNull_native & 1) == 0)
     {
-      v8 = *(v2 + 128);
-      v9 = *(v2 + 72);
-      v10 = type metadata accessor for CLP_LogEntry_PrivateData_Location._StorageClass(0);
-      v11 = *(v10 + 48);
-      v12 = *(v10 + 52);
-      v13 = swift_allocObject();
-      CLP_LogEntry_PrivateData_Location._StorageClass.init(copying:)(v7);
-      *(v9 + v8) = v13;
-      v7 = v13;
+      v7 = *(v2 + 128);
+      v8 = *(v2 + 72);
+      type metadata accessor for CLP_LogEntry_PrivateData_Location._StorageClass(0);
+      v9 = swift_allocObject();
+      CLP_LogEntry_PrivateData_Location._StorageClass.init(copying:)(v6);
+      *(v8 + v7) = v9;
+      v6 = v9;
     }
 
-    v15 = *(v2 + 112);
-    v14 = *(v2 + 120);
-    v16 = *(v2 + 96);
-    v17 = *(v2 + 104);
-    v19 = *(v2 + 80);
-    v18 = *(v2 + 88);
-    outlined init with take of CLP_LogEntry_PrivateData_TimeStamp(v15, v19, type metadata accessor for CLP_LogEntry_PrivateData_TimeStamp);
-    (*(v17 + 56))(v19, 0, 1, v16);
-    v20 = OBJC_IVAR____TtCV10ALProtobuf33CLP_LogEntry_PrivateData_LocationP33_993346AF53650622B255AB1E3C41340D13_StorageClass__eventReceiptTime;
+    v11 = *(v2 + 112);
+    v10 = *(v2 + 120);
+    v12 = *(v2 + 96);
+    v13 = *(v2 + 104);
+    v15 = *(v2 + 80);
+    v14 = *(v2 + 88);
+    outlined init with take of CLP_LogEntry_PrivateData_TimeStamp(v11, v15, type metadata accessor for CLP_LogEntry_PrivateData_TimeStamp);
+    (*(v13 + 56))(v15, 0, 1, v12);
+    v16 = OBJC_IVAR____TtCV10ALProtobuf33CLP_LogEntry_PrivateData_LocationP33_993346AF53650622B255AB1E3C41340D13_StorageClass__eventReceiptTime;
     swift_beginAccess();
-    outlined assign with take of Proto_Gpsd_Response?(v19, v7 + v20, &_s10ALProtobuf34CLP_LogEntry_PrivateData_TimeStampVSgMd, &_s10ALProtobuf34CLP_LogEntry_PrivateData_TimeStampVSgMR);
+    outlined assign with take of Proto_Gpsd_Response?(v15, v6 + v16, &_s10ALProtobuf34CLP_LogEntry_PrivateData_TimeStampVSgMd, &_s10ALProtobuf34CLP_LogEntry_PrivateData_TimeStampVSgMR);
     swift_endAccess();
-    outlined destroy of CLP_LogEntry_PrivateData_TimeStamp(v14, type metadata accessor for CLP_LogEntry_PrivateData_TimeStamp);
+    outlined destroy of CLP_LogEntry_PrivateData_TimeStamp(v10, type metadata accessor for CLP_LogEntry_PrivateData_TimeStamp);
   }
 
   else
   {
-    v21 = *(v2 + 72);
-    v22 = *(v21 + v3);
-    v23 = swift_isUniquelyReferenced_nonNull_native();
-    v24 = *(v21 + v3);
-    if ((v23 & 1) == 0)
+    v17 = *(v2 + 72);
+    v18 = swift_isUniquelyReferenced_nonNull_native();
+    v19 = *(v17 + v3);
+    if ((v18 & 1) == 0)
     {
-      v25 = *(v2 + 128);
-      v26 = *(v2 + 72);
-      v27 = type metadata accessor for CLP_LogEntry_PrivateData_Location._StorageClass(0);
-      v28 = *(v27 + 48);
-      v29 = *(v27 + 52);
-      v30 = swift_allocObject();
-      CLP_LogEntry_PrivateData_Location._StorageClass.init(copying:)(v24);
-      *(v26 + v25) = v30;
-      v24 = v30;
+      v20 = *(v2 + 128);
+      v21 = *(v2 + 72);
+      type metadata accessor for CLP_LogEntry_PrivateData_Location._StorageClass(0);
+      v22 = swift_allocObject();
+      CLP_LogEntry_PrivateData_Location._StorageClass.init(copying:)(v19);
+      *(v21 + v20) = v22;
+      v19 = v22;
     }
 
-    v15 = *(v2 + 112);
-    v14 = *(v2 + 120);
-    v31 = *(v2 + 96);
-    v32 = *(v2 + 104);
-    v19 = *(v2 + 80);
-    v18 = *(v2 + 88);
-    outlined init with take of CLP_LogEntry_PrivateData_TimeStamp(v14, v19, type metadata accessor for CLP_LogEntry_PrivateData_TimeStamp);
-    (*(v32 + 56))(v19, 0, 1, v31);
-    v33 = OBJC_IVAR____TtCV10ALProtobuf33CLP_LogEntry_PrivateData_LocationP33_993346AF53650622B255AB1E3C41340D13_StorageClass__eventReceiptTime;
+    v11 = *(v2 + 112);
+    v10 = *(v2 + 120);
+    v23 = *(v2 + 96);
+    v24 = *(v2 + 104);
+    v15 = *(v2 + 80);
+    v14 = *(v2 + 88);
+    outlined init with take of CLP_LogEntry_PrivateData_TimeStamp(v10, v15, type metadata accessor for CLP_LogEntry_PrivateData_TimeStamp);
+    (*(v24 + 56))(v15, 0, 1, v23);
+    v25 = OBJC_IVAR____TtCV10ALProtobuf33CLP_LogEntry_PrivateData_LocationP33_993346AF53650622B255AB1E3C41340D13_StorageClass__eventReceiptTime;
     swift_beginAccess();
-    outlined assign with take of Proto_Gpsd_Response?(v19, v24 + v33, &_s10ALProtobuf34CLP_LogEntry_PrivateData_TimeStampVSgMd, &_s10ALProtobuf34CLP_LogEntry_PrivateData_TimeStampVSgMR);
+    outlined assign with take of Proto_Gpsd_Response?(v15, v19 + v25, &_s10ALProtobuf34CLP_LogEntry_PrivateData_TimeStampVSgMd, &_s10ALProtobuf34CLP_LogEntry_PrivateData_TimeStampVSgMR);
     swift_endAccess();
   }
 
+  free(v10);
+  free(v11);
   free(v14);
   free(v15);
-  free(v18);
-  free(v19);
 
   free(v2);
 }
@@ -9184,47 +6721,42 @@ void CLP_LogEntry_PrivateData_Location.eventReceiptTime.modify(uint64_t *a1, cha
 BOOL CLP_LogEntry_PrivateData_Location.hasEventReceiptTime.getter()
 {
   v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf34CLP_LogEntry_PrivateData_TimeStampVSgMd, &_s10ALProtobuf34CLP_LogEntry_PrivateData_TimeStampVSgMR);
-  v2 = *(*(v1 - 8) + 64);
   MEMORY[0x28223BE20](v1 - 8);
-  v4 = &v10 - v3;
-  v5 = *(v0 + *(type metadata accessor for CLP_LogEntry_PrivateData_Location(0) + 20));
-  v6 = OBJC_IVAR____TtCV10ALProtobuf33CLP_LogEntry_PrivateData_LocationP33_993346AF53650622B255AB1E3C41340D13_StorageClass__eventReceiptTime;
+  v3 = &v9 - v2;
+  v4 = *(v0 + *(type metadata accessor for CLP_LogEntry_PrivateData_Location(0) + 20));
+  v5 = OBJC_IVAR____TtCV10ALProtobuf33CLP_LogEntry_PrivateData_LocationP33_993346AF53650622B255AB1E3C41340D13_StorageClass__eventReceiptTime;
   swift_beginAccess();
-  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v5 + v6, v4, &_s10ALProtobuf34CLP_LogEntry_PrivateData_TimeStampVSgMd, &_s10ALProtobuf34CLP_LogEntry_PrivateData_TimeStampVSgMR);
-  v7 = type metadata accessor for CLP_LogEntry_PrivateData_TimeStamp(0);
-  v8 = (*(*(v7 - 8) + 48))(v4, 1, v7) != 1;
-  outlined destroy of Any?(v4, &_s10ALProtobuf34CLP_LogEntry_PrivateData_TimeStampVSgMd, &_s10ALProtobuf34CLP_LogEntry_PrivateData_TimeStampVSgMR);
-  return v8;
+  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v4 + v5, v3, &_s10ALProtobuf34CLP_LogEntry_PrivateData_TimeStampVSgMd, &_s10ALProtobuf34CLP_LogEntry_PrivateData_TimeStampVSgMR);
+  v6 = type metadata accessor for CLP_LogEntry_PrivateData_TimeStamp(0);
+  v7 = (*(*(v6 - 8) + 48))(v3, 1, v6) != 1;
+  outlined destroy of Any?(v3, &_s10ALProtobuf34CLP_LogEntry_PrivateData_TimeStampVSgMd, &_s10ALProtobuf34CLP_LogEntry_PrivateData_TimeStampVSgMR);
+  return v7;
 }
 
 Swift::Void __swiftcall CLP_LogEntry_PrivateData_Location.clearEventReceiptTime()()
 {
   v1 = v0;
   v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf34CLP_LogEntry_PrivateData_TimeStampVSgMd, &_s10ALProtobuf34CLP_LogEntry_PrivateData_TimeStampVSgMR);
-  v3 = *(*(v2 - 8) + 64);
   MEMORY[0x28223BE20](v2 - 8);
-  v5 = &v17 - v4;
-  v6 = *(type metadata accessor for CLP_LogEntry_PrivateData_Location(0) + 20);
-  v7 = *(v0 + v6);
+  v4 = &v12 - v3;
+  v5 = *(type metadata accessor for CLP_LogEntry_PrivateData_Location(0) + 20);
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v9 = *(v0 + v6);
+  v7 = *(v0 + v5);
   if ((isUniquelyReferenced_nonNull_native & 1) == 0)
   {
-    v10 = type metadata accessor for CLP_LogEntry_PrivateData_Location._StorageClass(0);
-    v11 = *(v10 + 48);
-    v12 = *(v10 + 52);
-    v13 = swift_allocObject();
-    v14 = v9;
-    v9 = v13;
-    CLP_LogEntry_PrivateData_Location._StorageClass.init(copying:)(v14);
-    *(v1 + v6) = v13;
+    type metadata accessor for CLP_LogEntry_PrivateData_Location._StorageClass(0);
+    v8 = swift_allocObject();
+    v9 = v7;
+    v7 = v8;
+    CLP_LogEntry_PrivateData_Location._StorageClass.init(copying:)(v9);
+    *(v1 + v5) = v8;
   }
 
-  v15 = type metadata accessor for CLP_LogEntry_PrivateData_TimeStamp(0);
-  (*(*(v15 - 8) + 56))(v5, 1, 1, v15);
-  v16 = OBJC_IVAR____TtCV10ALProtobuf33CLP_LogEntry_PrivateData_LocationP33_993346AF53650622B255AB1E3C41340D13_StorageClass__eventReceiptTime;
+  v10 = type metadata accessor for CLP_LogEntry_PrivateData_TimeStamp(0);
+  (*(*(v10 - 8) + 56))(v4, 1, 1, v10);
+  v11 = OBJC_IVAR____TtCV10ALProtobuf33CLP_LogEntry_PrivateData_LocationP33_993346AF53650622B255AB1E3C41340D13_StorageClass__eventReceiptTime;
   swift_beginAccess();
-  outlined assign with take of Proto_Gpsd_Response?(v5, v9 + v16, &_s10ALProtobuf34CLP_LogEntry_PrivateData_TimeStampVSgMd, &_s10ALProtobuf34CLP_LogEntry_PrivateData_TimeStampVSgMR);
+  outlined assign with take of Proto_Gpsd_Response?(v4, v7 + v11, &_s10ALProtobuf34CLP_LogEntry_PrivateData_TimeStampVSgMd, &_s10ALProtobuf34CLP_LogEntry_PrivateData_TimeStampVSgMR);
   swift_endAccess();
 }
 
@@ -9260,33 +6792,32 @@ void (*CLP_LogEntry_PrivateData_Location.client.modify(uint64_t *a1))(uint64_t *
 uint64_t CLP_LogEntry_PrivateData_Location.location.getter@<X0>(uint64_t a1@<X8>)
 {
   v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf39CLP_LogEntry_PrivateData_DaemonLocationVSgMd, &_s10ALProtobuf39CLP_LogEntry_PrivateData_DaemonLocationVSgMR);
-  v4 = *(*(v3 - 8) + 64);
   MEMORY[0x28223BE20](v3 - 8);
-  v6 = &v14 - v5;
-  v7 = *(v1 + *(type metadata accessor for CLP_LogEntry_PrivateData_Location(0) + 20));
-  v8 = OBJC_IVAR____TtCV10ALProtobuf33CLP_LogEntry_PrivateData_LocationP33_993346AF53650622B255AB1E3C41340D13_StorageClass__location;
+  v5 = &v13 - v4;
+  v6 = *(v1 + *(type metadata accessor for CLP_LogEntry_PrivateData_Location(0) + 20));
+  v7 = OBJC_IVAR____TtCV10ALProtobuf33CLP_LogEntry_PrivateData_LocationP33_993346AF53650622B255AB1E3C41340D13_StorageClass__location;
   swift_beginAccess();
-  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v7 + v8, v6, &_s10ALProtobuf39CLP_LogEntry_PrivateData_DaemonLocationVSgMd, &_s10ALProtobuf39CLP_LogEntry_PrivateData_DaemonLocationVSgMR);
-  v9 = type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocation(0);
-  v10 = *(*(v9 - 8) + 48);
-  if (v10(v6, 1, v9) != 1)
+  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v6 + v7, v5, &_s10ALProtobuf39CLP_LogEntry_PrivateData_DaemonLocationVSgMd, &_s10ALProtobuf39CLP_LogEntry_PrivateData_DaemonLocationVSgMR);
+  v8 = type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocation(0);
+  v9 = *(*(v8 - 8) + 48);
+  if (v9(v5, 1, v8) != 1)
   {
-    return outlined init with take of CLP_LogEntry_PrivateData_TimeStamp(v6, a1, type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocation);
+    return outlined init with take of CLP_LogEntry_PrivateData_TimeStamp(v5, a1, type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocation);
   }
 
   UnknownStorage.init()();
-  v11 = *(v9 + 20);
+  v10 = *(v8 + 20);
   if (one-time initialization token for defaultInstance != -1)
   {
     swift_once();
   }
 
-  *(a1 + v11) = static CLP_LogEntry_PrivateData_DaemonLocation._StorageClass.defaultInstance;
-  v12 = v10(v6, 1, v9);
+  *(a1 + v10) = static CLP_LogEntry_PrivateData_DaemonLocation._StorageClass.defaultInstance;
+  v11 = v9(v5, 1, v8);
 
-  if (v12 != 1)
+  if (v11 != 1)
   {
-    return outlined destroy of Any?(v6, &_s10ALProtobuf39CLP_LogEntry_PrivateData_DaemonLocationVSgMd, &_s10ALProtobuf39CLP_LogEntry_PrivateData_DaemonLocationVSgMR);
+    return outlined destroy of Any?(v5, &_s10ALProtobuf39CLP_LogEntry_PrivateData_DaemonLocationVSgMd, &_s10ALProtobuf39CLP_LogEntry_PrivateData_DaemonLocationVSgMR);
   }
 
   return result;
@@ -9296,31 +6827,27 @@ uint64_t CLP_LogEntry_PrivateData_Location.location.setter(uint64_t a1)
 {
   v2 = v1;
   v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf39CLP_LogEntry_PrivateData_DaemonLocationVSgMd, &_s10ALProtobuf39CLP_LogEntry_PrivateData_DaemonLocationVSgMR);
-  v5 = *(*(v4 - 8) + 64);
   MEMORY[0x28223BE20](v4 - 8);
-  v7 = &v20 - v6;
-  v8 = *(type metadata accessor for CLP_LogEntry_PrivateData_Location(0) + 20);
-  v9 = *(v1 + v8);
+  v6 = &v15 - v5;
+  v7 = *(type metadata accessor for CLP_LogEntry_PrivateData_Location(0) + 20);
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v11 = *(v1 + v8);
+  v9 = *(v1 + v7);
   if ((isUniquelyReferenced_nonNull_native & 1) == 0)
   {
-    v12 = type metadata accessor for CLP_LogEntry_PrivateData_Location._StorageClass(0);
-    v13 = *(v12 + 48);
-    v14 = *(v12 + 52);
-    v15 = swift_allocObject();
-    v16 = v11;
-    v11 = v15;
-    CLP_LogEntry_PrivateData_Location._StorageClass.init(copying:)(v16);
-    *(v2 + v8) = v15;
+    type metadata accessor for CLP_LogEntry_PrivateData_Location._StorageClass(0);
+    v10 = swift_allocObject();
+    v11 = v9;
+    v9 = v10;
+    CLP_LogEntry_PrivateData_Location._StorageClass.init(copying:)(v11);
+    *(v2 + v7) = v10;
   }
 
-  outlined init with take of CLP_LogEntry_PrivateData_TimeStamp(a1, v7, type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocation);
-  v17 = type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocation(0);
-  (*(*(v17 - 8) + 56))(v7, 0, 1, v17);
-  v18 = OBJC_IVAR____TtCV10ALProtobuf33CLP_LogEntry_PrivateData_LocationP33_993346AF53650622B255AB1E3C41340D13_StorageClass__location;
+  outlined init with take of CLP_LogEntry_PrivateData_TimeStamp(a1, v6, type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocation);
+  v12 = type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocation(0);
+  (*(*(v12 - 8) + 56))(v6, 0, 1, v12);
+  v13 = OBJC_IVAR____TtCV10ALProtobuf33CLP_LogEntry_PrivateData_LocationP33_993346AF53650622B255AB1E3C41340D13_StorageClass__location;
   swift_beginAccess();
-  outlined assign with take of Proto_Gpsd_Response?(v7, v11 + v18, &_s10ALProtobuf39CLP_LogEntry_PrivateData_DaemonLocationVSgMd, &_s10ALProtobuf39CLP_LogEntry_PrivateData_DaemonLocationVSgMR);
+  outlined assign with take of Proto_Gpsd_Response?(v6, v9 + v13, &_s10ALProtobuf39CLP_LogEntry_PrivateData_DaemonLocationVSgMd, &_s10ALProtobuf39CLP_LogEntry_PrivateData_DaemonLocationVSgMR);
   return swift_endAccess();
 }
 
@@ -9416,74 +6943,68 @@ void CLP_LogEntry_PrivateData_Location.location.modify(uint64_t *a1, char a2)
   {
     v4 = *(v2 + 72);
     outlined init with copy of CLP_LogEntry_PrivateData_TimeStamp(*(v2 + 120), *(v2 + 112), type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocation);
-    v5 = *(v4 + v3);
     isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-    v7 = *(v4 + v3);
+    v6 = *(v4 + v3);
     if ((isUniquelyReferenced_nonNull_native & 1) == 0)
     {
-      v8 = *(v2 + 128);
-      v9 = *(v2 + 72);
-      v10 = type metadata accessor for CLP_LogEntry_PrivateData_Location._StorageClass(0);
-      v11 = *(v10 + 48);
-      v12 = *(v10 + 52);
-      v13 = swift_allocObject();
-      CLP_LogEntry_PrivateData_Location._StorageClass.init(copying:)(v7);
-      *(v9 + v8) = v13;
-      v7 = v13;
+      v7 = *(v2 + 128);
+      v8 = *(v2 + 72);
+      type metadata accessor for CLP_LogEntry_PrivateData_Location._StorageClass(0);
+      v9 = swift_allocObject();
+      CLP_LogEntry_PrivateData_Location._StorageClass.init(copying:)(v6);
+      *(v8 + v7) = v9;
+      v6 = v9;
     }
 
-    v15 = *(v2 + 112);
-    v14 = *(v2 + 120);
-    v16 = *(v2 + 96);
-    v17 = *(v2 + 104);
-    v19 = *(v2 + 80);
-    v18 = *(v2 + 88);
-    outlined init with take of CLP_LogEntry_PrivateData_TimeStamp(v15, v19, type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocation);
-    (*(v17 + 56))(v19, 0, 1, v16);
-    v20 = OBJC_IVAR____TtCV10ALProtobuf33CLP_LogEntry_PrivateData_LocationP33_993346AF53650622B255AB1E3C41340D13_StorageClass__location;
+    v11 = *(v2 + 112);
+    v10 = *(v2 + 120);
+    v12 = *(v2 + 96);
+    v13 = *(v2 + 104);
+    v15 = *(v2 + 80);
+    v14 = *(v2 + 88);
+    outlined init with take of CLP_LogEntry_PrivateData_TimeStamp(v11, v15, type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocation);
+    (*(v13 + 56))(v15, 0, 1, v12);
+    v16 = OBJC_IVAR____TtCV10ALProtobuf33CLP_LogEntry_PrivateData_LocationP33_993346AF53650622B255AB1E3C41340D13_StorageClass__location;
     swift_beginAccess();
-    outlined assign with take of Proto_Gpsd_Response?(v19, v7 + v20, &_s10ALProtobuf39CLP_LogEntry_PrivateData_DaemonLocationVSgMd, &_s10ALProtobuf39CLP_LogEntry_PrivateData_DaemonLocationVSgMR);
+    outlined assign with take of Proto_Gpsd_Response?(v15, v6 + v16, &_s10ALProtobuf39CLP_LogEntry_PrivateData_DaemonLocationVSgMd, &_s10ALProtobuf39CLP_LogEntry_PrivateData_DaemonLocationVSgMR);
     swift_endAccess();
-    outlined destroy of CLP_LogEntry_PrivateData_TimeStamp(v14, type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocation);
+    outlined destroy of CLP_LogEntry_PrivateData_TimeStamp(v10, type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocation);
   }
 
   else
   {
-    v21 = *(v2 + 72);
-    v22 = *(v21 + v3);
-    v23 = swift_isUniquelyReferenced_nonNull_native();
-    v24 = *(v21 + v3);
-    if ((v23 & 1) == 0)
+    v17 = *(v2 + 72);
+    v18 = swift_isUniquelyReferenced_nonNull_native();
+    v19 = *(v17 + v3);
+    if ((v18 & 1) == 0)
     {
-      v25 = *(v2 + 128);
-      v26 = *(v2 + 72);
-      v27 = type metadata accessor for CLP_LogEntry_PrivateData_Location._StorageClass(0);
-      v28 = *(v27 + 48);
-      v29 = *(v27 + 52);
-      v30 = swift_allocObject();
-      CLP_LogEntry_PrivateData_Location._StorageClass.init(copying:)(v24);
-      *(v26 + v25) = v30;
-      v24 = v30;
+      v20 = *(v2 + 128);
+      v21 = *(v2 + 72);
+      type metadata accessor for CLP_LogEntry_PrivateData_Location._StorageClass(0);
+      v22 = swift_allocObject();
+      CLP_LogEntry_PrivateData_Location._StorageClass.init(copying:)(v19);
+      *(v21 + v20) = v22;
+      v19 = v22;
     }
 
-    v15 = *(v2 + 112);
-    v14 = *(v2 + 120);
-    v31 = *(v2 + 96);
-    v32 = *(v2 + 104);
-    v19 = *(v2 + 80);
-    v18 = *(v2 + 88);
-    outlined init with take of CLP_LogEntry_PrivateData_TimeStamp(v14, v19, type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocation);
-    (*(v32 + 56))(v19, 0, 1, v31);
-    v33 = OBJC_IVAR____TtCV10ALProtobuf33CLP_LogEntry_PrivateData_LocationP33_993346AF53650622B255AB1E3C41340D13_StorageClass__location;
+    v11 = *(v2 + 112);
+    v10 = *(v2 + 120);
+    v23 = *(v2 + 96);
+    v24 = *(v2 + 104);
+    v15 = *(v2 + 80);
+    v14 = *(v2 + 88);
+    outlined init with take of CLP_LogEntry_PrivateData_TimeStamp(v10, v15, type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocation);
+    (*(v24 + 56))(v15, 0, 1, v23);
+    v25 = OBJC_IVAR____TtCV10ALProtobuf33CLP_LogEntry_PrivateData_LocationP33_993346AF53650622B255AB1E3C41340D13_StorageClass__location;
     swift_beginAccess();
-    outlined assign with take of Proto_Gpsd_Response?(v19, v24 + v33, &_s10ALProtobuf39CLP_LogEntry_PrivateData_DaemonLocationVSgMd, &_s10ALProtobuf39CLP_LogEntry_PrivateData_DaemonLocationVSgMR);
+    outlined assign with take of Proto_Gpsd_Response?(v15, v19 + v25, &_s10ALProtobuf39CLP_LogEntry_PrivateData_DaemonLocationVSgMd, &_s10ALProtobuf39CLP_LogEntry_PrivateData_DaemonLocationVSgMR);
     swift_endAccess();
   }
 
+  free(v10);
+  free(v11);
   free(v14);
   free(v15);
-  free(v18);
-  free(v19);
 
   free(v2);
 }
@@ -9491,80 +7012,74 @@ void CLP_LogEntry_PrivateData_Location.location.modify(uint64_t *a1, char a2)
 BOOL CLP_LogEntry_PrivateData_Location.hasLocation.getter()
 {
   v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf39CLP_LogEntry_PrivateData_DaemonLocationVSgMd, &_s10ALProtobuf39CLP_LogEntry_PrivateData_DaemonLocationVSgMR);
-  v2 = *(*(v1 - 8) + 64);
   MEMORY[0x28223BE20](v1 - 8);
-  v4 = &v10 - v3;
-  v5 = *(v0 + *(type metadata accessor for CLP_LogEntry_PrivateData_Location(0) + 20));
-  v6 = OBJC_IVAR____TtCV10ALProtobuf33CLP_LogEntry_PrivateData_LocationP33_993346AF53650622B255AB1E3C41340D13_StorageClass__location;
+  v3 = &v9 - v2;
+  v4 = *(v0 + *(type metadata accessor for CLP_LogEntry_PrivateData_Location(0) + 20));
+  v5 = OBJC_IVAR____TtCV10ALProtobuf33CLP_LogEntry_PrivateData_LocationP33_993346AF53650622B255AB1E3C41340D13_StorageClass__location;
   swift_beginAccess();
-  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v5 + v6, v4, &_s10ALProtobuf39CLP_LogEntry_PrivateData_DaemonLocationVSgMd, &_s10ALProtobuf39CLP_LogEntry_PrivateData_DaemonLocationVSgMR);
-  v7 = type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocation(0);
-  v8 = (*(*(v7 - 8) + 48))(v4, 1, v7) != 1;
-  outlined destroy of Any?(v4, &_s10ALProtobuf39CLP_LogEntry_PrivateData_DaemonLocationVSgMd, &_s10ALProtobuf39CLP_LogEntry_PrivateData_DaemonLocationVSgMR);
-  return v8;
+  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v4 + v5, v3, &_s10ALProtobuf39CLP_LogEntry_PrivateData_DaemonLocationVSgMd, &_s10ALProtobuf39CLP_LogEntry_PrivateData_DaemonLocationVSgMR);
+  v6 = type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocation(0);
+  v7 = (*(*(v6 - 8) + 48))(v3, 1, v6) != 1;
+  outlined destroy of Any?(v3, &_s10ALProtobuf39CLP_LogEntry_PrivateData_DaemonLocationVSgMd, &_s10ALProtobuf39CLP_LogEntry_PrivateData_DaemonLocationVSgMR);
+  return v7;
 }
 
 Swift::Void __swiftcall CLP_LogEntry_PrivateData_Location.clearLocation()()
 {
   v1 = v0;
   v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf39CLP_LogEntry_PrivateData_DaemonLocationVSgMd, &_s10ALProtobuf39CLP_LogEntry_PrivateData_DaemonLocationVSgMR);
-  v3 = *(*(v2 - 8) + 64);
   MEMORY[0x28223BE20](v2 - 8);
-  v5 = &v17 - v4;
-  v6 = *(type metadata accessor for CLP_LogEntry_PrivateData_Location(0) + 20);
-  v7 = *(v0 + v6);
+  v4 = &v12 - v3;
+  v5 = *(type metadata accessor for CLP_LogEntry_PrivateData_Location(0) + 20);
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v9 = *(v0 + v6);
+  v7 = *(v0 + v5);
   if ((isUniquelyReferenced_nonNull_native & 1) == 0)
   {
-    v10 = type metadata accessor for CLP_LogEntry_PrivateData_Location._StorageClass(0);
-    v11 = *(v10 + 48);
-    v12 = *(v10 + 52);
-    v13 = swift_allocObject();
-    v14 = v9;
-    v9 = v13;
-    CLP_LogEntry_PrivateData_Location._StorageClass.init(copying:)(v14);
-    *(v1 + v6) = v13;
+    type metadata accessor for CLP_LogEntry_PrivateData_Location._StorageClass(0);
+    v8 = swift_allocObject();
+    v9 = v7;
+    v7 = v8;
+    CLP_LogEntry_PrivateData_Location._StorageClass.init(copying:)(v9);
+    *(v1 + v5) = v8;
   }
 
-  v15 = type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocation(0);
-  (*(*(v15 - 8) + 56))(v5, 1, 1, v15);
-  v16 = OBJC_IVAR____TtCV10ALProtobuf33CLP_LogEntry_PrivateData_LocationP33_993346AF53650622B255AB1E3C41340D13_StorageClass__location;
+  v10 = type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocation(0);
+  (*(*(v10 - 8) + 56))(v4, 1, 1, v10);
+  v11 = OBJC_IVAR____TtCV10ALProtobuf33CLP_LogEntry_PrivateData_LocationP33_993346AF53650622B255AB1E3C41340D13_StorageClass__location;
   swift_beginAccess();
-  outlined assign with take of Proto_Gpsd_Response?(v5, v9 + v16, &_s10ALProtobuf39CLP_LogEntry_PrivateData_DaemonLocationVSgMd, &_s10ALProtobuf39CLP_LogEntry_PrivateData_DaemonLocationVSgMR);
+  outlined assign with take of Proto_Gpsd_Response?(v4, v7 + v11, &_s10ALProtobuf39CLP_LogEntry_PrivateData_DaemonLocationVSgMd, &_s10ALProtobuf39CLP_LogEntry_PrivateData_DaemonLocationVSgMR);
   swift_endAccess();
 }
 
 uint64_t CLP_LogEntry_PrivateData_Location.locationPrivate.getter@<X0>(uint64_t a1@<X8>)
 {
   v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf039CLP_LogEntry_PrivateData_DaemonLocationE0VSgMd, &_s10ALProtobuf039CLP_LogEntry_PrivateData_DaemonLocationE0VSgMR);
-  v4 = *(*(v3 - 8) + 64);
   MEMORY[0x28223BE20](v3 - 8);
-  v6 = &v14 - v5;
-  v7 = *(v1 + *(type metadata accessor for CLP_LogEntry_PrivateData_Location(0) + 20));
-  v8 = OBJC_IVAR____TtCV10ALProtobuf33CLP_LogEntry_PrivateData_LocationP33_993346AF53650622B255AB1E3C41340D13_StorageClass__locationPrivate;
+  v5 = &v13 - v4;
+  v6 = *(v1 + *(type metadata accessor for CLP_LogEntry_PrivateData_Location(0) + 20));
+  v7 = OBJC_IVAR____TtCV10ALProtobuf33CLP_LogEntry_PrivateData_LocationP33_993346AF53650622B255AB1E3C41340D13_StorageClass__locationPrivate;
   swift_beginAccess();
-  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v7 + v8, v6, &_s10ALProtobuf039CLP_LogEntry_PrivateData_DaemonLocationE0VSgMd, &_s10ALProtobuf039CLP_LogEntry_PrivateData_DaemonLocationE0VSgMR);
-  v9 = type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate(0);
-  v10 = *(*(v9 - 8) + 48);
-  if (v10(v6, 1, v9) != 1)
+  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v6 + v7, v5, &_s10ALProtobuf039CLP_LogEntry_PrivateData_DaemonLocationE0VSgMd, &_s10ALProtobuf039CLP_LogEntry_PrivateData_DaemonLocationE0VSgMR);
+  v8 = type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate(0);
+  v9 = *(*(v8 - 8) + 48);
+  if (v9(v5, 1, v8) != 1)
   {
-    return outlined init with take of CLP_LogEntry_PrivateData_TimeStamp(v6, a1, type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate);
+    return outlined init with take of CLP_LogEntry_PrivateData_TimeStamp(v5, a1, type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate);
   }
 
   UnknownStorage.init()();
-  v11 = *(v9 + 20);
+  v10 = *(v8 + 20);
   if (one-time initialization token for defaultInstance != -1)
   {
     swift_once();
   }
 
-  *(a1 + v11) = static CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass.defaultInstance;
-  v12 = v10(v6, 1, v9);
+  *(a1 + v10) = static CLP_LogEntry_PrivateData_DaemonLocationPrivate._StorageClass.defaultInstance;
+  v11 = v9(v5, 1, v8);
 
-  if (v12 != 1)
+  if (v11 != 1)
   {
-    return outlined destroy of Any?(v6, &_s10ALProtobuf039CLP_LogEntry_PrivateData_DaemonLocationE0VSgMd, &_s10ALProtobuf039CLP_LogEntry_PrivateData_DaemonLocationE0VSgMR);
+    return outlined destroy of Any?(v5, &_s10ALProtobuf039CLP_LogEntry_PrivateData_DaemonLocationE0VSgMd, &_s10ALProtobuf039CLP_LogEntry_PrivateData_DaemonLocationE0VSgMR);
   }
 
   return result;
@@ -9574,31 +7089,27 @@ uint64_t CLP_LogEntry_PrivateData_Location.locationPrivate.setter(uint64_t a1)
 {
   v2 = v1;
   v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf039CLP_LogEntry_PrivateData_DaemonLocationE0VSgMd, &_s10ALProtobuf039CLP_LogEntry_PrivateData_DaemonLocationE0VSgMR);
-  v5 = *(*(v4 - 8) + 64);
   MEMORY[0x28223BE20](v4 - 8);
-  v7 = &v20 - v6;
-  v8 = *(type metadata accessor for CLP_LogEntry_PrivateData_Location(0) + 20);
-  v9 = *(v1 + v8);
+  v6 = &v15 - v5;
+  v7 = *(type metadata accessor for CLP_LogEntry_PrivateData_Location(0) + 20);
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v11 = *(v1 + v8);
+  v9 = *(v1 + v7);
   if ((isUniquelyReferenced_nonNull_native & 1) == 0)
   {
-    v12 = type metadata accessor for CLP_LogEntry_PrivateData_Location._StorageClass(0);
-    v13 = *(v12 + 48);
-    v14 = *(v12 + 52);
-    v15 = swift_allocObject();
-    v16 = v11;
-    v11 = v15;
-    CLP_LogEntry_PrivateData_Location._StorageClass.init(copying:)(v16);
-    *(v2 + v8) = v15;
+    type metadata accessor for CLP_LogEntry_PrivateData_Location._StorageClass(0);
+    v10 = swift_allocObject();
+    v11 = v9;
+    v9 = v10;
+    CLP_LogEntry_PrivateData_Location._StorageClass.init(copying:)(v11);
+    *(v2 + v7) = v10;
   }
 
-  outlined init with take of CLP_LogEntry_PrivateData_TimeStamp(a1, v7, type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate);
-  v17 = type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate(0);
-  (*(*(v17 - 8) + 56))(v7, 0, 1, v17);
-  v18 = OBJC_IVAR____TtCV10ALProtobuf33CLP_LogEntry_PrivateData_LocationP33_993346AF53650622B255AB1E3C41340D13_StorageClass__locationPrivate;
+  outlined init with take of CLP_LogEntry_PrivateData_TimeStamp(a1, v6, type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate);
+  v12 = type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate(0);
+  (*(*(v12 - 8) + 56))(v6, 0, 1, v12);
+  v13 = OBJC_IVAR____TtCV10ALProtobuf33CLP_LogEntry_PrivateData_LocationP33_993346AF53650622B255AB1E3C41340D13_StorageClass__locationPrivate;
   swift_beginAccess();
-  outlined assign with take of Proto_Gpsd_Response?(v7, v11 + v18, &_s10ALProtobuf039CLP_LogEntry_PrivateData_DaemonLocationE0VSgMd, &_s10ALProtobuf039CLP_LogEntry_PrivateData_DaemonLocationE0VSgMR);
+  outlined assign with take of Proto_Gpsd_Response?(v6, v9 + v13, &_s10ALProtobuf039CLP_LogEntry_PrivateData_DaemonLocationE0VSgMd, &_s10ALProtobuf039CLP_LogEntry_PrivateData_DaemonLocationE0VSgMR);
   return swift_endAccess();
 }
 
@@ -9694,74 +7205,68 @@ void CLP_LogEntry_PrivateData_Location.locationPrivate.modify(uint64_t *a1, char
   {
     v4 = *(v2 + 72);
     outlined init with copy of CLP_LogEntry_PrivateData_TimeStamp(*(v2 + 120), *(v2 + 112), type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate);
-    v5 = *(v4 + v3);
     isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-    v7 = *(v4 + v3);
+    v6 = *(v4 + v3);
     if ((isUniquelyReferenced_nonNull_native & 1) == 0)
     {
-      v8 = *(v2 + 128);
-      v9 = *(v2 + 72);
-      v10 = type metadata accessor for CLP_LogEntry_PrivateData_Location._StorageClass(0);
-      v11 = *(v10 + 48);
-      v12 = *(v10 + 52);
-      v13 = swift_allocObject();
-      CLP_LogEntry_PrivateData_Location._StorageClass.init(copying:)(v7);
-      *(v9 + v8) = v13;
-      v7 = v13;
+      v7 = *(v2 + 128);
+      v8 = *(v2 + 72);
+      type metadata accessor for CLP_LogEntry_PrivateData_Location._StorageClass(0);
+      v9 = swift_allocObject();
+      CLP_LogEntry_PrivateData_Location._StorageClass.init(copying:)(v6);
+      *(v8 + v7) = v9;
+      v6 = v9;
     }
 
-    v15 = *(v2 + 112);
-    v14 = *(v2 + 120);
-    v16 = *(v2 + 96);
-    v17 = *(v2 + 104);
-    v19 = *(v2 + 80);
-    v18 = *(v2 + 88);
-    outlined init with take of CLP_LogEntry_PrivateData_TimeStamp(v15, v19, type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate);
-    (*(v17 + 56))(v19, 0, 1, v16);
-    v20 = OBJC_IVAR____TtCV10ALProtobuf33CLP_LogEntry_PrivateData_LocationP33_993346AF53650622B255AB1E3C41340D13_StorageClass__locationPrivate;
+    v11 = *(v2 + 112);
+    v10 = *(v2 + 120);
+    v12 = *(v2 + 96);
+    v13 = *(v2 + 104);
+    v15 = *(v2 + 80);
+    v14 = *(v2 + 88);
+    outlined init with take of CLP_LogEntry_PrivateData_TimeStamp(v11, v15, type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate);
+    (*(v13 + 56))(v15, 0, 1, v12);
+    v16 = OBJC_IVAR____TtCV10ALProtobuf33CLP_LogEntry_PrivateData_LocationP33_993346AF53650622B255AB1E3C41340D13_StorageClass__locationPrivate;
     swift_beginAccess();
-    outlined assign with take of Proto_Gpsd_Response?(v19, v7 + v20, &_s10ALProtobuf039CLP_LogEntry_PrivateData_DaemonLocationE0VSgMd, &_s10ALProtobuf039CLP_LogEntry_PrivateData_DaemonLocationE0VSgMR);
+    outlined assign with take of Proto_Gpsd_Response?(v15, v6 + v16, &_s10ALProtobuf039CLP_LogEntry_PrivateData_DaemonLocationE0VSgMd, &_s10ALProtobuf039CLP_LogEntry_PrivateData_DaemonLocationE0VSgMR);
     swift_endAccess();
-    outlined destroy of CLP_LogEntry_PrivateData_TimeStamp(v14, type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate);
+    outlined destroy of CLP_LogEntry_PrivateData_TimeStamp(v10, type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate);
   }
 
   else
   {
-    v21 = *(v2 + 72);
-    v22 = *(v21 + v3);
-    v23 = swift_isUniquelyReferenced_nonNull_native();
-    v24 = *(v21 + v3);
-    if ((v23 & 1) == 0)
+    v17 = *(v2 + 72);
+    v18 = swift_isUniquelyReferenced_nonNull_native();
+    v19 = *(v17 + v3);
+    if ((v18 & 1) == 0)
     {
-      v25 = *(v2 + 128);
-      v26 = *(v2 + 72);
-      v27 = type metadata accessor for CLP_LogEntry_PrivateData_Location._StorageClass(0);
-      v28 = *(v27 + 48);
-      v29 = *(v27 + 52);
-      v30 = swift_allocObject();
-      CLP_LogEntry_PrivateData_Location._StorageClass.init(copying:)(v24);
-      *(v26 + v25) = v30;
-      v24 = v30;
+      v20 = *(v2 + 128);
+      v21 = *(v2 + 72);
+      type metadata accessor for CLP_LogEntry_PrivateData_Location._StorageClass(0);
+      v22 = swift_allocObject();
+      CLP_LogEntry_PrivateData_Location._StorageClass.init(copying:)(v19);
+      *(v21 + v20) = v22;
+      v19 = v22;
     }
 
-    v15 = *(v2 + 112);
-    v14 = *(v2 + 120);
-    v31 = *(v2 + 96);
-    v32 = *(v2 + 104);
-    v19 = *(v2 + 80);
-    v18 = *(v2 + 88);
-    outlined init with take of CLP_LogEntry_PrivateData_TimeStamp(v14, v19, type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate);
-    (*(v32 + 56))(v19, 0, 1, v31);
-    v33 = OBJC_IVAR____TtCV10ALProtobuf33CLP_LogEntry_PrivateData_LocationP33_993346AF53650622B255AB1E3C41340D13_StorageClass__locationPrivate;
+    v11 = *(v2 + 112);
+    v10 = *(v2 + 120);
+    v23 = *(v2 + 96);
+    v24 = *(v2 + 104);
+    v15 = *(v2 + 80);
+    v14 = *(v2 + 88);
+    outlined init with take of CLP_LogEntry_PrivateData_TimeStamp(v10, v15, type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate);
+    (*(v24 + 56))(v15, 0, 1, v23);
+    v25 = OBJC_IVAR____TtCV10ALProtobuf33CLP_LogEntry_PrivateData_LocationP33_993346AF53650622B255AB1E3C41340D13_StorageClass__locationPrivate;
     swift_beginAccess();
-    outlined assign with take of Proto_Gpsd_Response?(v19, v24 + v33, &_s10ALProtobuf039CLP_LogEntry_PrivateData_DaemonLocationE0VSgMd, &_s10ALProtobuf039CLP_LogEntry_PrivateData_DaemonLocationE0VSgMR);
+    outlined assign with take of Proto_Gpsd_Response?(v15, v19 + v25, &_s10ALProtobuf039CLP_LogEntry_PrivateData_DaemonLocationE0VSgMd, &_s10ALProtobuf039CLP_LogEntry_PrivateData_DaemonLocationE0VSgMR);
     swift_endAccess();
   }
 
+  free(v10);
+  free(v11);
   free(v14);
   free(v15);
-  free(v18);
-  free(v19);
 
   free(v2);
 }
@@ -9769,74 +7274,68 @@ void CLP_LogEntry_PrivateData_Location.locationPrivate.modify(uint64_t *a1, char
 BOOL CLP_LogEntry_PrivateData_Location.hasLocationPrivate.getter()
 {
   v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf039CLP_LogEntry_PrivateData_DaemonLocationE0VSgMd, &_s10ALProtobuf039CLP_LogEntry_PrivateData_DaemonLocationE0VSgMR);
-  v2 = *(*(v1 - 8) + 64);
   MEMORY[0x28223BE20](v1 - 8);
-  v4 = &v10 - v3;
-  v5 = *(v0 + *(type metadata accessor for CLP_LogEntry_PrivateData_Location(0) + 20));
-  v6 = OBJC_IVAR____TtCV10ALProtobuf33CLP_LogEntry_PrivateData_LocationP33_993346AF53650622B255AB1E3C41340D13_StorageClass__locationPrivate;
+  v3 = &v9 - v2;
+  v4 = *(v0 + *(type metadata accessor for CLP_LogEntry_PrivateData_Location(0) + 20));
+  v5 = OBJC_IVAR____TtCV10ALProtobuf33CLP_LogEntry_PrivateData_LocationP33_993346AF53650622B255AB1E3C41340D13_StorageClass__locationPrivate;
   swift_beginAccess();
-  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v5 + v6, v4, &_s10ALProtobuf039CLP_LogEntry_PrivateData_DaemonLocationE0VSgMd, &_s10ALProtobuf039CLP_LogEntry_PrivateData_DaemonLocationE0VSgMR);
-  v7 = type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate(0);
-  v8 = (*(*(v7 - 8) + 48))(v4, 1, v7) != 1;
-  outlined destroy of Any?(v4, &_s10ALProtobuf039CLP_LogEntry_PrivateData_DaemonLocationE0VSgMd, &_s10ALProtobuf039CLP_LogEntry_PrivateData_DaemonLocationE0VSgMR);
-  return v8;
+  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v4 + v5, v3, &_s10ALProtobuf039CLP_LogEntry_PrivateData_DaemonLocationE0VSgMd, &_s10ALProtobuf039CLP_LogEntry_PrivateData_DaemonLocationE0VSgMR);
+  v6 = type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate(0);
+  v7 = (*(*(v6 - 8) + 48))(v3, 1, v6) != 1;
+  outlined destroy of Any?(v3, &_s10ALProtobuf039CLP_LogEntry_PrivateData_DaemonLocationE0VSgMd, &_s10ALProtobuf039CLP_LogEntry_PrivateData_DaemonLocationE0VSgMR);
+  return v7;
 }
 
 Swift::Void __swiftcall CLP_LogEntry_PrivateData_Location.clearLocationPrivate()()
 {
   v1 = v0;
   v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf039CLP_LogEntry_PrivateData_DaemonLocationE0VSgMd, &_s10ALProtobuf039CLP_LogEntry_PrivateData_DaemonLocationE0VSgMR);
-  v3 = *(*(v2 - 8) + 64);
   MEMORY[0x28223BE20](v2 - 8);
-  v5 = &v17 - v4;
-  v6 = *(type metadata accessor for CLP_LogEntry_PrivateData_Location(0) + 20);
-  v7 = *(v0 + v6);
+  v4 = &v12 - v3;
+  v5 = *(type metadata accessor for CLP_LogEntry_PrivateData_Location(0) + 20);
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v9 = *(v0 + v6);
+  v7 = *(v0 + v5);
   if ((isUniquelyReferenced_nonNull_native & 1) == 0)
   {
-    v10 = type metadata accessor for CLP_LogEntry_PrivateData_Location._StorageClass(0);
-    v11 = *(v10 + 48);
-    v12 = *(v10 + 52);
-    v13 = swift_allocObject();
-    v14 = v9;
-    v9 = v13;
-    CLP_LogEntry_PrivateData_Location._StorageClass.init(copying:)(v14);
-    *(v1 + v6) = v13;
+    type metadata accessor for CLP_LogEntry_PrivateData_Location._StorageClass(0);
+    v8 = swift_allocObject();
+    v9 = v7;
+    v7 = v8;
+    CLP_LogEntry_PrivateData_Location._StorageClass.init(copying:)(v9);
+    *(v1 + v5) = v8;
   }
 
-  v15 = type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate(0);
-  (*(*(v15 - 8) + 56))(v5, 1, 1, v15);
-  v16 = OBJC_IVAR____TtCV10ALProtobuf33CLP_LogEntry_PrivateData_LocationP33_993346AF53650622B255AB1E3C41340D13_StorageClass__locationPrivate;
+  v10 = type metadata accessor for CLP_LogEntry_PrivateData_DaemonLocationPrivate(0);
+  (*(*(v10 - 8) + 56))(v4, 1, 1, v10);
+  v11 = OBJC_IVAR____TtCV10ALProtobuf33CLP_LogEntry_PrivateData_LocationP33_993346AF53650622B255AB1E3C41340D13_StorageClass__locationPrivate;
   swift_beginAccess();
-  outlined assign with take of Proto_Gpsd_Response?(v5, v9 + v16, &_s10ALProtobuf039CLP_LogEntry_PrivateData_DaemonLocationE0VSgMd, &_s10ALProtobuf039CLP_LogEntry_PrivateData_DaemonLocationE0VSgMR);
+  outlined assign with take of Proto_Gpsd_Response?(v4, v7 + v11, &_s10ALProtobuf039CLP_LogEntry_PrivateData_DaemonLocationE0VSgMd, &_s10ALProtobuf039CLP_LogEntry_PrivateData_DaemonLocationE0VSgMR);
   swift_endAccess();
 }
 
 uint64_t CLP_LogEntry_PrivateData_Location.status.getter@<X0>(uint64_t a1@<X8>)
 {
   v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf41CLP_LogEntry_PrivateData_TechnologyStatusVSgMd, &_s10ALProtobuf41CLP_LogEntry_PrivateData_TechnologyStatusVSgMR);
-  v4 = *(*(v3 - 8) + 64);
   MEMORY[0x28223BE20](v3 - 8);
-  v6 = &v12 - v5;
-  v7 = *(v1 + *(type metadata accessor for CLP_LogEntry_PrivateData_Location(0) + 20));
-  v8 = OBJC_IVAR____TtCV10ALProtobuf33CLP_LogEntry_PrivateData_LocationP33_993346AF53650622B255AB1E3C41340D13_StorageClass__status;
+  v5 = &v11 - v4;
+  v6 = *(v1 + *(type metadata accessor for CLP_LogEntry_PrivateData_Location(0) + 20));
+  v7 = OBJC_IVAR____TtCV10ALProtobuf33CLP_LogEntry_PrivateData_LocationP33_993346AF53650622B255AB1E3C41340D13_StorageClass__status;
   swift_beginAccess();
-  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v7 + v8, v6, &_s10ALProtobuf41CLP_LogEntry_PrivateData_TechnologyStatusVSgMd, &_s10ALProtobuf41CLP_LogEntry_PrivateData_TechnologyStatusVSgMR);
-  v9 = type metadata accessor for CLP_LogEntry_PrivateData_TechnologyStatus(0);
-  v10 = *(*(v9 - 8) + 48);
-  if (v10(v6, 1, v9) != 1)
+  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v6 + v7, v5, &_s10ALProtobuf41CLP_LogEntry_PrivateData_TechnologyStatusVSgMd, &_s10ALProtobuf41CLP_LogEntry_PrivateData_TechnologyStatusVSgMR);
+  v8 = type metadata accessor for CLP_LogEntry_PrivateData_TechnologyStatus(0);
+  v9 = *(*(v8 - 8) + 48);
+  if (v9(v5, 1, v8) != 1)
   {
-    return outlined init with take of CLP_LogEntry_PrivateData_TimeStamp(v6, a1, type metadata accessor for CLP_LogEntry_PrivateData_TechnologyStatus);
+    return outlined init with take of CLP_LogEntry_PrivateData_TimeStamp(v5, a1, type metadata accessor for CLP_LogEntry_PrivateData_TechnologyStatus);
   }
 
   UnknownStorage.init()();
-  *(a1 + *(v9 + 20)) = 14;
-  *(a1 + *(v9 + 24)) = 2;
-  result = (v10)(v6, 1, v9);
+  *(a1 + *(v8 + 20)) = 14;
+  *(a1 + *(v8 + 24)) = 2;
+  result = (v9)(v5, 1, v8);
   if (result != 1)
   {
-    return outlined destroy of Any?(v6, &_s10ALProtobuf41CLP_LogEntry_PrivateData_TechnologyStatusVSgMd, &_s10ALProtobuf41CLP_LogEntry_PrivateData_TechnologyStatusVSgMR);
+    return outlined destroy of Any?(v5, &_s10ALProtobuf41CLP_LogEntry_PrivateData_TechnologyStatusVSgMd, &_s10ALProtobuf41CLP_LogEntry_PrivateData_TechnologyStatusVSgMR);
   }
 
   return result;
@@ -9846,31 +7345,27 @@ uint64_t CLP_LogEntry_PrivateData_Location.status.setter(uint64_t a1)
 {
   v2 = v1;
   v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf41CLP_LogEntry_PrivateData_TechnologyStatusVSgMd, &_s10ALProtobuf41CLP_LogEntry_PrivateData_TechnologyStatusVSgMR);
-  v5 = *(*(v4 - 8) + 64);
   MEMORY[0x28223BE20](v4 - 8);
-  v7 = &v20 - v6;
-  v8 = *(type metadata accessor for CLP_LogEntry_PrivateData_Location(0) + 20);
-  v9 = *(v1 + v8);
+  v6 = &v15 - v5;
+  v7 = *(type metadata accessor for CLP_LogEntry_PrivateData_Location(0) + 20);
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v11 = *(v1 + v8);
+  v9 = *(v1 + v7);
   if ((isUniquelyReferenced_nonNull_native & 1) == 0)
   {
-    v12 = type metadata accessor for CLP_LogEntry_PrivateData_Location._StorageClass(0);
-    v13 = *(v12 + 48);
-    v14 = *(v12 + 52);
-    v15 = swift_allocObject();
-    v16 = v11;
-    v11 = v15;
-    CLP_LogEntry_PrivateData_Location._StorageClass.init(copying:)(v16);
-    *(v2 + v8) = v15;
+    type metadata accessor for CLP_LogEntry_PrivateData_Location._StorageClass(0);
+    v10 = swift_allocObject();
+    v11 = v9;
+    v9 = v10;
+    CLP_LogEntry_PrivateData_Location._StorageClass.init(copying:)(v11);
+    *(v2 + v7) = v10;
   }
 
-  outlined init with take of CLP_LogEntry_PrivateData_TimeStamp(a1, v7, type metadata accessor for CLP_LogEntry_PrivateData_TechnologyStatus);
-  v17 = type metadata accessor for CLP_LogEntry_PrivateData_TechnologyStatus(0);
-  (*(*(v17 - 8) + 56))(v7, 0, 1, v17);
-  v18 = OBJC_IVAR____TtCV10ALProtobuf33CLP_LogEntry_PrivateData_LocationP33_993346AF53650622B255AB1E3C41340D13_StorageClass__status;
+  outlined init with take of CLP_LogEntry_PrivateData_TimeStamp(a1, v6, type metadata accessor for CLP_LogEntry_PrivateData_TechnologyStatus);
+  v12 = type metadata accessor for CLP_LogEntry_PrivateData_TechnologyStatus(0);
+  (*(*(v12 - 8) + 56))(v6, 0, 1, v12);
+  v13 = OBJC_IVAR____TtCV10ALProtobuf33CLP_LogEntry_PrivateData_LocationP33_993346AF53650622B255AB1E3C41340D13_StorageClass__status;
   swift_beginAccess();
-  outlined assign with take of Proto_Gpsd_Response?(v7, v11 + v18, &_s10ALProtobuf41CLP_LogEntry_PrivateData_TechnologyStatusVSgMd, &_s10ALProtobuf41CLP_LogEntry_PrivateData_TechnologyStatusVSgMR);
+  outlined assign with take of Proto_Gpsd_Response?(v6, v9 + v13, &_s10ALProtobuf41CLP_LogEntry_PrivateData_TechnologyStatusVSgMd, &_s10ALProtobuf41CLP_LogEntry_PrivateData_TechnologyStatusVSgMR);
   return swift_endAccess();
 }
 
@@ -9959,74 +7454,2514 @@ void CLP_LogEntry_PrivateData_Location.status.modify(uint64_t *a1, char a2)
   {
     v4 = *(v2 + 72);
     outlined init with copy of CLP_LogEntry_PrivateData_TimeStamp(*(v2 + 120), *(v2 + 112), type metadata accessor for CLP_LogEntry_PrivateData_TechnologyStatus);
-    v5 = *(v4 + v3);
     isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-    v7 = *(v4 + v3);
+    v6 = *(v4 + v3);
     if ((isUniquelyReferenced_nonNull_native & 1) == 0)
     {
-      v8 = *(v2 + 128);
-      v9 = *(v2 + 72);
-      v10 = type metadata accessor for CLP_LogEntry_PrivateData_Location._StorageClass(0);
-      v11 = *(v10 + 48);
-      v12 = *(v10 + 52);
-      v13 = swift_allocObject();
-      CLP_LogEntry_PrivateData_Location._StorageClass.init(copying:)(v7);
-      *(v9 + v8) = v13;
-      v7 = v13;
+      v7 = *(v2 + 128);
+      v8 = *(v2 + 72);
+      type metadata accessor for CLP_LogEntry_PrivateData_Location._StorageClass(0);
+      v9 = swift_allocObject();
+      CLP_LogEntry_PrivateData_Location._StorageClass.init(copying:)(v6);
+      *(v8 + v7) = v9;
+      v6 = v9;
     }
 
-    v15 = *(v2 + 112);
-    v14 = *(v2 + 120);
-    v16 = *(v2 + 96);
-    v17 = *(v2 + 104);
-    v19 = *(v2 + 80);
-    v18 = *(v2 + 88);
-    outlined init with take of CLP_LogEntry_PrivateData_TimeStamp(v15, v19, type metadata accessor for CLP_LogEntry_PrivateData_TechnologyStatus);
-    (*(v17 + 56))(v19, 0, 1, v16);
-    v20 = OBJC_IVAR____TtCV10ALProtobuf33CLP_LogEntry_PrivateData_LocationP33_993346AF53650622B255AB1E3C41340D13_StorageClass__status;
+    v11 = *(v2 + 112);
+    v10 = *(v2 + 120);
+    v12 = *(v2 + 96);
+    v13 = *(v2 + 104);
+    v15 = *(v2 + 80);
+    v14 = *(v2 + 88);
+    outlined init with take of CLP_LogEntry_PrivateData_TimeStamp(v11, v15, type metadata accessor for CLP_LogEntry_PrivateData_TechnologyStatus);
+    (*(v13 + 56))(v15, 0, 1, v12);
+    v16 = OBJC_IVAR____TtCV10ALProtobuf33CLP_LogEntry_PrivateData_LocationP33_993346AF53650622B255AB1E3C41340D13_StorageClass__status;
     swift_beginAccess();
-    outlined assign with take of Proto_Gpsd_Response?(v19, v7 + v20, &_s10ALProtobuf41CLP_LogEntry_PrivateData_TechnologyStatusVSgMd, &_s10ALProtobuf41CLP_LogEntry_PrivateData_TechnologyStatusVSgMR);
+    outlined assign with take of Proto_Gpsd_Response?(v15, v6 + v16, &_s10ALProtobuf41CLP_LogEntry_PrivateData_TechnologyStatusVSgMd, &_s10ALProtobuf41CLP_LogEntry_PrivateData_TechnologyStatusVSgMR);
     swift_endAccess();
-    outlined destroy of CLP_LogEntry_PrivateData_TimeStamp(v14, type metadata accessor for CLP_LogEntry_PrivateData_TechnologyStatus);
+    outlined destroy of CLP_LogEntry_PrivateData_TimeStamp(v10, type metadata accessor for CLP_LogEntry_PrivateData_TechnologyStatus);
   }
 
   else
   {
-    v21 = *(v2 + 72);
-    v22 = *(v21 + v3);
-    v23 = swift_isUniquelyReferenced_nonNull_native();
-    v24 = *(v21 + v3);
-    if ((v23 & 1) == 0)
+    v17 = *(v2 + 72);
+    v18 = swift_isUniquelyReferenced_nonNull_native();
+    v19 = *(v17 + v3);
+    if ((v18 & 1) == 0)
     {
-      v25 = *(v2 + 128);
-      v26 = *(v2 + 72);
-      v27 = type metadata accessor for CLP_LogEntry_PrivateData_Location._StorageClass(0);
-      v28 = *(v27 + 48);
-      v29 = *(v27 + 52);
-      v30 = swift_allocObject();
-      CLP_LogEntry_PrivateData_Location._StorageClass.init(copying:)(v24);
-      *(v26 + v25) = v30;
-      v24 = v30;
+      v20 = *(v2 + 128);
+      v21 = *(v2 + 72);
+      type metadata accessor for CLP_LogEntry_PrivateData_Location._StorageClass(0);
+      v22 = swift_allocObject();
+      CLP_LogEntry_PrivateData_Location._StorageClass.init(copying:)(v19);
+      *(v21 + v20) = v22;
+      v19 = v22;
     }
 
-    v15 = *(v2 + 112);
-    v14 = *(v2 + 120);
-    v31 = *(v2 + 96);
-    v32 = *(v2 + 104);
-    v19 = *(v2 + 80);
-    v18 = *(v2 + 88);
-    outlined init with take of CLP_LogEntry_PrivateData_TimeStamp(v14, v19, type metadata accessor for CLP_LogEntry_PrivateData_TechnologyStatus);
-    (*(v32 + 56))(v19, 0, 1, v31);
-    v33 = OBJC_IVAR____TtCV10ALProtobuf33CLP_LogEntry_PrivateData_LocationP33_993346AF53650622B255AB1E3C41340D13_StorageClass__status;
+    v11 = *(v2 + 112);
+    v10 = *(v2 + 120);
+    v23 = *(v2 + 96);
+    v24 = *(v2 + 104);
+    v15 = *(v2 + 80);
+    v14 = *(v2 + 88);
+    outlined init with take of CLP_LogEntry_PrivateData_TimeStamp(v10, v15, type metadata accessor for CLP_LogEntry_PrivateData_TechnologyStatus);
+    (*(v24 + 56))(v15, 0, 1, v23);
+    v25 = OBJC_IVAR____TtCV10ALProtobuf33CLP_LogEntry_PrivateData_LocationP33_993346AF53650622B255AB1E3C41340D13_StorageClass__status;
     swift_beginAccess();
-    outlined assign with take of Proto_Gpsd_Response?(v19, v24 + v33, &_s10ALProtobuf41CLP_LogEntry_PrivateData_TechnologyStatusVSgMd, &_s10ALProtobuf41CLP_LogEntry_PrivateData_TechnologyStatusVSgMR);
+    outlined assign with take of Proto_Gpsd_Response?(v15, v19 + v25, &_s10ALProtobuf41CLP_LogEntry_PrivateData_TechnologyStatusVSgMd, &_s10ALProtobuf41CLP_LogEntry_PrivateData_TechnologyStatusVSgMR);
     swift_endAccess();
   }
 
+  free(v10);
+  free(v11);
   free(v14);
   free(v15);
-  free(v18);
-  free(v19);
 
   free(v2);
+}
+
+BOOL CLP_LogEntry_PrivateData_Location.hasStatus.getter()
+{
+  v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf41CLP_LogEntry_PrivateData_TechnologyStatusVSgMd, &_s10ALProtobuf41CLP_LogEntry_PrivateData_TechnologyStatusVSgMR);
+  MEMORY[0x28223BE20](v1 - 8);
+  v3 = &v9 - v2;
+  v4 = *(v0 + *(type metadata accessor for CLP_LogEntry_PrivateData_Location(0) + 20));
+  v5 = OBJC_IVAR____TtCV10ALProtobuf33CLP_LogEntry_PrivateData_LocationP33_993346AF53650622B255AB1E3C41340D13_StorageClass__status;
+  swift_beginAccess();
+  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v4 + v5, v3, &_s10ALProtobuf41CLP_LogEntry_PrivateData_TechnologyStatusVSgMd, &_s10ALProtobuf41CLP_LogEntry_PrivateData_TechnologyStatusVSgMR);
+  v6 = type metadata accessor for CLP_LogEntry_PrivateData_TechnologyStatus(0);
+  v7 = (*(*(v6 - 8) + 48))(v3, 1, v6) != 1;
+  outlined destroy of Any?(v3, &_s10ALProtobuf41CLP_LogEntry_PrivateData_TechnologyStatusVSgMd, &_s10ALProtobuf41CLP_LogEntry_PrivateData_TechnologyStatusVSgMR);
+  return v7;
+}
+
+Swift::Void __swiftcall CLP_LogEntry_PrivateData_Location.clearStatus()()
+{
+  v1 = v0;
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf41CLP_LogEntry_PrivateData_TechnologyStatusVSgMd, &_s10ALProtobuf41CLP_LogEntry_PrivateData_TechnologyStatusVSgMR);
+  MEMORY[0x28223BE20](v2 - 8);
+  v4 = &v12 - v3;
+  v5 = *(type metadata accessor for CLP_LogEntry_PrivateData_Location(0) + 20);
+  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+  v7 = *(v0 + v5);
+  if ((isUniquelyReferenced_nonNull_native & 1) == 0)
+  {
+    type metadata accessor for CLP_LogEntry_PrivateData_Location._StorageClass(0);
+    v8 = swift_allocObject();
+    v9 = v7;
+    v7 = v8;
+    CLP_LogEntry_PrivateData_Location._StorageClass.init(copying:)(v9);
+    *(v1 + v5) = v8;
+  }
+
+  v10 = type metadata accessor for CLP_LogEntry_PrivateData_TechnologyStatus(0);
+  (*(*(v10 - 8) + 56))(v4, 1, 1, v10);
+  v11 = OBJC_IVAR____TtCV10ALProtobuf33CLP_LogEntry_PrivateData_LocationP33_993346AF53650622B255AB1E3C41340D13_StorageClass__status;
+  swift_beginAccess();
+  outlined assign with take of Proto_Gpsd_Response?(v4, v7 + v11, &_s10ALProtobuf41CLP_LogEntry_PrivateData_TechnologyStatusVSgMd, &_s10ALProtobuf41CLP_LogEntry_PrivateData_TechnologyStatusVSgMR);
+  swift_endAccess();
+}
+
+void (*CLP_LogEntry_PrivateData_Location.active.modify(uint64_t *a1))(uint64_t *a1, uint64_t a2)
+{
+  if (MEMORY[0x277D84FD8])
+  {
+    v3 = swift_coroFrameAlloc();
+  }
+
+  else
+  {
+    v3 = malloc(0x58uLL);
+  }
+
+  v4 = v3;
+  *a1 = v3;
+  *(v3 + 72) = v1;
+  v5 = *(type metadata accessor for CLP_LogEntry_PrivateData_Location(0) + 20);
+  *(v4 + 80) = v5;
+  v6 = *(v1 + v5);
+  v7 = OBJC_IVAR____TtCV10ALProtobuf33CLP_LogEntry_PrivateData_LocationP33_993346AF53650622B255AB1E3C41340D13_StorageClass__active;
+  swift_beginAccess();
+  *(v4 + 84) = *(v6 + v7) & 1;
+  return CLP_LogEntry_PrivateData_Location.active.modify;
+}
+
+Swift::Void __swiftcall CLP_LogEntry_PrivateData_Location.clearActive()()
+{
+  v1 = v0;
+  v2 = *(type metadata accessor for CLP_LogEntry_PrivateData_Location(0) + 20);
+  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+  v4 = *(v0 + v2);
+  if ((isUniquelyReferenced_nonNull_native & 1) == 0)
+  {
+    type metadata accessor for CLP_LogEntry_PrivateData_Location._StorageClass(0);
+    v5 = swift_allocObject();
+    CLP_LogEntry_PrivateData_Location._StorageClass.init(copying:)(v4);
+    *(v1 + v2) = v5;
+    v4 = v5;
+  }
+
+  v6 = OBJC_IVAR____TtCV10ALProtobuf33CLP_LogEntry_PrivateData_LocationP33_993346AF53650622B255AB1E3C41340D13_StorageClass__active;
+  swift_beginAccess();
+  *(v4 + v6) = 2;
+}
+
+void (*CLP_LogEntry_PrivateData_Location.odometer.modify(uint64_t *a1))(uint64_t *a1, uint64_t a2)
+{
+  if (MEMORY[0x277D84FD8])
+  {
+    v3 = swift_coroFrameAlloc();
+  }
+
+  else
+  {
+    v3 = malloc(0x60uLL);
+  }
+
+  v4 = v3;
+  *a1 = v3;
+  *(v3 + 80) = v1;
+  v5 = *(type metadata accessor for CLP_LogEntry_PrivateData_Location(0) + 20);
+  *(v4 + 88) = v5;
+  v6 = *(v1 + v5) + OBJC_IVAR____TtCV10ALProtobuf33CLP_LogEntry_PrivateData_LocationP33_993346AF53650622B255AB1E3C41340D13_StorageClass__odometer;
+  swift_beginAccess();
+  v7 = *v6;
+  if (*(v6 + 8))
+  {
+    v7 = 0.0;
+  }
+
+  *(v4 + 72) = v7;
+  return CLP_LogEntry_PrivateData_Location.odometer.modify;
+}
+
+void (*CLP_LogEntry_PrivateData_Location.signalQuality.modify(uint64_t *a1))(uint64_t *a1, uint64_t a2)
+{
+  if (MEMORY[0x277D84FD8])
+  {
+    v3 = swift_coroFrameAlloc();
+  }
+
+  else
+  {
+    v3 = malloc(0x58uLL);
+  }
+
+  v4 = v3;
+  *a1 = v3;
+  *(v3 + 72) = v1;
+  v5 = *(type metadata accessor for CLP_LogEntry_PrivateData_Location(0) + 20);
+  *(v4 + 80) = v5;
+  v6 = *(v1 + v5);
+  v7 = OBJC_IVAR____TtCV10ALProtobuf33CLP_LogEntry_PrivateData_LocationP33_993346AF53650622B255AB1E3C41340D13_StorageClass__signalQuality;
+  swift_beginAccess();
+  v8 = *(v6 + v7);
+  if (v8 == 3)
+  {
+    LOBYTE(v8) = 0;
+  }
+
+  *(v4 + 84) = v8;
+  return CLP_LogEntry_PrivateData_Location.signalQuality.modify;
+}
+
+Swift::Void __swiftcall CLP_LogEntry_PrivateData_Location.clearSignalQuality()()
+{
+  v1 = v0;
+  v2 = *(type metadata accessor for CLP_LogEntry_PrivateData_Location(0) + 20);
+  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+  v4 = *(v0 + v2);
+  if ((isUniquelyReferenced_nonNull_native & 1) == 0)
+  {
+    type metadata accessor for CLP_LogEntry_PrivateData_Location._StorageClass(0);
+    v5 = swift_allocObject();
+    CLP_LogEntry_PrivateData_Location._StorageClass.init(copying:)(v4);
+    *(v1 + v2) = v5;
+    v4 = v5;
+  }
+
+  v6 = OBJC_IVAR____TtCV10ALProtobuf33CLP_LogEntry_PrivateData_LocationP33_993346AF53650622B255AB1E3C41340D13_StorageClass__signalQuality;
+  swift_beginAccess();
+  *(v4 + v6) = 3;
+}
+
+uint64_t CLP_LogEntry_PrivateData_Location.vehicleSpeed.getter@<X0>(uint64_t a1@<X8>)
+{
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf37CLP_LogEntry_PrivateData_VehicleSpeedVSgMd, &_s10ALProtobuf37CLP_LogEntry_PrivateData_VehicleSpeedVSgMR);
+  MEMORY[0x28223BE20](v3 - 8);
+  v5 = &v15 - v4;
+  v6 = *(v1 + *(type metadata accessor for CLP_LogEntry_PrivateData_Location(0) + 20));
+  v7 = OBJC_IVAR____TtCV10ALProtobuf33CLP_LogEntry_PrivateData_LocationP33_993346AF53650622B255AB1E3C41340D13_StorageClass__vehicleSpeed;
+  swift_beginAccess();
+  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v6 + v7, v5, &_s10ALProtobuf37CLP_LogEntry_PrivateData_VehicleSpeedVSgMd, &_s10ALProtobuf37CLP_LogEntry_PrivateData_VehicleSpeedVSgMR);
+  v8 = type metadata accessor for CLP_LogEntry_PrivateData_VehicleSpeed(0);
+  v9 = *(*(v8 - 1) + 48);
+  if (v9(v5, 1, v8) != 1)
+  {
+    return outlined init with take of CLP_LogEntry_PrivateData_TimeStamp(v5, a1, type metadata accessor for CLP_LogEntry_PrivateData_VehicleSpeed);
+  }
+
+  UnknownStorage.init()();
+  v10 = a1 + v8[5];
+  *v10 = 0;
+  *(v10 + 8) = 1;
+  v11 = a1 + v8[6];
+  *v11 = 0;
+  *(v11 + 8) = 1;
+  v12 = a1 + v8[7];
+  *v12 = 0;
+  *(v12 + 8) = 1;
+  v13 = a1 + v8[8];
+  *v13 = 0;
+  *(v13 + 8) = 1;
+  result = (v9)(v5, 1, v8);
+  if (result != 1)
+  {
+    return outlined destroy of Any?(v5, &_s10ALProtobuf37CLP_LogEntry_PrivateData_VehicleSpeedVSgMd, &_s10ALProtobuf37CLP_LogEntry_PrivateData_VehicleSpeedVSgMR);
+  }
+
+  return result;
+}
+
+uint64_t CLP_LogEntry_PrivateData_Location.vehicleSpeed.setter(uint64_t a1)
+{
+  v2 = v1;
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf37CLP_LogEntry_PrivateData_VehicleSpeedVSgMd, &_s10ALProtobuf37CLP_LogEntry_PrivateData_VehicleSpeedVSgMR);
+  MEMORY[0x28223BE20](v4 - 8);
+  v6 = &v15 - v5;
+  v7 = *(type metadata accessor for CLP_LogEntry_PrivateData_Location(0) + 20);
+  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+  v9 = *(v1 + v7);
+  if ((isUniquelyReferenced_nonNull_native & 1) == 0)
+  {
+    type metadata accessor for CLP_LogEntry_PrivateData_Location._StorageClass(0);
+    v10 = swift_allocObject();
+    v11 = v9;
+    v9 = v10;
+    CLP_LogEntry_PrivateData_Location._StorageClass.init(copying:)(v11);
+    *(v2 + v7) = v10;
+  }
+
+  outlined init with take of CLP_LogEntry_PrivateData_TimeStamp(a1, v6, type metadata accessor for CLP_LogEntry_PrivateData_VehicleSpeed);
+  v12 = type metadata accessor for CLP_LogEntry_PrivateData_VehicleSpeed(0);
+  (*(*(v12 - 8) + 56))(v6, 0, 1, v12);
+  v13 = OBJC_IVAR____TtCV10ALProtobuf33CLP_LogEntry_PrivateData_LocationP33_993346AF53650622B255AB1E3C41340D13_StorageClass__vehicleSpeed;
+  swift_beginAccess();
+  outlined assign with take of Proto_Gpsd_Response?(v6, v9 + v13, &_s10ALProtobuf37CLP_LogEntry_PrivateData_VehicleSpeedVSgMd, &_s10ALProtobuf37CLP_LogEntry_PrivateData_VehicleSpeedVSgMR);
+  return swift_endAccess();
+}
+
+void (*CLP_LogEntry_PrivateData_Location.vehicleSpeed.modify(uint64_t *a1))(uint64_t *a1, char a2)
+{
+  v3 = MEMORY[0x277D84FD8];
+  if (MEMORY[0x277D84FD8])
+  {
+    v4 = swift_coroFrameAlloc();
+  }
+
+  else
+  {
+    v4 = malloc(0x88uLL);
+  }
+
+  v5 = v4;
+  *a1 = v4;
+  *(v4 + 72) = v1;
+  v6 = *(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf37CLP_LogEntry_PrivateData_VehicleSpeedVSgMd, &_s10ALProtobuf37CLP_LogEntry_PrivateData_VehicleSpeedVSgMR) - 8) + 64);
+  if (v3)
+  {
+    *(v5 + 80) = swift_coroFrameAlloc();
+    v7 = swift_coroFrameAlloc();
+  }
+
+  else
+  {
+    *(v5 + 80) = malloc(v6);
+    v7 = malloc(v6);
+  }
+
+  v8 = v7;
+  *(v5 + 88) = v7;
+  v9 = type metadata accessor for CLP_LogEntry_PrivateData_VehicleSpeed(0);
+  *(v5 + 96) = v9;
+  v10 = *(v9 - 1);
+  v11 = v10;
+  *(v5 + 104) = v10;
+  v12 = *(v10 + 64);
+  if (v3)
+  {
+    *(v5 + 112) = swift_coroFrameAlloc();
+    v13 = swift_coroFrameAlloc();
+  }
+
+  else
+  {
+    *(v5 + 112) = malloc(*(v10 + 64));
+    v13 = malloc(v12);
+  }
+
+  v14 = v13;
+  *(v5 + 120) = v13;
+  v15 = *(type metadata accessor for CLP_LogEntry_PrivateData_Location(0) + 20);
+  *(v5 + 128) = v15;
+  v16 = *(v1 + v15);
+  v17 = OBJC_IVAR____TtCV10ALProtobuf33CLP_LogEntry_PrivateData_LocationP33_993346AF53650622B255AB1E3C41340D13_StorageClass__vehicleSpeed;
+  swift_beginAccess();
+  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v16 + v17, v8, &_s10ALProtobuf37CLP_LogEntry_PrivateData_VehicleSpeedVSgMd, &_s10ALProtobuf37CLP_LogEntry_PrivateData_VehicleSpeedVSgMR);
+  v18 = *(v11 + 48);
+  if (v18(v8, 1, v9) == 1)
+  {
+    UnknownStorage.init()();
+    v19 = v14 + v9[5];
+    *v19 = 0;
+    *(v19 + 8) = 1;
+    v20 = v14 + v9[6];
+    *v20 = 0;
+    *(v20 + 8) = 1;
+    v21 = v14 + v9[7];
+    *v21 = 0;
+    *(v21 + 8) = 1;
+    v22 = v14 + v9[8];
+    *v22 = 0;
+    *(v22 + 8) = 1;
+    if (v18(v8, 1, v9) != 1)
+    {
+      outlined destroy of Any?(v8, &_s10ALProtobuf37CLP_LogEntry_PrivateData_VehicleSpeedVSgMd, &_s10ALProtobuf37CLP_LogEntry_PrivateData_VehicleSpeedVSgMR);
+    }
+  }
+
+  else
+  {
+    outlined init with take of CLP_LogEntry_PrivateData_TimeStamp(v8, v14, type metadata accessor for CLP_LogEntry_PrivateData_VehicleSpeed);
+  }
+
+  return CLP_LogEntry_PrivateData_Location.vehicleSpeed.modify;
+}
+
+void CLP_LogEntry_PrivateData_Location.vehicleSpeed.modify(uint64_t *a1, char a2)
+{
+  v2 = *a1;
+  v3 = *(*a1 + 128);
+  if (a2)
+  {
+    v4 = *(v2 + 72);
+    outlined init with copy of CLP_LogEntry_PrivateData_TimeStamp(*(v2 + 120), *(v2 + 112), type metadata accessor for CLP_LogEntry_PrivateData_VehicleSpeed);
+    isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+    v6 = *(v4 + v3);
+    if ((isUniquelyReferenced_nonNull_native & 1) == 0)
+    {
+      v7 = *(v2 + 128);
+      v8 = *(v2 + 72);
+      type metadata accessor for CLP_LogEntry_PrivateData_Location._StorageClass(0);
+      v9 = swift_allocObject();
+      CLP_LogEntry_PrivateData_Location._StorageClass.init(copying:)(v6);
+      *(v8 + v7) = v9;
+      v6 = v9;
+    }
+
+    v11 = *(v2 + 112);
+    v10 = *(v2 + 120);
+    v12 = *(v2 + 96);
+    v13 = *(v2 + 104);
+    v15 = *(v2 + 80);
+    v14 = *(v2 + 88);
+    outlined init with take of CLP_LogEntry_PrivateData_TimeStamp(v11, v15, type metadata accessor for CLP_LogEntry_PrivateData_VehicleSpeed);
+    (*(v13 + 56))(v15, 0, 1, v12);
+    v16 = OBJC_IVAR____TtCV10ALProtobuf33CLP_LogEntry_PrivateData_LocationP33_993346AF53650622B255AB1E3C41340D13_StorageClass__vehicleSpeed;
+    swift_beginAccess();
+    outlined assign with take of Proto_Gpsd_Response?(v15, v6 + v16, &_s10ALProtobuf37CLP_LogEntry_PrivateData_VehicleSpeedVSgMd, &_s10ALProtobuf37CLP_LogEntry_PrivateData_VehicleSpeedVSgMR);
+    swift_endAccess();
+    outlined destroy of CLP_LogEntry_PrivateData_TimeStamp(v10, type metadata accessor for CLP_LogEntry_PrivateData_VehicleSpeed);
+  }
+
+  else
+  {
+    v17 = *(v2 + 72);
+    v18 = swift_isUniquelyReferenced_nonNull_native();
+    v19 = *(v17 + v3);
+    if ((v18 & 1) == 0)
+    {
+      v20 = *(v2 + 128);
+      v21 = *(v2 + 72);
+      type metadata accessor for CLP_LogEntry_PrivateData_Location._StorageClass(0);
+      v22 = swift_allocObject();
+      CLP_LogEntry_PrivateData_Location._StorageClass.init(copying:)(v19);
+      *(v21 + v20) = v22;
+      v19 = v22;
+    }
+
+    v11 = *(v2 + 112);
+    v10 = *(v2 + 120);
+    v23 = *(v2 + 96);
+    v24 = *(v2 + 104);
+    v15 = *(v2 + 80);
+    v14 = *(v2 + 88);
+    outlined init with take of CLP_LogEntry_PrivateData_TimeStamp(v10, v15, type metadata accessor for CLP_LogEntry_PrivateData_VehicleSpeed);
+    (*(v24 + 56))(v15, 0, 1, v23);
+    v25 = OBJC_IVAR____TtCV10ALProtobuf33CLP_LogEntry_PrivateData_LocationP33_993346AF53650622B255AB1E3C41340D13_StorageClass__vehicleSpeed;
+    swift_beginAccess();
+    outlined assign with take of Proto_Gpsd_Response?(v15, v19 + v25, &_s10ALProtobuf37CLP_LogEntry_PrivateData_VehicleSpeedVSgMd, &_s10ALProtobuf37CLP_LogEntry_PrivateData_VehicleSpeedVSgMR);
+    swift_endAccess();
+  }
+
+  free(v10);
+  free(v11);
+  free(v14);
+  free(v15);
+
+  free(v2);
+}
+
+BOOL CLP_LogEntry_PrivateData_Location.hasVehicleSpeed.getter()
+{
+  v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf37CLP_LogEntry_PrivateData_VehicleSpeedVSgMd, &_s10ALProtobuf37CLP_LogEntry_PrivateData_VehicleSpeedVSgMR);
+  MEMORY[0x28223BE20](v1 - 8);
+  v3 = &v9 - v2;
+  v4 = *(v0 + *(type metadata accessor for CLP_LogEntry_PrivateData_Location(0) + 20));
+  v5 = OBJC_IVAR____TtCV10ALProtobuf33CLP_LogEntry_PrivateData_LocationP33_993346AF53650622B255AB1E3C41340D13_StorageClass__vehicleSpeed;
+  swift_beginAccess();
+  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v4 + v5, v3, &_s10ALProtobuf37CLP_LogEntry_PrivateData_VehicleSpeedVSgMd, &_s10ALProtobuf37CLP_LogEntry_PrivateData_VehicleSpeedVSgMR);
+  v6 = type metadata accessor for CLP_LogEntry_PrivateData_VehicleSpeed(0);
+  v7 = (*(*(v6 - 8) + 48))(v3, 1, v6) != 1;
+  outlined destroy of Any?(v3, &_s10ALProtobuf37CLP_LogEntry_PrivateData_VehicleSpeedVSgMd, &_s10ALProtobuf37CLP_LogEntry_PrivateData_VehicleSpeedVSgMR);
+  return v7;
+}
+
+Swift::Void __swiftcall CLP_LogEntry_PrivateData_Location.clearVehicleSpeed()()
+{
+  v1 = v0;
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf37CLP_LogEntry_PrivateData_VehicleSpeedVSgMd, &_s10ALProtobuf37CLP_LogEntry_PrivateData_VehicleSpeedVSgMR);
+  MEMORY[0x28223BE20](v2 - 8);
+  v4 = &v12 - v3;
+  v5 = *(type metadata accessor for CLP_LogEntry_PrivateData_Location(0) + 20);
+  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+  v7 = *(v0 + v5);
+  if ((isUniquelyReferenced_nonNull_native & 1) == 0)
+  {
+    type metadata accessor for CLP_LogEntry_PrivateData_Location._StorageClass(0);
+    v8 = swift_allocObject();
+    v9 = v7;
+    v7 = v8;
+    CLP_LogEntry_PrivateData_Location._StorageClass.init(copying:)(v9);
+    *(v1 + v5) = v8;
+  }
+
+  v10 = type metadata accessor for CLP_LogEntry_PrivateData_VehicleSpeed(0);
+  (*(*(v10 - 8) + 56))(v4, 1, 1, v10);
+  v11 = OBJC_IVAR____TtCV10ALProtobuf33CLP_LogEntry_PrivateData_LocationP33_993346AF53650622B255AB1E3C41340D13_StorageClass__vehicleSpeed;
+  swift_beginAccess();
+  outlined assign with take of Proto_Gpsd_Response?(v4, v7 + v11, &_s10ALProtobuf37CLP_LogEntry_PrivateData_VehicleSpeedVSgMd, &_s10ALProtobuf37CLP_LogEntry_PrivateData_VehicleSpeedVSgMR);
+  swift_endAccess();
+}
+
+uint64_t CLP_LogEntry_PrivateData_Location.vehicleHeading.getter@<X0>(uint64_t a1@<X8>)
+{
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf39CLP_LogEntry_PrivateData_VehicleHeadingVSgMd, &_s10ALProtobuf39CLP_LogEntry_PrivateData_VehicleHeadingVSgMR);
+  MEMORY[0x28223BE20](v3 - 8);
+  v5 = &v13 - v4;
+  v6 = *(v1 + *(type metadata accessor for CLP_LogEntry_PrivateData_Location(0) + 20));
+  v7 = OBJC_IVAR____TtCV10ALProtobuf33CLP_LogEntry_PrivateData_LocationP33_993346AF53650622B255AB1E3C41340D13_StorageClass__vehicleHeading;
+  swift_beginAccess();
+  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v6 + v7, v5, &_s10ALProtobuf39CLP_LogEntry_PrivateData_VehicleHeadingVSgMd, &_s10ALProtobuf39CLP_LogEntry_PrivateData_VehicleHeadingVSgMR);
+  v8 = type metadata accessor for CLP_LogEntry_PrivateData_VehicleHeading(0);
+  v9 = *(*(v8 - 8) + 48);
+  if (v9(v5, 1, v8) != 1)
+  {
+    return outlined init with take of CLP_LogEntry_PrivateData_TimeStamp(v5, a1, type metadata accessor for CLP_LogEntry_PrivateData_VehicleHeading);
+  }
+
+  UnknownStorage.init()();
+  v10 = a1 + *(v8 + 20);
+  *v10 = 0;
+  *(v10 + 8) = 1;
+  v11 = a1 + *(v8 + 24);
+  *v11 = 0;
+  *(v11 + 8) = 1;
+  result = (v9)(v5, 1, v8);
+  if (result != 1)
+  {
+    return outlined destroy of Any?(v5, &_s10ALProtobuf39CLP_LogEntry_PrivateData_VehicleHeadingVSgMd, &_s10ALProtobuf39CLP_LogEntry_PrivateData_VehicleHeadingVSgMR);
+  }
+
+  return result;
+}
+
+uint64_t CLP_LogEntry_PrivateData_Location.vehicleHeading.setter(uint64_t a1)
+{
+  v2 = v1;
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf39CLP_LogEntry_PrivateData_VehicleHeadingVSgMd, &_s10ALProtobuf39CLP_LogEntry_PrivateData_VehicleHeadingVSgMR);
+  MEMORY[0x28223BE20](v4 - 8);
+  v6 = &v15 - v5;
+  v7 = *(type metadata accessor for CLP_LogEntry_PrivateData_Location(0) + 20);
+  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+  v9 = *(v1 + v7);
+  if ((isUniquelyReferenced_nonNull_native & 1) == 0)
+  {
+    type metadata accessor for CLP_LogEntry_PrivateData_Location._StorageClass(0);
+    v10 = swift_allocObject();
+    v11 = v9;
+    v9 = v10;
+    CLP_LogEntry_PrivateData_Location._StorageClass.init(copying:)(v11);
+    *(v2 + v7) = v10;
+  }
+
+  outlined init with take of CLP_LogEntry_PrivateData_TimeStamp(a1, v6, type metadata accessor for CLP_LogEntry_PrivateData_VehicleHeading);
+  v12 = type metadata accessor for CLP_LogEntry_PrivateData_VehicleHeading(0);
+  (*(*(v12 - 8) + 56))(v6, 0, 1, v12);
+  v13 = OBJC_IVAR____TtCV10ALProtobuf33CLP_LogEntry_PrivateData_LocationP33_993346AF53650622B255AB1E3C41340D13_StorageClass__vehicleHeading;
+  swift_beginAccess();
+  outlined assign with take of Proto_Gpsd_Response?(v6, v9 + v13, &_s10ALProtobuf39CLP_LogEntry_PrivateData_VehicleHeadingVSgMd, &_s10ALProtobuf39CLP_LogEntry_PrivateData_VehicleHeadingVSgMR);
+  return swift_endAccess();
+}
+
+void (*CLP_LogEntry_PrivateData_Location.vehicleHeading.modify(uint64_t *a1))(uint64_t *a1, char a2)
+{
+  v3 = MEMORY[0x277D84FD8];
+  if (MEMORY[0x277D84FD8])
+  {
+    v4 = swift_coroFrameAlloc();
+  }
+
+  else
+  {
+    v4 = malloc(0x88uLL);
+  }
+
+  v5 = v4;
+  *a1 = v4;
+  *(v4 + 72) = v1;
+  v6 = *(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf39CLP_LogEntry_PrivateData_VehicleHeadingVSgMd, &_s10ALProtobuf39CLP_LogEntry_PrivateData_VehicleHeadingVSgMR) - 8) + 64);
+  if (v3)
+  {
+    *(v5 + 80) = swift_coroFrameAlloc();
+    v7 = swift_coroFrameAlloc();
+  }
+
+  else
+  {
+    *(v5 + 80) = malloc(v6);
+    v7 = malloc(v6);
+  }
+
+  v8 = v7;
+  *(v5 + 88) = v7;
+  v9 = type metadata accessor for CLP_LogEntry_PrivateData_VehicleHeading(0);
+  *(v5 + 96) = v9;
+  v10 = *(v9 - 8);
+  v11 = v10;
+  *(v5 + 104) = v10;
+  v12 = *(v10 + 64);
+  if (v3)
+  {
+    *(v5 + 112) = swift_coroFrameAlloc();
+    v13 = swift_coroFrameAlloc();
+  }
+
+  else
+  {
+    *(v5 + 112) = malloc(*(v10 + 64));
+    v13 = malloc(v12);
+  }
+
+  v14 = v13;
+  *(v5 + 120) = v13;
+  v15 = *(type metadata accessor for CLP_LogEntry_PrivateData_Location(0) + 20);
+  *(v5 + 128) = v15;
+  v16 = *(v1 + v15);
+  v17 = OBJC_IVAR____TtCV10ALProtobuf33CLP_LogEntry_PrivateData_LocationP33_993346AF53650622B255AB1E3C41340D13_StorageClass__vehicleHeading;
+  swift_beginAccess();
+  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v16 + v17, v8, &_s10ALProtobuf39CLP_LogEntry_PrivateData_VehicleHeadingVSgMd, &_s10ALProtobuf39CLP_LogEntry_PrivateData_VehicleHeadingVSgMR);
+  v18 = *(v11 + 48);
+  if (v18(v8, 1, v9) == 1)
+  {
+    UnknownStorage.init()();
+    v19 = v14 + *(v9 + 20);
+    *v19 = 0;
+    *(v19 + 8) = 1;
+    v20 = v14 + *(v9 + 24);
+    *v20 = 0;
+    *(v20 + 8) = 1;
+    if (v18(v8, 1, v9) != 1)
+    {
+      outlined destroy of Any?(v8, &_s10ALProtobuf39CLP_LogEntry_PrivateData_VehicleHeadingVSgMd, &_s10ALProtobuf39CLP_LogEntry_PrivateData_VehicleHeadingVSgMR);
+    }
+  }
+
+  else
+  {
+    outlined init with take of CLP_LogEntry_PrivateData_TimeStamp(v8, v14, type metadata accessor for CLP_LogEntry_PrivateData_VehicleHeading);
+  }
+
+  return CLP_LogEntry_PrivateData_Location.vehicleHeading.modify;
+}
+
+void CLP_LogEntry_PrivateData_Location.vehicleHeading.modify(uint64_t *a1, char a2)
+{
+  v2 = *a1;
+  v3 = *(*a1 + 128);
+  if (a2)
+  {
+    v4 = *(v2 + 72);
+    outlined init with copy of CLP_LogEntry_PrivateData_TimeStamp(*(v2 + 120), *(v2 + 112), type metadata accessor for CLP_LogEntry_PrivateData_VehicleHeading);
+    isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+    v6 = *(v4 + v3);
+    if ((isUniquelyReferenced_nonNull_native & 1) == 0)
+    {
+      v7 = *(v2 + 128);
+      v8 = *(v2 + 72);
+      type metadata accessor for CLP_LogEntry_PrivateData_Location._StorageClass(0);
+      v9 = swift_allocObject();
+      CLP_LogEntry_PrivateData_Location._StorageClass.init(copying:)(v6);
+      *(v8 + v7) = v9;
+      v6 = v9;
+    }
+
+    v11 = *(v2 + 112);
+    v10 = *(v2 + 120);
+    v12 = *(v2 + 96);
+    v13 = *(v2 + 104);
+    v15 = *(v2 + 80);
+    v14 = *(v2 + 88);
+    outlined init with take of CLP_LogEntry_PrivateData_TimeStamp(v11, v15, type metadata accessor for CLP_LogEntry_PrivateData_VehicleHeading);
+    (*(v13 + 56))(v15, 0, 1, v12);
+    v16 = OBJC_IVAR____TtCV10ALProtobuf33CLP_LogEntry_PrivateData_LocationP33_993346AF53650622B255AB1E3C41340D13_StorageClass__vehicleHeading;
+    swift_beginAccess();
+    outlined assign with take of Proto_Gpsd_Response?(v15, v6 + v16, &_s10ALProtobuf39CLP_LogEntry_PrivateData_VehicleHeadingVSgMd, &_s10ALProtobuf39CLP_LogEntry_PrivateData_VehicleHeadingVSgMR);
+    swift_endAccess();
+    outlined destroy of CLP_LogEntry_PrivateData_TimeStamp(v10, type metadata accessor for CLP_LogEntry_PrivateData_VehicleHeading);
+  }
+
+  else
+  {
+    v17 = *(v2 + 72);
+    v18 = swift_isUniquelyReferenced_nonNull_native();
+    v19 = *(v17 + v3);
+    if ((v18 & 1) == 0)
+    {
+      v20 = *(v2 + 128);
+      v21 = *(v2 + 72);
+      type metadata accessor for CLP_LogEntry_PrivateData_Location._StorageClass(0);
+      v22 = swift_allocObject();
+      CLP_LogEntry_PrivateData_Location._StorageClass.init(copying:)(v19);
+      *(v21 + v20) = v22;
+      v19 = v22;
+    }
+
+    v11 = *(v2 + 112);
+    v10 = *(v2 + 120);
+    v23 = *(v2 + 96);
+    v24 = *(v2 + 104);
+    v15 = *(v2 + 80);
+    v14 = *(v2 + 88);
+    outlined init with take of CLP_LogEntry_PrivateData_TimeStamp(v10, v15, type metadata accessor for CLP_LogEntry_PrivateData_VehicleHeading);
+    (*(v24 + 56))(v15, 0, 1, v23);
+    v25 = OBJC_IVAR____TtCV10ALProtobuf33CLP_LogEntry_PrivateData_LocationP33_993346AF53650622B255AB1E3C41340D13_StorageClass__vehicleHeading;
+    swift_beginAccess();
+    outlined assign with take of Proto_Gpsd_Response?(v15, v19 + v25, &_s10ALProtobuf39CLP_LogEntry_PrivateData_VehicleHeadingVSgMd, &_s10ALProtobuf39CLP_LogEntry_PrivateData_VehicleHeadingVSgMR);
+    swift_endAccess();
+  }
+
+  free(v10);
+  free(v11);
+  free(v14);
+  free(v15);
+
+  free(v2);
+}
+
+BOOL CLP_LogEntry_PrivateData_Location.hasVehicleHeading.getter()
+{
+  v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf39CLP_LogEntry_PrivateData_VehicleHeadingVSgMd, &_s10ALProtobuf39CLP_LogEntry_PrivateData_VehicleHeadingVSgMR);
+  MEMORY[0x28223BE20](v1 - 8);
+  v3 = &v9 - v2;
+  v4 = *(v0 + *(type metadata accessor for CLP_LogEntry_PrivateData_Location(0) + 20));
+  v5 = OBJC_IVAR____TtCV10ALProtobuf33CLP_LogEntry_PrivateData_LocationP33_993346AF53650622B255AB1E3C41340D13_StorageClass__vehicleHeading;
+  swift_beginAccess();
+  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v4 + v5, v3, &_s10ALProtobuf39CLP_LogEntry_PrivateData_VehicleHeadingVSgMd, &_s10ALProtobuf39CLP_LogEntry_PrivateData_VehicleHeadingVSgMR);
+  v6 = type metadata accessor for CLP_LogEntry_PrivateData_VehicleHeading(0);
+  v7 = (*(*(v6 - 8) + 48))(v3, 1, v6) != 1;
+  outlined destroy of Any?(v3, &_s10ALProtobuf39CLP_LogEntry_PrivateData_VehicleHeadingVSgMd, &_s10ALProtobuf39CLP_LogEntry_PrivateData_VehicleHeadingVSgMR);
+  return v7;
+}
+
+Swift::Void __swiftcall CLP_LogEntry_PrivateData_Location.clearVehicleHeading()()
+{
+  v1 = v0;
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf39CLP_LogEntry_PrivateData_VehicleHeadingVSgMd, &_s10ALProtobuf39CLP_LogEntry_PrivateData_VehicleHeadingVSgMR);
+  MEMORY[0x28223BE20](v2 - 8);
+  v4 = &v12 - v3;
+  v5 = *(type metadata accessor for CLP_LogEntry_PrivateData_Location(0) + 20);
+  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+  v7 = *(v0 + v5);
+  if ((isUniquelyReferenced_nonNull_native & 1) == 0)
+  {
+    type metadata accessor for CLP_LogEntry_PrivateData_Location._StorageClass(0);
+    v8 = swift_allocObject();
+    v9 = v7;
+    v7 = v8;
+    CLP_LogEntry_PrivateData_Location._StorageClass.init(copying:)(v9);
+    *(v1 + v5) = v8;
+  }
+
+  v10 = type metadata accessor for CLP_LogEntry_PrivateData_VehicleHeading(0);
+  (*(*(v10 - 8) + 56))(v4, 1, 1, v10);
+  v11 = OBJC_IVAR____TtCV10ALProtobuf33CLP_LogEntry_PrivateData_LocationP33_993346AF53650622B255AB1E3C41340D13_StorageClass__vehicleHeading;
+  swift_beginAccess();
+  outlined assign with take of Proto_Gpsd_Response?(v4, v7 + v11, &_s10ALProtobuf39CLP_LogEntry_PrivateData_VehicleHeadingVSgMd, &_s10ALProtobuf39CLP_LogEntry_PrivateData_VehicleHeadingVSgMR);
+  swift_endAccess();
+}
+
+uint64_t CLP_LogEntry_PrivateData_Location.xtraFileAvailable.getter@<X0>(uint64_t a1@<X8>)
+{
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf42CLP_LogEntry_PrivateData_XtraFileAvailableVSgMd, &_s10ALProtobuf42CLP_LogEntry_PrivateData_XtraFileAvailableVSgMR);
+  MEMORY[0x28223BE20](v3 - 8);
+  v5 = &v13 - v4;
+  v6 = *(v1 + *(type metadata accessor for CLP_LogEntry_PrivateData_Location(0) + 20));
+  v7 = OBJC_IVAR____TtCV10ALProtobuf33CLP_LogEntry_PrivateData_LocationP33_993346AF53650622B255AB1E3C41340D13_StorageClass__xtraFileAvailable;
+  swift_beginAccess();
+  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v6 + v7, v5, &_s10ALProtobuf42CLP_LogEntry_PrivateData_XtraFileAvailableVSgMd, &_s10ALProtobuf42CLP_LogEntry_PrivateData_XtraFileAvailableVSgMR);
+  v8 = type metadata accessor for CLP_LogEntry_PrivateData_XtraFileAvailable(0);
+  v9 = *(*(v8 - 8) + 48);
+  if (v9(v5, 1, v8) != 1)
+  {
+    return outlined init with take of CLP_LogEntry_PrivateData_TimeStamp(v5, a1, type metadata accessor for CLP_LogEntry_PrivateData_XtraFileAvailable);
+  }
+
+  UnknownStorage.init()();
+  v10 = a1 + *(v8 + 20);
+  *v10 = 0;
+  *(v10 + 8) = 1;
+  v11 = (a1 + *(v8 + 24));
+  *v11 = 0;
+  v11[1] = 0;
+  result = (v9)(v5, 1, v8);
+  if (result != 1)
+  {
+    return outlined destroy of Any?(v5, &_s10ALProtobuf42CLP_LogEntry_PrivateData_XtraFileAvailableVSgMd, &_s10ALProtobuf42CLP_LogEntry_PrivateData_XtraFileAvailableVSgMR);
+  }
+
+  return result;
+}
+
+uint64_t CLP_LogEntry_PrivateData_Location.xtraFileAvailable.setter(uint64_t a1)
+{
+  v2 = v1;
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf42CLP_LogEntry_PrivateData_XtraFileAvailableVSgMd, &_s10ALProtobuf42CLP_LogEntry_PrivateData_XtraFileAvailableVSgMR);
+  MEMORY[0x28223BE20](v4 - 8);
+  v6 = &v15 - v5;
+  v7 = *(type metadata accessor for CLP_LogEntry_PrivateData_Location(0) + 20);
+  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+  v9 = *(v1 + v7);
+  if ((isUniquelyReferenced_nonNull_native & 1) == 0)
+  {
+    type metadata accessor for CLP_LogEntry_PrivateData_Location._StorageClass(0);
+    v10 = swift_allocObject();
+    v11 = v9;
+    v9 = v10;
+    CLP_LogEntry_PrivateData_Location._StorageClass.init(copying:)(v11);
+    *(v2 + v7) = v10;
+  }
+
+  outlined init with take of CLP_LogEntry_PrivateData_TimeStamp(a1, v6, type metadata accessor for CLP_LogEntry_PrivateData_XtraFileAvailable);
+  v12 = type metadata accessor for CLP_LogEntry_PrivateData_XtraFileAvailable(0);
+  (*(*(v12 - 8) + 56))(v6, 0, 1, v12);
+  v13 = OBJC_IVAR____TtCV10ALProtobuf33CLP_LogEntry_PrivateData_LocationP33_993346AF53650622B255AB1E3C41340D13_StorageClass__xtraFileAvailable;
+  swift_beginAccess();
+  outlined assign with take of Proto_Gpsd_Response?(v6, v9 + v13, &_s10ALProtobuf42CLP_LogEntry_PrivateData_XtraFileAvailableVSgMd, &_s10ALProtobuf42CLP_LogEntry_PrivateData_XtraFileAvailableVSgMR);
+  return swift_endAccess();
+}
+
+void (*CLP_LogEntry_PrivateData_Location.xtraFileAvailable.modify(uint64_t *a1))(uint64_t *a1, char a2)
+{
+  v3 = MEMORY[0x277D84FD8];
+  if (MEMORY[0x277D84FD8])
+  {
+    v4 = swift_coroFrameAlloc();
+  }
+
+  else
+  {
+    v4 = malloc(0x88uLL);
+  }
+
+  v5 = v4;
+  *a1 = v4;
+  *(v4 + 72) = v1;
+  v6 = *(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf42CLP_LogEntry_PrivateData_XtraFileAvailableVSgMd, &_s10ALProtobuf42CLP_LogEntry_PrivateData_XtraFileAvailableVSgMR) - 8) + 64);
+  if (v3)
+  {
+    *(v5 + 80) = swift_coroFrameAlloc();
+    v7 = swift_coroFrameAlloc();
+  }
+
+  else
+  {
+    *(v5 + 80) = malloc(v6);
+    v7 = malloc(v6);
+  }
+
+  v8 = v7;
+  *(v5 + 88) = v7;
+  v9 = type metadata accessor for CLP_LogEntry_PrivateData_XtraFileAvailable(0);
+  *(v5 + 96) = v9;
+  v10 = *(v9 - 8);
+  v11 = v10;
+  *(v5 + 104) = v10;
+  v12 = *(v10 + 64);
+  if (v3)
+  {
+    *(v5 + 112) = swift_coroFrameAlloc();
+    v13 = swift_coroFrameAlloc();
+  }
+
+  else
+  {
+    *(v5 + 112) = malloc(*(v10 + 64));
+    v13 = malloc(v12);
+  }
+
+  v14 = v13;
+  *(v5 + 120) = v13;
+  v15 = *(type metadata accessor for CLP_LogEntry_PrivateData_Location(0) + 20);
+  *(v5 + 128) = v15;
+  v16 = *(v1 + v15);
+  v17 = OBJC_IVAR____TtCV10ALProtobuf33CLP_LogEntry_PrivateData_LocationP33_993346AF53650622B255AB1E3C41340D13_StorageClass__xtraFileAvailable;
+  swift_beginAccess();
+  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v16 + v17, v8, &_s10ALProtobuf42CLP_LogEntry_PrivateData_XtraFileAvailableVSgMd, &_s10ALProtobuf42CLP_LogEntry_PrivateData_XtraFileAvailableVSgMR);
+  v18 = *(v11 + 48);
+  if (v18(v8, 1, v9) == 1)
+  {
+    UnknownStorage.init()();
+    v19 = v14 + *(v9 + 20);
+    *v19 = 0;
+    *(v19 + 8) = 1;
+    v20 = (v14 + *(v9 + 24));
+    *v20 = 0;
+    v20[1] = 0;
+    if (v18(v8, 1, v9) != 1)
+    {
+      outlined destroy of Any?(v8, &_s10ALProtobuf42CLP_LogEntry_PrivateData_XtraFileAvailableVSgMd, &_s10ALProtobuf42CLP_LogEntry_PrivateData_XtraFileAvailableVSgMR);
+    }
+  }
+
+  else
+  {
+    outlined init with take of CLP_LogEntry_PrivateData_TimeStamp(v8, v14, type metadata accessor for CLP_LogEntry_PrivateData_XtraFileAvailable);
+  }
+
+  return CLP_LogEntry_PrivateData_Location.xtraFileAvailable.modify;
+}
+
+void CLP_LogEntry_PrivateData_Location.xtraFileAvailable.modify(uint64_t *a1, char a2)
+{
+  v2 = *a1;
+  v3 = *(*a1 + 128);
+  if (a2)
+  {
+    v4 = *(v2 + 72);
+    outlined init with copy of CLP_LogEntry_PrivateData_TimeStamp(*(v2 + 120), *(v2 + 112), type metadata accessor for CLP_LogEntry_PrivateData_XtraFileAvailable);
+    isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+    v6 = *(v4 + v3);
+    if ((isUniquelyReferenced_nonNull_native & 1) == 0)
+    {
+      v7 = *(v2 + 128);
+      v8 = *(v2 + 72);
+      type metadata accessor for CLP_LogEntry_PrivateData_Location._StorageClass(0);
+      v9 = swift_allocObject();
+      CLP_LogEntry_PrivateData_Location._StorageClass.init(copying:)(v6);
+      *(v8 + v7) = v9;
+      v6 = v9;
+    }
+
+    v11 = *(v2 + 112);
+    v10 = *(v2 + 120);
+    v12 = *(v2 + 96);
+    v13 = *(v2 + 104);
+    v15 = *(v2 + 80);
+    v14 = *(v2 + 88);
+    outlined init with take of CLP_LogEntry_PrivateData_TimeStamp(v11, v15, type metadata accessor for CLP_LogEntry_PrivateData_XtraFileAvailable);
+    (*(v13 + 56))(v15, 0, 1, v12);
+    v16 = OBJC_IVAR____TtCV10ALProtobuf33CLP_LogEntry_PrivateData_LocationP33_993346AF53650622B255AB1E3C41340D13_StorageClass__xtraFileAvailable;
+    swift_beginAccess();
+    outlined assign with take of Proto_Gpsd_Response?(v15, v6 + v16, &_s10ALProtobuf42CLP_LogEntry_PrivateData_XtraFileAvailableVSgMd, &_s10ALProtobuf42CLP_LogEntry_PrivateData_XtraFileAvailableVSgMR);
+    swift_endAccess();
+    outlined destroy of CLP_LogEntry_PrivateData_TimeStamp(v10, type metadata accessor for CLP_LogEntry_PrivateData_XtraFileAvailable);
+  }
+
+  else
+  {
+    v17 = *(v2 + 72);
+    v18 = swift_isUniquelyReferenced_nonNull_native();
+    v19 = *(v17 + v3);
+    if ((v18 & 1) == 0)
+    {
+      v20 = *(v2 + 128);
+      v21 = *(v2 + 72);
+      type metadata accessor for CLP_LogEntry_PrivateData_Location._StorageClass(0);
+      v22 = swift_allocObject();
+      CLP_LogEntry_PrivateData_Location._StorageClass.init(copying:)(v19);
+      *(v21 + v20) = v22;
+      v19 = v22;
+    }
+
+    v11 = *(v2 + 112);
+    v10 = *(v2 + 120);
+    v23 = *(v2 + 96);
+    v24 = *(v2 + 104);
+    v15 = *(v2 + 80);
+    v14 = *(v2 + 88);
+    outlined init with take of CLP_LogEntry_PrivateData_TimeStamp(v10, v15, type metadata accessor for CLP_LogEntry_PrivateData_XtraFileAvailable);
+    (*(v24 + 56))(v15, 0, 1, v23);
+    v25 = OBJC_IVAR____TtCV10ALProtobuf33CLP_LogEntry_PrivateData_LocationP33_993346AF53650622B255AB1E3C41340D13_StorageClass__xtraFileAvailable;
+    swift_beginAccess();
+    outlined assign with take of Proto_Gpsd_Response?(v15, v19 + v25, &_s10ALProtobuf42CLP_LogEntry_PrivateData_XtraFileAvailableVSgMd, &_s10ALProtobuf42CLP_LogEntry_PrivateData_XtraFileAvailableVSgMR);
+    swift_endAccess();
+  }
+
+  free(v10);
+  free(v11);
+  free(v14);
+  free(v15);
+
+  free(v2);
+}
+
+BOOL CLP_LogEntry_PrivateData_Location.hasXtraFileAvailable.getter()
+{
+  v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf42CLP_LogEntry_PrivateData_XtraFileAvailableVSgMd, &_s10ALProtobuf42CLP_LogEntry_PrivateData_XtraFileAvailableVSgMR);
+  MEMORY[0x28223BE20](v1 - 8);
+  v3 = &v9 - v2;
+  v4 = *(v0 + *(type metadata accessor for CLP_LogEntry_PrivateData_Location(0) + 20));
+  v5 = OBJC_IVAR____TtCV10ALProtobuf33CLP_LogEntry_PrivateData_LocationP33_993346AF53650622B255AB1E3C41340D13_StorageClass__xtraFileAvailable;
+  swift_beginAccess();
+  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v4 + v5, v3, &_s10ALProtobuf42CLP_LogEntry_PrivateData_XtraFileAvailableVSgMd, &_s10ALProtobuf42CLP_LogEntry_PrivateData_XtraFileAvailableVSgMR);
+  v6 = type metadata accessor for CLP_LogEntry_PrivateData_XtraFileAvailable(0);
+  v7 = (*(*(v6 - 8) + 48))(v3, 1, v6) != 1;
+  outlined destroy of Any?(v3, &_s10ALProtobuf42CLP_LogEntry_PrivateData_XtraFileAvailableVSgMd, &_s10ALProtobuf42CLP_LogEntry_PrivateData_XtraFileAvailableVSgMR);
+  return v7;
+}
+
+Swift::Void __swiftcall CLP_LogEntry_PrivateData_Location.clearXtraFileAvailable()()
+{
+  v1 = v0;
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf42CLP_LogEntry_PrivateData_XtraFileAvailableVSgMd, &_s10ALProtobuf42CLP_LogEntry_PrivateData_XtraFileAvailableVSgMR);
+  MEMORY[0x28223BE20](v2 - 8);
+  v4 = &v12 - v3;
+  v5 = *(type metadata accessor for CLP_LogEntry_PrivateData_Location(0) + 20);
+  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+  v7 = *(v0 + v5);
+  if ((isUniquelyReferenced_nonNull_native & 1) == 0)
+  {
+    type metadata accessor for CLP_LogEntry_PrivateData_Location._StorageClass(0);
+    v8 = swift_allocObject();
+    v9 = v7;
+    v7 = v8;
+    CLP_LogEntry_PrivateData_Location._StorageClass.init(copying:)(v9);
+    *(v1 + v5) = v8;
+  }
+
+  v10 = type metadata accessor for CLP_LogEntry_PrivateData_XtraFileAvailable(0);
+  (*(*(v10 - 8) + 56))(v4, 1, 1, v10);
+  v11 = OBJC_IVAR____TtCV10ALProtobuf33CLP_LogEntry_PrivateData_LocationP33_993346AF53650622B255AB1E3C41340D13_StorageClass__xtraFileAvailable;
+  swift_beginAccess();
+  outlined assign with take of Proto_Gpsd_Response?(v4, v7 + v11, &_s10ALProtobuf42CLP_LogEntry_PrivateData_XtraFileAvailableVSgMd, &_s10ALProtobuf42CLP_LogEntry_PrivateData_XtraFileAvailableVSgMR);
+  swift_endAccess();
+}
+
+uint64_t CLP_LogEntry_PrivateData_Location.signalQuality.setter(char a1, uint64_t (*a2)(void), uint64_t (*a3)(void), void (*a4)(uint64_t), uint64_t *a5)
+{
+  v9 = v5;
+  v11 = *(a2(0) + 20);
+  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+  v13 = *(v5 + v11);
+  if ((isUniquelyReferenced_nonNull_native & 1) == 0)
+  {
+    a3(0);
+    v14 = swift_allocObject();
+    v15 = v13;
+    v13 = v14;
+    a4(v15);
+    *(v9 + v11) = v14;
+  }
+
+  v16 = *a5;
+  result = swift_beginAccess();
+  *(v13 + v16) = a1;
+  return result;
+}
+
+void (*CLP_LogEntry_PrivateData_Location.motionDetected.modify(uint64_t *a1))(uint64_t *a1, uint64_t a2)
+{
+  if (MEMORY[0x277D84FD8])
+  {
+    v3 = swift_coroFrameAlloc();
+  }
+
+  else
+  {
+    v3 = malloc(0x58uLL);
+  }
+
+  v4 = v3;
+  *a1 = v3;
+  *(v3 + 72) = v1;
+  v5 = *(type metadata accessor for CLP_LogEntry_PrivateData_Location(0) + 20);
+  *(v4 + 80) = v5;
+  v6 = *(v1 + v5);
+  v7 = OBJC_IVAR____TtCV10ALProtobuf33CLP_LogEntry_PrivateData_LocationP33_993346AF53650622B255AB1E3C41340D13_StorageClass__motionDetected;
+  swift_beginAccess();
+  v8 = *(v6 + v7);
+  if (v8 == 3)
+  {
+    LOBYTE(v8) = 0;
+  }
+
+  *(v4 + 84) = v8;
+  return CLP_LogEntry_PrivateData_Location.motionDetected.modify;
+}
+
+void CLP_LogEntry_PrivateData_Location.signalQuality.modify(uint64_t *a1, char a2, uint64_t (*a3)(void), void (*a4)(uint64_t), uint64_t *a5)
+{
+  v8 = *a1;
+  v9 = *(*a1 + 84);
+  v10 = *(*a1 + 80);
+  v11 = *(*a1 + 72);
+  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+  v13 = *(v11 + v10);
+  if ((isUniquelyReferenced_nonNull_native & 1) == 0)
+  {
+    v14 = *(v8 + 80);
+    v15 = *(v8 + 72);
+    a3(0);
+    v16 = swift_allocObject();
+    v17 = v13;
+    v13 = v16;
+    a4(v17);
+    *(v15 + v14) = v16;
+  }
+
+  v18 = *a5;
+  swift_beginAccess();
+  *(v13 + v18) = v9;
+
+  free(v8);
+}
+
+Swift::Void __swiftcall CLP_LogEntry_PrivateData_Location.clearMotionDetected()()
+{
+  v1 = v0;
+  v2 = *(type metadata accessor for CLP_LogEntry_PrivateData_Location(0) + 20);
+  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+  v4 = *(v0 + v2);
+  if ((isUniquelyReferenced_nonNull_native & 1) == 0)
+  {
+    type metadata accessor for CLP_LogEntry_PrivateData_Location._StorageClass(0);
+    v5 = swift_allocObject();
+    CLP_LogEntry_PrivateData_Location._StorageClass.init(copying:)(v4);
+    *(v1 + v2) = v5;
+    v4 = v5;
+  }
+
+  v6 = OBJC_IVAR____TtCV10ALProtobuf33CLP_LogEntry_PrivateData_LocationP33_993346AF53650622B255AB1E3C41340D13_StorageClass__motionDetected;
+  swift_beginAccess();
+  *(v4 + v6) = 3;
+}
+
+uint64_t CLP_LogEntry_PrivateData_Location.locationDerivedSpeed.getter@<X0>(uint64_t a1@<X8>)
+{
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf45CLP_LogEntry_PrivateData_LocationDerivedSpeedVSgMd, &_s10ALProtobuf45CLP_LogEntry_PrivateData_LocationDerivedSpeedVSgMR);
+  MEMORY[0x28223BE20](v3 - 8);
+  v5 = &v14 - v4;
+  v6 = *(v1 + *(type metadata accessor for CLP_LogEntry_PrivateData_Location(0) + 20));
+  v7 = OBJC_IVAR____TtCV10ALProtobuf33CLP_LogEntry_PrivateData_LocationP33_993346AF53650622B255AB1E3C41340D13_StorageClass__locationDerivedSpeed;
+  swift_beginAccess();
+  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v6 + v7, v5, &_s10ALProtobuf45CLP_LogEntry_PrivateData_LocationDerivedSpeedVSgMd, &_s10ALProtobuf45CLP_LogEntry_PrivateData_LocationDerivedSpeedVSgMR);
+  v8 = type metadata accessor for CLP_LogEntry_PrivateData_LocationDerivedSpeed(0);
+  v9 = *(*(v8 - 1) + 48);
+  if (v9(v5, 1, v8) != 1)
+  {
+    return outlined init with take of CLP_LogEntry_PrivateData_TimeStamp(v5, a1, type metadata accessor for CLP_LogEntry_PrivateData_LocationDerivedSpeed);
+  }
+
+  UnknownStorage.init()();
+  v10 = a1 + v8[5];
+  *v10 = 0;
+  *(v10 + 8) = 1;
+  v11 = a1 + v8[6];
+  *v11 = 0;
+  *(v11 + 8) = 1;
+  v12 = a1 + v8[7];
+  *v12 = 0;
+  *(v12 + 8) = 1;
+  result = (v9)(v5, 1, v8);
+  if (result != 1)
+  {
+    return outlined destroy of Any?(v5, &_s10ALProtobuf45CLP_LogEntry_PrivateData_LocationDerivedSpeedVSgMd, &_s10ALProtobuf45CLP_LogEntry_PrivateData_LocationDerivedSpeedVSgMR);
+  }
+
+  return result;
+}
+
+uint64_t CLP_LogEntry_PrivateData_Location.locationDerivedSpeed.setter(uint64_t a1)
+{
+  v2 = v1;
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf45CLP_LogEntry_PrivateData_LocationDerivedSpeedVSgMd, &_s10ALProtobuf45CLP_LogEntry_PrivateData_LocationDerivedSpeedVSgMR);
+  MEMORY[0x28223BE20](v4 - 8);
+  v6 = &v15 - v5;
+  v7 = *(type metadata accessor for CLP_LogEntry_PrivateData_Location(0) + 20);
+  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+  v9 = *(v1 + v7);
+  if ((isUniquelyReferenced_nonNull_native & 1) == 0)
+  {
+    type metadata accessor for CLP_LogEntry_PrivateData_Location._StorageClass(0);
+    v10 = swift_allocObject();
+    v11 = v9;
+    v9 = v10;
+    CLP_LogEntry_PrivateData_Location._StorageClass.init(copying:)(v11);
+    *(v2 + v7) = v10;
+  }
+
+  outlined init with take of CLP_LogEntry_PrivateData_TimeStamp(a1, v6, type metadata accessor for CLP_LogEntry_PrivateData_LocationDerivedSpeed);
+  v12 = type metadata accessor for CLP_LogEntry_PrivateData_LocationDerivedSpeed(0);
+  (*(*(v12 - 8) + 56))(v6, 0, 1, v12);
+  v13 = OBJC_IVAR____TtCV10ALProtobuf33CLP_LogEntry_PrivateData_LocationP33_993346AF53650622B255AB1E3C41340D13_StorageClass__locationDerivedSpeed;
+  swift_beginAccess();
+  outlined assign with take of Proto_Gpsd_Response?(v6, v9 + v13, &_s10ALProtobuf45CLP_LogEntry_PrivateData_LocationDerivedSpeedVSgMd, &_s10ALProtobuf45CLP_LogEntry_PrivateData_LocationDerivedSpeedVSgMR);
+  return swift_endAccess();
+}
+
+void (*CLP_LogEntry_PrivateData_Location.locationDerivedSpeed.modify(uint64_t *a1))(uint64_t *a1, char a2)
+{
+  v3 = MEMORY[0x277D84FD8];
+  if (MEMORY[0x277D84FD8])
+  {
+    v4 = swift_coroFrameAlloc();
+  }
+
+  else
+  {
+    v4 = malloc(0x88uLL);
+  }
+
+  v5 = v4;
+  *a1 = v4;
+  *(v4 + 72) = v1;
+  v6 = *(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf45CLP_LogEntry_PrivateData_LocationDerivedSpeedVSgMd, &_s10ALProtobuf45CLP_LogEntry_PrivateData_LocationDerivedSpeedVSgMR) - 8) + 64);
+  if (v3)
+  {
+    *(v5 + 80) = swift_coroFrameAlloc();
+    v7 = swift_coroFrameAlloc();
+  }
+
+  else
+  {
+    *(v5 + 80) = malloc(v6);
+    v7 = malloc(v6);
+  }
+
+  v8 = v7;
+  *(v5 + 88) = v7;
+  v9 = type metadata accessor for CLP_LogEntry_PrivateData_LocationDerivedSpeed(0);
+  *(v5 + 96) = v9;
+  v10 = *(v9 - 1);
+  v11 = v10;
+  *(v5 + 104) = v10;
+  v12 = *(v10 + 64);
+  if (v3)
+  {
+    *(v5 + 112) = swift_coroFrameAlloc();
+    v13 = swift_coroFrameAlloc();
+  }
+
+  else
+  {
+    *(v5 + 112) = malloc(*(v10 + 64));
+    v13 = malloc(v12);
+  }
+
+  v14 = v13;
+  *(v5 + 120) = v13;
+  v15 = *(type metadata accessor for CLP_LogEntry_PrivateData_Location(0) + 20);
+  *(v5 + 128) = v15;
+  v16 = *(v1 + v15);
+  v17 = OBJC_IVAR____TtCV10ALProtobuf33CLP_LogEntry_PrivateData_LocationP33_993346AF53650622B255AB1E3C41340D13_StorageClass__locationDerivedSpeed;
+  swift_beginAccess();
+  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v16 + v17, v8, &_s10ALProtobuf45CLP_LogEntry_PrivateData_LocationDerivedSpeedVSgMd, &_s10ALProtobuf45CLP_LogEntry_PrivateData_LocationDerivedSpeedVSgMR);
+  v18 = *(v11 + 48);
+  if (v18(v8, 1, v9) == 1)
+  {
+    UnknownStorage.init()();
+    v19 = v14 + v9[5];
+    *v19 = 0;
+    *(v19 + 8) = 1;
+    v20 = v14 + v9[6];
+    *v20 = 0;
+    *(v20 + 8) = 1;
+    v21 = v14 + v9[7];
+    *v21 = 0;
+    *(v21 + 8) = 1;
+    if (v18(v8, 1, v9) != 1)
+    {
+      outlined destroy of Any?(v8, &_s10ALProtobuf45CLP_LogEntry_PrivateData_LocationDerivedSpeedVSgMd, &_s10ALProtobuf45CLP_LogEntry_PrivateData_LocationDerivedSpeedVSgMR);
+    }
+  }
+
+  else
+  {
+    outlined init with take of CLP_LogEntry_PrivateData_TimeStamp(v8, v14, type metadata accessor for CLP_LogEntry_PrivateData_LocationDerivedSpeed);
+  }
+
+  return CLP_LogEntry_PrivateData_Location.locationDerivedSpeed.modify;
+}
+
+void CLP_LogEntry_PrivateData_Location.locationDerivedSpeed.modify(uint64_t *a1, char a2)
+{
+  v2 = *a1;
+  v3 = *(*a1 + 128);
+  if (a2)
+  {
+    v4 = *(v2 + 72);
+    outlined init with copy of CLP_LogEntry_PrivateData_TimeStamp(*(v2 + 120), *(v2 + 112), type metadata accessor for CLP_LogEntry_PrivateData_LocationDerivedSpeed);
+    isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+    v6 = *(v4 + v3);
+    if ((isUniquelyReferenced_nonNull_native & 1) == 0)
+    {
+      v7 = *(v2 + 128);
+      v8 = *(v2 + 72);
+      type metadata accessor for CLP_LogEntry_PrivateData_Location._StorageClass(0);
+      v9 = swift_allocObject();
+      CLP_LogEntry_PrivateData_Location._StorageClass.init(copying:)(v6);
+      *(v8 + v7) = v9;
+      v6 = v9;
+    }
+
+    v11 = *(v2 + 112);
+    v10 = *(v2 + 120);
+    v12 = *(v2 + 96);
+    v13 = *(v2 + 104);
+    v15 = *(v2 + 80);
+    v14 = *(v2 + 88);
+    outlined init with take of CLP_LogEntry_PrivateData_TimeStamp(v11, v15, type metadata accessor for CLP_LogEntry_PrivateData_LocationDerivedSpeed);
+    (*(v13 + 56))(v15, 0, 1, v12);
+    v16 = OBJC_IVAR____TtCV10ALProtobuf33CLP_LogEntry_PrivateData_LocationP33_993346AF53650622B255AB1E3C41340D13_StorageClass__locationDerivedSpeed;
+    swift_beginAccess();
+    outlined assign with take of Proto_Gpsd_Response?(v15, v6 + v16, &_s10ALProtobuf45CLP_LogEntry_PrivateData_LocationDerivedSpeedVSgMd, &_s10ALProtobuf45CLP_LogEntry_PrivateData_LocationDerivedSpeedVSgMR);
+    swift_endAccess();
+    outlined destroy of CLP_LogEntry_PrivateData_TimeStamp(v10, type metadata accessor for CLP_LogEntry_PrivateData_LocationDerivedSpeed);
+  }
+
+  else
+  {
+    v17 = *(v2 + 72);
+    v18 = swift_isUniquelyReferenced_nonNull_native();
+    v19 = *(v17 + v3);
+    if ((v18 & 1) == 0)
+    {
+      v20 = *(v2 + 128);
+      v21 = *(v2 + 72);
+      type metadata accessor for CLP_LogEntry_PrivateData_Location._StorageClass(0);
+      v22 = swift_allocObject();
+      CLP_LogEntry_PrivateData_Location._StorageClass.init(copying:)(v19);
+      *(v21 + v20) = v22;
+      v19 = v22;
+    }
+
+    v11 = *(v2 + 112);
+    v10 = *(v2 + 120);
+    v23 = *(v2 + 96);
+    v24 = *(v2 + 104);
+    v15 = *(v2 + 80);
+    v14 = *(v2 + 88);
+    outlined init with take of CLP_LogEntry_PrivateData_TimeStamp(v10, v15, type metadata accessor for CLP_LogEntry_PrivateData_LocationDerivedSpeed);
+    (*(v24 + 56))(v15, 0, 1, v23);
+    v25 = OBJC_IVAR____TtCV10ALProtobuf33CLP_LogEntry_PrivateData_LocationP33_993346AF53650622B255AB1E3C41340D13_StorageClass__locationDerivedSpeed;
+    swift_beginAccess();
+    outlined assign with take of Proto_Gpsd_Response?(v15, v19 + v25, &_s10ALProtobuf45CLP_LogEntry_PrivateData_LocationDerivedSpeedVSgMd, &_s10ALProtobuf45CLP_LogEntry_PrivateData_LocationDerivedSpeedVSgMR);
+    swift_endAccess();
+  }
+
+  free(v10);
+  free(v11);
+  free(v14);
+  free(v15);
+
+  free(v2);
+}
+
+BOOL CLP_LogEntry_PrivateData_Location.hasLocationDerivedSpeed.getter()
+{
+  v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf45CLP_LogEntry_PrivateData_LocationDerivedSpeedVSgMd, &_s10ALProtobuf45CLP_LogEntry_PrivateData_LocationDerivedSpeedVSgMR);
+  MEMORY[0x28223BE20](v1 - 8);
+  v3 = &v9 - v2;
+  v4 = *(v0 + *(type metadata accessor for CLP_LogEntry_PrivateData_Location(0) + 20));
+  v5 = OBJC_IVAR____TtCV10ALProtobuf33CLP_LogEntry_PrivateData_LocationP33_993346AF53650622B255AB1E3C41340D13_StorageClass__locationDerivedSpeed;
+  swift_beginAccess();
+  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v4 + v5, v3, &_s10ALProtobuf45CLP_LogEntry_PrivateData_LocationDerivedSpeedVSgMd, &_s10ALProtobuf45CLP_LogEntry_PrivateData_LocationDerivedSpeedVSgMR);
+  v6 = type metadata accessor for CLP_LogEntry_PrivateData_LocationDerivedSpeed(0);
+  v7 = (*(*(v6 - 8) + 48))(v3, 1, v6) != 1;
+  outlined destroy of Any?(v3, &_s10ALProtobuf45CLP_LogEntry_PrivateData_LocationDerivedSpeedVSgMd, &_s10ALProtobuf45CLP_LogEntry_PrivateData_LocationDerivedSpeedVSgMR);
+  return v7;
+}
+
+Swift::Void __swiftcall CLP_LogEntry_PrivateData_Location.clearLocationDerivedSpeed()()
+{
+  v1 = v0;
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf45CLP_LogEntry_PrivateData_LocationDerivedSpeedVSgMd, &_s10ALProtobuf45CLP_LogEntry_PrivateData_LocationDerivedSpeedVSgMR);
+  MEMORY[0x28223BE20](v2 - 8);
+  v4 = &v12 - v3;
+  v5 = *(type metadata accessor for CLP_LogEntry_PrivateData_Location(0) + 20);
+  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+  v7 = *(v0 + v5);
+  if ((isUniquelyReferenced_nonNull_native & 1) == 0)
+  {
+    type metadata accessor for CLP_LogEntry_PrivateData_Location._StorageClass(0);
+    v8 = swift_allocObject();
+    v9 = v7;
+    v7 = v8;
+    CLP_LogEntry_PrivateData_Location._StorageClass.init(copying:)(v9);
+    *(v1 + v5) = v8;
+  }
+
+  v10 = type metadata accessor for CLP_LogEntry_PrivateData_LocationDerivedSpeed(0);
+  (*(*(v10 - 8) + 56))(v4, 1, 1, v10);
+  v11 = OBJC_IVAR____TtCV10ALProtobuf33CLP_LogEntry_PrivateData_LocationP33_993346AF53650622B255AB1E3C41340D13_StorageClass__locationDerivedSpeed;
+  swift_beginAccess();
+  outlined assign with take of Proto_Gpsd_Response?(v4, v7 + v11, &_s10ALProtobuf45CLP_LogEntry_PrivateData_LocationDerivedSpeedVSgMd, &_s10ALProtobuf45CLP_LogEntry_PrivateData_LocationDerivedSpeedVSgMR);
+  swift_endAccess();
+}
+
+uint64_t protocol witness for Hashable.hash(into:) in conformance CLP_LogEntry_PrivateData_Location.SignalQualityType(uint64_t a1, uint64_t a2)
+{
+  v4 = lazy protocol witness table accessor for type CLP_LogEntry_PrivateData_Location.SignalQualityType and conformance CLP_LogEntry_PrivateData_Location.SignalQualityType();
+
+  return MEMORY[0x28217E238](a1, a2, v4);
+}
+
+uint64_t protocol witness for Hashable.hash(into:) in conformance CLP_LogEntry_PrivateData_Location.MotionDetectedType(uint64_t a1, uint64_t a2)
+{
+  v4 = lazy protocol witness table accessor for type CLP_LogEntry_PrivateData_Location.MotionDetectedType and conformance CLP_LogEntry_PrivateData_Location.MotionDetectedType();
+
+  return MEMORY[0x28217E238](a1, a2, v4);
+}
+
+uint64_t CLP_LogEntry_PrivateData_BatchedLocations.init()@<X0>(void *a1@<X8>)
+{
+  v2 = MEMORY[0x277D84F90];
+  *a1 = MEMORY[0x277D84F90];
+  a1[1] = v2;
+  type metadata accessor for CLP_LogEntry_PrivateData_BatchedLocations(0);
+  return UnknownStorage.init()();
+}
+
+uint64_t CLP_LogEntry_PrivateData_RhythmicGnssStatusUpdate.gnssModeOfOperation.getter()
+{
+  v1 = *(v0 + *(type metadata accessor for CLP_LogEntry_PrivateData_RhythmicGnssStatusUpdate(0) + 20));
+  if (v1 == 3)
+  {
+    return 0;
+  }
+
+  else
+  {
+    return v1;
+  }
+}
+
+uint64_t CLP_LogEntry_PrivateData_RhythmicGnssStatusUpdate.gnssModeOfOperation.setter(char a1)
+{
+  result = type metadata accessor for CLP_LogEntry_PrivateData_RhythmicGnssStatusUpdate(0);
+  *(v1 + *(result + 20)) = a1;
+  return result;
+}
+
+uint64_t (*CLP_LogEntry_PrivateData_RhythmicGnssStatusUpdate.gnssModeOfOperation.modify(uint64_t a1))(uint64_t result)
+{
+  *a1 = v1;
+  v3 = *(type metadata accessor for CLP_LogEntry_PrivateData_RhythmicGnssStatusUpdate(0) + 20);
+  *(a1 + 8) = v3;
+  v4 = *(v1 + v3);
+  if (v4 == 3)
+  {
+    LOBYTE(v4) = 0;
+  }
+
+  *(a1 + 12) = v4;
+  return CLP_LogEntry_AONLoc_Response.requestType.modify;
+}
+
+uint64_t CLP_LogEntry_PrivateData_RhythmicGnssStatusUpdate.activeGnssSession.setter(char a1)
+{
+  result = type metadata accessor for CLP_LogEntry_PrivateData_RhythmicGnssStatusUpdate(0);
+  *(v1 + *(result + 24)) = a1;
+  return result;
+}
+
+uint64_t (*CLP_LogEntry_PrivateData_RhythmicGnssStatusUpdate.activeGnssSession.modify(uint64_t a1))(uint64_t result)
+{
+  *a1 = v1;
+  v3 = *(type metadata accessor for CLP_LogEntry_PrivateData_RhythmicGnssStatusUpdate(0) + 24);
+  *(a1 + 8) = v3;
+  *(a1 + 12) = *(v1 + v3) & 1;
+  return CLP_LogEntry_AONLoc_Response.requestType.modify;
+}
+
+uint64_t CLP_LogEntry_PrivateData_RhythmicGnssStatusUpdate.rhythmicMode.getter()
+{
+  v1 = *(v0 + *(type metadata accessor for CLP_LogEntry_PrivateData_RhythmicGnssStatusUpdate(0) + 28));
+  if (v1 == 5)
+  {
+    return 1;
+  }
+
+  else
+  {
+    return v1;
+  }
+}
+
+uint64_t CLP_LogEntry_PrivateData_RhythmicGnssStatusUpdate.rhythmicMode.setter(char a1)
+{
+  result = type metadata accessor for CLP_LogEntry_PrivateData_RhythmicGnssStatusUpdate(0);
+  *(v1 + *(result + 28)) = a1;
+  return result;
+}
+
+uint64_t (*CLP_LogEntry_PrivateData_RhythmicGnssStatusUpdate.rhythmicMode.modify(uint64_t a1))(uint64_t result)
+{
+  *a1 = v1;
+  v3 = *(type metadata accessor for CLP_LogEntry_PrivateData_RhythmicGnssStatusUpdate(0) + 28);
+  *(a1 + 8) = v3;
+  v4 = *(v1 + v3);
+  if (v4 == 5)
+  {
+    LOBYTE(v4) = 1;
+  }
+
+  *(a1 + 12) = v4;
+  return CLP_LogEntry_AONLoc_Response.requestType.modify;
+}
+
+uint64_t CLP_LogEntry_PrivateData_RhythmicGnssStatusUpdate.currentModesOfOperation.setter(int a1)
+{
+  result = type metadata accessor for CLP_LogEntry_PrivateData_RhythmicGnssStatusUpdate(0);
+  v4 = v1 + *(result + 32);
+  *v4 = a1;
+  *(v4 + 4) = 0;
+  return result;
+}
+
+uint64_t (*CLP_LogEntry_PrivateData_RhythmicGnssStatusUpdate.currentModesOfOperation.modify(uint64_t a1))(uint64_t result)
+{
+  *a1 = v1;
+  v3 = *(type metadata accessor for CLP_LogEntry_PrivateData_RhythmicGnssStatusUpdate(0) + 32);
+  *(a1 + 12) = v3;
+  v4 = (v1 + v3);
+  if (*(v4 + 4))
+  {
+    v5 = 0;
+  }
+
+  else
+  {
+    v5 = *v4;
+  }
+
+  *(a1 + 8) = v5;
+  return CLP_LogEntry_AONLoc_Request.processID.modify;
+}
+
+Swift::Void __swiftcall CLP_LogEntry_PrivateData_RhythmicGnssStatusUpdate.clearCurrentModesOfOperation()()
+{
+  v1 = v0 + *(type metadata accessor for CLP_LogEntry_PrivateData_RhythmicGnssStatusUpdate(0) + 32);
+  *v1 = 0;
+  *(v1 + 4) = 1;
+}
+
+uint64_t CLP_LogEntry_PrivateData_RhythmicGnssStatusUpdate.hasSubscribedRhythmicClient_p.setter(char a1)
+{
+  result = type metadata accessor for CLP_LogEntry_PrivateData_RhythmicGnssStatusUpdate(0);
+  *(v1 + *(result + 36)) = a1;
+  return result;
+}
+
+uint64_t (*CLP_LogEntry_PrivateData_RhythmicGnssStatusUpdate.hasSubscribedRhythmicClient_p.modify(uint64_t a1))(uint64_t result)
+{
+  *a1 = v1;
+  v3 = *(type metadata accessor for CLP_LogEntry_PrivateData_RhythmicGnssStatusUpdate(0) + 36);
+  *(a1 + 8) = v3;
+  *(a1 + 12) = *(v1 + v3) & 1;
+  return CLP_LogEntry_AONLoc_Response.requestType.modify;
+}
+
+int *CLP_LogEntry_PrivateData_RhythmicGnssStatusUpdate.init()@<X0>(uint64_t a1@<X8>)
+{
+  UnknownStorage.init()();
+  result = type metadata accessor for CLP_LogEntry_PrivateData_RhythmicGnssStatusUpdate(0);
+  *(a1 + result[5]) = 3;
+  *(a1 + result[6]) = 2;
+  *(a1 + result[7]) = 5;
+  v3 = a1 + result[8];
+  *v3 = 0;
+  *(v3 + 4) = 1;
+  *(a1 + result[9]) = 2;
+  return result;
+}
+
+uint64_t CLP_LogEntry_PrivateData_RhythmicStreamingControl.allowStreaming.setter(char a1)
+{
+  result = type metadata accessor for CLP_LogEntry_PrivateData_RhythmicStreamingControl(0);
+  *(v1 + *(result + 20)) = a1;
+  return result;
+}
+
+uint64_t (*CLP_LogEntry_PrivateData_RhythmicStreamingControl.allowStreaming.modify(uint64_t a1))(uint64_t result)
+{
+  *a1 = v1;
+  v3 = *(type metadata accessor for CLP_LogEntry_PrivateData_RhythmicStreamingControl(0) + 20);
+  *(a1 + 8) = v3;
+  *(a1 + 12) = *(v1 + v3) & 1;
+  return CLP_LogEntry_AONLoc_Response.requestType.modify;
+}
+
+uint64_t CLP_LogEntry_PrivateData_RhythmicStreamingControl.init()@<X0>(uint64_t a1@<X8>)
+{
+  UnknownStorage.init()();
+  result = type metadata accessor for CLP_LogEntry_PrivateData_RhythmicStreamingControl(0);
+  *(a1 + *(result + 20)) = 2;
+  return result;
+}
+
+uint64_t CLP_LogEntry_PrivateData_MotionActivity.type.getter()
+{
+  v1 = *(v0 + *(type metadata accessor for CLP_LogEntry_PrivateData_MotionActivity(0) + 20));
+  swift_beginAccess();
+  if (*(v1 + 16) == 72)
+  {
+    return 0;
+  }
+
+  else
+  {
+    return *(v1 + 16);
+  }
+}
+
+uint64_t CLP_LogEntry_PrivateData_DaemonLocation.suitability.setter(char a1, uint64_t (*a2)(void), uint64_t (*a3)(void), void (*a4)(uint64_t))
+{
+  v7 = v4;
+  v9 = *(a2(0) + 20);
+  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+  v11 = *(v4 + v9);
+  if ((isUniquelyReferenced_nonNull_native & 1) == 0)
+  {
+    a3(0);
+    v12 = swift_allocObject();
+    a4(v11);
+
+    *(v7 + v9) = v12;
+    v11 = v12;
+  }
+
+  result = swift_beginAccess();
+  *(v11 + 16) = a1;
+  return result;
+}
+
+void (*CLP_LogEntry_PrivateData_MotionActivity.type.modify(uint64_t *a1))(uint64_t *a1, uint64_t a2)
+{
+  if (MEMORY[0x277D84FD8])
+  {
+    v3 = swift_coroFrameAlloc();
+  }
+
+  else
+  {
+    v3 = malloc(0x58uLL);
+  }
+
+  v4 = v3;
+  *a1 = v3;
+  *(v3 + 72) = v1;
+  v5 = *(type metadata accessor for CLP_LogEntry_PrivateData_MotionActivity(0) + 20);
+  *(v4 + 80) = v5;
+  v6 = *(v1 + v5);
+  swift_beginAccess();
+  v7 = *(v6 + 16);
+  if (v7 == 72)
+  {
+    LOBYTE(v7) = 0;
+  }
+
+  *(v4 + 84) = v7;
+  return CLP_LogEntry_PrivateData_MotionActivity.type.modify;
+}
+
+void CLP_LogEntry_PrivateData_DaemonLocation.suitability.modify(uint64_t *a1, char a2, uint64_t (*a3)(void), void (*a4)(uint64_t))
+{
+  v6 = *a1;
+  v7 = *(*a1 + 84);
+  v8 = *(*a1 + 80);
+  v9 = *(*a1 + 72);
+  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+  v11 = *(v9 + v8);
+  if ((isUniquelyReferenced_nonNull_native & 1) == 0)
+  {
+    v12 = *(v6 + 80);
+    v13 = *(v6 + 72);
+    a3(0);
+    v14 = swift_allocObject();
+    a4(v11);
+
+    *(v13 + v12) = v14;
+    v11 = v14;
+  }
+
+  swift_beginAccess();
+  *(v11 + 16) = v7;
+
+  free(v6);
+}
+
+BOOL CLP_LogEntry_PrivateData_MotionActivity.hasType.getter()
+{
+  v1 = *(v0 + *(type metadata accessor for CLP_LogEntry_PrivateData_MotionActivity(0) + 20));
+  swift_beginAccess();
+  return *(v1 + 16) != 72;
+}
+
+uint64_t CLP_LogEntry_PrivateData_DaemonLocation.clearSuitability()(uint64_t (*a1)(void), uint64_t (*a2)(void), void (*a3)(uint64_t), char a4)
+{
+  v8 = v4;
+  v9 = *(a1(0) + 20);
+  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+  v11 = *(v4 + v9);
+  if ((isUniquelyReferenced_nonNull_native & 1) == 0)
+  {
+    a2(0);
+    v12 = swift_allocObject();
+    a3(v11);
+
+    *(v8 + v9) = v12;
+    v11 = v12;
+  }
+
+  result = swift_beginAccess();
+  *(v11 + 16) = a4;
+  return result;
+}
+
+uint64_t CLP_LogEntry_PrivateData_MotionActivity.confidence.getter()
+{
+  v1 = *(v0 + *(type metadata accessor for CLP_LogEntry_PrivateData_MotionActivity(0) + 20));
+  swift_beginAccess();
+  if (*(v1 + 17) == 4)
+  {
+    return 0;
+  }
+
+  else
+  {
+    return *(v1 + 17);
+  }
+}
+
+uint64_t CLP_LogEntry_PrivateData_MotionActivity.confidence.setter(char a1)
+{
+  v2 = v1;
+  v4 = *(type metadata accessor for CLP_LogEntry_PrivateData_MotionActivity(0) + 20);
+  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+  v6 = *(v1 + v4);
+  if ((isUniquelyReferenced_nonNull_native & 1) == 0)
+  {
+    type metadata accessor for CLP_LogEntry_PrivateData_MotionActivity._StorageClass(0);
+    v7 = swift_allocObject();
+    specialized CLP_LogEntry_PrivateData_MotionActivity._StorageClass.init(copying:)(v6);
+
+    *(v2 + v4) = v7;
+    v6 = v7;
+  }
+
+  result = swift_beginAccess();
+  *(v6 + 17) = a1;
+  return result;
+}
+
+void (*CLP_LogEntry_PrivateData_MotionActivity.confidence.modify(uint64_t *a1))(uint64_t *a1, char a2)
+{
+  if (MEMORY[0x277D84FD8])
+  {
+    v3 = swift_coroFrameAlloc();
+  }
+
+  else
+  {
+    v3 = malloc(0x58uLL);
+  }
+
+  v4 = v3;
+  *a1 = v3;
+  *(v3 + 72) = v1;
+  v5 = *(type metadata accessor for CLP_LogEntry_PrivateData_MotionActivity(0) + 20);
+  *(v4 + 80) = v5;
+  v6 = *(v1 + v5);
+  swift_beginAccess();
+  v7 = *(v6 + 17);
+  if (v7 == 4)
+  {
+    LOBYTE(v7) = 0;
+  }
+
+  *(v4 + 84) = v7;
+  return CLP_LogEntry_PrivateData_MotionActivity.confidence.modify;
+}
+
+void CLP_LogEntry_PrivateData_MotionActivity.confidence.modify(uint64_t *a1, char a2)
+{
+  v2 = *a1;
+  v3 = *(*a1 + 84);
+  v4 = *(*a1 + 80);
+  v5 = *(*a1 + 72);
+  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+  v7 = *(v5 + v4);
+  if ((isUniquelyReferenced_nonNull_native & 1) == 0)
+  {
+    v8 = *(v2 + 80);
+    v9 = *(v2 + 72);
+    type metadata accessor for CLP_LogEntry_PrivateData_MotionActivity._StorageClass(0);
+    v10 = swift_allocObject();
+    specialized CLP_LogEntry_PrivateData_MotionActivity._StorageClass.init(copying:)(v7);
+
+    *(v9 + v8) = v10;
+    v7 = v10;
+  }
+
+  swift_beginAccess();
+  *(v7 + 17) = v3;
+
+  free(v2);
+}
+
+BOOL CLP_LogEntry_PrivateData_MotionActivity.hasConfidence.getter()
+{
+  v1 = *(v0 + *(type metadata accessor for CLP_LogEntry_PrivateData_MotionActivity(0) + 20));
+  swift_beginAccess();
+  return *(v1 + 17) != 4;
+}
+
+Swift::Void __swiftcall CLP_LogEntry_PrivateData_MotionActivity.clearConfidence()()
+{
+  v1 = v0;
+  v2 = *(type metadata accessor for CLP_LogEntry_PrivateData_MotionActivity(0) + 20);
+  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+  v4 = *(v0 + v2);
+  if ((isUniquelyReferenced_nonNull_native & 1) == 0)
+  {
+    type metadata accessor for CLP_LogEntry_PrivateData_MotionActivity._StorageClass(0);
+    v5 = swift_allocObject();
+    specialized CLP_LogEntry_PrivateData_MotionActivity._StorageClass.init(copying:)(v4);
+
+    *(v1 + v2) = v5;
+    v4 = v5;
+  }
+
+  swift_beginAccess();
+  *(v4 + 17) = 4;
+}
+
+uint64_t CLP_LogEntry_PrivateData_MotionActivity.mountedState.getter()
+{
+  v1 = *(v0 + *(type metadata accessor for CLP_LogEntry_PrivateData_MotionActivity(0) + 20));
+  swift_beginAccess();
+  if (*(v1 + 18) == 3)
+  {
+    return 0;
+  }
+
+  else
+  {
+    return *(v1 + 18);
+  }
+}
+
+uint64_t CLP_LogEntry_PrivateData_MotionActivity.mountedState.setter(char a1)
+{
+  v2 = v1;
+  v4 = *(type metadata accessor for CLP_LogEntry_PrivateData_MotionActivity(0) + 20);
+  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+  v6 = *(v1 + v4);
+  if ((isUniquelyReferenced_nonNull_native & 1) == 0)
+  {
+    type metadata accessor for CLP_LogEntry_PrivateData_MotionActivity._StorageClass(0);
+    v7 = swift_allocObject();
+    specialized CLP_LogEntry_PrivateData_MotionActivity._StorageClass.init(copying:)(v6);
+
+    *(v2 + v4) = v7;
+    v6 = v7;
+  }
+
+  result = swift_beginAccess();
+  *(v6 + 18) = a1;
+  return result;
+}
+
+void (*CLP_LogEntry_PrivateData_MotionActivity.mountedState.modify(uint64_t *a1))(uint64_t *a1, char a2)
+{
+  if (MEMORY[0x277D84FD8])
+  {
+    v3 = swift_coroFrameAlloc();
+  }
+
+  else
+  {
+    v3 = malloc(0x58uLL);
+  }
+
+  v4 = v3;
+  *a1 = v3;
+  *(v3 + 72) = v1;
+  v5 = *(type metadata accessor for CLP_LogEntry_PrivateData_MotionActivity(0) + 20);
+  *(v4 + 80) = v5;
+  v6 = *(v1 + v5);
+  swift_beginAccess();
+  v7 = *(v6 + 18);
+  if (v7 == 3)
+  {
+    LOBYTE(v7) = 0;
+  }
+
+  *(v4 + 84) = v7;
+  return CLP_LogEntry_PrivateData_MotionActivity.mountedState.modify;
+}
+
+void CLP_LogEntry_PrivateData_MotionActivity.mountedState.modify(uint64_t *a1, char a2)
+{
+  v2 = *a1;
+  v3 = *(*a1 + 84);
+  v4 = *(*a1 + 80);
+  v5 = *(*a1 + 72);
+  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+  v7 = *(v5 + v4);
+  if ((isUniquelyReferenced_nonNull_native & 1) == 0)
+  {
+    v8 = *(v2 + 80);
+    v9 = *(v2 + 72);
+    type metadata accessor for CLP_LogEntry_PrivateData_MotionActivity._StorageClass(0);
+    v10 = swift_allocObject();
+    specialized CLP_LogEntry_PrivateData_MotionActivity._StorageClass.init(copying:)(v7);
+
+    *(v9 + v8) = v10;
+    v7 = v10;
+  }
+
+  swift_beginAccess();
+  *(v7 + 18) = v3;
+
+  free(v2);
+}
+
+BOOL CLP_LogEntry_PrivateData_MotionActivity.hasMountedState.getter()
+{
+  v1 = *(v0 + *(type metadata accessor for CLP_LogEntry_PrivateData_MotionActivity(0) + 20));
+  swift_beginAccess();
+  return *(v1 + 18) != 3;
+}
+
+Swift::Void __swiftcall CLP_LogEntry_PrivateData_MotionActivity.clearMountedState()()
+{
+  v1 = v0;
+  v2 = *(type metadata accessor for CLP_LogEntry_PrivateData_MotionActivity(0) + 20);
+  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+  v4 = *(v0 + v2);
+  if ((isUniquelyReferenced_nonNull_native & 1) == 0)
+  {
+    type metadata accessor for CLP_LogEntry_PrivateData_MotionActivity._StorageClass(0);
+    v5 = swift_allocObject();
+    specialized CLP_LogEntry_PrivateData_MotionActivity._StorageClass.init(copying:)(v4);
+
+    *(v1 + v2) = v5;
+    v4 = v5;
+  }
+
+  swift_beginAccess();
+  *(v4 + 18) = 3;
+}
+
+uint64_t CLP_LogEntry_PrivateData_MotionActivity.mountedConfidence.getter()
+{
+  v1 = *(v0 + *(type metadata accessor for CLP_LogEntry_PrivateData_MotionActivity(0) + 20));
+  swift_beginAccess();
+  if (*(v1 + 19) == 4)
+  {
+    return 0;
+  }
+
+  else
+  {
+    return *(v1 + 19);
+  }
+}
+
+uint64_t CLP_LogEntry_PrivateData_MotionActivity.mountedConfidence.setter(char a1)
+{
+  v2 = v1;
+  v4 = *(type metadata accessor for CLP_LogEntry_PrivateData_MotionActivity(0) + 20);
+  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+  v6 = *(v1 + v4);
+  if ((isUniquelyReferenced_nonNull_native & 1) == 0)
+  {
+    type metadata accessor for CLP_LogEntry_PrivateData_MotionActivity._StorageClass(0);
+    v7 = swift_allocObject();
+    specialized CLP_LogEntry_PrivateData_MotionActivity._StorageClass.init(copying:)(v6);
+
+    *(v2 + v4) = v7;
+    v6 = v7;
+  }
+
+  result = swift_beginAccess();
+  *(v6 + 19) = a1;
+  return result;
+}
+
+void (*CLP_LogEntry_PrivateData_MotionActivity.mountedConfidence.modify(uint64_t *a1))(uint64_t *a1, char a2)
+{
+  if (MEMORY[0x277D84FD8])
+  {
+    v3 = swift_coroFrameAlloc();
+  }
+
+  else
+  {
+    v3 = malloc(0x58uLL);
+  }
+
+  v4 = v3;
+  *a1 = v3;
+  *(v3 + 72) = v1;
+  v5 = *(type metadata accessor for CLP_LogEntry_PrivateData_MotionActivity(0) + 20);
+  *(v4 + 80) = v5;
+  v6 = *(v1 + v5);
+  swift_beginAccess();
+  v7 = *(v6 + 19);
+  if (v7 == 4)
+  {
+    LOBYTE(v7) = 0;
+  }
+
+  *(v4 + 84) = v7;
+  return CLP_LogEntry_PrivateData_MotionActivity.mountedConfidence.modify;
+}
+
+void CLP_LogEntry_PrivateData_MotionActivity.mountedConfidence.modify(uint64_t *a1, char a2)
+{
+  v2 = *a1;
+  v3 = *(*a1 + 84);
+  v4 = *(*a1 + 80);
+  v5 = *(*a1 + 72);
+  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+  v7 = *(v5 + v4);
+  if ((isUniquelyReferenced_nonNull_native & 1) == 0)
+  {
+    v8 = *(v2 + 80);
+    v9 = *(v2 + 72);
+    type metadata accessor for CLP_LogEntry_PrivateData_MotionActivity._StorageClass(0);
+    v10 = swift_allocObject();
+    specialized CLP_LogEntry_PrivateData_MotionActivity._StorageClass.init(copying:)(v7);
+
+    *(v9 + v8) = v10;
+    v7 = v10;
+  }
+
+  swift_beginAccess();
+  *(v7 + 19) = v3;
+
+  free(v2);
+}
+
+BOOL CLP_LogEntry_PrivateData_MotionActivity.hasMountedConfidence.getter()
+{
+  v1 = *(v0 + *(type metadata accessor for CLP_LogEntry_PrivateData_MotionActivity(0) + 20));
+  swift_beginAccess();
+  return *(v1 + 19) != 4;
+}
+
+Swift::Void __swiftcall CLP_LogEntry_PrivateData_MotionActivity.clearMountedConfidence()()
+{
+  v1 = v0;
+  v2 = *(type metadata accessor for CLP_LogEntry_PrivateData_MotionActivity(0) + 20);
+  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+  v4 = *(v0 + v2);
+  if ((isUniquelyReferenced_nonNull_native & 1) == 0)
+  {
+    type metadata accessor for CLP_LogEntry_PrivateData_MotionActivity._StorageClass(0);
+    v5 = swift_allocObject();
+    specialized CLP_LogEntry_PrivateData_MotionActivity._StorageClass.init(copying:)(v4);
+
+    *(v1 + v2) = v5;
+    v4 = v5;
+  }
+
+  swift_beginAccess();
+  *(v4 + 19) = 4;
+}
+
+uint64_t CLP_LogEntry_PrivateData_MotionActivity.isStanding.getter()
+{
+  v1 = *(v0 + *(type metadata accessor for CLP_LogEntry_PrivateData_MotionActivity(0) + 20));
+  swift_beginAccess();
+  return *(v1 + 20) & 1;
+}
+
+uint64_t CLP_LogEntry_PrivateData_MotionActivity.isStanding.setter(char a1)
+{
+  v2 = v1;
+  v4 = *(type metadata accessor for CLP_LogEntry_PrivateData_MotionActivity(0) + 20);
+  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+  v6 = *(v1 + v4);
+  if ((isUniquelyReferenced_nonNull_native & 1) == 0)
+  {
+    type metadata accessor for CLP_LogEntry_PrivateData_MotionActivity._StorageClass(0);
+    v7 = swift_allocObject();
+    specialized CLP_LogEntry_PrivateData_MotionActivity._StorageClass.init(copying:)(v6);
+
+    *(v2 + v4) = v7;
+    v6 = v7;
+  }
+
+  result = swift_beginAccess();
+  *(v6 + 20) = a1 & 1;
+  return result;
+}
+
+void (*CLP_LogEntry_PrivateData_MotionActivity.isStanding.modify(uint64_t *a1))(uint64_t *a1, char a2)
+{
+  if (MEMORY[0x277D84FD8])
+  {
+    v3 = swift_coroFrameAlloc();
+  }
+
+  else
+  {
+    v3 = malloc(0x58uLL);
+  }
+
+  v4 = v3;
+  *a1 = v3;
+  *(v3 + 72) = v1;
+  v5 = *(type metadata accessor for CLP_LogEntry_PrivateData_MotionActivity(0) + 20);
+  *(v4 + 80) = v5;
+  v6 = *(v1 + v5);
+  swift_beginAccess();
+  *(v4 + 84) = *(v6 + 20) & 1;
+  return CLP_LogEntry_PrivateData_MotionActivity.isStanding.modify;
+}
+
+void CLP_LogEntry_PrivateData_MotionActivity.isStanding.modify(uint64_t *a1, char a2)
+{
+  v2 = *a1;
+  v3 = *(*a1 + 80);
+  v4 = *(*a1 + 72);
+  v5 = *(*a1 + 84);
+  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+  v7 = *(v4 + v3);
+  if ((isUniquelyReferenced_nonNull_native & 1) == 0)
+  {
+    v8 = *(v2 + 80);
+    v9 = *(v2 + 72);
+    type metadata accessor for CLP_LogEntry_PrivateData_MotionActivity._StorageClass(0);
+    v10 = swift_allocObject();
+    specialized CLP_LogEntry_PrivateData_MotionActivity._StorageClass.init(copying:)(v7);
+
+    *(v9 + v8) = v10;
+    v7 = v10;
+  }
+
+  swift_beginAccess();
+  *(v7 + 20) = v5;
+
+  free(v2);
+}
+
+BOOL CLP_LogEntry_PrivateData_MotionActivity.hasIsStanding.getter()
+{
+  v1 = *(v0 + *(type metadata accessor for CLP_LogEntry_PrivateData_MotionActivity(0) + 20));
+  swift_beginAccess();
+  return *(v1 + 20) != 2;
+}
+
+Swift::Void __swiftcall CLP_LogEntry_PrivateData_MotionActivity.clearIsStanding()()
+{
+  v1 = v0;
+  v2 = *(type metadata accessor for CLP_LogEntry_PrivateData_MotionActivity(0) + 20);
+  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+  v4 = *(v0 + v2);
+  if ((isUniquelyReferenced_nonNull_native & 1) == 0)
+  {
+    type metadata accessor for CLP_LogEntry_PrivateData_MotionActivity._StorageClass(0);
+    v5 = swift_allocObject();
+    specialized CLP_LogEntry_PrivateData_MotionActivity._StorageClass.init(copying:)(v4);
+
+    *(v1 + v2) = v5;
+    v4 = v5;
+  }
+
+  swift_beginAccess();
+  *(v4 + 20) = 2;
+}
+
+float CLP_LogEntry_PrivateData_MotionActivity.tilt.getter()
+{
+  v1 = *(v0 + *(type metadata accessor for CLP_LogEntry_PrivateData_MotionActivity(0) + 20));
+  swift_beginAccess();
+  result = *(v1 + 24);
+  if (*(v1 + 28))
+  {
+    return 0.0;
+  }
+
+  return result;
+}
+
+uint64_t CLP_LogEntry_PrivateData_MotionActivity.tilt.setter(float a1)
+{
+  v2 = v1;
+  v4 = *(type metadata accessor for CLP_LogEntry_PrivateData_MotionActivity(0) + 20);
+  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+  v6 = *(v1 + v4);
+  if ((isUniquelyReferenced_nonNull_native & 1) == 0)
+  {
+    type metadata accessor for CLP_LogEntry_PrivateData_MotionActivity._StorageClass(0);
+    v7 = swift_allocObject();
+    specialized CLP_LogEntry_PrivateData_MotionActivity._StorageClass.init(copying:)(v6);
+
+    *(v2 + v4) = v7;
+    v6 = v7;
+  }
+
+  result = swift_beginAccess();
+  *(v6 + 24) = a1;
+  *(v6 + 28) = 0;
+  return result;
+}
+
+void (*CLP_LogEntry_PrivateData_MotionActivity.tilt.modify(uint64_t *a1))(uint64_t *a1, char a2)
+{
+  if (MEMORY[0x277D84FD8])
+  {
+    v3 = swift_coroFrameAlloc();
+  }
+
+  else
+  {
+    v3 = malloc(0x58uLL);
+  }
+
+  v4 = v3;
+  *a1 = v3;
+  *(v3 + 72) = v1;
+  v5 = *(type metadata accessor for CLP_LogEntry_PrivateData_MotionActivity(0) + 20);
+  *(v4 + 84) = v5;
+  v6 = *(v1 + v5);
+  swift_beginAccess();
+  v7 = *(v6 + 24);
+  if (*(v6 + 28))
+  {
+    v7 = 0.0;
+  }
+
+  *(v4 + 80) = v7;
+  return CLP_LogEntry_PrivateData_MotionActivity.tilt.modify;
+}
+
+void CLP_LogEntry_PrivateData_MotionActivity.tilt.modify(uint64_t *a1, char a2)
+{
+  v2 = *a1;
+  v3 = *(*a1 + 80);
+  v4 = *(*a1 + 84);
+  v5 = *(*a1 + 72);
+  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+  v7 = *(v5 + v4);
+  if ((isUniquelyReferenced_nonNull_native & 1) == 0)
+  {
+    v8 = *(v2 + 84);
+    v9 = *(v2 + 72);
+    type metadata accessor for CLP_LogEntry_PrivateData_MotionActivity._StorageClass(0);
+    v10 = swift_allocObject();
+    specialized CLP_LogEntry_PrivateData_MotionActivity._StorageClass.init(copying:)(v7);
+
+    *(v9 + v8) = v10;
+    v7 = v10;
+  }
+
+  swift_beginAccess();
+  *(v7 + 24) = v3;
+  *(v7 + 28) = 0;
+
+  free(v2);
+}
+
+BOOL CLP_LogEntry_PrivateData_MotionActivity.hasTilt.getter()
+{
+  v1 = *(v0 + *(type metadata accessor for CLP_LogEntry_PrivateData_MotionActivity(0) + 20));
+  swift_beginAccess();
+  return (*(v1 + 28) & 1) == 0;
+}
+
+Swift::Void __swiftcall CLP_LogEntry_PrivateData_MotionActivity.clearTilt()()
+{
+  v1 = v0;
+  v2 = *(type metadata accessor for CLP_LogEntry_PrivateData_MotionActivity(0) + 20);
+  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+  v4 = *(v0 + v2);
+  if ((isUniquelyReferenced_nonNull_native & 1) == 0)
+  {
+    type metadata accessor for CLP_LogEntry_PrivateData_MotionActivity._StorageClass(0);
+    v5 = swift_allocObject();
+    specialized CLP_LogEntry_PrivateData_MotionActivity._StorageClass.init(copying:)(v4);
+
+    *(v1 + v2) = v5;
+    v4 = v5;
+  }
+
+  swift_beginAccess();
+  *(v4 + 24) = 0;
+  *(v4 + 28) = 1;
+}
+
+double CLP_LogEntry_PrivateData_DaemonLocationPrivate.deltaDistance.getter(uint64_t (*a1)(void))
+{
+  v2 = *(v1 + *(a1(0) + 20));
+  swift_beginAccess();
+  result = *(v2 + 32);
+  if (*(v2 + 40))
+  {
+    return 0.0;
+  }
+
+  return result;
+}
+
+uint64_t CLP_LogEntry_PrivateData_DaemonLocationPrivate.deltaDistance.setter(uint64_t (*a1)(void), uint64_t (*a2)(void), void (*a3)(uint64_t), double a4)
+{
+  v7 = v4;
+  v9 = *(a1(0) + 20);
+  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+  v11 = *(v4 + v9);
+  if ((isUniquelyReferenced_nonNull_native & 1) == 0)
+  {
+    a2(0);
+    v12 = swift_allocObject();
+    a3(v11);
+
+    *(v7 + v9) = v12;
+    v11 = v12;
+  }
+
+  result = swift_beginAccess();
+  *(v11 + 32) = a4;
+  *(v11 + 40) = 0;
+  return result;
+}
+
+void (*CLP_LogEntry_PrivateData_MotionActivity.timestampDeprecated.modify(uint64_t *a1))(uint64_t *a1, uint64_t a2)
+{
+  if (MEMORY[0x277D84FD8])
+  {
+    v3 = swift_coroFrameAlloc();
+  }
+
+  else
+  {
+    v3 = malloc(0x60uLL);
+  }
+
+  v4 = v3;
+  *a1 = v3;
+  *(v3 + 80) = v1;
+  v5 = *(type metadata accessor for CLP_LogEntry_PrivateData_MotionActivity(0) + 20);
+  *(v4 + 88) = v5;
+  v6 = *(v1 + v5);
+  swift_beginAccess();
+  v7 = *(v6 + 32);
+  if (*(v6 + 40))
+  {
+    v7 = 0.0;
+  }
+
+  *(v4 + 72) = v7;
+  return CLP_LogEntry_PrivateData_MotionActivity.timestampDeprecated.modify;
+}
+
+void CLP_LogEntry_PrivateData_DaemonLocationPrivate.deltaDistance.modify(uint64_t *a1, char a2, uint64_t (*a3)(void), void (*a4)(uint64_t))
+{
+  v6 = *a1;
+  v7 = *(*a1 + 72);
+  v8 = *(*a1 + 88);
+  v9 = *(*a1 + 80);
+  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+  v11 = *(v9 + v8);
+  if ((isUniquelyReferenced_nonNull_native & 1) == 0)
+  {
+    v12 = *(v6 + 88);
+    v13 = *(v6 + 80);
+    a3(0);
+    v14 = swift_allocObject();
+    a4(v11);
+
+    *(v13 + v12) = v14;
+    v11 = v14;
+  }
+
+  swift_beginAccess();
+  *(v11 + 32) = v7;
+  *(v11 + 40) = 0;
+
+  free(v6);
+}
+
+BOOL CLP_LogEntry_PrivateData_DaemonLocationPrivate.hasDeltaDistance.getter(uint64_t (*a1)(void))
+{
+  v2 = *(v1 + *(a1(0) + 20));
+  swift_beginAccess();
+  return (*(v2 + 40) & 1) == 0;
+}
+
+uint64_t CLP_LogEntry_PrivateData_DaemonLocationPrivate.clearDeltaDistance()(uint64_t (*a1)(void), uint64_t (*a2)(void), void (*a3)(uint64_t))
+{
+  v6 = v3;
+  v7 = *(a1(0) + 20);
+  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+  v9 = *(v3 + v7);
+  if ((isUniquelyReferenced_nonNull_native & 1) == 0)
+  {
+    a2(0);
+    v10 = swift_allocObject();
+    a3(v9);
+
+    *(v6 + v7) = v10;
+    v9 = v10;
+  }
+
+  result = swift_beginAccess();
+  *(v9 + 32) = 0;
+  *(v9 + 40) = 1;
+  return result;
+}
+
+uint64_t CLP_LogEntry_PrivateData_MotionActivity.isVehicleConnected.getter()
+{
+  v1 = *(v0 + *(type metadata accessor for CLP_LogEntry_PrivateData_MotionActivity(0) + 20));
+  swift_beginAccess();
+  return *(v1 + 41) & 1;
+}
+
+uint64_t CLP_LogEntry_PrivateData_MotionActivity.isVehicleConnected.setter(char a1)
+{
+  v2 = v1;
+  v4 = *(type metadata accessor for CLP_LogEntry_PrivateData_MotionActivity(0) + 20);
+  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+  v6 = *(v1 + v4);
+  if ((isUniquelyReferenced_nonNull_native & 1) == 0)
+  {
+    type metadata accessor for CLP_LogEntry_PrivateData_MotionActivity._StorageClass(0);
+    v7 = swift_allocObject();
+    specialized CLP_LogEntry_PrivateData_MotionActivity._StorageClass.init(copying:)(v6);
+
+    *(v2 + v4) = v7;
+    v6 = v7;
+  }
+
+  result = swift_beginAccess();
+  *(v6 + 41) = a1 & 1;
+  return result;
+}
+
+void (*CLP_LogEntry_PrivateData_MotionActivity.isVehicleConnected.modify(uint64_t *a1))(uint64_t *a1, char a2)
+{
+  if (MEMORY[0x277D84FD8])
+  {
+    v3 = swift_coroFrameAlloc();
+  }
+
+  else
+  {
+    v3 = malloc(0x58uLL);
+  }
+
+  v4 = v3;
+  *a1 = v3;
+  *(v3 + 72) = v1;
+  v5 = *(type metadata accessor for CLP_LogEntry_PrivateData_MotionActivity(0) + 20);
+  *(v4 + 80) = v5;
+  v6 = *(v1 + v5);
+  swift_beginAccess();
+  *(v4 + 84) = *(v6 + 41) & 1;
+  return CLP_LogEntry_PrivateData_MotionActivity.isVehicleConnected.modify;
+}
+
+void CLP_LogEntry_PrivateData_MotionActivity.isVehicleConnected.modify(uint64_t *a1, char a2)
+{
+  v2 = *a1;
+  v3 = *(*a1 + 80);
+  v4 = *(*a1 + 72);
+  v5 = *(*a1 + 84);
+  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+  v7 = *(v4 + v3);
+  if ((isUniquelyReferenced_nonNull_native & 1) == 0)
+  {
+    v8 = *(v2 + 80);
+    v9 = *(v2 + 72);
+    type metadata accessor for CLP_LogEntry_PrivateData_MotionActivity._StorageClass(0);
+    v10 = swift_allocObject();
+    specialized CLP_LogEntry_PrivateData_MotionActivity._StorageClass.init(copying:)(v7);
+
+    *(v9 + v8) = v10;
+    v7 = v10;
+  }
+
+  swift_beginAccess();
+  *(v7 + 41) = v5;
+
+  free(v2);
+}
+
+BOOL CLP_LogEntry_PrivateData_MotionActivity.hasIsVehicleConnected.getter()
+{
+  v1 = *(v0 + *(type metadata accessor for CLP_LogEntry_PrivateData_MotionActivity(0) + 20));
+  swift_beginAccess();
+  return *(v1 + 41) != 2;
+}
+
+Swift::Void __swiftcall CLP_LogEntry_PrivateData_MotionActivity.clearIsVehicleConnected()()
+{
+  v1 = v0;
+  v2 = *(type metadata accessor for CLP_LogEntry_PrivateData_MotionActivity(0) + 20);
+  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+  v4 = *(v0 + v2);
+  if ((isUniquelyReferenced_nonNull_native & 1) == 0)
+  {
+    type metadata accessor for CLP_LogEntry_PrivateData_MotionActivity._StorageClass(0);
+    v5 = swift_allocObject();
+    specialized CLP_LogEntry_PrivateData_MotionActivity._StorageClass.init(copying:)(v4);
+
+    *(v1 + v2) = v5;
+    v4 = v5;
+  }
+
+  swift_beginAccess();
+  *(v4 + 41) = 2;
+}
+
+uint64_t CLP_LogEntry_PrivateData_MotionActivity.exitState.getter()
+{
+  v1 = *(v0 + *(type metadata accessor for CLP_LogEntry_PrivateData_MotionActivity(0) + 20));
+  swift_beginAccess();
+  if (*(v1 + 42) == 4)
+  {
+    return 0;
+  }
+
+  else
+  {
+    return *(v1 + 42);
+  }
 }

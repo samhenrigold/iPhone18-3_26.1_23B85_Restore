@@ -97,7 +97,7 @@
 - (void)_displayLinkUpdated:(id)updated
 {
   audioPlayer = [(HFAudioPlayer *)self audioPlayer];
-  [audioPlayer currentTime];
+  objc_msgSend_currentTime(audioPlayer);
   [(HFAudioPlayer *)self setPlayerCurrentTime:?];
 
   audioPlayer2 = [(HFAudioPlayer *)self audioPlayer];
@@ -158,7 +158,7 @@ LABEL_7:
 
 - (BOOL)_configureAudioSession:(id *)session
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   mEMORY[0x277CB83F8] = [MEMORY[0x277CB83F8] sharedInstance];
   [(HFAudioPlayer *)self setAudioSession:mEMORY[0x277CB83F8]];
 
@@ -167,27 +167,27 @@ LABEL_7:
   v8 = HFLogForCategory(0xAuLL);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
   {
-    v24 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:_audioSessionCategoryOptions];
+    v23 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:_audioSessionCategoryOptions];
     *buf = 138412546;
-    v28 = _audioSessionCategory;
-    v29 = 2112;
-    v30 = v24;
+    v27 = _audioSessionCategory;
+    v28 = 2112;
+    v29 = v23;
     _os_log_error_impl(&dword_20D9BF000, v8, OS_LOG_TYPE_ERROR, "Now setting audioSession Category = [%@] with Category Option = [%@]", buf, 0x16u);
   }
 
   audioSession = [(HFAudioPlayer *)self audioSession];
   v10 = *MEMORY[0x277CB80E8];
-  v26 = 0;
-  v11 = [audioSession setCategory:_audioSessionCategory mode:v10 options:_audioSessionCategoryOptions error:&v26];
-  v12 = v26;
+  v25 = 0;
+  v11 = [audioSession setCategory:_audioSessionCategory mode:v10 options:_audioSessionCategoryOptions error:&v25];
+  v12 = v25;
 
   if (v11)
   {
 
     audioSession2 = [(HFAudioPlayer *)self audioSession];
-    v25 = 0;
-    v14 = [audioSession2 setActivationContext:MEMORY[0x277CBEC10] error:&v25];
-    v12 = v25;
+    v24 = 0;
+    v14 = [audioSession2 setActivationContext:MEMORY[0x277CBEC10] error:&v24];
+    v12 = v24;
 
     v15 = HFLogForCategory(0xAuLL);
     v16 = v15;
@@ -198,7 +198,7 @@ LABEL_7:
         audioSession3 = [(HFAudioPlayer *)self audioSession];
         outputDataSources = [audioSession3 outputDataSources];
         *buf = 138412290;
-        v28 = outputDataSources;
+        v27 = outputDataSources;
         _os_log_impl(&dword_20D9BF000, v16, OS_LOG_TYPE_DEFAULT, "Successfully configured Audio session with outputDataSources [%@]", buf, 0xCu);
       }
 
@@ -210,7 +210,7 @@ LABEL_7:
       if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v28 = v12;
+        v27 = v12;
         _os_log_error_impl(&dword_20D9BF000, v16, OS_LOG_TYPE_ERROR, "Error setting activation context [%@]", buf, 0xCu);
       }
 
@@ -226,24 +226,23 @@ LABEL_7:
     if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v28 = v12;
+      v27 = v12;
       _os_log_error_impl(&dword_20D9BF000, v20, OS_LOG_TYPE_ERROR, "Error setting Default Audio Session Category [%@]", buf, 0xCu);
     }
 
     v19 = 0;
   }
 
-  v22 = *MEMORY[0x277D85DE8];
   return v19;
 }
 
 - (void)_deactivateAudioSession
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   audioSession = [(HFAudioPlayer *)self audioSession];
-  v10 = 0;
-  v4 = [audioSession setActive:0 withOptions:1 error:&v10];
-  v5 = v10;
+  v9 = 0;
+  v4 = [audioSession setActive:0 withOptions:1 error:&v9];
+  v5 = v9;
 
   if ((v4 & 1) == 0)
   {
@@ -251,17 +250,16 @@ LABEL_7:
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v12 = v5;
+      v11 = v5;
       _os_log_error_impl(&dword_20D9BF000, v6, OS_LOG_TYPE_ERROR, "Error deactivating audio session [%@]", buf, 0xCu);
     }
   }
 
   audioSession2 = [(HFAudioPlayer *)self audioSession];
-  v9 = 0;
-  [audioSession2 setActivationContext:MEMORY[0x277CBEC10] error:&v9];
+  v8 = 0;
+  [audioSession2 setActivationContext:MEMORY[0x277CBEC10] error:&v8];
 
   [(HFAudioPlayer *)self setAudioSessionIsActive:0];
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_audioSessionCategory
@@ -309,7 +307,7 @@ LABEL_7:
   [audioPlayer pause];
 
   audioPlayer2 = [(HFAudioPlayer *)self audioPlayer];
-  [audioPlayer2 currentTime];
+  objc_msgSend_currentTime(audioPlayer2);
   [(HFAudioPlayer *)self setPlayerCurrentTime:?];
 
   displayLink = [(HFAudioPlayer *)self displayLink];
@@ -345,14 +343,14 @@ LABEL_7:
 
 - (void)_stopWithoutAudioSessionDeactivation
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v3 = HFLogForCategory(0xAuLL);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     audioFileURL = [(HFAudioPlayer *)self audioFileURL];
-    v14 = 138412290;
-    v15 = audioFileURL;
-    _os_log_impl(&dword_20D9BF000, v3, OS_LOG_TYPE_DEFAULT, "Stopping Audio Player for URL = [%@]", &v14, 0xCu);
+    v13 = 138412290;
+    v14 = audioFileURL;
+    _os_log_impl(&dword_20D9BF000, v3, OS_LOG_TYPE_DEFAULT, "Stopping Audio Player for URL = [%@]", &v13, 0xCu);
   }
 
   audioPlayer = [(HFAudioPlayer *)self audioPlayer];
@@ -370,24 +368,24 @@ LABEL_7:
   {
     delegate4 = delegate;
     delegate2 = [(HFAudioPlayer *)self delegate];
-    if (([delegate2 conformsToProtocol:&unk_2825BAE00] & 1) == 0)
+    if ([delegate2 conformsToProtocol:&unk_2825BAE00])
     {
+      delegate3 = [(HFAudioPlayer *)self delegate];
+      v12 = objc_opt_respondsToSelector();
 
-      goto LABEL_8;
-    }
+      if ((v12 & 1) == 0)
+      {
+        return;
+      }
 
-    delegate3 = [(HFAudioPlayer *)self delegate];
-    v12 = objc_opt_respondsToSelector();
-
-    if (v12)
-    {
       delegate4 = [(HFAudioPlayer *)self delegate];
       [delegate4 audioPlayerDidStopPlayback:self];
-LABEL_8:
+    }
+
+    else
+    {
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_cleanup
@@ -418,12 +416,12 @@ LABEL_8:
 
 - (BOOL)prepareToPlay:(id *)play
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v5 = objc_alloc(MEMORY[0x277CB83D0]);
   audioFileURL = [(HFAudioPlayer *)self audioFileURL];
-  v27 = 0;
-  v7 = [v5 initWithContentsOfURL:audioFileURL error:&v27];
-  v8 = v27;
+  v26 = 0;
+  v7 = [v5 initWithContentsOfURL:audioFileURL error:&v26];
+  v8 = v26;
   [(HFAudioPlayer *)self setAudioPlayer:v7];
 
   audioPlayer = [(HFAudioPlayer *)self audioPlayer];
@@ -438,7 +436,7 @@ LABEL_8:
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v29 = v8;
+      v28 = v8;
       _os_log_error_impl(&dword_20D9BF000, v11, OS_LOG_TYPE_ERROR, "Error initializing AVAudioPlayer [%@]", buf, 0xCu);
     }
 
@@ -454,7 +452,7 @@ LABEL_8:
     {
       audioFileURL2 = [(HFAudioPlayer *)self audioFileURL];
       *buf = 138412290;
-      v29 = audioFileURL2;
+      v28 = audioFileURL2;
       _os_log_impl(&dword_20D9BF000, v14, OS_LOG_TYPE_DEFAULT, "Audio Session is already active continuining with AVAudioPlayer configured for URL [%@]", buf, 0xCu);
     }
 
@@ -464,16 +462,16 @@ LABEL_8:
 
   else
   {
-    v26 = 0;
-    v16 = [(HFAudioPlayer *)self _configureAudioSession:&v26];
-    v17 = v26;
+    v25 = 0;
+    v16 = [(HFAudioPlayer *)self _configureAudioSession:&v25];
+    v17 = v25;
     v18 = v17;
     if (v16)
     {
       audioSession = [(HFAudioPlayer *)self audioSession];
-      v25 = v18;
-      v20 = [audioSession setActive:1 error:&v25];
-      v8 = v25;
+      v24 = v18;
+      v20 = [audioSession setActive:1 error:&v24];
+      v8 = v24;
 
       if (v20)
       {
@@ -491,7 +489,7 @@ LABEL_8:
         if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
         {
           *buf = 138412290;
-          v29 = v8;
+          v28 = v8;
           _os_log_error_impl(&dword_20D9BF000, v22, OS_LOG_TYPE_ERROR, "Failed activating audio session [%@]", buf, 0xCu);
         }
 
@@ -507,7 +505,6 @@ LABEL_8:
     }
   }
 
-  v23 = *MEMORY[0x277D85DE8];
   return v13;
 }
 
@@ -598,7 +595,7 @@ LABEL_8:
 - (double)duration
 {
   audioPlayer = [(HFAudioPlayer *)self audioPlayer];
-  [audioPlayer duration];
+  objc_msgSend_duration(audioPlayer);
   v4 = v3;
 
   return v4;
@@ -606,20 +603,18 @@ LABEL_8:
 
 - (void)setVolume:(float)volume
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v5 = HFLogForCategory(0xAuLL);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 134217984;
+    v8 = 134217984;
     volumeCopy = volume;
-    _os_log_impl(&dword_20D9BF000, v5, OS_LOG_TYPE_DEFAULT, "Setting player volume to [%f]", &v9, 0xCu);
+    _os_log_impl(&dword_20D9BF000, v5, OS_LOG_TYPE_DEFAULT, "Setting player volume to [%f]", &v8, 0xCu);
   }
 
   audioPlayer = [(HFAudioPlayer *)self audioPlayer];
   *&v7 = volume;
   [audioPlayer setVolume:v7];
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (float)volume
@@ -633,68 +628,62 @@ LABEL_8:
 
 - (void)audioSessionDidInterrupt:(id)interrupt
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   interruptCopy = interrupt;
   v5 = HFLogForCategory(0xAuLL);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138412290;
-    v8 = interruptCopy;
-    _os_log_impl(&dword_20D9BF000, v5, OS_LOG_TYPE_DEFAULT, "Audio Session was interrupted [%@]", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = interruptCopy;
+    _os_log_impl(&dword_20D9BF000, v5, OS_LOG_TYPE_DEFAULT, "Audio Session was interrupted [%@]", &v6, 0xCu);
   }
 
   [(HFAudioPlayer *)self setPlayerStopSource:2];
   [(HFAudioPlayer *)self _pauseWithReason:@"Audio Session Interrupted"];
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)audioSessionMediaServicesWereLost:(id)lost
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   lostCopy = lost;
   v5 = HFLogForCategory(0xAuLL);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138412290;
-    v8 = lostCopy;
-    _os_log_impl(&dword_20D9BF000, v5, OS_LOG_TYPE_DEFAULT, "Media Services Were Lost [%@]", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = lostCopy;
+    _os_log_impl(&dword_20D9BF000, v5, OS_LOG_TYPE_DEFAULT, "Media Services Were Lost [%@]", &v6, 0xCu);
   }
 
   [(HFAudioPlayer *)self setPlayerStopSource:3];
   [(HFAudioPlayer *)self _pauseWithReason:@"Audio Session Lost"];
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)audioSessionMediaServicesWereReset:(id)reset
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   resetCopy = reset;
   v5 = HFLogForCategory(0xAuLL);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138412290;
-    v8 = resetCopy;
-    _os_log_impl(&dword_20D9BF000, v5, OS_LOG_TYPE_DEFAULT, "Media Services Were Reset [%@]", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = resetCopy;
+    _os_log_impl(&dword_20D9BF000, v5, OS_LOG_TYPE_DEFAULT, "Media Services Were Reset [%@]", &v6, 0xCu);
   }
 
   [(HFAudioPlayer *)self setPlayerStopSource:3];
   [(HFAudioPlayer *)self _pauseWithReason:@"Audio Session Reset"];
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)audioSessionRouteChanged:(id)changed
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   changedCopy = changed;
   v5 = HFLogForCategory(0xAuLL);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v12 = 138412290;
-    v13 = changedCopy;
-    _os_log_impl(&dword_20D9BF000, v5, OS_LOG_TYPE_DEFAULT, "Audio Session Route Changed [%@]", &v12, 0xCu);
+    v11 = 138412290;
+    v12 = changedCopy;
+    _os_log_impl(&dword_20D9BF000, v5, OS_LOG_TYPE_DEFAULT, "Audio Session Route Changed [%@]", &v11, 0xCu);
   }
 
   if ([(HFAudioPlayer *)self isAudioSessionActive])
@@ -709,17 +698,15 @@ LABEL_8:
       if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
         v10 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:unsignedIntegerValue];
-        v12 = 138412290;
-        v13 = v10;
-        _os_log_impl(&dword_20D9BF000, v9, OS_LOG_TYPE_DEFAULT, "Routes Changed for reason [%@]", &v12, 0xCu);
+        v11 = 138412290;
+        v12 = v10;
+        _os_log_impl(&dword_20D9BF000, v9, OS_LOG_TYPE_DEFAULT, "Routes Changed for reason [%@]", &v11, 0xCu);
       }
 
       [(HFAudioPlayer *)self setPlayerStopSource:4];
       [(HFAudioPlayer *)self _pauseWithReason:@"Audio Routes Changed"];
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)audioPlayerDidFinishPlaying:(id)playing successfully:(BOOL)successfully
@@ -766,18 +753,17 @@ LABEL_8:
 
 - (void)audioPlayerDecodeErrorDidOccur:(id)occur error:(id)error
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   v6 = HFLogForCategory(0xAuLL);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
-    v8 = 138412290;
-    v9 = errorCopy;
-    _os_log_error_impl(&dword_20D9BF000, v6, OS_LOG_TYPE_ERROR, "Audio Player Decode Error [%@]", &v8, 0xCu);
+    v7 = 138412290;
+    v8 = errorCopy;
+    _os_log_error_impl(&dword_20D9BF000, v6, OS_LOG_TYPE_ERROR, "Audio Player Decode Error [%@]", &v7, 0xCu);
   }
 
   [(HFAudioPlayer *)self _cleanup];
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (HFAudioPlayerDelegate)delegate

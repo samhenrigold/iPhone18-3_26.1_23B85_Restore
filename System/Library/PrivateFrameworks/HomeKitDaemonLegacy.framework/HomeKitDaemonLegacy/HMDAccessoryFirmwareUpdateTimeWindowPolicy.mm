@@ -56,7 +56,7 @@
 
 - (BOOL)evaluate
 {
-  v65 = *MEMORY[0x277D85DE8];
+  v64 = *MEMORY[0x277D85DE8];
   currentCalendar = [MEMORY[0x277CBEA80] currentCalendar];
   date = [MEMORY[0x277CBEAA8] date];
   v5 = [currentCalendar components:252 fromDate:date];
@@ -120,7 +120,7 @@
     {
       v41 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v58 = v41;
+      v57 = v41;
       _os_log_impl(&dword_2531F8000, v40, OS_LOG_TYPE_INFO, "%{public}@Invalid time window, policy status evaluated to NO", buf, 0xCu);
     }
 
@@ -134,35 +134,35 @@
     goto LABEL_15;
   }
 
-  v56 = v12;
+  v55 = v12;
   date4 = [MEMORY[0x277CBEAA8] date];
   v27 = objc_autoreleasePoolPush();
   selfCopy2 = self;
   v29 = HMFGetOSLogHandle();
   if (os_log_type_enabled(v29, OS_LOG_TYPE_INFO))
   {
-    v51 = HMFGetLogIdentifier();
+    v50 = HMFGetLogIdentifier();
     dateFormatter = [(HMDAccessoryFirmwareUpdateTimeWindowPolicy *)selfCopy2 dateFormatter];
     v30 = [dateFormatter stringFromDate:date4];
     [(HMDAccessoryFirmwareUpdateTimeWindowPolicy *)selfCopy2 dateFormatter];
-    v52 = v55 = currentCalendar;
-    v31 = [v52 stringFromDate:v56];
+    v51 = v54 = currentCalendar;
+    v31 = [v51 stringFromDate:v55];
     dateFormatter2 = [(HMDAccessoryFirmwareUpdateTimeWindowPolicy *)selfCopy2 dateFormatter];
     [dateFormatter2 stringFromDate:v19];
-    v33 = v54 = v27;
+    v33 = v53 = v27;
     *buf = 138544130;
-    v58 = v51;
-    v59 = 2112;
-    v60 = v30;
-    v61 = 2112;
-    v62 = v31;
+    v57 = v50;
+    v58 = 2112;
+    v59 = v30;
+    v60 = 2112;
+    v61 = v31;
     v34 = v31;
-    v63 = 2112;
-    v64 = v33;
+    v62 = 2112;
+    v63 = v33;
     _os_log_impl(&dword_2531F8000, v29, OS_LOG_TYPE_INFO, "%{public}@Evaluate now=%@ in interval=[%@, %@]", buf, 0x2Au);
 
-    currentCalendar = v55;
-    v27 = v54;
+    currentCalendar = v54;
+    v27 = v53;
   }
 
   objc_autoreleasePoolPop(v27);
@@ -170,7 +170,7 @@
   {
     v35 = objc_alloc_init(MEMORY[0x277CBEAB8]);
     [v35 setDay:1];
-    v36 = [currentCalendar dateByAddingComponents:v35 toDate:v56 options:0];
+    v36 = [currentCalendar dateByAddingComponents:v35 toDate:v55 options:0];
 
     [(HMDAccessoryFirmwareUpdateTimeWindowPolicy *)selfCopy2 _startReevaluateTimer:v36];
     v37 = 0;
@@ -178,10 +178,10 @@
     goto LABEL_18;
   }
 
-  v12 = v56;
-  if ([date4 compare:v56] == -1)
+  v12 = v55;
+  if ([date4 compare:v55] == -1)
   {
-    [(HMDAccessoryFirmwareUpdateTimeWindowPolicy *)selfCopy2 _startReevaluateTimer:v56];
+    [(HMDAccessoryFirmwareUpdateTimeWindowPolicy *)selfCopy2 _startReevaluateTimer:v55];
 LABEL_15:
     v37 = 0;
     goto LABEL_18;
@@ -199,14 +199,13 @@ LABEL_18:
     v47 = HMFGetLogIdentifier();
     v48 = HMFBooleanToString();
     *buf = 138543618;
-    v58 = v47;
-    v59 = 2112;
-    v60 = v48;
+    v57 = v47;
+    v58 = 2112;
+    v59 = v48;
     _os_log_impl(&dword_2531F8000, v46, OS_LOG_TYPE_INFO, "%{public}@Policy status evaluated to %@", buf, 0x16u);
   }
 
   objc_autoreleasePoolPop(v44);
-  v49 = *MEMORY[0x277D85DE8];
   return v37;
 }
 
@@ -333,12 +332,11 @@ LABEL_18:
 
 uint64_t __57__HMDAccessoryFirmwareUpdateTimeWindowPolicy_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v3_121538;
-  logCategory__hmf_once_v3_121538 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v3_121538;
+  logCategory__hmf_once_v3_121538 = v0;
 
-  return MEMORY[0x2821F96F8](v1, v2);
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 @end

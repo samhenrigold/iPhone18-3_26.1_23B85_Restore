@@ -12,7 +12,7 @@
   y = frame.origin.y;
   x = frame.origin.x;
   ObjectType = swift_getObjectType();
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_C68C8);
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_C68C8, "Т");
   __chkstk_darwin(v9 - 8);
   v11 = &v15 - v10;
   v15.receiver = self;

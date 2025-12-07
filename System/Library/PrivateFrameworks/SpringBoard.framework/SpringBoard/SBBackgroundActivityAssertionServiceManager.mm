@@ -609,7 +609,7 @@ void __90__SBBackgroundActivityAssertionServiceManager_activateBackgroundActivit
     v3 = *(a1 + 40);
     if (v3)
     {
-      [v3 auditToken];
+      objc_msgSend_auditToken(v3);
     }
 
     v44 = BSPIDForAuditToken();
@@ -994,7 +994,7 @@ void __85__SBBackgroundActivityAssertionServiceManager_descriptionBuilderWithMul
   v5 = a3;
   if (a2)
   {
-    [a2 auditToken];
+    objc_msgSend_auditToken(a2);
   }
 
   v6 = BSPIDForAuditToken();
@@ -1111,7 +1111,7 @@ LABEL_11:
 
         v9 = *(*(&v13 + 1) + 8 * i);
         registeredBackgroundActivityIdentifiers = [v9 registeredBackgroundActivityIdentifiers];
-        v11 = [registeredBackgroundActivityIdentifiers containsObject:identifierCopy];
+        v11 = objc_msgSend_containsObject_(registeredBackgroundActivityIdentifiers);
 
         if (v11)
         {
@@ -1347,7 +1347,7 @@ void __113__SBBackgroundActivityAssertionServiceManager_unregisterCoordinatorReg
     memset(buf, 0, sizeof(buf));
     if (connectionCopy)
     {
-      [connectionCopy auditToken];
+      objc_msgSend_auditToken(connectionCopy);
     }
 
     v21 = connectionCopy;
@@ -1446,13 +1446,13 @@ void __113__SBBackgroundActivityAssertionServiceManager_unregisterCoordinatorReg
   dispatch_assert_queue_V2(self->_internalQueue);
   v5 = [dataCopy pid];
   v6 = [MEMORY[0x277CF0CD0] processHandleForPID:v5];
-  auditToken = [v6 auditToken];
+  v7 = objc_msgSend_auditToken(v6);
 
   v28 = 0u;
   v29 = 0u;
-  if (auditToken)
+  if (v7)
   {
-    [auditToken realToken];
+    objc_msgSend_realToken(v7);
   }
 
   else
@@ -1624,7 +1624,7 @@ void __106__SBBackgroundActivityAssertionServiceManager__internalQueue_publishAt
   v15 = 0u;
   if (connectionCopy)
   {
-    [connectionCopy auditToken];
+    objc_msgSend_auditToken(connectionCopy);
   }
 
   v8 = BSPIDForAuditToken();
@@ -1671,7 +1671,9 @@ void __101__SBBackgroundActivityAssertionServiceManager_invalidateBackgroundActi
 {
   v1 = [a1 backgroundActivityIdentifiers];
   v2 = STBackgroundActivityIdentifiersDescription();
-  OUTLINED_FUNCTION_7(&dword_21ED4E000, v3, v4, "Unable to invalidate background activity assertion with identifiers due to partial match: %{public}@", v5, v6, v7, v8, 2u);
+  LODWORD(v9) = 138543362;
+  *(&v9 + 4) = v2;
+  OUTLINED_FUNCTION_7(&dword_21ED4E000, v3, v4, "Unable to invalidate background activity assertion with identifiers due to partial match: %{public}@", v5, v6, v7, v8, v9, DWORD2(v9));
 }
 
 - (void)_internalQueue_publishAttributionsForRemovingAssertionData:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
@@ -1685,7 +1687,9 @@ void __101__SBBackgroundActivityAssertionServiceManager_invalidateBackgroundActi
 void __104__SBBackgroundActivityAssertionServiceManager__invalidateAssertionsWithIdentifiers_forClientConnection___block_invoke_cold_1(void *a1)
 {
   v1 = [a1 localizedDescription];
-  OUTLINED_FUNCTION_7(&dword_21ED4E000, v2, v3, "Error communicating with client: %{public}@", v4, v5, v6, v7, 2u);
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = v1;
+  OUTLINED_FUNCTION_7(&dword_21ED4E000, v2, v3, "Error communicating with client: %{public}@", v4, v5, v6, v7, v8, DWORD2(v8));
 }
 
 @end

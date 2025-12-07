@@ -10,6 +10,7 @@
 - (void)addValue:(id)value timestamp:(unint64_t)timestamp;
 - (void)addValuesFromHistory:(id)history;
 - (void)enumerateValuesUsingBlock:(id)block;
+- (void)removeAllValues;
 - (void)removeValuesBeforeTimestamp:(unint64_t)timestamp;
 @end
 
@@ -96,6 +97,13 @@
 
     while (v6 > 1);
   }
+}
+
+- (void)removeAllValues
+{
+  items = self->_items;
+  self->_items = 0;
+  MEMORY[0x1EEE66BB8](self, items);
 }
 
 - (id)lastValueAndTimestamp:(unint64_t *)timestamp

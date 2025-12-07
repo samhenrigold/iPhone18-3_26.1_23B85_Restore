@@ -6,6 +6,7 @@
 - (void)bootstrapWithOptions:(id)options;
 - (void)dealloc;
 - (void)downloadFirmwareWithOptions:(id)options;
+- (void)findFirmwareWithOptions:(id)options remote:(BOOL)remote;
 - (void)finishWithOptions:(id)options;
 - (void)personalizationResponse:(id)response response:(id)a4 status:(id)status;
 - (void)prepareFirmwareWithOptions:(id)options;
@@ -194,6 +195,14 @@ LABEL_28:
   optionsCopy = options;
   plugin = [(SHFUPluginProxy *)self plugin];
   [plugin bootstrapWithOptions:optionsCopy];
+}
+
+- (void)findFirmwareWithOptions:(id)options remote:(BOOL)remote
+{
+  remoteCopy = remote;
+  optionsCopy = options;
+  plugin = [(SHFUPluginProxy *)self plugin];
+  [plugin findFirmwareWithOptions:optionsCopy remote:remoteCopy];
 }
 
 - (void)downloadFirmwareWithOptions:(id)options

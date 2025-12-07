@@ -150,10 +150,10 @@ void sub_2328(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int
   _Unwind_Resume(a1);
 }
 
-void sub_248C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_248C(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   a9.super_class = IDEDataProvider_NetworkStatistics;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
@@ -168,32 +168,28 @@ void sub_2674(uint64_t a1)
     *(v4 + 48) = v3;
 
     v6 = *(a1 + 32);
-    v7 = *(v6 + 48);
     block[5] = _NSConcreteStackBlock;
     block[6] = 3221225472;
     block[7] = sub_28A4;
     block[8] = &unk_10578;
     block[9] = v6;
     *(*(a1 + 32) + 40) = NStatManagerCreate();
-    v8 = *(*(a1 + 32) + 40);
     NStatManagerAddAllUDP();
-    v9 = *(*(a1 + 32) + 40);
     NStatManagerAddAllTCP();
     v2 = *(a1 + 32);
   }
 
-  v10 = *(v2 + 48);
+  v7 = *(v2 + 48);
   block[0] = _NSConcreteStackBlock;
   block[1] = 3221225472;
   block[2] = sub_3B4C;
   block[3] = &unk_105A0;
   block[4] = v2;
-  dispatch_sync(v10, block);
-  v11 = +[NSDate date];
-  v12 = *(*(a1 + 32) + 40);
-  v14 = *(a1 + 40);
-  v15 = *(a1 + 48);
-  v13 = v11;
+  dispatch_sync(v7, block);
+  v8 = +[NSDate date];
+  v10 = *(a1 + 40);
+  v11 = *(a1 + 48);
+  v9 = v8;
   NStatManagerQueryAllSourcesUpdate();
 }
 
@@ -201,11 +197,8 @@ uint64_t sub_28A4(uint64_t a1, const void *a2)
 {
   dispatch_assert_queue_V2(*(*(a1 + 32) + 48));
   CFRetain(a2);
-  v7 = *(a1 + 32);
   NStatSourceSetDescriptionBlock();
-  v6 = *(a1 + 32);
   NStatSourceSetCountsBlock();
-  v5 = *(a1 + 32);
   return NStatSourceSetRemovedBlock();
 }
 
@@ -218,142 +211,140 @@ void sub_29F8(uint64_t a1, void *a2)
   v7 = [v6 objectForKeyedSubscript:kNStatSrcKeyPID];
   v8 = [v7 copy];
   v9 = v8;
-  v10 = *v5;
   if (v8)
   {
-    v11 = v8;
+    v10 = v8;
   }
 
   else
   {
-    v11 = *v5;
+    v10 = *v5;
   }
 
-  objc_storeStrong(v5, v11);
+  objc_storeStrong(v5, v10);
 
-  v12 = [v6 objectForKeyedSubscript:kNStatSrcKeyInterface];
-  v13 = [v12 integerValue];
+  v11 = [v6 objectForKeyedSubscript:kNStatSrcKeyInterface];
+  v12 = [v11 integerValue];
   if (qword_15230 != -1)
   {
     sub_80E4();
   }
 
-  v14 = qword_15228;
-  v15 = [NSNumber numberWithUnsignedLong:v13];
-  v16 = [v14 objectForKey:v15];
+  v13 = qword_15228;
+  v14 = [NSNumber numberWithUnsignedLong:v12];
+  v15 = [v13 objectForKey:v14];
 
-  v17 = v16;
-  if (!v16)
+  v16 = v15;
+  if (!v15)
   {
-    v46 = xmmword_92B0;
-    v47 = v13;
-    v48 = 1;
-    v44 = 180;
-    if (sysctl(&v46, 6u, uu, &v44, 0, 0) || ([NSString stringWithUTF8String:uu], (v16 = objc_claimAutoreleasedReturnValue()) == 0))
+    v43 = xmmword_92B0;
+    v44 = v12;
+    v45 = 1;
+    v41 = 180;
+    if (sysctl(&v43, 6u, uu, &v41, 0, 0) || ([NSString stringWithUTF8String:uu], (v15 = objc_claimAutoreleasedReturnValue()) == 0))
     {
-      v16 = [NSString stringWithFormat:@"%i", v13];
+      v15 = [NSString stringWithFormat:@"%i", v12];
     }
 
-    v18 = qword_15228;
-    v19 = [NSNumber numberWithUnsignedLong:v13];
-    [v18 setObject:v16 forKey:v19];
+    v17 = qword_15228;
+    v18 = [NSNumber numberWithUnsignedLong:v12];
+    [v17 setObject:v15 forKey:v18];
 
-    v17 = v16;
-    if (!v16)
+    v16 = v15;
+    if (!v15)
     {
-      v17 = v5[41];
+      v16 = v5[41];
     }
   }
 
-  objc_storeStrong(v5 + 41, v17);
+  objc_storeStrong(v5 + 41, v16);
 
-  v20 = [v6 objectForKeyedSubscript:kNStatSrcKeyProvider];
-  v21 = [v20 copy];
-  v22 = v21;
-  v23 = v5[42];
-  if (v21)
+  v19 = [v6 objectForKeyedSubscript:kNStatSrcKeyProvider];
+  v20 = [v19 copy];
+  v21 = v20;
+  if (v20)
   {
-    v24 = v21;
+    v22 = v20;
   }
 
   else
   {
-    v24 = v5[42];
+    v22 = v5[42];
   }
 
-  objc_storeStrong(v5 + 42, v24);
+  objc_storeStrong(v5 + 42, v22);
 
-  v25 = [v6 objectForKeyedSubscript:kNStatSrcKeyTCPState];
-  v26 = [v25 copy];
-  v27 = v26;
-  v28 = v5[43];
-  if (v26)
+  v23 = [v6 objectForKeyedSubscript:kNStatSrcKeyTCPState];
+  v24 = [v23 copy];
+  v25 = v24;
+  if (v24)
   {
-    v29 = v26;
+    v26 = v24;
   }
 
   else
   {
-    v29 = v5[43];
+    v26 = v5[43];
   }
 
-  objc_storeStrong(v5 + 43, v29);
+  objc_storeStrong(v5 + 43, v26);
 
-  v30 = [v6 objectForKeyedSubscript:kNStatSrcKeyLocal];
+  v27 = [v6 objectForKeyedSubscript:kNStatSrcKeyLocal];
+  v28 = v27;
+  if (v27)
+  {
+    v29 = v27;
+    sub_3FE4(v5 + 8, [v28 bytes], objc_msgSend(v28, "length"));
+    sub_408C((v5 + 1), v5[42]);
+  }
+
+  v30 = [v6 objectForKeyedSubscript:kNStatSrcKeyRemote];
   v31 = v30;
   if (v30)
   {
     v32 = v30;
-    sub_3FE4(v5 + 8, [v31 bytes], objc_msgSend(v31, "length"));
-    sub_408C((v5 + 1), v5[42]);
-  }
-
-  v33 = [v6 objectForKeyedSubscript:kNStatSrcKeyRemote];
-  v34 = v33;
-  if (v33)
-  {
-    v35 = v33;
-    sub_3FE4(v5 + 64, [v34 bytes], objc_msgSend(v34, "length"));
+    sub_3FE4(v5 + 64, [v31 bytes], objc_msgSend(v31, "length"));
     sub_408C(v5 + 4, v5[42]);
   }
 
-  v36 = [v6 objectForKeyedSubscript:@"fuuid"];
-  if ([v36 length])
+  v33 = [v6 objectForKeyedSubscript:@"fuuid"];
+  if ([v33 length])
   {
-    v37 = [[NSUUID alloc] initWithUUIDString:v36];
-    memset(uu, 0, 16);
-    [v37 getUUIDBytes:uu];
-    if (v37 && !uuid_is_null(uu))
+    v34 = [[NSUUID alloc] initWithUUIDString:v33];
+    *uu = 0;
+    *&uu[8] = 0;
+    [v34 getUUIDBytes:uu];
+    if (v34 && !uuid_is_null(uu))
     {
       while (1)
       {
-        v41 = nw_path_copy_path_for_client();
-        v42 = v41;
-        if (!v41 || nw_path_get_status(v41) == nw_path_status_invalid)
+        v38 = nw_path_copy_path_for_client();
+        v39 = v38;
+        if (!v38 || nw_path_get_status(v38) == nw_path_status_invalid)
         {
-          v38 = 0;
+          v35 = 0;
           goto LABEL_35;
         }
 
-        v39 = nw_path_copy_parameters();
+        v36 = nw_path_copy_parameters();
         account_id = nw_parameters_get_account_id();
         if (account_id)
         {
-          v38 = [NSString stringWithUTF8String:account_id];
+          v35 = [NSString stringWithUTF8String:account_id];
           goto LABEL_34;
         }
 
-        v46 = 0uLL;
+        v43 = 0uLL;
         nw_parameters_get_parent_id();
-        if (uuid_is_null(&v46))
+        if (uuid_is_null(&v43))
         {
           break;
         }
 
-        *uu = v46;
+        *uu = v43;
       }
 
-      v38 = 0;
+      v35 = 0;
 LABEL_34:
 
 LABEL_35:
@@ -361,20 +352,20 @@ LABEL_35:
 
     else
     {
-      v38 = 0;
+      v35 = 0;
     }
 
-    v43 = v5[45];
-    v5[45] = v38;
+    v40 = v5[45];
+    v5[45] = v35;
   }
 }
 
-void *sub_2F64(void *a1, void *a2)
+void *sub_2F64(float *a1, void *a2)
 {
   v2 = 0x9DDFEA08EB382D69 * ((8 * (*a2 & 0x1FFFFFFFLL) + 8) ^ HIDWORD(*a2));
   v3 = 0x9DDFEA08EB382D69 * (HIDWORD(*a2) ^ (v2 >> 47) ^ v2);
   v4 = 0x9DDFEA08EB382D69 * (v3 ^ (v3 >> 47));
-  v5 = a1[1];
+  v5 = *(a1 + 2);
   if (!*&v5)
   {
     goto LABEL_18;
@@ -445,10 +436,10 @@ LABEL_17:
   return v9 + 3;
 }
 
-void sub_3438(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_3438(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
-  sub_4730(va);
+  va_start(va, a3);
+  sub_4730(va, a2);
   _Unwind_Resume(a1);
 }
 
@@ -570,23 +561,22 @@ void sub_3824(_Unwind_Exception *a1)
 void sub_3850(uint64_t a1)
 {
   dispatch_assert_queue_V2(*(*(a1 + 32) + 48));
-  v2 = *(a1 + 40);
-  v3 = NStatSourceCopyCounts();
-  v4 = sub_2F64((*(a1 + 32) + 96), (a1 + 40));
-  if (v3)
+  v2 = NStatSourceCopyCounts();
+  v3 = sub_2F64((*(a1 + 32) + 96), (a1 + 40));
+  if (v2)
   {
-    v5 = v4;
-    v6 = *(v4 + 16);
-    *(v4 + 21) = *(v4 + 17);
-    v7 = *(v4 + 19);
-    *(v4 + 23) = *(v4 + 18);
-    *(v4 + 25) = v7;
-    v4[27] = v4[40];
-    v8 = *(v4 + 15);
-    *(v4 + 15) = *(v4 + 14);
-    *(v4 + 17) = v8;
-    *(v4 + 19) = v6;
-    sub_4244(&v31, v3);
+    v5 = v3;
+    v6 = *(v3 + 16);
+    *(v3 + 21) = *(v3 + 17);
+    v7 = *(v3 + 19);
+    *(v3 + 23) = *(v3 + 18);
+    *(v3 + 25) = v7;
+    v3[27] = v3[40];
+    v8 = *(v3 + 15);
+    *(v3 + 15) = *(v3 + 14);
+    *(v3 + 17) = v8;
+    *(v3 + 19) = v6;
+    sub_4244(&v31, v2);
     v9 = v36;
     *(v5 + 18) = v35;
     *(v5 + 19) = v9;
@@ -790,7 +780,7 @@ LABEL_42:
   LOBYTE(v32) = 1;
   *(&v32 + 1) = 0;
   DWORD1(v32) = 0;
-  sub_4730(&v31);
+  sub_4730(&v31, v4);
   v12 = *(a1 + 40);
 LABEL_49:
   CFRelease(v12);
@@ -889,10 +879,7 @@ uint64_t sub_3E4C(uint64_t result, uint64_t a2)
 
 uint64_t sub_3E64(uint64_t a1)
 {
-  v2 = [*(*(a1 + 32) + 32) copy];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(*(a1 + 32) + 32) copy];
 
   return _objc_release_x1();
 }
@@ -1110,18 +1097,18 @@ void sub_46FC()
   v1 = std::bad_array_new_length::bad_array_new_length(exception);
 }
 
-uint64_t sub_4730(uint64_t a1)
+char **sub_4730(char **a1, uint64_t a2)
 {
-  v2 = *a1;
+  v3 = *a1;
   *a1 = 0;
-  if (v2)
+  if (v3)
   {
     if (*(a1 + 16) == 1)
     {
-      sub_47B8(v2 + 16);
+      sub_47B8(v3 + 16);
     }
 
-    operator delete(v2);
+    operator delete(v3);
   }
 
   return a1;

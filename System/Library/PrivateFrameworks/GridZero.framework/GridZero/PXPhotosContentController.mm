@@ -261,11 +261,11 @@ LABEL_8:
 
 - (void)_handleChangeToModifySelectionWithUserInfo:(id)info
 {
-  v25 = 0;
+  v26 = 0;
   infoCopy = info;
   PXGAXGetFocusFromAndToInfosForUserInfo();
-  v23 = 0u;
   v24 = 0u;
+  v25 = 0u;
   PXGAXGetToSimpleIndexPathForUserInfo();
 
   viewModel = [(PXPhotosContentController *)self viewModel];
@@ -275,26 +275,26 @@ LABEL_8:
     currentDataSource = [viewModel currentDataSource];
     identifier = [currentDataSource identifier];
 
-    if (identifier != v23)
+    if (identifier != v24)
     {
       dataSourceManager = [v6 dataSourceManager];
       changeHistory = [dataSourceManager changeHistory];
       currentDataSource2 = [v6 currentDataSource];
-      v12 = [changeHistory changeDetailsFromDataSourceIdentifier:v23 toDataSourceIdentifier:{objc_msgSend(currentDataSource2, "identifier")}];
+      v12 = [changeHistory changeDetailsFromDataSourceIdentifier:v24 toDataSourceIdentifier:{objc_msgSend(currentDataSource2, "identifier")}];
 
-      v20[0] = v23;
-      v20[1] = v24;
-      [MEMORY[0x277D3CDD0] indexPathAfterApplyingChanges:v12 toIndexPath:v20 hasIncrementalChanges:0 objectChanged:0];
-      v23 = v21;
+      v20 = v24;
+      v21 = v25;
+      objc_msgSend_indexPathAfterApplyingChanges_toIndexPath_hasIncrementalChanges_objectChanged_(MEMORY[0x277D3CDD0]);
       v24 = v22;
+      v25 = v23;
     }
   }
 
   selectionSnapshot = [v6 selectionSnapshot];
   selectedIndexPaths = [selectionSnapshot selectedIndexPaths];
-  v21 = v23;
   v22 = v24;
-  v15 = [selectedIndexPaths containsIndexPath:&v21];
+  v23 = v25;
+  v15 = [selectedIndexPaths containsIndexPath:&v22];
 
   if ((v15 & 1) == 0)
   {
@@ -303,8 +303,8 @@ LABEL_8:
     v17[1] = 3221225472;
     v17[2] = __72__PXPhotosContentController__handleChangeToModifySelectionWithUserInfo___block_invoke;
     v17[3] = &__block_descriptor_64_e37_v16__0___PXMutableSelectionManager__8l;
-    v18 = v23;
-    v19 = v24;
+    v18 = v24;
+    v19 = v25;
     [selectionManager performChanges:v17];
   }
 }
@@ -357,10 +357,7 @@ uint64_t __72__PXPhotosContentController__handleChangeToModifySelectionWithUserI
   currentDataSource = [viewModel currentDataSource];
   *&retstr->dataSourceIdentifier = 0u;
   *&retstr->item = 0u;
-  v12 = *&direction->item;
-  v14[0] = *&direction->dataSourceIdentifier;
-  v14[1] = v12;
-  [(PXPhotosContentController *)self _selectableIndexPathClosestToIndexPath:v14 fromDataSource:currentDataSource inDirection:a6];
+  objc_msgSend__selectableIndexPathClosestToIndexPath_fromDataSource_inDirection_(self, direction->dataSourceIdentifier, direction->section, direction->item, direction->subitem);
 
   return result;
 }
@@ -369,10 +366,8 @@ uint64_t __72__PXPhotosContentController__handleChangeToModifySelectionWithUserI
 {
   viewModel = [(PXPhotosContentController *)self viewModel];
   currentDataSource = [viewModel currentDataSource];
-  if (direction == 2)
+  if (direction)
   {
-    direction = 5;
-LABEL_7:
     v20 = *&path->dataSourceIdentifier;
     v21 = *&path->item;
     v15 = objc_alloc_init(MEMORY[0x277D3CD78]);
@@ -384,7 +379,7 @@ LABEL_7:
     {
       v23 = v17;
       v24 = v16;
-      [(PXPhotosContentController *)self _selectableIndexPathClosestToIndexPath:&v23 fromDataSource:currentDataSource inDirection:direction, v20.i64[0]];
+      objc_msgSend__selectableIndexPathClosestToIndexPath_fromDataSource_inDirection_(self, v20.i64[0]);
       v20 = v25;
       v22 = v26;
       [v14 addIndexPath:&v25];
@@ -393,28 +388,18 @@ LABEL_7:
     }
 
     while ((vminv_u16(vmovn_s32(vuzp1q_s32(vceqq_s64(v20, *&indexPath->dataSourceIdentifier), vceqq_s64(v22, *&indexPath->item)))) & 1) == 0 && v20.i64[0] != v18);
-    goto LABEL_10;
   }
 
-  if (direction == 1)
+  else
   {
-    direction = 6;
-    goto LABEL_7;
+    v12 = *&path->item;
+    v25 = *&path->dataSourceIdentifier;
+    v26 = v12;
+    v13 = *&indexPath->item;
+    v23 = *&indexPath->dataSourceIdentifier;
+    v24 = v13;
+    v14 = [(PXPhotosContentController *)self indexPathsFromIndexPath:&v25 toIndexPath:&v23 inDataSource:currentDataSource];
   }
-
-  if (direction)
-  {
-    goto LABEL_7;
-  }
-
-  v12 = *&path->item;
-  v25 = *&path->dataSourceIdentifier;
-  v26 = v12;
-  v13 = *&indexPath->item;
-  v23 = *&indexPath->dataSourceIdentifier;
-  v24 = v13;
-  v14 = [(PXPhotosContentController *)self indexPathsFromIndexPath:&v25 toIndexPath:&v23 inDataSource:currentDataSource];
-LABEL_10:
 
   return v14;
 }
@@ -834,7 +819,7 @@ void __51__PXPhotosContentController__updateIsInCompactMode__block_invoke(uint64
     v19 = 0u;
     if (currentDataSource)
     {
-      [currentDataSource firstItemIndexPath];
+      objc_msgSend_firstItemIndexPath(currentDataSource);
       v8 = v18;
     }
 
@@ -1030,14 +1015,14 @@ void __76__PXPhotosContentController_suspendDataSourceChangesWithTimeout_identif
   return v17;
 }
 
-double __55__PXPhotosContentController_scrollDistanceAboveDetent___block_invoke(uint64_t a1)
+double __55__PXPhotosContentController_scrollDistanceAboveDetent___block_invoke(uint64_t a1, double a2, double a3)
 {
-  v1 = [*(a1 + 32) layout];
-  [v1 axis];
+  v3 = [*(a1 + 32) layout];
+  [v3 axis];
   PXPointValueForAxis();
-  v3 = v2;
+  v5 = v4;
 
-  return v3;
+  return v5;
 }
 
 - (void)scrollToNeighboringSectionInDirection:(unint64_t)direction animated:(BOOL)animated
@@ -1449,7 +1434,7 @@ LABEL_18:
       v43 = v42;
       v67 = v25;
       v68 = subitem;
-      [(PXPhotosContentController *)self _selectableIndexPathClosestToIndexPath:&v65 fromDataSource:sourceCopy inDirection:5];
+      objc_msgSend__selectableIndexPathClosestToIndexPath_fromDataSource_inDirection_(self);
       dataSourceIdentifier = v74;
       v44 = v75;
       v25 = v76;
@@ -1510,7 +1495,7 @@ LABEL_44:
       v47 = v50 && subitem == v58;
       v67 = v25;
       v68 = subitem;
-      [(PXPhotosContentController *)self _selectableIndexPathClosestToIndexPath:&v65 fromDataSource:sourceCopy inDirection:5];
+      objc_msgSend__selectableIndexPathClosestToIndexPath_fromDataSource_inDirection_(self);
       dataSourceIdentifier = v74;
       v44 = v75;
       v25 = v76;
@@ -1568,63 +1553,57 @@ void __78__PXPhotosContentController_indexPathsFromIndexPath_toIndexPath_inDataS
   viewModel = [(PXPhotosContentController *)self viewModel];
   currentDataSource = [viewModel currentDataSource];
 
-  v10 = *&direction->item;
-  v12[0] = *&direction->dataSourceIdentifier;
-  v12[1] = v10;
-  [(PXPhotosContentController *)self _selectableIndexPathClosestToIndexPath:v12 fromDataSource:currentDataSource inDirection:a5];
-
+  objc_msgSend__selectableIndexPathClosestToIndexPath_fromDataSource_inDirection_(self, direction->dataSourceIdentifier, direction->section, direction->item, direction->subitem);
   return result;
 }
 
 - (void)extendSelectionInDirection:(unint64_t)direction
 {
   viewModel = [(PXPhotosContentController *)self viewModel];
+  v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   selectionManager = [viewModel selectionManager];
   v7 = selectionManager;
   if (selectionManager)
   {
-    [selectionManager startingIndexPathForMoveInDirection:direction];
+    objc_msgSend_startingIndexPathForMoveInDirection_(selectionManager);
   }
 
   else
   {
+    v16 = 0u;
     v17 = 0u;
-    v18 = 0u;
   }
 
   v8 = *MEMORY[0x277D3CF78];
-  if (v17 == *MEMORY[0x277D3CF78])
+  if (v16 == *MEMORY[0x277D3CF78])
   {
     [(PXPhotosContentController *)self moveSelectionInDirection:direction];
   }
 
   else
   {
+    v14 = 0u;
     v15 = 0u;
-    v16 = 0u;
     selectionManager2 = [viewModel selectionManager];
     v10 = selectionManager2;
     if (selectionManager2)
     {
-      v13 = v17;
-      v14 = v18;
-      [selectionManager2 extendSelectionFromIndexPath:&v13 inDirection:direction withDelegate:self];
+      objc_msgSend_extendSelectionFromIndexPath_inDirection_withDelegate_(selectionManager2, v16, v17);
     }
 
     else
     {
+      v14 = 0u;
       v15 = 0u;
-      v16 = 0u;
     }
 
-    if (v15 != v8)
+    if (v14 != v8)
     {
       currentDataSource = [viewModel currentDataSource];
-      v13 = v15;
-      v14 = v16;
-      v12 = [currentDataSource assetReferenceAtItemIndexPath:&v13];
+      v13[0] = v14;
+      v13[1] = v15;
+      v12 = [currentDataSource assetReferenceAtItemIndexPath:v13];
 
       if (v12)
       {
@@ -1637,31 +1616,31 @@ void __78__PXPhotosContentController_indexPathsFromIndexPath_toIndexPath_inDataS
 - (void)moveSelectionInDirection:(unint64_t)direction
 {
   viewModel = [(PXPhotosContentController *)self viewModel];
+  v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
   selectionManager = [viewModel selectionManager];
-  v7 = selectionManager;
+  v6 = selectionManager;
   if (selectionManager)
   {
-    [selectionManager moveSelectionInDirection:direction withDelegate:self];
+    objc_msgSend_moveSelectionInDirection_withDelegate_(selectionManager);
   }
 
   else
   {
+    v10 = 0u;
     v11 = 0u;
-    v12 = 0u;
   }
 
-  if (v11 != *MEMORY[0x277D3CF78])
+  if (v10 != *MEMORY[0x277D3CF78])
   {
     currentDataSource = [viewModel currentDataSource];
-    v10[0] = v11;
-    v10[1] = v12;
-    v9 = [currentDataSource assetReferenceAtItemIndexPath:v10];
+    v9[0] = v10;
+    v9[1] = v11;
+    v8 = [currentDataSource assetReferenceAtItemIndexPath:v9];
 
-    if (v9)
+    if (v8)
     {
-      [(PXPhotosContentController *)self scrollToRevealAssetReference:v9 completionHandler:0];
+      [(PXPhotosContentController *)self scrollToRevealAssetReference:v8 completionHandler:0];
     }
   }
 }
@@ -1791,7 +1770,7 @@ LABEL_7:
 
   if (layout)
   {
-    [layout orientedContentTransform];
+    objc_msgSend_orientedContentTransform(layout);
   }
 
   else
@@ -1870,7 +1849,7 @@ void __70__PXPhotosContentController_indexPathsForItemsInRect_coordinateSpace___
     v4 = *(a1 + 32);
     if (v3)
     {
-      [v3 indexPath];
+      objc_msgSend_indexPath(v3);
     }
 
     else
@@ -2055,7 +2034,7 @@ void __85__PXPhotosContentController__indexPathClosestToIndexPath_fromDataSource
     v7 = a1[2].i64[0];
     if (v7)
     {
-      [v7 indexPathForAssetReference:v5];
+      objc_msgSend_indexPathForAssetReference_(v7);
       v6 = 0u;
       v8 = 0u;
     }
@@ -2084,7 +2063,7 @@ void __85__PXPhotosContentController__indexPathClosestToIndexPath_fromDataSource
     v7 = a1[2].i64[0];
     if (v7)
     {
-      [v7 indexPathForAssetCollectionReference:v5];
+      objc_msgSend_indexPathForAssetCollectionReference_(v7);
       v6 = 0u;
       v8 = 0u;
     }

@@ -28,9 +28,7 @@
     v34 = 30;
     v35 = 2114;
     v36 = requestCopy;
-    LODWORD(v26) = 38;
-    v25 = &v29;
-    _os_log_send_and_compose_impl();
+    _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v5, 0, "[wifivelocity] %s (%s:%u) Response Dictionary: %{public}@", &v29, 38);
   }
 
   v28.receiver = self;
@@ -61,7 +59,7 @@
       v16 = 0;
     }
 
-    v18 = [(NSError *)requestCopy objectForKey:@"error", v25, v26];
+    v18 = [(NSError *)requestCopy objectForKey:@"error"];
     error = v6->_error;
     v6->_error = v18;
 
@@ -84,7 +82,8 @@
       v34 = 56;
       v35 = 2114;
       v36 = v21;
-      _os_log_send_and_compose_impl();
+      LODWORD(v25) = 38;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v22, 0, "[wifivelocity] %s (%s:%u) initialization failed due to error=(%{public}@)", &v29, v25);
     }
   }
 
@@ -100,7 +99,8 @@
       v32 = "W5PeerFileTransferResponsePayload.m";
       v33 = 1024;
       v34 = 64;
-      _os_log_send_and_compose_impl();
+      LODWORD(v25) = 28;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v22, 0, "[wifivelocity] %s (%s:%u) init error with request dictionary", &v29, v25, v26);
     }
 
     v12 = 0;
@@ -126,23 +126,21 @@ LABEL_14:
     status = [(W5PeerFileTransferResponsePayload *)self status];
     publicKey = [(W5PeerFileTransferResponsePayload *)self publicKey];
     error = [(W5PeerFileTransferResponsePayload *)self error];
-    v28 = 136316674;
-    v29 = "[W5PeerFileTransferResponsePayload encode]";
-    v30 = 2080;
-    v31 = "W5PeerFileTransferResponsePayload.m";
-    v32 = 1024;
-    v33 = 76;
-    v34 = 2114;
-    v35 = version;
-    v36 = 2048;
-    v37 = status;
-    v38 = 2114;
-    v39 = publicKey;
-    v40 = 2114;
-    v41 = error;
-    LODWORD(v25) = 68;
-    v23 = &v28;
-    _os_log_send_and_compose_impl();
+    v25 = 136316674;
+    v26 = "[W5PeerFileTransferResponsePayload encode]";
+    v27 = 2080;
+    v28 = "W5PeerFileTransferResponsePayload.m";
+    v29 = 1024;
+    v30 = 76;
+    v31 = 2114;
+    v32 = version;
+    v33 = 2048;
+    v34 = status;
+    v35 = 2114;
+    v36 = publicKey;
+    v37 = 2114;
+    v38 = error;
+    _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v4, 0, "[wifivelocity] %s (%s:%u) version='%{public}@', status=%ld, publicKey='%{public}@', error='%{public}@'", &v25, 68);
   }
 
   version2 = [(W5PeerFileTransferResponsePayload *)self version];
@@ -165,31 +163,30 @@ LABEL_14:
         [v3 setObject:publicKey3 forKey:@"publicKey"];
       }
 
-      version2 = [(W5PeerFileTransferResponsePayload *)self files:v23];
+      version2 = [(W5PeerFileTransferResponsePayload *)self files];
 
       if (version2)
       {
         files = [(W5PeerFileTransferResponsePayload *)self files];
-        v27 = 0;
-        version2 = [NSKeyedArchiver archivedDataWithRootObject:files requiringSecureCoding:1 error:&v27];
-        v15 = v27;
+        v24 = 0;
+        version2 = [NSKeyedArchiver archivedDataWithRootObject:files requiringSecureCoding:1 error:&v24];
+        v15 = v24;
 
         if (!version2 || v15)
         {
           v16 = sub_100098A04();
           if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
           {
-            v28 = 136315906;
-            v29 = "[W5PeerFileTransferResponsePayload encode]";
-            v30 = 2080;
-            v31 = "W5PeerFileTransferResponsePayload.m";
-            v32 = 1024;
-            v33 = 96;
-            v34 = 2114;
-            v35 = v15;
-            LODWORD(v26) = 38;
-            v24 = &v28;
-            _os_log_send_and_compose_impl();
+            v25 = 136315906;
+            v26 = "[W5PeerFileTransferResponsePayload encode]";
+            v27 = 2080;
+            v28 = "W5PeerFileTransferResponsePayload.m";
+            v29 = 1024;
+            v30 = 96;
+            v31 = 2114;
+            v32 = v15;
+            LODWORD(v23) = 38;
+            _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v16, 0, "[wifivelocity] %s (%s:%u) Failed to encode files with error='%{public}@'", &v25, v23);
           }
         }
 
@@ -204,12 +201,12 @@ LABEL_14:
         v15 = 0;
       }
 
-      v17 = [(W5PeerFileTransferResponsePayload *)self error:v24];
+      error2 = [(W5PeerFileTransferResponsePayload *)self error];
 
-      if (v17)
+      if (error2)
       {
-        error2 = [(W5PeerFileTransferResponsePayload *)self error];
-        [v3 setObject:error2 forKey:@"error"];
+        error3 = [(W5PeerFileTransferResponsePayload *)self error];
+        [v3 setObject:error3 forKey:@"error"];
       }
     }
 

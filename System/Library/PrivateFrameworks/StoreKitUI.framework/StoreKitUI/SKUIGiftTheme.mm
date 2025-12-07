@@ -24,8 +24,8 @@
     backgroundColor = [colorScheme backgroundColor];
     [(SKUIGiftTheme *)v5 setBackgroundColor:backgroundColor];
 
-    primaryTextColor = [colorScheme primaryTextColor];
-    [(SKUIGiftTheme *)v5 setBodyTextColor:primaryTextColor];
+    v9 = objc_msgSend_primaryTextColor(colorScheme);
+    [(SKUIGiftTheme *)v5 setBodyTextColor:v9];
 
     secondaryTextColor = [colorScheme secondaryTextColor];
     [(SKUIGiftTheme *)v5 setPrimaryTextColor:secondaryTextColor];

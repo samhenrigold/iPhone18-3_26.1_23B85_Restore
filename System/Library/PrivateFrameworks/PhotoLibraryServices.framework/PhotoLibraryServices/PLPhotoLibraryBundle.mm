@@ -270,14 +270,14 @@ uint64_t __47__PLPhotoLibraryBundle_registerPLPhotoLibrary___block_invoke(uint64
   return result;
 }
 
-uint64_t __47__PLPhotoLibraryBundle_registerPLPhotoLibrary___block_invoke_65(uint64_t result, void *a2)
+void *__47__PLPhotoLibraryBundle_registerPLPhotoLibrary___block_invoke_65(void *result, void *a2)
 {
   if (a2)
   {
-    return [a2 addObject:*(result + 32)];
+    return [a2 addObject:result[4]];
   }
 
-  *(*(*(result + 40) + 8) + 24) = 0;
+  *(*(result[5] + 8) + 24) = 0;
   return result;
 }
 

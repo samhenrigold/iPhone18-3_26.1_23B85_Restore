@@ -321,34 +321,34 @@ LABEL_23:
 
 + (id)algorithmForName:(id)name
 {
-  v12[12] = *MEMORY[0x1E69E9840];
-  v11[0] = @"ContextKit";
-  v11[1] = @"Siri Donation";
-  v12[0] = &unk_1F1B46168;
-  v12[1] = &unk_1F1B46180;
-  v11[2] = @"Lookup Hints";
-  v11[3] = @"Named Entity";
-  v12[2] = &unk_1F1B46198;
-  v12[3] = &unk_1F1B461B0;
-  v11[4] = @"Photos Knowledge Graph";
-  v11[5] = @"High Level Topic Extraction";
-  v12[4] = &unk_1F1B461C8;
-  v12[5] = &unk_1F1B461E0;
-  v11[6] = @"Parsec Donation";
-  v11[7] = @"Podcasts Interaction";
-  v12[6] = &unk_1F1B461F8;
-  v12[7] = &unk_1F1B46210;
-  v11[8] = @"HealthKit Import";
-  v11[9] = @"Augmented Gazetteer";
-  v12[8] = &unk_1F1B46228;
-  v12[9] = &unk_1F1B46240;
-  v11[10] = @"Knowledge Graph";
-  v11[11] = @"Language Tagger";
-  v12[10] = &unk_1F1B46258;
-  v12[11] = &unk_1F1B46270;
+  v11[12] = *MEMORY[0x1E69E9840];
+  v10[0] = @"ContextKit";
+  v10[1] = @"Siri Donation";
+  v11[0] = &unk_1F1B46168;
+  v11[1] = &unk_1F1B46180;
+  v10[2] = @"Lookup Hints";
+  v10[3] = @"Named Entity";
+  v11[2] = &unk_1F1B46198;
+  v11[3] = &unk_1F1B461B0;
+  v10[4] = @"Photos Knowledge Graph";
+  v10[5] = @"High Level Topic Extraction";
+  v11[4] = &unk_1F1B461C8;
+  v11[5] = &unk_1F1B461E0;
+  v10[6] = @"Parsec Donation";
+  v10[7] = @"Podcasts Interaction";
+  v11[6] = &unk_1F1B461F8;
+  v11[7] = &unk_1F1B46210;
+  v10[8] = @"HealthKit Import";
+  v10[9] = @"Augmented Gazetteer";
+  v11[8] = &unk_1F1B46228;
+  v11[9] = &unk_1F1B46240;
+  v10[10] = @"Knowledge Graph";
+  v10[11] = @"Language Tagger";
+  v11[10] = &unk_1F1B46258;
+  v11[11] = &unk_1F1B46270;
   v3 = MEMORY[0x1E695DF20];
   nameCopy = name;
-  v5 = [v3 dictionaryWithObjects:v12 forKeys:v11 count:12];
+  v5 = [v3 dictionaryWithObjects:v11 forKeys:v10 count:12];
   v6 = [v5 objectForKeyedSubscript:nameCopy];
 
   if (v6)
@@ -363,7 +363,6 @@ LABEL_23:
 
   v8 = v7;
 
-  v9 = *MEMORY[0x1E69E9840];
   return v7;
 }
 

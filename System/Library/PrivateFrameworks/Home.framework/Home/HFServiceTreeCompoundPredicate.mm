@@ -28,7 +28,7 @@
 
 - (id)matchingServicesForRootService:(id)service
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   serviceCopy = service;
   rootServicePredicate = [(HFServiceTreeCompoundPredicate *)self rootServicePredicate];
   v6 = [rootServicePredicate matchingServicesForRootService:serviceCopy];
@@ -36,68 +36,66 @@
 
   if ([v7 count])
   {
-    v21 = serviceCopy;
+    v20 = serviceCopy;
     hf_childServices = [serviceCopy hf_childServices];
+    v27 = 0u;
     v28 = 0u;
     v29 = 0u;
     v30 = 0u;
-    v31 = 0u;
     obj = [(HFServiceTreeCompoundPredicate *)self childServicePredicates];
-    v8 = [obj countByEnumeratingWithState:&v28 objects:v33 count:16];
+    v8 = [obj countByEnumeratingWithState:&v27 objects:v32 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v29;
+      v10 = *v28;
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v29 != v10)
+          if (*v28 != v10)
           {
             objc_enumerationMutation(obj);
           }
 
-          v12 = *(*(&v28 + 1) + 8 * i);
+          v12 = *(*(&v27 + 1) + 8 * i);
+          v23 = 0u;
           v24 = 0u;
           v25 = 0u;
           v26 = 0u;
-          v27 = 0u;
           v13 = hf_childServices;
-          v14 = [v13 countByEnumeratingWithState:&v24 objects:v32 count:16];
+          v14 = [v13 countByEnumeratingWithState:&v23 objects:v31 count:16];
           if (v14)
           {
             v15 = v14;
-            v16 = *v25;
+            v16 = *v24;
             do
             {
               for (j = 0; j != v15; ++j)
               {
-                if (*v25 != v16)
+                if (*v24 != v16)
                 {
                   objc_enumerationMutation(v13);
                 }
 
-                v18 = [v12 matchingServicesForRootService:*(*(&v24 + 1) + 8 * j)];
+                v18 = [v12 matchingServicesForRootService:*(*(&v23 + 1) + 8 * j)];
                 [v7 unionSet:v18];
               }
 
-              v15 = [v13 countByEnumeratingWithState:&v24 objects:v32 count:16];
+              v15 = [v13 countByEnumeratingWithState:&v23 objects:v31 count:16];
             }
 
             while (v15);
           }
         }
 
-        v9 = [obj countByEnumeratingWithState:&v28 objects:v33 count:16];
+        v9 = [obj countByEnumeratingWithState:&v27 objects:v32 count:16];
       }
 
       while (v9);
     }
 
-    serviceCopy = v21;
+    serviceCopy = v20;
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 
   return v7;
 }

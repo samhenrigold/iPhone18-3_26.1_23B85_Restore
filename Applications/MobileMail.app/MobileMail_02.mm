@@ -1,136 +1,3 @@
-void sub_1000ABC64(_Unwind_Exception *a1)
-{
-  v4 = v3;
-
-  _Unwind_Resume(a1);
-}
-
-void sub_1000AC2C0(_Unwind_Exception *a1)
-{
-  v4 = v3;
-
-  _Unwind_Resume(a1);
-}
-
-void sub_1000AC948(id a1)
-{
-  v1 = [NSMapTable mapTableWithKeyOptions:517 valueOptions:0];
-  v2 = qword_1006DCEB8;
-  qword_1006DCEB8 = v1;
-}
-
-void sub_1000AC990(id a1)
-{
-  v3 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
-  v1 = dispatch_queue_create("com.apple.mobilemail.pushStatusUpdates", v3);
-  v2 = qword_1006DCEC8;
-  qword_1006DCEC8 = v1;
-}
-
-void *sub_1000AC9F4(void *a1, uint64_t a2)
-{
-  if (!a1)
-  {
-    return 0;
-  }
-
-  v6.receiver = a1;
-  v6.super_class = FavoritesCollection;
-  v3 = objc_msgSendSuper2(&v6, "init");
-  v4 = v3;
-  if (v3)
-  {
-    v3[1] = a2;
-    sub_1000ACA80(v3, a2);
-  }
-
-  return v4;
-}
-
-void sub_1000ACA80(uint64_t a1, uint64_t a2)
-{
-  if (a1)
-  {
-    v4 = [EFLocked alloc];
-    v7 = [[FavoritesCollectionState alloc] initWithType:a2];
-    v5 = [v4 initWithObject:?];
-    v6 = *(a1 + 32);
-    *(a1 + 32) = v5;
-  }
-}
-
-uint64_t sub_1000ACF28(uint64_t result, uint64_t a2)
-{
-  *(result + 40) = *(a2 + 40);
-  *(a2 + 40) = 0;
-  return result;
-}
-
-void sub_1000ACF40(uint64_t a1, void *a2)
-{
-  v3 = a2;
-  *(*(*(a1 + 32) + 8) + 24) = [v3 isEditing];
-}
-
-void sub_1000ACFA8(uint64_t a1, void *a2)
-{
-  v3 = a2;
-  if (*(a1 + 32) != [v3 isEditing])
-  {
-    [v3 setEditing:?];
-    [v3 invalidateVisibleItems];
-  }
-}
-
-void sub_1000AD034(uint64_t a1, void *a2)
-{
-  v3 = a2;
-  *(*(*(a1 + 40) + 8) + 24) = [v3 addItem:*(a1 + 32) ordered:*(a1 + 48)];
-}
-
-void sub_1000AD0A4(void *a1, void *a2)
-{
-  v3 = a2;
-  if (a1)
-  {
-    [v3 wasAddedToCollection:a1];
-    [a1 invalidateVisibleItems];
-  }
-}
-
-void sub_1000AD114(uint64_t a1, void *a2)
-{
-  v3 = a2;
-  *(*(*(a1 + 40) + 8) + 24) = [v3 addExpandedItem:*(a1 + 32)];
-}
-
-void sub_1000AD180(void *a1, void *a2)
-{
-  v6 = a2;
-  v3 = [v6 addOrUpdateItem:a1[4] didAdd:*(a1[6] + 8) + 24 didReplace:*(a1[7] + 8) + 24];
-  v4 = *(a1[5] + 8);
-  v5 = *(v4 + 40);
-  *(v4 + 40) = v3;
-}
-
-void sub_1000AD20C(void *a1, void *a2)
-{
-  v6 = a2;
-  v3 = [v6 addOrUpdateExpandedItem:a1[4] didAdd:*(a1[6] + 8) + 24 didReplace:*(a1[7] + 8) + 24];
-  v4 = *(a1[5] + 8);
-  v5 = *(v4 + 40);
-  *(v4 + 40) = v3;
-}
-
-void sub_1000AD3FC(uint64_t a1, void *a2)
-{
-  v6 = a2;
-  v3 = [v6 removeItem:*(a1 + 32)];
-  v4 = *(*(a1 + 40) + 8);
-  v5 = *(v4 + 40);
-  *(v4 + 40) = v3;
-}
-
 void sub_1000AD474(void *a1, void *a2)
 {
   v3 = a2;
@@ -214,7 +81,7 @@ id *sub_1000AD800(id *a1, void *a2)
   return a1;
 }
 
-void sub_1000AD92C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13, uint64_t a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
+void sub_1000AD92C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
 {
   _Block_object_dispose(&a15, 8);
 
@@ -295,7 +162,7 @@ id *sub_1000ADBF4(id *a1, void *a2)
   return a1;
 }
 
-void sub_1000ADD28(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13, uint64_t a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
+void sub_1000ADD28(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
 {
   _Block_object_dispose(&a15, 8);
 
@@ -519,9 +386,9 @@ LABEL_10:
   return v4;
 }
 
-void sub_1000AE7BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1000AE7BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
 
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
@@ -533,9 +400,9 @@ void sub_1000AE820(uint64_t a1, void *a2)
   *(*(*(a1 + 32) + 8) + 24) = [v3 countOfVisibleItems];
 }
 
-void sub_1000AEA60(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_1000AEA60(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
 {
-  va_start(va, a6);
+  va_start(va, a12);
 
   _Block_object_dispose(va, 8);
 }
@@ -743,7 +610,7 @@ BOOL sub_1000B40EC(id a1, id a2)
 id sub_1000B4C24(uint64_t a1)
 {
   sub_100006E64(*(a1 + 32));
-  v2 = sub_100007718();
+  v2 = sub_100007718(FavoritesPersistence);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *v4 = 0;
@@ -870,7 +737,7 @@ LABEL_18:
               v22 = +[MailChangeManager sharedChangeManager];
               v43 = [v22 allMailboxUidsSortedWithSpecialsAtTopForAccount:v44 includingLocals:1 client:a1 outbox:0];
 
-              v23 = sub_100007718();
+              v23 = sub_100007718(FavoritesPersistence);
               if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
               {
                 v24 = [v43 count];
@@ -1284,7 +1151,7 @@ void sub_1000B63A8(uint64_t a1, void *a2, void *a3)
 
     if (v6)
     {
-      v7 = sub_100007718();
+      v7 = sub_100007718(FavoritesPersistence);
       if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
         sub_100487CE8(v7);
@@ -1380,7 +1247,7 @@ void sub_1000B67E8(uint64_t a1)
 {
   v2 = [NSPropertyListSerialization dataWithPropertyList:*(a1 + 32) format:200 options:0 error:0];
   [v2 writeToFile:*(*(a1 + 40) + 32) options:1073741825 error:0];
-  v3 = sub_100007718();
+  v3 = sub_100007718(FavoritesPersistence);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v4 = 0;
@@ -1472,7 +1339,7 @@ void sub_1000B6DC8(id *a1, void *a2, void *a3)
   v6 = a3;
   if (a1)
   {
-    v7 = sub_100007718();
+    v7 = sub_100007718(FavoritesPersistence);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134218240;
@@ -1575,7 +1442,7 @@ id sub_1000B71FC(id a1, void *a2)
     v6 = [NSNumber numberWithDouble:?];
     [a1 setObject:v6 forKey:@"modified"];
 
-    v7 = sub_100007718();
+    v7 = sub_100007718(FavoritesPersistence);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       v8 = [v3 syncKey];
@@ -1598,7 +1465,7 @@ void sub_1000B7380(void *a1, void *a2, void *a3)
   v5 = a3;
   if (a1)
   {
-    v6 = sub_100007718();
+    v6 = sub_100007718(FavoritesPersistence);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134218242;
@@ -1668,7 +1535,7 @@ void sub_1000B751C(uint64_t a1, void *a2, void *a3)
       *(*(*(a1 + 56) + 8) + 24) |= v12;
       if (v13)
       {
-        v14 = sub_100007718();
+        v14 = sub_100007718(FavoritesPersistence);
         if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
         {
           v15 = [v13 syncKey];
@@ -1688,7 +1555,7 @@ void sub_1000B751C(uint64_t a1, void *a2, void *a3)
 
     else
     {
-      v13 = sub_100007718();
+      v13 = sub_100007718(FavoritesPersistence);
       if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
         sub_100487D94(v7, v9, v13);
@@ -1769,7 +1636,7 @@ void sub_1000B7DB8(id *a1, void *a2)
           v10 = [v9 representingMailbox];
           if (v10 && [v3 containsObject:v10])
           {
-            v11 = sub_100007718();
+            v11 = sub_100007718(FavoritesPersistence);
             if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
             {
               v12 = [v10 ef_publicDescription];
@@ -1839,7 +1706,7 @@ void sub_1000B8098(id *a1, void *a2)
           v11 = [v10 indexOfObject:v9];
           if (v11 == 0x7FFFFFFFFFFFFFFFLL)
           {
-            v12 = sub_100007718();
+            v12 = sub_100007718(FavoritesPersistence);
             if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
             {
               v13 = [v8 ef_publicDescription];
@@ -1851,7 +1718,7 @@ void sub_1000B8098(id *a1, void *a2)
 
           else
           {
-            v14 = sub_100007718();
+            v14 = sub_100007718(FavoritesPersistence);
             if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
             {
               v15 = [v8 ef_publicDescription];
@@ -1883,7 +1750,7 @@ void sub_1000B8098(id *a1, void *a2)
         sub_1000B5BC8(v17, @"_processNewMailboxes");
         sub_100487060(v17, 0);
 LABEL_21:
-        [*(v16 + 120) unlock];
+        [v16[15] unlock];
 
         goto LABEL_22;
       }
@@ -1930,7 +1797,7 @@ void sub_1000B8588(uint64_t a1)
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        v10 = sub_100007718();
+        v10 = sub_100007718(FavoritesPersistence);
         if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
@@ -1968,7 +1835,7 @@ void sub_1000B8588(uint64_t a1)
 
 void sub_1000B8834(uint64_t a1)
 {
-  v2 = sub_100007718();
+  v2 = sub_100007718(FavoritesPersistence);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *v3 = 0;
@@ -2084,9 +1951,9 @@ id *sub_1000B9AFC(id *a1, void *a2, void *a3)
   return a1;
 }
 
-void sub_1000B9CC4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1000B9CC4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
 
   _Unwind_Resume(a1);
@@ -2316,39 +2183,39 @@ void sub_1000BD360(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_1000BD4E4()
+void sub_1000BD4E4(uint64_t a1)
 {
-  v16[0] = SwipeActionNone;
-  v15 = [NSBundle bundleForClass:objc_opt_class()];
-  v14 = [v15 localizedStringForKey:@"SWIPE_ACTIONS_NONE" value:&stru_100662A88 table:@"Preferences"];
-  v17[0] = v14;
-  v16[1] = SwipeActionRead;
-  v12 = [NSBundle bundleForClass:objc_opt_class()];
-  v13 = [v12 localizedStringForKey:@"SWIPE_ACTIONS_READ" value:&stru_100662A88 table:@"Preferences"];
-  v17[1] = v13;
-  v16[2] = SwipeActionFlag;
-  v0 = [NSBundle bundleForClass:objc_opt_class()];
-  v1 = [v0 localizedStringForKey:@"SWIPE_ACTIONS_FLAG" value:&stru_100662A88 table:@"Preferences"];
-  v17[2] = v1;
-  v16[3] = SwipeActionMove;
-  v2 = [NSBundle bundleForClass:objc_opt_class()];
-  v3 = [v2 localizedStringForKey:@"SWIPE_ACTIONS_MOVE" value:&stru_100662A88 table:@"Preferences"];
-  v17[3] = v3;
-  v16[4] = SwipeActionArchive;
-  v4 = [NSBundle bundleForClass:objc_opt_class()];
-  v5 = [v4 localizedStringForKey:@"SWIPE_ACTIONS_ARCHIVE" value:&stru_100662A88 table:@"Preferences"];
-  v17[4] = v5;
-  v16[5] = SwipeActionTrash;
-  v6 = [NSBundle bundleForClass:objc_opt_class()];
-  v7 = [v6 localizedStringForKey:@"SWIPE_ACTIONS_TRASH" value:&stru_100662A88 table:@"Preferences"];
-  v17[5] = v7;
-  v16[6] = SwipeActionAlternateDestructiveAction;
-  v8 = [NSBundle bundleForClass:objc_opt_class()];
-  v9 = [v8 localizedStringForKey:@"SWIPE_ACTIONS_ARCHIVE" value:&stru_100662A88 table:@"Preferences"];
-  v17[6] = v9;
-  v10 = [NSDictionary dictionaryWithObjects:v17 forKeys:v16 count:7];
-  v11 = qword_1006DCF30;
-  qword_1006DCF30 = v10;
+  v17[0] = SwipeActionNone;
+  v16 = [NSBundle bundleForClass:objc_opt_class()];
+  v15 = [v16 localizedStringForKey:@"SWIPE_ACTIONS_NONE" value:&stru_100662A88 table:@"Preferences"];
+  v18[0] = v15;
+  v17[1] = SwipeActionRead;
+  v13 = [NSBundle bundleForClass:objc_opt_class()];
+  v14 = [v13 localizedStringForKey:@"SWIPE_ACTIONS_READ" value:&stru_100662A88 table:@"Preferences"];
+  v18[1] = v14;
+  v17[2] = SwipeActionFlag;
+  v1 = [NSBundle bundleForClass:objc_opt_class()];
+  v2 = [v1 localizedStringForKey:@"SWIPE_ACTIONS_FLAG" value:&stru_100662A88 table:@"Preferences"];
+  v18[2] = v2;
+  v17[3] = SwipeActionMove;
+  v3 = [NSBundle bundleForClass:objc_opt_class()];
+  v4 = [v3 localizedStringForKey:@"SWIPE_ACTIONS_MOVE" value:&stru_100662A88 table:@"Preferences"];
+  v18[3] = v4;
+  v17[4] = SwipeActionArchive;
+  v5 = [NSBundle bundleForClass:objc_opt_class()];
+  v6 = [v5 localizedStringForKey:@"SWIPE_ACTIONS_ARCHIVE" value:&stru_100662A88 table:@"Preferences"];
+  v18[4] = v6;
+  v17[5] = SwipeActionTrash;
+  v7 = [NSBundle bundleForClass:objc_opt_class()];
+  v8 = [v7 localizedStringForKey:@"SWIPE_ACTIONS_TRASH" value:&stru_100662A88 table:@"Preferences"];
+  v18[5] = v8;
+  v17[6] = SwipeActionAlternateDestructiveAction;
+  v9 = [NSBundle bundleForClass:objc_opt_class()];
+  v10 = [v9 localizedStringForKey:@"SWIPE_ACTIONS_ARCHIVE" value:&stru_100662A88 table:@"Preferences"];
+  v18[6] = v10;
+  v11 = [NSDictionary dictionaryWithObjects:v18 forKeys:v17 count:7];
+  v12 = qword_1006DCF30;
+  qword_1006DCF30 = v11;
 }
 
 void sub_1000BEA74(_Unwind_Exception *a1)
@@ -2785,34 +2652,34 @@ id sub_1000C5224(uint64_t a1, double a2)
   return v13;
 }
 
-id sub_1000C5518(uint64_t a1)
+id sub_1000C5518(uint64_t a1, uint64_t a2)
 {
   if (MUISolariumFeatureEnabled())
   {
-    v2 = [[UICollectionLayoutListConfiguration alloc] initWithAppearance:2];
-    v3 = [NSCollectionLayoutSection sectionWithListConfiguration:v2 layoutEnvironment:*(a1 + 32)];
-    [v3 setContentInsets:{0.0, *(a1 + 48), 20.0, *(a1 + 56)}];
+    v3 = [[UICollectionLayoutListConfiguration alloc] initWithAppearance:2];
+    v4 = [NSCollectionLayoutSection sectionWithListConfiguration:v3 layoutEnvironment:*(a1 + 32)];
+    [v4 setContentInsets:{0.0, *(a1 + 48), 20.0, *(a1 + 56)}];
   }
 
   else
   {
-    v4 = [NSCollectionLayoutDimension fractionalWidthDimension:1.0];
-    v5 = [NSCollectionLayoutSize sizeWithWidthDimension:v4 heightDimension:*(a1 + 40)];
-    v6 = [NSCollectionLayoutItem itemWithLayoutSize:v5];
-    v7 = [NSCollectionLayoutDimension fractionalWidthDimension:1.0];
-    v8 = [v5 heightDimension];
-    v9 = [NSCollectionLayoutSize sizeWithWidthDimension:v7 heightDimension:v8];
+    v5 = [NSCollectionLayoutDimension fractionalWidthDimension:1.0];
+    v6 = [NSCollectionLayoutSize sizeWithWidthDimension:v5 heightDimension:*(a1 + 40)];
+    v7 = [NSCollectionLayoutItem itemWithLayoutSize:v6];
+    v8 = [NSCollectionLayoutDimension fractionalWidthDimension:1.0];
+    v9 = [v6 heightDimension];
+    v10 = [NSCollectionLayoutSize sizeWithWidthDimension:v8 heightDimension:v9];
 
-    v13 = v6;
-    v10 = [NSArray arrayWithObjects:&v13 count:1];
-    v11 = [NSCollectionLayoutGroup horizontalGroupWithLayoutSize:v9 subitems:v10];
+    v14 = v7;
+    v11 = [NSArray arrayWithObjects:&v14 count:1];
+    v12 = [NSCollectionLayoutGroup horizontalGroupWithLayoutSize:v10 subitems:v11];
 
-    v3 = [NSCollectionLayoutSection sectionWithGroup:v11];
-    [v3 setContentInsetsReference:2];
-    [v3 setContentInsets:{0.0, *(a1 + 48), 8.0, *(a1 + 56)}];
+    v4 = [NSCollectionLayoutSection sectionWithGroup:v12];
+    [v4 setContentInsetsReference:2];
+    [v4 setContentInsets:{0.0, *(a1 + 48), 8.0, *(a1 + 56)}];
   }
 
-  return v3;
+  return v4;
 }
 
 void sub_1000C5AA4(uint64_t a1)
@@ -2990,10 +2857,10 @@ BOOL sub_1000C6334(id a1, MFCardAction *a2)
   return isKindOfClass & 1;
 }
 
-void sub_1000C653C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, void *a6, void *a7, uint64_t a8, uint64_t a9, ...)
+void sub_1000C653C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, void *a6, void *a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13, void *a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
-  v12 = v11;
+  va_start(va, a16);
+  v19 = v18;
 
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
@@ -3740,7 +3607,7 @@ void sub_1000D10D8(uint64_t a1, void *a2)
   }
 }
 
-void sub_1000D14E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13, uint64_t a14, void *a15, uint64_t a16, char a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, id a22)
+void sub_1000D14E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13, uint64_t a14, void *a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, id a22)
 {
   _Block_object_dispose(&a17, 8);
 
@@ -3978,7 +3845,7 @@ NSNumber *sub_1000D2EF8(uint64_t a1)
   return [NSNumber numberWithBool:v1];
 }
 
-void sub_1000D3960(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
+void sub_1000D3960(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
 {
   v21 = v20;
 
@@ -5498,7 +5365,7 @@ void sub_1000E3154(uint64_t a1)
   [v1 selectFavoriteItemAtIndexPath:v2 animated:0];
 }
 
-void sub_1000E33F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14, uint64_t a15, uint64_t a16, char a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, id a22)
+void sub_1000E33F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, id a22)
 {
   _Block_object_dispose(&a17, 8);
 
@@ -7008,7 +6875,7 @@ id sub_1000FA1B8(uint64_t a1)
   return v4;
 }
 
-id sub_1000FADD4(uint64_t a1, void *a2)
+NSMutableDictionary *sub_1000FADD4(uint64_t a1, void *a2)
 {
   v3 = a2;
   if (a1)
@@ -7072,10 +6939,11 @@ void sub_1000FB7E0(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_1000FBC78(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void *a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, void *a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, void *a46, uint64_t a47, char a48)
+void sub_1000FBC78(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void *a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, void *a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, void *a46, uint64_t a47, ...)
 {
-  _Block_object_dispose(&a48, 8);
+  va_start(va, a47);
 
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -7168,9 +7036,9 @@ void sub_1000FE0C8(uint64_t a1)
   [v1 updateMailboxSelectionAnimated:1 scrollToSelected:0];
 }
 
-void sub_1000FEB30(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, void *a7, void *a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_1000FEB30(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, void *a7, void *a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14, void *a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
 
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
@@ -8349,9 +8217,9 @@ void sub_10010DBCC(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_10010E29C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, void *a4, void *a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void *a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+void sub_10010E29C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, void *a4, void *a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void *a11, void *a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, void *a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, ...)
 {
-  va_start(va, a16);
+  va_start(va, a23);
   _Block_object_dispose(va, 8);
 
   _Unwind_Resume(a1);
@@ -8420,7 +8288,7 @@ LABEL_10:
   return result;
 }
 
-uint64_t sub_10010F338()
+uint64_t sub_10010F338(uint64_t a1)
 {
   result = _sl_dlopen();
   qword_1006DD0A0 = result;
@@ -8743,4 +8611,125 @@ LABEL_5:
   v13 = *(a1 + 56);
 
   return [v13 didBeginProcessingRequest];
+}
+
+void sub_10011620C(uint64_t a1)
+{
+  v1 = *(a1 + 32);
+  if (*(*(*(a1 + 40) + 8) + 24) == 1)
+  {
+    v2 = *(a1 + 32);
+
+    [v2 didBeginProcessingRequest];
+  }
+
+  else
+  {
+    v3 = [NSError errorWithDomain:EMErrorDomain code:2050 userInfo:0];
+    [v1 requestAbortedWithError:?];
+  }
+}
+
+NSArray *__cdecl sub_1001164FC(id a1, FavoriteItem *a2)
+{
+  v2 = [(FavoriteItem *)a2 representingMailboxes];
+
+  return v2;
+}
+
+id sub_10011652C(uint64_t a1, uint64_t a2)
+{
+  v2 = [*(a1 + 32) mailboxFromLegacyMailbox:a2];
+
+  return v2;
+}
+
+void sub_100116560(id a1)
+{
+  v2 = +[UIApplication sharedApplication];
+  v1 = [v2 appStoreReviewManager];
+  [v1 didForeground];
+}
+
+void sub_100116DC4(uint64_t a1)
+{
+  [*(a1 + 32) _dismissAnyModalViewControllerOrPopoverAnimated:0];
+  v2 = [NSString stringWithFormat:@"%@:", EMMailToURLScheme];
+  v3 = [NSURL URLWithString:v2];
+
+  v4 = [MFURLRoutingRequest requestWithURL:v3];
+  v5 = v4;
+  if (*(a1 + 40))
+  {
+    v6 = [v4 future];
+    v7 = +[EFScheduler mainThreadScheduler];
+    v13[0] = _NSConcreteStackBlock;
+    v13[1] = 3221225472;
+    v13[2] = sub_100117038;
+    v13[3] = &unk_100650988;
+    v14 = *(a1 + 40);
+    [v6 onScheduler:v7 addSuccessBlock:v13];
+
+    v8 = [v5 future];
+    v9 = +[EFScheduler mainThreadScheduler];
+    v11[0] = _NSConcreteStackBlock;
+    v11[1] = 3221225472;
+    v11[2] = sub_10011704C;
+    v11[3] = &unk_10064C478;
+    v12 = *(a1 + 40);
+    [v8 onScheduler:v9 addFailureBlock:v11];
+  }
+
+  v10 = [*(a1 + 32) urlRouter];
+  [v10 routeRequest:v5];
+}
+
+void sub_100117060(uint64_t a1)
+{
+  [*(a1 + 32) _dismissAnyModalViewControllerOrPopoverAnimated:0];
+  [*(a1 + 32) selectDefaultMailbox];
+  v2 = [*(a1 + 32) splitViewController];
+  [v2 showMessageListViewController:1 animated:0 completion:0];
+  [*(a1 + 40) setEditing:0 animated:0];
+  [*(a1 + 40) focusSearchBarAnimated:0];
+  (*(*(a1 + 48) + 16))();
+}
+
+uint64_t sub_100117114(uint64_t a1)
+{
+  [*(a1 + 32) _dismissAnyModalViewControllerOrPopoverAnimated:0];
+  [*(a1 + 40) setEditing:0 animated:0];
+  [*(a1 + 40) dismissSearchResultsAnimated:0];
+  v2 = [*(a1 + 40) navigationController];
+  v3 = [v2 popToRootViewControllerAnimated:0];
+
+  v4 = [*(a1 + 48) userInfo];
+  v5 = [v4 objectForKeyedSubscript:@"MFMailFavoriteItemAppShortcutFavoriteItem"];
+  v6 = [v5 integerValue];
+
+  v7 = [*(a1 + 32) mailboxPickerController];
+  v8 = [NSIndexPath indexPathForRow:v6 inSection:0];
+  v9 = [v7 selectFavoriteItemAtIndexPath:v8 animated:0];
+
+  if ((v9 & 1) == 0)
+  {
+    v10 = +[MailMainScene log];
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    {
+      sub_100488BD0(v6, v10);
+    }
+  }
+
+  return (*(*(a1 + 56) + 16))();
+}
+
+void sub_1001178B4(void *a1, void *a2)
+{
+  v3 = a2;
+  [v3 setFavoritesManagerState:a1[4]];
+  [v3 setPrimaryNavState:a1[7]];
+  [v3 setSupplementaryNavState:a1[8]];
+  [v3 setDetailNavState:a1[9]];
+  [v3 setConversationViewState:a1[5]];
+  [v3 setMessageListState:a1[6]];
 }

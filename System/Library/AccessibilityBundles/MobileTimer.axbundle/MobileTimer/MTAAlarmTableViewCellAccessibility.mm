@@ -7,6 +7,7 @@
 - (id)accessibilityValue;
 - (unint64_t)accessibilityTraits;
 - (void)_axSetDetailLabelForAlarm:(id)alarm;
+- (void)refreshUI:(id)i animated:(BOOL)animated;
 @end
 
 @implementation MTAAlarmTableViewCellAccessibility
@@ -139,7 +140,6 @@ id __64__MTAAlarmTableViewCellAccessibility__axSetDetailLabelForAlarm___block_in
     v6 = [*(a1 + 32) safeStringForKey:@"displayTitle"];
   }
 
-  v9 = *(a1 + 40);
   v7 = __AXStringForVariables();
   if ((v5 & 1) == 0)
   {
@@ -180,6 +180,16 @@ uint64_t __64__MTAAlarmTableViewCellAccessibility_accessibilityCustomActions__bl
   AXPerformSafeBlock();
 
   return 1;
+}
+
+- (void)refreshUI:(id)i animated:(BOOL)animated
+{
+  animatedCopy = animated;
+  v7.receiver = self;
+  v7.super_class = MTAAlarmTableViewCellAccessibility;
+  iCopy = i;
+  [(MTAAlarmTableViewCellAccessibility *)&v7 refreshUI:iCopy animated:animatedCopy];
+  [(MTAAlarmTableViewCellAccessibility *)self _axSetDetailLabelForAlarm:iCopy, v7.receiver, v7.super_class];
 }
 
 - (id)_axEnabledSwitch

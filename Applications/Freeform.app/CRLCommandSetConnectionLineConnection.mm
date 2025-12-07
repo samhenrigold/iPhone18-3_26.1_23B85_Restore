@@ -24,7 +24,7 @@
 
 - (NSUUID)connectedItemID
 {
-  v3 = sub_1005B981C(&qword_1019F6990);
+  v3 = sub_1005B981C(&qword_1019F6990, &qword_10146D2F0);
   __chkstk_darwin(v3 - 8);
   v5 = &v12 - v4;
   sub_100060460(self + OBJC_IVAR____TtC8Freeform37CRLCommandSetConnectionLineConnection_connectedItemID, &v12 - v4);
@@ -44,7 +44,7 @@
 
 - (_TtC8Freeform37CRLCommandSetConnectionLineConnection)initWithConnectionLineID:(id)d connectedItemID:(id)iD chirality:(int64_t)chirality pathSource:(id)source
 {
-  v10 = sub_1005B981C(&qword_1019F6990);
+  v10 = sub_1005B981C(&qword_1019F6990, &qword_10146D2F0);
   __chkstk_darwin(v10 - 8);
   v12 = &v22 - v11;
   v13 = type metadata accessor for UUID();
@@ -68,7 +68,7 @@
   sub_100060460(v12, self + OBJC_IVAR____TtC8Freeform37CRLCommandSetConnectionLineConnection_connectedItemID);
   *(self + OBJC_IVAR____TtC8Freeform37CRLCommandSetConnectionLineConnection_chirality) = chirality;
   *(self + OBJC_IVAR____TtC8Freeform37CRLCommandSetConnectionLineConnection_pathSource) = source;
-  v18 = type metadata accessor for CRLCommandSetConnectionLineConnection();
+  v18 = type metadata accessor for CRLCommandSetConnectionLineConnection(0);
   v22.receiver = self;
   v22.super_class = v18;
   sourceCopy = source;

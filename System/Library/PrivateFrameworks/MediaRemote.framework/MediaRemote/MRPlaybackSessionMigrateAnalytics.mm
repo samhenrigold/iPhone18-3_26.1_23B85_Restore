@@ -410,24 +410,24 @@
 - (void)setHandoffInitiatorFromString:(id)string
 {
   stringCopy = string;
-  if ([stringCopy isEqualToString:@"proximity"])
+  if (objc_msgSend_isEqualToString_(stringCopy))
   {
     v4 = 1;
   }
 
-  else if ([stringCopy isEqualToString:@"routePicker"])
+  else if (objc_msgSend_isEqualToString_(stringCopy))
   {
     v4 = 2;
   }
 
-  else if ([stringCopy isEqualToString:@"shortcuts"])
+  else if (objc_msgSend_isEqualToString_(stringCopy))
   {
     v4 = 3;
   }
 
   else
   {
-    if (![stringCopy isEqualToString:@"papika"])
+    if (!objc_msgSend_isEqualToString_(stringCopy))
     {
       goto LABEL_10;
     }
@@ -442,32 +442,32 @@ LABEL_10:
 - (void)setHandoffAppBundleFromString:(id)string
 {
   stringCopy = string;
-  if ([stringCopy isEqualToString:@"com.apple.Music"])
+  if (objc_msgSend_isEqualToString_(stringCopy))
   {
     v4 = 1;
   }
 
-  else if ([stringCopy isEqualToString:@"com.apple.TVMusic"])
+  else if (objc_msgSend_isEqualToString_(stringCopy))
   {
     v4 = 2;
   }
 
-  else if ([stringCopy isEqualToString:@"com.apple.NanoMusic"])
+  else if (objc_msgSend_isEqualToString_(stringCopy))
   {
     v4 = 3;
   }
 
-  else if ([stringCopy isEqualToString:@"com.apple.SonicMusic"])
+  else if (objc_msgSend_isEqualToString_(stringCopy))
   {
     v4 = 4;
   }
 
-  else if ([stringCopy isEqualToString:@"com.apple.SonicPodcasts"])
+  else if (objc_msgSend_isEqualToString_(stringCopy))
   {
     v4 = 101;
   }
 
-  else if ([stringCopy isEqualToString:@"com.apple.Podcasts"])
+  else if (objc_msgSend_isEqualToString_(stringCopy))
   {
     v4 = 100;
   }

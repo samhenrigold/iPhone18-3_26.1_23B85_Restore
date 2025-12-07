@@ -8,16 +8,16 @@
 - (id)succinctDescription;
 - (id)succinctDescriptionBuilder;
 - (uint64_t)displayID;
-- (void)_callOutQueue_postToObservers:(uint64_t)observers includeBookendObserver:(void *)observer connected:;
-- (void)_callOutQueue_postToObservers:(uint64_t)observers includeBookendObserver:(void *)observer disconnected:;
-- (void)_callOutQueue_postToObservers:(uint64_t)observers includeBookendObserver:(void *)observer updated:;
+- (void)_callOutQueue_postToObservers:(int)observers includeBookendObserver:(void *)observer connected:;
+- (void)_callOutQueue_postToObservers:(int)observers includeBookendObserver:(void *)observer disconnected:;
+- (void)_callOutQueue_postToObservers:(int)observers includeBookendObserver:(void *)observer updated:;
 - (void)_lock_noteConnected;
 - (void)_lock_noteDisconnecting;
 - (void)_lock_noteUpdatedForTransformInvalidation:(uint64_t)invalidation;
 - (void)_lock_setAttachment:(const os_unfair_lock *)attachment;
 - (void)_lock_setRawConfiguration:(uint64_t)configuration;
 - (void)_lock_setRawReportedConfiguration:(void *)configuration effectiveReportedConfigurations:;
-- (void)_updateForInitialization:(int)initialization forTransformInvalidation:;
+- (void)_updateForInitialization:(uint64_t)initialization forTransformInvalidation:;
 - (void)dealloc;
 - (void)invalidate;
 - (void)observeValueForKeyPath:(id)path ofObject:(id)object change:(id)change context:(void *)context;
@@ -47,20 +47,19 @@
 - (void)_lock_noteConnected
 {
   v3 = MEMORY[0x1E696AEC0];
-  v12 = [self debugDescription];
-  v4 = [v3 stringWithFormat:@"rawConfiguration cannot be nil : %@"];
+  v4 = [self debugDescription];
+  v5 = [v3 stringWithFormat:@"rawConfiguration cannot be nil : %@", v4];
 
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a2);
-    objc_claimAutoreleasedReturnValue();
-    v5 = OUTLINED_FUNCTION_5_2();
-    v6 = NSStringFromClass(v5);
+    v6 = NSStringFromSelector(a2);
+    v8 = OUTLINED_FUNCTION_5_2(v6, v7);
+    v9 = NSStringFromClass(v8);
     OUTLINED_FUNCTION_12_0();
-    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13, v14);
+    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v10, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v11, v12, v13, v14, v15, v16);
   }
 
-  [v4 UTF8String];
+  [v5 UTF8String];
   _bs_set_crash_log_message();
 }
 
@@ -121,13 +120,14 @@
   v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"invalidate must be called before deallocing"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(self);
-    objc_claimAutoreleasedReturnValue();
-    v3 = OUTLINED_FUNCTION_12();
-    v4 = NSStringFromClass(v3);
+    v3 = NSStringFromSelector(self);
+    v5 = OUTLINED_FUNCTION_12(v3, v4);
+    v6 = NSStringFromClass(v5);
+    LODWORD(v12) = 138544642;
+    *(&v12 + 4) = self;
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_8_0();
-    OUTLINED_FUNCTION_3(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, 2u);
+    OUTLINED_FUNCTION_3(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, DWORD2(v12));
   }
 
   [v2 UTF8String];
@@ -141,7 +141,7 @@ void __39__FBSDisplaySource__lock_noteConnected__block_invoke_3(uint64_t a1)
   {
     OUTLINED_FUNCTION_18_1();
 
-    [FBSDisplaySource _updateForInitialization:forTransformInvalidation:];
+    [(FBSDisplaySource *)v2 _updateForInitialization:v3 forTransformInvalidation:v4];
   }
 }
 
@@ -249,10 +249,11 @@ void __39__FBSDisplaySource__lock_noteConnected__block_invoke_3(uint64_t a1)
   return self;
 }
 
-- (void)_updateForInitialization:(int)initialization forTransformInvalidation:
+- (void)_updateForInitialization:(uint64_t)initialization forTransformInvalidation:
 {
   if (self)
   {
+    initializationCopy = initialization;
     immutableCopy = [*(self + 8) immutableCopy];
     os_unfair_lock_lock((self + 88));
     if ((*(self + 125) & 1) != 0 || (*(self + 123) & 1) == 0 && !a2)
@@ -279,7 +280,7 @@ void __39__FBSDisplaySource__lock_noteConnected__block_invoke_3(uint64_t a1)
         {
           tags = [v9 tags];
 
-          if (tags == v7 && !initialization)
+          if (tags == v7 && !initializationCopy)
           {
             goto LABEL_19;
           }
@@ -382,7 +383,7 @@ LABEL_36:
     {
       if (v20 == 3)
       {
-        [(FBSDisplaySource *)self _lock_noteUpdatedForTransformInvalidation:initialization];
+        [(FBSDisplaySource *)self _lock_noteUpdatedForTransformInvalidation:initializationCopy];
         goto LABEL_37;
       }
 
@@ -573,20 +574,19 @@ LABEL_39:
 - (void)_lock_noteDisconnecting
 {
   v3 = MEMORY[0x1E696AEC0];
-  v12 = [self debugDescription];
-  v4 = [v3 stringWithFormat:@"reported configuration cannot be nil : %@"];
+  v4 = [self debugDescription];
+  v5 = [v3 stringWithFormat:@"reported configuration cannot be nil : %@", v4];
 
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a2);
-    objc_claimAutoreleasedReturnValue();
-    v5 = OUTLINED_FUNCTION_5_2();
-    v6 = NSStringFromClass(v5);
+    v6 = NSStringFromSelector(a2);
+    v8 = OUTLINED_FUNCTION_5_2(v6, v7);
+    v9 = NSStringFromClass(v8);
     OUTLINED_FUNCTION_12_0();
-    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13, v14);
+    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v10, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v11, v12, v13, v14, v15, v16);
   }
 
-  [v4 UTF8String];
+  [v5 UTF8String];
   _bs_set_crash_log_message();
 }
 
@@ -745,7 +745,7 @@ void __43__FBSDisplaySource__lock_noteDisconnecting__block_invoke(uint64_t a1)
   v3 = *v2;
   if (!*(*v2 + 48))
   {
-    __43__FBSDisplaySource__lock_noteDisconnecting__block_invoke_cold_2(v3, a1);
+    __43__FBSDisplaySource__lock_noteDisconnecting__block_invoke_cold_2(v3, a1, v2);
   }
 
   __43__FBSDisplaySource__lock_noteDisconnecting__block_invoke_cold_1(v3, v2);
@@ -844,7 +844,7 @@ void __43__FBSDisplaySource__lock_noteDisconnecting__block_invoke(uint64_t a1)
   }
 }
 
-- (void)_callOutQueue_postToObservers:(uint64_t)observers includeBookendObserver:(void *)observer connected:
+- (void)_callOutQueue_postToObservers:(int)observers includeBookendObserver:(void *)observer connected:
 {
   v6 = a2;
   observerCopy = observer;
@@ -879,7 +879,7 @@ void __39__FBSDisplaySource__lock_noteConnected__block_invoke_148(uint64_t a1)
   }
 }
 
-- (void)_callOutQueue_postToObservers:(uint64_t)observers includeBookendObserver:(void *)observer disconnected:
+- (void)_callOutQueue_postToObservers:(int)observers includeBookendObserver:(void *)observer disconnected:
 {
   v6 = a2;
   observerCopy = observer;
@@ -889,7 +889,7 @@ void __39__FBSDisplaySource__lock_noteConnected__block_invoke_148(uint64_t a1)
   }
 }
 
-- (void)_callOutQueue_postToObservers:(uint64_t)observers includeBookendObserver:(void *)observer updated:
+- (void)_callOutQueue_postToObservers:(int)observers includeBookendObserver:(void *)observer updated:
 {
   v6 = a2;
   observerCopy = observer;
@@ -911,15 +911,14 @@ void __39__FBSDisplaySource__lock_noteConnected__block_invoke_148(uint64_t a1)
 
 - (void)initWithDisplay:(char *)a1 alwaysConnected:triggers:monitor:.cold.1(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"callOutQueue"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a1);
-    objc_claimAutoreleasedReturnValue();
-    v3 = OUTLINED_FUNCTION_12();
-    v4 = NSStringFromClass(v3);
+    v3 = NSStringFromSelector(a1);
+    v5 = OUTLINED_FUNCTION_12(v3, v4);
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_8();
-    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"callOutQueue", v10, v11);
+    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13);
   }
 
   [v2 UTF8String];
@@ -928,15 +927,14 @@ void __39__FBSDisplaySource__lock_noteConnected__block_invoke_148(uint64_t a1)
 
 - (void)initWithDisplay:(char *)a1 alwaysConnected:triggers:monitor:.cold.2(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"monitor"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a1);
-    objc_claimAutoreleasedReturnValue();
-    v3 = OUTLINED_FUNCTION_12();
-    v4 = NSStringFromClass(v3);
+    v3 = NSStringFromSelector(a1);
+    v5 = OUTLINED_FUNCTION_12(v3, v4);
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_8();
-    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"monitor", v10, v11);
+    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13);
   }
 
   [v2 UTF8String];
@@ -945,15 +943,14 @@ void __39__FBSDisplaySource__lock_noteConnected__block_invoke_148(uint64_t a1)
 
 - (void)initWithDisplay:(char *)a1 alwaysConnected:triggers:monitor:.cold.3(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"display"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a1);
-    objc_claimAutoreleasedReturnValue();
-    v3 = OUTLINED_FUNCTION_12();
-    v4 = NSStringFromClass(v3);
+    v3 = NSStringFromSelector(a1);
+    v5 = OUTLINED_FUNCTION_12(v3, v4);
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_8();
-    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"display", v10, v11);
+    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13);
   }
 
   [v2 UTF8String];
@@ -962,38 +959,35 @@ void __39__FBSDisplaySource__lock_noteConnected__block_invoke_148(uint64_t a1)
 
 - (void)_updateForInitialization:(const char *)a1 forTransformInvalidation:.cold.1(const char *a1)
 {
-  NSStringFromSelector(a1);
-  objc_claimAutoreleasedReturnValue();
-  v2 = OUTLINED_FUNCTION_10();
-  v3 = NSStringFromClass(v2);
+  v2 = NSStringFromSelector(a1);
+  v4 = OUTLINED_FUNCTION_10(v2, v3);
+  v5 = NSStringFromClass(v4);
   OUTLINED_FUNCTION_0_1();
   OUTLINED_FUNCTION_8_0();
   OUTLINED_FUNCTION_3_0();
-  OUTLINED_FUNCTION_3(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v4, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v5, v6, v7, v8, v9);
+  OUTLINED_FUNCTION_3(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v6, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v7, v8, v9, v10);
 }
 
 - (void)_updateForInitialization:(const char *)a1 forTransformInvalidation:.cold.2(const char *a1)
 {
-  NSStringFromSelector(a1);
-  objc_claimAutoreleasedReturnValue();
-  v2 = OUTLINED_FUNCTION_10();
-  v3 = NSStringFromClass(v2);
+  v2 = NSStringFromSelector(a1);
+  v4 = OUTLINED_FUNCTION_10(v2, v3);
+  v5 = NSStringFromClass(v4);
   OUTLINED_FUNCTION_0_1();
   OUTLINED_FUNCTION_8_0();
   OUTLINED_FUNCTION_3_0();
-  OUTLINED_FUNCTION_3(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v4, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v5, v6, v7, v8, v9);
+  OUTLINED_FUNCTION_3(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v6, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v7, v8, v9, v10);
 }
 
 - (void)_updateForInitialization:(const char *)a1 forTransformInvalidation:.cold.3(const char *a1)
 {
-  NSStringFromSelector(a1);
-  objc_claimAutoreleasedReturnValue();
-  v2 = OUTLINED_FUNCTION_10();
-  v3 = NSStringFromClass(v2);
+  v2 = NSStringFromSelector(a1);
+  v4 = OUTLINED_FUNCTION_10(v2, v3);
+  v5 = NSStringFromClass(v4);
   OUTLINED_FUNCTION_0_1();
   OUTLINED_FUNCTION_8_0();
   OUTLINED_FUNCTION_3_0();
-  OUTLINED_FUNCTION_3(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v4, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v5, v6, v7, v8, v9);
+  OUTLINED_FUNCTION_3(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v6, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v7, v8, v9, v10);
 }
 
 - (void)_updateForInitialization:(uint64_t)a1 forTransformInvalidation:.cold.4(uint64_t a1)
@@ -1022,13 +1016,14 @@ void __39__FBSDisplaySource__lock_noteConnected__block_invoke_148(uint64_t a1)
   v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Raw and effective configurations must be consistent with nullability"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a1);
-    objc_claimAutoreleasedReturnValue();
-    v3 = OUTLINED_FUNCTION_12();
-    v4 = NSStringFromClass(v3);
+    v3 = NSStringFromSelector(a1);
+    v5 = OUTLINED_FUNCTION_12(v3, v4);
+    v6 = NSStringFromClass(v5);
+    LODWORD(v12) = 138544642;
+    *(&v12 + 4) = a1;
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_8_0();
-    OUTLINED_FUNCTION_3(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, 2u);
+    OUTLINED_FUNCTION_3(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, DWORD2(v12));
   }
 
   [v2 UTF8String];
@@ -1054,67 +1049,63 @@ void __39__FBSDisplaySource__lock_noteConnected__block_invoke_148(uint64_t a1)
 
 - (void)_lock_noteUpdatedForTransformInvalidation:(const char *)a1 .cold.1(const char *a1)
 {
-  NSStringFromSelector(a1);
-  objc_claimAutoreleasedReturnValue();
-  v2 = OUTLINED_FUNCTION_10();
-  v3 = NSStringFromClass(v2);
+  v2 = NSStringFromSelector(a1);
+  v4 = OUTLINED_FUNCTION_10(v2, v3);
+  v5 = NSStringFromClass(v4);
   OUTLINED_FUNCTION_0_1();
   OUTLINED_FUNCTION_8_0();
   OUTLINED_FUNCTION_3_0();
-  OUTLINED_FUNCTION_3(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v4, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v5, v6, v7, v8, v9);
+  OUTLINED_FUNCTION_3(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v6, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v7, v8, v9, v10);
 }
 
 - (void)_lock_noteUpdatedForTransformInvalidation:(void *)a1 .cold.2(void *a1, char *a2)
 {
   v3 = MEMORY[0x1E696AEC0];
-  v12 = [a1 debugDescription];
-  v4 = [v3 stringWithFormat:@"attachment must be connected : %@"];
+  v4 = [a1 debugDescription];
+  v5 = [v3 stringWithFormat:@"attachment must be connected : %@", v4];
 
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a2);
-    objc_claimAutoreleasedReturnValue();
-    v5 = OUTLINED_FUNCTION_5_2();
-    v6 = NSStringFromClass(v5);
+    v6 = NSStringFromSelector(a2);
+    v8 = OUTLINED_FUNCTION_5_2(v6, v7);
+    v9 = NSStringFromClass(v8);
     OUTLINED_FUNCTION_12_0();
-    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13, v14);
+    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v10, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v11, v12, v13, v14, v15, v16);
   }
 
-  [v4 UTF8String];
+  [v5 UTF8String];
   _bs_set_crash_log_message();
 }
 
 - (void)_lock_noteUpdatedForTransformInvalidation:(void *)a1 .cold.3(void *a1, char *a2)
 {
   v3 = MEMORY[0x1E696AEC0];
-  v12 = [a1 debugDescription];
-  v4 = [v3 stringWithFormat:@"raw configuration cannot be nil : %@"];
+  v4 = [a1 debugDescription];
+  v5 = [v3 stringWithFormat:@"raw configuration cannot be nil : %@", v4];
 
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a2);
-    objc_claimAutoreleasedReturnValue();
-    v5 = OUTLINED_FUNCTION_5_2();
-    v6 = NSStringFromClass(v5);
+    v6 = NSStringFromSelector(a2);
+    v8 = OUTLINED_FUNCTION_5_2(v6, v7);
+    v9 = NSStringFromClass(v8);
     OUTLINED_FUNCTION_12_0();
-    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13, v14);
+    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v10, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v11, v12, v13, v14, v15, v16);
   }
 
-  [v4 UTF8String];
+  [v5 UTF8String];
   _bs_set_crash_log_message();
 }
 
 - (void)_transformDisplaysIfNecessaryFromDisplayConfiguration:(uint64_t)a1 .cold.1(uint64_t a1, char *a2)
 {
-  v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Transformed displays may not return the same display identity multiple times: %@"];
+  v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Transformed displays may not return the same display identity multiple times: %@", a1];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a2);
-    objc_claimAutoreleasedReturnValue();
-    v4 = OUTLINED_FUNCTION_12();
-    v5 = NSStringFromClass(v4);
+    v4 = NSStringFromSelector(a2);
+    v6 = OUTLINED_FUNCTION_12(v4, v5);
+    v7 = NSStringFromClass(v6);
     OUTLINED_FUNCTION_8();
-    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v6, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v7, v8, v9, v10, a1, v12, v13);
+    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v8, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v9, v10, v11, v12, v13, v14);
   }
 
   [v3 UTF8String];
@@ -1124,40 +1115,38 @@ void __39__FBSDisplaySource__lock_noteConnected__block_invoke_148(uint64_t a1)
 - (void)_transformDisplaysIfNecessaryFromDisplayConfiguration:(void *)a1 .cold.2(void *a1, char *a2)
 {
   v3 = MEMORY[0x1E696AEC0];
-  v12 = [a1 succinctDescription];
-  v4 = [v3 stringWithFormat:@"May not transform a non-main display (%@) into a main display."];
+  v4 = [a1 succinctDescription];
+  v5 = [v3 stringWithFormat:@"May not transform a non-main display (%@) into a main display.", v4];
 
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a2);
-    objc_claimAutoreleasedReturnValue();
-    v5 = OUTLINED_FUNCTION_5_2();
-    v6 = NSStringFromClass(v5);
+    v6 = NSStringFromSelector(a2);
+    v8 = OUTLINED_FUNCTION_5_2(v6, v7);
+    v9 = NSStringFromClass(v8);
     OUTLINED_FUNCTION_12_0();
-    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13, v14);
+    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v10, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v11, v12, v13, v14, v15, v16);
   }
 
-  [v4 UTF8String];
+  [v5 UTF8String];
   _bs_set_crash_log_message();
 }
 
 - (void)_transformDisplaysIfNecessaryFromDisplayConfiguration:(void *)a1 .cold.3(void *a1, char *a2)
 {
   v3 = MEMORY[0x1E696AEC0];
-  v12 = [a1 succinctDescription];
-  v4 = [v3 stringWithFormat:@"Cannot suppress a display currently by transforming display configurations from: %@"];
+  v4 = [a1 succinctDescription];
+  v5 = [v3 stringWithFormat:@"Cannot suppress a display currently by transforming display configurations from: %@", v4];
 
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a2);
-    objc_claimAutoreleasedReturnValue();
-    v5 = OUTLINED_FUNCTION_5_2();
-    v6 = NSStringFromClass(v5);
+    v6 = NSStringFromSelector(a2);
+    v8 = OUTLINED_FUNCTION_5_2(v6, v7);
+    v9 = NSStringFromClass(v8);
     OUTLINED_FUNCTION_12_0();
-    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13, v14);
+    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v10, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v11, v12, v13, v14, v15, v16);
   }
 
-  [v4 UTF8String];
+  [v5 UTF8String];
   _bs_set_crash_log_message();
 }
 
@@ -1166,31 +1155,30 @@ void __39__FBSDisplaySource__lock_noteConnected__block_invoke_148(uint64_t a1)
   v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Transformed display configurations must have one and only one mainRootDisplay."];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a1);
-    objc_claimAutoreleasedReturnValue();
-    v3 = OUTLINED_FUNCTION_12();
-    v4 = NSStringFromClass(v3);
+    v3 = NSStringFromSelector(a1);
+    v5 = OUTLINED_FUNCTION_12(v3, v4);
+    v6 = NSStringFromClass(v5);
+    LODWORD(v12) = 138544642;
+    *(&v12 + 4) = a1;
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_8_0();
-    OUTLINED_FUNCTION_3(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, 2u);
+    OUTLINED_FUNCTION_3(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, DWORD2(v12));
   }
 
   [v2 UTF8String];
   _bs_set_crash_log_message();
 }
 
-void __39__FBSDisplaySource__lock_noteConnected__block_invoke_cold_1(uint64_t a1, uint64_t *a2, uint64_t a3)
+void __39__FBSDisplaySource__lock_noteConnected__block_invoke_cold_1(void *a1, uint64_t *a2, uint64_t a3)
 {
-  v13 = *(*a1 + 32);
-  v14 = *a2;
-  v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"identity of debounced raw configuration must be consistent : configuration=%@ original=%@"];
+  v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"identity of debounced raw configuration must be consistent : configuration=%@ original=%@", *(*a1 + 32), *a2];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     v5 = NSStringFromSelector(*(a3 + 48));
     v6 = objc_opt_class();
     v7 = NSStringFromClass(v6);
     OUTLINED_FUNCTION_20();
-    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v8, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v9, v10, v11, v12, v13, v14, v15);
+    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v8, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v9, v10, v11, v12, v13, v14);
   }
 
   [v4 UTF8String];
@@ -1200,14 +1188,14 @@ void __39__FBSDisplaySource__lock_noteConnected__block_invoke_cold_1(uint64_t a1
 void __39__FBSDisplaySource__lock_noteConnected__block_invoke_cold_2(const os_unfair_lock **a1)
 {
   [(FBSDisplaySource *)*a1 _lock_setAttachment:?];
-  v6 = *&(*a1)[8]._os_unfair_lock_opaque;
+  v9 = *&(*a1)[8]._os_unfair_lock_opaque;
   os_unfair_lock_unlock(&(*a1)[22]);
-  if (v6)
+  if (v9)
   {
-    v2 = [(FBSDisplaySource *)*a1 _transformDisplaysIfNecessaryFromDisplayConfiguration:v6];
+    v2 = [(FBSDisplaySource *)*a1 _transformDisplaysIfNecessaryFromDisplayConfiguration:v9];
     os_unfair_lock_lock(&(*a1)[22]);
     [(FBSDisplaySource *)*a1 _lock_setAttachment:?];
-    [(FBSDisplaySource *)*a1 _lock_setRawReportedConfiguration:v6 effectiveReportedConfigurations:v2];
+    [(FBSDisplaySource *)*a1 _lock_setRawReportedConfiguration:v9 effectiveReportedConfigurations:v2];
     WeakRetained = objc_loadWeakRetained(&(*a1)[4]);
     v4 = [WeakRetained canPostToBookendObserver];
     v5 = *&(*a1)[8]._os_unfair_lock_opaque;
@@ -1217,26 +1205,24 @@ void __39__FBSDisplaySource__lock_noteConnected__block_invoke_cold_2(const os_un
       [(FBSDisplaySource *)*a1 _callOutQueue_postToObservers:v4 includeBookendObserver:v2 connected:?];
     }
 
-    if (v6 != v5)
+    if (v9 != v5)
     {
       OUTLINED_FUNCTION_18_1();
-      [FBSDisplaySource _updateForInitialization:forTransformInvalidation:];
+      [(FBSDisplaySource *)v6 _updateForInitialization:v7 forTransformInvalidation:v8];
     }
   }
 }
 
-void __62__FBSDisplaySource__lock_noteUpdatedForTransformInvalidation___block_invoke_cold_1(uint64_t a1, uint64_t a2)
+void __62__FBSDisplaySource__lock_noteUpdatedForTransformInvalidation___block_invoke_cold_1(void *a1, uint64_t a2)
 {
-  v12 = *(*a1 + 48);
-  v13 = *(a2 + 48);
-  v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"rawConfiguration.identity must match on update : old=%@ new=%@"];
+  v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"rawConfiguration.identity must match on update : old=%@ new=%@", *(*a1 + 48), *(a2 + 48)];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     v4 = NSStringFromSelector(*(a2 + 56));
     v5 = objc_opt_class();
     v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_20();
-    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13, v14);
+    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13);
   }
 
   [v3 UTF8String];
@@ -1257,22 +1243,22 @@ void __43__FBSDisplaySource__lock_noteDisconnecting__block_invoke_cold_1(uint64_
   [(FBSDisplaySource *)v5 _updateForInitialization:v6 forTransformInvalidation:v7];
 }
 
-void __43__FBSDisplaySource__lock_noteDisconnecting__block_invoke_cold_2(void *a1, uint64_t a2)
+void __43__FBSDisplaySource__lock_noteDisconnecting__block_invoke_cold_2(void *a1, uint64_t a2, void *a3)
 {
-  v3 = MEMORY[0x1E696AEC0];
-  v13 = [a1 debugDescription];
-  v4 = [v3 stringWithFormat:@"reported configuration cannot be nil : %@"];
+  v4 = MEMORY[0x1E696AEC0];
+  v5 = [a1 debugDescription];
+  v6 = [v4 stringWithFormat:@"reported configuration cannot be nil : %@", v5];
 
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v5 = NSStringFromSelector(*(a2 + 40));
-    v6 = objc_opt_class();
-    v7 = NSStringFromClass(v6);
+    v7 = NSStringFromSelector(*(a2 + 40));
+    v8 = objc_opt_class();
+    v9 = NSStringFromClass(v8);
     OUTLINED_FUNCTION_20();
-    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v8, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v9, v10, v11, v12, v13, v14, v15);
+    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v10, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v11, v12, v13, v14, v15, v16);
   }
 
-  [v4 UTF8String];
+  [v6 UTF8String];
   _bs_set_crash_log_message();
 }
 

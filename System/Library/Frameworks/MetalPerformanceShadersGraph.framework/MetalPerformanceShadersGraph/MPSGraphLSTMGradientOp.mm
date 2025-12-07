@@ -22,84 +22,84 @@
 
 - (void)makeMLIROpWithBuilder:(void *)builder symbolTable:(void *)table inputValues:(void *)values opInitialization:(BOOL)initialization name:(id)name
 {
-  v73 = *MEMORY[0x1E69E9840];
+  v72 = *MEMORY[0x1E69E9840];
   nameCopy = name;
-  mpsFileLoc("[MPSGraphLSTMGradientOp makeMLIROpWithBuilder:symbolTable:inputValues:opInitialization:name:]", "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShadersGraph/mpsgraph/MetalPerformanceShadersGraph/Core/Files/Operations/MPSGraphRNNOps.mm", __p);
+  mpsFileLoc(__p, "[MPSGraphLSTMGradientOp makeMLIROpWithBuilder:symbolTable:inputValues:opInitialization:name:]", "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShadersGraph/mpsgraph/MetalPerformanceShadersGraph/Core/Files/Operations/MPSGraphRNNOps.mm");
   v10 = nameCopy;
-  v72 = 260;
-  v71[0] = __p;
-  StringAttr = mlir::Builder::getStringAttr(builder, v71);
-  v13 = mlir::FileLineColLoc::get(StringAttr, 0x25Bu, 0);
+  v71 = 260;
+  v70[0] = __p;
+  StringAttr = mlir::Builder::getStringAttr(builder, v70);
+  v14 = mlir::FileLineColLoc::get(StringAttr, 0x25Bu, 0);
   if (v10)
   {
-    v14 = v10;
+    v15 = v10;
     uTF8String = [v10 UTF8String];
-    v16 = strlen(uTF8String);
-    if (v16 >= 0x7FFFFFFFFFFFFFF8)
+    v17 = strlen(uTF8String);
+    if (v17 >= 0x7FFFFFFFFFFFFFF8)
     {
       std::string::__throw_length_error[abi:ne200100]();
     }
 
-    v17 = v16;
-    if (v16 >= 0x17)
+    v18 = v17;
+    if (v17 >= 0x17)
     {
       operator new();
     }
 
-    v70[6] = v16;
-    if (v16)
+    *(&__dst[0].__r_.__value_.__s + 23) = v17;
+    if (v17)
     {
-      memmove(&__dst, uTF8String, v16);
+      memmove(__dst, uTF8String, v17);
     }
 
-    v18 = &__dst + v17;
+    v19 = __dst + v18;
   }
 
   else
   {
-    v70[6] = 17;
-    v69 = 116;
-    __dst = *"mps.lstm_gradient";
-    v18 = v70;
+    *(&__dst[0].__r_.__value_.__s + 23) = 17;
+    __dst[0].__r_.__value_.__s.__data_[16] = 116;
+    *&__dst[0].__r_.__value_.__l.__data_ = *"mps.lstm_gradient";
+    v19 = &__dst[0].__r_.__value_.__s.__data_[17];
   }
 
-  *v18 = 0;
-  MPSSymbolTable::insertOpInSymbolTable(table, &__dst, v12, &v65);
-  v19 = v65.__r_.__value_.__r.__words[0];
-  if ((v65.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  *v19 = 0;
+  MPSSymbolTable::insertOpInSymbolTable(table, __dst, &v66, v12, v13);
+  v20 = v66.__r_.__value_.__r.__words[0];
+  if ((v66.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
-    v19 = &v65;
+    v20 = &v66;
   }
 
-  v20 = 1;
-  HIBYTE(v72) = 1;
-  if (v19->__r_.__value_.__s.__data_[0])
+  v21 = 1;
+  HIBYTE(v71) = 1;
+  if (v20->__r_.__value_.__s.__data_[0])
   {
-    v71[0] = v19;
-    v20 = 3;
+    v70[0] = v20;
+    v21 = 3;
   }
 
-  LOBYTE(v72) = v20;
-  v21 = mlir::Builder::getStringAttr(builder, v71);
-  v58 = mlir::NameLoc::get(v21, v13);
-  if (SHIBYTE(v65.__r_.__value_.__r.__words[2]) < 0)
+  LOBYTE(v71) = v21;
+  v22 = mlir::Builder::getStringAttr(builder, v70);
+  v59 = mlir::NameLoc::get(v22, v14);
+  if (SHIBYTE(v66.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v65.__r_.__value_.__l.__data_);
-    if ((v70[6] & 0x80000000) == 0)
+    operator delete(v66.__r_.__value_.__l.__data_);
+    if ((SHIBYTE(__dst[0].__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
     {
       goto LABEL_16;
     }
   }
 
-  else if ((v70[6] & 0x80000000) == 0)
+  else if ((SHIBYTE(__dst[0].__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
   {
     goto LABEL_16;
   }
 
-  operator delete(__dst);
+  operator delete(__dst[0].__r_.__value_.__l.__data_);
 LABEL_16:
 
-  if (v61 < 0)
+  if (v62 < 0)
   {
     operator delete(__p[0]);
   }
@@ -107,59 +107,59 @@ LABEL_16:
   inputGateActivation = [(MPSGraphLSTMDescriptor *)self->super._desc inputGateActivation];
   if (inputGateActivation >= (MPSGraphRNNActivationHardSigmoid|MPSGraphRNNActivationRelu))
   {
-    v23 = 1;
+    v24 = 1;
   }
 
   else
   {
-    v23 = inputGateActivation;
+    v24 = inputGateActivation;
   }
 
   forgetGateActivation = [(MPSGraphLSTMDescriptor *)self->super._desc forgetGateActivation];
   if (forgetGateActivation >= (MPSGraphRNNActivationHardSigmoid|MPSGraphRNNActivationRelu))
   {
-    v25 = 1;
+    v26 = 1;
   }
 
   else
   {
-    v25 = forgetGateActivation;
+    v26 = forgetGateActivation;
   }
 
   cellGateActivation = [(MPSGraphLSTMDescriptor *)self->super._desc cellGateActivation];
   if (cellGateActivation >= (MPSGraphRNNActivationHardSigmoid|MPSGraphRNNActivationRelu))
   {
-    v27 = 1;
+    v28 = 1;
   }
 
   else
   {
-    v27 = cellGateActivation;
+    v28 = cellGateActivation;
   }
 
   outputGateActivation = [(MPSGraphLSTMDescriptor *)self->super._desc outputGateActivation];
   if (outputGateActivation >= (MPSGraphRNNActivationHardSigmoid|MPSGraphRNNActivationRelu))
   {
-    v29 = 1;
+    v30 = 1;
   }
 
   else
   {
-    v29 = outputGateActivation;
+    v30 = outputGateActivation;
   }
 
   activation = [(MPSGraphLSTMDescriptor *)self->super._desc activation];
-  v31 = activation;
-  v32 = activation >= (MPSGraphRNNActivationHardSigmoid|MPSGraphRNNActivationRelu);
+  v32 = activation;
+  v33 = activation >= (MPSGraphRNNActivationHardSigmoid|MPSGraphRNNActivationRelu);
   desc = self->super._desc;
-  if (v32)
+  if (v33)
   {
-    v34 = 1;
+    v35 = 1;
   }
 
   else
   {
-    v34 = v31;
+    v35 = v32;
   }
 
   if (desc->_hasInitState)
@@ -170,19 +170,19 @@ LABEL_16:
       goto LABEL_57;
     }
 
-    v36 = *(*values + 32);
-    v37 = 5;
+    v37 = *(*values + 32);
+    v38 = 5;
     if (!desc->_hasInitCell)
     {
 LABEL_36:
-      v38 = 0;
+      v39 = 0;
       if (desc->_hasMask)
       {
         goto LABEL_37;
       }
 
 LABEL_45:
-      v39 = 0;
+      v40 = 0;
       if (!desc->_hasPeephole)
       {
         goto LABEL_39;
@@ -194,8 +194,8 @@ LABEL_45:
 
   else
   {
-    v36 = 0;
-    v37 = 4;
+    v37 = 0;
+    v38 = 4;
     valuesCopy2 = values;
     if (!desc->_hasInitCell)
     {
@@ -203,30 +203,30 @@ LABEL_45:
     }
   }
 
-  if (v37 >= (valuesCopy2[1] - *valuesCopy2) >> 3)
+  if (v38 >= (valuesCopy2[1] - *valuesCopy2) >> 3)
   {
     goto LABEL_57;
   }
 
-  v38 = *(*valuesCopy2 + 8 * v37++);
+  v39 = *(*valuesCopy2 + 8 * v38++);
   if (!desc->_hasMask)
   {
     goto LABEL_45;
   }
 
 LABEL_37:
-  if (v37 >= (valuesCopy2[1] - *valuesCopy2) >> 3)
+  if (v38 >= (valuesCopy2[1] - *valuesCopy2) >> 3)
   {
     goto LABEL_57;
   }
 
-  v39 = *(*valuesCopy2 + 8 * v37++);
+  v40 = *(*valuesCopy2 + 8 * v38++);
   if (!desc->_hasPeephole)
   {
 LABEL_39:
-    v55 = 0;
-    v56 = v23;
-    v57 = v25;
+    v56 = 0;
+    v57 = v24;
+    v58 = v26;
     if (desc->_hasCellGradient)
     {
       goto LABEL_40;
@@ -236,23 +236,23 @@ LABEL_39:
   }
 
 LABEL_46:
-  if (v37 >= (valuesCopy2[1] - *valuesCopy2) >> 3)
+  if (v38 >= (valuesCopy2[1] - *valuesCopy2) >> 3)
   {
     goto LABEL_57;
   }
 
-  v55 = *(*valuesCopy2 + 8 * v37++);
-  v56 = v23;
-  v57 = v25;
+  v56 = *(*valuesCopy2 + 8 * v38++);
+  v57 = v24;
+  v58 = v26;
   if (desc->_hasCellGradient)
   {
 LABEL_40:
-    if (v37 < (valuesCopy2[1] - *valuesCopy2) >> 3)
+    if (v38 < (valuesCopy2[1] - *valuesCopy2) >> 3)
     {
-      v40 = v36;
-      v41 = v34;
-      v42 = v29;
-      v43 = *(*valuesCopy2 + 8 * v37);
+      v41 = v37;
+      v42 = v35;
+      v43 = v30;
+      v44 = *(*valuesCopy2 + 8 * v38);
       goto LABEL_49;
     }
 
@@ -261,44 +261,44 @@ LABEL_57:
   }
 
 LABEL_48:
-  v40 = v36;
-  v41 = v34;
-  v42 = v29;
-  v43 = 0;
+  v41 = v37;
+  v42 = v35;
+  v43 = v30;
+  v44 = 0;
 LABEL_49:
-  v54 = v10;
+  v55 = v10;
   forgetGateLast = [(MPSGraphLSTMDescriptor *)desc forgetGateLast];
-  v45 = *values;
+  v46 = *values;
   if (*(values + 1) - *values < 0x20uLL)
   {
     std::vector<mlir::Value>::__throw_out_of_range[abi:ne200100]();
   }
 
-  v46 = forgetGateLast;
-  v62 = v58;
-  Context = mlir::Attribute::getContext(&v62);
-  v48 = mlir::RegisteredOperationName::lookup(&mlir::detail::TypeIDResolver<mlir::mps::LSTMGradientOp,void>::id, Context);
-  if ((v49 & 1) == 0)
+  v47 = forgetGateLast;
+  v63 = v59;
+  Context = mlir::Attribute::getContext(&v63);
+  v49 = mlir::RegisteredOperationName::lookup(&mlir::detail::TypeIDResolver<mlir::mps::LSTMGradientOp,void>::id, Context);
+  if ((v50 & 1) == 0)
   {
-    v67 = 1283;
-    v65.__r_.__value_.__r.__words[2] = "mps.lstm_gradient";
-    v66 = 17;
-    v64 = 259;
-    llvm::operator+(&v65, &v63, &__dst);
-    llvm::report_fatal_error(&__dst, 1);
+    v68 = 1283;
+    v66.__r_.__value_.__r.__words[2] = "mps.lstm_gradient";
+    v67 = 17;
+    v65 = 259;
+    llvm::operator+(&v66, &v64, __dst);
+    llvm::report_fatal_error(__dst, 1);
   }
 
-  mlir::OperationState::OperationState(v71, v58, v48);
-  mlir::mps::LSTMGradientOp::build(builder, v71, *v45, v45[1], v45[2], v45[3], v56, v57, v27, v42, v41, v46, v40, v38, v39, v55, 0, v43);
-  v50 = mlir::OpBuilder::create(builder, v71);
-  v51 = *(v50[6] + 16);
-  mlir::OperationState::~OperationState(v71);
-  if (v51 != &mlir::detail::TypeIDResolver<mlir::mps::LSTMGradientOp,void>::id)
+  mlir::OperationState::OperationState(v70, v59, v49);
+  mlir::mps::LSTMGradientOp::build(builder, v70, *v46, v46[1], v46[2], v46[3], v57, v58, v28, v43, v42, v47, v41, v39, v40, v56, 0, v44);
+  v51 = mlir::OpBuilder::create(builder, v70);
+  v52 = *(*(v51 + 6) + 16);
+  mlir::OperationState::~OperationState(v70);
+  if (v52 != &mlir::detail::TypeIDResolver<mlir::mps::LSTMGradientOp,void>::id)
   {
-    v50 = 0;
+    v51 = 0;
   }
 
-  return v50;
+  return v51;
 }
 
 @end

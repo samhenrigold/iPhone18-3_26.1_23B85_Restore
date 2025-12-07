@@ -100,7 +100,7 @@
   sceneHandle2 = [*(self + 104) sceneHandle];
   displayIdentity = [sceneHandle2 displayIdentity];
   OUTLINED_FUNCTION_0_16();
-  OUTLINED_FUNCTION_1_10(&dword_21ED4E000, v9, v10, "Trying to activate a display layout element for %{public}@ but we can't find the publisher - sceneID: %{public}@ displayIdentity: %{public}@", v11, v12, v13, v14, v15);
+  OUTLINED_FUNCTION_1_10(&dword_21ED4E000, v9, v10, "Trying to activate a display layout element for %{public}@ but we can't find the publisher - sceneID: %{public}@ displayIdentity: %{public}@", v11, v12, v13, v14);
 }
 
 - (void)_updateOrientationWrapper
@@ -920,9 +920,9 @@ void __89__SBFullScreenSwitcherSceneLiveContentOverlay_setStatusBarHidden_nubVie
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
   if (WeakRetained)
   {
-    v8 = WeakRetained;
-    [WeakRetained windowControlsLayoutForLiveContentOverlay:self];
-    WeakRetained = v8;
+    v7 = WeakRetained;
+    objc_msgSend_windowControlsLayoutForLiveContentOverlay_(WeakRetained);
+    WeakRetained = v7;
   }
 
   else
@@ -966,9 +966,9 @@ void __89__SBFullScreenSwitcherSceneLiveContentOverlay_setStatusBarHidden_nubVie
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
   if (WeakRetained)
   {
-    v8 = WeakRetained;
-    [WeakRetained windowControlsLayoutForLiveContentOverlay:self];
-    WeakRetained = v8;
+    v7 = WeakRetained;
+    objc_msgSend_windowControlsLayoutForLiveContentOverlay_(WeakRetained);
+    WeakRetained = v7;
   }
 
   else
@@ -1012,42 +1012,42 @@ void __89__SBFullScreenSwitcherSceneLiveContentOverlay_setStatusBarHidden_nubVie
 
     if (!builderCopy2)
     {
-      v8 = SBLogAppSwitcher();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+      v9 = SBLogAppSwitcher(v8);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
         [SBFullScreenSwitcherSceneLiveContentOverlay updateDisplayLayoutElementWithBuilder:?];
       }
 
       currentHandler = [MEMORY[0x277CCA890] currentHandler];
-      v10 = objc_opt_class();
+      v11 = objc_opt_class();
       sceneHandle = [(SBDeviceApplicationSceneViewControlling *)self->_deviceApplicationSceneViewController sceneHandle];
       sceneIdentifier = [sceneHandle sceneIdentifier];
       sceneHandle2 = [(SBDeviceApplicationSceneViewControlling *)self->_deviceApplicationSceneViewController sceneHandle];
       displayIdentity = [sceneHandle2 displayIdentity];
-      [currentHandler handleFailureInMethod:a2 object:self file:@"SBFullScreenSwitcherLiveContentOverlayCoordinator.m" lineNumber:2152 description:{@"No publisher - %@ sceneID: %@ displayIdentity: %@", v10, sceneIdentifier, displayIdentity}];
+      [currentHandler handleFailureInMethod:a2 object:self file:@"SBFullScreenSwitcherLiveContentOverlayCoordinator.m" lineNumber:2152 description:{@"No publisher - %@ sceneID: %@ displayIdentity: %@", v11, sceneIdentifier, displayIdentity}];
     }
 
-    v15 = objc_opt_class();
-    v16 = NSStringFromClass(v15);
-    v17 = [builderCopy2 transitionAssertionWithReason:v16];
+    v16 = objc_opt_class();
+    v17 = NSStringFromClass(v16);
+    v18 = [builderCopy2 transitionAssertionWithReason:v17];
 
     [(BSInvalidatable *)self->_displayLayoutElementAssertion invalidate];
     displayLayoutElementAssertion = self->_displayLayoutElementAssertion;
     self->_displayLayoutElementAssertion = 0;
 
     builderCopy[2](builderCopy, self->_displayLayoutElement);
-    v19 = [builderCopy2 addElement:self->_displayLayoutElement];
-    v20 = self->_displayLayoutElementAssertion;
-    self->_displayLayoutElementAssertion = v19;
+    v20 = [builderCopy2 addElement:self->_displayLayoutElement];
+    v21 = self->_displayLayoutElementAssertion;
+    self->_displayLayoutElementAssertion = v20;
 
-    [v17 invalidate];
+    [v18 invalidate];
   }
 
   else
   {
-    v21 = *(builder + 2);
+    v22 = *(builder + 2);
     builderCopy2 = builder;
-    v21();
+    v22();
   }
 }
 
@@ -1172,7 +1172,7 @@ LABEL_4:
 LABEL_6:
 }
 
-uint64_t __114__SBFullScreenSwitcherSceneLiveContentOverlay__updatePreferredWindowControlsPlacementForSceneHandle_contentState___block_invoke(uint64_t a1)
+void *__114__SBFullScreenSwitcherSceneLiveContentOverlay__updatePreferredWindowControlsPlacementForSceneHandle_contentState___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) isContentReady];
   if ((result & 1) == 0)
@@ -1495,7 +1495,7 @@ LABEL_9:
   v7 = [*(a1 + 104) sceneHandle];
   v8 = [v7 displayIdentity];
   OUTLINED_FUNCTION_0_16();
-  OUTLINED_FUNCTION_1_10(&dword_21ED4E000, v9, v10, "Trying to update a display layout element for %{public}@ but we can't find the publisher - sceneID: %{public}@ displayIdentity: %{public}@", v11, v12, v13, v14, v15);
+  OUTLINED_FUNCTION_1_10(&dword_21ED4E000, v9, v10, "Trying to update a display layout element for %{public}@ but we can't find the publisher - sceneID: %{public}@ displayIdentity: %{public}@", v11, v12, v13, v14);
 }
 
 @end

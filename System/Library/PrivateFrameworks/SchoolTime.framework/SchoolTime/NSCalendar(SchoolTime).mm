@@ -66,17 +66,17 @@ LABEL_8:
 {
   v2 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceReferenceDate:0.0];
   v3 = [MEMORY[0x277CBEB58] set];
-  v21[0] = MEMORY[0x277D85DD0];
-  v21[1] = 3221225472;
-  v22 = __44__NSCalendar_SchoolTime__SCL_nonWeekendDays__block_invoke;
-  v23 = &unk_279B6C9B0;
+  v22[0] = MEMORY[0x277D85DD0];
+  v22[1] = 3221225472;
+  v23 = __44__NSCalendar_SchoolTime__SCL_nonWeekendDays__block_invoke;
+  v24 = &unk_279B6C9B0;
   v4 = v3;
-  v24 = v4;
+  v25 = v4;
   for (i = 1; i != 8; ++i)
   {
     if ((i - 8) >= 0xFFFFFFF9)
     {
-      v22(v21, i);
+      v23(v22, i);
     }
   }
 
@@ -114,20 +114,21 @@ LABEL_8:
   while (v7);
   if ([v4 count])
   {
-    if (os_variant_has_internal_diagnostics())
+    has_internal_diagnostics = os_variant_has_internal_diagnostics();
+    if (has_internal_diagnostics)
     {
-      v14 = MEMORY[0x277CBEAD8];
-      v15 = *MEMORY[0x277CBE648];
+      v15 = MEMORY[0x277CBEAD8];
+      v16 = *MEMORY[0x277CBE648];
       calendarIdentifier = [self calendarIdentifier];
       locale = [self locale];
       localeIdentifier = [locale localeIdentifier];
       timeZone = [self timeZone];
-      [v14 raise:v15 format:{@"Did not iterate all weekdays; %@; %@ %@ - %@", v4, calendarIdentifier, localeIdentifier, timeZone}];
+      [v15 raise:v16 format:{@"Did not iterate all weekdays; %@; %@ %@ - %@", v4, calendarIdentifier, localeIdentifier, timeZone}];
     }
 
     else
     {
-      calendarIdentifier = scl_framework_log();
+      calendarIdentifier = scl_framework_log(has_internal_diagnostics);
       if (os_log_type_enabled(calendarIdentifier, OS_LOG_TYPE_FAULT))
       {
         [(NSCalendar(SchoolTime) *)v4 SCL_nonWeekendDays];
@@ -140,22 +141,20 @@ LABEL_8:
 
 - (void)SCL_nonWeekendDays
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   calendarIdentifier = [a2 calendarIdentifier];
   locale = [a2 locale];
   localeIdentifier = [locale localeIdentifier];
   timeZone = [a2 timeZone];
-  v11 = 138544130;
+  v10 = 138544130;
   selfCopy = self;
-  v13 = 2114;
-  v14 = calendarIdentifier;
-  v15 = 2114;
-  v16 = localeIdentifier;
-  v17 = 2114;
-  v18 = timeZone;
-  _os_log_fault_impl(&dword_264829000, a3, OS_LOG_TYPE_FAULT, "Did not iterate all weekdays; %{public}@; %{public}@ %{public}@ - %{public}@", &v11, 0x2Au);
-
-  v10 = *MEMORY[0x277D85DE8];
+  v12 = 2114;
+  v13 = calendarIdentifier;
+  v14 = 2114;
+  v15 = localeIdentifier;
+  v16 = 2114;
+  v17 = timeZone;
+  _os_log_fault_impl(&dword_264829000, a3, OS_LOG_TYPE_FAULT, "Did not iterate all weekdays; %{public}@; %{public}@ %{public}@ - %{public}@", &v10, 0x2Au);
 }
 
 @end

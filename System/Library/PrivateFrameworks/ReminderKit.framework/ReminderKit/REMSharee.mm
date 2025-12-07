@@ -634,41 +634,21 @@ LABEL_6:
 {
   personNameComponents = [(REMSharee *)self personNameComponents];
 
-  if (!personNameComponents)
+  if (!personNameComponents || (-[REMSharee personNameComponents](self, "personNameComponents"), v6 = objc_claimAutoreleasedReturnValue(), [MEMORY[0x1E696ADF8] localizedStringFromPersonNameComponents:v6 style:style options:0], v7 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v7, "rem_tidyFormattedNameString"), rem_tidyFormattedNameString = objc_claimAutoreleasedReturnValue(), v7, v6, !rem_tidyFormattedNameString))
   {
-    goto LABEL_13;
-  }
-
-  personNameComponents2 = [(REMSharee *)self personNameComponents];
-  v7 = [MEMORY[0x1E696ADF8] localizedStringFromPersonNameComponents:personNameComponents2 style:style options:0];
-  rem_tidyFormattedNameString = [v7 rem_tidyFormattedNameString];
-
-  if (!rem_tidyFormattedNameString)
-  {
-LABEL_13:
     address = [(REMSharee *)self address];
     rem_hasMailto = [address rem_hasMailto];
 
-    if (!rem_hasMailto)
+    if (!rem_hasMailto || (-[REMSharee address](self, "address"), v11 = objc_claimAutoreleasedReturnValue(), [v11 rem_removingMailto], v12 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v12, "rem_tidyFormattedNameString"), rem_tidyFormattedNameString = objc_claimAutoreleasedReturnValue(), v12, v11, !rem_tidyFormattedNameString))
     {
-      goto LABEL_5;
-    }
-
-    address2 = [(REMSharee *)self address];
-    rem_removingMailto = [address2 rem_removingMailto];
-    rem_tidyFormattedNameString = [rem_removingMailto rem_tidyFormattedNameString];
-
-    if (!rem_tidyFormattedNameString)
-    {
-LABEL_5:
-      address3 = [(REMSharee *)self address];
-      rem_hasTel = [address3 rem_hasTel];
+      address2 = [(REMSharee *)self address];
+      rem_hasTel = [address2 rem_hasTel];
 
       if (rem_hasTel)
       {
-        address4 = [(REMSharee *)self address];
+        address3 = [(REMSharee *)self address];
         v16 = objc_alloc(MEMORY[0x1E695CF50]);
-        rem_removingTel = [address4 rem_removingTel];
+        rem_removingTel = [address3 rem_removingTel];
         v18 = [v16 initWithStringValue:rem_removingTel];
         formattedStringValue = [v18 formattedStringValue];
 
@@ -687,20 +667,18 @@ LABEL_5:
 
 - (void)initWithCoder:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 134217984;
-  v4 = a1;
-  _os_log_fault_impl(&dword_19A0DB000, a2, OS_LOG_TYPE_FAULT, "Unknown REMShareeStatus %ld", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 134217984;
+  v3 = a1;
+  _os_log_fault_impl(&dword_19A0DB000, a2, OS_LOG_TYPE_FAULT, "Unknown REMShareeStatus %ld", &v2, 0xCu);
 }
 
 - (void)initWithCoder:(uint64_t)a1 .cold.2(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 134217984;
-  v4 = a1;
-  _os_log_fault_impl(&dword_19A0DB000, a2, OS_LOG_TYPE_FAULT, "Unknown REMShareeAccessLevel %ld", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 134217984;
+  v3 = a1;
+  _os_log_fault_impl(&dword_19A0DB000, a2, OS_LOG_TYPE_FAULT, "Unknown REMShareeAccessLevel %ld", &v2, 0xCu);
 }
 
 @end

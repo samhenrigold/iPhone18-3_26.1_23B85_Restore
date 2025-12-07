@@ -188,14 +188,14 @@
 
 - (id)unarchiveInternalAccessoryData:(id)data forUUID:(id)d
 {
-  v8 = 0;
-  v6 = +[NSKeyedUnarchiver unarchivedObjectOfClasses:fromData:error:](NSKeyedUnarchiver, "unarchivedObjectOfClasses:fromData:error:", +[UARPAccessoryInternal encodedClasses], data, &v8);
-  if (!v6 && os_log_type_enabled(self->_log, OS_LOG_TYPE_ERROR))
+  v7 = 0;
+  v5 = +[NSKeyedUnarchiver unarchivedObjectOfClasses:fromData:error:](NSKeyedUnarchiver, "unarchivedObjectOfClasses:fromData:error:", +[UARPAccessoryInternal encodedClasses], data, &v7);
+  if (!v5 && os_log_type_enabled(self->_log, OS_LOG_TYPE_ERROR))
   {
-    sub_10004AEF0(d, &v8);
+    sub_10004AEF0();
   }
 
-  return v6;
+  return v5;
 }
 
 - (id)periodicLaunchAccessoryDictionary
@@ -272,7 +272,7 @@
 
   else if (os_log_type_enabled(self->_log, OS_LOG_TYPE_ERROR))
   {
-    sub_10004AF60(request, &v7);
+    sub_10004AF60();
   }
 }
 
@@ -343,14 +343,14 @@
 
 - (id)unarchiveConsentData:(id)data forAccessory:(id)accessory
 {
-  v8 = 0;
-  v6 = [NSKeyedUnarchiver unarchivedObjectOfClass:objc_opt_class() fromData:data error:&v8];
-  if (!v6 && os_log_type_enabled(self->_log, OS_LOG_TYPE_ERROR))
+  v7 = 0;
+  v5 = [NSKeyedUnarchiver unarchivedObjectOfClass:objc_opt_class() fromData:data error:&v7];
+  if (!v5 && os_log_type_enabled(self->_log, OS_LOG_TYPE_ERROR))
   {
-    sub_10004AEF0(accessory, &v8);
+    sub_10004AEF0();
   }
 
-  return v6;
+  return v5;
 }
 
 - (id)dasActivitiesDictionary
@@ -388,7 +388,7 @@
 
   else if (os_log_type_enabled(self->_log, OS_LOG_TYPE_ERROR))
   {
-    sub_10004B070(v8, &v11);
+    sub_10004B070();
   }
 }
 
@@ -424,7 +424,7 @@
   v6 = [NSKeyedUnarchiver unarchivedObjectOfClasses:[NSSet setWithObjects:v5 fromData:objc_opt_class() error:0], data, &v8];
   if (!v6 && os_log_type_enabled(self->_log, OS_LOG_TYPE_ERROR))
   {
-    sub_10004B0EC(data, &v8);
+    sub_10004B0EC();
   }
 
   return v6;
@@ -636,11 +636,11 @@
   [(UARPDatabase *)self dumpPeriodicLaunchCache:v6];
   [(UARPDatabase *)self dumpConsentPendingAccessories:v6];
   [(UARPDatabase *)self dumpDASActivities:v6];
-  v8 = 0;
-  stringByExpandingTildeInPath = [file stringByExpandingTildeInPath];
-  if (([v6 writeToFile:objc_msgSend(file atomically:"stringByExpandingTildeInPath") encoding:1 error:{4, &v8}] & 1) == 0 && os_log_type_enabled(self->_log, OS_LOG_TYPE_ERROR))
+  v7 = 0;
+  [file stringByExpandingTildeInPath];
+  if (([v6 writeToFile:objc_msgSend(file atomically:"stringByExpandingTildeInPath") encoding:1 error:{4, &v7}] & 1) == 0 && os_log_type_enabled(self->_log, OS_LOG_TYPE_ERROR))
   {
-    sub_10004B1D4(stringByExpandingTildeInPath, &v8);
+    sub_10004B1D4();
   }
 }
 

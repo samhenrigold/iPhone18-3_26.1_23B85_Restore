@@ -146,32 +146,28 @@
 {
   identifier = [(AXSDDetector *)self identifier];
   v3 = MEMORY[0x277CE6E98];
-  v4 = *MEMORY[0x277CE6E98];
-  v5 = AXSDSoundDetectionTypesForCategory();
-  v6 = [v5 containsObject:identifier];
+  v4 = AXSDSoundDetectionTypesForCategory();
+  v5 = [v4 containsObject:identifier];
 
-  if ((v6 & 1) == 0)
+  if ((v5 & 1) == 0)
   {
     v3 = MEMORY[0x277CE6EA0];
-    v7 = *MEMORY[0x277CE6EA0];
-    v8 = AXSDSoundDetectionTypesForCategory();
-    v9 = [v8 containsObject:identifier];
+    v6 = AXSDSoundDetectionTypesForCategory();
+    v7 = [v6 containsObject:identifier];
 
-    if ((v9 & 1) == 0)
+    if ((v7 & 1) == 0)
     {
       v3 = MEMORY[0x277CE6EA8];
-      v10 = *MEMORY[0x277CE6EA8];
-      v11 = AXSDSoundDetectionTypesForCategory();
-      v12 = [v11 containsObject:identifier];
+      v8 = AXSDSoundDetectionTypesForCategory();
+      v9 = [v8 containsObject:identifier];
 
-      if ((v12 & 1) == 0)
+      if ((v9 & 1) == 0)
       {
         v3 = MEMORY[0x277CE6EB8];
-        v13 = *MEMORY[0x277CE6EB8];
-        v14 = AXSDSoundDetectionTypesForCategory();
-        v15 = [v14 containsObject:identifier];
+        v10 = AXSDSoundDetectionTypesForCategory();
+        v11 = [v10 containsObject:identifier];
 
-        if (!v15)
+        if (!v11)
         {
           v3 = MEMORY[0x277CE6EB0];
         }
@@ -179,10 +175,10 @@
     }
   }
 
-  v16 = *v3;
-  v17 = *v3;
+  v12 = *v3;
+  v13 = *v3;
 
-  return v16;
+  return v12;
 }
 
 - (BOOL)isDownloading

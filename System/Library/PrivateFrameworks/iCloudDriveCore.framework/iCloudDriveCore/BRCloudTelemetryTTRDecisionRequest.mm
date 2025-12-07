@@ -97,17 +97,15 @@ void __81__BRCloudTelemetryTTRDecisionRequest__initWithSenderID_ruleID_completio
 
 - (void)resume
 {
-  v5 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
   v0 = brc_bread_crumbs();
   v1 = brc_default_log();
   if (os_log_type_enabled(v1, OS_LOG_TYPE_FAULT))
   {
-    v3 = 138412290;
-    v4 = v0;
-    _os_log_fault_impl(&dword_223E7A000, v1, OS_LOG_TYPE_FAULT, "[CRIT] Assertion failed: !_dataTask dataTask must be nil.%@", &v3, 0xCu);
+    v2 = 138412290;
+    v3 = v0;
+    _os_log_fault_impl(&dword_223E7A000, v1, OS_LOG_TYPE_FAULT, "[CRIT] Assertion failed: !_dataTask dataTask must be nil.%@", &v2, 0xCu);
   }
-
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 - (void)URLSession:(id)session task:(id)task willPerformHTTPRedirection:(id)redirection newRequest:(id)request completionHandler:(id)handler
@@ -130,7 +128,7 @@ void __81__BRCloudTelemetryTTRDecisionRequest__initWithSenderID_ruleID_completio
 
 - (void)URLSession:(id)session task:(id)task didCompleteWithError:(id)error
 {
-  v57 = *MEMORY[0x277D85DE8];
+  v56 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   response = [task response];
   v9 = response;
@@ -212,9 +210,9 @@ LABEL_29:
   }
 
   responseBody = self->_responseBody;
-  v50 = 0;
-  v17 = [MEMORY[0x277CCAAA0] JSONObjectWithData:responseBody options:0 error:&v50];
-  v18 = v50;
+  v49 = 0;
+  v17 = [MEMORY[0x277CCAAA0] JSONObjectWithData:responseBody options:0 error:&v49];
+  v18 = v49;
   if (v18)
   {
     v19 = v18;
@@ -235,9 +233,9 @@ LABEL_27:
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
-    v40 = self->_completionHandler;
-    v41 = [MEMORY[0x277CCA9B8] brc_unkownErrorWithDescription:@"Invalid response body"];
-    v40[2](v40, 0, v41);
+    v39 = self->_completionHandler;
+    v40 = [MEMORY[0x277CCA9B8] brc_unkownErrorWithDescription:@"Invalid response body"];
+    v39[2](v39, 0, v40);
 
     goto LABEL_29;
   }
@@ -246,9 +244,9 @@ LABEL_27:
   v33 = [v17 objectForKey:@"showTTR"];
   if (!v33)
   {
-    v42 = self->_completionHandler;
+    v41 = self->_completionHandler;
     v34 = [MEMORY[0x277CCA9B8] brc_unkownErrorWithDescription:@"Missing show TTR info"];
-    v42[2](v42, 0, v34);
+    v41[2](v41, 0, v34);
 LABEL_36:
 
     goto LABEL_29;
@@ -258,9 +256,9 @@ LABEL_36:
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
-    v43 = self->_completionHandler;
-    v44 = [MEMORY[0x277CCA9B8] brc_unkownErrorWithDescription:@"Unexpected show TTR info type"];
-    v43[2](v43, 0, v44);
+    v42 = self->_completionHandler;
+    v43 = [MEMORY[0x277CCA9B8] brc_unkownErrorWithDescription:@"Unexpected show TTR info type"];
+    v42[2](v42, 0, v43);
 
     goto LABEL_36;
   }
@@ -273,39 +271,37 @@ LABEL_36:
     objc_opt_class();
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
-      v45 = self->_completionHandler;
-      v46 = [MEMORY[0x277CCA9B8] brc_unkownErrorWithDescription:@"Unexpected show TTR reason"];
-      v45[2](v45, 0, v46);
+      v44 = self->_completionHandler;
+      v45 = [MEMORY[0x277CCA9B8] brc_unkownErrorWithDescription:@"Unexpected show TTR reason"];
+      v44[2](v44, 0, v45);
 
       goto LABEL_36;
     }
   }
 
-  v48 = bOOLValue;
-  v49 = v36;
+  v47 = bOOLValue;
+  v48 = v36;
   v37 = brc_bread_crumbs();
   v38 = brc_default_log();
   if (os_log_type_enabled(v38, OS_LOG_TYPE_DEBUG))
   {
-    v47 = @"N";
+    v46 = @"N";
     *buf = 138412802;
-    if (v48)
+    if (v47)
     {
-      v47 = @"Y";
+      v46 = @"Y";
     }
 
-    v52 = v47;
-    v53 = 2112;
-    v54 = v49;
-    v55 = 2112;
-    v56 = v37;
+    v51 = v46;
+    v52 = 2112;
+    v53 = v48;
+    v54 = 2112;
+    v55 = v37;
     _os_log_debug_impl(&dword_223E7A000, v38, OS_LOG_TYPE_DEBUG, "[DEBUG] Decision Server Response showTTR=%@, reason=%@%@", buf, 0x20u);
   }
 
   (*(self->_completionHandler + 2))();
 LABEL_31:
-
-  v39 = *MEMORY[0x277D85DE8];
 }
 
 - (void)URLSession:(id)session task:(id)task _willSendRequestForEstablishedConnection:(id)connection completionHandler:(id)handler
@@ -326,9 +322,7 @@ LABEL_31:
 
 - (void)URLSession:(id)session _willRetryBackgroundDataTask:(id)task withError:(id)error
 {
-  v6 = objc_alloc_init(MEMORY[0x277CBEB28]);
-  responseBody = self->_responseBody;
-  self->_responseBody = v6;
+  self->_responseBody = objc_alloc_init(MEMORY[0x277CBEB28]);
 
   MEMORY[0x2821F96F8]();
 }
@@ -342,27 +336,24 @@ LABEL_31:
 
 void __81__BRCloudTelemetryTTRDecisionRequest__initWithSenderID_ruleID_completionHandler___block_invoke_cold_1()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_1();
-  _os_log_error_impl(&dword_223E7A000, v0, 0x90u, "[ERROR] Failed calling the IDS TTR Decision Service: %@%@", v2, 0x16u);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_223E7A000, v0, 0x90u, "[ERROR] Failed calling the IDS TTR Decision Service: %@%@", v1, 0x16u);
 }
 
 - (void)URLSession:(uint64_t)a1 task:(NSObject *)a2 needNewBodyStream:.cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_fault_impl(&dword_223E7A000, a2, OS_LOG_TYPE_FAULT, "[CRIT] Assertion failed: NO Unexpected callback.%@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_fault_impl(&dword_223E7A000, a2, OS_LOG_TYPE_FAULT, "[CRIT] Assertion failed: NO Unexpected callback.%@", &v2, 0xCu);
 }
 
 - (void)URLSession:task:didCompleteWithError:.cold.1()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_1();
-  _os_log_debug_impl(&dword_223E7A000, v0, OS_LOG_TYPE_DEBUG, "[DEBUG] Decision splunkHint=%@%@", v2, 0x16u);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(&dword_223E7A000, v0, OS_LOG_TYPE_DEBUG, "[DEBUG] Decision splunkHint=%@%@", v1, 0x16u);
 }
 
 @end

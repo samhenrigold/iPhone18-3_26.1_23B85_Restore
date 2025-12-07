@@ -112,40 +112,40 @@
 
 - (void)setLeadingControl:(id)control
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   controlCopy = control;
   p_leadingControl = &self->_leadingControl;
   if ((BSEqualObjects() & 1) == 0)
   {
     objc_storeStrong(p_leadingControl, control);
-    v7 = PRLogEditing();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = PRLogEditing(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = 138543618;
-      v9 = controlCopy;
-      v10 = 2050;
+      v9 = 138543618;
+      v10 = controlCopy;
+      v11 = 2050;
       category = [controlCopy category];
-      _os_log_impl(&dword_1A8AA7000, v7, OS_LOG_TYPE_DEFAULT, "Quick Actions: Set leading control to %{public}@ with category %{public}ld", &v8, 0x16u);
+      _os_log_impl(&dword_1A8AA7000, v8, OS_LOG_TYPE_DEFAULT, "Quick Actions: Set leading control to %{public}@ with category %{public}ld", &v9, 0x16u);
     }
   }
 }
 
 - (void)setTrailingControl:(id)control
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   controlCopy = control;
   p_trailingControl = &self->_trailingControl;
   if ((BSEqualObjects() & 1) == 0)
   {
     objc_storeStrong(p_trailingControl, control);
-    v7 = PRLogEditing();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = PRLogEditing(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = 138543618;
-      v9 = controlCopy;
-      v10 = 2050;
+      v9 = 138543618;
+      v10 = controlCopy;
+      v11 = 2050;
       category = [controlCopy category];
-      _os_log_impl(&dword_1A8AA7000, v7, OS_LOG_TYPE_DEFAULT, "Quick Actions: Set trailing control to %{public}@ with category %{public}ld", &v8, 0x16u);
+      _os_log_impl(&dword_1A8AA7000, v8, OS_LOG_TYPE_DEFAULT, "Quick Actions: Set trailing control to %{public}@ with category %{public}ld", &v9, 0x16u);
     }
   }
 }
@@ -160,7 +160,7 @@
 
   else
   {
-    v4 = PRLogEditing();
+    v4 = PRLogEditing(0);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       [(PRPosterQuickActionsConfiguration *)v4 _fetchFlashlightControl];
@@ -183,7 +183,7 @@
 
   else
   {
-    v4 = PRLogEditing();
+    v4 = PRLogEditing(0);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       [(PRPosterQuickActionsConfiguration *)v4 _fetchCameraControl];
@@ -203,37 +203,37 @@
   dCopy = d;
   v11 = [[v8 alloc] initWithExtensionBundleIdentifier:dCopy containerBundleIdentifier:iDCopy deviceIdentifier:0];
 
-  v12 = PRSharedWidgetExtensionProvider();
-  extensions = [v12 extensions];
-  v27[0] = MEMORY[0x1E69E9820];
-  v27[1] = 3221225472;
-  v27[2] = __89__PRPosterQuickActionsConfiguration__findControlIdentityForExtensionID_containerID_kind___block_invoke;
-  v27[3] = &unk_1E78435E8;
-  v14 = v11;
-  v28 = v14;
-  v15 = [extensions bs_firstObjectPassingTest:v27];
+  v13 = PRSharedWidgetExtensionProvider(v12);
+  extensions = [v13 extensions];
+  v28[0] = MEMORY[0x1E69E9820];
+  v28[1] = 3221225472;
+  v28[2] = __89__PRPosterQuickActionsConfiguration__findControlIdentityForExtensionID_containerID_kind___block_invoke;
+  v28[3] = &unk_1E78435E8;
+  v15 = v11;
+  v29 = v15;
+  v16 = [extensions bs_firstObjectPassingTest:v28];
 
-  orderedControlDescriptors = [v15 orderedControlDescriptors];
-  v22 = MEMORY[0x1E69E9820];
-  v23 = 3221225472;
-  v24 = __89__PRPosterQuickActionsConfiguration__findControlIdentityForExtensionID_containerID_kind___block_invoke_2;
-  v25 = &unk_1E7843610;
-  v17 = kindCopy;
-  v26 = v17;
-  v18 = [orderedControlDescriptors bs_firstObjectPassingTest:&v22];
+  orderedControlDescriptors = [v16 orderedControlDescriptors];
+  v23 = MEMORY[0x1E69E9820];
+  v24 = 3221225472;
+  v25 = __89__PRPosterQuickActionsConfiguration__findControlIdentityForExtensionID_containerID_kind___block_invoke_2;
+  v26 = &unk_1E7843610;
+  v18 = kindCopy;
+  v27 = v18;
+  v19 = [orderedControlDescriptors bs_firstObjectPassingTest:&v23];
 
-  if (v18)
+  if (v19)
   {
-    defaultIntentReference = [v18 defaultIntentReference];
-    v20 = [objc_alloc(MEMORY[0x1E6994260]) initWithExtensionIdentity:v14 kind:v17 intentReference:defaultIntentReference];
+    defaultIntentReference = [v19 defaultIntentReference];
+    v21 = [objc_alloc(MEMORY[0x1E6994260]) initWithExtensionIdentity:v15 kind:v18 intentReference:defaultIntentReference];
   }
 
   else
   {
-    v20 = 0;
+    v21 = 0;
   }
 
-  return v20;
+  return v21;
 }
 
 uint64_t __89__PRPosterQuickActionsConfiguration__findControlIdentityForExtensionID_containerID_kind___block_invoke(uint64_t a1, void *a2)

@@ -5,6 +5,7 @@
 - (void)_disableButtons;
 - (void)_enableButtons;
 - (void)_okButtonPressed;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation DADiagnosticsNotesController
@@ -114,6 +115,15 @@ void __48__DADiagnosticsNotesController__okButtonPressed__block_invoke_2(uint64_
   }
 
   return v3;
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v5.receiver = self;
+  v5.super_class = DADiagnosticsNotesController;
+  [(PSDetailController *)&v5 viewWillAppear:appear];
+  pane = [(PSDetailController *)self pane];
+  [pane becomeFirstResponder];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(int64_t)orientation

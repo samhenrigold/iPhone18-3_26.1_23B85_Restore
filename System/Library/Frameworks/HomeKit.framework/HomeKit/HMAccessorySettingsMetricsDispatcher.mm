@@ -35,7 +35,7 @@
 
 - (void)submitEventWithMessage:(id)message error:(id)error
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   messageCopy = message;
   errorCopy = error;
   v8 = objc_autoreleasePoolPush();
@@ -44,11 +44,11 @@
   if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
   {
     v11 = HMFGetLogIdentifier();
-    v20 = 138543618;
-    v21 = v11;
-    v22 = 2112;
-    v23 = messageCopy;
-    _os_log_impl(&dword_19BB39000, v10, OS_LOG_TYPE_INFO, "%{public}@Submitting tracking for event message: %@", &v20, 0x16u);
+    v19 = 138543618;
+    v20 = v11;
+    v21 = 2112;
+    v22 = messageCopy;
+    _os_log_impl(&dword_19BB39000, v10, OS_LOG_TYPE_INFO, "%{public}@Submitting tracking for event message: %@", &v19, 0x16u);
   }
 
   objc_autoreleasePoolPop(v8);
@@ -70,22 +70,20 @@
     if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
       v18 = HMFGetLogIdentifier();
-      v20 = 138543618;
-      v21 = v18;
-      v22 = 2112;
-      v23 = messageCopy;
-      _os_log_impl(&dword_19BB39000, v17, OS_LOG_TYPE_ERROR, "%{public}@Failed to get tracked fetch event with message: %@", &v20, 0x16u);
+      v19 = 138543618;
+      v20 = v18;
+      v21 = 2112;
+      v22 = messageCopy;
+      _os_log_impl(&dword_19BB39000, v17, OS_LOG_TYPE_ERROR, "%{public}@Failed to get tracked fetch event with message: %@", &v19, 0x16u);
     }
 
     objc_autoreleasePoolPop(v15);
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 - (void)startEventWithMessage:(id)message updateKeyPath:(id)path
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   messageCopy = message;
   pathCopy = path;
   v8 = objc_autoreleasePoolPush();
@@ -94,11 +92,11 @@
   if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
   {
     v11 = HMFGetLogIdentifier();
-    v21 = 138543618;
-    v22 = v11;
-    v23 = 2112;
-    v24 = messageCopy;
-    _os_log_impl(&dword_19BB39000, v10, OS_LOG_TYPE_INFO, "%{public}@Starting tracking for event message: %@", &v21, 0x16u);
+    v20 = 138543618;
+    v21 = v11;
+    v22 = 2112;
+    v23 = messageCopy;
+    _os_log_impl(&dword_19BB39000, v10, OS_LOG_TYPE_INFO, "%{public}@Starting tracking for event message: %@", &v20, 0x16u);
   }
 
   objc_autoreleasePoolPop(v8);
@@ -115,8 +113,6 @@
 
   identifier = [messageCopy identifier];
   [(HMAccessorySettingsMetricsDispatcher *)selfCopy startTrackingEvent:v18 withEventIdentifier:identifier];
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 - (HMAccessorySettingsMetricsDispatcher)initWithCoreAnalyticsMetricDispatcher:(id)dispatcher

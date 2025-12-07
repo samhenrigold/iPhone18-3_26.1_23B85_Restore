@@ -49,7 +49,7 @@
 
 - (MTSDevicePairingFabric)initWithCoder:(id)coder
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   coderCopy = coder;
   v5 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"MTSDPF.ck.identifier"];
   v6 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"MTSDPF.ck.index"];
@@ -74,17 +74,17 @@
     if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       v15 = HMFGetLogIdentifier();
-      v20 = 138544386;
-      v21 = v15;
-      v22 = 2112;
-      v23 = v5;
-      v24 = 2112;
-      v25 = v6;
-      v26 = 2112;
-      v27 = v7;
-      v28 = 2112;
-      v29 = v9;
-      _os_log_impl(&dword_239824000, v14, OS_LOG_TYPE_ERROR, "%{public}@Could not initialize from decoded identifier: %@ index: %@ displayName: %@ ecosystem: %@", &v20, 0x34u);
+      v19 = 138544386;
+      v20 = v15;
+      v21 = 2112;
+      v22 = v5;
+      v23 = 2112;
+      v24 = v6;
+      v25 = 2112;
+      v26 = v7;
+      v27 = 2112;
+      v28 = v9;
+      _os_log_impl(&dword_239824000, v14, OS_LOG_TYPE_ERROR, "%{public}@Could not initialize from decoded identifier: %@ index: %@ displayName: %@ ecosystem: %@", &v19, 0x34u);
     }
 
     objc_autoreleasePoolPop(v13);
@@ -97,7 +97,6 @@
     v17 = selfCopy;
   }
 
-  v18 = *MEMORY[0x277D85DE8];
   return v17;
 }
 

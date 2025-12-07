@@ -8,6 +8,7 @@
 - (void)dealloc;
 - (void)init;
 - (void)removeObserver:(id)observer;
+- (void)setOverlayPresented:(BOOL)presented;
 @end
 
 @implementation _GCGameOverlayMonitor
@@ -26,9 +27,9 @@
 
 - (_GCGameOverlayMonitor)init
 {
-  v19.receiver = self;
-  v19.super_class = _GCGameOverlayMonitor;
-  v2 = [(_GCGameOverlayMonitor *)&v19 init];
+  v22.receiver = self;
+  v22.super_class = _GCGameOverlayMonitor;
+  v2 = [(_GCGameOverlayMonitor *)&v22 init];
   v3 = objc_opt_new();
   observers = v2->_observers;
   v2->_observers = v3;
@@ -40,51 +41,51 @@
   handler[1] = 3221225472;
   handler[2] = __29___GCGameOverlayMonitor_init__block_invoke;
   handler[3] = &unk_1E8419C10;
-  objc_copyWeak(&v17, &location);
+  objc_copyWeak(&v20, &location);
   v7 = notify_register_dispatch("com.apple.GameOverlayUI.dashboardVisibilityChanged", &v2->_overlayPresentationObserver, v5, handler);
 
   if (v7)
   {
-    if (gc_isInternalBuild())
+    isInternalBuild = gc_isInternalBuild(v8, v9);
+    if (isInternalBuild)
     {
-      v13 = getGCLogger();
-      [(_GCGameOverlayMonitor *)v13 init];
+      v16 = getGCLogger(isInternalBuild);
+      [(_GCGameOverlayMonitor *)v16 init];
     }
 
-    v11 = 0;
+    v13 = 0;
   }
 
   else
   {
-    v8 = dispatch_get_global_queue(17, 0);
-    v14[0] = MEMORY[0x1E69E9820];
-    v14[1] = 3221225472;
-    v14[2] = __29___GCGameOverlayMonitor_init__block_invoke_89;
-    v14[3] = &unk_1E8418DD0;
-    objc_copyWeak(&v15, &location);
-    v9 = v14;
-    v20 = MEMORY[0x1E69E9820];
-    v21 = 3221225472;
-    v22 = __gc_state_add_dictionary_handler_block_invoke_1;
-    v23 = &unk_1E8418DF8;
-    v25 = 4;
-    v24 = v9;
-    v10 = os_state_add_handler();
+    v10 = dispatch_get_global_queue(17, 0);
+    v17[0] = MEMORY[0x1E69E9820];
+    v17[1] = 3221225472;
+    v17[2] = __29___GCGameOverlayMonitor_init__block_invoke_89;
+    v17[3] = &unk_1E8418DD0;
+    objc_copyWeak(&v18, &location);
+    v11 = v17;
+    v23 = MEMORY[0x1E69E9820];
+    v24 = 3221225472;
+    v25 = __gc_state_add_dictionary_handler_block_invoke_1;
+    v26 = &unk_1E8418DF8;
+    v28 = 4;
+    v27 = v11;
+    v12 = os_state_add_handler();
 
-    v2->_state = v10;
-    v11 = v2;
-    objc_destroyWeak(&v15);
+    v2->_state = v12;
+    v13 = v2;
+    objc_destroyWeak(&v18);
   }
 
-  objc_destroyWeak(&v17);
+  objc_destroyWeak(&v20);
   objc_destroyWeak(&location);
 
-  return v11;
+  return v13;
 }
 
 - (void)dealloc
 {
-  state = self->_state;
   os_state_remove_handler();
   overlayPresentationObserver = self->_overlayPresentationObserver;
   if (overlayPresentationObserver)
@@ -93,9 +94,9 @@
     self->_overlayPresentationObserver = 0;
   }
 
-  v5.receiver = self;
-  v5.super_class = _GCGameOverlayMonitor;
-  [(_GCGameOverlayMonitor *)&v5 dealloc];
+  v4.receiver = self;
+  v4.super_class = _GCGameOverlayMonitor;
+  [(_GCGameOverlayMonitor *)&v4 dealloc];
 }
 
 - (void)addObserver:(id)observer notifyCurrent:(BOOL)current
@@ -146,6 +147,72 @@
   objc_sync_exit(selfCopy);
 }
 
+- (void)setOverlayPresented:(BOOL)presented
+{
+  presentedCopy = presented;
+  v20 = *MEMORY[0x1E69E9840];
+  dispatch_assert_queue_V2(MEMORY[0x1E69E96A0]);
+  if ([(_GCGameOverlayMonitor *)self isOverlayPresented]!= presentedCopy)
+  {
+    if (presentedCopy)
+    {
+      v5 = "Game Overlay Presented";
+    }
+
+    else
+    {
+      v5 = "Game Overlay Dismissed";
+    }
+
+    v6 = _os_activity_create(&dword_1D2CD5000, v5, MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
+    state.opaque[0] = 0;
+    state.opaque[1] = 0;
+    os_activity_scope_enter(v6, &state);
+    selfCopy = self;
+    objc_sync_enter(selfCopy);
+    v8 = [(NSMutableSet *)selfCopy->_observers copy];
+    objc_sync_exit(selfCopy);
+
+    [(_GCGameOverlayMonitor *)selfCopy willChangeValueForKey:@"overlayPresented"];
+    v9 = atomic_exchange_explicit(&selfCopy->_overlayPresented, presentedCopy, memory_order_release);
+    [(_GCGameOverlayMonitor *)selfCopy didChangeValueForKey:@"overlayPresented"];
+    if ((v9 & 1) != presentedCopy)
+    {
+      ++selfCopy->stats.overlayPresentationChangedCount;
+      v14 = 0u;
+      v15 = 0u;
+      v16 = 0u;
+      v17 = 0u;
+      v10 = v8;
+      v11 = [v10 countByEnumeratingWithState:&v14 objects:v19 count:16];
+      if (v11)
+      {
+        v12 = *v15;
+        do
+        {
+          v13 = 0;
+          do
+          {
+            if (*v15 != v12)
+            {
+              objc_enumerationMutation(v10);
+            }
+
+            [*(*(&v14 + 1) + 8 * v13++) gameOverlayPresentationChanged:{presentedCopy, v14}];
+          }
+
+          while (v11 != v13);
+          v11 = [v10 countByEnumeratingWithState:&v14 objects:v19 count:16];
+        }
+
+        while (v11);
+      }
+    }
+
+    os_activity_scope_leave(&state);
+  }
+}
+
 + (BOOL)currentProcessIsOverlayUI
 {
   if (currentProcessIsOverlayUI_onceToken != -1)
@@ -158,7 +225,7 @@
 
 - (void)_refreshState
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   if (self)
   {
     v2 = self[5];
@@ -169,14 +236,15 @@
       if (state)
       {
         v5 = state;
-        if (gc_isInternalBuild())
+        isInternalBuild = gc_isInternalBuild(state, v4);
+        if (isInternalBuild)
         {
-          v6 = getGCLogger();
-          if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+          v7 = getGCLogger(isInternalBuild);
+          if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
           {
             *buf = 67109120;
-            v9 = v5;
-            _os_log_error_impl(&dword_1D2CD5000, v6, OS_LOG_TYPE_ERROR, "Failed load 'dashboardVisibilityChanged' notification state: %#x", buf, 8u);
+            v10 = v5;
+            _os_log_error_impl(&dword_1D2CD5000, v7, OS_LOG_TYPE_ERROR, "Failed load 'dashboardVisibilityChanged' notification state: %#x", buf, 8u);
           }
         }
       }
@@ -187,21 +255,17 @@
       }
     }
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (void)init
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   if (os_log_type_enabled(self, OS_LOG_TYPE_ERROR))
   {
-    v5[0] = 67109120;
-    v5[1] = a2;
-    _os_log_error_impl(&dword_1D2CD5000, self, OS_LOG_TYPE_ERROR, "Failed to register for 'dashboardVisibilityChanged' notification: %#x", v5, 8u);
+    v4[0] = 67109120;
+    v4[1] = a2;
+    _os_log_error_impl(&dword_1D2CD5000, self, OS_LOG_TYPE_ERROR, "Failed to register for 'dashboardVisibilityChanged' notification: %#x", v4, 8u);
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 @end

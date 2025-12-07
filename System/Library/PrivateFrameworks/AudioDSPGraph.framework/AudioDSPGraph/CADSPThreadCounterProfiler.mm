@@ -76,7 +76,7 @@
     v38 = (16 * v11);
     std::allocator_traits<std::allocator<applesauce::CF::TypeRefPair>>::construct[abi:ne200100]<applesauce::CF::TypeRefPair,char const*,applesauce::CF::DictionaryRef,void,0>((16 * v11), v8, &cf);
     *&v38 = v38 + 16;
-    v14 = (v34 + v37 - v35);
+    v14 = &v34[v37 - v35];
     std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<applesauce::CF::TypeRefPair>,applesauce::CF::TypeRefPair*>(&v34, v34, v35, v14);
     v15 = v34;
     v16 = *(&v35 + 1);
@@ -143,7 +143,7 @@
       v38 = (16 * v20);
       std::allocator_traits<std::allocator<applesauce::CF::TypeRefPair>>::construct[abi:ne200100]<applesauce::CF::TypeRefPair,std::string const&,applesauce::CF::DictionaryRef,void,0>((16 * v20), i + 64, &cf);
       *&v38 = v38 + 16;
-      v23 = (v34 + v37 - v35);
+      v23 = &v34[v37 - v35];
       std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<applesauce::CF::TypeRefPair>,applesauce::CF::TypeRefPair*>(&v34, v34, v35, v23);
       v24 = v34;
       v25 = *(&v35 + 1);
@@ -186,24 +186,35 @@
 
 - (CADSPThreadCounterProfiler)initWithGraph:(id)graph secondsPerWindow:(double)window
 {
-  v56 = *MEMORY[0x1E69E9840];
+  v57 = *MEMORY[0x1E69E9840];
   graphCopy = graph;
   if (!graphCopy)
   {
-    v53 = 0;
-    memset(v54, 0, sizeof(v54));
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    LODWORD(v55) = 134217984;
-    *(&v55 + 4) = 0;
-    _os_log_send_and_compose_impl();
+    v54 = 0;
+    memset(v55, 0, sizeof(v55));
+    v48 = MEMORY[0x1E69E9C10];
+    if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+    {
+      v49 = 3;
+    }
+
+    else
+    {
+      v49 = 2;
+    }
+
+    LODWORD(v56) = 134217984;
+    *(&v56 + 4) = 0;
+    _os_log_send_and_compose_impl(v49, &v54, v55, 80, &dword_1C91AE000, v48, 16, "assertion failure: graph != nullptr -> %llu", &v56);
     _os_crash_msg();
     __break(1u);
-    goto LABEL_87;
+LABEL_90:
+    std::__throw_bad_array_new_length[abi:ne200100]();
   }
 
-  v52.receiver = self;
-  v52.super_class = CADSPThreadCounterProfiler;
-  v8 = [(CADSPThreadCounterProfiler *)&v52 init];
+  v53.receiver = self;
+  v53.super_class = CADSPThreadCounterProfiler;
+  v8 = [(CADSPThreadCounterProfiler *)&v53 init];
   v9 = v8;
   if (v8)
   {
@@ -220,10 +231,10 @@
       atomic_fetch_add_explicit((v11 + 8), 1uLL, memory_order_relaxed);
     }
 
-    v51 = v10;
+    v52 = v10;
     *&v9->_this.var0.__null_state_ = v10;
-    v49 = graphCopy;
-    v50 = v9;
+    v50 = graphCopy;
+    v51 = v9;
     v12 = operator new(0x2C0uLL, 0x40uLL);
     *(v12 + 1) = 0;
     *(v12 + 2) = 0;
@@ -235,7 +246,7 @@
     *(v12 + 40) = 0u;
     *(v12 + 41) = 0u;
     *(v12 + 168) = 1065353216;
-    v14 = (v51 + 32);
+    v14 = (v52 + 32);
     v15 = v12 + 656;
     while (1)
     {
@@ -243,25 +254,25 @@ LABEL_8:
       v14 = *v14;
       if (!v14)
       {
-        v9 = v50;
-        v50->_this.var0.__val_.mImplementation.__ptr_ = (v12 + 64);
-        v50->_this.var0.__val_.mImplementation.__cntrl_ = v12;
-        ptr = v50->_this.var0.__val_.mGraph.__ptr_;
-        *&v54[0] = v12 + 64;
-        *(&v54[0] + 1) = v12;
+        v9 = v51;
+        v51->_this.var0.__val_.mImplementation.__ptr_ = (v12 + 64);
+        v51->_this.var0.__val_.mImplementation.__cntrl_ = v12;
+        ptr = v51->_this.var0.__val_.mGraph.__ptr_;
+        *&v55[0] = v12 + 64;
+        *(&v55[0] + 1) = v12;
         atomic_fetch_add_explicit(v12 + 1, 1uLL, memory_order_relaxed);
-        AudioDSPGraph::Graph::addEventHandler(ptr, v54);
-        graphCopy = v49;
-        if (*(&v54[0] + 1))
+        AudioDSPGraph::Graph::addEventHandler(ptr, v55);
+        graphCopy = v50;
+        if (*(&v55[0] + 1))
         {
-          std::__shared_weak_count::__release_shared[abi:ne200100](*(&v54[0] + 1));
+          std::__shared_weak_count::__release_shared[abi:ne200100](*(&v55[0] + 1));
         }
 
-        for (i = *(v50->_this.var0.__val_.mGraph.__ptr_ + 4); i; i = *i)
+        for (i = *(v51->_this.var0.__val_.mGraph.__ptr_ + 4); i; i = *i)
         {
           v43 = i[2];
-          v45 = v50->_this.var0.__val_.mImplementation.__ptr_;
-          cntrl = v50->_this.var0.__val_.mImplementation.__cntrl_;
+          v45 = v51->_this.var0.__val_.mImplementation.__ptr_;
+          cntrl = v51->_this.var0.__val_.mImplementation.__cntrl_;
           if (v45)
           {
             v46 = v45 + 8;
@@ -272,21 +283,21 @@ LABEL_8:
             v46 = 0;
           }
 
-          *&v55 = v46;
-          *(&v55 + 1) = cntrl;
+          *&v56 = v46;
+          *(&v56 + 1) = cntrl;
           if (cntrl)
           {
             atomic_fetch_add_explicit(cntrl + 1, 1uLL, memory_order_relaxed);
           }
 
-          AudioDSPGraph::Box::addEventHandler(v43, &v55);
-          if (*(&v55 + 1))
+          AudioDSPGraph::Box::addEventHandler(v43, &v56);
+          if (*(&v56 + 1))
           {
-            std::__shared_weak_count::__release_shared[abi:ne200100](*(&v55 + 1));
+            std::__shared_weak_count::__release_shared[abi:ne200100](*(&v56 + 1));
           }
         }
 
-        v50->_this.__engaged_ = 1;
+        v51->_this.__engaged_ = 1;
         break;
       }
 
@@ -422,8 +433,7 @@ LABEL_41:
             operator new();
           }
 
-LABEL_87:
-          std::__throw_bad_array_new_length[abi:ne200100]();
+          goto LABEL_90;
         }
 
         if (prime < v19)
@@ -531,7 +541,6 @@ LABEL_63:
     }
   }
 
-  v47 = *MEMORY[0x1E69E9840];
   return v9;
 }
 

@@ -71,7 +71,7 @@ LABEL_9:
 
     v13 = [[VCAudioPayload alloc] initWithConfig:v12];
     v7->_currentAudioPayload = v13;
-    codecSampleRate = [(VCAudioPayloadConfig *)[(VCAudioPayload *)v13 config] codecSampleRate];
+    codecSampleRate = [objc_msgSend_config(v13) codecSampleRate];
     v7->_vpioFormat.format.mSampleRate = codecSampleRate;
     *&v7->_vpioFormat.format.mFormatID = xmmword_1DBD453C0;
     *&v7->_vpioFormat.format.mBytesPerFrame = 0x100000004;
@@ -448,22 +448,23 @@ LABEL_9:
 
 - (void)pullAudioSamples:(opaqueVCAudioBufferList *)samples
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   SampleFormat = VCAudioBufferList_GetSampleFormat(samples);
-  v10 = -1431655766;
-  BufferAtIndex = VCAudioBufferList_GetBufferAtIndex(samples, 0, &v10);
-  v7 = *(SampleFormat + 16) * v10;
-  v9 = v7;
+  v11 = -1431655766;
+  BufferAtIndex = VCAudioBufferList_GetBufferAtIndex(samples, 0, &v11);
+  v7 = *(SampleFormat + 16);
+  v8 = (v7 * v11);
+  v10 = v7 * v11;
   if (CMSimpleQueueGetCount(self->_charQueue) < 1)
   {
-    SoundDec_Decode(self->_decoder, 0, 0, BufferAtIndex, v7, &v9, 0);
+    SoundDec_Decode(self->_decoder, 0, 0, BufferAtIndex, v8, &v10, 0);
   }
 
   else
   {
-    v8 = CMSimpleQueueDequeue(self->_charQueue);
-    SoundDec_Decode(self->_decoder, v8, 1u, BufferAtIndex, v9, &v9, 0);
-    VCMemoryPool_Free(self->_characterPool, v8);
+    v9 = CMSimpleQueueDequeue(self->_charQueue);
+    SoundDec_Decode(self->_decoder, v9, 1, BufferAtIndex, v10, &v10, 0);
+    VCMemoryPool_Free(self->_characterPool, v9);
   }
 
   VCAudioBufferList_InvalidateAveragePower(samples);
@@ -601,7 +602,7 @@ uint64_t __39__VCVirtualTTYDevice_pushAudioSamples___block_invoke(uint64_t a1)
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, "VCVirtualTTYDevice [%s] %s:%d CMSimpleQueueEnqueue Full", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, "VCVirtualTTYDevice [%s] %s:%d CMSimpleQueueEnqueue Full", v2, v3, v4, v5);
 }
 
 - (void)sendCharacter:(os_log_t)log .cold.2(uint64_t a1, unsigned __int16 a2, os_log_t log)
@@ -622,14 +623,14 @@ uint64_t __39__VCVirtualTTYDevice_pushAudioSamples___block_invoke(uint64_t a1)
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, "VCVirtualTTYDevice [%s] %s:%d Not supported", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, "VCVirtualTTYDevice [%s] %s:%d Not supported", v2, v3, v4, v5);
 }
 
 - (void)didUpdateBasebandCodec:.cold.1()
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, "VCVirtualTTYDevice [%s] %s:%d Unexpected SPI call", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, "VCVirtualTTYDevice [%s] %s:%d Unexpected SPI call", v2, v3, v4, v5);
 }
 
 @end

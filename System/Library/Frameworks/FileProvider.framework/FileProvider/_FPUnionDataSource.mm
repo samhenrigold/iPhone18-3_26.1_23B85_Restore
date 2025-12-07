@@ -14,31 +14,31 @@
 
 - (void)start
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   selfCopy = self;
   objc_sync_enter(selfCopy);
   if (!selfCopy->_isRunning)
   {
     selfCopy->_isRunning = 1;
-    v13 = 0u;
-    v14 = 0u;
-    v11 = 0u;
     v12 = 0u;
+    v13 = 0u;
+    v10 = 0u;
+    v11 = 0u;
     v3 = selfCopy->_collections;
-    v4 = [(NSArray *)v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
+    v4 = [(NSArray *)v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
     if (v4)
     {
-      v5 = *v12;
+      v5 = *v11;
       do
       {
         for (i = 0; i != v4; ++i)
         {
-          if (*v12 != v5)
+          if (*v11 != v5)
           {
             objc_enumerationMutation(v3);
           }
 
-          v7 = *(*(&v11 + 1) + 8 * i);
+          v7 = *(*(&v10 + 1) + 8 * i);
           [v7 setDelegate:selfCopy];
           workingQueue = [v7 workingQueue];
           block[0] = MEMORY[0x1E69E9820];
@@ -49,7 +49,7 @@
           dispatch_async(workingQueue, block);
         }
 
-        v4 = [(NSArray *)v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
+        v4 = [(NSArray *)v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
       }
 
       while (v4);
@@ -57,13 +57,11 @@
   }
 
   objc_sync_exit(selfCopy);
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)invalidate
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   obj = self;
   objc_sync_enter(obj);
   if (obj->_isRunning)
@@ -71,26 +69,26 @@
     obj->_isRunning = 0;
     objc_sync_exit(obj);
 
-    v15 = 0u;
-    v16 = 0u;
     v13 = 0u;
     v14 = 0u;
+    v11 = 0u;
+    v12 = 0u;
     v2 = obj->_collections;
-    v3 = [(NSArray *)v2 countByEnumeratingWithState:&v13 objects:v17 count:16];
+    v3 = [(NSArray *)v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
     if (v3)
     {
       v4 = v3;
-      v5 = *v14;
+      v5 = *v12;
       do
       {
         for (i = 0; i != v4; ++i)
         {
-          if (*v14 != v5)
+          if (*v12 != v5)
           {
             objc_enumerationMutation(v2);
           }
 
-          v7 = *(*(&v13 + 1) + 8 * i);
+          v7 = *(*(&v11 + 1) + 8 * i);
           workingQueue = [v7 workingQueue];
           block[0] = MEMORY[0x1E69E9820];
           block[1] = 3221225472;
@@ -100,19 +98,16 @@
           dispatch_async(workingQueue, block);
         }
 
-        v4 = [(NSArray *)v2 countByEnumeratingWithState:&v13 objects:v17 count:16];
+        v4 = [(NSArray *)v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
       }
 
       while (v4);
     }
-
-    v9 = *MEMORY[0x1E69E9840];
   }
 
   else
   {
     objc_sync_exit(obj);
-    v10 = *MEMORY[0x1E69E9840];
   }
 }
 
@@ -141,7 +136,7 @@
 
 - (void)collection:(id)collection didUpdateItems:(id)items replaceItemsByFormerID:(id)d deleteItemsWithIDs:(id)ds
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   collectionCopy = collection;
   itemsCopy = items;
   dsCopy = ds;
@@ -152,29 +147,29 @@
 
   if (items == 1)
   {
-    v24 = dsCopy;
+    v23 = dsCopy;
     array = [MEMORY[0x1E695DF70] array];
+    v25 = 0u;
     v26 = 0u;
     v27 = 0u;
     v28 = 0u;
-    v29 = 0u;
-    v25 = itemsCopy;
+    v24 = itemsCopy;
     v14 = itemsCopy;
-    v15 = [v14 countByEnumeratingWithState:&v26 objects:v30 count:16];
+    v15 = [v14 countByEnumeratingWithState:&v25 objects:v29 count:16];
     if (v15)
     {
       v16 = v15;
-      v17 = *v27;
+      v17 = *v26;
       do
       {
         for (i = 0; i != v16; ++i)
         {
-          if (*v27 != v17)
+          if (*v26 != v17)
           {
             objc_enumerationMutation(v14);
           }
 
-          v19 = *(*(&v26 + 1) + 8 * i);
+          v19 = *(*(&v25 + 1) + 8 * i);
           if ([collectionCopy isRootItem:v19])
           {
             [collectionCopy updateRootItem:v19];
@@ -191,28 +186,26 @@
           }
         }
 
-        v16 = [v14 countByEnumeratingWithState:&v26 objects:v30 count:16];
+        v16 = [v14 countByEnumeratingWithState:&v25 objects:v29 count:16];
       }
 
       while (v16);
     }
 
-    dsCopy = v24;
-    if ([v24 count] || objc_msgSend(array, "count"))
+    dsCopy = v23;
+    if ([v23 count] || objc_msgSend(array, "count"))
     {
       delegate = [(_FPUnionDataSource *)selfCopy delegate];
-      [delegate dataSource:selfCopy receivedUpdatedItems:array deletedItems:v24 hasMoreChanges:0];
+      [delegate dataSource:selfCopy receivedUpdatedItems:array deletedItems:v23 hasMoreChanges:0];
     }
 
-    itemsCopy = v25;
+    itemsCopy = v24;
   }
-
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 - (void)collection:(id)collection didEncounterError:(id)error
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   errorCopy = error;
   selfCopy = self;
   objc_sync_enter(selfCopy);
@@ -226,9 +219,9 @@
       v8 = fp_current_or_default_log();
       if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
       {
-        v11 = 138412290;
-        v12 = errorCopy;
-        _os_log_impl(&dword_1AAAE1000, v8, OS_LOG_TYPE_INFO, "[INFO] error in union collection, skipping: %@", &v11, 0xCu);
+        v10 = 138412290;
+        v11 = errorCopy;
+        _os_log_impl(&dword_1AAAE1000, v8, OS_LOG_TYPE_INFO, "[INFO] error in union collection, skipping: %@", &v10, 0xCu);
       }
     }
 
@@ -239,13 +232,11 @@
       [delegate dataSource:selfCopy wasInvalidatedWithError:errorCopy];
     }
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)collection:(id)collection didUpdateObservedItem:(id)item
 {
-  v15[1] = *MEMORY[0x1E69E9840];
+  v14[1] = *MEMORY[0x1E69E9840];
   collectionCopy = collection;
   itemCopy = item;
   selfCopy = self;
@@ -267,19 +258,17 @@
       if ((!itemFilteringPredicate || [itemFilteringPredicate evaluateWithObject:itemCopy]) && (!additionalItemFilteringPredicate || objc_msgSend(additionalItemFilteringPredicate, "evaluateWithObject:", itemCopy)))
       {
         delegate = [(_FPUnionDataSource *)selfCopy delegate];
-        v15[0] = itemCopy;
-        v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v15 count:1];
+        v14[0] = itemCopy;
+        v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v14 count:1];
         [delegate dataSource:selfCopy receivedUpdatedItems:v13 deletedItems:MEMORY[0x1E695E0F0] hasMoreChanges:0];
       }
     }
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)dataForCollectionShouldBeReloaded:(id)reloaded
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   selfCopy = self;
   objc_sync_enter(selfCopy);
   isRunning = selfCopy->_isRunning;
@@ -288,34 +277,34 @@
   if (isRunning)
   {
     array = [MEMORY[0x1E695DF70] array];
+    v13 = 0u;
     v14 = 0u;
     v15 = 0u;
     v16 = 0u;
-    v17 = 0u;
     v6 = selfCopy->_collections;
-    v7 = [(NSArray *)v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+    v7 = [(NSArray *)v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v15;
+      v9 = *v14;
       do
       {
         v10 = 0;
         do
         {
-          if (*v15 != v9)
+          if (*v14 != v9)
           {
             objc_enumerationMutation(v6);
           }
 
-          items = [*(*(&v14 + 1) + 8 * v10) items];
+          items = [*(*(&v13 + 1) + 8 * v10) items];
           [array addObjectsFromArray:items];
 
           ++v10;
         }
 
         while (v8 != v10);
-        v8 = [(NSArray *)v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+        v8 = [(NSArray *)v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
       }
 
       while (v8);
@@ -324,13 +313,11 @@
     delegate = [(_FPUnionDataSource *)selfCopy delegate];
     [delegate dataSource:selfCopy replaceContentsWithItems:array hasMoreChanges:0];
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)hasMoreIncoming
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   selfCopy = self;
   objc_sync_enter(selfCopy);
   isRunning = selfCopy->_isRunning;
@@ -338,32 +325,32 @@
 
   if (isRunning)
   {
-    v12 = 0u;
-    v13 = 0u;
-    v10 = 0u;
     v11 = 0u;
+    v12 = 0u;
+    v9 = 0u;
+    v10 = 0u;
     v4 = selfCopy->_collections;
-    v5 = [(NSArray *)v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
+    v5 = [(NSArray *)v4 countByEnumeratingWithState:&v9 objects:v13 count:16];
     if (v5)
     {
-      v6 = *v11;
+      v6 = *v10;
       while (2)
       {
         for (i = 0; i != v5; ++i)
         {
-          if (*v11 != v6)
+          if (*v10 != v6)
           {
             objc_enumerationMutation(v4);
           }
 
-          if ([*(*(&v10 + 1) + 8 * i) hasMoreUpdates])
+          if ([*(*(&v9 + 1) + 8 * i) hasMoreUpdates])
           {
             LOBYTE(v5) = 1;
             goto LABEL_13;
           }
         }
 
-        v5 = [(NSArray *)v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
+        v5 = [(NSArray *)v4 countByEnumeratingWithState:&v9 objects:v13 count:16];
         if (v5)
         {
           continue;
@@ -381,7 +368,6 @@ LABEL_13:
     LOBYTE(v5) = 0;
   }
 
-  v8 = *MEMORY[0x1E69E9840];
   return v5;
 }
 

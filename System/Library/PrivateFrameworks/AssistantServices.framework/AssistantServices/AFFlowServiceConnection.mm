@@ -10,7 +10,7 @@
 
 - (id)_connection
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   connection = self->_connection;
   if (!connection)
   {
@@ -19,8 +19,8 @@
     {
       *location = 136315394;
       *&location[4] = "[AFFlowServiceConnection _connection]";
-      v15 = 2112;
-      v16 = 0;
+      v14 = 2112;
+      v15 = 0;
       _os_log_debug_impl(&dword_1912FE000, v4, OS_LOG_TYPE_DEBUG, "%s created new connection: %@", location, 0x16u);
     }
 
@@ -31,23 +31,21 @@
     [(NSXPCConnection *)self->_connection _setQueue:self->_queue];
     objc_initWeak(location, self);
     v7 = self->_connection;
-    v12[0] = MEMORY[0x1E69E9820];
-    v12[1] = 3221225472;
-    v12[2] = __38__AFFlowServiceConnection__connection__block_invoke;
-    v12[3] = &unk_1E7348A80;
-    objc_copyWeak(&v13, location);
-    [(NSXPCConnection *)v7 setInvalidationHandler:v12];
+    v11[0] = MEMORY[0x1E69E9820];
+    v11[1] = 3221225472;
+    v11[2] = __38__AFFlowServiceConnection__connection__block_invoke;
+    v11[3] = &unk_1E7348A80;
+    objc_copyWeak(&v12, location);
+    [(NSXPCConnection *)v7 setInvalidationHandler:v11];
     v8 = self->_connection;
     v9 = AFFlowServiceXPCInterface();
     [(NSXPCConnection *)v8 setRemoteObjectInterface:v9];
 
     [(NSXPCConnection *)self->_connection resume];
-    objc_destroyWeak(&v13);
+    objc_destroyWeak(&v12);
     objc_destroyWeak(location);
     connection = self->_connection;
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return connection;
 }
@@ -60,23 +58,21 @@ void __38__AFFlowServiceConnection__connection__block_invoke(uint64_t a1)
 
 - (void)_clearConnection
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v3 = AFSiriLogContextConnection;
   if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_DEBUG))
   {
     connection = self->_connection;
-    v7 = 136315394;
-    v8 = "[AFFlowServiceConnection _clearConnection]";
-    v9 = 2112;
-    v10 = connection;
-    _os_log_debug_impl(&dword_1912FE000, v3, OS_LOG_TYPE_DEBUG, "%s cleared connection: %@", &v7, 0x16u);
+    v6 = 136315394;
+    v7 = "[AFFlowServiceConnection _clearConnection]";
+    v8 = 2112;
+    v9 = connection;
+    _os_log_debug_impl(&dword_1912FE000, v3, OS_LOG_TYPE_DEBUG, "%s cleared connection: %@", &v6, 0x16u);
   }
 
   [(NSXPCConnection *)self->_connection invalidate];
   v4 = self->_connection;
   self->_connection = 0;
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)invokeMethodOnRemoteWithBlock:(id)block onError:(id)error
@@ -142,22 +138,20 @@ void *__65__AFFlowServiceConnection_invokeMethodOnRemoteWithBlock_onError___bloc
 
 void __65__AFFlowServiceConnection_invokeMethodOnRemoteWithBlock_onError___block_invoke_3(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = AFSiriLogContextConnection;
   if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_ERROR))
   {
-    v6 = 136315394;
-    v7 = "[AFFlowServiceConnection invokeMethodOnRemoteWithBlock:onError:]_block_invoke_3";
-    v8 = 2112;
-    v9 = v3;
-    _os_log_error_impl(&dword_1912FE000, v4, OS_LOG_TYPE_ERROR, "%s Error accessing remote proxy: %@", &v6, 0x16u);
+    v5 = 136315394;
+    v6 = "[AFFlowServiceConnection invokeMethodOnRemoteWithBlock:onError:]_block_invoke_3";
+    v7 = 2112;
+    v8 = v3;
+    _os_log_error_impl(&dword_1912FE000, v4, OS_LOG_TYPE_ERROR, "%s Error accessing remote proxy: %@", &v5, 0x16u);
   }
 
   (*(*(a1 + 40) + 16))();
   [*(a1 + 32) invoke];
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __65__AFFlowServiceConnection_invokeMethodOnRemoteWithBlock_onError___block_invoke_5(uint64_t a1)

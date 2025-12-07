@@ -1,5 +1,6 @@
 @interface PHStaticDialerPad
 - (CGSize)intrinsicContentSize;
+- (PHStaticDialerPad)initWithDialerType:(int)type;
 - (id)_highlightedImage;
 - (id)_keypadImage;
 - (id)_linearFocusMovementSequences;
@@ -10,6 +11,29 @@
 @end
 
 @implementation PHStaticDialerPad
+
+- (PHStaticDialerPad)initWithDialerType:(int)type
+{
+  v3 = *&type;
+  v7.receiver = self;
+  v7.super_class = PHStaticDialerPad;
+  v4 = [(TPPhonePad *)&v7 initWithFrame:0.0, 0.0, 147.0, 180.0];
+  v5 = v4;
+  if (v4)
+  {
+    [(PHStaticDialerPad *)v4 setDialerType:v3];
+    *(&v5->super.super.super.super.super.isa + *MEMORY[0x277D6EDB8]) = 0x4045C00000000000;
+    *(&v5->super.super.super.super.super.isa + *MEMORY[0x277D6EDA0]) = 0x4047800000000000;
+    *(&v5->super.super.super.super.super.isa + *MEMORY[0x277D6ED90]) = 0x4045400000000000;
+    *(&v5->super.super.super.super.super.isa + *MEMORY[0x277D6ED98]) = 0x4047600000000000;
+    *(&v5->super.super.super.super.super.isa + *MEMORY[0x277D6EDA8]) = 0x404A800000000000;
+    *(&v5->super.super.super.super.super.isa + *MEMORY[0x277D6EDB0]) = 0x4047A00000000000;
+    [(PHStaticDialerPad *)v5 setOpaque:1];
+    [(PHStaticDialerPad *)v5 setFrame:0.0, 0.0, 147.0, 180.0];
+  }
+
+  return v5;
+}
 
 - (void)layoutSubviews
 {
@@ -164,10 +188,9 @@
 
 - (id)_linearFocusMovementSequences
 {
-  v5[1] = *MEMORY[0x277D85DE8];
-  v5[0] = self->_linearSequence;
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:1];
-  v3 = *MEMORY[0x277D85DE8];
+  v4[1] = *MEMORY[0x277D85DE8];
+  v4[0] = self->_linearSequence;
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:1];
 
   return v2;
 }

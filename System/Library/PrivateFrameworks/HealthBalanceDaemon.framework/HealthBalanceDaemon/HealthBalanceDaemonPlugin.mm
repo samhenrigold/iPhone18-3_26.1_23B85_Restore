@@ -12,14 +12,11 @@
 
 - (NSString)pluginIdentifier
 {
-  v2 = (self + OBJC_IVAR____TtC19HealthBalanceDaemon25HealthBalanceDaemonPlugin_pluginIdentifier);
   swift_beginAccess();
-  v4 = *v2;
-  v3 = v2[1];
 
-  v5 = sub_22892F098();
+  v2 = sub_22892F098();
 
-  return v5;
+  return v2;
 }
 
 - (void)setPluginIdentifier:(id)identifier
@@ -28,7 +25,6 @@
   v6 = v5;
   v7 = (self + OBJC_IVAR____TtC19HealthBalanceDaemon25HealthBalanceDaemonPlugin_pluginIdentifier);
   swift_beginAccess();
-  v8 = v7[1];
   *v7 = v4;
   v7[1] = v6;
 }
@@ -74,12 +70,12 @@
 
 - (id)taskServerClasses
 {
-  sub_2288EC34C();
+  sub_2288EC34C(0);
   v2 = swift_allocObject();
   *(v2 + 16) = xmmword_228931EA0;
   sub_2288EC484(0, &unk_2813DF438, &unk_2813DF0E0, &unk_2289315A4, type metadata accessor for SleepingSampleDaySummaryQueryServer);
   *(v2 + 32) = v3;
-  sub_2288EC3F0();
+  sub_2288EC3F0(0);
   *(v2 + 40) = v4;
   *(v2 + 48) = type metadata accessor for TrainingLoadSummaryQueryServer();
   sub_2288EC3A4();

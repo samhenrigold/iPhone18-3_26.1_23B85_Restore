@@ -1,21 +1,20 @@
 void sub_100003ED0(uint64_t a1, void *a2, void *a3)
 {
-  v5 = a2;
-  v6 = a3;
-  v7 = HFLogForCategory();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  v4 = a2;
+  v5 = a3;
+  v6 = HFLogForCategory();
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = *(a1 + 32);
-    v9 = [objc_opt_class() description];
-    v10 = 138413058;
-    v11 = v9;
-    v12 = 2080;
-    v13 = "[HSPCGuestAccessTableViewController commitConfiguration]_block_invoke";
+    v7 = [objc_opt_class() description];
+    v8 = 138413058;
+    v9 = v7;
+    v10 = 2080;
+    v11 = "[HSPCGuestAccessTableViewController commitConfiguration]_block_invoke";
+    v12 = 2112;
+    v13 = v4;
     v14 = 2112;
     v15 = v5;
-    v16 = 2112;
-    v17 = v6;
-    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "(%@:%s) completed _enableAccessToGuestPinCodeItems. result = %@, error = %@", &v10, 0x2Au);
+    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "(%@:%s) completed _enableAccessToGuestPinCodeItems. result = %@, error = %@", &v8, 0x2Au);
   }
 }
 
@@ -810,36 +809,35 @@ id sub_10000C010(uint64_t a1, void *a2)
   v4 = HFLogForCategory();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = *(a1 + 32);
-    v6 = [objc_opt_class() description];
+    v5 = [objc_opt_class() description];
     if ([v3 BOOLValue])
     {
-      v7 = @"Not";
+      v6 = @"Not";
     }
 
     else
     {
-      v7 = &stru_1000C89F8;
+      v6 = &stru_1000C89F8;
     }
 
-    v8 = [HSSetupContentProvider stringForHSProxCardSetupUIStep:*(a1 + 40)];
-    v12 = 138413314;
-    v13 = v6;
-    v14 = 2080;
-    v15 = "[HSSetupStateMachine shouldSkipStep:withConfiguration:]_block_invoke";
-    v16 = 2112;
-    v17 = v7;
-    v18 = 2112;
-    v19 = v8;
-    v20 = 1024;
-    v21 = [v3 BOOLValue];
-    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "(%@ : %s) %@ skipping %@ because hasWalletKeyCompatibleDevice is %{BOOL}d.", &v12, 0x30u);
+    v7 = [HSSetupContentProvider stringForHSProxCardSetupUIStep:*(a1 + 40)];
+    v11 = 138413314;
+    v12 = v5;
+    v13 = 2080;
+    v14 = "[HSSetupStateMachine shouldSkipStep:withConfiguration:]_block_invoke";
+    v15 = 2112;
+    v16 = v6;
+    v17 = 2112;
+    v18 = v7;
+    v19 = 1024;
+    v20 = [v3 BOOLValue];
+    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "(%@ : %s) %@ skipping %@ because hasWalletKeyCompatibleDevice is %{BOOL}d.", &v11, 0x30u);
   }
 
-  v9 = +[NSNumber numberWithInt:](NSNumber, "numberWithInt:", [v3 BOOLValue] ^ 1);
-  v10 = [NAFuture futureWithResult:v9];
+  v8 = +[NSNumber numberWithInt:](NSNumber, "numberWithInt:", [v3 BOOLValue] ^ 1);
+  v9 = [NAFuture futureWithResult:v8];
 
-  return v10;
+  return v9;
 }
 
 id sub_10000C1BC(uint64_t a1, void *a2)
@@ -1342,10 +1340,11 @@ NAFuture *__cdecl sub_10000EC60(id a1, NSError *a2)
   return v3;
 }
 
-void sub_10000F870(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_10000F870(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0x34u);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0x34u);
 }
 
 void sub_100010118(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, id location)
@@ -1864,25 +1863,25 @@ void sub_1000143A4(uint64_t a1, void *a2)
   [v4 applyOnboardingSelections:v6 completionHandler:v8];
 }
 
-void sub_10001446C(uint64_t a1, void *a2)
+void sub_10001446C(uint64_t a1, void *a2, uint64_t a3)
 {
-  v3 = a2;
-  if (v3)
+  v4 = a2;
+  if (v4)
   {
-    v4 = HFLogForCategory();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = HFLogForCategory();
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       sub_100077D08();
     }
   }
 
-  v5 = HFLogForCategory();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v6 = HFLogForCategory();
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = HMSiriEndpointOnboardingResultAsString();
-    v7 = 138412290;
-    v8 = v6;
-    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Call succeeded with following result: %@", &v7, 0xCu);
+    v7 = HMSiriEndpointOnboardingResultAsString();
+    v8 = 138412290;
+    v9 = v7;
+    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Call succeeded with following result: %@", &v8, 0xCu);
   }
 
   [*(a1 + 32) finishWithNoResult];
@@ -1960,34 +1959,35 @@ void sub_100014D28(uint64_t a1, void *a2)
   [v4 applyOnboardingSelections:v6 completionHandler:v8];
 }
 
-void sub_100014DF0(uint64_t a1, void *a2)
+void sub_100014DF0(uint64_t a1, void *a2, uint64_t a3)
 {
-  v3 = a2;
-  if (v3)
+  v4 = a2;
+  if (v4)
   {
-    v4 = HFLogForCategory();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = HFLogForCategory();
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       sub_100077D08();
     }
   }
 
-  v5 = HFLogForCategory();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v6 = HFLogForCategory();
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = HMSiriEndpointOnboardingResultAsString();
-    v7 = 138412290;
-    v8 = v6;
-    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Call succeeded with following result: %@", &v7, 0xCu);
+    v7 = HMSiriEndpointOnboardingResultAsString();
+    v8 = 138412290;
+    v9 = v7;
+    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Call succeeded with following result: %@", &v8, 0xCu);
   }
 
   [*(a1 + 32) finishWithNoResult];
 }
 
-void sub_1000151E8(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_1000151E8(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
 id sub_10001656C(uint64_t a1)
@@ -2066,25 +2066,25 @@ void sub_100018110(uint64_t a1, void *a2)
   [v5 applyOnboardingSelections:v4 completionHandler:v7];
 }
 
-void sub_1000181B4(uint64_t a1, void *a2)
+void sub_1000181B4(uint64_t a1, void *a2, uint64_t a3)
 {
-  v3 = a2;
-  if (v3)
+  v4 = a2;
+  if (v4)
   {
-    v4 = HFLogForCategory();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = HFLogForCategory();
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      sub_1000773FC(v3, v4);
+      sub_1000773FC(v4, v5);
     }
   }
 
-  v5 = HFLogForCategory();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v6 = HFLogForCategory();
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = HMSiriEndpointOnboardingResultAsString();
-    v7 = 138412290;
-    v8 = v6;
-    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Call succeeded with following result: %@", &v7, 0xCu);
+    v7 = HMSiriEndpointOnboardingResultAsString();
+    v8 = 138412290;
+    v9 = v7;
+    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Call succeeded with following result: %@", &v8, 0xCu);
   }
 
   [*(a1 + 32) finishWithNoResult];
@@ -2913,9 +2913,9 @@ id sub_100021984(uint64_t a1, void *a2)
   return v6;
 }
 
-void sub_100021D30(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_100021D30(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
+  va_start(va, a22);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3041,19 +3041,17 @@ void sub_10002218C(uint64_t a1, void *a2)
     sub_100078760(a1);
   }
 
-  v5 = [HUHomeFeatureOnboardingUtilities isVoiceProfileAvailableOnThisDeviceForLanguage:0];
-  v6 = *(*(*(a1 + 40) + 8) + 40);
-  if (v5)
+  if ([HUHomeFeatureOnboardingUtilities isVoiceProfileAvailableOnThisDeviceForLanguage:0])
   {
-    v7 = &off_1000CD528;
+    v5 = &off_1000CD528;
   }
 
   else
   {
-    v7 = &off_1000CD510;
+    v5 = &off_1000CD510;
   }
 
-  [*(*(*(a1 + 40) + 8) + 40) finishWithResult:v7];
+  [*(*(*(a1 + 40) + 8) + 40) finishWithResult:v5];
 }
 
 id sub_100022230(uint64_t a1)
@@ -3073,10 +3071,11 @@ id sub_100022230(uint64_t a1)
   return [*(*(*(a1 + 40) + 8) + 40) finishWithResult:&off_1000CD528];
 }
 
-void sub_1000223C8(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_1000223C8(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0x20u);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0x20u);
 }
 
 void sub_100022894(_Unwind_Exception *a1)
@@ -3193,7 +3192,7 @@ void sub_100023D90(uint64_t a1, uint64_t a2, void *a3)
     v5 = HFLogForCategory();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      sub_100078894(a1);
+      sub_100078894();
     }
   }
 
@@ -3295,7 +3294,7 @@ void sub_100024414(uint64_t a1, uint64_t a2, void *a3)
   {
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      sub_10007899C(a1);
+      sub_10007899C();
     }
   }
 
@@ -3664,27 +3663,26 @@ void sub_100027390(uint64_t a1, void *a2, void *a3)
   v7 = HFLogForCategory();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = *(a1 + 32);
-    v9 = [objc_opt_class() description];
+    v8 = [objc_opt_class() description];
     *buf = 138413058;
-    v15 = v9;
-    v16 = 2080;
-    v17 = "[HSPCWalletKeyExpressModeViewController initWithCoordinator:config:]_block_invoke";
-    v18 = 2112;
-    v19 = v5;
-    v20 = 2112;
-    v21 = v6;
+    v14 = v8;
+    v15 = 2080;
+    v16 = "[HSPCWalletKeyExpressModeViewController initWithCoordinator:config:]_block_invoke";
+    v17 = 2112;
+    v18 = v5;
+    v19 = 2112;
+    v20 = v6;
     _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "(%@ :%s) Populating mica asset %@. error %@", buf, 0x2Au);
   }
 
-  v11[0] = _NSConcreteStackBlock;
-  v11[1] = 3221225472;
-  v11[2] = sub_10002751C;
-  v11[3] = &unk_1000C57E0;
-  v12 = *(a1 + 40);
-  v13 = v5;
-  v10 = v5;
-  dispatch_async(&_dispatch_main_q, v11);
+  v10[0] = _NSConcreteStackBlock;
+  v10[1] = 3221225472;
+  v10[2] = sub_10002751C;
+  v10[3] = &unk_1000C57E0;
+  v11 = *(a1 + 40);
+  v12 = v5;
+  v9 = v5;
+  dispatch_async(&_dispatch_main_q, v10);
 }
 
 void sub_100027A6C(_Unwind_Exception *a1)
@@ -4137,7 +4135,7 @@ id sub_10002AFB8(uint64_t a1)
     v2 = HFLogForCategory();
     if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
     {
-      sub_100078B64(a1);
+      sub_100078B64();
     }
 
     v3 = *(a1 + 32);
@@ -4197,7 +4195,7 @@ void sub_10002B524(uint64_t a1, void *a2, void *a3)
   {
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      sub_100078CC4(a1);
+      sub_100078CC4();
     }
   }
 
@@ -4249,7 +4247,7 @@ void sub_10002BF74(uint64_t a1, uint64_t a2, void *a3)
   {
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      sub_100078DFC(a1);
+      sub_100078DFC();
     }
   }
 
@@ -4320,7 +4318,7 @@ void sub_10002C27C(uint64_t a1, uint64_t a2, void *a3)
   {
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      sub_100078EE8(a1);
+      sub_100078EE8();
     }
   }
 
@@ -4369,7 +4367,7 @@ void sub_10002C684(uint64_t a1, void *a2, void *a3)
   {
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      sub_100078F60(v5, a1);
+      sub_100078F60();
     }
   }
 
@@ -4451,7 +4449,7 @@ void sub_10002D004(uint64_t a1, uint64_t a2, void *a3)
   {
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      sub_10007912C(a1);
+      sub_10007912C();
     }
   }
 
@@ -4569,7 +4567,6 @@ void sub_10002E408(uint64_t a1, void *a2)
   v4 = HULocalizedString();
   v5 = [UIAlertController alertControllerWithTitle:v4 message:*(a1 + 32) preferredStyle:1];
 
-  *(a1 + 72);
   v6 = HULocalizedString();
   objc_initWeak(location, *(a1 + 40));
   v22[0] = _NSConcreteStackBlock;
@@ -4584,7 +4581,6 @@ void sub_10002E408(uint64_t a1, void *a2)
   v25[1] = v8;
   v9 = [UIAlertAction actionWithTitle:v6 style:0 handler:v22];
   [v5 addAction:v9];
-  *(a1 + 72);
   v10 = HULocalizedString();
   v11 = [UIAlertAction actionWithTitle:v10 style:0 handler:0];
   [v5 addAction:v11];
@@ -4840,10 +4836,11 @@ NAFuture *__cdecl sub_10002F38C(id a1, id a2)
   return v15;
 }
 
-void sub_10002F544(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_10002F544(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 2u);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 2u);
 }
 
 void sub_10002F9EC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, id location)
@@ -5174,9 +5171,9 @@ BOOL sub_100032C58(id a1, HFMediaProfileContainer *a2)
   return v3 != 0;
 }
 
-void sub_100033418(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_100033418(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5219,7 +5216,6 @@ Class sub_100034088(uint64_t a1)
 
 uint64_t sub_1000341B4(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   qword_1000E6710 = result;
   return result;
@@ -5331,21 +5327,20 @@ void *sub_100036A60(uint64_t a1, void *a2)
   v4 = HFLogForCategory();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = *(a1 + 32);
-    v6 = [objc_opt_class() description];
-    v10 = 138412802;
-    v11 = v6;
-    v12 = 2080;
-    v13 = "[HSPCWalletKeyUWBViewController _addWalletKeyWithiPhoneUWBOptions:pairedWatchesUWBOptions:]_block_invoke_3";
-    v14 = 2112;
-    v15 = v3;
-    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "(%@:%s) Completed adding Wallet Key for iPhone with results %@", &v10, 0x20u);
+    v5 = [objc_opt_class() description];
+    v9 = 138412802;
+    v10 = v5;
+    v11 = 2080;
+    v12 = "[HSPCWalletKeyUWBViewController _addWalletKeyWithiPhoneUWBOptions:pairedWatchesUWBOptions:]_block_invoke_3";
+    v13 = 2112;
+    v14 = v3;
+    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "(%@:%s) Completed adding Wallet Key for iPhone with results %@", &v9, 0x20u);
   }
 
-  v7 = *(a1 + 40);
-  v8 = v7;
+  v6 = *(a1 + 40);
+  v7 = v6;
 
-  return v7;
+  return v6;
 }
 
 id sub_100036B64(uint64_t a1, void *a2)
@@ -5354,35 +5349,34 @@ id sub_100036B64(uint64_t a1, void *a2)
   v4 = HFLogForCategory();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = *(a1 + 32);
-    v6 = [objc_opt_class() description];
+    v5 = [objc_opt_class() description];
     *buf = 138412802;
-    v17 = v6;
-    v18 = 2080;
-    v19 = "[HSPCWalletKeyUWBViewController _addWalletKeyWithiPhoneUWBOptions:pairedWatchesUWBOptions:]_block_invoke";
-    v20 = 2112;
-    v21 = v3;
+    v16 = v5;
+    v17 = 2080;
+    v18 = "[HSPCWalletKeyUWBViewController _addWalletKeyWithiPhoneUWBOptions:pairedWatchesUWBOptions:]_block_invoke";
+    v19 = 2112;
+    v20 = v3;
     _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "(%@:%s) Failed adding Wallet Key for iPhone with iPhoneWalletKeyError %@", buf, 0x20u);
   }
 
-  v14[0] = _NSConcreteStackBlock;
-  v14[1] = 3221225472;
-  v14[2] = sub_100036D80;
-  v14[3] = &unk_1000C5970;
-  v15 = objc_alloc_init(NAFuture);
-  v7 = v15;
-  v8 = objc_retainBlock(v14);
-  v9 = +[HFErrorHandler sharedHandler];
-  [v9 handleError:v3 retryBlock:0 cancelBlock:v8];
+  v13[0] = _NSConcreteStackBlock;
+  v13[1] = 3221225472;
+  v13[2] = sub_100036D80;
+  v13[3] = &unk_1000C5970;
+  v14 = objc_alloc_init(NAFuture);
+  v6 = v14;
+  v7 = objc_retainBlock(v13);
+  v8 = +[HFErrorHandler sharedHandler];
+  [v8 handleError:v3 retryBlock:0 cancelBlock:v7];
 
-  v12[0] = _NSConcreteStackBlock;
-  v12[1] = 3221225472;
-  v12[2] = sub_100036D90;
-  v12[3] = &unk_1000C68B8;
-  v13 = *(a1 + 40);
-  v10 = [v7 flatMap:v12];
+  v11[0] = _NSConcreteStackBlock;
+  v11[1] = 3221225472;
+  v11[2] = sub_100036D90;
+  v11[3] = &unk_1000C68B8;
+  v12 = *(a1 + 40);
+  v9 = [v6 flatMap:v11];
 
-  return v10;
+  return v9;
 }
 
 void sub_100037074(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, id location)
@@ -5631,16 +5625,16 @@ void sub_1000387E4(uint64_t a1)
   [v1 handleButtonDirectiveFuture:v2];
 }
 
-id sub_1000388F8()
+id sub_1000388F8(uint64_t a1)
 {
   if (qword_1000E6718 != -1)
   {
     sub_10007994C();
   }
 
-  v1 = qword_1000E6720;
+  v2 = qword_1000E6720;
 
-  return v1;
+  return v2;
 }
 
 void sub_10003893C(id a1)
@@ -6071,9 +6065,9 @@ void sub_10003CE98(uint64_t a1, void *a2)
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
-    v23 = v3;
-    v24 = 2048;
-    v25 = [v3 length];
+    v22 = v3;
+    v23 = 2048;
+    v24 = [v3 length];
     _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "stagePairingFuture result %@ length %lu", buf, 0x16u);
   }
 
@@ -6090,39 +6084,38 @@ void sub_10003CE98(uint64_t a1, void *a2)
     v7 = HFLogForCategory();
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = *(a1 + 40);
-      v9 = objc_opt_class();
-      v10 = NSStringFromSelector(*(a1 + 48));
-      v11 = *(a1 + 32);
-      v12 = *(a1 + 40);
+      v8 = objc_opt_class();
+      v9 = NSStringFromSelector(*(a1 + 48));
+      v10 = *(a1 + 32);
+      v11 = *(a1 + 40);
       *buf = 138413058;
-      v23 = v9;
-      v24 = 2112;
-      v25 = v10;
-      v26 = 2112;
-      v27 = v11;
-      v28 = 2112;
-      v29 = v12;
+      v22 = v8;
+      v23 = 2112;
+      v24 = v9;
+      v25 = 2112;
+      v26 = v10;
+      v27 = 2112;
+      v28 = v11;
       _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "%@:%@ pairing starting with partnerConfig: %@ coordinator: %@", buf, 0x2Au);
     }
 
-    v13 = [*(a1 + 32) pairStagedCHIPAccessoryToPartnerAppHome];
-    v20[0] = _NSConcreteStackBlock;
-    v20[1] = 3221225472;
-    v20[2] = sub_10003D138;
-    v20[3] = &unk_1000C5998;
-    v21 = *(a1 + 32);
-    v14 = [v13 recover:v20];
-    v18[0] = _NSConcreteStackBlock;
-    v18[1] = 3221225472;
-    v18[2] = sub_10003D228;
-    v18[3] = &unk_1000C7160;
-    v17 = *(a1 + 32);
-    v15 = v17.i64[0];
-    v19 = vextq_s8(v17, v17, 8uLL);
-    v16 = [v14 addSuccessBlock:v18];
+    v12 = [*(a1 + 32) pairStagedCHIPAccessoryToPartnerAppHome];
+    v19[0] = _NSConcreteStackBlock;
+    v19[1] = 3221225472;
+    v19[2] = sub_10003D138;
+    v19[3] = &unk_1000C5998;
+    v20 = *(a1 + 32);
+    v13 = [v12 recover:v19];
+    v17[0] = _NSConcreteStackBlock;
+    v17[1] = 3221225472;
+    v17[2] = sub_10003D228;
+    v17[3] = &unk_1000C7160;
+    v16 = *(a1 + 32);
+    v14 = v16.i64[0];
+    v18 = vextq_s8(v16, v16, 8uLL);
+    v15 = [v13 addSuccessBlock:v17];
 
-    v6 = v21;
+    v6 = v20;
   }
 }
 
@@ -6446,43 +6439,42 @@ id sub_10003E0F4(uint64_t a1, void *a2)
     [v7 addDismissButtonWithCoordinator:*(a1 + 32)];
   }
 
-  v10 = *(a1 + 40);
   if (objc_opt_respondsToSelector())
   {
     [*(a1 + 40) configureNextViewController:v4];
   }
 
-  v11 = v4;
-  v12 = &OBJC_PROTOCOL___HUPreloadableViewController;
-  if ([v11 conformsToProtocol:v12])
+  v10 = v4;
+  v11 = &OBJC_PROTOCOL___HUPreloadableViewController;
+  if ([v10 conformsToProtocol:v11])
   {
-    v13 = v11;
+    v12 = v10;
   }
 
   else
   {
-    v13 = 0;
+    v12 = 0;
   }
 
-  v14 = v13;
+  v13 = v12;
 
-  if (v14)
+  if (v13)
   {
-    v15 = [v14 hu_preloadContent];
-    v18[0] = _NSConcreteStackBlock;
-    v18[1] = 3221225472;
-    v18[2] = sub_10003E2D4;
-    v18[3] = &unk_1000C5F60;
-    v19 = v11;
-    v16 = [v15 flatMap:v18];
+    v14 = [v13 hu_preloadContent];
+    v17[0] = _NSConcreteStackBlock;
+    v17[1] = 3221225472;
+    v17[2] = sub_10003E2D4;
+    v17[3] = &unk_1000C5F60;
+    v18 = v10;
+    v15 = [v14 flatMap:v17];
   }
 
   else
   {
-    v16 = [NAFuture futureWithResult:v11];
+    v15 = [NAFuture futureWithResult:v10];
   }
 
-  return v16;
+  return v15;
 }
 
 id sub_10003E2E8(uint64_t a1, void *a2)
@@ -6534,26 +6526,25 @@ id sub_10003E470(uint64_t a1, void *a2)
   v4 = HFLogForCategory();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = *(a1 + 32);
-    v6 = objc_opt_class();
-    v7 = NSStringFromClass(v6);
+    v5 = objc_opt_class();
+    v6 = NSStringFromClass(v5);
+    v7 = [*(a1 + 32) activeTuple];
     v8 = [*(a1 + 32) activeTuple];
-    v9 = [*(a1 + 32) activeTuple];
-    v10 = [v9 accessory];
-    v11 = [v10 hf_prettyDescription];
-    v12 = [*(a1 + 32) activeTuple];
-    v13 = +[HSSetupContentProvider stringForHSProxCardSetupUIStep:](HSSetupContentProvider, "stringForHSProxCardSetupUIStep:", [v12 currentStep]);
-    v18 = 138413314;
-    v19 = v7;
-    v20 = 2048;
-    v21 = v8;
-    v22 = 2112;
-    v23 = v11;
-    v24 = 2112;
-    v25 = v13;
-    v26 = 1024;
-    v27 = v3;
-    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "%@ tuple %p accessory %@ nextViewController for step %@ has skip logic and shouldSkip = %d", &v18, 0x30u);
+    v9 = [v8 accessory];
+    v10 = [v9 hf_prettyDescription];
+    v11 = [*(a1 + 32) activeTuple];
+    v12 = +[HSSetupContentProvider stringForHSProxCardSetupUIStep:](HSSetupContentProvider, "stringForHSProxCardSetupUIStep:", [v11 currentStep]);
+    v17 = 138413314;
+    v18 = v6;
+    v19 = 2048;
+    v20 = v7;
+    v21 = 2112;
+    v22 = v10;
+    v23 = 2112;
+    v24 = v12;
+    v25 = 1024;
+    v26 = v3;
+    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "%@ tuple %p accessory %@ nextViewController for step %@ has skip logic and shouldSkip = %d", &v17, 0x30u);
   }
 
   if (v3)
@@ -6563,15 +6554,15 @@ id sub_10003E470(uint64_t a1, void *a2)
 
   else
   {
-    v15 = +[HSAccessoryPairingEventLogger sharedLogger];
-    v16 = [*(a1 + 32) activeTuple];
-    [v15 logStepStart:{objc_msgSend(v16, "currentStep")}];
+    v14 = +[HSAccessoryPairingEventLogger sharedLogger];
+    v15 = [*(a1 + 32) activeTuple];
+    [v14 logStepStart:{objc_msgSend(v15, "currentStep")}];
 
     [NAFuture futureWithResult:*(a1 + 48)];
   }
-  v14 = ;
+  v13 = ;
 
-  return v14;
+  return v13;
 }
 
 void sub_10003E67C(uint64_t a1, void *a2)
@@ -7564,7 +7555,7 @@ void sub_10004A0A4(void *a1, uint64_t a2, os_log_t log, const char *a4, ...)
   _os_log_error_impl(a1, log, OS_LOG_TYPE_ERROR, a4, va, 0x1Cu);
 }
 
-id sub_10004B03C(uint64_t a1)
+NSMutableSet *sub_10004B03C(uint64_t a1)
 {
   v2 = [*(a1 + 32) entitlementContext];
   v3 = [v2 isEntitledForHomeKitSPI];
@@ -7636,16 +7627,16 @@ void sub_10004B69C(uint64_t a1)
   [v1 setTintColor:0];
 }
 
-id sub_10004C888()
+id sub_10004C888(uint64_t a1)
 {
   if (qword_1000E6738 != -1)
   {
     sub_10007A7E4();
   }
 
-  v1 = qword_1000E6740;
+  v2 = qword_1000E6740;
 
-  return v1;
+  return v2;
 }
 
 void sub_10004C8CC(id a1)
@@ -7657,7 +7648,7 @@ void sub_10004C8CC(id a1)
 id sub_10004CB98(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, void *a12)
 {
 
-  return [a12 handleFailureInFunction:v12 file:a4 lineNumber:54 description:?];
+  return [a12 handleFailureInFunction:v12 file:a4 lineNumber:54 description:{a6, a7, a8}];
 }
 
 BOOL sub_10004CD24(id a1, HMService *a2)
@@ -7715,7 +7706,7 @@ void sub_10004D300(uint64_t a1)
   {
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      sub_10007A878((a1 + 32));
+      sub_10007A878();
     }
 
     [WeakRetained setOverallSession:0];
@@ -7764,11 +7755,11 @@ void sub_10004D300(uint64_t a1)
   }
 }
 
-void sub_10004D7AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_10004D7AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v13 - 80), 8);
+  _Block_object_dispose((v20 - 80), 8);
   _Unwind_Resume(a1);
 }
 
@@ -8151,7 +8142,7 @@ LABEL_13:
     v21 = HFLogForCategory();
     if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
-      sub_10007AD50(a1);
+      sub_10007AD50();
     }
 
     [WeakRetained dismissViewControllerAnimated:1 completion:0];
@@ -8517,16 +8508,16 @@ void sub_100055D5C(uint64_t a1, void *a2)
   }
 }
 
-id sub_100055F08()
+id sub_100055F08(uint64_t a1)
 {
   if (qword_1000E6748 != -1)
   {
     sub_10007B214();
   }
 
-  v1 = qword_1000E6750;
+  v2 = qword_1000E6750;
 
-  return v1;
+  return v2;
 }
 
 void sub_100055F4C(id a1)

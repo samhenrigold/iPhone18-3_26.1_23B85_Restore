@@ -552,12 +552,12 @@ LABEL_7:
     }
 
     v24 = v6;
-    v33 = 0;
-    v34 = &v33;
-    v35 = 0x3032000000;
-    v36 = __Block_byref_object_copy_;
-    v37 = __Block_byref_object_dispose_;
-    v38 = 0;
+    v32 = 0;
+    v33 = &v32;
+    v34 = 0x3032000000;
+    v35 = __Block_byref_object_copy_;
+    v36 = __Block_byref_object_dispose_;
+    v37 = 0;
     v7 = [MEMORY[0x277CBEB18] arrayWithCapacity:{9, v4}];
     v8 = [collectionView numberOfItemsInSection:0];
     v9 = v8;
@@ -572,7 +572,7 @@ LABEL_7:
         if (_hasOnlyLargeItems || (-[STSGridLayout _gridLayoutDelegate](self, "_gridLayoutDelegate"), v13 = objc_claimAutoreleasedReturnValue(), v14 = [v13 collectionView:v22 layout:self sizeForItemAtIndexPath:v12], v13, !v14))
         {
           v14 = 0;
-          if (v34[5])
+          if (v33[5])
           {
             v15 = 0;
           }
@@ -590,7 +590,7 @@ LABEL_7:
             goto LABEL_15;
           }
 
-          if (!v34[5])
+          if (!v33[5])
           {
             goto LABEL_21;
           }
@@ -603,7 +603,7 @@ LABEL_15:
             goto LABEL_23;
           }
 
-          if (v34[5])
+          if (v33[5])
           {
             v15 = 0;
           }
@@ -618,21 +618,21 @@ LABEL_21:
         }
 
 LABEL_23:
-        v28[0] = MEMORY[0x277D85DD0];
-        v28[1] = 3221225472;
-        v28[2] = __47__STSGridLayout__gridTilesForCurrentDataSource__block_invoke;
-        v28[3] = &unk_279B8AB20;
+        v27[0] = MEMORY[0x277D85DD0];
+        v27[1] = 3221225472;
+        v27[2] = __47__STSGridLayout__gridTilesForCurrentDataSource__block_invoke;
+        v27[3] = &unk_279B8AB20;
         v16 = v7;
-        v32 = &v33;
-        v29 = v16;
-        v30 = v24;
-        v31 = array;
-        v17 = MEMORY[0x266751FB0](v28);
+        v31 = &v32;
+        v28 = v16;
+        v29 = v24;
+        v30 = array;
+        v17 = MEMORY[0x266751FB0](v27);
         if (!v15)
         {
-          if (v11 != v10 && (!v34[5] && [v16 count] < 9 || !_hasOnlyLargeItems && v34[5] && objc_msgSend(v16, "count") <= 4) && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+          if (v11 != v10 && (!v33[5] && [v16 count] < 9 || !_hasOnlyLargeItems && v33[5] && objc_msgSend(v16, "count") <= 4) && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
           {
-            [(STSGridLayout *)&buf _gridTilesForCurrentDataSource];
+            [(STSGridLayout *)buf _gridTilesForCurrentDataSource];
           }
 
           v17[2](v17);
@@ -641,8 +641,8 @@ LABEL_23:
         if (!v14)
         {
           v19 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v10];
-          v18 = v34[5];
-          v34[5] = v19;
+          v18 = v33[5];
+          v33[5] = v19;
           goto LABEL_37;
         }
 
@@ -670,7 +670,7 @@ LABEL_37:
       [(STSGridLayout *)self _redistributeLastRowItemsInTiles:array withTilesPerRow:v21];
     }
 
-    _Block_object_dispose(&v33, 8);
+    _Block_object_dispose(&v32, 8);
   }
 
   return array;

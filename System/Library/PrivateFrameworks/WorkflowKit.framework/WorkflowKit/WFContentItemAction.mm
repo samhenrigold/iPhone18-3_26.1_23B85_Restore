@@ -9,26 +9,24 @@
 
 - (id)inputContentClasses
 {
-  v10[1] = *MEMORY[0x1E69E9840];
-  v9.receiver = self;
-  v9.super_class = WFContentItemAction;
-  inputContentClasses = [(WFAction *)&v9 inputContentClasses];
+  v9[1] = *MEMORY[0x1E69E9840];
+  v8.receiver = self;
+  v8.super_class = WFContentItemAction;
+  inputContentClasses = [(WFAction *)&v8 inputContentClasses];
   v4 = [inputContentClasses count];
 
   if (v4)
   {
-    v8.receiver = self;
-    v8.super_class = WFContentItemAction;
-    inputContentClasses2 = [(WFAction *)&v8 inputContentClasses];
+    v7.receiver = self;
+    v7.super_class = WFContentItemAction;
+    inputContentClasses2 = [(WFAction *)&v7 inputContentClasses];
   }
 
   else
   {
-    v10[0] = [(WFAction *)self contentItemClass];
-    inputContentClasses2 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:1];
+    v9[0] = [(WFAction *)self contentItemClass];
+    inputContentClasses2 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:1];
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 
   return inputContentClasses2;
 }

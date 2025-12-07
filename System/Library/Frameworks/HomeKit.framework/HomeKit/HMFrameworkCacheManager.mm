@@ -7,15 +7,15 @@
 
 - (HMFrameworkCacheManager)initWithTimerFactory:(id)factory
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   factoryCopy = factory;
   v5 = HMCreateFrameworkCacheDirectory();
   if (v5)
   {
     v6 = [[HMDiskCache alloc] initWithCachePath:v5];
-    v14.receiver = self;
-    v14.super_class = HMFrameworkCacheManager;
-    selfCopy = [(HMCacheManager *)&v14 initWithTimerFactory:factoryCopy persistentCache:v6];
+    v13.receiver = self;
+    v13.super_class = HMFrameworkCacheManager;
+    selfCopy = [(HMCacheManager *)&v13 initWithTimerFactory:factoryCopy persistentCache:v6];
 
     v8 = selfCopy;
   }
@@ -29,7 +29,7 @@
     {
       v11 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v16 = v11;
+      v15 = v11;
       _os_log_impl(&dword_19BB39000, v10, OS_LOG_TYPE_ERROR, "%{public}@Unable to resolve cache directory, not using cache", buf, 0xCu);
     }
 
@@ -37,7 +37,6 @@
     v8 = 0;
   }
 
-  v12 = *MEMORY[0x1E69E9840];
   return v8;
 }
 

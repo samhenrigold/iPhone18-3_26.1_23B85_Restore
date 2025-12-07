@@ -12,7 +12,6 @@
 - (__CFString)auxiliaryImageType;
 - (id)debugDescription;
 - (id)description;
-- (uint64_t)copyAuxiliaryMetadata;
 - (void)dealloc;
 @end
 
@@ -146,72 +145,72 @@ LABEL_6:
       v11 = Width;
       Width = Height;
 LABEL_23:
-      v29 = *MEMORY[0x1E69660D8];
-      v30 = MEMORY[0x1E695E0F8];
-      v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v30 forKeys:&v29 count:1];
-      v15 = *MEMORY[0x1E695E480];
-      if (!CVPixelBufferCreate(*MEMORY[0x1E695E480], v11, Width, PixelFormatType, v14, &pixelBufferOut))
+      v30 = *MEMORY[0x1E69660D8];
+      v31 = MEMORY[0x1E695E0F8];
+      v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v31 forKeys:&v30 count:1];
+      v16 = *MEMORY[0x1E695E480];
+      if (!CVPixelBufferCreate(*MEMORY[0x1E695E480], v11, Width, PixelFormatType, v15, &pixelBufferOut))
       {
-        v16 = *MEMORY[0x1E6965F60];
+        v17 = *MEMORY[0x1E6965F60];
         CVBufferSetAttachment(pixelBufferOut, *MEMORY[0x1E6965F30], *MEMORY[0x1E6965F60], kCVAttachmentMode_ShouldPropagate);
         if (((v10 == 0) & ~v9) != 0)
         {
-          v17 = VTPixelTransferSessionCreate(v15, &pixelTransferSessionOut);
-          if (!v17)
+          v18 = VTPixelTransferSessionCreate(v16, &pixelTransferSessionOut);
+          if (!v18)
           {
-            v17 = VTPixelTransferSessionTransferImage(pixelTransferSessionOut, self->_pixelBuffer, pixelBufferOut);
+            v18 = VTPixelTransferSessionTransferImage(pixelTransferSessionOut, self->_pixelBuffer, pixelBufferOut);
           }
         }
 
         else
         {
-          v17 = VTPixelRotationSessionCreate(v15, &pixelRotationSessionOut);
-          if (!v17)
+          v18 = VTPixelRotationSessionCreate(v16, &pixelRotationSessionOut);
+          if (!v18)
           {
-            v18 = pixelRotationSessionOut;
-            v19 = *MEMORY[0x1E6983D98];
-            v20 = AVCaptureVTRotationFromDegrees(v10);
-            VTSessionSetProperty(v18, v19, v20);
-            v21 = *MEMORY[0x1E695E4D0];
+            v19 = pixelRotationSessionOut;
+            v20 = *MEMORY[0x1E6983D98];
+            v21 = AVCaptureVTRotationFromDegrees(v10);
+            VTSessionSetProperty(v19, v20, v21);
+            v22 = *MEMORY[0x1E695E4D0];
             VTSessionSetProperty(pixelRotationSessionOut, *MEMORY[0x1E6983D68], *MEMORY[0x1E695E4D0]);
-            VTSessionSetProperty(pixelRotationSessionOut, *MEMORY[0x1E6983D50], v16);
+            VTSessionSetProperty(pixelRotationSessionOut, *MEMORY[0x1E6983D50], v17);
             if (v9)
             {
-              v22 = v10 == 90 || v10 == 270;
-              v23 = MEMORY[0x1E6983D80];
-              if (!v22)
+              v23 = v10 == 90 || v10 == 270;
+              v24 = MEMORY[0x1E6983D80];
+              if (!v23)
               {
-                v23 = MEMORY[0x1E6983D78];
+                v24 = MEMORY[0x1E6983D78];
               }
 
-              VTSessionSetProperty(pixelRotationSessionOut, *v23, v21);
+              VTSessionSetProperty(pixelRotationSessionOut, *v24, v22);
             }
 
-            v17 = VTPixelRotationSessionRotateImage(pixelRotationSessionOut, self->_pixelBuffer, pixelBufferOut);
+            v18 = VTPixelRotationSessionRotateImage(pixelRotationSessionOut, self->_pixelBuffer, pixelBufferOut);
           }
         }
 
-        v24 = v17;
+        v25 = v18;
         goto LABEL_37;
       }
 
 LABEL_45:
-      v24 = 0;
+      v25 = 0;
 LABEL_37:
-      v25 = [AVSemanticSegmentationMatte alloc];
+      v26 = [AVSemanticSegmentationMatte alloc];
       matteType = [(AVSemanticSegmentationMatte *)self matteType];
-      if (v24)
+      if (v25)
       {
-        v27 = 0;
+        v28 = 0;
       }
 
       else
       {
-        v27 = pixelBufferOut;
+        v28 = pixelBufferOut;
       }
 
-      v28 = [(AVSemanticSegmentationMatte *)v25 initWithType:matteType pixelBuffer:v27 semanticSegmentationMatteMetadataDictionary:0];
-      v28->_version = self->_version;
+      v29 = [(AVSemanticSegmentationMatte *)v26 initWithType:matteType pixelBuffer:v28 semanticSegmentationMatteMetadataDictionary:0];
+      v29->_version = self->_version;
       CVPixelBufferRelease(pixelBufferOut);
       if (pixelRotationSessionOut)
       {
@@ -223,7 +222,7 @@ LABEL_37:
         CFRelease(pixelTransferSessionOut);
       }
 
-      return v28;
+      return v29;
     }
 
     if (exifOrientation > kCGImagePropertyOrientationRight)
@@ -257,7 +256,7 @@ LABEL_22:
   }
 
   v12 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-  if (AVCaptureShouldThrowForAPIViolations())
+  if (AVCaptureShouldThrowForAPIViolations(v12, v13))
   {
     objc_exception_throw(v12);
   }
@@ -329,9 +328,9 @@ LABEL_6:
 
 - (AVSemanticSegmentationMatte)initWithType:(id)type pixelBuffer:(__CVBuffer *)buffer semanticSegmentationMatteMetadataDictionary:(id)dictionary
 {
-  v13.receiver = self;
-  v13.super_class = AVSemanticSegmentationMatte;
-  v8 = [(AVSemanticSegmentationMatte *)&v13 init];
+  v15.receiver = self;
+  v15.super_class = AVSemanticSegmentationMatte;
+  v8 = [(AVSemanticSegmentationMatte *)&v15 init];
   if (v8)
   {
     _allSupportedSemanticSegmentationMatteTypes = [objc_opt_class() _allSupportedSemanticSegmentationMatteTypes];
@@ -351,7 +350,7 @@ LABEL_6:
       v8->_pixelBuffer = v10;
       if (dictionary)
       {
-        v8->_version = [objc_msgSend(dictionary objectForKeyedSubscript:{*MEMORY[0x1E6991520]), "intValue"}];
+        v8->_version = [objc_msgSend_objectForKeyedSubscript_(dictionary) intValue];
       }
     }
 
@@ -359,7 +358,7 @@ LABEL_6:
     {
       v11 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:{0, _allSupportedSemanticSegmentationMatteTypes}];
 
-      if (AVCaptureShouldThrowForAPIViolations())
+      if (AVCaptureShouldThrowForAPIViolations(v12, v13))
       {
         objc_exception_throw(v11);
       }
@@ -464,149 +463,151 @@ LABEL_8:
 + (AVSemanticSegmentationMatte)semanticSegmentationMatteFromImageSourceAuxiliaryDataType:(CFStringRef)imageSourceAuxiliaryDataType dictionaryRepresentation:(NSDictionary *)imageSourceAuxiliaryDataInfoDictionary error:(NSError *)outError
 {
   pixelBufferOut = 0;
-  v9 = [(NSDictionary *)imageSourceAuxiliaryDataInfoDictionary objectForKeyedSubscript:*MEMORY[0x1E696D218]];
-  v10 = [(NSDictionary *)imageSourceAuxiliaryDataInfoDictionary objectForKeyedSubscript:*MEMORY[0x1E696D220]];
-  v11 = [(NSDictionary *)imageSourceAuxiliaryDataInfoDictionary objectForKeyedSubscript:*MEMORY[0x1E696D228]];
-  if (v9)
+  v10 = objc_msgSend_objectForKeyedSubscript_(imageSourceAuxiliaryDataInfoDictionary, a2, *MEMORY[0x1E696D218]);
+  v11 = objc_msgSend_objectForKeyedSubscript_(imageSourceAuxiliaryDataInfoDictionary);
+  v12 = objc_msgSend_objectForKeyedSubscript_(imageSourceAuxiliaryDataInfoDictionary);
+  if (v10)
   {
-    v12 = v10 == 0;
+    v13 = v11 == 0;
   }
 
   else
   {
-    v12 = 1;
+    v13 = 1;
   }
 
-  v13 = v12;
-  if (v13 == 1 && v11 == 0)
+  v14 = v13;
+  if (v14 == 1 && v12 == 0)
   {
     fig_log_get_emitter();
     OUTLINED_FUNCTION_1_1();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)");
 LABEL_50:
-    FigDebugAssert3();
-    v40 = 0;
-    v41 = -11865;
+    v41 = 0;
+    v42 = -11865;
     goto LABEL_39;
   }
 
-  v15 = v11;
-  v46 = *MEMORY[0x1E696D298];
-  v47[0] = *MEMORY[0x1E696D2A0];
-  v47[1] = v46;
-  v16 = *MEMORY[0x1E696D290];
-  v47[2] = *MEMORY[0x1E696D2B0];
-  v47[3] = v16;
-  if (([objc_msgSend(MEMORY[0x1E695DEC8] arrayWithObjects:v47 count:{4), "containsObject:", imageSourceAuxiliaryDataType}] & 1) == 0)
+  v16 = v12;
+  v53 = *MEMORY[0x1E696D298];
+  v54[0] = *MEMORY[0x1E696D2A0];
+  v54[1] = v53;
+  v17 = *MEMORY[0x1E696D290];
+  v54[2] = *MEMORY[0x1E696D2B0];
+  v54[3] = v17;
+  if (([objc_msgSend(MEMORY[0x1E695DEC8] arrayWithObjects:v54 count:{4), "containsObject:", imageSourceAuxiliaryDataType}] & 1) == 0)
   {
     goto LABEL_49;
   }
 
-  if (v13)
+  if (v14)
   {
 LABEL_30:
     if (FigCFEqual())
     {
-      v38 = @"AVSemanticSegmentationMatteTypeSkin";
+      v39 = @"AVSemanticSegmentationMatteTypeSkin";
 LABEL_38:
-      v39 = [AVSemanticSegmentationMatte alloc];
-      v40 = [(AVSemanticSegmentationMatte *)v39 initWithType:v38 pixelBuffer:pixelBufferOut auxiliaryMetadata:v15];
-      v41 = 0;
+      v40 = [AVSemanticSegmentationMatte alloc];
+      v41 = [(AVSemanticSegmentationMatte *)v40 initWithType:v39 pixelBuffer:pixelBufferOut auxiliaryMetadata:v16];
+      v42 = 0;
       goto LABEL_39;
     }
 
     if (FigCFEqual())
     {
-      v38 = @"AVSemanticSegmentationMatteTypeHair";
+      v39 = @"AVSemanticSegmentationMatteTypeHair";
       goto LABEL_38;
     }
 
     if (FigCFEqual())
     {
-      v38 = @"AVSemanticSegmentationMatteTypeTeeth";
+      v39 = @"AVSemanticSegmentationMatteTypeTeeth";
       goto LABEL_38;
     }
 
     if (FigCFEqual())
     {
-      v38 = @"AVSemanticSegmentationMatteTypeGlasses";
+      v39 = @"AVSemanticSegmentationMatteTypeGlasses";
       goto LABEL_38;
     }
 
     goto LABEL_49;
   }
 
-  v17 = [objc_msgSend(v10 objectForKeyedSubscript:{*MEMORY[0x1E696DEC0]), "intValue"}];
-  v18 = [objc_msgSend(v10 objectForKeyedSubscript:{*MEMORY[0x1E696DFB8]), "intValue"}];
-  v19 = [objc_msgSend(v10 objectForKeyedSubscript:{*MEMORY[0x1E696DD58]), "intValue"}];
-  v20 = [objc_msgSend(v10 objectForKeyedSubscript:{*MEMORY[0x1E696D430]), "intValue"}];
-  if (!v17 || !v18 || !v19 || (v21 = v20) == 0)
+  v52 = v17;
+  intValue = [objc_msgSend_objectForKeyedSubscript_(v11) intValue];
+  intValue2 = [objc_msgSend_objectForKeyedSubscript_(v11) intValue];
+  intValue3 = [objc_msgSend_objectForKeyedSubscript_(v11) intValue];
+  intValue4 = [objc_msgSend_objectForKeyedSubscript_(v11) intValue];
+  if (!intValue || !intValue2 || !intValue3 || (v22 = intValue4) == 0)
   {
 LABEL_49:
     fig_log_get_emitter();
     OUTLINED_FUNCTION_1_1();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)");
     goto LABEL_50;
   }
 
-  v45 = v15;
+  v51 = v16;
   _allSupportedSemanticSegmentationMattePixelFormatTypes = [self _allSupportedSemanticSegmentationMattePixelFormatTypes];
-  if ([_allSupportedSemanticSegmentationMattePixelFormatTypes containsObject:{objc_msgSend(MEMORY[0x1E696AD98], "numberWithUnsignedInt:", v17)}])
+  if ([_allSupportedSemanticSegmentationMattePixelFormatTypes containsObject:{objc_msgSend(MEMORY[0x1E696AD98], "numberWithUnsignedInt:", intValue)}])
   {
-    v23 = v19;
-    v24 = [MEMORY[0x1E696AD98] numberWithUnsignedLong:v21];
-    v25 = [MEMORY[0x1E695DF20] dictionaryWithObjectsAndKeys:{MEMORY[0x1E695E0F8], *MEMORY[0x1E69660D8], v24, *MEMORY[0x1E6966020], 0}];
-    v26 = CVPixelBufferCreate(*MEMORY[0x1E695E480], v18, v19, v17, v25, &pixelBufferOut);
-    if (!v26)
+    v24 = intValue3;
+    v25 = [MEMORY[0x1E696AD98] numberWithUnsignedLong:v22];
+    v26 = [MEMORY[0x1E695DF20] dictionaryWithObjectsAndKeys:{MEMORY[0x1E695E0F8], *MEMORY[0x1E69660D8], v25, *MEMORY[0x1E6966020], 0}];
+    v27 = CVPixelBufferCreate(*MEMORY[0x1E695E480], intValue2, intValue3, intValue, v26, &pixelBufferOut);
+    if (!v27)
     {
-      v44 = outError;
+      v50 = outError;
       CVBufferSetAttachment(pixelBufferOut, *MEMORY[0x1E6965F30], *MEMORY[0x1E6965F60], kCVAttachmentMode_ShouldPropagate);
       CVPixelBufferLockBaseAddress(pixelBufferOut, 0);
       BytesPerRow = CVPixelBufferGetBytesPerRow(pixelBufferOut);
-      v28 = BytesPerRow;
-      if (BytesPerRow >= v21)
+      v29 = BytesPerRow;
+      if (BytesPerRow >= v22)
       {
-        v29 = v21;
+        v30 = v22;
       }
 
       else
       {
-        v29 = BytesPerRow;
+        v30 = BytesPerRow;
       }
 
-      bytes = [v9 bytes];
+      bytes = [v10 bytes];
       BaseAddress = CVPixelBufferGetBaseAddress(pixelBufferOut);
-      v32 = [v9 length];
-      if (v29 <= v32)
+      v33 = [v10 length];
+      if (v30 <= v33)
       {
-        v33 = &bytes[v32];
-        v34 = 1;
+        v34 = &bytes[v33];
+        v35 = 1;
         do
         {
-          memcpy(BaseAddress, bytes, v29);
-          v35 = &bytes[v29 + v21];
-          bytes += v21;
-          BaseAddress += v28;
+          memcpy(BaseAddress, bytes, v30);
+          v36 = &bytes[v30 + v22];
+          bytes += v22;
+          BaseAddress += v29;
         }
 
-        while (v34++ < v23 && v35 <= v33);
+        while (v35++ < v24 && v36 <= v34);
       }
 
       CVPixelBufferUnlockBaseAddress(pixelBufferOut, 0);
-      outError = v44;
-      v15 = v45;
+      outError = v50;
+      v16 = v51;
       goto LABEL_30;
     }
 
-    v41 = v26;
-    v40 = 0;
+    v42 = v27;
+    v41 = 0;
   }
 
   else
   {
     fig_log_get_emitter();
     OUTLINED_FUNCTION_1_1();
-    FigDebugAssert3();
-    v40 = 0;
-    v41 = -11864;
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v45, v46, v47, v48, v49, v51, v5, v52);
+    v41 = 0;
+    v42 = -11864;
   }
 
 LABEL_39:
@@ -615,22 +616,22 @@ LABEL_39:
     CFRelease(pixelBufferOut);
   }
 
-  if (outError && v41)
+  if (outError && v42)
   {
     if (ErrorIsAVFoundationError())
     {
-      v42 = AVLocalizedError();
+      v43 = AVLocalizedError();
     }
 
     else
     {
-      v42 = AVLocalizedErrorWithUnderlyingOSStatus();
+      v43 = AVLocalizedErrorWithUnderlyingOSStatus();
     }
 
-    *outError = v42;
+    *outError = v43;
   }
 
-  return v40;
+  return v41;
 }
 
 - (NSDictionary)dictionaryRepresentationForAuxiliaryDataType:(NSString *)outAuxDataType
@@ -643,7 +644,7 @@ LABEL_39:
   {
     fig_log_get_emitter();
     OUTLINED_FUNCTION_1_1();
-    FigDebugAssert3();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)");
     return 0;
   }
 
@@ -683,27 +684,6 @@ LABEL_39:
   }
 
   return dictionary;
-}
-
-- (uint64_t)semanticSegmentationMatteByReplacingSemanticSegmentationMatteWithPixelBuffer:error:.cold.1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)semanticSegmentationMatteByReplacingSemanticSegmentationMatteWithPixelBuffer:error:.cold.2()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)copyAuxiliaryMetadata
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
 }
 
 @end

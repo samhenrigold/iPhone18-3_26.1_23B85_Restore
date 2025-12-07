@@ -70,11 +70,10 @@
     [NPKProtoStandaloneInitializationRequest writeTo:];
   }
 
-  v7 = toCopy;
+  v6 = toCopy;
   PBDataWriterWriteSubmessage();
   if (*&self->_has)
   {
-    useSimulatedFlowController = self->_useSimulatedFlowController;
     PBDataWriterWriteBOOLField();
   }
 
@@ -83,17 +82,17 @@
     PBDataWriterWriteStringField();
   }
 
-  v6 = v7;
+  v5 = v6;
   if (self->_passImageSize)
   {
     PBDataWriterWriteSubmessage();
-    v6 = v7;
+    v5 = v6;
   }
 
   if (self->_passThumbnailImageSize)
   {
     PBDataWriterWriteSubmessage();
-    v6 = v7;
+    v5 = v6;
   }
 }
 

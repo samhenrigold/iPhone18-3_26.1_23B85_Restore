@@ -206,13 +206,12 @@ void __39__STStorageMediaMonitor__updateATCData__block_invoke_2(uint64_t a1)
 {
   clock_gettime_nsec_np(_CLOCK_UPTIME_RAW);
   [*(a1 + 32) refreshStartTimestamp];
-  v8 = *(a1 + 40);
   STLog(1, @"%s:%d ATC update completed in %0.3fs %@", v2, v3, v4, v5, v6, v7, "[STStorageMediaMonitor _updateATCData]_block_invoke_2");
   [*(a1 + 32) setAtcDictionary:*(a1 + 40)];
   [*(a1 + 32) setIsUpdating:0];
   [*(a1 + 32) setIsAsynchronouslyLoaded:1];
-  v9 = +[STStorageDataNotifier sharedNotifier];
-  [v9 postMediaSizesChanged];
+  v8 = +[STStorageDataNotifier sharedNotifier];
+  [v8 postMediaSizesChanged];
 }
 
 - (void)sync
@@ -265,50 +264,50 @@ intptr_t __29__STStorageMediaMonitor_sync__block_invoke(uint64_t a1, void *a2)
 
 + (id)listOfUsedDataClassesInOverrides:(id)overrides
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   overridesCopy = overrides;
   v4 = [MEMORY[0x277CBEB58] setWithCapacity:5];
+  v25 = 0u;
   v26 = 0u;
   v27 = 0u;
   v28 = 0u;
-  v29 = 0u;
-  v19 = overridesCopy;
+  v18 = overridesCopy;
   obj = [overridesCopy allValues];
-  v5 = [obj countByEnumeratingWithState:&v26 objects:v31 count:16];
+  v5 = [obj countByEnumeratingWithState:&v25 objects:v30 count:16];
   if (v5)
   {
     v6 = v5;
-    v21 = *v27;
+    v20 = *v26;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v27 != v21)
+        if (*v26 != v20)
         {
           objc_enumerationMutation(obj);
         }
 
-        v8 = *(*(&v26 + 1) + 8 * i);
+        v8 = *(*(&v25 + 1) + 8 * i);
+        v21 = 0u;
         v22 = 0u;
         v23 = 0u;
         v24 = 0u;
-        v25 = 0u;
         includeMediaUsage = [v8 includeMediaUsage];
-        v10 = [includeMediaUsage countByEnumeratingWithState:&v22 objects:v30 count:16];
+        v10 = [includeMediaUsage countByEnumeratingWithState:&v21 objects:v29 count:16];
         if (v10)
         {
           v11 = v10;
-          v12 = *v23;
+          v12 = *v22;
           do
           {
             for (j = 0; j != v11; ++j)
             {
-              if (*v23 != v12)
+              if (*v22 != v12)
               {
                 objc_enumerationMutation(includeMediaUsage);
               }
 
-              v14 = [*(*(&v22 + 1) + 8 * j) componentsSeparatedByString:@":"];
+              v14 = [*(*(&v21 + 1) + 8 * j) componentsSeparatedByString:@":"];
               firstObject = [v14 firstObject];
 
               if (firstObject)
@@ -317,22 +316,20 @@ intptr_t __29__STStorageMediaMonitor_sync__block_invoke(uint64_t a1, void *a2)
               }
             }
 
-            v11 = [includeMediaUsage countByEnumeratingWithState:&v22 objects:v30 count:16];
+            v11 = [includeMediaUsage countByEnumeratingWithState:&v21 objects:v29 count:16];
           }
 
           while (v11);
         }
       }
 
-      v6 = [obj countByEnumeratingWithState:&v26 objects:v31 count:16];
+      v6 = [obj countByEnumeratingWithState:&v25 objects:v30 count:16];
     }
 
     while (v6);
   }
 
   allObjects = [v4 allObjects];
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return allObjects;
 }

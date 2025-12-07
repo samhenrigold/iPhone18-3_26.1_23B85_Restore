@@ -10,14 +10,14 @@
 
 - (id)serializedRepresentation
 {
-  v11[1] = *MEMORY[0x1E69E9840];
+  v10[1] = *MEMORY[0x1E69E9840];
   errorString = [(WFWorkflowNoInputBehaviorShowError *)self errorString];
   if (errorString)
   {
-    v10 = @"Error";
+    v9 = @"Error";
     errorString2 = [(WFWorkflowNoInputBehaviorShowError *)self errorString];
-    v11[0] = errorString2;
-    v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:&v10 count:1];
+    v10[0] = errorString2;
+    v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:&v9 count:1];
   }
 
   else
@@ -27,8 +27,6 @@
 
   behaviorName = [objc_opt_class() behaviorName];
   v7 = WFNoInputBehaviorSerializedRepresentation(behaviorName, v5);
-
-  v8 = *MEMORY[0x1E69E9840];
 
   return v7;
 }

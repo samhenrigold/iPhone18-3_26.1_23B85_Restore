@@ -90,24 +90,10 @@
 
 + (Class)activityProxyClassForActivityCategory:(int64_t)category
 {
-  if (category)
+  if (category <= 1)
   {
-    if (category != 1)
-    {
-      goto LABEL_6;
-    }
-
-    v4 = &off_1008C8D80;
+    self = objc_opt_class();
   }
-
-  else
-  {
-    v4 = off_1008C8D78;
-  }
-
-  v5 = *v4;
-  self = objc_opt_class();
-LABEL_6:
 
   return self;
 }

@@ -67,8 +67,8 @@
 - (MTAlarmServer)initWithStorage:(id)storage
 {
   storageCopy = storage;
-  v5 = MTAlarmClientInterface();
-  v6 = MTAlarmServerInterface();
+  v5 = MTAlarmClientInterface(storageCopy);
+  v6 = MTAlarmServerInterface(v5);
   v7 = [MTXPCConnectionInfo infoForMachServiceName:@"com.apple.MobileTimer.alarmserver" remoteObjectInterface:v5 exportedObject:self exportedObjectInterface:v6 lifecycleNotification:@"com.apple.MTAlarmServer.wakeup" requiredEntitlement:@"com.apple.private.mobiletimerd" options:0];
 
   v8 = [MTXPCConnectionListenerProvider providerWithConnectionInfo:v7 errorHandler:0];
@@ -79,19 +79,19 @@
 
 - (MTAlarmServer)initWithStorage:(id)storage connectionListenerProvider:(id)provider
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   storageCopy = storage;
   providerCopy = provider;
-  v17.receiver = self;
-  v17.super_class = MTAlarmServer;
-  v9 = [(MTAlarmServer *)&v17 init];
+  v16.receiver = self;
+  v16.super_class = MTAlarmServer;
+  v9 = [(MTAlarmServer *)&v16 init];
   if (v9)
   {
     v10 = MTLogForCategory(3);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v19 = v9;
+      v18 = v9;
       _os_log_impl(&dword_1B1F9F000, v10, OS_LOG_TYPE_DEFAULT, "Initializing %{public}@", buf, 0xCu);
     }
 
@@ -107,56 +107,52 @@
     v9->_conductor = v13;
   }
 
-  v15 = *MEMORY[0x1E69E9840];
   return v9;
 }
 
 - (void)registerAnalyticsDelegate:(id)delegate
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   delegateCopy = delegate;
   v5 = MTLogForCategory(3);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138543618;
+    v6 = 138543618;
     selfCopy = self;
-    v9 = 2114;
-    v10 = delegateCopy;
-    _os_log_impl(&dword_1B1F9F000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@ registering analytics coordinator: %{public}@", &v7, 0x16u);
+    v8 = 2114;
+    v9 = delegateCopy;
+    _os_log_impl(&dword_1B1F9F000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@ registering analytics coordinator: %{public}@", &v6, 0x16u);
   }
 
   objc_storeWeak(&self->_analyticsCoordinator, delegateCopy);
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)startListening
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v3 = MTLogForCategory(3);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 138543362;
+    v4 = 138543362;
     selfCopy = self;
-    _os_log_impl(&dword_1B1F9F000, v3, OS_LOG_TYPE_DEFAULT, "Starting %{public}@", &v5, 0xCu);
+    _os_log_impl(&dword_1B1F9F000, v3, OS_LOG_TYPE_DEFAULT, "Starting %{public}@", &v4, 0xCu);
   }
 
   [(MTXPCConnectionListenerProvider *)self->_connectionListenerProvider startListening];
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (void)stopListening
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v3 = MTLogForCategory(3);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 138543362;
+    v4 = 138543362;
     selfCopy = self;
-    _os_log_impl(&dword_1B1F9F000, v3, OS_LOG_TYPE_DEFAULT, "Stopping %{public}@", &v5, 0xCu);
+    _os_log_impl(&dword_1B1F9F000, v3, OS_LOG_TYPE_DEFAULT, "Stopping %{public}@", &v4, 0xCu);
   }
 
   [(MTXPCConnectionListenerProvider *)self->_connectionListenerProvider stopListening];
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (void)handleSystemReady
@@ -172,22 +168,20 @@
 
 void __34__MTAlarmServer_handleSystemReady__block_invoke(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v2 = MTLogForCategory(3);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
-    v6 = 138543362;
-    v7 = v3;
-    _os_log_impl(&dword_1B1F9F000, v2, OS_LOG_TYPE_DEFAULT, "System is ready: %{public}@.  Will post MTAlarmServerReadyNotification.", &v6, 0xCu);
+    v5 = 138543362;
+    v6 = v3;
+    _os_log_impl(&dword_1B1F9F000, v2, OS_LOG_TYPE_DEFAULT, "System is ready: %{public}@.  Will post MTAlarmServerReadyNotification.", &v5, 0xCu);
   }
 
   *(*(a1 + 32) + 8) = 1;
   [*(*(a1 + 32) + 48) send];
   v4 = [MEMORY[0x1E696ABB0] defaultCenter];
   [v4 postNotificationName:@"com.apple.MTAlarmServer.ready" object:0 userInfo:0 deliverImmediately:1];
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_systemNotReadyError
@@ -205,7 +199,7 @@ void __34__MTAlarmServer_handleSystemReady__block_invoke(uint64_t a1)
 
 - (void)getAlarmsWithCompletion:(id)completion
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
   aBlock[0] = MEMORY[0x1E69E9820];
   aBlock[1] = 3221225472;
@@ -213,7 +207,7 @@ void __34__MTAlarmServer_handleSystemReady__block_invoke(uint64_t a1)
   aBlock[3] = &unk_1E7B0CA00;
   aBlock[4] = self;
   v5 = completionCopy;
-  v14 = v5;
+  v13 = v5;
   v6 = _Block_copy(aBlock);
   if ([(MTAlarmServer *)self _isSystemReady])
   {
@@ -231,17 +225,15 @@ void __34__MTAlarmServer_handleSystemReady__block_invoke(uint64_t a1)
     }
 
     conductor = self->_conductor;
-    v10[0] = MEMORY[0x1E69E9820];
-    v10[1] = 3221225472;
-    v10[2] = __41__MTAlarmServer_getAlarmsWithCompletion___block_invoke_16;
-    v10[3] = &unk_1E7B0FE00;
-    v10[4] = self;
-    v11 = v6;
-    v12 = v5;
-    [(VoidConductor *)conductor registerReplyPublisherWithTimeOut:v10 completion:5.0];
+    v9[0] = MEMORY[0x1E69E9820];
+    v9[1] = 3221225472;
+    v9[2] = __41__MTAlarmServer_getAlarmsWithCompletion___block_invoke_16;
+    v9[3] = &unk_1E7B0FE00;
+    v9[4] = self;
+    v10 = v6;
+    v11 = v5;
+    [(VoidConductor *)conductor registerReplyPublisherWithTimeOut:v9 completion:5.0];
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 void __41__MTAlarmServer_getAlarmsWithCompletion___block_invoke(uint64_t a1)
@@ -252,7 +244,7 @@ void __41__MTAlarmServer_getAlarmsWithCompletion___block_invoke(uint64_t a1)
 
 void __41__MTAlarmServer_getAlarmsWithCompletion___block_invoke_16(uint64_t a1, int a2)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v4 = MTLogForCategory(3);
   v5 = v4;
   if (a2)
@@ -260,9 +252,9 @@ void __41__MTAlarmServer_getAlarmsWithCompletion___block_invoke_16(uint64_t a1, 
     if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
     {
       v6 = *(a1 + 32);
-      v12 = 138543362;
-      v13 = v6;
-      _os_log_impl(&dword_1B1F9F000, v5, OS_LOG_TYPE_INFO, "%{public}@ getAlarmsWithCompletion reply publisher ready, proceeding with request", &v12, 0xCu);
+      v11 = 138543362;
+      v12 = v6;
+      _os_log_impl(&dword_1B1F9F000, v5, OS_LOG_TYPE_INFO, "%{public}@ getAlarmsWithCompletion reply publisher ready, proceeding with request", &v11, 0xCu);
     }
 
     (*(*(a1 + 40) + 16))();
@@ -272,7 +264,7 @@ void __41__MTAlarmServer_getAlarmsWithCompletion___block_invoke_16(uint64_t a1, 
   {
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      __41__MTAlarmServer_getAlarmsWithCompletion___block_invoke_16_cold_1(a1);
+      __41__MTAlarmServer_getAlarmsWithCompletion___block_invoke_16_cold_1();
     }
 
     v7 = *(a1 + 48);
@@ -284,13 +276,11 @@ void __41__MTAlarmServer_getAlarmsWithCompletion___block_invoke_16(uint64_t a1, 
       (*(v7 + 16))(v7, v8, v9, 0, v10);
     }
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)addAlarm:(id)alarm withCompletion:(id)completion
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   alarmCopy = alarm;
   completionCopy = completion;
   aBlock[0] = MEMORY[0x1E69E9820];
@@ -299,9 +289,9 @@ void __41__MTAlarmServer_getAlarmsWithCompletion___block_invoke_16(uint64_t a1, 
   aBlock[3] = &unk_1E7B0C5D8;
   aBlock[4] = self;
   v8 = alarmCopy;
-  v18 = v8;
+  v17 = v8;
   v9 = completionCopy;
-  v19 = v9;
+  v18 = v9;
   v10 = _Block_copy(aBlock);
   if ([(MTAlarmServer *)self _isSystemReady])
   {
@@ -319,17 +309,15 @@ void __41__MTAlarmServer_getAlarmsWithCompletion___block_invoke_16(uint64_t a1, 
     }
 
     conductor = self->_conductor;
-    v14[0] = MEMORY[0x1E69E9820];
-    v14[1] = 3221225472;
-    v14[2] = __41__MTAlarmServer_addAlarm_withCompletion___block_invoke_19;
-    v14[3] = &unk_1E7B0FE00;
-    v14[4] = self;
-    v15 = v10;
-    v16 = v9;
-    [(VoidConductor *)conductor registerReplyPublisherWithTimeOut:v14 completion:5.0];
+    v13[0] = MEMORY[0x1E69E9820];
+    v13[1] = 3221225472;
+    v13[2] = __41__MTAlarmServer_addAlarm_withCompletion___block_invoke_19;
+    v13[3] = &unk_1E7B0FE00;
+    v13[4] = self;
+    v14 = v10;
+    v15 = v9;
+    [(VoidConductor *)conductor registerReplyPublisherWithTimeOut:v13 completion:5.0];
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 void __41__MTAlarmServer_addAlarm_withCompletion___block_invoke(uint64_t a1)
@@ -350,7 +338,7 @@ void __41__MTAlarmServer_addAlarm_withCompletion___block_invoke(uint64_t a1)
 
 void __41__MTAlarmServer_addAlarm_withCompletion___block_invoke_19(uint64_t a1, int a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v4 = MTLogForCategory(3);
   v5 = v4;
   if (a2)
@@ -358,9 +346,9 @@ void __41__MTAlarmServer_addAlarm_withCompletion___block_invoke_19(uint64_t a1, 
     if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
     {
       v6 = *(a1 + 32);
-      v10 = 138543362;
-      v11 = v6;
-      _os_log_impl(&dword_1B1F9F000, v5, OS_LOG_TYPE_INFO, "%{public}@ addAlarm reply publisher ready, proceeding with request", &v10, 0xCu);
+      v9 = 138543362;
+      v10 = v6;
+      _os_log_impl(&dword_1B1F9F000, v5, OS_LOG_TYPE_INFO, "%{public}@ addAlarm reply publisher ready, proceeding with request", &v9, 0xCu);
     }
 
     (*(*(a1 + 40) + 16))();
@@ -370,7 +358,7 @@ void __41__MTAlarmServer_addAlarm_withCompletion___block_invoke_19(uint64_t a1, 
   {
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      __41__MTAlarmServer_addAlarm_withCompletion___block_invoke_19_cold_1(a1);
+      __41__MTAlarmServer_addAlarm_withCompletion___block_invoke_19_cold_1();
     }
 
     v7 = *(a1 + 48);
@@ -380,13 +368,11 @@ void __41__MTAlarmServer_addAlarm_withCompletion___block_invoke_19(uint64_t a1, 
       (*(v7 + 16))(v7, v8);
     }
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)updateAlarm:(id)alarm withCompletion:(id)completion
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   alarmCopy = alarm;
   completionCopy = completion;
   aBlock[0] = MEMORY[0x1E69E9820];
@@ -395,9 +381,9 @@ void __41__MTAlarmServer_addAlarm_withCompletion___block_invoke_19(uint64_t a1, 
   aBlock[3] = &unk_1E7B0C5D8;
   aBlock[4] = self;
   v8 = alarmCopy;
-  v18 = v8;
+  v17 = v8;
   v9 = completionCopy;
-  v19 = v9;
+  v18 = v9;
   v10 = _Block_copy(aBlock);
   if ([(MTAlarmServer *)self _isSystemReady])
   {
@@ -415,17 +401,15 @@ void __41__MTAlarmServer_addAlarm_withCompletion___block_invoke_19(uint64_t a1, 
     }
 
     conductor = self->_conductor;
-    v14[0] = MEMORY[0x1E69E9820];
-    v14[1] = 3221225472;
-    v14[2] = __44__MTAlarmServer_updateAlarm_withCompletion___block_invoke_20;
-    v14[3] = &unk_1E7B0FE00;
-    v14[4] = self;
-    v15 = v10;
-    v16 = v9;
-    [(VoidConductor *)conductor registerReplyPublisherWithTimeOut:v14 completion:5.0];
+    v13[0] = MEMORY[0x1E69E9820];
+    v13[1] = 3221225472;
+    v13[2] = __44__MTAlarmServer_updateAlarm_withCompletion___block_invoke_20;
+    v13[3] = &unk_1E7B0FE00;
+    v13[4] = self;
+    v14 = v10;
+    v15 = v9;
+    [(VoidConductor *)conductor registerReplyPublisherWithTimeOut:v13 completion:5.0];
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 void __44__MTAlarmServer_updateAlarm_withCompletion___block_invoke(uint64_t a1)
@@ -446,7 +430,7 @@ void __44__MTAlarmServer_updateAlarm_withCompletion___block_invoke(uint64_t a1)
 
 void __44__MTAlarmServer_updateAlarm_withCompletion___block_invoke_20(uint64_t a1, int a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v4 = MTLogForCategory(3);
   v5 = v4;
   if (a2)
@@ -454,9 +438,9 @@ void __44__MTAlarmServer_updateAlarm_withCompletion___block_invoke_20(uint64_t a
     if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
     {
       v6 = *(a1 + 32);
-      v10 = 138543362;
-      v11 = v6;
-      _os_log_impl(&dword_1B1F9F000, v5, OS_LOG_TYPE_INFO, "%{public}@ updateAlarm reply publisher ready, proceeding with request", &v10, 0xCu);
+      v9 = 138543362;
+      v10 = v6;
+      _os_log_impl(&dword_1B1F9F000, v5, OS_LOG_TYPE_INFO, "%{public}@ updateAlarm reply publisher ready, proceeding with request", &v9, 0xCu);
     }
 
     (*(*(a1 + 40) + 16))();
@@ -466,7 +450,7 @@ void __44__MTAlarmServer_updateAlarm_withCompletion___block_invoke_20(uint64_t a
   {
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      __44__MTAlarmServer_updateAlarm_withCompletion___block_invoke_20_cold_1(a1);
+      __44__MTAlarmServer_updateAlarm_withCompletion___block_invoke_20_cold_1();
     }
 
     v7 = *(a1 + 48);
@@ -476,13 +460,11 @@ void __44__MTAlarmServer_updateAlarm_withCompletion___block_invoke_20(uint64_t a
       (*(v7 + 16))(v7, v8);
     }
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)removeAlarm:(id)alarm withCompletion:(id)completion
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   alarmCopy = alarm;
   completionCopy = completion;
   aBlock[0] = MEMORY[0x1E69E9820];
@@ -491,9 +473,9 @@ void __44__MTAlarmServer_updateAlarm_withCompletion___block_invoke_20(uint64_t a
   aBlock[3] = &unk_1E7B0C5D8;
   aBlock[4] = self;
   v8 = alarmCopy;
-  v19 = v8;
+  v18 = v8;
   v9 = completionCopy;
-  v20 = v9;
+  v19 = v9;
   v10 = _Block_copy(aBlock);
   if ([(MTAlarmServer *)self _isSystemReady])
   {
@@ -518,17 +500,15 @@ void __44__MTAlarmServer_updateAlarm_withCompletion___block_invoke_20(uint64_t a
     }
 
     conductor = self->_conductor;
-    v15[0] = MEMORY[0x1E69E9820];
-    v15[1] = 3221225472;
-    v15[2] = __44__MTAlarmServer_removeAlarm_withCompletion___block_invoke_21;
-    v15[3] = &unk_1E7B0FE00;
-    v15[4] = self;
-    v16 = v10;
-    v17 = v9;
-    [(VoidConductor *)conductor registerReplyPublisherWithTimeOut:v15 completion:5.0];
+    v14[0] = MEMORY[0x1E69E9820];
+    v14[1] = 3221225472;
+    v14[2] = __44__MTAlarmServer_removeAlarm_withCompletion___block_invoke_21;
+    v14[3] = &unk_1E7B0FE00;
+    v14[4] = self;
+    v15 = v10;
+    v16 = v9;
+    [(VoidConductor *)conductor registerReplyPublisherWithTimeOut:v14 completion:5.0];
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 void __44__MTAlarmServer_removeAlarm_withCompletion___block_invoke(uint64_t a1)
@@ -549,7 +529,7 @@ void __44__MTAlarmServer_removeAlarm_withCompletion___block_invoke(uint64_t a1)
 
 void __44__MTAlarmServer_removeAlarm_withCompletion___block_invoke_21(uint64_t a1, int a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v4 = MTLogForCategory(3);
   v5 = v4;
   if (a2)
@@ -557,9 +537,9 @@ void __44__MTAlarmServer_removeAlarm_withCompletion___block_invoke_21(uint64_t a
     if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
     {
       v6 = *(a1 + 32);
-      v10 = 138543362;
-      v11 = v6;
-      _os_log_impl(&dword_1B1F9F000, v5, OS_LOG_TYPE_INFO, "%{public}@ removeAlarm reply publisher ready, proceeding with request", &v10, 0xCu);
+      v9 = 138543362;
+      v10 = v6;
+      _os_log_impl(&dword_1B1F9F000, v5, OS_LOG_TYPE_INFO, "%{public}@ removeAlarm reply publisher ready, proceeding with request", &v9, 0xCu);
     }
 
     (*(*(a1 + 40) + 16))();
@@ -569,7 +549,7 @@ void __44__MTAlarmServer_removeAlarm_withCompletion___block_invoke_21(uint64_t a
   {
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      __44__MTAlarmServer_removeAlarm_withCompletion___block_invoke_21_cold_1(a1);
+      __44__MTAlarmServer_removeAlarm_withCompletion___block_invoke_21_cold_1();
     }
 
     v7 = *(a1 + 48);
@@ -579,13 +559,11 @@ void __44__MTAlarmServer_removeAlarm_withCompletion___block_invoke_21(uint64_t a
       (*(v7 + 16))(v7, v8);
     }
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)snoozeAlarmWithIdentifier:(id)identifier snoozeAction:(unint64_t)action withCompletion:(id)completion
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   completionCopy = completion;
   aBlock[0] = MEMORY[0x1E69E9820];
@@ -594,10 +572,10 @@ void __44__MTAlarmServer_removeAlarm_withCompletion___block_invoke_21(uint64_t a
   aBlock[3] = &unk_1E7B0FE28;
   aBlock[4] = self;
   v10 = identifierCopy;
-  v20 = v10;
+  v19 = v10;
   actionCopy = action;
   v11 = completionCopy;
-  v21 = v11;
+  v20 = v11;
   v12 = _Block_copy(aBlock);
   if ([(MTAlarmServer *)self _isSystemReady])
   {
@@ -615,17 +593,15 @@ void __44__MTAlarmServer_removeAlarm_withCompletion___block_invoke_21(uint64_t a
     }
 
     conductor = self->_conductor;
-    v16[0] = MEMORY[0x1E69E9820];
-    v16[1] = 3221225472;
-    v16[2] = __71__MTAlarmServer_snoozeAlarmWithIdentifier_snoozeAction_withCompletion___block_invoke_24;
-    v16[3] = &unk_1E7B0FE00;
-    v16[4] = self;
-    v17 = v12;
-    v18 = v11;
-    [(VoidConductor *)conductor registerReplyPublisherWithTimeOut:v16 completion:5.0];
+    v15[0] = MEMORY[0x1E69E9820];
+    v15[1] = 3221225472;
+    v15[2] = __71__MTAlarmServer_snoozeAlarmWithIdentifier_snoozeAction_withCompletion___block_invoke_24;
+    v15[3] = &unk_1E7B0FE00;
+    v15[4] = self;
+    v16 = v12;
+    v17 = v11;
+    [(VoidConductor *)conductor registerReplyPublisherWithTimeOut:v15 completion:5.0];
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 void __71__MTAlarmServer_snoozeAlarmWithIdentifier_snoozeAction_withCompletion___block_invoke(uint64_t a1)
@@ -663,7 +639,7 @@ void __71__MTAlarmServer_snoozeAlarmWithIdentifier_snoozeAction_withCompletion__
 
 void __71__MTAlarmServer_snoozeAlarmWithIdentifier_snoozeAction_withCompletion___block_invoke_24(uint64_t a1, int a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v4 = MTLogForCategory(3);
   v5 = v4;
   if (a2)
@@ -671,9 +647,9 @@ void __71__MTAlarmServer_snoozeAlarmWithIdentifier_snoozeAction_withCompletion__
     if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
     {
       v6 = *(a1 + 32);
-      v10 = 138543362;
-      v11 = v6;
-      _os_log_impl(&dword_1B1F9F000, v5, OS_LOG_TYPE_INFO, "%{public}@ snoozeAlarmWithIdentifier reply publisher ready, proceeding with request", &v10, 0xCu);
+      v9 = 138543362;
+      v10 = v6;
+      _os_log_impl(&dword_1B1F9F000, v5, OS_LOG_TYPE_INFO, "%{public}@ snoozeAlarmWithIdentifier reply publisher ready, proceeding with request", &v9, 0xCu);
     }
 
     (*(*(a1 + 40) + 16))();
@@ -683,7 +659,7 @@ void __71__MTAlarmServer_snoozeAlarmWithIdentifier_snoozeAction_withCompletion__
   {
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      __71__MTAlarmServer_snoozeAlarmWithIdentifier_snoozeAction_withCompletion___block_invoke_24_cold_1(a1);
+      __71__MTAlarmServer_snoozeAlarmWithIdentifier_snoozeAction_withCompletion___block_invoke_24_cold_1();
     }
 
     v7 = *(a1 + 48);
@@ -693,13 +669,11 @@ void __71__MTAlarmServer_snoozeAlarmWithIdentifier_snoozeAction_withCompletion__
       (*(v7 + 16))(v7, v8);
     }
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)dismissAlarmWithIdentifier:(id)identifier dismissAction:(unint64_t)action withCompletion:(id)completion
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   completionCopy = completion;
   aBlock[0] = MEMORY[0x1E69E9820];
@@ -708,10 +682,10 @@ void __71__MTAlarmServer_snoozeAlarmWithIdentifier_snoozeAction_withCompletion__
   aBlock[3] = &unk_1E7B0FE28;
   aBlock[4] = self;
   v10 = identifierCopy;
-  v20 = v10;
+  v19 = v10;
   actionCopy = action;
   v11 = completionCopy;
-  v21 = v11;
+  v20 = v11;
   v12 = _Block_copy(aBlock);
   if ([(MTAlarmServer *)self _isSystemReady])
   {
@@ -729,17 +703,15 @@ void __71__MTAlarmServer_snoozeAlarmWithIdentifier_snoozeAction_withCompletion__
     }
 
     conductor = self->_conductor;
-    v16[0] = MEMORY[0x1E69E9820];
-    v16[1] = 3221225472;
-    v16[2] = __73__MTAlarmServer_dismissAlarmWithIdentifier_dismissAction_withCompletion___block_invoke_26;
-    v16[3] = &unk_1E7B0FE00;
-    v16[4] = self;
-    v17 = v12;
-    v18 = v11;
-    [(VoidConductor *)conductor registerReplyPublisherWithTimeOut:v16 completion:5.0];
+    v15[0] = MEMORY[0x1E69E9820];
+    v15[1] = 3221225472;
+    v15[2] = __73__MTAlarmServer_dismissAlarmWithIdentifier_dismissAction_withCompletion___block_invoke_26;
+    v15[3] = &unk_1E7B0FE00;
+    v15[4] = self;
+    v16 = v12;
+    v17 = v11;
+    [(VoidConductor *)conductor registerReplyPublisherWithTimeOut:v15 completion:5.0];
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 void __73__MTAlarmServer_dismissAlarmWithIdentifier_dismissAction_withCompletion___block_invoke(uint64_t a1)
@@ -777,7 +749,7 @@ void __73__MTAlarmServer_dismissAlarmWithIdentifier_dismissAction_withCompletion
 
 void __73__MTAlarmServer_dismissAlarmWithIdentifier_dismissAction_withCompletion___block_invoke_26(uint64_t a1, int a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v4 = MTLogForCategory(3);
   v5 = v4;
   if (a2)
@@ -785,9 +757,9 @@ void __73__MTAlarmServer_dismissAlarmWithIdentifier_dismissAction_withCompletion
     if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
     {
       v6 = *(a1 + 32);
-      v10 = 138543362;
-      v11 = v6;
-      _os_log_impl(&dword_1B1F9F000, v5, OS_LOG_TYPE_INFO, "%{public}@ dismissAlarmWithIdentifier reply publisher ready, proceeding with request", &v10, 0xCu);
+      v9 = 138543362;
+      v10 = v6;
+      _os_log_impl(&dword_1B1F9F000, v5, OS_LOG_TYPE_INFO, "%{public}@ dismissAlarmWithIdentifier reply publisher ready, proceeding with request", &v9, 0xCu);
     }
 
     (*(*(a1 + 40) + 16))();
@@ -797,7 +769,7 @@ void __73__MTAlarmServer_dismissAlarmWithIdentifier_dismissAction_withCompletion
   {
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      __73__MTAlarmServer_dismissAlarmWithIdentifier_dismissAction_withCompletion___block_invoke_26_cold_1(a1);
+      __73__MTAlarmServer_dismissAlarmWithIdentifier_dismissAction_withCompletion___block_invoke_26_cold_1();
     }
 
     v7 = *(a1 + 48);
@@ -807,20 +779,18 @@ void __73__MTAlarmServer_dismissAlarmWithIdentifier_dismissAction_withCompletion
       (*(v7 + 16))(v7, v8);
     }
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)nextSleepAlarmWithCompletion:(id)completion
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
   aBlock[0] = MEMORY[0x1E69E9820];
   aBlock[1] = 3221225472;
   aBlock[2] = __46__MTAlarmServer_nextSleepAlarmWithCompletion___block_invoke;
   aBlock[3] = &unk_1E7B0D6F0;
   v5 = completionCopy;
-  v14 = v5;
+  v13 = v5;
   v6 = _Block_copy(aBlock);
   if ([(MTAlarmServer *)self _isSystemReady])
   {
@@ -838,17 +808,15 @@ void __73__MTAlarmServer_dismissAlarmWithIdentifier_dismissAction_withCompletion
     }
 
     conductor = self->_conductor;
-    v10[0] = MEMORY[0x1E69E9820];
-    v10[1] = 3221225472;
-    v10[2] = __46__MTAlarmServer_nextSleepAlarmWithCompletion___block_invoke_28;
-    v10[3] = &unk_1E7B0FE00;
-    v10[4] = self;
-    v11 = v6;
-    v12 = v5;
-    [(VoidConductor *)conductor registerReplyPublisherWithTimeOut:v10 completion:5.0];
+    v9[0] = MEMORY[0x1E69E9820];
+    v9[1] = 3221225472;
+    v9[2] = __46__MTAlarmServer_nextSleepAlarmWithCompletion___block_invoke_28;
+    v9[3] = &unk_1E7B0FE00;
+    v9[4] = self;
+    v10 = v6;
+    v11 = v5;
+    [(VoidConductor *)conductor registerReplyPublisherWithTimeOut:v9 completion:5.0];
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 void __46__MTAlarmServer_nextSleepAlarmWithCompletion___block_invoke(uint64_t a1)
@@ -867,7 +835,7 @@ void __46__MTAlarmServer_nextSleepAlarmWithCompletion___block_invoke(uint64_t a1
 
 void __46__MTAlarmServer_nextSleepAlarmWithCompletion___block_invoke_28(uint64_t a1, int a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v4 = MTLogForCategory(3);
   v5 = v4;
   if (a2)
@@ -875,9 +843,9 @@ void __46__MTAlarmServer_nextSleepAlarmWithCompletion___block_invoke_28(uint64_t
     if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
     {
       v6 = *(a1 + 32);
-      v10 = 138543362;
-      v11 = v6;
-      _os_log_impl(&dword_1B1F9F000, v5, OS_LOG_TYPE_INFO, "%{public}@ nextSleepAlarmWithCompletion reply publisher ready, proceeding with request", &v10, 0xCu);
+      v9 = 138543362;
+      v10 = v6;
+      _os_log_impl(&dword_1B1F9F000, v5, OS_LOG_TYPE_INFO, "%{public}@ nextSleepAlarmWithCompletion reply publisher ready, proceeding with request", &v9, 0xCu);
     }
 
     (*(*(a1 + 40) + 16))();
@@ -887,7 +855,7 @@ void __46__MTAlarmServer_nextSleepAlarmWithCompletion___block_invoke_28(uint64_t
   {
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      __46__MTAlarmServer_nextSleepAlarmWithCompletion___block_invoke_28_cold_1(a1);
+      __46__MTAlarmServer_nextSleepAlarmWithCompletion___block_invoke_28_cold_1();
     }
 
     v7 = *(a1 + 48);
@@ -897,8 +865,6 @@ void __46__MTAlarmServer_nextSleepAlarmWithCompletion___block_invoke_28(uint64_t
       (*(v7 + 16))(v7, 0, v8);
     }
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)source:(id)source didAddAlarms:(id)alarms
@@ -1104,14 +1070,14 @@ void __46__MTAlarmServer_nextSleepAlarmWithCompletion___block_invoke_28(uint64_t
 
 - (void)updateSleepAlarmsWithCompletion:(id)completion
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
   aBlock[0] = MEMORY[0x1E69E9820];
   aBlock[1] = 3221225472;
   aBlock[2] = __49__MTAlarmServer_updateSleepAlarmsWithCompletion___block_invoke;
   aBlock[3] = &unk_1E7B0D6F0;
   v5 = completionCopy;
-  v15 = v5;
+  v14 = v5;
   v6 = _Block_copy(aBlock);
   v7 = MTLogForCategory(3);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
@@ -1137,17 +1103,15 @@ void __46__MTAlarmServer_nextSleepAlarmWithCompletion___block_invoke_28(uint64_t
     }
 
     conductor = self->_conductor;
-    v11[0] = MEMORY[0x1E69E9820];
-    v11[1] = 3221225472;
-    v11[2] = __49__MTAlarmServer_updateSleepAlarmsWithCompletion___block_invoke_31;
-    v11[3] = &unk_1E7B0FE00;
-    v11[4] = self;
-    v12 = v6;
-    v13 = v5;
-    [(VoidConductor *)conductor registerReplyPublisherWithTimeOut:v11 completion:5.0];
+    v10[0] = MEMORY[0x1E69E9820];
+    v10[1] = 3221225472;
+    v10[2] = __49__MTAlarmServer_updateSleepAlarmsWithCompletion___block_invoke_31;
+    v10[3] = &unk_1E7B0FE00;
+    v10[4] = self;
+    v11 = v6;
+    v12 = v5;
+    [(VoidConductor *)conductor registerReplyPublisherWithTimeOut:v10 completion:5.0];
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __49__MTAlarmServer_updateSleepAlarmsWithCompletion___block_invoke(uint64_t a1)
@@ -1169,7 +1133,7 @@ uint64_t __49__MTAlarmServer_updateSleepAlarmsWithCompletion___block_invoke(uint
 
 void __49__MTAlarmServer_updateSleepAlarmsWithCompletion___block_invoke_31(uint64_t a1, int a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v4 = MTLogForCategory(3);
   v5 = v4;
   if (a2)
@@ -1177,9 +1141,9 @@ void __49__MTAlarmServer_updateSleepAlarmsWithCompletion___block_invoke_31(uint6
     if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
     {
       v6 = *(a1 + 32);
-      v10 = 138543362;
-      v11 = v6;
-      _os_log_impl(&dword_1B1F9F000, v5, OS_LOG_TYPE_INFO, "%{public}@ updateSleepAlarmsWithCompletion reply publisher ready, proceeding with request", &v10, 0xCu);
+      v9 = 138543362;
+      v10 = v6;
+      _os_log_impl(&dword_1B1F9F000, v5, OS_LOG_TYPE_INFO, "%{public}@ updateSleepAlarmsWithCompletion reply publisher ready, proceeding with request", &v9, 0xCu);
     }
 
     (*(*(a1 + 40) + 16))();
@@ -1199,20 +1163,18 @@ void __49__MTAlarmServer_updateSleepAlarmsWithCompletion___block_invoke_31(uint6
       (*(v7 + 16))(v7, v8);
     }
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)resetSleepAlarmSnoozeStateWithCompletion:(id)completion
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
   aBlock[0] = MEMORY[0x1E69E9820];
   aBlock[1] = 3221225472;
   aBlock[2] = __58__MTAlarmServer_resetSleepAlarmSnoozeStateWithCompletion___block_invoke;
   aBlock[3] = &unk_1E7B0D6F0;
   v5 = completionCopy;
-  v15 = v5;
+  v14 = v5;
   v6 = _Block_copy(aBlock);
   v7 = MTLogForCategory(3);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
@@ -1238,17 +1200,15 @@ void __49__MTAlarmServer_updateSleepAlarmsWithCompletion___block_invoke_31(uint6
     }
 
     conductor = self->_conductor;
-    v11[0] = MEMORY[0x1E69E9820];
-    v11[1] = 3221225472;
-    v11[2] = __58__MTAlarmServer_resetSleepAlarmSnoozeStateWithCompletion___block_invoke_32;
-    v11[3] = &unk_1E7B0FE00;
-    v11[4] = self;
-    v12 = v6;
-    v13 = v5;
-    [(VoidConductor *)conductor registerReplyPublisherWithTimeOut:v11 completion:5.0];
+    v10[0] = MEMORY[0x1E69E9820];
+    v10[1] = 3221225472;
+    v10[2] = __58__MTAlarmServer_resetSleepAlarmSnoozeStateWithCompletion___block_invoke_32;
+    v10[3] = &unk_1E7B0FE00;
+    v10[4] = self;
+    v11 = v6;
+    v12 = v5;
+    [(VoidConductor *)conductor registerReplyPublisherWithTimeOut:v10 completion:5.0];
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __58__MTAlarmServer_resetSleepAlarmSnoozeStateWithCompletion___block_invoke(uint64_t a1)
@@ -1270,7 +1230,7 @@ uint64_t __58__MTAlarmServer_resetSleepAlarmSnoozeStateWithCompletion___block_in
 
 void __58__MTAlarmServer_resetSleepAlarmSnoozeStateWithCompletion___block_invoke_32(uint64_t a1, int a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v4 = MTLogForCategory(3);
   v5 = v4;
   if (a2)
@@ -1278,9 +1238,9 @@ void __58__MTAlarmServer_resetSleepAlarmSnoozeStateWithCompletion___block_invoke
     if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
     {
       v6 = *(a1 + 32);
-      v10 = 138543362;
-      v11 = v6;
-      _os_log_impl(&dword_1B1F9F000, v5, OS_LOG_TYPE_INFO, "%{public}@ resetSleepAlarmSnoozeStateWithCompletion reply publisher ready, proceeding with request", &v10, 0xCu);
+      v9 = 138543362;
+      v10 = v6;
+      _os_log_impl(&dword_1B1F9F000, v5, OS_LOG_TYPE_INFO, "%{public}@ resetSleepAlarmSnoozeStateWithCompletion reply publisher ready, proceeding with request", &v9, 0xCu);
     }
 
     (*(*(a1 + 40) + 16))();
@@ -1300,27 +1260,25 @@ void __58__MTAlarmServer_resetSleepAlarmSnoozeStateWithCompletion___block_invoke
       (*(v7 + 16))(v7, v8);
     }
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)printDiagnostics
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v3 = MTLogForCategory(1);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    LOWORD(v10) = 0;
-    _os_log_impl(&dword_1B1F9F000, v3, OS_LOG_TYPE_DEFAULT, "-----MTAlarmServer-----", &v10, 2u);
+    LOWORD(v9) = 0;
+    _os_log_impl(&dword_1B1F9F000, v3, OS_LOG_TYPE_DEFAULT, "-----MTAlarmServer-----", &v9, 2u);
   }
 
   v4 = MTLogForCategory(1);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = [MEMORY[0x1E696AD98] numberWithBool:{-[MTAlarmServer _isSystemReady](self, "_isSystemReady")}];
-    v10 = 138412290;
-    v11 = v5;
-    _os_log_impl(&dword_1B1F9F000, v4, OS_LOG_TYPE_DEFAULT, "System Ready: %@", &v10, 0xCu);
+    v9 = 138412290;
+    v10 = v5;
+    _os_log_impl(&dword_1B1F9F000, v4, OS_LOG_TYPE_DEFAULT, "System Ready: %@", &v9, 0xCu);
   }
 
   v6 = MTLogForCategory(1);
@@ -1328,18 +1286,16 @@ void __58__MTAlarmServer_resetSleepAlarmSnoozeStateWithCompletion___block_invoke
   {
     connectionListenerProvider = [(MTAlarmServer *)self connectionListenerProvider];
     connectedClients = [connectionListenerProvider connectedClients];
-    v10 = 138543362;
-    v11 = connectedClients;
-    _os_log_impl(&dword_1B1F9F000, v6, OS_LOG_TYPE_DEFAULT, "Clients: %{public}@", &v10, 0xCu);
+    v9 = 138543362;
+    v10 = connectedClients;
+    _os_log_impl(&dword_1B1F9F000, v6, OS_LOG_TYPE_DEFAULT, "Clients: %{public}@", &v9, 0xCu);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (id)gatherDiagnostics
 {
-  v12[2] = *MEMORY[0x1E69E9840];
-  v11[0] = @"Alarm system ready";
+  v11[2] = *MEMORY[0x1E69E9840];
+  v10[0] = @"Alarm system ready";
   if ([(MTAlarmServer *)self _isSystemReady])
   {
     v3 = @"YES";
@@ -1350,16 +1306,14 @@ void __58__MTAlarmServer_resetSleepAlarmSnoozeStateWithCompletion___block_invoke
     v3 = @"NO";
   }
 
-  v11[1] = @"Alarm clients";
-  v12[0] = v3;
+  v10[1] = @"Alarm clients";
+  v11[0] = v3;
   connectionListenerProvider = [(MTAlarmServer *)self connectionListenerProvider];
   connectedClients = [connectionListenerProvider connectedClients];
   v6 = [connectedClients valueForKey:@"processName"];
   v7 = [v6 componentsJoinedByString:{@", "}];
-  v12[1] = v7;
-  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:v11 count:2];
-
-  v9 = *MEMORY[0x1E69E9840];
+  v11[1] = v7;
+  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:v10 count:2];
 
   return v8;
 }
@@ -1371,90 +1325,74 @@ void __58__MTAlarmServer_resetSleepAlarmSnoozeStateWithCompletion___block_invoke
   return WeakRetained;
 }
 
-void __41__MTAlarmServer_getAlarmsWithCompletion___block_invoke_16_cold_1(uint64_t a1)
+void __41__MTAlarmServer_getAlarmsWithCompletion___block_invoke_16_cold_1()
 {
-  OUTLINED_FUNCTION_3_1(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_3_1(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_1_2();
-  OUTLINED_FUNCTION_0_1(&dword_1B1F9F000, v1, v2, "%{public}@ getAlarmsWithCompletion reply publisher timed out, replying with error", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_0_1(&dword_1B1F9F000, v0, v1, "%{public}@ getAlarmsWithCompletion reply publisher timed out, replying with error", v2, v3, v4, v5);
 }
 
-void __41__MTAlarmServer_addAlarm_withCompletion___block_invoke_19_cold_1(uint64_t a1)
+void __41__MTAlarmServer_addAlarm_withCompletion___block_invoke_19_cold_1()
 {
-  OUTLINED_FUNCTION_3_1(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_3_1(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_1_2();
-  OUTLINED_FUNCTION_0_1(&dword_1B1F9F000, v1, v2, "%{public}@ addAlarm reply publisher timed out, replying with error", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_0_1(&dword_1B1F9F000, v0, v1, "%{public}@ addAlarm reply publisher timed out, replying with error", v2, v3, v4, v5);
 }
 
-void __44__MTAlarmServer_updateAlarm_withCompletion___block_invoke_20_cold_1(uint64_t a1)
+void __44__MTAlarmServer_updateAlarm_withCompletion___block_invoke_20_cold_1()
 {
-  OUTLINED_FUNCTION_3_1(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_3_1(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_1_2();
-  OUTLINED_FUNCTION_0_1(&dword_1B1F9F000, v1, v2, "%{public}@ updateAlarm reply publisher timed out, replying with error", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_0_1(&dword_1B1F9F000, v0, v1, "%{public}@ updateAlarm reply publisher timed out, replying with error", v2, v3, v4, v5);
 }
 
-void __44__MTAlarmServer_removeAlarm_withCompletion___block_invoke_21_cold_1(uint64_t a1)
+void __44__MTAlarmServer_removeAlarm_withCompletion___block_invoke_21_cold_1()
 {
-  OUTLINED_FUNCTION_3_1(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_3_1(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_1_2();
-  OUTLINED_FUNCTION_0_1(&dword_1B1F9F000, v1, v2, "%{public}@ removeAlarm reply publisher timed out, replying with error", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_0_1(&dword_1B1F9F000, v0, v1, "%{public}@ removeAlarm reply publisher timed out, replying with error", v2, v3, v4, v5);
 }
 
-void __71__MTAlarmServer_snoozeAlarmWithIdentifier_snoozeAction_withCompletion___block_invoke_24_cold_1(uint64_t a1)
+void __71__MTAlarmServer_snoozeAlarmWithIdentifier_snoozeAction_withCompletion___block_invoke_24_cold_1()
 {
-  OUTLINED_FUNCTION_3_1(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_3_1(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_1_2();
-  OUTLINED_FUNCTION_0_1(&dword_1B1F9F000, v1, v2, "%{public}@ snoozeAlarmWithIdentifier reply publisher timed out, replying with error", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_0_1(&dword_1B1F9F000, v0, v1, "%{public}@ snoozeAlarmWithIdentifier reply publisher timed out, replying with error", v2, v3, v4, v5);
 }
 
-void __73__MTAlarmServer_dismissAlarmWithIdentifier_dismissAction_withCompletion___block_invoke_26_cold_1(uint64_t a1)
+void __73__MTAlarmServer_dismissAlarmWithIdentifier_dismissAction_withCompletion___block_invoke_26_cold_1()
 {
-  OUTLINED_FUNCTION_3_1(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_3_1(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_1_2();
-  OUTLINED_FUNCTION_0_1(&dword_1B1F9F000, v1, v2, "%{public}@ dismissAlarmWithIdentifier reply publisher timed out, replying with error", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_0_1(&dword_1B1F9F000, v0, v1, "%{public}@ dismissAlarmWithIdentifier reply publisher timed out, replying with error", v2, v3, v4, v5);
 }
 
-void __46__MTAlarmServer_nextSleepAlarmWithCompletion___block_invoke_28_cold_1(uint64_t a1)
+void __46__MTAlarmServer_nextSleepAlarmWithCompletion___block_invoke_28_cold_1()
 {
-  OUTLINED_FUNCTION_3_1(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_3_1(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_1_2();
-  OUTLINED_FUNCTION_0_1(&dword_1B1F9F000, v1, v2, "%{public}@ nextSleepAlarmWithCompletion reply publisher timed out, replying with error", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_0_1(&dword_1B1F9F000, v0, v1, "%{public}@ nextSleepAlarmWithCompletion reply publisher timed out, replying with error", v2, v3, v4, v5);
 }
 
 - (void)didAlertNotificationWithID:(void *)a1 .cold.1(void *a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
   v1 = [a1 _systemNotReadyError];
   OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_3_2(&dword_1B1F9F000, v2, v3, "%{public}@ failed to inform AlarmKit of notification post: %{public}@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_3_2(&dword_1B1F9F000, v2, v3, "%{public}@ failed to inform AlarmKit of notification post: %{public}@", v4, v5, v6, v7);
 }
 
 void __49__MTAlarmServer_updateSleepAlarmsWithCompletion___block_invoke_31_cold_1(uint64_t a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
   v1 = [*(a1 + 32) _systemNotReadyError];
   OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_3_2(&dword_1B1F9F000, v2, v3, "%{public}@ updateSleepAlarmsWithCompletion could not refresh sleep alarms:%{public}@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_3_2(&dword_1B1F9F000, v2, v3, "%{public}@ updateSleepAlarmsWithCompletion could not refresh sleep alarms:%{public}@", v4, v5, v6, v7);
 }
 
 void __58__MTAlarmServer_resetSleepAlarmSnoozeStateWithCompletion___block_invoke_32_cold_1(uint64_t a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
   v1 = [*(a1 + 32) _systemNotReadyError];
   OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_3_2(&dword_1B1F9F000, v2, v3, "%{public}@ resetSleepAlarmSnoozeStateWithCompletion could not reset sleep alarms snooze state:%{public}@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_3_2(&dword_1B1F9F000, v2, v3, "%{public}@ resetSleepAlarmSnoozeStateWithCompletion could not reset sleep alarms snooze state:%{public}@", v4, v5, v6, v7);
 }
 
 @end

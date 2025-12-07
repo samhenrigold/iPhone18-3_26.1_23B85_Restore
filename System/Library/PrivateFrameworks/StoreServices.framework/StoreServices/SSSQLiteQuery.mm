@@ -196,7 +196,7 @@ void __38__SSSQLiteQuery_copyEntityIdentifiers__block_invoke(uint64_t a1, uint64
   return v19;
 }
 
-uint64_t __63__SSSQLiteQuery_createTemporaryTableWithName_properties_count___block_invoke(uint64_t a1, uint64_t a2)
+void *__63__SSSQLiteQuery_createTemporaryTableWithName_properties_count___block_invoke(uint64_t a1, uint64_t a2)
 {
   v5 = 1;
   [objc_msgSend(*(a1 + 32) "predicate")];

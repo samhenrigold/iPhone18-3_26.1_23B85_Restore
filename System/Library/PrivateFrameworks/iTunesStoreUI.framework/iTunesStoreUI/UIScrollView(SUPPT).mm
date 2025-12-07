@@ -35,8 +35,8 @@
 
 - (uint64_t)scrollBy:()SUPPT forIterations:
 {
-  __TestingScrollYDelta = LODWORD(a4);
-  __TestingScrollIterationsLeft = a3;
+  __TestingScrollYDelta = LODWORD(a2);
+  __TestingScrollIterationsLeft = a4;
   return [self _testingScrollStep];
 }
 

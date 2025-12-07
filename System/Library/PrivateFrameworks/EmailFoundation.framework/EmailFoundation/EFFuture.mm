@@ -77,44 +77,40 @@
 
 - (void)_flushCompletionBlocks
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   [(NSConditionLock *)self->_stateLock lock];
   v3 = [(NSMutableArray *)self->_completionBlocks copy];
   [(NSMutableArray *)self->_completionBlocks removeAllObjects];
   [(NSConditionLock *)self->_stateLock unlock];
-  v13 = 0u;
-  v14 = 0u;
+  v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
+  v8 = 0u;
+  v9 = 0u;
   v4 = v3;
-  v5 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v5)
   {
-    v6 = *v12;
+    v6 = *v9;
     do
     {
       v7 = 0;
       do
       {
-        if (*v12 != v6)
+        if (*v9 != v6)
         {
           objc_enumerationMutation(v4);
         }
 
-        result = self->_result;
-        error = self->_error;
-        (*(*(*(&v11 + 1) + 8 * v7) + 16))(*(*(&v11 + 1) + 8 * v7));
+        (*(*(*(&v8 + 1) + 8 * v7) + 16))(*(*(&v8 + 1) + 8 * v7));
         ++v7;
       }
 
       while (v5 != v7);
-      v5 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v5 = [v4 countByEnumeratingWithState:&v8 objects:v12 count:16];
     }
 
     while (v5);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (EFFutureDelegate)delegate
@@ -508,67 +504,65 @@ uint64_t __33__EFFuture__join_ignoreFailures___block_invoke_4(uint64_t a1)
 
 + (id)sequence:(id)sequence
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   sequenceCopy = sequence;
   if ([sequenceCopy count])
   {
     array = [MEMORY[0x1E695DF70] array];
     firstObject = [sequenceCopy firstObject];
-    v23 = 0u;
-    v24 = 0u;
-    v21 = 0u;
     v22 = 0u;
+    v23 = 0u;
+    v20 = 0u;
+    v21 = 0u;
     ef_tail = [sequenceCopy ef_tail];
-    v6 = [ef_tail countByEnumeratingWithState:&v21 objects:v25 count:16];
+    v6 = [ef_tail countByEnumeratingWithState:&v20 objects:v24 count:16];
     if (v6)
     {
-      v7 = *v22;
+      v7 = *v21;
       do
       {
         v8 = 0;
         v9 = firstObject;
         do
         {
-          if (*v22 != v7)
+          if (*v21 != v7)
           {
             objc_enumerationMutation(ef_tail);
           }
 
-          v10 = *(*(&v21 + 1) + 8 * v8);
-          v18[0] = MEMORY[0x1E69E9820];
-          v18[1] = 3221225472;
-          v18[2] = __21__EFFuture_sequence___block_invoke;
-          v18[3] = &unk_1E8248AF0;
-          v19 = array;
-          v20 = v10;
-          firstObject = [v9 then:v18];
+          v10 = *(*(&v20 + 1) + 8 * v8);
+          v17[0] = MEMORY[0x1E69E9820];
+          v17[1] = 3221225472;
+          v17[2] = __21__EFFuture_sequence___block_invoke;
+          v17[3] = &unk_1E8248AF0;
+          v18 = array;
+          v19 = v10;
+          firstObject = [v9 then:v17];
 
           ++v8;
           v9 = firstObject;
         }
 
         while (v6 != v8);
-        v6 = [ef_tail countByEnumeratingWithState:&v21 objects:v25 count:16];
+        v6 = [ef_tail countByEnumeratingWithState:&v20 objects:v24 count:16];
       }
 
       while (v6);
     }
 
-    v16[0] = MEMORY[0x1E69E9820];
-    v16[1] = 3221225472;
-    v16[2] = __21__EFFuture_sequence___block_invoke_2;
-    v16[3] = &unk_1E8248B18;
+    v15[0] = MEMORY[0x1E69E9820];
+    v15[1] = 3221225472;
+    v15[2] = __21__EFFuture_sequence___block_invoke_2;
+    v15[3] = &unk_1E8248B18;
     v11 = array;
-    v17 = v11;
-    v12 = [firstObject then:v16];
+    v16 = v11;
+    v12 = [firstObject then:v15];
   }
 
   else
   {
     v12 = [EFFuture futureWithResult:MEMORY[0x1E695E0F0]];
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 
   return v12;
 }

@@ -186,23 +186,21 @@ uint64_t sub_299A225E8@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
   return result;
 }
 
-double sub_299A22690@<D0>(uint64_t *a1@<X0>, unint64_t *a2@<X1>, uint64_t a3@<X8>)
+double sub_299A22690@<D0>(unint64_t *a1@<X1>, uint64_t a2@<X8>)
 {
-  v4 = *a1;
-  ArchiveHeader.EntryXATBlob._attribute(at:)(*a2, &v6);
-  *a3 = v6;
-  result = *&v7;
-  *(a3 + 8) = v7;
+  ArchiveHeader.EntryXATBlob._attribute(at:)(*a1, &v4);
+  *a2 = v4;
+  result = *&v5;
+  *(a2 + 8) = v5;
   return result;
 }
 
-uint64_t sub_299A226D8(uint64_t a1, uint64_t *a2, unint64_t *a3)
+uint64_t sub_299A226D8(uint64_t *a1, uint64_t a2, unint64_t *a3)
 {
   v3 = *a3;
-  v4 = *a2;
-  v6 = *a1;
-  v7 = *(a1 + 8);
-  return ArchiveHeader.EntryXATBlob._set(at:attribute:)(v3, &v6);
+  v5 = *a1;
+  v6 = *(a1 + 1);
+  return ArchiveHeader.EntryXATBlob._set(at:attribute:)(v3, &v5);
 }
 
 uint64_t sub_299A22788@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X8>)
@@ -242,13 +240,12 @@ uint64_t sub_299A22884@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X8>)
   return result;
 }
 
-uint64_t sub_299A2290C(uint64_t *a1, uint64_t *a2)
+uint64_t sub_299A2290C(uint64_t *a1)
 {
-  v2 = *a1;
-  v3 = a1[1];
-  v4 = *a2;
-  outlined copy of Data?(*a1, v3);
-  return ArchiveEncryptionContext.authData.setter(v2, v3);
+  v1 = *a1;
+  v2 = a1[1];
+  outlined copy of Data?(*a1, v2);
+  return ArchiveEncryptionContext.authData.setter(v1, v2);
 }
 
 uint64_t ArchiveHeader.__allocating_init()()
@@ -292,46 +289,44 @@ uint64_t ArchiveHeader.init()()
 
 uint64_t ArchiveHeader.__allocating_init(keySet:directory:path:flags:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4)
 {
-  v7 = swift_allocObject();
-  v12 = *a4;
+  v6 = swift_allocObject();
   __swift_instantiateConcreteTypeFromMangledNameV2(&_ss13OpaquePointerVSgMd, &_ss13OpaquePointerVSgMR);
   FilePath.withCString<A>(_:)();
 
-  v8 = type metadata accessor for FilePath();
-  if (v13)
+  v7 = type metadata accessor for FilePath();
+  if (v11)
   {
-    v9 = *(*(v8 - 8) + 8);
-    v9(a2, v8);
-    *(v7 + 16) = v13;
-    *(v7 + 24) = 1;
-    v9(a3, v8);
+    v8 = *(*(v7 - 8) + 8);
+    v8(a2, v7);
+    *(v6 + 16) = v11;
+    *(v6 + 24) = 1;
+    v8(a3, v7);
   }
 
   else
   {
-    v10 = *(*(v8 - 8) + 8);
-    v10(a2, v8);
-    v10(a3, v8);
+    v9 = *(*(v7 - 8) + 8);
+    v9(a2, v7);
+    v9(a3, v7);
     swift_deallocPartialClassInstance();
     return 0;
   }
 
-  return v7;
+  return v6;
 }
 
 uint64_t ArchiveHeader.init(keySet:directory:path:flags:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4)
 {
   v5 = v4;
-  v12 = *a4;
   __swift_instantiateConcreteTypeFromMangledNameV2(&_ss13OpaquePointerVSgMd, &_ss13OpaquePointerVSgMR);
   FilePath.withCString<A>(_:)();
 
   v8 = type metadata accessor for FilePath();
-  if (v13)
+  if (v12)
   {
     v9 = *(*(v8 - 8) + 8);
     v9(a2, v8);
-    *(v5 + 16) = v13;
+    *(v5 + 16) = v12;
     *(v5 + 24) = 1;
     v9(a3, v8);
   }
@@ -341,7 +336,7 @@ uint64_t ArchiveHeader.init(keySet:directory:path:flags:)(uint64_t a1, uint64_t 
     v10 = *(*(v8 - 8) + 8);
     v10(a2, v8);
     v10(a3, v8);
-    type metadata accessor for ArchiveHeader();
+    type metadata accessor for ArchiveHeader(0);
     swift_deallocPartialClassInstance();
     return 0;
   }
@@ -349,15 +344,12 @@ uint64_t ArchiveHeader.init(keySet:directory:path:flags:)(uint64_t a1, uint64_t 
   return v5;
 }
 
-uint64_t partial apply for closure #1 in ArchiveHeader.init(keySet:directory:path:flags:)()
+void *partial apply for closure #1 in ArchiveHeader.init(keySet:directory:path:flags:)()
 {
   return partial apply for closure #1 in ArchiveHeader.init(keySet:directory:path:flags:)();
 }
 
 {
-  v1 = v0[2];
-  v3 = v0[3];
-  v4 = v0[4];
   __swift_instantiateConcreteTypeFromMangledNameV2(&_ss13OpaquePointerVSgMd, &_ss13OpaquePointerVSgMR);
   return FilePath.withCString<A>(_:)();
 }
@@ -367,7 +359,6 @@ uint64_t __swift_instantiateConcreteTypeFromMangledNameV2(uint64_t *a1, uint64_t
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContext2();
     *a1 = result;
   }
@@ -375,7 +366,7 @@ uint64_t __swift_instantiateConcreteTypeFromMangledNameV2(uint64_t *a1, uint64_t
   return result;
 }
 
-uint64_t type metadata accessor for ArchiveHeader()
+uint64_t type metadata accessor for ArchiveHeader(uint64_t a1)
 {
   result = type metadata singleton initialization cache for ArchiveHeader;
   if (!type metadata singleton initialization cache for ArchiveHeader)
@@ -442,7 +433,7 @@ unsigned int ArchiveHeader.field(forKey:)@<W0>(AAFieldKey *a1@<X0>, uint64_t a2@
 
   else
   {
-    result = ArchiveHeader._field(at:)(result, &v9).ikey;
+    result = ArchiveHeader._field(at:)(&v9, result).ikey;
     v6 = v9;
     v7 = v10;
     v8 = v11;
@@ -454,52 +445,50 @@ unsigned int ArchiveHeader.field(forKey:)@<W0>(AAFieldKey *a1@<X0>, uint64_t a2@
   return result;
 }
 
-AAFieldKey ArchiveHeader._field(at:)@<W0>(unint64_t i@<X0>, uint64_t a2@<X8>)
+AAFieldKey ArchiveHeader._field(at:)@<W0>(unint64_t *__return_ptr a1@<X8>, unint64_t i@<X0>)
 {
   offset[1] = *MEMORY[0x29EDCA608];
   if ((i & 0x8000000000000000) != 0)
   {
     __break(1u);
-    goto LABEL_36;
+    goto LABEL_35;
   }
 
   if (HIDWORD(i))
   {
-LABEL_36:
+LABEL_35:
     __break(1u);
-    goto LABEL_37;
+    goto LABEL_36;
   }
 
   v5 = *(v2 + 16);
   FieldType = AAHeaderGetFieldType(v5, i);
   if (FieldType < 0)
   {
-    goto LABEL_47;
+    goto LABEL_46;
   }
 
   v7 = FieldType;
   result = AAHeaderGetFieldKey(v5, i);
   if ((result.ikey << 8) >> 24 < 32 || HIBYTE(result.ikey) != 0)
   {
-    goto LABEL_47;
+    goto LABEL_46;
   }
 
   v10 = result;
   if (result.skey[0] < 32 || *result.skey >> 8 <= 31)
   {
-    goto LABEL_47;
+    goto LABEL_46;
   }
 
   if (v7 <= 2)
   {
     if (!v7)
     {
-      *(a2 + 8) = 0;
-      *(a2 + 16) = 0;
-      *a2 = result.ikey;
-      *(a2 + 24) = 0;
-LABEL_34:
-      v22 = *MEMORY[0x29EDCA608];
+      a1[1] = 0;
+      a1[2] = 0;
+      *a1 = result.ikey;
+      *(a1 + 24) = 0;
       return result;
     }
 
@@ -510,27 +499,27 @@ LABEL_34:
       if ((result.ikey & 0x80000000) == 0)
       {
         v12 = value[0];
-        *a2 = v10.ikey;
-        *(a2 + 8) = v12;
-        *(a2 + 16) = 0;
+        *a1 = v10.ikey;
+        a1[1] = v12;
+        a1[2] = 0;
         v13 = 1;
 LABEL_33:
-        *(a2 + 24) = v13;
-        goto LABEL_34;
+        *(a1 + 24) = v13;
+        return result;
       }
 
-      goto LABEL_47;
+      goto LABEL_46;
     }
 
     if (v7 != 2)
     {
-      goto LABEL_47;
+      goto LABEL_46;
     }
 
     value[0] = 0;
     if (AAHeaderGetFieldString(v5, i, 0, 0, value) < 0)
     {
-      goto LABEL_47;
+      goto LABEL_46;
     }
 
     if (!__OFADD__(value[0], 1))
@@ -544,24 +533,24 @@ LABEL_33:
           v17 = String.init(cString:)();
           v19 = v18;
           result.ikey = MEMORY[0x29C2A93A0](v16, -1, -1);
-          *a2 = v10.ikey;
-          *(a2 + 8) = v17;
-          *(a2 + 16) = v19;
+          *a1 = v10.ikey;
+          a1[1] = v17;
+          a1[2] = v19;
           v13 = 2;
           goto LABEL_33;
         }
 
         MEMORY[0x29C2A93A0](v16, -1, -1);
-        goto LABEL_47;
+        goto LABEL_46;
       }
 
-LABEL_38:
+LABEL_37:
       __break(1u);
     }
 
-LABEL_37:
+LABEL_36:
     __break(1u);
-    goto LABEL_38;
+    goto LABEL_37;
   }
 
   switch(v7)
@@ -571,9 +560,9 @@ LABEL_37:
 
       v14 = _sSa28_unsafeUninitializedCapacity16initializingWithSayxGSi_ySryxGz_SiztKXEtKcfCs5UInt8V_Tt1g5056_s12AppleArchive0B6HeaderC6_field2atAC5FieldOSi_tFySrys5F13VGz_SiztXEfU_0H7Archive0vK0CSis6UInt32VTf1nc_nTf4ngnn_n(0x40uLL, v2, i, value);
 
-      *a2 = v10.ikey | (LODWORD(value[0]) << 32);
-      *(a2 + 8) = v14;
-      *(a2 + 16) = 0;
+      *a1 = v10.ikey | (LODWORD(value[0]) << 32);
+      a1[1] = v14;
+      a1[2] = 0;
       v13 = 3;
       goto LABEL_33;
     case 4:
@@ -582,8 +571,8 @@ LABEL_37:
       result.ikey = AAHeaderGetFieldTimespec(v5, i, value);
       if ((result.ikey & 0x80000000) == 0)
       {
-        *a2 = v10.ikey;
-        *(a2 + 8) = *value;
+        *a1 = v10.ikey;
+        *(a1 + 1) = *value;
         v13 = 4;
         goto LABEL_33;
       }
@@ -597,9 +586,9 @@ LABEL_37:
       {
         v20 = value[0];
         v21 = offset[0];
-        *a2 = v10.ikey;
-        *(a2 + 8) = v20;
-        *(a2 + 16) = v21;
+        *a1 = v10.ikey;
+        a1[1] = v20;
+        a1[2] = v21;
         v13 = 5;
         goto LABEL_33;
       }
@@ -607,7 +596,7 @@ LABEL_37:
       break;
   }
 
-LABEL_47:
+LABEL_46:
   result.ikey = _assertionFailure(_:_:file:line:flags:)();
   __break(1u);
   return result;
@@ -615,7 +604,7 @@ LABEL_47:
 
 uint64_t ArchiveHeader._append(_:)(uint64_t *a1)
 {
-  v18 = *MEMORY[0x29EDCA608];
+  v15 = *MEMORY[0x29EDCA608];
   v3 = *a1;
   v2 = a1[1];
   v4 = a1[2];
@@ -631,7 +620,7 @@ uint64_t ArchiveHeader._append(_:)(uint64_t *a1)
         goto LABEL_20;
       }
 
-      goto LABEL_19;
+      return result;
     }
 
     if (v5 == 4)
@@ -645,14 +634,14 @@ uint64_t ArchiveHeader._append(_:)(uint64_t *a1)
         goto LABEL_20;
       }
 
-      goto LABEL_19;
+      return result;
     }
 
-    v15.ikey = *a1;
-    result = AAHeaderSetFieldBlob(*(v1 + 16), 0xFFFFFFFF, v15, v2);
+    v13.ikey = *a1;
+    result = AAHeaderSetFieldBlob(*(v1 + 16), 0xFFFFFFFF, v13, v2);
     if ((result & 0x80000000) == 0)
     {
-      goto LABEL_19;
+      return result;
     }
 
 LABEL_20:
@@ -670,37 +659,33 @@ LABEL_20:
       goto LABEL_20;
     }
 
-    goto LABEL_19;
-  }
-
-  if (v5 == 1)
-  {
-    v6.ikey = *a1;
-    result = AAHeaderSetFieldUInt(*(v1 + 16), 0xFFFFFFFF, v6, v2);
-    if ((result & 0x80000000) != 0)
-    {
-      goto LABEL_20;
-    }
-
-LABEL_19:
-    v16 = *MEMORY[0x29EDCA608];
     return result;
   }
 
-  v11 = a1[1];
-  v12 = String.utf8CString.getter();
-  v13.ikey = v3;
-  if (AAHeaderSetFieldString(*(v1 + 16), 0xFFFFFFFF, v13, (v12 + 32), *(v12 + 16) - 1) < 0)
+  if (v5 != 1)
+  {
+    v11 = String.utf8CString.getter();
+    v12.ikey = v3;
+    if ((AAHeaderSetFieldString(*(v1 + 16), 0xFFFFFFFF, v12, (v11 + 32), *(v11 + 16) - 1) & 0x80000000) == 0)
+    {
+    }
+
+    goto LABEL_20;
+  }
+
+  v6.ikey = *a1;
+  result = AAHeaderSetFieldUInt(*(v1 + 16), 0xFFFFFFFF, v6, v2);
+  if ((result & 0x80000000) != 0)
   {
     goto LABEL_20;
   }
 
-  v14 = *MEMORY[0x29EDCA608];
+  return result;
 }
 
 uint64_t ArchiveHeader._set(at:field:)(unint64_t i, uint64_t *a2)
 {
-  v20 = *MEMORY[0x29EDCA608];
+  v18 = *MEMORY[0x29EDCA608];
   v6 = *a2;
   v5 = a2[1];
   v7 = a2[2];
@@ -724,7 +709,7 @@ uint64_t ArchiveHeader._set(at:field:)(unint64_t i, uint64_t *a2)
               goto LABEL_44;
             }
 
-            goto LABEL_31;
+            return result;
           }
 
           goto LABEL_41;
@@ -741,11 +726,7 @@ LABEL_38:
         __break(1u);
 LABEL_39:
         __break(1u);
-LABEL_40:
-        __break(1u);
-LABEL_41:
-        __break(1u);
-        goto LABEL_42;
+        goto LABEL_40;
       }
 
       if (HIDWORD(i))
@@ -753,14 +734,17 @@ LABEL_41:
         goto LABEL_43;
       }
 
-      v17.ikey = v6;
-      result = AAHeaderSetFieldBlob(*(v2 + 16), i, v17, v5);
+      v16.ikey = v6;
+      result = AAHeaderSetFieldBlob(*(v2 + 16), i, v16, v5);
       if ((result & 0x80000000) == 0)
       {
-        goto LABEL_31;
+        return result;
       }
 
-      goto LABEL_44;
+LABEL_44:
+      result = _assertionFailure(_:_:file:line:flags:)();
+      __break(1u);
+      return result;
     }
 
     if ((i & 0x8000000000000000) == 0)
@@ -774,7 +758,7 @@ LABEL_41:
           goto LABEL_44;
         }
 
-        goto LABEL_31;
+        return result;
       }
 
       goto LABEL_39;
@@ -782,11 +766,7 @@ LABEL_41:
 
 LABEL_33:
     __break(1u);
-LABEL_34:
-    __break(1u);
-LABEL_35:
-    __break(1u);
-    goto LABEL_36;
+    goto LABEL_34;
   }
 
   if (!v8)
@@ -802,7 +782,7 @@ LABEL_35:
           goto LABEL_44;
         }
 
-        goto LABEL_31;
+        return result;
       }
 
       goto LABEL_38;
@@ -812,56 +792,58 @@ LABEL_35:
     goto LABEL_33;
   }
 
-  if (v8 == 1)
+  if (v8 != 1)
   {
-    if ((i & 0x8000000000000000) == 0)
+    v14 = String.utf8CString.getter();
+    if ((i & 0x8000000000000000) != 0)
     {
-      if (!HIDWORD(i))
-      {
-        v9.ikey = v6;
-        result = AAHeaderSetFieldUInt(*(v2 + 16), i, v9, v5);
-        if ((result & 0x80000000) != 0)
-        {
-          goto LABEL_44;
-        }
-
-LABEL_31:
-        v18 = *MEMORY[0x29EDCA608];
-        return result;
-      }
-
-      goto LABEL_40;
+LABEL_36:
+      __break(1u);
+      goto LABEL_37;
     }
 
-    goto LABEL_34;
+    if (HIDWORD(i))
+    {
+LABEL_42:
+      __break(1u);
+LABEL_43:
+      __break(1u);
+    }
+
+    v15.ikey = v6;
+    if ((AAHeaderSetFieldString(*(v2 + 16), i, v15, (v14 + 32), *(v14 + 16) - 1) & 0x80000000) == 0)
+    {
+    }
+
+    goto LABEL_44;
   }
 
-  v14 = String.utf8CString.getter();
   if ((i & 0x8000000000000000) != 0)
   {
-LABEL_36:
+LABEL_34:
     __break(1u);
-    goto LABEL_37;
+LABEL_35:
+    __break(1u);
+    goto LABEL_36;
   }
 
   if (HIDWORD(i))
   {
-LABEL_42:
+LABEL_40:
     __break(1u);
-LABEL_43:
+LABEL_41:
     __break(1u);
+    goto LABEL_42;
   }
 
-  v15.ikey = v6;
-  if (AAHeaderSetFieldString(*(v2 + 16), i, v15, (v14 + 32), *(v14 + 16) - 1) < 0)
+  v9.ikey = v6;
+  result = AAHeaderSetFieldUInt(*(v2 + 16), i, v9, v5);
+  if ((result & 0x80000000) != 0)
   {
-LABEL_44:
-    result = _assertionFailure(_:_:file:line:flags:)();
-    __break(1u);
-    return result;
+    goto LABEL_44;
   }
 
-  v16 = *MEMORY[0x29EDCA608];
+  return result;
 }
 
 uint64_t ArchiveHeader.__allocating_init(withAAEncodedData:)(const uint8_t *a1, size_t a2)
@@ -907,7 +889,7 @@ const uint8_t *ArchiveHeader.init(withAAEncodedData:)(const uint8_t *data, size_
 
     else
     {
-      type metadata accessor for ArchiveHeader();
+      type metadata accessor for ArchiveHeader(0);
       swift_deallocPartialClassInstance();
       return 0;
     }
@@ -951,9 +933,9 @@ uint64_t ArchiveHeader.__deallocating_deinit()
   return swift_deallocClassInstance();
 }
 
-uint64_t protocol witness for _AAEncodableProtocol.init(withAAEncodedData:) in conformance ArchiveHeader@<X0>(const uint8_t *a1@<X0>, size_t a2@<X1>, uint64_t *a3@<X8>)
+AAHeader protocol witness for _AAEncodableProtocol.init(withAAEncodedData:) in conformance ArchiveHeader@<X0>(const uint8_t *a1@<X0>, size_t a2@<X1>, AAHeader *a3@<X8>)
 {
-  type metadata accessor for ArchiveHeader();
+  type metadata accessor for ArchiveHeader(0);
   result = swift_allocObject();
   if (a1)
   {
@@ -961,7 +943,7 @@ uint64_t protocol witness for _AAEncodableProtocol.init(withAAEncodedData:) in c
     result = AAHeaderCreateWithEncodedData(a2, a1);
     if (result)
     {
-      *(v7 + 16) = result;
+      *(v7 + 2) = result;
       *(v7 + 24) = 1;
     }
 
@@ -982,29 +964,27 @@ uint64_t protocol witness for _AAEncodableProtocol.init(withAAEncodedData:) in c
   return result;
 }
 
-double key path getter for ArchiveHeader.subscript(_:) : ArchiveHeader@<D0>(uint64_t *a1@<X0>, unint64_t *a2@<X1>, uint64_t a3@<X8>)
+double key path getter for ArchiveHeader.subscript(_:) : ArchiveHeader@<D0>(unint64_t *a1@<X1>, uint64_t a2@<X8>)
 {
-  v4 = *a1;
-  ArchiveHeader._field(at:)(*a2, &v8);
-  v5 = v9;
-  v6 = v10;
-  result = *&v8;
-  *a3 = v8;
-  *(a3 + 16) = v5;
-  *(a3 + 24) = v6;
+  ArchiveHeader._field(at:)(&v6, *a1);
+  v3 = v7;
+  v4 = v8;
+  result = *&v6;
+  *a2 = v6;
+  *(a2 + 16) = v3;
+  *(a2 + 24) = v4;
   return result;
 }
 
-uint64_t key path setter for ArchiveHeader.subscript(_:) : ArchiveHeader(__int128 *a1, uint64_t *a2, unint64_t *a3)
+uint64_t key path setter for ArchiveHeader.subscript(_:) : ArchiveHeader(__int128 *a1, uint64_t a2, unint64_t *a3)
 {
   v3 = *a3;
   v4 = *(a1 + 2);
   v5 = *(a1 + 24);
-  v6 = *a2;
-  v8 = *a1;
-  v9 = v4;
-  v10 = v5;
-  return ArchiveHeader._set(at:field:)(v3, &v8);
+  v7 = *a1;
+  v8 = v4;
+  v9 = v5;
+  return ArchiveHeader._set(at:field:)(v3, &v7);
 }
 
 uint64_t ArchiveHeader.subscript.setter(uint64_t a1, unint64_t i)
@@ -1035,7 +1015,7 @@ uint64_t outlined consume of ArchiveHeader.Field(uint64_t a1, uint64_t a2, uint6
   return result;
 }
 
-void (*ArchiveHeader.subscript.modify(uint64_t *a1, unint64_t a2))(uint64_t **a1, char a2)
+void (*ArchiveHeader.subscript.modify(unint64_t **a1, unint64_t a2))(uint64_t **a1, char a2)
 {
   if (MEMORY[0x29EDCA1B0])
   {
@@ -1048,9 +1028,9 @@ void (*ArchiveHeader.subscript.modify(uint64_t *a1, unint64_t a2))(uint64_t **a1
   }
 
   *a1 = v5;
-  *(v5 + 32) = a2;
-  *(v5 + 40) = v2;
-  ArchiveHeader._field(at:)(a2, v5);
+  v5[4] = a2;
+  v5[5] = v2;
+  ArchiveHeader._field(at:)(v5, a2);
   return ArchiveHeader.subscript.modify;
 }
 
@@ -1061,33 +1041,32 @@ void ArchiveHeader.subscript.modify(uint64_t **a1, char a2)
   v3 = (*a1)[1];
   v5 = (*a1)[2];
   v6 = *(*a1 + 24);
-  v8 = (*a1)[4];
-  v7 = (*a1)[5];
-  v13[0] = v4;
-  v13[1] = v3;
-  v13[2] = v5;
-  v14 = v6;
+  v7 = (*a1)[4];
+  v12[0] = v4;
+  v12[1] = v3;
+  v12[2] = v5;
+  v13 = v6;
   if (a2)
   {
     outlined copy of ArchiveHeader.Field(v4, v3, v5, v6);
-    ArchiveHeader._set(at:field:)(v8, v13);
+    ArchiveHeader._set(at:field:)(v7, v12);
     outlined consume of ArchiveHeader.Field(v4, v3, v5, v6);
-    v9 = *v2;
-    v10 = v2[1];
-    v11 = v2[2];
-    v12 = *(v2 + 24);
+    v8 = *v2;
+    v9 = v2[1];
+    v10 = v2[2];
+    v11 = *(v2 + 24);
   }
 
   else
   {
-    ArchiveHeader._set(at:field:)(v8, v13);
-    v9 = v4;
-    v10 = v3;
-    v11 = v5;
-    v12 = v6;
+    ArchiveHeader._set(at:field:)(v7, v12);
+    v8 = v4;
+    v9 = v3;
+    v10 = v5;
+    v11 = v6;
   }
 
-  outlined consume of ArchiveHeader.Field(v9, v10, v11, v12);
+  outlined consume of ArchiveHeader.Field(v8, v9, v10, v11);
 
   free(v2);
 }
@@ -1116,7 +1095,7 @@ Swift::Void __swiftcall ArchiveHeader.removeAll()()
 
 uint64_t ArchiveHeader.remove(at:)@<X0>(unint64_t a1@<X0>, uint64_t a2@<X8>)
 {
-  ArchiveHeader._field(at:)(a1, &v9);
+  ArchiveHeader._field(at:)(&v9, a1);
   if ((a1 & 0x8000000000000000) != 0)
   {
     __break(1u);
@@ -1160,22 +1139,21 @@ uint64_t ArchiveHeader.append(_:)(__int128 *a1)
 
 uint64_t protocol witness for MutableCollection.subscript.setter in conformance ArchiveHeader(uint64_t a1, unint64_t *a2)
 {
-  v3 = *a2;
-  v4 = *v2;
-  v6 = *(a1 + 8);
-  v7 = *(a1 + 16);
-  v8 = *(a1 + 24);
-  v10[0] = *a1;
-  v5 = v10[0];
-  v10[1] = v6;
-  v10[2] = v7;
-  v11 = v8;
-  ArchiveHeader._set(at:field:)(v3, v10);
+  v2 = *a2;
+  v4 = *(a1 + 8);
+  v5 = *(a1 + 16);
+  v6 = *(a1 + 24);
+  v8[0] = *a1;
+  v3 = v8[0];
+  v8[1] = v4;
+  v8[2] = v5;
+  v9 = v6;
+  ArchiveHeader._set(at:field:)(v2, v8);
 
-  return outlined consume of ArchiveHeader.Field(v5, v6, v7, v8);
+  return outlined consume of ArchiveHeader.Field(v3, v4, v5, v6);
 }
 
-void (*protocol witness for MutableCollection.subscript.modify in conformance ArchiveHeader(uint64_t *a1, unint64_t *a2))(uint64_t **a1, char a2)
+void (*protocol witness for MutableCollection.subscript.modify in conformance ArchiveHeader(unint64_t **a1, unint64_t *a2))(uint64_t **a1, char a2)
 {
   if (MEMORY[0x29EDCA1B0])
   {
@@ -1190,18 +1168,18 @@ void (*protocol witness for MutableCollection.subscript.modify in conformance Ar
   v6 = v5;
   *a1 = v5;
   v7 = *a2;
-  *(v6 + 32) = *a2;
-  *(v6 + 40) = *v2;
-  ArchiveHeader._field(at:)(v7, v6);
+  v6[4] = *a2;
+  v6[5] = *v2;
+  ArchiveHeader._field(at:)(v6, v7);
   return ArchiveHeader.subscript.modify;
 }
 
-uint64_t protocol witness for MutableCollection.subscript.setter in conformance ArchiveHeader(uint64_t a1, uint64_t a2)
+uint64_t protocol witness for MutableCollection.subscript.setter in conformance ArchiveHeader(int64_t *a1, unint64_t *a2)
 {
-  specialized _writeBackMutableSlice<A, B>(_:bounds:slice:)(v2, *a2, *(a2 + 8), *a1, *(a1 + 8), *(a1 + 16));
+  specialized _writeBackMutableSlice<A, B>(_:bounds:slice:)(v2, *a2, a2[1], *a1, a1[1], a1[2]);
 }
 
-void (*protocol witness for MutableCollection.subscript.modify in conformance ArchiveHeader(void *a1, uint64_t *a2))(void *a1)
+uint64_t (*protocol witness for MutableCollection.subscript.modify in conformance ArchiveHeader(void *a1, uint64_t *a2))()
 {
   if (MEMORY[0x29EDCA1B0])
   {
@@ -1226,22 +1204,15 @@ void protocol witness for MutableCollection.subscript.modify in conformance Arch
   free(v1);
 }
 
-unint64_t protocol witness for MutableCollection.partition(by:) in conformance ArchiveHeader@<X0>(uint64_t (*a1)(uint64_t *)@<X0>, uint64_t a2@<X1>, unint64_t *a3@<X8>)
+unint64_t protocol witness for MutableCollection.partition(by:) in conformance ArchiveHeader@<X0>(unint64_t *a1@<X8>, uint64_t (*a2)(uint64_t *)@<X0>, uint64_t a3@<X1>)
 {
-  result = specialized MutableCollection<>._partitionImpl(by:)(a1, a2);
+  result = specialized MutableCollection<>._partitionImpl(by:)(a2, a3);
   if (!v3)
   {
-    *a3 = result;
+    *a1 = result;
   }
 
   return result;
-}
-
-uint64_t (*protocol witness for Collection.subscript.read in conformance ArchiveHeader(uint64_t a1, unint64_t *a2))(uint64_t a1)
-{
-  v3 = *v2;
-  ArchiveHeader._field(at:)(*a2, a1);
-  return protocol witness for Collection.subscript.read in conformance ArchiveHeader;
 }
 
 uint64_t protocol witness for Collection.subscript.getter in conformance ArchiveHeader@<X0>(uint64_t *a1@<X0>, void *a2@<X8>)
@@ -1268,12 +1239,11 @@ LABEL_7:
   a2[2] = v6;
 }
 
-uint64_t protocol witness for RandomAccessCollection.index(_:offsetBy:limitedBy:) in conformance ArchiveHeader@<X0>(unint64_t *a1@<X0>, uint64_t a2@<X1>, unint64_t *a3@<X2>, uint64_t a4@<X8>)
+unint64_t protocol witness for RandomAccessCollection.index(_:offsetBy:limitedBy:) in conformance ArchiveHeader@<X0>(unint64_t *a1@<X0>, uint64_t a2@<X1>, unint64_t *a3@<X2>, uint64_t a4@<X8>)
 {
-  v6 = *v4;
   result = specialized RandomAccessCollection.index(_:offsetBy:limitedBy:)(*a1, a2, *a3);
   *a4 = result;
-  *(a4 + 8) = v8 & 1;
+  *(a4 + 8) = v6 & 1;
   return result;
 }
 
@@ -1319,7 +1289,7 @@ LABEL_7:
   return result;
 }
 
-uint64_t (*protocol witness for Collection.subscript.read in conformance ArchiveHeader._FieldTypes(int *a1, unint64_t *a2))()
+void (*protocol witness for Collection.subscript.read in conformance ArchiveHeader._FieldTypes(int *a1, unint64_t *a2))()
 {
   v3 = *a2;
   if ((v3 & 0x8000000000000000) != 0)
@@ -1348,7 +1318,7 @@ LABEL_7:
   return result;
 }
 
-void *protocol witness for Sequence._copyToContiguousArray() in conformance ArchiveHeader._FieldTypes()
+uint64_t protocol witness for Sequence._copyToContiguousArray() in conformance ArchiveHeader._FieldTypes()
 {
   v1 = specialized _copyCollectionToContiguousArray<A>(_:)(*v0);
 
@@ -1435,7 +1405,7 @@ unint64_t *protocol witness for BidirectionalCollection.formIndex(before:) in co
   return result;
 }
 
-uint64_t (*protocol witness for Collection.subscript.read in conformance ArchiveHeader._FieldKeys(AAFieldKey *a1, unint64_t *a2))()
+void (*protocol witness for Collection.subscript.read in conformance ArchiveHeader._FieldKeys(AAFieldKey *a1, unint64_t *a2))()
 {
   v3 = *a2;
   if ((v3 & 0x8000000000000000) != 0)
@@ -1646,7 +1616,7 @@ uint64_t protocol witness for Collection.count.getter in conformance ArchiveHead
   return result;
 }
 
-void *protocol witness for Sequence._copyToContiguousArray() in conformance ArchiveHeader._FieldKeys()
+uint64_t protocol witness for Sequence._copyToContiguousArray() in conformance ArchiveHeader._FieldKeys()
 {
   v1 = specialized _copyCollectionToContiguousArray<A>(_:)(*v0);
 
@@ -1663,7 +1633,7 @@ unsigned int ArchiveHeader.entryType.getter@<W0>(uint64_t a1@<X8>)
     goto LABEL_6;
   }
 
-  result = ArchiveHeader._field(at:)(result, &v8).ikey;
+  result = ArchiveHeader._field(at:)(&v8, result).ikey;
   v5 = v9;
   v6 = v11;
   if (v11 != 1)
@@ -1696,7 +1666,7 @@ uint64_t ArchiveHeader.entryPath.getter@<X0>(uint64_t a1@<X8>)
   KeyIndex = AAHeaderGetKeyIndex(*(v1 + 16), v3);
   if ((KeyIndex & 0x80000000) == 0)
   {
-    ArchiveHeader._field(at:)(KeyIndex, &v9);
+    ArchiveHeader._field(at:)(&v9, KeyIndex);
     if (v12 == 2)
     {
       MEMORY[0x29C2A8890](v10, v11);
@@ -1720,7 +1690,6 @@ uint64_t __swift_instantiateConcreteTypeFromMangledNameAbstractV2(uint64_t *a1, 
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContextInMetadataState2();
     *a1 = result;
   }
@@ -1740,13 +1709,13 @@ unint64_t lazy protocol witness table accessor for type Int and conformance Int(
   return result;
 }
 
-uint64_t lazy protocol witness table accessor for type Slice<ArchiveHeader> and conformance <> Slice<A>(unint64_t *a1, unint64_t *a2)
+uint64_t lazy protocol witness table accessor for type Slice<ArchiveHeader> and conformance <> Slice<A>(unint64_t *a1, unint64_t *a2, uint64_t a3, uint64_t a4)
 {
   result = *a1;
   if (!result)
   {
     __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_ss5SliceVy12AppleArchive0C6HeaderCGMd, &_ss5SliceVy12AppleArchive0C6HeaderCGMR);
-    lazy protocol witness table accessor for type ArchiveHeader and conformance ArchiveHeader(a2);
+    lazy protocol witness table accessor for type ArchiveHeader and conformance ArchiveHeader(a2, a3);
     result = swift_getWitnessTable();
     atomic_store(result, a1);
   }
@@ -1754,12 +1723,12 @@ uint64_t lazy protocol witness table accessor for type Slice<ArchiveHeader> and 
   return result;
 }
 
-uint64_t lazy protocol witness table accessor for type ArchiveHeader and conformance ArchiveHeader(unint64_t *a1)
+uint64_t lazy protocol witness table accessor for type ArchiveHeader and conformance ArchiveHeader(unint64_t *a1, uint64_t a2)
 {
   result = *a1;
   if (!result)
   {
-    type metadata accessor for ArchiveHeader();
+    type metadata accessor for ArchiveHeader(255);
     result = swift_getWitnessTable();
     atomic_store(result, a1);
   }
@@ -1767,7 +1736,7 @@ uint64_t lazy protocol witness table accessor for type ArchiveHeader and conform
   return result;
 }
 
-uint64_t lazy protocol witness table accessor for type Range<Int> and conformance <> Range<A>(unint64_t *a1)
+uint64_t lazy protocol witness table accessor for type Range<Int> and conformance <> Range<A>(unint64_t *a1, uint64_t a2)
 {
   result = *a1;
   if (!result)
@@ -1826,7 +1795,7 @@ unint64_t lazy protocol witness table accessor for type ArchiveHeader._FieldType
   return result;
 }
 
-uint64_t lazy protocol witness table accessor for type Slice<ArchiveHeader._FieldTypes> and conformance <> Slice<A>(unint64_t *a1, void (*a2)(void))
+uint64_t lazy protocol witness table accessor for type Slice<ArchiveHeader._FieldTypes> and conformance <> Slice<A>(unint64_t *a1, void (*a2)(void), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -1885,7 +1854,7 @@ unint64_t lazy protocol witness table accessor for type ArchiveHeader._FieldKeys
   return result;
 }
 
-uint64_t lazy protocol witness table accessor for type Slice<ArchiveHeader._FieldKeys> and conformance <> Slice<A>(unint64_t *a1, void (*a2)(void))
+uint64_t lazy protocol witness table accessor for type Slice<ArchiveHeader._FieldKeys> and conformance <> Slice<A>(unint64_t *a1, void (*a2)(void), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -1899,7 +1868,7 @@ uint64_t lazy protocol witness table accessor for type Slice<ArchiveHeader._Fiel
   return result;
 }
 
-uint64_t lazy protocol witness table accessor for type Slice<ArchiveHeader> and conformance Slice<A>(unint64_t *a1, uint64_t *a2, uint64_t *a3)
+uint64_t lazy protocol witness table accessor for type Slice<ArchiveHeader> and conformance Slice<A>(unint64_t *a1, uint64_t *a2, uint64_t *a3, uint64_t a4)
 {
   result = *a1;
   if (!result)
@@ -2021,7 +1990,7 @@ _WORD *storeEnumTagSinglePayload for _AAHeaderTraits(_WORD *result, int a2, int 
   return result;
 }
 
-void *__swift_initWithCopy_strong(void *a1, void *a2)
+uint64_t *__swift_initWithCopy_strong(uint64_t *a1, uint64_t *a2)
 {
   *a1 = *a2;
 
@@ -2030,7 +1999,6 @@ void *__swift_initWithCopy_strong(void *a1, void *a2)
 
 uint64_t *__swift_assignWithCopy_strong(uint64_t *a1, uint64_t *a2)
 {
-  v3 = *a1;
   *a1 = *a2;
 
   return a1;
@@ -2038,7 +2006,6 @@ uint64_t *__swift_assignWithCopy_strong(uint64_t *a1, uint64_t *a2)
 
 uint64_t *__swift_assignWithTake_strong(uint64_t *a1, uint64_t *a2)
 {
-  v3 = *a1;
   *a1 = *a2;
 
   return a1;
@@ -2275,12 +2242,12 @@ AAHeader partial apply for closure #1 in closure #1 in ArchiveHeader.init(keySet
   return result;
 }
 
-void type metadata accessor for AAFieldKey(uint64_t a1, unint64_t *a2)
+void type metadata accessor for AAFieldKey(uint64_t a1, unint64_t *a2, uint64_t a3)
 {
   if (!*a2)
   {
     ForeignTypeMetadata = swift_getForeignTypeMetadata();
-    if (!v4)
+    if (!v5)
     {
       atomic_store(ForeignTypeMetadata, a2);
     }
@@ -2303,11 +2270,11 @@ Swift::Int protocol witness for Hashable.hashValue.getter in conformance Archive
   return Hasher._finalize()();
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance ArchiveError()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance ArchiveError(uint64_t a1)
 {
-  v1 = *v0;
+  v2 = *v1;
   Hasher.init(_seed:)();
-  MEMORY[0x29C2A8B00](v1);
+  MEMORY[0x29C2A8B00](v2);
   return Hasher._finalize()();
 }
 
@@ -2567,11 +2534,11 @@ Swift::Int protocol witness for Hashable.hashValue.getter in conformance Archive
   return Hasher._finalize()();
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance ArchiveHeader.EntryMessage()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance ArchiveHeader.EntryMessage(uint64_t a1)
 {
-  v1 = *v0;
+  v2 = *v1;
   Hasher.init(_seed:)();
-  Hasher._combine(_:)(v1);
+  Hasher._combine(_:)(v2);
   return Hasher._finalize()();
 }
 
@@ -2985,14 +2952,15 @@ uint64_t ArchiveHeader.EntryAttributes.mod.modify(uint64_t *a1)
 uint64_t ArchiveHeader.EntryAttributes.mtm.getter()
 {
   v1 = *(v0 + 16);
-  if (!_So17AAEntryAttributesa34__Unnamed_union___Anonymous_field0V02__c10_struct___E7_field1V_MTM_getter(*v1))
+  if (_So17AAEntryAttributesa34__Unnamed_union___Anonymous_field0V02__c10_struct___E7_field1V_MTM_getter(*v1))
+  {
+    return *(v1 + 7);
+  }
+
+  else
   {
     return 0;
   }
-
-  v3 = *(v1 + 7);
-  v2 = *(v1 + 8);
-  return v3;
 }
 
 uint64_t ArchiveHeader.EntryAttributes.mtm.setter(uint64_t a1, uint64_t a2, char a3)
@@ -3068,14 +3036,15 @@ uint64_t ArchiveHeader.EntryAttributes.mtm.modify(uint64_t *a1)
 uint64_t ArchiveHeader.EntryAttributes.ctm.getter()
 {
   v1 = *(v0 + 16);
-  if (!_So17AAEntryAttributesa34__Unnamed_union___Anonymous_field0V02__c10_struct___E7_field1V_CTM_getter(*v1))
+  if (_So17AAEntryAttributesa34__Unnamed_union___Anonymous_field0V02__c10_struct___E7_field1V_CTM_getter(*v1))
+  {
+    return *(v1 + 5);
+  }
+
+  else
   {
     return 0;
   }
-
-  v3 = *(v1 + 5);
-  v2 = *(v1 + 6);
-  return v3;
 }
 
 uint64_t ArchiveHeader.EntryAttributes.ctm.setter(uint64_t a1, uint64_t a2, char a3)
@@ -3151,14 +3120,15 @@ uint64_t ArchiveHeader.EntryAttributes.ctm.modify(uint64_t *a1)
 uint64_t ArchiveHeader.EntryAttributes.btm.getter()
 {
   v1 = *(v0 + 16);
-  if (!_So17AAEntryAttributesa34__Unnamed_union___Anonymous_field0V02__c10_struct___E7_field1V_BTM_getter(*v1))
+  if (_So17AAEntryAttributesa34__Unnamed_union___Anonymous_field0V02__c10_struct___E7_field1V_BTM_getter(*v1))
+  {
+    return *(v1 + 3);
+  }
+
+  else
   {
     return 0;
   }
-
-  v3 = *(v1 + 3);
-  v2 = *(v1 + 4);
-  return v3;
 }
 
 uint64_t ArchiveHeader.EntryAttributes.btm.setter(uint64_t a1, uint64_t a2, char a3)
@@ -3231,7 +3201,7 @@ uint64_t ArchiveHeader.EntryAttributes.btm.modify(uint64_t *a1)
   return result;
 }
 
-unint64_t ArchiveHeader.EntryFilterData.init(message:data:)@<X0>(int *a1@<X0>, uint64_t a2@<X1>, unint64_t *a3@<X8>)
+uint64_t ArchiveHeader.EntryFilterData.init(message:data:)@<X0>(int *a1@<X0>, uint64_t a2@<X1>, uint64_t *a3@<X8>)
 {
   if (!a2)
   {
@@ -3257,7 +3227,7 @@ unint64_t ArchiveHeader.EntryFilterData.init(message:data:)@<X0>(int *a1@<X0>, u
     }
 
 LABEL_11:
-    type metadata accessor for ArchiveHeader();
+    type metadata accessor for ArchiveHeader(0);
     result = swift_allocObject();
     *(result + 16) = a2;
     *(result + 24) = 0;
@@ -3266,7 +3236,7 @@ LABEL_11:
 
   if (v5 == 24)
   {
-    type metadata accessor for ArchiveHeader.EntryXATBlob();
+    type metadata accessor for ArchiveHeader.EntryXATBlob(0);
     v8 = swift_allocObject();
     *(v8 + 16) = a2;
     *(v8 + 24) = 0;
@@ -3284,30 +3254,28 @@ LABEL_13:
   return result;
 }
 
-unint64_t closure #1 in ArchiveHeader._EntryFilterWrapper.init(_:)(uint64_t a1, unsigned int a2, uint64_t a3, uint64_t a4)
+uint64_t closure #1 in ArchiveHeader._EntryFilterWrapper.init(_:)(uint64_t a1, unsigned int a2, uint64_t a3, uint64_t a4)
 {
   v8 = type metadata accessor for FilePath();
   v9 = *(v8 - 8);
-  v10 = *(v9 + 64);
-  result = MEMORY[0x2A1C7C4A8]();
-  v13 = &v17 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+  result = MEMORY[0x2A1C7C4A8](v8);
+  v12 = &v15 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
   if (a1)
   {
 
     MEMORY[0x29C2A8870](a3);
-    v18 = a2;
-    result = ArchiveHeader.EntryFilterData.init(message:data:)(&v18, a4, &v19);
-    v14 = *(a1 + 16);
-    if (v14)
+    v16 = a2;
+    result = ArchiveHeader.EntryFilterData.init(message:data:)(&v16, a4, &v17);
+    v13 = *(a1 + 16);
+    if (v13)
     {
-      v15 = v19;
-      v16 = *(a1 + 24);
-      v17 = a2;
-      v14(&v18, &v17, v13, &v19);
-      (*(v9 + 8))(v13, v8);
+      v14 = v17;
+      v15 = a2;
+      v13(&v16, &v15, v12, &v17);
+      (*(v9 + 8))(v12, v8);
 
-      outlined consume of ArchiveHeader.EntryFilterData?(v15);
-      return v18;
+      outlined consume of ArchiveHeader.EntryFilterData?(v14);
+      return v16;
     }
   }
 
@@ -3320,14 +3288,7 @@ unint64_t closure #1 in ArchiveHeader._EntryFilterWrapper.init(_:)(uint64_t a1, 
   return result;
 }
 
-uint64_t ArchiveHeader._EntryFilterWrapper.deinit()
-{
-  v1 = *(v0 + 24);
-  outlined consume of (@escaping @callee_guaranteed (@in_guaranteed ArchiveHeader.EntryMessage, @in_guaranteed FilePath, @in_guaranteed ArchiveHeader.EntryFilterData?) -> (@out ArchiveHeader.EntryMessageStatus))?(*(v0 + 16));
-  return v0;
-}
-
-uint64_t outlined consume of (@escaping @callee_guaranteed (@in_guaranteed ArchiveHeader.EntryMessage, @in_guaranteed FilePath, @in_guaranteed ArchiveHeader.EntryFilterData?) -> (@out ArchiveHeader.EntryMessageStatus))?(uint64_t result)
+uint64_t outlined consume of (@escaping @callee_guaranteed (@in_guaranteed ArchiveHeader.EntryMessage, @in_guaranteed FilePath, @in_guaranteed ArchiveHeader.EntryFilterData?) -> (@out ArchiveHeader.EntryMessageStatus))?(uint64_t result, uint64_t a2)
 {
   if (result)
   {
@@ -3338,8 +3299,7 @@ uint64_t outlined consume of (@escaping @callee_guaranteed (@in_guaranteed Archi
 
 uint64_t ArchiveHeader._EntryFilterWrapper.__deallocating_deinit()
 {
-  v1 = *(v0 + 24);
-  outlined consume of (@escaping @callee_guaranteed (@in_guaranteed ArchiveHeader.EntryMessage, @in_guaranteed FilePath, @in_guaranteed ArchiveHeader.EntryFilterData?) -> (@out ArchiveHeader.EntryMessageStatus))?(*(v0 + 16));
+  outlined consume of (@escaping @callee_guaranteed (@in_guaranteed ArchiveHeader.EntryMessage, @in_guaranteed FilePath, @in_guaranteed ArchiveHeader.EntryFilterData?) -> (@out ArchiveHeader.EntryMessageStatus))?(*(v0 + 16), *(v0 + 24));
 
   return swift_deallocClassInstance();
 }
@@ -3605,7 +3565,7 @@ uint64_t static ArchiveStream._withStream<A>(stream:_:)@<X0>(uint64_t a1@<X0>, u
   return result;
 }
 
-uint64_t outlined copy of (@escaping @callee_guaranteed (@in_guaranteed ArchiveHeader.EntryMessage, @in_guaranteed FilePath, @in_guaranteed ArchiveHeader.EntryFilterData?) -> (@out ArchiveHeader.EntryMessageStatus))?(uint64_t result)
+uint64_t outlined copy of (@escaping @callee_guaranteed (@in_guaranteed ArchiveHeader.EntryMessage, @in_guaranteed FilePath, @in_guaranteed ArchiveHeader.EntryFilterData?) -> (@out ArchiveHeader.EntryMessageStatus))?(uint64_t result, uint64_t a2)
 {
   if (result)
   {
@@ -3614,40 +3574,40 @@ uint64_t outlined copy of (@escaping @callee_guaranteed (@in_guaranteed ArchiveH
   return result;
 }
 
-uint64_t static ArchiveStream.withEncodeStream<A>(writingTo:selectUsing:flags:threadCount:_:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t *a4@<X3>, uint64_t a5@<X4>, uint64_t (*a6)(void)@<X5>, uint64_t a7@<X7>, uint64_t a8@<X8>, uint64_t (*a9)(uint64_t, void *, uint64_t (*)(), uint64_t, uint64_t))
+uint64_t static ArchiveStream.withEncodeStream<A>(writingTo:selectUsing:flags:threadCount:_:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t *a4@<X3>, uint64_t a5@<X4>, uint64_t (*a6)(void)@<X5>, uint64_t a8@<X7>, uint64_t a9@<X8>, uint64_t (*a10)(uint64_t, void *, uint64_t (*)(uint64_t a1, unsigned int a2, uint64_t a3, uint64_t a4), uint64_t, uint64_t))
 {
-  v23 = *a4;
+  v24 = *a4;
   type metadata accessor for ArchiveHeader._EntryFilterWrapper();
-  v14 = swift_allocObject();
-  v15 = v14;
-  v14[2] = a2;
-  v14[3] = a3;
+  v15 = swift_allocObject();
+  v16 = v15;
+  v15[2] = a2;
+  v15[3] = a3;
   if (a2)
   {
-    v16 = @objc closure #1 in ArchiveHeader._EntryFilterWrapper.init(_:);
+    v17 = @objc closure #1 in ArchiveHeader._EntryFilterWrapper.init(_:);
   }
 
   else
   {
-    v16 = 0;
+    v17 = 0;
   }
 
-  v14[4] = v16;
+  v15[4] = v17;
   result = swift_beginAccess();
-  v18 = *(a1 + 16);
-  if (!v18)
+  v19 = *(a1 + 16);
+  if (!v19)
   {
     goto LABEL_16;
   }
 
   if (a2)
   {
-    v19 = v15;
+    v20 = v16;
   }
 
   else
   {
-    v19 = 0;
+    v20 = 0;
   }
 
   if (a5 < 0xFFFFFFFF80000000)
@@ -3665,32 +3625,31 @@ LABEL_16:
     return result;
   }
 
-  outlined copy of (@escaping @callee_guaranteed (@in_guaranteed ArchiveHeader.EntryMessage, @in_guaranteed FilePath, @in_guaranteed ArchiveHeader.EntryFilterData?) -> (@out ArchiveHeader.EntryMessageStatus))?(a2);
-  v20 = a9(v18, v19, v16, v23, a5);
-  if (v20)
+  outlined copy of (@escaping @callee_guaranteed (@in_guaranteed ArchiveHeader.EntryMessage, @in_guaranteed FilePath, @in_guaranteed ArchiveHeader.EntryFilterData?) -> (@out ArchiveHeader.EntryMessageStatus))?(a2, a3);
+  v21 = a10(v19, v20, v17, v24, a5);
+  if (v21)
   {
-    v21 = v20;
-    type metadata accessor for ArchiveStream();
-    v22 = swift_allocObject();
-    *(v22 + 16) = 0;
+    v22 = v21;
+    type metadata accessor for ArchiveStream(0);
+    v23 = swift_allocObject();
+    *(v23 + 16) = 0;
     swift_beginAccess();
-    *(v22 + 16) = v21;
-    *(v22 + 24) = 1;
-    *(v22 + 32) = v15;
+    *(v23 + 16) = v22;
+    *(v23 + 24) = 1;
+    *(v23 + 32) = v16;
   }
 
   else
   {
 
-    v22 = 0;
+    v23 = 0;
   }
 
-  static ArchiveStream._withStream<A>(stream:_:)(v22, a6, a7, a8);
+  static ArchiveStream._withStream<A>(stream:_:)(v23, a6, a8, a9);
 }
 
-uint64_t static ArchiveStream.withExtractStream<A>(extractingTo:selectUsing:flags:threadCount:_:)@<X0>(uint64_t a1@<X1>, uint64_t a2@<X2>, uint64_t *a3@<X3>, uint64_t (*a4)(void)@<X5>, uint64_t a5@<X7>, uint64_t a6@<X8>)
+uint64_t static ArchiveStream.withExtractStream<A>(extractingTo:selectUsing:flags:threadCount:_:)@<X0>(uint64_t a1@<X1>, uint64_t a2@<X2>, uint64_t (*a5)(void)@<X5>, uint64_t a6@<X7>, uint64_t a7@<X8>)
 {
-  v9 = *a3;
   type metadata accessor for ArchiveHeader._EntryFilterWrapper();
   v10 = swift_allocObject();
   v11 = v10;
@@ -3707,12 +3666,12 @@ uint64_t static ArchiveStream.withExtractStream<A>(extractingTo:selectUsing:flag
   }
 
   v10[4] = v12;
-  outlined copy of (@escaping @callee_guaranteed (@in_guaranteed ArchiveHeader.EntryMessage, @in_guaranteed FilePath, @in_guaranteed ArchiveHeader.EntryFilterData?) -> (@out ArchiveHeader.EntryMessageStatus))?(a1);
+  outlined copy of (@escaping @callee_guaranteed (@in_guaranteed ArchiveHeader.EntryMessage, @in_guaranteed FilePath, @in_guaranteed ArchiveHeader.EntryFilterData?) -> (@out ArchiveHeader.EntryMessageStatus))?(a1, a2);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_ss13OpaquePointerVSgMd, &_ss13OpaquePointerVSgMR);
   FilePath.withCString<A>(_:)();
   if (v16)
   {
-    type metadata accessor for ArchiveStream();
+    type metadata accessor for ArchiveStream(0);
     v13 = swift_allocObject();
     *(v13 + 16) = 0;
     swift_beginAccess();
@@ -3727,7 +3686,7 @@ uint64_t static ArchiveStream.withExtractStream<A>(extractingTo:selectUsing:flag
     v13 = 0;
   }
 
-  static ArchiveStream._withStream<A>(stream:_:)(v13, a4, a5, a6);
+  static ArchiveStream._withStream<A>(stream:_:)(v13, a5, a6, a7);
 }
 
 uint64_t static ArchiveStream.withConvertStream<A>(writingTo:insertKeySet:removeKeySet:selectUsing:flags:threadCount:_:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, AAFlagSet *a6@<X5>, uint64_t a7@<X6>, uint64_t (*a8)(void)@<X7>, uint64_t a9@<X8>, uint64_t a10, uint64_t a11)
@@ -3783,12 +3742,12 @@ LABEL_16:
 
   v23 = *(a2 + 16);
   v24 = *(a3 + 16);
-  outlined copy of (@escaping @callee_guaranteed (@in_guaranteed ArchiveHeader.EntryMessage, @in_guaranteed FilePath, @in_guaranteed ArchiveHeader.EntryFilterData?) -> (@out ArchiveHeader.EntryMessageStatus))?(a4);
+  outlined copy of (@escaping @callee_guaranteed (@in_guaranteed ArchiveHeader.EntryMessage, @in_guaranteed FilePath, @in_guaranteed ArchiveHeader.EntryFilterData?) -> (@out ArchiveHeader.EntryMessageStatus))?(a4, a5);
   v25 = AAConvertArchiveOutputStreamOpen(v21, v23, v24, v22, v19, flags, a7);
   if (v25)
   {
     v26 = v25;
-    type metadata accessor for ArchiveStream();
+    type metadata accessor for ArchiveStream(0);
     v27 = swift_allocObject();
     *(v27 + 16) = 0;
     swift_beginAccess();
@@ -3950,7 +3909,7 @@ unint64_t lazy protocol witness table accessor for type ArchiveHeader.EntryType 
   return result;
 }
 
-void (*specialized MutableCollection<>.subscript.modify(void *a1, uint64_t a2, uint64_t a3))(uint64_t **a1, char a2)
+void (*specialized MutableCollection<>.subscript.modify(void *a1, uint64_t a2, uint64_t a3))(uint64_t **a1, uint64_t a2)
 {
   if (MEMORY[0x29EDCA1B0])
   {
@@ -4023,7 +3982,7 @@ void (*specialized MutableCollection<>.subscript.modify(void *a1, uint64_t a2, u
   return result;
 }
 
-void MutableCollection<>.subscript.modifyspecialized (uint64_t **a1, char a2)
+void MutableCollection<>.subscript.modifyspecialized (uint64_t **a1, uint64_t a2)
 {
   MutableCollection<>.subscript.modifyspecialized (a1, a2, specialized _writeBackMutableSlice<A, B>(_:bounds:slice:));
 }
@@ -4043,7 +4002,6 @@ void MutableCollection<>.subscript.modifyspecialized (uint64_t **a1, char a2, vo
   v10 = (*a1)[3];
   if (a2)
   {
-    v11 = (*a1)[2];
 
     a3(v8, v10, v7, v5, v6, v9);
   }
@@ -4052,8 +4010,6 @@ void MutableCollection<>.subscript.modifyspecialized (uint64_t **a1, char a2, vo
   {
     a3((*a1)[5], v10, v7, v5, v6, v9);
   }
-
-  v12 = v4[2];
 
   free(v4);
 }
@@ -4117,37 +4073,35 @@ LABEL_14:
 {
   if (result != a2)
   {
-    v22 = v2;
-    v23 = v3;
-    v24 = v4;
-    v6 = *v2;
+    v20 = v2;
+    v21 = v3;
     i = result;
-    ArchiveHeader._field(at:)(result, &v18);
+    ArchiveHeader._field(at:)(&v16, result);
+    v5 = v16;
+    v6 = v17;
     v7 = v18;
     v8 = v19;
-    v9 = v20;
-    v10 = v21;
-    outlined copy of ArchiveHeader.Field(v18, v19, v20, v21);
-    outlined consume of ArchiveHeader.Field(v7, v8, v9, v10);
-    ArchiveHeader._field(at:)(a2, &v18);
+    outlined copy of ArchiveHeader.Field(v16, v17, v18, v19);
+    outlined consume of ArchiveHeader.Field(v5, v6, v7, v8);
+    ArchiveHeader._field(at:)(&v16, a2);
+    v9 = v16;
+    v10 = v17;
     v11 = v18;
     v12 = v19;
-    v13 = v20;
-    v14 = v21;
-    outlined copy of ArchiveHeader.Field(v18, v19, v20, v21);
-    outlined consume of ArchiveHeader.Field(v11, v12, v13, v14);
-    v16[0] = v11;
-    v16[1] = v12;
-    v16[2] = v13;
-    v17 = v14;
-    ArchiveHeader._set(at:field:)(i, v16);
-    outlined consume of ArchiveHeader.Field(v11, v12, v13, v14);
+    outlined copy of ArchiveHeader.Field(v16, v17, v18, v19);
+    outlined consume of ArchiveHeader.Field(v9, v10, v11, v12);
+    v14[0] = v9;
+    v14[1] = v10;
+    v14[2] = v11;
+    v15 = v12;
+    ArchiveHeader._set(at:field:)(i, v14);
+    outlined consume of ArchiveHeader.Field(v9, v10, v11, v12);
+    v16 = v5;
+    v17 = v6;
     v18 = v7;
     v19 = v8;
-    v20 = v9;
-    v21 = v10;
-    ArchiveHeader._set(at:field:)(a2, &v18);
-    return outlined consume of ArchiveHeader.Field(v7, v8, v9, v10);
+    ArchiveHeader._set(at:field:)(a2, &v16);
+    return outlined consume of ArchiveHeader.Field(v5, v6, v7, v8);
   }
 
   return result;
@@ -4290,46 +4244,42 @@ uint64_t _ss15ContiguousArrayVsSQRzlE2eeoiySbAByxG_ADtFZs5UInt8V_Tt1g5(uint64_t 
 
 void ArchiveHeader.EntryXATBlob.ExtendedAttribute.hash(into:)()
 {
-  v1 = *v0;
-  v2 = v0[1];
-  v3 = v0[2];
+  v1 = *(v0 + 16);
   String.hash(into:)();
-  v4 = *(v3 + 16);
-  MEMORY[0x29C2A8B00](v4);
-  if (v4)
+  v2 = *(v1 + 16);
+  MEMORY[0x29C2A8B00](v2);
+  if (v2)
   {
-    v5 = (v3 + 32);
+    v3 = (v1 + 32);
     do
     {
-      v6 = *v5++;
-      Hasher._combine(_:)(v6);
-      --v4;
+      v4 = *v3++;
+      Hasher._combine(_:)(v4);
+      --v2;
     }
 
-    while (v4);
+    while (v2);
   }
 }
 
 Swift::Int ArchiveHeader.EntryXATBlob.ExtendedAttribute.hashValue.getter()
 {
-  v1 = *v0;
-  v2 = v0[1];
-  v3 = v0[2];
+  v1 = *(v0 + 16);
   Hasher.init(_seed:)();
   String.hash(into:)();
-  v4 = *(v3 + 16);
-  MEMORY[0x29C2A8B00](v4);
-  if (v4)
+  v2 = *(v1 + 16);
+  MEMORY[0x29C2A8B00](v2);
+  if (v2)
   {
-    v5 = (v3 + 32);
+    v3 = (v1 + 32);
     do
     {
-      v6 = *v5++;
-      Hasher._combine(_:)(v6);
-      --v4;
+      v4 = *v3++;
+      Hasher._combine(_:)(v4);
+      --v2;
     }
 
-    while (v4);
+    while (v2);
   }
 
   return Hasher._finalize()();
@@ -4350,33 +4300,27 @@ uint64_t protocol witness for static Equatable.== infix(_:_:) in conformance Arc
 
 Swift::Int protocol witness for Hashable.hashValue.getter in conformance ArchiveHeader.EntryXATBlob.ExtendedAttribute()
 {
-  v1 = *v0;
-  v2 = v0[1];
-  v3 = v0[2];
+  v1 = *(v0 + 16);
   Hasher.init(_seed:)();
   String.hash(into:)();
-  specialized ContiguousArray<A>.hash(into:)(v5, v3);
+  specialized ContiguousArray<A>.hash(into:)(v3, v1);
   return Hasher._finalize()();
 }
 
 void protocol witness for Hashable.hash(into:) in conformance ArchiveHeader.EntryXATBlob.ExtendedAttribute(uint64_t a1)
 {
-  v3 = *v1;
-  v4 = v1[1];
-  v5 = v1[2];
+  v3 = *(v1 + 16);
   String.hash(into:)();
 
-  specialized ContiguousArray<A>.hash(into:)(a1, v5);
+  specialized ContiguousArray<A>.hash(into:)(a1, v3);
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance ArchiveHeader.EntryXATBlob.ExtendedAttribute()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance ArchiveHeader.EntryXATBlob.ExtendedAttribute(uint64_t a1)
 {
-  v1 = *v0;
-  v2 = v0[1];
-  v3 = v0[2];
+  v2 = *(v1 + 16);
   Hasher.init(_seed:)();
   String.hash(into:)();
-  specialized ContiguousArray<A>.hash(into:)(v5, v3);
+  specialized ContiguousArray<A>.hash(into:)(v4, v2);
   return Hasher._finalize()();
 }
 
@@ -4422,15 +4366,14 @@ uint64_t ArchiveHeader.EntryXATBlob.init()()
 uint64_t ArchiveHeader.EntryXATBlob.init(directory:path:flags:)(uint64_t a1, uint64_t a2, uint64_t *a3)
 {
   v4 = v3;
-  v11 = *a3;
   __swift_instantiateConcreteTypeFromMangledNameV2(&_ss13OpaquePointerVSgMd, &_ss13OpaquePointerVSgMR);
   FilePath.withCString<A>(_:)();
   v7 = type metadata accessor for FilePath();
-  if (v12)
+  if (v11)
   {
     v8 = *(*(v7 - 8) + 8);
     v8(a1, v7);
-    *(v4 + 16) = v12;
+    *(v4 + 16) = v11;
     *(v4 + 24) = 1;
     v8(a2, v7);
   }
@@ -4440,7 +4383,7 @@ uint64_t ArchiveHeader.EntryXATBlob.init(directory:path:flags:)(uint64_t a1, uin
     v9 = *(*(v7 - 8) + 8);
     v9(a1, v7);
     v9(a2, v7);
-    type metadata accessor for ArchiveHeader.EntryXATBlob();
+    type metadata accessor for ArchiveHeader.EntryXATBlob(0);
     swift_deallocPartialClassInstance();
     return 0;
   }
@@ -4448,11 +4391,10 @@ uint64_t ArchiveHeader.EntryXATBlob.init(directory:path:flags:)(uint64_t a1, uin
   return v4;
 }
 
-uint64_t ArchiveHeader.EntryXATBlob.apply(directory:path:flags:)(uint64_t a1, uint64_t a2, uint64_t *a3)
+void *ArchiveHeader.EntryXATBlob.apply(directory:path:flags:)(uint64_t a1, uint64_t a2, uint64_t *a3)
 {
-  v5 = *a3;
   result = FilePath.withCString<A>(_:)();
-  if (v6)
+  if (v5)
   {
     lazy protocol witness table accessor for type ArchiveError and conformance ArchiveError();
     swift_allocError();
@@ -4466,9 +4408,9 @@ uint64_t ArchiveHeader.EntryXATBlob.apply(directory:path:flags:)(uint64_t a1, ui
 uint64_t ArchiveHeader.EntryXATBlob._attribute(at:)@<X0>(unint64_t a1@<X0>, void *a2@<X8>)
 {
   key_length[1] = *MEMORY[0x29EDCA608];
-  v8 = *(*(type metadata accessor for String.Encoding() - 8) + 64);
-  MEMORY[0x2A1C7C4A8]();
-  v10 = v25 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = type metadata accessor for String.Encoding();
+  MEMORY[0x2A1C7C4A8](v8 - 8);
+  v10 = v24 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
   data_size = 0;
   key_length[0] = 0;
   if ((a1 & 0x8000000000000000) != 0)
@@ -4555,20 +4497,20 @@ LABEL_15:
 
       v16 = 2 * v15;
       v17 = 1;
-      v25[1] = v2;
-      v25[2] = v2 + 32;
+      v24[1] = v2;
+      v24[2] = v2 + 32;
       if (key_length[0])
       {
         v17 = v16 + 1;
       }
 
-      v25[3] = 0;
-      v25[4] = v17;
+      v24[3] = 0;
+      v24[4] = v17;
 
       static String.Encoding.utf8.getter();
       v4 = &_ss10ArraySliceVys5UInt8VGMR;
       __swift_instantiateConcreteTypeFromMangledNameV2(&_ss10ArraySliceVys5UInt8VGMd, &_ss10ArraySliceVys5UInt8VGMR);
-      lazy protocol witness table accessor for type Slice<ArchiveHeader> and conformance Slice<A>(&lazy protocol witness table cache variable for type ArraySlice<UInt8> and conformance ArraySlice<A>, &_ss10ArraySliceVys5UInt8VGMd, &_ss10ArraySliceVys5UInt8VGMR);
+      lazy protocol witness table accessor for type Slice<ArchiveHeader> and conformance Slice<A>(&lazy protocol witness table cache variable for type ArraySlice<UInt8> and conformance ArraySlice<A>, &_ss10ArraySliceVys5UInt8VGMd, &_ss10ArraySliceVys5UInt8VGMR, MEMORY[0x29EDC9CF0]);
       v10 = String.init<A>(bytes:encoding:)();
       a1 = v18;
       swift_unknownObjectRelease();
@@ -4611,7 +4553,6 @@ LABEL_33:
             *a2 = v10;
             a2[1] = a1;
             a2[2] = v21;
-            v23 = *MEMORY[0x29EDCA608];
             return result;
           }
 
@@ -4624,7 +4565,7 @@ LABEL_32:
 LABEL_43:
         swift_unknownObjectRelease();
         specialized _copyCollectionToContiguousArray<A>(_:)(v2, v3, v4, (2 * v5) | 1);
-        v21 = v24;
+        v21 = v23;
         goto LABEL_32;
       }
 
@@ -4644,12 +4585,10 @@ LABEL_45:
   return result;
 }
 
-uint64_t ArchiveHeader.EntryXATBlob._set(at:attribute:)(unint64_t a1, uint64_t *a2)
+uint64_t ArchiveHeader.EntryXATBlob._set(at:attribute:)(unint64_t a1, void *a2)
 {
-  v4 = *a2;
-  v5 = a2[1];
-  v6 = a2[2];
-  v7 = String.utf8CString.getter();
+  v4 = a2[2];
+  v5 = String.utf8CString.getter();
   if ((a1 & 0x8000000000000000) != 0)
   {
     __break(1u);
@@ -4663,7 +4602,7 @@ LABEL_8:
     goto LABEL_9;
   }
 
-  if (AAEntryXATBlobSetEntry(*(v2 + 16), a1, (v7 + 32), (v6 + 32), *(v6 + 16)))
+  if (AAEntryXATBlobSetEntry(*(v2 + 16), a1, (v5 + 32), (v4 + 32), *(v4 + 16)))
   {
 LABEL_9:
     result = _assertionFailure(_:_:file:line:flags:)();
@@ -4715,7 +4654,7 @@ const uint8_t *ArchiveHeader.EntryXATBlob.init(withAAEncodedData:)(const uint8_t
 
     else
     {
-      type metadata accessor for ArchiveHeader.EntryXATBlob();
+      type metadata accessor for ArchiveHeader.EntryXATBlob(0);
       swift_deallocPartialClassInstance();
       return 0;
     }
@@ -4759,9 +4698,9 @@ uint64_t ArchiveHeader.EntryXATBlob.__deallocating_deinit()
   return swift_deallocClassInstance();
 }
 
-uint64_t protocol witness for _AAEncodableProtocol.init(withAAEncodedData:) in conformance ArchiveHeader.EntryXATBlob@<X0>(const uint8_t *a1@<X0>, size_t a2@<X1>, uint64_t *a3@<X8>)
+AAEntryXATBlob protocol witness for _AAEncodableProtocol.init(withAAEncodedData:) in conformance ArchiveHeader.EntryXATBlob@<X0>(const uint8_t *a1@<X0>, size_t a2@<X1>, AAEntryXATBlob *a3@<X8>)
 {
-  type metadata accessor for ArchiveHeader.EntryXATBlob();
+  type metadata accessor for ArchiveHeader.EntryXATBlob(0);
   result = swift_allocObject();
   if (a1)
   {
@@ -4769,7 +4708,7 @@ uint64_t protocol witness for _AAEncodableProtocol.init(withAAEncodedData:) in c
     result = AAEntryXATBlobCreateWithEncodedData(a1, a2);
     if (result)
     {
-      *(v7 + 16) = result;
+      *(v7 + 2) = result;
       *(v7 + 24) = 1;
     }
 
@@ -4790,12 +4729,10 @@ uint64_t protocol witness for _AAEncodableProtocol.init(withAAEncodedData:) in c
   return result;
 }
 
-uint64_t ArchiveHeader.EntryXATBlob.subscript.setter(uint64_t *a1, unint64_t a2)
+uint64_t ArchiveHeader.EntryXATBlob.subscript.setter(void *a1, unint64_t a2)
 {
-  v4 = *a1;
-  v5 = a1[1];
-  v6 = a1[2];
-  v7 = String.utf8CString.getter();
+  v4 = a1[2];
+  v5 = String.utf8CString.getter();
   if ((a2 & 0x8000000000000000) != 0)
   {
     __break(1u);
@@ -4809,7 +4746,7 @@ LABEL_8:
     goto LABEL_9;
   }
 
-  if (AAEntryXATBlobSetEntry(*(v2 + 16), a2, (v7 + 32), (v6 + 32), *(v6 + 16)))
+  if (AAEntryXATBlobSetEntry(*(v2 + 16), a2, (v5 + 32), (v4 + 32), *(v4 + 16)))
   {
 LABEL_9:
     result = _assertionFailure(_:_:file:line:flags:)();
@@ -4818,7 +4755,7 @@ LABEL_9:
   }
 }
 
-void (*ArchiveHeader.EntryXATBlob.subscript.modify(void *a1, unint64_t a2))(uint64_t **a1, char a2)
+uint64_t (*ArchiveHeader.EntryXATBlob.subscript.modify(void *a1, unint64_t a2))()
 {
   if (MEMORY[0x29EDCA1B0])
   {
@@ -4837,26 +4774,24 @@ void (*ArchiveHeader.EntryXATBlob.subscript.modify(void *a1, unint64_t a2))(uint
   return ArchiveHeader.EntryXATBlob.subscript.modify;
 }
 
-void ArchiveHeader.EntryXATBlob.subscript.modify(uint64_t **a1, char a2)
+void ArchiveHeader.EntryXATBlob.subscript.modify(void **a1, char a2)
 {
   v3 = *a1;
   v5 = (*a1)[3];
   v4 = (*a1)[4];
-  v6 = **a1;
-  v7 = v3[1];
-  v8 = v3[2];
-  v9 = String.utf8CString.getter();
-  v10 = v9;
-  v11 = *(v8 + 16);
-  v12 = *(v4 + 16);
+  v6 = (*a1)[2];
+  v7 = String.utf8CString.getter();
+  v8 = v7;
+  v9 = *(v6 + 16);
+  v10 = *(v4 + 16);
   if ((a2 & 1) == 0)
   {
     if ((v5 & 0x8000000000000000) == 0)
     {
-      v16 = v3[3];
-      if (!HIDWORD(v16))
+      v12 = v3[3];
+      if (!HIDWORD(v12))
       {
-        if (!AAEntryXATBlobSetEntry(v12, v16, (v9 + 32), (v8 + 32), *(v8 + 16)))
+        if (!AAEntryXATBlobSetEntry(v10, v12, (v7 + 32), (v6 + 32), *(v6 + 16)))
         {
 
           goto LABEL_10;
@@ -4884,21 +4819,19 @@ LABEL_14:
     goto LABEL_15;
   }
 
-  v13 = v3[3];
-  if (HIDWORD(v13))
+  v11 = v3[3];
+  if (HIDWORD(v11))
   {
 LABEL_15:
     __break(1u);
     goto LABEL_16;
   }
 
-  if (AAEntryXATBlobSetEntry(v12, v13, (v10 + 32), (v8 + 32), v11))
+  if (AAEntryXATBlobSetEntry(v10, v11, (v8 + 32), (v6 + 32), v9))
   {
     goto LABEL_17;
   }
 
-  v14 = v3[1];
-  v15 = v3[2];
 LABEL_10:
 
   free(v3);
@@ -4945,13 +4878,11 @@ LABEL_7:
   return result;
 }
 
-uint64_t ArchiveHeader.EntryXATBlob.append(_:)(uint64_t *a1)
+uint64_t ArchiveHeader.EntryXATBlob.append(_:)(void *a1)
 {
-  v3 = *a1;
-  v2 = a1[1];
-  v4 = a1[2];
-  v5 = String.utf8CString.getter();
-  if (AAEntryXATBlobAppendEntry(*(v1 + 16), (v5 + 32), (v4 + 32), *(v4 + 16)))
+  v2 = a1[2];
+  v3 = String.utf8CString.getter();
+  if (AAEntryXATBlobAppendEntry(*(v1 + 16), (v3 + 32), (v2 + 32), *(v2 + 16)))
   {
     result = _assertionFailure(_:_:file:line:flags:)();
     __break(1u);
@@ -4964,19 +4895,18 @@ uint64_t ArchiveHeader.EntryXATBlob.append(_:)(uint64_t *a1)
   return result;
 }
 
-uint64_t protocol witness for MutableCollection.subscript.setter in conformance ArchiveHeader.EntryXATBlob(uint64_t *a1, unint64_t *a2)
+uint64_t protocol witness for MutableCollection.subscript.setter in conformance ArchiveHeader.EntryXATBlob(void *a1, unint64_t *a2)
 {
-  v3 = *a2;
-  v4 = *v2;
-  v5 = a1[1];
-  v6 = a1[2];
-  v8[0] = *a1;
-  v8[1] = v5;
-  v8[2] = v6;
-  ArchiveHeader.EntryXATBlob._set(at:attribute:)(v3, v8);
+  v2 = *a2;
+  v3 = a1[1];
+  v4 = a1[2];
+  v6[0] = *a1;
+  v6[1] = v3;
+  v6[2] = v4;
+  ArchiveHeader.EntryXATBlob._set(at:attribute:)(v2, v6);
 }
 
-void (*protocol witness for MutableCollection.subscript.modify in conformance ArchiveHeader.EntryXATBlob(uint64_t *a1, unint64_t *a2))(uint64_t **a1, char a2)
+uint64_t (*protocol witness for MutableCollection.subscript.modify in conformance ArchiveHeader.EntryXATBlob(uint64_t *a1, unint64_t *a2))()
 {
   if (MEMORY[0x29EDCA1B0])
   {
@@ -4997,36 +4927,32 @@ void (*protocol witness for MutableCollection.subscript.modify in conformance Ar
   return protocol witness for MutableCollection.subscript.modify in conformance ArchiveHeader.EntryXATBlob;
 }
 
-void protocol witness for MutableCollection.subscript.modify in conformance ArchiveHeader.EntryXATBlob(uint64_t **a1, char a2)
+void protocol witness for MutableCollection.subscript.modify in conformance ArchiveHeader.EntryXATBlob(void **a1, char a2)
 {
   v2 = *a1;
   v3 = (*a1)[1];
-  v5 = (*a1)[3];
-  v4 = (*a1)[4];
-  v6 = (*a1)[2];
-  v9[0] = **a1;
-  v9[1] = v3;
-  v9[2] = v6;
+  v4 = (*a1)[3];
+  v5 = (*a1)[2];
+  v6[0] = **a1;
+  v6[1] = v3;
+  v6[2] = v5;
   if (a2)
   {
 
-    ArchiveHeader.EntryXATBlob._set(at:attribute:)(v5, v9);
-
-    v7 = v2[1];
-    v8 = v2[2];
+    ArchiveHeader.EntryXATBlob._set(at:attribute:)(v4, v6);
   }
 
   else
   {
-    ArchiveHeader.EntryXATBlob._set(at:attribute:)(v5, v9);
+    ArchiveHeader.EntryXATBlob._set(at:attribute:)(v4, v6);
   }
 
   free(v2);
 }
 
-uint64_t protocol witness for MutableCollection.subscript.setter in conformance ArchiveHeader.EntryXATBlob(uint64_t a1, uint64_t *a2)
+uint64_t protocol witness for MutableCollection.subscript.setter in conformance ArchiveHeader.EntryXATBlob(int64_t *a1, unint64_t *a2)
 {
-  specialized _writeBackMutableSlice<A, B>(_:bounds:slice:)(v2, *a2, a2[1], *a1, *(a1 + 8), *(a1 + 16));
+  specialized _writeBackMutableSlice<A, B>(_:bounds:slice:)(v2, *a2, a2[1], *a1, a1[1], a1[2]);
 }
 
 void (*protocol witness for MutableCollection.subscript.modify in conformance ArchiveHeader.EntryXATBlob(void *a1, uint64_t *a2))(void *a1)
@@ -5046,12 +4972,12 @@ void (*protocol witness for MutableCollection.subscript.modify in conformance Ar
   return protocol witness for MutableCollection.subscript.modify in conformance ArchiveHeader;
 }
 
-uint64_t protocol witness for MutableCollection.partition(by:) in conformance ArchiveHeader.EntryXATBlob@<X0>(uint64_t (*a1)(size_t *)@<X0>, uint64_t a2@<X1>, uint64_t *a3@<X8>)
+uint64_t protocol witness for MutableCollection.partition(by:) in conformance ArchiveHeader.EntryXATBlob@<X0>(uint64_t *a1@<X8>, uint64_t (*a2)(size_t *)@<X0>, uint64_t a3@<X1>)
 {
-  result = specialized MutableCollection<>._partitionImpl(by:)(a1, a2);
+  result = specialized MutableCollection<>._partitionImpl(by:)(a2, a3);
   if (!v3)
   {
-    *a3 = result;
+    *a1 = result;
   }
 
   return result;
@@ -5109,17 +5035,8 @@ uint64_t protocol witness for Collection.endIndex.getter in conformance ArchiveH
   return result;
 }
 
-uint64_t (*protocol witness for Collection.subscript.read in conformance ArchiveHeader.EntryXATBlob(void *a1, unint64_t *a2))(uint64_t a1)
-{
-  v3 = *v2;
-  ArchiveHeader.EntryXATBlob._attribute(at:)(*a2, a1);
-  return protocol witness for Collection.subscript.read in conformance ArchiveHeader.EntryXATBlob;
-}
-
 uint64_t protocol witness for Collection.subscript.read in conformance ArchiveHeader.EntryXATBlob(uint64_t a1)
 {
-  v1 = *(a1 + 8);
-  v2 = *(a1 + 16);
 }
 
 uint64_t protocol witness for Collection.subscript.getter in conformance ArchiveHeader.EntryXATBlob@<X0>(uint64_t *a1@<X0>, void *a2@<X8>)
@@ -5176,12 +5093,11 @@ void *protocol witness for RandomAccessCollection.index(_:offsetBy:) in conforma
   return result;
 }
 
-uint64_t protocol witness for RandomAccessCollection.index(_:offsetBy:limitedBy:) in conformance ArchiveHeader.EntryXATBlob@<X0>(unint64_t *a1@<X0>, uint64_t a2@<X1>, unint64_t *a3@<X2>, uint64_t a4@<X8>)
+unint64_t protocol witness for RandomAccessCollection.index(_:offsetBy:limitedBy:) in conformance ArchiveHeader.EntryXATBlob@<X0>(unint64_t *a1@<X0>, uint64_t a2@<X1>, unint64_t *a3@<X2>, uint64_t a4@<X8>)
 {
-  v6 = *v4;
   result = specialized RandomAccessCollection.index(_:offsetBy:limitedBy:)(*a1, a2, *a3);
   *a4 = result;
-  *(a4 + 8) = v8 & 1;
+  *(a4 + 8) = v6 & 1;
   return result;
 }
 
@@ -5258,7 +5174,7 @@ uint64_t protocol witness for Sequence._copyToContiguousArray() in conformance A
   return v1;
 }
 
-uint64_t specialized _writeBackMutableSlice<A, B>(_:bounds:slice:)(uint64_t *a1, unint64_t a2, uint64_t a3, unint64_t a4, int64_t a5, uint64_t a6)
+uint64_t specialized _writeBackMutableSlice<A, B>(_:bounds:slice:)(uint64_t *a1, unint64_t a2, uint64_t a3, int64_t a4, int64_t a5, uint64_t a6)
 {
   v22 = *a1;
   result = AAHeaderGetFieldCount(*(*a1 + 16));
@@ -5285,7 +5201,7 @@ LABEL_19:
     while (a4 < a5)
     {
       v15 = a5;
-      ArchiveHeader._field(at:)(a4, &v23);
+      ArchiveHeader._field(at:)(&v23, a4);
       v16 = v23;
       v17 = v24;
       v18 = v25;
@@ -5351,11 +5267,10 @@ LABEL_21:
   return result;
 }
 
-uint64_t specialized _writeBackMutableSlice<A, B>(_:bounds:slice:)(uint64_t *a1, uint64_t a2, uint64_t a3, unint64_t a4, int64_t a5, uint64_t a6)
 {
   v11 = *a1;
   result = AAEntryXATBlobGetEntryCount(*(*a1 + 16));
-  if (a2 < 0)
+  if ((a2 & 0x8000000000000000) != 0)
   {
 LABEL_23:
     __break(1u);
@@ -5465,7 +5380,7 @@ unint64_t specialized MutableCollection<>._partitionImpl(by:)(uint64_t (*a1)(uin
     while (1)
     {
 LABEL_3:
-      ArchiveHeader._field(at:)(v7, &v24);
+      ArchiveHeader._field(at:)(&v24, v7);
       v9 = v24;
       v10 = v25;
       v11 = v26;
@@ -5519,7 +5434,7 @@ LABEL_19:
         return v7;
       }
 
-      ArchiveHeader._field(at:)(v8, &v24);
+      ArchiveHeader._field(at:)(&v24, v8);
       v15 = v24;
       v16 = v25;
       v17 = v26;
@@ -5556,41 +5471,39 @@ LABEL_19:
 
 uint64_t specialized MutableCollection<>._partitionImpl(by:)(uint64_t (*a1)(size_t *), uint64_t a2)
 {
-  v49 = *MEMORY[0x29EDCA608];
+  v46 = *MEMORY[0x29EDCA608];
   v6 = type metadata accessor for String.Encoding();
-  v7 = *(*(v6 - 8) + 64);
-  MEMORY[0x2A1C7C4A8](v6 - 8, v8);
-  v41 = &v36 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v10 = *v2;
+  MEMORY[0x2A1C7C4A8](v6 - 8);
+  v38 = &v33 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = *v2;
   EntryCount = AAEntryXATBlobGetEntryCount(*(*v2 + 16));
   if (!EntryCount)
   {
-    v12 = 0;
-    goto LABEL_50;
+    return 0;
   }
 
-  v38 = v2;
-  v12 = 0;
-  v13 = EntryCount;
+  v35 = v2;
+  v10 = 0;
+  v11 = EntryCount;
   while (1)
   {
 LABEL_3:
-    ArchiveHeader.EntryXATBlob._attribute(at:)(v12, &v43);
-    key_length = v43;
-    v48 = v44;
-    v14 = a1(&key_length);
+    ArchiveHeader.EntryXATBlob._attribute(at:)(v10, &v40);
+    key_length = v40;
+    v45 = v41;
+    v12 = a1(&key_length);
 
     if (v3)
     {
-      goto LABEL_50;
+      return v10;
     }
 
-    if (v14)
+    if (v12)
     {
       break;
     }
 
-    if (v12 >= AAEntryXATBlobGetEntryCount(*(v10 + 16)))
+    if (v10 >= AAEntryXATBlobGetEntryCount(*(v8 + 16)))
     {
       __break(1u);
 LABEL_52:
@@ -5613,57 +5526,57 @@ LABEL_60:
       __break(1u);
     }
 
-    if (++v12 >= v13)
+    if (++v10 >= v11)
     {
-      goto LABEL_50;
+      return v10;
     }
   }
 
-  v39 = v10;
-  v40 = a1;
+  v36 = v8;
+  v37 = a1;
   while (1)
   {
-    if (--v13 >= AAEntryXATBlobGetEntryCount(*(v10 + 16)))
+    if (--v11 >= AAEntryXATBlobGetEntryCount(*(v8 + 16)))
     {
       goto LABEL_52;
     }
 
-    if (v12 >= v13)
+    if (v10 >= v11)
     {
-      goto LABEL_50;
+      return v10;
     }
 
     data_size = 0;
     key_length = 0;
-    v15 = *(v10 + 16);
-    if (AAEntryXATBlobGetEntry(v15, v13, 0, 0, &key_length, 0, 0, &data_size))
+    v13 = *(v8 + 16);
+    if (AAEntryXATBlobGetEntry(v13, v11, 0, 0, &key_length, 0, 0, &data_size))
     {
       break;
     }
 
-    v16 = key_length + 1;
-    v17 = __OFADD__(key_length, 1);
+    v14 = key_length + 1;
+    v15 = __OFADD__(key_length, 1);
     if (__OFADD__(key_length, 1))
     {
       goto LABEL_53;
     }
 
-    v18 = v16 + data_size;
-    if (__OFADD__(v16, data_size))
+    v16 = v14 + data_size;
+    if (__OFADD__(v14, data_size))
     {
       goto LABEL_54;
     }
 
-    if ((v18 & 0x8000000000000000) != 0)
+    if ((v16 & 0x8000000000000000) != 0)
     {
       goto LABEL_55;
     }
 
-    if (v18)
+    if (v16)
     {
-      v19 = static Array._allocateBufferUninitialized(minimumCapacity:)();
-      *(v19 + 16) = v18;
-      v16 = key_length + 1;
+      v17 = static Array._allocateBufferUninitialized(minimumCapacity:)();
+      *(v17 + 16) = v16;
+      v14 = key_length + 1;
       if (__OFADD__(key_length, 1))
       {
         goto LABEL_56;
@@ -5672,54 +5585,54 @@ LABEL_60:
 
     else
     {
-      v19 = MEMORY[0x29EDCA190];
-      if (v17)
+      v17 = MEMORY[0x29EDCA190];
+      if (v15)
       {
         goto LABEL_56;
       }
     }
 
-    v42 = v19 + 32;
-    if (AAEntryXATBlobGetEntry(v15, v13, v16, (v19 + 32), 0, data_size, (v19 + 32 + v16), 0))
+    v39 = v17 + 32;
+    if (AAEntryXATBlobGetEntry(v13, v11, v14, (v17 + 32), 0, data_size, (v17 + 32 + v14), 0))
     {
       break;
     }
 
-    *(v19 + 16) = v18;
+    *(v17 + 16) = v16;
     if ((key_length & 0x8000000000000000) != 0)
     {
       goto LABEL_57;
     }
 
-    if (v18 >= key_length)
+    if (v16 >= key_length)
     {
-      v21 = key_length;
+      v19 = key_length;
     }
 
     else
     {
-      v21 = v18;
+      v19 = v16;
     }
 
-    v22 = 2 * v21;
-    v43 = v19;
-    *&v44 = v42;
-    v23 = 1;
+    v20 = 2 * v19;
+    v40 = v17;
+    *&v41 = v39;
+    v21 = 1;
     if (key_length)
     {
-      v23 = v22 + 1;
+      v21 = v20 + 1;
     }
 
-    *(&v44 + 1) = 0;
-    v45 = v23;
+    *(&v41 + 1) = 0;
+    v42 = v21;
 
     static String.Encoding.utf8.getter();
     __swift_instantiateConcreteTypeFromMangledNameV2(&_ss10ArraySliceVys5UInt8VGMd, &_ss10ArraySliceVys5UInt8VGMR);
-    lazy protocol witness table accessor for type Slice<ArchiveHeader> and conformance Slice<A>(&lazy protocol witness table cache variable for type ArraySlice<UInt8> and conformance ArraySlice<A>, &_ss10ArraySliceVys5UInt8VGMd, &_ss10ArraySliceVys5UInt8VGMR);
-    v24 = String.init<A>(bytes:encoding:)();
-    v26 = v25;
+    lazy protocol witness table accessor for type Slice<ArchiveHeader> and conformance Slice<A>(&lazy protocol witness table cache variable for type ArraySlice<UInt8> and conformance ArraySlice<A>, &_ss10ArraySliceVys5UInt8VGMd, &_ss10ArraySliceVys5UInt8VGMR, MEMORY[0x29EDC9CF0]);
+    v22 = String.init<A>(bytes:encoding:)();
+    v24 = v23;
 
-    if (!v26)
+    if (!v24)
     {
       goto LABEL_60;
     }
@@ -5729,67 +5642,65 @@ LABEL_60:
       goto LABEL_58;
     }
 
-    v27 = a2;
-    v28 = *(v19 + 16);
-    if (v28 >= data_size)
+    v25 = a2;
+    v26 = *(v17 + 16);
+    if (v26 >= data_size)
     {
-      v29 = v28 - data_size;
+      v27 = v26 - data_size;
     }
 
     else
     {
-      v29 = 0;
+      v27 = 0;
     }
 
-    if (v28 > data_size)
+    if (v26 > data_size)
     {
-      v31 = v28 - v29;
-      v32 = MEMORY[0x29EDCA190];
-      if (v28 != v29)
+      v29 = v26 - v27;
+      v30 = MEMORY[0x29EDCA190];
+      if (v26 != v27)
       {
-        if (v31 < 1)
+        if (v29 < 1)
         {
-          v32 = MEMORY[0x29EDCA190];
+          v30 = MEMORY[0x29EDCA190];
         }
 
         else
         {
-          v37 = v28 - v29;
+          v34 = v26 - v27;
           __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys5UInt8VGMd, &_ss23_ContiguousArrayStorageCys5UInt8VGMR);
-          v32 = swift_allocObject();
-          v33 = _swift_stdlib_malloc_size(v32);
-          v31 = v37;
-          v32[2] = v37;
-          v32[3] = 2 * v33 - 64;
+          v30 = swift_allocObject();
+          v31 = _swift_stdlib_malloc_size(v30);
+          v29 = v34;
+          v30[2] = v34;
+          v30[3] = 2 * v31 - 64;
         }
 
-        memcpy(v32 + 4, (v42 + v29), v31);
+        memcpy(v30 + 4, (v39 + v27), v29);
       }
 
-      v19 = v32;
+      v17 = v30;
     }
 
-    v43 = v24;
-    *&v44 = v26;
-    *(&v44 + 1) = v19;
-    a2 = v27;
-    a1 = v40;
-    v30 = v40(&v43);
+    v40 = v22;
+    *&v41 = v24;
+    *(&v41 + 1) = v17;
+    a2 = v25;
+    a1 = v37;
+    v28 = v37(&v40);
 
-    v10 = v39;
-    if ((v30 & 1) == 0)
+    v8 = v36;
+    if ((v28 & 1) == 0)
     {
-      specialized MutableCollection.swapAt(_:_:)(v12, v13);
-      if (v12 >= AAEntryXATBlobGetEntryCount(*(v10 + 16)))
+      specialized MutableCollection.swapAt(_:_:)(v10, v11);
+      if (v10 >= AAEntryXATBlobGetEntryCount(*(v8 + 16)))
       {
         goto LABEL_59;
       }
 
-      if (++v12 >= v13)
+      if (++v10 >= v11)
       {
-LABEL_50:
-        v34 = *MEMORY[0x29EDCA608];
-        return v12;
+        return v10;
       }
 
       goto LABEL_3;
@@ -5819,15 +5730,7 @@ void specialized ContiguousArray<A>.hash(into:)(uint64_t a1, uint64_t a2)
   }
 }
 
-uint64_t partial apply for closure #1 in ArchiveHeader.EntryXATBlob.init(directory:path:flags:)()
-{
-  v1 = *(v0 + 16);
-  v3 = *(v0 + 24);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss13OpaquePointerVSgMd, &_ss13OpaquePointerVSgMR);
-  return FilePath.withCString<A>(_:)();
-}
-
-uint64_t type metadata accessor for ArchiveHeader.EntryXATBlob()
+uint64_t type metadata accessor for ArchiveHeader.EntryXATBlob(uint64_t a1)
 {
   result = type metadata singleton initialization cache for ArchiveHeader.EntryXATBlob;
   if (!type metadata singleton initialization cache for ArchiveHeader.EntryXATBlob)
@@ -5836,14 +5739,6 @@ uint64_t type metadata accessor for ArchiveHeader.EntryXATBlob()
   }
 
   return result;
-}
-
-uint64_t partial apply for closure #1 in ArchiveHeader.EntryXATBlob.apply(directory:path:flags:)()
-{
-  v1 = v0[2];
-  v3 = v0[3];
-  v4 = v0[4];
-  return FilePath.withCString<A>(_:)();
 }
 
 unint64_t lazy protocol witness table accessor for type ArchiveHeader.EntryXATBlob.ExtendedAttribute and conformance ArchiveHeader.EntryXATBlob.ExtendedAttribute()
@@ -5858,13 +5753,13 @@ unint64_t lazy protocol witness table accessor for type ArchiveHeader.EntryXATBl
   return result;
 }
 
-uint64_t lazy protocol witness table accessor for type Slice<ArchiveHeader.EntryXATBlob> and conformance <> Slice<A>(unint64_t *a1, unint64_t *a2)
+uint64_t lazy protocol witness table accessor for type Slice<ArchiveHeader.EntryXATBlob> and conformance <> Slice<A>(unint64_t *a1, unint64_t *a2, uint64_t a3, uint64_t a4)
 {
   result = *a1;
   if (!result)
   {
     __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_ss5SliceVy12AppleArchive0C6HeaderC12EntryXATBlobCGMd, &_ss5SliceVy12AppleArchive0C6HeaderC12EntryXATBlobCGMR);
-    lazy protocol witness table accessor for type ArchiveHeader.EntryXATBlob and conformance ArchiveHeader.EntryXATBlob(a2);
+    lazy protocol witness table accessor for type ArchiveHeader.EntryXATBlob and conformance ArchiveHeader.EntryXATBlob(a2, a3);
     result = swift_getWitnessTable();
     atomic_store(result, a1);
   }
@@ -5872,12 +5767,12 @@ uint64_t lazy protocol witness table accessor for type Slice<ArchiveHeader.Entry
   return result;
 }
 
-uint64_t lazy protocol witness table accessor for type ArchiveHeader.EntryXATBlob and conformance ArchiveHeader.EntryXATBlob(unint64_t *a1)
+uint64_t lazy protocol witness table accessor for type ArchiveHeader.EntryXATBlob and conformance ArchiveHeader.EntryXATBlob(unint64_t *a1, uint64_t a2)
 {
   result = *a1;
   if (!result)
   {
-    type metadata accessor for ArchiveHeader.EntryXATBlob();
+    type metadata accessor for ArchiveHeader.EntryXATBlob(255);
     result = swift_getWitnessTable();
     atomic_store(result, a1);
   }
@@ -6139,7 +6034,7 @@ uint64_t ArchiveByteStream.__deallocating_deinit()
 uint64_t vtable thunk for _AAOptionalObjectWrapper.__allocating_init(object:owned:) dispatching to ArchiveByteStream.__allocating_init(object:owned:)(uint64_t *a1, char a2)
 {
   v3 = *a1;
-  type metadata accessor for ArchiveByteStream();
+  type metadata accessor for ArchiveByteStream(0);
   v4 = swift_allocObject();
   *(v4 + 16) = 0;
   swift_beginAccess();
@@ -6191,22 +6086,22 @@ void protocol witness for ArchiveByteStreamProtocol.cancel() in conformance Arch
   }
 }
 
-uint64_t static ArchiveByteStream.fileStream(path:mode:options:permissions:)()
+uint64_t static ArchiveByteStream.fileStream(path:mode:options:permissions:)(uint64_t a1, int a2, int a3, __int16 a4)
 {
   __swift_instantiateConcreteTypeFromMangledNameV2(&_ss13OpaquePointerVSgMd, &_ss13OpaquePointerVSgMR);
   FilePath.withCString<A>(_:)();
-  if (!v2)
+  if (!v6)
   {
     return 0;
   }
 
-  type metadata accessor for ArchiveByteStream();
-  v0 = swift_allocObject();
-  *(v0 + 16) = 0;
+  type metadata accessor for ArchiveByteStream(0);
+  v4 = swift_allocObject();
+  *(v4 + 16) = 0;
   swift_beginAccess();
-  result = v0;
-  *(v0 + 16) = v2;
-  *(v0 + 24) = 1;
+  result = v4;
+  *(v4 + 16) = v6;
+  *(v4 + 24) = 1;
   return result;
 }
 
@@ -6224,7 +6119,7 @@ AAByteStream partial apply for closure #1 in static ArchiveByteStream.fileStream
   return result;
 }
 
-uint64_t type metadata accessor for ArchiveByteStream()
+uint64_t type metadata accessor for ArchiveByteStream(uint64_t a1)
 {
   result = type metadata singleton initialization cache for ArchiveByteStream;
   if (!type metadata singleton initialization cache for ArchiveByteStream)
@@ -6241,7 +6136,7 @@ AAByteStream static ArchiveByteStream.fileStream(fd:automaticClose:)(int a1, cha
   if (result)
   {
     v3 = result;
-    type metadata accessor for ArchiveByteStream();
+    type metadata accessor for ArchiveByteStream(0);
     v4 = swift_allocObject();
     *(v4 + 16) = 0;
     swift_beginAccess();
@@ -6259,7 +6154,7 @@ AAByteStream static ArchiveByteStream.temporaryFileStream()()
   if (result)
   {
     v1 = result;
-    type metadata accessor for ArchiveByteStream();
+    type metadata accessor for ArchiveByteStream(0);
     v2 = swift_allocObject();
     *(v2 + 16) = 0;
     swift_beginAccess();
@@ -6301,7 +6196,7 @@ LABEL_9:
   if (result)
   {
     v11 = result;
-    type metadata accessor for ArchiveByteStream();
+    type metadata accessor for ArchiveByteStream(0);
     v12 = swift_allocObject();
     *(v12 + 16) = 0;
     swift_beginAccess();
@@ -6313,9 +6208,8 @@ LABEL_9:
   return result;
 }
 
-uint64_t static ArchiveByteStream.compressionStream(appendingTo:flags:threadCount:)(uint64_t a1, uint64_t *a2, uint64_t a3, uint64_t (*a4)(void))
+uint64_t static ArchiveByteStream.compressionStream(appendingTo:flags:threadCount:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t (*a4)(void))
 {
-  v7 = *a2;
   swift_beginAccess();
   result = *(a1 + 16);
   if (!result)
@@ -6341,14 +6235,14 @@ LABEL_9:
   result = a4();
   if (result)
   {
-    v9 = result;
-    type metadata accessor for ArchiveByteStream();
-    v10 = swift_allocObject();
-    *(v10 + 16) = 0;
+    v8 = result;
+    type metadata accessor for ArchiveByteStream(0);
+    v9 = swift_allocObject();
+    *(v9 + 16) = 0;
     swift_beginAccess();
-    result = v10;
-    *(v10 + 16) = v9;
-    *(v10 + 24) = 1;
+    result = v9;
+    *(v9 + 16) = v8;
+    *(v9 + 24) = 1;
   }
 
   return result;
@@ -6391,7 +6285,7 @@ LABEL_10:
   if (result)
   {
     v8 = result;
-    type metadata accessor for ArchiveByteStream();
+    type metadata accessor for ArchiveByteStream(0);
     v9 = swift_allocObject();
     *(v9 + 16) = 0;
     swift_beginAccess();
@@ -6422,7 +6316,7 @@ uint64_t static ArchiveByteStream.sharedBufferPipe(capacity:)(uint64_t result)
     else
     {
       v3 = *v2;
-      type metadata accessor for ArchiveByteStream();
+      type metadata accessor for ArchiveByteStream(0);
       v4 = swift_allocObject();
       *(v4 + 16) = 0;
       swift_beginAccess();
@@ -6442,7 +6336,7 @@ uint64_t static ArchiveByteStream.sharedBufferPipe(capacity:)(uint64_t result)
   return result;
 }
 
-uint64_t static ArchiveByteStream.process(readingFrom:writingTo:)(uint64_t a1, uint64_t a2)
+off_t static ArchiveByteStream.process(readingFrom:writingTo:)(uint64_t a1, uint64_t a2)
 {
   result = swift_beginAccess();
   v5 = *(a1 + 16);
@@ -6534,8 +6428,6 @@ unint64_t lazy protocol witness table accessor for type ArchiveHeader.FieldType 
 uint64_t _AAObjectWrapper.init(object:owned:)(uint64_t a1, char a2)
 {
   v5 = *(*v2 + 96);
-  v6 = *(*v2 + 88);
-  v7 = *(*v2 + 80);
   AssociatedTypeWitness = swift_getAssociatedTypeWitness();
   (*(*(AssociatedTypeWitness - 8) + 32))(v2 + v5, a1, AssociatedTypeWitness);
   *(v2 + *(*v2 + 104)) = a2;
@@ -6552,16 +6444,15 @@ char *_AAObjectWrapper.deinit()
   AssociatedTypeWitness = swift_getAssociatedTypeWitness();
   v7 = type metadata accessor for Optional();
   v8 = *(v7 - 8);
-  v9 = *(v8 + 64);
-  MEMORY[0x2A1C7C4A8](v7, v10);
-  v12 = &v15 - v11;
+  MEMORY[0x2A1C7C4A8](v7);
+  v10 = &v13 - v9;
   if (v1[*(v2 + 104)] == 1)
   {
-    v13 = *(AssociatedTypeWitness - 8);
-    (*(v13 + 16))(v12, &v1[*(v3 + 96)], AssociatedTypeWitness);
-    (*(v13 + 56))(v12, 0, 1, AssociatedTypeWitness);
-    (*(v4 + 16))(v12, v5, v4);
-    (*(v8 + 8))(v12, v7);
+    v11 = *(AssociatedTypeWitness - 8);
+    (*(v11 + 16))(v10, &v1[*(v3 + 96)], AssociatedTypeWitness);
+    (*(v11 + 56))(v10, 0, 1, AssociatedTypeWitness);
+    (*(v4 + 16))(v10, v5, v4);
+    (*(v8 + 8))(v10, v7);
     v2 = *v1;
   }
 
@@ -6572,13 +6463,11 @@ char *_AAObjectWrapper.deinit()
 uint64_t _AAOptionalObjectWrapper.init(object:owned:)(uint64_t a1, char a2)
 {
   v5 = *(*v2 + 96);
-  v6 = *(*v2 + 88);
-  v7 = *(*v2 + 80);
   AssociatedTypeWitness = swift_getAssociatedTypeWitness();
   (*(*(AssociatedTypeWitness - 8) + 56))(v2 + v5, 1, 1, AssociatedTypeWitness);
   swift_beginAccess();
-  v9 = type metadata accessor for Optional();
-  (*(*(v9 - 8) + 40))(v2 + v5, a1, v9);
+  v7 = type metadata accessor for Optional();
+  (*(*(v7 - 8) + 40))(v2 + v5, a1, v7);
   swift_endAccess();
   *(v2 + *(*v2 + 104)) = a2;
   return v2;
@@ -6594,19 +6483,18 @@ char *_AAOptionalObjectWrapper.deinit()
   AssociatedTypeWitness = swift_getAssociatedTypeWitness();
   v7 = type metadata accessor for Optional();
   v8 = *(v7 - 8);
-  v9 = *(v8 + 64);
-  MEMORY[0x2A1C7C4A8](v7, v10);
-  v12 = &v15[-v11];
+  MEMORY[0x2A1C7C4A8](v7);
+  v10 = &v13[-v9];
   if (v1[*(v2 + 104)] == 1)
   {
-    v13 = *(v3 + 96);
+    v11 = *(v3 + 96);
     swift_beginAccess();
-    (*(v8 + 16))(v12, &v1[v13], v7);
-    (*(v4 + 16))(v12, v5, v4);
-    (*(v8 + 8))(v12, v7);
-    (*(*(AssociatedTypeWitness - 8) + 56))(v12, 1, 1, AssociatedTypeWitness);
+    (*(v8 + 16))(v10, &v1[v11], v7);
+    (*(v4 + 16))(v10, v5, v4);
+    (*(v8 + 8))(v10, v7);
+    (*(*(AssociatedTypeWitness - 8) + 56))(v10, 1, 1, AssociatedTypeWitness);
     swift_beginAccess();
-    (*(v8 + 40))(&v1[v13], v12, v7);
+    (*(v8 + 40))(&v1[v11], v10, v7);
     swift_endAccess();
     v2 = *v1;
   }
@@ -6617,39 +6505,34 @@ char *_AAOptionalObjectWrapper.deinit()
 
 uint64_t _AAObjectWrapper.__allocating_init(object:owned:)(uint64_t a1, uint64_t a2, void (*a3)(uint64_t, uint64_t))
 {
-  v7 = *(v3 + 48);
-  v8 = *(v3 + 52);
-  v9 = swift_allocObject();
+  v6 = swift_allocObject();
   a3(a1, a2);
-  return v9;
+  return v6;
 }
 
-uint64_t _AAOptionalObjectWrapperWithFilter.__allocating_init(object:owned:messageProc:)(uint64_t a1, char a2, uint64_t a3)
+uint64_t _AAOptionalObjectWrapperWithFilter.__allocating_init(object:owned:messageProc:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v7 = *(v3 + 48);
-  v8 = *(v3 + 52);
-  v9 = swift_allocObject();
-  _AAOptionalObjectWrapperWithFilter.init(object:owned:messageProc:)(a1, a2, a3);
-  return v9;
+  v4 = a2;
+  v6 = swift_allocObject();
+  _AAOptionalObjectWrapperWithFilter.init(object:owned:messageProc:)(a1, v4, a3);
+  return v6;
 }
 
 uint64_t _AAOptionalObjectWrapperWithFilter.init(object:owned:messageProc:)(uint64_t a1, char a2, uint64_t a3)
 {
   v7 = *(*v3 + 96);
-  v8 = *(*v3 + 88);
-  v9 = *(*v3 + 80);
   AssociatedTypeWitness = swift_getAssociatedTypeWitness();
   (*(*(AssociatedTypeWitness - 8) + 56))(v3 + v7, 1, 1, AssociatedTypeWitness);
   swift_beginAccess();
-  v11 = type metadata accessor for Optional();
-  (*(*(v11 - 8) + 40))(v3 + v7, a1, v11);
+  v9 = type metadata accessor for Optional();
+  (*(*(v9 - 8) + 40))(v3 + v7, a1, v9);
   swift_endAccess();
   *(v3 + *(*v3 + 104)) = a2;
   *(v3 + *(*v3 + 112)) = a3;
   return v3;
 }
 
-uint64_t *_AAOptionalObjectWrapperWithFilter.deinit()
+char *_AAOptionalObjectWrapperWithFilter.deinit()
 {
   v1 = v0;
   v2 = *v0;
@@ -6659,25 +6542,23 @@ uint64_t *_AAOptionalObjectWrapperWithFilter.deinit()
   AssociatedTypeWitness = swift_getAssociatedTypeWitness();
   v7 = type metadata accessor for Optional();
   v8 = *(v7 - 8);
-  v9 = *(v8 + 64);
-  MEMORY[0x2A1C7C4A8](v7, v10);
-  v12 = &v16[-v11];
-  if (*(v1 + *(v2 + 104)) == 1)
+  MEMORY[0x2A1C7C4A8](v7);
+  v10 = &v13[-v9];
+  if (v1[*(v2 + 104)] == 1)
   {
-    v13 = *(v3 + 96);
+    v11 = *(v3 + 96);
     swift_beginAccess();
-    (*(v8 + 16))(v12, v1 + v13, v7);
-    (*(v4 + 16))(v12, v5, v4);
-    (*(v8 + 8))(v12, v7);
-    (*(*(AssociatedTypeWitness - 8) + 56))(v12, 1, 1, AssociatedTypeWitness);
+    (*(v8 + 16))(v10, &v1[v11], v7);
+    (*(v4 + 16))(v10, v5, v4);
+    (*(v8 + 8))(v10, v7);
+    (*(*(AssociatedTypeWitness - 8) + 56))(v10, 1, 1, AssociatedTypeWitness);
     swift_beginAccess();
-    (*(v8 + 40))(v1 + v13, v12, v7);
+    (*(v8 + 40))(&v1[v11], v10, v7);
     swift_endAccess();
     v2 = *v1;
   }
 
-  (*(v8 + 8))(v1 + *(v2 + 96), v7);
-  v14 = *(v1 + *(*v1 + 112));
+  (*(v8 + 8))(&v1[*(v2 + 96)], v7);
 
   return v1;
 }
@@ -6685,20 +6566,15 @@ uint64_t *_AAOptionalObjectWrapperWithFilter.deinit()
 uint64_t _AAObjectWrapper.__deallocating_deinit(void (*a1)(void))
 {
   a1();
-  v2 = *(*v1 + 48);
-  v3 = *(*v1 + 52);
 
   return swift_deallocClassInstance();
 }
 
 uint64_t type metadata completion function for _AAObjectWrapper(uint64_t a1)
 {
-  v2 = *(a1 + 80);
-  v1 = *(a1 + 88);
   result = swift_getAssociatedTypeWitness();
-  if (v4 <= 0x3F)
+  if (v2 <= 0x3F)
   {
-    v5 = *(result - 8) + 64;
     result = swift_initClassMetadata2();
     if (!result)
     {
@@ -6711,13 +6587,10 @@ uint64_t type metadata completion function for _AAObjectWrapper(uint64_t a1)
 
 uint64_t type metadata completion function for _AAOptionalObjectWrapper(uint64_t a1)
 {
-  v2 = *(a1 + 80);
-  v1 = *(a1 + 88);
   swift_getAssociatedTypeWitness();
   result = type metadata accessor for Optional();
-  if (v4 <= 0x3F)
+  if (v2 <= 0x3F)
   {
-    v5 = *(result - 8) + 64;
     result = swift_initClassMetadata2();
     if (!result)
     {
@@ -6730,13 +6603,10 @@ uint64_t type metadata completion function for _AAOptionalObjectWrapper(uint64_t
 
 uint64_t type metadata completion function for _AAOptionalObjectWrapperWithFilter(uint64_t a1)
 {
-  v2 = *(a1 + 80);
-  v1 = *(a1 + 88);
   swift_getAssociatedTypeWitness();
   result = type metadata accessor for Optional();
-  if (v4 <= 0x3F)
+  if (v2 <= 0x3F)
   {
-    v5 = *(result - 8) + 64;
     result = swift_initClassMetadata2();
     if (!result)
     {
@@ -6822,11 +6692,11 @@ Swift::Int protocol witness for Hashable.hashValue.getter in conformance Archive
   return Hasher._finalize()();
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance ArchiveFlags()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance ArchiveFlags(uint64_t a1)
 {
-  v1 = *v0;
+  v2 = *v1;
   Hasher.init(_seed:)();
-  MEMORY[0x29C2A8B30](v1);
+  MEMORY[0x29C2A8B30](v2);
   return Hasher._finalize()();
 }
 
@@ -6914,7 +6784,7 @@ uint64_t storeEnumTagSinglePayload for ArchiveFlags(uint64_t result, int a2, int
   return result;
 }
 
-uint64_t static ArchiveStream.encodeStream(writingTo:selectUsing:flags:threadCount:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4, uint64_t a5, uint64_t (*a6)(uint64_t, void *, uint64_t (*)(), uint64_t, uint64_t))
+uint64_t static ArchiveStream.encodeStream(writingTo:selectUsing:flags:threadCount:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4, uint64_t a5, uint64_t (*a6)(uint64_t, void *, uint64_t (*)(uint64_t a1, unsigned int a2, uint64_t a3, uint64_t a4), uint64_t, uint64_t))
 {
   v11 = *a4;
   type metadata accessor for ArchiveHeader._EntryFilterWrapper();
@@ -6965,12 +6835,12 @@ LABEL_16:
     return result;
   }
 
-  outlined copy of (@escaping @callee_guaranteed (@in_guaranteed ArchiveHeader.EntryMessage, @in_guaranteed FilePath, @in_guaranteed ArchiveHeader.EntryFilterData?) -> (@out ArchiveHeader.EntryMessageStatus))?(a2);
+  outlined copy of (@escaping @callee_guaranteed (@in_guaranteed ArchiveHeader.EntryMessage, @in_guaranteed FilePath, @in_guaranteed ArchiveHeader.EntryFilterData?) -> (@out ArchiveHeader.EntryMessageStatus))?(a2, a3);
   v18 = a6(v16, v17, v14, v11, a5);
   if (v18)
   {
     v19 = v18;
-    type metadata accessor for ArchiveStream();
+    type metadata accessor for ArchiveStream(0);
     v20 = swift_allocObject();
     *(v20 + 16) = 0;
     swift_beginAccess();
@@ -6989,9 +6859,8 @@ LABEL_16:
   return result;
 }
 
-uint64_t static ArchiveStream.extractStream(extractingTo:selectUsing:flags:threadCount:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4)
+uint64_t static ArchiveStream.extractStream(extractingTo:selectUsing:flags:threadCount:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4, uint64_t a5)
 {
-  v6 = *a4;
   type metadata accessor for ArchiveHeader._EntryFilterWrapper();
   v7 = swift_allocObject();
   v8 = v7;
@@ -7008,12 +6877,12 @@ uint64_t static ArchiveStream.extractStream(extractingTo:selectUsing:flags:threa
   }
 
   v7[4] = v9;
-  outlined copy of (@escaping @callee_guaranteed (@in_guaranteed ArchiveHeader.EntryMessage, @in_guaranteed FilePath, @in_guaranteed ArchiveHeader.EntryFilterData?) -> (@out ArchiveHeader.EntryMessageStatus))?(a2);
+  outlined copy of (@escaping @callee_guaranteed (@in_guaranteed ArchiveHeader.EntryMessage, @in_guaranteed FilePath, @in_guaranteed ArchiveHeader.EntryFilterData?) -> (@out ArchiveHeader.EntryMessageStatus))?(a2, a3);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_ss13OpaquePointerVSgMd, &_ss13OpaquePointerVSgMR);
   FilePath.withCString<A>(_:)();
   if (v12)
   {
-    type metadata accessor for ArchiveStream();
+    type metadata accessor for ArchiveStream(0);
     v10 = swift_allocObject();
     *(v10 + 16) = 0;
     swift_beginAccess();
@@ -7085,12 +6954,12 @@ LABEL_16:
 
   v20 = *(a2 + 16);
   v21 = *(a3 + 16);
-  outlined copy of (@escaping @callee_guaranteed (@in_guaranteed ArchiveHeader.EntryMessage, @in_guaranteed FilePath, @in_guaranteed ArchiveHeader.EntryFilterData?) -> (@out ArchiveHeader.EntryMessageStatus))?(a4);
+  outlined copy of (@escaping @callee_guaranteed (@in_guaranteed ArchiveHeader.EntryMessage, @in_guaranteed FilePath, @in_guaranteed ArchiveHeader.EntryFilterData?) -> (@out ArchiveHeader.EntryMessageStatus))?(a4, a5);
   v22 = AAConvertArchiveOutputStreamOpen(v18, v20, v21, v19, v16, v13, a7);
   if (v22)
   {
     v23 = v22;
-    type metadata accessor for ArchiveStream();
+    type metadata accessor for ArchiveStream(0);
     v24 = swift_allocObject();
     *(v24 + 16) = 0;
     swift_beginAccess();
@@ -7109,7 +6978,7 @@ LABEL_16:
   return result;
 }
 
-uint64_t ArchiveStream.writeHeader(_:)(uint64_t a1)
+AAArchiveStream_impl *ArchiveStream.writeHeader(_:)(uint64_t a1)
 {
   swift_beginAccess();
   result = *(v1 + 16);
@@ -7150,8 +7019,7 @@ uint64_t ArchiveStream.readHeader()()
     lazy protocol witness table accessor for type ArchiveError and conformance ArchiveError();
     swift_allocError();
     *v5 = 0;
-    result = swift_willThrow();
-    goto LABEL_9;
+    return swift_willThrow();
   }
 
   v3 = header[0];
@@ -7159,20 +7027,17 @@ uint64_t ArchiveStream.readHeader()()
   {
     if (header[0])
     {
-      type metadata accessor for ArchiveHeader();
+      type metadata accessor for ArchiveHeader(0);
       result = swift_allocObject();
       *(result + 16) = v3;
       *(result + 24) = 1;
-LABEL_9:
-      v6 = *MEMORY[0x29EDCA608];
       return result;
     }
   }
 
   else if (!header[0])
   {
-    result = 0;
-    goto LABEL_9;
+    return 0;
   }
 
   result = _assertionFailure(_:_:file:line:flags:)();
@@ -7180,9 +7045,8 @@ LABEL_9:
   return result;
 }
 
-uint64_t ArchiveStream.writeBlob(key:from:)(unsigned int *a1, uint64_t a2, uint64_t a3, uint64_t (*a4)(void))
+uint64_t ArchiveStream.writeBlob(key:from:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t (*a4)(void))
 {
-  v7 = *a1;
   swift_beginAccess();
   result = *(v4 + 16);
   if (!result)
@@ -7203,7 +7067,7 @@ LABEL_7:
   {
     lazy protocol witness table accessor for type ArchiveError and conformance ArchiveError();
     swift_allocError();
-    *v9 = 0;
+    *v8 = 0;
     return swift_willThrow();
   }
 
@@ -7254,7 +7118,7 @@ uint64_t ArchiveStream.__allocating_init(object:owned:messageProc:)(uint64_t a1,
   return v6;
 }
 
-uint64_t type metadata accessor for ArchiveStream()
+uint64_t type metadata accessor for ArchiveStream(uint64_t a1)
 {
   result = type metadata singleton initialization cache for ArchiveStream;
   if (!type metadata singleton initialization cache for ArchiveStream)
@@ -7284,8 +7148,6 @@ uint64_t ArchiveStream.deinit()
     *(v0 + 16) = 0;
   }
 
-  v1 = *(v0 + 32);
-
   return v0;
 }
 
@@ -7298,15 +7160,13 @@ uint64_t ArchiveStream.__deallocating_deinit()
     *(v0 + 16) = 0;
   }
 
-  v1 = *(v0 + 32);
-
   return swift_deallocClassInstance();
 }
 
 uint64_t vtable thunk for _AAOptionalObjectWrapperWithFilter.__allocating_init(object:owned:messageProc:) dispatching to ArchiveStream.__allocating_init(object:owned:messageProc:)(uint64_t *a1, char a2, uint64_t a3)
 {
   v5 = *a1;
-  type metadata accessor for ArchiveStream();
+  type metadata accessor for ArchiveStream(0);
   v6 = swift_allocObject();
   *(v6 + 16) = 0;
   swift_beginAccess();
@@ -7316,7 +7176,7 @@ uint64_t vtable thunk for _AAOptionalObjectWrapperWithFilter.__allocating_init(o
   return v6;
 }
 
-uint64_t protocol witness for ArchiveStreamProtocol.writeHeader(_:) in conformance ArchiveStream(uint64_t a1)
+AAArchiveStream_impl *protocol witness for ArchiveStreamProtocol.writeHeader(_:) in conformance ArchiveStream(uint64_t a1)
 {
   v3 = *v1;
   swift_beginAccess();
@@ -7357,9 +7217,8 @@ void protocol witness for ArchiveStreamProtocol.cancel() in conformance ArchiveS
   }
 }
 
-uint64_t ArchiveStream.writeDirectoryContents(archiveFrom:path:keySet:selectUsing:flags:threadCount:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t *a6)
+uint64_t ArchiveStream.writeDirectoryContents(archiveFrom:path:keySet:selectUsing:flags:threadCount:)(uint64_t a1, void *a2, void *a3, uint64_t a4, uint64_t a5, void *a6, void *a7)
 {
-  v9 = *a6;
   type metadata accessor for ArchiveHeader._EntryFilterWrapper();
   v10 = swift_allocObject();
   v10[2] = a4;
@@ -7377,15 +7236,15 @@ uint64_t ArchiveStream.writeDirectoryContents(archiveFrom:path:keySet:selectUsin
   v10[4] = v11;
   v12 = type metadata accessor for FilePath();
   v13 = (*(*(v12 - 8) + 48))(a2, 1, v12);
-  MEMORY[0x2A1C7C4A8](v13, v14);
-  outlined copy of (@escaping @callee_guaranteed (@in_guaranteed ArchiveHeader.EntryMessage, @in_guaranteed FilePath, @in_guaranteed ArchiveHeader.EntryFilterData?) -> (@out ArchiveHeader.EntryMessageStatus))?(a4);
+  MEMORY[0x2A1C7C4A8](v13);
+  outlined copy of (@escaping @callee_guaranteed (@in_guaranteed ArchiveHeader.EntryMessage, @in_guaranteed FilePath, @in_guaranteed ArchiveHeader.EntryFilterData?) -> (@out ArchiveHeader.EntryMessageStatus))?(a4, a5);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_ss13OpaquePointerVSgMd, &_ss13OpaquePointerVSgMR);
-  v15 = FilePath.withCString<A>(_:)();
-  if (!v19 || (MEMORY[0x2A1C7C4A8](v15, v16), FilePath.withCString<A>(_:)(), AAPathListDestroy(v19), v19))
+  v14 = FilePath.withCString<A>(_:)();
+  if (!v17 || (MEMORY[0x2A1C7C4A8](v14), FilePath.withCString<A>(_:)(), AAPathListDestroy(v17), v17))
   {
     lazy protocol witness table accessor for type ArchiveError and conformance ArchiveError();
     swift_allocError();
-    *v17 = 0;
+    *v15 = 0;
     swift_willThrow();
   }
 }
@@ -7420,17 +7279,16 @@ LABEL_8:
   return result;
 }
 
-uint64_t closure #2 in ArchiveStream.writeDirectoryContents(archiveFrom:path:keySet:selectUsing:flags:threadCount:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X8>)
+uint64_t closure #2 in ArchiveStream.writeDirectoryContents(archiveFrom:path:keySet:selectUsing:flags:threadCount:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, void *a6@<X8>)
 {
-  v20[1] = a6;
+  v17[1] = a6;
   v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s6System8FilePathVSgMd, &_s6System8FilePathVSgMR);
-  v12 = *(*(v11 - 8) + 64);
-  MEMORY[0x2A1C7C4A8](v11 - 8, v13);
-  v15 = v20 - v14;
-  outlined init with copy of FilePath?(a2, v20 - v14);
-  v16 = type metadata accessor for FilePath();
-  v17 = *(v16 - 8);
-  result = (*(v17 + 48))(v15, 1, v16);
+  MEMORY[0x2A1C7C4A8](v11 - 8);
+  v13 = v17 - v12;
+  outlined init with copy of FilePath?(a2, v17 - v12);
+  v14 = type metadata accessor for FilePath();
+  v15 = *(v14 - 8);
+  result = (*(v15 + 48))(v13, 1, v14);
   if (result == 1)
   {
     __break(1u);
@@ -7438,14 +7296,14 @@ uint64_t closure #2 in ArchiveStream.writeDirectoryContents(archiveFrom:path:key
 
   else
   {
-    MEMORY[0x2A1C7C4A8](result, v19);
-    v20[-4] = a1;
-    v20[-3] = a3;
-    v20[-2] = a4;
-    v20[-1] = a5;
+    MEMORY[0x2A1C7C4A8](result);
+    v17[-4] = a1;
+    v17[-3] = a3;
+    v17[-2] = a4;
+    v17[-1] = a5;
     __swift_instantiateConcreteTypeFromMangledNameV2(&_ss13OpaquePointerVSgMd, &_ss13OpaquePointerVSgMR);
     FilePath.withCString<A>(_:)();
-    return (*(v17 + 8))(v15, v16);
+    return (*(v15 + 8))(v13, v14);
   }
 
   return result;
@@ -7524,7 +7382,7 @@ LABEL_11:
   return result;
 }
 
-uint64_t static ArchiveStream.process(readingFrom:writingTo:selectUsing:flags:threadCount:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, AAFlagSet *a5, uint64_t a6)
+ssize_t static ArchiveStream.process(readingFrom:writingTo:selectUsing:flags:threadCount:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, AAFlagSet *a5, uint64_t a6)
 {
   flags = *a5;
   type metadata accessor for ArchiveHeader._EntryFilterWrapper();
@@ -7584,7 +7442,7 @@ LABEL_16:
     goto LABEL_17;
   }
 
-  outlined copy of (@escaping @callee_guaranteed (@in_guaranteed ArchiveHeader.EntryMessage, @in_guaranteed FilePath, @in_guaranteed ArchiveHeader.EntryFilterData?) -> (@out ArchiveHeader.EntryMessageStatus))?(a3);
+  outlined copy of (@escaping @callee_guaranteed (@in_guaranteed ArchiveHeader.EntryMessage, @in_guaranteed FilePath, @in_guaranteed ArchiveHeader.EntryFilterData?) -> (@out ArchiveHeader.EntryMessageStatus))?(a3, a4);
   v18 = AAArchiveStreamProcess(v15, v16, v17, v13, flags, a6);
   if (v18 < 0)
   {
@@ -7643,7 +7501,7 @@ uint64_t static ArchiveStream.customStream<A>(instance:)(uint64_t a1, uint64_t a
     if (v8)
     {
 
-      type metadata accessor for ArchiveStream();
+      type metadata accessor for ArchiveStream(0);
       v9 = swift_allocObject();
       *(v9 + 16) = 0;
       swift_beginAccess();
@@ -7725,7 +7583,7 @@ uint64_t closure #3 in ArchiveStream.CustomArchiveStreamBridge.init(_:)(uint64_t
     {
       v4 = v8;
       __swift_project_boxed_opaque_existential_1(v6, v7);
-      type metadata accessor for ArchiveHeader();
+      type metadata accessor for ArchiveHeader(0);
       v5 = swift_allocObject();
       *(v5 + 16) = a2;
       *(v5 + 24) = 0;
@@ -7836,18 +7694,17 @@ uint64_t ArchiveStream.CustomArchiveStreamBridge.__deallocating_deinit()
 uint64_t specialized ArchiveStream.CustomArchiveStreamBridge.__allocating_init(_:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   v6 = *(a3 - 8);
-  v7 = *(v6 + 64);
-  v8 = MEMORY[0x2A1C7C4A8](a1, a1);
-  v10 = &v17 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x2A1C7C4A8](v8, v11);
-  v13 = &v17 - v12;
-  (*(v6 + 32))(&v17 - v12);
+  v7 = MEMORY[0x2A1C7C4A8](a1);
+  v9 = &v15 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x2A1C7C4A8](v7);
+  v11 = &v15 - v10;
+  (*(v6 + 32))(&v15 - v10);
   type metadata accessor for ArchiveStream.CustomArchiveStreamBridge();
-  v14 = swift_allocObject();
-  (*(v6 + 16))(v10, v13, a3);
-  v15 = specialized ArchiveStream.CustomArchiveStreamBridge.init(_:)(v10, v14, a3, a4);
-  (*(v6 + 8))(v13, a3);
-  return v15;
+  v12 = swift_allocObject();
+  (*(v6 + 16))(v9, v11, a3);
+  v13 = specialized ArchiveStream.CustomArchiveStreamBridge.init(_:)(v9, v12, a3, a4);
+  (*(v6 + 8))(v11, a3);
+  return v13;
 }
 
 uint64_t outlined destroy of ArchiveStreamProtocol?(uint64_t a1)
@@ -7905,15 +7762,17 @@ uint64_t *__swift_allocate_boxed_opaque_existential_1(uint64_t *result)
   return result;
 }
 
-uint64_t __swift_destroy_boxed_opaque_existential_1(uint64_t *a1)
+uint64_t __swift_destroy_boxed_opaque_existential_1(void *a1)
 {
   v1 = *(a1[3] - 8);
-  if ((*(v1 + 82) & 2) == 0)
+  if ((*(v1 + 82) & 2) != 0)
+  {
+  }
+
+  else
   {
     return (*(v1 + 8))();
   }
-
-  v3 = *a1;
 }
 
 uint64_t outlined init with take of ArchiveStreamProtocol(__int128 *a1, uint64_t a2)
@@ -8186,7 +8045,7 @@ uint64_t static ArchiveByteStream.customStream<A>(instance:)(uint64_t a1, uint64
     if (v8)
     {
 
-      type metadata accessor for ArchiveByteStream();
+      type metadata accessor for ArchiveByteStream(0);
       v9 = swift_allocObject();
       *(v9 + 16) = 0;
       swift_beginAccess();
@@ -8207,18 +8066,17 @@ uint64_t static ArchiveByteStream.customStream<A>(instance:)(uint64_t a1, uint64
 uint64_t specialized ArchiveByteStream.CustomByteStreamBridge.__allocating_init(_:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   v6 = *(a3 - 8);
-  v7 = *(v6 + 64);
-  v8 = MEMORY[0x2A1C7C4A8](a1, a1);
-  v10 = &v17 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x2A1C7C4A8](v8, v11);
-  v13 = &v17 - v12;
-  (*(v6 + 32))(&v17 - v12);
+  v7 = MEMORY[0x2A1C7C4A8](a1);
+  v9 = &v15 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x2A1C7C4A8](v7);
+  v11 = &v15 - v10;
+  (*(v6 + 32))(&v15 - v10);
   type metadata accessor for ArchiveByteStream.CustomByteStreamBridge();
-  v14 = swift_allocObject();
-  (*(v6 + 16))(v10, v13, a3);
-  v15 = specialized ArchiveByteStream.CustomByteStreamBridge.init(_:)(v10, v14, a3, a4);
-  (*(v6 + 8))(v13, a3);
-  return v15;
+  v12 = swift_allocObject();
+  (*(v6 + 16))(v9, v11, a3);
+  v13 = specialized ArchiveByteStream.CustomByteStreamBridge.init(_:)(v9, v12, a3, a4);
+  (*(v6 + 8))(v11, a3);
+  return v13;
 }
 
 uint64_t outlined destroy of ArchiveByteStreamProtocol?(uint64_t a1)
@@ -8317,26 +8175,26 @@ uint64_t static ArchiveByteStream._withStream<A>(stream:_:)@<X0>(uint64_t a1@<X0
   return result;
 }
 
-uint64_t static ArchiveByteStream.withFileStream<A>(path:mode:options:permissions:_:)@<X0>(uint64_t (*a1)(void)@<X4>, uint64_t a2@<X6>, uint64_t a3@<X8>)
+uint64_t static ArchiveByteStream.withFileStream<A>(path:mode:options:permissions:_:)@<X0>(uint64_t (*a4)(void)@<X4>, uint64_t a5@<X6>, uint64_t a6@<X8>)
 {
   __swift_instantiateConcreteTypeFromMangledNameV2(&_ss13OpaquePointerVSgMd, &_ss13OpaquePointerVSgMR);
   FilePath.withCString<A>(_:)();
-  if (v8)
+  if (v11)
   {
-    type metadata accessor for ArchiveByteStream();
-    v6 = swift_allocObject();
-    *(v6 + 16) = 0;
+    type metadata accessor for ArchiveByteStream(0);
+    v9 = swift_allocObject();
+    *(v9 + 16) = 0;
     swift_beginAccess();
-    *(v6 + 16) = v8;
-    *(v6 + 24) = 1;
+    *(v9 + 16) = v11;
+    *(v9 + 24) = 1;
   }
 
   else
   {
-    v6 = 0;
+    v9 = 0;
   }
 
-  static ArchiveByteStream._withStream<A>(stream:_:)(v6, a1, a2, a3);
+  static ArchiveByteStream._withStream<A>(stream:_:)(v9, a4, a5, a6);
 }
 
 uint64_t static ArchiveByteStream.withFileStream<A>(fd:automaticClose:_:)@<X0>(int a1@<W0>, char a2@<W1>, uint64_t (*a3)(void)@<X2>, uint64_t a4@<X4>, uint64_t a5@<X8>)
@@ -8345,7 +8203,7 @@ uint64_t static ArchiveByteStream.withFileStream<A>(fd:automaticClose:_:)@<X0>(i
   if (v8)
   {
     v9 = v8;
-    type metadata accessor for ArchiveByteStream();
+    type metadata accessor for ArchiveByteStream(0);
     v10 = swift_allocObject();
     *(v10 + 16) = 0;
     swift_beginAccess();
@@ -8367,7 +8225,7 @@ uint64_t static ArchiveByteStream.withTemporaryFileStream<A>(_:)@<X0>(uint64_t (
   if (v6)
   {
     v7 = v6;
-    type metadata accessor for ArchiveByteStream();
+    type metadata accessor for ArchiveByteStream(0);
     v8 = swift_allocObject();
     *(v8 + 16) = 0;
     swift_beginAccess();
@@ -8413,7 +8271,7 @@ LABEL_10:
   if (v17)
   {
     v18 = v17;
-    type metadata accessor for ArchiveByteStream();
+    type metadata accessor for ArchiveByteStream(0);
     v19 = swift_allocObject();
     *(v19 + 16) = 0;
     swift_beginAccess();
@@ -8429,9 +8287,8 @@ LABEL_10:
   static ArchiveByteStream._withStream<A>(stream:_:)(v19, a6, a7, a8);
 }
 
-uint64_t static ArchiveByteStream.withCompressionStream<A>(appendingTo:flags:threadCount:_:)@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X1>, uint64_t a3@<X2>, uint64_t (*a4)(void)@<X3>, uint64_t a5@<X5>, uint64_t (*a6)(void)@<X6>, uint64_t a7@<X8>)
+uint64_t static ArchiveByteStream.withCompressionStream<A>(appendingTo:flags:threadCount:_:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X2>, uint64_t (*a3)(void)@<X3>, uint64_t a4@<X5>, uint64_t (*a5)(void)@<X6>, uint64_t a6@<X8>)
 {
-  v13 = *a2;
   swift_beginAccess();
   result = *(a1 + 16);
   if (!result)
@@ -8439,13 +8296,13 @@ uint64_t static ArchiveByteStream.withCompressionStream<A>(appendingTo:flags:thr
     goto LABEL_10;
   }
 
-  if (a3 < 0xFFFFFFFF80000000)
+  if (a2 < 0xFFFFFFFF80000000)
   {
     __break(1u);
     goto LABEL_9;
   }
 
-  if (a3 > 0x7FFFFFFF)
+  if (a2 > 0x7FFFFFFF)
   {
 LABEL_9:
     __break(1u);
@@ -8454,24 +8311,24 @@ LABEL_10:
     return result;
   }
 
-  v15 = a6();
-  if (v15)
+  v13 = a5();
+  if (v13)
   {
-    v16 = v15;
-    type metadata accessor for ArchiveByteStream();
-    v17 = swift_allocObject();
-    *(v17 + 16) = 0;
+    v14 = v13;
+    type metadata accessor for ArchiveByteStream(0);
+    v15 = swift_allocObject();
+    *(v15 + 16) = 0;
     swift_beginAccess();
-    *(v17 + 16) = v16;
-    *(v17 + 24) = 1;
+    *(v15 + 16) = v14;
+    *(v15 + 24) = 1;
   }
 
   else
   {
-    v17 = 0;
+    v15 = 0;
   }
 
-  static ArchiveByteStream._withStream<A>(stream:_:)(v17, a4, a5, a7);
+  static ArchiveByteStream._withStream<A>(stream:_:)(v15, a3, a4, a6);
 }
 
 AAByteStream_impl *static ArchiveByteStream.withRandomAccessDecompressionStream<A>(readingFrom:allocationLimit:flags:threadCount:_:)@<X0>(AAByteStream_impl *result@<X0>, int64_t a2@<X1>, AAFlagSet *a3@<X2>, uint64_t a4@<X3>, uint64_t (*a5)(void)@<X4>, uint64_t a6@<X6>, uint64_t a7@<X8>)
@@ -8511,7 +8368,7 @@ LABEL_11:
   if (v14)
   {
     v15 = v14;
-    type metadata accessor for ArchiveByteStream();
+    type metadata accessor for ArchiveByteStream(0);
     v16 = swift_allocObject();
     *(v16 + 16) = 0;
     swift_beginAccess();
@@ -8533,32 +8390,32 @@ uint64_t static ArchiveByteStream.withStream<A, B>(wrapping:_:)@<X0>(uint64_t a1
   static ArchiveByteStream._withStream<A>(stream:_:)(v9, a2, a4, a6);
 }
 
-uint64_t ArchiveHeader.FieldKey.init(_:)@<X0>(int *a1@<X8>)
+uint64_t ArchiveHeader.FieldKey.init(_:)@<X0>(int *a3@<X8>)
 {
-  v2 = String.utf8CString.getter();
-  if (*(v2 + 16) != 4)
+  v4 = String.utf8CString.getter();
+  if (*(v4 + 16) != 4)
   {
     goto LABEL_13;
   }
 
-  v3 = v2;
-  if (*(v2 + 35) || *(v2 + 32) < 32 || *(v2 + 33) < 32 || *(v2 + 34) <= 31)
+  v5 = v4;
+  if (*(v4 + 35) || *(v4 + 32) < 32 || *(v4 + 33) < 32 || *(v4 + 34) <= 31)
   {
     goto LABEL_13;
   }
 
-  v4 = *(v3 + 16);
-  if (v4)
+  v6 = *(v5 + 16);
+  if (v6)
   {
-    if (v4 != 1)
+    if (v6 != 1)
     {
-      if (v4 >= 3)
+      if (v6 >= 3)
       {
-        v5 = *(v3 + 32);
-        v6 = *(v3 + 33);
-        v7 = *(v3 + 34);
+        v7 = *(v5 + 32);
+        v8 = *(v5 + 33);
+        v9 = *(v5 + 34);
 
-        *a1 = v5 | (v6 << 8) | (v7 << 16);
+        *a3 = v7 | (v8 << 8) | (v9 << 16);
         return result;
       }
 
@@ -8769,7 +8626,7 @@ uint64_t protocol witness for CustomStringConvertible.description.getter in conf
   }
 }
 
-uint64_t specialized RandomAccessCollection.index(_:offsetBy:limitedBy:)(unint64_t a1, uint64_t a2, unint64_t a3)
+unint64_t specialized RandomAccessCollection.index(_:offsetBy:limitedBy:)(unint64_t a1, uint64_t a2, unint64_t a3)
 {
   return specialized RandomAccessCollection.index(_:offsetBy:limitedBy:)(a1, a2, a3, MEMORY[0x29EDC85D0]);
 }
@@ -8833,7 +8690,7 @@ LABEL_16:
   return result;
 }
 
-uint64_t specialized RandomAccessCollection.index(_:offsetBy:limitedBy:)(unint64_t a1, uint64_t a2, unint64_t a3, uint64_t (*a4)(uint64_t))
+unint64_t specialized RandomAccessCollection.index(_:offsetBy:limitedBy:)(unint64_t a1, uint64_t a2, unint64_t a3, uint64_t (*a4)(uint64_t))
 {
   v9 = *(v4 + 16);
   result = a4(v9);
@@ -8920,13 +8777,13 @@ uint64_t specialized SetAlgebra<>.init(arrayLiteral:)@<X0>(uint64_t a1@<X0>, voi
   return result;
 }
 
-void specialized SetAlgebra.subtract(_:)()
+void specialized SetAlgebra.subtract(_:)(uint64_t a1)
 {
-  v1 = *v0;
-  type metadata accessor for ArchiveHeader.FieldKeySet();
+  v2 = *v1;
+  type metadata accessor for ArchiveHeader.FieldKeySet(0);
   inited = swift_initStackObject();
-  v3 = AAFieldKeySetClone(*(v1 + 16));
-  if (!v3 || (*(inited + 16) = v3, *(inited + 24) = 1, v4 = , specialized ArchiveHeader.FieldKeySet.formSymmetricDifference(_:)(v4), , v5 = *(inited + 16), AAFieldKeySetSelectKeySet(*(v1 + 16), v5) < 0))
+  v4 = AAFieldKeySetClone(*(v2 + 16));
+  if (!v4 || (*(inited + 16) = v4, *(inited + 24) = 1, v5 = , specialized ArchiveHeader.FieldKeySet.formSymmetricDifference(_:)(v5), , v6 = *(inited + 16), AAFieldKeySetSelectKeySet(*(v2 + 16), v6) < 0))
   {
     _assertionFailure(_:_:file:line:flags:)();
     __break(1u);
@@ -8937,7 +8794,7 @@ void specialized SetAlgebra.subtract(_:)()
     swift_setDeallocating();
     if (*(inited + 24) == 1)
     {
-      AAFieldKeySetDestroy(v5);
+      AAFieldKeySetDestroy(v6);
     }
   }
 }
@@ -8981,17 +8838,17 @@ uint64_t ArchiveHeader.FieldKeySet.init()()
   return result;
 }
 
-uint64_t ArchiveHeader.FieldKeySet.__allocating_init(_:)()
+uint64_t ArchiveHeader.FieldKeySet.__allocating_init(_:)(uint64_t a1, uint64_t a2)
 {
-  v0 = swift_allocObject();
-  v1 = String.utf8CString.getter();
+  v2 = swift_allocObject();
+  v3 = String.utf8CString.getter();
 
-  v2 = AAFieldKeySetCreateWithString((v1 + 32));
+  v4 = AAFieldKeySetCreateWithString((v3 + 32));
 
-  if (v2)
+  if (v4)
   {
-    *(v0 + 16) = v2;
-    *(v0 + 24) = 1;
+    *(v2 + 16) = v4;
+    *(v2 + 24) = 1;
   }
 
   else
@@ -9000,20 +8857,19 @@ uint64_t ArchiveHeader.FieldKeySet.__allocating_init(_:)()
     return 0;
   }
 
-  return v0;
+  return v2;
 }
 
-uint64_t *ArchiveHeader.FieldKeySet.init(_:)()
+uint64_t *ArchiveHeader.FieldKeySet.init(_:)(uint64_t a1, uint64_t a2)
 {
-  v1 = *v0;
-  v2 = String.utf8CString.getter();
+  v3 = String.utf8CString.getter();
 
-  v3 = AAFieldKeySetCreateWithString((v2 + 32));
+  v4 = AAFieldKeySetCreateWithString((v3 + 32));
 
-  if (v3)
+  if (v4)
   {
-    v0[2] = v3;
-    *(v0 + 24) = 1;
+    *(v2 + 16) = v4;
+    *(v2 + 24) = 1;
   }
 
   else
@@ -9022,7 +8878,7 @@ uint64_t *ArchiveHeader.FieldKeySet.init(_:)()
     return 0;
   }
 
-  return v0;
+  return v2;
 }
 
 uint64_t ArchiveHeader.FieldKeySet.__allocating_init(copying:)(uint64_t a1)
@@ -9110,11 +8966,11 @@ uint64_t ArchiveHeader.FieldKeySet.__deallocating_deinit()
 
 uint64_t ArchiveHeader.FieldKeySet.insert(_:)(AAFieldKey *a1, AAFieldKey *a2)
 {
-  v4 = *a2;
+  ikey = a2->ikey;
   v5 = *(v2 + 16);
   v6 = *a2;
   v7 = AAFieldKeySetContainsKey(v5, v6);
-  if (v7 < 0 || (v8 = v7, v7 != 1) && (v9 = v4, AAFieldKeySetInsertKey(v5, v9) < 0))
+  if (v7 < 0 || (v8 = v7, v7 != 1) && (v9.ikey = ikey, AAFieldKeySetInsertKey(v5, v9) < 0))
   {
     result = _assertionFailure(_:_:file:line:flags:)();
     __break(1u);
@@ -9123,7 +8979,7 @@ uint64_t ArchiveHeader.FieldKeySet.insert(_:)(AAFieldKey *a1, AAFieldKey *a2)
   else
   {
     result = v8 != 1;
-    *a1 = v4;
+    a1->ikey = ikey;
   }
 
   return result;
@@ -9145,7 +9001,7 @@ uint64_t ArchiveHeader.FieldKeySet.contains(_:)(AAFieldKey *a1)
 
 uint64_t ArchiveHeader.FieldKeySet.remove(_:)@<X0>(AAFieldKey *a1@<X0>, AAFieldKey *a2@<X8>)
 {
-  v4 = *a1;
+  ikey = a1->ikey;
   v5 = *(v2 + 16);
   v6 = *a1;
   result = AAFieldKeySetContainsKey(v5, v6);
@@ -9154,14 +9010,14 @@ uint64_t ArchiveHeader.FieldKeySet.remove(_:)@<X0>(AAFieldKey *a1@<X0>, AAFieldK
     v8 = result;
     if (result != 1)
     {
-      v4.ikey = 0;
+      ikey = 0;
 LABEL_5:
-      *a2 = v4;
+      a2->ikey = ikey;
       a2[1].skey[0] = v8 != 1;
       return result;
     }
 
-    v9 = v4;
+    v9.ikey = ikey;
     result = AAFieldKeySetRemoveKey(v5, v9);
     if ((result & 0x80000000) == 0)
     {
@@ -9176,7 +9032,7 @@ LABEL_5:
 
 uint64_t ArchiveHeader.FieldKeySet.update(with:)@<X0>(AAFieldKey *a1@<X0>, AAFieldKey *a2@<X8>)
 {
-  v4 = *a1;
+  ikey = a1->ikey;
   v5 = *a1;
   result = AAFieldKeySetInsertKey(*(v2 + 16), v5);
   if ((result & 0x80000000) != 0)
@@ -9187,16 +9043,16 @@ uint64_t ArchiveHeader.FieldKeySet.update(with:)@<X0>(AAFieldKey *a1@<X0>, AAFie
 
   else
   {
-    *a2 = v4;
+    a2->ikey = ikey;
     a2[1].skey[0] = 0;
   }
 
   return result;
 }
 
-uint64_t ArchiveHeader.FieldKeySet.formUnion(_:)(uint64_t a1, uint64_t (*a2)(void, void))
+uint64_t ArchiveHeader.FieldKeySet.formUnion(_:)(uint64_t a1, uint64_t (*a2)(void, void), uint64_t a3)
 {
-  result = a2(*(v2 + 16), *(a1 + 16));
+  result = a2(*(v3 + 16), *(a1 + 16));
   if ((result & 0x80000000) != 0)
   {
     result = _assertionFailure(_:_:file:line:flags:)();
@@ -9211,20 +9067,17 @@ uint64_t ArchiveHeader.FieldKeySet.formSymmetricDifference(_:)(uint64_t a1)
   specialized ArchiveHeader.FieldKeySet.formSymmetricDifference(_:)(a1);
 }
 
-uint64_t ArchiveHeader.FieldKeySet.intersection(_:)(uint64_t a1, uint64_t (*a2)(void))
+uint64_t ArchiveHeader.FieldKeySet.intersection(_:)(uint64_t a1, uint64_t (*a2)(void), uint64_t a3)
 {
-  v4 = v2;
-  v6 = *v4;
-  v7 = swift_allocObject();
-  v8 = AAFieldKeySetClone(v4[2]);
-  if (v8)
+  v5 = swift_allocObject();
+  v6 = AAFieldKeySetClone(*(v3 + 16));
+  if (v6)
   {
-    *(v7 + 16) = v8;
-    *(v7 + 24) = 1;
-    v9 = *(a1 + 16);
+    *(v5 + 16) = v6;
+    *(v5 + 24) = 1;
     if ((a2() & 0x80000000) == 0)
     {
-      return v7;
+      return v5;
     }
   }
 
@@ -9236,16 +9089,15 @@ uint64_t ArchiveHeader.FieldKeySet.intersection(_:)(uint64_t a1, uint64_t (*a2)(
 uint64_t ArchiveHeader.FieldKeySet.symmetricDifference(_:)(uint64_t a1)
 {
   v2 = v1;
-  v4 = *v1;
-  v5 = swift_allocObject();
-  v6 = AAFieldKeySetClone(v2[2]);
-  if (v6)
+  v4 = swift_allocObject();
+  v5 = AAFieldKeySetClone(*(v2 + 16));
+  if (v5)
   {
-    *(v5 + 16) = v6;
-    *(v5 + 24) = 1;
+    *(v4 + 16) = v5;
+    *(v4 + 24) = 1;
     specialized ArchiveHeader.FieldKeySet.formSymmetricDifference(_:)(a1);
 
-    return v5;
+    return v4;
   }
 
   else
@@ -9305,10 +9157,9 @@ uint64_t static ArchiveHeader.FieldKeySet.== infix(_:_:)()
 uint64_t ArchiveHeader.FieldKeySet.description.getter()
 {
   v1 = type metadata accessor for String.Encoding();
-  v2 = *(*(v1 - 8) + 64);
-  MEMORY[0x2A1C7C4A8](v1 - 8, v3);
-  v4 = *(v0 + 16);
-  KeyCount = AAFieldKeySetGetKeyCount(v4);
+  MEMORY[0x2A1C7C4A8](v1 - 8);
+  v2 = *(v0 + 16);
+  KeyCount = AAFieldKeySetGetKeyCount(v2);
   if (KeyCount >> 30)
   {
     __break(1u);
@@ -9317,17 +9168,17 @@ LABEL_6:
     goto LABEL_7;
   }
 
-  v6 = 4 * KeyCount;
+  v4 = 4 * KeyCount;
   v0 = swift_slowAlloc();
-  if ((AAFieldKeySetSerialize(v4, v6, v0) & 0x80000000) == 0)
+  if ((AAFieldKeySetSerialize(v2, v4, v0) & 0x80000000) == 0)
   {
     static String.Encoding.utf8.getter();
-    v7 = String.init(cString:encoding:)();
-    if (v8)
+    v5 = String.init(cString:encoding:)();
+    if (v6)
     {
-      v9 = v7;
+      v7 = v5;
       MEMORY[0x29C2A93A0](v0, -1, -1);
-      return v9;
+      return v7;
     }
 
     goto LABEL_6;
@@ -9340,7 +9191,7 @@ LABEL_7:
   return result;
 }
 
-uint64_t protocol witness for SetAlgebra.init() in conformance ArchiveHeader.FieldKeySet@<X0>(uint64_t *a1@<X8>)
+AAFieldKeySet protocol witness for SetAlgebra.init() in conformance ArchiveHeader.FieldKeySet@<X0>(uint64_t *a1@<X8>)
 {
   v2 = swift_allocObject();
   result = AAFieldKeySetCreate();
@@ -9376,35 +9227,33 @@ uint64_t protocol witness for SetAlgebra.contains(_:) in conformance ArchiveHead
 
 uint64_t protocol witness for SetAlgebra.union(_:) in conformance ArchiveHeader.FieldKeySet@<X0>(uint64_t *a1@<X0>, uint64_t *a2@<X8>)
 {
-  v4 = *v2;
-  v5 = ArchiveHeader.FieldKeySet.union(_:)(*a1);
+  v3 = ArchiveHeader.FieldKeySet.union(_:)(*a1);
 
-  *a2 = v5;
+  *a2 = v3;
   return result;
 }
 
 uint64_t protocol witness for SetAlgebra.intersection(_:) in conformance ArchiveHeader.FieldKeySet@<X0>(uint64_t *a1@<X0>, uint64_t *a2@<X8>)
 {
-  v4 = *v2;
-  v5 = ArchiveHeader.FieldKeySet.intersection(_:)(*a1);
+  v3 = ArchiveHeader.FieldKeySet.intersection(_:)(*a1);
 
-  *a2 = v5;
+  *a2 = v3;
   return result;
 }
 
-uint64_t protocol witness for SetAlgebra.symmetricDifference(_:) in conformance ArchiveHeader.FieldKeySet@<X0>(uint64_t *a1@<X0>, uint64_t *a2@<X8>)
+uint64_t protocol witness for SetAlgebra.symmetricDifference(_:) in conformance ArchiveHeader.FieldKeySet@<X0>(uint64_t *a1@<X0>, uint64_t *a3@<X8>)
 {
-  v4 = *a1;
-  v5 = *v2;
-  v6 = swift_allocObject();
-  v7 = AAFieldKeySetClone(*(v5 + 16));
-  if (v7)
+  v5 = *a1;
+  v6 = *v3;
+  v7 = swift_allocObject();
+  v8 = AAFieldKeySetClone(*(v6 + 16));
+  if (v8)
   {
-    *(v6 + 16) = v7;
-    *(v6 + 24) = 1;
-    specialized ArchiveHeader.FieldKeySet.formSymmetricDifference(_:)(v4);
+    *(v7 + 16) = v8;
+    *(v7 + 24) = 1;
+    specialized ArchiveHeader.FieldKeySet.formSymmetricDifference(_:)(v5);
 
-    *a2 = v6;
+    *a3 = v7;
   }
 
   else
@@ -9416,16 +9265,9 @@ uint64_t protocol witness for SetAlgebra.symmetricDifference(_:) in conformance 
   return result;
 }
 
-uint64_t protocol witness for SetAlgebra.insert(_:) in conformance ArchiveHeader.FieldKeySet(AAFieldKey *a1, AAFieldKey *a2)
-{
-  v5 = *a2;
-  v3 = *v2;
-  return ArchiveHeader.FieldKeySet.insert(_:)(a1, &v5) & 1;
-}
-
 uint64_t protocol witness for SetAlgebra.update(with:) in conformance ArchiveHeader.FieldKeySet@<X0>(AAFieldKey *a1@<X0>, AAFieldKey *a2@<X8>)
 {
-  v4 = *a1;
+  ikey = a1->ikey;
   v5 = *a1;
   result = AAFieldKeySetInsertKey(*(*v2 + 16), v5);
   if ((result & 0x80000000) != 0)
@@ -9436,14 +9278,14 @@ uint64_t protocol witness for SetAlgebra.update(with:) in conformance ArchiveHea
 
   else
   {
-    *a2 = v4;
+    a2->ikey = ikey;
     a2[1].skey[0] = 0;
   }
 
   return result;
 }
 
-uint64_t protocol witness for SetAlgebra.formUnion(_:) in conformance ArchiveHeader.FieldKeySet(uint64_t a1)
+uint64_t protocol witness for SetAlgebra.formUnion(_:) in conformance ArchiveHeader.FieldKeySet(uint64_t *a1)
 {
   if (AAFieldKeySetInsertKeySet(*(*v1 + 16), *(*a1 + 16)) < 0)
   {
@@ -9472,14 +9314,12 @@ uint64_t protocol witness for SetAlgebra.formIntersection(_:) in conformance Arc
 
 uint64_t protocol witness for SetAlgebra.formSymmetricDifference(_:) in conformance ArchiveHeader.FieldKeySet(uint64_t *a1)
 {
-  v2 = *v1;
   specialized ArchiveHeader.FieldKeySet.formSymmetricDifference(_:)(*a1);
 }
 
-uint64_t protocol witness for SetAlgebra.subtracting(_:) in conformance ArchiveHeader.FieldKeySet@<X0>(uint64_t *a1@<X0>, uint64_t *a2@<X8>)
+uint64_t protocol witness for SetAlgebra.subtracting(_:) in conformance ArchiveHeader.FieldKeySet@<X0>(uint64_t *a3@<X8>)
 {
-  v4 = *a1;
-  v5 = *v2;
+  v5 = *v3;
   inited = swift_initStackObject();
   v7 = AAFieldKeySetClone(*(v5 + 16));
   if (v7)
@@ -9496,7 +9336,7 @@ uint64_t protocol witness for SetAlgebra.subtracting(_:) in conformance ArchiveH
       AAFieldKeySetDestroy(*(inited + 16));
     }
 
-    *a2 = v9;
+    *a3 = v9;
   }
 
   else
@@ -9510,49 +9350,46 @@ uint64_t protocol witness for SetAlgebra.subtracting(_:) in conformance ArchiveH
 
 uint64_t protocol witness for SetAlgebra.isSubset(of:) in conformance ArchiveHeader.FieldKeySet(uint64_t *a1)
 {
-  v2 = *v1;
   ArchiveHeader.FieldKeySet.intersection(_:)(*a1);
-  v3 = ArchiveHeader.FieldKeySet.description.getter();
-  v5 = v4;
-  if (v3 == ArchiveHeader.FieldKeySet.description.getter() && v5 == v6)
+  v1 = ArchiveHeader.FieldKeySet.description.getter();
+  v3 = v2;
+  if (v1 == ArchiveHeader.FieldKeySet.description.getter() && v3 == v4)
   {
-    v8 = 1;
+    v6 = 1;
   }
 
   else
   {
-    v8 = _stringCompareWithSmolCheck(_:_:expecting:)();
+    v6 = _stringCompareWithSmolCheck(_:_:expecting:)();
   }
 
-  return v8 & 1;
+  return v6 & 1;
 }
 
 BOOL protocol witness for SetAlgebra.isDisjoint(with:) in conformance ArchiveHeader.FieldKeySet(uint64_t *a1)
 {
-  v2 = *v1;
-  v3 = ArchiveHeader.FieldKeySet.intersection(_:)(*a1);
-  LODWORD(v2) = AAFieldKeySetGetKeyCount(*(v3 + 16));
+  v1 = ArchiveHeader.FieldKeySet.intersection(_:)(*a1);
+  KeyCount = AAFieldKeySetGetKeyCount(*(v1 + 16));
 
-  return v2 == 0;
+  return KeyCount == 0;
 }
 
-uint64_t protocol witness for SetAlgebra.isSuperset(of:) in conformance ArchiveHeader.FieldKeySet(uint64_t *a1)
+uint64_t protocol witness for SetAlgebra.isSuperset(of:) in conformance ArchiveHeader.FieldKeySet()
 {
-  v2 = *a1;
-  ArchiveHeader.FieldKeySet.intersection(_:)(*v1);
-  v3 = ArchiveHeader.FieldKeySet.description.getter();
-  v5 = v4;
-  if (v3 == ArchiveHeader.FieldKeySet.description.getter() && v5 == v6)
+  ArchiveHeader.FieldKeySet.intersection(_:)(*v0);
+  v1 = ArchiveHeader.FieldKeySet.description.getter();
+  v3 = v2;
+  if (v1 == ArchiveHeader.FieldKeySet.description.getter() && v3 == v4)
   {
-    v8 = 1;
+    v6 = 1;
   }
 
   else
   {
-    v8 = _stringCompareWithSmolCheck(_:_:expecting:)();
+    v6 = _stringCompareWithSmolCheck(_:_:expecting:)();
   }
 
-  return v8 & 1;
+  return v6 & 1;
 }
 
 void *protocol witness for BidirectionalCollection.index(before:) in conformance ArchiveHeader.FieldKeySet@<X0>(void *result@<X0>, unint64_t *a2@<X8>)
@@ -9600,32 +9437,29 @@ unint64_t *protocol witness for BidirectionalCollection.formIndex(before:) in co
   return result;
 }
 
-uint64_t protocol witness for RandomAccessCollection.index(_:offsetBy:limitedBy:) in conformance ArchiveHeader.FieldKeySet@<X0>(unint64_t *a1@<X0>, uint64_t a2@<X1>, unint64_t *a3@<X2>, uint64_t a4@<X8>)
+unint64_t protocol witness for RandomAccessCollection.index(_:offsetBy:limitedBy:) in conformance ArchiveHeader.FieldKeySet@<X0>(unint64_t *a1@<X0>, uint64_t a2@<X1>, unint64_t *a3@<X2>, uint64_t a4@<X8>)
 {
-  v6 = *v4;
   result = specialized RandomAccessCollection.index(_:offsetBy:limitedBy:)(*a1, a2, *a3, MEMORY[0x29EDC85B8]);
   *a4 = result;
-  *(a4 + 8) = v8 & 1;
+  *(a4 + 8) = v6 & 1;
   return result;
 }
 
-uint64_t protocol witness for static Equatable.== infix(_:_:) in conformance ArchiveHeader.FieldKeySet(uint64_t *a1, uint64_t *a2)
+uint64_t protocol witness for static Equatable.== infix(_:_:) in conformance ArchiveHeader.FieldKeySet()
 {
-  v2 = *a1;
-  v3 = *a2;
-  v4 = ArchiveHeader.FieldKeySet.description.getter();
-  v6 = v5;
-  if (v4 == ArchiveHeader.FieldKeySet.description.getter() && v6 == v7)
+  v0 = ArchiveHeader.FieldKeySet.description.getter();
+  v2 = v1;
+  if (v0 == ArchiveHeader.FieldKeySet.description.getter() && v2 == v3)
   {
-    v9 = 1;
+    v5 = 1;
   }
 
   else
   {
-    v9 = _stringCompareWithSmolCheck(_:_:expecting:)();
+    v5 = _stringCompareWithSmolCheck(_:_:expecting:)();
   }
 
-  return v9 & 1;
+  return v5 & 1;
 }
 
 uint64_t protocol witness for ExpressibleByArrayLiteral.init(arrayLiteral:) in conformance ArchiveHeader.FieldKeySet@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X8>)
@@ -9643,7 +9477,7 @@ uint64_t protocol witness for Collection.endIndex.getter in conformance ArchiveH
   return result;
 }
 
-uint64_t (*protocol witness for Collection.subscript.read in conformance ArchiveHeader.FieldKeySet(AAFieldKey *a1, unint64_t *a2))()
+void (*protocol witness for Collection.subscript.read in conformance ArchiveHeader.FieldKeySet(AAFieldKey *a1, unint64_t *a2))()
 {
   v3 = *a2;
   if ((v3 & 0x8000000000000000) != 0)
@@ -9800,14 +9634,14 @@ uint64_t protocol witness for Collection.count.getter in conformance ArchiveHead
   return result;
 }
 
-void *protocol witness for Sequence._copyToContiguousArray() in conformance ArchiveHeader.FieldKeySet()
+uint64_t protocol witness for Sequence._copyToContiguousArray() in conformance ArchiveHeader.FieldKeySet()
 {
   v1 = specialized _copyCollectionToContiguousArray<A>(_:)(*v0);
 
   return v1;
 }
 
-void *specialized _copyCollectionToContiguousArray<A>(_:)(uint64_t a1)
+uint64_t specialized _copyCollectionToContiguousArray<A>(_:)(uint64_t a1)
 {
   return specialized _copyCollectionToContiguousArray<A>(_:)(a1, &_ss23_ContiguousArrayStorageCy12AppleArchive0E6HeaderC8FieldKeyVGMd, &_ss23_ContiguousArrayStorageCy12AppleArchive0E6HeaderC8FieldKeyVGMR, specialized Sequence._copySequenceContents(initializing:));
 }
@@ -9844,7 +9678,15 @@ void *specialized _copyCollectionToContiguousArray<A>(_:)(uint64_t a1)
   return specialized _copyCollectionToContiguousArray<A>(_:)(a1, &_ss23_ContiguousArrayStorageCy12AppleArchive0E6HeaderC9FieldTypeVGMd, &_ss23_ContiguousArrayStorageCy12AppleArchive0E6HeaderC9FieldTypeVGMR, specialized Sequence._copySequenceContents(initializing:));
 }
 
-void *specialized _copyCollectionToContiguousArray<A>(_:)(uint64_t a1, uint64_t *a2, uint64_t *a3, uint64_t (*a4)(uint64_t *, void *, void, uint64_t))
+{
+  return specialized _copyCollectionToContiguousArray<A>(_:)(a1, MEMORY[0x29EDC85B0], _ss22_ContiguousArrayBufferV19_uninitializedCount15minimumCapacityAByxGSi_SitcfC12AppleArchive0I6HeaderC12EntryXATBlobC17ExtendedAttributeV_Tt1g5, specialized Sequence._copySequenceContents(initializing:));
+}
+
+{
+  return specialized _copyCollectionToContiguousArray<A>(_:)(a1, MEMORY[0x29EDC85D0], _ss22_ContiguousArrayBufferV19_uninitializedCount15minimumCapacityAByxGSi_SitcfC12AppleArchive0I6HeaderC5FieldO_Tt1g5, specialized Sequence._copySequenceContents(initializing:));
+}
+
+uint64_t specialized _copyCollectionToContiguousArray<A>(_:)(uint64_t a1, uint64_t *a2, uint64_t *a3, uint64_t (*a4)(uint64_t *, uint64_t, void, uint64_t))
 {
   v8 = *(a1 + 16);
   FieldCount = AAHeaderGetFieldCount(v8);
@@ -9856,7 +9698,7 @@ void *specialized _copyCollectionToContiguousArray<A>(_:)(uint64_t a1, uint64_t 
     {
       v11 = _ss22_ContiguousArrayBufferV19_uninitializedCount15minimumCapacityAByxGSi_SitcfC12AppleArchive0I6HeaderC8FieldKeyV_Tt1g5Tm(FieldCount, 0, a2, a3);
 
-      v12 = a4(&v13, v11 + 4, FieldCount, a1);
+      v12 = a4(&v13, (v11 + 4), FieldCount, a1);
 
       if (v12 == FieldCount)
       {
@@ -9870,5 +9712,137 @@ void *specialized _copyCollectionToContiguousArray<A>(_:)(uint64_t a1, uint64_t 
   }
 
   __break(1u);
+  return result;
+}
+
+uint64_t specialized _copyCollectionToContiguousArray<A>(_:)(uint64_t a1, uint64_t (*a2)(uint64_t), uint64_t (*a3)(void, void), uint64_t (*a4)(uint64_t *, uint64_t, void))
+{
+  v7 = *(a1 + 16);
+  v8 = a2(v7);
+  a2(v7);
+  result = a2(v7);
+  if (result >= v8)
+  {
+    if (v8)
+    {
+      v10 = a3(v8, 0);
+
+      v11 = a4(&v12, v10 + 32, v8);
+
+      if (v11 == v8)
+      {
+        return v10;
+      }
+
+      __break(1u);
+    }
+
+    return MEMORY[0x29EDCA190];
+  }
+
+  __break(1u);
+  return result;
+}
+
+void specialized _copyCollectionToContiguousArray<A>(_:)(uint64_t a1, uint64_t a2, uint64_t a3, unint64_t a4)
+{
+  v4 = a4 >> 1;
+  v5 = (a4 >> 1) - a3;
+  if (__OFSUB__(a4 >> 1, a3))
+  {
+LABEL_9:
+    __break(1u);
+    return;
+  }
+
+  if (v5)
+  {
+    if (v5 < 1)
+    {
+      v8 = MEMORY[0x29EDCA190];
+      if (v4 != a3)
+      {
+        goto LABEL_5;
+      }
+    }
+
+    else
+    {
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys5UInt8VGMd, &_ss23_ContiguousArrayStorageCys5UInt8VGMR);
+      v8 = swift_allocObject();
+      v9 = _swift_stdlib_malloc_size(v8);
+      v8[2] = v5;
+      v8[3] = 2 * v9 - 64;
+      if (v4 != a3)
+      {
+LABEL_5:
+        memcpy(v8 + 4, (a2 + a3), v5);
+        return;
+      }
+    }
+
+    __break(1u);
+    goto LABEL_9;
+  }
+}
+
+void *_ss22_ContiguousArrayBufferV19_uninitializedCount15minimumCapacityAByxGSi_SitcfC12AppleArchive0I6HeaderC8FieldKeyV_Tt1g5Tm(uint64_t a1, uint64_t a2, uint64_t *a3, uint64_t *a4)
+{
+  if (a2 <= a1)
+  {
+    v4 = a1;
+  }
+
+  else
+  {
+    v4 = a2;
+  }
+
+  if (!v4)
+  {
+    return MEMORY[0x29EDCA190];
+  }
+
+  __swift_instantiateConcreteTypeFromMangledNameV2(a3, a4);
+  v6 = swift_allocObject();
+  v7 = _swift_stdlib_malloc_size(v6);
+  result = v6;
+  v10 = v7 - 32;
+  v9 = v7 < 32;
+  v11 = v7 - 29;
+  if (!v9)
+  {
+    v11 = v10;
+  }
+
+  v6[2] = a1;
+  v6[3] = 2 * (v11 >> 2);
+  return result;
+}
+
+void *_ss22_ContiguousArrayBufferV19_uninitializedCount15minimumCapacityAByxGSi_SitcfC12AppleArchive0I6HeaderC12EntryXATBlobC17ExtendedAttributeV_Tt1g5(uint64_t a1, uint64_t a2)
+{
+  if (a2 <= a1)
+  {
+    v2 = a1;
+  }
+
+  else
+  {
+    v2 = a2;
+  }
+
+  if (!v2)
+  {
+    return MEMORY[0x29EDCA190];
+  }
+
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy12AppleArchive0E6HeaderC12EntryXATBlobC17ExtendedAttributeVGMd, &_ss23_ContiguousArrayStorageCy12AppleArchive0E6HeaderC12EntryXATBlobC17ExtendedAttributeVGMR);
+  v4 = swift_allocObject();
+  v5 = _swift_stdlib_malloc_size(v4);
+  result = v4;
+  v7 = ((v5 - 32) * 0x2AAAAAAAAAAAAAABLL) >> 64;
+  v4[2] = a1;
+  v4[3] = 2 * ((v7 >> 2) + (v7 >> 63));
   return result;
 }

@@ -4,12 +4,15 @@
 - (id)_createPKGlyphView;
 - (void)_doubleClickGesture;
 - (void)_handleUserCancelNotification:(id)notification;
+- (void)_maybeSendExternalizedContext:(id)context isDTOEvaluationFailed:(BOOL)failed;
 - (void)_updateAuthenticationStatus:(id)status isDTOEvaluationFailed:(BOOL)failed;
 - (void)_updateLayoutConstraint;
 - (void)dealloc;
 - (void)evaluateDtoPolicy:(id)policy;
 - (void)prepare:(id)prepare;
+- (void)viewDidAppear:(BOOL)appear;
 - (void)viewDidLoad;
+- (void)viewWillDisappear:(BOOL)disappear;
 @end
 
 @implementation TSSecureIntentGestureViewController
@@ -24,10 +27,11 @@
   v22.receiver = self;
   v22.super_class = TSSecureIntentGestureViewController;
   v15 = [(TSSecureIntentGestureViewController *)&v22 init];
+  v16 = v15;
   if (v15)
   {
-    v16 = _TSLogDomain();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+    v17 = _TSLogDomain(v15);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138413058;
       v24 = contextCopy;
@@ -37,28 +41,27 @@
       v28 = evaluationRequiredCopy;
       v29 = 2080;
       v30 = "[TSSecureIntentGestureViewController initWithExternalizedContext:descriptors:isLocalConvertFlow:isSecureIntentRequired:isDtoEvaluationRequired:]";
-      _os_log_impl(&dword_262AA8000, v16, OS_LOG_TYPE_DEFAULT, "externalized context = %@ isSecureIntentRequired: %d, isDtoEvaluationRequired:%d @%s", buf, 0x22u);
+      _os_log_impl(&dword_262AA8000, v17, OS_LOG_TYPE_DEFAULT, "externalized context = %@ isSecureIntentRequired: %d, isDtoEvaluationRequired:%d @%s", buf, 0x22u);
     }
 
-    objc_storeStrong(&v15->_externalizedContext, context);
-    objc_storeStrong(&v15->_descriptors, descriptors);
-    v17 = [TSUtilities formatLocAndConcatenateDescriptors:descriptorsCopy];
-    formatedDescriptor = v15->_formatedDescriptor;
-    v15->_formatedDescriptor = v17;
+    objc_storeStrong(&v16->_externalizedContext, context);
+    objc_storeStrong(&v16->_descriptors, descriptors);
+    v18 = [TSUtilities formatLocAndConcatenateDescriptors:descriptorsCopy];
+    formatedDescriptor = v16->_formatedDescriptor;
+    v16->_formatedDescriptor = v18;
 
-    v15->_isExternalizedContextSent = 0;
+    v16->_isExternalizedContextSent = 0;
     defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
-    [defaultCenter addObserver:v15 selector:sel__handleUserCancelNotification_ name:@"ss.user.canceled" object:0];
+    [defaultCenter addObserver:v16 selector:sel__handleUserCancelNotification_ name:@"ss.user.canceled" object:0];
 
-    v15->_isLocalConvertFlow = flow;
-    v15->_isSecureIntentRequired = requiredCopy;
-    v15->_isDtoEvaluationRequired = evaluationRequiredCopy;
-    v15->_isDtoEvaluationSucceeded = !evaluationRequiredCopy;
-    v15->_isSecureIntentSucceeded = !v15->_isSecureIntentRequired;
+    v16->_isLocalConvertFlow = flow;
+    v16->_isSecureIntentRequired = requiredCopy;
+    v16->_isDtoEvaluationRequired = evaluationRequiredCopy;
+    v16->_isDtoEvaluationSucceeded = !evaluationRequiredCopy;
+    v16->_isSecureIntentSucceeded = !v16->_isSecureIntentRequired;
   }
 
-  v20 = *MEMORY[0x277D85DE8];
-  return v15;
+  return v16;
 }
 
 - (void)dealloc
@@ -179,30 +182,99 @@ void __50__TSSecureIntentGestureViewController_viewDidLoad__block_invoke(uint64_
   [v4 userDidTapCancel];
 }
 
+- (void)viewDidAppear:(BOOL)appear
+{
+  v20.receiver = self;
+  v20.super_class = TSSecureIntentGestureViewController;
+  [(TSSecureIntentGestureViewController *)&v20 viewDidAppear:appear];
+  [(TSSecureIntentGestureViewController *)self _doubleClickGesture];
+  if (!self->_physicalButtonView)
+  {
+    v4 = [objc_alloc(MEMORY[0x277D24228]) initWithStyle:1];
+    physicalButtonView = self->_physicalButtonView;
+    self->_physicalButtonView = v4;
+
+    v6 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+    v7 = [v6 localizedStringForKey:@"DOUBLE_CLICK_TO_CONFIRM" value:&stru_28753DF48 table:@"Localizable"];
+    [(LAUIPhysicalButtonView *)self->_physicalButtonView setInstruction:v7];
+
+    [(LAUIPhysicalButtonView *)self->_physicalButtonView setAnimationStyle:1];
+  }
+
+  view = [(TSSecureIntentGestureViewController *)self view];
+  window = [view window];
+
+  if (window)
+  {
+    view2 = [(TSSecureIntentGestureViewController *)self view];
+    window2 = [view2 window];
+    [window2 addSubview:self->_physicalButtonView];
+  }
+
+  else
+  {
+    view2 = _TSLogDomain(v10);
+    if (os_log_type_enabled(view2, OS_LOG_TYPE_ERROR))
+    {
+      [(TSSecureIntentGestureViewController *)view2 viewDidAppear:v13, v14, v15, v16, v17, v18, v19];
+    }
+  }
+
+  [(LAUIPhysicalButtonView *)self->_physicalButtonView setAnimating:1];
+}
+
+- (void)viewWillDisappear:(BOOL)disappear
+{
+  disappearCopy = disappear;
+  v5 = _TSLogDomain(self);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+  {
+    [TSSecureIntentGestureViewController viewWillDisappear:v5];
+  }
+
+  [(LAUIPhysicalButtonView *)self->_physicalButtonView setAnimating:0];
+  [(LAUIPhysicalButtonView *)self->_physicalButtonView removeFromSuperview];
+  if (self->_isSecureIntentSucceeded && self->_isDtoEvaluationSucceeded)
+  {
+    v6 = 0;
+  }
+
+  else
+  {
+    v6 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CCA050] code:89 userInfo:0];
+  }
+
+  v7 = self->_isSecureIntentSucceeded && !self->_isDtoEvaluationSucceeded;
+  [(TSSecureIntentGestureViewController *)self _maybeSendExternalizedContext:v6 isDTOEvaluationFailed:v7];
+  v8.receiver = self;
+  v8.super_class = TSSecureIntentGestureViewController;
+  [(TSSecureIntentGestureViewController *)&v8 viewWillDisappear:disappearCopy];
+}
+
 - (void)_doubleClickGesture
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0(&dword_262AA8000, self, a3, "[E]No euicc acl!! @%s", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[TSSecureIntentGestureViewController _doubleClickGesture]";
+  OUTLINED_FUNCTION_0_0(&dword_262AA8000, self, a3, "[E]No euicc acl!! @%s", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void __58__TSSecureIntentGestureViewController__doubleClickGesture__block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
-  v7 = _TSLogDomain();
+  v7 = _TSLogDomain(v6);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v8 = *(*(*(a1 + 32) + 8) + 40);
     *buf = 138413058;
-    v26 = v5;
-    v27 = 2112;
-    v28 = v6;
-    v29 = 2112;
-    v30 = v8;
-    v31 = 2080;
-    v32 = "[TSSecureIntentGestureViewController _doubleClickGesture]_block_invoke";
+    v25 = v5;
+    v26 = 2112;
+    v27 = v6;
+    v28 = 2112;
+    v29 = v8;
+    v30 = 2080;
+    v31 = "[TSSecureIntentGestureViewController _doubleClickGesture]_block_invoke";
     _os_log_impl(&dword_262AA8000, v7, OS_LOG_TYPE_DEFAULT, "evaluateAccessControl reply:%@, error:%@, ctx:%@ @%s", buf, 0x2Au);
   }
 
@@ -214,39 +286,37 @@ void __58__TSSecureIntentGestureViewController__doubleClickGesture__block_invoke
   block[1] = 3221225472;
   block[2] = __58__TSSecureIntentGestureViewController__doubleClickGesture__block_invoke_80;
   block[3] = &unk_279B44400;
-  objc_copyWeak(&v24, (a1 + 40));
+  objc_copyWeak(&v23, (a1 + 40));
   dispatch_async(MEMORY[0x277D85CD0], block);
   if (v6 || (v11 = objc_loadWeakRetained((a1 + 40)), [v11 setIsSecureIntentSucceeded:1], v11, v12 = objc_loadWeakRetained((a1 + 40)), v13 = objc_msgSend(v12, "isDtoEvaluationRequired"), v12, (v13 & 1) == 0))
   {
-    v20[0] = MEMORY[0x277D85DD0];
-    v20[1] = 3221225472;
-    v20[2] = __58__TSSecureIntentGestureViewController__doubleClickGesture__block_invoke_2;
-    v20[3] = &unk_279B443D8;
-    v15 = &v22;
-    objc_copyWeak(&v22, (a1 + 40));
-    v21 = v6;
+    v19[0] = MEMORY[0x277D85DD0];
+    v19[1] = 3221225472;
+    v19[2] = __58__TSSecureIntentGestureViewController__doubleClickGesture__block_invoke_2;
+    v19[3] = &unk_279B443D8;
+    v15 = &v21;
+    objc_copyWeak(&v21, (a1 + 40));
+    v20 = v6;
     v16 = MEMORY[0x277D85CD0];
-    dispatch_async(MEMORY[0x277D85CD0], v20);
+    dispatch_async(MEMORY[0x277D85CD0], v19);
 
-    WeakRetained = v21;
+    WeakRetained = v20;
   }
 
   else
   {
     WeakRetained = objc_loadWeakRetained((a1 + 40));
-    v18[0] = MEMORY[0x277D85DD0];
-    v18[1] = 3221225472;
-    v18[2] = __58__TSSecureIntentGestureViewController__doubleClickGesture__block_invoke_3;
-    v18[3] = &unk_279B44828;
-    v15 = &v19;
-    objc_copyWeak(&v19, (a1 + 40));
-    [WeakRetained evaluateDtoPolicy:v18];
+    v17[0] = MEMORY[0x277D85DD0];
+    v17[1] = 3221225472;
+    v17[2] = __58__TSSecureIntentGestureViewController__doubleClickGesture__block_invoke_3;
+    v17[3] = &unk_279B44828;
+    v15 = &v18;
+    objc_copyWeak(&v18, (a1 + 40));
+    [WeakRetained evaluateDtoPolicy:v17];
   }
 
   objc_destroyWeak(v15);
-  objc_destroyWeak(&v24);
-
-  v17 = *MEMORY[0x277D85DE8];
+  objc_destroyWeak(&v23);
 }
 
 void __58__TSSecureIntentGestureViewController__doubleClickGesture__block_invoke_80(uint64_t a1)
@@ -293,10 +363,8 @@ void __58__TSSecureIntentGestureViewController__doubleClickGesture__block_invoke
     v5 = objc_loadWeakRetained((a1 + 40));
     [v5 setIsDtoEvaluationSucceeded:1];
 
-    v6 = objc_loadWeakRetained((a1 + 40));
-    v7 = *(a1 + 32) != 0;
-    WeakRetained = v6;
-    [v6 _updateAuthenticationStatus:? isDTOEvaluationFailed:?];
+    WeakRetained = objc_loadWeakRetained((a1 + 40));
+    [WeakRetained _updateAuthenticationStatus:? isDTOEvaluationFailed:?];
   }
 }
 
@@ -364,26 +432,167 @@ void __89__TSSecureIntentGestureViewController__updateAuthenticationStatus_isDTO
   objc_destroyWeak(&v5);
 }
 
-void __89__TSSecureIntentGestureViewController__updateAuthenticationStatus_isDTOEvaluationFailed___block_invoke_2(uint64_t a1)
+void __89__TSSecureIntentGestureViewController__updateAuthenticationStatus_isDTOEvaluationFailed___block_invoke_2(uint64_t a1, uint64_t a2)
 {
   v10 = *MEMORY[0x277D85DE8];
-  v2 = _TSLogDomain();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = _TSLogDomain(a1);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v8 = 136315138;
     v9 = "[TSSecureIntentGestureViewController _updateAuthenticationStatus:isDTOEvaluationFailed:]_block_invoke_2";
-    _os_log_impl(&dword_262AA8000, v2, OS_LOG_TYPE_DEFAULT, "1s expired, dismiss UI @%s", &v8, 0xCu);
+    _os_log_impl(&dword_262AA8000, v3, OS_LOG_TYPE_DEFAULT, "1s expired, dismiss UI @%s", &v8, 0xCu);
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   [WeakRetained _maybeSendExternalizedContext:*(a1 + 32) isDTOEvaluationFailed:*(a1 + 48)];
 
-  v4 = objc_loadWeakRetained((a1 + 40));
-  v5 = [v4 delegate];
-  v6 = objc_loadWeakRetained((a1 + 40));
-  [v5 viewControllerDidComplete:v6];
+  v5 = objc_loadWeakRetained((a1 + 40));
+  v6 = [v5 delegate];
+  v7 = objc_loadWeakRetained((a1 + 40));
+  [v6 viewControllerDidComplete:v7];
+}
 
-  v7 = *MEMORY[0x277D85DE8];
+- (void)_maybeSendExternalizedContext:(id)context isDTOEvaluationFailed:(BOOL)failed
+{
+  failedCopy = failed;
+  v55 = *MEMORY[0x277D85DE8];
+  contextCopy = context;
+  v7 = contextCopy;
+  if (!self->_isExternalizedContextSent)
+  {
+    self->_isExternalizedContextSent = 1;
+    if (!contextCopy)
+    {
+      if (!self->_externalizedContext)
+      {
+        v11 = _TSLogDomain(0);
+        if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+        {
+          [(TSSecureIntentGestureViewController *)v11 _maybeSendExternalizedContext:v12 isDTOEvaluationFailed:v13, v14, v15, v16, v17, v18];
+        }
+      }
+
+      v19 = _TSLogDomain(contextCopy);
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+      {
+        externalizedContext = self->_externalizedContext;
+        *v54 = 138412546;
+        *&v54[4] = externalizedContext;
+        *&v54[12] = 2080;
+        *&v54[14] = "[TSSecureIntentGestureViewController _maybeSendExternalizedContext:isDTOEvaluationFailed:]";
+        _os_log_impl(&dword_262AA8000, v19, OS_LOG_TYPE_DEFAULT, "notify secure intent data:%@ @%s", v54, 0x16u);
+      }
+
+      v21 = +[TSCoreTelephonyClientCache sharedInstance];
+      v8 = v21;
+      v22 = self->_externalizedContext;
+      v23 = 0;
+      goto LABEL_28;
+    }
+
+    if (failedCopy)
+    {
+      v9 = _TSLogDomain(contextCopy);
+      if (!os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+      {
+LABEL_27:
+
+        v21 = +[TSCoreTelephonyClientCache sharedInstance];
+        v8 = v21;
+        v22 = 0;
+        v23 = failedCopy;
+LABEL_28:
+        v44 = [v21 updateSecureIntentData:v22 isDTOEvaluationFailed:v23, *v54, *&v54[8]];
+        goto LABEL_29;
+      }
+
+      *v54 = 136315138;
+      *&v54[4] = "[TSSecureIntentGestureViewController _maybeSendExternalizedContext:isDTOEvaluationFailed:]";
+      v10 = "DTO Evaluation failed @%s";
+LABEL_8:
+      _os_log_impl(&dword_262AA8000, v9, OS_LOG_TYPE_DEFAULT, v10, v54, 0xCu);
+      goto LABEL_27;
+    }
+
+    domain = [contextCopy domain];
+    if ([domain isEqualToString:*MEMORY[0x277CCA050]])
+    {
+      code = [v7 code];
+
+      if (code == 89)
+      {
+        v9 = _TSLogDomain(v26);
+        if (!os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+        {
+          goto LABEL_27;
+        }
+
+        *v54 = 136315138;
+        *&v54[4] = "[TSSecureIntentGestureViewController _maybeSendExternalizedContext:isDTOEvaluationFailed:]";
+        v10 = "Cancelling secure intent @%s";
+        goto LABEL_8;
+      }
+    }
+
+    else
+    {
+    }
+
+    domain2 = [v7 domain];
+    v28 = [domain2 isEqualToString:@"com.apple.LocalAuthentication"];
+
+    if (v28)
+    {
+      if ([v7 code] == -1003)
+      {
+        v9 = _TSLogDomain(-1003);
+        if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+        {
+          [(TSSecureIntentGestureViewController *)v9 _maybeSendExternalizedContext:v30 isDTOEvaluationFailed:v31, v32, v33, v34, v35, v36];
+        }
+      }
+
+      else
+      {
+        code2 = [v7 code];
+        v9 = _TSLogDomain(code2);
+        v46 = os_log_type_enabled(v9, OS_LOG_TYPE_ERROR);
+        if (code2 == -1007)
+        {
+          if (v46)
+          {
+            [(TSSecureIntentGestureViewController *)v9 _maybeSendExternalizedContext:v47 isDTOEvaluationFailed:v48, v49, v50, v51, v52, v53];
+          }
+        }
+
+        else if (v46)
+        {
+          [(TSSecureIntentGestureViewController *)v9 _maybeSendExternalizedContext:v47 isDTOEvaluationFailed:v48, v49, v50, v51, v52, v53];
+        }
+      }
+    }
+
+    else
+    {
+      v9 = _TSLogDomain(v29);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      {
+        [(TSSecureIntentGestureViewController *)v9 _maybeSendExternalizedContext:v37 isDTOEvaluationFailed:v38, v39, v40, v41, v42, v43];
+      }
+    }
+
+    goto LABEL_27;
+  }
+
+  v8 = _TSLogDomain(contextCopy);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  {
+    *v54 = 136315138;
+    *&v54[4] = "[TSSecureIntentGestureViewController _maybeSendExternalizedContext:isDTOEvaluationFailed:]";
+    _os_log_impl(&dword_262AA8000, v8, OS_LOG_TYPE_DEFAULT, "already notify externalized context updated @%s", v54, 0xCu);
+  }
+
+LABEL_29:
 }
 
 - (id)_createPKGlyphView
@@ -413,17 +622,17 @@ void __89__TSSecureIntentGestureViewController__updateAuthenticationStatus_isDTO
 
 - (void)_handleUserCancelNotification:(id)notification
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   notificationCopy = notification;
-  v5 = _TSLogDomain();
+  v5 = _TSLogDomain(notificationCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     object = [notificationCopy object];
-    v11 = 138412546;
-    v12 = object;
-    v13 = 2080;
-    v14 = "[TSSecureIntentGestureViewController _handleUserCancelNotification:]";
-    _os_log_impl(&dword_262AA8000, v5, OS_LOG_TYPE_DEFAULT, "user canceled with reason : %@ @%s", &v11, 0x16u);
+    v10 = 138412546;
+    v11 = object;
+    v12 = 2080;
+    v13 = "[TSSecureIntentGestureViewController _handleUserCancelNotification:]";
+    _os_log_impl(&dword_262AA8000, v5, OS_LOG_TYPE_DEFAULT, "user canceled with reason : %@ @%s", &v10, 0x16u);
   }
 
   v7 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CCA050] code:89 userInfo:0];
@@ -432,13 +641,11 @@ void __89__TSSecureIntentGestureViewController__updateAuthenticationStatus_isDTO
 
   delegate = [(TSSecureIntentGestureViewController *)self delegate];
   [delegate userDidTapCancel];
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_updateLayoutConstraint
 {
-  v32[5] = *MEMORY[0x277D85DE8];
+  v31[5] = *MEMORY[0x277D85DE8];
   contentView = [(TSSecureIntentGestureViewController *)self contentView];
   [contentView bounds];
   v5 = v4;
@@ -455,60 +662,56 @@ void __89__TSSecureIntentGestureViewController__updateAuthenticationStatus_isDTO
   }
 
   v9 = v8 * 0.275;
-  v23 = MEMORY[0x277CCAAD0];
+  v22 = MEMORY[0x277CCAAD0];
   topAnchor = [(PKGlyphView *)self->_glyphView topAnchor];
   contentView2 = [(TSSecureIntentGestureViewController *)self contentView];
   mainContentGuide = [contentView2 mainContentGuide];
   topAnchor2 = [mainContentGuide topAnchor];
-  v27 = [topAnchor constraintGreaterThanOrEqualToAnchor:topAnchor2];
-  v32[0] = v27;
+  v26 = [topAnchor constraintGreaterThanOrEqualToAnchor:topAnchor2];
+  v31[0] = v26;
   centerXAnchor = [(PKGlyphView *)self->_glyphView centerXAnchor];
   contentView3 = [(TSSecureIntentGestureViewController *)self contentView];
   mainContentGuide2 = [contentView3 mainContentGuide];
   centerXAnchor2 = [mainContentGuide2 centerXAnchor];
-  v21 = [centerXAnchor constraintEqualToAnchor:centerXAnchor2];
-  v32[1] = v21;
+  v20 = [centerXAnchor constraintEqualToAnchor:centerXAnchor2];
+  v31[1] = v20;
   centerYAnchor = [(PKGlyphView *)self->_glyphView centerYAnchor];
   contentView4 = [(TSSecureIntentGestureViewController *)self contentView];
   mainContentGuide3 = [contentView4 mainContentGuide];
   centerYAnchor2 = [mainContentGuide3 centerYAnchor];
   v14 = [centerYAnchor constraintEqualToAnchor:centerYAnchor2];
-  v32[2] = v14;
+  v31[2] = v14;
   widthAnchor = [(PKGlyphView *)self->_glyphView widthAnchor];
   v16 = [widthAnchor constraintEqualToConstant:v9];
-  v32[3] = v16;
+  v31[3] = v16;
   heightAnchor = [(PKGlyphView *)self->_glyphView heightAnchor];
   v18 = [heightAnchor constraintEqualToConstant:v9];
-  v32[4] = v18;
-  v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v32 count:5];
-  [v23 activateConstraints:v19];
-
-  v20 = *MEMORY[0x277D85DE8];
+  v31[4] = v18;
+  v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v31 count:5];
+  [v22 activateConstraints:v19];
 }
 
 - (void)evaluateDtoPolicy:(id)policy
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   policyCopy = policy;
-  v4 = _TSLogDomain();
+  v4 = _TSLogDomain(policyCopy);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v12 = "[TSSecureIntentGestureViewController evaluateDtoPolicy:]";
+    v11 = "[TSSecureIntentGestureViewController evaluateDtoPolicy:]";
     _os_log_impl(&dword_262AA8000, v4, OS_LOG_TYPE_DEFAULT, "evaluating dto policy @%s", buf, 0xCu);
   }
 
   v5 = +[TSCoreTelephonyClientCache sharedInstance];
   getCoreTelephonyClient = [v5 getCoreTelephonyClient];
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __57__TSSecureIntentGestureViewController_evaluateDtoPolicy___block_invoke;
-  v9[3] = &unk_279B44DB8;
-  v10 = policyCopy;
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __57__TSSecureIntentGestureViewController_evaluateDtoPolicy___block_invoke;
+  v8[3] = &unk_279B44DB8;
+  v9 = policyCopy;
   v7 = policyCopy;
-  [getCoreTelephonyClient evaluateDtoPolicy:v9];
-
-  v8 = *MEMORY[0x277D85DE8];
+  [getCoreTelephonyClient evaluateDtoPolicy:v8];
 }
 
 uint64_t __57__TSSecureIntentGestureViewController_evaluateDtoPolicy___block_invoke(uint64_t a1)
@@ -600,53 +803,52 @@ void __47__TSSecureIntentGestureViewController_prepare___block_invoke(uint64_t a
 
 - (void)viewDidAppear:(uint64_t)a3 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0(&dword_262AA8000, a1, a3, "[E]invalid window context @%s", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[TSSecureIntentGestureViewController viewDidAppear:]";
+  OUTLINED_FUNCTION_0_0(&dword_262AA8000, a1, a3, "[E]invalid window context @%s", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)viewWillDisappear:(os_log_t)log .cold.1(os_log_t log)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v2 = 136315138;
-  v3 = "[TSSecureIntentGestureViewController viewWillDisappear:]";
-  _os_log_debug_impl(&dword_262AA8000, log, OS_LOG_TYPE_DEBUG, "[Db] secure intent view will disappear @%s", &v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v1 = 136315138;
+  v2 = "[TSSecureIntentGestureViewController viewWillDisappear:]";
+  _os_log_debug_impl(&dword_262AA8000, log, OS_LOG_TYPE_DEBUG, "[Db] secure intent view will disappear @%s", &v1, 0xCu);
 }
 
 - (void)_maybeSendExternalizedContext:(uint64_t)a3 isDTOEvaluationFailed:(uint64_t)a4 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0(&dword_262AA8000, a1, a3, "[E]secure intent failed @%s", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[TSSecureIntentGestureViewController _maybeSendExternalizedContext:isDTOEvaluationFailed:]";
+  OUTLINED_FUNCTION_0_0(&dword_262AA8000, a1, a3, "[E]secure intent failed @%s", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)_maybeSendExternalizedContext:(uint64_t)a3 isDTOEvaluationFailed:(uint64_t)a4 .cold.2(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0(&dword_262AA8000, a1, a3, "[E]other local auth error @%s", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[TSSecureIntentGestureViewController _maybeSendExternalizedContext:isDTOEvaluationFailed:]";
+  OUTLINED_FUNCTION_0_0(&dword_262AA8000, a1, a3, "[E]other local auth error @%s", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)_maybeSendExternalizedContext:(uint64_t)a3 isDTOEvaluationFailed:(uint64_t)a4 .cold.3(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0(&dword_262AA8000, a1, a3, "[E]secure intent denied @%s", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[TSSecureIntentGestureViewController _maybeSendExternalizedContext:isDTOEvaluationFailed:]";
+  OUTLINED_FUNCTION_0_0(&dword_262AA8000, a1, a3, "[E]secure intent denied @%s", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)_maybeSendExternalizedContext:(uint64_t)a3 isDTOEvaluationFailed:(uint64_t)a4 .cold.4(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0(&dword_262AA8000, a1, a3, "[E]secure intent gesture timeout @%s", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[TSSecureIntentGestureViewController _maybeSendExternalizedContext:isDTOEvaluationFailed:]";
+  OUTLINED_FUNCTION_0_0(&dword_262AA8000, a1, a3, "[E]secure intent gesture timeout @%s", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)_maybeSendExternalizedContext:(uint64_t)a3 isDTOEvaluationFailed:(uint64_t)a4 .cold.5(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0(&dword_262AA8000, a1, a3, "[E]invalid LAContext. but we still need to send notification @%s", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[TSSecureIntentGestureViewController _maybeSendExternalizedContext:isDTOEvaluationFailed:]";
+  OUTLINED_FUNCTION_0_0(&dword_262AA8000, a1, a3, "[E]invalid LAContext. but we still need to send notification @%s", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

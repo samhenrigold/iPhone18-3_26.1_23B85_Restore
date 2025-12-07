@@ -251,7 +251,7 @@
   v97 = [v94 numberWithUnsignedInteger:v96];
   [v3 setObject:v97 forKeyedSubscript:@"legacyBytesPushed"];
 
-  v98 = [v3 copy];
+  v98 = objc_msgSend_copy(v3);
 
   return v98;
 }

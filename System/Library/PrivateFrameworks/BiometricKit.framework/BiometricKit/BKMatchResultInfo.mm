@@ -6,7 +6,7 @@
 
 - (BKMatchResultInfo)initWithServerIdentity:(id)identity details:(id)details device:(id)device
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   identityCopy = identity;
   detailsCopy = details;
   deviceCopy = device;
@@ -24,17 +24,17 @@
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412802;
-    v29 = identityCopy;
-    v30 = 2112;
-    v31 = detailsCopy;
-    v32 = 2112;
-    v33 = deviceCopy;
+    v28 = identityCopy;
+    v29 = 2112;
+    v30 = detailsCopy;
+    v31 = 2112;
+    v32 = deviceCopy;
     _os_log_impl(&dword_1C82AD000, v12, OS_LOG_TYPE_DEFAULT, "BKMatchResultInfo::initWithServerIdentity:details:device: %@, %@, %@\n", buf, 0x20u);
   }
 
-  v27.receiver = self;
-  v27.super_class = BKMatchResultInfo;
-  v13 = [(BKMatchResultInfo *)&v27 init];
+  v26.receiver = self;
+  v26.super_class = BKMatchResultInfo;
+  v13 = [(BKMatchResultInfo *)&v26 init];
   if (v13)
   {
     if (identityCopy)
@@ -88,7 +88,7 @@
     if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v29 = v13;
+      v28 = v13;
       v22 = v21;
       v23 = OS_LOG_TYPE_DEFAULT;
 LABEL_29:
@@ -111,14 +111,13 @@ LABEL_29:
     if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v29 = 0;
+      v28 = 0;
       v22 = v24;
       v23 = OS_LOG_TYPE_ERROR;
       goto LABEL_29;
     }
   }
 
-  v25 = *MEMORY[0x1E69E9840];
   return v13;
 }
 

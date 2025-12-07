@@ -82,32 +82,8 @@
         while (1)
         {
           v15 = objc_autoreleasePoolPush();
-          if (v14 + 4 > v10)
+          if (v14 + 4 > v10 || (v40 = 0, [contentsCopy getBytes:&v40 range:{v14, 4}], v40 = bswap32(v40), v16 = v14 + 4 + v40, v16 > v10) || (v39 = 0, objc_msgSend(contentsCopy, "getBytes:range:", &v39, v14 + 4, 4), v38 = 0, v39 = bswap32(v39), objc_msgSend(contentsCopy, "getBytes:range:", &v38, v14 + 8, 4), v17 = v39, v18 = bswap32(v38), v38 = v18, v19 = v39 + v18, v19 > v34))
           {
-            goto LABEL_17;
-          }
-
-          v40 = 0;
-          [contentsCopy getBytes:&v40 range:{v14, 4}];
-          v40 = bswap32(v40);
-          v16 = v14 + 4 + v40;
-          if (v16 > v10)
-          {
-            goto LABEL_17;
-          }
-
-          v39 = 0;
-          [contentsCopy getBytes:&v39 range:{v14 + 4, 4}];
-          v38 = 0;
-          v39 = bswap32(v39);
-          [contentsCopy getBytes:&v38 range:{v14 + 8, 4}];
-          v17 = v39;
-          v18 = bswap32(v38);
-          v38 = v18;
-          v19 = v39 + v18;
-          if (v19 > v34)
-          {
-LABEL_17:
             objc_autoreleasePoolPop(v15);
             v11 = 0;
             goto LABEL_19;
@@ -209,11 +185,11 @@ LABEL_19:
 
 + (id)htmlBodyFromRfc822:(id)rfc822 headers:(id)headers attachmentCallback:(id)callback
 {
-  v139[1] = *MEMORY[0x277D85DE8];
+  v138[1] = *MEMORY[0x277D85DE8];
   rfc822Copy = rfc822;
   headersCopy = headers;
   callbackCopy = callback;
-  v114 = headersCopy;
+  v113 = headersCopy;
   v9 = [headersCopy hv_firstHeaderForKey:@"content-type"];
   v10 = v9;
   v11 = @"text/plain";
@@ -224,14 +200,14 @@ LABEL_19:
 
   v12 = v11;
 
-  v106 = v12;
-  v124 = [self parseParameterizedHeaderValue:v12];
+  v105 = v12;
+  v123 = [self parseParameterizedHeaderValue:v12];
   v13 = objc_autoreleasePoolPush();
-  first = [v124 first];
+  first = [v123 first];
   lowercaseString = [first lowercaseString];
 
   objc_autoreleasePoolPop(v13);
-  second = [v124 second];
+  second = [v123 second];
   v15 = objc_autoreleasePoolPush();
   v16 = [second objectForKeyedSubscript:@"charset"];
   v17 = v16;
@@ -244,33 +220,22 @@ LABEL_19:
 
   objc_autoreleasePoolPop(v15);
   v18 = [second objectForKeyedSubscript:@"boundary"];
-  if (!v18)
-  {
-    goto LABEL_8;
-  }
-
-  v19 = objc_autoreleasePoolPush();
-  v20 = [second objectForKeyedSubscript:@"boundary"];
-  v111 = [@"\n--" stringByAppendingString:v20];
-
-  objc_autoreleasePoolPop(v19);
-  if (v111)
+  if (v18 && (v19 = objc_autoreleasePoolPush(), [second objectForKeyedSubscript:@"boundary"], v20 = objc_claimAutoreleasedReturnValue(), objc_msgSend(@"\n--", "stringByAppendingString:", v20), v110 = objc_claimAutoreleasedReturnValue(), v20, objc_autoreleasePoolPop(v19), v18, v110))
   {
     v21 = objc_autoreleasePoolPush();
-    v109 = [v111 stringByAppendingString:@"--"];
+    v108 = [v110 stringByAppendingString:@"--"];
     objc_autoreleasePoolPop(v21);
     v22 = 1;
   }
 
   else
   {
-LABEL_8:
-    v109 = 0;
-    v111 = 0;
+    v108 = 0;
+    v110 = 0;
     v22 = 0;
   }
 
-  v23 = [v114 hv_firstHeaderForKey:@"content-disposition"];
+  v23 = [v113 hv_firstHeaderForKey:@"content-disposition"];
   v24 = v23;
   v25 = @"inline";
   if (v23)
@@ -280,18 +245,18 @@ LABEL_8:
 
   v26 = v25;
 
-  v105 = v26;
-  v123 = [self parseParameterizedHeaderValue:v26];
+  v104 = v26;
+  v122 = [self parseParameterizedHeaderValue:v26];
   v27 = objc_autoreleasePoolPush();
-  first2 = [v123 first];
+  first2 = [v122 first];
   lowercaseString2 = [first2 lowercaseString];
 
   objc_autoreleasePoolPop(v27);
-  second2 = [v123 second];
+  second2 = [v122 second];
   if (([lowercaseString2 isEqual:@"attachment"] & 1) == 0 && (v22 & objc_msgSend(lowercaseString, "hasPrefix:", @"multipart/")) == 1)
   {
-    v101 = [lowercaseString isEqual:@"multipart/alternative"];
-    if (v101)
+    v100 = [lowercaseString isEqual:@"multipart/alternative"];
+    if (v100)
     {
       v29 = 0;
     }
@@ -300,8 +265,8 @@ LABEL_8:
     {
       if ([lowercaseString isEqual:@"multipart/related"])
       {
-        v119 = [second objectForKeyedSubscript:@"start"];
-        v29 = v119 == 0;
+        v118 = [second objectForKeyedSubscript:@"start"];
+        v29 = v118 == 0;
 LABEL_54:
         v59 = [self rangeOfBodyFromRfc822:rfc822Copy];
         if (v59)
@@ -325,15 +290,15 @@ LABEL_54:
         }
 
         v63 = objc_autoreleasePoolPush();
-        v121 = [v111 dataUsingEncoding:1];
+        v120 = [v110 dataUsingEncoding:1];
         objc_autoreleasePoolPop(v63);
         v64 = objc_autoreleasePoolPush();
-        v107 = [v109 dataUsingEncoding:1];
+        v106 = [v108 dataUsingEncoding:1];
         objc_autoreleasePoolPop(v64);
-        v103 = objc_opt_new();
+        v102 = objc_opt_new();
         bytes = [rfc822Copy bytes];
-        v113 = 0;
-        v104 = bytes - 1;
+        v112 = 0;
+        v103 = bytes - 1;
         if (v29)
         {
           v66 = 5;
@@ -344,12 +309,12 @@ LABEL_54:
           v66 = 0;
         }
 
-        v102 = v66;
-        v129 = 0x7FFFFFFFFFFFFFFFLL;
-        v116 = bytes;
+        v101 = v66;
+        v128 = 0x7FFFFFFFFFFFFFFFLL;
+        v115 = bytes;
         while (1)
         {
-          v67 = [rfc822Copy rangeOfData:v121 options:0 range:{v62, v61}];
+          v67 = [rfc822Copy rangeOfData:v120 options:0 range:{v62, v61}];
           if (v67 == 0x7FFFFFFFFFFFFFFFLL)
           {
             if (!v61)
@@ -357,7 +322,7 @@ LABEL_54:
               goto LABEL_113;
             }
 
-            if (*(v116 + v62) == 10 || *(v104 + v62 + v61) != 10)
+            if (*(v115 + v62) == 10 || *(v103 + v62 + v61) != 10)
             {
               goto LABEL_113;
             }
@@ -370,12 +335,12 @@ LABEL_54:
 
           v73 = v67;
           v74 = v68;
-          v142.length = v68 + 2;
-          v141.location = v62;
-          v141.length = v61;
-          v142.location = v73;
-          v75 = NSIntersectionRange(v141, v142);
-          v76 = [rfc822Copy rangeOfData:v107 options:2 range:{v75.location, v75.length}];
+          v141.length = v68 + 2;
+          v140.location = v62;
+          v140.length = v61;
+          v141.location = v73;
+          v75 = NSIntersectionRange(v140, v141);
+          v76 = [rfc822Copy rangeOfData:v106 options:2 range:{v75.location, v75.length}];
           v71 = v76 != 0x7FFFFFFFFFFFFFFFLL;
           if (v76 == 0x7FFFFFFFFFFFFFFFLL)
           {
@@ -402,7 +367,7 @@ LABEL_54:
           if (length + location >= v62 + v61)
           {
             v72 = length;
-            v82 = v116;
+            v82 = v115;
 LABEL_91:
             if (location && *(v82 + location - 1) == 13)
             {
@@ -411,16 +376,16 @@ LABEL_91:
             }
 
 LABEL_94:
-            if (v129 != 0x7FFFFFFFFFFFFFFFLL)
+            if (v128 != 0x7FFFFFFFFFFFFFFFLL)
             {
               v86 = objc_autoreleasePoolPush();
-              v87 = [rfc822Copy subdataWithRange:{v129 + v113, location - (v129 + v113)}];
+              v87 = [rfc822Copy subdataWithRange:{v128 + v112, location - (v128 + v112)}];
               v88 = [self parseHeaders:v87];
               v89 = v88;
-              if (v119)
+              if (v118)
               {
                 v90 = [v88 hv_firstHeaderForKey:@"content-id"];
-                v91 = [v119 isEqual:v90];
+                v91 = [v118 isEqual:v90];
 
                 if (!v91)
                 {
@@ -432,16 +397,16 @@ LABEL_94:
               v93 = [self htmlBodyFromRfc822:v87 headers:v89 attachmentCallback:callbackCopy];
               if (v93)
               {
-                if (v101)
+                if (v100)
                 {
-                  [v103 removeAllObjects];
+                  [v102 removeAllObjects];
                 }
 
-                [v103 addObject:v93];
+                [v102 addObject:v93];
               }
 
               objc_autoreleasePoolPop(v92);
-              if (v119)
+              if (v118)
               {
                 v85 = 5;
               }
@@ -449,7 +414,7 @@ LABEL_94:
               else
               {
 LABEL_103:
-                v85 = v102;
+                v85 = v101;
               }
 
               objc_autoreleasePoolPop(v86);
@@ -464,8 +429,8 @@ LABEL_103:
             {
               v85 = 0;
               length = v72;
-              v113 = v72;
-              v129 = location;
+              v112 = v72;
+              v128 = location;
               goto LABEL_112;
             }
 
@@ -475,13 +440,13 @@ LABEL_103:
           v80 = 0;
           v72 = v78 - location;
           v81 = length;
-          v82 = v116;
+          v82 = v115;
           while (2)
           {
             v83 = v80;
             while (1)
             {
-              v84 = *(v116 + v79);
+              v84 = *(v115 + v79);
               ++v81;
               if (v84 == 10 || (v83 & 1) != 0)
               {
@@ -537,9 +502,9 @@ LABEL_112:
           if (v85 == 5)
           {
 LABEL_113:
-            if ([v103 count])
+            if (objc_msgSend_count(v102))
             {
-              v32 = [v103 _pas_proxyComponentsJoinedByString:&stru_284703F00];
+              v32 = [v102 _pas_proxyComponentsJoinedByString:&stru_284703F00];
             }
 
             else
@@ -555,7 +520,7 @@ LABEL_113:
       v29 = [lowercaseString isEqual:@"multipart/signed"];
     }
 
-    v119 = 0;
+    v118 = 0;
     goto LABEL_54;
   }
 
@@ -569,11 +534,11 @@ LABEL_113:
   v31 = [lowercaseString2 isEqual:@"attachment"];
   if (callbackCopy || (v31 & 1) == 0)
   {
-    v120 = v30;
+    v119 = v30;
     v33 = [self rangeOfBodyFromRfc822:rfc822Copy];
     v35 = v34;
     v36 = objc_autoreleasePoolPush();
-    v128 = [rfc822Copy subdataWithRange:{v33, v35}];
+    v127 = [rfc822Copy subdataWithRange:{v33, v35}];
     objc_autoreleasePoolPop(v36);
     v37 = CFStringConvertIANACharSetNameToEncoding(theString);
     if (v37 == -1)
@@ -581,58 +546,58 @@ LABEL_113:
       v37 = 1536;
     }
 
-    v118 = CFStringConvertEncodingToNSStringEncoding(v37);
+    v117 = CFStringConvertEncodingToNSStringEncoding(v37);
     if ([lowercaseString isEqual:@"text/plain"] && (objc_msgSend(second, "objectForKeyedSubscript:", @"format"), (v38 = objc_claimAutoreleasedReturnValue()) != 0) && (objc_msgSend(second, "objectForKeyedSubscript:", @"format"), v39 = objc_claimAutoreleasedReturnValue(), v40 = objc_msgSend(v39, "caseInsensitiveCompare:", @"flowed"), v39, v38, !v40))
     {
       v96 = [second objectForKeyedSubscript:@"delsp"];
       if (v96)
       {
         v97 = [second objectForKeyedSubscript:@"delsp"];
-        v112 = [v97 caseInsensitiveCompare:@"yes"] == 0;
+        v111 = [v97 caseInsensitiveCompare:@"yes"] == 0;
       }
 
       else
       {
-        v112 = 0;
+        v111 = 0;
       }
 
-      v115 = 1;
+      v114 = 1;
     }
 
     else
     {
-      v115 = 0;
-      v112 = 0;
+      v114 = 0;
+      v111 = 0;
     }
 
     v41 = objc_autoreleasePoolPush();
-    v42 = [v114 hv_firstHeaderForKey:@"content-transfer-encoding"];
+    v42 = [v113 hv_firstHeaderForKey:@"content-transfer-encoding"];
     lowercaseString3 = [v42 lowercaseString];
 
     objc_autoreleasePoolPop(v41);
     if ([lowercaseString3 isEqual:@"binary"])
     {
 LABEL_28:
-      v44 = v128;
+      v44 = v127;
       goto LABEL_36;
     }
 
     if ([lowercaseString3 isEqual:@"base64"])
     {
-      v44 = [objc_alloc(MEMORY[0x277CBEA90]) initWithBase64EncodedData:v128 options:1];
+      v44 = [objc_alloc(MEMORY[0x277CBEA90]) initWithBase64EncodedData:v127 options:1];
     }
 
     else if ([lowercaseString3 isEqual:@"x-uuencode"])
     {
-      v44 = [self uudecode:v128];
+      v44 = [self uudecode:v127];
     }
 
     else
     {
       if ([lowercaseString3 isEqual:@"quoted-printable"])
       {
-        v95 = [MEMORY[0x277CCACA8] _pas_stringWithDataNoCopy:v128 encoding:1 nullTerminated:0];
-        v45 = [self decodeQuotedPrintable:v95 charset:v118 rfc2047UnderscoreAsSpace:0];
+        v95 = [MEMORY[0x277CCACA8] _pas_stringWithDataNoCopy:v127 encoding:1 nullTerminated:0];
+        v45 = [self decodeQuotedPrintable:v95 charset:v117 rfc2047UnderscoreAsSpace:0];
 
         if (!v45)
         {
@@ -644,40 +609,40 @@ LABEL_37:
         v47 = objc_autoreleasePoolPush();
         if (!v46)
         {
-          v132 = 0;
+          v131 = 0;
           v49 = objc_autoreleasePoolPush();
           v50 = MEMORY[0x277CCACA8];
-          v138 = *MEMORY[0x277CCA680];
-          v51 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v118];
-          v137 = v51;
-          v52 = [MEMORY[0x277CBEA60] arrayWithObjects:&v137 count:1];
-          v139[0] = v52;
-          v53 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v139 forKeys:&v138 count:1];
-          v131 = 0;
-          v54 = [v50 stringEncodingForData:v45 encodingOptions:v53 convertedString:&v131 usedLossyConversion:&v132];
-          v55 = v131;
+          v137 = *MEMORY[0x277CCA680];
+          v51 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v117];
+          v136 = v51;
+          v52 = [MEMORY[0x277CBEA60] arrayWithObjects:&v136 count:1];
+          v138[0] = v52;
+          v53 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v138 forKeys:&v137 count:1];
+          v130 = 0;
+          v54 = [v50 stringEncodingForData:v45 encodingOptions:v53 convertedString:&v130 usedLossyConversion:&v131];
+          v55 = v130;
 
           objc_autoreleasePoolPop(v49);
           if (v54)
           {
-            if (v132 == 1)
+            if (v131 == 1)
             {
               v56 = sgLogHandle();
               if (os_log_type_enabled(v56, OS_LOG_TYPE_DEFAULT))
               {
                 *buf = 134218240;
-                v134 = v54;
-                v135 = 2048;
-                v136 = v118;
+                v133 = v54;
+                v134 = 2048;
+                v135 = v117;
                 _os_log_impl(&dword_231E60000, v56, OS_LOG_TYPE_DEFAULT, "Lossy conversion. Detected charset: %ld (expected: %ld)", buf, 0x16u);
               }
             }
 
             if ([lowercaseString isEqual:@"text/plain"])
             {
-              if (v115)
+              if (v114)
               {
-                v57 = [self formatFlowed:v55 delSp:v112];
+                v57 = [self formatFlowed:v55 delSp:v111];
 
                 v55 = v57;
               }
@@ -714,16 +679,16 @@ LABEL_41:
         v32 = 0;
 LABEL_124:
 
-        v30 = v120;
+        v30 = v119;
         goto LABEL_125;
       }
 
-      if (v115)
+      if (v114)
       {
         goto LABEL_28;
       }
 
-      v44 = [self stripTrailingASCIIHSpace:v128];
+      v44 = [self stripTrailingASCIIHSpace:v127];
     }
 
 LABEL_36:
@@ -740,8 +705,6 @@ LABEL_36:
 LABEL_125:
   objc_autoreleasePoolPop(v30);
 LABEL_126:
-
-  v98 = *MEMORY[0x277D85DE8];
 
   return v32;
 }
@@ -1288,7 +1251,7 @@ LABEL_40:
     while (v6);
   }
 
-  v10 = [v5 count];
+  v10 = objc_msgSend_count(v5);
   if (v10 == [spaceCopy length])
   {
     v11 = [spaceCopy copy];
@@ -1296,35 +1259,36 @@ LABEL_40:
 
   else
   {
-    v12 = malloc_type_malloc([v5 count], 0x528D44F4uLL);
-    if (!v12)
+    v12 = objc_msgSend_count(v5);
+    v13 = malloc_type_malloc(v12, 0x528D44F4uLL);
+    if (!v13)
     {
-      v15 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE728] reason:@"malloc failed" userInfo:0];
-      objc_exception_throw(v15);
+      v16 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE728] reason:@"malloc failed" userInfo:0];
+      objc_exception_throw(v16);
     }
 
-    v13 = v12;
-    v20[0] = 0;
-    v20[1] = v20;
-    v20[2] = 0x2020000000;
-    v20[3] = 0;
-    v16[0] = MEMORY[0x277D85DD0];
-    v16[1] = 3221225472;
-    v16[2] = __63__SGSimpleMailMessage_RFC822Parsing__stripTrailingASCIIHSpace___block_invoke_2;
-    v16[3] = &unk_27894CAC8;
-    v18 = v20;
-    v19 = v12;
-    v17 = spaceCopy;
-    [v5 enumerateRangesUsingBlock:v16];
-    v11 = [objc_alloc(MEMORY[0x277CBEA90]) initWithBytesNoCopy:v13 length:objc_msgSend(v5 freeWhenDone:{"count"), 1}];
+    v14 = v13;
+    v21[0] = 0;
+    v21[1] = v21;
+    v21[2] = 0x2020000000;
+    v21[3] = 0;
+    v17[0] = MEMORY[0x277D85DD0];
+    v17[1] = 3221225472;
+    v17[2] = __63__SGSimpleMailMessage_RFC822Parsing__stripTrailingASCIIHSpace___block_invoke_2;
+    v17[3] = &unk_27894CAC8;
+    v19 = v21;
+    v20 = v13;
+    v18 = spaceCopy;
+    [v5 enumerateRangesUsingBlock:v17];
+    v11 = [objc_alloc(MEMORY[0x277CBEA90]) initWithBytesNoCopy:v14 length:objc_msgSend_count(v5) freeWhenDone:1];
 
-    _Block_object_dispose(v20, 8);
+    _Block_object_dispose(v21, 8);
   }
 
   return v11;
 }
 
-uint64_t __63__SGSimpleMailMessage_RFC822Parsing__stripTrailingASCIIHSpace___block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3)
+void *__63__SGSimpleMailMessage_RFC822Parsing__stripTrailingASCIIHSpace___block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   result = [*(a1 + 32) getBytes:*(a1 + 48) + *(*(*(a1 + 40) + 8) + 24) range:{a2, a3}];
   *(*(*(a1 + 40) + 8) + 24) += a3;
@@ -1343,7 +1307,7 @@ void __63__SGSimpleMailMessage_RFC822Parsing__stripTrailingASCIIHSpace___block_i
 
 + (id)uudecode:(id)uudecode
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   uudecodeCopy = uudecode;
   archive_read_new();
   archive_read_support_filter_uu();
@@ -1364,7 +1328,7 @@ void __63__SGSimpleMailMessage_RFC822Parsing__stripTrailingASCIIHSpace___block_i
   else
   {
     v5 = [objc_alloc(MEMORY[0x277CBEB28]) initWithCapacity:{(3 * objc_msgSend(uudecodeCopy, "length")) >> 2}];
-    memset(v9, 0, sizeof(v9));
+    memset(v8, 0, sizeof(v8));
     while (1)
     {
       data = archive_read_data();
@@ -1373,7 +1337,7 @@ void __63__SGSimpleMailMessage_RFC822Parsing__stripTrailingASCIIHSpace___block_i
         break;
       }
 
-      [v5 appendBytes:v9 length:data];
+      [v5 appendBytes:v8 length:data];
       if (!data)
       {
         v4 = v5;
@@ -1386,8 +1350,6 @@ LABEL_10:
   }
 
   archive_read_free();
-
-  v7 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
@@ -1649,7 +1611,7 @@ void __93__SGSimpleMailMessage_RFC822Parsing__decodeQuotedPrintable_charset_rfc2
 
 void __93__SGSimpleMailMessage_RFC822Parsing__decodeQuotedPrintable_charset_rfc2047UnderscoreAsSpace___block_invoke_2(uint64_t a1, void *a2)
 {
-  v23[1] = *MEMORY[0x277D85DE8];
+  v22[1] = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = *(*(*(a1 + 48) + 8) + 24);
   if (v4 != [v3 range])
@@ -1665,18 +1627,18 @@ void __93__SGSimpleMailMessage_RFC822Parsing__decodeQuotedPrintable_charset_rfc2
 
     else
     {
-      v23[0] = v6;
-      v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:1];
+      v22[0] = v6;
+      v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:1];
     }
 
     v10 = v9;
     objc_autoreleasePoolPop(v8);
-    v21[0] = MEMORY[0x277D85DD0];
-    v21[1] = 3221225472;
-    v21[2] = __93__SGSimpleMailMessage_RFC822Parsing__decodeQuotedPrintable_charset_rfc2047UnderscoreAsSpace___block_invoke_3;
-    v21[3] = &unk_27894CA50;
-    v22 = *(a1 + 40);
-    [v10 enumerateObjectsUsingBlock:v21];
+    v20[0] = MEMORY[0x277D85DD0];
+    v20[1] = 3221225472;
+    v20[2] = __93__SGSimpleMailMessage_RFC822Parsing__decodeQuotedPrintable_charset_rfc2047UnderscoreAsSpace___block_invoke_3;
+    v20[3] = &unk_27894CA50;
+    v21 = *(a1 + 40);
+    [v10 enumerateObjectsUsingBlock:v20];
 
     objc_autoreleasePoolPop(v5);
   }
@@ -1688,16 +1650,14 @@ void __93__SGSimpleMailMessage_RFC822Parsing__decodeQuotedPrintable_charset_rfc2
     v14 = v12;
     v15 = objc_autoreleasePoolPush();
     v16 = [*(a1 + 32) substringWithRange:{v13, v14}];
-    v20 = strtol([v16 UTF8String], 0, 16);
-    [*(a1 + 40) appendBytes:&v20 length:1];
+    v19 = strtol([v16 UTF8String], 0, 16);
+    [*(a1 + 40) appendBytes:&v19 length:1];
 
     objc_autoreleasePoolPop(v15);
   }
 
   v17 = [v3 range];
   *(*(*(a1 + 48) + 8) + 24) = v17 + v18;
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 void __93__SGSimpleMailMessage_RFC822Parsing__decodeQuotedPrintable_charset_rfc2047UnderscoreAsSpace___block_invoke_3(uint64_t a1, void *a2, uint64_t a3)
@@ -1717,7 +1677,7 @@ void __93__SGSimpleMailMessage_RFC822Parsing__decodeQuotedPrintable_charset_rfc2
 
 + (id)dateFromEmailString:(id)string
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   stringCopy = string;
   if (dateFromEmailString___pasOnceToken4 != -1)
   {
@@ -1731,32 +1691,32 @@ void __93__SGSimpleMailMessage_RFC822Parsing__decodeQuotedPrintable_charset_rfc2
   }
 
   v5 = dateFromEmailString___pasExprOnceResult_140;
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
   v6 = v4;
-  v7 = [v6 countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v19 objects:v23 count:16];
   v8 = 0;
   if (v7)
   {
-    v9 = *v21;
+    v9 = *v20;
     while (2)
     {
       v10 = 0;
       v11 = v8;
       do
       {
-        if (*v21 != v9)
+        if (*v20 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v12 = *(*(&v20 + 1) + 8 * v10);
+        v12 = *(*(&v19 + 1) + 8 * v10);
         v13 = objc_autoreleasePoolPush();
-        v19 = 0;
-        v14 = [v12 getObjectValue:&v19 forString:stringCopy range:0 error:0];
-        v8 = v19;
+        v18 = 0;
+        v14 = [v12 getObjectValue:&v18 forString:stringCopy range:0 error:0];
+        v8 = v18;
 
         if (v14)
         {
@@ -1778,7 +1738,7 @@ void __93__SGSimpleMailMessage_RFC822Parsing__decodeQuotedPrintable_charset_rfc2
       }
 
       while (v7 != v10);
-      v7 = [v6 countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v7 = [v6 countByEnumeratingWithState:&v19 objects:v23 count:16];
       if (v7)
       {
         continue;
@@ -1789,8 +1749,6 @@ void __93__SGSimpleMailMessage_RFC822Parsing__decodeQuotedPrintable_charset_rfc2
   }
 
 LABEL_16:
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
@@ -1864,33 +1822,33 @@ id __66__SGSimpleMailMessage_RFC822Parsing__addressItemsFromEmailString___block_
 + (id)simpleMailMessageFromHeaders:(id)headers
 {
   selfCopy = self;
-  v76 = *MEMORY[0x277D85DE8];
+  v75 = *MEMORY[0x277D85DE8];
   headersCopy = headers;
   initForBuilding = [[SGSimpleMailMessage alloc] initForBuilding];
-  v5 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(headersCopy, "count")}];
+  v5 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:objc_msgSend_count(headersCopy)];
+  v70 = 0u;
   v71 = 0u;
   v72 = 0u;
   v73 = 0u;
-  v74 = 0u;
   obj = headersCopy;
-  v6 = [obj countByEnumeratingWithState:&v71 objects:v75 count:16];
+  v6 = [obj countByEnumeratingWithState:&v70 objects:v74 count:16];
   if (!v6)
   {
     goto LABEL_50;
   }
 
   v7 = v6;
-  v8 = *v72;
+  v8 = *v71;
   do
   {
     for (i = 0; i != v7; ++i)
     {
-      if (*v72 != v8)
+      if (*v71 != v8)
       {
         objc_enumerationMutation(obj);
       }
 
-      v10 = *(*(&v71 + 1) + 8 * i);
+      v10 = *(*(&v70 + 1) + 8 * i);
       v11 = objc_autoreleasePoolPush();
       v12 = [v10 key];
       [v5 addObject:v12];
@@ -2105,7 +2063,7 @@ LABEL_48:
       objc_autoreleasePoolPop(v11);
     }
 
-    v7 = [obj countByEnumeratingWithState:&v71 objects:v75 count:16];
+    v7 = [obj countByEnumeratingWithState:&v70 objects:v74 count:16];
   }
 
   while (v7);
@@ -2154,10 +2112,8 @@ LABEL_50:
 
   [initForBuilding setBcc:v65];
 
-  [initForBuilding setHasInhumanHeaders:{objc_msgSend(v69, "headersContainInhumanOnes:keys:", obj, v5)}];
+  [initForBuilding setHasInhumanHeaders:{objc_msgSend(v68, "headersContainInhumanOnes:keys:", obj, v5)}];
   [initForBuilding setHeaders:obj];
-
-  v66 = *MEMORY[0x277D85DE8];
 
   return initForBuilding;
 }
@@ -2243,7 +2199,7 @@ id __57__SGSimpleMailMessage_convertMailMessageToBMMailMessage___block_invoke(ui
 
 - (id)createNewSearchableItemWithSource:(id)source uniqueIdentifier:(id)identifier domainIdentifier:(id)domainIdentifier
 {
-  v51[1] = *MEMORY[0x277D85DE8];
+  v50[1] = *MEMORY[0x277D85DE8];
   sourceCopy = source;
   identifierCopy = identifier;
   domainIdentifierCopy = domainIdentifier;
@@ -2295,8 +2251,8 @@ id __57__SGSimpleMailMessage_convertMailMessageToBMMailMessage___block_invoke(ui
       v26 = name;
     }
 
-    v51[0] = v26;
-    v27 = [MEMORY[0x277CBEA60] arrayWithObjects:v51 count:1];
+    v50[0] = v26;
+    v27 = [MEMORY[0x277CBEA60] arrayWithObjects:v50 count:1];
     [v13 setAuthorNames:v27];
 
     from3 = [(SGSimpleMailMessage *)self from];
@@ -2308,14 +2264,14 @@ id __57__SGSimpleMailMessage_convertMailMessageToBMMailMessage___block_invoke(ui
       v31 = emailAddress;
     }
 
-    v50 = v31;
-    v32 = [MEMORY[0x277CBEA60] arrayWithObjects:&v50 count:1];
+    v49 = v31;
+    v32 = [MEMORY[0x277CBEA60] arrayWithObjects:&v49 count:1];
     [v13 setAuthorEmailAddresses:v32];
 
     from4 = [(SGSimpleMailMessage *)self from];
     asCSPerson = [from4 asCSPerson];
-    v49 = asCSPerson;
-    v35 = [MEMORY[0x277CBEA60] arrayWithObjects:&v49 count:1];
+    v48 = asCSPerson;
+    v35 = [MEMORY[0x277CBEA60] arrayWithObjects:&v48 count:1];
     [v13 setAuthors:v35];
   }
 
@@ -2353,8 +2309,8 @@ id __57__SGSimpleMailMessage_convertMailMessageToBMMailMessage___block_invoke(ui
 
   if ([(SGMessage *)self isSent])
   {
-    v48 = *MEMORY[0x277CC2338];
-    v44 = [MEMORY[0x277CBEA60] arrayWithObjects:&v48 count:1];
+    v47 = *MEMORY[0x277CC2338];
+    v44 = [MEMORY[0x277CBEA60] arrayWithObjects:&v47 count:1];
     [v13 setMailboxIdentifiers:v44];
   }
 
@@ -2362,7 +2318,6 @@ id __57__SGSimpleMailMessage_convertMailMessageToBMMailMessage___block_invoke(ui
   [v45 setBundleID:*MEMORY[0x277D021C0]];
 
   objc_autoreleasePoolPop(v11);
-  v46 = *MEMORY[0x277D85DE8];
 
   return v45;
 }
@@ -2411,27 +2366,27 @@ id __57__SGSimpleMailMessage_convertMailMessageToBMMailMessage___block_invoke(ui
 
 - (BOOL)hasRecipientFromSameDomainAsSender
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   senderDomain = [(SGSimpleMailMessage *)self senderDomain];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   v4 = [(SGSimpleMailMessage *)self to];
-  v5 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v5)
   {
-    v6 = *v14;
+    v6 = *v13;
     while (2)
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v14 != v6)
+        if (*v13 != v6)
         {
           objc_enumerationMutation(v4);
         }
 
-        emailAddress = [*(*(&v13 + 1) + 8 * i) emailAddress];
+        emailAddress = [*(*(&v12 + 1) + 8 * i) emailAddress];
         v9 = emailAddressDomain(emailAddress);
         v10 = [v9 isEqualToString:senderDomain];
 
@@ -2442,7 +2397,7 @@ id __57__SGSimpleMailMessage_convertMailMessageToBMMailMessage___block_invoke(ui
         }
       }
 
-      v5 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v5 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
       if (v5)
       {
         continue;
@@ -2454,7 +2409,6 @@ id __57__SGSimpleMailMessage_convertMailMessageToBMMailMessage___block_invoke(ui
 
 LABEL_11:
 
-  v11 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -2486,13 +2440,13 @@ LABEL_11:
 
 - (SGSimpleMailMessage)initWithMailContentEvent:(id)event contentProtection:(id)protection htmlParser:(id)parser
 {
-  v105 = *MEMORY[0x277D85DE8];
+  v104 = *MEMORY[0x277D85DE8];
   eventCopy = event;
   protectionCopy = protection;
   parserCopy = parser;
-  v101.receiver = self;
-  v101.super_class = SGSimpleMailMessage;
-  v11 = [(SGMessage *)&v101 initWithMailContentEvent:eventCopy contentProtection:protectionCopy];
+  v100.receiver = self;
+  v100.super_class = SGSimpleMailMessage;
+  v11 = [(SGMessage *)&v100 initWithMailContentEvent:eventCopy contentProtection:protectionCopy];
   if (v11)
   {
     replyTo = [eventCopy replyTo];
@@ -2518,10 +2472,10 @@ LABEL_11:
     }
 
     headers = [eventCopy headers];
-    v83 = protectionCopy;
-    v84 = v11;
+    v82 = protectionCopy;
+    v83 = v11;
     parserCopy2 = parser;
-    v82 = parserCopy;
+    v81 = parserCopy;
     if (headers)
     {
       v23 = objc_opt_class();
@@ -2534,36 +2488,36 @@ LABEL_11:
       v11->_hasInhumanHeaders = 0;
     }
 
-    v99 = 0u;
-    v100 = 0u;
-    v97 = 0u;
     v98 = 0u;
-    v85 = eventCopy;
+    v99 = 0u;
+    v96 = 0u;
+    v97 = 0u;
+    v84 = eventCopy;
     headers3 = [eventCopy headers];
-    v26 = [headers3 countByEnumeratingWithState:&v97 objects:v104 count:16];
+    v26 = [headers3 countByEnumeratingWithState:&v96 objects:v103 count:16];
     if (v26)
     {
       v27 = v26;
-      v28 = *v98;
+      v28 = *v97;
 LABEL_11:
       v29 = 0;
       while (1)
       {
-        if (*v98 != v28)
+        if (*v97 != v28)
         {
           objc_enumerationMutation(headers3);
         }
 
-        v30 = *(*(&v97 + 1) + 8 * v29);
+        v30 = *(*(&v96 + 1) + 8 * v29);
         if (![@"message-id" compare:v30 options:{3, parserCopy2}])
         {
           headers4 = [eventCopy headers];
           v32 = [headers4 objectForKeyedSubscript:v30];
           firstObject = [v32 firstObject];
-          messageId = v84->_messageId;
-          v84->_messageId = firstObject;
+          messageId = v83->_messageId;
+          v83->_messageId = firstObject;
 
-          if (v84->_messageId)
+          if (v83->_messageId)
           {
             break;
           }
@@ -2571,7 +2525,7 @@ LABEL_11:
 
         if (v27 == ++v29)
         {
-          v27 = [headers3 countByEnumeratingWithState:&v97 objects:v104 count:16];
+          v27 = [headers3 countByEnumeratingWithState:&v96 objects:v103 count:16];
           if (v27)
           {
             goto LABEL_11;
@@ -2582,28 +2536,28 @@ LABEL_11:
       }
     }
 
-    if (!v84->_messageId)
+    if (!v83->_messageId)
     {
       messageIdentifier = [eventCopy messageIdentifier];
-      v36 = v84->_messageId;
-      v84->_messageId = messageIdentifier;
+      v36 = v83->_messageId;
+      v83->_messageId = messageIdentifier;
     }
 
     messageIdentifier2 = [eventCopy messageIdentifier];
-    appleMailMessageId = v84->_appleMailMessageId;
-    v84->_appleMailMessageId = messageIdentifier2;
+    appleMailMessageId = v83->_appleMailMessageId;
+    v83->_appleMailMessageId = messageIdentifier2;
 
     headers5 = [eventCopy headers];
     v40 = [headers5 objectForKeyedSubscript:@"in-reply-to"];
     v41 = [v40 objectAtIndexedSubscript:0];
-    inReplyTo = v84->_inReplyTo;
-    v84->_inReplyTo = v41;
+    inReplyTo = v83->_inReplyTo;
+    v83->_inReplyTo = v41;
 
     v43 = objc_alloc(MEMORY[0x277D020E0]);
     fromHandle = [eventCopy fromHandle];
     v45 = [v43 initWithNamedHandle:fromHandle];
-    from = v84->_from;
-    v84->_from = v45;
+    from = v83->_from;
+    v83->_from = v45;
 
     toHandles = [eventCopy toHandles];
     v48 = [toHandles _pas_mappedArrayWithTransform:&__block_literal_global_276];
@@ -2619,9 +2573,9 @@ LABEL_11:
       v51 = MEMORY[0x277CBEBF8];
     }
 
-    objc_storeStrong(&v84->_to, v51);
+    objc_storeStrong(&v83->_to, v51);
 
-    ccHandles = [v85 ccHandles];
+    ccHandles = [v84 ccHandles];
     v53 = [ccHandles _pas_mappedArrayWithTransform:&__block_literal_global_278];
     v54 = v53;
     if (v53)
@@ -2634,9 +2588,9 @@ LABEL_11:
       v55 = v50;
     }
 
-    objc_storeStrong(&v84->_cc, v55);
+    objc_storeStrong(&v83->_cc, v55);
 
-    bccHandles = [v85 bccHandles];
+    bccHandles = [v84 bccHandles];
     v57 = [bccHandles _pas_mappedArrayWithTransform:&__block_literal_global_280];
     v58 = v57;
     if (v57)
@@ -2649,60 +2603,60 @@ LABEL_11:
       v59 = v50;
     }
 
-    objc_storeStrong(&v84->_bcc, v59);
+    objc_storeStrong(&v83->_bcc, v59);
 
-    mailboxIdentifiers = [v85 mailboxIdentifiers];
-    mailboxIdentifiers = v84->_mailboxIdentifiers;
-    v84->_mailboxIdentifiers = mailboxIdentifiers;
+    mailboxIdentifiers = [v84 mailboxIdentifiers];
+    mailboxIdentifiers = v83->_mailboxIdentifiers;
+    v83->_mailboxIdentifiers = mailboxIdentifiers;
 
-    [(SGMessage *)v84 setIsSent:[(NSArray *)v84->_mailboxIdentifiers containsObject:*MEMORY[0x277CC2338]]];
-    v84->_isPartiallyDownloaded = [v85 isFullyDownloaded] ^ 1;
-    headers6 = [v85 headers];
-    v63 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(headers6, "count")}];
+    [(SGMessage *)v83 setIsSent:[(NSArray *)v83->_mailboxIdentifiers containsObject:*MEMORY[0x277CC2338]]];
+    v83->_isPartiallyDownloaded = [v84 isFullyDownloaded] ^ 1;
+    headers6 = [v84 headers];
+    v63 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:objc_msgSend_count(headers6)];
+    v92 = 0u;
     v93 = 0u;
     v94 = 0u;
     v95 = 0u;
-    v96 = 0u;
     obj = headers6;
-    v87 = [obj countByEnumeratingWithState:&v93 objects:v103 count:16];
-    if (v87)
+    v86 = [obj countByEnumeratingWithState:&v92 objects:v102 count:16];
+    if (v86)
     {
-      v86 = *v94;
+      v85 = *v93;
       do
       {
-        for (i = 0; i != v87; ++i)
+        for (i = 0; i != v86; ++i)
         {
-          if (*v94 != v86)
+          if (*v93 != v85)
           {
             objc_enumerationMutation(obj);
           }
 
-          v65 = *(*(&v93 + 1) + 8 * i);
+          v65 = *(*(&v92 + 1) + 8 * i);
           v66 = objc_autoreleasePoolPush();
+          v88 = 0u;
           v89 = 0u;
           v90 = 0u;
           v91 = 0u;
-          v92 = 0u;
           v67 = [obj objectForKeyedSubscript:v65];
-          v68 = [v67 countByEnumeratingWithState:&v89 objects:v102 count:16];
+          v68 = [v67 countByEnumeratingWithState:&v88 objects:v101 count:16];
           if (v68)
           {
             v69 = v68;
-            v70 = *v90;
+            v70 = *v89;
             do
             {
               for (j = 0; j != v69; ++j)
               {
-                if (*v90 != v70)
+                if (*v89 != v70)
                 {
                   objc_enumerationMutation(v67);
                 }
 
-                v72 = [[SGSimpleMailHeaderKeyValue alloc] initWithKey:v65 value:*(*(&v89 + 1) + 8 * j)];
+                v72 = [[SGSimpleMailHeaderKeyValue alloc] initWithKey:v65 value:*(*(&v88 + 1) + 8 * j)];
                 [(NSArray *)v63 addObject:v72];
               }
 
-              v69 = [v67 countByEnumeratingWithState:&v89 objects:v102 count:16];
+              v69 = [v67 countByEnumeratingWithState:&v88 objects:v101 count:16];
             }
 
             while (v69);
@@ -2711,31 +2665,30 @@ LABEL_11:
           objc_autoreleasePoolPop(v66);
         }
 
-        v87 = [obj countByEnumeratingWithState:&v93 objects:v103 count:16];
+        v86 = [obj countByEnumeratingWithState:&v92 objects:v102 count:16];
       }
 
-      while (v87);
+      while (v86);
     }
 
-    v11 = v84;
-    headers = v84->_headers;
-    v84->_headers = v63;
+    v11 = v83;
+    headers = v83->_headers;
+    v83->_headers = v63;
     v74 = v63;
 
-    eventCopy = v85;
-    htmlContent = [v85 htmlContent];
-    htmlContentData = v84->_htmlContentData;
-    v84->_htmlContentData = htmlContent;
+    eventCopy = v84;
+    htmlContent = [v84 htmlContent];
+    htmlContentData = v83->_htmlContentData;
+    v83->_htmlContentData = htmlContent;
 
-    objc_storeStrong(&v84->_htmlParser, v81);
-    textContent = [v85 textContent];
-    [(SGMessage *)v84 setTextContent:textContent];
+    objc_storeStrong(&v83->_htmlParser, v80);
+    textContent = [v84 textContent];
+    [(SGMessage *)v83 setTextContent:textContent];
 
-    parserCopy = v82;
-    protectionCopy = v83;
+    parserCopy = v81;
+    protectionCopy = v82;
   }
 
-  v78 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
@@ -2768,14 +2721,14 @@ id __77__SGSimpleMailMessage_initWithMailContentEvent_contentProtection_htmlPars
 
 - (SGSimpleMailMessage)initWithSearchableItem:(id)item
 {
-  v78 = *MEMORY[0x277D85DE8];
+  v77 = *MEMORY[0x277D85DE8];
   itemCopy = item;
-  v75.receiver = self;
-  v75.super_class = SGSimpleMailMessage;
-  v5 = [(SGMessage *)&v75 initWithSearchableItem:itemCopy];
+  v74.receiver = self;
+  v74.super_class = SGSimpleMailMessage;
+  v5 = [(SGMessage *)&v74 initWithSearchableItem:itemCopy];
   if (v5)
   {
-    v62 = objc_autoreleasePoolPush();
+    v61 = objc_autoreleasePoolPush();
     attributeSet = [itemCopy attributeSet];
     accountIdentifier = [attributeSet accountIdentifier];
     [(SGMessage *)v5 setSource:accountIdentifier];
@@ -2791,7 +2744,7 @@ id __77__SGSimpleMailMessage_initWithMailContentEvent_contentProtection_htmlPars
       v12 = objc_alloc(MEMORY[0x277CCAB00]);
       hv_headerKeyFunctions = [MEMORY[0x277CCAB00] hv_headerKeyFunctions];
       hv_headerValueFunctions = [MEMORY[0x277CCAB00] hv_headerValueFunctions];
-      v15 = [v12 initWithKeyPointerFunctions:hv_headerKeyFunctions valuePointerFunctions:hv_headerValueFunctions capacity:{objc_msgSend(emailHeaders, "count")}];
+      v15 = [v12 initWithKeyPointerFunctions:hv_headerKeyFunctions valuePointerFunctions:hv_headerValueFunctions capacity:objc_msgSend_count(emailHeaders)];
 
       [(NSMapTable *)v15 hv_addEntriesFromHeadersDictionary:emailHeaders];
     }
@@ -2801,7 +2754,7 @@ id __77__SGSimpleMailMessage_initWithMailContentEvent_contentProtection_htmlPars
       v15 = 0;
     }
 
-    if ([authors count])
+    if (objc_msgSend_count(authors))
     {
       v16 = MEMORY[0x277D020E0];
       v17 = [authors objectAtIndexedSubscript:0];
@@ -2810,7 +2763,7 @@ id __77__SGSimpleMailMessage_initWithMailContentEvent_contentProtection_htmlPars
     }
 
     v19 = [(NSMapTable *)v15 objectForKey:@"reply-to"];
-    if ([v19 count])
+    if (objc_msgSend_count(v19))
     {
       v20 = MEMORY[0x277D020E0];
       v21 = [v19 objectAtIndexedSubscript:0];
@@ -2840,7 +2793,7 @@ id __77__SGSimpleMailMessage_initWithMailContentEvent_contentProtection_htmlPars
       [(SGSimpleMailMessage *)v5 setMailingList:v30];
     }
 
-    v57 = v29;
+    v56 = v29;
     primaryRecipients = [attributeSet primaryRecipients];
     v32 = sgMapAndFilter();
     [(SGSimpleMailMessage *)v5 setTo:v32];
@@ -2856,10 +2809,10 @@ id __77__SGSimpleMailMessage_initWithMailContentEvent_contentProtection_htmlPars
     mailboxIdentifiers = [attributeSet mailboxIdentifiers];
     [(SGSimpleMailMessage *)v5 setMailboxIdentifiers:mailboxIdentifiers];
 
-    v60 = authors;
-    v61 = attributeSet;
-    v58 = v19;
-    v59 = emailHeaders;
+    v59 = authors;
+    v60 = attributeSet;
+    v57 = v19;
+    v58 = emailHeaders;
     if (v15)
     {
       v38 = objc_opt_class();
@@ -2872,56 +2825,56 @@ id __77__SGSimpleMailMessage_initWithMailContentEvent_contentProtection_htmlPars
       [(SGSimpleMailMessage *)v5 setHasInhumanHeaders:0];
     }
 
-    v63 = itemCopy;
+    v62 = itemCopy;
     attributeSet2 = [itemCopy attributeSet];
     isPartiallyDownloaded = [attributeSet2 isPartiallyDownloaded];
     -[SGSimpleMailMessage setIsPartiallyDownloaded:](v5, "setIsPartiallyDownloaded:", [isPartiallyDownloaded BOOLValue]);
 
-    v42 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{-[NSMapTable count](v15, "count")}];
+    v42 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:objc_msgSend_count(v15)];
+    v70 = 0u;
     v71 = 0u;
     v72 = 0u;
     v73 = 0u;
-    v74 = 0u;
     obj = v15;
-    v65 = [(NSMapTable *)obj countByEnumeratingWithState:&v71 objects:v77 count:16];
-    if (v65)
+    v64 = [(NSMapTable *)obj countByEnumeratingWithState:&v70 objects:v76 count:16];
+    if (v64)
     {
-      v64 = *v72;
+      v63 = *v71;
       do
       {
-        for (i = 0; i != v65; ++i)
+        for (i = 0; i != v64; ++i)
         {
-          if (*v72 != v64)
+          if (*v71 != v63)
           {
             objc_enumerationMutation(obj);
           }
 
-          v44 = *(*(&v71 + 1) + 8 * i);
+          v44 = *(*(&v70 + 1) + 8 * i);
           v45 = objc_autoreleasePoolPush();
+          v66 = 0u;
           v67 = 0u;
           v68 = 0u;
           v69 = 0u;
-          v70 = 0u;
           v46 = [(NSMapTable *)obj objectForKey:v44];
-          v47 = [v46 countByEnumeratingWithState:&v67 objects:v76 count:16];
+          v47 = [v46 countByEnumeratingWithState:&v66 objects:v75 count:16];
           if (v47)
           {
             v48 = v47;
-            v49 = *v68;
+            v49 = *v67;
             do
             {
               for (j = 0; j != v48; ++j)
               {
-                if (*v68 != v49)
+                if (*v67 != v49)
                 {
                   objc_enumerationMutation(v46);
                 }
 
-                v51 = [[SGSimpleMailHeaderKeyValue alloc] initWithKey:v44 value:*(*(&v67 + 1) + 8 * j)];
+                v51 = [[SGSimpleMailHeaderKeyValue alloc] initWithKey:v44 value:*(*(&v66 + 1) + 8 * j)];
                 [v42 addObject:v51];
               }
 
-              v48 = [v46 countByEnumeratingWithState:&v67 objects:v76 count:16];
+              v48 = [v46 countByEnumeratingWithState:&v66 objects:v75 count:16];
             }
 
             while (v48);
@@ -2930,26 +2883,26 @@ id __77__SGSimpleMailMessage_initWithMailContentEvent_contentProtection_htmlPars
           objc_autoreleasePoolPop(v45);
         }
 
-        v65 = [(NSMapTable *)obj countByEnumeratingWithState:&v71 objects:v77 count:16];
+        v64 = [(NSMapTable *)obj countByEnumeratingWithState:&v70 objects:v76 count:16];
       }
 
-      while (v65);
+      while (v64);
     }
 
     objc_storeStrong(&v5->_headers, v42);
-    hTMLContentDataNoCopy = [v61 HTMLContentDataNoCopy];
+    hTMLContentDataNoCopy = [v60 HTMLContentDataNoCopy];
     if (hTMLContentDataNoCopy)
     {
       [(SGMessage *)v5 setTextContent:0];
       [(SGSimpleMailMessage *)v5 setHtmlContentData:hTMLContentDataNoCopy];
     }
 
-    itemCopy = v63;
-    -[SGMessage setIsSent:](v5, "setIsSent:", [MEMORY[0x277D41E30] mailItemIsInSent:v63]);
+    itemCopy = v62;
+    -[SGMessage setIsSent:](v5, "setIsSent:", [MEMORY[0x277D41E30] mailItemIsInSent:v62]);
     v53 = objc_opt_respondsToSelector();
     if (v53)
     {
-      v54 = [MEMORY[0x277CCABB0] numberWithInt:{objc_msgSend(v61, "mailCategories")}];
+      v54 = [MEMORY[0x277CCABB0] numberWithInt:{objc_msgSend(v60, "mailCategories")}];
     }
 
     else
@@ -2962,10 +2915,9 @@ id __77__SGSimpleMailMessage_initWithMailContentEvent_contentProtection_htmlPars
     {
     }
 
-    objc_autoreleasePoolPop(v62);
+    objc_autoreleasePoolPop(v61);
   }
 
-  v55 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -3320,7 +3272,7 @@ LABEL_39:
 
 - (id)uniqueIdentifier
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   messageId = self->_messageId;
   if (messageId)
   {
@@ -3356,7 +3308,7 @@ LABEL_39:
     v13 = v12;
 
     *__str = 0u;
-    v21 = 0u;
+    v20 = 0u;
     snprintf(__str, 0x20uLL, "%llu", v13);
     v14 = strlen(__str);
     CC_SHA256_Update(&c, __str, v14);
@@ -3369,8 +3321,6 @@ LABEL_39:
       objc_autoreleasePoolPop(v16);
     }
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
@@ -3390,7 +3340,7 @@ LABEL_39:
 
 id __29__SGSimpleMailMessage_author__block_invoke(uint64_t a1)
 {
-  v13[1] = *MEMORY[0x277D85DE8];
+  v12[1] = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) from];
   if (v2)
   {
@@ -3400,8 +3350,8 @@ id __29__SGSimpleMailMessage_author__block_invoke(uint64_t a1)
     v6 = [SGNames cleanName:v5];
     v7 = [*(a1 + 32) from];
     v8 = [v7 emailAddress];
-    v13[0] = v8;
-    v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:1];
+    v12[0] = v8;
+    v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
     v10 = [v3 initWithDisplayName:v6 handles:v9 handleIdentifier:*MEMORY[0x277CBCFC0]];
   }
 
@@ -3409,8 +3359,6 @@ id __29__SGSimpleMailMessage_author__block_invoke(uint64_t a1)
   {
     v10 = 0;
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -3491,11 +3439,11 @@ id __29__SGSimpleMailMessage_author__block_invoke(uint64_t a1)
   if (tabularRegions)
   {
     v11 = [SGDataDetectorMatch detectionsInPlainText:textContent withEligibleRegions:tabularRegions baseDate:date];
-    if ([v11 count])
+    if (objc_msgSend_count(v11))
     {
       v12 = [v11 _pas_filteredArrayWithTest:&__block_literal_global_211];
 
-      if ([v12 count])
+      if (objc_msgSend_count(v12))
       {
         matches = [v10 matches];
         v14 = [matches mutableCopy];
@@ -3580,7 +3528,7 @@ id __38__SGSimpleMailMessage_hasHumanHeaders__block_invoke(uint64_t a1)
   return v8;
 }
 
-void __48__SGSimpleMailMessage_isInhumanContentNoncached__block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, BOOL *a4)
+void __48__SGSimpleMailMessage_isInhumanContentNoncached__block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, unsigned __int8 *a4)
 {
   v8 = objc_autoreleasePoolPush();
   v9 = [*(a1 + 32) substringWithRange:{a2, a3}];
@@ -3649,7 +3597,7 @@ id __36__SGSimpleMailMessage_quotedRegions__block_invoke(uint64_t a1)
 
     v14 = [v13 copy];
     v15 = [*(a1 + 32) harvestMetrics];
-    [v15 endTimer:kHarvestMetricsMessageQuotedRegions significantWork:{objc_msgSend(v14, "count") != 0}];
+    [v15 endTimer:kHarvestMetricsMessageQuotedRegions significantWork:objc_msgSend_count(v14) != 0];
   }
 
   else
@@ -3823,28 +3771,28 @@ __CFString *__31__SGSimpleMailMessage_htmlBody__block_invoke(uint64_t a1)
 
 - (id)headersDictionary
 {
-  v64 = *MEMORY[0x277D85DE8];
+  v63 = *MEMORY[0x277D85DE8];
   v3 = objc_opt_new();
+  v49 = 0u;
   v50 = 0u;
   v51 = 0u;
   v52 = 0u;
-  v53 = 0u;
   v4 = self->_headers;
-  v5 = [(NSArray *)v4 countByEnumeratingWithState:&v50 objects:v63 count:16];
+  v5 = [(NSArray *)v4 countByEnumeratingWithState:&v49 objects:v62 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v51;
+    v7 = *v50;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v51 != v7)
+        if (*v50 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v50 + 1) + 8 * i);
+        v9 = *(*(&v49 + 1) + 8 * i);
         v10 = [v9 key];
         v11 = [v3 objectForKeyedSubscript:v10];
 
@@ -3859,7 +3807,7 @@ __CFString *__31__SGSimpleMailMessage_htmlBody__block_invoke(uint64_t a1)
         [v11 addObject:value];
       }
 
-      v6 = [(NSArray *)v4 countByEnumeratingWithState:&v50 objects:v63 count:16];
+      v6 = [(NSArray *)v4 countByEnumeratingWithState:&v49 objects:v62 count:16];
     }
 
     while (v6);
@@ -3886,8 +3834,8 @@ __CFString *__31__SGSimpleMailMessage_htmlBody__block_invoke(uint64_t a1)
     if (!v18)
     {
       subject2 = [(SGMessage *)self subject];
-      v61 = subject2;
-      v20 = [MEMORY[0x277CBEA60] arrayWithObjects:&v61 count:1];
+      v60 = subject2;
+      v20 = [MEMORY[0x277CBEA60] arrayWithObjects:&v60 count:1];
       [v3 setObject:v20 forKeyedSubscript:@"subject"];
     }
   }
@@ -3902,8 +3850,8 @@ __CFString *__31__SGSimpleMailMessage_htmlBody__block_invoke(uint64_t a1)
     {
       date2 = [(SGMessage *)self date];
       sg_descriptionForMimeHeaders = [date2 sg_descriptionForMimeHeaders];
-      v60 = sg_descriptionForMimeHeaders;
-      v26 = [MEMORY[0x277CBEA60] arrayWithObjects:&v60 count:1];
+      v59 = sg_descriptionForMimeHeaders;
+      v26 = [MEMORY[0x277CBEA60] arrayWithObjects:&v59 count:1];
       [v3 setObject:v26 forKeyedSubscript:@"date"];
     }
   }
@@ -3915,8 +3863,8 @@ __CFString *__31__SGSimpleMailMessage_htmlBody__block_invoke(uint64_t a1)
     if (!v27)
     {
       serialized = [(SGSimpleNamedEmailAddress *)self->_from serialized];
-      v59 = serialized;
-      v29 = [MEMORY[0x277CBEA60] arrayWithObjects:&v59 count:1];
+      v58 = serialized;
+      v29 = [MEMORY[0x277CBEA60] arrayWithObjects:&v58 count:1];
       [v3 setObject:v29 forKeyedSubscript:@"from"];
     }
   }
@@ -3928,13 +3876,13 @@ __CFString *__31__SGSimpleMailMessage_htmlBody__block_invoke(uint64_t a1)
     if (!v30)
     {
       serialized2 = [(SGSimpleNamedEmailAddress *)self->_replyTo serialized];
-      v58 = serialized2;
-      v32 = [MEMORY[0x277CBEA60] arrayWithObjects:&v58 count:1];
+      v57 = serialized2;
+      v32 = [MEMORY[0x277CBEA60] arrayWithObjects:&v57 count:1];
       [v3 setObject:v32 forKeyedSubscript:@"reply-to"];
     }
   }
 
-  if ([(NSArray *)self->_to count])
+  if (objc_msgSend_count(self->_to))
   {
     v33 = [v3 objectForKeyedSubscript:@"to"];
 
@@ -3942,13 +3890,13 @@ __CFString *__31__SGSimpleMailMessage_htmlBody__block_invoke(uint64_t a1)
     {
       v34 = [MEMORY[0x277D020E0] serializeAll:self->_to];
       v35 = [v34 _pas_componentsJoinedByString:{@", "}];
-      v57 = v35;
-      v36 = [MEMORY[0x277CBEA60] arrayWithObjects:&v57 count:1];
+      v56 = v35;
+      v36 = [MEMORY[0x277CBEA60] arrayWithObjects:&v56 count:1];
       [v3 setObject:v36 forKeyedSubscript:@"to"];
     }
   }
 
-  if ([(NSArray *)self->_cc count])
+  if (objc_msgSend_count(self->_cc))
   {
     v37 = [v3 objectForKeyedSubscript:@"cc"];
 
@@ -3956,13 +3904,13 @@ __CFString *__31__SGSimpleMailMessage_htmlBody__block_invoke(uint64_t a1)
     {
       v38 = [MEMORY[0x277D020E0] serializeAll:self->_cc];
       v39 = [v38 _pas_componentsJoinedByString:{@", "}];
-      v56 = v39;
-      v40 = [MEMORY[0x277CBEA60] arrayWithObjects:&v56 count:1];
+      v55 = v39;
+      v40 = [MEMORY[0x277CBEA60] arrayWithObjects:&v55 count:1];
       [v3 setObject:v40 forKeyedSubscript:@"cc"];
     }
   }
 
-  if ([(NSArray *)self->_bcc count])
+  if (objc_msgSend_count(self->_bcc))
   {
     v41 = [v3 objectForKeyedSubscript:@"bcc"];
 
@@ -3970,8 +3918,8 @@ __CFString *__31__SGSimpleMailMessage_htmlBody__block_invoke(uint64_t a1)
     {
       v42 = [MEMORY[0x277D020E0] serializeAll:self->_bcc];
       v43 = [v42 _pas_componentsJoinedByString:{@", "}];
-      v55 = v43;
-      v44 = [MEMORY[0x277CBEA60] arrayWithObjects:&v55 count:1];
+      v54 = v43;
+      v44 = [MEMORY[0x277CBEA60] arrayWithObjects:&v54 count:1];
       [v3 setObject:v44 forKeyedSubscript:@"bcc"];
     }
   }
@@ -3983,29 +3931,27 @@ __CFString *__31__SGSimpleMailMessage_htmlBody__block_invoke(uint64_t a1)
     if (!v45)
     {
       serialized3 = [(SGSimpleNamedEmailAddress *)self->_mailingList serialized];
-      v54 = serialized3;
-      v47 = [MEMORY[0x277CBEA60] arrayWithObjects:&v54 count:1];
+      v53 = serialized3;
+      v47 = [MEMORY[0x277CBEA60] arrayWithObjects:&v53 count:1];
       [v3 setObject:v47 forKeyedSubscript:@"list-id"];
     }
   }
-
-  v48 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
 
 - (id)asDictionary
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   if (asDictionary_onceToken != -1)
   {
     dispatch_once(&asDictionary_onceToken, &__block_literal_global_11432);
   }
 
   v3 = [MEMORY[0x277CBEB38] dictionaryWithSharedKeySet:asDictionary_sharedKeySet];
-  v35.receiver = self;
-  v35.super_class = SGSimpleMailMessage;
-  asDictionary = [(SGMessage *)&v35 asDictionary];
+  v34.receiver = self;
+  v34.super_class = SGSimpleMailMessage;
+  asDictionary = [(SGMessage *)&v34 asDictionary];
   [v3 addEntriesFromDictionary:asDictionary];
 
   htmlBody = [(SGSimpleMailMessage *)self htmlBody];
@@ -4074,43 +4020,42 @@ __CFString *__31__SGSimpleMailMessage_htmlBody__block_invoke(uint64_t a1)
     [v3 setObject:serialized3 forKeyedSubscript:@"mailingList"];
   }
 
-  v19 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{-[NSArray count](self->_headers, "count")}];
+  v19 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:objc_msgSend_count(self->_headers)];
+  v30 = 0u;
   v31 = 0u;
   v32 = 0u;
   v33 = 0u;
-  v34 = 0u;
   v20 = self->_headers;
-  v21 = [(NSArray *)v20 countByEnumeratingWithState:&v31 objects:v37 count:16];
+  v21 = [(NSArray *)v20 countByEnumeratingWithState:&v30 objects:v36 count:16];
   if (v21)
   {
     v22 = v21;
-    v23 = *v32;
+    v23 = *v31;
     do
     {
       for (i = 0; i != v22; ++i)
       {
-        if (*v32 != v23)
+        if (*v31 != v23)
         {
           objc_enumerationMutation(v20);
         }
 
-        v25 = *(*(&v31 + 1) + 8 * i);
+        v25 = *(*(&v30 + 1) + 8 * i);
         v26 = [v25 key];
-        v36[0] = v26;
+        v35[0] = v26;
         value = [v25 value];
-        v36[1] = value;
-        v28 = [MEMORY[0x277CBEA60] arrayWithObjects:v36 count:2];
+        v35[1] = value;
+        v28 = [MEMORY[0x277CBEA60] arrayWithObjects:v35 count:2];
         [v19 addObject:v28];
       }
 
-      v22 = [(NSArray *)v20 countByEnumeratingWithState:&v31 objects:v37 count:16];
+      v22 = [(NSArray *)v20 countByEnumeratingWithState:&v30 objects:v36 count:16];
     }
 
     while (v22);
   }
 
   [v3 setObject:v19 forKeyedSubscript:@"headers"];
-  v29 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
@@ -4126,11 +4071,11 @@ uint64_t __35__SGSimpleMailMessage_asDictionary__block_invoke()
 
 - (SGSimpleMailMessage)initWithMessageDictionary:(id)dictionary
 {
-  v73 = *MEMORY[0x277D85DE8];
+  v72 = *MEMORY[0x277D85DE8];
   dictionaryCopy = dictionary;
-  v71.receiver = self;
-  v71.super_class = SGSimpleMailMessage;
-  v5 = [(SGMessage *)&v71 initWithMessageDictionary:dictionaryCopy];
+  v70.receiver = self;
+  v70.super_class = SGSimpleMailMessage;
+  v5 = [(SGMessage *)&v70 initWithMessageDictionary:dictionaryCopy];
   if (v5)
   {
     v6 = [dictionaryCopy objectForKeyedSubscript:@"htmlBody"];
@@ -4208,30 +4153,30 @@ uint64_t __35__SGSimpleMailMessage_asDictionary__block_invoke()
     mailingList = v5->_mailingList;
     v5->_mailingList = v49;
 
-    v66 = dictionaryCopy;
+    v65 = dictionaryCopy;
     v51 = [dictionaryCopy objectForKeyedSubscript:@"headers"];
-    v52 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(v51, "count")}];
+    v52 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:objc_msgSend_count(v51)];
+    v66 = 0u;
     v67 = 0u;
     v68 = 0u;
     v69 = 0u;
-    v70 = 0u;
     v53 = v51;
-    v54 = [v53 countByEnumeratingWithState:&v67 objects:v72 count:16];
+    v54 = [v53 countByEnumeratingWithState:&v66 objects:v71 count:16];
     if (v54)
     {
       v55 = v54;
-      v56 = *v68;
+      v56 = *v67;
       do
       {
         v57 = 0;
         do
         {
-          if (*v68 != v56)
+          if (*v67 != v56)
           {
             objc_enumerationMutation(v53);
           }
 
-          v58 = *(*(&v67 + 1) + 8 * v57);
+          v58 = *(*(&v66 + 1) + 8 * v57);
           v59 = [SGSimpleMailHeaderKeyValue alloc];
           v60 = [v58 objectAtIndexedSubscript:0];
           v61 = [v58 objectAtIndexedSubscript:1];
@@ -4242,7 +4187,7 @@ uint64_t __35__SGSimpleMailMessage_asDictionary__block_invoke()
         }
 
         while (v55 != v57);
-        v55 = [v53 countByEnumeratingWithState:&v67 objects:v72 count:16];
+        v55 = [v53 countByEnumeratingWithState:&v66 objects:v71 count:16];
       }
 
       while (v55);
@@ -4251,10 +4196,9 @@ uint64_t __35__SGSimpleMailMessage_asDictionary__block_invoke()
     headers = v5->_headers;
     v5->_headers = v52;
 
-    dictionaryCopy = v66;
+    dictionaryCopy = v65;
   }
 
-  v64 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -4350,28 +4294,28 @@ void __58__SGSimpleMailMessage_subjectByCleaningPrefixesInSubject___block_invoke
 
 + (BOOL)headersContainInhumanOnes:(id)ones keys:(id)keys
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   onesCopy = ones;
+  v23 = 0u;
   v24 = 0u;
   v25 = 0u;
   v26 = 0u;
-  v27 = 0u;
   keysCopy = keys;
-  v7 = [keysCopy countByEnumeratingWithState:&v24 objects:v28 count:16];
+  v7 = [keysCopy countByEnumeratingWithState:&v23 objects:v27 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v25;
+    v9 = *v24;
     while (2)
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v25 != v9)
+        if (*v24 != v9)
         {
           objc_enumerationMutation(keysCopy);
         }
 
-        v11 = *(*(&v24 + 1) + 8 * i);
+        v11 = *(*(&v23 + 1) + 8 * i);
         v12 = objc_autoreleasePoolPush();
         lowercaseString = [v11 lowercaseString];
         if (isInhumanHeader(lowercaseString) || ([lowercaseString isEqual:@"list-unsubscribe"] & 1) != 0)
@@ -4385,7 +4329,7 @@ void __58__SGSimpleMailMessage_subjectByCleaningPrefixesInSubject___block_invoke
         objc_autoreleasePoolPop(v12);
       }
 
-      v8 = [keysCopy countByEnumeratingWithState:&v24 objects:v28 count:16];
+      v8 = [keysCopy countByEnumeratingWithState:&v23 objects:v27 count:16];
       if (v8)
       {
         continue;
@@ -4405,7 +4349,7 @@ void __58__SGSimpleMailMessage_subjectByCleaningPrefixesInSubject___block_invoke
 
   else
   {
-    v18 = [onesCopy hv_firstHeaderForKey:{@"auto-submitted", v24}];
+    v18 = [onesCopy hv_firstHeaderForKey:{@"auto-submitted", v23}];
     v19 = v18;
     if (v18 && ![v18 isEqualToString:@"no"])
     {
@@ -4424,33 +4368,32 @@ void __58__SGSimpleMailMessage_subjectByCleaningPrefixesInSubject___block_invoke
   objc_autoreleasePoolPop(v14);
 LABEL_20:
 
-  v22 = *MEMORY[0x277D85DE8];
   return v17;
 }
 
 + (BOOL)headerDictionaryContainsInhumanHeaders:(id)headers
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
+  v32 = 0u;
   v33 = 0u;
   v34 = 0u;
   v35 = 0u;
-  v36 = 0u;
   headersCopy = headers;
-  v4 = [headersCopy countByEnumeratingWithState:&v33 objects:v38 count:16];
+  v4 = [headersCopy countByEnumeratingWithState:&v32 objects:v37 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v34;
+    v6 = *v33;
     while (2)
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v34 != v6)
+        if (*v33 != v6)
         {
           objc_enumerationMutation(headersCopy);
         }
 
-        v8 = *(*(&v33 + 1) + 8 * i);
+        v8 = *(*(&v32 + 1) + 8 * i);
         v9 = objc_autoreleasePoolPush();
         lowercaseString = [v8 lowercaseString];
         if (isInhumanHeader(lowercaseString) || ([lowercaseString isEqual:@"list-unsubscribe"] & 1) != 0)
@@ -4465,7 +4408,7 @@ LABEL_20:
         objc_autoreleasePoolPop(v9);
       }
 
-      v5 = [headersCopy countByEnumeratingWithState:&v33 objects:v38 count:16];
+      v5 = [headersCopy countByEnumeratingWithState:&v32 objects:v37 count:16];
       if (v5)
       {
         continue;
@@ -4478,50 +4421,33 @@ LABEL_20:
   v11 = [headersCopy objectForKeyedSubscript:@"precedence"];
   v12 = [v11 containsObject:@"bulk"];
 
-  if (v12)
+  if ((v12 & 1) != 0 || ([headersCopy objectForKeyedSubscript:@"auto-submitted"], (v13 = objc_claimAutoreleasedReturnValue()) != 0) && (v14 = v13, objc_msgSend(headersCopy, "objectForKeyedSubscript:", @"auto-submitted"), v15 = objc_claimAutoreleasedReturnValue(), v16 = objc_msgSend(v15, "containsObject:", @"no"), v15, v14, !v16))
   {
-    goto LABEL_24;
-  }
-
-  v13 = [headersCopy objectForKeyedSubscript:@"auto-submitted"];
-  if (!v13)
-  {
-    goto LABEL_13;
-  }
-
-  v14 = v13;
-  v15 = [headersCopy objectForKeyedSubscript:@"auto-submitted"];
-  v16 = [v15 containsObject:@"no"];
-
-  if (!v16)
-  {
-LABEL_24:
     v26 = 1;
   }
 
   else
   {
-LABEL_13:
     [headersCopy objectForKeyedSubscript:@"x-email-type-id"];
+    v28 = 0u;
     v29 = 0u;
     v30 = 0u;
-    v31 = 0u;
-    v17 = v32 = 0u;
-    v18 = [v17 countByEnumeratingWithState:&v29 objects:v37 count:16];
+    v17 = v31 = 0u;
+    v18 = [v17 countByEnumeratingWithState:&v28 objects:v36 count:16];
     if (v18)
     {
       v19 = v18;
-      v20 = *v30;
+      v20 = *v29;
       while (2)
       {
         for (j = 0; j != v19; ++j)
         {
-          if (*v30 != v20)
+          if (*v29 != v20)
           {
             objc_enumerationMutation(v17);
           }
 
-          v22 = *(*(&v29 + 1) + 8 * j);
+          v22 = *(*(&v28 + 1) + 8 * j);
           v23 = objc_autoreleasePoolPush();
           lowercaseString2 = [v22 lowercaseString];
           v25 = [lowercaseString2 hasPrefix:@"pp"];
@@ -4534,7 +4460,7 @@ LABEL_13:
           }
         }
 
-        v19 = [v17 countByEnumeratingWithState:&v29 objects:v37 count:16];
+        v19 = [v17 countByEnumeratingWithState:&v28 objects:v36 count:16];
         if (v19)
         {
           continue;
@@ -4550,7 +4476,6 @@ LABEL_27:
 LABEL_23:
   }
 
-  v27 = *MEMORY[0x277D85DE8];
   return v26;
 }
 

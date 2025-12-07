@@ -42,13 +42,14 @@
 - (void)viewDidLoad
 {
   selfCopy = self;
-  sub_1D112A728();
+  sub_1D112A728(selfCopy);
 }
 
 - (void)viewDidAppear:(BOOL)appear
 {
+  appearCopy = appear;
   selfCopy = self;
-  sub_1D112B5BC(appear);
+  sub_1D112B5BC(appearCopy);
 }
 
 - (void)tapToRadar:(id)radar
@@ -106,11 +107,11 @@
   v6 = sub_1D138D82C();
   v7 = *(v6 - 8);
   MEMORY[0x1EEE9AC00](v6);
-  v9 = &v12 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = &v13 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_1D138D7EC();
   viewCopy = view;
   selfCopy = self;
-  SettingsViewController.tableView(_:didSelectRowAt:)(viewCopy);
+  SettingsViewController.tableView(_:didSelectRowAt:)(viewCopy, v12);
 
   (*(v7 + 8))(v9, v6);
 }

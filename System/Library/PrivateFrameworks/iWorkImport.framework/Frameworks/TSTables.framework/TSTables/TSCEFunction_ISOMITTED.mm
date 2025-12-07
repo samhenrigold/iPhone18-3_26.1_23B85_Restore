@@ -7,10 +7,10 @@
 + (id)evaluateForArgsWithContext:(id)context functionSpec:(id)spec arguments:(const void *)arguments
 {
   v5 = **arguments;
-  isTokenOrEmptyArg = objc_msgSend_isTokenOrEmptyArg(v5, v6, v7, v8, v9);
-  v14 = objc_msgSend_BOOLValue_(TSCEBooleanValue, v11, isTokenOrEmptyArg, v12, v13);
+  isTokenOrEmptyArg = objc_msgSend_isTokenOrEmptyArg(v5, v6, v7, v8);
+  v12 = objc_msgSend_BOOLValue_(TSCEBooleanValue, v10, isTokenOrEmptyArg, v11);
 
-  return v14;
+  return v12;
 }
 
 @end

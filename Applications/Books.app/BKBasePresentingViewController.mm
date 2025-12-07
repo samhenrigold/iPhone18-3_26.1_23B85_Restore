@@ -1188,7 +1188,7 @@ LABEL_8:
 
 - (void)_loadAssetVC
 {
-  v3 = sub_10005D1D8();
+  v3 = sub_10005D1D8(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     assetIdentifier = [(BKBasePresentingViewController *)self assetIdentifier];
@@ -1236,25 +1236,26 @@ LABEL_8:
 {
   controllerCopy = controller;
   helperCopy = helper;
-  if (!+[NSThread isMainThread])
+  v8 = +[NSThread isMainThread];
+  if ((v8 & 1) == 0)
   {
     sub_1007895D8();
   }
 
-  v8 = sub_10005D1D8();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  v9 = sub_10005D1D8(v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     assetIdentifier = [(BKBasePresentingViewController *)self assetIdentifier];
     permanentOrTemporaryAssetID = [assetIdentifier permanentOrTemporaryAssetID];
     *buf = 141558786;
-    v39 = 1752392040;
-    v40 = 2112;
-    v41 = permanentOrTemporaryAssetID;
-    v42 = 2112;
-    v43 = controllerCopy;
-    v44 = 2112;
-    v45 = helperCopy;
-    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "[%{mask.hash}@] _loadWithAssetViewController - assetVC=%@, helper=%@", buf, 0x2Au);
+    v40 = 1752392040;
+    v41 = 2112;
+    v42 = permanentOrTemporaryAssetID;
+    v43 = 2112;
+    v44 = controllerCopy;
+    v45 = 2112;
+    v46 = helperCopy;
+    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "[%{mask.hash}@] _loadWithAssetViewController - assetVC=%@, helper=%@", buf, 0x2Au);
   }
 
   if (controllerCopy && helperCopy)
@@ -1274,50 +1275,50 @@ LABEL_8:
     placeholderViewController3 = [(BKBasePresentingViewController *)self placeholderViewController];
     assetIdentifier2 = [(BKBasePresentingViewController *)self assetIdentifier];
     permanentOrTemporaryAssetID2 = [assetIdentifier2 permanentOrTemporaryAssetID];
-    v18 = [placeholderViewController3 coverAnimationHostSourceForItem:permanentOrTemporaryAssetID2];
+    v19 = [placeholderViewController3 coverAnimationHostSourceForItem:permanentOrTemporaryAssetID2];
 
-    v34[0] = _NSConcreteStackBlock;
-    v34[1] = 3221225472;
-    v34[2] = sub_100060AB0;
-    v34[3] = &unk_100A03C78;
-    v34[4] = self;
-    v35 = controllerCopy;
-    v36 = helperCopy;
-    v19 = v18;
-    v37 = v19;
-    v32[0] = _NSConcreteStackBlock;
-    v32[1] = 3221225472;
-    v32[2] = sub_100061004;
-    v32[3] = &unk_100A03788;
-    v32[4] = self;
-    v20 = objc_retainBlock(v34);
-    v33 = v20;
-    v21 = objc_retainBlock(v32);
-    v29[0] = _NSConcreteStackBlock;
-    v29[1] = 3221225472;
-    v29[2] = sub_1000610CC;
-    v29[3] = &unk_100A03788;
+    v35[0] = _NSConcreteStackBlock;
+    v35[1] = 3221225472;
+    v35[2] = sub_100060AB0;
+    v35[3] = &unk_100A03C78;
+    v35[4] = self;
+    v36 = controllerCopy;
+    v37 = helperCopy;
+    v20 = v19;
+    v38 = v20;
+    v33[0] = _NSConcreteStackBlock;
+    v33[1] = 3221225472;
+    v33[2] = sub_100061004;
+    v33[3] = &unk_100A03788;
+    v33[4] = self;
+    v21 = objc_retainBlock(v35);
+    v34 = v21;
+    v22 = objc_retainBlock(v33);
+    v30[0] = _NSConcreteStackBlock;
+    v30[1] = 3221225472;
+    v30[2] = sub_1000610CC;
+    v30[3] = &unk_100A03788;
     presentingViewController = coverAnimationHostTopViewsToFadeOut;
-    v30 = presentingViewController;
-    v22 = v21;
-    v31 = v22;
-    v23 = objc_retainBlock(v29);
+    v31 = presentingViewController;
+    v23 = v22;
+    v32 = v23;
+    v24 = objc_retainBlock(v30);
     holdAnimationAssertion = [(BKBasePresentingViewController *)self holdAnimationAssertion];
-    v25 = holdAnimationAssertion;
+    v26 = holdAnimationAssertion;
     if (holdAnimationAssertion)
     {
       future = [holdAnimationAssertion future];
-      v27[0] = _NSConcreteStackBlock;
-      v27[1] = 3221225472;
-      v27[2] = sub_100061300;
-      v27[3] = &unk_100A03CC8;
-      v28 = v23;
-      [future get:v27];
+      v28[0] = _NSConcreteStackBlock;
+      v28[1] = 3221225472;
+      v28[2] = sub_100061300;
+      v28[3] = &unk_100A03CC8;
+      v29 = v24;
+      [future get:v28];
     }
 
     else
     {
-      (v23[2])(v23);
+      (v24[2])(v24);
     }
   }
 
@@ -1331,47 +1332,47 @@ LABEL_8:
 - (void)viewDidAppear:(BOOL)appear
 {
   appearCopy = appear;
-  v50.receiver = self;
-  v50.super_class = BKBasePresentingViewController;
-  [(BKBasePresentingViewController *)&v50 viewDidAppear:?];
+  v52.receiver = self;
+  v52.super_class = BKBasePresentingViewController;
+  [(BKBasePresentingViewController *)&v52 viewDidAppear:?];
   [(BKBasePresentingViewController *)self subscribeToLiveResize];
   if ([(BKBasePresentingViewController *)self stateShouldOpen])
   {
-    v48[0] = 0;
-    v48[1] = v48;
-    v48[2] = 0x3032000000;
-    v48[3] = sub_1000272E4;
-    v48[4] = sub_1000275B8;
+    v50[0] = 0;
+    v50[1] = v50;
+    v50[2] = 0x3032000000;
+    v50[3] = sub_1000272E4;
+    v50[4] = sub_1000275B8;
     selfCopy = self;
-    v49 = selfCopy;
-    v47[0] = _NSConcreteStackBlock;
-    v47[1] = 3221225472;
-    v47[2] = sub_100061944;
-    v47[3] = &unk_100A03D18;
-    v47[4] = v48;
-    v44[0] = _NSConcreteStackBlock;
-    v44[1] = 3221225472;
-    v44[2] = sub_100061C00;
-    v44[3] = &unk_100A03D68;
-    v46 = v48;
-    v6 = objc_retainBlock(v47);
-    v45 = v6;
-    v7 = objc_retainBlock(v44);
+    v51 = selfCopy;
+    v49[0] = _NSConcreteStackBlock;
+    v49[1] = 3221225472;
+    v49[2] = sub_100061944;
+    v49[3] = &unk_100A03D18;
+    v49[4] = v50;
+    v46[0] = _NSConcreteStackBlock;
+    v46[1] = 3221225472;
+    v46[2] = sub_100061C00;
+    v46[3] = &unk_100A03D68;
+    v48 = v50;
+    v6 = objc_retainBlock(v49);
+    v47 = v6;
+    v7 = objc_retainBlock(v46);
     libraryAssetProvider = [(BKBasePresentingViewController *)selfCopy libraryAssetProvider];
     assetIdentifier = [(BKBasePresentingViewController *)selfCopy assetIdentifier];
     v10 = [libraryAssetProvider libraryAssetOnMainQueueWithAssetIdentifier:assetIdentifier];
 
-    v11 = sub_10005D1D8();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v12 = sub_10005D1D8(v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       assetIdentifier2 = [(BKBasePresentingViewController *)selfCopy assetIdentifier];
       *buf = 141558530;
-      v52 = 1752392040;
-      v53 = 2112;
-      v54 = assetIdentifier2;
+      v54 = 1752392040;
       v55 = 2112;
-      v56 = v10;
-      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "[%{mask.hash}@] libraryAsset: %@", buf, 0x20u);
+      v56 = assetIdentifier2;
+      v57 = 2112;
+      v58 = v10;
+      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "[%{mask.hash}@] libraryAsset: %@", buf, 0x20u);
     }
 
     parentViewController = [(BKBasePresentingViewController *)selfCopy parentViewController];
@@ -1392,15 +1393,15 @@ LABEL_8:
     {
       if ([v10 isLocal])
       {
-        v25 = v7;
+        v26 = v7;
       }
 
       else
       {
-        v25 = v6;
+        v26 = v6;
       }
 
-      (v25[2])(v25, v10);
+      (v26[2])(v26, v10);
     }
 
     else if ([(BKBasePresentingViewController *)selfCopy autoDownload])
@@ -1410,80 +1411,80 @@ LABEL_8:
       assetIdentifier3 = [(BKBasePresentingViewController *)selfCopy assetIdentifier];
       permanentOrTemporaryAssetID = [assetIdentifier3 permanentOrTemporaryAssetID];
 
-      v28 = +[BKLibraryAssetStatusController sharedController];
-      v29 = [v28 statusForAssetID:permanentOrTemporaryAssetID];
-      [(BKBasePresentingViewController *)selfCopy setProgressStatus:v29];
+      v29 = +[BKLibraryAssetStatusController sharedController];
+      v30 = [v29 statusForAssetID:permanentOrTemporaryAssetID];
+      [(BKBasePresentingViewController *)selfCopy setProgressStatus:v30];
 
       progressStatus = [(BKBasePresentingViewController *)selfCopy progressStatus];
-      v31 = 0.0;
+      v32 = 0.0;
       if ([progressStatus state] == 4)
       {
         progressStatus2 = [(BKBasePresentingViewController *)selfCopy progressStatus];
         [progressStatus2 progressValue];
-        v31 = v33;
+        v32 = v34;
       }
 
       downloadProgressBlock = [(BKBasePresentingViewController *)selfCopy downloadProgressBlock];
-      v35 = downloadProgressBlock;
+      v36 = downloadProgressBlock;
       if (downloadProgressBlock)
       {
-        (*(downloadProgressBlock + 16))(downloadProgressBlock, 0, v31);
+        (*(downloadProgressBlock + 16))(downloadProgressBlock, 0, v32);
       }
 
-      v36 = sub_10005D1D8();
-      if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
+      v38 = sub_10005D1D8(v37);
+      if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 141558274;
-        v52 = 1752392040;
-        v53 = 2112;
-        v54 = permanentOrTemporaryAssetID;
-        _os_log_impl(&_mh_execute_header, v36, OS_LOG_TYPE_DEFAULT, "[%{mask.hash}@] Attempt to resolve to local", buf, 0x16u);
+        v54 = 1752392040;
+        v55 = 2112;
+        v56 = permanentOrTemporaryAssetID;
+        _os_log_impl(&_mh_execute_header, v38, OS_LOG_TYPE_DEFAULT, "[%{mask.hash}@] Attempt to resolve to local", buf, 0x16u);
       }
 
       libraryAssetProvider2 = [(BKBasePresentingViewController *)selfCopy libraryAssetProvider];
-      v39[0] = _NSConcreteStackBlock;
-      v39[1] = 3221225472;
-      v39[2] = sub_1000622C4;
-      v39[3] = &unk_100A03DB8;
-      v38 = permanentOrTemporaryAssetID;
-      v40 = v38;
-      objc_copyWeak(&v42, &location);
-      v41 = v7;
-      [libraryAssetProvider2 resolveToLocalAssetWithAssetID:v38 completion:v39];
+      v41[0] = _NSConcreteStackBlock;
+      v41[1] = 3221225472;
+      v41[2] = sub_1000622C4;
+      v41[3] = &unk_100A03DB8;
+      v40 = permanentOrTemporaryAssetID;
+      v42 = v40;
+      objc_copyWeak(&v44, &location);
+      v43 = v7;
+      [libraryAssetProvider2 resolveToLocalAssetWithAssetID:v40 completion:v41];
 
-      objc_destroyWeak(&v42);
+      objc_destroyWeak(&v44);
       objc_destroyWeak(&location);
     }
 
-    v15 = +[UIDevice currentDevice];
-    orientation = [v15 orientation];
+    v16 = +[UIDevice currentDevice];
+    orientation = [v16 orientation];
 
     bc_windowForViewController = [(BKBasePresentingViewController *)selfCopy bc_windowForViewController];
     windowScene = [bc_windowForViewController windowScene];
     interfaceOrientation = [windowScene interfaceOrientation];
 
-    v20 = isPhone();
+    v21 = isPhone();
     if ((orientation - 3) < 2)
     {
-      v21 = v20;
+      v22 = v21;
     }
 
     else
     {
-      v21 = 0;
+      v22 = 0;
     }
 
-    if (v21 == 1 && (interfaceOrientation - 1) <= 1)
+    if (v22 == 1 && (interfaceOrientation - 1) <= 1)
     {
       +[UIViewController attemptRotationToDeviceOrientation];
     }
 
-    v22 = +[BKAppDelegate sceneManager];
-    primarySceneController = [v22 primarySceneController];
+    v23 = +[BKAppDelegate sceneManager];
+    primarySceneController = [v23 primarySceneController];
     primaryScenePresenting = [primarySceneController primaryScenePresenting];
 
     [primaryScenePresenting presenterDidStartReadingExperienceWithAssetPresenter:selfCopy];
-    _Block_object_dispose(v48, 8);
+    _Block_object_dispose(v50, 8);
   }
 }
 
@@ -1968,25 +1969,25 @@ LABEL_5:
   assetViewController = [(BKBasePresentingViewController *)self assetViewController];
   v7 = [(BKSnapshotViewController *)v5 initWithViewController:assetViewController];
 
-  v8 = sub_10005D1D8();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  v9 = sub_10005D1D8(v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     assetIdentifier = [(BKBasePresentingViewController *)self assetIdentifier];
     permanentOrTemporaryAssetID = [assetIdentifier permanentOrTemporaryAssetID];
-    v11 = [NSNumber numberWithBool:controllerCopy];
+    v12 = [NSNumber numberWithBool:controllerCopy];
     *buf = 141558530;
-    v22 = 1752392040;
-    v23 = 2112;
-    v24 = permanentOrTemporaryAssetID;
-    v25 = 2112;
-    v26 = v11;
-    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "[%{mask.hash}@] _reloadAssetCloseViewController close:%@", buf, 0x20u);
+    v23 = 1752392040;
+    v24 = 2112;
+    v25 = permanentOrTemporaryAssetID;
+    v26 = 2112;
+    v27 = v12;
+    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "[%{mask.hash}@] _reloadAssetCloseViewController close:%@", buf, 0x20u);
   }
 
   assetViewController2 = [(BKBasePresentingViewController *)self assetViewController];
-  v13 = objc_opt_respondsToSelector();
+  v14 = objc_opt_respondsToSelector();
 
-  if (v13)
+  if (v14)
   {
     assetViewController3 = [(BKBasePresentingViewController *)self assetViewController];
     [assetViewController3 assetViewControllerPrepareForReload];
@@ -1998,9 +1999,9 @@ LABEL_5:
     [assetViewController4 close:0];
 
     assetViewController5 = [(BKBasePresentingViewController *)self assetViewController];
-    v17 = objc_opt_respondsToSelector();
+    v18 = objc_opt_respondsToSelector();
 
-    if (v17)
+    if (v18)
     {
       assetViewController6 = [(BKBasePresentingViewController *)self assetViewController];
       [assetViewController6 assetViewControllerDidCloseAnimated:0];
@@ -2010,12 +2011,12 @@ LABEL_5:
   transitioningViewController = [(BKBasePresentingViewController *)self transitioningViewController];
   [transitioningViewController setContentViewController:v7];
 
-  v20[0] = _NSConcreteStackBlock;
-  v20[1] = 3221225472;
-  v20[2] = sub_1000639FC;
-  v20[3] = &unk_100A033C8;
-  v20[4] = self;
-  [(BKBasePresentingViewController *)self _clearCacheForBook:v20];
+  v21[0] = _NSConcreteStackBlock;
+  v21[1] = 3221225472;
+  v21[2] = sub_1000639FC;
+  v21[3] = &unk_100A033C8;
+  v21[4] = self;
+  [(BKBasePresentingViewController *)self _clearCacheForBook:v21];
 }
 
 - (void)dismissLibraryBookCoverViewController:(id)controller animated:(BOOL)animated
@@ -2292,7 +2293,7 @@ LABEL_5:
 
     else
     {
-      v18 = sub_10005D1D8();
+      v18 = sub_10005D1D8(0);
       if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
       {
         LOWORD(v22) = 0;
@@ -2887,7 +2888,7 @@ LABEL_4:
   {
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      sub_100789A30();
+      sub_100789A30(permanentAssetID, v10, v11);
     }
   }
 
@@ -2895,8 +2896,8 @@ LABEL_4:
   {
     if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
-      *v11 = 0;
-      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_INFO, "Book was confirmed successfully open, start tracking.", v11, 2u);
+      *v12 = 0;
+      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_INFO, "Book was confirmed successfully open, start tracking.", v12, 2u);
     }
 
     [(BKBasePresentingViewController *)self _beginReadingSessionForEventType:0];

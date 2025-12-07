@@ -37,10 +37,11 @@
 
 - (void)_reportCountsForUDCTableRowsInDatabase:(id)database
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   databaseCopy = database;
   [(HDDiagnosticOperation *)self appendString:@"User Domains Concept Table Counts"];
   [(HDDiagnosticOperation *)self appendNewline];
+  v6 = objc_opt_class();
   v7 = objc_opt_class();
   v8 = objc_opt_class();
   v9 = objc_opt_class();
@@ -53,14 +54,12 @@
   v16 = objc_opt_class();
   v17 = objc_opt_class();
   v18 = objc_opt_class();
-  v19 = objc_opt_class();
-  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:&v7 count:13];
-  [(HDDiagnosticOperation *)self reportCountsForDatabase:databaseCopy entityClasses:v5, v7, v8, v9, v10, v11, v12, v13, v14, v15, v16, v17, v18];
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:&v6 count:13];
+  [(HDDiagnosticOperation *)self reportCountsForDatabase:databaseCopy entityClasses:v5, v6, v7, v8, v9, v10, v11, v12, v13, v14, v15, v16, v17];
 
   [(HDDiagnosticOperation *)self appendNewline];
   [(HDDiagnosticOperation *)self appendStrongSeparator];
   [(HDDiagnosticOperation *)self appendNewline];
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_reportUDCTableInDatabase:(id)database
@@ -110,78 +109,65 @@
   return error;
 }
 
-uint64_t __95__HDUserDomainConceptDiagnosticOperation__enumerateUDCTableInDatabase_appendToFormatter_error___block_invoke(uint64_t a1)
+uint64_t __95__HDUserDomainConceptDiagnosticOperation__enumerateUDCTableInDatabase_appendToFormatter_error___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v47[14] = *MEMORY[0x277D85DE8];
-  v1 = *MEMORY[0x277D10500];
+  v35[14] = *MEMORY[0x277D85DE8];
   v2 = HDSQLiteColumnWithNameAsDate();
-  v3 = *MEMORY[0x277D10528];
-  v4 = HDSQLiteColumnWithNameAsDate();
-  v5 = *MEMORY[0x277D10560];
-  v45 = [MEMORY[0x277CCABB0] numberWithLongLong:HDSQLiteColumnWithNameAsInt64()];
-  v44 = [v45 stringValue];
-  v47[0] = v44;
-  v6 = *MEMORY[0x277D10558];
-  v43 = HDSQLiteColumnWithNameAsUUID();
-  v42 = [v43 UUIDString];
-  v47[1] = v42;
-  v7 = *MEMORY[0x277D10550];
-  v8 = HDSQLiteColumnWithNameAsString();
-  v41 = v8;
-  v9 = &stru_2863876A0;
-  if (v8)
+  v3 = HDSQLiteColumnWithNameAsDate();
+  v33 = [MEMORY[0x277CCABB0] numberWithLongLong:HDSQLiteColumnWithNameAsInt64()];
+  v32 = [v33 stringValue];
+  v35[0] = v32;
+  v31 = HDSQLiteColumnWithNameAsUUID();
+  v30 = [v31 UUIDString];
+  v35[1] = v30;
+  v4 = HDSQLiteColumnWithNameAsString();
+  v29 = v4;
+  v5 = &stru_2863876A0;
+  if (v4)
   {
-    v9 = v8;
+    v5 = v4;
   }
 
-  v47[2] = v9;
-  v10 = *MEMORY[0x277D10548];
-  v39 = [MEMORY[0x277CCABB0] numberWithLongLong:HDSQLiteColumnWithNameAsInt64()];
-  v38 = [v39 stringValue];
-  v47[3] = v38;
-  v11 = *MEMORY[0x277D10508];
+  v35[2] = v5;
+  v27 = [MEMORY[0x277CCABB0] numberWithLongLong:HDSQLiteColumnWithNameAsInt64()];
+  v26 = [v27 stringValue];
+  v35[3] = v26;
   HDSQLiteColumnWithNameAsBoolean();
-  v36 = HKStringFromBool();
-  v47[4] = v36;
-  v40 = v2;
-  v35 = HKDiagnosticStringFromDate();
-  v47[5] = v35;
-  v12 = MEMORY[0x277CCABB0];
+  v24 = HKStringFromBool();
+  v35[4] = v24;
+  v28 = v2;
+  v23 = HKDiagnosticStringFromDate();
+  v35[5] = v23;
+  v6 = MEMORY[0x277CCABB0];
   [v2 timeIntervalSinceReferenceDate];
-  v34 = [v12 numberWithDouble:?];
-  v33 = [v34 stringValue];
-  v47[6] = v33;
-  v37 = v4;
-  v32 = HKDiagnosticStringFromDate();
-  v47[7] = v32;
-  v13 = MEMORY[0x277CCABB0];
-  [v4 timeIntervalSinceReferenceDate];
-  v31 = [v13 numberWithDouble:?];
-  v14 = [v31 stringValue];
-  v47[8] = v14;
-  v15 = *MEMORY[0x277D10530];
-  v16 = [MEMORY[0x277CCABB0] numberWithLongLong:HDSQLiteColumnWithNameAsInt64()];
-  v17 = [v16 stringValue];
-  v47[9] = v17;
-  v18 = *MEMORY[0x277D10540];
-  v19 = [MEMORY[0x277CCABB0] numberWithLongLong:HDSQLiteColumnWithNameAsInt64()];
-  v20 = [v19 stringValue];
-  v47[10] = v20;
-  v21 = *MEMORY[0x277D10538];
-  v22 = [MEMORY[0x277CCABB0] numberWithLongLong:HDSQLiteColumnWithNameAsInt64()];
-  v23 = [v22 stringValue];
-  v47[11] = v23;
-  v24 = *MEMORY[0x277D104F0];
-  v25 = HDSQLiteColumnWithNameAsString();
-  v47[12] = v25;
-  v26 = *MEMORY[0x277D10510];
+  v22 = [v6 numberWithDouble:?];
+  v21 = [v22 stringValue];
+  v35[6] = v21;
+  v25 = v3;
+  v20 = HKDiagnosticStringFromDate();
+  v35[7] = v20;
+  v7 = MEMORY[0x277CCABB0];
+  [v3 timeIntervalSinceReferenceDate];
+  v19 = [v7 numberWithDouble:?];
+  v8 = [v19 stringValue];
+  v35[8] = v8;
+  v9 = [MEMORY[0x277CCABB0] numberWithLongLong:HDSQLiteColumnWithNameAsInt64()];
+  v10 = [v9 stringValue];
+  v35[9] = v10;
+  v11 = [MEMORY[0x277CCABB0] numberWithLongLong:HDSQLiteColumnWithNameAsInt64()];
+  v12 = [v11 stringValue];
+  v35[10] = v12;
+  v13 = [MEMORY[0x277CCABB0] numberWithLongLong:HDSQLiteColumnWithNameAsInt64()];
+  v14 = [v13 stringValue];
+  v35[11] = v14;
+  v15 = HDSQLiteColumnWithNameAsString();
+  v35[12] = v15;
   HDSQLiteColumnWithNameIsNull();
-  v27 = HKStringFromBool();
-  v47[13] = v27;
-  v28 = [MEMORY[0x277CBEA60] arrayWithObjects:v47 count:14];
+  v16 = HKStringFromBool();
+  v35[13] = v16;
+  v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v35 count:14];
 
-  [*(a1 + 32) appendRow:v28];
-  v29 = *MEMORY[0x277D85DE8];
+  [*(a1 + 32) appendRow:v17];
   return 1;
 }
 

@@ -254,15 +254,15 @@ void __VTCompressionSessionRemoteServer_EstimateMotion_block_invoke(uint64_t a1)
   _Block_object_dispose(&v15, 8);
 }
 
-void __VTCompressionSessionRemoteServer_EstimateMotion_block_invoke_2(void *a1, int a2, int a3, const void *a4, const void *a5)
+void __VTCompressionSessionRemoteServer_EstimateMotion_block_invoke_2(void *result, int a2, int a3, const void *a4, const void *a5)
 {
-  if (!*(*(*(a1[4] + 8) + 24) + 200))
+  if (!*(*(*(result[4] + 8) + 24) + 200))
   {
     v10 = malloc_type_calloc(1uLL, 0x48uLL, 0x10E0040003D4157uLL);
     if (v10)
     {
       v11 = v10;
-      v10[1] = a1[6];
+      v10[1] = result[6];
       *(v10 + 4) = a2;
       *(v10 + 5) = a3;
       if (a4)
@@ -288,8 +288,8 @@ void __VTCompressionSessionRemoteServer_EstimateMotion_block_invoke_2(void *a1, 
       }
 
       v11[8] = v13;
-      *(*(a1[5] + 8) + 24) = a3;
-      v14 = *(*(a1[4] + 8) + 24);
+      *(*(result[5] + 8) + 24) = a3;
+      v14 = *(*(result[4] + 8) + 24);
 
       vtcss_enqueueFrame(v14, v11);
     }
@@ -371,7 +371,7 @@ uint64_t __VTCompressionSessionRemoteServer_EstimateMotion_block_invoke_2_cold_1
   fig_log_get_emitter();
   OUTLINED_FUNCTION_0_2();
 
-  return FigSignalErrorAtGM();
+  return FigSignalErrorAtGM("%s signalled err=%d at <>:%d");
 }
 
 @end

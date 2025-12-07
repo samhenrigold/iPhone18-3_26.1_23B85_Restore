@@ -50,16 +50,14 @@ BOOL sub_45CC(id a1, CAFilter *a2, unint64_t a3, BOOL *a4)
 
 uint64_t sub_4EEC(uint64_t a1, void *a2)
 {
-  v3 = *(a1 + 32);
-  v4 = a2;
-  v5 = [objc_opt_class() description];
-  [v4 setValidationTargetName:v5];
+  v2 = a2;
+  v3 = [objc_opt_class() description];
+  [v2 setValidationTargetName:v3];
 
-  v6 = *(a1 + 32);
-  v7 = [objc_opt_class() description];
-  [v4 setOverrideProcessName:v7];
+  v4 = [objc_opt_class() description];
+  [v2 setOverrideProcessName:v4];
 
-  [v4 setDebugBuild:0];
+  [v2 setDebugBuild:0];
 
   return _AXPerformValidationChecks();
 }
@@ -116,9 +114,9 @@ id sub_5390()
   return v1;
 }
 
-void sub_5458(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_5458(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -147,7 +145,7 @@ Class sub_5FE4(uint64_t a1)
 
     else
     {
-      v2 = abort_report_np();
+      v2 = abort_report_np("%s", v4[0]);
     }
 
     free(v2);
@@ -167,34 +165,35 @@ LABEL_4:
 
 uint64_t sub_6128(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   qword_83500 = result;
   return result;
 }
 
-void sub_619C(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
-{
-
-  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, &a9, 0xCu);
-}
-
-void sub_75BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_619C(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
   va_start(va, a8);
+
+  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, va, 0xCu);
+}
+
+void sub_75BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+{
+  va_start(va, a15);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 __n128 sub_75D4(uint64_t a1)
 {
-  [AXSafeClassFromString() _cartographicConfigurationForMapConfiguration:*(a1 + 32)];
-  v2 = *(*(a1 + 40) + 8);
-  result = v6;
-  *(v2 + 32) = v4;
-  *(v2 + 48) = v5;
-  *(v2 + 64) = v6;
-  *(v2 + 80) = v7;
+  v2 = AXSafeClassFromString();
+  objc_msgSend__cartographicConfigurationForMapConfiguration_(v2);
+  v3 = *(*(a1 + 40) + 8);
+  result = v7;
+  *(v3 + 32) = v5;
+  *(v3 + 48) = v6;
+  *(v3 + 64) = v7;
+  *(v3 + 80) = v8;
   return result;
 }
 
@@ -236,9 +235,9 @@ id sub_A348(uint64_t a1)
   return [v2 installSafeCategory:@"UIVisualEffectViewInvertColorsAccessibility" canInteractWithTargetClass:1];
 }
 
-void sub_B0A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_B0A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -252,10 +251,7 @@ uint64_t sub_B0C0(uint64_t result, uint64_t a2)
 
 uint64_t sub_B0D8(uint64_t a1)
 {
-  v2 = [*(a1 + 32) layerForRenderFlags:1];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(a1 + 32) layerForRenderFlags:1];
 
   return _objc_release_x1();
 }
@@ -345,28 +341,18 @@ id sub_C544(uint64_t a1)
   return [v2 _axSetIgnoreNextAttributedText:0];
 }
 
-void sub_CD44(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_CD44(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 uint64_t sub_CD5C(uint64_t a1)
 {
-  v2 = [*(a1 + 32) _imageView:0];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(a1 + 32) _imageView:0];
 
   return _objc_release_x1();
-}
-
-uint64_t sub_1152C(uint64_t a1)
-{
-  v2 = *(a1 + 32);
-  v3 = *(a1 + 40);
-  return AXPerformSafeBlock();
 }
 
 id sub_115A4(uint64_t a1)
@@ -390,16 +376,15 @@ id sub_115A4(uint64_t a1)
 
 void sub_13CB0(uint64_t a1)
 {
-  v2 = +[UIColor whiteColor];
+  v1 = +[UIColor whiteColor];
   objc_opt_class();
-  v3 = *(a1 + 32);
-  v4 = __UIAccessibilityCastAsClass();
-  [v4 setTextColor:v2];
+  v2 = __UIAccessibilityCastAsClass();
+  [v2 setTextColor:v1];
 }
 
-void sub_14D88(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_14D88(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -411,13 +396,13 @@ id sub_14DA0(uint64_t a1)
   return result;
 }
 
-void sub_155D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
+void sub_155D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
 {
-  va_start(va, a10);
-  objc_destroyWeak((v10 + 56));
+  va_start(va, a17);
+  objc_destroyWeak((v17 + 56));
   _Block_object_dispose(va, 8);
-  objc_destroyWeak((v11 + 40));
-  objc_destroyWeak((v12 - 72));
+  objc_destroyWeak((v18 + 40));
+  objc_destroyWeak((v19 - 72));
   _Unwind_Resume(a1);
 }
 
@@ -510,7 +495,7 @@ void sub_1580C(uint64_t a1, void *a2, void *a3)
     _os_log_debug_impl(&dword_0, v12, OS_LOG_TYPE_DEBUG, "Pre-js: WKWebView %@ (%@) S %@, OS %@, supports dark: %@[%@] -> %@", v20, 0x48u);
   }
 
-  if (!v6 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0) && ([v5 BOOLValue] & 1) != 0 || objc_msgSend(*(a1 + 32), "_accessibilitySubclassSupportsDarkMode", *v20, *&v20[16], v21, *v22, *&v22[16], v23))
+  if (!v6 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0) && ([v5 BOOLValue] & 1) != 0 || objc_msgSend(*(a1 + 32), "_accessibilitySubclassSupportsDarkMode", *v20, *&v20[8], v21, *v22, *&v22[8], *&v22[16], *&v22[24], v23))
   {
     v13 = AXLogInvertColors();
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
@@ -642,9 +627,9 @@ void sub_1BA14(id a1)
   byte_83560 = [v1 isEqualToString:@"com.apple.mobileslideshow.photospicker"];
 }
 
-void sub_1C6C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1C6C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -656,9 +641,9 @@ id sub_1C6DC(uint64_t a1)
   return result;
 }
 
-void sub_1CA38(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_1CA38(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
+  va_start(va, a22);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -672,20 +657,14 @@ uint64_t sub_1CA54(uint64_t result, uint64_t a2)
 
 uint64_t sub_1CA6C(uint64_t a1)
 {
-  v2 = [*(a1 + 32) indexPathForCell:*(a1 + 40)];
-  v3 = *(*(a1 + 48) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 48) + 8) + 40) = [*(a1 + 32) indexPathForCell:*(a1 + 40)];
 
   return _objc_release_x1();
 }
 
 uint64_t sub_1CABC(uint64_t a1)
 {
-  v2 = [*(a1 + 32) objectAtIndex:{objc_msgSend(*(a1 + 40), "row")}];
-  v3 = *(*(a1 + 48) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 48) + 8) + 40) = [*(a1 + 32) objectAtIndex:{objc_msgSend(*(a1 + 40), "row")}];
 
   return _objc_release_x1();
 }
@@ -734,14 +713,14 @@ void sub_1DA6C(id a1, UIView *a2, unint64_t a3, BOOL *a4)
 
 void sub_1E2B0(uint64_t a1)
 {
-  v2 = objc_alloc_init(AXInvertColorsManager);
-  v3 = qword_83578;
-  qword_83578 = v2;
+  v1 = objc_alloc_init(AXInvertColorsManager);
+  v2 = qword_83578;
+  qword_83578 = v1;
 
-  v4 = AXLogInvertColorsLoadBundles();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
+  v3 = AXLogInvertColorsLoadBundles();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
-    sub_20BAC(a1);
+    sub_20BAC();
   }
 }
 
@@ -869,9 +848,9 @@ void sub_1EFDC(id a1, id a2)
   }
 }
 
-void sub_1F414(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1F414(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -986,7 +965,7 @@ void sub_1FF30(id a1)
   v1 = AXLogInvertColors();
   if (os_log_type_enabled(v1, OS_LOG_TYPE_DEBUG))
   {
-    sub_20E14();
+    sub_20E14(v1);
   }
 
   v2 = [UIApp _accessibilityValueForKey:@"AXInvertColorsTraversalTimer"];
@@ -1004,7 +983,7 @@ void sub_1FF30(id a1)
     v9 = AXLogInvertColors();
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
     {
-      sub_20E9C();
+      sub_20E9C(v9);
     }
   }
 
@@ -1028,6 +1007,27 @@ void sub_1FF30(id a1)
 
   +[AXInvertColorsManager toggleDarkModeWindowsInvert];
   +[AXInvertColorsManager toggleFirstLayerWindowsInvert];
+}
+
+void sub_20564(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  sub_619C(&dword_0, a2, a3, "Tried to toggle non-UIView or CALayer: %@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_205D0(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  sub_619C(&dword_0, a2, a3, "Notifying invert colors after applying ignore invert to %@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_2063C(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  sub_619C(&dword_0, a2, a3, "Notifying invert colors after deapplying ignore invert to %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void sub_206D0(uint64_t a1, NSObject *a2)
@@ -1094,29 +1094,22 @@ void sub_20AC8(void *a1)
   _os_log_debug_impl(v3, v4, v5, v6, v7, 0x16u);
 }
 
-void sub_20BAC(uint64_t a1)
-{
-  v6 = *(a1 + 32);
-  sub_20104();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0x16u);
-}
-
-void sub_20E14()
+void sub_20E14(uint64_t a1)
 {
   AXInvertColorsIsSystemWideDarkModeEnabled();
   _AXSInvertColorsEnabled();
   sub_20110();
   sub_15C58();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xEu);
+  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xEu);
 }
 
-void sub_20E9C()
+void sub_20E9C(uint64_t a1)
 {
   AXInvertColorsIsSystemWideDarkModeEnabled();
   _AXSInvertColorsEnabled();
   sub_20110();
   sub_15C58();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xEu);
+  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xEu);
 }
 
 void sub_20F24()

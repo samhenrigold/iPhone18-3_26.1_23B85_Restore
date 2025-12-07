@@ -7,12 +7,9 @@
 
 - (void)main
 {
-  v10 = *MEMORY[0x277D85DE8];
   v1 = PCStringFromDate(*self);
   OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1_0(&dword_25E3EF000, v2, v3, "Unable to schedule system wake for %@. IOPMSchedulePowerEvent() returned %#x", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_0(&dword_25E3EF000, v2, v3, "Unable to schedule system wake for %@. IOPMSchedulePowerEvent() returned %#x", v4, v5, v6, v7);
 }
 
 - (id)initForScheduledWake:(BOOL)wake wakeDate:(id)date acceptableDelay:(double)delay userVisible:(BOOL)visible serviceIdentifier:(id)identifier uniqueIdentifier:(void *)uniqueIdentifier

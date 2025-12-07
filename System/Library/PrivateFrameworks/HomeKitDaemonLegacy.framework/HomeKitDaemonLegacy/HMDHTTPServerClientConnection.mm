@@ -53,7 +53,7 @@ void __79___HMDHTTPServerClientConnection__reallySendMessage_timeout_completionH
 
 void __79___HMDHTTPServerClientConnection__reallySendMessage_timeout_completionHandler___block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 48));
@@ -65,17 +65,17 @@ void __79___HMDHTTPServerClientConnection__reallySendMessage_timeout_completionH
     v11 = HMFGetLogIdentifier();
     v12 = [WeakRetained shortDescription];
     v13 = [*(a1 + 32) UUIDString];
-    v17 = 138544386;
-    v18 = v11;
-    v19 = 2112;
-    v20 = v12;
-    v21 = 2112;
-    v22 = v13;
-    v23 = 2112;
-    v24 = v5;
-    v25 = 2112;
-    v26 = v6;
-    _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_INFO, "%{public}@[%@] Received response to transaction '%@', %@, with error %@", &v17, 0x34u);
+    v16 = 138544386;
+    v17 = v11;
+    v18 = 2112;
+    v19 = v12;
+    v20 = 2112;
+    v21 = v13;
+    v22 = 2112;
+    v23 = v5;
+    v24 = 2112;
+    v25 = v6;
+    _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_INFO, "%{public}@[%@] Received response to transaction '%@', %@, with error %@", &v16, 0x34u);
   }
 
   objc_autoreleasePoolPop(v9);
@@ -92,13 +92,11 @@ void __79___HMDHTTPServerClientConnection__reallySendMessage_timeout_completionH
   {
     [v8 finish];
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 void __79___HMDHTTPServerClientConnection__reallySendMessage_timeout_completionHandler___block_invoke_55(id *a1, void *a2)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained(a1 + 5);
   v5 = objc_loadWeakRetained(a1 + 6);
@@ -111,15 +109,15 @@ void __79___HMDHTTPServerClientConnection__reallySendMessage_timeout_completionH
       v8 = HMFGetLogIdentifier();
       v9 = [WeakRetained shortDescription];
       v10 = [WeakRetained device];
-      v18 = 138544130;
-      v19 = v8;
-      v20 = 2112;
-      v21 = v9;
-      v22 = 2112;
-      v23 = v10;
-      v24 = 2112;
-      v25 = v3;
-      _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_ERROR, "%{public}@[%@] Failed to send message to device, %@, with error: %@", &v18, 0x2Au);
+      v17 = 138544130;
+      v18 = v8;
+      v19 = 2112;
+      v20 = v9;
+      v21 = 2112;
+      v22 = v10;
+      v23 = 2112;
+      v24 = v3;
+      _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_ERROR, "%{public}@[%@] Failed to send message to device, %@, with error: %@", &v17, 0x2Au);
     }
 
     objc_autoreleasePoolPop(v6);
@@ -134,19 +132,18 @@ void __79___HMDHTTPServerClientConnection__reallySendMessage_timeout_completionH
     v14 = [WeakRetained shortDescription];
     v15 = [WeakRetained device];
     v16 = [a1[4] UUIDString];
-    v18 = 138544130;
-    v19 = v13;
-    v20 = 2112;
-    v21 = v14;
-    v22 = 2112;
-    v23 = v15;
-    v24 = 2112;
-    v25 = v16;
-    _os_log_impl(&dword_2531F8000, v12, OS_LOG_TYPE_INFO, "%{public}@[%@] Sent message to device, %@, with transaction identifier: %@", &v18, 0x2Au);
+    v17 = 138544130;
+    v18 = v13;
+    v19 = 2112;
+    v20 = v14;
+    v21 = 2112;
+    v22 = v15;
+    v23 = 2112;
+    v24 = v16;
+    _os_log_impl(&dword_2531F8000, v12, OS_LOG_TYPE_INFO, "%{public}@[%@] Sent message to device, %@, with transaction identifier: %@", &v17, 0x2Au);
   }
 
   objc_autoreleasePoolPop(v11);
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __72___HMDHTTPServerClientConnection_sendMessage_timeout_completionHandler___block_invoke(uint64_t a1)
@@ -183,7 +180,7 @@ uint64_t __72___HMDHTTPServerClientConnection_sendMessage_timeout_completionHand
 
 void __72___HMDHTTPServerClientConnection_sendMessage_timeout_completionHandler___block_invoke_2(uint64_t a1)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 48));
   v3 = [WeakRetained error];
   v4 = [v3 domain];
@@ -203,11 +200,11 @@ void __72___HMDHTTPServerClientConnection_sendMessage_timeout_completionHandler_
     {
       v9 = HMFGetLogIdentifier();
       v10 = [*(a1 + 32) shortDescription];
-      v13 = 138543618;
-      v14 = v9;
-      v15 = 2112;
-      v16 = v10;
-      _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_INFO, "%{public}@[%@] The request timed out, starting a lost connection timer", &v13, 0x16u);
+      v12 = 138543618;
+      v13 = v9;
+      v14 = 2112;
+      v15 = v10;
+      _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_INFO, "%{public}@[%@] The request timed out, starting a lost connection timer", &v12, 0x16u);
     }
 
     objc_autoreleasePoolPop(v7);
@@ -230,8 +227,6 @@ LABEL_8:
 
     (*(*(a1 + 40) + 16))();
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 @end

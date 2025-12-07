@@ -85,7 +85,7 @@
 
   selfCopy = self;
   RadioListener.registerUpdateHandler(_:)(v7, v6);
-  outlined consume of (@escaping @callee_guaranteed (@guaranteed String) -> ())?(v7);
+  outlined consume of (@escaping @callee_guaranteed (@guaranteed String) -> ())?(v7, v6);
 }
 
 - (id)radioStations

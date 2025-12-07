@@ -10,6 +10,8 @@
 - (int64_t)_maxPasscodeRecoveryAttempts;
 - (void)_clearRecoveryPasscode;
 - (void)_reportPasscodeChangedTo:(id)to;
+- (void)_setPasscodeRecoveryEnabled:(BOOL)enabled;
+- (void)changePasscode:(id)passcode to:(id)to enableRecovery:(BOOL)recovery completion:(id)completion;
 - (void)verifyPasscode:(id)passcode completion:(id)completion;
 @end
 
@@ -176,6 +178,43 @@ LABEL_14:
   }
 }
 
+- (void)changePasscode:(id)passcode to:(id)to enableRecovery:(BOOL)recovery completion:(id)completion
+{
+  recoveryCopy = recovery;
+  v22[3] = *MEMORY[0x277D85DE8];
+  toCopy = to;
+  completionCopy = completion;
+  passcodeCopy = passcode;
+  persistence = [(LAPSRecoveryPasscodeService *)self persistence];
+  v20 = 0;
+  v14 = [persistence performRecovery:passcodeCopy newPasscode:toCopy enableRecovery:recoveryCopy error:&v20];
+
+  v15 = v20;
+  if (v14)
+  {
+    [(LAPSRecoveryPasscodeService *)self _reportPasscodeChangedTo:toCopy];
+    [(LAPSRecoveryPasscodeService *)self _setPasscodeRecoveryEnabled:recoveryCopy];
+    completionCopy[2](completionCopy, 0);
+  }
+
+  else
+  {
+    v21[0] = *MEMORY[0x277CCA450];
+    v16 = +[LALocalizedString passcodeRecoveryFailedTitle];
+    v22[0] = v16;
+    v21[1] = *MEMORY[0x277CCA068];
+    v17 = [MEMORY[0x277CCACA8] stringWithFormat:@"Passcode recovery failed (error: %@)", v15];
+    v21[2] = @"LAPSInteractiveErrorKey";
+    v22[1] = v17;
+    v22[2] = MEMORY[0x277CBEC38];
+    v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:v21 count:3];
+    v19 = [LAPSErrorBuilder errorWithCode:9 userInfo:v18];
+    (completionCopy)[2](completionCopy, v19);
+
+    completionCopy = v16;
+  }
+}
+
 - (int64_t)_failedPasscodeAttempts
 {
   persistence = [(LAPSRecoveryPasscodeService *)self persistence];
@@ -223,11 +262,10 @@ LABEL_14:
 
 - (void)_clearRecoveryPasscode
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
   selfCopy = self;
-  _os_log_error_impl(&dword_238BCD000, a2, OS_LOG_TYPE_ERROR, "Could not clear recovery blob (error: %@)", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_238BCD000, a2, OS_LOG_TYPE_ERROR, "Could not clear recovery blob (error: %@)", &v2, 0xCu);
 }
 
 - (void)_reportPasscodeChangedTo:(id)to
@@ -246,26 +284,39 @@ LABEL_14:
 
 void __56__LAPSRecoveryPasscodeService__reportPasscodeChangedTo___block_invoke(uint64_t a1, void *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v2 = a2;
   v3 = LACLogPasscodeService();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 138412290;
-    v6 = v2;
-    _os_log_impl(&dword_238BCD000, v3, OS_LOG_TYPE_DEFAULT, "CDP update did finish (error: %@)", &v5, 0xCu);
+    v4 = 138412290;
+    v5 = v2;
+    _os_log_impl(&dword_238BCD000, v3, OS_LOG_TYPE_DEFAULT, "CDP update did finish (error: %@)", &v4, 0xCu);
   }
+}
 
-  v4 = *MEMORY[0x277D85DE8];
+- (void)_setPasscodeRecoveryEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  persistence = [(LAPSRecoveryPasscodeService *)self persistence];
+  v5 = [persistence setPasscodeRecoveryEnabled:enabledCopy];
+
+  if (v5)
+  {
+    v6 = LACLogPasscodeService();
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    {
+      [(LAPSRecoveryPasscodeService *)v5 _setPasscodeRecoveryEnabled:v6];
+    }
+  }
 }
 
 - (void)_setPasscodeRecoveryEnabled:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_238BCD000, a2, OS_LOG_TYPE_ERROR, "Passcode recovery intent storage failed (error: %@)", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_238BCD000, a2, OS_LOG_TYPE_ERROR, "Passcode recovery intent storage failed (error: %@)", &v2, 0xCu);
 }
 
 @end

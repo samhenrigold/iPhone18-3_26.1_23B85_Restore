@@ -923,21 +923,6 @@ void __79__MCLURLDataLoader_Image__downloadImageWithRequest_category_completionH
   objc_storeStrong(location, 0);
 }
 
-uint64_t __79__MCLURLDataLoader_Image__downloadImageWithRequest_category_completionHandler___block_invoke_2(void *a1)
-{
-  *(*(a1[7] + 8) + 24) = 1;
-  v1 = a1[5];
-  return (*(a1[6] + 16))(a1[6], a1[4]);
-}
-
-uint64_t __79__MCLURLDataLoader_Image__downloadImageWithRequest_category_completionHandler___block_invoke_3(void *a1)
-{
-  *(*(a1[7] + 8) + 24) = 1;
-  v1 = a1[4];
-  v2 = a1[5];
-  return (*(a1[6] + 16))(a1[6], 0);
-}
-
 void __79__MCLURLDataLoader_Image__downloadImageWithRequest_category_completionHandler___block_invoke_4(uint64_t a1)
 {
   v18 = a1;
@@ -990,12 +975,11 @@ void __79__MCLURLDataLoader_Image__downloadImageWithRequest_category_completionH
   }
 }
 
-void *__79__MCLURLDataLoader_Image__downloadImageWithRequest_category_completionHandler___block_invoke_5(void *result)
+uint64_t __79__MCLURLDataLoader_Image__downloadImageWithRequest_category_completionHandler___block_invoke_5(uint64_t result)
 {
-  if ((*(*(result[6] + 8) + 24) & 1) == 0)
+  if ((*(*(*(result + 48) + 8) + 24) & 1) == 0)
   {
-    v1 = result[4];
-    return (*(result[5] + 16))();
+    return (*(*(result + 40) + 16))();
   }
 
   return result;
@@ -1303,7 +1287,6 @@ uint64_t __26__MCLURLDataLoader_shared__block_invoke(uint64_t a1)
 
   v21 = MEMORY[0x277D82BE0](v32);
   objc_storeStrong(&v32, 0);
-  *MEMORY[0x277D85DE8];
   return v21;
 }
 
@@ -1586,7 +1569,6 @@ void __45__MCLURLDataLoader_backgroundClearOldCaches___block_invoke_2(uint64_t a
   objc_storeStrong(location, a2);
   if ([*(a1 + 32) isDeletableFileAtPath:location[0]])
   {
-    v2 = *(a1 + 40);
     [objc_opt_class() removeFilesOlderThan:*(a1 + 48) inDirectory:location[0]];
   }
 
@@ -1897,7 +1879,6 @@ uint64_t __51__MCLURLDataLoader_removeCachedResponseForRequest___block_invoke(ui
   objc_storeStrong(&defaultManager, 0);
   objc_storeStrong(&v26, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)addCacheLocation:(id)location
@@ -3908,7 +3889,6 @@ LABEL_18:
 
   objc_storeStrong(&v88, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
   v14 = v93;
 
   return v14;
@@ -4049,7 +4029,6 @@ void __45__MCLURLDataLoader_processURLRequestRewrite___block_invoke(id *a1, void
   }
 
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
   v4 = v13;
 
   return v4;

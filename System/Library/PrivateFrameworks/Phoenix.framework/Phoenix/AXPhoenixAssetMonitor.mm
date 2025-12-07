@@ -50,7 +50,6 @@
   v7 = MEMORY[0x277D82BE0](selfCopy);
   objc_storeStrong(location, 0);
   objc_storeStrong(&selfCopy, 0);
-  *MEMORY[0x277D85DE8];
   return v7;
 }
 
@@ -81,7 +80,6 @@
   objc_storeStrong(&v11, 0);
   objc_storeStrong(&v13, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)assetController:(id)controller didFinishDownloadingAsset:(id)asset wasSuccessful:(BOOL)successful error:(id)error hasRemainingDownloads:(BOOL)downloads
@@ -114,7 +112,6 @@
   objc_storeStrong(&v13, 0);
   objc_storeStrong(&v15, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)assetDidUpdate
@@ -141,7 +138,6 @@
   MEMORY[0x277D82BD8](localURL);
   MEMORY[0x277D82BD8](latestAsset2);
   MEMORY[0x277D82BD8](delegate);
-  *MEMORY[0x277D85DE8];
 }
 
 - (AXPhoenixAssetMonitorDelegate)delegate

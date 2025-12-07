@@ -7,11 +7,11 @@
 
 - (WLKContentPlayResponse)initWithDictionary:(id)dictionary
 {
-  v18[1] = *MEMORY[0x277D85DE8];
+  v17[1] = *MEMORY[0x277D85DE8];
   dictionaryCopy = dictionary;
-  v16.receiver = self;
-  v16.super_class = WLKContentPlayResponse;
-  v6 = [(WLKContentPlayResponse *)&v16 init];
+  v15.receiver = self;
+  v15.super_class = WLKContentPlayResponse;
+  v6 = [(WLKContentPlayResponse *)&v15 init];
   v7 = v6;
   if (v6)
   {
@@ -21,9 +21,9 @@
     v10 = v9;
     if (v9)
     {
-      v17 = @"WLKModelContextKeyChannels";
-      v18[0] = v9;
-      v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:&v17 count:1];
+      v16 = @"WLKModelContextKeyChannels";
+      v17[0] = v9;
+      v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:&v16 count:1];
     }
 
     else
@@ -36,7 +36,6 @@
     v7->_playable = v12;
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return v7;
 }
 

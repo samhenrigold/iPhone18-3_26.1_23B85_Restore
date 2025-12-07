@@ -1,4 +1,5 @@
 @interface _ANEInputBuffersReady
++ (id)inputBuffersWithProcedureIndex:(unsigned int)index inputBufferInfoIndex:(id)infoIndex inputFreeValue:(id)value executionDelay:(unint64_t)delay;
 - (BOOL)validate;
 - (id)initInputsProcedureIndex:(unsigned int)index inputBufferInfoIndex:(id)infoIndex inputFreeValue:(id)value executionDelay:(unint64_t)delay;
 - (void)validate;
@@ -23,6 +24,16 @@
   }
 
   return v14;
+}
+
++ (id)inputBuffersWithProcedureIndex:(unsigned int)index inputBufferInfoIndex:(id)infoIndex inputFreeValue:(id)value executionDelay:(unint64_t)delay
+{
+  v8 = *&index;
+  valueCopy = value;
+  infoIndexCopy = infoIndex;
+  v12 = [[self alloc] initInputsProcedureIndex:v8 inputBufferInfoIndex:infoIndexCopy inputFreeValue:valueCopy executionDelay:delay];
+
+  return v12;
 }
 
 - (BOOL)validate
@@ -62,13 +73,10 @@ LABEL_7:
 
 - (void)validate
 {
-  v13 = *MEMORY[0x1E69E9840];
   v3 = NSStringFromSelector(self);
   inputBufferInfoIndex = [a2 inputBufferInfoIndex];
   OUTLINED_FUNCTION_0_9();
-  OUTLINED_FUNCTION_1_8(&dword_1AD246000, v5, v6, "%@: inputBufferInfoIndex[%lu] count is greater than kANEMaxBuffers=%d", v7, v8, v9, v10, v12);
-
-  v11 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1_8(&dword_1AD246000, v5, v6, "%@: inputBufferInfoIndex[%lu] count is greater than kANEMaxBuffers=%d", v7, v8, v9, v10);
 }
 
 @end

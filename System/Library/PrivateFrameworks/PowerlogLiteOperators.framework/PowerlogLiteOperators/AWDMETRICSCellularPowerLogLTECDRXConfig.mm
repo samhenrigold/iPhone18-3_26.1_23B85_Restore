@@ -359,7 +359,6 @@ LABEL_13:
   has = self->_has;
   if (has)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
     has = self->_has;
     if ((has & 0x40) == 0)
@@ -379,7 +378,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  onDuration = self->_onDuration;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 4) == 0)
@@ -394,7 +392,6 @@ LABEL_4:
   }
 
 LABEL_18:
-  drxInactivity = self->_drxInactivity;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 8) == 0)
@@ -409,7 +406,6 @@ LABEL_5:
   }
 
 LABEL_19:
-  drxRetxTimer = self->_drxRetxTimer;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x20) == 0)
@@ -424,7 +420,6 @@ LABEL_6:
   }
 
 LABEL_20:
-  longDrxCycle = self->_longDrxCycle;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 2) == 0)
@@ -439,7 +434,6 @@ LABEL_7:
   }
 
 LABEL_21:
-  cycleStartOffset = self->_cycleStartOffset;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x400) == 0)
@@ -454,7 +448,6 @@ LABEL_8:
   }
 
 LABEL_22:
-  shortDrxCycleEnable = self->_shortDrxCycleEnable;
   PBDataWriterWriteBOOLField();
   has = self->_has;
   if ((has & 0x80) == 0)
@@ -469,7 +462,6 @@ LABEL_9:
   }
 
 LABEL_23:
-  shortDrxCycle = self->_shortDrxCycle;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x10) == 0)
@@ -484,7 +476,6 @@ LABEL_10:
   }
 
 LABEL_24:
-  drxShortCycleNum = self->_drxShortCycleNum;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x200) == 0)
@@ -499,12 +490,10 @@ LABEL_11:
   }
 
 LABEL_25:
-  cdrxEnable = self->_cdrxEnable;
   PBDataWriterWriteBOOLField();
   if ((*&self->_has & 0x100) != 0)
   {
 LABEL_12:
-    subsId = self->_subsId;
     PBDataWriterWriteUint32Field();
   }
 
@@ -923,7 +912,6 @@ LABEL_12:
       goto LABEL_62;
     }
 
-    v7 = *(equalCopy + 49);
     if (self->_shortDrxCycleEnable)
     {
       if ((*(equalCopy + 49) & 1) == 0)
@@ -977,7 +965,7 @@ LABEL_12:
     }
 
 LABEL_62:
-    v8 = 0;
+    v7 = 0;
     goto LABEL_63;
   }
 
@@ -986,7 +974,6 @@ LABEL_62:
     goto LABEL_62;
   }
 
-  v9 = *(equalCopy + 48);
   if (self->_cdrxEnable)
   {
     if ((*(equalCopy + 48) & 1) == 0)
@@ -1008,17 +995,17 @@ LABEL_52:
       goto LABEL_62;
     }
 
-    v8 = 1;
+    v7 = 1;
   }
 
   else
   {
-    v8 = (v6 & 0x100) == 0;
+    v7 = (v6 & 0x100) == 0;
   }
 
 LABEL_63:
 
-  return v8;
+  return v7;
 }
 
 - (unint64_t)hash

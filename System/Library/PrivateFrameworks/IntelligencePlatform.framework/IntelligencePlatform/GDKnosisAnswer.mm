@@ -8,7 +8,7 @@
 
 - (GDKnosisAnswer)initWithCoder:(id)coder
 {
-  v49[1] = *MEMORY[0x1E69E9840];
+  v48[1] = *MEMORY[0x1E69E9840];
   coderCopy = coder;
   v5 = objc_opt_class();
   v6 = NSStringFromSelector(sel_answerId);
@@ -85,9 +85,9 @@ LABEL_27:
           if (!error3)
           {
             v36 = MEMORY[0x1E696ABC0];
-            v44 = *MEMORY[0x1E696A578];
-            v45 = @"GDKnosisAnswer requestIds is nil";
-            v37 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v45 forKeys:&v44 count:1];
+            v43 = *MEMORY[0x1E696A578];
+            v44 = @"GDKnosisAnswer requestIds is nil";
+            v37 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v44 forKeys:&v43 count:1];
             v38 = [v36 errorWithDomain:@"GDErrorDomain" code:9 userInfo:v37];
             [coderCopy failWithError:v38];
           }
@@ -111,9 +111,9 @@ LABEL_25:
       }
 
       v40 = MEMORY[0x1E696ABC0];
-      v46 = *MEMORY[0x1E696A578];
-      v47 = @"GDKnosisAnswer parents is nil";
-      v28 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v47 forKeys:&v46 count:1];
+      v45 = *MEMORY[0x1E696A578];
+      v46 = @"GDKnosisAnswer parents is nil";
+      v28 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v46 forKeys:&v45 count:1];
       v41 = [v40 errorWithDomain:@"GDErrorDomain" code:9 userInfo:v28];
       [coderCopy failWithError:v41];
 
@@ -133,9 +133,9 @@ LABEL_26:
       }
 
       v39 = MEMORY[0x1E696ABC0];
-      v48 = *MEMORY[0x1E696A578];
-      v49[0] = @"GDKnosisAnswer facts is nil";
-      v23 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v49 forKeys:&v48 count:1];
+      v47 = *MEMORY[0x1E696A578];
+      v48[0] = @"GDKnosisAnswer facts is nil";
+      v23 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v48 forKeys:&v47 count:1];
       v28 = [v39 errorWithDomain:@"GDErrorDomain" code:9 userInfo:v23];
       [coderCopy failWithError:v28];
     }
@@ -149,7 +149,6 @@ LABEL_24:
   selfCopy = 0;
 LABEL_29:
 
-  v42 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 

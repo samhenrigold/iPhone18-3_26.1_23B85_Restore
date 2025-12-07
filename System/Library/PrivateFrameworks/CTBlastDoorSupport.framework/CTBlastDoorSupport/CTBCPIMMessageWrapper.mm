@@ -13,7 +13,7 @@
   v5 = v4;
   if (v4)
   {
-    std::__optional_storage_base<ctb::CPIMMessage,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<ctb::CPIMMessage,false>>(&v4->_wrapped, wrapped);
+    std::__optional_storage_base<ctb::CPIMMessage,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<ctb::CPIMMessage,false>>(&v4->_wrapped, &wrapped->var0.var0);
   }
 
   return v5;

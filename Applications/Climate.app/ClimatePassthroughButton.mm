@@ -7,7 +7,7 @@
 - (_TtC7Climate24ClimatePassthroughButton)init
 {
   v4.receiver = self;
-  v4.super_class = type metadata accessor for ClimatePassthroughButton();
+  v4.super_class = type metadata accessor for ClimatePassthroughButton(0);
   v2 = [(ClimateButton *)&v4 init];
   [(ClimatePassthroughButton *)v2 removeTarget:0 action:0 forControlEvents:0xFFFFFFFFLL];
   return v2;

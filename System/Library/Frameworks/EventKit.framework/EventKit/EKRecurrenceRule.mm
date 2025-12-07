@@ -11,7 +11,9 @@
 + (id)knownIdentityKeysForComparison;
 + (id)knownRelationshipWeakKeys;
 + (id)knownSingleValueKeysForComparison;
++ (id)stringValueForRecurrenceRule:(id)rule asDateOnly:(BOOL)only isFloating:(BOOL)floating;
 + (int)_calDayOfWeekFromEKWeekday:(int64_t)weekday;
++ (int64_t)_ekWeekdayFromCalDayOfWeek:(int)week;
 + (int64_t)daysTypeForDayArray:(id)array;
 - (BOOL)dirtyStateMayAffectExceptionDates;
 - (BOOL)hasDuplicateMonthsOfYear;
@@ -42,11 +44,14 @@
 - (id)_recurrenceHelper;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
+- (id)humanReadableDescriptionWithStartDate:(id)date isConcise:(BOOL)concise;
 - (id)initRecurrenceWithRecurrenceRule:(id)rule;
+- (id)stringValueAsDateOnly:(BOOL)only isFloating:(BOOL)floating;
 - (int)firstDayOfTheWeekRaw;
 - (int)frequencyRaw;
 - (int64_t)ekRecurrenceFrequencyFromICSFrequency:(unint64_t)frequency;
 - (unint64_t)count;
+- (void)_resetInternalStateWithForce:(BOOL)force;
 - (void)_updateSpecifierIfNeeded;
 - (void)frequency;
 - (void)invalidateCachedEndDate;
@@ -56,7 +61,9 @@
 - (void)setDaysOfTheWeek:(id)week;
 - (void)setDaysOfTheYear:(id)year;
 - (void)setFirstDayOfTheWeek:(unint64_t)week;
+- (void)setFirstDayOfTheWeekRaw:(int)raw;
 - (void)setFrequency:(int64_t)frequency;
+- (void)setFrequencyRaw:(int)raw;
 - (void)setInterval:(unint64_t)interval;
 - (void)setMonthsOfTheYear:(id)year;
 - (void)setRecurrenceEnd:(EKRecurrenceEnd *)recurrenceEnd;
@@ -80,21 +87,19 @@
 
 void __53__EKRecurrenceRule_knownSingleValueKeysForComparison__block_invoke()
 {
-  v6[6] = *MEMORY[0x1E69E9840];
+  v5[6] = *MEMORY[0x1E69E9840];
   v0 = *MEMORY[0x1E6992BD0];
-  v6[0] = *MEMORY[0x1E6992BC8];
-  v6[1] = v0;
+  v5[0] = *MEMORY[0x1E6992BC8];
+  v5[1] = v0;
   v1 = *MEMORY[0x1E6992BB8];
-  v6[2] = *MEMORY[0x1E6992BC0];
-  v6[3] = v1;
+  v5[2] = *MEMORY[0x1E6992BC0];
+  v5[3] = v1;
   v2 = *MEMORY[0x1E6992BE0];
-  v6[4] = *MEMORY[0x1E6992BB0];
-  v6[5] = v2;
-  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v6 count:6];
+  v5[4] = *MEMORY[0x1E6992BB0];
+  v5[5] = v2;
+  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v5 count:6];
   v4 = knownSingleValueKeysForComparison_keys;
   knownSingleValueKeysForComparison_keys = v3;
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 + (id)knownIdentityKeysForComparison
@@ -111,13 +116,11 @@ void __53__EKRecurrenceRule_knownSingleValueKeysForComparison__block_invoke()
 
 void __50__EKRecurrenceRule_knownIdentityKeysForComparison__block_invoke()
 {
-  v3[1] = *MEMORY[0x1E69E9840];
-  v3[0] = *MEMORY[0x1E6992B08];
-  v0 = [MEMORY[0x1E695DEC8] arrayWithObjects:v3 count:1];
+  v2[1] = *MEMORY[0x1E69E9840];
+  v2[0] = *MEMORY[0x1E6992B08];
+  v0 = [MEMORY[0x1E695DEC8] arrayWithObjects:v2 count:1];
   v1 = knownIdentityKeysForComparison_keys;
   knownIdentityKeysForComparison_keys = v0;
-
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 + (id)knownRelationshipWeakKeys
@@ -134,13 +137,11 @@ void __50__EKRecurrenceRule_knownIdentityKeysForComparison__block_invoke()
 
 void __45__EKRecurrenceRule_knownRelationshipWeakKeys__block_invoke()
 {
-  v3[1] = *MEMORY[0x1E69E9840];
-  v3[0] = *MEMORY[0x1E6992BD8];
-  v0 = [MEMORY[0x1E695DEC8] arrayWithObjects:v3 count:1];
+  v2[1] = *MEMORY[0x1E69E9840];
+  v2[0] = *MEMORY[0x1E6992BD8];
+  v0 = [MEMORY[0x1E695DEC8] arrayWithObjects:v2 count:1];
   v1 = knownRelationshipWeakKeys_keys;
   knownRelationshipWeakKeys_keys = v0;
-
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 + (EKRecurrenceRule)recurrenceRuleWithType:(int64_t)type interval:(unint64_t)interval end:(id)end
@@ -230,33 +231,33 @@ void __45__EKRecurrenceRule_knownRelationshipWeakKeys__block_invoke()
 
 - (EKRecurrenceRule)initWithRRULEString:(id)string
 {
-  v46 = *MEMORY[0x1E69E9840];
+  v45 = *MEMORY[0x1E69E9840];
   stringCopy = string;
-  v37 = [objc_opt_class() trimmedRRULEString:stringCopy];
+  v36 = [objc_opt_class() trimmedRRULEString:stringCopy];
   v4 = [MEMORY[0x1E69E3CD8] recurrenceRuleFromICSString:?];
   selfCopy = self;
-  v36 = -[EKRecurrenceRule ekRecurrenceFrequencyFromICSFrequency:](self, "ekRecurrenceFrequencyFromICSFrequency:", [v4 freq]);
+  v35 = -[EKRecurrenceRule ekRecurrenceFrequencyFromICSFrequency:](self, "ekRecurrenceFrequencyFromICSFrequency:", [v4 freq]);
   array = [MEMORY[0x1E695DF70] array];
+  v40 = 0u;
   v41 = 0u;
   v42 = 0u;
   v43 = 0u;
-  v44 = 0u;
   byday = [v4 byday];
-  v7 = [byday countByEnumeratingWithState:&v41 objects:v45 count:16];
+  v7 = [byday countByEnumeratingWithState:&v40 objects:v44 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v42;
+    v9 = *v41;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v42 != v9)
+        if (*v41 != v9)
         {
           objc_enumerationMutation(byday);
         }
 
-        v11 = *(*(&v41 + 1) + 8 * i);
+        v11 = *(*(&v40 + 1) + 8 * i);
         v12 = [EKRecurrenceDayOfWeek alloc];
         weekday = [v11 weekday];
         number = [v11 number];
@@ -265,7 +266,7 @@ void __45__EKRecurrenceRule_knownRelationshipWeakKeys__block_invoke()
         [array addObject:v15];
       }
 
-      v8 = [byday countByEnumeratingWithState:&v41 objects:v45 count:16];
+      v8 = [byday countByEnumeratingWithState:&v40 objects:v44 count:16];
     }
 
     while (v8);
@@ -280,7 +281,7 @@ void __45__EKRecurrenceRule_knownRelationshipWeakKeys__block_invoke()
 
     activeCalendar = [MEMORY[0x1E6992F28] activeCalendar];
     v20 = [activeCalendar dateFromComponents:components];
-    v40 = [[EKRecurrenceEnd alloc] initWithEndDate:v20];
+    v39 = [[EKRecurrenceEnd alloc] initWithEndDate:v20];
   }
 
   else
@@ -292,12 +293,12 @@ void __45__EKRecurrenceRule_knownRelationshipWeakKeys__block_invoke()
       v22 = [v4 count];
       unsignedIntegerValue = [v22 unsignedIntegerValue];
 
-      v40 = [[EKRecurrenceEnd alloc] initWithOccurrenceCount:unsignedIntegerValue];
+      v39 = [[EKRecurrenceEnd alloc] initWithOccurrenceCount:unsignedIntegerValue];
     }
 
     else
     {
-      v40 = 0;
+      v39 = 0;
     }
   }
 
@@ -319,13 +320,12 @@ void __45__EKRecurrenceRule_knownRelationshipWeakKeys__block_invoke()
   byweekno = [v4 byweekno];
   byyearday = [v4 byyearday];
   bysetpos = [v4 bysetpos];
-  v32 = [(EKRecurrenceRule *)v24 initRecurrenceWithFrequency:v36 interval:integerValue daysOfTheWeek:array daysOfTheMonth:bymonthday monthsOfTheYear:bymonth weeksOfTheYear:byweekno daysOfTheYear:byyearday setPositions:bysetpos end:v40];
+  v32 = [(EKRecurrenceRule *)v24 initRecurrenceWithFrequency:v35 interval:integerValue daysOfTheWeek:array daysOfTheMonth:bymonthday monthsOfTheYear:bymonth weeksOfTheYear:byweekno daysOfTheYear:byyearday setPositions:bysetpos end:v39];
 
   if (interval)
   {
   }
 
-  v33 = *MEMORY[0x1E69E9840];
   return v32;
 }
 
@@ -433,6 +433,12 @@ LABEL_12:
   return integerValue;
 }
 
+- (void)setFrequencyRaw:(int)raw
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:*&raw];
+  [(EKObject *)self setSingleChangedValue:v4 forKey:*MEMORY[0x1E6992BC8]];
+}
+
 - (EKRecurrenceFrequency)frequency
 {
   frequencyRaw = [(EKRecurrenceRule *)self frequencyRaw];
@@ -511,7 +517,7 @@ LABEL_12:
   return v2;
 }
 
-id __33__EKRecurrenceRule_recurrenceEnd__block_invoke(uint64_t a1)
+EKRecurrenceEnd *__33__EKRecurrenceRule_recurrenceEnd__block_invoke(uint64_t a1)
 {
   v2 = [*(a1 + 32) endDate];
   v3 = [*(a1 + 32) count];
@@ -599,6 +605,29 @@ LABEL_8:
   intValue = [v2 intValue];
 
   return intValue;
+}
+
+- (void)setFirstDayOfTheWeekRaw:(int)raw
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:*&raw];
+  [(EKObject *)self setSingleChangedValue:v4 forKey:*MEMORY[0x1E6992BC0]];
+}
+
++ (int64_t)_ekWeekdayFromCalDayOfWeek:(int)week
+{
+  v3 = *&week;
+  if (week < 8)
+  {
+    return qword_1A81C3A20[week];
+  }
+
+  v5 = EKLogHandle;
+  if (os_log_type_enabled(EKLogHandle, OS_LOG_TYPE_ERROR))
+  {
+    [(EKRecurrenceRule *)v3 _ekWeekdayFromCalDayOfWeek:v5, v6, v7, v8, v9, v10, v11];
+  }
+
+  return 0;
 }
 
 + (int)_calDayOfWeekFromEKWeekday:(int64_t)weekday
@@ -768,6 +797,16 @@ LABEL_8:
   }
 }
 
+- (void)_resetInternalStateWithForce:(BOOL)force
+{
+  v5.receiver = self;
+  v5.super_class = EKRecurrenceRule;
+  [(EKObject *)&v5 _resetInternalStateWithForce:force];
+  [(EKObject *)self clearCachedValueForKey:@"recurrenceEnd"];
+  recurrenceHelper = self->_recurrenceHelper;
+  self->_recurrenceHelper = 0;
+}
+
 - (void)rollback
 {
   v4.receiver = self;
@@ -779,40 +818,40 @@ LABEL_8:
 
 - (BOOL)dirtyStateMayAffectExceptionDates
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   changeSet = [(EKObject *)self changeSet];
   changedKeys = [changeSet changedKeys];
 
-  v17 = 0u;
-  v18 = 0u;
-  v15 = 0u;
   v16 = 0u;
+  v17 = 0u;
+  v14 = 0u;
+  v15 = 0u;
   v4 = changedKeys;
-  v5 = [v4 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v16;
+    v7 = *v15;
     v8 = *MEMORY[0x1E6992BB0];
     v9 = *MEMORY[0x1E6992BB8];
     while (2)
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v16 != v7)
+        if (*v15 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v11 = *(*(&v15 + 1) + 8 * i);
-        if (([v11 isEqualToString:{v8, v15}] & 1) == 0 && !objc_msgSend(v11, "isEqualToString:", v9))
+        v11 = *(*(&v14 + 1) + 8 * i);
+        if (([v11 isEqualToString:{v8, v14}] & 1) == 0 && !objc_msgSend(v11, "isEqualToString:", v9))
         {
           v12 = 1;
           goto LABEL_12;
         }
       }
 
-      v6 = [v4 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
       if (v6)
       {
         continue;
@@ -825,7 +864,6 @@ LABEL_8:
   v12 = 0;
 LABEL_12:
 
-  v13 = *MEMORY[0x1E69E9840];
   return v12;
 }
 
@@ -871,7 +909,7 @@ LABEL_12:
 
 - (BOOL)isPinnedToEndOfFrequency
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   if ([(EKRecurrenceRule *)self frequency]!= EKRecurrenceFrequencyMonthly)
   {
     goto LABEL_18;
@@ -906,36 +944,36 @@ LABEL_16:
 
   if (v8 <= 4)
   {
-    v24 = 0u;
-    v25 = 0u;
-    v22 = 0u;
     v23 = 0u;
-    v9 = [&unk_1F1B6B0B0 countByEnumeratingWithState:&v22 objects:v26 count:16];
+    v24 = 0u;
+    v21 = 0u;
+    v22 = 0u;
+    v9 = [&unk_1F1B6B0B0 countByEnumeratingWithState:&v21 objects:v25 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v23;
+      v11 = *v22;
 LABEL_8:
       v12 = 0;
       while (1)
       {
-        if (*v23 != v11)
+        if (*v22 != v11)
         {
           objc_enumerationMutation(&unk_1F1B6B0B0);
         }
 
-        v13 = *(*(&v22 + 1) + 8 * v12);
+        v13 = *(*(&v21 + 1) + 8 * v12);
         daysOfTheMonth3 = [(EKRecurrenceRule *)self daysOfTheMonth];
         LOBYTE(v13) = [v13 isEqualToArray:daysOfTheMonth3];
 
         if (v13)
         {
-          goto LABEL_26;
+          return 1;
         }
 
         if (v10 == ++v12)
         {
-          v10 = [&unk_1F1B6B0B0 countByEnumeratingWithState:&v22 objects:v26 count:16];
+          v10 = [&unk_1F1B6B0B0 countByEnumeratingWithState:&v21 objects:v25 count:16];
           if (v10)
           {
             goto LABEL_8;
@@ -948,40 +986,31 @@ LABEL_8:
   }
 
 LABEL_18:
-  if ([(EKRecurrenceRule *)self frequency]== EKRecurrenceFrequencyYearly)
+  if ([(EKRecurrenceRule *)self frequency]!= EKRecurrenceFrequencyYearly)
   {
-    setPositions3 = [(EKRecurrenceRule *)self setPositions];
-    if ([setPositions3 count] != 1)
-    {
-LABEL_22:
-
-      goto LABEL_23;
-    }
-
-    setPositions4 = [(EKRecurrenceRule *)self setPositions];
-    v17 = [setPositions4 objectAtIndexedSubscript:0];
-    if ([v17 integerValue] != -1)
-    {
-
-      goto LABEL_22;
-    }
-
-    daysOfTheMonth4 = [(EKRecurrenceRule *)self daysOfTheMonth];
-    v21 = [&unk_1F1B6B0E0 isEqualToArray:daysOfTheMonth4];
-
-    if (v21)
-    {
-LABEL_26:
-      result = 1;
-      goto LABEL_24;
-    }
+    return 0;
   }
 
-LABEL_23:
-  result = 0;
-LABEL_24:
-  v19 = *MEMORY[0x1E69E9840];
-  return result;
+  setPositions3 = [(EKRecurrenceRule *)self setPositions];
+  if ([setPositions3 count] != 1)
+  {
+LABEL_22:
+
+    return 0;
+  }
+
+  setPositions4 = [(EKRecurrenceRule *)self setPositions];
+  v17 = [setPositions4 objectAtIndexedSubscript:0];
+  if ([v17 integerValue] != -1)
+  {
+
+    goto LABEL_22;
+  }
+
+  daysOfTheMonth4 = [(EKRecurrenceRule *)self daysOfTheMonth];
+  v20 = [&unk_1F1B6B0E0 isEqualToArray:daysOfTheMonth4];
+
+  return (v20 & 1) != 0;
 }
 
 - (BOOL)isWeekdayRule
@@ -1177,31 +1206,259 @@ LABEL_13:
   return cCopy;
 }
 
+- (id)stringValueAsDateOnly:(BOOL)only isFloating:(BOOL)floating
+{
+  floatingCopy = floating;
+  onlyCopy = only;
+  v7 = objc_opt_class();
+
+  return [v7 stringValueForRecurrenceRule:self asDateOnly:onlyCopy isFloating:floatingCopy];
+}
+
++ (id)stringValueForRecurrenceRule:(id)rule asDateOnly:(BOOL)only isFloating:(BOOL)floating
+{
+  floatingCopy = floating;
+  onlyCopy = only;
+  ruleCopy = rule;
+  string = [MEMORY[0x1E696AD60] string];
+  v9 = +[EKRecurrenceRule iCalendarValueFromRecurrenceType:](EKRecurrenceRule, "iCalendarValueFromRecurrenceType:", [ruleCopy frequency]);
+  [string appendFormat:@"FREQ=%@", v9];
+
+  [string appendFormat:@";INTERVAL=%lu", objc_msgSend(ruleCopy, "interval")];
+  recurrenceEnd = [ruleCopy recurrenceEnd];
+
+  if (recurrenceEnd)
+  {
+    recurrenceEnd2 = [ruleCopy recurrenceEnd];
+    endDate = [recurrenceEnd2 endDate];
+
+    recurrenceEnd3 = [ruleCopy recurrenceEnd];
+    v14 = recurrenceEnd3;
+    if (endDate)
+    {
+      endDate2 = [recurrenceEnd3 endDate];
+
+      v16 = [objc_opt_class() adjustDateIntoUTC:endDate2 dateOnly:onlyCopy floating:floatingCopy];
+      v17 = [EKRecurrenceRule iCalendarValueFromDate:v16 isDateOnly:onlyCopy isFloating:floatingCopy];
+      [string appendFormat:@";UNTIL=%@", v17];
+
+      v14 = endDate2;
+    }
+
+    else
+    {
+      [string appendFormat:@";COUNT=%lu", objc_msgSend(recurrenceEnd3, "occurrenceCount")];
+    }
+  }
+
+  monthsOfTheYear = [ruleCopy monthsOfTheYear];
+  v19 = [monthsOfTheYear count];
+
+  if (v19)
+  {
+    monthsOfTheYear2 = [ruleCopy monthsOfTheYear];
+    v21 = [monthsOfTheYear2 objectAtIndex:0];
+    [string appendFormat:@";BYMONTH=%@", v21];
+
+    if (v19 != 1)
+    {
+      v22 = 2;
+      v23 = 1;
+      do
+      {
+        monthsOfTheYear3 = [ruleCopy monthsOfTheYear];
+        v25 = [monthsOfTheYear3 objectAtIndex:v23];
+        [string appendFormat:@", %@", v25];
+
+        v23 = v22;
+        v26 = v19 > v22++;
+      }
+
+      while (v26);
+    }
+  }
+
+  daysOfTheMonth = [ruleCopy daysOfTheMonth];
+  v28 = [daysOfTheMonth count];
+
+  if (v28)
+  {
+    daysOfTheMonth2 = [ruleCopy daysOfTheMonth];
+    v30 = [daysOfTheMonth2 objectAtIndex:0];
+    [string appendFormat:@";BYMONTHDAY=%@", v30];
+
+    if (v28 != 1)
+    {
+      v31 = 2;
+      v32 = 1;
+      do
+      {
+        daysOfTheMonth3 = [ruleCopy daysOfTheMonth];
+        v34 = [daysOfTheMonth3 objectAtIndex:v32];
+        [string appendFormat:@", %@", v34];
+
+        v32 = v31;
+        v26 = v28 > v31++;
+      }
+
+      while (v26);
+    }
+  }
+
+  daysOfTheYear = [ruleCopy daysOfTheYear];
+  v36 = [daysOfTheYear count];
+
+  if (v36)
+  {
+    daysOfTheYear2 = [ruleCopy daysOfTheYear];
+    v38 = [daysOfTheYear2 objectAtIndex:0];
+    [string appendFormat:@";BYYEARDAY=%@", v38];
+
+    if (v36 != 1)
+    {
+      v39 = 2;
+      v40 = 1;
+      do
+      {
+        daysOfTheYear3 = [ruleCopy daysOfTheYear];
+        v42 = [daysOfTheYear3 objectAtIndex:v40];
+        [string appendFormat:@", %@", v42];
+
+        v40 = v39;
+        v26 = v36 > v39++;
+      }
+
+      while (v26);
+    }
+  }
+
+  weeksOfTheYear = [ruleCopy weeksOfTheYear];
+  v44 = [weeksOfTheYear count];
+
+  if (v44)
+  {
+    weeksOfTheYear2 = [ruleCopy weeksOfTheYear];
+    v46 = [weeksOfTheYear2 objectAtIndex:0];
+    [string appendFormat:@";BYWEEKNO=%@", v46];
+
+    if (v44 != 1)
+    {
+      v47 = 2;
+      v48 = 1;
+      do
+      {
+        weeksOfTheYear3 = [ruleCopy weeksOfTheYear];
+        v50 = [weeksOfTheYear3 objectAtIndex:v48];
+        [string appendFormat:@", %@", v50];
+
+        v48 = v47;
+        v26 = v44 > v47++;
+      }
+
+      while (v26);
+    }
+  }
+
+  daysOfTheWeek = [ruleCopy daysOfTheWeek];
+  v52 = [daysOfTheWeek count];
+
+  if (v52)
+  {
+    daysOfTheWeek2 = [ruleCopy daysOfTheWeek];
+    v54 = [daysOfTheWeek2 objectAtIndex:0];
+
+    v55 = [EKRecurrenceDayOfWeek iCalendarDescriptionForDayOfWeek:v54];
+    [string appendFormat:@";BYDAY=%@", v55];
+
+    if (v52 != 1)
+    {
+      v56 = 2;
+      v57 = 1;
+      do
+      {
+        daysOfTheWeek3 = [ruleCopy daysOfTheWeek];
+        v59 = [daysOfTheWeek3 objectAtIndex:v57];
+
+        v60 = [EKRecurrenceDayOfWeek iCalendarDescriptionForDayOfWeek:v59];
+        [string appendFormat:@", %@", v60];
+
+        v57 = v56;
+        v26 = v52 > v56++;
+      }
+
+      while (v26);
+    }
+  }
+
+  setPositions = [ruleCopy setPositions];
+  v62 = [setPositions count];
+
+  if (v62)
+  {
+    setPositions2 = [ruleCopy setPositions];
+    v64 = [setPositions2 objectAtIndex:0];
+    [string appendFormat:@";BYSETPOS=%@", v64];
+
+    if (v62 != 1)
+    {
+      v65 = 2;
+      v66 = 1;
+      do
+      {
+        setPositions3 = [ruleCopy setPositions];
+        v68 = [setPositions3 objectAtIndex:v66];
+        [string appendFormat:@", %@", v68];
+
+        v66 = v65;
+        v26 = v62 > v65++;
+      }
+
+      while (v26);
+    }
+  }
+
+  if ([ruleCopy frequency] == 1 && objc_msgSend(ruleCopy, "interval") >= 2)
+  {
+    daysOfTheWeek4 = [ruleCopy daysOfTheWeek];
+    v70 = [daysOfTheWeek4 count];
+
+    if (v70)
+    {
+      v71 = [&unk_1F1B6B140 objectAtIndexedSubscript:{objc_msgSend(ruleCopy, "firstDayOfTheWeek") - 1}];
+      [string appendFormat:@";WKST=%@", v71];
+    }
+  }
+
+  v72 = [MEMORY[0x1E696AEC0] stringWithString:string];
+
+  return v72;
+}
+
 + (int64_t)daysTypeForDayArray:(id)array
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   arrayCopy = array;
   v4 = objc_opt_new();
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   obj = arrayCopy;
-  v5 = [obj countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v5 = [obj countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v19;
+    v7 = *v18;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v19 != v7)
+        if (*v18 != v7)
         {
           objc_enumerationMutation(obj);
         }
 
-        v9 = *(*(&v18 + 1) + 8 * i);
+        v9 = *(*(&v17 + 1) + 8 * i);
         v10 = +[EKRecurrenceDayOfWeek icsWeekDayFromDayOfTheWeek:](EKRecurrenceDayOfWeek, "icsWeekDayFromDayOfTheWeek:", [v9 dayOfTheWeek]);
         v11 = objc_alloc(MEMORY[0x1E69E3C60]);
         v12 = [MEMORY[0x1E696AD98] numberWithInteger:{objc_msgSend(v9, "weekNumber")}];
@@ -1209,42 +1466,64 @@ LABEL_13:
         [v4 addObject:v13];
       }
 
-      v6 = [obj countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v6 = [obj countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v6);
   }
 
   v14 = [MEMORY[0x1E6993040] daysTypeForDayArray:v4];
-  v15 = *MEMORY[0x1E69E9840];
   return v14;
+}
+
+- (id)humanReadableDescriptionWithStartDate:(id)date isConcise:(BOOL)concise
+{
+  conciseCopy = concise;
+  selfCopy = self;
+  dateCopy = date;
+  if ([(EKRecurrenceRule *)selfCopy isPinnedToEndOfFrequency])
+  {
+    v8 = [EKRecurrenceRule alloc];
+    frequency = [(EKRecurrenceRule *)selfCopy frequency];
+    interval = [(EKRecurrenceRule *)selfCopy interval];
+    recurrenceEnd = [(EKRecurrenceRule *)selfCopy recurrenceEnd];
+    v12 = [(EKRecurrenceRule *)v8 initRecurrenceWithFrequency:frequency interval:interval end:recurrenceEnd];
+
+    selfCopy = v12;
+  }
+
+  v13 = MEMORY[0x1E6993040];
+  v14 = [(EKRecurrenceRule *)selfCopy stringValueAsDateOnly:0 isFloating:0];
+  v15 = [v13 humanReadableDescriptionWithStartDate:dateCopy ofRecurrenceRuleICSString:v14 isConcise:conciseCopy];
+
+  return v15;
 }
 
 - (BOOL)hasDuplicateMonthsOfYear
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v3 = [&unk_1F1B6B158 mutableCopy];
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   monthsOfTheYear = [(EKRecurrenceRule *)self monthsOfTheYear];
-  v5 = [monthsOfTheYear countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v5 = [monthsOfTheYear countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v17;
+    v7 = *v16;
     v8 = MEMORY[0x1E695E118];
     while (2)
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v17 != v7)
+        if (*v16 != v7)
         {
           objc_enumerationMutation(monthsOfTheYear);
         }
 
-        v10 = *(*(&v16 + 1) + 8 * i);
+        v10 = *(*(&v15 + 1) + 8 * i);
         v11 = [v3 objectAtIndexedSubscript:{(objc_msgSend(v10, "intValue") - 1)}];
         bOOLValue = [v11 BOOLValue];
 
@@ -1257,7 +1536,7 @@ LABEL_13:
         [v3 setObject:v8 atIndexedSubscript:{(objc_msgSend(v10, "intValue") - 1)}];
       }
 
-      v6 = [monthsOfTheYear countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v6 = [monthsOfTheYear countByEnumeratingWithState:&v15 objects:v19 count:16];
       if (v6)
       {
         continue;
@@ -1270,7 +1549,6 @@ LABEL_13:
   v13 = 0;
 LABEL_11:
 
-  v14 = *MEMORY[0x1E69E9840];
   return v13;
 }
 
@@ -1677,9 +1955,9 @@ LABEL_9:
 
 - (void)frequency
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0(&dword_1A805E000, a2, a3, "Unexpected frequency value loaded from database: %d", a5, a6, a7, a8, 0);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 67109120;
+  HIDWORD(v8) = self;
+  OUTLINED_FUNCTION_0(&dword_1A805E000, a2, a3, "Unexpected frequency value loaded from database: %d", a5, a6, a7, a8, v8);
 }
 
 - (void)setInterval:(uint64_t)a1 .cold.1(uint64_t a1, uint64_t a2)
@@ -1690,16 +1968,16 @@ LABEL_9:
 
 + (void)_ekWeekdayFromCalDayOfWeek:(uint64_t)a3 .cold.1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0(&dword_1A805E000, a2, a3, "Unexpected CalDayOfWeek: %d", a5, a6, a7, a8, 0);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 67109120;
+  HIDWORD(v8) = a1;
+  OUTLINED_FUNCTION_0(&dword_1A805E000, a2, a3, "Unexpected CalDayOfWeek: %d", a5, a6, a7, a8, v8);
 }
 
 + (void)_calDayOfWeekFromEKWeekday:(uint64_t)a3 .cold.1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0(&dword_1A805E000, a2, a3, "Unexpected EKWeekday: %d", a5, a6, a7, a8, 0);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 67109120;
+  HIDWORD(v8) = a1;
+  OUTLINED_FUNCTION_0(&dword_1A805E000, a2, a3, "Unexpected EKWeekday: %d", a5, a6, a7, a8, v8);
 }
 
 - (void)setFirstDayOfTheWeek:(uint64_t)a1 .cold.1(uint64_t a1, uint64_t a2)

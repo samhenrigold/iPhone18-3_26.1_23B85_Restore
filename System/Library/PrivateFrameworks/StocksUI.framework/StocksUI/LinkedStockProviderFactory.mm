@@ -14,7 +14,7 @@
   articleCopy = article;
   selfCopy = self;
   sub_2205CF8EC(MEMORY[0x277D84F90]);
-  sub_2206F1048();
+  sub_2206F1048(0);
   swift_allocObject();
   *&v6[v7] = sub_220888D2C();
   sub_22046DA2C(v13, &v6[OBJC_IVAR____TtC8StocksUI19LinkedStockProvider_metadataManager]);

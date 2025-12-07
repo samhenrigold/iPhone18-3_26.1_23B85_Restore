@@ -61,7 +61,7 @@
 
 - (void)__handleXPCMessage:(id)message
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   receiver = [(__HMDHomeAdministratorReceiver *)self receiver];
 
@@ -74,19 +74,17 @@
     {
       v9 = HMFGetLogIdentifier();
       shortDescription = [messageCopy shortDescription];
-      v13 = 138543618;
-      v14 = v9;
-      v15 = 2112;
-      v16 = shortDescription;
-      _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_INFO, "%{public}@Locally dispatching message: %@", &v13, 0x16u);
+      v12 = 138543618;
+      v13 = v9;
+      v14 = 2112;
+      v15 = shortDescription;
+      _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_INFO, "%{public}@Locally dispatching message: %@", &v12, 0x16u);
     }
 
     objc_autoreleasePoolPop(v6);
     handler = [(__HMDHomeAdministratorReceiver *)selfCopy handler];
     [handler dispatchMessage:messageCopy];
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)registerForMessage:(id)message policies:(id)policies

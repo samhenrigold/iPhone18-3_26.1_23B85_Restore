@@ -594,67 +594,7 @@
           {
             muteAssertion = [(UNCSectionInfoSettings *)self muteAssertion];
             muteAssertion2 = [(UNCSectionInfoSettings *)v5 muteAssertion];
-            if (!BSEqualObjects())
-            {
-              goto LABEL_30;
-            }
-
-            notificationCenterSetting = [(UNCSectionInfoSettings *)self notificationCenterSetting];
-            if (notificationCenterSetting != [(UNCSectionInfoSettings *)v5 notificationCenterSetting])
-            {
-              goto LABEL_30;
-            }
-
-            lockScreenSetting = [(UNCSectionInfoSettings *)self lockScreenSetting];
-            if (lockScreenSetting != [(UNCSectionInfoSettings *)v5 lockScreenSetting])
-            {
-              goto LABEL_30;
-            }
-
-            showsOnExternalDevices = [(UNCSectionInfoSettings *)self showsOnExternalDevices];
-            if (showsOnExternalDevices != [(UNCSectionInfoSettings *)v5 showsOnExternalDevices])
-            {
-              goto LABEL_30;
-            }
-
-            showsCustomSettingsLink = [(UNCSectionInfoSettings *)self showsCustomSettingsLink];
-            if (showsCustomSettingsLink != [(UNCSectionInfoSettings *)v5 showsCustomSettingsLink])
-            {
-              goto LABEL_30;
-            }
-
-            contentPreviewSetting = [(UNCSectionInfoSettings *)self contentPreviewSetting];
-            if (contentPreviewSetting != [(UNCSectionInfoSettings *)v5 contentPreviewSetting])
-            {
-              goto LABEL_30;
-            }
-
-            alertType = [(UNCSectionInfoSettings *)self alertType];
-            if (alertType != [(UNCSectionInfoSettings *)v5 alertType])
-            {
-              goto LABEL_30;
-            }
-
-            pushSettings = [(UNCSectionInfoSettings *)self pushSettings];
-            if (pushSettings != [(UNCSectionInfoSettings *)v5 pushSettings])
-            {
-              goto LABEL_30;
-            }
-
-            carPlaySetting = [(UNCSectionInfoSettings *)self carPlaySetting];
-            if (carPlaySetting != [(UNCSectionInfoSettings *)v5 carPlaySetting])
-            {
-              goto LABEL_30;
-            }
-
-            remoteNotificationsSetting = [(UNCSectionInfoSettings *)self remoteNotificationsSetting];
-            if (remoteNotificationsSetting != [(UNCSectionInfoSettings *)v5 remoteNotificationsSetting])
-            {
-              goto LABEL_30;
-            }
-
-            criticalAlertSetting = [(UNCSectionInfoSettings *)self criticalAlertSetting];
-            if (criticalAlertSetting == [(UNCSectionInfoSettings *)v5 criticalAlertSetting]&& (v24 = [(UNCSectionInfoSettings *)self timeSensitiveSetting], v24 == [(UNCSectionInfoSettings *)v5 timeSensitiveSetting]) && (v25 = [(UNCSectionInfoSettings *)self hasUserConfiguredTimeSensitiveSetting], v25 == [(UNCSectionInfoSettings *)v5 hasUserConfiguredTimeSensitiveSetting]) && (v26 = [(UNCSectionInfoSettings *)self bulletinGroupingSetting], v26 == [(UNCSectionInfoSettings *)v5 bulletinGroupingSetting]) && (v27 = [(UNCSectionInfoSettings *)self announceSetting], v27 == [(UNCSectionInfoSettings *)v5 announceSetting]) && (v28 = [(UNCSectionInfoSettings *)self scheduledDeliverySetting], v28 == [(UNCSectionInfoSettings *)v5 scheduledDeliverySetting]) && (v29 = [(UNCSectionInfoSettings *)self directMessagesSetting], v29 == [(UNCSectionInfoSettings *)v5 directMessagesSetting]))
+            if (BSEqualObjects() && (v14 = [(UNCSectionInfoSettings *)self notificationCenterSetting], v14 == [(UNCSectionInfoSettings *)v5 notificationCenterSetting]) && (v15 = [(UNCSectionInfoSettings *)self lockScreenSetting], v15 == [(UNCSectionInfoSettings *)v5 lockScreenSetting]) && (v16 = [(UNCSectionInfoSettings *)self showsOnExternalDevices], v16 == [(UNCSectionInfoSettings *)v5 showsOnExternalDevices]) && (v17 = [(UNCSectionInfoSettings *)self showsCustomSettingsLink], v17 == [(UNCSectionInfoSettings *)v5 showsCustomSettingsLink]) && (v18 = [(UNCSectionInfoSettings *)self contentPreviewSetting], v18 == [(UNCSectionInfoSettings *)v5 contentPreviewSetting]) && (v19 = [(UNCSectionInfoSettings *)self alertType], v19 == [(UNCSectionInfoSettings *)v5 alertType]) && (v20 = [(UNCSectionInfoSettings *)self pushSettings], v20 == [(UNCSectionInfoSettings *)v5 pushSettings]) && (v21 = [(UNCSectionInfoSettings *)self carPlaySetting], v21 == [(UNCSectionInfoSettings *)v5 carPlaySetting]) && (v22 = [(UNCSectionInfoSettings *)self remoteNotificationsSetting], v22 == [(UNCSectionInfoSettings *)v5 remoteNotificationsSetting]) && (v23 = [(UNCSectionInfoSettings *)self criticalAlertSetting], v23 == [(UNCSectionInfoSettings *)v5 criticalAlertSetting]) && (v24 = [(UNCSectionInfoSettings *)self timeSensitiveSetting], v24 == [(UNCSectionInfoSettings *)v5 timeSensitiveSetting]) && (v25 = [(UNCSectionInfoSettings *)self hasUserConfiguredTimeSensitiveSetting], v25 == [(UNCSectionInfoSettings *)v5 hasUserConfiguredTimeSensitiveSetting]) && (v26 = [(UNCSectionInfoSettings *)self bulletinGroupingSetting], v26 == [(UNCSectionInfoSettings *)v5 bulletinGroupingSetting]) && (v27 = [(UNCSectionInfoSettings *)self announceSetting], v27 == [(UNCSectionInfoSettings *)v5 announceSetting]) && (v28 = [(UNCSectionInfoSettings *)self scheduledDeliverySetting], v28 == [(UNCSectionInfoSettings *)v5 scheduledDeliverySetting]) && (v29 = [(UNCSectionInfoSettings *)self directMessagesSetting], v29 == [(UNCSectionInfoSettings *)v5 directMessagesSetting]))
             {
               hasUserConfiguredDirectMessagesSetting = [(UNCSectionInfoSettings *)self hasUserConfiguredDirectMessagesSetting];
               v9 = hasUserConfiguredDirectMessagesSetting ^ [(UNCSectionInfoSettings *)v5 hasUserConfiguredDirectMessagesSetting]^ 1;
@@ -662,7 +602,6 @@
 
             else
             {
-LABEL_30:
               LOBYTE(v9) = 0;
             }
           }
@@ -1017,22 +956,6 @@ LABEL_38:
   }
 
   [(UNCSectionInfoSettings *)self setAnnounceSetting:v4];
-}
-
-- (void)muteThreadIdentifier:untilDate:.cold.1()
-{
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_3();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-- (void)unmuteThreadIdentifier:.cold.1()
-{
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_3();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 @end

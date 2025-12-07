@@ -44,7 +44,7 @@ LABEL_10:
     goto LABEL_11;
   }
 
-  if (![v14 count])
+  if (!objc_msgSend_count(v14))
   {
     v16 = PLMigrationGetLog();
     if (!os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
@@ -121,7 +121,7 @@ LABEL_18:
     v15 = 0;
   }
 
-  if ([v15 count])
+  if (objc_msgSend_count(v15))
   {
     v56 = v22;
     v57 = stringByDeletingLastPathComponent;
@@ -159,7 +159,7 @@ LABEL_18:
             if ([v32 kindValue] == 1000)
             {
               mutableAssets2 = [v33 mutableAssets];
-              v35 = [mutableAssets2 count];
+              v35 = objc_msgSend_count(mutableAssets2);
 
               mutableAssets3 = [v33 mutableAssets];
               v37 = [mutableAssets3 indexOfObject:assetCopy inSortedRange:0 options:v35 usingComparator:{1024, &__block_literal_global_81_57788}];
@@ -184,10 +184,10 @@ LABEL_18:
             {
               v67 = [(PLAssetsdSyncService *)selfCopy _readRestoreAlbumMetadataForAlbum:v31];
               assetUUIDs = [v67 assetUUIDs];
-              v43 = [assetUUIDs count];
+              v43 = objc_msgSend_count(assetUUIDs);
 
               mutableAssets5 = [v33 mutableAssets];
-              v45 = [mutableAssets5 count];
+              v45 = objc_msgSend_count(mutableAssets5);
 
               if (v43)
               {
@@ -400,7 +400,7 @@ uint64_t __60__PLAssetsdSyncService__addAsset_toAlbumsForUUID_inLibrary___block_
           {
             pathExtension = [v16 pathExtension];
             v21 = pathExtension;
-            if (pathExtension && [pathExtension isEqualToString:@"aside"])
+            if (pathExtension && objc_msgSend_isEqualToString_(pathExtension))
             {
               [defaultManager removeItemAtURL:v16 error:0];
             }
@@ -599,7 +599,7 @@ LABEL_10:
     goto LABEL_11;
   }
 
-  if (![v9 count])
+  if (!objc_msgSend_count(v9))
   {
     v11 = PLMigrationGetLog();
     if (!os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
@@ -634,7 +634,7 @@ LABEL_12:
 
   v10 = 0;
 LABEL_13:
-  if ([v10 count])
+  if (objc_msgSend_count(v10))
   {
     v25 = v10;
     v26 = v9;
@@ -773,7 +773,7 @@ void __72__PLAssetsdSyncService__updateRestoredAssetWithUUID_paths_fixAddedDate_
     v3 = 0;
     v18 = 0;
     v19 = 1;
-    if ([v1[6] count])
+    if (objc_msgSend_count(v1[6]))
     {
 LABEL_42:
       v58 = PLMigrationGetLog();
@@ -1050,7 +1050,7 @@ LABEL_104:
 
           LOBYTE(v19) = v109;
 LABEL_105:
-          if ([v17 count])
+          if (objc_msgSend_count(v17))
           {
             v123 = v1[5];
             v17 = v17;
@@ -1121,7 +1121,7 @@ LABEL_117:
 
 LABEL_41:
     v18 = v17;
-    if (![v17 count])
+    if (!objc_msgSend_count(v17))
     {
       goto LABEL_105;
     }
@@ -1135,7 +1135,7 @@ LABEL_41:
   v6 = [v5 deviceRestoreMigrationSupport];
   v7 = [v6 isRestoreFromBackupSourceMegaBackup];
 
-  if (!v7 || ([v3 objectIDsForRelationshipNamed:@"master"], v8 = objc_claimAutoreleasedReturnValue(), v9 = objc_msgSend(v8, "count"), v8, !v9))
+  if (!v7 || ([v3 objectIDsForRelationshipNamed:@"master"], v8 = objc_claimAutoreleasedReturnValue(), v9 = objc_msgSend_count(v8), v8, !v9))
   {
     v20 = PLMigrationGetLog();
     if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
@@ -1165,8 +1165,8 @@ LABEL_41:
 
     v25 = [MEMORY[0x1E696AC08] defaultManager];
     v26 = [v3 sidecars];
-    v27 = [v26 count] + 1;
-    v28 = [v1[6] count];
+    v27 = objc_msgSend_count(v26) + 1;
+    v28 = objc_msgSend_count(v1[6]);
 
     v29 = [MEMORY[0x1E695DF70] array];
     if (v27 <= v28)
@@ -1378,7 +1378,7 @@ void __72__PLAssetsdSyncService__updateRestoredAssetWithUUID_paths_fixAddedDate_
 {
   v28 = *MEMORY[0x1E69E9840];
   v2 = objc_autoreleasePoolPush();
-  v3 = [MEMORY[0x1E695DFA8] setWithCapacity:{objc_msgSend(*(a1 + 32), "count")}];
+  v3 = [MEMORY[0x1E695DFA8] setWithCapacity:objc_msgSend_count(*(a1 + 32))];
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;

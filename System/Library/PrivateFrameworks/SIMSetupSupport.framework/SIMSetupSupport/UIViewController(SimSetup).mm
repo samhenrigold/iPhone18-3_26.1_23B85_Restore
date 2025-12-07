@@ -10,41 +10,36 @@
 
 - (void)configureNavigationItem
 {
-  v6 = *MEMORY[0x277D85DE8];
   objc_opt_class();
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
 }
 
 - (void)userDidTapCancel
 {
-  v6 = *MEMORY[0x277D85DE8];
   objc_opt_class();
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
 }
 
 - (void)dismissSimSetupFlowFromViewController
 {
-  v6 = *MEMORY[0x277D85DE8];
   objc_opt_class();
   OUTLINED_FUNCTION_2();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0x20u);
-  v5 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v2, v3, v4, v5, v6, 0x20u);
 }
 
 - (uint64_t)isCloudFlow
 {
-  if (([self conformsToProtocol:&unk_28758ABD0] & 1) == 0)
+  v2 = [self conformsToProtocol:&unk_28758ABD0];
+  if ((v2 & 1) == 0)
   {
-    selfCopy = _TSLogDomain();
+    selfCopy = _TSLogDomain(v2);
     if (os_log_type_enabled(selfCopy, OS_LOG_TYPE_ERROR))
     {
-      [UIViewController(SimSetup) isCloudFlow];
+      [(UIViewController(SimSetup) *)self isCloudFlow];
     }
 
     goto LABEL_10;
@@ -55,10 +50,10 @@
 
   if (!delegate)
   {
-    v6 = _TSLogDomain();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v8 = _TSLogDomain(v5);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      [(UIViewController(SimSetup) *)v6 isCloudFlow];
+      [(UIViewController(SimSetup) *)v8 isCloudFlow];
     }
 
 LABEL_10:
@@ -86,11 +81,10 @@ LABEL_13:
 
 - (void)isCloudFlow
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v2 = 136315138;
-  v3 = "[UIViewController(SimSetup) isCloudFlow]";
-  _os_log_error_impl(&dword_262AA8000, log, OS_LOG_TYPE_ERROR, "[E]delegate not set @%s", &v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v1 = 136315138;
+  v2 = "[UIViewController(SimSetup) isCloudFlow]";
+  _os_log_error_impl(&dword_262AA8000, log, OS_LOG_TYPE_ERROR, "[E]delegate not set @%s", &v1, 0xCu);
 }
 
 @end

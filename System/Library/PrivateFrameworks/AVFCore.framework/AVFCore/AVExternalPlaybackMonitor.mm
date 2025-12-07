@@ -99,20 +99,20 @@
 - (AVExternalPlaybackMonitor)initWithFigRoutingSessionManager:(OpaqueFigRoutingSessionManager *)manager
 {
   CMNotificationCenterGetDefaultLocalCenter();
-  v10.receiver = self;
-  v10.super_class = AVExternalPlaybackMonitor;
-  v5 = [(AVExternalPlaybackMonitor *)&v10 init];
-  if (v5 && (ivars = objc_alloc_init(AVExternalPlaybackMonitorInternal), (v5->_ivars = ivars) != 0) && (!manager ? (v7 = 0) : (v7 = CFRetain(manager), ivars = v5->_ivars), (ivars->figRoutingSessionManager = v7, v5->_ivars->figRoutingSessionManager) && !OUTLINED_FUNCTION_0_13() && !OUTLINED_FUNCTION_0_13()))
+  v16.receiver = self;
+  v16.super_class = AVExternalPlaybackMonitor;
+  v5 = [(AVExternalPlaybackMonitor *)&v16 init];
+  if (v5 && (ivars = objc_alloc_init(AVExternalPlaybackMonitorInternal), (v5->_ivars = ivars) != 0) && (!manager ? (v9 = 0) : (v9 = CFRetain(manager), ivars = v5->_ivars), (ivars->figRoutingSessionManager = v9, (figRoutingSessionManager = v5->_ivars->figRoutingSessionManager) != 0) && (v11 = OUTLINED_FUNCTION_0_13(ivars, v7, v8, *MEMORY[0x1E69AF568], figRoutingSessionManager), !v11) && !OUTLINED_FUNCTION_0_13(v11, v12, v13, *MEMORY[0x1E69AF570], v5->_ivars->figRoutingSessionManager)))
   {
-    v8 = v5;
+    v14 = v5;
   }
 
   else
   {
-    v8 = 0;
+    v14 = 0;
   }
 
-  return v8;
+  return v14;
 }
 
 @end

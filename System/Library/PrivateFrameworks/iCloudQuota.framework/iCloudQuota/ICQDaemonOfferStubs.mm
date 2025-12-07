@@ -316,8 +316,8 @@
 uint64_t __41__ICQDaemonOfferStubs_sortedServerStubs___block_invoke(uint64_t a1, void *a2, void *a3)
 {
   v4 = a3;
-  v5 = [a2 objectForKeyedSubscript:@"priority"];
-  v6 = [v4 objectForKeyedSubscript:@"priority"];
+  v5 = objc_msgSend_objectForKeyedSubscript_(a2);
+  v6 = objc_msgSend_objectForKeyedSubscript_(v4);
 
   if (v5 && (objc_opt_respondsToSelector() & 1) != 0)
   {
@@ -362,7 +362,7 @@ LABEL_9:
 - (void)_initServerStubsFromServerDictionary
 {
   serverDictionary = [(ICQDaemonPersisted *)self serverDictionary];
-  v22 = [serverDictionary objectForKeyedSubscript:@"deviceOffers"];
+  v22 = objc_msgSend_objectForKeyedSubscript_(serverDictionary);
 
   if ([(ICQDaemonOfferStubs *)self _isValidServerStubs:v22 key:@"deviceOffers"])
   {
@@ -378,7 +378,7 @@ LABEL_9:
   self->_serverStubs = v4;
 
   serverDictionary2 = [(ICQDaemonPersisted *)self serverDictionary];
-  v7 = [serverDictionary2 objectForKeyedSubscript:@"buddyOffers"];
+  v7 = objc_msgSend_objectForKeyedSubscript_(serverDictionary2);
 
   if ([(ICQDaemonOfferStubs *)self _isValidServerStubs:v7 key:@"buddyOffers"])
   {
@@ -394,7 +394,7 @@ LABEL_9:
   self->_buddyStubs = v8;
 
   serverDictionary3 = [(ICQDaemonPersisted *)self serverDictionary];
-  v11 = [serverDictionary3 objectForKeyedSubscript:@"defaultOffers"];
+  v11 = objc_msgSend_objectForKeyedSubscript_(serverDictionary3);
 
   if ([(ICQDaemonOfferStubs *)self _isValidServerStubs:v11 key:@"defaultOffers"])
   {
@@ -410,7 +410,7 @@ LABEL_9:
   self->_defaultStubs = v12;
 
   serverDictionary4 = [(ICQDaemonPersisted *)self serverDictionary];
-  v15 = [serverDictionary4 objectForKeyedSubscript:@"premiumOffers"];
+  v15 = objc_msgSend_objectForKeyedSubscript_(serverDictionary4);
 
   if ([(ICQDaemonOfferStubs *)self _isValidServerStubs:v15 key:@"premiumOffers"])
   {
@@ -426,7 +426,7 @@ LABEL_9:
   self->_premiumStubs = v16;
 
   serverDictionary5 = [(ICQDaemonPersisted *)self serverDictionary];
-  v19 = [serverDictionary5 objectForKeyedSubscript:@"eventOffers"];
+  v19 = objc_msgSend_objectForKeyedSubscript_(serverDictionary5);
 
   if ([(ICQDaemonOfferStubs *)self _isValidServerStubs:v19 key:@"eventOffers"])
   {
@@ -444,20 +444,20 @@ LABEL_9:
 
 - (BOOL)_isValidServerStubs:(id)stubs key:(id)key
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   stubsCopy = stubs;
   keyCopy = key;
-  v16 = 0;
-  v17 = &v16;
-  v18 = 0x2020000000;
-  v19 = 1;
+  v15 = 0;
+  v16 = &v15;
+  v17 = 0x2020000000;
+  v18 = 1;
   if (!stubsCopy)
   {
     v8 = _ICQGetLogSystem();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v21 = keyCopy;
+      v20 = keyCopy;
       _os_log_impl(&dword_275572000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@ is missing", buf, 0xCu);
     }
 
@@ -472,9 +472,9 @@ LABEL_9:
     {
       v9 = objc_opt_class();
       *buf = 138543618;
-      v21 = keyCopy;
-      v22 = 2112;
-      v23 = v9;
+      v20 = keyCopy;
+      v21 = 2112;
+      v22 = v9;
       v10 = v9;
       _os_log_impl(&dword_275572000, v8, OS_LOG_TYPE_DEFAULT, "invalid %{public}@ of class %@", buf, 0x16u);
     }
@@ -482,29 +482,28 @@ LABEL_9:
 LABEL_9:
 
     v7 = 0;
-    *(v17 + 24) = 0;
+    *(v16 + 24) = 0;
     goto LABEL_10;
   }
 
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = 3221225472;
-  v13[2] = __47__ICQDaemonOfferStubs__isValidServerStubs_key___block_invoke;
-  v13[3] = &unk_27A652D40;
-  v14 = keyCopy;
-  v15 = &v16;
-  [stubsCopy enumerateObjectsUsingBlock:v13];
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __47__ICQDaemonOfferStubs__isValidServerStubs_key___block_invoke;
+  v12[3] = &unk_27A652D40;
+  v13 = keyCopy;
+  v14 = &v15;
+  [stubsCopy enumerateObjectsUsingBlock:v12];
 
-  v7 = *(v17 + 24);
+  v7 = *(v16 + 24);
 LABEL_10:
-  _Block_object_dispose(&v16, 8);
+  _Block_object_dispose(&v15, 8);
 
-  v11 = *MEMORY[0x277D85DE8];
   return v7 & 1;
 }
 
 void __47__ICQDaemonOfferStubs__isValidServerStubs_key___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v7 = a2;
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
@@ -513,54 +512,52 @@ void __47__ICQDaemonOfferStubs__isValidServerStubs_key___block_invoke(uint64_t a
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       v9 = *(a1 + 32);
-      v12 = 138543874;
-      v13 = v9;
-      v14 = 2048;
-      v15 = a3;
-      v16 = 2112;
-      v17 = objc_opt_class();
-      v10 = v17;
-      _os_log_impl(&dword_275572000, v8, OS_LOG_TYPE_DEFAULT, "invalid %{public}@[%ld] of class %@", &v12, 0x20u);
+      v11 = 138543874;
+      v12 = v9;
+      v13 = 2048;
+      v14 = a3;
+      v15 = 2112;
+      v16 = objc_opt_class();
+      v10 = v16;
+      _os_log_impl(&dword_275572000, v8, OS_LOG_TYPE_DEFAULT, "invalid %{public}@[%ld] of class %@", &v11, 0x20u);
     }
 
     *(*(*(a1 + 40) + 8) + 24) = 0;
     *a4 = 1;
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_chooseStubFromServerStubs:(id)stubs conditions:(id)conditions
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   stubsCopy = stubs;
   conditionsCopy = conditions;
   if ([stubsCopy count])
   {
-    v32 = 0u;
-    v33 = 0u;
-    v30 = 0u;
     v31 = 0u;
-    v27 = stubsCopy;
+    v32 = 0u;
+    v29 = 0u;
+    v30 = 0u;
+    v26 = stubsCopy;
     obj = stubsCopy;
-    v7 = [obj countByEnumeratingWithState:&v30 objects:v40 count:16];
+    v7 = [obj countByEnumeratingWithState:&v29 objects:v39 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v31;
+      v9 = *v30;
       v10 = @"criteria";
       v11 = 0x27A650000uLL;
-      v28 = *v31;
+      v27 = *v30;
 LABEL_4:
       v12 = 0;
       while (1)
       {
-        if (*v31 != v9)
+        if (*v30 != v9)
         {
           objc_enumerationMutation(obj);
         }
 
-        v13 = *(*(&v30 + 1) + 8 * v12);
+        v13 = *(*(&v29 + 1) + 8 * v12);
         v14 = _ICQDictionaryForKey(v13, v10);
         v15 = [objc_alloc(*(v11 + 3480)) initWithServerDictionary:v14];
         v16 = _ICQGetLogSystem();
@@ -572,17 +569,17 @@ LABEL_4:
           _ICQStringForKey(v13, @"type");
           v21 = v20 = v8;
           *buf = 138543874;
-          v35 = v19;
-          v36 = 2114;
-          v37 = v21;
-          v38 = 2114;
-          v39 = v14;
+          v34 = v19;
+          v35 = 2114;
+          v36 = v21;
+          v37 = 2114;
+          v38 = v14;
           _os_log_impl(&dword_275572000, v16, OS_LOG_TYPE_DEFAULT, "checking criteria for offer type %{public}@ type %{public}@ criteria\n%{public}@", buf, 0x20u);
 
           v8 = v20;
           v10 = v18;
           conditionsCopy = v17;
-          v9 = v28;
+          v9 = v27;
           v11 = 0x27A650000;
         }
 
@@ -593,7 +590,7 @@ LABEL_4:
 
         if (v8 == ++v12)
         {
-          v8 = [obj countByEnumeratingWithState:&v30 objects:v40 count:16];
+          v8 = [obj countByEnumeratingWithState:&v29 objects:v39 count:16];
           if (v8)
           {
             goto LABEL_4;
@@ -628,7 +625,7 @@ LABEL_15:
       v22 = 0;
     }
 
-    stubsCopy = v27;
+    stubsCopy = v26;
   }
 
   else
@@ -643,35 +640,33 @@ LABEL_15:
     v22 = 0;
   }
 
-  v25 = *MEMORY[0x277D85DE8];
-
   return v22;
 }
 
 - (BOOL)_stubsArrayContainsOfferID:(id)d stubs:(id)stubs
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   dCopy = d;
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   stubsCopy = stubs;
-  v7 = [stubsCopy countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v7 = [stubsCopy countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v17;
+    v9 = *v16;
     while (2)
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v17 != v9)
+        if (*v16 != v9)
         {
           objc_enumerationMutation(stubsCopy);
         }
 
-        v11 = [*(*(&v16 + 1) + 8 * i) objectForKeyedSubscript:{@"offerId", v16}];
+        v11 = objc_msgSend_objectForKeyedSubscript_(*(*(&v15 + 1) + 8 * i), v15);
         v12 = [v11 isEqualToString:dCopy];
 
         if (v12)
@@ -681,7 +676,7 @@ LABEL_15:
         }
       }
 
-      v8 = [stubsCopy countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v8 = [stubsCopy countByEnumeratingWithState:&v15 objects:v19 count:16];
       if (v8)
       {
         continue;
@@ -694,7 +689,6 @@ LABEL_15:
   v13 = 0;
 LABEL_11:
 
-  v14 = *MEMORY[0x277D85DE8];
   return v13;
 }
 
@@ -716,33 +710,33 @@ LABEL_11:
 
 - (id)_chooseStubFromServerStubs:(id)stubs offerType:(int64_t)type
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   stubsCopy = stubs;
   v6 = +[ICQDaemonOfferConditions currentConditions];
   if ([stubsCopy count])
   {
-    v24 = v6;
-    v25 = stubsCopy;
-    v29 = 0u;
-    v30 = 0u;
-    v27 = 0u;
+    v23 = v6;
+    v24 = stubsCopy;
     v28 = 0u;
+    v29 = 0u;
+    v26 = 0u;
+    v27 = 0u;
     obj = stubsCopy;
-    v7 = [obj countByEnumeratingWithState:&v27 objects:v37 count:16];
+    v7 = [obj countByEnumeratingWithState:&v26 objects:v36 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v28;
+      v9 = *v27;
 LABEL_4:
       v10 = 0;
       while (1)
       {
-        if (*v28 != v9)
+        if (*v27 != v9)
         {
           objc_enumerationMutation(obj);
         }
 
-        v11 = *(*(&v27 + 1) + 8 * v10);
+        v11 = *(*(&v26 + 1) + 8 * v10);
         v12 = _ICQStringForKey(v11, @"offerType");
         v13 = _ICQOfferTypeForServerString(v12);
         v14 = _ICQGetLogSystem();
@@ -757,17 +751,17 @@ LABEL_4:
           v16 = _ICQStringForOfferType(v13);
           v17 = _ICQStringForOfferType(type);
           *buf = 138412802;
-          v32 = v16;
-          v33 = 2112;
-          v34 = v12;
-          v35 = 2112;
-          v36 = v17;
+          v31 = v16;
+          v32 = 2112;
+          v33 = v12;
+          v34 = 2112;
+          v35 = v17;
           _os_log_impl(&dword_275572000, v14, OS_LOG_TYPE_DEFAULT, "skipping server offer type %@ (%@) because it doesn't match requested %@", buf, 0x20u);
         }
 
         if (v8 == ++v10)
         {
-          v8 = [obj countByEnumeratingWithState:&v27 objects:v37 count:16];
+          v8 = [obj countByEnumeratingWithState:&v26 objects:v36 count:16];
           if (v8)
           {
             goto LABEL_4;
@@ -781,14 +775,14 @@ LABEL_4:
       {
         v18 = _ICQStringForOfferType(type);
         *buf = 138412546;
-        v32 = v18;
-        v33 = 2112;
-        v34 = v11;
+        v31 = v18;
+        v32 = 2112;
+        v33 = v11;
         _os_log_impl(&dword_275572000, v14, OS_LOG_TYPE_DEFAULT, "choose offer type (%@):\n%@", buf, 0x16u);
       }
 
       v19 = [[ICQDaemonOfferStub alloc] initWithServerDictionary:v11];
-      stubsCopy = v25;
+      stubsCopy = v24;
       if (v19)
       {
         goto LABEL_21;
@@ -799,7 +793,7 @@ LABEL_4:
     {
 LABEL_12:
 
-      stubsCopy = v25;
+      stubsCopy = v24;
     }
 
     v20 = _ICQGetLogSystem();
@@ -807,7 +801,7 @@ LABEL_12:
     {
       v21 = _ICQStringForOfferType(type);
       *buf = 138412290;
-      v32 = v21;
+      v31 = v21;
       _os_log_impl(&dword_275572000, v20, OS_LOG_TYPE_DEFAULT, "choose offer type (%@): none found", buf, 0xCu);
     }
   }
@@ -824,9 +818,7 @@ LABEL_12:
 
   v19 = 0;
 LABEL_21:
-  [(ICQDaemonOfferStub *)v19 setConditionsWhenChosen:v6, v24, v25];
-
-  v22 = *MEMORY[0x277D85DE8];
+  [(ICQDaemonOfferStub *)v19 setConditionsWhenChosen:v6, v23, v24];
 
   return v19;
 }

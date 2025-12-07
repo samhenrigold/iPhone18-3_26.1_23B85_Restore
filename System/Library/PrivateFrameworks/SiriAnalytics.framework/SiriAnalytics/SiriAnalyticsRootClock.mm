@@ -2,13 +2,79 @@
 - (BOOL)isTrackingDerivativeClockByStreamUUID:(id)d;
 - (SiriAnalyticsRootClock)initWithClockIdentifier:(id)identifier timestampOffset:(unint64_t)offset startedOn:(unint64_t)on metastore:(id)metastore;
 - (id)derivativeClockForStreamUUID:(id)d;
+- (void)sensitiveCondition:(int)condition endedAt:(unint64_t)at;
+- (void)sensitiveCondition:(int)condition startedAt:(unint64_t)at;
 @end
 
 @implementation SiriAnalyticsRootClock
 
+- (void)sensitiveCondition:(int)condition endedAt:(unint64_t)at
+{
+  v5 = *&condition;
+  v15 = *MEMORY[0x1E69E9840];
+  if ([(SiriAnalyticsLogicalClock *)self containsTimestamp:at])
+  {
+    sensitiveConditionsLedger = self->_sensitiveConditionsLedger;
+
+    [(SiriAnalyticsSensitiveConditionsLedger *)sensitiveConditionsLedger endWithSensitiveCondition:v5 at:at];
+  }
+
+  else
+  {
+    if (SiriAnalyticsLoggingInit_once != -1)
+    {
+      dispatch_once(&SiriAnalyticsLoggingInit_once, &__block_literal_global_701);
+    }
+
+    v8 = SiriAnalyticsLogContextTime;
+    if (os_log_type_enabled(SiriAnalyticsLogContextTime, OS_LOG_TYPE_ERROR))
+    {
+      v9 = 136315650;
+      v10 = "[SiriAnalyticsRootClock sensitiveCondition:endedAt:]";
+      v11 = 2048;
+      v12 = v5;
+      v13 = 2112;
+      selfCopy = self;
+      _os_log_error_impl(&dword_1D9863000, v8, OS_LOG_TYPE_ERROR, "%s Attempted to track end for sensitive condition %lu outside scope of clock: %@", &v9, 0x20u);
+    }
+  }
+}
+
+- (void)sensitiveCondition:(int)condition startedAt:(unint64_t)at
+{
+  v5 = *&condition;
+  v15 = *MEMORY[0x1E69E9840];
+  if ([(SiriAnalyticsLogicalClock *)self containsTimestamp:at])
+  {
+    sensitiveConditionsLedger = self->_sensitiveConditionsLedger;
+
+    [(SiriAnalyticsSensitiveConditionsLedger *)sensitiveConditionsLedger startWithSensitiveCondition:v5 at:at];
+  }
+
+  else
+  {
+    if (SiriAnalyticsLoggingInit_once != -1)
+    {
+      dispatch_once(&SiriAnalyticsLoggingInit_once, &__block_literal_global_701);
+    }
+
+    v8 = SiriAnalyticsLogContextTime;
+    if (os_log_type_enabled(SiriAnalyticsLogContextTime, OS_LOG_TYPE_ERROR))
+    {
+      v9 = 136315650;
+      v10 = "[SiriAnalyticsRootClock sensitiveCondition:startedAt:]";
+      v11 = 2048;
+      v12 = v5;
+      v13 = 2112;
+      selfCopy = self;
+      _os_log_error_impl(&dword_1D9863000, v8, OS_LOG_TYPE_ERROR, "%s Attempted to track begin for sensitive condition %lu outside scope of clock: %@", &v9, 0x20u);
+    }
+  }
+}
+
 - (id)derivativeClockForStreamUUID:(id)d
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   dCopy = d;
   v5 = [(NSMutableDictionary *)self->_derivativeClocksByStreamUUID objectForKey:dCopy];
   if (!v5)
@@ -26,23 +92,21 @@
     v9 = SiriAnalyticsLogContextTime;
     if (os_log_type_enabled(SiriAnalyticsLogContextTime, OS_LOG_TYPE_INFO))
     {
-      v12 = 136316162;
-      v13 = "[SiriAnalyticsRootClock derivativeClockForStreamUUID:]";
-      v14 = 2112;
-      v15 = v5;
-      v16 = 2112;
-      v17 = v8;
-      v18 = 2112;
-      v19 = dCopy;
-      v20 = 2112;
+      v11 = 136316162;
+      v12 = "[SiriAnalyticsRootClock derivativeClockForStreamUUID:]";
+      v13 = 2112;
+      v14 = v5;
+      v15 = 2112;
+      v16 = v8;
+      v17 = 2112;
+      v18 = dCopy;
+      v19 = 2112;
       selfCopy = self;
-      _os_log_impl(&dword_1D9863000, v9, OS_LOG_TYPE_INFO, "%s Created derivative clock: %@ with identifer: %@ for streamUUID: %@ with parent clock: %@", &v12, 0x34u);
+      _os_log_impl(&dword_1D9863000, v9, OS_LOG_TYPE_INFO, "%s Created derivative clock: %@ with identifer: %@ for streamUUID: %@ with parent clock: %@", &v11, 0x34u);
     }
 
     [(NSMutableDictionary *)self->_derivativeClocksByStreamUUID setObject:v5 forKey:dCopy];
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return v5;
 }

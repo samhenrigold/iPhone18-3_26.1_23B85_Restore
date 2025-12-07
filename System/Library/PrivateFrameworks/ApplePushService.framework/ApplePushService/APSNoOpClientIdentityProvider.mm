@@ -56,53 +56,51 @@
 - (void)forceIdentityRefresh:(id)refresh
 {
   v5 = sub_1000C8C30(&unk_1001BCA60, &qword_10015D240);
-  v6 = *(*(v5 - 8) + 64);
-  __chkstk_darwin(v5 - 8, v7);
-  v9 = &v16 - v8;
-  v10 = _Block_copy(refresh);
+  __chkstk_darwin(v5 - 8);
+  v7 = &v14 - v6;
+  v8 = _Block_copy(refresh);
+  v9 = swift_allocObject();
+  *(v9 + 16) = v8;
+  *(v9 + 24) = self;
+  v10 = type metadata accessor for TaskPriority();
+  (*(*(v10 - 8) + 56))(v7, 1, 1, v10);
   v11 = swift_allocObject();
-  *(v11 + 16) = v10;
-  *(v11 + 24) = self;
-  v12 = type metadata accessor for TaskPriority();
-  (*(*(v12 - 8) + 56))(v9, 1, 1, v12);
-  v13 = swift_allocObject();
-  v13[2] = 0;
-  v13[3] = 0;
-  v13[4] = &unk_10015D2C0;
-  v13[5] = v11;
-  v14 = swift_allocObject();
-  v14[2] = 0;
-  v14[3] = 0;
-  v14[4] = &unk_10015D2C8;
-  v14[5] = v13;
+  v11[2] = 0;
+  v11[3] = 0;
+  v11[4] = &unk_10015D2C0;
+  v11[5] = v9;
+  v12 = swift_allocObject();
+  v12[2] = 0;
+  v12[3] = 0;
+  v12[4] = &unk_10015D2C8;
+  v12[5] = v11;
   selfCopy = self;
-  sub_1000C8384(0, 0, v9, &unk_10015D2D0, v14);
+  sub_1000C8384(0, 0, v7, &unk_10015D2D0, v12);
 }
 
 - (void)preloadIdentity:(id)identity
 {
   v5 = sub_1000C8C30(&unk_1001BCA60, &qword_10015D240);
-  v6 = *(*(v5 - 8) + 64);
-  __chkstk_darwin(v5 - 8, v7);
-  v9 = &v16 - v8;
-  v10 = _Block_copy(identity);
+  __chkstk_darwin(v5 - 8);
+  v7 = &v14 - v6;
+  v8 = _Block_copy(identity);
+  v9 = swift_allocObject();
+  *(v9 + 16) = v8;
+  *(v9 + 24) = self;
+  v10 = type metadata accessor for TaskPriority();
+  (*(*(v10 - 8) + 56))(v7, 1, 1, v10);
   v11 = swift_allocObject();
-  *(v11 + 16) = v10;
-  *(v11 + 24) = self;
-  v12 = type metadata accessor for TaskPriority();
-  (*(*(v12 - 8) + 56))(v9, 1, 1, v12);
-  v13 = swift_allocObject();
-  v13[2] = 0;
-  v13[3] = 0;
-  v13[4] = &unk_10015D2A0;
-  v13[5] = v11;
-  v14 = swift_allocObject();
-  v14[2] = 0;
-  v14[3] = 0;
-  v14[4] = &unk_10015D2A8;
-  v14[5] = v13;
+  v11[2] = 0;
+  v11[3] = 0;
+  v11[4] = &unk_10015D2A0;
+  v11[5] = v9;
+  v12 = swift_allocObject();
+  v12[2] = 0;
+  v12[3] = 0;
+  v12[4] = &unk_10015D2A8;
+  v12[5] = v11;
   selfCopy = self;
-  sub_1000C8384(0, 0, v9, &unk_10015D2B0, v14);
+  sub_1000C8384(0, 0, v7, &unk_10015D2B0, v12);
 }
 
 - (id)errorsSinceLastSuccessfulServerPresence
@@ -151,27 +149,26 @@
 - (void)debugForceDeleteIdentity:(id)identity
 {
   v5 = sub_1000C8C30(&unk_1001BCA60, &qword_10015D240);
-  v6 = *(*(v5 - 8) + 64);
-  __chkstk_darwin(v5 - 8, v7);
-  v9 = &v16 - v8;
-  v10 = _Block_copy(identity);
+  __chkstk_darwin(v5 - 8);
+  v7 = &v14 - v6;
+  v8 = _Block_copy(identity);
+  v9 = swift_allocObject();
+  *(v9 + 16) = v8;
+  *(v9 + 24) = self;
+  v10 = type metadata accessor for TaskPriority();
+  (*(*(v10 - 8) + 56))(v7, 1, 1, v10);
   v11 = swift_allocObject();
-  *(v11 + 16) = v10;
-  *(v11 + 24) = self;
-  v12 = type metadata accessor for TaskPriority();
-  (*(*(v12 - 8) + 56))(v9, 1, 1, v12);
-  v13 = swift_allocObject();
-  v13[2] = 0;
-  v13[3] = 0;
-  v13[4] = &unk_10015D250;
-  v13[5] = v11;
-  v14 = swift_allocObject();
-  v14[2] = 0;
-  v14[3] = 0;
-  v14[4] = &unk_10015D260;
-  v14[5] = v13;
+  v11[2] = 0;
+  v11[3] = 0;
+  v11[4] = &unk_10015D250;
+  v11[5] = v9;
+  v12 = swift_allocObject();
+  v12[2] = 0;
+  v12[3] = 0;
+  v12[4] = &unk_10015D260;
+  v12[5] = v11;
   selfCopy = self;
-  sub_1000C8384(0, 0, v9, &unk_10015D270, v14);
+  sub_1000C8384(0, 0, v7, &unk_10015D270, v12);
 }
 
 @end

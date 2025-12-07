@@ -7,23 +7,22 @@
 
 - (_STKMessagesObjCStoreFacade)init
 {
-  v3 = type metadata accessor for StickerStore.PersistenceType();
-  v4 = *(*(v3 - 8) + 64);
+  v3 = type metadata accessor for StickerStore.PersistenceType(0);
   MEMORY[0x1EEE9AC00](v3 - 8);
-  v6 = &v13 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v7 = sub_1B8A23784();
-  (*(*(v7 - 8) + 56))(v6, 1, 3, v7);
-  v8 = type metadata accessor for StickerStore();
+  v5 = &v12 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v6 = sub_1B8A23784();
+  (*(*(v6 - 8) + 56))(v5, 1, 3, v6);
+  v7 = type metadata accessor for StickerStore();
   swift_allocObject();
-  v9 = StickerStore.init(persistence:)(v6);
-  v10 = (self + OBJC_IVAR____STKMessagesObjCStoreFacade_store);
-  v10[3] = v8;
-  v10[4] = &protocol witness table for StickerStore;
-  *v10 = v9;
-  v11 = type metadata accessor for _STKMessagesObjCStoreFacade();
-  v13.receiver = self;
-  v13.super_class = v11;
-  return [(_STKMessagesObjCStoreFacade *)&v13 init];
+  v8 = StickerStore.init(persistence:)(v5);
+  v9 = (self + OBJC_IVAR____STKMessagesObjCStoreFacade_store);
+  v9[3] = v7;
+  v9[4] = &protocol witness table for StickerStore;
+  *v9 = v8;
+  v10 = type metadata accessor for _STKMessagesObjCStoreFacade();
+  v12.receiver = self;
+  v12.super_class = v10;
+  return [(_STKMessagesObjCStoreFacade *)&v12 init];
 }
 
 - (BOOL)donateStickerToRecentsWithIdentifier:(id)identifier representations:(id)representations stickerEffectEnum:(int64_t)enum externalURI:(id)i name:(id)name accessibilityName:(id)accessibilityName metadata:(id)metadata attributionInfo:(id)self0 error:(id *)self1

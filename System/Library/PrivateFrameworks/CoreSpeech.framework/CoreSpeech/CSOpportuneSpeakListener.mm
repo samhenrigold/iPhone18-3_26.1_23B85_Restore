@@ -3,6 +3,7 @@
 - (BOOL)_shouldReportBoron;
 - (CSOpportuneSpeakListener)init;
 - (CSOpportuneSpeakListenerDelegate)delegate;
+- (void)_addRemoteVADSignal:(BOOL)signal;
 - (void)_startRequestWithCompletion:(id)completion;
 - (void)audioStreamProvider:(id)provider audioBufferAvailable:(id)available;
 - (void)audioStreamProvider:(id)provider didStopStreamUnexpectedly:(int64_t)unexpectedly;
@@ -123,6 +124,33 @@ LABEL_9:
   }
 
   return v3;
+}
+
+- (void)_addRemoteVADSignal:(BOOL)signal
+{
+  if (self->_remoteVADSPGRatio >= 1)
+  {
+    v16 = v8;
+    v17 = v7;
+    v18 = v6;
+    v19 = v5;
+    v20 = v4;
+    v21 = v3;
+    v22 = v9;
+    v23 = v10;
+    signalCopy = signal;
+    v13 = 0;
+    do
+    {
+      remoteVADAlignBuffer = self->_remoteVADAlignBuffer;
+      v15 = [NSNumber numberWithBool:signalCopy, v16, v17, v18, v19, v20, v21, v22, v23];
+      [(NSMutableArray *)remoteVADAlignBuffer addObject:v15];
+
+      ++v13;
+    }
+
+    while (v13 < self->_remoteVADSPGRatio);
+  }
 }
 
 - (void)audioStreamProvider:(id)provider audioBufferAvailable:(id)available
@@ -386,8 +414,8 @@ LABEL_9:
 
   if (opportuneSpeakingFileLoggingIsEnabled)
   {
-    +[CSFAudioStreamBasicDescriptionFactory lpcmNonInterleavedWithRemoteVADASBD];
-    +[CSFAudioStreamBasicDescriptionFactory lpcmInterleavedWithRemoteVADASBD];
+    objc_msgSend_lpcmNonInterleavedWithRemoteVADASBD(CSFAudioStreamBasicDescriptionFactory);
+    objc_msgSend_lpcmInterleavedWithRemoteVADASBD(CSFAudioStreamBasicDescriptionFactory);
     v14 = [CSAudioFileManager createAudioFileWriterForOpportuneSpeakListenerWithInputFormat:buf outputFormat:v31];
   }
 

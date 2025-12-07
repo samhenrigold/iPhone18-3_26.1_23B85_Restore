@@ -1,6 +1,7 @@
 @interface LACPasscodeHelper
 + (id)sharedInstance;
 - (BOOL)accountBlockedForUserID:(id)d;
+- (BOOL)isPasscodeSetForUser:(unsigned int)user error:(id *)error;
 - (LACPasscodeHelper)init;
 - (double)passcodeSuccessAge;
 - (id)_currentUserID;
@@ -34,9 +35,11 @@
 
 uint64_t __35__LACPasscodeHelper_sharedInstance__block_invoke()
 {
-  sharedInstance_sharedInstance_5 = objc_alloc_init(LACPasscodeHelper);
+  v0 = objc_alloc_init(LACPasscodeHelper);
+  v1 = sharedInstance_sharedInstance_5;
+  sharedInstance_sharedInstance_5 = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 - (LACPasscodeHelper)init
@@ -91,6 +94,28 @@ uint64_t __35__LACPasscodeHelper_sharedInstance__block_invoke()
   }
 }
 
+- (BOOL)isPasscodeSetForUser:(unsigned int)user error:(id *)error
+{
+  v5 = +[LACManagedConfiguration sharedInstance];
+  isPasscodeSet = [v5 isPasscodeSet];
+
+  if (error)
+  {
+    if (isPasscodeSet)
+    {
+      *error = 0;
+    }
+
+    else
+    {
+      v7 = [LACError errorWithCode:-5 debugDescription:@"Passcode not set."];
+      *error = v7;
+    }
+  }
+
+  return isPasscodeSet;
+}
+
 - (double)passcodeSuccessAge
 {
   result = 0.0;
@@ -112,52 +137,52 @@ uint64_t __35__LACPasscodeHelper_sharedInstance__block_invoke()
   dCopy = d;
   v5 = [(LACPasscodeHelper *)self failedAttemptsForUserID:dCopy];
   v6 = [(LACPasscodeHelper *)self maxUnlockAttemptsForUserID:dCopy];
+  v7 = v6;
   if (v6 != 0x7FFFFFFFFFFFFFFFLL)
   {
-    v7 = LACLogPasscode();
-    v8 = v7;
-    if (v5 < v6)
+    v8 = LACLogPasscode(v6);
+    v9 = v8;
+    if (v5 < v7)
     {
-      v9 = OS_LOG_TYPE_INFO;
+      v10 = OS_LOG_TYPE_INFO;
     }
 
     else
     {
-      v9 = OS_LOG_TYPE_ERROR;
+      v10 = OS_LOG_TYPE_ERROR;
     }
 
-    if (os_log_type_enabled(v7, v9))
+    if (os_log_type_enabled(v8, v10))
     {
       if (dCopy)
       {
-        v10 = [MEMORY[0x1E696AEC0] stringWithFormat:@"user %d", objc_msgSend(dCopy, "intValue")];
+        v11 = [MEMORY[0x1E696AEC0] stringWithFormat:@"user %d", objc_msgSend(dCopy, "intValue")];
       }
 
       else
       {
-        v10 = @"current user";
+        v11 = @"current user";
       }
 
       *buf = 138543874;
-      v14 = v10;
+      v14 = v11;
       v15 = 1024;
       v16 = v5;
       v17 = 1024;
-      v18 = v6;
-      _os_log_impl(&dword_1B0233000, v8, v9, "%{public}@ has %d failed passcode attempts out of %d", buf, 0x18u);
+      v18 = v7;
+      _os_log_impl(&dword_1B0233000, v9, v10, "%{public}@ has %d failed passcode attempts out of %d", buf, 0x18u);
       if (dCopy)
       {
       }
     }
   }
 
-  v11 = *MEMORY[0x1E69E9840];
-  return v5 >= v6;
+  return v5 >= v7;
 }
 
 - (int64_t)createStash:(id)stash mode:(int)mode manifest:(id)manifest
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   manifestCopy = manifest;
   v7 = MEMORY[0x1E695DEF0];
   stashCopy = stash;
@@ -168,64 +193,65 @@ uint64_t __35__LACPasscodeHelper_sharedInstance__block_invoke()
   if (manifestCopy)
   {
     v12 = MKBKeyBagKeyStashCreateWithManifest();
-    v13 = LACLogPasscode();
-    v14 = v13;
-    if (v12)
+    v13 = v12;
+    v14 = LACLogPasscode(v12);
+    v15 = v14;
+    if (v13)
     {
-      v15 = OS_LOG_TYPE_ERROR;
+      v16 = OS_LOG_TYPE_ERROR;
     }
 
     else
     {
-      v15 = OS_LOG_TYPE_DEBUG;
+      v16 = OS_LOG_TYPE_DEBUG;
     }
 
-    if (os_log_type_enabled(v13, v15))
+    if (os_log_type_enabled(v14, v16))
     {
-      v21 = 67109120;
-      v22 = v12;
-      v16 = "create stash with manifest: %d";
+      v22 = 67109120;
+      v23 = v13;
+      v17 = "create stash with manifest: %d";
 LABEL_12:
-      _os_log_impl(&dword_1B0233000, v14, v15, v16, &v21, 8u);
+      _os_log_impl(&dword_1B0233000, v15, v16, v17, &v22, 8u);
     }
   }
 
   else
   {
-    v12 = MKBKeyBagKeyStashCreateWithMode();
-    v17 = LACLogPasscode();
-    v14 = v17;
-    if (v12)
+    v18 = MKBKeyBagKeyStashCreateWithMode();
+    v13 = v18;
+    v19 = LACLogPasscode(v18);
+    v15 = v19;
+    if (v13)
     {
-      v15 = OS_LOG_TYPE_ERROR;
+      v16 = OS_LOG_TYPE_ERROR;
     }
 
     else
     {
-      v15 = OS_LOG_TYPE_DEBUG;
+      v16 = OS_LOG_TYPE_DEBUG;
     }
 
-    if (os_log_type_enabled(v17, v15))
+    if (os_log_type_enabled(v19, v16))
     {
-      v21 = 67109120;
-      v22 = v12;
-      v16 = "create stash with mode: %d";
+      v22 = 67109120;
+      v23 = v13;
+      v17 = "create stash with mode: %d";
       goto LABEL_12;
     }
   }
 
-  if (v12)
+  if (v13)
   {
-    v18 = 3;
+    v20 = 3;
   }
 
   else
   {
-    v18 = 0;
+    v20 = 0;
   }
 
-  v19 = *MEMORY[0x1E69E9840];
-  return v18;
+  return v20;
 }
 
 - (int64_t)verifyPasscode:(id)passcode acmContext:(id)context userId:(id)id auditToken:(id *)token
@@ -244,27 +270,26 @@ LABEL_12:
 
 - (int64_t)verifyPasscode:(id)passcode
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   passcodeCopy = passcode;
-  v5 = LACLogPasscode();
+  v5 = LACLogPasscode(passcodeCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = 138543362;
-    v12 = passcodeCopy;
-    _os_log_impl(&dword_1B0233000, v5, OS_LOG_TYPE_DEFAULT, "Passcode verification will start: %{public}@", &v11, 0xCu);
+    v10 = 138543362;
+    v11 = passcodeCopy;
+    _os_log_impl(&dword_1B0233000, v5, OS_LOG_TYPE_DEFAULT, "Passcode verification will start: %{public}@", &v10, 0xCu);
   }
 
   v6 = [(LACPasscodeHelper *)self _verifyPasscode:passcodeCopy];
-  v7 = LACLogPasscode();
+  v7 = LACLogPasscode(v6);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v8 = [MEMORY[0x1E696AD98] numberWithInteger:v6];
-    v11 = 138543362;
-    v12 = v8;
-    _os_log_impl(&dword_1B0233000, v7, OS_LOG_TYPE_DEFAULT, "Passcode verification did finish: %{public}@", &v11, 0xCu);
+    v10 = 138543362;
+    v11 = v8;
+    _os_log_impl(&dword_1B0233000, v7, OS_LOG_TYPE_DEFAULT, "Passcode verification did finish: %{public}@", &v10, 0xCu);
   }
 
-  v9 = *MEMORY[0x1E69E9840];
   return v6;
 }
 
@@ -280,22 +305,22 @@ LABEL_12:
 
   if ([acmContext length])
   {
-    v42[0] = MEMORY[0x1E69E9820];
-    v42[1] = 3221225472;
-    v42[2] = __37__LACPasscodeHelper__verifyPasscode___block_invoke;
-    v42[3] = &unk_1E7A965E0;
-    v42[4] = self;
+    v44[0] = MEMORY[0x1E69E9820];
+    v44[1] = 3221225472;
+    v44[2] = __37__LACPasscodeHelper__verifyPasscode___block_invoke;
+    v44[3] = &unk_1E7A965E0;
+    v44[4] = self;
+    v41 = passcode;
     v39 = passcode;
-    v37 = passcode;
-    v43 = v37;
+    v45 = v39;
     v11 = acmContext;
-    v44 = v11;
+    v46 = v11;
     v12 = userId;
-    v45 = v12;
+    v47 = v12;
     v13 = options;
-    v46 = v13;
-    v47 = bioLockoutRecovery;
-    v14 = __37__LACPasscodeHelper__verifyPasscode___block_invoke(v42);
+    v48 = v13;
+    v49 = bioLockoutRecovery;
+    v14 = __37__LACPasscodeHelper__verifyPasscode___block_invoke(v44);
     if ((v14 + 14) < 2)
     {
       [(LACPasscodeHelper *)self _increaseFailedAttemptCountForUserID:v12];
@@ -342,7 +367,7 @@ LABEL_12:
           intValue = 1;
         }
 
-        v21 = [(LACPasscodeHelper *)self createStash:v37 mode:intValue manifest:v16, v37];
+        v21 = [(LACPasscodeHelper *)self createStash:v39 mode:intValue manifest:v16, v39];
       }
 
       else
@@ -354,36 +379,38 @@ LABEL_12:
         if (bOOLValue)
         {
           v25 = [[LACACMHelper alloc] initWithExternalizedContext:v11];
-          v41 = 0;
-          v26 = [(LACACMHelper *)v25 setData:v37 type:5 error:&v41];
-          v27 = v41;
+          v43 = 0;
+          v26 = [(LACACMHelper *)v25 setData:v39 type:5 error:&v43];
+          v27 = v43;
+          v28 = v27;
           if (!v26)
           {
-            v28 = LACLogPasscode();
-            if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+            v29 = LACLogPasscode(v27);
+            if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
             {
-              [(LACPasscodeHelper *)v27 _verifyPasscode:v28];
+              [(LACPasscodeHelper *)v28 _verifyPasscode:v29];
             }
           }
         }
 
-        v29 = [MEMORY[0x1E696AD98] numberWithInteger:{1060, v37}];
-        v30 = [v13 objectForKeyedSubscript:v29];
-        bOOLValue2 = [v30 BOOLValue];
+        v30 = [MEMORY[0x1E696AD98] numberWithInteger:{1060, v39}];
+        v31 = [v13 objectForKeyedSubscript:v30];
+        bOOLValue2 = [v31 BOOLValue];
 
         if (bOOLValue2)
         {
-          v32 = [[LACACMHelper alloc] initWithExternalizedContext:v11];
-          v40 = 0;
-          v33 = [(LACACMHelper *)v32 setData:v38 type:7 error:&v40];
-          v34 = v40;
-          passcode = v39;
-          if (!v33)
+          v33 = [[LACACMHelper alloc] initWithExternalizedContext:v11];
+          v42 = 0;
+          v34 = [(LACACMHelper *)v33 setData:v40 type:7 error:&v42];
+          v35 = v42;
+          v36 = v35;
+          passcode = v41;
+          if (!v34)
           {
-            v35 = LACLogPasscode();
-            if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
+            v37 = LACLogPasscode(v35);
+            if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
             {
-              [(LACPasscodeHelper *)v34 _verifyPasscode:v35];
+              [(LACPasscodeHelper *)v36 _verifyPasscode:v37];
             }
           }
 
@@ -395,13 +422,13 @@ LABEL_12:
       }
     }
 
-    passcode = v39;
+    passcode = v41;
 LABEL_32:
 
     goto LABEL_33;
   }
 
-  v20 = LACLogPasscode();
+  v20 = LACLogPasscode(0);
   if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
   {
     [LACPasscodeHelper _verifyPasscode:v20];
@@ -427,81 +454,80 @@ uint64_t __37__LACPasscodeHelper__verifyPasscode___block_invoke(uint64_t a1)
 
 - (int)_verifyPasscodeUsingMKB:(id)b acmContext:(id)context userId:(id)id options:(id)options
 {
-  v31[1] = *MEMORY[0x1E69E9840];
+  v32[1] = *MEMORY[0x1E69E9840];
   bCopy = b;
   optionsCopy = options;
   contextCopy = context;
-  v30 = @"DeviceHandle";
+  v31 = @"DeviceHandle";
   v13 = [(LACPasscodeHelper *)self];
   v14 = [MEMORY[0x1E696AD98] numberWithInt:v13];
-  v31[0] = v14;
-  [MEMORY[0x1E695DF20] dictionaryWithObjects:v31 forKeys:&v30 count:1];
+  v32[0] = v14;
+  [MEMORY[0x1E695DF20] dictionaryWithObjects:v32 forKeys:&v31 count:1];
 
   data = [bCopy data];
   v16 = MKBVerifyPasswordWithContext();
 
-  v17 = LACLogPasscode();
-  if (os_log_type_enabled(v17, (16 * (v16 != 0))))
+  v18 = LACLogPasscode(v17);
+  if (os_log_type_enabled(v18, (16 * (v16 != 0))))
   {
-    v26 = 67109376;
-    v27 = v13;
-    v28 = 1024;
-    v29 = v16;
-    _os_log_impl(&dword_1B0233000, v17, (16 * (v16 != 0)), "MKB password verification for keybag %d returned %d", &v26, 0xEu);
+    v27 = 67109376;
+    v28 = v13;
+    v29 = 1024;
+    v30 = v16;
+    _os_log_impl(&dword_1B0233000, v18, (16 * (v16 != 0)), "MKB password verification for keybag %d returned %d", &v27, 0xEu);
   }
 
-  v18 = [MEMORY[0x1E696AD98] numberWithInteger:1043];
-  v19 = [optionsCopy objectForKeyedSubscript:v18];
+  v19 = [MEMORY[0x1E696AD98] numberWithInteger:1043];
+  v20 = [optionsCopy objectForKeyedSubscript:v19];
 
-  bOOLValue = [v19 BOOLValue];
+  bOOLValue = [v20 BOOLValue];
   if (bOOLValue)
   {
     data2 = [bCopy data];
     v16 = MKBUnlockDevice();
 
-    v22 = LACLogPasscode();
-    v23 = 16 * (v16 != 0);
-    if (os_log_type_enabled(v22, v23))
+    v24 = LACLogPasscode(v23);
+    v25 = 16 * (v16 != 0);
+    if (os_log_type_enabled(v24, v25))
     {
-      v26 = 67109376;
-      v27 = v13;
-      v28 = 1024;
-      v29 = v16;
-      _os_log_impl(&dword_1B0233000, v22, v23, "MKB device unlock for keybag %d returned %d", &v26, 0xEu);
+      v27 = 67109376;
+      v28 = v13;
+      v29 = 1024;
+      v30 = v16;
+      _os_log_impl(&dword_1B0233000, v24, v25, "MKB device unlock for keybag %d returned %d", &v27, 0xEu);
     }
   }
 
-  v24 = *MEMORY[0x1E69E9840];
   return v16;
 }
 
 - (void)_notifyObserversAboutUpdate
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   v3 = MEMORY[0x1E695DEC8];
   allObjects = [(NSHashTable *)self->_observers allObjects];
   v5 = [v3 arrayWithArray:allObjects];
 
-  v6 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v13;
+    v8 = *v12;
     do
     {
       v9 = 0;
       do
       {
-        if (*v13 != v8)
+        if (*v12 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v12 + 1) + 8 * v9);
+        v10 = *(*(&v11 + 1) + 8 * v9);
         if (objc_opt_respondsToSelector())
         {
           [v10 passcodeSetDidChangeForHelper:self];
@@ -511,13 +537,11 @@ uint64_t __37__LACPasscodeHelper__verifyPasscode___block_invoke(uint64_t a1)
       }
 
       while (v7 != v9);
-      v7 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v7);
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)keybagStateDidChange:(id)change
@@ -627,20 +651,18 @@ uint64_t __37__LACPasscodeHelper__verifyPasscode___block_invoke(uint64_t a1)
 
 - (void)_verifyPasscode:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_1B0233000, a2, OS_LOG_TYPE_ERROR, "Could not inject secure password (%@)", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_1B0233000, a2, OS_LOG_TYPE_ERROR, "Could not inject secure password (%@)", &v2, 0xCu);
 }
 
 - (void)_verifyPasscode:(uint64_t)a1 .cold.2(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_1B0233000, a2, OS_LOG_TYPE_ERROR, "Could not inject extractable password (%@)", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_1B0233000, a2, OS_LOG_TYPE_ERROR, "Could not inject extractable password (%@)", &v2, 0xCu);
 }
 
 @end

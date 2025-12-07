@@ -82,85 +82,15 @@
 - (BOOL)isEqualToRole:(id)role
 {
   roleCopy = role;
-  if (!roleCopy)
+  if (roleCopy && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0) && (-[TVRCMediaInfoRole productPage](self, "productPage"), v5 = objc_claimAutoreleasedReturnValue(), [roleCopy productPage], v6 = objc_claimAutoreleasedReturnValue(), v7 = (v5 == 0) ^ (v6 == 0), v6, v5, (v7 & 1) == 0) && (-[TVRCMediaInfoRole imageURLTemplate](self, "imageURLTemplate"), v8 = objc_claimAutoreleasedReturnValue(), objc_msgSend(roleCopy, "imageURLTemplate"), v9 = objc_claimAutoreleasedReturnValue(), v10 = (v8 == 0) ^ (v9 == 0), v9, v8, (v10 & 1) == 0) && (-[TVRCMediaInfoRole canonicalID](self, "canonicalID"), v11 = objc_claimAutoreleasedReturnValue(), objc_msgSend(roleCopy, "canonicalID"), v12 = objc_claimAutoreleasedReturnValue(), v13 = objc_msgSend(v11, "isEqualToString:", v12), v12, v11, v13) && (-[TVRCMediaInfoRole actorName](self, "actorName"), v14 = objc_claimAutoreleasedReturnValue(), objc_msgSend(roleCopy, "actorName"), v15 = objc_claimAutoreleasedReturnValue(), v16 = objc_msgSend(v14, "isEqualToString:", v15), v15, v14, v16) && (-[TVRCMediaInfoRole characterName](self, "characterName"), v17 = objc_claimAutoreleasedReturnValue(), objc_msgSend(roleCopy, "characterName"), v18 = objc_claimAutoreleasedReturnValue(), v19 = objc_msgSend(v17, "isEqualToString:", v18), v18, v17, v19) && (-[TVRCMediaInfoRole roleDescription](self, "roleDescription"), v20 = objc_claimAutoreleasedReturnValue(), objc_msgSend(roleCopy, "roleDescription"), v21 = objc_claimAutoreleasedReturnValue(), v22 = objc_msgSend(v20, "isEqualToString:", v21), v21, v20, v22) && (-[TVRCMediaInfoRole productPage](self, "productPage"), v23 = objc_claimAutoreleasedReturnValue(), objc_msgSend(roleCopy, "productPage"), v24 = objc_claimAutoreleasedReturnValue(), v25 = objc_msgSend(v23, "isEqual:", v24), v24, v23, v25))
   {
-    goto LABEL_11;
-  }
-
-  objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) == 0)
-  {
-    goto LABEL_11;
-  }
-
-  productPage = [(TVRCMediaInfoRole *)self productPage];
-  productPage2 = [roleCopy productPage];
-  v7 = (productPage == 0) ^ (productPage2 == 0);
-
-  if (v7)
-  {
-    goto LABEL_11;
-  }
-
-  imageURLTemplate = [(TVRCMediaInfoRole *)self imageURLTemplate];
-  imageURLTemplate2 = [roleCopy imageURLTemplate];
-  v10 = (imageURLTemplate == 0) ^ (imageURLTemplate2 == 0);
-
-  if (v10)
-  {
-    goto LABEL_11;
-  }
-
-  canonicalID = [(TVRCMediaInfoRole *)self canonicalID];
-  canonicalID2 = [roleCopy canonicalID];
-  v13 = [canonicalID isEqualToString:canonicalID2];
-
-  if (!v13)
-  {
-    goto LABEL_11;
-  }
-
-  actorName = [(TVRCMediaInfoRole *)self actorName];
-  actorName2 = [roleCopy actorName];
-  v16 = [actorName isEqualToString:actorName2];
-
-  if (!v16)
-  {
-    goto LABEL_11;
-  }
-
-  characterName = [(TVRCMediaInfoRole *)self characterName];
-  characterName2 = [roleCopy characterName];
-  v19 = [characterName isEqualToString:characterName2];
-
-  if (!v19)
-  {
-    goto LABEL_11;
-  }
-
-  roleDescription = [(TVRCMediaInfoRole *)self roleDescription];
-  roleDescription2 = [roleCopy roleDescription];
-  v22 = [roleDescription isEqualToString:roleDescription2];
-
-  if (!v22)
-  {
-    goto LABEL_11;
-  }
-
-  productPage3 = [(TVRCMediaInfoRole *)self productPage];
-  productPage4 = [roleCopy productPage];
-  v25 = [productPage3 isEqual:productPage4];
-
-  if (v25)
-  {
-    imageURLTemplate3 = [(TVRCMediaInfoRole *)self imageURLTemplate];
-    imageURLTemplate4 = [roleCopy imageURLTemplate];
-    v28 = [imageURLTemplate3 isEqualToString:imageURLTemplate4];
+    imageURLTemplate = [(TVRCMediaInfoRole *)self imageURLTemplate];
+    imageURLTemplate2 = [roleCopy imageURLTemplate];
+    v28 = [imageURLTemplate isEqualToString:imageURLTemplate2];
   }
 
   else
   {
-LABEL_11:
     v28 = 0;
   }
 

@@ -124,7 +124,7 @@
   }
 
   v11 = v5;
-  if (([v5 isEqualToString:self->_title] & 1) == 0)
+  if ((objc_msgSend_isEqualToString_(v5) & 1) == 0)
   {
     v6 = [v11 copy];
     title = self->_title;

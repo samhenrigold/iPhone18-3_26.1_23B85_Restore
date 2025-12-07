@@ -125,19 +125,20 @@ void __38__SKUIPassbookLoader_loadPassWithURL___block_invoke_2(uint64_t a1)
 - (void)addPassesViewControllerDidFinish:(id)finish
 {
   finishCopy = finish;
-  v11 = objc_getAssociatedObject(finishCopy, "com.apple.StoreKitUI.SKUIPassbookLoader.pass");
-  if (v11)
+  v5 = objc_getAssociatedObject(finishCopy, "com.apple.StoreKitUI.SKUIPassbookLoader.pass");
+  v13 = v5;
+  if (v5)
   {
-    v5 = SKUIPassKitCoreFramework();
-    v6 = objc_alloc_init(SKUIWeakLinkedClassForString(&cfstr_Pkpasslibrary.isa, v5));
-    if ([v6 containsPass:v11])
+    v7 = SKUIPassKitCoreFramework(v5, v6);
+    v8 = objc_alloc_init(SKUIWeakLinkedClassForString(&cfstr_Pkpasslibrary.isa, v7));
+    if ([v8 containsPass:v13])
     {
       defaultStore = [MEMORY[0x277D69A20] defaultStore];
       activeAccount = [defaultStore activeAccount];
-      serialNumber = [v11 serialNumber];
+      serialNumber = [v13 serialNumber];
       [activeAccount setITunesPassSerialNumber:serialNumber];
 
-      v10 = [defaultStore addAccount:activeAccount];
+      v12 = [defaultStore addAccount:activeAccount];
     }
   }
 
@@ -157,14 +158,14 @@ void __38__SKUIPassbookLoader_loadPassWithURL___block_invoke_2(uint64_t a1)
 
     if (v6)
     {
-      v7 = SKUIPassKitUIFramework();
-      v8 = SKUIWeakLinkedClassForString(&cfstr_Pkaddpassesvie.isa, v7);
-      if ([(objc_class *)v8 canAddPasses])
+      v9 = SKUIPassKitUIFramework(v7, v8);
+      v10 = SKUIWeakLinkedClassForString(&cfstr_Pkaddpassesvie.isa, v9);
+      if ([(objc_class *)v10 canAddPasses])
       {
-        v9 = [[v8 alloc] initWithPass:value];
-        [v9 setDelegate:self];
-        objc_setAssociatedObject(v9, "com.apple.StoreKitUI.SKUIPassbookLoader.pass", value, 1);
-        [v6 presentViewController:v9 animated:1 completion:0];
+        v11 = [[v10 alloc] initWithPass:value];
+        [v11 setDelegate:self];
+        objc_setAssociatedObject(v11, "com.apple.StoreKitUI.SKUIPassbookLoader.pass", value, 1);
+        [v6 presentViewController:v11 animated:1 completion:0];
       }
     }
   }

@@ -19,7 +19,7 @@
 
 - (int)process
 {
-  v23 = 0;
+  v22 = 0;
   detectionResult = self->_detectionResult;
   self->_detectionResult = 0;
 
@@ -28,24 +28,22 @@
     inputSampleBuffer = self->_inputSampleBuffer;
     if (inputSampleBuffer)
     {
-      v6 = sub_BA98(&v22, inputSampleBuffer);
+      v6 = sub_BA98(&v21, inputSampleBuffer);
       if (v6)
       {
         fig_log_get_emitter();
-        v19 = v2;
-        LODWORD(v17) = 0;
-        FigDebugAssert3();
+        FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", 0, v2, v18, *(&v18 + 1), epoch, v20, v21, v22);
         v8 = 0;
       }
 
       else
       {
         GGMCtrl = self->_GGMCtrl;
-        v20 = *&kCMTimeInvalid.value;
+        v18 = *&kCMTimeInvalid.value;
         epoch = kCMTimeInvalid.epoch;
-        [(GGMController *)GGMCtrl setIspTimeStamp:&v20];
-        [(GGMController *)self->_GGMCtrl setInputBuffer:v22];
-        [(GGMController *)self->_GGMCtrl setMetaDictionary:v23];
+        [(GGMController *)GGMCtrl setIspTimeStamp:&v18];
+        [(GGMController *)self->_GGMCtrl setInputBuffer:v21];
+        [(GGMController *)self->_GGMCtrl setMetaDictionary:v22];
         [(GGMController *)self->_GGMCtrl setLightSourceMask:sub_B8D8(self->_inputSampleBuffer)];
         if ([(GGMController *)self->_GGMCtrl lightSourceMask]&& CVPixelBufferGetPixelFormatType([(GGMController *)self->_GGMCtrl lightSourceMask]) == 1278226488)
         {
@@ -62,28 +60,24 @@
         if (![(GGMController *)self->_GGMCtrl keyPointsList])
         {
           fig_log_get_emitter();
-          v18 = v2;
-          LODWORD(v17) = 0;
-          FigDebugAssert3();
+          FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", 0, v2, v18, *(&v18 + 1), epoch, v20, v21, v22);
         }
 
         v9 = sub_BBAC(&self->_lookaheadFrames, self->_ghostInformationLookAheadPointer, 1);
         if (v9)
         {
           fig_log_get_emitter();
-          v18 = v2;
           LODWORD(v17) = v9;
-          FigDebugAssert3();
+          FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v17, v2, v18, *(&v18 + 1), epoch, v20, v21, v22);
         }
 
-        [(GGMController *)self->_GGMCtrl setFutureFramesToDetectionAndRepair:&self->_lookaheadFrames, v17, v18];
+        [(GGMController *)self->_GGMCtrl setFutureFramesToDetectionAndRepair:&self->_lookaheadFrames];
         v6 = [(VEVideoDeghostingDetectionAndTrackingV2 *)self _convertGGMStatus:[(GGMController *)self->_GGMCtrl processDetection]];
         if (v6)
         {
           fig_log_get_emitter();
-          v19 = v2;
           LODWORD(v17) = v6;
-          FigDebugAssert3();
+          FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v17, v2, v18, *(&v18 + 1), epoch, v20, v21, v22);
         }
 
         else
@@ -101,9 +95,7 @@
     else
     {
       fig_log_get_emitter();
-      v19 = v2;
-      LODWORD(v17) = 0;
-      FigDebugAssert3();
+      FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", 0, v2, v18, *(&v18 + 1), epoch, v20, v21, v22);
       v8 = 0;
       v6 = -12780;
     }
@@ -112,26 +104,24 @@
   else
   {
     fig_log_get_emitter();
-    v19 = v2;
-    LODWORD(v17) = 0;
-    FigDebugAssert3();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", 0, v2, v18, *(&v18 + 1), epoch, v20, v21, v22);
     v8 = 0;
     v6 = 2;
   }
 
-  v13 = [(GGMController *)self->_GGMCtrl lightSourceMask:v17];
+  lightSourceMask = [(GGMController *)self->_GGMCtrl lightSourceMask];
   v14 = v8 ^ 1;
-  if (!v13)
+  if (!lightSourceMask)
   {
     v14 = 1;
   }
 
   if ((v14 & 1) == 0)
   {
-    lightSourceMask = [(GGMController *)self->_GGMCtrl lightSourceMask];
-    if (lightSourceMask)
+    lightSourceMask2 = [(GGMController *)self->_GGMCtrl lightSourceMask];
+    if (lightSourceMask2)
     {
-      CFRelease(lightSourceMask);
+      CFRelease(lightSourceMask2);
     }
   }
 
@@ -174,12 +164,15 @@
 {
   contextCopy = context;
   parametersCopy = parameters;
-  v20.receiver = self;
-  v20.super_class = VEVideoDeghostingDetectionAndTrackingV2;
-  v11 = [(VEVideoDeghostingDetectionAndTrackingV2 *)&v20 init];
+  v22.receiver = self;
+  v22.super_class = VEVideoDeghostingDetectionAndTrackingV2;
+  v11 = [(VEVideoDeghostingDetectionAndTrackingV2 *)&v22 init];
   if (!v11)
   {
-    goto LABEL_6;
+    fig_log_get_emitter();
+    sub_14238();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", 0);
+    goto LABEL_8;
   }
 
   v12 = sub_B7EC(0, parametersCopy);
@@ -198,24 +191,25 @@
 
   if (!v11->_GGMCtrl)
   {
-LABEL_7:
-    v18 = 0;
+LABEL_8:
+    v19 = 0;
     goto LABEL_5;
   }
 
-  if (sub_BF58(&v11->_lookaheadFrames, 2))
+  v18 = sub_BF58(&v11->_lookaheadFrames, 2);
+  if (v18)
   {
-LABEL_6:
+    v21 = v18;
     fig_log_get_emitter();
     sub_14238();
-    FigDebugAssert3();
-    goto LABEL_7;
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v21);
+    goto LABEL_8;
   }
 
-  v18 = v11;
+  v19 = v11;
 LABEL_5:
 
-  return v18;
+  return v19;
 }
 
 @end

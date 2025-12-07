@@ -20,11 +20,14 @@
   }
 
   v11 = swift_allocObject();
-  *(v11 + 16) = v8;
+  v11[2] = v8;
   amountCopy = amount;
   selfCopy = self;
   sub_1BD6DD1AC(amount, v9, memo, sub_1BD6DD7D8, v11);
   v15 = v14;
+
+  v11, v16, v17, v18, v19, v20, v21, v22;
+  memo, v23, v24, v25, v26, v27, v28, v29;
 
   return v15;
 }

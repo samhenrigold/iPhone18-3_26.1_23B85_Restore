@@ -156,7 +156,7 @@ void __83__SBHLibraryIndicatorIconDropInteractionDelegate_initWithLibraryIndicat
   if ([(SBHLibraryIndicatorIconDropInteractionDelegate *)self _canPerformDropForDragItem:item])
   {
     libraryIndicatorIconView = [(SBHLibraryIndicatorIconDropInteractionDelegate *)self libraryIndicatorIconView];
-    [libraryIndicatorIconView bounds];
+    objc_msgSend_bounds(libraryIndicatorIconView);
     UIRectGetCenter();
     v10 = v9;
     v12 = v11;

@@ -1332,10 +1332,10 @@ void __48__MIOWriter_prepareWriterWithCompletionHandler___block_invoke(uint64_t 
         }
       }
 
-      [v4 movieFragmentInterval];
+      objc_msgSend_movieFragmentInterval(v4);
       if (v78)
       {
-        [v4 movieFragmentInterval];
+        objc_msgSend_movieFragmentInterval(v4);
         v21 = [v4 avWriter];
         *buf = v76;
         v83 = v77;
@@ -1798,7 +1798,7 @@ void __57__MIOWriter_finishWithTimeout_endTime_completionHandler___block_invoke_
       v6 = *(a1 + 32);
       if (v6)
       {
-        [v6 sessionStartTime];
+        objc_msgSend_sessionStartTime(v6);
         v6 = *(a1 + 32);
       }
 
@@ -2016,7 +2016,7 @@ void __50__MIOWriter_cancelRecordingWithCompletionHandler___block_invoke(uint64_
   objc_sync_enter(selfCopy);
   if (!selfCopy->_sessionStarted)
   {
-    [(MIOWriter *)selfCopy sessionStartTime];
+    objc_msgSend_sessionStartTime(selfCopy);
     if ((v7[36] & 0x1D) != 1)
     {
       v5 = [MEMORY[0x277CCA9B8] writerErrorWithMessage:@"Writer invalid sessionStartTime code:{startSession failed.", 16}];
@@ -2028,7 +2028,7 @@ void __50__MIOWriter_cancelRecordingWithCompletionHandler___block_invoke(uint64_
 
     selfCopy->_sessionStarted = 1;
     avWriter = selfCopy->_avWriter;
-    [(MIOWriter *)selfCopy sessionStartTime];
+    objc_msgSend_sessionStartTime(selfCopy);
     [(AVAssetWriter *)avWriter startSessionAtSourceTime:v7];
   }
 

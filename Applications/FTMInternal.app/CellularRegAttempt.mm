@@ -1,8 +1,11 @@
 @interface CellularRegAttempt
 - (BOOL)isEqual:(id)equal;
+- (id)activeRatAsString:(int)string;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)regServiceDomainAsString:(int)string;
+- (id)serviceStatusAsString:(int)string;
 - (int)StringAsActiveRat:(id)rat;
 - (int)StringAsRegServiceDomain:(id)domain;
 - (int)StringAsServiceStatus:(id)status;
@@ -95,6 +98,21 @@
   self->_has = (*&self->_has & 0xFFFFF7FF | v3);
 }
 
+- (id)regServiceDomainAsString:(int)string
+{
+  if ((string + 1) >= 7)
+  {
+    v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = *(&off_100317C38 + (string + 1));
+  }
+
+  return v4;
+}
+
 - (int)StringAsRegServiceDomain:(id)domain
 {
   domainCopy = domain;
@@ -169,6 +187,21 @@
   self->_has = (*&self->_has & 0xFFFFFFFD | v3);
 }
 
+- (id)activeRatAsString:(int)string
+{
+  if (string >= 5)
+  {
+    v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = *(&off_100317C70 + string);
+  }
+
+  return v4;
+}
+
 - (int)StringAsActiveRat:(id)rat
 {
   ratCopy = rat;
@@ -231,6 +264,79 @@
   }
 
   self->_has = (*&self->_has & 0xFFFFBFFF | v3);
+}
+
+- (id)serviceStatusAsString:(int)string
+{
+  if (string <= 2)
+  {
+    if (string > 0)
+    {
+      if (string == 1)
+      {
+        v4 = @"SYS_SRV_STATUS_LIMITED";
+      }
+
+      else
+      {
+        v4 = @"SYS_SRV_STATUS_SRV";
+      }
+    }
+
+    else if (string == -1)
+    {
+      v4 = @"SYS_SRV_STATUS_NONE";
+    }
+
+    else
+    {
+      if (string)
+      {
+LABEL_38:
+        v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+
+        return v4;
+      }
+
+      v4 = @"SYS_SRV_STATUS_NO_SRV";
+    }
+  }
+
+  else if (string <= 4)
+  {
+    if (string == 3)
+    {
+      v4 = @"SYS_SRV_STATUS_LIMITED_REGIONAL";
+    }
+
+    else
+    {
+      v4 = @"SYS_SRV_STATUS_PWR_SAVE";
+    }
+  }
+
+  else
+  {
+    switch(string)
+    {
+      case 5:
+        v4 = @"SYS_SRV_STATUS_MAX";
+
+        break;
+      case 100:
+        v4 = @"SYS_SRV_STATUS_LOW_POWER_MODE";
+
+        break;
+      case 101:
+        v4 = @"SYS_SRV_STATUS_CMAS_ONLY_MODE";
+
+        return v4;
+      default:
+        goto LABEL_38;
+    }
+  }
+
+  return v4;
 }
 
 - (int)StringAsServiceStatus:(id)status
@@ -950,32 +1056,30 @@ LABEL_28:
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v27 = toCopy;
+  v6 = toCopy;
   if (*&self->_has)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
-    toCopy = v27;
+    toCopy = v6;
   }
 
   if (self->_hplmn)
   {
     PBDataWriterWriteDataField();
-    toCopy = v27;
+    toCopy = v6;
   }
 
   if (self->_attemptedPlmn)
   {
     PBDataWriterWriteDataField();
-    toCopy = v27;
+    toCopy = v6;
   }
 
   has = self->_has;
   if ((*&has & 8) != 0)
   {
-    cellId = self->_cellId;
     PBDataWriterWriteUint32Field();
-    toCopy = v27;
+    toCopy = v6;
     has = self->_has;
     if ((*&has & 4) == 0)
     {
@@ -994,9 +1098,8 @@ LABEL_9:
     goto LABEL_9;
   }
 
-  attemptedPlmnCategory = self->_attemptedPlmnCategory;
   PBDataWriterWriteUint32Field();
-  toCopy = v27;
+  toCopy = v6;
   has = self->_has;
   if ((*&has & 0x800) == 0)
   {
@@ -1010,9 +1113,8 @@ LABEL_10:
   }
 
 LABEL_35:
-  regServiceDomain = self->_regServiceDomain;
   PBDataWriterWriteInt32Field();
-  toCopy = v27;
+  toCopy = v6;
   has = self->_has;
   if ((*&has & 2) == 0)
   {
@@ -1026,9 +1128,8 @@ LABEL_11:
   }
 
 LABEL_36:
-  activeRat = self->_activeRat;
   PBDataWriterWriteInt32Field();
-  toCopy = v27;
+  toCopy = v6;
   has = self->_has;
   if ((*&has & 0x4000) == 0)
   {
@@ -1042,9 +1143,8 @@ LABEL_12:
   }
 
 LABEL_37:
-  serviceStatus = self->_serviceStatus;
   PBDataWriterWriteInt32Field();
-  toCopy = v27;
+  toCopy = v6;
   has = self->_has;
   if ((*&has & 0x1000) == 0)
   {
@@ -1058,9 +1158,8 @@ LABEL_13:
   }
 
 LABEL_38:
-  rejectCause = self->_rejectCause;
   PBDataWriterWriteUint32Field();
-  toCopy = v27;
+  toCopy = v6;
   has = self->_has;
   if ((*&has & 0x10) == 0)
   {
@@ -1074,9 +1173,8 @@ LABEL_14:
   }
 
 LABEL_39:
-  dlFreq = self->_dlFreq;
   PBDataWriterWriteUint32Field();
-  toCopy = v27;
+  toCopy = v6;
   has = self->_has;
   if ((*&has & 0x20) == 0)
   {
@@ -1090,9 +1188,8 @@ LABEL_15:
   }
 
 LABEL_40:
-  freqBandInd = self->_freqBandInd;
   PBDataWriterWriteUint32Field();
-  toCopy = v27;
+  toCopy = v6;
   has = self->_has;
   if ((*&has & 0x400) == 0)
   {
@@ -1106,9 +1203,8 @@ LABEL_16:
   }
 
 LABEL_41:
-  lac = self->_lac;
   PBDataWriterWriteUint32Field();
-  toCopy = v27;
+  toCopy = v6;
   has = self->_has;
   if ((*&has & 0x80000) == 0)
   {
@@ -1122,9 +1218,8 @@ LABEL_17:
   }
 
 LABEL_42:
-  isRegAccepted = self->_isRegAccepted;
   PBDataWriterWriteBOOLField();
-  toCopy = v27;
+  toCopy = v6;
   has = self->_has;
   if ((*&has & 0x10000) == 0)
   {
@@ -1138,9 +1233,8 @@ LABEL_18:
   }
 
 LABEL_43:
-  isHplmn = self->_isHplmn;
   PBDataWriterWriteBOOLField();
-  toCopy = v27;
+  toCopy = v6;
   has = self->_has;
   if ((*&has & 0x8000) == 0)
   {
@@ -1154,9 +1248,8 @@ LABEL_19:
   }
 
 LABEL_44:
-  isEhplmn = self->_isEhplmn;
   PBDataWriterWriteBOOLField();
-  toCopy = v27;
+  toCopy = v6;
   has = self->_has;
   if ((*&has & 0x40000) == 0)
   {
@@ -1170,9 +1263,8 @@ LABEL_20:
   }
 
 LABEL_45:
-  isPlmnForbiden = self->_isPlmnForbiden;
   PBDataWriterWriteBOOLField();
-  toCopy = v27;
+  toCopy = v6;
   has = self->_has;
   if ((*&has & 0x100000) == 0)
   {
@@ -1186,9 +1278,8 @@ LABEL_21:
   }
 
 LABEL_46:
-  isRoamingSteererPlmn = self->_isRoamingSteererPlmn;
   PBDataWriterWriteBOOLField();
-  toCopy = v27;
+  toCopy = v6;
   has = self->_has;
   if ((*&has & 0x20000) == 0)
   {
@@ -1202,9 +1293,8 @@ LABEL_22:
   }
 
 LABEL_47:
-  isHplmnScanTriggered = self->_isHplmnScanTriggered;
   PBDataWriterWriteBOOLField();
-  toCopy = v27;
+  toCopy = v6;
   has = self->_has;
   if ((*&has & 0x2000) == 0)
   {
@@ -1218,9 +1308,8 @@ LABEL_23:
   }
 
 LABEL_48:
-  roamingDuration = self->_roamingDuration;
   PBDataWriterWriteUint32Field();
-  toCopy = v27;
+  toCopy = v6;
   has = self->_has;
   if ((*&has & 0x80) == 0)
   {
@@ -1234,9 +1323,8 @@ LABEL_24:
   }
 
 LABEL_49:
-  hplmnScanDuration = self->_hplmnScanDuration;
   PBDataWriterWriteUint32Field();
-  toCopy = v27;
+  toCopy = v6;
   has = self->_has;
   if ((*&has & 0x100) == 0)
   {
@@ -1250,9 +1338,8 @@ LABEL_25:
   }
 
 LABEL_50:
-  hplmnScanNumOfAttempts = self->_hplmnScanNumOfAttempts;
   PBDataWriterWriteUint32Field();
-  toCopy = v27;
+  toCopy = v6;
   has = self->_has;
   if ((*&has & 0x200) == 0)
   {
@@ -1266,22 +1353,20 @@ LABEL_26:
   }
 
 LABEL_51:
-  hplmnSearchPeriod = self->_hplmnSearchPeriod;
   PBDataWriterWriteUint32Field();
-  toCopy = v27;
+  toCopy = v6;
   if ((*&self->_has & 0x40) != 0)
   {
 LABEL_27:
-    hplmnScanAttemptsDisallowedDueToBl = self->_hplmnScanAttemptsDisallowedDueToBl;
     PBDataWriterWriteUint32Field();
-    toCopy = v27;
+    toCopy = v6;
   }
 
 LABEL_28:
   if (self->_bdStat)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v27;
+    toCopy = v6;
   }
 }
 
@@ -2078,7 +2163,6 @@ LABEL_24:
       goto LABEL_131;
     }
 
-    v10 = *(equalCopy + 112);
     if (self->_isRegAccepted)
     {
       if ((*(equalCopy + 112) & 1) == 0)
@@ -2105,7 +2189,6 @@ LABEL_24:
       goto LABEL_131;
     }
 
-    v11 = *(equalCopy + 109);
     if (self->_isHplmn)
     {
       if ((*(equalCopy + 109) & 1) == 0)
@@ -2132,7 +2215,6 @@ LABEL_24:
       goto LABEL_131;
     }
 
-    v12 = *(equalCopy + 108);
     if (self->_isEhplmn)
     {
       if ((*(equalCopy + 108) & 1) == 0)
@@ -2159,7 +2241,6 @@ LABEL_24:
       goto LABEL_131;
     }
 
-    v13 = *(equalCopy + 111);
     if (self->_isPlmnForbiden)
     {
       if ((*(equalCopy + 111) & 1) == 0)
@@ -2186,7 +2267,6 @@ LABEL_24:
       goto LABEL_131;
     }
 
-    v14 = *(equalCopy + 113);
     if (self->_isRoamingSteererPlmn)
     {
       if ((*(equalCopy + 113) & 1) == 0)
@@ -2210,7 +2290,6 @@ LABEL_24:
   {
     if ((v9 & 0x20000) != 0)
     {
-      v15 = *(equalCopy + 110);
       if (self->_isHplmnScanTriggered)
       {
         if ((*(equalCopy + 110) & 1) == 0)
@@ -2228,7 +2307,7 @@ LABEL_24:
     }
 
 LABEL_131:
-    v17 = 0;
+    v11 = 0;
     goto LABEL_132;
   }
 
@@ -2306,17 +2385,17 @@ LABEL_104:
   bdStat = self->_bdStat;
   if (bdStat | *(equalCopy + 5))
   {
-    v17 = [(BorderDbStat *)bdStat isEqual:?];
+    v11 = [(BorderDbStat *)bdStat isEqual:?];
   }
 
   else
   {
-    v17 = 1;
+    v11 = 1;
   }
 
 LABEL_132:
 
-  return v17;
+  return v11;
 }
 
 - (unint64_t)hash

@@ -82,7 +82,7 @@
 {
   swift_unknownObjectRetain();
   selfCopy = self;
-  SystemBannerHostViewController.presentableContext.setter();
+  SystemBannerHostViewController.presentableContext.setter(context);
 }
 
 - (void)callStatusChanged:(id)changed
@@ -232,8 +232,9 @@
 
 - (void)setCanRequestAlertingAssertion:(BOOL)assertion
 {
+  assertionCopy = assertion;
   selfCopy = self;
-  SystemBannerHostViewController.canRequestAlertingAssertion.setter(assertion);
+  SystemBannerHostViewController.canRequestAlertingAssertion.setter(assertionCopy);
 }
 
 - (int64_t)preferredLayoutMode

@@ -189,7 +189,7 @@
 
 - (id)dictionaryRepresentation
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   dictionary = [MEMORY[0x277CBEB38] dictionary];
   sample = self->_sample;
   if (sample)
@@ -222,8 +222,8 @@
   v10 = self->_has;
   if ((v10 & 0x200) != 0)
   {
-    v22 = [MEMORY[0x277CCABB0] numberWithBool:self->_frozen];
-    [dictionary setObject:v22 forKey:@"frozen"];
+    v21 = [MEMORY[0x277CCABB0] numberWithBool:self->_frozen];
+    [dictionary setObject:v21 forKey:@"frozen"];
 
     v10 = self->_has;
     if ((v10 & 1) == 0)
@@ -243,8 +243,8 @@ LABEL_11:
     goto LABEL_11;
   }
 
-  v23 = [MEMORY[0x277CCABB0] numberWithLongLong:self->_count];
-  [dictionary setObject:v23 forKey:@"count"];
+  v22 = [MEMORY[0x277CCABB0] numberWithLongLong:self->_count];
+  [dictionary setObject:v22 forKey:@"count"];
 
   v10 = self->_has;
   if ((v10 & 0x100) == 0)
@@ -259,8 +259,8 @@ LABEL_12:
   }
 
 LABEL_33:
-  v24 = [MEMORY[0x277CCABB0] numberWithBool:self->_final];
-  [dictionary setObject:v24 forKey:@"final"];
+  v23 = [MEMORY[0x277CCABB0] numberWithBool:self->_final];
+  [dictionary setObject:v23 forKey:@"final"];
 
   v10 = self->_has;
   if ((v10 & 4) == 0)
@@ -275,8 +275,8 @@ LABEL_13:
   }
 
 LABEL_34:
-  v25 = [MEMORY[0x277CCABB0] numberWithDouble:self->_min];
-  [dictionary setObject:v25 forKey:@"min"];
+  v24 = [MEMORY[0x277CCABB0] numberWithDouble:self->_min];
+  [dictionary setObject:v24 forKey:@"min"];
 
   v10 = self->_has;
   if ((v10 & 2) == 0)
@@ -291,8 +291,8 @@ LABEL_14:
   }
 
 LABEL_35:
-  v26 = [MEMORY[0x277CCABB0] numberWithDouble:self->_max];
-  [dictionary setObject:v26 forKey:@"max"];
+  v25 = [MEMORY[0x277CCABB0] numberWithDouble:self->_max];
+  [dictionary setObject:v25 forKey:@"max"];
 
   v10 = self->_has;
   if ((v10 & 8) == 0)
@@ -307,8 +307,8 @@ LABEL_15:
   }
 
 LABEL_36:
-  v27 = [MEMORY[0x277CCABB0] numberWithDouble:self->_mostRecent];
-  [dictionary setObject:v27 forKey:@"mostRecent"];
+  v26 = [MEMORY[0x277CCABB0] numberWithDouble:self->_mostRecent];
+  [dictionary setObject:v26 forKey:@"mostRecent"];
 
   if ((*&self->_has & 0x10) != 0)
   {
@@ -321,30 +321,30 @@ LABEL_17:
   if ([(NSMutableArray *)self->_quantitySeriesDatas count])
   {
     v12 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{-[NSMutableArray count](self->_quantitySeriesDatas, "count")}];
+    v27 = 0u;
     v28 = 0u;
     v29 = 0u;
     v30 = 0u;
-    v31 = 0u;
     v13 = self->_quantitySeriesDatas;
-    v14 = [(NSMutableArray *)v13 countByEnumeratingWithState:&v28 objects:v32 count:16];
+    v14 = [(NSMutableArray *)v13 countByEnumeratingWithState:&v27 objects:v31 count:16];
     if (v14)
     {
       v15 = v14;
-      v16 = *v29;
+      v16 = *v28;
       do
       {
         for (i = 0; i != v15; ++i)
         {
-          if (*v29 != v16)
+          if (*v28 != v16)
           {
             objc_enumerationMutation(v13);
           }
 
-          dictionaryRepresentation2 = [*(*(&v28 + 1) + 8 * i) dictionaryRepresentation];
+          dictionaryRepresentation2 = [*(*(&v27 + 1) + 8 * i) dictionaryRepresentation];
           [v12 addObject:dictionaryRepresentation2];
         }
 
-        v15 = [(NSMutableArray *)v13 countByEnumeratingWithState:&v28 objects:v32 count:16];
+        v15 = [(NSMutableArray *)v13 countByEnumeratingWithState:&v27 objects:v31 count:16];
       }
 
       while (v15);
@@ -359,14 +359,12 @@ LABEL_17:
     [dictionary setObject:v19 forKey:@"mostRecentDuration"];
   }
 
-  v20 = *MEMORY[0x277D85DE8];
-
   return dictionary;
 }
 
 - (void)writeTo:(id)to
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   toCopy = to;
   if (self->_sample)
   {
@@ -376,14 +374,12 @@ LABEL_17:
   has = self->_has;
   if ((has & 0x40) != 0)
   {
-    valueInCanonicalUnit = self->_valueInCanonicalUnit;
     PBDataWriterWriteDoubleField();
     has = self->_has;
   }
 
   if ((has & 0x80) != 0)
   {
-    valueInOriginalUnit = self->_valueInOriginalUnit;
     PBDataWriterWriteDoubleField();
   }
 
@@ -392,16 +388,15 @@ LABEL_17:
     PBDataWriterWriteStringField();
   }
 
-  v8 = self->_has;
-  if ((v8 & 0x200) != 0)
+  v6 = self->_has;
+  if ((v6 & 0x200) != 0)
   {
-    frozen = self->_frozen;
     PBDataWriterWriteBOOLField();
-    v8 = self->_has;
-    if ((v8 & 1) == 0)
+    v6 = self->_has;
+    if ((v6 & 1) == 0)
     {
 LABEL_11:
-      if ((v8 & 0x100) == 0)
+      if ((v6 & 0x100) == 0)
       {
         goto LABEL_12;
       }
@@ -410,18 +405,17 @@ LABEL_11:
     }
   }
 
-  else if ((v8 & 1) == 0)
+  else if ((v6 & 1) == 0)
   {
     goto LABEL_11;
   }
 
-  count = self->_count;
   PBDataWriterWriteInt64Field();
-  v8 = self->_has;
-  if ((v8 & 0x100) == 0)
+  v6 = self->_has;
+  if ((v6 & 0x100) == 0)
   {
 LABEL_12:
-    if ((v8 & 4) == 0)
+    if ((v6 & 4) == 0)
     {
       goto LABEL_13;
     }
@@ -430,13 +424,12 @@ LABEL_12:
   }
 
 LABEL_29:
-  final = self->_final;
   PBDataWriterWriteBOOLField();
-  v8 = self->_has;
-  if ((v8 & 4) == 0)
+  v6 = self->_has;
+  if ((v6 & 4) == 0)
   {
 LABEL_13:
-    if ((v8 & 2) == 0)
+    if ((v6 & 2) == 0)
     {
       goto LABEL_14;
     }
@@ -445,13 +438,12 @@ LABEL_13:
   }
 
 LABEL_30:
-  min = self->_min;
   PBDataWriterWriteDoubleField();
-  v8 = self->_has;
-  if ((v8 & 2) == 0)
+  v6 = self->_has;
+  if ((v6 & 2) == 0)
   {
 LABEL_14:
-    if ((v8 & 8) == 0)
+    if ((v6 & 8) == 0)
     {
       goto LABEL_15;
     }
@@ -460,13 +452,12 @@ LABEL_14:
   }
 
 LABEL_31:
-  max = self->_max;
   PBDataWriterWriteDoubleField();
-  v8 = self->_has;
-  if ((v8 & 8) == 0)
+  v6 = self->_has;
+  if ((v6 & 8) == 0)
   {
 LABEL_15:
-    if ((v8 & 0x10) == 0)
+    if ((v6 & 0x10) == 0)
     {
       goto LABEL_17;
     }
@@ -475,52 +466,46 @@ LABEL_15:
   }
 
 LABEL_32:
-  mostRecent = self->_mostRecent;
   PBDataWriterWriteDoubleField();
   if ((*&self->_has & 0x10) != 0)
   {
 LABEL_16:
-    mostRecentDate = self->_mostRecentDate;
     PBDataWriterWriteDoubleField();
   }
 
 LABEL_17:
-  v26 = 0u;
-  v27 = 0u;
-  v24 = 0u;
-  v25 = 0u;
-  v10 = self->_quantitySeriesDatas;
-  v11 = [(NSMutableArray *)v10 countByEnumeratingWithState:&v24 objects:v28 count:16];
-  if (v11)
+  v14 = 0u;
+  v15 = 0u;
+  v12 = 0u;
+  v13 = 0u;
+  v7 = self->_quantitySeriesDatas;
+  v8 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  if (v8)
   {
-    v12 = v11;
-    v13 = *v25;
+    v9 = v8;
+    v10 = *v13;
     do
     {
-      for (i = 0; i != v12; ++i)
+      for (i = 0; i != v9; ++i)
       {
-        if (*v25 != v13)
+        if (*v13 != v10)
         {
-          objc_enumerationMutation(v10);
+          objc_enumerationMutation(v7);
         }
 
-        v15 = *(*(&v24 + 1) + 8 * i);
         PBDataWriterWriteSubmessage();
       }
 
-      v12 = [(NSMutableArray *)v10 countByEnumeratingWithState:&v24 objects:v28 count:16];
+      v9 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
-    while (v12);
+    while (v9);
   }
 
   if ((*&self->_has & 0x20) != 0)
   {
-    mostRecentDuration = self->_mostRecentDuration;
     PBDataWriterWriteDoubleField();
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)copyTo:(id)to
@@ -670,7 +655,7 @@ LABEL_17:
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v5 = [objc_msgSend(objc_opt_class() allocWithZone:{zone), "init"}];
   v6 = [(HDCodableSample *)self->_sample copyWithZone:zone];
   v7 = *(v5 + 88);
@@ -787,30 +772,30 @@ LABEL_12:
   }
 
 LABEL_13:
-  v22 = 0u;
-  v23 = 0u;
-  v20 = 0u;
   v21 = 0u;
+  v22 = 0u;
+  v19 = 0u;
+  v20 = 0u;
   v12 = self->_quantitySeriesDatas;
-  v13 = [(NSMutableArray *)v12 countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v13 = [(NSMutableArray *)v12 countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v13)
   {
     v14 = v13;
-    v15 = *v21;
+    v15 = *v20;
     do
     {
       for (i = 0; i != v14; ++i)
       {
-        if (*v21 != v15)
+        if (*v20 != v15)
         {
           objc_enumerationMutation(v12);
         }
 
-        v17 = [*(*(&v20 + 1) + 8 * i) copyWithZone:{zone, v20}];
+        v17 = [*(*(&v19 + 1) + 8 * i) copyWithZone:{zone, v19}];
         [v5 addQuantitySeriesData:v17];
       }
 
-      v14 = [(NSMutableArray *)v12 countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v14 = [(NSMutableArray *)v12 countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
     while (v14);
@@ -822,7 +807,6 @@ LABEL_13:
     *(v5 + 100) |= 0x20u;
   }
 
-  v18 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -890,7 +874,6 @@ LABEL_13:
       goto LABEL_66;
     }
 
-    v9 = *(equalCopy + 97);
     if (self->_frozen)
     {
       if ((*(equalCopy + 97) & 1) == 0)
@@ -930,7 +913,6 @@ LABEL_13:
       goto LABEL_66;
     }
 
-    v10 = *(equalCopy + 96);
     if (self->_final)
     {
       if ((*(equalCopy + 96) & 1) == 0)
@@ -1013,7 +995,7 @@ LABEL_13:
     }
 
 LABEL_66:
-    v12 = 0;
+    v10 = 0;
     goto LABEL_67;
   }
 
@@ -1025,17 +1007,17 @@ LABEL_61:
       goto LABEL_66;
     }
 
-    v12 = 1;
+    v10 = 1;
   }
 
   else
   {
-    v12 = (v7 & 0x20) == 0;
+    v10 = (v7 & 0x20) == 0;
   }
 
 LABEL_67:
 
-  return v12;
+  return v10;
 }
 
 - (unint64_t)hash
@@ -1326,7 +1308,7 @@ LABEL_29:
 
 - (void)mergeFrom:(id)from
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   fromCopy = from;
   sample = self->_sample;
   v6 = *(fromCopy + 11);
@@ -1455,29 +1437,29 @@ LABEL_19:
   }
 
 LABEL_20:
-  v17 = 0u;
-  v18 = 0u;
-  v15 = 0u;
   v16 = 0u;
+  v17 = 0u;
+  v14 = 0u;
+  v15 = 0u;
   v9 = *(fromCopy + 10);
-  v10 = [v9 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v16;
+    v12 = *v15;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v16 != v12)
+        if (*v15 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        [(HDCodableQuantitySample *)self addQuantitySeriesData:*(*(&v15 + 1) + 8 * i), v15];
+        [(HDCodableQuantitySample *)self addQuantitySeriesData:*(*(&v14 + 1) + 8 * i), v14];
       }
 
-      v11 = [v9 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v11);
@@ -1488,8 +1470,6 @@ LABEL_20:
     self->_mostRecentDuration = *(fromCopy + 6);
     *&self->_has |= 0x20u;
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)applyToObject:(id)object

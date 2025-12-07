@@ -10,47 +10,42 @@
 
 - (NSString)requestId
 {
-  v2 = *(self + OBJC_IVAR___SAAudioAppPredictorResult_requestId);
-  v3 = *(self + OBJC_IVAR___SAAudioAppPredictorResult_requestId + 8);
 
-  v4 = sub_2664E02A8();
+  v2 = sub_2664E02A8();
 
-  return v4;
+  return v2;
 }
 
 - (NSString)selectedBundleIdentifier
 {
   if (*(self + OBJC_IVAR___SAAudioAppPredictorResult_selectedBundleIdentifier + 8))
   {
-    v2 = *(self + OBJC_IVAR___SAAudioAppPredictorResult_selectedBundleIdentifier);
-    v3 = *(self + OBJC_IVAR___SAAudioAppPredictorResult_selectedBundleIdentifier + 8);
 
-    v4 = sub_2664E02A8();
+    v2 = sub_2664E02A8();
   }
 
   else
   {
-    v4 = 0;
+    v2 = 0;
   }
 
-  return v4;
+  return v2;
 }
 
 - (NSArray)disambiguateBundleIdentifiers
 {
   if (*(self + OBJC_IVAR___SAAudioAppPredictorResult_disambiguateBundleIdentifiers))
   {
-    v2 = *(self + OBJC_IVAR___SAAudioAppPredictorResult_disambiguateBundleIdentifiers);
 
-    v3 = sub_2664E0488();
+    v2 = sub_2664E0488();
   }
 
   else
   {
-    v3 = 0;
+    v2 = 0;
   }
 
-  return v3;
+  return v2;
 }
 
 - (SAAudioAppPredictorResult)init

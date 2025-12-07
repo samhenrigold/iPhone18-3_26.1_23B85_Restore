@@ -307,13 +307,13 @@ LABEL_24:
           [v31 setObject:identifier2 forKey:UNNotificationDefaultActionIdentifier];
         }
 
-        clearAction = [notification clearAction];
-        identifier3 = [clearAction identifier];
+        v36 = [notification clearAction:*v56];
+        identifier3 = [v36 identifier];
 
         if (identifier3)
         {
-          clearAction2 = [notification clearAction];
-          identifier4 = [clearAction2 identifier];
+          clearAction = [notification clearAction];
+          identifier4 = [clearAction identifier];
           [v31 setObject:identifier4 forKey:UNNotificationDismissActionIdentifier];
         }
 

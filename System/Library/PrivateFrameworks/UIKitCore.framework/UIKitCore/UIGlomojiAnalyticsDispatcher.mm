@@ -173,12 +173,12 @@
   v2 = +[UIKBAnalyticsDispatcher sharedInstance];
   glomojiTitle = [v2 glomojiTitle];
 
-  if ([glomojiTitle isEqualToString:@"globe"] & 1) != 0 || (objc_msgSend(glomojiTitle, "isEqualToString:", @"globe.badge.chevron.backward"))
+  if (objc_msgSend_isEqualToString_(glomojiTitle) & 1) != 0 || (objc_msgSend_isEqualToString_(glomojiTitle))
   {
     v4 = 1;
   }
 
-  else if ([glomojiTitle isEqualToString:@"emoji.face.grinning"])
+  else if (objc_msgSend_isEqualToString_(glomojiTitle))
   {
     v4 = 2;
   }

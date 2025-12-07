@@ -60,11 +60,10 @@
 
 - (id)description
 {
-  v9.receiver = self;
-  v9.super_class = DTKPCPUEvent;
-  v3 = [(DTKPCPUEvent *)&v9 description];
+  v8.receiver = self;
+  v8.super_class = DTKPCPUEvent;
+  v3 = [(DTKPCPUEvent *)&v8 description];
   v4 = v3;
-  name = self->_name;
   alias = self->_alias;
   if (!alias)
   {

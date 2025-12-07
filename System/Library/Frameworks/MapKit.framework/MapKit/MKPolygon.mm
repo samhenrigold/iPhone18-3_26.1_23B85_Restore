@@ -169,7 +169,7 @@ LABEL_10:
   {
     if (v8 >= v9)
     {
-      v11 = (v8 - v10) >> 4;
+      v11 = v8 - v10;
       v12 = v11 + 1;
       if ((v11 + 1) >> 60)
       {
@@ -200,15 +200,14 @@ LABEL_10:
 
       v14 = (16 * v11);
       *v14 = points[v7];
-      v15 = (v14 + 1);
+      v15 = v14 + 1;
       if (v10 != v8)
       {
         v16 = v10;
         v17 = 0;
         do
         {
-          v18 = *v16;
-          v16 += 16;
+          v18 = *v16++;
           *v17++ = v18;
         }
 
@@ -227,8 +226,7 @@ LABEL_10:
 
     else
     {
-      *v8 = points[v7];
-      v8 += 16;
+      *v8++ = points[v7];
     }
 
     ++v7;
@@ -241,7 +239,7 @@ LABEL_10:
   v23 = 0;
   v24 = 0;
   v25 = 0;
-  isSelf = geo::Intersect::isSelfIntersecting<double>(&__p);
+  isSelf = geo::Intersect::isSelfIntersecting<double>(&__p, 1);
   if (__p)
   {
     v21 = __p;

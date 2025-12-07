@@ -1,5 +1,4 @@
 @interface GameLayerPageGrid
-- (GameLayerPageGrid)initWithWidth:(double)width columnSizeCategory:(int64_t)category maxColumns:(id)columns;
 - (UIEdgeInsets)centeringInsets;
 - (UIEdgeInsets)minimumInsets;
 @end
@@ -24,13 +23,6 @@
   result.left = v3;
   result.top = v2;
   return result;
-}
-
-- (GameLayerPageGrid)initWithWidth:(double)width columnSizeCategory:(int64_t)category maxColumns:(id)columns
-{
-  categoryCopy = category;
-  columnsCopy = columns;
-  return PageGrid.init(width:columnSizeCategory:maxColumns:)(categoryCopy, columns);
 }
 
 @end

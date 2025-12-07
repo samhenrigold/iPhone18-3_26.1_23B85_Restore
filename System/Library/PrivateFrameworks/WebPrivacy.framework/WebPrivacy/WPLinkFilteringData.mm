@@ -9,43 +9,43 @@
 
 - (WPLinkFilteringData)initWithQueryParameters:(id)parameters
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   parametersCopy = parameters;
-  v22.receiver = self;
-  v22.super_class = WPLinkFilteringData;
-  v5 = [(WPLinkFilteringData *)&v22 init];
+  v21.receiver = self;
+  v21.super_class = WPLinkFilteringData;
+  v5 = [(WPLinkFilteringData *)&v21 init];
   if (v5)
   {
     v6 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(parametersCopy, "count")}];
-    v20 = 0u;
-    v21 = 0u;
-    v18 = 0u;
     v19 = 0u;
+    v20 = 0u;
+    v17 = 0u;
+    v18 = 0u;
     v7 = parametersCopy;
-    v8 = [v7 countByEnumeratingWithState:&v18 objects:v23 count:16];
+    v8 = [v7 countByEnumeratingWithState:&v17 objects:v22 count:16];
     if (v8)
     {
-      v9 = *v19;
+      v9 = *v18;
       do
       {
         v10 = 0;
         do
         {
-          if (*v19 != v9)
+          if (*v18 != v9)
           {
             objc_enumerationMutation(v7);
           }
 
-          v11 = *(*(&v18 + 1) + 8 * v10);
+          v11 = *(*(&v17 + 1) + 8 * v10);
           v12 = [WPLinkFilteringRule alloc];
-          v13 = [(WPLinkFilteringRule *)v12 initWithQueryParameter:v11 domain:&stru_2882BDF38 path:&stru_2882BDF38, v18];
+          v13 = [(WPLinkFilteringRule *)v12 initWithQueryParameter:v11 domain:&stru_2882BDF38 path:&stru_2882BDF38, v17];
           [(NSArray *)v6 addObject:v13];
 
           ++v10;
         }
 
         while (v8 != v10);
-        v8 = [v7 countByEnumeratingWithState:&v18 objects:v23 count:16];
+        v8 = [v7 countByEnumeratingWithState:&v17 objects:v22 count:16];
       }
 
       while (v8);
@@ -57,7 +57,6 @@
     v15 = v5;
   }
 
-  v16 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -121,27 +120,27 @@
 
 - (NSDictionary)scopedQueryParameters
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   v3 = objc_opt_new();
+  v25 = 0u;
   v26 = 0u;
   v27 = 0u;
   v28 = 0u;
-  v29 = 0u;
   v4 = self->_rules;
-  v5 = [(NSArray *)v4 countByEnumeratingWithState:&v26 objects:v30 count:16];
+  v5 = [(NSArray *)v4 countByEnumeratingWithState:&v25 objects:v29 count:16];
   if (v5)
   {
-    v6 = *v27;
+    v6 = *v26;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v27 != v6)
+        if (*v26 != v6)
         {
           objc_enumerationMutation(v4);
         }
 
-        v8 = *(*(&v26 + 1) + 8 * i);
+        v8 = *(*(&v25 + 1) + 8 * i);
         queryParameter = [v8 queryParameter];
         v10 = [v3 objectForKey:queryParameter];
         v11 = v10 == 0;
@@ -177,13 +176,11 @@
         }
       }
 
-      v5 = [(NSArray *)v4 countByEnumeratingWithState:&v26 objects:v30 count:16];
+      v5 = [(NSArray *)v4 countByEnumeratingWithState:&v25 objects:v29 count:16];
     }
 
     while (v5);
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 
   return v3;
 }

@@ -188,7 +188,7 @@
   selfCopy = self;
   libraryViewController = [(LibraryContentController *)selfCopy libraryViewController];
   cloudTabsSection = [(LibraryContentController *)selfCopy cloudTabsSection];
-  sub_215A0D984(cloudTabsSection);
+  sub_215A0D984(cloudTabsSection, 1);
 }
 
 - (void)updateAndScrollToCurrentSelectedItem

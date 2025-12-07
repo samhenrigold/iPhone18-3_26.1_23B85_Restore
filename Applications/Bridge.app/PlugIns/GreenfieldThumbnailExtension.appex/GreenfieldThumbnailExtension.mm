@@ -60,27 +60,26 @@ void sub_100000FDC(uint64_t a1)
   v6 = NSTemporaryDirectory();
   v7 = [v6 stringByAppendingPathComponent:v5];
 
-  v13 = 0;
-  [v2 writeToFile:v7 options:0 error:&v13];
-  v8 = v13;
+  v12 = 0;
+  [v2 writeToFile:v7 options:0 error:&v12];
+  v8 = v12;
   if (v8)
   {
     v9 = _NTKLoggingObjectForDomain();
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v15 = v8;
+      v14 = v8;
       _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "thumbnailProvider: failed to save image with error: %@", buf, 0xCu);
     }
 
-    v10 = *(a1 + 48);
     (*(*(a1 + 56) + 16))();
   }
 
   else
   {
-    v11 = [NSURL fileURLWithPath:v7];
-    v12 = [QLThumbnailReply replyWithImageFileURL:v11];
+    v10 = [NSURL fileURLWithPath:v7];
+    v11 = [QLThumbnailReply replyWithImageFileURL:v10];
 
     (*(*(a1 + 56) + 16))();
   }

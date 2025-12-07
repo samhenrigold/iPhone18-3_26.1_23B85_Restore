@@ -1,8 +1,8 @@
 @interface _UIImageContentRendition
++ (_UIImageContentRendition)renditionWithContentProvider:(void *)provider color:(void *)color effects:(unsigned int)effects drawMode:;
 + (id)renditionWithContentProvider:(uint64_t)provider;
 + (id)renditionWithContentProvider:(void *)provider color:;
 + (id)renditionWithContentProvider:(void *)provider color:(void *)color effects:;
-+ (id)renditionWithContentProvider:(void *)provider color:(void *)color effects:(int)effects drawMode:;
 - (uint64_t)CGImage;
 - (uint64_t)drawInContext:(uint64_t)result;
 - (void)dealloc;
@@ -73,7 +73,7 @@
   return v10;
 }
 
-+ (id)renditionWithContentProvider:(void *)provider color:(void *)color effects:(int)effects drawMode:
++ (_UIImageContentRendition)renditionWithContentProvider:(void *)provider color:(void *)color effects:(unsigned int)effects drawMode:
 {
   v8 = a2;
   providerCopy = provider;

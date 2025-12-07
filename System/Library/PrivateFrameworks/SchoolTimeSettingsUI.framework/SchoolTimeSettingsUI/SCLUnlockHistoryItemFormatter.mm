@@ -80,24 +80,24 @@
 
 - (id)attributedStringForObjectValue:(id)value withDefaultAttributes:(id)attributes
 {
-  v26[2] = *MEMORY[0x277D85DE8];
+  v25[2] = *MEMORY[0x277D85DE8];
   valueCopy = value;
   attributesCopy = attributes;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
     v8 = [(SCLUnlockHistoryItemFormatter *)self timeStringForHistoryItem:valueCopy];
-    v24 = [(SCLUnlockHistoryItemFormatter *)self durationStringForHistoryItem:valueCopy];
+    v23 = [(SCLUnlockHistoryItemFormatter *)self durationStringForHistoryItem:valueCopy];
     v9 = [(SCLUnlockHistoryItemFormatter *)self localizedStringWithTimeString:v8 durationString:?];
     fontDescriptor = [(SCLUnlockHistoryItemFormatter *)self fontDescriptor];
     v10 = [MEMORY[0x277D74300] fontWithDescriptor:0.0 size:?];
-    v22 = *MEMORY[0x277D740C0];
-    v25[0] = *MEMORY[0x277D740C0];
+    v21 = *MEMORY[0x277D740C0];
+    v24[0] = *MEMORY[0x277D740C0];
     color = [(SCLUnlockHistoryItemFormatter *)self color];
-    v25[1] = *MEMORY[0x277D740A8];
-    v26[0] = color;
-    v26[1] = v10;
-    v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v26 forKeys:v25 count:2];
+    v24[1] = *MEMORY[0x277D740A8];
+    v25[0] = color;
+    v25[1] = v10;
+    v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:v24 count:2];
     v13 = [v12 mutableCopy];
 
     if (attributesCopy)
@@ -112,7 +112,7 @@
       v17 = v15;
       v18 = v16;
       highlightColor = [(SCLUnlockHistoryItemFormatter *)self highlightColor];
-      [v14 addAttribute:v22 value:highlightColor range:{v17, v18}];
+      [v14 addAttribute:v21 value:highlightColor range:{v17, v18}];
     }
   }
 
@@ -120,8 +120,6 @@
   {
     v14 = 0;
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 
   return v14;
 }

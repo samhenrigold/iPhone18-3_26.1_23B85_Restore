@@ -1,279 +1,4 @@
-uint64_t parse_field_with_default<&(BOOL parse_number<unsigned short>(unsigned short *,ashp::boxed::object,ashp::acipc::config::error_context *)),unsigned short>(_WORD *a1, __int16 a2, const __CFDictionary *a3, const void *a4, uint64_t a5, void *a6)
-{
-  value = ashp::boxed::dictionary::get_value(a3, a4, a3, a4);
-  if (value)
-  {
-    if ((parse_number<unsigned short>(a1, value, a5, v12, v13) & 1) == 0)
-    {
-      set_error_location(a5, a4, v14, v15);
-      return 0;
-    }
-  }
-
-  else
-  {
-    *a1 = a2;
-    ++*a6;
-  }
-
-  return 1;
-}
-
-uint64_t parse_field_with_default<&(ashp::acipc::config::interrupt_moderation_spec::parse(ashp::acipc::config::interrupt_moderation_spec*,ashp::boxed::object,ashp::acipc::config::error_context *)),ashp::acipc::config::interrupt_moderation_spec>(uint64_t a1, const __CFDictionary *a2, uint64_t a3, const char *a4)
-{
-  value = ashp::boxed::dictionary::get_value(a2, @"interrupt_moderation", a3, a4);
-  if (!value)
-  {
-    *a1 = 0;
-    ++*a4;
-    return 1;
-  }
-
-  if (!a1)
-  {
-    ashp::detail::base::log_pre_crash_message("BUG in Airship: ", "configurator.cpp", 0x332, "parse", v8);
-    result = _os_crash();
-    __break(1u);
-    return result;
-  }
-
-  v9 = value;
-  v10 = CFGetTypeID(value);
-  if (v10 != CFDictionaryGetTypeID())
-  {
-    v9 = 0;
-  }
-
-  if (!v9)
-  {
-    v17 = "unexpected object type";
-    goto LABEL_13;
-  }
-
-  v19 = 0;
-  if (!parse_field_with_default<&(BOOL parse_number<unsigned short>(unsigned short *,ashp::boxed::object,ashp::acipc::config::error_context *)),unsigned short>(a1, 0, v9, @"interval_usec", a3, &v19) || !parse_field_with_default<&(BOOL parse_number<unsigned int>(unsigned int *,ashp::boxed::object,ashp::acipc::config::error_context *)),unsigned int>((a1 + 4), 0, v9, @"bytes", a3, &v19))
-  {
-    goto LABEL_14;
-  }
-
-  v16 = ashp::boxed::dictionary::count(v9, v15, v13, v14);
-  if (v19 + v16 == 2)
-  {
-    return 1;
-  }
-
-  v17 = "unknown keys present";
-LABEL_13:
-  set_error(a3, v17, 0, v11, v12);
-LABEL_14:
-  set_error_location(a3, @"interrupt_moderation", v13, v14);
-  return 0;
-}
-
-uint64_t parse_field_with_default<&(ashp::acipc::config::accumulation_spec::parse(ashp::acipc::config::accumulation_spec*,ashp::boxed::object,ashp::acipc::config::error_context *)),ashp::acipc::config::accumulation_spec>(uint64_t a1, const __CFDictionary *a2, uint64_t a3, const char *a4)
-{
-  value = ashp::boxed::dictionary::get_value(a2, @"accumulation", a3, a4);
-  if (!value)
-  {
-    *a1 = 0;
-    ++*a4;
-    return 1;
-  }
-
-  if (!a1)
-  {
-    ashp::detail::base::log_pre_crash_message("BUG in Airship: ", "configurator.cpp", 0x36C, "parse", v8);
-    result = _os_crash();
-    __break(1u);
-    return result;
-  }
-
-  v9 = value;
-  v10 = CFGetTypeID(value);
-  if (v10 != CFDictionaryGetTypeID())
-  {
-    v9 = 0;
-  }
-
-  if (!v9)
-  {
-    v17 = "unexpected object type";
-    goto LABEL_13;
-  }
-
-  v19 = 0;
-  if (!parse_field_with_default<&(BOOL parse_number<unsigned short>(unsigned short *,ashp::boxed::object,ashp::acipc::config::error_context *)),unsigned short>(a1, 0, v9, @"interval_usec", a3, &v19) || !parse_field_with_default<&(BOOL parse_number<unsigned int>(unsigned int *,ashp::boxed::object,ashp::acipc::config::error_context *)),unsigned int>((a1 + 4), 0, v9, @"bytes", a3, &v19))
-  {
-    goto LABEL_14;
-  }
-
-  v16 = ashp::boxed::dictionary::count(v9, v15, v13, v14);
-  if (v19 + v16 == 2)
-  {
-    return 1;
-  }
-
-  v17 = "unknown keys present";
-LABEL_13:
-  set_error(a3, v17, 0, v11, v12);
-LABEL_14:
-  set_error_location(a3, @"accumulation", v13, v14);
-  return 0;
-}
-
-uint64_t parse_field_with_default<&(BOOL parse_optional<&(ashp::acipc::config::transfer_ring_spec::buffer_size_ring_spec::parse(ashp::acipc::config::transfer_ring_spec::buffer_size_ring_spec*,ashp::boxed::object,ashp::acipc::config::error_context *)),ashp::acipc::config::transfer_ring_spec::buffer_size_ring_spec>(ashp::optional<ashp::acipc::config::transfer_ring_spec::buffer_size_ring_spec,ashp::optional_traits<ashp::acipc::config::transfer_ring_spec::buffer_size_ring_spec,void>::default_sentinel> *,ashp::boxed::object,ashp::acipc::config::error_context *)),ashp::optional<ashp::acipc::config::transfer_ring_spec::buffer_size_ring_spec,void>>(uint64_t a1, __int16 *a2, const __CFDictionary *a3, const char *a4, void *a5)
-{
-  value = ashp::boxed::dictionary::get_value(a3, @"buffer_size_ring", a3, a4);
-  if (!value)
-  {
-    v29 = *(a2 + 2);
-    v30 = *a2;
-    if (*(a1 + 2) == 1)
-    {
-      if (*(a2 + 2))
-      {
-        *a1 = v30;
-      }
-
-      else
-      {
-        *(a1 + 2) = 0;
-      }
-    }
-
-    else if (*(a2 + 2))
-    {
-      *a1 = v30;
-      *(a1 + 2) = 1;
-    }
-
-    ++*a5;
-    return 1;
-  }
-
-  if (!a1 || *(a1 + 2) == 1)
-  {
-    ashp::detail::base::log_pre_crash_message("BUG in Airship: ", "configurator.cpp", 0xD8, "parse_optional", v10);
-    result = _os_crash();
-    __break(1u);
-    return result;
-  }
-
-  v11 = value;
-  v12 = CFGetTypeID(value);
-  if (v12 != CFBooleanGetTypeID() || ashp::boxed::BOOLean::value(v11, v13, v14, v15))
-  {
-    v33 = 0;
-    v16 = CFGetTypeID(v11);
-    if (v16 != CFDictionaryGetTypeID())
-    {
-      v11 = 0;
-    }
-
-    if (v11)
-    {
-      v20 = ashp::boxed::dictionary::get_value(v11, @"chain", v17, v18);
-      if ((parse_BOOL(&v33, v20, a4, v21, v22) & 1) == 0)
-      {
-        set_error_location(a4, @"chain", v23, v24);
-        goto LABEL_22;
-      }
-
-      if (!parse_field<&(BOOL parse_number<unsigned char>(unsigned char *,ashp::boxed::object,ashp::acipc::config::error_context *)),unsigned char>(&v33 + 1, v11, @"width", a4))
-      {
-LABEL_22:
-        set_error_location(a4, @"buffer_size_ring", v26, v27);
-        return 0;
-      }
-
-      if (ashp::boxed::dictionary::count(v11, v25, v26, v27) == 2)
-      {
-        v28 = *(a1 + 2);
-        *a1 = v33;
-        if ((v28 & 1) == 0)
-        {
-          *(a1 + 2) = 1;
-        }
-
-        return 1;
-      }
-
-      v31 = "unknown keys present";
-    }
-
-    else
-    {
-      v31 = "unexpected object type";
-    }
-
-    set_error(a4, v31, 0, v18, v19);
-    goto LABEL_22;
-  }
-
-  return 1;
-}
-
-uint64_t parse_field_with_default<&(ashp::acipc::config::transfer_ring_spec::multi_config::parse(ashp::acipc::config::transfer_ring_spec::multi_config*,ashp::boxed::object,ashp::acipc::config::error_context *)),ashp::acipc::config::transfer_ring_spec::multi_config>(uint64_t a1, const __CFDictionary *a2, const char *a3, const char *a4)
-{
-  value = ashp::boxed::dictionary::get_value(a2, @"multi", a3, a4);
-  if (!value)
-  {
-    result = 1;
-    *a1 = 1;
-    *(a1 + 8) = 0;
-    ++*a4;
-    return result;
-  }
-
-  if (!a1)
-  {
-    ashp::detail::base::log_pre_crash_message("BUG in Airship: ", "configurator.cpp", 0x808, "parse", v8);
-    result = _os_crash();
-    __break(1u);
-    return result;
-  }
-
-  v9 = value;
-  v10 = CFGetTypeID(value);
-  if (v10 == CFDictionaryGetTypeID())
-  {
-    v13 = v9;
-  }
-
-  else
-  {
-    v13 = 0;
-  }
-
-  if (v13)
-  {
-    v20 = 0;
-    if (!parse_field<&(BOOL parse_number<unsigned int>(unsigned int *,ashp::boxed::object,ashp::acipc::config::error_context *)),unsigned int>(a1, v13, @"count", a3) || !parse_field_with_default<&(parse_BOOL(BOOL *,ashp::boxed::object,ashp::acipc::config::error_context *)),BOOL>((a1 + 4), 0, v13, @"resource_stride", a3, &v20) || !parse_field_with_default<&(parse_BOOL(BOOL *,ashp::boxed::object,ashp::acipc::config::error_context *)),BOOL>((a1 + 5), 0, v13, @"completion_ring_stride", a3, &v20) || !parse_field_with_default<&(parse_BOOL(BOOL *,ashp::boxed::object,ashp::acipc::config::error_context *)),BOOL>((a1 + 6), 0, v13, @"completion_group_stride", a3, &v20) || !parse_field_with_default<&(parse_BOOL(BOOL *,ashp::boxed::object,ashp::acipc::config::error_context *)),BOOL>((a1 + 7), 0, v13, @"doorbell_stride", a3, &v20) || !parse_field_with_default<&(parse_BOOL(BOOL *,ashp::boxed::object,ashp::acipc::config::error_context *)),BOOL>((a1 + 8), 0, v13, @"interrupt_stride", a3, &v20))
-    {
-      goto LABEL_18;
-    }
-
-    v17 = ashp::boxed::dictionary::count(v13, v16, v14, v15);
-    if (v20 + v17 == 6)
-    {
-      return 1;
-    }
-
-    v19 = "unknown keys present";
-  }
-
-  else
-  {
-    v19 = "unexpected object type";
-  }
-
-  set_error(a3, v19, 0, v11, v12);
-LABEL_18:
-  set_error_location(a3, @"multi", v14, v15);
-  return 0;
-}
-
-uint64_t parse_field_with_default<&(ashp::acipc::config::transfer_ring_spec::constraint_config::parse(ashp::acipc::config::transfer_ring_spec::constraint_config*,ashp::boxed::object,ashp::acipc::config::error_context *)),ashp::acipc::config::transfer_ring_spec::constraint_config>(unint64_t *a1, unint64_t *a2, const __CFDictionary *a3, const char *a4, void *a5)
+uint64_t parse_field_with_default<&(ashp::acipc::config::transfer_ring_spec::constraint_config::parse(ashp::acipc::config::transfer_ring_spec::constraint_config*,ashp::boxed::object,ashp::acipc::config::error_context *)),ashp::acipc::config::transfer_ring_spec::constraint_config>(unint64_t *a1, unint64_t *a2, const __CFDictionary *a3, char *a4, void *a5)
 {
   value = ashp::boxed::dictionary::get_value(a3, @"constraints", a3, a4);
   if (!value)
@@ -395,7 +120,7 @@ void ashp::acipc::config::transfer_ring_spec::constraint_config::~constraint_con
   ashp::detail::dynamic_array::storage<ashp::acipc::config::numeric_constraint<unsigned short>>::~storage(this, v22, v23, v24, v25);
 }
 
-uint64_t ashp::detail::dynamic_array::storage<ashp::acipc::config::numeric_constraint<unsigned short>>::operator=(unint64_t *a1, unint64_t *a2, uint64_t a3, const char *a4, const char *a5)
+unint64_t *ashp::detail::dynamic_array::storage<ashp::acipc::config::numeric_constraint<unsigned short>>::operator=(unint64_t *a1, unint64_t *a2, uint64_t a3, const char *a4, const char *a5)
 {
   if (*a2 > a1[1])
   {
@@ -463,7 +188,7 @@ LABEL_19:
   return result;
 }
 
-uint64_t ashp::detail::dynamic_array::storage<ashp::acipc::config::numeric_constraint<unsigned int>>::operator=(unint64_t *a1, unint64_t *a2, uint64_t a3, const char *a4, const char *a5)
+unint64_t *ashp::detail::dynamic_array::storage<ashp::acipc::config::numeric_constraint<unsigned int>>::operator=(unint64_t *a1, unint64_t *a2, uint64_t a3, const char *a4, const char *a5)
 {
   if (*a2 > a1[1])
   {
@@ -531,7 +256,7 @@ LABEL_19:
   return result;
 }
 
-uint64_t ashp::detail::dynamic_array::storage<ashp::optional<ashp::acipc::config::named_target_spec::constraint,void>>::operator=(unint64_t *a1, unint64_t *a2, uint64_t a3, const char *a4, const char *a5)
+unint64_t *ashp::detail::dynamic_array::storage<ashp::optional<ashp::acipc::config::named_target_spec::constraint,void>>::operator=(unint64_t *a1, unint64_t *a2, uint64_t a3, const char *a4, const char *a5)
 {
   if (*a2 > a1[1])
   {
@@ -582,16 +307,16 @@ uint64_t ashp::detail::dynamic_array::storage<ashp::optional<ashp::acipc::config
         v17 = a2[2];
         v18 = a1[2];
         LOBYTE(v29) = 0;
-        v19 = (v17 + v15);
+        v19 = v17 + v15;
         if (*(v17 + v15 + 16) == 1)
         {
           ashp::unsafe_storage<ashp::acipc::config::named_target_spec::constraint>::storage::reset(&v28, a2, a3, a4);
           ashp::refcounted_ptr<ashp::boxed::data,ashp::cf::refcount_policy>::refcounted_ptr(&v28, *v19, v20, v21);
-          *(&v28 + 1) = v19[1];
+          *(&v28 + 1) = *(v19 + 8);
           LOBYTE(v29) = 1;
         }
 
-        ashp::swap(v18 + v15, &v28, a3, a4);
+        ashp::swap((v18 + v15), &v28, a3, a4);
         ashp::unsafe_storage<ashp::acipc::config::named_target_spec::constraint>::storage::reset(&v28, v22, v23, v24);
         v15 += 24;
         --v16;
@@ -618,7 +343,7 @@ LABEL_21:
   return result;
 }
 
-uint64_t parse_field_with_default<&(BOOL parse_array_or_singleton<&(ashp::acipc::config::numeric_constraint<unsigned short>::parse(ashp::acipc::config::numeric_constraint<unsigned short>*,ashp::boxed::object,ashp::acipc::config::error_context *)),ashp::acipc::config::numeric_constraint<unsigned short>>(ashp::dynamic_array<ashp::acipc::config::numeric_constraint<unsigned short>> *,ashp::boxed::object,ashp::acipc::config::error_context *)),ashp::dynamic_array<ashp::acipc::config::numeric_constraint<unsigned short>>>(unint64_t *a1, unint64_t *a2, const __CFDictionary *a3, const char *a4, void *a5)
+uint64_t parse_field_with_default<&(BOOL parse_array_or_singleton<&(ashp::acipc::config::numeric_constraint<unsigned short>::parse(ashp::acipc::config::numeric_constraint<unsigned short>*,ashp::boxed::object,ashp::acipc::config::error_context *)),ashp::acipc::config::numeric_constraint<unsigned short>>(ashp::dynamic_array<ashp::acipc::config::numeric_constraint<unsigned short>> *,ashp::boxed::object,ashp::acipc::config::error_context *)),ashp::dynamic_array<ashp::acipc::config::numeric_constraint<unsigned short>>>(unint64_t *a1, unint64_t *a2, const __CFDictionary *a3, char *a4, void *a5)
 {
   value = ashp::boxed::dictionary::get_value(a3, @"ring_size", a3, a4);
   if (!value)
@@ -768,7 +493,7 @@ void sub_23ECBDEFC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, const char *
   _Unwind_Resume(a1);
 }
 
-uint64_t parse_field_with_default<&(BOOL parse_array_or_singleton<&(ashp::acipc::config::numeric_constraint<unsigned int>::parse(ashp::acipc::config::numeric_constraint<unsigned int>*,ashp::boxed::object,ashp::acipc::config::error_context *)),ashp::acipc::config::numeric_constraint<unsigned int>>(ashp::dynamic_array<ashp::acipc::config::numeric_constraint<unsigned int>> *,ashp::boxed::object,ashp::acipc::config::error_context *)),ashp::dynamic_array<ashp::acipc::config::numeric_constraint<unsigned int>>>(unint64_t *a1, unint64_t *a2, const __CFDictionary *a3, const void *a4, uint64_t a5, void *a6)
+uint64_t parse_field_with_default<&(BOOL parse_array_or_singleton<&(ashp::acipc::config::numeric_constraint<unsigned int>::parse(ashp::acipc::config::numeric_constraint<unsigned int>*,ashp::boxed::object,ashp::acipc::config::error_context *)),ashp::acipc::config::numeric_constraint<unsigned int>>(ashp::dynamic_array<ashp::acipc::config::numeric_constraint<unsigned int>> *,ashp::boxed::object,ashp::acipc::config::error_context *)),ashp::dynamic_array<ashp::acipc::config::numeric_constraint<unsigned int>>>(unint64_t *a1, unint64_t *a2, const __CFDictionary *a3, const void *a4, unint64_t *a5, void *a6)
 {
   value = ashp::boxed::dictionary::get_value(a3, a4, a3, a4);
   if (!value)
@@ -918,7 +643,7 @@ void sub_23ECBE20C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, const char *
   _Unwind_Resume(a1);
 }
 
-uint64_t parse_field_with_default<&(BOOL parse_array_or_singleton<&(BOOL parse_optional<&(ashp::acipc::config::named_target_spec::constraint::parse(ashp::acipc::config::named_target_spec::constraint*,ashp::boxed::object,ashp::acipc::config::error_context *)),ashp::acipc::config::named_target_spec::constraint>(ashp::optional<ashp::acipc::config::named_target_spec::constraint,ashp::optional_traits<ashp::acipc::config::named_target_spec::constraint,void>::default_sentinel> *,ashp::boxed::object,ashp::acipc::config::error_context *)),ashp::optional<ashp::acipc::config::named_target_spec::constraint,void>>(ashp::dynamic_array<ashp::acipc::config::named_target_spec::constraint> *,ashp::boxed::object,ashp::acipc::config::error_context *)),ashp::dynamic_array<ashp::optional<ashp::acipc::config::named_target_spec::constraint,void>>>(unint64_t *a1, unint64_t *a2, const __CFDictionary *a3, const void *a4, const char *a5, void *a6)
+uint64_t parse_field_with_default<&(BOOL parse_array_or_singleton<&(BOOL parse_optional<&(ashp::acipc::config::named_target_spec::constraint::parse(ashp::acipc::config::named_target_spec::constraint*,ashp::boxed::object,ashp::acipc::config::error_context *)),ashp::acipc::config::named_target_spec::constraint>(ashp::optional<ashp::acipc::config::named_target_spec::constraint,ashp::optional_traits<ashp::acipc::config::named_target_spec::constraint,void>::default_sentinel> *,ashp::boxed::object,ashp::acipc::config::error_context *)),ashp::optional<ashp::acipc::config::named_target_spec::constraint,void>>(ashp::dynamic_array<ashp::acipc::config::named_target_spec::constraint> *,ashp::boxed::object,ashp::acipc::config::error_context *)),ashp::dynamic_array<ashp::optional<ashp::acipc::config::named_target_spec::constraint,void>>>(unint64_t *a1, unint64_t *a2, const __CFDictionary *a3, const void *a4, char *a5, void *a6)
 {
   value = ashp::boxed::dictionary::get_value(a3, a4, a3, a4);
   if (!value)
@@ -957,7 +682,7 @@ LABEL_36:
         v26 = 0;
       }
 
-      v67 = v26;
+      v68 = v26;
       if (v26)
       {
         v27 = ashp::boxed::array::count(v26, v22, v23, v24);
@@ -975,8 +700,8 @@ LABEL_20:
           v38 = v31 - 1;
           do
           {
-            v66[16] = 0;
-            v39 = ashp::boxed::array::get_value(&v67, v37, v28, v29);
+            v67 = 0;
+            v39 = ashp::boxed::array::get_value(&v68, v37, v28, v29);
             v46 = parse_optional<&(ashp::acipc::config::named_target_spec::constraint::parse(ashp::acipc::config::named_target_spec::constraint*,ashp::boxed::object,ashp::acipc::config::error_context *)),ashp::acipc::config::named_target_spec::constraint>(v66, v39, a5, v40, v41);
             if (v46)
             {
@@ -1085,7 +810,7 @@ void sub_23ECBE554(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, const char *
   _Unwind_Resume(a1);
 }
 
-uint64_t parse_optional<&(ashp::acipc::config::named_target_spec::constraint::parse(ashp::acipc::config::named_target_spec::constraint*,ashp::boxed::object,ashp::acipc::config::error_context *)),ashp::acipc::config::named_target_spec::constraint>(uint64_t a1, ashp::boxed::BOOLean *cf, const char *a3, uint64_t a4, const char *a5)
+uint64_t parse_optional<&(ashp::acipc::config::named_target_spec::constraint::parse(ashp::acipc::config::named_target_spec::constraint*,ashp::boxed::object,ashp::acipc::config::error_context *)),ashp::acipc::config::named_target_spec::constraint>(uint64_t a1, ashp::boxed::BOOLean *cf, char *a3, uint64_t a4, const char *a5)
 {
   if (a1 && *(a1 + 16) != 1)
   {
@@ -1190,27 +915,27 @@ LABEL_25:
   return result;
 }
 
-void sub_23ECBE79C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_23ECBE79C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a9);
+  va_start(va, a11);
   ashp::refcounted_ptr<ashp::boxed::symbol,ashp::cf::refcount_policy>::reset(va, a2, a3, a4);
   _Unwind_Resume(a1);
 }
 
-void ashp::dynamic_array<ashp::optional<ashp::acipc::config::named_target_spec::constraint,void>>::ensure_free_space(unint64_t *a1, uint64_t a2, uint64_t a3, const char *a4, const char *a5)
+void ashp::dynamic_array<ashp::optional<ashp::acipc::config::named_target_spec::constraint,void>>::ensure_free_space(unint64_t *result, uint64_t a2, uint64_t a3, const char *a4, const char *a5)
 {
-  v6 = *a1 + 1;
-  if (*a1 == -1)
+  v6 = *result + 1;
+  if (*result == -1)
   {
     ashp::detail::control_flow::log_guard_else_failure("dynamic_array.hpp", 0x2DA, "ensure_free_space", a4);
-    ashp::detail::base::log_pre_crash_message("ALLOCATION FAILURE (or BUG) in Airship", "dynamic_array.hpp", 0x2DA, "ensure_free_space", v10);
+    ashp::detail::base::log_pre_crash_message("ALLOCATION FAILURE (or BUG) in Airship", "dynamic_array.hpp", 0x2DA, "ensure_free_space", v9);
     _os_crash();
     __break(1u);
   }
 
   else
   {
-    v7 = a1[1];
+    v7 = result[1];
     if (v6 > v7)
     {
       if (v7 <= 8)
@@ -1220,10 +945,9 @@ void ashp::dynamic_array<ashp::optional<ashp::acipc::config::named_target_spec::
 
       else
       {
-        v8 = a1[1];
+        v8 = result[1];
       }
 
-      v9 = (*a1 - 8) < 0;
       if (v6 >= 9)
       {
         do
@@ -1235,7 +959,7 @@ void ashp::dynamic_array<ashp::optional<ashp::acipc::config::named_target_spec::
 
           else
           {
-            v8 = *a1 + 1;
+            v8 = *result + 1;
           }
         }
 
@@ -1245,7 +969,7 @@ void ashp::dynamic_array<ashp::optional<ashp::acipc::config::named_target_spec::
       if (v7 < v8)
       {
 
-        ashp::detail::dynamic_array::storage<ashp::optional<ashp::acipc::config::named_target_spec::constraint,void>>::set_capacity(a1, v8, a3, a4, a5);
+        ashp::detail::dynamic_array::storage<ashp::optional<ashp::acipc::config::named_target_spec::constraint,void>>::set_capacity(result, v8, a3, a4, a5);
       }
     }
   }
@@ -1269,7 +993,7 @@ LABEL_11:
     v9 = 0;
     while (v14)
     {
-      ashp::unsafe_storage<ashp::acipc::config::named_target_spec::constraint>::storage::storage(v14 + v8, a1[2] + v8, v6, v7);
+      ashp::unsafe_storage<ashp::acipc::config::named_target_spec::constraint>::storage::storage(v14 + v8, (a1[2] + v8), v6, v7);
       ++v9;
       v8 += 24;
       if (v9 >= *a1)
@@ -1299,7 +1023,7 @@ LABEL_6:
   }
 }
 
-uint64_t ashp::unsafe_storage<ashp::acipc::config::named_target_spec::constraint>::storage::storage(uint64_t result, uint64_t a2, uint64_t a3, const char *a4)
+uint64_t ashp::unsafe_storage<ashp::acipc::config::named_target_spec::constraint>::storage::storage(uint64_t result, uint64_t *a2, uint64_t a3, const char *a4)
 {
   if (result)
   {
@@ -1311,7 +1035,7 @@ uint64_t ashp::unsafe_storage<ashp::acipc::config::named_target_spec::constraint
       v6 = *a2;
       *a2 = 0;
       *v5 = v6;
-      *(v5 + 8) = *(a2 + 8);
+      *(v5 + 8) = a2[1];
       *(v5 + 16) = 1;
       ashp::unsafe_storage<ashp::acipc::config::named_target_spec::constraint>::storage::reset(a2, v7, v8, v9);
     }
@@ -1327,7 +1051,7 @@ uint64_t ashp::unsafe_storage<ashp::acipc::config::named_target_spec::constraint
   return result;
 }
 
-uint64_t ashp::acipc::config::numeric_constraint<unsigned int>::parse(_DWORD *a1, CFTypeRef cf, uint64_t a3, const char *a4, const char *a5)
+uint64_t ashp::acipc::config::numeric_constraint<unsigned int>::parse(_DWORD *a1, CFTypeRef cf, unint64_t *a3, const char *a4, const char *a5)
 {
   if (!a1)
   {
@@ -1394,20 +1118,20 @@ LABEL_15:
   return result;
 }
 
-void ashp::dynamic_array<ashp::acipc::config::numeric_constraint<unsigned int>>::ensure_free_space(unint64_t *a1, uint64_t a2, uint64_t a3, const char *a4, const char *a5)
+void ashp::dynamic_array<ashp::acipc::config::numeric_constraint<unsigned int>>::ensure_free_space(unint64_t *result, uint64_t a2, uint64_t a3, const char *a4, const char *a5)
 {
-  v6 = *a1 + 1;
-  if (*a1 == -1)
+  v6 = *result + 1;
+  if (*result == -1)
   {
     ashp::detail::control_flow::log_guard_else_failure("dynamic_array.hpp", 0x2DA, "ensure_free_space", a4);
-    ashp::detail::base::log_pre_crash_message("ALLOCATION FAILURE (or BUG) in Airship", "dynamic_array.hpp", 0x2DA, "ensure_free_space", v10);
+    ashp::detail::base::log_pre_crash_message("ALLOCATION FAILURE (or BUG) in Airship", "dynamic_array.hpp", 0x2DA, "ensure_free_space", v9);
     _os_crash();
     __break(1u);
   }
 
   else
   {
-    v7 = a1[1];
+    v7 = result[1];
     if (v6 > v7)
     {
       if (v7 <= 8)
@@ -1417,10 +1141,9 @@ void ashp::dynamic_array<ashp::acipc::config::numeric_constraint<unsigned int>>:
 
       else
       {
-        v8 = a1[1];
+        v8 = result[1];
       }
 
-      v9 = (*a1 - 8) < 0;
       if (v6 >= 9)
       {
         do
@@ -1432,7 +1155,7 @@ void ashp::dynamic_array<ashp::acipc::config::numeric_constraint<unsigned int>>:
 
           else
           {
-            v8 = *a1 + 1;
+            v8 = *result + 1;
           }
         }
 
@@ -1442,7 +1165,7 @@ void ashp::dynamic_array<ashp::acipc::config::numeric_constraint<unsigned int>>:
       if (v7 < v8)
       {
 
-        ashp::detail::dynamic_array::storage<ashp::acipc::config::numeric_constraint<unsigned int>>::set_capacity(a1, v8, a3, a4, a5);
+        ashp::detail::dynamic_array::storage<ashp::acipc::config::numeric_constraint<unsigned int>>::set_capacity(result, v8, a3, a4, a5);
       }
     }
   }
@@ -1493,7 +1216,7 @@ LABEL_6:
   }
 }
 
-uint64_t ashp::acipc::config::numeric_constraint<unsigned short>::parse(_WORD *a1, CFTypeRef cf, uint64_t a3, const char *a4, const char *a5)
+uint64_t ashp::acipc::config::numeric_constraint<unsigned short>::parse(_WORD *a1, CFTypeRef cf, unint64_t *a3, const char *a4, const char *a5)
 {
   if (!a1)
   {
@@ -1560,20 +1283,20 @@ LABEL_15:
   return result;
 }
 
-void ashp::dynamic_array<ashp::acipc::config::numeric_constraint<unsigned short>>::ensure_free_space(unint64_t *a1, uint64_t a2, uint64_t a3, const char *a4, const char *a5)
+void ashp::dynamic_array<ashp::acipc::config::numeric_constraint<unsigned short>>::ensure_free_space(unint64_t *result, uint64_t a2, uint64_t a3, const char *a4, const char *a5)
 {
-  v6 = *a1 + 1;
-  if (*a1 == -1)
+  v6 = *result + 1;
+  if (*result == -1)
   {
     ashp::detail::control_flow::log_guard_else_failure("dynamic_array.hpp", 0x2DA, "ensure_free_space", a4);
-    ashp::detail::base::log_pre_crash_message("ALLOCATION FAILURE (or BUG) in Airship", "dynamic_array.hpp", 0x2DA, "ensure_free_space", v10);
+    ashp::detail::base::log_pre_crash_message("ALLOCATION FAILURE (or BUG) in Airship", "dynamic_array.hpp", 0x2DA, "ensure_free_space", v9);
     _os_crash();
     __break(1u);
   }
 
   else
   {
-    v7 = a1[1];
+    v7 = result[1];
     if (v6 > v7)
     {
       if (v7 <= 8)
@@ -1583,10 +1306,9 @@ void ashp::dynamic_array<ashp::acipc::config::numeric_constraint<unsigned short>
 
       else
       {
-        v8 = a1[1];
+        v8 = result[1];
       }
 
-      v9 = (*a1 - 8) < 0;
       if (v6 >= 9)
       {
         do
@@ -1598,7 +1320,7 @@ void ashp::dynamic_array<ashp::acipc::config::numeric_constraint<unsigned short>
 
           else
           {
-            v8 = *a1 + 1;
+            v8 = *result + 1;
           }
         }
 
@@ -1608,7 +1330,7 @@ void ashp::dynamic_array<ashp::acipc::config::numeric_constraint<unsigned short>
       if (v7 < v8)
       {
 
-        ashp::detail::dynamic_array::storage<ashp::acipc::config::numeric_constraint<unsigned short>>::set_capacity(a1, v8, a3, a4, a5);
+        ashp::detail::dynamic_array::storage<ashp::acipc::config::numeric_constraint<unsigned short>>::set_capacity(result, v8, a3, a4, a5);
       }
     }
   }
@@ -1659,7 +1381,7 @@ LABEL_6:
   }
 }
 
-uint64_t parse_field_with_default<&(ashp::acipc::config::completion_ring_spec::multi_config::parse(ashp::acipc::config::completion_ring_spec::multi_config*,ashp::boxed::object,ashp::acipc::config::error_context *)),ashp::acipc::config::completion_ring_spec::multi_config>(uint64_t a1, const __CFDictionary *a2, const char *a3, const char *a4)
+uint64_t parse_field_with_default<&(ashp::acipc::config::completion_ring_spec::multi_config::parse(ashp::acipc::config::completion_ring_spec::multi_config*,ashp::boxed::object,ashp::acipc::config::error_context *)),ashp::acipc::config::completion_ring_spec::multi_config>(uint64_t a1, const __CFDictionary *a2, char *a3, const char *a4)
 {
   value = ashp::boxed::dictionary::get_value(a2, @"multi", a3, a4);
   if (!value)
@@ -1718,7 +1440,7 @@ LABEL_17:
   return 0;
 }
 
-uint64_t parse_field_with_default<&(ashp::acipc::config::completion_ring_spec::constraint_config::parse(ashp::acipc::config::completion_ring_spec::constraint_config*,ashp::boxed::object,ashp::acipc::config::error_context *)),ashp::acipc::config::completion_ring_spec::constraint_config>(unint64_t *a1, unint64_t *a2, const __CFDictionary *a3, const char *a4, void *a5)
+uint64_t parse_field_with_default<&(ashp::acipc::config::completion_ring_spec::constraint_config::parse(ashp::acipc::config::completion_ring_spec::constraint_config*,ashp::boxed::object,ashp::acipc::config::error_context *)),ashp::acipc::config::completion_ring_spec::constraint_config>(unint64_t *a1, unint64_t *a2, const __CFDictionary *a3, char *a4, void *a5)
 {
   value = ashp::boxed::dictionary::get_value(a3, @"constraints", a3, a4);
   if (!value)
@@ -1820,7 +1542,7 @@ void ashp::acipc::config::completion_ring_spec::constraint_config::~constraint_c
   ashp::detail::dynamic_array::storage<ashp::acipc::config::numeric_constraint<unsigned short>>::~storage(this, v14, v15, v16, v17);
 }
 
-uint64_t parse_field_with_default<&(ashp::acipc::config::memory_region_spec::multi_config::parse(ashp::acipc::config::memory_region_spec::multi_config*,ashp::boxed::object,ashp::acipc::config::error_context *)),ashp::acipc::config::memory_region_spec::multi_config>(uint64_t a1, const __CFDictionary *a2, const char *a3, const char *a4)
+uint64_t parse_field_with_default<&(ashp::acipc::config::memory_region_spec::multi_config::parse(ashp::acipc::config::memory_region_spec::multi_config*,ashp::boxed::object,ashp::acipc::config::error_context *)),ashp::acipc::config::memory_region_spec::multi_config>(uint64_t a1, const __CFDictionary *a2, char *a3, const char *a4)
 {
   value = ashp::boxed::dictionary::get_value(a2, @"multi", a3, a4);
   if (!value)
@@ -2004,7 +1726,7 @@ LABEL_23:
   return 0;
 }
 
-void ashp::acipc::config::interrupt_spec::multi_config::resolve(uint64_t a1, unsigned int a2, unsigned __int16 a3, const char *a4)
+void ashp::acipc::config::interrupt_spec::multi_config::resolve(uint64_t result, unsigned int a2, unsigned __int16 a3, const char *a4)
 {
   if (a2 <= a4)
   {
@@ -2016,10 +1738,10 @@ void ashp::acipc::config::interrupt_spec::multi_config::resolve(uint64_t a1, uns
     v5 = a4 + a3;
     if (!__CFADD__(a4, a3) && v5 < 0x10000)
     {
-      if (a1)
+      if (result)
       {
-        *a1 = v5;
-        *(a1 + 2) = 1;
+        *result = v5;
+        *(result + 2) = 1;
         return;
       }
 
@@ -2030,9 +1752,9 @@ void ashp::acipc::config::interrupt_spec::multi_config::resolve(uint64_t a1, uns
   }
 
   ashp::detail::control_flow::log_guard_else_failure("configurator.cpp", v6, "resolve", a4);
-  if (a1)
+  if (result)
   {
-    *(a1 + 2) = 0;
+    *(result + 2) = 0;
     return;
   }
 
@@ -2100,11 +1822,11 @@ LABEL_15:
   return v8;
 }
 
-uint64_t ashp::acipc::config::doorbell_spec::validate(uint64_t a1, uint64_t a2, uint64_t a3, const char *a4, const char *a5)
+BOOL ashp::acipc::config::doorbell_spec::validate(uint64_t a1, uint64_t a2, const char *a3, const char *a4, const char *a5)
 {
   v5 = a3;
   v6 = a2;
-  v88 = *MEMORY[0x277D85DE8];
+  v87 = *MEMORY[0x277D85DE8];
   if (!a2)
   {
     goto LABEL_18;
@@ -2117,7 +1839,7 @@ LABEL_36:
     v57 = "ambiguous name";
 LABEL_38:
     set_error(v5, v57, 0, a4, a5);
-    goto LABEL_42;
+    return 0;
   }
 
   v9 = 0;
@@ -2159,7 +1881,7 @@ LABEL_38:
       ashp::detail::base::log_pre_crash_message("BUG in Airship: ", "configurator.cpp", 0x1E6, "count_where", a5);
       _os_crash();
       __break(1u);
-      goto LABEL_55;
+      goto LABEL_54;
     }
 
 LABEL_16:
@@ -2180,32 +1902,32 @@ LABEL_18:
     goto LABEL_38;
   }
 
-  ashp::unsafe_storage<ashp::acipc::config::named_target_spec>::storage::storage(v83, a1 + 48, a3, a4);
+  ashp::unsafe_storage<ashp::acipc::config::named_target_spec>::storage::storage(v82, a1 + 48, a3, a4);
   v20 = (a1 + 72);
-  v84[0] = *(a1 + 72);
-  *(v84 + 5) = *(a1 + 77);
-  ashp::acipc::config::doorbell_spec::multi_config::resolve(&v85, a1 + 88, v83, (*(a1 + 88) - 1));
-  if (v87 != 1)
+  v83[0] = *(a1 + 72);
+  *(v83 + 5) = *(a1 + 77);
+  ashp::acipc::config::doorbell_spec::multi_config::resolve(&v84, a1 + 88, v82, (*(a1 + 88) - 1));
+  if (v86 != 1)
   {
-    ashp::unsafe_storage<ashp::acipc::config::named_target_spec>::storage::reset(v83, v21, v22, v23);
+    ashp::unsafe_storage<ashp::acipc::config::named_target_spec>::storage::reset(v82, v21, v22, v23);
     set_error(v5, "instance resolution failure", 0, v58, v59);
-    goto LABEL_42;
+    return 0;
   }
 
-  v87 = 0;
-  ashp::unsafe_storage<ashp::acipc::config::named_target_spec>::storage::reset(v86, v21, v22, v23);
-  ashp::unsafe_storage<ashp::acipc::config::named_target_spec>::storage::reset(v83, v24, v25, v26);
+  v86 = 0;
+  ashp::unsafe_storage<ashp::acipc::config::named_target_spec>::storage::reset(v85, v21, v22, v23);
+  ashp::unsafe_storage<ashp::acipc::config::named_target_spec>::storage::reset(v82, v24, v25, v26);
   v30 = *(a1 + 84);
   if (v30 != 2 && v30 != 4)
   {
     set_error(v5, "unsupported register width", "register", v28, v29);
-    goto LABEL_42;
+    return 0;
   }
 
   if ((ashp::acipc::config::device_register_spec::validate(a1 + 76, v5, v27, v28, v29) & 1) == 0)
   {
     set_error_location(v5, "register", v32, v33);
-    goto LABEL_42;
+    return 0;
   }
 
   if (*(a1 + 8) != 3)
@@ -2216,7 +1938,7 @@ LABEL_18:
   if ((*(a1 + 16) & 1) == 0)
   {
     set_error(v5, "doorbell value not configured in shared constant mode", "value", v33, v34);
-    goto LABEL_42;
+    return 0;
   }
 
   if (*(a1 + 84) == 2)
@@ -2225,13 +1947,13 @@ LABEL_18:
     if (*(a1 + 12) >= 0x10000u)
     {
       set_error(v5, "doorbell value out of range", 0, v33, v35);
-      goto LABEL_42;
+      return 0;
     }
   }
 
   if (!v6)
   {
-    goto LABEL_52;
+    return 1;
   }
 
 LABEL_27:
@@ -2243,9 +1965,9 @@ LABEL_27:
     while (1)
     {
       ashp::optional<ashp::boxed::data,ashp::optional_sentinel<(decltype(nullptr))0,true>>::value(v37, v31, v32, v33);
-      v40 = ashp::acipc::config::boot_ipc_stage_spec::lookup(v6[29], v6[31], *v37, v39);
+      v40 = ashp::acipc::config::boot_ipc_stage_spec::lookup(v6[7].info, v6[7].length, *v37, v39);
       ashp::optional<ashp::boxed::data,ashp::optional_sentinel<(decltype(nullptr))0,true>>::value(v37, v41, v42, v43);
-      if (!(v40 | ashp::acipc::config::main_ipc_stage_spec::lookup(v6[32], v6[34], *v37, v44)))
+      if (!(v40 | ashp::acipc::config::main_ipc_stage_spec::lookup(v6[8].isa, v6[8].data, *v37, v44)))
       {
         break;
       }
@@ -2259,70 +1981,57 @@ LABEL_27:
     }
 
     set_error(v5, "unknown target", "ipc_stage", v33, v45);
-    goto LABEL_42;
+    return 0;
   }
 
 LABEL_32:
-  v82 = *(a1 + 80);
-  ashp::unsafe_storage<ashp::acipc::config::named_target_spec>::storage::storage(v79, a1 + 48, v32, v33);
-  v80[0] = *v20;
-  *(v80 + 5) = *(a1 + 77);
-  ashp::acipc::config::doorbell_spec::multi_config::resolve(&v85, a1 + 88, v79, (*(a1 + 88) - 1));
-  v52 = *(ashp::optional<ashp::acipc::config::doorbell_spec::dynamic_config,void>::value(&v85, v46, v47, v48) + 32) + *(a1 + 84) - 1;
-  if (v87 == 1)
+  v81 = *(a1 + 80);
+  ashp::unsafe_storage<ashp::acipc::config::named_target_spec>::storage::storage(v78, a1 + 48, v32, v33);
+  v79[0] = *v20;
+  *(v79 + 5) = *(a1 + 77);
+  ashp::acipc::config::doorbell_spec::multi_config::resolve(&v84, a1 + 88, v78, (*(a1 + 88) - 1));
+  v52 = *(ashp::optional<ashp::acipc::config::doorbell_spec::dynamic_config,void>::value(&v84, v46, v47, v48) + 32) + *(a1 + 84) - 1;
+  if (v86 == 1)
   {
-    v87 = 0;
-    ashp::unsafe_storage<ashp::acipc::config::named_target_spec>::storage::reset(v86, v49, v50, v51);
+    v86 = 0;
+    ashp::unsafe_storage<ashp::acipc::config::named_target_spec>::storage::reset(v85, v49, v50, v51);
   }
 
-  ashp::unsafe_storage<ashp::acipc::config::named_target_spec>::storage::reset(v79, v49, v50, v51);
-  v81 = v52;
-  v85 = a1;
-  v86[0] = &v82;
-  v86[1] = &v81;
-  if (first_where<ashp::acipc::config::doorbell_spec,ashp::acipc::config::doorbell_spec::validate(ashp::acipc::config::acipc_config const*,ashp::acipc::config::error_context *)::$_0,0>(v6[7], v6[9], &v85, v53))
+  ashp::unsafe_storage<ashp::acipc::config::named_target_spec>::storage::reset(v78, v49, v50, v51);
+  v80 = v52;
+  v84 = a1;
+  v85[0] = &v81;
+  v85[1] = &v80;
+  if (first_where<ashp::acipc::config::doorbell_spec,ashp::acipc::config::doorbell_spec::validate(ashp::acipc::config::acipc_config const*,ashp::acipc::config::error_context *)::$_0,0>(v6[1].length, v6[2].info, &v84, v53))
   {
     set_error(v5, "register overlap", 0, v55, v56);
-    goto LABEL_42;
+    return 0;
   }
 
-  ashp::unsafe_storage<ashp::acipc::config::named_target_spec>::storage::storage(v77, a1 + 48, v54, v55);
-  v78[0] = *v20;
-  *(v78 + 5) = *(a1 + 77);
-  ashp::acipc::config::doorbell_spec::multi_config::resolve(&v85, a1 + 88, v77, (*(a1 + 88) - 1));
-  ashp::unsafe_storage<ashp::acipc::config::named_target_spec>::storage::reset(v77, v62, v63, v64);
-  if (*(ashp::optional<ashp::acipc::config::doorbell_spec::dynamic_config,void>::value(&v85, v65, v66, v67) + 16) == 1 && (v71 = ashp::optional<ashp::acipc::config::doorbell_spec::dynamic_config,void>::value(&v85, v68, v69, v70), ashp::optional<ashp::acipc::name_and_selector,void>::value(v71, v72, v73, v74), !resolve_named_target<ashp::acipc::config::resource_spec>(v6[13], v6[15], v71, v5, v75)))
+  ashp::unsafe_storage<ashp::acipc::config::named_target_spec>::storage::storage(v76, a1 + 48, v54, v55);
+  v77[0] = *v20;
+  *(v77 + 5) = *(a1 + 77);
+  ashp::acipc::config::doorbell_spec::multi_config::resolve(&v84, a1 + 88, v76, (*(a1 + 88) - 1));
+  ashp::unsafe_storage<ashp::acipc::config::named_target_spec>::storage::reset(v76, v61, v62, v63);
+  if (*(ashp::optional<ashp::acipc::config::doorbell_spec::dynamic_config,void>::value(&v84, v64, v65, v66) + 16) == 1 && (v70 = ashp::optional<ashp::acipc::config::doorbell_spec::dynamic_config,void>::value(&v84, v67, v68, v69), ashp::optional<ashp::acipc::name_and_selector,void>::value(v70, v71, v72, v73), !resolve_named_target<ashp::acipc::config::resource_spec>(v6[3].info, v6[3].length, v70, v5, v74)))
   {
-LABEL_55:
-    set_error_location(v5, "resource", v69, v70);
-    v76 = 0;
+LABEL_54:
+    set_error_location(v5, "resource", v68, v69);
+    v75 = 0;
   }
 
   else
   {
-    v76 = 1;
+    v75 = 1;
   }
 
-  if (v87 == 1)
+  if (v86 == 1)
   {
-    v87 = 0;
-    ashp::unsafe_storage<ashp::acipc::config::named_target_spec>::storage::reset(v86, v68, v69, v70);
+    v86 = 0;
+    ashp::unsafe_storage<ashp::acipc::config::named_target_spec>::storage::reset(v85, v67, v68, v69);
   }
 
-  if ((v76 & 1) == 0)
-  {
-LABEL_42:
-    result = 0;
-  }
-
-  else
-  {
-LABEL_52:
-    result = 1;
-  }
-
-  v61 = *MEMORY[0x277D85DE8];
-  return result;
+  return (v75 & 1) != 0;
 }
 
 void ashp::acipc::config::doorbell_spec::multi_config::resolve(uint64_t a1, uint64_t a2, uint64_t a3, const char *a4)
@@ -2335,7 +2044,7 @@ void ashp::acipc::config::doorbell_spec::multi_config::resolve(uint64_t a1, uint
   }
 
   v5 = a4;
-  ashp::unsafe_storage<ashp::acipc::config::named_target_spec>::storage::storage(v35, a3, a3, a4);
+  ashp::unsafe_storage<ashp::acipc::config::named_target_spec>::storage::storage(&v35, a3, a3, a4);
   *v37 = *(a3 + 24);
   *&v37[5] = *(a3 + 29);
   if (*(a3 + 16) == 1)
@@ -2343,7 +2052,7 @@ void ashp::acipc::config::doorbell_spec::multi_config::resolve(uint64_t a1, uint
     v11 = *(a2 + 4);
     ashp::optional<ashp::acipc::name_and_selector,void>::value(a3, v8, v9, v10);
     v12 = *(a3 + 8);
-    ashp::optional<ashp::acipc::name_and_selector,void>::value(v35, v13, v14, v15);
+    ashp::optional<ashp::acipc::name_and_selector,void>::value(&v35, v13, v14, v15);
     v36 = v12 + v11 * v5;
     if (__CFADD__(v12, v11 * v5))
     {
@@ -2378,18 +2087,18 @@ LABEL_16:
     goto LABEL_16;
   }
 
-  ashp::unsafe_storage<ashp::acipc::config::named_target_spec>::storage::storage(v33, v35, v9, v10);
+  ashp::unsafe_storage<ashp::acipc::config::named_target_spec>::storage::storage(v33, &v35, v9, v10);
   v34[0] = *v37;
   *(v34 + 5) = *&v37[5];
   ashp::optional<ashp::acipc::config::doorbell_spec::dynamic_config,void>::optional<int,0>(a1, v33, v25, v26);
   ashp::unsafe_storage<ashp::acipc::config::named_target_spec>::storage::reset(v33, v27, v28, v29);
 LABEL_12:
-  ashp::unsafe_storage<ashp::acipc::config::named_target_spec>::storage::reset(v35, v30, v31, v32);
+  ashp::unsafe_storage<ashp::acipc::config::named_target_spec>::storage::reset(&v35, v30, v31, v32);
 }
 
-void sub_23ECBFF14(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_23ECBFF14(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a9);
+  va_start(va, a11);
   ashp::unsafe_storage<ashp::acipc::config::named_target_spec>::storage::reset(va, a2, a3, a4);
   _Unwind_Resume(a1);
 }
@@ -2415,7 +2124,7 @@ void sub_23ECBFF88(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, const char *
   _Unwind_Resume(a1);
 }
 
-const __CFString **ashp::acipc::config::boot_ipc_stage_spec::lookup(uint64_t a1, uint64_t a2, const __CFString *a3, const char *a4)
+const __CFString **ashp::acipc::config::boot_ipc_stage_spec::lookup(uint64_t a1, const __CFString **a2, const __CFString *a3, const char *a4)
 {
   if (a1)
   {
@@ -2464,7 +2173,7 @@ const __CFString **ashp::acipc::config::boot_ipc_stage_spec::lookup(uint64_t a1,
   return 0;
 }
 
-const __CFString **ashp::acipc::config::main_ipc_stage_spec::lookup(uint64_t a1, uint64_t a2, const __CFString *a3, const char *a4)
+const __CFString **ashp::acipc::config::main_ipc_stage_spec::lookup(uint64_t a1, const __CFString **a2, const __CFString *a3, const char *a4)
 {
   if (a1)
   {
@@ -2513,121 +2222,116 @@ const __CFString **ashp::acipc::config::main_ipc_stage_spec::lookup(uint64_t a1,
   return 0;
 }
 
-uint64_t first_where<ashp::acipc::config::doorbell_spec,ashp::acipc::config::doorbell_spec::validate(ashp::acipc::config::acipc_config const*,ashp::acipc::config::error_context *)::$_0,0>(uint64_t a1, uint64_t a2, uint64_t a3, const char *a4)
+uint64_t first_where<ashp::acipc::config::doorbell_spec,ashp::acipc::config::doorbell_spec::validate(ashp::acipc::config::acipc_config const*,ashp::acipc::config::error_context *)::$_0,0>(uint64_t a1, uint64_t a2, uint64_t *a3, const char *a4)
 {
-  v49 = *MEMORY[0x277D85DE8];
-  if (a1)
+  v48 = *MEMORY[0x277D85DE8];
+  if (!a1)
   {
-    v5 = a2;
-    v6 = a2 + 96 * a1;
-    v42 = v6;
-    while (1)
+    return 0;
+  }
+
+  v5 = a2;
+  v6 = a2 + 96 * a1;
+  v41 = v6;
+  while (1)
+  {
+    v7 = *a3;
+    if (*a3 != v5)
     {
-      v7 = *a3;
-      if (*a3 != v5)
+      v8 = *(v5 + 24);
+      if (v8)
       {
-        v8 = *(v5 + 24);
-        if (v8)
+        v9 = 0;
+        v10 = *(v5 + 40);
+        v11 = &v10[v8];
+        do
         {
-          v9 = 0;
-          v10 = *(v5 + 40);
-          v11 = &v10[v8];
-          do
+          v12 = *(v7 + 24);
+          if (v12)
           {
-            v12 = *(v7 + 24);
-            if (v12)
+            v13 = *(v7 + 40);
+            v14 = 8 * v12;
+            do
             {
-              v13 = *(v7 + 40);
-              v14 = 8 * v12;
-              do
+              ashp::refcounted_ptr<ashp::boxed::data,ashp::cf::refcount_policy>::refcounted_ptr(&v45, *v10, a3, a4);
+              ashp::refcounted_ptr<ashp::boxed::data,ashp::cf::refcount_policy>::refcounted_ptr(&theString2, *v13, v15, v16);
+              ashp::optional<ashp::boxed::data,ashp::optional_sentinel<(decltype(nullptr))0,true>>::value(&v45, v17, v18, v19);
+              v20 = v45;
+              ashp::optional<ashp::boxed::data,ashp::optional_sentinel<(decltype(nullptr))0,true>>::value(&theString2, v21, v22, v23);
+              v26 = theString2;
+              v27 = (v20 | theString2) == 0;
+              if (v20 && theString2)
               {
-                ashp::refcounted_ptr<ashp::boxed::data,ashp::cf::refcount_policy>::refcounted_ptr(&v46, *v10, a3, a4);
-                ashp::refcounted_ptr<ashp::boxed::data,ashp::cf::refcount_policy>::refcounted_ptr(&theString2, *v13, v15, v16);
-                ashp::optional<ashp::boxed::data,ashp::optional_sentinel<(decltype(nullptr))0,true>>::value(&v46, v17, v18, v19);
-                v20 = v46;
-                ashp::optional<ashp::boxed::data,ashp::optional_sentinel<(decltype(nullptr))0,true>>::value(&theString2, v21, v22, v23);
-                v26 = theString2;
-                v27 = (v20 | theString2) == 0;
-                if (v20 && theString2)
-                {
-                  v27 = CFStringCompare(v20, theString2, 0) == kCFCompareEqualTo;
-                }
-
-                ashp::refcounted_ptr<ashp::boxed::symbol,ashp::cf::refcount_policy>::reset(&theString2, v26, v24, v25);
-                ashp::refcounted_ptr<ashp::boxed::symbol,ashp::cf::refcount_policy>::reset(&v46, v28, v29, v30);
-                if (v27)
-                {
-                  v32 = __CFADD__(v9++, 1);
-                  v33 = v32;
-                  if (v33 << 63 >> 63 != v33)
-                  {
-                    ashp::detail::base::log_pre_crash_message("BUG in Airship: ", "configurator.cpp", 0x215, "count_intersection", v31);
-                    _os_crash();
-                    __break(1u);
-                  }
-                }
-
-                ++v13;
-                v14 -= 8;
+                v27 = CFStringCompare(v20, theString2, 0) == kCFCompareEqualTo;
               }
 
-              while (v14);
+              ashp::refcounted_ptr<ashp::boxed::symbol,ashp::cf::refcount_policy>::reset(&theString2, v26, v24, v25);
+              ashp::refcounted_ptr<ashp::boxed::symbol,ashp::cf::refcount_policy>::reset(&v45, v28, v29, v30);
+              if (v27)
+              {
+                v32 = __CFADD__(v9++, 1);
+                v33 = v32;
+                if (v33 << 63 >> 63 != v33)
+                {
+                  ashp::detail::base::log_pre_crash_message("BUG in Airship: ", "configurator.cpp", 0x215, "count_intersection", v31);
+                  _os_crash();
+                  __break(1u);
+                }
+              }
+
+              ++v13;
+              v14 -= 8;
             }
 
-            ++v10;
+            while (v14);
           }
 
-          while (v10 != v11);
-          v6 = v42;
-          if (v9 && *(v5 + 76) == *(v7 + 76))
+          ++v10;
+        }
+
+        while (v10 != v11);
+        v6 = v41;
+        if (v9 && *(v5 + 76) == *(v7 + 76))
+        {
+          ashp::unsafe_storage<ashp::acipc::config::named_target_spec>::storage::storage(v42, v5 + 48, a3, a4);
+          v43[0] = *(v5 + 72);
+          *(v43 + 5) = *(v5 + 77);
+          ashp::acipc::config::doorbell_spec::multi_config::resolve(&v45, v5 + 88, v42, (*(v5 + 88) - 1));
+          ashp::unsafe_storage<ashp::acipc::config::named_target_spec>::storage::reset(v42, v34, v35, v36);
+          if (v47)
           {
-            ashp::unsafe_storage<ashp::acipc::config::named_target_spec>::storage::storage(v43, v5 + 48, a3, a4);
-            v44[0] = *(v5 + 72);
-            *(v44 + 5) = *(v5 + 77);
-            ashp::acipc::config::doorbell_spec::multi_config::resolve(&v46, v5 + 88, v43, (*(v5 + 88) - 1));
-            ashp::unsafe_storage<ashp::acipc::config::named_target_spec>::storage::reset(v43, v34, v35, v36);
-            if (v48)
-            {
-              v38 = *(v5 + 80);
-              v6 = v42;
-              v39 = **(a3 + 8) <= *(ashp::optional<ashp::acipc::config::doorbell_spec::dynamic_config,void>::value(&v46, v37, a3, a4) + 32) + *(v5 + 84) - 1 && **(a3 + 16) >= v38;
-            }
+            v38 = *(v5 + 80);
+            v6 = v41;
+            v39 = *a3[1] <= *(ashp::optional<ashp::acipc::config::doorbell_spec::dynamic_config,void>::value(&v45, v37, a3, a4) + 32) + *(v5 + 84) - 1 && *a3[2] >= v38;
+          }
 
-            else
-            {
-              v39 = 0;
-              v6 = v42;
-            }
+          else
+          {
+            v39 = 0;
+            v6 = v41;
+          }
 
-            if (v48 == 1)
-            {
-              v48 = 0;
-              ashp::unsafe_storage<ashp::acipc::config::named_target_spec>::storage::reset(&v47, v37, a3, a4);
-            }
+          if (v47 == 1)
+          {
+            v47 = 0;
+            ashp::unsafe_storage<ashp::acipc::config::named_target_spec>::storage::reset(&v46, v37, a3, a4);
+          }
 
-            if (v39)
-            {
-              break;
-            }
+          if (v39)
+          {
+            break;
           }
         }
       }
+    }
 
-      v5 += 96;
-      if (v5 == v6)
-      {
-        goto LABEL_29;
-      }
+    v5 += 96;
+    if (v5 == v6)
+    {
+      return 0;
     }
   }
 
-  else
-  {
-LABEL_29:
-    v5 = 0;
-  }
-
-  v40 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -2695,26 +2399,25 @@ LABEL_13:
   return 0;
 }
 
-uint64_t ashp::optional<ashp::acipc::config::doorbell_spec::dynamic_config,void>::optional<int,0>(uint64_t a1, uint64_t a2, uint64_t a3, const char *a4)
+uint64_t ashp::optional<ashp::acipc::config::doorbell_spec::dynamic_config,void>::optional<int,0>(uint64_t a1, uint64_t *a2, uint64_t a3, const char *a4)
 {
   *(a1 + 48) = 0;
   ashp::unsafe_storage<ashp::acipc::config::named_target_spec>::storage::storage(a1 + 8, a2, a3, a4);
-  v6 = *(a2 + 24);
+  v6 = a2[3];
   *(a1 + 37) = *(a2 + 29);
   *(a1 + 32) = v6;
   *(a1 + 48) = 1;
   return a1;
 }
 
-uint64_t *resolve_named_target<ashp::acipc::config::doorbell_spec>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, const char *a5)
+__CFString *resolve_named_target<ashp::acipc::config::doorbell_spec>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, const char *a5)
 {
-  v48 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
   if (!a1)
   {
 LABEL_12:
     set_error(a5, "unknown target", 0, a4, a5);
-    v8 = 0;
-    goto LABEL_13;
+    return 0;
   }
 
   v8 = a2;
@@ -2724,7 +2427,7 @@ LABEL_12:
     ashp::optional<ashp::boxed::data,ashp::optional_sentinel<(decltype(nullptr))0,true>>::value(a3, a2, a3, a4);
     v10 = *a3;
     ashp::optional<ashp::boxed::data,ashp::optional_sentinel<(decltype(nullptr))0,true>>::value(v8, v11, v12, v13);
-    a2 = *v8;
+    a2 = v8->isa;
     if (v10 && a2 != 0)
     {
       break;
@@ -2736,7 +2439,7 @@ LABEL_12:
     }
 
 LABEL_11:
-    v8 += 12;
+    v8 += 3;
     v9 -= 96;
     if (!v9)
     {
@@ -2750,50 +2453,48 @@ LABEL_11:
   }
 
 LABEL_14:
-  ashp::unsafe_storage<ashp::acipc::config::named_target_spec>::storage::storage(v42, (v8 + 6), a3, a4);
-  v43[0] = v8[9];
-  *(v43 + 5) = *(v8 + 77);
-  ashp::acipc::config::doorbell_spec::multi_config::resolve(v45, (v8 + 11), v42, *(a3 + 8));
-  ashp::unsafe_storage<ashp::acipc::config::named_target_spec>::storage::reset(v42, v18, v19, v20);
-  if (v47)
+  ashp::unsafe_storage<ashp::acipc::config::named_target_spec>::storage::storage(v41, &v8[1].data, a3, a4);
+  v42[0] = v8[2].info;
+  *(v42 + 5) = *(&v8[2].info + 5);
+  ashp::acipc::config::doorbell_spec::multi_config::resolve(v44, &v8[2].length, v41, *(a3 + 8));
+  ashp::unsafe_storage<ashp::acipc::config::named_target_spec>::storage::reset(v41, v17, v18, v19);
+  if (v46)
   {
-    v25 = ashp::optional<ashp::acipc::config::doorbell_spec::dynamic_config,void>::value(v45, v21, v22, v23);
-    ashp::unsafe_storage<ashp::acipc::config::named_target_spec>::storage::storage(v40, v25, v26, v27);
-    v31 = *(v25 + 24);
-    *&v41[5] = *(v25 + 29);
-    *v41 = v31;
+    v24 = ashp::optional<ashp::acipc::config::doorbell_spec::dynamic_config,void>::value(v44, v20, v21, v22);
+    ashp::unsafe_storage<ashp::acipc::config::named_target_spec>::storage::storage(v39, v24, v25, v26);
+    v30 = *(v24 + 24);
+    *&v40[5] = *(v24 + 29);
+    *v40 = v30;
     if (a4)
     {
-      ashp::unsafe_storage<ashp::acipc::config::named_target_spec>::storage::storage(v44, v40, v29, v30);
-      ashp::swap(a4, v44, v32, v33);
-      ashp::unsafe_storage<ashp::acipc::config::named_target_spec>::storage::reset(v44, v34, v35, v36);
-      *(a4 + 24) = *v41;
-      *(a4 + 29) = *&v41[5];
+      ashp::unsafe_storage<ashp::acipc::config::named_target_spec>::storage::storage(v43, v39, v28, v29);
+      ashp::swap(a4, v43, v31, v32);
+      ashp::unsafe_storage<ashp::acipc::config::named_target_spec>::storage::reset(v43, v33, v34, v35);
+      *(a4 + 24) = *v40;
+      *(a4 + 29) = *&v40[5];
     }
 
-    ashp::unsafe_storage<ashp::acipc::config::named_target_spec>::storage::reset(v40, v28, v29, v30);
+    ashp::unsafe_storage<ashp::acipc::config::named_target_spec>::storage::reset(v39, v27, v28, v29);
   }
 
   else
   {
-    set_error(a5, "instance resolution failure", 0, v23, v24);
+    set_error(a5, "instance resolution failure", 0, v22, v23);
     v8 = 0;
   }
 
-  if (v47 == 1)
+  if (v46 == 1)
   {
-    v47 = 0;
-    ashp::unsafe_storage<ashp::acipc::config::named_target_spec>::storage::reset(&v46, v37, v38, v39);
+    v46 = 0;
+    ashp::unsafe_storage<ashp::acipc::config::named_target_spec>::storage::reset(&v45, v36, v37, v38);
   }
 
-LABEL_13:
-  v16 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
-void sub_23ECC06E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
+void sub_23ECC06E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a10);
+  va_start(va, a13);
   ashp::unsafe_storage<ashp::acipc::config::named_target_spec>::storage::reset(va, a2, a3, a4);
   _Unwind_Resume(a1);
 }
@@ -2932,7 +2633,7 @@ LABEL_36:
   return result;
 }
 
-const __CFString **ashp::acipc::config::exec_stage_spec::lookup(uint64_t a1, uint64_t a2, const __CFString *a3, const char *a4)
+const __CFString **ashp::acipc::config::exec_stage_spec::lookup(uint64_t a1, const __CFString **a2, const __CFString *a3, const char *a4)
 {
   if (a1)
   {
@@ -3060,25 +2761,24 @@ LABEL_22:
   return 0;
 }
 
-uint64_t parse_field_with_default<&(BOOL parse_optional<&(ashp::acipc::config::device_register_spec::parse(ashp::acipc::config::device_register_spec*,ashp::boxed::object,ashp::acipc::config::error_context *)),ashp::acipc::config::device_register_spec>(ashp::optional<ashp::acipc::config::device_register_spec,ashp::optional_traits<ashp::acipc::config::device_register_spec,void>::default_sentinel> *,ashp::boxed::object,ashp::acipc::config::error_context *)),ashp::optional<ashp::acipc::config::device_register_spec,void>>(uint64_t a1, uint64_t *a2, const __CFDictionary *a3, const void *a4, const char *a5, void *a6)
+uint64_t parse_field_with_default<&(BOOL parse_optional<&(ashp::acipc::config::device_register_spec::parse(ashp::acipc::config::device_register_spec*,ashp::boxed::object,ashp::acipc::config::error_context *)),ashp::acipc::config::device_register_spec>(ashp::optional<ashp::acipc::config::device_register_spec,ashp::optional_traits<ashp::acipc::config::device_register_spec,void>::default_sentinel> *,ashp::boxed::object,ashp::acipc::config::error_context *)),ashp::optional<ashp::acipc::config::device_register_spec,void>>(uint64_t a1, uint64_t *a2, const __CFDictionary *a3, const void *a4, char *a5, void *a6)
 {
   value = ashp::boxed::dictionary::get_value(a3, a4, a3, a4);
   if (!value)
   {
-    v23 = *(a1 + 12);
     if (*(a2 + 12) == 1)
     {
-      v24 = *a2;
+      v23 = *a2;
       if (*(a1 + 12))
       {
         *(a1 + 8) = *(a2 + 8);
-        *a1 = v24;
+        *a1 = v23;
       }
 
       else
       {
         *(a1 + 8) = *(a2 + 2);
-        *a1 = v24;
+        *a1 = v23;
         *(a1 + 12) = 1;
       }
     }
@@ -3098,18 +2798,18 @@ uint64_t parse_field_with_default<&(BOOL parse_optional<&(ashp::acipc::config::d
     v14 = CFGetTypeID(value);
     if (v14 != CFBooleanGetTypeID() || ashp::boxed::BOOLean::value(v13, v15, v16, v17))
     {
+      LOBYTE(v25) = 0;
+      HIDWORD(v25) = 0;
       LOBYTE(v26) = 0;
-      HIDWORD(v26) = 0;
-      LOBYTE(v27) = 0;
-      if (!ashp::acipc::config::device_register_spec::parse(&v26, v13, a5, v17, v18))
+      if (!ashp::acipc::config::device_register_spec::parse(&v25, v13, a5, v17, v18))
       {
         set_error_location(a5, a4, v19, v20);
         return 0;
       }
 
-      v21 = v27;
+      v21 = v26;
       v22 = *(a1 + 12);
-      *a1 = v26;
+      *a1 = v25;
       if (v22 == 1)
       {
         *(a1 + 8) = v21;
@@ -3208,7 +2908,7 @@ uint64_t ashp::optional<ashp::acipc::config::device_register_spec,void>::value(u
   return result;
 }
 
-uint64_t ashp::acipc::config::boot_ipc_stage_spec::validate(uint64_t a1, uint64_t a2, uint64_t a3, const char *a4, const char *a5)
+uint64_t ashp::acipc::config::boot_ipc_stage_spec::validate(uint64_t a1, uint64_t a2, char *a3, const char *a4, const char *a5)
 {
   v5 = a3;
   v6 = a2;
@@ -3567,7 +3267,7 @@ LABEL_35:
   return 0;
 }
 
-uint64_t ashp::acipc::config::main_ipc_stage_spec::validate(uint64_t a1, uint64_t a2, uint64_t a3, const char *a4, const char *a5)
+uint64_t ashp::acipc::config::main_ipc_stage_spec::validate(uint64_t a1, uint64_t a2, const char *a3, const char *a4, const char *a5)
 {
   v5 = a3;
   v6 = a2;
@@ -3998,7 +3698,7 @@ LABEL_34:
   return 0;
 }
 
-uint64_t ashp::acipc::config::transfer_ring_spec::validate(uint64_t a1, uint64_t a2, uint64_t a3, const char *a4)
+uint64_t ashp::acipc::config::transfer_ring_spec::validate(uint64_t a1, uint64_t a2, const char *a3, const char *a4)
 {
   v4 = a3;
   v7 = *ashp::optional<ashp::boxed::data,ashp::optional_sentinel<(decltype(nullptr))0,true>>::value(a1, a2, a3, a4);
@@ -4411,8 +4111,8 @@ void ashp::acipc::config::transfer_ring_spec::multi_config::resolve(uint64_t a1,
     v18 = *(a2 + 5);
     ashp::optional<ashp::acipc::name_and_selector,void>::value(a3 + 24, v8, v9, v10);
     v19 = *(a3 + 32);
-    ashp::optional<ashp::acipc::name_and_selector,void>::value(v86, v20, v21, v22);
-    v86[2] = v19 + v18 * v5;
+    ashp::optional<ashp::acipc::name_and_selector,void>::value(&v86, v20, v21, v22);
+    v87 = v19 + v18 * v5;
     if (__CFADD__(v19, v18 * v5))
     {
       v73 = 2111;
@@ -4425,8 +4125,8 @@ void ashp::acipc::config::transfer_ring_spec::multi_config::resolve(uint64_t a1,
     v23 = *(a2 + 6);
     ashp::optional<ashp::acipc::name_and_selector,void>::value(a3 + 48, v8, v9, v10);
     v24 = *(a3 + 56);
-    ashp::optional<ashp::acipc::name_and_selector,void>::value(v87, v25, v26, v27);
-    v87[2] = v24 + v23 * v5;
+    ashp::optional<ashp::acipc::name_and_selector,void>::value(&v88, v25, v26, v27);
+    v89 = v24 + v23 * v5;
     if (__CFADD__(v24, v23 * v5))
     {
       v73 = 2116;
@@ -4446,7 +4146,7 @@ LABEL_28:
 
   v28 = *(a2 + 7) * v5;
   v29 = *(a3 + 80);
-  v89 = v29 + v28;
+  v91 = v29 + v28;
   if (__CFADD__(v29, v28))
   {
     v73 = 2118;
@@ -4455,7 +4155,7 @@ LABEL_28:
 
   v30 = *(a2 + 8) * v5;
   v31 = *(a3 + 96);
-  v91 = v31 + v30;
+  v93 = v31 + v30;
   if (__CFADD__(v31, v30))
   {
     v73 = 2119;
@@ -4467,15 +4167,15 @@ LABEL_28:
   v74 = v32;
   v75 = v84;
   v76 = v85;
-  ashp::unsafe_storage<ashp::acipc::config::named_target_spec>::storage::storage(v77, v86, v9, v10);
-  ashp::unsafe_storage<ashp::acipc::config::named_target_spec>::storage::storage(v78, v87, v33, v34);
-  v79 = v88;
-  v80 = v89;
-  v37 = v90;
-  v88 = 0;
+  ashp::unsafe_storage<ashp::acipc::config::named_target_spec>::storage::storage(v77, &v86, v9, v10);
+  ashp::unsafe_storage<ashp::acipc::config::named_target_spec>::storage::storage(v78, &v88, v33, v34);
+  v79 = v90;
+  v80 = v91;
+  v37 = v92;
   v90 = 0;
+  v92 = 0;
   v81 = v37;
-  v82 = v91;
+  v82 = v93;
   if (!a1)
   {
     goto LABEL_28;
@@ -4504,21 +4204,21 @@ LABEL_28:
   ashp::unsafe_storage<ashp::acipc::config::named_target_spec>::storage::reset(v77, v52, v53, v54);
   ashp::refcounted_ptr<ashp::boxed::symbol,ashp::cf::refcount_policy>::reset(&v74, v55, v56, v57);
 LABEL_15:
-  ashp::refcounted_ptr<ashp::boxed::symbol,ashp::cf::refcount_policy>::reset(&v90, v58, v59, v60);
-  ashp::refcounted_ptr<ashp::boxed::symbol,ashp::cf::refcount_policy>::reset(&v88, v61, v62, v63);
-  ashp::unsafe_storage<ashp::acipc::config::named_target_spec>::storage::reset(v87, v64, v65, v66);
-  ashp::unsafe_storage<ashp::acipc::config::named_target_spec>::storage::reset(v86, v67, v68, v69);
+  ashp::refcounted_ptr<ashp::boxed::symbol,ashp::cf::refcount_policy>::reset(&v92, v58, v59, v60);
+  ashp::refcounted_ptr<ashp::boxed::symbol,ashp::cf::refcount_policy>::reset(&v90, v61, v62, v63);
+  ashp::unsafe_storage<ashp::acipc::config::named_target_spec>::storage::reset(&v88, v64, v65, v66);
+  ashp::unsafe_storage<ashp::acipc::config::named_target_spec>::storage::reset(&v86, v67, v68, v69);
   ashp::refcounted_ptr<ashp::boxed::symbol,ashp::cf::refcount_policy>::reset(&v83, v70, v71, v72);
 }
 
-void sub_23ECC241C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
+void sub_23ECC241C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, ...)
 {
-  va_start(va, a17);
+  va_start(va, a21);
   ashp::acipc::config::transfer_ring_spec::dynamic_config::~dynamic_config(va, a2, a3, a4);
   _Unwind_Resume(a1);
 }
 
-uint64_t *resolve_named_target<ashp::acipc::config::completion_ring_spec>(uint64_t a1, uint64_t a2, uint64_t a3, char *a4, const char *a5)
+const __CFString **resolve_named_target<ashp::acipc::config::completion_ring_spec>(uint64_t a1, uint64_t a2, uint64_t a3, char *a4, const char *a5)
 {
   if (!a1)
   {
@@ -4582,10 +4282,10 @@ LABEL_13:
       *(a4 + 2) = v73;
       *(a4 + 4) = v39;
       ashp::unsafe_storage<ashp::acipc::config::named_target_spec>::storage::storage(v84, v75, v40, v41);
-      ashp::swap((a4 + 24), v84, v42, v43);
+      ashp::swap(a4 + 3, v84, v42, v43);
       ashp::unsafe_storage<ashp::acipc::config::named_target_spec>::storage::reset(v84, v44, v45, v46);
       ashp::unsafe_storage<ashp::acipc::config::named_target_spec>::storage::storage(v84, v76, v47, v48);
-      ashp::swap((a4 + 48), v84, v49, v50);
+      ashp::swap(a4 + 6, v84, v49, v50);
       ashp::unsafe_storage<ashp::acipc::config::named_target_spec>::storage::reset(v84, v51, v52, v53);
       v54 = v77;
       v77 = 0;
@@ -4612,9 +4312,9 @@ LABEL_13:
   return v8;
 }
 
-void sub_23ECC2660(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+void sub_23ECC2660(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a16);
+  va_start(va, a20);
   ashp::acipc::config::completion_ring_spec::dynamic_config::~dynamic_config(va, a2, a3, a4);
   _Unwind_Resume(a1);
 }
@@ -4824,7 +4524,7 @@ LABEL_14:
   return ashp::operator==<int,0>(a3, a4, a3, a4);
 }
 
-void ashp::acipc::config::completion_group_spec::multi_config::resolve(uint64_t a1, unsigned int a2, unsigned __int16 a3, const char *a4)
+void ashp::acipc::config::completion_group_spec::multi_config::resolve(uint64_t result, unsigned int a2, unsigned __int16 a3, const char *a4)
 {
   if (a2 <= a4)
   {
@@ -4836,10 +4536,10 @@ void ashp::acipc::config::completion_group_spec::multi_config::resolve(uint64_t 
     v5 = a4 + a3;
     if (!__CFADD__(a4, a3) && v5 < 0x10000)
     {
-      if (a1)
+      if (result)
       {
-        *a1 = v5;
-        *(a1 + 2) = 1;
+        *result = v5;
+        *(result + 2) = 1;
         return;
       }
 
@@ -4850,9 +4550,9 @@ void ashp::acipc::config::completion_group_spec::multi_config::resolve(uint64_t 
   }
 
   ashp::detail::control_flow::log_guard_else_failure("configurator.cpp", v6, "resolve", a4);
-  if (a1)
+  if (result)
   {
-    *(a1 + 2) = 0;
+    *(result + 2) = 0;
     return;
   }
 
@@ -4910,8 +4610,8 @@ void ashp::acipc::config::completion_ring_spec::multi_config::resolve(uint64_t a
     v18 = *(a2 + 5);
     ashp::optional<ashp::acipc::name_and_selector,void>::value(a3 + 24, v8, v9, v10);
     v19 = *(a3 + 32);
-    ashp::optional<ashp::acipc::name_and_selector,void>::value(v79, v20, v21, v22);
-    v79[2] = v19 + v18 * v5;
+    ashp::optional<ashp::acipc::name_and_selector,void>::value(&v79, v20, v21, v22);
+    v80 = v19 + v18 * v5;
     if (__CFADD__(v19, v18 * v5))
     {
       v68 = 2371;
@@ -4924,8 +4624,8 @@ void ashp::acipc::config::completion_ring_spec::multi_config::resolve(uint64_t a
     v23 = *(a2 + 6);
     ashp::optional<ashp::acipc::name_and_selector,void>::value(a3 + 48, v8, v9, v10);
     v24 = *(a3 + 56);
-    ashp::optional<ashp::acipc::name_and_selector,void>::value(v80, v25, v26, v27);
-    v80[2] = v24 + v23 * v5;
+    ashp::optional<ashp::acipc::name_and_selector,void>::value(&v81, v25, v26, v27);
+    v82 = v24 + v23 * v5;
     if (__CFADD__(v24, v23 * v5))
     {
       v68 = 2375;
@@ -4945,7 +4645,7 @@ LABEL_26:
 
   v28 = *(a2 + 7) * v5;
   v29 = *(a3 + 80);
-  v82 = v29 + v28;
+  v84 = v29 + v28;
   if (__CFADD__(v29, v28))
   {
     v68 = 2377;
@@ -4957,12 +4657,12 @@ LABEL_26:
   v69 = v30;
   v70 = v77;
   v71 = v78;
-  ashp::unsafe_storage<ashp::acipc::config::named_target_spec>::storage::storage(v72, v79, v9, v10);
-  ashp::unsafe_storage<ashp::acipc::config::named_target_spec>::storage::storage(v73, v80, v31, v32);
-  v36 = v81;
-  v81 = 0;
+  ashp::unsafe_storage<ashp::acipc::config::named_target_spec>::storage::storage(v72, &v79, v9, v10);
+  ashp::unsafe_storage<ashp::acipc::config::named_target_spec>::storage::storage(v73, &v81, v31, v32);
+  v36 = v83;
+  v83 = 0;
   v74 = v36;
-  v75 = v82;
+  v75 = v84;
   if (!a1)
   {
     goto LABEL_26;
@@ -4988,15 +4688,15 @@ LABEL_26:
   ashp::unsafe_storage<ashp::acipc::config::named_target_spec>::storage::reset(v72, v50, v51, v52);
   ashp::refcounted_ptr<ashp::boxed::symbol,ashp::cf::refcount_policy>::reset(&v69, v53, v54, v55);
 LABEL_14:
-  ashp::refcounted_ptr<ashp::boxed::symbol,ashp::cf::refcount_policy>::reset(&v81, v56, v57, v58);
-  ashp::unsafe_storage<ashp::acipc::config::named_target_spec>::storage::reset(v80, v59, v60, v61);
-  ashp::unsafe_storage<ashp::acipc::config::named_target_spec>::storage::reset(v79, v62, v63, v64);
+  ashp::refcounted_ptr<ashp::boxed::symbol,ashp::cf::refcount_policy>::reset(&v83, v56, v57, v58);
+  ashp::unsafe_storage<ashp::acipc::config::named_target_spec>::storage::reset(&v81, v59, v60, v61);
+  ashp::unsafe_storage<ashp::acipc::config::named_target_spec>::storage::reset(&v79, v62, v63, v64);
   ashp::refcounted_ptr<ashp::boxed::symbol,ashp::cf::refcount_policy>::reset(&v76, v65, v66, v67);
 }
 
-void sub_23ECC2D4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_23ECC2D4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, ...)
 {
-  va_start(va, a15);
+  va_start(va, a19);
   ashp::acipc::config::completion_ring_spec::dynamic_config::~dynamic_config(va, a2, a3, a4);
   _Unwind_Resume(a1);
 }
@@ -5013,7 +4713,7 @@ void ashp::unsafe_storage<ashp::acipc::config::completion_ring_spec::dynamic_con
   }
 }
 
-uint64_t ashp::acipc::config::completion_ring_spec::validate(uint64_t a1, uint64_t a2, uint64_t a3, const char *a4)
+uint64_t ashp::acipc::config::completion_ring_spec::validate(uint64_t a1, uint64_t a2, const char *a3, const char *a4)
 {
   v4 = a3;
   v7 = *ashp::optional<ashp::boxed::data,ashp::optional_sentinel<(decltype(nullptr))0,true>>::value(a1, a2, a3, a4);
@@ -5292,10 +4992,11 @@ LABEL_47:
   return is_satisfied_by;
 }
 
-void sub_23ECC32FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, char a30)
+void sub_23ECC32FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, ...)
 {
-  ashp::unsafe_storage<ashp::acipc::config::named_target_spec>::storage::reset(v30 + 8, a2, a3, a4);
-  ashp::unsafe_storage<ashp::acipc::config::completion_ring_spec::dynamic_config>::storage::reset(&a30, v32, v33, v34);
+  va_start(va, a29);
+  ashp::unsafe_storage<ashp::acipc::config::named_target_spec>::storage::reset(v29 + 8, a2, a3, a4);
+  ashp::unsafe_storage<ashp::acipc::config::completion_ring_spec::dynamic_config>::storage::reset(va, v31, v32, v33);
   _Unwind_Resume(a1);
 }
 
@@ -5530,7 +5231,7 @@ LABEL_18:
   ashp::refcounted_ptr<ashp::boxed::symbol,ashp::cf::refcount_policy>::reset(&v31, v20, v21, v22);
   if (v34[24])
   {
-    if (!v6 || (ashp::optional<ashp::acipc::ring_manager::index_array_set,void>::value(v34, v23, v24, v25), resolve_named_target<ashp::acipc::config::resource_spec>(*(v6 + 104), *(v6 + 120), v34, a3, v27)))
+    if (!v6 || (ashp::optional<ashp::acipc::ring_manager::index_array_set,void>::value(v34, v23, v24, v25), resolve_named_target<ashp::acipc::config::resource_spec>(v6[3].info, v6[3].length, v34, a3, v27)))
     {
       v28 = 1;
       goto LABEL_28;
@@ -5647,7 +5348,7 @@ unint64_t *ashp::detail::dynamic_array::storage<ashp::acipc::config::interrupt_s
   return a1;
 }
 
-uint64_t parse_field_with_default<&(BOOL parse_dict<&(ashp::acipc::config::doorbell_spec::parse(ashp::acipc::config::doorbell_spec*,ashp::boxed::object,ashp::acipc::config::error_context *)),ashp::acipc::config::doorbell_spec>(ashp::dynamic_array<ashp::acipc::config::doorbell_spec> *,ashp::boxed::object,ashp::acipc::config::error_context *)),ashp::dynamic_array<ashp::acipc::config::doorbell_spec>>(unint64_t *a1, uint64_t *a2, const __CFDictionary *a3, const char *a4, void *a5)
+uint64_t parse_field_with_default<&(BOOL parse_dict<&(ashp::acipc::config::doorbell_spec::parse(ashp::acipc::config::doorbell_spec*,ashp::boxed::object,ashp::acipc::config::error_context *)),ashp::acipc::config::doorbell_spec>(ashp::dynamic_array<ashp::acipc::config::doorbell_spec> *,ashp::boxed::object,ashp::acipc::config::error_context *)),ashp::dynamic_array<ashp::acipc::config::doorbell_spec>>(unint64_t *a1, uint64_t *a2, const __CFDictionary *a3, char *a4, void *a5)
 {
   value = ashp::boxed::dictionary::get_value(a3, @"doorbells", a3, a4);
   if (!value)
@@ -5681,19 +5382,18 @@ uint64_t parse_field_with_default<&(BOOL parse_dict<&(ashp::acipc::config::doorb
             v39 = a2[2];
             v40 = a1[2];
             v41 = v40 + v37;
-            ashp::refcounted_ptr<ashp::boxed::data,ashp::cf::refcount_policy>::refcounted_ptr(&v66, *(v39 + v37 - 88), v10, v11);
+            ashp::refcounted_ptr<ashp::boxed::data,ashp::cf::refcount_policy>::refcounted_ptr(&v65, *(v39 + v37 - 88), v10, v11);
             v42 = *(v40 + v37 - 88);
-            *(v41 - 88) = v66;
-            v66 = v42;
-            ashp::refcounted_ptr<ashp::boxed::symbol,ashp::cf::refcount_policy>::reset(&v66, v43, v44, v45);
+            *(v41 - 88) = v65;
+            v65 = v42;
+            ashp::refcounted_ptr<ashp::boxed::symbol,ashp::cf::refcount_policy>::reset(&v65, v43, v44, v45);
             *(v41 - 80) = *(v39 + v37 - 80);
-            v49 = *(v39 + v37 - 72);
-            v50 = *(v39 + v37 - 76);
+            v49 = *(v39 + v37 - 76);
             if (*(v40 + v37 - 72) == 1)
             {
               if (*(v39 + v37 - 72))
               {
-                *(v41 - 76) = v50;
+                *(v41 - 76) = v49;
               }
 
               else
@@ -5704,22 +5404,22 @@ uint64_t parse_field_with_default<&(BOOL parse_dict<&(ashp::acipc::config::doorb
 
             else if (*(v39 + v37 - 72))
             {
-              *(v41 - 76) = v50;
+              *(v41 - 76) = v49;
               *(v41 - 72) = 1;
             }
 
-            v51 = v40 + v37;
-            *(v51 - 68) = *(v39 + v37 - 68);
-            ashp::detail::dynamic_array::storage<ashp::refcounted_ptr<ashp::boxed::symbol,ashp::cf::refcount_policy>>::operator=((v51 - 64), (v39 + v37 - 64), v46, v47, v48);
-            ashp::unsafe_storage<ashp::acipc::config::named_target_spec>::storage::storage(&v62, v39 + v37 - 40, v52, v53);
-            ashp::swap(v51 - 40, &v62, v54, v55);
-            ashp::unsafe_storage<ashp::acipc::config::named_target_spec>::storage::reset(&v62, v56, v57, v58);
-            v59 = *(v39 + v37 - 16);
-            *(v51 - 11) = *(v39 + v37 - 11);
-            *(v51 - 16) = v59;
-            LODWORD(v59) = *(v39 + v37);
-            *(v51 + 4) = *(v39 + v37 + 4);
-            *v51 = v59;
+            v50 = v40 + v37;
+            *(v50 - 68) = *(v39 + v37 - 68);
+            ashp::detail::dynamic_array::storage<ashp::refcounted_ptr<ashp::boxed::symbol,ashp::cf::refcount_policy>>::operator=((v50 - 64), (v39 + v37 - 64), v46, v47, v48);
+            ashp::unsafe_storage<ashp::acipc::config::named_target_spec>::storage::storage(&v61, v39 + v37 - 40, v51, v52);
+            ashp::swap((v50 - 40), &v61, v53, v54);
+            ashp::unsafe_storage<ashp::acipc::config::named_target_spec>::storage::reset(&v61, v55, v56, v57);
+            v58 = *(v39 + v37 - 16);
+            *(v50 - 11) = *(v39 + v37 - 11);
+            *(v50 - 16) = v58;
+            LODWORD(v58) = *(v39 + v37);
+            *(v50 + 4) = *(v39 + v37 + 4);
+            *v50 = v58;
             v37 += 96;
             --v38;
           }
@@ -5734,29 +5434,29 @@ uint64_t parse_field_with_default<&(BOOL parse_dict<&(ashp::acipc::config::doorb
       }
 
       ashp::detail::dynamic_array::storage<ashp::acipc::config::doorbell_spec>::reduce_size(a1, v36, v10, v11, v12);
-      ashp::detail::dynamic_array::storage<ashp::acipc::config::doorbell_spec>::append(a1, a2[2] + 96 * v36, *a2 - v36, v60, v61);
+      ashp::detail::dynamic_array::storage<ashp::acipc::config::doorbell_spec>::append(a1, a2[2] + 96 * v36, *a2 - v36, v59, v60);
     }
 
     else
     {
-      *&v62 = 0;
-      ashp::detail::dynamic_array::buffer<ashp::acipc::config::doorbell_spec>::buffer(&v62 + 1, v26, v10, v11);
-      ashp::detail::dynamic_array::storage<ashp::acipc::config::doorbell_spec>::append(&v62, a2[2], *a2, v27, v28);
+      *&v61 = 0;
+      ashp::detail::dynamic_array::buffer<ashp::acipc::config::doorbell_spec>::buffer(&v61 + 1, v26, v10, v11);
+      ashp::detail::dynamic_array::storage<ashp::acipc::config::doorbell_spec>::append(&v61, a2[2], *a2, v27, v28);
       v29 = *a1;
-      *a1 = v62;
-      v62 = v29;
+      *a1 = v61;
+      v61 = v29;
       v30 = a1[2];
-      a1[2] = v63;
-      v63 = v30;
-      ashp::detail::dynamic_array::storage<ashp::acipc::config::doorbell_spec>::~storage(&v62, v31, v32, v33, v34);
+      a1[2] = v62;
+      v62 = v30;
+      ashp::detail::dynamic_array::storage<ashp::acipc::config::doorbell_spec>::~storage(&v61, v31, v32, v33, v34);
     }
 
     ++*a5;
     return 1;
   }
 
-  v65 = a4;
-  v66 = a1;
+  v64 = a4;
+  v65 = a1;
   if (a1 && !*a1)
   {
     v13 = value;
@@ -5773,18 +5473,18 @@ uint64_t parse_field_with_default<&(BOOL parse_dict<&(ashp::acipc::config::doorb
 
     if (v19)
     {
-      v64 = 0;
+      v63 = 0;
       v20 = ashp::boxed::dictionary::count(v19, v15, v16, v17);
       if (a1[1] < v20)
       {
         ashp::detail::dynamic_array::storage<ashp::acipc::config::doorbell_spec>::set_capacity(a1, v20, v21, v22, v23);
       }
 
-      *&v62 = &v64;
-      *(&v62 + 1) = &v65;
-      v63 = &v66;
-      CFDictionaryApplyFunction(v19, iterate_dict<BOOL parse_dict<&(ashp::acipc::config::doorbell_spec::parse(ashp::acipc::config::doorbell_spec*,ashp::boxed::object,ashp::acipc::config::error_context *)),ashp::acipc::config::doorbell_spec>(ashp::dynamic_array<ashp::acipc::config::doorbell_spec> *,ashp::boxed::object,ashp::acipc::config::error_context *)::{lambda(ashp::boxed::object,ashp::boxed::object)#1},0>(ashp::boxed::dictionary,BOOL parse_dict<&(ashp::acipc::config::doorbell_spec::parse(ashp::acipc::config::doorbell_spec*,ashp::boxed::object,ashp::acipc::config::error_context *)),ashp::acipc::config::doorbell_spec>(ashp::dynamic_array<ashp::acipc::config::doorbell_spec> *,ashp::boxed::object,ashp::acipc::config::error_context *)::{lambda(ashp::boxed::object,ashp::boxed::object)#1})::{lambda(void const*,void const*,void *)#1}::__invoke, &v62);
-      if (v64 != 1)
+      *&v61 = &v63;
+      *(&v61 + 1) = &v64;
+      v62 = &v65;
+      CFDictionaryApplyFunction(v19, iterate_dict<BOOL parse_dict<&(ashp::acipc::config::doorbell_spec::parse(ashp::acipc::config::doorbell_spec*,ashp::boxed::object,ashp::acipc::config::error_context *)),ashp::acipc::config::doorbell_spec>(ashp::dynamic_array<ashp::acipc::config::doorbell_spec> *,ashp::boxed::object,ashp::acipc::config::error_context *)::{lambda(ashp::boxed::object,ashp::boxed::object)#1},0>(ashp::boxed::dictionary,BOOL parse_dict<&(ashp::acipc::config::doorbell_spec::parse(ashp::acipc::config::doorbell_spec*,ashp::boxed::object,ashp::acipc::config::error_context *)),ashp::acipc::config::doorbell_spec>(ashp::dynamic_array<ashp::acipc::config::doorbell_spec> *,ashp::boxed::object,ashp::acipc::config::error_context *)::{lambda(ashp::boxed::object,ashp::boxed::object)#1})::{lambda(void const*,void const*,void *)#1}::__invoke, &v61);
+      if (v63 != 1)
       {
         return 1;
       }
@@ -5832,7 +5532,7 @@ unint64_t *ashp::detail::dynamic_array::storage<ashp::acipc::config::doorbell_sp
   return a1;
 }
 
-uint64_t parse_field_with_default<&(BOOL parse_dict<&(ashp::acipc::config::exec_stage_spec::parse(ashp::acipc::config::exec_stage_spec*,ashp::boxed::object,ashp::acipc::config::error_context *)),ashp::acipc::config::exec_stage_spec>(ashp::dynamic_array<ashp::acipc::config::exec_stage_spec> *,ashp::boxed::object,ashp::acipc::config::error_context *)),ashp::dynamic_array<ashp::acipc::config::exec_stage_spec>>(unint64_t *a1, uint64_t *a2, const __CFDictionary *a3, const char *a4, void *a5)
+uint64_t parse_field_with_default<&(BOOL parse_dict<&(ashp::acipc::config::exec_stage_spec::parse(ashp::acipc::config::exec_stage_spec*,ashp::boxed::object,ashp::acipc::config::error_context *)),ashp::acipc::config::exec_stage_spec>(ashp::dynamic_array<ashp::acipc::config::exec_stage_spec> *,ashp::boxed::object,ashp::acipc::config::error_context *)),ashp::dynamic_array<ashp::acipc::config::exec_stage_spec>>(unint64_t *a1, uint64_t *a2, const __CFDictionary *a3, char *a4, void *a5)
 {
   value = ashp::boxed::dictionary::get_value(a3, @"exec_stages", a3, a4);
   if (!value)
@@ -5989,7 +5689,7 @@ unint64_t *ashp::detail::dynamic_array::storage<ashp::acipc::config::exec_stage_
   return a1;
 }
 
-uint64_t parse_field_with_default<&(BOOL parse_dict<&(ashp::acipc::config::resource_spec::parse(ashp::acipc::config::resource_spec*,ashp::boxed::object,ashp::acipc::config::error_context *)),ashp::acipc::config::resource_spec>(ashp::dynamic_array<ashp::acipc::config::resource_spec> *,ashp::boxed::object,ashp::acipc::config::error_context *)),ashp::dynamic_array<ashp::acipc::config::resource_spec>>(unint64_t *a1, uint64_t *a2, const __CFDictionary *a3, const char *a4, void *a5)
+uint64_t parse_field_with_default<&(BOOL parse_dict<&(ashp::acipc::config::resource_spec::parse(ashp::acipc::config::resource_spec*,ashp::boxed::object,ashp::acipc::config::error_context *)),ashp::acipc::config::resource_spec>(ashp::dynamic_array<ashp::acipc::config::resource_spec> *,ashp::boxed::object,ashp::acipc::config::error_context *)),ashp::dynamic_array<ashp::acipc::config::resource_spec>>(unint64_t *a1, uint64_t *a2, const __CFDictionary *a3, char *a4, void *a5)
 {
   value = ashp::boxed::dictionary::get_value(a3, @"resources", a3, a4);
   if (!value)
@@ -6140,7 +5840,7 @@ unint64_t *ashp::detail::dynamic_array::storage<ashp::acipc::config::resource_sp
   return a1;
 }
 
-uint64_t parse_field<&(ashp::acipc::config::limit_spec::parse(ashp::acipc::config::limit_spec*,ashp::boxed::object,ashp::acipc::config::error_context *)),ashp::acipc::config::limit_spec>(_DWORD *a1, const __CFDictionary *a2, uint64_t a3, const char *a4)
+uint64_t parse_field<&(ashp::acipc::config::limit_spec::parse(ashp::acipc::config::limit_spec*,ashp::boxed::object,ashp::acipc::config::error_context *)),ashp::acipc::config::limit_spec>(_DWORD *a1, const __CFDictionary *a2, unint64_t *a3, const char *a4)
 {
   value = ashp::boxed::dictionary::get_value(a2, @"limits", a3, a4);
   if (!a1)
@@ -6194,19 +5894,18 @@ LABEL_13:
   return 0;
 }
 
-uint64_t parse_field_with_default<&(BOOL parse_optional<&(ashp::acipc::config::errata_spec::parse(ashp::acipc::config::errata_spec*,ashp::boxed::object,ashp::acipc::config::error_context *)),ashp::acipc::config::errata_spec>(ashp::optional<ashp::acipc::config::errata_spec,ashp::optional_traits<ashp::acipc::config::errata_spec,void>::default_sentinel> *,ashp::boxed::object,ashp::acipc::config::error_context *)),ashp::optional<ashp::acipc::config::errata_spec,void>>(uint64_t a1, uint64_t *a2, const __CFDictionary *a3, const char *a4, void *a5)
+uint64_t parse_field_with_default<&(BOOL parse_optional<&(ashp::acipc::config::errata_spec::parse(ashp::acipc::config::errata_spec*,ashp::boxed::object,ashp::acipc::config::error_context *)),ashp::acipc::config::errata_spec>(ashp::optional<ashp::acipc::config::errata_spec,ashp::optional_traits<ashp::acipc::config::errata_spec,void>::default_sentinel> *,ashp::boxed::object,ashp::acipc::config::error_context *)),ashp::optional<ashp::acipc::config::errata_spec,void>>(uint64_t a1, uint64_t *a2, const __CFDictionary *a3, char *a4, void *a5)
 {
   value = ashp::boxed::dictionary::get_value(a3, @"errata", a3, a4);
   if (!value)
   {
-    v28 = *(a1 + 16);
     if (*(a2 + 16) == 1)
     {
       if (*(a1 + 16))
       {
-        v29 = *a2;
+        v28 = *a2;
         *(a1 + 8) = *(a2 + 4);
-        *a1 = v29;
+        *a1 = v28;
       }
 
       else
@@ -6240,7 +5939,7 @@ uint64_t parse_field_with_default<&(BOOL parse_optional<&(ashp::acipc::config::e
     return 1;
   }
 
-  LOWORD(v42) = 0;
+  LOWORD(v41) = 0;
   v16 = CFGetTypeID(v11);
   if (v16 != CFDictionaryGetTypeID())
   {
@@ -6249,7 +5948,7 @@ uint64_t parse_field_with_default<&(BOOL parse_optional<&(ashp::acipc::config::e
 
   if (v11)
   {
-    v43 = 0;
+    v42 = 0;
     v20 = ashp::boxed::dictionary::get_value(v11, @"window_base_mask", v17, v18);
     if (v20)
     {
@@ -6257,69 +5956,69 @@ uint64_t parse_field_with_default<&(BOOL parse_optional<&(ashp::acipc::config::e
       v22 = CFGetTypeID(v20);
       if (v22 == CFNumberGetTypeID())
       {
-        v46 = v21;
-        ashp::boxed::number::uint64_value(&v44, &v46, v23, v24);
-        if (v45 == 1)
+        v45 = v21;
+        ashp::boxed::number::uint64_value(&v43, &v45, v23, v24);
+        if (v44 == 1)
         {
-          ashp::optional<unsigned long long,void>::value(&v44, v26, v27, v24);
-          v41 = v44;
+          ashp::optional<unsigned long long,void>::value(&v43, v26, v27, v24);
+          v40 = v43;
           goto LABEL_21;
         }
 
-        v38 = "value out of bounds";
+        v37 = "value out of bounds";
       }
 
       else
       {
-        v38 = "unexpected object type";
+        v37 = "unexpected object type";
       }
 
-      set_error(a4, v38, 0, v24, v25);
-      set_error_location(a4, @"window_base_mask", v39, v40);
+      set_error(a4, v37, 0, v24, v25);
+      set_error_location(a4, @"window_base_mask", v38, v39);
       goto LABEL_32;
     }
 
-    v41 = -1;
-    v43 = 1;
+    v40 = -1;
+    v42 = 1;
 LABEL_21:
-    if (!parse_field_with_default<&(parse_BOOL(BOOL *,ashp::boxed::object,ashp::acipc::config::error_context *)),BOOL>(&v42, 0, v11, @"ring_header_footer_scaling", a4, &v43) || !parse_field_with_default<&(parse_BOOL(BOOL *,ashp::boxed::object,ashp::acipc::config::error_context *)),BOOL>(&v42 + 1, 0, v11, @"ignore_zeroed_cd", a4, &v43))
+    if (!parse_field_with_default<&(parse_BOOL(BOOL *,ashp::boxed::object,ashp::acipc::config::error_context *)),BOOL>(&v41, 0, v11, @"ring_header_footer_scaling", a4, &v42) || !parse_field_with_default<&(parse_BOOL(BOOL *,ashp::boxed::object,ashp::acipc::config::error_context *)),BOOL>(&v41 + 1, 0, v11, @"ignore_zeroed_cd", a4, &v42))
     {
       goto LABEL_32;
     }
 
-    v34 = ashp::boxed::dictionary::count(v11, v33, v31, v32);
-    if (v43 + v34 == 3)
+    v33 = ashp::boxed::dictionary::count(v11, v32, v30, v31);
+    if (v42 + v33 == 3)
     {
-      v35 = v42;
-      v36 = *(a1 + 16);
-      *a1 = v41;
-      if (v36 == 1)
+      v34 = v41;
+      v35 = *(a1 + 16);
+      *a1 = v40;
+      if (v35 == 1)
       {
-        *(a1 + 8) = v35;
+        *(a1 + 8) = v34;
       }
 
       else
       {
-        *(a1 + 8) = v35;
+        *(a1 + 8) = v34;
         *(a1 + 16) = 1;
       }
 
       return 1;
     }
 
-    v30 = "unknown keys present";
+    v29 = "unknown keys present";
     goto LABEL_19;
   }
 
-  v30 = "unexpected object type";
+  v29 = "unexpected object type";
 LABEL_19:
-  set_error(a4, v30, 0, v18, v19);
+  set_error(a4, v29, 0, v18, v19);
 LABEL_32:
-  set_error_location(a4, @"errata", v31, v32);
+  set_error_location(a4, @"errata", v30, v31);
   return 0;
 }
 
-uint64_t parse_field<&(ashp::acipc::config::device_info_spec::parse(ashp::acipc::config::device_info_spec*,ashp::boxed::object,ashp::acipc::config::error_context *)),ashp::acipc::config::device_info_spec>(uint64_t a1, const __CFDictionary *a2, const char *a3, const char *a4)
+uint64_t parse_field<&(ashp::acipc::config::device_info_spec::parse(ashp::acipc::config::device_info_spec*,ashp::boxed::object,ashp::acipc::config::error_context *)),ashp::acipc::config::device_info_spec>(uint64_t a1, const __CFDictionary *a2, char *a3, const char *a4)
 {
   value = ashp::boxed::dictionary::get_value(a2, @"device_info", a3, a4);
   if (!a1)
@@ -6396,7 +6095,7 @@ LABEL_16:
   return 0;
 }
 
-uint64_t parse_field_with_default<&(BOOL parse_dict<&(ashp::acipc::config::boot_ipc_stage_spec::parse(ashp::acipc::config::boot_ipc_stage_spec*,ashp::boxed::object,ashp::acipc::config::error_context *)),ashp::acipc::config::boot_ipc_stage_spec>(ashp::dynamic_array<ashp::acipc::config::boot_ipc_stage_spec> *,ashp::boxed::object,ashp::acipc::config::error_context *)),ashp::dynamic_array<ashp::acipc::config::boot_ipc_stage_spec>>(unint64_t *a1, uint64_t *a2, const __CFDictionary *a3, const char *a4, void *a5)
+uint64_t parse_field_with_default<&(BOOL parse_dict<&(ashp::acipc::config::boot_ipc_stage_spec::parse(ashp::acipc::config::boot_ipc_stage_spec*,ashp::boxed::object,ashp::acipc::config::error_context *)),ashp::acipc::config::boot_ipc_stage_spec>(ashp::dynamic_array<ashp::acipc::config::boot_ipc_stage_spec> *,ashp::boxed::object,ashp::acipc::config::error_context *)),ashp::dynamic_array<ashp::acipc::config::boot_ipc_stage_spec>>(unint64_t *a1, uint64_t *a2, const __CFDictionary *a3, char *a4, void *a5)
 {
   value = ashp::boxed::dictionary::get_value(a3, @"boot_ipc_stages", a3, a4);
   if (!value)
@@ -6570,7 +6269,7 @@ unint64_t *ashp::detail::dynamic_array::storage<ashp::acipc::config::boot_ipc_st
   return a1;
 }
 
-uint64_t parse_field_with_default<&(BOOL parse_dict<&(ashp::acipc::config::main_ipc_stage_spec::parse(ashp::acipc::config::main_ipc_stage_spec*,ashp::boxed::object,ashp::acipc::config::error_context *)),ashp::acipc::config::main_ipc_stage_spec>(ashp::dynamic_array<ashp::acipc::config::main_ipc_stage_spec> *,ashp::boxed::object,ashp::acipc::config::error_context *)),ashp::dynamic_array<ashp::acipc::config::main_ipc_stage_spec>>(unint64_t *a1, uint64_t *a2, const __CFDictionary *a3, const char *a4, void *a5)
+uint64_t parse_field_with_default<&(BOOL parse_dict<&(ashp::acipc::config::main_ipc_stage_spec::parse(ashp::acipc::config::main_ipc_stage_spec*,ashp::boxed::object,ashp::acipc::config::error_context *)),ashp::acipc::config::main_ipc_stage_spec>(ashp::dynamic_array<ashp::acipc::config::main_ipc_stage_spec> *,ashp::boxed::object,ashp::acipc::config::error_context *)),ashp::dynamic_array<ashp::acipc::config::main_ipc_stage_spec>>(unint64_t *a1, uint64_t *a2, const __CFDictionary *a3, char *a4, void *a5)
 {
   value = ashp::boxed::dictionary::get_value(a3, @"main_ipc_stages", a3, a4);
   if (!value)
@@ -6603,11 +6302,11 @@ uint64_t parse_field_with_default<&(BOOL parse_dict<&(ashp::acipc::config::main_
           {
             v39 = a2[2];
             v40 = a1[2];
-            ashp::refcounted_ptr<ashp::boxed::data,ashp::cf::refcount_policy>::refcounted_ptr(&v93, *(v39 + v37), v10, v11);
+            ashp::refcounted_ptr<ashp::boxed::data,ashp::cf::refcount_policy>::refcounted_ptr(&v92, *(v39 + v37), v10, v11);
             v41 = *(v40 + v37);
-            *(v40 + v37) = v93;
-            v93 = v41;
-            ashp::refcounted_ptr<ashp::boxed::symbol,ashp::cf::refcount_policy>::reset(&v93, v42, v43, v44);
+            *(v40 + v37) = v92;
+            v92 = v41;
+            ashp::refcounted_ptr<ashp::boxed::symbol,ashp::cf::refcount_policy>::reset(&v92, v42, v43, v44);
             v45 = v40 + v37;
             v46 = *(v39 + v37 + 8);
             v47 = *(v39 + v37 + 24);
@@ -6624,51 +6323,50 @@ uint64_t parse_field_with_default<&(BOOL parse_dict<&(ashp::acipc::config::main_
             v51 = *(v39 + v37 + 112);
             *(v45 + 126) = *(v39 + v37 + 126);
             *(v45 + 112) = v51;
-            ashp::refcounted_ptr<ashp::boxed::data,ashp::cf::refcount_policy>::refcounted_ptr(&v88, *(v39 + v37 + 136), v52, v53);
+            ashp::refcounted_ptr<ashp::boxed::data,ashp::cf::refcount_policy>::refcounted_ptr(&v87, *(v39 + v37 + 136), v52, v53);
             v54 = *(v40 + v37 + 136);
-            *(v45 + 136) = v88;
-            *&v88 = v54;
-            ashp::refcounted_ptr<ashp::boxed::symbol,ashp::cf::refcount_policy>::reset(&v88, v55, v56, v57);
+            *(v45 + 136) = v87;
+            *&v87 = v54;
+            ashp::refcounted_ptr<ashp::boxed::symbol,ashp::cf::refcount_policy>::reset(&v87, v55, v56, v57);
             *(v45 + 144) = *(v39 + v37 + 144);
             *(v45 + 152) = *(v39 + v37 + 152);
-            ashp::refcounted_ptr<ashp::boxed::data,ashp::cf::refcount_policy>::refcounted_ptr(&v88, *(v39 + v37 + 160), v58, v59);
+            ashp::refcounted_ptr<ashp::boxed::data,ashp::cf::refcount_policy>::refcounted_ptr(&v87, *(v39 + v37 + 160), v58, v59);
             v60 = *(v40 + v37 + 160);
-            *(v45 + 160) = v88;
-            *&v88 = v60;
-            ashp::refcounted_ptr<ashp::boxed::symbol,ashp::cf::refcount_policy>::reset(&v88, v61, v62, v63);
+            *(v45 + 160) = v87;
+            *&v87 = v60;
+            ashp::refcounted_ptr<ashp::boxed::symbol,ashp::cf::refcount_policy>::reset(&v87, v61, v62, v63);
             v66 = v39 + v37;
             v67 = v40 + v37;
             *(v67 + 168) = *(v39 + v37 + 168);
             *(v67 + 176) = *(v39 + v37 + 176);
-            v90 = 0;
+            v89 = 0;
             if (*(v39 + v37 + 248) == 1)
             {
-              ashp::unsafe_storage<ashp::acipc::config::main_ipc_stage_spec::mcr_spec>::storage::emplace<ashp::acipc::config::main_ipc_stage_spec::mcr_spec const&>(&v88, v66 + 184, v64, v65);
+              ashp::unsafe_storage<ashp::acipc::config::main_ipc_stage_spec::mcr_spec>::storage::emplace<ashp::acipc::config::main_ipc_stage_spec::mcr_spec const&>(&v87, (v66 + 184), v64, v65);
             }
 
-            ashp::swap(v67 + 184, &v88, v64, v65);
-            ashp::unsafe_storage<ashp::acipc::config::main_ipc_stage_spec::mcr_spec>::storage::reset(&v88, v68, v69, v70);
-            ashp::refcounted_ptr<ashp::boxed::data,ashp::cf::refcount_policy>::refcounted_ptr(&v88, *(v66 + 256), v71, v72);
+            ashp::swap(v67 + 184, &v87, v64, v65);
+            ashp::unsafe_storage<ashp::acipc::config::main_ipc_stage_spec::mcr_spec>::storage::reset(&v87, v68, v69, v70);
+            ashp::refcounted_ptr<ashp::boxed::data,ashp::cf::refcount_policy>::refcounted_ptr(&v87, *(v66 + 256), v71, v72);
             v73 = *(v67 + 256);
-            *(v67 + 256) = v88;
-            *&v88 = v73;
-            ashp::refcounted_ptr<ashp::boxed::symbol,ashp::cf::refcount_policy>::reset(&v88, v74, v75, v76);
+            *(v67 + 256) = v87;
+            *&v87 = v73;
+            ashp::refcounted_ptr<ashp::boxed::symbol,ashp::cf::refcount_policy>::reset(&v87, v74, v75, v76);
             v77 = v40 + v37;
             *(v77 + 264) = *(v39 + v37 + 264);
-            ashp::refcounted_ptr<ashp::boxed::data,ashp::cf::refcount_policy>::refcounted_ptr(&v88, *(v39 + v37 + 272), v78, v79);
+            ashp::refcounted_ptr<ashp::boxed::data,ashp::cf::refcount_policy>::refcounted_ptr(&v87, *(v39 + v37 + 272), v78, v79);
             v80 = *(v77 + 272);
-            *(v77 + 272) = v88;
-            *&v88 = v80;
-            ashp::refcounted_ptr<ashp::boxed::symbol,ashp::cf::refcount_policy>::reset(&v88, v81, v82, v83);
+            *(v77 + 272) = v87;
+            *&v87 = v80;
+            ashp::refcounted_ptr<ashp::boxed::symbol,ashp::cf::refcount_policy>::reset(&v87, v81, v82, v83);
             *(v77 + 280) = *(v39 + v37 + 280);
             *(v77 + 288) = *(v39 + v37 + 288);
-            v84 = *(v39 + v37 + 296);
-            v85 = *(v39 + v37 + 292);
+            v84 = *(v39 + v37 + 292);
             if (*(v77 + 296) == 1)
             {
               if (*(v39 + v37 + 296))
               {
-                *(v77 + 292) = v85;
+                *(v77 + 292) = v84;
               }
 
               else
@@ -6679,7 +6377,7 @@ uint64_t parse_field_with_default<&(BOOL parse_dict<&(ashp::acipc::config::main_
 
             else if (*(v39 + v37 + 296))
             {
-              *(v77 + 292) = v85;
+              *(v77 + 292) = v84;
               *(v77 + 296) = 1;
             }
 
@@ -6697,29 +6395,29 @@ uint64_t parse_field_with_default<&(BOOL parse_dict<&(ashp::acipc::config::main_
       }
 
       ashp::detail::dynamic_array::storage<ashp::acipc::config::main_ipc_stage_spec>::reduce_size(a1, v36, v10, v11, v12);
-      ashp::detail::dynamic_array::storage<ashp::acipc::config::main_ipc_stage_spec>::append(a1, a2[2] + 304 * v36, *a2 - v36, v86, v87);
+      ashp::detail::dynamic_array::storage<ashp::acipc::config::main_ipc_stage_spec>::append(a1, a2[2] + 304 * v36, *a2 - v36, v85, v86);
     }
 
     else
     {
-      *&v88 = 0;
-      ashp::detail::dynamic_array::buffer<ashp::acipc::config::main_ipc_stage_spec>::buffer(&v88 + 1, v26, v10, v11);
-      ashp::detail::dynamic_array::storage<ashp::acipc::config::main_ipc_stage_spec>::append(&v88, a2[2], *a2, v27, v28);
+      *&v87 = 0;
+      ashp::detail::dynamic_array::buffer<ashp::acipc::config::main_ipc_stage_spec>::buffer(&v87 + 1, v26, v10, v11);
+      ashp::detail::dynamic_array::storage<ashp::acipc::config::main_ipc_stage_spec>::append(&v87, a2[2], *a2, v27, v28);
       v29 = *a1;
-      *a1 = v88;
-      v88 = v29;
+      *a1 = v87;
+      v87 = v29;
       v30 = a1[2];
-      a1[2] = v89;
-      v89 = v30;
-      ashp::detail::dynamic_array::storage<ashp::acipc::config::main_ipc_stage_spec>::~storage(&v88, v31, v32, v33, v34);
+      a1[2] = v88;
+      v88 = v30;
+      ashp::detail::dynamic_array::storage<ashp::acipc::config::main_ipc_stage_spec>::~storage(&v87, v31, v32, v33, v34);
     }
 
     ++*a5;
     return 1;
   }
 
-  v92 = a4;
-  v93 = a1;
+  v91 = a4;
+  v92 = a1;
   if (a1 && !*a1)
   {
     v13 = value;
@@ -6736,18 +6434,18 @@ uint64_t parse_field_with_default<&(BOOL parse_dict<&(ashp::acipc::config::main_
 
     if (v19)
     {
-      v91 = 0;
+      v90 = 0;
       v20 = ashp::boxed::dictionary::count(v19, v15, v16, v17);
       if (a1[1] < v20)
       {
         ashp::detail::dynamic_array::storage<ashp::acipc::config::main_ipc_stage_spec>::set_capacity(a1, v20, v21, v22, v23);
       }
 
-      *&v88 = &v91;
-      *(&v88 + 1) = &v92;
-      v89 = &v93;
-      CFDictionaryApplyFunction(v19, iterate_dict<BOOL parse_dict<&(ashp::acipc::config::main_ipc_stage_spec::parse(ashp::acipc::config::main_ipc_stage_spec*,ashp::boxed::object,ashp::acipc::config::error_context *)),ashp::acipc::config::main_ipc_stage_spec>(ashp::dynamic_array<ashp::acipc::config::main_ipc_stage_spec> *,ashp::boxed::object,ashp::acipc::config::error_context *)::{lambda(ashp::boxed::object,ashp::boxed::object)#1},0>(ashp::boxed::dictionary,BOOL parse_dict<&(ashp::acipc::config::main_ipc_stage_spec::parse(ashp::acipc::config::main_ipc_stage_spec*,ashp::boxed::object,ashp::acipc::config::error_context *)),ashp::acipc::config::main_ipc_stage_spec>(ashp::dynamic_array<ashp::acipc::config::main_ipc_stage_spec> *,ashp::boxed::object,ashp::acipc::config::error_context *)::{lambda(ashp::boxed::object,ashp::boxed::object)#1})::{lambda(void const*,void const*,void *)#1}::__invoke, &v88);
-      if (v91 != 1)
+      *&v87 = &v90;
+      *(&v87 + 1) = &v91;
+      v88 = &v92;
+      CFDictionaryApplyFunction(v19, iterate_dict<BOOL parse_dict<&(ashp::acipc::config::main_ipc_stage_spec::parse(ashp::acipc::config::main_ipc_stage_spec*,ashp::boxed::object,ashp::acipc::config::error_context *)),ashp::acipc::config::main_ipc_stage_spec>(ashp::dynamic_array<ashp::acipc::config::main_ipc_stage_spec> *,ashp::boxed::object,ashp::acipc::config::error_context *)::{lambda(ashp::boxed::object,ashp::boxed::object)#1},0>(ashp::boxed::dictionary,BOOL parse_dict<&(ashp::acipc::config::main_ipc_stage_spec::parse(ashp::acipc::config::main_ipc_stage_spec*,ashp::boxed::object,ashp::acipc::config::error_context *)),ashp::acipc::config::main_ipc_stage_spec>(ashp::dynamic_array<ashp::acipc::config::main_ipc_stage_spec> *,ashp::boxed::object,ashp::acipc::config::error_context *)::{lambda(ashp::boxed::object,ashp::boxed::object)#1})::{lambda(void const*,void const*,void *)#1}::__invoke, &v87);
+      if (v90 != 1)
       {
         return 1;
       }
@@ -6795,7 +6493,7 @@ unint64_t *ashp::detail::dynamic_array::storage<ashp::acipc::config::main_ipc_st
   return a1;
 }
 
-uint64_t parse_field_with_default<&(BOOL parse_dict<&(ashp::acipc::config::transfer_ring_spec::parse(ashp::acipc::config::transfer_ring_spec*,ashp::boxed::object,ashp::acipc::config::error_context *)),ashp::acipc::config::transfer_ring_spec>(ashp::dynamic_array<ashp::acipc::config::transfer_ring_spec> *,ashp::boxed::object,ashp::acipc::config::error_context *)),ashp::dynamic_array<ashp::acipc::config::transfer_ring_spec>>(unint64_t *a1, unint64_t *a2, const __CFDictionary *a3, const char *a4, void *a5)
+uint64_t parse_field_with_default<&(BOOL parse_dict<&(ashp::acipc::config::transfer_ring_spec::parse(ashp::acipc::config::transfer_ring_spec*,ashp::boxed::object,ashp::acipc::config::error_context *)),ashp::acipc::config::transfer_ring_spec>(ashp::dynamic_array<ashp::acipc::config::transfer_ring_spec> *,ashp::boxed::object,ashp::acipc::config::error_context *)),ashp::dynamic_array<ashp::acipc::config::transfer_ring_spec>>(unint64_t *a1, unint64_t *a2, const __CFDictionary *a3, char *a4, void *a5)
 {
   value = ashp::boxed::dictionary::get_value(a3, @"transfer_rings", a3, a4);
   if (!value)
@@ -6808,7 +6506,7 @@ uint64_t parse_field_with_default<&(BOOL parse_dict<&(ashp::acipc::config::trans
         v33 = *a2;
       }
 
-      v106 = v33;
+      v105 = v33;
       if (a1[2])
       {
         if (!a2[2] && v33)
@@ -6825,11 +6523,11 @@ uint64_t parse_field_with_default<&(BOOL parse_dict<&(ashp::acipc::config::trans
             v36 = a2[2];
             v37 = a1[2];
             v38 = v37 + v34;
-            ashp::refcounted_ptr<ashp::boxed::data,ashp::cf::refcount_policy>::refcounted_ptr(&v111, *(v36 + v34 - 176), v10, v11);
+            ashp::refcounted_ptr<ashp::boxed::data,ashp::cf::refcount_policy>::refcounted_ptr(&v110, *(v36 + v34 - 176), v10, v11);
             v39 = *(v37 + v34 - 176);
-            *(v38 - 176) = v111;
-            v111 = v39;
-            ashp::refcounted_ptr<ashp::boxed::symbol,ashp::cf::refcount_policy>::reset(&v111, v40, v41, v42);
+            *(v38 - 176) = v110;
+            v110 = v39;
+            ashp::refcounted_ptr<ashp::boxed::symbol,ashp::cf::refcount_policy>::reset(&v110, v40, v41, v42);
             ashp::detail::dynamic_array::storage<ashp::refcounted_ptr<ashp::boxed::symbol,ashp::cf::refcount_policy>>::operator=((v37 + v34 - 168), (v36 + v34 - 168), v43, v44, v45);
             v48 = *(v36 + v34 - 144);
             v49 = *(v36 + v34 - 128);
@@ -6838,13 +6536,12 @@ uint64_t parse_field_with_default<&(BOOL parse_dict<&(ashp::acipc::config::trans
             *(v38 - 96) = v50;
             *(v38 - 144) = v48;
             *(v38 - 128) = v49;
-            v51 = *(v36 + v34 - 78);
-            v52 = *(v36 + v34 - 80);
+            v51 = *(v36 + v34 - 80);
             if (*(v37 + v34 - 78) == 1)
             {
               if (*(v36 + v34 - 78))
               {
-                *(v38 - 80) = v52;
+                *(v38 - 80) = v51;
               }
 
               else
@@ -6855,46 +6552,46 @@ uint64_t parse_field_with_default<&(BOOL parse_dict<&(ashp::acipc::config::trans
 
             else if (*(v36 + v34 - 78))
             {
-              *(v38 - 80) = v52;
+              *(v38 - 80) = v51;
               *(v38 - 78) = 1;
             }
 
-            v53 = (v37 + v34);
+            v52 = (v37 + v34);
             ashp::refcounted_ptr<ashp::boxed::data,ashp::cf::refcount_policy>::refcounted_ptr(&context, *(v36 + v34 - 72), v46, v47);
-            v54 = *(v37 + v34 - 72);
-            *(v53 - 9) = context;
-            *&context = v54;
-            ashp::refcounted_ptr<ashp::boxed::symbol,ashp::cf::refcount_policy>::reset(&context, v55, v56, v57);
-            *(v53 - 16) = *(v36 + v34 - 64);
-            *(v53 - 14) = *(v36 + v34 - 56);
-            ashp::unsafe_storage<ashp::acipc::config::named_target_spec>::storage::storage(&context, v36 + v34 - 48, v58, v59);
-            ashp::swap(v37 + v34 - 48, &context, v60, v61);
-            ashp::unsafe_storage<ashp::acipc::config::named_target_spec>::storage::reset(&context, v62, v63, v64);
-            ashp::unsafe_storage<ashp::acipc::config::named_target_spec>::storage::storage(&context, v36 + v34 - 24, v65, v66);
-            ashp::swap(v37 + v34 - 24, &context, v67, v68);
-            ashp::unsafe_storage<ashp::acipc::config::named_target_spec>::storage::reset(&context, v69, v70, v71);
-            ashp::refcounted_ptr<ashp::boxed::data,ashp::cf::refcount_policy>::refcounted_ptr(&context, *(v36 + v34), v72, v73);
-            v74 = *(v37 + v34);
-            *v53 = context;
-            *&context = v74;
-            ashp::refcounted_ptr<ashp::boxed::symbol,ashp::cf::refcount_policy>::reset(&context, v75, v76, v77);
-            v78 = v37 + v34;
+            v53 = *(v37 + v34 - 72);
+            *(v52 - 9) = context;
+            *&context = v53;
+            ashp::refcounted_ptr<ashp::boxed::symbol,ashp::cf::refcount_policy>::reset(&context, v54, v55, v56);
+            *(v52 - 16) = *(v36 + v34 - 64);
+            *(v52 - 14) = *(v36 + v34 - 56);
+            ashp::unsafe_storage<ashp::acipc::config::named_target_spec>::storage::storage(&context, v36 + v34 - 48, v57, v58);
+            ashp::swap((v37 + v34 - 48), &context, v59, v60);
+            ashp::unsafe_storage<ashp::acipc::config::named_target_spec>::storage::reset(&context, v61, v62, v63);
+            ashp::unsafe_storage<ashp::acipc::config::named_target_spec>::storage::storage(&context, v36 + v34 - 24, v64, v65);
+            ashp::swap((v37 + v34 - 24), &context, v66, v67);
+            ashp::unsafe_storage<ashp::acipc::config::named_target_spec>::storage::reset(&context, v68, v69, v70);
+            ashp::refcounted_ptr<ashp::boxed::data,ashp::cf::refcount_policy>::refcounted_ptr(&context, *(v36 + v34), v71, v72);
+            v73 = *(v37 + v34);
+            *v52 = context;
+            *&context = v73;
+            ashp::refcounted_ptr<ashp::boxed::symbol,ashp::cf::refcount_policy>::reset(&context, v74, v75, v76);
+            v77 = v37 + v34;
             *(v37 + v34 + 8) = *(v36 + v34 + 8);
-            ashp::refcounted_ptr<ashp::boxed::data,ashp::cf::refcount_policy>::refcounted_ptr(&context, *(v36 + v34 + 16), v79, v80);
-            v81 = *(v37 + v34 + 16);
-            *(v78 + 16) = context;
-            *&context = v81;
-            ashp::refcounted_ptr<ashp::boxed::symbol,ashp::cf::refcount_policy>::reset(&context, v82, v83, v84);
-            *(v78 + 24) = *(v36 + v34 + 24);
-            v85 = *(v36 + v34 + 32);
-            *(v78 + 40) = *(v36 + v34 + 40);
-            *(v78 + 32) = v85;
-            ashp::detail::dynamic_array::storage<ashp::acipc::config::numeric_constraint<unsigned short>>::operator=((v37 + v34 + 48), (v36 + v34 + 48), v86, v87, v88);
-            ashp::detail::dynamic_array::storage<ashp::acipc::config::numeric_constraint<unsigned int>>::operator=((v37 + v34 + 72), (v36 + v34 + 72), v89, v90, v91);
-            ashp::detail::dynamic_array::storage<ashp::acipc::config::numeric_constraint<unsigned int>>::operator=((v37 + v34 + 96), (v36 + v34 + 96), v92, v93, v94);
-            ashp::detail::dynamic_array::storage<ashp::optional<ashp::acipc::config::named_target_spec::constraint,void>>::operator=((v37 + v34 + 120), (v36 + v34 + 120), v95, v96, v97);
-            ashp::detail::dynamic_array::storage<ashp::optional<ashp::acipc::config::named_target_spec::constraint,void>>::operator=((v37 + v34 + 144), (v36 + v34 + 144), v98, v99, v100);
-            ashp::detail::dynamic_array::storage<ashp::optional<ashp::acipc::config::named_target_spec::constraint,void>>::operator=((v37 + v34 + 168), (v36 + v34 + 168), v101, v102, v103);
+            ashp::refcounted_ptr<ashp::boxed::data,ashp::cf::refcount_policy>::refcounted_ptr(&context, *(v36 + v34 + 16), v78, v79);
+            v80 = *(v37 + v34 + 16);
+            *(v77 + 16) = context;
+            *&context = v80;
+            ashp::refcounted_ptr<ashp::boxed::symbol,ashp::cf::refcount_policy>::reset(&context, v81, v82, v83);
+            *(v77 + 24) = *(v36 + v34 + 24);
+            v84 = *(v36 + v34 + 32);
+            *(v77 + 40) = *(v36 + v34 + 40);
+            *(v77 + 32) = v84;
+            ashp::detail::dynamic_array::storage<ashp::acipc::config::numeric_constraint<unsigned short>>::operator=((v37 + v34 + 48), (v36 + v34 + 48), v85, v86, v87);
+            ashp::detail::dynamic_array::storage<ashp::acipc::config::numeric_constraint<unsigned int>>::operator=((v37 + v34 + 72), (v36 + v34 + 72), v88, v89, v90);
+            ashp::detail::dynamic_array::storage<ashp::acipc::config::numeric_constraint<unsigned int>>::operator=((v37 + v34 + 96), (v36 + v34 + 96), v91, v92, v93);
+            ashp::detail::dynamic_array::storage<ashp::optional<ashp::acipc::config::named_target_spec::constraint,void>>::operator=((v37 + v34 + 120), (v36 + v34 + 120), v94, v95, v96);
+            ashp::detail::dynamic_array::storage<ashp::optional<ashp::acipc::config::named_target_spec::constraint,void>>::operator=((v37 + v34 + 144), (v36 + v34 + 144), v97, v98, v99);
+            ashp::detail::dynamic_array::storage<ashp::optional<ashp::acipc::config::named_target_spec::constraint,void>>::operator=((v37 + v34 + 168), (v36 + v34 + 168), v100, v101, v102);
             v34 += 368;
             --v35;
           }
@@ -6908,8 +6605,8 @@ uint64_t parse_field_with_default<&(BOOL parse_dict<&(ashp::acipc::config::trans
         goto LABEL_36;
       }
 
-      ashp::detail::dynamic_array::storage<ashp::acipc::config::transfer_ring_spec>::reduce_size(a1, v106, v10, v11, v12);
-      ashp::detail::dynamic_array::storage<ashp::acipc::config::transfer_ring_spec>::append(a1, a2[2] + 368 * v106, *a2 - v106, v104, v105);
+      ashp::detail::dynamic_array::storage<ashp::acipc::config::transfer_ring_spec>::reduce_size(a1, v105, v10, v11, v12);
+      ashp::detail::dynamic_array::storage<ashp::acipc::config::transfer_ring_spec>::append(a1, a2[2] + 368 * v105, *a2 - v105, v103, v104);
     }
 
     else
@@ -6919,8 +6616,8 @@ uint64_t parse_field_with_default<&(BOOL parse_dict<&(ashp::acipc::config::trans
       *a1 = context;
       context = v26;
       v27 = a1[2];
-      a1[2] = v108;
-      v108 = v27;
+      a1[2] = v107;
+      v107 = v27;
       ashp::detail::dynamic_array::storage<ashp::acipc::config::transfer_ring_spec>::~storage(&context, v28, v29, v30, v31);
     }
 
@@ -6928,8 +6625,8 @@ uint64_t parse_field_with_default<&(BOOL parse_dict<&(ashp::acipc::config::trans
     return 1;
   }
 
-  v110 = a4;
-  v111 = a1;
+  v109 = a4;
+  v110 = a1;
   if (a1 && !*a1)
   {
     v13 = value;
@@ -6946,18 +6643,18 @@ uint64_t parse_field_with_default<&(BOOL parse_dict<&(ashp::acipc::config::trans
 
     if (v19)
     {
-      v109 = 0;
+      v108 = 0;
       v20 = ashp::boxed::dictionary::count(v19, v15, v16, v17);
       if (a1[1] < v20)
       {
         ashp::detail::dynamic_array::storage<ashp::acipc::config::transfer_ring_spec>::set_capacity(a1, v20, v21, v22, v23);
       }
 
-      *&context = &v109;
-      *(&context + 1) = &v110;
-      v108 = &v111;
+      *&context = &v108;
+      *(&context + 1) = &v109;
+      v107 = &v110;
       CFDictionaryApplyFunction(v19, iterate_dict<BOOL parse_dict<&(ashp::acipc::config::transfer_ring_spec::parse(ashp::acipc::config::transfer_ring_spec*,ashp::boxed::object,ashp::acipc::config::error_context *)),ashp::acipc::config::transfer_ring_spec>(ashp::dynamic_array<ashp::acipc::config::transfer_ring_spec> *,ashp::boxed::object,ashp::acipc::config::error_context *)::{lambda(ashp::boxed::object,ashp::boxed::object)#1},0>(ashp::boxed::dictionary,BOOL parse_dict<&(ashp::acipc::config::transfer_ring_spec::parse(ashp::acipc::config::transfer_ring_spec*,ashp::boxed::object,ashp::acipc::config::error_context *)),ashp::acipc::config::transfer_ring_spec>(ashp::dynamic_array<ashp::acipc::config::transfer_ring_spec> *,ashp::boxed::object,ashp::acipc::config::error_context *)::{lambda(ashp::boxed::object,ashp::boxed::object)#1})::{lambda(void const*,void const*,void *)#1}::__invoke, &context);
-      if (v109 != 1)
+      if (v108 != 1)
       {
         return 1;
       }
@@ -6995,7 +6692,7 @@ unint64_t *ashp::detail::dynamic_array::storage<ashp::acipc::config::transfer_ri
   return a1;
 }
 
-uint64_t parse_field_with_default<&(BOOL parse_dict<&(ashp::acipc::config::completion_ring_spec::parse(ashp::acipc::config::completion_ring_spec*,ashp::boxed::object,ashp::acipc::config::error_context *)),ashp::acipc::config::completion_ring_spec>(ashp::dynamic_array<ashp::acipc::config::completion_ring_spec> *,ashp::boxed::object,ashp::acipc::config::error_context *)),ashp::dynamic_array<ashp::acipc::config::completion_ring_spec>>(unint64_t *a1, unint64_t *a2, const __CFDictionary *a3, const char *a4, void *a5)
+uint64_t parse_field_with_default<&(BOOL parse_dict<&(ashp::acipc::config::completion_ring_spec::parse(ashp::acipc::config::completion_ring_spec*,ashp::boxed::object,ashp::acipc::config::error_context *)),ashp::acipc::config::completion_ring_spec>(ashp::dynamic_array<ashp::acipc::config::completion_ring_spec> *,ashp::boxed::object,ashp::acipc::config::error_context *)),ashp::dynamic_array<ashp::acipc::config::completion_ring_spec>>(unint64_t *a1, unint64_t *a2, const __CFDictionary *a3, char *a4, void *a5)
 {
   value = ashp::boxed::dictionary::get_value(a3, @"completion_rings", a3, a4);
   if (!value)
@@ -7046,7 +6743,7 @@ uint64_t parse_field_with_default<&(BOOL parse_dict<&(ashp::acipc::config::compl
             *(v37 - 40) = *(v36 - 40);
             *(v37 - 32) = *(v36 - 32);
             ashp::unsafe_storage<ashp::acipc::config::named_target_spec>::storage::storage(&v87, v36 - 24, v53, v54);
-            ashp::swap(v37 - 24, &v87, v55, v56);
+            ashp::swap((v37 - 24), &v87, v55, v56);
             ashp::unsafe_storage<ashp::acipc::config::named_target_spec>::storage::reset(&v87, v57, v58, v59);
             ashp::unsafe_storage<ashp::acipc::config::named_target_spec>::storage::storage(&v87, v36, v60, v61);
             ashp::swap(v37, &v87, v62, v63);
@@ -7162,7 +6859,7 @@ unint64_t *ashp::detail::dynamic_array::storage<ashp::acipc::config::completion_
   return a1;
 }
 
-uint64_t parse_field_with_default<&(BOOL parse_dict<&(ashp::acipc::config::completion_group_spec::parse(ashp::acipc::config::completion_group_spec*,ashp::boxed::object,ashp::acipc::config::error_context *)),ashp::acipc::config::completion_group_spec>(ashp::dynamic_array<ashp::acipc::config::completion_group_spec> *,ashp::boxed::object,ashp::acipc::config::error_context *)),ashp::dynamic_array<ashp::acipc::config::completion_group_spec>>(unint64_t *a1, uint64_t *a2, const __CFDictionary *a3, const char *a4, void *a5)
+uint64_t parse_field_with_default<&(BOOL parse_dict<&(ashp::acipc::config::completion_group_spec::parse(ashp::acipc::config::completion_group_spec*,ashp::boxed::object,ashp::acipc::config::error_context *)),ashp::acipc::config::completion_group_spec>(ashp::dynamic_array<ashp::acipc::config::completion_group_spec> *,ashp::boxed::object,ashp::acipc::config::error_context *)),ashp::dynamic_array<ashp::acipc::config::completion_group_spec>>(unint64_t *a1, uint64_t *a2, const __CFDictionary *a3, char *a4, void *a5)
 {
   value = ashp::boxed::dictionary::get_value(a3, @"completion_groups", a3, a4);
   if (!value)
@@ -7316,7 +7013,7 @@ unint64_t *ashp::detail::dynamic_array::storage<ashp::acipc::config::completion_
   return a1;
 }
 
-uint64_t parse_field_with_default<&(BOOL parse_dict<&(ashp::acipc::config::memory_region_spec::parse(ashp::acipc::config::memory_region_spec*,ashp::boxed::object,ashp::acipc::config::error_context *)),ashp::acipc::config::memory_region_spec>(ashp::dynamic_array<ashp::acipc::config::memory_region_spec> *,ashp::boxed::object,ashp::acipc::config::error_context *)),ashp::dynamic_array<ashp::acipc::config::memory_region_spec>>(unint64_t *a1, uint64_t *a2, const __CFDictionary *a3, const char *a4, void *a5)
+uint64_t parse_field_with_default<&(BOOL parse_dict<&(ashp::acipc::config::memory_region_spec::parse(ashp::acipc::config::memory_region_spec*,ashp::boxed::object,ashp::acipc::config::error_context *)),ashp::acipc::config::memory_region_spec>(ashp::dynamic_array<ashp::acipc::config::memory_region_spec> *,ashp::boxed::object,ashp::acipc::config::error_context *)),ashp::dynamic_array<ashp::acipc::config::memory_region_spec>>(unint64_t *a1, uint64_t *a2, const __CFDictionary *a3, char *a4, void *a5)
 {
   value = ashp::boxed::dictionary::get_value(a3, @"memory_regions", a3, a4);
   if (!value)
@@ -7822,7 +7519,7 @@ uint64_t ashp::dynamic_array<char>::operator[](unint64_t a1, uint64_t a2, unint6
   return result;
 }
 
-uint64_t ashp::detail::dynamic_array::buffer<char>::buffer(size_t *a1, size_t a2, uint64_t a3, const char *a4)
+size_t *ashp::detail::dynamic_array::buffer<char>::buffer(size_t *a1, size_t a2, uint64_t a3, const char *a4)
 {
   *a1 = a2;
   a1[1] = 0;
@@ -8115,7 +7812,7 @@ LABEL_7:
       }
 
       ashp::refcounted_ptr<ashp::boxed::data,ashp::cf::refcount_policy>::refcounted_ptr((v9 + v8), *(a2 + v8), a3, a4);
-      ashp::detail::dynamic_array::storage<ashp::refcounted_ptr<ashp::boxed::symbol,ashp::cf::refcount_policy>>::storage((v9 + v8 + 8), a2 + v8 + 8, v10, v11);
+      ashp::detail::dynamic_array::storage<ashp::refcounted_ptr<ashp::boxed::symbol,ashp::cf::refcount_policy>>::storage((v9 + v8 + 8), (a2 + v8 + 8), v10, v11);
       *(v9 + v8 + 32) = *(a2 + v8 + 32);
       result = ashp::refcounted_ptr<ashp::boxed::data,ashp::cf::refcount_policy>::refcounted_ptr((v9 + v8 + 40), *(a2 + v8 + 40), v12, v13);
       v14 = v9 + v8;
@@ -8140,7 +7837,7 @@ LABEL_10:
   return result;
 }
 
-uint64_t ashp::detail::dynamic_array::buffer<ashp::acipc::config::memory_region_spec>::buffer(unint64_t *a1, unint64_t a2, uint64_t a3, const char *a4)
+unint64_t *ashp::detail::dynamic_array::buffer<ashp::acipc::config::memory_region_spec>::buffer(unint64_t *a1, unint64_t a2, uint64_t a3, const char *a4)
 {
   *a1 = a2;
   a1[1] = 0;
@@ -8229,14 +7926,14 @@ void iterate_dict<BOOL parse_dict<&(ashp::acipc::config::memory_region_spec::par
       return;
     }
 
-    v55 = 0;
-    LODWORD(v56) = 0;
-    BYTE4(v56) = 0;
+    v54 = 0;
+    LODWORD(v55) = 0;
+    BYTE4(v55) = 0;
+    v51 = 0u;
     v52 = 0u;
-    v53 = 0u;
-    v54[0] = 0;
-    *&v54[12] = 0;
-    *&v54[4] = 0;
+    v53[0] = 0;
+    *&v53[12] = 0;
+    *&v53[4] = 0;
     v9 = *(a3 + 8);
     v10 = *v9;
     if (a2)
@@ -8249,29 +7946,29 @@ void iterate_dict<BOOL parse_dict<&(ashp::acipc::config::memory_region_spec::par
 
       if (a2)
       {
-        v58 = 0;
-        if (parse_field<&(ashp::acipc::config::named_target_spec::parse(ashp::acipc::config::named_target_spec*,ashp::boxed::object,ashp::acipc::config::error_context *)),ashp::acipc::config::named_target_spec>(&v54[8], a2, @"resource", v10))
+        v57 = 0;
+        if (parse_field<&(ashp::acipc::config::named_target_spec::parse(ashp::acipc::config::named_target_spec*,ashp::boxed::object,ashp::acipc::config::error_context *)),ashp::acipc::config::named_target_spec>(&v53[8], a2, @"resource", v10))
         {
-          memset(v57, 0, sizeof(v57));
-          v16 = parse_field_with_default<&(BOOL parse_array_or_singleton<&(parse_symbol(ashp::refcounted_ptr<ashp::boxed::symbol,ashp::cf::refcount_policy> *,ashp::boxed::object,ashp::acipc::config::error_context *)),ashp::refcounted_ptr<ashp::boxed::symbol,ashp::cf::refcount_policy>>(ashp::dynamic_array<ashp::refcounted_ptr<ashp::boxed::symbol,ashp::cf::refcount_policy>> *,ashp::boxed::object,ashp::acipc::config::error_context *)),ashp::dynamic_array<ashp::refcounted_ptr<ashp::boxed::symbol,ashp::cf::refcount_policy>>>(&v52 + 1, v57, a2, @"exec_stage", v10, &v58);
-          ashp::detail::dynamic_array::storage<ashp::refcounted_ptr<ashp::boxed::symbol,ashp::cf::refcount_policy>>::~storage(v57, v17, v18, v19, v20);
-          if ((v16 & 1) != 0 && parse_field<&(BOOL parse_number<unsigned short>(unsigned short *,ashp::boxed::object,ashp::acipc::config::error_context *)),unsigned short>(&v55, a2, @"id", v10) && parse_field_with_default<&(BOOL parse_number<unsigned char>(unsigned char *,ashp::boxed::object,ashp::acipc::config::error_context *)),unsigned char>(v54, 0, a2, @"traffic_class", v10, &v58) && parse_field_with_default<&(BOOL parse_number<unsigned int>(unsigned int *,ashp::boxed::object,ashp::acipc::config::error_context *)),unsigned int>(&v54[4], 0, a2, @"priority", v10, &v58) && parse_field_with_default<&(ashp::acipc::config::memory_region_spec::multi_config::parse(ashp::acipc::config::memory_region_spec::multi_config*,ashp::boxed::object,ashp::acipc::config::error_context *)),ashp::acipc::config::memory_region_spec::multi_config>(&v56, a2, v10, &v58))
+          memset(v56, 0, sizeof(v56));
+          v16 = parse_field_with_default<&(BOOL parse_array_or_singleton<&(parse_symbol(ashp::refcounted_ptr<ashp::boxed::symbol,ashp::cf::refcount_policy> *,ashp::boxed::object,ashp::acipc::config::error_context *)),ashp::refcounted_ptr<ashp::boxed::symbol,ashp::cf::refcount_policy>>(ashp::dynamic_array<ashp::refcounted_ptr<ashp::boxed::symbol,ashp::cf::refcount_policy>> *,ashp::boxed::object,ashp::acipc::config::error_context *)),ashp::dynamic_array<ashp::refcounted_ptr<ashp::boxed::symbol,ashp::cf::refcount_policy>>>(&v51 + 1, v56, a2, @"exec_stage", v10, &v57);
+          ashp::detail::dynamic_array::storage<ashp::refcounted_ptr<ashp::boxed::symbol,ashp::cf::refcount_policy>>::~storage(v56, v17, v18, v19, v20);
+          if ((v16 & 1) != 0 && parse_field<&(BOOL parse_number<unsigned short>(unsigned short *,ashp::boxed::object,ashp::acipc::config::error_context *)),unsigned short>(&v54, a2, @"id", v10) && parse_field_with_default<&(BOOL parse_number<unsigned char>(unsigned char *,ashp::boxed::object,ashp::acipc::config::error_context *)),unsigned char>(v53, 0, a2, @"traffic_class", v10, &v57) && parse_field_with_default<&(BOOL parse_number<unsigned int>(unsigned int *,ashp::boxed::object,ashp::acipc::config::error_context *)),unsigned int>(&v53[4], 0, a2, @"priority", v10, &v57) && parse_field_with_default<&(ashp::acipc::config::memory_region_spec::multi_config::parse(ashp::acipc::config::memory_region_spec::multi_config*,ashp::boxed::object,ashp::acipc::config::error_context *)),ashp::acipc::config::memory_region_spec::multi_config>(&v55, a2, v10, &v57))
           {
             v22 = ashp::boxed::dictionary::count(a2, v21, v14, v15);
-            if (v58 + v22 == 6)
+            if (v57 + v22 == 6)
             {
-              ashp::refcounted_ptr<ashp::boxed::data,ashp::cf::refcount_policy>::refcounted_ptr(v57, cf, v23, v24);
-              v26 = v52;
-              *&v52 = v57[0];
-              v57[0] = v26;
-              ashp::refcounted_ptr<ashp::boxed::symbol,ashp::cf::refcount_policy>::reset(v57, v27, v28, v29);
+              ashp::refcounted_ptr<ashp::boxed::data,ashp::cf::refcount_policy>::refcounted_ptr(v56, cf, v23, v24);
+              v26 = v51;
+              *&v51 = v56[0];
+              v56[0] = v26;
+              ashp::refcounted_ptr<ashp::boxed::symbol,ashp::cf::refcount_policy>::reset(v56, v27, v28, v29);
               v34 = **(a3 + 16);
               v35 = *v34;
               v36 = *v34 + 1;
               if (*v34 == -1)
               {
                 ashp::detail::control_flow::log_guard_else_failure("dynamic_array.hpp", 0x2DA, "ensure_free_space", v32);
-                ashp::detail::base::log_pre_crash_message("ALLOCATION FAILURE (or BUG) in Airship", "dynamic_array.hpp", 0x2DA, "ensure_free_space", v51);
+                ashp::detail::base::log_pre_crash_message("ALLOCATION FAILURE (or BUG) in Airship", "dynamic_array.hpp", 0x2DA, "ensure_free_space", v50);
                 _os_crash();
                 __break(1u);
               }
@@ -8291,7 +7988,6 @@ void iterate_dict<BOOL parse_dict<&(ashp::acipc::config::memory_region_spec::par
                     v30 = v34[1];
                   }
 
-                  v38 = (*v34 - 8) < 0;
                   if (v36 >= 9)
                   {
                     do
@@ -8320,35 +8016,35 @@ void iterate_dict<BOOL parse_dict<&(ashp::acipc::config::memory_region_spec::par
 
                 if (v35 < v37)
                 {
-                  v39 = v34[2];
-                  if (v39)
+                  v38 = v34[2];
+                  if (v38)
                   {
-                    v40 = v39 + 72 * v35;
-                    v41 = v52;
-                    *&v52 = 0;
-                    *v40 = v41;
-                    *(v40 + 8) = 0;
-                    *(v40 + 16) = 0;
-                    *(v40 + 24) = 0;
-                    *(v40 + 8) = *(&v52 + 1);
+                    v39 = v38 + 72 * v35;
+                    v40 = v51;
+                    *&v51 = 0;
+                    *v39 = v40;
+                    *(v39 + 8) = 0;
+                    *(v39 + 16) = 0;
+                    *(v39 + 24) = 0;
+                    *(v39 + 8) = *(&v51 + 1);
+                    *(&v51 + 1) = 0;
+                    v41 = *(v39 + 16);
+                    *(v39 + 16) = v52;
+                    *&v52 = v41;
+                    *(v39 + 24) = *(&v52 + 1);
                     *(&v52 + 1) = 0;
-                    v42 = *(v40 + 16);
-                    *(v40 + 16) = v53;
-                    *&v53 = v42;
-                    *(v40 + 24) = *(&v53 + 1);
-                    *(&v53 + 1) = 0;
-                    *(v40 + 32) = *v54;
-                    v43 = *&v54[8];
-                    *&v54[8] = 0;
-                    *(v40 + 40) = v43;
-                    *(v40 + 48) = *&v54[16];
-                    *(v40 + 56) = v55;
-                    *(v40 + 64) = v56;
+                    *(v39 + 32) = *v53;
+                    v42 = *&v53[8];
+                    *&v53[8] = 0;
+                    *(v39 + 40) = v42;
+                    *(v39 + 48) = *&v53[16];
+                    *(v39 + 56) = v54;
+                    *(v39 + 64) = v55;
                     ++*v34;
 LABEL_34:
-                    ashp::refcounted_ptr<ashp::boxed::symbol,ashp::cf::refcount_policy>::reset(&v54[8], v30, v31, v32);
-                    ashp::detail::dynamic_array::storage<ashp::refcounted_ptr<ashp::boxed::symbol,ashp::cf::refcount_policy>>::~storage(&v52 + 1, v44, v45, v46, v47);
-                    ashp::refcounted_ptr<ashp::boxed::symbol,ashp::cf::refcount_policy>::reset(&v52, v48, v49, v50);
+                    ashp::refcounted_ptr<ashp::boxed::symbol,ashp::cf::refcount_policy>::reset(&v53[8], v30, v31, v32);
+                    ashp::detail::dynamic_array::storage<ashp::refcounted_ptr<ashp::boxed::symbol,ashp::cf::refcount_policy>>::~storage(&v51 + 1, v43, v44, v45, v46);
+                    ashp::refcounted_ptr<ashp::boxed::symbol,ashp::cf::refcount_policy>::reset(&v51, v47, v48, v49);
                     return;
                   }
 
@@ -8385,10 +8081,11 @@ LABEL_39:
   }
 }
 
-void sub_23ECC71FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, const char *a4, const char *a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, unint64_t a19)
+void sub_23ECC71FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, const char *a4, const char *a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  ashp::detail::dynamic_array::storage<ashp::refcounted_ptr<ashp::boxed::symbol,ashp::cf::refcount_policy>>::~storage(&a19, a2, a3, a4, a5);
-  ashp::acipc::config::memory_region_spec::~memory_region_spec(&a9, v20, v21, v22);
+  va_start(va, a18);
+  ashp::detail::dynamic_array::storage<ashp::refcounted_ptr<ashp::boxed::symbol,ashp::cf::refcount_policy>>::~storage(va, a2, a3, a4, a5);
+  ashp::acipc::config::memory_region_spec::~memory_region_spec(&a9, v19, v20, v21);
   _Unwind_Resume(a1);
 }
 
@@ -8509,7 +8206,7 @@ LABEL_7:
 
       ashp::refcounted_ptr<ashp::boxed::data,ashp::cf::refcount_policy>::refcounted_ptr((v10 + v8), *(v9 - 4), a3, a4);
       v11 = v10 + v8;
-      result = ashp::detail::dynamic_array::storage<ashp::refcounted_ptr<ashp::boxed::symbol,ashp::cf::refcount_policy>>::storage((v11 + 8), (v9 - 3), v12, v13);
+      result = ashp::detail::dynamic_array::storage<ashp::refcounted_ptr<ashp::boxed::symbol,ashp::cf::refcount_policy>>::storage((v11 + 8), v9 - 3, v12, v13);
       v14 = *v9;
       v9 += 5;
       *(v11 + 32) = v14;
@@ -8531,7 +8228,7 @@ LABEL_10:
   return result;
 }
 
-uint64_t ashp::detail::dynamic_array::buffer<ashp::acipc::config::completion_group_spec>::buffer(unint64_t *a1, unint64_t a2, uint64_t a3, const char *a4)
+unint64_t *ashp::detail::dynamic_array::buffer<ashp::acipc::config::completion_group_spec>::buffer(unint64_t *a1, unint64_t a2, uint64_t a3, const char *a4)
 {
   *a1 = a2;
   a1[1] = 0;
@@ -8620,10 +8317,10 @@ void iterate_dict<BOOL parse_dict<&(ashp::acipc::config::completion_group_spec::
       return;
     }
 
-    HIDWORD(v59[0]) = 0;
+    HIDWORD(v58[0]) = 0;
+    v56 = 0u;
     v57 = 0u;
-    v58 = 0u;
-    LOWORD(v59[0]) = 0;
+    LOWORD(v58[0]) = 0;
     v9 = *(a3 + 8);
     v10 = *v9;
     if (a2)
@@ -8636,11 +8333,11 @@ void iterate_dict<BOOL parse_dict<&(ashp::acipc::config::completion_group_spec::
 
       if (a2)
       {
-        v61 = 0;
-        memset(v60, 0, sizeof(v60));
-        v14 = parse_field_with_default<&(BOOL parse_array_or_singleton<&(parse_symbol(ashp::refcounted_ptr<ashp::boxed::symbol,ashp::cf::refcount_policy> *,ashp::boxed::object,ashp::acipc::config::error_context *)),ashp::refcounted_ptr<ashp::boxed::symbol,ashp::cf::refcount_policy>>(ashp::dynamic_array<ashp::refcounted_ptr<ashp::boxed::symbol,ashp::cf::refcount_policy>> *,ashp::boxed::object,ashp::acipc::config::error_context *)),ashp::dynamic_array<ashp::refcounted_ptr<ashp::boxed::symbol,ashp::cf::refcount_policy>>>(&v57 + 1, v60, a2, @"exec_stage", v10, &v61);
-        ashp::detail::dynamic_array::storage<ashp::refcounted_ptr<ashp::boxed::symbol,ashp::cf::refcount_policy>>::~storage(v60, v15, v16, v17, v18);
-        if ((v14 & 1) == 0 || !parse_field<&(BOOL parse_number<unsigned short>(unsigned short *,ashp::boxed::object,ashp::acipc::config::error_context *)),unsigned short>(v59, a2, @"id", v10))
+        v60 = 0;
+        memset(v59, 0, sizeof(v59));
+        v14 = parse_field_with_default<&(BOOL parse_array_or_singleton<&(parse_symbol(ashp::refcounted_ptr<ashp::boxed::symbol,ashp::cf::refcount_policy> *,ashp::boxed::object,ashp::acipc::config::error_context *)),ashp::refcounted_ptr<ashp::boxed::symbol,ashp::cf::refcount_policy>>(ashp::dynamic_array<ashp::refcounted_ptr<ashp::boxed::symbol,ashp::cf::refcount_policy>> *,ashp::boxed::object,ashp::acipc::config::error_context *)),ashp::dynamic_array<ashp::refcounted_ptr<ashp::boxed::symbol,ashp::cf::refcount_policy>>>(&v56 + 1, v59, a2, @"exec_stage", v10, &v60);
+        ashp::detail::dynamic_array::storage<ashp::refcounted_ptr<ashp::boxed::symbol,ashp::cf::refcount_policy>>::~storage(v59, v15, v16, v17, v18);
+        if ((v14 & 1) == 0 || !parse_field<&(BOOL parse_number<unsigned short>(unsigned short *,ashp::boxed::object,ashp::acipc::config::error_context *)),unsigned short>(v58, a2, @"id", v10))
         {
           goto LABEL_20;
         }
@@ -8661,7 +8358,7 @@ void iterate_dict<BOOL parse_dict<&(ashp::acipc::config::completion_group_spec::
             goto LABEL_42;
           }
 
-          if (!parse_field<&(BOOL parse_number<unsigned int>(unsigned int *,ashp::boxed::object,ashp::acipc::config::error_context *)),unsigned int>(v59 + 1, v25, @"count", v10))
+          if (!parse_field<&(BOOL parse_number<unsigned int>(unsigned int *,ashp::boxed::object,ashp::acipc::config::error_context *)),unsigned int>(v58 + 1, v25, @"count", v10))
           {
 LABEL_43:
             set_error_location(v10, @"multi", v29, v30);
@@ -8679,25 +8376,25 @@ LABEL_42:
 
         else
         {
-          HIDWORD(v59[0]) = 1;
-          ++v61;
+          HIDWORD(v58[0]) = 1;
+          ++v60;
         }
 
         v39 = ashp::boxed::dictionary::count(a2, v22, v23, v24);
-        if (v61 + v39 == 3)
+        if (v60 + v39 == 3)
         {
-          ashp::refcounted_ptr<ashp::boxed::data,ashp::cf::refcount_policy>::refcounted_ptr(v60, cf, v40, v41);
-          v43 = v57;
-          *&v57 = v60[0];
-          v60[0] = v43;
-          ashp::refcounted_ptr<ashp::boxed::symbol,ashp::cf::refcount_policy>::reset(v60, v44, v45, v46);
+          ashp::refcounted_ptr<ashp::boxed::data,ashp::cf::refcount_policy>::refcounted_ptr(v59, cf, v40, v41);
+          v43 = v56;
+          *&v56 = v59[0];
+          v59[0] = v43;
+          ashp::refcounted_ptr<ashp::boxed::symbol,ashp::cf::refcount_policy>::reset(v59, v44, v45, v46);
           v47 = **(a3 + 16);
           v48 = *v47;
           v49 = *v47 + 1;
           if (*v47 == -1)
           {
             ashp::detail::control_flow::log_guard_else_failure("dynamic_array.hpp", 0x2DA, "ensure_free_space", v34);
-            ashp::detail::base::log_pre_crash_message("ALLOCATION FAILURE (or BUG) in Airship", "dynamic_array.hpp", 0x2DA, "ensure_free_space", v56);
+            ashp::detail::base::log_pre_crash_message("ALLOCATION FAILURE (or BUG) in Airship", "dynamic_array.hpp", 0x2DA, "ensure_free_space", v55);
             _os_crash();
             __break(1u);
           }
@@ -8717,7 +8414,6 @@ LABEL_42:
                 v32 = v47[1];
               }
 
-              v51 = (*v47 - 8) < 0;
               if (v49 >= 9)
               {
                 do
@@ -8746,24 +8442,24 @@ LABEL_42:
 
             if (v48 < v50)
             {
-              v52 = v47[2];
-              if (v52)
+              v51 = v47[2];
+              if (v51)
               {
-                v53 = (v52 + 40 * v48);
-                v54 = v57;
-                *&v57 = 0;
-                *v53 = v54;
-                v53[1] = 0;
-                v53[2] = 0;
-                v53[3] = 0;
-                v53[1] = *(&v57 + 1);
+                v52 = (v51 + 40 * v48);
+                v53 = v56;
+                *&v56 = 0;
+                *v52 = v53;
+                v52[1] = 0;
+                v52[2] = 0;
+                v52[3] = 0;
+                v52[1] = *(&v56 + 1);
+                *(&v56 + 1) = 0;
+                v54 = v52[2];
+                v52[2] = v57;
+                *&v57 = v54;
+                v52[3] = *(&v57 + 1);
                 *(&v57 + 1) = 0;
-                v55 = v53[2];
-                v53[2] = v58;
-                *&v58 = v55;
-                v53[3] = *(&v58 + 1);
-                *(&v58 + 1) = 0;
-                v53[4] = v59[0];
+                v52[4] = v58[0];
                 ++*v47;
                 goto LABEL_21;
               }
@@ -8797,15 +8493,16 @@ LABEL_20:
     set_error_location(**(a3 + 8), cf, v19, v20);
     **a3 = 1;
 LABEL_21:
-    ashp::detail::dynamic_array::storage<ashp::refcounted_ptr<ashp::boxed::symbol,ashp::cf::refcount_policy>>::~storage(&v57 + 1, v32, v33, v34, v35);
-    ashp::refcounted_ptr<ashp::boxed::symbol,ashp::cf::refcount_policy>::reset(&v57, v36, v37, v38);
+    ashp::detail::dynamic_array::storage<ashp::refcounted_ptr<ashp::boxed::symbol,ashp::cf::refcount_policy>>::~storage(&v56 + 1, v32, v33, v34, v35);
+    ashp::refcounted_ptr<ashp::boxed::symbol,ashp::cf::refcount_policy>::reset(&v56, v36, v37, v38);
   }
 }
 
-void sub_23ECC7A50(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, const char *a4, const char *a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, unint64_t a15)
+void sub_23ECC7A50(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, const char *a4, const char *a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, ...)
 {
-  ashp::detail::dynamic_array::storage<ashp::refcounted_ptr<ashp::boxed::symbol,ashp::cf::refcount_policy>>::~storage(&a15, a2, a3, a4, a5);
-  ashp::acipc::config::completion_group_spec::~completion_group_spec(&a9, v16, v17, v18, v19);
+  va_start(va, a14);
+  ashp::detail::dynamic_array::storage<ashp::refcounted_ptr<ashp::boxed::symbol,ashp::cf::refcount_policy>>::~storage(va, a2, a3, a4, a5);
+  ashp::acipc::config::completion_group_spec::~completion_group_spec(&a9, v15, v16, v17, v18);
   _Unwind_Resume(a1);
 }
 
@@ -8924,7 +8621,7 @@ LABEL_7:
 
       ashp::refcounted_ptr<ashp::boxed::data,ashp::cf::refcount_policy>::refcounted_ptr((v9 + v8), *(a2 + v8), a3, a4);
       v10 = (v9 + v8);
-      ashp::detail::dynamic_array::storage<ashp::refcounted_ptr<ashp::boxed::symbol,ashp::cf::refcount_policy>>::storage((v9 + v8 + 8), a2 + v8 + 8, v11, v12);
+      ashp::detail::dynamic_array::storage<ashp::refcounted_ptr<ashp::boxed::symbol,ashp::cf::refcount_policy>>::storage((v9 + v8 + 8), (a2 + v8 + 8), v11, v12);
       v13 = *(a2 + v8 + 32);
       v14 = *(a2 + v8 + 48);
       *(v10 + 60) = *(a2 + v8 + 60);
@@ -8932,10 +8629,10 @@ LABEL_7:
       v10[3] = v14;
       ashp::acipc::config::completion_ring_spec::dynamic_config::dynamic_config(v9 + v8 + 80, a2 + v8 + 80, v15, v16);
       *(v9 + v8 + 168) = *(a2 + v8 + 168);
-      ashp::detail::dynamic_array::storage<ashp::acipc::config::numeric_constraint<unsigned short>>::storage((v9 + v8 + 176), a2 + v8 + 176, v17, v18);
-      ashp::detail::dynamic_array::storage<ashp::acipc::config::numeric_constraint<unsigned int>>::storage((v9 + v8 + 200), a2 + v8 + 200, v19, v20);
-      ashp::detail::dynamic_array::storage<ashp::optional<ashp::acipc::config::named_target_spec::constraint,void>>::storage((v9 + v8 + 224), a2 + v8 + 224, v21, v22);
-      result = ashp::detail::dynamic_array::storage<ashp::optional<ashp::acipc::config::named_target_spec::constraint,void>>::storage((v9 + v8 + 248), a2 + v8 + 248, v23, v24);
+      ashp::detail::dynamic_array::storage<ashp::acipc::config::numeric_constraint<unsigned short>>::storage((v9 + v8 + 176), (a2 + v8 + 176), v17, v18);
+      ashp::detail::dynamic_array::storage<ashp::acipc::config::numeric_constraint<unsigned int>>::storage((v9 + v8 + 200), (a2 + v8 + 200), v19, v20);
+      ashp::detail::dynamic_array::storage<ashp::optional<ashp::acipc::config::named_target_spec::constraint,void>>::storage((v9 + v8 + 224), (a2 + v8 + 224), v21, v22);
+      result = ashp::detail::dynamic_array::storage<ashp::optional<ashp::acipc::config::named_target_spec::constraint,void>>::storage((v9 + v8 + 248), (a2 + v8 + 248), v23, v24);
       v8 += 272;
       if (!--v6)
       {
@@ -8964,11 +8661,11 @@ void sub_23ECC7DA0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-uint64_t ashp::detail::dynamic_array::storage<ashp::acipc::config::completion_ring_spec>::storage(uint64_t a1, uint64_t a2, uint64_t a3, const char *a4)
+unint64_t *ashp::detail::dynamic_array::storage<ashp::acipc::config::completion_ring_spec>::storage(unint64_t *a1, unint64_t *a2, uint64_t a3, const char *a4)
 {
   *a1 = 0;
-  ashp::detail::dynamic_array::buffer<ashp::acipc::config::completion_ring_spec>::buffer((a1 + 8), *a2, a3, a4);
-  ashp::detail::dynamic_array::storage<ashp::acipc::config::completion_ring_spec>::append(a1, *(a2 + 16), *a2, v6, v7);
+  ashp::detail::dynamic_array::buffer<ashp::acipc::config::completion_ring_spec>::buffer(a1 + 1, *a2, a3, a4);
+  ashp::detail::dynamic_array::storage<ashp::acipc::config::completion_ring_spec>::append(a1, a2[2], *a2, v6, v7);
   return a1;
 }
 
@@ -8984,7 +8681,7 @@ void sub_23ECC7E4C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t ashp::detail::dynamic_array::buffer<ashp::acipc::config::completion_ring_spec>::buffer(unint64_t *a1, unint64_t a2, uint64_t a3, const char *a4)
+unint64_t *ashp::detail::dynamic_array::buffer<ashp::acipc::config::completion_ring_spec>::buffer(unint64_t *a1, unint64_t a2, uint64_t a3, const char *a4)
 {
   *a1 = a2;
   a1[1] = 0;
@@ -9062,8 +8759,8 @@ LABEL_11:
       *(v10 - 9) = v17;
       *(v10 - 16) = *(v11 - 64);
       *(v10 - 14) = *(v11 - 56);
-      ashp::unsafe_storage<ashp::acipc::config::named_target_spec>::storage::storage((v10 - 48), v11 - 48, v6, v7);
-      ashp::unsafe_storage<ashp::acipc::config::named_target_spec>::storage::storage((v10 - 24), v11 - 24, v18, v19);
+      ashp::unsafe_storage<ashp::acipc::config::named_target_spec>::storage::storage((v10 - 48), (v11 - 48), v6, v7);
+      ashp::unsafe_storage<ashp::acipc::config::named_target_spec>::storage::storage((v10 - 24), (v11 - 24), v18, v19);
       v20 = *v11;
       *v11 = 0;
       *v10 = v20;
@@ -9153,30 +8850,30 @@ void iterate_dict<BOOL parse_dict<&(ashp::acipc::config::completion_ring_spec::p
       return;
     }
 
-    *&v75[16] = 0;
-    *&v75[20] = 0;
-    *&v75[24] = 0;
+    *&v74[16] = 0;
+    *&v74[20] = 0;
+    *&v74[24] = 0;
+    v75 = 0;
     v76 = 0;
     v77 = 0;
-    v78 = 0;
-    v79[16] = 0;
-    v80[16] = 0;
+    v79 = 0;
     v81 = 0;
     v82 = 0;
+    v83 = 0;
+    v71 = 0u;
     v72 = 0u;
-    v73 = 0u;
-    LOWORD(v74) = 0;
-    *(&v74 + 4) = 0;
-    BYTE12(v74) = 0;
-    *v75 = 0;
-    *&v75[6] = 0;
-    v89 = 0;
+    LOWORD(v73) = 0;
+    *(&v73 + 4) = 0;
+    BYTE12(v73) = 0;
+    *v74 = 0;
+    *&v74[6] = 0;
+    v90 = 0;
+    v89 = 0u;
     v88 = 0u;
     v87 = 0u;
     v86 = 0u;
     v85 = 0u;
     v84 = 0u;
-    v83 = 0u;
     v9 = *(a3 + 8);
     v10 = *v9;
     if (a2)
@@ -9189,60 +8886,60 @@ void iterate_dict<BOOL parse_dict<&(ashp::acipc::config::completion_ring_spec::p
 
       if (a2)
       {
-        v94 = 0;
-        if (parse_field<&(ashp::acipc::config::named_target_spec::parse(ashp::acipc::config::named_target_spec*,ashp::boxed::object,ashp::acipc::config::error_context *)),ashp::acipc::config::named_target_spec>(&v76, a2, @"resource", v10))
+        v95 = 0;
+        if (parse_field<&(ashp::acipc::config::named_target_spec::parse(ashp::acipc::config::named_target_spec*,ashp::boxed::object,ashp::acipc::config::error_context *)),ashp::acipc::config::named_target_spec>(&v75, a2, @"resource", v10))
         {
-          memset(v93, 0, sizeof(v93));
-          v16 = parse_field_with_default<&(BOOL parse_array_or_singleton<&(parse_symbol(ashp::refcounted_ptr<ashp::boxed::symbol,ashp::cf::refcount_policy> *,ashp::boxed::object,ashp::acipc::config::error_context *)),ashp::refcounted_ptr<ashp::boxed::symbol,ashp::cf::refcount_policy>>(ashp::dynamic_array<ashp::refcounted_ptr<ashp::boxed::symbol,ashp::cf::refcount_policy>> *,ashp::boxed::object,ashp::acipc::config::error_context *)),ashp::dynamic_array<ashp::refcounted_ptr<ashp::boxed::symbol,ashp::cf::refcount_policy>>>(&v72 + 1, v93, a2, @"exec_stage", v10, &v94);
-          ashp::detail::dynamic_array::storage<ashp::refcounted_ptr<ashp::boxed::symbol,ashp::cf::refcount_policy>>::~storage(v93, v17, v18, v19, v20);
+          memset(v94, 0, sizeof(v94));
+          v16 = parse_field_with_default<&(BOOL parse_array_or_singleton<&(parse_symbol(ashp::refcounted_ptr<ashp::boxed::symbol,ashp::cf::refcount_policy> *,ashp::boxed::object,ashp::acipc::config::error_context *)),ashp::refcounted_ptr<ashp::boxed::symbol,ashp::cf::refcount_policy>>(ashp::dynamic_array<ashp::refcounted_ptr<ashp::boxed::symbol,ashp::cf::refcount_policy>> *,ashp::boxed::object,ashp::acipc::config::error_context *)),ashp::dynamic_array<ashp::refcounted_ptr<ashp::boxed::symbol,ashp::cf::refcount_policy>>>(&v71 + 1, v94, a2, @"exec_stage", v10, &v95);
+          ashp::detail::dynamic_array::storage<ashp::refcounted_ptr<ashp::boxed::symbol,ashp::cf::refcount_policy>>::~storage(v94, v17, v18, v19, v20);
           if (v16)
           {
-            if (parse_field<&(BOOL parse_number<unsigned short>(unsigned short *,ashp::boxed::object,ashp::acipc::config::error_context *)),unsigned short>(&v78, a2, @"id", v10))
+            if (parse_field<&(BOOL parse_number<unsigned short>(unsigned short *,ashp::boxed::object,ashp::acipc::config::error_context *)),unsigned short>(&v77, a2, @"id", v10))
             {
-              if (parse_field<&(BOOL parse_number<unsigned short>(unsigned short *,ashp::boxed::object,ashp::acipc::config::error_context *)),unsigned short>(&v78 + 1, a2, @"index_array_vector", v10))
+              if (parse_field<&(BOOL parse_number<unsigned short>(unsigned short *,ashp::boxed::object,ashp::acipc::config::error_context *)),unsigned short>(&v77 + 1, a2, @"index_array_vector", v10))
               {
-                if (parse_field<&(BOOL parse_number<unsigned short>(unsigned short *,ashp::boxed::object,ashp::acipc::config::error_context *)),unsigned short>(&v74, a2, @"ring_size", v10))
+                if (parse_field<&(BOOL parse_number<unsigned short>(unsigned short *,ashp::boxed::object,ashp::acipc::config::error_context *)),unsigned short>(&v73, a2, @"ring_size", v10))
                 {
-                  if (parse_field_with_default<&(BOOL parse_number<unsigned int>(unsigned int *,ashp::boxed::object,ashp::acipc::config::error_context *)),unsigned int>(&v74 + 1, 0, a2, @"header_size", v10, &v94))
+                  if (parse_field_with_default<&(BOOL parse_number<unsigned int>(unsigned int *,ashp::boxed::object,ashp::acipc::config::error_context *)),unsigned int>(&v73 + 1, 0, a2, @"header_size", v10, &v95))
                   {
-                    if (parse_field_with_default<&(BOOL parse_number<unsigned int>(unsigned int *,ashp::boxed::object,ashp::acipc::config::error_context *)),unsigned int>(&v74 + 2, 0, a2, @"footer_size", v10, &v94))
+                    if (parse_field_with_default<&(BOOL parse_number<unsigned int>(unsigned int *,ashp::boxed::object,ashp::acipc::config::error_context *)),unsigned int>(&v73 + 2, 0, a2, @"footer_size", v10, &v95))
                     {
-                      v92[16] = 0;
-                      v21 = parse_field_with_default<&(BOOL parse_optional<&(ashp::acipc::config::named_target_spec::parse(ashp::acipc::config::named_target_spec*,ashp::boxed::object,ashp::acipc::config::error_context *)),ashp::acipc::config::named_target_spec>(ashp::optional<ashp::acipc::config::named_target_spec,ashp::optional_traits<ashp::acipc::config::named_target_spec,void>::default_sentinel> *,ashp::boxed::object,ashp::acipc::config::error_context *)),ashp::optional<ashp::acipc::config::named_target_spec,void>>(v79, v92, a2, @"group", v10, &v94);
-                      ashp::unsafe_storage<ashp::acipc::config::named_target_spec>::storage::reset(v92, v22, v23, v24);
+                      v93[16] = 0;
+                      v21 = parse_field_with_default<&(BOOL parse_optional<&(ashp::acipc::config::named_target_spec::parse(ashp::acipc::config::named_target_spec*,ashp::boxed::object,ashp::acipc::config::error_context *)),ashp::acipc::config::named_target_spec>(ashp::optional<ashp::acipc::config::named_target_spec,ashp::optional_traits<ashp::acipc::config::named_target_spec,void>::default_sentinel> *,ashp::boxed::object,ashp::acipc::config::error_context *)),ashp::optional<ashp::acipc::config::named_target_spec,void>>(v78, v93, a2, @"group", v10, &v95);
+                      ashp::unsafe_storage<ashp::acipc::config::named_target_spec>::storage::reset(v93, v22, v23, v24);
                       if (v21)
                       {
-                        if (parse_field_with_default<&(BOOL parse_number<unsigned char>(unsigned char *,ashp::boxed::object,ashp::acipc::config::error_context *)),unsigned char>(&v74 + 12, 0, a2, @"traffic_class", v10, &v94))
+                        if (parse_field_with_default<&(BOOL parse_number<unsigned char>(unsigned char *,ashp::boxed::object,ashp::acipc::config::error_context *)),unsigned char>(&v73 + 12, 0, a2, @"traffic_class", v10, &v95))
                         {
-                          if (parse_field_with_default<&(BOOL parse_number<unsigned int>(unsigned int *,ashp::boxed::object,ashp::acipc::config::error_context *)),unsigned int>(v75, 0, a2, @"priority", v10, &v94))
+                          if (parse_field_with_default<&(BOOL parse_number<unsigned int>(unsigned int *,ashp::boxed::object,ashp::acipc::config::error_context *)),unsigned int>(v74, 0, a2, @"priority", v10, &v95))
                           {
-                            v91[16] = 0;
-                            v25 = parse_field_with_default<&(BOOL parse_optional<&(ashp::acipc::config::named_target_spec::parse(ashp::acipc::config::named_target_spec*,ashp::boxed::object,ashp::acipc::config::error_context *)),ashp::acipc::config::named_target_spec>(ashp::optional<ashp::acipc::config::named_target_spec,ashp::optional_traits<ashp::acipc::config::named_target_spec,void>::default_sentinel> *,ashp::boxed::object,ashp::acipc::config::error_context *)),ashp::optional<ashp::acipc::config::named_target_spec,void>>(v80, v91, a2, @"doorbell", v10, &v94);
-                            ashp::unsafe_storage<ashp::acipc::config::named_target_spec>::storage::reset(v91, v26, v27, v28);
+                            v92[16] = 0;
+                            v25 = parse_field_with_default<&(BOOL parse_optional<&(ashp::acipc::config::named_target_spec::parse(ashp::acipc::config::named_target_spec*,ashp::boxed::object,ashp::acipc::config::error_context *)),ashp::acipc::config::named_target_spec>(ashp::optional<ashp::acipc::config::named_target_spec,ashp::optional_traits<ashp::acipc::config::named_target_spec,void>::default_sentinel> *,ashp::boxed::object,ashp::acipc::config::error_context *)),ashp::optional<ashp::acipc::config::named_target_spec,void>>(v80, v92, a2, @"doorbell", v10, &v95);
+                            ashp::unsafe_storage<ashp::acipc::config::named_target_spec>::storage::reset(v92, v26, v27, v28);
                             if (v25)
                             {
-                              if (parse_field_with_default<&(ashp::acipc::config::doorbell_moderation_spec::parse(ashp::acipc::config::doorbell_moderation_spec*,ashp::boxed::object,ashp::acipc::config::error_context *)),ashp::acipc::config::doorbell_moderation_spec>(&v75[4], a2, v10, &v94))
+                              if (parse_field_with_default<&(ashp::acipc::config::doorbell_moderation_spec::parse(ashp::acipc::config::doorbell_moderation_spec*,ashp::boxed::object,ashp::acipc::config::error_context *)),ashp::acipc::config::doorbell_moderation_spec>(&v74[4], a2, v10, &v95))
                               {
-                                if (parse_field<&(ashp::acipc::config::named_target_spec::parse(ashp::acipc::config::named_target_spec*,ashp::boxed::object,ashp::acipc::config::error_context *)),ashp::acipc::config::named_target_spec>(&v81, a2, @"interrupt", v10))
+                                if (parse_field<&(ashp::acipc::config::named_target_spec::parse(ashp::acipc::config::named_target_spec*,ashp::boxed::object,ashp::acipc::config::error_context *)),ashp::acipc::config::named_target_spec>(&v82, a2, @"interrupt", v10))
                                 {
-                                  if (parse_field_with_default<&(ashp::acipc::config::interrupt_moderation_spec::parse(ashp::acipc::config::interrupt_moderation_spec*,ashp::boxed::object,ashp::acipc::config::error_context *)),ashp::acipc::config::interrupt_moderation_spec>(&v75[12], a2, v10, &v94))
+                                  if (parse_field_with_default<&(ashp::acipc::config::interrupt_moderation_spec::parse(ashp::acipc::config::interrupt_moderation_spec*,ashp::boxed::object,ashp::acipc::config::error_context *)),ashp::acipc::config::interrupt_moderation_spec>(&v74[12], a2, v10, &v95))
                                   {
-                                    if (parse_field_with_default<&(ashp::acipc::config::accumulation_spec::parse(ashp::acipc::config::accumulation_spec*,ashp::boxed::object,ashp::acipc::config::error_context *)),ashp::acipc::config::accumulation_spec>(&v75[20], a2, v10, &v94))
+                                    if (parse_field_with_default<&(ashp::acipc::config::accumulation_spec::parse(ashp::acipc::config::accumulation_spec*,ashp::boxed::object,ashp::acipc::config::error_context *)),ashp::acipc::config::accumulation_spec>(&v74[20], a2, v10, &v95))
                                     {
-                                      if (parse_field_with_default<&(ashp::acipc::config::completion_ring_spec::multi_config::parse(ashp::acipc::config::completion_ring_spec::multi_config*,ashp::boxed::object,ashp::acipc::config::error_context *)),ashp::acipc::config::completion_ring_spec::multi_config>(&v83, a2, v10, &v94))
+                                      if (parse_field_with_default<&(ashp::acipc::config::completion_ring_spec::multi_config::parse(ashp::acipc::config::completion_ring_spec::multi_config*,ashp::boxed::object,ashp::acipc::config::error_context *)),ashp::acipc::config::completion_ring_spec::multi_config>(&v84, a2, v10, &v95))
                                       {
-                                        memset(v90, 0, sizeof(v90));
-                                        v29 = parse_field_with_default<&(ashp::acipc::config::completion_ring_spec::constraint_config::parse(ashp::acipc::config::completion_ring_spec::constraint_config*,ashp::boxed::object,ashp::acipc::config::error_context *)),ashp::acipc::config::completion_ring_spec::constraint_config>(&v83 + 1, v90, a2, v10, &v94);
-                                        ashp::acipc::config::completion_ring_spec::constraint_config::~constraint_config(v90, v30, v31, v32, v33);
+                                        memset(v91, 0, sizeof(v91));
+                                        v29 = parse_field_with_default<&(ashp::acipc::config::completion_ring_spec::constraint_config::parse(ashp::acipc::config::completion_ring_spec::constraint_config*,ashp::boxed::object,ashp::acipc::config::error_context *)),ashp::acipc::config::completion_ring_spec::constraint_config>(&v84 + 1, v91, a2, v10, &v95);
+                                        ashp::acipc::config::completion_ring_spec::constraint_config::~constraint_config(v91, v30, v31, v32, v33);
                                         if (v29)
                                         {
                                           v35 = ashp::boxed::dictionary::count(a2, v34, v14, v15);
-                                          if (v94 + v35 == 17)
+                                          if (v95 + v35 == 17)
                                           {
-                                            v39 = ashp::refcounted_ptr<ashp::boxed::data,ashp::cf::refcount_policy>::refcounted_ptr(v90, cf, v36, v37);
-                                            v40 = v72;
-                                            *&v72 = *&v90[0];
-                                            *&v90[0] = v40;
+                                            v39 = ashp::refcounted_ptr<ashp::boxed::data,ashp::cf::refcount_policy>::refcounted_ptr(v91, cf, v36, v37);
+                                            v40 = v71;
+                                            *&v71 = *&v91[0];
+                                            *&v91[0] = v40;
                                             ashp::refcounted_ptr<ashp::boxed::symbol,ashp::cf::refcount_policy>::reset(v39, v41, v42, v43);
                                             v47 = **(a3 + 16);
                                             v48 = *v47;
@@ -9250,7 +8947,7 @@ void iterate_dict<BOOL parse_dict<&(ashp::acipc::config::completion_ring_spec::p
                                             if (*v47 == -1)
                                             {
                                               ashp::detail::control_flow::log_guard_else_failure("dynamic_array.hpp", 0x2DA, "ensure_free_space", v45);
-                                              ashp::detail::base::log_pre_crash_message("ALLOCATION FAILURE (or BUG) in Airship", "dynamic_array.hpp", 0x2DA, "ensure_free_space", v71);
+                                              ashp::detail::base::log_pre_crash_message("ALLOCATION FAILURE (or BUG) in Airship", "dynamic_array.hpp", 0x2DA, "ensure_free_space", v70);
                                               _os_crash();
                                               __break(1u);
                                             }
@@ -9270,7 +8967,6 @@ void iterate_dict<BOOL parse_dict<&(ashp::acipc::config::completion_ring_spec::p
                                                   v51 = v47[1];
                                                 }
 
-                                                v52 = (*v47 - 8) < 0;
                                                 if (v49 >= 9)
                                                 {
                                                   do
@@ -9299,83 +8995,83 @@ void iterate_dict<BOOL parse_dict<&(ashp::acipc::config::completion_ring_spec::p
 
                                               if (v48 < v50)
                                               {
-                                                v53 = v47[2];
-                                                if (v53)
+                                                v52 = v47[2];
+                                                if (v52)
                                                 {
-                                                  v54 = v53 + 272 * v48;
-                                                  v55 = v72;
-                                                  *&v72 = 0;
-                                                  *v54 = v55;
-                                                  *(v54 + 8) = 0;
-                                                  *(v54 + 16) = 0;
-                                                  *(v54 + 24) = 0;
-                                                  *(v54 + 8) = *(&v72 + 1);
+                                                  v53 = v52 + 272 * v48;
+                                                  v54 = v71;
+                                                  *&v71 = 0;
+                                                  *v53 = v54;
+                                                  *(v53 + 8) = 0;
+                                                  *(v53 + 16) = 0;
+                                                  *(v53 + 24) = 0;
+                                                  *(v53 + 8) = *(&v71 + 1);
+                                                  *(&v71 + 1) = 0;
+                                                  v55 = *(v53 + 16);
+                                                  *(v53 + 16) = v72;
+                                                  *&v72 = v55;
+                                                  *(v53 + 24) = *(&v72 + 1);
                                                   *(&v72 + 1) = 0;
-                                                  v56 = *(v54 + 16);
-                                                  *(v54 + 16) = v73;
-                                                  *&v73 = v56;
-                                                  *(v54 + 24) = *(&v73 + 1);
-                                                  *(&v73 + 1) = 0;
-                                                  v57 = v74;
-                                                  v58 = *v75;
-                                                  *(v54 + 60) = *&v75[12];
-                                                  *(v54 + 32) = v57;
-                                                  *(v54 + 48) = v58;
-                                                  v59 = v76;
-                                                  v76 = 0;
-                                                  *(v54 + 80) = v59;
-                                                  *(v54 + 88) = v77;
-                                                  *(v54 + 96) = v78;
-                                                  ashp::unsafe_storage<ashp::acipc::config::named_target_spec>::storage::storage(v54 + 104, v79, v44, v45);
-                                                  ashp::unsafe_storage<ashp::acipc::config::named_target_spec>::storage::storage(v54 + 128, v80, v60, v61);
-                                                  v66 = v81;
-                                                  v81 = 0;
-                                                  *(v54 + 152) = v66;
-                                                  *(v54 + 160) = v82;
-                                                  *(v54 + 168) = v83;
-                                                  *(v54 + 176) = 0;
-                                                  *(v54 + 184) = 0;
-                                                  *(v54 + 192) = 0;
-                                                  *(v54 + 176) = *(&v83 + 1);
-                                                  *(&v83 + 1) = 0;
-                                                  v67 = *(v54 + 184);
-                                                  *(v54 + 184) = v84;
-                                                  *&v84 = v67;
-                                                  *(v54 + 192) = *(&v84 + 1);
+                                                  v56 = v73;
+                                                  v57 = *v74;
+                                                  *(v53 + 60) = *&v74[12];
+                                                  *(v53 + 32) = v56;
+                                                  *(v53 + 48) = v57;
+                                                  v58 = v75;
+                                                  v75 = 0;
+                                                  *(v53 + 80) = v58;
+                                                  *(v53 + 88) = v76;
+                                                  *(v53 + 96) = v77;
+                                                  ashp::unsafe_storage<ashp::acipc::config::named_target_spec>::storage::storage(v53 + 104, v78, v44, v45);
+                                                  ashp::unsafe_storage<ashp::acipc::config::named_target_spec>::storage::storage(v53 + 128, v80, v59, v60);
+                                                  v65 = v82;
+                                                  v82 = 0;
+                                                  *(v53 + 152) = v65;
+                                                  *(v53 + 160) = v83;
+                                                  *(v53 + 168) = v84;
+                                                  *(v53 + 176) = 0;
+                                                  *(v53 + 184) = 0;
+                                                  *(v53 + 192) = 0;
+                                                  *(v53 + 176) = *(&v84 + 1);
                                                   *(&v84 + 1) = 0;
-                                                  *(v54 + 200) = 0;
-                                                  *(v54 + 208) = 0;
-                                                  *(v54 + 216) = 0;
-                                                  *(v54 + 200) = v85;
-                                                  *&v85 = 0;
-                                                  v68 = *(v54 + 208);
-                                                  *(v54 + 208) = *(&v85 + 1);
-                                                  *(&v85 + 1) = v68;
-                                                  *(v54 + 216) = v86;
+                                                  v66 = *(v53 + 184);
+                                                  *(v53 + 184) = v85;
+                                                  *&v85 = v66;
+                                                  *(v53 + 192) = *(&v85 + 1);
+                                                  *(&v85 + 1) = 0;
+                                                  *(v53 + 200) = 0;
+                                                  *(v53 + 208) = 0;
+                                                  *(v53 + 216) = 0;
+                                                  *(v53 + 200) = v86;
                                                   *&v86 = 0;
-                                                  *(v54 + 224) = 0;
-                                                  *(v54 + 232) = 0;
-                                                  *(v54 + 240) = 0;
-                                                  *(v54 + 224) = *(&v86 + 1);
-                                                  *(&v86 + 1) = 0;
-                                                  v69 = *(v54 + 232);
-                                                  *(v54 + 232) = v87;
-                                                  *&v87 = v69;
-                                                  *(v54 + 240) = *(&v87 + 1);
+                                                  v67 = *(v53 + 208);
+                                                  *(v53 + 208) = *(&v86 + 1);
+                                                  *(&v86 + 1) = v67;
+                                                  *(v53 + 216) = v87;
+                                                  *&v87 = 0;
+                                                  *(v53 + 224) = 0;
+                                                  *(v53 + 232) = 0;
+                                                  *(v53 + 240) = 0;
+                                                  *(v53 + 224) = *(&v87 + 1);
                                                   *(&v87 + 1) = 0;
-                                                  *(v54 + 248) = 0;
-                                                  *(v54 + 256) = 0;
-                                                  *(v54 + 264) = 0;
-                                                  *(v54 + 248) = v88;
-                                                  *&v88 = 0;
-                                                  v70 = *(v54 + 256);
-                                                  *(v54 + 256) = *(&v88 + 1);
-                                                  *(&v88 + 1) = v70;
-                                                  *(v54 + 264) = v89;
-                                                  v89 = 0;
+                                                  v68 = *(v53 + 232);
+                                                  *(v53 + 232) = v88;
+                                                  *&v88 = v68;
+                                                  *(v53 + 240) = *(&v88 + 1);
+                                                  *(&v88 + 1) = 0;
+                                                  *(v53 + 248) = 0;
+                                                  *(v53 + 256) = 0;
+                                                  *(v53 + 264) = 0;
+                                                  *(v53 + 248) = v89;
+                                                  *&v89 = 0;
+                                                  v69 = *(v53 + 256);
+                                                  *(v53 + 256) = *(&v89 + 1);
+                                                  *(&v89 + 1) = v69;
+                                                  *(v53 + 264) = v90;
+                                                  v90 = 0;
                                                   ++*v47;
 LABEL_45:
-                                                  ashp::acipc::config::completion_ring_spec::~completion_ring_spec(&v72, v62, v63, v64, v65);
+                                                  ashp::acipc::config::completion_ring_spec::~completion_ring_spec(&v71, v61, v62, v63, v64);
                                                   return;
                                                 }
 
@@ -9494,7 +9190,7 @@ void ashp::acipc::config::transfer_ring_spec::~transfer_ring_spec(ashp::acipc::c
   ashp::refcounted_ptr<ashp::boxed::symbol,ashp::cf::refcount_policy>::reset(this, v45, v46, v47);
 }
 
-uint64_t *ashp::detail::dynamic_array::storage<ashp::acipc::config::transfer_ring_spec>::append(uint64_t *result, uint64_t a2, uint64_t a3, const char *a4, const char *a5)
+ashp::acipc::config::transfer_ring_spec::constraint_config *ashp::detail::dynamic_array::storage<ashp::acipc::config::transfer_ring_spec>::append(ashp::acipc::config::transfer_ring_spec::constraint_config *result, uint64_t a2, uint64_t a3, const char *a4, const char *a5)
 {
   if (__CFADD__(*result, a3))
   {
@@ -9506,7 +9202,7 @@ LABEL_11:
   }
 
   v5 = result;
-  if (*result + a3 <= result[1])
+  if ((*result + a3) <= *(result + 1))
   {
     v6 = a3;
     v22 = *result + a3;
@@ -9520,7 +9216,7 @@ LABEL_9:
     v8 = 0;
     while (1)
     {
-      v9 = v5[2] + 368 * *v5;
+      v9 = *(v5 + 2) + 368 * *v5;
       if (!(v9 + v8))
       {
         break;
@@ -9528,7 +9224,7 @@ LABEL_9:
 
       ashp::refcounted_ptr<ashp::boxed::data,ashp::cf::refcount_policy>::refcounted_ptr((v9 + v8), *(a2 + v8), a3, a4);
       v10 = v9 + v8;
-      ashp::detail::dynamic_array::storage<ashp::refcounted_ptr<ashp::boxed::symbol,ashp::cf::refcount_policy>>::storage((v9 + v8 + 8), a2 + v8 + 8, v11, v12);
+      ashp::detail::dynamic_array::storage<ashp::refcounted_ptr<ashp::boxed::symbol,ashp::cf::refcount_policy>>::storage((v9 + v8 + 8), (a2 + v8 + 8), v11, v12);
       v15 = *(a2 + v8 + 32);
       v16 = *(a2 + v8 + 48);
       v17 = *(a2 + v8 + 80);
@@ -9567,11 +9263,11 @@ LABEL_12:
   return result;
 }
 
-uint64_t ashp::detail::dynamic_array::storage<ashp::acipc::config::transfer_ring_spec>::storage(uint64_t a1, uint64_t a2, uint64_t a3, const char *a4)
+ashp::acipc::config::transfer_ring_spec::constraint_config *ashp::detail::dynamic_array::storage<ashp::acipc::config::transfer_ring_spec>::storage(ashp::acipc::config::transfer_ring_spec::constraint_config *a1, unint64_t *a2, uint64_t a3, const char *a4)
 {
   *a1 = 0;
-  ashp::detail::dynamic_array::buffer<ashp::acipc::config::transfer_ring_spec>::buffer((a1 + 8), *a2, a3, a4);
-  ashp::detail::dynamic_array::storage<ashp::acipc::config::transfer_ring_spec>::append(a1, *(a2 + 16), *a2, v6, v7);
+  ashp::detail::dynamic_array::buffer<ashp::acipc::config::transfer_ring_spec>::buffer(a1 + 1, *a2, a3, a4);
+  ashp::detail::dynamic_array::storage<ashp::acipc::config::transfer_ring_spec>::append(a1, a2[2], *a2, v6, v7);
   return a1;
 }
 
@@ -9587,7 +9283,7 @@ void sub_23ECC8BC4(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t ashp::detail::dynamic_array::buffer<ashp::acipc::config::transfer_ring_spec>::buffer(unint64_t *a1, unint64_t a2, uint64_t a3, const char *a4)
+unint64_t *ashp::detail::dynamic_array::buffer<ashp::acipc::config::transfer_ring_spec>::buffer(unint64_t *a1, unint64_t a2, uint64_t a3, const char *a4)
 {
   *a1 = a2;
   a1[1] = 0;
@@ -9680,31 +9376,31 @@ void iterate_dict<BOOL parse_dict<&(ashp::acipc::config::transfer_ring_spec::par
       return;
     }
 
+    v64 = 0;
     v65 = 0;
     v66 = 0;
-    v67 = 0;
-    v68[0] = 0;
-    v69 = 0;
-    v70[2] = 0;
+    v67[0] = 0;
+    v68 = 0;
+    v69[2] = 0;
+    v70 = 0;
     v71 = 0;
     v72 = 0;
-    v73 = 0;
+    v73[16] = 0;
     v74[16] = 0;
-    v75[16] = 0;
+    v75 = 0;
     v76 = 0;
     v77 = 0;
     v78 = 0;
     v79 = 0;
     v80 = 0;
-    v81 = 0;
-    memset(v82, 0, sizeof(v82));
-    v59[0] = 0;
-    memset(v58, 0, sizeof(v58));
-    v60 = 0;
-    memset(v61, 0, 15);
+    memset(v81, 0, sizeof(v81));
+    v58[0] = 0;
+    memset(v57, 0, sizeof(v57));
+    v59 = 0;
+    memset(v60, 0, 15);
+    v61 = 0;
     v62 = 0;
     v63 = 0;
-    v64 = 0;
     v9 = *(a3 + 8);
     v10 = *v9;
     if (a2)
@@ -9717,93 +9413,93 @@ void iterate_dict<BOOL parse_dict<&(ashp::acipc::config::transfer_ring_spec::par
 
       if (a2)
       {
-        v89 = 0;
-        if (parse_field<&(ashp::acipc::config::named_target_spec::parse(ashp::acipc::config::named_target_spec*,ashp::boxed::object,ashp::acipc::config::error_context *)),ashp::acipc::config::named_target_spec>(&v71, a2, @"resource", v10))
+        v88 = 0;
+        if (parse_field<&(ashp::acipc::config::named_target_spec::parse(ashp::acipc::config::named_target_spec*,ashp::boxed::object,ashp::acipc::config::error_context *)),ashp::acipc::config::named_target_spec>(&v70, a2, @"resource", v10))
         {
-          memset(v88, 0, sizeof(v88));
-          v16 = parse_field_with_default<&(BOOL parse_array_or_singleton<&(parse_symbol(ashp::refcounted_ptr<ashp::boxed::symbol,ashp::cf::refcount_policy> *,ashp::boxed::object,ashp::acipc::config::error_context *)),ashp::refcounted_ptr<ashp::boxed::symbol,ashp::cf::refcount_policy>>(ashp::dynamic_array<ashp::refcounted_ptr<ashp::boxed::symbol,ashp::cf::refcount_policy>> *,ashp::boxed::object,ashp::acipc::config::error_context *)),ashp::dynamic_array<ashp::refcounted_ptr<ashp::boxed::symbol,ashp::cf::refcount_policy>>>(v58 + 1, v88, a2, @"exec_stage", v10, &v89);
-          ashp::detail::dynamic_array::storage<ashp::refcounted_ptr<ashp::boxed::symbol,ashp::cf::refcount_policy>>::~storage(v88, v17, v18, v19, v20);
+          memset(v87, 0, sizeof(v87));
+          v16 = parse_field_with_default<&(BOOL parse_array_or_singleton<&(parse_symbol(ashp::refcounted_ptr<ashp::boxed::symbol,ashp::cf::refcount_policy> *,ashp::boxed::object,ashp::acipc::config::error_context *)),ashp::refcounted_ptr<ashp::boxed::symbol,ashp::cf::refcount_policy>>(ashp::dynamic_array<ashp::refcounted_ptr<ashp::boxed::symbol,ashp::cf::refcount_policy>> *,ashp::boxed::object,ashp::acipc::config::error_context *)),ashp::dynamic_array<ashp::refcounted_ptr<ashp::boxed::symbol,ashp::cf::refcount_policy>>>(v57 + 1, v87, a2, @"exec_stage", v10, &v88);
+          ashp::detail::dynamic_array::storage<ashp::refcounted_ptr<ashp::boxed::symbol,ashp::cf::refcount_policy>>::~storage(v87, v17, v18, v19, v20);
           if (v16)
           {
-            if (parse_field<&(BOOL parse_number<unsigned short>(unsigned short *,ashp::boxed::object,ashp::acipc::config::error_context *)),unsigned short>(&v73, a2, @"id", v10))
+            if (parse_field<&(BOOL parse_number<unsigned short>(unsigned short *,ashp::boxed::object,ashp::acipc::config::error_context *)),unsigned short>(&v72, a2, @"id", v10))
             {
-              if (parse_field<&(BOOL parse_number<unsigned short>(unsigned short *,ashp::boxed::object,ashp::acipc::config::error_context *)),unsigned short>(&v73 + 1, a2, @"index_array_vector", v10))
+              if (parse_field<&(BOOL parse_number<unsigned short>(unsigned short *,ashp::boxed::object,ashp::acipc::config::error_context *)),unsigned short>(&v72 + 1, a2, @"index_array_vector", v10))
               {
-                if (parse_field<&(BOOL parse_number<unsigned short>(unsigned short *,ashp::boxed::object,ashp::acipc::config::error_context *)),unsigned short>(v59, a2, @"ring_size", v10))
+                if (parse_field<&(BOOL parse_number<unsigned short>(unsigned short *,ashp::boxed::object,ashp::acipc::config::error_context *)),unsigned short>(v58, a2, @"ring_size", v10))
                 {
-                  if (parse_field_with_default<&(BOOL parse_number<unsigned int>(unsigned int *,ashp::boxed::object,ashp::acipc::config::error_context *)),unsigned int>(&v60, 0, a2, @"transfer_header_size", v10, &v89))
+                  if (parse_field_with_default<&(BOOL parse_number<unsigned int>(unsigned int *,ashp::boxed::object,ashp::acipc::config::error_context *)),unsigned int>(&v59, 0, a2, @"transfer_header_size", v10, &v88))
                   {
-                    if (parse_field_with_default<&(BOOL parse_number<unsigned int>(unsigned int *,ashp::boxed::object,ashp::acipc::config::error_context *)),unsigned int>(&v60 + 1, 0, a2, @"transfer_footer_size", v10, &v89))
+                    if (parse_field_with_default<&(BOOL parse_number<unsigned int>(unsigned int *,ashp::boxed::object,ashp::acipc::config::error_context *)),unsigned int>(&v59 + 1, 0, a2, @"transfer_footer_size", v10, &v88))
                     {
-                      if (parse_field_with_default<&(BOOL parse_number<unsigned int>(unsigned int *,ashp::boxed::object,ashp::acipc::config::error_context *)),unsigned int>(v61, 0, a2, @"completion_header_size", v10, &v89))
+                      if (parse_field_with_default<&(BOOL parse_number<unsigned int>(unsigned int *,ashp::boxed::object,ashp::acipc::config::error_context *)),unsigned int>(v60, 0, a2, @"completion_header_size", v10, &v88))
                       {
-                        if (parse_field_with_default<&(BOOL parse_number<unsigned int>(unsigned int *,ashp::boxed::object,ashp::acipc::config::error_context *)),unsigned int>(&v61[1], 0, a2, @"completion_footer_size", v10, &v89))
+                        if (parse_field_with_default<&(BOOL parse_number<unsigned int>(unsigned int *,ashp::boxed::object,ashp::acipc::config::error_context *)),unsigned int>(&v60[1], 0, a2, @"completion_footer_size", v10, &v88))
                         {
-                          if (parse_field_with_default<&(BOOL parse_number<unsigned int>(unsigned int *,ashp::boxed::object,ashp::acipc::config::error_context *)),unsigned int>(&v61[2], 0, a2, @"nominal_transfer_size", v10, &v89))
+                          if (parse_field_with_default<&(BOOL parse_number<unsigned int>(unsigned int *,ashp::boxed::object,ashp::acipc::config::error_context *)),unsigned int>(&v60[2], 0, a2, @"nominal_transfer_size", v10, &v88))
                           {
-                            v87[16] = 0;
-                            v21 = parse_field_with_default<&(BOOL parse_optional<&(ashp::acipc::config::named_target_spec::parse(ashp::acipc::config::named_target_spec*,ashp::boxed::object,ashp::acipc::config::error_context *)),ashp::acipc::config::named_target_spec>(ashp::optional<ashp::acipc::config::named_target_spec,ashp::optional_traits<ashp::acipc::config::named_target_spec,void>::default_sentinel> *,ashp::boxed::object,ashp::acipc::config::error_context *)),ashp::optional<ashp::acipc::config::named_target_spec,void>>(v74, v87, a2, @"completion_ring", v10, &v89);
-                            ashp::unsafe_storage<ashp::acipc::config::named_target_spec>::storage::reset(v87, v22, v23, v24);
+                            v86[16] = 0;
+                            v21 = parse_field_with_default<&(BOOL parse_optional<&(ashp::acipc::config::named_target_spec::parse(ashp::acipc::config::named_target_spec*,ashp::boxed::object,ashp::acipc::config::error_context *)),ashp::acipc::config::named_target_spec>(ashp::optional<ashp::acipc::config::named_target_spec,ashp::optional_traits<ashp::acipc::config::named_target_spec,void>::default_sentinel> *,ashp::boxed::object,ashp::acipc::config::error_context *)),ashp::optional<ashp::acipc::config::named_target_spec,void>>(v73, v86, a2, @"completion_ring", v10, &v88);
+                            ashp::unsafe_storage<ashp::acipc::config::named_target_spec>::storage::reset(v86, v22, v23, v24);
                             if (v21)
                             {
-                              v86[16] = 0;
-                              v25 = parse_field_with_default<&(BOOL parse_optional<&(ashp::acipc::config::named_target_spec::parse(ashp::acipc::config::named_target_spec*,ashp::boxed::object,ashp::acipc::config::error_context *)),ashp::acipc::config::named_target_spec>(ashp::optional<ashp::acipc::config::named_target_spec,ashp::optional_traits<ashp::acipc::config::named_target_spec,void>::default_sentinel> *,ashp::boxed::object,ashp::acipc::config::error_context *)),ashp::optional<ashp::acipc::config::named_target_spec,void>>(v75, v86, a2, @"completion_group", v10, &v89);
-                              ashp::unsafe_storage<ashp::acipc::config::named_target_spec>::storage::reset(v86, v26, v27, v28);
+                              v85[16] = 0;
+                              v25 = parse_field_with_default<&(BOOL parse_optional<&(ashp::acipc::config::named_target_spec::parse(ashp::acipc::config::named_target_spec*,ashp::boxed::object,ashp::acipc::config::error_context *)),ashp::acipc::config::named_target_spec>(ashp::optional<ashp::acipc::config::named_target_spec,ashp::optional_traits<ashp::acipc::config::named_target_spec,void>::default_sentinel> *,ashp::boxed::object,ashp::acipc::config::error_context *)),ashp::optional<ashp::acipc::config::named_target_spec,void>>(v74, v85, a2, @"completion_group", v10, &v88);
+                              ashp::unsafe_storage<ashp::acipc::config::named_target_spec>::storage::reset(v85, v26, v27, v28);
                               if (v25)
                               {
-                                if (parse_field_with_default<&(parse_BOOL(BOOL *,ashp::boxed::object,ashp::acipc::config::error_context *)),BOOL>(&v61[3], 0, a2, @"out_of_order", v10, &v89))
+                                if (parse_field_with_default<&(parse_BOOL(BOOL *,ashp::boxed::object,ashp::acipc::config::error_context *)),BOOL>(&v60[3], 0, a2, @"out_of_order", v10, &v88))
                                 {
-                                  if (parse_field_with_default<&(parse_BOOL(BOOL *,ashp::boxed::object,ashp::acipc::config::error_context *)),BOOL>(&v61[3] + 1, 0, a2, @"in_place", v10, &v89))
+                                  if (parse_field_with_default<&(parse_BOOL(BOOL *,ashp::boxed::object,ashp::acipc::config::error_context *)),BOOL>(&v60[3] + 1, 0, a2, @"in_place", v10, &v88))
                                   {
-                                    if (parse_field_with_default<&(BOOL parse_number<unsigned char>(unsigned char *,ashp::boxed::object,ashp::acipc::config::error_context *)),unsigned char>(&v61[3] + 2, 0, a2, @"traffic_class", v10, &v89))
+                                    if (parse_field_with_default<&(BOOL parse_number<unsigned char>(unsigned char *,ashp::boxed::object,ashp::acipc::config::error_context *)),unsigned char>(&v60[3] + 2, 0, a2, @"traffic_class", v10, &v88))
                                     {
-                                      if (parse_field_with_default<&(BOOL parse_number<unsigned int>(unsigned int *,ashp::boxed::object,ashp::acipc::config::error_context *)),unsigned int>(&v62, 0, a2, @"priority", v10, &v89))
+                                      if (parse_field_with_default<&(BOOL parse_number<unsigned int>(unsigned int *,ashp::boxed::object,ashp::acipc::config::error_context *)),unsigned int>(&v61, 0, a2, @"priority", v10, &v88))
                                       {
-                                        if (parse_field_with_default<&(parse_BOOL(BOOL *,ashp::boxed::object,ashp::acipc::config::error_context *)),BOOL>(&v62 + 4, 1, a2, @"optimized_completion", v10, &v89))
+                                        if (parse_field_with_default<&(parse_BOOL(BOOL *,ashp::boxed::object,ashp::acipc::config::error_context *)),BOOL>(&v61 + 4, 1, a2, @"optimized_completion", v10, &v88))
                                         {
-                                          if (parse_field_with_default<&(parse_BOOL(BOOL *,ashp::boxed::object,ashp::acipc::config::error_context *)),BOOL>(&v62 + 5, 0, a2, @"reliable", v10, &v89))
+                                          if (parse_field_with_default<&(parse_BOOL(BOOL *,ashp::boxed::object,ashp::acipc::config::error_context *)),BOOL>(&v61 + 5, 0, a2, @"reliable", v10, &v88))
                                           {
-                                            if (parse_field_with_default<&(parse_BOOL(BOOL *,ashp::boxed::object,ashp::acipc::config::error_context *)),BOOL>(&v62 + 6, 0, a2, @"virtual", v10, &v89))
+                                            if (parse_field_with_default<&(parse_BOOL(BOOL *,ashp::boxed::object,ashp::acipc::config::error_context *)),BOOL>(&v61 + 6, 0, a2, @"virtual", v10, &v88))
                                             {
-                                              if (parse_field_with_default<&(parse_BOOL(BOOL *,ashp::boxed::object,ashp::acipc::config::error_context *)),BOOL>(&v62 + 7, 0, a2, @"synchronized", v10, &v89))
+                                              if (parse_field_with_default<&(parse_BOOL(BOOL *,ashp::boxed::object,ashp::acipc::config::error_context *)),BOOL>(&v61 + 7, 0, a2, @"synchronized", v10, &v88))
                                               {
-                                                if (parse_field<&(ashp::acipc::config::named_target_spec::parse(ashp::acipc::config::named_target_spec*,ashp::boxed::object,ashp::acipc::config::error_context *)),ashp::acipc::config::named_target_spec>(&v76, a2, @"doorbell", v10))
+                                                if (parse_field<&(ashp::acipc::config::named_target_spec::parse(ashp::acipc::config::named_target_spec*,ashp::boxed::object,ashp::acipc::config::error_context *)),ashp::acipc::config::named_target_spec>(&v75, a2, @"doorbell", v10))
                                                 {
-                                                  if (parse_field_with_default<&(ashp::acipc::config::doorbell_moderation_spec::parse(ashp::acipc::config::doorbell_moderation_spec*,ashp::boxed::object,ashp::acipc::config::error_context *)),ashp::acipc::config::doorbell_moderation_spec>(&v63, a2, v10, &v89))
+                                                  if (parse_field_with_default<&(ashp::acipc::config::doorbell_moderation_spec::parse(ashp::acipc::config::doorbell_moderation_spec*,ashp::boxed::object,ashp::acipc::config::error_context *)),ashp::acipc::config::doorbell_moderation_spec>(&v62, a2, v10, &v88))
                                                   {
-                                                    if (parse_field<&(ashp::acipc::config::named_target_spec::parse(ashp::acipc::config::named_target_spec*,ashp::boxed::object,ashp::acipc::config::error_context *)),ashp::acipc::config::named_target_spec>(&v78, a2, @"interrupt", v10))
+                                                    if (parse_field<&(ashp::acipc::config::named_target_spec::parse(ashp::acipc::config::named_target_spec*,ashp::boxed::object,ashp::acipc::config::error_context *)),ashp::acipc::config::named_target_spec>(&v77, a2, @"interrupt", v10))
                                                     {
-                                                      if (parse_field_with_default<&(ashp::acipc::config::interrupt_moderation_spec::parse(ashp::acipc::config::interrupt_moderation_spec*,ashp::boxed::object,ashp::acipc::config::error_context *)),ashp::acipc::config::interrupt_moderation_spec>(&v64, a2, v10, &v89))
+                                                      if (parse_field_with_default<&(ashp::acipc::config::interrupt_moderation_spec::parse(ashp::acipc::config::interrupt_moderation_spec*,ashp::boxed::object,ashp::acipc::config::error_context *)),ashp::acipc::config::interrupt_moderation_spec>(&v63, a2, v10, &v88))
                                                       {
-                                                        if (parse_field_with_default<&(ashp::acipc::config::accumulation_spec::parse(ashp::acipc::config::accumulation_spec*,ashp::boxed::object,ashp::acipc::config::error_context *)),ashp::acipc::config::accumulation_spec>(&v66, a2, v10, &v89))
+                                                        if (parse_field_with_default<&(ashp::acipc::config::accumulation_spec::parse(ashp::acipc::config::accumulation_spec*,ashp::boxed::object,ashp::acipc::config::error_context *)),ashp::acipc::config::accumulation_spec>(&v65, a2, v10, &v88))
                                                         {
-                                                          v85 = 0;
-                                                          if (parse_field_with_default<&(BOOL parse_optional<&(ashp::acipc::config::transfer_ring_spec::buffer_size_ring_spec::parse(ashp::acipc::config::transfer_ring_spec::buffer_size_ring_spec*,ashp::boxed::object,ashp::acipc::config::error_context *)),ashp::acipc::config::transfer_ring_spec::buffer_size_ring_spec>(ashp::optional<ashp::acipc::config::transfer_ring_spec::buffer_size_ring_spec,ashp::optional_traits<ashp::acipc::config::transfer_ring_spec::buffer_size_ring_spec,void>::default_sentinel> *,ashp::boxed::object,ashp::acipc::config::error_context *)),ashp::optional<ashp::acipc::config::transfer_ring_spec::buffer_size_ring_spec,void>>(v70, &v84, a2, v10, &v89))
+                                                          v84 = 0;
+                                                          if (parse_field_with_default<&(BOOL parse_optional<&(ashp::acipc::config::transfer_ring_spec::buffer_size_ring_spec::parse(ashp::acipc::config::transfer_ring_spec::buffer_size_ring_spec*,ashp::boxed::object,ashp::acipc::config::error_context *)),ashp::acipc::config::transfer_ring_spec::buffer_size_ring_spec>(ashp::optional<ashp::acipc::config::transfer_ring_spec::buffer_size_ring_spec,ashp::optional_traits<ashp::acipc::config::transfer_ring_spec::buffer_size_ring_spec,void>::default_sentinel> *,ashp::boxed::object,ashp::acipc::config::error_context *)),ashp::optional<ashp::acipc::config::transfer_ring_spec::buffer_size_ring_spec,void>>(v69, &v83, a2, v10, &v88))
                                                           {
-                                                            if (parse_field_with_default<&(ashp::acipc::config::transfer_ring_spec::multi_config::parse(ashp::acipc::config::transfer_ring_spec::multi_config*,ashp::boxed::object,ashp::acipc::config::error_context *)),ashp::acipc::config::transfer_ring_spec::multi_config>(&v80, a2, v10, &v89))
+                                                            if (parse_field_with_default<&(ashp::acipc::config::transfer_ring_spec::multi_config::parse(ashp::acipc::config::transfer_ring_spec::multi_config*,ashp::boxed::object,ashp::acipc::config::error_context *)),ashp::acipc::config::transfer_ring_spec::multi_config>(&v79, a2, v10, &v88))
                                                             {
-                                                              memset(v83, 0, sizeof(v83));
-                                                              v29 = parse_field_with_default<&(ashp::acipc::config::transfer_ring_spec::constraint_config::parse(ashp::acipc::config::transfer_ring_spec::constraint_config*,ashp::boxed::object,ashp::acipc::config::error_context *)),ashp::acipc::config::transfer_ring_spec::constraint_config>(v82, v83, a2, v10, &v89);
-                                                              ashp::acipc::config::transfer_ring_spec::constraint_config::~constraint_config(v83, v30, v31, v32, v33);
+                                                              memset(v82, 0, sizeof(v82));
+                                                              v29 = parse_field_with_default<&(ashp::acipc::config::transfer_ring_spec::constraint_config::parse(ashp::acipc::config::transfer_ring_spec::constraint_config*,ashp::boxed::object,ashp::acipc::config::error_context *)),ashp::acipc::config::transfer_ring_spec::constraint_config>(v81, v82, a2, v10, &v88);
+                                                              ashp::acipc::config::transfer_ring_spec::constraint_config::~constraint_config(v82, v30, v31, v32, v33);
                                                               if (v29)
                                                               {
-                                                                if (parse_field_with_default<&(ashp::acipc::config::tr_debug_spec::parse(ashp::acipc::config::tr_debug_spec*,ashp::boxed::object,ashp::acipc::config::error_context *)),ashp::acipc::config::tr_debug_spec>(v68, a2, v10, &v89))
+                                                                if (parse_field_with_default<&(ashp::acipc::config::tr_debug_spec::parse(ashp::acipc::config::tr_debug_spec*,ashp::boxed::object,ashp::acipc::config::error_context *)),ashp::acipc::config::tr_debug_spec>(v67, a2, v10, &v88))
                                                                 {
                                                                   v35 = ashp::boxed::dictionary::count(a2, v34, v14, v15);
-                                                                  if (v89 + v35 == 29)
+                                                                  if (v88 + v35 == 29)
                                                                   {
-                                                                    ashp::refcounted_ptr<ashp::boxed::data,ashp::cf::refcount_policy>::refcounted_ptr(v83, cf, v36, v37);
-                                                                    v39 = *&v58[0];
-                                                                    *&v58[0] = *&v83[0];
-                                                                    *&v83[0] = v39;
-                                                                    ashp::refcounted_ptr<ashp::boxed::symbol,ashp::cf::refcount_policy>::reset(v83, v40, v41, v42);
+                                                                    ashp::refcounted_ptr<ashp::boxed::data,ashp::cf::refcount_policy>::refcounted_ptr(v82, cf, v36, v37);
+                                                                    v39 = *&v57[0];
+                                                                    *&v57[0] = *&v82[0];
+                                                                    *&v82[0] = v39;
+                                                                    ashp::refcounted_ptr<ashp::boxed::symbol,ashp::cf::refcount_policy>::reset(v82, v40, v41, v42);
                                                                     v46 = **(a3 + 16);
                                                                     v47 = *v46;
                                                                     v48 = *v46 + 1;
                                                                     if (*v46 == -1)
                                                                     {
                                                                       ashp::detail::control_flow::log_guard_else_failure("dynamic_array.hpp", 0x2DA, "ensure_free_space", v44);
-                                                                      ashp::detail::base::log_pre_crash_message("ALLOCATION FAILURE (or BUG) in Airship", "dynamic_array.hpp", 0x2DA, "ensure_free_space", v57);
+                                                                      ashp::detail::base::log_pre_crash_message("ALLOCATION FAILURE (or BUG) in Airship", "dynamic_array.hpp", 0x2DA, "ensure_free_space", v56);
                                                                       _os_crash();
                                                                       __break(1u);
                                                                     }
@@ -9823,7 +9519,6 @@ void iterate_dict<BOOL parse_dict<&(ashp::acipc::config::transfer_ring_spec::par
                                                                           v50 = v46[1];
                                                                         }
 
-                                                                        v51 = (*v46 - 8) < 0;
                                                                         if (v48 >= 9)
                                                                         {
                                                                           do
@@ -9852,13 +9547,13 @@ void iterate_dict<BOOL parse_dict<&(ashp::acipc::config::transfer_ring_spec::par
 
                                                                       if (v47 < v49)
                                                                       {
-                                                                        v52 = v46[2];
-                                                                        if (v52)
+                                                                        v51 = v46[2];
+                                                                        if (v51)
                                                                         {
-                                                                          ashp::acipc::config::transfer_ring_spec::transfer_ring_spec(v52 + 368 * v47, v58, v43, v44);
+                                                                          ashp::acipc::config::transfer_ring_spec::transfer_ring_spec(v51 + 368 * v47, v57, v43, v44);
                                                                           ++*v46;
 LABEL_57:
-                                                                          ashp::acipc::config::transfer_ring_spec::~transfer_ring_spec(v58, v53, v54, v55, v56);
+                                                                          ashp::acipc::config::transfer_ring_spec::~transfer_ring_spec(v57, v52, v53, v54, v55);
                                                                           return;
                                                                         }
 
@@ -9920,4 +9615,171 @@ LABEL_62:
     **a3 = 1;
     goto LABEL_57;
   }
+}
+
+void sub_23ECC94E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, const char *a4, const char *a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, ...)
+{
+  va_start(va, a54);
+  ashp::acipc::config::transfer_ring_spec::constraint_config::~constraint_config(va, a2, a3, a4, a5);
+  ashp::acipc::config::transfer_ring_spec::~transfer_ring_spec(&a9, v55, v56, v57, v58);
+  _Unwind_Resume(a1);
+}
+
+uint64_t ashp::acipc::config::transfer_ring_spec::transfer_ring_spec(uint64_t a1, uint64_t *a2, uint64_t a3, const char *a4)
+{
+  v6 = *a2;
+  *a2 = 0;
+  *a1 = v6;
+  *(a1 + 8) = 0;
+  *(a1 + 16) = 0;
+  *(a1 + 24) = 0;
+  *(a1 + 8) = a2[1];
+  a2[1] = 0;
+  v7 = *(a1 + 16);
+  v8 = a2[3];
+  *(a1 + 16) = a2[2];
+  *(a1 + 24) = v8;
+  a2[2] = v7;
+  a2[3] = 0;
+  v10 = *(a2 + 4);
+  v9 = *(a2 + 5);
+  v11 = *(a2 + 3);
+  *(a1 + 32) = *(a2 + 2);
+  *(a1 + 48) = v11;
+  *(a1 + 64) = v10;
+  *(a1 + 80) = v9;
+  *(a1 + 98) = 0;
+  if (*(a2 + 98) == 1)
+  {
+    *(a1 + 96) = *(a2 + 48);
+    *(a1 + 98) = 1;
+    if (*(a2 + 98) == 1)
+    {
+      *(a2 + 98) = 0;
+    }
+  }
+
+  v12 = a2[13];
+  a2[13] = 0;
+  *(a1 + 104) = v12;
+  *(a1 + 112) = *(a2 + 28);
+  *(a1 + 120) = *(a2 + 30);
+  ashp::unsafe_storage<ashp::acipc::config::named_target_spec>::storage::storage(a1 + 128, a2 + 16, a3, a4);
+  ashp::unsafe_storage<ashp::acipc::config::named_target_spec>::storage::storage(a1 + 152, a2 + 19, v13, v14);
+  v15 = a2[22];
+  a2[22] = 0;
+  *(a1 + 176) = v15;
+  *(a1 + 184) = *(a2 + 46);
+  v16 = a2[24];
+  a2[24] = 0;
+  *(a1 + 192) = v16;
+  *(a1 + 200) = *(a2 + 50);
+  v17 = a2[26];
+  *(a1 + 216) = *(a2 + 54);
+  *(a1 + 208) = v17;
+  *(a1 + 232) = 0;
+  *(a1 + 240) = 0;
+  *(a1 + 224) = 0;
+  *(a1 + 224) = a2[28];
+  a2[28] = 0;
+  v18 = *(a1 + 232);
+  v19 = a2[30];
+  *(a1 + 232) = a2[29];
+  *(a1 + 240) = v19;
+  a2[29] = v18;
+  a2[30] = 0;
+  *(a1 + 248) = 0;
+  *(a1 + 256) = 0;
+  *(a1 + 264) = 0;
+  *(a1 + 248) = a2[31];
+  a2[31] = 0;
+  v20 = *(a1 + 256);
+  v21 = a2[33];
+  *(a1 + 256) = a2[32];
+  *(a1 + 264) = v21;
+  a2[32] = v20;
+  a2[33] = 0;
+  *(a1 + 272) = 0;
+  *(a1 + 280) = 0;
+  *(a1 + 288) = 0;
+  *(a1 + 272) = a2[34];
+  a2[34] = 0;
+  v22 = *(a1 + 280);
+  v23 = a2[36];
+  *(a1 + 280) = a2[35];
+  *(a1 + 288) = v23;
+  a2[35] = v22;
+  a2[36] = 0;
+  *(a1 + 296) = 0;
+  *(a1 + 304) = 0;
+  *(a1 + 312) = 0;
+  *(a1 + 296) = a2[37];
+  a2[37] = 0;
+  v24 = *(a1 + 304);
+  v25 = a2[39];
+  *(a1 + 304) = a2[38];
+  *(a1 + 312) = v25;
+  a2[38] = v24;
+  a2[39] = 0;
+  *(a1 + 320) = 0;
+  *(a1 + 328) = 0;
+  *(a1 + 336) = 0;
+  *(a1 + 320) = a2[40];
+  a2[40] = 0;
+  v26 = *(a1 + 328);
+  v27 = a2[42];
+  *(a1 + 328) = a2[41];
+  *(a1 + 336) = v27;
+  a2[41] = v26;
+  a2[42] = 0;
+  *(a1 + 344) = 0;
+  *(a1 + 352) = 0;
+  *(a1 + 360) = 0;
+  *(a1 + 344) = a2[43];
+  a2[43] = 0;
+  v28 = *(a1 + 352);
+  v29 = a2[45];
+  *(a1 + 352) = a2[44];
+  *(a1 + 360) = v29;
+  a2[44] = v28;
+  a2[45] = 0;
+  return a1;
+}
+
+void ashp::detail::dynamic_array::storage<ashp::acipc::config::main_ipc_stage_spec>::reduce_size(unint64_t *a1, unint64_t a2, uint64_t a3, const char *a4, const char *a5)
+{
+  if (*a1 >= a2)
+  {
+    if (*a1 <= a2)
+    {
+LABEL_6:
+      *a1 = a2;
+      return;
+    }
+
+    v7 = 304 * a2;
+    v8 = a2;
+    while (1)
+    {
+      v9 = a1[2];
+      if (!v9)
+      {
+        break;
+      }
+
+      ashp::acipc::config::main_ipc_stage_spec::~main_ipc_stage_spec((v9 + v7), a2, a3, a4);
+      ++v8;
+      v7 += 304;
+      if (v8 >= *a1)
+      {
+        goto LABEL_6;
+      }
+    }
+
+    __break(1u);
+  }
+
+  ashp::detail::base::log_pre_crash_message("BUG in Airship: ", "dynamic_array.hpp", 0x112, "reduce_size", a5);
+  _os_crash();
+  __break(1u);
 }

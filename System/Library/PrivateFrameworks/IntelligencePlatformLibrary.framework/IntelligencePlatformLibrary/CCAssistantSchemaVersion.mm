@@ -268,7 +268,6 @@ LABEL_50:
             NSStringFromClass(v47);
             errorCopy = error;
             v50 = v49 = dataCopy;
-            v51 = *&v7[*v10];
             v11 = CCSkipFieldErrorForMessage();
 
             dataCopy = v49;
@@ -344,22 +343,21 @@ LABEL_58:
 LABEL_64:
   if (!*&v7[*v10])
   {
-    v55 = 1;
+    v53 = 1;
     goto LABEL_68;
   }
 
 LABEL_65:
-  v52 = objc_opt_class();
-  v11 = NSStringFromClass(v52);
-  v53 = *&v7[*v10];
-  v54 = CCInvalidBufferErrorForMessage();
+  v51 = objc_opt_class();
+  v11 = NSStringFromClass(v51);
+  v52 = CCInvalidBufferErrorForMessage();
   CCSetError();
 
 LABEL_66:
-  v55 = 0;
+  v53 = 0;
 LABEL_68:
 
-  return v55;
+  return v53;
 }
 
 - (CCAssistantSchemaVersion)initWithMajor:(id)major minor:(id)minor patch:(id)patch error:(id *)error

@@ -68,7 +68,6 @@ LABEL_12:
   to;
   if ([(_CPDidGoToSearchFeedback *)self timestamp])
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
   }
 
@@ -76,19 +75,16 @@ LABEL_12:
 
   if (input)
   {
-    input = self->_input;
     PBDataWriterWriteStringField();
   }
 
   if ([(_CPDidGoToSearchFeedback *)self endpoint])
   {
-    endpoint = self->_endpoint;
     PBDataWriterWriteInt32Field();
   }
 
   if ([(_CPDidGoToSearchFeedback *)self triggerEvent])
   {
-    triggerEvent = self->_triggerEvent;
     PBDataWriterWriteInt32Field();
   }
 

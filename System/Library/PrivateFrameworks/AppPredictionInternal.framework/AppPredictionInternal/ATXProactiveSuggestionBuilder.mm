@@ -15,7 +15,9 @@
 + (id)_proactiveSuggestionFromHeroAppPrediction:(id)prediction clientModelSpec:(id)spec reasons:(id)reasons;
 + (id)_proactiveSuggestionFromMagicalMomentsPredictionBundleId:(id)id mmSignals:(id)signals clientModelSpec:(id)spec reasons:(id)reasons;
 + (id)_proactiveSuggestionsFromActionResult:(id)result clientModelSpec:(id)spec reasons:(id)reasons;
++ (id)_proactiveSuggestionsFromHeuristicActionResult:(id)result clientModelSpec:(id)spec reasons:(id)reasons allowedOnLockscreen:(BOOL)lockscreen;
 + (id)_scoreSpecForAppClipWithScore:(double)score mediumThreshold:(double)threshold highThreshold:(double)highThreshold;
++ (id)_scoreSpecForAppWithScore:(double)score isHighConfidence:(BOOL)confidence;
 + (id)_scoreSpecForHeroAppPrediction:(id)prediction;
 + (id)_scoreSpecForMagicalMomentsPredictionWithMmSignals:(id)signals;
 + (id)_scoreSpecForPredictionItem:(ATXPredictionItem *)item;
@@ -32,8 +34,11 @@
 + (id)predictionReasonForAnchorModelPrediction:(id)prediction;
 + (id)proactiveSuggestionForAppClipFromHeroAppPrediction:(id)prediction clientModelSpec:(id)spec mediumThreshold:(double)threshold highThreshold:(double)highThreshold reasons:(id)reasons;
 + (id)proactiveSuggestionForAppClipsFromHeroAppPredictions:(id)predictions clientModelSpec:(id)spec mediumThreshold:(double)threshold highThreshold:(double)highThreshold;
++ (id)proactiveSuggestionForAppWithAnchorModelPrediction:(id)prediction clientModelSpec:(id)spec mediumThreshold:(double)threshold highThreshold:(double)highThreshold allowedOnHomescreen:(BOOL)homescreen;
++ (id)proactiveSuggestionForAppWithBundleId:(id)id score:(double)score clientModelSpec:(id)spec mediumThreshold:(double)threshold highThreshold:(double)highThreshold predictionReason:(id)reason allowedOnHomescreen:(BOOL)homescreen;
 + (id)proactiveSuggestionForLinkActionPrediction:(id)prediction score:(double)score clientModelSpec:(id)spec mediumThreshold:(double)threshold highThreshold:(double)highThreshold predictionReason:(id)reason allowedOnHomescreen:(BOOL)homescreen;
 + (id)proactiveSuggestionForLockscreenAction:(id)action clientModelSpec:(id)spec;
++ (id)proactiveSuggestionsForAnchorModelFromScoredActionWithReason:(id)reason clientModelSpec:(id)spec mediumThreshold:(double)threshold highThreshold:(double)highThreshold allowedOnHomescreen:(BOOL)homescreen predictionReasons:(unint64_t)reasons;
 + (id)proactiveSuggestionsForAppsWithHeroAppPredictions:(id)predictions clientModelSpec:(id)spec;
 + (id)proactiveSuggestionsForAppsWithMagicalMomentsMap:(id)map clientModelSpec:(id)spec;
 + (id)proactiveSuggestionsForLockscreenActions:(id)actions clientModelSpec:(id)spec;
@@ -41,6 +46,7 @@
 + (id)proactiveSuggestionsFromActionResults:(id)results clientModelSpec:(id)spec;
 + (id)proactiveSuggestionsFromAppPredictionItems:(const void *)items clientModelSpec:(id)spec maxSuggestionsToSendToBlendingLayer:(int)layer;
 + (id)proactiveSuggestionsFromHeuristicActionResults:(id)results clientModelSpec:(id)spec;
++ (id)proactiveSuggestionsFromScoredAction:(id)action clientModelSpec:(id)spec mediumThreshold:(double)threshold highThreshold:(double)highThreshold predictionReason:(id)reason allowedOnHomescreen:(BOOL)homescreen predictionReasons:(unint64_t)reasons;
 + (int64_t)_confidenceCategoryForPredictionItem:(ATXPredictionItem *)item;
 + (int64_t)_confidenceCategoryForScore:(double)score highThreshold:(double)threshold mediumThreshold:(double)mediumThreshold;
 + (int64_t)_confidenceCategoryGivenIsHighConfidence:(BOOL)confidence;
@@ -49,6 +55,43 @@
 @end
 
 @implementation ATXProactiveSuggestionBuilder
+
++ (id)proactiveSuggestionsForAnchorModelFromScoredActionWithReason:(id)reason clientModelSpec:(id)spec mediumThreshold:(double)threshold highThreshold:(double)highThreshold allowedOnHomescreen:(BOOL)homescreen predictionReasons:(unint64_t)reasons
+{
+  homescreenCopy = homescreen;
+  specCopy = spec;
+  reasonCopy = reason;
+  scoredAction = [reasonCopy scoredAction];
+  reason = [reasonCopy reason];
+
+  v18 = [self proactiveSuggestionsFromScoredAction:scoredAction clientModelSpec:specCopy mediumThreshold:reason highThreshold:homescreenCopy predictionReason:reasons allowedOnHomescreen:threshold predictionReasons:highThreshold];
+
+  return v18;
+}
+
++ (id)proactiveSuggestionForAppWithAnchorModelPrediction:(id)prediction clientModelSpec:(id)spec mediumThreshold:(double)threshold highThreshold:(double)highThreshold allowedOnHomescreen:(BOOL)homescreen
+{
+  homescreenCopy = homescreen;
+  specCopy = spec;
+  predictionCopy = prediction;
+  v14 = [self predictionReasonForAnchorModelPrediction:predictionCopy];
+  v15 = v14;
+  v16 = &stru_2839A6058;
+  if (v14)
+  {
+    v16 = v14;
+  }
+
+  v17 = v16;
+
+  candidateId = [predictionCopy candidateId];
+  [predictionCopy score];
+  v20 = v19;
+
+  v21 = [self proactiveSuggestionForAppWithBundleId:candidateId score:specCopy clientModelSpec:v17 mediumThreshold:homescreenCopy highThreshold:v20 predictionReason:threshold allowedOnHomescreen:highThreshold];
+
+  return v21;
+}
 
 + (id)predictionReasonForAnchorModelPrediction:(id)prediction
 {
@@ -59,21 +102,21 @@
 
   if (!v6)
   {
-    v7 = __atxlog_handle_anchor();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
+    v8 = __atxlog_handle_anchor(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
     {
-      [(ATXProactiveSuggestionBuilder *)predictionCopy predictionReasonForAnchorModelPrediction:v7];
+      [(ATXProactiveSuggestionBuilder *)predictionCopy predictionReasonForAnchorModelPrediction:v8];
     }
   }
 
   anchorEvent = [predictionCopy anchorEvent];
-  v9 = [(objc_class *)v6 anchorOccurenceDateFromDuetEvent:anchorEvent];
+  v10 = [(objc_class *)v6 anchorOccurenceDateFromDuetEvent:anchorEvent];
 
-  v10 = [v4 actionAnchorReasonForAnchorType:@"Generic"];
+  v11 = [v4 actionAnchorReasonForAnchorType:@"Generic"];
   candidateType = [predictionCopy candidateType];
-  v12 = [candidateType isEqualToString:@"app"];
+  v13 = [candidateType isEqualToString:@"app"];
 
-  if (!v12)
+  if (!v13)
   {
     candidateType2 = [predictionCopy candidateType];
     if ([candidateType2 isEqualToString:@"action"])
@@ -83,57 +126,57 @@
     else
     {
       candidateType3 = [predictionCopy candidateType];
-      v23 = [candidateType3 isEqualToString:@"linkaction"];
+      v24 = [candidateType3 isEqualToString:@"linkaction"];
 
-      if (!v23)
+      if (!v24)
       {
         goto LABEL_18;
       }
     }
 
-    v24 = objc_opt_new();
-    [v24 timeIntervalSince1970];
-    v26 = v25;
-    [v9 timeIntervalSince1970];
-    v28 = v26 - v27;
+    v25 = objc_opt_new();
+    [v25 timeIntervalSince1970];
+    v27 = v26;
+    [v10 timeIntervalSince1970];
+    v29 = v27 - v28;
 
-    if (v28 < 480.0)
+    if (v29 < 480.0)
     {
       anchorType2 = [predictionCopy anchorType];
-      v19 = [v4 actionAnchorReasonForAnchorType:anchorType2];
+      v20 = [v4 actionAnchorReasonForAnchorType:anchorType2];
       goto LABEL_14;
     }
 
-    v21 = [v4 actionAnchorReasonForAnchorType:@"Generic"];
+    v22 = [v4 actionAnchorReasonForAnchorType:@"Generic"];
 LABEL_16:
-    v29 = v21;
+    v30 = v22;
     goto LABEL_17;
   }
 
-  v13 = objc_opt_new();
-  [v13 timeIntervalSince1970];
-  v15 = v14;
-  [v9 timeIntervalSince1970];
-  v17 = v15 - v16;
+  v14 = objc_opt_new();
+  [v14 timeIntervalSince1970];
+  v16 = v15;
+  [v10 timeIntervalSince1970];
+  v18 = v16 - v17;
 
-  if (v17 >= 480.0)
+  if (v18 >= 480.0)
   {
-    v21 = [v4 appAnchorReasonForAnchorType:@"Generic"];
+    v22 = [v4 appAnchorReasonForAnchorType:@"Generic"];
     goto LABEL_16;
   }
 
   anchorType2 = [predictionCopy anchorType];
-  v19 = [v4 appAnchorReasonForAnchorType:anchorType2];
+  v20 = [v4 appAnchorReasonForAnchorType:anchorType2];
 LABEL_14:
-  v29 = v19;
+  v30 = v20;
 
-  v10 = anchorType2;
+  v11 = anchorType2;
 LABEL_17:
 
-  v10 = v29;
+  v11 = v30;
 LABEL_18:
 
-  return v10;
+  return v11;
 }
 
 + (unint64_t)predictionReasonsForAnchorModelPrediction:(id)prediction
@@ -158,52 +201,52 @@ LABEL_18:
   predictionCopy = prediction;
   specCopy = spec;
   reasonCopy = reason;
-  v51 = [self _scoreSpecForScore:score highThreshold:highThreshold mediumThreshold:threshold];
+  v52 = [self _scoreSpecForScore:score highThreshold:highThreshold mediumThreshold:threshold];
   v18 = objc_alloc(MEMORY[0x277CCACA8]);
   bundleId = [predictionCopy bundleId];
   action = [predictionCopy action];
   identifier = [action identifier];
-  v52 = [v18 initWithFormat:@"%@:%@", bundleId, identifier];
+  v53 = [v18 initWithFormat:@"%@:%@", bundleId, identifier];
 
   v22 = objc_opt_new();
   bundleId2 = [predictionCopy bundleId];
   action2 = [predictionCopy action];
   identifier2 = [action2 identifier];
-  v53 = 0;
-  v26 = [v22 actionForBundleIdentifier:bundleId2 andActionIdentifier:identifier2 error:&v53];
-  v27 = v53;
+  v54 = 0;
+  v26 = [v22 actionForBundleIdentifier:bundleId2 andActionIdentifier:identifier2 error:&v54];
+  v27 = v54;
 
   v28 = v27;
   if (v27)
   {
-    v29 = v26;
-    identifier3 = __atxlog_handle_anchor();
+    v30 = v26;
+    identifier3 = __atxlog_handle_anchor(v29);
     if (os_log_type_enabled(identifier3, OS_LOG_TYPE_ERROR))
     {
-      v32 = v52;
+      v33 = v53;
       +[ATXProactiveSuggestionBuilder proactiveSuggestionForLinkActionPrediction:score:clientModelSpec:mediumThreshold:highThreshold:predictionReason:allowedOnHomescreen:];
-      v31 = 0;
-      v33 = v51;
+      v32 = 0;
+      v34 = v52;
     }
 
     else
     {
-      v31 = 0;
-      v33 = v51;
-      v32 = v52;
+      v32 = 0;
+      v34 = v52;
+      v33 = v53;
     }
   }
 
   else
   {
     title = [v26 title];
-    v35 = [title key];
-    v36 = v35;
-    v29 = v26;
-    v49 = v22;
-    if (v35)
+    v36 = [title key];
+    v37 = v36;
+    v30 = v26;
+    v50 = v22;
+    if (v36)
     {
-      identifier3 = v35;
+      identifier3 = v36;
     }
 
     else
@@ -211,69 +254,69 @@ LABEL_18:
       action3 = [predictionCopy action];
       identifier3 = [action3 identifier];
 
-      v29 = v26;
+      v30 = v26;
     }
 
-    descriptionMetadata = [v29 descriptionMetadata];
+    descriptionMetadata = [v30 descriptionMetadata];
     descriptionText = [descriptionMetadata descriptionText];
-    v40 = [descriptionText key];
+    v41 = [descriptionText key];
 
-    v47 = v40;
-    v48 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"%@ | %@", identifier3, v40];
-    v41 = [objc_alloc(MEMORY[0x277D42080]) initWithExecutableObject:predictionCopy executableDescription:v48 executableIdentifier:v52 suggestionExecutableType:10];
-    if ([v51 suggestedConfidenceCategory] <= 2)
+    v48 = v41;
+    v49 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"%@ | %@", identifier3, v41];
+    v42 = [objc_alloc(MEMORY[0x277D42080]) initWithExecutableObject:predictionCopy executableDescription:v49 executableIdentifier:v53 suggestionExecutableType:10];
+    if ([v52 suggestedConfidenceCategory] <= 2)
     {
-      v42 = 44;
+      v43 = 44;
     }
 
     else
     {
-      v42 = 40;
+      v43 = 40;
     }
 
-    v43 = [MEMORY[0x277D42088] layoutConfigurationsForLayoutOptions:v42];
-    LOWORD(v46) = 256;
-    v44 = [objc_alloc(MEMORY[0x277D420A0]) initWithTitle:identifier3 subtitle:v40 predictionReason:reasonCopy preferredLayoutConfigs:v43 allowedOnLockscreen:0 allowedOnHomeScreen:homescreenCopy allowedOnSpotlight:v46 shouldClearOnEngagement:?];
-    v31 = [objc_alloc(MEMORY[0x277D42068]) initWithClientModelSpecification:specCopy executableSpecification:v41 uiSpecification:v44 scoreSpecification:v51];
+    v44 = [MEMORY[0x277D42088] layoutConfigurationsForLayoutOptions:v43];
+    LOWORD(v47) = 256;
+    v45 = [objc_alloc(MEMORY[0x277D420A0]) initWithTitle:identifier3 subtitle:v41 predictionReason:reasonCopy preferredLayoutConfigs:v44 allowedOnLockscreen:0 allowedOnHomeScreen:homescreenCopy allowedOnSpotlight:v47 shouldClearOnEngagement:?];
+    v32 = [objc_alloc(MEMORY[0x277D42068]) initWithClientModelSpecification:specCopy executableSpecification:v42 uiSpecification:v45 scoreSpecification:v52];
 
-    v33 = v51;
-    v32 = v52;
+    v34 = v52;
+    v33 = v53;
 
     v28 = 0;
-    v22 = v49;
+    v22 = v50;
   }
 
-  return v31;
+  return v32;
 }
 
 + (id)proactiveSuggestionsForAppsWithMagicalMomentsMap:(id)map clientModelSpec:(id)spec
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   mapCopy = map;
   specCopy = spec;
   v8 = objc_opt_new();
   v9 = objc_opt_new();
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
   v10 = mapCopy;
-  v11 = [v10 countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v11 = [v10 countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v21;
+    v13 = *v20;
     do
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v21 != v13)
+        if (*v20 != v13)
         {
           objc_enumerationMutation(v10);
         }
 
-        v15 = *(*(&v20 + 1) + 8 * i);
-        v16 = [v10 objectForKeyedSubscript:{v15, v20}];
+        v15 = *(*(&v19 + 1) + 8 * i);
+        v16 = [v10 objectForKeyedSubscript:{v15, v19}];
         v17 = [self _proactiveSuggestionFromMagicalMomentsPredictionBundleId:v15 mmSignals:v16 clientModelSpec:specCopy reasons:v8];
         if (v17)
         {
@@ -281,13 +324,11 @@ LABEL_18:
         }
       }
 
-      v12 = [v10 countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v12 = [v10 countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
     while (v12);
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 
   return v9;
 }
@@ -311,7 +352,7 @@ LABEL_18:
 
     else
     {
-      v19 = __atxlog_handle_default();
+      v19 = __atxlog_handle_default(0);
       if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
       {
         +[ATXProactiveSuggestionBuilder _proactiveSuggestionFromMagicalMomentsPredictionBundleId:mmSignals:clientModelSpec:reasons:];
@@ -407,31 +448,29 @@ LABEL_18:
 
 id __90__ATXProactiveSuggestionBuilder_proactiveSuggestionsForLockscreenActions_clientModelSpec___block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v4 = __atxlog_handle_blending();
+  v4 = __atxlog_handle_blending(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 138412290;
-    v10 = v3;
-    _os_log_impl(&dword_2263AA000, v4, OS_LOG_TYPE_DEFAULT, "lockscreen: converting action to proactive suggestion: %@", &v9, 0xCu);
+    v8 = 138412290;
+    v9 = v3;
+    _os_log_impl(&dword_2263AA000, v4, OS_LOG_TYPE_DEFAULT, "lockscreen: converting action to proactive suggestion: %@", &v8, 0xCu);
   }
 
   v5 = [*(a1 + 40) proactiveSuggestionForLockscreenAction:v3 clientModelSpec:*(a1 + 32)];
-  v6 = __atxlog_handle_blending();
+  v6 = __atxlog_handle_blending(v5);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
     __90__ATXProactiveSuggestionBuilder_proactiveSuggestionsForLockscreenActions_clientModelSpec___block_invoke_cold_1();
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
 
 + (id)proactiveSuggestionForLockscreenAction:(id)action clientModelSpec:(id)spec
 {
-  v26[1] = *MEMORY[0x277D85DE8];
+  v25[1] = *MEMORY[0x277D85DE8];
   specCopy = spec;
   actionCopy = action;
   predictedItem = [actionCopy predictedItem];
@@ -450,12 +489,11 @@ id __90__ATXProactiveSuggestionBuilder_proactiveSuggestionsForLockscreenActions_
   v18 = objc_alloc(MEMORY[0x277D420A0]);
   actionTitle = [predictedItem actionTitle];
   actionSubtitle = [predictedItem actionSubtitle];
-  v26[0] = v17;
-  v21 = [MEMORY[0x277CBEA60] arrayWithObjects:v26 count:1];
+  v25[0] = v17;
+  v21 = [MEMORY[0x277CBEA60] arrayWithObjects:v25 count:1];
   v22 = [v18 initWithTitle:actionTitle subtitle:actionSubtitle preferredLayoutConfigs:v21 allowedOnLockscreen:1 allowedOnHomeScreen:0 allowedOnSpotlight:0];
 
   v23 = [objc_alloc(MEMORY[0x277D42068]) initWithClientModelSpecification:specCopy executableSpecification:v16 uiSpecification:v22 scoreSpecification:v11];
-  v24 = *MEMORY[0x277D85DE8];
 
   return v23;
 }
@@ -496,7 +534,7 @@ id __90__ATXProactiveSuggestionBuilder_proactiveSuggestionsForLockscreenActions_
 
   else
   {
-    v17 = __atxlog_handle_default();
+    v17 = __atxlog_handle_default(0);
     if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
       +[ATXProactiveSuggestionBuilder _proactiveSuggestionFromHeroAppPrediction:clientModelSpec:reasons:];
@@ -574,51 +612,50 @@ id __90__ATXProactiveSuggestionBuilder_proactiveSuggestionsForLockscreenActions_
   v24 = *MEMORY[0x277D85DE8];
   predictionCopy = prediction;
   specCopy = spec;
-  if ([predictionCopy rank] < 3)
+  rank = [predictionCopy rank];
+  if (rank < 3)
   {
     bundleId = [predictionCopy bundleId];
     poiMuid = [predictionCopy poiMuid];
-    v12 = poiMuid;
+    v13 = poiMuid;
     if (bundleId && poiMuid)
     {
-      v13 = [objc_alloc(MEMORY[0x277CEB860]) initWithPOIName:bundleId muid:poiMuid criteria:0];
-      v14 = [self _executableSpecForSpotlightAction:v13];
-      v15 = [self _scoreSpecForHeroAppPrediction:predictionCopy];
-      v16 = [self _uiSpecForSpotlightPOIPrediction:bundleId predictionReasons:0x800000];
-      v10 = [objc_alloc(MEMORY[0x277D42068]) initWithClientModelSpecification:specCopy executableSpecification:v14 uiSpecification:v16 scoreSpecification:v15];
+      v14 = [objc_alloc(MEMORY[0x277CEB860]) initWithPOIName:bundleId muid:poiMuid criteria:0];
+      v15 = [self _executableSpecForSpotlightAction:v14];
+      v16 = [self _scoreSpecForHeroAppPrediction:predictionCopy];
+      v17 = [self _uiSpecForSpotlightPOIPrediction:bundleId predictionReasons:0x800000];
+      v11 = [objc_alloc(MEMORY[0x277D42068]) initWithClientModelSpecification:specCopy executableSpecification:v15 uiSpecification:v17 scoreSpecification:v16];
     }
 
     else
     {
-      v17 = __atxlog_handle_default();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+      v18 = __atxlog_handle_default(poiMuid);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
       {
         +[ATXProactiveSuggestionBuilder _proactiveSuggestionForSpotlightPOIFromHeroAppPrediction:clientModelSpec:];
       }
 
-      v10 = 0;
+      v11 = 0;
     }
   }
 
   else
   {
-    bundleId = __atxlog_handle_default();
+    bundleId = __atxlog_handle_default(rank);
     if (os_log_type_enabled(bundleId, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = NSStringFromClass(self);
+      v10 = NSStringFromClass(self);
       v20 = 138412546;
-      v21 = v9;
+      v21 = v10;
       v22 = 2112;
       v23 = predictionCopy;
       _os_log_impl(&dword_2263AA000, bundleId, OS_LOG_TYPE_DEFAULT, "%@ - _proactiveSuggestionForSpotlightPOIFromHeroAppPrediction: %@ not included on Spotlight, returning nil", &v20, 0x16u);
     }
 
-    v10 = 0;
+    v11 = 0;
   }
 
-  v18 = *MEMORY[0x277D85DE8];
-
-  return v10;
+  return v11;
 }
 
 + (id)_executableSpecForSpotlightAction:(id)action
@@ -635,17 +672,15 @@ id __90__ATXProactiveSuggestionBuilder_proactiveSuggestionsForLockscreenActions_
 
 + (id)_uiSpecForSpotlightPOIPrediction:(id)prediction predictionReasons:(unint64_t)reasons
 {
-  v13[1] = *MEMORY[0x277D85DE8];
+  v12[1] = *MEMORY[0x277D85DE8];
   v5 = MEMORY[0x277D42088];
   predictionCopy = prediction;
   v7 = [[v5 alloc] initWithApplicableSuggestionLayout:5];
-  v13[0] = v7;
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:1];
+  v12[0] = v7;
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
 
-  LOWORD(v12) = 1;
-  v9 = [objc_alloc(MEMORY[0x277D420A0]) initWithTitle:predictionCopy subtitle:0 predictionReason:0 preferredLayoutConfigs:v8 allowedOnLockscreen:0 allowedOnHomeScreen:0 allowedOnSpotlight:v12 shouldClearOnEngagement:reasons predictionReasons:?];
-
-  v10 = *MEMORY[0x277D85DE8];
+  LOWORD(v11) = 1;
+  v9 = [objc_alloc(MEMORY[0x277D420A0]) initWithTitle:predictionCopy subtitle:0 predictionReason:0 preferredLayoutConfigs:v8 allowedOnLockscreen:0 allowedOnHomeScreen:0 allowedOnSpotlight:v11 shouldClearOnEngagement:reasons predictionReasons:?];
 
   return v9;
 }
@@ -674,7 +709,7 @@ id __90__ATXProactiveSuggestionBuilder_proactiveSuggestionsForLockscreenActions_
 id __132__ATXProactiveSuggestionBuilder_proactiveSuggestionForAppClipsFromHeroAppPredictions_clientModelSpec_mediumThreshold_highThreshold___block_invoke(uint64_t a1, uint64_t a2)
 {
   v2 = [*(a1 + 48) proactiveSuggestionForAppClipFromHeroAppPrediction:a2 clientModelSpec:*(a1 + 32) mediumThreshold:*(a1 + 40) highThreshold:*(a1 + 56) reasons:*(a1 + 64)];
-  v3 = __atxlog_handle_blending();
+  v3 = __atxlog_handle_blending(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     __132__ATXProactiveSuggestionBuilder_proactiveSuggestionForAppClipsFromHeroAppPredictions_clientModelSpec_mediumThreshold_highThreshold___block_invoke_cold_1();
@@ -755,6 +790,50 @@ id __132__ATXProactiveSuggestionBuilder_proactiveSuggestionForAppClipsFromHeroAp
   v10 = [v5 initWithFormat:@"%@:%lld", actionKey, objc_msgSend(v9, "longLongValue")];
 
   return v10;
+}
+
++ (id)proactiveSuggestionsFromScoredAction:(id)action clientModelSpec:(id)spec mediumThreshold:(double)threshold highThreshold:(double)highThreshold predictionReason:(id)reason allowedOnHomescreen:(BOOL)homescreen predictionReasons:(unint64_t)reasons
+{
+  homescreenCopy = homescreen;
+  actionCopy = action;
+  specCopy = spec;
+  reasonCopy = reason;
+  v19 = reasonCopy;
+  if (actionCopy)
+  {
+    [actionCopy score];
+    v21 = [self _scoreSpecForScore:v20 highThreshold:highThreshold mediumThreshold:threshold];
+    v22 = [self _executableSpecForScoredAction:actionCopy];
+    if (v22)
+    {
+      v23 = [self _uiSpecForScoredAction:actionCopy scoreSpec:v21 clientModelSpec:specCopy predictionReason:v19 allowedOnLockscreen:1 allowedOnHomescreen:homescreenCopy predictionReasons:reasons];
+      v24 = [objc_alloc(MEMORY[0x277D42068]) initWithClientModelSpecification:specCopy executableSpecification:v22 uiSpecification:v23 scoreSpecification:v21];
+    }
+
+    else
+    {
+      v25 = __atxlog_handle_default(0);
+      if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+      {
+        +[ATXProactiveSuggestionBuilder proactiveSuggestionsFromScoredAction:clientModelSpec:mediumThreshold:highThreshold:predictionReason:allowedOnHomescreen:predictionReasons:];
+      }
+
+      v24 = 0;
+    }
+  }
+
+  else
+  {
+    v21 = __atxlog_handle_default(reasonCopy);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+    {
+      [ATXProactiveSuggestionBuilder proactiveSuggestionsFromScoredAction:self clientModelSpec:? mediumThreshold:? highThreshold:? predictionReason:? allowedOnHomescreen:? predictionReasons:?];
+    }
+
+    v24 = 0;
+  }
+
+  return v24;
 }
 
 + (id)cachedTitleAndSubtitleForAction:(id)action
@@ -903,6 +982,35 @@ id __132__ATXProactiveSuggestionBuilder_proactiveSuggestionForAppClipsFromHeroAp
   return v7;
 }
 
++ (id)proactiveSuggestionForAppWithBundleId:(id)id score:(double)score clientModelSpec:(id)spec mediumThreshold:(double)threshold highThreshold:(double)highThreshold predictionReason:(id)reason allowedOnHomescreen:(BOOL)homescreen
+{
+  homescreenCopy = homescreen;
+  idCopy = id;
+  specCopy = spec;
+  reasonCopy = reason;
+  v19 = [self _executableSpecForAppWithBundleId:idCopy];
+  v20 = [self _scoreSpecForScore:score highThreshold:highThreshold mediumThreshold:threshold];
+  v21 = [self _uiSpecForAppWithBundleId:idCopy scoreSpec:v20 predictionReason:reasonCopy allowedOnHomescreen:homescreenCopy];
+
+  if (v21)
+  {
+    v23 = [objc_alloc(MEMORY[0x277D42068]) initWithClientModelSpecification:specCopy executableSpecification:v19 uiSpecification:v21 scoreSpecification:v20];
+  }
+
+  else
+  {
+    v24 = __atxlog_handle_default(v22);
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+    {
+      +[ATXProactiveSuggestionBuilder proactiveSuggestionForAppWithBundleId:score:clientModelSpec:mediumThreshold:highThreshold:predictionReason:allowedOnHomescreen:];
+    }
+
+    v23 = 0;
+  }
+
+  return v23;
+}
+
 + (id)_uiSpecForAppWithBundleId:(id)id scoreSpec:(id)spec predictionReason:(id)reason allowedOnHomescreen:(BOOL)homescreen
 {
   LODWORD(v6) = homescreen;
@@ -943,6 +1051,14 @@ id __132__ATXProactiveSuggestionBuilder_proactiveSuggestionForAppClipsFromHeroAp
   v5 = [[v3 alloc] initWithExecutableObject:idCopy executableDescription:idCopy executableIdentifier:idCopy suggestionExecutableType:1];
 
   return v5;
+}
+
++ (id)_scoreSpecForAppWithScore:(double)score isHighConfidence:(BOOL)confidence
+{
+  v5 = [self _confidenceCategoryGivenIsHighConfidence:confidence];
+  v6 = [objc_alloc(MEMORY[0x277D42090]) initWithRawScore:v5 suggestedConfidenceCategory:score];
+
+  return v6;
 }
 
 + (int64_t)_confidenceCategoryGivenIsHighConfidence:(BOOL)confidence
@@ -1008,6 +1124,76 @@ id __112__ATXProactiveSuggestionBuilder_PredictionItem__proactiveSuggestionsFrom
   return v6;
 }
 
++ (id)_proactiveSuggestionsFromHeuristicActionResult:(id)result clientModelSpec:(id)spec reasons:(id)reasons allowedOnLockscreen:(BOOL)lockscreen
+{
+  lockscreenCopy = lockscreen;
+  v30 = *MEMORY[0x277D85DE8];
+  resultCopy = result;
+  specCopy = spec;
+  reasonsCopy = reasons;
+  scoredAction = [resultCopy scoredAction];
+
+  if (scoredAction)
+  {
+    v15 = objc_msgSend_predictionItem(resultCopy);
+    v16 = v15 + 1;
+    v17 = *v15;
+    v28 = v17;
+    memcpy(v29, v16, sizeof(v29));
+    if (self)
+    {
+      v18 = [self _scoreSpecForPredictionItem:&v28];
+    }
+
+    else
+    {
+
+      v18 = 0;
+    }
+
+    scoredAction2 = [resultCopy scoredAction];
+    v21 = [self _executableSpecForScoredAction:scoredAction2];
+
+    if (v21)
+    {
+      v23 = [self _actionPredictionReasonForActionResult:resultCopy reasons:reasonsCopy];
+      v24 = [self _actionPredictionReasonsForActionResult:resultCopy reasons:reasonsCopy];
+      scoredAction3 = [resultCopy scoredAction];
+      v26 = [self _uiSpecForScoredAction:scoredAction3 scoreSpec:v18 clientModelSpec:specCopy predictionReason:v23 allowedOnLockscreen:lockscreenCopy predictionReasons:v24];
+
+      v19 = [objc_alloc(MEMORY[0x277D42068]) initWithClientModelSpecification:specCopy executableSpecification:v21 uiSpecification:v26 scoreSpecification:v18];
+    }
+
+    else
+    {
+      v23 = __atxlog_handle_default(v22);
+      if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+      {
+        NSStringFromClass(self);
+        objc_claimAutoreleasedReturnValue();
+        +[ATXProactiveSuggestionBuilder(PredictionItem) _proactiveSuggestionsFromHeuristicActionResult:clientModelSpec:reasons:allowedOnLockscreen:];
+      }
+
+      v19 = 0;
+    }
+  }
+
+  else
+  {
+    v18 = __atxlog_handle_default(v14);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+    {
+      NSStringFromClass(self);
+      objc_claimAutoreleasedReturnValue();
+      +[ATXProactiveSuggestionBuilder(PredictionItem) _proactiveSuggestionsFromHeuristicActionResult:clientModelSpec:reasons:allowedOnLockscreen:];
+    }
+
+    v19 = 0;
+  }
+
+  return v19;
+}
+
 + (id)proactiveSuggestionsFromActionResults:(id)results clientModelSpec:(id)spec
 {
   resultsCopy = results;
@@ -1036,7 +1222,7 @@ id __103__ATXProactiveSuggestionBuilder_PredictionItem__proactiveSuggestionsFrom
 
 + (id)_proactiveSuggestionsFromActionResult:(id)result clientModelSpec:(id)spec reasons:(id)reasons
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   resultCopy = result;
   specCopy = spec;
   reasonsCopy = reasons;
@@ -1044,64 +1230,62 @@ id __103__ATXProactiveSuggestionBuilder_PredictionItem__proactiveSuggestionsFrom
 
   if (scoredAction)
   {
-    predictionItem = [resultCopy predictionItem];
-    v13 = predictionItem + 1;
-    v14 = *predictionItem;
-    v24 = v14;
-    memcpy(v25, v13, sizeof(v25));
+    v13 = objc_msgSend_predictionItem(resultCopy);
+    v14 = v13 + 1;
+    v15 = *v13;
+    v25 = v15;
+    memcpy(v26, v14, sizeof(v26));
     if (self)
     {
-      v15 = [self _scoreSpecForPredictionItem:&v24];
+      v16 = [self _scoreSpecForPredictionItem:&v25];
     }
 
     else
     {
 
-      v15 = 0;
+      v16 = 0;
     }
 
     scoredAction2 = [resultCopy scoredAction];
-    v18 = [self _executableSpecForScoredAction:scoredAction2];
+    v19 = [self _executableSpecForScoredAction:scoredAction2];
 
-    if (v18)
+    if (v19)
     {
-      v19 = [self _actionPredictionReasonForActionResult:resultCopy reasons:reasonsCopy];
+      v21 = [self _actionPredictionReasonForActionResult:resultCopy reasons:reasonsCopy];
       scoredAction3 = [resultCopy scoredAction];
-      v21 = [self _uiSpecForScoredAction:scoredAction3 scoreSpec:v15 clientModelSpec:specCopy predictionReason:v19 allowedOnLockscreen:1 allowedOnHomescreen:1 predictionReasons:{0, v24}];
+      v23 = [self _uiSpecForScoredAction:scoredAction3 scoreSpec:v16 clientModelSpec:specCopy predictionReason:v21 allowedOnLockscreen:1 allowedOnHomescreen:1 predictionReasons:{0, v25}];
 
-      v16 = [objc_alloc(MEMORY[0x277D42068]) initWithClientModelSpecification:specCopy executableSpecification:v18 uiSpecification:v21 scoreSpecification:v15];
+      v17 = [objc_alloc(MEMORY[0x277D42068]) initWithClientModelSpecification:specCopy executableSpecification:v19 uiSpecification:v23 scoreSpecification:v16];
     }
 
     else
     {
-      v19 = __atxlog_handle_default();
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+      v21 = __atxlog_handle_default(v20);
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
       {
         NSStringFromClass(self);
         objc_claimAutoreleasedReturnValue();
         +[ATXProactiveSuggestionBuilder(PredictionItem) _proactiveSuggestionsFromHeuristicActionResult:clientModelSpec:reasons:allowedOnLockscreen:];
       }
 
-      v16 = 0;
+      v17 = 0;
     }
   }
 
   else
   {
-    v15 = __atxlog_handle_default();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v16 = __atxlog_handle_default(v12);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
       NSStringFromClass(self);
       objc_claimAutoreleasedReturnValue();
       +[ATXProactiveSuggestionBuilder(PredictionItem) _proactiveSuggestionsFromActionResult:clientModelSpec:reasons:];
     }
 
-    v16 = 0;
+    v17 = 0;
   }
 
-  v22 = *MEMORY[0x277D85DE8];
-
-  return v16;
+  return v17;
 }
 
 + (id)_actionPredictionReasonForActionResult:(id)result reasons:(id)reasons
@@ -1135,38 +1319,38 @@ id __103__ATXProactiveSuggestionBuilder_PredictionItem__proactiveSuggestionsFrom
     predictedItem = [scoredAction predictedItem];
     heuristic = [predictedItem heuristic];
 
-    if ([heuristic hasPrefix:@"changeAlarmBeforeHoliday"])
+    v9 = [heuristic hasPrefix:@"changeAlarmBeforeHoliday"];
+    if (v9)
     {
-      v9 = 0x800000000;
+      v10 = 0x800000000;
     }
 
     else
     {
-      v10 = __atxlog_handle_default();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+      v11 = __atxlog_handle_default(v9);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
-        v11 = NSStringFromClass(self);
+        v12 = NSStringFromClass(self);
         scoredAction2 = [resultCopy scoredAction];
         predictedItem2 = [scoredAction2 predictedItem];
         heuristic2 = [predictedItem2 heuristic];
         v17 = 138412546;
-        v18 = v11;
+        v18 = v12;
         v19 = 2112;
         v20 = heuristic2;
-        _os_log_impl(&dword_2263AA000, v10, OS_LOG_TYPE_DEFAULT, "%@ - _actionPredictionReasonsForActionResult: heuristic %@ reason bit set to Unknown", &v17, 0x16u);
+        _os_log_impl(&dword_2263AA000, v11, OS_LOG_TYPE_DEFAULT, "%@ - _actionPredictionReasonsForActionResult: heuristic %@ reason bit set to Unknown", &v17, 0x16u);
       }
 
-      v9 = 0;
+      v10 = 0;
     }
   }
 
   else
   {
-    v9 = 0;
+    v10 = 0;
   }
 
-  v15 = *MEMORY[0x277D85DE8];
-  return v9;
+  return v10;
 }
 
 + (BOOL)_isHeuristicActionForActionResult:(id)result
@@ -1229,36 +1413,36 @@ id __103__ATXProactiveSuggestionBuilder_PredictionItem__proactiveSuggestionsFrom
 
 + (id)_proactiveSuggestionFromAppPredictionItem:(ATXPredictionItem *)item clientModelSpec:(id)spec reasons:(id)reasons
 {
-  MEMORY[0x28223BE20](self, a2);
+  MEMORY[0x28223BE20](self);
   v6 = v5;
   v8 = v7;
   v10 = v9;
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v12 = v11;
   v13 = v6;
   v14 = [v10 _executableSpecForAppWithBundleId:*v8];
   v15 = *v8;
-  v25 = v15;
-  memcpy(v26, v8 + 1, sizeof(v26));
+  v24 = v15;
+  memcpy(v25, v8 + 1, sizeof(v25));
   if (v10)
   {
-    v16 = [v10 _scoreSpecForPredictionItem:&v25];
-    v23 = *v8;
-    memcpy(v24, v8 + 1, sizeof(v24));
-    v17 = [v10 _appPredictionReasonForPredictionItem:&v23 reasons:v13];
+    v16 = [v10 _scoreSpecForPredictionItem:&v24];
+    v22 = *v8;
+    memcpy(v23, v8 + 1, sizeof(v23));
+    v17 = [v10 _appPredictionReasonForPredictionItem:&v22 reasons:v13];
   }
 
   else
   {
 
-    v23 = *v8;
-    memcpy(v24, v8 + 1, sizeof(v24));
+    v22 = *v8;
+    memcpy(v23, v8 + 1, sizeof(v23));
 
     v16 = 0;
     v17 = 0;
   }
 
-  v18 = [v10 _uiSpecForAppWithBundleId:*v8 scoreSpec:v16 predictionReason:{v17, v23}];
+  v18 = [v10 _uiSpecForAppWithBundleId:*v8 scoreSpec:v16 predictionReason:{v17, v22}];
   if (v18)
   {
     v19 = [objc_alloc(MEMORY[0x277D42068]) initWithClientModelSpecification:v12 executableSpecification:v14 uiSpecification:v18 scoreSpecification:v16];
@@ -1266,7 +1450,7 @@ id __103__ATXProactiveSuggestionBuilder_PredictionItem__proactiveSuggestionsFrom
 
   else
   {
-    v20 = __atxlog_handle_default();
+    v20 = __atxlog_handle_default(0);
     if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
       NSStringFromClass(v10);
@@ -1277,14 +1461,12 @@ id __103__ATXProactiveSuggestionBuilder_PredictionItem__proactiveSuggestionsFrom
     v19 = 0;
   }
 
-  v21 = *MEMORY[0x277D85DE8];
-
   return v19;
 }
 
 + (id)_appPredictionReasonForPredictionItem:(ATXPredictionItem *)item reasons:(id)reasons
 {
-  MEMORY[0x28223BE20](self, a2);
+  MEMORY[0x28223BE20](self);
   v5 = v4;
   v7 = v6;
   v9 = v8;
@@ -1396,109 +1578,82 @@ LABEL_10:
 
 + (void)predictionReasonForAnchorModelPrediction:(void *)a1 .cold.1(void *a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v3 = [a1 anchorType];
-  v5 = 138412290;
-  v6 = v3;
-  _os_log_fault_impl(&dword_2263AA000, a2, OS_LOG_TYPE_FAULT, "Failed to retrieve Anchor Class Name from Anchor Type: %@", &v5, 0xCu);
-
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 138412290;
+  v5 = v3;
+  _os_log_fault_impl(&dword_2263AA000, a2, OS_LOG_TYPE_FAULT, "Failed to retrieve Anchor Class Name from Anchor Type: %@", &v4, 0xCu);
 }
 
 + (void)proactiveSuggestionForLinkActionPrediction:score:clientModelSpec:mediumThreshold:highThreshold:predictionReason:allowedOnHomescreen:.cold.1()
 {
-  v5 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_12();
-  v4 = v0;
-  _os_log_error_impl(&dword_2263AA000, v1, OS_LOG_TYPE_ERROR, "Suggestion Builder: Unable to retrieve Link metadata for action %@. Error: %@", v3, 0x16u);
-  v2 = *MEMORY[0x277D85DE8];
+  v3 = v0;
+  _os_log_error_impl(&dword_2263AA000, v1, OS_LOG_TYPE_ERROR, "Suggestion Builder: Unable to retrieve Link metadata for action %@. Error: %@", v2, 0x16u);
 }
 
 + (void)_proactiveSuggestionFromMagicalMomentsPredictionBundleId:mmSignals:clientModelSpec:reasons:.cold.1()
 {
   OUTLINED_FUNCTION_2_1();
-  v10 = *MEMORY[0x277D85DE8];
   v1 = NSStringFromClass(v0);
   OUTLINED_FUNCTION_0_14();
-  OUTLINED_FUNCTION_1_0(&dword_2263AA000, v2, v3, "%@ - _proactiveSuggestionFromMagicalMomentsPredictionBundleId: %@ could not generate uiSpec, returning nil", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_0(&dword_2263AA000, v2, v3, "%@ - _proactiveSuggestionFromMagicalMomentsPredictionBundleId: %@ could not generate uiSpec, returning nil", v4, v5, v6, v7);
 }
 
 void __90__ATXProactiveSuggestionBuilder_proactiveSuggestionsForLockscreenActions_clientModelSpec___block_invoke_cold_1()
 {
   OUTLINED_FUNCTION_2_1();
-  v10 = *MEMORY[0x277D85DE8];
   v1 = [*v0 clientModelId];
   OUTLINED_FUNCTION_0_14();
-  OUTLINED_FUNCTION_1_5(&dword_2263AA000, v2, v3, "<<%@>> produced an Action Proactive Suggestion: %@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_5(&dword_2263AA000, v2, v3, "<<%@>> produced an Action Proactive Suggestion: %@", v4, v5, v6, v7);
 }
 
 + (void)_proactiveSuggestionFromHeroAppPrediction:clientModelSpec:reasons:.cold.1()
 {
   OUTLINED_FUNCTION_2_1();
-  v10 = *MEMORY[0x277D85DE8];
   v1 = NSStringFromClass(v0);
   OUTLINED_FUNCTION_0_14();
-  OUTLINED_FUNCTION_1_0(&dword_2263AA000, v2, v3, "%@ - _proactiveSuggestionFromHeroAppPrediction: %@ could not generate uiSpec, returning nil", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_0(&dword_2263AA000, v2, v3, "%@ - _proactiveSuggestionFromHeroAppPrediction: %@ could not generate uiSpec, returning nil", v4, v5, v6, v7);
 }
 
 + (void)_proactiveSuggestionForSpotlightPOIFromHeroAppPrediction:clientModelSpec:.cold.1()
 {
   OUTLINED_FUNCTION_2_1();
-  v10 = *MEMORY[0x277D85DE8];
   v1 = NSStringFromClass(v0);
   OUTLINED_FUNCTION_0_14();
-  OUTLINED_FUNCTION_1_0(&dword_2263AA000, v2, v3, "%@ - _proactiveSuggestionForSpotlightPOIFromHeroAppPrediction: %@ no poiMuid found, returning nil", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_0(&dword_2263AA000, v2, v3, "%@ - _proactiveSuggestionForSpotlightPOIFromHeroAppPrediction: %@ no poiMuid found, returning nil", v4, v5, v6, v7);
 }
 
 void __132__ATXProactiveSuggestionBuilder_proactiveSuggestionForAppClipsFromHeroAppPredictions_clientModelSpec_mediumThreshold_highThreshold___block_invoke_cold_1()
 {
   OUTLINED_FUNCTION_2_1();
-  v10 = *MEMORY[0x277D85DE8];
   v1 = [*v0 clientModelId];
   OUTLINED_FUNCTION_0_14();
-  OUTLINED_FUNCTION_1_5(&dword_2263AA000, v2, v3, "<<%@>> produced an App Clip Prediction Proactive Suggestion: %@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_5(&dword_2263AA000, v2, v3, "<<%@>> produced an App Clip Prediction Proactive Suggestion: %@", v4, v5, v6, v7);
 }
 
 + (void)proactiveSuggestionsFromScoredAction:clientModelSpec:mediumThreshold:highThreshold:predictionReason:allowedOnHomescreen:predictionReasons:.cold.1()
 {
   OUTLINED_FUNCTION_2_1();
-  v10 = *MEMORY[0x277D85DE8];
   v1 = NSStringFromClass(v0);
   OUTLINED_FUNCTION_0_14();
-  OUTLINED_FUNCTION_1_0(&dword_2263AA000, v2, v3, "%@ - proactiveSuggestionsFromScoredAction: %@ could not generate executableSpec, returning nil", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_0(&dword_2263AA000, v2, v3, "%@ - proactiveSuggestionsFromScoredAction: %@ could not generate executableSpec, returning nil", v4, v5, v6, v7);
 }
 
 + (void)proactiveSuggestionsFromScoredAction:(objc_class *)a1 clientModelSpec:mediumThreshold:highThreshold:predictionReason:allowedOnHomescreen:predictionReasons:.cold.2(objc_class *a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
   v1 = NSStringFromClass(a1);
   OUTLINED_FUNCTION_0_12();
-  OUTLINED_FUNCTION_1_0(&dword_2263AA000, v2, v3, "%@ - proactiveSuggestionsFromScoredAction: %@ had no scoredAction, returning nil", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_0(&dword_2263AA000, v2, v3, "%@ - proactiveSuggestionsFromScoredAction: %@ had no scoredAction, returning nil", v4, v5, v6, v7);
 }
 
 + (void)proactiveSuggestionForAppWithBundleId:score:clientModelSpec:mediumThreshold:highThreshold:predictionReason:allowedOnHomescreen:.cold.1()
 {
   OUTLINED_FUNCTION_2_1();
-  v10 = *MEMORY[0x277D85DE8];
   v1 = NSStringFromClass(v0);
   OUTLINED_FUNCTION_0_14();
-  OUTLINED_FUNCTION_1_0(&dword_2263AA000, v2, v3, "%@ - proactiveSuggestionForAppWithBundleId: %@ could not generate uiSpec, returning nil", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_0(&dword_2263AA000, v2, v3, "%@ - proactiveSuggestionForAppWithBundleId: %@ could not generate uiSpec, returning nil", v4, v5, v6, v7);
 }
 
 @end

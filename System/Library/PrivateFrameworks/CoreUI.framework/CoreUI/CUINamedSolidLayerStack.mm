@@ -12,9 +12,9 @@
 - (CUINamedSolidLayerStack)initWithName:(id)name usingRenditionKey:(id)key fromTheme:(unint64_t)theme resolvingWithBlock:(id)block
 {
   nameCopy = name;
-  v54.receiver = self;
-  v54.super_class = CUINamedSolidLayerStack;
-  v8 = [(CUINamedLookup *)&v54 initWithName:name usingRenditionKey:key fromTheme:?];
+  v34.receiver = self;
+  v34.super_class = CUINamedSolidLayerStack;
+  v8 = [(CUINamedLookup *)&v34 initWithName:name usingRenditionKey:key fromTheme:?];
   _rendition = [(CUINamedLookup *)v8 _rendition];
   if ([(CUIThemeRendition *)_rendition type]== 1018)
   {
@@ -24,65 +24,64 @@
       nameCopy = [(CUIThemeRendition *)_rendition name];
     }
 
-    v46 = v8;
-    v48 = objc_alloc_init(NSMutableArray);
-    v50 = 0u;
-    v51 = 0u;
-    v52 = 0u;
-    v53 = 0u;
+    v26 = v8;
+    v28 = objc_alloc_init(NSMutableArray);
+    v30 = 0u;
+    v31 = 0u;
+    v32 = 0u;
+    v33 = 0u;
     obj = [(CUIThemeRendition *)_rendition layerReferences];
-    v16 = [obj countByEnumeratingWithState:&v50 objects:v55 count:16];
-    if (v16)
+    v10 = [obj countByEnumeratingWithState:&v30 objects:v35 count:16];
+    if (v10)
     {
-      v17 = v16;
-      v18 = 0;
-      v19 = *v51;
+      v11 = v10;
+      v12 = 0;
+      v13 = *v31;
       while (2)
       {
-        for (i = 0; i != v17; i = i + 1)
+        for (i = 0; i != v11; i = i + 1)
         {
-          if (*v51 != v19)
+          if (*v31 != v13)
           {
             objc_enumerationMutation(obj);
           }
 
-          v21 = *(*(&v50 + 1) + 8 * i);
-          v22 = (*(block + 2))(block, [v21 referenceKey]);
-          if (!v22)
+          v15 = *(*(&v30 + 1) + 8 * i);
+          v16 = (*(block + 2))(block, [v15 referenceKey]);
+          if (!v16)
           {
-            [v21 referenceKey];
-            _CUILog(4, "CoreUI: Unable to resolve layer reference for '%@' name '%@' layerRef referenceKey '%@'", v27, v28, v29, v30, v31, v32, v21);
+            _CUILog(4, "CoreUI: Unable to resolve layer reference for '%@' name '%@' layerRef referenceKey '%@'", v15, nameCopy, [v15 referenceKey]);
             goto LABEL_23;
           }
 
-          theme = [[CUINamedSolidLayerImage alloc] initWithName:[NSString usingRenditionKey:"stringWithFormat:" fromTheme:@"%@[%ld]" stringWithFormat:nameCopy, ++v18], v22, theme];
+          theme = [[CUINamedSolidLayerImage alloc] initWithName:[NSString usingRenditionKey:"stringWithFormat:" fromTheme:@"%@[%ld]" stringWithFormat:nameCopy, ++v12], v16, theme];
           if ([(CUINamedLookup *)theme _rendition])
           {
-            [v21 frame];
+            [v15 frame];
             [(CUINamedSolidLayerImage *)theme setFrame:?];
-            [v21 opacity];
-            if (v24 < 1.0)
+            [v15 opacity];
+            if (v18 < 1.0)
             {
               [(CUINamedSolidLayerImage *)theme opacity];
-              if (v25 == 1.0)
+              if (v19 == 1.0)
               {
-                [v21 opacity];
+                [v15 opacity];
                 [(CUINamedSolidLayerImage *)theme setOpacity:?];
               }
             }
 
-            if ([v21 blendMode] >= 1 && !-[CUINamedSolidLayerImage blendMode](theme, "blendMode"))
+            if ([v15 blendMode] >= 1 && !-[CUINamedSolidLayerImage blendMode](theme, "blendMode"))
             {
-              -[CUINamedSolidLayerImage setBlendMode:](theme, "setBlendMode:", [v21 blendMode]);
+              -[CUINamedSolidLayerImage setBlendMode:](theme, "setBlendMode:", [v15 blendMode]);
             }
 
-            -[CUINamedSolidLayerImage setFixedFrame:](theme, "setFixedFrame:", [v21 fixedFrame]);
-            [(NSArray *)v48 addObject:theme];
+            -[CUINamedSolidLayerImage setFixedFrame:](theme, "setFixedFrame:", [v15 fixedFrame]);
+            [(NSArray *)v28 addObject:theme];
           }
         }
 
-        v17 = [obj countByEnumeratingWithState:&v50 objects:v55 count:16];
-        if (v17)
+        v11 = [obj countByEnumeratingWithState:&v30 objects:v35 count:16];
+        if (v11)
         {
           continue;
         }
@@ -92,35 +91,35 @@
     }
 
 LABEL_23:
-    v26 = v46;
-    v46->_layers = v48;
+    v20 = v26;
+    v26->_layers = v28;
     v8 = objc_alloc_init(CUIRenditionKey);
-    [(CUINamedSolidLayerStack *)v8 setThemeElement:[(CUIRenditionKey *)[(CUINamedLookup *)v46 key] themeElement]];
+    [(CUINamedSolidLayerStack *)v8 setThemeElement:[(CUIRenditionKey *)[(CUINamedLookup *)v26 key] themeElement]];
     [(CUINamedSolidLayerStack *)v8 setThemePart:208];
-    [(CUINamedSolidLayerStack *)v8 setThemeIdentifier:[(CUIRenditionKey *)[(CUINamedLookup *)v46 key] themeIdentifier]];
-    v33 = (*(block + 2))(block, v8);
-    if (v33)
+    [(CUINamedSolidLayerStack *)v8 setThemeIdentifier:[(CUIRenditionKey *)[(CUINamedLookup *)v26 key] themeIdentifier]];
+    v21 = (*(block + 2))(block, v8);
+    if (v21)
     {
-      v40 = v33;
-      storageRef = [(CUINamedLookup *)v46 storageRef];
-      v43 = _LookupStructuredThemeProvider(storageRef, v42);
-      v44 = [v43 copyLookupKeySignatureForKey:{objc_msgSend(v40, "keyList")}];
-      v46->_flattenedImageRendition = [v43 renditionWithKey:objc_msgSend(v40 usingKeySignature:{"keyList"), v44}];
+      v22 = v21;
+      [(CUINamedLookup *)v26 storageRef];
+      v23 = _LookupStructuredThemeProvider();
+      v24 = [v23 copyLookupKeySignatureForKey:{objc_msgSend(v22, "keyList")}];
+      v26->_flattenedImageRendition = [v23 renditionWithKey:objc_msgSend(v22 usingKeySignature:{"keyList"), v24}];
     }
 
     else
     {
-      _CUILog(4, "CoreUI: Unable to resolve flattened image for layer stack %@", v34, v35, v36, v37, v38, v39, v46);
+      _CUILog(4, "CoreUI: Unable to resolve flattened image for layer stack %@", v26);
     }
   }
 
   else
   {
-    _CUILog(4, "CoreUI: Attempting to create named layer stack '%@' from inappropriate rendition type: %@", v10, v11, v12, v13, v14, v15, nameCopy);
-    v26 = 0;
+    _CUILog(4, "CoreUI: Attempting to create named layer stack '%@' from inappropriate rendition type: %@", nameCopy, _rendition);
+    v20 = 0;
   }
 
-  return v26;
+  return v20;
 }
 
 - (BOOL)isEqual:(id)equal

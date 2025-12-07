@@ -557,31 +557,31 @@ LABEL_14:
 
 - (void)modifyPolicy:(id)policy forTypes:(id)types
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   policyCopy = policy;
   typesCopy = types;
   dispatch_assert_queue_V2(self->_stateQueue);
-  v18 = 0u;
-  v19 = 0u;
-  v16 = 0u;
   v17 = 0u;
+  v18 = 0u;
+  v15 = 0u;
+  v16 = 0u;
   v8 = typesCopy;
-  v9 = [v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v17;
+    v11 = *v16;
     do
     {
       v12 = 0;
       do
       {
-        if (*v17 != v11)
+        if (*v16 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        intValue = [*(*(&v16 + 1) + 8 * v12) intValue];
+        intValue = [*(*(&v15 + 1) + 8 * v12) intValue];
         if (intValue <= 3)
         {
           if (intValue)
@@ -653,18 +653,16 @@ LABEL_23:
       }
 
       while (v10 != v12);
-      v10 = [v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v10);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setPolicyExtension:(id)extension forPolicy:(id)policy
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   extensionCopy = extension;
   policyCopy = policy;
   dispatch_assert_queue_V2(self->_stateQueue);
@@ -672,26 +670,26 @@ LABEL_23:
   policyExtensions = [policyCopy policyExtensions];
   v10 = [v8 arrayWithArray:policyExtensions];
 
-  v20 = 0u;
-  v21 = 0u;
-  v18 = 0u;
   v19 = 0u;
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
   policyExtensions2 = [policyCopy policyExtensions];
-  v12 = [policyExtensions2 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v12 = [policyExtensions2 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v19;
+    v14 = *v18;
     while (2)
     {
       for (i = 0; i != v13; ++i)
       {
-        if (*v19 != v14)
+        if (*v18 != v14)
         {
           objc_enumerationMutation(policyExtensions2);
         }
 
-        v16 = *(*(&v18 + 1) + 8 * i);
+        v16 = *(*(&v17 + 1) + 8 * i);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
@@ -700,7 +698,7 @@ LABEL_23:
         }
       }
 
-      v13 = [policyExtensions2 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v13 = [policyExtensions2 countByEnumeratingWithState:&v17 objects:v21 count:16];
       if (v13)
       {
         continue;
@@ -714,38 +712,36 @@ LABEL_11:
 
   [v10 addObject:extensionCopy];
   [policyCopy setPolicyExtensions:v10];
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removePolicyExtensionOfClass:(Class)class forPolicy:(id)policy
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   policyCopy = policy;
   v5 = MEMORY[0x277CBEB18];
   policyExtensions = [policyCopy policyExtensions];
   v7 = [v5 arrayWithArray:policyExtensions];
 
-  v17 = 0u;
-  v18 = 0u;
-  v15 = 0u;
   v16 = 0u;
+  v17 = 0u;
+  v14 = 0u;
+  v15 = 0u;
   policyExtensions2 = [policyCopy policyExtensions];
-  v9 = [policyExtensions2 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v9 = [policyExtensions2 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v16;
+    v11 = *v15;
     while (2)
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v16 != v11)
+        if (*v15 != v11)
         {
           objc_enumerationMutation(policyExtensions2);
         }
 
-        v13 = *(*(&v15 + 1) + 8 * i);
+        v13 = *(*(&v14 + 1) + 8 * i);
         if (objc_opt_isKindOfClass())
         {
           [v7 removeObject:v13];
@@ -753,7 +749,7 @@ LABEL_11:
         }
       }
 
-      v10 = [policyExtensions2 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v10 = [policyExtensions2 countByEnumeratingWithState:&v14 objects:v18 count:16];
       if (v10)
       {
         continue;
@@ -766,34 +762,33 @@ LABEL_11:
 LABEL_11:
 
   [policyCopy setPolicyExtensions:v7];
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (id)existingExtensionOfClass:(Class)class inPolicy:(id)policy
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   policyCopy = policy;
   dispatch_assert_queue_V2(self->_stateQueue);
-  v17 = 0u;
-  v18 = 0u;
-  v15 = 0u;
   v16 = 0u;
+  v17 = 0u;
+  v14 = 0u;
+  v15 = 0u;
   policyExtensions = [policyCopy policyExtensions];
-  v7 = [policyExtensions countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v7 = [policyExtensions countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v16;
+    v9 = *v15;
     while (2)
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v16 != v9)
+        if (*v15 != v9)
         {
           objc_enumerationMutation(policyExtensions);
         }
 
-        v11 = *(*(&v15 + 1) + 8 * i);
+        v11 = *(*(&v14 + 1) + 8 * i);
         if (objc_opt_isKindOfClass())
         {
           v12 = v11;
@@ -801,7 +796,7 @@ LABEL_11:
         }
       }
 
-      v8 = [policyExtensions countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v8 = [policyExtensions countByEnumeratingWithState:&v14 objects:v18 count:16];
       if (v8)
       {
         continue;
@@ -813,8 +808,6 @@ LABEL_11:
 
   v12 = 0;
 LABEL_11:
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v12;
 }

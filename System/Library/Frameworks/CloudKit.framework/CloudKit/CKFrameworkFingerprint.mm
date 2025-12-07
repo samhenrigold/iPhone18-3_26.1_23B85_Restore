@@ -10,22 +10,22 @@
 
 - (CKFrameworkFingerprint)init
 {
-  v32[2] = *MEMORY[0x1E69E9840];
-  v27.receiver = self;
-  v27.super_class = CKFrameworkFingerprint;
-  v2 = [(CKFrameworkFingerprint *)&v27 init];
+  v31[2] = *MEMORY[0x1E69E9840];
+  v26.receiver = self;
+  v26.super_class = CKFrameworkFingerprint;
+  v2 = [(CKFrameworkFingerprint *)&v26 init];
   if (v2)
   {
     v3 = CKHeaderForLibraryName(@"CloudKit");
     if (v3)
     {
       v4 = v3;
-      v32[0] = 0;
-      v32[1] = 0;
+      v31[0] = 0;
+      v31[1] = 0;
       if (_dyld_get_image_uuid())
       {
         v5 = objc_alloc(MEMORY[0x1E696AFB0]);
-        v7 = objc_msgSend_initWithUUIDBytes_(v5, v6, v32);
+        v7 = objc_msgSend_initWithUUIDBytes_(v5, v6, v31);
         objc_msgSend_setUuid_(v2, v8, v7);
       }
 
@@ -40,9 +40,9 @@
         if (os_log_type_enabled(ck_log_facility_ck, OS_LOG_TYPE_ERROR))
         {
           *buf = 134218242;
-          v29 = v4;
-          v30 = 2112;
-          v31 = @"CloudKit";
+          v28 = v4;
+          v29 = 2112;
+          v30 = @"CloudKit";
           _os_log_error_impl(&dword_1883EA000, v13, OS_LOG_TYPE_ERROR, "Failed to get image uuid for header %p in library name %@", buf, 0x16u);
         }
       }
@@ -65,7 +65,7 @@
       if (os_log_type_enabled(ck_log_facility_ck, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v29 = @"CloudKit";
+        v28 = @"CloudKit";
         _os_log_error_impl(&dword_1883EA000, v10, OS_LOG_TYPE_ERROR, "Couldn't get mach_header for library name %@", buf, 0xCu);
       }
     }
@@ -83,7 +83,7 @@
       if (os_log_type_enabled(ck_log_facility_ck, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v29 = @"CloudKit";
+        v28 = @"CloudKit";
         _os_log_error_impl(&dword_1883EA000, v24, OS_LOG_TYPE_ERROR, "Couldn't get runtime version for library name %@", buf, 0xCu);
       }
     }
@@ -95,7 +95,6 @@
     }
   }
 
-  v25 = *MEMORY[0x1E69E9840];
   return v2;
 }
 

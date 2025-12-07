@@ -35,7 +35,7 @@
 {
   v5 = 0u;
   v6 = 0u;
-  [(PVInstructionGraphSourceNode *)self transform:0];
+  objc_msgSend_transform(self, a2, 0, 0);
   v2 = atan2(*&v5, *(&v5 + 1));
   return fabsf(fabsf(v2) + -3.1416) >= 0.00001 && v2 != 0.0;
 }
@@ -85,7 +85,7 @@
   v5 = NSStringFromClass(v4);
   v12[1] = v5;
   v11[2] = @"sourceTransform";
-  [(PVInstructionGraphSourceNode *)self transform];
+  objc_msgSend_transform(self);
   v6 = NSStringFromCGAffineTransform(&transform);
   v12[2] = v6;
   v11[3] = @"isPortrait";

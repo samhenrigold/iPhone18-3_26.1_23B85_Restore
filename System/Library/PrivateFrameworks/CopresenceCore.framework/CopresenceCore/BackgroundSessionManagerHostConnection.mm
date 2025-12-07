@@ -19,81 +19,78 @@
 {
   v6 = type metadata accessor for UUID();
   v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
   MEMORY[0x1EEE9AC00](v6);
-  v10 = &v14 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v11 = _Block_copy(completion);
+  v9 = &v13 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v10 = _Block_copy(completion);
   static UUID._unconditionallyBridgeFromObjectiveC(_:)();
-  v12 = swift_allocObject();
-  *(v12 + 16) = v11;
+  v11 = swift_allocObject();
+  *(v11 + 16) = v10;
   selfCopy = self;
-  BackgroundSessionManagerHostConnection.leave(identifier:completion:)(v10, thunk for @escaping @callee_unowned @convention(block) (@unowned NSError?) -> ()partial apply, v12);
+  BackgroundSessionManagerHostConnection.leave(identifier:completion:)(v9, thunk for @escaping @callee_unowned @convention(block) (@unowned NSError?) -> ()partial apply, v11);
 
-  (*(v7 + 8))(v10, v6);
+  (*(v7 + 8))(v9, v6);
 }
 
 - (void)updateMembersWithIdentifier:(id)identifier members:(id)members completion:(id)completion
 {
   v7 = type metadata accessor for UUID();
   v8 = *(v7 - 8);
-  v9 = *(v8 + 64);
   MEMORY[0x1EEE9AC00](v7);
-  v11 = &v15 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v12 = _Block_copy(completion);
+  v10 = &v14 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v11 = _Block_copy(completion);
   static UUID._unconditionallyBridgeFromObjectiveC(_:)();
   type metadata accessor for TUHandle();
   lazy protocol witness table accessor for type AddressableMember and conformance NSObject(&lazy protocol witness table cache variable for type TUHandle and conformance NSObject, type metadata accessor for TUHandle);
-  v13 = static Set._unconditionallyBridgeFromObjectiveC(_:)();
-  _Block_copy(v12);
+  v12 = static Set._unconditionallyBridgeFromObjectiveC(_:)();
+  _Block_copy(v11);
   selfCopy = self;
-  specialized BackgroundSessionManagerHostConnection.updateMembers(identifier:members:completion:)(v11, v13, selfCopy, v12);
-  _Block_release(v12);
-  _Block_release(v12);
+  specialized BackgroundSessionManagerHostConnection.updateMembers(identifier:members:completion:)(v10, v12, selfCopy, v11);
+  _Block_release(v11);
+  _Block_release(v11);
 
-  (*(v8 + 8))(v11, v7);
+  (*(v8 + 8))(v10, v7);
 }
 
 - (void)updateShare:(id)share activityID:(id)d completion:(id)completion
 {
   selfCopy = self;
   v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd, &_sScPSgMR);
-  v8 = *(*(v7 - 8) + 64);
   MEMORY[0x1EEE9AC00](v7 - 8);
-  v10 = &v29 - v9;
-  v29 = &v29 - v9;
-  v11 = type metadata accessor for UUID();
-  v12 = *(v11 - 8);
-  v13 = *(v12 + 64);
-  v14 = MEMORY[0x1EEE9AC00](v11);
-  v15 = &v29 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v14);
-  v17 = &v29 - v16;
-  v18 = _Block_copy(completion);
+  v9 = &v28 - v8;
+  v28 = &v28 - v8;
+  v10 = type metadata accessor for UUID();
+  v11 = *(v10 - 8);
+  v12 = *(v11 + 64);
+  v13 = MEMORY[0x1EEE9AC00](v10);
+  v14 = &v28 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v13);
+  v16 = &v28 - v15;
+  v17 = _Block_copy(completion);
   static UUID._unconditionallyBridgeFromObjectiveC(_:)();
-  v19 = swift_allocObject();
-  *(v19 + 16) = v18;
-  v20 = type metadata accessor for TaskPriority();
-  (*(*(v20 - 8) + 56))(v10, 1, 1, v20);
-  (*(v12 + 16))(v15, v17, v11);
-  v21 = (*(v12 + 80) + 48) & ~*(v12 + 80);
-  v22 = (v13 + v21 + 7) & 0xFFFFFFFFFFFFFFF8;
-  v23 = swift_allocObject();
-  *(v23 + 2) = 0;
-  *(v23 + 3) = 0;
-  v24 = selfCopy;
-  *(v23 + 4) = selfCopy;
-  *(v23 + 5) = share;
-  (*(v12 + 32))(&v23[v21], v15, v11);
-  v25 = &v23[v22];
-  *v25 = partial apply for thunk for @escaping @callee_unowned @convention(block) (@unowned NSError?) -> ();
-  v25[1] = v19;
+  v18 = swift_allocObject();
+  *(v18 + 16) = v17;
+  v19 = type metadata accessor for TaskPriority();
+  (*(*(v19 - 8) + 56))(v9, 1, 1, v19);
+  (*(v11 + 16))(v14, v16, v10);
+  v20 = (*(v11 + 80) + 48) & ~*(v11 + 80);
+  v21 = (v12 + v20 + 7) & 0xFFFFFFFFFFFFFFF8;
+  v22 = swift_allocObject();
+  *(v22 + 2) = 0;
+  *(v22 + 3) = 0;
+  v23 = selfCopy;
+  *(v22 + 4) = selfCopy;
+  *(v22 + 5) = share;
+  (*(v11 + 32))(&v22[v20], v14, v10);
+  v24 = &v22[v21];
+  *v24 = partial apply for thunk for @escaping @callee_unowned @convention(block) (@unowned NSError?) -> ();
+  v24[1] = v18;
   shareCopy = share;
-  v27 = v24;
-  v28 = shareCopy;
+  v26 = v23;
+  v27 = shareCopy;
 
-  _sScTss5NeverORs_rlE4name8priority9operationScTyxABGSSSg_ScPSgxyYaYAcntcfCyt_Tt2g5(0, 0, v29, &closure #1 in BackgroundSessionManagerHostConnection.updateShare(_:activityID:completion:)partial apply, v23);
+  _sScTss5NeverORs_rlE4name8priority9operationScTyxABGSSSg_ScPSgxyYaYAcntcfCyt_Tt2g5(0, 0, v28, &closure #1 in BackgroundSessionManagerHostConnection.updateShare(_:activityID:completion:)partial apply, v22);
 
-  (*(v12 + 8))(v17, v11);
+  (*(v11 + 8))(v16, v10);
 }
 
 @end

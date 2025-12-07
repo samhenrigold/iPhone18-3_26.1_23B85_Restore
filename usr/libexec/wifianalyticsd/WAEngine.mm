@@ -44,6 +44,7 @@
 - (id)_updateRoamPoliciesAndSummarizeAnalyticsForNetwork:(id)network maxAgeInDays:(unint64_t)days;
 - (id)getDpsMetaDataString;
 - (id)getNewMessageForKey:(id)key groupType:(int64_t)type forProcessWithToken:(id)token;
+- (id)getNewMessageForKey:(id)key groupType:(int64_t)type withCopy:(BOOL)copy forProcessWithToken:(id)token;
 - (id)getValueForKeyFromUserDefaults:(id)defaults;
 - (id)getW5Client;
 - (id)getXPCConnectionForProcessToken:(id)token;
@@ -102,6 +103,7 @@
 - (void)gatherConsecutiveDatapathReadings:(int64_t)readings forProcessToken:(id)token andReply:(id)reply;
 - (void)gatherConsecutiveLinkQualitySamples:(int64_t)samples forProcessToken:(id)token andReply:(id)reply;
 - (void)gatherDiscoveredPeerInfo:(id)info;
+- (void)getIPv6InterfaceNetwork:(unsigned int *)network prefixLength:(unsigned int)length;
 - (void)handleMemoryWarning:(BOOL)warning;
 - (void)incrementWorkReportValueForKey:(id)key;
 - (void)initDatapathMetricGetterAndFetcher;
@@ -3663,15 +3665,15 @@ LABEL_145:
     *&buf[4] = "[WAEngine _unpersist]";
     *&buf[12] = 1024;
     *&buf[14] = 2168;
-    v256 = 2080;
-    v257 = description;
+    v252 = 2080;
+    v253 = description;
     _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEBUG, "%{public}s::%d:Started transaction %s", buf, 0x1Cu);
   }
 
-  v219 = v6;
+  v215 = v6;
 
-  v226 = objc_autoreleasePoolPush();
-  v252 = 0;
+  v222 = objc_autoreleasePoolPush();
+  v248 = 0;
   _getObscureKey = [(WAEngine *)self _getObscureKey];
   self->_readingPersistFile = 1;
   v9 = WALogCategoryDefaultHandle();
@@ -3683,22 +3685,22 @@ LABEL_145:
     *&buf[4] = "[WAEngine _unpersist]";
     *&buf[12] = 1024;
     *&buf[14] = 2199;
-    v256 = 2112;
-    v257 = v11;
+    v252 = 2112;
+    v253 = v11;
     _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "%{public}s::%d:Reading persistence file %@", buf, 0x1Cu);
   }
 
   v12 = NSHomeDirectory();
   v13 = [NSString stringWithFormat:@"%@%@t.out", v12, @"/Library/com.apple.wifianalyticsd/.wa/"];
-  v251 = 0;
-  v14 = [NSData dataWithContentsOfFile:v13 options:1 error:&v251];
-  obj = v251;
+  v247 = 0;
+  v14 = [NSData dataWithContentsOfFile:v13 options:1 error:&v247];
+  obj = v247;
 
   v15 = [v14 length];
-  v263 = 0;
+  v259 = 0;
   v16 = &WAXPCRequestDelegateInterface_ptr;
   memset(key, 0, sizeof(key));
-  v228 = v14;
+  v224 = v14;
   if (!v14)
   {
     self->_persistFileExistedAtPIDLoad = 0;
@@ -3711,13 +3713,13 @@ LABEL_145:
       *&buf[4] = "[WAEngine _unpersist]";
       *&buf[12] = 1024;
       *&buf[14] = 2213;
-      v256 = 2112;
-      v257 = obj;
+      v252 = 2112;
+      v253 = obj;
       _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_DEFAULT, "%{public}s::%d:No persistence file, likely first run after boot (err:%@)", buf, 0x1Cu);
     }
 
     v30 = &WAXPCRequestDelegateInterface_ptr;
-    v31 = v226;
+    v31 = v222;
     goto LABEL_16;
   }
 
@@ -3725,14 +3727,14 @@ LABEL_145:
   v17 = _getObscureKey;
   if (!_getObscureKey)
   {
-    v200 = WALogCategoryDefaultHandle();
-    if (os_log_type_enabled(v200, OS_LOG_TYPE_ERROR))
+    v196 = WALogCategoryDefaultHandle();
+    if (os_log_type_enabled(v196, OS_LOG_TYPE_ERROR))
     {
       *buf = 136446466;
       *&buf[4] = "[WAEngine _unpersist]";
       *&buf[12] = 1024;
       *&buf[14] = 2214;
-      _os_log_impl(&_mh_execute_header, v200, OS_LOG_TYPE_ERROR, "%{public}s::%d:Couldn't get key to unobscure persistence file...", buf, 0x12u);
+      _os_log_impl(&_mh_execute_header, v196, OS_LOG_TYPE_ERROR, "%{public}s::%d:Couldn't get key to unobscure persistence file...", buf, 0x12u);
     }
 
     [(WAEngine *)self _removePersistenceFile];
@@ -3745,48 +3747,48 @@ LABEL_145:
   v20 = malloc_type_malloc(v19, 0xD0415A50uLL);
   if (!v20)
   {
-    v201 = WALogCategoryDefaultHandle();
-    if (os_log_type_enabled(v201, OS_LOG_TYPE_ERROR))
+    v197 = WALogCategoryDefaultHandle();
+    if (os_log_type_enabled(v197, OS_LOG_TYPE_ERROR))
     {
       *buf = 136446466;
       *&buf[4] = "[WAEngine _unpersist]";
       *&buf[12] = 1024;
       *&buf[14] = 2218;
-      _os_log_impl(&_mh_execute_header, v201, OS_LOG_TYPE_ERROR, "%{public}s::%d:Couldn't allocate buffer to unobscure persistence data", buf, 0x12u);
+      _os_log_impl(&_mh_execute_header, v197, OS_LOG_TYPE_ERROR, "%{public}s::%d:Couldn't allocate buffer to unobscure persistence data", buf, 0x12u);
     }
 
 LABEL_171:
     v30 = &WAXPCRequestDelegateInterface_ptr;
     v29 = obj;
-    v31 = v226;
+    v31 = v222;
 LABEL_16:
 
     v32 = 0;
-    v217 = 0;
-    v218 = 0;
+    v213 = 0;
+    v214 = 0;
     goto LABEL_38;
   }
 
   v21 = v20;
   v22 = [(WAEngine *)self _getDataFromKeychain:@"com.apple.wifi.analytics.persistence-iv"];
   v23 = [(WAEngine *)self _getDataFromKeychain:@"com.apple.wifi.analytics.persistence-tag"];
-  v220 = v22;
-  v222 = v21;
-  v215 = v23;
+  v216 = v22;
+  v218 = v21;
+  v211 = v23;
   if (v22 && (v24 = v23) != 0)
   {
     bytes = [v22 bytes];
     v26 = bytes[2];
-    v260 = *bytes;
-    v261 = v26;
+    v256 = *bytes;
+    v257 = v26;
     *buf = *[v24 bytes];
-    [v228 bytes];
-    v205 = buf;
-    v206 = 16;
+    [v224 bytes];
+    v201 = buf;
+    v202 = 16;
     dataOut = v18;
     dataOutAvailable = v21;
     v27 = CCCryptorGCMOneshotDecrypt();
-    v252 = v18;
+    v248 = v18;
   }
 
   else
@@ -3798,44 +3800,44 @@ LABEL_16:
       *&buf[4] = "[WAEngine _unpersist]";
       *&buf[12] = 1024;
       *&buf[14] = 2236;
-      v256 = 2080;
-      v257 = "[WAEngine _unpersist]";
+      v252 = 2080;
+      v253 = "[WAEngine _unpersist]";
       _os_log_impl(&_mh_execute_header, v33, OS_LOG_TYPE_DEFAULT, "%{public}s::%d:%s: IV and tag not found", buf, 0x1Cu);
     }
 
-    v27 = CCCrypt(1u, 0, 1u, key, 0x20uLL, 0, [v228 bytes], v18, v21, v19, &v252);
+    v27 = CCCrypt(1u, 0, 1u, key, 0x20uLL, 0, [v224 bytes], v18, v21, v19, &v248);
   }
 
   self->_readingPersistFile = 0;
   v30 = &WAXPCRequestDelegateInterface_ptr;
   if (v27)
   {
-    v202 = WALogCategoryDefaultHandle();
-    if (os_log_type_enabled(v202, OS_LOG_TYPE_ERROR))
+    v198 = WALogCategoryDefaultHandle();
+    if (os_log_type_enabled(v198, OS_LOG_TYPE_ERROR))
     {
       *buf = 136446978;
       *&buf[4] = "[WAEngine _unpersist]";
       *&buf[12] = 1024;
       *&buf[14] = 2243;
-      v256 = 2080;
-      v257 = "[WAEngine _unpersist]";
-      v258 = 1024;
-      v259 = v27;
-      _os_log_impl(&_mh_execute_header, v202, OS_LOG_TYPE_ERROR, "%{public}s::%d:%s: Failed to unobscure: %d", buf, 0x22u);
+      v252 = 2080;
+      v253 = "[WAEngine _unpersist]";
+      v254 = 1024;
+      v255 = v27;
+      _os_log_impl(&_mh_execute_header, v198, OS_LOG_TYPE_ERROR, "%{public}s::%d:%s: Failed to unobscure: %d", buf, 0x22u);
     }
 
-    free(v222);
+    free(v218);
     v44 = 0;
-    v217 = 0;
-    v218 = 0;
+    v213 = 0;
+    v214 = 0;
     v32 = 0;
-    v31 = v226;
+    v31 = v222;
   }
 
   else
   {
     v34 = [NSData alloc];
-    v35 = [v34 initWithBytes:v222 length:v252];
+    v35 = [v34 initWithBytes:v218 length:v248];
     v36 = objc_opt_class();
     v37 = objc_opt_class();
     v38 = objc_opt_class();
@@ -3844,14 +3846,14 @@ LABEL_16:
     v41 = objc_opt_class();
     v42 = objc_opt_class();
     v43 = objc_opt_class();
-    v208 = v42;
+    v204 = v42;
     v44 = v35;
-    v45 = [NSSet setWithObjects:v36, v37, v38, v39, v40, v41, v208, v43, objc_opt_class(), 0];
-    v250 = 0;
-    v32 = [NSKeyedUnarchiver unarchivedObjectOfClasses:v45 fromData:v35 error:&v250];
-    v46 = v250;
+    v45 = [NSSet setWithObjects:v36, v37, v38, v39, v40, v41, v204, v43, objc_opt_class(), 0];
+    v246 = 0;
+    v32 = [NSKeyedUnarchiver unarchivedObjectOfClasses:v45 fromData:v35 error:&v246];
+    v46 = v246;
 
-    v31 = v226;
+    v31 = v222;
     if (v46)
     {
       v47 = WALogCategoryDefaultHandle();
@@ -3861,13 +3863,13 @@ LABEL_16:
         *&buf[4] = "[WAEngine _unpersist]";
         *&buf[12] = 1024;
         *&buf[14] = 2249;
-        v256 = 2112;
-        v257 = v46;
+        v252 = 2112;
+        v253 = v46;
         _os_log_impl(&_mh_execute_header, v47, OS_LOG_TYPE_ERROR, "%{public}s::%d:Failed to unarchive root persistence dict: %@", buf, 0x1Cu);
       }
     }
 
-    free(v222);
+    free(v218);
     if (v32)
     {
       v48 = [v32 objectForKeyedSubscript:@"WA_BUILD_VERSION_PERSIST_KEY"];
@@ -3881,10 +3883,10 @@ LABEL_16:
         v52 = [v50 initWithFormat:@"%@", v51];
 
         v53 = [[NSString alloc] initWithFormat:@"%s%s%s", "WiFiAnalytics_executables-785.10", "WiFiAnalytics_executables-785.10", "Oct 22 2025 21:28:55"];
-        v217 = v53;
+        v213 = v53;
         if (v52)
         {
-          v218 = v52;
+          v214 = v52;
           v16 = &WAXPCRequestDelegateInterface_ptr;
           if ([v52 isEqual:v53])
           {
@@ -3894,15 +3896,15 @@ LABEL_16:
 
         else
         {
-          v218 = 0;
+          v214 = 0;
           v16 = &WAXPCRequestDelegateInterface_ptr;
         }
       }
 
       else
       {
-        v217 = 0;
-        v218 = 0;
+        v213 = 0;
+        v214 = 0;
         v16 = &WAXPCRequestDelegateInterface_ptr;
         v30 = &WAXPCRequestDelegateInterface_ptr;
       }
@@ -3923,8 +3925,8 @@ LABEL_16:
       goto LABEL_37;
     }
 
-    v217 = 0;
-    v218 = 0;
+    v213 = 0;
+    v214 = 0;
     v16 = &WAXPCRequestDelegateInterface_ptr;
     v30 = &WAXPCRequestDelegateInterface_ptr;
   }
@@ -3944,13 +3946,13 @@ LABEL_38:
     *&buf[4] = "[WAEngine _unpersist]";
     *&buf[12] = 1024;
     *&buf[14] = 2273;
-    v256 = 2048;
-    v257 = v57;
+    v252 = 2048;
+    v253 = v57;
     _os_log_impl(&_mh_execute_header, v56, OS_LOG_TYPE_DEBUG, "%{public}s::%d:usageData size: %lu", buf, 0x1Cu);
   }
 
-  v229 = v55;
-  v231 = v32;
+  v225 = v55;
+  v227 = v32;
   if (!v55)
   {
     goto LABEL_46;
@@ -3960,233 +3962,229 @@ LABEL_38:
   v59 = objc_opt_class();
   v60 = objc_opt_class();
   v61 = objc_opt_class();
-  v62 = v30[401];
-  v63 = [NSSet setWithObjects:v59, v60, v61, objc_opt_class(), 0];
-  v249 = 0;
-  v64 = [v58 unarchivedObjectOfClasses:v63 fromData:v55 error:&v249];
-  v65 = v249;
+  v62 = [NSSet setWithObjects:v59, v60, v61, objc_opt_class(), 0];
+  v245 = 0;
+  v63 = [v58 unarchivedObjectOfClasses:v62 fromData:v55 error:&v245];
+  v64 = v245;
 
-  if (v65)
+  if (v64)
   {
-    v66 = WALogCategoryDefaultHandle();
-    if (os_log_type_enabled(v66, OS_LOG_TYPE_ERROR))
+    v65 = WALogCategoryDefaultHandle();
+    if (os_log_type_enabled(v65, OS_LOG_TYPE_ERROR))
     {
       *buf = 136446722;
       *&buf[4] = "[WAEngine _unpersist]";
       *&buf[12] = 1024;
       *&buf[14] = 2277;
-      v256 = 2112;
-      v257 = v65;
-      _os_log_impl(&_mh_execute_header, v66, OS_LOG_TYPE_ERROR, "%{public}s::%d:Failed to unarchive usageData: %@", buf, 0x1Cu);
+      v252 = 2112;
+      v253 = v64;
+      _os_log_impl(&_mh_execute_header, v65, OS_LOG_TYPE_ERROR, "%{public}s::%d:Failed to unarchive usageData: %@", buf, 0x1Cu);
     }
   }
 
-  v32 = v231;
-  if (!v64)
+  v32 = v227;
+  if (!v63)
   {
 LABEL_46:
-    v64 = objc_alloc_init(NSMutableDictionary);
+    v63 = objc_alloc_init(NSMutableDictionary);
   }
 
-  [(WAEngine *)self setCachedUsage:v64, dataOut, dataOutAvailable, v205, v206];
+  [(WAEngine *)self setCachedUsage:v63, dataOut, dataOutAvailable, v201, v202];
 
   [(WAEngine *)self _handleUnpersistForUsageData];
   [WAUtil logNestedDictionary:self->_cachedUsage indent:0 prefix:@"Unpersist engine _cachedUsage"];
-  v67 = [v32 objectForKeyedSubscript:@"WA_PERSIST_CHIPSET"];
-  v68 = WALogCategoryDefaultHandle();
-  if (os_log_type_enabled(v68, OS_LOG_TYPE_DEBUG))
+  v66 = [v32 objectForKeyedSubscript:@"WA_PERSIST_CHIPSET"];
+  v67 = WALogCategoryDefaultHandle();
+  if (os_log_type_enabled(v67, OS_LOG_TYPE_DEBUG))
   {
-    v69 = [v67 length];
+    v68 = [v66 length];
     *buf = 136446722;
     *&buf[4] = "[WAEngine _unpersist]";
     *&buf[12] = 1024;
     *&buf[14] = 2290;
-    v256 = 2048;
-    v257 = v69;
-    _os_log_impl(&_mh_execute_header, v68, OS_LOG_TYPE_DEBUG, "%{public}s::%d:wifiChipSetData size: %lu", buf, 0x1Cu);
+    v252 = 2048;
+    v253 = v68;
+    _os_log_impl(&_mh_execute_header, v67, OS_LOG_TYPE_DEBUG, "%{public}s::%d:wifiChipSetData size: %lu", buf, 0x1Cu);
   }
 
-  if (!v67)
+  if (!v66)
   {
     goto LABEL_55;
   }
 
-  v70 = v16[391];
-  v71 = v30[401];
-  v72 = [NSSet setWithObjects:objc_opt_class(), 0];
-  v248 = 0;
-  v73 = [v70 unarchivedObjectOfClasses:v72 fromData:v67 error:&v248];
-  v74 = v248;
+  v69 = v16[391];
+  v70 = [NSSet setWithObjects:objc_opt_class(), 0];
+  v244 = 0;
+  v71 = [v69 unarchivedObjectOfClasses:v70 fromData:v66 error:&v244];
+  v72 = v244;
 
-  if (v74)
+  if (v72)
   {
-    v75 = WALogCategoryDefaultHandle();
-    if (os_log_type_enabled(v75, OS_LOG_TYPE_ERROR))
+    v73 = WALogCategoryDefaultHandle();
+    if (os_log_type_enabled(v73, OS_LOG_TYPE_ERROR))
     {
       *buf = 136446722;
       *&buf[4] = "[WAEngine _unpersist]";
       *&buf[12] = 1024;
       *&buf[14] = 2294;
-      v256 = 2112;
-      v257 = v74;
-      _os_log_impl(&_mh_execute_header, v75, OS_LOG_TYPE_ERROR, "%{public}s::%d:Failed to unarchive wifiChipSet: %@", buf, 0x1Cu);
+      v252 = 2112;
+      v253 = v72;
+      _os_log_impl(&_mh_execute_header, v73, OS_LOG_TYPE_ERROR, "%{public}s::%d:Failed to unarchive wifiChipSet: %@", buf, 0x1Cu);
     }
   }
 
-  if (!v73)
+  if (!v71)
   {
 LABEL_55:
-    v73 = [v30[401] stringWithFormat:&stru_1000F04E0];
+    v71 = [v30[401] stringWithFormat:&stru_1000F04E0];
   }
 
-  [(WAEngine *)self setWifiChipSet:v73];
+  [(WAEngine *)self setWifiChipSet:v71];
 
-  v76 = WALogCategoryDefaultHandle();
-  if (os_log_type_enabled(v76, OS_LOG_TYPE_DEFAULT))
+  v74 = WALogCategoryDefaultHandle();
+  if (os_log_type_enabled(v74, OS_LOG_TYPE_DEFAULT))
   {
     wifiChipSet = [(WAEngine *)self wifiChipSet];
     *buf = 136446722;
     *&buf[4] = "[WAEngine _unpersist]";
     *&buf[12] = 1024;
     *&buf[14] = 2300;
-    v256 = 2112;
-    v257 = wifiChipSet;
-    _os_log_impl(&_mh_execute_header, v76, OS_LOG_TYPE_DEFAULT, "%{public}s::%d:self.wifiChipSet %@", buf, 0x1Cu);
+    v252 = 2112;
+    v253 = wifiChipSet;
+    _os_log_impl(&_mh_execute_header, v74, OS_LOG_TYPE_DEFAULT, "%{public}s::%d:self.wifiChipSet %@", buf, 0x1Cu);
   }
 
-  v78 = [v32 objectForKeyedSubscript:@"WA_PERSIST_INFRA_INTERFACE"];
-  v79 = WALogCategoryDefaultHandle();
-  if (os_log_type_enabled(v79, OS_LOG_TYPE_DEBUG))
+  v76 = [v32 objectForKeyedSubscript:@"WA_PERSIST_INFRA_INTERFACE"];
+  v77 = WALogCategoryDefaultHandle();
+  if (os_log_type_enabled(v77, OS_LOG_TYPE_DEBUG))
   {
-    v80 = [v78 length];
+    v78 = [v76 length];
     *buf = 136446722;
     *&buf[4] = "[WAEngine _unpersist]";
     *&buf[12] = 1024;
     *&buf[14] = 2303;
-    v256 = 2048;
-    v257 = v80;
-    _os_log_impl(&_mh_execute_header, v79, OS_LOG_TYPE_DEBUG, "%{public}s::%d:infraInterfaceNameData size: %lu", buf, 0x1Cu);
+    v252 = 2048;
+    v253 = v78;
+    _os_log_impl(&_mh_execute_header, v77, OS_LOG_TYPE_DEBUG, "%{public}s::%d:infraInterfaceNameData size: %lu", buf, 0x1Cu);
   }
 
-  v214 = v78;
-  if (!v78)
+  v210 = v76;
+  if (!v76)
   {
     goto LABEL_66;
   }
 
-  v81 = v16[391];
-  v82 = v30[401];
-  v83 = [NSSet setWithObjects:objc_opt_class(), 0];
-  v247 = 0;
-  v84 = [v81 unarchivedObjectOfClasses:v83 fromData:v78 error:&v247];
-  v85 = v247;
+  v79 = v16[391];
+  v80 = [NSSet setWithObjects:objc_opt_class(), 0];
+  v243 = 0;
+  v81 = [v79 unarchivedObjectOfClasses:v80 fromData:v76 error:&v243];
+  v82 = v243;
 
-  if (v85)
+  if (v82)
   {
-    v86 = WALogCategoryDefaultHandle();
-    if (os_log_type_enabled(v86, OS_LOG_TYPE_ERROR))
+    v83 = WALogCategoryDefaultHandle();
+    if (os_log_type_enabled(v83, OS_LOG_TYPE_ERROR))
     {
       *buf = 136446722;
       *&buf[4] = "[WAEngine _unpersist]";
       *&buf[12] = 1024;
       *&buf[14] = 2307;
-      v256 = 2112;
-      v257 = v85;
-      _os_log_impl(&_mh_execute_header, v86, OS_LOG_TYPE_ERROR, "%{public}s::%d:Failed to unarchive infraInterfaceName: %@", buf, 0x1Cu);
+      v252 = 2112;
+      v253 = v82;
+      _os_log_impl(&_mh_execute_header, v83, OS_LOG_TYPE_ERROR, "%{public}s::%d:Failed to unarchive infraInterfaceName: %@", buf, 0x1Cu);
     }
   }
 
-  if (!v84)
+  if (!v81)
   {
 LABEL_66:
-    v84 = [v30[401] stringWithFormat:@"dunno"];
+    v81 = [v30[401] stringWithFormat:@"dunno"];
   }
 
-  [(WAEngine *)self setInfraInterfaceName:v84];
+  [(WAEngine *)self setInfraInterfaceName:v81];
 
-  v87 = WALogCategoryDefaultHandle();
-  if (os_log_type_enabled(v87, OS_LOG_TYPE_DEFAULT))
+  v84 = WALogCategoryDefaultHandle();
+  if (os_log_type_enabled(v84, OS_LOG_TYPE_DEFAULT))
   {
     infraInterfaceName = [(WAEngine *)self infraInterfaceName];
     *buf = 136446722;
     *&buf[4] = "[WAEngine _unpersist]";
     *&buf[12] = 1024;
     *&buf[14] = 2313;
-    v256 = 2112;
-    v257 = infraInterfaceName;
-    _os_log_impl(&_mh_execute_header, v87, OS_LOG_TYPE_DEFAULT, "%{public}s::%d:self.infraInterfaceName %@", buf, 0x1Cu);
+    v252 = 2112;
+    v253 = infraInterfaceName;
+    _os_log_impl(&_mh_execute_header, v84, OS_LOG_TYPE_DEFAULT, "%{public}s::%d:self.infraInterfaceName %@", buf, 0x1Cu);
   }
 
-  v89 = [v32 objectForKeyedSubscript:@"WA_PERSIST_DPS_WD_BUDGET"];
-  v90 = WALogCategoryDefaultHandle();
-  if (os_log_type_enabled(v90, OS_LOG_TYPE_DEBUG))
+  v86 = [v32 objectForKeyedSubscript:@"WA_PERSIST_DPS_WD_BUDGET"];
+  v87 = WALogCategoryDefaultHandle();
+  if (os_log_type_enabled(v87, OS_LOG_TYPE_DEBUG))
   {
-    v91 = [v89 length];
+    v88 = [v86 length];
     *buf = 136446722;
     *&buf[4] = "[WAEngine _unpersist]";
     *&buf[12] = 1024;
     *&buf[14] = 2317;
-    v256 = 2048;
-    v257 = v91;
-    _os_log_impl(&_mh_execute_header, v90, OS_LOG_TYPE_DEBUG, "%{public}s::%d:dpsWDBudgetData size: %lu", buf, 0x1Cu);
+    v252 = 2048;
+    v253 = v88;
+    _os_log_impl(&_mh_execute_header, v87, OS_LOG_TYPE_DEBUG, "%{public}s::%d:dpsWDBudgetData size: %lu", buf, 0x1Cu);
   }
 
-  v216 = v67;
-  v227 = v89;
-  if (!v89)
+  v212 = v66;
+  v223 = v86;
+  if (!v86)
   {
     goto LABEL_78;
   }
 
-  v92 = v16[391];
-  v93 = objc_opt_class();
-  v94 = objc_opt_class();
-  v95 = objc_opt_class();
-  v96 = v30[401];
-  v97 = [NSSet setWithObjects:v93, v94, v95, objc_opt_class(), 0];
-  v246 = 0;
-  v98 = [v92 unarchivedObjectOfClasses:v97 fromData:v89 error:&v246];
-  v99 = v246;
+  v89 = v16[391];
+  v90 = objc_opt_class();
+  v91 = objc_opt_class();
+  v92 = objc_opt_class();
+  v93 = [NSSet setWithObjects:v90, v91, v92, objc_opt_class(), 0];
+  v242 = 0;
+  v94 = [v89 unarchivedObjectOfClasses:v93 fromData:v86 error:&v242];
+  v95 = v242;
 
-  if (v99)
+  if (v95)
   {
-    v100 = WALogCategoryDefaultHandle();
-    if (os_log_type_enabled(v100, OS_LOG_TYPE_ERROR))
+    v96 = WALogCategoryDefaultHandle();
+    if (os_log_type_enabled(v96, OS_LOG_TYPE_ERROR))
     {
       *buf = 136446722;
       *&buf[4] = "[WAEngine _unpersist]";
       *&buf[12] = 1024;
       *&buf[14] = 2321;
-      v256 = 2112;
-      v257 = v99;
-      _os_log_impl(&_mh_execute_header, v100, OS_LOG_TYPE_ERROR, "%{public}s::%d:Failed to unarchive dpsWDBudgetData: %@", buf, 0x1Cu);
+      v252 = 2112;
+      v253 = v95;
+      _os_log_impl(&_mh_execute_header, v96, OS_LOG_TYPE_ERROR, "%{public}s::%d:Failed to unarchive dpsWDBudgetData: %@", buf, 0x1Cu);
     }
   }
 
-  v32 = v231;
-  if (v98)
+  v32 = v227;
+  if (v94)
   {
-    v101 = 0;
-    v102 = v98;
+    v97 = 0;
+    v98 = v94;
   }
 
   else
   {
 LABEL_78:
-    v102 = objc_alloc_init(NSMutableDictionary);
-    v98 = 0;
-    v101 = 1;
+    v98 = objc_alloc_init(NSMutableDictionary);
+    v94 = 0;
+    v97 = 1;
   }
 
   recommendationEngine = [(WAEngine *)self recommendationEngine];
-  [recommendationEngine setDpsWDBudgetDict:v102];
+  [recommendationEngine setDpsWDBudgetDict:v98];
 
-  if (v101)
+  if (v97)
   {
   }
 
-  v104 = WALogCategoryDefaultHandle();
-  if (os_log_type_enabled(v104, OS_LOG_TYPE_DEFAULT))
+  v100 = WALogCategoryDefaultHandle();
+  if (os_log_type_enabled(v100, OS_LOG_TYPE_DEFAULT))
   {
     recommendationEngine2 = [(WAEngine *)self recommendationEngine];
     dpsWDBudgetDict = [recommendationEngine2 dpsWDBudgetDict];
@@ -4194,60 +4192,60 @@ LABEL_78:
     *&buf[4] = "[WAEngine _unpersist]";
     *&buf[12] = 1024;
     *&buf[14] = 2328;
-    v256 = 2112;
-    v257 = dpsWDBudgetDict;
-    _os_log_impl(&_mh_execute_header, v104, OS_LOG_TYPE_DEFAULT, "%{public}s::%d:self.recommendationEngine.dpsWDBudgetDict %@", buf, 0x1Cu);
+    v252 = 2112;
+    v253 = dpsWDBudgetDict;
+    _os_log_impl(&_mh_execute_header, v100, OS_LOG_TYPE_DEFAULT, "%{public}s::%d:self.recommendationEngine.dpsWDBudgetDict %@", buf, 0x1Cu);
   }
 
-  v107 = [v32 objectForKeyedSubscript:@"WA_PERSIST_DNS_PERSISTDATA"];
-  v108 = WALogCategoryDefaultHandle();
-  if (os_log_type_enabled(v108, OS_LOG_TYPE_DEFAULT))
+  v103 = [v32 objectForKeyedSubscript:@"WA_PERSIST_DNS_PERSISTDATA"];
+  v104 = WALogCategoryDefaultHandle();
+  if (os_log_type_enabled(v104, OS_LOG_TYPE_DEFAULT))
   {
-    v109 = [v107 length];
+    v105 = [v103 length];
     *buf = 136446722;
     *&buf[4] = "[WAEngine _unpersist]";
     *&buf[12] = 1024;
     *&buf[14] = 2331;
-    v256 = 2048;
-    v257 = v109;
-    _os_log_impl(&_mh_execute_header, v108, OS_LOG_TYPE_DEFAULT, "%{public}s::%d:dps/dns: unpersisting dnsPersistenceData size: %lu", buf, 0x1Cu);
+    v252 = 2048;
+    v253 = v105;
+    _os_log_impl(&_mh_execute_header, v104, OS_LOG_TYPE_DEFAULT, "%{public}s::%d:dps/dns: unpersisting dnsPersistenceData size: %lu", buf, 0x1Cu);
   }
 
-  if (v107)
+  if (v103)
   {
-    v110 = v16[391];
-    v111 = [NSSet setWithObjects:objc_opt_class(), 0];
-    v245 = 0;
-    obja = [v110 unarchivedObjectOfClasses:v111 fromData:v107 error:&v245];
-    v112 = v245;
+    v106 = v16[391];
+    v107 = [NSSet setWithObjects:objc_opt_class(), 0];
+    v241 = 0;
+    obja = [v106 unarchivedObjectOfClasses:v107 fromData:v103 error:&v241];
+    v108 = v241;
 
-    if (v112)
+    if (v108)
     {
-      v113 = WALogCategoryDefaultHandle();
-      if (os_log_type_enabled(v113, OS_LOG_TYPE_ERROR))
+      v109 = WALogCategoryDefaultHandle();
+      if (os_log_type_enabled(v109, OS_LOG_TYPE_ERROR))
       {
         *buf = 136446722;
         *&buf[4] = "[WAEngine _unpersist]";
         *&buf[12] = 1024;
         *&buf[14] = 2335;
-        v256 = 2112;
-        v257 = v112;
-        _os_log_impl(&_mh_execute_header, v113, OS_LOG_TYPE_ERROR, "%{public}s::%d:dps/dns: Failed to unarchive captiveServerIP: %@", buf, 0x1Cu);
+        v252 = 2112;
+        v253 = v108;
+        _os_log_impl(&_mh_execute_header, v109, OS_LOG_TYPE_ERROR, "%{public}s::%d:dps/dns: Failed to unarchive captiveServerIP: %@", buf, 0x1Cu);
       }
     }
 
     objc_storeStrong(&self->_appleCaptiveServerIP, obja);
-    v114 = WALogCategoryDefaultHandle();
-    if (os_log_type_enabled(v114, OS_LOG_TYPE_DEFAULT))
+    v110 = WALogCategoryDefaultHandle();
+    if (os_log_type_enabled(v110, OS_LOG_TYPE_DEFAULT))
     {
       appleCaptiveServerIP = self->_appleCaptiveServerIP;
       *buf = 136446722;
       *&buf[4] = "[WAEngine _unpersist]";
       *&buf[12] = 1024;
       *&buf[14] = 2339;
-      v256 = 2112;
-      v257 = appleCaptiveServerIP;
-      _os_log_impl(&_mh_execute_header, v114, OS_LOG_TYPE_DEFAULT, "%{public}s::%d:dps/dns: setting self->_appleCaptiveServerIP:%@", buf, 0x1Cu);
+      v252 = 2112;
+      v253 = appleCaptiveServerIP;
+      _os_log_impl(&_mh_execute_header, v110, OS_LOG_TYPE_DEFAULT, "%{public}s::%d:dps/dns: setting self->_appleCaptiveServerIP:%@", buf, 0x1Cu);
     }
   }
 
@@ -4257,51 +4255,51 @@ LABEL_78:
     obja = 0;
   }
 
-  v116 = [v32 objectForKeyedSubscript:@"WA_PERSIST_DPS_QUICK_RECOVERY_WD_BUDGET"];
-  v117 = WALogCategoryDefaultHandle();
-  if (os_log_type_enabled(v117, OS_LOG_TYPE_DEBUG))
+  v112 = [v32 objectForKeyedSubscript:@"WA_PERSIST_DPS_QUICK_RECOVERY_WD_BUDGET"];
+  v113 = WALogCategoryDefaultHandle();
+  if (os_log_type_enabled(v113, OS_LOG_TYPE_DEBUG))
   {
-    v118 = [v116 length];
+    v114 = [v112 length];
     *buf = 136446722;
     *&buf[4] = "[WAEngine _unpersist]";
     *&buf[12] = 1024;
     *&buf[14] = 2347;
-    v256 = 2048;
-    v257 = v118;
-    _os_log_impl(&_mh_execute_header, v117, OS_LOG_TYPE_DEBUG, "%{public}s::%d:dpsQuickRecoveryWDBudgetData size: %lu", buf, 0x1Cu);
+    v252 = 2048;
+    v253 = v114;
+    _os_log_impl(&_mh_execute_header, v113, OS_LOG_TYPE_DEBUG, "%{public}s::%d:dpsQuickRecoveryWDBudgetData size: %lu", buf, 0x1Cu);
   }
 
-  v212 = v116;
-  v213 = v107;
-  if (v116)
+  v208 = v112;
+  v209 = v103;
+  if (v112)
   {
-    v119 = v16[391];
-    v120 = objc_opt_class();
-    v121 = objc_opt_class();
-    v122 = objc_opt_class();
-    v123 = [NSSet setWithObjects:v120, v121, v122, objc_opt_class(), 0];
-    v244 = 0;
-    v124 = [v119 unarchivedObjectOfClasses:v123 fromData:v116 error:&v244];
-    v125 = v244;
+    v115 = v16[391];
+    v116 = objc_opt_class();
+    v117 = objc_opt_class();
+    v118 = objc_opt_class();
+    v119 = [NSSet setWithObjects:v116, v117, v118, objc_opt_class(), 0];
+    v240 = 0;
+    v120 = [v115 unarchivedObjectOfClasses:v119 fromData:v112 error:&v240];
+    v121 = v240;
 
-    if (v125)
+    if (v121)
     {
-      v126 = WALogCategoryDefaultHandle();
-      if (os_log_type_enabled(v126, OS_LOG_TYPE_ERROR))
+      v122 = WALogCategoryDefaultHandle();
+      if (os_log_type_enabled(v122, OS_LOG_TYPE_ERROR))
       {
         *buf = 136446722;
         *&buf[4] = "[WAEngine _unpersist]";
         *&buf[12] = 1024;
         *&buf[14] = 2351;
-        v256 = 2112;
-        v257 = v125;
-        _os_log_impl(&_mh_execute_header, v126, OS_LOG_TYPE_ERROR, "%{public}s::%d:Failed to unarchive dpsQuickRecoveryWDBudgetData: %@", buf, 0x1Cu);
+        v252 = 2112;
+        v253 = v121;
+        _os_log_impl(&_mh_execute_header, v122, OS_LOG_TYPE_ERROR, "%{public}s::%d:Failed to unarchive dpsQuickRecoveryWDBudgetData: %@", buf, 0x1Cu);
       }
     }
 
     v16 = &WAXPCRequestDelegateInterface_ptr;
-    v32 = v231;
-    if (v124)
+    v32 = v227;
+    if (v120)
     {
       goto LABEL_102;
     }
@@ -4309,14 +4307,14 @@ LABEL_78:
 
   else
   {
-    v124 = v98;
-    if (v98)
+    v120 = v94;
+    if (v94)
     {
 LABEL_102:
       p_persistedDPSRecoveryActionBudgetDict = &self->_persistedDPSRecoveryActionBudgetDict;
-      v128 = v124;
+      v124 = v120;
       persistedDPSRecoveryActionBudgetDict = self->_persistedDPSRecoveryActionBudgetDict;
-      self->_persistedDPSRecoveryActionBudgetDict = v128;
+      self->_persistedDPSRecoveryActionBudgetDict = v124;
       goto LABEL_105;
     }
   }
@@ -4326,71 +4324,71 @@ LABEL_102:
   objc_storeStrong(&self->_persistedDPSRecoveryActionBudgetDict, persistedDPSRecoveryActionBudgetDict);
 LABEL_105:
 
-  v130 = WALogCategoryDefaultHandle();
-  if (os_log_type_enabled(v130, OS_LOG_TYPE_DEFAULT))
+  v126 = WALogCategoryDefaultHandle();
+  if (os_log_type_enabled(v126, OS_LOG_TYPE_DEFAULT))
   {
-    v131 = *p_persistedDPSRecoveryActionBudgetDict;
+    v127 = *p_persistedDPSRecoveryActionBudgetDict;
     *buf = 136446722;
     *&buf[4] = "[WAEngine _unpersist]";
     *&buf[12] = 1024;
     *&buf[14] = 2357;
-    v256 = 2112;
-    v257 = v131;
-    _os_log_impl(&_mh_execute_header, v130, OS_LOG_TYPE_DEFAULT, "%{public}s::%d:_persistedDPSRecoveryActionBudgetDict %@", buf, 0x1Cu);
+    v252 = 2112;
+    v253 = v127;
+    _os_log_impl(&_mh_execute_header, v126, OS_LOG_TYPE_DEFAULT, "%{public}s::%d:_persistedDPSRecoveryActionBudgetDict %@", buf, 0x1Cu);
   }
 
-  v132 = [v32 objectForKeyedSubscript:@"WA_PERSIST_DPS_QUICK_RECOVERY_STATS"];
-  v133 = WALogCategoryDefaultHandle();
-  if (os_log_type_enabled(v133, OS_LOG_TYPE_DEBUG))
+  v128 = [v32 objectForKeyedSubscript:@"WA_PERSIST_DPS_QUICK_RECOVERY_STATS"];
+  v129 = WALogCategoryDefaultHandle();
+  if (os_log_type_enabled(v129, OS_LOG_TYPE_DEBUG))
   {
-    v134 = [v132 length];
+    v130 = [v128 length];
     *buf = 136446722;
     *&buf[4] = "[WAEngine _unpersist]";
     *&buf[12] = 1024;
     *&buf[14] = 2361;
-    v256 = 2048;
-    v257 = v134;
-    _os_log_impl(&_mh_execute_header, v133, OS_LOG_TYPE_DEBUG, "%{public}s::%d:dpsStatsData size: %lu", buf, 0x1Cu);
+    v252 = 2048;
+    v253 = v130;
+    _os_log_impl(&_mh_execute_header, v129, OS_LOG_TYPE_DEBUG, "%{public}s::%d:dpsStatsData size: %lu", buf, 0x1Cu);
   }
 
-  if (!v124)
+  if (!v120)
   {
     goto LABEL_116;
   }
 
-  v135 = v16[391];
-  v136 = objc_opt_class();
-  v137 = objc_opt_class();
-  v138 = objc_opt_class();
-  v139 = [NSSet setWithObjects:v136, v137, v138, objc_opt_class(), 0];
-  v243 = 0;
-  v140 = [v135 unarchivedObjectOfClasses:v139 fromData:v132 error:&v243];
-  v141 = v243;
+  v131 = v16[391];
+  v132 = objc_opt_class();
+  v133 = objc_opt_class();
+  v134 = objc_opt_class();
+  v135 = [NSSet setWithObjects:v132, v133, v134, objc_opt_class(), 0];
+  v239 = 0;
+  v136 = [v131 unarchivedObjectOfClasses:v135 fromData:v128 error:&v239];
+  v137 = v239;
 
-  if (v141)
+  if (v137)
   {
-    v142 = WALogCategoryDefaultHandle();
-    if (os_log_type_enabled(v142, OS_LOG_TYPE_ERROR))
+    v138 = WALogCategoryDefaultHandle();
+    if (os_log_type_enabled(v138, OS_LOG_TYPE_ERROR))
     {
       *buf = 136446722;
       *&buf[4] = "[WAEngine _unpersist]";
       *&buf[12] = 1024;
       *&buf[14] = 2365;
-      v256 = 2112;
-      v257 = v141;
-      _os_log_impl(&_mh_execute_header, v142, OS_LOG_TYPE_ERROR, "%{public}s::%d:Failed to unarchive dpsStats: %@", buf, 0x1Cu);
+      v252 = 2112;
+      v253 = v137;
+      _os_log_impl(&_mh_execute_header, v138, OS_LOG_TYPE_ERROR, "%{public}s::%d:Failed to unarchive dpsStats: %@", buf, 0x1Cu);
     }
   }
 
   v16 = &WAXPCRequestDelegateInterface_ptr;
-  v32 = v231;
-  if (v140)
+  v32 = v227;
+  if (v136)
   {
     p_persistedDPSStatsDict = &self->_persistedDPSStatsDict;
-    v144 = v140;
+    v140 = v136;
     persistedDPSStatsDict = self->_persistedDPSStatsDict;
-    v210 = v144;
-    self->_persistedDPSStatsDict = v144;
+    v206 = v140;
+    self->_persistedDPSStatsDict = v140;
   }
 
   else
@@ -4399,181 +4397,181 @@ LABEL_116:
     persistedDPSStatsDict = objc_alloc_init(NSMutableDictionary);
     p_persistedDPSStatsDict = &self->_persistedDPSStatsDict;
     objc_storeStrong(&self->_persistedDPSStatsDict, persistedDPSStatsDict);
-    v210 = 0;
+    v206 = 0;
   }
 
-  v146 = WALogCategoryDefaultHandle();
-  if (os_log_type_enabled(v146, OS_LOG_TYPE_DEFAULT))
+  v142 = WALogCategoryDefaultHandle();
+  if (os_log_type_enabled(v142, OS_LOG_TYPE_DEFAULT))
   {
-    v147 = *p_persistedDPSStatsDict;
+    v143 = *p_persistedDPSStatsDict;
     *buf = 136446722;
     *&buf[4] = "[WAEngine _unpersist]";
     *&buf[12] = 1024;
     *&buf[14] = 2371;
-    v256 = 2112;
-    v257 = v147;
-    _os_log_impl(&_mh_execute_header, v146, OS_LOG_TYPE_DEFAULT, "%{public}s::%d:_persistedDPSStatsDict %@", buf, 0x1Cu);
+    v252 = 2112;
+    v253 = v143;
+    _os_log_impl(&_mh_execute_header, v142, OS_LOG_TYPE_DEFAULT, "%{public}s::%d:_persistedDPSStatsDict %@", buf, 0x1Cu);
   }
 
-  v148 = [v32 objectForKeyedSubscript:@"WA_PERSIST_MESSAGE_STORE"];
-  v149 = WALogCategoryDefaultHandle();
-  if (os_log_type_enabled(v149, OS_LOG_TYPE_DEBUG))
+  v144 = [v32 objectForKeyedSubscript:@"WA_PERSIST_MESSAGE_STORE"];
+  v145 = WALogCategoryDefaultHandle();
+  if (os_log_type_enabled(v145, OS_LOG_TYPE_DEBUG))
   {
-    v150 = [v148 length];
+    v146 = [v144 length];
     *buf = 136446722;
     *&buf[4] = "[WAEngine _unpersist]";
     *&buf[12] = 1024;
     *&buf[14] = 2374;
-    v256 = 2048;
-    v257 = v150;
-    _os_log_impl(&_mh_execute_header, v149, OS_LOG_TYPE_DEBUG, "%{public}s::%d:messageStoreData size: %lu", buf, 0x1Cu);
+    v252 = 2048;
+    v253 = v146;
+    _os_log_impl(&_mh_execute_header, v145, OS_LOG_TYPE_DEBUG, "%{public}s::%d:messageStoreData size: %lu", buf, 0x1Cu);
   }
 
-  v223 = v148;
-  if (!v148)
+  v219 = v144;
+  if (!v144)
   {
     goto LABEL_127;
   }
 
-  v151 = v16[391];
-  v152 = objc_opt_class();
-  v153 = objc_opt_class();
-  v154 = objc_opt_class();
-  v155 = objc_opt_class();
-  v207 = objc_opt_class();
-  v156 = [NSSet setWithObjects:v152, v153, v154, v155, v207, objc_opt_class(), 0];
-  v242 = 0;
-  v157 = [v151 unarchivedObjectOfClasses:v156 fromData:v223 error:&v242];
-  v158 = v242;
+  v147 = v16[391];
+  v148 = objc_opt_class();
+  v149 = objc_opt_class();
+  v150 = objc_opt_class();
+  v151 = objc_opt_class();
+  v203 = objc_opt_class();
+  v152 = [NSSet setWithObjects:v148, v149, v150, v151, v203, objc_opt_class(), 0];
+  v238 = 0;
+  v153 = [v147 unarchivedObjectOfClasses:v152 fromData:v219 error:&v238];
+  v154 = v238;
 
-  if (v158)
+  if (v154)
   {
-    v159 = WALogCategoryDefaultHandle();
-    if (os_log_type_enabled(v159, OS_LOG_TYPE_ERROR))
+    v155 = WALogCategoryDefaultHandle();
+    if (os_log_type_enabled(v155, OS_LOG_TYPE_ERROR))
     {
       *buf = 136446722;
       *&buf[4] = "[WAEngine _unpersist]";
       *&buf[12] = 1024;
       *&buf[14] = 2378;
-      v256 = 2112;
-      v257 = v158;
-      _os_log_impl(&_mh_execute_header, v159, OS_LOG_TYPE_ERROR, "%{public}s::%d:Failed to unarchive WAMessageAWDStore: %@", buf, 0x1Cu);
+      v252 = 2112;
+      v253 = v154;
+      _os_log_impl(&_mh_execute_header, v155, OS_LOG_TYPE_ERROR, "%{public}s::%d:Failed to unarchive WAMessageAWDStore: %@", buf, 0x1Cu);
     }
   }
 
   v16 = &WAXPCRequestDelegateInterface_ptr;
-  v32 = v231;
-  if (!v157)
+  v32 = v227;
+  if (!v153)
   {
 LABEL_127:
-    v157 = objc_alloc_init(WAMessageAWDStore);
+    v153 = objc_alloc_init(WAMessageAWDStore);
   }
 
-  [(WAEngine *)self setMessageStore:v157];
+  [(WAEngine *)self setMessageStore:v153];
 
-  v160 = [v32 objectForKeyedSubscript:@"WA_PERSIST_PROCESS_REGISTRATION"];
-  v161 = WALogCategoryDefaultHandle();
-  if (os_log_type_enabled(v161, OS_LOG_TYPE_DEBUG))
+  v156 = [v32 objectForKeyedSubscript:@"WA_PERSIST_PROCESS_REGISTRATION"];
+  v157 = WALogCategoryDefaultHandle();
+  if (os_log_type_enabled(v157, OS_LOG_TYPE_DEBUG))
   {
-    v162 = [v160 length];
+    v158 = [v156 length];
     *buf = 136446722;
     *&buf[4] = "[WAEngine _unpersist]";
     *&buf[12] = 1024;
     *&buf[14] = 2386;
-    v256 = 2048;
-    v257 = v162;
-    _os_log_impl(&_mh_execute_header, v161, OS_LOG_TYPE_DEBUG, "%{public}s::%d:processRegistrationData size: %lu", buf, 0x1Cu);
+    v252 = 2048;
+    v253 = v158;
+    _os_log_impl(&_mh_execute_header, v157, OS_LOG_TYPE_DEBUG, "%{public}s::%d:processRegistrationData size: %lu", buf, 0x1Cu);
   }
 
-  v221 = v160;
-  if (!v160)
+  v217 = v156;
+  if (!v156)
   {
     goto LABEL_136;
   }
 
-  v163 = v16[391];
+  v159 = v16[391];
+  v160 = objc_opt_class();
+  v161 = objc_opt_class();
+  v162 = objc_opt_class();
+  v163 = objc_opt_class();
   v164 = objc_opt_class();
-  v165 = objc_opt_class();
-  v166 = objc_opt_class();
-  v167 = objc_opt_class();
-  v168 = objc_opt_class();
-  v169 = [NSSet setWithObjects:v164, v165, v166, v167, v168, objc_opt_class(), 0];
-  v241 = 0;
-  v170 = [v163 unarchivedObjectOfClasses:v169 fromData:v221 error:&v241];
-  v171 = v241;
+  v165 = [NSSet setWithObjects:v160, v161, v162, v163, v164, objc_opt_class(), 0];
+  v237 = 0;
+  v166 = [v159 unarchivedObjectOfClasses:v165 fromData:v217 error:&v237];
+  v167 = v237;
 
-  if (v171)
+  if (v167)
   {
-    v172 = WALogCategoryDefaultHandle();
-    if (os_log_type_enabled(v172, OS_LOG_TYPE_ERROR))
+    v168 = WALogCategoryDefaultHandle();
+    if (os_log_type_enabled(v168, OS_LOG_TYPE_ERROR))
     {
       *buf = 136446722;
       *&buf[4] = "[WAEngine _unpersist]";
       *&buf[12] = 1024;
       *&buf[14] = 2390;
-      v256 = 2112;
-      v257 = v171;
-      _os_log_impl(&_mh_execute_header, v172, OS_LOG_TYPE_ERROR, "%{public}s::%d:Failed to unarchive process registration map: %@", buf, 0x1Cu);
+      v252 = 2112;
+      v253 = v167;
+      _os_log_impl(&_mh_execute_header, v168, OS_LOG_TYPE_ERROR, "%{public}s::%d:Failed to unarchive process registration map: %@", buf, 0x1Cu);
     }
   }
 
   v16 = &WAXPCRequestDelegateInterface_ptr;
-  if (!v170)
+  if (!v166)
   {
 LABEL_136:
-    v170 = objc_alloc_init(NSMutableDictionary);
+    v166 = objc_alloc_init(NSMutableDictionary);
   }
 
-  [(WAEngine *)self setProcessTokenToGroupTypeMap:v170];
-  v211 = v132;
+  [(WAEngine *)self setProcessTokenToGroupTypeMap:v166];
+  v207 = v128;
 
-  v173 = [v32 objectForKeyedSubscript:@"WA_PERSIST_IOREPORTER_REGISTRATIONS"];
-  v174 = WALogCategoryDefaultHandle();
-  if (os_log_type_enabled(v174, OS_LOG_TYPE_DEBUG))
+  v169 = [v32 objectForKeyedSubscript:@"WA_PERSIST_IOREPORTER_REGISTRATIONS"];
+  v170 = WALogCategoryDefaultHandle();
+  if (os_log_type_enabled(v170, OS_LOG_TYPE_DEBUG))
   {
-    v175 = [v173 length];
+    v171 = [v169 length];
     *buf = 136446722;
     *&buf[4] = "[WAEngine _unpersist]";
     *&buf[12] = 1024;
     *&buf[14] = 2399;
-    v256 = 2048;
-    v257 = v175;
-    _os_log_impl(&_mh_execute_header, v174, OS_LOG_TYPE_DEBUG, "%{public}s::%d:iorReporterWrapperData size: %lu", buf, 0x1Cu);
+    v252 = 2048;
+    v253 = v171;
+    _os_log_impl(&_mh_execute_header, v170, OS_LOG_TYPE_DEBUG, "%{public}s::%d:iorReporterWrapperData size: %lu", buf, 0x1Cu);
   }
 
-  v209 = v173;
-  if (!v173)
+  v205 = v169;
+  if (!v169)
   {
     goto LABEL_145;
   }
 
-  v176 = v16[391];
-  v240 = 0;
-  v177 = [v176 unarchivedObjectOfClass:objc_opt_class() fromData:v173 error:&v240];
-  v178 = v240;
-  if (v178)
+  v172 = v16[391];
+  v236 = 0;
+  v173 = [v172 unarchivedObjectOfClass:objc_opt_class() fromData:v169 error:&v236];
+  v174 = v236;
+  if (v174)
   {
-    v179 = v178;
-    v180 = WALogCategoryDefaultHandle();
-    if (os_log_type_enabled(v180, OS_LOG_TYPE_ERROR))
+    v175 = v174;
+    v176 = WALogCategoryDefaultHandle();
+    if (os_log_type_enabled(v176, OS_LOG_TYPE_ERROR))
     {
       *buf = 136446722;
       *&buf[4] = "[WAEngine _unpersist]";
       *&buf[12] = 1024;
       *&buf[14] = 2403;
-      v256 = 2112;
-      v257 = v179;
-      _os_log_impl(&_mh_execute_header, v180, OS_LOG_TYPE_ERROR, "%{public}s::%d:Failed to unarchive WAIOReporterMessagePopulator: %@", buf, 0x1Cu);
+      v252 = 2112;
+      v253 = v175;
+      _os_log_impl(&_mh_execute_header, v176, OS_LOG_TYPE_ERROR, "%{public}s::%d:Failed to unarchive WAIOReporterMessagePopulator: %@", buf, 0x1Cu);
     }
   }
 
-  if (!v177)
+  if (!v173)
   {
 LABEL_145:
-    v177 = objc_alloc_init(WAIOReporterMessagePopulator);
+    v173 = objc_alloc_init(WAIOReporterMessagePopulator);
   }
 
-  [(WAEngine *)self setIorMessagePopulator:v177];
+  [(WAEngine *)self setIorMessagePopulator:v173];
 
   iorMessagePopulator = [(WAEngine *)self iorMessagePopulator];
   [iorMessagePopulator setMessageDelegate:self];
@@ -4581,86 +4579,86 @@ LABEL_145:
   iorMessagePopulator2 = [(WAEngine *)self iorMessagePopulator];
   [iorMessagePopulator2 setPersistenceDelegate:self];
 
-  v238 = 0u;
-  v239 = 0u;
-  v236 = 0u;
-  v237 = 0u;
+  v234 = 0u;
+  v235 = 0u;
+  v232 = 0u;
+  v233 = 0u;
   processTokenToGroupTypeMap = [(WAEngine *)self processTokenToGroupTypeMap];
   allKeys = [processTokenToGroupTypeMap allKeys];
 
-  v185 = [allKeys countByEnumeratingWithState:&v236 objects:v254 count:16];
-  if (v185)
+  v181 = [allKeys countByEnumeratingWithState:&v232 objects:v250 count:16];
+  if (v181)
   {
-    v186 = v185;
-    v187 = *v237;
+    v182 = v181;
+    v183 = *v233;
     do
     {
-      for (i = 0; i != v186; i = i + 1)
+      for (i = 0; i != v182; i = i + 1)
       {
-        if (*v237 != v187)
+        if (*v233 != v183)
         {
           objc_enumerationMutation(allKeys);
         }
 
-        v189 = *(*(&v236 + 1) + 8 * i);
-        v232 = 0u;
-        v233 = 0u;
-        v234 = 0u;
-        v235 = 0u;
+        v185 = *(*(&v232 + 1) + 8 * i);
+        v228 = 0u;
+        v229 = 0u;
+        v230 = 0u;
+        v231 = 0u;
         processTokenToGroupTypeMap2 = [(WAEngine *)self processTokenToGroupTypeMap];
-        v191 = [processTokenToGroupTypeMap2 objectForKeyedSubscript:v189];
+        v187 = [processTokenToGroupTypeMap2 objectForKeyedSubscript:v185];
 
-        v192 = [v191 countByEnumeratingWithState:&v232 objects:v253 count:16];
-        if (v192)
+        v188 = [v187 countByEnumeratingWithState:&v228 objects:v249 count:16];
+        if (v188)
         {
-          v193 = v192;
-          v194 = *v233;
+          v189 = v188;
+          v190 = *v229;
           do
           {
-            for (j = 0; j != v193; j = j + 1)
+            for (j = 0; j != v189; j = j + 1)
             {
-              if (*v233 != v194)
+              if (*v229 != v190)
               {
-                objc_enumerationMutation(v191);
+                objc_enumerationMutation(v187);
               }
 
-              -[WAEngine _initSubmitterAndQueryableRegistrationForProcessToken:andGroupType:](self, "_initSubmitterAndQueryableRegistrationForProcessToken:andGroupType:", v189, [*(*(&v232 + 1) + 8 * j) integerValue]);
+              -[WAEngine _initSubmitterAndQueryableRegistrationForProcessToken:andGroupType:](self, "_initSubmitterAndQueryableRegistrationForProcessToken:andGroupType:", v185, [*(*(&v228 + 1) + 8 * j) integerValue]);
             }
 
-            v193 = [v191 countByEnumeratingWithState:&v232 objects:v253 count:16];
+            v189 = [v187 countByEnumeratingWithState:&v228 objects:v249 count:16];
           }
 
-          while (v193);
+          while (v189);
         }
       }
 
-      v186 = [allKeys countByEnumeratingWithState:&v236 objects:v254 count:16];
+      v182 = [allKeys countByEnumeratingWithState:&v232 objects:v250 count:16];
     }
 
-    while (v186);
+    while (v182);
   }
 
-  v196 = WALogCategoryDefaultHandle();
-  if (os_log_type_enabled(v196, OS_LOG_TYPE_DEBUG))
+  v192 = WALogCategoryDefaultHandle();
+  if (os_log_type_enabled(v192, OS_LOG_TYPE_DEBUG))
   {
-    v197 = os_transaction_get_description();
+    v193 = os_transaction_get_description();
     *buf = 136446722;
     *&buf[4] = "[WAEngine _unpersist]";
     *&buf[12] = 1024;
     *&buf[14] = 2418;
-    v256 = 2080;
-    v257 = v197;
-    _os_log_impl(&_mh_execute_header, v196, OS_LOG_TYPE_DEBUG, "%{public}s::%d:Ending transaction %s", buf, 0x1Cu);
+    v252 = 2080;
+    v253 = v193;
+    _os_log_impl(&_mh_execute_header, v192, OS_LOG_TYPE_DEBUG, "%{public}s::%d:Ending transaction %s", buf, 0x1Cu);
   }
 
-  v198 = +[WAActivityManager sharedActivityManager];
-  [v198 osTransactionComplete:v219];
+  v194 = +[WAActivityManager sharedActivityManager];
+  [v194 osTransactionComplete:v215];
 
-  v199 = WALogCategoryDefaultHandle();
-  if (os_signpost_enabled(v199))
+  v195 = WALogCategoryDefaultHandle();
+  if (os_signpost_enabled(v195))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&_mh_execute_header, v199, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "WAEngine Unpersist", "", buf, 2u);
+    _os_signpost_emit_with_name_impl(&_mh_execute_header, v195, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "WAEngine Unpersist", "", buf, 2u);
   }
 }
 
@@ -5148,7 +5146,7 @@ LABEL_35:
       v15 = v14;
     }
 
-    v16 = [NSNumber numberWithUnsignedLong:v15, *v25];
+    v16 = [NSNumber numberWithUnsignedLong:v15, *v25, *&v25[8]];
     v17 = cachedUsage;
 LABEL_17:
     [(NSMutableDictionary *)v17 setObject:v16 forKey:@"Estimated Uptime (s)"];
@@ -7953,38 +7951,13 @@ LABEL_90:
   reasonCopy = reason;
   replyCopy = reply;
   infraInterfaceName = self->_infraInterfaceName;
-  if (!infraInterfaceName)
+  if (!infraInterfaceName || -[NSString isEqualToString:](infraInterfaceName, "isEqualToString:", @"dunno") || (-[WAEngine interfaceNameToApple80211InstanceMap](self, "interfaceNameToApple80211InstanceMap"), v9 = objc_claimAutoreleasedReturnValue(), -[WAEngine infraInterfaceName](self, "infraInterfaceName"), v10 = objc_claimAutoreleasedReturnValue(), [v9 objectForKeyedSubscript:v10], v11 = objc_claimAutoreleasedReturnValue(), v11, v10, v9, !v11))
   {
-    goto LABEL_4;
-  }
-
-  if ([(NSString *)infraInterfaceName isEqualToString:@"dunno"])
-  {
-    goto LABEL_4;
-  }
-
-  interfaceNameToApple80211InstanceMap = [(WAEngine *)self interfaceNameToApple80211InstanceMap];
-  infraInterfaceName = [(WAEngine *)self infraInterfaceName];
-  v11 = [interfaceNameToApple80211InstanceMap objectForKeyedSubscript:infraInterfaceName];
-
-  if (!v11)
-  {
-LABEL_4:
     [(WAEngine *)self queryInfraInterfaceInstanceAndChip];
   }
 
-  if ([(NSString *)self->_infraInterfaceName isEqualToString:@"dunno"])
+  if (-[NSString isEqualToString:](self->_infraInterfaceName, "isEqualToString:", @"dunno") || (-[WAEngine interfaceNameToApple80211InstanceMap](self, "interfaceNameToApple80211InstanceMap"), v12 = objc_claimAutoreleasedReturnValue(), -[WAEngine infraInterfaceName](self, "infraInterfaceName"), v13 = objc_claimAutoreleasedReturnValue(), [v12 objectForKeyedSubscript:v13], v14 = objc_claimAutoreleasedReturnValue(), v14, v13, v12, !v14))
   {
-    goto LABEL_8;
-  }
-
-  interfaceNameToApple80211InstanceMap2 = [(WAEngine *)self interfaceNameToApple80211InstanceMap];
-  infraInterfaceName2 = [(WAEngine *)self infraInterfaceName];
-  v14 = [interfaceNameToApple80211InstanceMap2 objectForKeyedSubscript:infraInterfaceName2];
-
-  if (!v14)
-  {
-LABEL_8:
     v19 = WALogCategoryDefaultHandle();
     if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
@@ -7995,23 +7968,23 @@ LABEL_8:
       _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_ERROR, "%{public}s::%d:failed to find _infraInterfaceName", &v21, 0x12u);
     }
 
-    interfaceNameToApple80211InstanceMap3 = WALogCategoryDefaultHandle();
-    if (os_log_type_enabled(interfaceNameToApple80211InstanceMap3, OS_LOG_TYPE_FAULT))
+    interfaceNameToApple80211InstanceMap = WALogCategoryDefaultHandle();
+    if (os_log_type_enabled(interfaceNameToApple80211InstanceMap, OS_LOG_TYPE_FAULT))
     {
       v20 = self->_infraInterfaceName;
       v21 = 138412546;
       v22 = reasonCopy;
       v23 = 2112;
       v24 = v20;
-      _os_log_fault_impl(&_mh_execute_header, interfaceNameToApple80211InstanceMap3, OS_LOG_TYPE_FAULT, "Failed to initiate FW trap reason %@, interface %@", &v21, 0x16u);
+      _os_log_fault_impl(&_mh_execute_header, interfaceNameToApple80211InstanceMap, OS_LOG_TYPE_FAULT, "Failed to initiate FW trap reason %@, interface %@", &v21, 0x16u);
     }
   }
 
   else
   {
-    interfaceNameToApple80211InstanceMap3 = [(WAEngine *)self interfaceNameToApple80211InstanceMap];
-    infraInterfaceName3 = [(WAEngine *)self infraInterfaceName];
-    v17 = [interfaceNameToApple80211InstanceMap3 objectForKeyedSubscript:infraInterfaceName3];
+    interfaceNameToApple80211InstanceMap = [(WAEngine *)self interfaceNameToApple80211InstanceMap];
+    infraInterfaceName = [(WAEngine *)self infraInterfaceName];
+    v17 = [interfaceNameToApple80211InstanceMap objectForKeyedSubscript:infraInterfaceName];
     getDpsMetaDataString = [(WAEngine *)self getDpsMetaDataString];
     [v17 triggerDpsReset:@"TrapOnSlowDPS" metaData:getDpsMetaDataString];
   }
@@ -10988,6 +10961,47 @@ LABEL_13:
   return v14;
 }
 
+- (id)getNewMessageForKey:(id)key groupType:(int64_t)type withCopy:(BOOL)copy forProcessWithToken:(id)token
+{
+  copyCopy = copy;
+  keyCopy = key;
+  tokenCopy = token;
+  v12 = WALogCategoryDefaultHandle();
+  if (os_signpost_enabled(v12))
+  {
+    *buf = 0;
+    _os_signpost_emit_with_name_impl(&_mh_execute_header, v12, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "getNewMessageForKey withCopy", "", buf, 2u);
+  }
+
+  *buf = 0;
+  v23 = buf;
+  v24 = 0x3032000000;
+  v25 = sub_10005CFFC;
+  v26 = sub_10005D00C;
+  v27 = 0;
+  v19[0] = _NSConcreteStackBlock;
+  v19[1] = 3221225472;
+  v19[2] = sub_10007D2FC;
+  v19[3] = &unk_1000EE480;
+  v21 = buf;
+  v13 = dispatch_semaphore_create(0);
+  v20 = v13;
+  [(WAEngine *)self _getNewMessageForKey:keyCopy groupType:type withCopy:copyCopy forProcessToken:tokenCopy shouldCheckForPrePopulation:0 andReply:v19];
+  v14 = dispatch_time(0, 15000000000);
+  dispatch_semaphore_wait(v13, v14);
+  v15 = WALogCategoryDefaultHandle();
+  if (os_signpost_enabled(v15))
+  {
+    *v18 = 0;
+    _os_signpost_emit_with_name_impl(&_mh_execute_header, v15, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "getNewMessageForKey withCopy", "", v18, 2u);
+  }
+
+  v16 = *(v23 + 5);
+  _Block_object_dispose(buf, 8);
+
+  return v16;
+}
+
 - (void)persist
 {
   engineQ = self->_engineQ;
@@ -11150,7 +11164,7 @@ LABEL_31:
   v4 = v3;
   if (v3)
   {
-    [v3 getPolicyHandlersConfig];
+    objc_msgSend_getPolicyHandlersConfig(v3);
   }
 
   v12[0] = @"WA_DEVICE_ANALYTICS_PROCESSING_INTERVAL_AT_HOUR";
@@ -12512,6 +12526,89 @@ LABEL_68:
   }
 
   return unsignedIntValue;
+}
+
+- (void)getIPv6InterfaceNetwork:(unsigned int *)network prefixLength:(unsigned int)length
+{
+  v4 = *&length;
+  v7 = [(CWFInterface *)self->_corewifi IPv6Addresses:0];
+  firstObject = [v7 firstObject];
+  v9 = firstObject;
+  if (firstObject)
+  {
+    *network = 0;
+    *(network + 1) = 0;
+    v20 = 0uLL;
+    memset(v33, 0, 47);
+    if ([firstObject getCString:v33 maxLength:47 encoding:4])
+    {
+      if (!inet_pton(30, v33, &v20))
+      {
+LABEL_10:
+        [(WAEngine *)self convertToIPv6Network:network prefixLength:v4];
+        goto LABEL_11;
+      }
+
+      *network = vrev32q_s8(v20);
+      v10 = WALogCategoryDefaultHandle();
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+      {
+        v11 = *network;
+        v12 = network[1];
+        v13 = network[2];
+        v14 = network[3];
+        *buf = 136447490;
+        v22 = "[WAEngine getIPv6InterfaceNetwork:prefixLength:]";
+        v23 = 1024;
+        v24 = 6104;
+        v25 = 1024;
+        v26 = v11;
+        v27 = 1024;
+        v28 = v12;
+        v29 = 1024;
+        v30 = v13;
+        v31 = 1024;
+        v32 = v14;
+        v15 = "%{public}s::%d:DNS-config: interface IPv6 Address:%08x %08x %08x %08x";
+        v16 = v10;
+        v17 = OS_LOG_TYPE_DEFAULT;
+        v18 = 42;
+LABEL_8:
+        _os_log_impl(&_mh_execute_header, v16, v17, v15, buf, v18);
+      }
+    }
+
+    else
+    {
+      v10 = WALogCategoryDefaultHandle();
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      {
+        *buf = 136446466;
+        v22 = "[WAEngine getIPv6InterfaceNetwork:prefixLength:]";
+        v23 = 1024;
+        v24 = 6099;
+        v15 = "%{public}s::%d:DNS-config: encoding failed!";
+        v16 = v10;
+        v17 = OS_LOG_TYPE_ERROR;
+        v18 = 18;
+        goto LABEL_8;
+      }
+    }
+
+    goto LABEL_10;
+  }
+
+  v19 = WALogCategoryDefaultHandle();
+  if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+  {
+    *v33 = 136446466;
+    *&v33[4] = "[WAEngine getIPv6InterfaceNetwork:prefixLength:]";
+    *&v33[12] = 1024;
+    *&v33[14] = 6092;
+    _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_ERROR, "%{public}s::%d:DNS-config: No IPv6 address found", v33, 0x12u);
+  }
+
+LABEL_11:
 }
 
 - (void)convertToIPv6Network:(unsigned int *)network prefixLength:(unsigned int)length

@@ -23,6 +23,7 @@
 - (void)authenticationDelegate:(id)delegate didReceiveCredentialDescriptors:(id)descriptors;
 - (void)authenticationDelegate:(id)delegate didReceiveVolumeMountRepresentations:(id)representations;
 - (void)selectTextFieldAtIndexPath:(id)path;
+- (void)setNavBarActivityIndicatorHidden:(BOOL)hidden;
 - (void)setTitle:(id)title;
 - (void)setTransitioning:(BOOL)transitioning;
 - (void)tableView:(id)view accessoryButtonTappedForRowWithIndexPath:(id)path;
@@ -160,6 +161,13 @@
 LABEL_6:
 
   return titleView;
+}
+
+- (void)setNavBarActivityIndicatorHidden:(BOOL)hidden
+{
+  hiddenCopy = hidden;
+  _titleView = [(FPUIAuthenticationTableViewController *)self _titleView];
+  [_titleView setActivityIndicatorHidden:hiddenCopy];
 }
 
 - (void)selectTextFieldAtIndexPath:(id)path

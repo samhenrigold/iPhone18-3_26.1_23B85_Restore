@@ -28,10 +28,9 @@
   v7 = connection;
   if (connection == self->_terminateConnection)
   {
-    terminatePath = self->_terminatePath;
-    v9 = MessagePathEndsWith();
+    v8 = MessagePathEndsWith();
 
-    if (v9)
+    if (v8)
     {
       [(GTDisplayService *)self terminateProcess];
     }
@@ -50,7 +49,7 @@
     v3 = 0;
   }
 
-  *(&GT_ENV + 6) = *(&GT_ENV + 6) & 0xFFFFFFFFFFFFFFDFLL | v3;
+  *&GT_ENV[12] = *&GT_ENV[12] & 0xFFFFFFFFFFFFFFDFLL | v3;
 }
 
 - (void)updateTermination:(id)termination completionHandler:(id)handler
@@ -62,24 +61,22 @@
   v9 = self->_terminateConnection;
   self->_terminateConnection = connection;
 
+  [terminationCopy path];
   if (terminateConnection)
-  {
+    v10 = {;
+    v11 = MessagePathMerge();
     terminatePath = self->_terminatePath;
-    path = [terminationCopy path];
-    v12 = MessagePathMerge();
-    v13 = self->_terminatePath;
-    self->_terminatePath = v12;
+    self->_terminatePath = v11;
   }
 
   else
-  {
-    path2 = [terminationCopy path];
-    path = self->_terminatePath;
-    self->_terminatePath = path2;
+    v13 = {;
+    v10 = self->_terminatePath;
+    self->_terminatePath = v13;
   }
 
-  v15 = [[GTDisplayResponse alloc] initWithID:{objc_msgSend(terminationCopy, "requestID")}];
-  handlerCopy[2](handlerCopy, v15);
+  v14 = [[GTDisplayResponse alloc] initWithID:{objc_msgSend(terminationCopy, "requestID")}];
+  handlerCopy[2](handlerCopy, v14);
 }
 
 - (void)updateWindowConfiguration:(id)configuration completionHandler:(id)handler
@@ -381,17 +378,16 @@
     v15 = *(bytes + 26);
     v16 = *(bytes + 16);
     v17 = v12;
-    v20 = v17;
-    v21 = 2;
-    v22 = v13;
-    v23 = v14;
-    v24 = v15;
-    v25 = 65537;
-    v26 = v16;
-    v27 = 0;
-    v18 = sub_100009378(&v20);
+    v19 = v17;
+    v20 = 2;
+    v21 = v13;
+    v22 = v14;
+    v23 = v15;
+    v24 = 65537;
+    v25 = v16;
+    v26 = 0;
+    v18 = sub_100009378(&v19);
     [v18 pixelFormat];
-    device = self->_device;
     MTLPixelFormatGetInfoForDevice();
     sub_1000040FC(&self->_texture, v18, 0, 0, 0);
   }
@@ -418,7 +414,6 @@
     dest = [requestCopy dest];
     [dest pixelFormat];
 
-    device = self->_device;
     MTLPixelFormatGetInfoForDevice();
     dest2 = [requestCopy dest];
     event = [requestCopy event];
@@ -557,7 +552,7 @@
   handlerCopy = handler;
   [(GTDisplayService *)self lazyInit];
   v8 = [[GTDisplayResponse alloc] initWithID:{objc_msgSend(showCopy, "requestID")}];
-  if ((GT_ENV[6] & 0x20) != 0)
+  if ((GT_ENV[12] & 0x20) != 0)
   {
 LABEL_10:
     handlerCopy[2](handlerCopy, v8);
@@ -567,119 +562,118 @@ LABEL_10:
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
-    v15 = sub_100006F30(0x10u);
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v14 = sub_100006F30(0x10u);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
-      v38 = objc_opt_class();
-      v39 = NSStringFromClass(v38);
+      v37 = objc_opt_class();
+      v38 = NSStringFromClass(v37);
       *buf = 138412290;
-      replayServicePort = v39;
-      _os_log_error_impl(&_mh_execute_header, v15, OS_LOG_TYPE_ERROR, "Invalid GTDisplayService show request, expected GTDisplayShowTextureRequest, got %@", buf, 0xCu);
+      replayServicePort = v38;
+      _os_log_error_impl(&_mh_execute_header, v14, OS_LOG_TYPE_ERROR, "Invalid GTDisplayService show request, expected GTDisplayShowTextureRequest, got %@", buf, 0xCu);
     }
 
-    v16 = GTTransportErrorDomain;
-    v51 = NSLocalizedDescriptionKey;
-    v17 = objc_opt_class();
-    v18 = NSStringFromClass(v17);
-    v19 = [NSString stringWithFormat:@"Invalid argument sent to service %@: %@", @"GTDisplayShowTextureRequest", v18];
-    v52 = v19;
-    v20 = [NSDictionary dictionaryWithObjects:&v52 forKeys:&v51 count:1];
-    v21 = [NSError errorWithDomain:v16 code:4 userInfo:v20];
-    [v8 setError:v21];
+    v15 = GTTransportErrorDomain;
+    v50 = NSLocalizedDescriptionKey;
+    v16 = objc_opt_class();
+    v17 = NSStringFromClass(v16);
+    v18 = [NSString stringWithFormat:@"Invalid argument sent to service %@: %@", @"GTDisplayShowTextureRequest", v17];
+    v51 = v18;
+    v19 = [NSDictionary dictionaryWithObjects:&v51 forKeys:&v50 count:1];
+    v20 = [NSError errorWithDomain:v15 code:4 userInfo:v19];
+    [v8 setError:v20];
 
     goto LABEL_10;
   }
 
   v9 = showCopy;
-  connection = self->_connection;
-  v11 = allServices();
+  v10 = allServices();
   [v9 replayServicePort];
-  v12 = filteredArrayByPort();
-  firstObject = [v12 firstObject];
+  v11 = filteredArrayByPort();
+  firstObject = [v11 firstObject];
 
   if (firstObject)
   {
-    v14 = [[GTMTLReplayServiceXPCProxy alloc] initWithConnection:self->_connection serviceInfo:firstObject];
-    if (v14)
+    v13 = [[GTMTLReplayServiceXPCProxy alloc] initWithConnection:self->_connection serviceInfo:firstObject];
+    if (v13)
     {
-      if ((GT_ENV[6] & 0x400000000) != 0)
+      if ((GT_ENV[13] & 4) != 0)
       {
-        v36 = sub_100006F30(0x10u);
-        if (os_log_type_enabled(v36, OS_LOG_TYPE_DEBUG))
+        v35 = sub_100006F30(0x10u);
+        if (os_log_type_enabled(v35, OS_LOG_TYPE_DEBUG))
         {
           *buf = 0;
-          _os_log_debug_impl(&_mh_execute_header, v36, OS_LOG_TYPE_DEBUG, "Environment forcing fetch rather than fetchInto", buf, 2u);
+          _os_log_debug_impl(&_mh_execute_header, v35, OS_LOG_TYPE_DEBUG, "Environment forcing fetch rather than fetchInto", buf, 2u);
         }
 
-        [(GTDisplayService *)self showUsingFetch:v9 replayer:v14 completionHandler:handlerCopy];
+        [(GTDisplayService *)self showUsingFetch:v9 replayer:v13 completionHandler:handlerCopy];
       }
 
       else
       {
-        v43[0] = _NSConcreteStackBlock;
-        v43[1] = 3221225472;
-        v43[2] = sub_1000062EC;
-        v43[3] = &unk_100014A50;
-        v43[4] = self;
-        v44 = v9;
-        v45 = v14;
-        v46 = handlerCopy;
-        [(GTDisplayService *)self showUsingFetchInto:v44 replayer:v45 completionHandler:v43];
+        v42[0] = _NSConcreteStackBlock;
+        v42[1] = 3221225472;
+        v42[2] = sub_1000062EC;
+        v42[3] = &unk_100014A50;
+        v42[4] = self;
+        v43 = v9;
+        v44 = v13;
+        v45 = handlerCopy;
+        [(GTDisplayService *)self showUsingFetchInto:v43 replayer:v44 completionHandler:v42];
       }
     }
 
     else
     {
-      v40 = firstObject;
-      v42 = v11;
-      v29 = sub_100006F30(0x10u);
-      if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+      v39 = firstObject;
+      v41 = v10;
+      v28 = sub_100006F30(0x10u);
+      if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
       {
         *buf = 134217984;
         replayServicePort = [v9 replayServicePort];
-        _os_log_error_impl(&_mh_execute_header, v29, OS_LOG_TYPE_ERROR, "Found replay service for port (%llu) but failed to create proxy", buf, 0xCu);
+        _os_log_error_impl(&_mh_execute_header, v28, OS_LOG_TYPE_ERROR, "Found replay service for port (%llu) but failed to create proxy", buf, 0xCu);
       }
 
-      v30 = GTTransportErrorDomain;
-      v47 = NSLocalizedDescriptionKey;
-      v31 = +[NSNumber numberWithUnsignedLongLong:](NSNumber, "numberWithUnsignedLongLong:", [v9 replayServicePort]);
-      stringValue = [v31 stringValue];
-      v33 = [NSString stringWithFormat:@"Service is unavailable: %@", stringValue];
-      v48 = v33;
-      v34 = [NSDictionary dictionaryWithObjects:&v48 forKeys:&v47 count:1];
-      v35 = [NSError errorWithDomain:v30 code:1 userInfo:v34];
-      [v8 setError:v35];
+      v29 = GTTransportErrorDomain;
+      v46 = NSLocalizedDescriptionKey;
+      v30 = +[NSNumber numberWithUnsignedLongLong:](NSNumber, "numberWithUnsignedLongLong:", [v9 replayServicePort]);
+      stringValue = [v30 stringValue];
+      v32 = [NSString stringWithFormat:@"Service is unavailable: %@", stringValue];
+      v47 = v32;
+      v33 = [NSDictionary dictionaryWithObjects:&v47 forKeys:&v46 count:1];
+      v34 = [NSError errorWithDomain:v29 code:1 userInfo:v33];
+      [v8 setError:v34];
 
       handlerCopy[2](handlerCopy, v8);
-      firstObject = v40;
-      v11 = v42;
+      firstObject = v39;
+      v10 = v41;
     }
   }
 
   else
   {
-    v41 = v11;
-    v22 = sub_100006F30(0x10u);
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+    v40 = v10;
+    v21 = sub_100006F30(0x10u);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
       *buf = 134217984;
       replayServicePort = [v9 replayServicePort];
-      _os_log_error_impl(&_mh_execute_header, v22, OS_LOG_TYPE_ERROR, "Failed to find replay service port (%llu)", buf, 0xCu);
+      _os_log_error_impl(&_mh_execute_header, v21, OS_LOG_TYPE_ERROR, "Failed to find replay service port (%llu)", buf, 0xCu);
     }
 
-    v23 = GTTransportErrorDomain;
-    v49 = NSLocalizedDescriptionKey;
-    v24 = +[NSNumber numberWithUnsignedLongLong:](NSNumber, "numberWithUnsignedLongLong:", [v9 replayServicePort]);
-    stringValue2 = [v24 stringValue];
-    v26 = [NSString stringWithFormat:@"Service is unavailable: %@", stringValue2];
-    v50 = v26;
-    v27 = [NSDictionary dictionaryWithObjects:&v50 forKeys:&v49 count:1];
-    v28 = [NSError errorWithDomain:v23 code:1 userInfo:v27];
-    [v8 setError:v28];
+    v22 = GTTransportErrorDomain;
+    v48 = NSLocalizedDescriptionKey;
+    v23 = +[NSNumber numberWithUnsignedLongLong:](NSNumber, "numberWithUnsignedLongLong:", [v9 replayServicePort]);
+    stringValue2 = [v23 stringValue];
+    v25 = [NSString stringWithFormat:@"Service is unavailable: %@", stringValue2];
+    v49 = v25;
+    v26 = [NSDictionary dictionaryWithObjects:&v49 forKeys:&v48 count:1];
+    v27 = [NSError errorWithDomain:v22 code:1 userInfo:v26];
+    [v8 setError:v27];
 
     handlerCopy[2](handlerCopy, v8);
     firstObject = 0;
-    v11 = v41;
+    v10 = v40;
   }
 
 LABEL_22:

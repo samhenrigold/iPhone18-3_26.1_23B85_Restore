@@ -29,7 +29,7 @@
   disappearCopy = disappear;
   if (dword_1001BE938 <= 30 && (dword_1001BE938 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BE938, "[PasswordSharingDoneViewController viewDidDisappear:]", 30, "Done ViewDidDisappear\n");
   }
 
   v5.receiver = self;
@@ -65,51 +65,49 @@
     v5 = @"Hotspot";
   }
 
-  v20 = v5;
-  v21 = *(&self->_titleLabel + 1);
-  v6 = NSPrintF();
-  v27[0] = @"Classification";
-  v27[1] = @"ComponentID";
-  v28[0] = @"Serious Bug";
-  v28[1] = @"886090";
-  v27[2] = @"ComponentName";
-  v27[3] = @"ComponentVersion";
-  v28[2] = @"WiFi Password Sharing";
-  v28[3] = @"all";
-  v27[4] = @"ExtensionIdentifiers";
-  v27[5] = @"Reproducibility";
-  v28[4] = @"com.apple.DiagnosticExtensions.Bluetooth";
-  v28[5] = @"I Didn't Try";
-  v27[6] = @"Title";
-  v28[6] = v6;
-  v7 = [NSDictionary dictionaryWithObjects:v28 forKeys:v27 count:7, v20, v21];
+  v6 = NSPrintF("%@ Sharing: Share failed: %#m", v5, *(&self->_titleLabel + 1));
+  v25[0] = @"Classification";
+  v25[1] = @"ComponentID";
+  v26[0] = @"Serious Bug";
+  v26[1] = @"886090";
+  v25[2] = @"ComponentName";
+  v25[3] = @"ComponentVersion";
+  v26[2] = @"WiFi Password Sharing";
+  v26[3] = @"all";
+  v25[4] = @"ExtensionIdentifiers";
+  v25[5] = @"Reproducibility";
+  v26[4] = @"com.apple.DiagnosticExtensions.Bluetooth";
+  v26[5] = @"I Didn't Try";
+  v25[6] = @"Title";
+  v26[6] = v6;
+  v7 = [NSDictionary dictionaryWithObjects:v26 forKeys:v25 count:7];
   v8 = +[NSMutableArray array];
+  v20 = 0u;
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
-  v25 = 0u;
   v9 = v7;
-  v10 = [v9 countByEnumeratingWithState:&v22 objects:v26 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v23;
+    v12 = *v21;
     do
     {
       for (i = 0; i != v11; i = i + 1)
       {
-        if (*v23 != v12)
+        if (*v21 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        v14 = *(*(&v22 + 1) + 8 * i);
+        v14 = *(*(&v20 + 1) + 8 * i);
         v15 = [v9 objectForKeyedSubscript:v14];
         v16 = [NSURLQueryItem queryItemWithName:v14 value:v15];
         [v8 addObject:v16];
       }
 
-      v11 = [v9 countByEnumeratingWithState:&v22 objects:v26 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v20 objects:v24 count:16];
     }
 
     while (v11);
@@ -123,7 +121,7 @@
 
   if (dword_1001BE938 <= 50 && (dword_1001BE938 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BE938, "[PasswordSharingDoneViewController handleReportBugButton:]", 50, "Report Bug\n");
   }
 }
 
@@ -132,7 +130,7 @@
   buttonCopy = button;
   if (dword_1001BE938 <= 30 && (dword_1001BE938 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BE938, "[PasswordSharingDoneViewController handleDismissButton:]", 30, "Dismiss button\n");
   }
 
   [self->super._mainController ensureStoppedWithDismiss:1 reason:5];
@@ -286,7 +284,7 @@
   appearCopy = appear;
   if (dword_1001BE938 <= 30 && (dword_1001BE938 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BE938, "[PasswordSharingDoneViewController viewWillAppear:]", 30, "Done ViewWillAppear\n");
   }
 
   v6.receiver = self;

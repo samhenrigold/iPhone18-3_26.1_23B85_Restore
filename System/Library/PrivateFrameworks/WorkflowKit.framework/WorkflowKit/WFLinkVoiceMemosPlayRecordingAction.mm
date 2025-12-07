@@ -16,7 +16,7 @@
 
 - (id)overrideLabelsByParameter
 {
-  v16[1] = *MEMORY[0x1E69E9840];
+  v15[1] = *MEMORY[0x1E69E9840];
   entityParameterName = [(WFLinkVoiceMemosPlayRecordingAction *)self entityParameterName];
   if (entityParameterName)
   {
@@ -32,10 +32,10 @@
       if (v9)
       {
         entityParameterName2 = [(WFLinkVoiceMemosPlayRecordingAction *)self entityParameterName];
-        v15 = entityParameterName2;
+        v14 = entityParameterName2;
         entityName3 = [(WFLinkEntityAction *)self entityName];
-        v16[0] = entityName3;
-        v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:&v15 count:1];
+        v15[0] = entityName3;
+        v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:&v14 count:1];
 
         goto LABEL_7;
       }
@@ -48,7 +48,6 @@
 
   v12 = 0;
 LABEL_7:
-  v13 = *MEMORY[0x1E69E9840];
 
   return v12;
 }

@@ -7,7 +7,7 @@
 - (_TtC8rapportd15RPFeatureGating)init
 {
   v3.receiver = self;
-  v3.super_class = type metadata accessor for RPFeatureGating();
+  v3.super_class = type metadata accessor for RPFeatureGating(self, a2);
   return [(RPFeatureGating *)&v3 init];
 }
 

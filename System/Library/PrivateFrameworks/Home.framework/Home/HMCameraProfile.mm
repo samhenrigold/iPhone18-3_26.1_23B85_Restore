@@ -92,7 +92,7 @@ void __66__HMCameraProfile_HFAdditions__hf_significantEventWithIdentifier___bloc
 
 void __66__HMCameraProfile_HFAdditions__hf_significantEventWithIdentifier___block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = v6;
@@ -119,20 +119,18 @@ void __66__HMCameraProfile_HFAdditions__hf_significantEventWithIdentifier___bloc
   if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
   {
     WeakRetained = objc_loadWeakRetained((a1 + 48));
-    v14 = *(a1 + 32);
-    v15 = 138412802;
-    v16 = WeakRetained;
-    v17 = 2112;
-    v18 = v14;
-    v19 = 2112;
-    v20 = v9;
-    _os_log_error_impl(&dword_20D9BF000, v10, OS_LOG_TYPE_ERROR, "%@: Unable to fetch significant event with identifier:%@ (error:%@)", &v15, 0x20u);
+    v13 = *(a1 + 32);
+    v14 = 138412802;
+    v15 = WeakRetained;
+    v16 = 2112;
+    v17 = v13;
+    v18 = 2112;
+    v19 = v9;
+    _os_log_error_impl(&dword_20D9BF000, v10, OS_LOG_TYPE_ERROR, "%@: Unable to fetch significant event with identifier:%@ (error:%@)", &v14, 0x20u);
   }
 
   [*(a1 + 40) finishWithError:v9];
 LABEL_8:
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __68__HMCameraProfile_HFAdditions__hf_faceCropImageForSignificantEvent___block_invoke(uint64_t a1, void *a2)
@@ -157,20 +155,18 @@ id __68__HMCameraProfile_HFAdditions__hf_faceCropImageForSignificantEvent___bloc
 
 void __68__HMCameraProfile_HFAdditions__hf_faceCropImageForSignificantEvent___block_invoke_3(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = HFLogForCategory(0x13uLL);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    v6 = *(a1 + 32);
-    v7 = 138412546;
-    v8 = v3;
-    v9 = 2112;
-    v10 = v6;
-    _os_log_error_impl(&dword_20D9BF000, v4, OS_LOG_TYPE_ERROR, "Error %@ fetching face crop for significant event %@", &v7, 0x16u);
+    v5 = *(a1 + 32);
+    v6 = 138412546;
+    v7 = v3;
+    v8 = 2112;
+    v9 = v5;
+    _os_log_error_impl(&dword_20D9BF000, v4, OS_LOG_TYPE_ERROR, "Error %@ fetching face crop for significant event %@", &v6, 0x16u);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

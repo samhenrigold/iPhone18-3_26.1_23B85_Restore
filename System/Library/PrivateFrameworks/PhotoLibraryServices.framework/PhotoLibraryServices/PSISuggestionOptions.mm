@@ -12,7 +12,7 @@
 - (id)_minMatchPercentByCategoriesTypeDescription
 {
   minMatchPercentByCategoriesType = [(PSISuggestionOptions *)self minMatchPercentByCategoriesType];
-  v4 = [minMatchPercentByCategoriesType count];
+  v4 = objc_msgSend_count(minMatchPercentByCategoriesType);
 
   if (v4)
   {

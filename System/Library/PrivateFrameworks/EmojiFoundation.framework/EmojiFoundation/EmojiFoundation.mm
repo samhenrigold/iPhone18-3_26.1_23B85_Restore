@@ -34,16 +34,16 @@ uint64_t ___ZL25_emojiClientDispatchQueuev_block_invoke()
   return MEMORY[0x1EEE66BB8]();
 }
 
-void sub_1AF050268(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_1AF050268(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   a9.super_class = EMFEmojiPreferencesClient;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
 id _getSharedSerialOperationQueue(void)
 {
-  if ((atomic_load_explicit(&qword_1ED6F39D0, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(byte_1ED6F39D0, memory_order_acquire) & 1) == 0)
   {
     _getSharedSerialOperationQueue();
   }
@@ -58,20 +58,20 @@ id _getSharedSerialOperationQueue(void)
   return v0;
 }
 
-void sub_1AF05090C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1AF05090C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 void _getSharedSerialOperationQueue()
 {
-  if (__cxa_guard_acquire(&qword_1ED6F39D0))
+  if (__cxa_guard_acquire(byte_1ED6F39D0))
   {
     _MergedGlobals_0 = dispatch_queue_attr_make_with_qos_class(0, QOS_CLASS_USER_INITIATED, 0);
 
-    __cxa_guard_release(&qword_1ED6F39D0);
+    __cxa_guard_release(byte_1ED6F39D0);
   }
 }
 
@@ -382,7 +382,7 @@ uint64_t _compareEmojiTokensUsingGenderInclusiveSortCollation(void *a1, void *a2
   return v13;
 }
 
-CEM::AdaptationDatabaseController *CEM::AdaptationDatabaseController::AdaptationDatabaseController(CEM::AdaptationDatabaseController *this, const __CFString *a2)
+CEM::AdaptationDatabaseController *CEM::AdaptationDatabaseController::AdaptationDatabaseController(CEM::AdaptationDatabaseController *this, __CFString *a2)
 {
   *this = 850045863;
   *(this + 8) = 0u;
@@ -395,7 +395,7 @@ CEM::AdaptationDatabaseController *CEM::AdaptationDatabaseController::Adaptation
   *(this + 104) = 0u;
   *(this + 15) = 0;
   CEM::AdaptationDatabaseController::getDefaultSharedAdaptationDatabase(this, this + 16);
-  CEM::getUTF8StringFromCFString(a2, this + 144);
+  CEM::getUTF8StringFromCFString(this + 18, a2);
   CEM::AdaptationDatabaseController::initializeDatabaseIfNecessary(this);
   return this;
 }
@@ -444,16 +444,16 @@ uint64_t CEM::AdaptationDatabaseController::initializeDatabaseIfNecessary(CEM::A
   memset(v6, 0, sizeof(v6));
   v8 = v6;
   std::vector<std::variant<std::monostate,unsigned int,double,std::string,std::vector<unsigned char>>>::__destroy_vector::operator()[abi:ne200100](&v8);
-  CEM::AdaptationDatabase::executeStatement(*(this + 16), v7, v5);
+  CEM::AdaptationDatabase::executeStatement(v5, *(this + 16), v7);
   v6[0] = v5;
   std::vector<std::map<std::string,std::variant<std::monostate,unsigned int,double,std::string,std::vector<unsigned char>>>>::__destroy_vector::operator()[abi:ne200100](v6);
   CEM::Statement::~Statement(v7);
   return 1;
 }
 
-void sub_1AF053694(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_1AF053694(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
   CEM::Statement::~Statement(va);
   _Unwind_Resume(a1);
 }
@@ -578,7 +578,7 @@ void CEM::AdaptationDatabaseController::createAdaptationDatabase(std::mutex *thi
     pn = a2->__pn_;
   }
 
-  v7 = std::__hash_table<std::__hash_value_type<std::string,std::weak_ptr<CEM::AdaptationDatabase>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::weak_ptr<CEM::AdaptationDatabase>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::weak_ptr<CEM::AdaptationDatabase>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::weak_ptr<CEM::AdaptationDatabase>>>>::find<std::string>(qword_1ED6F39A0, &pn.__r_.__value_.__l.__data_);
+  v7 = std::__hash_table<std::__hash_value_type<std::string,std::weak_ptr<CEM::AdaptationDatabase>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::weak_ptr<CEM::AdaptationDatabase>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::weak_ptr<CEM::AdaptationDatabase>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::weak_ptr<CEM::AdaptationDatabase>>>>::find<std::string>(qword_1ED6F39A0, &pn);
   if (!v7 || (v9 = v7[5], v8 = v7[6], v10[0] = v9, (v10[1] = v8) == 0))
   {
 LABEL_10:
@@ -624,7 +624,7 @@ void sub_1AF053AE4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 uint64_t CEM::AdaptationDatabaseController::getEmojiId(uint64_t a1, void *__src, size_t __len)
 {
-  v21[1] = *MEMORY[0x1E69E9840];
+  v22[1] = *MEMORY[0x1E69E9840];
   {
   }
 
@@ -670,50 +670,50 @@ uint64_t CEM::AdaptationDatabaseController::getEmojiId(uint64_t a1, void *__src,
     operator new();
   }
 
-  HIBYTE(v14) = __len;
+  HIBYTE(v15) = __len;
   if (__len)
   {
     memmove(&__dst, __src, __len);
   }
 
   *(&__dst + __len) = 0;
-  v18 = __dst;
-  v19 = v14;
-  v20 = 3;
-  memset(v15, 0, sizeof(v15));
-  std::vector<std::variant<std::monostate,unsigned int,double,std::string,std::vector<unsigned char>>>::__init_with_size[abi:ne200100]<std::variant<std::monostate,unsigned int,double,std::string,std::vector<unsigned char>> const*,std::variant<std::monostate,unsigned int,double,std::string,std::vector<unsigned char>> const*>(v15, &v18, v21, 1uLL);
-  CEM::Statement::Statement(v16, v7, v6, v9, v8, v15);
-  v17 = v15;
-  std::vector<std::variant<std::monostate,unsigned int,double,std::string,std::vector<unsigned char>>>::__destroy_vector::operator()[abi:ne200100](&v17);
-  std::__variant_detail::__dtor<std::__variant_detail::__traits<std::monostate,unsigned int,double,std::string,std::vector<unsigned char>>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](&v18);
-  CEM::AdaptationDatabase::executeStatement(*(a1 + 128), v16, &v18);
-  if (*(&v18 + 1) == v18)
+  v19 = __dst;
+  v20 = v15;
+  v21 = 3;
+  memset(v16, 0, sizeof(v16));
+  std::vector<std::variant<std::monostate,unsigned int,double,std::string,std::vector<unsigned char>>>::__init_with_size[abi:ne200100]<std::variant<std::monostate,unsigned int,double,std::string,std::vector<unsigned char>> const*,std::variant<std::monostate,unsigned int,double,std::string,std::vector<unsigned char>> const*>(v16, &v19, v22, 1uLL);
+  CEM::Statement::Statement(v17, v7, v6, v9, v8);
+  v18 = v16;
+  std::vector<std::variant<std::monostate,unsigned int,double,std::string,std::vector<unsigned char>>>::__destroy_vector::operator()[abi:ne200100](&v18);
+  std::__variant_detail::__dtor<std::__variant_detail::__traits<std::monostate,unsigned int,double,std::string,std::vector<unsigned char>>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](&v19);
+  v10 = CEM::AdaptationDatabase::executeStatement(&v19, *(a1 + 128), v17);
+  if (*(&v19 + 1) == v19)
   {
     goto LABEL_22;
   }
 
-  if (*(*v18 + 80) != 1)
+  if (*(*v19 + 80) != 1)
   {
-    adaptation_log = cem_logging_get_adaptation_log();
+    adaptation_log = cem_logging_get_adaptation_log(v10);
     if (os_log_type_enabled(adaptation_log, OS_LOG_TYPE_ERROR))
     {
       CEM::AdaptationDatabaseController::getEmojiId();
     }
 
 LABEL_22:
-    v10 = 0;
+    v11 = 0;
     goto LABEL_23;
   }
 
-  v10 = *(*v18 + 56);
+  v11 = *(*v19 + 56);
 LABEL_23:
-  v15[0] = &v18;
-  std::vector<std::map<std::string,std::variant<std::monostate,unsigned int,double,std::string,std::vector<unsigned char>>>>::__destroy_vector::operator()[abi:ne200100](v15);
-  CEM::Statement::~Statement(v16);
-  return v10;
+  v16[0] = &v19;
+  std::vector<std::map<std::string,std::variant<std::monostate,unsigned int,double,std::string,std::vector<unsigned char>>>>::__destroy_vector::operator()[abi:ne200100](v16);
+  CEM::Statement::~Statement(v17);
+  return v11;
 }
 
-_BYTE *std::string::basic_string[abi:ne200100]<0>(_BYTE *a1, char *__s)
+void *std::string::basic_string[abi:ne200100]<0>(void *a1, char *__s)
 {
   v4 = strlen(__s);
   if (v4 >= 0x7FFFFFFFFFFFFFF8)
@@ -727,19 +727,19 @@ _BYTE *std::string::basic_string[abi:ne200100]<0>(_BYTE *a1, char *__s)
     operator new();
   }
 
-  a1[23] = v4;
+  *(a1 + 23) = v4;
   if (v4)
   {
     memmove(a1, __s, v4);
   }
 
-  a1[v5] = 0;
+  *(a1 + v5) = 0;
   return a1;
 }
 
 uint64_t CEM::AdaptationDatabaseController::createEmojiId(uint64_t a1, void *__src, size_t __len)
 {
-  v24[1] = *MEMORY[0x1E69E9840];
+  v25[1] = *MEMORY[0x1E69E9840];
   {
   }
 
@@ -785,66 +785,66 @@ uint64_t CEM::AdaptationDatabaseController::createEmojiId(uint64_t a1, void *__s
     operator new();
   }
 
-  HIBYTE(v17) = __len;
+  HIBYTE(v18) = __len;
   if (__len)
   {
     memmove(&__dst, __src, __len);
   }
 
   *(&__dst + __len) = 0;
-  v21 = __dst;
-  v22 = v17;
-  v23 = 3;
-  memset(v18, 0, sizeof(v18));
-  std::vector<std::variant<std::monostate,unsigned int,double,std::string,std::vector<unsigned char>>>::__init_with_size[abi:ne200100]<std::variant<std::monostate,unsigned int,double,std::string,std::vector<unsigned char>> const*,std::variant<std::monostate,unsigned int,double,std::string,std::vector<unsigned char>> const*>(v18, &v21, v24, 1uLL);
-  CEM::Statement::Statement(v19, v7, v6, v9, v8, v18);
-  v20 = v18;
-  std::vector<std::variant<std::monostate,unsigned int,double,std::string,std::vector<unsigned char>>>::__destroy_vector::operator()[abi:ne200100](&v20);
-  std::__variant_detail::__dtor<std::__variant_detail::__traits<std::monostate,unsigned int,double,std::string,std::vector<unsigned char>>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](&v21);
-  CEM::AdaptationDatabase::executeStatement(*(a1 + 128), v19, &v21);
-  v10 = 0xAAAAAAAAAAAAAAABLL * ((*(&v21 + 1) - v21) >> 3);
-  if (v10 != 1)
+  v22 = __dst;
+  v23 = v18;
+  v24 = 3;
+  memset(v19, 0, sizeof(v19));
+  std::vector<std::variant<std::monostate,unsigned int,double,std::string,std::vector<unsigned char>>>::__init_with_size[abi:ne200100]<std::variant<std::monostate,unsigned int,double,std::string,std::vector<unsigned char>> const*,std::variant<std::monostate,unsigned int,double,std::string,std::vector<unsigned char>> const*>(v19, &v22, v25, 1uLL);
+  CEM::Statement::Statement(v20, v7, v6, v9, v8);
+  v21 = v19;
+  std::vector<std::variant<std::monostate,unsigned int,double,std::string,std::vector<unsigned char>>>::__destroy_vector::operator()[abi:ne200100](&v21);
+  std::__variant_detail::__dtor<std::__variant_detail::__traits<std::monostate,unsigned int,double,std::string,std::vector<unsigned char>>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](&v22);
+  v10 = CEM::AdaptationDatabase::executeStatement(&v22, *(a1 + 128), v20);
+  v11 = 0xAAAAAAAAAAAAAAABLL * ((*(&v22 + 1) - v22) >> 3);
+  if (v11 != 1)
   {
-    if (v10)
+    if (v11)
     {
-      v14 = "(rows.size() == 1) && createEmojiId: Database inconsistency: exactly 1 ID has not been assigned to this emoji; cannot continue.";
-      v15 = 70;
+      v15 = "(rows.size() == 1) && createEmojiId: Database inconsistency: exactly 1 ID has not been assigned to this emoji; cannot continue.";
+      v16 = 70;
     }
 
     else
     {
-      v14 = "(rows.size() > 0) && createEmojiId: Database inconsistency: ID insertion failed; cannot continue.";
-      v15 = 69;
+      v15 = "(rows.size() > 0) && createEmojiId: Database inconsistency: ID insertion failed; cannot continue.";
+      v16 = 69;
     }
 
-    __assert_rtn("createEmojiId", "AdaptationDatabaseController.cpp", v15, v14);
+    __assert_rtn("createEmojiId", "AdaptationDatabaseController.cpp", v16, v15);
   }
 
-  if (*(*v21 + 80) == 1)
+  if (*(*v22 + 80) == 1)
   {
-    v11 = *(*v21 + 56);
+    v12 = *(*v22 + 56);
   }
 
   else
   {
-    adaptation_log = cem_logging_get_adaptation_log();
+    adaptation_log = cem_logging_get_adaptation_log(v10);
     if (os_log_type_enabled(adaptation_log, OS_LOG_TYPE_ERROR))
     {
       CEM::AdaptationDatabaseController::createEmojiId();
     }
 
-    v11 = 0;
+    v12 = 0;
   }
 
-  v18[0] = &v21;
-  std::vector<std::map<std::string,std::variant<std::monostate,unsigned int,double,std::string,std::vector<unsigned char>>>>::__destroy_vector::operator()[abi:ne200100](v18);
-  CEM::Statement::~Statement(v19);
-  return v11;
+  v19[0] = &v22;
+  std::vector<std::map<std::string,std::variant<std::monostate,unsigned int,double,std::string,std::vector<unsigned char>>>>::__destroy_vector::operator()[abi:ne200100](v19);
+  CEM::Statement::~Statement(v20);
+  return v12;
 }
 
 uint64_t CEM::AdaptationDatabaseController::getStringId(uint64_t a1, void *__src, size_t __len)
 {
-  v21[1] = *MEMORY[0x1E69E9840];
+  v22[1] = *MEMORY[0x1E69E9840];
   {
   }
 
@@ -890,52 +890,52 @@ uint64_t CEM::AdaptationDatabaseController::getStringId(uint64_t a1, void *__src
     operator new();
   }
 
-  HIBYTE(v14) = __len;
+  HIBYTE(v15) = __len;
   if (__len)
   {
     memmove(&__dst, __src, __len);
   }
 
   *(&__dst + __len) = 0;
-  v18 = __dst;
-  v19 = v14;
-  v20 = 3;
-  memset(v15, 0, sizeof(v15));
-  std::vector<std::variant<std::monostate,unsigned int,double,std::string,std::vector<unsigned char>>>::__init_with_size[abi:ne200100]<std::variant<std::monostate,unsigned int,double,std::string,std::vector<unsigned char>> const*,std::variant<std::monostate,unsigned int,double,std::string,std::vector<unsigned char>> const*>(v15, &v18, v21, 1uLL);
-  CEM::Statement::Statement(v16, v7, v6, v9, v8, v15);
-  v17 = v15;
-  std::vector<std::variant<std::monostate,unsigned int,double,std::string,std::vector<unsigned char>>>::__destroy_vector::operator()[abi:ne200100](&v17);
-  std::__variant_detail::__dtor<std::__variant_detail::__traits<std::monostate,unsigned int,double,std::string,std::vector<unsigned char>>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](&v18);
-  CEM::AdaptationDatabase::executeStatement(*(a1 + 128), v16, &v18);
-  if (*(&v18 + 1) == v18)
+  v19 = __dst;
+  v20 = v15;
+  v21 = 3;
+  memset(v16, 0, sizeof(v16));
+  std::vector<std::variant<std::monostate,unsigned int,double,std::string,std::vector<unsigned char>>>::__init_with_size[abi:ne200100]<std::variant<std::monostate,unsigned int,double,std::string,std::vector<unsigned char>> const*,std::variant<std::monostate,unsigned int,double,std::string,std::vector<unsigned char>> const*>(v16, &v19, v22, 1uLL);
+  CEM::Statement::Statement(v17, v7, v6, v9, v8);
+  v18 = v16;
+  std::vector<std::variant<std::monostate,unsigned int,double,std::string,std::vector<unsigned char>>>::__destroy_vector::operator()[abi:ne200100](&v18);
+  std::__variant_detail::__dtor<std::__variant_detail::__traits<std::monostate,unsigned int,double,std::string,std::vector<unsigned char>>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](&v19);
+  v10 = CEM::AdaptationDatabase::executeStatement(&v19, *(a1 + 128), v17);
+  if (*(&v19 + 1) == v19)
   {
     goto LABEL_22;
   }
 
-  if (*(*v18 + 80) != 1)
+  if (*(*v19 + 80) != 1)
   {
-    adaptation_log = cem_logging_get_adaptation_log();
+    adaptation_log = cem_logging_get_adaptation_log(v10);
     if (os_log_type_enabled(adaptation_log, OS_LOG_TYPE_ERROR))
     {
       CEM::AdaptationDatabaseController::getStringId();
     }
 
 LABEL_22:
-    v10 = 0;
+    v11 = 0;
     goto LABEL_23;
   }
 
-  v10 = *(*v18 + 56);
+  v11 = *(*v19 + 56);
 LABEL_23:
-  v15[0] = &v18;
-  std::vector<std::map<std::string,std::variant<std::monostate,unsigned int,double,std::string,std::vector<unsigned char>>>>::__destroy_vector::operator()[abi:ne200100](v15);
-  CEM::Statement::~Statement(v16);
-  return v10;
+  v16[0] = &v19;
+  std::vector<std::map<std::string,std::variant<std::monostate,unsigned int,double,std::string,std::vector<unsigned char>>>>::__destroy_vector::operator()[abi:ne200100](v16);
+  CEM::Statement::~Statement(v17);
+  return v11;
 }
 
 uint64_t CEM::AdaptationDatabaseController::createStringId(uint64_t a1, void *__src, size_t __len)
 {
-  v24[1] = *MEMORY[0x1E69E9840];
+  v25[1] = *MEMORY[0x1E69E9840];
   {
   }
 
@@ -981,61 +981,61 @@ uint64_t CEM::AdaptationDatabaseController::createStringId(uint64_t a1, void *__
     operator new();
   }
 
-  HIBYTE(v17) = __len;
+  HIBYTE(v18) = __len;
   if (__len)
   {
     memmove(&__dst, __src, __len);
   }
 
   *(&__dst + __len) = 0;
-  v21 = __dst;
-  v22 = v17;
-  v23 = 3;
-  memset(v18, 0, sizeof(v18));
-  std::vector<std::variant<std::monostate,unsigned int,double,std::string,std::vector<unsigned char>>>::__init_with_size[abi:ne200100]<std::variant<std::monostate,unsigned int,double,std::string,std::vector<unsigned char>> const*,std::variant<std::monostate,unsigned int,double,std::string,std::vector<unsigned char>> const*>(v18, &v21, v24, 1uLL);
-  CEM::Statement::Statement(v19, v7, v6, v9, v8, v18);
-  v20 = v18;
-  std::vector<std::variant<std::monostate,unsigned int,double,std::string,std::vector<unsigned char>>>::__destroy_vector::operator()[abi:ne200100](&v20);
-  std::__variant_detail::__dtor<std::__variant_detail::__traits<std::monostate,unsigned int,double,std::string,std::vector<unsigned char>>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](&v21);
-  CEM::AdaptationDatabase::executeStatement(*(a1 + 128), v19, &v21);
-  v10 = 0xAAAAAAAAAAAAAAABLL * ((*(&v21 + 1) - v21) >> 3);
-  if (v10 != 1)
+  v22 = __dst;
+  v23 = v18;
+  v24 = 3;
+  memset(v19, 0, sizeof(v19));
+  std::vector<std::variant<std::monostate,unsigned int,double,std::string,std::vector<unsigned char>>>::__init_with_size[abi:ne200100]<std::variant<std::monostate,unsigned int,double,std::string,std::vector<unsigned char>> const*,std::variant<std::monostate,unsigned int,double,std::string,std::vector<unsigned char>> const*>(v19, &v22, v25, 1uLL);
+  CEM::Statement::Statement(v20, v7, v6, v9, v8);
+  v21 = v19;
+  std::vector<std::variant<std::monostate,unsigned int,double,std::string,std::vector<unsigned char>>>::__destroy_vector::operator()[abi:ne200100](&v21);
+  std::__variant_detail::__dtor<std::__variant_detail::__traits<std::monostate,unsigned int,double,std::string,std::vector<unsigned char>>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](&v22);
+  v10 = CEM::AdaptationDatabase::executeStatement(&v22, *(a1 + 128), v20);
+  v11 = 0xAAAAAAAAAAAAAAABLL * ((*(&v22 + 1) - v22) >> 3);
+  if (v11 != 1)
   {
-    if (v10)
+    if (v11)
     {
-      v14 = "(rows.size() == 1) && createStringId: Database inconsistency: exactly 1 ID has been not assigned to this string; cannot continue.";
-      v15 = 108;
+      v15 = "(rows.size() == 1) && createStringId: Database inconsistency: exactly 1 ID has been not assigned to this string; cannot continue.";
+      v16 = 108;
     }
 
     else
     {
-      v14 = "(rows.size() > 0) && createStringId: Database inconsistency: ID insertion failed; cannot continue.";
-      v15 = 107;
+      v15 = "(rows.size() > 0) && createStringId: Database inconsistency: ID insertion failed; cannot continue.";
+      v16 = 107;
     }
 
-    __assert_rtn("createStringId", "AdaptationDatabaseController.cpp", v15, v14);
+    __assert_rtn("createStringId", "AdaptationDatabaseController.cpp", v16, v15);
   }
 
-  if (*(*v21 + 80) == 1)
+  if (*(*v22 + 80) == 1)
   {
-    v11 = *(*v21 + 56);
+    v12 = *(*v22 + 56);
   }
 
   else
   {
-    adaptation_log = cem_logging_get_adaptation_log();
+    adaptation_log = cem_logging_get_adaptation_log(v10);
     if (os_log_type_enabled(adaptation_log, OS_LOG_TYPE_ERROR))
     {
       CEM::AdaptationDatabaseController::createStringId();
     }
 
-    v11 = 0;
+    v12 = 0;
   }
 
-  v18[0] = &v21;
-  std::vector<std::map<std::string,std::variant<std::monostate,unsigned int,double,std::string,std::vector<unsigned char>>>>::__destroy_vector::operator()[abi:ne200100](v18);
-  CEM::Statement::~Statement(v19);
-  return v11;
+  v19[0] = &v22;
+  std::vector<std::map<std::string,std::variant<std::monostate,unsigned int,double,std::string,std::vector<unsigned char>>>>::__destroy_vector::operator()[abi:ne200100](v19);
+  CEM::Statement::~Statement(v20);
+  return v12;
 }
 
 void CEM::AdaptationDatabaseController::getRecentEmojisForString(CEM::AdaptationDatabaseController *a1@<X0>, void *a2@<X1>, size_t a3@<X2>, void *a4@<X8>)
@@ -1104,7 +1104,7 @@ void CEM::AdaptationDatabaseController::getRecentEmojisForStringId(CEM::Adaptati
     v14 = v12;
   }
 
-  CEM::Statement::Statement(v24, v9, v8, v13, v14, __p);
+  CEM::Statement::Statement(v24, v9, v8, v13, v14);
   v25 = __p;
   std::vector<std::variant<std::monostate,unsigned int,double,std::string,std::vector<unsigned char>>>::__destroy_vector::operator()[abi:ne200100](&v25);
   for (i = 4; i != -4; i -= 4)
@@ -1112,7 +1112,7 @@ void CEM::AdaptationDatabaseController::getRecentEmojisForStringId(CEM::Adaptati
     std::__variant_detail::__dtor<std::__variant_detail::__traits<std::monostate,unsigned int,double,std::string,std::vector<unsigned char>>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](&v26[i]);
   }
 
-  CEM::AdaptationDatabase::executeStatement(*(this + 16), v24, v26);
+  CEM::AdaptationDatabase::executeStatement(v26, *(this + 16), v24);
   v16 = v26[0];
   v17 = v26[1];
   a4[1] = 0;
@@ -1150,52 +1150,42 @@ void CEM::AdaptationDatabaseController::getRecentEmojisForStringId(CEM::Adaptati
   CEM::Statement::~Statement(v24);
 }
 
-void CEM::AdaptationDatabaseController::enumerateRecentEmojisForAllStrings(uint64_t a1, std::vector<std::string>::size_type __n)
+void CEM::AdaptationDatabaseController::enumerateRecentEmojisForAllStrings(uint64_t a1, std::vector<std::string>::size_type __n, uint64_t a3)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   {
   }
 
-  v17 = 0;
   v18 = 0;
   v19 = 0;
+  v20 = 0;
   __p = 0;
-  v15 = 0;
   v16 = 0;
-  memset(&v13, 0, sizeof(v13));
-  std::vector<std::string>::reserve(&v13, __n);
-  v4 = *(a1 + 167);
-  if (v4 < 0)
+  v17 = 0;
+  memset(&v14, 0, sizeof(v14));
+  std::vector<std::string>::reserve(&v14, __n);
+  v5 = *(a1 + 167);
+  if (v5 < 0)
   {
-    v5 = *(a1 + 144);
-    v4 = *(a1 + 152);
+    v6 = *(a1 + 144);
+    v5 = *(a1 + 152);
   }
 
   else
   {
-    v5 = a1 + 144;
+    v6 = a1 + 144;
   }
 
-  v6 = byte_1EB62E06F;
-  v7 = CEM::AdaptationDatabaseController::enumerateRecentEmojisForAllStrings(unsigned long,std::function<void ()(std::string_view,std::vector<std::string> const&)>)const::sql;
-  v8 = unk_1EB62E060;
-  v21[0] = __n;
-  v21[6] = 1;
-  memset(v11, 0, sizeof(v11));
-  std::vector<std::variant<std::monostate,unsigned int,double,std::string,std::vector<unsigned char>>>::__init_with_size[abi:ne200100]<std::variant<std::monostate,unsigned int,double,std::string,std::vector<unsigned char>> const*,std::variant<std::monostate,unsigned int,double,std::string,std::vector<unsigned char>> const*>(v11, v21, &v22, 1uLL);
-  if ((v6 & 0x80u) == 0)
+  v7 = byte_1EB62E06F;
+  v8 = CEM::AdaptationDatabaseController::enumerateRecentEmojisForAllStrings(unsigned long,std::function<void ()(std::string_view,std::vector<std::string> const&)>)const::sql;
+  v9 = unk_1EB62E060;
+  v22[0] = __n;
+  v22[6] = 1;
+  memset(v12, 0, sizeof(v12));
+  std::vector<std::variant<std::monostate,unsigned int,double,std::string,std::vector<unsigned char>>>::__init_with_size[abi:ne200100]<std::variant<std::monostate,unsigned int,double,std::string,std::vector<unsigned char>> const*,std::variant<std::monostate,unsigned int,double,std::string,std::vector<unsigned char>> const*>(v12, v22, &v23, 1uLL);
+  if ((v7 & 0x80u) == 0)
   {
-    v9 = &CEM::AdaptationDatabaseController::enumerateRecentEmojisForAllStrings(unsigned long,std::function<void ()(std::string_view,std::vector<std::string> const&)>)const::sql;
-  }
-
-  else
-  {
-    v9 = v7;
-  }
-
-  if ((v6 & 0x80u) == 0)
-  {
-    v10 = v6;
+    v10 = &CEM::AdaptationDatabaseController::enumerateRecentEmojisForAllStrings(unsigned long,std::function<void ()(std::string_view,std::vector<std::string> const&)>)const::sql;
   }
 
   else
@@ -1203,11 +1193,21 @@ void CEM::AdaptationDatabaseController::enumerateRecentEmojisForAllStrings(uint6
     v10 = v8;
   }
 
-  CEM::Statement::Statement(v12, v5, v4, v9, v10, v11);
-  v20[0] = v11;
-  std::vector<std::variant<std::monostate,unsigned int,double,std::string,std::vector<unsigned char>>>::__destroy_vector::operator()[abi:ne200100](v20);
-  std::__variant_detail::__dtor<std::__variant_detail::__traits<std::monostate,unsigned int,double,std::string,std::vector<unsigned char>>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](v21);
-  v20[4] = 0;
+  if ((v7 & 0x80u) == 0)
+  {
+    v11 = v7;
+  }
+
+  else
+  {
+    v11 = v9;
+  }
+
+  CEM::Statement::Statement(v13, v6, v5, v10, v11);
+  v21[0] = v12;
+  std::vector<std::variant<std::monostate,unsigned int,double,std::string,std::vector<unsigned char>>>::__destroy_vector::operator()[abi:ne200100](v21);
+  std::__variant_detail::__dtor<std::__variant_detail::__traits<std::monostate,unsigned int,double,std::string,std::vector<unsigned char>>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](v22);
+  v21[4] = 0;
   operator new();
 }
 
@@ -1263,7 +1263,7 @@ void CEM::AdaptationDatabaseController::enumerateStringAndStringId(uint64_t a1, 
   }
 
   memset(v9, 0, sizeof(v9));
-  CEM::Statement::Statement(v10, v5, v4, v7, v6, v9);
+  CEM::Statement::Statement(v10, v5, v4, v7, v6);
   v11 = v9;
   std::vector<std::variant<std::monostate,unsigned int,double,std::string,std::vector<unsigned char>>>::__destroy_vector::operator()[abi:ne200100](&v11);
   v8 = *(a1 + 128);
@@ -1337,7 +1337,7 @@ uint64_t CEM::AdaptationDatabaseController::recordEmojiEngagement(uint64_t a1, v
       v18 = v16;
     }
 
-    CEM::Statement::Statement(v23, v13, v12, v17, v18, v22);
+    CEM::Statement::Statement(v23, v13, v12, v17, v18);
     v24 = v22;
     std::vector<std::variant<std::monostate,unsigned int,double,std::string,std::vector<unsigned char>>>::__destroy_vector::operator()[abi:ne200100](&v24);
     for (i = 4; i != -4; i -= 4)
@@ -1345,7 +1345,7 @@ uint64_t CEM::AdaptationDatabaseController::recordEmojiEngagement(uint64_t a1, v
       std::__variant_detail::__dtor<std::__variant_detail::__traits<std::monostate,unsigned int,double,std::string,std::vector<unsigned char>>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](&v25[i]);
     }
 
-    CEM::AdaptationDatabase::executeStatement(*(a1 + 128), v23, v21);
+    CEM::AdaptationDatabase::executeStatement(v21, *(a1 + 128), v23);
     v25[0] = v21;
     std::vector<std::map<std::string,std::variant<std::monostate,unsigned int,double,std::string,std::vector<unsigned char>>>>::__destroy_vector::operator()[abi:ne200100](v25);
     CEM::Statement::~Statement(v23);
@@ -1368,7 +1368,7 @@ void sub_1AF0551AC(_Unwind_Exception *a1)
 
 void *CEM::AdaptationDatabaseController::getSharedAdaptationDatabaseCache(CEM::AdaptationDatabaseController *this)
 {
-  if ((atomic_load_explicit(&_MergedGlobals, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(_MergedGlobals, memory_order_acquire) & 1) == 0)
   {
     CEM::AdaptationDatabaseController::getSharedAdaptationDatabaseCache();
   }
@@ -1420,16 +1420,16 @@ void CEM::AdaptationDatabaseController::reset(CEM::AdaptationDatabaseController 
     memset(v5, 0, sizeof(v5));
     v7 = v5;
     std::vector<std::variant<std::monostate,unsigned int,double,std::string,std::vector<unsigned char>>>::__destroy_vector::operator()[abi:ne200100](&v7);
-    CEM::AdaptationDatabase::executeStatement(*(this + 16), v6, v4);
+    CEM::AdaptationDatabase::executeStatement(v4, *(this + 16), v6);
     v5[0] = v4;
     std::vector<std::map<std::string,std::variant<std::monostate,unsigned int,double,std::string,std::vector<unsigned char>>>>::__destroy_vector::operator()[abi:ne200100](v5);
     CEM::Statement::~Statement(v6);
   }
 }
 
-void sub_1AF055390(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_1AF055390(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
   CEM::Statement::~Statement(va);
   _Unwind_Resume(a1);
 }
@@ -1455,7 +1455,7 @@ void std::__throw_bad_array_new_length[abi:ne200100]()
   __cxa_throw(v1, MEMORY[0x1E69E5420], MEMORY[0x1E69E52A8]);
 }
 
-uint64_t std::vector<std::variant<std::monostate,unsigned int,double,std::string,std::vector<unsigned char>>>::__init_with_size[abi:ne200100]<std::variant<std::monostate,unsigned int,double,std::string,std::vector<unsigned char>> const*,std::variant<std::monostate,unsigned int,double,std::string,std::vector<unsigned char>> const*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<std::variant<std::monostate,unsigned int,double,std::string,std::vector<unsigned char>>>::__init_with_size[abi:ne200100]<std::variant<std::monostate,unsigned int,double,std::string,std::vector<unsigned char>> const*,std::variant<std::monostate,unsigned int,double,std::string,std::vector<unsigned char>> const*>(uint64_t *result, uint64_t a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -1465,14 +1465,14 @@ uint64_t std::vector<std::variant<std::monostate,unsigned int,double,std::string
   return result;
 }
 
-void sub_1AF055510(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void **a9)
+void sub_1AF055510(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
   *(v9 + 8) = v10;
   std::vector<std::variant<std::monostate,unsigned int,double,std::string,std::vector<unsigned char>>>::__destroy_vector::operator()[abi:ne200100](&a9);
   _Unwind_Resume(a1);
 }
 
-void std::vector<std::variant<std::monostate,unsigned int,double,std::string,std::vector<unsigned char>>>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<std::variant<std::monostate,unsigned int,double,std::string,std::vector<unsigned char>>>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 59))
   {
@@ -1606,13 +1606,13 @@ void _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm3EEE10__d
   }
 }
 
-uint64_t _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm4EEE10__dispatchB8ne200100IOZNS0_6__ctorINS0_8__traitsIJNS_9monostateEjdNS_12basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEEENS_6vectorIhNSC_IhEEEEEEEE19__generic_constructB8ne200100IRKNS0_18__copy_constructorISI_LNS0_6_TraitE1EEEEEvRSJ_OT_EUlSS_E_JRKNS0_6__baseILSM_1EJS8_jdSE_SH_EEEEEEDcSR_DpT0_(void **a1, uint64_t *a2)
+uint64_t *_ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm4EEE10__dispatchB8ne200100IOZNS0_6__ctorINS0_8__traitsIJNS_9monostateEjdNS_12basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEEENS_6vectorIhNSC_IhEEEEEEEE19__generic_constructB8ne200100IRKNS0_18__copy_constructorISI_LNS0_6_TraitE1EEEEEvRSJ_OT_EUlSS_E_JRKNS0_6__baseILSM_1EJS8_jdSE_SH_EEEEEEDcSR_DpT0_(uint64_t **a1, uint64_t a2)
 {
   v2 = *a1;
   *v2 = 0;
   v2[1] = 0;
   v2[2] = 0;
-  return std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char *,unsigned char *>(v2, *a2, a2[1], a2[1] - *a2);
+  return std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char *,unsigned char *>(v2, *a2, *(a2 + 8), *(a2 + 8) - *a2);
 }
 
 void std::string::__init_copy_ctor_external(std::string *this, const std::string::value_type *__s, std::string::size_type __sz)
@@ -1633,7 +1633,7 @@ void std::string::__init_copy_ctor_external(std::string *this, const std::string
   memmove(this, __s, v3);
 }
 
-uint64_t std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char *,unsigned char *>(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t *std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char *,unsigned char *>(uint64_t *result, const void *a2, uint64_t a3, uint64_t a4)
 {
   if (a4)
   {
@@ -1655,7 +1655,7 @@ void sub_1AF0558FC(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<unsigned char>::__vallocate[abi:ne200100](uint64_t a1, uint64_t a2)
+void std::vector<unsigned char>::__vallocate[abi:ne200100](uint64_t *a1, uint64_t a2)
 {
   if ((a2 & 0x8000000000000000) == 0)
   {
@@ -1703,8 +1703,8 @@ void std::vector<std::map<std::string,std::variant<std::monostate,unsigned int,d
     {
       do
       {
-        v6 = v4 - 24;
-        std::__tree<std::__value_type<std::string,std::variant<std::monostate,unsigned int,double,std::string,std::vector<unsigned char>>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::variant<std::monostate,unsigned int,double,std::string,std::vector<unsigned char>>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::variant<std::monostate,unsigned int,double,std::string,std::vector<unsigned char>>>>>::destroy((v4 - 24), *(v4 - 2));
+        v6 = v4 - 3;
+        std::__tree<std::__value_type<std::string,std::variant<std::monostate,unsigned int,double,std::string,std::vector<unsigned char>>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::variant<std::monostate,unsigned int,double,std::string,std::vector<unsigned char>>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::variant<std::monostate,unsigned int,double,std::string,std::vector<unsigned char>>>>>::destroy((v4 - 3), *(v4 - 2));
         v4 = v6;
       }
 
@@ -1983,7 +1983,7 @@ void std::__shared_weak_count::__release_shared[abi:ne200100](std::__shared_weak
   }
 }
 
-uint64_t std::__tree<std::__value_type<std::string,std::variant<std::monostate,unsigned int,double,std::string,std::vector<unsigned char>>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::variant<std::monostate,unsigned int,double,std::string,std::vector<unsigned char>>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::variant<std::monostate,unsigned int,double,std::string,std::vector<unsigned char>>>>>::find<std::string>(uint64_t a1, void **a2)
+uint64_t std::__tree<std::__value_type<std::string,std::variant<std::monostate,unsigned int,double,std::string,std::vector<unsigned char>>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::variant<std::monostate,unsigned int,double,std::string,std::vector<unsigned char>>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::variant<std::monostate,unsigned int,double,std::string,std::vector<unsigned char>>>>>::find<std::string>(uint64_t a1, char *a2)
 {
   v2 = a1 + 8;
   v3 = *(a1 + 8);
@@ -2013,7 +2013,7 @@ uint64_t std::__tree<std::__value_type<std::string,std::variant<std::monostate,u
   return v5;
 }
 
-uint64_t std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(void *a1, void **a2)
+uint64_t std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(uint64_t ***a1, char *a2)
 {
   v2 = *(a1 + 23);
   v3 = a1[1];
@@ -2023,7 +2023,7 @@ uint64_t std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocat
     v2 = v3;
   }
 
-  v4 = *(a2 + 23);
+  v4 = a2[23];
   if (v4 >= 0)
   {
     v5 = a2;
@@ -2036,12 +2036,12 @@ uint64_t std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocat
 
   if (v4 >= 0)
   {
-    v6 = *(a2 + 23);
+    v6 = a2[23];
   }
 
   else
   {
-    v6 = a2[1];
+    v6 = *(a2 + 1);
   }
 
   return std::operator<=>[abi:ne200100]<char,std::char_traits<char>>(a1, v2, v5, v6);
@@ -2363,31 +2363,32 @@ void std::__function::__func<CEM::AdaptationDatabaseController::enumerateStringA
 {
   std::string::basic_string[abi:ne200100]<0>(__p, "id");
   v4 = std::__tree<std::__value_type<std::string,std::variant<std::monostate,unsigned int,double,std::string,std::vector<unsigned char>>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::variant<std::monostate,unsigned int,double,std::string,std::vector<unsigned char>>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::variant<std::monostate,unsigned int,double,std::string,std::vector<unsigned char>>>>>::find<std::string>(a2, __p);
-  if (v13 < 0)
+  if (v14 < 0)
   {
     operator delete(__p[0]);
   }
 
   std::string::basic_string[abi:ne200100]<0>(__p, "string");
   v5 = std::__tree<std::__value_type<std::string,std::variant<std::monostate,unsigned int,double,std::string,std::vector<unsigned char>>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::variant<std::monostate,unsigned int,double,std::string,std::vector<unsigned char>>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::variant<std::monostate,unsigned int,double,std::string,std::vector<unsigned char>>>>>::find<std::string>(a2, __p);
-  if (v13 < 0)
+  v6 = v5;
+  if (v14 < 0)
   {
     operator delete(__p[0]);
   }
 
   if (a2 + 8 == v4)
   {
-    adaptation_log = cem_logging_get_adaptation_log();
+    adaptation_log = cem_logging_get_adaptation_log(v5);
     if (os_log_type_enabled(adaptation_log, OS_LOG_TYPE_ERROR))
     {
       std::__function::__func<CEM::AdaptationDatabaseController::enumerateStringAndStringId(std::function<void ()(std::string_view,unsigned int)>)::$_0,std::allocator<CEM::AdaptationDatabaseController::enumerateStringAndStringId(std::function<void ()(std::string_view,unsigned int)>)::$_0>,void ()(std::map<std::string,std::variant<std::monostate,unsigned int,double,std::string,std::vector<unsigned char>>> const&)>::operator()();
     }
   }
 
-  else if (a2 + 8 == v5)
+  else if (a2 + 8 == v6)
   {
-    v9 = cem_logging_get_adaptation_log();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v10 = cem_logging_get_adaptation_log(v5);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       std::__function::__func<CEM::AdaptationDatabaseController::enumerateStringAndStringId(std::function<void ()(std::string_view,unsigned int)>)::$_0,std::allocator<CEM::AdaptationDatabaseController::enumerateStringAndStringId(std::function<void ()(std::string_view,unsigned int)>)::$_0>,void ()(std::map<std::string,std::variant<std::monostate,unsigned int,double,std::string,std::vector<unsigned char>>> const&)>::operator()();
     }
@@ -2395,27 +2396,27 @@ void std::__function::__func<CEM::AdaptationDatabaseController::enumerateStringA
 
   else if (*(v4 + 80) == 1)
   {
-    if (*(v5 + 80) == 3)
+    if (*(v6 + 80) == 3)
     {
-      v6 = *(v5 + 79);
-      if (v6 < 0)
+      v7 = *(v6 + 79);
+      if (v7 < 0)
       {
-        v7 = *(v5 + 56);
-        v6 = *(v5 + 64);
+        v8 = *(v6 + 56);
+        v7 = *(v6 + 64);
       }
 
       else
       {
-        v7 = v5 + 56;
+        v8 = v6 + 56;
       }
 
-      std::function<void ()(std::string_view,unsigned int)>::operator()(*(a1 + 8), v7, v6, *(v4 + 56));
+      std::function<void ()(std::string_view,unsigned int)>::operator()(*(a1 + 8), v8, v7, *(v4 + 56));
     }
 
     else
     {
-      v11 = cem_logging_get_adaptation_log();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      v12 = cem_logging_get_adaptation_log(v5);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
         std::__function::__func<CEM::AdaptationDatabaseController::enumerateStringAndStringId(std::function<void ()(std::string_view,unsigned int)>)::$_0,std::allocator<CEM::AdaptationDatabaseController::enumerateStringAndStringId(std::function<void ()(std::string_view,unsigned int)>)::$_0>,void ()(std::map<std::string,std::variant<std::monostate,unsigned int,double,std::string,std::vector<unsigned char>>> const&)>::operator()();
       }
@@ -2424,8 +2425,8 @@ void std::__function::__func<CEM::AdaptationDatabaseController::enumerateStringA
 
   else
   {
-    v10 = cem_logging_get_adaptation_log();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v11 = cem_logging_get_adaptation_log(v5);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       std::__function::__func<CEM::AdaptationDatabaseController::enumerateStringAndStringId(std::function<void ()(std::string_view,unsigned int)>)::$_0,std::allocator<CEM::AdaptationDatabaseController::enumerateStringAndStringId(std::function<void ()(std::string_view,unsigned int)>)::$_0>,void ()(std::map<std::string,std::variant<std::monostate,unsigned int,double,std::string,std::vector<unsigned char>>> const&)>::operator()();
     }
@@ -2601,7 +2602,7 @@ void sub_1AF056B90(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-_BYTE *std::string::__init_with_size[abi:ne200100]<char const*,char const*>(_BYTE *__dst, _BYTE *__src, _BYTE *a3, unint64_t a4)
+void *std::string::__init_with_size[abi:ne200100]<char const*,char const*>(void *__dst, _BYTE *__src, _BYTE *a3, unint64_t a4)
 {
   if (a4 >= 0x7FFFFFFFFFFFFFF8)
   {
@@ -2614,18 +2615,18 @@ _BYTE *std::string::__init_with_size[abi:ne200100]<char const*,char const*>(_BYT
     operator new();
   }
 
-  __dst[23] = a4;
+  *(__dst + 23) = a4;
   v5 = a3 - __src;
   if (a3 != __src)
   {
     __dst = memmove(__dst, __src, v5);
   }
 
-  v4[v5] = 0;
+  *(v4 + v5) = 0;
   return __dst;
 }
 
-const void **std::__hash_table<std::__hash_value_type<std::string,std::weak_ptr<CEM::AdaptationDatabase>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::weak_ptr<CEM::AdaptationDatabase>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::weak_ptr<CEM::AdaptationDatabase>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::weak_ptr<CEM::AdaptationDatabase>>>>::find<std::string>(void *a1, const void **a2)
+const void **std::__hash_table<std::__hash_value_type<std::string,std::weak_ptr<CEM::AdaptationDatabase>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::weak_ptr<CEM::AdaptationDatabase>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::weak_ptr<CEM::AdaptationDatabase>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::weak_ptr<CEM::AdaptationDatabase>>>>::find<std::string>(void *a1, uint64_t *a2)
 {
   v4 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
   v5 = a1[1];
@@ -2694,9 +2695,9 @@ const void **std::__hash_table<std::__hash_value_type<std::string,std::weak_ptr<
   return i;
 }
 
-unint64_t std::__string_hash<char>::operator()[abi:ne200100](uint64_t a1, uint64_t a2)
+unint64_t std::__string_hash<char>::operator()[abi:ne200100](uint64_t a1, uint64_t *a2)
 {
-  v2 = *(a2 + 8);
+  v2 = a2[1];
   if (*(a2 + 23) >= 0)
   {
     v3 = *(a2 + 23);
@@ -2921,12 +2922,12 @@ void std::__throw_bad_weak_ptr[abi:ne200100]()
   __cxa_throw(exception, MEMORY[0x1E69E53A8], MEMORY[0x1E69E52B8]);
 }
 
-void *std::__shared_ptr_emplace<CEM::AdaptationDatabase>::__shared_ptr_emplace[abi:ne200100]<std::__fs::filesystem::path const&,std::allocator<CEM::AdaptationDatabase>,0>(void *a1, const std::__fs::filesystem::path *a2)
+std::string *std::__shared_ptr_emplace<CEM::AdaptationDatabase>::__shared_ptr_emplace[abi:ne200100]<std::__fs::filesystem::path const&,std::allocator<CEM::AdaptationDatabase>,0>(std::string *a1, const std::__fs::filesystem::path *a2)
 {
-  a1[1] = 0;
-  a1[2] = 0;
-  *a1 = &unk_1F24C83A8;
-  CEM::AdaptationDatabase::AdaptationDatabase((a1 + 3), a2);
+  a1->__r_.__value_.__l.__size_ = 0;
+  a1->__r_.__value_.__r.__words[2] = 0;
+  a1->__r_.__value_.__r.__words[0] = &unk_1F24C83A8;
+  CEM::AdaptationDatabase::AdaptationDatabase(a1 + 1, a2);
   return a1;
 }
 
@@ -2938,35 +2939,35 @@ void std::__shared_ptr_emplace<CEM::AdaptationDatabase>::~__shared_ptr_emplace(s
   JUMPOUT(0x1B2716B00);
 }
 
-const void **std::__hash_table<std::__hash_value_type<std::string,std::weak_ptr<CEM::AdaptationDatabase>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::weak_ptr<CEM::AdaptationDatabase>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::weak_ptr<CEM::AdaptationDatabase>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::weak_ptr<CEM::AdaptationDatabase>>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,std::weak_ptr<CEM::AdaptationDatabase>>>(void *a1, const void **a2)
+const void **std::__hash_table<std::__hash_value_type<std::string,std::weak_ptr<CEM::AdaptationDatabase>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::weak_ptr<CEM::AdaptationDatabase>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::weak_ptr<CEM::AdaptationDatabase>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::weak_ptr<CEM::AdaptationDatabase>>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,std::weak_ptr<CEM::AdaptationDatabase>>>(void *a1, uint64_t *a2, uint64_t a3)
 {
-  v4 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
-  v5 = v4;
-  v6 = a1[1];
-  if (!*&v6)
+  v5 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
+  v6 = v5;
+  v7 = a1[1];
+  if (!*&v7)
   {
     goto LABEL_18;
   }
 
-  v7 = vcnt_s8(v6);
-  v7.i16[0] = vaddlv_u8(v7);
-  v8 = v7.u32[0];
-  if (v7.u32[0] > 1uLL)
+  v8 = vcnt_s8(v7);
+  v8.i16[0] = vaddlv_u8(v8);
+  v9 = v8.u32[0];
+  if (v8.u32[0] > 1uLL)
   {
-    v9 = v4;
-    if (v4 >= *&v6)
+    v10 = v5;
+    if (v5 >= *&v7)
     {
-      v9 = v4 % *&v6;
+      v10 = v5 % *&v7;
     }
   }
 
   else
   {
-    v9 = (*&v6 - 1) & v4;
+    v10 = (*&v7 - 1) & v5;
   }
 
-  v10 = *(*a1 + 8 * v9);
-  if (!v10 || (v11 = *v10) == 0)
+  v11 = *(*a1 + 8 * v10);
+  if (!v11 || (v12 = *v11) == 0)
   {
 LABEL_18:
     std::__hash_table<std::__hash_value_type<std::string,std::weak_ptr<CEM::AdaptationDatabase>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::weak_ptr<CEM::AdaptationDatabase>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::weak_ptr<CEM::AdaptationDatabase>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::weak_ptr<CEM::AdaptationDatabase>>>>::__construct_node_hash<std::pair<std::string const,std::weak_ptr<CEM::AdaptationDatabase>>>();
@@ -2974,54 +2975,54 @@ LABEL_18:
 
   while (1)
   {
-    v12 = v11[1];
-    if (v12 == v5)
+    v13 = v12[1];
+    if (v13 == v6)
     {
       break;
     }
 
-    if (v8 > 1)
+    if (v9 > 1)
     {
-      if (v12 >= *&v6)
+      if (v13 >= *&v7)
       {
-        v12 %= *&v6;
+        v13 %= *&v7;
       }
     }
 
     else
     {
-      v12 &= *&v6 - 1;
+      v13 &= *&v7 - 1;
     }
 
-    if (v12 != v9)
+    if (v13 != v10)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v11 = *v11;
-    if (!v11)
+    v12 = *v12;
+    if (!v12)
     {
       goto LABEL_18;
     }
   }
 
-  if (!std::equal_to<std::string>::operator()[abi:ne200100](a1, v11 + 2, a2))
+  if (!std::equal_to<std::string>::operator()[abi:ne200100](a1, v12 + 2, a2))
   {
     goto LABEL_17;
   }
 
-  return v11;
+  return v12;
 }
 
-void sub_1AF05769C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1AF05769C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,std::weak_ptr<CEM::AdaptationDatabase>>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::string,std::weak_ptr<CEM::AdaptationDatabase>>,void *>>>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-uint64_t std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,std::weak_ptr<CEM::AdaptationDatabase>>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::string,std::weak_ptr<CEM::AdaptationDatabase>>,void *>>>>::~unique_ptr[abi:ne200100](uint64_t a1)
+char **std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,std::weak_ptr<CEM::AdaptationDatabase>>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::string,std::weak_ptr<CEM::AdaptationDatabase>>,void *>>>>::~unique_ptr[abi:ne200100](char **a1)
 {
   v2 = *a1;
   *a1 = 0;
@@ -3058,7 +3059,7 @@ std::string *std::pair<std::string const,std::weak_ptr<CEM::AdaptationDatabase>>
   return this;
 }
 
-void std::__hash_table<std::__hash_value_type<std::string,std::weak_ptr<CEM::AdaptationDatabase>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::weak_ptr<CEM::AdaptationDatabase>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::weak_ptr<CEM::AdaptationDatabase>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::weak_ptr<CEM::AdaptationDatabase>>>>::__rehash<true>(uint64_t a1, size_t __n)
+void std::__hash_table<std::__hash_value_type<std::string,std::weak_ptr<CEM::AdaptationDatabase>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::weak_ptr<CEM::AdaptationDatabase>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::weak_ptr<CEM::AdaptationDatabase>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::weak_ptr<CEM::AdaptationDatabase>>>>::__rehash<true>(uint64_t result, size_t __n)
 {
   if (__n == 1)
   {
@@ -3074,7 +3075,7 @@ void std::__hash_table<std::__hash_value_type<std::string,std::weak_ptr<CEM::Ada
     }
   }
 
-  v4 = *(a1 + 8);
+  v4 = *(result + 8);
   if (prime > *&v4)
   {
     goto LABEL_6;
@@ -3082,7 +3083,7 @@ void std::__hash_table<std::__hash_value_type<std::string,std::weak_ptr<CEM::Ada
 
   if (prime < *&v4)
   {
-    v5 = vcvtps_u32_f32(*(a1 + 24) / *(a1 + 32));
+    v5 = vcvtps_u32_f32(*(result + 24) / *(result + 32));
     if (*&v4 < 3uLL || (v6 = vcnt_s8(v4), v6.i16[0] = vaddlv_u8(v6), v6.u32[0] > 1uLL))
     {
       v5 = std::__next_prime(v5);
@@ -3106,7 +3107,7 @@ void std::__hash_table<std::__hash_value_type<std::string,std::weak_ptr<CEM::Ada
     {
 LABEL_6:
 
-      std::__hash_table<std::__hash_value_type<std::string,std::weak_ptr<CEM::AdaptationDatabase>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::weak_ptr<CEM::AdaptationDatabase>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::weak_ptr<CEM::AdaptationDatabase>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::weak_ptr<CEM::AdaptationDatabase>>>>::__do_rehash<true>(a1, prime);
+      std::__hash_table<std::__hash_value_type<std::string,std::weak_ptr<CEM::AdaptationDatabase>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::weak_ptr<CEM::AdaptationDatabase>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::weak_ptr<CEM::AdaptationDatabase>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::weak_ptr<CEM::AdaptationDatabase>>>>::__do_rehash<true>(result, prime);
     }
   }
 }
@@ -3149,22 +3150,23 @@ void std::__destroy_at[abi:ne200100]<std::pair<std::string const,std::weak_ptr<C
   }
 }
 
-void OUTLINED_FUNCTION_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 2u);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 2u);
 }
 
-id cem_logging_get_default_log()
+id cem_logging_get_default_log(uint64_t a1)
 {
   if (cem_logging_get_default_log_onceToken != -1)
   {
     cem_logging_get_default_log_cold_1();
   }
 
-  v1 = cem_logging_get_default_log_log;
+  v2 = cem_logging_get_default_log_log;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __cem_logging_get_default_log_block_invoke()
@@ -3174,16 +3176,16 @@ uint64_t __cem_logging_get_default_log_block_invoke()
   return MEMORY[0x1EEE66BB8]();
 }
 
-id cem_logging_get_adaptation_log()
+id cem_logging_get_adaptation_log(uint64_t a1)
 {
   if (cem_logging_get_adaptation_log_onceToken != -1)
   {
     cem_logging_get_adaptation_log_cold_1();
   }
 
-  v1 = cem_logging_get_adaptation_log_log;
+  v2 = cem_logging_get_adaptation_log_log;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __cem_logging_get_adaptation_log_block_invoke()
@@ -3193,73 +3195,74 @@ uint64_t __cem_logging_get_adaptation_log_block_invoke()
   return MEMORY[0x1EEE66BB8]();
 }
 
-void log_emoji_string_lookup_error()
+void log_emoji_string_lookup_error(uint64_t a1, uint64_t a2)
 {
-  v0 = emf_logging_get_default_log();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+  v3 = emf_logging_get_default_log(a1);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    log_emoji_string_lookup_error_cold_1();
+    log_emoji_string_lookup_error_cold_1(a2);
   }
 }
 
-void log_emoji_token_creation_error()
+void log_emoji_token_creation_error(uint64_t a1, uint64_t a2)
 {
-  v0 = emf_logging_get_default_log();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+  v3 = emf_logging_get_default_log(a1);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    log_emoji_token_creation_error_cold_1();
+    log_emoji_token_creation_error_cold_1(a2);
   }
 }
 
-id createEmojiTokenMatchesWithMatchingIDsAndEmojiLocaleData(void *a1)
+id createEmojiTokenMatchesWithMatchingIDsAndEmojiLocaleData(void *a1, uint64_t a2)
 {
-  v16 = *MEMORY[0x1E69E9840];
-  v1 = a1;
-  v2 = objc_alloc_init(MEMORY[0x1E695DF70]);
-  v11 = 0u;
+  v17 = *MEMORY[0x1E69E9840];
+  v2 = a1;
+  v3 = objc_alloc_init(MEMORY[0x1E695DF70]);
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v3 = v1;
-  v4 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
-  if (v4)
+  v15 = 0u;
+  v4 = v2;
+  v5 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  if (v5)
   {
-    v5 = v4;
-    v6 = 0;
-    v7 = *v12;
+    v6 = v5;
+    v7 = 0;
+    v8 = *v13;
     do
     {
-      v8 = 0;
-      v9 = v6;
+      v9 = 0;
+      v10 = v7;
       do
       {
-        if (*v12 != v7)
+        if (*v13 != v8)
         {
-          objc_enumerationMutation(v3);
+          objc_enumerationMutation(v4);
         }
 
-        [*(*(&v11 + 1) + 8 * v8) unsignedIntegerValue];
-        v6 = CEMEmojiTokenCreateWithIndex();
+        [*(*(&v12 + 1) + 8 * v9) unsignedIntegerValue];
+        v7 = CEMEmojiTokenCreateWithIndex();
 
-        [v2 addObject:v6];
-        ++v8;
-        v9 = v6;
+        [v3 addObject:v7];
+        ++v9;
+        v10 = v7;
       }
 
-      while (v5 != v8);
-      v5 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      while (v6 != v9);
+      v6 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
-    while (v5);
+    while (v6);
   }
 
-  return v2;
+  return v3;
 }
 
-void OUTLINED_FUNCTION_1_0(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_1_0(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0x12u);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0x12u);
 }
 
 BOOL ___sortAnchorCollection_block_invoke(uint64_t a1, void *a2, void *a3)
@@ -3271,18 +3274,18 @@ BOOL ___sortAnchorCollection_block_invoke(uint64_t a1, void *a2, void *a3)
   return v5 < v6;
 }
 
-void sub_1AF059E58(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_1AF059E58(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1AF05D974(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, void *a6, void *a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, ...)
+void sub_1AF05D974(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, void *a6, void *a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13, void *a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, ...)
 {
-  va_start(va, a14);
+  va_start(va, a21);
   nlp::CFScopedPtr<void const*>::reset(va, 0);
-  nlp::CFScopedPtr<__SecTask *>::reset((v18 - 88), 0);
+  nlp::CFScopedPtr<__SecTask *>::reset((v25 - 88), 0);
 
   _Unwind_Resume(a1);
 }
@@ -3383,16 +3386,16 @@ id _overridePlistForLocaleIdentifierCheckingBothLocations(void *a1, void *a2)
   return v8;
 }
 
-id EMFGetDeviceRegionCode()
+id EMFGetDeviceRegionCode(uint64_t a1)
 {
   if (EMFGetDeviceRegionCode_onceToken[0] != -1)
   {
     EMFGetDeviceRegionCode_cold_1();
   }
 
-  v1 = EMFGetDeviceRegionCode_regionCode;
+  v2 = EMFGetDeviceRegionCode_regionCode;
 
-  return v1;
+  return v2;
 }
 
 void __EMFGetDeviceRegionCode_block_invoke()
@@ -3407,28 +3410,28 @@ void __EMFGetDeviceRegionCode_block_invoke()
   }
 }
 
-uint64_t EMFIsDeviceInGreaterChina()
+uint64_t EMFIsDeviceInGreaterChina(uint64_t a1)
 {
-  v0 = EMFGetDeviceRegionCode();
-  v1 = [MEMORY[0x1E695DF58] currentLocale];
-  v2 = [v1 objectForKey:*MEMORY[0x1E695D978]];
+  v1 = EMFGetDeviceRegionCode(a1);
+  v2 = [MEMORY[0x1E695DF58] currentLocale];
+  v3 = [v2 objectForKey:*MEMORY[0x1E695D978]];
 
-  if ([v0 isEqualToString:@"CH"] & 1) != 0 || (objc_msgSend(v2, "isEqualToString:", @"CN") & 1) != 0 || (objc_msgSend(v2, "isEqualToString:", @"MO"))
+  if ([v1 isEqualToString:@"CH"] & 1) != 0 || (objc_msgSend(v3, "isEqualToString:", @"CN") & 1) != 0 || (objc_msgSend(v3, "isEqualToString:", @"MO"))
   {
-    v3 = 1;
+    v4 = 1;
   }
 
   else
   {
-    v3 = [v2 isEqualToString:@"HK"];
+    v4 = [v3 isEqualToString:@"HK"];
   }
 
-  return v3;
+  return v4;
 }
 
 objc_class *_strategyClassForIndex(void *a1)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v1 = a1;
   v2 = [v1 termIndex];
   v3 = [v2 allKeys];
@@ -3439,33 +3442,34 @@ objc_class *_strategyClassForIndex(void *a1)
   if (objc_opt_isKindOfClass() & 1) != 0 || (objc_opt_class(), (objc_opt_isKindOfClass()))
   {
     v6 = objc_opt_class();
+    v7 = v6;
     if (v6)
     {
-      v7 = emf_logging_get_default_log();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+      v8 = emf_logging_get_default_log(v6);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
       {
-        v8 = NSStringFromClass(v6);
-        v9 = [v1 termIndexURL];
-        v10 = [v1 documentIndexURL];
-        v13 = 138412802;
-        v14 = v8;
-        v15 = 2112;
-        v16 = v9;
-        v17 = 2112;
-        v18 = v10;
-        _os_log_impl(&dword_1AF04E000, v7, OS_LOG_TYPE_INFO, "Using index strategy class: '%@' for index: ('%@', '%@')", &v13, 0x20u);
+        v9 = NSStringFromClass(v7);
+        v10 = [v1 termIndexURL];
+        v11 = [v1 documentIndexURL];
+        v14 = 138412802;
+        v15 = v9;
+        v16 = 2112;
+        v17 = v10;
+        v18 = 2112;
+        v19 = v11;
+        _os_log_impl(&dword_1AF04E000, v8, OS_LOG_TYPE_INFO, "Using index strategy class: '%@' for index: ('%@', '%@')", &v14, 0x20u);
       }
     }
   }
 
   else
   {
-    v6 = 0;
+    v7 = 0;
   }
 
-  v11 = v6;
+  v12 = v7;
 
-  return v6;
+  return v7;
 }
 
 void sub_1AF061958(_Unwind_Exception *a1)
@@ -3482,9 +3486,9 @@ uint64_t __Block_byref_object_copy_(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_1AF06252C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
+void sub_1AF06252C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, ...)
 {
-  va_start(va, a17);
+  va_start(va, a24);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3496,22 +3500,23 @@ uint64_t __Block_byref_object_copy__0(uint64_t result, uint64_t a2)
   return result;
 }
 
-void OUTLINED_FUNCTION_0_1(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0_1(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
-void sub_1AF063990(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_1AF063990(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1AF0648DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_1AF0648DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3533,7 +3538,7 @@ uint64_t CEM::Statement::Statement(uint64_t a1, uint64_t a2, uint64_t a3, uint64
   *(a1 + 56) = 0;
   *(a1 + 64) = 0;
   *(a1 + 72) = 0;
-  std::vector<std::variant<std::monostate,unsigned int,double,std::string,std::vector<unsigned char>>>::__init_with_size[abi:ne200100]<std::variant<std::monostate,unsigned int,double,std::string,std::vector<unsigned char>>*,std::variant<std::monostate,unsigned int,double,std::string,std::vector<unsigned char>>*>(a1 + 56, *a6, a6[1], (a6[1] - *a6) >> 5);
+  std::vector<std::variant<std::monostate,unsigned int,double,std::string,std::vector<unsigned char>>>::__init_with_size[abi:ne200100]<std::variant<std::monostate,unsigned int,double,std::string,std::vector<unsigned char>>*,std::variant<std::monostate,unsigned int,double,std::string,std::vector<unsigned char>>*>((a1 + 56), *a6, a6[1], (a6[1] - *a6) >> 5);
   *(a1 + 80) = 0;
   *(a1 + 88) = 0;
   *(a1 + 96) = 0;
@@ -3715,9 +3720,10 @@ uint64_t CEM::Statement::prepare(CEM::Statement *this)
       }
     }
 
-    if (sqlite3_prepare_v2(result, v4, -1, this + 10, this + 11))
+    v5 = sqlite3_prepare_v2(result, v4, -1, this + 10, this + 11);
+    if (v5)
     {
-      adaptation_log = cem_logging_get_adaptation_log();
+      adaptation_log = cem_logging_get_adaptation_log(v5);
       if (os_log_type_enabled(adaptation_log, OS_LOG_TYPE_ERROR))
       {
         CEM::Statement::prepare(this, v3, adaptation_log);
@@ -3746,19 +3752,19 @@ uint64_t CEM::Statement::bindParameters(CEM::Statement *this)
     v5 = 0;
     while (1)
     {
-      v10 = 1;
-      v9[0] = this;
-      v9[1] = &v10;
-      v9[2] = v5;
+      v11 = 1;
+      v10[0] = this;
+      v10[1] = &v11;
+      v10[2] = v5;
       v6 = *(v1 + v4 + 24);
       if (v6 == -1)
       {
         std::__throw_bad_variant_access[abi:ne200100]();
       }
 
-      v11 = v9;
-      (off_1F24C8488[v6])(&v11);
-      if (v10)
+      v12 = v10;
+      v7 = (off_1F24C8488[v6])(&v12);
+      if (v11)
       {
         break;
       }
@@ -3772,7 +3778,7 @@ uint64_t CEM::Statement::bindParameters(CEM::Statement *this)
       }
     }
 
-    adaptation_log = cem_logging_get_adaptation_log();
+    adaptation_log = cem_logging_get_adaptation_log(v7);
     if (os_log_type_enabled(adaptation_log, OS_LOG_TYPE_ERROR))
     {
       CEM::Statement::bindParameters(v5, this, adaptation_log);
@@ -3853,7 +3859,7 @@ LABEL_19:
     v12 = sqlite3_column_blob(this[10], a2);
     v13 = 0uLL;
     v14 = 0;
-    std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char const*,unsigned char const*>(&v13, v12, v12 + v11, v11);
+    std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char const*,unsigned char const*>(&v13, v12, &v12[v11], v11);
     *a3 = v13;
     *(a3 + 16) = v14;
     v10 = 4;
@@ -3884,7 +3890,7 @@ BOOL CEM::Statement::finalize(sqlite3_stmt **this)
   return v2 == 0;
 }
 
-uint64_t std::vector<std::variant<std::monostate,unsigned int,double,std::string,std::vector<unsigned char>>>::__init_with_size[abi:ne200100]<std::variant<std::monostate,unsigned int,double,std::string,std::vector<unsigned char>>*,std::variant<std::monostate,unsigned int,double,std::string,std::vector<unsigned char>>*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<std::variant<std::monostate,unsigned int,double,std::string,std::vector<unsigned char>>>::__init_with_size[abi:ne200100]<std::variant<std::monostate,unsigned int,double,std::string,std::vector<unsigned char>>*,std::variant<std::monostate,unsigned int,double,std::string,std::vector<unsigned char>>*>(uint64_t *result, uint64_t a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -4008,7 +4014,7 @@ uint64_t std::__variant_detail::__visitation::__base::__dispatcher<4ul>::__dispa
   return result;
 }
 
-uint64_t std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char const*,unsigned char const*>(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t *std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char const*,unsigned char const*>(uint64_t *result, char *a2, char *a3, uint64_t a4)
 {
   if (a4)
   {
@@ -4044,7 +4050,7 @@ void CEM::enumerateSpaceSeparatedTokensWithFullStops(CFStringRef str, CFRange ra
     return;
   }
 
-  CEM::getUTF8StringFromCFString(v5, &v47);
+  CEM::getUTF8StringFromCFString(&v47, v5);
   v44 = 0;
   v45 = 0;
   v46 = 0;
@@ -4331,27 +4337,27 @@ void sub_1AF0666AC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-const __CFString *CEM::getUTF8StringFromCFString@<X0>(const __CFString *this@<X0>, uint64_t a2@<X8>)
+const __CFString *CEM::getUTF8StringFromCFString@<X0>(uint64_t *__return_ptr a1@<X8>, const __CFString *this@<X0>)
 {
   if (this)
   {
-    v4 = this;
+    v3 = this;
     CStringPtr = CFStringGetCStringPtr(this, 0x8000100u);
     if (!CStringPtr)
     {
-      Length = CFStringGetLength(v4);
+      Length = CFStringGetLength(v3);
       CFStringGetMaximumSizeForEncoding(Length, 0x8000100u);
       operator new[]();
     }
 
-    return std::string::basic_string[abi:ne200100]<0>(a2, CStringPtr);
+    return std::string::basic_string[abi:ne200100]<0>(a1, CStringPtr);
   }
 
   else
   {
-    *a2 = 0;
-    *(a2 + 8) = 0;
-    *(a2 + 16) = 0;
+    *a1 = 0;
+    a1[1] = 0;
+    a1[2] = 0;
   }
 
   return this;
@@ -4367,7 +4373,7 @@ BOOL CEM::deviceIsChinese(CEM *this)
   return !CEM::getDeviceRegionCode(void)::__regionCode || CFStringCompare(CEM::getDeviceRegionCode(void)::__regionCode, @"CH", 0) == kCFCompareEqualTo;
 }
 
-BOOL CEM::shouldShowTaiwanFlagEmoji(CEM *this)
+uint64_t CEM::shouldShowTaiwanFlagEmoji(CEM *this)
 {
   if (CEM::shouldShowTaiwanFlagEmoji(void)::onceToken != -1)
   {
@@ -4401,9 +4407,9 @@ BOOL CEM::shouldShowTaiwanFlagEmoji(CEM *this)
   return v1;
 }
 
-void sub_1AF066980(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1AF066980(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   nlp::CFScopedPtr<__CFLocale const*>::reset(va, 0);
   _Unwind_Resume(a1);
 }
@@ -4495,18 +4501,18 @@ LABEL_17:
   return ValueAtIndex;
 }
 
-void sub_1AF066B50(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1AF066B50(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va3, a2);
-  va_start(va2, a2);
-  va_start(va1, a2);
-  va_start(va, a2);
-  v3 = va_arg(va1, const void *);
+  va_start(va3, a3);
+  va_start(va2, a3);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v4 = va_arg(va1, const void *);
   va_copy(va2, va1);
-  v5 = va_arg(va2, const void *);
+  v6 = va_arg(va2, const void *);
   va_copy(va3, va2);
-  v7 = va_arg(va3, const void *);
-  v9 = va_arg(va3, void);
+  v8 = va_arg(va3, const void *);
+  v10 = va_arg(va3, void);
   nlp::CFScopedPtr<__CFArray const*>::reset(va, 0);
   nlp::CFScopedPtr<__CFArray const*>::reset(va1, 0);
   nlp::CFScopedPtr<__CFArray const*>::reset(va2, 0);
@@ -4573,10 +4579,11 @@ CFLocaleRef CEM::createNormalizedLocale(CEM *this, const __CFLocale *a2)
   return v6;
 }
 
-void sub_1AF066D54(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, const void *a9, const void *a10)
+void sub_1AF066D54(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
+  va_start(va, a9);
   nlp::CFScopedPtr<__CFString const*>::reset(&a9, 0);
-  nlp::CFScopedPtr<__CFDictionary const*>::reset(&a10, 0);
+  nlp::CFScopedPtr<__CFDictionary const*>::reset(va, 0);
   _Unwind_Resume(a1);
 }
 
@@ -4613,9 +4620,9 @@ void ___ZN3CEM21createFrameworkBundleEv_block_invoke(uint64_t a1, const __CFStri
   }
 }
 
-void sub_1AF066E88(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1AF066E88(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   nlp::CFScopedPtr<__CFString const*>::reset(va, 0);
   _Unwind_Resume(a1);
 }
@@ -4667,14 +4674,14 @@ CFURLRef CEM::copyResourceURLFromFrameworkBundle(CEM *this, const __CFString *a2
   return v13;
 }
 
-void sub_1AF067004(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1AF067004(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   nlp::CFScopedPtr<__CFBundle *>::reset(va, 0);
   _Unwind_Resume(a1);
 }
 
-void CEM::getUTF16StringFromCFString(const __CFString *this@<X0>, void *a2@<X8>)
+void CEM::getUTF16StringFromCFString(const __CFString *this@<X0>, char *a2@<X8>)
 {
   if (this)
   {
@@ -4684,49 +4691,49 @@ void CEM::getUTF16StringFromCFString(const __CFString *this@<X0>, void *a2@<X8>)
       std::string::__throw_length_error[abi:ne200100]();
     }
 
-    v6 = Length;
+    v5 = Length;
     if (Length >= 0xB)
     {
       if ((Length | 3) == 0xB)
       {
-        v7 = 13;
+        v6 = 13;
       }
 
       else
       {
-        v7 = (Length | 3) + 1;
+        v6 = (Length | 3) + 1;
       }
 
-      std::__allocate_at_least[abi:ne200100]<std::allocator<char16_t>>(a2, v7);
+      std::__allocate_at_least[abi:ne200100]<std::allocator<char16_t>>(a2, v6);
     }
 
-    *(a2 + 23) = Length;
+    a2[23] = Length;
     if (Length)
     {
       memset_pattern16(a2, asc_1AF0ABF10, 2 * Length);
     }
 
-    *(a2 + v6) = 0;
-    if (*(a2 + 23) >= 0)
+    *&a2[2 * v5] = 0;
+    if (a2[23] >= 0)
     {
-      v8 = a2;
+      v7 = a2;
     }
 
     else
     {
-      v8 = *a2;
+      v7 = *a2;
     }
 
-    v9.location = 0;
-    v9.length = v6;
-    CFStringGetCharacters(this, v9, v8);
+    v8.location = 0;
+    v8.length = v5;
+    CFStringGetCharacters(this, v8, v7);
   }
 
   else
   {
     *a2 = 0;
-    a2[1] = 0;
-    a2[2] = 0;
+    *(a2 + 1) = 0;
+    *(a2 + 2) = 0;
   }
 }
 
@@ -4781,9 +4788,9 @@ CFURLRef CEM::copyLibraryKeyboardDirectoryURL(CEM *this)
   return v2;
 }
 
-void sub_1AF0672B4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1AF0672B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   nlp::CFScopedPtr<__CFURL const*>::reset(va, 0);
   _Unwind_Resume(a1);
 }
@@ -4800,9 +4807,9 @@ CFURLRef CEM::copyEmojiAdaptationDatabaseURL(CEM *this)
   return v2;
 }
 
-void sub_1AF067334(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1AF067334(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   nlp::CFScopedPtr<__CFURL const*>::reset(va, 0);
   _Unwind_Resume(a1);
 }
@@ -4888,17 +4895,17 @@ std::allocator<std::string> **std::back_insert_iterator<std::vector<std::string>
     *(a2 + 2) = 0;
     *a2 = 0;
     v8 = 24 * v9 + 24;
-    v15 = *(v4 + 8) - *v4;
+    v15 = *(v4 + 1) - *v4;
     v16 = v13 - v15;
     memcpy((v13 - v15), *v4, v15);
     v17 = *v4;
     *v4 = v16;
     v20.__first_ = v17;
     v20.__begin_ = v17;
-    *(v4 + 8) = v8;
+    *(v4 + 1) = v8;
     v20.__end_ = v17;
-    v18 = *(v4 + 16);
-    *(v4 + 16) = 0;
+    v18 = *(v4 + 2);
+    *(v4 + 2) = 0;
     v20.__end_cap_.__value_ = v18;
     std::__split_buffer<std::string>::~__split_buffer(&v20);
   }
@@ -4908,13 +4915,12 @@ std::allocator<std::string> **std::back_insert_iterator<std::vector<std::string>
     v7 = *a2;
     *(v5 + 16) = *(a2 + 2);
     *v5 = v7;
-    *(a2 + 1) = 0;
-    *(a2 + 2) = 0;
+    *(a2 + 8) = 0uLL;
     *a2 = 0;
     v8 = v5 + 24;
   }
 
-  *(v4 + 8) = v8;
+  *(v4 + 1) = v8;
   return a1;
 }
 
@@ -4973,16 +4979,16 @@ void nlp::CFScopedPtr<__CFBundle *>::reset(const void **a1, const void *a2)
   *a1 = a2;
 }
 
-id emf_signpost_get_log()
+id emf_signpost_get_log(uint64_t a1)
 {
   if (emf_signpost_get_log_onceToken != -1)
   {
     emf_signpost_get_log_cold_1();
   }
 
-  v1 = emf_signpost_get_log_log;
+  v2 = emf_signpost_get_log_log;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __emf_signpost_get_log_block_invoke()
@@ -4992,16 +4998,16 @@ uint64_t __emf_signpost_get_log_block_invoke()
   return MEMORY[0x1EEE66BB8]();
 }
 
-id emf_logging_get_default_log()
+id emf_logging_get_default_log(uint64_t a1)
 {
   if (emf_logging_get_default_log_onceToken != -1)
   {
     emf_logging_get_default_log_cold_1();
   }
 
-  v1 = emf_logging_get_default_log_log;
+  v2 = emf_logging_get_default_log_log;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __emf_logging_get_default_log_block_invoke()
@@ -5011,16 +5017,16 @@ uint64_t __emf_logging_get_default_log_block_invoke()
   return MEMORY[0x1EEE66BB8]();
 }
 
-id emf_logging_get_query_log()
+id emf_logging_get_query_log(uint64_t a1)
 {
   if (emf_logging_get_query_log_onceToken != -1)
   {
     emf_logging_get_query_log_cold_1();
   }
 
-  v1 = emf_logging_get_query_log_log;
+  v2 = emf_logging_get_query_log_log;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __emf_logging_get_query_log_block_invoke()
@@ -5089,9 +5095,9 @@ id _createStemmedTokensForTokenArray(void *a1, void *a2)
   return v6;
 }
 
-void sub_1AF06A3C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1AF06A3C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5127,9 +5133,9 @@ void _enumeratePrefixesInStringUsingBlock(void *a1, void *a2)
 LABEL_6:
 }
 
-void sub_1AF06A718(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_1AF06A718(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
+  va_start(va, a22);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5151,9 +5157,9 @@ uint64_t _searchTypeForEntryMetadata(void *a1)
   return v3;
 }
 
-void sub_1AF06B9A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1AF06B9A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5165,16 +5171,16 @@ uint64_t __Block_byref_object_copy__3(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_1AF06BE0C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1AF06BE0C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 std::string *CEM::AdaptationDatabase::AdaptationDatabase(std::string *this, const std::__fs::filesystem::path *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   if (SHIBYTE(a2->__pn_.__r_.__value_.__r.__words[2]) < 0)
   {
     std::string::__init_copy_ctor_external(this, a2->__pn_.__r_.__value_.__l.__data_, a2->__pn_.__r_.__value_.__l.__size_);
@@ -5199,19 +5205,20 @@ std::string *CEM::AdaptationDatabase::AdaptationDatabase(std::string *this, cons
     v4 = this->__r_.__value_.__r.__words[0];
   }
 
-  if (sqlite3_open_v2(v4, &this[1], 65542, 0))
+  v5 = sqlite3_open_v2(v4, &this[1], 65542, 0);
+  if (v5)
   {
-    adaptation_log = cem_logging_get_adaptation_log();
+    adaptation_log = cem_logging_get_adaptation_log(v5);
     if (os_log_type_enabled(adaptation_log, OS_LOG_TYPE_ERROR))
     {
-      v6 = this;
+      v7 = this;
       if (SHIBYTE(this->__r_.__value_.__r.__words[2]) < 0)
       {
-        v6 = this->__r_.__value_.__r.__words[0];
+        v7 = this->__r_.__value_.__r.__words[0];
       }
 
-      v7 = sqlite3_errmsg(this[1].__r_.__value_.__l.__data_);
-      CEM::AdaptationDatabase::AdaptationDatabase(v6, v7, v10, adaptation_log);
+      v8 = sqlite3_errmsg(this[1].__r_.__value_.__l.__data_);
+      CEM::AdaptationDatabase::AdaptationDatabase(v7, v8, v11, adaptation_log);
     }
 
     this[1].__r_.__value_.__r.__words[0] = 0;
@@ -5219,10 +5226,10 @@ std::string *CEM::AdaptationDatabase::AdaptationDatabase(std::string *this, cons
 
   else
   {
-    v8 = cem_logging_get_adaptation_log();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+    v9 = cem_logging_get_adaptation_log(v5);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
     {
-      CEM::AdaptationDatabase::AdaptationDatabase(&this->__r_.__value_.__r.__words[2] + 7, this, v8);
+      CEM::AdaptationDatabase::AdaptationDatabase(&this->__r_.__value_.__r.__words[2] + 7, this, v9);
     }
   }
 
@@ -5261,10 +5268,10 @@ BOOL CEM::AdaptationDatabase::initializeDatbaseWithSql(CEM::AdaptationDatabase *
   if (v3)
   {
     memset(v8, 0, sizeof(v8));
-    CEM::Statement::Statement(v9, "", 0, a2, a3, v8);
+    CEM::Statement::Statement(v9, "", 0, a2, a3);
     v10 = v8;
     std::vector<std::variant<std::monostate,unsigned int,double,std::string,std::vector<unsigned char>>>::__destroy_vector::operator()[abi:ne200100](&v10);
-    CEM::AdaptationDatabase::executeStatement(a1, v9, v7);
+    CEM::AdaptationDatabase::executeStatement(v7, a1, v9);
     v8[0] = v7;
     std::vector<std::map<std::string,std::variant<std::monostate,unsigned int,double,std::string,std::vector<unsigned char>>>>::__destroy_vector::operator()[abi:ne200100](v8);
     CEM::Statement::~Statement(v9);
@@ -5272,7 +5279,7 @@ BOOL CEM::AdaptationDatabase::initializeDatbaseWithSql(CEM::AdaptationDatabase *
 
   else
   {
-    adaptation_log = cem_logging_get_adaptation_log();
+    adaptation_log = cem_logging_get_adaptation_log(a1);
     if (os_log_type_enabled(adaptation_log, OS_LOG_TYPE_DEBUG))
     {
       CEM::AdaptationDatabase::initializeDatbaseWithSql(adaptation_log);
@@ -5282,29 +5289,30 @@ BOOL CEM::AdaptationDatabase::initializeDatbaseWithSql(CEM::AdaptationDatabase *
   return v3 != 0;
 }
 
-void sub_1AF06C9CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_1AF06C9CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
   CEM::Statement::~Statement(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t CEM::AdaptationDatabase::executeStatement@<X0>(CEM::AdaptationDatabase *this@<X0>, CEM::Statement *a2@<X1>, void *a3@<X8>)
+uint64_t *CEM::AdaptationDatabase::executeStatement@<X0>(uint64_t *__return_ptr a1@<X8>, CEM::AdaptationDatabase *this@<X0>, CEM::Statement *a3@<X1>)
 {
   v4[4] = *MEMORY[0x1E69E9840];
-  *a3 = 0;
-  a3[1] = 0;
-  a3[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   v4[0] = &unk_1F24C8520;
-  v4[1] = a3;
+  v4[1] = a1;
   v4[3] = v4;
-  CEM::AdaptationDatabase::executeStatement(this, a2, v4);
+  CEM::AdaptationDatabase::executeStatement(this, a3, v4);
   return std::__function::__value_func<void ()(std::map<std::string,std::variant<std::monostate,unsigned int,double,std::string,std::vector<unsigned char>>> const&)>::~__value_func[abi:ne200100](v4);
 }
 
-void sub_1AF06CA84(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void **a9, char a10)
+void sub_1AF06CA84(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void **a9, ...)
 {
-  std::__function::__value_func<void ()(std::map<std::string,std::variant<std::monostate,unsigned int,double,std::string,std::vector<unsigned char>>> const&)>::~__value_func[abi:ne200100](&a10);
+  va_start(va, a9);
+  std::__function::__value_func<void ()(std::map<std::string,std::variant<std::monostate,unsigned int,double,std::string,std::vector<unsigned char>>> const&)>::~__value_func[abi:ne200100](va);
   std::vector<std::map<std::string,std::variant<std::monostate,unsigned int,double,std::string,std::vector<unsigned char>>>>::__destroy_vector::operator()[abi:ne200100](&a9);
   _Unwind_Resume(a1);
 }
@@ -5312,35 +5320,35 @@ void sub_1AF06CA84(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 void CEM::AdaptationDatabase::executeStatement(uint64_t a1, CEM::Statement *a2, uint64_t a3)
 {
   std::mutex::lock((a1 + 32));
-  v6 = *(a1 + 24);
-  if (v6)
+  v7 = *(a1 + 24);
+  if (v7)
   {
-    *(a2 + 12) = v6;
+    *(a2 + 12) = v7;
     CEM::Statement::prepare(a2);
     while (CEM::Statement::isValid(a2))
     {
       CEM::Statement::bindParameters(a2);
       while (CEM::Statement::step(a2) && CEM::Statement::hasRows(a2))
       {
-        v14[0] = 0;
-        v14[1] = 0;
-        v13 = v14;
+        v15[0] = 0;
+        v15[1] = 0;
+        v14 = v15;
         if (CEM::Statement::columnSize(a2))
         {
           ColumnNameAtIndex = CEM::Statement::getColumnNameAtIndex(a2, 0);
-          v12 = v7;
-          CEM::Statement::getValueForColumnAtIndex(a2, 0, v10);
-          std::__tree<std::__value_type<std::string,std::variant<std::monostate,unsigned int,double,std::string,std::vector<unsigned char>>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::variant<std::monostate,unsigned int,double,std::string,std::vector<unsigned char>>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::variant<std::monostate,unsigned int,double,std::string,std::vector<unsigned char>>>>>::__emplace_unique_impl<std::string_view const&,std::variant<std::monostate,unsigned int,double,std::string,std::vector<unsigned char>>>();
+          v13 = v8;
+          CEM::Statement::getValueForColumnAtIndex(a2, 0, v11);
+          std::__tree<std::__value_type<std::string,std::variant<std::monostate,unsigned int,double,std::string,std::vector<unsigned char>>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::variant<std::monostate,unsigned int,double,std::string,std::vector<unsigned char>>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::variant<std::monostate,unsigned int,double,std::string,std::vector<unsigned char>>>>>::__emplace_unique_impl<std::string_view const&,std::variant<std::monostate,unsigned int,double,std::string,std::vector<unsigned char>>>(&v14);
         }
 
-        v8 = *(a3 + 24);
-        if (!v8)
+        v9 = *(a3 + 24);
+        if (!v9)
         {
           std::__throw_bad_function_call[abi:ne200100]();
         }
 
-        (*(*v8 + 48))(v8, &v13);
-        std::__tree<std::__value_type<std::string,std::variant<std::monostate,unsigned int,double,std::string,std::vector<unsigned char>>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::variant<std::monostate,unsigned int,double,std::string,std::vector<unsigned char>>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::variant<std::monostate,unsigned int,double,std::string,std::vector<unsigned char>>>>>::destroy(&v13, v14[0]);
+        (*(*v9 + 48))(v9, &v14);
+        std::__tree<std::__value_type<std::string,std::variant<std::monostate,unsigned int,double,std::string,std::vector<unsigned char>>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::variant<std::monostate,unsigned int,double,std::string,std::vector<unsigned char>>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::variant<std::monostate,unsigned int,double,std::string,std::vector<unsigned char>>>>>::destroy(&v14, v15[0]);
       }
 
       CEM::Statement::finalize(a2);
@@ -5350,7 +5358,7 @@ void CEM::AdaptationDatabase::executeStatement(uint64_t a1, CEM::Statement *a2, 
 
   else
   {
-    adaptation_log = cem_logging_get_adaptation_log();
+    adaptation_log = cem_logging_get_adaptation_log(v6);
     if (os_log_type_enabled(adaptation_log, OS_LOG_TYPE_DEBUG))
     {
       CEM::AdaptationDatabase::executeStatement(adaptation_log);
@@ -5400,7 +5408,7 @@ uint64_t std::__function::__func<CEM::AdaptationDatabase::executeStatement(CEM::
   }
 }
 
-uint64_t std::vector<std::map<std::string,std::variant<std::monostate,unsigned int,double,std::string,std::vector<unsigned char>>>>::__emplace_back_slow_path<std::map<std::string,std::variant<std::monostate,unsigned int,double,std::string,std::vector<unsigned char>>> const&>(uint64_t *a1, uint64_t a2)
+uint64_t std::vector<std::map<std::string,std::variant<std::monostate,unsigned int,double,std::string,std::vector<unsigned char>>>>::__emplace_back_slow_path<std::map<std::string,std::variant<std::monostate,unsigned int,double,std::string,std::vector<unsigned char>>> const&>(unint64_t *a1, uint64_t a2)
 {
   v2 = 0xAAAAAAAAAAAAAAABLL * ((a1[1] - *a1) >> 3);
   v3 = v2 + 1;
@@ -5450,9 +5458,9 @@ uint64_t std::vector<std::map<std::string,std::variant<std::monostate,unsigned i
   return v12;
 }
 
-void sub_1AF06CEC0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_1AF06CEC0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<std::map<std::string,std::variant<std::monostate,unsigned int,double,std::string,std::vector<unsigned char>>>>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -5466,7 +5474,7 @@ void *std::map<std::string,std::variant<std::monostate,unsigned int,double,std::
   return a1;
 }
 
-void *std::map<std::string,std::variant<std::monostate,unsigned int,double,std::string,std::vector<unsigned char>>>::insert[abi:ne200100]<std::__map_const_iterator<std::__tree_const_iterator<std::__value_type<std::string,std::variant<std::monostate,unsigned int,double,std::string,std::vector<unsigned char>>>,std::__tree_node<std::__value_type<std::string,std::variant<std::monostate,unsigned int,double,std::string,std::vector<unsigned char>>>,void *> *,long>>>(void *result, void **a2, void **a3)
+uint64_t std::map<std::string,std::variant<std::monostate,unsigned int,double,std::string,std::vector<unsigned char>>>::insert[abi:ne200100]<std::__map_const_iterator<std::__tree_const_iterator<std::__value_type<std::string,std::variant<std::monostate,unsigned int,double,std::string,std::vector<unsigned char>>>,std::__tree_node<std::__value_type<std::string,std::variant<std::monostate,unsigned int,double,std::string,std::vector<unsigned char>>>,void *> *,long>>>(uint64_t result, char *a2, char *a3)
 {
   if (a2 != a3)
   {
@@ -5474,8 +5482,8 @@ void *std::map<std::string,std::variant<std::monostate,unsigned int,double,std::
     v5 = result;
     do
     {
-      result = std::__tree<std::__value_type<std::string,std::variant<std::monostate,unsigned int,double,std::string,std::vector<unsigned char>>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::variant<std::monostate,unsigned int,double,std::string,std::vector<unsigned char>>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::variant<std::monostate,unsigned int,double,std::string,std::vector<unsigned char>>>>>::__emplace_hint_unique_key_args<std::string,std::pair<std::string const,std::variant<std::monostate,unsigned int,double,std::string,std::vector<unsigned char>>> const&>(v5, (v5 + 1), v4 + 4);
-      v6 = v4[1];
+      result = std::__tree<std::__value_type<std::string,std::variant<std::monostate,unsigned int,double,std::string,std::vector<unsigned char>>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::variant<std::monostate,unsigned int,double,std::string,std::vector<unsigned char>>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::variant<std::monostate,unsigned int,double,std::string,std::vector<unsigned char>>>>>::__emplace_hint_unique_key_args<std::string,std::pair<std::string const,std::variant<std::monostate,unsigned int,double,std::string,std::vector<unsigned char>>> const&>(v5, (v5 + 8), v4 + 32, (v4 + 32));
+      v6 = *(v4 + 1);
       if (v6)
       {
         do
@@ -5491,7 +5499,7 @@ void *std::map<std::string,std::variant<std::monostate,unsigned int,double,std::
       {
         do
         {
-          v7 = v4[2];
+          v7 = *(v4 + 2);
           v8 = *v7 == v4;
           v4 = v7;
         }
@@ -5508,21 +5516,21 @@ void *std::map<std::string,std::variant<std::monostate,unsigned int,double,std::
   return result;
 }
 
-void *std::__tree<std::__value_type<std::string,std::variant<std::monostate,unsigned int,double,std::string,std::vector<unsigned char>>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::variant<std::monostate,unsigned int,double,std::string,std::vector<unsigned char>>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::variant<std::monostate,unsigned int,double,std::string,std::vector<unsigned char>>>>>::__emplace_hint_unique_key_args<std::string,std::pair<std::string const,std::variant<std::monostate,unsigned int,double,std::string,std::vector<unsigned char>>> const&>(void *a1, uint64_t a2, void **a3)
+uint64_t std::__tree<std::__value_type<std::string,std::variant<std::monostate,unsigned int,double,std::string,std::vector<unsigned char>>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::variant<std::monostate,unsigned int,double,std::string,std::vector<unsigned char>>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::variant<std::monostate,unsigned int,double,std::string,std::vector<unsigned char>>>>>::__emplace_hint_unique_key_args<std::string,std::pair<std::string const,std::variant<std::monostate,unsigned int,double,std::string,std::vector<unsigned char>>> const&>(uint64_t **a1, uint64_t *a2, char *a3, uint64_t a4)
 {
-  v3 = *std::__tree<std::__value_type<std::string,std::variant<std::monostate,unsigned int,double,std::string,std::vector<unsigned char>>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::variant<std::monostate,unsigned int,double,std::string,std::vector<unsigned char>>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::variant<std::monostate,unsigned int,double,std::string,std::vector<unsigned char>>>>>::__find_equal<std::string>(a1, a2, &v6, &v5, a3);
-  if (!v3)
+  v4 = *std::__tree<std::__value_type<std::string,std::variant<std::monostate,unsigned int,double,std::string,std::vector<unsigned char>>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::variant<std::monostate,unsigned int,double,std::string,std::vector<unsigned char>>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::variant<std::monostate,unsigned int,double,std::string,std::vector<unsigned char>>>>>::__find_equal<std::string>(a1, a2, &v7, &v6, a3);
+  if (!v4)
   {
     std::__tree<std::__value_type<std::string,std::variant<std::monostate,unsigned int,double,std::string,std::vector<unsigned char>>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::variant<std::monostate,unsigned int,double,std::string,std::vector<unsigned char>>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::variant<std::monostate,unsigned int,double,std::string,std::vector<unsigned char>>>>>::__construct_node<std::pair<std::string const,std::variant<std::monostate,unsigned int,double,std::string,std::vector<unsigned char>>> const&>();
   }
 
-  return v3;
+  return v4;
 }
 
-void **std::__tree<std::__value_type<std::string,std::variant<std::monostate,unsigned int,double,std::string,std::vector<unsigned char>>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::variant<std::monostate,unsigned int,double,std::string,std::vector<unsigned char>>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::variant<std::monostate,unsigned int,double,std::string,std::vector<unsigned char>>>>>::__find_equal<std::string>(void *a1, uint64_t a2, void ***a3, uint64_t *a4, void **a5)
+uint64_t *std::__tree<std::__value_type<std::string,std::variant<std::monostate,unsigned int,double,std::string,std::vector<unsigned char>>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::variant<std::monostate,unsigned int,double,std::string,std::vector<unsigned char>>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::variant<std::monostate,unsigned int,double,std::string,std::vector<unsigned char>>>>>::__find_equal<std::string>(uint64_t **a1, uint64_t *a2, char **a3, uint64_t *a4, char *a5)
 {
   v9 = (a1 + 1);
-  if (a1 + 1 == a2 || (std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(a5, (a2 + 32)) & 0x80) != 0)
+  if (a1 + 1 == a2 || (std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(a5, a2 + 32) & 0x80) != 0)
   {
     if (*a1 == a2)
     {
@@ -5565,7 +5573,7 @@ void **std::__tree<std::__value_type<std::string,std::variant<std::monostate,uns
     if (*a2)
     {
       *a3 = v12;
-      return (v12 + 1);
+      return v12 + 1;
     }
 
     else
@@ -5575,18 +5583,18 @@ void **std::__tree<std::__value_type<std::string,std::variant<std::monostate,uns
     }
   }
 
-  if ((std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>((a2 + 32), a5) & 0x80) == 0)
+  if ((std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(a2 + 4, a5) & 0x80) == 0)
   {
     *a3 = a2;
     *a4 = a2;
     return a4;
   }
 
-  a4 = (a2 + 8);
-  v13 = *(a2 + 8);
+  a4 = a2 + 1;
+  v13 = a2[1];
   if (v13)
   {
-    v14 = *(a2 + 8);
+    v14 = a2[1];
     do
     {
       v15 = v14;
@@ -5626,7 +5634,7 @@ LABEL_29:
     return a4;
   }
 
-  if ((std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(a5, v15 + 4) & 0x80) != 0)
+  if ((std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(a5, v15 + 32) & 0x80) != 0)
   {
     v13 = *a4;
     goto LABEL_29;
@@ -5637,7 +5645,7 @@ LABEL_17:
   return std::__tree<std::__value_type<std::string,std::variant<std::monostate,unsigned int,double,std::string,std::vector<unsigned char>>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::variant<std::monostate,unsigned int,double,std::string,std::vector<unsigned char>>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::variant<std::monostate,unsigned int,double,std::string,std::vector<unsigned char>>>>>::__find_equal<std::string>(a1, a3, a5);
 }
 
-uint64_t *std::__tree<std::__value_type<std::string,std::variant<std::monostate,unsigned int,double,std::string,std::vector<unsigned char>>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::variant<std::monostate,unsigned int,double,std::string,std::vector<unsigned char>>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::variant<std::monostate,unsigned int,double,std::string,std::vector<unsigned char>>>>>::__insert_node_at(uint64_t **a1, uint64_t a2, uint64_t **a3, uint64_t *a4)
+uint64_t *std::__tree<std::__value_type<std::string,std::variant<std::monostate,unsigned int,double,std::string,std::vector<unsigned char>>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::variant<std::monostate,unsigned int,double,std::string,std::vector<unsigned char>>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::variant<std::monostate,unsigned int,double,std::string,std::vector<unsigned char>>>>>::__insert_node_at(uint64_t ***a1, uint64_t a2, uint64_t **a3, uint64_t *a4)
 {
   *a4 = 0;
   a4[1] = 0;
@@ -5672,7 +5680,7 @@ uint64_t std::unique_ptr<std::__tree_node<std::__value_type<std::string,std::var
   return a1;
 }
 
-void *std::__tree<std::__value_type<std::string,std::variant<std::monostate,unsigned int,double,std::string,std::vector<unsigned char>>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::variant<std::monostate,unsigned int,double,std::string,std::vector<unsigned char>>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::variant<std::monostate,unsigned int,double,std::string,std::vector<unsigned char>>>>>::__find_equal<std::string>(uint64_t a1, void *a2, void **a3)
+char *std::__tree<std::__value_type<std::string,std::variant<std::monostate,unsigned int,double,std::string,std::vector<unsigned char>>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::variant<std::monostate,unsigned int,double,std::string,std::vector<unsigned char>>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::variant<std::monostate,unsigned int,double,std::string,std::vector<unsigned char>>>>>::__find_equal<std::string>(uint64_t a1, char **a2, uint64_t ***a3)
 {
   v5 = (a1 + 8);
   v4 = *(a1 + 8);
@@ -5683,7 +5691,7 @@ void *std::__tree<std::__value_type<std::string,std::variant<std::monostate,unsi
       while (1)
       {
         v7 = v4;
-        if ((std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(a3, (v4 + 32)) & 0x80) == 0)
+        if ((std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(a3, v4 + 32) & 0x80) == 0)
         {
           break;
         }
@@ -5701,8 +5709,8 @@ void *std::__tree<std::__value_type<std::string,std::variant<std::monostate,unsi
         break;
       }
 
-      v5 = v7 + 1;
-      v4 = v7[1];
+      v5 = v7 + 8;
+      v4 = *(v7 + 1);
     }
 
     while (v4);
@@ -5754,12 +5762,12 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
     do
     {
       v2 = a2[2];
-      if (v2[3])
+      if (*(v2 + 24))
       {
         break;
       }
 
-      v3 = v2[2];
+      v3 = *(v2 + 16);
       v4 = *v3;
       if (*v3 == v2)
       {
@@ -5773,22 +5781,22 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
 
           else
           {
-            v11 = v2[1];
+            v11 = *(v2 + 8);
             v12 = *v11;
-            v2[1] = *v11;
+            *(v2 + 8) = *v11;
             v13 = v2;
             if (v12)
             {
-              v12[2] = v2;
-              v3 = v2[2];
+              *(v12 + 16) = v2;
+              v3 = *(v2 + 16);
               v13 = *v3;
             }
 
-            v11[2] = v3;
+            *(v11 + 16) = v3;
             v3[v13 != v2] = v11;
             *v11 = v2;
-            v2[2] = v11;
-            v3 = v11[2];
+            *(v2 + 16) = v11;
+            v3 = *(v11 + 16);
             v4 = *v3;
           }
 
@@ -5822,13 +5830,13 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
             if (v14)
             {
               *(v14 + 16) = v2;
-              v3 = v2[2];
+              v3 = *(v2 + 16);
             }
 
             v10[2] = v3;
             v3[*v3 != v2] = v10;
             v10[1] = v2;
-            v2[2] = v10;
+            *(v2 + 16) = v10;
             v3 = v10[2];
           }
 
@@ -5983,9 +5991,9 @@ void std::__split_buffer<std::map<std::string,std::variant<std::monostate,unsign
   }
 }
 
-void sub_1AF06D848(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1AF06D848(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__tree_node<std::__value_type<std::string,std::variant<std::monostate,unsigned int,double,std::string,std::vector<unsigned char>>>,void *>,std::__tree_node_destructor<std::allocator<std::__tree_node<std::__value_type<std::string,std::variant<std::monostate,unsigned int,double,std::string,std::vector<unsigned char>>>,void *>>>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -6025,8 +6033,7 @@ __n128 std::__variant_detail::__visitation::__base::__dispatcher<3ul>::__dispatc
   result = *a2;
   v2[1].n128_u64[0] = a2[1].n128_u64[0];
   *v2 = result;
-  a2->n128_u64[1] = 0;
-  a2[1].n128_u64[0] = 0;
+  *(a2 + 8) = 0uLL;
   a2->n128_u64[0] = 0;
   return result;
 }
@@ -6040,15 +6047,14 @@ __n128 std::__variant_detail::__visitation::__base::__dispatcher<4ul>::__dispatc
   result = *a2;
   *v2 = *a2;
   v2[1].n128_u64[0] = a2[1].n128_u64[0];
-  a2->n128_u64[0] = 0;
-  a2->n128_u64[1] = 0;
+  *a2 = 0uLL;
   a2[1].n128_u64[0] = 0;
   return result;
 }
 
-void sub_1AF06DEE0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1AF06DEE0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6060,9 +6066,9 @@ uint64_t __Block_byref_object_copy__4(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_1AF06E05C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1AF06E05C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6080,7 +6086,7 @@ void getEmojiAdaptationDatabasePath(CEM *a1@<X0>, std::string *a2@<X8>)
   v5[2] = v3;
   v4 = CFURLCopyFileSystemPath(v3, kCFURLPOSIXPathStyle);
   v5[1] = v4;
-  v5[0] = unk_1F24E7FD8(v4, "UTF8String");
+  v5[0] = unk_1F24E8038(v4, "UTF8String");
   std::__fs::filesystem::path::path[abi:ne200100]<char const*,void>(a2, v5);
   if (v4)
   {
@@ -6093,16 +6099,16 @@ void getEmojiAdaptationDatabasePath(CEM *a1@<X0>, std::string *a2@<X8>)
   }
 }
 
-void sub_1AF06EDCC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_1AF06EDCC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   nlp::CFScopedPtr<__CFURL const*>::reset(va, 0);
   _Unwind_Resume(a1);
 }
 
-void sub_1AF06EF0C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20)
+void sub_1AF06EF0C(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20)
 {
-  MEMORY[0x1B2716B00](v21, 0x1032C409B631534);
+  MEMORY[0x1B2716B00](v21, 0x1032C409B631534, a3, a4, a5, a6, a7, a8);
   if (a14 < 0)
   {
     operator delete(__p);
@@ -6143,38 +6149,38 @@ void sub_1AF06F408(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_1AF071714(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, void *a22, uint64_t a23, char a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, id a29)
+void sub_1AF071714(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, void *a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, id a29)
 {
   _Block_object_dispose(&a24, 8);
 
   _Unwind_Resume(a1);
 }
 
-void sub_1AF0728BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1AF0728BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
 
   _Unwind_Resume(a1);
 }
 
-void sub_1AF0736BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *a15, uint64_t a16, char a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, id a22)
+void sub_1AF0736BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, id a22)
 {
   _Block_object_dispose(&a17, 8);
 
   _Unwind_Resume(a1);
 }
 
-id EMFGetDeviceBuildVersion(void)
+id EMFGetDeviceBuildVersion(uint64_t a1)
 {
   if (EMFGetDeviceBuildVersion(void)::onceToken != -1)
   {
     EMFGetDeviceBuildVersion();
   }
 
-  v1 = EMFGetDeviceBuildVersion(void)::__buildVersion;
+  v2 = EMFGetDeviceBuildVersion(void)::__buildVersion;
 
-  return v1;
+  return v2;
 }
 
 void ___Z24EMFGetDeviceBuildVersionv_block_invoke()
@@ -6219,7 +6225,7 @@ void sub_1AF074024(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_1AF0745C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13, uint64_t a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
+void sub_1AF0745C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
 {
   objc_sync_exit(v23);
 
@@ -6227,16 +6233,16 @@ void sub_1AF0745C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void sub_1AF07495C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_1AF07495C(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   a9.super_class = EMFEmojiPreferencesService;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
-void sub_1AF074AE0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_1AF074AE0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   nlp::CFScopedPtr<__SecTask *>::reset(va, 0);
 
   _Unwind_Resume(a1);
@@ -6252,7 +6258,7 @@ uint64_t StickersLibraryCore(char **a1)
   return StickersLibraryCore(char **)::frameworkLibrary;
 }
 
-uint64_t ___ZL19StickersLibraryCorePPc_block_invoke()
+uint64_t ___ZL19StickersLibraryCorePPc_block_invoke(uint64_t a1)
 {
   result = _sl_dlopen();
   StickersLibraryCore(char **)::frameworkLibrary = result;
@@ -6286,9 +6292,9 @@ void CEM::AdaptationDatabaseController::~AdaptationDatabaseController(CEM::Adapt
   std::mutex::~mutex(this);
 }
 
-uint64_t std::__hash_table<std::__hash_value_type<std::string,unsigned long>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned long>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned long>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned long>>>::~__hash_table(uint64_t a1)
+void **std::__hash_table<std::__hash_value_type<std::string,unsigned long>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned long>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned long>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned long>>>::~__hash_table(void **a1)
 {
-  std::__hash_table<std::__hash_value_type<std::string,unsigned long>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned long>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned long>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned long>>>::__deallocate_node(a1, *(a1 + 16));
+  std::__hash_table<std::__hash_value_type<std::string,unsigned long>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned long>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned long>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned long>>>::__deallocate_node(a1, a1[2]);
   v2 = *a1;
   *a1 = 0;
   if (v2)
@@ -6320,35 +6326,35 @@ void std::__hash_table<std::__hash_value_type<std::string,unsigned long>,std::__
   }
 }
 
-const void **std::__hash_table<std::__hash_value_type<std::string,unsigned long>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned long>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned long>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned long>>>::__emplace_unique_key_args<std::string,std::string&,long &>(void *a1, const void **a2)
+const void **std::__hash_table<std::__hash_value_type<std::string,unsigned long>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned long>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned long>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned long>>>::__emplace_unique_key_args<std::string,std::string&,long &>(void *a1, uint64_t *a2, uint64_t a3, uint64_t a4)
 {
-  v4 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
-  v5 = v4;
-  v6 = a1[1];
-  if (!*&v6)
+  v6 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
+  v7 = v6;
+  v8 = a1[1];
+  if (!*&v8)
   {
     goto LABEL_18;
   }
 
-  v7 = vcnt_s8(v6);
-  v7.i16[0] = vaddlv_u8(v7);
-  v8 = v7.u32[0];
-  if (v7.u32[0] > 1uLL)
+  v9 = vcnt_s8(v8);
+  v9.i16[0] = vaddlv_u8(v9);
+  v10 = v9.u32[0];
+  if (v9.u32[0] > 1uLL)
   {
-    v9 = v4;
-    if (v4 >= *&v6)
+    v11 = v6;
+    if (v6 >= *&v8)
     {
-      v9 = v4 % *&v6;
+      v11 = v6 % *&v8;
     }
   }
 
   else
   {
-    v9 = (*&v6 - 1) & v4;
+    v11 = (*&v8 - 1) & v6;
   }
 
-  v10 = *(*a1 + 8 * v9);
-  if (!v10 || (v11 = *v10) == 0)
+  v12 = *(*a1 + 8 * v11);
+  if (!v12 || (v13 = *v12) == 0)
   {
 LABEL_18:
     std::__hash_table<std::__hash_value_type<std::string,unsigned long>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned long>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned long>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned long>>>::__construct_node_hash<std::string&,long &>();
@@ -6356,44 +6362,44 @@ LABEL_18:
 
   while (1)
   {
-    v12 = v11[1];
-    if (v12 == v5)
+    v14 = v13[1];
+    if (v14 == v7)
     {
       break;
     }
 
-    if (v8 > 1)
+    if (v10 > 1)
     {
-      if (v12 >= *&v6)
+      if (v14 >= *&v8)
       {
-        v12 %= *&v6;
+        v14 %= *&v8;
       }
     }
 
     else
     {
-      v12 &= *&v6 - 1;
+      v14 &= *&v8 - 1;
     }
 
-    if (v12 != v9)
+    if (v14 != v11)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v11 = *v11;
-    if (!v11)
+    v13 = *v13;
+    if (!v13)
     {
       goto LABEL_18;
     }
   }
 
-  if (!std::equal_to<std::string>::operator()[abi:ne200100](a1, v11 + 2, a2))
+  if (!std::equal_to<std::string>::operator()[abi:ne200100](a1, v13 + 2, a2))
   {
     goto LABEL_17;
   }
 
-  return v11;
+  return v13;
 }
 
 void sub_1AF0753B0(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void **__p, uint64_t a11)
@@ -6596,7 +6602,7 @@ void sub_1AF07602C(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_1AF076C6C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void **a11, void **a12, uint64_t a13, void *a14, uint64_t a15, int a16, __int16 a17, char a18, char a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, char a29, char *a30, uint64_t a31, void *__p, uint64_t a33, int a34, __int16 a35, char a36, char a37)
+void sub_1AF076C6C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void **a11, void **a12, uint64_t a13, void *a14, uint64_t a15, int a16, __int16 a17, char a18, char a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, char *a30, uint64_t a31, void *__p, uint64_t a33, int a34, __int16 a35, char a36, char a37)
 {
   if (a37 < 0)
   {
@@ -7040,9 +7046,9 @@ uint64_t trie::Trie<unsigned short,char16_t,internal::marisa::Cursor>::enumerate
   return std::__function::__value_func<void ()(unsigned short,std::u16string_view,BOOL &)>::~__value_func[abi:ne200100](v5);
 }
 
-void sub_1AF077748(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1AF077748(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__function::__value_func<void ()(unsigned short,std::u16string_view,BOOL &)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -7057,9 +7063,9 @@ uint64_t trie::Trie<unsigned short,char16_t,internal::marisa::Cursor>::enumerate
   return std::__function::__value_func<void ()(unsigned short,std::u16string_view,BOOL &)>::~__value_func[abi:ne200100](v5);
 }
 
-void sub_1AF077804(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1AF077804(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__function::__value_func<void ()(unsigned short,std::u16string_view,BOOL &)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -7172,10 +7178,10 @@ LABEL_14:
   return MEMORY[0x1B2716AA0](&v26);
 }
 
-void sub_1AF077AF4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, void *__p, uint64_t a5, int a6, __int16 a7, char a8, char a9, char a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, ...)
+void sub_1AF077AF4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, void *__p, uint64_t a5, int a6, __int16 a7, char a8, char a9, char a10, uint64_t a11, void *a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, ...)
 {
-  va_start(va, a25);
-  std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::~basic_stringstream(&a10, MEMORY[0x1E69E54D8]);
+  va_start(va, a30);
+  std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::~basic_stringstream(&a15, MEMORY[0x1E69E54D8]);
   MEMORY[0x1B2716AA0](va);
   _Unwind_Resume(a1);
 }
@@ -7205,13 +7211,13 @@ void sub_1AF077B9C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t trie::MarisaTrie<unsigned short,char16_t>::load(uint64_t a1, void *a2, unint64_t a3)
+uint64_t trie::MarisaTrie<unsigned short,char16_t>::load(internal::marisa::grimoire::trie::LoudsTrie **a1, void *a2, unint64_t a3)
 {
   if (a3 >= 0xF)
   {
     if (*a2 == 0x2065766F6C206557 && *(a2 + 7) == 0x2E61736972614D20)
     {
-      internal::marisa::Trie::map((a1 + 16), a2, a3);
+      internal::marisa::Trie::map(a1 + 2, a2, a3);
       return 1;
     }
   }
@@ -7223,9 +7229,9 @@ uint64_t trie::MarisaTrie<unsigned short,char16_t>::load(uint64_t a1, void *a2, 
 
   v7 = a2 + 4;
   v8 = *a2;
-  internal::marisa::Trie::map((a1 + 16), a2 + 4, v8);
-  *(a1 + 24) = &v7[v8];
-  *(a1 + 32) = (a3 - v8 - 4) >> 1;
+  internal::marisa::Trie::map(a1 + 2, a2 + 4, v8);
+  a1[3] = &v7[v8];
+  a1[4] = ((a3 - v8 - 4) >> 1);
   return 1;
 }
 
@@ -7252,9 +7258,9 @@ uint64_t trie::MarisaTrie<unsigned short,char16_t>::enumeratePrefixStrings(uint6
   return std::__function::__value_func<void ()(unsigned long,std::string_view,BOOL &)>::~__value_func[abi:ne200100](v5);
 }
 
-void sub_1AF077D64(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1AF077D64(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__function::__value_func<void ()(unsigned long,std::string_view,BOOL &)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -7270,9 +7276,9 @@ uint64_t trie::MarisaTrie<unsigned short,char16_t>::enumerateCompletions(uint64_
   return std::__function::__value_func<void ()(unsigned long,std::string_view,BOOL &)>::~__value_func[abi:ne200100](v6);
 }
 
-void sub_1AF077E10(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1AF077E10(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__function::__value_func<void ()(unsigned long,std::string_view,BOOL &)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -7302,10 +7308,10 @@ uint64_t trie::MarisaTrie<unsigned short,char16_t>::getPayload(uint64_t *a1, uin
   return payload;
 }
 
-uint64_t trie::MarisaTrie<unsigned short,char16_t>::enumerateEntries(unint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t trie::MarisaTrie<unsigned short,char16_t>::enumerateEntries(std::string **a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   v9[4] = *MEMORY[0x1E69E9840];
-  result = (*(*a1 + 112))(a1);
+  result = ((*a1)[4].__r_.__value_.__r.__words[2])(a1);
   if (result)
   {
     v9[0] = &unk_1F24C8948;
@@ -7319,32 +7325,32 @@ uint64_t trie::MarisaTrie<unsigned short,char16_t>::enumerateEntries(unint64_t *
   return result;
 }
 
-void sub_1AF077FC8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1AF077FC8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__function::__value_func<void ()(unsigned long,std::string_view,BOOL &)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
 uint64_t trie::MarisaTrie<unsigned short,char16_t>::enumerateChildren(uint64_t *a1, uint64_t a2, uint64_t a3)
 {
-  v7[4] = *MEMORY[0x1E69E9840];
+  v8[4] = *MEMORY[0x1E69E9840];
   result = (*(*a1 + 112))(a1);
   if (result)
   {
-    v7[0] = &unk_1F24C89C8;
-    v7[1] = a3;
-    v7[3] = v7;
-    internal::marisa::Trie::enumerate_children(a1 + 2, a2, v7);
-    return std::__function::__value_func<void ()(char,internal::marisa::Cursor const&,BOOL &)>::~__value_func[abi:ne200100](v7);
+    v8[0] = &unk_1F24C89C8;
+    v8[1] = a3;
+    v8[3] = v8;
+    internal::marisa::Trie::enumerate_children(a1 + 2, a2, v8, v7);
+    return std::__function::__value_func<void ()(char,internal::marisa::Cursor const&,BOOL &)>::~__value_func[abi:ne200100](v8);
   }
 
   return result;
 }
 
-void sub_1AF0780A4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1AF0780A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__function::__value_func<void ()(char,internal::marisa::Cursor const&,BOOL &)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -7686,7 +7692,7 @@ uint64_t trie::MarisaTrie<unsigned short,char16_t>::buildFromKeys(uint64_t a1, u
       if (v8 < 0)
       {
         v9 = *v5;
-        v8 = v5[1];
+        v8 = *(v5 + 8);
       }
 
       else
@@ -7752,7 +7758,7 @@ uint64_t trie::MarisaTrie<unsigned short,char16_t>::buildFromKeys(uint64_t a1, u
       }
 
       v23 = v7;
-      v5 += 3;
+      v5 += 24;
     }
 
     while (v5 != v6);
@@ -7821,20 +7827,20 @@ uint64_t trie::MarisaTrie<unsigned short,char16_t>::build(void *a1, uint64_t a2,
   return v8;
 }
 
-void std::vector<unsigned short>::resize(void *a1, unint64_t a2)
+void std::vector<unsigned short>::resize(void *result, unint64_t a2)
 {
-  v2 = (a1[1] - *a1) >> 1;
+  v2 = (result[1] - *result) >> 1;
   if (a2 <= v2)
   {
     if (a2 < v2)
     {
-      a1[1] = *a1 + 2 * a2;
+      result[1] = *result + 2 * a2;
     }
   }
 
   else
   {
-    std::vector<unsigned short>::__append(a1, a2 - v2);
+    std::vector<unsigned short>::__append(result, a2 - v2);
   }
 }
 
@@ -8107,9 +8113,9 @@ void std::__tree<std::__value_type<std::basic_string<char16_t>,unsigned short>,s
   }
 }
 
-uint64_t std::__tree<std::__value_type<std::basic_string<char16_t>,unsigned short>,std::__map_value_compare<std::basic_string<char16_t>,std::__value_type<std::basic_string<char16_t>,unsigned short>,std::less<std::basic_string<char16_t>>,true>,std::allocator<std::__value_type<std::basic_string<char16_t>,unsigned short>>>::__emplace_unique_key_args<std::basic_string<char16_t>,std::basic_string<char16_t> const&,unsigned short>(uint64_t a1, unsigned __int16 *a2)
+void *std::__tree<std::__value_type<std::basic_string<char16_t>,unsigned short>,std::__map_value_compare<std::basic_string<char16_t>,std::__value_type<std::basic_string<char16_t>,unsigned short>,std::less<std::basic_string<char16_t>>,true>,std::allocator<std::__value_type<std::basic_string<char16_t>,unsigned short>>>::__emplace_unique_key_args<std::basic_string<char16_t>,std::basic_string<char16_t> const&,unsigned short>(uint64_t **a1, unsigned __int16 *a2, uint64_t a3, uint64_t a4)
 {
-  result = *std::__tree<std::__value_type<std::basic_string<char16_t>,unsigned short>,std::__map_value_compare<std::basic_string<char16_t>,std::__value_type<std::basic_string<char16_t>,unsigned short>,std::less<std::basic_string<char16_t>>,true>,std::allocator<std::__value_type<std::basic_string<char16_t>,unsigned short>>>::__find_equal<std::basic_string<char16_t>>(a1, &v3, a2);
+  result = *std::__tree<std::__value_type<std::basic_string<char16_t>,unsigned short>,std::__map_value_compare<std::basic_string<char16_t>,std::__value_type<std::basic_string<char16_t>,unsigned short>,std::less<std::basic_string<char16_t>>,true>,std::allocator<std::__value_type<std::basic_string<char16_t>,unsigned short>>>::__find_equal<std::basic_string<char16_t>>(a1, &v5, a2);
   if (!result)
   {
     std::__tree<std::__value_type<std::basic_string<char16_t>,unsigned short>,std::__map_value_compare<std::basic_string<char16_t>,std::__value_type<std::basic_string<char16_t>,unsigned short>,std::less<std::basic_string<char16_t>>,true>,std::allocator<std::__value_type<std::basic_string<char16_t>,unsigned short>>>::__construct_node<std::basic_string<char16_t> const&,unsigned short>();
@@ -8118,7 +8124,7 @@ uint64_t std::__tree<std::__value_type<std::basic_string<char16_t>,unsigned shor
   return result;
 }
 
-unsigned __int16 *std::__tree<std::__value_type<std::basic_string<char16_t>,unsigned short>,std::__map_value_compare<std::basic_string<char16_t>,std::__value_type<std::basic_string<char16_t>,unsigned short>,std::less<std::basic_string<char16_t>>,true>,std::allocator<std::__value_type<std::basic_string<char16_t>,unsigned short>>>::__find_equal<std::basic_string<char16_t>>(uint64_t a1, unsigned __int16 **a2, unsigned __int16 *a3)
+uint64_t *std::__tree<std::__value_type<std::basic_string<char16_t>,unsigned short>,std::__map_value_compare<std::basic_string<char16_t>,std::__value_type<std::basic_string<char16_t>,unsigned short>,std::less<std::basic_string<char16_t>>,true>,std::allocator<std::__value_type<std::basic_string<char16_t>,unsigned short>>>::__find_equal<std::basic_string<char16_t>>(uint64_t a1, unsigned __int16 **a2, unsigned __int16 *a3)
 {
   v5 = (a1 + 8);
   v4 = *(a1 + 8);
@@ -8430,9 +8436,9 @@ BOOL sub_1AF07A9F0(CGImage *a1, double a2, double a3)
   return result;
 }
 
-uint64_t __swift_destroy_boxed_opaque_existential_1(uint64_t a1)
+uint64_t __swift_destroy_boxed_opaque_existential_1(void *a1)
 {
-  v1 = *(*(a1 + 24) - 8);
+  v1 = *(a1[3] - 8);
   if ((*(v1 + 82) & 2) != 0)
   {
   }
@@ -8593,11 +8599,11 @@ LABEL_62:
     goto LABEL_63;
   }
 
-  v85 = a3;
+  v91 = a3;
   v19 = *(v8 + 24);
   v20 = v17;
   v21 = sub_1AF07CD64(a1, a2, v20);
-  v91 = sub_1AF07CED8(v21);
+  v97 = sub_1AF07CED8(v21);
   v23 = v22;
   v24 = CTFontGetSize(v20);
   if ((*&v24 & 0x7FFFFFFFFFFFFFFFuLL) > 0x7FEFFFFFFFFFFFFFLL)
@@ -8621,11 +8627,11 @@ LABEL_65:
     goto LABEL_66;
   }
 
-  v89 = a5;
-  v90 = v23;
-  v86 = Size;
+  v95 = a5;
+  v96 = v23;
+  v92 = Size;
   v25 = v24;
-  v26 = sub_1AF07D248();
+  v26 = sub_1AF07D248(v97, v23);
   v27 = &unk_1E7A71000;
   v28 = [v19 objectForKey_];
   if (v28)
@@ -8634,7 +8640,7 @@ LABEL_65:
 
     if ((a4 & 1) == 0)
     {
-      v57 = 0;
+      v60 = 0;
       goto LABEL_37;
     }
   }
@@ -8642,15 +8648,15 @@ LABEL_65:
   else
   {
     DeviceRGB = CGColorSpaceCreateDeviceRGB();
-    v56 = __CGBitmapContextCreate(v25, v25, DeviceRGB);
+    v59 = __CGBitmapContextCreate(v25, v25, DeviceRGB);
 
-    if (!v56 || (ImageBounds = CTLineGetImageBounds(v21, v56), CGContextTranslateCTM(v56, -ImageBounds.origin.x, -ImageBounds.origin.y), CTLineDraw(v21, v56), Image = CGBitmapContextCreateImage(v56), v56, !Image))
+    if (!v59 || (ImageBounds = CTLineGetImageBounds(v21, v59), CGContextTranslateCTM(v59, -ImageBounds.origin.x, -ImageBounds.origin.y), CTLineDraw(v21, v59), Image = CGBitmapContextCreateImage(v59), v59, !Image))
     {
 
-      *(v89 + 41) = 0u;
-      *(v89 + 16) = 0u;
-      *(v89 + 32) = 0u;
-      *v89 = 0u;
+      *(v95 + 41) = 0u;
+      *(v95 + 16) = 0u;
+      *(v95 + 32) = 0u;
+      *v95 = 0u;
       return;
     }
 
@@ -8658,7 +8664,7 @@ LABEL_65:
 
     if ((a4 & 1) == 0)
     {
-      v57 = 0;
+      v60 = 0;
       goto LABEL_36;
     }
 
@@ -8668,36 +8674,37 @@ LABEL_65:
   v29 = *(v8 + 8);
   if (!*(v29 + 16))
   {
-    v57 = 1;
+    v60 = 1;
     goto LABEL_37;
   }
 
   v30 = v8;
-  v31 = sub_1AF07BB9C(v91, v90);
+  v31 = sub_1AF07BB9C(v97, v96);
   if ((v32 & 1) == 0)
   {
-    v57 = 1;
+    v60 = 1;
 LABEL_36:
     v27 = &unk_1E7A71000;
 LABEL_37:
-    v58 = v20;
-    v59 = sub_1AF07CD64(a1, a2, v58);
-    sub_1AF07CED8(v59);
-    v60 = CTFontGetSize(v58);
-    if ((*&v60 & 0x7FFFFFFFFFFFFFFFuLL) <= 0x7FEFFFFFFFFFFFFFLL)
+    v61 = v20;
+    v62 = sub_1AF07CD64(a1, a2, v61);
+    v63 = sub_1AF07CED8(v62);
+    v65 = v64;
+    v66 = CTFontGetSize(v61);
+    if ((*&v66 & 0x7FFFFFFFFFFFFFFFuLL) <= 0x7FEFFFFFFFFFFFFFLL)
     {
-      if (v60 > -9.22337204e18)
+      if (v66 > -9.22337204e18)
       {
-        if (v60 < 9.22337204e18)
+        if (v66 < 9.22337204e18)
         {
-          v61 = v60;
-          v62 = sub_1AF07D248();
-          v63 = [v19 v27[468]];
-          if (v63)
+          v67 = v66;
+          v68 = sub_1AF07D248(v63, v65);
+          v69 = [v19 v27[468]];
+          if (v69)
           {
-            v64 = v63;
+            v70 = v69;
 
-            if (v57)
+            if (v60)
             {
               goto LABEL_42;
             }
@@ -8705,62 +8712,62 @@ LABEL_37:
 
           else
           {
-            v71 = CGColorSpaceCreateDeviceRGB();
-            v72 = __CGBitmapContextCreate(v61, v61, v71);
+            v77 = CGColorSpaceCreateDeviceRGB();
+            v78 = __CGBitmapContextCreate(v67, v67, v77);
 
-            if (!v72 || (v106 = CTLineGetImageBounds(v59, v72), CGContextTranslateCTM(v72, -v106.origin.x, -v106.origin.y), CTLineDraw(v59, v72), v64 = CGBitmapContextCreateImage(v72), v72, !v64))
+            if (!v78 || (v112 = CTLineGetImageBounds(v62, v78), CGContextTranslateCTM(v78, -v112.origin.x, -v112.origin.y), CTLineDraw(v62, v78), v70 = CGBitmapContextCreateImage(v78), v78, !v70))
             {
 
-              *(v89 + 41) = 0u;
-              *(v89 + 16) = 0u;
-              *(v89 + 32) = 0u;
-              *v89 = 0u;
+              *(v95 + 41) = 0u;
+              *(v95 + 16) = 0u;
+              *(v95 + 32) = 0u;
+              *v95 = 0u;
 
               return;
             }
 
-            [v19 setObject:v64 forKey:v62];
+            [v19 setObject:v70 forKey:v68];
 
             v27 = 0x1FB1B2000;
-            if (v57)
+            if (v60)
             {
 LABEL_42:
-              v65 = sub_1AF07D248();
+              v71 = sub_1AF07D248(v97, v96);
 
-              v66 = v27;
-              v67 = *(v8 + 32);
-              v68 = [v67 v66 + 2680];
-              if (v68)
+              v72 = v27;
+              v73 = *(v8 + 32);
+              v74 = [v73 v72 + 2680];
+              if (v74)
               {
-                v69 = v68;
+                v75 = v74;
 
-                sub_1AF07AB08(v69 + OBJC_IVAR____TtC15EmojiFoundation18CachedImageProfile_value, &v100);
-                v70 = v69;
+                sub_1AF07AB08(v75 + OBJC_IVAR____TtC15EmojiFoundation18CachedImageProfile_value, &v106);
+                v76 = v75;
               }
 
               else
               {
-                sub_1AF07A440(v64, &v100);
+                sub_1AF07A440(v70, &v106);
                 type metadata accessor for CachedImageProfile();
-                sub_1AF07AB08(&v100, &v96);
-                v73 = sub_1AF07A908(&v96);
-                [v67 setObject:v73 forKey:v65];
+                sub_1AF07AB08(&v106, &v102);
+                v79 = sub_1AF07A908(&v102);
+                [v73 setObject:v79 forKey:v71];
 
-                v70 = Image;
+                v76 = Image;
               }
 
-              *v89 = v64;
-              v74 = v101;
-              *(v89 + 8) = v100;
-              *(v89 + 24) = v74;
-              *(v89 + 40) = v102;
-              *(v89 + 56) = v103;
+              *v95 = v70;
+              v80 = v107;
+              *(v95 + 8) = v106;
+              *(v95 + 24) = v80;
+              *(v95 + 40) = v108;
+              *(v95 + 56) = v109;
               return;
             }
           }
 
-          *v89 = v64;
-          sub_1AF07A440(v64, v89 + 8);
+          *v95 = v70;
+          sub_1AF07A440(v70, v95 + 8);
 
           return;
         }
@@ -8783,20 +8790,20 @@ LABEL_66:
   }
 
   v33 = (*(v29 + 56) + (v31 << 6));
-  v101 = v33[1];
-  v100 = *v33;
-  v102 = v33[2];
-  v34 = v86;
-  v103 = v33[3];
-  v35 = *&v101;
-  if (v85)
+  v107 = v33[1];
+  v106 = *v33;
+  v108 = v33[2];
+  v34 = v92;
+  v109 = v33[3];
+  v35 = *&v107;
+  if (v91)
   {
-    v34 = *(&v101 + 1);
+    v34 = *(&v107 + 1);
   }
 
   else
   {
-    v35 = v86;
+    v35 = v92;
   }
 
   v36 = Size * sub_1AF0855F0(v35, v34, a6, a7, a8) * a8;
@@ -8818,18 +8825,18 @@ LABEL_66:
     }
   }
 
-  *(&v97 + 1) = &type metadata for PrecomputedProfile;
-  *&v98 = &off_1F24C8FC0;
+  *(&v103 + 1) = &type metadata for PrecomputedProfile;
+  *&v104 = &off_1F24C8FC0;
   v38 = swift_allocObject();
-  *&v96 = v38;
-  v39 = v101;
-  v38[1] = v100;
+  *&v102 = v38;
+  v39 = v107;
+  v38[1] = v106;
   v38[2] = v39;
-  v40 = v103;
-  v38[3] = v102;
+  v40 = v109;
+  v38[3] = v108;
   v38[4] = v40;
-  v88 = Image;
-  sub_1AF07A578(v88, &v96, 2u, v95);
+  v94 = Image;
+  sub_1AF07A578(v94, &v102, 2u, v101);
   v41 = *(v8 + 16);
   v42 = [objc_allocWithZone(MEMORY[0x1E696AD98]) initWithDouble_];
   v43 = [v41 objectForKey_];
@@ -8842,95 +8849,96 @@ LABEL_66:
 
   v45 = v43;
   v46 = sub_1AF07CD64(a1, a2, v44);
-  sub_1AF07CED8(v46);
-  v47 = CTFontGetSize(v44);
+  v47 = sub_1AF07CED8(v46);
+  v49 = v48;
+  v50 = CTFontGetSize(v44);
 
-  if ((*&v47 & 0x7FFFFFFFFFFFFFFFuLL) > 0x7FEFFFFFFFFFFFFFLL)
+  if ((*&v50 & 0x7FFFFFFFFFFFFFFFuLL) > 0x7FEFFFFFFFFFFFFFLL)
   {
     goto LABEL_69;
   }
 
-  if (v47 <= -9.22337204e18)
+  if (v50 <= -9.22337204e18)
   {
 LABEL_70:
     __break(1u);
     goto LABEL_71;
   }
 
-  if (v47 >= 9.22337204e18)
+  if (v50 >= 9.22337204e18)
   {
 LABEL_71:
     __break(1u);
     return;
   }
 
-  v48 = sub_1AF07D248();
-  v49 = &unk_1E7A71000;
-  v50 = [v19 objectForKey_];
-  if (!v50)
+  v51 = sub_1AF07D248(v47, v49);
+  v52 = &unk_1E7A71000;
+  v53 = [v19 objectForKey_];
+  if (!v53)
   {
-    v75 = CGColorSpaceCreateDeviceRGB();
-    v76 = __CGBitmapContextCreate(v47, v47, v75);
+    v81 = CGColorSpaceCreateDeviceRGB();
+    v82 = __CGBitmapContextCreate(v50, v50, v81);
 
-    if (!v76 || (v107 = CTLineGetImageBounds(v46, v76), CGContextTranslateCTM(v76, -v107.origin.x, -v107.origin.y), CTLineDraw(v46, v76), v50 = CGBitmapContextCreateImage(v76), v76, !v50))
+    if (!v82 || (v113 = CTLineGetImageBounds(v46, v82), CGContextTranslateCTM(v82, -v113.origin.x, -v113.origin.y), CTLineDraw(v46, v82), v53 = CGBitmapContextCreateImage(v82), v82, !v53))
     {
 
-      sub_1AF07AB40(v95);
+      sub_1AF07AB40(v101);
 
-      *(v89 + 41) = 0u;
-      *(v89 + 16) = 0u;
-      *(v89 + 32) = 0u;
-      *v89 = 0u;
+      *(v95 + 41) = 0u;
+      *(v95 + 16) = 0u;
+      *(v95 + 32) = 0u;
+      *v95 = 0u;
       return;
     }
 
-    [v19 setObject:v50 forKey:v48];
-    v49 = &unk_1E7A71000;
+    [v19 setObject:v53 forKey:v51];
+    v52 = &unk_1E7A71000;
   }
 
-  v51 = sub_1AF07D248();
+  v54 = sub_1AF07D248(v97, v96);
 
-  v52 = *(v30 + 32);
-  v53 = [v52 v49[468]];
-  if (v53)
+  v55 = *(v30 + 32);
+  v56 = [v55 v52[468]];
+  if (v56)
   {
-    v54 = v53;
-    sub_1AF07AB40(v95);
+    v57 = v56;
+    sub_1AF07AB40(v101);
 
-    *v89 = v50;
-    sub_1AF07AB08(v54 + OBJC_IVAR____TtC15EmojiFoundation18CachedImageProfile_value, v89 + 8);
+    *v95 = v53;
+    sub_1AF07AB08(v57 + OBJC_IVAR____TtC15EmojiFoundation18CachedImageProfile_value, v95 + 8);
   }
 
   else
   {
-    Width = CGImageGetWidth(v50);
-    Height = CGImageGetHeight(v50);
-    sub_1AF081820(&v96, Width, Height);
-    v92[3] = &type metadata for PrecomputedProfile;
-    v92[4] = &off_1F24C8FC0;
-    v79 = swift_allocObject();
-    v92[0] = v79;
-    v80 = v97;
-    v79[1] = v96;
-    v79[2] = v80;
-    v81 = v99;
-    v79[3] = v98;
-    v79[4] = v81;
-    LOBYTE(Width) = v95[48];
-    v82 = v50;
-    sub_1AF07A578(v82, v92, Width, v93);
+    Width = CGImageGetWidth(v53);
+    Height = CGImageGetHeight(v53);
+    sub_1AF081820(&v102, Width, Height);
+    v98[3] = &type metadata for PrecomputedProfile;
+    v98[4] = &off_1F24C8FC0;
+    v85 = swift_allocObject();
+    v98[0] = v85;
+    v86 = v103;
+    v85[1] = v102;
+    v85[2] = v86;
+    v87 = v105;
+    v85[3] = v104;
+    v85[4] = v87;
+    LOBYTE(Width) = v101[48];
+    v88 = v53;
+    sub_1AF07A578(v88, v98, Width, v99);
     type metadata accessor for CachedImageProfile();
-    sub_1AF07AB08(v93, v92);
-    v83 = sub_1AF07A908(v92);
-    [v52 setObject:v83 forKey:v51];
+    sub_1AF07AB08(v99, v98);
+    v89 = sub_1AF07A908(v98);
+    [v55 setObject:v89 forKey:v54];
 
-    sub_1AF07AB40(v95);
-    *v89 = v82;
-    v84 = v93[1];
-    *(v89 + 8) = v93[0];
-    *(v89 + 24) = v84;
-    *(v89 + 40) = v93[2];
-    *(v89 + 56) = v94;
+    sub_1AF07AB40(v101);
+    *v95 = v88;
+    v90 = v99[1];
+    *(v95 + 8) = v99[0];
+    *(v95 + 24) = v90;
+    *(v95 + 40) = v99[2];
+    *(v95 + 56) = v100;
   }
 }
 
@@ -8965,27 +8973,27 @@ uint64_t sub_1AF07B904()
   return v1;
 }
 
-uint64_t sub_1AF07B940()
+uint64_t sub_1AF07B940(uint64_t a1)
 {
   sub_1AF0A7C70();
   sub_1AF0A7C90();
 }
 
-uint64_t sub_1AF07B994()
+uint64_t sub_1AF07B994(uint64_t a1)
 {
   sub_1AF0A7C70();
   sub_1AF0A7E70();
   sub_1AF0A7C90();
-  v0 = sub_1AF0A7E90();
+  v1 = sub_1AF0A7E90();
 
-  return v0;
+  return v1;
 }
 
-uint64_t sub_1AF07BA08@<X0>(uint64_t *a1@<X8>)
+uint64_t sub_1AF07BA08@<X0>(uint64_t *a2@<X8>)
 {
-  v2 = sub_1AF0A7C40();
+  v3 = sub_1AF0A7C40();
 
-  *a1 = v2;
+  *a2 = v3;
   return result;
 }
 
@@ -8999,28 +9007,28 @@ uint64_t sub_1AF07BA50@<X0>(uint64_t *a1@<X8>)
 
 uint64_t sub_1AF07BA7C(uint64_t a1)
 {
-  v2 = sub_1AF07DAE0(&qword_1EB62D480);
-  v3 = sub_1AF07DAE0(&qword_1EB62D940);
+  v2 = sub_1AF07DAE0(&qword_1EB62D480, &unk_1AF0ACDF4);
+  v3 = sub_1AF07DAE0(&qword_1EB62D940, &unk_1AF0ACD48);
   v4 = MEMORY[0x1E69E6168];
 
   return MEMORY[0x1EEE6ABA0](a1, v2, v3, v4);
 }
 
-uint64_t sub_1AF07BB14()
+uint64_t sub_1AF07BB14(void *a1, uint64_t *a2)
 {
-  v0 = sub_1AF0A7C70();
-  v2 = v1;
-  if (v0 == sub_1AF0A7C70() && v2 == v3)
+  v2 = sub_1AF0A7C70();
+  v4 = v3;
+  if (v2 == sub_1AF0A7C70() && v4 == v5)
   {
-    v5 = 1;
+    v7 = 1;
   }
 
   else
   {
-    v5 = sub_1AF0A7E50();
+    v7 = sub_1AF0A7E50();
   }
 
-  return v5 & 1;
+  return v7 & 1;
 }
 
 unint64_t sub_1AF07BB9C(uint64_t a1, uint64_t a2)
@@ -9146,7 +9154,7 @@ char *sub_1AF07BE64(char *result, int64_t a2, char a3, char *a4)
 
   if (v9)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB62D908);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB62D908, &qword_1AF0ACC50);
     v10 = swift_allocObject();
     v11 = _swift_stdlib_malloc_size(v10);
     v12 = v11 - 32;
@@ -9184,12 +9192,13 @@ char *sub_1AF07BE64(char *result, int64_t a2, char a3, char *a4)
   return v10;
 }
 
-uint64_t sub_1AF07BF68(uint64_t a1, char a2)
+uint64_t sub_1AF07BF68(uint64_t a1, uint64_t a2)
 {
   v3 = v2;
+  v4 = a2;
   v5 = *v2;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB62D8F0);
-  v34 = a2;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB62D8F0, &qword_1AF0ACC38);
+  v34 = v4;
   result = sub_1AF0A7D90();
   v7 = result;
   if (*(v5 + 16))
@@ -9329,7 +9338,7 @@ LABEL_33:
 void *sub_1AF07C224()
 {
   v1 = v0;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB62D8F0);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB62D8F0, &qword_1AF0ACC38);
   v2 = *v0;
   v3 = sub_1AF0A7D80();
   v4 = v3;
@@ -9421,7 +9430,7 @@ LABEL_19:
   return result;
 }
 
-char *sub_1AF07C3B0(char *a1, int64_t a2, char a3)
+char *sub_1AF07C3B0(char *a1, uint64_t a2, uint64_t a3)
 {
   result = sub_1AF07C3D0(a1, a2, a3, *v3);
   *v3 = result;
@@ -9469,7 +9478,7 @@ char *sub_1AF07C3D0(char *result, int64_t a2, char a3, char *a4)
 
   if (v9)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB62D900);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB62D900, &qword_1AF0ACC48);
     v10 = swift_allocObject();
     v11 = _swift_stdlib_malloc_size(v10);
     v12 = v11 - 32;
@@ -9515,7 +9524,7 @@ unint64_t sub_1AF07C4DC(uint64_t a1)
     return MEMORY[0x1E69E7CC8];
   }
 
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB62D8F0);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB62D8F0, &qword_1AF0ACC38);
   v3 = sub_1AF0A7DA0();
 
   v4 = *(a1 + 48);
@@ -9527,7 +9536,7 @@ unint64_t sub_1AF07C4DC(uint64_t a1)
   v28 = *(a1 + 96);
   v7 = *(&v24 + 1);
   v6 = v24;
-  sub_1AF07DA44(&v24, v23, &qword_1EB62D928);
+  sub_1AF07DA44(&v24, v23, &qword_1EB62D928, &qword_1AF0ACC70);
   result = sub_1AF07BB9C(v6, v7);
   if (v9)
   {
@@ -9577,7 +9586,7 @@ LABEL_8:
     v28 = v10[4];
     v7 = *(&v24 + 1);
     v6 = v24;
-    sub_1AF07DA44(&v24, v23, &qword_1EB62D928);
+    sub_1AF07DA44(&v24, v23, &qword_1EB62D928, &qword_1AF0ACC70);
     result = sub_1AF07BB9C(v6, v7);
     v10 = v19;
     if (v22)
@@ -9595,13 +9604,13 @@ unint64_t sub_1AF07C678(uint64_t a1)
   v1 = *(a1 + 16);
   if (v1)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB62D920);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB62D920, &qword_1AF0ACC68);
     v3 = sub_1AF0A7DA0();
     v4 = a1 + 32;
 
     while (1)
     {
-      sub_1AF07DA44(v4, &v11, &qword_1EB62D918);
+      sub_1AF07DA44(v4, &v11, &qword_1EB62D918, &qword_1AF0ACC60);
       v5 = v11;
       result = sub_1AF07BC14(v11);
       if (v7)
@@ -9642,30 +9651,30 @@ LABEL_10:
   return result;
 }
 
-uint64_t sub_1AF07C7A0()
+unint64_t sub_1AF07C7A0(uint64_t a1, uint64_t a2)
 {
-  v0 = sub_1AF07C4DC(MEMORY[0x1E69E7CC0]);
+  v2 = sub_1AF07C4DC(MEMORY[0x1E69E7CC0]);
   sub_1AF0A7BB0();
   swift_allocObject();
   sub_1AF0A7BA0();
   sub_1AF07D764();
   sub_1AF0A7B90();
 
-  v1 = v39;
-  v2 = v40 + 64;
-  v3 = 1 << *(v40 + 32);
-  v4 = -1;
-  if (v3 < 64)
+  v3 = v41;
+  v4 = v42 + 64;
+  v5 = 1 << *(v42 + 32);
+  v6 = -1;
+  if (v5 < 64)
   {
-    v4 = ~(-1 << v3);
+    v6 = ~(-1 << v5);
   }
 
-  v5 = v4 & *(v40 + 64);
-  v6 = (v3 + 63) >> 6;
-  v37 = v40;
+  v7 = v6 & *(v42 + 64);
+  v8 = (v5 + 63) >> 6;
+  v39 = v42;
 
-  v7 = 0;
-  if (v5)
+  v9 = 0;
+  if (v7)
   {
     goto LABEL_6;
   }
@@ -9673,85 +9682,85 @@ uint64_t sub_1AF07C7A0()
   do
   {
 LABEL_7:
-    v10 = v7 + 1;
-    if (__OFADD__(v7, 1))
+    v12 = v9 + 1;
+    if (__OFADD__(v9, 1))
     {
       __break(1u);
       goto LABEL_22;
     }
 
-    if (v10 >= v6)
+    if (v12 >= v8)
     {
 
-      return v0;
+      return v2;
     }
 
-    v5 = *(v2 + 8 * v10);
-    ++v7;
+    v7 = *(v4 + 8 * v12);
+    ++v9;
   }
 
-  while (!v5);
+  while (!v7);
   while (1)
   {
-    v11 = __clz(__rbit64(v5)) | (v10 << 6);
-    v12 = (*(v37 + 48) + 16 * v11);
-    v14 = *v12;
-    v13 = v12[1];
-    v15 = (*(v37 + 56) + 48 * v11);
-    v16 = *v15;
-    v17 = v15[1];
-    v18 = v15[2];
-    v19 = v15[3];
-    v20 = v15[4];
-    v21 = v15[5];
+    v13 = __clz(__rbit64(v7)) | (v12 << 6);
+    v14 = (*(v39 + 48) + 16 * v13);
+    v16 = *v14;
+    v15 = v14[1];
+    v17 = (*(v39 + 56) + 48 * v13);
+    v18 = *v17;
+    v19 = v17[1];
+    v20 = v17[2];
+    v21 = v17[3];
+    v22 = v17[4];
+    v23 = v17[5];
 
-    sub_1AF08180C(&v39, *&v1, *(&v1 + 1), v16, v17, v18, v19, v20, v21);
+    sub_1AF08180C(&v41, *&v3, *(&v3 + 1), v18, v19, v20, v21, v22, v23);
     isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-    v38 = v0;
-    v23 = sub_1AF07BB9C(v14, v13);
-    v25 = *(v0 + 16);
-    v26 = (v24 & 1) == 0;
-    v27 = __OFADD__(v25, v26);
-    v28 = v25 + v26;
-    if (v27)
+    v40 = v2;
+    v25 = sub_1AF07BB9C(v16, v15);
+    v27 = *(v2 + 16);
+    v28 = (v26 & 1) == 0;
+    v29 = __OFADD__(v27, v28);
+    v30 = v27 + v28;
+    if (v29)
     {
       break;
     }
 
-    v29 = v24;
-    if (*(v0 + 24) >= v28)
+    v31 = v26;
+    if (*(v2 + 24) >= v30)
     {
       if ((isUniquelyReferenced_nonNull_native & 1) == 0)
       {
-        v35 = v23;
+        v37 = v25;
         sub_1AF07C224();
-        v23 = v35;
+        v25 = v37;
       }
     }
 
     else
     {
-      sub_1AF07BF68(v28, isUniquelyReferenced_nonNull_native);
-      v23 = sub_1AF07BB9C(v14, v13);
-      if ((v29 & 1) != (v30 & 1))
+      sub_1AF07BF68(v30, isUniquelyReferenced_nonNull_native);
+      v25 = sub_1AF07BB9C(v16, v15);
+      if ((v31 & 1) != (v32 & 1))
       {
         goto LABEL_24;
       }
     }
 
-    v5 &= v5 - 1;
-    if (v29)
+    v7 &= v7 - 1;
+    if (v31)
     {
-      v8 = v23;
+      v10 = v25;
 
-      v0 = v38;
-      v9 = (v38[7] + (v8 << 6));
-      *v9 = v39;
-      v9[1] = v40;
-      v9[2] = v41;
-      v9[3] = v42;
-      v7 = v10;
-      if (!v5)
+      v2 = v40;
+      v11 = (v40[7] + (v10 << 6));
+      *v11 = v41;
+      v11[1] = v42;
+      v11[2] = v43;
+      v11[3] = v44;
+      v9 = v12;
+      if (!v7)
       {
         goto LABEL_7;
       }
@@ -9759,34 +9768,34 @@ LABEL_7:
 
     else
     {
-      v0 = v38;
-      v38[(v23 >> 6) + 8] |= 1 << v23;
-      v31 = (v38[6] + 16 * v23);
-      *v31 = v14;
-      v31[1] = v13;
-      v32 = (v38[7] + (v23 << 6));
-      *v32 = v39;
-      v32[1] = v40;
-      v32[2] = v41;
-      v32[3] = v42;
-      v33 = v38[2];
-      v27 = __OFADD__(v33, 1);
-      v34 = v33 + 1;
-      if (v27)
+      v2 = v40;
+      v40[(v25 >> 6) + 8] |= 1 << v25;
+      v33 = (v40[6] + 16 * v25);
+      *v33 = v16;
+      v33[1] = v15;
+      v34 = (v40[7] + (v25 << 6));
+      *v34 = v41;
+      v34[1] = v42;
+      v34[2] = v43;
+      v34[3] = v44;
+      v35 = v40[2];
+      v29 = __OFADD__(v35, 1);
+      v36 = v35 + 1;
+      if (v29)
       {
         goto LABEL_23;
       }
 
-      v38[2] = v34;
-      v7 = v10;
-      if (!v5)
+      v40[2] = v36;
+      v9 = v12;
+      if (!v7)
       {
         goto LABEL_7;
       }
     }
 
 LABEL_6:
-    v10 = v7;
+    v12 = v9;
   }
 
 LABEL_22:
@@ -9797,74 +9806,4 @@ LABEL_24:
   result = sub_1AF0A7E60();
   __break(1u);
   return result;
-}
-
-void sub_1AF07CACC(void *a1@<X0>, const __CTFont **a2@<X8>)
-{
-  sub_1AF07C4DC(MEMORY[0x1E69E7CC0]);
-  v4 = objc_allocWithZone(MEMORY[0x1E695DEE0]);
-
-  v5 = [v4 init];
-  v6 = objc_allocWithZone(MEMORY[0x1E695DEE0]);
-  v7 = v5;
-  v8 = [v6 init];
-  v9 = objc_allocWithZone(MEMORY[0x1E695DEE0]);
-  v10 = v8;
-  v11 = [v9 init];
-  v12 = a1;
-  v13 = v7;
-  v14 = v10;
-  v15 = v12;
-  v16 = v11;
-  if (sub_1AF0A7CA0() != 4)
-  {
-    goto LABEL_9;
-  }
-
-  v17 = 0;
-  while (1)
-  {
-    v18 = sub_1AF0A7CC0();
-    if ((v18 & 0x10000) != 0)
-    {
-      break;
-    }
-
-    v19 = v17 << 8;
-    v17 = (v17 << 8) + v18;
-    if (__CFADD__(v19, v18))
-    {
-      __break(1u);
-      break;
-    }
-  }
-
-  v20 = CTFontCopyTable(v15, v17, 0);
-  if (v20)
-  {
-    v21 = v20;
-    v22 = sub_1AF0A7BC0();
-    v24 = v23;
-
-    v25 = sub_1AF07C7A0();
-    swift_bridgeObjectRelease_n();
-    sub_1AF07D9F0(v22, v24);
-  }
-
-  else
-  {
-LABEL_9:
-    v25 = sub_1AF07C4DC(MEMORY[0x1E69E7CC0]);
-
-    swift_bridgeObjectRelease_n();
-  }
-
-  v26 = [objc_allocWithZone(MEMORY[0x1E696AD98]) initWithDouble_];
-  [v13 setObject:v15 forKey:v26];
-
-  *a2 = v15;
-  a2[1] = v25;
-  a2[2] = v13;
-  a2[3] = v14;
-  a2[4] = v16;
 }

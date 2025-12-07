@@ -3,9 +3,9 @@
 
 @implementation CSVisualizationArchiver
 
-uint64_t __51___CSVisualizationArchiver_writeAllUnitsWithBlock___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, _BYTE *a6)
+void *__51___CSVisualizationArchiver_writeAllUnitsWithBlock___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, _BYTE *a6)
 {
-  result = [*(a1 + 32) writeAllUnitsInTable:a2 block:*(a1 + 40)];
+  result = [*(a1 + 32) writeAllUnitsInTable:a2 block:{*(a1 + 40), a5}];
   v9 = atomic_load((*(a1 + 32) + 18));
   if (v9)
   {
@@ -129,18 +129,18 @@ id __55___CSVisualizationArchiver_getWriteUnitState_forTable___block_invoke_2(ui
 
 void __141___CSVisualizationArchiver_CSRemoteVisualization__beginProvidingVisualizationArchivesWithMachServiceName_queue_creatingVisualizersWithBlock___block_invoke(uint64_t a1, const void *a2, uint64_t a3)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v6 = CSStore2::GetLog(a1);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v7 = *(a1 + 32);
-    v15 = 138543874;
-    *v16 = v7;
-    *&v16[8] = 2048;
-    *&v16[10] = a2;
-    v17 = 2112;
-    v18 = a3;
-    _os_log_impl(&dword_1B9D5B000, v6, OS_LOG_TYPE_DEFAULT, "Received request for service %{public}@ from connection %p: %@", &v15, 0x20u);
+    v14 = 138543874;
+    *v15 = v7;
+    *&v15[8] = 2048;
+    *&v15[10] = a2;
+    v16 = 2112;
+    v17 = a3;
+    _os_log_impl(&dword_1B9D5B000, v6, OS_LOG_TYPE_DEFAULT, "Received request for service %{public}@ from connection %p: %@", &v14, 0x20u);
   }
 
   v8 = os_transaction_create();
@@ -156,64 +156,59 @@ void __141___CSVisualizationArchiver_CSRemoteVisualization__beginProvidingVisual
     v10 = CSStore2::GetLog(0);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      v12 = *__error();
-      v13 = __error();
-      v14 = strerror(*v13);
-      v15 = 67109378;
-      *v16 = v12;
-      *&v16[4] = 2080;
-      *&v16[6] = v14;
-      _os_log_error_impl(&dword_1B9D5B000, v10, OS_LOG_TYPE_ERROR, "Failed to open file handle for streaming visualization data: %i (%s)", &v15, 0x12u);
+      v11 = *__error();
+      v12 = __error();
+      v13 = strerror(*v12);
+      v14 = 67109378;
+      *v15 = v11;
+      *&v15[4] = 2080;
+      *&v15[6] = v13;
+      _os_log_error_impl(&dword_1B9D5B000, v10, OS_LOG_TYPE_ERROR, "Failed to open file handle for streaming visualization data: %i (%s)", &v14, 0x12u);
     }
   }
 
   softLinklockdown_disconnect(a2);
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
-void __106___CSVisualizationArchiver_CSRemoteVisualization__provideVisualizerToConnection_fileHandle_providerBlock___block_invoke(void *a1)
+void __106___CSVisualizationArchiver_CSRemoteVisualization__provideVisualizerToConnection_fileHandle_providerBlock___block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x1E69E9840];
-  v2 = a1[5];
-  v3 = (*(a1[4] + 16))();
-  if (v3)
+  v12 = *MEMORY[0x1E69E9840];
+  v2 = (*(*(a1 + 32) + 16))();
+  if (v2)
   {
-    v4 = [_CSVisualizationArchiver alloc];
-    v5 = a1[6];
-    v11 = 0;
-    v6 = [(_CSVisualizationArchiver *)v4 initWithVisualizer:v3 fileHandle:v5 closeWhenDone:0 allowCompression:1 error:&v11];
-    v7 = v11;
-    v8 = v7;
-    if (v6)
+    v3 = [_CSVisualizationArchiver alloc];
+    v4 = *(a1 + 48);
+    v9 = 0;
+    v5 = [(_CSVisualizationArchiver *)v3 initWithVisualizer:v2 fileHandle:v4 closeWhenDone:0 allowCompression:1 error:&v9];
+    v6 = v9;
+    v7 = v6;
+    if (v5)
     {
-      [(_CSVisualizationArchiver *)v6 writeAllUnitsWithBlock:0];
-      [(_CSVisualizationArchiver *)v6 finishWriting];
+      [(_CSVisualizationArchiver *)v5 writeAllUnitsWithBlock:0];
+      [(_CSVisualizationArchiver *)v5 finishWriting];
     }
 
     else
     {
-      v9 = CSStore2::GetLog(v7);
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      v8 = CSStore2::GetLog(v6);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
         *buf = 138543362;
-        v13 = v8;
-        _os_log_error_impl(&dword_1B9D5B000, v9, OS_LOG_TYPE_ERROR, "Failed to create _CSVisualizationArchiver for streaming visualization data: %{public}@", buf, 0xCu);
+        v11 = v7;
+        _os_log_error_impl(&dword_1B9D5B000, v8, OS_LOG_TYPE_ERROR, "Failed to create _CSVisualizationArchiver for streaming visualization data: %{public}@", buf, 0xCu);
       }
     }
   }
 
   else
   {
-    v8 = CSStore2::GetLog(0);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+    v7 = CSStore2::GetLog(0);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      _os_log_impl(&dword_1B9D5B000, v8, OS_LOG_TYPE_INFO, "Callback block didn't vend a _CSVisualizer; no data will be returned to the Mac", buf, 2u);
+      _os_log_impl(&dword_1B9D5B000, v7, OS_LOG_TYPE_INFO, "Callback block didn't vend a _CSVisualizer; no data will be returned to the Mac", buf, 2u);
     }
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 @end

@@ -34,7 +34,7 @@
   {
     v6 = equalCopy;
     objc_opt_class();
-    v8 = (objc_opt_isKindOfClass() & 1) != 0 && (v10.receiver = self, v10.super_class = PKStrokeProviderSliceIdentifierConcrete, [(PKStrokeProviderSliceIdentifier *)&v10 isEqual:v6]) && (([(PKStrokeProviderSliceIdentifierConcrete *)self version], !v6) ? (v7 = 0, v11[0] = 0, v11[1] = 0, v12 = 0) : ([(PKStrokeProviderSliceIdentifierConcrete *)v6 version], v7 = v11[0]), v13 == v7 && !uuid_compare(v14, v11 + 4)) && v15 == HIDWORD(v12);
+    v8 = (objc_opt_isKindOfClass() & 1) != 0 && (v10.receiver = self, v10.super_class = PKStrokeProviderSliceIdentifierConcrete, [(PKStrokeProviderSliceIdentifier *)&v10 isEqual:v6]) && ((objc_msgSend_version(self), !v6) ? (v7 = 0, v11[0] = 0, v11[1] = 0, v12 = 0) : (objc_msgSend_version(v6), v7 = v11[0]), v13 == v7 && !uuid_compare(v14, v11 + 4)) && v15 == HIDWORD(v12);
   }
 
   return v8;
@@ -45,7 +45,7 @@
   v5.receiver = self;
   v5.super_class = PKStrokeProviderSliceIdentifierConcrete;
   v3 = [(PKStrokeProviderSliceIdentifier *)&v5 hash];
-  return PKHashBytes(&self->_version, 24) ^ v3;
+  return PKHashBytes(&self->_version, 0x18u) ^ v3;
 }
 
 - (id)description

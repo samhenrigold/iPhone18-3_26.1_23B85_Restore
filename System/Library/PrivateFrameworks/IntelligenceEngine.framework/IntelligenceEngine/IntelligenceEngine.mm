@@ -26,7 +26,7 @@ uint64_t _GLOBAL__sub_I_dialogtypes_cpp()
   return __cxa_atexit(v0, siri::intelligence::ARRAY_SUFFIX, &dword_254C81000);
 }
 
-_BYTE *std::string::basic_string[abi:ne200100]<0>(_BYTE *a1, char *__s)
+void *std::string::basic_string[abi:ne200100]<0>(void *a1, char *__s)
 {
   v4 = strlen(__s);
   if (v4 >= 0x7FFFFFFFFFFFFFF8)
@@ -40,13 +40,13 @@ _BYTE *std::string::basic_string[abi:ne200100]<0>(_BYTE *a1, char *__s)
     operator new();
   }
 
-  a1[23] = v4;
+  *(a1 + 23) = v4;
   if (v4)
   {
     memmove(a1, __s, v4);
   }
 
-  a1[v5] = 0;
+  *(a1 + v5) = 0;
   return a1;
 }
 
@@ -61,25 +61,25 @@ uint64_t _GLOBAL__sub_I_configuration_cpp()
 uint64_t _GLOBAL__sub_I_simplekey_cpp()
 {
   std::string::basic_string[abi:ne200100]<0>(YAML::TokenNames, "DIRECTIVE");
-  std::string::basic_string[abi:ne200100]<0>(&YAML::TokenNames[24], "DOC_START");
-  std::string::basic_string[abi:ne200100]<0>(byte_280AF4FE8, "DOC_END");
-  std::string::basic_string[abi:ne200100]<0>(byte_280AF5000, "BLOCK_SEQ_START");
-  std::string::basic_string[abi:ne200100]<0>(byte_280AF5018, "BLOCK_MAP_START");
-  std::string::basic_string[abi:ne200100]<0>(byte_280AF5030, "BLOCK_SEQ_END");
-  std::string::basic_string[abi:ne200100]<0>(byte_280AF5048, "BLOCK_MAP_END");
-  std::string::basic_string[abi:ne200100]<0>(byte_280AF5060, "BLOCK_ENTRY");
-  std::string::basic_string[abi:ne200100]<0>(byte_280AF5078, "FLOW_SEQ_START");
-  std::string::basic_string[abi:ne200100]<0>(byte_280AF5090, "FLOW_MAP_START");
-  std::string::basic_string[abi:ne200100]<0>(byte_280AF50A8, "FLOW_SEQ_END");
-  std::string::basic_string[abi:ne200100]<0>(byte_280AF50C0, "FLOW_MAP_END");
-  std::string::basic_string[abi:ne200100]<0>(byte_280AF50D8, "FLOW_MAP_COMPACT");
-  std::string::basic_string[abi:ne200100]<0>(byte_280AF50F0, "FLOW_ENTRY");
-  std::string::basic_string[abi:ne200100]<0>(byte_280AF5108, "KEY");
-  std::string::basic_string[abi:ne200100]<0>(byte_280AF5120, "VALUE");
-  std::string::basic_string[abi:ne200100]<0>(byte_280AF5138, "ANCHOR");
-  std::string::basic_string[abi:ne200100]<0>(byte_280AF5150, "ALIAS");
-  std::string::basic_string[abi:ne200100]<0>(byte_280AF5168, "TAG");
-  std::string::basic_string[abi:ne200100]<0>(byte_280AF5180, "SCALAR");
+  std::string::basic_string[abi:ne200100]<0>(&YAML::TokenNames[3], "DOC_START");
+  std::string::basic_string[abi:ne200100]<0>(qword_280AF4FE8, "DOC_END");
+  std::string::basic_string[abi:ne200100]<0>(qword_280AF5000, "BLOCK_SEQ_START");
+  std::string::basic_string[abi:ne200100]<0>(qword_280AF5018, "BLOCK_MAP_START");
+  std::string::basic_string[abi:ne200100]<0>(qword_280AF5030, "BLOCK_SEQ_END");
+  std::string::basic_string[abi:ne200100]<0>(qword_280AF5048, "BLOCK_MAP_END");
+  std::string::basic_string[abi:ne200100]<0>(qword_280AF5060, "BLOCK_ENTRY");
+  std::string::basic_string[abi:ne200100]<0>(qword_280AF5078, "FLOW_SEQ_START");
+  std::string::basic_string[abi:ne200100]<0>(qword_280AF5090, "FLOW_MAP_START");
+  std::string::basic_string[abi:ne200100]<0>(qword_280AF50A8, "FLOW_SEQ_END");
+  std::string::basic_string[abi:ne200100]<0>(qword_280AF50C0, "FLOW_MAP_END");
+  std::string::basic_string[abi:ne200100]<0>(qword_280AF50D8, "FLOW_MAP_COMPACT");
+  std::string::basic_string[abi:ne200100]<0>(qword_280AF50F0, "FLOW_ENTRY");
+  std::string::basic_string[abi:ne200100]<0>(qword_280AF5108, "KEY");
+  std::string::basic_string[abi:ne200100]<0>(qword_280AF5120, "VALUE");
+  std::string::basic_string[abi:ne200100]<0>(qword_280AF5138, "ANCHOR");
+  std::string::basic_string[abi:ne200100]<0>(qword_280AF5150, "ALIAS");
+  std::string::basic_string[abi:ne200100]<0>(qword_280AF5168, "TAG");
+  std::string::basic_string[abi:ne200100]<0>(qword_280AF5180, "SCALAR");
 
   return __cxa_atexit(__cxx_global_array_dtor, 0, &dword_254C81000);
 }
@@ -105,25 +105,25 @@ void sub_254C823BC(_Unwind_Exception *exception_object)
 uint64_t _GLOBAL__sub_I_scantoken_cpp()
 {
   std::string::basic_string[abi:ne200100]<0>(YAML::TokenNames, "DIRECTIVE");
-  std::string::basic_string[abi:ne200100]<0>(&YAML::TokenNames[24], "DOC_START");
-  std::string::basic_string[abi:ne200100]<0>(byte_280AF51C8, "DOC_END");
-  std::string::basic_string[abi:ne200100]<0>(byte_280AF51E0, "BLOCK_SEQ_START");
-  std::string::basic_string[abi:ne200100]<0>(byte_280AF51F8, "BLOCK_MAP_START");
-  std::string::basic_string[abi:ne200100]<0>(byte_280AF5210, "BLOCK_SEQ_END");
-  std::string::basic_string[abi:ne200100]<0>(byte_280AF5228, "BLOCK_MAP_END");
-  std::string::basic_string[abi:ne200100]<0>(byte_280AF5240, "BLOCK_ENTRY");
-  std::string::basic_string[abi:ne200100]<0>(byte_280AF5258, "FLOW_SEQ_START");
-  std::string::basic_string[abi:ne200100]<0>(byte_280AF5270, "FLOW_MAP_START");
-  std::string::basic_string[abi:ne200100]<0>(byte_280AF5288, "FLOW_SEQ_END");
-  std::string::basic_string[abi:ne200100]<0>(byte_280AF52A0, "FLOW_MAP_END");
-  std::string::basic_string[abi:ne200100]<0>(byte_280AF52B8, "FLOW_MAP_COMPACT");
-  std::string::basic_string[abi:ne200100]<0>(byte_280AF52D0, "FLOW_ENTRY");
-  std::string::basic_string[abi:ne200100]<0>(byte_280AF52E8, "KEY");
-  std::string::basic_string[abi:ne200100]<0>(byte_280AF5300, "VALUE");
-  std::string::basic_string[abi:ne200100]<0>(byte_280AF5318, "ANCHOR");
-  std::string::basic_string[abi:ne200100]<0>(byte_280AF5330, "ALIAS");
-  std::string::basic_string[abi:ne200100]<0>(byte_280AF5348, "TAG");
-  std::string::basic_string[abi:ne200100]<0>(byte_280AF5360, "SCALAR");
+  std::string::basic_string[abi:ne200100]<0>(&YAML::TokenNames[3], "DOC_START");
+  std::string::basic_string[abi:ne200100]<0>(qword_280AF51C8, "DOC_END");
+  std::string::basic_string[abi:ne200100]<0>(qword_280AF51E0, "BLOCK_SEQ_START");
+  std::string::basic_string[abi:ne200100]<0>(qword_280AF51F8, "BLOCK_MAP_START");
+  std::string::basic_string[abi:ne200100]<0>(qword_280AF5210, "BLOCK_SEQ_END");
+  std::string::basic_string[abi:ne200100]<0>(qword_280AF5228, "BLOCK_MAP_END");
+  std::string::basic_string[abi:ne200100]<0>(qword_280AF5240, "BLOCK_ENTRY");
+  std::string::basic_string[abi:ne200100]<0>(qword_280AF5258, "FLOW_SEQ_START");
+  std::string::basic_string[abi:ne200100]<0>(qword_280AF5270, "FLOW_MAP_START");
+  std::string::basic_string[abi:ne200100]<0>(qword_280AF5288, "FLOW_SEQ_END");
+  std::string::basic_string[abi:ne200100]<0>(qword_280AF52A0, "FLOW_MAP_END");
+  std::string::basic_string[abi:ne200100]<0>(qword_280AF52B8, "FLOW_MAP_COMPACT");
+  std::string::basic_string[abi:ne200100]<0>(qword_280AF52D0, "FLOW_ENTRY");
+  std::string::basic_string[abi:ne200100]<0>(qword_280AF52E8, "KEY");
+  std::string::basic_string[abi:ne200100]<0>(qword_280AF5300, "VALUE");
+  std::string::basic_string[abi:ne200100]<0>(qword_280AF5318, "ANCHOR");
+  std::string::basic_string[abi:ne200100]<0>(qword_280AF5330, "ALIAS");
+  std::string::basic_string[abi:ne200100]<0>(qword_280AF5348, "TAG");
+  std::string::basic_string[abi:ne200100]<0>(qword_280AF5360, "SCALAR");
 
   return __cxa_atexit(__cxx_global_array_dtor_0, 0, &dword_254C81000);
 }
@@ -157,25 +157,25 @@ uint64_t _GLOBAL__sub_I_behaviorhandler_cpp()
 uint64_t _GLOBAL__sub_I_singledocparser_cpp()
 {
   std::string::basic_string[abi:ne200100]<0>(YAML::TokenNames, "DIRECTIVE");
-  std::string::basic_string[abi:ne200100]<0>(&YAML::TokenNames[24], "DOC_START");
-  std::string::basic_string[abi:ne200100]<0>(byte_280AF53A8, "DOC_END");
-  std::string::basic_string[abi:ne200100]<0>(byte_280AF53C0, "BLOCK_SEQ_START");
-  std::string::basic_string[abi:ne200100]<0>(byte_280AF53D8, "BLOCK_MAP_START");
-  std::string::basic_string[abi:ne200100]<0>(byte_280AF53F0, "BLOCK_SEQ_END");
-  std::string::basic_string[abi:ne200100]<0>(byte_280AF5408, "BLOCK_MAP_END");
-  std::string::basic_string[abi:ne200100]<0>(byte_280AF5420, "BLOCK_ENTRY");
-  std::string::basic_string[abi:ne200100]<0>(byte_280AF5438, "FLOW_SEQ_START");
-  std::string::basic_string[abi:ne200100]<0>(byte_280AF5450, "FLOW_MAP_START");
-  std::string::basic_string[abi:ne200100]<0>(byte_280AF5468, "FLOW_SEQ_END");
-  std::string::basic_string[abi:ne200100]<0>(byte_280AF5480, "FLOW_MAP_END");
-  std::string::basic_string[abi:ne200100]<0>(byte_280AF5498, "FLOW_MAP_COMPACT");
-  std::string::basic_string[abi:ne200100]<0>(byte_280AF54B0, "FLOW_ENTRY");
-  std::string::basic_string[abi:ne200100]<0>(byte_280AF54C8, "KEY");
-  std::string::basic_string[abi:ne200100]<0>(byte_280AF54E0, "VALUE");
-  std::string::basic_string[abi:ne200100]<0>(byte_280AF54F8, "ANCHOR");
-  std::string::basic_string[abi:ne200100]<0>(byte_280AF5510, "ALIAS");
-  std::string::basic_string[abi:ne200100]<0>(byte_280AF5528, "TAG");
-  std::string::basic_string[abi:ne200100]<0>(byte_280AF5540, "SCALAR");
+  std::string::basic_string[abi:ne200100]<0>(&YAML::TokenNames[3], "DOC_START");
+  std::string::basic_string[abi:ne200100]<0>(qword_280AF53A8, "DOC_END");
+  std::string::basic_string[abi:ne200100]<0>(qword_280AF53C0, "BLOCK_SEQ_START");
+  std::string::basic_string[abi:ne200100]<0>(qword_280AF53D8, "BLOCK_MAP_START");
+  std::string::basic_string[abi:ne200100]<0>(qword_280AF53F0, "BLOCK_SEQ_END");
+  std::string::basic_string[abi:ne200100]<0>(qword_280AF5408, "BLOCK_MAP_END");
+  std::string::basic_string[abi:ne200100]<0>(qword_280AF5420, "BLOCK_ENTRY");
+  std::string::basic_string[abi:ne200100]<0>(qword_280AF5438, "FLOW_SEQ_START");
+  std::string::basic_string[abi:ne200100]<0>(qword_280AF5450, "FLOW_MAP_START");
+  std::string::basic_string[abi:ne200100]<0>(qword_280AF5468, "FLOW_SEQ_END");
+  std::string::basic_string[abi:ne200100]<0>(qword_280AF5480, "FLOW_MAP_END");
+  std::string::basic_string[abi:ne200100]<0>(qword_280AF5498, "FLOW_MAP_COMPACT");
+  std::string::basic_string[abi:ne200100]<0>(qword_280AF54B0, "FLOW_ENTRY");
+  std::string::basic_string[abi:ne200100]<0>(qword_280AF54C8, "KEY");
+  std::string::basic_string[abi:ne200100]<0>(qword_280AF54E0, "VALUE");
+  std::string::basic_string[abi:ne200100]<0>(qword_280AF54F8, "ANCHOR");
+  std::string::basic_string[abi:ne200100]<0>(qword_280AF5510, "ALIAS");
+  std::string::basic_string[abi:ne200100]<0>(qword_280AF5528, "TAG");
+  std::string::basic_string[abi:ne200100]<0>(qword_280AF5540, "SCALAR");
 
   return __cxa_atexit(__cxx_global_array_dtor_1, 0, &dword_254C81000);
 }
@@ -215,25 +215,25 @@ uint64_t _GLOBAL__sub_I_memoryclass_cpp()
 uint64_t _GLOBAL__sub_I_scanner_cpp()
 {
   std::string::basic_string[abi:ne200100]<0>(YAML::TokenNames, "DIRECTIVE");
-  std::string::basic_string[abi:ne200100]<0>(&YAML::TokenNames[24], "DOC_START");
-  std::string::basic_string[abi:ne200100]<0>(byte_280AF5588, "DOC_END");
-  std::string::basic_string[abi:ne200100]<0>(byte_280AF55A0, "BLOCK_SEQ_START");
-  std::string::basic_string[abi:ne200100]<0>(byte_280AF55B8, "BLOCK_MAP_START");
-  std::string::basic_string[abi:ne200100]<0>(byte_280AF55D0, "BLOCK_SEQ_END");
-  std::string::basic_string[abi:ne200100]<0>(byte_280AF55E8, "BLOCK_MAP_END");
-  std::string::basic_string[abi:ne200100]<0>(byte_280AF5600, "BLOCK_ENTRY");
-  std::string::basic_string[abi:ne200100]<0>(byte_280AF5618, "FLOW_SEQ_START");
-  std::string::basic_string[abi:ne200100]<0>(byte_280AF5630, "FLOW_MAP_START");
-  std::string::basic_string[abi:ne200100]<0>(byte_280AF5648, "FLOW_SEQ_END");
-  std::string::basic_string[abi:ne200100]<0>(byte_280AF5660, "FLOW_MAP_END");
-  std::string::basic_string[abi:ne200100]<0>(byte_280AF5678, "FLOW_MAP_COMPACT");
-  std::string::basic_string[abi:ne200100]<0>(byte_280AF5690, "FLOW_ENTRY");
-  std::string::basic_string[abi:ne200100]<0>(byte_280AF56A8, "KEY");
-  std::string::basic_string[abi:ne200100]<0>(byte_280AF56C0, "VALUE");
-  std::string::basic_string[abi:ne200100]<0>(byte_280AF56D8, "ANCHOR");
-  std::string::basic_string[abi:ne200100]<0>(byte_280AF56F0, "ALIAS");
-  std::string::basic_string[abi:ne200100]<0>(byte_280AF5708, "TAG");
-  std::string::basic_string[abi:ne200100]<0>(byte_280AF5720, "SCALAR");
+  std::string::basic_string[abi:ne200100]<0>(&YAML::TokenNames[3], "DOC_START");
+  std::string::basic_string[abi:ne200100]<0>(qword_280AF5588, "DOC_END");
+  std::string::basic_string[abi:ne200100]<0>(qword_280AF55A0, "BLOCK_SEQ_START");
+  std::string::basic_string[abi:ne200100]<0>(qword_280AF55B8, "BLOCK_MAP_START");
+  std::string::basic_string[abi:ne200100]<0>(qword_280AF55D0, "BLOCK_SEQ_END");
+  std::string::basic_string[abi:ne200100]<0>(qword_280AF55E8, "BLOCK_MAP_END");
+  std::string::basic_string[abi:ne200100]<0>(qword_280AF5600, "BLOCK_ENTRY");
+  std::string::basic_string[abi:ne200100]<0>(qword_280AF5618, "FLOW_SEQ_START");
+  std::string::basic_string[abi:ne200100]<0>(qword_280AF5630, "FLOW_MAP_START");
+  std::string::basic_string[abi:ne200100]<0>(qword_280AF5648, "FLOW_SEQ_END");
+  std::string::basic_string[abi:ne200100]<0>(qword_280AF5660, "FLOW_MAP_END");
+  std::string::basic_string[abi:ne200100]<0>(qword_280AF5678, "FLOW_MAP_COMPACT");
+  std::string::basic_string[abi:ne200100]<0>(qword_280AF5690, "FLOW_ENTRY");
+  std::string::basic_string[abi:ne200100]<0>(qword_280AF56A8, "KEY");
+  std::string::basic_string[abi:ne200100]<0>(qword_280AF56C0, "VALUE");
+  std::string::basic_string[abi:ne200100]<0>(qword_280AF56D8, "ANCHOR");
+  std::string::basic_string[abi:ne200100]<0>(qword_280AF56F0, "ALIAS");
+  std::string::basic_string[abi:ne200100]<0>(qword_280AF5708, "TAG");
+  std::string::basic_string[abi:ne200100]<0>(qword_280AF5720, "SCALAR");
 
   return __cxa_atexit(__cxx_global_array_dtor_2, 0, &dword_254C81000);
 }
@@ -266,83 +266,83 @@ uint64_t _GLOBAL__sub_I_validator_cpp()
 
 uint64_t _GLOBAL__sub_I_validationresult_cpp()
 {
-  std::string::basic_string[abi:ne200100]<0>(&siri::intelligence::CODE_NO_VERSION, "no-version");
+  std::string::basic_string[abi:ne200100]<0>(siri::intelligence::CODE_NO_VERSION, "no-version");
   v0 = MEMORY[0x277D82640];
-  __cxa_atexit(MEMORY[0x277D82640], &siri::intelligence::CODE_NO_VERSION, &dword_254C81000);
-  std::string::basic_string[abi:ne200100]<0>(&siri::intelligence::CODE_NO_META_NAME, "no-meta-name");
-  __cxa_atexit(v0, &siri::intelligence::CODE_NO_META_NAME, &dword_254C81000);
-  std::string::basic_string[abi:ne200100]<0>(&siri::intelligence::CODE_NO_VAR_NAME, "no-var-name");
-  __cxa_atexit(v0, &siri::intelligence::CODE_NO_VAR_NAME, &dword_254C81000);
-  std::string::basic_string[abi:ne200100]<0>(&siri::intelligence::CODE_NO_VAR_TYPE, "no-var-type");
-  __cxa_atexit(v0, &siri::intelligence::CODE_NO_VAR_TYPE, &dword_254C81000);
-  std::string::basic_string[abi:ne200100]<0>(&siri::intelligence::CODE_NO_PARAM, "no-param");
-  __cxa_atexit(v0, &siri::intelligence::CODE_NO_PARAM, &dword_254C81000);
+  __cxa_atexit(MEMORY[0x277D82640], siri::intelligence::CODE_NO_VERSION, &dword_254C81000);
+  std::string::basic_string[abi:ne200100]<0>(siri::intelligence::CODE_NO_META_NAME, "no-meta-name");
+  __cxa_atexit(v0, siri::intelligence::CODE_NO_META_NAME, &dword_254C81000);
+  std::string::basic_string[abi:ne200100]<0>(siri::intelligence::CODE_NO_VAR_NAME, "no-var-name");
+  __cxa_atexit(v0, siri::intelligence::CODE_NO_VAR_NAME, &dword_254C81000);
+  std::string::basic_string[abi:ne200100]<0>(siri::intelligence::CODE_NO_VAR_TYPE, "no-var-type");
+  __cxa_atexit(v0, siri::intelligence::CODE_NO_VAR_TYPE, &dword_254C81000);
+  std::string::basic_string[abi:ne200100]<0>(siri::intelligence::CODE_NO_PARAM, "no-param");
+  __cxa_atexit(v0, siri::intelligence::CODE_NO_PARAM, &dword_254C81000);
   std::string::basic_string[abi:ne200100]<0>(siri::intelligence::CODE_NO_CATI_NAME, "no-cati-name");
   __cxa_atexit(v0, siri::intelligence::CODE_NO_CATI_NAME, &dword_254C81000);
   std::string::basic_string[abi:ne200100]<0>(siri::intelligence::CODE_NO_CATI_GUID, "no-cati-guid");
   __cxa_atexit(v0, siri::intelligence::CODE_NO_CATI_GUID, &dword_254C81000);
   std::string::basic_string[abi:ne200100]<0>(siri::intelligence::CODE_DUPE_PRODUCER, "dupe-producer");
   __cxa_atexit(v0, siri::intelligence::CODE_DUPE_PRODUCER, &dword_254C81000);
-  std::string::basic_string[abi:ne200100]<0>(&siri::intelligence::CODE_FUTURE_VERSION, "future-version");
-  __cxa_atexit(v0, &siri::intelligence::CODE_FUTURE_VERSION, &dword_254C81000);
-  std::string::basic_string[abi:ne200100]<0>(&siri::intelligence::CODE_UNDEF_VAR, "undef-var");
-  __cxa_atexit(v0, &siri::intelligence::CODE_UNDEF_VAR, &dword_254C81000);
-  std::string::basic_string[abi:ne200100]<0>(&siri::intelligence::CODE_UNDEF_RESPONSE, "undef-response");
-  __cxa_atexit(v0, &siri::intelligence::CODE_UNDEF_RESPONSE, &dword_254C81000);
-  std::string::basic_string[abi:ne200100]<0>(&siri::intelligence::CODE_UNDEF_INPUT, "undef-input");
-  __cxa_atexit(v0, &siri::intelligence::CODE_UNDEF_INPUT, &dword_254C81000);
-  std::string::basic_string[abi:ne200100]<0>(&siri::intelligence::CODE_UNDEF_CONDITION, "undef-condition");
-  __cxa_atexit(v0, &siri::intelligence::CODE_UNDEF_CONDITION, &dword_254C81000);
-  std::string::basic_string[abi:ne200100]<0>(&siri::intelligence::CODE_UNDEF_INTENT, "undef-intent");
-  __cxa_atexit(v0, &siri::intelligence::CODE_UNDEF_INTENT, &dword_254C81000);
-  std::string::basic_string[abi:ne200100]<0>(&siri::intelligence::CODE_UNDEF_FUNC, "undef-func");
-  __cxa_atexit(v0, &siri::intelligence::CODE_UNDEF_FUNC, &dword_254C81000);
-  std::string::basic_string[abi:ne200100]<0>(&siri::intelligence::CODE_UNDEF_PARAM, "undef-param");
-  __cxa_atexit(v0, &siri::intelligence::CODE_UNDEF_PARAM, &dword_254C81000);
-  std::string::basic_string[abi:ne200100]<0>(&siri::intelligence::CODE_INVALID_NAME, "invalid-name");
-  __cxa_atexit(v0, &siri::intelligence::CODE_INVALID_NAME, &dword_254C81000);
-  std::string::basic_string[abi:ne200100]<0>(&siri::intelligence::CODE_INVALID_ID, "invalid-id");
-  __cxa_atexit(v0, &siri::intelligence::CODE_INVALID_ID, &dword_254C81000);
+  std::string::basic_string[abi:ne200100]<0>(siri::intelligence::CODE_FUTURE_VERSION, "future-version");
+  __cxa_atexit(v0, siri::intelligence::CODE_FUTURE_VERSION, &dword_254C81000);
+  std::string::basic_string[abi:ne200100]<0>(siri::intelligence::CODE_UNDEF_VAR, "undef-var");
+  __cxa_atexit(v0, siri::intelligence::CODE_UNDEF_VAR, &dword_254C81000);
+  std::string::basic_string[abi:ne200100]<0>(siri::intelligence::CODE_UNDEF_RESPONSE, "undef-response");
+  __cxa_atexit(v0, siri::intelligence::CODE_UNDEF_RESPONSE, &dword_254C81000);
+  std::string::basic_string[abi:ne200100]<0>(siri::intelligence::CODE_UNDEF_INPUT, "undef-input");
+  __cxa_atexit(v0, siri::intelligence::CODE_UNDEF_INPUT, &dword_254C81000);
+  std::string::basic_string[abi:ne200100]<0>(siri::intelligence::CODE_UNDEF_CONDITION, "undef-condition");
+  __cxa_atexit(v0, siri::intelligence::CODE_UNDEF_CONDITION, &dword_254C81000);
+  std::string::basic_string[abi:ne200100]<0>(siri::intelligence::CODE_UNDEF_INTENT, "undef-intent");
+  __cxa_atexit(v0, siri::intelligence::CODE_UNDEF_INTENT, &dword_254C81000);
+  std::string::basic_string[abi:ne200100]<0>(siri::intelligence::CODE_UNDEF_FUNC, "undef-func");
+  __cxa_atexit(v0, siri::intelligence::CODE_UNDEF_FUNC, &dword_254C81000);
+  std::string::basic_string[abi:ne200100]<0>(siri::intelligence::CODE_UNDEF_PARAM, "undef-param");
+  __cxa_atexit(v0, siri::intelligence::CODE_UNDEF_PARAM, &dword_254C81000);
+  std::string::basic_string[abi:ne200100]<0>(siri::intelligence::CODE_INVALID_NAME, "invalid-name");
+  __cxa_atexit(v0, siri::intelligence::CODE_INVALID_NAME, &dword_254C81000);
+  std::string::basic_string[abi:ne200100]<0>(siri::intelligence::CODE_INVALID_ID, "invalid-id");
+  __cxa_atexit(v0, siri::intelligence::CODE_INVALID_ID, &dword_254C81000);
   std::string::basic_string[abi:ne200100]<0>(siri::intelligence::CODE_INVALID_CAT_ID, "invalid-cat-id");
   __cxa_atexit(v0, siri::intelligence::CODE_INVALID_CAT_ID, &dword_254C81000);
   std::string::basic_string[abi:ne200100]<0>(siri::intelligence::CODE_INVALID_PATTERN_ID, "invalid-pattern-id");
   __cxa_atexit(v0, siri::intelligence::CODE_INVALID_PATTERN_ID, &dword_254C81000);
-  std::string::basic_string[abi:ne200100]<0>(&siri::intelligence::CODE_NO_ID, "no-id");
-  __cxa_atexit(v0, &siri::intelligence::CODE_NO_ID, &dword_254C81000);
-  std::string::basic_string[abi:ne200100]<0>(&siri::intelligence::CODE_NO_CAT_ID, "no-cat-id");
-  __cxa_atexit(v0, &siri::intelligence::CODE_NO_CAT_ID, &dword_254C81000);
-  std::string::basic_string[abi:ne200100]<0>(&siri::intelligence::CODE_NO_PATTERN_ID, "no-pattern-id");
-  __cxa_atexit(v0, &siri::intelligence::CODE_NO_PATTERN_ID, &dword_254C81000);
-  std::string::basic_string[abi:ne200100]<0>(&siri::intelligence::CODE_NO_RESPONSE_ID, "no-response-id");
-  __cxa_atexit(v0, &siri::intelligence::CODE_NO_RESPONSE_ID, &dword_254C81000);
-  std::string::basic_string[abi:ne200100]<0>(&siri::intelligence::CODE_NO_OPERATOR, "no-operator");
-  __cxa_atexit(v0, &siri::intelligence::CODE_NO_OPERATOR, &dword_254C81000);
-  std::string::basic_string[abi:ne200100]<0>(&siri::intelligence::CODE_NO_EFFECT, "no-effect");
-  __cxa_atexit(v0, &siri::intelligence::CODE_NO_EFFECT, &dword_254C81000);
-  std::string::basic_string[abi:ne200100]<0>(&siri::intelligence::CODE_INVALID_OPERATOR, "invalid-operator");
-  __cxa_atexit(v0, &siri::intelligence::CODE_INVALID_OPERATOR, &dword_254C81000);
-  std::string::basic_string[abi:ne200100]<0>(&siri::intelligence::CODE_EMPTY_EXPR, "empty-expr");
-  __cxa_atexit(v0, &siri::intelligence::CODE_EMPTY_EXPR, &dword_254C81000);
-  std::string::basic_string[abi:ne200100]<0>(&siri::intelligence::CODE_INVALID_TYPE, "invalid-type");
-  __cxa_atexit(v0, &siri::intelligence::CODE_INVALID_TYPE, &dword_254C81000);
-  std::string::basic_string[abi:ne200100]<0>(&siri::intelligence::CODE_TYPE_MISMATCH, "type-mismatch");
-  __cxa_atexit(v0, &siri::intelligence::CODE_TYPE_MISMATCH, &dword_254C81000);
-  std::string::basic_string[abi:ne200100]<0>(&siri::intelligence::CODE_MULTI_DEFS, "multi-defs");
-  __cxa_atexit(v0, &siri::intelligence::CODE_MULTI_DEFS, &dword_254C81000);
-  std::string::basic_string[abi:ne200100]<0>(&siri::intelligence::CODE_FILE_NOT_FOUND, "file-not-found");
-  __cxa_atexit(v0, &siri::intelligence::CODE_FILE_NOT_FOUND, &dword_254C81000);
-  std::string::basic_string[abi:ne200100]<0>(&siri::intelligence::CODE_YAML_PARSE, "yaml-parse");
-  __cxa_atexit(v0, &siri::intelligence::CODE_YAML_PARSE, &dword_254C81000);
-  std::string::basic_string[abi:ne200100]<0>(&siri::intelligence::CODE_DUPE_ID, "dupe-id");
-  __cxa_atexit(v0, &siri::intelligence::CODE_DUPE_ID, &dword_254C81000);
-  std::string::basic_string[abi:ne200100]<0>(&siri::intelligence::CODE_READ_ONLY, "read-only");
-  __cxa_atexit(v0, &siri::intelligence::CODE_READ_ONLY, &dword_254C81000);
-  std::string::basic_string[abi:ne200100]<0>(&siri::intelligence::CODE_DEPRECATED, "deprecated");
-  __cxa_atexit(v0, &siri::intelligence::CODE_DEPRECATED, &dword_254C81000);
-  std::string::basic_string[abi:ne200100]<0>(&siri::intelligence::CODE_INFINITE_LOOP, "infinite-loop");
-  __cxa_atexit(v0, &siri::intelligence::CODE_INFINITE_LOOP, &dword_254C81000);
-  std::string::basic_string[abi:ne200100]<0>(&siri::intelligence::CODE_UNUSED, "unused");
-  __cxa_atexit(v0, &siri::intelligence::CODE_UNUSED, &dword_254C81000);
+  std::string::basic_string[abi:ne200100]<0>(siri::intelligence::CODE_NO_ID, "no-id");
+  __cxa_atexit(v0, siri::intelligence::CODE_NO_ID, &dword_254C81000);
+  std::string::basic_string[abi:ne200100]<0>(siri::intelligence::CODE_NO_CAT_ID, "no-cat-id");
+  __cxa_atexit(v0, siri::intelligence::CODE_NO_CAT_ID, &dword_254C81000);
+  std::string::basic_string[abi:ne200100]<0>(siri::intelligence::CODE_NO_PATTERN_ID, "no-pattern-id");
+  __cxa_atexit(v0, siri::intelligence::CODE_NO_PATTERN_ID, &dword_254C81000);
+  std::string::basic_string[abi:ne200100]<0>(siri::intelligence::CODE_NO_RESPONSE_ID, "no-response-id");
+  __cxa_atexit(v0, siri::intelligence::CODE_NO_RESPONSE_ID, &dword_254C81000);
+  std::string::basic_string[abi:ne200100]<0>(siri::intelligence::CODE_NO_OPERATOR, "no-operator");
+  __cxa_atexit(v0, siri::intelligence::CODE_NO_OPERATOR, &dword_254C81000);
+  std::string::basic_string[abi:ne200100]<0>(siri::intelligence::CODE_NO_EFFECT, "no-effect");
+  __cxa_atexit(v0, siri::intelligence::CODE_NO_EFFECT, &dword_254C81000);
+  std::string::basic_string[abi:ne200100]<0>(siri::intelligence::CODE_INVALID_OPERATOR, "invalid-operator");
+  __cxa_atexit(v0, siri::intelligence::CODE_INVALID_OPERATOR, &dword_254C81000);
+  std::string::basic_string[abi:ne200100]<0>(siri::intelligence::CODE_EMPTY_EXPR, "empty-expr");
+  __cxa_atexit(v0, siri::intelligence::CODE_EMPTY_EXPR, &dword_254C81000);
+  std::string::basic_string[abi:ne200100]<0>(siri::intelligence::CODE_INVALID_TYPE, "invalid-type");
+  __cxa_atexit(v0, siri::intelligence::CODE_INVALID_TYPE, &dword_254C81000);
+  std::string::basic_string[abi:ne200100]<0>(siri::intelligence::CODE_TYPE_MISMATCH, "type-mismatch");
+  __cxa_atexit(v0, siri::intelligence::CODE_TYPE_MISMATCH, &dword_254C81000);
+  std::string::basic_string[abi:ne200100]<0>(siri::intelligence::CODE_MULTI_DEFS, "multi-defs");
+  __cxa_atexit(v0, siri::intelligence::CODE_MULTI_DEFS, &dword_254C81000);
+  std::string::basic_string[abi:ne200100]<0>(siri::intelligence::CODE_FILE_NOT_FOUND, "file-not-found");
+  __cxa_atexit(v0, siri::intelligence::CODE_FILE_NOT_FOUND, &dword_254C81000);
+  std::string::basic_string[abi:ne200100]<0>(siri::intelligence::CODE_YAML_PARSE, "yaml-parse");
+  __cxa_atexit(v0, siri::intelligence::CODE_YAML_PARSE, &dword_254C81000);
+  std::string::basic_string[abi:ne200100]<0>(siri::intelligence::CODE_DUPE_ID, "dupe-id");
+  __cxa_atexit(v0, siri::intelligence::CODE_DUPE_ID, &dword_254C81000);
+  std::string::basic_string[abi:ne200100]<0>(siri::intelligence::CODE_READ_ONLY, "read-only");
+  __cxa_atexit(v0, siri::intelligence::CODE_READ_ONLY, &dword_254C81000);
+  std::string::basic_string[abi:ne200100]<0>(siri::intelligence::CODE_DEPRECATED, "deprecated");
+  __cxa_atexit(v0, siri::intelligence::CODE_DEPRECATED, &dword_254C81000);
+  std::string::basic_string[abi:ne200100]<0>(siri::intelligence::CODE_INFINITE_LOOP, "infinite-loop");
+  __cxa_atexit(v0, siri::intelligence::CODE_INFINITE_LOOP, &dword_254C81000);
+  std::string::basic_string[abi:ne200100]<0>(siri::intelligence::CODE_UNUSED, "unused");
+  __cxa_atexit(v0, siri::intelligence::CODE_UNUSED, &dword_254C81000);
   std::string::basic_string[abi:ne200100]<0>(siri::intelligence::CODE_UTTER_DUPE, "utter-dupe");
   __cxa_atexit(v0, siri::intelligence::CODE_UTTER_DUPE, &dword_254C81000);
   std::string::basic_string[abi:ne200100]<0>(siri::intelligence::CODE_UTTER_NUM, "utter-num");
@@ -362,34 +362,34 @@ uint64_t _GLOBAL__sub_I_nlgenerator_cpp()
 
 uint64_t _GLOBAL__sub_I_flowgraph_cpp()
 {
-  std::string::basic_string[abi:ne200100]<0>(&siri::intelligence::IE_GLOBAL_SCOPE, "__global__");
+  std::string::basic_string[abi:ne200100]<0>(siri::intelligence::IE_GLOBAL_SCOPE, "__global__");
   v0 = MEMORY[0x277D82640];
 
-  return __cxa_atexit(v0, &siri::intelligence::IE_GLOBAL_SCOPE, &dword_254C81000);
+  return __cxa_atexit(v0, siri::intelligence::IE_GLOBAL_SCOPE, &dword_254C81000);
 }
 
 uint64_t _GLOBAL__sub_I_parser_cpp()
 {
   std::string::basic_string[abi:ne200100]<0>(YAML::TokenNames, "DIRECTIVE");
-  std::string::basic_string[abi:ne200100]<0>(&YAML::TokenNames[24], "DOC_START");
-  std::string::basic_string[abi:ne200100]<0>(byte_280AF5768, "DOC_END");
-  std::string::basic_string[abi:ne200100]<0>(byte_280AF5780, "BLOCK_SEQ_START");
-  std::string::basic_string[abi:ne200100]<0>(byte_280AF5798, "BLOCK_MAP_START");
-  std::string::basic_string[abi:ne200100]<0>(byte_280AF57B0, "BLOCK_SEQ_END");
-  std::string::basic_string[abi:ne200100]<0>(byte_280AF57C8, "BLOCK_MAP_END");
-  std::string::basic_string[abi:ne200100]<0>(byte_280AF57E0, "BLOCK_ENTRY");
-  std::string::basic_string[abi:ne200100]<0>(byte_280AF57F8, "FLOW_SEQ_START");
-  std::string::basic_string[abi:ne200100]<0>(byte_280AF5810, "FLOW_MAP_START");
-  std::string::basic_string[abi:ne200100]<0>(byte_280AF5828, "FLOW_SEQ_END");
-  std::string::basic_string[abi:ne200100]<0>(byte_280AF5840, "FLOW_MAP_END");
-  std::string::basic_string[abi:ne200100]<0>(byte_280AF5858, "FLOW_MAP_COMPACT");
-  std::string::basic_string[abi:ne200100]<0>(byte_280AF5870, "FLOW_ENTRY");
-  std::string::basic_string[abi:ne200100]<0>(byte_280AF5888, "KEY");
-  std::string::basic_string[abi:ne200100]<0>(byte_280AF58A0, "VALUE");
-  std::string::basic_string[abi:ne200100]<0>(byte_280AF58B8, "ANCHOR");
-  std::string::basic_string[abi:ne200100]<0>(byte_280AF58D0, "ALIAS");
-  std::string::basic_string[abi:ne200100]<0>(byte_280AF58E8, "TAG");
-  std::string::basic_string[abi:ne200100]<0>(byte_280AF5900, "SCALAR");
+  std::string::basic_string[abi:ne200100]<0>(&YAML::TokenNames[3], "DOC_START");
+  std::string::basic_string[abi:ne200100]<0>(qword_280AF5768, "DOC_END");
+  std::string::basic_string[abi:ne200100]<0>(qword_280AF5780, "BLOCK_SEQ_START");
+  std::string::basic_string[abi:ne200100]<0>(qword_280AF5798, "BLOCK_MAP_START");
+  std::string::basic_string[abi:ne200100]<0>(qword_280AF57B0, "BLOCK_SEQ_END");
+  std::string::basic_string[abi:ne200100]<0>(qword_280AF57C8, "BLOCK_MAP_END");
+  std::string::basic_string[abi:ne200100]<0>(qword_280AF57E0, "BLOCK_ENTRY");
+  std::string::basic_string[abi:ne200100]<0>(qword_280AF57F8, "FLOW_SEQ_START");
+  std::string::basic_string[abi:ne200100]<0>(qword_280AF5810, "FLOW_MAP_START");
+  std::string::basic_string[abi:ne200100]<0>(qword_280AF5828, "FLOW_SEQ_END");
+  std::string::basic_string[abi:ne200100]<0>(qword_280AF5840, "FLOW_MAP_END");
+  std::string::basic_string[abi:ne200100]<0>(qword_280AF5858, "FLOW_MAP_COMPACT");
+  std::string::basic_string[abi:ne200100]<0>(qword_280AF5870, "FLOW_ENTRY");
+  std::string::basic_string[abi:ne200100]<0>(qword_280AF5888, "KEY");
+  std::string::basic_string[abi:ne200100]<0>(qword_280AF58A0, "VALUE");
+  std::string::basic_string[abi:ne200100]<0>(qword_280AF58B8, "ANCHOR");
+  std::string::basic_string[abi:ne200100]<0>(qword_280AF58D0, "ALIAS");
+  std::string::basic_string[abi:ne200100]<0>(qword_280AF58E8, "TAG");
+  std::string::basic_string[abi:ne200100]<0>(qword_280AF5900, "SCALAR");
 
   return __cxa_atexit(__cxx_global_array_dtor_4, 0, &dword_254C81000);
 }
@@ -423,25 +423,25 @@ uint64_t _GLOBAL__sub_I_executionstate_cpp()
 uint64_t _GLOBAL__sub_I_tag_cpp()
 {
   std::string::basic_string[abi:ne200100]<0>(YAML::TokenNames, "DIRECTIVE");
-  std::string::basic_string[abi:ne200100]<0>(&YAML::TokenNames[24], "DOC_START");
-  std::string::basic_string[abi:ne200100]<0>(byte_280AF5948, "DOC_END");
-  std::string::basic_string[abi:ne200100]<0>(byte_280AF5960, "BLOCK_SEQ_START");
-  std::string::basic_string[abi:ne200100]<0>(byte_280AF5978, "BLOCK_MAP_START");
-  std::string::basic_string[abi:ne200100]<0>(byte_280AF5990, "BLOCK_SEQ_END");
-  std::string::basic_string[abi:ne200100]<0>(byte_280AF59A8, "BLOCK_MAP_END");
-  std::string::basic_string[abi:ne200100]<0>(byte_280AF59C0, "BLOCK_ENTRY");
-  std::string::basic_string[abi:ne200100]<0>(byte_280AF59D8, "FLOW_SEQ_START");
-  std::string::basic_string[abi:ne200100]<0>(byte_280AF59F0, "FLOW_MAP_START");
-  std::string::basic_string[abi:ne200100]<0>(byte_280AF5A08, "FLOW_SEQ_END");
-  std::string::basic_string[abi:ne200100]<0>(byte_280AF5A20, "FLOW_MAP_END");
-  std::string::basic_string[abi:ne200100]<0>(byte_280AF5A38, "FLOW_MAP_COMPACT");
-  std::string::basic_string[abi:ne200100]<0>(byte_280AF5A50, "FLOW_ENTRY");
-  std::string::basic_string[abi:ne200100]<0>(byte_280AF5A68, "KEY");
-  std::string::basic_string[abi:ne200100]<0>(byte_280AF5A80, "VALUE");
-  std::string::basic_string[abi:ne200100]<0>(byte_280AF5A98, "ANCHOR");
-  std::string::basic_string[abi:ne200100]<0>(byte_280AF5AB0, "ALIAS");
-  std::string::basic_string[abi:ne200100]<0>(byte_280AF5AC8, "TAG");
-  std::string::basic_string[abi:ne200100]<0>(byte_280AF5AE0, "SCALAR");
+  std::string::basic_string[abi:ne200100]<0>(&YAML::TokenNames[3], "DOC_START");
+  std::string::basic_string[abi:ne200100]<0>(qword_280AF5948, "DOC_END");
+  std::string::basic_string[abi:ne200100]<0>(qword_280AF5960, "BLOCK_SEQ_START");
+  std::string::basic_string[abi:ne200100]<0>(qword_280AF5978, "BLOCK_MAP_START");
+  std::string::basic_string[abi:ne200100]<0>(qword_280AF5990, "BLOCK_SEQ_END");
+  std::string::basic_string[abi:ne200100]<0>(qword_280AF59A8, "BLOCK_MAP_END");
+  std::string::basic_string[abi:ne200100]<0>(qword_280AF59C0, "BLOCK_ENTRY");
+  std::string::basic_string[abi:ne200100]<0>(qword_280AF59D8, "FLOW_SEQ_START");
+  std::string::basic_string[abi:ne200100]<0>(qword_280AF59F0, "FLOW_MAP_START");
+  std::string::basic_string[abi:ne200100]<0>(qword_280AF5A08, "FLOW_SEQ_END");
+  std::string::basic_string[abi:ne200100]<0>(qword_280AF5A20, "FLOW_MAP_END");
+  std::string::basic_string[abi:ne200100]<0>(qword_280AF5A38, "FLOW_MAP_COMPACT");
+  std::string::basic_string[abi:ne200100]<0>(qword_280AF5A50, "FLOW_ENTRY");
+  std::string::basic_string[abi:ne200100]<0>(qword_280AF5A68, "KEY");
+  std::string::basic_string[abi:ne200100]<0>(qword_280AF5A80, "VALUE");
+  std::string::basic_string[abi:ne200100]<0>(qword_280AF5A98, "ANCHOR");
+  std::string::basic_string[abi:ne200100]<0>(qword_280AF5AB0, "ALIAS");
+  std::string::basic_string[abi:ne200100]<0>(qword_280AF5AC8, "TAG");
+  std::string::basic_string[abi:ne200100]<0>(qword_280AF5AE0, "SCALAR");
 
   return __cxa_atexit(__cxx_global_array_dtor_5, 0, &dword_254C81000);
 }
@@ -479,9 +479,9 @@ uint64_t _GLOBAL__sub_I_intelligence_cpp()
   __cxa_atexit(v0, siri::intelligence::IE_GLOBAL_ACTIVE_INTENTS, &dword_254C81000);
   std::string::basic_string[abi:ne200100]<0>(siri::intelligence::IE_GLOBAL_ACTIVE_LOCAL_INTENTS, "global.activeLocalIntents");
   __cxa_atexit(v0, siri::intelligence::IE_GLOBAL_ACTIVE_LOCAL_INTENTS, &dword_254C81000);
-  std::string::basic_string[abi:ne200100]<0>(&siri::intelligence::IE_RECOVER_FROM_DEAD_END, "recoverFromDeadEnd");
+  std::string::basic_string[abi:ne200100]<0>(siri::intelligence::IE_RECOVER_FROM_DEAD_END, "recoverFromDeadEnd");
 
-  return __cxa_atexit(v0, &siri::intelligence::IE_RECOVER_FROM_DEAD_END, &dword_254C81000);
+  return __cxa_atexit(v0, siri::intelligence::IE_RECOVER_FROM_DEAD_END, &dword_254C81000);
 }
 
 void google::protobuf::internal::VerifyVersion(google::protobuf::internal *this, google::protobuf::internal *a2, const std::string::value_type *a3, const char *a4)
@@ -493,7 +493,7 @@ void google::protobuf::internal::VerifyVersion(google::protobuf::internal *this,
     v23 = 75;
     memset(&v24, 0, sizeof(v24));
     std::string::append(&v24, "This program requires version ");
-    google::protobuf::internal::VersionString(a2, &v18);
+    google::protobuf::internal::VersionString(&v18, a2);
     if ((v20 & 0x80u) == 0)
     {
       v7 = &v18;
@@ -516,7 +516,7 @@ void google::protobuf::internal::VerifyVersion(google::protobuf::internal *this,
 
     std::string::append(&v24, v7, v8);
     std::string::append(&v24, " of the Protocol Buffer runtime library, but the installed version is ");
-    google::protobuf::internal::VersionString(0x2DEDD0, &__p);
+    google::protobuf::internal::VersionString(&__p, 0x2DEDD0);
     if ((v17 & 0x80u) == 0)
     {
       p_p = &__p;
@@ -565,7 +565,7 @@ void google::protobuf::internal::VerifyVersion(google::protobuf::internal *this,
     v23 = 86;
     memset(&v24, 0, sizeof(v24));
     std::string::append(&v24, "This program was compiled against version ");
-    google::protobuf::internal::VersionString(this, &v18);
+    google::protobuf::internal::VersionString(&v18, this);
     if ((v20 & 0x80u) == 0)
     {
       v11 = &v18;
@@ -588,7 +588,7 @@ void google::protobuf::internal::VerifyVersion(google::protobuf::internal *this,
 
     std::string::append(&v24, v11, v12);
     std::string::append(&v24, " of the Protocol Buffer runtime library, which is not compatible with the installed version (");
-    google::protobuf::internal::VersionString(0x2DEDD0, &__p);
+    google::protobuf::internal::VersionString(&__p, 0x2DEDD0);
     if ((v17 & 0x80u) == 0)
     {
       v13 = &__p;
@@ -685,9 +685,9 @@ std::string *google::protobuf::internal::LogMessage::operator<<(std::string *a1,
   return a1;
 }
 
-unint64_t google::protobuf::internal::VersionString@<X0>(google::protobuf::internal *this@<X0>, _BYTE *a2@<X8>)
+unint64_t google::protobuf::internal::VersionString@<X0>(uint64_t *__return_ptr a1@<X8>, google::protobuf::internal *this@<X0>)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   snprintf(__str, 0x80uLL, "%d.%d.%d", this / 1000000, this / 1000 % 1000, this % 1000);
   __str[127] = 0;
   result = strlen(__str);
@@ -702,14 +702,13 @@ unint64_t google::protobuf::internal::VersionString@<X0>(google::protobuf::inter
     operator new();
   }
 
-  a2[23] = result;
+  *(a1 + 23) = result;
   if (result)
   {
-    result = memcpy(a2, __str, result);
+    result = memcpy(a1, __str, result);
   }
 
-  a2[v4] = 0;
-  v5 = *MEMORY[0x277D85DE8];
+  *(a1 + v4) = 0;
   return result;
 }
 
@@ -747,21 +746,19 @@ uint64_t google::protobuf::internal::DefaultLogHandler(uint64_t result, const ch
 
 std::string *google::protobuf::internal::LogMessage::operator<<(std::string *a1, int a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   snprintf(__str, 0x80uLL, "%d", a2);
   __str[127] = 0;
   std::string::append(a1 + 1, __str);
-  v3 = *MEMORY[0x277D85DE8];
   return a1;
 }
 
 std::string *google::protobuf::internal::LogMessage::operator<<(std::string *a1, uint64_t a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   snprintf(__str, 0x80uLL, "%lu", a2);
   __str[127] = 0;
   std::string::append(a1 + 1, __str);
-  v3 = *MEMORY[0x277D85DE8];
   return a1;
 }
 
@@ -789,7 +786,7 @@ LABEL_6:
   if (*v1 == 3)
   {
     exception = __cxa_allocate_exception(0x30uLL);
-    google::protobuf::FatalException::FatalException(exception, v1[1], *(v1 + 4), v1 + 3);
+    google::protobuf::FatalException::FatalException(exception, v1[1], *(v1 + 4), (v1 + 3));
   }
 
   return this;
@@ -1075,16 +1072,16 @@ void *std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v
   if (v13[0] == 1)
   {
     v6 = a1 + *(*a1 - 24);
-    v7 = *(v6 + 40);
-    v8 = *(v6 + 8);
-    v9 = *(v6 + 144);
+    v7 = *(v6 + 5);
+    v8 = *(v6 + 2);
+    v9 = *(v6 + 36);
     if (v9 == -1)
     {
       std::ios_base::getloc((a1 + *(*a1 - 24)));
       v10 = std::locale::use_facet(&v14, MEMORY[0x277D82680]);
       v9 = (v10->__vftable[2].~facet_0)(v10, 32);
       std::locale::~locale(&v14);
-      *(v6 + 144) = v9;
+      *(v6 + 36) = v9;
     }
 
     if ((v8 & 0xB0) == 0x20)
@@ -1107,9 +1104,9 @@ void *std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v
   return a1;
 }
 
-void sub_254C84B28(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, uint64_t a11, std::locale a12)
+void sub_254C84B28(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, std::locale a12)
 {
-  MEMORY[0x259C29BA0](&a10);
+  MEMORY[0x259C29BA0](&a10, a2, a3, a4, a5, a6, a7, a8);
   __cxa_begin_catch(a1);
   std::ios_base::__set_badbit_and_consider_rethrow((v12 + *(*v12 - 24)));
   __cxa_end_catch();
@@ -1249,17 +1246,17 @@ uint64_t google::protobuf::io::ZeroCopyOutputStream::WriteAliasedRaw(google::pro
   return 0;
 }
 
-void sub_254C84EC8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_254C84EC8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t google::protobuf::RepeatedField<int>::RepeatedField(uint64_t a1, int *a2)
+int *google::protobuf::RepeatedField<int>::RepeatedField(int *a1, int *a2)
 {
   *a1 = 0;
-  *(a1 + 8) = 0;
+  *(a1 + 1) = 0;
   v4 = *a2;
   if (v4)
   {
@@ -1289,9 +1286,9 @@ uint64_t google::protobuf::RepeatedField<int>::RepeatedField(uint64_t a1, int *a
   return a1;
 }
 
-void sub_254C84FF8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_254C84FF8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -1398,9 +1395,9 @@ uint64_t google::protobuf::RepeatedField<int>::AddNAlreadyReserved(uint64_t a1, 
   return result;
 }
 
-void sub_254C85208(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_254C85208(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -1426,9 +1423,9 @@ uint64_t google::protobuf::RepeatedField<int>::Mutable(_DWORD *a1, int a2)
   return google::protobuf::RepeatedField<int>::elements(a1) + 4 * a2;
 }
 
-void sub_254C852E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_254C852E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -1454,9 +1451,9 @@ uint64_t google::protobuf::RepeatedField<int>::Get(_DWORD *a1, int a2)
   return google::protobuf::RepeatedField<int>::elements(a1) + 4 * a2;
 }
 
-void sub_254C853C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_254C853C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -1527,9 +1524,9 @@ void google::protobuf::RepeatedField<int>::InternalSwap(uint64_t a1, uint64_t a2
   *(a2 + 4) = v9;
 }
 
-void sub_254C85558(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_254C85558(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -1547,9 +1544,9 @@ uint64_t google::protobuf::RepeatedField<int>::elements(uint64_t a1)
   return *(a1 + 8);
 }
 
-void sub_254C855EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_254C855EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -1583,9 +1580,9 @@ void google::protobuf::RepeatedField<int>::MergeFrom(int *a1, int *a2)
   }
 }
 
-void sub_254C85714(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_254C85714(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -1663,9 +1660,9 @@ uint64_t google::protobuf::internal::RepeatedPtrFieldBase::Get<google::protobuf:
   return *(*(a1 + 16) + 8 * a2 + 8);
 }
 
-void sub_254C85904(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_254C85904(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -1775,9 +1772,9 @@ void google::protobuf::internal::RepeatedPtrFieldBase::Clear<google::protobuf::R
   }
 }
 
-void sub_254C85B20(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_254C85B20(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -1808,16 +1805,16 @@ void google::protobuf::internal::RepeatedPtrFieldBase::MergeFrom<google::protobu
   }
 }
 
-void sub_254C85C0C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_254C85C0C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
 
-unsigned int *google::protobuf::internal::RepeatedPtrFieldBase::Reserve(unsigned int *this, int a2)
+google::protobuf::internal::RepeatedPtrFieldBase *google::protobuf::internal::RepeatedPtrFieldBase::Reserve(google::protobuf::internal::RepeatedPtrFieldBase *this, int a2)
 {
-  v2 = this[2];
+  v2 = *(this + 2);
   v3 = __OFSUB__(a2, v2);
   v4 = a2 - v2;
   if (!((v4 < 0) ^ v3 | (v4 == 0)))
@@ -1857,9 +1854,9 @@ void google::protobuf::internal::RepeatedPtrFieldBase::InternalSwap(google::prot
   *(a2 + 3) = v6;
 }
 
-void sub_254C85D24(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_254C85D24(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -2062,9 +2059,9 @@ uint64_t google::protobuf::internal::EpsCopyInputStream::DoneWithCheck(google::p
   return v8 & 1;
 }
 
-void sub_254C860B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_254C860B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -2176,7 +2173,7 @@ void sub_254C86228(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-double google::protobuf::internal::InternalMetadataWithArenaBase<std::string,google::protobuf::internal::InternalMetadataWithArenaLite>::mutable_unknown_fields_slow(atomic_ullong **a1)
+double google::protobuf::internal::InternalMetadataWithArenaBase<std::string,google::protobuf::internal::InternalMetadataWithArenaLite>::mutable_unknown_fields_slow(unint64_t *a1)
 {
   v2 = *a1;
   if ((*a1 & 1) == 0)
@@ -2205,12 +2202,12 @@ LABEL_3:
   result = 0.0;
   *AlignedAndAddCleanup = 0u;
   *(AlignedAndAddCleanup + 16) = 0u;
-  *a1 = (AlignedAndAddCleanup | 1);
+  *a1 = AlignedAndAddCleanup | 1;
   *(AlignedAndAddCleanup + 24) = v2;
   return result;
 }
 
-const std::string::value_type *google::protobuf::internal::EpsCopyInputStream::ReadString(uint64_t a1, std::string::value_type *__s, int a3, std::string *a4)
+std::string::value_type *google::protobuf::internal::EpsCopyInputStream::ReadString(uint64_t a1, std::string::value_type *__s, int a3, std::string *a4)
 {
   if (*(a1 + 8) - __s + 16 >= a3)
   {
@@ -2234,12 +2231,12 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
     do
     {
       v2 = a2[2];
-      if (v2[3])
+      if (*(v2 + 24))
       {
         break;
       }
 
-      v3 = v2[2];
+      v3 = *(v2 + 16);
       v4 = *v3;
       if (*v3 == v2)
       {
@@ -2253,22 +2250,22 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
 
           else
           {
-            v11 = v2[1];
+            v11 = *(v2 + 8);
             v12 = *v11;
-            v2[1] = *v11;
+            *(v2 + 8) = *v11;
             v13 = v2;
             if (v12)
             {
-              v12[2] = v2;
-              v3 = v2[2];
+              *(v12 + 16) = v2;
+              v3 = *(v2 + 16);
               v13 = *v3;
             }
 
-            v11[2] = v3;
+            *(v11 + 16) = v3;
             v3[v13 != v2] = v11;
             *v11 = v2;
-            v2[2] = v11;
-            v3 = v11[2];
+            *(v2 + 16) = v11;
+            v3 = *(v11 + 16);
             v4 = *v3;
           }
 
@@ -2302,13 +2299,13 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
             if (v14)
             {
               *(v14 + 16) = v2;
-              v3 = v2[2];
+              v3 = *(v2 + 16);
             }
 
             v10[2] = v3;
             v3[*v3 != v2] = v10;
             v10[1] = v2;
-            v2[2] = v10;
+            *(v2 + 16) = v10;
             v3 = v10[2];
           }
 
@@ -2442,31 +2439,30 @@ LABEL_8:
 
   while (1)
   {
-    v12 = v7[2];
+    v12 = *(v7 + 16);
     v13 = *v12;
-    v14 = *(v7 + 24);
     if (*v12 == v7)
     {
       break;
     }
 
-    if ((v7[3] & 1) == 0)
+    if ((*(v7 + 24) & 1) == 0)
     {
       *(v7 + 24) = 1;
       *(v12 + 24) = 0;
-      v15 = v12[1];
-      v16 = *v15;
-      v12[1] = *v15;
-      if (v16)
+      v14 = v12[1];
+      v15 = *v14;
+      v12[1] = *v14;
+      if (v15)
       {
-        *(v16 + 16) = v12;
+        *(v15 + 16) = v12;
       }
 
-      v17 = v12[2];
-      v15[2] = v17;
-      v17[*v17 != v12] = v15;
-      *v15 = v12;
-      v12[2] = v15;
+      v16 = v12[2];
+      v14[2] = v16;
+      v16[*v16 != v12] = v14;
+      *v14 = v12;
+      v12[2] = v14;
       if (result == *v7)
       {
         result = v7;
@@ -2475,173 +2471,173 @@ LABEL_8:
       v7 = *(*v7 + 8);
     }
 
-    v18 = *v7;
-    if (*v7 && *(v18 + 24) != 1)
+    v17 = *v7;
+    if (*v7 && *(v17 + 24) != 1)
     {
-      v19 = v7[1];
-      if (!v19)
+      v18 = *(v7 + 8);
+      if (!v18)
       {
         goto LABEL_55;
       }
 
 LABEL_54:
-      if (*(v19 + 24) == 1)
+      if (*(v18 + 24) == 1)
       {
 LABEL_55:
-        *(v18 + 24) = 1;
+        *(v17 + 24) = 1;
         *(v7 + 24) = 0;
-        v27 = v18[1];
-        *v7 = v27;
-        if (v27)
+        v26 = *(v17 + 8);
+        *v7 = v26;
+        if (v26)
         {
-          *(v27 + 16) = v7;
+          *(v26 + 16) = v7;
         }
 
-        v28 = v7[2];
-        v18[2] = v28;
-        v28[*v28 != v7] = v18;
-        v18[1] = v7;
-        v7[2] = v18;
-        v19 = v7;
+        v27 = *(v7 + 16);
+        *(v17 + 16) = v27;
+        v27[*v27 != v7] = v17;
+        *(v17 + 8) = v7;
+        *(v7 + 16) = v17;
+        v18 = v7;
       }
 
       else
       {
-        v18 = v7;
+        v17 = v7;
       }
 
-      v29 = v18[2];
-      *(v18 + 24) = *(v29 + 24);
-      *(v29 + 24) = 1;
-      *(v19 + 24) = 1;
-      v30 = *(v29 + 8);
-      v31 = *v30;
-      *(v29 + 8) = *v30;
-      if (v31)
+      v28 = *(v17 + 16);
+      *(v17 + 24) = *(v28 + 24);
+      *(v28 + 24) = 1;
+      *(v18 + 24) = 1;
+      v29 = *(v28 + 8);
+      v30 = *v29;
+      *(v28 + 8) = *v29;
+      if (v30)
       {
-        *(v31 + 16) = v29;
+        *(v30 + 16) = v28;
       }
 
-      v32 = *(v29 + 16);
-      v30[2] = v32;
-      v32[*v32 != v29] = v30;
-      *v30 = v29;
+      v31 = *(v28 + 16);
+      v29[2] = v31;
+      v31[*v31 != v28] = v29;
+      *v29 = v28;
       goto LABEL_72;
     }
 
-    v19 = v7[1];
-    if (v19 && *(v19 + 24) != 1)
+    v18 = *(v7 + 8);
+    if (v18 && *(v18 + 24) != 1)
     {
       goto LABEL_54;
     }
 
     *(v7 + 24) = 0;
-    v20 = v7[2];
-    if (v20 == result || (v20[3] & 1) == 0)
+    v19 = *(v7 + 16);
+    if (v19 == result || (v19[3] & 1) == 0)
     {
       goto LABEL_52;
     }
 
 LABEL_49:
-    v7 = *(v20[2] + 8 * (*v20[2] == v20));
+    v7 = *(v19[2] + 8 * (*v19[2] == v19));
   }
 
-  if ((v7[3] & 1) == 0)
+  if ((*(v7 + 24) & 1) == 0)
   {
     *(v7 + 24) = 1;
     *(v12 + 24) = 0;
-    v21 = v13[1];
-    *v12 = v21;
-    if (v21)
+    v20 = *(v13 + 8);
+    *v12 = v20;
+    if (v20)
     {
-      *(v21 + 16) = v12;
+      *(v20 + 16) = v12;
     }
 
-    v22 = v12[2];
-    v13[2] = v22;
-    v22[*v22 != v12] = v13;
-    v13[1] = v12;
+    v21 = v12[2];
+    *(v13 + 16) = v21;
+    v21[*v21 != v12] = v13;
+    *(v13 + 8) = v12;
     v12[2] = v13;
-    v23 = v7[1];
-    if (result == v23)
+    v22 = *(v7 + 8);
+    if (result == v22)
     {
       result = v7;
     }
 
-    v7 = *v23;
+    v7 = *v22;
   }
 
-  v24 = *v7;
-  if (*v7 && *(v24 + 24) != 1)
+  v23 = *v7;
+  if (*v7 && *(v23 + 24) != 1)
   {
     goto LABEL_68;
   }
 
-  v25 = v7[1];
-  if (!v25 || *(v25 + 24) == 1)
+  v24 = *(v7 + 8);
+  if (!v24 || *(v24 + 24) == 1)
   {
     *(v7 + 24) = 0;
-    v20 = v7[2];
-    if (*(v20 + 24) != 1 || v20 == result)
+    v19 = *(v7 + 16);
+    if (*(v19 + 24) != 1 || v19 == result)
     {
 LABEL_52:
-      *(v20 + 24) = 1;
+      *(v19 + 24) = 1;
       return result;
     }
 
     goto LABEL_49;
   }
 
-  if (!v24)
+  if (!v23)
   {
     goto LABEL_65;
   }
 
-  if (v24[3])
+  if (*(v23 + 24))
   {
-    v25 = v7[1];
+    v24 = *(v7 + 8);
 LABEL_65:
-    *(v25 + 24) = 1;
+    *(v24 + 24) = 1;
     *(v7 + 24) = 0;
-    v33 = *v25;
-    v7[1] = *v25;
-    if (v33)
+    v32 = *v24;
+    *(v7 + 8) = *v24;
+    if (v32)
     {
-      *(v33 + 16) = v7;
+      *(v32 + 16) = v7;
     }
 
-    v34 = v7[2];
-    v25[2] = v34;
-    v34[*v34 != v7] = v25;
-    *v25 = v7;
-    v7[2] = v25;
-    v24 = v7;
+    v33 = *(v7 + 16);
+    *(v24 + 16) = v33;
+    v33[*v33 != v7] = v24;
+    *v24 = v7;
+    *(v7 + 16) = v24;
+    v23 = v7;
   }
 
   else
   {
 LABEL_68:
-    v25 = v7;
+    v24 = v7;
   }
 
-  v29 = v25[2];
-  *(v25 + 24) = *(v29 + 24);
-  *(v29 + 24) = 1;
-  *(v24 + 24) = 1;
-  v30 = *v29;
-  v35 = *(*v29 + 8);
-  *v29 = v35;
-  if (v35)
+  v28 = *(v24 + 16);
+  *(v24 + 24) = *(v28 + 24);
+  *(v28 + 24) = 1;
+  *(v23 + 24) = 1;
+  v29 = *v28;
+  v34 = *(*v28 + 8);
+  *v28 = v34;
+  if (v34)
   {
-    *(v35 + 16) = v29;
+    *(v34 + 16) = v28;
   }
 
-  v36 = *(v29 + 16);
-  v30[2] = v36;
-  v36[*v36 != v29] = v30;
-  v30[1] = v29;
+  v35 = *(v28 + 16);
+  v29[2] = v35;
+  v35[*v35 != v28] = v29;
+  v29[1] = v28;
 LABEL_72:
-  *(v29 + 16) = v30;
+  *(v28 + 16) = v29;
   return result;
 }
 
@@ -2657,48 +2653,48 @@ google::protobuf::io::FileInputStream *google::protobuf::io::FileInputStream::Fi
   return this;
 }
 
-BOOL google::protobuf::io::FileInputStream::CopyingFileInputStream::Close(google::protobuf::io::FileInputStream::CopyingFileInputStream *this)
+BOOL google::protobuf::io::FileInputStream::CopyingFileInputStream::Close(google::protobuf::io::FileInputStream::CopyingFileInputStream *this, int a2)
 {
   if (*(this + 13) == 1)
   {
-    google::protobuf::internal::LogMessage::LogMessage(v6, 3, "/Library/Caches/com.apple.xbs/Sources/SiriIntelligenceEngine/3rdparty/protobuf/src/google/protobuf/io/zero_copy_stream_impl.cc", 117);
-    v2 = google::protobuf::internal::LogMessage::operator<<(v6, "CHECK failed: !is_closed_: ");
-    google::protobuf::internal::LogFinisher::operator=(&v5, &v2->__r_.__value_.__l.__data_);
-    google::protobuf::internal::LogMessage::~LogMessage(&v6[0].__r_.__value_.__l.__data_);
+    google::protobuf::internal::LogMessage::LogMessage(v7, 3, "/Library/Caches/com.apple.xbs/Sources/SiriIntelligenceEngine/3rdparty/protobuf/src/google/protobuf/io/zero_copy_stream_impl.cc", 117);
+    v3 = google::protobuf::internal::LogMessage::operator<<(v7, "CHECK failed: !is_closed_: ");
+    google::protobuf::internal::LogFinisher::operator=(&v6, &v3->__r_.__value_.__l.__data_);
+    google::protobuf::internal::LogMessage::~LogMessage(&v7[0].__r_.__value_.__l.__data_);
   }
 
   *(this + 13) = 1;
-  if (v3)
+  if (v4)
   {
     *(this + 4) = *__error();
   }
 
-  return v3 == 0;
+  return v4 == 0;
 }
 
-void sub_254C869A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_254C869A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
 
-void google::protobuf::io::FileInputStream::CopyingFileInputStream::~CopyingFileInputStream(google::protobuf::io::FileInputStream::CopyingFileInputStream *this)
+void google::protobuf::io::FileInputStream::CopyingFileInputStream::~CopyingFileInputStream(google::protobuf::io::FileInputStream::CopyingFileInputStream *this, int a2)
 {
   *this = &unk_286718CD8;
-  if (*(this + 12) == 1 && !google::protobuf::io::FileInputStream::CopyingFileInputStream::Close(this))
+  if (*(this + 12) == 1 && !google::protobuf::io::FileInputStream::CopyingFileInputStream::Close(this, a2))
   {
-    google::protobuf::internal::LogMessage::LogMessage(v6, 2, "/Library/Caches/com.apple.xbs/Sources/SiriIntelligenceEngine/3rdparty/protobuf/src/google/protobuf/io/zero_copy_stream_impl.cc", 111);
-    v2 = google::protobuf::internal::LogMessage::operator<<(v6, "close() failed: ");
-    v3 = strerror(*(this + 4));
-    v4 = google::protobuf::internal::LogMessage::operator<<(v2, v3);
-    google::protobuf::internal::LogFinisher::operator=(&v5, &v4->__r_.__value_.__l.__data_);
-    google::protobuf::internal::LogMessage::~LogMessage(&v6[0].__r_.__value_.__l.__data_);
+    google::protobuf::internal::LogMessage::LogMessage(v7, 2, "/Library/Caches/com.apple.xbs/Sources/SiriIntelligenceEngine/3rdparty/protobuf/src/google/protobuf/io/zero_copy_stream_impl.cc", 111);
+    v3 = google::protobuf::internal::LogMessage::operator<<(v7, "close() failed: ");
+    v4 = strerror(*(this + 4));
+    v5 = google::protobuf::internal::LogMessage::operator<<(v3, v4);
+    google::protobuf::internal::LogFinisher::operator=(&v6, &v5->__r_.__value_.__l.__data_);
+    google::protobuf::internal::LogMessage::~LogMessage(&v7[0].__r_.__value_.__l.__data_);
   }
 }
 
 {
-  google::protobuf::io::FileInputStream::CopyingFileInputStream::~CopyingFileInputStream(this);
+  google::protobuf::io::FileInputStream::CopyingFileInputStream::~CopyingFileInputStream(this, a2);
 
   JUMPOUT(0x259C29D90);
 }
@@ -2743,9 +2739,9 @@ ssize_t google::protobuf::io::FileInputStream::CopyingFileInputStream::Read(goog
   return v7;
 }
 
-void sub_254C86BCC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_254C86BCC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -2769,9 +2765,9 @@ uint64_t google::protobuf::io::FileInputStream::CopyingFileInputStream::Skip(goo
   return a2;
 }
 
-void sub_254C86C94(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_254C86C94(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -2821,9 +2817,9 @@ BOOL google::protobuf::io::FileOutputStream::CopyingFileOutputStream::Close(goog
   return v3 == 0;
 }
 
-void sub_254C86E78(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_254C86E78(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -2901,9 +2897,9 @@ BOOL google::protobuf::io::FileOutputStream::CopyingFileOutputStream::Write(goog
   return result;
 }
 
-void sub_254C870A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_254C870A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -2913,14 +2909,14 @@ void google::protobuf::io::FileInputStream::~FileInputStream(google::protobuf::i
   *this = &unk_286718C98;
   v1 = (this + 8);
   google::protobuf::io::CopyingInputStreamAdaptor::~CopyingInputStreamAdaptor((this + 32));
-  google::protobuf::io::FileInputStream::CopyingFileInputStream::~CopyingFileInputStream(v1);
+  google::protobuf::io::FileInputStream::CopyingFileInputStream::~CopyingFileInputStream(v1, v2);
 }
 
 {
   *this = &unk_286718C98;
   v1 = (this + 8);
   google::protobuf::io::CopyingInputStreamAdaptor::~CopyingInputStreamAdaptor((this + 32));
-  google::protobuf::io::FileInputStream::CopyingFileInputStream::~CopyingFileInputStream(v1);
+  google::protobuf::io::FileInputStream::CopyingFileInputStream::~CopyingFileInputStream(v1, v2);
 
   JUMPOUT(0x259C29D90);
 }
@@ -2990,9 +2986,9 @@ LABEL_12:
   return v9;
 }
 
-void sub_254C872F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_254C872F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -3074,9 +3070,9 @@ LABEL_14:
   return v3;
 }
 
-void sub_254C874B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_254C874B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -3131,9 +3127,9 @@ LABEL_6:
   return this + 16;
 }
 
-void sub_254C8763C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_254C8763C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -3168,14 +3164,14 @@ uint64_t google::protobuf::io::EpsCopyOutputStream::GetSize(google::protobuf::io
   return v3 - a2 + 16;
 }
 
-void sub_254C87784(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_254C87784(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
 
-unsigned __int8 *google::protobuf::io::EpsCopyOutputStream::WriteAliasedRaw(google::protobuf::io::EpsCopyOutputStream *this, void *a2, uint64_t a3, char *a4)
+char *google::protobuf::io::EpsCopyOutputStream::WriteAliasedRaw(google::protobuf::io::EpsCopyOutputStream *this, void *a2, uint64_t a3, char *a4)
 {
   if (google::protobuf::io::EpsCopyOutputStream::GetSize(this, a4) <= a3)
   {
@@ -3199,7 +3195,7 @@ unsigned __int8 *google::protobuf::io::EpsCopyOutputStream::WriteAliasedRaw(goog
   return google::protobuf::io::EpsCopyOutputStream::WriteRawFallback(this, a2, a3, a4);
 }
 
-unsigned __int8 *google::protobuf::io::EpsCopyOutputStream::WriteStringMaybeAliasedOutline(google::protobuf::io::EpsCopyOutputStream *this, int a2, void **a3, char *a4)
+char *google::protobuf::io::EpsCopyOutputStream::WriteStringMaybeAliasedOutline(google::protobuf::io::EpsCopyOutputStream *this, int a2, const void ***a3, char *a4)
 {
   v4 = a4;
   v8 = *this;
@@ -3295,14 +3291,14 @@ unsigned __int8 *google::protobuf::io::EpsCopyOutputStream::WriteStringMaybeAlia
   return google::protobuf::io::EpsCopyOutputStream::WriteRawMaybeAliased(this, v18, v9, v17);
 }
 
-void sub_254C87A14(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_254C87A14(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
 
-unsigned __int8 *google::protobuf::io::EpsCopyOutputStream::WriteRawMaybeAliased(google::protobuf::io::EpsCopyOutputStream *this, void *a2, uint64_t a3, char *a4)
+char *google::protobuf::io::EpsCopyOutputStream::WriteRawMaybeAliased(google::protobuf::io::EpsCopyOutputStream *this, void *a2, uint64_t a3, char *a4)
 {
   if (*(this + 57) == 1)
   {
@@ -3426,14 +3422,14 @@ unsigned __int8 *google::protobuf::io::EpsCopyOutputStream::WriteStringOutline(g
   return &v17[v9];
 }
 
-void sub_254C87C54(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_254C87C54(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
 
-google::protobuf::internal::EpsCopyInputStream *google::protobuf::internal::EpsCopyInputStream::Next(google::protobuf::internal::EpsCopyInputStream *this, unsigned int a2, int a3)
+google::protobuf::internal::EpsCopyInputStream *google::protobuf::internal::EpsCopyInputStream::Next(google::protobuf::internal::EpsCopyInputStream *this, int a2, int a3)
 {
   v3 = *(this + 2);
   if (!v3)
@@ -3477,7 +3473,7 @@ google::protobuf::internal::EpsCopyInputStream *google::protobuf::internal::EpsC
     goto LABEL_16;
   }
 
-  if ((a2 & 0x80000000) != 0)
+  if (a2 < 0)
   {
     google::protobuf::internal::LogMessage::LogMessage(v34, 3, "/Library/Caches/com.apple.xbs/Sources/SiriIntelligenceEngine/3rdparty/protobuf/src/google/protobuf/parse_context.cc", 53);
     v11 = google::protobuf::internal::LogMessage::operator<<(v34, "CHECK failed: overrun >= 0: ");
@@ -3690,9 +3686,9 @@ LABEL_59:
   return v5;
 }
 
-void sub_254C88068(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_254C88068(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -3812,9 +3808,9 @@ const char *google::protobuf::internal::EpsCopyInputStream::DoneFallback(google:
   return v4;
 }
 
-void sub_254C883E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_254C883E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -3857,9 +3853,9 @@ const char *google::protobuf::internal::EpsCopyInputStream::SkipFallback(google:
   return 0;
 }
 
-void sub_254C88524(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_254C88524(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -3962,7 +3958,7 @@ uint64_t google::protobuf::internal::ReadTagFallback(google::protobuf::internal 
   return result;
 }
 
-char *google::protobuf::internal::InlineGreedyStringParser(std::string *a1, std::string::value_type *this, uint64_t a3)
+std::string::value_type *google::protobuf::internal::InlineGreedyStringParser(std::string *a1, std::string::value_type *this, uint64_t a3)
 {
   v5 = *this;
   if (*this < 0)
@@ -3985,7 +3981,7 @@ char *google::protobuf::internal::InlineGreedyStringParser(std::string *a1, std:
   return google::protobuf::internal::EpsCopyInputStream::ReadString(a3, v6, v5, a1);
 }
 
-char *google::protobuf::internal::WireFormatParser<google::protobuf::internal::UnknownFieldLiteParserHelper>(int a1, char *a2, google::protobuf::internal::EpsCopyInputStream *this)
+char *google::protobuf::internal::WireFormatParser<google::protobuf::internal::UnknownFieldLiteParserHelper>(google::protobuf::internal::UnknownFieldLiteParserHelper *a1, char *a2, google::protobuf::internal::EpsCopyInputStream *this)
 {
   v10 = a2;
   while (1)
@@ -4033,7 +4029,7 @@ char *google::protobuf::internal::WireFormatParser<google::protobuf::internal::U
       break;
     }
 
-    v10 = google::protobuf::internal::FieldParser<google::protobuf::internal::UnknownFieldLiteParserHelper>(v6, a1, v5);
+    v10 = google::protobuf::internal::FieldParser<google::protobuf::internal::UnknownFieldLiteParserHelper>(v6, a1, v5, this);
     if (!v10)
     {
       return 0;
@@ -4044,7 +4040,7 @@ char *google::protobuf::internal::WireFormatParser<google::protobuf::internal::U
   return v5;
 }
 
-char *google::protobuf::internal::FieldParser<google::protobuf::internal::UnknownFieldLiteParserHelper>(unint64_t a1, std::string *a2, google::protobuf::internal *this, int32x2_t *a4)
+google::protobuf::internal *google::protobuf::internal::FieldParser<google::protobuf::internal::UnknownFieldLiteParserHelper>(unint64_t a1, std::string *a2, google::protobuf::internal *this, int32x2_t *a4)
 {
   v4 = a1 >> 3;
   if (!(a1 >> 3))
@@ -4075,7 +4071,7 @@ char *google::protobuf::internal::FieldParser<google::protobuf::internal::Unknow
           return result;
         }
 
-        v5 = this + 4;
+        v5 = (this + 4);
         google::protobuf::internal::UnknownFieldLiteParserHelper::AddFixed32(a2, v4, *this);
       }
 
@@ -4107,7 +4103,7 @@ char *google::protobuf::internal::FieldParser<google::protobuf::internal::Unknow
 
   if (v9 == 1)
   {
-    v5 = this + 8;
+    v5 = (this + 8);
     google::protobuf::internal::UnknownFieldLiteParserHelper::AddFixed64(a2, v4, *this);
     return v5;
   }
@@ -4121,14 +4117,14 @@ char *google::protobuf::internal::FieldParser<google::protobuf::internal::Unknow
   return result;
 }
 
-void sub_254C88998(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_254C88998(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
 
-char *google::protobuf::internal::UnknownFieldParse(unsigned int a1, atomic_ullong **a2, google::protobuf::internal *this, int32x2_t *a4)
+google::protobuf::internal *google::protobuf::internal::UnknownFieldParse(unsigned int a1, unint64_t *a2, google::protobuf::internal *this, int32x2_t *a4)
 {
   if (*a2)
   {
@@ -4210,9 +4206,9 @@ uint64_t google::protobuf::internal::EpsCopyInputStream::PushLimit(google::proto
   return (v7 - v8);
 }
 
-void sub_254C88B2C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_254C88B2C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -4345,7 +4341,7 @@ void google::protobuf::internal::UnknownFieldLiteParserHelper::AddVarint(std::st
 
 std::string *google::protobuf::internal::UnknownFieldLiteParserHelper::AddFixed64(std::string *this, int a2, uint64_t a3)
 {
-  v10[1] = *MEMORY[0x277D85DE8];
+  v9[1] = *MEMORY[0x277D85DE8];
   v3 = this->__r_.__value_.__r.__words[0];
   if (this->__r_.__value_.__r.__words[0])
   {
@@ -4370,11 +4366,10 @@ std::string *google::protobuf::internal::UnknownFieldLiteParserHelper::AddFixed6
     }
 
     std::string::push_back(v3, v7);
-    v10[0] = a3;
-    this = std::string::append(*v5, v10, 8uLL);
+    v9[0] = a3;
+    return std::string::append(*v5, v9, 8uLL);
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return this;
 }
 
@@ -4567,7 +4562,7 @@ std::string *google::protobuf::internal::UnknownFieldLiteParserHelper::AddFixed3
   return this;
 }
 
-const std::string::value_type *google::protobuf::internal::EpsCopyInputStream::AppendString(uint64_t a1, std::string::value_type *__s, int a3, std::string *this)
+std::string::value_type *google::protobuf::internal::EpsCopyInputStream::AppendString(uint64_t a1, std::string::value_type *__s, int a3, std::string *this)
 {
   if (*(a1 + 8) - __s + 16 < a3)
   {
@@ -4620,7 +4615,7 @@ uint64_t google::protobuf::io::CopyingInputStream::Skip(google::protobuf::io::Co
   v3 = v2;
   v4 = v1;
   v5 = 0;
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   do
   {
     v6 = v5;
@@ -4632,12 +4627,11 @@ uint64_t google::protobuf::io::CopyingInputStream::Skip(google::protobuf::io::Co
     }
 
     v9 = v8 >= 4096 ? 4096 : v8;
-    v10 = (*(*v4 + 16))(v4, v13, v9);
+    v10 = (*(*v4 + 16))(v4, v12, v9);
     v5 = (v10 + v6);
   }
 
   while (v10 > 0);
-  v11 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
@@ -4731,7 +4725,6 @@ uint64_t google::protobuf::io::CopyingInputStreamAdaptor::AllocateBufferIfNeeded
 {
   if (!*(this + 32))
   {
-    v1 = *(this + 40);
     operator new[]();
   }
 
@@ -4759,9 +4752,9 @@ uint64_t google::protobuf::io::CopyingInputStreamAdaptor::FreeBuffer(google::pro
   return result;
 }
 
-void sub_254C89600(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_254C89600(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -4798,9 +4791,9 @@ void google::protobuf::io::CopyingInputStreamAdaptor::BackUp(google::protobuf::i
   *(this + 12) = a2;
 }
 
-void sub_254C89744(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_254C89744(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -4837,9 +4830,9 @@ BOOL google::protobuf::io::CopyingInputStreamAdaptor::Skip(google::protobuf::io:
   }
 }
 
-void sub_254C89848(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_254C89848(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -4975,9 +4968,9 @@ void google::protobuf::io::CopyingOutputStreamAdaptor::BackUp(google::protobuf::
   *(this + 11) = v5 - a2;
 }
 
-void sub_254C89BD8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_254C89BD8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -5042,9 +5035,9 @@ void *google::protobuf::internal::ArenaImpl::SerialArena::New(google::protobuf::
   return v9;
 }
 
-void sub_254C89E80(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_254C89E80(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -5096,14 +5089,14 @@ void *google::protobuf::internal::ArenaImpl::NewBlock(uint64_t a1, uint64_t a2, 
   return result;
 }
 
-void sub_254C89F9C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_254C89F9C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
 
-void *google::protobuf::internal::ArenaImpl::SerialArena::AddCleanupFallback(google::protobuf::internal::ArenaImpl::SerialArena *this, void *a2, void (*a3)(void *))
+uint64_t *google::protobuf::internal::ArenaImpl::SerialArena::AddCleanupFallback(google::protobuf::internal::ArenaImpl::SerialArena *this, uint64_t a2, void (*a3)(void *))
 {
   result = *(this + 3);
   do
@@ -5173,9 +5166,9 @@ unint64_t google::protobuf::internal::ArenaImpl::SerialArena::AllocateAligned(go
   return result;
 }
 
-void sub_254C8A148(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_254C8A148(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -5207,7 +5200,7 @@ unint64_t google::protobuf::internal::ArenaImpl::AllocateAlignedFallback(atomic_
   return google::protobuf::internal::ArenaImpl::SerialArena::AllocateAligned(SerialArena, a2);
 }
 
-void *google::protobuf::internal::ArenaImpl::AllocateAlignedAndAddCleanup(atomic_ullong *this, unint64_t a2, void (*a3)(void *))
+unint64_t google::protobuf::internal::ArenaImpl::AllocateAlignedAndAddCleanup(atomic_ullong *this, unint64_t a2, void (*a3)(void *))
 {
   v6 = google::protobuf::internal::ArenaImpl::thread_cache(this);
   if (*v6 == this[4])
@@ -5217,7 +5210,7 @@ void *google::protobuf::internal::ArenaImpl::AllocateAlignedAndAddCleanup(atomic
   }
 
   explicit = atomic_load_explicit(this + 1, memory_order_acquire);
-  if (explicit && *(explicit + 1) == v6)
+  if (explicit && *(explicit + 8) == v6)
   {
 LABEL_3:
 
@@ -5227,12 +5220,12 @@ LABEL_3:
   return google::protobuf::internal::ArenaImpl::AllocateAlignedAndAddCleanupFallback(this, a2, a3);
 }
 
-void *google::protobuf::internal::ArenaImpl::SerialArena::AllocateAlignedAndAddCleanup(google::protobuf::internal::ArenaImpl::SerialArena *this, unint64_t a2, void (*a3)(void *))
+unint64_t google::protobuf::internal::ArenaImpl::SerialArena::AllocateAlignedAndAddCleanup(unint64_t **this, unint64_t a2, void (*a3)(void *))
 {
   Aligned = google::protobuf::internal::ArenaImpl::SerialArena::AllocateAligned(this, a2);
   v6 = Aligned;
-  v7 = *(this + 7);
-  if (v7 == *(this + 8))
+  v7 = this[7];
+  if (v7 == this[8])
   {
     google::protobuf::internal::ArenaImpl::SerialArena::AddCleanupFallback(this, Aligned, a3);
   }
@@ -5241,20 +5234,20 @@ void *google::protobuf::internal::ArenaImpl::SerialArena::AllocateAlignedAndAddC
   {
     *v7 = Aligned;
     v7[1] = a3;
-    *(this + 7) = v7 + 2;
+    this[7] = v7 + 2;
   }
 
   return v6;
 }
 
-void *google::protobuf::internal::ArenaImpl::AllocateAlignedAndAddCleanupFallback(atomic_ullong *this, unint64_t a2, void (*a3)(void *))
+unint64_t google::protobuf::internal::ArenaImpl::AllocateAlignedAndAddCleanupFallback(atomic_ullong *this, unint64_t a2, void (*a3)(void *))
 {
   SerialArena = google::protobuf::internal::ArenaImpl::GetSerialArena(this);
 
   return google::protobuf::internal::ArenaImpl::SerialArena::AllocateAlignedAndAddCleanup(SerialArena, a2, a3);
 }
 
-google::protobuf::internal::ArenaImpl *google::protobuf::internal::ArenaImpl::GetSerialArena(atomic_ullong *this)
+atomic_ullong *google::protobuf::internal::ArenaImpl::GetSerialArena(atomic_ullong *this)
 {
   v2 = google::protobuf::internal::ArenaImpl::thread_cache(this);
   if (*v2 == this[4])
@@ -5273,15 +5266,15 @@ google::protobuf::internal::ArenaImpl *google::protobuf::internal::ArenaImpl::Ge
   return google::protobuf::internal::ArenaImpl::GetSerialArenaFallback(this, v5);
 }
 
-google::protobuf::internal::ArenaImpl *google::protobuf::internal::ArenaImpl::GetSerialArenaFallback(atomic_ullong *this, google::protobuf::internal::ArenaImpl::Block *a2)
+atomic_ullong *google::protobuf::internal::ArenaImpl::GetSerialArenaFallback(atomic_ullong *this, google::protobuf::internal::ArenaImpl::Block *a2)
 {
   v3 = this;
   explicit = atomic_load_explicit(this, memory_order_acquire);
   if (explicit)
   {
-    while (*(explicit + 1) != a2)
+    while (explicit[1] != a2)
     {
-      explicit = *(explicit + 4);
+      explicit = explicit[4];
       if (!explicit)
       {
         goto LABEL_4;
@@ -5330,13 +5323,13 @@ LABEL_4:
 
   v12 = google::protobuf::internal::ArenaImpl::thread_cache(this);
   *(v12 + 1) = explicit;
-  v13 = *(v3 + 4);
+  v13 = v3[4];
   *google::protobuf::internal::ArenaImpl::thread_cache(v12) = v13;
   atomic_store(explicit, v3 + 1);
   return explicit;
 }
 
-uint64_t google::protobuf::internal::ArenaImpl::SerialArena::AllocateAlignedFallback(google::protobuf::internal::ArenaImpl::SerialArena *this, unint64_t a2)
+unint64_t google::protobuf::internal::ArenaImpl::SerialArena::AllocateAlignedFallback(google::protobuf::internal::ArenaImpl::SerialArena *this, unint64_t a2)
 {
   v4 = *(this + 2);
   *(v4 + 8) = *(v4 + 16) - *(this + 6) + *(this + 5);
@@ -5361,9 +5354,9 @@ uint64_t google::protobuf::internal::ArenaImpl::Block::Pointer(google::protobuf:
   return this + a2;
 }
 
-void sub_254C8A5E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_254C8A5E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -5437,9 +5430,9 @@ void google::protobuf::internal::InitSCCImpl(_DWORD *a1)
   }
 }
 
-void sub_254C8A820(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_254C8A820(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -5456,30 +5449,32 @@ _DWORD *google::protobuf::internal::anonymous namespace::InitSCC_DFS(_DWORD *res
     {
       for (i = 0; i < v3; ++i)
       {
-        if (*&v2[2 * i])
+        v5 = *&v2[2 * i];
+        if (v5)
         {
           v3 = *(v1 + 1);
         }
       }
     }
 
-    v5 = v3;
-    v6 = *(v1 + 2);
-    if (v6 >= 1)
+    v6 = v3;
+    v7 = *(v1 + 2);
+    if (v7 >= 1)
     {
-      v7 = 0;
-      v8 = &v2[2 * v5];
+      v8 = 0;
+      v9 = &v2[2 * v6];
       do
       {
-        if (**&v8[2 * v7])
+        v10 = **&v9[2 * v8];
+        if (v10)
         {
-          v6 = *(v1 + 2);
+          v7 = *(v1 + 2);
         }
 
-        ++v7;
+        ++v8;
       }
 
-      while (v7 < v6);
+      while (v8 < v7);
     }
 
     result = v1[2]();
@@ -5496,31 +5491,19 @@ void google::protobuf::internal::InitSCCImpl()
   }
 }
 
-uint64_t google::protobuf::internal::MergePartialFromImpl<false>(uint64_t a1, uint64_t a2)
+BOOL google::protobuf::internal::MergePartialFromImpl<false>(uint64_t a1, uint64_t a2)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
+  v7 = 0u;
   v8 = 0u;
   v9 = 0u;
-  v10 = 0u;
-  v11 = 0x7FFFFFFF00000000;
-  v12 = google::protobuf::io::CodedInputStream::default_recursion_limit_;
-  v13 = 0x80000000;
+  v10 = 0x7FFFFFFF00000000;
+  v11 = google::protobuf::io::CodedInputStream::default_recursion_limit_;
+  v12 = 0x80000000;
+  v13 = 0;
   v14 = 0;
-  v15 = 0;
-  v3 = google::protobuf::internal::EpsCopyInputStream::InitFrom(v7, a1);
-  if ((*(*a2 + 104))(a2, v3, v7))
-  {
-    v4 = v11 == 1;
-  }
-
-  else
-  {
-    v4 = 0;
-  }
-
-  result = v4;
-  v6 = *MEMORY[0x277D85DE8];
-  return result;
+  v3 = google::protobuf::internal::EpsCopyInputStream::InitFrom(v6, a1);
+  return (*(*a2 + 104))(a2, v3, v6) && v10 == 1;
 }
 
 void google::protobuf::MessageLite::LogInitializationErrorMessage(google::protobuf::MessageLite *this)
@@ -5547,16 +5530,15 @@ void sub_254C8AB20(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void google::protobuf::anonymous namespace::InitializationErrorMessage(const std::string::value_type *this@<X0>, const char *a2@<X1>, std::string *a3@<X8>)
+void google::protobuf::anonymous namespace::InitializationErrorMessage(std::string *__return_ptr a1@<X8>, const std::string::value_type *this@<X0>, const char *a3@<X1>)
 {
-  a3->__r_.__value_.__r.__words[0] = 0;
-  a3->__r_.__value_.__l.__size_ = 0;
-  a3->__r_.__value_.__r.__words[2] = 0;
-  std::string::append(a3, "Can't ");
-  std::string::append(a3, this);
-  std::string::append(a3, " message of type ");
-  (*(*a2 + 16))(&__p, a2);
-  if ((v13 & 0x80u) == 0)
+  *&a1->__r_.__value_.__l.__data_ = 0uLL;
+  a1->__r_.__value_.__r.__words[2] = 0;
+  std::string::append(a1, "Can't ");
+  std::string::append(a1, this);
+  std::string::append(a1, " message of type ");
+  (*(*a3 + 16))(&__p, a3);
+  if ((v12 & 0x80u) == 0)
   {
     p_p = &__p;
   }
@@ -5566,46 +5548,46 @@ void google::protobuf::anonymous namespace::InitializationErrorMessage(const std
     p_p = __p;
   }
 
-  if ((v13 & 0x80u) == 0)
+  if ((v12 & 0x80u) == 0)
   {
-    v8 = v13;
+    v7 = v12;
   }
 
   else
   {
-    v8 = v12;
+    v7 = v11;
   }
 
-  std::string::append(a3, p_p, v8);
-  if (v13 < 0)
+  std::string::append(a1, p_p, v7);
+  if (v12 < 0)
   {
     operator delete(__p);
   }
 
-  std::string::append(a3, " because it is missing required fields: ");
-  (*(*a2 + 72))(&__p, a2);
-  if ((v13 & 0x80u) == 0)
+  std::string::append(a1, " because it is missing required fields: ");
+  (*(*a3 + 72))(&__p, a3);
+  if ((v12 & 0x80u) == 0)
   {
-    v9 = &__p;
+    v8 = &__p;
   }
 
   else
   {
-    v9 = __p;
+    v8 = __p;
   }
 
-  if ((v13 & 0x80u) == 0)
+  if ((v12 & 0x80u) == 0)
   {
-    v10 = v13;
+    v9 = v12;
   }
 
   else
   {
-    v10 = v12;
+    v9 = v11;
   }
 
-  std::string::append(a3, v9, v10);
-  if (v13 < 0)
+  std::string::append(a1, v8, v9);
+  if (v12 < 0)
   {
     operator delete(__p);
   }
@@ -5626,7 +5608,7 @@ void sub_254C8AC8C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t google::protobuf::MessageLite::ParseFrom<(google::protobuf::MessageLite::ParseFlags)1,google::protobuf::io::ZeroCopyInputStream *>(google::protobuf::MessageLite *a1, uint64_t *a2)
+BOOL google::protobuf::MessageLite::ParseFrom<(google::protobuf::MessageLite::ParseFlags)1,google::protobuf::io::ZeroCopyInputStream *>(google::protobuf::MessageLite *a1, uint64_t *a2)
 {
   (*(*a1 + 56))(a1);
   result = google::protobuf::internal::MergePartialFromImpl<false>(*a2, a1);
@@ -5647,7 +5629,7 @@ uint64_t google::protobuf::MessageLite::ParseFrom<(google::protobuf::MessageLite
   return result;
 }
 
-uint64_t google::protobuf::MessageLite::ParseFromFileDescriptor(google::protobuf::MessageLite *this, int a2)
+BOOL google::protobuf::MessageLite::ParseFromFileDescriptor(google::protobuf::MessageLite *this, int a2)
 {
   google::protobuf::io::FileInputStream::FileInputStream(&v6, a2, -1);
   v9 = &v6;
@@ -5700,39 +5682,38 @@ void sub_254C8AED4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 uint64_t google::protobuf::MessageLite::SerializePartialToZeroCopyStream(google::protobuf::MessageLite *this, google::protobuf::io::ZeroCopyOutputStream *a2)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v4 = (*(*this + 88))(this);
   if (v4 >> 31)
   {
     v5 = v4;
-    google::protobuf::internal::LogMessage::LogMessage(v16, 2, "/Library/Caches/com.apple.xbs/Sources/SiriIntelligenceEngine/3rdparty/protobuf/src/google/protobuf/message_lite.cc", 378);
+    google::protobuf::internal::LogMessage::LogMessage(v15, 2, "/Library/Caches/com.apple.xbs/Sources/SiriIntelligenceEngine/3rdparty/protobuf/src/google/protobuf/message_lite.cc", 378);
     (*(*this + 16))(__p, this);
-    v6 = google::protobuf::internal::LogMessage::operator<<(v16, __p);
+    v6 = google::protobuf::internal::LogMessage::operator<<(v15, __p);
     v7 = google::protobuf::internal::LogMessage::operator<<(v6, " exceeded maximum protobuf size of 2GB: ");
     v8 = google::protobuf::internal::LogMessage::operator<<(v7, v5);
-    google::protobuf::internal::LogFinisher::operator=(&v13, &v8->__r_.__value_.__l.__data_);
-    if (v15 < 0)
+    google::protobuf::internal::LogFinisher::operator=(&v12, &v8->__r_.__value_.__l.__data_);
+    if (v14 < 0)
     {
       operator delete(__p[0]);
     }
 
-    google::protobuf::internal::LogMessage::~LogMessage(&v16[0].__r_.__value_.__l.__data_);
+    google::protobuf::internal::LogMessage::~LogMessage(&v15[0].__r_.__value_.__l.__data_);
     v9 = 0;
   }
 
   else
   {
-    v16[0].__r_.__value_.__r.__words[0] = &v16[0].__r_.__value_.__r.__words[2];
-    v16[0].__r_.__value_.__l.__size_ = &v16[0].__r_.__value_.__r.__words[2];
-    v17 = a2;
-    v18 = 0;
-    v19 = google::protobuf::io::CodedOutputStream::default_serialization_deterministic_ & 1;
+    v15[0].__r_.__value_.__r.__words[0] = &v15[0].__r_.__value_.__r.__words[2];
+    v15[0].__r_.__value_.__l.__size_ = &v15[0].__r_.__value_.__r.__words[2];
+    v16 = a2;
+    v17 = 0;
+    v18 = google::protobuf::io::CodedOutputStream::default_serialization_deterministic_ & 1;
     v10 = (*(*this + 112))(this);
-    google::protobuf::io::EpsCopyOutputStream::Trim(v16, v10);
-    v9 = v18 ^ 1;
+    google::protobuf::io::EpsCopyOutputStream::Trim(v15, v10);
+    v9 = v17 ^ 1;
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return v9 & 1;
 }
 
@@ -5749,7 +5730,7 @@ void sub_254C8B094(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 uint64_t google::protobuf::MessageLite::SerializeToFileDescriptor(google::protobuf::MessageLite *this, int a2)
 {
-  google::protobuf::io::FileOutputStream::FileOutputStream(v5, a2, -1);
+  google::protobuf::io::FileOutputStream::FileOutputStream(v5, a2);
   if (google::protobuf::MessageLite::SerializeToZeroCopyStream(this, v5))
   {
     v3 = google::protobuf::io::FileOutputStream::Flush(v5);
@@ -5832,8 +5813,7 @@ void siri::intelligence::Character::GetId(siri::intelligence::Character *this@<X
 
   else
   {
-    *&a2->__r_.__value_.__l.__data_ = *this;
-    a2->__r_.__value_.__r.__words[2] = *(this + 2);
+    *a2 = *this;
   }
 }
 
@@ -5846,8 +5826,7 @@ void siri::intelligence::Character::GetName(siri::intelligence::Character *this@
 
   else
   {
-    *&a2->__r_.__value_.__l.__data_ = *(this + 24);
-    a2->__r_.__value_.__r.__words[2] = *(this + 5);
+    *a2 = *(this + 1);
   }
 }
 
@@ -5860,8 +5839,7 @@ void siri::intelligence::Character::GetTtsVoiceName(siri::intelligence::Characte
 
   else
   {
-    *&a2->__r_.__value_.__l.__data_ = *(this + 3);
-    a2->__r_.__value_.__r.__words[2] = *(this + 8);
+    *a2 = *(this + 2);
   }
 }
 
@@ -6107,7 +6085,7 @@ void sub_254C8E14C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_254C8E594(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, char a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, void (**a18)(void), void *__p, uint64_t a20, int a21, __int16 a22, char a23, char a24)
+void sub_254C8E594(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, char a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, void *__p, uint64_t a20, int a21, __int16 a22, char a23, char a24)
 {
   if (a24 < 0)
   {
@@ -6133,7 +6111,7 @@ void sub_254C8E594(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_254C8E9F0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void **__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, char a16, uint64_t a17, uint64_t a18, uint64_t a19, void *a20, uint64_t a21, uint64_t a22, void (**a23)(void), void *a24, uint64_t a25, int a26, __int16 a27, char a28, char a29)
+void sub_254C8E9F0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void **__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, char a16, uint64_t a17, uint64_t a18, uint64_t a19, void *a20, uint64_t a21, uint64_t a22, uint64_t a23, void *a24, uint64_t a25, int a26, __int16 a27, char a28, char a29)
 {
   if (a15 < 0)
   {
@@ -6162,7 +6140,7 @@ void sub_254C8E9F0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_254C8EE1C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, char a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, void (**a18)(void), void *__p, uint64_t a20, int a21, __int16 a22, char a23, char a24)
+void sub_254C8EE1C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, char a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, void *__p, uint64_t a20, int a21, __int16 a22, char a23, char a24)
 {
   if (a24 < 0)
   {
@@ -6211,7 +6189,7 @@ void sub_254C8F234(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_254C8F660(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, char a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, void (**a18)(void), void *__p, uint64_t a20, int a21, __int16 a22, char a23, char a24)
+void sub_254C8F660(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, char a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, void *__p, uint64_t a20, int a21, __int16 a22, char a23, char a24)
 {
   IEDefer::~IEDefer(&a18);
   v27 = a16;
@@ -6401,7 +6379,7 @@ void sub_254C91340(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_254C91814(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *a12, uint64_t a13, int a14, __int16 a15, char a16, char a17, void *__p, uint64_t a19, int a20, __int16 a21, char a22, char a23, uint64_t a24, uint64_t a25, uint64_t a26, char a27, uint64_t a28, uint64_t a29, char a30, void *a31, uint64_t a32, char a33, uint64_t a34, uint64_t a35, uint64_t a36, void *a37, uint64_t a38)
+void sub_254C91814(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *a12, uint64_t a13, int a14, __int16 a15, char a16, char a17, void *__p, uint64_t a19, int a20, __int16 a21, char a22, char a23, uint64_t a24, uint64_t a25, uint64_t a26, char a27, uint64_t a28, uint64_t a29, uint64_t a30, void *a31, uint64_t a32, char a33, uint64_t a34, uint64_t a35, uint64_t a36, void *a37, uint64_t a38)
 {
   if (v39)
   {
@@ -6559,11 +6537,11 @@ void sub_254C930C4()
   JUMPOUT(0x254C930B4);
 }
 
-void sub_254C93228(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_254C93228(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__function::__value_func<std::string ()(std::string const&,std::shared_ptr<siri::intelligence::VariableDictionary>)>::~__value_func[abi:ne200100](va);
-  std::__shared_weak_count::__release_shared[abi:ne200100](v3);
+  std::__shared_weak_count::__release_shared[abi:ne200100](v4);
 
   _Unwind_Resume(a1);
 }
@@ -6728,7 +6706,7 @@ std::string *std::pair<std::string const,std::shared_ptr<siri::intelligence::Var
 
 void siri::intelligence::ResolvedCondition::~ResolvedCondition(void **this)
 {
-  v2 = this + 7;
+  v2 = (this + 7);
   std::vector<siri::intelligence::ResolvedCondition>::__destroy_vector::operator()[abi:ne200100](&v2);
   if (*(this + 47) < 0)
   {
@@ -6741,7 +6719,7 @@ void siri::intelligence::ResolvedCondition::~ResolvedCondition(void **this)
   }
 }
 
-void std::vector<siri::intelligence::ResolvedCondition>::__destroy_vector::operator()[abi:ne200100](void ***a1)
+void std::vector<siri::intelligence::ResolvedCondition>::__destroy_vector::operator()[abi:ne200100](void ****a1)
 {
   v1 = *a1;
   v2 = **a1;
@@ -7101,7 +7079,7 @@ void siri::intelligence::Log::Info(siri::intelligence::Log *this, const char *a2
 void siri::intelligence::LogInternal(siri::intelligence *this, const char *a2, const char *a3)
 {
   v4 = this;
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   if (!siri::intelligence::LogInternal(os_log_type_t,char const*)::sLog)
   {
     v5 = os_log_create("com.apple.siri.AuthoredFlow", "FlowEngine");
@@ -7136,22 +7114,22 @@ void siri::intelligence::LogInternal(siri::intelligence *this, const char *a2, c
   if (os_log_type_enabled(siri::intelligence::LogInternal(os_log_type_t,char const*)::sLog, v4))
   {
     v11 = __p;
-    if (v15 < 0)
+    if (v14 < 0)
     {
       v11 = __p[0];
     }
 
     *buf = 136315394;
-    v17 = v11;
-    v18 = 2080;
-    v19 = a2;
+    v16 = v11;
+    v17 = 2080;
+    v18 = a2;
     _os_log_impl(&dword_254C81000, v10, v4, "%s%s", buf, 0x16u);
   }
 
   if (siri::intelligence::Log::sOutputToStdout == 1)
   {
     v12 = __p;
-    if (v15 < 0)
+    if (v14 < 0)
     {
       v12 = __p[0];
     }
@@ -7159,12 +7137,10 @@ void siri::intelligence::LogInternal(siri::intelligence *this, const char *a2, c
     printf("%s%s\n", v12, a2);
   }
 
-  if (v15 < 0)
+  if (v14 < 0)
   {
     operator delete(__p[0]);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void siri::intelligence::Log::Warning(siri::intelligence::Log *this, const char *a2, ...)
@@ -7235,38 +7211,37 @@ double siri::intelligence::TestSuite::TestSuite(siri::intelligence::TestSuite *t
   return result;
 }
 
-uint64_t siri::intelligence::TestSuite::LoadTests(uint64_t *a1, uint64_t a2)
+uint64_t siri::intelligence::TestSuite::LoadTests(unint64_t *a1, uint64_t a2, uint64_t a3)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   std::vector<siri::intelligence::TestCase>::__base_destruct_at_end[abi:ne200100](a1, *a1);
-  v3 = a1[3];
-  for (i = a1[4]; i != v3; std::allocator<siri::intelligence::TestParseError>::destroy[abi:ne200100]((a1 + 3), i))
+  v4 = a1[3];
+  for (i = a1[4]; i != v4; std::allocator<siri::intelligence::TestParseError>::destroy[abi:ne200100]((a1 + 3), i))
   {
     i -= 48;
   }
 
-  a1[4] = v3;
-  siri::intelligence::ListTemplateDir(a2, 4, v10);
-  if (v10[0] != v10[1])
+  a1[4] = v4;
+  siri::intelligence::ListTemplateDir(a2, 4, v11);
+  if (v11[0] != v11[1])
   {
-    if (*(v10[0] + 23) < 0)
+    if (*(v11[0] + 23) < 0)
     {
-      std::string::__init_copy_ctor_external(&v9, *v10[0], *(v10[0] + 8));
+      std::string::__init_copy_ctor_external(&v10, *v11[0], *(v11[0] + 8));
     }
 
     else
     {
-      v5 = *v10[0];
-      v9.__r_.__value_.__r.__words[2] = *(v10[0] + 16);
-      *&v9.__r_.__value_.__l.__data_ = v5;
+      v6 = *v11[0];
+      v10.__r_.__value_.__r.__words[2] = *(v11[0] + 16);
+      *&v10.__r_.__value_.__l.__data_ = v6;
     }
 
-    _ZNSt3__115allocate_sharedB8ne200100IN8protobuf8FlowTestENS_9allocatorIS2_EEJELi0EEENS_10shared_ptrIT_EERKT0_DpOT1_();
+    _ZNSt3__115allocate_sharedB8ne200100IN8protobuf8FlowTestENS_9allocatorIS2_EEJELi0EEENS_10shared_ptrIT_EERKT0_DpOT1_(&v9);
   }
 
-  v11.__r_.__value_.__r.__words[0] = v10;
-  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v11);
-  v6 = *MEMORY[0x277D85DE8];
+  v12.__r_.__value_.__r.__words[0] = v11;
+  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v12);
   return 1;
 }
 
@@ -7339,15 +7314,14 @@ void sub_254C96640(_Unwind_Exception *a1)
 void sub_254C96680()
 {
   siri::intelligence::TestParseError::~TestParseError(&STACK[0x720]);
-  if (SLOBYTE(STACK[0x2E7]) < 0)
+  if ((SLOBYTE(STACK[0x2E7]) & 0x80000000) == 0)
   {
-    v0 = STACK[0x2D0];
-    JUMPOUT(0x254C96710);
+    STACK[0x720] = &STACK[0x360];
+    std::vector<siri::intelligence::ValidationResult>::__destroy_vector::operator()[abi:ne200100](&STACK[0x720]);
+    JUMPOUT(0x254C9672CLL);
   }
 
-  STACK[0x720] = &STACK[0x360];
-  std::vector<siri::intelligence::ValidationResult>::__destroy_vector::operator()[abi:ne200100](&STACK[0x720]);
-  JUMPOUT(0x254C9672CLL);
+  JUMPOUT(0x254C96710);
 }
 
 void sub_254C966F0()
@@ -7376,7 +7350,7 @@ void sub_254C96780(_Unwind_Exception *a1)
 
   if (v5)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100]();
+    std::__shared_weak_count::__release_shared[abi:ne200100](v5);
   }
 
   if (v7 < 0)
@@ -7389,7 +7363,7 @@ void sub_254C96780(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-YAML::Node *YAML::Node::operator=(YAML::Node *this, YAML::Node *a2)
+YAML::Node *YAML::Node::operator=(YAML::Node *this, const YAML::detail::node **a2)
 {
   if (*this != 1 || (*a2 & 1) == 0)
   {
@@ -7471,7 +7445,7 @@ void sub_254C96B58(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-uint64_t std::vector<siri::intelligence::TestParseError>::push_back[abi:ne200100](uint64_t *a1, uint64_t a2)
+uint64_t std::vector<siri::intelligence::TestParseError>::push_back[abi:ne200100](uint64_t *a1, __int128 *a2)
 {
   v3 = a1[1];
   if (v3 >= a1[2])
@@ -7482,17 +7456,15 @@ uint64_t std::vector<siri::intelligence::TestParseError>::push_back[abi:ne200100
   else
   {
     v4 = *a2;
-    *(v3 + 16) = *(a2 + 16);
+    *(v3 + 16) = *(a2 + 2);
     *v3 = v4;
-    *(a2 + 8) = 0;
-    *(a2 + 16) = 0;
+    *(a2 + 8) = 0uLL;
     *a2 = 0;
     v5 = *(a2 + 24);
-    *(v3 + 40) = *(a2 + 40);
+    *(v3 + 40) = *(a2 + 5);
     *(v3 + 24) = v5;
-    *(a2 + 32) = 0;
-    *(a2 + 40) = 0;
-    *(a2 + 24) = 0;
+    a2[2] = 0uLL;
+    *(a2 + 3) = 0;
     result = v3 + 48;
   }
 
@@ -7536,12 +7508,15 @@ uint64_t std::basic_stringstream<char,std::char_traits<char>,std::allocator<char
 
 void siri::intelligence::TestSuite::SaveTests(siri::intelligence::TestCase **this)
 {
+  v2[0] = 0;
+  v2[1] = 0;
+  v1[2] = v2;
   if (*this != this[1])
   {
     siri::intelligence::TestCase::GetTestFilename(*this);
   }
 
-  _ZNSt3__115allocate_sharedB8ne200100IN8protobuf8FlowTestENS_9allocatorIS2_EEJELi0EEENS_10shared_ptrIT_EERKT0_DpOT1_();
+  _ZNSt3__115allocate_sharedB8ne200100IN8protobuf8FlowTestENS_9allocatorIS2_EEJELi0EEENS_10shared_ptrIT_EERKT0_DpOT1_(v1);
 }
 
 void sub_254C97F64(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14, uint64_t a15, int a16, __int16 a17, char a18, char a19, void *a20, uint64_t a21, int a22, __int16 a23, char a24, char a25, void *a26, uint64_t a27, int a28, __int16 a29, char a30, char a31, void *a32, uint64_t a33, int a34, __int16 a35, char a36, char a37, uint64_t a38, void *__p, uint64_t a40, int a41, __int16 a42, char a43, char a44)
@@ -7557,20 +7532,20 @@ void sub_254C97F64(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t siri::intelligence::TestSuite::GetTests@<X0>(siri::intelligence::TestSuite *this@<X0>, void *a2@<X8>)
+uint64_t *siri::intelligence::TestSuite::GetTests@<X0>(uint64_t *a1@<X8>, uint64_t *a2@<X0>)
 {
-  *a2 = 0;
-  a2[1] = 0;
-  a2[2] = 0;
-  return std::vector<siri::intelligence::TestCase>::__init_with_size[abi:ne200100]<siri::intelligence::TestCase*,siri::intelligence::TestCase*>(a2, *this, *(this + 1), 0x86BCA1AF286BCA1BLL * ((*(this + 1) - *this) >> 3));
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
+  return std::vector<siri::intelligence::TestCase>::__init_with_size[abi:ne200100]<siri::intelligence::TestCase*,siri::intelligence::TestCase*>(a1, *a2, a2[1], 0x86BCA1AF286BCA1BLL * ((a2[1] - *a2) >> 3));
 }
 
-uint64_t siri::intelligence::TestSuite::GetParseErrors@<X0>(siri::intelligence::TestSuite *this@<X0>, void *a2@<X8>)
+uint64_t *siri::intelligence::TestSuite::GetParseErrors@<X0>(uint64_t *a1@<X8>, uint64_t a2@<X0>)
 {
-  *a2 = 0;
-  a2[1] = 0;
-  a2[2] = 0;
-  return std::vector<siri::intelligence::TestParseError>::__init_with_size[abi:ne200100]<siri::intelligence::TestParseError*,siri::intelligence::TestParseError*>(a2, *(this + 3), *(this + 4), 0xAAAAAAAAAAAAAAABLL * ((*(this + 4) - *(this + 3)) >> 4));
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
+  return std::vector<siri::intelligence::TestParseError>::__init_with_size[abi:ne200100]<siri::intelligence::TestParseError*,siri::intelligence::TestParseError*>(a1, *(a2 + 24), *(a2 + 32), 0xAAAAAAAAAAAAAAABLL * ((*(a2 + 32) - *(a2 + 24)) >> 4));
 }
 
 uint64_t siri::intelligence::TestSuite::AddTestCase(siri::intelligence::TestSuite *this, const siri::intelligence::TestCase *a2)
@@ -7614,7 +7589,7 @@ BOOL YAML::Node::is(YAML::Node *this, const YAML::Node *a2)
   return v3 && (v4 = *(a2 + 6)) != 0 && *v3 == *v4;
 }
 
-void YAML::Node::AssignNode(YAML::Node *this, const YAML::Node *a2)
+void YAML::Node::AssignNode(YAML::Node *this, const YAML::detail::node **a2)
 {
   if (*this != 1 || (*a2 & 1) == 0)
   {
@@ -7636,22 +7611,22 @@ void YAML::Node::AssignNode(YAML::Node *this, const YAML::Node *a2)
 
   YAML::Node::EnsureNodeExists(a2);
   v4 = *(this + 6);
-  v5 = *(a2 + 6);
+  v5 = a2[6];
   if (v4)
   {
     YAML::detail::node::set_ref(v4, v5);
-    YAML::detail::memory_holder::merge(*(this + 4), *(a2 + 4));
-    *(this + 6) = *(a2 + 6);
+    YAML::detail::memory_holder::merge(*(this + 4), a2[4]);
+    *(this + 6) = a2[6];
   }
 
   else
   {
     *(this + 6) = v5;
-    v7 = *(a2 + 4);
-    v6 = *(a2 + 5);
+    v7 = a2[4];
+    v6 = a2[5];
     if (v6)
     {
-      atomic_fetch_add_explicit((v6 + 8), 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit(v6 + 1, 1uLL, memory_order_relaxed);
     }
 
     v8 = *(this + 5);
@@ -7665,7 +7640,7 @@ void YAML::Node::AssignNode(YAML::Node *this, const YAML::Node *a2)
   }
 }
 
-void *YAML::InvalidNode::InvalidNode(void *a1, uint64_t a2)
+void *YAML::InvalidNode::InvalidNode(void *a1, uint64_t **a2)
 {
   v6 = -1;
   v7 = -1;
@@ -7691,13 +7666,13 @@ void sub_254C98570(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t YAML::ErrorMsg::INVALID_NODE_WITH_KEY@<X0>(uint64_t a1@<X0>, _BYTE *a2@<X8>)
+uint64_t YAML::ErrorMsg::INVALID_NODE_WITH_KEY@<X0>(uint64_t **a1@<X0>, void *a2@<X8>)
 {
   std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::basic_stringstream[abi:ne200100](v12);
   v4 = *(a1 + 23);
   if ((v4 & 0x80u) != 0)
   {
-    v4 = *(a1 + 8);
+    v4 = a1[1];
   }
 
   if (v4)
@@ -7721,7 +7696,7 @@ uint64_t YAML::ErrorMsg::INVALID_NODE_WITH_KEY@<X0>(uint64_t a1@<X0>, _BYTE *a2@
 
     else
     {
-      v8 = *(a1 + 8);
+      v8 = a1[1];
     }
 
     v9 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v5, v7, v8);
@@ -7750,14 +7725,14 @@ uint64_t YAML::ErrorMsg::INVALID_NODE_WITH_KEY@<X0>(uint64_t a1@<X0>, _BYTE *a2@
   return MEMORY[0x259C29CE0](&v17);
 }
 
-void sub_254C98774(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_254C98774(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::~basic_stringstream(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t YAML::Exception::Exception(uint64_t a1, _DWORD *a2, uint64_t a3)
+uint64_t YAML::Exception::Exception(uint64_t a1, uint64_t *a2, __int128 *a3)
 {
   YAML::Exception::build_what(a2, a3, &v9);
   std::runtime_error::runtime_error(a1, &v9);
@@ -7768,17 +7743,17 @@ uint64_t YAML::Exception::Exception(uint64_t a1, _DWORD *a2, uint64_t a3)
 
   *a1 = &unk_28671C238;
   v6 = *a2;
-  *(a1 + 24) = a2[2];
+  *(a1 + 24) = *(a2 + 2);
   *(a1 + 16) = v6;
   if (*(a3 + 23) < 0)
   {
-    std::string::__init_copy_ctor_external((a1 + 32), *a3, *(a3 + 8));
+    std::string::__init_copy_ctor_external((a1 + 32), *a3, *(a3 + 1));
   }
 
   else
   {
     v7 = *a3;
-    *(a1 + 48) = *(a3 + 16);
+    *(a1 + 48) = *(a3 + 2);
     *(a1 + 32) = v7;
   }
 
@@ -7799,8 +7774,7 @@ void YAML::Exception::build_what(_DWORD *a1@<X0>, uint64_t a2@<X1>, std::string 
 
     else
     {
-      *&a3->__r_.__value_.__l.__data_ = *a2;
-      a3->__r_.__value_.__r.__words[2] = *(a2 + 16);
+      *a3 = *a2;
     }
   }
 
@@ -7852,9 +7826,9 @@ void YAML::Exception::build_what(_DWORD *a1@<X0>, uint64_t a2@<X1>, std::string 
   }
 }
 
-void sub_254C98AC4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_254C98AC4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::~basic_stringstream(va);
   _Unwind_Resume(a1);
 }
@@ -7964,9 +7938,9 @@ void std::shared_ptr<YAML::detail::memory>::shared_ptr[abi:ne200100]<YAML::detai
   operator new();
 }
 
-void sub_254C98F1C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_254C98F1C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<YAML::detail::memory>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -8235,19 +8209,20 @@ LABEL_25:
   }
 }
 
-void sub_254C99350(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, char a16)
+void sub_254C99350(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  v19 = v18;
+  va_start(va, a15);
+  v18 = v17;
   YAML::Node::~Node(&a9);
-  if ((v19 & 1) == 0)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v17);
-  }
-
-  YAML::Node::~Node(&a16);
-  if (v16)
+  if ((v18 & 1) == 0)
   {
     std::__shared_weak_count::__release_shared[abi:ne200100](v16);
+  }
+
+  YAML::Node::~Node(va);
+  if (v15)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v15);
   }
 
   _Unwind_Resume(a1);
@@ -8260,27 +8235,27 @@ uint64_t YAML::Node::Mark(YAML::Node *this)
     exception = __cxa_allocate_exception(0x38uLL);
     if (*(this + 31) < 0)
     {
-      std::string::__init_copy_ctor_external(&v7, *(this + 1), *(this + 2));
+      std::string::__init_copy_ctor_external(&v5, *(this + 1), *(this + 2));
     }
 
     else
     {
-      v7 = *(this + 8);
+      v5 = *(this + 8);
     }
 
-    YAML::InvalidNode::InvalidNode(exception, &v7);
+    YAML::InvalidNode::InvalidNode(exception, &v5);
   }
 
   v2 = *(this + 6);
-  if (!v2)
+  if (v2)
+  {
+    return *(**v2 + 4);
+  }
+
+  else
   {
     return -1;
   }
-
-  v3 = **v2;
-  result = *(v3 + 4);
-  v5 = *(v3 + 12);
-  return result;
 }
 
 void YAML::detail::iterator_value::~iterator_value(YAML::detail::iterator_value *this)
@@ -8319,7 +8294,7 @@ void YAML::detail::iterator_value::~iterator_value(YAML::detail::iterator_value 
   }
 }
 
-void YAML::Node::operator[]<char [14]>(YAML::Node *this@<X0>, char *a2@<X1>, uint64_t a3@<X8>)
+void YAML::Node::operator[]<char [14]>(uint64_t *__return_ptr a1@<X8>, YAML::Node *this@<X0>, char *a3@<X1>)
 {
   if ((*this & 1) == 0)
   {
@@ -8339,7 +8314,7 @@ void YAML::Node::operator[]<char [14]>(YAML::Node *this@<X0>, char *a2@<X1>, uin
 
   YAML::Node::EnsureNodeExists(this);
   v6 = *(this + 6);
-  std::string::basic_string[abi:ne200100]<0>(__p, a2);
+  std::string::basic_string[abi:ne200100]<0>(__p, a3);
   v7 = *(this + 5);
   v14 = *(this + 4);
   v15 = v7;
@@ -8365,26 +8340,26 @@ LABEL_8:
       if (v9)
       {
         atomic_fetch_add_explicit(&v9->__shared_owners_, 1uLL, memory_order_relaxed);
-        *a3 = 1;
-        *(a3 + 8) = 0;
-        *(a3 + 16) = 0;
-        *(a3 + 24) = 0;
-        *(a3 + 32) = v10;
-        *(a3 + 40) = v9;
+        *a1 = 1;
+        a1[1] = 0;
+        a1[2] = 0;
+        a1[3] = 0;
+        a1[4] = v10;
+        a1[5] = v9;
         atomic_fetch_add_explicit(&v9->__shared_owners_, 1uLL, memory_order_relaxed);
-        *(a3 + 48) = v8;
+        a1[6] = v8;
         std::__shared_weak_count::__release_shared[abi:ne200100](v9);
       }
 
       else
       {
-        *a3 = 1;
-        *(a3 + 8) = 0;
-        *(a3 + 16) = 0;
-        *(a3 + 24) = 0;
-        *(a3 + 32) = v10;
-        *(a3 + 40) = 0;
-        *(a3 + 48) = v8;
+        *a1 = 1;
+        a1[1] = 0;
+        a1[2] = 0;
+        a1[3] = 0;
+        a1[4] = v10;
+        a1[5] = 0;
+        a1[6] = v8;
       }
 
       return;
@@ -8396,16 +8371,16 @@ LABEL_8:
     goto LABEL_8;
   }
 
-  streamable_to_string<char [14],true>::impl(a2);
-  *a3 = 0;
-  v11 = (a3 + 8);
+  streamable_to_string<char [14],true>::impl(a3);
+  *a1 = 0;
+  v11 = (a1 + 1);
   if (SHIBYTE(v17) < 0)
   {
     std::string::__init_copy_ctor_external(v11, __p[0], __p[1]);
     v12 = SHIBYTE(v17);
-    *(a3 + 40) = 0;
-    *(a3 + 48) = 0;
-    *(a3 + 32) = 0;
+    a1[5] = 0;
+    a1[6] = 0;
+    a1[4] = 0;
     if (v12 < 0)
     {
       operator delete(__p[0]);
@@ -8415,10 +8390,10 @@ LABEL_8:
   else
   {
     *&v11->__r_.__value_.__l.__data_ = *__p;
-    *(a3 + 24) = v17;
-    *(a3 + 40) = 0;
-    *(a3 + 48) = 0;
-    *(a3 + 32) = 0;
+    a1[3] = v17;
+    a1[5] = 0;
+    a1[6] = 0;
+    a1[4] = 0;
   }
 }
 
@@ -8432,7 +8407,7 @@ void sub_254C996C0(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void YAML::Node::operator[]<char [6]>(YAML::Node *this@<X0>, char *a2@<X1>, uint64_t a3@<X8>)
+void YAML::Node::operator[]<char [6]>(uint64_t *__return_ptr a1@<X8>, YAML::Node *this@<X0>, char *a3@<X1>)
 {
   if ((*this & 1) == 0)
   {
@@ -8452,7 +8427,7 @@ void YAML::Node::operator[]<char [6]>(YAML::Node *this@<X0>, char *a2@<X1>, uint
 
   YAML::Node::EnsureNodeExists(this);
   v6 = *(this + 6);
-  std::string::basic_string[abi:ne200100]<0>(__p, a2);
+  std::string::basic_string[abi:ne200100]<0>(__p, a3);
   v7 = *(this + 5);
   v14 = *(this + 4);
   v15 = v7;
@@ -8478,26 +8453,26 @@ LABEL_8:
       if (v9)
       {
         atomic_fetch_add_explicit(&v9->__shared_owners_, 1uLL, memory_order_relaxed);
-        *a3 = 1;
-        *(a3 + 8) = 0;
-        *(a3 + 16) = 0;
-        *(a3 + 24) = 0;
-        *(a3 + 32) = v10;
-        *(a3 + 40) = v9;
+        *a1 = 1;
+        a1[1] = 0;
+        a1[2] = 0;
+        a1[3] = 0;
+        a1[4] = v10;
+        a1[5] = v9;
         atomic_fetch_add_explicit(&v9->__shared_owners_, 1uLL, memory_order_relaxed);
-        *(a3 + 48) = v8;
+        a1[6] = v8;
         std::__shared_weak_count::__release_shared[abi:ne200100](v9);
       }
 
       else
       {
-        *a3 = 1;
-        *(a3 + 8) = 0;
-        *(a3 + 16) = 0;
-        *(a3 + 24) = 0;
-        *(a3 + 32) = v10;
-        *(a3 + 40) = 0;
-        *(a3 + 48) = v8;
+        *a1 = 1;
+        a1[1] = 0;
+        a1[2] = 0;
+        a1[3] = 0;
+        a1[4] = v10;
+        a1[5] = 0;
+        a1[6] = v8;
       }
 
       return;
@@ -8509,16 +8484,16 @@ LABEL_8:
     goto LABEL_8;
   }
 
-  streamable_to_string<char [6],true>::impl(a2);
-  *a3 = 0;
-  v11 = (a3 + 8);
+  streamable_to_string<char [6],true>::impl(a3);
+  *a1 = 0;
+  v11 = (a1 + 1);
   if (SHIBYTE(v17) < 0)
   {
     std::string::__init_copy_ctor_external(v11, __p[0], __p[1]);
     v12 = SHIBYTE(v17);
-    *(a3 + 40) = 0;
-    *(a3 + 48) = 0;
-    *(a3 + 32) = 0;
+    a1[5] = 0;
+    a1[6] = 0;
+    a1[4] = 0;
     if (v12 < 0)
     {
       operator delete(__p[0]);
@@ -8528,10 +8503,10 @@ LABEL_8:
   else
   {
     *&v11->__r_.__value_.__l.__data_ = *__p;
-    *(a3 + 24) = v17;
-    *(a3 + 40) = 0;
-    *(a3 + 48) = 0;
-    *(a3 + 32) = 0;
+    a1[3] = v17;
+    a1[5] = 0;
+    a1[6] = 0;
+    a1[4] = 0;
   }
 }
 
@@ -8545,23 +8520,23 @@ void sub_254C998DC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void siri::intelligence::ValidateFlowTest_Test(siri::intelligence *this, const YAML::Node *a2, siri::intelligence::ValidationResults *a3)
+void siri::intelligence::ValidateFlowTest_Test(siri::intelligence *this, uint64_t **a2, siri::intelligence::ValidationResults *a3)
 {
   v3 = this;
-  v88 = *MEMORY[0x277D85DE8];
+  v87 = *MEMORY[0x277D85DE8];
   if ((atomic_load_explicit(&qword_280AF4020, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_280AF4020))
   {
-    std::string::basic_string[abi:ne200100]<0>(v75, "name");
-    std::string::basic_string[abi:ne200100]<0>(&v75[24], "description");
-    std::string::basic_string[abi:ne200100]<0>(&v77, "enabled");
-    std::string::basic_string[abi:ne200100]<0>(&v79 + 8, "steps");
-    std::string::basic_string[abi:ne200100]<0>(v81, "repeat");
-    std::set<std::string>::set[abi:ne200100](&qword_280AF4070, v75, 5);
+    std::string::basic_string[abi:ne200100]<0>(v74, "name");
+    std::string::basic_string[abi:ne200100]<0>(&v74[24], "description");
+    std::string::basic_string[abi:ne200100]<0>(&v76, "enabled");
+    std::string::basic_string[abi:ne200100]<0>(&v78 + 1, "steps");
+    std::string::basic_string[abi:ne200100]<0>(v80, "repeat");
+    std::set<std::string>::set[abi:ne200100](&qword_280AF4070, v74, 5);
     for (i = 0; i != -15; i -= 3)
     {
-      if (*(&v83 + i * 8) < 0)
+      if (*(&v82 + i * 8) < 0)
       {
-        operator delete(v81[i]);
+        operator delete(v80[i]);
       }
     }
 
@@ -8572,74 +8547,74 @@ void siri::intelligence::ValidateFlowTest_Test(siri::intelligence *this, const Y
 
   if ((*v3 & 1) != 0 && (v4 = *(v3 + 6)) != 0)
   {
-    YAML::detail::node_data::begin(**v4, v75);
+    YAML::detail::node_data::begin(v74, **v4);
     v6 = *(this + 4);
     v5 = *(this + 5);
     if (v5)
     {
       atomic_fetch_add_explicit(&v5->__shared_owners_, 1uLL, memory_order_relaxed);
-      *v70 = *v75;
-      *&v70[16] = *&v75[16];
-      *&v70[32] = v6;
-      v71 = v5;
+      *v69 = *v74;
+      *&v69[16] = *&v74[16];
+      *&v69[32] = v6;
+      v70 = v5;
       atomic_fetch_add_explicit(&v5->__shared_owners_, 1uLL, memory_order_relaxed);
       std::__shared_weak_count::__release_shared[abi:ne200100](v5);
     }
 
     else
     {
-      *v70 = *v75;
-      *&v70[16] = *&v75[16];
-      *&v70[32] = v6;
-      v71 = 0;
+      *v69 = *v74;
+      *&v69[16] = *&v74[16];
+      *&v69[32] = v6;
+      v70 = 0;
     }
   }
 
   else
   {
-    *v70 = 0;
-    memset(&v70[8], 0, 32);
-    v71 = 0;
+    *v69 = 0;
+    memset(&v69[8], 0, 32);
+    v70 = 0;
   }
 
   if (*this == 1 && (v7 = *(this + 6)) != 0)
   {
-    YAML::detail::node_data::end(**v7, v75);
+    YAML::detail::node_data::end(v74, **v7);
     v8 = *(this + 5);
     if (v8)
     {
       atomic_fetch_add_explicit(&v8->__shared_owners_, 1uLL, memory_order_relaxed);
-      v9 = *v75;
-      v10 = *&v75[8];
-      v65 = *&v75[16];
+      v9 = *v74;
+      v10 = *&v74[8];
+      v64 = *&v74[16];
       atomic_fetch_add_explicit(&v8->__shared_owners_, 1uLL, memory_order_relaxed);
-      v64 = v8;
+      v63 = v8;
       std::__shared_weak_count::__release_shared[abi:ne200100](v8);
     }
 
     else
     {
-      v64 = 0;
-      v9 = *v75;
-      v10 = *&v75[8];
-      v65 = *&v75[16];
+      v63 = 0;
+      v9 = *v74;
+      v10 = *&v74[8];
+      v64 = *&v74[16];
     }
   }
 
   else
   {
-    v64 = 0;
+    v63 = 0;
     v9 = 0;
-    v65 = 0;
+    v64 = 0;
     v10 = 0;
   }
 
   while (1)
   {
-    if (*v70 == v9)
+    if (*v69 == v9)
     {
       v11 = v10;
-      v12 = &v70[8];
+      v12 = &v69[8];
       if (v9 != 1)
       {
         if (v9 != 2)
@@ -8647,8 +8622,8 @@ void siri::intelligence::ValidateFlowTest_Test(siri::intelligence *this, const Y
           break;
         }
 
-        v11 = v65;
-        v12 = &v70[16];
+        v11 = v64;
+        v12 = &v69[16];
       }
 
       if (*v12 == v11)
@@ -8657,26 +8632,26 @@ void siri::intelligence::ValidateFlowTest_Test(siri::intelligence *this, const Y
       }
     }
 
-    YAML::detail::iterator_base<YAML::detail::iterator_value const>::operator*(v70, v75);
-    if ((v78 & 1) == 0)
+    YAML::detail::iterator_base<YAML::detail::iterator_value const>::operator*(v69, v74);
+    if ((v77 & 1) == 0)
     {
       exception = __cxa_allocate_exception(0x38uLL);
-      if (SHIBYTE(v80) < 0)
+      if (SHIBYTE(v79) < 0)
       {
-        std::string::__init_copy_ctor_external(v68, v79, *(&v79 + 1));
+        std::string::__init_copy_ctor_external(v67, v78, *(&v78 + 1));
       }
 
       else
       {
-        *v68 = v79;
-        *&v68[16] = v80;
+        *v67 = v78;
+        *&v67[16] = v79;
       }
 
-      YAML::InvalidNode::InvalidNode(exception, v68);
+      YAML::InvalidNode::InvalidNode(exception, v67);
     }
 
-    *v68 = &v78;
-    YAML::as_if<std::string,void>::operator()(v68, &__p);
+    *v67 = &v77;
+    YAML::as_if<std::string,void>::operator()(v67, &__p);
     v13 = std::__tree<std::string>::find<std::string>(&qword_280AF4070, &__p.__r_.__value_.__l.__data_);
     if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
     {
@@ -8685,50 +8660,50 @@ void siri::intelligence::ValidateFlowTest_Test(siri::intelligence *this, const Y
 
     if (v13 == &unk_280AF4078)
     {
-      if ((v78 & 1) == 0)
+      if ((v77 & 1) == 0)
       {
-        v51 = __cxa_allocate_exception(0x38uLL);
-        if (SHIBYTE(v80) < 0)
+        v50 = __cxa_allocate_exception(0x38uLL);
+        if (SHIBYTE(v79) < 0)
         {
-          std::string::__init_copy_ctor_external(v68, v79, *(&v79 + 1));
+          std::string::__init_copy_ctor_external(v67, v78, *(&v78 + 1));
         }
 
         else
         {
-          *v68 = v79;
-          *&v68[16] = v80;
+          *v67 = v78;
+          *&v67[16] = v79;
         }
 
-        YAML::InvalidNode::InvalidNode(v51, v68);
+        YAML::InvalidNode::InvalidNode(v50, v67);
       }
 
-      *v68 = &v78;
-      YAML::as_if<std::string,void>::operator()(v68, &v73);
-      v14 = std::string::insert(&v73, 0, "Unsupported field for Test found in flow file: ");
+      *v67 = &v77;
+      YAML::as_if<std::string,void>::operator()(v67, &v72);
+      v14 = std::string::insert(&v72, 0, "Unsupported field for Test found in flow file: ");
       __p = *v14;
       v14->__r_.__value_.__l.__size_ = 0;
       v14->__r_.__value_.__r.__words[2] = 0;
       v14->__r_.__value_.__r.__words[0] = 0;
-      if ((v82 & 1) == 0)
+      if ((v81 & 1) == 0)
       {
-        v50 = __cxa_allocate_exception(0x38uLL);
-        if (SHIBYTE(v85) < 0)
+        v49 = __cxa_allocate_exception(0x38uLL);
+        if (SHIBYTE(v84) < 0)
         {
-          std::string::__init_copy_ctor_external(v68, v84, *(&v84 + 1));
+          std::string::__init_copy_ctor_external(v67, v83, *(&v83 + 1));
         }
 
         else
         {
-          *v68 = v84;
-          *&v68[16] = v85;
+          *v67 = v83;
+          *&v67[16] = v84;
         }
 
-        YAML::InvalidNode::InvalidNode(v50, v68);
+        YAML::InvalidNode::InvalidNode(v49, v67);
       }
 
-      if (v87)
+      if (v86)
       {
-        v15 = *(**v87 + 8);
+        v15 = *(**v86 + 8);
       }
 
       else
@@ -8736,71 +8711,71 @@ void siri::intelligence::ValidateFlowTest_Test(siri::intelligence *this, const Y
         v15 = -1;
       }
 
-      siri::intelligence::ValidationResults::AddError(a2, &siri::intelligence::CODE_YAML_PARSE, &__p, v15);
+      siri::intelligence::ValidationResults::AddError(a2, siri::intelligence::CODE_YAML_PARSE, &__p, v15);
       if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
       {
         operator delete(__p.__r_.__value_.__l.__data_);
       }
 
-      if (SHIBYTE(v73.__r_.__value_.__r.__words[2]) < 0)
+      if (SHIBYTE(v72.__r_.__value_.__r.__words[2]) < 0)
       {
-        operator delete(v73.__r_.__value_.__l.__data_);
+        operator delete(v72.__r_.__value_.__l.__data_);
       }
     }
 
-    if (v86)
+    if (v85)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v86);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v85);
     }
 
-    if (SHIBYTE(v85) < 0)
+    if (SHIBYTE(v84) < 0)
     {
-      operator delete(v84);
+      operator delete(v83);
     }
 
-    if (v81[0])
+    if (v80[0])
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v81[0]);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v80[0]);
     }
 
-    if (SHIBYTE(v80) < 0)
+    if (SHIBYTE(v79) < 0)
     {
-      operator delete(v79);
+      operator delete(v78);
     }
 
-    if (v76)
+    if (v75)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v76);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v75);
     }
 
-    if ((v75[31] & 0x80000000) != 0)
+    if ((v74[31] & 0x80000000) != 0)
     {
-      operator delete(*&v75[8]);
+      operator delete(*&v74[8]);
     }
 
-    YAML::detail::node_iterator_base<YAML::detail::node>::operator++(v70);
+    YAML::detail::node_iterator_base<YAML::detail::node>::operator++(v69);
   }
 
-  if (v64)
+  if (v63)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v64);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v63);
   }
 
-  if (v71)
+  if (v70)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v71);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v70);
   }
 
-  YAML::Node::operator[]<char [5]>(this, "name", v75);
-  v16 = v75[0] != 1 || v77 && (***v77 & 1) == 0;
-  if (v76)
+  YAML::Node::operator[]<char [5]>(v74, this, "name");
+  v16 = v74[0] != 1 || v76 && (***v76 & 1) == 0;
+  if (v75)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v76);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v75);
   }
 
-  if ((v75[31] & 0x80000000) != 0)
+  if ((v74[31] & 0x80000000) != 0)
   {
-    operator delete(*&v75[8]);
+    operator delete(*&v74[8]);
     if (v16)
     {
       goto LABEL_81;
@@ -8812,33 +8787,33 @@ void siri::intelligence::ValidateFlowTest_Test(siri::intelligence *this, const Y
     goto LABEL_81;
   }
 
-  YAML::Node::operator[]<char [5]>(this, "name", v75);
-  if ((v75[0] & 1) == 0)
+  YAML::Node::operator[]<char [5]>(v74, this, "name");
+  if ((v74[0] & 1) == 0)
   {
-    v53 = __cxa_allocate_exception(0x38uLL);
-    if ((v75[31] & 0x80000000) != 0)
+    v52 = __cxa_allocate_exception(0x38uLL);
+    if ((v74[31] & 0x80000000) != 0)
     {
-      std::string::__init_copy_ctor_external(v70, *&v75[8], *&v75[16]);
+      std::string::__init_copy_ctor_external(v69, *&v74[8], *&v74[16]);
     }
 
     else
     {
-      *v70 = *&v75[8];
-      *&v70[16] = *&v75[24];
+      *v69 = *&v74[8];
+      *&v69[16] = *&v74[24];
     }
 
-    YAML::InvalidNode::InvalidNode(v53, v70);
+    YAML::InvalidNode::InvalidNode(v52, v69);
   }
 
-  v18 = v77 && (v17 = **v77, *v17 == 1) && *(v17 + 16) == 2;
-  if (v76)
+  v18 = v76 && (v17 = **v76, *v17 == 1) && *(v17 + 16) == 2;
+  if (v75)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v76);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v75);
   }
 
-  if ((v75[31] & 0x80000000) != 0)
+  if ((v74[31] & 0x80000000) != 0)
   {
-    operator delete(*&v75[8]);
+    operator delete(*&v74[8]);
     if (v18)
     {
       goto LABEL_81;
@@ -8850,28 +8825,28 @@ void siri::intelligence::ValidateFlowTest_Test(siri::intelligence *this, const Y
     goto LABEL_81;
   }
 
-  std::string::basic_string[abi:ne200100]<0>(v68, "Invalid string value found for 'name' on Test");
-  YAML::Node::operator[]<char [5]>(this, "name", v75);
-  if ((v75[0] & 1) == 0)
+  std::string::basic_string[abi:ne200100]<0>(v67, "Invalid string value found for 'name' on Test");
+  YAML::Node::operator[]<char [5]>(v74, this, "name");
+  if ((v74[0] & 1) == 0)
   {
-    v58 = __cxa_allocate_exception(0x38uLL);
-    if ((v75[31] & 0x80000000) != 0)
+    v57 = __cxa_allocate_exception(0x38uLL);
+    if ((v74[31] & 0x80000000) != 0)
     {
-      std::string::__init_copy_ctor_external(v70, *&v75[8], *&v75[16]);
+      std::string::__init_copy_ctor_external(v69, *&v74[8], *&v74[16]);
     }
 
     else
     {
-      *v70 = *&v75[8];
-      *&v70[16] = *&v75[24];
+      *v69 = *&v74[8];
+      *&v69[16] = *&v74[24];
     }
 
-    YAML::InvalidNode::InvalidNode(v58, v70);
+    YAML::InvalidNode::InvalidNode(v57, v69);
   }
 
-  if (v77)
+  if (v76)
   {
-    v19 = *(**v77 + 8) + 1;
+    v19 = *(**v76 + 8) + 1;
   }
 
   else
@@ -8879,33 +8854,33 @@ void siri::intelligence::ValidateFlowTest_Test(siri::intelligence *this, const Y
     v19 = 0;
   }
 
-  siri::intelligence::ValidationResults::AddError(a2, &siri::intelligence::CODE_YAML_PARSE, v68, v19);
-  if (v76)
+  siri::intelligence::ValidationResults::AddError(a2, siri::intelligence::CODE_YAML_PARSE, v67, v19);
+  if (v75)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v76);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v75);
   }
 
-  if ((v75[31] & 0x80000000) != 0)
+  if ((v74[31] & 0x80000000) != 0)
   {
-    operator delete(*&v75[8]);
+    operator delete(*&v74[8]);
   }
 
-  if ((v68[23] & 0x80000000) != 0)
+  if ((v67[23] & 0x80000000) != 0)
   {
-    operator delete(*v68);
+    operator delete(*v67);
   }
 
 LABEL_81:
-  YAML::Node::operator[]<char [12]>(this, "description", v75);
-  v20 = v75[0] != 1 || v77 && (***v77 & 1) == 0;
-  if (v76)
+  YAML::Node::operator[]<char [12]>(v74, this, "description");
+  v20 = v74[0] != 1 || v76 && (***v76 & 1) == 0;
+  if (v75)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v76);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v75);
   }
 
-  if ((v75[31] & 0x80000000) != 0)
+  if ((v74[31] & 0x80000000) != 0)
   {
-    operator delete(*&v75[8]);
+    operator delete(*&v74[8]);
     if (v20)
     {
       goto LABEL_113;
@@ -8917,33 +8892,33 @@ LABEL_81:
     goto LABEL_113;
   }
 
-  YAML::Node::operator[]<char [12]>(this, "description", v75);
-  if ((v75[0] & 1) == 0)
+  YAML::Node::operator[]<char [12]>(v74, this, "description");
+  if ((v74[0] & 1) == 0)
   {
-    v54 = __cxa_allocate_exception(0x38uLL);
-    if ((v75[31] & 0x80000000) != 0)
+    v53 = __cxa_allocate_exception(0x38uLL);
+    if ((v74[31] & 0x80000000) != 0)
     {
-      std::string::__init_copy_ctor_external(v70, *&v75[8], *&v75[16]);
+      std::string::__init_copy_ctor_external(v69, *&v74[8], *&v74[16]);
     }
 
     else
     {
-      *v70 = *&v75[8];
-      *&v70[16] = *&v75[24];
+      *v69 = *&v74[8];
+      *&v69[16] = *&v74[24];
     }
 
-    YAML::InvalidNode::InvalidNode(v54, v70);
+    YAML::InvalidNode::InvalidNode(v53, v69);
   }
 
-  v22 = v77 && (v21 = **v77, *v21 == 1) && *(v21 + 16) == 2;
-  if (v76)
+  v22 = v76 && (v21 = **v76, *v21 == 1) && *(v21 + 16) == 2;
+  if (v75)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v76);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v75);
   }
 
-  if ((v75[31] & 0x80000000) != 0)
+  if ((v74[31] & 0x80000000) != 0)
   {
-    operator delete(*&v75[8]);
+    operator delete(*&v74[8]);
     if (v22)
     {
       goto LABEL_113;
@@ -8955,28 +8930,28 @@ LABEL_81:
     goto LABEL_113;
   }
 
-  std::string::basic_string[abi:ne200100]<0>(v68, "Invalid string value found for 'description' on Test");
-  YAML::Node::operator[]<char [12]>(this, "description", v75);
-  if ((v75[0] & 1) == 0)
+  std::string::basic_string[abi:ne200100]<0>(v67, "Invalid string value found for 'description' on Test");
+  YAML::Node::operator[]<char [12]>(v74, this, "description");
+  if ((v74[0] & 1) == 0)
   {
-    v59 = __cxa_allocate_exception(0x38uLL);
-    if ((v75[31] & 0x80000000) != 0)
+    v58 = __cxa_allocate_exception(0x38uLL);
+    if ((v74[31] & 0x80000000) != 0)
     {
-      std::string::__init_copy_ctor_external(v70, *&v75[8], *&v75[16]);
+      std::string::__init_copy_ctor_external(v69, *&v74[8], *&v74[16]);
     }
 
     else
     {
-      *v70 = *&v75[8];
-      *&v70[16] = *&v75[24];
+      *v69 = *&v74[8];
+      *&v69[16] = *&v74[24];
     }
 
-    YAML::InvalidNode::InvalidNode(v59, v70);
+    YAML::InvalidNode::InvalidNode(v58, v69);
   }
 
-  if (v77)
+  if (v76)
   {
-    v23 = *(**v77 + 8) + 1;
+    v23 = *(**v76 + 8) + 1;
   }
 
   else
@@ -8984,33 +8959,33 @@ LABEL_81:
     v23 = 0;
   }
 
-  siri::intelligence::ValidationResults::AddError(a2, &siri::intelligence::CODE_YAML_PARSE, v68, v23);
-  if (v76)
+  siri::intelligence::ValidationResults::AddError(a2, siri::intelligence::CODE_YAML_PARSE, v67, v23);
+  if (v75)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v76);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v75);
   }
 
-  if ((v75[31] & 0x80000000) != 0)
+  if ((v74[31] & 0x80000000) != 0)
   {
-    operator delete(*&v75[8]);
+    operator delete(*&v74[8]);
   }
 
-  if ((v68[23] & 0x80000000) != 0)
+  if ((v67[23] & 0x80000000) != 0)
   {
-    operator delete(*v68);
+    operator delete(*v67);
   }
 
 LABEL_113:
-  YAML::Node::operator[]<char [8]>(this, "enabled", v75);
-  v24 = v75[0] != 1 || v77 && (***v77 & 1) == 0;
-  if (v76)
+  YAML::Node::operator[]<char [8]>(v74, this, "enabled");
+  v24 = v74[0] != 1 || v76 && (***v76 & 1) == 0;
+  if (v75)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v76);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v75);
   }
 
-  if ((v75[31] & 0x80000000) != 0)
+  if ((v74[31] & 0x80000000) != 0)
   {
-    operator delete(*&v75[8]);
+    operator delete(*&v74[8]);
     if (v24)
     {
       goto LABEL_152;
@@ -9022,61 +8997,61 @@ LABEL_113:
     goto LABEL_152;
   }
 
-  YAML::Node::operator[]<char [8]>(this, "enabled", v75);
-  if ((v75[0] & 1) == 0)
+  YAML::Node::operator[]<char [8]>(v74, this, "enabled");
+  if ((v74[0] & 1) == 0)
   {
-    v55 = __cxa_allocate_exception(0x38uLL);
-    if ((v75[31] & 0x80000000) != 0)
+    v54 = __cxa_allocate_exception(0x38uLL);
+    if ((v74[31] & 0x80000000) != 0)
     {
-      std::string::__init_copy_ctor_external(v70, *&v75[8], *&v75[16]);
+      std::string::__init_copy_ctor_external(v69, *&v74[8], *&v74[16]);
     }
 
     else
     {
-      *v70 = *&v75[8];
-      *&v70[16] = *&v75[24];
+      *v69 = *&v74[8];
+      *&v69[16] = *&v74[24];
     }
 
-    YAML::InvalidNode::InvalidNode(v55, v70);
+    YAML::InvalidNode::InvalidNode(v54, v69);
   }
 
-  if (v77 && (v25 = **v77, (*v25 & 1) != 0) && *(v25 + 16) == 2)
+  if (v76 && (v25 = **v76, (*v25 & 1) != 0) && *(v25 + 16) == 2)
   {
-    YAML::Node::operator[]<char [8]>(this, "enabled", v70);
-    if ((v70[0] & 1) == 0)
+    YAML::Node::operator[]<char [8]>(v69, this, "enabled");
+    if ((v69[0] & 1) == 0)
     {
-      v62 = __cxa_allocate_exception(0x38uLL);
-      if ((v70[31] & 0x80000000) != 0)
+      v61 = __cxa_allocate_exception(0x38uLL);
+      if ((v69[31] & 0x80000000) != 0)
       {
-        std::string::__init_copy_ctor_external(v68, *&v70[8], *&v70[16]);
+        std::string::__init_copy_ctor_external(v67, *&v69[8], *&v69[16]);
       }
 
       else
       {
-        *v68 = *&v70[8];
-        *&v68[16] = *&v70[24];
+        *v67 = *&v69[8];
+        *&v67[16] = *&v69[24];
       }
 
-      YAML::InvalidNode::InvalidNode(v62, v68);
+      YAML::InvalidNode::InvalidNode(v61, v67);
     }
 
-    *v68 = v70;
-    YAML::as_if<std::string,void>::operator()(v68, &__p);
+    *v67 = v69;
+    YAML::as_if<std::string,void>::operator()(v67, &__p);
     IsBool = siri::intelligence::StringIsBool(&__p);
     if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
     {
       operator delete(__p.__r_.__value_.__l.__data_);
     }
 
-    if (v71)
+    if (v70)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v71);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v70);
     }
 
     v27 = !IsBool;
-    if ((v70[31] & 0x80000000) != 0)
+    if ((v69[31] & 0x80000000) != 0)
     {
-      operator delete(*&v70[8]);
+      operator delete(*&v69[8]);
     }
   }
 
@@ -9085,14 +9060,14 @@ LABEL_113:
     v27 = 1;
   }
 
-  if (v76)
+  if (v75)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v76);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v75);
   }
 
-  if ((v75[31] & 0x80000000) != 0)
+  if ((v74[31] & 0x80000000) != 0)
   {
-    operator delete(*&v75[8]);
+    operator delete(*&v74[8]);
     if (!v27)
     {
       goto LABEL_152;
@@ -9104,28 +9079,28 @@ LABEL_113:
     goto LABEL_152;
   }
 
-  std::string::basic_string[abi:ne200100]<0>(v68, "Invalid BOOL value found for 'enabled' on Test");
-  YAML::Node::operator[]<char [8]>(this, "enabled", v75);
-  if ((v75[0] & 1) == 0)
+  std::string::basic_string[abi:ne200100]<0>(v67, "Invalid BOOL value found for 'enabled' on Test");
+  YAML::Node::operator[]<char [8]>(v74, this, "enabled");
+  if ((v74[0] & 1) == 0)
   {
-    v60 = __cxa_allocate_exception(0x38uLL);
-    if ((v75[31] & 0x80000000) != 0)
+    v59 = __cxa_allocate_exception(0x38uLL);
+    if ((v74[31] & 0x80000000) != 0)
     {
-      std::string::__init_copy_ctor_external(v70, *&v75[8], *&v75[16]);
+      std::string::__init_copy_ctor_external(v69, *&v74[8], *&v74[16]);
     }
 
     else
     {
-      *v70 = *&v75[8];
-      *&v70[16] = *&v75[24];
+      *v69 = *&v74[8];
+      *&v69[16] = *&v74[24];
     }
 
-    YAML::InvalidNode::InvalidNode(v60, v70);
+    YAML::InvalidNode::InvalidNode(v59, v69);
   }
 
-  if (v77)
+  if (v76)
   {
-    v28 = *(**v77 + 8) + 1;
+    v28 = *(**v76 + 8) + 1;
   }
 
   else
@@ -9133,33 +9108,33 @@ LABEL_113:
     v28 = 0;
   }
 
-  siri::intelligence::ValidationResults::AddError(a2, &siri::intelligence::CODE_YAML_PARSE, v68, v28);
-  if (v76)
+  siri::intelligence::ValidationResults::AddError(a2, siri::intelligence::CODE_YAML_PARSE, v67, v28);
+  if (v75)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v76);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v75);
   }
 
-  if ((v75[31] & 0x80000000) != 0)
+  if ((v74[31] & 0x80000000) != 0)
   {
-    operator delete(*&v75[8]);
+    operator delete(*&v74[8]);
   }
 
-  if ((v68[23] & 0x80000000) != 0)
+  if ((v67[23] & 0x80000000) != 0)
   {
-    operator delete(*v68);
+    operator delete(*v67);
   }
 
 LABEL_152:
-  YAML::Node::operator[]<char [6]>(this, "steps", v75);
-  v29 = v75[0] != 1 || v77 && (***v77 & 1) == 0;
-  if (v76)
+  YAML::Node::operator[]<char [6]>(v74, this, "steps");
+  v29 = v74[0] != 1 || v76 && (***v76 & 1) == 0;
+  if (v75)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v76);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v75);
   }
 
-  if ((v75[31] & 0x80000000) != 0)
+  if ((v74[31] & 0x80000000) != 0)
   {
-    operator delete(*&v75[8]);
+    operator delete(*&v74[8]);
     if (v29)
     {
       goto LABEL_214;
@@ -9171,88 +9146,88 @@ LABEL_152:
     goto LABEL_214;
   }
 
-  YAML::Node::operator[]<char [6]>(this, "steps", v75);
-  if ((v75[0] & 1) == 0)
+  YAML::Node::operator[]<char [6]>(v74, this, "steps");
+  if ((v74[0] & 1) == 0)
   {
-    v56 = __cxa_allocate_exception(0x38uLL);
-    if ((v75[31] & 0x80000000) != 0)
+    v55 = __cxa_allocate_exception(0x38uLL);
+    if ((v74[31] & 0x80000000) != 0)
     {
-      std::string::__init_copy_ctor_external(v70, *&v75[8], *&v75[16]);
+      std::string::__init_copy_ctor_external(v69, *&v74[8], *&v74[16]);
     }
 
     else
     {
-      *v70 = *&v75[8];
-      *&v70[16] = *&v75[24];
+      *v69 = *&v74[8];
+      *&v69[16] = *&v74[24];
     }
 
-    YAML::InvalidNode::InvalidNode(v56, v70);
+    YAML::InvalidNode::InvalidNode(v55, v69);
   }
 
-  v31 = v77 && (v30 = **v77, *v30 == 1) && *(v30 + 16) == 3;
-  if (v76)
+  v31 = v76 && (v30 = **v76, *v30 == 1) && *(v30 + 16) == 3;
+  if (v75)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v76);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v75);
   }
 
-  if ((v75[31] & 0x80000000) != 0)
+  if ((v74[31] & 0x80000000) != 0)
   {
-    operator delete(*&v75[8]);
+    operator delete(*&v74[8]);
     if (v31)
     {
 LABEL_172:
-      YAML::Node::operator[]<char [6]>(this, "steps", v70);
-      if ((v70[0] & 1) != 0 && v72)
+      YAML::Node::operator[]<char [6]>(v69, this, "steps");
+      if ((v69[0] & 1) != 0 && v71)
       {
-        YAML::detail::node_data::begin(**v72, v75);
-        v33 = *&v70[32];
-        v32 = v71;
-        if (v71)
+        YAML::detail::node_data::begin(v74, **v71);
+        v33 = *&v69[32];
+        v32 = v70;
+        if (v70)
         {
-          atomic_fetch_add_explicit(&v71->__shared_owners_, 1uLL, memory_order_relaxed);
-          *v68 = *v75;
-          *&v68[16] = *&v75[16];
-          *&v68[32] = v33;
-          v69 = v32;
+          atomic_fetch_add_explicit(&v70->__shared_owners_, 1uLL, memory_order_relaxed);
+          *v67 = *v74;
+          *&v67[16] = *&v74[16];
+          *&v67[32] = v33;
+          v68 = v32;
           atomic_fetch_add_explicit(&v32->__shared_owners_, 1uLL, memory_order_relaxed);
           std::__shared_weak_count::__release_shared[abi:ne200100](v32);
         }
 
         else
         {
-          *v68 = *v75;
-          *&v68[16] = *&v75[16];
-          *&v68[32] = *&v70[32];
-          v69 = 0;
+          *v67 = *v74;
+          *&v67[16] = *&v74[16];
+          *&v67[32] = *&v69[32];
+          v68 = 0;
         }
       }
 
       else
       {
-        *v68 = 0;
-        memset(&v68[8], 0, 32);
-        v69 = 0;
+        *v67 = 0;
+        memset(&v67[8], 0, 32);
+        v68 = 0;
       }
 
-      if (v70[0] == 1 && v72)
+      if (v69[0] == 1 && v71)
       {
-        YAML::detail::node_data::end(**v72, v75);
-        v36 = v71;
-        if (v71)
+        YAML::detail::node_data::end(v74, **v71);
+        v36 = v70;
+        if (v70)
         {
-          atomic_fetch_add_explicit(&v71->__shared_owners_, 1uLL, memory_order_relaxed);
-          v37 = *v75;
-          v38 = *&v75[8];
-          v39 = *&v75[16];
+          atomic_fetch_add_explicit(&v70->__shared_owners_, 1uLL, memory_order_relaxed);
+          v37 = *v74;
+          v38 = *&v74[8];
+          v39 = *&v74[16];
           atomic_fetch_add_explicit(&v36->__shared_owners_, 1uLL, memory_order_relaxed);
           std::__shared_weak_count::__release_shared[abi:ne200100](v36);
         }
 
         else
         {
-          v37 = *v75;
-          v38 = *&v75[8];
-          v39 = *&v75[16];
+          v37 = *v74;
+          v38 = *&v74[8];
+          v39 = *&v74[16];
         }
       }
 
@@ -9266,10 +9241,10 @@ LABEL_172:
 
       while (1)
       {
-        if (*v68 == v37)
+        if (*v67 == v37)
         {
           v40 = v38;
-          v41 = &v68[8];
+          v41 = &v67[8];
           if (v37 != 1)
           {
             if (v37 != 2)
@@ -9278,7 +9253,7 @@ LABEL_172:
             }
 
             v40 = v39;
-            v41 = &v68[16];
+            v41 = &v67[16];
           }
 
           if (*v41 == v40)
@@ -9287,39 +9262,39 @@ LABEL_172:
           }
         }
 
-        YAML::detail::iterator_base<YAML::detail::iterator_value const>::operator*(v68, v75);
-        siri::intelligence::ValidateFlowTest_Step(v75, a2, v42);
-        if (v86)
+        YAML::detail::iterator_base<YAML::detail::iterator_value const>::operator*(v67, v74);
+        siri::intelligence::ValidateFlowTest_Step(v74, a2, v42);
+        if (v85)
         {
-          std::__shared_weak_count::__release_shared[abi:ne200100](v86);
+          std::__shared_weak_count::__release_shared[abi:ne200100](v85);
         }
 
-        if (SHIBYTE(v85) < 0)
+        if (SHIBYTE(v84) < 0)
         {
-          operator delete(v84);
+          operator delete(v83);
         }
 
-        if (v81[0])
+        if (v80[0])
         {
-          std::__shared_weak_count::__release_shared[abi:ne200100](v81[0]);
+          std::__shared_weak_count::__release_shared[abi:ne200100](v80[0]);
         }
 
-        if (SHIBYTE(v80) < 0)
+        if (SHIBYTE(v79) < 0)
         {
-          operator delete(v79);
+          operator delete(v78);
         }
 
-        if (v76)
+        if (v75)
         {
-          std::__shared_weak_count::__release_shared[abi:ne200100](v76);
+          std::__shared_weak_count::__release_shared[abi:ne200100](v75);
         }
 
-        if ((v75[31] & 0x80000000) != 0)
+        if ((v74[31] & 0x80000000) != 0)
         {
-          operator delete(*&v75[8]);
+          operator delete(*&v74[8]);
         }
 
-        YAML::detail::node_iterator_base<YAML::detail::node>::operator++(v68);
+        YAML::detail::node_iterator_base<YAML::detail::node>::operator++(v67);
       }
 
       if (v36)
@@ -9327,19 +9302,19 @@ LABEL_172:
         std::__shared_weak_count::__release_shared[abi:ne200100](v36);
       }
 
-      if (v69)
+      if (v68)
       {
-        std::__shared_weak_count::__release_shared[abi:ne200100](v69);
+        std::__shared_weak_count::__release_shared[abi:ne200100](v68);
       }
 
-      if (v71)
+      if (v70)
       {
-        std::__shared_weak_count::__release_shared[abi:ne200100](v71);
+        std::__shared_weak_count::__release_shared[abi:ne200100](v70);
       }
 
-      if ((v70[31] & 0x80000000) != 0)
+      if ((v69[31] & 0x80000000) != 0)
       {
-        v35 = *&v70[8];
+        v35 = *&v69[8];
         goto LABEL_213;
       }
 
@@ -9352,97 +9327,97 @@ LABEL_172:
     goto LABEL_172;
   }
 
-  YAML::Node::operator[]<char [6]>(this, "steps", v75);
-  siri::intelligence::ValidateFlowTest_Step(v75, a2, v34);
-  if (v76)
+  YAML::Node::operator[]<char [6]>(v74, this, "steps");
+  siri::intelligence::ValidateFlowTest_Step(v74, a2, v34);
+  if (v75)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v76);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v75);
   }
 
-  if ((v75[31] & 0x80000000) != 0)
+  if ((v74[31] & 0x80000000) != 0)
   {
-    v35 = *&v75[8];
+    v35 = *&v74[8];
 LABEL_213:
     operator delete(v35);
   }
 
 LABEL_214:
-  YAML::Node::operator[]<char [7]>(this, "repeat", v75);
-  v43 = v75[0] != 1 || v77 && (***v77 & 1) == 0;
-  if (v76)
+  YAML::Node::operator[]<char [7]>(v74, this, "repeat");
+  v43 = v74[0] != 1 || v76 && (***v76 & 1) == 0;
+  if (v75)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v76);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v75);
   }
 
-  if ((v75[31] & 0x80000000) != 0)
+  if ((v74[31] & 0x80000000) != 0)
   {
-    operator delete(*&v75[8]);
+    operator delete(*&v74[8]);
     if (v43)
     {
-      goto LABEL_253;
+      return;
     }
   }
 
   else if (v43)
   {
-    goto LABEL_253;
+    return;
   }
 
-  YAML::Node::operator[]<char [7]>(this, "repeat", v75);
-  if ((v75[0] & 1) == 0)
+  YAML::Node::operator[]<char [7]>(v74, this, "repeat");
+  if ((v74[0] & 1) == 0)
   {
-    v57 = __cxa_allocate_exception(0x38uLL);
-    if ((v75[31] & 0x80000000) != 0)
+    v56 = __cxa_allocate_exception(0x38uLL);
+    if ((v74[31] & 0x80000000) != 0)
     {
-      std::string::__init_copy_ctor_external(v70, *&v75[8], *&v75[16]);
+      std::string::__init_copy_ctor_external(v69, *&v74[8], *&v74[16]);
     }
 
     else
     {
-      *v70 = *&v75[8];
-      *&v70[16] = *&v75[24];
+      *v69 = *&v74[8];
+      *&v69[16] = *&v74[24];
     }
 
-    YAML::InvalidNode::InvalidNode(v57, v70);
+    YAML::InvalidNode::InvalidNode(v56, v69);
   }
 
-  if (v77 && (v44 = **v77, (*v44 & 1) != 0) && *(v44 + 16) == 2)
+  if (v76 && (v44 = **v76, (*v44 & 1) != 0) && *(v44 + 16) == 2)
   {
-    YAML::Node::operator[]<char [7]>(this, "repeat", v70);
-    if ((v70[0] & 1) == 0)
+    YAML::Node::operator[]<char [7]>(v69, this, "repeat");
+    if ((v69[0] & 1) == 0)
     {
-      v63 = __cxa_allocate_exception(0x38uLL);
-      if ((v70[31] & 0x80000000) != 0)
+      v62 = __cxa_allocate_exception(0x38uLL);
+      if ((v69[31] & 0x80000000) != 0)
       {
-        std::string::__init_copy_ctor_external(v68, *&v70[8], *&v70[16]);
+        std::string::__init_copy_ctor_external(v67, *&v69[8], *&v69[16]);
       }
 
       else
       {
-        *v68 = *&v70[8];
-        *&v68[16] = *&v70[24];
+        *v67 = *&v69[8];
+        *&v67[16] = *&v69[24];
       }
 
-      YAML::InvalidNode::InvalidNode(v63, v68);
+      YAML::InvalidNode::InvalidNode(v62, v67);
     }
 
-    *v68 = v70;
-    YAML::as_if<std::string,void>::operator()(v68, &__p);
+    *v67 = v69;
+    YAML::as_if<std::string,void>::operator()(v67, &__p);
     IsANumber = siri::intelligence::StringIsANumber(&__p);
     if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
     {
       operator delete(__p.__r_.__value_.__l.__data_);
     }
 
-    if (v71)
+    if (v70)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v71);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v70);
     }
 
     v46 = IsANumber ^ 1;
-    if ((v70[31] & 0x80000000) != 0)
+    if ((v69[31] & 0x80000000) != 0)
     {
-      operator delete(*&v70[8]);
+      operator delete(*&v69[8]);
     }
   }
 
@@ -9451,47 +9426,47 @@ LABEL_214:
     v46 = 1;
   }
 
-  if (v76)
+  if (v75)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v76);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v75);
   }
 
-  if ((v75[31] & 0x80000000) != 0)
+  if ((v74[31] & 0x80000000) != 0)
   {
-    operator delete(*&v75[8]);
+    operator delete(*&v74[8]);
     if (!v46)
     {
-      goto LABEL_253;
+      return;
     }
   }
 
   else if (!v46)
   {
-    goto LABEL_253;
+    return;
   }
 
-  std::string::basic_string[abi:ne200100]<0>(v68, "Invalid int32 value found for 'repeat' on Test");
-  YAML::Node::operator[]<char [7]>(this, "repeat", v75);
-  if ((v75[0] & 1) == 0)
+  std::string::basic_string[abi:ne200100]<0>(v67, "Invalid int32 value found for 'repeat' on Test");
+  YAML::Node::operator[]<char [7]>(v74, this, "repeat");
+  if ((v74[0] & 1) == 0)
   {
-    v61 = __cxa_allocate_exception(0x38uLL);
-    if ((v75[31] & 0x80000000) != 0)
+    v60 = __cxa_allocate_exception(0x38uLL);
+    if ((v74[31] & 0x80000000) != 0)
     {
-      std::string::__init_copy_ctor_external(v70, *&v75[8], *&v75[16]);
+      std::string::__init_copy_ctor_external(v69, *&v74[8], *&v74[16]);
     }
 
     else
     {
-      *v70 = *&v75[8];
-      *&v70[16] = *&v75[24];
+      *v69 = *&v74[8];
+      *&v69[16] = *&v74[24];
     }
 
-    YAML::InvalidNode::InvalidNode(v61, v70);
+    YAML::InvalidNode::InvalidNode(v60, v69);
   }
 
-  if (v77)
+  if (v76)
   {
-    v47 = *(**v77 + 8) + 1;
+    v47 = *(**v76 + 8) + 1;
   }
 
   else
@@ -9499,24 +9474,21 @@ LABEL_214:
     v47 = 0;
   }
 
-  siri::intelligence::ValidationResults::AddError(a2, &siri::intelligence::CODE_YAML_PARSE, v68, v47);
-  if (v76)
+  siri::intelligence::ValidationResults::AddError(a2, siri::intelligence::CODE_YAML_PARSE, v67, v47);
+  if (v75)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v76);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v75);
   }
 
-  if ((v75[31] & 0x80000000) != 0)
+  if ((v74[31] & 0x80000000) != 0)
   {
-    operator delete(*&v75[8]);
+    operator delete(*&v74[8]);
   }
 
-  if ((v68[23] & 0x80000000) != 0)
+  if ((v67[23] & 0x80000000) != 0)
   {
-    operator delete(*v68);
+    operator delete(*v67);
   }
-
-LABEL_253:
-  v48 = *MEMORY[0x277D85DE8];
 }
 
 void sub_254C9AD1C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, int a17, __int16 a18, char a19, char a20, uint64_t a21, uint64_t a22, uint64_t a23, void *a24, uint64_t a25, int a26, __int16 a27, char a28, char a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, void *a34, uint64_t a35, int a36, __int16 a37, char a38, char a39, void *a40, uint64_t a41, int a42, __int16 a43, char a44, char a45, char a46)
@@ -9546,7 +9518,7 @@ void sub_254C9AD1C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 void *std::set<std::string>::set[abi:ne200100](void *a1, const void **a2, uint64_t a3)
 {
   a1[1] = 0;
-  v4 = (a1 + 1);
+  v4 = a1 + 1;
   a1[2] = 0;
   *a1 = a1 + 1;
   if (a3)
@@ -9554,7 +9526,7 @@ void *std::set<std::string>::set[abi:ne200100](void *a1, const void **a2, uint64
     v6 = 24 * a3;
     do
     {
-      std::__tree<std::string>::__emplace_hint_unique_key_args<std::string,std::string const&>(a1, v4, a2);
+      std::__tree<std::string>::__emplace_hint_unique_key_args<std::string,std::string const&>(a1, v4, a2, a2);
       a2 += 3;
       v6 -= 24;
     }
@@ -9565,9 +9537,9 @@ void *std::set<std::string>::set[abi:ne200100](void *a1, const void **a2, uint64
   return a1;
 }
 
-uint64_t std::__tree<std::string>::__emplace_hint_unique_key_args<std::string,std::string const&>(void *a1, uint64_t a2, const void **a3)
+uint64_t std::__tree<std::string>::__emplace_hint_unique_key_args<std::string,std::string const&>(void *a1, void *a2, const void **a3, uint64_t a4)
 {
-  result = *std::__tree<std::string>::__find_equal<std::string>(a1, a2, &v5, &v4, a3);
+  result = *std::__tree<std::string>::__find_equal<std::string>(a1, a2, &v6, &v5, a3);
   if (!result)
   {
     std::__tree<std::string>::__construct_node<std::string const&>();
@@ -9576,23 +9548,23 @@ uint64_t std::__tree<std::string>::__emplace_hint_unique_key_args<std::string,st
   return result;
 }
 
-uint64_t std::__tree<std::string>::__find_equal<std::string>(void *a1, uint64_t a2, uint64_t *a3, uint64_t *a4, const void **a5)
+uint64_t *std::__tree<std::string>::__find_equal<std::string>(void *a1, void *a2, uint64_t *a3, uint64_t *a4, const void **a5)
 {
-  v9 = (a1 + 1);
-  if (a1 + 1 != a2 && !std::less<std::string>::operator()[abi:ne200100](a1, a5, (a2 + 32)))
+  v9 = a1 + 1;
+  if (a1 + 1 != a2 && !std::less<std::string>::operator()[abi:ne200100](a1, a5, a2 + 4))
   {
-    if (!std::less<std::string>::operator()[abi:ne200100](a1, (a2 + 32), a5))
+    if (!std::less<std::string>::operator()[abi:ne200100](a1, a2 + 4, a5))
     {
       *a3 = a2;
       *a4 = a2;
       return a4;
     }
 
-    a4 = (a2 + 8);
-    v13 = *(a2 + 8);
+    a4 = a2 + 1;
+    v13 = a2[1];
     if (v13)
     {
-      v14 = *(a2 + 8);
+      v14 = a2[1];
       do
       {
         v15 = v14;
@@ -9646,7 +9618,7 @@ LABEL_16:
     if (*a2)
     {
       *a3 = v12;
-      return v12 + 8;
+      return v12 + 1;
     }
 
     else
@@ -9662,7 +9634,7 @@ LABEL_16:
     do
     {
       v12 = v11;
-      v11 = *(v11 + 8);
+      v11 = v11[1];
     }
 
     while (v11);
@@ -9673,7 +9645,7 @@ LABEL_16:
     v16 = a2;
     do
     {
-      v12 = *(v16 + 16);
+      v12 = v16[2];
       v17 = *v12 == v16;
       v16 = v12;
     }
@@ -9681,7 +9653,7 @@ LABEL_16:
     while (v17);
   }
 
-  if (std::less<std::string>::operator()[abi:ne200100](a1, (v12 + 32), a5))
+  if (std::less<std::string>::operator()[abi:ne200100](a1, v12 + 4, a5))
   {
     goto LABEL_16;
   }
@@ -9698,7 +9670,7 @@ void sub_254C9B374(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-uint64_t *std::__tree<std::string>::__insert_node_at(uint64_t **a1, uint64_t a2, uint64_t **a3, uint64_t *a4)
+uint64_t *std::__tree<std::string>::__insert_node_at(uint64_t ***a1, uint64_t a2, uint64_t **a3, uint64_t *a4)
 {
   *a4 = 0;
   a4[1] = 0;
@@ -9826,4 +9798,22 @@ uint64_t std::__tree<std::string>::__find_equal<std::string>(uint64_t a1, uint64
 LABEL_9:
   *a2 = v8;
   return v5;
+}
+
+void std::__tree_node_destructor<std::allocator<std::__tree_node<std::string,void *>>>::operator()[abi:ne200100](uint64_t a1, void **__p)
+{
+  if (*(a1 + 8) == 1)
+  {
+    if (*(__p + 55) < 0)
+    {
+      operator delete(__p[4]);
+    }
+  }
+
+  else if (!__p)
+  {
+    return;
+  }
+
+  operator delete(__p);
 }

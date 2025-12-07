@@ -35,7 +35,7 @@
 
 - (THChapterViewController)initWithDelegate:(id)delegate pageControlHeight:(double)height presentationType:(id)type
 {
-  v9 = THBundle();
+  v9 = THBundle(self, a2);
   v16.receiver = self;
   v16.super_class = THChapterViewController;
   v10 = [(THChapterViewController *)&v16 initWithNibName:@"THChapterViewController" bundle:v9];
@@ -515,12 +515,12 @@ LABEL_8:
 
 - (void)showCorruptDocumentAlertForSectionController:(id)controller
 {
-  v4 = [THBundle() localizedStringForKey:@"This book is either missing content or contains invalid content." value:&stru_471858 table:0];
-  v5 = +[UIAlertController alertControllerWithTitle:message:preferredStyle:](UIAlertController, "alertControllerWithTitle:message:preferredStyle:", v4, [THBundle() localizedStringForKey:@"Try downloading the book again" value:&stru_471858 table:0], 1);
-  -[UIAlertController addAction:](v5, "addAction:", +[UIAlertAction actionWithTitle:style:handler:](UIAlertAction, "actionWithTitle:style:handler:", [THBundle() localizedStringForKey:@"OK" value:&stru_471858 table:0], 1, 0));
-  v6 = +[UIView areAnimationsEnabled];
+  v4 = [THBundle(self a2)];
+  v6 = +[UIAlertController alertControllerWithTitle:message:preferredStyle:](UIAlertController, "alertControllerWithTitle:message:preferredStyle:", v4, [THBundle(v4 v5)], 1);
+  -[UIAlertController addAction:](v6, "addAction:", +[UIAlertAction actionWithTitle:style:handler:](UIAlertAction, "actionWithTitle:style:handler:", [THBundle(v6 v7)], 1, 0));
+  v8 = +[UIView areAnimationsEnabled];
 
-  [(THChapterViewController *)self presentViewController:v5 animated:v6 completion:0];
+  [(THChapterViewController *)self presentViewController:v6 animated:v8 completion:0];
 }
 
 - (void)sectionControllerInfosDidChange:(id)change

@@ -4,6 +4,7 @@
 - (BOOL)_axHandleShowNotificationsAction;
 - (BOOL)accessibilityScroll:(int64_t)scroll;
 - (BOOL)accessibilityScrollUpPage;
+- (BOOL)resetScrollViewToMainPageAnimated:(BOOL)animated withCompletion:(id)completion;
 - (id)_accessibilityAdditionalElements;
 - (id)_axNotificationsMasterList;
 - (id)_axShowNotificationsElement;
@@ -283,46 +284,59 @@ LABEL_48:
   return isSpotlightVisible;
 }
 
+- (BOOL)resetScrollViewToMainPageAnimated:(BOOL)animated withCompletion:(id)completion
+{
+  v6.receiver = self;
+  v6.super_class = CSCoverSheetViewAccessibility;
+  v4 = [(CSCoverSheetViewAccessibility *)&v6 resetScrollViewToMainPageAnimated:animated withCompletion:completion];
+  if (v4)
+  {
+    UIAccessibilityPostNotification(*MEMORY[0x29EDC7F10], 0);
+  }
+
+  return v4;
+}
+
 - (id)_childFocusViews
 {
-  v21 = *MEMORY[0x29EDCA608];
-  v18.receiver = self;
-  v18.super_class = CSCoverSheetViewAccessibility;
-  _childFocusViews = [(CSCoverSheetViewAccessibility *)&v18 _childFocusViews];
+  v20 = *MEMORY[0x29EDCA608];
+  v17.receiver = self;
+  v17.super_class = CSCoverSheetViewAccessibility;
+  _childFocusViews = [(CSCoverSheetViewAccessibility *)&v17 _childFocusViews];
   if ([(CSCoverSheetViewAccessibility *)self _accessibilityIsFKARunningForFocusItem])
   {
-    v16 = 0u;
-    v17 = 0u;
-    v14 = 0u;
     v15 = 0u;
+    v16 = 0u;
+    v13 = 0u;
+    v14 = 0u;
     reverseObjectEnumerator = [_childFocusViews reverseObjectEnumerator];
-    v5 = [reverseObjectEnumerator countByEnumeratingWithState:&v14 objects:v20 count:16];
+    v5 = [reverseObjectEnumerator countByEnumeratingWithState:&v13 objects:v19 count:16];
     if (v5)
     {
       v6 = v5;
-      v7 = *v15;
+      v7 = *v14;
       while (2)
       {
         for (i = 0; i != v6; ++i)
         {
-          if (*v15 != v7)
+          if (*v14 != v7)
           {
             objc_enumerationMutation(reverseObjectEnumerator);
           }
 
-          v9 = *(*(&v14 + 1) + 8 * i);
+          v9 = *(*(&v13 + 1) + 8 * i);
           v10 = [(CSCoverSheetViewAccessibility *)self safeValueForKey:@"modalPresentationView"];
 
           if (v9 == v10)
           {
-            v19 = v9;
-            v11 = [MEMORY[0x29EDB8D80] arrayWithObjects:&v19 count:1];
+            v18 = v9;
+            v11 = [MEMORY[0x29EDB8D80] arrayWithObjects:&v18 count:1];
 
             goto LABEL_13;
           }
         }
 
-        v6 = [reverseObjectEnumerator countByEnumeratingWithState:&v14 objects:v20 count:16];
+        v6 = [reverseObjectEnumerator countByEnumeratingWithState:&v13 objects:v19 count:16];
         if (v6)
         {
           continue;
@@ -335,8 +349,6 @@ LABEL_48:
 
   v11 = _childFocusViews;
 LABEL_13:
-
-  v12 = *MEMORY[0x29EDCA608];
 
   return v11;
 }
@@ -452,7 +464,7 @@ void __65__CSCoverSheetViewAccessibility__axHandleShowNotificationsAction__block
 
 - (id)_accessibilityAdditionalElements
 {
-  v14[1] = *MEMORY[0x29EDCA608];
+  v13[1] = *MEMORY[0x29EDCA608];
   _axNotificationsMasterList = [(CSCoverSheetViewAccessibility *)self _axNotificationsMasterList];
   v4 = [_axNotificationsMasterList safeValueForKey:@"historySectionList"];
   if ([v4 safeUnsignedIntegerForKey:@"notificationCount"])
@@ -489,19 +501,17 @@ LABEL_11:
   if (!IsSwitchControlRunning)
   {
     _axShowNotificationsElement = [(CSCoverSheetViewAccessibility *)self _axShowNotificationsElement];
-    v14[0] = _axShowNotificationsElement;
-    _accessibilityAdditionalElements = [MEMORY[0x29EDB8D80] arrayWithObjects:v14 count:1];
+    v13[0] = _axShowNotificationsElement;
+    _accessibilityAdditionalElements = [MEMORY[0x29EDB8D80] arrayWithObjects:v13 count:1];
 
     goto LABEL_13;
   }
 
 LABEL_12:
-  v13.receiver = self;
-  v13.super_class = CSCoverSheetViewAccessibility;
-  _accessibilityAdditionalElements = [(CSCoverSheetViewAccessibility *)&v13 _accessibilityAdditionalElements];
+  v12.receiver = self;
+  v12.super_class = CSCoverSheetViewAccessibility;
+  _accessibilityAdditionalElements = [(CSCoverSheetViewAccessibility *)&v12 _accessibilityAdditionalElements];
 LABEL_13:
-
-  v11 = *MEMORY[0x29EDCA608];
 
   return _accessibilityAdditionalElements;
 }

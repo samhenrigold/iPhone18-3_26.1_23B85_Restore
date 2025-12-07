@@ -92,17 +92,16 @@ void __46__SFSpeechProfileResourceMonitor_addObserver___block_invoke(uint64_t a1
 
 void __47__SFSpeechProfileResourceMonitor_sharedMonitor__block_invoke(uint64_t a1)
 {
-  v1 = *(a1 + 32);
-  v2 = objc_opt_class();
-  v3 = NSStringFromClass(v2);
-  v4 = [v3 cStringUsingEncoding:4];
-  v5 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
-  v6 = dispatch_queue_attr_make_with_qos_class(v5, QOS_CLASS_UTILITY, 0);
-  v9 = dispatch_queue_create(v4, v6);
+  v1 = objc_opt_class();
+  v2 = NSStringFromClass(v1);
+  v3 = [v2 cStringUsingEncoding:4];
+  v4 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
+  v5 = dispatch_queue_attr_make_with_qos_class(v4, QOS_CLASS_UTILITY, 0);
+  v8 = dispatch_queue_create(v3, v5);
 
-  v7 = [[SFSpeechProfileResourceMonitor alloc] _initWithQueue:v9];
-  v8 = sharedMonitor_sharedMonitor;
-  sharedMonitor_sharedMonitor = v7;
+  v6 = [[SFSpeechProfileResourceMonitor alloc] _initWithQueue:v8];
+  v7 = sharedMonitor_sharedMonitor;
+  sharedMonitor_sharedMonitor = v6;
 }
 
 @end

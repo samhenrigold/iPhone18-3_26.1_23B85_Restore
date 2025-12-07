@@ -1,8 +1,11 @@
 @interface AWDProactiveAppPredictionSession
 - (BOOL)isEqual:(id)equal;
+- (id)consumerSubTypeAsString:(int)string;
 - (id)copyWithZone:(_NSZone *)zone;
+- (id)currentLOITypeAsString:(int)string;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)outcomeAsString:(int)string;
 - (int)StringAsConsumerSubType:(id)type;
 - (int)StringAsCurrentLOIType:(id)type;
 - (int)StringAsOutcome:(id)outcome;
@@ -206,6 +209,21 @@
   }
 
   self->_has = (*&self->_has & 0xFFFFFFFD | v3);
+}
+
+- (id)consumerSubTypeAsString:(int)string
+{
+  if (string >= 0x28)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_2785993A8[string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsConsumerSubType:(id)type
@@ -447,6 +465,21 @@
   self->_has = (*&self->_has & 0xFFFFFFEF | v3);
 }
 
+- (id)currentLOITypeAsString:(int)string
+{
+  if (string >= 4)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_2785994E8[string];
+  }
+
+  return v4;
+}
+
 - (int)StringAsCurrentLOIType:(id)type
 {
   typeCopy = type;
@@ -519,6 +552,21 @@
   }
 
   self->_has = (*&self->_has & 0xFFFFF7FF | v3);
+}
+
+- (id)outcomeAsString:(int)string
+{
+  if (string >= 9)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_278599508[string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsOutcome:(id)outcome
@@ -1340,12 +1388,11 @@ LABEL_30:
 
 - (void)writeTo:(id)to
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   toCopy = to;
   has = self->_has;
   if (*&has)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
     has = self->_has;
     if ((*&has & 8) == 0)
@@ -1365,7 +1412,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  coreMotionLaunches = self->_coreMotionLaunches;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((*&has & 0x8000) == 0)
@@ -1380,7 +1426,6 @@ LABEL_4:
   }
 
 LABEL_54:
-  totalAirplaneModeLaunches = self->_totalAirplaneModeLaunches;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((*&has & 0x4000000) == 0)
@@ -1395,7 +1440,6 @@ LABEL_5:
   }
 
 LABEL_55:
-  inAirplaneMode = self->_inAirplaneMode;
   PBDataWriterWriteBOOLField();
   has = self->_has;
   if ((*&has & 4) == 0)
@@ -1410,7 +1454,6 @@ LABEL_6:
   }
 
 LABEL_56:
-  coreMotionCurrentMotionLaunches = self->_coreMotionCurrentMotionLaunches;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((*&has & 0x200000) == 0)
@@ -1425,7 +1468,6 @@ LABEL_7:
   }
 
 LABEL_57:
-  totalSpotlightLaunches = self->_totalSpotlightLaunches;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((*&has & 0x40000) == 0)
@@ -1440,7 +1482,6 @@ LABEL_8:
   }
 
 LABEL_58:
-  totalLaunchSequences = self->_totalLaunchSequences;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((*&has & 0x10000) == 0)
@@ -1455,7 +1496,6 @@ LABEL_9:
   }
 
 LABEL_59:
-  totalCurrentDayOfWeekLaunches = self->_totalCurrentDayOfWeekLaunches;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((*&has & 0x2000000) == 0)
@@ -1470,7 +1510,6 @@ LABEL_10:
   }
 
 LABEL_60:
-  totalWifiLaunches = self->_totalWifiLaunches;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((*&has & 0x4000) == 0)
@@ -1485,7 +1524,6 @@ LABEL_11:
   }
 
 LABEL_61:
-  timeOfDayInterval = self->_timeOfDayInterval;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((*&has & 2) == 0)
@@ -1500,7 +1538,6 @@ LABEL_12:
   }
 
 LABEL_62:
-  consumerSubType = self->_consumerSubType;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((*&has & 0x10) == 0)
@@ -1515,7 +1552,6 @@ LABEL_13:
   }
 
 LABEL_63:
-  currentLOIType = self->_currentLOIType;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((*&has & 0x80000) == 0)
@@ -1530,7 +1566,6 @@ LABEL_14:
   }
 
 LABEL_64:
-  totalLaunches = self->_totalLaunches;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((*&has & 0x800) == 0)
@@ -1545,7 +1580,6 @@ LABEL_15:
   }
 
 LABEL_65:
-  outcome = self->_outcome;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((*&has & 0x40) == 0)
@@ -1560,7 +1594,6 @@ LABEL_16:
   }
 
 LABEL_66:
-  engagedApp = self->_engagedApp;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((*&has & 0x1000000) == 0)
@@ -1575,7 +1608,6 @@ LABEL_17:
   }
 
 LABEL_67:
-  totalTrendingLaunches = self->_totalTrendingLaunches;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((*&has & 0x800000) == 0)
@@ -1590,7 +1622,6 @@ LABEL_18:
   }
 
 LABEL_68:
-  totalTimeOfDayLaunches = self->_totalTimeOfDayLaunches;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((*&has & 0x100000) == 0)
@@ -1605,7 +1636,6 @@ LABEL_19:
   }
 
 LABEL_69:
-  totalSSIDLaunches = self->_totalSSIDLaunches;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((*&has & 0x100) == 0)
@@ -1620,7 +1650,6 @@ LABEL_20:
   }
 
 LABEL_70:
-  locationDistanceFromHome = self->_locationDistanceFromHome;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((*&has & 0x400) == 0)
@@ -1635,7 +1664,6 @@ LABEL_21:
   }
 
 LABEL_71:
-  locationDistanceFromWork = self->_locationDistanceFromWork;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((*&has & 0x200) == 0)
@@ -1650,7 +1678,6 @@ LABEL_22:
   }
 
 LABEL_72:
-  locationDistanceFromSchool = self->_locationDistanceFromSchool;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((*&has & 0x80) == 0)
@@ -1665,7 +1692,6 @@ LABEL_23:
   }
 
 LABEL_73:
-  locationDistanceFromGym = self->_locationDistanceFromGym;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((*&has & 0x8000000) == 0)
@@ -1680,7 +1706,6 @@ LABEL_24:
   }
 
 LABEL_74:
-  isInternalBuild = self->_isInternalBuild;
   PBDataWriterWriteBOOLField();
   has = self->_has;
   if ((*&has & 0x1000) == 0)
@@ -1695,7 +1720,6 @@ LABEL_25:
   }
 
 LABEL_75:
-  predictionCacheAge = self->_predictionCacheAge;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((*&has & 0x2000) == 0)
@@ -1710,7 +1734,6 @@ LABEL_26:
   }
 
 LABEL_76:
-  sessionLogVersion = self->_sessionLogVersion;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((*&has & 0x400000) == 0)
@@ -1725,7 +1748,6 @@ LABEL_27:
   }
 
 LABEL_77:
-  totalSpotlightTimeOfDayLaunches = self->_totalSpotlightTimeOfDayLaunches;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((*&has & 0x20) == 0)
@@ -1740,46 +1762,43 @@ LABEL_28:
   }
 
 LABEL_78:
-  dayOfWeek = self->_dayOfWeek;
   PBDataWriterWriteInt32Field();
   if ((*&self->_has & 0x20000) != 0)
   {
 LABEL_29:
-    totalDayOfWeekLaunches = self->_totalDayOfWeekLaunches;
     PBDataWriterWriteInt32Field();
   }
 
 LABEL_30:
-  v43 = 0u;
-  v44 = 0u;
-  v41 = 0u;
-  v42 = 0u;
-  v7 = self->_appSequences;
-  v8 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v41 objects:v45 count:16];
-  if (v8)
+  v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
+  v6 = self->_appSequences;
+  v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  if (v7)
   {
-    v9 = v8;
-    v10 = *v42;
+    v8 = v7;
+    v9 = *v12;
     do
     {
-      v11 = 0;
+      v10 = 0;
       do
       {
-        if (*v42 != v10)
+        if (*v12 != v9)
         {
-          objc_enumerationMutation(v7);
+          objc_enumerationMutation(v6);
         }
 
-        v12 = *(*(&v41 + 1) + 8 * v11);
         PBDataWriterWriteStringField();
-        ++v11;
+        ++v10;
       }
 
-      while (v9 != v11);
-      v9 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v41 objects:v45 count:16];
+      while (v8 != v10);
+      v8 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
-    while (v9);
+    while (v8);
   }
 
   if (self->_aPRFeedbackSource)
@@ -1816,8 +1835,6 @@ LABEL_30:
   {
     PBDataWriterWriteStringField();
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)copyTo:(id)to
@@ -2292,7 +2309,7 @@ LABEL_30:
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   v5 = [objc_msgSend(objc_opt_class() allocWithZone:{zone), "init"}];
   v6 = v5;
   has = self->_has;
@@ -2703,34 +2720,34 @@ LABEL_29:
   }
 
 LABEL_30:
-  v32 = 0u;
-  v33 = 0u;
-  v30 = 0u;
   v31 = 0u;
+  v32 = 0u;
+  v29 = 0u;
+  v30 = 0u;
   v8 = self->_appSequences;
-  v9 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v30 objects:v34 count:16];
+  v9 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v29 objects:v33 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v31;
+    v11 = *v30;
     do
     {
       v12 = 0;
       do
       {
-        if (*v31 != v11)
+        if (*v30 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = [*(*(&v30 + 1) + 8 * v12) copyWithZone:{zone, v30}];
+        v13 = [*(*(&v29 + 1) + 8 * v12) copyWithZone:{zone, v29}];
         [v6 addAppSequence:v13];
 
         ++v12;
       }
 
       while (v10 != v12);
-      v10 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v30 objects:v34 count:16];
+      v10 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v29 objects:v33 count:16];
     }
 
     while (v10);
@@ -2764,7 +2781,6 @@ LABEL_30:
   v27 = v6[2];
   v6[2] = v26;
 
-  v28 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
@@ -2824,7 +2840,6 @@ LABEL_30:
       goto LABEL_164;
     }
 
-    v7 = *(equalCopy + 188);
     if (self->_inAirplaneMode)
     {
       if ((*(equalCopy + 188) & 1) == 0)
@@ -3082,7 +3097,6 @@ LABEL_30:
   {
     if ((v6 & 0x8000000) != 0)
     {
-      v8 = *(equalCopy + 189);
       if (self->_isInternalBuild)
       {
         if ((*(equalCopy + 189) & 1) == 0)
@@ -3100,7 +3114,7 @@ LABEL_30:
     }
 
 LABEL_164:
-    v17 = 0;
+    v15 = 0;
     goto LABEL_165;
   }
 
@@ -3238,17 +3252,17 @@ LABEL_123:
   aBGroup = self->_aBGroup;
   if (aBGroup | *(equalCopy + 2))
   {
-    v17 = [(NSString *)aBGroup isEqual:?];
+    v15 = [(NSString *)aBGroup isEqual:?];
   }
 
   else
   {
-    v17 = 1;
+    v15 = 1;
   }
 
 LABEL_165:
 
-  return v17;
+  return v15;
 }
 
 - (unint64_t)hash
@@ -3652,7 +3666,7 @@ LABEL_58:
 
 - (void)mergeFrom:(id)from
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   fromCopy = from;
   v5 = fromCopy;
   v6 = *(fromCopy + 48);
@@ -4063,29 +4077,29 @@ LABEL_29:
   }
 
 LABEL_30:
-  v15 = 0u;
-  v16 = 0u;
-  v13 = 0u;
   v14 = 0u;
+  v15 = 0u;
+  v12 = 0u;
+  v13 = 0u;
   v7 = *(fromCopy + 6);
-  v8 = [v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v14;
+    v10 = *v13;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v14 != v10)
+        if (*v13 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        [(AWDProactiveAppPredictionSession *)self addAppSequence:*(*(&v13 + 1) + 8 * i), v13];
+        [(AWDProactiveAppPredictionSession *)self addAppSequence:*(*(&v12 + 1) + 8 * i), v12];
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v9);
@@ -4125,8 +4139,6 @@ LABEL_30:
   {
     [(AWDProactiveAppPredictionSession *)self setABGroup:?];
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 @end

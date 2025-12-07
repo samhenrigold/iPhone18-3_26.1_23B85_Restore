@@ -1,5 +1,6 @@
 @interface OrgApacheLuceneAnalysisTokenizer
 + (void)initialize;
+- (int)correctOffsetWithInt:(int)int;
 - (void)close;
 - (void)dealloc;
 - (void)reset;
@@ -20,6 +21,30 @@
   v4 = JreStrongAssign(&self->input_, qword_100553EF8);
 
   JreStrongAssign(&self->inputPending_, v4);
+}
+
+- (int)correctOffsetWithInt:(int)int
+{
+  v3 = *&int;
+  objc_opt_class();
+  if ((objc_opt_isKindOfClass() & 1) == 0)
+  {
+    return v3;
+  }
+
+  input = self->input_;
+  objc_opt_class();
+  if (!input)
+  {
+    JreThrowNullPointerException();
+  }
+
+  if ((objc_opt_isKindOfClass() & 1) == 0)
+  {
+    JreThrowClassCastException();
+  }
+
+  return [(JavaIoReader *)input correctOffsetWithInt:v3];
 }
 
 - (void)setReaderWithJavaIoReader:(id)reader

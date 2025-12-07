@@ -7,42 +7,41 @@
 
 - (void)contentObjectID:(id)d generateHTMLSnippetsForRelatedContentItems:(id)items completionHandler:(id)handler
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   itemsCopy = items;
   handlerCopy = handler;
   dictionary = [MEMORY[0x277CBEB38] dictionary];
-  v19 = 0u;
-  v20 = 0u;
-  v17 = 0u;
   v18 = 0u;
+  v19 = 0u;
+  v16 = 0u;
+  v17 = 0u;
   v9 = itemsCopy;
-  v10 = [v9 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v10)
   {
-    v11 = *v18;
+    v11 = *v17;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v18 != v11)
+        if (*v17 != v11)
         {
           objc_enumerationMutation(v9);
         }
 
-        v13 = *(*(&v17 + 1) + 8 * i);
-        v14 = [ContentItemMarkupGenerator markupStringForDisplayForContentItem:v13, v17];
+        v13 = *(*(&v16 + 1) + 8 * i);
+        v14 = [ContentItemMarkupGenerator markupStringForDisplayForContentItem:v13, v16];
         contentID = [v13 contentID];
         [dictionary setObject:v14 forKeyedSubscript:contentID];
       }
 
-      v10 = [v9 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v10 = [v9 countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v10);
   }
 
   handlerCopy[2](handlerCopy, dictionary, 0);
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)contentObjectID:(id)d placeholderHTMLForEmptyContentWithCompletionHandler:(id)handler

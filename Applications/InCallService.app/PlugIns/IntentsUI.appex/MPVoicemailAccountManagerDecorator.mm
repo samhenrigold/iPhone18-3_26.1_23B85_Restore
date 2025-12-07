@@ -69,7 +69,7 @@
   selfCopy = self;
   sub_10007606C();
 
-  type metadata accessor for VoicemailAccount();
+  type metadata accessor for VoicemailAccount(0);
   v3.super.isa = sub_10007B518().super.isa;
 
   return v3.super.isa;
